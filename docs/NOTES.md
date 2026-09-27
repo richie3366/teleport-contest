@@ -14,7 +14,8 @@ here again. Live hypotheses only:
   MISSING/THIN, held-out sessions are wizard-mode tours that walk into them.
   Falsifier: `node scripts/leaderboard.mjs` after ~30 whole-function
   iterations (≈ iteration 3190); held-out passing/RNG % not moving while
-  `port-coverage.mjs` MISSING/THIN count falls ⇒ the picker is wrong, human
+  the ledger's declared-ported count rises (`docs/ledger/SNAPSHOTS.tsv`,
+  one line per audit) ⇒ the picker is wrong, human
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.

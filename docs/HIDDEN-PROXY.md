@@ -3,7 +3,7 @@
 **Status:** adopted 2026-09-04; scenario cohort + saturation rule 2026-09-06;
 **demoted to regression fortress 2026-09-18** (breadth phase, Constitution
 §10.17). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
-`PORT-GAP-TOP30.md` / `port-coverage.mjs` (which functions are thin).
+`LEDGER.md` / `ledger.mjs` (which functions are ported, and which are thin).
 This file is about **evidence**: where a hidden session's divergence
 comes from, how to find it locally, and how to prove a port moved it —
 or, in the breadth phase, that a whole-function port broke nothing that
@@ -15,7 +15,7 @@ matched before (**REACH**, §3).
 corpus failures are parked symptom owners needing C instrumentation, and
 the best agentic fork sits at 35/44 with a far more complete port. The
 corpus is saturated **and** unrepresentative; the picker is now measured
-coverage (`port-coverage.mjs --rows`), and this corpus guards it.
+coverage (the ledger-generated LOOP-QUEUE block), and this corpus guards it.
 
 ## 1. Why
 
@@ -179,7 +179,7 @@ divergence detector: any state difference that ever influences a later
 draw shows up as an RNG mismatch, and the recorder already names the C
 function per draw. A function-entry trace (`-finstrument-functions` on a
 separate debug build, one set of entered functions per input boundary)
-would give exact reach for non-RNG functions and make `port-coverage`
+would give exact reach for non-RNG functions and make `ledger.mjs`
 empirical; it is the next instrument to build if attribution ever comes
 back `null` often. A JSON state dump would only matter for divergences
 that surface after the session ends, which the score does not see.

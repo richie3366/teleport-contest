@@ -43,7 +43,7 @@ const C_DIRS = ['nethack-c/upstream/src', 'nethack-c/upstream/win/tty'].map((d) 
 export const BLOCK_BEGIN = '<!-- coverage:begin -->';
 export const BLOCK_END = '<!-- coverage:end -->';
 export const QUEUE_TARGET = 12;
-const DEFAULT_MIN_C = 12;
+const DEFAULT_MIN_C = 8;
 
 /* ---------------- cache ---------------- */
 function treeKey() {

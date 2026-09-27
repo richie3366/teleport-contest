@@ -27,7 +27,7 @@ if (one) {
 }
 if (argv.includes('--rows')) {
   const n = parseInt(arg('--rows', '12'), 10) || 12;
-  const rows = await eligibleRows({ n, minC: parseInt(arg('--min-c-lines', '12'), 10) });
+  const rows = await eligibleRows({ n, minC: parseInt(arg('--min-c-lines', '8'), 10) });
   for (const x of rows) console.log(x.line);
   console.error(`${rows.length} row(s). The Open — coverage block is generated: run \`node scripts/ledger.mjs rows --write\` instead of pasting.`);
   process.exit(0);
