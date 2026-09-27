@@ -206,9 +206,25 @@ export function lowc(c) {
 }
 
 /**
+ * C ref: hacklib.c eos `:193–199` — walk to the terminating NUL and
+ * return that pointer. JS strings are immutable, so this returns the
+ * end index (where C's pointer would sit). An embedded NUL stops the
+ * walk; a string with no embedded NUL ends at `length`.
+ * @param {string} s
+ * @returns {number}
+ */
+export function eos(s) {
+    if (s == null) return 0;
+    const str = typeof s === 'string' ? s : String(s);
+    let i = 0;
+    while (i < str.length && str.charCodeAt(i) !== 0) i++;
+    return i;
+}
+
+/**
  * C hacklib.c strkitten `:275–283` — append one char at eos(s).
  * JS strings are immutable, so this returns the new string (eos is
- * `s.length`; the C `*p = '\\0'` is the string terminator).
+ * the end index; the C `*p = '\\0'` is the string terminator).
  * @param {string} s
  * @param {string|number} c
  */

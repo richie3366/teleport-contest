@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2946 — `deliver_by_window` walks with copynchars and honors the window type
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 17 lines; the whole body shipped.
+- **Symptom:** Window text was split on every newline, so a trailing newline became an extra blank putstr and a full `BUFSZ-1` segment did not skip the next byte. `how` was ignored, and an empty message returned without a window. The caller passed the howtoput index (2 or 3) instead of `NHW_MENU` or `NHW_TEXT`.
+- **C locus:** `nethack-c/upstream/src/questpgr.c:438–456` `deliver_by_window`. `eos` is `hacklib.c:193–199`. `copynchars` stops at NUL or newline and copies at most `sizeof in_line - 1` (`hacklib.c:286–297`). The walk adds `strlen(in_line)+1`. `convert_line` is `questpgr.c:327`. `display_nhwindow` flushes `TOPLINE_NEED_MORE` then `process_text_window` (`wintty.c:1898–1943`). `output == 3` is `NHW_MENU`; otherwise `NHW_TEXT` (`questpgr.c:595`).
+- **JS was:** `js/questpgr.js` `deliver_by_window` returned on a falsy message, `split('\\n')`, and always called `show_text_pages`. There was no `eos`. `com_pager_core` passed `output`.
+- **Fix:** One file-local `deliver_by_window` in that C order. `eos` is the end index, including an embedded NUL. Each step copies at most `BUFSZ-1` from the slice that ends at `eos`, then advances `length+1`. `convert_line` is the putstr text. A pending message `--More--` is flushed, then `NHW_MENU` uses `show_nhw_menu_text` and any other `how` uses `show_text_pages`. The caller passes `output === 3 ? NHW_MENU : NHW_TEXT`.
+- **JS:** `js/hacklib.js` `eos` `:216`. `js/questpgr.js` `deliver_by_window` `:1030`. End index `:1032`. Loop `:1035–1040`. Flush `:1042`. Menu `:1043`. Text `:1044`. Caller `com_pager_core` `:1127`. `copynchars` `:246`. `convert_line` `:782`. `show_text_pages` `js/pager.js:259`. `show_nhw_menu_text` `js/pager.js:615`.
+- **Callers:** Prototype `questpgr.c:26` (declaration only). `questpgr.c:595` `com_pager_core` → `js/questpgr.js:1127`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn deliver_by_window` → PASS syntax (2 changed js files: js/hacklib.js js/questpgr.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (questpgr.js and hacklib.js are not on the shared-file list) · VERIFY: PASS.
+- **Named omissions:** No arm of `deliver_by_window` is omitted. `create_nhwindow` / `putstr` / `destroy_nhwindow` are the pager stand-ins (`display.js` `putstr` remains the message window). `allmain.c:832` `com_pager("legacy"|"pauper_legacy")` still enters `js/allmain.js:892` `com_pager_legacy` rather than `com_pager_core`.
+- **Next:** `dungeon.c` `dungeon_branch` (next Open — coverage row). `selection_new` was already the D-2696 empty selection (Set ≡ memset-to-1) and is Stale. Eight coverage rows remain after this archive, at the floor of 8, so nothing was refilled.
+
 ## D-2945 — `reset_justpicked` clears the chain and ignores a null list
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped.
