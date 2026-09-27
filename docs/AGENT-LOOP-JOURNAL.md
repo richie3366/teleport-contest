@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2948 `Shirt_on` switches on the shirt and marks it known
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:759–775` `Shirt_on`. `unknown_type` is `"Unknown type of %s (%d)"` (`do_wear.c:9`). `c_shirt` is `"shirt"` (`do_wear.c:11`). `HAWAIIAN_SHIRT` and `T_SHIRT` break. The default calls `impossible(unknown_type, c_shirt, uarmu->otyp)`. Then `!uarmu->known` sets `known = 1` and calls `update_inventory` (the status line shows the +/-). Return 0. The comment at `:761–762` keeps the switch because no shirt has a put-on side effect. No `find_ac`.
+**JS:** `js/do_wear.js` `Shirt_on` `:1639`. Null return `:1641`. Switch `:1643–1650`. `impossible` `:1648`. Known tail `:1652–1655`. `HAWAIIAN_SHIRT` / `T_SHIRT` `:132–133`.
+**Change:** One file-local `Shirt_on` in that C order. Hawaiian shirt and T-shirt break. The default awaits `impossible` with the C format and `"shirt"`.
+**Verify:** `node scripts/verify.mjs --fn Shirt_on` → PASS syntax (1 changed js file: js/do_wear.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of `Shirt_on` is omitted. A null `uarmu` returns 0; C would dereference.
+**Next:** `lock.c` `maybe_reset_pick` (next Open — coverage row). Eleven coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2947 `dungeon_branch` returns the child branch and callers use it
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:1870–1886` `dungeon_branch`. `dname_to_dnum` is `dungeon.c:283–295` (`strcmp` on `dungeons[i].dname`, then panic). The scan is `for (br = svb.branches; br; br = br->next) if (br->end2.dnum == dnum) break`, then `panic("dgn_entrance: can't find entrance to %s", s)`. Assumptions at `:1861–1867`: not "Dungeons of Doom", one branch per dungeon, `end2` is the child.

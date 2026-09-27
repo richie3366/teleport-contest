@@ -129,6 +129,8 @@ const ORCISH_SHIELD = objectNames.indexOf('ORCISH_SHIELD');
 const DWARVISH_ROUNDSHIELD = objectNames.indexOf('DWARVISH_ROUNDSHIELD');
 const LARGE_SHIELD = objectNames.indexOf('LARGE_SHIELD');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
+const HAWAIIAN_SHIRT = objectNames.indexOf('HAWAIIAN_SHIRT');
+const T_SHIRT = objectNames.indexOf('T_SHIRT');
 const AKLYS = objectNames.indexOf('AKLYS');
 /** C hack.h c_sword — class name when is_sword. */
 const c_sword = 'sword';
@@ -1625,10 +1627,32 @@ export async function Boots_on() {
     }
     return 0;
 }
+/**
+ * C ref: do_wear.c Shirt_on `:759–775`.
+ * No shirt otyp has a put-on side effect (the comment at `:761–762`
+ * is why the switch stays). Hawaiian shirt and T-shirt break.
+ * Anything else is impossible("Unknown type of %s (%d)", "shirt", otyp).
+ * Then, if the shirt was not known, known=1 and update_inventory —
+ * the status line shows the +/-. No find_ac (D-0810 / D-0883: AC stays
+ * stale until allmain). A null uarmu returns 0; C would dereference.
+ */
 async function Shirt_on() {
-    const o = game.u?.uarmu;
-    if (o && !o.known) o.known = 1;
-    find_ac();
+    const uarmu = game.u?.uarmu;
+    if (!uarmu) return 0;
+    /* C `:763–769` — two shirts, then default impossible. */
+    switch (uarmu.otyp | 0) {
+    case HAWAIIAN_SHIRT:
+    case T_SHIRT:
+        break;
+    default:
+        await impossible('Unknown type of %s (%d)', 'shirt', uarmu.otyp | 0);
+        break;
+    }
+    /* C `:770–773`. */
+    if (!uarmu.known) {
+        uarmu.known = 1;
+        update_inventory();
+    }
     return 0;
 }
 

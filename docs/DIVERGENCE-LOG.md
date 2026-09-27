@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2948 — `Shirt_on` switches on the shirt and marks it known
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped.
+- **Symptom:** An unknown shirt became known without `update_inventory`, and every shirt called `find_ac`. A non-shirt in the shirt slot did not call `impossible`.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:759–775` `Shirt_on`. `unknown_type` is `"Unknown type of %s (%d)"` (`do_wear.c:9`). `c_shirt` is `"shirt"` (`do_wear.c:11`). `HAWAIIAN_SHIRT` and `T_SHIRT` break. The default calls `impossible(unknown_type, c_shirt, uarmu->otyp)`. Then `!uarmu->known` sets `known = 1` and calls `update_inventory` (the status line shows the +/-). Return 0. The comment at `:761–762` keeps the switch because no shirt has a put-on side effect. No `find_ac`.
+- **JS was:** `js/do_wear.js` `Shirt_on` set `known = 1` when `uarmu` existed and was unknown, then called `find_ac()`, and returned 0. No switch, no `impossible`, no `update_inventory`.
+- **Fix:** One file-local `Shirt_on` in that C order. Hawaiian shirt and T-shirt break. The default awaits `impossible` with the C format and `"shirt"`. An unknown shirt sets `known = 1` and calls `update_inventory`. `find_ac` is not called. A null `uarmu` returns 0.
+- **JS:** `js/do_wear.js` `Shirt_on` `:1639`. Null return `:1641`. Switch `:1643–1650`. `impossible` `:1648`. Known tail `:1652–1655`. `HAWAIIAN_SHIRT` / `T_SHIRT` `:132–133`.
+- **Callers:** Prototype `do_wear.c:31` (declaration only). `do_wear.c:1554` `set_wear` → `js/do_wear.js:1686`. `do_wear.c:2391` `accessory_or_armor_on` stores `afternmv = Shirt_on` → `js/do_wear.js:3325`. `do_wear.c:1584` `donning` compares `afternmv == Shirt_on` → `js/do_wear.js:3908`. `do_wear.c:1674` `cancel_don` compares the same pointer → `js/do_wear.js:3860`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn Shirt_on` → PASS syntax (1 changed js file: js/do_wear.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+- **Named omissions:** No arm of `Shirt_on` is omitted. A null `uarmu` returns 0; C would dereference.
+- **Next:** `lock.c` `maybe_reset_pick` (next Open — coverage row). Eleven coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
+
 ## D-2947 — `dungeon_branch` returns the child branch and callers use it
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped.
