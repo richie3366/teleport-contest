@@ -97,7 +97,7 @@ import { mon_nam, l_monnam, Monnam, x_monnam, x_monnam_tame, Hallucination, type
 import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare, find_artifact, u_wield_art, permapoisoned, bare_artifactname } from './artifact.js';
 // imports.mjs --can uhitm.js timeout.js artifact_light: SAFE (hoisted).
 import { artifact_light } from './timeout.js';
-import { xname, vtense, The, the, An, an, singular, makeplural, cxname, simpleonames, obj_is_pname, otense, mshot_xname, Yobjnam2, Yname2, doname, corpse_xname, ysimple_name } from './objnam.js';
+import { xname, vtense, The, the, An, an, singular, makeplural, cxname, simpleonames, obj_is_pname, otense, mshot_xname, Yobjnam2, Yname2, doname, corpse_xname, ysimple_name, yname } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
 import { makemon, makemon_appear_msg, newcham, adj_lev, clone_mon, mpickobj } from './makemon.js';
 import { ndemon } from './minion.js';
@@ -4718,12 +4718,6 @@ function Role_if(pm) {
 /** C ref: role.h Race_if — urace.mnum match. */
 function Race_if(pm) {
     return (game.urace?.mnum ?? -1) === pm;
-}
-
-/** C ref: objnam.c yname — invent → "your ", else "the ". */
-function yname(obj) {
-    const carried = (game.invent || []).includes(obj);
-    return `${carried ? 'your' : 'the'} ${cxname(obj)}`;
 }
 
 /**

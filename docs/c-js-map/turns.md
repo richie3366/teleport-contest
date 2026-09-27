@@ -1306,7 +1306,7 @@ whole-body paydoname restart D-2667 — doname_base(obj, 0) direct `:2326`, BUFS
 **`short_oname` + `simpleonames`/`thesimpleoname`** (D-0881; 
 **`safe_qbuf` + `Yname2`/`ysimple_name`/`Ysimple_name2` D-1654**; 
 apply/do_name/eat/invent/lock/mhitu/shk/trap callers named; 
-pre-existing yname clones stay) + **`safe_qbuf` whole-body restart D-2743**
+yname clones removed D-2958) + **`safe_qbuf` whole-body restart D-2743**
 (C `objnam.c:5624–5698` in C order with per-arm cites — `:5657–5659`
 alias arm, `:5676`/`:5693` qsuffix pointer checks, live same-module
 `short_oname`; impossible() `:5646–5653` named async-omit,
@@ -1314,7 +1314,8 @@ releaseobuf `:5691` GC no-op; 13 C sites wired to the live export,
 9 caller-side inlines owned by their ports, lock.c:474/495 owned by
 the pick_lock row, potion.c:2290 C-bypass by design) + **`otense` export D-1544** (C `objnam.c:2531–2546`; 
 Eyes `is_plural` named; pre-existing local clones stay) + **`yname`/`shk_your`/`the_unique_pm` (D-1045; 
-`mon_owns` via `y_monnam`; `shk_owns` shop unpaid/floor costly deferred)** +
+`mon_owns` via `y_monnam`; `shk_owns` shop unpaid/floor costly deferred; 
+**`yname` whole body D-2958** — `:2359–2374` strncat cap at `BUFSZ-1`, music/uhitm/pickup clones deleted, dig/ball/zap call the export)** +
 **`xname_flags` `xcalled` + gameover T_SHIRT/`apron_text`/`hawaiian_motif`/CANDY_BAR
 (D-1802)** (`objnam.c:557` / `:971–996`; `read.c` `tshirt_text` `:99` /
 `hawaiian_motif` `:189` / `apron_text` `:253` / `candy_wrapper_text` `:295` /
@@ -1854,7 +1855,7 @@ getlev `place_monster`/`set_residency`/`hideunder`/steed-ustuck + one
 (`savelev` writes `svm.moves`) + `run_timers` last D-1699**)**; bones ghostly timeout+=adjust named) + **`goto_level` `run_timers`** (D-1191;
 C `do.c:1818–1823` after delivery; invent/migrating stay on the live queue — do not peel them); 
 **`goto_level` stair-fall `drag_down`/`ballrelease` via `uball` (≡C `Punished`)** (D-0918; 
-litter `hitfloor`/yname/`Soundeffect` still deferred; `ballfall` is **D-1778**; 
+litter `hitfloor`/`Soundeffect` still deferred (`yname` wired D-2958); `ballfall` is **D-1778**; 
 falling-arm callers gate on `u.uball` **D-1786**); 
 **seed0383 Scr 209/219 RNG FULL after D-0852…D-0855 (#1000 suite); first cell miss past @199; 
 wear/invis plines deferred**; **`goto_level` stash/restore `updest`/`dndest`** (D-0656; 
@@ -3762,8 +3763,7 @@ twoweapon/untwoweapon before it deferred; egg-useup re-arm still thin);
 ammo without its launcher → `ranged`: shade-without-glare 0 else `rnd(2)`, 
 silver-vs-hater `rnd(dmg?20:10)`, wielded-boomerang splinter tail D-2040 
 (`!thrown && obj==uwep && BOOMERANG && rnl(4)==3` → pline + uwepgone/useup + 
-hittxt + non-shade dmg++; C's `obj=0` is helper-local so JS keeps obj; yname 
-via the pre-existing local clone), `use/train_weapon_skill` stay FALSE so the 
+hittxt + non-shade dmg++; C's `obj=0` is helper-local so JS keeps obj; yname via the objnam export (D-2958)), `use/train_weapon_skill` stay FALSE so the 
 recalc adds udaminc + strength only; silver-sear *message* named — hmon has no 
 `msg_silver` plumbing on any weapon path; silver `mon_hates_silver(mon)` D-2041 
 (C `uhitm.c:896` = `is_vampshifter(mon) || hates_silver(mon->data)`, 

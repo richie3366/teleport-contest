@@ -34,7 +34,7 @@ import {
     Is_stronghold, ACH_TUNE, isok,
 } from './const.js';
 import { A_WIS, A_DEX, acurr, exercise, Fumbling } from './attrib.js';
-import { cxname, an, xname, The, the, otense, thesimpleoname } from './objnam.js';
+import { cxname, an, xname, The, the, otense, thesimpleoname, yname } from './objnam.js';
 import {
     mindless, G_UNIQ, is_flyer, is_clinger, humanoid, is_hider, nolimbs,
     M1_SLITHY, is_mercenary, MR_SLEEP,
@@ -145,12 +145,6 @@ function slithy(ptr) {
 function ceiling_hider(ptr) {
     if (!is_hider(ptr)) return false;
     return (is_clinger(ptr) && ptr.mlet !== 'S_MIMIC') || is_flyer(ptr);
-}
-
-/** C ref: objnam.c yname — invent → "your ", else "the ". */
-function yname(obj) {
-    const carried = (game.invent || []).includes(obj);
-    return `${carried ? 'your' : 'the'} ${cxname(obj)}`;
 }
 
 /** C potion.c incr_itimeout — TIMEOUT field only. */

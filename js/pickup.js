@@ -208,16 +208,6 @@ function thesimpleoname(obj) {
 }
 
 /**
- * C ref: objnam.c yname + shk.c shk_your — carried → "your ", else "the ".
- * Named omissions: shk/mon ownership prefixes; artifact pname skip.
- */
-function yname(obj) {
-    const carried = obj?.where === OBJ_INVENT
-        || (game.invent || []).includes(obj);
-    return `${carried ? 'your' : 'the'} ${cxname(obj)}`;
-}
-
-/**
  * C ref: objnam.c ysimple_name — shk_your + minimal_xname.
  * Named omissions: full minimal_xname / shopkeeper ownership.
  */

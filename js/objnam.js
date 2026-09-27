@@ -2778,14 +2778,28 @@ export function shk_your(obj) {
 }
 
 /**
- * C ref: objnam.c yname — cxname plus shk_your unless carried pname
- * artifact before ART_ORB_OF_DETECTION.
+ * C ref: objnam.c yname `:2359–2374` — "[your ]cxname", "Foobar's cxname",
+ * or "the cxname". Leave off "your" for a carried proper-name artifact
+ * whose id is below ART_ORB_OF_DETECTION; still prepend for anything else,
+ * including unique objects and "foo of bar" quest artifacts.
+ *
+ * C does `shk_your(nextobuf(), obj)` then `strncat` of cxname, capped at
+ * BUFSZ-1. There is no obuf ring (releaseobuf, this file): `shk_your`
+ * returns the prefix string, and the cap is the strncat bound. A prefix
+ * already at BUFSZ-1 leaves no room (`space_left <= 0` appends nothing);
+ * C's size_t conversion of a negative count is not reproduced.
  */
 export function yname(obj) {
-    const s = cxname(obj);
+    let s = cxname(obj);
+
+    /* leave off "your" for most of your artifacts, but prepend
+       "your" for unique objects and "foo of bar" quest artifacts */
     if (!carried_objnam(obj) || !obj_is_pname(obj)
         || (obj.oartifact | 0) >= ART_ORB_OF_DETECTION) {
-        return `${shk_your(obj)}${s}`;
+        const outbuf = shk_your(obj);
+        const space_left = (BUFSZ - 1) - outbuf.length;
+        const n = space_left > 0 ? space_left : 0;
+        s = outbuf + s.slice(0, n);
     }
     return s;
 }

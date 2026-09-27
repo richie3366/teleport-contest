@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2958 `yname` prefixes through `shk_your` and caps at `BUFSZ-1`
+
+**C locus:** `nethack-c/upstream/src/objnam.c:2359–2374` `yname`. `cxname` runs first. The prefix arm is `!carried || !obj_is_pname || oartifact >= ART_ORB_OF_DETECTION`: `shk_your(nextobuf(), obj)`, then `strncat` of the `cxname` limited to `BUFSZ - 1 - strlen(prefix)`. A carried proper-name artifact below that id returns `cxname` alone.
+**JS:** `js/objnam.js` `yname` `:2792`. Gate `:2797`. Cap `:2800–2802`. `shk_your` `:2764`. `Yname2` `:2811`.
+**Change:** One exported `yname` keeps that C order and caps the append at `BUFSZ-1`. The three local functions are gone. `dig.c` fumble and self-hit, `ball.c` `litter`, and `zap.c` `maybe_destroy_item` call the export (`Yname2` when one of one).
+**Verify:** `node scripts/verify.mjs --fn yname` → PASS syntax (7 changed js file(s): js/ball.js js/dig.js js/music.js js/objnam.js js/pickup.js js/uhitm.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of the prefix gate is omitted. `nextobuf` stays the string path (`releaseobuf` in this file): `shk_your` returns the prefix instead of writing a ring buffer.
+**Next:** `ball.c` `placebc` (next Open — coverage row). Seven coverage rows remain after this archive, below the floor of 8. `--rows 20` was the never-re-pop Stale head, not pasted. Five later gameplay rows from `--rows 500 --min-c-lines 15` are appended.
 ## 2026-09-27 — D-2957 `tmiss` sends a seen miss through `miss`
 
 **C locus:** `nethack-c/upstream/src/dothrow.c:1951–1967` `tmiss`. `mshot_xname` names the missile. `!canseemon(mon)` or `M_AP_TYPE` other than `M_AP_MONSTER` prints `The(missile)` and `otense(obj, "miss")`. Otherwise `miss` (`zap.c:3571–3576`). Then `maybe_wakeup && !rn2(3)` calls `wakeup(mon, TRUE)`. The `rn2` is not drawn when `maybe_wakeup` is false.

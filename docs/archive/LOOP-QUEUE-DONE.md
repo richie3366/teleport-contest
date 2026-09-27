@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `dothrow.c` tmiss — coverage PARTIAL (C 16 L `dothrow.c:1951–1967` / JS 10 L in js/dothrow.js; hops 5, callers 6, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn tmiss` (reach regression must be 0). Measured `port-coverage.mjs --name tmiss` 2026-09-27 @ 3f2358d79. **Addressed:** D-2957
+- [x] `objnam.c` yname — coverage PARTIAL (C 15 L `objnam.c:2359–2374` / JS 8 L in js/music.js; hops 3, callers 65, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn yname` (reach regression must be 0). Measured `port-coverage.mjs --name yname` 2026-09-27 @ 3f2358d79. **Addressed:** D-2958
+
+
+- [x] `dothrow.c` tmiss — coverage PARTIAL (C 16 L `dothrow.c:1951–1967` / JS 10 L in js/dothrow.js; hops 5, callers 6, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn tmiss` (reach regression must be 0). Measured `port-coverage.mjs --name tmiss` 2026-09-27 @ 3f2358d79. **Addressed:** D-2957 `936dc8938`
 
 
 - [x] `mon.c` mon_animal_list — coverage MISSING (C 23 L `mon.c:4829–4852` / JS no symbol; hops 5, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_animal_list` (reach regression must be 0). Measured `port-coverage.mjs --name mon_animal_list` 2026-09-27 @ 96146725a. **Addressed:** D-2956 `fb0bc9e00`

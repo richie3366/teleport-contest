@@ -239,7 +239,7 @@ import {
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn, boulder_hits_pool } from './do.js';
-import { doname, xname, yname, distant_name, cxname_singular, vtense, The, the, an, An, aobjnam, killer_xname, ansimpleoname, makeplural } from './objnam.js';
+import { doname, xname, yname, Yname2, distant_name, cxname_singular, vtense, The, the, an, An, aobjnam, killer_xname, ansimpleoname, makeplural } from './objnam.js';
 import { uhim, uhis } from './roles.js';
 import { str_start_is, upstart } from './hacklib.js';
 import { Soundeffect } from './sndprocs.js';
@@ -1673,10 +1673,8 @@ async function maybe_destroy_item(carrier, obj, dmgtyp) {
                 : ((cnt < quan) ? 'Some of '
                     : (quan === 2) ? 'Both of ' : 'All of ');
             const verb = DESTROY_STRINGS[dindx]?.[cnt > 1 ? 1 : 0] || 'destroyed';
-            // Yname2 ≈ "Your " + xname for 1-of-1 carried
-            const nam = (cnt === 1 && quan === 1 && u_carry)
-                ? `Your ${xname(obj)}`
-                : (u_carry ? `your ${xname(obj)}` : xname(obj));
+            // C zap.c:5909–5911 — Yname2 for one of one, else yname.
+            const nam = (cnt === 1 && quan === 1) ? Yname2(obj) : yname(obj);
             await pline(`${mult}${nam} ${verb}!`);
         }
 
