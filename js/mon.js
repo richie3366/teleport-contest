@@ -221,7 +221,8 @@ export function bad_rock(mdat, x, y) {
 /**
  * C ref: hack.c cant_squeeze_thru — nonzero = cannot fit a tight diagonal.
  * 1=too big, 2=load, 3=Sokoban (hero only). Returns 0 if can squeeze.
- * Named omission: can_fog (vampshifter) for bigmonst exemption.
+ * Named omission: can_fog (vampshifter) for the bigmonst exemption
+ * (hack.c:964). The export is live; this arm still treats it as false.
  */
 export function cant_squeeze_thru(mon) {
     const ptr = mon?.data;
@@ -234,7 +235,7 @@ export function cant_squeeze_thru(mon) {
         return 0;
     }
     const slithy = !!((ptr?.mflags1 ?? 0) & M1_SLITHY);
-    // Named omission: can_fog(mon) — treat as false until exported.
+    // Named omission: can_fog(mon) — still false here (hack.c:964).
     if (bigmonst(ptr)
         && !(amorphous(ptr) || is_whirly(ptr) || noncorporeal(ptr)
             || slithy /* || can_fog(mon) */)) {

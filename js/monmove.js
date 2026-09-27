@@ -86,6 +86,7 @@ import {
     shk_move, gd_move, pri_move, costly_spot, inhishop, bill_dummy_object,
 } from './shk.js';
 import { cuss, tactics } from './wizard.js';
+import { Protection_from_shape_changers } from './were.js';
 import { Invis, artifact_light, Is_candle } from './timeout.js';
 import { is_cloak, is_gloves, is_shirt } from './do_wear.js';
 import { Unaware } from './eat.js';
@@ -863,18 +864,12 @@ export function can_ooze(mtmp) {
     return true;
 }
 
-/** C ref: youprop.h Protection_from_shape_changers */
-function Protection_from_shape_changers() {
-    const u = game.u || {};
-    return !!(u.HProtection_from_shape_changers
-        || u.EProtection_from_shape_changers
-        || u.Protection_from_shape_changers);
-}
-
 /**
  * C ref: monmove.c can_fog `:2363–2371`.
  * A vampshifter may become fog under a door when fog clouds are not
  * genocided, shape-changers are not warded, and nothing carried blocks.
+ * The ward is youprop.h:355–360 (uprops intrinsic || extrinsic), the
+ * were.js export — not the H/E flats alone.
  */
 export function can_fog(mtmp) {
     if (!((game.mvitals?.[PM_FOG_CLOUD]?.mvflags ?? 0) & G_GENOD)

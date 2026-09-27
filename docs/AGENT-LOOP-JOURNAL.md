@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2942 `can_fog` wards with the shape-changer property
+
+**C locus:** `nethack-c/upstream/src/monmove.c:2364–2371` `can_fog`. True only when fog clouds are not genocided (`mvitals[PM_FOG_CLOUD].mvflags & G_GENOD` is clear), `is_vampshifter(mtmp)`, `!Protection_from_shape_changers`, and `!stuff_prevents_passage(mtmp)`. The macro is `youprop.h:355–360`: `uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic`.
+**JS:** `js/monmove.js` `can_fog` `:874`. Genocide `:875`. `is_vampshifter` `:876`. Ward `:877` (`js/were.js:58`). `stuff_prevents_passage` `:878`.
+**Change:** One exported `can_fog` keeps that C order and calls `were.js` `Protection_from_shape_changers`. The flat clone in this file is deleted. `imports.mjs --can js/monmove.js js/were.js Protection_from_shape_changers` was SAFE (hoisted) before the import.
+**Verify:** `node scripts/verify.mjs --fn can_fog` → PASS syntax (2 changed js files: js/mon.js js/monmove.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `can_fog` is omitted. A null `mtmp` is not a vampshifter (`is_vampshifter` optional-chain); C would dereference (`NONNULLARG1`).
+**Next:** `do_name.c` `hliquid` (next Open — coverage row). Nine coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — Audit 1892–1900 (D-2933…D-2941)
 
 Nine JS SHAs after review 1891 (`3fc42e995`). Eight **ACCEPT**: `shuffle_customizations`, `obstructed`, `dealloc_killer`, `mkaltar`, `append_honorific`, `helm_simple_name`, `noteleport_level`, `You_hear`. One **QUALITY-RISK**: `stuff_prevents_passage` — `can_fog` reads only the `H`/`E` flats for `Protection_from_shape_changers`. Must-fix prepended. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `254+1.52/turn` (R² 0.752). Held-out still 12/44 (6,275/11,265, RNG 29.7 %, screens 55.7 %). Private corpus 12/12. Next: `monmove.c` `can_fog`.

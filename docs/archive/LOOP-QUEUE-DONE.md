@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `pline.c` You_hear — coverage PARTIAL (C 16 L `pline.c:436–452` / JS 8 L in js/dbridge.js; hops 2, callers 139, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn You_hear` (reach regression must be 0). Measured `port-coverage.mjs --name You_hear` 2026-09-27 @ 75f0544f8. **Addressed:** D-2941
+- [x] `monmove.c` `can_fog` — `Protection_from_shape_changers` in `js/monmove.js` reads only the `H` / `E` flats. C `youprop.h:355–360` is `uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic`. `were.js:58` already ORs the flats with `uprops`, and `imports.mjs --can js/monmove.js js/were.js Protection_from_shape_changers` is SAFE (hoisted). Call that export from `can_fog` (`monmove.c:2366–2369`). Source: reviews/loop-unattended/1892-21446265f-stuff-prevents-passage.md **Addressed:** D-2942
+
+
+- [x] `pline.c` You_hear — coverage PARTIAL (C 16 L `pline.c:436–452` / JS 8 L in js/dbridge.js; hops 2, callers 139, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn You_hear` (reach regression must be 0). Measured `port-coverage.mjs --name You_hear` 2026-09-27 @ 75f0544f8. **Addressed:** D-2941 `e2b2ded6d`
 
 
 - [x] `teleport.c` noteleport_level — coverage PARTIAL (C 17 L `teleport.c:30–47` / JS 12 L in js/teleport.js; hops 1, callers 25, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn noteleport_level` (reach regression must be 0). Measured `port-coverage.mjs --name noteleport_level` 2026-09-27 @ 75f0544f8. **Addressed:** D-2940 `8946c6456`

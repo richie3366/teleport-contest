@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2942 — `can_fog` wards with the shape-changer property
+
+- **Status:** fixed (Must-fix, review 1892; `hidden-proxy verify` reports no corpus session blocked). C is 8 lines; that whole body was already in this order. The ward callee was the flat clone.
+- **Symptom:** A ward stored only on `uprops[PROT_FROM_SHAPE_CHANGERS]` did not stop a vampire from counting as able to fog. The gate read the `H` / `E` flats and the combined flat, and ignored the property word C uses.
+- **C locus:** `nethack-c/upstream/src/monmove.c:2364–2371` `can_fog`. True only when fog clouds are not genocided (`mvitals[PM_FOG_CLOUD].mvflags & G_GENOD` is clear), `is_vampshifter(mtmp)`, `!Protection_from_shape_changers`, and `!stuff_prevents_passage(mtmp)`. The macro is `youprop.h:355–360`: `uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic`.
+- **JS was:** `js/monmove.js` had a file-local `Protection_from_shape_changers` that returned the three flats. `js/were.js:58` already ORed those flats with `uprops`. `can_fog` called the local reader. The genocide, vampshifter, and passage tests were already the C conjunction.
+- **Fix:** One exported `can_fog` keeps that C order and calls `were.js` `Protection_from_shape_changers`. The flat clone in this file is deleted. `imports.mjs --can js/monmove.js js/were.js Protection_from_shape_changers` was SAFE (hoisted) before the import.
+- **JS:** `js/monmove.js` `can_fog` `:874`. Genocide `:875`. `is_vampshifter` `:876`. Ward `:877` (`js/were.js:58`). `stuff_prevents_passage` `:878`.
+- **Callers:** Prototype `extern.h:1953` (declaration only). Comment `monmove.c:2316` is not a call. `monmove.c:2257` `set_apparxy` → `js/monmove.js:1010`. `mon.c:2234` `mfndpos` → `js/mon.js:3166`. `hack.c:964` `cant_squeeze_thru` stays the commented call at `js/mon.js:241`. `monmove.c:1488` `postmov` fog-shift stays absent from `js/monmove.js:1620`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn can_fog` → PASS syntax (2 changed js files: js/mon.js js/monmove.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `can_fog` is omitted. A null `mtmp` is not a vampshifter (`is_vampshifter` optional-chain); C would dereference (`NONNULLARG1`). `cant_squeeze_thru` still treats `can_fog` as false (`hack.c:964`, `js/mon.js:241`). `postmov` still skips the fog shift before the door (`monmove.c:1485–1504`, `js/monmove.js:1620`). `wizard.js:229` still reads the flats only. `display.js:1121` already ORs `uprops` and stays a second reader. `stuff_prevents_passage` stays file-local (C `staticfn`).
+- **Next:** `do_name.c` `hliquid` (next Open — coverage row). Nine coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
+
 ## D-2941 — `You_hear` barely hears underwater and dreams when unaware
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. `pline.c` `putmesg` stays the later Open row.

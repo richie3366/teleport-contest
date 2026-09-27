@@ -32,6 +32,8 @@ Protection_from_shape_changers js/were.js:58   sync
 
 `imports.mjs --can js/monmove.js js/do_wear.js is_cloak` (and `is_shirt`, `is_gloves`) → `ALREADY`. `--can js/monmove.js js/timeout.js Is_candle` → `ALREADY`. `--can js/monmove.js js/const.js Is_container` → `ALREADY`. `--can js/monmove.js js/were.js Protection_from_shape_changers` → `IN-SCC` and `VERDICT: SAFE` (hoisted function, not a top-level TDZ). The flat-field clone is not cycle-forced.
 
+**Addressed:** D-2942
+
 ## Intent vs deliverable
 
 Subject promises one file-local `stuff_prevents_passage` in C order, hero invent as the `game.invent` array, `minvent` as an `nobj` chain, and `can_ooze` / `can_fog` short-circuiting before the scan. The diff is that scan plus the two gates. It does not replace the protection reader.
