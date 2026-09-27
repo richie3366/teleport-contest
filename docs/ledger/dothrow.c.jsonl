@@ -32,7 +32,7 @@
 {"fn":"gem_accept","c":"2309-2382","status":"ported","js":["js/dothrow.js:gem_accept"],"d":["D-2517"],"at":"seed@a30a7de84"}
 {"fn":"hero_breaks","c":"2417-2436","status":"unknown"}
 {"fn":"breaks","c":"2444-2454","status":"unknown"}
-{"fn":"release_camera_demon","c":"2457-2470","status":"unknown"}
+{"fn":"release_camera_demon","c":"2457-2470","status":"ported","js":["js/dothrow.js:release_camera_demon"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/dothrow.js:1377"}
 {"fn":"breakobj","c":"2480-2574","status":"partial","js":["js/dothrow.js:breakobj"],"omit":"caller `fracture_rock` billable arm (`zap.c:5552` → `js/dig.js:1801` stays sync; `breakobj` is async — cascade deferred to its own row).","d":["D-2531"],"at":"seed@a30a7de84"}
 {"fn":"breaktest","c":"2582-2609","status":"unknown"}
 {"fn":"breakmsg","c":"2612-2653","status":"unknown"}

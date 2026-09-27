@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2986 `argcheck` scans early options and parses `--debug` fields
+
+**C locus:** `nethack-c/upstream/src/earlyarg.c:450–560` `argcheck`. The table is `earlyopts` (`:36–52`) for this build: `NODUMPENUMS` is commented out, `WIN32` is off, `CRASHREPORT` is on. A leading `--` sets `dashdash` and a later single-dash match does not clear it. The value cut for `debug_fields` is the first `:` if any, else `=`. `debug_fields` (`:575–621`) applies comma-separated names right to left. `early_version_info` is `version.c:280–312`.
+**JS:** `js/earlyarg.js` `argcheck` `:201`. Table `:94`. Scan `:212`. Sticky `dashdash` `:215–219`. Value cut `:229`. Debug `:237`. Version `:244`. Showpaths `:267`. Dumpenums `:269`. Glyph ids `:272`. Mongen `:275`. Weights `:278`. Bidshow `:281`. `debug_fields` `:129`. `early_version_info` `:171`.
+**Change:** One exported `argcheck` keeps that C order and calls `options.js` `match_optname`, `dungeon.js` `dupstr`, `display.js` `raw_printf`, and `hacklib.js` `strncmpi` / `strstri`. `earlyarg.js` has no importers, so those edges cannot close a cycle. `debug_fields` is the same-file static.
+**Verify:** `node scripts/verify.mjs --fn argcheck` → PASS syntax (1 changed js file(s): js/earlyarg.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.6s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** `dump_version_info` (`version.c:494`), `dump_enums` (`earlyarg.c:705`), `dump_glyphids` (`earlyarg.c:806`), `dump_mongen` (`makemon.c:1835`), `dump_weights` (`hack.c:4421`), and `crashreport_bidshow` (`report.c:189`) stay unported; those arms still return 2. `ARG_WINDOWS` / `immediateflips` are not this build.
+**Next:** `shk.c` `price_quote` (next Open — coverage row).
 ## 2026-09-27 — D-2985 `align_str` names chaotic, neutral, lawful, unaligned, and unknown
 
 **C locus:** `nethack-c/upstream/src/insight.c:3187–3200` `align_str`. The switch is on `(int) alignment`. `A_CHAOTIC` / `A_NEUTRAL` / `A_LAWFUL` / `A_NONE` return `"chaotic"` / `"neutral"` / `"lawful"` / `"unaligned"`. The fall-through return is `"unknown"`. No callees.

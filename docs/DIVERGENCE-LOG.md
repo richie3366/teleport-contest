@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2986 — `argcheck` scans early options and parses `--debug` fields
+
+- **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `argcheck` is 77 code lines. The previous coverage heads `release_camera_demon` and `wand_explode` were already the C bodies (`js/dothrow.js:1377`, `js/read.js:811`) and were marked stale before this port.
+- **Symptom:** There was no `argcheck`. `--debug`, `--version`, `--showpaths`, and the dump switches had no matcher, and `--debug:fuzzer` never set `iflags.fuzzerpending`.
+- **C locus:** `nethack-c/upstream/src/earlyarg.c:450–560` `argcheck`. The table is `earlyopts` (`:36–52`) for this build: `NODUMPENUMS` is commented out, `WIN32` is off, `CRASHREPORT` is on. A leading `--` sets `dashdash` and a later single-dash match does not clear it. The value cut for `debug_fields` is the first `:` if any, else `=`. `debug_fields` (`:575–621`) applies comma-separated names right to left. `early_version_info` is `version.c:280–312`.
+- **JS was:** No `argcheck`, `debug_fields`, or `early_version_info` symbol. `js/earlyarg.js` held only `scores_only` (D-2652).
+- **Fix:** One exported `argcheck` keeps that C order and calls `options.js` `match_optname`, `dungeon.js` `dupstr`, `display.js` `raw_printf`, and `hacklib.js` `strncmpi` / `strstri`. `earlyarg.js` has no importers, so those edges cannot close a cycle. `debug_fields` is the same-file static. `early_version_info` calls the live `getversionstring` and lives here because `version.js` must stay a load-time leaf. `free` of the `dupstr` copy is GC.
+- **JS:** `js/earlyarg.js` `argcheck` `:201`. Table `:94`. Scan `:212`. Sticky `dashdash` `:215–219`. Value cut `:229`. Debug `:237`. Version `:244`. Showpaths `:267`. Dumpenums `:269`. Glyph ids `:272`. Mongen `:275`. Weights `:278`. Bidshow `:281`. `debug_fields` `:129`. `early_version_info` `:171`.
+- **Callers:** `earlyarg.c:186` `ARG_DUMPGLYPHIDS`, `:222` `ARG_BIDSHOW`, `:229` `ARG_DEBUG`, `:232` `ARG_DUMPENUMS`, `:236` `ARG_DUMPMONGEN`, `:239` `ARG_DUMPWEIGHTS`, `:283` `ARG_SHOWPATHS`, and `:332` `ARG_VERSION` are all inside unported `early_options` (`:179`). No JS dispatcher yet (same omission as D-2652 for `scores_only`). `earlyarg.c:201` and `version.c:492` are comments. `extern.h:936` is the prototype. `unixmain.c:134` calls `early_options`, not `argcheck`; `jsmain.js` has no C argv (Rule #2). The `sys/windows`, `sys/vms`, `sys/share`, and `sys/libnh` `argcheck` calls are other platform mains. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn argcheck` → PASS syntax (1 changed js file(s): js/earlyarg.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.6s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `dump_version_info` (`version.c:494`), `dump_enums` (`earlyarg.c:705`), `dump_glyphids` (`earlyarg.c:806`), `dump_mongen` (`makemon.c:1835`), `dump_weights` (`hack.c:4421`), and `crashreport_bidshow` (`report.c:189`) stay unported; those arms still return 2. `ARG_WINDOWS` / `immediateflips` are not this build. `early_options` stays unwired. `allmain.c:101` still does not read `fuzzerpending` (`js/allmain.js:316`).
+- **Ledger:** argcheck partial; debug_fields ported; early_version_info ported; release_camera_demon ported; wand_explode ported
+- **Next:** `shk.c` `price_quote` (next Open — coverage row).
+
 ## D-2985 — `align_str` names chaotic, neutral, lawful, unaligned, and unknown
 
 - **Status:** fixed (coverage THIN; hidden-proxy verify reports no corpus session blocked). C `align_str` is 10 code lines. The previous coverage head `show_menu_controls` was already the C body at `js/dokeylist.js:128` (D-2528) and was marked stale before this port.

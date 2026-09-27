@@ -3,7 +3,7 @@
 {"fn":"status_version","c":"89-152","status":"unknown"}
 {"fn":"doversion","c":"156-165","status":"unknown"}
 {"fn":"doextversion","c":"169-277","status":"partial","js":["js/pager.js:doextversion"],"omit":"`dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_info` (no JS shutdown path); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (D-2535 standing); `bannerc_string`/`status_version`/`early_version_info` (st…","d":["D-2558"],"at":"seed@a30a7de84"}
-{"fn":"early_version_info","c":"280-312","status":"unknown"}
+{"fn":"early_version_info","c":"280-312","status":"ported","js":["js/earlyarg.js:early_version_info"],"d":["D-2986"],"at":"2026-09-27@9b244f090"}
 {"fn":"insert_rtoption","c":"339-353","status":"unknown"}
 {"fn":"comp_times","c":"357-362","status":"unknown"}
 {"fn":"check_version","c":"374-423","status":"ported","js":["js/files.js:check_version"],"d":["D-2539"],"at":"seed@a30a7de84"}

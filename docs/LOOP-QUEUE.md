@@ -112,9 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `dothrow.c` release_camera_demon — coverage PARTIAL (C 10 code L `dothrow.c:2457–2470` / JS 7 code L in js/dothrow.js; hops 4, callers 2, RNG 2, msg 1) @b3da2ae0e
-- [ ] `read.c` wand_explode — coverage PARTIAL (C 35 code L `read.c:2414–2457` / JS 17 code L in js/read.js; hops 5, callers 2, RNG 1, msg 1) @25beec7af
-- [ ] `earlyarg.c` argcheck — coverage MISSING (C 77 code L `earlyarg.c:450–560` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: debug_fields, dump_version_info, early_version_info, dump_enums, dump_mongen, dump_weights, …) @25beec7af
 - [ ] `shk.c` price_quote — coverage PARTIAL (C 46 code L `shk.c:5406–5465` / JS 34 code L in js/shk.js; hops 5, callers 1, RNG 0, msg 5) @25beec7af
 - [ ] `do.c` save_currentstate — coverage MISSING (C 13 code L `do.c:1375–1395` / JS no symbol; hops 3, callers 3, RNG 0, msg 0) @68cdee2bb
 - [ ] `version.c` getversionstring — coverage THIN (C 32 code L `version.c:35–79` / JS 13 code L in js/version.js; hops 3, callers 5, RNG 0, msg 0) @de27c57ac
@@ -124,6 +121,9 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `options.c` pfxfn_font — coverage MISSING (C 110 code L `options.c:5039–5165` / JS no symbol; hops —, callers 10, RNG 0, msg 0; dead callees: wc_set_font_name) @8b946a308
 - [ ] `options.c` feature_alert_opts — coverage MISSING (C 20 code L `options.c:7558–7585` / JS no symbol; hops —, callers 1, RNG 0, msg 2; dead callees: get_feature_notice_ver) @406969f14
 - [ ] `role.c` root_plselection_prompt — coverage PARTIAL (C 97 code L `role.c:1431–1580` / JS 71 code L in js/player_selection.js; hops —, callers 1, RNG 0, msg 19) @406969f14
+- [ ] `sp_lev.c` get_room_loc — coverage MISSING (C 14 code L `sp_lev.c:1360–1378` / JS no symbol; hops —, callers 1, RNG 2, msg 0) @9b244f090
+- [ ] `alloc.c` nhalloc — coverage MISSING (C 9 code L `alloc.c:152–166` / JS no symbol; hops 3, callers 2, RNG 0, msg 0; dead callees: heapmon_init) @9b244f090
+- [ ] `sp_lev.c` lspo_monster — coverage MISSING (C 141 code L `sp_lev.c:3214–3400` / JS no symbol; hops —, callers 0, RNG 3, msg 0; dead callees: get_table_montype, get_table_monclass) @9b244f090
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

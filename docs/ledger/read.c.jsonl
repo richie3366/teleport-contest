@@ -48,7 +48,7 @@
 {"fn":"seffects","c":"2194-2291","status":"unknown","d":["D-1098"],"at":"seed@a30a7de84"}
 {"fn":"drop_boulder_on_player","c":"2294-2338","status":"unknown"}
 {"fn":"drop_boulder_on_monster","c":"2341-2410","status":"unknown"}
-{"fn":"wand_explode","c":"2414-2457","status":"unknown"}
+{"fn":"wand_explode","c":"2414-2457","status":"ported","js":["js/read.js:wand_explode"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/read.js:811"}
 {"fn":"set_lit","c":"2471-2488","status":"unknown"}
 {"fn":"litroom","c":"2491-2635","status":"unknown","d":["D-2263"],"at":"seed@a30a7de84"}
 {"fn":"do_class_genocide","c":"2638-2820","status":"unknown","d":["D-2150"],"at":"seed@a30a7de84"}

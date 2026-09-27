@@ -6,7 +6,7 @@
 {"fn":"opt_usage","c":"376-387","status":"unknown"}
 {"fn":"after_opt_showpaths","c":"391-400","status":"unknown"}
 {"fn":"scores_only","c":"406-441","status":"unknown"}
-{"fn":"argcheck","c":"450-560","status":"unknown"}
-{"fn":"debug_fields","c":"576-621","status":"unknown"}
+{"fn":"argcheck","c":"450-560","status":"partial","js":["js/earlyarg.js:argcheck"],"omit":"`dump_version_info` (`version.c:494`), `dump_enums` (`earlyarg.c:705`), `dump_glyphids` (`earlyarg.c:806`), `dump_mongen` (`makemon.c:1835`), `dump_weights` (`hack.c:4421`), and `crashreport_bidshow` (`report.c:189`) stay unported; those arms still return 2.","d":["D-2986"],"at":"2026-09-27@9b244f090"}
+{"fn":"debug_fields","c":"576-621","status":"ported","js":["js/earlyarg.js:debug_fields"],"d":["D-2986"],"at":"2026-09-27@9b244f090"}
 {"fn":"dump_enums","c":"706-801","status":"unknown"}
 {"fn":"dump_glyphids","c":"806-809","status":"unknown"}
