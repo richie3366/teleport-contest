@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2969 — `trapeffect_dart_trap` poisons the hero dart and gates the monster click
+
+- **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C is 54 code lines; the whole body shipped. `aobjnam` was already complete at `js/objnam.js:2816` and was marked stale before this port. No other Open row in `trap.c`.
+- **Symptom:** A hero hit by a poisoned dart never called `poisoned` or `obfree`. The dud click skipped `Soundeffect`. A monster dud click never said the trap did nothing, and `seetrap` ran even when the monster was out of sight. A miss used `u.Blind` instead of `Blind`.
+- **C locus:** `nethack-c/upstream/src/trap.c:1251–1321` `trapeffect_dart_trap`. Hero: save `u.umortality`, then `once && tseen && !rn2(15)` plays `Soundeffect(se_soft_click, 30)`, `You_hear("a soft click.")`, `deltrap`, `newsym`, `Trap_Is_Gone`. Otherwise `once = 1`, `seetrap`, the shoot `pline`, `t_missile(DART)`, `!rn2(6)` sets `opoisoned`, `dmgval` on `&gy.youmonst`, then `u.usteed && !rn2(2) && steedintrap` (empty arm). Else `thitu(7, Maybe_Half_Phys(dam), &otmp, "little dart")`: if `otmp` remains and `opoisoned`, `poisoned("dart", A_CON, "little dart", umortality rose ? 0 : 10, TRUE)` then `obfree`. A miss `place_object`s at the hero, `observe_object` unless `Blind`, `stackobj`, `newsym`. Monster: `in_sight = canseemon || mtmp == u.usteed` and `see_it = cansee` before the click roll. Both true → `pline_mon` "%s triggers a trap but nothing happens." Then `deltrap`. On a real shot, `seetrap` only if `in_sight`, then `thitm(7, …, 0, FALSE)` and `Trap_Killed_Mon` / `mtrapped` / `Trap_Effect_Finished`. `trflags` is unused.
+- **JS was:** `js/trap.js` `trapeffect_dart_trap` heard the click, shot, and called `thitu` / `thitm`, but the hit arm returned without `poisoned` or `obfree`. The monster arm always `seetrap` and never `pline_mon`. The miss arm tested `u.Blind`.
+- **Fix:** One file-local `trapeffect_dart_trap` keeps that C order. `Soundeffect` is the empty `!SND_LIB` macro. `Maybe_Half_Phys` is `hack.js` `maybe_half_phys`. `done()` inside `thitu` or `poisoned` does not return, so a gameover return skips `obfree`. The selector passes `trflags`.
+- **JS:** `js/trap.js` `trapeffect_dart_trap` `:2415`. `oldumort` `:2419`. `Soundeffect` `:2422`. `t_missile` `:2431`. Steed gate `:2437`. `thitu` `:2439`. `poisoned` `:2444`. `obfree` `:2451`. Miss drop `:2454`. `Blind` `:2455`. Monster `pline_mon` `:2469`. `seetrap` `:2482`. `thitm` `:2483`. Selector `:5951`.
+- **Callers:** `trap.c:2946` `trapeffect_selector` `DART_TRAP` → `js/trap.js:5951`. `trap.c:20` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn trapeffect_dart_trap` → PASS syntax (1 changed js file: js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (1 baseline-PASS session, 1.0s: 1 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include js/trap.js) · VERIFY: PASS.
+- **Named omissions:** No arm of `trapeffect_dart_trap` is omitted. `Soundeffect` is called; under `!SND_LIB` the macro is empty. `trflags` is unused, as in C.
+- **Ledger:** aobjnam ported js=objnam.js:aobjnam; trapeffect_dart_trap ported
+- **Next:** `cmd.c` `show_direction_keys` (next Open — coverage row).
+
 ## D-2968 — `You_feel` uses the Unaware dream prefix
 
 - **Status:** fixed (coverage THIN; hidden-proxy verify reports no corpus session blocked). C `You_feel` is 9 code lines; the whole body shipped. Same-file `livelog_printf` (8 code lines) shipped with it. `livelog_add`'s host-file arm stays partial.

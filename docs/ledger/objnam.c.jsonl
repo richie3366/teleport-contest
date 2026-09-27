@@ -36,7 +36,7 @@
 {"fn":"An","c":"2158-2164","status":"unknown"}
 {"fn":"the","c":"2171-2231","status":"unknown","d":["D-1487","D-1357"],"at":"seed@a30a7de84"}
 {"fn":"The","c":"2234-2240","status":"unknown"}
-{"fn":"aobjnam","c":"2244-2258","status":"unknown"}
+{"fn":"aobjnam","c":"2244-2258","status":"ported","js":["js/objnam.js:aobjnam"],"d":["D-2969"],"at":"2026-09-27@f02368fbc","note":"stale: js/objnam.js:2816"}
 {"fn":"yobjnam","c":"2262-2276","status":"unknown"}
 {"fn":"Yobjnam2","c":"2280-2286","status":"unknown"}
 {"fn":"Tobjnam","c":"2290-2299","status":"unknown"}

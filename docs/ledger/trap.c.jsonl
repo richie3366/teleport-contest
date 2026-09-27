@@ -19,7 +19,7 @@
 {"fn":"wearing_iron_shoes","c":"1098-1102","status":"unknown"}
 {"fn":"m_harmless_trap","c":"1106-1187","status":"unknown","d":["D-2194"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_arrow_trap","c":"1190-1248","status":"unknown"}
-{"fn":"trapeffect_dart_trap","c":"1251-1321","status":"unknown"}
+{"fn":"trapeffect_dart_trap","c":"1251-1321","status":"ported","js":["js/trap.js:trapeffect_dart_trap"],"d":["D-2969"],"at":"2026-09-27@f02368fbc"}
 {"fn":"trapeffect_rocktrap","c":"1324-1400","status":"unknown"}
 {"fn":"trapeffect_sqky_board","c":"1403-1476","status":"unknown","d":["D-2206"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_bear_trap","c":"1479-1560","status":"unknown"}
