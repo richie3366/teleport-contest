@@ -2151,7 +2151,7 @@ autopick `A` / put-in heading polish deferred; traditional_loot is D-1581);
 blade erosion break / shop bill / ice-box corpse age deferred); 
 **`doorlock` WAN_OPENING/SPE_KNOCK D-1462** (SDOOR appear + locked unlock + picking_at; 
 caller `zap.c` `bhit` `:4056–4074`) + **WAN_LOCKING/SPE_WIZARD_LOCK D-1475** (Rogue hide / 
-obstructed / trap-in-doorway / lock-shut) + 
+obstructed / trap-in-doorway / lock-shut) + **`obstructed` whole C body D-2935** (`lock.c:925–953` in C order in `js/lock.js:1003`: object-mimic `goto objhere`, `Some_Monnam`, worm-tail `s_suffix` + " tail" when the head is elsewhere and `canspotmon`, `map_invisible` when `!canspotmon`, else `OBJ_AT` / `Something`; callers `doclose` `:1109` via `obstructed_close` (`FALSE`), `doorlock` `:1552` and `:1567` (`mysterywand`)) + 
 **WAN_STRIKING/SPE_FORCE_BOLT D-1482** (SDOOR appear then smash/explode; loudness wake_nearto; 
 muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` whole C body** (D-0878 Blind+`singular`+mats; D-2676 retires the potionbreathe/hear-vs-see deferral — POTION_CLASS `You hear/see + an(bottlename())` via live `You`/`canon_an`/newly-exported `potion.js bottlename`, breathless/haseyes-guarded live `potionbreathe`, C-order oc_material switch + `An` pline; D-2744 deleted the local an/the/simple_typename/yname clones — all lock.js sites read the live objnam exports) + **doforce ynq def `'q'`** (D-0727); 
 **`o`/`doopen` → `doopen_indir(0,0)` getdir** (D-0727; **loot-at-feet `u_at` → `doloot` D-1837**;

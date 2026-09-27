@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `glyphs.c` shuffle_customizations — coverage MISSING (C 51 L `glyphs.c:591–642` / JS no symbol; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shuffle_customizations` (reach regression must be 0). Measured `port-coverage.mjs --name shuffle_customizations` 2026-09-27 @ b1c8b3093. **Addressed:** D-2934
+- [x] `lock.c` obstructed — coverage PARTIAL (C 27 L `lock.c:926–953` / JS 16 L in js/lock.js; hops 4, callers 3, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn obstructed` (reach regression must be 0). Measured `port-coverage.mjs --name obstructed` 2026-09-27 @ 4df3fffc0. **Addressed:** D-2935
+
+
+- [x] `glyphs.c` shuffle_customizations — coverage MISSING (C 51 L `glyphs.c:591–642` / JS no symbol; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shuffle_customizations` (reach regression must be 0). Measured `port-coverage.mjs --name shuffle_customizations` 2026-09-27 @ b1c8b3093. **Addressed:** D-2934 `75f0544f8`
 
 
 - [x] `monmove.c` stuff_prevents_passage — coverage MISSING (C 34 L `monmove.c:2319–2353` / JS no symbol; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn stuff_prevents_passage` (reach regression must be 0). Measured `port-coverage.mjs --name stuff_prevents_passage` 2026-09-27 @ b1c8b3093. **Addressed:** D-2933 `21446265f`
