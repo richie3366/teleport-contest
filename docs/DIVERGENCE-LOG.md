@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2979 — `itemactions_pushkeys` queues the m-prefix before `#quaff`
+
+- **Status:** fixed (Must-fix missing arm; hidden-proxy verify reports no corpus session blocked). C `itemactions_pushkeys` is the switch at `iactions.c:140–274`. Every other arm was already live.
+- **Symptom:** Quaff from the item-action menu queued `dodrink` and the invlet only, so `#quaff` still offered a fountain or sink. An unknown action was silent, and `IA_NONE` fell into that default.
+- **C locus:** `nethack-c/upstream/src/iactions.c:140–274` `itemactions_pushkeys`. `IA_QUAFF_OBJ` (`:207–212`) is `cmdq_add_ec(CQ_CANNED, do_reqmenu)`, then `dodrink`, then `otmp->invlet`. `IA_NONE` (`:146–147`) queues nothing. `default` (`:144–145`) is `impossible("Unknown item action %d", act)`. The only call is `itemactions` after `select_menu` (`:707`).
+- **JS was:** `js/iactions.js` `IA_QUAFF_OBJ` called `cmdq_add_ec(CQ_CANNED, dodrink)` and `cmdq_add_key` for the invlet. `default` broke with a deferred comment. There was no `IA_NONE` case.
+- **Fix:** `IA_QUAFF_OBJ` queues `do_reqmenu`, then `dodrink`, then the invlet. `cmdq_add_ec` looks up `do_reqmenu` (`reqmenu`, `PREFIXCMD` 512) and `dodrink` (`quaff`, `CMD_M_PREFIX` 128), so `rhack` runs the prefix and leaves `menu_requested` set for `dodrink`. `IA_NONE` breaks. `default` awaits `impossible`. `impossible` was already on the `display.js` import (`imports.mjs --can` ALREADY).
+- **JS:** `js/iactions.js` `itemactions_pushkeys` `:51` (signature `(act, otmp)`). `IA_NONE` `:53`. `IA_QUAFF_OBJ` `:127`. `do_reqmenu` `:132`. `dodrink` `:133`. invlet `:134`. `impossible` `:261`.
+- **Callers:** `iactions.c:707` `itemactions` → `js/iactions.js:894` (menu search) and `:905` (letter); both pass `(act, otmp)`. `iactions.c:11` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn itemactions_pushkeys` → PASS syntax (1 changed js file(s): js/iactions.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `itemactions_pushkeys` is omitted.
+- **Ledger:** itemactions_pushkeys ported
+- **Next:** `objnam.c` `singular` (next Open — coverage row).
+
 ## D-2978 — `ext_func_tab_from_func` maps `doloot` and `dotip`
 
 - **Status:** fixed (Must-fix missing arm; hidden-proxy verify reports no corpus session blocked). C `ext_func_tab_from_func` is 9 lines. The walk was already live; `FUNCT_TXT` had no key for the two ported commands the here-menu and item-action queues pass.

@@ -16,7 +16,7 @@ which_armor              js/worn.js:408   sync
 
 `--can js/cmd.js js/pray.js dosacrifice`, `--can js/cmd.js js/artifact.js doinvoke`, and `--can js/shk.js js/timeout.js get_obj_location` all print `ALREADY`. No later commit touches `js/`.
 
-**Addressed:** D-2978
+**Addressed:** D-2978 `4ce18a4e0`
 
 ## Intent vs deliverable
 

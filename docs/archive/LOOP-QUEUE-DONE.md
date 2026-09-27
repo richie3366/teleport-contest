@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `cmd.c` `ext_func_tab_from_func` — missing arm: `FUNCT_TXT` (`js/cmd.js:1669`) has no `doloot` or `dotip`. C `cmd.c:1762` `"loot"` and `cmd.c:1905` `"tip"` are `AUTOCOMPLETE|CMD_M_PREFIX` (flags 130). `js/cmd.js:2415–2416` (`act_on_act_here`) and `js/iactions.js:204` (`IA_TIP_CONTAINER`) therefore store empty `txt` and flags 0. Source: reviews/loop-unattended/1936-8d2439c0f-cmdq-add-ec.md **Addressed:** D-2978
+- [x] `iactions.c` `itemactions_pushkeys` — missing arm: C `iactions.c:207–212` `IA_QUAFF_OBJ` queues `cmdq_add_ec(CQ_CANNED, do_reqmenu)` then `dodrink` then the invlet. `js/iactions.js:123–127` queues only `dodrink` and the invlet, so `#quaff` does not ignore a fountain or sink. Source: reviews/loop-unattended/1935-25beec7af-cmdq-add-key.md **Addressed:** D-2979
+
+
+- [x] `cmd.c` `ext_func_tab_from_func` — missing arm: `FUNCT_TXT` (`js/cmd.js:1669`) has no `doloot` or `dotip`. C `cmd.c:1762` `"loot"` and `cmd.c:1905` `"tip"` are `AUTOCOMPLETE|CMD_M_PREFIX` (flags 130). `js/cmd.js:2415–2416` (`act_on_act_here`) and `js/iactions.js:204` (`IA_TIP_CONTAINER`) therefore store empty `txt` and flags 0. Source: reviews/loop-unattended/1936-8d2439c0f-cmdq-add-ec.md **Addressed:** D-2978 `4ce18a4e0`
 
 
 - [x] `timeout.c` remove_timer — coverage MISSING (C 16 L `timeout.c:2483–2502` / JS no symbol; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn remove_timer` (reach regression must be 0). Measured `port-coverage.mjs --name remove_timer` 2026-09-27 @ 8d00a95a8. **Addressed:** D-2961 `a30a7de84`

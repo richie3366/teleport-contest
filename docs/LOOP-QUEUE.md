@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `iactions.c` `itemactions_pushkeys` — missing arm: C `iactions.c:207–212` `IA_QUAFF_OBJ` queues `cmdq_add_ec(CQ_CANNED, do_reqmenu)` then `dodrink` then the invlet. `js/iactions.js:123–127` queues only `dodrink` and the invlet, so `#quaff` does not ignore a fountain or sink. Source: reviews/loop-unattended/1935-25beec7af-cmdq-add-key.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Generated block — do not edit between the markers. Row: measured class,

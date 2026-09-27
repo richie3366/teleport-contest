@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2979 `itemactions_pushkeys` queues the m-prefix before `#quaff`
+
+**C locus:** `nethack-c/upstream/src/iactions.c:140–274` `itemactions_pushkeys`. `IA_QUAFF_OBJ` (`:207–212`) is `cmdq_add_ec(CQ_CANNED, do_reqmenu)`, then `dodrink`, then `otmp->invlet`. `IA_NONE` (`:146–147`) queues nothing. `default` (`:144–145`) is `impossible("Unknown item action %d", act)`. The only call is `itemactions` after `select_menu` (`:707`).
+**JS:** `js/iactions.js` `itemactions_pushkeys` `:51` (signature `(act, otmp)`). `IA_NONE` `:53`. `IA_QUAFF_OBJ` `:127`. `do_reqmenu` `:132`. `dodrink` `:133`. invlet `:134`. `impossible` `:261`.
+**Change:** `IA_QUAFF_OBJ` queues `do_reqmenu`, then `dodrink`, then the invlet. `cmdq_add_ec` looks up `do_reqmenu` (`reqmenu`, `PREFIXCMD` 512) and `dodrink` (`quaff`, `CMD_M_PREFIX` 128), so `rhack` runs the prefix and leaves `menu_requested` set for `dodrink`. `IA_NONE` breaks.
+**Verify:** `node scripts/verify.mjs --fn itemactions_pushkeys` → PASS syntax (1 changed js file(s): js/iactions.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `itemactions_pushkeys` is omitted.
+**Next:** `objnam.c` `singular` (next Open — coverage row).
 ## 2026-09-27 — D-2978 `ext_func_tab_from_func` maps `doloot` and `dotip`
 
 **C locus:** `nethack-c/upstream/src/cmd.c:3015–3025` `ext_func_tab_from_func`. Walk `extcmdlist` while `ef_txt` is set and return the first row whose `ef_funct` is `fn`, including `INTERNALCMD`, or NULL. `"loot"` is `doloot` (`:1762`). `"tip"` is `dotip` (`:1905`).

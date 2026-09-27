@@ -16,7 +16,7 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, set_bot_disabled, tty_nhbell } from './display.js';
+import { flush_screen, impossible, set_bot_disabled, tty_nhbell } from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories, check_invent_gold, process_menu_search, cmdq_add_key } from './invent.js';
 import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj, an } from './objnam.js';
 import { body_part } from './polyself.js';
@@ -46,9 +46,13 @@ import { cmdq_add_ec } from './cmd.js';
  * IA_UNWIELD / IA_NAME_* / IA_EAT_OBJ / IA_ENGRAVE_OBJ are D-1675.
  * IA_BUY_OBJ is D-1676. IA_TWOWEAPON is D-1677.
  * IA_RUB_OBJ / IA_SWAPWEAPON / IA_WHATIS_OBJ are D-1686.
+ * IA_QUAFF_OBJ m-prefix is D-2979. Signature is (act, otmp); C is (otmp, act).
  */
 async function itemactions_pushkeys(act, otmp) {
     switch (act) {
+    case IA_NONE:
+        /* C iactions.c `:146–147` — no queue. */
+        break;
     case IA_UNWIELD: {
         /* C iactions.c `:150–156` — uwep→dowield, uswapwep→remarm_swapwep
            (#altunwield), uquiver→dowieldquiver, else donull; then HANDS_SYM. */
@@ -121,7 +125,11 @@ async function itemactions_pushkeys(act, otmp) {
         break;
     }
     case IA_QUAFF_OBJ: {
+        /* C iactions.c `:207–212` — do_reqmenu PREFIXCMD then #quaff +
+           invlet (m-prefix ignores a fountain or sink). */
+        const { do_reqmenu } = await import('./cmd.js');
         const { dodrink } = await import('./potion.js');
+        cmdq_add_ec(CQ_CANNED, do_reqmenu);
         cmdq_add_ec(CQ_CANNED, dodrink);
         cmdq_add_key(CQ_CANNED, otmp.invlet);
         break;
@@ -249,7 +257,8 @@ async function itemactions_pushkeys(act, otmp) {
         break;
     }
     default:
-        // remaining arms deferred
+        /* C iactions.c `:144–145` — unknown action. */
+        await impossible('Unknown item action %d', act);
         break;
     }
 }
