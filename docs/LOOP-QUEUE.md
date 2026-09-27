@@ -112,18 +112,18 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `read.c` seffect_enchant_armor — coverage PARTIAL (C 133 code L `read.c:1115–1290` / JS 97 code L in js/read.js; hops 5, callers 1, RNG 4, msg 7) @fa5382192
-- [ ] `cmd.c` parse — coverage MISSING (C 31 code L `cmd.c:5096–5151` / JS no symbol; hops 1, callers 2, RNG 0, msg 0; split? cited 64× in js/ — brief first) @fa5382192
 - [ ] `version.c` store_version — coverage MISSING (C 15 code L `version.c:512–537` / JS no symbol; hops 3, callers 4, RNG 0, msg 0; dead callees: bwrite, bufoff, store_critical_bytes) @fa5382192
 - [ ] `hack.c` in_rooms — coverage PARTIAL (C 52 code L `hack.c:3498–3560` / JS 34 code L in js/hack.js; hops 2, callers 88, RNG 0, msg 0) @c12d7df2f
 - [ ] `pager.c` look_at_object — coverage PARTIAL (C 28 code L `pager.c:380–419` / JS 18 code L in js/pager.js; hops 2, callers 2, RNG 0, msg 6) @b43d2c68f
 - [ ] `wizcmds.c` wiz_show_stats — coverage MISSING (C 67 code L `wizcmds.c:1616–1697` / JS no symbol; hops —, callers 0, RNG 0, msg 20; dead callees: obj_chain, mon_invent_chain, contained_stats, mon_chain) @b43d2c68f
 - [ ] `cmd.c` cmdq_add_key — coverage THIN (C 11 code L `cmd.c:274–290` / JS 4 code L in js/invent.js; hops 2, callers 15, RNG 0, msg 0) @06237de26
 - [ ] `worn.c` which_armor — coverage PARTIAL (C 25 code L `worn.c:1006–1036` / JS 17 code L in js/worn.js; hops 2, callers 54, RNG 0, msg 0) @06237de26
-- [ ] `cmd.c` cmdbind_get — coverage THIN (C 8 code L `cmd.c:2110–2123` / JS 3 code L in js/dokeylist.js; hops 1, callers 14, RNG 0, msg 0) @f02368fbc
 - [ ] `zap.c` get_obj_location — coverage PARTIAL (C 27 code L `zap.c:654–689` / JS 19 code L in js/timeout.js; hops 2, callers 40, RNG 0, msg 0) @f02368fbc
 - [ ] `cmd.c` cmdq_add_ec — coverage PARTIAL (C 11 code L `cmd.c:254–270` / JS 7 code L in js/cmd.js; hops 1, callers 16, RNG 0, msg 0) @a5772c318
 - [ ] `objnam.c` singular — coverage PARTIAL (C 9 code L `objnam.c:2091–2105` / JS 6 code L in js/objnam.js; hops 1, callers 16, RNG 0, msg 0) @5398b19c2
+- [ ] `pline.c` You_see — coverage THIN (C 11 code L `pline.c:455–469` / JS 4 code L in js/dbridge.js; hops 3, callers 24, RNG 0, msg 0) @45ea89017
+- [ ] `worn.c` check_wornmask_slots — coverage MISSING (C 84 code L `worn.c:355–471` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: sanity_check_worn) @45ea89017
+- [ ] `muse.c` rnd_offensive_item — coverage PARTIAL (C 38 code L `muse.c:2035–2081` / JS 26 code L in js/makemon.js; hops 4, callers 2, RNG 2, msg 0) @45ea89017
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

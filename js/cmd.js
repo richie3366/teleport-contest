@@ -10,7 +10,7 @@ import { nhgetch } from './input.js';
 import { rn2, rn1, rnd } from './rng.js';
 import {
     newsym, flush_screen, pline, You, You_cant, impossible, pline_dir, pline_xy, pline_The, set_msg_xy,
-    clear_nhwindow_message,
+    clear_nhwindow_message, tty_nhbell,
     mon_visible, sensemon, canspotmon, glyph_at, hero_glyph, glyph_is_invisible_id,
     glyph_is_statue, glyph_is_monster, glyph_to_cmap, back_to_glyph,
     GLYPH_UNEXPLORED,
@@ -4525,6 +4525,87 @@ export async function doprev_message() {
     return ECMD_OK;
 }
 
+/**
+ * C `gc.Cmd.spkeys[nhkf]` (`cmd.c:3161–3191` defaults). A missing table
+ * uses those defaults so ESC stays `'\033'` and the count prefix stays `'n'`.
+ * @param {number} nhkf
+ * @returns {number}
+ */
+function cmd_spkey(nhkf) {
+    const v = game.Cmd?.spkeys?.[nhkf];
+    if (typeof v === 'number') return v | 0;
+    for (let i = 0; i < SPKEYS_BINDS.length; i++) {
+        if (SPKEYS_BINDS[i][0] === nhkf) return SPKEYS_BINDS[i][1] | 0;
+    }
+    if (nhkf === NHKF_ESC) return 0x1b;
+    if (nhkf === NHKF_COUNT) return 110; // 'n'
+    return 0;
+}
+
+/**
+ * C cmd.c parse `:5096–5151` (staticfn). Digit count, then the command
+ * key. `num_pad` reads one key first and only calls `get_count` for the
+ * count prefix. ESC clears the count; `in_doagain` and the
+ * repeat/prevmsg/extcmd binds keep `last_command_count` (the save just
+ * above makes those two arms copy the count `get_count` stored).
+ * `gm.multi` is the count minus one when the count is non-zero.
+ * JS `get_count` reads `nhgetch` rather than `readchar`, so this stores
+ * `otherInp` the way `readchar_done` (`:5267–5271`) would have.
+ * @returns {Promise<number>} `gc.cmd_key`
+ */
+async function parse() {
+    if (!game.iflags) game.iflags = {};
+    if (!game.context) game.context = {};
+    if (!game.program_state) game.program_state = {};
+
+    // C `:5101–5104` — in_parse, count 0, assume the command takes time, cursor on hero.
+    game.iflags.in_parse = true;
+    game.context.command_count = 0;
+    game.context.move = 1;
+    await flush_screen(1);
+    // C `:5106–5108` — readchar ESC honors altmeta while a command is parsed.
+    game.program_state.input_state = commandInp;
+
+    // C `:5110–5118` — num_pad off, or the count-prefix key, collects digits.
+    const numPad = !!game.Cmd?.num_pad;
+    const countKey = cmd_spkey(NHKF_COUNT);
+    let foo = 0;
+    if (!numPad || (foo = await readchar()) === countKey) {
+        game.program_state.input_state = commandInp;
+        const cntbox = { n: 0 };
+        foo = await get_count(null, '\0', LARGEST_INT, cntbox, GC_NOFLAGS);
+        game.context.command_count = cntbox.n | 0;
+        game.program_state.input_state = otherInp;
+    }
+    game.last_command_count = game.context.command_count | 0; // C `:5120`
+
+    const escKey = cmd_spkey(NHKF_ESC);
+    if (foo === escKey) { // C `:5122–5125` esc cancels the count
+        clear_nhwindow_message(); // clear_nhwindow(WIN_MESSAGE)
+        game.context.command_count = 0;
+        game.last_command_count = 0;
+    } else if (game.in_doagain) { // C `:5126–5127`
+        game.context.command_count = game.last_command_count | 0;
+    } else if (foo) {
+        // C `:5128–5139` — do_repeat / doprev_message / doextcmd.
+        // JS cmdbind_get returns the extcmd (C `bind->cmd`); txt is ef_funct.
+        const bind = cmdbind_get(foo & 0xff);
+        if (bind && bind.txt
+            && (bind.txt === 'repeat' || bind.txt === 'prevmsg' || bind.txt === '#')) {
+            game.context.command_count = game.last_command_count | 0;
+        }
+    }
+
+    // C `:5141–5143`
+    game.multi = game.context.command_count | 0;
+    if (game.multi) game.multi--;
+
+    game.cmd_key = foo; // C `:5145`
+    clear_nhwindow_message(); // C `:5146` clear_nhwindow(WIN_MESSAGE)
+    game.iflags.in_parse = false; // C `:5149`
+    return game.cmd_key; // C `:5150`
+}
+
 // C ref: cmd.c rhack — main command dispatcher
 export async function rhack(key) {
     const firsttime = (key === 0);
@@ -4623,30 +4704,29 @@ export async function rhack(key) {
     }
 
     if (key === 0) {
-        // C ref: cmd.c parse — flush, get_count (digits without clear), then
-        // clear_nhwindow(WIN_MESSAGE) once before dispatching the command key.
-        await flush_screen(1);
-        if (!game.context) game.context = {};
-        game.context.command_count = 0;
-        // C parse: get_count(NULL, '\0', LARGEST_INT, &gc.command_count, GC_NOFLAGS)
-        const cntbox = { n: 0 };
-        key = await get_count(null, 0, LARGEST_INT, cntbox, GC_NOFLAGS);
-        game.context.command_count = cntbox.n;
-        clear_nhwindow_message();
-        if (key === 27) {
-            // C: ESC → reset_cmd_vars(TRUE) (PREFIXCMD cancel via Esc)
-            if (prefix_seen) reset_cmd_vars(true);
-            else {
-                game.context.command_count = 0;
-                game.context.move = 0;
+        // C cmd.c:3652–3656 — parse(); a click may queue CQ_CANNED and
+        // return no key, which re-enters got_prefix_input.
+        key = await parse();
+        if (!key && cmdq_peek(CQ_CANNED)) continue;
+    }
+
+    // C cmd.c:3660–3670 — no key, (char)0377, or ESC is not a command.
+    // JS readchar keeps keys unsigned (readchar_core), so 0377 is the
+    // -1 sentinel rather than meta-255.
+    {
+        const escKey = cmd_spkey(NHKF_ESC);
+        if (!key || key === -1 || key === escKey) {
+            if (key === escKey) {
+                if (game.iflags) {
+                    game.iflags.sanity_no_check = game.iflags.sanity_check;
+                }
+            } else {
+                tty_nhbell();
             }
+            game._repeat_search = false;
+            reset_cmd_vars(true);
             return;
         }
-        // C: gm.multi = gc.command_count; if (gm.multi) gm.multi--;
-        // Counted `.` / `s` use this with set_occupation (f_text).
-        game.multi = game.context.command_count | 0;
-        if (game.multi) game.multi--;
-        game.cmd_key = key;
     }
 
     const ch = String.fromCharCode(key);
@@ -5190,13 +5270,6 @@ export async function rhack(key) {
             reset_cmd_vars(true);
             return;
         }
-    } else if (key === 27) {
-        // Esc — cancel run/count; no message
-        // C ref: cmd.c / hack.c — ESC ends running and clears multi
-        if (game.context?.run || (game.multi || 0) > 0) end_running(true);
-        if (game.context) game.context.command_count = 0;
-        game._repeat_search = false;
-        game.context.move = 0;
     } else {
         // C rhack cmdbind_get tlist path for keys the if/else missed
         // (M('?') → doextlist; other default meta binds with EXT_CMDS).

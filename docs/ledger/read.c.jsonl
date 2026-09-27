@@ -21,7 +21,7 @@
 {"fn":"valid_cloud_pos","c":"1069-1074","status":"unknown"}
 {"fn":"can_center_cloud","c":"1080-1085","status":"unknown"}
 {"fn":"display_stinking_cloud_positions","c":"1088-1112","status":"unknown"}
-{"fn":"seffect_enchant_armor","c":"1115-1290","status":"unknown"}
+{"fn":"seffect_enchant_armor","c":"1115-1290","status":"ported","js":["js/read.js:seffect_enchant_armor"],"at":"2026-09-27@45ea89017","note":"stale: js/read.js:1524"}
 {"fn":"disintegrate_cursed_armor","c":"1294-1321","status":"unknown"}
 {"fn":"seffect_destroy_armor","c":"1324-1396","status":"partial","js":["js/read.js:seffect_destroy_armor"],"omit":"file-local ``strange_feeling_scroll`` stays (pre-existing clone of live detect.js strange_feeling, also used at ``:1496`` — own future row); ``some_armor`` monster/``which_armor`` path stays hero-only (do_wear envelope); actualoname bareobj subset (corpsenm/known/owt/AMULET, SLIME_MOLD spe, distant…","d":["D-2640","D-2416"],"at":"seed@a30a7de84"}
 {"fn":"seffect_confuse_monster","c":"1399-1451","status":"unknown"}

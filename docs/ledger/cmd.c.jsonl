@@ -64,7 +64,7 @@
 {"fn":"do_fight","c":"1622-1634","status":"unknown"}
 {"fn":"do_repeat","c":"1638-1660","status":"unknown"}
 {"fn":"extcmds_getentry","c":"2101-2106","status":"unknown"}
-{"fn":"cmdbind_get","c":"2110-2123","status":"unknown"}
+{"fn":"cmdbind_get","c":"2110-2123","status":"ported","js":["js/dokeylist.js:cmdbind_get"],"at":"2026-09-27@45ea89017","note":"stale: js/dokeylist.js:306"}
 {"fn":"cmdbind_add","c":"2126-2155","status":"unknown"}
 {"fn":"cmdbind_remove","c":"2158-2177","status":"unknown"}
 {"fn":"cmdbind_freeall","c":"2180-2191","status":"unknown"}
@@ -129,7 +129,7 @@
 {"fn":"click_to_cmd","c":"4906-4913","status":"unknown"}
 {"fn":"domouseaction","c":"4916-5006","status":"unknown","d":["D-2698"],"at":"seed@a30a7de84"}
 {"fn":"get_count","c":"5010-5090","status":"unknown","d":["D-1613"],"at":"seed@a30a7de84"}
-{"fn":"parse","c":"5096-5151","status":"unknown"}
+{"fn":"parse","c":"5096-5151","status":"ported","js":["js/cmd.js:parse"],"d":["D-2972"],"at":"2026-09-27@45ea89017"}
 {"fn":"hangup","c":"5159-5180","status":"unknown"}
 {"fn":"end_of_input","c":"5183-5209","status":"ported","js":["js/cmd.js:end_of_input"],"d":["D-2927"],"at":"seed@a30a7de84"}
 {"fn":"readchar_core","c":"5213-5272","status":"partial","js":["js/cmd.js:readchar_core"],"omit":"``nhwindows_hangup`` (windowport teardown — no JS windows layer, same class as end_of_input's omits); ``bind_mousebtn`` (cmd.c:2624 — no JS port, click queue arm inert); ``parse``/``get_count``/``getpos``/``getdir`` are ALTMETA-comment context only, not calls.","d":["D-2625"],"at":"seed@a30a7de84"}
