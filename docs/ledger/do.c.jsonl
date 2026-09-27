@@ -21,7 +21,7 @@
 {"fn":"dodown","c":"1131-1294","status":"partial","js":["js/do.js:dodown"],"omit":"`doup` still omits `set_move_cmd(DIR_UP)`, `u_rooted`, `stucksteed`, and `near_capacity() > SLT_ENCUMBER` (`do.c:1302–1328`).","d":["D-2793"],"at":"seed@a30a7de84"}
 {"fn":"doup","c":"1298-1344","status":"unknown","d":["D-2016"],"at":"seed@a30a7de84"}
 {"fn":"currentlevel_rewrite","c":"1348-1371","status":"by-design","at":"seed@a30a7de84","note":"seed: save file infra"}
-{"fn":"save_currentstate","c":"1375-1395","status":"unknown"}
+{"fn":"save_currentstate","c":"1375-1395","status":"partial","js":["js/do.js:save_currentstate"],"omit":"`currentlevel_rewrite` (`do.c:1347`), `bufon` (`sfstruct.c:414`), `savelev` (`save.c`), and `close_nhfile` (`files.c:517`) stay the by-design NHFILE omit, and `savestateinlock`'s file body (`save.c:369–421`) stays with them.","d":["D-2987"],"at":"2026-09-27@c3bae97ba"}
 {"fn":"badspot","c":"1400-1406","status":"unknown"}
 {"fn":"u_collide_m","c":"1412-1445","status":"ported","js":["js/do.js:u_collide_m"],"d":["D-2902"],"at":"seed@a30a7de84"}
 {"fn":"familiar_level_msg","c":"1448-1476","status":"ported","js":["js/do.js:familiar_level_msg"],"at":"2026-09-27@988c639a6","note":"stale: js/do.js:1018"}

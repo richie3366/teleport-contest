@@ -29,7 +29,7 @@ import {
     MIGR_EXACT_XY, MIGR_RANDOM, MM_NOMSG,
 } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
-import { make_blinded } from './do.js';
+import { make_blinded, save_currentstate } from './do.js';
 import { m_at, rescham, dmonsfree } from './mon.js';
 import { dobjsfree } from './mkobj.js';
 /* C lock.c maybe_reset_pick — hoisted fn, called only from
@@ -580,7 +580,7 @@ function zero_dest_area() {
  * Punished placebc / docrt / flush / splev / check_special_room(FALSE).
  * Named omissions: makemap_remove_mons / rm_mapseen / mine·soko prize;
  * digging memset; polearm.hitmon;
- * savelev freeing nhfile; INSURANCE save_currentstate;
+ * savelev freeing nhfile;
  * sp_lev.c lspo_reset_level / lspo_finalize_level.
  */
 export async function makemap_prepost(pre, wiztower) {
@@ -644,6 +644,8 @@ export async function makemap_prepost(pre, wiztower) {
     await flush_screen(1);
     await deliver_splev_message();
     await check_special_room(false);
+    // C cmd.c:1063–1064 — INSURANCE checkpoint after the new level is shown.
+    save_currentstate();
 }
 
 /**

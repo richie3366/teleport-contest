@@ -116,7 +116,7 @@
 {"fn":"costly_spot","c":"5350-5363","status":"unknown"}
 {"fn":"costly_adjacent","c":"5369-5381","status":"unknown"}
 {"fn":"shop_object","c":"5386-5402","status":"unknown"}
-{"fn":"price_quote","c":"5406-5465","status":"unknown"}
+{"fn":"price_quote","c":"5406-5465","status":"ported","js":["js/shk.js:price_quote"],"d":["D-2987"],"at":"2026-09-27@c3bae97ba","note":"stale: js/shk.js:1014"}
 {"fn":"shk_embellish","c":"5468-5503","status":"unknown"}
 {"fn":"shk_chat","c":"5521-5601","status":"unknown"}
 {"fn":"kops_gone","c":"5606-5624","status":"unknown"}

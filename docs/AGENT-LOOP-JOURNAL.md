@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2987 `save_currentstate` brackets the insurance checkpoint
+
+**C locus:** `nethack-c/upstream/src/do.c:1375–1395` `save_currentstate`. `in_checkpoint` goes up, then `flags.ins_chkpt` may rewrite the current level (`currentlevel_rewrite`, `bufon`, `savelev`, `close_nhfile`). A null handle returns without lowering the counter and without `savestateinlock`. Otherwise `savestateinlock` runs and the counter goes down. `flags.ins_chkpt` is the `checkpoint` option (optlist default On). JS stores it on `game.flags.checkpoint`.
+**JS:** `js/do.js` `save_currentstate` `:1538`. Counter up `:1541`. Checkpoint gate `:1542`. `saving` bracket `:1549–1550`. `havestate` `:1552`. Counter down `:1554`.
+**Change:** One exported `save_currentstate` keeps that C order. The counter brackets the call. `savestateinlock`'s file body stays named, so `program_state.saving` is raised and lowered with nothing between, then `game.havestate` takes `flags.checkpoint` (`save.c:423`).
+**Verify:** `node scripts/verify.mjs --fn save_currentstate` → PASS syntax (3 changed js file(s): js/allmain.js js/do.js js/wizcmds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.5s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `currentlevel_rewrite` (`do.c:1347`), `bufon` (`sfstruct.c:414`), `savelev` (`save.c`), and `close_nhfile` (`files.c:517`) stay the by-design NHFILE omit, and `savestateinlock`'s file body (`save.c:369–421`) stays with them. `mark_synch` in that rewrite is `tty_mark_synch` (`wintty.c:3616`), `fflush(stdout)`.
+**Next:** `version.c` `getversionstring` (next Open — coverage row).
 ## 2026-09-27 — audit 1937–1945 (D-2978–D-2986)
 
 Reviewed the nine `js/` commits since `8d2439c0f`. Nine ACCEPT (1937–1945). No Must-fix. Next cluster is `shk.c` `price_quote`. Public `sessions` on `dceb8a7b3`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `266+1.67/turn` (R² 0.772). Held-out still 12/44 (6,442/11,265 pts, RNG 31.5 %, rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T13:26Z, last scored 2026-09-27T13:02Z). `hidden-proxy score` 12/12 on the private sessions present (RNG 75,151/75,151, screens 653/653); `.cache/hidden/sessions` absent, so 614/940 was not re-measured. Five seeded `ported` briefs (`mcast_spell`, `do_supplemental_info`, `show_glyph`, `can_fog`, `distant_name`): four have a live JS body. `show_glyph` was `ported` with `sym` NOT FOUND; set to `unknown`. No `js/` edits.

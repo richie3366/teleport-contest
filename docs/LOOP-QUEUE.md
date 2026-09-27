@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `shk.c` price_quote — coverage PARTIAL (C 46 code L `shk.c:5406–5465` / JS 34 code L in js/shk.js; hops 5, callers 1, RNG 0, msg 5) @25beec7af
 - [ ] `do.c` save_currentstate — coverage MISSING (C 13 code L `do.c:1375–1395` / JS no symbol; hops 3, callers 3, RNG 0, msg 0) @68cdee2bb
 - [ ] `version.c` getversionstring — coverage THIN (C 32 code L `version.c:35–79` / JS 13 code L in js/version.js; hops 3, callers 5, RNG 0, msg 0) @de27c57ac
 - [ ] `pager.c` whatdoes_cond — coverage MISSING (C 88 code L `pager.c:2458–2573` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @de27c57ac
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `sp_lev.c` get_room_loc — coverage MISSING (C 14 code L `sp_lev.c:1360–1378` / JS no symbol; hops —, callers 1, RNG 2, msg 0) @9b244f090
 - [ ] `alloc.c` nhalloc — coverage MISSING (C 9 code L `alloc.c:152–166` / JS no symbol; hops 3, callers 2, RNG 0, msg 0; dead callees: heapmon_init) @9b244f090
 - [ ] `sp_lev.c` lspo_monster — coverage MISSING (C 141 code L `sp_lev.c:3214–3400` / JS no symbol; hops —, callers 0, RNG 3, msg 0; dead callees: get_table_montype, get_table_monclass) @9b244f090
+- [ ] `options.c` handler_autounlock — coverage MISSING (C 38 code L `options.c:5624–5672` / JS no symbol; hops —, callers 1, RNG 0, msg 1; dead callees: optfn_autounlock) @c3bae97ba
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

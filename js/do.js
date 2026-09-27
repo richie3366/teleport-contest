@@ -1516,6 +1516,44 @@ async function final_level() {
     await gain_guardian_angel();
 }
 
+/**
+ * C ref: do.c save_currentstate `:1375–1395` (`#ifdef INSURANCE`,
+ * config.h:435). `program_state.in_checkpoint` is raised around the
+ * checkpoint so `remember_topl` (topl.c:187) keeps the message ring.
+ * `flags.ins_chkpt` is `game.flags.checkpoint` (options.js; optlist
+ * default On).
+ *
+ * The level rewrite and `savestateinlock`'s file body stay named.
+ * `create_levelfile` would set `LFILE_EXISTS` and rewrite `game.lock`
+ * without a level image, and `goto_level` treats that flag as a stash.
+ * `currentlevel_rewrite`'s null return (`:1383–1384`) leaves
+ * `in_checkpoint` raised and skips `savestateinlock`; it is not taken
+ * here. VFS creat cannot fail (D-2555), and the rewrite is not called.
+ *
+ * `savestateinlock` (`save.c:349–423`) still contributes its non-file
+ * tail: `program_state.saving` brackets only that file body, so the
+ * counter is raised and lowered with nothing between, then
+ * `gh.havestate = flags.ins_chkpt`.
+ */
+export function save_currentstate() {
+    const ps = game.program_state || (game.program_state = {});
+    // C `:1379`
+    ps.in_checkpoint = (ps.in_checkpoint | 0) + 1;
+    if (game.flags?.checkpoint) {
+        // C `:1380–1390` — currentlevel_rewrite, bufon, mode = WRITING,
+        // savelev(ledger_no(&u.uz)), close_nhfile. Named: do.c:1347
+        // currentlevel_rewrite, sfstruct.c bufon, save.c savelev,
+        // files.c:517 close_nhfile. No early return.
+    }
+    // C `:1393` savestateinlock — file body named (save.c:369–421).
+    ps.saving = (ps.saving | 0) + 1;
+    ps.saving = (ps.saving | 0) - 1;
+    // C save.c:423 — gh.havestate = flags.ins_chkpt
+    game.havestate = !!game.flags?.checkpoint;
+    // C `:1394`
+    ps.in_checkpoint = (ps.in_checkpoint | 0) - 1;
+}
+
 export async function goto_level(newlevel, at_stairs, falling, portal) {
     const u = game.u;
     if (!u?.uz) return;
@@ -2135,11 +2173,13 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // so later same-level portal steps are not treated as landing.
     assign_level(u.uz0 || (u.uz0 = { dnum: 0, dlevel: 0 }), u.uz);
 
-    // C do.c:1971–1972 — after uz0 reset (INSURANCE save_currentstate
-    // named), before print_level_annotation. Catch-up after the
-    // docrt wrap (D-1194). Default mon_notices Off (optlist
-    // spot_monsters). newgame wrap is D-1200; mapping / wizcmds /
-    // save still named.
+    // C do.c:1968–1969 — INSURANCE checkpoint after uz0 reset, before
+    // notice_mon_on. Catch-up after the docrt wrap (D-1194).
+    save_currentstate();
+
+    // C do.c:1971–1972 — notice_mon_on before print_level_annotation.
+    // Default mon_notices Off (optlist spot_monsters). newgame wrap is
+    // D-1200; mapping / wizcmds / save still named.
     notice_mon_on();
     await notice_all_mons(true);
 

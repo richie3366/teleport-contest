@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2987 — `save_currentstate` brackets the insurance checkpoint
+
+- **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `save_currentstate` is 13 code lines, inside `#ifdef INSURANCE` (`config.h:435`). The previous coverage head `price_quote` was already the C body at `js/shk.js:1014` (D-2524, review 1483) and was marked stale before this port.
+- **Symptom:** There was no `save_currentstate`. `newgame`, `goto_level`, and `makemap_prepost` never raised `program_state.in_checkpoint`, and `gh.havestate` was never stored from `flags.ins_chkpt`.
+- **C locus:** `nethack-c/upstream/src/do.c:1375–1395` `save_currentstate`. `in_checkpoint` goes up, then `flags.ins_chkpt` may rewrite the current level (`currentlevel_rewrite`, `bufon`, `savelev`, `close_nhfile`). A null handle returns without lowering the counter and without `savestateinlock`. Otherwise `savestateinlock` runs and the counter goes down. `flags.ins_chkpt` is the `checkpoint` option (optlist default On). JS stores it on `game.flags.checkpoint`.
+- **JS was:** No symbol. `goto_level` and `makemap_prepost` named the call. `newgame` went from `urealtime` straight to `something_worth_saving`.
+- **Fix:** One exported `save_currentstate` keeps that C order. The counter brackets the call. `savestateinlock`'s file body stays named, so `program_state.saving` is raised and lowered with nothing between, then `game.havestate` takes `flags.checkpoint` (`save.c:423`). The level-rewrite arm does not call `create_levelfile`: that sets `LFILE_EXISTS` and rewrites `game.lock` with no level image, and `goto_level` treats the flag as a stash. The null-handle return is not taken.
+- **JS:** `js/do.js` `save_currentstate` `:1538`. Counter up `:1541`. Checkpoint gate `:1542`. `saving` bracket `:1549–1550`. `havestate` `:1552`. Counter down `:1554`.
+- **Callers:** `allmain.c:838` `newgame` → `js/allmain.js:904` (after `urealtime`, before `something_worth_saving`). `cmd.c:1064` `makemap_prepost` post arm → `js/wizcmds.js:648` (after `check_special_room(FALSE)`). `do.c:1969` `goto_level` → `js/do.js:2178` (after `assign_level` of `u.uz0`, before `notice_mon_on`). `extern.h` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn save_currentstate` → PASS syntax (3 changed js file(s): js/allmain.js js/do.js js/wizcmds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.5s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** `currentlevel_rewrite` (`do.c:1347`), `bufon` (`sfstruct.c:414`), `savelev` (`save.c`), and `close_nhfile` (`files.c:517`) stay the by-design NHFILE omit, and `savestateinlock`'s file body (`save.c:369–421`) stays with them. `mark_synch` in that rewrite is `tty_mark_synch` (`wintty.c:3616`), `fflush(stdout)`.
+- **Ledger:** save_currentstate partial; price_quote ported
+- **Next:** `version.c` `getversionstring` (next Open — coverage row).
+
 ## D-2986 — `argcheck` scans early options and parses `--debug` fields
 
 - **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `argcheck` is 77 code lines. The previous coverage heads `release_camera_demon` and `wand_explode` were already the C bodies (`js/dothrow.js:1377`, `js/read.js:811`) and were marked stale before this port.
