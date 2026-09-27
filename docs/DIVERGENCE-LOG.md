@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-2990 — `sp_lev.c` get_room_loc whole-body port + three stale rows
+
+- **Status:** fixed (coverage row `sp_lev.c` get_room_loc MISSING; hidden-proxy verify reports no corpus session blocked on it).
+- **Symptom:** coverage rows — no JS symbol for `get_room_loc` (`sp_lev.c:1359–1378`); its somexy arm was inlined at two retry loops while the per-axis rn2 arms were absent.
+- **C locus:** `nethack-c/upstream/src/sp_lev.c:1359–1378` (both-negative → somexy `:1364–1369` incl. panic; per-axis rn2 + origin offset `:1370–1377`) + sole caller `get_free_room_loc :1385–1402` (retry re-seed `:1396–1397`).
+- **JS was:** `get_free_room_loc` / `get_free_room_loc_coord` (`js/mklev.js`) inlined only the both-negative somexy arm with a lenient `break` on failure; no `get_room_loc` symbol.
+- **Fix:** file-local `get_room_loc(c, croom)` in C order with per-arm `:line` cites — `{x,y}` holder mutation like same-file `somexy`, `rn2` span `hx-lx+1` / `hy-ly+1`, `:1369` panic as a loud throw (house idiom). Both retry loops now call it. C-measured guard: both C call sites (`create_trap :1817`, `create_altar :2446`) init `x = y = -1`, so the retry always takes the somexy arm — the coord variant re-seeds `-1,-1`, not `rx,ry` (an `rx,ry` re-seed would spin 100× on a fixed non-ROOM cell and burn no RNG, contradicting C). No new imports (`somexy` same-file, `rn2` already imported).
+- **JS:** `js/mklev.js` (+22/−5: `get_room_loc` + 2 rewired loops).
+- **Callers:** C `get_room_loc` sole caller `get_free_room_loc :1397` → JS `get_free_room_loc` (`js/mklev.js:22674`) + unpacked twin `get_free_room_loc_coord` (`js/mklev.js:22693`), both wired.
+- **Verify:** `node scripts/verify.mjs --fn get_room_loc` → VERIFY: PASS — syntax (1 changed); rule2; hidden note (no corpus session blocked); reach smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed).
+- **Named omissions:** none for `get_room_loc` — every arm ported, both callees live, the sole C caller wired in both JS shapes.
+- **Ledger:** get_room_loc ported; root_plselection_prompt ported; lspo_monster split js=js/mklev.js:l_create_monster; create_altar split js=js/mklev.js:splev_create_altar
+- **Stale rows:** `role.c` root_plselection_prompt was complete arm-by-arm at `js/player_selection.js:734` with the caller wired at `:861` (review 874 ACCEPT); `sp_lev.c` lspo_monster / create_altar shipped under split names by D-2645 (`l_create_monster` + helpers `js/mklev.js:22134–22353`, `splev_create_altar` at `:22444`; review 1604 ACCEPT).
+- **Next:** pop the next Open — coverage row.
+
 ## D-2989 — `options.c` font/suppress_alert trio: `pfxfn_font`, `feature_alert_opts`, `next_opt` split
 
 - **Status:** fixed (coverage; hidden-proxy verify reports no corpus session blocked on any of the three). Popped queue head `whatdoes_cond` is C `#if 0`-dead (`pager.c:2447–2574`: body, prototype and sole caller all compiled out) → ledger by-design, no JS (review 1592 reached the same verdict). Second row `blessorcurse` is stale: `js/mkobj.js:716` already carries the exact C body in C order with live callees and all 17 C call sites wired (`mkobj.js` mkobj arms, `read.js:666,692`, `mklev.js:21464`).

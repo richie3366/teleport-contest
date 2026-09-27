@@ -33,7 +33,7 @@
 {"fn":"pm_good_location","c":"1311-1314","status":"unknown"}
 {"fn":"get_unpacked_coord","c":"1317-1334","status":"unknown"}
 {"fn":"get_location_coord","c":"1337-1353","status":"unknown"}
-{"fn":"get_room_loc","c":"1360-1378","status":"unknown"}
+{"fn":"get_room_loc","c":"1360-1378","status":"ported","js":["js/mklev.js:get_room_loc"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f"}
 {"fn":"get_free_room_loc","c":"1385-1404","status":"unknown"}
 {"fn":"check_room","c":"1407-1479","status":"ported","js":["js/mklev.js:check_room"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"create_room","c":"1486-1661","status":"unknown"}
@@ -46,7 +46,7 @@
 {"fn":"sp_amask_to_amask","c":"1908-1922","status":"unknown"}
 {"fn":"create_monster","c":"1925-2187","status":"unknown","d":["D-1531"],"at":"seed@a30a7de84"}
 {"fn":"create_object","c":"2193-2440","status":"unknown","d":["D-2726","D-1533"],"at":"seed@a30a7de84"}
-{"fn":"create_altar","c":"2446-2486","status":"unknown"}
+{"fn":"create_altar","c":"2446-2486","status":"split","js":["js/mklev.js:splev_create_altar"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as splev_create_altar mklev.js:22444, review 1604 ACCEPT"}
 {"fn":"search_door","c":"2492-2540","status":"unknown"}
 {"fn":"dig_corridor","c":"2549-2663","status":"ported","js":["js/mklev.js:dig_corridor"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"create_corridor","c":"2671-2725","status":"unknown","d":["D-2668"],"at":"seed@a30a7de84"}
@@ -68,7 +68,7 @@
 {"fn":"find_montype","c":"3143-3164","status":"unknown"}
 {"fn":"get_table_montype","c":"3167-3179","status":"unknown"}
 {"fn":"get_table_xy_or_coord","c":"3188-3204","status":"unknown"}
-{"fn":"lspo_monster","c":"3214-3400","status":"unknown"}
+{"fn":"lspo_monster","c":"3214-3400","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as l_create_monster + helpers mklev.js:22134-22353, review 1604 ACCEPT"}
 {"fn":"get_table_int_or_random","c":"3407-3437","status":"partial","js":["js/mklev.js:get_table_int_or_random"],"omit":"`lua_pop` has no stack in the unpacked loader.","d":["D-2881"],"at":"seed@a30a7de84"}
 {"fn":"get_table_buc","c":"3442-3452","status":"unknown"}
 {"fn":"get_table_objclass","c":"3455-3464","status":"unknown"}

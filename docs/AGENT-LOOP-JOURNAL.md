@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2990 `sp_lev.c` get_room_loc whole-body port + three stale rows
+
+**C locus:** `nethack-c/upstream/src/sp_lev.c:1359–1378` (both-negative → somexy `:1364–1369` incl. panic; per-axis rn2 + origin offset `:1370–1377`) + sole caller `get_free_room_loc :1385–1402` (retry re-seed `:1396–1397`).
+**JS:** `js/mklev.js` (+22/−5: `get_room_loc` + 2 rewired loops).
+**Change:** file-local `get_room_loc(c, croom)` in C order with per-arm `:line` cites — `{x,y}` holder mutation like same-file `somexy`, `rn2` span `hx-lx+1` / `hy-ly+1`, `:1369` panic as a loud throw (house idiom). Both retry loops now call it. C-measured guard: both C call sites (`create_trap :1817`, `create_altar :2446`) init `x = y = -1`, so the retry always takes the somexy arm — the coord variant re-seeds `-1,-1`, not `rx,ry` (an `rx,ry` re-seed would spin 100× on a fixed non-ROOM cell and burn no RNG, contradicting C).
+**Verify:** `node scripts/verify.mjs --fn get_room_loc` → VERIFY: PASS — syntax (1 changed); rule2; hidden note (no corpus session blocked); reach smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** none for `get_room_loc` — every arm ported, both callees live, the sole C caller wired in both JS shapes.
+**Next:** pop the next Open — coverage row.
 ## 2026-09-27 — D-2989 `options.c` font/suppress_alert trio: `pfxfn_font`, `feature_alert_opts`, `next_opt` split
 
 **C locus:** `options.c:5038–5165` `pfxfn_font`; `options.c:1616–1702` ten `optfn_font_*` wrappers; `options.c:9979–10010` `wc_set_font_name`; `options.c:7557–7585` `feature_alert_opts`; `options.c:4134–4161` `optfn_suppress_alert`; `version.c:431–460` `get_feature_notice_ver`; `version.c:464–467` `get_current_feature_ver`; `hack.h:1504–1512` `FEATURE_NOTICE_VER*`; `options.c:75–80` `window_option_types`; `options.c:8675–8680` doset_simple_menu compound pass-the-buck; `options.c:9755–9785` `next_opt` (split, not ported: sole callers `option_help :9488/:9490`, whose boolean-list arm lives in `next_opt_lines` since D-0091 — flush rule, trailing `", "`→`"."`, `COLNO` force-flush and empty-line terminator all match arm-for-arm).
