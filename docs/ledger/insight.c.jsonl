@@ -38,7 +38,7 @@
 {"fn":"list_genocided","c":"3007-3131","status":"ported","js":["js/insight.js:list_genocided"],"d":["D-2412"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"dogenocided","c":"3135-3139","status":"unknown"}
 {"fn":"doborn","c":"3145-3176","status":"unknown"}
-{"fn":"align_str","c":"3187-3200","status":"unknown"}
+{"fn":"align_str","c":"3187-3200","status":"ported","js":["js/roles.js:align_str"],"d":["D-2985"],"at":"2026-09-27@406969f14"}
 {"fn":"size_str","c":"3203-3231","status":"unknown"}
 {"fn":"piousness","c":"3235-3271","status":"ported","js":["js/insight.js:piousness"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"mstatusline","c":"3275-3398","status":"ported","js":["js/insight.js:mstatusline"],"d":["D-2446"],"at":"seed@a30a7de84"}

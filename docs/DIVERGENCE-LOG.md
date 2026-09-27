@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2985 — `align_str` names chaotic, neutral, lawful, unaligned, and unknown
+
+- **Status:** fixed (coverage THIN; hidden-proxy verify reports no corpus session blocked). C `align_str` is 10 code lines. The previous coverage head `show_menu_controls` was already the C body at `js/dokeylist.js:128` (D-2528) and was marked stale before this port.
+- **Symptom:** Both copies returned `"neutral"` for every value other than lawful and chaotic. An unaligned altar, artifact, or monster (`A_NONE`, `-128`) was described as neutral, and any other `aligntyp` was too. `quest.c` `is_pure` used a second copy with the same two arms.
+- **C locus:** `nethack-c/upstream/src/insight.c:3187–3200` `align_str`. The switch is on `(int) alignment`. `A_CHAOTIC` / `A_NEUTRAL` / `A_LAWFUL` / `A_NONE` return `"chaotic"` / `"neutral"` / `"lawful"` / `"unaligned"`. The fall-through return is `"unknown"`. No callees.
+- **JS was:** `js/roles.js:832` exported the two-arm fall-through. `js/quest.js:189` cloned it (`1` / `-1` / else `"neutral"`). `js/readobjnam.js` inlined the four altar adjectives instead of calling `align_str`. `disp_artifact_discoveries` skipped the call when `algn === A_NONE` and printed `"non-aligned"` directly.
+- **Fix:** One exported `align_str` keeps that C order, including `"unaligned"` and `"unknown"`. `alignment | 0` is the `(int)` cast (`undefined` becomes `0`, which is `A_NEUTRAL`). `quest.js` imports it (`imports.mjs --can` SAFE, hoisted) and the clone is gone. The wiz-terrain altar message calls `An(align_str(al))`. Artifact discoveries call `align_str` first, then remap the word `"unaligned"` to `"non-aligned"`, which is `artifact.c:1165–1166`.
+- **JS:** `js/roles.js` `align_str` `:841`. Chaotic `:843`. Neutral `:845`. Lawful `:847`. Unaligned `:849`. Unknown `:852`. Quest import `js/quest.js:38`, call `:208`. Terrain altar `js/readobjnam.js:544`. Artifact remap `js/artifact.js:541–542`.
+- **Callers:** `allmain.c:902–903` `welcome` → `js/allmain.js:727` (`adrift` selects `u.ualign.type`, else `A_CURRENT`). `allmain.c:883` is inside `#if 0` and is not compiled; `allmain.c:889` is a comment in that same disabled note. `artifact.c:1164` → `js/artifact.js:541`. `dig.c:680` → `js/dig.js:726`. `insight.c:534` → `js/insight.js:361`. `insight.c:559` → `js/insight.js:366`. `insight.c:562` → `js/insight.js:369`. `insight.c:566` → `js/insight.js:373`. `insight.c:579` → `js/insight.js:384`. `insight.c:587` → `js/insight.js:388`. `insight.c:3181` is a comment. `insight.c:3396` `mstatusline` → `js/insight.js:1745`. `insight.c:3486` `ustatusline` → `js/insight.js:1851`. `invent.c:4079` → `js/invent.js:7867`. `music.c:427` → `js/music.js:671`. `objnam.c:3704` → `js/readobjnam.js:544`. `pager.c:753` → `js/pager.js:2091`. `pray.c:1936` → `js/pray.js:2122`. `quest.c:160–161` → `js/quest.js:208`. `questpgr.c:291` → `js/questpgr.js:736`. `questpgr.c:294` → `js/questpgr.js:739`. `extern.h:1294` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn align_str` → PASS syntax (4 changed js file(s): js/artifact.js js/quest.js js/readobjnam.js js/roles.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `align_str` is omitted. The `allmain.c:883` call is inside `#if 0` and is compiled out.
+- **Ledger:** align_str ported
+- **Next:** `dothrow.c` `release_camera_demon` (next Open — coverage row).
+
 ## D-2984 — `botl_score` estimates score from gold, depth, and `u.urexp`
 
 - **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `botl_score` is 10 code lines, inside `#ifdef SCORE_ON_BOTL`.

@@ -112,8 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `options.c` show_menu_controls — coverage PARTIAL (C 87 code L `options.c:9070–9174` / JS 50 code L in js/dokeylist.js; hops —, callers 2, RNG 0, msg 19) @8a0963412
-- [ ] `insight.c` align_str — coverage THIN (C 10 code L `insight.c:3187–3200` / JS 3 code L in js/quest.js; hops 3, callers 13, RNG 0, msg 0) @3b405b65a
 - [ ] `dothrow.c` release_camera_demon — coverage PARTIAL (C 10 code L `dothrow.c:2457–2470` / JS 7 code L in js/dothrow.js; hops 4, callers 2, RNG 2, msg 1) @b3da2ae0e
 - [ ] `read.c` wand_explode — coverage PARTIAL (C 35 code L `read.c:2414–2457` / JS 17 code L in js/read.js; hops 5, callers 2, RNG 1, msg 1) @25beec7af
 - [ ] `earlyarg.c` argcheck — coverage MISSING (C 77 code L `earlyarg.c:450–560` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: debug_fields, dump_version_info, early_version_info, dump_enums, dump_mongen, dump_weights, …) @25beec7af
@@ -124,6 +122,8 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `mkobj.c` blessorcurse — coverage PARTIAL (C 8 code L `mkobj.c:1841–1854` / JS 4 code L in js/mkobj.js; hops 4, callers 3, RNG 2, msg 0) @7040c7cd0
 - [ ] `options.c` next_opt — coverage MISSING (C 22 code L `options.c:9755–9785` / JS no symbol; hops —, callers 1, RNG 0, msg 4) @529e9bfc5
 - [ ] `options.c` pfxfn_font — coverage MISSING (C 110 code L `options.c:5039–5165` / JS no symbol; hops —, callers 10, RNG 0, msg 0; dead callees: wc_set_font_name) @8b946a308
+- [ ] `options.c` feature_alert_opts — coverage MISSING (C 20 code L `options.c:7558–7585` / JS no symbol; hops —, callers 1, RNG 0, msg 2; dead callees: get_feature_notice_ver) @406969f14
+- [ ] `role.c` root_plselection_prompt — coverage PARTIAL (C 97 code L `role.c:1431–1580` / JS 71 code L in js/player_selection.js; hops —, callers 1, RNG 0, msg 19) @406969f14
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

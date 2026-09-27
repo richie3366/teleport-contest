@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2985 `align_str` names chaotic, neutral, lawful, unaligned, and unknown
+
+**C locus:** `nethack-c/upstream/src/insight.c:3187–3200` `align_str`. The switch is on `(int) alignment`. `A_CHAOTIC` / `A_NEUTRAL` / `A_LAWFUL` / `A_NONE` return `"chaotic"` / `"neutral"` / `"lawful"` / `"unaligned"`. The fall-through return is `"unknown"`. No callees.
+**JS:** `js/roles.js` `align_str` `:841`. Chaotic `:843`. Neutral `:845`. Lawful `:847`. Unaligned `:849`. Unknown `:852`. Quest import `js/quest.js:38`, call `:208`. Terrain altar `js/readobjnam.js:544`. Artifact remap `js/artifact.js:541–542`.
+**Change:** One exported `align_str` keeps that C order, including `"unaligned"` and `"unknown"`. `alignment | 0` is the `(int)` cast (`undefined` becomes `0`, which is `A_NEUTRAL`). `quest.js` imports it (`imports.mjs --can` SAFE, hoisted) and the clone is gone.
+**Verify:** `node scripts/verify.mjs --fn align_str` → PASS syntax (4 changed js file(s): js/artifact.js js/quest.js js/readobjnam.js js/roles.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `align_str` is omitted. The `allmain.c:883` call is inside `#if 0` and is compiled out.
+**Next:** `dothrow.c` `release_camera_demon` (next Open — coverage row).
 ## 2026-09-27 — D-2984 `botl_score` estimates score from gold, depth, and `u.urexp`
 
 **C locus:** `nethack-c/upstream/src/botl.c:419–436` `botl_score`. `deepest_lev_reached(FALSE)` is cast to `long`. Carried coin is `money_cnt(gi.invent)` (first `COIN_CLASS` stack) plus `hidden_gold(FALSE)` (known containers only). Starting gold is subtracted and a deficit becomes `0`. The depth bonus is `50 * (deepest - 1)`, plus `10000` above 30 or `1000 * (deepest - 20)` above 20. `nowrap_add` (`integer.h:129`) adds that to `u.urexp` and saturates at `LONG_MAX`. This is not the death adjustment in `end.c` (that one uses `hidden_gold(TRUE)` and a tithe).

@@ -201,7 +201,7 @@
 {"fn":"doset","c":"8758-8975","status":"unknown","d":["D-2773"],"at":"seed@a30a7de84"}
 {"fn":"reset_needed_visuals","c":"8980-9014","status":"unknown"}
 {"fn":"doset_add_menu","c":"9018-9065","status":"unknown"}
-{"fn":"show_menu_controls","c":"9070-9174","status":"unknown"}
+{"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}
 {"fn":"count_cond","c":"9179-9188","status":"unknown"}
 {"fn":"count_apes","c":"9191-9202","status":"unknown"}
 {"fn":"handle_add_list_remove","c":"9208-9251","status":"unknown"}
