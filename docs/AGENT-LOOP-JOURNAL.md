@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — Audit 1874–1882 (D-2915…D-2923)
+
+Nine JS SHAs after review 1873 (`e379902e8`). All **ACCEPT**: `mk_tt_object`, `christen_monst`, `ckmailstatus`, `fix_ghostly_obj`, `find_mid`, `cursed`, `deltrap`, `cant_wield_corpse`, `maybe_unhide_at`. No Must-fix. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `288+1.72/turn` (R² 0.737). Held-out still 12/44 (6,275/11,265, RNG 29.7 %, screens 55.7 %). Private corpus 12/12. Next: `worn.c` `extract_from_minvent`.
 ## 2026-09-27 — D-2923 `maybe_unhide_at` reveals a hero hiding under a moved object
 
 **C locus:** `nethack-c/upstream/src/mon.c:4698–4720` `maybe_unhide_at`. If `m_at`, read `mundetected` and `mtrapped`. Else if `u_at`, use `&gy.youmonst`, `u.uundetected`, and `u.utrap`. Else return. If undetected and (`hides_under` and (`!OBJ_AT` or trapped or `!can_hide_under_obj(level.objects[x][y])`) or `S_EEL` and `!is_pool`), call `hideunder`.

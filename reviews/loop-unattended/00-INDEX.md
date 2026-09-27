@@ -1883,3 +1883,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1871-a5d5677e6-readobjnam-init.md](./1871-a5d5677e6-readobjnam-init.md) | `a5d5677e6` | D-2912 readobjnam_init | **ACCEPT** |
 | [1872-4c8d21966-flip-vault-guard.md](./1872-4c8d21966-flip-vault-guard.md) | `4c8d21966` | D-2913 flip_vault_guard | **ACCEPT** |
 | [1873-e379902e8-region-dialogue.md](./1873-e379902e8-region-dialogue.md) | `e379902e8` | D-2914 region_dialogue | **ACCEPT** |
+| [1874-a4cc08e9a-mk-tt-object.md](./1874-a4cc08e9a-mk-tt-object.md) | `a4cc08e9a` | D-2915 mk_tt_object | **ACCEPT** |
+| [1875-d179e940b-christen-monst.md](./1875-d179e940b-christen-monst.md) | `d179e940b` | D-2916 christen_monst | **ACCEPT** |
+| [1876-ce04557f4-ckmailstatus.md](./1876-ce04557f4-ckmailstatus.md) | `ce04557f4` | D-2917 ckmailstatus | **ACCEPT** |
+| [1877-270a11ee8-fix-ghostly-obj.md](./1877-270a11ee8-fix-ghostly-obj.md) | `270a11ee8` | D-2918 fix_ghostly_obj | **ACCEPT** |
+| [1878-0a6f86d9b-find-mid.md](./1878-0a6f86d9b-find-mid.md) | `0a6f86d9b` | D-2919 find_mid | **ACCEPT** |
+| [1879-34f7d154e-cursed.md](./1879-34f7d154e-cursed.md) | `34f7d154e` | D-2920 cursed | **ACCEPT** |
+| [1880-54bbae9a5-deltrap.md](./1880-54bbae9a5-deltrap.md) | `54bbae9a5` | D-2921 deltrap | **ACCEPT** |
+| [1881-b88b8599f-cant-wield-corpse.md](./1881-b88b8599f-cant-wield-corpse.md) | `b88b8599f` | D-2922 cant_wield_corpse | **ACCEPT** |
+| [1882-c558457f9-maybe-unhide-at.md](./1882-c558457f9-maybe-unhide-at.md) | `c558457f9` | D-2923 maybe_unhide_at | **ACCEPT** |
