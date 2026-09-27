@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2996 `zap.c` get_mon_location whole-body port + do_light_sources caller wiring
+
+**C locus:** `nethack-c/upstream/src/zap.c:692–709` `get_mon_location` (sole C caller `light.c` do_light_sources `:192`).
+**JS:** `js/timeout.js` (+20 body+doc); `js/light.js` (+1 import name ALREADY, arm +6/−5, doc +3/−3); `scripts/get-mon-location.test.mjs` (+9 tests).
+**Change:** Exported `get_mon_location(mon, locflags=0)` in C order at `js/timeout.js:1670`, next to sibling `get_obj_location` (house `{x,y}|null` shape): youmonst/steed identity → hero pos `:695–699` (`_youmonst` marker counts as identity, mhitm.js `is_youmonst` idiom); `mx>0 && (!mburied || locflags)` → mx,my `:699–703`; migrating/buried → null `:704–707` (plus the sibling's null-mon guard). Wired the sole caller at `js/light.js:516` (`get_mon_location(ls.id, 0)`; null zeroes + no SHOW, else pos + SHOW — C `light.c:191–194`); +1 import name on the ALREADY light→timeout edge (imports.mjs). Doc comment drops the mon-side named omit, keeps the obj-side OBJ_BURIED/OBJ_CONTAINED one.
+**Verify:** `node scripts/verify.mjs --fn get_mon_location` → VERIFY: PASS (syntax 2 files js/light.js js/timeout.js; rule2; hidden note no corpus session blocked; reach no RNG tags → smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped: no shared file changed). Focused `node --test scripts/get-mon-location.test.mjs` 9/9; pre-change absence proven (`git show HEAD:js/timeout.js | grep -c get_mon_location` → 0, so the test fails at import without the port).
+**Named:** none for `get_mon_location` — every arm ported, zero C callees, the sole caller wired. Live: `game.youmonst`/`game.u.usteed` identity (gstate), `_youmonst` marker (mhitm idiom).
+**Next:** breadth picker continues at the regenerated coverage head.
 ## 2026-09-27 — D-2995 `muse.c` m_next2m whole-body port + Knox tryescape guard wiring (R-778 debt retired)
 
 **C locus:** `nethack-c/upstream/src/muse.c:419–436` `m_next2m` (staticfn; sole C caller find_defensive `:459`).

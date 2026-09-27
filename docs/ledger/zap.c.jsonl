@@ -5,7 +5,7 @@
 {"fn":"probe_objchain","c":"612-623","status":"unknown"}
 {"fn":"probe_monster","c":"626-640","status":"unknown"}
 {"fn":"get_obj_location","c":"654-689","status":"ported","js":["js/timeout.js:get_obj_location"],"d":["D-2977"],"at":"2026-09-27@25beec7af","note":"stale: js/timeout.js:1637"}
-{"fn":"get_mon_location","c":"692-709","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_mon_location","c":"692-709","status":"ported","js":["js/timeout.js:get_mon_location"],"d":["D-2996"],"at":"2026-09-27@806473d71","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"montraits","c":"713-827","status":"unknown"}
 {"fn":"get_container_location","c":"841-859","status":"unknown"}
 {"fn":"zombie_can_dig","c":"863-875","status":"unknown"}

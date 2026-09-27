@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2996 — `zap.c` get_mon_location whole-body port + do_light_sources caller wiring
+
+- **Status:** fixed (coverage row `zap.c` get_mon_location MISSING; hidden-proxy verify reports no corpus session blocked on it).
+- **Symptom:** no JS symbol for `get_mon_location`; the `do_light_sources` LS_MONSTER arm refreshed `ls.{x,y}` inline with the youmonst/usteed-identity + `mburied` gate as named omissions (D-2157 inline refresh; review 1268 carry-over) — a light-carrying you/steed at `mx<=0` or a buried emitter read the wrong arm.
+- **C locus:** `nethack-c/upstream/src/zap.c:692–709` `get_mon_location` (sole C caller `light.c` do_light_sources `:192`).
+- **JS was:** no `get_mon_location` in `js/`; `js/light.js:511–523` inline `(m.mx|0)<=0 → 0,0 else mx,my+SHOW`.
+- **Fix:** Exported `get_mon_location` at `js/timeout.js:1670`, wired at `js/light.js:516`. C order next to sibling `get_obj_location` (house `{x,y}|null`): youmonst/steed identity → hero pos `:695–699` (`_youmonst` marker counts as identity, mhitm.js `is_youmonst` idiom); `mx>0 && (!mburied || locflags)` → mx,my `:699–703`; migrating/buried → null `:704–707` (plus the sibling's null-mon guard). Caller passes locflags 0 (null zeroes + no SHOW, else pos + SHOW — C `light.c:191–194`); +1 import name on the ALREADY light→timeout edge. Doc comment drops the mon-side named omit, keeps the obj-side OBJ_BURIED/OBJ_CONTAINED one. New `scripts/get-mon-location.test.mjs`: 9/9 arm checks.
+- **JS:** `js/timeout.js` (+20 body+doc); `js/light.js` (+1 import name ALREADY, arm +6/−5, doc +3/−3); `scripts/get-mon-location.test.mjs` (+9 tests).
+- **Callers:** sole C site `light.c:192` → `js/light.js:516`. No other C caller (brief: 2 refs = 1 call + `extern.h` decl); no call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn get_mon_location` → VERIFY: PASS (syntax 2 files js/light.js js/timeout.js; rule2; hidden note no corpus session blocked; reach no RNG tags → smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped: no shared file changed). Focused `node --test scripts/get-mon-location.test.mjs` 9/9; pre-change absence proven (`git show HEAD:js/timeout.js | grep -c get_mon_location` → 0, so the test fails at import without the port).
+- **Named omissions:** None — full port, caller wired. Zero C callees. Live: `game.youmonst`/`game.u.usteed` identity (gstate), `_youmonst` marker (mhitm idiom).
+- **Ledger:** get_mon_location ported
+- **Next:** breadth picker continues at the regenerated coverage head.
+
 ## D-2995 — `muse.c` m_next2m whole-body port + Knox tryescape guard wiring (R-778 debt retired)
 
 - **Status:** fixed (coverage row `muse.c` m_next2m MISSING; hidden-proxy verify reports no corpus session blocked on it). Queue-head `shk.c` call_kops proved stale in the same iteration (C `:509–564` complete at `js/shk.js:390` — alarm, nokops, angry_guards, choose_stairs, both makekops swarms — with both C callers wired at `:352`/`:531`; ledger set ported with stale note) and this next row shipped per the stale rule.

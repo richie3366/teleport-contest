@@ -1660,6 +1660,24 @@ export function get_obj_location(obj, locflags = 0) {
     return null;
 }
 
+/** C ref: zap.c get_mon_location :692–709 — youmonst/steed read hero
+ * pos (:695–699); mx>0 + (!mburied || locflags) reads mx,my
+ * (:699–703); migrating/buried zeroes + FALSE (:704–707).
+ * House shape follows sibling get_obj_location above: {x,y} or null.
+ * `_youmonst` marker counts as youmonst identity (mhitm.js
+ * is_youmonst idiom — JS passes marker stand-ins, not &gy.youmonst).
+ * Sole C caller: light.c do_light_sources :192 (locflags 0). */
+export function get_mon_location(mon, locflags = 0) {
+    if (!mon) return null;
+    if (mon === game.youmonst || mon._youmonst
+        || (game.u?.usteed && mon === game.u.usteed)) {
+        return { x: game.u?.ux | 0, y: game.u?.uy | 0 };
+    } else if ((mon.mx | 0) > 0 && (!mon.mburied || locflags)) {
+        return { x: mon.mx | 0, y: mon.my | 0 };
+    }
+    return null;
+}
+
 function Shk_Your(obj) {
     if (carried(obj)) return 'Your ';
     if (obj?.where === OBJ_MINVENT && obj.ocarry) {
