@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2936 `dealloc_killer` reports a node that is not on the list
+
+**C locus:** `nethack-c/upstream/src/end.c:1738–1757` `dealloc_killer`. `prev` starts at `&svk.killer`. A null `kptr` returns. The walk is `svk.killer.next` until null, breaking when `k == kptr`. If the walk ends on null, `impossible("dealloc_killer (#%d) not on list", kptr->id)`. Otherwise `prev->next = k->next`, `free(k)`, and `debugpline1("freed delayed killer #%d", kptr->id)`. `debugpline1` is `lint.h:61` `ifdebug(pline)` because `DEBUG` is on (`patchlevel.h:36`). `showdebug("end.c")` is `debugcore(file, TRUE)`. The false arm does not pline. The true arm saves `iflags.last_msg`, plines, and restores it.
+**JS:** `js/end.js` `debugcore` import `:64`. `debugpline1_end` `:1997`. False return `:1998`. True-arm `pline` `:2001`. `last_msg` restore `:2002`. `dealloc_killer` `:2011`. Null return `:2013`. Walk `:2016–2020`. `impossible` `:2022`. Unlink `:2024`. `debugpline1_end` `:2026`.
+**Change:** One exported `dealloc_killer` in that C order. A null pointer returns. A missing `game.killer` is an empty list, so a non-null pointer is not on it.
+**Verify:** `node scripts/verify.mjs --fn dealloc_killer` → PASS syntax (1 changed js file: js/end.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of the unlink is omitted. `free` does not return the node to a C heap.
+**Next:** `uhitm.c` `double_punch` (next Open — coverage row). Ten coverage rows remain after the Stale park and this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2935 `obstructed` names the monster, the worm tail, and an unseen blocker
 
 **C locus:** `nethack-c/upstream/src/lock.c:925–953` `obstructed`. `m_at`. If the monster is not a furniture mimic and is not an object mimic: when `!quietly`, `Some_Monnam`; if the head is not on this square and `canspotmon`, `s_suffix` plus `" tail"`; `pline("%s blocks the way!")`; then if `!canspotmon`, `map_invisible(x, y)`; return TRUE. An object mimic `goto objhere`. `objhere` and `OBJ_AT` (`level.objects[x][y] != NULL`) `pline("%s's in the way.", Something)` unless `quietly`, and return TRUE. Otherwise FALSE.
