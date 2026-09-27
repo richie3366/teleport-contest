@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2953 `add_mon_to_reg` keeps one id and grows the monster list by five
+
+**C locus:** `nethack-c/upstream/src/region.c:161–186` `add_mon_to_reg`. `mon_in_region` (`:209–218`) scans `i < n_monst`. A hit on anything other than `&mons[PM_LONG_WORM]` calls `impossible` with `m_monnam` and `m_id`, then returns; a long worm returns quietly so each segment is listed once (`:167–174`). When `max_monst <= n_monst`, `alloc` grows the buffer by `MONST_INC` (`region.h:55`, 5), the old ids are copied, the old buffer is `free`d, and `max_monst` increases (`:175–183`). The id is stored at `monsters[n_monst++]` (`:185`).
+**JS:** `js/region.js` `mon_in_region` `:420`. `add_mon_to_reg` `:443`. Duplicate arm `:444–451`. Grow `:455–463`. Store `:465–466`. `MONST_INC` `:65`. `PM_LONG_WORM` `:69`. `remove_mon_from_reg` `:474`. Death shrink `:1074–1090`.
+**Change:** One file-local `add_mon_to_reg` in that C order. `mon_in_region` scans `n_monst`. The long-worm arm returns.
+**Verify:** `node scripts/verify.mjs --fn add_mon_to_reg` → PASS syntax (1 changed js file: js/region.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of `add_mon_to_reg` is omitted. `replace_mon_regions` stays unwired (`#if 0`).
+**Next:** `attrib.c` `redist_attr` (next Open — coverage row). Eight coverage rows remain after this archive, at the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2952 `tty_putstr` clears `WIN_NOSTOP` on every message
 
 **C locus:** `nethack-c/upstream/win/tty/wintty.c:2226–2301` `tty_putstr` `NHW_MESSAGE`. Urgent and `WIN_STOP` clears the window and the stop bit, then sets `WIN_NOSTOP` (`:2277–2282`). History off is `remember_topl` then `show_topl`; otherwise `update_topl`. `:2300` clears `WIN_NOSTOP` on every message, including one that did not set the urgent attribute. `tty_procs.wincap2` (`:111–125`) includes `WC2_URGENT_MESG | WC2_SUPPRESS_HIST` at `:119`. `putmesg` (`pline.c:72–77`) ORs `ATR_URGENT` / `ATR_NOHISTORY` only when those bits are set.

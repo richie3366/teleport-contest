@@ -1259,7 +1259,7 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 `expire_gas_cloud` `:1071–1072`** per-cell `block_point`/`unblock_point`
 (not one-corner `recalc`; seed4500 FAIL at D-1574); **D-1962 `inside_rect`
 `:53–57` + `inside_region` `:62–73`** (exported `js/region.js`; stored
-`bounding_box` else recompute); **D-2297 `create_region` `:79–127` + `add_rect_to_reg` `:133–157`** (exported `js/region.js` with C defaults; both gas-cloud constructors via `create_region(null, 0)` + `add_rect_to_reg`; `inside_region` loops `nrects`); 
+`bounding_box` else recompute); **D-2297 `create_region` `:79–127` + `add_rect_to_reg` `:133–157`** (exported `js/region.js` with C defaults; both gas-cloud constructors via `create_region(null, 0)` + `add_rect_to_reg`; `inside_region` loops `nrects`); **D-2953 `add_mon_to_reg` `:161–186`** (file-local `js/region.js`; `mon_in_region` scans `n_monst`; a long worm already listed returns; any other duplicate calls `void impossible` with `m_monnam`; `max_monst` grows by `MONST_INC` 5 and `alloc`/`free` are GC; live callers `add_region` / `update_monster_region` / `m_in_out_region`; `#if 0` `replace_mon_regions` unwired; `remove_mon_from_reg` and the `run_regions` death shrink keep `n_monst`); 
 **D-1598 `seemimic` `has_mcorpsenm`/`freemcorpsenm`**; **D-1587 `display.c` `mimic_light_blocking`**
 See_invisible `block_point`/`unblock_point` (not `recalc`; potion/timeout/polyself
 callers + `iter_mons` `mon_offmap` named); 

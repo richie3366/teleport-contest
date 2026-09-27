@@ -18,7 +18,7 @@ show_topl        NOT EXPORTED — but 1 LOCAL CLONE(S) in 1 file(s):
 SoundSpeak       js/sndprocs.js:67   sync
 ```
 
-**Addressed:** D-2952
+**Addressed:** D-2952 `7661793ac`
 
 ## Intent vs deliverable
 
