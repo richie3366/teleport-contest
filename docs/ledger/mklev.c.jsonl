@@ -30,7 +30,7 @@
 {"fn":"level_finalize_topology","c":"1544-1574","status":"ported","js":["js/mklev.js:level_finalize_topology"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"mklev","c":"1577-1593","status":"unknown"}
 {"fn":"topologize","c":"1597-1656","status":"ported","js":["js/mklev.js:topologize"],"d":["D-2597"],"at":"seed@a30a7de84","note":"alt 1599-1656"}
-{"fn":"find_branch_room","c":"1660-1673","status":"unknown"}
+{"fn":"find_branch_room","c":"1660-1673","status":"ported","js":["js/mklev.js:find_branch_room"],"d":["D-3048"],"at":"2026-09-28@1aaa15680"}
 {"fn":"pos_to_room","c":"1677-1687","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"place_branch","c":"1691-1747","status":"unknown"}
 {"fn":"bydoor","c":"1750-1775","status":"unknown"}

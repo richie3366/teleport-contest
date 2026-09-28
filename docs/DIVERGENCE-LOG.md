@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3048 — `find_branch_room` whole port (mazexy arm + impossible)
+
+- **Status:** shipped.
+- **Symptom:** coverage THIN (C 9 code L vs JS 3): the JS clone always called `generate_stairs_find_room`, dropping the `svn.nroom == 0 → mazexy(mp)` arm and the `!somexyspace → impossible("Can't place branch!")` check; its caller also gated on the return value C discards (`(void)`).
+- **C locus:**
+  - `find_branch_room`: nethack-c/upstream/src/mklev.c:1660–1673 (staticfn; whole body in C order — nroom==0 mazexy arm :1664–1665, stairs-room + assert + somexyspace/impossible :1667–1670, return :1672; sole C caller place_branch :1710).
+- **JS was:** js/mklev.js:32346 `find_branch_room` — 3-line clone (stairs-room only, no nroom branch, no impossible); caller `place_branch` required `croom && mp.x > 0`, stranding the mazexy arm (returns null with valid mp).
+- **Fix:** restarted the export whole in C order with per-arm `:line` cites — `let croom = null` (:1662), `(game.level?.nroom | 0) === 0 → mazexy(mp)` (:1664–1665, same `| 0` nroom idiom as the rest of mklev.js), else `generate_stairs_find_room()` (:1667) with the :1668 assert as comment (unreachable in JS: null iff nroom==0), `!somexyspace → impossible("Can't place branch!")` (:1669–1670, bare sync call per file convention — mkstairs/mkportal/place_lregion do the same). Caller now mirrors C's `(void)` use: `find_branch_room(mp)` with the return unused, keeping only the `mp.x > 0` verified-location guard (:1708–1712). Same export name/signature; no new imports (all four callees same-file or already imported).
+- **JS:**
+  - `find_branch_room`: js/mklev.js:32347.
+- **Callers:**
+  - `find_branch_room`: mklev.c:1710 → js/mklev.js:32383 (return now unused per C `(void)`; `mp.x > 0` guard retained for the failed-placement case where C proceeds after impossible — pre-existing place_branch-side behavior).
+- **Verify:** `node scripts/verify.mjs --fn find_branch_room` → VERIFY: PASS — syntax 1 changed js file; Rule #2 clean; hidden note (no corpus session blocked — coverage row, expected); REACH smoke spread 24/24 PASS (draws no RNG → REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `find_branch_room`: none — every arm ported, every callee live (`mazexy` ok D-1952, `generate_stairs_find_room` ported, `somexyspace` ok, `impossible` partial).
+- **Ledger:** find_branch_room ported.
+- **Next:** next Open — coverage head after regenerate.
+
 ## D-3047 — `handler_menu_headings` + `query_color_attr` whole ports
 
 - **Status:** shipped.

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3048 `find_branch_room` whole port (mazexy arm + impossible)
+
+**C locus:** - `find_branch_room`: nethack-c/upstream/src/mklev.c:1660–1673 (staticfn; whole body in C order — nroom==0 mazexy arm :1664–1665, stairs-room + assert + somexyspace/impossible :1667–1670, return :1672; sole C caller place_branch :1710).
+**JS:** - `find_branch_room`: js/mklev.js:32347.
+**Change:** restarted the export whole in C order with per-arm `:line` cites — `let croom = null` (:1662), `(game.level?.nroom | 0) === 0 → mazexy(mp)` (:1664–1665, same `| 0` nroom idiom as the rest of mklev.js), else `generate_stairs_find_room()` (:1667) with the :1668 assert as comment (unreachable in JS: null iff nroom==0), `!somexyspace → impossible("Can't place branch!")` (:1669–1670, bare sync call per file convention — mkstairs/mkportal/place_lregion do the same). Caller now mirrors C's `(void)` use: `find_branch_room(mp)` with the return unused, keeping only the `mp.x > 0` verified-location guard (:1708–1712). Same export name/signature; no new imports (all four callees same-file or already imported).
+**Verify:** `node scripts/verify.mjs --fn find_branch_room` → VERIFY: PASS — syntax 1 changed js file; Rule #2 clean; hidden note (no corpus session blocked — coverage row, expected); REACH smoke spread 24/24 PASS (draws no RNG → REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `find_branch_room`: none — every arm ported, every callee live (`mazexy` ok D-1952, `generate_stairs_find_room` ported, `somexyspace` ok, `impossible` partial).
+**Next:** next Open — coverage head after regenerate.
 ## 2026-09-28 — Audit 1999–2007 (D-3039..D-3047): 9 ACCEPT, 0 Must-fix; full cadence
 
 **Range:** `4e6edc522`..`0ce2fb847` (9 JS-touching SHAs since audit 1990–1998). Each re-measured with `hidden-proxy.mjs verify --base HASH~1 --reach-all`: all vacuous-at-baseline (coverage rows, D-logs say so) + smoke 24/24 REACH-OK, no REGRESSED sessions. Deepest checks: SET__IS_VALUE_VALID ironic-macro verified at global.h:603 + enum values :581–587 (2000); adtyp consts vs monattk.h + necrophiliac `#if 0` confirmed (2002); constrain clones matched to C detect.c:68–81 (2005); MAIL_STRUCTURES live global.h:430 (2006); is_cmap_furniture macro verbatim sym.h:104 (2005). Nits (not queued): 2004 commit msg lacks REACH line for cloak wiring (re-run here closes it); `sym.mjs` misses single-line multi-const exports (`SET_GAMEVIEW`, `optn_ok`) — grep, don't sym, for those; `handler_menu_headings` exports a C staticfn (harmless, forward-compatible).
