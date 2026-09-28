@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `display.c` t_warn — coverage THIN (C 38 code L `display.c:3453–3498` / JS 14 code L in js/display.js; hops 3, callers 1, RNG 0, msg 0) @1fdd56bcc
-- [ ] `botl.c` stat_update_time — coverage MISSING (C 9 code L `botl.c:1285–1299` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @2972f3ad5
 - [ ] `version.c` validate — coverage PARTIAL (C 11 code L `version.c:840–856` / JS 6 code L in js/files.js; hops 2, callers 4, RNG 0, msg 0) @581088132
 - [ ] `decl.c` decl_globals_init — coverage MISSING (C 92 code L `decl.c:1080–1187` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @1b942d6a1
 - [ ] `o_init.c` objdescr_is — coverage PARTIAL (C 8 code L `o_init.c:352–365` / JS 5 code L in js/apply.js; hops 3, callers 9, RNG 0, msg 0) @1b942d6a1
 - [ ] `quest.c` quest_chat — coverage THIN (C 14 code L `quest.c:473–492` / JS 5 code L in js/quest.js; hops 3, callers 1, RNG 0, msg 0; dead callees: chat_with_guardian) @1b942d6a1
 - [ ] `do_wear.c` donning — coverage PARTIAL (C 18 code L `do_wear.c:1574–1597` / JS 12 code L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 0) @1b942d6a1
 - [ ] `options.c` set_option_mod_status — coverage MISSING (C 8 code L `options.c:9855–9869` / JS no symbol; hops 6, callers 4, RNG 0, msg 0) @1b942d6a1
-- [ ] `botl.c` status_finish — coverage MISSING (C 19 code L `botl.c:1723–1756` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @1b942d6a1
 - [ ] `do.c` drop — coverage PARTIAL (C 46 code L `do.c:714–780` / JS 32 code L in js/do.js; hops —, callers 3, RNG 0, msg 3) @1b942d6a1
 - [ ] `muse.c` necrophiliac — coverage MISSING (C 8 code L `muse.c:2691–2702` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @5469ed258
 - [ ] `explode.c` adtyp_to_expltype — coverage THIN (C 20 code L `explode.c:987–1012` / JS 5 code L in js/explode.js; hops 4, callers 2, RNG 0, msg 0) @953aea809
+- [ ] `read.c` hawaiian_motif — coverage THIN (C 20 code L `read.c:190–221` / JS 3 code L in js/objnam.js; hops 4, callers 2, RNG 0, msg 0) @c01f2bf81
+- [ ] `end.c` save_killers — coverage MISSING (C 9 code L `end.c:1760–1776` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @c01f2bf81
+- [ ] `hack.c` cannot_push_msg — coverage PARTIAL (C 9 code L `hack.c:247–259` / JS 6 code L in js/hack.js; hops 5, callers 1, RNG 0, msg 2) @c01f2bf81
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

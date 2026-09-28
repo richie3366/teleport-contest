@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3036 `botl.c` stat_update_time + status_finish whole; t_warn stale
+
+**C locus:** - `t_warn` (stale): `display.c:3452–3498` — 10-case typ→name switch + `impossible(warn_str, wname, wall_info & WM_MASK, seenv)` report.
+**JS:** - `t_warn`: `js/display.js:3170` (file-local, unchanged).
+**Change:** - `t_warn`: no code change — stale confirmed (switch whole, both C callers wired, `impossible()` cite per D-2608: `impossible()` is async, `wall_angle` a sync hot path).
+**Verify:** `node scripts/verify.mjs --fn stat_update_time,status_finish` → VERIFY: PASS — syntax 2 files; rule2 clean; hidden notes (no corpus session blocked on either); REACH-OK both (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed each); green 2/2 + strict 2/2; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `stat_update_time`: `windowprocs.wincap2` registry (caps read 0; FLUSH arm skips as with a status-incapable windowport in C); `gv.valset` global mirror (fresh false shelf — only `[fld]` consumed); `status_update` dispatch stays the throwing named omit (`js/botl.js:905`).
+**Next:** next coverage row.
 ## 2026-09-28 — D-3035 `stairs.c` stairway_add whole: exported extern + C-order restart
 
 **C locus:** - `stairway_add`: `stairs.c:8–24` whole in C order — `:15` memset-zero then field assigns, `:16–17` sx/sy, `:18–19` up/isladder, `:20` u_traversed FALSE, `:21` assign_level tolev, `:22–23` prepend to gs.stairs.

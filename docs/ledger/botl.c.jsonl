@@ -15,7 +15,7 @@
 {"fn":"weapon_status","c":"481-555","status":"unknown"}
 {"fn":"armor_status","c":"559-615","status":"unknown"}
 {"fn":"bot_via_windowport","c":"962-1279","status":"ported","js":["js/botl.js:bot_via_windowport"],"d":["D-2515"],"at":"seed@a30a7de84"}
-{"fn":"stat_update_time","c":"1285-1299","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"stat_update_time","c":"1285-1299","status":"ported","js":["js/botl.js:stat_update_time"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"condopt","c":"1303-1329","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cond_cmp","c":"1333-1342","status":"unknown"}
 {"fn":"menualpha_cmp","c":"1346-1351","status":"unknown"}
@@ -25,7 +25,7 @@
 {"fn":"eval_notify_windowport_field","c":"1493-1618","status":"unknown"}
 {"fn":"evaluate_and_notify_windowport","c":"1621-1680","status":"partial","js":["js/botl.js:evaluate_and_notify_windowport"],"omit":"`status_update` windowport dispatch (`winprocs.h:186`); `get_hilite :2364` + `hilite_reset_needed :2257` (STATUS_HILITES machinery; loud forwarders, never silent); `svc.context.rndencode` + `gs.showsyms` gold-hack state (undefined-safe; caches start undefined so the arm pins off until that state po…","d":["D-2498"],"at":"seed@a30a7de84"}
 {"fn":"status_initialize","c":"1683-1720","status":"partial","js":["js/botl.js:status_initialize"],"omit":"`display_nhwindow(WIN_STATUS, FALSE)` in `genl_status_init` (`windows.c:905`).","d":["D-2858"],"at":"seed@a30a7de84"}
-{"fn":"status_finish","c":"1723-1756","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"status_finish","c":"1723-1756","status":"ported","js":["js/botl.js:status_finish"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"init_blstats","c":"1759-1788","status":"unknown"}
 {"fn":"compare_blstats","c":"1809-1883","status":"unknown"}
 {"fn":"anything_to_s","c":"1886-1926","status":"ported","js":["js/botl.js:anything_to_s"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}

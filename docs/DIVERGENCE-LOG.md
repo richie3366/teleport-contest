@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3036 — `botl.c` stat_update_time + status_finish whole; t_warn stale
+
+- **Status:** shipped. Head `t_warn` stale (body whole at `js/display.js:3170`, D-2608); `stat_update_time` + `status_finish` ported whole in C order as new exports.
+- **Symptom:** coverage gap, not a corpus divergence (nothing blocked on any of the three at baseline).
+- **C locus:**
+  - `t_warn` (stale): `display.c:3452–3498` — 10-case typ→name switch + `impossible(warn_str, wname, wall_info & WM_MASK, seenv)` report.
+  - `stat_update_time`: `botl.c:1284–1299` whole in C order — `:1287` idx (no toggle), `:1288` BL_TIME, `:1291` moves store, `:1292` valset FALSE, `:1294` eval call, `:1295–1297` FLUSH arm.
+  - `status_finish`: `botl.c:1722–1756` whole in C order — `:1728–1729` win_status_finish hook, `:1732–1738` val free+NULL both rows, `:1742` hilite_rule zero, `:1743–1752` threshold-chain free + mirror NULL (STATUS_HILITES live, config.h:616).
+- **JS was:** `t_warn` switch complete (`js/display.js:3170`) with the `impossible()` report as a `// C:` cite; no `stat_update_time`/`status_finish` symbol in `js/`; `timebot` (`js/display.js:7438`) ran `bot()` unconditionally (VIA_WINDOWPORT arm "deferred" in its doc comment).
+- **Fix:**
+  - `t_warn`: no code change — stale confirmed (switch whole, both C callers wired, `impossible()` cite per D-2608: `impossible()` is async, `wall_angle` a sync hot path).
+  - `stat_update_time` (`js/botl.js:2685`): `idx` from module-local `now_or_before_idx` (`:2082`), `game.gb.blstats[idx][BL_TIME].a.a_long = game.moves ?? 0` (`:2506` precedent), fresh false-filled valset shelf (`gv.valset` decl.h:994 has no JS mirror; only `[fld]` is read at `:979`), live `eval_notify_windowport_field`, FLUSH arm with caps 0 (`:1039` precedent).
+  - `status_finish` (`js/botl.js:1061`): optional `win_status_finish` hook (`typeof` guard, cmd.js:329 precedent), per-row val→null / hilite_rule→0 / threshold-head drop with sparse-shelf guards (rows build on demand, `:1634`); C free-walk has no observable effect under GC.
+  - `timebot` wired: VIA_WINDOWPORT arm calls `stat_update_time()` (`js/display.js:7448`), tty arm keeps `bot()`; inline `wincap2` check mirrors `bot()` (`:7406–7408`).
+- **JS:**
+  - `t_warn`: `js/display.js:3170` (file-local, unchanged).
+  - `stat_update_time`: `js/botl.js:2685` (export, sync — callee `eval_notify_windowport_field` is sync).
+  - `status_finish`: `js/botl.js:1061` (export, sync).
+- **Callers:**
+  - `t_warn`: display.c:3548 → `js/display.js:3251` wired; display.c:3563 → `js/display.js:3259` wired (pre-existing, D-2608).
+  - `stat_update_time`: botl.c:287 `timebot` → `js/display.js:7448` wired (new arm).
+  - `status_finish`: save.c:1173 `freedynamicdata` → named omission (no JS counterpart; save-freeing teardown).
+- **Verify:** `node scripts/verify.mjs --fn stat_update_time,status_finish` → VERIFY: PASS — syntax 2 files; rule2 clean; hidden notes (no corpus session blocked on either); REACH-OK both (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed each); green 2/2 + strict 2/2; cohort 7/7; full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `stat_update_time`: `windowprocs.wincap2` registry (caps read 0; FLUSH arm skips as with a status-incapable windowport in C); `gv.valset` global mirror (fresh false shelf — only `[fld]` consumed); `status_update` dispatch stays the throwing named omit (`js/botl.js:905`).
+  - `status_finish`: none in-body — every arm ported; caller `freedynamicdata` (save.c:1077–1190) unported, save-freeing teardown (end.js:522/sys.js:91 precedent).
+  - `t_warn`: `impossible()` diagnostic report stays a `// C:` cite (async boundary; D-2608).
+- **Ledger:** t_warn ported; stat_update_time ported; status_finish ported
+- **Next:** next coverage row.
+
 ## D-3035 — `stairs.c` stairway_add whole: exported extern + C-order restart
 
 - **Status:** shipped. Head `stairway_add` (PARTIAL) restarted whole in C order as an export matching the C extern.

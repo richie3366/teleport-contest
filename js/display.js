@@ -8,7 +8,7 @@
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
 import { game } from './gstate.js';
-import { bot_via_windowport, SCORE_ON_BOTL, botl_score } from './botl.js';
+import { bot_via_windowport, SCORE_ON_BOTL, botl_score, stat_update_time } from './botl.js';
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { objects_at, sobj_at } from './mkobj.js';
@@ -7432,7 +7432,7 @@ export async function bot() {
 
 /**
  * C ref: botl.c timebot — status update when only svm.moves changed.
- * VIA_WINDOWPORT → stat_update_time deferred; tty path → full bot().
+ * VIA_WINDOWPORT → stat_update_time(); tty path → full bot().
  * Named omissions: hangup done_hup in suppress_map_output.
  */
 export async function timebot() {
@@ -7442,7 +7442,13 @@ export async function timebot() {
     const iflags = game.iflags || {};
     // C: status_updates defaults TRUE; treat undefined as enabled
     if (flags.time && iflags.status_updates !== false) {
-        await bot();
+        // C botl.h:213 VIA_WINDOWPORT() (bot() :7406-7408 precedent).
+        const wincap2 = game.windowprocs?.wincap2 | 0;
+        if ((wincap2 & (WC2_HILITE_STATUS | WC2_FLUSH_STATUS)) !== 0) {
+            stat_update_time(); // C :286-287
+        } else {
+            await bot(); // C :288-290 old status display updates everything
+        }
     } else if (game.flags) {
         game.flags.time_botl = false;
     }
