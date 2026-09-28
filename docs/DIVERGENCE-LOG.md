@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3037 — `decl.c` decl_globals_init whole; `version.c` validate stale
+
+- **Status:** shipped.
+- **Symptom:** coverage gap, not a corpus divergence (nothing blocked on either at baseline).
+- **C locus:**
+  - `decl_globals_init`: `decl.c:1080–1187` — 26 `g_init_*` copies (`:1085–1110`), 20 `init_sv*` copies (`:1111–1130`), valuables wiring (`:1132–1137`), 26 `MAGICCHECK`s (`:1142–1167`), `gs.subrooms` (`:1169`), seven `ZERO`s (`:1171–1177`), 17 worn-slot NULLs (`:1179–1181`), `WIN_* = WIN_ERR` (`:1183`), `urole`/`urace` sentinels (`:1185–1186`).
+  - `validate` (stale): `version.c:840–856` — utdflags assembly + `uptodate`, already whole at `js/files.js:1370`.
+- **JS was:** no `decl_globals_init` symbol; `early_init` chain in `jsmain.js start()` ran `resetGame()` then `sys_early_init()` with the `allmain.c:41` slot empty.
+- **Fix:** new `js/decl.js` `decl_globals_init()` in C order with per-arm `:line` cites: modeled `game.g*` namespaces (`ga,gb,gc,gd,gf,gg,gh,gi,gm,gn,go,gp,gr,gs,gu,gw`) + `svi`/`svc` return to fresh `{}` (C assigns unconditionally; `UNDEFINED_PTR/VALUE` are NULL/0 per `hack.h:1092–1094` and all use-site guards create bare `{}`); `flags`/`iflags`/`disp` fresh, `u` fresh with the 17 worn NULLs on it (worn slots live on `u` in JS), `ubirthday` 0, `urealtime` zeros, `WIN_* = WIN_ERR` (later `init_sound_disp_gamewindows` installs real ids).
+- **JS:** `js/decl.js:1` (`decl_globals_init` at `js/decl.js:59`); call wired in `js/jsmain.js:103`.
+- **Callers:**
+  - `decl_globals_init`: C `allmain.c:40` `early_init` → wired `js/jsmain.js:101–103` (right after `resetGame()`, before `sys_early_init()`, matching C `:40–43` order); C `hack.c:4429` `dump_weights` unwired (no JS counterpart, named below); C `sfctool.c:657` unwired (savefile tool, not the game).
+- **Verify:** `node scripts/verify.mjs --fn decl_globals_init` → VERIFY: PASS — syntax (2 files) · Rule #2 · hidden note (nothing blocked) · REACH-OK (no RNG-tagged reach; smoke 24/24) · green 2/2 + strict · cohort 7/7 · full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `decl_globals_init`: unmodeled `g*` namespaces `ge,gj,gk,gl,gq,gt,gv,gx,gy,gz` (no JS readers/writers — nothing to reset); unmodeled `sv*` namespaces (only `svi`/`svc` modeled); 26 `MAGICCHECK`s incl. `raw_printf`+`exit` failure path (compile-time static-init validation; a JS literal either evaluates or throws at load); `gs.subrooms` freelist head (JS rooms are arrays + `nsubroom` counts); `gb.bones`/`gb.bughack` nonzero members (no JS readers); `ZERO(a11y)` (jsmain options parse owns zero-then-fill — pre-creating `{}` would suppress its `msg_loc` default guarded by `!g.a11y`); `urole`/`urace` sentinel tables split (`jsmain.js:214–215` placeholders + `roles.js:1296–1297` selection copy); `valuables` wiring split (`end.js reset_valuables`, lazily ensured); `dump_weights` caller (no JS counterpart).
+- **Ledger:** validate ported; decl_globals_init ported
+- **Next:** continue breadth queue head; `monst_globals_init` (`monst.c:72`, same `early_init` chain) is still unported in JS when its coverage row surfaces.
+
 ## D-3036 — `botl.c` stat_update_time + status_finish whole; t_warn stale
 
 - **Status:** shipped. Head `t_warn` stale (body whole at `js/display.js:3170`, D-2608); `stat_update_time` + `status_finish` ported whole in C order as new exports.
