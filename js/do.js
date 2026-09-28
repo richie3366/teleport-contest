@@ -80,6 +80,9 @@ import {
     u_on_newpos,
     u_on_rndspot,
     mklev,
+    free_luathemes,
+    tut_themes,
+    most_themes,
     fumaroles,
     movebubbles,
     save_waterlevel,
@@ -1689,8 +1692,12 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         for (const mtmp of game.fmon || []) {
             if (mtmp?.ispriest) forget_temple_entry(mtmp);
         }
+    } else {
+        // C do.c:1645-1647 — cant_go_back: release the theme states that can
+        // no longer be reached (tutorial-only when leaving the tutorial,
+        // all-but-astral when entering the endgame).
+        free_luathemes(leaving_tutorial ? tut_themes : most_themes);
     }
-    // Named omit: else free_luathemes(tut_themes / most_themes).
 
     // C: savelev — in-memory stash + VISITED|LFILE_EXISTS + omoves timestamp
     // C save.c:480–491 — mode != FREEING: dmonsfree when purge_monsters,

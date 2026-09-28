@@ -28113,6 +28113,39 @@ function mk_knox_portal(x, y) {
     place_branch(br, x, y);
 }
 
+// C ref: hack.h:427-431 enum lua_theme_group — free_luathemes selector.
+export const all_themes = 1; // for end of game
+export const most_themes = 2; // for entering endgame
+export const tut_themes = 3; // for leaving tutorial
+
+/**
+ * C ref: mklev.c:344-364 free_luathemes(theme_group) — whole-body port in
+ * C order. `gl.luathemes[i]` is `game._luathemes_loaded[i]` (truthy once
+ * makelevel_ordinary/makerooms has loaded that branch; the lua state
+ * itself is compiled in). tut_themes frees the tutorial branch only,
+ * most_themes frees every branch but astral, all_themes frees all.
+ */
+export function free_luathemes(theme_group) {
+    const g = game;
+    // C :348-353 — which group(s) to release.
+    const tut_dnum = g.tutorial_dnum | 0;
+    const astral_dnum = g.astral_level ? (g.astral_level.dnum | 0) : -1;
+    const loaded = g._luathemes_loaded;
+    if (!loaded) return; // no branch ever loaded: every slot is NULL
+    for (let i = 0, n = g.n_dgns | 0; i < n; ++i) {
+        // C :356-358.
+        if ((theme_group === tut_themes && i !== tut_dnum)
+            || (theme_group === most_themes && i === astral_dnum))
+            continue;
+        // C :359-362 — nhl_done(lua_State) then slot = NULL. nhl_done is a
+        // by-design omit (nhlua.c has no scored analogue); releasing the
+        // branch marker is the whole free step.
+        if (loaded[i]) {
+            delete loaded[i];
+        }
+    }
+}
+
 // C ref: mklev.c:366-436 makerooms() — whole-body port in C order.
 // C :373 gl.luathemes[dnum] ⇔ g._luathemes_loaded[dnum] (marked once per
 // branch by makelevel_ordinary above); the lua state itself is compiled

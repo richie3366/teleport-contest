@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3004 — `mklev.c` free_luathemes: release per-branch theme markers with tut/most/all group filter; do.c:1646 caller wired
+
+- **Status:** fixed (Open — coverage `mklev.c` free_luathemes MISSING (C 8 code L `mklev.c:345–364` / JS no symbol; hops 3, callers 2, RNG 0, msg 0)).
+- **Symptom:** coverage row — no `free_luathemes` symbol anywhere in `js/`; the live `do.c:1646` call site sat behind a `// Named omit` in `js/do.js:1693`. No corpus session blocked on it; deliverable is the whole C body with every C caller wired or named.
+- **C locus:**
+  - `free_luathemes`: `nethack-c/upstream/src/mklev.c:344–364` (group comment `:348–353`, skip predicates `:356–358`, `nhl_done` + NULL slot `:359–362`). Selector enum `hack.h:427–431` (`all_themes = 1`, `most_themes = 2`, `tut_themes = 3`).
+- **JS was:** no `free_luathemes`/`tut_themes`/`most_themes`/`all_themes` symbol. The loaded-state analogue already existed (`game._luathemes_loaded[dnum]`, set in `makelevel_ordinary`/`makerooms`, read in `themerooms_post_level_generate`), but nothing ever cleared it.
+- **Fix:** port `free_luathemes(theme_group)` (`js/mklev.js:28128`) in C order, plus the `hack.h` group consts (`:28117–28119`). Per-arm `:line` cites map `tutorial_dnum`/`astral_level.dnum`/`svn.n_dgns`/`gl.luathemes[i]` to the `game.*` idioms (`tutorial_dnum`, `astral_level`, `n_dgns`, `_luathemes_loaded`). `nhl_done` is a by-design omit (nhlua.c ledger by-design, no scored analogue — the state is compiled in), so releasing the branch marker (`delete`) is the whole free step; early return when the table was never built (every C slot NULL).
+- **JS:** `js/mklev.js` +33 (consts + port); `js/do.js` +9/−1 (import names on the existing mklev edge, else-arm wiring).
+- **Callers:**
+  - `free_luathemes`: C `do.c:1646` (`else` of `!cant_go_back`: `leaving_tutorial ? tut_themes : most_themes`) → JS `js/do.js:1699` in the `else` of the `save_mode & WRITING` block (same predicate inverted), replacing the Named omit.
+  - `free_luathemes`: C `save.c:1067` inside `free_dungeons()` → named omission (see below).
+- **Verify:** `node scripts/verify.mjs --fn free_luathemes` → PASS syntax (2 files) · PASS rule2 · note hidden (no corpus session blocked) · REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:**
+  - `free_luathemes`: `nhl_done` callee (nhlua.c by-design — no scored lua-state analogue; marker release is the whole step).
+  - `free_luathemes`: `save.c:1067` caller lives in `free_dungeons()`, whose body is `#ifdef FREE_ALL_MEMORY`-guarded (memory-debug builds only; absent from production/recorded C) — JS already carries `free_dungeons` as a named omit (`js/topten.js:1209`).
+- **Ledger:** free_luathemes ported
+- **Next:** none — sole Open row of its file/closure (callee by-design, no same-file Open rows in the generated block).
+
 ## D-3003 — `options.c` breadth cluster: option_help (split) + is_wc2_option + optfn_boolean + allopt BoolOpt table wiring
 
 - **Status:** fixed (Open — coverage `options.c` option_help MISSING (C 52 code L `options.c:9462–9549` / JS no symbol) + Open callee `is_wc2_option` MISSING + same-file Open `options.c` optfn_boolean MISSING (C 178 code L `options.c:5192–5449` / JS no symbol)).
