@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `objnam.c` wishymatch — coverage THIN (C 60 code L `objnam.c:3243–3338` / JS 12 code L in js/readobjnam.js; hops 5, callers 3, RNG 0, msg 3) @bdfaca7a2
 - [ ] `mkroom.c` rest_rooms — coverage MISSING (C 8 code L `mkroom.c:893–906` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: rest_room) @7cd5d050b
 - [ ] `worm.c` rest_worm — coverage MISSING (C 18 code L `worm.c:577–603` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @7cd5d050b
 - [ ] `artifact.c` arti_speak — coverage MISSING (C 12 code L `artifact.c:2279–2296` / JS no symbol; hops —, callers 2, RNG 0, msg 1) @7cd5d050b
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `report.c` panictrace_setsignals — coverage MISSING (C 10 code L `report.c:625–657` / JS no symbol; hops 5, callers 3, RNG 0, msg 0) @8b6526ecd
 - [ ] `hacklib.c` tabexpand — coverage PARTIAL (C 18 code L `hacklib.c:429–464` / JS 13 code L in js/pager.js; hops 2, callers 4, RNG 0, msg 0) @8b6526ecd
 - [ ] `options.c` freeroleoptvals — coverage MISSING (C 4 code L `options.c:787–794` / JS no symbol; hops 4, callers 2, RNG 0, msg 0; dead callees: unsaveoptstr) @8b6526ecd
+- [ ] `sys.c` sysopt_release — coverage MISSING (C 33 code L `sys.c:115–158` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @32055fa52
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

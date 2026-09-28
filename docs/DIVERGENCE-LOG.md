@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3015 — `objnam.c` wishymatch restarted whole from C (dwarvish/elven/helm/gauntlets/detect/detection/ability/aluminum arms; hacklib fuzzymatch clone removed)
+
+- **Status:** shipped (Open — coverage head `objnam.c` wishymatch THIN; single-function cluster — the 12-row block holds no other `objnam.c` row and no Open callee. No corpus session blocked on it.)
+- **Symptom:** coverage gap, not a corpus divergence. `wishymatch` (`js/readobjnam.js:243`) carried only the fuzzy + "of"-inversion subset (12 JS code L vs C 60): variant wish spellings — "dwarven" for "dwarvish", "elvish"/"elfin" for "elven", "helmet"→"helm", "gloves"→"gauntlets", "<foo> detection"↔"detect <foo>" (+ "monster"→"monsters"), trailing "abilities"→"ability", "aluminium"→"aluminum" — all fell to FALSE, so those wishes resolved STRANGE_OBJECT instead of the canonical object.
+- **C locus:**
+  - `wishymatch`: `nethack-c/upstream/src/objnam.c:3243–3338` whole in C order — `:3254–3256` fuzzymatch head, `:3258–3275` of-inversion, `:3281–3282` dwarvish, `:3284–3288` elven, `:3289–3292` helm (recurse TRUE), `:3293–3297` gauntlets (recurse TRUE, BUFSZ-1-3), `:3298–3311` detect_SP, `:3312–3323` SP_detection inverse via makesingular, `:3324–3332` ability, `:3333–3337` aluminum, `:3338` FALSE tail. One if/else-if chain per the `:3277–3280` note (a missed prefix arm returns FALSE without trying later arms).
+- **JS was:** file-local 2-arg `fuzzymatch` clone (lowercase + strip `[- ]+`, no ignore-chars/caseblind params, underscore-blind) plus the fuzzy/of-inversion subset; live `hacklib.js:356` export unused here.
+- **Fix:** `wishymatch` (`js/readobjnam.js:249`) restarted whole in C order against live exports — `fuzzymatch(u,o,' -',true)`, `strstri` tail semantics (`!*(p+len)` ⇔ `tail.length === len`; `p-u_str` ⇔ `u_str.length-tail.length`), `copynchars` for the of-inversion/of-buffer builds (newline-stop like C) and the helm/gauntlets `BUFSZ-1`/`BUFSZ-1-3` caps (`BUFSZ` joins the existing const.js import), case-sensitive `strsubst` reassigned (C writes in place), `strncmpi(…,8/7/6)` prefix gates and `strncmpi(…,−1)` for the `strcmpi` macro (global.h) plus the `o_str === 'aluminum'` `!strcmp`, `makesingular` + `maybereleaseobuf` (GC no-op) for the detection inverse, exact `slice(9)`/`slice(8)` aluminium/aluminum skips, recursion forced `TRUE`. Local `fuzzymatch` clone deleted; `fuzzymatch`+`copynchars` join the existing hacklib.js import and `maybereleaseobuf` the existing objnam.js import (`imports.mjs --can`: both ALREADY, no new edge). The `!u_str || !o_str` early-false guard is gone (C is NONNULL; null normalizes to `''` and empty inputs fall through to FALSE naturally).
+- **JS:** `js/readobjnam.js` only (3 import lines + clone deletion + ~85-line restart).
+- **Callers:**
+  - `wishymatch`: `objnam.c:3495–3514` (`rnd_otyp_by_namedesc` 5-site disjunction: name TRUE / partial-name FALSE / descr FALSE / partial-descr FALSE / oc_uname FALSE) → `js/readobjnam.js:355,360,365,368` (`rnd_otyp_by_namedesc`, unchanged — the oc_uname arm is that function's pre-existing gap, not this cluster); `objnam.c:4462` (postparse1 ungated alt-spellings) → `js/readobjnam.js:1677`; `objnam.c:4890` (postparse3 class-gated alt-spellings) → `js/readobjnam.js:1377`; self-recursion `:3290,3295` → `js/readobjnam.js:287,293` (forced TRUE).
+- **Verify:**
+  - `wishymatch`: hidden note (0 blocked) · no RNG-tagged reach; fixed smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped).
+  - Final `node scripts/verify.mjs --fn wishymatch` → VERIFY: PASS (syntax 1 file; rule2 clean).
+  - /tmp/wishymatch-probe.mjs (not committed): 12/12 — dwarven/elvish/elfin, monster-detection↔detect-monsters/food both directions, gain-abilities→ability, aluminium→aluminum, gloves-of-fumbling→gauntlets, helmet-of-brilliance→helm each resolve to the canonical otyp under a fixed RNG seed; bare 'gloves' → STRANGE_OBJECT (matches C: no arm fires) and unknown names stay STRANGE.
+- **Named omissions:**
+  - `wishymatch`: `eos` — C buffer-cursor navigation only (`copynchars(eos(strcat(buf," ")),…)`); subsumed by immutable-string concatenation (the append point is the string end by construction). `releaseobuf` pool rewind — GC no-op via the live `maybereleaseobuf` call (order preserved).
+- **Ledger:** wishymatch ported.
+- **Next:** queue head after this cluster's pop (coverage block regenerates on finish).
+
 ## D-3014 — `dogmove.c` pet-AI closure: can_reach_location wall/dig arms + could_reach_item exact-C export (monmove clone removed) + finish_meating mimic reset; targeting quad retired stale
 
 - **Status:** shipped (Open — coverage head `mkmaze.c` extend_spine THIN + `cfgfiles.c` config_error_nextline PARTIAL retired stale at pop time — bodies whole with every C caller wired — then `dogmove.c` can_reach_location PARTIAL as the real head; same-file `dogmove.c` could_reach_item + finish_meating ported whole; `dogmove.c` find_targ/find_friends/score_targ/best_target retired stale — bodies whole with callers wired. No corpus session blocked on any of the seven.)

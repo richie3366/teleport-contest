@@ -59,7 +59,7 @@
 {"fn":"makesingular","c":"3037-3164","status":"unknown"}
 {"fn":"ch_ksound","c":"3168-3191","status":"unknown"}
 {"fn":"badman","c":"3194-3239","status":"ported","js":["js/objnam.js:badman"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
-{"fn":"wishymatch","c":"3243-3338","status":"unknown","d":["D-2103","D-2013"],"at":"seed@a30a7de84"}
+{"fn":"wishymatch","c":"3243-3338","status":"ported","js":["js/readobjnam.js:wishymatch"],"d":["D-3015","D-2103","D-2013"],"at":"2026-09-28@32055fa52"}
 {"fn":"rnd_otyp_by_wpnskill","c":"3432-3452","status":"partial","js":["js/readobjnam.js:rnd_otyp_by_wpnskill"],"omit":"An empty skill class `mkobj`s `RANDOM_CLASS`; with `init_objects` bases filled, `P_POLEARMS` has 12 weapons and `P_HAMMER` has `WAR_HAMMER` only, so that arm does not run.","d":["D-2851"],"at":"seed@a30a7de84"}
 {"fn":"rnd_otyp_by_namedesc","c":"3455-3529","status":"unknown","d":["D-2084"],"at":"seed@a30a7de84"}
 {"fn":"shiny_obj","c":"3532-3535","status":"unknown"}
