@@ -9,8 +9,8 @@
 {"fn":"cutworm","c":"373-477","status":"unknown","d":["D-1570"],"at":"seed@a30a7de84"}
 {"fn":"see_wsegs","c":"487-495","status":"unknown","d":["D-1529"],"at":"seed@a30a7de84"}
 {"fn":"detect_wsegs","c":"503-519","status":"unknown","d":["D-1545"],"at":"seed@a30a7de84"}
-{"fn":"save_worm","c":"528-568","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"rest_worm","c":"577-603","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"save_worm","c":"528-568","status":"ported","js":["js/worm.js:save_worm"],"d":["D-3017"],"at":"2026-09-28@5c0b84ad9","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"rest_worm","c":"577-603","status":"ported","js":["js/worm.js:rest_worm"],"d":["D-3017"],"at":"2026-09-28@5c0b84ad9","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"place_wsegs","c":"615-635","status":"unknown","d":["D-2300"],"at":"seed@a30a7de84"}
 {"fn":"sanity_check_worm","c":"639-678","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"wormno_sanity_check","c":"682-703","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}

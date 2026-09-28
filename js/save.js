@@ -64,6 +64,7 @@ import {
 export { serObj, serMon, serLevel, deserLevel, serTraps, deserTraps } from './lev_json.js';
 import { relink_light_sources } from './light.js';
 import { rest_engravings } from './engrave.js';
+import { rest_worm } from './worm.js';
 import { rest_rooms } from './mkroom.js';
 import { adj_erinys, reset_erinys } from './monsters.js';
 import { set_uasmon } from './polyself.js';
@@ -928,6 +929,7 @@ export async function try_restore_save() {
     game.billobjs = info.billobjs;
     game.ftrap = info.level.traps;
     game.head_engr = rest_engravings(info.head_engr); // C restore.c:1174 getlev.
+    rest_worm(info.worm_data); // C restore.c:1147 getlev → rest_worm.
     game.stairs = info.stairs;
     game.lastseentyp = info.lastseentyp;
     // C restore.c getlev `:1225` rest_regions — rebuild live regions from

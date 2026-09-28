@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3017 `worm.c` save/restore closure whole (save_worm/rest_worm plain-record pair; serLevel + 3 getlev installs wired)
+
+**C locus:** - `save_worm`: `nethack-c/upstream/src/worm.c:527–568` whole in C order — `:535` update_file arm, `:536–548` per-slot count + tail-first coords, `:549–550` wgrowtime row, `:553–567` release_data free + zero.
+**JS:** `js/worm.js` (pair added, header omission retired); `js/lev_json.js` (save_worm import, serLevel live/stash snapshot + payload key, deserLevel info carry, levelBlobFromPayload passthrough); `js/do.js:159,1738,1886` (existing worm edge extended; stash snapshot + goto_level-stash install); `js/save.js:66,931` (dorecover install); `js/bones.js:34,697` (getlev_bones install — ghostly getlev runs rest_worm too). New import edges `imports.mjs --can`: same 99-module SCC, function-call use only (no top-level TDZ read; do.js edge pre-existed).
+**Change:** `save_worm()` (`js/worm.js`) snapshots slots 1..MAX-1 tail-first as plain `{wx,wy}` lists (list length IS the C count, dummy head included; empty ⇔ null) + the full wgrowtime row; `rest_worm(stored)` rebuilds each chain with `newseg` in C order (first ⇒ wtails, last ⇒ wheads; count-0 arm explicitly nulls the slot, reproducing C's BSS-zero state on a reused table; nullish/legacy stored ⇒ all-zero). Sfo/Sfi binary encode ⇔ plain-record copy (JS saves JSON — the binary format stays a named omission, engrave D-3005 precedent); update_file always snapshots; the release_data arm already lives at the callers (level teardown `clear_wormdata`, mklev.js:2699).
+**Verify:** - `save_worm`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+**Named:** - `save_worm`/`rest_worm`: Sfo/Sfi binary encode (stash/JSON architecture, engrave precedent).
+**Next:** nothing pending in this closure — worm callers all wired; `random_dir` (worm.c:803, absent) is movement RNG, not save/restore, ships only as its own row.
 ## 2026-09-28 — D-3016 `mkroom.c` save/restore closure whole (save_room/save_rooms/rest_room/rest_rooms; new js/mkroom.js; serLevel + 3 getlev installs wired)
 
 **C locus:** - `save_room`: `nethack-c/upstream/src/mkroom.c:843–857` whole in C order — `:848–851` "who cares?" whole-struct write, `:854–856` recurse `sbrooms[0..nsubrooms-1]`.

@@ -156,7 +156,7 @@ import {
     PM_TOURIST, PM_ROGUE, monsterNames,
 } from './generated/monsters_data.js';
 import { dismount_steed, place_monster, stucksteed } from './steed.js';
-import { place_wsegs } from './worm.js';
+import { place_wsegs, rest_worm, save_worm } from './worm.js';
 import { set_residency, costly_alteration, is_unpaid, stolen_value } from './shk.js';
 import { set_ustuck, gulp_blnd_check, digests, Flying } from './mhitu.js';
 import { onquest, ok_to_quest } from './quest.js';
@@ -1736,6 +1736,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 ftrap: game.ftrap,
                 stairs: game.stairs,
                 head_engr: save_engravings(), // C save.c:548 savelev Sfo arm (release arm: teardown null below).
+                worm_data: save_worm(), // C save.c:543 savelev → save_worm Sfo arm (release arm: level teardown clear_wormdata).
                 track: trackSnap,
                 // C savelev → save_regions; rest_regions on getlev.
                 // Snapshot like C's Sfo writes: the release_data arm
@@ -1883,6 +1884,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.ftrap = info.ftrap || null;
         game.stairs = info.stairs || null;
         game.head_engr = rest_engravings(info.head_engr); // C restore.c:1174 getlev.
+        rest_worm(info.worm_data); // C restore.c:1147 getlev → rest_worm.
         // C restore.c getlev `:1225` rest_regions — rebuild live regions
         // from the stash (ttl rebased on elapsed moves, expired dropped);
         // pre-stash levels omit regions → empty. Stash getlev is never

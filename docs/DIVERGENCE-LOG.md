@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-3017 — `worm.c` save/restore closure whole (save_worm/rest_worm plain-record pair; serLevel + 3 getlev installs wired)
+
+- **Status:** shipped (Open — coverage head `worm.c` rest_worm MISSING + same-file Open `save_worm` absent/MISSING below the queue window. No corpus session blocked on either.)
+- **Symptom:** coverage gap, not a corpus divergence. Worm segment chains (`wtails`/`wheads`/`wgrowtime`) had no save/restore port (`js/worm.js:9` named the whole chain omitted): a long worm on the current floor vanished across any level-save round trip (review 657 ACCEPT-WITH-DEBT named it on the Sy path).
+- **C locus:**
+  - `save_worm`: `nethack-c/upstream/src/worm.c:527–568` whole in C order — `:535` update_file arm, `:536–548` per-slot count + tail-first coords, `:549–550` wgrowtime row, `:553–567` release_data free + zero.
+  - `rest_worm`: `nethack-c/upstream/src/worm.c:577–603` whole in C order — `:585` curr = 0, `:586–597` one newseg per count (first ⇒ wtails[i], last ⇒ wheads[i]), `:599–601` wgrowtime row.
+- **JS was:** no symbol for either (brief MISSING ×2); `serLevel` carried no worm slot and no install site rebuilt chains.
+- **Fix:** `save_worm()` (`js/worm.js`) snapshots slots 1..MAX-1 tail-first as plain `{wx,wy}` lists (list length IS the C count, dummy head included; empty ⇔ null) + the full wgrowtime row; `rest_worm(stored)` rebuilds each chain with `newseg` in C order (first ⇒ wtails, last ⇒ wheads; count-0 arm explicitly nulls the slot, reproducing C's BSS-zero state on a reused table; nullish/legacy stored ⇒ all-zero). Sfo/Sfi binary encode ⇔ plain-record copy (JS saves JSON — the binary format stays a named omission, engrave D-3005 precedent); update_file always snapshots; the release_data arm already lives at the callers (level teardown `clear_wormdata`, mklev.js:2699).
+- **JS:** `js/worm.js` (pair added, header omission retired); `js/lev_json.js` (save_worm import, serLevel live/stash snapshot + payload key, deserLevel info carry, levelBlobFromPayload passthrough); `js/do.js:159,1738,1886` (existing worm edge extended; stash snapshot + goto_level-stash install); `js/save.js:66,931` (dorecover install); `js/bones.js:34,697` (getlev_bones install — ghostly getlev runs rest_worm too). New import edges `imports.mjs --can`: same 99-module SCC, function-call use only (no top-level TDZ read; do.js edge pre-existed).
+- **Callers:**
+  - `save_worm`: `save.c:543` savelev ⇔ `js/lev_json.js` serLevel live branch + `js/do.js:1738` level-leave stash (bones creation via serLevel rides the same site).
+  - `rest_worm`: `restore.c:1147` getlev ⇔ three JS getlev installs adjacent to the head_engr install: `js/do.js:1886` (stash), `js/save.js:931` (dorecover), `js/bones.js:697` (ghostly getlev_bones).
+- **Verify:**
+  - `save_worm`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - `rest_worm`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - Final `node scripts/verify.mjs --fn save_worm,rest_worm` → VERIFY: PASS (syntax 5 files; rule2 clean; green 2/2; strict ×2; cohort 7/7; full 44/44 — shared files changed).
+  - `scripts/worm-save-restore.test.mjs` (committed): 4/4 — chain shape + dummy-head count, JSON snapshot→clear→restore round trip, wgrowtime row, legacy nullish clears.
+- **Named omissions:**
+  - `save_worm`/`rest_worm`: Sfo/Sfi binary encode (stash/JSON architecture, engrave precedent).
+  - `save_worm`: release_data free + zero ⇔ callers' clear_wormdata teardown (GC frees the segs).
+- **Ledger:** save_worm ported; rest_worm ported.
+- **Next:** nothing pending in this closure — worm callers all wired; `random_dir` (worm.c:803, absent) is movement RNG, not save/restore, ships only as its own row.
+
 ## D-3016 — `mkroom.c` save/restore closure whole (save_room/save_rooms/rest_room/rest_rooms; new js/mkroom.js; serLevel + 3 getlev installs wired)
 
 - **Status:** shipped (Open — coverage head `mkroom.c` rest_rooms MISSING + its Open callee `rest_room` + same-closure `save_room`/`save_rooms`, absent/MISSING below the 12-row window. No corpus session blocked on any of the four.)
