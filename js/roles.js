@@ -898,15 +898,30 @@ export function align_gname(urole, alignment) {
     return gnam;
 }
 
-// C ref: pray.c align_gtitle — "goddess" iff raw name starts with '_'
+// C ref: pray.c align_gtitle :2628–2649 — whole body in C order.
+// C reads global gu.urole; JS threads it as the first param (callers pass
+// game.urole/urole). "goddess" iff the raw god name starts with '_'.
 export function align_gtitle(urole, a) {
     const r = urole || {};
     let gnam;
-    if (a === A_LAWFUL) gnam = r.lgod;
-    else if (a === A_CHAOTIC) gnam = r.cgod;
-    else gnam = r.ngod;
-    if (gnam && gnam.charAt(0) === '_') return 'goddess';
-    return 'god';
+    let result = 'god'; // C :2631
+    switch (a) {
+    case A_LAWFUL: // C :2634
+        gnam = r.lgod;
+        break;
+    case A_NEUTRAL: // C :2637
+        gnam = r.ngod;
+        break;
+    case A_CHAOTIC: // C :2640
+        gnam = r.cgod;
+        break;
+    default: // C :2643–2645
+        gnam = 0;
+        break;
+    }
+    if (gnam && gnam.charAt(0) === '_') // C :2647
+        result = 'goddess';
+    return result;
 }
 
 export function u_gname(urole, ualignType) {

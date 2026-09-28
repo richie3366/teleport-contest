@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3050 — `align_gtitle` default-arm port (unknown alignment → "god")
+
+- **Status:** shipped.
+- **Symptom:** coverage THIN (C 17 code L `pray.c:2628–2649` / JS 7 code L): the JS if/else chain mapped every non-lawful/non-chaotic value (including unknown alignments) to `ngod`, so an unknown alignment returned "goddess" whenever `ngod` starts with '_'.
+- **C locus:**
+  - `align_gtitle`: nethack-c/upstream/src/pray.c:2628–2649 (whole body in C order — `result = "god"` :2631, lawful→lgod :2634, neutral→ngod :2637, chaotic→cgod :2640, default→null :2643–2645, `'_'` prefix→"goddess" :2647).
+- **JS was:** `js/roles.js:902` if/else (`else gnam = r.ngod`) with no default arm; early returns instead of C's `result` variable.
+- **Fix:** restarted the export whole in C order with per-arm `:line` cites — explicit `switch` with `A_NEUTRAL` and `default: gnam = 0` arms, `result` variable, single return. C reads global `gu.urole`; JS keeps threading it as the first param so existing callers stay wired. No new imports (`A_*` already imported).
+- **JS:** `js/roles.js:901` `align_gtitle`.
+- **Callers:**
+  - `align_gtitle`: C `questpgr.c:285` → JS `js/questpgr.js:730` (`convert_arg` `%G`); C `role.c:2085` → JS `js/roles.js:1372` (`godgend`); plus JS-internal `js/questpgr.js:70` (`legacy_lines`, same `%G` semantics) — all pass `(urole, alignment)`, unchanged.
+- **Verify:** `node scripts/verify.mjs --fn align_gtitle` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden note (no corpus session blocked, expected for a coverage row); reach REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); green 2/2; strict both sessions; cohort 7/7.
+- **Named omissions:**
+  - `align_gtitle`: none — every arm ported, 0 C callees, every C caller wired.
+- **Ledger:** `align_gtitle` ported.
+- **Next:** next coverage row (`shk.c` pay) is a different C file — left for the next iteration.
+
 ## D-3049 — `relmon` whole port (fmon-empty arm + nmon linkage)
 
 - **Status:** shipped.

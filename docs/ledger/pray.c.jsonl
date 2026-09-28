@@ -40,6 +40,6 @@
 {"fn":"u_gname","c":"2524-2527","status":"unknown"}
 {"fn":"align_gname","c":"2530-2555","status":"ported","js":["js/roles.js:align_gname"],"d":["D-2910"],"at":"seed@a30a7de84"}
 {"fn":"halu_gname","c":"2577-2624","status":"unknown"}
-{"fn":"align_gtitle","c":"2628-2649","status":"unknown"}
+{"fn":"align_gtitle","c":"2628-2649","status":"ported","js":["js/roles.js:align_gtitle"],"d":["D-3050"],"at":"2026-09-28@68feb0e9e"}
 {"fn":"altar_wrath","c":"2652-2673","status":"unknown"}
 {"fn":"blocked_boulder","c":"2677-2719","status":"unknown","d":["D-2686"],"at":"seed@a30a7de84"}
