@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `utf8map.c` free_all_glyphmap_u — coverage MISSING (C 12 code L `utf8map.c:59–80` / JS no symbol; hops 6, callers 2, RNG 0, msg 0) @1de43a4f5
 - [ ] `shk.c` onbill — coverage PARTIAL (C 13 code L `shk.c:1136–1155` / JS 9 code L in js/shk.js; hops 3, callers 13, RNG 0, msg 0) @6dd29ef91
 - [ ] `makemon.c` unmakemon — coverage MISSING (C 11 code L `makemon.c:1514–1539` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @fb9c2049c
 - [ ] `timeout.c` print_queue — coverage PARTIAL (C 15 code L `timeout.c:2014–2037` / JS 10 code L in js/timeout.js; hops —, callers 1, RNG 1, msg 3) @fb9c2049c
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `options.c` wc_set_window_colors — coverage MISSING (C 60 code L `options.c:10023–10113` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: wc_color_name) @2f39bdcea
 - [ ] `dungeon.c` get_dgn_align — coverage THIN (C 8 code L `dungeon.c:781–794` / JS 3 code L in js/dungeon.js; hops 3, callers 2, RNG 0, msg 0) @2f39bdcea
 - [ ] `sounds.c` release_sound_mappings — coverage MISSING (C 9 code L `sounds.c:1676–1690` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @2f39bdcea
+- [ ] `zap.c` boxlock_invent — coverage THIN (C 9 code L `zap.c:2687–2702` / JS 3 code L in js/lock.js; hops 6, callers 1, RNG 0, msg 0) @709b8aea7
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

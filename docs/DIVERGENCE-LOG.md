@@ -15,9 +15,9 @@
   - `reset_customsymbols`: options.c:8996 → js/options.js:8457 (wired this commit).
 - **Verify:** `node scripts/verify.mjs --fn free_all_glyphmap_u,reset_customsymbols` → VERIFY: PASS (syntax 2 files; rule2 clean; hidden notes — no corpus session blocked, expected for coverage rows; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK both; green 2/2; strict both; cohort 7/7; full 44/44).
 - **Named omissions:**
-  - `free_all_glyphmap_u`: the `:74–79` gbuf `gm.u` NULL sweep — JS keeps no per-cell glyph_map copies (map_glyphinfo builds fresh records, D-1983; the only `.u` readers walk the live array), so no dangling references exist; plus the unported symbols.c:345 caller.
+  - `free_all_glyphmap_u`: none — every arm ported; the `:74–79` gbuf sweep has no JS analogue (JS keeps no per-cell glyph_map copies, D-1983) and C `free` ≡ null (GC); the symbols.c:345 caller is unported (map-named, see Callers).
   - `reset_customsymbols`: none — whole body, both callees live, sole C caller wired.
-- **Ledger:** free_all_glyphmap_u partial; reset_customsymbols ported
+- **Ledger:** free_all_glyphmap_u ported; reset_customsymbols ported
 - **Next:** same-file mixed_to_utf8 stays absent — its `\G` arm needs decode_glyph (windows.c, ledger by-design) and its sole caller is wintty.c:4185 (unported); customcolors/palette reset_needed_visuals arms stay named there.
 
 ## D-3064 — objnam.c armor_simple_name xname :741 wiring + shirt_simple_name port

@@ -1,6 +1,6 @@
 {"fn":"unicode_val","c":"18-34","status":"ported","js":["js/options.js:unicode_val"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"set_map_u","c":"37-56","status":"ported","js":["js/options.js:set_map_u"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"free_all_glyphmap_u","c":"59-80","status":"partial","js":["js/glyphs.js:free_all_glyphmap_u"],"omit":"- `free_all_glyphmap_u`: the `:74–79` gbuf `gm.u` NULL sweep — JS keeps no per-cell glyph_map copies (map_glyphinfo builds fresh records, D-1983; the only `.u` readers walk the live array), so no dangling references exist; plus the unported symbols.c:345 caller.","d":["D-3065"],"at":"2026-09-28@fd2badce9","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_all_glyphmap_u","c":"59-80","status":"ported","js":["js/glyphs.js:free_all_glyphmap_u"],"d":["D-3065"],"at":"2026-09-28@709b8aea7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mixed_to_utf8","c":"86-145","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_custom_urep_entry","c":"148-207","status":"ported","js":["js/glyphs.js:add_custom_urep_entry"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"reset_customsymbols","c":"211-217","status":"ported","js":["js/glyphs.js:reset_customsymbols"],"d":["D-3065"],"at":"2026-09-28@fd2badce9","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"reset_customsymbols","c":"211-217","status":"ported","js":["js/glyphs.js:reset_customsymbols"],"d":["D-3065"],"at":"2026-09-28@709b8aea7","note":"refresh: no JS symbol (measured MISSING)"}
