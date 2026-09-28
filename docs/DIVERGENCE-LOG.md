@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3043 — `read.c` stale pair + `end.c` save_killers/restore_killers JSON-analogue pair
+
+- **Status:** shipped.
+- **Symptom:** coverage THIN `hawaiian_motif` (C 20 code L vs JS 3) + PARTIAL `seffect_mail` (C 17 vs JS 12) both complete in JS (line-count artifact: C counts the tables/braces); coverage MISSING `save_killers` (C 9 code L, no JS symbol) with absent sibling `restore_killers` (C 5 code L) — the delayed-killer chain was a named omit of the JSON save path.
+- **C locus:**
+  - `hawaiian_motif`: nethack-c/upstream/src/read.c:189–221 — 16-entry `hawaiian_motifs[]` `:192–209`, `motif = o_id ^ ubirthday` `:217`, index `% SIZE` `:219`. Stale, no code change.
+  - `seffect_mail`: nethack-c/upstream/src/read.c:2155–2188 — `gk.known = TRUE` + `odd = o_id % 2` `:2160–2162`, spe 2 stamped `:2163–2167`, spe 1 chain-letter/junk `:2168–2175`, default `#ifdef MAIL` readmail `:2177–2180` (`#else` `:2182–2186` is MAIL-undefined-only). Stale, no code change.
+  - `save_killers`: nethack-c/upstream/src/end.c:1760–1776 — update_file arm `:1764–1767` Sfo_kinfo per node from `&svk.killer`, release_data arm `:1769–1774` frees nodes past the sentinel.
+  - `restore_killers`: nethack-c/upstream/src/end.c:1780–1790 — Sfi_kinfo loop `:1784–1789`, first read lands on the sentinel, each further node alloc'd `:1787`.
+- **JS was:** js/objnam.js:588 `hawaiian_motif` already table- and hash-exact; js/read.js:1885 `seffect_mail` already all three arms with the MAIL-defined `readmail` default (D-1958/928 ACCEPT); no killer save/restore symbols — dosave0 header named `save_killers` as omit.
+- **Fix:** stale pair untouched (ledger notes only). New sync exports `save_killers`/`restore_killers` in js/end.js after `dealloc_killer` (C-adjacent): JSON analogues on the save_oracles precedent — records carry the struct's data fields (hack.h `:598–606` id, format, name), sentinel first, C-order loop; VFS always writes so no update_file gate. Wired into js/save.js via the existing lazy save→end edge: `killers: save_killers()` in the dosave0 payload (save.c `:293` analogue) + `restore_killers(payload.killers)` after `restore_oracles` in try_restore_save (restore.c `:653` analogue).
+- **JS:**
+  - `hawaiian_motif`: js/objnam.js:588 export, sync — unchanged.
+  - `seffect_mail`: js/read.js:1885 file-local (C staticfn), async — unchanged.
+  - `save_killers`: js/end.js:2058 export, sync.
+  - `restore_killers`: js/end.js:2077 export, sync.
+- **Callers:**
+  - `hawaiian_motif`: objnam.c:991 → js/objnam.js:654 `an(hawaiian_motif(obj))`; read.c:248 caller lives inside unported staticfn `hawaiian_design` (named omission, no ledger row).
+  - `seffect_mail`: read.c:2205 (`seffects` SCR_MAIL) → js/read.js:2107 `await seffect_mail(sobj)`.
+  - `save_killers`: save.c:293 → js/save.js payload `killers:`; save.c:1097 `free_killers` exit-free named (no JS path, GC).
+  - `restore_killers`: restore.c:653 → js/save.js try_restore_save after `restore_oracles`.
+- **Verify:** `node scripts/verify.mjs --fn save_killers,restore_killers` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files (js/end.js js/save.js); rule2 clean; green 2/2; strict ×2; cohort 7/7. Plus: /tmp killer round-trip probe (3-node chain → records → rebuild → identical; missing/empty key keeps live sentinel; `find_delayed_killer` walks restored chain) KILLER-ROUNDTRIP-OK; seed0013 save-then-restore direct: PASS RNG 4804/4804 screens 99/99.
+- **Named omissions:**
+  - `hawaiian_motif`: `hawaiian_design` (read.c:223–252, different `~ubirthday` hash + `hawaiian_bgs[]`) — unported staticfn, sole unwired caller; already cited in the JS doc comment + read.js map header.
+  - `seffect_mail`: none — every arm ported, every callee live (`pline`, `readmail`), caller wired.
+  - `save_killers`: release_data FREEING arm (in-memory state stays, save_oracles precedent); `free_killers` exit-free (save.c:1097); binary Sfo_kinfo wire format (Rule #2).
+  - `restore_killers`: binary Sfi_kinfo wire format (Rule #2); missing/empty key = old save keeps fresh-boot sentinel (restore_oracles precedent).
+- **Ledger:** hawaiian_motif ported; seffect_mail ported; save_killers ported; restore_killers ported
+- **Next:** head moves to `hack.c` cannot_push_msg (next coverage row after save_killers ships).
+
 ## D-3042 — `muse.c` necrophiliac by-design (`#if 0`) + `explode.c` adtyp_to_expltype whole
 
 - **Status:** shipped.

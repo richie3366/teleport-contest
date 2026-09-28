@@ -3,7 +3,7 @@
 {"fn":"cap_spe","c":"80-86","status":"unknown"}
 {"fn":"erode_obj_text","c":"89-97","status":"unknown"}
 {"fn":"tshirt_text","c":"100-187","status":"ported","js":["js/objnam.js:tshirt_text"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is the string table (shirt_msgs objnam.js:426 verified); o_id % SIZE + erode_obj_text exact"}
-{"fn":"hawaiian_motif","c":"190-221","status":"unknown"}
+{"fn":"hawaiian_motif","c":"190-221","status":"ported","js":["js/objnam.js:hawaiian_motif"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"stale: js/objnam.js:588 table+hash C-exact, objnam caller wired"}
 {"fn":"hawaiian_design","c":"224-251","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"apron_text","c":"254-281","status":"unknown"}
 {"fn":"candy_wrapper_text","c":"296-300","status":"unknown"}
@@ -44,7 +44,7 @@
 {"fn":"seffect_food_detection","c":"2046-2052","status":"unknown"}
 {"fn":"seffect_identify","c":"2055-2099","status":"unknown"}
 {"fn":"seffect_magic_mapping","c":"2102-2153","status":"unknown"}
-{"fn":"seffect_mail","c":"2157-2188","status":"unknown"}
+{"fn":"seffect_mail","c":"2157-2188","status":"ported","js":["js/read.js:seffect_mail"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"stale: js/read.js:1885 all arms + readmail default, seffects caller wired"}
 {"fn":"seffects","c":"2194-2291","status":"unknown","d":["D-1098"],"at":"seed@a30a7de84"}
 {"fn":"drop_boulder_on_player","c":"2294-2338","status":"unknown"}
 {"fn":"drop_boulder_on_monster","c":"2341-2410","status":"unknown"}

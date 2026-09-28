@@ -22,8 +22,8 @@
 {"fn":"delayed_killer","c":"1707-1723","status":"unknown"}
 {"fn":"find_delayed_killer","c":"1726-1735","status":"unknown"}
 {"fn":"dealloc_killer","c":"1738-1757","status":"ported","js":["js/end.js:dealloc_killer"],"d":["D-2936"],"at":"seed@a30a7de84"}
-{"fn":"save_killers","c":"1760-1776","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"restore_killers","c":"1780-1790","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"save_killers","c":"1760-1776","status":"ported","js":["js/end.js:save_killers"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restore_killers","c":"1780-1790","status":"ported","js":["js/end.js:restore_killers"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wordcount","c":"1793-1806","status":"unknown"}
 {"fn":"bel_copy1","c":"1809-1820","status":"unknown"}
 {"fn":"build_english_list","c":"1823-1859","status":"ported","js":["js/end.js:build_english_list"],"d":["D-2629"],"at":"seed@a30a7de84"}

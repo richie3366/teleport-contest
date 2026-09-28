@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3043 `read.c` stale pair + `end.c` save_killers/restore_killers JSON-analogue pair
+
+**C locus:** - `hawaiian_motif`: nethack-c/upstream/src/read.c:189–221 — 16-entry `hawaiian_motifs[]` `:192–209`, `motif = o_id ^ ubirthday` `:217`, index `% SIZE` `:219`. Stale, no code change.
+**JS:** - `hawaiian_motif`: js/objnam.js:588 export, sync — unchanged.
+**Change:** stale pair untouched (ledger notes only). New sync exports `save_killers`/`restore_killers` in js/end.js after `dealloc_killer` (C-adjacent): JSON analogues on the save_oracles precedent — records carry the struct's data fields (hack.h `:598–606` id, format, name), sentinel first, C-order loop; VFS always writes so no update_file gate. Wired into js/save.js via the existing lazy save→end edge: `killers: save_killers()` in the dosave0 payload (save.c `:293` analogue) + `restore_killers(payload.killers)` after `restore_oracles` in try_restore_save (restore.c `:653` analogue).
+**Verify:** `node scripts/verify.mjs --fn save_killers,restore_killers` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files (js/end.js js/save.js); rule2 clean; green 2/2; strict ×2; cohort 7/7. Plus: /tmp killer round-trip probe (3-node chain → records → rebuild → identical; missing/empty key keeps live sentinel; `find_delayed_killer` walks restored chain) KILLER-ROUNDTRIP-OK; seed0013 save-then-restore direct: PASS RNG 4804/4804 screens 99/99.
+**Named:** - `hawaiian_motif`: `hawaiian_design` (read.c:223–252, different `~ubirthday` hash + `hawaiian_bgs[]`) — unported staticfn, sole unwired caller; already cited in the JS doc comment + read.js map header.
+**Next:** head moves to `hack.c` cannot_push_msg (next coverage row after save_killers ships).
 ## 2026-09-28 — D-3042 `muse.c` necrophiliac by-design (`#if 0`) + `explode.c` adtyp_to_expltype whole
 
 **C locus:** - `necrophiliac`: nethack-c/upstream/src/muse.c:2688–2703 — whole body sits inside `#if 0 … #endif` (identical in recorder tree); the only other reference is the comment at :1309, so it is never compiled and has no live caller.
