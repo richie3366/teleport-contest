@@ -11,7 +11,7 @@
 {"fn":"found_artifact","c":"409-417","status":"unknown"}
 {"fn":"find_artifact","c":"422-459","status":"unknown"}
 {"fn":"nartifact_exist","c":"462-471","status":"unknown"}
-{"fn":"artifact_origin","c":"478-513","status":"unknown"}
+{"fn":"artifact_origin","c":"478-513","status":"ported","js":["js/artifact.js:artifact_origin"],"d":["D-3053"],"at":"2026-09-28@bfd58ba4c"}
 {"fn":"spec_ability","c":"516-522","status":"unknown","d":["D-1936"],"at":"seed@a30a7de84"}
 {"fn":"confers_luck","c":"526-533","status":"unknown"}
 {"fn":"arti_reflects","c":"537-550","status":"unknown","d":["D-1342"],"at":"seed@a30a7de84"}

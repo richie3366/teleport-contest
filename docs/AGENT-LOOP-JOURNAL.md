@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3053 `artifact_origin` whole port (origin-bit count + impossible arm)
+
+**C locus:** - `artifact_origin`: nethack-c/upstream/src/artifact.c:478–513 (whole body in C order — `a = arti->oartifact` :482, `if (a)` :484, `artiexist[a] = zero_artiexist` :486, `exists = 1` :488, KNOW_ARTI→found :491–492, seven origin arms each setting one bit and `++ct` :496–509, `ct != 1 → impossible` :510–511).
+**JS:** - `artifact_origin`: js/artifact.js:1391 (export, sync — 0 RNG).
+**Change:** restarted the export whole in C order with per-arm `:line` cites — zero-literal slot (`rnd` holds C `.rndm`; file convention js/artifact.js:558), `exists = 1`, KNOW_ARTI arm, `let ct = 0` with all seven origin arms setting bit + `++ct`, `ct !== 1 → void impossible('invalid artifact origin: %s', octal)`. `%4o` pre-formatted as unsigned space-padded octal (`>>> 0`, `toString(8)`, `padStart(4, ' ')`) because JS `impossible` expands `%s`/`%d` only. Sync `void` fire-and-forget per the botl/dungeon/engrave/light precedent — all four C call sites pass exactly one origin bit, so the arm never fires in normal play and the export (and all callers) stay sync.
+**Verify:** `node scripts/verify.mjs --fn artifact_origin` → VERIFY: PASS — syntax 1 changed js file (js/artifact.js); rule2 clean; hidden note (no corpus session blocked — coverage row, expected); reach REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
+**Named:** - `artifact_origin`: none — every arm ported, sole C callee `impossible` live.
+**Next:** next Open — coverage head after regenerate. Density note: one 23-line function (~30 JS lines with cites) — below the ~80-insertion guideline, but `ledger.mjs rows` shows it is the only `artifact.c` row Open and the sole C callee (`impossible`) is already live, so there was nothing more in-file or in-closure to ship.
 ## 2026-09-28 — D-3052 `cmap_to_roguecolor` whole port (RogueIBM cmap color) + two stale dispositions
 
 **C locus:** - `cmap_to_roguecolor`: nethack-c/upstream/src/display.c:2699–2719 (whole body in C order — symset nocolor → NO_COLOR :2703–2704, S_vwall..S_hcdoor → CLR_BROWN :2706–2707, S_arrow_trap..S_polymorph_trap → CLR_MAGENTA :2708–2709, S_corr/S_litcorr → CLR_GRAY :2710–2711, S_room..S_water except S_darkroom → CLR_GREEN :2712–2714, else NO_COLOR :2715–2716).
@@ -76,51 +84,3 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn furniture_detect,map_redisplay` → VERIFY: PASS — syntax 1 file; Rule #2 clean; hidden: no corpus session blocked on either (coverage rows, expected); REACH smoke spread 24/24 PASS both (REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
 **Named:** - `furniture_detect`: C :1126 `display_nhwindow(WIN_MAP, TRUE)` — no JS `display_nhwindow` export exists (sym.mjs); `!revealed` arm falls through to `map_redisplay`.
 **Next:** `def_char_is_furniture` `}` fountain gap (review 81 §furniture_detect) still routes `}` gazes to objclass/level_detects + `rn2(4)`; own row, different file (drawing.c).
-## 2026-09-28 — D-3044 `cloak_simple_name` caller wiring + `cannot_push_msg` stale
-
-**C locus:** - `cannot_push_msg`: nethack-c/upstream/src/hack.c:247–259 — `the(xname)`, usteed `YMonnam` arm, `You` arm, `Blind → feel_location`. Stale, no code change.
-**JS:** - `cannot_push_msg`: js/hack.js:234 unchanged (stale).
-**Change:** deleted both twins, added `cloak_simple_name` to the existing `./do_wear.js` imports (both edges already existed — no new cycle); wired the five do_wear arms with per-arm `:line` cites (shirt arm keeps C `(uarm && !uarmc) ? c_armor("armor")` ternary); W_ARMC arm calls the canonical. Same-statement suit guard arm wired to live `suit_simple_name` (C do_wear.c:1787–1789, C-verbatim port).
-**Verify:** - `cannot_push_msg`: stale — no verify (ledger note only).
-**Named:** - `cannot_push_msg`: none.
-**Next:** `furniture_detect` (detect.c:1091–1134) heads the regenerated coverage block.
-## 2026-09-28 — D-3043 `read.c` stale pair + `end.c` save_killers/restore_killers JSON-analogue pair
-
-**C locus:** - `hawaiian_motif`: nethack-c/upstream/src/read.c:189–221 — 16-entry `hawaiian_motifs[]` `:192–209`, `motif = o_id ^ ubirthday` `:217`, index `% SIZE` `:219`. Stale, no code change.
-**JS:** - `hawaiian_motif`: js/objnam.js:588 export, sync — unchanged.
-**Change:** stale pair untouched (ledger notes only). New sync exports `save_killers`/`restore_killers` in js/end.js after `dealloc_killer` (C-adjacent): JSON analogues on the save_oracles precedent — records carry the struct's data fields (hack.h `:598–606` id, format, name), sentinel first, C-order loop; VFS always writes so no update_file gate. Wired into js/save.js via the existing lazy save→end edge: `killers: save_killers()` in the dosave0 payload (save.c `:293` analogue) + `restore_killers(payload.killers)` after `restore_oracles` in try_restore_save (restore.c `:653` analogue).
-**Verify:** `node scripts/verify.mjs --fn save_killers,restore_killers` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files (js/end.js js/save.js); rule2 clean; green 2/2; strict ×2; cohort 7/7. Plus: /tmp killer round-trip probe (3-node chain → records → rebuild → identical; missing/empty key keeps live sentinel; `find_delayed_killer` walks restored chain) KILLER-ROUNDTRIP-OK; seed0013 save-then-restore direct: PASS RNG 4804/4804 screens 99/99.
-**Named:** - `hawaiian_motif`: `hawaiian_design` (read.c:223–252, different `~ubirthday` hash + `hawaiian_bgs[]`) — unported staticfn, sole unwired caller; already cited in the JS doc comment + read.js map header.
-**Next:** head moves to `hack.c` cannot_push_msg (next coverage row after save_killers ships).
-## 2026-09-28 — D-3042 `muse.c` necrophiliac by-design (`#if 0`) + `explode.c` adtyp_to_expltype whole
-
-**C locus:** - `necrophiliac`: nethack-c/upstream/src/muse.c:2688–2703 — whole body sits inside `#if 0 … #endif` (identical in recorder tree); the only other reference is the comment at :1309, so it is never compiled and has no live caller.
-**JS:** - `necrophiliac`: none — by-design, no symbol added.
-**Change:** `necrophiliac` declared by-design, no code (porting `#if 0` C would add dead JS C never executes). Restarted `adtyp_to_expltype` whole as a C-order switch (same export name; now async since the default arm awaits the live async `impossible`). New file-local AD consts at js/explode.js:114–121 with monattk.h values (DREN 16, DRDX 30, DRCO 31, DISE 33, PEST 38, ENCH 41, SPEL 241).
-**Verify:** `node scripts/verify.mjs --fn necrophiliac,adtyp_to_expltype` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files; rule2 clean; green 2/2; strict ×2; cohort 7/7.
-**Named:** - `necrophiliac`: whole function — C `#if 0`, never compiled (muse.c:2688/2703, both trees).
-**Next:** head moves to `read.c` hawaiian_motif (next coverage row after adtyp_to_expltype ships).
-## 2026-09-28 — D-3041 `do.c` drop whole + `finesse_ahriman` port
-
-**C locus:** - `drop`: nethack-c/upstream/src/do.c:714–780 — guards `:716–721`, unwield + welded weldmsg `:722–728`, quiver/swap `:729–734`, swallowed verbose into-monster pline `:736–751`, sink ring `:753–757`, levitating freeinv + hitfloor with levhack `:758–772`, altar-gated pline `:774–775`, how_lost + dropx `:777–779`.
-**JS:** - `drop`: js/do.js:2887 export, async (pline/More reach).
-**Change:** restarted `drop` whole in C order with per-arm `:line` cites (same export name/signature); new sync `finesse_ahriman` export in js/artifact.js in C position (after `get_artifact`, before `arti_speak`, mirroring artifact.c order). `ELevitation = W_ART` writes the flat and the uprops table slot (set_spfx_extrinsic convention); the probe saves/clears/restores both stores synchronously. New imports ride existing edges (do.js already imports artifact/do_name/objnam/polyself/wield/const modules; `s_suffix` taken from canonical do_name.js, not the mthrowu.js clone per D-2268).
-**Verify:** `node scripts/verify.mjs --fn drop,finesse_ahriman` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files; rule2 clean; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed).
-**Named:** - `drop`: none — every arm ported, every callee live.
-**Next:** head moves to `muse.c` necrophiliac (next coverage row).
-## 2026-09-28 — D-3040 `options.c` mod-status family whole + donning stale
-
-**C locus:** - `set_option_mod_status`: nethack-c/upstream/src/options.c:9854–9869 — `SET__IS_VALUE_VALID` guard + impossible `:9859–9861`, first prefix match sets `setwhere` `:9864–9867`.
-**JS:** - `set_option_mod_status`: js/options.js:1087 export, sync.
-**Change:** new exports in js/options.js in C order with per-arm `:line` cites. `SET__IS_VALUE_VALID` (global.h:603) reads valid but means invalid — ported as `status < SET_IN_SYSCONF || status > SET_WIZNOFUZ` (in-file consts, C values 0/6, verified against global.h:581–586). Sync like C; `void impossible(...)` per file precedent (disclosure arm).
-**Verify:** `node scripts/verify.mjs --fn set_option_mod_status,set_wc_option_mod_status,set_wc2_option_mod_status` → VERIFY: PASS — hidden: none blocked (expected for coverage rows); REACH-OK ×3 (smoke spread 24 PASS each); green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed). Headless probe: allopt rows `perm_invent` idx127 / `perminv_mode` idx128 adjacent (first-match-wins verified — no earlier row prefix-matches; `perminv_mode` does not prefix-match `perm_invent`); valid/invalid/out-of-range statuses + full-mask wc fan-out run without throw.
-**Named:** - `set_option_mod_status`: wintty.c:2965 `set_option_mod_status("perm_invent", set_gameview)` — compiled out (`#define RESIZABLE` wintty.c:39, call sits under `#ifndef RESIZABLE` :2964); no JS site by C design.
-**Next:** pop the queue head next (refill regenerates the coverage block). Density note: ~66 js/ insertions — under the ~80 guide, but the head's file and callee closure hold nothing more Open (options.c has no other queue row; callees `impossible`/`str_start_is` are live), and the 2 same-file caller siblings shipped so every in-port caller of the head is wired.
-## 2026-09-28 — D-3039 `quest.c` quest_chat whole + nemesis/guardian staticfns
-
-**C locus:** - `quest_chat`: nethack-c/upstream/src/quest.c:472–492 — leader compare `:475`, chat `:476`, pissed follow-up `:478–479`, early return `:480`, msound switch `:482–491` (nemesis `:483–485`, guardian `:486–488`, impossible default `:490`).
-**JS:** - `quest_chat`: js/quest.js export, restarted whole in C order (async — callees async).
-**Change:** restarted `quest_chat` whole in C order with per-arm `:line` cites (bare `m_id` compare per C; `await setmangry(mtmp, false)` for C `FALSE`; `mtmp.data?.msound|0` switch with both arms + async `impossible('quest_chat: Unknown quest character %s.', mon_nam(mtmp))` default); new file-local `chat_with_nemesis` / `chat_with_guardian` staticfns in C order (C staticfns, sole caller `quest_chat`); `Qstat(met_nemesis++)` as `((qs.met_nemesis|0)+1)` under the `!qs.met_nemesis` guard; new `MS_GUARDIAN = 38` local const beside `MS_NEMESIS`; `setmangry` + `mon_nam` folded into the existing mon.js / do_name.js imports (no new edge); header omission lines retired.
-**Verify:** `node scripts/verify.mjs --fn quest_chat,chat_with_nemesis,chat_with_guardian` → VERIFY: PASS — syntax (1 changed file) · Rule #2 · hidden notes (no corpus session blocked on any of the three at baseline) · REACH-OK all three (no RNG-tagged reach; smoke spread 24/24 PASS each) · green 2/2 + strict · cohort 7/7.
-**Named:** - `quest_chat`: none — every arm ported, every callee live (`chat_with_leader`, `setmangry`, `qt_pager`, `impossible`, `mon_nam`).
-**Next:** `quest.c` holds no further Open coverage rows (only quest_chat was queue-eligible; callees ported in-closure); review 1805's QUALITY-RISK (per-role nemesis/discourage tables for `com_pager_core`) stays with the questpgr extractor, not this cluster.

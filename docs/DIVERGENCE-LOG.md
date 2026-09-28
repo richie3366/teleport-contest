@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3053 — `artifact_origin` whole port (origin-bit count + impossible arm)
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL (C 23 code L `artifact.c:478–513` / JS 17 code L in js/artifact.js; hops 3, callers 4, RNG 0, msg 0) — the JS body built the slot from independent flag tests, invented a `slot.rnd = 1` default when no origin bit was set (that default lives in C `artifact_exists` `:390–393`, never in `artifact_origin`), and dropped the `ct != 1 → impossible("invalid artifact origin: %4o")` arm.
+- **C locus:**
+  - `artifact_origin`: nethack-c/upstream/src/artifact.c:478–513 (whole body in C order — `a = arti->oartifact` :482, `if (a)` :484, `artiexist[a] = zero_artiexist` :486, `exists = 1` :488, KNOW_ARTI→found :491–492, seven origin arms each setting one bit and `++ct` :496–509, `ct != 1 → impossible` :510–511).
+- **JS was:** js/artifact.js:1391 sync `artifact_origin` — per-flag ternary slot literal with no count, invented no-origin-bits→`rnd = 1` default, no `impossible` call (`impossible` already imported at js/artifact.js:112).
+- **Fix:** restarted the export whole in C order with per-arm `:line` cites — zero-literal slot (`rnd` holds C `.rndm`; file convention js/artifact.js:558), `exists = 1`, KNOW_ARTI arm, `let ct = 0` with all seven origin arms setting bit + `++ct`, `ct !== 1 → void impossible('invalid artifact origin: %s', octal)`. `%4o` pre-formatted as unsigned space-padded octal (`>>> 0`, `toString(8)`, `padStart(4, ' ')`) because JS `impossible` expands `%s`/`%d` only. Sync `void` fire-and-forget per the botl/dungeon/engrave/light precedent — all four C call sites pass exactly one origin bit, so the arm never fires in normal play and the export (and all callers) stay sync. No new imports, no signature change. Probe (`/tmp/probe-artifact-origin.mjs`, scratch): RANDOM→`{exists:1,rnd:1}`, GIFT|KNOW→`{exists:1,found:1,gift:1}`, WISH|KNOW→`{exists:1,found:1,wish:1}`, `a = 0` no-op — all C values.
+- **JS:**
+  - `artifact_origin`: js/artifact.js:1391 (export, sync — 0 RNG).
+- **Callers:**
+  - `artifact_origin`: C artifact.c:284 (mk_artifact) → js/artifact.js:1316 (ONAME_RANDOM, unchanged); C artifact.c:397 (artifact_exists, which keeps its own C `:390–393` RANDOM-default port) → js/artifact.js:1440 (unchanged); C pray.c:1803 → js/pray.js:2410 (ONAME_GIFT | ONAME_KNOW_ARTI, unchanged); C zap.c:6383 → js/zap.js:7274 (ONAME_WISH | ONAME_KNOW_ARTI, unchanged) — all four pass exactly one origin bit, so all stay on the `ct === 1` path with byte-identical slot state to before.
+- **Verify:** `node scripts/verify.mjs --fn artifact_origin` → VERIFY: PASS — syntax 1 changed js file (js/artifact.js); rule2 clean; hidden note (no corpus session blocked — coverage row, expected); reach REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:**
+  - `artifact_origin`: none — every arm ported, sole C callee `impossible` live.
+- **Ledger:** artifact_origin ported.
+- **Next:** next Open — coverage head after regenerate. Density note: one 23-line function (~30 JS lines with cites) — below the ~80-insertion guideline, but `ledger.mjs rows` shows it is the only `artifact.c` row Open and the sole C callee (`impossible`) is already live, so there was nothing more in-file or in-closure to ship.
+
 ## D-3052 — `cmap_to_roguecolor` whole port (RogueIBM cmap color) + two stale dispositions
 
 - **Status:** shipped.

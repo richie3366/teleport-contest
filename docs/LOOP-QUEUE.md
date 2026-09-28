@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `artifact.c` artifact_origin — coverage PARTIAL (C 23 code L `artifact.c:478–513` / JS 17 code L in js/artifact.js; hops 3, callers 4, RNG 0, msg 0) @b689d8429
 - [ ] `uhitm.c` hmon_hitmon_do_hit — coverage MISSING (C 29 code L `uhitm.c:1387–1433` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b689d8429
 - [ ] `timeout.c` restore_timers — coverage THIN (C 12 code L `timeout.c:2707–2728` / JS 5 code L in js/mkobj.js; hops 3, callers 2, RNG 0, msg 0) @25bf764f0
 - [ ] `uhitm.c` mhitm_ad_corr — coverage MISSING (C 14 code L `uhitm.c:2338–2360` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @fa84aeeac
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `zap.c` spell_hit_bonus — coverage MISSING (C 27 code L `zap.c:3509–3544` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @6f36d2ab4
 - [ ] `pager.c` docontact — coverage MISSING (C 21 code L `pager.c:2718–2745` / JS no symbol; hops —, callers 0, RNG 0, msg 9) @6f36d2ab4
 - [ ] `light.c` wiz_light_sources — coverage MISSING (C 31 code L `light.c:935–975` / JS no symbol; hops —, callers 0, RNG 0, msg 6) @6f36d2ab4
+- [ ] `trap.c` untrap_prob — coverage PARTIAL (C 32 code L `trap.c:5289–5337` / JS 22 code L in js/trap.js; hops —, callers 2, RNG 2, msg 0) @bfd58ba4c
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
