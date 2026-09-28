@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3010 — timeout.c lantern_message + see_lamp_flicker extraction; burn_object milestone arms rewired (batteries + MINVENT + s_suffix)
+
+- **Status:** shipped (Open — coverage `timeout.c` lantern_message MISSING (C 12 code L `timeout.c:1359–1376` / JS no symbol) as cluster head + same-file staticfn sibling `see_lamp_flicker` MISSING (C 8 code L, below row threshold), both wired into `burn_object`; `dbridge.c` E_phrase + find_drawbridge stale-ported in the same iteration — bodies whole under the same names with every C caller wired in JS).
+- **Symptom:** coverage cluster — `burn_object` carried inline lantern/flicker arms that dropped C arms: no Hallucination `Batteries have not been invented yet.` line, no MINVENT arm at age 25, and a naive `'s` possessive instead of `s_suffix(Monnam(...))`. No corpus session blocked on any of the three (expected for a coverage row).
+- **C locus:**
+  - `lantern_message`: `nethack-c/upstream/src/timeout.c:1359–1376` (INVENT Your + Hallucination batteries `:1364–1367`, FLOOR `:1369–1371`, MINVENT s_suffix(Monnam) `:1373–1374`).
+  - `see_lamp_flicker`: `nethack-c/upstream/src/timeout.c:1343–1357` (INVENT+MINVENT `Yname2 flickers` `:1349–1352`, FLOOR `an(xname) flicker` `:1354–1356`; "only called if seen" — the canseeit gate lives in the caller).
+  - `burn_object` call sites `:1482` (150/100/50 milestone) and `:1492` (age 25), both `lantern_message(obj)` for BRASS_LANTERN / `see_lamp_flicker(obj, ...)` for OIL_LAMP.
+- **JS was:** `burn_object` (`js/timeout.js:1870`) inlined all three sites — milestone lantern INVENT/FLOOR only with `Monnam(ocarry)+'s`, age-25 lantern INVENT/FLOOR only, flicker via template literal; no `lantern_message`/`see_lamp_flicker` symbol anywhere in `js/`.
+- **Fix:** new file-local async `see_lamp_flicker(obj, tailer)` + `lantern_message(obj)` in C order (C staticfn → file-local, async because Your/You_see/pline await; precedent D-2997/D-3001); the three `burn_object` sites now call them. `Your` + `s_suffix` added to the existing display.js/do_name.js import edges (`imports.mjs --can`: no new edge needed). No ocarry guard — C has none (MINVENT ⇒ carrier invariant); `s_suffix` replaces the naive possessive.
+- **JS:** `js/timeout.js` (new fns `:1869/:1886`, rewire `:1971/:1973/:1980`, imports `:52/:78`).
+- **Callers:**
+  - `lantern_message`: C `:1482` → `js/timeout.js:1971` (milestone arm); C `:1492` → `js/timeout.js:1980` (age-25 arm). Both now also carry the MINVENT + batteries arms C always had.
+  - `see_lamp_flicker`: C `:1479–1480` (`obj->age == 50 ? " considerably" : ""`) → `js/timeout.js:1973` (same ternary, C order).
+  - `burn_object`: BURN_OBJECT timer callback (no in-repo C caller; fired by the timer system via `begin_burn`) → `js/timeout.js:1908`, unchanged except the three call sites.
+- **Verify:** `node scripts/verify.mjs --fn lantern_message,see_lamp_flicker,burn_object` → PASS syntax (1 file) · PASS rule2 · note hidden ×3 (no corpus session blocked at baseline — expected) · REACH-OK ×3 (no RNG-tagged reach; fixed smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (forced: timer path is turn-loop-adjacent) · VERIFY: PASS.
+- **Named omissions:**
+  - `lantern_message`: none — every arm ported, every callee live (Your/You_see/pline/Hallucination/s_suffix/Monnam), both C call sites wired.
+  - `see_lamp_flicker`: none — every arm ported, every callee live (pline/Yname2/You_see/xname/an), the C call site wired.
+  - `burn_object`: not in the cluster (measured ok) — touched only at the three call sites; its `default: break` (C `:1673` impossible) is pre-existing and unchanged.
+- **Ledger:** lantern_message ported; see_lamp_flicker ported
+- **Next:** timeout.c burn-milestone family complete; no follow-up row.
+
 ## D-3009 — options.c doset_simple_menu restart + longest_option_name; fireassist iflags bag moves scen-options 17→65
 
 - **Status:** shipped (Open — coverage `options.c` doset_simple_menu THIN (C 121 code L `options.c:8536–8702` / JS 43 code L) as cluster head + Open callee `longest_option_name` MISSING (C 18 code L `options.c:8507–8532`, staticfn)).

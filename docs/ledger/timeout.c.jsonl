@@ -19,8 +19,8 @@
 {"fn":"learn_egg_type","c":"1193-1200","status":"unknown","d":["D-2241"],"at":"seed@a30a7de84"}
 {"fn":"attach_fig_transform_timeout","c":"1204-1218","status":"ported","js":["js/mkobj.js:attach_fig_transform_timeout"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"slip_or_trip","c":"1222-1341","status":"unknown"}
-{"fn":"see_lamp_flicker","c":"1345-1356","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lantern_message","c":"1360-1376","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"see_lamp_flicker","c":"1345-1356","status":"ported","js":["js/timeout.js:see_lamp_flicker"],"d":["D-3010"],"at":"2026-09-28@70c901367","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lantern_message","c":"1360-1376","status":"ported","js":["js/timeout.js:lantern_message"],"d":["D-3010"],"at":"2026-09-28@70c901367","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"burn_object","c":"1383-1680","status":"unknown"}
 {"fn":"begin_burn","c":"1712-1797","status":"unknown"}
 {"fn":"end_burn","c":"1804-1822","status":"ported","js":["js/timeout.js:end_burn"],"d":["D-2914"],"at":"seed@a30a7de84"}
