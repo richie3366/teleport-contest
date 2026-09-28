@@ -2543,6 +2543,37 @@ function ensure_message_win() {
 }
 
 /**
+ * C report.c get_saved_pline `:571–592` (DUMPLOG_CORE is always on in the
+ * pinned build, config.h `:269–270`). lineno-th most-recent valid entry
+ * of the live `dumplogmsg` ring above: `:577–578` out-of-range lineno
+ * returns null, `:579` starts at the newest slot, the `:581` limit walk
+ * skips empty slots (`:582`) and older entries (`:583–584`), returning
+ * the entry when the skip count runs out (`:586`), else null (`:591`).
+ * C `USED_if_dumplog` is the no-DUMPLOG build only — always live here.
+ * Index-0 note: C `(0 - 1) % 50` reads out of bounds (callers only run
+ * on the crash path with a full ring); JS yields undefined → invalid →
+ * null instead of an OOB read.
+ * @param {number} lineno
+ * @returns {string|null}
+ */
+export function get_saved_pline(lineno) {
+    let skip = lineno | 0; // C `:571` int lineno
+    if (skip >= DUMPLOG_MSG_COUNT) return null; // C `:577–578`
+    let p = (_saved_pline_index - 1) % DUMPLOG_MSG_COUNT; // C `:579`
+    let limit = DUMPLOG_MSG_COUNT; // C `:575`
+    while (limit--) { // C `:581`
+        if (_saved_plines[p]) { // C `:582` valid line
+            if (skip--) { // C `:583`
+                p = (p - 1 + DUMPLOG_MSG_COUNT) % DUMPLOG_MSG_COUNT; // C `:584`
+            } else {
+                return _saved_plines[p]; // C `:586`
+            }
+        }
+    }
+    return null; // C `:591`
+}
+
+/**
  * C pline.c dumplogmsg `:21–46` (DUMPLOG_CORE). Skip "Unknown command".
  * Reuse the slot when the old string is long enough.
  * @param {string} line

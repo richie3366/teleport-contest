@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3031 — `report.c` get_saved_pline whole (DUMPLOG ring read over the live dumplogmsg ring)
+
+- **Status:** shipped. Queue head `report.c` get_saved_pline (MISSING, C 12 L, no JS symbol) as a single-function cluster — the head's file and callee closure hold nothing more Open (generated block holds no other report.c row; brief lists 0 C callees; the other report.c `absent` rows are crash/panictrace platform code, not queue rows). First read said "returns NULL" (DUMPLOG retired, D-1776) — falsified by config.h:269–270 (`#define DUMPLOG_CORE` unconditional), so the compiled body is the full ring walk and that is what shipped.
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify get_saved_pline`: no corpus session blocked on it at baseline).
+- **C locus:**
+  - `get_saved_pline`: `nethack-c/upstream/src/report.c:571–592` whole in C order — `:575` limit init, `:577–578` lineno≥COUNT guard, `:579` newest-slot start, `:581–589` limit walk (`:582` valid-line test, `:583–584` skip-and-step-back, `:586` return), `:591` fallthrough null. `USED_if_dumplog` (`:571`) is the no-DUMPLOG build only — always live in the pinned build.
+- **JS was:** no symbol; the producer `dumplogmsg` (pline.c:21–46) and its ring (`_saved_plines`/`_saved_pline_index`, display.js:2519–2520) already live.
+- **Fix:**
+  - `get_saved_pline`: new export (`js/display.js:2559`) in C order with per-arm `:line` cites over the live ring — `|0` lineno, newest-slot start, 50-step walk, modular step-back, null fallthrough. No new import (DUMPLOG_MSG_COUNT already imported); no gstate change (ring stays module-local with its producer).
+- **JS:**
+  - `get_saved_pline`: `js/display.js:2559` (doc `:2545–2558`, body `:2559–2575`).
+- **Callers:**
+  - `get_saved_pline`: sole C caller report.c:388 (`submit_web_report` Latest-messages loop) → unwired; `submit_web_report` is ledger by-design (network crash report, Rule #2) — named omission, no JS site.
+- **Verify:** /tmp/probe_gspl.mjs 10/10 (newest/second/third, past-oldest null, COUNT/COUNT+1 null, 55-msg wrap newest m55 + oldest-kept m6). `verify.mjs --fn get_saved_pline` tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/display.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify get_saved_pline: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    get_saved_pline: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+```
+- **Named omissions:**
+  - `get_saved_pline`: C `(0 - 1) % 50` out-of-bounds read at ring index 0 (decl.c zero-init; only reachable on the crash path with an empty ring) — JS yields undefined → invalid slot → null instead of an OOB read; unreachable from any live caller (`submit_web_report` by-design absent).
+- **Ledger:** get_saved_pline ported.
+- **Next:** next Open — coverage row (`sp_lev.c` l_push_mkroom_table at enqueue).
+
 ## D-3030 — `objnam.c` bare_artifactname whole + ch_ksound stale-retire (non-artifact xname fallback)
 
 - **Status:** shipped. Queue head `objnam.c` bare_artifactname (PARTIAL, C 9 L) restarted whole; same-file companion `ch_ksound` (THIN) verified already complete — ledger-staled with no code change. Small cluster justified: head's file and callee closure hold nothing more Open (makeplural already ported; nextobuf is by-design elided buffer machinery; artiname/xname live).

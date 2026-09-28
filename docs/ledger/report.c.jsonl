@@ -5,6 +5,6 @@
 {"fn":"dobugreport","c":"461-471","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"NH_panictrace_libc","c":"485-512","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"NH_panictrace_gdb","c":"529-560","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"get_saved_pline","c":"571-592","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_saved_pline","c":"571-592","status":"ported","js":["js/display.js:get_saved_pline"],"d":["D-3031"],"at":"2026-09-28@2972f3ad5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"panictrace_handler","c":"600-622","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"panictrace_setsignals","c":"625-657","status":"by-design","at":"2026-09-28@73b53df4b","note":"POSIX signal() has no browser equivalent (Rule #2 forbids node:*); callers are platform entry points; precedent submit_web_report by-design"}
