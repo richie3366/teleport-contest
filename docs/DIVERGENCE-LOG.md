@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3022 — `savenames` + `restnames` whole (o_init.c names chunk as a JSON-analogue pair; blob moved under the C entry points)
+
+- **Status:** shipped (Open — coverage head `o_init.c` savenames MISSING. No corpus session blocked on either.)
+- **Symptom:** coverage gap, not a corpus divergence. No `savenames`/`restnames` symbol existed in `js/`; the names data (bases/disco/objclass-mutables/oc_uname) round-tripped only as inline blob fields — file-local `serObjectsMutable` + an inline restore loop in `js/save.js` — with no entry point matching C's savegamestate/restgamestate chunk calls.
+- **C locus:**
+  - `savenames`: `nethack-c/upstream/src/o_init.c:375–407` whole in C order — `:380` `update_file` gate, `:381–383` bases[MAXOCLASSES+2] (`names-bases`), `:384–386` disco[NUM_OBJECTS] (`names-disco`), `:387–389` objclass per object (`names-objclass`), `:394–406` uname loop (len+chars only for non-null, `release_data` free). Sfo_* is structlevel raw-struct + `norm_ptrs` (`sfstruct.c` SF_C); oc_uname is genericptr-opaque to sftags (`util/sftags.c:1465`), hence the separate string loop.
+  - `restnames`: `nethack-c/upstream/src/o_init.c:411–437` whole in C order — `:415–417` bases, `:418–420` disco, `:421–423` objclass, `:429–435` uname `if (objects[i].oc_uname)` marker arm, `:433–435` TILES_IN_GLYPHMAP `shuffle_tiles` ifdef.
+- **JS was:** `serObjectsMutable(game.objects)` (`js/save.js:184`, deleted) + `bases`/`disco` spreads in the dosave0 payload and a matching inline overlay in `try_restore_save` — same bytes, no C entry point, no C cites.
+- **Fix:** new `export function savenames` (`js/o_init.js:358`) returning `{objects, bases, disco}` in C order (bases copy, disco copy, per-entry objclass mutables + `oc_uname: string|null` inline — the uname length prefix rides in the entry, JSON analogue of the separate loop); new `export function restnames(saved)` (`js/o_init.js:390`) overlaying bases/disco/objclass in C order with the set-only uname marker arm. `js/save.js` calls `savenames()` in dosave0 (`js/save.js:519`, keeps payload key order) and `restnames(payload)` in `try_restore_save` (`js/save.js:795`, after the pre-existing `objects_globals_init`). Import joins the existing 99-module SCC (`imports.mjs --can`: runtime calls only, no top-level read). New `scripts/names-save-restore.test.mjs` (4/4 pass: snapshot shape, copy isolation, JSON round-trip, missing-uname marker arm).
+- **JS:**
+  - `savenames`: `js/o_init.js:358`.
+  - `restnames`: `js/o_init.js:390`.
+- **Callers:**
+  - `savenames`: live C caller `save.c:325` (savegamestate) → wired `js/save.js:519` (dosave0). `save.c:1096` `freenames()` is FREE_ALL_MEMORY-only (leak-debug, compiled out) — named, not ported.
+  - `restnames`: live C caller `restore.c:719` (restgamestate) → wired `js/save.js:795` (try_restore_save).
+- **Verify:** `node scripts/verify.mjs --fn savenames,restnames` → VERIFY: PASS — syntax 2 files; rule2 PASS; hidden notes (0 blocked each, expected for a coverage pair); reach REACH-OK ×2 (no RNG tags; smoke 24/24 each); green 2/2; strict ×2; cohort 7/7. `node frozen/ps_test_runner.mjs sessions` → full 44/44 PASS (`266+1.64/turn`, R² 0.774). `node --test scripts/names-save-restore.test.mjs` → 4/4 pass. Paste tail: `PASS reach savenames: ... 24 PASS, 0 regressed → REACH-OK` / `PASS reach restnames: ... 24 PASS, 0 regressed → REACH-OK` / `44/44 passing`.
+- **Named omissions:**
+  - `savenames`: Sfo_* binary encode (stash/JSON architecture, msghistory precedent); `update_file` gate (VFS always writes); `release_data` free — GC no-op, live table keeps names; FREE_ALL_MEMORY `freenames()` (compiled out).
+  - `restnames`: Sfi_* binary decode (same architecture); table reset stays with the caller (`objects_globals_init` pre-call, as C boots init'ed); `shuffle_tiles` TILES_IN_GLYPHMAP-only (already named at `init_objects`).
+- **Ledger:** savenames ported; restnames ported
+- **Next:** coverage head leaves the block on finish; refill tops up. restnames had no row (below the 12-row cut) and ships as the same-file restore counterpart — msghistory pair precedent.
+
 ## D-3021 — mtele_trap screen flip at scen-tour-Samurai-91113 step 54: owner misattribution; writer is the movemon `:1332–1333` any_light_source arm
 
 - **Status:** shipped (Must-fix row `teleport.c` mtele_trap screen flip — audit rescore 2026-09-28T09:17Z: scen-tour-Samurai-91113 PASS→FAIL, step 54, kind=screen, owner mtele_trap.)

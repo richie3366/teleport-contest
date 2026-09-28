@@ -22,6 +22,7 @@ import {
     WRITING, FREEING, NHF_SAVEFILE,
 } from './const.js';
 import { objects_globals_init, objectNames } from './objects.js';
+import { savenames, restnames } from './o_init.js';
 import { nh_terminate_capture } from './topten.js';
 import { l_nhcore_init, restore_waterlevel } from './mklev.js';
 import {
@@ -180,20 +181,6 @@ const GRAPPLING_HOOK = objectNames.indexOf('GRAPPLING_HOOK');
 
 /** Live obj/mon pointers that JSON.stringify cannot cycle through. */
 const CONTEXT_LIVE_KEYS = new Set(['piece', 'tin', 'book', 'hitmon', 'stylus']);
-
-function serObjectsMutable(objects) {
-    if (!objects) return [];
-    return objects.map((oc) => ({
-        oc_name_known: oc.oc_name_known | 0,
-        oc_descr_idx: oc.oc_descr_idx | 0,
-        oc_color: oc.oc_color | 0,
-        oc_tough: oc.oc_tough | 0,
-        oc_material: oc.oc_material | 0,
-        oc_prob: oc.oc_prob | 0,
-        oc_encountered: oc.oc_encountered | 0,
-        oc_uname: oc.oc_uname || null,
-    }));
-}
 
 function deserInventArray(arr) {
     const invent = [];
@@ -528,17 +515,19 @@ export async function dosave0() {
     nhfp.fnidx = FNIDX_HISTORICAL;
     nhfp.fd = 0;
     store_version(nhfp);
+    // C save.c:325 savenames(nhfp) — bases/disco/objclass/uname chunk.
+    const names = savenames();
     const payload = {
         version: 1,
         version_header: nhfp.sf || null,
         plname: game.plname,
         u: serHero(u),
         invent: serInventArray(game.invent),
-        objects: serObjectsMutable(game.objects),
-        bases: game.bases ? [...game.bases] : null,
+        objects: names.objects,
+        bases: names.bases,
         oclass_prob_totals: game.oclass_prob_totals
             ? [...game.oclass_prob_totals] : null,
-        disco: game.disco ? [...game.disco] : [],
+        disco: names.disco,
         flags: game.flags ? { ...game.flags } : {},
         // C restore.c ~576–580: iflags (perm_invent) is not in the save.
         context: serContext(game.context),
@@ -802,28 +791,13 @@ export async function try_restore_save() {
     }
 
     objects_globals_init();
-    if (payload.objects && game.objects) {
-        for (let i = 0; i < payload.objects.length && i < game.objects.length; i++) {
-            const src = payload.objects[i];
-            const dst = game.objects[i];
-            if (!src || !dst) continue;
-            dst.oc_name_known = src.oc_name_known | 0;
-            dst.oc_descr_idx = src.oc_descr_idx | 0;
-            dst.oc_color = src.oc_color | 0;
-            dst.oc_tough = src.oc_tough | 0;
-            dst.oc_material = src.oc_material | 0;
-            dst.oc_prob = src.oc_prob | 0;
-            dst.oc_encountered = src.oc_encountered | 0;
-            if (src.oc_uname) dst.oc_uname = src.oc_uname;
-        }
-    }
-    if (payload.bases) game.bases = payload.bases;
+    // C restore.c:719 restnames(nhfp) — bases/disco/objclass/uname chunk.
+    restnames(payload);
     if (payload.oclass_prob_totals) {
         game.oclass_prob_totals = payload.oclass_prob_totals;
     }
 
     game.plname = payload.plname || game.plname;
-    game.disco = payload.disco || [];
     game.flags = { ...(game.flags || {}), ...(payload.flags || {}) };
     // C: iflags (perm_invent, graphics) stay from nethackrc; not in save.
     game.context = { ...(payload.context || {}) };

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3022 `savenames` + `restnames` whole (o_init.c names chunk as a JSON-analogue pair; blob moved under the C entry points)
+
+**C locus:** - `savenames`: `nethack-c/upstream/src/o_init.c:375–407` whole in C order — `:380` `update_file` gate, `:381–383` bases[MAXOCLASSES+2] (`names-bases`), `:384–386` disco[NUM_OBJECTS] (`names-disco`), `:387–389` objclass per object (`names-objclass`), `:394–406` uname loop (len+chars only for non-null, `release_data` free). Sfo_* is structlevel raw-struct + `norm_ptrs` (`sfstruct.c` SF_C); oc_uname is genericptr-opaque to sftags (`util/sftags.c:1465`), hence the separate string loop.
+**JS:** - `savenames`: `js/o_init.js:358`.
+**Change:** new `export function savenames` (`js/o_init.js:358`) returning `{objects, bases, disco}` in C order (bases copy, disco copy, per-entry objclass mutables + `oc_uname: string|null` inline — the uname length prefix rides in the entry, JSON analogue of the separate loop); new `export function restnames(saved)` (`js/o_init.js:390`) overlaying bases/disco/objclass in C order with the set-only uname marker arm. `js/save.js` calls `savenames()` in dosave0 (`js/save.js:519`, keeps payload key order) and `restnames(payload)` in `try_restore_save` (`js/save.js:795`, after the pre-existing `objects_globals_init`). Import joins the existing 99-module SCC (`imports.mjs --can`: runtime calls only, no top-level read).
+**Verify:** `node scripts/verify.mjs --fn savenames,restnames` → VERIFY: PASS — syntax 2 files; rule2 PASS; hidden notes (0 blocked each, expected for a coverage pair); reach REACH-OK ×2 (no RNG tags; smoke 24/24 each); green 2/2; strict ×2; cohort 7/7. `node frozen/ps_test_runner.mjs sessions` → full 44/44 PASS (`266+1.64/turn`, R² 0.774). `node --test scripts/names-save-restore.test.mjs` → 4/4 pass.
+**Named:** - `savenames`: Sfo_* binary encode (stash/JSON architecture, msghistory precedent); `update_file` gate (VFS always writes); `release_data` free — GC no-op, live table keeps names; FREE_ALL_MEMORY `freenames()` (compiled out).
+**Next:** coverage head leaves the block on finish; refill tops up. restnames had no row (below the 12-row cut) and ships as the same-file restore counterpart — msghistory pair precedent.
 ## 2026-09-28 — D-3021 mtele_trap screen flip at scen-tour-Samurai-91113 step 54: owner misattribution; writer is the movemon `:1332–1333` any_light_source arm
 
 **C locus:** - `mtele_trap`: `nethack-c/upstream/src/teleport.c:1962–2002` whole, examined — no change needed (see JS was).

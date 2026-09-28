@@ -8,8 +8,8 @@
 {"fn":"shuffle_all","c":"322-347","status":"unknown"}
 {"fn":"objdescr_is","c":"352-365","status":"unknown"}
 {"fn":"oinit","c":"369-372","status":"unknown"}
-{"fn":"savenames","c":"375-407","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"restnames","c":"411-437","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"savenames","c":"375-407","status":"ported","js":["js/o_init.js:savenames"],"d":["D-3022"],"at":"2026-09-28@5affd05cd","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restnames","c":"411-437","status":"ported","js":["js/o_init.js:restnames"],"d":["D-3022"],"at":"2026-09-28@5affd05cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"observe_object","c":"442-451","status":"unknown"}
 {"fn":"discover_object","c":"454-494","status":"unknown"}
 {"fn":"undiscover_object","c":"498-523","status":"unknown","d":["D-1691"],"at":"seed@a30a7de84"}
