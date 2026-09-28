@@ -1,4 +1,4 @@
-{"fn":"property_by_index","c":"117-125","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"property_by_index","c":"117-125","status":"ported","js":["js/timeout.js:property_by_index"],"d":["D-3068"],"at":"2026-09-28@b93547133","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"stoned_dialogue","c":"137-185","status":"unknown"}
 {"fn":"vomiting_dialogue","c":"197-265","status":"ported","js":["js/timeout.js:vomiting_dialogue"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"sleep_dialogue","c":"268-274","status":"unknown"}
@@ -24,10 +24,10 @@
 {"fn":"burn_object","c":"1383-1680","status":"unknown"}
 {"fn":"begin_burn","c":"1712-1797","status":"unknown"}
 {"fn":"end_burn","c":"1804-1822","status":"ported","js":["js/timeout.js:end_burn"],"d":["D-2914"],"at":"seed@a30a7de84"}
-{"fn":"cleanup_burn","c":"1828-1844","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cleanup_burn","c":"1828-1844","status":"ported","js":["js/timeout.js:cleanup_burn"],"d":["D-3068"],"at":"2026-09-28@b93547133","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_storms","c":"1847-1892","status":"unknown"}
 {"fn":"kind_name","c":"1995-2011","status":"unknown"}
-{"fn":"print_queue","c":"2014-2037","status":"unknown"}
+{"fn":"print_queue","c":"2014-2037","status":"ported","js":["js/timeout.js:print_queue"],"d":["D-3068"],"at":"2026-09-28@b93547133"}
 {"fn":"wiz_timeout_queue","c":"2041-2127","status":"split","js":["js/timeout.js:wiz_timeout_queue","js/timeout.js:wiz_timeout_queue_lines"],"at":"2026-09-28@6f36d2ab4","note":"stale: body complete split across wiz_timeout_queue+lines+print_queue+kind_name (D-1527)"}
 {"fn":"timer_sanity_check","c":"2130-2215","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"run_timers","c":"2222-2241","status":"unknown"}

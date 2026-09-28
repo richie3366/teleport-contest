@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3068 timeout.c trio: print_queue VERBOSE arm + cleanup_burn + property_by_index
+
+**C locus:** - `print_queue`: nethack-c/upstream/src/timeout.c:2014–2037 (live arm `:2024–2028` under unconditional `#define VERBOSE_TIMER :1963`; names from timeout_funcs `:1978–1990` in enum timeout_types order)
+**JS:** js/timeout.js:1828 `cleanup_burn`, js/timeout.js:2531 `property_by_index`, js/timeout.js:2590 `print_queue` (+ fmt_timer_arg TIMER_MONSTER arm); js/mkobj.js:1452 `TIMEOUT_FUNC_NAMES` export; js/ +81/−93 across 3 files; scripts/timeout-trio.test.mjs (8 its)
+**Change:** print_queue prints the live `name(ptr)` arm via the shared TIMEOUT_FUNC_NAMES (newly exported from mkobj.js — no clone #2); new exported `cleanup_burn` in timeout.js (C order, end_burn `void impossible` precedent for the async-in-sync arm), stop_timer/obj_stop_timers/spot_stop_timers dispatch on the doomed/node func_index like C; new exported `property_by_index` in timeout.js with sentinel-synthesis clamp, both wizintrinsic sites call it, wizcmds table clone deleted (−70 lines, tables diffed identical first)
+**Verify:** - `print_queue`: `verify --fn` hidden note (no corpus session blocked, expected for coverage) + REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS)
+**Named:** - `print_queue`: none — the `!VERBOSE_TIMER #%d` arm is not compiled (C :1963); %p renders o_id/m_id/a_long (no heap pointers in JS — live fmt_ptr precedent)
+**Next:** burn_object (timeout.c:1383–1680, ledger unknown PARTIAL C209/JS154) is the remaining same-file gap — hot lamp function, 19 C callees, ships as its own iteration
 ## 2026-09-28 — D-3067 `unmakemon` (makemon.c:1514–1539) + `nasty` caller wiring
 
 **C locus:** `unmakemon`: nethack-c/upstream/src/makemon.c:1514–1539 (countbirth :1519, mndx :1520, born untally :1525–1528 with the 255-cap carve-out, unique un-extinct :1529–1530, mhp=0 :1532, discard_minvent(TRUE) :1536, mongone :1538, return 0 :1539); sole C caller wizard.c:677 `nasty`

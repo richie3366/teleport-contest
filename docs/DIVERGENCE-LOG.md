@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-3068 — timeout.c trio: print_queue VERBOSE arm + cleanup_burn + property_by_index
+
+- **Status:** fixed (breadth-phase coverage cluster — queue head plus two same-file ledger-absent/MISSING functions, both queue-eligible by measured gap + status but colder than the 12-row block; same-file burn_object left Open — 299-line body, own iteration)
+- **Symptom:** coverage PARTIAL/MISSING — `print_queue` rendered the `#else #%d` arm C never compiles (VERBOSE_TIMER is unconditionally defined, timeout.c:1963), so #timeout showed `#4(0x..)` where C shows `burn_object(0x..)`; `cleanup_burn` had no JS symbol (stop_timer inlined a subset — no impossible, no update_inventory; obj_stop_timers carried `// cleanup_burn deferred`); `property_by_index` had no JS symbol (both C callers' logic read a duplicated 70-line table clone in wizcmds.js)
+- **C locus:**
+  - `print_queue`: nethack-c/upstream/src/timeout.c:2014–2037 (live arm `:2024–2028` under unconditional `#define VERBOSE_TIMER :1963`; names from timeout_funcs `:1978–1990` in enum timeout_types order)
+  - `cleanup_burn`: nethack-c/upstream/src/timeout.c:1828–1844 (staticfn; !lamplit impossible `:1832–1835`, del_light_source `:1837`, age restore `:1839`, lamplit clear `:1840`, invent update `:1841–1843`; sole non-null timeout_funcs cleanup `:1984`)
+  - `property_by_index`: nethack-c/upstream/src/timeout.c:117–125 (IndexOkT clamp reads the `{ 0, 0 }` sentinel `:113`; null out-param allowed)
+- **JS was:** print_queue (js/timeout.js:2545) emitted the dead `#%d(%s)` shape; no cleanup_burn (stop_timer js/mkobj.js:1411 inline subset; obj_stop_timers `// cleanup_burn deferred`); no property_by_index (wizcmds.js:65 local PROPERTYNAMES clone iterated directly at :238, reverse lookup via stored fields)
+- **Fix:** print_queue prints the live `name(ptr)` arm via the shared TIMEOUT_FUNC_NAMES (newly exported from mkobj.js — no clone #2); new exported `cleanup_burn` in timeout.js (C order, end_burn `void impossible` precedent for the async-in-sync arm), stop_timer/obj_stop_timers/spot_stop_timers dispatch on the doomed/node func_index like C; new exported `property_by_index` in timeout.js with sentinel-synthesis clamp, both wizintrinsic sites call it, wizcmds table clone deleted (−70 lines, tables diffed identical first)
+- **JS:** js/timeout.js:1828 `cleanup_burn`, js/timeout.js:2531 `property_by_index`, js/timeout.js:2590 `print_queue` (+ fmt_timer_arg TIMER_MONSTER arm); js/mkobj.js:1452 `TIMEOUT_FUNC_NAMES` export; js/ +81/−93 across 3 files; scripts/timeout-trio.test.mjs (8 its)
+- **Callers:**
+  - `print_queue`: sole C caller wiz_timeout_queue timeout.c:2058 → js/timeout.js wiz_timeout_queue_lines (pre-existing wiring kept)
+  - `cleanup_burn`: stop_timer :2311–2312 → js/mkobj.js:1416; obj_stop_timers :2389–2390 → js/mkobj.js:1337; spot_stop_timers :2430–2431 → js/mkobj.js:1649 (dead in practice, mirrored)
+  - `property_by_index`: menu loop wizcmds.c:973 → js/wizcmds.js:174; reverse lookup wizcmds.c:1002 → js/wizcmds.js:191
+- **Verify:**
+  - `print_queue`: `verify --fn` hidden note (no corpus session blocked, expected for coverage) + REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS)
+  - `cleanup_burn`: hidden note + REACH-OK (smoke 24/24)
+  - `property_by_index`: hidden note + REACH-OK (smoke 24/24)
+  - gates: syntax 3 files · rule2 clean · green 2/2 · strict both · cohort 7/7 · VERIFY: PASS; full `sessions` forced (stop_timer is hot): 44/44, speed `269+1.59/turn`; scripts/timeout-trio.test.mjs 8/8 (sentinel clamp, VERBOSE row bytes, cleanup effects, both dispatch sites)
+- **Named omissions:**
+  - `print_queue`: none — the `!VERBOSE_TIMER #%d` arm is not compiled (C :1963); %p renders o_id/m_id/a_long (no heap pointers in JS — live fmt_ptr precedent)
+  - `cleanup_burn`: none — every arm ported, all four callees live (impossible async via `void`, del_light_source, obj_to_any, update_inventory)
+  - `property_by_index`: none — every arm ported; JS PROPERTYNAMES omits the `{0,0}` sentinel and the clamp synthesizes it
+- **Ledger:** print_queue ported; cleanup_burn ported; property_by_index ported
+- **Next:** burn_object (timeout.c:1383–1680, ledger unknown PARTIAL C209/JS154) is the remaining same-file gap — hot lamp function, 19 C callees, ships as its own iteration
+
 ## D-3067 — `unmakemon` (makemon.c:1514–1539) + `nasty` caller wiring
 
 - **Status:** fixed (breadth-phase coverage row; single-function cluster — head's callees live, no other makemon.c Open rows in queue; other absent makemon.c fns are debug/staticfn, not queue-eligible)

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `timeout.c` print_queue — coverage PARTIAL (C 15 code L `timeout.c:2014–2037` / JS 10 code L in js/timeout.js; hops —, callers 1, RNG 1, msg 3) @fb9c2049c
 - [ ] `options.c` reset_needed_visuals — coverage PARTIAL (C 24 code L `options.c:8980–9014` / JS 11 code L in js/options.js; hops —, callers 3, RNG 0, msg 0) @fb9c2049c
 - [ ] `teleport.c` enexto_core — coverage PARTIAL (C 28 code L `teleport.c:219–276` / JS 18 code L in js/teleport.js; hops 3, callers 3, RNG 0, msg 0) @fb9c2049c
 - [ ] `bones.c` bones_include_name — coverage PARTIAL (C 10 code L `bones.c:762–780` / JS 6 code L in js/bones.js; hops 3, callers 1, RNG 0, msg 1) @000445a8b
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `zap.c` boxlock_invent — coverage THIN (C 9 code L `zap.c:2687–2702` / JS 3 code L in js/lock.js; hops 6, callers 1, RNG 0, msg 0) @709b8aea7
 - [ ] `coloratt.c` query_attr — coverage THIN (C 58 code L `coloratt.c:396–472` / JS 26 code L in js/options.js; hops —, callers 4, RNG 0, msg 0) @35b79b1f1
 - [ ] `read.c` create_particular_parse — coverage THIN (C 74 code L `read.c:3137–3249` / JS 30 code L in js/read.js; hops 5, callers 1, RNG 0, msg 0) @1b84498a2
+- [ ] `trap.c` keep_saddle_with_steedcorpse — coverage MISSING (C 17 code L `trap.c:939–967` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b93547133
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
