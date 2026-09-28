@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `options.c` doset_simple_menu — coverage THIN (C 121 code L `options.c:8536–8702` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 1; dead callees: is_wc2_option) @2bf11e0a4
 - [ ] `dbridge.c` E_phrase — coverage PARTIAL (C 10 code L `dbridge.c:361–374` / JS 5 code L in js/dbridge.js; hops 4, callers 3, RNG 0, msg 3) @63aec4509
 - [ ] `timeout.c` lantern_message — coverage MISSING (C 12 code L `timeout.c:1360–1376` / JS no symbol; hops —, callers 1, RNG 0, msg 3) @84557918b
 - [ ] `dbridge.c` find_drawbridge — coverage PARTIAL (C 20 code L `dbridge.c:180–205` / JS 11 code L in js/dbridge.js; hops 3, callers 10, RNG 0, msg 0) @7c92efae2
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `artifact.c` arti_speak — coverage MISSING (C 12 code L `artifact.c:2279–2296` / JS no symbol; hops —, callers 2, RNG 0, msg 1) @fbf84a98f
 - [ ] `glyphs.c` free_glyphid_cache — coverage THIN (C 9 code L `glyphs.c:355–369` / JS 2 code L in js/glyphs.js; hops 4, callers 6, RNG 0, msg 0) @fbf84a98f
 - [ ] `wizcmds.c` wiz_display_macros — coverage MISSING (C 53 code L `wizcmds.c:1705–1778` / JS no symbol; hops —, callers 0, RNG 0, msg 11) @fbf84a98f
+- [ ] `o_init.c` savenames — coverage MISSING (C 19 code L `o_init.c:375–407` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @c704500d7
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

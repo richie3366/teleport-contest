@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3009 — options.c doset_simple_menu restart + longest_option_name; fireassist iflags bag moves scen-options 17→65
+
+- **Status:** shipped (Open — coverage `options.c` doset_simple_menu THIN (C 121 code L `options.c:8536–8702` / JS 43 code L) as cluster head + Open callee `longest_option_name` MISSING (C 18 code L `options.c:8507–8532`, staticfn)).
+- **Symptom:** coverage cluster + one corpus block: `scen-options-Wizard-94291` step 17 screen row 18 C ` l - fireassist [ ]` vs J `[X]` (blocked on doset_simple_menu at options.c:8642).
+- **C locus:**
+  - `doset_simple_menu`: `nethack-c/upstream/src/options.c:8536–8702` (fmtstr `:8555–8560`, help `:8570–8578`, sections `:8580–8584`, wc gate `:8588–8590`, BoolOpt `:8594–8599`, Comp/Othr + rogue symset `:8600–8614`, autopickup note `:8619–8624`, help descr `:8627–8631`, resets `:8635–8639`, select `:8640–8643`, help/bool/compound picks `:8647–8686`, preference gate `:8688–8691`, redo `:8694–8697`, return `:8699`).
+  - `longest_option_name`: `nethack-c/upstream/src/options.c:8507–8532` (two passes `:8515–8516`, BoolOpt+addr `:8517–8519`, setwhere range `:8520–8522`, wc gate `:8523–8525`, max `:8527–8529`).
+- **JS was:** `doset_simple_menu` showed a static 23-wide list with no wc/addr/tiled guards, no rogue substitution, no help descr lines, two of five go-resets, bool toggle without the preference gate, and a four-name hasHandler switch; `DOSET_BOOL_ADDR.fireassist` + the allopt row pointed at `game.flags` while C reads `&iflags.fireassist` (optlist.h:310); `dothrow.js` read `game.flags?.fireassist` while C reads `iflags.fireassist` (dothrow.c:518,557).
+- **Fix:** restart in C order. Live width via `longest_option_name(SET_GAMEVIEW, SET_IN_GAME)` + `menu_tab_sep` tab arm; section loop with null-addr + tiled/color skips; rogue-level symset→roguesymset display; `opt.descr` help lines (data via checked-in extractor); all five go-resets; pick dispatch (help toggle, bool bag toggle, extended hasHandler switch incl. autounlock/cond_menu/status_hilite_menu, generic getlin→parseoptions fallback, `preference_update` no-op stub per genl); fireassist addrs → iflags + dothrow read → iflags. The C `:8588–8590`/`:8523–8525` runtime wc gates are outcome-dead on contest tty (extractor ok_wc pre-gates the data; runtime wincap2 stays minimal for the status subsystem) — first cut regressed 3 fortress sessions by hiding hitpointbar/statuslines, reverted to documented non-gating.
+- **JS:** `js/options.js` (longest `:7255`, preference_update `:7279`, menu `:7286`, compound dispatch `:6907`, formatter `:7082`), `js/dothrow.js:2711` (iflags read), `js/generated/optlist_data.js` (+descr ×32, width still 23), `scripts/extract-optlist.py` (+descr emit).
+- **Callers:**
+  - `doset_simple_menu`: sole C caller `doset_simple` options.c:8724 → `js/options.js:8321` (`await doset_simple_menu()`, unchanged, already wired).
+  - `longest_option_name`: C `:8556` (menu width) → live call `js/options.js:7290`; C `:8825` (doset width) → value-wired via `dosetSimpleNameWidth` constant (23, outcome-equal on tty; doset-campaign row candidate).
+- **Verify:** `node scripts/verify.mjs --fn doset_simple_menu,longest_option_name` → PASS syntax (3 files) · PASS rule2 · hidden PROGRESS (scen-options-Wizard-94291 moved 17→65, later owner handler_autounlock) · REACH-OK ×2 (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:**
+  - `doset_simple_menu`: symset pick → handler_symset `:6320–6328` → symbols.c do_symset (no live JS port; file IO under Rule #2); BoolOpt pick keeps `simple_bool_toggle` (C `:8654–8656` parseoptions is a bool no-op in JS — allopt bool rows carry optfn:null vs C &optfn_boolean, `:635` guard; own row); rogue-level PICK targets roguesymset idx (display substituted; same symset omission).
+  - `longest_option_name`: none — whole port, both C call sites named above.
+- **Ledger:** doset_simple_menu partial; longest_option_name ported
+- **Next:** scen-options now blocked on `handler_autounlock` (options.c:1165, step 65) — corpus-residual writer for a later iteration (same-C-file companion when its coverage row opens); `:8825` doset width call-site row candidate.
+
 ## D-3008 — mkobj.c bless/unbless/nextoid: coin guard + bag weight + figurine stop + price-matched o_id; mklev unbless clone retired
 
 - **Status:** fixed (Open — coverage `mkobj.c` bless PARTIAL (C 16 code L `mkobj.c:1745–1764` / JS 9 code L) + same-file `unbless` PARTIAL + `nextoid` MISSING, grown per cluster rule — no other Open rows of the file in the generated block and no Open callee-closure row).

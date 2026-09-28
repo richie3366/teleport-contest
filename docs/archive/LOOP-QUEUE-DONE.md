@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-28
 
+- [x] `options.c` doset_simple_menu — coverage THIN (C 121 code L `options.c:8536–8702` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 1; dead callees: is_wc2_option) @2bf11e0a4 **Addressed:** D-3009
+
+
 - [x] `mon.c` `mcalcmove` — blocks 1/953 corpus sessions, PASS→FAIL since `309d58ccc`: `tour-Ranger-70021-d5-8-15-17-22` @44, both sides «The shocking sphere explodes at a spot in thin air! Boom!» but JS adds `--More--` (owner locus `mon.c:1164`, last matched draw in `mon_explodes`). Probe: `node scripts/hidden-proxy.mjs verify mcalcmove`. Source: 2026-09-28 full corpus rescore. **Addressed:** D-3000 `63aec4509`
 
 ## 2026-09-27

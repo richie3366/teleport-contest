@@ -194,8 +194,8 @@
 {"fn":"optfn_o_status_cond","c":"8414-8442","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_o_status_hilites","c":"8446-8474","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_option_value","c":"8481-8505","status":"unknown"}
-{"fn":"longest_option_name","c":"8508-8532","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"doset_simple_menu","c":"8536-8702","status":"unknown"}
+{"fn":"longest_option_name","c":"8508-8532","status":"ported","js":["js/options.js:longest_option_name"],"d":["D-3009"],"at":"2026-09-28@c704500d7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"doset_simple_menu","c":"8536-8702","status":"partial","js":["js/options.js:doset_simple_menu"],"omit":"- `doset_simple_menu`: symset pick → handler_symset `:6320–6328` → symbols.c do_symset (no live JS port; file IO under Rule #2); BoolOpt pick keeps `simple_bool_toggle` (C `:8654–8656` parseoptions is a bool no-op in JS — allopt bool rows carry optfn:null vs C &optfn_boolean, `:635` guard; own row)…","d":["D-3009"],"at":"2026-09-28@c704500d7"}
 {"fn":"doset_simple","c":"8707-8735","status":"unknown"}
 {"fn":"term_for_boolean","c":"8738-8752","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doset","c":"8758-8975","status":"unknown","d":["D-2773"],"at":"seed@a30a7de84"}

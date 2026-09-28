@@ -464,6 +464,9 @@ def main() -> int:
             addr = parse_bool_addr(bp)
             if not addr:
                 continue
+            # C ref: options.c doset_simple_menu `:8627–8631` help descr.
+            raw_desc = unquote(a[12])
+            desc = None if raw_desc in ("(char *)0", "0", "") else raw_desc
             simple.append(
                 {
                     "name": name,
@@ -472,6 +475,7 @@ def main() -> int:
                     "init": init == "On",
                     "addr": addr,
                     "autopickupSuffix": name in AUTOPICKUP_SUFFIX,
+                    "descr": desc,
                 }
             )
         elif kind == "Comp":
@@ -480,6 +484,9 @@ def main() -> int:
             name, sec, has_h = a[0], a[1], a[8]
             if sec not in SIMPLE_SECTIONS or not ok_wc(name):
                 continue
+            # C ref: options.c doset_simple_menu `:8627–8631` help descr.
+            raw_desc = unquote(a[10])
+            desc = None if raw_desc in ("(char *)0", "0", "") else raw_desc
             simple.append(
                 {
                     "name": name,
@@ -487,6 +494,7 @@ def main() -> int:
                     "opttyp": "Comp",
                     "hasHandler": has_h == "Yes",
                     "autopickupSuffix": name in AUTOPICKUP_SUFFIX,
+                    "descr": desc,
                 }
             )
         else:
@@ -495,6 +503,9 @@ def main() -> int:
             name, sec = unquote(a[0]), a[1]
             if sec not in SIMPLE_SECTIONS or not ok_wc(name):
                 continue
+            # C ref: options.c doset_simple_menu `:8627–8631` help descr.
+            raw_desc = unquote(a[10]) if len(a) > 10 else "0"
+            desc = None if raw_desc in ("(char *)0", "0", "") else raw_desc
             simple.append(
                 {
                     "name": name,
@@ -502,6 +513,7 @@ def main() -> int:
                     "opttyp": "Othr",
                     "hasHandler": True,
                     "autopickupSuffix": False,
+                    "descr": desc,
                 }
             )
 

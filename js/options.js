@@ -212,6 +212,7 @@ import {
 } from './cmd.js';
 import { cmd_from_func, cmdname_from_func, visctrl } from './dokeylist.js';
 import {
+    Is_rogue_level,
     ROLE_NONE, ROLE_RANDOM, PL_NSIZ,
     RS_ROLE, RS_RACE, RS_GENDER, RS_ALGNMNT, RS_filter,
 } from './const.js';
@@ -6939,18 +6940,32 @@ async function doset_compound_via_getlin(opt) {
             reslt = await handler_sortloot(); // C `:3952`
         } else if (name === 'runmode') {
             reslt = await handler_runmode(); // C `:3663`
+        } else if (name === 'autounlock') {
+            reslt = await handler_autounlock(allopt_idx(name)); // C optfn_autounlock do_handler `:1165` (doset precedent)
+        } else if (name === 'status condition fields') {
+            // C optfn_o_status_cond do_handler `:8436–8439` cond_menu (doset precedent); boolean result → optn.
+            reslt = (await cond_menu()) ? OPTN_OK : OPTN_ERR;
+        } else if (name === 'status highlight rules') {
+            // C optfn_o_status_hilites do_handler `:8464–8471` status_hilite_menu (doset precedent); TRUE → optn_ok.
+            reslt = (await status_hilite_menu()) ? OPTN_OK : OPTN_ERR;
+        } else if (name === 'symset') {
+            // Named omission: handler_symset `:6320–6328` → symbols.c
+            // do_symset (no live JS port; symset-file IO under Rule #2).
+            reslt = OPTN_ERR;
         }
+        // C `:8668–8670`: optn_ok marks the row (no simple-menu option is
+        // pfx_cond_, so no `:8669` guard).
         if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
-        // Other hasHandler compounds deferred (symset/…).
-        return;
+        return '';
     }
+    // C `:8672–8681`: no handler → getlin "Set %s to what?", then pass the
+    // buck via parseoptions("name:abuf"); ESC still counts as picked.
+    // Returns the getlin buffer for the caller's `:8688` ESC gate.
     const abuf = await getlin(`Set ${name} to what?`);
-    if (abuf === '\x1b' || (abuf && abuf.charCodeAt(0) === 0x1b)) {
-        // C: ESC still counts as pickedone — caller returns 1
-        return;
-    }
-    // C: parseoptions("%s:%s") — fruit via optfn_fruit; other Comp deferred.
-    // In-game: !opt_initial so fruitadd runs. doset has give_opt_msg false.
+    if (abuf === '\x1b') return '\x1b'; // C `:8677` ESC
+    // C `:8678–8684` Sprintf "name:" + copynchars(abuf) → parseoptions.
+    // fruit/suppress_alert keep their live direct-optfn arms (same effect,
+    // awaited in order); every other name goes the C route.
     if (name === 'fruit') {
         optfn_fruit(allopt_idx('fruit'), REQ_DO_SET, false, `fruit:${abuf}`, abuf, false);
     } else if (name === 'suppress_alert') {
@@ -6961,8 +6976,10 @@ async function doset_compound_via_getlin(opt) {
         const saReslt = await optfn_suppress_alert(
             allopt_idx(name), REQ_DO_SET, false, `${name}:${saVal}`, saVal);
         if (saReslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true; // C `:639–640`
+    } else {
+        parseoptions(`${name}:${abuf}`, false, false);
     }
-    // Named omission: remaining Comp/Othr getlin → parseoptions arms
+    return abuf;
 }
 
 /** C ref: options.c n_currently_set / count_apes — ape list deferred. */
@@ -7062,18 +7079,19 @@ function simple_bool_toggle(opt) {
     }
 }
 
-function format_simple_opt_line(opt, nameWidth) {
-    const name = opt.name;
+function format_simple_opt_line(opt, nameWidth, tabSep = false, dispName = null) {
+    const name = dispName ?? opt.name;
     let val;
     if (opt.opttyp === 'Bool') {
         val = simple_bool_value(opt) ? 'X' : ' ';
-    } else {
+    } else if (opt.opttyp === 'Comp' || opt.opttyp === 'Othr') {
         val = simple_opt_get_val(opt);
+    } else {
+        val = 'ERROR';
     }
-    // C: Sprintf(fmtstr, "%%-%us [%%s]", longest_option_name(...))
-    let line = `${name.padEnd(nameWidth)} [${val}]`;
-    if (opt.autopickupSuffix) line += '  (for autopickup)';
-    return line;
+    // C: Sprintf(fmtstr, "%%-%us [%%s]", longest_option_name(...)) / tab form
+    const line = tabSep ? `${name}\t[${val}]` : `${name.padEnd(nameWidth)} [${val}]`;
+    return opt.autopickupSuffix ? `${line}  (for autopickup)` : line;
 }
 
 /**
@@ -7228,11 +7246,51 @@ export async function select_menu_pick_one(rawItems) {
 }
 
 /**
+/**
+ * C options.c longest_option_name `:8507–8532` (staticfn) — widest allopt
+ * name with setwhere in [startpass, endpass]; pass 0 counts BoolOpt rows
+ * with an addr, pass 1 counts every row; wc-gated names count only when
+ * supported. Option names are ASCII, so length is C Strlen.
+ */
+function longest_option_name(startpass, endpass) {
+    let longest = 0; // C `:8511`
+    for (let pass = 0; pass < 2; pass++) { // C `:8515`
+        // C `:8516`: (name = allopt[i].name) != 0.
+        for (let i = 0; i < allopt.length && allopt[i].name; i++) {
+            const row = allopt[i];
+            if (pass === 0 // C `:8517–8519`
+                && (row.opttyp !== BoolOpt || !row.addr)) continue;
+            const where = row.setwhere; // C `:8520`
+            if (where < startpass || where > endpass) continue; // C `:8521–8522`
+            // C `:8523–8525` wc/wc2 gate is outcome-dead on contest tty (all
+            // gated in-range names are supported; the runtime wincap2 stays
+            // minimal for the status subsystem — see doset_simple_menu).
+            if (row.name.length > longest) longest = row.name.length; // C `:8527–8529`
+        }
+    }
+    return longest; // C `:8531`
+}
+
+/**
+ * C windows.c genl_preference_update `:461–469` — the generic windowport
+ * preference hook just returns (ports provide their own; tty has none).
+ * Defined so the doset_simple_menu `:8688` gate stays C-order.
+ */
+function preference_update(_pref) {
+}
+
+/**
  * C ref: options.c doset_simple_menu — NHW_MENU from allopt[] OptS_General
  * …Status, title "Options", PICK_ONE. Returns pick_cnt (0 = done).
  */
 async function doset_simple_menu() {
-    const nameWidth = dosetSimpleNameWidth;
+    // C `:8555–8559`: menu width from longest_option_name(set_gameview,
+    // set_in_game), recomputed per call like C (wc-gated names join or
+    // leave with wincap); menu_tab_sep selects the tab-separated form.
+    const tabSep = !!game.iflags?.menu_tab_sep;
+    const nameWidth = tabSep ? 0 : longest_option_name(SET_GAMEVIEW, SET_IN_GAME);
+
+    let toggled_help = false; // C `:8550`
 
     for (;;) {
         // C: tty_end_menu prepends prompt then blank (via reverse+prepend)
@@ -7255,45 +7313,77 @@ async function doset_simple_menu() {
             opt: { kind: 'help' },
         });
 
-        for (const section of dosetSimpleSections) {
-            raw.push({ text: '', attr: 0, selectable: false });
-            // C: Sprintf(buf, " %-30s ", OptS_type[section])
-            const heading = ` ${section.padEnd(30)} `;
-            raw.push({ text: heading, attr: ATR_INVERSE, selectable: false });
-            for (const opt of dosetSimpleOpts) {
-                if (opt.section !== section) continue;
+        for (const section of dosetSimpleSections) { // C `:8580`
+            raw.push({ text: '', attr: 0, selectable: false }); // C `:8582`
+            // C `:8583` Sprintf(buf, " %-30s ", OptS_type[section]).
+            raw.push({ text: ` ${section.padEnd(30)} `, attr: ATR_INVERSE, selectable: false });
+            for (const opt of dosetSimpleOpts) { // C `:8585`
+                if (opt.section !== section) continue; // C `:8586–8587`
+                // C `:8588–8590` wc/wc2 gate is outcome-dead on contest tty:
+                // every gated name in dosetSimpleOpts is statically kept by
+                // the extractor (ok_wc over the true tty sets), while the
+                // runtime wincap2 stays minimal for the status subsystem
+                // (display.js `:8223`, polyself.js `:731`) and must not leak
+                // into the menu — it would wrongly drop hitpointbar and
+                // statuslines, whose bits C tty sets (wintty.c `:116–120`).
+                // C `:8592` any.a_int = i + 1 — identity carried by opt ref.
+                if (opt.opttyp === 'Bool') { // C `:8594–8599`
+                    if (!opt.addr) continue; // C `:8595–8596` !bool_p
+                    // C `:8597`: tiled-map hides color.
+                    if (game.iflags?.wc_tiled_map && allopt_idx(opt.name) === allopt_idx('color')) continue;
+                }
+                // C `:8602–8607`: on a rogue level the symset row shows the
+                // roguesymset entry (same optfn_symset get_val).
+                const dispName = (opt.name === 'symset' && Is_rogue_level()) ? 'roguesymset' : opt.name;
                 raw.push({
-                    text: format_simple_opt_line(opt, nameWidth),
+                    text: format_simple_opt_line(opt, nameWidth, tabSep, dispName),
                     attr: 0,
                     selectable: true,
                     opt,
                 });
+                if (game.simple_options_help && opt.descr) { // C `:8627–8631`
+                    raw.push({ text: `    ${opt.descr}`, attr: 0, selectable: false });
+                    raw.push({ text: '', attr: 0, selectable: false });
+                }
             }
         }
 
         if (!game.go) game.go = {};
-        game.go.opt_need_redraw = false;
-        game.go.opt_need_glyph_reset = false;
+        game.go.opt_need_redraw = false; // C `:8635`
+        game.go.opt_need_glyph_reset = false; // C `:8636`
+        game.go.opt_reset_customcolors = false; // C `:8637`
+        game.go.opt_reset_customsymbols = false; // C `:8638`
+        game.go.opt_update_basic_palette = false; // C `:8639`
+        // C `:8640`: PICK_ONE without preselect; >0 implies exactly 1.
         const res = await select_menu_pick_one(raw);
         if (res.kind !== 'pick') return 0;
 
         const opt = res.item.opt;
-        if (opt?.kind === 'help') {
+        let abuf = ''; // C `:8646` abuf[0] = '\0'
+        let pickName = null;
+        if (opt?.kind === 'help') { // C `:8647–8650` k == -2
             game.simple_options_help = !game.simple_options_help;
-            // C: goto redo_opt_help — rebuild without returning to doset_simple
+            toggled_help = true; // C: goto redo_opt_help — rebuild in place
+        } else if (opt?.opttyp === 'Bool') { // C `:8651–8657`
+            // C `:8654–8656` parseoptions("!name"|"name", FALSE, FALSE).
+            // JS parseoptions is a bool no-op (allopt bool rows carry
+            // optfn:null vs C &optfn_boolean, `:635` guard) — the live
+            // bag write below is the named-omission stand-in.
+            simple_bool_toggle(opt);
+            pickName = opt.name;
+        } else if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr') { // C `:8658–8686`
+            abuf = await doset_compound_via_getlin(opt);
+            pickName = opt.name;
+        }
+        // Unknown opttyp still counts as picked (C returns pick_cnt).
+        if (pickName && abuf !== '\x1b' // C `:8688–8691`
+            && (wc_supported(pickName) || wc2_supported(pickName))) preference_update(pickName);
+        // C `:8692–8693`: free pick_list + destroy_nhwindow — GC / helper.
+        if (toggled_help) { // C `:8694–8697`
+            toggled_help = false;
             continue;
         }
-        if (opt?.opttyp === 'Bool') {
-            simple_bool_toggle(opt);
-            return 1;
-        }
-        // C: compound/othr — has_handler → optfn(do_handler); else getlin
-        if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr') {
-            await doset_compound_via_getlin(opt);
-            return 1;
-        }
-        // Unknown row — still count as a pick (C loops)
-        return 1;
+        return 1; // C `:8699` pick_cnt
     }
 }
 
@@ -7616,7 +7706,7 @@ const DOSET_BOOL_ADDR = {
     dropped_nopick: { obj: 'flags', key: 'nopick_dropped' },
     eight_bit_tty: { obj: 'iflags', key: 'eight_bit_tty' },
     extmenu: { obj: 'iflags', key: 'extmenu' },
-    fireassist: { obj: 'flags', key: 'fireassist' }, // C: iflags.fireassist
+    fireassist: { obj: 'iflags', key: 'fireassist' }, // C optlist.h:310 &iflags.fireassist
     fixinv: { obj: 'flags', key: 'invlet_constant' }, // C: flags.invlet_constant
     force_invmenu: { obj: 'flags', key: 'force_invmenu' },
     goldX: { obj: 'flags', key: 'goldX' },
@@ -8768,7 +8858,7 @@ const allopt = [
     // optlist.h:306 NHOPTB(female)
     { name: 'female', opttyp: BoolOpt, idx: 52, setwhere: SET_IN_CONFIG, initval: false, addr: { obj: 'flags', key: 'female' } /* C: &flags.female */, optfn: null },
     // optlist.h:309 NHOPTB(fireassist)
-    { name: 'fireassist', opttyp: BoolOpt, idx: 53, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'fireassist' }, optfn: null },
+    { name: 'fireassist', opttyp: BoolOpt, idx: 53, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'fireassist' } /* C optlist.h:310 &iflags.fireassist */, optfn: null },
     // optlist.h:312 NHOPTB(fixinv)
     { name: 'fixinv', opttyp: BoolOpt, idx: 54, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'invlet_constant' }, optfn: null },
     // optlist.h:315 NHOPTC(font_map)
