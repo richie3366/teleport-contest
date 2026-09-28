@@ -1981,3 +1981,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1969-70c901367-doset-simple-menu.md](./1969-70c901367-doset-simple-menu.md) | `70c901367` | D-3009 doset_simple_menu | **ACCEPT-WITH-DEBT** |
 | [1970-bdfaca7a2-lantern-flicker.md](./1970-bdfaca7a2-lantern-flicker.md) | `bdfaca7a2` | D-3010 lantern/flicker | **ACCEPT** |
 | [1971-fffd581fa-key2txt.md](./1971-fffd581fa-key2txt.md) | `fffd581fa` | D-3011 key2txt | **ACCEPT** |
+| [1972-2af820a38-movemon-singlemon-bypass-vision.md](./1972-2af820a38-movemon-singlemon-bypass-vision.md) | `2af820a38` | D-3012 movemon_singlemon | **ACCEPT** |
+| [1973-8b6526ecd-show-glyph-guards.md](./1973-8b6526ecd-show-glyph-guards.md) | `8b6526ecd` | D-3013 show_glyph guards | **ACCEPT** |
+| [1974-32055fa52-dogmove-pet-ai-closure.md](./1974-32055fa52-dogmove-pet-ai-closure.md) | `32055fa52` | D-3014 dogmove closure | **ACCEPT** |
+| [1975-9f89fd978-wishymatch-restart.md](./1975-9f89fd978-wishymatch-restart.md) | `9f89fd978` | D-3015 wishymatch | **ACCEPT** |
+| [1976-5c0b84ad9-mkroom-save-restore.md](./1976-5c0b84ad9-mkroom-save-restore.md) | `5c0b84ad9` | D-3016 mkroom save/restore | **ACCEPT** |
+| [1977-0cb4128d8-worm-save-restore.md](./1977-0cb4128d8-worm-save-restore.md) | `0cb4128d8` | D-3017 worm save/restore | **ACCEPT** |
+| [1978-20875982e-arti-speak-callers.md](./1978-20875982e-arti-speak-callers.md) | `20875982e` | D-3018 arti_speak | **ACCEPT** |
+| [1979-5a77080f1-free-glyphid-cache.md](./1979-5a77080f1-free-glyphid-cache.md) | `5a77080f1` | D-3019 free_glyphid_cache | **ACCEPT** |
+| [1980-1cc7d605d-wiz-display-macros.md](./1980-1cc7d605d-wiz-display-macros.md) | `1cc7d605d` | D-3020 wiz_display_macros | **ACCEPT** |

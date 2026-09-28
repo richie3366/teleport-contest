@@ -22,6 +22,7 @@ here again. Live hypotheses only:
 - Audit 1946–1955: 9 ACCEPT, 1 WITH-DEBT (1951, unqueued). No Must-fix; do not re-open. `piousness`/`corpse_intrinsic` parked Stale.
 - Audit 1956–1962: 6 ACCEPT, 1 WITH-DEBT (1962, unqueued). No Must-fix; do not re-open. Env: node v20, no `node:sqlite`.
 - Audit 1963–1971: 6 ACCEPT, 3 WITH-DEBT (unqueued). No Must-fix; do not re-open.
+- Audit 1972–1980: 9 ACCEPT + Must-fix mtele_trap @54; do not re-open.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

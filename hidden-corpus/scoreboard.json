@@ -1,9 +1,9 @@
 {
- "commit": "5a77080f1",
- "at": "2026-09-28T08:51:55.888Z",
- "full": false,
- "fullCommit": "fda3d415d",
- "fullAt": "2026-09-28T06:55:54.574Z",
+ "commit": "1cc7d605d",
+ "at": "2026-09-28T09:17:27.710Z",
+ "full": true,
+ "fullCommit": "1cc7d605d",
+ "fullAt": "2026-09-28T09:17:27.710Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4388,7 +4388,7 @@
    "steps": 247,
    "owner": "mkclass_aligned",
    "loc": "makemon.c:1934",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "A kobold zombie appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -4456,7 +4456,7 @@
    "steps": 96,
    "owner": "dog_goal",
    "loc": "dogmove.c:554",
-   "jsOwner": "obj_resists(dogmove.js:184)",
+   "jsOwner": "obj_resists(dogmove.js:186)",
    "cTopline": "Your movements are only slowed slightly by your load.--More--",
    "jsTopline": "Your movements are only slowed slightly by your load.",
    "error": null
@@ -5391,7 +5391,7 @@
    "steps": 113,
    "owner": "m_move",
    "loc": "monmove.c:1963",
-   "jsOwner": "m_move(monmove.js:2229)",
+   "jsOwner": "m_move(monmove.js:2213)",
    "cTopline": "A boulder blocks your path.",
    "jsTopline": "staircase down",
    "error": null
@@ -5476,7 +5476,7 @@
    "steps": 117,
    "owner": "dog_move",
    "loc": "dogmove.c:1257",
-   "jsOwner": "dog_move(dogmove.js:1548)",
+   "jsOwner": "dog_move(dogmove.js:1557)",
    "cTopline": "You start digging downward. You dig a hole through the floor.--More--",
    "jsTopline": "You start digging downward. You dig a hole through the floor.--More--",
    "error": null
@@ -5510,7 +5510,7 @@
    "steps": 106,
    "owner": "dog_goal",
    "loc": "dogmove.c:575",
-   "jsOwner": "dog_goal(dogmove.js:710)",
+   "jsOwner": "dog_goal(dogmove.js:719)",
    "cTopline": "You start digging downward. You dig a pit in the floor.",
    "jsTopline": "You start digging downward. You dig a pit in the floor.",
    "error": null
@@ -5629,7 +5629,7 @@
    "steps": 236,
    "owner": "digactualhole",
    "loc": "dig.c:739",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "You start digging downward. You dig a pit in the floor.",
    "jsTopline": "You start digging downward. You dig a pit in the floor.",
    "error": null
@@ -6309,7 +6309,7 @@
    "steps": 42,
    "owner": "dog_move",
    "loc": "dogmove.c:1255",
-   "jsOwner": "obj_resists(dogmove.js:184)",
+   "jsOwner": "obj_resists(dogmove.js:186)",
    "cTopline": "You are freezing to death!",
    "jsTopline": "You are freezing to death!",
    "error": null
@@ -10219,7 +10219,7 @@
    "steps": 302,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "A kitten appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -10814,7 +10814,7 @@
    "steps": 263,
    "owner": null,
    "loc": null,
-   "jsOwner": "dochug(monmove.js:2580)",
+   "jsOwner": "dochug(monmove.js:2564)",
    "cTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "jsTopline": "",
    "error": null
@@ -11579,7 +11579,7 @@
    "steps": 203,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:304)",
+   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:377)",
    "cTopline": "A horse appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11596,7 +11596,7 @@
    "steps": 321,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:304)",
+   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:377)",
    "cTopline": "A warhorse appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11630,7 +11630,7 @@
    "steps": 259,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:304)",
+   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:377)",
    "cTopline": "A pony appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11766,7 +11766,7 @@
    "steps": 321,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:304)",
+   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:377)",
    "cTopline": "A horse appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11936,7 +11936,7 @@
    "steps": 97,
    "owner": "m_move",
    "loc": "monmove.c:2064",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -12106,7 +12106,7 @@
    "steps": 208,
    "owner": "m_move",
    "loc": "monmove.c:2064",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "The wall glows then fades. You hear a door open.",
    "jsTopline": "The wall glows then fades. You hear a door open.",
    "error": null
@@ -12361,7 +12361,7 @@
    "steps": 202,
    "owner": "mdisplacem",
    "loc": "mhitm.c:199",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "The displacer beast moves the red mold out of its way!--More--",
    "jsTopline": "The mind flayer strikes at your displaced image and misses you!",
    "error": null
@@ -12466,7 +12466,7 @@
    "jsOwner": "next_ident(mkobj.js:423)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
-   "error": "Error: relink_light_sources: no monster 0 |     at relinkLevelTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:458:23) |     at deserLevel "
+   "error": "Error: relink_light_sources: no monster 0 |     at relinkLevelTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:460:23) |     at deserLevel "
   },
   "scen-special-Wizard-94117": {
    "src": "corpus",
@@ -12582,7 +12582,7 @@
    "steps": 222,
    "owner": "water_damage",
    "loc": "trap.c:4771",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "You fall into the moat! You sink like a rock.--More--",
    "jsTopline": "Dip a blessed +0 leather armor (being worn) into the moat? [yn] (n)",
    "error": null
@@ -12820,7 +12820,7 @@
    "steps": 158,
    "owner": "water_damage",
    "loc": "trap.c:4771",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "You fall into the moat! You sink like a rock.--More--",
    "jsTopline": "Dip an uncursed +1 ring of protection into the moat? [yn] (n)",
    "error": null
@@ -12956,7 +12956,7 @@
    "steps": 150,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "m_move(monmove.js:2229)",
+   "jsOwner": "m_move(monmove.js:2213)",
    "cTopline": "You hear a masticating sound. You hear a masticating sound.",
    "jsTopline": "You hear a masticating sound. You hear a masticating sound.",
    "error": null
@@ -13017,7 +13017,7 @@
    "passed": false,
    "rngM": 5750,
    "rngT": 7916,
-   "scrM": 60,
+   "scrM": 61,
    "scrT": 111,
    "kind": "screen",
    "step": 60,
@@ -13082,19 +13082,19 @@
   },
   "scen-tour-Samurai-91113": {
    "src": "corpus",
-   "passed": true,
+   "passed": false,
    "rngM": 5706,
    "rngT": 5706,
-   "scrM": 63,
+   "scrM": 54,
    "scrT": 63,
-   "kind": null,
-   "step": null,
+   "kind": "screen",
+   "step": 54,
    "steps": 63,
-   "owner": null,
-   "loc": null,
+   "owner": "mtele_trap",
+   "loc": "teleport.c:1998",
    "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
+   "cTopline": "The Wizard of Yendor suddenly disappears! You hear a chugging sound.",
+   "jsTopline": "The Wizard of Yendor suddenly disappears! You hear a chugging sound.",
    "error": null
   },
   "scen-tour-Samurai-92018": {
@@ -13143,7 +13143,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "score_targ(dogmove.js:1205)",
+   "jsOwner": "score_targ(dogmove.js:1214)",
    "cTopline": "You hear a chugging sound.",
    "jsTopline": "You hear a chugging sound.",
    "error": null
@@ -13228,7 +13228,7 @@
    "steps": 148,
    "owner": "newmonhp",
    "loc": "makemon.c:1042",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "",
    "jsTopline": "You hear a door crash open.",
    "error": null
@@ -13381,7 +13381,7 @@
    "steps": 97,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "some gold pieces",
    "jsTopline": "7 candles",
    "error": null
@@ -13449,7 +13449,7 @@
    "steps": 210,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "some gold pieces",
    "jsTopline": "a lamp",
    "error": null
@@ -13483,7 +13483,7 @@
    "steps": 205,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "some gold pieces",
    "jsTopline": "a whistle",
    "error": null
@@ -13542,7 +13542,7 @@
   "scen-town-Tourist-94062": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4782,
+   "rngM": 4776,
    "rngT": 7804,
    "scrM": 69,
    "scrT": 228,
@@ -13551,7 +13551,7 @@
    "steps": 228,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "some gold pieces",
    "jsTopline": "a large box",
    "error": null
@@ -13619,7 +13619,7 @@
    "steps": 92,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "an arrow",
    "jsTopline": "2 candles",
    "error": null
@@ -13636,7 +13636,7 @@
    "steps": 321,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1106)",
+   "jsOwner": "distfleeck(monmove.js:1090)",
    "cTopline": "a potion (no travel path)",
    "jsTopline": "an ebony wand (no travel path)",
    "error": null
@@ -13755,7 +13755,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "obj_resists(dogmove.js:184)",
+   "jsOwner": "obj_resists(dogmove.js:186)",
    "cTopline": "The little dog doesn't seem to move!",
    "jsTopline": "Really step onto that sleeping gas trap? [yn] (n)",
    "error": null
@@ -13925,7 +13925,7 @@
    "steps": 132,
    "owner": "dog_move",
    "loc": "dogmove.c:1206",
-   "jsOwner": "dog_move(dogmove.js:1546)",
+   "jsOwner": "dog_move(dogmove.js:1555)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -13959,7 +13959,7 @@
    "steps": 34,
    "owner": "dog_move",
    "loc": "dogmove.c:1257",
-   "jsOwner": "dog_move(dogmove.js:1546)",
+   "jsOwner": "dog_move(dogmove.js:1555)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -13996,7 +13996,7 @@
    "jsOwner": null,
    "cTopline": "In what direction?",
    "jsTopline": "Unknown command '^'.",
-   "error": "Error: relink_light_sources: no monster 0 |     at relinkGlobalTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:642:23) |     at try_restor"
+   "error": "Error: relink_light_sources: no monster 0 |     at relinkGlobalTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:644:23) |     at try_restor"
   },
   "scen-tutorial-Archeologist-94059": {
    "src": "corpus",
