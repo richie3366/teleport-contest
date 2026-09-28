@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3051 — `pay` + `check_credit` + `reject_purchase` shop-billing closure (credit-message arms)
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL ×2 (`shk.c` pay C 12 code L / JS 8; `shk.c` reject_purchase C 22 / JS 16). The head's callee `check_credit` (C 12 / JS 8, ledger unknown, no queue row) carried the real gap: its two `pline_The` arms were dropped as "silent", so every pay-path, stolen_value-path and pay_for_damage-path with shop credit > 0 lost C's "The price is (deducted from | partially covered by) your credit." line; `stolen_value` carried a 14-line inline clone of the same logic with `pline('The …')` instead of the live `pline_The`.
+- **C locus:**
+  - `pay`: nethack-c/upstream/src/shk.c:1297–1313 (whole body in C order — robbed snapshot :1301, balance via check_credit for tmp>0 :1302, money2mon/money2u arms :1304–1307, disp.botl :1308, robbed payback clamped at 0 :1309–1313).
+  - `check_credit`: nethack-c/upstream/src/shk.c:1278–1294 (whole body in C order — credit==0 `;` no-op fallthrough returning tmp :1283, full-deduct pline_The + `credit -= tmp` + `tmp = 0` :1284–1287, partial-cover pline_The + `credit = 0` + `tmp -= credit` :1288–1292).
+  - `reject_purchase`: nethack-c/upstream/src/shk.c:2419–2451 (whole body in C order — intact_quan :2423, assert :2424 caller-guarded, temp used-up quan :2426, Deaf/muteshk branch :2427 with contained/these arms :2430–2434, SetVoice :2437, verbalize :2438–2441, else pline :2442–2447, quan restore :2449).
+- **JS was:** `js/shk.js:5342` sync `check_credit` with both pline_The arms deleted (doc claimed "silent"); `js/shk.js:5358` `pay` calling it sync (so the pay path never printed); `js/shk.js:3253` `stolen_value` inlining the same two arms as `pline('The …')` (clone drift); `js/shk.js:2188` pay_for_damage calling it sync; `js/shk.js:5609` `reject_purchase` complete except the `:2437` SetVoice call (named omit).
+- **Fix:** restarted `check_credit` whole in C order with per-arm `:line` cites — async only because `pline_The` can reach --More-- (Constitution §2), `credit === 0` keeps the `;` fallthrough shape, both message arms use the live `pline_The` export (added to the existing display.js import — `imports.mjs --can` ALREADY, no new edge). `pay` awaits it (`:1302`); `stolen_value`'s 14-line inline block replaced by `value = await check_credit(value, shkp)` (`:3821`); pay_for_damage site awaits (`:5312`); `reject_purchase` wires the live `SetVoice` no-op (`:2437`, file convention — empty macro without SND_LIB) plus per-arm cites. No new cross-module edges; `| 0` long idiom kept.
+- **JS:**
+  - `pay`: js/shk.js:5359 (async, signature unchanged).
+  - `check_credit`: js/shk.js:5335 (now async; all 3 callers already async).
+  - `reject_purchase`: js/shk.js:5613 (async, signature unchanged).
+- **Callers:**
+  - `pay`: C :1881 pay(ltmp) → js/shk.js:6080; C :1885 pay(umoney) → js/shk.js:6085; C :1919 pay(min) → js/shk.js:6127; C :1937 pay(1000L) → js/shk.js:6150; C :2288 pay(ltmp) → js/shk.js:5687; C :4181 pay(-offer) → js/shk.js:3096 — all six pre-wired with await, unchanged.
+  - `check_credit`: C :1300 (pay) → js/shk.js:5362; C :3821 (stolen_value) → js/shk.js:3254 (clone deleted); C :5312 (pay_for_damage) → js/shk.js:2188 — all now awaited.
+  - `reject_purchase`: C :2280 → js/shk.js:5680 (dopayobj, `quan < bquan` guard holds the :2424 assert); C :2355 → js/shk.js:5745 (buy_container, same guard) — both pre-wired with await, unchanged.
+- **Verify:** `node scripts/verify.mjs --fn pay,check_credit,reject_purchase` → VERIFY: PASS — syntax 1 changed js file (js/shk.js); rule2 clean; hidden note ×3 (no corpus session blocked — coverage rows, expected); reach REACH-OK ×3 (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed each); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:**
+  - `pay`: invent-full dropy on money2u (gold merges; pre-existing).
+  - `check_credit`: none — every arm ported, callee `pline_The` live.
+  - `reject_purchase`: C `:2424` assert has no JS arm — both callers guard `quan < bquan` before calling, so it holds by construction.
+- **Ledger:** pay ported; check_credit ported; reject_purchase ported.
+- **Next:** next Open — coverage head after regenerate (density note: cluster is 3 functions / ~60 JS lines — below the ~80-insertion guideline, but shk.c holds no further Open rows and the callee closure (money2mon ok, money2u partial-with-external-omit) is fully live, so there was nothing more in-file to ship).
+
 ## D-3050 — `align_gtitle` default-arm port (unknown alignment → "god")
 
 - **Status:** shipped.

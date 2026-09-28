@@ -34,8 +34,8 @@
 {"fn":"is_unpaid","c":"1167-1171","status":"unknown"}
 {"fn":"delete_contents","c":"1175-1183","status":"unknown"}
 {"fn":"obfree","c":"1187-1275","status":"unknown"}
-{"fn":"check_credit","c":"1278-1294","status":"unknown"}
-{"fn":"pay","c":"1297-1313","status":"unknown"}
+{"fn":"check_credit","c":"1278-1294","status":"ported","js":["js/shk.js:check_credit"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
+{"fn":"pay","c":"1297-1313","status":"ported","js":["js/shk.js:pay"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
 {"fn":"home_shk","c":"1317-1328","status":"unknown"}
 {"fn":"angry_shk_exists","c":"1331-1340","status":"unknown"}
 {"fn":"pacify_shk","c":"1344-1358","status":"unknown"}
@@ -54,7 +54,7 @@
 {"fn":"update_bill","c":"2171-2211","status":"unknown"}
 {"fn":"dopayobj","c":"2220-2302","status":"unknown"}
 {"fn":"buy_container","c":"2309-2411","status":"unknown","d":["D-1702"],"at":"seed@a30a7de84"}
-{"fn":"reject_purchase","c":"2419-2451","status":"unknown"}
+{"fn":"reject_purchase","c":"2419-2451","status":"ported","js":["js/shk.js:reject_purchase"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
 {"fn":"insufficient_funds","c":"2455-2481","status":"unknown"}
 {"fn":"paybill","c":"2485-2570","status":"unknown"}
 {"fn":"inherits","c":"2577-2679","status":"unknown"}

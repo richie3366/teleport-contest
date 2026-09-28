@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3051 `pay` + `check_credit` + `reject_purchase` shop-billing closure (credit-message arms)
+
+**C locus:** - `pay`: nethack-c/upstream/src/shk.c:1297–1313 (whole body in C order — robbed snapshot :1301, balance via check_credit for tmp>0 :1302, money2mon/money2u arms :1304–1307, disp.botl :1308, robbed payback clamped at 0 :1309–1313).
+**JS:** - `pay`: js/shk.js:5374 (async, signature unchanged).
+**Change:** restarted `check_credit` whole in C order with per-arm `:line` cites — async only because `pline_The` can reach --More-- (Constitution §2), `credit === 0` keeps the `;` fallthrough shape, both message arms use the live `pline_The` export (added to the existing display.js import — `imports.mjs --can` ALREADY, no new edge). `pay` awaits it (`:1302`); `stolen_value`'s 14-line inline block replaced by `value = await check_credit(value, shkp)` (`:3821`); pay_for_damage site awaits (`:5312`); `reject_purchase` wires the live `SetVoice` no-op (`:2437`, file convention — empty macro without SND_LIB) plus per-arm cites. No new cross-module edges; `| 0` long idiom kept.
+**Verify:** `node scripts/verify.mjs --fn pay,check_credit,reject_purchase` → VERIFY: PASS — syntax 1 changed js file (js/shk.js); rule2 clean; hidden note ×3 (no corpus session blocked — coverage rows, expected); reach REACH-OK ×3 (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed each); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
+**Named:** - `pay`: invent-full dropy on money2u (gold merges; pre-existing).
+**Next:** next Open — coverage head after regenerate (density note: cluster is 3 functions / ~60 JS lines — below the ~80-insertion guideline, but shk.c holds no further Open rows and the callee closure (money2mon ok, money2u partial-with-external-omit) is fully live, so there was nothing more in-file to ship).
 ## 2026-09-28 — D-3050 `align_gtitle` default-arm port (unknown alignment → "god")
 
 **C locus:** - `align_gtitle`: nethack-c/upstream/src/pray.c:2628–2649 (whole body in C order — `result = "god"` :2631, lawful→lgod :2634, neutral→ngod :2637, chaotic→cgod :2640, default→null :2643–2645, `'_'` prefix→"goddess" :2647).

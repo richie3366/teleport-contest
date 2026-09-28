@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `shk.c` pay — coverage PARTIAL (C 12 code L `shk.c:1297–1313` / JS 8 code L in js/shk.js; hops 4, callers 3, RNG 0, msg 0) @725011334
 - [ ] `worm.c` toss_wsegs — coverage PARTIAL (C 9 code L `worm.c:146–167` / JS 6 code L in js/worm.js; hops 4, callers 4, RNG 0, msg 0) @eb54a70f8
 - [ ] `timeout.c` wiz_timeout_queue — coverage THIN (C 60 code L `timeout.c:2041–2127` / JS 6 code L in js/timeout.js; hops —, callers 0, RNG 0, msg 16) @eb54a70f8
 - [ ] `display.c` cmap_to_roguecolor — coverage MISSING (C 15 code L `display.c:2699–2719` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @eb54a70f8
@@ -126,7 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `timeout.c` maybe_write_timer — coverage MISSING (C 12 code L `timeout.c:2627–2651` / JS no symbol; hops 5, callers 1, RNG 0, msg 0; dead callees: write_timer) @d81780b83
 - [ ] `mklev.c` bydoor — coverage THIN (C 18 code L `mklev.c:1750–1775` / JS 6 code L in js/mklev.js; hops 4, callers 3, RNG 0, msg 0) @1aaa15680
 - [ ] `zap.c` wish_history_menu — coverage THIN (C 23 code L `zap.c:6275–6309` / JS 0 code L in js/zap.js; hops 3, callers 1, RNG 0, msg 0) @d599cea95
-- [ ] `shk.c` reject_purchase — coverage PARTIAL (C 22 code L `shk.c:2419–2451` / JS 16 code L in js/shk.js; hops 6, callers 2, RNG 0, msg 2) @68feb0e9e
+- [ ] `sp_lev.c` create_subroom — coverage PARTIAL (C 27 code L `sp_lev.c:1668–1707` / JS 19 code L in js/mklev.js; hops —, callers 1, RNG 4, msg 0) @e96a1ef43
+- [ ] `dig.c` escape_tomb — coverage MISSING (C 23 code L `dig.c:2241–2270` / JS no symbol; hops —, callers 0, RNG 1, msg 2; dead callees: unearth_you) @e96a1ef43
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
