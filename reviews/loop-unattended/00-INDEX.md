@@ -1999,3 +1999,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1987-759e72748-del-engr.md](./1987-759e72748-del-engr.md) | `759e72748` | D-3027 del_engr | **ACCEPT** |
 | [1988-72bf1dec2-dokeylist-spkey-name.md](./1988-72bf1dec2-dokeylist-spkey-name.md) | `72bf1dec2` | D-3028 dokeylist + spkey_name | **ACCEPT** |
 | [1989-da6d0e8ae-wizcustom-callback.md](./1989-da6d0e8ae-wizcustom-callback.md) | `da6d0e8ae` | D-3029 wizcustom_callback | **ACCEPT** |
+| [1990-2972f3ad5-bare-artifactname.md](./1990-2972f3ad5-bare-artifactname.md) | `2972f3ad5` | D-3030 bare_artifactname + ch_ksound | **ACCEPT** |
+| [1991-581088132-get-saved-pline.md](./1991-581088132-get-saved-pline.md) | `581088132` | D-3031 get_saved_pline | **ACCEPT** |
+| [1992-1b942d6a1-roomtable-closure.md](./1992-1b942d6a1-roomtable-closure.md) | `1b942d6a1` | D-3032 room-table closure (4 fns) | **ACCEPT** |
+| [1993-5469ed258-fhito-loc.md](./1993-5469ed258-fhito-loc.md) | `5469ed258` | D-3033 fhito_loc | **ACCEPT** |
+| [1994-34c47b267-wall-spine-closure.md](./1994-34c47b267-wall-spine-closure.md) | `34c47b267` | D-3034 wall-spine closure (5 fns) | **ACCEPT** |
+| [1995-c01f2bf81-stairway-add.md](./1995-c01f2bf81-stairway-add.md) | `c01f2bf81` | D-3035 stairway_add | **ACCEPT** |
+| [1996-66bbd0418-stat-update-time.md](./1996-66bbd0418-stat-update-time.md) | `66bbd0418` | D-3036 stat_update_time + status_finish | **ACCEPT** |
+| [1997-d4eca01f7-decl-globals-init.md](./1997-d4eca01f7-decl-globals-init.md) | `d4eca01f7` | D-3037 decl_globals_init + validate | **ACCEPT** |
+| [1998-a7a0f55e5-objdescr-is.md](./1998-a7a0f55e5-objdescr-is.md) | `a7a0f55e5` | D-3038 objdescr_is + 4-clone fold | **ACCEPT** |

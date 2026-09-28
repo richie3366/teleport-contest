@@ -9,7 +9,7 @@
 {"fn":"objdescr_is","c":"352-365","status":"ported","js":["js/apply.js:objdescr_is"],"d":["D-3038"],"at":"2026-09-28@d4eca01f7"}
 {"fn":"oinit","c":"369-372","status":"unknown"}
 {"fn":"savenames","c":"375-407","status":"ported","js":["js/o_init.js:savenames"],"d":["D-3022"],"at":"2026-09-28@5affd05cd","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"restnames","c":"411-437","status":"ported","js":["js/o_init.js:restnames"],"d":["D-3022"],"at":"2026-09-28@5affd05cd","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restnames","c":"411-437","status":"ported","js":["js/o_init.js:restnames"],"d":["D-3022"],"at":"2026-09-28@a7a0f55e5","note":"audit 1990-1998: export live js/o_init.js:390 with per-arm cites (D-3022); prior 'measured MISSING' refresh note stale"}
 {"fn":"observe_object","c":"442-451","status":"unknown"}
 {"fn":"discover_object","c":"454-494","status":"unknown"}
 {"fn":"undiscover_object","c":"498-523","status":"unknown","d":["D-1691"],"at":"seed@a30a7de84"}

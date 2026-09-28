@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — Audit 1990–1998 (D-3030…D-3038): 9 ACCEPT, 0 Must-fix; full cadence
+
+**Scope:** all 9 js-touching SHAs since audit 1981–1989 (`2972f3ad5`…`a7a0f55e5`; docs-only `953aea809` skipped per the js-only rule). Each re-measured with `hidden-proxy verify --base <SHA>~1 --reach-all`: every claim matched (honest vacuous + smoke REACH-OK, zero REGRESSED).
+**Finds:** none queueable. Two tool notes: `sym.mjs` misses export-list syntax (`bhito`, js/zap.js:6276 — verified live by direct read + module load); `lspo_region` comment block cites `:5603–5606` vs pinned `:5601–5604` (pre-existing +2 drift, comment-only).
+**Score:** public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `270+1.59/turn`); corpus 631/953 (66.2 %), RNG 96.04 %, screens 88.9 %, 0 unrecorded, 0 flips, board `full: true` @13:45Z; held-out 12/44, points 6,452→6,880 (RNG 33.6 %, screens 61.1 %). Ledger sample: 5 ported rows checked, 2 stale notes fixed (`restnames`, `find_montype` — both truly ported, statuses unchanged).
+**Next:** pop the queue head (Must-fix empty).
 ## 2026-09-28 — D-3038 `o_init.c` objdescr_is whole: canonical export + 4-clone fold
 
 **C locus:** - `objdescr_is`: nethack-c/upstream/src/o_init.c:352–365 — null guard `:356-359`, OBJ_DESCR fetch `:361` (objclass.h `:191`: obj_descr[oc_descr_idx].oc_descr), null-descr fallthrough `:362-363`, strcmp match `:364`.

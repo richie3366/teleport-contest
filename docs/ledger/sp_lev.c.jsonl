@@ -65,7 +65,7 @@
 {"fn":"lspo_message","c":"3076-3109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_align","c":"3114-3128","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_monclass","c":"3131-3140","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"find_montype","c":"3143-3164","status":"ported","js":["js/mklev.js:find_montype"],"d":["D-2997"],"at":"2026-09-27@9ee8217df","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"find_montype","c":"3143-3164","status":"ported","js":["js/mklev.js:find_montype"],"d":["D-2997"],"at":"2026-09-28@a7a0f55e5","note":"audit 1990-1998: C staticfn, file-local js/mklev.js:29179 whole with cites (D-2997); 'no export' is correct linkage, prior note stale"}
 {"fn":"get_table_montype","c":"3167-3179","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_xy_or_coord","c":"3188-3204","status":"unknown"}
 {"fn":"lspo_monster","c":"3214-3400","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as l_create_monster + helpers mklev.js:22134-22353, review 1604 ACCEPT"}

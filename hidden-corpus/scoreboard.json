@@ -1,9 +1,9 @@
 {
- "commit": "d4eca01f7",
- "at": "2026-09-28T13:23:53.781Z",
- "full": false,
- "fullCommit": "da6d0e8ae",
- "fullAt": "2026-09-28T12:01:32.081Z",
+ "commit": "a7a0f55e5",
+ "at": "2026-09-28T13:45:54.539Z",
+ "full": true,
+ "fullCommit": "a7a0f55e5",
+ "fullAt": "2026-09-28T13:45:54.539Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4762,7 +4762,7 @@
    "steps": 288,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2654)",
+   "jsOwner": "l_nhcore_init(mklev.js:2652)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!",
    "error": null
@@ -5136,7 +5136,7 @@
    "steps": 135,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2654)",
+   "jsOwner": "l_nhcore_init(mklev.js:2652)",
    "cTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "error": null
@@ -8893,7 +8893,7 @@
    "steps": 206,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "rottenfood(eat.js:2413)",
+   "jsOwner": "rottenfood(eat.js:2414)",
    "cTopline": "You resume your meal. You hear the footsteps of a guard on patrol.--More--",
    "jsTopline": "Blecch! Rotten food! You finish eating the food ration.",
    "error": null
@@ -10304,7 +10304,7 @@
    "steps": 117,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2654)",
+   "jsOwner": "l_nhcore_init(mklev.js:2652)",
    "cTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "error": null
@@ -11545,7 +11545,7 @@
    "steps": 223,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "landing_spot(steed.js:583)",
+   "jsOwner": "landing_spot(steed.js:576)",
    "cTopline": "A warhorse appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -12786,7 +12786,7 @@
    "steps": 202,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2654)",
+   "jsOwner": "l_nhcore_init(mklev.js:2652)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "error": null
