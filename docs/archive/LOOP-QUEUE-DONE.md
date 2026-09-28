@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-28
 
+- [x] `mkroom.c` rest_rooms — coverage MISSING (C 8 code L `mkroom.c:893–906` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: rest_room) @7cd5d050b
+
+
 - [x] `options.c` doset_simple_menu — coverage THIN (C 121 code L `options.c:8536–8702` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 1; dead callees: is_wc2_option) @2bf11e0a4 **Addressed:** D-3009 `70c901367`
 
 

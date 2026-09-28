@@ -24,6 +24,7 @@ import { savecemetery, restcemetery, save_exclusions } from './dungeon.js';
 import { forget_temple_entry } from './priest.js';
 import { peek_track } from './track.js';
 import { save_engravings } from './engrave.js';
+import { save_rooms, save_rooms_from } from './mkroom.js';
 import { timer_is_local, light_is_local } from './mkobj.js';
 import { write_ls } from './light.js';
 
@@ -734,8 +735,10 @@ export function serLevel(src) {
         updest,
         dndest,
         level_flags: lvl?.flags ? { ...lvl.flags } : {},
-        rooms: jsonClone(lvl?.rooms, []),
-        nroom: lvl?.nroom | 0,
+        // C save.c:534 savelev → save_rooms (mkroom.c:862–871): live
+        // reads game.level; a stash re-serializes its records as-is
+        // (head_engr precedent — records carry no pointers/monsters).
+        ...(live ? save_rooms() : save_rooms_from(src.level)),
         doors: jsonClone(lvl?.doors, []),
         doorindex: lvl?.doorindex | 0,
         upstair: lvl?.upstair ? { ...lvl.upstair } : null,

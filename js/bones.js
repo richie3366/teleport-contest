@@ -32,6 +32,7 @@ import { tended_shop } from './sounds.js';
 import { mongone, unique_corpstat } from './mon.js';
 import { no_bones_level, done } from './end.js';
 import { sanitize_engravings, rest_engravings } from './engrave.js';
+import { rest_rooms } from './mkroom.js';
 import { delete_convertedfile } from './files.js';
 import { mons, monsterNames, SPECIAL_PM } from './monsters.js';
 import { cant_revive } from './zap.js';
@@ -684,6 +685,10 @@ function getlev_bones(payload) {
     }
 
     game.level = map;
+    // C restore.c:1132 ghostly getlev → rest_rooms (mkroom.c:892–906):
+    // rebuild live rooms from the records (residents stay null on bones —
+    // ghostly re-link via restmonchn set_residency is a separate gap).
+    rest_rooms({ nroom: map.nroom, rooms: map.rooms });
     game.fmon = fmon;
     game.fobj = info.fobj;
     game.billobjs = info.billobjs;

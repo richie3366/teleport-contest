@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3016 — `mkroom.c` save/restore closure whole (save_room/save_rooms/rest_room/rest_rooms; new js/mkroom.js; serLevel + 3 getlev installs wired)
+
+- **Status:** shipped (Open — coverage head `mkroom.c` rest_rooms MISSING + its Open callee `rest_room` + same-closure `save_room`/`save_rooms`, absent/MISSING below the 12-row window. No corpus session blocked on any of the four.)
+- **Symptom:** coverage gap, not a corpus divergence. Room save/restore had no dedicated port: `serLevel` snapshotted `rooms` with a blind `jsonClone` (live `resident` monster refs and aliased `sbrooms` went into the blob — `JSON.stringify` duplication at best, `[]` fallback if a cycle ever throws), `nsubroom` was never snapshotted, and restore never re-linked subroom slots or nulled residents.
+- **C locus:**
+  - `save_room`: `nethack-c/upstream/src/mkroom.c:843–857` whole in C order — `:848–851` "who cares?" whole-struct write, `:854–856` recurse `sbrooms[0..nsubrooms-1]`.
+  - `save_rooms`: `nethack-c/upstream/src/mkroom.c:862–871` whole — `:867` `Sfo_int(nroom)`, `:868–869` per-room `save_room`.
+  - `rest_room`: `nethack-c/upstream/src/mkroom.c:874–886` whole — `:879` whole-struct read, `:880–885` per subroom: link slot `:882`, recurse `:883`, null resident + bump `:884`.
+  - `rest_rooms`: `nethack-c/upstream/src/mkroom.c:892–906` whole — `:897` `Sfi_int(nroom)`, `:899` `nsubroom = 0`, `:900–903` per-room restore + null resident, `:904–905` both `hx = -1` ending flags.
+- **JS was:** no symbol for any of the four (brief MISSING ×4); rooms persisted only via `jsonClone` in `serLevel` (`js/lev_json.js:737`) and revived by reference in `deserLevel` (`:788`).
+- **Fix:** new `js/mkroom.js` (1:1 file mapping) — file-local `save_room` (scalar-record copy ⇔ `Sfo_mkroom`, children nested under `subrooms` mirroring C file order) + exported `save_rooms()` (live `game.level` entry) / `save_rooms_from(level)` (stash re-serialize helper for `serLevel`'s live/stash duality); file-local `rest_room` (scalar copy ⇔ `Sfi_mkroom`, slot link-before-read at `rooms[MAXNROFROOMS+1+nsubroom]`, recurse, null resident) + exported `rest_rooms(stored)` (fresh flat array — C reuses the fixed array, GC frees the old; fresh `{ hx: -1 }` terminators ⇔ `:904–905`). Absent keys stay absent on both directions (live rooms omit `orig_rtype` until stamped; `orig_rtype ?? rtype` fallback in dungeon.js/end.js depends on it). Children read from `subrooms` (records) or `sbrooms` (live rooms / legacy raw blobs); records are never mutated (stashes reinstall on every revisit).
+- **JS:** `js/mkroom.js` (new, ~150 lines); `js/lev_json.js:27,741` (`serLevel` live → `save_rooms()`, stash → `save_rooms_from`, replacing the blind clone); `js/save.js:67,925` (dorecover install); `js/do.js:130,1880` (goto_level stash install); `js/bones.js:35,691` (getlev_bones install). All four new import edges `imports.mjs --can` SAFE (mkroom.js imports only gstate + const).
+- **Callers:**
+  - `save_rooms`: `save.c:534` savelev ⇔ `js/lev_json.js:741` `serLevel` live branch (bones `savebones` via `serLevel(null)` at `js/bones.js:456` rides the same site).
+  - `rest_rooms`: `restore.c:1132` getlev ⇔ three JS getlev installs, each adjacent to the `game.level` assignment: `js/save.js:925` (dorecover), `js/do.js:1880` (goto_level stash), `js/bones.js:691` (getlev_bones).
+  - `save_room`/`rest_room` (C staticfns): only called from the sibling entries above, same file — no external callers in C or JS.
+- **Verify:**
+  - `save_room`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - `save_rooms`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - `rest_room`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - `rest_rooms`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - Final `node scripts/verify.mjs --fn save_room,save_rooms,rest_room,rest_rooms` → VERIFY: PASS (syntax 5 files; rule2 clean; green 2/2; strict ×2; cohort 7/7; full 44/44 — shared files changed).
+  - /tmp/mkroom-roundtrip.mjs (not committed — no maintained harness in repo): 26/26 — envelope shape, nested subroom, no resident/sbrooms in records, orig_rtype absence preserved, JSON round trip, subroom aliasing to flat slot, residents nulled, both hx=-1 terminators, envelope immutability, legacy raw-clone compat, live-input idempotence, clean re-save.
+- **Named omissions:**
+  - `save_room`/`save_rooms`: Sfo binary encode (stash/JSON architecture, engrave precedent); C's written `sbrooms`/`resident` pointer garbage — omitted, restore re-derives both.
+  - `rest_room`/`rest_rooms`: Sfi binary decode (same); in-place fixed-array reuse ⇔ fresh-object install (GC).
+  - `rest_rooms`: ghostly (bones) `set_residency` re-link (restore.c:1181–1184 runs ghostly too; JS `getlev_bones` never re-links — pre-existing gap outside this closure, needs its own row if queued).
+- **Ledger:** save_room ported; save_rooms ported; rest_room ported; rest_rooms ported.
+- **Next:** bones `set_residency` gap above (verify `getlev_bones` fmon loop against restore.c:1177–1198 before queueing); nothing else pending — vault candidate at `rooms[nroom]` is generation-transient (hx=-1 stamped on failure, add_room-counted on fill), so fresh terminators are safe.
+
 ## D-3015 — `objnam.c` wishymatch restarted whole from C (dwarvish/elven/helm/gauntlets/detect/detection/ability/aluminum arms; hacklib fuzzymatch clone removed)
 
 - **Status:** shipped (Open — coverage head `objnam.c` wishymatch THIN; single-function cluster — the 12-row block holds no other `objnam.c` row and no Open callee. No corpus session blocked on it.)

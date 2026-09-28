@@ -64,6 +64,7 @@ import {
 export { serObj, serMon, serLevel, deserLevel, serTraps, deserTraps } from './lev_json.js';
 import { relink_light_sources } from './light.js';
 import { rest_engravings } from './engrave.js';
+import { rest_rooms } from './mkroom.js';
 import { adj_erinys, reset_erinys } from './monsters.js';
 import { set_uasmon } from './polyself.js';
 
@@ -918,6 +919,10 @@ export async function try_restore_save() {
     // C restore.c getlev current. Missing `current` = old scattered keys.
     const info = deserLevel(levelBlobFromPayload(payload));
     game.level = info.level;
+    // C restore.c:1132 getlev → rest_rooms (mkroom.c:892–906): rebuild
+    // live rooms from the records (subrooms re-linked positionally,
+    // residents nulled — re-linked from fmon below, restore.c:1181–1184).
+    rest_rooms({ nroom: info.level.nroom, rooms: info.level.rooms });
     game.fmon = info.fmon;
     game.fobj = info.fobj;
     game.billobjs = info.billobjs;

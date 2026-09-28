@@ -127,6 +127,7 @@ import {
     freeinv_core, getobj, ggetobj, useup, useupall,
 } from './invent.js';
 import { can_reach_floor, set_occupation, engr_at, sticks, save_engravings, rest_engravings } from './engrave.js';
+import { rest_rooms } from './mkroom.js';
 import {
     pickup, pooleffects, query_category, query_objlist, add_valid_menu_class,
     allow_category, allow_all, count_justpicked, find_justpicked,
@@ -1872,6 +1873,11 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         // C: getlev — restore in-memory stash + place/catchup/restore_cham/hide_monst + rest_track
         // C restore.c Sfi_dest_area updest/dndest after rest_stairs.
         game.level = info.level;
+        // C restore.c:1132 getlev → rest_rooms (mkroom.c:892–906): the
+        // stash holds records (or live rooms); rebuild live rooms here —
+        // subrooms re-linked, residents nulled, re-linked from fmon at
+        // getlev_place_monsters below (restore.c:1181–1184).
+        rest_rooms({ nroom: info.level.nroom, rooms: info.level.rooms });
         game.fmon = info.fmon || [];
         game.fobj = info.fobj || null;
         game.ftrap = info.ftrap || null;
