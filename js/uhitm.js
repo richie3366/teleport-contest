@@ -3688,7 +3688,7 @@ export async function explum(mdef, mattk) {
             (ad - 1) + 20,
             tmp,
             MON_EXPLODE,
-            adtyp_to_expltype(ad),
+            await adtyp_to_expltype(ad),
         );
         if (mdef && (mdef.mhp | 0) < 1) {
             return M_ATTK_DEF_DIED;

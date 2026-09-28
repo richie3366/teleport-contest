@@ -4,5 +4,5 @@
 {"fn":"scatter","c":"721-947","status":"unknown","d":["D-2303","D-2274"],"at":"seed@a30a7de84"}
 {"fn":"splatter_burning_oil","c":"962-969","status":"unknown"}
 {"fn":"explode_oil","c":"974-983","status":"unknown"}
-{"fn":"adtyp_to_expltype","c":"987-1012","status":"unknown"}
+{"fn":"adtyp_to_expltype","c":"987-1012","status":"ported","js":["js/explode.js:adtyp_to_expltype"],"d":["D-3042"],"at":"2026-09-28@725011334"}
 {"fn":"mon_explodes","c":"1019-1067","status":"ported","js":["js/explode.js:mon_explodes"],"d":["D-3000"],"at":"2026-09-28@9600a44be"}

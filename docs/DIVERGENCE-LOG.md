@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3042 — `muse.c` necrophiliac by-design (`#if 0`) + `explode.c` adtyp_to_expltype whole
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING `necrophiliac` (C 8 code L, no JS symbol) + coverage THIN `adtyp_to_expltype` (C 20 code L vs JS 5): JS missed the SPEL/DREN/ENCH→MAGICAL and DRDX/DRCO/DISE/PEST→NOXIOUS arms and skipped the default-arm `impossible()`.
+- **C locus:**
+  - `necrophiliac`: nethack-c/upstream/src/muse.c:2688–2703 — whole body sits inside `#if 0 … #endif` (identical in recorder tree); the only other reference is the comment at :1309, so it is never compiled and has no live caller.
+  - `adtyp_to_expltype`: nethack-c/upstream/src/explode.c:986–1012 — ELEC/SPEL/DREN/ENCH→MAGICAL `:990–996`, FIRE→FIERY `:997–998`, COLD→FROSTY `:999–1000`, DRST/DRDX/DRCO/DISE/PEST/PHYS→NOXIOUS `:1001–1008`, default `impossible()` + FIERY `:1009–1011`.
+- **JS was:** no `necrophiliac` symbol (correct — C never compiles it); js/explode.js:309 `adtyp_to_expltype` mapped only FIRE/COLD/ELEC/DRST/PHYS and returned FIERY on default with the `impossible()` noted in a comment but not called.
+- **Fix:** `necrophiliac` declared by-design, no code (porting `#if 0` C would add dead JS C never executes). Restarted `adtyp_to_expltype` whole as a C-order switch (same export name; now async since the default arm awaits the live async `impossible`). New file-local AD consts at js/explode.js:114–121 with monattk.h values (DREN 16, DRDX 30, DRCO 31, DISE 33, PEST 38, ENCH 41, SPEL 241). No new cross-module edge (`impossible` already imported; both callers already import the function).
+- **JS:**
+  - `necrophiliac`: none — by-design, no symbol added.
+  - `adtyp_to_expltype`: js/explode.js:317 export, async (default-arm `impossible` reach).
+- **Callers:**
+  - `necrophiliac`: none live in C (comment-only :1309 + self-recursion inside the `#if 0`) — nothing to wire.
+  - `adtyp_to_expltype`: explode.c:1063 (`mon_explodes`) → js/explode.js:859, awaited; uhitm.c:4916 (`explum` AT_EXPL arm) → js/uhitm.js:3691, awaited.
+- **Verify:** `node scripts/verify.mjs --fn necrophiliac,adtyp_to_expltype` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files; rule2 clean; green 2/2; strict ×2; cohort 7/7.
+- **Named omissions:**
+  - `necrophiliac`: whole function — C `#if 0`, never compiled (muse.c:2688/2703, both trees).
+  - `adtyp_to_expltype`: none — every arm ported, every callee live (`impossible`).
+- **Ledger:** necrophiliac by-design; adtyp_to_expltype ported
+- **Next:** head moves to `read.c` hawaiian_motif (next coverage row after adtyp_to_expltype ships).
+
 ## D-3041 — `do.c` drop whole + `finesse_ahriman` port
 
 - **Status:** shipped.
