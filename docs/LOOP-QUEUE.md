@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mon.c` relmon — coverage PARTIAL (C 18 code L `mon.c:2561–2594` / JS 10 code L in js/dog.js; hops 3, callers 6, RNG 0, msg 0) @79ab7d2dc
 - [ ] `pray.c` align_gtitle — coverage THIN (C 17 code L `pray.c:2628–2649` / JS 7 code L in js/roles.js; hops 4, callers 2, RNG 0, msg 0) @725011334
 - [ ] `shk.c` pay — coverage PARTIAL (C 12 code L `shk.c:1297–1313` / JS 8 code L in js/shk.js; hops 4, callers 3, RNG 0, msg 0) @725011334
 - [ ] `worm.c` toss_wsegs — coverage PARTIAL (C 9 code L `worm.c:146–167` / JS 6 code L in js/worm.js; hops 4, callers 4, RNG 0, msg 0) @eb54a70f8
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `uhitm.c` mhitm_ad_corr — coverage MISSING (C 14 code L `uhitm.c:2338–2360` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @fa84aeeac
 - [ ] `timeout.c` maybe_write_timer — coverage MISSING (C 12 code L `timeout.c:2627–2651` / JS no symbol; hops 5, callers 1, RNG 0, msg 0; dead callees: write_timer) @d81780b83
 - [ ] `mklev.c` bydoor — coverage THIN (C 18 code L `mklev.c:1750–1775` / JS 6 code L in js/mklev.js; hops 4, callers 3, RNG 0, msg 0) @1aaa15680
+- [ ] `zap.c` wish_history_menu — coverage THIN (C 23 code L `zap.c:6275–6309` / JS 0 code L in js/zap.js; hops 3, callers 1, RNG 0, msg 0) @d599cea95
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

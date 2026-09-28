@@ -38,7 +38,7 @@
 {"fn":"monnear","c":"2476-2483","status":"unknown"}
 {"fn":"dmonsfree","c":"2487-2511","status":"partial","js":["js/mon.js:dmonsfree"],"omit":"`save.c:1106` `freedynamicdata` (`FREE_ALL_MEMORY` is on in `config.h:632`; the function is still the save-freeing guard, not ported).","d":["D-2824"],"at":"seed@a30a7de84"}
 {"fn":"replmon","c":"2515-2556","status":"unknown"}
-{"fn":"relmon","c":"2561-2594","status":"unknown"}
+{"fn":"relmon","c":"2561-2594","status":"ported","js":["js/dog.js:relmon"],"d":["D-3049"],"at":"2026-09-28@d599cea95"}
 {"fn":"copy_mextra","c":"2597-2646","status":"unknown"}
 {"fn":"dealloc_mextra","c":"2649-2673","status":"unknown"}
 {"fn":"dealloc_monst","c":"2676-2691","status":"ported","js":["js/mon.js:dealloc_monst"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/mon.js:3479; dog.c:959->dog.js:1498, mon.c:2499->mon.js:3507, mon.c:2555->mon.js:3718, zap.c:740->zap.js:2880 wired, save.c:909 named omit"}

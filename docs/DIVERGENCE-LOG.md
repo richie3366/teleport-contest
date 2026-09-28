@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3049 — `relmon` whole port (fmon-empty arm + nmon linkage)
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL (C 18 code L `mon.c:2561–2594` / JS 10 code L): the local `relmon` merged C's two panics into one, never linked `mon->nmon` on prepend/orphan, and its `mon.c:2559` cite was off by two lines.
+- **C locus:**
+  - `relmon`: nethack-c/upstream/src/mon.c:2561–2594 (whole body in C order — `!fmon` panic :2565–2566, `mon_leaving_level` :2569, fmon unlink head :2572–2573 / scan :2577–2581 / absent panic :2583, prepend with `mon->nmon = *monst_list` :2586–2589, orphan `mon->nmon = 0` :2592).
+- **JS was:** js/dog.js:734 `relmon` — `mon_leaving_level` + indexOf splice + bare `unshift`, one impossible for both panics, no nmon write either way.
+- **Fix:** restarted the export whole in C order with per-arm `:line` cites — `!mon` defensive guard kept (C declares NONNULLARG1; every call site passes live mtmp), `!(game.fmon||[]).length → impossible('relmon: no fmon available.')` before take-off-map (:2565–2566), `await mon_leaving_level` (:2569, already imported), one indexOf covering head+scan with `:2583` impossible, prepend as `mon.nmon = list[0] || null; list.unshift(mon)` (:2588–2589) else `mon.nmon = null` (:2592). Same (local) name/signature; no new imports, no new cross-module edges.
+- **JS:**
+  - `relmon`: js/dog.js:741.
+- **Callers:**
+  - `relmon`: dog.c:618 (mon_arrive failed_to_place) → js/dog.js:1161 (pre-wired `await relmon(mtmp, failed_arrivals)`, now also links nmon per C); dog.c:863 (keepdogs follower) → js/dog.js:519–530 inline splice+unshift (named omission, see below); dog.c:906 (migrate_to_level) → js/teleport.js:2873–2879 inline splice+unshift with manual nmon (named omission, header now cites it at :2863); mon.c:2531 (replmon) → js/mon.js:3684–3693 inline grid-clear+splice+orphan-nmon (named omission); dog.c:408 is a comment reference, not a call.
+- **Verify:** `node scripts/verify.mjs --fn relmon` → VERIFY: PASS — syntax 2 changed js files (js/dog.js js/teleport.js); Rule #2 clean; hidden note (no corpus session blocked — coverage row, expected); REACH smoke spread 24/24 PASS (draws no RNG → REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed). A/B: wiring the keepdogs arm to `await relmon` fell to 18/24 reach + shifted a public session into the pre-existing fountain.js:594 bare-`mhis` throw; clean-HEAD re-run was 24/24 + full PASS, so the rewire was reverted.
+- **Named omissions:**
+  - `relmon`: keepdogs follower arm (dog.c:861–863) keeps its inline splice at js/dog.js:524–530 — `mon_leaving_level` take-off-map (`remove_monster`/`seemimic`/`fill_pit`/`newsym`) never runs there; migrate_to_level (dog.c:906) keeps its inline at js/teleport.js:2873–2879 — same take-off-map skipped, sync caller cannot await the async live export; replmon (mon.c:2531) keeps its inline at js/mon.js:3684–3693 — grid arm replicated, `unstuck`/`mtrapped`/`seemimic`/`fill_pit`/`newsym`/`mundetected` remainder not (sync, out of cluster).
+- **Ledger:** relmon ported.
+- **Next:** keepdogs-relmon rewire ships as its own row once the take-off-map delta is measured; noted: fountain.js:593–594 bare `mhis`/`mhe` (:499 re-export binds nothing) throws if the water-demon wish arm ever executes — unreached on this tree, no row yet.
+
 ## D-3048 — `find_branch_room` whole port (mazexy arm + impossible)
 
 - **Status:** shipped.
