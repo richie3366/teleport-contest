@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3029 — `wizcmds.c` wizcustom_callback whole (glyphmap-gated #wizcustom menu line; C caller wired)
+
+- **Status:** shipped. Queue head `wizcmds.c` wizcustom_callback (MISSING, C 29 L, no JS symbol) as a single-function cluster — the head's file and callee closure hold nothing more Open (only one wizcmds.c ledger row; brief lists 0 C callees). Resolves the review-1730 debt (empty `wizcustom_callback` site in `wizcustom_glyphids`).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify wizcustom_callback`: no corpus session blocked on it at baseline).
+- **C locus:**
+  - `wizcustom_callback`: `nethack-c/upstream/src/wizcmds.c:1986–2027` whole in C order — `:1997` win&&id guard, `:1998` glyphmap index, `:1999–2003` u/customcolor gate (ENHANCED_SYMBOLS `:2001` arm live per config.h:368), `:2004` bufa `[%04d] %-44s`, `:2005–2006` bufb `'\\%03d' %02d` off showsyms/sym, `:2007` bufc `%011lx`, `:2008` bufu empty, `:2010–2018` U+%04lx + NUL-terminated UTF-8 byte walk, `:2020` a_int=glyphnum+1, `:2021` four-field Snprintf (trailing space when bufu empty), `:2022–2023` add_menu.
+- **JS was:** no symbol; `js/glyphs.js:1189` wizcustom_glyphids carried the `:818` call as an empty named-omission arm (review 1730 ACCEPT-WITH-DEBT).
+- **Fix:** new `export function wizcustom_callback` (`js/wizcmds.js:1609`) in C order with per-arm `:line` cites: glyphmap via `ensure_glyphmap()` (exported from js/glyphs.js this commit — the live `glyphmap[MAX_GLYPH]` mirror; `reset_glyphmap` still does not fill `sym`/`tileidx`, so uncustomized entries format from the zero-fill), `%-44s`≡padEnd / `%04d`/`%03d`/`%02d`≡padStart / `%011lx`/`%04lx`≡lowercase-hex padStart, showsyms read undefined-safe (`nhsym` is uchar, global.h:108; char-or-int tolerant, `& 0xff`; still null until init_symbols lands), utf8str re-encoded to UTF-8 bytes inline (JS holds the dupstr string; surrogate pairs handled; 0 byte ends the walk like NUL), pointer-check `!= null` so an empty string still enters like C. add_menu lands on the raw menu array (options.js `raw` idiom: `{text, selectable:false, a_int}`; PICK_NONE consumer wiz_custom `:1969` unported, never selects). Both new static edges are IN-SCC function-declaration runtime-only calls (`imports.mjs --can` both directions).
+- **JS:**
+  - `wizcustom_callback`: `js/wizcmds.js:1609` (export).
+- **Callers:**
+  - `wizcustom_callback`: sole C caller wizcustom_glyphids glyphs.c:818 → JS `js/glyphs.js:1194` (empty arm replaced with the live call this commit).
+- **Verify:** `node scripts/verify.mjs --fn wizcustom_callback` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/glyphs.js js/wizcmds.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify wizcustom_callback: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    wizcustom_callback: no RNG-tagged reach; fixed smoke spread (24 run, 7.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+```
+Behavioral probe (/tmp/wizcustom-probe.mjs, not committed): guards no-op; default entry blocked by the gate; customcolor line byte-exact vs the C printf model (`[0005] foo… '\\000' 00 00000000123 ` + trailing space, a_int 6); U+00E9 → `U+00e9 <195> <169>`; U+1F600 surrogate → `<240> <159> <152> <128>`; showsyms char form `'\\035'` and int form `'\\065'` both read.
+- **Named omissions:**
+  - `wizcustom_callback`: `wiz_custom` (wizcmds.c:1933, own row — sole consumer of the filled menu: create/start/heading/end/select/destroy + docrt); `init_symbols` showsyms fill (symbols.c, unported — the `:2006` read pins 0 until it lands).
+- **Ledger:** wizcustom_callback ported.
+- **Next:** pop the next Open — coverage row; wizcmds.c needs no follow-up.
+
 ## D-3028 — `cmd.c` dokeylist restart in C order (live spkeys + num_pad arms) + `spkey_name` port
 
 - **Status:** shipped. Queue head `cmd.c` dokeylist (MISSING, C 100 L, no JS symbol) + Open callee `spkey_name` (MISSING, C 7 L, named dead callee on the row) as one cluster. Stale pop in the same iteration (1 check): `mplayer.c` get_mplname → ledger ported (whole C body complete at `js/mplayer.js:131` in C order; out-param→return is the immutable-string adaptation; `monsndx`≡`mndx` per mondata.h:10 `pmidx`; `is_female` exact; sole C caller mk_mplayer :141 wired at `js/mplayer.js:182`).

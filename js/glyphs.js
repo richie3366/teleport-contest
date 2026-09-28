@@ -64,6 +64,9 @@ import { unicodeval_to_utf8str } from './hacklib.js';
 import {
     rgbstr_to_int32, set_map_u, set_map_customcolor, unicode_val,
 } from './options.js';
+/* C wizcmds.c:818 wizcustom_callback — called only at runtime from
+   wizcustom_glyphids below (function declaration, no top-level read). */
+import { wizcustom_callback } from './wizcmds.js';
 import {
     LOADSYMS, SYM_MON, SYM_OC, SYM_PCHAR,
 } from './generated/glyphsyms_data.js';
@@ -1055,11 +1058,12 @@ function find_glyphid_in_cache_by_glyphnum(glyphnum) {
 
 /**
  * C display.c:1672 `glyph_map glyphmap[MAX_GLYPH]` — one explicit element
- * (`sym.color = NO_COLOR`), then C zero-fills the rest. Created on the
- * first shuffle; `reset_glyphmap` still does not fill `sym` / `tileidx`.
+ * (`sym.color = NO_COLOR`), then C zero-fills the rest. Created lazily
+ * on first use (shuffle, `#wizcustom` fill); `reset_glyphmap` still does
+ * not fill `sym` / `tileidx`.
  * @returns {object[]}
  */
-function ensure_glyphmap() {
+export function ensure_glyphmap() {
     if (game.glyphmap && game.glyphmap.length === MAX_GLYPH) return game.glyphmap;
     const gm = new Array(MAX_GLYPH);
     for (let i = 0; i < MAX_GLYPH; i++) {
@@ -1175,10 +1179,11 @@ function shuffle_customizations() {
 /**
  * C glyphs.c wizcustom_glyphids `:807–821` (global; extern.h:1177) —
  * `#wizcustom` menu fill (sole C caller wiz_custom, wizcmds.c:1967,
- * unported): every cached glyph id goes through wizcustom_callback.
- * Named omission: wizcustom_callback (wizcmds.c:1987, own coverage row —
- * reads glyphmap[] `sym` / `tileidx`, which `reset_glyphmap` still does
- * not fill); the guard, loop, cache scan and id gate below are live.
+ * unported): every cached glyph id goes through wizcustom_callback
+ * (wizcmds.c:1987, js/wizcmds.js — reads the live glyphmap array via
+ * ensure_glyphmap; `reset_glyphmap` still does not fill `sym` /
+ * `tileidx`, so uncustomized entries format from the zero-fill).
+ * The guard, loop, cache scan, id gate and callback below are live.
  */
 export function wizcustom_glyphids(win) {
     let id;
@@ -1186,8 +1191,7 @@ export function wizcustom_glyphids(win) {
     for (let glyphnum = 0; glyphnum < MAX_GLYPH; ++glyphnum) {
         id = find_glyphid_in_cache_by_glyphnum(glyphnum);
         if (id) {
-            /* C `:818` wizcustom_callback(win, glyphnum, id) — named above;
-               win passes through untouched when that row wires it. */
+            wizcustom_callback(win, glyphnum, id); // C `:818`
         }
     }
 }

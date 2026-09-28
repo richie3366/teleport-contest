@@ -89,3 +89,5 @@ reopened; the `[3][5]` doc text should read `[3][4]` the next time
 turns.md is touched.
 
 Verdict: **ACCEPT-WITH-DEBT**
+
+**Addressed:** D-3029

@@ -56,6 +56,10 @@ import { overview_stats } from './dungeon.js';
 /* C worm.c size_wseg — hoisted fn
    (`imports.mjs --can wizcmds.js worm.js size_wseg` SAFE). */
 import { size_wseg } from './worm.js';
+/* C glyphs.c glyphmap[MAX_GLYPH] accessor for wizcustom_callback below
+   (`imports.mjs --can wizcmds.js glyphs.js` IN-SCC, function declaration,
+   called only at runtime — no top-level read). */
+import { ensure_glyphmap } from './glyphs.js';
 
 /** C timeout.c propertynames[] — wizard #wizintrinsic menu order. */
 const PROPERTYNAMES = [
@@ -1586,6 +1590,85 @@ export async function wiz_display_macros() {
     // C `:1774–1776` — display_nhwindow(win, FALSE); destroy_nhwindow(win).
     await show_text_pages(lines);
     return ECMD_OK;
+}
+
+/**
+ * C ref: wizcmds.c wizcustom_callback `:1986–2027` — `#wizcustom` menu-fill
+ * callback: one customized glyph becomes one menu line. Sole C caller is
+ * wizcustom_glyphids (glyphs.c:818), wired in js/glyphs.js. ENHANCED_SYMBOLS
+ * is live (config.h:368), so the `:2001` u arm compiles.
+ * add_menu `:2022–2023` lands on the JS raw menu array (options.js `raw`
+ * idiom): nul_glyphinfo/attr/color/flags have no raw-array counterpart
+ * (ATR_NONE, NO_COLOR and MENU_ITEMFLAGS_NONE are the defaults); the
+ * PICK_NONE consumer (wiz_custom `:1969`, unported) never selects, so
+ * selectable:false with a_int kept for the `#if 0` a_int-1 reader.
+ * @param {object[]} win raw menu array (C winid)
+ * @param {number} glyphnum
+ * @param {string} id glyph identifier from the glyphid cache
+ */
+export function wizcustom_callback(win, glyphnum, id) {
+    // C `:1997` if (win && id).
+    if (win && id) {
+        // C `:1989` extern glyph_map glyphmap[MAX_GLYPH]; `:1998`
+        // cgm = &glyphmap[glyphnum].
+        const cgm = ensure_glyphmap()[glyphnum];
+        // C `:1999–2003` gate: u (ENHANCED_SYMBOLS arm `:2001`) or nonzero
+        // customcolor.
+        if (cgm.u != null || (cgm.customcolor >>> 0) !== 0) {
+            // C `:2004` Sprintf(bufa, "[%04d] %-44s", glyphnum, id).
+            const bufa = `[${String(glyphnum).padStart(4, '0')}] ${id.padEnd(44, ' ')}`;
+            // C `:2005–2006` Sprintf(bufb, "'\\%03d' %02d",
+            // gs.showsyms[cgm->sym.symidx], cgm->sym.color). nhsym is uchar
+            // (global.h:108); game.gs.showsyms is still null
+            // (init_symbols unported), so this reads 0 until that state lands.
+            const sh = game.gs?.showsyms?.[cgm.sym.symidx];
+            const symch = ((typeof sh === 'string' ? sh.codePointAt(0) : sh) | 0) & 0xff;
+            const bufb = `'\\${String(symch).padStart(3, '0')}' ${String(cgm.sym.color | 0).padStart(2, '0')}`;
+            // C `:2007` Sprintf(bufc, "%011lx", customcolor).
+            const bufc = (cgm.customcolor >>> 0).toString(16).padStart(11, '0');
+            // C `:2008` bufu[0] = '\0'.
+            let bufu = '';
+            // C `:2010` if (cgm->u && cgm->u->utf8str) — a pointer check, so
+            // an empty string still enters (the walk then adds nothing).
+            if (cgm.u && cgm.u.utf8str != null) {
+                // C `:2011` Sprintf(bufu, "U+%04lx", utf32ch).
+                bufu = 'U+' + (cgm.u.utf32ch >>> 0).toString(16).padStart(4, '0');
+                // C `:2012–2017` cp walk over the NUL-terminated UTF-8 bytes;
+                // JS holds utf8str as a UTF-16 string (dupstr ≡ assignment),
+                // so re-encode to UTF-8 bytes inline (no TextEncoder dependency).
+                const ustr = cgm.u.utf8str;
+                const bytes = [];
+                for (let ui = 0; ui < ustr.length; ui++) {
+                    let cp = ustr.charCodeAt(ui);
+                    if (cp >= 0xd800 && cp <= 0xdbff && ui + 1 < ustr.length) {
+                        const lo = ustr.charCodeAt(ui + 1);
+                        if (lo >= 0xdc00 && lo <= 0xdfff) {
+                            cp = 0x10000 + ((cp - 0xd800) << 10) + (lo - 0xdc00);
+                            ui++;
+                        }
+                    }
+                    if (cp < 0x80) bytes.push(cp);
+                    else if (cp < 0x800) bytes.push(0xc0 | (cp >> 6), 0x80 | (cp & 0x3f));
+                    else if (cp < 0x10000) bytes.push(0xe0 | (cp >> 12), 0x80 | ((cp >> 6) & 0x3f), 0x80 | (cp & 0x3f));
+                    else bytes.push(0xf0 | (cp >> 18), 0x80 | ((cp >> 12) & 0x3f), 0x80 | ((cp >> 6) & 0x3f), 0x80 | (cp & 0x3f));
+                }
+                // C `:2013` while (*cp) — a 0 byte ends the walk like NUL.
+                let bi = 0;
+                while (bi < bytes.length && bytes[bi] !== 0) {
+                    bufu += ` <${bytes[bi]}>`; // C `:2014–2015` Sprintf(bufd) + Strcat
+                    bi++; // C `:2016` cp++
+                }
+            }
+            // C `:2020` any.a_int = glyphnum + 1 (avoid 0).
+            const a_int = glyphnum + 1;
+            // C `:2021` Snprintf(buf, sizeof buf, "%s %s %s %s", ...) — the
+            // fourth %s is always present, so empty bufu ⇒ trailing space.
+            const buf = `${bufa} ${bufb} ${bufc} ${bufu}`;
+            // C `:2022–2023` add_menu — see the header comment for the mapping.
+            if (Array.isArray(win)) win.push({ text: buf, selectable: false, a_int });
+        }
+    }
+    // C `:2026` return (void).
 }
 
 /**
