@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3032 `sp_lev.c` room-table closure whole (mkroom + wid/hei push tables, roomtype both directions)
+
+**C locus:** - `l_push_mkroom_table`: `nethack-c/upstream/src/sp_lev.c:3057–3070` whole in C order — `:3061` new table, `:3062` width 1+(hx-lx), `:3063` height 1+(hy-ly), `:3064–3065` region lx/ly/hx/hy as x1/y1/x2/y2, `:3066` lit as (boolean)rlit, `:3067` irregular, `:3068` needjoining, `:3069` type name.
+**JS:** - `l_push_mkroom_table`: `js/mklev.js:23014` (+ live consumers `:30030`, `:30114`, `:30203`).
+**Change:** - `l_push_mkroom_table`: new export (`js/mklev.js:23014`) returning the C-exact table object (plain object = the Lua push; region sub-object = nhl_add_table_entry_region `:326–335`; `!!rlit` = the (boolean) cast, so -1 reads lit).
+**Verify:** `scripts/splev-roomtable.test.mjs` 4/4 (26-name table order, opt match/empty/unknown arms, table shape incl. rlit -1 edge, wid/hei shape). `verify.mjs --fn l_push_mkroom_table,get_mkroom_name,get_table_roomtype_opt,l_push_wid_hei_table` tail pasted verbatim:
+**Named:** - `l_push_mkroom_table`: contents callbacks receive the live room, not the table (above); nhl_add_table_entry_* pushes by-design (no scored analogue).
+**Next:** next Open — coverage row.
 ## 2026-09-28 — D-3031 `report.c` get_saved_pline whole (DUMPLOG ring read over the live dumplogmsg ring)
 
 **C locus:** - `get_saved_pline`: `nethack-c/upstream/src/report.c:571–592` whole in C order — `:575` limit init, `:577–578` lineno≥COUNT guard, `:579` newest-slot start, `:581–589` limit walk (`:582` valid-line test, `:583–584` skip-and-step-back, `:586` return), `:591` fallthrough null. `USED_if_dumplog` (`:571`) is the no-DUMPLOG build only — always live in the pinned build.

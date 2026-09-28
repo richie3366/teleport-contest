@@ -1,5 +1,62 @@
 # Divergence log
 
+## D-3032 — `sp_lev.c` room-table closure whole (mkroom + wid/hei push tables, roomtype both directions)
+
+- **Status:** shipped. Queue head `sp_lev.c` l_push_mkroom_table (MISSING, C 9 L, no JS symbol) + its Open callee `get_mkroom_name` + same-file Open siblings `get_table_roomtype_opt`, `l_push_wid_hei_table` — one caller/callee closure, all in `js/mklev.js`. Small cluster justified: the head's callee closure holds nothing more Open (nhl_add_table_entry_* are ledger by-design Lua-stack pushes with no scored analogue; get_table_str_opt already live in dungeon.js; remaining same-file absent rows are other closures — message state, align, stairs).
+- **Symptom:** coverage gap, not a corpus divergence (no corpus session blocked on any of the four at baseline). Real consumer proof: `dat/themerms.lua` contents(rm) bodies read `rm.width`/`rm.height`/`rm.lit`/`rm.region` (`:118–119` eligible, `:162`, `:271–272`, `:349–351`, `:406–454`); JS fills had inlined the width/height arithmetic with `l_push_mkroom_table` cites.
+- **C locus:**
+  - `l_push_mkroom_table`: `nethack-c/upstream/src/sp_lev.c:3057–3070` whole in C order — `:3061` new table, `:3062` width 1+(hx-lx), `:3063` height 1+(hy-ly), `:3064–3065` region lx/ly/hx/hy as x1/y1/x2/y2, `:3066` lit as (boolean)rlit, `:3067` irregular, `:3068` needjoining, `:3069` type name.
+  - `get_mkroom_name`: `nethack-c/upstream/src/sp_lev.c:3990–4001` whole — `:3994–3996` first-match loop over room_types[], `:3998` impossible on unknown rtype, `:3999` "unknown" fallback (never NULL).
+  - `get_table_roomtype_opt`: `nethack-c/upstream/src/sp_lev.c:4003–4020` whole — `:4006` str field (empty default), `:4008` empty keeps defval, `:4009–4013` strcmpi search, `:4015–4016` impossible + keeps defval on unknown, `:4018` Free (GC no-op).
+  - `l_push_wid_hei_table`: `nethack-c/upstream/src/sp_lev.c:3049–3055` whole — `:3052` new table, `:3053–3054` width/height ints.
+- **JS was:** no symbols. `splev_roomtype` held a 16-name subset map (missing swamp/vault/beehive/zoo/anthole/cocknest/leprehall + scroll/potion/ring shops), so valid C types impossibled down to OROOM. `lspo_map` passed an inline `{width,height}` literal; three themeroom fills inlined the width/height math.
+- **Fix:**
+  - `l_push_mkroom_table`: new export (`js/mklev.js:23014`) returning the C-exact table object (plain object = the Lua push; region sub-object = nhl_add_table_entry_region `:326–335`; `!!rlit` = the (boolean) cast, so -1 reads lit).
+  - `get_mkroom_name`: new export (`js/mklev.js:22979`) over canonical `ROOM_TYPES` (`js/mklev.js:22928`, full 26-entry C table `:3961–3986` in C order — cross-checked 26/26 names against pinned C with diff).
+  - `get_table_roomtype_opt`: new export (`js/mklev.js:22994`); `splev_roomtype` now searches the same table (same signature, still no impossible — its two monkfoodshop callers pass valid names).
+  - `l_push_wid_hei_table`: new export (`js/mklev.js:23031`).
+  - Rewired type arms to the canonical opt: `lspo_room` (`js/mklev.js:1666`, was 6-line subset map), `lspo_region` (`js/mklev.js:1871`, `let`→`const`, never reassigned), `splev_build_room` (`js/mklev.js:23209`).
+  - Rewired table consumers to the builders (behavior-identical arithmetic): `lspo_map` has_contents arm (`js/mklev.js:2126`), `lspo_map_themeroom` (`js/mklev.js:31059`; no-arg mapdef bodies ignore the extra arg, like Lua), nesting/mausoleum/pillars fills (`js/mklev.js:30030,30114,30203`).
+- **JS:**
+  - `l_push_mkroom_table`: `js/mklev.js:23014` (+ live consumers `:30030`, `:30114`, `:30203`).
+  - `get_mkroom_name`: `js/mklev.js:22979` (live callee of the table builder).
+  - `get_table_roomtype_opt`: `js/mklev.js:22994` (live at `:1666`, `:1871`, `:23209`).
+  - `l_push_wid_hei_table`: `js/mklev.js:23031` (live at `:2126`, `:31059`).
+- **Callers:**
+  - `l_push_mkroom_table`: C callers `:4095` (lspo_room contents pcall) + `:5704` (lspo_region contents pcall) → JS counterparts `lspo_room` (`js/mklev.js:1687`) + `lspo_region` (`js/mklev.js:1932`) keep passing the live room object — the port's established architecture (fills read lx/hx/rtype/sbrooms/doorct, none of which the C table carries); the builder is live for the derived fields. Named omission, not a regression.
+  - `get_mkroom_name`: sole C caller `:3069` (the table builder) → wired (`js/mklev.js:23023`).
+  - `get_table_roomtype_opt`: C callers `:4072` + `:5604` → wired (`js/mklev.js:1666`, `:1871`); third JS use is the decomposition helper `splev_build_room` (`js/mklev.js:23209`).
+  - `l_push_wid_hei_table`: C caller `:6309` (lspo_map has_contents pcall) → wired (`js/mklev.js:2126`); second JS use is the themeroom map path (`js/mklev.js:31059`).
+- **Verify:** `scripts/splev-roomtable.test.mjs` 4/4 (26-name table order, opt match/empty/unknown arms, table shape incl. rlit -1 edge, wid/hei shape). `verify.mjs --fn l_push_mkroom_table,get_mkroom_name,get_table_roomtype_opt,l_push_wid_hei_table` tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mklev.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify l_push_mkroom_table: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    l_push_mkroom_table: no RNG-tagged reach; fixed smoke spread (24 run, 7.5s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify get_mkroom_name: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    get_mkroom_name: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify get_table_roomtype_opt: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    get_table_roomtype_opt: no RNG-tagged reach; fixed smoke spread (24 run, 7.3s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify l_push_wid_hei_table: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    l_push_wid_hei_table: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+```
+- **Named omissions:**
+  - `l_push_mkroom_table`: contents callbacks receive the live room, not the table (above); nhl_add_table_entry_* pushes by-design (no scored analogue).
+  - `get_table_roomtype_opt`: function-valued `type` fields (C pcall via get_table_str_opt, live in dungeon.js) read as plain values per this file's unpacked-opts architecture; no JS caller passes thunks.
+  - `get_mkroom_name`: none — every arm ported, callee is the shared table.
+  - `l_push_wid_hei_table`: none — every arm ported, no live callee.
+- **Ledger:** l_push_mkroom_table ported; get_mkroom_name ported; get_table_roomtype_opt ported; l_push_wid_hei_table ported.
+- **Next:** next Open — coverage row.
+
 ## D-3031 — `report.c` get_saved_pline whole (DUMPLOG ring read over the live dumplogmsg ring)
 
 - **Status:** shipped. Queue head `report.c` get_saved_pline (MISSING, C 12 L, no JS symbol) as a single-function cluster — the head's file and callee closure hold nothing more Open (generated block holds no other report.c row; brief lists 0 C callees; the other report.c `absent` rows are crash/panictrace platform code, not queue rows). First read said "returns NULL" (DUMPLOG retired, D-1776) — falsified by config.h:269–270 (`#define DUMPLOG_CORE` unconditional), so the compiled body is the full ring walk and that is what shipped.

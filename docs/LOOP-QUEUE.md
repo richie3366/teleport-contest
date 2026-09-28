@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `sp_lev.c` l_push_mkroom_table — coverage MISSING (C 9 code L `sp_lev.c:3059–3070` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: nhl_add_table_entry_int, nhl_add_table_entry_region, nhl_add_table_entry_bool, nhl_add_table_entry_str, get_mkroom_name) @f4390cd9a
 - [ ] `pline.c` gamelog_add — coverage THIN (C 13 code L `pline.c:495–511` / JS 5 code L in js/pline.js; hops 3, callers 2, RNG 0, msg 0) @f4390cd9a
 - [ ] `botl.c` hlattr2attrname — coverage PARTIAL (C 25 code L `botl.c:3369–3401` / JS 13 code L in js/botl.js; hops —, callers 3, RNG 0, msg 6) @34c78a6ac
 - [ ] `rumors.c` CapitalMon — coverage PARTIAL (C 17 code L `rumors.c:791–822` / JS 11 code L in js/objnam.js; hops 2, callers 3, RNG 0, msg 0) @34c78a6ac
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `stairs.c` stairway_add — coverage PARTIAL (C 10 code L `stairs.c:8–24` / JS 6 code L in js/mklev.js; hops 2, callers 5, RNG 0, msg 0) @1fdd56bcc
 - [ ] `display.c` t_warn — coverage THIN (C 38 code L `display.c:3453–3498` / JS 14 code L in js/display.js; hops 3, callers 1, RNG 0, msg 0) @1fdd56bcc
 - [ ] `botl.c` stat_update_time — coverage MISSING (C 9 code L `botl.c:1285–1299` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @2972f3ad5
+- [ ] `version.c` validate — coverage PARTIAL (C 11 code L `version.c:840–856` / JS 6 code L in js/files.js; hops 2, callers 4, RNG 0, msg 0) @581088132
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

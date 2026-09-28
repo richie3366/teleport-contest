@@ -60,8 +60,8 @@
 {"fn":"sp_code_jmpaddr","c":"3022-3025","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spo_end_moninvent","c":"3031-3036","status":"unknown","d":["D-2342"],"at":"seed@a30a7de84"}
 {"fn":"spo_pop_container","c":"3040-3046","status":"unknown"}
-{"fn":"l_push_wid_hei_table","c":"3050-3055","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"l_push_mkroom_table","c":"3059-3070","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"l_push_wid_hei_table","c":"3050-3055","status":"ported","js":["js/mklev.js:l_push_wid_hei_table"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"l_push_mkroom_table","c":"3059-3070","status":"ported","js":["js/mklev.js:l_push_mkroom_table"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_message","c":"3076-3109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_align","c":"3114-3128","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_monclass","c":"3131-3140","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -79,8 +79,8 @@
 {"fn":"lspo_level_init","c":"3837-3875","status":"unknown"}
 {"fn":"lspo_engraving","c":"3881-3936","status":"unknown"}
 {"fn":"lspo_mineralize","c":"3939-3955","status":"ported","js":["js/mklev.js:lspo_mineralize"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"get_mkroom_name","c":"3991-4001","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"get_table_roomtype_opt","c":"4004-4020","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_mkroom_name","c":"3991-4001","status":"ported","js":["js/mklev.js:get_mkroom_name"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_room","c":"4028-4116","status":"unknown"}
 {"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
 {"fn":"good_stair_loc","c":"4139-4144","status":"unknown"}
