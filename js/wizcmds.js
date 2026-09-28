@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { cmd_from_func } from './dokeylist.js';
-import { pline, You, docrt, impossible, flush_topl_more, Warn_of_mon, glyph_at, glyph_is_monster, glyph_is_invisible_id, map_invisible, unmap_invisible } from './display.js';
+import { pline, You, docrt, impossible, flush_topl_more, Warn_of_mon, glyph_at, glyph_is_monster, glyph_is_invisible_id, map_invisible, unmap_invisible, glyph_is_cmap, glyph_to_cmap, glyph_is_cmap_zap, glyph_to_mon, glyph_is_object, glyph_to_obj, NO_GLYPH, MAX_GLYPH, MAXPCHARS } from './display.js';
 import { getlin, yn_function } from './getline.js';
 import { pluslvl, losexp } from './exper.js';
 import { makewish } from './zap.js';
@@ -23,7 +23,7 @@ import {
     SWIMMING, SLOW_DIGESTION, HALF_SPDAM, HALF_PHDAM, REGENERATION,
     ENERGY_REGENERATION, PROTECTION, PROT_FROM_SHAPE_CHANGERS,
     POLYMORPH_CONTROL, UNCHANGING, REFLECTING, FREE_ACTION, FIXED_ABIL,
-    LIFESAVED, Upolyd, COLNO, ROWNO, STONE, S_sink, S_fountain,
+    LIFESAVED, Upolyd, COLNO, ROWNO, STONE, S_sink, S_fountain, S_vbeam, S_rslant,
     In_sokoban, Is_knox, In_endgame, ARM, u_at,
     Is_stronghold, Is_botlevel, has_mgivenname, MGIVENNAME,
     MIGR_EXACT_XY, MIGR_RANDOM, MM_NOMSG,
@@ -47,7 +47,7 @@ import { check_wornmask_slots } from './worn.js';
 import { rn2 } from './rng.js';
 import { float_vs_flight, body_part } from './polyself.js';
 import { pooleffects } from './pickup.js';
-import { mons, olfaction } from './monsters.js';
+import { mons, olfaction, NUMMONS } from './monsters.js';
 import { PM_GRID_BUG } from './generated/monsters_data.js';
 import { NUM_OBJECTS } from './objects.js';
 /* C dungeon.c overview_stats — hoisted fn
@@ -1509,6 +1509,81 @@ export async function wiz_show_stats() {
     // `#if defined(__BORLANDC__) && !defined(_WIN32)`, not this build.
 
     // C `:1694–1695` — display_nhwindow(win, FALSE); destroy_nhwindow.
+    await show_text_pages(lines);
+    return ECMD_OK;
+}
+
+/**
+ * C ref: wizcmds.c wiz_display_macros `:1705–1778` — #wizdispmacros command.
+ * Verifies the display macros return sane values: every glyph that claims
+ * to be cmap / monster / object must peel back to a live table subscript
+ * (defsyms / mons / objects). NHW_TEXT via show_text_pages (same idiom as
+ * wiz_show_stats above): each C putstr is one collected line;
+ * display_nhwindow(win, FALSE) is the page wait inside show_text_pages.
+ * Caller: cmd.c extcmdlist "wizdispmacros" `:1956–1958`
+ * (IFBURIED|AUTOCOMPLETE|WIZMODECMD) → EXT_CMDS runnable entry.
+ * @returns {Promise<number>} ECMD_OK
+ */
+export async function wiz_display_macros() {
+    const { show_text_pages } = await import('./pager.js');
+    // C `:1708` — static header, printed once ahead of the first trouble
+    // line (`if (!trouble++)` below).
+    const display_issues = 'Display macro issues:';
+    // C `:1710` — no_glyph = NO_GLYPH, max_glyph = MAX_GLYPH.
+    const no_glyph = NO_GLYPH;
+    const max_glyph = MAX_GLYPH;
+    // C `:1710` SIZE(defsyms) — drawing.c:64 defsyms[MAXPCHARS + 1]; the
+    // trailing fencepost entry keeps MAXPCHARS a legal subscript, so
+    // IndexOk(test, defsyms) is `0 <= test <= MAXPCHARS`.
+    const defsyms_size = MAXPCHARS + 1;
+    // C `:1712` — create_nhwindow(NHW_TEXT).
+    const lines = [];
+    let trouble = 0;
+    // C `:1714` — for (glyph = 0; glyph < MAX_GLYPH; ++glyph).
+    for (let glyph = 0; glyph < MAX_GLYPH; ++glyph) {
+        // C `:1715–1742` — glyph_is_cmap / glyph_to_cmap().
+        if (glyph_is_cmap(glyph)) {
+            const test = glyph_to_cmap(glyph);
+            // C `:1718–1726` — check for MAX_GLYPH return
+            // (NO_GLYPH === MAX_GLYPH, display.js:229).
+            if (test === no_glyph) {
+                if (!trouble++) lines.push(display_issues);
+                lines.push(`glyph_is_cmap() / glyph_to_cmap(glyph=${glyph}) sync failure, returned NO_GLYPH (${test})`);
+            }
+            // C `:1727–1734` — zap glyphs must peel to a zap cmap.
+            if (glyph_is_cmap_zap(glyph)
+                && !(test >= S_vbeam && test <= S_rslant)) {
+                if (!trouble++) lines.push(display_issues);
+                lines.push(`glyph_is_cmap_zap(glyph=${glyph}) returned non-zap cmap ${test}`);
+            }
+            // C `:1735–1742` — check against defsyms array subscripts.
+            if (!(test >= 0 && test < defsyms_size)) {
+                if (!trouble++) lines.push(display_issues);
+                lines.push(`glyph_to_cmap(glyph=${glyph}) returns ${test} exceeds defsyms[${defsyms_size}] bounds (MAX_GLYPH = ${max_glyph})`);
+            }
+        }
+        // C `:1743–1756` — glyph_is_monster / glyph_to_mon, checked
+        // against mons array subscripts.
+        if (glyph_is_monster(glyph)) {
+            const test = glyph_to_mon(glyph);
+            if (test < 0 || test >= NUMMONS) {
+                if (!trouble++) lines.push(display_issues);
+                lines.push(`glyph_to_mon(glyph=${glyph}) returns ${test} exceeds mons[${NUMMONS}] bounds`);
+            }
+        }
+        // C `:1757–1770` — glyph_is_object / glyph_to_obj, checked
+        // against objects array subscripts (upper bound is `>`, per C).
+        if (glyph_is_object(glyph)) {
+            const test = glyph_to_obj(glyph);
+            if (test < 0 || test > NUM_OBJECTS) {
+                if (!trouble++) lines.push(display_issues);
+                lines.push(`glyph_to_obj(glyph=${glyph}) returns ${test} exceeds objects[${NUM_OBJECTS}] bounds`);
+            }
+        }
+    }
+    // C `:1771–1773`.
+    if (!trouble) lines.push('No display macro issues detected.');
+    // C `:1774–1776` — display_nhwindow(win, FALSE); destroy_nhwindow(win).
     await show_text_pages(lines);
     return ECMD_OK;
 }

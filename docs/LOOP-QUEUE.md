@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `wizcmds.c` wiz_display_macros — coverage MISSING (C 53 code L `wizcmds.c:1705–1778` / JS no symbol; hops —, callers 0, RNG 0, msg 11) @2af820a38
 - [ ] `o_init.c` savenames — coverage MISSING (C 19 code L `o_init.c:375–407` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @2af820a38
 - [ ] `mthrowu.c` monmulti — coverage PARTIAL (C 33 code L `mthrowu.c:201–258` / JS 21 code L in js/weapon.js; hops 4, callers 1, RNG 1, msg 0) @2af820a38
 - [ ] `shk.c` subfrombill — coverage PARTIAL (C 10 code L `shk.c:3694–3710` / JS 7 code L in js/shk.js; hops 3, callers 16, RNG 0, msg 0) @8b6526ecd
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `rumors.c` init_rumors — coverage MISSING (C 16 code L `rumors.c:85–107` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @5c0b84ad9
 - [ ] `objnam.c` strprepend — coverage MISSING (C 8 code L `objnam.c:123–135` / JS no symbol; hops 4, callers 4, RNG 0, msg 0) @0cb4128d8
 - [ ] `engrave.c` del_engr — coverage PARTIAL (C 12 code L `engrave.c:1645–1663` / JS 7 code L in js/engrave.js; hops 2, callers 6, RNG 0, msg 0) @20875982e
+- [ ] `mplayer.c` get_mplname — coverage PARTIAL (C 16 code L `mplayer.c:72–92` / JS 11 code L in js/mplayer.js; hops 6, callers 1, RNG 1, msg 2) @5a77080f1
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -39,7 +39,7 @@
 {"fn":"migrsort_cmp","c":"1485-1501","status":"unknown"}
 {"fn":"list_migrating_mons","c":"1506-1610","status":"unknown"}
 {"fn":"wiz_show_stats","c":"1616-1697","status":"ported","js":["js/wizcmds.js:wiz_show_stats"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
-{"fn":"wiz_display_macros","c":"1705-1778","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_display_macros","c":"1705-1778","status":"ported","js":["js/wizcmds.js:wiz_display_macros"],"d":["D-3020"],"at":"2026-09-28@5a77080f1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_show_nhuuid","c":"1782-1786","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_mon_diff","c":"1790-1828","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_objprobs","c":"1832-1868","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

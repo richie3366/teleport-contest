@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3020 — `wiz_display_macros` whole (display-macro range validator; C caller wired via EXT_CMDS)
+
+- **Status:** shipped (Open — coverage head `wizcmds.c` wiz_display_macros MISSING. No corpus session blocked on it.)
+- **Symptom:** coverage gap, not a corpus divergence. No `wiz_display_macros` symbol existed in `js/`; the `#wizdispmacros` extcmd had a name-table entry (`js/getline.js:349`) but no runnable EXT_CMDS entry, so C `cmd.c:1956–1958` had no JS path.
+- **C locus:** `nethack-c/upstream/src/wizcmds.c:1705–1778` whole in C order —
+  - `wiz_display_macros`: `:1708` header const, `:1710` `no_glyph`/`max_glyph` locals, `:1712` NHW_TEXT window, `:1714` `glyph < MAX_GLYPH` loop, `:1715–1742` cmap arm (NO_GLYPH sync check, zap-range check, `IndexOk(test, defsyms)` check), `:1743–1756` monster arm (`test >= NUMMONS`), `:1757–1770` object arm (`test > NUM_OBJECTS`, `>` per C), `:1771–1773` clean-bill line, `:1774–1776` display/destroy, `:1777` ECMD_OK. Guard `#if NH_DEVEL_STATUS != RELEASED` is true (`js/const.js:876` WIP), so the command is live.
+- **JS was:** no symbol; caller unwired.
+- **Fix:** new `export async function wiz_display_macros` (`js/wizcmds.js:1527`) in C order against live exports — `glyph_is_cmap`/`glyph_to_cmap`/`glyph_is_cmap_zap`/`glyph_to_mon`/`glyph_is_object`/`glyph_to_obj`/`NO_GLYPH`/`MAX_GLYPH`/`MAXPCHARS` join the existing `display.js` import (no new edge), `NUMMONS` joins the `monsters.js` import, `S_vbeam`/`S_rslant` join the `const.js` import. `SIZE(defsyms)` is `MAXPCHARS + 1` (`drawing.c:64` fencepost); `IndexOk` inlined as `0 <= test < defsyms_size`; `!trouble++` header-once shape kept; each C `putstr` is one collected line; `display_nhwindow(win, FALSE)` via `show_text_pages` (the `wiz_show_stats` NHW_TEXT idiom). New EXT_CMDS runnable entry `wizdispmacros` (`js/getline.js:852`, wiz + autocomplete, lazy `wizcmds.js` import like its neighbors).
+- **JS:**
+  - `wiz_display_macros`: `js/wizcmds.js:1527` + EXT_CMDS entry `js/getline.js:852–860`. Export name matches C; signature async (pager wait), like every sibling `wiz_*`.
+- **Callers:**
+  - `wiz_display_macros`: C `cmd.c:1956–1958` extcmdlist `"wizdispmacros"` → wired `js/getline.js:852` (name-table entry `:349` pre-existed). No other C callers (definition + `extern.h:3888` decl only).
+- **Verify:**
+  - `wiz_display_macros`: `node scripts/verify.mjs --fn wiz_display_macros` → VERIFY: PASS — syntax 2 files; rule2 PASS; hidden note (no corpus session blocked, expected for a coverage row); reach REACH-OK (no RNG tags; smoke 24/24 PASS); green 2/2; strict both sessions; cohort 7/7; full skipped (no shared file). Headless probe of the real export (recording `nhDisplay` fake + one space key): `rc= 0`, row0 `"No display macro issues detected."` — JS tables self-consistent, as C reports on a consistent build.
+- **Named omissions:**
+  - `wiz_display_macros`: none — every arm ported, every callee live, the C caller wired.
+- **Ledger:** wiz_display_macros ported
+- **Next:** queue regenerates; `wizcmds.c` holds no further Open rows (this was the sole wizcmds.c coverage row; all callees already ported).
+
 ## D-3019 — `free_glyphid_cache` C-order re-port (per-entry id-null loop; 1 C caller wired, 5 named)
 
 - **Status:** shipped (Open — coverage head `glyphs.c` free_glyphid_cache THIN. No corpus session blocked on it.)
