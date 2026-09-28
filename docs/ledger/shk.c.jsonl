@@ -84,7 +84,7 @@
 {"fn":"append_honorific","c":"3602-3620","status":"ported","js":["js/shk.js:append_honorific"],"d":["D-2938"],"at":"seed@a30a7de84"}
 {"fn":"splitbill","c":"3623-3658","status":"unknown","d":["D-2278"],"at":"seed@a30a7de84"}
 {"fn":"sub_one_frombill","c":"3661-3690","status":"unknown"}
-{"fn":"subfrombill","c":"3694-3710","status":"unknown"}
+{"fn":"subfrombill","c":"3694-3710","status":"ported","js":["js/shk.js:subfrombill"],"at":"2026-09-28@73b53df4b","note":"stale: js/shk.js:1250"}
 {"fn":"stolen_container","c":"3713-3751","status":"unknown"}
 {"fn":"stolen_value","c":"3754-3872","status":"unknown"}
 {"fn":"donate_gold","c":"3877-3910","status":"unknown"}

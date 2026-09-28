@@ -1,5 +1,48 @@
 # Divergence log
 
+## D-3024 — `hacklib.c` string cluster: tabexpand + upwords + chrcasecpy + strcasecpy + c_eos + sitoa
+
+- **Status:** shipped. Queue head `shk.c` subfrombill proved stale-complete (`js/shk.js:1250` matches C arm-for-arm, callers wired) → `ledger set subfrombill ported` directly. Next row `report.c` panictrace_setsignals is pure POSIX `signal()` setup with no browser equivalent (Rule #2 forbids `node:*`; precedent: `submit_web_report` by-design) → `ledger set panictrace_setsignals by-design` directly. Cluster head `hacklib.c` tabexpand (PARTIAL: unexported `pager.js` local clone) + five same-file MISSING siblings. No corpus session blocked on any of the six.
+- **Symptom:** coverage gaps, not corpus divergences. `tabexpand` lived only as a `js/pager.js` local (1:1 file mapping violated; other-file C callers unwired); `upwords`, `strcasecpy`, `c_eos`, `sitoa` had no JS symbol; `chrcasecpy` lived only as a `js/objnam.js` local.
+- **C locus:**
+  - `tabexpand`: `nethack-c/upstream/src/hacklib.c:428–464` whole — `:436–437` empty passthrough, `:438–448` tab→8-stop do/while, `:449–452` copy arm, `:453–456` BUFSZ rewind-break, `:458–459` NUL + strcpy return.
+  - `upwords`: `hacklib.c:122–138` whole — `:124` space=TRUE, `:126` scan, `:127–128` blank arm, `:129–132` letter+highc arm (`letter()` `:68–72` expanded inline), `:133–134` else arm, `:136` return s.
+  - `chrcasecpy`: `hacklib.c:300–317` whole — `:303–305` disabled `#if 0` kept disabled, `:306–309` lower arm, `:310–313` upper arm, `:315` return nc.
+  - `strcasecpy`: `hacklib.c:321–341` whole — `:326` dst_exhausted, `:332` src scan, `:333–334` exhaustion latch, `:335` last-char propagation, `:336` chrcasecpy, `:338–339` NUL + result.
+  - `c_eos`: `hacklib.c:202–208` whole — `:205–207` scan to NUL, `:208` return (JS: end index = length).
+  - `sitoa`: `hacklib.c:637–644` whole — `:641` `%d`/`+%d` select (JS: fresh string for C's static buf).
+- **JS was:** `tabexpand` local clone (`js/pager.js:157`, deleted — capped one char looser than C on tab overshoot past BUFSZ); `chrcasecpy` local clone (`js/objnam.js:2046`, deleted — arm-identical, promoted); the other four absent everywhere.
+- **Fix:** six canonical exports in `js/hacklib.js` in C order with per-arm `:line` cites; immutable-string adaptations documented per site (callers assign the return; `c_eos` ≡ end index; `sitoa` fresh string). `js/pager.js:57` + `js/objnam.js:33` extend their pre-existing static `hacklib.js` imports (imports.mjs: ALREADY, no new edges); locals deleted; `strcasecpy_at` doc notes the canonical home. New `scripts/hacklib.test.mjs` (6/6 pass; the scratch probe's two red cases were probe-side misreads of C's `A-Z` bound and lowercase-dst folding, corrected before commit).
+- **JS:**
+  - `tabexpand`: `js/hacklib.js:360`.
+  - `upwords`: `js/hacklib.js:268`.
+  - `chrcasecpy`: `js/hacklib.js:310`.
+  - `strcasecpy`: `js/hacklib.js:334`.
+  - `c_eos`: `js/hacklib.js:295`.
+  - `sitoa`: `js/hacklib.js:391`.
+- **Callers:**
+  - `tabexpand`: `pager.c:1109` (checkfile) → `js/pager.js:765` (pre-existing, now via import); `version.c:254` (doextversion loop) → `js/pager.js:2939` (`doextversion` at `js/pager.js:2892`, ported from `version.c` per D-2558).
+  - `upwords`: `read.c:512` (`doread`) → named omission (below).
+  - `chrcasecpy`: `hacklib.c:337` (`strcasecpy`) → in-cluster `js/hacklib.js:348`; adapted pre-existing use `js/objnam.js:2058` (`strcasecpy_at`, now via import).
+  - `strcasecpy`: no live C caller (sole mention is the unused `Strcasecpy` macro, `objnam.c:69`); adapted in-tree user `js/objnam.js:2053` documented.
+  - `c_eos`: `files.c:2132` → `js/files.js:1461` (pre-existing `length-1`, cites the C site); `cfgfiles.c:1554` → `js/cfgfiles.js:248` (`punctTail`, cites `:1552–1555`).
+  - `sitoa`: no live C caller (`objnam.c:1423`/`1501` cite it only in comments).
+- **Verify:** `node scripts/verify.mjs --fn tabexpand,upwords,chrcasecpy,strcasecpy,c_eos,sitoa` → VERIFY: PASS.
+  - `tabexpand`: hidden note (0 blocked, expected for a coverage row); reach REACH-OK (no RNG tags; smoke 24/24).
+  - `upwords`: hidden note (0 blocked); reach REACH-OK (smoke 24/24).
+  - `chrcasecpy`: hidden note (0 blocked); reach REACH-OK (smoke 24/24).
+  - `strcasecpy`: hidden note (0 blocked); reach REACH-OK (smoke 24/24).
+  - `c_eos`: hidden note (0 blocked); reach REACH-OK (smoke 24/24).
+  - `sitoa`: hidden note (0 blocked); reach REACH-OK (smoke 24/24).
+  - Shared gates: syntax 3 files (`js/hacklib.js` `js/objnam.js` `js/pager.js`); rule2 PASS; green 2/2; strict ×2; cohort 7/7; full skipped (tool heuristic). `node --test scripts/hacklib.test.mjs` → 6/6 pass. C-behavior probe (`/tmp/hacklib-probe.mjs`, 21 asserts incl. BUFSZ-1 overshoot slice) → all pass.
+- **Named omissions:**
+  - `tabexpand`: `pager.c:2630–2632` tabexpand arm inside `dowhatdoes_core`'s data-file scan — JS `dowhatdoes_core` (`js/pager.js:3086`) answers from `key2extcmddesc` without scanning the file; `wintty.c:2502` tty-window painter — no JS tty layer (browser renders via `display.js` text windows; tabs expand at the dat-read sites).
+  - `upwords`: `read.c:512` — JS `doread` lacks the magic-marker-read arm (the `red_mons` joke pline); no wire site.
+  - `c_eos`: `sounds.c:2198` — inside the `#ifdef SND_SPEECH` body; JS `sound_speak` (`js/sounds.js:120`) is the documented compiled-out no-op.
+  - `chrcasecpy` / `strcasecpy` / `sitoa`: none — every arm ported, every live callee live, no live caller unwired.
+- **Ledger:** tabexpand ported; upwords ported; chrcasecpy ported; strcasecpy ported; c_eos ported; sitoa ported
+- **Next:** shipped rows leave the generated block on finish. `hacklib.c` remainder is one-liners (`digit`, `letter`), platform-shaped (`copy_bytes` fds, `nh_snprintf` varargs) and THIN one-arm gaps — no follow-up row from this cluster.
+
 ## D-3023 — `monmulti` whole (mthrowu.c guard/mplayer/racial arms) + canonical `matching_launcher` (obj.h)
 
 - **Status:** shipped (Open — coverage head `mthrowu.c` monmulti PARTIAL, C 33 code L / JS 21. No corpus session blocked on it.)

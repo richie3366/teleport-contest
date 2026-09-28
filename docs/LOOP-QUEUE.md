@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `shk.c` subfrombill — coverage PARTIAL (C 10 code L `shk.c:3694–3710` / JS 7 code L in js/shk.js; hops 3, callers 16, RNG 0, msg 0) @8b6526ecd
-- [ ] `report.c` panictrace_setsignals — coverage MISSING (C 10 code L `report.c:625–657` / JS no symbol; hops 5, callers 3, RNG 0, msg 0) @8b6526ecd
-- [ ] `hacklib.c` tabexpand — coverage PARTIAL (C 18 code L `hacklib.c:429–464` / JS 13 code L in js/pager.js; hops 2, callers 4, RNG 0, msg 0) @8b6526ecd
 - [ ] `options.c` freeroleoptvals — coverage MISSING (C 4 code L `options.c:787–794` / JS no symbol; hops 4, callers 2, RNG 0, msg 0; dead callees: unsaveoptstr) @8b6526ecd
 - [ ] `sys.c` sysopt_release — coverage MISSING (C 33 code L `sys.c:115–158` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @32055fa52
 - [ ] `cmd.c` handler_rebind_keys_add — coverage PARTIAL (C 85 code L `cmd.c:2291–2405` / JS 53 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 7) @9f89fd978
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mplayer.c` get_mplname — coverage PARTIAL (C 16 code L `mplayer.c:72–92` / JS 11 code L in js/mplayer.js; hops 6, callers 1, RNG 1, msg 2) @5a77080f1
 - [ ] `cmd.c` dokeylist — coverage MISSING (C 100 code L `cmd.c:2867–3013` / JS no symbol; hops —, callers 0, RNG 0, msg 25; dead callees: spkey_name; split? cited 30× in js/ — brief first) @5affd05cd
 - [ ] `options.c` saveoptvals — coverage MISSING (C 13 code L `options.c:801–819` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: freeroleoptvals) @0bb1eb02e
+- [ ] `wizcmds.c` wizcustom_callback — coverage MISSING (C 29 code L `wizcmds.c:1987–2027` / JS no symbol; hops —, callers 1, RNG 0, msg 1) @73b53df4b
+- [ ] `objnam.c` bare_artifactname — coverage PARTIAL (C 9 code L `objnam.c:2502–2515` / JS 6 code L in js/artifact.js; hops 3, callers 12, RNG 0, msg 0) @73b53df4b
+- [ ] `options.c` initoptions — coverage MISSING (C 12 code L `options.c:7079–7115` / JS no symbol; hops —, callers 3, RNG 0, msg 0; dead callees: assure_syscf_file, do_deferred_showpaths) @73b53df4b
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

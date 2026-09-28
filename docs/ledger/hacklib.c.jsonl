@@ -5,24 +5,24 @@
 {"fn":"lcase","c":"90-98","status":"unknown"}
 {"fn":"ucase","c":"102-110","status":"unknown"}
 {"fn":"upstart","c":"114-119","status":"unknown"}
-{"fn":"upwords","c":"123-138","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"upwords","c":"123-138","status":"ported","js":["js/hacklib.js:upwords"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mungspaces","c":"142-160","status":"ported","js":["js/hacklib.js:mungspaces"],"d":["D-2967"],"at":"2026-09-27@b43d2c68f"}
 {"fn":"trimspaces","c":"164-176","status":"unknown"}
 {"fn":"strip_newline","c":"180-190","status":"unknown"}
 {"fn":"eos","c":"194-199","status":"unknown"}
-{"fn":"c_eos","c":"203-208","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"c_eos","c":"203-208","status":"ported","js":["js/hacklib.js:c_eos"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"str_start_is","c":"213-237","status":"unknown"}
 {"fn":"str_end_is","c":"241-248","status":"unknown"}
 {"fn":"str_lines_maxlen","c":"252-272","status":"unknown"}
 {"fn":"strkitten","c":"276-283","status":"unknown"}
 {"fn":"copynchars","c":"287-297","status":"unknown"}
-{"fn":"chrcasecpy","c":"301-317","status":"unknown"}
-{"fn":"strcasecpy","c":"323-341","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"chrcasecpy","c":"301-317","status":"ported","js":["js/hacklib.js:chrcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b"}
+{"fn":"strcasecpy","c":"323-341","status":"ported","js":["js/hacklib.js:strcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"s_suffix","c":"345-359","status":"unknown","d":["D-2268"],"at":"seed@a30a7de84"}
 {"fn":"ing_suffix","c":"363-396","status":"unknown"}
 {"fn":"xcrypt","c":"400-415","status":"unknown"}
 {"fn":"onlyspace","c":"419-425","status":"unknown"}
-{"fn":"tabexpand","c":"429-464","status":"unknown"}
+{"fn":"tabexpand","c":"429-464","status":"ported","js":["js/hacklib.js:tabexpand"],"d":["D-3024"],"at":"2026-09-28@73b53df4b"}
 {"fn":"visctrl","c":"469-493","status":"ported","js":["js/dokeylist.js:visctrl"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"stripchars","c":"499-517","status":"unknown"}
 {"fn":"stripdigits","c":"521-531","status":"unknown"}
@@ -30,7 +30,7 @@
 {"fn":"strNsubst","c":"557-597","status":"unknown"}
 {"fn":"findword","c":"601-621","status":"unknown"}
 {"fn":"ordin","c":"625-631","status":"unknown"}
-{"fn":"sitoa","c":"638-644","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sitoa","c":"638-644","status":"ported","js":["js/hacklib.js:sitoa"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sgn","c":"650-653","status":"unknown"}
 {"fn":"distmin","c":"657-669","status":"unknown"}
 {"fn":"dist2","c":"673-678","status":"unknown"}

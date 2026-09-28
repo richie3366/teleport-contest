@@ -7,4 +7,4 @@
 {"fn":"NH_panictrace_gdb","c":"529-560","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_saved_pline","c":"571-592","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"panictrace_handler","c":"600-622","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"panictrace_setsignals","c":"625-657","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"panictrace_setsignals","c":"625-657","status":"by-design","at":"2026-09-28@73b53df4b","note":"POSIX signal() has no browser equivalent (Rule #2 forbids node:*); callers are platform entry points; precedent submit_web_report by-design"}

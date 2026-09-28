@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3024 `hacklib.c` string cluster: tabexpand + upwords + chrcasecpy + strcasecpy + c_eos + sitoa
+
+**C locus:** - `tabexpand`: `nethack-c/upstream/src/hacklib.c:428–464` whole — `:436–437` empty passthrough, `:438–448` tab→8-stop do/while, `:449–452` copy arm, `:453–456` BUFSZ rewind-break, `:458–459` NUL + strcpy return.
+**JS:** - `tabexpand`: `js/hacklib.js:360`.
+**Change:** six canonical exports in `js/hacklib.js` in C order with per-arm `:line` cites; immutable-string adaptations documented per site (callers assign the return; `c_eos` ≡ end index; `sitoa` fresh string). `js/pager.js:57` + `js/objnam.js:33` extend their pre-existing static `hacklib.js` imports (imports.mjs: ALREADY, no new edges); locals deleted; `strcasecpy_at` doc notes the canonical home. New `scripts/hacklib.test.mjs` (6/6 pass; the scratch probe's two red cases were probe-side misreads of C's `A-Z` bound and lowercase-dst folding, corrected before commit).
+**Verify:** `node scripts/verify.mjs --fn tabexpand,upwords,chrcasecpy,strcasecpy,c_eos,sitoa` → VERIFY: PASS.
+**Named:** - `tabexpand`: `pager.c:2630–2632` tabexpand arm inside `dowhatdoes_core`'s data-file scan — JS `dowhatdoes_core` (`js/pager.js:3086`) answers from `key2extcmddesc` without scanning the file; `wintty.c:2502` tty-window painter — no JS tty layer (browser renders via `display.js` text windows; tabs expand at the dat-read sites).
+**Next:** shipped rows leave the generated block on finish. `hacklib.c` remainder is one-liners (`digit`, `letter`), platform-shaped (`copy_bytes` fds, `nh_snprintf` varargs) and THIN one-arm gaps — no follow-up row from this cluster.
 ## 2026-09-28 — D-3023 `monmulti` whole (mthrowu.c guard/mplayer/racial arms) + canonical `matching_launcher` (obj.h)
 
 **C locus:** - `monmulti`: `nethack-c/upstream/src/mthrowu.c:199–258` whole in C order — `:214–220` quan/ammo-launcher/`!mconf` guard, `:222–229` prince/lord/mplayer, `:233–243` elven arrow/bow + `spe/3` enchantment, `:245` `rnd`, `:248` class bonus, `:251–257` racial bonus, end clamps.
