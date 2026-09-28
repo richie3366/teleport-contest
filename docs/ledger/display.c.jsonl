@@ -62,7 +62,7 @@
 {"fn":"error4","c":"3114-3120","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"check_pos","c":"3130-3141","status":"unknown"}
 {"fn":"more_than_one","c":"3147-3154","status":"ported","js":["js/mklev.js:more_than_one"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"set_wall","c":"3187-3204","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_wall","c":"3187-3204","status":"split","js":["js/mklev.js:set_wall_mode"],"d":["D-3012"],"at":"2026-09-28@7cd5d050b","note":"stale split body file-local js/mklev.js:33169"}
 {"fn":"set_corn","c":"3208-3236","status":"ported","js":["js/mklev.js:set_corn"],"at":"2026-09-27@988c639a6","note":"stale: js/mklev.js:32951"}
 {"fn":"set_crosswall","c":"3240-3271","status":"ported","js":["js/mklev.js:set_crosswall"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"xy_set_wall_state","c":"3276-3326","status":"unknown"}

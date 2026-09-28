@@ -56,7 +56,7 @@ import { resists_poison } from './zap.js';
 import {
     objects_at, sobj_at, kill_egg, place_object, stackobj, delobj, is_metallic,
     is_rustprone, mksobj_at, is_organic, is_mines_prize, is_soko_prize,
-    obj_extract_self, nxtobj, splitobj, g_at, add_to_minv,
+    obj_extract_self, nxtobj, splitobj, clear_splitobjs, g_at, add_to_minv,
 } from './mkobj.js';
 import { gd_move } from './vault.js';
 import {
@@ -84,7 +84,7 @@ import { in_your_sanctuary, p_coaligned, ghod_hitsu, inhistemple } from './pries
 import { inhishop } from './shk.js';
 import { in_rooms, is_pool, is_lava, disturb_buried_zombies, stop_occupation, You_hear } from './hack.js';
 import { inv_weight, weight_cap } from './invent.js';
-import { maybe_m_dowear_special, extract_from_minvent, update_mon_extrinsics, mon_set_minvis, which_armor, res_to_mr } from './worn.js';
+import { maybe_m_dowear_special, extract_from_minvent, update_mon_extrinsics, mon_set_minvis, which_armor, res_to_mr, clear_bypasses } from './worn.js';
 import { adjalign } from './attrib.js';
 import { SetVoice } from './sndprocs.js';
 import { maybe_gasp, growl } from './sounds.js';
@@ -3331,7 +3331,8 @@ export function mfndpos(mon, data, flag) {
 
 // C ref: mon.c movemon_singlemon()
 // Returns true to stop iter_mons_safe early (C: u.utotype).
-async function movemon_singlemon(mtmp) {
+// Exported (C extern.h:1767) so the per-monster movement gate is testable.
+export async function movemon_singlemon(mtmp) {
     // C: end monster movement early if hero is flagged to leave the level
     if (game.u?.utotype) {
         game._somebody_can_move = false;
@@ -3364,7 +3365,12 @@ async function movemon_singlemon(mtmp) {
     mtmp.movement -= NORMAL_SPEED;
     if (mtmp.movement >= NORMAL_SPEED) game._somebody_can_move = true;
 
-    // C: vision_recalc / clear_bypasses / clear_splitobjs deferred
+    // C mon.c:1258 — vision! (gv.vision_full_recalc live: vision.js sets it
+    // on block/unblock_point; vision_recalc(0) clears it on consume)
+    if (game.vision_full_recalc) vision_recalc(0);
+    // C mon.c:1261-1264 — reset obj bypasses before next monster moves
+    if (game.context?.bypasses) clear_bypasses();
+    clear_splitobjs();
     // C: minliquid before hider/Conflict/dochug — lava/pool may spend the turn
     if (await minliquid(mtmp)) return false;
 
@@ -3812,12 +3818,15 @@ export async function movemon() {
     if (game.program_state?.gameover) return false;
     // C mon.c:1330 — iter_mons_safe(movemon_singlemon)
     await iter_mons_safe(movemon_singlemon);
+    // C mon.c:1335-1338 — reset obj bypasses after last monster has moved
+    // (any_light_source vision_full_recalc at :1332-1333 stays named: no
+    // JS counterpart — same omission as before, now the only one).
+    if (game.context?.bypasses) clear_bypasses();
+    clear_splitobjs();
     // C mon.c:1340 — dmonsfree after the last mon, before utotype.
     await dmonsfree();
     // C: after last mon — if (u.utotype) deferred_goto(); somebody_can_move=FALSE
     // Lazy import avoids mon.js ↔ do.js cycle (do.js imports m_at/mnexto).
-    // Named omissions: any_light_source vision_full_recalc; clear_bypasses;
-    // clear_splitobjs.
     if (game.u?.utotype) {
         const { deferred_goto } = await import('./do.js');
         await deferred_goto();

@@ -21,7 +21,7 @@
 {"fn":"count_wsegs","c":"836-846","status":"unknown"}
 {"fn":"create_worm_tail","c":"852-875","status":"unknown"}
 {"fn":"worm_known","c":"883-893","status":"unknown","d":["D-1548"],"at":"seed@a30a7de84"}
-{"fn":"worm_cross","c":"898-942","status":"unknown","d":["D-2670"],"at":"seed@a30a7de84"}
+{"fn":"worm_cross","c":"898-942","status":"ported","js":["js/worm.js:worm_cross"],"d":["D-3012","D-2670"],"at":"2026-09-28@7cd5d050b","note":"stale: complete at js/worm.js:685, callers js/hack.js:545 js/mon.js:3197"}
 {"fn":"wseg_at","c":"946-965","status":"unknown"}
 {"fn":"flip_worm_segs_vertical","c":"968-976","status":"unknown","d":["D-2222"],"at":"seed@a30a7de84"}
 {"fn":"flip_worm_segs_horizontal","c":"979-987","status":"unknown"}

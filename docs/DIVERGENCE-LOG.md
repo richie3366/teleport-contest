@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3012 — mon.c movemon_singlemon bypass/vision/split reset arms ported at both levels; m_calcdistress + worm_cross + set_wall retired stale
+
+- **Status:** shipped (Open — coverage `mon.c` movemon_singlemon PARTIAL (C 56 `mon.c:1214–1322` / JS 35 in js/mon.js) as cluster head + same-file staticfn sibling `m_calcdistress` PARTIAL (C 15 `mon.c:1180–1209`); `worm.c` worm_cross + `display.c` set_wall popped in the same iteration and retired stale — bodies whole under same/split names with every C caller wired. Queue head `display.c` show_glyph stays Open: its int→paint core needs the deferred glyphmap table, so it cannot port whole (see Next).)
+- **Symptom:** coverage cluster — `movemon_singlemon` (`js/mon.js:3334`) carried `// deferred` where C `:1258–1264` runs vision_recalc + bypass/split reset per monster, and `movemon` (`:3815`) named the same trio omitted at its post-loop level (`:1332–1338`); bypasses ARE set in live flows (muse/worn/zap) so the clears are reachable, not dead. No corpus session blocked on any of the four (expected for coverage rows).
+- **C locus:**
+  - `movemon_singlemon`: `nethack-c/upstream/src/mon.c:1214–1322` (this iteration ports `:1258` vision_recalc + `:1261–1264` bypass/split reset; utotype/isgd/DEADMONSTER/offmap/everyturn/movement/minliquid/dowear/hider-eel/Conflict/dochugw arms were already whole).
+  - `movemon` post-loop: `nethack-c/upstream/src/mon.c:1332–1338` (any_light_source recalc + bypass/split reset after the last monster; dmonsfree/utotype arms were already whole).
+  - `m_calcdistress`: `nethack-c/upstream/src/mon.c:1180–1209` — stale, body whole as file-local `js/mon.js:1088` (mmove==0 liquid gate, regen, shapeshift, lycanthropy, three timeout decrements, all in C order).
+  - `worm_cross`: `nethack-c/upstream/src/worm.c:898–942` — stale, body whole as `js/worm.js:685` (distmin guard, diagonal gate, flank-monster pair, wtails consecutive-segment loop, fallthrough FALSE, all in C order).
+  - `set_wall`: `nethack-c/upstream/src/display.c:3187–3204` — stale, body whole as file-local `set_wall_mode` (`js/mklev.js:33169`, exact incl. WM_W_TOP/BOTTOM/LEFT/RIGHT; `check_pos` `:33149` ≡ C `:3130–3142` since IS_SDOOR ≡ `=== SDOOR`; `more_than_one` `:33157` ≡ the C macro).
+- **JS was:** singlemon had `// C: vision_recalc / clear_bypasses / clear_splitobjs deferred` between the movement spend and minliquid; `movemon` had `// Named omissions: any_light_source vision_full_recalc; clear_bypasses; clear_splitobjs` between the iter loop and dmonsfree.
+- **Fix:** Port the `:1258` vision and `:1261-1264` bypass/split arms in C order at both movement levels. Singlemon runs `if (game.vision_full_recalc) vision_recalc(0)`, then `if (game.context?.bypasses) clear_bypasses()` + `clear_splitobjs()`; movemon runs the same two clears post-loop (`:1335–1338`) before dmonsfree. `clear_splitobjs` joins the existing mkobj.js import edge, `clear_bypasses` the existing worn.js edge (both ALREADY-imported modules — no new edge, no cycle). `movemon_singlemon` is now exported (C extern.h:1767). New `scripts/movemon-singlemon.test.mjs` pins spend + bypass/split clears + furniture stop with no RNG.
+- **JS:** `js/mon.js:56–60` (clear_splitobjs import), `:87` (clear_bypasses import), `:3332–3336` (export), `:3364–3373` (per-monster arms), `:3818–3825` (post-loop arms), `scripts/movemon-singlemon.test.mjs` (new).
+- **Callers** (every C call site in the brief → JS site now wired):
+  - `movemon_singlemon` sole C caller `mon.c:1330` iter_mons_safe → `js/mon.js:3819` (pre-existing; the new arms execute inside it every monster turn).
+  - `m_calcdistress` sole C caller `mcalcdistress` (`mon.c:1174`) → `js/mon.js:1106–1110` (pre-existing fmon loop).
+  - `worm_cross` C `hack.c:1172` → `js/hack.js:545`; C `mon.c:2253` → `js/mon.js:3197`; `steed.c:265` is a comment, not a call site.
+  - `set_wall` C `display.c:3283/3286/3289` (xy_set_wall_state SDOOR/VWALL/HWALL arms) → `js/mklev.js:33216/33219/33222` (`set_wall_mode` calls in xy_set_wall_state, pre-existing).
+- **Verify:**
+  - `movemon_singlemon`: `node scripts/verify.mjs --fn movemon_singlemon,m_calcdistress,worm_cross,set_wall` → PASS syntax (1 file) · PASS rule2 · note hidden ×4 (no corpus session blocked at baseline — expected) · REACH-OK movemon_singlemon 15/15 reach-PASS, smoke 24/24 ×3 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS; `--full` rerun → PASS full 44/44. `node scripts/movemon-singlemon.test.mjs` → 2 pass / 0 fail (pristine-tree probe: file cannot even load without the export; bypass assertion pins the added lines — no other clearer runs on that path).
+  - `m_calcdistress`: stale — `ledger.mjs set m_calcdistress ported` (body `:1088–1100` traced arm-by-arm, caller `:1106` wired).
+  - `worm_cross`: stale — `ledger.mjs set worm_cross ported` (body `:685–711` traced arm-by-arm, both callers wired).
+  - `set_wall`: stale — `ledger.mjs set set_wall split --js js/mklev.js:set_wall_mode` (exact clone + caller wired).
+- **Named omissions:**
+  - `movemon_singlemon`: `dist2` at the Conflict arm resolves to the pre-existing `js/mon.js:1112` local, not the hacklib C-locus export (pre-existing drift, untouched this iteration).
+  - `movemon` post-loop: `any_light_source()` vision_full_recalc (`:1332–1333`) — no JS counterpart anywhere in `js/` (own future row, not this cluster).
+  - `m_calcdistress` / `worm_cross`: none — every arm ported, every caller wired (`worm_cross` impossible uses the sync void-convention per wormgone precedent; flank lookup via pre-existing worm_mon_at/_fmon_at split documented at `:696–699`).
+  - `set_wall`: none — `set_twall`/`set_corn`/`set_crosswall`/`xy_set_wall_state`/`set_wall_state` ride along file-local in the same mklev.js block.
+- **Ledger:** movemon_singlemon ported; m_calcdistress ported; worm_cross ported; set_wall split js=js/mklev.js:set_wall_mode
+- **Next:** queue head show_glyph stays Open — measured MISSING is real: entry guards (suppress gate, bad-pos/bad-glyph impossible chain) are absent AND the store core takes an int glyph whose render needs the deferred glyphmap/reset_glyphmap table (JS resolves paint at call sites instead); dropping the guards into live `show_glyph_cell` is unsafe without C-side measurement (NO_GLYPH sentinel legitimately flows through it, x==0/mklev-time store reliance unmeasured). Density note: this cluster ships ~25 insertions — below the ~80 floor — because every remaining queue row is a sub-25-line gap and the head is correctly unshippable-whole; next iteration should take `mkmaze.c` extend_spine or `objnam.c` wishymatch (biggest remaining measured gap).
+
 ## D-3011 — cmd.c key2txt C-wrong `\r → <enter>` arm removed, pager.js clone merged into the export; compactify + invoke_create_portal retired stale
 
 - **Status:** shipped (Open — coverage `cmd.c` key2txt PARTIAL (C 11 `cmd.c:3225–3240` / JS 6 in js/dokeylist.js) as head; `rows --file cmd.c` is 0 rows and callee `visctrl` is ported, so the cluster is key2txt + its 19 C call sites. `invent.c` compactify + `artifact.c` invoke_create_portal popped first and retired stale — bodies whole, callers wired.)
