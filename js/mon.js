@@ -985,7 +985,11 @@ export function mcalcmove(mon, m_moving) {
     } else if (mon.mspeed === MFAST) {
         mmove = Math.trunc((4 * mmove + 2) / 3);
     }
-    // steed gallop deferred
+    // C mon.c:1148–1153 — galloping steed: 1.5× with variance (rn2(2)).
+    // u.ugallop is game.u.ugallop, svc.context.mv is game.context.mv.
+    if (mon === game.u?.usteed && (game.u?.ugallop | 0) !== 0 && game.context?.mv) {
+        mmove = Math.trunc(((rn2(2) ? 4 : 5) * mmove) / 3);
+    }
     if (m_moving) {
         const mmove_adj = mmove % NORMAL_SPEED;
         mmove -= mmove_adj;

@@ -5,4 +5,4 @@
 {"fn":"splatter_burning_oil","c":"962-969","status":"unknown"}
 {"fn":"explode_oil","c":"974-983","status":"unknown"}
 {"fn":"adtyp_to_expltype","c":"987-1012","status":"unknown"}
-{"fn":"mon_explodes","c":"1019-1067","status":"unknown"}
+{"fn":"mon_explodes","c":"1019-1067","status":"ported","js":["js/explode.js:mon_explodes"],"d":["D-3000"],"at":"2026-09-28@9600a44be"}

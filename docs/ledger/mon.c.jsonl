@@ -10,7 +10,7 @@
 {"fn":"make_corpse","c":"564-941","status":"ported","js":["js/mhitm.js:make_corpse"],"d":["D-1794"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"minliquid","c":"947-957","status":"unknown"}
 {"fn":"minliquid_core","c":"961-1122","status":"unknown"}
-{"fn":"mcalcmove","c":"1126-1168","status":"unknown"}
+{"fn":"mcalcmove","c":"1126-1168","status":"ported","js":["js/mon.js:mcalcmove"],"d":["D-3000"],"at":"2026-09-28@9600a44be"}
 {"fn":"mcalcdistress","c":"1174-1177","status":"unknown"}
 {"fn":"m_calcdistress","c":"1180-1209","status":"unknown"}
 {"fn":"movemon_singlemon","c":"1214-1322","status":"unknown"}

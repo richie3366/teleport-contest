@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3000 Must-fix `mcalcmove` block: `mon_explodes` inline kill skipped the purge count (spurious `--More--`); gallop arm ported
+
+**C locus:** - `mon_explodes`: `nethack-c/upstream/src/explode.c:1049–1054` (kill via `mondead`), `:1044–1047` (unknown-adtyp `impossible`); `mon.c` `m_detach` `:2791–2797` (MON_DETACH + `purge_monsters++`), `dmonsfree` `:2487–2511` (count==purge or `impossible`).
+**JS:** `js/explode.js` (+9/−4: mhitm import + kill arm + impossible arm); `js/mon.js` (+5/−1: gallop arm); `js/worm.js` (+6/−2: clone mirror); `scripts/mon-explodes.test.mjs` + `scripts/mcalcmove.test.mjs` (new, 3+5 its). Total +18/−4, 3 files.
+**Change:** `mon_explodes` now `await mondead(mon)` inside the live-monster gate (`js/explode.js:822`; new explode→mhitm edge, `imports.mjs --can` SAFE — hoisted fn, closes an explode↔mhitm cycle with no top-level TDZ read); unknown-adtyp arm now `await impossible('unknown type for mon_explode %d', ad)` per C (`:815`). `mcalcmove` gallop arm ported in C order (`js/mon.js:990`): `mon === game.u?.usteed && (game.u?.ugallop | 0) !== 0 && game.context?.mv`, `Math.trunc` divide. `worm_mcalcmove` (`js/worm.js:404`, D-1491 deliberate clone) mirrors the arm so it tracks `mcalcmove` exactly.
+**Verify:** focused `node --test scripts/mon-explodes.test.mjs scripts/mcalcmove.test.mjs` 6/8 pre-fix (stash; the two wiring tests red) → 8/8 post-fix. Session replay PASS (21932/21932 RNG, 50/50 screens). `node scripts/verify.mjs --fn mcalcmove,mon_explodes` → VERIFY: PASS — syntax (3 changed); rule2; hidden mcalcmove 1 PASS → PROGRESS; reach mcalcmove 80/80 sample REACH-OK, mon_explodes 14/14 REACH-OK; green 2/2; strict ×2; cohort 7/7.
+**Named:** - `mon_explodes`: none — every arm ported, every callee live, all C callers wired.
+**Next:** none from this fix; breadth queue continues.
 ## 2026-09-27 — D-2999 Must-fix `use_saddle` blocks: `nh_timeout` WOUNDED_LEGS flat-only tick + `heal_legs` flat-only clear left the uprops slot stuck (mount_steed refused sound legs)
 
 **C locus:** `nethack-c/upstream/include/youprop.h:136–138` (`HWounded_legs` ≡ `uprops[WOUNDED_LEGS].intrinsic`, single storage; `Wounded_legs` = H‖E); `timeout.c` generic `--intrinsic` loop + `WOUNDED_LEGS` expiry arm `:774–777` (`heal_legs(0); stop_occupation()`); `do.c` `heal_legs` (zeroes the single field); `steed.c:228–238` mount_steed wounded gate (legs message + wizard-force heal prompt) before `:253–257` nobody arm.

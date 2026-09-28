@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `mon.c` `mcalcmove` — blocks 1/953 corpus sessions, PASS→FAIL since `309d58ccc`: `tour-Ranger-70021-d5-8-15-17-22` @44, both sides «The shocking sphere explodes at a spot in thin air! Boom!» but JS adds `--More--` (owner locus `mon.c:1164`, last matched draw in `mon_explodes`). Probe: `node scripts/hidden-proxy.mjs verify mcalcmove`. Source: 2026-09-28 full corpus rescore.
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Generated block — do not edit between the markers. Row: measured class,

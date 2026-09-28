@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3000 — Must-fix `mcalcmove` block: `mon_explodes` inline kill skipped the purge count (spurious `--More--`); gallop arm ported
+
+- **Status:** fixed (Must-fix `mon.c` `mcalcmove` — blocks 1/953 corpus sessions, PASS→FAIL since `309d58ccc`: `tour-Ranger-70021-d5-8-15-17-22` @44. Now PASS: RNG 21932/21932, screens 50/50.)
+- **Symptom:** both sides printed «The shocking sphere explodes at a spot in thin air! Boom!» but JS appended `--More--`; C's next draw `rn2(12)=1 @ mcalcmove(mon.c:1164)` had no JS counterpart (last matched draw `d(4,6) @ mon_explodes`). Temp worker DIAG (removed) showed JS printing a spurious third message «dmonsfree: 1 removed doesn't match 0 pending on level 22…» after «Boom!», overflowing the 59-char topline into `more()` and stalling the turn before any mcalcmove draw. Step 43 (29 matched mcalcmove draws, empty topline) proved the rounding arm itself faithful — the owner was positional, the writer is `mon_explodes`.
+- **C locus:**
+  - `mon_explodes`: `nethack-c/upstream/src/explode.c:1049–1054` (kill via `mondead`), `:1044–1047` (unknown-adtyp `impossible`); `mon.c` `m_detach` `:2791–2797` (MON_DETACH + `purge_monsters++`), `dmonsfree` `:2487–2511` (count==purge or `impossible`).
+  - `mcalcmove`: `nethack-c/upstream/src/mon.c:1126–1168`, steed-gallop arm `:1148–1153` (`mon == u.usteed && u.ugallop && svc.context.mv` → `((rn2(2) ? 4 : 5) * mmove) / 3`, before the `:1155` rounding).
+- **JS was:** `mon_explodes` (`js/explode.js:816`) set `mon.mhp = 0` inline (mondead deferred since D-0273, rationale comment dropped in D-0949) and bare-`return`ed unknown adtyps; the dead sphere stayed on fmon with purge 0, so `dmonsfree` fired its mismatch `impossible` → `--More--` → turn stall → mcalcmove never ran in JS. `mcalcmove` (`js/mon.js:979`) ended at `// steed gallop deferred`.
+- **Fix:** `mon_explodes` now `await mondead(mon)` inside the live-monster gate (`js/explode.js:822`; new explode→mhitm edge, `imports.mjs --can` SAFE — hoisted fn, closes an explode↔mhitm cycle with no top-level TDZ read); unknown-adtyp arm now `await impossible('unknown type for mon_explode %d', ad)` per C (`:815`). `mcalcmove` gallop arm ported in C order (`js/mon.js:990`): `mon === game.u?.usteed && (game.u?.ugallop | 0) !== 0 && game.context?.mv`, `Math.trunc` divide. `worm_mcalcmove` (`js/worm.js:404`, D-1491 deliberate clone) mirrors the arm so it tracks `mcalcmove` exactly.
+- **JS:** `js/explode.js` (+9/−4: mhitm import + kill arm + impossible arm); `js/mon.js` (+5/−1: gallop arm); `js/worm.js` (+6/−2: clone mirror); `scripts/mon-explodes.test.mjs` + `scripts/mcalcmove.test.mjs` (new, 3+5 its). Total +18/−4, 3 files.
+- **Callers:**
+  - `mon_explodes`: C `mhitu.c:1619` explmu → `js/mhitu.js:3831` ✓; C `mhitm.c:985` explmm → `js/mhitm.js:6032` ✓; C `mon.c:3233` corpse_chance → `js/mhitm.js:3004` + `js/uhitm.js:693` (pre-existing dual clones of the one C site) ✓. No call from a site C never calls from.
+  - `mcalcmove`: C `allmain.c:121` → `js/allmain.js:330` ✓; C `allmain.c:234` → `js/allmain.js:1165` ✓; C `worm.c:226` → `worm_mcalcmove` `js/worm.js:430` (D-1491 clone, arm mirrored this D) ✓.
+- **Verify:** focused `node --test scripts/mon-explodes.test.mjs scripts/mcalcmove.test.mjs` 6/8 pre-fix (stash; the two wiring tests red) → 8/8 post-fix. Session replay PASS (21932/21932 RNG, 50/50 screens). `node scripts/verify.mjs --fn mcalcmove,mon_explodes` → VERIFY: PASS — syntax (3 changed); rule2; hidden mcalcmove 1 PASS → PROGRESS; reach mcalcmove 80/80 sample REACH-OK, mon_explodes 14/14 REACH-OK; green 2/2; strict ×2; cohort 7/7. `node scripts/verify.mjs --fn mcalcmove --reach-all --full` → VERIFY: PASS — reach 613/613 REACH-OK (236.9s); full 44/44.
+- **Named omissions:**
+  - `mon_explodes`: none — every arm ported, every callee live, all C callers wired.
+  - `mcalcmove`: none — full port; the worm.c:226 caller is served by the exact-behavior D-1491 clone (gallop arm mirrored, no drift).
+- **Ledger:** mcalcmove ported; mon_explodes ported
+- **Next:** none from this fix; breadth queue continues.
+
 ## D-2999 — Must-fix `use_saddle` blocks: `nh_timeout` WOUNDED_LEGS flat-only tick + `heal_legs` flat-only clear left the uprops slot stuck (mount_steed refused sound legs)
 
 - **Status:** fixed (Must-fix `steed.c` `use_saddle` — blocks 2/953 corpus sessions, PASS→FAIL since the 2026-09-25 full board `309d58ccc`: `scen-intrinsic-Ranger-92193` @61 and `scen-normal-Rogue-92209` @33. Both now PASS.)
