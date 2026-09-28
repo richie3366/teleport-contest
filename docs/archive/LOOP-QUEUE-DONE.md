@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-28
 
+- [x] `cmd.c` dokeylist — coverage MISSING (C 100 code L `cmd.c:2867–3013` / JS no symbol; hops —, callers 0, RNG 0, msg 25; dead callees: spkey_name; split? cited 30× in js/ — brief first) @5affd05cd
+
+
 - [x] `options.c` freeroleoptvals — coverage MISSING (C 4 code L `options.c:787–794` / JS no symbol; hops 4, callers 2, RNG 0, msg 0; dead callees: unsaveoptstr) @8b6526ecd
 - [x] `options.c` saveoptvals — coverage MISSING (C 13 code L `options.c:801–819` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: freeroleoptvals) @0bb1eb02e
 - [x] `options.c` initoptions — coverage MISSING (C 12 code L `options.c:7079–7115` / JS no symbol; hops —, callers 3, RNG 0, msg 0; dead callees: assure_syscf_file, do_deferred_showpaths) @73b53df4b

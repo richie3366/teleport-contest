@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3028 `cmd.c` dokeylist restart in C order (live spkeys + num_pad arms) + `spkey_name` port
+
+**C locus:** - `dokeylist`: `nethack-c/upstream/src/cmd.c:2867–3013` whole in C order — `:2876–2877` memsets, `:2884` ^C pre-mark (#ifndef NO_SIGNAL), `:2888` mov_seen clone, `:2891–2902` misc prefix scan off live `gc.Cmd.spkeys`, `:2904–2914` title + keyless header, `:2916–2919` directional grid, `:2921–2933` Shift/Meta run text off `iflags.num_pad`, `:2935–2948` bound misc keys, `:2951–2960` ^C interrupt line, `:2962–2980` keyless-special list via `spkey_name`, `:2982–3006` menu/General/Game/Debug sections sharing keys_used, `:3010–3011` display + destroy.
+**JS:** - `dokeylist_lines`: `js/dokeylist.js:808` (export).
+**Change:** `js/dokeylist.js` — restarted `dokeylist_lines` in C order with per-arm `:line` cites: new file-local `live_spkey` (live `game.Cmd.spkeys[nhkf]` with `(uchar)` cast, SPKEYS_DEFAULT fallback while no rebind path writes the table — reset_commands seeds it from the same defaults), `numPad` from live `game.iflags.num_pad` with the C-exact Shift/Ctrl/Meta shape (num_pad drops the Ctrl + "interesting" lines, not just the word), new file-local `spkey_name` over a C-order SPKEY_NAMES table (`:3161–3191` name column) used at the keyless-special arm. `pfxSeen = nhkf + 1` sentinel kept and documented (C stores `j` with 0 unset; JS NHKF_ESC is 0). `show_menu_controls_lines(lines, true)` collapsed to the live `show_menu_controls(lines, true)` export (the wrapper only forwards).
+**Verify:** `node scripts/verify.mjs --fn dokeylist,spkey_name --full` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `dokeylist`: the `#else` (NO_SIGNAL defined) ^C arm `:2957–2958` — not compiled in the unix build; window create/display/destroy — pre-existing pager.js ?j split (display owns the window, lines own the content).
+**Next:** pop the next Open — coverage row (wizcmds.c wizcustom_callback at the time of writing); cmd.c needs no follow-up.
 ## 2026-09-28 — D-3027 `engrave.c` del_engr restart in C order (head-first unlink + `!ept` impossible arm)
 
 **C locus:** - `del_engr`: `nethack-c/upstream/src/engrave.c:1644–1663` whole in C order — `:1648–1649` head-first match, `:1651–1657` walk for the node whose nxt is ep, `:1658–1660` miss → impossible + return, `:1662` dealloc_engr.

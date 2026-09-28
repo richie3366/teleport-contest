@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3028 — `cmd.c` dokeylist restart in C order (live spkeys + num_pad arms) + `spkey_name` port
+
+- **Status:** shipped. Queue head `cmd.c` dokeylist (MISSING, C 100 L, no JS symbol) + Open callee `spkey_name` (MISSING, C 7 L, named dead callee on the row) as one cluster. Stale pop in the same iteration (1 check): `mplayer.c` get_mplname → ledger ported (whole C body complete at `js/mplayer.js:131` in C order; out-param→return is the immutable-string adaptation; `monsndx`≡`mndx` per mondata.h:10 `pmidx`; `is_female` exact; sole C caller mk_mplayer :141 wired at `js/mplayer.js:182`).
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify dokeylist,spkey_name`: no corpus session blocked on either at baseline). The `dokeylist_lines` split existed but hardcoded two live C reads: `SPKEYS_DEFAULT` for all three `gc.Cmd.spkeys[j]` sites and `numPad = false`, so the number_pad=on list (Meta text, COUNT misc entry) never rendered.
+- **C locus:**
+  - `dokeylist`: `nethack-c/upstream/src/cmd.c:2867–3013` whole in C order — `:2876–2877` memsets, `:2884` ^C pre-mark (#ifndef NO_SIGNAL), `:2888` mov_seen clone, `:2891–2902` misc prefix scan off live `gc.Cmd.spkeys`, `:2904–2914` title + keyless header, `:2916–2919` directional grid, `:2921–2933` Shift/Meta run text off `iflags.num_pad`, `:2935–2948` bound misc keys, `:2951–2960` ^C interrupt line, `:2962–2980` keyless-special list via `spkey_name`, `:2982–3006` menu/General/Game/Debug sections sharing keys_used, `:3010–3011` display + destroy.
+  - `spkey_name`: `nethack-c/upstream/src/cmd.c:3208–3220` whole — loop over spkeys_binds `:3161–3191`, NHKF_ESC→"escape" else the bind name `:3215`, null on miss `:3219`.
+- **JS was:** `js/dokeylist.js:721` dokeylist_lines — every section present except the three `gc.Cmd.spkeys[j]` reads used `SPKEYS_DEFAULT`, `numPad` was a `false` const (num_pad arms dead), and the `:2969` site inlined `mk.nhkf === NHKF_ESC ? 'escape' : 'count'` instead of calling `spkey_name` (which had no JS symbol).
+- **Fix:** `js/dokeylist.js` — restarted `dokeylist_lines` in C order with per-arm `:line` cites: new file-local `live_spkey` (live `game.Cmd.spkeys[nhkf]` with `(uchar)` cast, SPKEYS_DEFAULT fallback while no rebind path writes the table — reset_commands seeds it from the same defaults), `numPad` from live `game.iflags.num_pad` with the C-exact Shift/Ctrl/Meta shape (num_pad drops the Ctrl + "interesting" lines, not just the word), new file-local `spkey_name` over a C-order SPKEY_NAMES table (`:3161–3191` name column) used at the keyless-special arm. `pfxSeen = nhkf + 1` sentinel kept and documented (C stores `j` with 0 unset; JS NHKF_ESC is 0). `show_menu_controls_lines(lines, true)` collapsed to the live `show_menu_controls(lines, true)` export (the wrapper only forwards). NO_SIGNAL is not defined in the unix build, so the `:2955` ^C arm is live and the `:2957–2958` #else arm is cited-not-compiled; `display/destroy_nhwindow` stays at the pre-existing pager.js ?j dispatch.
+- **JS:**
+  - `dokeylist_lines`: `js/dokeylist.js:808` (export).
+  - `spkey_name`: `js/dokeylist.js:157` (file-local, C staticfn).
+  - `live_spkey`: `js/dokeylist.js:177` (file-local `gc.Cmd.spkeys` reader).
+- **Callers:**
+  - `dokeylist`: no direct C caller — dispatched from pager.c:2843 help_menu_items (`?j`, "Full list of keyboard commands.") → JS pager.js:3286 `show_text_pages(dokeylist_lines())` (pre-existing, unchanged).
+  - `spkey_name`: sole C caller dokeylist:2972 → JS dokeylist_lines keyless-special arm `js/dokeylist.js:903` (sole JS site).
+- **Verify:** `node scripts/verify.mjs --fn dokeylist,spkey_name --full` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  reach    dokeylist: no RNG-tagged reach; fixed smoke spread (24 run, 7.3s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify spkey_name: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    spkey_name: no RNG-tagged reach; fixed smoke spread (24 run, 7.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+```
+Behavioral probe (/tmp/dokeylist_probe.mjs, not committed): num_pad off → 152 lines with Shift/Ctrl text and no COUNT misc entry; num_pad on → 151 lines with Meta text plus the COUNT entry — exactly the C `:2921–2944` arms. Default-mode output is unchanged (live table ≡ defaults while no rebind path exists; same labels; same menu call).
+- **Named omissions:**
+  - `dokeylist`: the `#else` (NO_SIGNAL defined) ^C arm `:2957–2958` — not compiled in the unix build; window create/display/destroy — pre-existing pager.js ?j split (display owns the window, lines own the content).
+  - `spkey_name`: none — full table, sole caller wired.
+- **Ledger:** dokeylist split js=js/dokeylist.js:dokeylist_lines+js/pager.js:show_text_pages; spkey_name ported.
+- **Next:** pop the next Open — coverage row (wizcmds.c wizcustom_callback at the time of writing); cmd.c needs no follow-up.
+
 ## D-3027 — `engrave.c` del_engr restart in C order (head-first unlink + `!ept` impossible arm)
 
 - **Status:** shipped. Queue head `engrave.c` del_engr (PARTIAL, C 12 L / JS 7 L) as a single-function cluster — engrave.c holds nothing more Open (only del_engr is queue-eligible; D-2567 make_engr_at already fixed), and the callee closure holds nothing portable (dealloc_engr is a free() macro, impossible is shared display infra). Stale pops in the same iteration (no `js/` edits, ≤3 checks each): `cmd.c` handler_rebind_keys_add → ledger ported (whole body complete at `js/cmd.js:2122`, caller `:2440` wired at :2245); `rumors.c` init_rumors → ledger split (`js/rumors.js:getrumor` + `js/rumors.js:rumor_check` lazy-inits cover both C call sites `:140`/`:208`, header parse at build time via extract-rumors.py); `objnam.c` strprepend → ledger split (plain concat inline at all four C call sites: mshot_xname `:1099`, doname_base `:1711`, aobjnam `:2251`, paydoname `:2340`/`:2349`; PREFIX guard by-design JS strings per D-2483).

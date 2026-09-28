@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mplayer.c` get_mplname — coverage PARTIAL (C 16 code L `mplayer.c:72–92` / JS 11 code L in js/mplayer.js; hops 6, callers 1, RNG 1, msg 2) @5a77080f1
-- [ ] `cmd.c` dokeylist — coverage MISSING (C 100 code L `cmd.c:2867–3013` / JS no symbol; hops —, callers 0, RNG 0, msg 25; dead callees: spkey_name; split? cited 30× in js/ — brief first) @5affd05cd
 - [ ] `wizcmds.c` wizcustom_callback — coverage MISSING (C 29 code L `wizcmds.c:1987–2027` / JS no symbol; hops —, callers 1, RNG 0, msg 1) @73b53df4b
 - [ ] `objnam.c` bare_artifactname — coverage PARTIAL (C 9 code L `objnam.c:2502–2515` / JS 6 code L in js/artifact.js; hops 3, callers 12, RNG 0, msg 0) @73b53df4b
 - [ ] `report.c` get_saved_pline — coverage MISSING (C 12 code L `report.c:571–592` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @f4390cd9a
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `rumors.c` CapitalMon — coverage PARTIAL (C 17 code L `rumors.c:791–822` / JS 11 code L in js/objnam.js; hops 2, callers 3, RNG 0, msg 0) @34c78a6ac
 - [ ] `mon.c` dealloc_monst — coverage PARTIAL (C 9 code L `mon.c:2676–2691` / JS 6 code L in js/mon.js; hops 2, callers 5, RNG 0, msg 0) @34c78a6ac
 - [ ] `mon.c` pick_animal — coverage PARTIAL (C 8 code L `mon.c:4855–4869` / JS 5 code L in js/makemon.js; hops 4, callers 1, RNG 2, msg 0) @34c78a6ac
+- [ ] `rnd.c` init_isaac64 — coverage MISSING (C 10 code L `rnd.c:43–58` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: whichrng) @759e72748
+- [ ] `muse.c` fhito_loc — coverage MISSING (C 10 code L `muse.c:1707–1726` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @759e72748
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
