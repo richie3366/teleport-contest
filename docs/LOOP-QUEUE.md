@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` reset_needed_visuals — coverage PARTIAL (C 24 code L `options.c:8980–9014` / JS 11 code L in js/options.js; hops —, callers 3, RNG 0, msg 0) @fb9c2049c
 - [ ] `teleport.c` enexto_core — coverage PARTIAL (C 28 code L `teleport.c:219–276` / JS 18 code L in js/teleport.js; hops 3, callers 3, RNG 0, msg 0) @fb9c2049c
 - [ ] `bones.c` bones_include_name — coverage PARTIAL (C 10 code L `bones.c:762–780` / JS 6 code L in js/bones.js; hops 3, callers 1, RNG 0, msg 1) @000445a8b
 - [ ] `coloratt.c` free_menu_coloring — coverage MISSING (C 10 code L `coloratt.c:664–680` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @000445a8b
 - [ ] `muse.c` mcould_eat_tin — coverage PARTIAL (C 15 code L `muse.c:3001–3027` / JS 10 code L in js/muse.js; hops 2, callers 3, RNG 0, msg 0) @2f39bdcea
-- [ ] `options.c` wc_set_window_colors — coverage MISSING (C 60 code L `options.c:10023–10113` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: wc_color_name) @2f39bdcea
 - [ ] `dungeon.c` get_dgn_align — coverage THIN (C 8 code L `dungeon.c:781–794` / JS 3 code L in js/dungeon.js; hops 3, callers 2, RNG 0, msg 0) @2f39bdcea
 - [ ] `sounds.c` release_sound_mappings — coverage MISSING (C 9 code L `sounds.c:1676–1690` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @2f39bdcea
 - [ ] `zap.c` boxlock_invent — coverage THIN (C 9 code L `zap.c:2687–2702` / JS 3 code L in js/lock.js; hops 6, callers 1, RNG 0, msg 0) @709b8aea7
 - [ ] `coloratt.c` query_attr — coverage THIN (C 58 code L `coloratt.c:396–472` / JS 26 code L in js/options.js; hops —, callers 4, RNG 0, msg 0) @35b79b1f1
 - [ ] `read.c` create_particular_parse — coverage THIN (C 74 code L `read.c:3137–3249` / JS 30 code L in js/read.js; hops 5, callers 1, RNG 0, msg 0) @1b84498a2
 - [ ] `trap.c` keep_saddle_with_steedcorpse — coverage MISSING (C 17 code L `trap.c:939–967` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b93547133
+- [ ] `do_wear.c` doffing — coverage PARTIAL (C 31 code L `do_wear.c:1603–1640` / JS 19 code L in js/do_wear.js; hops 4, callers 4, RNG 0, msg 0) @774d64d58
+- [ ] `rnd.c` set_random — coverage MISSING (C 1 code L `rnd.c:235–239` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: init_isaac64) @774d64d58
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -193,7 +193,7 @@ import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
 import { LOADSYMS, SYM_CONTROL } from './generated/glyphsyms_data.js';
 import { COLORTABLE } from './generated/colortable_data.js';
 import { dupstr } from './dungeon.js';
-import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, fill_glyphid_cache, apply_customizations, reset_customsymbols } from './glyphs.js';
+import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, fill_glyphid_cache, apply_customizations, reset_customcolors, reset_customsymbols } from './glyphs.js';
 import { yyyymmddhhmmss } from './calendar.js';
 import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
@@ -4819,6 +4819,46 @@ export function check_enhanced_colors(buf) {
 }
 
 /**
+ * C ref: coloratt.c wc_color_name `:763–797` (extern.h:369) — render an
+ * int32 color as its name: basic colors (NH_BASIC_COLOR bit set, `:774`)
+ * read colortable[basicindx].name (`:776`); rgb values format `#rrggbb`
+ * (`:783–784`) unless a named row matches (`:787–793`); negative input
+ * stays "no-color" (`:767`). C returns a static buffer (`:766`) that
+ * callers dupstr immediately, so JS returns a fresh string. C callers:
+ * wc_set_window_colors options.c:10089/10095 (wired below).
+ * @param {number} colorindx int32 color
+ * @returns {string}
+ */
+export function wc_color_name(colorindx) {
+    colorindx |= 0; // C `:764` int32 param
+    let result = 'no-color'; // C `:767`
+    if (colorindx >= 0) { // C `:769`
+        const basicindx = colorindx & ~NH_BASIC_COLOR; // C `:770`
+        /* C `:772–773` differing implies a basic color. */
+        if (basicindx !== colorindx) { // C `:774`
+            /* C `:775` assert(basicindx < 16) — no JS assert layer. */
+            result = COLORTABLE[basicindx].name; // C `:776`
+        } else {
+            const r = (colorindx >> 16) & 0xff; // C `:779`
+            const g = (colorindx >> 8) & 0xff; // C `:780`
+            const b = colorindx & 0xff; // C `:781`
+            const hex2 = (v) => v.toString(16).padStart(2, '0');
+            result = `#${hex2(r)}${hex2(g)}${hex2(b)}`; // C `:783–785` Snprintf #%02x%02x%02x
+            /* C `:786` override hex value if this is a named color. */
+            for (let indx = 16; indx < COLORTABLE.length; ++indx) { // C `:787` SIZE(colortable)
+                if (COLORTABLE[indx].r === r // C `:788`
+                    && COLORTABLE[indx].g === g // C `:789`
+                    && COLORTABLE[indx].b === b) { // C `:790`
+                    result = COLORTABLE[indx].name; // C `:791`
+                    break; // C `:792`
+                }
+            }
+        }
+    }
+    return result; // C `:796`
+}
+
+/**
  * C ref: coloratt.c onlyhexdigits `:801–810` — every char is a hex digit
  * (hexdd, decl.c:74 — the local const above) or '-'. Empty input is TRUE
  * (the C loop never runs). Sole C caller is rgbstr_to_int32 `:825`
@@ -8440,34 +8480,210 @@ export function optfn_boolean_do_set(name, negated, initial = false) {
     }
 }
 
+/* C options.c wcnames/wcshortnames `:4885–4890` + flag.h
+   windowcolors_windows `:210–213` (wcolor_menu..wcolor_text, WC_COUNT).
+   WC_COUNT is module-local: js/const.js exports an unused WC_COUNT=0
+   that is not this enum. fgp/bgp (`:10012–10019`) point into
+   iflags.wcolors[j].fg/.bg — JS indexes the table directly. */
+const WC_COUNT = 4;
+const WCNAMES = ['menu', 'message', 'status', 'text'];
+const WCSHORTNAMES = ['mnu', 'msg', 'sts', 'txt'];
+/* C options.c defbrief `:126`. */
+const DEFBRIEF = 'def';
+
+/* C flag.h windowcolors_struct `:215–218` — game.iflags.wcolors,
+   BSS-NULL ({fg:null,bg:null}) when absent. */
+function wcolors_table() {
+    const ifl = game.iflags || (game.iflags = {});
+    if (!Array.isArray(ifl.wcolors) || ifl.wcolors.length !== WC_COUNT)
+        ifl.wcolors = Array.from({ length: WC_COUNT }, () => ({ fg: null, bg: null }));
+    return ifl.wcolors;
+}
+
+/* C options.c wcolors_opt `:4891` — BSS-zero when absent. */
+function wcolors_opt_table() {
+    if (!Array.isArray(game.wcolors_opt) || game.wcolors_opt.length !== WC_COUNT)
+        game.wcolors_opt = [0, 0, 0, 0];
+    return game.wcolors_opt;
+}
+
 /**
- * C options.c reset_needed_visuals `:8979–9014`.
- * Named omit: full `reset_glyphmap(gm_optionchange)` MAX_GLYPH table
- * (CURRENT ban); `reglyph_darkroom`; customcolors / palette arms and
- * their combined-`docrt` gate flags. Glyph-reset + redraw still
- * `check_gold_symbol` + `docrt` so tty attrs (MG_FEMALE / pile)
- * recompute from live iflags. The `opt_reset_customsymbols` arm is
- * wired (D-3065).
+ * C options.c wc_set_window_colors `:10022–10113` (staticfn) — parse a
+ * munged "menu fg/bg ..." spec into iflags.wcolors (`:10083–10105`),
+ * storing canonical names via check_enhanced_colors + wc_color_name
+ * (`:10088–10095`); duplicate/unknown window types go to
+ * config_error_add (`:10097–10109`). C walks newop with in-place NUL
+ * writes; JS strings are immutable so the walk is index-based over the
+ * mungspaces result with the same accept/reject points. Sole C caller:
+ * optfn_windowcolors `:4913` (wired below).
+ * @param {string} op
+ * @returns {number} 1 on success, 0 on parse failure
+ */
+function wc_set_window_colors(op) {
+    /* C `:10030–10033` decls; buf[BUFSZ] + Strcpy are the copy below. */
+    const s = mungspaces(String(op ?? '')); // C `:10035–10036`
+    let newop = 0; // C `:10033` char *newop (index; NUL writes become slices)
+    const at = () => (newop < s.length ? s[newop] : '\0');
+    while (at() !== '\0') { // C `:10037`
+        let wn = null, tfg = null, tbg = null; // C `:10038`
+        /* C `:10040–10041` until first non-space - before colorname. */
+        if (at() === ' ') newop++; // C `:10042–10043`
+        if (at() === '\0') return 0; // C `:10044–10045`
+        const wnStart = newop; // C `:10046` wn = newop
+        /* C `:10048` until first space - colorname. */
+        while (at() !== '\0' && at() !== ' ') newop++; // C `:10049–10050`
+        if (at() === '\0') return 0; // C `:10051–10052`
+        wn = s.slice(wnStart, newop); newop++; // C `:10053` *newop++ = '\0'
+        /* C `:10055` until first non-space - before foreground. */
+        if (at() === ' ') newop++; // C `:10056–10057`
+        if (at() === '\0') return 0; // C `:10058–10059`
+        const fgStart = newop; // C `:10060` tfg = newop
+        /* C `:10062` until slash - foreground. */
+        while (at() !== '\0' && at() !== '/') newop++; // C `:10063–10064`
+        if (at() === '\0') return 0; // C `:10065–10066`
+        tfg = s.slice(fgStart, newop); newop++; // C `:10067` *newop++ = '\0'
+        /* C `:10069–10070` until first non-space - before background. */
+        if (at() === ' ') newop++; // C `:10071–10072`
+        if (at() === '\0') return 0; // C `:10073–10074`
+        const bgStart = newop; // C `:10075` tbg = newop
+        /* C `:10077` until first space - background. */
+        while (at() !== '\0' && at() !== ' ') newop++; // C `:10078–10079`
+        tbg = s.slice(bgStart, newop);
+        if (at() !== '\0') newop++; // C `:10080–10081` *newop++ = '\0'
+        const wct = wcolors_table();
+        const wco = wcolors_opt_table();
+        let j = 0; // C `:10030`
+        for (; j < WC_COUNT; ++j) { // C `:10083`
+            if (disclose_strcmpi(wn, WCNAMES[j]) === 0 // C `:10084` (same-file C strcmpi)
+                || disclose_strcmpi(wn, WCSHORTNAMES[j]) === 0) {
+                if (!strstri(tfg, ' ')) { // C `:10085`
+                    /* C `:10086–10087` free (GC). */
+                    const fclr = check_enhanced_colors(tfg); // C `:10088`
+                    wct[j].fg = dupstr(fclr >= 0 ? wc_color_name(fclr) : tfg); // C `:10089`
+                }
+                if (!strstri(tbg, ' ')) { // C `:10091`
+                    /* C `:10092–10093` free (GC). */
+                    const bclr = check_enhanced_colors(tbg); // C `:10094`
+                    wct[j].bg = dupstr(bclr >= 0 ? wc_color_name(bclr) : tbg); // C `:10095`
+                }
+                if (wco[j] !== 0) { // C `:10097`
+                    config_error_add( // C `:10098–10100` (sink)
+                        'windowcolors for %s windows specified multiple times',
+                        WCNAMES[j]);
+                }
+                wco[j]++; // C `:10102`
+                break; // C `:10103`
+            }
+        }
+        if (j === WC_COUNT) { // C `:10106`
+            config_error_add('windowcolors for unrecognized window type: %s', // C `:10107–10108` (sink)
+                wn);
+        }
+    }
+    game.options_set_window_colors_flag = 1; // C `:10111`
+    return 1; // C `:10112`
+}
+
+/**
+ * C options.c optfn_windowcolors `:4893–4940` (staticfn; the C allopt row
+ * wires it for NHOPTC windowcolors) — do_init zeroes wcolors_opt
+ * (`:4901–4905`); do_set parses via wc_set_window_colors (`:4912–4913`),
+ * optn_err when it rejects (`:4914–4916`); get_val/get_cnf_val spell
+ * "menu fg/bg ..." with defbrief fallbacks (`:4921–4937`). Wired into
+ * the JS optlist windowcolors row (idx 211) like its C allopt row.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated (C UNUSED)
+ * @param {string|{buf:string}} opts full option text, or the get_val holder
+ * @param {string} op
+ * @returns {number} OPTN_OK / OPTN_ERR
+ */
+export function optfn_windowcolors(optidx, req, negated, opts, op) {
+    if (req === REQ_DO_INIT) { // C `:4901`
+        const wco = wcolors_opt_table();
+        for (let wccount = 0; wccount < WC_COUNT; ++wccount) // C `:4902`
+            wco[wccount] = 0; // C `:4903`
+        return OPTN_OK; // C `:4905`
+    }
+    if (req === REQ_DO_SET) { // C `:4907`
+        /* C `:4908–4911` WINCAP syntax comment. */
+        const optstr = typeof opts === 'string' ? opts : '';
+        if ((op = string_for_opt(optstr, false)) !== EMPTY_OPTSTR) { // C `:4912`
+            if (!wc_set_window_colors(op)) { // C `:4913`
+                config_error_add("Could not set %s '%s'", allopt_name(optidx), // C `:4914–4915` (sink)
+                    op);
+                return OPTN_ERR; // C `:4916`
+            }
+        }
+        return OPTN_OK; // C `:4919`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4921`
+        /* C `:4924` TODO: wide get_val may need menu-display wrapping. */
+        let out = ''; // C `:4925` opts[0] = '\0'
+        const wct = wcolors_table();
+        for (let wccount = 0; wccount < WC_COUNT; ++wccount) { // C `:4926`
+            let fg = wct[wccount].fg; // C `:4927`
+            let bg = wct[wccount].bg; // C `:4928`
+            if (fg != null && (fg === '' || fg === DEFBRIEF)) // C `:4929`
+                fg = null; // C `:4930`
+            if (bg != null && (bg === '' || bg === DEFBRIEF)) // C `:4931`
+                bg = null; // C `:4932`
+            out += `${wccount === 0 ? '' : ' '}${(fg != null || bg != null) ? WCNAMES[wccount] : WCSHORTNAMES[wccount]} ${fg != null ? fg : DEFBRIEF}/${bg != null ? bg : DEFBRIEF}`; // C `:4933–4935` Sprintf(eos(opts), ...)
+        }
+        if (opts != null && typeof opts === 'object') opts.buf = out;
+        return OPTN_OK; // C `:4937`
+    }
+    return OPTN_OK; // C `:4939`
+}
+
+/**
+ * C options.c reset_needed_visuals `:8979–9014` (staticfn) — run the
+ * deferred visual updates after an option change: glyph-reset (`:8982`),
+ * the combined customcolors/palette/customsymbols/redraw gate with its
+ * docrt (`:8985–9002`), promptstyle (`:9003`), botl (`:9006`), then the
+ * five flag clears (`:9009–9013`). Async only because docrt/bot are.
+ * Named omissions: reset_glyphmap(gm_optionchange) `:8983` (CURRENT
+ * ban); change_palette() `:8989` (`#ifdef CHANGE_COLOR` — windconf.h:29
+ * leaves it commented out and only Amiga amiconf.h:165 defines it, so
+ * the arm is not compiled); adjust_menu_promptstyle `:9004`
+ * (by-design, no scored analogue). C callers: doset_simple `:8727`,
+ * doset `:8973`, toggle_bool_option `:9294` (all wired in this file).
  */
 async function reset_needed_visuals() {
     if (!game.go) game.go = {};
     const go = game.go;
-    const needRedraw = !!go.opt_need_redraw;
-    if (go.opt_reset_customsymbols) { // C `:8995–8996`
-        reset_customsymbols();
+    if (go.opt_need_glyph_reset) { // C `:8982`
+        /* Named omission (doc): reset_glyphmap(gm_optionchange) `:8983`. */
     }
-    if (needRedraw || go.opt_reset_customsymbols) { // C `:8985–8986` combined gate (customcolors/palette flags still named)
-        if (needRedraw) check_gold_symbol(); // C `:8997–8999` (reglyph_darkroom still named)
+    if (go.opt_reset_customcolors || go.opt_update_basic_palette // C `:8985–8986`
+        || go.opt_reset_customsymbols || go.opt_need_redraw) {
+        if (go.opt_update_basic_palette) { // C `:8987`
+            /* C `:8988–8990` change_palette() — not compiled (see doc). */
+            go.opt_update_basic_palette = false; // C `:8991`
+        }
+        if (go.opt_reset_customcolors) // C `:8993`
+            reset_customcolors(); // C `:8994`
+        if (go.opt_reset_customsymbols) // C `:8995`
+            reset_customsymbols(); // C `:8996`
+        if (go.opt_need_redraw) { // C `:8997`
+            check_gold_symbol(); // C `:8998`
+            reglyph_darkroom(); // C `:8999`
+        }
         await docrt(); // C `:9001`
     }
-    // C options.c:9006–9008 — after docrt may have set disp.botlx.
+    if (go.opt_need_promptstyle) { // C `:9003`
+        /* Named omission (doc): adjust_menu_promptstyle `:9004`. */
+    }
+    // C `:9006–9008` — after docrt may have set disp.botlx.
     if (game.flags?.botl || game.flags?.botlx
         || game.disp?.botl || game.disp?.botlx) {
         await bot();
     }
-    go.opt_need_redraw = false;
-    go.opt_need_glyph_reset = false;
+    go.opt_need_redraw = false; // C `:9009`
+    go.opt_need_glyph_reset = false; // C `:9010`
+    go.opt_reset_customcolors = false; // C `:9011`
     go.opt_reset_customsymbols = false; // C `:9012`
+    go.opt_update_basic_palette = false; // C `:9013`
 }
 
 function doset_bool_term(name) {
@@ -9512,7 +9728,7 @@ const allopt = [
     // optlist.h:880 NHOPTC(windowborders)
     { name: 'windowborders', opttyp: CompOpt, idx: 210, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_windowborders },
     // optlist.h:886 NHOPTC(windowcolors)
-    { name: 'windowcolors', opttyp: CompOpt, idx: 211, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'windowcolors', opttyp: CompOpt, idx: 211, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_windowcolors },
     // optlist.h:890 NHOPTB(wizmgender)
     { name: 'wizmgender', opttyp: BoolOpt, idx: 212, setwhere: SET_WIZONLY, initval: false, addr: { obj: 'iflags', key: 'wizmgender' }, optfn: null },
     // optlist.h:893 NHOPTB(wizweight)

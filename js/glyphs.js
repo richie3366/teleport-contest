@@ -1027,6 +1027,37 @@ export function reset_customsymbols() {
 }
 
 /**
+ * C glyphs.c clear_all_glyphmap_colors `:1166–1176` (global) — zero every
+ * glyph's customcolor (guarded, `:1172–1173`) and color256idx (`:1174`).
+ * JS keeps glyphmap lazy (absent/short ≡ all-NULL BSS, already zeros),
+ * so an absent table is already clear and nothing is ensured here
+ * (free_all_glyphmap_u guard precedent). C callers: reset_customcolors
+ * `:1181` (wired below) + clear_symsetentry (symbols.c:348, unported —
+ * named in the D-log).
+ */
+export function clear_all_glyphmap_colors() {
+    const gm = game.glyphmap; // C glyphmap[MAX_GLYPH] (lazy in JS — absent ≡ all-NULL BSS)
+    if (gm && gm.length === MAX_GLYPH) {
+        for (let glyph = 0; glyph < MAX_GLYPH; ++glyph) { // C `:1171`
+            if (gm[glyph].customcolor) // C `:1172`
+                gm[glyph].customcolor = 0; // C `:1173`
+            gm[glyph].color256idx = 0; // C `:1174`
+        }
+    }
+}
+
+/**
+ * C glyphs.c reset_customcolors `:1178–1183` (global) — drop all glyphmap
+ * color data, then restamp the active set's color customizations.
+ * C caller: reset_needed_visuals options.c:8994 (wired in js/options.js).
+ * Mirrors reset_customsymbols above (D-3065).
+ */
+export function reset_customcolors() {
+    clear_all_glyphmap_colors(); // C `:1181`
+    apply_customizations(game.currentgraphics | 0, DO_CUSTOM_COLORS); // C `:1182` (sym.h do_custom_colors = 1; gc.currentgraphics ≡ game.currentgraphics)
+}
+
+/**
  * C glyphs.c purge_all_custom_entries `:751–758` (global; extern.h:1184) —
  * drop every set's customization details, sets 0..NUM_GRAPHICS inclusive
  * (the +1 row is UNICODESET, cf. the grid above). Sole C caller is

@@ -1,5 +1,58 @@
 # Divergence log
 
+## D-3069 — options.c visuals/windowcolors closure: reset_needed_visuals + wc_set_window_colors + optfn_windowcolors + wc_color_name + reset_customcolors + clear_all_glyphmap_colors
+
+- **Status:** fixed (breadth-phase coverage cluster — queue head + same-file Open row + caller/callee closure)
+- **Symptom:** coverage PARTIAL/MISSING — `reset_needed_visuals` ran a subset gate (customcolors/palette flags dropped, so the live `customcolors` option set a flag that was never consumed or cleared; `reglyph_darkroom` + the customcolors/palette flag clears missing); `windowcolors` had no optfn (optlist row optfn:null), no parser, no wcolors tables; `wc_color_name`, `reset_customcolors`, `clear_all_glyphmap_colors` had no JS symbol.
+- **C locus:**
+  - `reset_needed_visuals`: nethack-c/upstream/src/options.c:8979–9014
+  - `wc_set_window_colors`: nethack-c/upstream/src/options.c:10022–10113
+  - `optfn_windowcolors`: nethack-c/upstream/src/options.c:4893–4940
+  - `wc_color_name`: nethack-c/upstream/src/coloratt.c:763–797
+  - `reset_customcolors`: nethack-c/upstream/src/glyphs.c:1178–1183
+  - `clear_all_glyphmap_colors`: nethack-c/upstream/src/glyphs.c:1166–1176
+- **JS was:**
+  - `reset_needed_visuals`: js/options.js local ran customsymbols-only under a narrow `needRedraw || customsymbols` gate (no customcolors/palette arms, no reglyph_darkroom, 3 of 5 clears)
+  - `wc_set_window_colors` / `optfn_windowcolors` / `wc_color_name` / `reset_customcolors` / `clear_all_glyphmap_colors`: no JS symbol
+- **Fix:**
+  - `reset_needed_visuals`: restarted whole in C order — full 4-flag gate, palette clear, customcolors/customsymbols/redraw arms with reglyph_darkroom, promptstyle guard, botl, all five clears
+  - `wc_set_window_colors`: new same-file local — index-based port of the pointer/NUL-walk parser with identical accept/reject points, canonical-name store via check_enhanced_colors + wc_color_name, dup/unknown config_error_add arms
+  - `optfn_windowcolors`: new export — do_init/do_set/get_val/get_cnf_val arms, wired into the optlist windowcolors row (idx 211)
+  - `wc_color_name`: new export next to check_enhanced_colors — basic-name vs #rrggbb-vs-named-row arms (C static buffer ≡ fresh string; callers dupstr)
+  - `reset_customcolors` / `clear_all_glyphmap_colors`: new glyphs.js exports mirroring reset_customsymbols (D-3065); lazy-glyphmap absent ≡ already-clear
+  - New module tables: WC_COUNT/WCNAMES/WCSHORTNAMES/DEFBRIEF + game.iflags.wcolors / game.wcolors_opt / game.options_set_window_colors_flag (BSS-ensure helpers). No new cross-module edges (glyphs import extended on the existing edge).
+- **JS:**
+  - `reset_needed_visuals`: js/options.js:8652 (local, async — docrt/bot)
+  - `wc_set_window_colors`: js/options.js:8522 (local, C staticfn)
+  - `optfn_windowcolors`: js/options.js:8601 (exported, optfn-table precedent)
+  - `wc_color_name`: js/options.js:4832 (exported, C extern)
+  - `reset_customcolors`: js/glyphs.js:1055 (exported)
+  - `clear_all_glyphmap_colors`: js/glyphs.js:1038 (exported)
+- **Callers:**
+  - `reset_needed_visuals`: doset_simple options.c:8727 → js/options.js:8966; doset :8973 → :8941; toggle_bool_option :9294 → :10044 (all three pre-wired, kept)
+  - `wc_set_window_colors`: optfn_windowcolors :4913 → js/options.js:8612
+  - `optfn_windowcolors`: C allopt row → js optlist windowcolors row js/options.js:9731 (do_init/do_set/get_val dispatch guards call row.optfn)
+  - `wc_color_name`: :10089 → js/options.js:8562; :10095 → :8567
+  - `reset_customcolors`: :8994 → js/options.js:8665
+  - `clear_all_glyphmap_colors`: reset_customcolors glyphs.c:1181 → js/glyphs.js:1056; clear_symsetentry symbols.c:348 unported — named
+- **Verify:** `node scripts/verify.mjs --fn reset_needed_visuals,optfn_windowcolors,wc_set_window_colors,wc_color_name,reset_customcolors,clear_all_glyphmap_colors` → VERIFY: PASS
+  - `reset_needed_visuals`: note hidden (no corpus session blocked) · REACH-OK (smoke spread 24/24)
+  - `optfn_windowcolors`: note hidden · REACH-OK (24/24)
+  - `wc_set_window_colors`: note hidden · REACH-OK (24/24)
+  - `wc_color_name`: note hidden · REACH-OK (24/24)
+  - `reset_customcolors`: note hidden · REACH-OK (24/24)
+  - `clear_all_glyphmap_colors`: note hidden · REACH-OK (24/24)
+  - shared: syntax 2 files · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). Smoke /tmp/wc-smoke.mjs 22/22 (basic/rgb/hex names, do_init/do_set/get_val incl. short names, dup count, optn_err rejects, glyph clear).
+- **Named omissions:**
+  - `reset_needed_visuals`: reset_glyphmap(gm_optionchange) `:8983` (CURRENT ban); change_palette() `:8989` (`#ifdef CHANGE_COLOR` not compiled — windconf.h:29 commented out, only Amiga amiconf.h:165 defines it; sole other caller allmain.c:716 is inside the same ifdef); adjust_menu_promptstyle `:9004` (by-design, no scored analogue)
+  - `wc_set_window_colors`: none — every arm ported, every callee live (config_error_add calls preserved; sink is file precedent)
+  - `optfn_windowcolors`: none — every arm ported, every callee live
+  - `wc_color_name`: none — every arm ported (`:775` assert has no JS assert layer)
+  - `reset_customcolors`: none — both callees live
+  - `clear_all_glyphmap_colors`: none — whole body; second C caller clear_symsetentry unported (named above)
+- **Ledger:** reset_needed_visuals ported; optfn_windowcolors ported; wc_set_window_colors ported; wc_color_name ported; reset_customcolors ported; clear_all_glyphmap_colors ported
+- **Next:** pop the regenerated head.
+
 ## D-3068 — timeout.c trio: print_queue VERBOSE arm + cleanup_burn + property_by_index
 
 - **Status:** fixed (breadth-phase coverage cluster — queue head plus two same-file ledger-absent/MISSING functions, both queue-eligible by measured gap + status but colder than the 12-row block; same-file burn_object left Open — 299-line body, own iteration)

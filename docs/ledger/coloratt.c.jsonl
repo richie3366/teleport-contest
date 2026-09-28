@@ -15,7 +15,7 @@
 {"fn":"free_one_menu_coloring","c":"684-706","status":"unknown"}
 {"fn":"count_menucolors","c":"709-717","status":"unknown"}
 {"fn":"check_enhanced_colors","c":"723-760","status":"ported","js":["js/options.js:check_enhanced_colors"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wc_color_name","c":"764-797","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wc_color_name","c":"764-797","status":"ported","js":["js/options.js:wc_color_name"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"onlyhexdigits","c":"801-810","status":"ported","js":["js/options.js:onlyhexdigits"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rgbstr_to_int32","c":"813-865","status":"ported","js":["js/options.js:rgbstr_to_int32"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"set_map_customcolor","c":"868-883","status":"ported","js":["js/options.js:set_map_customcolor"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}

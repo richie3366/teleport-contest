@@ -23,8 +23,8 @@
 {"fn":"dump_all_glyphids","c":"797-805","status":"unknown"}
 {"fn":"wizcustom_glyphids","c":"808-821","status":"partial","js":["js/glyphs.js:wizcustom_glyphids"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771"],"at":"seed@a30a7de84"}
 {"fn":"parse_id","c":"824-1162","status":"partial","js":["js/glyphs.js:parse_id"],"omit":"`find_struct` callback/color/unicode consumers — `glyphrep_to_custom_map_entries`, `glyphrep`, `match_glyph`, `to_custom_symset_entry_callback`, `find_glyphid_in_cache_by_glyphnum`, `wizcustom_glyphids`, `shuffle_customizations`, `apply_customizations`, `add_custom_nhcolor_entry` (options/symbols c…","d":["D-2487"],"at":"seed@a30a7de84"}
-{"fn":"clear_all_glyphmap_colors","c":"1167-1176","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"reset_customcolors","c":"1179-1183","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"clear_all_glyphmap_colors","c":"1167-1176","status":"ported","js":["js/glyphs.js:clear_all_glyphmap_colors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"reset_customcolors","c":"1179-1183","status":"ported","js":["js/glyphs.js:reset_customcolors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"find_display_sym_customization","c":"1196-1215","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"find_display_urep_customization","c":"1218-1236","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"test_glyphnames","c":"1252-1262","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
