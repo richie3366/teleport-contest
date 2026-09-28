@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3008 mkobj.c bless/unbless/nextoid: coin guard + bag weight + figurine stop + price-matched o_id; mklev unbless clone retired
+
+**C locus:** - `bless`: `nethack-c/upstream/src/mkobj.c:1745–1764` (COIN early return `:1749–1750`, radius `:1751–1752`, cursed=0/blessed=1 `:1753–1754`, luck/bag/figurine chain `:1755–1760`, lamplit tail `:1761–1762`).
+**JS:** `js/mkobj.js` +~60/−20 (bless/unbless restart, nextoid, splitobj rewire), `js/shk.js` +4/−4 (export + bill-dummy rewire + doc), `js/mklev.js` +3/−6 (import + clone delete).
+**Change:** `bless` (`js/mkobj.js:680`) restarted whole in C order — COIN guard, radius-before-flip, BUC flip (JS booleans per curse idiom), luck → bag weight → timed-FIGURINE `stop_timer(FIG_TRANSFORM, obj_to_any(otmp))` chain, lamplit tail. `unbless` (`:705`) restarted whole — radius, blessed=false (cursed untouched per C), luck → bag weight, lamplit tail. `nextoid` (`:438`) new export in C order with U32 wrap (`>>>0`), RNG-free search over exported `oid_price_adjustment` (`js/shk.js:1093`), then `next_ident()` for the single rnd(2); `splitobj` (`:466`, C `:469`) and `bill_dummy_object` (`js/shk.js:1310`, C `:725`) now call it.
+**Verify:** `node scripts/verify.mjs --fn bless,unbless,nextoid` → PASS syntax (3 files) · PASS rule2 · note hidden ×3 (no corpus session blocked at baseline — expected for coverage rows) · REACH-OK ×3 (no RNG-tagged reach; fixed smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** - `bless`: none in the body — every arm ported, every callee live (`arti_light_radius`, `confers_luck`, `set_moreluck`, `weight`, `stop_timer`, `obj_to_any`, `maybe_adjust_light`), `end.c` caller block unported (not a body arm).
+**Next:** none — sole `mkobj.c` Open rows in the generated block (`bless`, `unbless`, `nextoid`) now ported; remaining `mkobj.c` ledger rows are measured-ok, declared, or outside this closure.
 ## 2026-09-28 — D-3007 sp_lev.c load_special + des-entry family: sel_set_door + lspo_door + lspo_wallify + lspo_mineralize; makemaz caller rewired to the C name
 
 **C locus:** - `load_special`: `nethack-c/upstream/src/sp_lev.c:6454–6502` (coder create `:6459`, load_lua `:6461`, epilogue `:6464–6494`, give_up free + NULL `:6497–6499`).

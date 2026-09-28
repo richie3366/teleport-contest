@@ -106,7 +106,7 @@ import { maketrap, t_at, undestroyable_trap, deltrap, reset_utrap, mintrap, set_
 import {
     mkobj, mksobj, mksobj_at, mk_tt_object, mksobj_migr_to_species, mkobj_at, mkgold,
     mkcorpstat, next_ident,
-    curse, bless, uncurse, blessorcurse, place_object, add_to_buried, weight, OBJ,
+    curse, bless, unbless, uncurse, blessorcurse, place_object, add_to_buried, weight, OBJ,
     set_corpsenm, obj_stop_timers, start_timer, spot_stop_timers,
     obj_extract_self, is_organic, remove_object,
     add_to_container, objects_at, sobj_at, stackobj, oc_merge_of, dealloc_obj,
@@ -29056,12 +29056,9 @@ function selection_rndcoord(sel, removeit) {
     return null;
 }
 
-// C ref: mkobj.c unbless — clear blessed only
-function unbless(otmp) {
-    if (otmp) otmp.blessed = false;
-}
-
 // C ref: sp_lev.c create_object — id/class + not-blessed (curse_state 6) at abs coord
+// unbless is the canonical mkobj.js export (C mkobj.c:1766–1780, full body:
+// luck/bag/light arms); the former file-local clone cleared blessed only.
 function create_object_themed(opts, x, y) {
     let otmp = null;
     const named = false;

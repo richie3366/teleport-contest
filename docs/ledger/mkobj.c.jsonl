@@ -19,7 +19,7 @@
 {"fn":"copy_oextra","c":"417-448","status":"unknown","d":["D-2275"],"at":"seed@a30a7de84"}
 {"fn":"splitobj","c":"457-503","status":"unknown"}
 {"fn":"next_ident","c":"509-531","status":"unknown","d":["D-2228","D-2202","D-2111","D-2022"],"at":"seed@a30a7de84"}
-{"fn":"nextoid","c":"536-551","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nextoid","c":"536-551","status":"ported","js":["js/mkobj.js:nextoid"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"unsplitobj","c":"556-622","status":"unknown"}
 {"fn":"clear_splitobjs","c":"626-629","status":"unknown"}
 {"fn":"replace_object","c":"641-679","status":"unknown"}
@@ -40,8 +40,8 @@
 {"fn":"shrink_glob","c":"1500-1669","status":"unknown","d":["D-2376"],"at":"seed@a30a7de84"}
 {"fn":"shrinking_glob_gone","c":"1673-1701","status":"unknown"}
 {"fn":"maybe_adjust_light","c":"1704-1736","status":"unknown","d":["D-2244"],"at":"seed@a30a7de84"}
-{"fn":"bless","c":"1745-1764","status":"unknown"}
-{"fn":"unbless","c":"1767-1780","status":"unknown"}
+{"fn":"bless","c":"1745-1764","status":"ported","js":["js/mkobj.js:bless"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f"}
+{"fn":"unbless","c":"1767-1780","status":"ported","js":["js/mkobj.js:unbless"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f"}
 {"fn":"curse","c":"1783-1819","status":"partial","js":["js/mkobj.js:curse"],"omit":"`bless` and `unbless` still omit the `COIN_CLASS` return and the bag-of-holding `weight` write (`js/mkobj.js` `bless` `:641`, `unbless` `:662`).","d":["D-2885"],"at":"seed@a30a7de84"}
 {"fn":"uncurse","c":"1822-1838","status":"unknown"}
 {"fn":"blessorcurse","c":"1841-1854","status":"ported","js":["js/mkobj.js:blessorcurse"],"d":["D-2989"],"at":"2026-09-27@080c16023","note":"stale: js/mkobj.js:716 — exact C body incl. RNG order, callees live"}
