@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3019 — `free_glyphid_cache` C-order re-port (per-entry id-null loop; 1 C caller wired, 5 named)
+
+- **Status:** shipped (Open — coverage head `glyphs.c` free_glyphid_cache THIN. No corpus session blocked on it.)
+- **Symptom:** coverage gap, not a corpus divergence. `js/glyphs.js:180` held a 2-line GC shorthand (`if (!glyphidCache) return; glyphidCache = null`) against C's 9-line body: the `:361–366` per-entry id-release loop and the `:367–368` table-release shape were absent, and the cite pointed at stale `:353–366`.
+- **C locus:** `nethack-c/upstream/src/glyphs.c:355–369` whole in C order —
+  - `free_glyphid_cache`: `:359–360` null guard, `:361` loop over `glyphid_cache_size`, `:362` live-`id` gate, `:363–364` `free` + `= 0`, `:367–368` table `free` + `= NULL`. No other callees (`free` is libc).
+- **JS was:** null guard + table null only; per-entry loop missing (THIN C 9 / JS 2).
+- **Fix:** restarted the export in C order: guard, `for` over `glyphidCacheSize` (mirrors C's bound; `init_glyph_cache` fills exactly that many entries so the index stays in range like C), per-entry `id = null` (JS analogue of `free`; GC reclaims), table `= null` (analogue of `free` + `= NULL`).
+- **JS:**
+  - `free_glyphid_cache`: `js/glyphs.js:185` (comment `:179–184`, cites corrected to `:355–369` with per-arm `:35x` cites). Export name/signature kept; sole JS call site untouched.
+- **Callers:**
+  - `free_glyphid_cache`: C `fill_glyphid_cache` (`glyphs.c:317`, `:316–319` parse-fail arm) → wired `js/glyphs.js:762` (same arm shape); C `optfn_symset` do_handler arm (`options.c:4226–4230`, fill → `handler_symset` → free) → named (JS `symset` arm `js/options.js:6951` returns `OPTN_ERR`; `handler_symset`/`do_symset` unported, `js/options.js:6952`); C `initoptions_finish` (`options.c:7378`) → named (no JS function, `js/cmd.js:1964`); C `freedynamicdata` (`save.c:1179`) → named (save-freeing infra, never ported — NOTES guard); C `do_symset` (`symbols.c:1077`) → named (no live JS port, `js/options.js:6952`); C `wiz_custom` (`wizcmds.c:1979`) → named (no JS port).
+- **Verify:**
+  - `free_glyphid_cache`: `node scripts/verify.mjs --fn free_glyphid_cache` → VERIFY: PASS — syntax 1 file; rule2 PASS; hidden note (no corpus session blocked, expected for a coverage row); reach REACH-OK (no RNG tags; smoke 24/24 PASS); green 2/2; strict both sessions; cohort 7/7; full skipped (no shared file).
+- **Named omissions:**
+  - `free_glyphid_cache`: none in the body — every arm ported, no live callee. Five C callers named above (callers unported or arms unported); the single live caller is wired.
+- **Ledger:** free_glyphid_cache ported
+- **Next:** queue regenerates; `glyphs.c` holds no further Open rows (remaining `unknown` ledger entries are live in `js/` under the same names, e.g. `fill_glyphid_cache` `js/glyphs.js:752`).
+
 ## D-3018 — `arti_speak` whole + both C callers wired (wield tail, doapply tail at 5 artifact-eligible arms)
 
 - **Status:** shipped (Open — coverage head `artifact.c` arti_speak MISSING. No corpus session blocked on it.)

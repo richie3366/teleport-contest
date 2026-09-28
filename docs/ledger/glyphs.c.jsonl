@@ -5,7 +5,7 @@
 {"fn":"glyph_find_core","c":"234-283","status":"unknown"}
 {"fn":"fill_glyphid_cache","c":"303-321","status":"unknown"}
 {"fn":"init_glyph_cache","c":"334-352","status":"unknown"}
-{"fn":"free_glyphid_cache","c":"355-369","status":"unknown"}
+{"fn":"free_glyphid_cache","c":"355-369","status":"ported","js":["js/glyphs.js:free_glyphid_cache"],"d":["D-3019"],"at":"2026-09-28@20875982e"}
 {"fn":"add_glyph_to_cache","c":"372-392","status":"unknown"}
 {"fn":"find_glyph_in_cache","c":"395-415","status":"unknown"}
 {"fn":"find_glyphid_in_cache_by_glyphnum","c":"418-432","status":"unknown"}

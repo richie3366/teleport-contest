@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3019 `free_glyphid_cache` C-order re-port (per-entry id-null loop; 1 C caller wired, 5 named)
+
+**C locus:** `nethack-c/upstream/src/glyphs.c:355–369` whole in C order —
+**JS:** - `free_glyphid_cache`: `js/glyphs.js:185` (comment `:179–184`, cites corrected to `:355–369` with per-arm `:35x` cites). Export name/signature kept; sole JS call site untouched.
+**Change:** restarted the export in C order: guard, `for` over `glyphidCacheSize` (mirrors C's bound; `init_glyph_cache` fills exactly that many entries so the index stays in range like C), per-entry `id = null` (JS analogue of `free`; GC reclaims), table `= null` (analogue of `free` + `= NULL`).
+**Verify:** - `free_glyphid_cache`: `node scripts/verify.mjs --fn free_glyphid_cache` → VERIFY: PASS — syntax 1 file; rule2 PASS; hidden note (no corpus session blocked, expected for a coverage row); reach REACH-OK (no RNG tags; smoke 24/24 PASS); green 2/2; strict both sessions; cohort 7/7; full skipped (no shared file).
+**Named:** - `free_glyphid_cache`: none in the body — every arm ported, no live callee. Five C callers named above (callers unported or arms unported); the single live caller is wired.
+**Next:** queue regenerates; `glyphs.c` holds no further Open rows (remaining `unknown` ledger entries are live in `js/` under the same names, e.g. `fill_glyphid_cache` `js/glyphs.js:752`).
 ## 2026-09-28 — D-3018 `arti_speak` whole + both C callers wired (wield tail, doapply tail at 5 artifact-eligible arms)
 
 **C locus:** `nethack-c/upstream/src/artifact.c:2279–2296` whole in C order — `:2281` get_artifact, `:2286–2287` non-artifact / no-SPEAK guard (`||` short-circuit kept), `:2289` getrumor(bcsign, buf, TRUE), `:2290–2291` renovation fallback, `:2292` Tobjnam-whisper pline, `:2293` SetVoice 0/0/80/talking-artifact, `:2294` verbalize1 (= verbalize("%s") per hack.h:1029), `:2295` ECMD_TIME.

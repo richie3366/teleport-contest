@@ -176,10 +176,20 @@ function init_glyph_cache() {
     }
 }
 
-/* C glyphs.c free_glyphid_cache `:353–366` (global; JS GC frees the ids). */
+/* C glyphs.c free_glyphid_cache `:355–369` (global) — null guard `:359–360`,
+ * per-entry id release `:361–366`, table release + NULL `:367–368`. JS has
+ * no malloc/free: each live `id` is nulled in C order (GC reclaims the
+ * string), then the table itself is nulled (C `free` + `= NULL`).
+ * `glyphidCacheSize` mirrors C's `glyphid_cache_size` bound (`init_glyph_cache`
+ * fills exactly that many entries, so the index stays in range like C). */
 export function free_glyphid_cache() {
-    if (!glyphidCache) return;
-    glyphidCache = null;
+    if (!glyphidCache) return; // C `:359–360`
+    for (let idx = 0; idx < glyphidCacheSize; ++idx) { // C `:361`
+        if (glyphidCache[idx].id) { // C `:362`
+            glyphidCache[idx].id = null; // C `:363–364` free + = 0
+        }
+    }
+    glyphidCache = null; // C `:367–368` free + = NULL
 }
 
 /* C glyphs.c add_glyph_to_cache `:368–390` (staticfn). */
