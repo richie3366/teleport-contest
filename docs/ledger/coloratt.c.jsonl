@@ -1,7 +1,7 @@
 {"fn":"colortable_to_int32","c":"237-246","status":"ported","js":["js/options.js:colortable_to_int32"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"color_attr_to_str","c":"249-257","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"color_attr_parse_str","c":"261-301","status":"partial","js":["js/options.js:color_attr_parse_str"],"omit":"callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `\"\"` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers si…","d":["D-2777"],"at":"seed@a30a7de84"}
-{"fn":"query_color_attr","c":"304-317","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"query_color_attr","c":"304-317","status":"ported","js":["js/options.js:query_color_attr"],"d":["D-3047"],"at":"2026-09-28@d81780b83","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"attr2attrname","c":"320-328","status":"unknown"}
 {"fn":"clr2colorname","c":"338-346","status":"unknown"}
 {"fn":"match_str2clr","c":"349-371","status":"unknown"}

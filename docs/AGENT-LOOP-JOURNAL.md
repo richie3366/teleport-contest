@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3047 `handler_menu_headings` + `query_color_attr` whole ports
+
+**C locus:** - `handler_menu_headings`: nethack-c/upstream/src/options.c:5779–5792 (staticfn; whole body in C order).
+**JS:** - `query_color_attr`: js/options.js:5206.
+**Change:** new exports in js/options.js in C order with per-arm `:line` cites. `query_color_attr` awaits `query_color` (`:308`) then `query_attr` (`:311`) with C short-circuit (`-1` → FALSE before the second prompt, `:309–310` / `:312–313`), writing `ca.color`/`ca.attr` only when both succeed (`:314–316`, same write-on-success shape as `color_attr_parse_str`). `handler_menu_headings` awaits it over `iflags.menu_headings` with the C prompt (`:5782–5783`), refreshes persistent inventory only on a picked pair (`gotca` + `perm_invent`, `:5785–5788`, sync `update_inventory` already imported from invent.js), returns `optn_ok` (`:5791`).
+**Verify:** `node scripts/verify.mjs --fn handler_menu_headings,query_color_attr` → VERIFY: PASS — syntax 1 changed js file; Rule #2 clean; hidden note (no corpus session blocked — coverage row, expected); REACH smoke spread 24/24 PASS both → REACH-OK; green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44 (auto: shared file changed). Paste tail verbatim in commit.
+**Named:** - `handler_menu_headings`: C `:5790` `adjust_menu_promptstyle(WIN_INVEN, …)` — by-design, no scored analogue (ledger windows.c); C caller optfn_menu_headings unported (wires later).
+**Next:** next Open — coverage head after regenerate (`find_branch_room` mklev.c:1660–1673 was second).
 ## 2026-09-28 — D-3046 `Hello` Valkyrie mail-daemon `Hallo` arm
 
 **C locus:** - `Hello`: nethack-c/upstream/src/role.c:2120–2140 — Role_switch Knight :2123–2124, Samurai shk-gated :2126–2128, Tourist :2130–2131, Valkyrie mail-daemon-gated :2133–2136, default :2137–2138.

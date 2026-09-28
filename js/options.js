@@ -5195,6 +5195,25 @@ export async function query_attr(prompt, dflt_attr) {
 }
 
 /**
+ * C ref: coloratt.c query_color_attr `:303–317` — sequential
+ * query_color then query_attr over the same prompt, writing `ca`
+ * only when both succeed. Async: both callees await. Sole C caller
+ * is options.c handler_menu_headings `:5782`.
+ * @param {object} ca C `color_attr` (`{ attr, color }`)
+ * @param {string|null} prompt
+ * @returns {Promise<boolean>}
+ */
+export async function query_color_attr(ca, prompt) {
+    const c = await query_color(prompt, ca.color); // C `:308`
+    if (c === -1) return false; // C `:309–310`
+    const a = await query_attr(prompt, ca.attr); // C `:311`
+    if (a === -1) return false; // C `:312–313`
+    ca.color = c; // C `:314`
+    ca.attr = a; // C `:315`
+    return true; // C `:316`
+}
+
+/**
  * C ref: options.c test_regex_pattern `:7871–7900` — validate only, the
  * compiled regexp is discarded. config_error_add paths named
  * (msgtype_add precedent); regex_error_desc has no JS counterpart.
@@ -5529,6 +5548,36 @@ export async function handler_menu_colors() {
             // :6495–6496 pick_cnt >= 0 → again
         }
     }
+}
+
+/**
+ * C ref: options.c handler_menu_headings `:5779–5792` (staticfn) —
+ * do_handler of optfn_menu_headings (`:2219`). Queries the
+ * color+attribute pair, refreshes the persistent inventory display
+ * when a pair was picked, then returns optn_ok. Async:
+ * query_color_attr awaits (update_inventory is sync and already
+ * imported from invent.js).
+ * @returns {Promise<number>}
+ */
+export async function handler_menu_headings() {
+    if (!game.iflags) game.iflags = {};
+    const ifl = game.iflags;
+    if (!ifl.menu_headings || typeof ifl.menu_headings !== 'object') {
+        // C optfn_menu_headings `:2197–2199` default (OPTIONS=menu_headings
+        // without value): no-color&inverse.
+        ifl.menu_headings = { color: NO_COLOR, attr: ATR_INVERSE };
+    }
+    const gotca = await query_color_attr( // C `:5782–5783`
+        ifl.menu_headings,
+        'How to highlight menu headings:'
+    );
+    if (gotca) { // C `:5785`
+        /* header highlighting affects persistent inventory display */ // C `:5786`
+        if (ifl.perm_invent) update_inventory(); // C `:5787–5788`
+    }
+    // C `:5790` adjust_menu_promptstyle(WIN_INVEN, &iflags.menu_headings) —
+    // no scored analogue (by-design); named omission.
+    return optn_ok; // C `:5791`
 }
 
 /**

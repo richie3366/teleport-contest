@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3047 — `handler_menu_headings` + `query_color_attr` whole ports
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING — `options.c` handler_menu_headings (C 7 code L, no JS symbol); its callee `query_color_attr` (coloratt.c, C 10 code L) also absent while `query_color`/`query_attr`/`update_inventory` were already live in js/.
+- **C locus:**
+  - `handler_menu_headings`: nethack-c/upstream/src/options.c:5779–5792 (staticfn; whole body in C order).
+  - `query_color_attr`: nethack-c/upstream/src/coloratt.c:303–317 (whole body in C order).
+- **JS was:** no symbol for either (brief sym.mjs: NOT FOUND; ledger both absent MISSING).
+- **Fix:** new exports in js/options.js in C order with per-arm `:line` cites. `query_color_attr` awaits `query_color` (`:308`) then `query_attr` (`:311`) with C short-circuit (`-1` → FALSE before the second prompt, `:309–310` / `:312–313`), writing `ca.color`/`ca.attr` only when both succeed (`:314–316`, same write-on-success shape as `color_attr_parse_str`). `handler_menu_headings` awaits it over `iflags.menu_headings` with the C prompt (`:5782–5783`), refreshes persistent inventory only on a picked pair (`gotca` + `perm_invent`, `:5785–5788`, sync `update_inventory` already imported from invent.js), returns `optn_ok` (`:5791`). Missing `menu_headings` struct defaults to no-color&inverse per C optfn_menu_headings `:2197–2199` (JS object may be absent where the C struct always exists). Async throughout since both callees await. No new imports, no new cross-module edges.
+- **JS:**
+  - `query_color_attr`: js/options.js:5206.
+  - `handler_menu_headings`: js/options.js:5562.
+- **Callers:**
+  - `query_color_attr`: options.c:5782 → js/options.js:5570 (awaited in `handler_menu_headings`); extern.h:357 is decl-only.
+  - `handler_menu_headings`: options.c:2219 → unwired: sole C caller optfn_menu_headings is itself unported (js/options.js:5045 comment, optlist entry optfn null) — named omission, wires when it ships.
+- **Verify:** `node scripts/verify.mjs --fn handler_menu_headings,query_color_attr` → VERIFY: PASS — syntax 1 changed js file; Rule #2 clean; hidden note (no corpus session blocked — coverage row, expected); REACH smoke spread 24/24 PASS both → REACH-OK; green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44 (auto: shared file changed). Paste tail verbatim in commit.
+- **Named omissions:**
+  - `handler_menu_headings`: C `:5790` `adjust_menu_promptstyle(WIN_INVEN, …)` — by-design, no scored analogue (ledger windows.c); C caller optfn_menu_headings unported (wires later).
+  - `query_color_attr`: none — every arm ported, every callee live.
+- **Ledger:** handler_menu_headings ported; query_color_attr ported.
+- **Next:** next Open — coverage head after regenerate (`find_branch_room` mklev.c:1660–1673 was second).
+
 ## D-3046 — `Hello` Valkyrie mail-daemon `Hallo` arm
 
 - **Status:** shipped.

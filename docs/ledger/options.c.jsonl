@@ -125,7 +125,7 @@
 {"fn":"handler_align_misc","c":"5586-5621","status":"unknown"}
 {"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
 {"fn":"handler_disclose","c":"5675-5777","status":"unknown"}
-{"fn":"handler_menu_headings","c":"5780-5792","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"handler_menu_headings","c":"5780-5792","status":"ported","js":["js/options.js:handler_menu_headings"],"d":["D-3047"],"at":"2026-09-28@d81780b83","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_menu_objsyms","c":"5795-5829","status":"partial","js":["js/options.js:handler_menu_objsyms"],"omit":"`config_error_add(\"Illegal %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `n > 1` two-pick disambiguation `:5822–5823` folded — the helper returns the single new pick, which is the non-preselected entry C chooses; readers of `use_menu_g…","d":["D-2774"],"at":"seed@a30a7de84"}
 {"fn":"handler_msg_window","c":"5832-5890","status":"unknown"}
 {"fn":"handler_number_pad","c":"5893-5950","status":"ported","js":["js/options.js:handler_number_pad"],"d":["D-2778"],"at":"seed@a30a7de84"}
