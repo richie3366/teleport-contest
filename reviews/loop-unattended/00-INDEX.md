@@ -1965,3 +1965,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1953-e61bdd324-stumble-onto-mimic.md](./1953-e61bdd324-stumble-onto-mimic.md) | `e61bdd324` | D-2993 stumble_onto_mimic | **ACCEPT** |
 | [1954-d2d72caa6-u-can-engrave.md](./1954-d2d72caa6-u-can-engrave.md) | `d2d72caa6` | D-2994 u_can_engrave | **ACCEPT** |
 | [1955-b2a5f3fb7-m-next2m.md](./1955-b2a5f3fb7-m-next2m.md) | `b2a5f3fb7` | D-2995 m_next2m | **ACCEPT** |
+| [1956-9ee8217df-get-mon-location.md](./1956-9ee8217df-get-mon-location.md) | `9ee8217df` | D-2996 get_mon_location | **ACCEPT** |
+| [1957-2bf11e0a4-find-montype.md](./1957-2bf11e0a4-find-montype.md) | `2bf11e0a4` | D-2997 find_montype | **ACCEPT** |
+| [1958-9788e35ea-clear-regions.md](./1958-9788e35ea-clear-regions.md) | `9788e35ea` | D-2998 clear_regions + free_region | **ACCEPT** |
+| [1959-9600a44be-use-saddle.md](./1959-9600a44be-use-saddle.md) | `9600a44be` | D-2999 use_saddle WOUNDED_LEGS | **ACCEPT** |
+| [1960-63aec4509-mon-explodes.md](./1960-63aec4509-mon-explodes.md) | `63aec4509` | D-3000 mon_explodes + gallop | **ACCEPT** |
+| [1961-84557918b-dungeon-cluster.md](./1961-84557918b-dungeon-cluster.md) | `84557918b` | D-3001 dungeon cluster | **ACCEPT** |
+| [1962-c4bce1fa8-glyphs-cluster.md](./1962-c4bce1fa8-glyphs-cluster.md) | `c4bce1fa8` | D-3002 glyphs cluster | **ACCEPT-WITH-DEBT** |

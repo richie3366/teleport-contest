@@ -1,9 +1,9 @@
 {
- "commit": "84557918b",
- "at": "2026-09-28T03:32:22.109Z",
- "full": false,
- "fullCommit": "3082535a8",
- "fullAt": "2026-09-27T22:55:25.137Z",
+ "commit": "c4bce1fa8",
+ "at": "2026-09-28T04:15:01.945Z",
+ "full": true,
+ "fullCommit": "c4bce1fa8",
+ "fullAt": "2026-09-28T04:15:01.945Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4524,7 +4524,7 @@
    "steps": 300,
    "owner": "is_boh_item_gone",
    "loc": "pickup.c:2512",
-   "jsOwner": "mcalcmove(mon.js:992)",
+   "jsOwner": "mcalcmove(mon.js:996)",
    "cTopline": "You see 174 gold pieces disappear!--More--",
    "jsTopline": "Do what with the bag?",
    "error": null
@@ -4677,7 +4677,7 @@
    "steps": 280,
    "owner": "is_boh_item_gone",
    "loc": "pickup.c:2512",
-   "jsOwner": "mcalcmove(mon.js:992)",
+   "jsOwner": "mcalcmove(mon.js:996)",
    "cTopline": "You see a gray stone disappear!--More--",
    "jsTopline": "Do what with your bag?",
    "error": null
@@ -6462,7 +6462,7 @@
    "steps": 156,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:992)",
+   "jsOwner": "mcalcmove(mon.js:996)",
    "cTopline": "A fog cloud appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -10168,7 +10168,7 @@
    "steps": 158,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:992)",
+   "jsOwner": "mcalcmove(mon.js:996)",
    "cTopline": "A lichen appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -10236,7 +10236,7 @@
    "steps": 95,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:992)",
+   "jsOwner": "mcalcmove(mon.js:996)",
    "cTopline": "A winter wolf cub appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11426,7 +11426,7 @@
    "steps": 201,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:992)",
+   "jsOwner": "mcalcmove(mon.js:996)",
    "cTopline": "A lichen appears next to you. A lichen appears close by.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11511,7 +11511,7 @@
    "steps": 215,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:992)",
+   "jsOwner": "mcalcmove(mon.js:996)",
    "cTopline": "A little dog appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11545,7 +11545,7 @@
    "steps": 223,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "landing_spot(steed.js:581)",
+   "jsOwner": "landing_spot(steed.js:583)",
    "cTopline": "A warhorse appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -12267,18 +12267,18 @@
   "scen-special-Knight-94297": {
    "src": "corpus",
    "passed": false,
-   "rngM": 19570,
+   "rngM": 20796,
    "rngT": 20796,
-   "scrM": 136,
+   "scrM": 180,
    "scrT": 181,
    "kind": "screen",
-   "step": 136,
+   "step": 154,
    "steps": 181,
-   "owner": "flooreffects",
-   "loc": "do.c:336",
+   "owner": "yn_function",
+   "loc": "cmd.c:5569",
    "jsOwner": null,
-   "cTopline": "It hits again! It bites! It bites! It bites again!--More--",
-   "jsTopline": "It hits again! It bites!--More--",
+   "cTopline": "Do you want to keep the save file? [yn] (n)",
+   "jsTopline": "You are lucky! Full moon tonight.--More--",
    "error": null
   },
   "scen-special-Knight-94317": {
@@ -13942,7 +13942,7 @@
    "steps": 243,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "climb_pit(trap.js:2175)",
+   "jsOwner": "climb_pit(trap.js:2176)",
    "cTopline": "",
    "jsTopline": "You are still in a pit.",
    "error": null

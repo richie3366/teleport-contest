@@ -22,38 +22,34 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-27** — full `sessions` on the working tree
-(audit **1946–1955**, commit `b2a5f3fb7`, measured 2026-09-27T21:19Z).
+Score last measured: **2026-09-28** — full `sessions` on the working tree
+(audit **1956–1962**, commit `c4bce1fa8`, measured 2026-09-28T04:09Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`270+1.70/turn` (R² 0.77).
+`260+1.84/turn` (R² 0.81).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-27)** | **12 / 44**, 6,442 / 11,265 pts, RNG **31.5 %**, rngSteps 85.3 %, screens **57.2 %** |
+| **Held-out (judge, 2026-09-28)** | **12 / 44**, 6,442 / 11,265 pts, RNG **31.5 %**, rngSteps 85.3 %, screens **57.2 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `270+1.70/turn` (R² 0.77) |
+| Speed label | `260+1.84/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out still 12/44 (6,442 / 11,265 pts, RNG 31.5 %,
-rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T19:26:02Z, last scored
-2026-09-27T19:00:18Z).
-**Corpus fortress (full rescore 2026-09-28, 953/953 entries, 0 unrecorded):**
-**627 / 953** PASS (65.8 %; 627/940 = 66.7 % excluding 13 env-only
-config-path rows), RNG 96.00 %, screens 88.8 %, 111 blocking owners. vs
-the last full board (2026-09-25, `309d58ccc`): 614 → 627, 16 FAIL→PASS,
-3 PASS→FAIL → Must-fix (`use_saddle` ×2, `mcalcmove` ×1). Recorder rebuilt
-on Linux with macOS parity (clang, sysconf, `PORT_ID`, apple, DEV_RANDOM,
-ncompress) + `record-session.mjs` final-frame fix: 43/44 public sessions
-re-record identical (seed2200 = env config path).
-Reviews 1225–1955 (index; no row 1618): 646 ACCEPT, 23 WITH-DEBT, 61 QUALITY-RISK (audit 1946–1955: 9 ACCEPT, 1 WITH-DEBT).
-Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS) — review-debt, unqueued (detail in the review files).
+rngSteps 85.3 %, screens 57.2 %; board 2026-09-28T02:06:51Z, last scored
+2026-09-28T01:40:04Z).
+**Corpus fortress (full rescore 2026-09-28T04:15Z, 953/953, 0 unrecorded):**
+**630 / 953** PASS (66.1 %; 67.0 % ex-13-env), RNG 96.02 %, screens
+88.8 %, 109 owners. vs `6231a7084`: 627 → 630 (D-2999 ×2 + D-3000 ×1,
+in their SHAs), 0 PASS→FAIL → no Must-fix. Board is `full: true`.
+Reviews 1225–1962 (index; no row 1618): 652 ACCEPT, 24 WITH-DEBT, 61 QUALITY-RISK (audit 1956–1962: 6 ACCEPT, 1 WITH-DEBT).
+Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap — review-debt, unqueued (see reviews).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
 --jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
@@ -83,7 +79,7 @@ seed2600-wizard-custom-binds, seed4500-knight-coverage,
 seed5002-wizard-coverage-pair, seed5006-tourist-stress-disaster,
 seed8000-tourist-starter.
 
-**Notable non-PASS:** none — 44/44 (seed0107 restored to 98/98 by D-2610).
+**Notable non-PASS:** none — 44/44.
 
 ## Green gate
 

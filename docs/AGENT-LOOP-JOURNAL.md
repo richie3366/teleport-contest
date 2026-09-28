@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — Audit D-2996–D-3002: 6 ACCEPT + 1 WITH-DEBT; 44/44 holds, corpus 630/953
+
+**Reviews:** 1956–1961 ACCEPT; 1962 WITH-DEBT (11-fn overage + sign-gap, unqueued). All D-log corpus claims re-measured per-SHA (`--reach-all`) — reproduce, zero REGRESSED.
+**Fortress:** public 44/44; full rescore 630/953 (RNG 96.02 %, scr 88.8 %), diff zero → no Must-fix; held-out 12/44. Ledger snapshot + 5/5 sample ok (node v20: no `node:sqlite`, jsonl fallback).
+**Next:** breadth head; Must-fix empty.
 ## 2026-09-28 — D-3002 `glyphs.c` breadth cluster: apply_customizations + glyphrep_to_custom_map_entries + callback/urep closure; coloratt/utf8map pipeline in options.js; parsesymbols `:837` wired (was a bare call)
 
 **C locus:** - `apply_customizations`: `nethack-c/upstream/src/glyphs.c:531–574` (flag mask `:538–540`, set loop `:543`, urep arm + H_UTF8 gate `:552–560`, nhcolor arm `:562–568`, pending write `:573`).
