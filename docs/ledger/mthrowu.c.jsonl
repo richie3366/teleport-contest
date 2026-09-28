@@ -2,7 +2,7 @@
 {"fn":"m_has_launcher_and_ammo","c":"58-70","status":"unknown"}
 {"fn":"thitu","c":"75-155","status":"ported","js":["js/mthrowu.js:thitu"],"d":["D-2796"],"at":"seed@a30a7de84"}
 {"fn":"drop_throw","c":"162-196","status":"unknown"}
-{"fn":"monmulti","c":"201-258","status":"unknown"}
+{"fn":"monmulti","c":"201-258","status":"ported","js":["js/weapon.js:monmulti"],"d":["D-3023"],"at":"2026-09-28@0bb1eb02e"}
 {"fn":"monshoot","c":"262-314","status":"unknown","d":["D-2037"],"at":"seed@a30a7de84"}
 {"fn":"ohitmon","c":"321-502","status":"ported","js":["js/mthrowu.js:ohitmon"],"d":["D-2507"],"at":"seed@a30a7de84"}
 {"fn":"ucatchgem","c":"506-529","status":"unknown","d":["D-1947"],"at":"seed@a30a7de84"}

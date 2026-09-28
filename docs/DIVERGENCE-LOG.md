@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3023 — `monmulti` whole (mthrowu.c guard/mplayer/racial arms) + canonical `matching_launcher` (obj.h)
+
+- **Status:** shipped (Open — coverage head `mthrowu.c` monmulti PARTIAL, C 33 code L / JS 21. No corpus session blocked on it.)
+- **Symptom:** coverage gap, not a corpus divergence. JS carried the prince/lord, elven-arrow/bow, enchantment, `rnd`, class-bonus and clamp arms but dropped three C behaviors: the `is_mplayer` +1 arm (`:227–229`), the whole racial elf/orc/gnome +1 block (`:251–257`), and C's `matching_launcher` guard call (`:217`) — and read the class-bonus index from the monster (`mtmp.mnum`) instead of C's `monsndx(mtmp->data)` (`:248`).
+- **C locus:**
+  - `monmulti`: `nethack-c/upstream/src/mthrowu.c:199–258` whole in C order — `:214–220` quan/ammo-launcher/`!mconf` guard, `:222–229` prince/lord/mplayer, `:233–243` elven arrow/bow + `spe/3` enchantment, `:245` `rnd`, `:248` class bonus, `:251–257` racial bonus, end clamps.
+  - `matching_launcher`: `nethack-c/upstream/include/obj.h:242–243` whole — `(l) && askill == -lskill`; `ammo_and_launcher` (`:244`) is `is_ammo && matching_launcher`.
+- **JS was:** `monmulti` (`js/weapon.js:1684`, deleted) — guard via `ammo_and_launcher` (equivalent under the `is_ammo` ternary, but not C's call), no mplayer arm, `objectNames` string otyp compares, `multishot_class_bonus(mtmp.mnum ?? ptr?.mndx, …)`, racial block deferred as «no race-bit helpers yet». No `matching_launcher` symbol existed in `js/` (brief: 3 local `rounddiv` clones already; no 4th written).
+- **Fix:** restarted `monmulti` whole in C order (`js/weapon.js:1685`) — `|0` quan, `matching_launcher` guard, mplayer arm, `otyp('ELVEN_ARROW'/'ELVEN_BOW'/'ORCISH_ARROW'/'ORCISH_BOW'/'CROSSBOW_BOLT'/'CROSSBOW')` numeric compares (same `objectNames.indexOf` table, C shape), `rounddiv` stays the pre-existing file-local clone (`js/weapon.js:184`), `multishot_class_bonus(monsndx(ptr), …)` (`monsndx` joins the existing `mondata.js` edge), racial block in C order (`is_elf`/`is_orc`/`is_gnome` join the existing `monsters.js` edge — no new module edges, no `imports.mjs --can` needed). New canonical `matching_launcher` (`js/wield.js:137`); `ammo_and_launcher` re-expressed as `is_ammo && matching_launcher` (`js/wield.js:145`, provably identical — `is_ammo` already null-guards). New `scripts/monmulti.test.mjs` (12/12 pass; stash-check on pre-fix `js/` fails — the test imports the new `matching_launcher` export, so the old tree cannot load it; the mplayer/racial min-max asserts additionally target arms the old body lacked).
+- **JS:**
+  - `monmulti`: `js/weapon.js:1685`.
+  - `matching_launcher`: `js/wield.js:137`.
+- **Callers:**
+  - `monmulti`: sole C caller `mthrowu.c:268` (monshoot) → wired `js/mthrowu.js:1464` (pre-existing, unchanged).
+  - `matching_launcher`: C macro sites `obj.h:244` → rewired `js/wield.js:145`; `mthrowu.c:217` → wired `js/weapon.js:1694`. `dothrow.c:165` keeps JS `ammo_and_launcher` (`js/dothrow.js:1076`, equivalent under its `is_ammo` ternary, pre-existing — not rewired in this commit).
+- **Verify:** `node scripts/verify.mjs --fn monmulti` → VERIFY: PASS — syntax 2 files (`js/weapon.js` `js/wield.js`); rule2 PASS; hidden note (0 blocked, expected for a coverage row); reach REACH-OK (27 baseline-PASS sessions reach it, 27 run, 0 regressed); green 2/2; strict ×2; cohort 7/7; full skipped (tool heuristic). `node --test scripts/monmulti.test.mjs` → 12/12 pass. Paste tail: `PASS reach monmulti: 27 baseline-PASS session(s) reach it (27 run, 49.7s): 27 PASS, 0 regressed → REACH-OK` / `VERIFY: PASS`.
+- **Ledger:** monmulti ported
+- **Next:** coverage head leaves the block on finish; refill tops up. `mthrowu.c` holds no further measured gap (m_useupall stays folded into `m_useup`, `js/mthrowu.js:171–185`; `m_carrying` is live `js/mon.js`).
+
 ## D-3022 — `savenames` + `restnames` whole (o_init.c names chunk as a JSON-analogue pair; blob moved under the C entry points)
 
 - **Status:** shipped (Open — coverage head `o_init.c` savenames MISSING. No corpus session blocked on either.)

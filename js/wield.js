@@ -133,12 +133,17 @@ export function is_ammo(obj) {
     return sk >= -P_CROSSBOW && sk <= -P_BOW;
 }
 
-/** C ref: obj.h matching_launcher / ammo_and_launcher */
-export function ammo_and_launcher(ammo, launcher) {
-    if (!ammo || !launcher || !is_ammo(ammo)) return false;
+/** C ref: obj.h matching_launcher — skill-mirror of ammo and launcher. */
+export function matching_launcher(ammo, launcher) {
+    if (!ammo || !launcher) return false;
     const ask = game.objects?.[ammo.otyp]?.oc_skill ?? 0;
     const lsk = game.objects?.[launcher.otyp]?.oc_skill ?? 0;
     return ask === -lsk;
+}
+
+/** C ref: obj.h ammo_and_launcher — is_ammo && matching_launcher. */
+export function ammo_and_launcher(ammo, launcher) {
+    return is_ammo(ammo) && matching_launcher(ammo, launcher);
 }
 
 /** C ref: obj.h is_missile */

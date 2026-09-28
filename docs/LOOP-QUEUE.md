@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mthrowu.c` monmulti — coverage PARTIAL (C 33 code L `mthrowu.c:201–258` / JS 21 code L in js/weapon.js; hops 4, callers 1, RNG 1, msg 0) @2af820a38
 - [ ] `shk.c` subfrombill — coverage PARTIAL (C 10 code L `shk.c:3694–3710` / JS 7 code L in js/shk.js; hops 3, callers 16, RNG 0, msg 0) @8b6526ecd
 - [ ] `report.c` panictrace_setsignals — coverage MISSING (C 10 code L `report.c:625–657` / JS no symbol; hops 5, callers 3, RNG 0, msg 0) @8b6526ecd
 - [ ] `hacklib.c` tabexpand — coverage PARTIAL (C 18 code L `hacklib.c:429–464` / JS 13 code L in js/pager.js; hops 2, callers 4, RNG 0, msg 0) @8b6526ecd
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `engrave.c` del_engr — coverage PARTIAL (C 12 code L `engrave.c:1645–1663` / JS 7 code L in js/engrave.js; hops 2, callers 6, RNG 0, msg 0) @20875982e
 - [ ] `mplayer.c` get_mplname — coverage PARTIAL (C 16 code L `mplayer.c:72–92` / JS 11 code L in js/mplayer.js; hops 6, callers 1, RNG 1, msg 2) @5a77080f1
 - [ ] `cmd.c` dokeylist — coverage MISSING (C 100 code L `cmd.c:2867–3013` / JS no symbol; hops —, callers 0, RNG 0, msg 25; dead callees: spkey_name; split? cited 30× in js/ — brief first) @5affd05cd
+- [ ] `options.c` saveoptvals — coverage MISSING (C 13 code L `options.c:801–819` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: freeroleoptvals) @0bb1eb02e
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
