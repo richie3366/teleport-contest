@@ -159,7 +159,7 @@
 {"fn":"escapes","c":"6896-6966","status":"unknown"}
 {"fn":"txt2key","c":"6971-7067","status":"unknown"}
 {"fn":"initoptions","c":"7079-7115","status":"partial","js":["js/options.js:initoptions"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"initoptions_init","c":"7119-7305","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"initoptions_init","c":"7119-7305","status":"partial","js":["js/options.js:initoptions_init"],"d":["D-3061"],"at":"2026-09-28@6dd29ef91","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"initoptions_finish","c":"7324-7384","status":"partial","js":["js/options.js:initoptions_finish"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"allopt_array_init","c":"7405-7433","status":"unknown"}
 {"fn":"set_menuobjsyms_flags","c":"7446-7451","status":"unknown"}

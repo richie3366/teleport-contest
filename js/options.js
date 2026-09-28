@@ -171,9 +171,9 @@ import { rnd } from './rng.js';
 import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst, strkitten, fuzzymatch, trimspaces } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, You_cant, docrt, bot, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X, reglyph_darkroom, raw_printf } from './display.js';
+import { flush_screen, pline, You_cant, docrt, bot, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X, reglyph_darkroom, raw_printf, init_ov_primary_symbols, init_ov_rogue_symbols } from './display.js';
 import { get_feature_notice_ver, get_current_feature_ver } from './version.js';
-import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none } from './invent.js';
+import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none, DEF_INV_ORDER } from './invent.js';
 import {
     ATR_INVERSE,
     ATR_NONE,
@@ -193,7 +193,7 @@ import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
 import { LOADSYMS, SYM_CONTROL } from './generated/glyphsyms_data.js';
 import { COLORTABLE } from './generated/colortable_data.js';
 import { dupstr } from './dungeon.js';
-import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, apply_customizations } from './glyphs.js';
+import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, fill_glyphid_cache, apply_customizations } from './glyphs.js';
 import { yyyymmddhhmmss } from './calendar.js';
 import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
@@ -229,6 +229,9 @@ import { nh_terminate } from './end.js';
 
 /** C ref: global.h PL_FSIZ — fruit name buffer. */
 const PL_FSIZ = 32;
+
+/** C ref: options.c PILE_LIMIT_DFLT (`:71`) — default pile limit. */
+const PILE_LIMIT_DFLT = 5;
 
 /** C ref: decl.c disclosure_options — invent/attribs/vanq/geno/conduct/overview */
 const DISCLOSURE_OPTIONS = 'iavgco';
@@ -6763,21 +6766,125 @@ export function freeroleoptvals() {
    stays in roleoptvals above; JSON save has no optvals chunk. */
 
 /**
+ * C options.c initoptions_init `:7119–7305` — builtin defaults before any
+ * config pass, in C order: opt_phase, sf_init, allopt_array_init, cmdline
+ * windowtype, glyphid cache, reset_commands, RNG init, allopt initvals,
+ * flags/iflags defaults, ov symbols, warnsyms, inv_order, pickup/sortloot,
+ * disclosure, rogue symbols, TERM/symset probes, menu/wc defaults,
+ * menuinvertmode, SLIME_MOLD/pl_fruit partial init, SYSCF pass. Sync:
+ * every live callee is sync (reset_commands cmd.js:1990,
+ * fill_glyphid_cache glyphs.js:755, init_ov_* display.js:3974/3978).
+ * Sole C caller options.c:7088 (initoptions); wired there below.
+ * Named omissions: sf_init `:7129` (NHFILE save proc tables — JS saves
+ * JSON via storage.js, no scored analogue); init_random ×2 `:7161–7162`
+ * (JS seeds both ISAAC streams once via initRng in jsmain.js start();
+ * no per-stream init entry); choose_windows `:7136` (seed by-design: no
+ * scored analogue); init_symbols `:7199`, switch_symbols `:7212`,
+ * init_rogue_symbols `:7213` (seed by-design symbols.c: no scored
+ * analogue); TERM `AT` `:7223–7230` + `vt` `:7235–7242` probes (live-C
+ * unix+TTY; guards read POSIX TERM/termcap AS/AE with no Rule-#2
+ * analogue and bodies drive by-design symsets; use_color stays unset =
+ * C's non-AT FALSE); MSDOS/WIN32 `:7246–7252` + MAC `:7253–7257`
+ * (compiled out on unix); assure_syscf_file `:7289` (POSIX open + exit;
+ * the VFS read_config_file below handles absence).
+ */
+export function initoptions_init() {
+    const have_branch = !!(game.nomakedefs?.git_branch); // C `:7125`
+    if (!game.go) game.go = {};
+    if (!game.flags) game.flags = {};
+    if (!game.iflags) game.iflags = {};
+    const flags = game.flags;
+    const iflags = game.iflags;
+    game.go.opt_phase = BUILTIN_OPT; // C `:7127`
+    /* C `:7129` sf_init() — named omit, see doc above. */
+    allopt_array_init(); // C `:7130`
+    if (game.gc?.cmdline_windowsys) { // C `:7133`
+        game.gc.chosen_windowtype = nmcpy(game.gc.cmdline_windowsys, WINTYPELEN); // C `:7134`
+        config_error_init(false, 'command line', false); // C `:7135`
+        /* C `:7136` choose_windows() — named omit, see doc above. */
+        config_error_done(); // C `:7137`
+        if (game.windowprocs?.name // C `:7144–7147`
+            && disclose_strcmpi(game.windowprocs.name, game.gc.cmdline_windowsys) === 0)
+            iflags.windowtype_locked = true;
+        game.gc.cmdline_windowsys = null; // C `:7149–7150` (free N/A — JS strings unowned)
+    }
+    if (!glyphid_cache_status()) // C `:7154–7155`
+        fill_glyphid_cache();
+    reset_commands(true); // C `:7158` init
+    /* C `:7161–7162` init_random(rn2) + init_random(rn2_on_display_rng) — named omit. */
+    game.go.opt_phase = BUILTIN_OPT; // C `:7164`
+    for (let i = 0; allopt[i] && allopt[i].name; i++) { // C `:7165–7168`
+        if (allopt[i].addr) { // C `:7166`
+            const addr = allopt[i].addr;
+            if (!game[addr.obj] || typeof game[addr.obj] !== 'object')
+                game[addr.obj] = {};
+            game[addr.obj][addr.key] = allopt[i].initval; // C `:7167`
+        }
+    }
+    flags.end_own = false; // C `:7170`
+    flags.end_top = 3; // C `:7171`
+    flags.end_around = 2; // C `:7172`
+    flags.paranoia_bits = PARANOID_PRAY | PARANOID_SWIM | PARANOID_TRAP; // C `:7173`
+    flags.versinfo = have_branch ? VI_BRANCH : VI_NUMBER; // C `:7174` (4/1)
+    flags.pile_limit = PILE_LIMIT_DFLT; // C `:7175` (5)
+    flags.runmode = RUN_LEAP; // C `:7176`
+    iflags.msg_history = 20; // C `:7177`
+    iflags.prevmsg_window = 's'; // C `:7181` TTY_GRAPHICS (`:7184` CURSES 'r' compiled out)
+    iflags.menu_headings = { attr: ATR_INVERSE, color: NO_COLOR }; // C `:7188–7189`
+    iflags.getpos_coords = GPCOORDS_NONE; // C `:7190`
+    flags.initrole = flags.initrace = flags.initgend = flags.initalign = ROLE_NONE; // C `:7193–7194`
+    init_ov_primary_symbols(); // C `:7196`
+    init_ov_rogue_symbols(); // C `:7197`
+    /* C `:7199` init_symbols() — named omit (seed by-design symbols.c). */
+    if (!game.gw) game.gw = {};
+    game.gw.warnsyms = [];
+    for (let i = 0; i < WARNCOUNT; i++) // C `:7200–7201`
+        game.gw.warnsyms[i] = def_warnsyms[i].ch.charCodeAt(0);
+    flags.inv_order = [...DEF_INV_ORDER]; // C `:7204–7205` memcpy (DEF_INV_ORDER ≡ def_inv_order `:118–121` minus NUL)
+    flags.pickup_types = ''; // C `:7206` first byte NUL
+    flags.pickup_burden = MOD_ENCUMBER; // C `:7207`
+    flags.sortloot = 'l'; // C `:7208`
+    flags.end_disclose = DISCLOSE_PROMPT_DEFAULT_NO.repeat(NUM_DISCLOSURE_OPTIONS); // C `:7210–7211`
+    /* C `:7212` switch_symbols(FALSE) + `:7213` init_rogue_symbols() — named omits. */
+    /* C `:7214–7244` TERM probes + `:7246–7257` MSDOS/WIN32/MAC — named omits, see doc. */
+    flags.menu_style = MENU_FULL; // C `:7258`
+    iflags.wc_align_message = ALIGN_TOP; // C `:7260`
+    iflags.wc_align_status = ALIGN_BOTTOM; // C `:7261`
+    iflags.wc2_statuslines = 2; // C `:7263`
+    iflags.wc2_petattr = ATR_INVERSE; // C `:7264`
+    iflags.wc2_windowborders = 2; // C `:7266` 'Auto'
+    iflags.menuinvertmode = 1; // C `:7279`
+    const slime = objectNames.indexOf('SLIME_MOLD');
+    const objs = objects();
+    if (objs && objs[slime]) objs[slime].oc_name_idx = slime; // C `:7282` (extractor already ≡otyp)
+    // C `:7283` OBJ_NAME(objects[SLIME_MOLD]) is "slime mold"; the literal
+    // stands in because init_fruit_chain overwrote objectNameStrs there
+    // with "fruit" (D-1511).
+    game.pl_fruit = nmcpy('slime mold', PL_FSIZ);
+    /* C `:7289` assure_syscf_file() — named omit, see doc above. */
+    config_error_init(true, SYSCF_FILE, false); // C `:7290`
+    game.go.opt_phase = SYSCF_OPT; // C `:7293`
+    if (!read_config_file(SYSCF_FILE, SET_IN_SYSCONF)) { // C `:7294`
+        if (config_error_done() && !iflags.initoptions_noterminate) // C `:7295`
+            nh_terminate(EXIT_FAILURE); // C `:7296`
+    }
+    config_error_done(); // C `:7298`
+}
+
+/**
  * C options.c initoptions `:7078–7115` — sysconf pass + finish.
  * No live JS caller yet (C callers: earlyarg.c scores_only `:419`,
  * unixmain.c `:150`; restore.c:716 and wintty.c:523 cite it in
  * comments): JS startup resolves options in-process (rcfile +
- * init_fruit_chain run there directly), and the initoptions_init half
- * is unported — calling this now would run the finish half without it.
- * Named omits: initoptions_init (186-line MISSING closure, own row);
- * assure_syscf_file (no scored port — POSIX open + exit, Rule #2);
+ * init_fruit_chain run there directly); initoptions_init is live (same
+ * file). Named omits: assure_syscf_file (no scored port — POSIX open +
+ * exit, Rule #2);
  * do_deferred_showpaths (ATTRNORETURN exit; reveal_paths 117-line
  * MISSING, freedynamicdata/dlb_cleanup/l_nhcore_done by-design).
  */
 export function initoptions() {
-    if ((game.go?.opt_phase | 0) !== BUILTIN_OPT) { // C `:7087–7088`
-        /* Named omit: initoptions_init() — see doc above. */
-    }
+    if ((game.go?.opt_phase | 0) !== BUILTIN_OPT) // C `:7087–7088`
+        initoptions_init();
     /* C `:7090–7108` SYSCF (config.h:233) + SYSCF_FILE (config.h:234)
        both live on this build. */
     /* C `:7093` assure_syscf_file() — named omit, see doc above. */
@@ -9626,8 +9733,8 @@ export function disregard_this_option(optidx) {
 /* C options.c allopt_array_init `:7404–7433`. One-shot: copy is the live
  * table (no separate allopt_init image), then initval writes, ambiguity
  * scan, heed, and every optfn(do_init). Caller options.c:7130 is
- * initoptions_init — not a JS function (map-named); do not call from the
- * partial optfn do_init list at `:2187`. */
+ * initoptions_init (live, same file); do not call from the partial
+ * optfn do_init list at `:2187`. */
 let optionsArrayInited = false;
 export function allopt_array_init() {
     if (optionsArrayInited) return; // C `:7410`

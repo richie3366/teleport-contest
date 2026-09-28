@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3061 — options.c initoptions_init builtin-defaults port (breadth coverage)
+
+- **Status:** fixed (breadth-phase coverage row; `verify --fn initoptions_init` REACH-OK + green + strict + cohort + full 44/44)
+- **Symptom:** coverage MISSING — C `options.c:7119–7305` (90 code L) had no JS symbol; `js/options.js` `initoptions()` carried the `:7088` call as a named omit and four "not a JS function" cites named it.
+- **C locus:** `options.c` `initoptions_init` `:7119–7305` (whole body in C order; sole C caller `initoptions` `:7088`).
+- **JS was:** no symbol; startup (`js/jsmain.js`) set only a subset of the defaults (flags subset + 3 iflags); `initoptions()` skipped the init half.
+- **Fix:** new exported `initoptions_init()` in `js/options.js` in C order with per-arm `:line` cites (opt_phase ×2, allopt_array_init, cmdline-windowtype arm via same-file nmcpy + disclose_strcmpi, glyphid cache, reset_commands, allopt initval loop, all flags/iflags stores, init_ov_* symbols, warnsyms loop in the `:3182` `.ch` convention, inv_order from DEF_INV_ORDER, pickup/sortloot, end_disclose, menu/wc/menuinvertmode stores, SLIME_MOLD/pl_fruit partial init, SYSCF pass); wired the `:7088` call in `initoptions()`; refreshed 4 stale "unported" cites (cmd.js ×2, earlyarg.js, allopt_array_init). Committed test scripts/initoptions-init.test.mjs (5 cases: flags/iflags defaults, warnsyms/pl_fruit/syscf phase, initval-loop reapply, cmdline arm).
+- **JS:** `js/options.js` (new export + 4 import names on existing edges + PILE_LIMIT_DFLT const + caller wiring); `js/cmd.js`, `js/earlyarg.js` (comment-only).
+- **Callers:** `initoptions` C `:7088` → `js/options.js` `initoptions()` (wired this commit; `initoptions` itself stays startup-unwired with no live JS caller — unchanged).
+- **Verify:** `node scripts/verify.mjs --fn initoptions_init` → PASS syntax (3 changed js files) · PASS rule2 · note hidden vacuous (coverage row, no corpus session blocked) · PASS reach (smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). `node --test scripts/initoptions-init.test.mjs` → 5/5 pass.
+- **Named omissions:** `initoptions_init`: sf_init `:7129` (NHFILE proc tables, no scored analogue); init_random ×2 `:7161–7162` (initRng seeds both streams once in jsmain start()); choose_windows `:7136`, init_symbols `:7199`, switch_symbols `:7212`, init_rogue_symbols `:7213` (seed by-design); TERM AT `:7223–7230` + vt `:7235–7242` (POSIX TERM/termcap guards, by-design symset bodies; use_color stays unset = C's non-AT FALSE); MSDOS/WIN32 `:7246–7252` + MAC `:7253–7257` (compiled out on unix); assure_syscf_file `:7289` (POSIX open + exit; VFS read handles absence).
+- **Ledger:** initoptions_init partial
+- **Next:** this iteration's first pop `untrap_prob` was stale (full C body already at `js/trap.js:7263`, both C callers wired `:7433`/`:7602`) — retired via `ledger.mjs set untrap_prob ported` in this same commit. `initoptions()` still has no live JS caller (startup wiring is a separate row when queued).
+
 ## D-3060 — light.c wiz_light_sources + maybe_write_ls + obj_move_light_source (wizard light list, save-walk counter, lamp retarget)
 
 - **Status:** shipped.

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `trap.c` untrap_prob — coverage PARTIAL (C 32 code L `trap.c:5289–5337` / JS 22 code L in js/trap.js; hops —, callers 2, RNG 2, msg 0) @bfd58ba4c
 - [ ] `options.c` initoptions_init — coverage MISSING (C 90 code L `options.c:7119–7305` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: choose_windows) @a196fca24
 - [ ] `mon.c` genus — coverage PARTIAL (C 55 code L `mon.c:470–531` / JS 25 code L in js/mon.js; hops 3, callers 2, RNG 0, msg 0) @a196fca24
 - [ ] `botl.c` get_strength_str — coverage PARTIAL (C 12 code L `botl.c:21–37` / JS 8 code L in js/attrib.js; hops 2, callers 3, RNG 0, msg 0) @d30e99009
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `read.c` apron_text — coverage THIN (C 13 code L `read.c:254–281` / JS 3 code L in js/objnam.js; hops 4, callers 2, RNG 0, msg 0) @1483a276d
 - [ ] `objnam.c` armor_simple_name — coverage PARTIAL (C 29 code L `objnam.c:5435–5468` / JS 20 code L in js/do_wear.js; hops 4, callers 5, RNG 0, msg 0) @a00f0a534
 - [ ] `utf8map.c` free_all_glyphmap_u — coverage MISSING (C 12 code L `utf8map.c:59–80` / JS no symbol; hops 6, callers 2, RNG 0, msg 0) @1de43a4f5
+- [ ] `shk.c` onbill — coverage PARTIAL (C 13 code L `shk.c:1136–1155` / JS 9 code L in js/shk.js; hops 3, callers 13, RNG 0, msg 0) @6dd29ef91
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
