@@ -5,7 +5,7 @@
 {"fn":"zombie_maker","c":"362-380","status":"unknown","d":["D-1210"],"at":"seed@a30a7de84"}
 {"fn":"zombie_form","c":"386-413","status":"unknown"}
 {"fn":"undead_to_corpse","c":"417-461","status":"ported","js":["js/mon.js:undead_to_corpse"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
-{"fn":"genus","c":"470-531","status":"unknown"}
+{"fn":"genus","c":"470-531","status":"ported","js":["js/mon.js:genus"],"at":"2026-09-28@fb9c2049c","note":"stale: js/mon.js:638 whole C body in C order, callers wired js/readobjnam.js:1935,js/sounds.js:1257"}
 {"fn":"pm_to_cham","c":"535-546","status":"unknown"}
 {"fn":"make_corpse","c":"564-941","status":"ported","js":["js/mhitm.js:make_corpse"],"d":["D-1794"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"minliquid","c":"947-957","status":"unknown"}

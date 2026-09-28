@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3062 hack.c spot_checks + dump_weights (ice-timer recheck, --dumpweights table)
+
+**C locus:** - `spot_checks`: nethack-c/upstream/src/hack.c:4525–4547 (whole body in C order — DRAWBRIDGE_UP db_ice_now `:4533` + FALLTHROUGH `:4534–4535`, ICE gate `:4537–4538`, timer stop `:4540–4541`, obj_ice_effects `:4544`).
+**JS:** `js/hack.js` (3 exports + 1 local; names on 8 existing edges + new decl/o_init edges, both `--can` clean); `js/trap.js` (import + site + doc); `js/dig.js` (import + 13 sites).
+**Change:** new sync exports in `js/hack.js` in C order with per-arm `:line` cites (`spot_checks`; `cmp_weights` file-local from the `:4486` staticfn; `dump_weights_lines` builder + `dump_weights` emitter per the D-3060 split); wired `blow_up_landmine` `:3218` and all 13 `dighole` fall-through returns; committed test scripts/spot-checks.test.mjs (11 cases: 7 timer arms incl. the dry-bridge fire, sortedness/count/separators/the-an nest/oc_name_known).
+**Verify:** `node scripts/verify.mjs --fn spot_checks,dump_weights` → PASS syntax (3 changed js files) · PASS rule2 · note hidden ×2 (no corpus session blocked — coverage rows) · PASS reach ×2 (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). `node --test scripts/spot-checks.test.mjs` → 11/11 pass.
+**Named:** - `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).
+**Next:** retired 4 stale rows via `ledger.mjs set ported` in this commit: initoptions_init (D-3061 complete js/options.js:6791; remaining arms no-analogue — sf_init/assure_syscf_file C bodies read), genus (js/mon.js:638 + 2 callers wired), get_strength_str (js/attrib.js:185 + callers wired), obj_ice_effects (js/mkobj.js:3563; mkmaze.c:103 caller open). Left open: rounddiv (3 live clones; y==0 panic-vs-0 needs dedicated hot-path analysis); dump_weights earlyarg arm (earlyarg.c's row).
 ## 2026-09-28 — D-3061 options.c initoptions_init builtin-defaults port (breadth coverage)
 
 **C locus:** `options.c` `initoptions_init` `:7119–7305` (whole body in C order; sole C caller `initoptions` `:7088`).

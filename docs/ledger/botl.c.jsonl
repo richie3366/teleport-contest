@@ -1,4 +1,4 @@
-{"fn":"get_strength_str","c":"21-37","status":"unknown"}
+{"fn":"get_strength_str","c":"21-37","status":"ported","js":["js/attrib.js:get_strength_str"],"at":"2026-09-28@fb9c2049c","note":"stale: js/attrib.js:185 whole C body, callers wired js/botl.js:2473,js/invent.js:2862,js/display.js:6009"}
 {"fn":"check_gold_symbol","c":"40-45","status":"unknown"}
 {"fn":"do_statusline1","c":"48-98","status":"unknown","d":["D-2162","D-2057","D-1892","D-1842"],"at":"seed@a30a7de84"}
 {"fn":"do_statusline2","c":"101-250","status":"unknown","d":["D-2148","D-2024","D-1990"],"at":"seed@a30a7de84"}

@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3062 — hack.c spot_checks + dump_weights (ice-timer recheck, --dumpweights table)
+
+- **Status:** fixed (breadth-phase coverage row; `verify --fn spot_checks,dump_weights` REACH-OK + green + strict + cohort + full 44/44)
+- **Symptom:** coverage MISSING — C `hack.c:4525–4547` spot_checks (13 code L) had no JS symbol (`blow_up_landmine` carried `:3218` as a named omit with `void old_typ`; `dighole` never rechecked ice); same-file `hack.c:4421–4483` dump_weights (51 code L) likewise absent.
+- **C locus:**
+  - `spot_checks`: nethack-c/upstream/src/hack.c:4525–4547 (whole body in C order — DRAWBRIDGE_UP db_ice_now `:4533` + FALLTHROUGH `:4534–4535`, ICE gate `:4537–4538`, timer stop `:4540–4541`, obj_ice_effects `:4544`).
+  - `dump_weights`: nethack-c/upstream/src/hack.c:4421–4483 (whole body in C order — re-init `:4431–4432`, monster loop `:4434–4452`, object loop `:4454–4470`, qsort `:4468–4469`, print `:4470–4479`; freedynamicdata `:4482` by-design).
+- **JS was:** no `spot_checks` or `dump_weights` symbol in js/**; ice timers leaked on dig/blast paths; `--dumpweights` had only the earlyarg.js:281 omit.
+- **Fix:** new sync exports in `js/hack.js` in C order with per-arm `:line` cites (`spot_checks`; `cmp_weights` file-local from the `:4486` staticfn; `dump_weights_lines` builder + `dump_weights` emitter per the D-3060 split); wired `blow_up_landmine` `:3218` and all 13 `dighole` fall-through returns; committed test scripts/spot-checks.test.mjs (11 cases: 7 timer arms incl. the dry-bridge fire, sortedness/count/separators/the-an nest/oc_name_known).
+- **JS:** `js/hack.js` (3 exports + 1 local; names on 8 existing edges + new decl/o_init edges, both `--can` clean); `js/trap.js` (import + site + doc); `js/dig.js` (import + 13 sites).
+- **Callers:**
+  - `spot_checks`: dig.c:1022 `dighole` → js/dig.js 13 sites (:2110,:2118,:2127,:2133,:2139,:2157,:2163,:2177,:2186,:2191,:2196,:2210,:2227 — every post-old_typ return; `:2091` is the C:902 isok-analogue, `:2095` !lev has no C counterpart); trap.c:3218 `blow_up_landmine` → js/trap.js:5539 (`if (!trap)` guard has no C counterpart — C takes no early return).
+  - `dump_weights`: earlyarg.c:539 → Named (JS earlyarg.js:281 ARG_DUMPWEIGHTS arm stays a named omit like its dump siblings; wiring is earlyarg.c's row).
+- **Verify:** `node scripts/verify.mjs --fn spot_checks,dump_weights` → PASS syntax (3 changed js files) · PASS rule2 · note hidden ×2 (no corpus session blocked — coverage rows) · PASS reach ×2 (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). `node --test scripts/spot-checks.test.mjs` → 11/11 pass.
+- **Named omissions:**
+  - `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).
+  - `dump_weights`: freedynamicdata `:4482` (seed by-design save-freeing, CURRENT.md Do not); footer via raw_printf (JS raw_print unported — display.js vraw_printf omit); `%*s` via padEnd (vraw_printf strips widths — D-2573).
+- **Ledger:** spot_checks ported; dump_weights partial
+- **Next:** retired 4 stale rows via `ledger.mjs set ported` in this commit: initoptions_init (D-3061 complete js/options.js:6791; remaining arms no-analogue — sf_init/assure_syscf_file C bodies read), genus (js/mon.js:638 + 2 callers wired), get_strength_str (js/attrib.js:185 + callers wired), obj_ice_effects (js/mkobj.js:3563; mkmaze.c:103 caller open). Left open: rounddiv (3 live clones; y==0 panic-vs-0 needs dedicated hot-path analysis); dump_weights earlyarg arm (earlyarg.c's row).
+
 ## D-3061 — options.c initoptions_init builtin-defaults port (breadth coverage)
 
 - **Status:** fixed (breadth-phase coverage row; `verify --fn initoptions_init` REACH-OK + green + strict + cohort + full 44/44)

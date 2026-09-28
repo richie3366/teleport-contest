@@ -115,10 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` initoptions_init — coverage MISSING (C 90 code L `options.c:7119–7305` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: choose_windows) @a196fca24
-- [ ] `mon.c` genus — coverage PARTIAL (C 55 code L `mon.c:470–531` / JS 25 code L in js/mon.js; hops 3, callers 2, RNG 0, msg 0) @a196fca24
-- [ ] `botl.c` get_strength_str — coverage PARTIAL (C 12 code L `botl.c:21–37` / JS 8 code L in js/attrib.js; hops 2, callers 3, RNG 0, msg 0) @d30e99009
-- [ ] `hack.c` spot_checks — coverage MISSING (C 13 code L `hack.c:4525–4547` / JS no symbol; hops 6, callers 2, RNG 0, msg 0) @d30e99009
 - [ ] `mondata.c` num_horns — coverage THIN (C 14 code L `mondata.c:678–695` / JS 6 code L in js/worn.js; hops 4, callers 2, RNG 0, msg 0) @886e83076
 - [ ] `date.c` free_nomakedefs — coverage MISSING (C 25 code L `date.c:134–173` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @886e83076
 - [ ] `invent.c` invdisp_nothing — coverage MISSING (C 12 code L `invent.c:5290–5305` / JS no symbol; hops 5, callers 2, RNG 0, msg 0) @cd05c0f73
@@ -127,6 +123,10 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `objnam.c` armor_simple_name — coverage PARTIAL (C 29 code L `objnam.c:5435–5468` / JS 20 code L in js/do_wear.js; hops 4, callers 5, RNG 0, msg 0) @a00f0a534
 - [ ] `utf8map.c` free_all_glyphmap_u — coverage MISSING (C 12 code L `utf8map.c:59–80` / JS no symbol; hops 6, callers 2, RNG 0, msg 0) @1de43a4f5
 - [ ] `shk.c` onbill — coverage PARTIAL (C 13 code L `shk.c:1136–1155` / JS 9 code L in js/shk.js; hops 3, callers 13, RNG 0, msg 0) @6dd29ef91
+- [ ] `makemon.c` unmakemon — coverage MISSING (C 11 code L `makemon.c:1514–1539` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @fb9c2049c
+- [ ] `timeout.c` print_queue — coverage PARTIAL (C 15 code L `timeout.c:2014–2037` / JS 10 code L in js/timeout.js; hops —, callers 1, RNG 1, msg 3) @fb9c2049c
+- [ ] `options.c` reset_needed_visuals — coverage PARTIAL (C 24 code L `options.c:8980–9014` / JS 11 code L in js/options.js; hops —, callers 3, RNG 0, msg 0) @fb9c2049c
+- [ ] `teleport.c` enexto_core — coverage PARTIAL (C 28 code L `teleport.c:219–276` / JS 18 code L in js/teleport.js; hops 3, callers 3, RNG 0, msg 0) @fb9c2049c
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

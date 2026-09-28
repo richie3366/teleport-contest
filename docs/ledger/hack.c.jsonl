@@ -87,9 +87,9 @@
 {"fn":"near_capacity","c":"4385-4388","status":"unknown"}
 {"fn":"max_capacity","c":"4391-4396","status":"unknown"}
 {"fn":"check_capacity","c":"4399-4409","status":"unknown"}
-{"fn":"dump_weights","c":"4421-4483","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dump_weights","c":"4421-4483","status":"partial","js":["js/hack.js:dump_weights"],"omit":"- `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).","d":["D-3062"],"at":"2026-09-28@fb9c2049c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmp_weights","c":"4486-4493","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"inv_cnt","c":"4496-4507","status":"unknown"}
 {"fn":"money_cnt","c":"4514-4522","status":"unknown"}
-{"fn":"spot_checks","c":"4525-4547","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"spot_checks","c":"4525-4547","status":"ported","js":["js/hack.js:spot_checks"],"d":["D-3062"],"at":"2026-09-28@fb9c2049c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rounddiv","c":"4551-4572","status":"unknown"}
