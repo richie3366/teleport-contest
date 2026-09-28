@@ -112,8 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `detect.c` trapped_door_at — coverage PARTIAL (C 12 code L `detect.c:182–197` / JS 8 code L in js/detect.js; hops 3, callers 2, RNG 1, msg 0) @e61bdd324
-- [ ] `cmd.c` lock_mouse_buttons — coverage MISSING (C 9 code L `cmd.c:3326–3340` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @a5d26e462
 - [ ] `sp_lev.c` load_special — coverage MISSING (C 24 code L `sp_lev.c:6454–6502` / JS no symbol; hops 2, callers 2, RNG 0, msg 0; split? cited 218× in js/ — brief first) @806473d71
 - [ ] `mkobj.c` bless — coverage PARTIAL (C 16 code L `mkobj.c:1745–1764` / JS 9 code L in js/mkobj.js; hops 3, callers 14, RNG 0, msg 0) @9ee8217df
 - [ ] `options.c` doset_simple_menu — coverage THIN (C 121 code L `options.c:8536–8702` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 1; dead callees: is_wc2_option) @2bf11e0a4
@@ -124,6 +122,8 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `dbridge.c` find_drawbridge — coverage PARTIAL (C 20 code L `dbridge.c:180–205` / JS 11 code L in js/dbridge.js; hops 3, callers 10, RNG 0, msg 0) @7c92efae2
 - [ ] `invent.c` compactify — coverage MISSING (C 25 code L `invent.c:1627–1660` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @bff5e68ae
 - [ ] `artifact.c` invoke_create_portal — coverage PARTIAL (C 47 code L `artifact.c:1867–1931` / JS 34 code L in js/artifact.js; hops 5, callers 1, RNG 0, msg 3) @da3cb9a9f
+- [ ] `cmd.c` key2txt — coverage PARTIAL (C 11 code L `cmd.c:3225–3240` / JS 6 code L in js/dokeylist.js; hops 2, callers 10, RNG 0, msg 0) @92e07989a
+- [ ] `mkroom.c` rest_rooms — coverage MISSING (C 8 code L `mkroom.c:893–906` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: rest_room) @92e07989a
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

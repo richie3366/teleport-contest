@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3006 — cmd.c lock_mouse_buttons: stash/restore mouse-button bindings across getpos; trapped_door_at stale
+
+- **Status:** fixed (Open — coverage `cmd.c` lock_mouse_buttons MISSING (C 9 code L `cmd.c:3326–3340` / JS no symbol; hops 2, callers 1, RNG 0, msg 0)). Queue head `detect.c` trapped_door_at marked stale in the same iteration (brief: whole C body already at `js/detect.js:1590`).
+- **Symptom:** coverage — no `lock_mouse_buttons` symbol in `js/`; `getpos()` ran its targeting loop without stashing `game.Cmd.mousebtn` and never restored it. No corpus session blocked on either function; deliverable is the whole C body in C order with every C caller wired or named.
+- **C locus:**
+  - `lock_mouse_buttons`: `nethack-c/upstream/src/cmd.c:3326–3340` (function-static stash `:3329`, save + clear `:3333–3337`, restore `:3338–3340`).
+  - `trapped_door_at`: `nethack-c/upstream/src/detect.c:182–197` — all four guards already whole in JS (stale; no `js/` change).
+- **JS was:** no `lock_mouse_buttons`/`_locked_mousebtn` symbol. `click_to_cmd` already read `game.Cmd?.mousebtn` (`js/cmd.js:1005`) with `bind_mousebtn` (`:2624`) unported so the table stays undefined and the queue arm is inert; `getpos()` (`js/getpos.js:1308`) had no lock/unlock calls.
+- **Fix:** port `lock_mouse_buttons(savebtns)` at `js/cmd.js:1023` in C order — module-local `_locked_mousebtn` stash (`:1022`, C `:3329` static), save arm stashes each entry then clears (`:1025–1029`, C `:3333–3337`), restore arm writes the stash back (`:1030–1033`, C `:3338–3340`). `game.Cmd` (not `gc.Cmd`) is the established JS analogue (`click_to_cmd` precedent). When no binding table exists both arms are no-ops and the stash keeps nulls, preserving the documented "stays undefined and inert" state. `NUM_MOUSE_BUTTONS` (`const.js:1282`) added to the existing `const.js` edge (`:117`). Wired TRUE before the `getpos()` read loop (`js/getpos.js:1371`, C `getpos.c:858`) and FALSE in the existing `finally` (`:1665`, C `getpos.c:1155` exitgetpos) — the single-exit funnel covering all four returns plus fall-through, like the C label; order vs the `u.dx/dy/dz` restore is unobservable (disjoint state). `getpos.js` already statically imported `cmd.js` (`imports.mjs --can`: ALREADY, no new edge; call sites are runtime, no TDZ read).
+- **JS:** `js/cmd.js` +27 (const name, stash + port); `js/getpos.js` +10/−0 (import name, TRUE call + comment, FALSE call + comment).
+- **Callers:**
+  - `lock_mouse_buttons`: C `getpos.c:858` → JS `js/getpos.js:1371` (before `for(;;)`); C `getpos.c:1155` (exitgetpos) → JS `js/getpos.js:1665` (finally).
+  - `trapped_door_at`: C `pager.c:176` (`trap_description`) → JS `js/pager.js:334` (wired); C `pager.c:2357` → named omission (lives in unported `doidtrap`, cf. `js/pager.js:2292` Named line).
+- **Verify:** `node scripts/verify.mjs --fn lock_mouse_buttons,trapped_door_at` → PASS syntax (2 files) · PASS rule2 · note hidden ×2 (no corpus session blocked at baseline — expected for a coverage row) · REACH-OK ×2 (no RNG-tagged reach; fixed smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Behavior smoke (scratch, not evidence): undefined-table arms no-op without throw; defined `[{run:'a'},{run:'b'}]` locks to `[null,null]` and restores exactly.
+- **Named omissions:**
+  - `lock_mouse_buttons`: none — both arms ported, both C callers wired (`bind_mousebtn` unported is a pre-existing separate omit on the click path, not this function's callee).
+  - `trapped_door_at`: `pager.c:2357` caller in unported `doidtrap` (own row when queued).
+- **Ledger:** lock_mouse_buttons ported; trapped_door_at ported
+- **Next:** none — sole `cmd.c` Open row (0 callees, so no callee closure to grow); below-80-insertions density is the whole file/closure holding nothing more Open.
+
 ## D-3005 — engrave.c persistence family: save_engravings + rest_engravings + forget_engravings + see_engraving + feel_engraving; all C callers wired
 
 - **Status:** fixed (Open — coverage `engrave.c` rest_engravings MISSING (C 27 code L `engrave.c:1584–1619` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) + same-file absent `save_engravings`/`forget_engravings`/`see_engraving`/`feel_engraving`, grown per cluster rule — callee closure is macros only, no other Open rows in the generated block).

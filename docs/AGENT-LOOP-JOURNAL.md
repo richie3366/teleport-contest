@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3006 cmd.c lock_mouse_buttons: stash/restore mouse-button bindings across getpos; trapped_door_at stale
+
+**C locus:** - `lock_mouse_buttons`: `nethack-c/upstream/src/cmd.c:3326–3340` (function-static stash `:3329`, save + clear `:3333–3337`, restore `:3338–3340`).
+**JS:** `js/cmd.js` +27 (const name, stash + port); `js/getpos.js` +10/−0 (import name, TRUE call + comment, FALSE call + comment).
+**Change:** port `lock_mouse_buttons(savebtns)` at `js/cmd.js:1023` in C order — module-local `_locked_mousebtn` stash (`:1022`, C `:3329` static), save arm stashes each entry then clears (`:1025–1029`, C `:3333–3337`), restore arm writes the stash back (`:1030–1033`, C `:3338–3340`). `game.Cmd` (not `gc.Cmd`) is the established JS analogue (`click_to_cmd` precedent). When no binding table exists both arms are no-ops and the stash keeps nulls, preserving the documented "stays undefined and inert" state.
+**Verify:** `node scripts/verify.mjs --fn lock_mouse_buttons,trapped_door_at` → PASS syntax (2 files) · PASS rule2 · note hidden ×2 (no corpus session blocked at baseline — expected for a coverage row) · REACH-OK ×2 (no RNG-tagged reach; fixed smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Behavior smoke (scratch, not evidence): undefined-table arms no-op without throw; defined `[{run:'a'},{run:'b'}]` locks to `[null,null]` and restores exactly.
+**Named:** - `lock_mouse_buttons`: none — both arms ported, both C callers wired (`bind_mousebtn` unported is a pre-existing separate omit on the click path, not this function's callee).
+**Next:** none — sole `cmd.c` Open row (0 callees, so no callee closure to grow); below-80-insertions density is the whole file/closure holding nothing more Open.
 ## 2026-09-28 — D-3005 engrave.c persistence family: save_engravings + rest_engravings + forget_engravings + see_engraving + feel_engraving; all C callers wired
 
 **C locus:** - `rest_engravings`: `nethack-c/upstream/src/engrave.c:1584–1619` (drop head `:1590`, lth==0 return `:1593–1594`, newengr+Sfi `:1595–1596`, prepend `:1597–1599`, arena pointers `:1600–1602`, three Sfi_char `:1603–1608`, blank-strip `:1610–1613`, engr_time=moves `:1617`).
