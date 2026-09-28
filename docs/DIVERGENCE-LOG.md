@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3064 — objnam.c armor_simple_name xname :741 wiring + shirt_simple_name port
+
+- **Status:** fixed (breadth-phase coverage row; invdisp_nothing/cmdq_add_dir/apron_text retired stale; `verify --fn armor_simple_name,shirt_simple_name` REACH-OK + green + strict + cohort + full 44/44)
+- **Symptom:** coverage PARTIAL — C `objnam.c:5435–5468` armor_simple_name dispatch existed in js/do_wear.js but the ARM_SHIRT arm inlined `'shirt'` (C `:5460` calls shirt_simple_name, which had no JS symbol) and the `objnam.c:741` xname_flags ARMOR `un` arm passed `dn` where C passes `armor_simple_name(obj)` (named omit at js/objnam.js:962).
+- **C locus:**
+  - `armor_simple_name`: nethack-c/upstream/src/objnam.c:5435–5468 (whole body in C order — oc_armcat 7-arm switch `:5442–5462`, default simpleonames + impossible `:5463–5466`).
+  - `shirt_simple_name`: nethack-c/upstream/src/objnam.c:5600–5603 (whole body — UNUSED param, always "shirt").
+- **JS was:** armor_simple_name at js/do_wear.js:1815 with all 7 category arms but ARM_SHIRT returning the literal `'shirt'`; xname ARMOR `un` arm passed `dn` (named omit); no shirt_simple_name symbol — its 4 C call sites each inlined the constant.
+- **Fix:** new `shirt_simple_name()` export in js/do_wear.js (sibling family; C home objnam.c), called by the ARM_SHIRT arms, destroy-armor `:3233`, and item_what W_ARMU; xname ARMOR `un` passes `armor_simple_name(obj)` (C `:741`) via `set_armor_simple_name` late-bind (doffing `var` idiom — static objnam→do_wear edge TDZs `_body_part`, measured).
+- **JS:** js/do_wear.js:1812 (new export), :1828 (ARM_SHIRT arm + doc), :1866 (doff dispatch), :3963 (late-bind registration), :4090 (destroy-armor site); js/objnam.js:962 (xname `un` arm), :2579–2582 (late-bind slot); js/invent.js:344 (import), :5629 (item_what W_ARMU arm).
+- **Callers:**
+  - `armor_simple_name`: dothrow.c:2490 → js/dothrow.js:1411 (pre-wired); iactions.c:645 → js/iactions.js:817 (pre-wired); objnam.c:741 → js/objnam.js:962 (wired this commit); steal.c:158 → js/steal.js:733, steal.c:483 → js/steal.js:508, steal.c:538 → js/steal.js:640, steal.c:546 → js/steal.js:646 (all pre-wired).
+  - `shirt_simple_name`: objnam.c:5460 → js/do_wear.js:1843; do_wear.c:1959 → js/do_wear.js:1866 (via armor_doff_simple_name); do_wear.c:3233 → js/do_wear.js:4090; zap.c:5738 → js/invent.js:5629 (all wired this commit).
+- **Verify:** `node scripts/verify.mjs --fn armor_simple_name,shirt_simple_name --full` → VERIFY: PASS (syntax 3 files; rule2 clean; hidden notes — no corpus session blocked, expected for a coverage row; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK both; green 2/2; strict both; cohort 7/7; full 44/44).
+- **Named omissions:**
+  - `armor_simple_name`: none — every arm ported, every callee live (armcat reads oc_skill ≡ oc_armcat per the port's object-table convention; the async `impossible` is fire-and-forget in this sync function); the late-bind `dn` fallback fires only in graphs that never import do_wear.js.
+  - `shirt_simple_name`: none — whole body (constant "shirt"), 0 C callees, every C caller wired.
+- **Ledger:** armor_simple_name ported; shirt_simple_name ported
+- **Next:** cloak_simple_name robe-vs-cloak (D-2186) and the armoroff default-arm `'armor'` vs C impossible + no nomovemsg (review 1047 named gap) stay their own rows.
+
 ## D-3063 — date.c free_nomakedefs (version-info teardown) + mdlib.c:871 wiring
 
 - **Status:** fixed (breadth-phase coverage row; `num_horns` head stale → ported; `verify --fn free_nomakedefs` REACH-OK + green + strict + cohort)

@@ -105,7 +105,7 @@
 {"fn":"doorganize","c":"4981-5004","status":"unknown"}
 {"fn":"adjust_split","c":"5008-5065","status":"unknown","d":["D-1621"],"at":"seed@a30a7de84"}
 {"fn":"doorganize_core","c":"5068-5286","status":"ported","js":["js/invent.js:doorganize_core"],"d":["D-2618"],"at":"seed@a30a7de84"}
-{"fn":"invdisp_nothing","c":"5290-5305","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"invdisp_nothing","c":"5290-5305","status":"split","js":["js/invent.js:display_minventory","js/invent.js:display_cinventory"],"at":"2026-09-28@2f39bdcea","note":"stale: C menu sequence (hdr, '', txt, PICK_NONE) already inline at both C callers via select_menu_pick_none (js/invent.js:4387,4578)"}
 {"fn":"worn_wield_only","c":"5309-5325","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_minventory","c":"5341-5386","status":"unknown"}
 {"fn":"cinv_doname","c":"5391-5419","status":"unknown"}

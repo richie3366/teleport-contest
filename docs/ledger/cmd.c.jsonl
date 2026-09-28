@@ -5,7 +5,7 @@
 {"fn":"cmdq_print","c":"220-249","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdq_add_ec","c":"254-270","status":"ported","js":["js/cmd.js:cmdq_add_ec"],"d":["D-2977","D-2976"],"at":"2026-09-27@25beec7af"}
 {"fn":"cmdq_add_key","c":"274-290","status":"ported","js":["js/invent.js:cmdq_add_key"],"d":["D-2976"],"at":"2026-09-27@b3da2ae0e"}
-{"fn":"cmdq_add_dir","c":"294-312","status":"unknown"}
+{"fn":"cmdq_add_dir","c":"294-312","status":"ported","js":["js/cmd.js:cmdq_add_dir"],"at":"2026-09-28@2f39bdcea","note":"stale: js/cmd.js:452 whole C body (tail-append + empty-head arms collapse into push; alloc is GC)"}
 {"fn":"cmdq_add_userinput","c":"316-331","status":"unknown"}
 {"fn":"cmdq_add_int","c":"335-351","status":"unknown"}
 {"fn":"cmdq_shift","c":"355-370","status":"ported","js":["js/cmd.js:cmdq_shift"],"at":"2026-09-27@e61bdd324","note":"stale: js/cmd.js:400"}

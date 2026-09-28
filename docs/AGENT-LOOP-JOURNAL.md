@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3064 objnam.c armor_simple_name xname :741 wiring + shirt_simple_name port
+
+**C locus:** - `armor_simple_name`: nethack-c/upstream/src/objnam.c:5435–5468 (whole body in C order — oc_armcat 7-arm switch `:5442–5462`, default simpleonames + impossible `:5463–5466`).
+**JS:** js/do_wear.js:1812 (new export), :1828 (ARM_SHIRT arm + doc), :1866 (doff dispatch), :3963 (late-bind registration), :4090 (destroy-armor site); js/objnam.js:962 (xname `un` arm), :2579–2582 (late-bind slot); js/invent.js:344 (import), :5629 (item_what W_ARMU arm).
+**Change:** new exported `shirt_simple_name()` in js/do_wear.js with the sibling `*_simple_name` family (C home is objnam.c); the ARM_SHIRT arms (armor_simple_name `:5460`, armor_doff_simple_name for do_wear.c:1959), destroy-armor do_wear.c:3233, and item_what W_ARMU zap.c:5738 now call it; xname_flags ARMOR `un` arm passes `armor_simple_name(obj)` per C `:741` via a `set_armor_simple_name` late-bind (doffing-precedent `var` + `dn` fallback — a static objnam→do_wear edge TDZs `_body_part`, measured 2026-09-28: the new edge reordered eval onto polyself's top-level set_body_part).
+**Verify:** `node scripts/verify.mjs --fn armor_simple_name,shirt_simple_name --full` → VERIFY: PASS (syntax 3 files; rule2 clean; hidden notes — no corpus session blocked, expected for a coverage row; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK both; green 2/2; strict both; cohort 7/7; full 44/44).
+**Named:** - `armor_simple_name`: none — every arm ported, every callee live (armcat reads oc_skill ≡ oc_armcat per the port's object-table convention; the async `impossible` is fire-and-forget in this sync function); the late-bind `dn` fallback fires only in graphs that never import do_wear.js.
+**Next:** cloak_simple_name robe-vs-cloak (D-2186) and the armoroff default-arm `'armor'` vs C impossible + no nomovemsg (review 1047 named gap) stay their own rows.
 ## 2026-09-28 — Audit 2016–2023: 8 ACCEPT, 0 Must-fix
 
 Public 44/44; held-out 12/44; corpus 631/953, 0 flips, full:true.

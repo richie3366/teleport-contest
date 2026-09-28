@@ -75,13 +75,13 @@
 {"fn":"readobjnam","c":"4910-5400","status":"unknown","d":["D-2111","D-2089","D-2055","D-2022"],"at":"seed@a30a7de84"}
 {"fn":"rnd_class","c":"5403-5419","status":"unknown"}
 {"fn":"Japanese_item_name","c":"5422-5432","status":"unknown"}
-{"fn":"armor_simple_name","c":"5435-5468","status":"unknown"}
+{"fn":"armor_simple_name","c":"5435-5468","status":"ported","js":["js/do_wear.js:armor_simple_name"],"d":["D-3064"],"at":"2026-09-28@2f39bdcea"}
 {"fn":"suit_simple_name","c":"5471-5489","status":"unknown","d":["D-1905"],"at":"seed@a30a7de84"}
 {"fn":"cloak_simple_name","c":"5492-5509","status":"ported","js":["js/do_wear.js:cloak_simple_name"],"d":["D-3044"],"at":"2026-09-28@b689d8429"}
 {"fn":"helm_simple_name","c":"5513-5528","status":"ported","js":["js/do_wear.js:helm_simple_name"],"d":["D-2939"],"at":"seed@a30a7de84"}
 {"fn":"gloves_simple_name","c":"5532-5547","status":"unknown"}
 {"fn":"boots_simple_name","c":"5551-5566","status":"unknown"}
 {"fn":"shield_simple_name","c":"5570-5596","status":"unknown"}
-{"fn":"shirt_simple_name","c":"5600-5603","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"shirt_simple_name","c":"5600-5603","status":"ported","js":["js/do_wear.js:shirt_simple_name"],"d":["D-3064"],"at":"2026-09-28@2f39bdcea","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mimic_obj_name","c":"5606-5615","status":"unknown"}
 {"fn":"safe_qbuf","c":"5624-5698","status":"ported","js":["js/objnam.js:safe_qbuf"],"d":["D-2743"],"at":"seed@a30a7de84"}

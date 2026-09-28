@@ -19,10 +19,8 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 1956–1962: 6 ACCEPT, 1 WITH-DEBT (1962, unqueued); do not re-open.
-- Audit 1963–1971: 6 ACCEPT, 3 WITH-DEBT (unqueued). No Must-fix; do not re-open.
-- Audit 1972–1980: 9 ACCEPT + Must-fix mtele_trap @54; do not re-open.
-- Audit 1981–1989: 9 ACCEPT, 0 Must-fix (631/953, no flips); do not re-open.
+- Audits 1956–1971: ACCEPT + WITH-DEBT (unqueued); no Must-fix; do not re-open.
+- Audits 1972–1989: ACCEPT (mtele_trap Must-fix @54 noted 1972–1980); do not re-open.
 - Audit 1990–1998: 9 ACCEPT, 0 Must-fix (631/953, no flips); do not re-open.
 - Audit 1999–2007: 9 ACCEPT; do not re-open.
 - Audit 2008–2015: 8 ACCEPT; do not re-open.
@@ -43,7 +41,7 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3063 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3064 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings: `.cache/hidden/sessions` is empty (941 recipes). `hidden-proxy score` sees 12 `private-sessions` only. Do not read 12/12 as the 614/940 fortress (last full board `086317c06`, replaced at `38d6c8a36`).
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -51,13 +49,14 @@ here again. Live hypotheses only:
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3063.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3063.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3064.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3064.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3064: new exported `shirt_simple_name()` in js/do_wear.js with the sibling `*_simple_name` family (C home is objnam.c); the ARM_SHIRT arms (armor_simple_nam Named: - `armor_simple_name`: none — every arm ported, every callee live (armcat reads oc_skill ≡
 - D-3063: new exported `free_nomakedefs()` in js/date.js in C order with per-arm `:line` cites (nulls the 4 strdup'd `game.nomakedefs` fields — GC owns the memo Named: - `free_nomakedefs`: none — every arm ported; NETHACK_GIT_SHA/BRANCH/PREFIX arms compiled 
 - D-3062: new sync exports in `js/hack.js` in C order with per-arm `:line` cites (`spot_checks`; `cmp_weights` file-local from the `:4486` staticfn; `dump_weigh Named: - `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_
 - D-3061: new exported `initoptions_init()` in `js/options.js` in C order with per-arm `:line` cites (opt_phase ×2, allopt_array_init, cmdline-windowtype arm vi Named: `initoptions_init`: sf_init `:7129` (NHFILE proc tables, no scored analogue); init_random 
@@ -72,5 +71,4 @@ here again. Live hypotheses only:
 - D-3052: new export in js/display.js in C order with per-arm `:line` cites — nocolor guard via `game.gs?.symset?.[game.currentgraphics | 0]?.nocolor` (same sha Named: - `cmap_to_roguecolor`: the five `reset_glyphmap` `has_rogue_color` arms (C `:2874`, `:291
 - D-3051: restarted `check_credit` whole in C order with per-arm `:line` cites — async only because `pline_The` can reach --More-- (Constitution §2), `credit == Named: - `pay`: invent-full dropy on money2u (gold merges; pre-existing).
 - D-3050: restarted the export whole in C order with per-arm `:line` cites — explicit `switch` with `A_NEUTRAL` and `default: gnam = 0` arms, `result` variable, Named: - `align_gtitle`: none — every arm ported, 0 C callees, every C caller wired.
-- D-3049: restarted the export whole in C order with per-arm `:line` cites — `!mon` defensive guard kept (C declares NONNULLARG1; every call site passes live mt Named: - `relmon`: keepdogs follower arm (dog.c:861–863) keeps its inline splice at js/dog.js:524
 <!-- landmarks:end -->
