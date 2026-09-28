@@ -392,15 +392,23 @@ const TRAPPED_CHEST = 25;
 function is_hole(t) { return t === HOLE || t === TRAPDOOR; }
 function is_pit(t) { return t === PIT || t === SPIKED_PIT; }
 
-// Stairway list management — C ref: stairs.c stairway_add
-function stairway_add(x, y, up, isladder, dest) {
+// C ref: stairs.c stairway_add `:8-24` — alloc + zero, assign fields,
+// assign_level tolev, prepend to gs.stairs. Export matches C extern
+// (extern.h:3101); every reader uses truthiness, so C boolean/int
+// coercions hold. tolev copies dnum/dlevel only (assign_level), never
+// the caller's extra fields.
+export function stairway_add(x, y, up, isladder, dest) {
+    // C `:15` memset zero then field assigns `:16-20`
     const node = {
-        sx: x, sy: y, up, isladder,
-        tolev: { ...dest },
-        u_traversed: false,
-        next: game.stairs,
+        sx: x | 0, // C `:16` coordxy
+        sy: y | 0, // C `:17` coordxy
+        up: !!up, // C `:18` boolean
+        isladder: !!isladder, // C `:19` boolean
+        u_traversed: false, // C `:20` FALSE
+        tolev: { dnum: dest.dnum | 0, dlevel: dest.dlevel | 0 }, // C `:21`
+        next: game.stairs, // C `:22`
     };
-    game.stairs = node;
+    game.stairs = node; // C `:23`
 }
 
 // ── Stairway lookup ──

@@ -1,4 +1,4 @@
-{"fn":"stairway_add","c":"8-24","status":"unknown"}
+{"fn":"stairway_add","c":"8-24","status":"ported","js":["js/mklev.js:stairway_add"],"d":["D-3035"],"at":"2026-09-28@953aea809"}
 {"fn":"stairway_free_all","c":"27-37","status":"unknown"}
 {"fn":"stairway_at","c":"40-47","status":"unknown"}
 {"fn":"stairway_find","c":"50-61","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

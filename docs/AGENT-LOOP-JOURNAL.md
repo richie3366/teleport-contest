@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3035 `stairs.c` stairway_add whole: exported extern + C-order restart
+
+**C locus:** - `stairway_add`: `stairs.c:8–24` whole in C order — `:15` memset-zero then field assigns, `:16–17` sx/sy, `:18–19` up/isladder, `:20` u_traversed FALSE, `:21` assign_level tolev, `:22–23` prepend to gs.stairs.
+**JS:** `js/mklev.js:395` `export function stairway_add`.
+**Change:** restarted the export whole (`js/mklev.js:395`) with per-arm `:line` cites — `|0` on x/y (C `coordxy`), `!!` on up/isladder (C `boolean`; every reader uses truthiness), `tolev` copies dnum/dlevel only (assign_level-exact), prepend to `game.stairs`.
+**Verify:** `node scripts/verify.mjs --fn stairway_add` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden note (no corpus session blocked); REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed); green 2/2 + strict 2/2; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `stairway_add`: reststairs NHFILE restore loop (restore.c:978 + `u_traversed` fixup `:980–982`) — JS stash architecture, no NHFILE reader; getlev castle fixup (restore.c:1243–1255) — getlev-row work, not this function.
+**Next:** next coverage row.
 ## 2026-09-28 — D-3034 `mkmaze.c` wall-spine closure: fix_wall_spines panic arm + C-name helpers
 
 **C locus:** - `fix_wall_spines`: `mkmaze.c:229–287` whole in C order — `:243–246` spine table, `:252–253` bounds panic (new), `:256–261` wall/!DBWALL gate, `:264–268` loc_f pick, `:269–276` locale, `:278–281` NSEW bits via iswall, `:284–285` free-standing keep.

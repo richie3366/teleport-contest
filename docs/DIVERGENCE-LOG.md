@@ -1,6 +1,21 @@
 # Divergence log
 
-## D-3034 — `mkmaze.c` wall-spine closure: fix_wall_spines panic arm + C-name helpers
+## D-3035 — `stairs.c` stairway_add whole: exported extern + C-order restart
+
+- **Status:** shipped. Head `stairway_add` (PARTIAL) restarted whole in C order as an export matching the C extern.
+- **Symptom:** coverage gap, not a corpus divergence (nothing blocked on it at baseline).
+- **C locus:**
+  - `stairway_add`: `stairs.c:8–24` whole in C order — `:15` memset-zero then field assigns, `:16–17` sx/sy, `:18–19` up/isladder, `:20` u_traversed FALSE, `:21` assign_level tolev, `:22–23` prepend to gs.stairs.
+- **JS was:** file-local `stairway_add` (`js/mklev.js:396`) — unexported despite the C extern (`extern.h:3101`); `tolev: { ...dest }` spread instead of the `:21` dnum/dlevel copy; no C boolean/int coercions.
+- **Fix:** restarted the export whole (`js/mklev.js:395`) with per-arm `:line` cites — `|0` on x/y (C `coordxy`), `!!` on up/isladder (C `boolean`; every reader uses truthiness), `tolev` copies dnum/dlevel only (assign_level-exact), prepend to `game.stairs`.
+- **JS:** `js/mklev.js:395` `export function stairway_add`.
+- **Callers:**
+  - `stairway_add`: mklev.c:1736 place_branch → `js/mklev.js:32396` wired; mklev.c:2193 mkstairs → `js/mklev.js:32179` wired; sp_lev.c:4198/4205 create_stairway ladders → `l_create_stairway` (`js/mklev.js:22689`) wired (+ des-file ladder blocks); restore.c:978 reststairs NHFILE loop → named (JS persists stairs via level stash, `js/lev_json.js:722,821,866`; no NHFILE counterpart); restore.c:1252 getlev castle-stairs fixup → named (belongs to the getlev row, no JS counterpart yet).
+- **Verify:** `node scripts/verify.mjs --fn stairway_add` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden note (no corpus session blocked); REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed); green 2/2 + strict 2/2; cohort 7/7; full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `stairway_add`: reststairs NHFILE restore loop (restore.c:978 + `u_traversed` fixup `:980–982`) — JS stash architecture, no NHFILE reader; getlev castle fixup (restore.c:1243–1255) — getlev-row work, not this function.
+- **Ledger:** stairway_add ported
+- **Next:** next coverage row.
 
 - **Status:** shipped. Head `fix_wall_spines` (PARTIAL) restarted whole in C order — the only missing arm was the `:252–253` bounds panic. `iswall`/`iswall_or_stone` bodies were already exact under `isWallTile`/`isWallOrStone` (renamed to C names, file-local like the C staticfns); `okay` split under `maze_okay`; `check_ransacked` split inline in `makemaz`.
 - **Symptom:** coverage gap, not a corpus divergence (nothing blocked on any of the five at baseline).
