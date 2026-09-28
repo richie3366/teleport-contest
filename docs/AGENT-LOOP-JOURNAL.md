@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — Audit 1963–1971 (D-3003…D-3011) + score cadence
+
+6 ACCEPT, 3 WITH-DEBT unqueued (1963 sync mark gap; 1964 save.c prose — FREE_ALL_MEMORY is defined, omit stands on unported caller; 1969 stale optfn:null rationale). D-3009 PROGRESS re-confirmed. No Must-fix. Public 44/44; corpus 630/953 identical pass set, board `full: true`; held-out 12/44. Ledger snapshotted; 5 seeded rows clean.
 ## 2026-09-28 — D-3011 cmd.c key2txt C-wrong `\r → <enter>` arm removed, pager.js clone merged into the export; compactify + invoke_create_portal retired stale
 
 **C locus:** - `key2txt`: `nethack-c/upstream/src/cmd.c:3225–3240` (`' '` → `"<space>"` `:3229`, `'\033'` → `"<esc>"` `:3231`, `'\n'` → `"<enter>"` `:3233`, `'\177'` → `"<del>"` `:3235`, else `visctrl((char) c)` `:3237`).

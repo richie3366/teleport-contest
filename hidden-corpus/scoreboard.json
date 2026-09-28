@@ -1,9 +1,9 @@
 {
- "commit": "bdfaca7a2",
- "at": "2026-09-28T06:20:15.467Z",
- "full": false,
- "fullCommit": "c4bce1fa8",
- "fullAt": "2026-09-28T04:15:01.945Z",
+ "commit": "fda3d415d",
+ "at": "2026-09-28T06:55:54.574Z",
+ "full": true,
+ "fullCommit": "fda3d415d",
+ "fullAt": "2026-09-28T06:55:54.574Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4286,7 +4286,7 @@
    "steps": 226,
    "owner": "wipeout_text",
    "loc": "engrave.c:134",
-   "jsOwner": "wipeout_text(engrave.js:260)",
+   "jsOwner": "wipeout_text(engrave.js:400)",
    "cTopline": "You begin to memorize the runes.--More--",
    "jsTopline": "You begin to memorize the runes.--More--",
    "error": null
@@ -9668,7 +9668,7 @@
    "passed": false,
    "rngM": 2543,
    "rngT": 2543,
-   "scrM": 18,
+   "scrM": 19,
    "scrT": 54,
    "kind": "screen",
    "step": 8,
@@ -9683,9 +9683,9 @@
   "scen-options-Archeologist-94231": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4495,
+   "rngM": 5431,
    "rngT": 5519,
-   "scrM": 27,
+   "scrM": 37,
    "scrT": 177,
    "kind": "screen",
    "step": 2,
@@ -9734,7 +9734,7 @@
   "scen-options-Barbarian-94251": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4510,
+   "rngM": 4502,
    "rngT": 5110,
    "scrM": 11,
    "scrT": 235,
@@ -9753,7 +9753,7 @@
    "passed": false,
    "rngM": 3438,
    "rngT": 3438,
-   "scrM": 23,
+   "scrM": 56,
    "scrT": 92,
    "kind": "screen",
    "step": 14,
@@ -9785,9 +9785,9 @@
   "scen-options-Healer-94211": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3074,
+   "rngM": 3047,
    "rngT": 3074,
-   "scrM": 106,
+   "scrM": 108,
    "scrT": 148,
    "kind": "screen",
    "step": 24,
@@ -9821,7 +9821,7 @@
    "passed": false,
    "rngM": 2707,
    "rngT": 2841,
-   "scrM": 42,
+   "scrM": 43,
    "scrT": 152,
    "kind": "screen",
    "step": 7,
@@ -9904,9 +9904,9 @@
   "scen-options-Tourist-94111": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2754,
+   "rngM": 2826,
    "rngT": 4521,
-   "scrM": 27,
+   "scrM": 37,
    "scrT": 202,
    "kind": "screen",
    "step": 15,
@@ -9921,9 +9921,9 @@
   "scen-options-Tourist-94171": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4419,
+   "rngM": 4539,
    "rngT": 4539,
-   "scrM": 59,
+   "scrM": 69,
    "scrT": 150,
    "kind": "screen",
    "step": 3,
@@ -9940,7 +9940,7 @@
    "passed": false,
    "rngM": 3790,
    "rngT": 3952,
-   "scrM": 64,
+   "scrM": 67,
    "scrT": 216,
    "kind": "screen",
    "step": 14,
@@ -11783,7 +11783,7 @@
    "steps": 240,
    "owner": "wipeout_text",
    "loc": "engrave.c:134",
-   "jsOwner": "wipeout_text(engrave.js:260)",
+   "jsOwner": "wipeout_text(engrave.js:400)",
    "cTopline": "The white unicorn hits the horse. The horse picks up a splint mail.--More--",
    "jsTopline": "The white unicorn hits the horse. The horse picks up a splint mail.--More--",
    "error": null
@@ -12466,7 +12466,7 @@
    "jsOwner": "next_ident(mkobj.js:423)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
-   "error": "Error: relink_light_sources: no monster 0 |     at relinkLevelTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:457:23) |     at deserLevel "
+   "error": "Error: relink_light_sources: no monster 0 |     at relinkLevelTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:458:23) |     at deserLevel "
   },
   "scen-special-Wizard-94117": {
    "src": "corpus",
@@ -13996,7 +13996,7 @@
    "jsOwner": null,
    "cTopline": "In what direction?",
    "jsTopline": "Unknown command '^'.",
-   "error": "Error: relink_light_sources: no monster 0 |     at relinkGlobalTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:641:23) |     at try_restor"
+   "error": "Error: relink_light_sources: no monster 0 |     at relinkGlobalTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:642:23) |     at try_restor"
   },
   "scen-tutorial-Archeologist-94059": {
    "src": "corpus",

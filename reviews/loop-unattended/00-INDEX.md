@@ -1972,3 +1972,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1960-63aec4509-mon-explodes.md](./1960-63aec4509-mon-explodes.md) | `63aec4509` | D-3000 mon_explodes + gallop | **ACCEPT** |
 | [1961-84557918b-dungeon-cluster.md](./1961-84557918b-dungeon-cluster.md) | `84557918b` | D-3001 dungeon cluster | **ACCEPT** |
 | [1962-c4bce1fa8-glyphs-cluster.md](./1962-c4bce1fa8-glyphs-cluster.md) | `c4bce1fa8` | D-3002 glyphs cluster | **ACCEPT-WITH-DEBT** |
+| [1963-bff5e68ae-options-cluster.md](./1963-bff5e68ae-options-cluster.md) | `bff5e68ae` | D-3003 options cluster | **ACCEPT-WITH-DEBT** |
+| [1964-da3cb9a9f-free-luathemes.md](./1964-da3cb9a9f-free-luathemes.md) | `da3cb9a9f` | D-3004 free_luathemes | **ACCEPT-WITH-DEBT** |
+| [1965-92e07989a-engrave-persistence.md](./1965-92e07989a-engrave-persistence.md) | `92e07989a` | D-3005 engrave persistence | **ACCEPT** |
+| [1966-12641c043-lock-mouse-buttons.md](./1966-12641c043-lock-mouse-buttons.md) | `12641c043` | D-3006 lock_mouse_buttons | **ACCEPT** |
+| [1967-fbf84a98f-load-special-family.md](./1967-fbf84a98f-load-special-family.md) | `fbf84a98f` | D-3007 load_special family | **ACCEPT** |
+| [1968-c704500d7-bless-unbless-nextoid.md](./1968-c704500d7-bless-unbless-nextoid.md) | `c704500d7` | D-3008 bless/unbless/nextoid | **ACCEPT** |
+| [1969-70c901367-doset-simple-menu.md](./1969-70c901367-doset-simple-menu.md) | `70c901367` | D-3009 doset_simple_menu | **ACCEPT-WITH-DEBT** |
+| [1970-bdfaca7a2-lantern-flicker.md](./1970-bdfaca7a2-lantern-flicker.md) | `bdfaca7a2` | D-3010 lantern/flicker | **ACCEPT** |
+| [1971-fffd581fa-key2txt.md](./1971-fffd581fa-key2txt.md) | `fffd581fa` | D-3011 key2txt | **ACCEPT** |
