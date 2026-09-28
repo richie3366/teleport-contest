@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3045 — `furniture_detect` whole restart + `map_redisplay` C-order restore
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL — crystal-ball furniture gaze ran `IS_FURNITURE` only (no mimic/`is_cmap_furniture` arm, no `unconstrain_map`, `remembered_glyph` instead of `glyph_at` re-read, `pline` literals instead of `There`/`Your`); `map_redisplay` skipped C's `reconstrain_map` + `under_water(2)`/`under_ground(2)` arms, so a constrained (water/buried/swallowed) gaze never restored state.
+- **C locus:**
+  - `furniture_detect`: nethack-c/upstream/src/detect.c:1091–1134 (staticfn; whole body in C order).
+  - `map_redisplay`: nethack-c/upstream/src/detect.c:93–102 (staticfn void; unconditional `reconstrain_map` — monster_detect :859 and trap paths reach it with stale-zero saves, same as C).
+- **JS was:** js/detect.js `furniture_detect` (:2451 thin: no unconstrain, no glyph reads, no mimic arm, pline literals, `!revealed` arm a bare comment); `map_redisplay` (:1323: docrt + flush only, reconstrain deliberately skipped).
+- **Fix:** restarted `furniture_detect` whole with per-arm `:line` cites — `unconstrain_map()` :1097, `glyph_at`/`glyph_to_cmap` reads :1101–1102, `IS_FURNITURE(levl typ)` :1103–1105, `is_cmap_furniture` arm as the sym.h:104 macro expansion (`sym >= S_upstair && sym <= S_fountain`, not a function row — getpos.js:283 holds an equivalent local for its own use) with `m_at`/M_AP_FURNITURE/`seemimic` + `!mon || !canspotmon → map_invisible` :1107–1112, `glyph_at` re-read `revealed` :1114–1115, `There`/`Your` :1118–1123, `browse_map(TER_DETECT|TER_MAP|TER_TRP|TER_OBJ|TER_MON,"location")` :1129–1130, `map_redisplay` :1132, `return 0` :1133. Completed `map_redisplay` in C order: `reconstrain_map()` :96, `docrt()` :97, `Underwater → under_water(2)` :98–99, `uburied → under_ground(2)` :100–101; `flush_screen(1)` retained (pre-existing screen-model flush). No new cross-module edges (display.js/const.js already statically imported; `imports.mjs --can` confirms).
+- **JS:** js/detect.js `furniture_detect` :2461, `map_redisplay` :1327; imports extended (display.js: `glyph_to_cmap, There, Your, under_water, under_ground`; const.js: `M_AP_FURNITURE, S_upstair, S_fountain`); header omission lines updated.
+- **Callers:**
+  - `furniture_detect`: C detect.c:1343 `use_crystal_ball` charged-furniture arm → JS js/detect.js:2695 `ret = await furniture_detect()` (already wired; unchanged).
+  - `map_redisplay`: C gold :473 / food :591 / object :787 / monster :859 / display_trap_map :1002 / furniture :1132 / :1437 / :2411 → JS js/detect.js:1300 (monster_detect), :1383 (reveal_terrain, JS-only call, pre-existing), :1823 (food_detect), :1992 (gold_detect), :2215 (object_detect), :2372 (display_trap_map), :2498 (furniture_detect); bodies unchanged, all now get the C restore arms.
+- **Verify:** `node scripts/verify.mjs --fn furniture_detect,map_redisplay` → VERIFY: PASS — syntax 1 file; Rule #2 clean; hidden: no corpus session blocked on either (coverage rows, expected); REACH smoke spread 24/24 PASS both (REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:**
+  - `furniture_detect`: C :1126 `display_nhwindow(WIN_MAP, TRUE)` — no JS `display_nhwindow` export exists (sym.mjs); `!revealed` arm falls through to `map_redisplay`.
+  - `map_redisplay`: none — every C arm ported (flush retained, see Fix).
+- **Ledger:** furniture_detect ported; map_redisplay ported.
+- **Next:** `def_char_is_furniture` `}` fountain gap (review 81 §furniture_detect) still routes `}` gazes to objclass/level_detects + `rn2(4)`; own row, different file (drawing.c).
+
 ## D-3044 — `cloak_simple_name` caller wiring + `cannot_push_msg` stale
 
 - **Status:** shipped.

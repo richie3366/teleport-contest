@@ -1,6 +1,6 @@
 {"fn":"unconstrain_map","c":"70-81","status":"unknown"}
 {"fn":"reconstrain_map","c":"85-91","status":"unknown"}
-{"fn":"map_redisplay","c":"94-102","status":"unknown"}
+{"fn":"map_redisplay","c":"94-102","status":"ported","js":["js/detect.js:map_redisplay"],"d":["D-3045"],"at":"2026-09-28@25bf764f0"}
 {"fn":"browse_map","c":"106-118","status":"unknown"}
 {"fn":"map_monst","c":"122-134","status":"unknown","d":["D-1549"],"at":"seed@a30a7de84"}
 {"fn":"trapped_chest_at","c":"139-177","status":"unknown","d":["D-2298"],"at":"seed@a30a7de84"}
@@ -18,7 +18,7 @@
 {"fn":"detect_obj_traps","c":"907-953","status":"unknown"}
 {"fn":"display_trap_map","c":"956-1003","status":"unknown"}
 {"fn":"trap_detect","c":"1011-1088","status":"unknown"}
-{"fn":"furniture_detect","c":"1091-1134","status":"unknown"}
+{"fn":"furniture_detect","c":"1091-1134","status":"ported","js":["js/detect.js:furniture_detect"],"d":["D-3045"],"at":"2026-09-28@25bf764f0"}
 {"fn":"level_distance","c":"1142-1185","status":"ported","js":["js/detect.js:level_distance"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"use_crystal_ball","c":"1206-1368","status":"unknown"}
 {"fn":"show_map_spot","c":"1372-1419","status":"unknown"}

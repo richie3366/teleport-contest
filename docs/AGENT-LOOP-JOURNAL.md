@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3045 `furniture_detect` whole restart + `map_redisplay` C-order restore
+
+**C locus:** - `furniture_detect`: nethack-c/upstream/src/detect.c:1091–1134 (staticfn; whole body in C order).
+**JS:** js/detect.js `furniture_detect` :2461, `map_redisplay` :1327; imports extended (display.js: `glyph_to_cmap, There, Your, under_water, under_ground`; const.js: `M_AP_FURNITURE, S_upstair, S_fountain`); header omission lines updated.
+**Change:** restarted `furniture_detect` whole with per-arm `:line` cites — `unconstrain_map()` :1097, `glyph_at`/`glyph_to_cmap` reads :1101–1102, `IS_FURNITURE(levl typ)` :1103–1105, `is_cmap_furniture` arm as the sym.h:104 macro expansion (`sym >= S_upstair && sym <= S_fountain`, not a function row — getpos.js:283 holds an equivalent local for its own use) with `m_at`/M_AP_FURNITURE/`seemimic` + `!mon || !canspotmon → map_invisible` :1107–1112, `glyph_at` re-read `revealed` :1114–1115, `There`/`Your` :1118–1123, `browse_map(TER_DETECT|TER_MAP|TER_TRP|TER_OBJ|TER_MON,"location")` :1129–1130, `map_redisplay` :1132, `return 0` :1133. Completed `map_redisplay` in C order: `reconstrain_map()` :96, `docrt()` :97, `Underwater → under_water(2)` :98–99, `uburied → under_ground(2)` :100–101; `flush_screen(1)` retained (pre-existing screen-model flush). No new cross-module edges (display.js/const.js already statically imported; `imports.mjs --can` confirms).
+**Verify:** `node scripts/verify.mjs --fn furniture_detect,map_redisplay` → VERIFY: PASS — syntax 1 file; Rule #2 clean; hidden: no corpus session blocked on either (coverage rows, expected); REACH smoke spread 24/24 PASS both (REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
+**Named:** - `furniture_detect`: C :1126 `display_nhwindow(WIN_MAP, TRUE)` — no JS `display_nhwindow` export exists (sym.mjs); `!revealed` arm falls through to `map_redisplay`.
+**Next:** `def_char_is_furniture` `}` fountain gap (review 81 §furniture_detect) still routes `}` gazes to objclass/level_detects + `rn2(4)`; own row, different file (drawing.c).
 ## 2026-09-28 — D-3044 `cloak_simple_name` caller wiring + `cannot_push_msg` stale
 
 **C locus:** - `cannot_push_msg`: nethack-c/upstream/src/hack.c:247–259 — `the(xname)`, usteed `YMonnam` arm, `You` arm, `Blind → feel_location`. Stale, no code change.
