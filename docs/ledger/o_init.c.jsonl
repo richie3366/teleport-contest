@@ -6,7 +6,7 @@
 {"fn":"init_oclass_probs","c":"240-265","status":"unknown"}
 {"fn":"obj_shuffle_range","c":"269-318","status":"unknown"}
 {"fn":"shuffle_all","c":"322-347","status":"unknown"}
-{"fn":"objdescr_is","c":"352-365","status":"unknown"}
+{"fn":"objdescr_is","c":"352-365","status":"ported","js":["js/apply.js:objdescr_is"],"d":["D-3038"],"at":"2026-09-28@d4eca01f7"}
 {"fn":"oinit","c":"369-372","status":"unknown"}
 {"fn":"savenames","c":"375-407","status":"ported","js":["js/o_init.js:savenames"],"d":["D-3022"],"at":"2026-09-28@5affd05cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"restnames","c":"411-437","status":"ported","js":["js/o_init.js:restnames"],"d":["D-3022"],"at":"2026-09-28@5affd05cd","note":"refresh: no JS symbol (measured MISSING)"}

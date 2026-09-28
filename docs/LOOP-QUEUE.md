@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `o_init.c` objdescr_is — coverage PARTIAL (C 8 code L `o_init.c:352–365` / JS 5 code L in js/apply.js; hops 3, callers 9, RNG 0, msg 0) @1b942d6a1
 - [ ] `quest.c` quest_chat — coverage THIN (C 14 code L `quest.c:473–492` / JS 5 code L in js/quest.js; hops 3, callers 1, RNG 0, msg 0; dead callees: chat_with_guardian) @1b942d6a1
 - [ ] `do_wear.c` donning — coverage PARTIAL (C 18 code L `do_wear.c:1574–1597` / JS 12 code L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 0) @1b942d6a1
 - [ ] `options.c` set_option_mod_status — coverage MISSING (C 8 code L `options.c:9855–9869` / JS no symbol; hops 6, callers 4, RNG 0, msg 0) @1b942d6a1
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `hack.c` cannot_push_msg — coverage PARTIAL (C 9 code L `hack.c:247–259` / JS 6 code L in js/hack.js; hops 5, callers 1, RNG 0, msg 2) @c01f2bf81
 - [ ] `objnam.c` cloak_simple_name — coverage PARTIAL (C 13 code L `objnam.c:5492–5509` / JS 8 code L in js/do_wear.js; hops 4, callers 14, RNG 0, msg 0) @66bbd0418
 - [ ] `detect.c` furniture_detect — coverage PARTIAL (C 31 code L `detect.c:1091–1134` / JS 22 code L in js/detect.js; hops 6, callers 1, RNG 0, msg 1) @66bbd0418
+- [ ] `read.c` seffect_mail — coverage PARTIAL (C 17 code L `read.c:2157–2188` / JS 12 code L in js/read.js; hops 5, callers 1, RNG 0, msg 3) @d4eca01f7
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

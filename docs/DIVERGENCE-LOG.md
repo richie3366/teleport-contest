@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3038 — `o_init.c` objdescr_is whole: canonical export + 4-clone fold
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL (C 8 code L vs JS 5): null-obj arm's `impossible()` uncited; 4 local clones (eat/muse/steed/mon-meat) drifted from the canonical export.
+- **C locus:**
+  - `objdescr_is`: nethack-c/upstream/src/o_init.c:352–365 — null guard `:356-359`, OBJ_DESCR fetch `:361` (objclass.h `:191`: obj_descr[oc_descr_idx].oc_descr), null-descr fallthrough `:362-363`, strcmp match `:364`.
+- **JS was:** js/apply.js export covered all value arms but not the impossible cite; identical clones at js/eat.js:2778, js/muse.js:1293, js/steed.js:216, plus renamed `objdescr_is_meat` at js/mon.js:2542.
+- **Fix:** restarted the export whole in C order with per-arm `:line` cites; null arm keeps the `return FALSE` control flow and cites the impossible pline as omitted (async screen side effect in a sync hot path, D-2608 wall_angle precedent); split the null-descr fallthrough onto its own line; folded all 4 clones onto the canonical import (eat.js gains an apply.js edge inside the existing SCC, runtime-only use — no TDZ read).
+- **JS:**
+  - `objdescr_is`: js/apply.js canonical export, restarted whole in C order.
+- **Callers:**
+  - `objdescr_is`: apply.c:3921–3922 → js/apply.js self (is_fragile); eat.c:2444 → js/eat.js (now imports); hack.c:2402 → js/hack.js:2598 (already imported); mon.c:1622 → js/mon.js (renamed clone replaced, call site updated); mondata.c:393 can_blnd visor tail → js/uhitm.js (3 sites) + js/mhitu.js visored_helmet_worn (already imported); muse.c:72,99 → js/muse.js:2374,2403 (now imports); potion.c:601,607 → js/potion.js:2366,2374 (already imported); spell.c:476 → js/spell.js:1065 (already imported); steed.c:116,119 → js/steed.js:391,392 (now imports).
+- **Verify:** `node scripts/verify.mjs --fn objdescr_is` → VERIFY: PASS — syntax (5 changed files), Rule #2, hidden note (no corpus session blocked), REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS), green 2/2, strict 2/2, cohort 7/7. No per-function unit file: the repo has no such harness; the maintained check is the session suite driven by verify (no new framework per durable-test-collateral).
+- **Named omissions:**
+  - `objdescr_is`: C `:357` impossible("objdescr_is: null obj") pline — omitted: impossible() is async while all 9 C call sites are sync boolean tests; return-FALSE control flow preserved; null path unreachable (extern.h notes callers rely on the FALSE return).
+- **Ledger:** objdescr_is ported
+- **Next:** o_init.c holds no further Open coverage rows (`rows --file o_init.c` = 0 eligible; remaining unknowns measured ok) and callee impossible() is partial, not Open — single-function cluster ships alone under the density exception (net -21 lines).
+
 ## D-3037 — `decl.c` decl_globals_init whole; `version.c` validate stale
 
 - **Status:** shipped.

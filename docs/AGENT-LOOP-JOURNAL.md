@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3038 `o_init.c` objdescr_is whole: canonical export + 4-clone fold
+
+**C locus:** - `objdescr_is`: nethack-c/upstream/src/o_init.c:352–365 — null guard `:356-359`, OBJ_DESCR fetch `:361` (objclass.h `:191`: obj_descr[oc_descr_idx].oc_descr), null-descr fallthrough `:362-363`, strcmp match `:364`.
+**JS:** - `objdescr_is`: js/apply.js canonical export, restarted whole in C order.
+**Change:** restarted the export whole in C order with per-arm `:line` cites; null arm keeps the `return FALSE` control flow and cites the impossible pline as omitted (async screen side effect in a sync hot path, D-2608 wall_angle precedent); split the null-descr fallthrough onto its own line; folded all 4 clones onto the canonical import (eat.js gains an apply.js edge inside the existing SCC, runtime-only use — no TDZ read).
+**Verify:** `node scripts/verify.mjs --fn objdescr_is` → VERIFY: PASS — syntax (5 changed files), Rule #2, hidden note (no corpus session blocked), REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS), green 2/2, strict 2/2, cohort 7/7. No per-function unit file: the repo has no such harness; the maintained check is the session suite driven by verify (no new framework per durable-test-collateral).
+**Named:** - `objdescr_is`: C `:357` impossible("objdescr_is: null obj") pline — omitted: impossible() is async while all 9 C call sites are sync boolean tests; return-FALSE control flow preserved; null path unreachable (extern.h notes callers rely on the FALSE return).
+**Next:** o_init.c holds no further Open coverage rows (`rows --file o_init.c` = 0 eligible; remaining unknowns measured ok) and callee impossible() is partial, not Open — single-function cluster ships alone under the density exception (net -21 lines).
 ## 2026-09-28 — D-3037 `decl.c` decl_globals_init whole; `version.c` validate stale
 
 **C locus:** - `decl_globals_init`: `decl.c:1080–1187` — 26 `g_init_*` copies (`:1085–1110`), 20 `init_sv*` copies (`:1111–1130`), valuables wiring (`:1132–1137`), 26 `MAGICCHECK`s (`:1142–1167`), `gs.subrooms` (`:1169`), seven `ZERO`s (`:1171–1177`), 17 worn-slot NULLs (`:1179–1181`), `WIN_* = WIN_ERR` (`:1183`), `urole`/`urace` sentinels (`:1185–1186`).

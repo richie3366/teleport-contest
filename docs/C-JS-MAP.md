@@ -5,13 +5,12 @@ live in the port ledger (`docs/LEDGER.md`, `node scripts/ledger.mjs show
 <fn>`); do not edit these sections. They stay readable for evidence
 (`node scripts/map.mjs <file.c>`, `brief.mjs <fn> --map`).
 
-Structural ledger for the port until 2026-09-27. Status meanings are defined in
-`PORTING-RUNBOOK.md`; a passing session alone does not imply `ported`.
+Structural ledger until 2026-09-27. Status meanings: `PORTING-RUNBOOK.md`;
+a passing session alone does not imply `ported`.
 
-**Read rule:** open **only** the subsystem file you will edit. Do not load
-this index’s children by default. Entries are `### C` + `JS: … — status`
-+ wrapped evidence (not giant table rows). Edit with the edit tool, not
-heredocs.
+**Read rule:** open **only** the subsystem file you will edit, never this
+index’s children by default. Entries are `### C` + `JS: … — status` +
+wrapped evidence. Edit with the edit tool, not heredocs.
 
 Last broad audit: **2026-07-12** (see section files for later row updates).
 
