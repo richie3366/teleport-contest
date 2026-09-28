@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3055 timeout.c timer save/restore closure (`restore_timers` + `maybe_write_timer` + `write_timer`; declare `save_timers`/`insert_timer`/`timer_is_local`)
+
+**C locus:** - `restore_timers`: nethack-c/upstream/src/timeout.c:2707–2728 (whole body in C order — timer_id read when RANGE_GLOBAL `:2714–2716`, count read `:2717`, alloc+Sfi_fe per element `:2719–2721`, ghostly adjust `:2722–2723`, insert `:2724`).
+**JS:** js/mkobj.js:1143 (write_timer), js/mkobj.js:1200 (maybe_write_timer), js/mkobj.js:1258 (restore_timers); js/lev_json.js:287 (serTimer delegate), js/lev_json.js:330/528 (snapshots).
+**Change:** new `write_timer(timer)` export in js/mkobj.js:1143 (C-order switch returning the serTimer-shape record — the Sfo_fe analogue; `cg.zeroany` union step collapses since live entries are never mutated; GLOBAL/LEVEL arg_id 0, relinked entries keep numeric arg_id exactly like the old serTimer fallback; default arm loud-throws for C panic). New `maybe_write_timer(range, write_it)` export in js/mkobj.js:1200 (C-order loop; NHFILE writer becomes a callback). Restarted `restore_timers` in js/mkobj.js:1258 in C order (insert loop with per-line cites; reads live at call sites). lev_json.js: serTimer delegates to write_timer, snapshotLocalTimers/snapshotGlobalTimers drive maybe_write_timer(RANGE_LEVEL/RANGE_GLOBAL, t => out.push(serTimer(t))); dropped the now-unused timer_is_local import, added RANGE_GLOBAL/RANGE_LEVEL to the const.js import.
+**Verify:** `node scripts/verify.mjs --fn restore_timers,maybe_write_timer,write_timer,save_timers,insert_timer,timer_is_local` → syntax PASS (2 files), Rule #2 PASS, hidden note (no corpus session blocked — coverage rows, no --base needed), REACH-OK all six (no RNG tags; 24-session smoke spread 24 PASS each), green 2/2, strict 2/2, cohort 7/7, VERIFY: PASS. Extra: seed0013 save-then-fullmoon-restore 1/1 (RNG 4804/4804, screens 99/99) — exercises the rewired serTimer/snapshot path.
+**Named:** - `restore_timers`: ghostly `timeout += adjust` (C :2722–2723, bones) — deferred, no JS bones adjust (review 657: JSON save ghostly==FALSE).
+**Next:** timeout.c remaining Open rows of the timer closure, if any refill (relink_timers stays by-design; maybe_write_ls is light.c Phase-2-adjacent only if a coverage row names it).
 ## 2026-09-28 — D-3054 `hmon_hitmon_do_hit` dispatch closure + `mhitm_ad_corr` (stone/potion/gem/corrode arms)
 
 **C locus:** - `hmon_hitmon_do_hit`: nethack-c/upstream/src/uhitm.c:1386–1433 (whole body in C order — bare hands `:1392–1393`, stone vs rock-passer `:1399–1407`, saved_oname `:1410–1413`, WEAPON/tool/GEM `:1415–1419`, POTION `:1421–1424`, shade/misc `:1425–1430`).

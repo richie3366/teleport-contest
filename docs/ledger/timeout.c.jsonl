@@ -41,14 +41,14 @@
 {"fn":"spot_stop_timers","c":"2416-2438","status":"unknown"}
 {"fn":"spot_time_expires","c":"2445-2456","status":"unknown","d":["D-1957"],"at":"seed@a30a7de84"}
 {"fn":"spot_time_left","c":"2459-2463","status":"unknown"}
-{"fn":"insert_timer","c":"2467-2480","status":"unknown"}
+{"fn":"insert_timer","c":"2467-2480","status":"ported","js":["js/mkobj.js:insert_timer"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
 {"fn":"remove_timer","c":"2483-2502","status":"ported","js":["js/mkobj.js:remove_timer"],"d":["D-2961"],"at":"seed@a30a7de84"}
-{"fn":"write_timer","c":"2505-2551","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"write_timer","c":"2505-2551","status":"ported","js":["js/mkobj.js:write_timer"],"d":["D-3055"],"at":"2026-09-28@d30e99009","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"obj_is_local","c":"2560-2577","status":"unknown"}
 {"fn":"mon_is_local","c":"2584-2596","status":"unknown"}
-{"fn":"timer_is_local","c":"2603-2618","status":"unknown"}
-{"fn":"maybe_write_timer","c":"2627-2651","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"save_timers","c":"2668-2699","status":"unknown"}
-{"fn":"restore_timers","c":"2707-2728","status":"unknown"}
+{"fn":"timer_is_local","c":"2603-2618","status":"ported","js":["js/mkobj.js:timer_is_local"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
+{"fn":"maybe_write_timer","c":"2627-2651","status":"ported","js":["js/mkobj.js:maybe_write_timer"],"d":["D-3055"],"at":"2026-09-28@d30e99009","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"save_timers","c":"2668-2699","status":"ported","js":["js/mkobj.js:save_timers"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
+{"fn":"restore_timers","c":"2707-2728","status":"ported","js":["js/mkobj.js:restore_timers"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
 {"fn":"timer_stats","c":"2735-2745","status":"unknown"}
 {"fn":"relink_timers","c":"2751-2774","status":"by-design","at":"seed@a30a7de84","note":"seed: save/restore file infra"}

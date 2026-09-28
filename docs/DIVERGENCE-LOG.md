@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3055 — timeout.c timer save/restore closure (`restore_timers` + `maybe_write_timer` + `write_timer`; declare `save_timers`/`insert_timer`/`timer_is_local`)
+
+- **Status:** shipped.
+- **Symptom:** coverage THIN `timeout.c` restore_timers (C 12 code L `timeout.c:2707–2728` / JS 5 code L in js/mkobj.js) + coverage MISSING `timeout.c` maybe_write_timer (C 12 code L `timeout.c:2627–2651` / JS no symbol; dead callee write_timer). Reviews 657/659 name restore_timers only as JSON-blob context (serLevel/deserLevel analogue of one savelev record), no Keep'd C-wrong.
+- **C locus:**
+  - `restore_timers`: nethack-c/upstream/src/timeout.c:2707–2728 (whole body in C order — timer_id read when RANGE_GLOBAL `:2714–2716`, count read `:2717`, alloc+Sfi_fe per element `:2719–2721`, ghostly adjust `:2722–2723`, insert `:2724`).
+  - `maybe_write_timer`: nethack-c/upstream/src/timeout.c:2627–2651 (staticfn; whole body in C order — GLOBAL `:2634–2640` vs local `:2641–2647` arms, count+write_it per selected entry, count return `:2650`).
+  - `write_timer`: nethack-c/upstream/src/timeout.c:2505–2551 (staticfn; whole body in C order — GLOBAL/LEVEL as-is `:2511–2515`, OBJECT fixup `:2517–2530`, MONSTER fixup `:2532–2545`, panic default `:2547–2550`).
+  - `save_timers`: nethack-c/upstream/src/timeout.c:2667–2700 (verify-and-declare — update_file write half `:2673–2680` is file infra; release_data peel+free `:2682–2698` matches JS stash).
+  - `insert_timer`: nethack-c/upstream/src/timeout.c:2467–2480 (verify-and-declare — ordered insert, equal-timeout inserts before `:2473–2474`).
+  - `timer_is_local`: nethack-c/upstream/src/timeout.c:2603–2616 (verify-and-declare — LEVEL/GLOBAL/OBJECT/MONSTER arms exact).
+- **JS was:** restore_timers a 5-line re-insert loop with a stale doc; maybe_write_timer/write_timer absent; serTimer/snapshotLocalTimers/snapshotGlobalTimers in js/lev_json.js hand-inlined the select+fixup loop (no C cites).
+- **Fix:** new `write_timer(timer)` export in js/mkobj.js:1143 (C-order switch returning the serTimer-shape record — the Sfo_fe analogue; `cg.zeroany` union step collapses since live entries are never mutated; GLOBAL/LEVEL arg_id 0, relinked entries keep numeric arg_id exactly like the old serTimer fallback; default arm loud-throws for C panic). New `maybe_write_timer(range, write_it)` export in js/mkobj.js:1200 (C-order loop; NHFILE writer becomes a callback). Restarted `restore_timers` in js/mkobj.js:1258 in C order (insert loop with per-line cites; reads live at call sites). lev_json.js: serTimer delegates to write_timer, snapshotLocalTimers/snapshotGlobalTimers drive maybe_write_timer(RANGE_LEVEL/RANGE_GLOBAL, t => out.push(serTimer(t))); dropped the now-unused timer_is_local import, added RANGE_GLOBAL/RANGE_LEVEL to the const.js import. Light-family precedent: write_ls D-2666 (maybe_write_ls stays absent there too).
+- **JS:** js/mkobj.js:1143 (write_timer), js/mkobj.js:1200 (maybe_write_timer), js/mkobj.js:1258 (restore_timers); js/lev_json.js:287 (serTimer delegate), js/lev_json.js:330/528 (snapshots).
+- **Callers:**
+  - `restore_timers`: C restore.c:654 RANGE_GLOBAL → JS js/save.js:939/941 (deserTimerList + restore_timers); C restore.c:1144 RANGE_LEVEL → JS js/save.js:975 (restore_timers(info.timers)).
+  - `maybe_write_timer`: C save_timers :2677 count pass → no JS site (JSON arrays self-delimit; Named); C :2679 write pass → JS js/lev_json.js:330 snapshotLocalTimers + :528 snapshotGlobalTimers (write_it callbacks).
+  - `write_timer`: C maybe_write_timer :2639/:2646 → JS serTimer js/lev_json.js:287 via the snapshot write_it callbacks; js/lev_json.js:serTimerList maps it over peeled stash lists (no C call — JSON-layer analogue, stash records have no chain to walk).
+  - `save_timers`: C save.c:296 GLOBAL → JS js/save.js:583 snapshotGlobalTimers (snapshot, no peel — C peels because FREEING); C save.c:539 LEVEL → JS js/do.js:1754/1768 save_timers(RANGE_LEVEL) peel; C save.c:1116 free_timers(GLOBAL) → no JS site (GC; Named).
+  - `insert_timer`: C start_timer :2286 → JS js/mkobj.js:1548; C restore_timers :2725 → JS js/mkobj.js:restore_timers.
+  - `timer_is_local`: C maybe_write_timer :2636/:2643 → JS js/mkobj.js:maybe_write_timer arms; C save_timers :2686 → JS js/mkobj.js:save_timers.
+- **Verify:** `node scripts/verify.mjs --fn restore_timers,maybe_write_timer,write_timer,save_timers,insert_timer,timer_is_local` → syntax PASS (2 files), Rule #2 PASS, hidden note (no corpus session blocked — coverage rows, no --base needed), REACH-OK all six (no RNG tags; 24-session smoke spread 24 PASS each), green 2/2, strict 2/2, cohort 7/7, VERIFY: PASS. Extra: seed0013 save-then-fullmoon-restore 1/1 (RNG 4804/4804, screens 99/99) — exercises the rewired serTimer/snapshot path.
+- **Named omissions:**
+  - `restore_timers`: ghostly `timeout += adjust` (C :2722–2723, bones) — deferred, no JS bones adjust (review 657: JSON save ghostly==FALSE).
+  - `restore_timers`/`save_timers`/`maybe_write_timer`: NHFILE Sfi/Sfo byte IO (timer_id/count/element reads+writes) — no JS layer (Constitution §1.5/§1.6 JSON VFS; relink_timers by-design precedent, seed note "save/restore file infra").
+  - `save_timers`: release_data `memset+free` collapses to the stash return (GC); free_timers shutdown path (C save.c:1116) unneeded.
+  - `timer_is_local`: default arm returns FALSE without C's panic (pre-existing; invalid kinds unreachable — start_timer range-checks).
+- **Ledger:** restore_timers ported; maybe_write_timer ported; write_timer ported; save_timers ported; insert_timer ported; timer_is_local ported.
+- **Next:** timeout.c remaining Open rows of the timer closure, if any refill (relink_timers stays by-design; maybe_write_ls is light.c Phase-2-adjacent only if a coverage row names it).
+
 ## D-3054 — `hmon_hitmon_do_hit` dispatch closure + `mhitm_ad_corr` (stone/potion/gem/corrode arms)
 
 - **Status:** shipped.
