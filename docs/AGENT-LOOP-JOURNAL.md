@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3059 pager.c docontact (support-contact text window)
+
+**C locus:** - `docontact`: nethack-c/upstream/src/pager.c:2718–2745 (whole body in C order — `sysopt.support` arm `:2723–2727`, `sysopt.fmtd_wizard_list` elif `:2728–2732`, devteam-direct line `:2733`, Contact/email `DEVTEAM_EMAIL` (hack.h:1556) `:2736–2737`, blank `:2738`, bug-report line `:2739`, website `DEVTEAM_URL` (hack.h:1557) `:2740–2741`, display + destroy `:2742–2743`).
+**JS:** - `docontact`: js/pager.js:3294 (`docontact_lines` js/pager.js:3272).
+**Change:** js/pager.js — new exported sync `docontact_lines()` (C-order lines; `create_nhwindow(NHW_TEXT)` + putstr/display/destroy idiom is file-convention `show_text_pages`) + exported `async docontact()` (display + destroy); `!= null` NULL-checks so an empty sysconf string stays truthy as in C.
+**Verify:** `node scripts/verify.mjs --fn docontact` → PASS syntax (1 changed file) · PASS rule2 · note hidden (no corpus session blocked at baseline — row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS. Scratch probe /tmp/docontact-test.mjs: default/wizard/support/empty-string arms all C-ordered (default byte-identical to old inline).
+**Named:** - `docontact`: JS WIZARDS sysconf handler (js/cfgfiles.js:634 `cnf_store_str('wizards')`) never pre-formats `fmtd_wizard_list` (C cfgfiles.c:804–806 via `build_english_list`, async in JS js/end.js:2147) — the `:2728` arm reads null until that handler is ported; `support` arm live via `game.sysopt?.support`.
+**Next:** docontact row leaves the block on refill; head moves to `light.c` wiz_light_sources.
 ## 2026-09-28 — D-3058 dig.c escape_tomb + unearth_you (buried-hero escape pair)
 
 **C locus:** - `unearth_you`: nethack-c/upstream/src/dig.c:2229–2238 (uburied clear `:2233`, under_ground limited update `:2234`, Strangled release unless strangulation amulet `:2235–2236`, vision_recalc `:2237`).

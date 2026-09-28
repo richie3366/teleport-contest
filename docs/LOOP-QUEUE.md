@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `pager.c` docontact — coverage MISSING (C 21 code L `pager.c:2718–2745` / JS no symbol; hops —, callers 0, RNG 0, msg 9) @6f36d2ab4
 - [ ] `light.c` wiz_light_sources — coverage MISSING (C 31 code L `light.c:935–975` / JS no symbol; hops —, callers 0, RNG 0, msg 6) @6f36d2ab4
 - [ ] `trap.c` untrap_prob — coverage PARTIAL (C 32 code L `trap.c:5289–5337` / JS 22 code L in js/trap.js; hops —, callers 2, RNG 2, msg 0) @bfd58ba4c
 - [ ] `options.c` initoptions_init — coverage MISSING (C 90 code L `options.c:7119–7305` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: choose_windows) @a196fca24
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `invent.c` invdisp_nothing — coverage MISSING (C 12 code L `invent.c:5290–5305` / JS no symbol; hops 5, callers 2, RNG 0, msg 0) @cd05c0f73
 - [ ] `cmd.c` cmdq_add_dir — coverage THIN (C 13 code L `cmd.c:294–312` / JS 3 code L in js/cmd.js; hops 4, callers 2, RNG 0, msg 0) @1483a276d
 - [ ] `read.c` apron_text — coverage THIN (C 13 code L `read.c:254–281` / JS 3 code L in js/objnam.js; hops 4, callers 2, RNG 0, msg 0) @1483a276d
+- [ ] `objnam.c` armor_simple_name — coverage PARTIAL (C 29 code L `objnam.c:5435–5468` / JS 20 code L in js/do_wear.js; hops 4, callers 5, RNG 0, msg 0) @a00f0a534
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

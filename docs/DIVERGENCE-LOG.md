@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3059 — pager.c docontact (support-contact text window)
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING `pager.c` docontact (C 21 code L `pager.c:2718–2745` / JS no symbol; hops —, callers 0, RNG 0, msg 9) @6f36d2ab4. Single-fn cluster: 0 C callees and no other pager.c Open row in the queue. Not stale: the dohelp 'o' inline (D-0131) carried only the devteam tail, missing both `sysopt` arms.
+- **C locus:**
+  - `docontact`: nethack-c/upstream/src/pager.c:2718–2745 (whole body in C order — `sysopt.support` arm `:2723–2727`, `sysopt.fmtd_wizard_list` elif `:2728–2732`, devteam-direct line `:2733`, Contact/email `DEVTEAM_EMAIL` (hack.h:1556) `:2736–2737`, blank `:2738`, bug-report line `:2739`, website `DEVTEAM_URL` (hack.h:1557) `:2740–2741`, display + destroy `:2742–2743`).
+- **JS was:** no `docontact` symbol in js/**; dohelp 'o' showed a hardcoded 5-line tail with no `sysopt` arms.
+- **Fix:** js/pager.js — new `docontact_lines()` plus `async docontact()` (C-order lines via `show_text_pages`), wired as dohelp 'o'. NHW_TEXT putstr/display idiom is file convention; `!= null` NULL-checks keep C pointer truthiness; default output matches the old inline exactly.
+- **JS:**
+  - `docontact`: js/pager.js:3294 (`docontact_lines` js/pager.js:3272).
+- **Callers:**
+  - `docontact`: C help-menu table `:2848` → JS dohelp 'o' entry js/pager.js:3329 (inline tail replaced by `fn: docontact`; default-arm output byte-identical to the old inline).
+- **Verify:** `node scripts/verify.mjs --fn docontact` → PASS syntax (1 changed file) · PASS rule2 · note hidden (no corpus session blocked at baseline — row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS. Scratch probe /tmp/docontact-test.mjs: default/wizard/support/empty-string arms all C-ordered (default byte-identical to old inline).
+- **Named omissions:**
+  - `docontact`: WIZARDS sysconf (js/cfgfiles.js:634 keeps `cnf_store_str('wizards')`) never builds `fmtd_wizard_list` (C cfgfiles.c:804–806; JS builder async at js/end.js:2147). So the `:2728` arm reads null until that handler is ported; `support` arm live.
+- **Ledger:** docontact ported.
+- **Next:** docontact row leaves the block on refill; head moves to `light.c` wiz_light_sources.
+
 ## D-3058 — dig.c escape_tomb + unearth_you (buried-hero escape pair)
 
 - **Status:** shipped.
