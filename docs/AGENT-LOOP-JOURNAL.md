@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3066 shk.c breadth cluster: onbill/restshk/cad/pacify_shk/rouse_shk/use_unpaid_trapobj + 9 stale
+
+**C locus:** - `onbill`: nethack-c/upstream/src/shk.c:1136–1155 (whole body — shkp-guarded billct walk `:1140–1150`, paid-on-bill impossible `:1147–1148`, unpaid-not-on-bill impossible `:1152–1154`).
+**JS:** js/shk.js:245 (pacify_shk), :271 (new restshk), :1878 (cad), :3769 (onbill), :4950 (rouse_shk); js/apply.js:4902 (use_unpaid_trapobj); js/do.js:1338 (assign_level export); js/lev_json.js:32 (import), :195 (deserMon ghostly), :799 (fmon); js/bones.js:650 (ghostly opt).
+**Change:** onbill restructured to C order with fire-and-forget impossible arms (same_price precedent); new exported restshk in shk.js (strncmpi/assign_level/poly_gender/muteshk imports — all pre-existing edges; assign_level/muteshk newly exported) wired in lev_json.js deserMon replacing the inline arm, with ghostly threaded deserLevel opts ← getlev_bones; cad rewritten in C order on the live poly_gender export (poly_gender_shk removed — it returned 0/1 where C returns 2 for neuter); pacify_shk walks bill_p/bill with `(price+3)/4` floor math; rouse_shk async with the verbosely pline + 6 site awaits; use_unpaid_trapobj full port (Deaf_hero/find_objowner/muteshk/SetVoice).
+**Verify:** `node scripts/verify.mjs --fn onbill,restshk,cad,pacify_shk,rouse_shk,use_unpaid_trapobj` → VERIFY: PASS (syntax 5 files; rule2 clean; hidden notes — no corpus session blocked, expected for coverage rows; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK all six; green 2/2; strict both; cohort 7/7; full 44/44 auto on shared change).
+**Named:** - `onbill`: none — whole body, sole callee live, all C callers wired.
+**Next:** dropped paints nothing further — shk.c eligible remainder is sub-threshold one-liners (replshk/is_fshk/sasc_bug/clear_no_charge*) and D-history secondary pool (remote_burglary, bill_box_content, cheapest_item); head moves to makemon.c unmakemon.
 ## 2026-09-28 — D-3065 utf8map.c free_all_glyphmap_u + reset_customsymbols (glyphmap unicode teardown pair)
 
 **C locus:** - `free_all_glyphmap_u`: nethack-c/upstream/src/utf8map.c:59–80 (whole body in C order — MAX_GLYPH loop `:64–71`, gbuf sweep `:74–79`).

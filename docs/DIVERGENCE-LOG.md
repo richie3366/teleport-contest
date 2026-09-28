@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-3066 — shk.c breadth cluster: onbill/restshk/cad/pacify_shk/rouse_shk/use_unpaid_trapobj + 9 stale
+
+- **Status:** fixed (breadth-phase coverage cluster, head `shk.c onbill`; `verify --fn onbill,restshk,cad,pacify_shk,rouse_shk,use_unpaid_trapobj` REACH-OK all six + green + strict + cohort 7/7 + full 44/44)
+- **Symptom:** coverage head PARTIAL — C `shk.c:1136–1155` onbill (13 code L) lived in js/shk.js without its two `impossible()` arms and returned early on null shkp, skipping the unpaid check C always runs. Same-file queue-order rows restshk/shk_owns/picked_container/cad/discard_damage_struct/repairable_damage/pick_pick/pacify_shk/shop_object plus sub-threshold fills (rouse_shk, use_unpaid_trapobj, bp_to_obj, mon_owns, dropped_container): 6 needed code, 9 were already complete (stale).
+- **C locus:**
+  - `onbill`: nethack-c/upstream/src/shk.c:1136–1155 (whole body — shkp-guarded billct walk `:1140–1150`, paid-on-bill impossible `:1147–1148`, unpaid-not-on-bill impossible `:1152–1154`).
+  - `restshk`: nethack-c/upstream/src/shk.c:290–305 (whole body — u.uz.dlevel gate `:292`, bill_p re-alias `:295–296`, ghostly shoplevel + pacify `:299–304`).
+  - `cad`: nethack-c/upstream/src/shk.c:5908–5941 (whole body — demon→3 switch `:5915–5932`, impossible default `:5930–5931`, altusage buffer `:5935–5940`).
+  - `pacify_shk`: nethack-c/upstream/src/shk.c:1344–1358 (whole body — NOTANGRY `:1346`, surcharge clear + bill price-undo walk `:1347–1354`).
+  - `rouse_shk`: nethack-c/upstream/src/shk.c:1381–1392 (whole body — helpless gate `:1384`, verbosely canspotmon pline `:1386–1388`, wake/unfreeze `:1389–1391`).
+  - `use_unpaid_trapobj`: nethack-c/upstream/src/shk.c:6101–6114 (whole body — unpaid gate `:6104`, Deaf/find_objowner/muteshk verbalize `:6105–6110`, bill_dummy_object `:6112`).
+- **JS was:** onbill (js/shk.js) dropped `silent` and both impossible arms; no restshk symbol (bill arm inlined in lev_json.js deserMon); cad used a neuter-wrong `poly_gender_shk()` helper and skipped the impossible default; pacify_shk deferred the price-undo walk; rouse_shk dropped `verbosely`; use_unpaid_trapobj (js/apply.js) named the verbalize arm omitted.
+- **Fix:** onbill restructured to C order with fire-and-forget impossible arms (same_price precedent); new exported restshk in shk.js (strncmpi/assign_level/poly_gender/muteshk imports — all pre-existing edges; assign_level/muteshk newly exported) wired in lev_json.js deserMon replacing the inline arm, with ghostly threaded deserLevel opts ← getlev_bones; cad rewritten in C order on the live poly_gender export (poly_gender_shk removed — it returned 0/1 where C returns 2 for neuter); pacify_shk walks bill_p/bill with `(price+3)/4` floor math; rouse_shk async with the verbosely pline + 6 site awaits; use_unpaid_trapobj full port (Deaf_hero/find_objowner/muteshk/SetVoice).
+- **JS:** js/shk.js:245 (pacify_shk), :271 (new restshk), :1878 (cad), :3769 (onbill), :4950 (rouse_shk); js/apply.js:4902 (use_unpaid_trapobj); js/do.js:1338 (assign_level export); js/lev_json.js:32 (import), :195 (deserMon ghostly), :799 (fmon); js/bones.js:650 (ghostly opt).
+- **Callers:**
+  - `onbill`: 13 C sites (clear_unpaid_obj/same_price/onshopbill/obfree/unpaid_cost/billable/splitbill/stolen_value/litter_scatter/globby_bill_fixup) → all call the in-file local (js/shk.js, ~15 sites); stays sync.
+  - `restshk`: restore.c:447 → js/lev_json.js:212 (`if (mtmp.isshk) restshk(mtmp, ghostly)`); bones path passes TRUE via js/bones.js:650, save/load FALSE.
+  - `cad`: pick_pick :937 → js/shk.js:831; pay_for_damage :5305 → :2215; check_unpaid_usage :5707 → :3734.
+  - `pacify_shk`: restshk :302 → js/shk.js:281 (new); u_entered_shop :793 → :676; make_happy_shk :1400 → :2009; inherits :2663 → :5136; pay_for_damage :5320 → :2229.
+  - `rouse_shk`: rob_shop :693 → js/shk.js:470; dopay :1861 → :6105; inherits :2669 → :5068,:5101,:5140 (3 FALSE arms); sellobj :3965 → :2962.
+  - `use_unpaid_trapobj`: apply.c:2909 → js/apply.js:5179 (awaited).
+- **Verify:** `node scripts/verify.mjs --fn onbill,restshk,cad,pacify_shk,rouse_shk,use_unpaid_trapobj` → VERIFY: PASS (syntax 5 files; rule2 clean; hidden notes — no corpus session blocked, expected for coverage rows; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK all six; green 2/2; strict both; cohort 7/7; full 44/44 auto on shared change).
+- **Named omissions:**
+  - `onbill`: none — whole body, sole callee live, all C callers wired.
+  - `restshk`: none — whole body; ghostly arm live via bones opts.
+  - `cad`: mon_nam output-buffer reuse only (JS builds the string; unobservable).
+  - `pacify_shk`: none — whole body, all 5 C callers wired.
+  - `rouse_shk`: none — whole body, all 4 C callers wired (inherits 3 arms).
+  - `use_unpaid_trapobj`: none — whole body, sole C caller wired.
+- **Ledger:** onbill ported; restshk ported; cad ported; pacify_shk ported; rouse_shk ported; use_unpaid_trapobj ported; shk_owns ported; picked_container ported; discard_damage_struct ported; repairable_damage ported; pick_pick ported; shop_object ported; bp_to_obj ported; mon_owns ported; dropped_container ported
+- **Next:** dropped paints nothing further — shk.c eligible remainder is sub-threshold one-liners (replshk/is_fshk/sasc_bug/clear_no_charge*) and D-history secondary pool (remote_burglary, bill_box_content, cheapest_item); head moves to makemon.c unmakemon.
+
 ## D-3065 — utf8map.c free_all_glyphmap_u + reset_customsymbols (glyphmap unicode teardown pair)
 
 - **Status:** fixed (breadth-phase coverage row; `verify --fn free_all_glyphmap_u,reset_customsymbols` REACH-OK + green + strict + cohort + full 44/44)
