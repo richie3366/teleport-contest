@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3007 sp_lev.c load_special + des-entry family: sel_set_door + lspo_door + lspo_wallify + lspo_mineralize; makemaz caller rewired to the C name
+
+**C locus:** - `load_special`: `nethack-c/upstream/src/sp_lev.c:6454–6502` (coder create `:6459`, load_lua `:6461`, epilogue `:6464–6494`, give_up free + NULL `:6497–6499`).
+**JS:** `js/mklev.js` +166/−4 (five ports + makemaz rewire).
+**Change:** `load_special(name)` at `js/mklev.js:3012` — strips LEV_EXT and reuses `load_special_proto` entry/exit/dispatch (its `finally` is C's give_up free + NULL); the `:6464–6494` epilogue stays distributed per level (each loader runs its .lua's steps; shared whole form is `lspo_finalize_level`), load_lua file IO stays by-design absent. `makemaz` now calls `load_special(levfile)` (`:2937`) with the extension, exactly C `:1186–1188`. `sel_set_door` (`:18736`) whole body with `game.level.at`/`SpLev_Map.add` idioms.
+**Verify:** `node scripts/verify.mjs --fn load_special,sel_set_door,lspo_door,lspo_wallify,lspo_mineralize` → PASS syntax (1 file) · PASS rule2 · note hidden ×5 (no corpus session blocked at baseline — expected for coverage rows) · REACH-OK ×5 (no RNG-tagged reach; fixed smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Every special level in the 44 still loads through the rewired `makemaz` → `load_special` path (unknown-stem `return false` preserves the impossible + maze-fallback arm).
+**Named:** - `load_special`: `load_lua` bare-file IO (by-design nhlua, no scored analogue); `wiz_load_splua` caller (unported); generic epilogue distributed per level (split, see Fix).
+**Next:** none — sole `sp_lev.c` Open row in the generated block plus the four same-file absent des entries now ported; remaining `sp_lev.c` ledger rows are measured-ok, declared, or Lua-stack/thin items outside this closure.
 ## 2026-09-28 — D-3006 cmd.c lock_mouse_buttons: stash/restore mouse-button bindings across getpos; trapped_door_at stale
 
 **C locus:** - `lock_mouse_buttons`: `nethack-c/upstream/src/cmd.c:3326–3340` (function-static stash `:3329`, save + clear `:3333–3337`, restore `:3338–3340`).

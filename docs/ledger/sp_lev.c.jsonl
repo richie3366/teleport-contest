@@ -78,7 +78,7 @@
 {"fn":"lspo_level_flags","c":"3759-3831","status":"unknown"}
 {"fn":"lspo_level_init","c":"3837-3875","status":"unknown"}
 {"fn":"lspo_engraving","c":"3881-3936","status":"unknown"}
-{"fn":"lspo_mineralize","c":"3939-3955","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_mineralize","c":"3939-3955","status":"ported","js":["js/mklev.js:lspo_mineralize"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_mkroom_name","c":"3991-4001","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_roomtype_opt","c":"4004-4020","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_room","c":"4028-4116","status":"unknown"}
@@ -102,8 +102,8 @@
 {"fn":"floodfillchk_match_accessible","c":"4600-4605","status":"unknown"}
 {"fn":"sel_set_ter","c":"4609-4630","status":"unknown"}
 {"fn":"sel_set_feature","c":"4633-4644","status":"unknown"}
-{"fn":"sel_set_door","c":"4647-4662","status":"unknown"}
-{"fn":"lspo_door","c":"4671-4734","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sel_set_door","c":"4647-4662","status":"ported","js":["js/mklev.js:sel_set_door"],"d":["D-3007"],"at":"2026-09-28@12641c043"}
+{"fn":"lspo_door","c":"4671-4734","status":"ported","js":["js/mklev.js:lspo_door"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"l_table_getset_feature_flag","c":"4739-4755","status":"unknown"}
 {"fn":"cvt_to_abscoord","c":"4772-4788","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cvt_to_relcoord","c":"4793-4802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -133,7 +133,7 @@
 {"fn":"lspo_non_diggable","c":"5937-5941","status":"unknown"}
 {"fn":"lspo_non_passwall","c":"5946-5950","status":"unknown"}
 {"fn":"sel_set_wallify","c":"5955-5958","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_wallify","c":"5965-5989","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_wallify","c":"5965-5989","status":"ported","js":["js/mklev.js:lspo_wallify"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_reset_level","c":"5993-6010","status":"by-design","at":"seed@a30a7de84","note":"seed: CURRENT.md Do not (lua reset)"}
 {"fn":"lspo_finalize_level","c":"6014-6064","status":"unknown"}
 {"fn":"lspo_map","c":"6075-6319","status":"unknown"}
@@ -141,4 +141,4 @@
 {"fn":"sp_level_coder_init","c":"6336-6376","status":"ported","js":["js/mklev.js:sp_level_coder_init"],"d":["D-2643"],"at":"seed@a30a7de84"}
 {"fn":"l_register_des","c":"6435-6441","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"create_des_coder","c":"6444-6448","status":"unknown"}
-{"fn":"load_special","c":"6454-6502","status":"unknown"}
+{"fn":"load_special","c":"6454-6502","status":"split","js":["js/mklev.js:load_special","js/mklev.js:load_special_proto"],"d":["D-3007"],"at":"2026-09-28@12641c043"}

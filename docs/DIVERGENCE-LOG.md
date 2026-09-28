@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-3007 — sp_lev.c load_special + des-entry family: sel_set_door + lspo_door + lspo_wallify + lspo_mineralize; makemaz caller rewired to the C name
+
+- **Status:** fixed (Open — coverage `sp_lev.c` load_special MISSING (C 24 code L `sp_lev.c:6454–6502` / JS no symbol; hops 2, callers 2, RNG 0, msg 0; split across `load_special_proto` + per-level epilogues) + same-file absent `sel_set_door`/`lspo_door`/`lspo_wallify`/`lspo_mineralize`, grown per cluster rule — no other Open rows of the file in the generated block and no Open callee-closure row).
+- **Symptom:** coverage cluster — the General loader had no C-named JS symbol (`makemaz` called the bare-stem `load_special_proto`), and four des-table entries had no JS symbol. No corpus session blocked on any of them; deliverable is each whole C body in C order with every C caller wired or named.
+- **C locus:**
+  - `load_special`: `nethack-c/upstream/src/sp_lev.c:6454–6502` (coder create `:6459`, load_lua `:6461`, epilogue `:6464–6494`, give_up free + NULL `:6497–6499`).
+  - `sel_set_door`: `nethack-c/upstream/src/sp_lev.c:4647–4662` (typ write `:4653–4654`, D_SECRET strip + D_CLOSED promotion `:4655–4658`, orientation `:4659`, doormask `:4660`, SpLev_Map `:4661`).
+  - `lspo_door`: `nethack-c/upstream/src/sp_lev.c:4671–4734` (3-arg vs table dispatch `:4688–4700`, rnddoor `:4702`, wall form `:4704–4721`, coord arm + isok gate `:4724–4730`).
+  - `lspo_wallify`: `nethack-c/upstream/src/sp_lev.c:5965–5989` (table-only rect `:5978–5982`, gx/gy-defaulted wallify `:5984–5987`; `sel_set_wallify` above it is `#if 0` — not ported).
+  - `lspo_mineralize`: `nethack-c/upstream/src/sp_lev.c:3939–3955` (-1-defaulted probs `:3946–3951`, live mineralize `:3953`).
+- **JS was:** no `load_special`/`sel_set_door`/`lspo_door`/`lspo_wallify`/`lspo_mineralize` symbol; `makemaz` (`js/mklev.js:2936`) passed the bare stem to `load_special_proto` while building the `.lua` name only for the failure message.
+- **Fix:** `load_special(name)` at `js/mklev.js:3012` — strips LEV_EXT and reuses `load_special_proto` entry/exit/dispatch (its `finally` is C's give_up free + NULL); the `:6464–6494` epilogue stays distributed per level (each loader runs its .lua's steps; shared whole form is `lspo_finalize_level`), load_lua file IO stays by-design absent. `makemaz` now calls `load_special(levfile)` (`:2937`) with the extension, exactly C `:1186–1188`. `sel_set_door` (`:18736`) whole body with `game.level.at`/`SpLev_Map.add` idioms. `lspo_door` (`:18766`) unpacked-args (lspo_gold precedent: `splev_opt_index` ≡ luaL_checkoption, `luaL_checkinteger_unpacked` ≡ luaL_checkinteger, `get_table_xy_or_coord`, mask stays msk so -1 rolls inside `create_door`). `lspo_wallify` (`:18819`, gx/gy ≡ `game.splev_*` per reset_xystart_size) and `lspo_mineralize` (`:18847`, `splev_opt_int` ≡ get_table_int_opt, live `mineralize` untouched) in C order. No new cross-module imports (all callees same-file locals or already-imported consts).
+- **JS:** `js/mklev.js` +166/−4 (five ports + makemaz rewire).
+- **Callers:**
+  - `load_special`: C `mkmaze.c:1188` → JS `js/mklev.js:2937` (now C-named, extension-carrying); C `wizcmds.c:389` (`wiz_load_splua`) → named omission (unported wizard-debug, no JS site).
+  - `sel_set_door`: C `sp_lev.c:4730` (`lspo_door`) → JS `js/mklev.js:18815`; the 58 coord-form des.door closures (D-2695/D-2697, reviewed ACCEPT) keep their inlined arms — established split, not rewired.
+  - `lspo_door` / `lspo_wallify` / `lspo_mineralize`: C callers are the `nhl_functions[]` des-dispatch registrations (declaration-only refs, e.g. `sp_lev.c:132/:164/:146`) → named omission (no scored Lua VM yet, Constitution §7); exported for that caller.
+- **Verify:** `node scripts/verify.mjs --fn load_special,sel_set_door,lspo_door,lspo_wallify,lspo_mineralize` → PASS syntax (1 file) · PASS rule2 · note hidden ×5 (no corpus session blocked at baseline — expected for coverage rows) · REACH-OK ×5 (no RNG-tagged reach; fixed smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Every special level in the 44 still loads through the rewired `makemaz` → `load_special` path (unknown-stem `return false` preserves the impossible + maze-fallback arm).
+- **Named omissions:**
+  - `load_special`: `load_lua` bare-file IO (by-design nhlua, no scored analogue); `wiz_load_splua` caller (unported); generic epilogue distributed per level (split, see Fix).
+  - `sel_set_door`: none in the body — every arm ported, callee live, C caller wired (58 pre-existing inline sites stay as the reviewed split).
+  - `lspo_door`: lcheck_param_table (by-design); des dispatch (no VM yet); C-commented `selection_iterate` (`:4723`) — C's own.
+  - `lspo_wallify`: des dispatch (no VM yet); C's clamp/two-table TODOs (C's own).
+  - `lspo_mineralize`: lcheck_param_table (by-design); des dispatch (no VM yet).
+- **Ledger:** load_special split js=js/mklev.js:load_special+js/mklev.js:load_special_proto; sel_set_door ported; lspo_door ported; lspo_wallify ported; lspo_mineralize ported
+- **Next:** none — sole `sp_lev.c` Open row in the generated block plus the four same-file absent des entries now ported; remaining `sp_lev.c` ledger rows are measured-ok, declared, or Lua-stack/thin items outside this closure.
+
 ## D-3006 — cmd.c lock_mouse_buttons: stash/restore mouse-button bindings across getpos; trapped_door_at stale
 
 - **Status:** fixed (Open — coverage `cmd.c` lock_mouse_buttons MISSING (C 9 code L `cmd.c:3326–3340` / JS no symbol; hops 2, callers 1, RNG 0, msg 0)). Queue head `detect.c` trapped_door_at marked stale in the same iteration (brief: whole C body already at `js/detect.js:1590`).
