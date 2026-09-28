@@ -110,20 +110,23 @@ C/JS code lines (comments, `#if 0`, braces dropped), hops from the turn
 loop, callers, RNG/message loudness, enqueue sha. Deliverable: the whole C
 body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
+Head order is call-heat from the 2026-09-28 replay of 985 sessions
+(941 hidden + 44 public): hottest queue-eligible functions first.
+`rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `invent.c` compactify — coverage MISSING (C 25 code L `invent.c:1627–1660` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @bff5e68ae
-- [ ] `artifact.c` invoke_create_portal — coverage PARTIAL (C 47 code L `artifact.c:1867–1931` / JS 34 code L in js/artifact.js; hops 5, callers 1, RNG 0, msg 3) @da3cb9a9f
-- [ ] `cmd.c` key2txt — coverage PARTIAL (C 11 code L `cmd.c:3225–3240` / JS 6 code L in js/dokeylist.js; hops 2, callers 10, RNG 0, msg 0) @92e07989a
-- [ ] `mkroom.c` rest_rooms — coverage MISSING (C 8 code L `mkroom.c:893–906` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: rest_room) @92e07989a
-- [ ] `worm.c` rest_worm — coverage MISSING (C 18 code L `worm.c:577–603` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @12641c043
-- [ ] `artifact.c` arti_speak — coverage MISSING (C 12 code L `artifact.c:2279–2296` / JS no symbol; hops —, callers 2, RNG 0, msg 1) @fbf84a98f
-- [ ] `glyphs.c` free_glyphid_cache — coverage THIN (C 9 code L `glyphs.c:355–369` / JS 2 code L in js/glyphs.js; hops 4, callers 6, RNG 0, msg 0) @fbf84a98f
-- [ ] `wizcmds.c` wiz_display_macros — coverage MISSING (C 53 code L `wizcmds.c:1705–1778` / JS no symbol; hops —, callers 0, RNG 0, msg 11) @fbf84a98f
-- [ ] `o_init.c` savenames — coverage MISSING (C 19 code L `o_init.c:375–407` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @c704500d7
-- [ ] `mthrowu.c` monmulti — coverage PARTIAL (C 33 code L `mthrowu.c:201–258` / JS 21 code L in js/weapon.js; hops 4, callers 1, RNG 1, msg 0) @70c901367
-- [ ] `shk.c` subfrombill — coverage PARTIAL (C 10 code L `shk.c:3694–3710` / JS 7 code L in js/shk.js; hops 3, callers 16, RNG 0, msg 0) @70c901367
-- [ ] `report.c` panictrace_setsignals — coverage MISSING (C 10 code L `report.c:625–657` / JS no symbol; hops 5, callers 3, RNG 0, msg 0) @70c901367
+- [ ] `display.c` show_glyph — coverage MISSING (C 147 code L `display.c:1877–2072` / JS no symbol; hops 1, callers 24, RNG 0, msg 0; split? cited 33× in js/ — brief first) @bdfaca7a2
+- [ ] `worm.c` worm_cross — coverage PARTIAL (C 19 code L `worm.c:898–942` / JS 14 code L in js/worm.js; hops 3, callers 3, RNG 0, msg 0) @bdfaca7a2
+- [ ] `mkmaze.c` extend_spine — coverage THIN (C 19 code L `mkmaze.c:166–194` / JS 7 code L in js/mklev.js; hops 4, callers 1, RNG 0, msg 0) @bdfaca7a2
+- [ ] `cfgfiles.c` config_error_nextline — coverage PARTIAL (C 13 code L `cfgfiles.c:1493–1512` / JS 8 code L in js/cfgfiles.js; hops —, callers 1, RNG 0, msg 0) @bdfaca7a2
+- [ ] `dogmove.c` can_reach_location — coverage PARTIAL (C 25 code L `dogmove.c:1379–1414` / JS 16 code L in js/dogmove.js; hops 4, callers 1, RNG 0, msg 0) @bdfaca7a2
+- [ ] `mon.c` movemon_singlemon — coverage PARTIAL (C 56 code L `mon.c:1214–1322` / JS 35 code L in js/mon.js; hops —, callers 0, RNG 1, msg 0) @bdfaca7a2
+- [ ] `objnam.c` wishymatch — coverage THIN (C 60 code L `objnam.c:3243–3338` / JS 12 code L in js/readobjnam.js; hops 5, callers 3, RNG 0, msg 3) @bdfaca7a2
+- [ ] `mon.c` m_calcdistress — coverage PARTIAL (C 15 code L `mon.c:1180–1209` / JS 10 code L in js/mon.js; hops —, callers 0, RNG 0, msg 0) @bdfaca7a2
+- [ ] `display.c` wall_angle — coverage THIN (C 244 code L `display.c:3513–3787` / JS 34 code L in js/display.js; hops 2, callers 2, RNG 0, msg 0; declared partial: the six `impossible(...)` diagnostic reports in unreachable default arms (cite-only; async-impossible convention, zero screen effect on reac) @bdfaca7a2
+- [ ] `display.c` set_wall — coverage MISSING (C 12 code L `display.c:3187–3204` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @bdfaca7a2
+- [ ] `dogmove.c` find_targ — coverage PARTIAL (C 18 code L `dogmove.c:650–691` / JS 13 code L in js/dogmove.js; hops 3, callers 1, RNG 0, msg 0) @bdfaca7a2
+- [ ] `display.c` flush_screen — coverage PARTIAL (C 38 code L `display.c:2208–2267` / JS 24 code L in js/display.js; hops 2, callers 33, RNG 0, msg 0; declared partial: `allmain.c:94` moveloop_preamble defer arm (`game.defer_see_monsters` is never set in JS — the `restore.c:682` setter has no JS counterpart;) @bdfaca7a2
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
