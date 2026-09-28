@@ -193,7 +193,7 @@ import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
 import { LOADSYMS, SYM_CONTROL } from './generated/glyphsyms_data.js';
 import { COLORTABLE } from './generated/colortable_data.js';
 import { dupstr } from './dungeon.js';
-import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, fill_glyphid_cache, apply_customizations } from './glyphs.js';
+import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, fill_glyphid_cache, apply_customizations, reset_customsymbols } from './glyphs.js';
 import { yyyymmddhhmmss } from './calendar.js';
 import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
@@ -8443,17 +8443,22 @@ export function optfn_boolean_do_set(name, negated, initial = false) {
 /**
  * C options.c reset_needed_visuals `:8979–9014`.
  * Named omit: full `reset_glyphmap(gm_optionchange)` MAX_GLYPH table
- * (CURRENT ban); `reglyph_darkroom`; customcolors / customsymbols /
- * palette. Glyph-reset + redraw still `check_gold_symbol` + `docrt`
- * so tty attrs (MG_FEMALE / pile) recompute from live iflags.
+ * (CURRENT ban); `reglyph_darkroom`; customcolors / palette arms and
+ * their combined-`docrt` gate flags. Glyph-reset + redraw still
+ * `check_gold_symbol` + `docrt` so tty attrs (MG_FEMALE / pile)
+ * recompute from live iflags. The `opt_reset_customsymbols` arm is
+ * wired (D-3065).
  */
 async function reset_needed_visuals() {
     if (!game.go) game.go = {};
     const go = game.go;
     const needRedraw = !!go.opt_need_redraw;
-    if (needRedraw) {
-        check_gold_symbol();
-        await docrt();
+    if (go.opt_reset_customsymbols) { // C `:8995–8996`
+        reset_customsymbols();
+    }
+    if (needRedraw || go.opt_reset_customsymbols) { // C `:8985–8986` combined gate (customcolors/palette flags still named)
+        if (needRedraw) check_gold_symbol(); // C `:8997–8999` (reglyph_darkroom still named)
+        await docrt(); // C `:9001`
     }
     // C options.c:9006–9008 — after docrt may have set disp.botlx.
     if (game.flags?.botl || game.flags?.botlx
@@ -8462,6 +8467,7 @@ async function reset_needed_visuals() {
     }
     go.opt_need_redraw = false;
     go.opt_need_glyph_reset = false;
+    go.opt_reset_customsymbols = false; // C `:9012`
 }
 
 function doset_bool_term(name) {

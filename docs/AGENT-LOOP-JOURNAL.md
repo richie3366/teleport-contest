@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3065 utf8map.c free_all_glyphmap_u + reset_customsymbols (glyphmap unicode teardown pair)
+
+**C locus:** - `free_all_glyphmap_u`: nethack-c/upstream/src/utf8map.c:59–80 (whole body in C order — MAX_GLYPH loop `:64–71`, gbuf sweep `:74–79`).
+**JS:** js/glyphs.js:1003 (new export), :1024 (new export); js/options.js:196 (import), :8456–8457 (arm), :8459–8462 (gate), :8470 (clear).
+**Change:** new exported `free_all_glyphmap_u()` in js/glyphs.js in C order with per-arm `:line` cites (nulls utf8str then u per cell — C `free` ≡ null, GC collects; absent array ≡ all-NULL BSS, no ensure); new exported `reset_customsymbols()` (`:214` + apply_customizations(game.currentgraphics, DO_CUSTOM_SYMBOLS)); wired the options.c:8996 arm in js/options.js reset_needed_visuals with the combined-`docrt` gate extended per C `:8985–8986` and the `:9012` flag clear; refreshed the apply_customizations caller line.
+**Verify:** `node scripts/verify.mjs --fn free_all_glyphmap_u,reset_customsymbols` → VERIFY: PASS (syntax 2 files; rule2 clean; hidden notes — no corpus session blocked, expected for coverage rows; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK both; green 2/2; strict both; cohort 7/7; full 44/44).
+**Named:** - `free_all_glyphmap_u`: the `:74–79` gbuf `gm.u` NULL sweep — JS keeps no per-cell glyph_map copies (map_glyphinfo builds fresh records, D-1983; the only `.u` readers walk the live array), so no dangling references exist; plus the unported symbols.c:345 caller.
+**Next:** same-file mixed_to_utf8 stays absent — its `\G` arm needs decode_glyph (windows.c, ledger by-design) and its sole caller is wintty.c:4185 (unported); customcolors/palette reset_needed_visuals arms stay named there.
 ## 2026-09-28 — D-3064 objnam.c armor_simple_name xname :741 wiring + shirt_simple_name port
 
 **C locus:** - `armor_simple_name`: nethack-c/upstream/src/objnam.c:5435–5468 (whole body in C order — oc_armcat 7-arm switch `:5442–5462`, default simpleonames + impossible `:5463–5466`).

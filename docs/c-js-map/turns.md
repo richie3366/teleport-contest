@@ -2609,6 +2609,16 @@ wrapper `:580–587`). Both object banks (`GLYPH_OBJ_OFF`,
 `u`), `set_map_u` / `set_map_customcolor`, `reset_glyphmap` fill of `sym`
 / `tileidx`.
 
+**`free_all_glyphmap_u` + `reset_customsymbols` live** (D-3065; C
+`utf8map.c:59–80` + `:211–217` whole bodies in C order: MAX_GLYPH loop
+nulling `utf8str` then `u` per cell (`:64–71`, C `free` ≡ null), then
+`apply_customizations(game.currentgraphics, do_custom_symbols)` (`:215`);
+ENHANCED_SYMBOLS live); named: the `:74–79` gbuf `gm.u` NULL sweep (JS
+keeps no per-cell glyph_map copies — map_glyphinfo builds fresh records),
+C caller `clear_symsetentry` (symbols.c:345, unported); the
+`reset_needed_visuals` options.c:8996 arm is wired (customcolors/palette
+arms still named there).
+
 ### `src/questpgr.c` / tty menu
 
 JS: `js/questpgr.js`, `js/quest.js`, `js/do.js`, `js/dungeon.js` — partial

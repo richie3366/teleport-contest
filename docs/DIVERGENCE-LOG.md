@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3065 — utf8map.c free_all_glyphmap_u + reset_customsymbols (glyphmap unicode teardown pair)
+
+- **Status:** fixed (breadth-phase coverage row; `verify --fn free_all_glyphmap_u,reset_customsymbols` REACH-OK + green + strict + cohort + full 44/44)
+- **Symptom:** coverage MISSING — C `utf8map.c:59–80` free_all_glyphmap_u (12 code L) had no JS symbol; same-file `utf8map.c:211–217` reset_customsymbols (2 code L, the head's caller) likewise absent. js/glyphs.js apply_customizations carried `:215` as an unported caller and js/options.js reset_needed_visuals named the whole customsymbols arm omitted (D-1701).
+- **C locus:**
+  - `free_all_glyphmap_u`: nethack-c/upstream/src/utf8map.c:59–80 (whole body in C order — MAX_GLYPH loop `:64–71`, gbuf sweep `:74–79`).
+  - `reset_customsymbols`: nethack-c/upstream/src/utf8map.c:211–217 (whole body — `:214` + `:215` under live ENHANCED_SYMBOLS).
+- **JS was:** no `free_all_glyphmap_u` / `reset_customsymbols` symbol in js/**; the glyphmap array (game.glyphmap via ensure_glyphmap) had no teardown path and the options.c:8996 arm never fired.
+- **Fix:** new exported `free_all_glyphmap_u()` in js/glyphs.js in C order with per-arm `:line` cites (nulls utf8str then u per cell — C `free` ≡ null, GC collects; absent array ≡ all-NULL BSS, no ensure); new exported `reset_customsymbols()` (`:214` + apply_customizations(game.currentgraphics, DO_CUSTOM_SYMBOLS)); wired the options.c:8996 arm in js/options.js reset_needed_visuals with the combined-`docrt` gate extended per C `:8985–8986` and the `:9012` flag clear; refreshed the apply_customizations caller line.
+- **JS:** js/glyphs.js:1003 (new export), :1024 (new export); js/options.js:196 (import), :8456–8457 (arm), :8459–8462 (gate), :8470 (clear).
+- **Callers:**
+  - `free_all_glyphmap_u`: utf8map.c:214 → js/glyphs.js:1025 (wired this commit); symbols.c:345 clear_symsetentry — unported, named.
+  - `reset_customsymbols`: options.c:8996 → js/options.js:8457 (wired this commit).
+- **Verify:** `node scripts/verify.mjs --fn free_all_glyphmap_u,reset_customsymbols` → VERIFY: PASS (syntax 2 files; rule2 clean; hidden notes — no corpus session blocked, expected for coverage rows; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK both; green 2/2; strict both; cohort 7/7; full 44/44).
+- **Named omissions:**
+  - `free_all_glyphmap_u`: the `:74–79` gbuf `gm.u` NULL sweep — JS keeps no per-cell glyph_map copies (map_glyphinfo builds fresh records, D-1983; the only `.u` readers walk the live array), so no dangling references exist; plus the unported symbols.c:345 caller.
+  - `reset_customsymbols`: none — whole body, both callees live, sole C caller wired.
+- **Ledger:** free_all_glyphmap_u partial; reset_customsymbols ported
+- **Next:** same-file mixed_to_utf8 stays absent — its `\G` arm needs decode_glyph (windows.c, ledger by-design) and its sole caller is wintty.c:4185 (unported); customcolors/palette reset_needed_visuals arms stay named there.
+
 ## D-3064 — objnam.c armor_simple_name xname :741 wiring + shirt_simple_name port
 
 - **Status:** fixed (breadth-phase coverage row; invdisp_nothing/cmdq_add_dir/apron_text retired stale; `verify --fn armor_simple_name,shirt_simple_name` REACH-OK + green + strict + cohort + full 44/44)
