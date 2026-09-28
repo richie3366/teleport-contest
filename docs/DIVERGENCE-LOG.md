@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3060 — light.c wiz_light_sources + maybe_write_ls + obj_move_light_source (wizard light list, save-walk counter, lamp retarget)
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING `light.c` wiz_light_sources (C 31 code L `light.c:935–975` / JS no symbol; hops —, callers 0, RNG 0, msg 6) @6f36d2ab4. Cluster grown with the file's other two absent rows (same-C-file rule): maybe_write_ls (C 23 L, absent) and obj_move_light_source (C 6 L, absent). Not stale: no same-named JS symbol for any of the three; the lev_json snapshot loops predate maybe_write_ls with inline equivalents (see Named).
+- **C locus:**
+  - `wiz_light_sources`: nethack-c/upstream/src/light.c:935–975 (whole body in C order — create_nhwindow `:941`, WIN_ERR `:944–945`, hero header `:947`, blank `:949`, column heads `:952–953`, per-entry `%2d`/`0x%04x` row `:955–968` with the obj/mon/you/`<m>`/`???` nest, `<none>` `:970`, display + destroy `:972–973`, ECMD_OK `:974`).
+  - `maybe_write_ls`: nethack-c/upstream/src/light.c:571–603 (whole body in C order — null-id impossible + continue `:576–578`, LS_OBJECT/LS_MONSTER/default switch `:580–592`, `is_global ^ (range == RANGE_LEVEL)` count `:593–597`, count return `:602`).
+  - `obj_move_light_source`: nethack-c/upstream/src/light.c:706–715 (whole body in C order — retarget walk `:710–712`, lamplit move `:713–714`).
+- **JS was:** no `wiz_light_sources`, `maybe_write_ls`, or `obj_move_light_source` symbol in js/**; `#lightsources` had only the EXT_CMD_AC autocomplete name (js/getline.js:322) with no EXT_CMDS runner.
+- **Fix:** js/light.js — new `wiz_light_sources_lines()` (C-order putstr lines) plus `async wiz_light_sources()` (wiz gate rendering cmd.c:157 unavailcmd, NHW_MENU via `show_nhw_menu_text`, ECMD_OK), wired as the `#lightsources` EXT_CMDS runner (cmd.c:1756–1757 `IFBURIED|AUTOCOMPLETE|WIZMODECMD`); new `maybe_write_ls(range, write_it)` (callback writer per the maybe_write_timer precedent — C `NHFILE` has no JS layer); new `obj_move_light_source(src, dest)`. Both walkers use the light.c `:373` `mon_is_local` macro (`mx > 0`), not timeout.c mon_is_local (mkobj.js docstring; D-1708). Committed test scripts/light-sources.test.mjs (7 cases: range selection + callback order, retarget + lamplit, header/`<none>`/all five type words/flag hex).
+- **JS:**
+  - `wiz_light_sources`: js/light.js:607 (`wiz_light_sources_lines` js/light.js:571; runner js/getline.js:712).
+  - `maybe_write_ls`: js/light.js:418.
+  - `obj_move_light_source`: js/light.js:550.
+- **Callers:**
+  - `wiz_light_sources`: C cmd.c:1757 extcmd → js/getline.js:712 EXT_CMDS `lightsources` runner (dynamic import, timeout-runner precedent).
+  - `maybe_write_ls`: C save_light_sources `:434`/`:436` count/write passes → Named (JS save path predates with inline equivalents).
+  - `obj_move_light_source`: no live C caller (extern.h:1422 only) — none to wire.
+- **Verify:** `node scripts/verify.mjs --fn wiz_light_sources,maybe_write_ls,obj_move_light_source` → PASS syntax (2 changed files) · PASS rule2 · note hidden ×3 (no corpus session blocked at baseline — rows cited 0 blocks) · PASS reach ×3 (no RNG-tagged reach; fixed smoke spread 24 run each: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS. `node --test scripts/light-sources.test.mjs` → 7/7 pass.
+- **Named omissions:**
+  - `wiz_light_sources`: C `:945` WIN_ERR arm collapses (no JS window-allocation failure layer); C `:951` NULL test is `.length` (JS light_base is an array); Null LS_MONSTER id renders `<m>` (C would deref the `:373` macro — dead in practice, new_light_core only nulls LS_OBJECT flashes).
+  - `maybe_write_ls`: C callers save_light_sources `:434`/`:436` — mkobj.js save_light_sources (peel) + lev_json.js snapshotLocal/GlobalLights (serialize) predate with inline equivalents and keep their silent null-id skip (camera flashes can sit on light_base at snapshot time; C runs discard_flashes first in the same function, `:427–432`); snapshots not rewired through the ported walker.
+  - `obj_move_light_source`: none — every arm ported, 0 C callees, no C caller to wire.
+- **Ledger:** wiz_light_sources ported; maybe_write_ls ported; obj_move_light_source ported.
+- **Next:** remaining light.c partials (save_light_sources THIN, restore_light_sources/delete_ls/obj_is_burning PARTIAL) surface via the generated block when their heat rises; snapshot fns may route through maybe_write_ls once a discard-before-snapshot order is proven.
+
 ## D-3059 — pager.c docontact (support-contact text window)
 
 - **Status:** shipped.
