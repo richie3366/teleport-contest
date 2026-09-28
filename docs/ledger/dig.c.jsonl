@@ -33,7 +33,7 @@
 {"fn":"rot_corpse","c":"2146-2189","status":"unknown","d":["D-1213"],"at":"seed@a30a7de84"}
 {"fn":"bury_monst","c":"2193-2209","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bury_you","c":"2212-2227","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"unearth_you","c":"2230-2238","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"escape_tomb","c":"2241-2270","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"unearth_you","c":"2230-2238","status":"ported","js":["js/dig.js:unearth_you"],"d":["D-3058"],"at":"2026-09-28@1483a276d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"escape_tomb","c":"2241-2270","status":"ported","js":["js/dig.js:escape_tomb"],"d":["D-3058"],"at":"2026-09-28@1483a276d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bury_obj","c":"2273-2282","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_debug_cmd_bury","c":"2288-2320","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

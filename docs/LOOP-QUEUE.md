@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `sp_lev.c` create_subroom — coverage PARTIAL (C 27 code L `sp_lev.c:1668–1707` / JS 19 code L in js/mklev.js; hops —, callers 1, RNG 4, msg 0) @e96a1ef43
-- [ ] `dig.c` escape_tomb — coverage MISSING (C 23 code L `dig.c:2241–2270` / JS no symbol; hops —, callers 0, RNG 1, msg 2; dead callees: unearth_you) @e96a1ef43
 - [ ] `pager.c` docontact — coverage MISSING (C 21 code L `pager.c:2718–2745` / JS no symbol; hops —, callers 0, RNG 0, msg 9) @6f36d2ab4
 - [ ] `light.c` wiz_light_sources — coverage MISSING (C 31 code L `light.c:935–975` / JS no symbol; hops —, callers 0, RNG 0, msg 6) @6f36d2ab4
 - [ ] `trap.c` untrap_prob — coverage PARTIAL (C 32 code L `trap.c:5289–5337` / JS 22 code L in js/trap.js; hops —, callers 2, RNG 2, msg 0) @bfd58ba4c
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mondata.c` num_horns — coverage THIN (C 14 code L `mondata.c:678–695` / JS 6 code L in js/worn.js; hops 4, callers 2, RNG 0, msg 0) @886e83076
 - [ ] `date.c` free_nomakedefs — coverage MISSING (C 25 code L `date.c:134–173` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @886e83076
 - [ ] `invent.c` invdisp_nothing — coverage MISSING (C 12 code L `invent.c:5290–5305` / JS no symbol; hops 5, callers 2, RNG 0, msg 0) @cd05c0f73
+- [ ] `cmd.c` cmdq_add_dir — coverage THIN (C 13 code L `cmd.c:294–312` / JS 3 code L in js/cmd.js; hops 4, callers 2, RNG 0, msg 0) @1483a276d
+- [ ] `read.c` apron_text — coverage THIN (C 13 code L `read.c:254–281` / JS 3 code L in js/objnam.js; hops 4, callers 2, RNG 0, msg 0) @1483a276d
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

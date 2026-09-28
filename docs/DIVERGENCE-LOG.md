@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3058 — dig.c escape_tomb + unearth_you (buried-hero escape pair)
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING `dig.c` escape_tomb (C 23 code L `dig.c:2241–2270` / JS no symbol; hops —, callers 0, RNG 1, msg 2; dead callees: unearth_you) @e96a1ef43. Queue head `sp_lev.c` create_subroom popped first and brief-proven stale (every C arm live at js/mklev.js:23085, caller `splev_coder_build_room` wired; PARTIAL was the line-count heuristic) → `ledger.mjs set create_subroom ported`, next row shipped same iteration.
+- **C locus:**
+  - `unearth_you`: nethack-c/upstream/src/dig.c:2229–2238 (uburied clear `:2233`, under_ground limited update `:2234`, Strangled release unless strangulation amulet `:2235–2236`, vision_recalc `:2237`).
+  - `escape_tomb`: nethack-c/upstream/src/dig.c:2240–2270 (teleport arm `:2244–2247`, still-buried form gate `:2251–2255`, verb + surface message `:2256–2262`, dighole for tunnelers `:2264–2265`, unearth_you `:2266–2267`).
+- **JS was:** neither symbol existed in js/** (unearth_you a dead callee; escape_tomb has no C caller — queue: callers 0).
+- **Fix:** js/dig.js — new exported `async unearth_you` + `escape_tomb` in C order with per-arm `:line` cites. Props read the uprops slots + flat mirrors too (trap.js drown convention; C macros are H||E per youprop.h:227/231/286); C `data != &mons[PM_WATER_ELEMENTAL]` compares the hero form index (`data?.mndx ?? u.umonnum`) because `mons()` builds a fresh object per call (trap.js drown PM_GREMLIN arm convention); `You("%s…")` renders as template literals (file convention); `dotele` static import (`imports.mjs --can dig.js teleport.js` SAFE hoisted); `under_ground`/`Passes_walls_prop`/monster predicates ride existing edges; `STRANGLED` clears both mirrors (do_wear.js:3145 convention).
+- **JS:**
+  - `unearth_you`: js/dig.js:634 (async; `under_ground` import js/dig.js:24).
+  - `escape_tomb`: js/dig.js:659 (async; `dotele` import js/dig.js:101).
+- **Callers:**
+  - `unearth_you`: C `escape_tomb` :2267 → JS `escape_tomb` js/dig.js:689 (awaited); C `dotele` comment names no teleport.c call site (grep-clean), so JS `dotele` stays untouched.
+  - `escape_tomb`: no C caller (callers 0) — exported unwired like C.
+- **Verify:** `node scripts/verify.mjs --fn escape_tomb,unearth_you` → PASS syntax (1 changed file) · PASS rule2 · note hidden (no corpus session blocked on either at baseline — row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK, each) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS. `node --test scripts/escape-tomb.test.mjs` 8/8 (unearth mirrors ± amulet, no-op, human stays, ooze out, water-elem exclusion, passes-walls phase, failed-dotele no-fallthrough; tunneler/dighole arm needs a live level — named below).
+- **Named omissions:**
+  - `escape_tomb`: the tunneler `dighole` arm (`:2264–2265`) is ported but unpinned headless (needs a live level); `:2243` debugpline0 is D_DEBUG-only.
+  - `unearth_you`: `:2232` debugpline0 is D_DEBUG-only; none — every arm ported, every callee live.
+- **Ledger:** escape_tomb ported; unearth_you ported.
+- **Next:** head `dig.c` row leaves the block on refill; next coverage row `pager.c` docontact.
+
 ## D-3057 — zap.c wish_history_menu pick body (picker + makewish return wiring)
 
 - **Status:** shipped.

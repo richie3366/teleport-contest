@@ -37,7 +37,7 @@
 {"fn":"get_free_room_loc","c":"1385-1404","status":"unknown"}
 {"fn":"check_room","c":"1407-1479","status":"ported","js":["js/mklev.js:check_room"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"create_room","c":"1486-1661","status":"unknown"}
-{"fn":"create_subroom","c":"1668-1707","status":"unknown"}
+{"fn":"create_subroom","c":"1668-1707","status":"ported","js":["js/mklev.js:create_subroom"],"at":"2026-09-28@1483a276d","note":"stale: js/mklev.js:23085 (every C arm live; PARTIAL was line-count heuristic)"}
 {"fn":"create_door","c":"1714-1806","status":"unknown"}
 {"fn":"create_trap","c":"1812-1846","status":"unknown"}
 {"fn":"noncoalignment","c":"1852-1860","status":"unknown"}
