@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3001 — `dungeon.c` breadth cluster: free_proto_dungeon + assign_rnd_level + save/load_exclusions + rm_mapseen + mapseen_temple; Fread/indent by-design; free_exclusions/remdun_mapseen stale
+
+- **Status:** fixed (Open — coverage row `dungeon.c` free_proto_dungeon MISSING (C 10 code L `dungeon.c:1185–1201` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @0daa1a65f + 5 same-file companions; `Fread`/`indent` declared by-design — dead C (D-2992 `whatdoes_cond` precedent); `free_exclusions`/`remdun_mapseen` declared ported — bodies already complete.)
+- **Symptom:** coverage cluster — six `dungeon.c` functions with no JS symbol: the init_dungeons teardown (`free_proto_dungeon`, named omit at `js/dungeon.js:1596`), the Gehennom mystery-force jitter (`assign_rnd_level`), the per-level exclusion serde (`save_exclusions`/`load_exclusions`, named omit at `js/mklev.js:1046` — levels silently lost their teleport/mongen exclusions on every leave+return), the #wizmakemap overview discard (`rm_mapseen`, named omit at `js/wizcmds.js:581`), and the temple-priest valley/sanctum flag (`mapseen_temple`, `// deferred` at `js/priest.js:426`; live readers in `interest_mapseen`).
+- **C locus:**
+  - `free_proto_dungeon`: `nethack-c/upstream/src/dungeon.c:1184–1201` (staticfn; branch names `:1189–1191`, level names + chainlvl `:1192–1196`, dungeon names + protonames over `svn.n_dgns` `:1197–1200`; decl `:62`; sole caller `:1315` init_dungeons).
+  - `assign_rnd_level`: `dungeon.c:1985–1995` (dnum copy `:1988`, ±rnd jitter `:1989`, clamp `:1991–1994`; sole caller `do.c:1548` mystery-force arm).
+  - `save_exclusions`: `dungeon.c:2595–2614` (count `:2601–2602`, update_file gate `:2604`, Sfo records `:2605–2612`; caller `save.c:552` savelev_core).
+  - `load_exclusions`: `dungeon.c:2616–2634` (count `:2622`, alloc+read `:2624–2630`, PREPEND `:2631–2632` — restore runs reversed vs save order; caller `restore.c:1227` getlev).
+  - `rm_mapseen`: `dungeon.c:2664–2692` (find `:2670–2673`, custom `:2677–2678`, cemetery chain `:2680–2684`, unlink `:2686–2691`; sole caller `cmd.c:993`).
+  - `mapseen_temple`: `dungeon.c:3263–3278` (find `:3270`, valley `:3274–3275`, msanctum `:3276–3277`; priest UNUSED `:3268`; sole caller `priest.c:500`).
+  - `Fread`: `dungeon.c:265–279` inside `#ifndef SFCTOOL` / `#if 0`, no `#else`, zero callers (only the `:39` decl) — never compiled.
+  - `indent`: `dungeon.c:650–655` (staticfn; both callers `:689`/`:701` inside `#ifdef DDEBUG` place_level blocks; no `define DDEBUG` in upstream, recorder, or build scripts) — never compiled.
+  - `free_exclusions`: `dungeon.c:2581–2593` — complete at `js/mklev.js:2188` (drop ⇔ walk+free+NULL under GC); C caller `mklev.c:921` ∈ clear_level_structures ⇔ `js/mklev.js:2758` ✓.
+  - `remdun_mapseen`: `dungeon.c:2810–2832` — the live `#if 1` mark arm complete at `js/dungeon.js:2528` (`#else` is compiled-out old deletion code); C callers `do.c:1661` ⇔ `js/do.js:1774` ✓ and `quest.c:203` ⇔ `js/quest.js:268` (seal block, verified against C `:195–210`) ✓.
+- **JS was:** no `free_proto_dungeon` (init_dungeons named it omitted); no `assign_rnd_level`; no exclusion serde (stash slots, serLevel blobs, and delete_levelfile carried no `exclusion_zones`; getlev/dorecover/bones never restored it); no `rm_mapseen` (makemap_prepost pre-branch started at the Punished block); `intemple` ended its tended branch at `// mapseen_temple deferred`.
+- **Fix:** file-local `free_proto_dungeon(pd)` in C order (`js/dungeon.js:1539`, C staticfn; each C free() ⇔ null release, free_region precedent — including the `:1194–1195` chainlvl guard and the `svn.n_dgns` third-loop bound ⇔ `game.n_dgns`), wired at `js/dungeon.js:1640`. Exported `assign_rnd_level` (`:1045`, same-file `dunlevs_in_dungeon`, `rnd` on the existing rng edge). Exported `save_exclusions` (`:2589`: count ⇔ length, update_file gate ⇔ WRITING-only callers) + `load_exclusions` (`:2612`: faithful prepend loop — restored list reverses save order like C). Stash write (`js/do.js:1738`) + release detach (`game.exclusion_zones = null`, the mklev path frees via `mklev.c:921` but the stash path runs no clear_level_structures) + getlev install after rest_bubbles (`:1897`); serLevel/deserLevel/payload keys (`js/lev_json.js:708,750,818,871`, `save_exclusions` on the existing dungeon edge); dorecover install (`js/save.js:937`); bones ghostly install (`js/bones.js:700`, new bones→dungeon edge — `imports.mjs --can` SAFE, same 98-module SCC, hoisted fn, no top-level TDZ read); `delete_levelfile` null (`js/files.js:515`). Exported `rm_mapseen` (`:2638`: raw `ledger_start + dlevel` match like C, splice ⇔ unlink) wired at the makemap_prepost pre-top (`js/wizcmds.js:592`, dynamic import — file idiom). Exported `mapseen_temple` (`:2665`) wired in intemple (`js/priest.js:429`, dynamic import — file idiom). Omit docs retired (`js/mklev.js:1045`, `js/wizcmds.js:581`).
+- **JS:** `js/dungeon.js` (+140/−3: 6 ports + rnd import + init_dungeons wire); `js/do.js` (+12: import, stash, detach, install); `js/lev_json.js` (+11/−1: import, ser/deser/payload); `js/save.js` (+4); `js/bones.js` (+5); `js/wizcmds.js` (+5/−1); `js/priest.js` (+4/−1); `js/mklev.js` (+2/−2 doc); `js/files.js` (+1); `scripts/dungeon-breadth.test.mjs` (new, 6 its). Total +184/−9, 9 files.
+- **Callers:**
+  - `free_proto_dungeon`: C `dungeon.c:1315` → `js/dungeon.js:1640` ✓ (sole site).
+  - `assign_rnd_level`: C `do.c:1548` unwired — sits in the Gehennom mystery-force arm, a pre-existing named omit (`js/do.js:1609`; full arm needs `mysteryforce` state + `safe_teleds`/`next_to_u` wiring — a `do.c` behavior change outside this `dungeon.c` cluster) — NAMED, not wired.
+  - `save_exclusions`: C `save.c:552` savelev_core → `js/do.js:1738` (level-switch stash) + `js/lev_json.js:708` serLevel (covers dosave0 `save.js:248,558` + bones save `bones.js:455`) ✓.
+  - `load_exclusions`: C `restore.c:1227` getlev → `js/do.js:1897` (stash) + `js/save.js:937` (dorecover) + `js/bones.js:700` (ghostly) ✓, all after rest_bubbles / before rest_track like C.
+  - `rm_mapseen`: C `cmd.c:993` → `js/wizcmds.js:592` ✓ (sole site; neighbors `makemap_remove_mons` + prize arms stay named omits).
+  - `mapseen_temple`: C `priest.c:500` → `js/priest.js:429` ✓ (sole site).
+  - `Fread` / `indent`: no live C call sites (dead code) — nothing to wire.
+  - `free_exclusions` / `remdun_mapseen`: pre-existing wiring verified above (no new sites).
+  - No call from a site C never calls from.
+- **Verify:** focused `node --test scripts/dungeon-breadth.test.mjs` 5/6 first run (bare-harness RNG unseeded — harness, not product) → 6/6 after `initRng(7)` (jitter bounds + clamp arms, save shape + count, prepend-reversal, snapshot-survives-detach, unlink + custom/cemetery release + miss/head arms, valley/msanctum + silent-miss). `node scripts/verify.mjs --fn free_proto_dungeon,assign_rnd_level,save_exclusions,load_exclusions,rm_mapseen,mapseen_temple,Fread,indent,free_exclusions,remdun_mapseen` → VERIFY: PASS — syntax (9 changed); rule2; hidden note ×10 (no corpus session blocked — coverage cluster); reach smoke 24/24 REACH-OK ×10; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared files changed).
+- **Named omissions:**
+  - `free_proto_dungeon`: none — every free ported, sole caller wired.
+  - `assign_rnd_level`: the `do.c:1548` caller (Gehennom mystery-force arm — pre-existing `js/do.js:1609` omit; body whole, both callees live).
+  - `save_exclusions` / `load_exclusions`: none — every record field ported in C order, all three getlev counterparts + both savelev counterparts wired.
+  - `rm_mapseen`: none — find/release/unlink whole, sole caller wired.
+  - `mapseen_temple`: none — all three arms ported, sole caller wired.
+  - `Fread` / `indent`: entire bodies — dead C (`#if 0` / DDEBUG-only, never compiled), by-design, no JS.
+  - `free_exclusions` / `remdun_mapseen`: none — stale-complete under current names (verified bodies + callers above).
+- **Ledger:** free_proto_dungeon ported; assign_rnd_level ported; save_exclusions ported; load_exclusions ported; rm_mapseen ported; mapseen_temple ported; Fread by-design; indent by-design; free_exclusions ported; remdun_mapseen ported
+- **Next:** pop the next Open — coverage row (breadth queue continues; the `do.c` mystery-force arm stays a named omit for its own row when the picker reaches it).
+
 ## D-3000 — Must-fix `mcalcmove` block: `mon_explodes` inline kill skipped the purge count (spurious `--More--`); gallop arm ported
 
 - **Status:** fixed (Must-fix `mon.c` `mcalcmove` — blocks 1/953 corpus sessions, PASS→FAIL since `309d58ccc`: `tour-Ranger-70021-d5-8-15-17-22` @44. Now PASS: RNG 21932/21932, screens 50/50.)

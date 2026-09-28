@@ -1042,8 +1042,8 @@ export function l_levregion(opts) {
  *                 "monster-generation", region = { x1,y1,x2,y2 } }).
  * Default type "teleport". get_location(ANY_LOC|NO_LOC_WARN) so packed
  * coords become absolute (map origin, or croom lx/ly). Prepend onto
- * sve.exclusion_zones. Named omit: hellfill rnd_hell_prefab maps;
- * save_exclusions / load_exclusions.
+ * sve.exclusion_zones (persisted via save_exclusions / load_exclusions).
+ * Named omit: hellfill rnd_hell_prefab maps.
  */
 const EZ_TYPES = {
     teleport: LR_TELE,
