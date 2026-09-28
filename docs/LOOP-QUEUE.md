@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mkmaze.c` fix_wall_spines — coverage PARTIAL (C 37 code L `mkmaze.c:229–287` / JS 25 code L in js/mklev.js; hops 3, callers 4, RNG 0, msg 0) @72bf1dec2
 - [ ] `stairs.c` stairway_add — coverage PARTIAL (C 10 code L `stairs.c:8–24` / JS 6 code L in js/mklev.js; hops 2, callers 5, RNG 0, msg 0) @1fdd56bcc
 - [ ] `display.c` t_warn — coverage THIN (C 38 code L `display.c:3453–3498` / JS 14 code L in js/display.js; hops 3, callers 1, RNG 0, msg 0) @1fdd56bcc
 - [ ] `botl.c` stat_update_time — coverage MISSING (C 9 code L `botl.c:1285–1299` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @2972f3ad5
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `options.c` set_option_mod_status — coverage MISSING (C 8 code L `options.c:9855–9869` / JS no symbol; hops 6, callers 4, RNG 0, msg 0) @1b942d6a1
 - [ ] `botl.c` status_finish — coverage MISSING (C 19 code L `botl.c:1723–1756` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @1b942d6a1
 - [ ] `do.c` drop — coverage PARTIAL (C 46 code L `do.c:714–780` / JS 32 code L in js/do.js; hops —, callers 3, RNG 0, msg 3) @1b942d6a1
+- [ ] `muse.c` necrophiliac — coverage MISSING (C 8 code L `muse.c:2691–2702` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @5469ed258
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

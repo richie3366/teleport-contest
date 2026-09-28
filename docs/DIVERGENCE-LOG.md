@@ -1,5 +1,62 @@
 # Divergence log
 
+## D-3034 — `mkmaze.c` wall-spine closure: fix_wall_spines panic arm + C-name helpers
+
+- **Status:** shipped. Head `fix_wall_spines` (PARTIAL) restarted whole in C order — the only missing arm was the `:252–253` bounds panic. `iswall`/`iswall_or_stone` bodies were already exact under `isWallTile`/`isWallOrStone` (renamed to C names, file-local like the C staticfns); `okay` split under `maze_okay`; `check_ransacked` split inline in `makemaz`.
+- **Symptom:** coverage gap, not a corpus divergence (nothing blocked on any of the five at baseline).
+- **C locus:**
+  - `fix_wall_spines`: `mkmaze.c:229–287` whole in C order — `:243–246` spine table, `:252–253` bounds panic (new), `:256–261` wall/!DBWALL gate, `:264–268` loc_f pick, `:269–276` locale, `:278–281` NSEW bits via iswall, `:284–285` free-standing keep.
+  - `iswall`: `mkmaze.c:45–55` whole — isok guard `:49–50`, six-type join test `:52–54`.
+  - `iswall_or_stone`: `mkmaze.c:59–66` whole — out-of-bounds-is-stone `:62–63`, STONE-or-iswall `:65`.
+  - `okay` (stale-split): `mkmaze.c:297–305` whole as `maze_okay` (`js/mklev.js:20642`) — double step `:299–300`, `:301–303` bounds+STONE gate.
+  - `check_ransacked` (stale-split): `mkmaze.c:707–711` whole inside `makemaz` (`js/mklev.js:2919`) — pre-extension protofile compare, same order as C `:1185` before `:1186` Strcat.
+- **JS was:** `fix_wall_spines` (`js/mklev.js:32449`) matched C arm-for-arm except the bounds panic; helpers carried JS-style names (`isWallTile`, `isWallOrStone`); a stray `mkmaze.c okay` doc line sat above `maze_x_max` (`:20335`) while the real body lived unnamed as `maze_okay`.
+- **Fix:**
+  - `fix_wall_spines`: restarted export (`js/mklev.js:32463`) with per-arm `:line` cites; panic → `throw new Error('wall_extends: ...')` (NORETURN→throw matches trap.js deltrap idiom; keeps C's `wall_extends` message text); `if (!map) return` kept and marked JS-only (C levl always exists); panic check first in C order.
+  - `iswall` (`js/mklev.js:32418`), `iswall_or_stone` (`js/mklev.js:32412`): pure renames, bodies untouched; `extend_spine` local (ledger-ported D-3014) gained a `:166–194` cite, untouched otherwise.
+  - `maze_okay` gained the `okay :297–305` split doc (`:20637–20641`); stray doc above `maze_x_max` replaced with the live-globals description.
+- **JS:**
+  - `fix_wall_spines`: `js/mklev.js:32463` (export, same signature).
+  - `iswall`: `js/mklev.js:32418` (file-local, C staticfn linkage).
+  - `iswall_or_stone`: `js/mklev.js:32412` (file-local).
+  - `okay`: split `js/mklev.js:maze_okay` (`:20642`).
+  - `check_ransacked`: split `js/mklev.js:makemaz` (inline at `:2919`).
+- **Callers:**
+  - `fix_wall_spines`: `mkmaze.c:293` (wallification) → `js/mklev.js:32501`; `objnam.c:3833` (wizterrainwish) → `js/readobjnam.js:720` (args verified C-exact incl. `min(COLNO,…)`); `sp_lev.c:915` (flip_level) → `js/mklev.js:19341`; `zap.c:5271` (zap_over_floor) → `js/zap.js:1156`.
+  - `iswall`: `mkmaze.c:65` (iswall_or_stone) → `js/mklev.js:32415`; `mkmaze.c:278–281` (fix_wall_spines bits) → `js/mklev.js:32492–32495`.
+  - `iswall_or_stone`: sole C caller is the `loc_f` pick (`:264–268`) → `js/mklev.js:32480–32483`.
+  - `okay`: `mkmaze.c:1259` + `:1300` (both walkfrom direction loops) → `js/mklev.js:20672`.
+  - `check_ransacked`: `mkmaze.c:1185` (makemaz, sole caller) → `js/mklev.js:2919`.
+- **Verify:** `node scripts/verify.mjs --fn fix_wall_spines,iswall,iswall_or_stone,okay,check_ransacked` tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mklev.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify fix_wall_spines: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    fix_wall_spines: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify iswall: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    iswall: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify iswall_or_stone: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    iswall_or_stone: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify okay: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    okay: no RNG-tagged reach; fixed smoke spread (24 run, 7.2s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify check_ransacked: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    check_ransacked: no RNG-tagged reach; fixed smoke spread (24 run, 7.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+VERIFY: PASS
+```
+- **Named omissions:** none — every arm ported, every callee live, every C caller wired. (`extend_spine` pre-existing ledger-ported D-3014, untouched.)
+- **Ledger:** fix_wall_spines ported; iswall ported; iswall_or_stone ported; okay split js=js/mklev.js:maze_okay; check_ransacked split js=js/mklev.js:makemaz
+- **Next:** `mkmaze.c` holds no more Open (absent 4 resolved, PARTIAL head ported); queue head moves on.
+
 ## D-3033 — `muse.c` fhito_loc whole + six stale coverage pops
 
 - **Status:** shipped. Head `gamelog_add` + five more proved stale (four complete same-name with live callers wired; `init_isaac64` split under `initRng`). Real port: `muse.c` fhito_loc (MISSING) — the `mbhit :1772` deferred arm — new staticfn in `js/muse.js` + wired into `mbhit`.

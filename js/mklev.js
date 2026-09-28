@@ -20332,7 +20332,7 @@ function lvlfill_maze_grid(x1, y1, x2, y2, filling) {
     }
 }
 
-/** C ref: mkmaze.c okay — two mz_move steps land on STONE inside maze bounds. */
+/** Live gx.x_maze_max/gy.y_maze_max (see mazexy note); X_MAZE_MAX/Y_MAZE_MAX defaults. */
 function maze_x_max() {
     return game.x_maze_max != null ? (game.x_maze_max | 0) : X_MAZE_MAX;
 }
@@ -20634,6 +20634,11 @@ function mkinvk_check_wall(x, y) {
     return (IS_STWALL(ltyp) || ltyp === IRONBARS) ? 1 : 0;
 }
 
+/**
+ * C ref: mkmaze.c okay `:297-305` (split name) — two mz_move steps must land
+ * on STONE inside maze bounds; both C callers (`:1259`, `:1300`) sit in
+ * walkfrom's direction loop, wired here via maze_okay (`:20672` below).
+ */
 function maze_okay(x, y, dir) {
     let xx = x, yy = y;
     const step = (d) => {
@@ -32403,17 +32408,20 @@ function place_branch(branchp, x = 0, y = 0) {
 export function is_solid(x, y) {
     return !isok(x | 0, y | 0) || IS_STWALL(game.level?.at(x | 0, y | 0)?.typ ?? STONE);
 }
-function isWallOrStone(x, y) {
+/* C ref: mkmaze.c iswall_or_stone `:59-66` — out of bounds counts as stone. */
+function iswall_or_stone(x, y) {
     if (!isok(x, y)) return 1;
     const typ = game.level?.at(x, y)?.typ ?? STONE;
-    return (typ === STONE || isWallTile(x, y)) ? 1 : 0;
+    return (typ === STONE || iswall(x, y)) ? 1 : 0;
 }
-function isWallTile(x, y) {
+/* C ref: mkmaze.c iswall `:45-55` — wall/door/lavawall/water/sdoor/bars join spines. */
+function iswall(x, y) {
     if (!isok(x, y)) return 0;
     const typ = game.level?.at(x, y)?.typ ?? STONE;
     return (IS_WALL(typ) || IS_DOOR(typ) || typ === LAVAWALL
         || typ === WATER || typ === SDOOR || typ === IRONBARS) ? 1 : 0;
 }
+/* C ref: mkmaze.c extend_spine `:166-194` — spine unless flanked both sides. */
 function extend_spine(locale, wall_there, dx, dy) {
     const nx = 1 + dx, ny = 1 + dy;
     if (!wall_there) return 0;
@@ -32445,36 +32453,47 @@ function wall_cleanup(x1, y1, x2, y2) {
                 loc.typ = STONE;
         }
 }
-/** C ref: mkmaze.c fix_wall_spines — join wall glyphs after typ change. */
+/**
+ * C ref: mkmaze.c fix_wall_spines `:229-287` — set wall joins after typ change.
+ * `:252-253` bounds panic (NORETURN in C → throw, trap.js deltrap idiom);
+ * `:264-268` loc_f is iswall inside the baalz inarea else iswall_or_stone;
+ * `:278-281` spine bits always probe iswall; `:284-285` free-standing
+ * (bits 0) keeps its typ — spine_array[0] VWALL is never written.
+ */
 export function fix_wall_spines(x1, y1, x2, y2) {
-    const spineArray = [VWALL, HWALL, HWALL, HWALL,
+    const spineArray = [VWALL, HWALL, HWALL, HWALL, // C :243-246
         VWALL, TRCORNER, TLCORNER, TDWALL,
         VWALL, BRCORNER, BLCORNER, TUWALL,
         VWALL, TLWALL, TRWALL, CROSSWALL];
+    // C :252-253 — sanity check on incoming variables (panic is NORETURN).
+    if (x1 < 0 || x2 >= COLNO || x1 > x2 || y1 < 0 || y2 >= ROWNO || y1 > y2)
+        throw new Error(`wall_extends: bad bounds (${x1},${y1}) to (${x2},${y2})`);
     const map = game.level;
-    if (!map) return;
+    if (!map) return; // JS-only: C levl always exists; nothing to join yet.
     const bh = bughack_state();
-    for (let x = x1; x <= x2; x++)
-        for (let y = y1; y <= y2; y++) {
-            const loc = map.at(x, y);
-            const typ = loc?.typ ?? STONE;
-            if (!(IS_WALL(typ) && typ !== DBWALL)) continue;
-            // C: inside baalz inarea use iswall (not iswall_or_stone)
-            const inBug = within_bounded_area(
+    for (let x = x1; x <= x2; x++) // C :256
+        for (let y = y1; y <= y2; y++) { // C :257
+            const loc = map.at(x, y); // C :258 lev = &levl[x][y]
+            const typ = loc?.typ ?? STONE; // C :259
+            if (!(IS_WALL(typ) && typ !== DBWALL)) continue; // C :260-261
+            // C :264-268 — rock-or-wall test around (x,y).
+            const locFn = within_bounded_area(
                 x, y,
                 bh.inarea.x1, bh.inarea.y1, bh.inarea.x2, bh.inarea.y2,
-            );
-            const locFn = inBug ? isWallTile : isWallOrStone;
+            ) ? iswall : iswall_or_stone;
+            // C :269-276 — locale[col][row]: [0]=(x-1) col, [1]=x col,
+            // [2]=(x+1) col; center [1][1] never read (extend_spine skips it).
             const locale = [
-                [locFn(x-1,y-1), locFn(x-1,y), locFn(x-1,y+1)],
-                [locFn(x,y-1), 0, locFn(x,y+1)],
-                [locFn(x+1,y-1), locFn(x+1,y), locFn(x+1,y+1)],
+                [locFn(x - 1, y - 1), locFn(x - 1, y), locFn(x - 1, y + 1)],
+                [locFn(x, y - 1), 0, locFn(x, y + 1)],
+                [locFn(x + 1, y - 1), locFn(x + 1, y), locFn(x + 1, y + 1)],
             ];
-            const bits = (extend_spine(locale, isWallTile(x,y-1), 0, -1) << 3)
-                | (extend_spine(locale, isWallTile(x,y+1), 0, 1) << 2)
-                | (extend_spine(locale, isWallTile(x+1,y), 1, 0) << 1)
-                | extend_spine(locale, isWallTile(x-1,y), -1, 0);
-            if (bits) loc.typ = spineArray[bits];
+            // C :278-281 — NSEW extension bits, always via iswall.
+            const bits = (extend_spine(locale, iswall(x, y - 1), 0, -1) << 3)
+                | (extend_spine(locale, iswall(x, y + 1), 0, 1) << 2)
+                | (extend_spine(locale, iswall(x + 1, y), 1, 0) << 1)
+                | extend_spine(locale, iswall(x - 1, y), -1, 0);
+            if (bits) loc.typ = spineArray[bits]; // C :284-285
         }
 }
 function wallification(x1, y1, x2, y2) {

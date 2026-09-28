@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3034 `mkmaze.c` wall-spine closure: fix_wall_spines panic arm + C-name helpers
+
+**C locus:** - `fix_wall_spines`: `mkmaze.c:229–287` whole in C order — `:243–246` spine table, `:252–253` bounds panic (new), `:256–261` wall/!DBWALL gate, `:264–268` loc_f pick, `:269–276` locale, `:278–281` NSEW bits via iswall, `:284–285` free-standing keep.
+**JS:** - `fix_wall_spines`: `js/mklev.js:32463` (export, same signature).
+**Change:** - `fix_wall_spines`: restarted export (`js/mklev.js:32463`) with per-arm `:line` cites; panic → `throw new Error('wall_extends: ...')` (NORETURN→throw matches trap.js deltrap idiom; keeps C's `wall_extends` message text); `if (!map) return` kept and marked JS-only (C levl always exists); panic check first in C order.
+**Verify:** `node scripts/verify.mjs --fn fix_wall_spines,iswall,iswall_or_stone,okay,check_ransacked` tail pasted verbatim:
+**Named:** none — every arm ported, every callee live, every C caller wired. (`extend_spine` pre-existing ledger-ported D-3014, untouched.)
+**Next:** `mkmaze.c` holds no more Open (absent 4 resolved, PARTIAL head ported); queue head moves on.
 ## 2026-09-28 — D-3033 `muse.c` fhito_loc whole + six stale coverage pops
 
 **C locus:** - `fhito_loc`: `nethack-c/upstream/src/muse.c:1706–1726` whole in C order — `:1715–1716` `!fhito || !OBJ_AT` → FALSE, `:1718–1719` pile walk with `next_obj` saved first (fhito may unchain otmp), `:1721–1722` `where != OBJ_FLOOR || ox/oy` mismatch skip, `:1723` `hitanything += (*fhito)(otmp, obj)`, `:1725` boolean return.
