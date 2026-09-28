@@ -72,7 +72,7 @@
 {"fn":"parse_config_line","c":"1389-1439","status":"unknown"}
 {"fn":"can_read_file","c":"1443-1446","status":"unknown"}
 {"fn":"config_error_init","c":"1470-1490","status":"unknown"}
-{"fn":"config_error_nextline","c":"1493-1512","status":"unknown"}
+{"fn":"config_error_nextline","c":"1493-1512","status":"ported","js":["js/cfgfiles.js:config_error_nextline"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/cfgfiles.js:237, body complete + caller wired :781"}
 {"fn":"l_get_config_errors","c":"1516-1539","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"config_erradd","c":"1544-1589","status":"unknown"}
 {"fn":"config_error_done","c":"1592-1621","status":"unknown"}

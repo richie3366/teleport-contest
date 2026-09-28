@@ -6,15 +6,15 @@
 {"fn":"dog_hunger","c":"362-394","status":"unknown"}
 {"fn":"dog_invent","c":"400-478","status":"unknown","d":["D-2417"],"at":"seed@a30a7de84"}
 {"fn":"dog_goal","c":"483-647","status":"unknown","d":["D-2149","D-2141"],"at":"seed@a30a7de84"}
-{"fn":"find_targ","c":"650-691","status":"unknown"}
-{"fn":"find_friends","c":"694-735","status":"unknown","d":["D-2677"],"at":"seed@a30a7de84"}
-{"fn":"score_targ","c":"738-835","status":"unknown"}
-{"fn":"best_target","c":"838-885","status":"unknown"}
+{"fn":"find_targ","c":"650-691","status":"ported","js":["js/dogmove.js:find_targ"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/dogmove.js:1062, whole C body + caller :1219 wired"}
+{"fn":"find_friends","c":"694-735","status":"ported","js":["js/dogmove.js:find_friends"],"d":["D-3014","D-2677"],"at":"2026-09-28@8b6526ecd","note":"stale: js/dogmove.js:1086, whole C body + caller score_targ :1171 wired"}
+{"fn":"score_targ","c":"738-835","status":"ported","js":["js/dogmove.js:score_targ"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/dogmove.js:1136, whole C :737-835 incl rn2/rnd order + callers wired"}
+{"fn":"best_target","c":"838-885","status":"ported","js":["js/dogmove.js:best_target"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/dogmove.js:1212, whole C body + callers :1247,:1444 wired"}
 {"fn":"pet_ranged_attk","c":"889-967","status":"ported","js":["js/dogmove.js:pet_ranged_attk"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"dog_move","c":"977-1358","status":"partial","js":["js/dogmove.js:dog_move"],"omit":"remove/place_monster keep direct mx/my set (pre-existing shape — `m_at` scans fmon, grid tolerates mx/my-only moves); `dog_goal`/`dog_invent` local clones stay (own rows; D-2149 dog_goal open); `mhis` stays inline her/his; `stuff_prevents_passage` inside displace path stays deferred (can_fog map no…","d":["D-2455","D-2119"],"at":"seed@a30a7de84"}
-{"fn":"could_reach_item","c":"1362-1369","status":"unknown"}
-{"fn":"can_reach_location","c":"1379-1414","status":"unknown"}
+{"fn":"could_reach_item","c":"1362-1369","status":"ported","js":["js/dogmove.js:could_reach_item"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd"}
+{"fn":"can_reach_location","c":"1379-1414","status":"ported","js":["js/dogmove.js:can_reach_location"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd"}
 {"fn":"wantdoor","c":"1418-1427","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"finish_meating","c":"1448-1457","status":"unknown"}
+{"fn":"finish_meating","c":"1448-1457","status":"ported","js":["js/dogmove.js:finish_meating"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd"}
 {"fn":"mnum_leashable","c":"1462-1469","status":"unknown","d":["D-1959"],"at":"seed@a30a7de84"}
 {"fn":"quickmimic","c":"1472-1541","status":"partial","js":["js/dogmove.js:quickmimic"],"omit":"`m_consume_obj` tail stays stub (meatbox, uball/uchain unpunish, poly/slime newcham, grow_up, stoning, heal/eyes, pyrolisk egg, mon_givit).","d":["D-2488"],"at":"seed@a30a7de84"}

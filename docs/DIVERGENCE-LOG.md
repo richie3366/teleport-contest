@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-3014 — `dogmove.c` pet-AI closure: can_reach_location wall/dig arms + could_reach_item exact-C export (monmove clone removed) + finish_meating mimic reset; targeting quad retired stale
+
+- **Status:** shipped (Open — coverage head `mkmaze.c` extend_spine THIN + `cfgfiles.c` config_error_nextline PARTIAL retired stale at pop time — bodies whole with every C caller wired — then `dogmove.c` can_reach_location PARTIAL as the real head; same-file `dogmove.c` could_reach_item + finish_meating ported whole; `dogmove.c` find_targ/find_friends/score_targ/best_target retired stale — bodies whole with callers wired. No corpus session blocked on any of the seven.)
+- **Symptom:** coverage gap, not a corpus divergence. `can_reach_location` (`js/dogmove.js:373`) carried `/* passes_walls / dig stub: pets can't */` where C `:1399–1402` lets wall-walkers through and diggers tunnel (except rogue level) — every ghost/xorn pet pathed as if solid rock blocked it. `could_reach_item` used an `objects_at` loop + `BOULDER >= 0` guard instead of exact-C `sobj_at`, and lived as two clones (`js/dogmove.js:356`, `js/monmove.js:455`; C home is `dogmove.c`, extern.h). `finish_meating` (`js/dogmove.js:1663`) cleared `meating` but dropped the `:1451–1455` mimic-disguise reset arm.
+- **C locus:**
+  - `can_reach_location`: `nethack-c/upstream/src/dogmove.c:1379–1414` (this iteration ports the `:1399–1402` IS_OBSTRUCTED arm whole; same/equal/isok/dist/door/reach/recursion arms were already whole).
+  - `could_reach_item`: `nethack-c/upstream/src/dogmove.c:1361–1369` whole — pool/lava/boulder gates in C order.
+  - `finish_meating`: `nethack-c/upstream/src/dogmove.c:1448–1457` whole (this iteration adds `:1451–1455`; `:1450` was already whole).
+  - `find_targ`: `nethack-c/upstream/src/dogmove.c:649–691` — stale, body whole as `js/dogmove.js:1062` (isok/m_cansee/youmonst/m_at+perceives/head-square, all in C order).
+  - `find_friends`: `nethack-c/upstream/src/dogmove.c:693–735` — stale, body whole as `js/dogmove.js:1086` (sgn ray, distmin start, isok/m_cansee/mux-muy/m_at arms + _youmonst→game.u read).
+  - `score_targ`: `nethack-c/upstream/src/dogmove.c:737–835` — stale, body whole as `js/dogmove.js:1136` (confusion gate first with rn2(3) before fuzz, all nine scoring arms, vampshifter rn2, rnd(5) fuzz, confused tail — verified line by line against `:805–835`).
+  - `best_target`: `nethack-c/upstream/src/dogmove.c:837–885` — stale, body whole as `js/dogmove.js:1212` (null/blind guards, 8-ray scan, forced/negative filter).
+- **JS was:** obstructed-neighbor `continue` with no passes_walls/may_dig/tunnels/rogue read; boulder arm as a hand loop; `finish_meating` ending after `meating = 0` with the reset "deferred".
+- **Fix:** `can_reach_location` obstructed arm restarted exact-C — `IS_OBSTRUCTED(typ) && !passes_walls(ptr) && (!may_dig(i,j) || !tunnels(ptr) || Is_rogue_level(game.u?.uz))`, preserving C precedence (`|| Is_rogue_level` INSIDE the dig paren `:1400–1402`: rock blocks unless wall-walk or (diggable + tunneller + non-rogue)). `could_reach_item` restarted exact-C with live `sobj_at` and exported from `js/dogmove.js`; `js/monmove.js:455` clone deleted, both monmove call sites ride the existing dogmove import (no new edge). `finish_meating` gains the exact-C `M_AP_TYPE !== M_AP_NOTHING && mlet !== 'S_MIMIC'` reset (`m_ap_type`, `mappearance`, `newsym`; const.js live macro, `'S_MIMIC'` string per apply.js:4377). New imports: `sobj_at` (mkobj, ALREADY edge), `M_AP_NOTHING`+`Is_rogue_level` (const, same edge), `passes_walls` (monsters, same edge), `may_dig` (dig.js, new edge — `imports.mjs --can` SAFE, hoisted fn + runtime use; reverse edge dig→dogmove pre-exists).
+- **JS:** `js/dogmove.js` (imports + 3 functions) and `js/monmove.js` (import line + 16-line clone deletion).
+- **Callers:**
+  - `can_reach_location`: `dogmove.c:541` → `js/dogmove.js:693–694` (`dog_goal`, unchanged) + self-recursion `:1409` → `:398`.
+  - `could_reach_item`: `dogmove.c:440,445` → `js/dogmove.js:1021,1026` (`dog_invent`); `:540` → `:693`; `:1215` → `:1508`; `:1407` → `:387`; `mon.c:1861` (mpickstuff) → `js/monmove.js:462`; `monmove.c:1376` → `js/monmove.js:541` (both now via the dogmove export).
+  - `finish_meating`: already-exported, sites unchanged and now more faithful — `dog.c:680,806,1297` → `js/dog.js:466,1317` (+`:1364` inline subset, pre-existing); `dokick.c:316` → `js/dokick.js:1144`; `mon.c:4349` → `js/mon.js:1649`; `monmove.c:317` → `js/monmove.js:2017`; `steed` → `js/steed.js:485`. Still on pre-existing named deferrals (not this cluster): `mhitm.c:215,1235` → `js/mhitm.js:2168` cycle note; `mon.c:4459` → `js/mon.js:1225`; trap inline `:4377`.
+  - `find_targ`: `dogmove.c:864` → `js/dogmove.js:1219`, unchanged.
+  - `find_friends`: `dogmove.c:787` → `js/dogmove.js:1171` (inside score_targ), unchanged.
+  - `score_targ`: `dogmove.c:871` → `js/dogmove.js:1221` (inside best_target), unchanged.
+  - `best_target`: `dogmove.c:904` → `js/dogmove.js:1247` (pet_ranged_attk); `:1138` → `:1444`; unchanged.
+- **Verify:**
+  - `can_reach_location`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - `could_reach_item`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - `finish_meating`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+  - `find_targ`/`find_friends`/`best_target`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK each.
+  - `score_targ`: hidden note (0 blocked) · 174 baseline-PASS sessions reach it, 80-run spread 80 PASS → REACH-OK.
+  - Final `node scripts/verify.mjs --fn can_reach_location,could_reach_item,finish_meating,find_targ,find_friends,score_targ,best_target` → VERIFY: PASS (syntax 2 files; rule2 clean; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+- **Named omissions:**
+  - `can_reach_location`: none — every arm ported, every callee live, both C callers wired.
+  - `could_reach_item`: none — exact-C body, single exported home, all 7 C call sites wired.
+  - `finish_meating`: the three pre-existing deferred sites above (mhitm cycle note, mon.js:1225, trap inline) stay with their owners.
+  - `find_targ`/`find_friends`/`score_targ`/`best_target`: none — stale-verified whole (note: `distmin`/`isok` ride `js/mon.js` + the file-local `isok` clone respectively — pre-existing homes, behavior-identical, not this cluster).
+- **Ledger:** can_reach_location ported; could_reach_item ported; finish_meating ported; find_targ ported; find_friends ported; score_targ ported; best_target ported; extend_spine ported; config_error_nextline ported.
+- **Next:** queue head after this cluster's pops (coverage block regenerates on finish).
+
 ## D-3013 — `display.c` show_glyph guard/diagnostic arms ported into show_glyph_cell + wall_angle + flush_screen retired stale
 
 - **Status:** shipped (Open — coverage head `display.c` show_glyph MISSING (C 147 `display.c:1877–2072` / JS no symbol; split? cited 33×) + same-file `display.c` wall_angle THIN + `display.c` flush_screen PARTIAL; the latter two retire stale — bodies whole under same/split names with every C caller wired. No other `display.c` row stays Open.)

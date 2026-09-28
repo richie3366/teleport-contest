@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3014 `dogmove.c` pet-AI closure: can_reach_location wall/dig arms + could_reach_item exact-C export (monmove clone removed) + finish_meating mimic reset; targeting quad retired stale
+
+**C locus:** - `can_reach_location`: `nethack-c/upstream/src/dogmove.c:1379–1414` (this iteration ports the `:1399–1402` IS_OBSTRUCTED arm whole; same/equal/isok/dist/door/reach/recursion arms were already whole).
+**JS:** `js/dogmove.js` (imports + 3 functions) and `js/monmove.js` (import line + 16-line clone deletion).
+**Change:** `can_reach_location` obstructed arm restarted exact-C — `IS_OBSTRUCTED(typ) && !passes_walls(ptr) && (!may_dig(i,j) || !tunnels(ptr) || Is_rogue_level(game.u?.uz))`, preserving C precedence (`|| Is_rogue_level` INSIDE the dig paren `:1400–1402`: rock blocks unless wall-walk or (diggable + tunneller + non-rogue)). `could_reach_item` restarted exact-C with live `sobj_at` and exported from `js/dogmove.js`; `js/monmove.js:455` clone deleted, both monmove call sites ride the existing dogmove import (no new edge). `finish_meating` gains the exact-C `M_AP_TYPE !== M_AP_NOTHING && mlet !== 'S_MIMIC'` reset (`m_ap_type`, `mappearance`, `newsym`; const.js live macro, `'S_MIMIC'` string per apply.js:4377).
+**Verify:** - `can_reach_location`: hidden note (0 blocked) · smoke 24/24 PASS → REACH-OK.
+**Named:** - `can_reach_location`: none — every arm ported, every callee live, both C callers wired.
+**Next:** queue head after this cluster's pops (coverage block regenerates on finish).
 ## 2026-09-28 — D-3013 `display.c` show_glyph guard/diagnostic arms ported into show_glyph_cell + wall_angle + flush_screen retired stale
 
 **C locus:** - `show_glyph`: `nethack-c/upstream/src/display.c:1877–2072` (this iteration ports `:1886` suppress gate + `:1894–2000` bad-pos/bad-glyph `impossible` arms with the 40-arm bank-classification chain; callee `glyph_is_normal_generic_obj` `display.h:839–840` ported in this commit; `:2006–2070` map_glyphinfo/store/announce/pline arms were already whole under split names).

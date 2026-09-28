@@ -3,7 +3,7 @@
 {"fn":"is_solid","c":"70-73","status":"unknown"}
 {"fn":"set_levltyp","c":"77-121","status":"unknown"}
 {"fn":"set_levltyp_lit","c":"125-145","status":"partial","js":["js/trap.js:set_levltyp_lit"],"omit":"Boolean `false` passed to `sel_set_ter` is still `SET_LIT_NOCHANGE`.","d":["D-2870"],"at":"seed@a30a7de84"}
-{"fn":"extend_spine","c":"166-194","status":"unknown"}
+{"fn":"extend_spine","c":"166-194","status":"ported","js":["js/mklev.js:extend_spine"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/mklev.js:32341, body complete + 4 callers wired :32397-32400"}
 {"fn":"wall_cleanup","c":"198-225","status":"unknown"}
 {"fn":"fix_wall_spines","c":"229-287","status":"unknown"}
 {"fn":"wallification","c":"290-294","status":"unknown"}
