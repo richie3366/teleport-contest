@@ -1990,3 +1990,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1978-20875982e-arti-speak-callers.md](./1978-20875982e-arti-speak-callers.md) | `20875982e` | D-3018 arti_speak | **ACCEPT** |
 | [1979-5a77080f1-free-glyphid-cache.md](./1979-5a77080f1-free-glyphid-cache.md) | `5a77080f1` | D-3019 free_glyphid_cache | **ACCEPT** |
 | [1980-1cc7d605d-wiz-display-macros.md](./1980-1cc7d605d-wiz-display-macros.md) | `1cc7d605d` | D-3020 wiz_display_macros | **ACCEPT** |
+| [1981-5affd05cd-mtele-any-light-source.md](./1981-5affd05cd-mtele-any-light-source.md) | `5affd05cd` | D-3021 mtele_trap / any_light_source | **ACCEPT** |
+| [1982-0bb1eb02e-savenames-restnames.md](./1982-0bb1eb02e-savenames-restnames.md) | `0bb1eb02e` | D-3022 savenames + restnames | **ACCEPT** |
+| [1983-73b53df4b-monmulti-matching-launcher.md](./1983-73b53df4b-monmulti-matching-launcher.md) | `73b53df4b` | D-3023 monmulti + matching_launcher | **ACCEPT** |
+| [1984-f4390cd9a-hacklib-cluster.md](./1984-f4390cd9a-hacklib-cluster.md) | `f4390cd9a` | D-3024 hacklib cluster (6 fns) | **ACCEPT** |
+| [1985-15ff0060a-options-cluster.md](./1985-15ff0060a-options-cluster.md) | `15ff0060a` | D-3025 options cluster | **ACCEPT** |
+| [1986-34c78a6ac-sys-closure.md](./1986-34c78a6ac-sys-closure.md) | `34c78a6ac` | D-3026 sys.c closure | **ACCEPT** |
+| [1987-759e72748-del-engr.md](./1987-759e72748-del-engr.md) | `759e72748` | D-3027 del_engr | **ACCEPT** |
+| [1988-72bf1dec2-dokeylist-spkey-name.md](./1988-72bf1dec2-dokeylist-spkey-name.md) | `72bf1dec2` | D-3028 dokeylist + spkey_name | **ACCEPT** |
+| [1989-da6d0e8ae-wizcustom-callback.md](./1989-da6d0e8ae-wizcustom-callback.md) | `da6d0e8ae` | D-3029 wizcustom_callback | **ACCEPT** |

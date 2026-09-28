@@ -1,9 +1,9 @@
 {
- "commit": "72bf1dec2",
- "at": "2026-09-28T11:38:58.610Z",
- "full": false,
- "fullCommit": "1cc7d605d",
- "fullAt": "2026-09-28T09:17:27.710Z",
+ "commit": "da6d0e8ae",
+ "at": "2026-09-28T12:01:32.081Z",
+ "full": true,
+ "fullCommit": "da6d0e8ae",
+ "fullAt": "2026-09-28T12:01:32.081Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4286,7 +4286,7 @@
    "steps": 226,
    "owner": "wipeout_text",
    "loc": "engrave.c:134",
-   "jsOwner": "wipeout_text(engrave.js:400)",
+   "jsOwner": "wipeout_text(engrave.js:426)",
    "cTopline": "You begin to memorize the runes.--More--",
    "jsTopline": "You begin to memorize the runes.--More--",
    "error": null
@@ -4524,7 +4524,7 @@
    "steps": 300,
    "owner": "is_boh_item_gone",
    "loc": "pickup.c:2512",
-   "jsOwner": "mcalcmove(mon.js:996)",
+   "jsOwner": "mcalcmove(mon.js:997)",
    "cTopline": "You see 174 gold pieces disappear!--More--",
    "jsTopline": "Do what with the bag?",
    "error": null
@@ -4677,7 +4677,7 @@
    "steps": 280,
    "owner": "is_boh_item_gone",
    "loc": "pickup.c:2512",
-   "jsOwner": "mcalcmove(mon.js:996)",
+   "jsOwner": "mcalcmove(mon.js:997)",
    "cTopline": "You see a gray stone disappear!--More--",
    "jsTopline": "Do what with your bag?",
    "error": null
@@ -5586,7 +5586,7 @@
   "scen-dig-Knight-94015": {
    "src": "corpus",
    "passed": false,
-   "rngM": 13242,
+   "rngM": 13239,
    "rngT": 13675,
    "scrM": 51,
    "scrT": 82,
@@ -6428,7 +6428,7 @@
    "steps": 174,
    "owner": "dmgval",
    "loc": "weapon.c:227",
-   "jsOwner": "dmgval(weapon.js:282)",
+   "jsOwner": "dmgval(weapon.js:283)",
    "cTopline": "It tries to move where you are hiding. You are hit.--More--",
    "jsTopline": "It tries to move where you are hiding. You are hit.--More--",
    "error": null
@@ -6462,7 +6462,7 @@
    "steps": 156,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:996)",
+   "jsOwner": "mcalcmove(mon.js:997)",
    "cTopline": "A fog cloud appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -10168,7 +10168,7 @@
    "steps": 158,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:996)",
+   "jsOwner": "mcalcmove(mon.js:997)",
    "cTopline": "A lichen appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -10236,7 +10236,7 @@
    "steps": 95,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:996)",
+   "jsOwner": "mcalcmove(mon.js:997)",
    "cTopline": "A winter wolf cub appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11426,7 +11426,7 @@
    "steps": 201,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:996)",
+   "jsOwner": "mcalcmove(mon.js:997)",
    "cTopline": "A lichen appears next to you. A lichen appears close by.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11511,7 +11511,7 @@
    "steps": 215,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "mcalcmove(mon.js:996)",
+   "jsOwner": "mcalcmove(mon.js:997)",
    "cTopline": "A little dog appears next to you.",
    "jsTopline": "I've never heard of such monsters.--More--",
    "error": null
@@ -11783,7 +11783,7 @@
    "steps": 240,
    "owner": "wipeout_text",
    "loc": "engrave.c:134",
-   "jsOwner": "wipeout_text(engrave.js:400)",
+   "jsOwner": "wipeout_text(engrave.js:426)",
    "cTopline": "The white unicorn hits the horse. The horse picks up a splint mail.--More--",
    "jsTopline": "The white unicorn hits the horse. The horse picks up a splint mail.--More--",
    "error": null
@@ -13017,7 +13017,7 @@
    "passed": false,
    "rngM": 5750,
    "rngT": 7916,
-   "scrM": 61,
+   "scrM": 73,
    "scrT": 111,
    "kind": "screen",
    "step": 60,
@@ -13559,9 +13559,9 @@
   "scen-town-Tourist-94102": {
    "src": "corpus",
    "passed": false,
-   "rngM": 12916,
+   "rngM": 13821,
    "rngT": 13836,
-   "scrM": 87,
+   "scrM": 93,
    "scrT": 171,
    "kind": "rng",
    "step": 48,
@@ -13627,7 +13627,7 @@
   "scen-town-Wizard-94142": {
    "src": "corpus",
    "passed": false,
-   "rngM": 7732,
+   "rngM": 7850,
    "rngT": 9816,
    "scrM": 89,
    "scrT": 321,
@@ -15598,19 +15598,19 @@
   },
   "tour-Barbarian-70011-d3-6-10-11-12": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 21010,
    "rngT": 21010,
-   "scrM": 42,
+   "scrM": 50,
    "scrT": 50,
-   "kind": "screen",
-   "step": 34,
+   "kind": null,
+   "step": null,
    "steps": 50,
-   "owner": "dog_invent",
-   "loc": "dogmove.c:460",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The dwarf mummy picks up a gem.",
-   "jsTopline": "The dwarf mummy picks up a gem.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "tour-Barbarian-70024-d5-8-15-17-22": {

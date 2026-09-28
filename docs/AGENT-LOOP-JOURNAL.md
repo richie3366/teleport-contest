@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — Audit 1981–1989 (D-3021..D-3029): 9 ACCEPT, 0 Must-fix
+
+Every js SHA re-measured (`verify --base <parent> --reach-all`, 0 regressed). Public 44/44; corpus 631/953 (full:true @12:01Z, 0 flips, +Barbarian-70011); held-out 12/44 unchanged. 1730 debt retired. Env: node v20, no `node:sqlite` (sql sample skipped, as in 1956–1962 audits). Next: pop the coverage head; no Must-fix pending.
 ## 2026-09-28 — D-3029 `wizcmds.c` wizcustom_callback whole (glyphmap-gated #wizcustom menu line; C caller wired)
 
 **C locus:** - `wizcustom_callback`: `nethack-c/upstream/src/wizcmds.c:1986–2027` whole in C order — `:1997` win&&id guard, `:1998` glyphmap index, `:1999–2003` u/customcolor gate (ENHANCED_SYMBOLS `:2001` arm live per config.h:368), `:2004` bufa `[%04d] %-44s`, `:2005–2006` bufb `'\\%03d' %02d` off showsyms/sym, `:2007` bufc `%011lx`, `:2008` bufu empty, `:2010–2018` U+%04lx + NUL-terminated UTF-8 byte walk, `:2020` a_int=glyphnum+1, `:2021` four-field Snprintf (trailing space when bufu empty), `:2022–2023` add_menu.
