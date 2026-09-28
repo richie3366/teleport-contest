@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-3040 — `options.c` mod-status family whole + donning stale
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING: no `set_option_mod_status` symbol in `js/` (C 8 code L); the perm-invent prohibited arm (invent.c:5623–5624) sat behind a `/* named */` comment (js/invent.js:4697). Queue head `do_wear.c donning` is stale — body whole at js/do_wear.js:3930 since before this iteration.
+- **C locus:**
+  - `set_option_mod_status`: nethack-c/upstream/src/options.c:9854–9869 — `SET__IS_VALUE_VALID` guard + impossible `:9859–9861`, first prefix match sets `setwhere` `:9864–9867`.
+  - `set_wc_option_mod_status`: nethack-c/upstream/src/options.c:9880–9896 — guard `:9885`, mask fan-out over null-terminated `wc_options[]` `:9891–9893`.
+  - `set_wc2_option_mod_status`: nethack-c/upstream/src/options.c:9934–9950 — same over `wc2_options[]` `:9945–9947`.
+  - `donning`: nethack-c/upstream/src/do_wear.c:1572–1597 — stale, no code change (see Ledger).
+- **JS was:** no `set_option_mod_status`/`set_wc_option_mod_status`/`set_wc2_option_mod_status` symbol in `js/` (sym.mjs NOT FOUND); js/invent.js:4697 carried `/* C set_option_mod_status perm_invent/perminv_mode named */` with no call.
+- **Fix:** new exports in js/options.js in C order with per-arm `:line` cites. `SET__IS_VALUE_VALID` (global.h:603) reads valid but means invalid — ported as `status < SET_IN_SYSCONF || status > SET_WIZNOFUZ` (in-file consts, C values 0/6, verified against global.h:581–586). Sync like C; `void impossible(...)` per file precedent (disclosure arm). `|0` on int/unsigned-long params; `(optmask & bit) !== 0` per `wc_supported` (all WC_ bits fit 32 bits, const.js max 0x80000000 — sign-safe under `!== 0`). C null-terminated walks become length loops per `is_wc_option`. `SET_...` line exported for the invent.js caller (no new edge — invent.js already imports options.js).
+- **JS:**
+  - `set_option_mod_status`: js/options.js:1087 export, sync.
+  - `set_wc_option_mod_status`: js/options.js:1107 export, sync.
+  - `set_wc2_option_mod_status`: js/options.js:1125 export, sync.
+- **Callers:**
+  - `set_option_mod_status`: invent.c:5623–5624 → js/invent.js:4697–4698 (named comment retired, live calls); options.c:9893 → js/options.js:1116 (new); options.c:9947 → js/options.js:1134 (new).
+  - `set_wc_option_mod_status`: options.c-internal + win32/curses/X11/Qt windowports — no JS port path, exported for completeness (see Named omissions).
+  - `set_wc2_option_mod_status`: wintty.c:588 tty-init + curses/Qt — no JS port path (see Named omissions).
+  - `donning`: unchanged; live callers already wired (do_wear.js:3872/3959/3966, steal.js:303/606, objnam.js:3499–3501 via late-bound predicates).
+- **Verify:** `node scripts/verify.mjs --fn set_option_mod_status,set_wc_option_mod_status,set_wc2_option_mod_status` → VERIFY: PASS — hidden: none blocked (expected for coverage rows); REACH-OK ×3 (smoke spread 24 PASS each); green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed). Headless probe: allopt rows `perm_invent` idx127 / `perminv_mode` idx128 adjacent (first-match-wins verified — no earlier row prefix-matches; `perminv_mode` does not prefix-match `perm_invent`); valid/invalid/out-of-range statuses + full-mask wc fan-out run without throw.
+- **Named omissions:**
+  - `set_option_mod_status`: wintty.c:2965 `set_option_mod_status("perm_invent", set_gameview)` — compiled out (`#define RESIZABLE` wintty.c:39, call sits under `#ifndef RESIZABLE` :2964); no JS site by C design.
+  - `set_wc_option_mod_status` / `set_wc2_option_mod_status`: external callers are foreign windowports (mswproc.c:232/236, cursinit.c:748, cursmain.c:228, winX.c:1584, qt_bind.cpp:215, qt_glyph.cpp:86) with no JS equivalent; wintty.c:588 tty-init `WC2_STATUSLINES` dynamic-setwhere path has no JS port (allopt `statuslines` row keeps its compiled default).
+  - `donning`: polyself.c 7 break-armor call sites + do_wear.c:3152 `wornarm_destroyed` guard remain caller-side gaps (polyself.js:1367 names donning/cancel_don unwired); not this cluster's file.
+- **Ledger:** donning ported; set_option_mod_status ported; set_wc_option_mod_status ported; set_wc2_option_mod_status ported.
+- **Next:** pop the queue head next (refill regenerates the coverage block). Density note: ~66 js/ insertions — under the ~80 guide, but the head's file and callee closure hold nothing more Open (options.c has no other queue row; callees `impossible`/`str_start_is` are live), and the 2 same-file caller siblings shipped so every in-port caller of the head is wired.
+
 ## D-3039 — `quest.c` quest_chat whole + nemesis/guardian staticfns
 
 - **Status:** shipped.

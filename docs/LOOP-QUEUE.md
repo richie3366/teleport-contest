@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do_wear.c` donning — coverage PARTIAL (C 18 code L `do_wear.c:1574–1597` / JS 12 code L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 0) @1b942d6a1
-- [ ] `options.c` set_option_mod_status — coverage MISSING (C 8 code L `options.c:9855–9869` / JS no symbol; hops 6, callers 4, RNG 0, msg 0) @1b942d6a1
 - [ ] `do.c` drop — coverage PARTIAL (C 46 code L `do.c:714–780` / JS 32 code L in js/do.js; hops —, callers 3, RNG 0, msg 3) @1b942d6a1
 - [ ] `muse.c` necrophiliac — coverage MISSING (C 8 code L `muse.c:2691–2702` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @5469ed258
 - [ ] `explode.c` adtyp_to_expltype — coverage THIN (C 20 code L `explode.c:987–1012` / JS 5 code L in js/explode.js; hops 4, callers 2, RNG 0, msg 0) @953aea809
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `detect.c` furniture_detect — coverage PARTIAL (C 31 code L `detect.c:1091–1134` / JS 22 code L in js/detect.js; hops 6, callers 1, RNG 0, msg 1) @66bbd0418
 - [ ] `read.c` seffect_mail — coverage PARTIAL (C 17 code L `read.c:2157–2188` / JS 12 code L in js/read.js; hops 5, callers 1, RNG 0, msg 3) @d4eca01f7
 - [ ] `role.c` Hello — coverage PARTIAL (C 15 code L `role.c:2120–2140` / JS 10 code L in js/roles.js; hops 3, callers 6, RNG 0, msg 0) @5aadc33ff
+- [ ] `options.c` handler_menu_headings — coverage MISSING (C 7 code L `options.c:5780–5792` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: query_color_attr) @4e6edc522
+- [ ] `mklev.c` find_branch_room — coverage THIN (C 9 code L `mklev.c:1660–1673` / JS 3 code L in js/mklev.js; hops 2, callers 1, RNG 0, msg 0) @4e6edc522
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

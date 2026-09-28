@@ -1076,6 +1076,66 @@ function is_wc2_option(optnam) {
     return false;
 }
 
+/**
+ * C options.c set_option_mod_status `:9854–9869` — set allopt `setwhere`
+ * for the first option whose name starts with `optnam` (case-blind);
+ * out-of-range status hits the impossible() guard and returns.
+ * SET__IS_VALUE_VALID (global.h `:603`) reads valid but means invalid:
+ * below set_in_sysconf or above set_wiznofuz. Sync like C; impossible()
+ * is fire-and-forget per file precedent (`void impossible`, disclosure).
+ */
+export function set_option_mod_status(optnam, status) {
+    status = status | 0; // C `:9855` int status
+    if (status < SET_IN_SYSCONF || status > SET_WIZNOFUZ) { // C `:9859`
+        void impossible(`set_option_mod_status: status out of range ${status}.`); // C `:9860`
+        return; // C `:9861`
+    }
+    for (let k = 0; k < allopt.length && allopt[k].name; k++) { // C `:9864`
+        if (str_start_is(allopt[k].name, optnam, true)) { // C `:9865` TRUE
+            allopt[k].setwhere = status; // C `:9866`
+            return; // C `:9867`
+        }
+    }
+}
+
+/**
+ * C options.c set_wc_option_mod_status `:9880–9896` — run the head over
+ * every wc_options row whose bit sits in `optmask`. The C table is
+ * null-terminated; the JS length loop matches is_wc_option above.
+ * All WC_ bits fit 32 bits (const.js), so `&` + `!== 0` matches C nonzero.
+ */
+export function set_wc_option_mod_status(optmask, status) {
+    optmask = optmask | 0; // C `:9881` unsigned long optmask
+    status = status | 0;
+    if (status < SET_IN_SYSCONF || status > SET_WIZNOFUZ) { // C `:9885`
+        void impossible(`set_wc_option_mod_status: status out of range ${status}.`); // C `:9886`
+        return;
+    }
+    for (let k = 0; k < wc_options.length; k++) { // C `:9891` while (wc_options[k].wc_name)
+        if ((optmask & wc_options[k].wc_bit) !== 0) { // C `:9892`
+            set_option_mod_status(wc_options[k].wc_name, status); // C `:9893`
+        }
+    }
+}
+
+/**
+ * C options.c set_wc2_option_mod_status `:9934–9950` — same over
+ * wc2_options[] (C `:9823–9842`, live above).
+ */
+export function set_wc2_option_mod_status(optmask, status) {
+    optmask = optmask | 0; // C `:9935` unsigned long optmask
+    status = status | 0;
+    if (status < SET_IN_SYSCONF || status > SET_WIZNOFUZ) { // C `:9939`
+        void impossible(`set_wc2_option_mod_status: status out of range ${status}.`); // C `:9940`
+        return;
+    }
+    for (let k = 0; k < wc2_options.length; k++) { // C `:9945`
+        if ((optmask & wc2_options[k].wc_bit) !== 0) { // C `:9946`
+            set_option_mod_status(wc2_options[k].wc_name, status); // C `:9947`
+        }
+    }
+}
+
 /** C botl.h:213 VIA_WINDOWPORT(). Message bits do not set this. */
 function via_windowport() {
     return (windowprocs_wincap2() & (WC2_HILITE_STATUS | WC2_FLUSH_STATUS)) !== 0;
@@ -8591,7 +8651,7 @@ export function strbuf_empty(sbuf) {
 
 /** C ref: optlist.h `:19` enum OptType; global.h `:580–588` optset_restrictions. */
 const BoolOpt = 0, CompOpt = 1, OthrOpt = 2;
-const SET_IN_SYSCONF = 0, SET_IN_CONFIG = 1, SET_GAMEVIEW = 3, SET_IN_GAME = 4; // C global.h `:581–586` sysconf first
+export const SET_IN_SYSCONF = 0, SET_IN_CONFIG = 1, SET_GAMEVIEW = 3, SET_IN_GAME = 4; // C global.h `:581–586` sysconf first
 // C global.h `:580–588` optset_restrictions values used by allopt rows.
 const SET_HIDDEN = 7, SET_WIZONLY = 5, SET_WIZNOFUZ = 6;
 /** C global.h `:605–611` enum opt OPTCOUNT — row count for the unix build. */

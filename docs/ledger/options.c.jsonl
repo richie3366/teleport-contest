@@ -219,11 +219,11 @@
 {"fn":"all_options_palette","c":"9658-9673","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_strbuf","c":"9678-9748","status":"partial","js":["js/options.js:all_options_strbuf"],"omit":"`get_option_value` + allopt table [2/7]; `all_options_conds` (+opt_next_cond) [3/7]; `get_changed_key_binds` (unconditional call — throws if body invoked before [4/7]) [4/7]; `parsesymbols` producer (savedSymbols stays empty) [5/7]; `all_options_statushilites` (unconditional call, STATUS_HILITES on…","d":["D-2544"],"at":"seed@a30a7de84"}
 {"fn":"next_opt","c":"9755-9785","status":"split","js":["js/options.js:next_opt_lines"],"d":["D-2989"],"at":"2026-09-27@080c16023","note":"split: boolean-list body lives in next_opt_lines (D-0091); sole caller option_help reads it via option_help_lines"}
-{"fn":"set_option_mod_status","c":"9855-9869","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"set_wc_option_mod_status","c":"9881-9896","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_option_mod_status","c":"9855-9869","status":"ported","js":["js/options.js:set_option_mod_status"],"d":["D-3040"],"at":"2026-09-28@4e6edc522","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_wc_option_mod_status","c":"9881-9896","status":"ported","js":["js/options.js:set_wc_option_mod_status"],"d":["D-3040"],"at":"2026-09-28@4e6edc522","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_wc_option","c":"9899-9909","status":"unknown"}
 {"fn":"wc_supported","c":"9912-9921","status":"unknown"}
-{"fn":"set_wc2_option_mod_status","c":"9935-9950","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_wc2_option_mod_status","c":"9935-9950","status":"ported","js":["js/options.js:set_wc2_option_mod_status"],"d":["D-3040"],"at":"2026-09-28@4e6edc522","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_wc2_option","c":"9953-9963","status":"ported","js":["js/options.js:is_wc2_option"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wc2_supported","c":"9966-9976","status":"unknown"}
 {"fn":"wc_set_font_name","c":"9979-10010","status":"ported","js":["js/options.js:wc_set_font_name"],"d":["D-2989"],"at":"2026-09-27@080c16023"}

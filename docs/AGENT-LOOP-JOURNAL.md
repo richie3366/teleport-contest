@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3040 `options.c` mod-status family whole + donning stale
+
+**C locus:** - `set_option_mod_status`: nethack-c/upstream/src/options.c:9854–9869 — `SET__IS_VALUE_VALID` guard + impossible `:9859–9861`, first prefix match sets `setwhere` `:9864–9867`.
+**JS:** - `set_option_mod_status`: js/options.js:1087 export, sync.
+**Change:** new exports in js/options.js in C order with per-arm `:line` cites. `SET__IS_VALUE_VALID` (global.h:603) reads valid but means invalid — ported as `status < SET_IN_SYSCONF || status > SET_WIZNOFUZ` (in-file consts, C values 0/6, verified against global.h:581–586). Sync like C; `void impossible(...)` per file precedent (disclosure arm).
+**Verify:** `node scripts/verify.mjs --fn set_option_mod_status,set_wc_option_mod_status,set_wc2_option_mod_status` → VERIFY: PASS — hidden: none blocked (expected for coverage rows); REACH-OK ×3 (smoke spread 24 PASS each); green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed). Headless probe: allopt rows `perm_invent` idx127 / `perminv_mode` idx128 adjacent (first-match-wins verified — no earlier row prefix-matches; `perminv_mode` does not prefix-match `perm_invent`); valid/invalid/out-of-range statuses + full-mask wc fan-out run without throw.
+**Named:** - `set_option_mod_status`: wintty.c:2965 `set_option_mod_status("perm_invent", set_gameview)` — compiled out (`#define RESIZABLE` wintty.c:39, call sits under `#ifndef RESIZABLE` :2964); no JS site by C design.
+**Next:** pop the queue head next (refill regenerates the coverage block). Density note: ~66 js/ insertions — under the ~80 guide, but the head's file and callee closure hold nothing more Open (options.c has no other queue row; callees `impossible`/`str_start_is` are live), and the 2 same-file caller siblings shipped so every in-port caller of the head is wired.
 ## 2026-09-28 — D-3039 `quest.c` quest_chat whole + nemesis/guardian staticfns
 
 **C locus:** - `quest_chat`: nethack-c/upstream/src/quest.c:472–492 — leader compare `:475`, chat `:476`, pissed follow-up `:478–479`, early return `:480`, msound switch `:482–491` (nemesis `:483–485`, guardian `:486–488`, impossible default `:490`).

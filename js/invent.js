@@ -244,7 +244,7 @@ import {
 } from './attrib.js';
 import { ing_suffix, strstri, strsubst, ordin, highc, lcase } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
-import { select_menu_pick_any, select_menu_pick_one, hide_unhide_msgtypes } from './options.js';
+import { select_menu_pick_any, select_menu_pick_one, hide_unhide_msgtypes, set_option_mod_status, SET_GAMEVIEW } from './options.js';
 import { rn2 } from './rng.js';
 import { background_enlightenment } from './insight.js';
 import {
@@ -4694,7 +4694,8 @@ export function sync_perminvent() {
                 }
                 if (tflags & (TOCORE_TOO_SMALL | TOCORE_PROHIBITED)) {
                     if (tflags & TOCORE_PROHIBITED) {
-                        /* C set_option_mod_status perm_invent/perminv_mode named */
+                        set_option_mod_status('perm_invent', SET_GAMEVIEW); // C invent.c `:5623`
+                        set_option_mod_status('perminv_mode', SET_GAMEVIEW); // C invent.c `:5624`
                     }
                     iflags.perm_invent = false;
                     ttyinv_destroy();
