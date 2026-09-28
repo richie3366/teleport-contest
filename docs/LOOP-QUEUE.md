@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mondata.c` num_horns — coverage THIN (C 14 code L `mondata.c:678–695` / JS 6 code L in js/worn.js; hops 4, callers 2, RNG 0, msg 0) @886e83076
-- [ ] `date.c` free_nomakedefs — coverage MISSING (C 25 code L `date.c:134–173` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @886e83076
 - [ ] `invent.c` invdisp_nothing — coverage MISSING (C 12 code L `invent.c:5290–5305` / JS no symbol; hops 5, callers 2, RNG 0, msg 0) @cd05c0f73
 - [ ] `cmd.c` cmdq_add_dir — coverage THIN (C 13 code L `cmd.c:294–312` / JS 3 code L in js/cmd.js; hops 4, callers 2, RNG 0, msg 0) @1483a276d
 - [ ] `read.c` apron_text — coverage THIN (C 13 code L `read.c:254–281` / JS 3 code L in js/objnam.js; hops 4, callers 2, RNG 0, msg 0) @1483a276d
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `timeout.c` print_queue — coverage PARTIAL (C 15 code L `timeout.c:2014–2037` / JS 10 code L in js/timeout.js; hops —, callers 1, RNG 1, msg 3) @fb9c2049c
 - [ ] `options.c` reset_needed_visuals — coverage PARTIAL (C 24 code L `options.c:8980–9014` / JS 11 code L in js/options.js; hops —, callers 3, RNG 0, msg 0) @fb9c2049c
 - [ ] `teleport.c` enexto_core — coverage PARTIAL (C 28 code L `teleport.c:219–276` / JS 18 code L in js/teleport.js; hops 3, callers 3, RNG 0, msg 0) @fb9c2049c
+- [ ] `bones.c` bones_include_name — coverage PARTIAL (C 10 code L `bones.c:762–780` / JS 6 code L in js/bones.js; hops 3, callers 1, RNG 0, msg 1) @000445a8b
+- [ ] `coloratt.c` free_menu_coloring — coverage MISSING (C 10 code L `coloratt.c:664–680` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @000445a8b
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3063 date.c free_nomakedefs (version-info teardown) + mdlib.c:871 wiring
+
+**C locus:** - `free_nomakedefs`: nethack-c/upstream/src/date.c:134–173 (whole body in C order — populated guard `:139–140`, build_date `:142–144`, version_string `:145–147`, version_id `:148–150`, copyright_banner_c `:151–153`, NETHACK_GIT_* arms `:154–168` compiled out, flag reset `:171`).
+**JS:** `js/date.js` (1 export + hook registration; `__setFreeNomakedefs` joins the existing date.js→version.js edge — no new module edge); `js/version.js` (hook + `:871` call site + doc).
+**Change:** new exported `free_nomakedefs()` in js/date.js in C order with per-arm `:line` cites (nulls the 4 strdup'd `game.nomakedefs` fields — GC owns the memory, no clone; numerics untouched per C); wired the mdlib.c:871 site via a `__setFreeNomakedefs` hook in js/version.js (same late-binding as populate — D-1881 forbids a static version.js→date.js edge); refreshed the js/date.js:65 flag comment.
+**Verify:** `node scripts/verify.mjs --fn free_nomakedefs` → VERIFY: PASS (syntax 2 files; rule2 clean; hidden note — no corpus session blocked, expected for a coverage row; reach — no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7). Smoke: unpopulated free no-ops, populate→release nulls the 4 strings and keeps version_number, second free guard no-ops.
+**Named:** - `free_nomakedefs`: none — every arm ported; NETHACK_GIT_SHA/BRANCH/PREFIX arms compiled out in the contest build (same resolution as populate D-2653); C `free()` has no JS analogue (GC).
+**Next:** make_version (mdlib.c, MISSING/absent) remains its own row — runtime_info_init `:841` InterimVersionInfo stands in until it lands; release_runtime_info's own C callers (save.c:1167, version.c:508) are unwired pre-existing, out of cluster.
 ## 2026-09-28 — D-3062 hack.c spot_checks + dump_weights (ice-timer recheck, --dumpweights table)
 
 **C locus:** - `spot_checks`: nethack-c/upstream/src/hack.c:4525–4547 (whole body in C order — DRAWBRIDGE_UP db_ice_now `:4533` + FALLTHROUGH `:4534–4535`, ICE gate `:4537–4538`, timer stop `:4540–4541`, obj_ice_effects `:4544`).

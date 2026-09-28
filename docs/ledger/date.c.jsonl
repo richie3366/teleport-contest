@@ -1,2 +1,2 @@
 {"fn":"populate_nomakedefs","c":"52-131","status":"ported","js":["js/date.js:populate_nomakedefs"],"d":["D-2653"],"at":"seed@a30a7de84"}
-{"fn":"free_nomakedefs","c":"134-173","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_nomakedefs","c":"134-173","status":"ported","js":["js/date.js:free_nomakedefs"],"d":["D-3063"],"at":"2026-09-28@000445a8b","note":"refresh: no JS symbol (measured MISSING)"}

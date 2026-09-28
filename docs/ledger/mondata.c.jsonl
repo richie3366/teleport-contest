@@ -27,7 +27,7 @@
 {"fn":"breakarm","c":"640-650","status":"unknown"}
 {"fn":"sticks","c":"654-659","status":"unknown"}
 {"fn":"cantvomit","c":"663-674","status":"unknown"}
-{"fn":"num_horns","c":"678-695","status":"unknown"}
+{"fn":"num_horns","c":"678-695","status":"ported","js":["js/worn.js:num_horns"],"at":"2026-09-28@000445a8b","note":"stale: js/worn.js:207 — switch on mndx returns 2/1/0 for the same 8 monster cases as C mondata.c:678-695"}
 {"fn":"dmgtype_fromattack","c":"700-708","status":"unknown"}
 {"fn":"dmgtype","c":"712-715","status":"unknown"}
 {"fn":"max_passive_dmg","c":"720-767","status":"unknown"}

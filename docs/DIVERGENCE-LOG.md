@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3063 — date.c free_nomakedefs (version-info teardown) + mdlib.c:871 wiring
+
+- **Status:** fixed (breadth-phase coverage row; `num_horns` head stale → ported; `verify --fn free_nomakedefs` REACH-OK + green + strict + cohort)
+- **Symptom:** coverage MISSING — C `date.c:134–173` free_nomakedefs (25 code L) had no JS symbol; js/version.js release_runtime_info carried `:871` as a named omit and js/date.js:65–68 named the date.c remainder.
+- **C locus:**
+  - `free_nomakedefs`: nethack-c/upstream/src/date.c:134–173 (whole body in C order — populated guard `:139–140`, build_date `:142–144`, version_string `:145–147`, version_id `:148–150`, copyright_banner_c `:151–153`, NETHACK_GIT_* arms `:154–168` compiled out, flag reset `:171`).
+- **JS was:** no `free_nomakedefs` symbol in js/**; release left `game.nomakedefs` populated after teardown.
+- **Fix:** new exported `free_nomakedefs()` in js/date.js in C order with per-arm `:line` cites (nulls the 4 strdup'd `game.nomakedefs` fields — GC owns the memory, no clone; numerics untouched per C); wired the mdlib.c:871 site via a `__setFreeNomakedefs` hook in js/version.js (same late-binding as populate — D-1881 forbids a static version.js→date.js edge); refreshed the js/date.js:65 flag comment.
+- **JS:** `js/date.js` (1 export + hook registration; `__setFreeNomakedefs` joins the existing date.js→version.js edge — no new module edge); `js/version.js` (hook + `:871` call site + doc).
+- **Callers:**
+  - `free_nomakedefs`: mdlib.c:871 `release_runtime_info` → js/version.js release_runtime_info (`if (freeNomakedefsHook) freeNomakedefsHook(); // :871` — unset in graphs that never import js/date.js, keeping the pre-port omission there). Sole C call site; date.c:15/mdlib.c:84 are declarations.
+- **Verify:** `node scripts/verify.mjs --fn free_nomakedefs` → VERIFY: PASS (syntax 2 files; rule2 clean; hidden note — no corpus session blocked, expected for a coverage row; reach — no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7). Smoke: unpopulated free no-ops, populate→release nulls the 4 strings and keeps version_number, second free guard no-ops.
+- **Named omissions:**
+  - `free_nomakedefs`: none — every arm ported; NETHACK_GIT_SHA/BRANCH/PREFIX arms compiled out in the contest build (same resolution as populate D-2653); C `free()` has no JS analogue (GC).
+- **Ledger:** free_nomakedefs ported
+- **Next:** make_version (mdlib.c, MISSING/absent) remains its own row — runtime_info_init `:841` InterimVersionInfo stands in until it lands; release_runtime_info's own C callers (save.c:1167, version.c:508) are unwired pre-existing, out of cluster.
+
 ## D-3062 — hack.c spot_checks + dump_weights (ice-timer recheck, --dumpweights table)
 
 - **Status:** fixed (breadth-phase coverage row; `verify --fn spot_checks,dump_weights` REACH-OK + green + strict + cohort + full 44/44)
