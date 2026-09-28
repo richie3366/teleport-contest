@@ -58,7 +58,7 @@
 {"fn":"str2conditionbitmask","c":"3209-3230","status":"unknown"}
 {"fn":"parse_condition","c":"3233-3348","status":"ported","js":["js/botl.js:parse_condition"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"clear_status_hilites","c":"3351-3366","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"hlattr2attrname","c":"3369-3401","status":"unknown"}
+{"fn":"hlattr2attrname","c":"3369-3401","status":"ported","js":["js/botl.js:hlattr2attrname"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/botl.js:2732 local staticfn clone; :3558->2852, :3662->2935 wired, :4272 in named-omission status_hilite_menu_add"}
 {"fn":"status_hilite_linestr_add","c":"3417-3445","status":"unknown"}
 {"fn":"status_hilite_linestr_done","c":"3448-3459","status":"unknown"}
 {"fn":"status_hilite_linestr_countfield","c":"3462-3473","status":"unknown"}

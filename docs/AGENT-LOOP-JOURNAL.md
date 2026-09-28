@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3033 `muse.c` fhito_loc whole + six stale coverage pops
+
+**C locus:** - `fhito_loc`: `nethack-c/upstream/src/muse.c:1706–1726` whole in C order — `:1715–1716` `!fhito || !OBJ_AT` → FALSE, `:1718–1719` pile walk with `next_obj` saved first (fhito may unchain otmp), `:1721–1722` `where != OBJ_FLOOR || ox/oy` mismatch skip, `:1723` `hitanything += (*fhito)(otmp, obj)`, `:1725` boolean return.
+**JS:** - `fhito_loc`: `js/muse.js:894` (live at `:950`).
+**Change:** - `fhito_loc`: new staticfn (`js/muse.js:894`) in C order with per-arm `:line` cites; async since live `bhito` is async; `|0` on ox/oy/tx/ty (C `coordxy` short); `hitanything += (await fhito(otmp, obj)) | 0` (C int sum); `objects_at` = `svl.level.objects[tx][ty]` head read (`!objects_at` = `!OBJ_AT`).
+**Verify:** `node scripts/verify.mjs --fn fhito_loc` tail pasted verbatim:
+**Named:** `destroy_drawbridge` (mbhit STRIKING arm, pre-existing); `use_offensive` tele/undead `fhito_loc`/`bhito` use (`js/muse.js:990`, untouched — different site); `whichrng`/`set_random` fn-dispatch (init_isaac64 split note); `status_hilite_menu_add`, debug `dump_weights`, `save.c:909` heap walk (stalecaller notes, pre-existing).
+**Next:** continue coverage-block head (`mkmaze.c` fix_wall_spines at handoff); `use_offensive` tele/undead object-hit wiring is same-file follow-up only if a row names it.
 ## 2026-09-28 — D-3032 `sp_lev.c` room-table closure whole (mkroom + wid/hei push tables, roomtype both directions)
 
 **C locus:** - `l_push_mkroom_table`: `nethack-c/upstream/src/sp_lev.c:3057–3070` whole in C order — `:3061` new table, `:3062` width 1+(hx-lx), `:3063` height 1+(hy-ly), `:3064–3065` region lx/ly/hx/hy as x1/y1/x2/y2, `:3066` lit as (boolean)rlit, `:3067` irregular, `:3068` needjoining, `:3069` type name.

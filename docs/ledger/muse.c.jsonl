@@ -19,7 +19,7 @@
 {"fn":"mon_likes_objpile_at","c":"1395-1415","status":"unknown"}
 {"fn":"find_offensive","c":"1421-1594","status":"unknown"}
 {"fn":"mbhitm","c":"1597-1703","status":"unknown"}
-{"fn":"fhito_loc","c":"1707-1726","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"fhito_loc","c":"1707-1726","status":"ported","js":["js/muse.js:fhito_loc"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbhit","c":"1734-1812","status":"unknown","d":["D-1484"],"at":"seed@a30a7de84"}
 {"fn":"buzz_force_miss","c":"1815-1818","status":"unknown"}
 {"fn":"use_offensive","c":"1824-2032","status":"ported","js":["js/muse.js:use_offensive"],"d":["D-1810"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

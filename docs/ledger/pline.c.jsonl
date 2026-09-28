@@ -22,7 +22,7 @@
 {"fn":"You_hear","c":"436-452","status":"ported","js":["js/hack.js:You_hear"],"d":["D-2941"],"at":"seed@a30a7de84"}
 {"fn":"You_see","c":"455-469","status":"ported","js":["js/display.js:You_see"],"d":["D-2981"],"at":"2026-09-27@de27c57ac"}
 {"fn":"verbalize","c":"476-490","status":"partial","js":["js/display.js:verbalize"],"omit":"`mail.c:342,373,418,434` (`md_rush` — no JS counterpart); `eat.c:2588` (inside `fpostfx`, its own Open coverage row); `nhlua.c:655` (lua binding, no JS lua); C `verbalize(\"\")` would print `\"\"` but JS keeps the file's empty no-op guard (no caller passes empty).","d":["D-2464"],"at":"seed@a30a7de84"}
-{"fn":"gamelog_add","c":"495-511","status":"unknown","note":"alt 531-535"}
+{"fn":"gamelog_add","c":"495-511","status":"ported","js":["js/pline.js:gamelog_add"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/pline.js:12"}
 {"fn":"livelog_printf","c":"514-526","status":"ported","js":["js/pline.js:livelog_printf"],"d":["D-2968"],"at":"2026-09-27@06237de26","note":"alt 538-542"}
 {"fn":"raw_printf","c":"549-558","status":"partial","js":["js/display.js:raw_printf"],"omit":"the caller remainder above + `raw_print` sink + `vpline_expand` width/precision strip (hits only unported `%*s` debug tables) + `ge.early_raw_messages` consumers (unported pauses).","d":["D-2573"],"at":"seed@a30a7de84"}
 {"fn":"vraw_printf","c":"563-581","status":"unknown"}

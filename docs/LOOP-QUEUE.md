@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `pline.c` gamelog_add — coverage THIN (C 13 code L `pline.c:495–511` / JS 5 code L in js/pline.js; hops 3, callers 2, RNG 0, msg 0) @f4390cd9a
-- [ ] `botl.c` hlattr2attrname — coverage PARTIAL (C 25 code L `botl.c:3369–3401` / JS 13 code L in js/botl.js; hops —, callers 3, RNG 0, msg 6) @34c78a6ac
-- [ ] `rumors.c` CapitalMon — coverage PARTIAL (C 17 code L `rumors.c:791–822` / JS 11 code L in js/objnam.js; hops 2, callers 3, RNG 0, msg 0) @34c78a6ac
-- [ ] `mon.c` dealloc_monst — coverage PARTIAL (C 9 code L `mon.c:2676–2691` / JS 6 code L in js/mon.js; hops 2, callers 5, RNG 0, msg 0) @34c78a6ac
-- [ ] `mon.c` pick_animal — coverage PARTIAL (C 8 code L `mon.c:4855–4869` / JS 5 code L in js/makemon.js; hops 4, callers 1, RNG 2, msg 0) @34c78a6ac
-- [ ] `rnd.c` init_isaac64 — coverage MISSING (C 10 code L `rnd.c:43–58` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: whichrng) @759e72748
-- [ ] `muse.c` fhito_loc — coverage MISSING (C 10 code L `muse.c:1707–1726` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @759e72748
 - [ ] `mkmaze.c` fix_wall_spines — coverage PARTIAL (C 37 code L `mkmaze.c:229–287` / JS 25 code L in js/mklev.js; hops 3, callers 4, RNG 0, msg 0) @72bf1dec2
 - [ ] `stairs.c` stairway_add — coverage PARTIAL (C 10 code L `stairs.c:8–24` / JS 6 code L in js/mklev.js; hops 2, callers 5, RNG 0, msg 0) @1fdd56bcc
 - [ ] `display.c` t_warn — coverage THIN (C 38 code L `display.c:3453–3498` / JS 14 code L in js/display.js; hops 3, callers 1, RNG 0, msg 0) @1fdd56bcc
 - [ ] `botl.c` stat_update_time — coverage MISSING (C 9 code L `botl.c:1285–1299` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @2972f3ad5
 - [ ] `version.c` validate — coverage PARTIAL (C 11 code L `version.c:840–856` / JS 6 code L in js/files.js; hops 2, callers 4, RNG 0, msg 0) @581088132
+- [ ] `decl.c` decl_globals_init — coverage MISSING (C 92 code L `decl.c:1080–1187` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @1b942d6a1
+- [ ] `o_init.c` objdescr_is — coverage PARTIAL (C 8 code L `o_init.c:352–365` / JS 5 code L in js/apply.js; hops 3, callers 9, RNG 0, msg 0) @1b942d6a1
+- [ ] `quest.c` quest_chat — coverage THIN (C 14 code L `quest.c:473–492` / JS 5 code L in js/quest.js; hops 3, callers 1, RNG 0, msg 0; dead callees: chat_with_guardian) @1b942d6a1
+- [ ] `do_wear.c` donning — coverage PARTIAL (C 18 code L `do_wear.c:1574–1597` / JS 12 code L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 0) @1b942d6a1
+- [ ] `options.c` set_option_mod_status — coverage MISSING (C 8 code L `options.c:9855–9869` / JS no symbol; hops 6, callers 4, RNG 0, msg 0) @1b942d6a1
+- [ ] `botl.c` status_finish — coverage MISSING (C 19 code L `botl.c:1723–1756` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @1b942d6a1
+- [ ] `do.c` drop — coverage PARTIAL (C 46 code L `do.c:714–780` / JS 32 code L in js/do.js; hops —, callers 3, RNG 0, msg 3) @1b942d6a1
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

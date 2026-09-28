@@ -1,5 +1,51 @@
 # Divergence log
 
+## D-3033 — `muse.c` fhito_loc whole + six stale coverage pops
+
+- **Status:** shipped. Head `gamelog_add` + five more proved stale (four complete same-name with live callers wired; `init_isaac64` split under `initRng`). Real port: `muse.c` fhito_loc (MISSING) — the `mbhit :1772` deferred arm — new staticfn in `js/muse.js` + wired into `mbhit`.
+- **Symptom:** coverage gap, not a corpus divergence (nothing blocked on these at baseline).
+- **C locus:**
+  - `fhito_loc`: `muse.c:1706–1726` whole in C order — `:1715–1716` guard, `:1718–1719` pile walk (`next_obj` first), `:1721–1722` floor/coord skip, `:1723` sum, `:1725` boolean return.
+  - `gamelog_add` (stale): `pline.c:495–511` live as array-push (`js/pline.js:12`).
+  - `hlattr2attrname` (stale): `botl.c:3368–3401` all arms live (`js/botl.js:2732`).
+  - `CapitalMon` (stale): `rumors.c:787–822` live (`js/objnam.js:1603`).
+  - `dealloc_monst` (stale): `mon.c:2675–2691` live (`js/mon.js:3479`); `free` is GC.
+  - `pick_animal` (stale): `mon.c:4854–4869` live (`js/makemon.js:1206`).
+  - `init_isaac64` (stale-split): `rnd.c:42–58` effect live in `initRng` (`js/rng.js:13`); fn-dispatch unported.
+- **JS was:** `mbhit` (`js/muse.js:893`) carried `/* C muse.c mbhit :1772 — fhito_loc deferred. */` — monster wand beams never hit floor objects, and never paid the C `:1772–1773` `range--` on an object hit. `bhito` (live, `js/zap.js:5418`) already documented the mbhit side as named.
+- **Fix:**
+  - `fhito_loc`: new staticfn (`js/muse.js:894`) in C order with per-arm `:line` cites; async since live `bhito` is async; `|0` on ox/oy/tx/ty (C `coordxy` short); `hitanything += (await fhito(otmp, obj)) | 0` (C int sum); `objects_at` = `svl.level.objects[tx][ty]` head read (`!objects_at` = `!OBJ_AT`).
+  - Wired `mbhit` (`js/muse.js:950`): `if (await fhito_loc(obj, x, y, bhito)) r--` — `bhito` hardwired; all three C callers pass `(mbhitm, bhito)` (`:864`, `:978`, `:1884`), matching JS sites `:1030`, `:2514`, `:2624`.
+  - `bhito` was already re-exported (`js/zap.js:6276`); an added `export` keyword regressed (`Duplicate export`) and was reverted. Docs: mbhit omissions drop fhito_loc; bhito doc notes it wired.
+- **JS:**
+  - `fhito_loc`: `js/muse.js:894` (live at `:950`).
+- **Callers:**
+  - `fhito_loc`: `muse.c:1772` → `js/muse.js:950`.
+  - `gamelog_add`: `pline.c:523` → `js/pline.js:57`; `restore.c:1406` → `js/save.js:1065`.
+  - `hlattr2attrname`: `:3558` → `botl.js:2852`; `:3662` → `botl.js:2935`; `:4272` in named-omit `status_hilite_menu_add`.
+  - `CapitalMon`: `objnam.c:2187` → `objnam.js:1761`; `hack.c:4440` in unported debug `dump_weights`.
+  - `dealloc_monst`: `dog.c:959` → `dog.js:1498`; `mon.c:2499` → `mon.js:3507`; `mon.c:2555` → `mon.js:3718`; `zap.c:740` → `zap.js:2880`; `save.c:909` pre-existing omit.
+  - `pick_animal`: `mon.c:5190` → `makemon.js:1420`.
+  - `init_isaac64`: `rnd.c:238` via set_random/init_random; covered by `initRng` (`jsmain.js:218` = `options.c:7161–7162`).
+- **Verify:** `node scripts/verify.mjs --fn fhito_loc` tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/muse.js js/zap.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify fhito_loc: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    fhito_loc: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+  Mid-iteration FAIL triaged: `Duplicate export of 'bhito'` (added `export` keyword beside the existing `export {}` list `:6276`) broke 7/7 cohort; reverted, re-ran once → PASS above.
+- **Named omissions:** `destroy_drawbridge` (pre-existing); `use_offensive` tele/undead object hits (`js/muse.js:990`, other site); `whichrng`/`set_random`; `status_hilite_menu_add`, `dump_weights`, `save.c:909` (pre-existing).
+- **Ledger:** fhito_loc ported; gamelog_add ported; hlattr2attrname ported; CapitalMon ported; dealloc_monst ported; pick_animal ported; init_isaac64 split js=rng.js:initRng
+- **Next:** coverage-block head.
+
 ## D-3032 — `sp_lev.c` room-table closure whole (mkroom + wid/hei push tables, roomtype both directions)
 
 - **Status:** shipped. Queue head `sp_lev.c` l_push_mkroom_table (MISSING, C 9 L, no JS symbol) + its Open callee `get_mkroom_name` + same-file Open siblings `get_table_roomtype_opt`, `l_push_wid_hei_table` — one caller/callee closure, all in `js/mklev.js`. Small cluster justified: the head's callee closure holds nothing more Open (nhl_add_table_entry_* are ledger by-design Lua-stack pushes with no scored analogue; get_table_str_opt already live in dungeon.js; remaining same-file absent rows are other closures — message state, align, stairs).

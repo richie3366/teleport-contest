@@ -41,7 +41,7 @@
 {"fn":"relmon","c":"2561-2594","status":"unknown"}
 {"fn":"copy_mextra","c":"2597-2646","status":"unknown"}
 {"fn":"dealloc_mextra","c":"2649-2673","status":"unknown"}
-{"fn":"dealloc_monst","c":"2676-2691","status":"unknown"}
+{"fn":"dealloc_monst","c":"2676-2691","status":"ported","js":["js/mon.js:dealloc_monst"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/mon.js:3479; dog.c:959->dog.js:1498, mon.c:2499->mon.js:3507, mon.c:2555->mon.js:3718, zap.c:740->zap.js:2880 wired, save.c:909 named omit"}
 {"fn":"mon_leaving_level","c":"2696-2730","status":"unknown"}
 {"fn":"m_detach","c":"2734-2803","status":"ported","js":["js/mhitm.js:m_detach"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"unknown"}
@@ -98,7 +98,7 @@
 {"fn":"hideunder","c":"4726-4802","status":"unknown"}
 {"fn":"hide_monst","c":"4806-4826","status":"unknown"}
 {"fn":"mon_animal_list","c":"4829-4852","status":"ported","js":["js/makemon.js:mon_animal_list"],"d":["D-2956"],"at":"seed@a30a7de84"}
-{"fn":"pick_animal","c":"4855-4869","status":"unknown"}
+{"fn":"pick_animal","c":"4855-4869","status":"ported","js":["js/makemon.js:pick_animal"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/makemon.js:1206; mon.c:5190->makemon.js:1420 wired"}
 {"fn":"decide_to_shapeshift","c":"4872-4938","status":"unknown","d":["D-2254"],"at":"seed@a30a7de84"}
 {"fn":"pickvampshape","c":"4941-4979","status":"unknown"}
 {"fn":"isspecmon","c":"4983-4987","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

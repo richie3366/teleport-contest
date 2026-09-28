@@ -1,5 +1,5 @@
 {"fn":"whichrng","c":"32-40","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"init_isaac64","c":"43-58","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"init_isaac64","c":"43-58","status":"split","js":["js/rng.js:initRng"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale-split: effect live in initRng (8 LE seed bytes isaac64_init both streams = init_random(rn2)+init_random(rn2_on_display_rng) options.c:7161-7162); whichrng/set_random dispatch unported"}
 {"fn":"RND","c":"61-64","status":"unknown"}
 {"fn":"rn2_on_display_rng","c":"70-73","status":"ported","js":["js/rng.js:rn2_on_display_rng"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
 {"fn":"rn2","c":"95-107","status":"ported","js":["js/rng.js:rn2"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}

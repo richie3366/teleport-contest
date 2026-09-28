@@ -10,6 +10,6 @@
 {"fn":"outoracle","c":"640-693","status":"ported","js":["js/rumors.js:outoracle"],"d":["D-2603"],"at":"seed@a30a7de84"}
 {"fn":"doconsult","c":"696-767","status":"unknown"}
 {"fn":"couldnt_open_file","c":"770-782","status":"unknown"}
-{"fn":"CapitalMon","c":"791-822","status":"unknown"}
+{"fn":"CapitalMon","c":"791-822","status":"ported","js":["js/objnam.js:CapitalMon"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/objnam.js:1603; objnam.c:2187->objnam.js:1761 wired, hack.c:4440 in unported debug dump_weights"}
 {"fn":"init_CapMons","c":"829-935","status":"ported","js":["js/objnam.js:init_CapMons"],"d":["D-2543"],"at":"seed@a30a7de84"}
 {"fn":"free_CapMons","c":"939-953","status":"unknown"}
