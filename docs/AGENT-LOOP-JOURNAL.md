@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3070 teleport.c enexto_core null-mdat arm + set_mon_data; tele_jump_ok, dotelecmd, m_blocks_teleporting verified complete
+
+**C locus:** - `enexto_core`: nethack-c/upstream/src/teleport.c:219–276 (NEW_ENEXTO live; `:281–376` is the uncompiled `#else`)
+**JS:** - `enexto_core`: js/teleport.js:631 (exported)
+**Change:** - `enexto_core`: null-mdat default via live `mons(game.u?.umonster)`; zeromonst-literal + live `set_mon_data` import (imports.mjs SAFE, hoisted, call-time use); `:227–229` no-mask and `:274–276` fail-arm cites
+**Verify:** `node scripts/verify.mjs --fn enexto_core,enexto,enexto_gpflags,tele_jump_ok,dotelecmd,m_blocks_teleporting --reach-all` → VERIFY: PASS
+**Named:** - `enexto_core`: `:232` debugpline0 + `:274` debugpline4 (D_DEBUG-only, repo precedent); `:281–376` `#else` body not compiled (live build is NEW_ENEXTO)
+**Next:** pop the regenerated head.
 ## 2026-09-28 — D-3069 options.c visuals/windowcolors closure: reset_needed_visuals + wc_set_window_colors + optfn_windowcolors + wc_color_name + reset_customcolors + clear_all_glyphmap_colors
 
 **C locus:** - `reset_needed_visuals`: nethack-c/upstream/src/options.c:8979–9014

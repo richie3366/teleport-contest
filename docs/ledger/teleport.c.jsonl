@@ -1,11 +1,11 @@
-{"fn":"m_blocks_teleporting","c":"21-26","status":"unknown"}
+{"fn":"m_blocks_teleporting","c":"21-26","status":"ported","js":["js/teleport.js:m_blocks_teleporting"],"d":["D-3070"],"at":"2026-09-28@3bee10e1d"}
 {"fn":"noteleport_level","c":"30-47","status":"ported","js":["js/teleport.js:noteleport_level"],"d":["D-2940"],"at":"seed@a30a7de84"}
 {"fn":"goodpos_onscary","c":"53-76","status":"unknown","d":["D-1102"],"at":"seed@a30a7de84"}
 {"fn":"goodpos","c":"86-185","status":"unknown","d":["D-2171","D-2096","D-1110","D-1101","D-1100","D-1099"],"at":"seed@a30a7de84"}
 {"fn":"enexto","c":"196-203","status":"unknown"}
 {"fn":"enexto_gpflags","c":"206-214","status":"unknown"}
-{"fn":"enexto_core","c":"219-276","status":"unknown","note":"alt 281-376"}
-{"fn":"tele_jump_ok","c":"386-417","status":"unknown"}
+{"fn":"enexto_core","c":"219-276","status":"ported","js":["js/teleport.js:enexto_core"],"d":["D-3070"],"at":"2026-09-28@3bee10e1d","note":"alt 281-376"}
+{"fn":"tele_jump_ok","c":"386-417","status":"ported","js":["js/teleport.js:tele_jump_ok"],"d":["D-3070"],"at":"2026-09-28@3bee10e1d"}
 {"fn":"teleok","c":"420-445","status":"unknown","d":["D-1119","D-1111"],"at":"seed@a30a7de84"}
 {"fn":"teleds","c":"448-573","status":"unknown","d":["D-1142","D-1141","D-1140","D-1139","D-1132","D-1131"],"at":"seed@a30a7de84"}
 {"fn":"safe_teleds","c":"717-770","status":"partial","js":["js/teleport.js:safe_teleds"],"omit":"`do.c:1566` stays inside the deferred Gehennom amulet mysteryforce arm (`js/do.js:1544`), so same-level `safe_teleds` + `next_to_u` is not reached.","d":["D-2815"],"at":"seed@a30a7de84"}
@@ -14,7 +14,7 @@
 {"fn":"tele_to_rnd_pet","c":"814-838","status":"unknown"}
 {"fn":"tele","c":"842-845","status":"unknown","d":["D-1133"],"at":"seed@a30a7de84"}
 {"fn":"scrolltele","c":"849-915","status":"unknown","d":["D-1206","D-1205","D-1197","D-1184"],"at":"seed@a30a7de84"}
-{"fn":"dotelecmd","c":"919-1031","status":"unknown","d":["D-1209"],"at":"seed@a30a7de84"}
+{"fn":"dotelecmd","c":"919-1031","status":"ported","js":["js/teleport.js:dotelecmd"],"d":["D-3070","D-1209"],"at":"2026-09-28@3bee10e1d"}
 {"fn":"dotele","c":"1034-1162","status":"unknown","d":["D-1208"],"at":"seed@a30a7de84"}
 {"fn":"level_tele","c":"1165-1441","status":"unknown","d":["D-2136","D-2054","D-1846"],"at":"seed@a30a7de84"}
 {"fn":"domagicportal","c":"1444-1489","status":"unknown"}

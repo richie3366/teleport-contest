@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3070 — teleport.c enexto_core null-mdat arm + set_mon_data; tele_jump_ok, dotelecmd, m_blocks_teleporting verified complete
+
+- **Status:** fixed (breadth-phase coverage cluster — queue head plus three same-file Open functions colder than the 12-row block, verified complete in-brief with no code; `enexto`/`enexto_gpflags` examined and left Open — bodies ≡ C but 58 C call sites need a dedicated wiring pass)
+- **Symptom:** coverage PARTIAL — `enexto_core` dropped the C `:231–237` head: null mdat fell through with `data: null` instead of defaulting to `mons[u.umonster]` (live: makemon ptr=NULL under rndmongen via makemon.c:1168→:1180/:1196, js/makemon.js:3208→:3219/:3244; mail.c:163/:204/:219 and apply.c:3833 also pass NULL), and the dummy skipped the live `set_mon_data` (mnum unset). Delta: for a human player C fires the S_HUMAN magical-scare resist in goodpos_onscary (spot not scary) while JS null-mdat fell through to the scare-scroll/Elbereth arms, so candidate accept/reject differed under GP_CHECKSCARY.
+- **C locus:**
+  - `enexto_core`: nethack-c/upstream/src/teleport.c:219–276 (NEW_ENEXTO live; `:281–376` is the uncompiled `#else`)
+  - `tele_jump_ok`: nethack-c/upstream/src/teleport.c:386–417 (staticfn)
+  - `dotelecmd`: nethack-c/upstream/src/teleport.c:919–1031
+  - `m_blocks_teleporting`: nethack-c/upstream/src/teleport.c:21–26 (staticfn)
+- **JS was:**
+  - `enexto_core`: js/teleport.js:629 inline `{ data: mdat, mx: 0, my: 0, wormno: 0 }` — no null-mdat default, no `set_mon_data`, no `:227–229` GP_ALLOW_XY cite
+  - `tele_jump_ok` / `dotelecmd` / `m_blocks_teleporting`: complete under own names (compacted merge / menu emulation / identical body) — no code change
+- **Fix:**
+  - `enexto_core`: null-mdat default via live `mons(game.u?.umonster)`; zeromonst-literal + live `set_mon_data` import (imports.mjs SAFE, hoisted, call-time use); `:227–229` no-mask and `:274–276` fail-arm cites
+  - `tele_jump_ok` / `dotelecmd` / `m_blocks_teleporting`: no code — brief-verified complete (see Named omissions)
+- **JS:**
+  - `enexto_core`: js/teleport.js:631 (exported)
+  - `tele_jump_ok`: js/teleport.js:979 (local, C staticfn)
+  - `dotelecmd`: js/teleport.js:2186 (exported async)
+  - `m_blocks_teleporting`: js/teleport.js:845 (local, C staticfn)
+- **Callers:**
+  - `enexto_core`: makemon.c:1180/1181 → js/makemon.js:3219/3220; makemon.c:1196 → js/makemon.js:3244; teleport.c:201/202 (`enexto`) → js/teleport.js:671/672; teleport.c:212/213 (`enexto_gpflags`) → js/teleport.js:677/678
+  - `tele_jump_ok`: teleport.c:440 (`teleok`) → js/teleport.js:1420 (in `teleok` :1401); teleport.c:1628 (`rloc_pos_ok`) → js/teleport.js:1057 (in `rloc_pos_ok` :1010)
+  - `dotelecmd`: C extcmdlist `"teleport"` + `C('t')` CMD_M_PREFIX dispatch → js doextcmd (D-1230, pre-wired, kept)
+  - `m_blocks_teleporting`: no callers in C (prototype only) or JS (definition only) — mirror-image dead static, kept
+- **Verify:** `node scripts/verify.mjs --fn enexto_core,enexto,enexto_gpflags,tele_jump_ok,dotelecmd,m_blocks_teleporting --reach-all` → VERIFY: PASS
+  - `enexto_core`: note hidden (no corpus session blocked) · REACH-OK (smoke spread 24/24)
+  - `tele_jump_ok`: note hidden · REACH-OK (24/24)
+  - `dotelecmd`: note hidden · REACH-OK (24/24)
+  - `m_blocks_teleporting`: note hidden · REACH-OK (24/24)
+  - `enexto` / `enexto_gpflags`: note hidden · REACH-OK (24/24 each; examined, left Open)
+  - shared: syntax 1 file (js/teleport.js) · rule2 · green 2/2 · strict ×2 · cohort 7/7. Headless /tmp/enexto-null-probe.mjs: null-mdat arm runs, fail arm returns false with cc=(xx,yy) per C.
+- **Named omissions:**
+  - `enexto_core`: `:232` debugpline0 + `:274` debugpline4 (D_DEBUG-only, repo precedent); `:281–376` `#else` body not compiled (live build is NEW_ENEXTO)
+  - `tele_jump_ok`: none — whole body; `within_bounded_area` is a dungeon.h:144 macro, inlined exactly; `in1 !== in2` ≡ the two FALSE arms (pure predicate, no RNG/side effects)
+  - `dotelecmd`: none — whole body in C order incl. save/restore H/E and reverse `tport_spell`; PICK_ONE preselected-'w' semantics emulated in `dotelecmd_mode_menu` (space/enter→'w', toggle-off→'w', ESC→ECMD_OK); `select_menu` itself by-design with no scored analogue
+  - `m_blocks_teleporting`: none — identical body; uncalled both sides
+- **Ledger:** enexto_core ported; tele_jump_ok ported; dotelecmd ported; m_blocks_teleporting ported
+- **Next:** pop the regenerated head.
+
 ## D-3069 — options.c visuals/windowcolors closure: reset_needed_visuals + wc_set_window_colors + optfn_windowcolors + wc_color_name + reset_customcolors + clear_all_glyphmap_colors
 
 - **Status:** fixed (breadth-phase coverage cluster — queue head + same-file Open row + caller/callee closure)

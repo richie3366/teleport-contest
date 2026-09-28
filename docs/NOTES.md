@@ -19,10 +19,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audits 1956–1971: ACCEPT + WITH-DEBT (unqueued); no Must-fix; do not re-open.
-- Audits 1972–1989: ACCEPT (mtele_trap Must-fix @54 noted 1972–1980); do not re-open.
-- Audits 1990–2015: 9/9/8 ACCEPT (1990–1998: 631/953, no flips); do not re-open.
-- Audit 2016–2023: 8 ACCEPT; do not re-open. Seeded sample 5/5 sound (mkshop gap = mkshop partial). Env: node v20, no node:sqlite.
+- Audits 1956–2023: all ACCEPT/WITH-DEBT, no Must-fix (mtele_trap noted 1972–1980; 1990–1998: 631/953, no flips; seeded sample 5/5 sound, mkshop gap = mkshop partial); do not re-open. Env: node v20, no node:sqlite.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 
@@ -39,7 +36,7 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3069 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3070 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings: `.cache/hidden/sessions` is empty (941 recipes). `hidden-proxy score` sees 12 `private-sessions` only. Do not read 12/12 as the 614/940 fortress (last full board `086317c06`, replaced at `38d6c8a36`).
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -47,13 +44,14 @@ here again. Live hypotheses only:
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3069.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3069.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3070.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3070.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3070: - `enexto_core`: null-mdat default via live `mons(game.u?.umonster)`; zeromonst-literal + live `set_mon_data` import (imports.mjs SAFE, hoisted, call- Named: - `enexto_core`: `:232` debugpline0 + `:274` debugpline4 (D_DEBUG-only, repo precedent); `
 - D-3069: - `reset_needed_visuals`: restarted whole in C order — full 4-flag gate, palette clear, customcolors/customsymbols/redraw arms with reglyph_darkroom,  Named: - `reset_needed_visuals`: reset_glyphmap(gm_optionchange) `:8983` (CURRENT ban); change_pa
 - D-3068: print_queue prints the live `name(ptr)` arm via the shared TIMEOUT_FUNC_NAMES (newly exported from mkobj.js — no clone #2); new exported `cleanup_burn Named: - `print_queue`: none — the `!VERBOSE_TIMER #%d` arm is not compiled (C :1963); %p renders
 - D-3067: new exported `async unmakemon(mon, mmflags)` in js/makemon.js in C order with per-arm `:line` cites — countbirth from MM_NOCOUNTBIRTH (:1519), mndx vi Named: `unmakemon`: none — every arm ported, every callee live (`monsndx`, `discard_minvent`, `mo
@@ -68,5 +66,4 @@ here again. Live hypotheses only:
 - D-3058: js/dig.js — new exported `async unearth_you` + `escape_tomb` in C order with per-arm `:line` cites. Named: - `escape_tomb`: the tunneler `dighole` arm (`:2264–2265`) is ported but unpinned headless
 - D-3057: js/zap.js — restarted `wish_history_menu` whole in C order as `async`, returning the pick (JS strings immutable): ring walk `i = 19..0`, `idx = (wish_ Named: - `wish_history_menu`: none — every arm ported, every callee live (`select_menu_pick_one`)
 - D-3056: js/zap.js — new file-local `spell_hit_bonus` in C order (`P_SKILL(spell_skilltype(skill))` via the live weapon.js/spell.js exports, `imports.mjs --can Named: - `wish_history_menu`: the menu pick body (`create_nhwindow` through `select_menu`, which 
-- D-3055: timer save/restore closure (js/mkobj.js:1143/1200/1258; lev_json.js delegates). Named: ghostly adjust deferred; NHFILE N/A (JSON VFS).
 <!-- landmarks:end -->

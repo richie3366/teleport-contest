@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `teleport.c` enexto_core — coverage PARTIAL (C 28 code L `teleport.c:219–276` / JS 18 code L in js/teleport.js; hops 3, callers 3, RNG 0, msg 0) @fb9c2049c
 - [ ] `bones.c` bones_include_name — coverage PARTIAL (C 10 code L `bones.c:762–780` / JS 6 code L in js/bones.js; hops 3, callers 1, RNG 0, msg 1) @000445a8b
 - [ ] `coloratt.c` free_menu_coloring — coverage MISSING (C 10 code L `coloratt.c:664–680` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @000445a8b
 - [ ] `muse.c` mcould_eat_tin — coverage PARTIAL (C 15 code L `muse.c:3001–3027` / JS 10 code L in js/muse.js; hops 2, callers 3, RNG 0, msg 0) @2f39bdcea
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `trap.c` keep_saddle_with_steedcorpse — coverage MISSING (C 17 code L `trap.c:939–967` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b93547133
 - [ ] `do_wear.c` doffing — coverage PARTIAL (C 31 code L `do_wear.c:1603–1640` / JS 19 code L in js/do_wear.js; hops 4, callers 4, RNG 0, msg 0) @774d64d58
 - [ ] `rnd.c` set_random — coverage MISSING (C 1 code L `rnd.c:235–239` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: init_isaac64) @774d64d58
+- [ ] `worm.c` random_dir — coverage MISSING (C 17 code L `worm.c:803–822` / JS no symbol; hops —, callers 0, RNG 7, msg 0) @3bee10e1d
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
