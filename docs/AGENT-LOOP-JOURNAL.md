@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3013 `display.c` show_glyph guard/diagnostic arms ported into show_glyph_cell + wall_angle + flush_screen retired stale
+
+**C locus:** - `show_glyph`: `nethack-c/upstream/src/display.c:1877–2072` (this iteration ports `:1886` suppress gate + `:1894–2000` bad-pos/bad-glyph `impossible` arms with the 40-arm bank-classification chain; callee `glyph_is_normal_generic_obj` `display.h:839–840` ported in this commit; `:2006–2070` map_glyphinfo/store/announce/pline arms were already whole under split names).
+**JS:** `js/display.js` only (76 insertions) — `glyph_is_normal_generic_obj` (`:901`), `show_glyph_cell` guards (`:4027`, doc header cites `:1877–2072`). No new cross-module imports (suppress_map_output/isok/impossible/MAX_GLYPH/NO_GLYPH/GLYPH_*_OFF/glyph_is_* all same-module).
+**Change:** new exact-C `glyph_is_normal_generic_obj` (`js/display.js:901`, `glyph_id` null-convention like its siblings). `show_glyph_cell` head restarted in C order — `:1886` suppress return (same gate as newsym/feel_location/flush_screen), `:1894` isok gate with `:1899` x==0 silent return (isok ≡ `cmd.c:4325–4330`, verified identical), then the `:1906–1990` offset chain in display.h order with per-arm `:line` cites and the two generic-obj ternaries, `:1993–1994` bad-pos `impossible` (exact C text), `:1996–2000` bad-glyph `impossible` gated on a real integer id. `impossible` is same-module async, and the cell fn is already async, so both reports are live (they only fire on invalid input — zero screen effect on reachable states).
+**Verify:** - `show_glyph`: hidden note (0 blocked) · reach smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file).
+**Named:** - `show_glyph`: no integer-glyph `show_glyph(x,y,glyph)` entry point — callers pre-decode paint and ride `show_glyph_cell`; the int→paint core needs the deferred glyphmap table (map-named, per CURRENT Next-cluster note); glyphmap[] base copy inside `map_glyphinfo` (named in its docs; D-1972 open); `use_background_glyph` shut on tty (D-1984); UNBUFFERED_GLYPHINFO arms absent (pinned C builds buffered — matches).
+**Next:** queue head is now `mkmaze.c` extend_spine.
 ## 2026-09-28 — D-3012 mon.c movemon_singlemon bypass/vision/split reset arms ported at both levels; m_calcdistress + worm_cross + set_wall retired stale
 
 **C locus:** - `movemon_singlemon`: `nethack-c/upstream/src/mon.c:1214–1322` (this iteration ports `:1258` vision_recalc + `:1261–1264` bypass/split reset; utotype/isgd/DEADMONSTER/offmap/everyturn/movement/minliquid/dowear/hider-eel/Conflict/dochugw arms were already whole).
