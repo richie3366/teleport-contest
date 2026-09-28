@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3005 engrave.c persistence family: save_engravings + rest_engravings + forget_engravings + see_engraving + feel_engraving; all C callers wired
+
+**C locus:** - `rest_engravings`: `nethack-c/upstream/src/engrave.c:1584–1619` (drop head `:1590`, lth==0 return `:1593–1594`, newengr+Sfi `:1595–1596`, prepend `:1597–1599`, arena pointers `:1600–1602`, three Sfi_char `:1603–1608`, blank-strip `:1610–1613`, engr_time=moves `:1617`).
+**JS:** `js/engrave.js` +135 (five ports + `chainToArray`); `js/display.js` export one-word + comment; `js/do.js` stash→`save_engravings()` (`:1737`) + install→`rest_engravings()` (`:1879`); `js/lev_json.js` serLevel live arm (`:721`); `js/save.js` (`:925`) + `js/bones.js` (`:691`) installs; `js/end.js` savebones `forget_engravings()` (`:1656`, omission line removed).
+**Change:** five ports in `js/engrave.js:164–299` in C order. `save_engravings` (`:183`) snapshots head-first, skipping allocation-less/empty records; binary Sfo ⇔ plain-record copy (§1.6 JSON), release arm stays at callers. `rest_engravings` (`:230`) clears, rebuilds head-first with prepend (live order reverses vs stored, like C), slices leading blanks off actual/remembered only, stamps `engr_time = game.moves`; accepts array or legacy `nxt_engr` chain, null ⇒ null; returns the head (JS extension).
+**Verify:** `node scripts/verify.mjs --fn rest_engravings,save_engravings,forget_engravings,see_engraving,feel_engraving` → PASS syntax (7 files) · PASS rule2 · note hidden ×5 (no corpus session blocked — expected coverage row) · REACH-OK ×5 (no RNG-tagged reach; smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** - `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).
+**Next:** none — head's file/closure holds nothing more Open (same-file `engraving_sanity_check` is by-design; remaining engrave.c ledger rows are unknown-measured-ok, not Open).
 ## 2026-09-28 — D-3004 `mklev.c` free_luathemes: release per-branch theme markers with tut/most/all group filter; do.c:1646 caller wired
 
 **C locus:** - `free_luathemes`: `nethack-c/upstream/src/mklev.c:344–364` (group comment `:348–353`, skip predicates `:356–358`, `nhl_done` + NULL slot `:359–362`). Selector enum `hack.h:427–431` (`all_themes = 1`, `most_themes = 2`, `tut_themes = 3`).

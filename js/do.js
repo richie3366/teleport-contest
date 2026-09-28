@@ -126,7 +126,7 @@ import {
     near_capacity, learn_unseen_invent, encumber_msg,
     freeinv_core, getobj, ggetobj, useup, useupall,
 } from './invent.js';
-import { can_reach_floor, set_occupation, engr_at, sticks } from './engrave.js';
+import { can_reach_floor, set_occupation, engr_at, sticks, save_engravings, rest_engravings } from './engrave.js';
 import {
     pickup, pooleffects, query_category, query_objlist, add_valid_menu_class,
     allow_category, allow_all, count_justpicked, find_justpicked,
@@ -1734,7 +1734,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 fobj: game.fobj,
                 ftrap: game.ftrap,
                 stairs: game.stairs,
-                head_engr: game.head_engr,
+                head_engr: save_engravings(), // C save.c:548 savelev Sfo arm (release arm: teardown null below).
                 track: trackSnap,
                 // C savelev → save_regions; rest_regions on getlev.
                 // Snapshot like C's Sfo writes: the release_data arm
@@ -1876,7 +1876,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.fobj = info.fobj || null;
         game.ftrap = info.ftrap || null;
         game.stairs = info.stairs || null;
-        game.head_engr = info.head_engr || null;
+        game.head_engr = rest_engravings(info.head_engr); // C restore.c:1174 getlev.
         // C restore.c getlev `:1225` rest_regions — rebuild live regions
         // from the stash (ttl rebased on elapsed moves, expired dropped);
         // pre-stash levels omit regions → empty. Stash getlev is never

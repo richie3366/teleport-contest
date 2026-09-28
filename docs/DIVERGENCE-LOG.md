@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3005 — engrave.c persistence family: save_engravings + rest_engravings + forget_engravings + see_engraving + feel_engraving; all C callers wired
+
+- **Status:** fixed (Open — coverage `engrave.c` rest_engravings MISSING (C 27 code L `engrave.c:1584–1619` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) + same-file absent `save_engravings`/`forget_engravings`/`see_engraving`/`feel_engraving`, grown per cluster rule — callee closure is macros only, no other Open rows in the generated block).
+- **Symptom:** coverage cluster — five engrave.c functions with no JS symbol (level save/restore of floor engravings, bones forget, see/feel repaint helpers). No corpus session blocked on any of them; deliverable is each whole C body in C order with every C caller wired or named.
+- **C locus:**
+  - `rest_engravings`: `nethack-c/upstream/src/engrave.c:1584–1619` (drop head `:1590`, lth==0 return `:1593–1594`, newengr+Sfi `:1595–1596`, prepend `:1597–1599`, arena pointers `:1600–1602`, three Sfi_char `:1603–1608`, blank-strip `:1610–1613`, engr_time=moves `:1617`).
+  - `save_engravings`: `nethack-c/upstream/src/engrave.c:1551–1580` (head-first walk `:1556–1557`, alloc+text gate `:1559–1560`, Sfo trio `:1562–1570`, release dealloc `:1572–1573`, terminator `:1575–1577`, head=0 `:1578–1579`).
+  - `forget_engravings`: `nethack-c/upstream/src/engrave.c:1509–1521` (eread/erevealed zero `:1514`, text kept per note `:1515–1520`).
+  - `see_engraving`: `nethack-c/upstream/src/engrave.c:1724–1727` (newsym cell).
+  - `feel_engraving`: `nethack-c/upstream/src/engrave.c:1732–1741` (felt gate `:1735`, flags `:1736–1737`, map paint `:1738`, newsym `:1740`).
+- **JS was:** no `save_engravings`/`rest_engravings`/`forget_engravings`/`see_engraving`/`feel_engraving` symbol; all five install sites assigned `head_engr` chains directly (`do.js` stash/getlev, `lev_json` serLevel, `save.js`/`bones.js` install); `end.js` savebones carried `forget_engravings` as a Named omission.
+- **Fix:** five ports in `js/engrave.js:164–299` in C order. `save_engravings` (`:183`) snapshots head-first, skipping allocation-less/empty records; binary Sfo ⇔ plain-record copy (§1.6 JSON), release arm stays at callers. `rest_engravings` (`:230`) clears, rebuilds head-first with prepend (live order reverses vs stored, like C), slices leading blanks off actual/remembered only, stamps `engr_time = game.moves`; accepts array or legacy `nxt_engr` chain, null ⇒ null; returns the head (JS extension). `forget_engravings` (`:164`) exact loop. `see_engraving` (`:276`) / `feel_engraving` (`:288`) exact bodies against the live `display.js` exports (`engr_can_be_felt` newly exported `:4840`, no clone — brief).
+- **JS:** `js/engrave.js` +135 (five ports + `chainToArray`); `js/display.js` export one-word + comment; `js/do.js` stash→`save_engravings()` (`:1737`) + install→`rest_engravings()` (`:1879`); `js/lev_json.js` serLevel live arm (`:721`); `js/save.js` (`:925`) + `js/bones.js` (`:691`) installs; `js/end.js` savebones `forget_engravings()` (`:1656`, omission line removed).
+- **Callers:**
+  - `rest_engravings`: C `restore.c:1174` (getlev) → JS `js/do.js:1879` (stash getlev) + `js/save.js:925` (save-file getlev) + `js/bones.js:691` (ghostly getlev) — all three install paths (deserLevel stays a raw passthrough, rest_regions precedent).
+  - `save_engravings`: C `save.c:548` (savelev) → JS `js/do.js:1737` (stash) + `js/lev_json.js:721` (serLevel live arm; non-live re-serializes as-is).
+  - `forget_engravings`: C `bones.c:449` (savebones) → JS `js/end.js:1656` (after dmonsfree, before fruit negate — C `:444–449` order).
+  - `see_engraving` / `feel_engraving`: no live C call sites (C `:1730–1731` "isn't actually used anywhere?") — nothing to wire.
+- **Verify:** `node scripts/verify.mjs --fn rest_engravings,save_engravings,forget_engravings,see_engraving,feel_engraving` → PASS syntax (7 files) · PASS rule2 · note hidden ×5 (no corpus session blocked — expected coverage row) · REACH-OK ×5 (no RNG-tagged reach; smoke spreads 24/24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:**
+  - `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).
+  - `save_engravings`: `update_file`/`release_data` mode gates (snapshot context always writes; release lives at the teardown callers).
+- **Ledger:** save_engravings partial; rest_engravings partial; forget_engravings ported; see_engraving ported; feel_engraving ported
+- **Next:** none — head's file/closure holds nothing more Open (same-file `engraving_sanity_check` is by-design; remaining engrave.c ledger rows are unknown-measured-ok, not Open).
+
 ## D-3004 — `mklev.c` free_luathemes: release per-branch theme markers with tut/most/all group filter; do.c:1646 caller wired
 
 - **Status:** fixed (Open — coverage `mklev.c` free_luathemes MISSING (C 8 code L `mklev.c:345–364` / JS no symbol; hops 3, callers 2, RNG 0, msg 0)).
