@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3067 `unmakemon` (makemon.c:1514–1539) + `nasty` caller wiring
+
+**C locus:** `unmakemon`: nethack-c/upstream/src/makemon.c:1514–1539 (countbirth :1519, mndx :1520, born untally :1525–1528 with the 255-cap carve-out, unique un-extinct :1529–1530, mhp=0 :1532, discard_minvent(TRUE) :1536, mongone :1538, return 0 :1539); sole C caller wizard.c:677 `nasty`
+**JS:** js/makemon.js:3656 (`unmakemon`; `monsndx` + `discard_minvent`/`mongone` added to pre-existing mondata/mon imports — no new edges); js/wizard.js:7,154 (import + wired call)
+**Change:** new exported `async unmakemon(mon, mmflags)` in js/makemon.js in C order with per-arm `:line` cites — countbirth from MM_NOCOUNTBIRTH (:1519), mndx via live `monsndx` (:1520), mvitals entry ensured like `propagate` (C svm.mvitals[] always present), born decrement guarded `> 0 && < 255` (:1525–1528), G_UNIQ → mvflags `&= ~G_EXTINCT` (:1529–1530), mhp=0 (:1532), live `discard_minvent(mon, true)` (:1536), `await` live `mongone(mon)` (:1538, async only for its unstuck/mdrop_special_objs awaits), return null (:1539); wired the `nasty` arm to `mtmp = await unmakemon(mtmp, NO_MM_FLAGS)`
+**Verify:** `node scripts/verify.mjs --fn unmakemon` → VERIFY: PASS (syntax 2 files; rule2 clean; hidden note — no corpus session blocked, expected for coverage rows; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full 44/44 auto on shared change). New scripts/unmakemon.test.mjs: 4/4 pass (unmake+unt tally, MM_NOCOUNTBIRTH, 0/255 bounds, unique un-extinct)
+**Named:** `unmakemon`: none — every arm ported, every callee live (`monsndx`, `discard_minvent`, `mongone`)
+**Next:** pop the regenerated coverage head
 ## 2026-09-28 — D-3066 shk.c breadth cluster: onbill/restshk/cad/pacify_shk/rouse_shk/use_unpaid_trapobj + 9 stale
 
 **C locus:** - `onbill`: nethack-c/upstream/src/shk.c:1136–1155 (whole body — shkp-guarded billct walk `:1140–1150`, paid-on-bill impossible `:1147–1148`, unpaid-not-on-bill impossible `:1152–1154`).

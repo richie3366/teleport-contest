@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3067 — `unmakemon` (makemon.c:1514–1539) + `nasty` caller wiring
+
+- **Status:** fixed (breadth-phase coverage row; single-function cluster — head's callees live, no other makemon.c Open rows in queue; other absent makemon.c fns are debug/staticfn, not queue-eligible)
+- **Symptom:** coverage MISSING — no JS symbol; `nasty`'s geno-substitute reject arm (wizard.c:677) was a named-omission stub that zeroed mhp and leaked a dead mon on fmon instead of unmaking it
+- **C locus:** `unmakemon`: nethack-c/upstream/src/makemon.c:1514–1539 (countbirth :1519, mndx :1520, born untally :1525–1528 with the 255-cap carve-out, unique un-extinct :1529–1530, mhp=0 :1532, discard_minvent(TRUE) :1536, mongone :1538, return 0 :1539); sole C caller wizard.c:677 `nasty`
+- **JS was:** no `unmakemon` export; js/wizard.js:153–155 stub (`mtmp.mhp = 0; mtmp = null`) left the rejected substitute on `game.fmon` with its birth tallied and uniques extinct
+- **Fix:** new exported `async unmakemon(mon, mmflags)` in js/makemon.js in C order with per-arm `:line` cites — countbirth from MM_NOCOUNTBIRTH (:1519), mndx via live `monsndx` (:1520), mvitals entry ensured like `propagate` (C svm.mvitals[] always present), born decrement guarded `> 0 && < 255` (:1525–1528), G_UNIQ → mvflags `&= ~G_EXTINCT` (:1529–1530), mhp=0 (:1532), live `discard_minvent(mon, true)` (:1536), `await` live `mongone(mon)` (:1538, async only for its unstuck/mdrop_special_objs awaits), return null (:1539); wired the `nasty` arm to `mtmp = await unmakemon(mtmp, NO_MM_FLAGS)`
+- **JS:** js/makemon.js:3656 (`unmakemon`; `monsndx` + `discard_minvent`/`mongone` added to pre-existing mondata/mon imports — no new edges); js/wizard.js:7,154 (import + wired call)
+- **Callers:** `unmakemon`: wizard.c:677 `nasty` → js/wizard.js:154 `await unmakemon(mtmp, NO_MM_FLAGS)` (replaces the named-omission stub; no other C call sites)
+- **Verify:** `node scripts/verify.mjs --fn unmakemon` → VERIFY: PASS (syntax 2 files; rule2 clean; hidden note — no corpus session blocked, expected for coverage rows; reach — no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full 44/44 auto on shared change). New scripts/unmakemon.test.mjs: 4/4 pass (unmake+unt tally, MM_NOCOUNTBIRTH, 0/255 bounds, unique un-extinct)
+- **Named omissions:** `unmakemon`: none — every arm ported, every callee live (`monsndx`, `discard_minvent`, `mongone`)
+- **Ledger:** unmakemon ported
+- **Next:** pop the regenerated coverage head
+
 ## D-3066 — shk.c breadth cluster: onbill/restshk/cad/pacify_shk/rouse_shk/use_unpaid_trapobj + 9 stale
 
 - **Status:** fixed (breadth-phase coverage cluster, head `shk.c onbill`; `verify --fn onbill,restshk,cad,pacify_shk,rouse_shk,use_unpaid_trapobj` REACH-OK all six + green + strict + cohort 7/7 + full 44/44)

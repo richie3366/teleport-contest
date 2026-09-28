@@ -21,9 +21,7 @@ here again. Live hypotheses only:
   Everything below this bullet is phase-2 context — do not act on it now.
 - Audits 1956–1971: ACCEPT + WITH-DEBT (unqueued); no Must-fix; do not re-open.
 - Audits 1972–1989: ACCEPT (mtele_trap Must-fix @54 noted 1972–1980); do not re-open.
-- Audit 1990–1998: 9 ACCEPT, 0 Must-fix (631/953, no flips); do not re-open.
-- Audit 1999–2007: 9 ACCEPT; do not re-open.
-- Audit 2008–2015: 8 ACCEPT; do not re-open.
+- Audits 1990–2015: 9/9/8 ACCEPT (1990–1998: 631/953, no flips); do not re-open.
 - Audit 2016–2023: 8 ACCEPT; do not re-open. Seeded sample 5/5 sound (mkshop gap = mkshop partial). Env: node v20, no node:sqlite.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
@@ -41,7 +39,7 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3066 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3067 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings: `.cache/hidden/sessions` is empty (941 recipes). `hidden-proxy score` sees 12 `private-sessions` only. Do not read 12/12 as the 614/940 fortress (last full board `086317c06`, replaced at `38d6c8a36`).
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -49,13 +47,14 @@ here again. Live hypotheses only:
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3066.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3066.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3067.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3067.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3067: new exported `async unmakemon(mon, mmflags)` in js/makemon.js in C order with per-arm `:line` cites — countbirth from MM_NOCOUNTBIRTH (:1519), mndx vi Named: `unmakemon`: none — every arm ported, every callee live (`monsndx`, `discard_minvent`, `mo
 - D-3066: onbill restructured to C order with fire-and-forget impossible arms (same_price precedent); new exported restshk in shk.js (strncmpi/assign_level/poly Named: - `onbill`: none — whole body, sole callee live, all C callers wired.
 - D-3065: new exported `free_all_glyphmap_u()` in js/glyphs.js in C order with per-arm `:line` cites (nulls utf8str then u per cell — C `free` ≡ null, GC collec Named: - `free_all_glyphmap_u`: the `:74–79` gbuf `gm.u` NULL sweep — JS keeps no per-cell glyph_
 - D-3064: new exported `shirt_simple_name()` in js/do_wear.js with the sibling `*_simple_name` family (C home is objnam.c); the ARM_SHIRT arms (armor_simple_nam Named: - `armor_simple_name`: none — every arm ported, every callee live (armcat reads oc_skill ≡
@@ -70,5 +69,4 @@ here again. Live hypotheses only:
 - D-3055: timer save/restore closure (js/mkobj.js:1143/1200/1258; lev_json.js delegates). Named: ghostly adjust deferred; NHFILE N/A (JSON VFS).
 - D-3054: four new locals in js/uhitm.js in C order with per-arm `:line` cites (`hmon_hitmon_weapon_ranged` → `hmon_hitmon_weapon` → `hmon_hitmon_potion` → `hmo Named: - `hmon_hitmon_do_hit`: none — every arm ported, every callee live (`barehands`, `hit`, `m
 - D-3053: restarted the export whole in C order with per-arm `:line` cites — zero-literal slot (`rnd` holds C `.rndm`; file convention js/artifact.js:558), `exi Named: - `artifact_origin`: none — every arm ported, sole C callee `impossible` live.
-- D-3052: new export in js/display.js in C order with per-arm `:line` cites — nocolor guard via `game.gs?.symset?.[game.currentgraphics | 0]?.nocolor` (same sha Named: - `cmap_to_roguecolor`: the five `reset_glyphmap` `has_rogue_color` arms (C `:2874`, `:291
 <!-- landmarks:end -->

@@ -13,7 +13,7 @@
 {"fn":"newmextra","c":"1066-1073","status":"unknown"}
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"unknown","d":["D-2264"],"at":"seed@a30a7de84"}
 {"fn":"makemon","c":"1147-1510","status":"unknown","d":["D-2421","D-2299","D-2139","D-2001"],"at":"seed@a30a7de84"}
-{"fn":"unmakemon","c":"1514-1539","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbirth_limit","c":"1542-1551","status":"unknown"}
 {"fn":"create_critters","c":"1556-1590","status":"unknown"}
 {"fn":"uncommon","c":"1593-1603","status":"unknown"}
