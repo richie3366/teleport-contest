@@ -117,7 +117,7 @@
 {"fn":"pfxfn_cond_","c":"4994-5036","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pfxfn_font","c":"5039-5165","status":"ported","js":["js/options.js:pfxfn_font"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"pfxfn_IBM_","c":"5169-5183","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"optfn_boolean","c":"5192-5449","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_boolean","c":"5192-5449","status":"ported","js":["js/options.js:optfn_boolean"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spcfn_misc_menu_cmd","c":"5452-5475","status":"unknown"}
 {"fn":"can_set_perm_invent","c":"5488-5527","status":"unknown"}
 {"fn":"check_perm_invent_again","c":"5532-5540","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -211,7 +211,7 @@
 {"fn":"remove_autopickup_exception","c":"9349-9369","status":"unknown"}
 {"fn":"free_autopickup_exceptions","c":"9372-9382","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sym_val","c":"9385-9426","status":"unknown"}
-{"fn":"option_help","c":"9462-9549","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"option_help","c":"9462-9549","status":"split","js":["js/options.js:option_help_lines","js/pager.js:show_text_pages"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_conds","c":"9556-9591","status":"unknown","d":["D-2549"],"at":"seed@a30a7de84"}
 {"fn":"all_options_menucolors","c":"9595-9625","status":"unknown"}
 {"fn":"all_options_msgtypes","c":"9628-9640","status":"unknown"}
@@ -224,7 +224,7 @@
 {"fn":"is_wc_option","c":"9899-9909","status":"unknown"}
 {"fn":"wc_supported","c":"9912-9921","status":"unknown"}
 {"fn":"set_wc2_option_mod_status","c":"9935-9950","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"is_wc2_option","c":"9953-9963","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"is_wc2_option","c":"9953-9963","status":"ported","js":["js/options.js:is_wc2_option"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wc2_supported","c":"9966-9976","status":"unknown"}
 {"fn":"wc_set_font_name","c":"9979-10010","status":"ported","js":["js/options.js:wc_set_font_name"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"wc_set_window_colors","c":"10023-10113","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

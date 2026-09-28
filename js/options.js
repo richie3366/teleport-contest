@@ -113,6 +113,7 @@ import {
     WC2_URGENT_MESG,
     WC2_SUPPRESS_HIST,
     WC2_EXTRASTATUS,
+    STONE,
     MSGTYP_NORMAL,
     MSGTYP_NOREP,
     MSGTYP_NOSHOW,
@@ -204,6 +205,7 @@ import {
     config_error_add, status_initialize,
 } from './botl.js';
 import { classify_terrain } from './hack.js';
+import { vision_recalc } from './vision.js';
 import {
     get_changed_key_binds, handler_rebind_keys, count_bind_keys,
     reset_commands, update_rest_on_space,
@@ -1059,6 +1061,16 @@ export const wc2_options = [
     { wc_name: 'windowborders', wc_bit: WC2_WINDOWBORDERS },
     { wc_name: 'wraptext', wc_bit: WC2_WRAPTEXT },
 ];
+
+/** C options.c is_wc2_option `:9952–9963` (staticfn) — name membership in
+ * wc2_options[]; support is tested separately via wc2_supported, mirroring
+ * the is_wc_option/wc_supported pair above. */
+function is_wc2_option(optnam) {
+    for (let k = 0; k < wc2_options.length; k++) {
+        if (wc2_options[k].wc_name === optnam) return true;
+    }
+    return false;
+}
 
 /** C botl.h:213 VIA_WINDOWPORT(). Message bits do not set this. */
 function via_windowport() {
@@ -7749,6 +7761,196 @@ function doset_bool_value(name) {
 }
 
 /**
+ * C optlist.h NHOPTB `v` (valok) field — every unix-tty boolean rejects a
+ * `:value` with "'%s' is not valid for a boolean" except these.
+ */
+const OPT_BOOL_VALOK = new Set(['menucolors']);
+
+/**
+ * C options.c optfn_boolean `:5192–5449` — boolean option handler (every
+ * NHOPTB row carries it; optlist.h NHOPT_PARSE `:75–77`). Async only for
+ * the two C pline arms (idlecheckpoint notice, toggled message); the body
+ * otherwise runs synchronously in C order. Word parse reuses
+ * optfn_boolean_word (same true/yes/on/1 : false/no/off/0 mapping);
+ * config_error_add is the no-op map sink (return values kept).
+ * @param {number} optidx C optidx (allopt row index)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {string} opts option head (value recomputed via string_for_opt)
+ * @returns {Promise<number>} OPTN_* result
+ */
+export async function optfn_boolean(optidx, req, negated, opts) {
+    if (req === REQ_DO_INIT) { // C do_init arm
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C do_set arm
+        const row = allopt[optidx];
+        const name = row.name;
+        let noSexChange = false; // C `nosexchange`
+        let ln = 0; // C `ln`
+        if (!row.addr) return OPTN_OK; // C silent retreat
+        // C option that must come from config file / must NOT come from it
+        if (!game.go?.opt_initial && row.setwhere === SET_IN_CONFIG)
+            return OPTN_ERR;
+        if (game.go?.opt_initial && row.setwhere === SET_WIZNOFUZ)
+            return OPTN_ERR;
+        const op = string_for_opt(String(opts), true); // C `op = string_for_opt(opts, TRUE)`
+        if (op !== EMPTY_OPTSTR) {
+            if (negated) {
+                config_error_add(
+                    "Negated boolean '%s' should not have a parameter", name);
+                return OPTN_SILENTERR;
+            }
+            // C length is greater than 0 or we wouldn't have gotten here
+            ln = op.length;
+            const parsed = optfn_boolean_word(op);
+            if (parsed !== null) {
+                negated = !parsed;
+            } else if (!OPT_BOOL_VALOK.has(name)) {
+                config_error_add("'%s' is not valid for a boolean", opts);
+                return OPTN_SILENTERR;
+            }
+        }
+        if (game.iflags?.debug_fuzzer && !game.go?.opt_initial // C fuzzer gate
+            && (name === 'silent' || name === 'perm_invent')) {
+            return OPTN_OK;
+        }
+        // Before the change
+        if (name === 'female') { // C `case opt_female`
+            if (optStrncasecmp(String(opts), 'female', Math.max(ln, 3)) === 0) {
+                if (!game.go?.opt_initial && !!game.flags?.female === negated) {
+                    noSexChange = true;
+                } else {
+                    if (!game.flags) game.flags = {};
+                    game.flags.initgend = game.flags.female = !negated;
+                    return OPTN_OK;
+                }
+            }
+            if (optStrncasecmp(String(opts), 'male', Math.max(ln, 3)) === 0) {
+                if (!game.go?.opt_initial && !!game.flags?.female !== negated) {
+                    noSexChange = true;
+                } else {
+                    if (!game.flags) game.flags = {};
+                    game.flags.initgend = game.flags.female = negated;
+                    return OPTN_OK;
+                }
+            }
+        } else if (name === 'perm_invent') { // C `case opt_perm_invent`
+            if (!negated && !game.go?.opt_initial
+                && !can_set_perm_invent(undefined, game.go?.opt_initial)) {
+                return OPTN_SILENTERR;
+            }
+        }
+        if (noSexChange) { // C `nosexchange`
+            config_error_add("'%s' is not anatomically possible.", opts);
+            return OPTN_SILENTERR;
+        }
+        // C `*(allopt[optidx].addr) = !negated` — SET IT HERE
+        if (!game[row.addr.obj] || typeof game[row.addr.obj] !== 'object')
+            game[row.addr.obj] = {};
+        game[row.addr.obj][row.addr.key] = !negated;
+        // After the change
+        if (name === 'pauper') { // C `case opt_pauper` (pauper implies nudist)
+            // C copies `u.uroleplay`; the JS live fields are flags.* (row addrs).
+            game.flags.nudist = game.flags.pauper;
+        } else if (name === 'ascii_map') { // C `case opt_ascii_map`
+            if (!game.iflags) game.iflags = {};
+            game.iflags.wc_tiled_map = negated;
+        } else if (name === 'tiled_map') { // C `case opt_tiled_map`
+            if (!game.iflags) game.iflags = {};
+            game.iflags.wc_ascii_map = negated;
+        } else if (name === 'hilite_pet') { // C `case opt_hilite_pet`
+            // C `#if defined(TTY_GRAPHICS) || defined(CURSES_GRAPHICS)` with
+            // `WINDOWPORT(tty) || WINDOWPORT(curses)`; scored build is tty.
+            if (windowport_tty() || windowport_curses()) {
+                if (!game.iflags) game.iflags = {};
+                if (game.iflags.hilite_pet && !game.iflags.wc2_petattr)
+                    game.iflags.wc2_petattr = ATR_INVERSE;
+            }
+            mark_opt_need_redraw(); // C `go.opt_need_redraw = TRUE`
+        } else if (name === 'idlecheckpoint') {
+            // C `#ifndef IDLECHECKPOINT` — compiles (config.h leaves it undefined).
+            await pline("There is no underlying support for 'idlecheckpoint' compiled in.");
+            if (!game.iflags) game.iflags = {};
+            game.iflags.idlecheckpoint = false;
+            game.give_opt_msg = false;
+        }
+        // C only do processing below if setting with doset()
+        if (game.go?.opt_initial) return OPTN_OK;
+        if (name === 'terrainstatus') {
+            classify_terrain(); // C `:5332` (falls through below)
+        }
+        if (name === 'terrainstatus' || name === 'weaponstatus'
+            || name === 'armorstatus') { // C `:5334–5336`
+            if (!wc2_supported(name)) { // C `:5337`
+                // C `:5338–5342` not actually an error; the return skips pline
+                config_error_add("'%s' is not supported.", name);
+                return OPTN_OK;
+            }
+            // C `:5350–5351` via fallthrough into the showscore arm
+            if (via_windowport()) status_initialize(REASSESS_ONLY);
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true; // C `disp.botl` (optfn_boolean_do_set precedent)
+        } else if (name === 'showexp' || name === 'time' // C showscore arm
+            || name === 'showscore' || name === 'showvers') {
+            if (via_windowport()) status_initialize(REASSESS_ONLY); // C `:5350`
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true; // C `:5351`
+        } else if (name === 'fixinv' || name === 'price_quotes' // C `:5353–5361`
+            || name === 'sortpack' || name === 'implicit_uncursed'
+            || name === 'wizweight') {
+            if (!invlet_constant()) reassign();
+            update_inventory();
+        } else if (name === 'lit_corridor' || name === 'dark_room') {
+            vision_recalc(2); // C shut down vision
+            game.vision_full_recalc = 1; // C `gv.vision_full_recalc` (vision.js:270)
+            if (game.iflags?.use_color) mark_opt_need_redraw(); // C darkroom refresh
+        } else if (OPT_GLYPH_RESET.has(name)) { // C `:5376–5385`
+            mark_opt_need_redraw();
+            mark_opt_need_glyph_reset();
+        } else if (name === 'hitpointbar') { // C `:5387–5394`
+            // C `#ifdef QT_GRAPHICS` arm is build-gated out (no Qt target).
+            if (via_windowport()) {
+                status_initialize(REASSESS_ONLY); // C `:5389`
+                mark_opt_need_redraw(); // C `:5390`
+            }
+        } else if (name === 'color') {
+            // C `#ifdef TOS` arm is build-gated out.
+            mark_opt_need_redraw();
+            mark_opt_need_glyph_reset();
+        } else if (name === 'customcolors') {
+            if (!game.go) game.go = {};
+            game.go.opt_reset_customcolors = true;
+        } else if (name === 'customsymbols') {
+            if (!game.go) game.go = {};
+            game.go.opt_reset_customsymbols = true;
+        } else if (name === 'menucolors' || name === 'guicolor') {
+            update_inventory();
+            if (!game.go) game.go = {};
+            game.go.opt_need_promptstyle = true;
+        } else if (name === 'mention_decor') {
+            if (!game.iflags) game.iflags = {};
+            game.iflags.prev_decor = STONE;
+        } else if (name === 'rest_on_space') { // C `:5426`
+            update_rest_on_space();
+        } else if (name === 'accessiblemsg') { // C `:5428–5430`
+            if (!game.a11y) game.a11y = {};
+            if (!game.a11y.msg_loc) game.a11y.msg_loc = { x: 0, y: 0 };
+            game.a11y.msg_loc.x = 0;
+            game.a11y.msg_loc.y = 0;
+        }
+        if (game.give_opt_msg !== false)
+            await pline(`'${name}' option toggled ${!negated ? 'on' : 'off'}.`);
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) {
+        set_optbuf(opts, ''); // C `opts[0] = '\0'`
+        return OPTN_OK;
+    }
+    return OPTN_OK;
+}
+
+/**
  * C options.c optfn_boolean do_set — `*(allopt[].addr) = !negated` then
  * after-change. `initial` is `go.opt_initial`: config returns before the
  * in-game switch (no botl, no `opt_accessiblemsg` msg_loc zero, no
@@ -8894,6 +9096,18 @@ const allopt = [
     // optlist.h:906 NHOPTP(font)
     { name: 'font', opttyp: CompOpt, idx: 216, setwhere: SET_HIDDEN, initval: false, addr: null, optfn: null },
 ];
+
+/* C optlist.h NHOPT_PARSE `:75–77` — every NHOPTB row carries
+ * `&optfn_boolean` with no exceptions. All 113 unix-tty BoolOpt rows above
+ * declare `optfn: null`, so point them at the port: the parseoptions
+ * `:9506–9508` and allopt_array_init `:9329` dispatch sites then call it
+ * exactly where C calls through the table. Named: both sites consume the
+ * result synchronously, so a non-OK return still reads as failure there
+ * (toggle_bool_option keeps ECMD_FAIL; opt_set_in_config stays unmarked —
+ * same as the null-optfn baseline); only the live-flag side effects land. */
+for (const row of allopt) {
+    if (row.opttyp === BoolOpt && row.optfn == null) row.optfn = optfn_boolean;
+}
 
 /* C ref: options.c `:111` static boolean opt_set_in_config[OPTCOUNT],
  * zero-init. Writers come with config/doset rows (named): `:640`

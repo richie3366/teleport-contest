@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3003 — `options.c` breadth cluster: option_help (split) + is_wc2_option + optfn_boolean + allopt BoolOpt table wiring
+
+- **Status:** fixed (Open — coverage `options.c` option_help MISSING (C 52 code L `options.c:9462–9549` / JS no symbol) + Open callee `is_wc2_option` MISSING + same-file Open `options.c` optfn_boolean MISSING (C 178 code L `options.c:5192–5449` / JS no symbol)).
+- **Symptom:** coverage cluster — three options.c functions with no JS symbol (help-text screen, wc2 name test, boolean handler). No corpus session blocked on any of them; deliverable is the whole C body per function with every C caller wired or named.
+- **C locus:**
+  - `option_help`: `nethack-c/upstream/src/options.c:9462–9549` (intro + CONFIG_SLOT `:9470–9473`, boolean loop with addr/wiz/wc filters `:9476–9492`, compound loop `:9495–9509`, other settings `:9512–9518`, epilog, display/destroy `:9545–9546`).
+  - `is_wc2_option`: `options.c:9952–9963` (staticfn; wc2_options name scan).
+  - `optfn_boolean`: `options.c:5192–5449` (do_init; do_set head + female/perminv pre-switch + nosexchange + SET + after-change + opt_initial gate + in-game switch + toggled pline; get_val/get_cnf_val).
+- **JS was:** no `option_help`/`is_wc2_option`/`optfn_boolean` symbol. Fragments existed: `option_help_lines` + `next_opt_lines` + generated `optionHelpBools/Compounds/Others` (D-0091/D-2989, extractor-baked filters), `optfn_boolean_word` (param words) + `optfn_boolean_do_set` (doset toggle replication, D-0499/D-1218/D-1669/D-1701), allopt BoolOpt rows all `optfn: null` (dormant parseoptions/init dispatch).
+- **Fix:** Split `option_help`; port `is_wc2_option` + `optfn_boolean` with BoolOpt wiring. Verified `option_help` complete for the baked non-wizard tty view (intro/epilog/packing read line-for-line against C `opt_intro`/`opt_epilog`/`next_opt`), so no rewrite of a corpus-verified screen path. New file-local `is_wc2_option` (`js/options.js:1068`, mirrors `is_wc_option`, C staticfn). New exported async `optfn_boolean` (`js/options.js:7782`) in full C order, reusing `optfn_boolean_word` (equivalent to the C true/yes/on/1 : false/no/off/0 arms), `OPT_GLYPH_RESET`, and the `do_set` arm precedents; `valok` from the optlist.h `v` field (only `menucolors` is Yes); `pauper` copies the JS live `flags.*` fields (C `u.uroleplay`); QT/TOS `#ifdef` arms build-gated out. New imports: `vision_recalc` (`imports.mjs --can` SAFE, hoisted, call-time use) and const.js' `STONE`. Table wiring loop after the allopt literal (C NHOPT_PARSE `:75–77` gives every NHOPTB `&optfn_boolean`; all 113 JS BoolOpt rows were null) so `parseoptions` (`:9506–9508`) and `allopt_array_init` (`:9329`) dispatch like C.
+- **JS:** `js/options.js` +214 (one file; imports, `is_wc2_option`, `OPT_BOOL_VALOK`, `optfn_boolean`, wiring loop).
+- **Callers:**
+  - `option_help`: C caller `pager.c:2840` help-menu entry → JS `js/pager.js:3305` `show_text_pages(option_help_lines())` (pre-existing, intact).
+  - `is_wc2_option`: no JS call site — C callers named (see omissions).
+  - `optfn_boolean`: C has no direct references (table-dispatched); JS `parseoptions`/`allopt_array_init` now dispatch to it. The doset toggle path keeps its `do_set` + explicit pline replication (D-0499 ordering) — untouched.
+- **Verify:** `node scripts/verify.mjs --fn option_help,is_wc2_option,optfn_boolean` → PASS syntax (1 file) · PASS rule2 · 3× note hidden (nothing blocked) + REACH-OK (smoke 24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:**
+  - `option_help` wizard-view arms need generated wizonly lists (own row). Static extractor lists bake the non-wizard tty view (`set_wizonly`/`set_wiznofuz` listed when wizard; `debug_fuzzer`).
+  - `is_wc2_option` C callers: `longest_option_name` `:8524` (no JS counterpart), `doset_simple_menu` `:8590` (ships with its THIN row), `doset` `:8848/:8872/:8889` via `doset_skip_unsupported` — deliberately not extended: runtime wincap2 default (`URGENT_MESG|SUPPRESS_HIST`, `game.windowprocs={name:'tty'}`) lacks the 9 extractor `WC2_SUPPORTED` bits, so filtering would drop options C lists; pending runtime wincap2 parity.
+  - `optfn_boolean` sync-dispatch return gap: both dispatch sites consume the result synchronously, so non-OK returns still read as failure (`toggle_bool_option` keeps ECMD_FAIL, `opt_set_in_config` stays unmarked — same as the null-optfn baseline); only the live-flag side effects land. Async shape forced by the two C pline arms.
+- **Ledger:** option_help split js=options.js:option_help_lines+pager.js:show_text_pages; is_wc2_option ported; optfn_boolean ported
+- **Next:** `doset_simple_menu` THIN row carries the `:8590` wc2 site; runtime wincap2 parity unblocks the doset filter arms.
+
 ## D-3002 — `glyphs.c` breadth cluster: apply_customizations + glyphrep_to_custom_map_entries + callback/urep closure; coloratt/utf8map pipeline in options.js; parsesymbols `:837` wired (was a bare call)
 
 - **Status:** fixed (Open — coverage row `glyphs.c` apply_customizations MISSING (C 27 code L `glyphs.c:531–574` / JS no symbol; hops —, callers 6, RNG 0, msg 0; dead callees: set_map_u) @0daa1a65f + row `glyphs.c` glyphrep_to_custom_map_entries MISSING (C 46 code L `glyphs.c:112–181` / JS no symbol; hops —, callers 4, RNG 0, msg 0; dead callees: rgbstr_to_int32) @ebc63743c + 9 callee-closure ports, incl. utf8map.c add_custom_urep_entry which carries no queue row.)

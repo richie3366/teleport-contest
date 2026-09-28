@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3003 `options.c` breadth cluster: option_help (split) + is_wc2_option + optfn_boolean + allopt BoolOpt table wiring
+
+**C locus:** - `option_help`: `nethack-c/upstream/src/options.c:9462–9549` (intro + CONFIG_SLOT `:9470–9473`, boolean loop with addr/wiz/wc filters `:9476–9492`, compound loop `:9495–9509`, other settings `:9512–9518`, epilog, display/destroy `:9545–9546`).
+**JS:** `js/options.js` +214 (one file; imports, `is_wc2_option`, `OPT_BOOL_VALOK`, `optfn_boolean`, wiring loop).
+**Change:** `option_help` verified complete for the baked non-wizard tty view (intro/epilog/packing read line-for-line against C `opt_intro`/`opt_epilog`/`next_opt`) → split, no rewrite of a corpus-verified screen path. New file-local `is_wc2_option` (`js/options.js:1068`, mirrors `is_wc_option`, C staticfn). New exported async `optfn_boolean` (`js/options.js:7782`) in full C order, reusing `optfn_boolean_word` (equivalent to the C true/yes/on/1 : false/no/off/0 arms), `OPT_GLYPH_RESET`, and the `do_set` arm precedents; `valok` from the optlist.h `v` field (only `menucolors` is Yes); `pauper` copies the JS live `flags.*` fields (C `u.uroleplay`); QT/TOS `#ifdef` arms build-gated out.
+**Verify:** `node scripts/verify.mjs --fn option_help,is_wc2_option,optfn_boolean` → PASS syntax (1 file) · PASS rule2 · 3× note hidden (nothing blocked) + REACH-OK (smoke 24 PASS each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** - `option_help` wizard-view arms (`set_wizonly`/`set_wiznofuz` listed when wizard; `debug_fuzzer`) — static extractor lists bake the non-wizard tty view; a wizard `?g` would need generated wizonly lists (own row).
+**Next:** `doset_simple_menu` THIN row carries the `:8590` wc2 site; runtime wincap2 parity unblocks the doset filter arms.
 ## 2026-09-28 — Audit D-2996–D-3002: 6 ACCEPT + 1 WITH-DEBT; 44/44 holds, corpus 630/953
 
 **Reviews:** 1956–1961 ACCEPT; 1962 WITH-DEBT (11-fn overage + sign-gap, unqueued). All D-log corpus claims re-measured per-SHA (`--reach-all`) — reproduce, zero REGRESSED.

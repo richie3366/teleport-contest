@@ -112,18 +112,18 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `options.c` option_help — coverage MISSING (C 52 code L `options.c:9462–9549` / JS no symbol; hops —, callers 0, RNG 0, msg 8; dead callees: is_wc2_option) @1b2296131
 - [ ] `mklev.c` free_luathemes — coverage MISSING (C 8 code L `mklev.c:345–364` / JS no symbol; hops 3, callers 2, RNG 0, msg 0) @e74c75d1f
 - [ ] `engrave.c` rest_engravings — coverage MISSING (C 27 code L `engrave.c:1584–1619` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @e61bdd324
 - [ ] `detect.c` trapped_door_at — coverage PARTIAL (C 12 code L `detect.c:182–197` / JS 8 code L in js/detect.js; hops 3, callers 2, RNG 1, msg 0) @e61bdd324
 - [ ] `cmd.c` lock_mouse_buttons — coverage MISSING (C 9 code L `cmd.c:3326–3340` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @a5d26e462
-- [ ] `options.c` optfn_boolean — coverage MISSING (C 178 code L `options.c:5192–5449` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @a5d26e462
 - [ ] `sp_lev.c` load_special — coverage MISSING (C 24 code L `sp_lev.c:6454–6502` / JS no symbol; hops 2, callers 2, RNG 0, msg 0; split? cited 218× in js/ — brief first) @806473d71
 - [ ] `mkobj.c` bless — coverage PARTIAL (C 16 code L `mkobj.c:1745–1764` / JS 9 code L in js/mkobj.js; hops 3, callers 14, RNG 0, msg 0) @9ee8217df
 - [ ] `options.c` doset_simple_menu — coverage THIN (C 121 code L `options.c:8536–8702` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 1; dead callees: is_wc2_option) @2bf11e0a4
 - [ ] `dbridge.c` E_phrase — coverage PARTIAL (C 10 code L `dbridge.c:361–374` / JS 5 code L in js/dbridge.js; hops 4, callers 3, RNG 0, msg 3) @63aec4509
 - [ ] `timeout.c` lantern_message — coverage MISSING (C 12 code L `timeout.c:1360–1376` / JS no symbol; hops —, callers 1, RNG 0, msg 3) @84557918b
 - [ ] `mkobj.c` nextoid — coverage MISSING (C 12 code L `mkobj.c:536–551` / JS no symbol; hops 3, callers 2, RNG 0, msg 0) @84557918b
+- [ ] `mkobj.c` unbless — coverage PARTIAL (C 10 code L `mkobj.c:1767–1780` / JS 6 code L in js/mkobj.js; hops 2, callers 7, RNG 0, msg 0) @7c92efae2
+- [ ] `dbridge.c` find_drawbridge — coverage PARTIAL (C 20 code L `dbridge.c:180–205` / JS 11 code L in js/dbridge.js; hops 3, callers 10, RNG 0, msg 0) @7c92efae2
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
