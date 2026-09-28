@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3025 `options.c` roleopt/initoptions cluster: unsaveoptstr + freeroleoptvals + initoptions + initoptions_finish (saveoptvals by-design)
+
+**C locus:** - `unsaveoptstr`: `nethack-c/upstream/src/options.c:775–783` whole — `:777` opt2roleopt, `:779` non-null guard, `:780–781` free + 0 (comma expression).
+**JS:** - `unsaveoptstr`: `js/options.js:6632` (file-local, C staticfn).
+**Change:** `js/options.js:6618–6742` cluster block in C order with per-arm `:line` cites: file-local `ROLEOPT2OPT` (`:709–711`), `SYSCF_FILE`, `unsaveoptstr` (slot-clear is the free), exported `freeroleoptvals`/`initoptions`/`initoptions_finish`; `SET_IN_SYSCONF = 0` joins the global.h:581 enum line (`:8594`); imports extended from pre-existing edges (display, glyphs) plus two new SAFE edges (cfgfiles: rcfile/read_config_file/config_error_init/done; end: nh_terminate; imports.mjs verdict SAFE); stale comments in cfgfiles.js/earlyarg.js updated to name the live exports.
+**Verify:** `node scripts/verify.mjs --fn unsaveoptstr,freeroleoptvals,saveoptvals,initoptions,initoptions_finish` → VERIFY: PASS. Per function: hidden `note … no corpus session blocked` (normal for coverage rows); REACH smoke spread 24/24 PASS → REACH-OK (×5, none RNG-tagged — the cluster draws no RNG). Gates: syntax 3 files, Rule #2, green 2/2, strict ×2, cohort 7/7, full 44/44 (auto: shared options.js changed).
+**Named:** - `unsaveoptstr`: none — every arm ported, callee live.
+**Next:** port initoptions_init (`options.c:7118–7305`) as its own cluster (sf_init/choose_windows/init_symbols + symset arms all MISSING) and then decide startup wiring for initoptions(); restoptvals needs no row (by-design here).
 ## 2026-09-28 — D-3024 `hacklib.c` string cluster: tabexpand + upwords + chrcasecpy + strcasecpy + c_eos + sitoa
 
 **C locus:** - `tabexpand`: `nethack-c/upstream/src/hacklib.c:428–464` whole — `:436–437` empty passthrough, `:438–448` tab→8-stop do/while, `:449–452` copy arm, `:453–456` BUFSZ rewind-break, `:458–459` NUL + strcpy return.

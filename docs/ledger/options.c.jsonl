@@ -4,10 +4,10 @@
 {"fn":"opt2roleopt","c":"715-730","status":"unknown"}
 {"fn":"getoptstr","c":"734-754","status":"unknown"}
 {"fn":"saveoptstr","c":"758-772","status":"unknown"}
-{"fn":"unsaveoptstr","c":"776-783","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"freeroleoptvals","c":"787-794","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"saveoptvals","c":"801-819","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"restoptvals","c":"823-842","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"unsaveoptstr","c":"776-783","status":"ported","js":["js/options.js:unsaveoptstr"],"d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"freeroleoptvals","c":"787-794","status":"ported","js":["js/options.js:freeroleoptvals"],"d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"saveoptvals","c":"801-819","status":"by-design","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"#if 0 not needed (options.c:797): uncompiled; live table stays in roleoptvals"}
+{"fn":"restoptvals","c":"823-842","status":"by-design","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"#if 0 not needed (options.c:797): uncompiled sibling of saveoptvals"}
 {"fn":"petname_optfn","c":"848-874","status":"unknown"}
 {"fn":"optfn_alignment","c":"885-919","status":"partial","js":["js/options.js:optfn_alignment"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
 {"fn":"optfn_align_message","c":"923-970","status":"partial","js":["js/options.js:optfn_align_message"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
@@ -158,9 +158,9 @@
 {"fn":"nmcpy","c":"6861-6871","status":"partial","js":["js/options.js:nmcpy"],"omit":"`petname_optfn` (`:866`), `optfn_name` (`:2561`), `optfn_windowtype` (`:4972`), and `initoptions_init` (`:7134`, `:7283`) are not JS functions.","d":["D-2790"],"at":"seed@a30a7de84"}
 {"fn":"escapes","c":"6896-6966","status":"unknown"}
 {"fn":"txt2key","c":"6971-7067","status":"unknown"}
-{"fn":"initoptions","c":"7079-7115","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"initoptions","c":"7079-7115","status":"partial","js":["js/options.js:initoptions"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"initoptions_init","c":"7119-7305","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"initoptions_finish","c":"7324-7384","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"initoptions_finish","c":"7324-7384","status":"partial","js":["js/options.js:initoptions_finish"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"allopt_array_init","c":"7405-7433","status":"unknown"}
 {"fn":"set_menuobjsyms_flags","c":"7446-7451","status":"unknown"}
 {"fn":"change_inv_order","c":"7466-7510","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

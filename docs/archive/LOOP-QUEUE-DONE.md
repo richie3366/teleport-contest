@@ -5,6 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-28
 
+- [x] `options.c` freeroleoptvals — coverage MISSING (C 4 code L `options.c:787–794` / JS no symbol; hops 4, callers 2, RNG 0, msg 0; dead callees: unsaveoptstr) @8b6526ecd
+- [x] `options.c` saveoptvals — coverage MISSING (C 13 code L `options.c:801–819` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: freeroleoptvals) @0bb1eb02e
+- [x] `options.c` initoptions — coverage MISSING (C 12 code L `options.c:7079–7115` / JS no symbol; hops —, callers 3, RNG 0, msg 0; dead callees: assure_syscf_file, do_deferred_showpaths) @73b53df4b
+
+
 - [x] `teleport.c` mtele_trap screen flip — audit rescore 2026-09-28T09:17Z: scen-tour-Samurai-91113 PASS→FAIL (step 54, kind=screen, owner mtele_trap); port SHAs since last full board (fda3d415d): 2af820a38, 8b6526ecd, 32055fa52, 9f89fd978, 5c0b84ad9, 0cb4128d8, 20875982e, 5a77080f1, 1cc7d605d. Diagnose which SHA's arm moved the paint (suspects: pet-AI pathing 32055fa52, singlemon clears 2af820a38, show_glyph guards 8b6526ecd), port the writer. Source: reviews/loop-unattended/1972-1980 audit (rescore flip). **Addressed:** D-3021 `5affd05cd`
 
 

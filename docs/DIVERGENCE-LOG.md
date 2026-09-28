@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3025 — `options.c` roleopt/initoptions cluster: unsaveoptstr + freeroleoptvals + initoptions + initoptions_finish (saveoptvals by-design)
+
+- **Status:** shipped. Queue head `options.c` freeroleoptvals + same-file Open rows saveoptvals, initoptions; callee unsaveoptstr ported in-commit. saveoptvals + sibling restoptvals sit inside C `#if 0 /* not needed */` → `ledger set … by-design` directly (D-3024 precedent). No corpus session blocked on any of the five.
+- **Symptom:** coverage gaps, not corpus divergences. `unsaveoptstr`/`freeroleoptvals`/`initoptions`/`initoptions_finish` had no JS symbol; `saveoptvals` had none because C never compiles it.
+- **C locus:**
+  - `unsaveoptstr`: `nethack-c/upstream/src/options.c:775–783` whole — `:777` opt2roleopt, `:779` non-null guard, `:780–781` free + 0 (comma expression).
+  - `freeroleoptvals`: `options.c:786–794` whole — `:790` literal-4 loop, `:791` num_opt_phases loop, `:793` unsaveoptstr(roleopt2opt[i], j).
+  - `saveoptvals`: `options.c:799–819` whole but `#if 0` (options.c:797) — uncompiled; no port (precedent: cmd.js:1617). Sibling restoptvals `:823–848` shares the block.
+  - `initoptions`: `options.c:7078–7115` whole in C order — `:7087–7088` init guard, `:7093–7102` SYSCF_FILE block (config.h:233–234 live), `:7111–7112` deferred_showpaths arm, `:7114` finish call.
+  - `initoptions_finish`: `options.c:7323–7384` whole in C order — `:7327` rcfile, `:7329` fruitadd + `:7341` oc_name, `:7348` reglyph, `:7360–7363` STATUS_HILITES (config.h:616 live), `:7366` rest_on_space, `:7370–7374` tiled/ascii fallback, `:7378–7381` ENHANCED_SYMBOLS (config.h:368 live), `:7382–7383` opt_initial=FALSE + return.
+- **JS was:** no `unsaveoptstr`/`freeroleoptvals`/`initoptions`/`initoptions_finish` symbol anywhere (brief sym.mjs); the roleoptvals table + opt2roleopt/saveoptstr/getoptstr family already live (`js/options.js:6521–6613`); `init_fruit_chain` (`:5687`) already ports finish's `:7329` + `:7341`; earlyarg.js scores_only `:47–52` and cfgfiles.js rcfile `:903` documented the two as unported.
+- **Fix:** `js/options.js:6618–6742` cluster block in C order with per-arm `:line` cites: file-local `ROLEOPT2OPT` (`:709–711`), `SYSCF_FILE`, `unsaveoptstr` (slot-clear is the free), exported `freeroleoptvals`/`initoptions`/`initoptions_finish`; `SET_IN_SYSCONF = 0` joins the global.h:581 enum line (`:8594`); imports extended from pre-existing edges (display, glyphs) plus two new SAFE edges (cfgfiles: rcfile/read_config_file/config_error_init/done; end: nh_terminate; imports.mjs verdict SAFE); stale comments in cfgfiles.js/earlyarg.js updated to name the live exports.
+- **JS:**
+  - `unsaveoptstr`: `js/options.js:6632` (file-local, C staticfn).
+  - `freeroleoptvals`: `js/options.js:6645` (export).
+  - `saveoptvals`: none by design (`#if 0`, options.c:797).
+  - `initoptions`: `js/options.js:6668` (export).
+  - `initoptions_finish`: `js/options.js:6700` (export).
+- **Callers:**
+  - `unsaveoptstr`: sole C caller freeroleoptvals `:793` → wired `js/options.js:6648`.
+  - `freeroleoptvals`: C callers saveoptvals `:818` (`#if 0`, dead) + save.c freedynamicdata `:1131` (save-freeing, no JS counterpart — js/earlyarg.js:68 precedent) → no live JS caller, named.
+  - `saveoptvals`: no live C caller (save.c:1131 cites it only in a comment) → none.
+  - `initoptions`: C callers earlyarg.c scores_only `:419` (JS scores_only keeps the named omit — init half unported; comment updated), unixmain.c `:150` (no JS unixmain), restore.c:716 + wintty.c:523 (comments) → named.
+  - `initoptions_finish`: sole live C caller initoptions `:7114` → wired `js/options.js:6696`; options.c:1216 is a comment.
+- **Verify:** `node scripts/verify.mjs --fn unsaveoptstr,freeroleoptvals,saveoptvals,initoptions,initoptions_finish` → VERIFY: PASS. Per function: hidden `note … no corpus session blocked` (normal for coverage rows); REACH smoke spread 24/24 PASS → REACH-OK (×5, none RNG-tagged — the cluster draws no RNG). Gates: syntax 3 files, Rule #2, green 2/2, strict ×2, cohort 7/7, full 44/44 (auto: shared options.js changed).
+- **Named omissions:**
+  - `unsaveoptstr`: none — every arm ported, callee live.
+  - `freeroleoptvals`: none — every arm ported, callee live in-commit.
+  - `saveoptvals` + `restoptvals`: whole bodies — C `#if 0`, uncompiled.
+  - `initoptions`: initoptions_init (`:7118–7305`, 186-line MISSING closure, own future row); assure_syscf_file (cfgfiles.c:2031–2068, no scored port — POSIX open + exit, Rule #2); do_deferred_showpaths (files.c:3090–3114, ATTRNORETURN exit; reveal_paths 117-line MISSING, freedynamicdata/dlb_cleanup/l_nhcore_done by-design).
+  - `initoptions_finish`: `:7343–7347` boulder showsyms write (get_othersym by-design; showsyms has no JS home); `:7349` reset_glyphmap(gm_optionchange) (by-design, CURRENT.md Do-not fortress guard).
+- **Ledger:** unsaveoptstr ported; freeroleoptvals ported; initoptions partial; initoptions_finish partial.
+- **Next:** port initoptions_init (`options.c:7118–7305`) as its own cluster (sf_init/choose_windows/init_symbols + symset arms all MISSING) and then decide startup wiring for initoptions(); restoptvals needs no row (by-design here).
+
 ## D-3024 — `hacklib.c` string cluster: tabexpand + upwords + chrcasecpy + strcasecpy + c_eos + sitoa
 
 - **Status:** shipped. Queue head `shk.c` subfrombill proved stale-complete (`js/shk.js:1250` matches C arm-for-arm, callers wired) → `ledger set subfrombill ported` directly. Next row `report.c` panictrace_setsignals is pure POSIX `signal()` setup with no browser equivalent (Rule #2 forbids `node:*`; precedent: `submit_web_report` by-design) → `ledger set panictrace_setsignals by-design` directly. Cluster head `hacklib.c` tabexpand (PARTIAL: unexported `pager.js` local clone) + five same-file MISSING siblings. No corpus session blocked on any of the six.
