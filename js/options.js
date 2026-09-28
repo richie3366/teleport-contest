@@ -131,6 +131,7 @@ import {
     HL_INVERSE,
     BUFSZ,
     CLR_MAX,
+    NH_BASIC_COLOR,
     QBUFSZ,
     PARANOID_CONFIRM,
     PARANOID_QUIT,
@@ -189,6 +190,9 @@ import {
 } from './objects.js';
 import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
 import { LOADSYMS, SYM_CONTROL } from './generated/glyphsyms_data.js';
+import { COLORTABLE } from './generated/colortable_data.js';
+import { dupstr } from './dungeon.js';
+import { glyphrep_to_custom_map_entries } from './glyphs.js';
 import { yyyymmddhhmmss } from './calendar.js';
 import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
@@ -4608,7 +4612,7 @@ export function color_distance(rgb1, rgb2) {
  * 256-color table, else the redmean-closest entry. Out-params use the
  * `{ v }` box convention (botl.js s_to_anything precedent); null boxes
  * mean FALSE with no write (C `:1015`). Sole C caller is
- * set_map_customcolor `:878` (unported — map-named).
+ * set_map_customcolor `:878` (live above).
  */
 export function closest_color(lcolor, closecolor, clridx) {
     const lcol = (lcolor ?? 0) >>> 0; // C uint32 lcolor
@@ -4633,6 +4637,262 @@ export function closest_color(lcolor, closecolor, clridx) {
         retbool = true; // C :1018
     }
     return retbool; // C :1020
+}
+
+/* C color.h:61 — `enum nhcolortype` (lowercase in C; unrelated to the
+   color.h:22 NO_COLOR = 8 slot carried by terminal.js). */
+const NHCOLORTYPE_NO = 0, NHCOLORTYPE_NH = 1, NHCOLORTYPE_RGB = 2;
+
+/**
+ * C ref: coloratt.c colortable_to_int32 `:237–246` — fold one colortable
+ * row (generated/colortable_data.js) into an int32: rgb rows pack r/g/b,
+ * nh rows return tableindex | NH_BASIC_COLOR, the no_color row falls
+ * through to NO_COLOR | NH_BASIC_COLOR. Sole C caller is
+ * check_enhanced_colors `:752` (live below).
+ */
+export function colortable_to_int32(cte) {
+    let clr = NO_COLOR | NH_BASIC_COLOR; // C :239
+    if (cte.colortyp === NHCOLORTYPE_RGB) { // C :241 rgb_color
+        clr = (cte.r << 16) | (cte.g << 8) | cte.b; // C :242
+    } else if (cte.colortyp === NHCOLORTYPE_NH) { // C :243 nh_color
+        clr = cte.tableindex | NH_BASIC_COLOR; // C :244
+    }
+    return clr; // C :245
+}
+
+/* C sscanf(buf, "#%02x%02x%02x%c") arm of check_enhanced_colors `:731` —
+   literal '#', then three width-2 hex conversions (%x skips whitespace
+   and takes an optional 0x prefix inside the width), then the %c junk
+   catcher. Returns the conversion count (0–4) plus r/g/b and xtra
+   ('\\0' when the string ends, as C's `char xtra = '\\0'`). */
+function scanHashRgb(s) {
+    const out = { count: 0, r: 0, g: 0, b: 0, xtra: '\0' };
+    if (s[0] !== '#') return out;
+    let p = 1;
+    const vals = [];
+    for (let k = 0; k < 3; k++) {
+        while (p < s.length && (s[p] === ' ' || s[p] === '\t' || s[p] === '\n'
+            || s[p] === '\v' || s[p] === '\f' || s[p] === '\r')) p++;
+        let w = 0, v = 0, ndig = 0;
+        if (s[p] === '0' && (s[p + 1] === 'x' || s[p + 1] === 'X') && w + 2 <= 2) {
+            p += 2; w += 2;
+        }
+        while (w < 2 && p < s.length) {
+            const h = hexdd.indexOf(s[p]);
+            if (h === -1) break;
+            v = (v * 16) + (h >> 1);
+            ndig++; w++; p++;
+        }
+        if (ndig === 0) return out;
+        vals.push(v);
+        out.count++;
+    }
+    out.r = vals[0]; out.g = vals[1]; out.b = vals[2];
+    if (p < s.length) { out.xtra = s[p]; out.count++; }
+    return out;
+}
+
+/**
+ * C ref: coloratt.c check_enhanced_colors `:723–760` — resolve a color
+ * name to int32, -1 on no match: basic name via match_str2clr (`:729`),
+ * `#rrggbb` hex triplet with trailing-junk rejection (`:731`), else a
+ * case-blind fuzzymatch over colortable (`:748–755`) with a grey→gray
+ * alias buffer (`:739–747`). C callers: rgbstr_to_int32 `:860` (live
+ * below) and wc_set_window_colors options.c:10088/10094, `:10023`
+ * (unported — map-named; only the optlist row exists in JS).
+ * C `char *buf` is never mutated below, so no copy is kept; the input is
+ * cut at the first NUL (the C string model).
+ */
+export function check_enhanced_colors(buf) {
+    const raw = String(buf ?? '');
+    const nz = raw.indexOf('\0');
+    const s = nz < 0 ? raw : raw.slice(0, nz);
+    let retcolor = -1, color; // C :727
+    if ((color = match_str2clr(s, true)) !== CLR_MAX) { // C :729
+        retcolor = color | NH_BASIC_COLOR;
+    } else {
+        const t = scanHashRgb(s); // C :731 sscanf >= 3
+        if (t.count >= 3) {
+            retcolor = !t.xtra || t.xtra === '\0'
+                ? ((t.r << 16) | (t.g << 8) | t.b) : -1; // C :732
+        } else {
+            /* C :734–738 grey→gray altbuf (fuzzymatch ignores ' -_';
+               caller splits at spaces so none arrive here). */
+            let altbuf = null; // C :739
+            const grey = strstri(s, 'grey');
+            const greyoffset = grey === null ? -1 : s.length - grey.length; // C :740
+            if (greyoffset >= 0) { // C :742
+                altbuf = s.slice(0, greyoffset) + 'gray' // C :743–746 memcpy 4
+                    + s.slice(greyoffset + 4);
+            }
+            for (color = 0; color < COLORTABLE.length; ++color) { // C :748 SIZE
+                if (fuzzymatch(s, COLORTABLE[color].name, ' -_', true) // C :749
+                    || (altbuf !== null && fuzzymatch(altbuf, // C :750–751
+                        COLORTABLE[color].name, ' -_', true))) {
+                    retcolor = colortable_to_int32(COLORTABLE[color]); // C :752
+                    break; // C :753
+                }
+            }
+            /* C :756–757 free(altbuf) — GC. */
+        }
+    }
+    return retcolor; // C :759
+}
+
+/**
+ * C ref: coloratt.c onlyhexdigits `:801–810` — every char is a hex digit
+ * (hexdd, decl.c:74 — the local const above) or '-'. Empty input is TRUE
+ * (the C loop never runs). Sole C caller is rgbstr_to_int32 `:825`
+ * (live below).
+ */
+export function onlyhexdigits(buf) {
+    const raw = String(buf ?? '');
+    const nz = raw.indexOf('\0');
+    const s = nz < 0 ? raw : raw.slice(0, nz);
+    for (let i = 0; i < s.length; ++i) { // C :805
+        if (hexdd.indexOf(s[i]) === -1 && s[i] !== '-') return false; // C :806
+    }
+    return true; // C :809
+}
+
+/**
+ * C ref: coloratt.c rgbstr_to_int32 `:813–865` — parse `rrr-ggg-bbb`
+ * decimal triples (1–3 digits per cell, `:848–856`; no 0–255 clamp in C)
+ * or fall back to check_enhanced_colors for names (`:858–863`); -1 when
+ * neither matches. The dash-cut walk (`:828–846`) records the cells after
+ * the first (c_g) and last (c_b, overwritten past the second) dashes, so
+ * `1-2-3-4` reads r=1/g=2/b=4 like C. C callers:
+ * glyphrep_to_custom_map_entries glyphs.c:163 (live in glyphs.js) and
+ * alternative_palette `:1083` (#ifdef CHANGE_COLOR, which the contest
+ * unix build does not define — dead C, no JS function).
+ */
+export function rgbstr_to_int32(rgbstr) {
+    let milestone = 0; // C :815
+    let dash = false; // C :819
+    let rgb = 0; // C :817 int32_t
+    const raw = String(rgbstr ?? ''); // C :822–823 Snprintf "%s"
+    const nz = raw.indexOf('\0');
+    const s = nz < 0 ? raw : raw.slice(0, nz);
+    if (s.length !== 0 && onlyhexdigits(s)) { // C :825
+        let cG = -1, cB = -1; // C :826 c_g/c_b cells (-1 ≡ NULL)
+        let p = 0; // C :827 cp
+        let bad = false;
+        while (p < s.length) { // C :828
+            const ch = s[p];
+            if ((ch >= '0' && ch <= '9') || ch === '-') { // C :829 digit||'-'
+                if (ch === '-') { // C :830
+                    milestone++; // C :832 (*cp='\0' cut :831 is the slice below)
+                    dash = true; // C :833
+                }
+                p++; // C :835 cp++
+                if (dash) { // C :836
+                    if (milestone < 2) cG = p; // C :837–838
+                    else cB = p; // C :839–840
+                    dash = false; // C :841
+                }
+            } else {
+                bad = true; // C :844 return -1L
+                break;
+            }
+        }
+        if (!bad) {
+            const d1 = s.indexOf('-');
+            const segR = d1 < 0 ? s : s.slice(0, d1);
+            let segG = '', segB = '';
+            if (cG >= 0) {
+                const d2 = s.indexOf('-', cG);
+                segG = d2 < 0 ? s.slice(cG) : s.slice(cG, d2);
+            }
+            if (cB >= 0) segB = s.slice(cB);
+            if (cG >= 0 && cB >= 0 // C :848 c_r/c_g/c_b non-null (c_r never is)
+                && segR.length > 0 && segR.length < 4 // C :849
+                && segG.length > 0 && segG.length < 4 // C :850
+                && segB.length > 0 && segB.length < 4) { // C :851
+                const r = parseInt(segR, 10); // C :852–854 atoi (pure digits)
+                const g = parseInt(segG, 10);
+                const b = parseInt(segB, 10);
+                rgb = (r << 16) | (g << 8) | (b << 0); // C :855
+                return rgb; // C :856
+            }
+        } else {
+            return -1; // C :844
+        }
+    } else if (s.length !== 0) { // C :858
+        /* C :859–862 enhanced name instead of an rgb triple. */
+        if ((rgb = check_enhanced_colors(s)) !== -1) {
+            return rgb;
+        }
+    }
+    return -1; // C :864
+}
+
+/**
+ * C ref: coloratt.c set_map_customcolor `:868–883` — stamp an nhcolor on
+ * a glyph_map cell and resolve its 256-color index via closest_color
+ * (out-params use the `{ v }` box convention; a miss clears the index).
+ * Sole C caller is apply_customizations glyphs.c:565 (live in glyphs.js).
+ */
+export function set_map_customcolor(gmap, nhcolor) {
+    const tmpgm = gmap ?? null; // C :870–872
+    if (!tmpgm) return 0; // C :874–875
+    gmap.customcolor = (nhcolor ?? 0) >>> 0; // C :877 uint32
+    const closecolor = { v: 0 }, clridx = { v: 0 }; // C :871–872
+    if (closest_color(gmap.customcolor, closecolor, clridx)) // C :878
+        gmap.color256idx = clridx.v & 0xffff; // C :879 uint16
+    else
+        gmap.color256idx = 0; // C :880–881
+    return 1; // C :882
+}
+
+/**
+ * C ref: utf8map.c unicode_val `:18–34` (#ifdef ENHANCED_SYMBOLS, live —
+ * config.h:368) — parse `U+NNNN` hex (up to 8 digits: the first plus
+ * dcount < 7 more, `:30`) via the hexdd pair table (`(dp - hexdd) / 2`,
+ * cf. alt_color_spec below). 0 when the prefix or first digit mismatches.
+ * C callers: to_custom_symset_entry_callback glyphs.c:69 (live in
+ * glyphs.js) and to_unicode_callback glyphs.c:1291 (unported staticfn —
+ * map-named).
+ */
+export function unicode_val(cp) {
+    const s = cp == null ? '' : String(cp); // C :20–21 dp/cval (NUL stops the walk)
+    let cval = 0; // C :21
+    if (s.length !== 0) { // C :23
+        let dcount = 0; // C :24
+        if ((s[0] === 'U' || s[0] === 'u') // C :25–26
+            && s[1] === '+' && s.length > 2 && hexdd.indexOf(s[2]) !== -1) {
+            let p = 2; // C :27 cp += 2 past 'U+'
+            for (;;) { // C :28–30 do/while
+                cval = (cval * 16) + (hexdd.indexOf(s[p]) >> 1); // C :29
+                p++; // C :30 *++cp
+                if (p >= s.length || hexdd.indexOf(s[p]) === -1) break; // C :30
+                dcount++; // C :30 ++dcount < 7
+                if (dcount >= 7) break;
+            }
+        }
+    }
+    return cval; // C :33
+}
+
+/**
+ * C ref: utf8map.c set_map_u `:37–56` (#ifdef ENHANCED_SYMBOLS, live) —
+ * attach a { utf8str, utf32ch } unicode representation to a glyph_map
+ * cell, allocating the cell record on first use; 0 on a null cell or a
+ * zero codepoint. C callers: apply_customizations glyphs.c:556 (live in
+ * glyphs.js) and to_unicode_callback glyphs.c:1294 (#ifdef
+ * NO_PARSING_SYMSET — caller unported, map-named).
+ */
+export function set_map_u(gmap, utf32ch, utf8str) {
+    const tmpgm = gmap ?? null; // C :39
+    if (!tmpgm || !utf32ch) return 0; // C :41–42
+    if (gmap.u == null) { // C :44
+        gmap.u = { utf8str: null, utf32ch: 0 }; // C :45–47 alloc + utf8str = 0
+    }
+    if (gmap.u.utf8str != null) { // C :49
+        gmap.u.utf8str = null; // C :50–51 free (GC)
+    }
+    gmap.u.utf8str = dupstr(utf8str); // C :53
+    gmap.u.utf32ch = (utf32ch ?? 0) >>> 0; // C :54
+    return 1; // C :55
 }
 
 /**
@@ -9464,8 +9724,8 @@ function parsesymbolsSeg(buf, start, which_set) {
         if (symp.range && symp.range !== SYM_CONTROL) { // C `:830`
             if (game.gs?.symset?.[which_set]?.handling === H_UTF8 // C `:833–835`
                 || (lowc(strval[0]) === 'u' && strval[1] === '+')) {
-                // C `:837` Snprintf + custom-map entries (bare: glyphs.c:112,
-                // named omit — the customization-write subsystem).
+                // C `:837` Snprintf + custom-map entries (glyphs.js; the
+                // C `&glyph` out-param is never read after, so no box).
                 glyphrep_to_custom_map_entries(`${symname}:${strval}`);
             } else { // C `:839–844`
                 const val = sym_val(strval);
@@ -9482,9 +9742,9 @@ function parsesymbolsSeg(buf, start, which_set) {
  * C ref: symbols.c parsesymbols `:773–848` [campaign 5/7] — parse one
  * SYMBOLS/ROGUESYMBOLS value (or OPTIONS S_ item) into the override tables
  * + the savedSymbols registry, in C order. Exported (C extern,
- * extern.h:3180). Named omissions (map): match_glyph + the
- * glyphrep_to_custom_map_entries customization path (G_ names, H_UTF8
- * handling, u+ values) and the switch_symbols application step at the
+ * extern.h:3180). The `:837` glyphrep_to_custom_map_entries arm (H_UTF8
+ * handling, u+ values) is wired to glyphs.js. Named omissions (map):
+ * match_glyph (G_ names) and the switch_symbols application step at the
  * wired callers (JS reads ov_* lazily at render; reset_glyphmap stays
  * untouched per the fortress guard).
  */

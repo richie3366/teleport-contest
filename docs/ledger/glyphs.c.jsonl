@@ -1,5 +1,5 @@
-{"fn":"to_custom_symset_entry_callback","c":"53-104","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"glyphrep_to_custom_map_entries","c":"112-181","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"to_custom_symset_entry_callback","c":"53-104","status":"ported","js":["js/glyphs.js:to_custom_symset_entry_callback"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"glyphrep_to_custom_map_entries","c":"112-181","status":"ported","js":["js/glyphs.js:glyphrep_to_custom_map_entries"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"fix_glyphname","c":"184-197","status":"unknown"}
 {"fn":"glyph_to_cmap","c":"200-231","status":"ported","js":["js/display.js:glyph_to_cmap"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"glyph_find_core","c":"234-283","status":"unknown"}
@@ -14,7 +14,7 @@
 {"fn":"match_glyph","c":"458-467","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"glyphrep","c":"470-481","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_custom_nhcolor_entry","c":"484-528","status":"partial","js":["js/glyphs.js:add_custom_nhcolor_entry"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771"],"at":"seed@a30a7de84"}
-{"fn":"apply_customizations","c":"531-574","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"apply_customizations","c":"531-574","status":"ported","js":["js/glyphs.js:apply_customizations"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"maybe_shuffle_customizations","c":"581-587","status":"unknown"}
 {"fn":"shuffle_customizations","c":"591-642","status":"ported","js":["js/glyphs.js:shuffle_customizations"],"d":["D-2934"],"at":"seed@a30a7de84","note":"alt 646-732"}
 {"fn":"find_matching_customization","c":"736-748","status":"unknown"}

@@ -1,4 +1,4 @@
-{"fn":"colortable_to_int32","c":"237-246","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"colortable_to_int32","c":"237-246","status":"ported","js":["js/options.js:colortable_to_int32"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"color_attr_to_str","c":"249-257","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"color_attr_parse_str","c":"261-301","status":"partial","js":["js/options.js:color_attr_parse_str"],"omit":"callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `\"\"` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers si…","d":["D-2777"],"at":"seed@a30a7de84"}
 {"fn":"query_color_attr","c":"304-317","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -14,11 +14,11 @@
 {"fn":"free_menu_coloring","c":"664-680","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"free_one_menu_coloring","c":"684-706","status":"unknown"}
 {"fn":"count_menucolors","c":"709-717","status":"unknown"}
-{"fn":"check_enhanced_colors","c":"723-760","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"check_enhanced_colors","c":"723-760","status":"ported","js":["js/options.js:check_enhanced_colors"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wc_color_name","c":"764-797","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"onlyhexdigits","c":"801-810","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"rgbstr_to_int32","c":"813-865","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"set_map_customcolor","c":"868-883","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"onlyhexdigits","c":"801-810","status":"ported","js":["js/options.js:onlyhexdigits"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"rgbstr_to_int32","c":"813-865","status":"ported","js":["js/options.js:rgbstr_to_int32"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_map_customcolor","c":"868-883","status":"ported","js":["js/options.js:set_map_customcolor"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"color_distance","c":"979-994","status":"unknown"}
 {"fn":"closest_color","c":"997-1021","status":"partial","js":["js/options.js:closest_color"],"omit":"callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `\"\"` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers si…","d":["D-2777"],"at":"seed@a30a7de84"}
 {"fn":"get_nhcolor_from_256_index","c":"1024-1031","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

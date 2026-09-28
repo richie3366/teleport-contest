@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3002 — `glyphs.c` breadth cluster: apply_customizations + glyphrep_to_custom_map_entries + callback/urep closure; coloratt/utf8map pipeline in options.js; parsesymbols `:837` wired (was a bare call)
+
+- **Status:** fixed (Open — coverage row `glyphs.c` apply_customizations MISSING (C 27 code L `glyphs.c:531–574` / JS no symbol; hops —, callers 6, RNG 0, msg 0; dead callees: set_map_u) @0daa1a65f + row `glyphs.c` glyphrep_to_custom_map_entries MISSING (C 46 code L `glyphs.c:112–181` / JS no symbol; hops —, callers 4, RNG 0, msg 0; dead callees: rgbstr_to_int32) @ebc63743c + 9 callee-closure ports, incl. utf8map.c add_custom_urep_entry which carries no queue row.)
+- **Symptom:** coverage cluster — eleven customization-pipeline functions with no JS symbol: the glyphmap applier (`apply_customizations`), the `glyphid[:U+][/rgb]` spec parser (`glyphrep_to_custom_map_entries`), the find callback (`to_custom_symset_entry_callback`), the urep recorder (`add_custom_urep_entry`), and the color/name/hex/utf8 closure (`colortable_to_int32`, `check_enhanced_colors`, `onlyhexdigits`, `rgbstr_to_int32`, `set_map_customcolor`, `unicode_val`, `set_map_u`). Latent crash fixed along the way: `parsesymbolsSeg` (`js/options.js`) called `glyphrep_to_custom_map_entries` with no import or definition — a ReferenceError on any H_UTF8/u+ SYMBOLS value.
+- **C locus:**
+  - `apply_customizations`: `nethack-c/upstream/src/glyphs.c:531–574` (flag mask `:538–540`, set loop `:543`, urep arm + H_UTF8 gate `:552–560`, nhcolor arm `:562–568`, pending write `:573`).
+  - `glyphrep_to_custom_map_entries`: `glyphs.c:112–181` (find reset `:116`, separator scan `:129–149`, sanity `:150–161`, color gate `:163–164` + nonzero_black marker `:171–173`, find run `:179`).
+  - `to_custom_symset_entry_callback`: `glyphs.c:53–104` (staticfn; extraval `:63–64`, urep arm `:68–90`, color arm `:92–103`).
+  - `add_custom_urep_entry`: `nethack-c/upstream/src/utf8map.c:148–207` (ENHANCED_SYMBOLS; refresh `:168–185`, create `:186–206`).
+  - `unicode_val`: `utf8map.c:18–34` (U+ prefix `:25–26`, 8-digit cap `:30`).
+  - `set_map_u`: `utf8map.c:37–56` (alloc `:44–47`, replace `:49–54`).
+  - `colortable_to_int32`: `nethack-c/upstream/src/coloratt.c:237–246` (rgb pack `:242`, nh row `:244`).
+  - `check_enhanced_colors`: `coloratt.c:723–760` (basic name `:729`, `#rrggbb` sscanf `:731–732`, grey alias + table walk `:739–755`).
+  - `onlyhexdigits`: `coloratt.c:801–810`.
+  - `rgbstr_to_int32`: `coloratt.c:813–865` (dash-cut walk `:828–846`, cell sanity `:848–856`, name fallback `:858–863`).
+  - `set_map_customcolor`: `coloratt.c:868–883` (stamp `:877`, closest_color resolve `:878–881`).
+- **JS was:** no symbol for any of the eleven (closest_color's doc named `set_map_customcolor` unported; `parsesymbolsSeg` held the bare `:837` glyphrep call); no colortable data anywhere in `js/`; `S_sw_br` was a module-top `S_sw_tl + 7` read of display.js.
+- **Fix:** `js/glyphs.js`: module-local `to_custom_symset_entry_callback` (`:636`, `{ v }` extraval box, `String.fromCodePoint(uval)` for the accepted utf8 bytes — the encoder rejects surrogates/>U+10FFFF so it cannot throw; ENHANCED arm live per config.h:368), exported `glyphrep_to_custom_map_entries` (`:688`, last-separator-wins cuts, nonzero_black marker, null-tolerant out-box), exported `add_custom_urep_entry` (`:871`, mirrors the nhcolor writer incl. the `:166–167` FIXME), exported `apply_customizations` (`:938`, `game.iflags`/`game.gs.symset` guards, `ensure_glyphmap` cells). `js/options.js` (the coloratt.c home: closest_color/hexdd live here): exported `colortable_to_int32` (`:4653`), `check_enhanced_colors` (`:4706`, exact `#%02x%02x%02x%c` emulation incl. whitespace skip + 0x-in-width via local `scanHashRgb`, grey→gray alias via strstri offset), `onlyhexdigits` (`:4748`), `rgbstr_to_int32` (`:4769`, no 0–255 clamp like C, `1-2-3-4`→r1/g2/b4 like C), `set_map_customcolor` (`:4835`, `{ v }` boxes), `unicode_val` (`:4856`, hexdd pair idiom), `set_map_u` (`:4884`). New `scripts/extract-colortable.py` → `js/generated/colortable_data.js` (155 rows, tableindex-gap guard). Wired the live `parsesymbols` `:837` caller (import; C never reads `glyph` after, so the one-arg call stands) and retired three omit docs. Cycle guard: the new options→glyphs static edge pulled glyphs.js into the live graph for the first time and its top-level `S_sw_tl` read TDZ-crashed every session — the single use folds to constant 8 (defsym.h swallow cells), now inlined at the call site with the top-level read removed; no other top-level cross-module reads added (all new imports are hoisted fns called in bodies only).
+- **JS:** `js/glyphs.js` (+264/−8: 4 ports + imports + TDZ fold); `js/options.js` (+277/−9: 7 ports + scanHashRgb + COLORTABLE/dupstr/glyphrep imports + 3 doc retires); `js/generated/colortable_data.js` (new, 155 rows); `scripts/extract-colortable.py` (new); `scripts/glyphs-custom.test.mjs` (new, 13 its). Total js/ ≈ +700, 3 files.
+- **Callers:**
+  - `apply_customizations`: C `glyphs.c:1182` reset_customcolors, `options.c:7379` initoptions_finish, `symbols.c:683` load_symset, `symbols.c:1095` do_symset, `utf8map.c:215` reset_customsymbols — all unported, map-named (no Open rows for the wrappers; `options.c:4231` is commented-out C).
+  - `glyphrep_to_custom_map_entries`: C `symbols.c:837` parsesymbols → `js/options.js` `:837` arm ✓ (sole live site); C `glyphs.c:477` glyphrep, `options.c:1836` optfn_glyph, `symbols.c:641/648` parse_sym_line — unported, map-named.
+  - `to_custom_symset_entry_callback`: glyph_find_core callback slot ✓ (staticfn-local like C).
+  - `add_custom_urep_entry`: C `glyphs.c:81` ✓ (sole site).
+  - `unicode_val`: C `glyphs.c:69` ✓; C `glyphs.c:1291` to_unicode_callback — unported staticfn, map-named.
+  - `set_map_u`: C `glyphs.c:556` ✓; C `glyphs.c:1294` (NO_PARSING_SYMSET arm of the same unported callback) — map-named.
+  - `set_map_customcolor`: C `glyphs.c:565` ✓ (sole site).
+  - `rgbstr_to_int32`: C `glyphs.c:163` ✓; C `coloratt.c:1083` alternative_palette (#ifdef CHANGE_COLOR, dead in contest C) — nothing to wire.
+  - `check_enhanced_colors`: C `coloratt.c:860` ✓ (same module); C `options.c:10088/10094` wc_set_window_colors — unported, map-named.
+  - `onlyhexdigits` / `colortable_to_int32`: C `:825` / `:752` ✓ (sole sites, same module).
+  - No call from a site C never calls from.
+- **Verify:** focused `node --test scripts/glyphs-custom.test.mjs` 13/13 first run (hex/dash/empty onlyhex arms; triple pack + shape fails + `1-2-3-4` + noclamp + name fallback; basic/#hex/junk/short-hex/table/grey arms; 155-row table fold; U+ parse + 8-digit cap; set_map guards + alloc-once; 256-index determinism; urep create/refresh/append/clear; glyphrep file + box + marker + bad-arm drops + unknown-id 0; apply stamp + pending + H_UTF8 gate + colors-only mask; parsesymbols `:837` end-to-end). `node scripts/verify.mjs --fn` (all 11) → first run FAIL (every session `ReferenceError: Cannot access 'S_sw_tl' before initialization` — the new options→glyphs edge, predicted CYCLE by the handoff probe) → inlined the constant-8 fold → VERIFY: PASS — syntax; rule2; hidden note ×11 (no corpus session blocked — coverage cluster, rows cited zero blocks so no `--base` re-run owed); reach smoke 24/24 REACH-OK ×11; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared files changed).
+- **Named omissions:**
+  - `apply_customizations`: none — both arms whole, pending write live; the five C callers are unported wrappers without Open rows.
+  - `glyphrep_to_custom_map_entries`: none — scan/sanity/marker/find whole; the `:122–124` no-cache `reslt = 1` is dead C (overwritten at `:179`), noted in the port.
+  - `to_custom_symset_entry_callback`: the C `:66` assert (BSS-range by construction) — elided with a cite; the `:71–79` symset FIXME is preserved in the nag arm.
+  - Every other port: none — whole bodies in C order, sole callers wired or map-named above (`match_glyph` stays a bare call for its own row; `wc_set_window_colors`, `to_unicode_callback`, `glyphrep`, `reset_customcolors/symbols` unported).
+- **Ledger:** apply_customizations ported; glyphrep_to_custom_map_entries ported; to_custom_symset_entry_callback ported; add_custom_urep_entry ported; unicode_val ported; set_map_u ported; set_map_customcolor ported; rgbstr_to_int32 ported; onlyhexdigits ported; check_enhanced_colors ported; colortable_to_int32 ported
+- **Next:** pop the next Open — coverage row (breadth queue continues; new head is `options.c` option_help after the measured block rewrite).
+
 ## D-3001 — `dungeon.c` breadth cluster: free_proto_dungeon + assign_rnd_level + save/load_exclusions + rm_mapseen + mapseen_temple; Fread/indent by-design; free_exclusions/remdun_mapseen stale
 
 - **Status:** fixed (Open — coverage row `dungeon.c` free_proto_dungeon MISSING (C 10 code L `dungeon.c:1185–1201` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @0daa1a65f + 5 same-file companions; `Fread`/`indent` declared by-design — dead C (D-2992 `whatdoes_cond` precedent); `free_exclusions`/`remdun_mapseen` declared ported — bodies already complete.)
