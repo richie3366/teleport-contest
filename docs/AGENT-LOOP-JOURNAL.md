@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3018 `arti_speak` whole + both C callers wired (wield tail, doapply tail at 5 artifact-eligible arms)
+
+**C locus:** `nethack-c/upstream/src/artifact.c:2279–2296` whole in C order — `:2281` get_artifact, `:2286–2287` non-artifact / no-SPEAK guard (`||` short-circuit kept), `:2289` getrumor(bcsign, buf, TRUE), `:2290–2291` renovation fallback, `:2292` Tobjnam-whisper pline, `:2293` SetVoice 0/0/80/talking-artifact, `:2294` verbalize1 (= verbalize("%s") per hack.h:1029), `:2295` ECMD_TIME.
+**JS:** `js/artifact.js:arti_speak` (exported async — pline/verbalize are async in JS) + `getrumor`/`bcsign` (rumors.js) and `SetVoice`/`voice_talking_artifact` (sndprocs.js) added to imports (`imports.mjs --can`: rumors SAFE-hoisted, sndprocs no-cycle; wield/apply→artifact ALREADY). `verbalize` joined the existing display.js import (no new edge).
+**Change:** new `arti_speak` in C order; wire wield unconditionally (single site, C shape); wire doapply via one `doapply_arti_tail` helper at the 5 artifact-eligible arms, guard-dead arms cited below.
+**Verify:** `node scripts/verify.mjs --fn arti_speak --full` → syntax 3 files · Rule #2 clean · hidden note (no corpus session blocked — expected for a coverage row) · REACH-OK (no RNG-tagged reach; smoke 24/24) · green 2/2 + strict ×2 · cohort 7/7 · full 44/44. VERIFY: PASS. Live probe: guard arms (`null`/`oartifact:0`/Excalibur) all return ECMD_OK with no output.
+**Named:** none in the body — every arm ported, every callee live (`get_artifact`, `getrumor`, `bcsign`, `pline`, `Tobjnam`, `SetVoice`, `verbalize`).
+**Next:** next coverage head (`glyphs.c` free_glyphid_cache).
 ## 2026-09-28 — D-3017 `worm.c` save/restore closure whole (save_worm/rest_worm plain-record pair; serLevel + 3 getlev installs wired)
 
 **C locus:** - `save_worm`: `nethack-c/upstream/src/worm.c:527–568` whole in C order — `:535` update_file arm, `:536–548` per-slot count + tail-first coords, `:549–550` wgrowtime row, `:553–567` release_data free + zero.

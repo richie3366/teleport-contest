@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-3018 — `arti_speak` whole + both C callers wired (wield tail, doapply tail at 5 artifact-eligible arms)
+
+- **Status:** shipped (Open — coverage head `artifact.c` arti_speak MISSING. No corpus session blocked on it.)
+- **Symptom:** coverage gap, not a corpus divergence. Speaking artifacts (pinned table: only Magic Mirror of Merlin and Master Key of Thievery carry SPFX_SPEAK) never whispered rumors on wield/apply: `js/wield.js:546` and `js/apply.js:2349` both named `arti_speak` omitted, and no `arti_speak` symbol existed in `js/`.
+- **C locus:** `nethack-c/upstream/src/artifact.c:2279–2296` whole in C order — `:2281` get_artifact, `:2286–2287` non-artifact / no-SPEAK guard (`||` short-circuit kept), `:2289` getrumor(bcsign, buf, TRUE), `:2290–2291` renovation fallback, `:2292` Tobjnam-whisper pline, `:2293` SetVoice 0/0/80/talking-artifact, `:2294` verbalize1 (= verbalize("%s") per hack.h:1029), `:2295` ECMD_TIME.
+- **JS was:** no symbol; wield `ready_weapon` (`wield.c:242`) and doapply tail (`apply.c:4422`) both named-omitted.
+- **Fix:** new `arti_speak` in C order; wire wield unconditionally (single site, C shape); wire doapply via one `doapply_arti_tail` helper at the 5 artifact-eligible arms, guard-dead arms cited below.
+- **JS:** `js/artifact.js:arti_speak` (exported async — pline/verbalize are async in JS) + `getrumor`/`bcsign` (rumors.js) and `SetVoice`/`voice_talking_artifact` (sndprocs.js) added to imports (`imports.mjs --can`: rumors SAFE-hoisted, sndprocs no-cycle; wield/apply→artifact ALREADY). `verbalize` joined the existing display.js import (no new edge).
+- **Callers:**
+  - `wield.c:242` → `js/wield.js:621` `if (wep.oartifact) await arti_speak(wep);` (C `res |=` is a no-op — ready_weapon returns TIME past retouch; side effect kept).
+  - `apply.c:4422` → `js/apply.js:doapply_arti_tail` at pick_lock (`:2526`, SKELETON_KEY/CREDIT_CARD), use_mirror (`:2541`), use_crystal_ball (`:2670`), blindfold/lenses (`:2694`, LENSES), use_stone (`:2701`, LUCKSTONE). C early returns (nohands/capacity/!obj/retouch/WAND/SPBOOK/COIN/default-FAIL) skip the tail as in C. All other arms guard-dead: the pinned 33-entry artilist.h has no other base otyp reaching doapply (no bell/candelabrum/whip/figurine/tool entries), and oartifact is only ever assigned to a matching base otyp (`artifact_exists` `:380–384` `a->otyp == otmp->otyp`; mk_artifact builds that otyp; other writers only clear it).
+- **Verify:** `node scripts/verify.mjs --fn arti_speak --full` → syntax 3 files · Rule #2 clean · hidden note (no corpus session blocked — expected for a coverage row) · REACH-OK (no RNG-tagged reach; smoke 24/24) · green 2/2 + strict ×2 · cohort 7/7 · full 44/44. VERIFY: PASS. Live probe: guard arms (`null`/`oartifact:0`/Excalibur) all return ECMD_OK with no output.
+- **Named omissions:** none in the body — every arm ported, every callee live (`get_artifact`, `getrumor`, `bcsign`, `pline`, `Tobjnam`, `SetVoice`, `verbalize`).
+- **Ledger:** arti_speak ported
+- **Next:** next coverage head (`glyphs.c` free_glyphid_cache).
+
 ## D-3017 — `worm.c` save/restore closure whole (save_worm/rest_worm plain-record pair; serLevel + 3 getlev installs wired)
 
 - **Status:** shipped (Open — coverage head `worm.c` rest_worm MISSING + same-file Open `save_worm` absent/MISSING below the queue window. No corpus session blocked on either.)

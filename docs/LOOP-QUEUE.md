@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `artifact.c` arti_speak — coverage MISSING (C 12 code L `artifact.c:2279–2296` / JS no symbol; hops —, callers 2, RNG 0, msg 1) @7cd5d050b
 - [ ] `glyphs.c` free_glyphid_cache — coverage THIN (C 9 code L `glyphs.c:355–369` / JS 2 code L in js/glyphs.js; hops 4, callers 6, RNG 0, msg 0) @7cd5d050b
 - [ ] `wizcmds.c` wiz_display_macros — coverage MISSING (C 53 code L `wizcmds.c:1705–1778` / JS no symbol; hops —, callers 0, RNG 0, msg 11) @2af820a38
 - [ ] `o_init.c` savenames — coverage MISSING (C 19 code L `o_init.c:375–407` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @2af820a38
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sys.c` sysopt_release — coverage MISSING (C 33 code L `sys.c:115–158` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @32055fa52
 - [ ] `cmd.c` handler_rebind_keys_add — coverage PARTIAL (C 85 code L `cmd.c:2291–2405` / JS 53 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 7) @9f89fd978
 - [ ] `rumors.c` init_rumors — coverage MISSING (C 16 code L `rumors.c:85–107` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @5c0b84ad9
+- [ ] `objnam.c` strprepend — coverage MISSING (C 8 code L `objnam.c:123–135` / JS no symbol; hops 4, callers 4, RNG 0, msg 0) @0cb4128d8
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

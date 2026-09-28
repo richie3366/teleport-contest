@@ -54,7 +54,7 @@
 {"fn":"arti_invoke","c":"2131-2232","status":"partial","js":["js/artifact.js:arti_invoke"],"omit":"`retouch_equipment` callers stay at the old comments: `attrib.c:1360` (`js/attrib.js:825`), `eat.c:1325` (`js/eat.js:2019`), `polyself.c:463` (`js/polyself.js:1070`), `polyself.c:1021` (`js/polyself.js:1739`), `polyself.c:1415` (`js/polyself.js:1126`), `uhitm.c:4285` (`js/mhitu.js:2853`).","d":["D-2805","D-2371"],"at":"seed@a30a7de84"}
 {"fn":"finesse_ahriman","c":"2236-2260","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_light","c":"2264-2275","status":"unknown"}
-{"fn":"arti_speak","c":"2279-2296","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"arti_speak","c":"2279-2296","status":"ported","js":["js/artifact.js:arti_speak"],"d":["D-3018"],"at":"2026-09-28@0cb4128d8","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_has_invprop","c":"2299-2305","status":"unknown"}
 {"fn":"arti_cost","c":"2309-2317","status":"ported","js":["js/artifact.js:arti_cost"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"abil_to_adtyp","c":"2320-2341","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

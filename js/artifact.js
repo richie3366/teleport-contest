@@ -111,7 +111,10 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, impossible, You_feel, You_cant, newsym, see_monsters,
     set_sting_effects, glyph_at, glyph_is_trap, canspotmon, map_invisible, shieldeff,
+    verbalize,
 } from './display.js';
+import { getrumor, bcsign } from './rumors.js';
+import { SetVoice, voice_talking_artifact } from './sndprocs.js';
 import { cansee } from './vision.js';
 import { mon_nam, s_suffix, Monnam, mon_aligntyp_nam, hcolor, oname } from './do_name.js';
 import { wake_nearto, healmon } from './mon.js';
@@ -648,6 +651,39 @@ export function get_artifact(obj) {
     const a = obj.oartifact | 0;
     if (a <= 0 || a > NROFARTIFACTS) return list[0];
     return list[a];
+}
+
+/**
+ * C ref: artifact.c arti_speak `:2279–2296` — whole body in C order.
+ * Non-artifact or no-SPFX_SPEAK guard returns ECMD_OK (`:2286–2287`;
+ * `||` short-circuit kept); else rumor by bless/curse sign (`:2289`
+ * getrumor(bcsign, buf, TRUE) — JS getrumor returns the string, no BUFSZ
+ * cursor; TRUE = exclude_cookie), renovation fallback (`:2290–2291`),
+ * Tobjnam whisper pline (`:2292`), SetVoice no-op without SND_LIB
+ * (`:2293`; precedent rumors.js outrumor), verbalize1 (`:2294` — C
+ * hack.h:1029 macro for verbalize("%s", line); precedent outrumor),
+ * ECMD_TIME (`:2295`). Async: pline/verbalize are async in JS; callers
+ * await (wield ready_weapon, apply doapply tail).
+ */
+export async function arti_speak(obj) {
+    // C :2281 — oart = get_artifact(obj)
+    const oart = get_artifact(obj);
+    // C :2286–2287 — speaking-artifact guard
+    const list = artilist();
+    if (oart === list[ART_NONARTIFACT] || ((oart.spfx | 0) & SPFX_SPEAK) === 0)
+        return ECMD_OK; /* nothing happened */
+    // C :2289 — line = getrumor(bcsign(obj), buf, TRUE)
+    let line = getrumor(bcsign(obj), true);
+    // C :2290–2291 — empty-rumor fallback
+    if (!line) line = 'NetHack rumors file closed for renovation.';
+    // C :2292 — pline("%s:", Tobjnam(obj, "whisper"))
+    await pline('%s:', Tobjnam(obj, 'whisper'));
+    // C :2293 — SetVoice((monst *) 0, 0, 80, voice_talking_artifact)
+    SetVoice(null, 0, 80, voice_talking_artifact);
+    // C :2294 — verbalize1(line)
+    await verbalize(line);
+    // C :2295 — return ECMD_TIME
+    return ECMD_TIME;
 }
 
 /**
