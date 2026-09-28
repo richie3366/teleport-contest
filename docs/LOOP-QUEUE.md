@@ -115,11 +115,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `objnam.c` bare_artifactname — coverage PARTIAL (C 9 code L `objnam.c:2502–2515` / JS 6 code L in js/artifact.js; hops 3, callers 12, RNG 0, msg 0) @73b53df4b
 - [ ] `report.c` get_saved_pline — coverage MISSING (C 12 code L `report.c:571–592` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @f4390cd9a
 - [ ] `sp_lev.c` l_push_mkroom_table — coverage MISSING (C 9 code L `sp_lev.c:3059–3070` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: nhl_add_table_entry_int, nhl_add_table_entry_region, nhl_add_table_entry_bool, nhl_add_table_entry_str, get_mkroom_name) @f4390cd9a
 - [ ] `pline.c` gamelog_add — coverage THIN (C 13 code L `pline.c:495–511` / JS 5 code L in js/pline.js; hops 3, callers 2, RNG 0, msg 0) @f4390cd9a
-- [ ] `objnam.c` ch_ksound — coverage THIN (C 15 code L `objnam.c:3168–3191` / JS 5 code L in js/objnam.js; hops 2, callers 1, RNG 0, msg 0) @15ff0060a
 - [ ] `botl.c` hlattr2attrname — coverage PARTIAL (C 25 code L `botl.c:3369–3401` / JS 13 code L in js/botl.js; hops —, callers 3, RNG 0, msg 6) @34c78a6ac
 - [ ] `rumors.c` CapitalMon — coverage PARTIAL (C 17 code L `rumors.c:791–822` / JS 11 code L in js/objnam.js; hops 2, callers 3, RNG 0, msg 0) @34c78a6ac
 - [ ] `mon.c` dealloc_monst — coverage PARTIAL (C 9 code L `mon.c:2676–2691` / JS 6 code L in js/mon.js; hops 2, callers 5, RNG 0, msg 0) @34c78a6ac
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `rnd.c` init_isaac64 — coverage MISSING (C 10 code L `rnd.c:43–58` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: whichrng) @759e72748
 - [ ] `muse.c` fhito_loc — coverage MISSING (C 10 code L `muse.c:1707–1726` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @759e72748
 - [ ] `mkmaze.c` fix_wall_spines — coverage PARTIAL (C 37 code L `mkmaze.c:229–287` / JS 25 code L in js/mklev.js; hops 3, callers 4, RNG 0, msg 0) @72bf1dec2
+- [ ] `stairs.c` stairway_add — coverage PARTIAL (C 10 code L `stairs.c:8–24` / JS 6 code L in js/mklev.js; hops 2, callers 5, RNG 0, msg 0) @1fdd56bcc
+- [ ] `display.c` t_warn — coverage THIN (C 38 code L `display.c:3453–3498` / JS 14 code L in js/display.js; hops 3, callers 1, RNG 0, msg 0) @1fdd56bcc
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

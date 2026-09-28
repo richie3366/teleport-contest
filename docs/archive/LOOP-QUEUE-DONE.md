@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-28
 
-- [x] `wizcmds.c` wizcustom_callback — coverage MISSING (C 29 code L `wizcmds.c:1987–2027` / JS no symbol; hops —, callers 1, RNG 0, msg 1) @73b53df4b **Addressed:** D-3029
+- [x] `wizcmds.c` wizcustom_callback — coverage MISSING (C 29 code L `wizcmds.c:1987–2027` / JS no symbol; hops —, callers 1, RNG 0, msg 1) @73b53df4b **Addressed:** D-3029 `da6d0e8ae`
 
 
 - [x] `cmd.c` dokeylist — coverage MISSING (C 100 code L `cmd.c:2867–3013` / JS no symbol; hops —, callers 0, RNG 0, msg 25; dead callees: spkey_name; split? cited 30× in js/ — brief first) @5affd05cd

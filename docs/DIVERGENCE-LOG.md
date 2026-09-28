@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3030 — `objnam.c` bare_artifactname whole + ch_ksound stale-retire (non-artifact xname fallback)
+
+- **Status:** shipped. Queue head `objnam.c` bare_artifactname (PARTIAL, C 9 L) restarted whole; same-file companion `ch_ksound` (THIN) verified already complete — ledger-staled with no code change. Small cluster justified: head's file and callee closure hold nothing more Open (makeplural already ported; nextobuf is by-design elided buffer machinery; artiname/xname live).
+- **Symptom:** coverage gap, not a corpus divergence (no corpus session blocked on either function at baseline).
+- **C locus:**
+  - `bare_artifactname`: `nethack-c/upstream/src/objnam.c:2502–2515` whole in C order — `:2506` oartifact guard, `:2507–2508` nextobuf + artiname(oartifact), `:2509–2510` The→the lowc, `:2512` else xname(obj).
+  - `ch_ksound`: `nethack-c/upstream/src/objnam.c:3168–3191` — stale; C body already complete in JS (no edit).
+- **JS was:**
+  - `bare_artifactname`: `js/artifact.js:797` returned `'something'` for every non-artifact (C calls `xname(obj)` — wrong name on all artifact-adjacent call sites for plain objects); artifact arm used `get_artifact(obj)` instead of C's `artiname(oartifact index)`.
+  - `ch_ksound`: `js/objnam.js:2129` already complete — 19-word ch_k table, len<4 guard, case-insensitive suffix match; `endsWith` subsumes BSTRCMPI (`objnam.c:66`: `(ptr)<base || strcmpi`) including the underflow guard.
+- **Fix:**
+  - `bare_artifactname`: restarted the export whole in C order against live callees — `artiname(obj.oartifact | 0)` (same file, C-exact incl. `""` on out-of-range index) with `The `→`the ` (C lowc(outbuf[0])), else `xname(obj)` (already imported; `imports.mjs --can` reports the artifact→objnam edge ALREADY exists — no new edge, no cycle change). Null-obj keeps the house nullable-name `'something'` (killer_xname convention; C NONNULLARG1, no caller passes null).
+  - `ch_ksound`: no edit.
+- **JS:**
+  - `bare_artifactname`: `js/artifact.js:802` (doc `:793–801`, body `:802–812`) with per-arm `:line` cites.
+  - `ch_ksound`: `js/objnam.js:2129` unchanged.
+- **Callers:**
+  - `bare_artifactname`: every C call site wired — artifact.c:457→artifact.js:617, artifact.c:2479/2489/2494/2498 (Sting_effects glow)→artifact.js:900/904/906/909, attrib.c:960/984→attrib.js:1205/1162, do_name.c:416/420→do_name.js:1402/1409, hack.c:2037→hack.js:2807, monmove.c:505→monmove.js:1064, pray.c:1814→pray.js:2417, trap.c:5581→trap.js:7511, uhitm.c:1413/1978→uhitm.js:2126/729, zap.c:3049→zap.js:4344, objnam.c:1950 (killer_xname artifact bypass)→in-file twin `bare_artifactname_objnam` (objnam.js:1368/1388, pre-existing cycle-avoidance local, behavior-identical on C-reachable inputs).
+  - `ch_ksound`: sole C caller objnam.c:3003 (makeplural ch-arm)→objnam.js:2297 wired.
+- **Verify:** /tmp/probe_bare.mjs 7/7 (The Orb→`the Orb of Detection`, Excalibur unchanged, non-artifact `long sword` === xname and ≠ `something`, out-of-range `""`, null/undefined guard). `verify.mjs --fn bare_artifactname,ch_ksound`: hidden notes no sessions blocked; REACH-OK both (no RNG-tagged reach; 24-session smoke 24 PASS); syntax PASS (1 file); Rule #2 PASS; green 2/2; strict both; cohort 7/7; full skipped (no shared file). VERIFY: PASS.
+- **Named omissions:**
+  - `bare_artifactname`: `nextobuf()` rotating-buffer allocation elided — JS strings immutable, fresh string per call (xname_flags buffer-machinery precedent, js/objnam.js); no JS symbol, ledger `absent` stands.
+  - `ch_ksound`: none — every arm ported, callee (`eos`) subsumed.
+- **Ledger:** bare_artifactname ported; ch_ksound ported.
+- **Next:** next Open — coverage row (`report.c` get_saved_pline at enqueue).
+
 ## D-3029 — `wizcmds.c` wizcustom_callback whole (glyphmap-gated #wizcustom menu line; C caller wired)
 
 - **Status:** shipped. Queue head `wizcmds.c` wizcustom_callback (MISSING, C 29 L, no JS symbol) as a single-function cluster — the head's file and callee closure hold nothing more Open (only one wizcmds.c ledger row; brief lists 0 C callees). Resolves the review-1730 debt (empty `wizcustom_callback` site in `wizcustom_glyphids`).

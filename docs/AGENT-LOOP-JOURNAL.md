@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3030 `objnam.c` bare_artifactname whole + ch_ksound stale-retire (non-artifact xname fallback)
+
+**C locus:** - `bare_artifactname`: `nethack-c/upstream/src/objnam.c:2502–2515` whole in C order — `:2506` oartifact guard, `:2507–2508` nextobuf + artiname(oartifact), `:2509–2510` The→the lowc, `:2512` else xname(obj).
+**JS:** - `bare_artifactname`: `js/artifact.js:802` (doc `:793–801`, body `:802–812`) with per-arm `:line` cites.
+**Change:** - `bare_artifactname`: restarted the export whole in C order against live callees — `artiname(obj.oartifact | 0)` (same file, C-exact incl. `""` on out-of-range index) with `The `→`the ` (C lowc(outbuf[0])), else `xname(obj)` (already imported; `imports.mjs --can` reports the artifact→objnam edge ALREADY exists — no new edge, no cycle change). Null-obj keeps the house nullable-name `'something'` (killer_xname convention; C NONNULLARG1, no caller passes null).
+**Verify:** /tmp/probe_bare.mjs 7/7 (The Orb→`the Orb of Detection`, Excalibur unchanged, non-artifact `long sword` === xname and ≠ `something`, out-of-range `""`, null/undefined guard). `verify.mjs --fn bare_artifactname,ch_ksound`: hidden notes no sessions blocked; REACH-OK both (no RNG-tagged reach; 24-session smoke 24 PASS); syntax PASS (1 file); Rule #2 PASS; green 2/2; strict both; cohort 7/7; full skipped (no shared file). VERIFY: PASS.
+**Named:** - `bare_artifactname`: `nextobuf()` rotating-buffer allocation elided — JS strings immutable, fresh string per call (xname_flags buffer-machinery precedent, js/objnam.js); no JS symbol, ledger `absent` stands.
+**Next:** next Open — coverage row (`report.c` get_saved_pline at enqueue).
 ## 2026-09-28 — Audit 1981–1989 (D-3021..D-3029): 9 ACCEPT, 0 Must-fix
 
 Every js SHA re-measured (`verify --base <parent> --reach-all`, 0 regressed). Public 44/44; corpus 631/953 (full:true @12:01Z, 0 flips, +Barbarian-70011); held-out 12/44 unchanged. 1730 debt retired. Env: node v20, no `node:sqlite` (sql sample skipped, as in 1956–1962 audits). Next: pop the coverage head; no Must-fix pending.

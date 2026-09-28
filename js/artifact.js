@@ -791,17 +791,24 @@ export function shade_glare(obj) {
 }
 
 /**
- * C ref: objnam.c bare_artifactname — artiname with leading "The "→"the ".
- * Non-artifact falls back to xname-like minimal name via artilist miss.
+ * C ref: objnam.c bare_artifactname `:2502–2515` whole in C order —
+ * oartifact arm `:2506–2510`: artiname(oartifact) with leading "The "→"the "
+ * (C lowc(outbuf[0])); else `:2511–2513` xname(obj). C nextobuf() rotating
+ * buffer elided: JS strings are immutable, each call returns a fresh
+ * string (same convention as xname_flags buffer machinery, js/objnam.js).
+ * Null obj is C-impossible (NONNULLARG1); 'something' keeps the house
+ * nullable-name convention (killer_xname) instead of throwing.
  */
 export function bare_artifactname(obj) {
-    if (!obj?.oartifact) return 'something';
-    const art = get_artifact(obj);
-    let name = art?.name || 'something';
-    if (name.length >= 4 && name.slice(0, 4) === 'The ') {
-        name = `the ${name.slice(4)}`;
+    if (!obj) return 'something';
+    if (obj.oartifact) { // C :2506
+        // C :2507–2508 outbuf = nextobuf(); Strcpy(outbuf, artiname(...))
+        let outbuf = artiname(obj.oartifact | 0);
+        if (outbuf.slice(0, 4) === 'The ') // C :2509 !strncmp(outbuf, "The ", 4)
+            outbuf = `the ${outbuf.slice(4)}`; // C :2510 lowc(outbuf[0])
+        return outbuf;
     }
-    return name;
+    return xname(obj); // C :2512 outbuf = xname(obj)
 }
 
 // C coloratt.c colornames[] first match (aliases after the NULL sentinel
