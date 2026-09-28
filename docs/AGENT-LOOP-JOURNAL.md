@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3057 zap.c wish_history_menu pick body (picker + makewish return wiring)
+
+**C locus:** - `wish_history_menu`: nethack-c/upstream/src/zap.c:6275–6309 (whole body in C order — `#ifdef DEBUG` menu: create/start `:6282–6284`, newest-first ring walk with null skip `:6287–6296` and `a_int = i + 1` `:6292`, end_menu "Wish what?" `:6298`, PICK_ONE select `:6299`, destroy `:6300`, `npick > 0` remap `i = a_int - 1` + `strcpy` `:6301–6307`; "buf not modified if nothing selected").
+**JS:** - `wish_history_menu`: js/zap.js:7244 (async; import js/zap.js:235).
+**Change:** js/zap.js — restarted `wish_history_menu` whole in C order as `async`, returning the pick (JS strings immutable): ring walk `i = 19..0`, `idx = (wish_idx + i) % 20`, null skip, `a_int = i + 1`; end_menu prompt as non-selectable header rows (same shape as artifact.js invoke_create_portal); `select_menu_pick_one` (live export, `imports.mjs --can zap.js options.js` SAFE hoisted, cycle-safe) with picker-owned destroy; cancel/empty/missing-history arms return the input unchanged; `a_int - 1` remap + null recheck before returning `hist[idx]`. `makewish` now `buf = mungspaces(await wish_history_menu(buf))` (C `:6334–6339` both-path mungspaces).
+**Verify:** `node scripts/verify.mjs --fn wish_history_menu` → PASS syntax (1 changed file) · PASS rule2 · note hidden (no corpus session blocked at baseline — row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS. Probe `/tmp/probe-wish-menu.mjs`: empty-ring returns input, missing-history returns input, caller awaited+assigned — all OK. No `tests/` harness in repo (durable-test skill: narrowest honest verification is verify + probe; probe kept in /tmp, not committed).
+**Named:** - `wish_history_menu`: none — every arm ported, every callee live (`select_menu_pick_one`) or picker-modelled (window lifecycle, zeroany, end_menu prompt, destroy).
+**Next:** no more Open `zap.c` coverage rows; head leaves the block on refill (refill-driven).
 ## 2026-09-28 — D-3056 zap.c hero-spell ray bonus (`spell_hit_bonus` new; `zap_hit` + dobuzz `spell_type` wired; makewish history-menu gate)
 
 **C locus:** - `spell_hit_bonus`: nethack-c/upstream/src/zap.c:3509–3543 (whole body in C order — skill switch `:3514–3528` with no default arm, DEX chain `:3530–3541` incl. the `-= 0` arm `:3536–3538`, return `:3543`).

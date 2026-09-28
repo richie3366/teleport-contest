@@ -232,6 +232,7 @@ import {
 import { show_text_pages } from './pager.js';
 import { cansee, couldsee, vision_recalc } from './vision.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
+import { select_menu_pick_one } from './options.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
     observe_object, display_minventory, display_binventory, display_cinventory,
@@ -7233,11 +7234,45 @@ export function wish_history_add(buf) {
 /**
  * C ref: zap.c wish_history_menu :6275–6309 (staticfn; caller makewish :6335).
  * `DEBUG` is defined (patchlevel.h:36), so the menu is in the C build.
- * This remains a no-op: `buf` is not modified. Caller makewish :6334 now
- * mirrors the menu_requested gate; the menu pick itself (create_nhwindow
- * through select_menu, which has no scored analogue) is named in the map.
+ * C order: window lifecycle is owned by the live PICK_ONE picker below
+ * (select_menu_pick_one, js/options.js) — same shape as artifact.js
+ * invoke_create_portal; items carry a plain a_int instead of cg.zeroany.
+ * JS strings are immutable, so the pick is returned (caller assigns to
+ * buf); "buf is not modified, if nothing was selected" is the input
+ * returned unchanged.
  */
-export function wish_history_menu(_buf) {
+export async function wish_history_menu(buf) {
+    const orig = String(buf ?? '');
+    // C :6287–6296 — newest-first ring walk; skip empty slots.
+    const hist = game.wish_history;
+    const wish_history_idx = game.wish_history_idx | 0;
+    if (!Array.isArray(hist) || hist.length !== MAX_WISH_HISTORY) return orig;
+    // C :6275–6284 win = create_nhwindow(NHW_MENU); start_menu STANDARD;
+    // any = cg.zeroany — items array with plain a_int fields.
+    // C :6298 end_menu prompt "Wish what?" is modelled as non-selectable
+    // header rows (same shape as artifact.js invoke_create_portal).
+    const items = [
+        { text: 'Wish what?', selectable: false },
+        { text: '', selectable: false },
+    ];
+    for (let i = MAX_WISH_HISTORY - 1; i >= 0; i--) {
+        const idx = (wish_history_idx + i) % MAX_WISH_HISTORY;
+        if (hist[idx] == null) continue;
+        // C :6292–6294 any.a_int = i + 1; add_menu ATR_NONE/NO_COLOR text.
+        items.push({ text: String(hist[idx]), selectable: true, a_int: i + 1 });
+    }
+    if (!items.some((it) => it.selectable)) return orig;
+    // C :6299 npick = select_menu(win, PICK_ONE, &picks);
+    // C :6300 destroy_nhwindow(win) — picker-owned teardown.
+    const n = await select_menu_pick_one(items);
+    // C :6301–6307 if (npick > 0): i = picks->item.a_int; i--;
+    if (n?.kind !== 'pick' || !n.item) return orig;
+    let i = (n.item.a_int | 0);
+    i--;
+    const idx = (wish_history_idx + i) % MAX_WISH_HISTORY;
+    // C :6306–6307 if (wish_history[idx]) strcpy(buf, wish_history[idx]).
+    if (hist[idx] == null) return orig;
+    return String(hist[idx]);
 }
 
 /**
@@ -7245,7 +7280,7 @@ export function wish_history_menu(_buf) {
  * Terrain wish via readobjnam_wish → wizterrainwish traps (D-1289) +
  * door/wall (D-1290) + secret corridor (D-1304) + switch_terrain
  * (D-1279). wishcmdassist help arm live; wish_history_add live (D-2873);
- * wish_history_menu still the no-op; wish livelog arms live (D-1892).
+ * wish_history_menu returns the pick (caller assigns); wish livelog arms live (D-1892).
  */
 export async function makewish() {
     // C zap.c:6323 — makewish clears resume_wish at entry (zap.c:6341 sets
@@ -7268,11 +7303,11 @@ export async function makewish() {
             prompt += " (enter 'help' for assistance)";
         }
         prompt += '?';
-        // C zap.c:6334 — requested history menu with prior wishes picks
-        // from it (wish_history_menu stays the DEBUG-menu no-op; the pick
-        // is named in the map), otherwise the line prompt :6336-6337.
+        // C zap.c:6334–6337 — requested history menu with prior wishes picks
+        // from it (wish_history_menu returns the pick; C strcpy into buf),
+        // otherwise the line prompt :6336-6337. C :6339 mungspaces both.
         if (game.iflags?.menu_requested && (game.wish_history?.[0]) && tries === 0) {
-            wish_history_menu(buf);
+            buf = mungspaces(await wish_history_menu(buf));
         } else {
             buf = mungspaces(await getlin(prompt)); // C `:6337`
         }

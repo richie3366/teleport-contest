@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3057 — zap.c wish_history_menu pick body (picker + makewish return wiring)
+
+- **Status:** shipped.
+- **Symptom:** coverage THIN `zap.c` wish_history_menu (C 23 code L `zap.c:6275–6309` / JS 0 code L no-op in js/zap.js; hops 3, callers 1, RNG 0, msg 0). D-3056 left it partial (gate wired, pick named omitted).
+- **C locus:**
+  - `wish_history_menu`: nethack-c/upstream/src/zap.c:6275–6309 (whole body in C order — `#ifdef DEBUG` menu: create/start `:6282–6284`, newest-first ring walk with null skip `:6287–6296` and `a_int = i + 1` `:6292`, end_menu "Wish what?" `:6298`, PICK_ONE select `:6299`, destroy `:6300`, `npick > 0` remap `i = a_int - 1` + `strcpy` `:6301–6307`; "buf not modified if nothing selected").
+- **JS was:** `wish_history_menu(_buf)` sync no-op (js/zap.js:7240); caller `makewish` js/zap.js:7275 called it without `await` and ignored the return, so a C `strcpy(buf, hist)` pick never reached `buf`; menu path also skipped C `:6339` `mungspaces`.
+- **Fix:** js/zap.js — restarted `wish_history_menu` whole in C order as `async`, returning the pick (JS strings immutable): ring walk `i = 19..0`, `idx = (wish_idx + i) % 20`, null skip, `a_int = i + 1`; end_menu prompt as non-selectable header rows (same shape as artifact.js invoke_create_portal); `select_menu_pick_one` (live export, `imports.mjs --can zap.js options.js` SAFE hoisted, cycle-safe) with picker-owned destroy; cancel/empty/missing-history arms return the input unchanged; `a_int - 1` remap + null recheck before returning `hist[idx]`. `makewish` now `buf = mungspaces(await wish_history_menu(buf))` (C `:6334–6339` both-path mungspaces).
+- **JS:**
+  - `wish_history_menu`: js/zap.js:7244 (async; import js/zap.js:235).
+  - `makewish` gate: js/zap.js:7310.
+- **Callers:**
+  - `wish_history_menu`: C `makewish` :6335 → JS `makewish` js/zap.js:7310 (awaited, assigned, mungspaced).
+- **Verify:** `node scripts/verify.mjs --fn wish_history_menu` → PASS syntax (1 changed file) · PASS rule2 · note hidden (no corpus session blocked at baseline — row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS. Probe `/tmp/probe-wish-menu.mjs`: empty-ring returns input, missing-history returns input, caller awaited+assigned — all OK. No `tests/` harness in repo (durable-test skill: narrowest honest verification is verify + probe; probe kept in /tmp, not committed).
+- **Named omissions:**
+  - `wish_history_menu`: none — every arm ported, every callee live (`select_menu_pick_one`) or picker-modelled (window lifecycle, zeroany, end_menu prompt, destroy).
+- **Ledger:** wish_history_menu ported.
+- **Next:** no more Open `zap.c` coverage rows; head leaves the block on refill (refill-driven).
+
 ## D-3056 — zap.c hero-spell ray bonus (`spell_hit_bonus` new; `zap_hit` + dobuzz `spell_type` wired; makewish history-menu gate)
 
 - **Status:** shipped.
