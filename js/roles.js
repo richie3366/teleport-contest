@@ -775,9 +775,16 @@ export function Hello(arg) {
         }
         return 'Konnichi wa';
     }
-    if (mnum === PM_TOURIST) return 'Aloha';
-    if (mnum === PM_VALKYRIE) return 'Velkommen';
-    return 'Hello';
+    if (mnum === PM_TOURIST) return 'Aloha'; // C :2130-2131
+    if (mnum === PM_VALKYRIE) {
+        // C :2132-2136 — MAIL_STRUCTURES is live (global.h:430), so the
+        // mail-daemon `Hallo` arm is real C, mirroring the Samurai shk arm.
+        if (mtmp && mtmp.data?.name === 'PM_MAIL_DAEMON') {
+            return 'Hallo';
+        }
+        return 'Velkommen'; /* Norse */
+    }
+    return 'Hello'; // C :2137-2138
 }
 
 /** C ref: role.c Goodbye — Role_switch farewell; uses game.urole.mnum. */

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `role.c` Hello — coverage PARTIAL (C 15 code L `role.c:2120–2140` / JS 10 code L in js/roles.js; hops 3, callers 6, RNG 0, msg 0) @5aadc33ff
 - [ ] `options.c` handler_menu_headings — coverage MISSING (C 7 code L `options.c:5780–5792` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: query_color_attr) @4e6edc522
 - [ ] `mklev.c` find_branch_room — coverage THIN (C 9 code L `mklev.c:1660–1673` / JS 3 code L in js/mklev.js; hops 2, callers 1, RNG 0, msg 0) @4e6edc522
 - [ ] `mon.c` relmon — coverage PARTIAL (C 18 code L `mon.c:2561–2594` / JS 10 code L in js/dog.js; hops 3, callers 6, RNG 0, msg 0) @79ab7d2dc
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `artifact.c` artifact_origin — coverage PARTIAL (C 23 code L `artifact.c:478–513` / JS 17 code L in js/artifact.js; hops 3, callers 4, RNG 0, msg 0) @b689d8429
 - [ ] `uhitm.c` hmon_hitmon_do_hit — coverage MISSING (C 29 code L `uhitm.c:1387–1433` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b689d8429
 - [ ] `timeout.c` restore_timers — coverage THIN (C 12 code L `timeout.c:2707–2728` / JS 5 code L in js/mkobj.js; hops 3, callers 2, RNG 0, msg 0) @25bf764f0
+- [ ] `uhitm.c` mhitm_ad_corr — coverage MISSING (C 14 code L `uhitm.c:2338–2360` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @fa84aeeac
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

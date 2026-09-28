@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3046 `Hello` Valkyrie mail-daemon `Hallo` arm
+
+**C locus:** - `Hello`: nethack-c/upstream/src/role.c:2120–2140 — Role_switch Knight :2123–2124, Samurai shk-gated :2126–2128, Tourist :2130–2131, Valkyrie mail-daemon-gated :2133–2136, default :2137–2138.
+**JS:** - `Hello`: js/roles.js:767 (Valkyrie block :779–787); scripts/hello.test.mjs is new (4 node:test cases pinning the whole body in C order).
+**Change:** expanded the Valkyrie arm in C order with per-arm `:line` cites: `mtmp && mtmp.data?.name === 'PM_MAIL_DAEMON'` → `'Hallo'`, else `'Velkommen'` — mirrors the Samurai arm's permonst identity check in the same function (monst `.data` is the mons() ptr object carrying `.name`; makemon.js:3279 / mondata.js:98 verified). No new imports, no new cross-module edges.
+**Verify:** `node scripts/verify.mjs --fn Hello` → VERIFY: PASS — syntax 1 changed js file; Rule #2 clean; hidden note (no corpus session blocked — coverage row, expected); REACH smoke spread 24/24 PASS (Hello draws no RNG → REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed). Focused: `node --test scripts/hello.test.mjs` 4/4 — the Hallo subtest failed before the fix, passes after.
+**Named:** - `Hello`: none — every arm ported, every callee live (0 C callees), every C caller wired.
+**Next:** `handler_menu_headings` (options.c:5780–5792) heads the regenerated coverage block; `Goodbye` (role.c:2143–2157) verified complete in JS (all five farewell arms, js/roles.js:784) — stale-eligible, not shipped here.
 ## 2026-09-28 — D-3045 `furniture_detect` whole restart + `map_redisplay` C-order restore
 
 **C locus:** - `furniture_detect`: nethack-c/upstream/src/detect.c:1091–1134 (staticfn; whole body in C order).

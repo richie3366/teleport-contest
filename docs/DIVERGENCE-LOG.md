@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3046 — `Hello` Valkyrie mail-daemon `Hallo` arm
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL (C 15 code L vs JS 10): the Valkyrie arm always returned `Velkommen`; C role.c:2133–2136 returns `Hallo` when mtmp is a mail daemon (MAIL_STRUCTURES is live per global.h:430), so a Valkyrie receiving mail heard the wrong greeting.
+- **C locus:**
+  - `Hello`: nethack-c/upstream/src/role.c:2120–2140 — Role_switch Knight :2123–2124, Samurai shk-gated :2126–2128, Tourist :2130–2131, Valkyrie mail-daemon-gated :2133–2136, default :2137–2138.
+- **JS was:** js/roles.js:767 `Hello` — every arm except the Valkyrie mail-daemon sub-arm (`if (mnum === PM_VALKYRIE) return 'Velkommen'`).
+- **Fix:** expanded the Valkyrie arm in C order with per-arm `:line` cites: `mtmp && mtmp.data?.name === 'PM_MAIL_DAEMON'` → `'Hallo'`, else `'Velkommen'` — mirrors the Samurai arm's permonst identity check in the same function (monst `.data` is the mons() ptr object carrying `.name`; makemon.js:3279 / mondata.js:98 verified). No new imports, no new cross-module edges.
+- **JS:**
+  - `Hello`: js/roles.js:767 (Valkyrie block :779–787); scripts/hello.test.mjs is new (4 node:test cases pinning the whole body in C order).
+- **Callers:**
+  - `Hello`: allmain.c:916 → js/allmain.js:740 (numeric role.mnum keeps mtmp-null semantics); hack.c:3720 → js/hack.js:2976 (Hello(null), Delphi welcome); mail.c:418 → js/mail.js:423 (Hello(md) — the only path that can now return 'Hallo'); shk.c:844 → js/shk.js:707; shk.c:4907 → js/shk.js:4498; shk.c:4917 → js/shk.js:4509; shk.c:5550 → js/shk.js:6283; shk.c:5557 → js/shk.js:6290 (all pre-wired; shkp is never a mail daemon — unaffected).
+- **Verify:** `node scripts/verify.mjs --fn Hello` → VERIFY: PASS — syntax 1 changed js file; Rule #2 clean; hidden note (no corpus session blocked — coverage row, expected); REACH smoke spread 24/24 PASS (Hello draws no RNG → REACH-OK); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed). Focused: `node --test scripts/hello.test.mjs` 4/4 — the Hallo subtest failed before the fix, passes after.
+- **Named omissions:**
+  - `Hello`: none — every arm ported, every callee live (0 C callees), every C caller wired.
+- **Ledger:** Hello ported.
+- **Next:** `handler_menu_headings` (options.c:5780–5792) heads the regenerated coverage block; `Goodbye` (role.c:2143–2157) verified complete in JS (all five farewell arms, js/roles.js:784) — stale-eligible, not shipped here.
+
 ## D-3045 — `furniture_detect` whole restart + `map_redisplay` C-order restore
 
 - **Status:** shipped.
