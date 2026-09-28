@@ -1,0 +1,53 @@
+# Rotated from AGENT-LOOP-JOURNAL.md (6 crumbs; live kept 10)
+
+## 2026-09-28 — Audit 1990–1998 (D-3030…D-3038): 9 ACCEPT, 0 Must-fix; full cadence
+
+**Scope:** all 9 js-touching SHAs since audit 1981–1989 (`2972f3ad5`…`a7a0f55e5`; docs-only `953aea809` skipped per the js-only rule). Each re-measured with `hidden-proxy verify --base <SHA>~1 --reach-all`: every claim matched (honest vacuous + smoke REACH-OK, zero REGRESSED).
+**Finds:** none queueable. Two tool notes: `sym.mjs` misses export-list syntax (`bhito`, js/zap.js:6276 — verified live by direct read + module load); `lspo_region` comment block cites `:5603–5606` vs pinned `:5601–5604` (pre-existing +2 drift, comment-only).
+**Score:** public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `270+1.59/turn`); corpus 631/953 (66.2 %), RNG 96.04 %, screens 88.9 %, 0 unrecorded, 0 flips, board `full: true` @13:45Z; held-out 12/44, points 6,452→6,880 (RNG 33.6 %, screens 61.1 %). Ledger sample: 5 ported rows checked, 2 stale notes fixed (`restnames`, `find_montype` — both truly ported, statuses unchanged).
+**Next:** pop the queue head (Must-fix empty).
+
+## 2026-09-28 — D-3038 `o_init.c` objdescr_is whole: canonical export + 4-clone fold
+
+**C locus:** - `objdescr_is`: nethack-c/upstream/src/o_init.c:352–365 — null guard `:356-359`, OBJ_DESCR fetch `:361` (objclass.h `:191`: obj_descr[oc_descr_idx].oc_descr), null-descr fallthrough `:362-363`, strcmp match `:364`.
+**JS:** - `objdescr_is`: js/apply.js canonical export, restarted whole in C order.
+**Change:** restarted the export whole in C order with per-arm `:line` cites; null arm keeps the `return FALSE` control flow and cites the impossible pline as omitted (async screen side effect in a sync hot path, D-2608 wall_angle precedent); split the null-descr fallthrough onto its own line; folded all 4 clones onto the canonical import (eat.js gains an apply.js edge inside the existing SCC, runtime-only use — no TDZ read).
+**Verify:** `node scripts/verify.mjs --fn objdescr_is` → VERIFY: PASS — syntax (5 changed files), Rule #2, hidden note (no corpus session blocked), REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS), green 2/2, strict 2/2, cohort 7/7. No per-function unit file: the repo has no such harness; the maintained check is the session suite driven by verify (no new framework per durable-test-collateral).
+**Named:** - `objdescr_is`: C `:357` impossible("objdescr_is: null obj") pline — omitted: impossible() is async while all 9 C call sites are sync boolean tests; return-FALSE control flow preserved; null path unreachable (extern.h notes callers rely on the FALSE return).
+**Next:** o_init.c holds no further Open coverage rows (`rows --file o_init.c` = 0 eligible; remaining unknowns measured ok) and callee impossible() is partial, not Open — single-function cluster ships alone under the density exception (net -21 lines).
+
+## 2026-09-28 — D-3037 `decl.c` decl_globals_init whole; `version.c` validate stale
+
+**C locus:** - `decl_globals_init`: `decl.c:1080–1187` — 26 `g_init_*` copies (`:1085–1110`), 20 `init_sv*` copies (`:1111–1130`), valuables wiring (`:1132–1137`), 26 `MAGICCHECK`s (`:1142–1167`), `gs.subrooms` (`:1169`), seven `ZERO`s (`:1171–1177`), 17 worn-slot NULLs (`:1179–1181`), `WIN_* = WIN_ERR` (`:1183`), `urole`/`urace` sentinels (`:1185–1186`).
+**JS:** `js/decl.js:1` (`decl_globals_init` at `js/decl.js:59`); call wired in `js/jsmain.js:103`.
+**Change:** new `js/decl.js` `decl_globals_init()` in C order with per-arm `:line` cites: modeled `game.g*` namespaces (`ga,gb,gc,gd,gf,gg,gh,gi,gm,gn,go,gp,gr,gs,gu,gw`) + `svi`/`svc` return to fresh `{}` (C assigns unconditionally; `UNDEFINED_PTR/VALUE` are NULL/0 per `hack.h:1092–1094` and all use-site guards create bare `{}`); `flags`/`iflags`/`disp` fresh, `u` fresh with the 17 worn NULLs on it (worn slots live on `u` in JS), `ubirthday` 0, `urealtime` zeros, `WIN_* = WIN_ERR` (later `init_sound_disp_gamewindows` installs real ids).
+**Verify:** `node scripts/verify.mjs --fn decl_globals_init` → VERIFY: PASS — syntax (2 files) · Rule #2 · hidden note (nothing blocked) · REACH-OK (no RNG-tagged reach; smoke 24/24) · green 2/2 + strict · cohort 7/7 · full 44/44 (auto: shared file changed).
+**Named:** - `decl_globals_init`: unmodeled `g*` namespaces `ge,gj,gk,gl,gq,gt,gv,gx,gy,gz` (no JS readers/writers — nothing to reset); unmodeled `sv*` namespaces (only `svi`/`svc` modeled); 26 `MAGICCHECK`s incl. `raw_printf`+`exit` failure path (compile-time static-init validation; a JS literal either evaluates or throws at load); `gs.subrooms` freelist head (JS rooms are arrays + `nsubroom` counts); `gb.bones`/`gb.bughack` nonzero members (no JS readers); `ZERO(a11y)` (jsmain options parse owns zero-then-fill — pre-creating `{}` would suppress its `msg_loc` default guarded by `!g.a11y`); `urole`/`urace` sentinel tables split (`jsmain.js:214–215` placeholders + `roles.js:1296–1297` selection copy); `valuables` wiring split (`end.js reset_valuables`, lazily ensured); `dump_weights` caller (no JS counterpart).
+**Next:** continue breadth queue head; `monst_globals_init` (`monst.c:72`, same `early_init` chain) is still unported in JS when its coverage row surfaces.
+
+## 2026-09-28 — D-3036 `botl.c` stat_update_time + status_finish whole; t_warn stale
+
+**C locus:** - `t_warn` (stale): `display.c:3452–3498` — 10-case typ→name switch + `impossible(warn_str, wname, wall_info & WM_MASK, seenv)` report.
+**JS:** - `t_warn`: `js/display.js:3170` (file-local, unchanged).
+**Change:** - `t_warn`: no code change — stale confirmed (switch whole, both C callers wired, `impossible()` cite per D-2608: `impossible()` is async, `wall_angle` a sync hot path).
+**Verify:** `node scripts/verify.mjs --fn stat_update_time,status_finish` → VERIFY: PASS — syntax 2 files; rule2 clean; hidden notes (no corpus session blocked on either); REACH-OK both (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed each); green 2/2 + strict 2/2; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `stat_update_time`: `windowprocs.wincap2` registry (caps read 0; FLUSH arm skips as with a status-incapable windowport in C); `gv.valset` global mirror (fresh false shelf — only `[fld]` consumed); `status_update` dispatch stays the throwing named omit (`js/botl.js:905`).
+**Next:** next coverage row.
+
+## 2026-09-28 — D-3035 `stairs.c` stairway_add whole: exported extern + C-order restart
+
+**C locus:** - `stairway_add`: `stairs.c:8–24` whole in C order — `:15` memset-zero then field assigns, `:16–17` sx/sy, `:18–19` up/isladder, `:20` u_traversed FALSE, `:21` assign_level tolev, `:22–23` prepend to gs.stairs.
+**JS:** `js/mklev.js:395` `export function stairway_add`.
+**Change:** restarted the export whole (`js/mklev.js:395`) with per-arm `:line` cites — `|0` on x/y (C `coordxy`), `!!` on up/isladder (C `boolean`; every reader uses truthiness), `tolev` copies dnum/dlevel only (assign_level-exact), prepend to `game.stairs`.
+**Verify:** `node scripts/verify.mjs --fn stairway_add` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden note (no corpus session blocked); REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed); green 2/2 + strict 2/2; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `stairway_add`: reststairs NHFILE restore loop (restore.c:978 + `u_traversed` fixup `:980–982`) — JS stash architecture, no NHFILE reader; getlev castle fixup (restore.c:1243–1255) — getlev-row work, not this function.
+**Next:** next coverage row.
+
+## 2026-09-28 — D-3034 `mkmaze.c` wall-spine closure: fix_wall_spines panic arm + C-name helpers
+
+**C locus:** - `fix_wall_spines`: `mkmaze.c:229–287` whole in C order — `:243–246` spine table, `:252–253` bounds panic (new), `:256–261` wall/!DBWALL gate, `:264–268` loc_f pick, `:269–276` locale, `:278–281` NSEW bits via iswall, `:284–285` free-standing keep.
+**JS:** - `fix_wall_spines`: `js/mklev.js:32463` (export, same signature).
+**Change:** - `fix_wall_spines`: restarted export (`js/mklev.js:32463`) with per-arm `:line` cites; panic → `throw new Error('wall_extends: ...')` (NORETURN→throw matches trap.js deltrap idiom; keeps C's `wall_extends` message text); `if (!map) return` kept and marked JS-only (C levl always exists); panic check first in C order.
+**Verify:** `node scripts/verify.mjs --fn fix_wall_spines,iswall,iswall_or_stone,okay,check_ransacked` tail pasted verbatim:
+**Named:** none — every arm ported, every callee live, every C caller wired. (`extend_spine` pre-existing ledger-ported D-3014, untouched.)
+**Next:** `mkmaze.c` holds no more Open (absent 4 resolved, PARTIAL head ported); queue head moves on.

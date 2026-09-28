@@ -2008,3 +2008,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1996-66bbd0418-stat-update-time.md](./1996-66bbd0418-stat-update-time.md) | `66bbd0418` | D-3036 stat_update_time + status_finish | **ACCEPT** |
 | [1997-d4eca01f7-decl-globals-init.md](./1997-d4eca01f7-decl-globals-init.md) | `d4eca01f7` | D-3037 decl_globals_init + validate | **ACCEPT** |
 | [1998-a7a0f55e5-objdescr-is.md](./1998-a7a0f55e5-objdescr-is.md) | `a7a0f55e5` | D-3038 objdescr_is + 4-clone fold | **ACCEPT** |
+| [1999-4e6edc522-quest-chat-closure.md](./1999-4e6edc522-quest-chat-closure.md) | `4e6edc522` | D-3039 quest_chat + nemesis/guardian | **ACCEPT** |
+| [2000-79ab7d2dc-mod-status-family.md](./2000-79ab7d2dc-mod-status-family.md) | `79ab7d2dc` | D-3040 mod-status family (3 fns) | **ACCEPT** |
+| [2001-725011334-drop-finesse-ahriman.md](./2001-725011334-drop-finesse-ahriman.md) | `725011334` | D-3041 drop + finesse_ahriman | **ACCEPT** |
+| [2002-eb54a70f8-adtyp-to-expltype.md](./2002-eb54a70f8-adtyp-to-expltype.md) | `eb54a70f8` | D-3042 adtyp_to_expltype + necrophiliac | **ACCEPT** |
+| [2003-b689d8429-save-restore-killers.md](./2003-b689d8429-save-restore-killers.md) | `b689d8429` | D-3043 save/restore_killers + stale | **ACCEPT** |
+| [2004-25bf764f0-cloak-simple-name-wiring.md](./2004-25bf764f0-cloak-simple-name-wiring.md) | `25bf764f0` | D-3044 cloak_simple_name wiring | **ACCEPT** |
+| [2005-fa84aeeac-furniture-detect.md](./2005-fa84aeeac-furniture-detect.md) | `fa84aeeac` | D-3045 furniture_detect + map_redisplay | **ACCEPT** |
+| [2006-d81780b83-hello-valkyrie-hallo.md](./2006-d81780b83-hello-valkyrie-hallo.md) | `d81780b83` | D-3046 Hello Valkyrie Hallo arm | **ACCEPT** |
+| [2007-0ce2fb847-menu-headings-pair.md](./2007-0ce2fb847-menu-headings-pair.md) | `0ce2fb847` | D-3047 menu_headings + query_color_attr | **ACCEPT** |

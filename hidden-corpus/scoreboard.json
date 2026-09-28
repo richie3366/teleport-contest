@@ -1,9 +1,9 @@
 {
- "commit": "d81780b83",
- "at": "2026-09-28T14:48:23.324Z",
- "full": false,
- "fullCommit": "a7a0f55e5",
- "fullAt": "2026-09-28T13:45:54.539Z",
+ "commit": "0ce2fb847",
+ "at": "2026-09-28T15:06:59.535Z",
+ "full": true,
+ "fullCommit": "0ce2fb847",
+ "fullAt": "2026-09-28T15:06:59.535Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -5935,7 +5935,7 @@
    "steps": 253,
    "owner": "distfleeck",
    "loc": "monmove.c:564",
-   "jsOwner": "mattacku(mhitu.js:4240)",
+   "jsOwner": "mattacku(mhitu.js:4226)",
    "cTopline": "The gnome lord turns to flee. The saddled pony misses the gnome lord.--More--",
    "jsTopline": "The gnome lord hits! You stop searching.",
    "error": null
@@ -10805,16 +10805,16 @@
   "scen-quest-Archeologist-94096": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4811,
+   "rngM": 4752,
    "rngT": 8010,
-   "scrM": 77,
+   "scrM": 75,
    "scrT": 263,
    "kind": "rng",
    "step": 72,
    "steps": 263,
-   "owner": null,
-   "loc": null,
-   "jsOwner": "dochug(monmove.js:2564)",
+   "owner": "com_pager_core",
+   "loc": "questpgr.c:566",
+   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1440)",
    "cTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "jsTopline": "",
    "error": null
@@ -13330,7 +13330,7 @@
    "steps": 112,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4755)",
+   "jsOwner": "do_attack(uhitm.js:4741)",
    "cTopline": "a dart (no travel path)",
    "jsTopline": "a brilliant blue potion",
    "error": null
@@ -13364,7 +13364,7 @@
    "steps": 295,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4755)",
+   "jsOwner": "do_attack(uhitm.js:4741)",
    "cTopline": "a pair of leather gloves",
    "jsTopline": "2 candles",
    "error": null
@@ -13432,7 +13432,7 @@
    "steps": 180,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4755)",
+   "jsOwner": "do_attack(uhitm.js:4741)",
    "cTopline": "some gold pieces",
    "jsTopline": "an oak wand (no travel path)",
    "error": null
@@ -13466,7 +13466,7 @@
    "steps": 265,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4755)",
+   "jsOwner": "do_attack(uhitm.js:4741)",
    "cTopline": "a whistle",
    "jsTopline": "a food ration",
    "error": null
