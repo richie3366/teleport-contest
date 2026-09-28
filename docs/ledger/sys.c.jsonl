@@ -1,3 +1,3 @@
-{"fn":"sys_early_init","c":"21-112","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"sysopt_release","c":"115-158","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"sysopt_seduce_set","c":"164-183","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sys_early_init","c":"21-112","status":"ported","js":["js/sys.js:sys_early_init"],"d":["D-3026"],"at":"2026-09-28@15ff0060a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sysopt_release","c":"115-158","status":"ported","js":["js/sys.js:sysopt_release"],"d":["D-3026"],"at":"2026-09-28@15ff0060a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sysopt_seduce_set","c":"164-183","status":"ported","js":["js/sys.js:sysopt_seduce_set"],"d":["D-3026"],"at":"2026-09-28@15ff0060a","note":"refresh: no JS symbol (measured MISSING)"}

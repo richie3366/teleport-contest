@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `sys.c` sysopt_release — coverage MISSING (C 33 code L `sys.c:115–158` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @32055fa52
 - [ ] `cmd.c` handler_rebind_keys_add — coverage PARTIAL (C 85 code L `cmd.c:2291–2405` / JS 53 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 7) @9f89fd978
 - [ ] `rumors.c` init_rumors — coverage MISSING (C 16 code L `rumors.c:85–107` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @5c0b84ad9
 - [ ] `objnam.c` strprepend — coverage MISSING (C 8 code L `objnam.c:123–135` / JS no symbol; hops 4, callers 4, RNG 0, msg 0) @0cb4128d8
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `report.c` get_saved_pline — coverage MISSING (C 12 code L `report.c:571–592` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @f4390cd9a
 - [ ] `sp_lev.c` l_push_mkroom_table — coverage MISSING (C 9 code L `sp_lev.c:3059–3070` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: nhl_add_table_entry_int, nhl_add_table_entry_region, nhl_add_table_entry_bool, nhl_add_table_entry_str, get_mkroom_name) @f4390cd9a
 - [ ] `pline.c` gamelog_add — coverage THIN (C 13 code L `pline.c:495–511` / JS 5 code L in js/pline.js; hops 3, callers 2, RNG 0, msg 0) @f4390cd9a
+- [ ] `objnam.c` ch_ksound — coverage THIN (C 15 code L `objnam.c:3168–3191` / JS 5 code L in js/objnam.js; hops 2, callers 1, RNG 0, msg 0) @15ff0060a
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

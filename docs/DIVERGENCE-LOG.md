@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3026 — `sys.c` whole-file closure: sys_early_init + sysopt_release (queue head) + sysopt_seduce_set
+
+- **Status:** shipped. Queue head `sys.c` sysopt_release (MISSING, no JS symbol) + same-file ledger-absent siblings sys_early_init and sysopt_seduce_set (both MISSING, below the generated top-12) as one closure in new 1:1 `js/sys.js`. No corpus session blocked on any of the three.
+- **Symptom:** coverage gaps, not corpus divergences. No `sys_early_init`/`sysopt_release`/`sysopt_seduce_set` symbol existed in `js/`; `game.sysopt` started as `{}` and every reader used `?.`/falsy-tolerant fallbacks, so defaults were implicit rather than C's explicit inits.
+- **C locus:**
+  - `sys_early_init`: `nethack-c/upstream/src/sys.c:20–112` whole in C order — `:28–29` support/recover clears, `:30–36` wizards (SYSCF live arm), `:38–52` DEBUGFILES env/else (SYSCF arm), `:57–63` shellers/explorers/genericusers/msghandler/maxplayers/bones_pools/livelog, `:66–70` persmax/entrymax/pointsmin/pers_is_uid/tt_oname_maxrank, `:73–74` PERS_IS_UID panic gate, `:76–95` PANICTRACE gdb/greppath + released zeros, `:96` crashreporturl, `:98–101` check_save_uid/check_plname/seduce + seduce_set call, `:102` saveformat/bonesformat, `:103` accessibility, `:109` hideusage.
+  - `sysopt_release`: `nethack-c/upstream/src/sys.c:114–158` whole in C order — per-field free+null arms `:117–143`, `:130` env_dbgfl reset, `:145–150` CRASHREPORT gc arms, `:154–156` fmtd_wizard_list last.
+  - `sysopt_seduce_set`: `nethack-c/upstream/src/sys.c:163–183` whole — `:165–178` attack-substitution block is `#if 0` (uncompiled), `:179–182` bare return.
+- **JS was:** no symbol for any of the three (brief sym.mjs NOT FOUND ×3); startup (`js/jsmain.js` start) ran `resetGame()` then rc parsing with no sysconf-default pass; SEDUCE sysconf stayed behind the `cnf_line_named_true` stub (`js/cfgfiles.js:646`).
+- **Fix:** new `js/sys.js` in C order with per-arm `:line` cites. `free` ⇔ `= null` (GC reclaims); `panic` ⇔ `throw` (alloc.js:177 precedent); strings `string|null`; `saveformat`/`bonesformat` `[1,0]` pairs (`:102` sets `[0]=historical=1`, `[1]` keeps BSS zero). Build-shape arms cited not ported: `:33–35` non-SYSCF wizards dupstr, `:47–49` non-SYSCF DEBUGFILES dupstr, `:54–56` DUMPLOG dumplogfile (retired D-1776), `:104–106` WIN32 portable flag, `:84–88` unreleased PANICTRACE ones. `getenv("DEBUGFILES")` (`:38`) has no scored-JS analogue (Rule #2, no `node:*` env) — absent-env arm runs. `sys_early_init` wired in `js/jsmain.js:102` before rc parsing (C allmain.c:43 order). jsmain→sys edge is gstate-only leaf, no cycle.
+- **JS:**
+  - `sys_early_init`: `js/sys.js:37` (export).
+  - `sysopt_release`: `js/sys.js:96` (export).
+  - `sysopt_seduce_set`: `js/sys.js:133` (export, no-op).
+- **Callers:**
+  - `sys_early_init`: C caller allmain.c early_init `:43` (no JS early_init) → wired `js/jsmain.js:102`.
+  - `sysopt_release`: C caller save.c freedynamicdata `:1188` (save-freeing teardown, by-design unported — end.js:522 precedent) → named, no live JS caller.
+  - `sysopt_seduce_set`: C caller sys.c `:101` → wired `js/sys.js:93`; cfgfiles.c `:941` SEDUCE handler → named (JS stub `js/cfgfiles.js:646`, own future row).
+- **Verify:** `node scripts/verify.mjs --fn sys_early_init,sysopt_release,sysopt_seduce_set` → VERIFY: PASS. Per function: hidden `note … no corpus session blocked` (normal for coverage rows); REACH smoke spread 24/24 PASS → REACH-OK (×3, none RNG-tagged — the file draws no RNG). Gates: syntax 2 files, Rule #2, green 2/2, strict ×2, cohort 7/7, full 44/44 (auto: shared jsmain.js changed).
+- **Named omissions:**
+  - `sys_early_init`: none in the compiled body — every live arm ported; dead `#else`/`#ifdef` arms cited above.
+  - `sysopt_release`: C caller freedynamicdata (save-freeing, no JS counterpart); DUMPLOG arm (uncompiled + retired).
+  - `sysopt_seduce_set`: `#if 0` attack-substitution block (live substitution is `getmattk`, mhitm.js:446 named omit); cfgfiles.c `:941` SEDUCE sysconf value handler (stub stays).
+- **Ledger:** sys_early_init ported; sysopt_release ported; sysopt_seduce_set ported.
+- **Next:** port the SEDUCE sysconf value handler (cfgfiles.c `cnf_line_SEDUCE` `:930–943`) so `sysopt_seduce_set` has its second caller wired; `sys.c` needs no follow-up.
+
 ## D-3025 — `options.c` roleopt/initoptions cluster: unsaveoptstr + freeroleoptvals + initoptions + initoptions_finish (saveoptvals by-design)
 
 - **Status:** shipped. Queue head `options.c` freeroleoptvals + same-file Open rows saveoptvals, initoptions; callee unsaveoptstr ported in-commit. saveoptvals + sibling restoptvals sit inside C `#if 0 /* not needed */` → `ledger set … by-design` directly (D-3024 precedent). No corpus session blocked on any of the five.
