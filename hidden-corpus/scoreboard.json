@@ -1,9 +1,9 @@
 {
- "commit": "d30e99009",
- "at": "2026-09-28T16:28:42.288Z",
- "full": false,
- "fullCommit": "0ce2fb847",
- "fullAt": "2026-09-28T15:06:59.535Z",
+ "commit": "9a4e484a1",
+ "at": "2026-09-28T16:47:34.596Z",
+ "full": true,
+ "fullCommit": "9a4e484a1",
+ "fullAt": "2026-09-28T16:47:34.596Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -12466,7 +12466,7 @@
    "jsOwner": "next_ident(mkobj.js:423)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
-   "error": "Error: relink_light_sources: no monster 0 |     at relinkLevelTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:460:23) |     at deserLevel "
+   "error": "Error: relink_light_sources: no monster 0 |     at relinkLevelTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:449:23) |     at deserLevel "
   },
   "scen-special-Wizard-94117": {
    "src": "corpus",
@@ -13330,7 +13330,7 @@
    "steps": 112,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4741)",
+   "jsOwner": "do_attack(uhitm.js:4793)",
    "cTopline": "a dart (no travel path)",
    "jsTopline": "a brilliant blue potion",
    "error": null
@@ -13364,7 +13364,7 @@
    "steps": 295,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4741)",
+   "jsOwner": "do_attack(uhitm.js:4793)",
    "cTopline": "a pair of leather gloves",
    "jsTopline": "2 candles",
    "error": null
@@ -13432,7 +13432,7 @@
    "steps": 180,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4741)",
+   "jsOwner": "do_attack(uhitm.js:4793)",
    "cTopline": "some gold pieces",
    "jsTopline": "an oak wand (no travel path)",
    "error": null
@@ -13466,7 +13466,7 @@
    "steps": 265,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4741)",
+   "jsOwner": "do_attack(uhitm.js:4793)",
    "cTopline": "a whistle",
    "jsTopline": "a food ration",
    "error": null
@@ -13996,7 +13996,7 @@
    "jsOwner": null,
    "cTopline": "In what direction?",
    "jsTopline": "Unknown command '^'.",
-   "error": "Error: relink_light_sources: no monster 0 |     at relinkGlobalTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:644:23) |     at try_restor"
+   "error": "Error: relink_light_sources: no monster 0 |     at relinkGlobalTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:632:23) |     at try_restor"
   },
   "scen-tutorial-Archeologist-94059": {
    "src": "corpus",

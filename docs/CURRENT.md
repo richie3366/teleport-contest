@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-28** — full `sessions` on the working tree
-(audit **1999–2007**, `0ce2fb847`, 2026-09-28T14:59Z).
+(audit **2008–2015**, `9a4e484a1`, 2026-09-28T16:42Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`266+1.62/turn` (R² 0.78).
+`266+1.63/turn` (R² 0.77).
 
 ## Score
 
@@ -36,16 +36,16 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `266+1.62/turn` (R² 0.78) |
+| Speed label | `266+1.63/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 12/44, up on points (table row;
 board 2026-09-28T13:21:33Z, scored 13:01:30Z).
-**Corpus fortress (rescore 2026-09-28T15:06:59Z, 953/953, 0 unrecorded):**
-**631 / 953** PASS (66.2 %), RNG 96.04 %, screens 88.9 %; 0 flips vs the audit 1990–1998 board. Board `full: true`.
-Reviews 1225–2007 (index; no row 1618): 694 ACCEPT, 27 WITH-DEBT, 61 QUALITY-RISK (audit 1999–2007: 9 ACCEPT).
+**Corpus fortress (rescore 16:47Z, 953/953, 0 unrecorded):**
+**631 / 953** PASS (66.2 %), RNG 96.04 %, screens 88.9 %; 0 flips vs 1999–2007 board; `full: true`.
+Reviews 1225–2015 (index; no row 1618): 702 ACCEPT, 27 WITH-DEBT, 61 QUALITY-RISK (2008–2015: 8 ACCEPT).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score

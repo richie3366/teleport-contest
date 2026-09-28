@@ -25,6 +25,7 @@ here again. Live hypotheses only:
 - Audit 1981–1989: 9 ACCEPT, 0 Must-fix (631/953, no flips); do not re-open.
 - Audit 1990–1998: 9 ACCEPT, 0 Must-fix (631/953, no flips); do not re-open.
 - Audit 1999–2007: 9 ACCEPT, 0 Must-fix (631/953, no flips); do not re-open. Env: node v20, no `node:sqlite` (ledger sql sample skipped).
+- Audit 2008–2015: 8 ACCEPT; do not re-open.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

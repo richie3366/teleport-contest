@@ -2017,3 +2017,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2005-fa84aeeac-furniture-detect.md](./2005-fa84aeeac-furniture-detect.md) | `fa84aeeac` | D-3045 furniture_detect + map_redisplay | **ACCEPT** |
 | [2006-d81780b83-hello-valkyrie-hallo.md](./2006-d81780b83-hello-valkyrie-hallo.md) | `d81780b83` | D-3046 Hello Valkyrie Hallo arm | **ACCEPT** |
 | [2007-0ce2fb847-menu-headings-pair.md](./2007-0ce2fb847-menu-headings-pair.md) | `0ce2fb847` | D-3047 menu_headings + query_color_attr | **ACCEPT** |
+| [2008-d599cea95-find-branch-room.md](./2008-d599cea95-find-branch-room.md) | `d599cea95` | D-3048 find_branch_room | **ACCEPT** |
+| [2009-68feb0e9e-relmon.md](./2009-68feb0e9e-relmon.md) | `68feb0e9e` | D-3049 relmon | **ACCEPT** |
+| [2010-e96a1ef43-align-gtitle.md](./2010-e96a1ef43-align-gtitle.md) | `e96a1ef43` | D-3050 align_gtitle | **ACCEPT** |
+| [2011-6f36d2ab4-shop-billing-closure.md](./2011-6f36d2ab4-shop-billing-closure.md) | `6f36d2ab4` | D-3051 pay + check_credit + reject_purchase | **ACCEPT** |
+| [2012-bfd58ba4c-cmap-to-roguecolor.md](./2012-bfd58ba4c-cmap-to-roguecolor.md) | `bfd58ba4c` | D-3052 cmap_to_roguecolor + 2 stales | **ACCEPT** |
+| [2013-a196fca24-artifact-origin.md](./2013-a196fca24-artifact-origin.md) | `a196fca24` | D-3053 artifact_origin | **ACCEPT** |
+| [2014-d30e99009-hitmon-closure-corr.md](./2014-d30e99009-hitmon-closure-corr.md) | `d30e99009` | D-3054 do_hit closure + mhitm_ad_corr | **ACCEPT** |
+| [2015-9a4e484a1-restore-timers.md](./2015-9a4e484a1-restore-timers.md) | `9a4e484a1` | D-3055 restore_timers + timer closure | **ACCEPT** |

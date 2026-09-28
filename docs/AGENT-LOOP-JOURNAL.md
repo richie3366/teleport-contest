@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — Audit 2008–2015: 8 ACCEPT, 0 Must-fix
+
+Public 44/44; held-out 12/44; corpus 631/953, 0 flips, full:true.
 ## 2026-09-28 — D-3055 timeout.c timer save/restore closure (`restore_timers` + `maybe_write_timer` + `write_timer`; declare `save_timers`/`insert_timer`/`timer_is_local`)
 
 **C locus:** - `restore_timers`: nethack-c/upstream/src/timeout.c:2707–2728 (whole body in C order — timer_id read when RANGE_GLOBAL `:2714–2716`, count read `:2717`, alloc+Sfi_fe per element `:2719–2721`, ghostly adjust `:2722–2723`, insert `:2724`).
