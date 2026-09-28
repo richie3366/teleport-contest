@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-3054 — `hmon_hitmon_do_hit` dispatch closure + `mhitm_ad_corr` (stone/potion/gem/corrode arms)
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING `uhitm.c` hmon_hitmon_do_hit (C 29 code L `uhitm.c:1387–1433` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) + coverage MISSING `uhitm.c` mhitm_ad_corr (C 14 code L `uhitm.c:2338–2360` / JS no symbol; hops 4, callers 1, RNG 0, msg 0). The `hmon_hitmon` inline dispatch covered only part of do_hit: no thrown/kicked stone-missile vs rock-passer arm, no saved_oname snapshot, GEM routed to dmgval instead of the weapon path, POTION routed to dmgval instead of potionhit, weapon dispatch used the `oc_skill != null` proxy instead of `is_weptool`, and the ranged silver sear set no flags.
+- **C locus:**
+  - `hmon_hitmon_do_hit`: nethack-c/upstream/src/uhitm.c:1386–1433 (whole body in C order — bare hands `:1392–1393`, stone vs rock-passer `:1399–1407`, saved_oname `:1410–1413`, WEAPON/tool/GEM `:1415–1419`, POTION `:1421–1424`, shade/misc `:1425–1430`).
+  - `hmon_hitmon_weapon`: nethack-c/upstream/src/uhitm.c:1069–1092 (whole body in C order — four ranged arms `:1077–1085` → ranged `:1086`, else melee + doreturn `:1087–1090`).
+  - `hmon_hitmon_potion`: nethack-c/upstream/src/uhitm.c:1094–1116 (whole body in C order — split/unequip `:1100–1103`, freeinv `:1104`, potionhit BASH/THROW `:1105–1106`, killed `:1107–1111`, hittxt/mdat/1-dmg `:1112–1115`).
+  - `hmon_hitmon_weapon_ranged`: nethack-c/upstream/src/uhitm.c:884–917 (whole body in C order — shade `:892–895`, silver `:896–900`, boomerang `:901–916`).
+  - `mhitm_ad_corr`: nethack-c/upstream/src/uhitm.c:2337–2360 (whole body in C order — uhitm `:2342–2345`, mhitu `:2346–2351`, mhitm `:2352–2359`).
+- **JS was:** js/uhitm.js `hmon_hitmon` inlined a partial dispatch (barehands local; weapon/ranged arms inline with `oc_skill` proxy and no silver flags; potion/gem as `dmgval`; shade/misc inline) with no `hmon_hitmon_do_hit`/`_weapon`/`_potion`/`_weapon_ranged` symbols; `mhitm_ad_corr` had no symbol (mhitu arm already live as `mhitm_ad_corr_u` in js/mhitu.js:2566).
+- **Fix:** four new locals in js/uhitm.js in C order with per-arm `:line` cites (`hmon_hitmon_weapon_ranged` → `hmon_hitmon_weapon` → `hmon_hitmon_potion` → `hmon_hitmon_do_hit`); `hmon_hitmon` now builds one C-shaped `hmdHit` (`:1760–1793` init) and awaits `hmon_hitmon_do_hit` (`:1795`), unpacking dmg/skills/hittxt/mdat/ispoisoned/jousting/lightobj/get_dmg_bonus/rings/dryit/saved_oname. Stone uses the live `stone_missile` export plus the mondata.h:208 macro expansion (`passes_walls && !unsolid`, both already imported); `hit`/`wakeup` awaited; GEM uses `is_weptool`; potion uses `splitobj` + `setuwep(null)` shine pattern + `freeinv` + awaited `potionhit`. New `export async mhitm_ad_corr` in js/mhitm.js after `mhitm_ad_rust` (rust precedent: uhitm+mhitm arms live, mhitu returns early to `mhitm_ad_corr_u`); wired into `mdamagem` AD_CORR dispatch (knockback/done/HP tail, rust block precedent) and `damageum_adtyping` AD_CORR (rust row precedent). Caller now passes do_hit's `saved_oname` to the silver/light lines and uses `is_weptool` in the first-weapon-hit gate (`:1835–1837`).
+- **JS:**
+  - `hmon_hitmon_do_hit`: js/uhitm.js:1893 (local, async).
+  - `hmon_hitmon_weapon`: js/uhitm.js:1842 (local, async).
+  - `hmon_hitmon_potion`: js/uhitm.js:1865 (local, async).
+  - `hmon_hitmon_weapon_ranged`: js/uhitm.js:1810 (local, async).
+  - `mhitm_ad_corr`: js/mhitm.js:1004 (export, async).
+- **Callers:**
+  - `hmon_hitmon_do_hit`: C uhitm.c:1795 `hmon_hitmon` → js/uhitm.js:2028 `await hmon_hitmon_do_hit(hmdHit, mon, obj)`.
+  - `hmon_hitmon_weapon`: C uhitm.c:1417 `hmon_hitmon_do_hit` → js/uhitm.js do_hit weapon arm.
+  - `hmon_hitmon_potion`: C uhitm.c:1422 `hmon_hitmon_do_hit` → js/uhitm.js do_hit potion arm.
+  - `hmon_hitmon_weapon_ranged`: C uhitm.c:1086 `hmon_hitmon_weapon` → js/uhitm.js weapon ranged arm.
+  - `mhitm_ad_corr`: C uhitm.c:4806 `mhitm_adtyping` → js/mhitm.js:4881 `AD_CORR` dispatch; C uhitm arm via `damageum_adtyping` → js/uhitm.js:2924 `AD_CORR` row.
+- **Verify:** `node scripts/verify.mjs --fn hmon_hitmon_do_hit,hmon_hitmon_weapon,hmon_hitmon_potion,hmon_hitmon_weapon_ranged,mhitm_ad_corr` → VERIFY: PASS — syntax 2 changed js files; rule2 clean; hidden notes (none blocked on any of the five — coverage rows, expected); green 2/2; strict seed8000 + seed0900; cohort 7/7; full skipped (no shared file changed).
+  - `hmon_hitmon_do_hit`: REACH-OK (no RNG-tagged reach; smoke spread 24 PASS).
+  - `hmon_hitmon_weapon`: REACH-OK (smoke spread 24 PASS).
+  - `hmon_hitmon_potion`: REACH-OK (smoke spread 24 PASS).
+  - `hmon_hitmon_weapon_ranged`: REACH-OK (11 baseline-PASS sessions reach it, 11 PASS).
+  - `mhitm_ad_corr`: REACH-OK (smoke spread 24 PASS).
+- **Named omissions:**
+  - `hmon_hitmon_do_hit`: none — every arm ported, every callee live (`barehands`, `hit`, `mshot_xname`, `wakeup`, `artifact_light`, `cxname`, `bare_artifactname`, `is_weptool`, `shade_aware`, new `weapon`/`potion`, `misc_obj`).
+  - `hmon_hitmon_weapon`: none — both arms ported, all six callees live.
+  - `hmon_hitmon_potion`: none — every arm ported, all four callees live.
+  - `hmon_hitmon_weapon_ranged`: none — every arm ported, all eight callees live.
+  - `mhitm_ad_corr`: mhitu arm (`:2346–2351`) lives split as `mhitm_ad_corr_u` (js/mhitu.js:2566, rust precedent) — this function ports the uhitm + mhitm arms whole with both callees live (`erode_armor` same-file, `hitmsg` imported).
+- **Ledger:** hmon_hitmon_do_hit ported; hmon_hitmon_weapon ported; hmon_hitmon_potion ported; hmon_hitmon_weapon_ranged ported; mhitm_ad_corr ported.
+- **Next:** next Open — coverage head after regenerate. Density note: five functions (~250 JS insertions with cites and caller rewire, 2 files) — the head's file holds only these two Open rows per `ledger.mjs rows` and the three closure callees had no queue rows, so there was nothing more in-file or in-closure to ship.
+
 ## D-3053 — `artifact_origin` whole port (origin-bit count + impossible arm)
 
 - **Status:** shipped.

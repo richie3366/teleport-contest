@@ -115,9 +115,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `uhitm.c` hmon_hitmon_do_hit — coverage MISSING (C 29 code L `uhitm.c:1387–1433` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b689d8429
 - [ ] `timeout.c` restore_timers — coverage THIN (C 12 code L `timeout.c:2707–2728` / JS 5 code L in js/mkobj.js; hops 3, callers 2, RNG 0, msg 0) @25bf764f0
-- [ ] `uhitm.c` mhitm_ad_corr — coverage MISSING (C 14 code L `uhitm.c:2338–2360` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @fa84aeeac
 - [ ] `timeout.c` maybe_write_timer — coverage MISSING (C 12 code L `timeout.c:2627–2651` / JS no symbol; hops 5, callers 1, RNG 0, msg 0; dead callees: write_timer) @d81780b83
 - [ ] `mklev.c` bydoor — coverage THIN (C 18 code L `mklev.c:1750–1775` / JS 6 code L in js/mklev.js; hops 4, callers 3, RNG 0, msg 0) @1aaa15680
 - [ ] `zap.c` wish_history_menu — coverage THIN (C 23 code L `zap.c:6275–6309` / JS 0 code L in js/zap.js; hops 3, callers 1, RNG 0, msg 0) @d599cea95
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `pager.c` docontact — coverage MISSING (C 21 code L `pager.c:2718–2745` / JS no symbol; hops —, callers 0, RNG 0, msg 9) @6f36d2ab4
 - [ ] `light.c` wiz_light_sources — coverage MISSING (C 31 code L `light.c:935–975` / JS no symbol; hops —, callers 0, RNG 0, msg 6) @6f36d2ab4
 - [ ] `trap.c` untrap_prob — coverage PARTIAL (C 32 code L `trap.c:5289–5337` / JS 22 code L in js/trap.js; hops —, callers 2, RNG 2, msg 0) @bfd58ba4c
+- [ ] `options.c` initoptions_init — coverage MISSING (C 90 code L `options.c:7119–7305` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: choose_windows) @a196fca24
+- [ ] `mon.c` genus — coverage PARTIAL (C 55 code L `mon.c:470–531` / JS 25 code L in js/mon.js; hops 3, callers 2, RNG 0, msg 0) @a196fca24
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
