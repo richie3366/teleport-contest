@@ -33,7 +33,7 @@
 {"fn":"find_branch_room","c":"1660-1673","status":"ported","js":["js/mklev.js:find_branch_room"],"d":["D-3048"],"at":"2026-09-28@1aaa15680"}
 {"fn":"pos_to_room","c":"1677-1687","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"place_branch","c":"1691-1747","status":"unknown"}
-{"fn":"bydoor","c":"1750-1775","status":"unknown"}
+{"fn":"bydoor","c":"1750-1775","status":"ported","js":["js/mklev.js:bydoor"],"at":"2026-09-28@886e83076","note":"stale: js/mklev.js:31919"}
 {"fn":"okdoor","c":"1779-1789","status":"unknown"}
 {"fn":"maybe_sdoor","c":"1793-1796","status":"unknown"}
 {"fn":"dodoor","c":"1800-1803","status":"unknown"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3056 zap.c hero-spell ray bonus (`spell_hit_bonus` new; `zap_hit` + dobuzz `spell_type` wired; makewish history-menu gate)
+
+**C locus:** - `spell_hit_bonus`: nethack-c/upstream/src/zap.c:3509–3543 (whole body in C order — skill switch `:3514–3528` with no default arm, DEX chain `:3530–3541` incl. the `-= 0` arm `:3536–3538`, return `:3543`).
+**JS:** - `spell_hit_bonus`: js/zap.js:1377 (file-local, C `staticfn`).
+**Change:** js/zap.js — new file-local `spell_hit_bonus` in C order (`P_SKILL(spell_skilltype(skill))` via the live weapon.js/spell.js exports, `imports.mjs --can` SAFE both; `ACURR` as live `acurr(A_DEX)`; P_* consts on the existing const.js edge; `-= 0` arm kept with its C comment); `zap_hit` reworked to C `:4705–4719` with `spell_bonus` in both return arms; `dobuzz` computes `spell_type` per C `:4800` (local `is_hero_spell` + existing `SPE_MAGIC_MISSILE` const) and passes it at the `:4872` site; `:4962` site keeps 0; `makewish` mirrors the `:6334` `menu_requested && wish_history[0] && tries == 0` gate (menu fn stays the no-op).
+**Verify:** `node scripts/verify.mjs --fn spell_hit_bonus,wish_history_menu` → PASS syntax (1 changed file) · PASS rule2 · note hidden (no corpus session blocked on either at baseline — both rows cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK, each) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS.
+**Named:** - `wish_history_menu`: the menu pick body (`create_nhwindow` through `select_menu`, which is ledger by-design with no scored analogue) — no-op kept; D-1939 stays open for the family.
+**Next:** no more Open `zap.c` coverage rows; head moves on (refill-driven).
 ## 2026-09-28 — Audit 2008–2015: 8 ACCEPT, 0 Must-fix
 
 Public 44/44; held-out 12/44; corpus 631/953, 0 flips, full:true.

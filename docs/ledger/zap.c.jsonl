@@ -44,7 +44,7 @@
 {"fn":"zapwrapup","c":"3421-3427","status":"unknown"}
 {"fn":"weffects","c":"3431-3476","status":"unknown","d":["D-1461","D-1460","D-1459","D-1458","D-1452","D-1451"],"at":"seed@a30a7de84"}
 {"fn":"spell_damage_bonus","c":"3480-3502","status":"unknown"}
-{"fn":"spell_hit_bonus","c":"3509-3544","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"spell_hit_bonus","c":"3509-3544","status":"ported","js":["js/zap.js:spell_hit_bonus"],"d":["D-3056"],"at":"2026-09-28@886e83076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"exclam","c":"3547-3553","status":"unknown"}
 {"fn":"hit","c":"3556-3568","status":"unknown"}
 {"fn":"miss","c":"3571-3576","status":"unknown"}
@@ -79,6 +79,6 @@
 {"fn":"wishcmdassist","c":"6165-6219","status":"partial","js":["js/zap.js:wishcmdassist"],"omit":"`wish_history_add`/`wish_history_menu` DEBUG menu (pre-existing no-op/deferred, map turns.md); MAXWISHTRY retry loop for unrecognized names (pre-existing single-shot fall-through, unchanged).","d":["D-2484"],"at":"seed@a30a7de84"}
 {"fn":"wish_history_add","c":"6227-6255","status":"partial","js":["js/zap.js:wish_history_add"],"omit":"`wish_history_menu` (`zap.c:6275–6309`) stays a no-op, and `makewish` does not call it (`zap.c:6334–6335`, `menu_requested`).","d":["D-2873"],"at":"seed@a30a7de84"}
 {"fn":"wish_history_flush","c":"6259-6270","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wish_history_menu","c":"6275-6309","status":"unknown"}
+{"fn":"wish_history_menu","c":"6275-6309","status":"partial","js":["js/zap.js:wish_history_menu"],"omit":"- `wish_history_menu`: the menu pick body (`create_nhwindow` through `select_menu`, which is ledger by-design with no scored analogue) — no-op kept; D-1939 stays open for the family.","d":["D-3056"],"at":"2026-09-28@886e83076"}
 {"fn":"makewish","c":"6314-6422","status":"unknown"}
 {"fn":"flash_str","c":"6429-6445","status":"unknown"}

@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-3056 — zap.c hero-spell ray bonus (`spell_hit_bonus` new; `zap_hit` + dobuzz `spell_type` wired; makewish history-menu gate)
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING `zap.c` spell_hit_bonus (C 27 code L `zap.c:3509–3544` / JS no symbol; hops 5, callers 1) + coverage THIN `zap.c` wish_history_menu (C 23 code L `zap.c:6275–6309` / JS 0 code L no-op in js/zap.js). Queue head `mklev.c` bydoor popped first and brief-proven stale (loop-folded body complete at js/mklev.js:31919, all 3 C call sites wired) → `ledger.mjs set bydoor ported`, next row shipped same iteration.
+- **C locus:**
+  - `spell_hit_bonus`: nethack-c/upstream/src/zap.c:3509–3543 (whole body in C order — skill switch `:3514–3528` with no default arm, DEX chain `:3530–3541` incl. the `-= 0` arm `:3536–3538`, return `:3543`).
+  - `wish_history_menu`: nethack-c/upstream/src/zap.c:6275–6309 (whole body is `#ifdef DEBUG` menu; DEBUG is on via patchlevel.h:36; caller makewish `:6334` gate).
+- **JS was:** no `spell_hit_bonus` symbol; `zap_hit(ac, _type)` dropped `type` and both dobuzz sites passed 0, so hero-cast rays never got the C `:4710` bonus; `makewish` always `getlin`ned (no `:6334` arm).
+- **Fix:** js/zap.js — new file-local `spell_hit_bonus` in C order (`P_SKILL(spell_skilltype(skill))` via the live weapon.js/spell.js exports, `imports.mjs --can` SAFE both; `ACURR` as live `acurr(A_DEX)`; P_* consts on the existing const.js edge; `-= 0` arm kept with its C comment); `zap_hit` reworked to C `:4705–4719` with `spell_bonus` in both return arms; `dobuzz` computes `spell_type` per C `:4800` (local `is_hero_spell` + existing `SPE_MAGIC_MISSILE` const) and passes it at the `:4872` site; `:4962` site keeps 0; `makewish` mirrors the `:6334` `menu_requested && wish_history[0] && tries == 0` gate (menu fn stays the no-op).
+- **JS:**
+  - `spell_hit_bonus`: js/zap.js:1377 (file-local, C `staticfn`).
+  - `zap_hit`: js/zap.js:1408 (file-local; `spell_type` at js/zap.js:2274).
+  - `wish_history_menu`: js/zap.js:7240 (no-op kept); gate at js/zap.js:7275.
+- **Callers:**
+  - `spell_hit_bonus`: C `zap_hit` :4710 → JS `zap_hit` js/zap.js:1412.
+  - `zap_hit` C :4872 (`spell_type`) → JS dobuzz js/zap.js:2346; C :4962 (`0`) → JS js/zap.js:2398 (kept 0).
+  - `wish_history_menu` C `makewish` :6335 → JS `makewish` gate js/zap.js:7275.
+- **Verify:** `node scripts/verify.mjs --fn spell_hit_bonus,wish_history_menu` → PASS syntax (1 changed file) · PASS rule2 · note hidden (no corpus session blocked on either at baseline — both rows cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK, each) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7 · VERIFY: PASS.
+- **Named omissions:**
+  - `wish_history_menu`: the menu pick body (`create_nhwindow` through `select_menu`, which is ledger by-design with no scored analogue) — no-op kept; D-1939 stays open for the family.
+  - `spell_hit_bonus`: none — every arm ported, every callee live.
+- **Ledger:** spell_hit_bonus ported; wish_history_menu partial.
+- **Next:** no more Open `zap.c` coverage rows; head moves on (refill-driven).
+
 ## D-3055 — timeout.c timer save/restore closure (`restore_timers` + `maybe_write_timer` + `write_timer`; declare `save_timers`/`insert_timer`/`timer_is_local`)
 
 - **Status:** shipped.
