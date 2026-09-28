@@ -1,9 +1,9 @@
 {
- "commit": "000445a8b",
- "at": "2026-09-28T20:41:41.482Z",
- "full": false,
- "fullCommit": "9a4e484a1",
- "fullAt": "2026-09-28T16:47:34.596Z",
+ "commit": "c055153c2",
+ "at": "2026-09-28T21:12:31.728Z",
+ "full": true,
+ "fullCommit": "c055153c2",
+ "fullAt": "2026-09-28T21:12:31.728Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -7737,7 +7737,7 @@
    "steps": 132,
    "owner": "dobuzz",
    "loc": "zap.c:4797",
-   "jsOwner": "dobuzz(zap.js:2247)",
+   "jsOwner": "dobuzz(zap.js:2287)",
    "cTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "jsTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "error": null
@@ -12497,7 +12497,7 @@
    "steps": 198,
    "owner": "start_melt_ice_timeout",
    "loc": "zap.c:5101",
-   "jsOwner": "slippery_ice_fumbling(hack.js:2603)",
+   "jsOwner": "slippery_ice_fumbling(hack.js:2608)",
    "cTopline": "Steady ice.",
    "jsTopline": "Ice.",
    "error": null
@@ -12565,7 +12565,7 @@
    "steps": 189,
    "owner": "start_melt_ice_timeout",
    "loc": "zap.c:5101",
-   "jsOwner": "slippery_ice_fumbling(hack.js:2603)",
+   "jsOwner": "slippery_ice_fumbling(hack.js:2608)",
    "cTopline": "Sturdy ice.",
    "jsTopline": "Ice.",
    "error": null
@@ -12752,7 +12752,7 @@
    "steps": 252,
    "owner": "start_melt_ice_timeout",
    "loc": "zap.c:5101",
-   "jsOwner": "slippery_ice_fumbling(hack.js:2603)",
+   "jsOwner": "slippery_ice_fumbling(hack.js:2608)",
    "cTopline": "Sturdy ice.",
    "jsTopline": "Ice.",
    "error": null
@@ -13653,7 +13653,7 @@
    "steps": 211,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "u_maybe_impaired(hack.js:2439)",
+   "jsOwner": "u_maybe_impaired(hack.js:2444)",
    "cTopline": "some gold pieces",
    "jsTopline": "a food ration",
    "error": null

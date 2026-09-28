@@ -2025,3 +2025,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2013-a196fca24-artifact-origin.md](./2013-a196fca24-artifact-origin.md) | `a196fca24` | D-3053 artifact_origin | **ACCEPT** |
 | [2014-d30e99009-hitmon-closure-corr.md](./2014-d30e99009-hitmon-closure-corr.md) | `d30e99009` | D-3054 do_hit closure + mhitm_ad_corr | **ACCEPT** |
 | [2015-9a4e484a1-restore-timers.md](./2015-9a4e484a1-restore-timers.md) | `9a4e484a1` | D-3055 restore_timers + timer closure | **ACCEPT** |
+| [2016-cd05c0f73-spell-hit-bonus.md](./2016-cd05c0f73-spell-hit-bonus.md) | `cd05c0f73` | D-3056 spell_hit_bonus + zap_hit rework | **ACCEPT** |
+| [2017-1483a276d-wish-history-menu.md](./2017-1483a276d-wish-history-menu.md) | `1483a276d` | D-3057 wish_history_menu pick body | **ACCEPT** |
+| [2018-a00f0a534-escape-tomb.md](./2018-a00f0a534-escape-tomb.md) | `a00f0a534` | D-3058 escape_tomb + unearth_you | **ACCEPT** |
+| [2019-1de43a4f5-docontact.md](./2019-1de43a4f5-docontact.md) | `1de43a4f5` | D-3059 docontact | **ACCEPT** |
+| [2020-6dd29ef91-light-sources-trio.md](./2020-6dd29ef91-light-sources-trio.md) | `6dd29ef91` | D-3060 wiz_light_sources trio | **ACCEPT** |
+| [2021-fb9c2049c-initoptions-init.md](./2021-fb9c2049c-initoptions-init.md) | `fb9c2049c` | D-3061 initoptions_init | **ACCEPT** |
+| [2022-000445a8b-spot-checks-dump-weights.md](./2022-000445a8b-spot-checks-dump-weights.md) | `000445a8b` | D-3062 spot_checks + dump_weights | **ACCEPT** |
+| [2023-c055153c2-free-nomakedefs.md](./2023-c055153c2-free-nomakedefs.md) | `c055153c2` | D-3063 free_nomakedefs | **ACCEPT** |
