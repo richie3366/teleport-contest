@@ -71,6 +71,7 @@ import { worm_cross, level_mon_at, remove_worm, place_wsegs, count_wsegs } from 
 import { On_W_tower_level, In_W_tower } from './dungeon.js';
 import { Monnam, mon_nam, hliquid, pmname, mon_pmname, Mgender, s_suffix } from './do_name.js';
 import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
+import { any_light_source } from './light.js'; // C: mon.c movemon :1332 arm (same 99-module SCC; hoisted fn, runtime use only)
 import { fightm, mondead, mondied, grow_up, mon_to_stone, monstone } from './mhitm.js';
 import { remove_monster, place_monster } from './steed.js';
 import { engr_at, del_engr_at, sengr_at } from './engrave.js';
@@ -3818,9 +3819,10 @@ export async function movemon() {
     if (game.program_state?.gameover) return false;
     // C mon.c:1330 — iter_mons_safe(movemon_singlemon)
     await iter_mons_safe(movemon_singlemon);
-    // C mon.c:1335-1338 — reset obj bypasses after last monster has moved
-    // (any_light_source vision_full_recalc at :1332-1333 stays named: no
-    // JS counterpart — same omission as before, now the only one).
+    // C mon.c:1332-1333 — a mon may have moved with a light source: force
+    // a full vision recalc (consumed by allmain's post-turn vision! arms).
+    if (any_light_source()) game.vision_full_recalc = 1;
+    // C mon.c:1335-1338 — reset obj bypasses after last monster has moved.
     if (game.context?.bypasses) clear_bypasses();
     clear_splitobjs();
     // C mon.c:1340 — dmonsfree after the last mon, before utotype.

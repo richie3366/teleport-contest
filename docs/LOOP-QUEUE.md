@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `teleport.c` mtele_trap screen flip — audit rescore 2026-09-28T09:17Z: scen-tour-Samurai-91113 PASS→FAIL (step 54, kind=screen, owner mtele_trap); port SHAs since last full board (fda3d415d): 2af820a38, 8b6526ecd, 32055fa52, 9f89fd978, 5c0b84ad9, 0cb4128d8, 20875982e, 5a77080f1, 1cc7d605d. Diagnose which SHA's arm moved the paint (suspects: pet-AI pathing 32055fa52, singlemon clears 2af820a38, show_glyph guards 8b6526ecd), port the writer. Source: reviews/loop-unattended/1972-1980 audit (rescore flip).
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3021 mtele_trap screen flip at scen-tour-Samurai-91113 step 54: owner misattribution; writer is the movemon `:1332–1333` any_light_source arm
+
+**C locus:** - `mtele_trap`: `nethack-c/upstream/src/teleport.c:1962–2002` whole, examined — no change needed (see JS was).
+**JS:** - `mtele_trap`: unchanged — `js/teleport.js:1362` + caller `js/trap.js:5245–5264`.
+**Change:** new `export function any_light_source` (`js/light.js:491`, `!!(light_base.length)` — array emptiness, not identity) + the `:1332–1333` arm in `js/mon.js:3824` in C order (before the bypass/split clears). Import joins no new edge beyond the existing 99-module SCC (`imports.mjs --can`: hoisted fn, runtime use only — the D-3014 may_dig precedent). Mechanism (bisect-measured, not inferred): file-level swap of `js/mon.js` to `fda3d415d` restores PASS while `display.js`/`dogmove.js`+`monmove.js` swaps stay FAIL; arm-level isolation shows only the `:1258` `vision_recalc(0)` line matters.
+**Verify:** - `mtele_trap`: `node scripts/verify.mjs --fn mtele_trap,movemon,any_light_source` → VERIFY: PASS — syntax 2 files; rule2 PASS; hidden `verify mtele_trap`: 1 PASS (scen-tour-Samurai-91113 PASS, scrM 63/63), 0 worse → PROGRESS; reach REACH-OK ×3 (no RNG tags; smoke 24/24 each); green 2/2; strict ×2; cohort 7/7; full skipped (tool heuristic). `node frozen/ps_test_runner.mjs sessions` → full 44/44 PASS (`265+1.66/turn`, R² 0.777). New `scripts/movemon-light-recalc.test.mjs` 3/3 pass; `scripts/movemon-singlemon.test.mjs` 2/2 still pass.
+**Named:** - `mtele_trap`: Monnam timing — JS names the monster before `teleport_pet`, C after (`:1972`); same call order otherwise, toplines match. Not touched: out of this flip's causal chain.
+**Next:** Must-fix row addressed; queue regenerates. D-3012's named omission is retired (sibling test comment updated). 2af820a38 stands — its `:1258` arm is C-exact; the flip was the latent omission it exposed, not a bad port.
 ## 2026-09-28 — Audit 1972–1980 (D-3012…D-3020): 9 ACCEPT, 1 Must-fix
 
 9 SHAs re-audited vs pinned C (bodies + callers + sym + re-measure): all arms branch-exact, zero REGRESSED. Cadence: public 44/44; held-out 12/44 (6452 pts, RNG 33.2 %, scr 57.3 %); corpus 629/953 full:true with 1 flip → Must-fix mtele_trap (Samurai-91113 @54). Ledger sample: 5 seeded ported rows (prscore, some_armor, mhitm_ad_poly, domonnoise, parse_status_hl2) all resolve via sym — no wrong rows (node v20, no sqlite; jsonl-shuf + brief ×5). Next: pop the Must-fix.

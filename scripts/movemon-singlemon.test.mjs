@@ -6,8 +6,9 @@ import { ROOM, MON_FLOOR, NORMAL_SPEED, M_AP_FURNITURE } from "../js/const.js";
 
 // C ref: mon.c movemon_singlemon `:1254–1265` (movement spend, then
 // vision_recalc `:1258`, clear_bypasses + clear_splitobjs `:1261–1264`,
-// minliquid `:1265`) and movemon `:1335–1338` (post-loop bypass/split
-// reset; any_light_source stays named — no JS counterpart).
+// minliquid `:1265`) and movemon `:1332–1338` (any_light_source
+// vision_full_recalc `:1332–1333` + post-loop bypass/split reset
+// `:1335–1338`; the light arm is pinned by movemon-light-recalc.test.mjs).
 // A mimicked furniture-hider pins the reset arms with no RNG: restrap
 // short-circuits on M_AP_TYPE before its rn2(3), and the M_AP_FURNITURE
 // arm returns FALSE before Conflict/dochugw.

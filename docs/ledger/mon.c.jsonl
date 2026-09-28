@@ -14,7 +14,7 @@
 {"fn":"mcalcdistress","c":"1174-1177","status":"unknown"}
 {"fn":"m_calcdistress","c":"1180-1209","status":"ported","js":["js/mon.js:m_calcdistress"],"d":["D-3012"],"at":"2026-09-28@7cd5d050b","note":"stale: complete at js/mon.js:1088, caller mcalcdistress js/mon.js:1106"}
 {"fn":"movemon_singlemon","c":"1214-1322","status":"ported","js":["js/mon.js:movemon_singlemon"],"d":["D-3012"],"at":"2026-09-28@7cd5d050b"}
-{"fn":"movemon","c":"1326-1350","status":"unknown"}
+{"fn":"movemon","c":"1326-1350","status":"ported","js":["js/mon.js:movemon"],"d":["D-3021"],"at":"2026-09-28@9dc8a2506"}
 {"fn":"meatbox","c":"1354-1382","status":"unknown"}
 {"fn":"m_consume_obj","c":"1392-1453","status":"ported","js":["js/mon.js:m_consume_obj"],"d":["D-2499"],"at":"seed@a30a7de84"}
 {"fn":"meatmetal","c":"1463-1529","status":"unknown"}

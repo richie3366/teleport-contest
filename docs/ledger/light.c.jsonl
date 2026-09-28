@@ -16,7 +16,7 @@
 {"fn":"light_sources_sanity_check","c":"606-630","status":"unknown"}
 {"fn":"write_ls","c":"634-702","status":"unknown","d":["D-2666"],"at":"seed@a30a7de84"}
 {"fn":"obj_move_light_source","c":"706-715","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"any_light_source","c":"719-722","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"any_light_source","c":"719-722","status":"ported","js":["js/light.js:any_light_source"],"d":["D-3021"],"at":"2026-09-28@9dc8a2506","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"snuff_light_source","c":"729-759","status":"unknown"}
 {"fn":"obj_sheds_light","c":"763-767","status":"unknown"}
 {"fn":"obj_is_burning","c":"771-775","status":"unknown"}

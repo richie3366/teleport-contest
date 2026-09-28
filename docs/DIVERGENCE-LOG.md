@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3021 — mtele_trap screen flip at scen-tour-Samurai-91113 step 54: owner misattribution; writer is the movemon `:1332–1333` any_light_source arm
+
+- **Status:** shipped (Must-fix row `teleport.c` mtele_trap screen flip — audit rescore 2026-09-28T09:17Z: scen-tour-Samurai-91113 PASS→FAIL, step 54, kind=screen, owner mtele_trap.)
+- **Symptom:** identical toplines both sides («The Wizard of Yendor suddenly disappears! You hear a chugging sound.»); one map cell differs — C `&` (demon, arrived (17,3)→(17,4) that turn) vs JS floor. RNG 5706/5706 fully matched: pure paint divergence, game state identical (all three `^F`-differing mons present in JS at C's exact cells).
+- **C locus:**
+  - `mtele_trap`: `nethack-c/upstream/src/teleport.c:1962–2002` whole, examined — no change needed (see JS was).
+  - `any_light_source`: `nethack-c/upstream/src/light.c:718–722` whole — `return gl.light_base != NULL` (C extern.h:1423).
+  - `movemon`: `nethack-c/upstream/src/mon.c:1325–1350` post-loop whole in C order — `:1330` iter_mons_safe, `:1332–1333` `if (any_light_source()) vision_full_recalc = 1`, `:1335–1338` bypass/split clears, `:1340` dmonsfree.
+- **JS was:** `js/mon.js` movemon carried the `:1335–1338` clears but left `:1332–1333` as a named omission (D-3012, «no JS counterpart»); no `any_light_source` symbol existed anywhere in `js/`. `mtele_trap` (`js/teleport.js:1362`) was already complete via its caller split: `in_sight`/`Monnam`/pline/seetrap live in `trapeffect_telep_trap` (`js/trap.js:5251–5261`), matching C `trap.c:2071–2079` + `teleport.c:1993–2000` arm for arm (pre-movement name excepted — teleport_pet runs first in both; toplines match).
+- **Fix:** new `any_light_source` (`js/light.js:491`) + the `:1332–1333` arm (`js/mon.js:3824`). Import stays in the existing 99-module SCC (`imports.mjs --can`: hoisted fn, runtime use only; `!!(light_base.length)` for C `!= NULL`). Mechanism (bisect-measured): only `js/mon.js` reverts to `fda3d415d` (not `display.js`/`dogmove.js`+`monmove.js`), and within it only the `:1258` recalc line, restores PASS. D-3012's correct mid-loop consume ran on transient positions and cleared the flag; with the post-loop set missing, allmain's `:467`/`:542` consumers (`js/allmain.js:1368/1431`) skipped, so no final-position recalc repainted (17,4) — C sets it (25 monster lights) and its recalc lights (17,4) TEMP_LIT from the elemental's moved light at (18,4) → `&`. `geom-probe` `^F` map + JS state probe measured both sides.
+- **JS:**
+  - `mtele_trap`: unchanged — `js/teleport.js:1362` + caller `js/trap.js:5245–5264`.
+  - `any_light_source`: `js/light.js:491`.
+  - `movemon`: `js/mon.js:3817` (one added arm + import `js/mon.js:74`).
+- **Callers:**
+  - `mtele_trap`: C `trap.c:2081` → wired `js/trap.js:5253` (pre-existing; `in_sight` shape matches C `trap.c:2076`).
+  - `any_light_source`: sole C caller `mon.c:1332` → wired `js/mon.js:3824` (definition + `extern.h:1423` decl only).
+  - `movemon`: sole C caller `allmain.c:212` → wired `js/allmain.js:1147` (pre-existing).
+- **Verify:**
+  - `mtele_trap`: `node scripts/verify.mjs --fn mtele_trap,movemon,any_light_source` → VERIFY: PASS — syntax 2 files; rule2 PASS; hidden `verify mtele_trap`: 1 PASS (scen-tour-Samurai-91113 PASS, scrM 63/63), 0 worse → PROGRESS; reach REACH-OK ×3 (no RNG tags; smoke 24/24 each); green 2/2; strict ×2; cohort 7/7; full skipped (tool heuristic). `node frozen/ps_test_runner.mjs sessions` → full 44/44 PASS (`265+1.66/turn`, R² 0.777). New `scripts/movemon-light-recalc.test.mjs` 3/3 pass; `scripts/movemon-singlemon.test.mjs` 2/2 still pass.
+  - `any_light_source`: hidden note (0 blocked, expected) · reach smoke REACH-OK, covered by the mtele_trap PROGRESS above.
+  - `movemon`: hidden note (0 blocked, expected) · reach smoke REACH-OK, covered by the mtele_trap PROGRESS above.
+- **Named omissions:**
+  - `mtele_trap`: Monnam timing (JS pre-`teleport_pet`, C post, `:1972`). Same order otherwise; toplines match. Out of this flip's causal chain.
+  - `any_light_source`: none — whole 3-line body, no live callee.
+  - `movemon`: none left at post-loop level — bypass/split/dmonsfree/utotype arms all live.
+- **Ledger:** mtele_trap ported; any_light_source ported; movemon ported
+- **Next:** Must-fix row addressed; queue regenerates. D-3012's named omission is retired (sibling test comment updated). 2af820a38 stands — its `:1258` arm is C-exact; the flip was the latent omission it exposed, not a bad port.
+
 ## D-3020 — `wiz_display_macros` whole (display-macro range validator; C caller wired via EXT_CMDS)
 
 - **Status:** shipped (Open — coverage head `wizcmds.c` wiz_display_macros MISSING. No corpus session blocked on it.)

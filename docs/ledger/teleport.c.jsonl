@@ -29,7 +29,7 @@
 {"fn":"control_mon_tele","c":"1899-1934","status":"unknown"}
 {"fn":"mvault_tele","c":"1937-1947","status":"unknown"}
 {"fn":"tele_restrict","c":"1950-1959","status":"unknown"}
-{"fn":"mtele_trap","c":"1962-2002","status":"ported","js":["js/teleport.js:mtele_trap"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
+{"fn":"mtele_trap","c":"1962-2002","status":"ported","js":["js/teleport.js:mtele_trap"],"d":["D-3021"],"at":"2026-09-28@9dc8a2506","note":"stale 2026-09-20"}
 {"fn":"mlevel_tele_trap","c":"2006-2098","status":"unknown","d":["D-1112"],"at":"seed@a30a7de84"}
 {"fn":"rloco","c":"2102-2187","status":"partial","js":["js/teleport.js:rloco"],"omit":"`mkobj.c:2081` `mkcorpstat` x==0&&y==0 `rloco` — JS `mkcorpstat` is sync with 5+ transitive sync callers (end.js `mk_named_object`, mhitm `make_corpse`); async cascade is its own row.","d":["D-2463"],"at":"seed@a30a7de84"}
 {"fn":"random_teleport_level","c":"2191-2258","status":"ported","js":["js/teleport.js:random_teleport_level"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
