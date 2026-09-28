@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3039 `quest.c` quest_chat whole + nemesis/guardian staticfns
+
+**C locus:** - `quest_chat`: nethack-c/upstream/src/quest.c:472–492 — leader compare `:475`, chat `:476`, pissed follow-up `:478–479`, early return `:480`, msound switch `:482–491` (nemesis `:483–485`, guardian `:486–488`, impossible default `:490`).
+**JS:** - `quest_chat`: js/quest.js export, restarted whole in C order (async — callees async).
+**Change:** restarted `quest_chat` whole in C order with per-arm `:line` cites (bare `m_id` compare per C; `await setmangry(mtmp, false)` for C `FALSE`; `mtmp.data?.msound|0` switch with both arms + async `impossible('quest_chat: Unknown quest character %s.', mon_nam(mtmp))` default); new file-local `chat_with_nemesis` / `chat_with_guardian` staticfns in C order (C staticfns, sole caller `quest_chat`); `Qstat(met_nemesis++)` as `((qs.met_nemesis|0)+1)` under the `!qs.met_nemesis` guard; new `MS_GUARDIAN = 38` local const beside `MS_NEMESIS`; `setmangry` + `mon_nam` folded into the existing mon.js / do_name.js imports (no new edge); header omission lines retired.
+**Verify:** `node scripts/verify.mjs --fn quest_chat,chat_with_nemesis,chat_with_guardian` → VERIFY: PASS — syntax (1 changed file) · Rule #2 · hidden notes (no corpus session blocked on any of the three at baseline) · REACH-OK all three (no RNG-tagged reach; smoke spread 24/24 PASS each) · green 2/2 + strict · cohort 7/7.
+**Named:** - `quest_chat`: none — every arm ported, every callee live (`chat_with_leader`, `setmangry`, `qt_pager`, `impossible`, `mon_nam`).
+**Next:** `quest.c` holds no further Open coverage rows (only quest_chat was queue-eligible; callees ported in-closure); review 1805's QUALITY-RISK (per-role nemesis/discourage tables for `com_pager_core`) stays with the questpgr extractor, not this cluster.
 ## 2026-09-28 — Audit 1990–1998 (D-3030…D-3038): 9 ACCEPT, 0 Must-fix; full cadence
 
 **Scope:** all 9 js-touching SHAs since audit 1981–1989 (`2972f3ad5`…`a7a0f55e5`; docs-only `953aea809` skipped per the js-only rule). Each re-measured with `hidden-proxy verify --base <SHA>~1 --reach-all`: every claim matched (honest vacuous + smoke REACH-OK, zero REGRESSED).

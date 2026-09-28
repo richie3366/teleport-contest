@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3039 — `quest.c` quest_chat whole + nemesis/guardian staticfns
+
+- **Status:** shipped.
+- **Symptom:** coverage THIN (C 14 code L vs JS 5): leader arm dropped the C `pissed_off → setmangry` follow-up and the `&& qs.leader_m_id` guard contradicted C's bare `m_id` compare; MS_NEMESIS / MS_GUARDIAN arms deferred (callees `chat_with_nemesis` / `chat_with_guardian` MISSING in `js/`).
+- **C locus:**
+  - `quest_chat`: nethack-c/upstream/src/quest.c:472–492 — leader compare `:475`, chat `:476`, pissed follow-up `:478–479`, early return `:480`, msound switch `:482–491` (nemesis `:483–485`, guardian `:486–488`, impossible default `:490`).
+  - `chat_with_nemesis`: nethack-c/upstream/src/quest.c:393–400 (staticfn) — discourage pager `:397`, `met_nemesis++` once-guard `:398–399`.
+  - `chat_with_guardian`: nethack-c/upstream/src/quest.c:440–448 (staticfn) — questart+killed_nemesis guardtalk_after `:444–445`, else guardtalk_before `:446–447`.
+- **JS was:** js/quest.js:505 `quest_chat` matched leader only with an extra `&& qs.leader_m_id` guard, skipped `setmangry`, and left both switch arms as a comment; no `chat_with_nemesis` / `chat_with_guardian` symbol anywhere in `js/`.
+- **Fix:** restarted `quest_chat` whole in C order with per-arm `:line` cites (bare `m_id` compare per C; `await setmangry(mtmp, false)` for C `FALSE`; `mtmp.data?.msound|0` switch with both arms + async `impossible('quest_chat: Unknown quest character %s.', mon_nam(mtmp))` default); new file-local `chat_with_nemesis` / `chat_with_guardian` staticfns in C order (C staticfns, sole caller `quest_chat`); `Qstat(met_nemesis++)` as `((qs.met_nemesis|0)+1)` under the `!qs.met_nemesis` guard; new `MS_GUARDIAN = 38` local const beside `MS_NEMESIS`; `setmangry` + `mon_nam` folded into the existing mon.js / do_name.js imports (no new edge); header omission lines retired.
+- **JS:**
+  - `quest_chat`: js/quest.js export, restarted whole in C order (async — callees async).
+  - `chat_with_nemesis`: js/quest.js file-local staticfn (async — `qt_pager` async).
+  - `chat_with_guardian`: js/quest.js file-local staticfn (async — `qt_pager` async).
+- **Callers:**
+  - `quest_chat`: sounds.c:731 `domonnoise` → js/sounds.js:1293 (pre-existing dynamic import, now reaches the full arms).
+  - `chat_with_nemesis`: quest.c:484 → js/quest.js `quest_chat` MS_NEMESIS arm (new).
+  - `chat_with_guardian`: quest.c:487 → js/quest.js `quest_chat` MS_GUARDIAN arm (new).
+- **Verify:** `node scripts/verify.mjs --fn quest_chat,chat_with_nemesis,chat_with_guardian` → VERIFY: PASS — syntax (1 changed file) · Rule #2 · hidden notes (no corpus session blocked on any of the three at baseline) · REACH-OK all three (no RNG-tagged reach; smoke spread 24/24 PASS each) · green 2/2 + strict · cohort 7/7.
+- **Named omissions:**
+  - `quest_chat`: none — every arm ported, every callee live (`chat_with_leader`, `setmangry`, `qt_pager`, `impossible`, `mon_nam`).
+  - `chat_with_nemesis`: discourage/guardtalk pager texts not yet extracted — the `qt_pager` calls are live and still burn the C nhl_init shuffle on a miss, so RNG matches C either way (D-2623 pattern); text delivery is the questpgr extractor's job.
+  - `chat_with_guardian`: same pager-text note as `chat_with_nemesis`.
+- **Ledger:** quest_chat ported; chat_with_nemesis ported; chat_with_guardian ported
+- **Next:** `quest.c` holds no further Open coverage rows (only quest_chat was queue-eligible; callees ported in-closure); review 1805's QUALITY-RISK (per-role nemesis/discourage tables for `com_pager_core`) stays with the questpgr extractor, not this cluster.
+
 ## D-3038 — `o_init.c` objdescr_is whole: canonical export + 4-clone fold
 
 - **Status:** shipped.
