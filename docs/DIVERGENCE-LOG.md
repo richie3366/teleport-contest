@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3027 — `engrave.c` del_engr restart in C order (head-first unlink + `!ept` impossible arm)
+
+- **Status:** shipped. Queue head `engrave.c` del_engr (PARTIAL, C 12 L / JS 7 L) as a single-function cluster — engrave.c holds nothing more Open (only del_engr is queue-eligible; D-2567 make_engr_at already fixed), and the callee closure holds nothing portable (dealloc_engr is a free() macro, impossible is shared display infra). Stale pops in the same iteration (no `js/` edits, ≤3 checks each): `cmd.c` handler_rebind_keys_add → ledger ported (whole body complete at `js/cmd.js:2122`, caller `:2440` wired at :2245); `rumors.c` init_rumors → ledger split (`js/rumors.js:getrumor` + `js/rumors.js:rumor_check` lazy-inits cover both C call sites `:140`/`:208`, header parse at build time via extract-rumors.py); `objnam.c` strprepend → ledger split (plain concat inline at all four C call sites: mshot_xname `:1099`, doname_base `:1711`, aobjnam `:2251`, paydoname `:2340`/`:2349`; PREFIX guard by-design JS strings per D-2483).
+- **Symptom:** coverage gap with one live missing arm, not a corpus divergence (`hidden-proxy verify del_engr`: no corpus session blocked at baseline). The old JS unlinked correctly for found nodes but silently returned on a miss, dropping C `:1658–1660` (impossible + early return).
+- **C locus:**
+  - `del_engr`: `nethack-c/upstream/src/engrave.c:1644–1663` whole in C order — `:1648–1649` head-first match, `:1651–1657` walk for the node whose nxt is ep, `:1658–1660` miss → impossible + return, `:1662` dealloc_engr.
+- **JS was:** `js/engrave.js:305` — prev/cur loop, unlink-correct for found nodes, silent return on miss (no impossible arm); C order (head-first, then walk) not kept.
+- **Fix:** `js/engrave.js` — restarted `del_engr` in C order with per-arm `:line` cites: `!ep` JS guard kept (C NONNULLARG1; JS passes engr_at() misses straight in), head-first match, ept walk with break, `!ept` → `void impossible('Error in del_engr?')` + return. impossible is async (display.js) but this unlink runs in sync contexts — `void` fire-and-forget (botl.js:351 / do_name.js:714 precedent). `:1662` dealloc_engr(ep) is `#define … free()` (engrave.h:45) — GC, unlinking is the whole effect. Sync signature kept, no caller edits. Focused test `scripts/del-engr.test.mjs` (node:test convention): head/middle/tail unlink, miss keeps the list with in_impossible back to 0, null no-op — 4/4 pass.
+- **JS:**
+  - `del_engr`: `js/engrave.js:318` (export, sync).
+- **Callers:**
+  - `del_engr`: engrave.c:287 (wipe_engr_at erode-to-empty) → local wipe_engr_at copy `js/engrave.js:629`; engrave.c:427 (make_engr_at replace-at) → `js/engrave.js:755`; engrave.c:466 (del_engr_at) → `js/engrave.js:299`; engrave.c:1067/1141/1232 (doengrave de.oep) → `js/engrave.js:1499/1558/1629`; sp_lev.c:353 → `js/mklev.js:20132`; zap.c:3654/3661 → `js/zap.js:6341/6352`. Extra JS site make_grave (:398, del_engr(engr_at())) ≡ C make_grave:1698 del_engr_at (inlined, pre-existing). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn del_engr` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/engrave.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify del_engr: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    del_engr: no RNG-tagged reach; fixed smoke spread (24 run, 7.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+```
+- **Named omissions:**
+  - `del_engr`: none — every arm ported, every callee live (impossible) or a macro (dealloc_engr), all 9 C call sites wired.
+- **Ledger:** del_engr ported.
+- **Next:** pop the next Open — coverage row (`mplayer.c` get_mplname at the time of writing); `engrave.c` needs no follow-up.
+
 ## D-3026 — `sys.c` whole-file closure: sys_early_init + sysopt_release (queue head) + sysopt_seduce_set
 
 - **Status:** shipped. Queue head `sys.c` sysopt_release (MISSING, no JS symbol) + same-file ledger-absent siblings sys_early_init and sysopt_seduce_set (both MISSING, below the generated top-12) as one closure in new 1:1 `js/sys.js`. No corpus session blocked on any of the three.

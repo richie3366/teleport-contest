@@ -115,10 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `cmd.c` handler_rebind_keys_add — coverage PARTIAL (C 85 code L `cmd.c:2291–2405` / JS 53 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 7) @9f89fd978
-- [ ] `rumors.c` init_rumors — coverage MISSING (C 16 code L `rumors.c:85–107` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @5c0b84ad9
-- [ ] `objnam.c` strprepend — coverage MISSING (C 8 code L `objnam.c:123–135` / JS no symbol; hops 4, callers 4, RNG 0, msg 0) @0cb4128d8
-- [ ] `engrave.c` del_engr — coverage PARTIAL (C 12 code L `engrave.c:1645–1663` / JS 7 code L in js/engrave.js; hops 2, callers 6, RNG 0, msg 0) @20875982e
 - [ ] `mplayer.c` get_mplname — coverage PARTIAL (C 16 code L `mplayer.c:72–92` / JS 11 code L in js/mplayer.js; hops 6, callers 1, RNG 1, msg 2) @5a77080f1
 - [ ] `cmd.c` dokeylist — coverage MISSING (C 100 code L `cmd.c:2867–3013` / JS no symbol; hops —, callers 0, RNG 0, msg 25; dead callees: spkey_name; split? cited 30× in js/ — brief first) @5affd05cd
 - [ ] `wizcmds.c` wizcustom_callback — coverage MISSING (C 29 code L `wizcmds.c:1987–2027` / JS no symbol; hops —, callers 1, RNG 0, msg 1) @73b53df4b
@@ -127,6 +123,10 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sp_lev.c` l_push_mkroom_table — coverage MISSING (C 9 code L `sp_lev.c:3059–3070` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: nhl_add_table_entry_int, nhl_add_table_entry_region, nhl_add_table_entry_bool, nhl_add_table_entry_str, get_mkroom_name) @f4390cd9a
 - [ ] `pline.c` gamelog_add — coverage THIN (C 13 code L `pline.c:495–511` / JS 5 code L in js/pline.js; hops 3, callers 2, RNG 0, msg 0) @f4390cd9a
 - [ ] `objnam.c` ch_ksound — coverage THIN (C 15 code L `objnam.c:3168–3191` / JS 5 code L in js/objnam.js; hops 2, callers 1, RNG 0, msg 0) @15ff0060a
+- [ ] `botl.c` hlattr2attrname — coverage PARTIAL (C 25 code L `botl.c:3369–3401` / JS 13 code L in js/botl.js; hops —, callers 3, RNG 0, msg 6) @34c78a6ac
+- [ ] `rumors.c` CapitalMon — coverage PARTIAL (C 17 code L `rumors.c:791–822` / JS 11 code L in js/objnam.js; hops 2, callers 3, RNG 0, msg 0) @34c78a6ac
+- [ ] `mon.c` dealloc_monst — coverage PARTIAL (C 9 code L `mon.c:2676–2691` / JS 6 code L in js/mon.js; hops 2, callers 5, RNG 0, msg 0) @34c78a6ac
+- [ ] `mon.c` pick_animal — coverage PARTIAL (C 8 code L `mon.c:4855–4869` / JS 5 code L in js/makemon.js; hops 4, callers 1, RNG 2, msg 0) @34c78a6ac
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -1,4 +1,4 @@
-{"fn":"strprepend","c":"123-135","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"strprepend","c":"123-135","status":"split","js":["js/objnam.js:mshot_xname","js/objnam.js:doname_base","js/objnam.js:aobjnam","js/objnam.js:paydoname"],"at":"2026-09-28@34c78a6ac","note":"stale: concat inline at all 4 C call sites; PREFIX guard by-design JS strings (D-2483)"}
 {"fn":"nextobuf","c":"142-146","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"releaseobuf","c":"150-160","status":"unknown"}
 {"fn":"maybereleaseobuf","c":"167-198","status":"partial","js":["js/objnam.js:maybereleaseobuf"],"omit":"An empty skill class `mkobj`s `RANDOM_CLASS`; with `init_objects` bases filled, `P_POLEARMS` has 12 weapons and `P_HAMMER` has `WAR_HAMMER` only, so that arm does not run.","d":["D-2851"],"at":"seed@a30a7de84"}

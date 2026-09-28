@@ -25,7 +25,7 @@
 {"fn":"save_engravings","c":"1551-1580","status":"partial","js":["js/engrave.js:save_engravings"],"omit":"- `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).","d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rest_engravings","c":"1584-1619","status":"partial","js":["js/engrave.js:rest_engravings"],"omit":"- `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).","d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"engr_stats","c":"1626-1640","status":"unknown"}
-{"fn":"del_engr","c":"1645-1663","status":"unknown"}
+{"fn":"del_engr","c":"1645-1663","status":"ported","js":["js/engrave.js:del_engr"],"d":["D-3027"],"at":"2026-09-28@34c78a6ac"}
 {"fn":"rloc_engr","c":"1667-1681","status":"unknown"}
 {"fn":"make_grave","c":"1687-1703","status":"unknown"}
 {"fn":"disturb_grave","c":"1707-1721","status":"unknown"}

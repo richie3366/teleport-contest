@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3027 `engrave.c` del_engr restart in C order (head-first unlink + `!ept` impossible arm)
+
+**C locus:** - `del_engr`: `nethack-c/upstream/src/engrave.c:1644–1663` whole in C order — `:1648–1649` head-first match, `:1651–1657` walk for the node whose nxt is ep, `:1658–1660` miss → impossible + return, `:1662` dealloc_engr.
+**JS:** - `del_engr`: `js/engrave.js:318` (export, sync).
+**Change:** `js/engrave.js` — restarted `del_engr` in C order with per-arm `:line` cites: `!ep` JS guard kept (C NONNULLARG1; JS passes engr_at() misses straight in), head-first match, ept walk with break, `!ept` → `void impossible('Error in del_engr?')` + return. impossible is async (display.js) but this unlink runs in sync contexts — `void` fire-and-forget (botl.js:351 / do_name.js:714 precedent). `:1662` dealloc_engr(ep) is `#define … free()` (engrave.h:45) — GC, unlinking is the whole effect. Sync signature kept, no caller edits.
+**Verify:** `node scripts/verify.mjs --fn del_engr` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `del_engr`: none — every arm ported, every callee live (impossible) or a macro (dealloc_engr), all 9 C call sites wired.
+**Next:** pop the next Open — coverage row (`mplayer.c` get_mplname at the time of writing); `engrave.c` needs no follow-up.
 ## 2026-09-28 — D-3026 `sys.c` whole-file closure: sys_early_init + sysopt_release (queue head) + sysopt_seduce_set
 
 **C locus:** - `sys_early_init`: `nethack-c/upstream/src/sys.c:20–112` whole in C order — `:28–29` support/recover clears, `:30–36` wizards (SYSCF live arm), `:38–52` DEBUGFILES env/else (SYSCF arm), `:57–63` shellers/explorers/genericusers/msghandler/maxplayers/bones_pools/livelog, `:66–70` persmax/entrymax/pointsmin/pers_is_uid/tt_oname_maxrank, `:73–74` PERS_IS_UID panic gate, `:76–95` PANICTRACE gdb/greppath + released zeros, `:96` crashreporturl, `:98–101` check_save_uid/check_plname/seduce + seduce_set call, `:102` saveformat/bonesformat, `:103` accessibility, `:109` hideusage.
