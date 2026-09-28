@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `hack.c` cannot_push_msg — coverage PARTIAL (C 9 code L `hack.c:247–259` / JS 6 code L in js/hack.js; hops 5, callers 1, RNG 0, msg 2) @c01f2bf81
-- [ ] `objnam.c` cloak_simple_name — coverage PARTIAL (C 13 code L `objnam.c:5492–5509` / JS 8 code L in js/do_wear.js; hops 4, callers 14, RNG 0, msg 0) @66bbd0418
 - [ ] `detect.c` furniture_detect — coverage PARTIAL (C 31 code L `detect.c:1091–1134` / JS 22 code L in js/detect.js; hops 6, callers 1, RNG 0, msg 1) @66bbd0418
 - [ ] `role.c` Hello — coverage PARTIAL (C 15 code L `role.c:2120–2140` / JS 10 code L in js/roles.js; hops 3, callers 6, RNG 0, msg 0) @5aadc33ff
 - [ ] `options.c` handler_menu_headings — coverage MISSING (C 7 code L `options.c:5780–5792` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: query_color_attr) @4e6edc522
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `worm.c` toss_wsegs — coverage PARTIAL (C 9 code L `worm.c:146–167` / JS 6 code L in js/worm.js; hops 4, callers 4, RNG 0, msg 0) @eb54a70f8
 - [ ] `timeout.c` wiz_timeout_queue — coverage THIN (C 60 code L `timeout.c:2041–2127` / JS 6 code L in js/timeout.js; hops —, callers 0, RNG 0, msg 16) @eb54a70f8
 - [ ] `display.c` cmap_to_roguecolor — coverage MISSING (C 15 code L `display.c:2699–2719` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @eb54a70f8
+- [ ] `artifact.c` artifact_origin — coverage PARTIAL (C 23 code L `artifact.c:478–513` / JS 17 code L in js/artifact.js; hops 3, callers 4, RNG 0, msg 0) @b689d8429
+- [ ] `uhitm.c` hmon_hitmon_do_hit — coverage MISSING (C 29 code L `uhitm.c:1387–1433` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b689d8429
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

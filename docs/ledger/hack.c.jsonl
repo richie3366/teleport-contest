@@ -5,7 +5,7 @@
 {"fn":"revive_nasty","c":"105-137","status":"unknown"}
 {"fn":"could_move_onto_boulder","c":"145-163","status":"unknown"}
 {"fn":"dopush","c":"166-244","status":"unknown"}
-{"fn":"cannot_push_msg","c":"247-259","status":"unknown"}
+{"fn":"cannot_push_msg","c":"247-259","status":"ported","js":["js/hack.js:cannot_push_msg"],"d":["D-3044"],"at":"2026-09-28@b689d8429","note":"stale: js/hack.js:234, body whole, both C callers wired js/hack.js:997,1138"}
 {"fn":"cannot_push","c":"262-312","status":"unknown","d":["D-1239"],"at":"seed@a30a7de84"}
 {"fn":"rock_disappear_msg","c":"315-324","status":"unknown"}
 {"fn":"moverock_done","c":"327-333","status":"unknown"}

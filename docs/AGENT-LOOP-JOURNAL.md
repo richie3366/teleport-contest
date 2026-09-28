@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3044 `cloak_simple_name` caller wiring + `cannot_push_msg` stale
+
+**C locus:** - `cannot_push_msg`: nethack-c/upstream/src/hack.c:247–259 — `the(xname)`, usteed `YMonnam` arm, `You` arm, `Blind → feel_location`. Stale, no code change.
+**JS:** - `cannot_push_msg`: js/hack.js:234 unchanged (stale).
+**Change:** deleted both twins, added `cloak_simple_name` to the existing `./do_wear.js` imports (both edges already existed — no new cycle); wired the five do_wear arms with per-arm `:line` cites (shirt arm keeps C `(uarm && !uarmc) ? c_armor("armor")` ternary); W_ARMC arm calls the canonical. Same-statement suit guard arm wired to live `suit_simple_name` (C do_wear.c:1787–1789, C-verbatim port).
+**Verify:** - `cannot_push_msg`: stale — no verify (ledger note only).
+**Named:** - `cannot_push_msg`: none.
+**Next:** `furniture_detect` (detect.c:1091–1134) heads the regenerated coverage block.
 ## 2026-09-28 — D-3043 `read.c` stale pair + `end.c` save_killers/restore_killers JSON-analogue pair
 
 **C locus:** - `hawaiian_motif`: nethack-c/upstream/src/read.c:189–221 — 16-entry `hawaiian_motifs[]` `:192–209`, `motif = o_id ^ ubirthday` `:217`, index `% SIZE` `:219`. Stale, no code change.

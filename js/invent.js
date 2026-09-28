@@ -341,7 +341,7 @@ import {
 } from './pickup.js';
 import { is_ammo, is_pole } from './wield.js';
 import { is_wet_towel, can_advance } from './weapon.js';
-import { shield_simple_name, Boots_on, helm_simple_name } from './do_wear.js';
+import { shield_simple_name, Boots_on, helm_simple_name, cloak_simple_name } from './do_wear.js';
 import { float_vs_flight, youhiding } from './polyself.js';
 import { learn_egg_type } from './timeout.js';
 
@@ -5611,8 +5611,9 @@ function enl_suit_simple_name(suit) {
 
 /**
  * C ref: zap.c item_what — wizard suffix " by your <slot simple name>".
- * Ported: W_ARM → suit_simple_name (dragon mail); W_ARMH →
- * helm_simple_name (zap.c:5740). Other slots stay the short noun.
+ * Ported: W_ARMC → cloak_simple_name (zap.c:5734); W_ARM →
+ * suit_simple_name (dragon mail); W_ARMH → helm_simple_name
+ * (zap.c:5740). Other slots stay the short noun.
  */
 function item_what(dmgtyp) {
     const wizard = !!(game.flags?.wizard || game.flags?.debug);
@@ -5622,7 +5623,7 @@ function item_what(dmgtyp) {
     if (!prop || !x) return '';
     const u = game.u || {};
     let what = null;
-    if (x & W_ARMC) what = 'cloak';
+    if (x & W_ARMC) what = cloak_simple_name(u.uarmc); /* C zap.c:5733–5734 */
     else if (x & W_ARM) what = enl_suit_simple_name(u.uarm);
     else if (x & W_ARMU) what = 'shirt';
     else if (x & W_ARMH) what = helm_simple_name(u.uarmh);

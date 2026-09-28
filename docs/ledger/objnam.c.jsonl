@@ -77,7 +77,7 @@
 {"fn":"Japanese_item_name","c":"5422-5432","status":"unknown"}
 {"fn":"armor_simple_name","c":"5435-5468","status":"unknown"}
 {"fn":"suit_simple_name","c":"5471-5489","status":"unknown","d":["D-1905"],"at":"seed@a30a7de84"}
-{"fn":"cloak_simple_name","c":"5492-5509","status":"unknown"}
+{"fn":"cloak_simple_name","c":"5492-5509","status":"ported","js":["js/do_wear.js:cloak_simple_name"],"d":["D-3044"],"at":"2026-09-28@b689d8429"}
 {"fn":"helm_simple_name","c":"5513-5528","status":"ported","js":["js/do_wear.js:helm_simple_name"],"d":["D-2939"],"at":"seed@a30a7de84"}
 {"fn":"gloves_simple_name","c":"5532-5547","status":"unknown"}
 {"fn":"boots_simple_name","c":"5551-5566","status":"unknown"}

@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-3044 — `cloak_simple_name` caller wiring + `cannot_push_msg` stale
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL `cloak_simple_name` (C 13 code L vs JS 8): canonical export whole, but two C-matched local twins (mhitu/uhitm) plus five hardcoded `'cloak'` literals at live C caller arms (robe/apron/smock/wrapping misnamed).
+- **C locus:**
+  - `cannot_push_msg`: nethack-c/upstream/src/hack.c:247–259 — `the(xname)`, usteed `YMonnam` arm, `You` arm, `Blind → feel_location`. Stale, no code change.
+  - `cloak_simple_name`: nethack-c/upstream/src/objnam.c:5491–5509 — ROBE→robe, MUMMY_WRAPPING→wrapping, ALCHEMY_SMOCK→smock/apron on `oc_name_known && dknown`, default cloak. Canonical js/do_wear.js:1752 already whole.
+- **JS was:** js/mhitu.js:1152 + js/uhitm.js:2269 local twins of the canonical; js/do_wear.js hardcoded `'cloak'` in canwearobj shirt/cloak/suit arms, takeoff guard, disrobe buf; js/invent.js item_what W_ARMC arm hardcoded `'cloak'` vs C zap.c:5734.
+- **Fix:** deleted both twins, added `cloak_simple_name` to the existing `./do_wear.js` imports (both edges already existed — no new cycle); wired the five do_wear arms with per-arm `:line` cites (shirt arm keeps C `(uarm && !uarmc) ? c_armor("armor")` ternary); W_ARMC arm calls the canonical. Same-statement suit guard arm wired to live `suit_simple_name` (C do_wear.c:1787–1789, C-verbatim port).
+- **JS:**
+  - `cannot_push_msg`: js/hack.js:234 unchanged (stale).
+  - `cloak_simple_name`: js/do_wear.js:1752 canonical; callers js/do_wear.js:2007,2241,2720,2726,2731, js/mhitu.js:1358,1573, js/uhitm.js:2293, js/invent.js:5626.
+- **Callers:**
+  - `cannot_push_msg`: hack.c:486 → js/hack.js:997; hack.c:633 → js/hack.js:1138 (both pre-wired).
+  - `cloak_simple_name`: do_wear.c:1785 → js/do_wear.js:2007; do_wear.c:1955 (ARM_CLOAK take-off) → js/do_wear.js:1852 via armor_doff_simple_name (pre-wired); do_wear.c:2166 → js/do_wear.js:2720; do_wear.c:2174 → js/do_wear.js:2726; do_wear.c:2181 → js/do_wear.js:2731; do_wear.c:2761 → js/do_wear.js:2241; do_wear.c:3217 → js/do_wear.js:1852 path (pre-wired); mhitu.c:1075/2119 → js/mhitu.js:1573/1358 (now via import); objnam.c:5445 → js/do_wear.js:1820 armor_simple_name (pre-wired); polyself.c ×5 → js/polyself.js:1394–1430 (pre-wired import); trap.c:127/1639/1703 → js/trap.js:4700/3869/3952 (pre-wired import); uhitm.c:2084 → js/uhitm.js:2293 (now via import); worn.c ×4 → js/worn.js:503–538 (pre-wired import); zap.c:5734 → js/invent.js:5626 (newly wired).
+- **Verify:**
+  - `cannot_push_msg`: stale — no verify (ledger note only).
+  - `cloak_simple_name`: `node scripts/verify.mjs --fn cloak_simple_name` → PASS syntax (4 changed js files) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (no RNG-tagged reach; 24-smoke 24 PASS → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS.
+- **Named omissions:**
+  - `cannot_push_msg`: none.
+  - `cloak_simple_name`: sibling item_what short-noun arms for other slots (shirt/gloves/boots/shield/ring/weapon — other functions' callers, pre-existing literals); disrobe `c_suit` arm stays `'remove your suit'` per C do_wear.c:2764.
+- **Ledger:** cannot_push_msg ported; cloak_simple_name ported.
+- **Next:** `furniture_detect` (detect.c:1091–1134) heads the regenerated coverage block.
+
 ## D-3043 — `read.c` stale pair + `end.c` save_killers/restore_killers JSON-analogue pair
 
 - **Status:** shipped.
