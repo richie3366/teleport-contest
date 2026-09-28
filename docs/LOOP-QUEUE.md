@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `worm.c` toss_wsegs — coverage PARTIAL (C 9 code L `worm.c:146–167` / JS 6 code L in js/worm.js; hops 4, callers 4, RNG 0, msg 0) @eb54a70f8
-- [ ] `timeout.c` wiz_timeout_queue — coverage THIN (C 60 code L `timeout.c:2041–2127` / JS 6 code L in js/timeout.js; hops —, callers 0, RNG 0, msg 16) @eb54a70f8
-- [ ] `display.c` cmap_to_roguecolor — coverage MISSING (C 15 code L `display.c:2699–2719` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @eb54a70f8
 - [ ] `artifact.c` artifact_origin — coverage PARTIAL (C 23 code L `artifact.c:478–513` / JS 17 code L in js/artifact.js; hops 3, callers 4, RNG 0, msg 0) @b689d8429
 - [ ] `uhitm.c` hmon_hitmon_do_hit — coverage MISSING (C 29 code L `uhitm.c:1387–1433` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b689d8429
 - [ ] `timeout.c` restore_timers — coverage THIN (C 12 code L `timeout.c:2707–2728` / JS 5 code L in js/mkobj.js; hops 3, callers 2, RNG 0, msg 0) @25bf764f0
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `zap.c` wish_history_menu — coverage THIN (C 23 code L `zap.c:6275–6309` / JS 0 code L in js/zap.js; hops 3, callers 1, RNG 0, msg 0) @d599cea95
 - [ ] `sp_lev.c` create_subroom — coverage PARTIAL (C 27 code L `sp_lev.c:1668–1707` / JS 19 code L in js/mklev.js; hops —, callers 1, RNG 4, msg 0) @e96a1ef43
 - [ ] `dig.c` escape_tomb — coverage MISSING (C 23 code L `dig.c:2241–2270` / JS no symbol; hops —, callers 0, RNG 1, msg 2; dead callees: unearth_you) @e96a1ef43
+- [ ] `zap.c` spell_hit_bonus — coverage MISSING (C 27 code L `zap.c:3509–3544` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @6f36d2ab4
+- [ ] `pager.c` docontact — coverage MISSING (C 21 code L `pager.c:2718–2745` / JS no symbol; hops —, callers 0, RNG 0, msg 9) @6f36d2ab4
+- [ ] `light.c` wiz_light_sources — coverage MISSING (C 31 code L `light.c:935–975` / JS no symbol; hops —, callers 0, RNG 0, msg 6) @6f36d2ab4
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

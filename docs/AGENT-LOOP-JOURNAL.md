@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3052 `cmap_to_roguecolor` whole port (RogueIBM cmap color) + two stale dispositions
+
+**C locus:** - `cmap_to_roguecolor`: nethack-c/upstream/src/display.c:2699–2719 (whole body in C order — symset nocolor → NO_COLOR :2703–2704, S_vwall..S_hcdoor → CLR_BROWN :2706–2707, S_arrow_trap..S_polymorph_trap → CLR_MAGENTA :2708–2709, S_corr/S_litcorr → CLR_GRAY :2710–2711, S_room..S_water except S_darkroom → CLR_GREEN :2712–2714, else NO_COLOR :2715–2716).
+**JS:** - `cmap_to_roguecolor`: js/display.js:3146 (export, sync, pure — no RNG).
+**Change:** new export in js/display.js in C order with per-arm `:line` cites — nocolor guard via `game.gs?.symset?.[game.currentgraphics | 0]?.nocolor` (same shape as `rogue_nocolor_active`), `cmap |= 0` integer idiom, single `return color`. `S_hcdoor` + `S_polymorph_trap` added to the existing `./const.js` import (values verified: 16 / 70; no new edge, no cycle check needed). Behavior spot-check (`/tmp/cmap_check.mjs`): walls→3, traps→5, corr→7, room/water→2, darkroom/stone→8, nocolor set→8 — all C values.
+**Verify:** `node scripts/verify.mjs --fn cmap_to_roguecolor` → VERIFY: PASS — syntax 1 changed js file (js/display.js); rule2 clean; hidden note (no corpus session blocked — coverage row, expected); reach REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44 passing (auto: shared file changed).
+**Named:** - `cmap_to_roguecolor`: the five `reset_glyphmap` `has_rogue_color` arms (C `:2874`, `:2916`, `:2922`, `:2935`, `:2962`) — enclosing function ledger by-design (fortress guard, CURRENT.md:141); they arrive with any future `reset_glyphmap` port, never by touching it here.
+**Next:** next Open — coverage head after regenerate. Density note: one 15-line leaf (~40 JS lines with cites) — below the ~80-insertion guideline, but display.c holds no further Open rows (the 12-row eligible block is complete) and the callee closure is empty, so there was nothing more in-file to ship; the WA_VERBOSE (`type_to_name`/`error4`) and Qt-only (`fn_cmap_to_glyph`) tiny leaves checked this iteration are compiled-out/by-platform, not ports.
 ## 2026-09-28 — D-3051 `pay` + `check_credit` + `reject_purchase` shop-billing closure (credit-message arms)
 
 **C locus:** - `pay`: nethack-c/upstream/src/shk.c:1297–1313 (whole body in C order — robbed snapshot :1301, balance via check_credit for tmp>0 :1302, money2mon/money2u arms :1304–1307, disp.botl :1308, robbed payback clamped at 0 :1309–1313).

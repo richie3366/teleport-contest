@@ -1,6 +1,6 @@
 {"fn":"get_wormno","c":"96-106","status":"unknown"}
 {"fn":"initworm","c":"120-137","status":"unknown"}
-{"fn":"toss_wsegs","c":"146-167","status":"unknown"}
+{"fn":"toss_wsegs","c":"146-167","status":"ported","js":["js/worm.js:toss_wsegs"],"at":"2026-09-28@6f36d2ab4","note":"stale: js/worm.js:194 (all arms + 4 callers wired; dealloc_seg=free() is GC no-op)"}
 {"fn":"shrink_worm","c":"175-186","status":"unknown"}
 {"fn":"worm_move","c":"196-278","status":"ported","js":["js/worm.js:worm_move"],"d":["D-1491"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"worm_nomove","c":"288-297","status":"unknown"}

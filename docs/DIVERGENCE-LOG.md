@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3052 — `cmap_to_roguecolor` whole port (RogueIBM cmap color) + two stale dispositions
+
+- **Status:** shipped.
+- **Symptom:** coverage MISSING (C 15 code L `display.c:2699–2719` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) — pure leaf, 0 C callees. This iteration first popped `toss_wsegs` (worm.c) and `wiz_timeout_queue` (timeout.c): both brief-complete in JS, so both were disposed as stale via `ledger.mjs set` with notes (no `js/` change) and the next row shipped here.
+- **C locus:**
+  - `cmap_to_roguecolor`: nethack-c/upstream/src/display.c:2699–2719 (whole body in C order — symset nocolor → NO_COLOR :2703–2704, S_vwall..S_hcdoor → CLR_BROWN :2706–2707, S_arrow_trap..S_polymorph_trap → CLR_MAGENTA :2708–2709, S_corr/S_litcorr → CLR_GRAY :2710–2711, S_room..S_water except S_darkroom → CLR_GREEN :2712–2714, else NO_COLOR :2715–2716).
+- **JS was:** no symbol (measured MISSING; `reset_glyphmap` — home of all five C call sites — is ledger by-design, CURRENT.md fortress guard).
+- **Fix:** new export in js/display.js in C order with per-arm `:line` cites — nocolor guard via `game.gs?.symset?.[game.currentgraphics | 0]?.nocolor` (same shape as `rogue_nocolor_active`), `cmap |= 0` integer idiom, single `return color`. `S_hcdoor` + `S_polymorph_trap` added to the existing `./const.js` import (values verified: 16 / 70; no new edge, no cycle check needed). Behavior spot-check (`/tmp/cmap_check.mjs`): walls→3, traps→5, corr→7, room/water→2, darkroom/stone→8, nocolor set→8 — all C values.
+- **JS:**
+  - `cmap_to_roguecolor`: js/display.js:3146 (export, sync, pure — no RNG).
+- **Callers:**
+  - `cmap_to_roguecolor`: all five C sites live in `reset_glyphmap` `has_rogue_color` arms (C `:2874` digbeam, `:2916` CMAP_B, `:2922` altar, `:2935` CMAP_A, `:2962` CMAP_MAIN) — by-design unported, so no live JS caller to wire (Named omissions, not unwired live callers).
+- **Verify:** `node scripts/verify.mjs --fn cmap_to_roguecolor` → VERIFY: PASS — syntax 1 changed js file (js/display.js); rule2 clean; hidden note (no corpus session blocked — coverage row, expected); reach REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44 passing (auto: shared file changed).
+- **Named omissions:**
+  - `cmap_to_roguecolor`: the five `reset_glyphmap` `has_rogue_color` arms (C `:2874`, `:2916`, `:2922`, `:2935`, `:2962`) — enclosing function ledger by-design (fortress guard, CURRENT.md:141); they arrive with any future `reset_glyphmap` port, never by touching it here.
+- **Ledger:** cmap_to_roguecolor ported.
+- **Next:** next Open — coverage head after regenerate. Density note: one 15-line leaf (~40 JS lines with cites) — below the ~80-insertion guideline, but display.c holds no further Open rows (the 12-row eligible block is complete) and the callee closure is empty, so there was nothing more in-file to ship; the WA_VERBOSE (`type_to_name`/`error4`) and Qt-only (`fn_cmap_to_glyph`) tiny leaves checked this iteration are compiled-out/by-platform, not ports.
+
 ## D-3051 — `pay` + `check_credit` + `reject_purchase` shop-billing closure (credit-message arms)
 
 - **Status:** shipped.

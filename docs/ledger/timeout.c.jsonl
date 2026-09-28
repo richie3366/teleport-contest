@@ -28,7 +28,7 @@
 {"fn":"do_storms","c":"1847-1892","status":"unknown"}
 {"fn":"kind_name","c":"1995-2011","status":"unknown"}
 {"fn":"print_queue","c":"2014-2037","status":"unknown"}
-{"fn":"wiz_timeout_queue","c":"2041-2127","status":"unknown"}
+{"fn":"wiz_timeout_queue","c":"2041-2127","status":"split","js":["js/timeout.js:wiz_timeout_queue","js/timeout.js:wiz_timeout_queue_lines"],"at":"2026-09-28@6f36d2ab4","note":"stale: body complete split across wiz_timeout_queue+lines+print_queue+kind_name (D-1527)"}
 {"fn":"timer_sanity_check","c":"2130-2215","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"run_timers","c":"2222-2241","status":"unknown"}
 {"fn":"start_timer","c":"2247-2292","status":"partial","js":["js/mkobj.js:start_timer"],"omit":"`objnam.c:5223` wish-corpse `ZOMBIFY_MON` timer still deferred at `js/readobjnam.js:1678` (would draw `rn1`).","d":["D-2794"],"at":"seed@a30a7de84"}
