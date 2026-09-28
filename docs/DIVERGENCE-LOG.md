@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3041 — `do.c` drop whole + `finesse_ahriman` port
+
+- **Status:** shipped.
+- **Symptom:** coverage PARTIAL: `drop` (C 46 code L vs JS 32) carried `/* Named omissions */` for the Heart of Ahriman levhack arm and the swallowed digests path; Open callee `finesse_ahriman` (artifact.c MISSING) had no JS symbol.
+- **C locus:**
+  - `drop`: nethack-c/upstream/src/do.c:714–780 — guards `:716–721`, unwield + welded weldmsg `:722–728`, quiver/swap `:729–734`, swallowed verbose into-monster pline `:736–751`, sink ring `:753–757`, levitating freeinv + hitfloor with levhack `:758–772`, altar-gated pline `:774–775`, how_lost + dropx `:777–779`.
+  - `finesse_ahriman`: nethack-c/upstream/src/artifact.c:2235–2260 — levitation/invoke guard `:2244–2247`, save uprops `:2254`, clear float_down targets `:2255–2256`, probe `:2257`, restore `:2258`.
+- **JS was:** js/do.js:2884 `drop` skipped the welded re-check, printed `You drop … into something.` on the swallowed arm, and ran freeinv + hitfloor with no levhack on the can't-reach-floor arm; no `finesse_ahriman` symbol in `js/`.
+- **Fix:** restarted `drop` whole in C order with per-arm `:line` cites (same export name/signature); new sync `finesse_ahriman` export in js/artifact.js in C position (after `get_artifact`, before `arti_speak`, mirroring artifact.c order). `ELevitation = W_ART` writes the flat and the uprops table slot (set_spfx_extrinsic convention); the probe saves/clears/restores both stores synchronously. New imports ride existing edges (do.js already imports artifact/do_name/objnam/polyself/wield/const modules; `s_suffix` taken from canonical do_name.js, not the mthrowu.js clone per D-2268).
+- **JS:**
+  - `drop`: js/do.js:2887 export, async (pline/More reach).
+  - `finesse_ahriman`: js/artifact.js:669 export, sync (pure prop probe, no I/O).
+- **Callers:**
+  - `drop`: do.c:35 (dodrop) → js/do.js:3006 + 3012; do.c:976 (menudrop_split) → js/do.js:3045; do.c:1043/1058 (menu_drop loop) → js/do.js:3114.
+  - `finesse_ahriman`: sole C caller do.c:762 → js/do.js:2944.
+- **Verify:** `node scripts/verify.mjs --fn drop,finesse_ahriman` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files; rule2 clean; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `drop`: none — every arm ported, every callee live.
+  - `finesse_ahriman`: none — every arm ported, every callee live (`Levitation`, `get_artifact`, `artilist`).
+- **Ledger:** drop ported; finesse_ahriman ported
+- **Next:** head moves to `muse.c` necrophiliac (next coverage row).
+
 ## D-3040 — `options.c` mod-status family whole + donning stale
 
 - **Status:** shipped.

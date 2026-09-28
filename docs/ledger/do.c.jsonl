@@ -7,7 +7,7 @@
 {"fn":"teleport_sink","c":"460-494","status":"unknown"}
 {"fn":"dosinkring","c":"498-661","status":"ported","js":["js/do.js:dosinkring"],"d":["D-2527"],"at":"seed@a30a7de84"}
 {"fn":"canletgo","c":"665-711","status":"partial","js":["js/do.js:canletgo"],"omit":"`ball.js` silent clone omits loadstone/leash gates + corpsenm/`set_bknown` state (avoids do.js cycle; its `ball.c:973` otmp is ball/chain, word=\"\" so no messages); `muse.js` silent clone omits corpsenm reset + `set_bknown` inventory-update side effect (direct `bknown = 1`; word=\"\" so no messages); …","d":["D-2523"],"at":"seed@a30a7de84"}
-{"fn":"drop","c":"714-780","status":"unknown"}
+{"fn":"drop","c":"714-780","status":"ported","js":["js/do.js:drop"],"d":["D-3041"],"at":"2026-09-28@79ab7d2dc"}
 {"fn":"dropx","c":"786-796","status":"unknown"}
 {"fn":"dropy","c":"800-803","status":"unknown"}
 {"fn":"dropz","c":"807-843","status":"unknown"}

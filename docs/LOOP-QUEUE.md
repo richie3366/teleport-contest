@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do.c` drop — coverage PARTIAL (C 46 code L `do.c:714–780` / JS 32 code L in js/do.js; hops —, callers 3, RNG 0, msg 3) @1b942d6a1
 - [ ] `muse.c` necrophiliac — coverage MISSING (C 8 code L `muse.c:2691–2702` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @5469ed258
 - [ ] `explode.c` adtyp_to_expltype — coverage THIN (C 20 code L `explode.c:987–1012` / JS 5 code L in js/explode.js; hops 4, callers 2, RNG 0, msg 0) @953aea809
 - [ ] `read.c` hawaiian_motif — coverage THIN (C 20 code L `read.c:190–221` / JS 3 code L in js/objnam.js; hops 4, callers 2, RNG 0, msg 0) @c01f2bf81
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `role.c` Hello — coverage PARTIAL (C 15 code L `role.c:2120–2140` / JS 10 code L in js/roles.js; hops 3, callers 6, RNG 0, msg 0) @5aadc33ff
 - [ ] `options.c` handler_menu_headings — coverage MISSING (C 7 code L `options.c:5780–5792` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: query_color_attr) @4e6edc522
 - [ ] `mklev.c` find_branch_room — coverage THIN (C 9 code L `mklev.c:1660–1673` / JS 3 code L in js/mklev.js; hops 2, callers 1, RNG 0, msg 0) @4e6edc522
+- [ ] `mon.c` relmon — coverage PARTIAL (C 18 code L `mon.c:2561–2594` / JS 10 code L in js/dog.js; hops 3, callers 6, RNG 0, msg 0) @79ab7d2dc
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

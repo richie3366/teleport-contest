@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3041 `do.c` drop whole + `finesse_ahriman` port
+
+**C locus:** - `drop`: nethack-c/upstream/src/do.c:714–780 — guards `:716–721`, unwield + welded weldmsg `:722–728`, quiver/swap `:729–734`, swallowed verbose into-monster pline `:736–751`, sink ring `:753–757`, levitating freeinv + hitfloor with levhack `:758–772`, altar-gated pline `:774–775`, how_lost + dropx `:777–779`.
+**JS:** - `drop`: js/do.js:2887 export, async (pline/More reach).
+**Change:** restarted `drop` whole in C order with per-arm `:line` cites (same export name/signature); new sync `finesse_ahriman` export in js/artifact.js in C position (after `get_artifact`, before `arti_speak`, mirroring artifact.c order). `ELevitation = W_ART` writes the flat and the uprops table slot (set_spfx_extrinsic convention); the probe saves/clears/restores both stores synchronously. New imports ride existing edges (do.js already imports artifact/do_name/objnam/polyself/wield/const modules; `s_suffix` taken from canonical do_name.js, not the mthrowu.js clone per D-2268).
+**Verify:** `node scripts/verify.mjs --fn drop,finesse_ahriman` → VERIFY: PASS — hidden: none blocked on either (expected for coverage rows); REACH-OK ×2 (smoke spread 24 PASS each); syntax 2 files; rule2 clean; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `drop`: none — every arm ported, every callee live.
+**Next:** head moves to `muse.c` necrophiliac (next coverage row).
 ## 2026-09-28 — D-3040 `options.c` mod-status family whole + donning stale
 
 **C locus:** - `set_option_mod_status`: nethack-c/upstream/src/options.c:9854–9869 — `SET__IS_VALUE_VALID` guard + impossible `:9859–9861`, first prefix match sets `setwhere` `:9864–9867`.

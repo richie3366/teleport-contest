@@ -654,6 +654,56 @@ export function get_artifact(obj) {
 }
 
 /**
+ * C ref: artifact.c finesse_ahriman `:2235–2260` — whole body in C order.
+ * Probe whether dropping obj ends levitation: TRUE only when levitating
+ * via an invoked (W_ARTI) LEVITATION artifact — Heart of Ahriman — so
+ * freeinv() would toggle levitation (`:2242–2247`, `||` short-circuit
+ * kept; non-artifact is `list[ART_NONARTIFACT]` per get_artifact above).
+ * Otherwise save u.uprops[LEVITATION] (`:2254`), clear the float_down
+ * targets (`:2255–2256`), read Levitation (`:2257`), restore (`:2258`).
+ * JS keeps H/ELevitation flats beside the uprops table (set_spfx_extrinsic
+ * convention), so the probe clears and restores both stores. Sync: no
+ * pline/input on this path. Sole C caller: do.c drop `:762`.
+ * @returns {boolean}
+ */
+export function finesse_ahriman(obj) {
+    const list = artilist();
+    const oart = get_artifact(obj);
+    // C `:2244–2246` — guard arms.
+    if (!Levitation()
+        || oart === list[ART_NONARTIFACT]
+        || (oart?.inv_prop | 0) !== LEVITATION
+        || !((game.u?.ELevitation | 0) & W_ARTI))
+        return false;
+    // C `:2254` — save_Lev = u.uprops[LEVITATION] (struct copy).
+    const u = game.u || {};
+    const slot = u.uprops?.[LEVITATION];
+    const saveSlot = slot
+        ? { intrinsic: slot.intrinsic | 0, extrinsic: slot.extrinsic | 0, blocked: slot.blocked | 0 }
+        : null;
+    const saveH = u.HLevitation | 0;
+    const saveE = u.ELevitation | 0;
+    // C `:2255–2256` — HLevitation &= ~(I_SPECIAL|TIMEOUT); ELevitation &= ~W_ARTI.
+    u.HLevitation = saveH & ~(I_SPECIAL | TIMEOUT);
+    u.ELevitation = saveE & ~W_ARTI;
+    if (slot) {
+        slot.intrinsic = (slot.intrinsic | 0) & ~(I_SPECIAL | TIMEOUT);
+        slot.extrinsic = (slot.extrinsic | 0) & ~W_ARTI;
+    }
+    // C `:2257` — result = !Levitation.
+    const result = !Levitation();
+    // C `:2258` — u.uprops[LEVITATION] = save_Lev.
+    u.HLevitation = saveH;
+    u.ELevitation = saveE;
+    if (slot && saveSlot) {
+        slot.intrinsic = saveSlot.intrinsic;
+        slot.extrinsic = saveSlot.extrinsic;
+        slot.blocked = saveSlot.blocked;
+    }
+    return result;
+}
+
+/**
  * C ref: artifact.c arti_speak `:2279–2296` — whole body in C order.
  * Non-artifact or no-SPFX_SPEAK guard returns ECMD_OK (`:2286–2287`;
  * `||` short-circuit kept); else rumor by bless/curse sign (`:2289`
