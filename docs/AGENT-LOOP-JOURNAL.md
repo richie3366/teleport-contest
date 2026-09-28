@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-28 — D-3011 cmd.c key2txt C-wrong `\r → <enter>` arm removed, pager.js clone merged into the export; compactify + invoke_create_portal retired stale
+
+**C locus:** - `key2txt`: `nethack-c/upstream/src/cmd.c:3225–3240` (`' '` → `"<space>"` `:3229`, `'\033'` → `"<esc>"` `:3231`, `'\n'` → `"<enter>"` `:3233`, `'\177'` → `"<del>"` `:3235`, else `visctrl((char) c)` `:3237`).
+**JS:** `js/dokeylist.js:75–85` (export, C order + cites), `js/pager.js:72–76` (import), `js/pager.js:2988–2990` (clone removed), `js/pager.js:3145` (visctrl label), `scripts/key2txt.test.mjs` (new).
+**Change:** export drops `|| c === 13` (per-arm `:line` cites added); pager.js deletes the clone and adds `key2txt` to its existing dokeylist.js import (`imports.mjs --can`: ALREADY imports dokeylist.js — no new edge); the `dowhatdoes` unknown-key label switches to the already-imported `visctrl(q)` per C `:2711`. New maintained test `scripts/key2txt.test.mjs` pins all four arms + the `\r → ^M` fallthrough + visctrl delegation (node:test, existing scripts/ convention).
+**Verify:** - `key2txt`: `node scripts/verify.mjs --fn key2txt` → PASS syntax (2 files) · PASS rule2 · note hidden (no corpus session blocked at baseline — expected) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24/24 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. `node --test scripts/key2txt.test.mjs` → 3 pass / 0 fail (pre-fix probe: export returned `"<enter>"` for 13 vs C `"^M"`).
+**Named:** - `key2txt`: C `:229` cmdq_print `(key:%s)` — the whole function is commented out in C (`/* … */` at cmd.c `:217–220`), dead on both sides; C `:2959` `"[%s]"` — `#else` arm of `#ifndef NO_SIGNAL`, compiled out (NO_SIGNAL undefined); C `:5551` dumplog `key2txt` — `#ifdef DUMPLOG_CORE`, retired by design (D-1776, do not re-enqueue). Window-lifecycle names (`create_nhwindow`/`add_menu`/…) have no scored analogue — untouched by this row.
+**Next:** cmd.c has 0 remaining Open rows; key2txt family complete. Queue head moves to `mkroom.c` rest_rooms.
 ## 2026-09-28 — D-3010 timeout.c lantern_message + see_lamp_flicker extraction; burn_object milestone arms rewired (batteries + MINVENT + s_suffix)
 
 **C locus:** - `lantern_message`: `nethack-c/upstream/src/timeout.c:1359–1376` (INVENT Your + Hallucination batteries `:1364–1367`, FLOOR `:1369–1371`, MINVENT s_suffix(Monnam) `:1373–1374`).

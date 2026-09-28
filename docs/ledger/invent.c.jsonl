@@ -35,7 +35,7 @@
 {"fn":"o_on","c":"1587-1599","status":"unknown"}
 {"fn":"obj_here","c":"1602-1610","status":"unknown"}
 {"fn":"g_at","c":"1613-1623","status":"unknown"}
-{"fn":"compactify","c":"1627-1660","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"compactify","c":"1627-1660","status":"split","js":["js/invent.js:compactify_invlets"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2","note":"stale: full C body as compactify_invlets (:8427); both C callers wired (getobj promptBuf :8925, doorganize_core :9532)"}
 {"fn":"splittable","c":"1664-1668","status":"unknown"}
 {"fn":"taking_off","c":"1672-1675","status":"unknown"}
 {"fn":"mime_action","c":"1678-1706","status":"unknown","d":["D-1579"],"at":"seed@a30a7de84"}

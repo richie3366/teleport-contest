@@ -43,7 +43,7 @@
 {"fn":"invoke_energy_boost","c":"1818-1835","status":"unknown"}
 {"fn":"invoke_untrap","c":"1838-1845","status":"unknown","d":["D-1495"],"at":"seed@a30a7de84"}
 {"fn":"invoke_charge_obj","c":"1848-1864","status":"unknown"}
-{"fn":"invoke_create_portal","c":"1867-1931","status":"unknown"}
+{"fn":"invoke_create_portal","c":"1867-1931","status":"ported","js":["js/artifact.js:invoke_create_portal"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2","note":"stale: whole C body live as file-local js/artifact.js:2024 (D-2664, review 1623 ACCEPT); all arms + sole C caller wired (:2248)"}
 {"fn":"invoke_create_ammo","c":"1934-1960","status":"unknown"}
 {"fn":"invoke_banish","c":"1963-2019","status":"unknown"}
 {"fn":"invoke_fling_poison","c":"2022-2037","status":"unknown"}

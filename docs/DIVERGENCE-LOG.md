@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3011 — cmd.c key2txt C-wrong `\r → <enter>` arm removed, pager.js clone merged into the export; compactify + invoke_create_portal retired stale
+
+- **Status:** shipped (Open — coverage `cmd.c` key2txt PARTIAL (C 11 `cmd.c:3225–3240` / JS 6 in js/dokeylist.js) as head; `rows --file cmd.c` is 0 rows and callee `visctrl` is ported, so the cluster is key2txt + its 19 C call sites. `invent.c` compactify + `artifact.c` invoke_create_portal popped first and retired stale — bodies whole, callers wired.)
+- **Symptom:** the shared `key2txt` export mapped `'\r'` (13) to `"<enter>"` while C `:3233` maps `'\n'` only (`'\r'` → `visctrl` → `"^M"`); `js/pager.js:2990` carried a local clone repeating the `\r` invention and dropping the visctrl M-/^? arms. No corpus session blocked at baseline (expected).
+- **C locus:**
+  - `key2txt`: `nethack-c/upstream/src/cmd.c:3225–3240` (`' '` → `"<space>"` `:3229`, `'\033'` → `"<esc>"` `:3231`, `'\n'` → `"<enter>"` `:3233`, `'\177'` → `"<del>"` `:3235`, else `visctrl((char) c)` `:3237`).
+  - `compactify`: `nethack-c/upstream/src/invent.c:1627–1660` — stale, body whole as `compactify_invlets` (`js/invent.js:8427`).
+  - `invoke_create_portal`: `nethack-c/upstream/src/artifact.c:1867–1931` — stale, body whole as file-local `js/artifact.js:2024` (D-2664, review 1623 ACCEPT).
+- **JS was:** export `key2txt` (`js/dokeylist.js:76`) had `if (c === 10 || c === 13) return '<enter>'`; pager.js had its own diverged `function key2txt(c)` (`:2990–2997`) serving `dowhatdoes_core` (`:3115`) and `dowhatdoes` (`:3152`); worse, the `dowhatdoes` unknown-key site called `key2txt(q)` where C pager.c `:2711` calls `visctrl(q)` (a call from a site C never calls from).
+- **Fix:** export drops `|| c === 13` (per-arm cites added); pager.js deletes the clone, imports the export (already imports dokeylist.js — no new edge); `dowhatdoes` unknown-key label → `visctrl(q)` per C `:2711`. New `scripts/key2txt.test.mjs` pins all four arms + `\r → ^M` + visctrl delegation.
+- **JS:** `js/dokeylist.js:75–85` (export, C order + cites), `js/pager.js:72–76` (import), `js/pager.js:2988–2990` (clone removed), `js/pager.js:3145` (visctrl label), `scripts/key2txt.test.mjs` (new).
+- **Callers** (every C call site in the brief → JS site now wired):
+  - `key2txt` C cmd.c `:2254`+`:2259` BIND → `js/cmd.js:1363` (CMD_PARAM fold pre-existing, review 1509); `:2275` → `:1374`; `:2320` → `:2141`; `:2323` → `:2146`; `:2348` → `:2168`; `:2396` → `:2208`; `:2399` → `:2210`; `:2831`+`:2835` rows → `js/dokeylist.js:648–657`; `:2948` → `:772`; `:2956` → `:778`; `:5085` get_count → `js/cmd.js:4445`; `:5458` yn pick → `js/getline.js:1746`; pager.c `:2593` → `js/pager.js:3115` (now the export); topl.c `:537` → `js/getline.js:1651` (D-1623).
+  - `compactify` C `:1909` (getobj prompt buf) → `js/invent.js:8925` (`promptBuf`, compacted; menu uses uncompacted `rawLets` exactly like C `lets` vs `buf`); C `:5134` (doorganize_core) → `js/invent.js:9532` (`lets.length > 5`, C `cur > 5`).
+  - `invoke_create_portal` C `:2161` CREATE_PORTAL → `js/artifact.js:2248` (`await invoke_create_portal(obj)`).
+- **Verify:**
+  - `key2txt`: `node scripts/verify.mjs --fn key2txt` → PASS syntax (2 files) · PASS rule2 · note hidden (no corpus session blocked at baseline — expected) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24/24 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. `node --test scripts/key2txt.test.mjs` → 3 pass / 0 fail (pre-fix probe: export returned `"<enter>"` for 13 vs C `"^M"`).
+  - `compactify`: stale — `ledger.mjs set compactify split --js js/invent.js:compactify_invlets` (full C body in C order incl. `#`-run arms; `> 5` guards at both JS call sites match C `suggested > 5` / `cur > 5`).
+  - `invoke_create_portal`: stale — `ledger.mjs set invoke_create_portal ported` (all 9 C arms traced to JS `:2039–2088`, five-disjunct gate in C order, review 1623 ACCEPT with REACH-OK smoke 24/24).
+- **Named omissions:**
+  - `key2txt`: C `:229` cmdq_print `(key:%s)` — the whole function is commented out in C (`/* … */` at cmd.c `:217–220`), dead on both sides; C `:2959` `"[%s]"` — `#else` arm of `#ifndef NO_SIGNAL`, compiled out (NO_SIGNAL undefined); C `:5551` dumplog `key2txt` — `#ifdef DUMPLOG_CORE`, retired by design (D-1776, do not re-enqueue). Window-lifecycle names (`create_nhwindow`/`add_menu`/…) have no scored analogue — untouched by this row.
+  - `compactify`: none — every arm ported, both C callers wired (extra JS consumers in write/potion/wield/pickup/apply/artifact mirror their own verbs' getobj prompts with the same `> 5` guard).
+  - `invoke_create_portal`: none — window-handle lifecycle is picker-owned in the JS menu model (review 463 ACCEPT-WITH-DEBT for the header rows); `select_menu` itself is by-design (windows.c, no scored analogue).
+- **Ledger:** compactify split js=js/invent.js:compactify_invlets; invoke_create_portal ported; key2txt ported
+- **Next:** cmd.c has 0 remaining Open rows; key2txt family complete. Queue head moves to `mkroom.c` rest_rooms.
+
 ## D-3010 — timeout.c lantern_message + see_lamp_flicker extraction; burn_object milestone arms rewired (batteries + MINVENT + s_suffix)
 
 - **Status:** shipped (Open — coverage `timeout.c` lantern_message MISSING (C 12 code L `timeout.c:1359–1376` / JS no symbol) as cluster head + same-file staticfn sibling `see_lamp_flicker` MISSING (C 8 code L, below row threshold), both wired into `burn_object`; `dbridge.c` E_phrase + find_drawbridge stale-ported in the same iteration — bodies whole under the same names with every C caller wired in JS).

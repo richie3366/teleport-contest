@@ -112,9 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `invent.c` compactify — coverage MISSING (C 25 code L `invent.c:1627–1660` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @bff5e68ae
-- [ ] `artifact.c` invoke_create_portal — coverage PARTIAL (C 47 code L `artifact.c:1867–1931` / JS 34 code L in js/artifact.js; hops 5, callers 1, RNG 0, msg 3) @da3cb9a9f
-- [ ] `cmd.c` key2txt — coverage PARTIAL (C 11 code L `cmd.c:3225–3240` / JS 6 code L in js/dokeylist.js; hops 2, callers 10, RNG 0, msg 0) @92e07989a
 - [ ] `mkroom.c` rest_rooms — coverage MISSING (C 8 code L `mkroom.c:893–906` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: rest_room) @92e07989a
 - [ ] `worm.c` rest_worm — coverage MISSING (C 18 code L `worm.c:577–603` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @12641c043
 - [ ] `artifact.c` arti_speak — coverage MISSING (C 12 code L `artifact.c:2279–2296` / JS no symbol; hops —, callers 2, RNG 0, msg 1) @fbf84a98f
@@ -124,6 +121,9 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `mthrowu.c` monmulti — coverage PARTIAL (C 33 code L `mthrowu.c:201–258` / JS 21 code L in js/weapon.js; hops 4, callers 1, RNG 1, msg 0) @70c901367
 - [ ] `shk.c` subfrombill — coverage PARTIAL (C 10 code L `shk.c:3694–3710` / JS 7 code L in js/shk.js; hops 3, callers 16, RNG 0, msg 0) @70c901367
 - [ ] `report.c` panictrace_setsignals — coverage MISSING (C 10 code L `report.c:625–657` / JS no symbol; hops 5, callers 3, RNG 0, msg 0) @70c901367
+- [ ] `hacklib.c` tabexpand — coverage PARTIAL (C 18 code L `hacklib.c:429–464` / JS 13 code L in js/pager.js; hops 2, callers 4, RNG 0, msg 0) @bdfaca7a2
+- [ ] `options.c` freeroleoptvals — coverage MISSING (C 4 code L `options.c:787–794` / JS no symbol; hops 4, callers 2, RNG 0, msg 0; dead callees: unsaveoptstr) @bdfaca7a2
+- [ ] `sys.c` sysopt_release — coverage MISSING (C 33 code L `sys.c:115–158` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @bdfaca7a2
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

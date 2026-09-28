@@ -91,7 +91,7 @@
 {"fn":"cmdname_from_func","c":"3106-3155","status":"unknown"}
 {"fn":"bind_specialkey","c":"3194-3205","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spkey_name","c":"3208-3220","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"key2txt","c":"3225-3240","status":"unknown"}
+{"fn":"key2txt","c":"3225-3240","status":"ported","js":["js/dokeylist.js:key2txt"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2"}
 {"fn":"parseautocomplete","c":"3244-3292","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_autocomplete","c":"3296-3308","status":"unknown"}
 {"fn":"count_autocompletions","c":"3312-3322","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
