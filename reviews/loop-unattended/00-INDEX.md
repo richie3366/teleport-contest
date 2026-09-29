@@ -2087,3 +2087,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2075-1a4567167-mon-leave.md](./2075-1a4567167-mon-leave.md) | `1a4567167` | D-3115 mon_leave minvent + residency completion | **ACCEPT** |
 | [2076-c21da30e8-selection-filter-mapchar.md](./2076-c21da30e8-selection-filter-mapchar.md) | `c21da30e8` | D-3116 selection_filter_mapchar restart + guards | **ACCEPT** |
 | [2077-78a21f6e4-assure-syscf-showpaths.md](./2077-78a21f6e4-assure-syscf-showpaths.md) | `78a21f6e4` | D-3117 assure_syscf_file + do_deferred_showpaths + fopen | **ACCEPT** |
+| [2078-c1be7a049-max-passive-resists-fix.md](./2078-c1be7a049-max-passive-resists-fix.md) | `c1be7a049` | D-3118 max_passive_dmg Resists_Elem Must-fix (closes 2070) | **ACCEPT** |
+| [2079-4e2ac5b98-botl-query-closure.md](./2079-4e2ac5b98-botl-query-closure.md) | `4e2ac5b98` | D-3119 botl query closure (3 menus + splitsubfields fix) | **ACCEPT** |
+| [2080-75eb7fe42-num-genocides.md](./2080-75eb7fe42-num-genocides.md) | `75eb7fe42` | D-3120 num_genocides unique arm + do_genocide livelog | **ACCEPT** |
+| [2081-c983587e0-options-term-cluster.md](./2081-c983587e0-options-term-cluster.md) | `c983587e0` | D-3121 options doset-term + roguesymset (9 fns) | **ACCEPT** |
+| [2082-ee5dff112-container-at.md](./2082-ee5dff112-container-at.md) | `ee5dff112` | D-3122 container_at whole-body + pit dirprompt | **ACCEPT** |
+| [2083-cd4bc2a21-make-version.md](./2083-cd4bc2a21-make-version.md) | `cd4bc2a21` | D-3123 make_version whole-body + 9 dispositions | **ACCEPT** |
+| [2084-7e46744a0-hawaiian-design.md](./2084-7e46744a0-hawaiian-design.md) | `7e46744a0` | D-3124 hawaiian_design whole-body + shirt block | **ACCEPT** |
+| [2085-be48bbe4a-reorder-invent.md](./2085-be48bbe4a-reorder-invent.md) | `be48bbe4a` | D-3125 reorder_invent gold-arm fix + 2 stale | **ACCEPT** |
+| [2086-eeb30e858-artifact-abil-cluster.md](./2086-eeb30e858-artifact-abil-cluster.md) | `eeb30e858` | D-3126 artifact abil_to_adtyp + what_gives + arti_immune | **ACCEPT** |

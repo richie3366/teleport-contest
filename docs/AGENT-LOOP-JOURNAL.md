@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — Audit 2078-2086 (D-3118..D-3126): 9 ACCEPT; full cadence
+
+Reviews 2078-2086 audit c1be7a049..eeb30e858 against pinned C (Resists_Elem Must-fix closing 2070, botl 4-fn query closure, num_genocides+livelog, options 9-fn term cluster, container_at+dirprompt, make_version+9 dispositions, hawaiian_design+shirt block, reorder gold-arm fix, artifact 5-fn abil cluster): 9 ACCEPT, no Must-fix. Every corpus claim re-measured with --reach-all (all vacuous + REACH-OK, no REGRESSED). Cadence: public 44/44, corpus 648/953 (0 flips, full:true), held-out 13/44 flat. Ledger snapshot + 5/5 seeded-ported sample live.
 ## 2026-09-29 — D-3126 `artifact.c` abil_to_adtyp whole-body + what_gives completion + arti_immune (coverage)
 
 **C locus:** - `abil_to_adtyp`: artifact.c:2320–2341 (7-row static table, linear scan, 0 default); sole caller what_gives :2389.
