@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3082 — get_uchars wait_synch: named omit + ledger partial (review 2041 Must-fix)
+
+- **Status:** shipped (Must-fix — review 2041 Keep'd C-wrong on D-3081; ships alone)
+- **Symptom:** D-3081 dropped C cfgfiles.c:433 `wait_synch()` from the `get_uchars` error arm behind a false "empty macro in this TU" claim — the empty `#define` is `#ifdef SFCTOOL`-only (:116–120); the game build calls the real window sync (winprocs.h:140), which blocks (wintty.c:3624–3631). No corpus session blocked (Must-fix fidelity row; REACH-OK is the evidence).
+- **C locus:**
+  - `get_uchars`: nethack-c/upstream/src/cfgfiles.c:380–437 (error arm :427–435)
+- **JS was:** js/cfgfiles.js get_uchars with "wait_synch() is an empty macro in this TU (cfgfiles.c:120) — no-op" doc + inline comment; ledger `ported` with "none — whole body".
+- **Fix:**
+  - `get_uchars`: named the omit in the doc comment (windowed input boundary; game build blocks in tty_wait_synch; the config parser stays sync — parseautocomplete js/cmd.js:2265 precedent) + inline `// C :433 wait_synch — named omission`. No behavior change: wiring the async tty_wait_synch would cascade async through both handlers, the configLineStmt table, parse_config_line and parse_conf_buf for a malformed-config error arm.
+- **JS:** js/cfgfiles.js:442 doc, :479 inline; new scripts/get-uchars.test.mjs (3 node:test cases driving the error arm via exported parse_config_line).
+- **Callers:**
+  - `get_uchars`: C cnf_line_BOULDER :1158 wired (js/cfgfiles.js:562); C cnf_line_WARNINGS :1185 wired (:575). Unchanged.
+- **Verify:** `node --test scripts/get-uchars.test.mjs` 3/3 · `node scripts/verify.mjs --fn get_uchars` → PASS syntax (1 file: js/cfgfiles.js) · PASS rule2 · `no corpus session is blocked` + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- **Named omissions:**
+  - `get_uchars`: wait_synch `:433` (windowed input boundary; game build blocks in tty_wait_synch wintty.c:3624–3631; config parser stays sync — parseautocomplete precedent).
+- **Ledger:** get_uchars partial
+- **Next:** none — Must-fix closed; wiring live tty_wait_synch would need an async config-parser campaign, not queued (phase 2).
+
 ## D-3081 — cfgfiles.c config-line family: get_uchars + 9 cnf_line_* handlers
 
 - **Status:** shipped (breadth — queue row get_uchars + 8 same-file named_true rows + BINDINGS; head adjust_prefix by-designed, NOCWD-only)

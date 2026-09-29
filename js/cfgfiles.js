@@ -439,7 +439,10 @@ function cnf_store_str(key, bufp) {
  * C ref: cfgfiles.c get_uchars `:380–437` (staticfn → file-local).
  * C callers: cnf_line_BOULDER `:1158`, cnf_line_WARNINGS `:1185` (both wired
  * below). list is a number array; the C `uchar` store narrows (`& 0xFF`).
- * C wait_synch() is an empty macro in this TU (cfgfiles.c:120) — no-op.
+ * Named omission: wait_synch `:433` (windowed input boundary — game build
+ * blocks in tty_wait_synch, wintty.c:3624–3631; the `:120` empty `#define`
+ * is `#ifdef SFCTOOL`-only, :116–120 — the config parser stays sync,
+ * parseautocomplete js/cmd.js precedent).
  * @param {string} bufp
  * @param {number[]} list
  * @param {boolean} modlist
@@ -473,7 +476,7 @@ function get_uchars(bufp, list, modlist, size, name) {
             i++; // C `:424`
         } else { // C `:427–435` case '\\' goto gi_error + default
             raw_printf('Syntax error in %s', name); // C `:432`
-            /* wait_synch() — empty macro here, no-op */
+            // C `:433` wait_synch — named omission (see doc comment).
             return count; // C `:434`
         }
     }

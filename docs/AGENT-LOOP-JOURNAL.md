@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3082 get_uchars wait_synch: named omit + ledger partial (review 2041 Must-fix)
+
+**C locus:** - `get_uchars`: nethack-c/upstream/src/cfgfiles.c:380–437 (error arm :427–435)
+**JS:** js/cfgfiles.js:442 doc, :479 inline; new scripts/get-uchars.test.mjs (3 node:test cases driving the error arm via exported parse_config_line).
+**Change:** - `get_uchars`: named the omit in the doc comment (windowed input boundary; game build blocks in tty_wait_synch; the config parser stays sync — parseautocomplete js/cmd.js:2265 precedent) + inline `// C :433 wait_synch — named omission`. No behavior change: wiring the async tty_wait_synch would cascade async through both handlers, the configLineStmt table, parse_config_line and parse_conf_buf for a malformed-config error arm.
+**Verify:** `node --test scripts/get-uchars.test.mjs` 3/3 · `node scripts/verify.mjs --fn get_uchars` → PASS syntax (1 file: js/cfgfiles.js) · PASS rule2 · `no corpus session is blocked` + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+**Named:** - `get_uchars`: wait_synch `:433` (windowed input boundary; game build blocks in tty_wait_synch wintty.c:3624–3631; config parser stays sync — parseautocomplete precedent).
+**Next:** none — Must-fix closed; wiring live tty_wait_synch would need an async config-parser campaign, not queued (phase 2).
 ## 2026-09-29 — Audit 2033–2041 (D-3073..D-3081): 6 ACCEPT, 1 WITH-DEBT, 2 QUALITY-RISK; full cadence
 
 Reviews 2033–2041 over 9 js SHAs since aa12e06ff. ACCEPT: 2033 query_color Must-fix (menu-earlier verified arm-by-arm), 2034 zap sextet (zhitu 17/17 reach), 2036 trap pair, 2037 random_dir, 2038 eat cluster, 2039 cmd pair. WITH-DEBT: 2040 complex_dump trailing-space (JS 40 vs C 39 chars; sink voided — live debt). QUALITY-RISK + Must-fix: 2035 creation class-d (creates urole.mnum, C mkclass — D-log containment claim false), 2041 get_uchars wait_synch (empty-macro claim false — SFCTOOL-only ifdef; game build blocks). Fortress 44/44 (RNG 792,838, Scr 11,405); corpus 639/953 (+8, 0 flips, full:true); held-out 13/44 (+1). Next: Must-fix get_uchars wait_synch, then creation class-d.

@@ -3,7 +3,7 @@
 {"fn":"do_write_config_file","c":"169-210","status":"unknown","d":["D-2553"],"at":"seed@a30a7de84"}
 {"fn":"set_configfile_name","c":"216-220","status":"unknown"}
 {"fn":"fopen_config_file","c":"223-372","status":"unknown"}
-{"fn":"get_uchars","c":"381-437","status":"ported","js":["js/cfgfiles.js:get_uchars"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_uchars","c":"381-437","status":"partial","js":["js/cfgfiles.js:get_uchars"],"omit":"- `get_uchars`: wait_synch `:433` (windowed input boundary; game build blocks in tty_wait_synch wintty.c:3624–3631; config parser stays sync — parseautocomplete precedent).","d":["D-3082","D-3081"],"at":"2026-09-29@d99b5351a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"adjust_prefix","c":"441-459","status":"by-design","at":"2026-09-29@10017887d","note":"NOCWD_ASSUMPTIONS-only (cfgfiles.c:439-459 ifdef; unix build leaves it undefined — only windconf/pcconf/amiconf define it); unix callers compile to nhUse+TRUE, wired as cnf_line_nhUse js/cfgfiles.js:513"}
 {"fn":"choose_random_part","c":"464-504","status":"unknown"}
 {"fn":"free_config_sections","c":"507-517","status":"unknown"}

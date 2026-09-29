@@ -105,3 +105,5 @@ vacuous) + ten 24/24 smokes → REACH-OK, 0 regressed
    wire the already-imported live tty_wait_synch.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3082

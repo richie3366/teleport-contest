@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-29
 
+- [x] `cfgfiles.c` get_uchars wait_synch — C cfgfiles.c:433 `wait_synch()` dropped from the error arm behind a false empty-macro claim (the `#define` is `#ifdef SFCTOOL`-only, :116–120; game build calls the real window sync, winprocs.h:140, which blocks — wintty.c:3624–3631); name the omit + ledger partial (D-3079 precedent) or wire live tty_wait_synch. Source: reviews/loop-unattended/2041-7ec9a24df-cfgfiles-family.md. **Addressed:** D-3082
+
+
 - [x] `query_color` PICK_ONE menu-earlier — C coloratt.c:505–508 returns menu-earlier(preselected, explicit) (tty toggle-and-finish + menu-order picks, wintty.c:1755–1759/:2808–2817) but js/options.js `query_color` returns the explicit pick: dflt X≠NO_COLOR + letter-Y-after-X yields X in C, Y in JS (D-3071 "provably dead" proof insufficient — gate-dead ⟹ menu-earlier, not explicit). Fix: index-compare, return X when Y sorts strictly after X; headless test both orders. Source: reviews/loop-unattended/2031-7e25e3c42-coloratt-cluster.md **Addressed:** D-3073 `107847759`
 
 ## 2026-09-28
