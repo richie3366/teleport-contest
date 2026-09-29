@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mklev.c` add_door — coverage PARTIAL (C 25 code L `mklev.c:574–612` / JS 14 code L in js/mklev.js; hops 4, callers 2, RNG 0, msg 0) @ebd112f3b
-- [ ] `mkroom.c` nexttodoor — coverage PARTIAL (C 10 code L `mkroom.c:623–637` / JS 7 code L in js/fountain.js; hops 3, callers 2, RNG 0, msg 0) @ebd112f3b
 - [ ] `mkobj.c` peek_at_iced_corpse_age — coverage PARTIAL (C 9 code L `mkobj.c:2423–2437` / JS 6 code L in js/mkobj.js; hops 4, callers 4, RNG 0, msg 0) @671c54bfc
-- [ ] `light.c` delete_ls — coverage PARTIAL (C 17 code L `light.c:142–165` / JS 9 code L in js/light.js; hops 3, callers 2, RNG 0, msg 0) @671c54bfc
-- [ ] `role.c` pick_race — coverage PARTIAL (C 15 code L `role.c:1081–1102` / JS 10 code L in js/player_selection.js; hops —, callers 2, RNG 1, msg 0) @671c54bfc
-- [ ] `role.c` pick_gend — coverage PARTIAL (C 15 code L `role.c:1146–1167` / JS 10 code L in js/player_selection.js; hops —, callers 2, RNG 1, msg 0) @671c54bfc
-- [ ] `role.c` pick_align — coverage PARTIAL (C 15 code L `role.c:1211–1232` / JS 10 code L in js/player_selection.js; hops —, callers 2, RNG 1, msg 0) @671c54bfc
-- [ ] `do_name.c` objtyp_is_callable — coverage PARTIAL (C 22 code L `do_name.c:429–463` / JS 16 code L in js/do_name.js; hops 5, callers 3, RNG 0, msg 0) @671c54bfc
-- [ ] `cfgfiles.c` choose_random_part — coverage PARTIAL (C 29 code L `cfgfiles.c:464–504` / JS 18 code L in js/cfgfiles.js; hops —, callers 1, RNG 1, msg 0) @671c54bfc
-- [ ] `muse.c` mon_likes_objpile_at — coverage PARTIAL (C 11 code L `muse.c:1395–1415` / JS 7 code L in js/muse.js; hops 2, callers 1, RNG 0, msg 0) @671c54bfc
-- [ ] `pickup.c` pickup_prinv — coverage PARTIAL (C 16 code L `pickup.c:1948–1972` / JS 11 code L in js/pickup.js; hops 3, callers 2, RNG 0, msg 0) @671c54bfc
-- [ ] `sp_lev.c` l_get_lregion — coverage MISSING (C 16 code L `sp_lev.c:5410–5436` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @ad1aa7146
+- [ ] `version.c` copyright_banner_line — coverage MISSING (C 9 code L `version.c:471–490` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @d27c7b945
+- [ ] `report.c` NH_panictrace_libc — coverage MISSING (C 13 code L `report.c:485–512` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: submit_web_report) @d27c7b945
+- [ ] `options.c` test_regex_pattern — coverage THIN (C 18 code L `options.c:7871–7901` / JS 7 code L in js/options.js; hops —, callers 4, RNG 0, msg 0) @d27c7b945
+- [ ] `dog.c` mon_leave — coverage PARTIAL (C 15 code L `dog.c:729–763` / JS 7 code L in js/dog.js; hops 3, callers 2, RNG 0, msg 0) @d27c7b945
+- [ ] `region.c` add_rect_to_reg — coverage PARTIAL (C 17 code L `region.c:133–155` / JS 9 code L in js/region.js; hops 4, callers 4, RNG 0, msg 0) @d27c7b945
+- [ ] `selvar.c` selection_filter_mapchar — coverage PARTIAL (C 25 code L `selvar.c:248–281` / JS 18 code L in js/mklev.js; hops —, callers 1, RNG 1, msg 0) @d27c7b945
+- [ ] `options.c` txt2key — coverage THIN (C 50 code L `options.c:6971–7067` / JS 21 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @d27c7b945
+- [ ] `botl.c` status_hilites_viewall — coverage PARTIAL (C 12 code L `botl.c:4456–4474` / JS 7 code L in js/botl.js; hops —, callers 1, RNG 0, msg 1) @d27c7b945
+- [ ] `cfgfiles.c` assure_syscf_file — coverage MISSING (C 12 code L `cfgfiles.c:2031–2068` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @d27c7b945
+- [ ] `uhitm.c` dynamic_multi_reason — coverage PARTIAL (C 12 code L `uhitm.c:104–123` / JS 7 code L in js/uhitm.js; hops 3, callers 2, RNG 0, msg 0) @d27c7b945
+- [ ] `dbridge.c` get_wall_for_db — coverage PARTIAL (C 13 code L `dbridge.c:211–227` / JS 7 code L in js/dbridge.js; hops 4, callers 4, RNG 0, msg 0) @d27c7b945
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

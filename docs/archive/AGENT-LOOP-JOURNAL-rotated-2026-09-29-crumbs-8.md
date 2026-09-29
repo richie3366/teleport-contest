@@ -1,17 +1,41 @@
-# Agent loop journal
+# Rotated from AGENT-LOOP-JOURNAL.md (18 crumbs; live kept 10)
 
-Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
-Each agent process should add a short dated entry **at the top** (after
-this header) before exiting. Keep entries tight; detailed hypothesis
-lives in `NOTES.md` / `CURRENT.md`.
-The next agent reads **only this file** (latest ~10 entries), not the
-archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
-`node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
-## 2026-09-29 — D-3111 `options.c` test_regex_pattern + change_inv_order (THIN→whole + MISSING→whole; 16 stale rows declared)
+## 2026-09-29 — D-3101 dungeon.c init_dungeon_branches + nhlua get_table_int/int_opt/option: branch-parse restart (coverage)
 
-**C locus:** - `test_regex_pattern`: `nethack-c/upstream/src/options.c:7869–7901` (NULL-only `!str` `:7878–7879`, errmsg default `:7880–7881`, regex_init `:7883`, !match sink `:7884–7887`, compile `:7889`, error_desc `:7893`, free-before-message `:7895`, failure sink `:7897–7898`).
-**JS:** js/options.js (+64/−10).
-**Change:** js/options.js only — completed `test_regex_pattern` (`:5300`) in C order (NULL-only str gate so `""` compiles like C, `'NHregex error'` default, live config_error_add sink calls with C formats, OOM free-before-message order; `re_error_desc` named omit). New file-local `change_inv_order` (`:5324`) in C order over the number-array inv_order model (C index bytes): GOLD_SYM `'## 2026-09-29 — D-3110 mondata.c max_passive_dmg restart + ranged_attk/can_track/levl_follower/is_fshk (coverage)
+**C locus:** - `init_dungeon_branches`: nethack-c/upstream/src/dungeon.c:866–930 (static tables `:872–879`, len `:885–888`, row reads `:893–900`, stores `:905–910`, chain `:911–921`, not-a-hash `:924`, tally `:927–929`).
+**JS:** js/dungeon.js:816 init_dungeon_branches, js/dungeon.js:328 get_table_int, js/dungeon.js:343 get_table_int_opt, js/dungeon.js:410 get_table_option, js/dungeon.js:174 tables. No new module edges (all file-local).
+**Change:** restart in C order mirroring init_dungeon_levels. Static 2i tables as BR_DIR_STRS/BITS + BR_TYPE_STRS/BITS (get_dgn_align precedent; C's trailing terminator slots unreachable — checkoption returns 0..3); lua_len + per-row table check with the `:924` not-a-hash throw; name/chainlevel/base/range through the live get_table_* readers; branchtype/direction through live get_table_option; slot assigned before stores (`:901`); BRANCH/CHAINBRANCH debugplines via live debugpline_dungeon; `!= null` chain test (C `:911` is a pointer test — `""` still chains); chain loop at the exact `:913` bound with the invented fallback loop deleted (real chained branches f=1,2,4 target oracle/castle, found in-loop — verified in dungeonProto); `?.` skips the past-prefix hole where C reads past the filled array for f>=1 (no match there by construction). Readers restarted as C-order getfield/check/pop with per-line cites; int_opt restructured to ret=defval + nil-test (was early-return).
+**Verify:** `verify.mjs --fn init_dungeon_branches,get_table_int,get_table_int_opt,get_table_option` → syntax/rule2 PASS; all four `no corpus session blocked` + `fixed smoke spread (24 run): 24 PASS, 0 regressed → REACH-OK`; green 2/2 + strict 2/2 PASS; cohort 7/7 PASS; VERIFY: PASS. Full `frozen/ps_test_runner.mjs sessions` (fallback-loop removal is load-path): 44/44 PASS, Scr/RNG exact.
+**Named:** - `init_dungeon_branches`: none in-body — whole body, every callee live (get_table_* file-locals, debugpline_dungeon, strcmp, lua_len/lua_type) or house-mapped (panic≡throw, free≡GC, lua stack≡object reads).
+**Next:** queue head `read.c` forget (PARTIAL C11/JS7, RNG 1).
+
+## 2026-09-29 — D-3100 wizcmds.c wiz_show_wmodes + wiz_objprobs: wizard dump pair + # runners (coverage)
+
+**C locus:** - `wiz_show_wmodes`: nethack-c/upstream/src/wizcmds.c:656–689 (istty `:663`, tty blank `:666–667`, cell arms `:671–680`, &row[1] `:682–684`, display/destroy `:686–688`); dispatch cmd.c:2002–2003 "wmode" IFBURIED|AUTOCOMPLETE|WIZMODECMD.
+**JS:** js/wizcmds.js:2243 wiz_show_wmodes, js/wizcmds.js:2297 wiz_objprobs (const.js + objects.js imports extended — no new module edges; imports.mjs: objects.js ALREADY); js/getline.js:991 'wmode' (wiz, autocomplete), js/getline.js:1003 'wizobjprobs' (wiz, no autocomplete); scripts/wmode-wizobjprobs-runners.test.mjs (D-3092 pattern).
+**Change:** new async exports in C order with per-arm `:line` cites. wmodes: constant-true istty gate in C position (scored port is tty — options.js windowport_tty() idiom), `game.level.at` cells with STONE unloaded-guard (wiz_map_levltyp idiom), verbatim 5-arm chain via live IS_WALL/SDOOR/CORR/IS_ROOM/IS_DOOR/WM_MASK (const.js enum verified identical to rm.h, STONE=0 both sides — `IS_WALL(0)` false in C and JS alike, so STONE renders 'x' in both), &row[1]≡x=1..79 run (wiz_show_vision idiom), show_text_pages NHW_TEXT idiom. objprobs: game.objects totals loop, OBJ_NAME≡generated objectNameStrs (null≡placeholder skip before the class-break test), Math.fround C-float division + padStart widths for "%4d / %4d (%6.2f%%): %s". Bodies + EXT_CMDS runners ship together (unlike D-3085, whose missing runners became review-2045 Must-fix D-3092).
+**Verify:** - `wiz_show_wmodes`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed). /tmp/wizcapture2.mjs (loader-stubbed pager): 22 captured lines — tty blank top, 79-char rows, wall '5'/sdoor '2'/#/././x arms + '@' hero + STONE→'x' all match C.
+**Named:** - `wiz_show_wmodes`: none in-body — whole body, every callee/macro live.
+**Next:** extractor DEBUG-premise revisit (would activate typed-`#` for the three dormant DEVEL runners) — out of cluster scope, needs its own iteration.
+
+## 2026-09-29 — Audit 2051–2059: 9A/0Q; public 44/44, corpus 648/953 (+0, 0 flips, full)
+
+**Reviews:** 2051 A (wizcustom/wizkill runners Must-fix), 2052 A (vision/wizmondiff runners Must-fix), 2053 A (mhitm_ad_ssex dispatcher; could_seduce export-block sym gap noted), 2054 A (pfxfn_cond_ cluster; set_hidden unreachability + useroption uniqueness proved), 2055 A (fix_curse_trouble restart), 2056 A (validspecmon + isspecmon; m_id-0 claim proved both sides), 2057 A (burn_object restart, arm-for-arm), 2058 A (config_erradd in_lua + parse_conf_file rename), 2059 A (selection_getbounds canonical, all 17 C sites accounted). All re-measures REACH-OK, 0 regressed. Held-out 13/44 flat. 5 seeded rows briefed, sound (sqlite absent, NOTES-known). Must-fix empty. Next: coverage head do_name.c bogusmon.
+
+## 2026-09-29 — D-3099 selvar.c selection_getbounds: canonical export, 3 clones retired, 16 C sites wired (coverage)
+
+**C locus:** - `selection_getbounds`: nethack-c/upstream/src/selvar.c:76–95 (guard `:80–81`, recalc `:82`, empty→full `:84–89`, stored `:90–94`).
+**JS:** js/mklev.js:29715 selection_getbounds; call sites mklev.js:1819/4398/29128/29215/29237/29751/29776/30575, region.js:1218 (import :58), cmd.js:3831/3846/3877/3891/3903 (import :123; existing edges extended, no new module edge).
+**Change:** canonical `export function selection_getbounds(sel, b)` in mklev.js in C order (`!sel||!b` guard, live selection_recalc_bounds, `sel.wid ?? COLNO` empty test, out-param writes); retired all 3 clones + the lspo inline copy; routed every rect-reading caller through it (out-param form, `NhRect rect` locals).
+**Verify:** - `selection_getbounds`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `selection_getbounds`: nhlsel.c:459 `sel:bounds()` Lua bridge (no JS Lua-selection bridge method and zero repo callers — surfaces if des Lua ever calls it).
+**Next:** standalone selection_is_irregular / selection_size_description mklev exports (only dolookaround-local look_sel_* versions exist) when the generated block surfaces them.
+` prepend, def_char_to_objclass + MAXOCLASSES gate, includes() for both strchr membership tests, char-based dup via indexOf on the op remainder, push for strkitten, MAXOCLASSES-1 truncation, same-buffer Strcpy replace. No new imports (objects.js/botl.js/hacklib.js edges all pre-existing).
+**Verify:** `node scripts/verify.mjs --fn test_regex_pattern,change_inv_order` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `test_regex_pattern`: regex_error_desc (sys/ port, no src/*.c body; value flows only into the config sink — msgtype_add/coloratt precedent).
+**Next:** next Open — coverage row (peek_at_iced_corpse_age unless refilled).
+
+## 2026-09-29 — D-3110 mondata.c max_passive_dmg restart + ranged_attk/can_track/levl_follower/is_fshk (coverage)
 
 **C locus:** - `max_passive_dmg`: nethack-c/upstream/src/mondata.c:720–767 (multi2 contact loop, complete-burn/rot/rust `:749–752` → magr.mhp, elemental/PHYS dice `damn||mlevel+1` × damd × multi2).
 **JS:** js/mhitm.js:2299, js/mondata.js:1235, js/monsters.js:403 (+ set_can_track_excalibur_hook above, bound js/artifact.js:920), js/dog.js:346, js/shk.js:237.
@@ -19,6 +43,7 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn max_passive_dmg,ranged_attk,can_track,levl_follower,is_fshk` → VERIFY: PASS; per-function hidden note (no corpus session blocked — coverage row) + REACH-OK (no RNG-tagged reach; 24-session smoke spread 24 PASS each); syntax 6 files; rule2; green 2/2; strict ×2; cohort 7/7. First run FAILed cohort 0/7 on the monsters→artifact TDZ (fixed via late-bind, re-ran PASS).
 **Named:** - `max_passive_dmg`: none — whole body, every callee live.
 **Next:** queue head now `mklev.c` add_door (coverage PARTIAL); mondata.c remainder verified shipped-undeclared (name_to_monclass mon.c:5124 caller belongs to the unported wiz_force family — left unknown) or deferred (monstseesu 59-caller audit, sliparm dup-canonical).
+
 ## 2026-09-29 — D-3109 sounds.c activate_chosen_soundlib port + 6 same-file dispositions (coverage)
 
 **C locus:** - `activate_chosen_soundlib`: nethack-c/upstream/src/sounds.c:1779–1795 (idx `:1781`, IndexOk panic `:1783–1784`, exit arm `:1786–1788`, struct copy `:1790`, init `:1791–1792`, active/chosen publish `:1793–1794`); table sounds.c:1726–1776 (nosound-only in contest build), soundprocs BSS global `:1693`; sole scored caller allmain.c:703 init_sound_disp_gamewindows (options.c:3839 + unixmain.c:111 refs are comments).
@@ -27,9 +52,11 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn activate_chosen_soundlib,mon_is_gecko,dotalk,cry_sound,maybe_play_sound,sound_matches_message,play_sound_for_message` → VERIFY: PASS (syntax 2 files js/allmain.js js/options.js · Rule #2 · hidden notes `no corpus session blocked` ×7 · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS each → REACH-OK ×7 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 auto, shared file).
 **Named:** - `activate_chosen_soundlib`: none — whole body, panic ≡ throw; SND_LIB_* rows stay compiled out (contest table is nosound-only).
 **Next:** `mondata.c` max_passive_dmg (next queue head; PARTIAL 39C/28JS in js/mhitm.js).
+
 ## 2026-09-29 — Audit 2060–2068 (D-3100..D-3108): 9 ACCEPT; full cadence
 
 Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, forget/drain, makemon 9-fn, earlyarg 9-fn, hack 10-fn, append_str, makemap_remove_mons, crashreport_init): all ACCEPT, no Must-fix. Re-measured every corpus claim with `--reach-all` (m_initgrp 147/147, m_initthrow 153/153); `--can` on D-3103/D-3107 edges returns ALREADY (no new edges). Cadence: public 44/44 (Scr 11,405, RNG 792,838, `271+1.62/turn`); corpus 648/953, RNG 96.75%, screens 90.7%, 0 flips, `full: true`; held-out 13/44 flat. Ledger snapshot + 5/5 seeded-ported sample live.
+
 ## 2026-09-29 — D-3108 report.c crashreport_init degenerate port + 2 stale pops (coverage)
 
 **C locus:** - `crashreport_init`: nethack-c/upstream/src/report.c:112–174 (once `:115–117`, HASH decl/init `:118–122`, BINFILE readlink `:123`, open `:125–131` with BETA raw_printf `:127–129`, 4K read loop `:133–143`, finish `:144–147`, hex `:148–164`, skip bid `:168–169` + nhUse `:172–173`; bid static `:107–109`); sole caller allmain.c:38 early_init (`#ifdef CRASHREPORT`, active on Linux via config.h:244-254).
@@ -38,6 +65,7 @@ Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, for
 **Verify:** `node scripts/verify.mjs --fn crashreport_init` → VERIFY: PASS (syntax 1 file js/report.js · Rule #2 · hidden note `no corpus session blocked` · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped, no shared file).
 **Named:** - `crashreport_init`: report.c:118–166 binary self-hash (HASH_BINFILE readlink `:123`, open `:125`, read loop `:133–143`, nhmd4 init/update/finish `:120–122`/`:137–138`/`:144–145`, hex `:148–164` — Rule #2, no /proc or fd I/O) + caller early_init unported; BETA raw_printf `:127–129` compiled out (no BETA in contest build).
 **Next:** `rumors.c` init_oracles (next in queue order; review 1562 ACCEPTs the embed port — stale-check, then ship the head).
+
 ## 2026-09-29 — D-3107 wizcmds.c makemap_remove_mons + makemap_unmakemon whole (coverage)
 
 **C locus:** - `makemap_remove_mons`: nethack-c/upstream/src/wizcmds.c:110–150 (keepdogs(TRUE) `:116`, fmon unmake `:118–123` with DEADMONSTER skip `:120–121`, migrating home-level unmake `:132–142`, dmonsfree `:144`, fmon-empty `:145–146`); sole caller cmd.c:992 makemap_prepost(pre).
@@ -46,6 +74,7 @@ Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, for
 **Verify:** `node scripts/verify.mjs --fn makemap_remove_mons,makemap_unmakemon` → VERIFY: PASS (syntax 1 file js/wizcmds.js · Rule #2 · hidden notes `no corpus session blocked` ×2 · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS each → REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full skipped, no shared file). `node --test scripts/makemap-remove-mons.test.mjs`: 3/3 pass.
 **Named:** - `makemap_remove_mons`: none — whole body, every callee live (keepdogs, dmonsfree, impossible, on_level).
 **Next:** `region.c` visible_region_summary (next queue head; PARTIAL 22C/14JS, region summary text).
+
 ## 2026-09-29 — D-3106 pager.c append_str: impossible arm + NULL-exact strstri test (coverage)
 
 **C locus:** - `append_str`: nethack-c/upstream/src/pager.c:82–104 (strstri guard `:89–90`, overfull `:92–97` with impossible `:93–95`, sep strncat `:100–101`, new_str strncat `:102–103`); 11 live callers in do_screen_description (`:1237`, `:1317`, `:1342`, `:1353`, `:1400`, `:1417`, `:1428`, `:1441`, `:1520`, `:1538`) + `:1559` inside `#if 0`.
@@ -54,6 +83,7 @@ Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, for
 **Verify:** `node scripts/verify.mjs --fn append_str` → VERIFY: PASS (syntax 1 file js/pager.js · Rule #2 · hidden note `no corpus session blocked` · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped, no shared file).
 **Named:** - `append_str`: none — whole body; impossible is fire-and-forget rather than awaited (sync boundary, named precedent above), message text C-exact.
 **Next:** `wizcmds.c` makemap_remove_mons (next queue head; callee makemap_unmakemon ships in its closure).
+
 ## 2026-09-29 — D-3105 hack.c breadth cluster: rounddiv canonical + showdamage/doorless whole + to_any family + rock/notice completes (coverage)
 
 **C locus:** - `rounddiv`: nethack-c/upstream/src/hack.c:4550–4572 (divsgn `:4554`, y==0 panic `:4556–4557`, y-sign `:4558–4561`, x-sign `:4562–4565`, trunc `:4566`, mod `:4567`, half-up `:4568–4569`, return `:4571`); callers eat.c:3058, mthrowu.c:236, polyself.c:390/:396/:404/:409.
@@ -62,6 +92,7 @@ Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, for
 **Verify:** `node scripts/verify.mjs --fn rounddiv,showdamage,doorless_door,rock_disappear_msg,moverock_done,uint_to_any,long_to_any,monst_to_any,obj_to_any,notice_mons_cmp` → VERIFY: PASS (syntax 9 files · Rule #2 · 10× `no corpus session blocked` note + REACH-OK smoke 24/24 each · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 auto on shared files). /tmp/d3105-probe.mjs: 24/24 C-transcribed checks (rounddiv matrix incl. half-up, signs, 2^32 no-wrap, both panic arms; uint wrap; long identity; showdamage guards). Probe stays in /tmp.
 **Named:** - `rounddiv`: none — whole body, panic live (leaf).
 **Next:** showdamage's losehp arms want a sync-losehp/async-conversion iteration of their own; hack.c remainder Open (check_capacity sync-stash vs C async pline + 13 callers, findtravelpath MISSING C157, dump_weights THIN) for future same-file clusters.
+
 ## 2026-09-29 — D-3104 earlyarg.c breadth cluster: lopt matcher + early_options scan + consume/terminate/usage/scores/dump tails (coverage)
 
 **C locus:** - `lopt`: nethack-c/upstream/src/earlyarg.c:71–144 (first-letter gate `:86`, `=`/`:` split `:100–101`, prefix/one-letter arms `:107–131`, `#if 0` `:120–124` compiled out, nextarg consume `:132–141`); 6 early_options sites `:245`,`:262–263`,`:272`,`:290`,`:315`,`:340`.
@@ -70,6 +101,7 @@ Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, for
 **Verify:** `node scripts/verify.mjs --fn lopt,early_options,consume_arg,consume_two_args,opt_terminate,opt_usage,after_opt_showpaths,scores_only,dump_glyphids` → VERIFY: PASS (syntax · Rule #2 · 9× `no corpus session blocked` note + REACH-OK smoke 24/24 each · green 2/2 · strict ×2 · cohort 7/7; no shared file → full skipped). /tmp/lopt-probe.mjs: 22/22 C-transcribed checks (`-wfoo`/`-w:foo`/`-windowtype=`/`-d`×2/`-n`×3/`?`/`--showpaths`/rotation/`-u`×2/bare-`-w`/default/`-decgraphics` e-guard/`--help`/empty-nextarg/after_opt_showpaths/argcheck-2); `-s` one-shot exits 1/0 via live initoptions+prscore+nh_terminate. No maintained harness in repo (sessions+verify are the gates); probe stays in /tmp.
 **Named:** - `lopt`: none — every callee live (config_erradd core, eos).
 **Next:** opt_usage's genl_display_file(USAGEHELP) rendering if a usage-text channel ever exists; earlyarg.c otherwise fully declared.
+
 ## 2026-09-29 — D-3103 makemon.c breadth cluster: mongen-order comparator/dump + furies whole, 5 verified-complete declarations (coverage)
 
 **C locus:** - `check_mongen_order`: nethack-c/upstream/src/makemon.c:1783–1802 — whole body inside `#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)` (`:1779`); pinned patchlevel.h:33 sets RELEASED; both call sites (`:1822`, `:1826`) likewise gated.
@@ -78,6 +110,7 @@ Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, for
 **Verify:** - `check_mongen_order`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
 **Named:** - `check_mongen_order`: whole function — C `#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)`, never compiled (patchlevel.h:33 RELEASED; both trees).
 **Next:** queue head after finish regenerates the block (`earlyarg.c` lopt MISSING C47 was next at iteration start).
+
 ## 2026-09-29 — D-3102 read.c forget + weapon.c drain_weapon_skill: await chain + panic/message fidelity (coverage)
 
 **C locus:** - `forget`: nethack-c/upstream/src/read.c:1020–1040 (Punished→bc_felt, ALL_SPELLS→losespells, drain `:1031`, fmon loop with usteed/ustuck guard, migrating_mons loop); Punished ≡ youprop.h:77 `(uball != 0)`, ALL_SPELLS ≡ spell.h:29 `0x2`; sole C caller seffect_amnesia `:1836`.
@@ -86,3 +119,34 @@ Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, for
 **Verify:** - `forget`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (1 baseline-PASS session reaches it: 1 run, 1 PASS, 0 regressed).
 **Named:** - `forget`: none in-body — whole body, every callee live (losespells sync, drain awaited, rnd).
 **Next:** queue head `makemon.c` check_mongen_order (MISSING C12, no JS symbol) — after finish regenerates the block.
+
+## 2026-09-29 — D-3101 dungeon.c init_dungeon_branches + nhlua get_table_int/int_opt/option: branch-parse restart (coverage)
+
+**C locus:** - `init_dungeon_branches`: nethack-c/upstream/src/dungeon.c:866–930 (static tables `:872–879`, len `:885–888`, row reads `:893–900`, stores `:905–910`, chain `:911–921`, not-a-hash `:924`, tally `:927–929`).
+**JS:** js/dungeon.js:816 init_dungeon_branches, js/dungeon.js:328 get_table_int, js/dungeon.js:343 get_table_int_opt, js/dungeon.js:410 get_table_option, js/dungeon.js:174 tables. No new module edges (all file-local).
+**Change:** restart in C order mirroring init_dungeon_levels. Static 2i tables as BR_DIR_STRS/BITS + BR_TYPE_STRS/BITS (get_dgn_align precedent; C's trailing terminator slots unreachable — checkoption returns 0..3); lua_len + per-row table check with the `:924` not-a-hash throw; name/chainlevel/base/range through the live get_table_* readers; branchtype/direction through live get_table_option; slot assigned before stores (`:901`); BRANCH/CHAINBRANCH debugplines via live debugpline_dungeon; `!= null` chain test (C `:911` is a pointer test — `""` still chains); chain loop at the exact `:913` bound with the invented fallback loop deleted (real chained branches f=1,2,4 target oracle/castle, found in-loop — verified in dungeonProto); `?.` skips the past-prefix hole where C reads past the filled array for f>=1 (no match there by construction). Readers restarted as C-order getfield/check/pop with per-line cites; int_opt restructured to ret=defval + nil-test (was early-return).
+**Verify:** `verify.mjs --fn init_dungeon_branches,get_table_int,get_table_int_opt,get_table_option` → syntax/rule2 PASS; all four `no corpus session blocked` + `fixed smoke spread (24 run): 24 PASS, 0 regressed → REACH-OK`; green 2/2 + strict 2/2 PASS; cohort 7/7 PASS; VERIFY: PASS. Full `frozen/ps_test_runner.mjs sessions` (fallback-loop removal is load-path): 44/44 PASS, Scr/RNG exact.
+**Named:** - `init_dungeon_branches`: none in-body — whole body, every callee live (get_table_* file-locals, debugpline_dungeon, strcmp, lua_len/lua_type) or house-mapped (panic≡throw, free≡GC, lua stack≡object reads).
+**Next:** queue head `read.c` forget (PARTIAL C11/JS7, RNG 1).
+
+## 2026-09-29 — D-3100 wizcmds.c wiz_show_wmodes + wiz_objprobs: wizard dump pair + # runners (coverage)
+
+**C locus:** - `wiz_show_wmodes`: nethack-c/upstream/src/wizcmds.c:656–689 (istty `:663`, tty blank `:666–667`, cell arms `:671–680`, &row[1] `:682–684`, display/destroy `:686–688`); dispatch cmd.c:2002–2003 "wmode" IFBURIED|AUTOCOMPLETE|WIZMODECMD.
+**JS:** js/wizcmds.js:2243 wiz_show_wmodes, js/wizcmds.js:2297 wiz_objprobs (const.js + objects.js imports extended — no new module edges; imports.mjs: objects.js ALREADY); js/getline.js:991 'wmode' (wiz, autocomplete), js/getline.js:1003 'wizobjprobs' (wiz, no autocomplete); scripts/wmode-wizobjprobs-runners.test.mjs (D-3092 pattern).
+**Change:** new async exports in C order with per-arm `:line` cites. wmodes: constant-true istty gate in C position (scored port is tty — options.js windowport_tty() idiom), `game.level.at` cells with STONE unloaded-guard (wiz_map_levltyp idiom), verbatim 5-arm chain via live IS_WALL/SDOOR/CORR/IS_ROOM/IS_DOOR/WM_MASK (const.js enum verified identical to rm.h, STONE=0 both sides — `IS_WALL(0)` false in C and JS alike, so STONE renders 'x' in both), &row[1]≡x=1..79 run (wiz_show_vision idiom), show_text_pages NHW_TEXT idiom. objprobs: game.objects totals loop, OBJ_NAME≡generated objectNameStrs (null≡placeholder skip before the class-break test), Math.fround C-float division + padStart widths for "%4d / %4d (%6.2f%%): %s". Bodies + EXT_CMDS runners ship together (unlike D-3085, whose missing runners became review-2045 Must-fix D-3092).
+**Verify:** - `wiz_show_wmodes`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed). /tmp/wizcapture2.mjs (loader-stubbed pager): 22 captured lines — tty blank top, 79-char rows, wall '5'/sdoor '2'/#/././x arms + '@' hero + STONE→'x' all match C.
+**Named:** - `wiz_show_wmodes`: none in-body — whole body, every callee/macro live.
+**Next:** extractor DEBUG-premise revisit (would activate typed-`#` for the three dormant DEVEL runners) — out of cluster scope, needs its own iteration.
+
+## 2026-09-29 — Audit 2051–2059: 9A/0Q; public 44/44, corpus 648/953 (+0, 0 flips, full)
+
+**Reviews:** 2051 A (wizcustom/wizkill runners Must-fix), 2052 A (vision/wizmondiff runners Must-fix), 2053 A (mhitm_ad_ssex dispatcher; could_seduce export-block sym gap noted), 2054 A (pfxfn_cond_ cluster; set_hidden unreachability + useroption uniqueness proved), 2055 A (fix_curse_trouble restart), 2056 A (validspecmon + isspecmon; m_id-0 claim proved both sides), 2057 A (burn_object restart, arm-for-arm), 2058 A (config_erradd in_lua + parse_conf_file rename), 2059 A (selection_getbounds canonical, all 17 C sites accounted). All re-measures REACH-OK, 0 regressed. Held-out 13/44 flat. 5 seeded rows briefed, sound (sqlite absent, NOTES-known). Must-fix empty. Next: coverage head do_name.c bogusmon.
+
+## 2026-09-29 — D-3099 selvar.c selection_getbounds: canonical export, 3 clones retired, 16 C sites wired (coverage)
+
+**C locus:** - `selection_getbounds`: nethack-c/upstream/src/selvar.c:76–95 (guard `:80–81`, recalc `:82`, empty→full `:84–89`, stored `:90–94`).
+**JS:** js/mklev.js:29715 selection_getbounds; call sites mklev.js:1819/4398/29128/29215/29237/29751/29776/30575, region.js:1218 (import :58), cmd.js:3831/3846/3877/3891/3903 (import :123; existing edges extended, no new module edge).
+**Change:** canonical `export function selection_getbounds(sel, b)` in mklev.js in C order (`!sel||!b` guard, live selection_recalc_bounds, `sel.wid ?? COLNO` empty test, out-param writes); retired all 3 clones + the lspo inline copy; routed every rect-reading caller through it (out-param form, `NhRect rect` locals).
+**Verify:** - `selection_getbounds`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `selection_getbounds`: nhlsel.c:459 `sel:bounds()` Lua bridge (no JS Lua-selection bridge method and zero repo callers — surfaces if des Lua ever calls it).
+**Next:** standalone selection_is_irregular / selection_size_description mklev exports (only dolookaround-local look_sel_* versions exist) when the generated block surfaces them.

@@ -11,7 +11,7 @@
 {"fn":"mkswamp","c":"530-574","status":"unknown","d":["D-1869"],"at":"seed@a30a7de84"}
 {"fn":"shrine_pos","c":"577-595","status":"ported","js":["js/mklev.js:shrine_pos"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"mktemple","c":"598-620","status":"unknown"}
-{"fn":"nexttodoor","c":"623-637","status":"unknown"}
+{"fn":"nexttodoor","c":"623-637","status":"ported","js":["js/fountain.js:nexttodoor"],"at":"2026-09-29@d27c7b945","note":"stale: js/fountain.js:641"}
 {"fn":"has_dnstairs","c":"640-650","status":"unknown"}
 {"fn":"has_upstairs","c":"653-663","status":"unknown"}
 {"fn":"somex","c":"666-669","status":"unknown","d":["D-2006"],"at":"seed@a30a7de84"}

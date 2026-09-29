@@ -10,7 +10,7 @@
 {"fn":"do_mgivenname","c":"199-282","status":"unknown","d":["D-1638"],"at":"seed@a30a7de84"}
 {"fn":"do_oname","c":"290-369","status":"unknown","d":["D-1670"],"at":"seed@a30a7de84"}
 {"fn":"oname","c":"372-426","status":"unknown","d":["D-1680"],"at":"seed@a30a7de84"}
-{"fn":"objtyp_is_callable","c":"429-463","status":"unknown"}
+{"fn":"objtyp_is_callable","c":"429-463","status":"ported","js":["js/do_name.js:objtyp_is_callable"],"at":"2026-09-29@d27c7b945","note":"stale: js/do_name.js:149 (D-1555)"}
 {"fn":"name_ok","c":"467-476","status":"unknown"}
 {"fn":"call_ok","c":"480-495","status":"unknown"}
 {"fn":"docallcmd","c":"499-601","status":"unknown","d":["D-1682","D-1671","D-1660"],"at":"seed@a30a7de84"}
@@ -50,6 +50,6 @@
 {"fn":"hliquid","c":"1493-1510","status":"ported","js":["js/do_name.js:hliquid"],"d":["D-2951","D-2943"],"at":"seed@a30a7de84"}
 {"fn":"coyotename","c":"1526-1535","status":"unknown"}
 {"fn":"rndorcname","c":"1538-1554","status":"ported","js":["js/do_name.js:rndorcname"],"d":["D-2943"],"at":"seed@a30a7de84"}
-{"fn":"christen_orc","c":"1557-1586","status":"unknown"}
+{"fn":"christen_orc","c":"1557-1586","status":"ported","js":["js/do_name.js:christen_orc"],"at":"2026-09-29@d27c7b945","note":"stale: js/do_name.js:1538"}
 {"fn":"noveltitle","c":"1611-1623","status":"unknown"}
 {"fn":"lookup_novel","c":"1627-1661","status":"unknown","d":["D-1651"],"at":"seed@a30a7de84"}

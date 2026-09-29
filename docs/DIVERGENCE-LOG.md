@@ -1,5 +1,42 @@
 # Divergence log
 
+## D-3111 — `options.c` test_regex_pattern + change_inv_order (THIN→whole + MISSING→whole; 16 stale rows declared)
+
+- **Status:** fixed (Open — coverage rows `options.c` test_regex_pattern + change_inv_order; cites no review — no stamp needed; density note ~64 js/ insertions: queue holds no more options.c rows and the callee closure is live-or-designed-sink).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on both: no corpus session blocked at baseline — config-parse paths).
+- **C locus:**
+  - `test_regex_pattern`: `nethack-c/upstream/src/options.c:7869–7901` (NULL-only `!str` `:7878–7879`, errmsg default `:7880–7881`, regex_init `:7883`, !match sink `:7884–7887`, compile `:7889`, error_desc `:7893`, free-before-message `:7895`, failure sink `:7897–7898`).
+  - `change_inv_order`: `nethack-c/upstream/src/options.c:7465–7510` (GOLD_SYM prepend `:7472–7474`, per-char loop `:7476–7499` with bad-class `:7480–7484` / not-allowed `:7484–7490` / char-dup `:7491–7495` arms, retain `:7497–7498`, fill `:7503–7505`, truncate `:7506`, Strcpy `:7508`).
+- **JS was:** `test_regex_pattern` js/options.js:5298 THIN — dropped the errmsg default and both config_error_add calls (`void errmsg`), `!str` rejected `""` where C compiles it. `change_inv_order` MISSING — no JS symbol; packorder option row carries optfn:null.
+- **Fix:** js/options.js only — completed `test_regex_pattern` (`:5300`) in C order (NULL-only str gate so `""` compiles like C, `'NHregex error'` default, live config_error_add sink calls with C formats, OOM free-before-message order; `re_error_desc` named omit). New file-local `change_inv_order` (`:5324`) in C order over the number-array inv_order model (C index bytes): GOLD_SYM `'$'` prepend, def_char_to_objclass + MAXOCLASSES gate, includes() for both strchr membership tests, char-based dup via indexOf on the op remainder, push for strkitten, MAXOCLASSES-1 truncation, same-buffer Strcpy replace. No new imports (objects.js/botl.js/hacklib.js edges all pre-existing).
+- **JS:** js/options.js (+64/−10).
+- **Callers:**
+  - `test_regex_pattern`: C :6438 → js/options.js:5630 (`test_regex_pattern(mcbuf, 'MENUCOLORS regex')`, pre-existing); C :6520 → js/options.js:5756 (`test_regex_pattern(mtbuf, 'MSGTYPE regex')`, pre-existing). coloratt.c:594 and options.c:7738 are comments, not call sites. No call from a site C never calls from.
+  - `change_inv_order`: C :2680 (optfn_packorder do_set) → no JS symbol — named omission (packorder row optfn:null at js/options.js:9751).
+- **Verify:** `node scripts/verify.mjs --fn test_regex_pattern,change_inv_order` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify test_regex_pattern: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    test_regex_pattern: no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify change_inv_order: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    change_inv_order: no RNG-tagged reach; fixed smoke spread (24 run, 6.7s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `test_regex_pattern`: regex_error_desc (sys/ port, no src/*.c body; value flows only into the config sink — msgtype_add/coloratt precedent).
+  - `change_inv_order`: caller optfn_packorder (no JS symbol; packorder optfn:null).
+- **Ledger:** test_regex_pattern partial; change_inv_order ported.
+- **Next:** next Open — coverage row (peek_at_iced_corpse_age unless refilled).
+
 ## D-3110 — mondata.c max_passive_dmg restart + ranged_attk/can_track/levl_follower/is_fshk (coverage)
 
 - **Status:** shipped (Open — coverage; 5-function mondata.c cluster — head PARTIAL restarted whole, 1 MISSING ported, 2 arm completions, 1 shk.c callee ported + 4 stale siblings set; density exception: ~66 js/ insertions; queue holds no more mondata.c/callee rows — rest of file verified shipped-undeclared or out of cluster.)

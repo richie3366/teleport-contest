@@ -12,13 +12,13 @@
 {"fn":"randalign","c":"916-940","status":"unknown"}
 {"fn":"str2align","c":"943-967","status":"unknown"}
 {"fn":"ok_role","c":"971-1009","status":"unknown"}
-{"fn":"pick_role","c":"1015-1033","status":"unknown"}
+{"fn":"pick_role","c":"1015-1033","status":"ported","js":["js/player_selection.js:pick_role"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:576"}
 {"fn":"ok_race","c":"1037-1075","status":"unknown"}
-{"fn":"pick_race","c":"1081-1102","status":"unknown"}
+{"fn":"pick_race","c":"1081-1102","status":"ported","js":["js/player_selection.js:pick_race"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:590"}
 {"fn":"ok_gend","c":"1107-1139","status":"unknown"}
-{"fn":"pick_gend","c":"1146-1167","status":"unknown"}
+{"fn":"pick_gend","c":"1146-1167","status":"ported","js":["js/player_selection.js:pick_gend"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:606"}
 {"fn":"ok_align","c":"1172-1204","status":"unknown"}
-{"fn":"pick_align","c":"1211-1232","status":"unknown"}
+{"fn":"pick_align","c":"1211-1232","status":"ported","js":["js/player_selection.js:pick_align"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:622"}
 {"fn":"rigid_role_checks","c":"1235-1281","status":"unknown","d":["D-2681"],"at":"seed@a30a7de84"}
 {"fn":"setrolefilter","c":"1284-1300","status":"unknown"}
 {"fn":"gotrolefilter","c":"1303-1313","status":"unknown"}

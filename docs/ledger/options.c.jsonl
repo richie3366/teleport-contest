@@ -163,7 +163,7 @@
 {"fn":"initoptions_finish","c":"7324-7384","status":"partial","js":["js/options.js:initoptions_finish"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"allopt_array_init","c":"7405-7433","status":"unknown"}
 {"fn":"set_menuobjsyms_flags","c":"7446-7451","status":"unknown"}
-{"fn":"change_inv_order","c":"7466-7510","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"change_inv_order","c":"7466-7510","status":"ported","js":["js/options.js:change_inv_order"],"d":["D-3111"],"at":"2026-09-29@d27c7b945","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"warning_opts","c":"7521-7538","status":"unknown"}
 {"fn":"assign_warnings","c":"7541-7548","status":"unknown"}
 {"fn":"feature_alert_opts","c":"7558-7585","status":"ported","js":["js/options.js:feature_alert_opts"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
@@ -177,7 +177,7 @@
 {"fn":"hide_unhide_msgtypes","c":"7815-7828","status":"unknown"}
 {"fn":"msgtype_count","c":"7831-7841","status":"unknown"}
 {"fn":"msgtype_parse_add","c":"7844-7866","status":"unknown"}
-{"fn":"test_regex_pattern","c":"7871-7901","status":"unknown"}
+{"fn":"test_regex_pattern","c":"7871-7901","status":"partial","js":["js/options.js:test_regex_pattern"],"omit":"- `test_regex_pattern`: regex_error_desc (sys/ port, no src/*.c body; value flows only into the config sink — msgtype_add/coloratt precedent).","d":["D-3111"],"at":"2026-09-29@d27c7b945"}
 {"fn":"parse_role_opt","c":"7905-8016","status":"unknown"}
 {"fn":"get_cnf_role_opt","c":"8021-8033","status":"unknown"}
 {"fn":"illegal_menu_cmd_key","c":"8037-8054","status":"unknown"}

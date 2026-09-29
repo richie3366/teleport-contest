@@ -1,7 +1,7 @@
 {"fn":"new_light_source","c":"62-65","status":"unknown"}
 {"fn":"new_light_core","c":"69-94","status":"unknown"}
 {"fn":"del_light_source","c":"99-138","status":"partial","js":["js/light.js:del_light_source"],"omit":"LSF_NEEDS_FIXUP producers (save/restore path relinks at load instead); replmon light swap + made_change bookkeeping (pre-existing map names above).","d":["D-2583","D-2574"],"at":"seed@a30a7de84"}
-{"fn":"delete_ls","c":"142-165","status":"unknown"}
+{"fn":"delete_ls","c":"142-165","status":"ported","js":["js/light.js:delete_ls"],"at":"2026-09-29@d27c7b945","note":"stale: js/light.js:96 (D-2574)"}
 {"fn":"do_light_sources","c":"169-250","status":"unknown","d":["D-2302"],"at":"seed@a30a7de84"}
 {"fn":"show_transient_light","c":"257-324","status":"unknown"}
 {"fn":"transient_light_cleanup","c":"330-357","status":"ported","js":["js/light.js:transient_light_cleanup"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}

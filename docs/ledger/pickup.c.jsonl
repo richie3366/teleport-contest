@@ -31,7 +31,7 @@
 {"fn":"lift_object","c":"1705-1795","status":"partial","js":["js/pickup.js:lift_object"],"omit":"container carry_count `delta_cwt` weights (floor weights; carry_count doc + map); shop no_charge merge_choice (merge_choice_invent doc); out_container artifact-touch / fatal-corpse / icebox / shop-bill / pick_pick (out_container doc, pre-existing).","d":["D-2595"],"at":"seed@a30a7de84"}
 {"fn":"pickup_object","c":"1803-1888","status":"unknown"}
 {"fn":"pick_obj","c":"1897-1942","status":"unknown"}
-{"fn":"pickup_prinv","c":"1948-1972","status":"unknown"}
+{"fn":"pickup_prinv","c":"1948-1972","status":"ported","js":["js/pickup.js:pickup_prinv"],"at":"2026-09-29@d27c7b945","note":"stale: js/pickup.js:1152 (D-0456)"}
 {"fn":"encumber_msg","c":"1978-2020","status":"unknown"}
 {"fn":"container_at","c":"2024-2038","status":"unknown"}
 {"fn":"able_to_loot","c":"2041-2069","status":"unknown"}

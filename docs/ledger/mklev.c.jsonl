@@ -10,8 +10,8 @@
 {"fn":"makerooms","c":"367-436","status":"partial","js":["js/mklev.js:makerooms"],"omit":"lua runtime (`nhl_init`/`nhl_loadlua`/`nhl_done`/`nhl_pcall_handle`/`lua_getglobal` — rooms compiled in, no lua by architecture); `create_des_coder` (its SpLev_Map memset already runs in `reset_xystart_size`); `iflags.in_lua` (error-message flag, no JS counterpart); THEMERM/THEMERMFILL debug room/f…","d":["D-2519"],"at":"seed@a30a7de84"}
 {"fn":"join","c":"439-518","status":"ported","js":["js/mklev.js:join"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"makecorridors","c":"522-552","status":"unknown"}
-{"fn":"alloc_doors","c":"556-571","status":"unknown"}
-{"fn":"add_door","c":"574-612","status":"unknown"}
+{"fn":"alloc_doors","c":"556-571","status":"ported","js":["js/mklev.js:alloc_doors"],"at":"2026-09-29@d27c7b945","note":"stale: js/mklev.js:31911 (D-2559)"}
+{"fn":"add_door","c":"574-612","status":"ported","js":["js/mklev.js:add_door"],"at":"2026-09-29@d27c7b945","note":"stale: js/mklev.js:31918 (D-2559)"}
 {"fn":"dosdoor","c":"615-676","status":"ported","js":["js/mklev.js:dosdoor"],"d":["D-2559"],"at":"seed@a30a7de84"}
 {"fn":"cardinal_nextto_room","c":"681-698","status":"unknown"}
 {"fn":"place_niche","c":"701-725","status":"unknown"}

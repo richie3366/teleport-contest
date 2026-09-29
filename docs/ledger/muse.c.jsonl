@@ -16,7 +16,7 @@
 {"fn":"m_use_undead_turning","c":"1300-1340","status":"ported","js":["js/muse.js:m_use_undead_turning"],"d":["D-2634"],"at":"seed@a30a7de84"}
 {"fn":"hero_behind_chokepoint","c":"1344-1367","status":"unknown"}
 {"fn":"mon_has_friends","c":"1371-1391","status":"unknown"}
-{"fn":"mon_likes_objpile_at","c":"1395-1415","status":"unknown"}
+{"fn":"mon_likes_objpile_at","c":"1395-1415","status":"ported","js":["js/muse.js:mon_likes_objpile_at"],"at":"2026-09-29@d27c7b945","note":"stale: js/muse.js:597"}
 {"fn":"find_offensive","c":"1421-1594","status":"unknown"}
 {"fn":"mbhitm","c":"1597-1703","status":"unknown"}
 {"fn":"fhito_loc","c":"1707-1726","status":"ported","js":["js/muse.js:fhito_loc"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"refresh: no JS symbol (measured MISSING)"}

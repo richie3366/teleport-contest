@@ -5291,18 +5291,72 @@ export async function query_color_attr(ca, prompt) {
 }
 
 /**
- * C ref: options.c test_regex_pattern `:7871–7900` — validate only, the
- * compiled regexp is discarded. config_error_add paths named
- * (msgtype_add precedent); regex_error_desc has no JS counterpart.
+ * C ref: options.c test_regex_pattern `:7869–7901` — validate only, the
+ * compiled regexp is discarded. Staticfn → file-local. Both C callers
+ * (:6438 menucolors, :6520 msgtype) already call this site.
+ * Named omit: regex_error_desc (sys/ port, no src/*.c body — its value
+ * flows only into the config sink; msgtype_add/coloratt precedent).
  */
 function test_regex_pattern(str, errmsg) {
-    void errmsg;
-    if (!str) return false;
-    const match = regex_init();
-    if (!match) return false;
-    const retval = regex_compile(String(str), match);
-    regex_free(match);
-    return retval;
+    if (str == null) return false; // C `:7878–7879` — NULL only; "" compiles below
+    if (errmsg == null) errmsg = 'NHregex error'; // C `:7880–7881` def_errmsg
+    const match = regex_init(); // C `:7883`
+    if (!match) { // C `:7884–7887` — allocation failure
+        config_error_add('%s', errmsg);
+        return false;
+    }
+    const retval = regex_compile(String(str), match); // C `:7889`
+    // C `:7893` — re_error_desc via regex_error_desc: NAMED OMIT (above).
+    regex_free(match); // C `:7895` — free before message (OOM ordering)
+    if (!retval) // C `:7897–7898` — failure → sink
+        config_error_add('%s: %s', errmsg, null);
+    return retval; // C `:7900`
+}
+
+/**
+ * C ref: options.c change_inv_order `:7465–7510` — parse a packorder
+ * display-char string into flags.inv_order (class indices). Staticfn →
+ * file-local. JS models inv_order as a number array (C: index bytes),
+ * so buf.push is C's strkitten and includes() is strchr. Sole C caller
+ * :2680 (optfn_packorder do_set) has no JS symbol yet — named omission
+ * (the packorder option row carries optfn:null).
+ */
+function change_inv_order(op) {
+    // C `:7472–7474` — prepend COIN_CLASS unless GOLD_SYM ('$') present.
+    const buf = [];
+    if (!op.includes('$')) buf.push(COIN_CLASS);
+    let retval = 1;
+    const inv = game.flags.inv_order; // C flags.inv_order (index bytes)
+    for (let k = 0; k < op.length; k++) { // C `:7476`
+        const ch = op[k];
+        let fail = false; // C `:7477`
+        const oc_sym = def_char_to_objclass(ch); // C `:7478`
+        if (oc_sym === MAXOCLASSES) { // C `:7480–7484` — not a class char
+            config_error_add("Not an object class '%c'", ch);
+            retval = 0;
+            fail = true;
+        } else if (!inv.includes(oc_sym)) { // C `:7484–7490` — VENOM/RANDOM/ILLOBJ never in inv_order
+            config_error_add("Object class '%c' not allowed", ch);
+            retval = 0;
+            fail = true;
+        } else if (op.indexOf(ch, k + 1) !== -1) { // C `:7491–7495` — char dup later in op
+            config_error_add("Duplicate object class '%c'", ch);
+            retval = 0;
+            fail = true;
+        }
+        if (!fail) buf.push(oc_sym); // C `:7497–7498` — retain good ones
+    }
+    // C `:7500` NUL has no array analogue; `:7503–7505` fill omitted
+    // classes in previous order (strkitten ≡ push).
+    for (const c of inv) {
+        if (!buf.includes(c)) buf.push(c);
+    }
+    // C `:7506` — buf[MAXOCLASSES - 1] = '\0' (truncate).
+    if (buf.length > MAXOCLASSES - 1) buf.length = MAXOCLASSES - 1;
+    // C `:7508` — Strcpy(flags.inv_order, buf): same-buffer replace.
+    inv.length = 0;
+    for (const c of buf) inv.push(c);
+    return retval; // C `:7509`
 }
 
 /**
