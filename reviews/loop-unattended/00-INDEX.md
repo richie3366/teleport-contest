@@ -2042,3 +2042,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2030-9e3e6255b-enexto-core.md](./2030-9e3e6255b-enexto-core.md) | `9e3e6255b` | D-3070 enexto_core + 3 verified-complete | **ACCEPT** |
 | [2031-7e25e3c42-coloratt-cluster.md](./2031-7e25e3c42-coloratt-cluster.md) | `7e25e3c42` | D-3071 coloratt cluster (query_color C-wrong) | **QUALITY-RISK** |
 | [2032-aa12e06ff-release-sound-mappings.md](./2032-aa12e06ff-release-sound-mappings.md) | `aa12e06ff` | D-3072 release_sound_mappings + 2 stale | **ACCEPT** |
+| [2033-107847759-query-color-menu-earlier.md](./2033-107847759-query-color-menu-earlier.md) | `107847759` | D-3073 query_color menu-earlier Must-fix | **ACCEPT** |
+| [2034-80c81d0a0-zap-breadth-sextet.md](./2034-80c81d0a0-zap-breadth-sextet.md) | `80c81d0a0` | D-3074 zap.c breadth sextet (6 fns) | **ACCEPT** |
+| [2035-3a3d73a50-create-particular-parse.md](./2035-3a3d73a50-create-particular-parse.md) | `3a3d73a50` | D-3075 create_particular_parse (creation class-d C-wrong) | **QUALITY-RISK** |
+| [2036-11ac109be-trap-saddle-pits.md](./2036-11ac109be-trap-saddle-pits.md) | `11ac109be` | D-3076 trap.c saddle + pits pair + 7 stale | **ACCEPT** |
+| [2037-01a639d1b-random-dir.md](./2037-01a639d1b-random-dir.md) | `01a639d1b` | D-3077 random_dir + 5 stale | **ACCEPT** |
+| [2038-260932ce5-eat-cluster.md](./2038-260932ce5-eat-cluster.md) | `260932ce5` | D-3078 eat.c cluster (6 fns + 2 by-design) | **ACCEPT** |
+| [2039-9d11eaa9f-cmd-autocompletions.md](./2039-9d11eaa9f-cmd-autocompletions.md) | `9d11eaa9f` | D-3079 cmd.c autocompletions pair + stale | **ACCEPT** |
+| [2040-10017887d-sfbase-cluster.md](./2040-10017887d-sfbase-cluster.md) | `10017887d` | D-3080 sfbase.c cluster (complex_dump space debt) | **ACCEPT-WITH-DEBT** |
+| [2041-7ec9a24df-cfgfiles-family.md](./2041-7ec9a24df-cfgfiles-family.md) | `7ec9a24df` | D-3081 cfgfiles.c family (get_uchars wait_synch C-wrong) | **QUALITY-RISK** |

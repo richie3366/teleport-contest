@@ -23,30 +23,29 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-29** — full `sessions` on the working tree
-(audit **2024–2032**, `aa12e06ff`, 2026-09-29T00:42Z).
+(audit **2033–2041**, `7ec9a24df`, 2026-09-29T03:55Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`267+1.61/turn` (R² 0.77).
+`287+1.68/turn` (R² 0.77).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-28)** | **12 / 44**, 6,880 / 11,265 pts, RNG **33.6 %**, rngSteps 87.4 %, screens **61.1 %** |
+| **Held-out (judge, 2026-09-29)** | **13 / 44**, 6,882 / 11,265 pts, RNG **33.6 %**, rngSteps 87.4 %, screens **61.1 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `267+1.61/turn` (R² 0.77) |
+| Speed label | `287+1.68/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out 12/44, up on points (table row;
-board 2026-09-28T19:33:07Z, scored 19:06:12Z).
-**Corpus fortress (rescore 00:48Z, 953/953, 0 unrecorded):**
-**631 / 953** PASS (66.2 %), RNG 96.04 %, screens 88.9 %; 0 flips vs 2016–2023 board; `full: true`.
-Reviews 1225–2032 (index; no row 1618): 718 ACCEPT, 27 WITH-DEBT, 62 QUALITY-RISK (2024–2032: 8 ACCEPT, 1 QUALITY-RISK).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews).
+screens 93.2 %. Held-out 13/44, +1 (board 2026-09-29T01:52:56Z, scored 01:29:59Z).
+**Corpus fortress (04:01Z, 953/953, 0 unrec):**
+**639 / 953** PASS (67.1 %), RNG 96.22 %, screens 89.7 %; 0 flips, +8; `full: true`.
+Reviews 1225–2041 (index; no row 1618): 724 ACCEPT, 28 WITH-DEBT, 64 QUALITY-RISK (2033–41: 6A/1D/2Q).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2040 complex_dump trailing-space (sink voided).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
 --jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
@@ -118,7 +117,7 @@ green + strict · cohort · full 44 when shared · **REACH-OK** per function
 human reopens it here; the corpus is only re-scored on audits.
 **Falsifier:** held-out (`leaderboard.mjs`) flat after ~30 breadth
 iterations → human revisits the picker.
-**Next cluster:** Open head (mon.c mimic_hit_msg); D-3081 done.
+**Next cluster:** Must-fix 2041 wait_synch, then 2035 class-d; D-3081 done.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-3081 (index).**
 <!-- recent:begin -->

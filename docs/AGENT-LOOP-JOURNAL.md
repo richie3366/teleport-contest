@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — Audit 2033–2041 (D-3073..D-3081): 6 ACCEPT, 1 WITH-DEBT, 2 QUALITY-RISK; full cadence
+
+Reviews 2033–2041 over 9 js SHAs since aa12e06ff. ACCEPT: 2033 query_color Must-fix (menu-earlier verified arm-by-arm), 2034 zap sextet (zhitu 17/17 reach), 2036 trap pair, 2037 random_dir, 2038 eat cluster, 2039 cmd pair. WITH-DEBT: 2040 complex_dump trailing-space (JS 40 vs C 39 chars; sink voided — live debt). QUALITY-RISK + Must-fix: 2035 creation class-d (creates urole.mnum, C mkclass — D-log containment claim false), 2041 get_uchars wait_synch (empty-macro claim false — SFCTOOL-only ifdef; game build blocks). Fortress 44/44 (RNG 792,838, Scr 11,405); corpus 639/953 (+8, 0 flips, full:true); held-out 13/44 (+1). Next: Must-fix get_uchars wait_synch, then creation class-d.
 ## 2026-09-29 — D-3081 cfgfiles.c config-line family: get_uchars + 9 cnf_line_* handlers
 
 **C locus:** - `get_uchars`: nethack-c/upstream/src/cfgfiles.c:380–437
