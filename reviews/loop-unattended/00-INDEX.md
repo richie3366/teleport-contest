@@ -2033,3 +2033,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2021-fb9c2049c-initoptions-init.md](./2021-fb9c2049c-initoptions-init.md) | `fb9c2049c` | D-3061 initoptions_init | **ACCEPT** |
 | [2022-000445a8b-spot-checks-dump-weights.md](./2022-000445a8b-spot-checks-dump-weights.md) | `000445a8b` | D-3062 spot_checks + dump_weights | **ACCEPT** |
 | [2023-c055153c2-free-nomakedefs.md](./2023-c055153c2-free-nomakedefs.md) | `c055153c2` | D-3063 free_nomakedefs | **ACCEPT** |
+| [2024-fd2badce9-armor-shirt-simple-name.md](./2024-fd2badce9-armor-shirt-simple-name.md) | `fd2badce9` | D-3064 armor/shirt_simple_name + xname wiring | **ACCEPT** |
+| [2025-709b8aea7-glyphmap-teardown-pair.md](./2025-709b8aea7-glyphmap-teardown-pair.md) | `709b8aea7` | D-3065 free_all_glyphmap_u + reset_customsymbols | **ACCEPT** |
+| [2026-1b84498a2-shk-cluster.md](./2026-1b84498a2-shk-cluster.md) | `1b84498a2` | D-3066 shk cluster (6 fns + 9 stale) | **ACCEPT** |
+| [2027-b93547133-unmakemon.md](./2027-b93547133-unmakemon.md) | `b93547133` | D-3067 unmakemon + nasty wiring | **ACCEPT** |
+| [2028-774d64d58-timeout-trio.md](./2028-774d64d58-timeout-trio.md) | `774d64d58` | D-3068 timeout trio | **ACCEPT** |
+| [2029-3bee10e1d-visuals-windowcolors.md](./2029-3bee10e1d-visuals-windowcolors.md) | `3bee10e1d` | D-3069 visuals/windowcolors closure (6 fns) | **ACCEPT** |
+| [2030-9e3e6255b-enexto-core.md](./2030-9e3e6255b-enexto-core.md) | `9e3e6255b` | D-3070 enexto_core + 3 verified-complete | **ACCEPT** |
+| [2031-7e25e3c42-coloratt-cluster.md](./2031-7e25e3c42-coloratt-cluster.md) | `7e25e3c42` | D-3071 coloratt cluster (query_color C-wrong) | **QUALITY-RISK** |
+| [2032-aa12e06ff-release-sound-mappings.md](./2032-aa12e06ff-release-sound-mappings.md) | `aa12e06ff` | D-3072 release_sound_mappings + 2 stale | **ACCEPT** |

@@ -1,9 +1,9 @@
 {
- "commit": "7e25e3c42",
- "at": "2026-09-29T00:17:23.299Z",
- "full": false,
- "fullCommit": "c055153c2",
- "fullAt": "2026-09-28T21:12:31.728Z",
+ "commit": "aa12e06ff",
+ "at": "2026-09-29T00:48:14.705Z",
+ "full": true,
+ "fullCommit": "aa12e06ff",
+ "fullAt": "2026-09-29T00:48:14.705Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -13194,7 +13194,7 @@
    "steps": 167,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "goodpos(teleport.js:518)",
+   "jsOwner": "goodpos(teleport.js:520)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null

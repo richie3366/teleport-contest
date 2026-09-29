@@ -97,6 +97,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `query_color` PICK_ONE menu-earlier — C coloratt.c:505–508 returns menu-earlier(preselected, explicit) (tty toggle-and-finish + menu-order picks, wintty.c:1755–1759/:2808–2817) but js/options.js `query_color` returns the explicit pick: dflt X≠NO_COLOR + letter-Y-after-X yields X in C, Y in JS (D-3071 "provably dead" proof insufficient — gate-dead ⟹ menu-earlier, not explicit). Fix: index-compare, return X when Y sorts strictly after X; headless test both orders. Source: reviews/loop-unattended/2031-7e25e3c42-coloratt-cluster.md
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
