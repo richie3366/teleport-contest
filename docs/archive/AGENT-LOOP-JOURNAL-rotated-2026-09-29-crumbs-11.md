@@ -1,17 +1,28 @@
-# Agent loop journal
+# Rotated from AGENT-LOOP-JOURNAL.md (14 crumbs; live kept 10)
 
-Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
-Each agent process should add a short dated entry **at the top** (after
-this header) before exiting. Keep entries tight; detailed hypothesis
-lives in `NOTES.md` / `CURRENT.md`.
-The next agent reads **only this file** (latest ~10 entries), not the
-archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
-`node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
-## 2026-09-29 — D-3125 `invent.c` reorder_invent inv_rank gold-arm fix + 2 stale (coverage)
+## 2026-09-29 — D-3115 `dog.c` mon_leave completion: minvent + residency arms (coverage)
 
-**C locus:** - `reorder_invent`: invent.c:738–767 (inv_rank macro `:735`, `#undef` `:769`; callers `:1121` addinv_core0, `:5266`/`:5275` doorganize_core).
-**JS:** js/u_init.js inv_rank `:910` (+2 cite lines, arm deleted); js/invent.js doc `:9309`, rank `:9311` (arm deleted).
-**Change:** dropped the gold exception in both copies with `:735`/`:769` cites (GOLD_SYM='## 2026-09-29 — D-3124 `read.c` hawaiian_design whole-body + doread shirt-block caller wiring (coverage)
+**C locus:** - `mon_leave`: dog.c:729–763 (minvent loop `:735–740`, isshk residency `:744–745`; worm arm `:748–761` shipped D-2296)
+**JS:** js/dog.js mon_leave `:408`; scripts/mon-leave.test.mjs (4 pins).
+**Change:** completed the body in C order over live callees: minvent walk with Has_contents→picked_container before `no_charge = 0`; `if (mtmp.isshk) set_residency(mtmp, true)` (TRUE ≡ clear; mon_arrive sets it back with false); worm arm untouched. Has_contents added to the const.js import, picked_container to the existing shk.js import (edge already existed — no new cross-module import). Retired the stale named-omission notes in the keepdogs and migrate_to_level docs.
+**Verify:** `node scripts/verify.mjs --fn mon_leave` → VERIFY: PASS (syntax 2 files js/dog.js js/teleport.js; rule2; hidden note no baseline blocks; reach smoke spread 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7). `node --test scripts/mon-leave.test.mjs` → 4 pass.
+**Named:** - `mon_leave`: none — whole body, every callee live (picked_container, set_residency, count_wsegs, wormgone, place_monster, Has_contents).
+**Next:** generated block refills on finish; migrating shopkeepers now shed bill flags and residency like C.
+
+## 2026-09-29 — D-3114 `options.c` test_regex_pattern completion via regex_error_desc + txt2key restart + 4 caller wirings (coverage cluster)
+
+**C locus:** - `test_regex_pattern`: options.c:7869–7901 (D-3111 left `:7893` regex_error_desc a named omit)
+**JS:** js/options.js regex_error_desc `:552`, msgtype_add `:590`, txt2key `:870`, add_menu_coloring_parsed `:4581`, test_regex_pattern `:5358`, add_autopickup_exception `:5502`; js/sounds.js add_sound_mapping `:252`; scripts/txt2key.test.mjs (14 pins).
+**Change:** new `regex_error_desc` export in C order (errbuf collapses to the return — every C caller uses it only; regerror ≡ captured SyntaxError text, empty-message fallback kept); regex_init carries `errdesc`, regex_compile captures `e.message`, regex_free clears it; all five C call sites wired (test_regex_pattern live value; msgtype_add + coloratt-parsed full C-order fail arms with statics; APE live value; sounds computes, raw_print stays named); txt2key restarted whole in C order over live trimspaces/highc/escapes; cite fixes (APE +4 drift, coloratt :595→:590, spcfn :5463→:5462).
+**Verify:** `node scripts/verify.mjs --fn test_regex_pattern,txt2key,msgtype_add,add_autopickup_exception,add_menu_coloring_parsed,add_sound_mapping` → VERIFY: PASS (syntax 2 files; rule2; hidden note ×6 no baseline blocks; reach ×6 smoke spread 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared change). `node --test scripts/txt2key.test.mjs` → 14 pass.
+**Named:** - `add_sound_mapping`: raw_print(re_error_desc) sounds.c:1604 (no pre-window stdout channel — display.js vraw_printf precedent; value computed live).
+**Next:** generated block refills on finish; txt2key BIND/menu-cmd paths now C-exact for held-out config names.
+ per defsym.h OBJCLASS2 `sname = ch`); bubble structure untouched (comparison/swap sequence already identical — forward continuation after a swap in both; the length<2 early return ≡ C's no-swap pass). /tmp rank probe: old order [$ # a b A] vs C [# $ a b A]. No maintained unit harness in-repo (sessions are the suite; no new framework per durable-test-collateral).
+**Verify:** `node scripts/verify.mjs --fn reorder_invent` → VERIFY: PASS (syntax 2 files js/u_init.js js/invent.js; rule2; hidden note 0 blocked; REACH-OK smoke 24/24, 0 regressed; green 2/2; strict ×2; cohort 7/7) + `--full` → full 44/44 PASS.
+**Named:** - `reorder_invent`: none — whole body, every callee live (inv_rank is an in-file macro, no imports), all 3 C call sites wired.
+**Next:** pop the next Open — coverage row (post-ship head: `artifact.c` abil_to_adtyp MISSING).
+
+## 2026-09-29 — D-3124 `read.c` hawaiian_design whole-body + doread shirt-block caller wiring (coverage)
 
 **C locus:** - `hawaiian_design`: read.c:224–251 (hawaiian_bgs `:227–239`, o_id ^ ~ubirthday hash `:244`, Sprintf `:246–249`); sole caller doread :394.
 **JS:** js/objnam.js hawaiian_bgs `:520`, hawaiian_design `:617` (motif omit line retired); js/read.js consts `:217`, shirt block `:2216–2251` (Blind `:2219`, obscured `:2226`, HAWAIIAN `:2230`, text `:2243`; header + deferred/grease notes retired).
@@ -19,6 +30,7 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn hawaiian_design` → VERIFY: PASS (syntax 2 files js/objnam.js js/read.js; rule2; hidden note 0 blocked; REACH-OK smoke 24/24, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). Extra probe `--fn hawaiian_design,doread`: doread REACH-OK smoke 24/24, 0 worse; its 3 blocked sessions (scen-impaired-Healer-94190 s70 + scen-impaired-Tourist-94350 s118 blind-scroll gate, scen-normal-Tourist-92061 s17 silently gate) are pre-existing phase-2 residuals on untouched doread arms — unchanged, not queued.
 **Named:** - `hawaiian_design`: none — whole body, sole caller wired.
 **Next:** pop the next Open — coverage row (post-ship head: `role.c` clearrolefilter THIN).
+
 ## 2026-09-29 — D-3123 `mdlib.c` make_version whole-body + dig.c DEBUG/`#if 0` by-design set (10 functions; coverage)
 
 **C locus:** - `make_version`: mdlib.c:248–295 (incarnation `:255–258`, feature_set `:266–281`, entity_count `:286–292`); game caller mdlib.c:841 runtime_info_init (makedefs/sfctool callers are build tools).
@@ -27,6 +39,7 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn make_version,wiz_debug_cmd_bury,bury_monst,bury_you,bury_obj,is_digging,watchman_canseeu,version_id_string,build_savebones_compat_string,count_and_validate_winopts` → VERIFY: PASS (syntax 2 files js/date.js js/version.js; rule2; hidden note 0 blocked ×10; REACH-OK smoke 24/24 ×10, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file).
 **Named:** - `make_version`: makedefs.c/sfctool.c build-tool callers (never ported); none in-body — whole body, every value live (pins + generated counts).
 **Next:** pop the next Open — coverage row (post-ship head: `muse.c` munstone PARTIAL). Sub-threshold mdlib.c residues verified this iteration but left unknown (cap): mkstemp C7 MSVC-only (`:372–387` `#ifdef _MSC_VER` → by-design) + md_ignored_features/mdlib_version_string C4 bodies complete (js/date.js:49, js/version.js:57 → stale).
+
 ## 2026-09-29 — D-3122 `pickup.c` container_at whole-body + lock.c:794 pit-dirprompt caller wiring (coverage)
 
 **C locus:** - `container_at`: pickup.c:2024–2038 (floor chain `:2029`, nobj cache `:2030`, Is_container `:2031`, !countem break `:2033–2034`); callers lock.c:794/847, pickup.c:2217/2302/2326/3586.
@@ -35,6 +48,7 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn container_at` → VERIFY: PASS (syntax 2 files js/lock.js js/pickup.js; rule2; hidden note 0 blocked; REACH-OK no RNG-tagged reach, smoke spread 24 run 24 PASS; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file).
 **Named:** - `container_at`: none — whole body, every callee live (Is_container + objects_at pre-existing), every C caller wired.
 **Next:** pop the next Open — coverage row.
+
 ## 2026-09-29 — D-3121 `options.c` doset-term + roguesymset cluster (9 functions; CHANGE_COLOR pair by-design)
 
 **C locus:** - `all_options_palette`: options.c:9656–9674 (`#ifdef CHANGE_COLOR`); call site :9731–9733 same guard.
@@ -43,6 +57,7 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** - `handler_sortloot`: hidden note (0 blocked); REACH-OK smoke 24/24.
 **Named:** - `all_options_palette`: whole function uncompiled (by-design).
 **Next:** block refills via finish; fopen_config_file (partial D-3117, compiled arms complete per review 2077) needs a stale-check before any same-file growth.
+
 ## 2026-09-29 — D-3120 `insight.c` num_genocides unique+impossible arm + `read.c:2956` do_genocide livelog caller wiring (coverage)
 
 **C locus:** - `num_genocides`: insight.c:2953–2966 (G_GENOD count `:2958–2959`, UniqCritterIndx+impossible `:2960–2962`); caller read.c:2956–2961 (do_genocide REALLY-arm first/subsequent livelog, read before the G_GENOD set).
@@ -51,6 +66,7 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** - `num_genocides`: `node scripts/verify.mjs --fn num_genocides` → hidden note (no corpus session blocked at baseline); reach: no RNG-tagged reach, smoke spread 24 run → 24 PASS, 0 regressed → REACH-OK; syntax 2 files, rule2, green 2/2, strict ×2, cohort 7/7; VERIFY: PASS.
 **Named:** - `num_genocides`: none — whole body, every callee live (UniqCritterIndx local, impossible async fire-and-forget).
 **Next:** generated block refills via finish (head passes to `options.c` all_options_palette).
+
 ## 2026-09-29 — D-3119 botl.c status-hilite query closure: 3 menu ports + `splitsubfields` overflow fix (coverage cluster)
 
 **C locus:** - `query_arrayvalue`: botl.c:2747–2781 (PICK_ONE over arr[arrmin..arrmax), adj `:2756`, NULL-gap skip `:2763–2764`, decode `:2776`)
@@ -59,6 +75,7 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn query_arrayvalue,query_conditions,status_hilite_menu_choose_field,splitsubfields` → VERIFY: PASS (syntax 1 file js/botl.js; rule2; hidden note 0 blocked ×4; REACH-OK smoke spread 24 run 24 PASS 0 regressed ×4; green 2/2; strict ×2; cohort 7/7).
 **Named:** - `query_arrayvalue`: sole-C-caller status_hilite_menu_add (botl.c:3889–4302) has no JS body (pre-existing, js/botl.js:1437).
 **Next:** next coverage head after finish (block refills itself).
+
 ## 2026-09-29 — D-3118 `max_passive_dmg` elemental arm via live `Resists_Elem` (Must-fix, review 2070)
 
 **C locus:** - `max_passive_dmg`: mondata.c:720–767, elemental arm `:753–757`; C `resists_*` are monst.h:271–277 macros for `Resists_Elem(mon, *_RES)` whose body is mondata.c:129–197 (bits `:171`, wielded-artifact `defends` `:173–176`, worn/carried `:178–196`).
@@ -67,9 +84,11 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `node scripts/verify.mjs --fn max_passive_dmg --reach-all` → VERIFY: PASS (syntax 1 file js/mhitm.js; rule2; hidden note 0 blocked; REACH-OK smoke spread 24 run 24 PASS 0 regressed; green 2/2; strict ×2; cohort 7/7).
 **Named:** - `max_passive_dmg`: none — whole body, every callee live (Resists_Elem + completely*_mm). The bits-only `resists_*` locals remain for pre-existing gazemm/explmm/passivemm call sites — untouched, out of scope for this Must-fix.
 **Next:** none (Must-fix closed; elemental arm now matches C).
+
 ## 2026-09-29 — Audit 2069-2077 (D-3109..D-3117): 8 ACCEPT, 1 QUALITY-RISK; full cadence
 
 Reviews 2069-2077 audit ad1aa7146..78a21f6e4 against pinned C (soundlib switch, mondata 5-fn, regex/invorder, version trio, report 6-fn, regex-desc/txt2key, mon_leave, selvar filter, syscf/showpaths cluster): 8 ACCEPT, 2070 QUALITY-RISK (max_passive_dmg bits-only resists_* locals vs live Resists_Elem already imported in mhitm.js — Must-fix prepended, Next cluster set). Every corpus claim re-measured with --reach-all (all vacuous + REACH-OK, no REGRESSED). Cadence: public 44/44, corpus 648/953 (0 flips, full:true), held-out 13/44 flat. Ledger snapshot + 5/5 seeded-ported sample live.
+
 ## 2026-09-29 — D-3117 `cfgfiles.c` assure_syscf_file + `files.c` do_deferred_showpaths + fopen_config_file completion (coverage cluster)
 
 **C locus:** - `assure_syscf_file`: cfgfiles.c:2031–2068 (unix open `:2052`, fd>=0 `:2057–2060`, deferred gate `:2063–2064`, raw_printf `:2066`, exit `:2067`)
@@ -78,6 +97,7 @@ Reviews 2069-2077 audit ad1aa7146..78a21f6e4 against pinned C (soundlib switch, 
 **Verify:** `node scripts/verify.mjs --fn assure_syscf_file,do_deferred_showpaths,fopen_config_file` → VERIFY: PASS (syntax 4 files js/cfgfiles.js js/earlyarg.js js/files.js js/options.js; rule2; hidden note 0 blocked ×3; REACH-OK smoke spread 24 run 24 PASS ×3; green 2/2; strict ×2; cohort 7/7; full 44/44 shared). `node --test scripts/initoptions-init.test.mjs` → 8 pass.
 **Named:** - `assure_syscf_file`: none in-body — whole body, every callee live (WIN32 `:2035–2038` / NOCWD `:2050` / VMS `:2055` opens compiled out, cited; sfctool.c:680 caller by-design, not game code).
 **Next:** reveal_paths (files.c:3175, 117 lines) is the named remainder — surfaces as its own coverage row; completes the deferred-showpaths chain.
+
 ## 2026-09-29 — D-3116 `selvar.c` selection_filter_mapchar restart + getpoint/setpoint guards (coverage)
 
 **C locus:** - `selection_filter_mapchar`: selvar.c:248–281 (NULL guard `:254-255`, ret `:257`, getbounds `:259`, scan `:261-265`, lit switch `:266-278`)
@@ -86,3 +106,21 @@ Reviews 2069-2077 audit ad1aa7146..78a21f6e4 against pinned C (soundlib switch, 
 **Verify:** `node scripts/verify.mjs --fn selection_filter_mapchar,selection_getpoint,selection_setpoint,match_maptyps` → per-function hidden note (0 blocked, coverage row) + REACH-OK (no RNG-tagged reach; 24-session smoke spread 24 PASS ×4); syntax · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file). VERIFY: PASS.
 **Named:** - `selection_filter_mapchar`: C caller nhlsel.c:669 l_selection_filter_mapchar (Lua `selection.filter_mapchar` binding — whole Lua-selection bridge absent in JS).
 **Next:** coverage head moves to `botl.c` status_hilites_viewall; selvar.c holds no other queue row.
+
+## 2026-09-29 — D-3115 `dog.c` mon_leave completion: minvent + residency arms (coverage)
+
+**C locus:** - `mon_leave`: dog.c:729–763 (minvent loop `:735–740`, isshk residency `:744–745`; worm arm `:748–761` shipped D-2296)
+**JS:** js/dog.js mon_leave `:408`; scripts/mon-leave.test.mjs (4 pins).
+**Change:** completed the body in C order over live callees: minvent walk with Has_contents→picked_container before `no_charge = 0`; `if (mtmp.isshk) set_residency(mtmp, true)` (TRUE ≡ clear; mon_arrive sets it back with false); worm arm untouched. Has_contents added to the const.js import, picked_container to the existing shk.js import (edge already existed — no new cross-module import). Retired the stale named-omission notes in the keepdogs and migrate_to_level docs.
+**Verify:** `node scripts/verify.mjs --fn mon_leave` → VERIFY: PASS (syntax 2 files js/dog.js js/teleport.js; rule2; hidden note no baseline blocks; reach smoke spread 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7). `node --test scripts/mon-leave.test.mjs` → 4 pass.
+**Named:** - `mon_leave`: none — whole body, every callee live (picked_container, set_residency, count_wsegs, wormgone, place_monster, Has_contents).
+**Next:** generated block refills on finish; migrating shopkeepers now shed bill flags and residency like C.
+
+## 2026-09-29 — D-3114 `options.c` test_regex_pattern completion via regex_error_desc + txt2key restart + 4 caller wirings (coverage cluster)
+
+**C locus:** - `test_regex_pattern`: options.c:7869–7901 (D-3111 left `:7893` regex_error_desc a named omit)
+**JS:** js/options.js regex_error_desc `:552`, msgtype_add `:590`, txt2key `:870`, add_menu_coloring_parsed `:4581`, test_regex_pattern `:5358`, add_autopickup_exception `:5502`; js/sounds.js add_sound_mapping `:252`; scripts/txt2key.test.mjs (14 pins).
+**Change:** new `regex_error_desc` export in C order (errbuf collapses to the return — every C caller uses it only; regerror ≡ captured SyntaxError text, empty-message fallback kept); regex_init carries `errdesc`, regex_compile captures `e.message`, regex_free clears it; all five C call sites wired (test_regex_pattern live value; msgtype_add + coloratt-parsed full C-order fail arms with statics; APE live value; sounds computes, raw_print stays named); txt2key restarted whole in C order over live trimspaces/highc/escapes; cite fixes (APE +4 drift, coloratt :595→:590, spcfn :5463→:5462).
+**Verify:** `node scripts/verify.mjs --fn test_regex_pattern,txt2key,msgtype_add,add_autopickup_exception,add_menu_coloring_parsed,add_sound_mapping` → VERIFY: PASS (syntax 2 files; rule2; hidden note ×6 no baseline blocks; reach ×6 smoke spread 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared change). `node --test scripts/txt2key.test.mjs` → 14 pass.
+**Named:** - `add_sound_mapping`: raw_print(re_error_desc) sounds.c:1604 (no pre-window stdout channel — display.js vraw_printf precedent; value computed live).
+**Next:** generated block refills on finish; txt2key BIND/menu-cmd paths now C-exact for held-out config names.

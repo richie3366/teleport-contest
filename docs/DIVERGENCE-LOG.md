@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3125 — `invent.c` reorder_invent inv_rank gold-arm fix + 2 stale (coverage)
+
+- **Status:** fixed (Open — coverage head `role.c` clearrolefilter THIN → stale-complete (if-chain ≡ C switch; roles.length 13 ≡ SIZE(roles)-1), so second row `invent.c` reorder_invent PARTIAL ships as the code head: the inv_rank gold→-1 arm C lacks is removed in both JS copies. Same-file growth row this_type_only also stale-complete (arm-for-arm + callback wiring). ~6 js/ insertions — invent.c holds no more queue-eligible rows after this (this_type_only was the only other invent.c row in the eligible 30), so the <80-insertion density exception applies (D-3123/D-3124 precedent). Same iteration: 2 stale→ported via direct `ledger.mjs set`. Rows cite no review Source — no stamp (brief citations 582/1727/1765/1745 are prior-art mentions)).
+- **Symptom:** coverage gap + one real C-wrong arm, not a corpus divergence (`hidden-proxy verify reorder_invent`: no corpus session blocked at baseline — sort path, no RNG).
+- **C locus:**
+  - `reorder_invent`: invent.c:738–767 (inv_rank macro `:735`, `#undef` `:769`; callers `:1121` addinv_core0, `:5266`/`:5275` doorganize_core).
+  - `clearrolefilter` (stale): role.c:1358–1381 already complete in js/player_selection.js:80 (RS_filter fallthrough + RS_ROLE/RS_RACE/RS_GENDER/RS_ALGNMNT arms; roles.length 13 ≡ SIZE(roles)-1 since C roles[NUM_ROLES+1] `:30` keeps an UNDEFINED_ROLE terminator the loop skips).
+  - `this_type_only` (stale): invent.c:3793–3823 already complete in js/invent.js:1650 (P/coin/BUCX arms + default-keeps-res; C staticfn so JS-local is correct; numeric oclass indices + dotypeinv_eq/in helpers are C-equal under all writer forms).
+- **JS was:** reorder bubble + inv_rank ported, but inv_rank ranked GOLD_SYM '$' as -1 (always first) in js/u_init.js:910 and in the js/invent.js:9310 reorder_invent_adjust clone; C's macro is pure `invlet ^ 040` ('$'→4, after no-free-letter '#'=3 — observable only with a '#' item + gold coexisting, i.e. a 52-letter-full pack).
+- **Fix:** dropped the gold exception in both copies with `:735`/`:769` cites (GOLD_SYM='$' per defsym.h OBJCLASS2 `sname = ch`); bubble structure untouched (comparison/swap sequence already identical — forward continuation after a swap in both; the length<2 early return ≡ C's no-swap pass). /tmp rank probe: old order [$ # a b A] vs C [# $ a b A]. No maintained unit harness in-repo (sessions are the suite; no new framework per durable-test-collateral).
+- **JS:** js/u_init.js inv_rank `:910` (+2 cite lines, arm deleted); js/invent.js doc `:9309`, rank `:9311` (arm deleted).
+- **Callers:**
+  - `reorder_invent`: invent.c:1121 → js/u_init.js:1136 invlet_constant() gate (pre-wired); invent.c:5266/:5275 → js/invent.js:9722/:9729 inside doorganize_core `:9541` (pre-wired via the reorder_invent_adjust clone, same fixed rank).
+  - `clearrolefilter`: options.c:7979 → js/options.js:7312 negated-value gate (pre-wired); role.c:2760 (reset_role_filtering) → js/player_selection.js:250 (Enter-confirm) + :267 (Space-confirm-empty) (pre-wired; C's single `n>=0` site split across two key handlers).
+  - `this_type_only`: invent.c:4021 query_objlist PICK_ONE callback → js/invent.js:1872 (pre-wired); writers invent.c:3876 (menu) → js/invent.js:1728, invent.c:4005 (traditional) → js/invent.js:1860, reset doI_done → js/invent.js:1880 (all pre-wired).
+- **Verify:** `node scripts/verify.mjs --fn reorder_invent` → VERIFY: PASS (syntax 2 files js/u_init.js js/invent.js; rule2; hidden note 0 blocked; REACH-OK smoke 24/24, 0 regressed; green 2/2; strict ×2; cohort 7/7) + `--full` → full 44/44 PASS.
+- **Named omissions:**
+  - `reorder_invent`: none — whole body, every callee live (inv_rank is an in-file macro, no imports), all 3 C call sites wired.
+  - `clearrolefilter` / `this_type_only`: none — bodies complete at the cited sites.
+- **Ledger:** reorder_invent ported
+- **Next:** pop the next Open — coverage row (post-ship head: `artifact.c` abil_to_adtyp MISSING).
+
 ## D-3124 — `read.c` hawaiian_design whole-body + doread shirt-block caller wiring (coverage)
 
 - **Status:** fixed (Open — coverage head `read.c` hawaiian_design MISSING → whole body in C order in js/objnam.js beside its hawaiian_motif sibling + the read.c:376–413 shirt block wired into doread (its sole C caller :394). ~80 js/ insertions (objnam +30, read +54) — at the density floor; the head file's remaining Open is doread's non-shirt arms (blind-scroll/silently corpus residuals = phase 2, untouched). Same iteration: 3 stale→ported/split via direct `ledger.mjs set` (munstone, get_table_coords_or_region, assign_candy_wrapper), D-3121 precedent. Row cites no review Source — no stamp (brief citations: 1672 ACCEPT verified the wall_property coords_or_region inline; 771/2003 name hawaiian_design)).

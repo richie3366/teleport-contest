@@ -9306,13 +9306,13 @@ function extract_invent(obj) {
     }
 }
 
-/** C ref: invent.c reorder_invent — bubble by invlet ^ 040. */
+/** C ref: invent.c reorder_invent `:738–767` + inv_rank `:735` — bubble by
+ * invlet ^ 040 with no gold exception ('$' ranks 4, after '#' = 3). */
 function reorder_invent_adjust() {
     const inv = game.invent;
     if (!inv || inv.length < 2) return;
     const rank = (o) => {
         const ilet = o.invlet;
-        if (ilet === GOLD_SYM_ADJ) return -1;
         if (typeof ilet === 'string' && ilet.length === 1) return ilet.charCodeAt(0) ^ 0x20;
         return 999;
     };

@@ -23,7 +23,7 @@
 {"fn":"setrolefilter","c":"1284-1300","status":"unknown"}
 {"fn":"gotrolefilter","c":"1303-1313","status":"unknown"}
 {"fn":"rolefilterstring","c":"1318-1355","status":"unknown"}
-{"fn":"clearrolefilter","c":"1358-1381","status":"unknown"}
+{"fn":"clearrolefilter","c":"1358-1381","status":"ported","js":["js/player_selection.js:clearrolefilter"],"at":"2026-09-29@7e46744a0","note":"stale: js/player_selection.js:80"}
 {"fn":"promptsep","c":"1384-1396","status":"unknown"}
 {"fn":"role_gendercount","c":"1399-1412","status":"unknown"}
 {"fn":"race_alignmentcount","c":"1415-1428","status":"unknown"}

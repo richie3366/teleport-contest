@@ -6,7 +6,7 @@
 {"fn":"sortloot","c":"593-643","status":"unknown","d":["D-1589"],"at":"seed@a30a7de84","note":"alt 655-690"}
 {"fn":"unsortloot","c":"647-651","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assigninvlet","c":"694-732","status":"unknown"}
-{"fn":"reorder_invent","c":"739-767","status":"unknown"}
+{"fn":"reorder_invent","c":"739-767","status":"ported","js":["js/u_init.js:reorder_invent"],"d":["D-3125"],"at":"2026-09-29@7e46744a0"}
 {"fn":"merge_choice","c":"775-810","status":"unknown"}
 {"fn":"merged","c":"814-948","status":"ported","js":["js/mkobj.js:merged"],"d":["D-2533"],"at":"seed@a30a7de84"}
 {"fn":"addinv_core1","c":"960-1005","status":"unknown"}
@@ -77,7 +77,7 @@
 {"fn":"count_buc","c":"3548-3575","status":"unknown"}
 {"fn":"tally_BUCX","c":"3580-3616","status":"unknown"}
 {"fn":"dounpaid","c":"3654-3789","status":"unknown","d":["D-1663"],"at":"seed@a30a7de84"}
-{"fn":"this_type_only","c":"3793-3823","status":"unknown"}
+{"fn":"this_type_only","c":"3793-3823","status":"ported","js":["js/invent.js:this_type_only"],"at":"2026-09-29@7e46744a0","note":"stale: js/invent.js:1650"}
 {"fn":"dotypeinv","c":"3827-4032","status":"unknown"}
 {"fn":"dfeature_at","c":"4037-4099","status":"unknown","d":["D-2674"],"at":"seed@a30a7de84"}
 {"fn":"look_here","c":"4104-4315","status":"unknown","d":["D-2193"],"at":"seed@a30a7de84"}
