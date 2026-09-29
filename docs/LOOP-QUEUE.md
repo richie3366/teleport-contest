@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mon.c` mimic_hit_msg — coverage PARTIAL (C 12 code L `mon.c:5776–5793` / JS 8 code L in js/zap.js; hops 5, callers 1, RNG 0, msg 2) @80c81d0a0
 - [ ] `mdlib.c` bannerc_string — coverage THIN (C 10 code L `mdlib.c:349–370` / JS 3 code L in js/date.js; hops —, callers 1, RNG 0, msg 2) @80c81d0a0
 - [ ] `mkmaze.c` mkportal — coverage PARTIAL (C 9 code L `mkmaze.c:1464–1479` / JS 5 code L in js/mklev.js; hops 2, callers 2, RNG 0, msg 0) @3a3d73a50
 - [ ] `weapon.c` skill_level_name — coverage THIN (C 25 code L `weapon.c:1092–1122` / JS 8 code L in js/weapon.js; hops 6, callers 2, RNG 0, msg 0) @11ac109be
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `insight.c` N_times — coverage THIN (C 15 code L `insight.c:362–380` / JS 5 code L in js/insight.js; hops 5, callers 3, RNG 0, msg 0) @260932ce5
 - [ ] `weapon.c` dbon — coverage PARTIAL (C 19 code L `weapon.c:993–1016` / JS 10 code L in js/weapon.js; hops 4, callers 4, RNG 0, msg 0) @10017887d
 - [ ] `cmd.c` cmdq_print — coverage MISSING (C 24 code L `cmd.c:220–249` / JS no symbol; hops —, callers 0, RNG 0, msg 7) @10017887d
+- [ ] `insight.c` doborn — coverage MISSING (C 24 code L `insight.c:3145–3176` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @643ef6af3
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

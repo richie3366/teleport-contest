@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-29
 
-- [x] `read.c` create_particular_creation class-`d` — C read.c:3279–3282 `whichpm = mkclass(d->monclass, 0)` absent from js/read.js:create_particular_creation (never reads d.monclass; creates urole.mnum placeholder instead of a random class member for ^G class letters). Source: reviews/loop-unattended/2035-3a3d73a50-create-particular-parse.md. **Addressed:** D-3083
+- [x] `read.c` create_particular_creation class-`d` — C read.c:3279–3282 `whichpm = mkclass(d->monclass, 0)` absent from js/read.js:create_particular_creation (never reads d.monclass; creates urole.mnum placeholder instead of a random class member for ^G class letters). Source: reviews/loop-unattended/2035-3a3d73a50-create-particular-parse.md. **Addressed:** D-3083 `a2037c0d5`
 
 
 - [x] `cfgfiles.c` get_uchars wait_synch — C cfgfiles.c:433 `wait_synch()` dropped from the error arm behind a false empty-macro claim (the `#define` is `#ifdef SFCTOOL`-only, :116–120; game build calls the real window sync, winprocs.h:140, which blocks — wintty.c:3624–3631); name the omit + ledger partial (D-3079 precedent) or wire live tty_wait_synch. Source: reviews/loop-unattended/2041-7ec9a24df-cfgfiles-family.md. **Addressed:** D-3082 `e09865e97`

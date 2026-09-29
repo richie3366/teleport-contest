@@ -99,4 +99,4 @@ regressed ✓. Ban-grep clean. Rulecheck clean (2033).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3083
+**Addressed:** D-3083 `a2037c0d5`

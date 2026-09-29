@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3084 mimic_hit_msg restart: C switch + live simple_typename (coverage)
+
+**C locus:** - `mimic_hit_msg`: nethack-c/upstream/src/mon.c:5776–5793 (ap :5779, M_AP_TYPE switch :5781–5792, SPE_HEALING gate :5786, pline_mon :5787–5790); color table decl.c c_obj_colors :21–37
+**JS:** js/zap.js:3871 (import +1 name at :244).
+**Change:** - `mimic_hit_msg`: restarted whole in C order — `ap = mappearance` first (`:5779`), full 4-case M_AP_TYPE switch (`:5781–5792`, no-ops verbatim), otyp gate (`:5786`), `pline_mon(The(simple_typename(ap)), c_obj_colors[objects[ap].oc_color])` (`:5787–5790`) via live `The` (already imported) + newly imported live `simple_typename` (same objnam.js edge, no new module link) and the verified `C_OBJ_COLORS_ZAP` table (`?.` subscript keeps the old no-throw on corrupt ap; C-valid inputs index directly). No new scripts/*.test.mjs: the message needs a live mimicking monster mid-bhitm and sessions/** is loop-agent-frozen — the verify gates below are the maintained coverage.
+**Verify:** `node scripts/verify.mjs --fn mimic_hit_msg` → PASS syntax (1 file: js/zap.js) · PASS rule2 · `no corpus session is blocked` (expected — coverage row, 0 blocks) + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+**Named:** - `mimic_hit_msg`: none in-body — whole body, every callee live (pline_mon, The, simple_typename; c_obj_colors data table verified against decl.c).
+**Next:** none — coverage row leaves the block via finish-iteration. Cluster stayed one function: no other mon.c row is queue-eligible and all three C callees are live/ported.
 ## 2026-09-29 — D-3083 create_particular_creation whole: class-d mkclass + randmonst + post-flags (review 2035 Must-fix)
 
 **C locus:** - `create_particular_creation`: nethack-c/upstream/src/read.c:3252–3357 (Must-fix arm :3278–3281; `*` arm :3281; post-flags :3313–3347)

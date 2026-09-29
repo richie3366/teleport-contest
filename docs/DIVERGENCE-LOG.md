@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3084 — mimic_hit_msg restart: C switch + live simple_typename (coverage)
+
+- **Status:** shipped (coverage — queue head `mon.c` mimic_hit_msg PARTIAL; sole mon.c row in the 12-row eligible block, ships alone)
+- **Symptom:** review 430 left `mimic_hit_msg` a local clone: early-return guards instead of the C switch, `objectNames[ap]` lowercased instead of `simple_typename(ap)` (wrong for named/described types), while `The` was already the live import. No corpus session blocked (coverage row; REACH-OK is the evidence).
+- **C locus:**
+  - `mimic_hit_msg`: nethack-c/upstream/src/mon.c:5776–5793 (ap :5779, M_AP_TYPE switch :5781–5792, SPE_HEALING gate :5786, pline_mon :5787–5790); color table decl.c c_obj_colors :21–37
+- **JS was:** js/zap.js:3871 local clone — `M_AP_TYPE !== M_AP_OBJECT` / otyp early returns, `objectNames` stand-in name, file-local `C_OBJ_COLORS_ZAP` (values match decl.c per review 430).
+- **Fix:**
+  - `mimic_hit_msg`: restarted whole in C order — `ap = mappearance` first (`:5779`), full 4-case M_AP_TYPE switch (`:5781–5792`, no-ops verbatim), otyp gate (`:5786`), `pline_mon(The(simple_typename(ap)), c_obj_colors[objects[ap].oc_color])` (`:5787–5790`) via live `The` (already imported) + newly imported live `simple_typename` (same objnam.js edge, no new module link) and the verified `C_OBJ_COLORS_ZAP` table (`?.` subscript keeps the old no-throw on corrupt ap; C-valid inputs index directly). No new scripts/*.test.mjs: the message needs a live mimicking monster mid-bhitm and sessions/** is loop-agent-frozen — the verify gates below are the maintained coverage.
+- **JS:** js/zap.js:3871 (import +1 name at :244).
+- **Callers:**
+  - `mimic_hit_msg`: sole C call site zap.c:456 (bhitm SPE_HEALING arm, guarded by canseemon :449 + disguised_mimic :450 + !is_obj_mappear-STRANGE_OBJECT :451) wired (js/zap.js:4331 inside the matching guard :4324–4327). No other C references (csym: 1 site).
+- **Verify:** `node scripts/verify.mjs --fn mimic_hit_msg` → PASS syntax (1 file: js/zap.js) · PASS rule2 · `no corpus session is blocked` (expected — coverage row, 0 blocks) + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- **Named omissions:**
+  - `mimic_hit_msg`: none in-body — whole body, every callee live (pline_mon, The, simple_typename; c_obj_colors data table verified against decl.c).
+- **Ledger:** mimic_hit_msg ported
+- **Next:** none — coverage row leaves the block via finish-iteration. Cluster stayed one function: no other mon.c row is queue-eligible and all three C callees are live/ported.
+
 ## D-3083 — create_particular_creation whole: class-d mkclass + randmonst + post-flags (review 2035 Must-fix)
 
 - **Status:** shipped (Must-fix — review 2035 Keep'd C-wrong on D-3075; ships alone)

@@ -119,7 +119,7 @@
 {"fn":"angry_guards","c":"5711-5760","status":"unknown"}
 {"fn":"pacify_guard","c":"5763-5767","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pacify_guards","c":"5770-5773","status":"unknown"}
-{"fn":"mimic_hit_msg","c":"5776-5793","status":"unknown"}
+{"fn":"mimic_hit_msg","c":"5776-5793","status":"ported","js":["js/zap.js:mimic_hit_msg"],"d":["D-3084"],"at":"2026-09-29@643ef6af3"}
 {"fn":"usmellmon","c":"5796-5909","status":"unknown"}
 {"fn":"check_gear_next_turn","c":"5915-5918","status":"unknown"}
 {"fn":"adj_erinys","c":"5922-5966","status":"unknown","d":["D-2692"],"at":"seed@a30a7de84"}
