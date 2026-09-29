@@ -8,7 +8,7 @@
 import { game } from './gstate.js';
 import { rn2, rnd, rnl, d } from './rng.js';
 import {
-    flush_topl_more, pline, You_feel, canseemon, bot, pline_mon, newsym,
+    flush_topl_more, pline, You, You_feel, canseemon, bot, pline_mon, newsym,
     impossible,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
@@ -1102,17 +1102,23 @@ export function lose_weapon_skill(n) {
 
 /**
  * C ref: weapon.c drain_weapon_skill `:1476–1514` — drop n advanced
- * skills (mhitu AD_DRIN D-1329). Each pick `rn2(skills_advanced)` then
- * shift skill_record, P_SKILL--, refund slots_required at the new
- * rank, maybe rn2-clip P_ADVANCE. C panics if rank was already
- * Unskilled; JS skips the decrement.
+ * skills (C callers: read.c forget `:1031`, uhitm.c mhitu AD_DRIN
+ * `:3269` D-1329). memset tmpskills ≡ fill(0); each pick
+ * `rn2(skills_advanced)`, unlink the record entry by left-shift,
+ * skills_advanced--, P_SKILL-- with the C panic on an
+ * already-Unskilled entry (≡ loud throw, lose_weapon_skill precedent
+ * above), refund slots_required at the new rank, rn2-clip P_ADVANCE
+ * into the lower band; then one You message per drained skill.
+ * Async: the message loop awaits pline (C You is sync); both C
+ * callers' JS sites await this.
  */
 export async function drain_weapon_skill(n) {
     const u = game.u || {};
-    const tmpskills = new Array(P_NUM_SKILLS).fill(0);
+    const tmpskills = new Array(P_NUM_SKILLS).fill(0); /* C: memset 0 */
     n = n | 0;
     while (--n >= 0) {
         if (u.skills_advanced) {
+            /* Pick a random skill, deleting it from the list. */
             const i = rn2(u.skills_advanced);
             const skill = u.skill_record[i];
             tmpskills[skill] = 1;
@@ -1120,9 +1126,13 @@ export async function drain_weapon_skill(n) {
                 u.skill_record[j] = u.skill_record[j + 1];
             }
             u.skills_advanced--;
-            if (P_SKILL(skill) <= P_UNSKILLED) continue;
-            set_P_SKILL(skill, P_SKILL(skill) - 1);
+            if (P_SKILL(skill) <= P_UNSKILLED) {
+                throw new Error(`drain_weapon_skill (${skill})`);
+            }
+            set_P_SKILL(skill, P_SKILL(skill) - 1); /* drop skill one level */
+            /* refund slots used for skill */
             u.weapon_slots = (u.weapon_slots | 0) + slots_required(skill);
+            /* drain skill training to a value appropriate for new level */
             const curradv = practice_needed_to_advance(P_SKILL(skill));
             const prevadv = practice_needed_to_advance(P_SKILL(skill) - 1);
             if ((P_ADVANCE(skill) | 0) >= curradv) {
@@ -1132,9 +1142,10 @@ export async function drain_weapon_skill(n) {
     }
     for (let skill = 0; skill < P_NUM_SKILLS; skill++) {
         if (tmpskills[skill]) {
-            const some = P_SKILL(skill) >= P_BASIC ? 'some of ' : '';
-            await pline(
-                `You forget ${some}your training in ${P_NAME(skill)}.`,
+            await You(
+                'forget %syour training in %s.',
+                P_SKILL(skill) >= P_BASIC ? 'some of ' : '',
+                P_NAME(skill),
             );
         }
     }

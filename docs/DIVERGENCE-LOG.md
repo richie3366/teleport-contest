@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3102 — read.c forget + weapon.c drain_weapon_skill: await chain + panic/message fidelity (coverage)
+
+- **Status:** shipped (Open — coverage; 2-function read.c/weapon.c callee-closure cluster, ~36 js/ insertions — below the ~80 guideline because the head's file holds nothing more Open: all other read.c unknowns measured ok, doread THIN is campaign-scale, hawaiian_design zero-heat; callee closure's losespells/rnd already ported.)
+- **Symptom:** coverage — `forget` PARTIAL (C 11 / JS 7 code L): sync body called async `drain_weapon_skill` without await, and its sole caller `seffect_amnesia` called `forget` without await, so the "You forget … training" messages floated out of C order; `drain_weapon_skill` (unknown/ok) silently `continue`d where C panics (`weapon.c:1497`) and inlined `You` as a pline template instead of the live export.
+- **C locus:**
+  - `forget`: nethack-c/upstream/src/read.c:1020–1040 (Punished→bc_felt, ALL_SPELLS→losespells, drain `:1031`, fmon loop with usteed/ustuck guard, migrating_mons loop); Punished ≡ youprop.h:77 `(uball != 0)`, ALL_SPELLS ≡ spell.h:29 `0x2`; sole C caller seffect_amnesia `:1836`.
+  - `drain_weapon_skill`: nethack-c/upstream/src/weapon.c:1476–1514 (memset, rn2 pick + record unlink + skills_advanced--, panic `:1497`, P_SKILL-- + slots_required refund, P_ADVANCE rn2-clip, per-skill You loop); C callers read.c:1031 (forget) and uhitm.c:3269 (mhitu AD_DRIN, D-1329).
+- **JS was:** js/read.js:766 sync `forget` with un-awaited `drain_weapon_skill(...)`, called un-awaited at js/read.js:1428; js/weapon.js:1110 `drain_weapon_skill` with `continue` on the panic arm and an `await pline('You forget …')` template.
+- **Fix:** `forget` restarted async in C order (`howmuch|0` int norm, Punished/ALL_SPELLS arms, awaited drain, both meverseen loops with the usteed/ustuck guard); caller `seffect_amnesia` awaits it. `drain_weapon_skill` restarted in C order: panic arm ≡ loud `throw new Error('drain_weapon_skill (skill)')` (lose_weapon_skill precedent, same file), message loop via live `You('forget %syour training in %s.', …)` (display.js export; %s form established across js/), C comments mirrored. No new module edges (`You` joins the existing display.js import in weapon.js; no imports.mjs check needed).
+- **JS:** js/read.js:773 forget, js/read.js:778 awaited drain call, js/read.js:1436 seffect_amnesia await, js/weapon.js:1115 drain_weapon_skill, js/weapon.js:10–13 import.
+- **Callers:**
+  - `forget`: C read.c:1836 (seffect_amnesia) → JS js/read.js:1436 `await forget(...)` wired (sole JS call site; file-local matches staticfn).
+  - `drain_weapon_skill`: C read.c:1031 (forget) → JS js/read.js:778 awaited; C uhitm.c:3269 (mhitu AD_DRIN) → JS js/mhitu.js:2371 pre-existing `await` verified wired.
+- **Verify:**
+  - `forget`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (1 baseline-PASS session reaches it: 1 run, 1 PASS, 0 regressed).
+  - `drain_weapon_skill`: note hidden (no corpus session blocked); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+  - Shared: `PASS syntax (2 changed js files) · PASS rule2 · PASS green 2/2 · PASS strict x2 · PASS cohort 7/7 · VERIFY: PASS`. No new test file: the maintained check is the committed sessions + `verify.mjs --fn` (REACH/cohort/green/strict); a stub harness for an internal await/message-route fix with no new interface is disproportionate.
+- **Named omissions:**
+  - `forget`: none in-body — whole body, every callee live (losespells sync, drain awaited, rnd).
+  - `drain_weapon_skill`: none in-body — whole body, every callee live (rn2, file-local slots_required, practice_needed_to_advance, P_SKILL/P_ADVANCE + setters, P_NAME, You) or house-mapped (panic≡throw, memset≡fill).
+- **Ledger:** forget ported; drain_weapon_skill ported
+- **Next:** queue head `makemon.c` check_mongen_order (MISSING C12, no JS symbol) — after finish regenerates the block.
+
 ## D-3101 — dungeon.c init_dungeon_branches + nhlua get_table_int/int_opt/option: branch-parse restart (coverage)
 
 - **Status:** shipped (Open — coverage; 4-function dungeon.js cluster, ~90 js/ insertions. Queue head handler_msg_window brief-proven stale-complete → `ledger.mjs set … ported` with stale note, next PARTIAL row shipped same iteration.)

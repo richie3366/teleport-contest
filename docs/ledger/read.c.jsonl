@@ -16,7 +16,7 @@
 {"fn":"p_glow3","c":"680-685","status":"unknown"}
 {"fn":"charge_ok","c":"689-724","status":"unknown"}
 {"fn":"recharge","c":"729-1008","status":"partial","js":["js/read.js:recharge"],"omit":"local `useup` clone (`js/read.js`, used by other read fns) and `Yname2_read` (`wand_explode`) stay — pre-existing drift owned by other functions' ports; `explode_losehp` kept for the ring-explode `losehp` (file idiom: `Maybe_Half_Phys` + wail/done lifecycle, same as `wand_explode`).","d":["D-2500"],"at":"seed@a30a7de84"}
-{"fn":"forget","c":"1020-1040","status":"unknown"}
+{"fn":"forget","c":"1020-1040","status":"ported","js":["js/read.js:forget"],"d":["D-3102"],"at":"2026-09-29@920907eb7"}
 {"fn":"maybe_tame","c":"1044-1063","status":"unknown"}
 {"fn":"valid_cloud_pos","c":"1069-1074","status":"unknown"}
 {"fn":"can_center_cloud","c":"1080-1085","status":"unknown"}

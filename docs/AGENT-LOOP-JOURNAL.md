@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3102 read.c forget + weapon.c drain_weapon_skill: await chain + panic/message fidelity (coverage)
+
+**C locus:** - `forget`: nethack-c/upstream/src/read.c:1020–1040 (Punished→bc_felt, ALL_SPELLS→losespells, drain `:1031`, fmon loop with usteed/ustuck guard, migrating_mons loop); Punished ≡ youprop.h:77 `(uball != 0)`, ALL_SPELLS ≡ spell.h:29 `0x2`; sole C caller seffect_amnesia `:1836`.
+**JS:** js/read.js:773 forget, js/read.js:778 awaited drain call, js/read.js:1436 seffect_amnesia await, js/weapon.js:1115 drain_weapon_skill, js/weapon.js:10–13 import.
+**Change:** `forget` restarted async in C order (`howmuch|0` int norm, Punished/ALL_SPELLS arms, awaited drain, both meverseen loops with the usteed/ustuck guard); caller `seffect_amnesia` awaits it. `drain_weapon_skill` restarted in C order: panic arm ≡ loud `throw new Error('drain_weapon_skill (skill)')` (lose_weapon_skill precedent, same file), message loop via live `You('forget %syour training in %s.', …)` (display.js export; %s form established across js/), C comments mirrored. No new module edges (`You` joins the existing display.js import in weapon.js; no imports.mjs check needed).
+**Verify:** - `forget`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (1 baseline-PASS session reaches it: 1 run, 1 PASS, 0 regressed).
+**Named:** - `forget`: none in-body — whole body, every callee live (losespells sync, drain awaited, rnd).
+**Next:** queue head `makemon.c` check_mongen_order (MISSING C12, no JS symbol) — after finish regenerates the block.
 ## 2026-09-29 — D-3101 dungeon.c init_dungeon_branches + nhlua get_table_int/int_opt/option: branch-parse restart (coverage)
 
 **C locus:** - `init_dungeon_branches`: nethack-c/upstream/src/dungeon.c:866–930 (static tables `:872–879`, len `:885–888`, row reads `:893–900`, stores `:905–910`, chain `:911–921`, not-a-hash `:924`, tally `:927–929`).

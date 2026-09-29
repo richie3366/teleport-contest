@@ -31,7 +31,7 @@
 {"fn":"use_skill","c":"1424-1434","status":"unknown","d":["D-2385"],"at":"seed@a30a7de84"}
 {"fn":"add_weapon_skill","c":"1437-1450","status":"unknown"}
 {"fn":"lose_weapon_skill","c":"1453-1473","status":"ported","js":["js/weapon.js:lose_weapon_skill"],"d":["D-3090"],"at":"2026-09-29@d1541778d","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"drain_weapon_skill","c":"1476-1514","status":"unknown"}
+{"fn":"drain_weapon_skill","c":"1476-1514","status":"ported","js":["js/weapon.js:drain_weapon_skill"],"d":["D-3102"],"at":"2026-09-29@920907eb7"}
 {"fn":"weapon_type","c":"1517-1529","status":"unknown"}
 {"fn":"uwep_skill_type","c":"1532-1537","status":"unknown"}
 {"fn":"weapon_hit_bonus","c":"1545-1636","status":"unknown"}
