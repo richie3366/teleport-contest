@@ -98,3 +98,5 @@ regressed ✓. Ban-grep clean. Rulecheck clean (2033).
    return false, like randmonst) or wire mkclass.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3083
