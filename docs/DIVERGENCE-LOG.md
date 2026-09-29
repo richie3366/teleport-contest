@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3134 — `cfgfiles.c` vconfig_error_add whole port + copy_bytes by-design, role_abil/is_izchak/role_selection_prolog stale (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head copy_bytes by-design (Rule #2 raw-fd copy) → role_abil/is_izchak/role_selection_prolog stale → shipped vconfig_error_add; 1 port + 4 dispositions, 2 files).
+- **Symptom:** no corpus divergence — coverage. C `vconfig_error_add` (vsnprintf → chop → config_erradd) had no JS symbol; the chop arm was folded into `config_erradd` (cfgfiles.js:279 citing :1888) but the format+forward unit was absent.
+- **C locus:**
+  - `vconfig_error_add`: cfgfiles.c:1875–1890 (vlen :1877, buf[BIGBUFSZ] :1878, vsnprintf :1880, DEBUG panic :1881–1887, chop :1888, config_erradd :1889).
+  - `copy_bytes`: hacklib.c:946–961 (BUFSIZ read/write loop, FALSE on short write).
+  - `role_abil`: attrib.c:789–815 (13-row table + sentinel scan).
+  - `is_izchak`: shknam.c:908–924 (hallu/isshk/in_town/prefix-skip/strcmp arms).
+  - `role_selection_prolog`: role.c:1726–1812 (narrowing :1738–1767, five putstr lines :1771–1811).
+- **JS was:** no vconfig symbol; `vpline_expand` display.js-local; config_erradd live (D-3098). role_abil switch (attrib.js:928), is_izchak (shknam.js:509), role_selection_prolog (player_selection.js:993) already whole.
+- **Fix:** `js/cfgfiles.js` — new module-local `vconfig_error_add(fmt, args)` in C order after `config_error_done` (same relative order as C :1621/:1875); format via newly-exported `vpline_expand` (vraw_printf :8173 precedent, same expand-then-chop shape); DEBUG arm compiled out (patchlevel.h:33 RELEASED); chop + forward to live `config_erradd`. `js/display.js` — `export` on `vpline_expand` (+2 doc lines; cfgfiles→display edge ALREADY). No js/ for the other four (ledger dispositions).
+- **JS:** 2 files, +23/−2 (cfgfiles.js +20/−1, display.js +3/−1), far under caps. Density note: `ledger.mjs rows` lists exactly one cfgfiles.c Open row (this one) and the callee (config_erradd) is declared partial — file + callee closure hold nothing more Open.
+- **Callers:**
+  - `vconfig_error_add`: C :1870 (config_error_add) → named omission (JS botl.js:1540 no-op sink, established; live with that row).
+  - `copy_bytes`: C files.c:3011/3021/3040 (recover_savefile binary path) + util/recover.c ×4 (build tool) — no scored counterpart (by-design).
+  - `role_abil`: C :823 (check_innate_abil FROMEXPER) → JS attrib.js:1101; C :1011 (adjabil) → JS attrib.js:954.
+  - `is_izchak`: C shk.c:3112 (TRUE) → JS shk.js:2814; C :5594 (FALSE) → JS shk.js:6389.
+  - `role_selection_prolog`: 0 pinned-C refs (windowport-only; D-2672/review 1631 ACCEPT).
+- **Verify:** `node scripts/verify.mjs --fn copy_bytes,role_abil,is_izchak,role_selection_prolog,vconfig_error_add` → PASS syntax (2 files) · PASS rule2 · note hidden ×5 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×5 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) · VERIFY: PASS. Verify ran after the last js/ edit.
+- **Named omissions:**
+  - `vconfig_error_add`: C-caller wiring (:1870 config_error_add → botl.js:1540 no-op, established omission); width/precision strip (map-named vpline_expand limitation); none else — whole body, callee live.
+  - `copy_bytes`: whole function by-design (Rule #2 raw-fd read/write; review 1431 no-counterpart).
+  - `role_abil`: none — whole body (stale: js/attrib.js:928; switch ≡ table+sentinel scan, default null ≡ sentinel NULL).
+  - `is_izchak`: none — whole body (stale: js/shknam.js:509; all 5 arms exact; review 777 no C-wrong).
+  - `role_selection_prolog`: none — whole body (stale: js/player_selection.js:993; D-2672, review 1631 ACCEPT).
+- **Ledger:** vconfig_error_add ported; copy_bytes by-design; role_abil ported; is_izchak ported; role_selection_prolog ported
+- **Next:** falsifier — a session blocked with vconfig_error_add as owner, or the config_error_add row (wire the :1870 caller live then). Do not re-pop the four disposition labels.
+
 ## D-3133 — `sp_lev.c` get_unpacked_coord whole port + traptype-opt/name_from_player stale, enter_force_field by-design (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head `name_from_player` stale → `enter_force_field` by-design (#if 0, uncompiled) → shipped head `get_unpacked_coord` + same-file Open `get_table_traptype_opt` stale-split; 1 port + 3 dispositions, 1 file).

@@ -83,7 +83,7 @@
 {"fn":"parse_conf_str","c":"1810-1837","status":"partial","js":["js/cfgfiles.js:parse_conf_str"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-2787"],"at":"seed@a30a7de84"}
 {"fn":"parse_conf_file","c":"1844-1860","status":"ported","js":["js/cfgfiles.js:parse_conf_file"],"d":["D-3098"],"at":"2026-09-29@92b27f0c4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"config_error_add","c":"1865-1872","status":"unknown"}
-{"fn":"vconfig_error_add","c":"1875-1890","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"vconfig_error_add","c":"1875-1890","status":"ported","js":["js/cfgfiles.js:vconfig_error_add"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rcfile","c":"1894-1957","status":"unknown"}
 {"fn":"rcfile_interface_options","c":"1960-1976","status":"partial","js":["js/cfgfiles.js:rcfile_interface_options"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-2787"],"at":"seed@a30a7de84"}
 {"fn":"heed_all_config_statements","c":"1979-1986","status":"unknown"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3134 `cfgfiles.c` vconfig_error_add whole port + copy_bytes by-design, role_abil/is_izchak/role_selection_prolog stale (coverage head)
+
+**C locus:** - `vconfig_error_add`: cfgfiles.c:1875–1890 (vlen :1877, buf[BIGBUFSZ] :1878, vsnprintf :1880, DEBUG panic :1881–1887, chop :1888, config_erradd :1889).
+**JS:** 2 files, +23/−2 (cfgfiles.js +20/−1, display.js +3/−1), far under caps. Density note: `ledger.mjs rows` lists exactly one cfgfiles.c Open row (this one) and the callee (config_erradd) is declared partial — file + callee closure hold nothing more Open.
+**Change:** `js/cfgfiles.js` — new module-local `vconfig_error_add(fmt, args)` in C order after `config_error_done` (same relative order as C :1621/:1875); format via newly-exported `vpline_expand` (vraw_printf :8173 precedent, same expand-then-chop shape); DEBUG arm compiled out (patchlevel.h:33 RELEASED); chop + forward to live `config_erradd`. `js/display.js` — `export` on `vpline_expand` (+2 doc lines; cfgfiles→display edge ALREADY). No js/ for the other four (ledger dispositions).
+**Verify:** `node scripts/verify.mjs --fn copy_bytes,role_abil,is_izchak,role_selection_prolog,vconfig_error_add` → PASS syntax (2 files) · PASS rule2 · note hidden ×5 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×5 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) · VERIFY: PASS. Verify ran after the last js/ edit.
+**Named:** - `vconfig_error_add`: C-caller wiring (:1870 config_error_add → botl.js:1540 no-op, established omission); width/precision strip (map-named vpline_expand limitation); none else — whole body, callee live.
+**Next:** falsifier — a session blocked with vconfig_error_add as owner, or the config_error_add row (wire the :1870 caller live then). Do not re-pop the four disposition labels.
 ## 2026-09-29 — D-3133 `sp_lev.c` get_unpacked_coord whole port + traptype-opt/name_from_player stale, enter_force_field by-design (coverage head)
 
 **C locus:** - `get_unpacked_coord`: sp_lev.c:1316–1334 (RANDOM arm :1321–1326 — x=y=-1 :1322, is_random=1 :1323, flags=loc&~MASK :1324, defhumidity fallback :1325–1326; fixed arm :1327–1332 — flags=defhumidity, SP_COORD_X/Y :1330–1331; return-by-value :1333). Struct sp_lev.h:106–110; macros sp_lev.h:66/82–85.
