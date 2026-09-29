@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3081 — cfgfiles.c config-line family: get_uchars + 9 cnf_line_* handlers
+
+- **Status:** shipped (breadth — queue row get_uchars + 8 same-file named_true rows + BINDINGS; head adjust_prefix by-designed, NOCWD-only)
+- **Symptom:** coverage MISSING — no JS symbol for `get_uchars` (cfgfiles.c:380–437) or 9 config-line handlers; the JS `configLineStmt` table routed BOULDER/WARNINGS/CHECK_SAVE_UID/CHECK_PLNAME/SEDUCE/HIDEUSAGE/MAXPLAYERS/PERSMAX/BINDINGS through `cnf_line_named_true`. No corpus session blocked on any of the ten (coverage rows; REACH-OK is the evidence).
+- **C locus:**
+  - `get_uchars`: nethack-c/upstream/src/cfgfiles.c:380–437
+  - `cnf_line_BOULDER`: nethack-c/upstream/src/cfgfiles.c:1154–1161
+  - `cnf_line_WARNINGS`: nethack-c/upstream/src/cfgfiles.c:1180–1188
+  - `cnf_line_CHECK_SAVE_UID`: nethack-c/upstream/src/cfgfiles.c:905–912
+  - `cnf_line_CHECK_PLNAME`: nethack-c/upstream/src/cfgfiles.c:914–921
+  - `cnf_line_SEDUCE`: nethack-c/upstream/src/cfgfiles.c:923–943
+  - `cnf_line_HIDEUSAGE`: nethack-c/upstream/src/cfgfiles.c:945–952
+  - `cnf_line_MAXPLAYERS`: nethack-c/upstream/src/cfgfiles.c:954–966
+  - `cnf_line_PERSMAX`: nethack-c/upstream/src/cfgfiles.c:968–979
+  - `cnf_line_BINDINGS`: nethack-c/upstream/src/cfgfiles.c:617–622
+- **JS was:** no symbols; table rows for all nine names pointed at `cnf_line_named_true` (js/cfgfiles.js).
+- **Fix:**
+  - `get_uchars`: new file-local in C order — separator flush with modlist zero-skip (`:398–404`), count==size/end return (`:406`), digit accumulate (`:422–424`), backslash/default error arm (`:427–435`, live `raw_printf`, `wait_synch()` an empty macro in this TU per cfgfiles.c:120); C `uchar` store narrows (`& 0xFF`).
+  - `cnf_line_BOULDER`: new file-local — slot seeded from the live `ov_primary_syms[SYM_BOULDER+SYM_OFF_X]` (in-place modlist TRUE), committed via live `update_ov_primary_symset`.
+  - `cnf_line_WARNINGS`: new file-local — zero-filled `translate[MAXPCHARS]` (C reads indeterminate stack past the parsed count; 0 = no override), live `assign_warnings`.
+  - `cnf_line_CHECK_SAVE_UID`/`cnf_line_CHECK_PLNAME`: new file-locals — atoi→int store in `sysoptBag` (sys.h fields are `int`).
+  - `cnf_line_SEDUCE`: new file-local — `!!atoi`, SYSCF `in_sysconf` from `parse_config_file_src` like parse_config_line, user-enable gate with `cnf_error`, live `sysopt_seduce_set` (sys.js import; `imports.mjs --can` SAFE, no cycle).
+  - `cnf_line_HIDEUSAGE`: new file-local — `!!atoi`→int store.
+  - `cnf_line_MAXPLAYERS`: new file-local — range gate with `cnf_error`, fallback 5.
+  - `cnf_line_PERSMAX`: new file-local — minimum gate with `cnf_error`, fallback 0.
+  - `cnf_line_BINDINGS`: new file-local — live `parsebindings(bufp, game.Cmd.binds)` (C `bind_key` writes the live keymap; JS export takes the overlay map, ensured like cmd.js).
+  - table: all nine rows rewired from `cnf_line_named_true` to the new handlers.
+- **JS:** js/cfgfiles.js:450 get_uchars, :536 cnf_line_BINDINGS, :555 cnf_line_BOULDER, :570 cnf_line_WARNINGS, :606 cnf_line_CHECK_SAVE_UID, :614 cnf_line_CHECK_PLNAME, :626 cnf_line_SEDUCE, :644 cnf_line_HIDEUSAGE, :653 cnf_line_MAXPLAYERS, :666 cnf_line_PERSMAX; new imports SYM_BOULDER/WARNCOUNT (const.js), MAXPCHARS/SYM_OFF_X/update_ov_primary_symset (display.js), parsebindings/assign_warnings (options.js), sysopt_seduce_set (sys.js).
+- **Callers:**
+  - `get_uchars`: C cnf_line_BOULDER :1158 wired (js/cfgfiles.js:558); C cnf_line_WARNINGS :1185 wired (:573).
+  - `cnf_line_BOULDER`/`cnf_line_WARNINGS`/all six sysconf handlers/`cnf_line_BINDINGS`: dispatched only via C `config_line_stmt[]` (cfgfiles.c:1296–1379); JS `configLineStmt` rows rewired to each new handler.
+- **Verify:** `node scripts/verify.mjs --fn get_uchars,cnf_line_BOULDER,cnf_line_WARNINGS,cnf_line_CHECK_SAVE_UID,cnf_line_CHECK_PLNAME,cnf_line_SEDUCE,cnf_line_HIDEUSAGE,cnf_line_MAXPLAYERS,cnf_line_PERSMAX,cnf_line_BINDINGS` → PASS syntax (1 file) · PASS rule2 · 10× `no corpus session is blocked` + smoke-spread REACH-OK (24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS. Throwaway probe /tmp/cfg-probe.mjs 27/27 (boulder set/zero-keep, warnings vector, int stores, clamps, seduce sysconf/user gates, binds overlay). No maintained harness in repo (sessions + verify are the gates).
+- **Named omissions:**
+  - `get_uchars`: none — whole body; `wait_synch()` is an empty macro here, not an omission.
+  - `cnf_line_WARNINGS`: C indeterminate stack tail past the parsed count — JS zero-fills (defined-behavior choice, 0 skipped by assign_warnings).
+  - `cnf_line_BINDINGS`: inherits live `parsebindings` PARTIAL gaps (options.c:7593–7674 vs js/options.js:866, recursion/quoting) — callee's row, not this commit.
+  - `cnf_line_SEDUCE`: `cnf_error` (live `config_erradd` sink) stands in for `config_error_add` per the file's established omission (botl.js export is the doset no-op); same for MAXPLAYERS/PERSMAX error arms.
+- **Ledger:** get_uchars ported; cnf_line_BOULDER ported; cnf_line_WARNINGS ported; cnf_line_CHECK_SAVE_UID ported; cnf_line_CHECK_PLNAME ported; cnf_line_SEDUCE ported; cnf_line_HIDEUSAGE ported; cnf_line_MAXPLAYERS ported; cnf_line_PERSMAX ported; cnf_line_BINDINGS ported
+- **Next:** adjust_prefix row left the block via by-design (NOCWD_ASSUMPTIONS-only; unix callers are nhUse+TRUE, wired as cnf_line_nhUse) — no Next owed.
+
 ## D-3080 — sfbase.c save-file base: sf_log + sfi_char/sfo_genericptr/sfi_genericptr/sfi_version_info/complex_dump + sfvalue_ trio
 
 - **Status:** shipped (breadth — head row sf_log + 5 same-file Open rows + 3 sub-8-line helpers; SF_X excluded, macro not a function)

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3081 cfgfiles.c config-line family: get_uchars + 9 cnf_line_* handlers
+
+**C locus:** - `get_uchars`: nethack-c/upstream/src/cfgfiles.c:380–437
+**JS:** js/cfgfiles.js:450 get_uchars, :536 cnf_line_BINDINGS, :555 cnf_line_BOULDER, :570 cnf_line_WARNINGS, :606 cnf_line_CHECK_SAVE_UID, :614 cnf_line_CHECK_PLNAME, :626 cnf_line_SEDUCE, :644 cnf_line_HIDEUSAGE, :653 cnf_line_MAXPLAYERS, :666 cnf_line_PERSMAX; new imports SYM_BOULDER/WARNCOUNT (const.js), MAXPCHARS/SYM_OFF_X/update_ov_primary_symset (display.js), parsebindings/assign_warnings (options.js), sysopt_seduce_set (sys.js).
+**Change:** - `get_uchars`: new file-local in C order — separator flush with modlist zero-skip (`:398–404`), count==size/end return (`:406`), digit accumulate (`:422–424`), backslash/default error arm (`:427–435`, live `raw_printf`, `wait_synch()` an empty macro in this TU per cfgfiles.c:120); C `uchar` store narrows (`& 0xFF`).
+**Verify:** `node scripts/verify.mjs --fn get_uchars,cnf_line_BOULDER,cnf_line_WARNINGS,cnf_line_CHECK_SAVE_UID,cnf_line_CHECK_PLNAME,cnf_line_SEDUCE,cnf_line_HIDEUSAGE,cnf_line_MAXPLAYERS,cnf_line_PERSMAX,cnf_line_BINDINGS` → PASS syntax (1 file) · PASS rule2 · 10× `no corpus session is blocked` + smoke-spread REACH-OK (24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS. Throwaway probe /tmp/cfg-probe.mjs 27/27 (boulder set/zero-keep, warnings vector, int stores, clamps, seduce sysconf/user gates, binds overlay). No maintained harness in repo (sessions + verify are the gates).
+**Named:** - `get_uchars`: none — whole body; `wait_synch()` is an empty macro here, not an omission.
+**Next:** adjust_prefix row left the block via by-design (NOCWD_ASSUMPTIONS-only; unix callers are nhUse+TRUE, wired as cnf_line_nhUse) — no Next owed.
 ## 2026-09-29 — D-3080 sfbase.c save-file base: sf_log + sfi_char/sfo_genericptr/sfi_genericptr/sfi_version_info/complex_dump + sfvalue_ trio
 
 **C locus:** - `sf_log`: nethack-c/upstream/src/sfbase.c:376–404

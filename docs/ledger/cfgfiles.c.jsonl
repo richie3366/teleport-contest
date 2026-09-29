@@ -3,8 +3,8 @@
 {"fn":"do_write_config_file","c":"169-210","status":"unknown","d":["D-2553"],"at":"seed@a30a7de84"}
 {"fn":"set_configfile_name","c":"216-220","status":"unknown"}
 {"fn":"fopen_config_file","c":"223-372","status":"unknown"}
-{"fn":"get_uchars","c":"381-437","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"adjust_prefix","c":"441-459","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_uchars","c":"381-437","status":"ported","js":["js/cfgfiles.js:get_uchars"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"adjust_prefix","c":"441-459","status":"by-design","at":"2026-09-29@10017887d","note":"NOCWD_ASSUMPTIONS-only (cfgfiles.c:439-459 ifdef; unix build leaves it undefined — only windconf/pcconf/amiconf define it); unix callers compile to nhUse+TRUE, wired as cnf_line_nhUse js/cfgfiles.js:513"}
 {"fn":"choose_random_part","c":"464-504","status":"unknown"}
 {"fn":"free_config_sections","c":"507-517","status":"unknown"}
 {"fn":"is_config_section","c":"523-549","status":"unknown"}
@@ -12,7 +12,7 @@
 {"fn":"find_optparam","c":"588-598","status":"unknown"}
 {"fn":"cnf_line_OPTIONS","c":"603-609","status":"unknown"}
 {"fn":"cnf_line_AUTOPICKUP_EXCEPTION","c":"612-616","status":"unknown"}
-{"fn":"cnf_line_BINDINGS","c":"619-622","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_BINDINGS","c":"619-622","status":"ported","js":["js/cfgfiles.js:cnf_line_BINDINGS"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_AUTOCOMPLETE","c":"625-629","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MSGTYPE","c":"632-635","status":"unknown"}
 {"fn":"cnf_line_HACKDIR","c":"638-650","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -38,12 +38,12 @@
 {"fn":"cnf_line_BONES_POOLS","c":"874-885","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_SUPPORT","c":"888-894","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_RECOVER","c":"897-903","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_CHECK_SAVE_UID","c":"906-912","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_CHECK_PLNAME","c":"915-921","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_SEDUCE","c":"924-943","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_HIDEUSAGE","c":"946-952","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_MAXPLAYERS","c":"955-966","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_PERSMAX","c":"969-979","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CHECK_SAVE_UID","c":"906-912","status":"ported","js":["js/cfgfiles.js:cnf_line_CHECK_SAVE_UID"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CHECK_PLNAME","c":"915-921","status":"ported","js":["js/cfgfiles.js:cnf_line_CHECK_PLNAME"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SEDUCE","c":"924-943","status":"ported","js":["js/cfgfiles.js:cnf_line_SEDUCE"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_HIDEUSAGE","c":"946-952","status":"ported","js":["js/cfgfiles.js:cnf_line_HIDEUSAGE"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_MAXPLAYERS","c":"955-966","status":"ported","js":["js/cfgfiles.js:cnf_line_MAXPLAYERS"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_PERSMAX","c":"969-979","status":"ported","js":["js/cfgfiles.js:cnf_line_PERSMAX"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_PERS_IS_UID","c":"982-992","status":"unknown"}
 {"fn":"cnf_line_ENTRYMAX","c":"995-1005","status":"unknown"}
 {"fn":"cnf_line_POINTSMIN","c":"1008-1018","status":"unknown"}
@@ -56,10 +56,10 @@
 {"fn":"cnf_line_CRASHREPORTURL","c":"1112-1118","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_ACCESSIBILITY","c":"1121-1131","status":"unknown"}
 {"fn":"cnf_line_PORTABLE_DEVICE_PATHS","c":"1134-1150","status":"unknown"}
-{"fn":"cnf_line_BOULDER","c":"1156-1161","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_BOULDER","c":"1156-1161","status":"ported","js":["js/cfgfiles.js:cnf_line_BOULDER"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MENUCOLOR","c":"1164-1167","status":"unknown"}
 {"fn":"cnf_line_HILITE_STATUS","c":"1170-1178","status":"unknown"}
-{"fn":"cnf_line_WARNINGS","c":"1181-1188","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_WARNINGS","c":"1181-1188","status":"ported","js":["js/cfgfiles.js:cnf_line_WARNINGS"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_ROGUESYMBOLS","c":"1191-1199","status":"unknown"}
 {"fn":"cnf_line_SYMBOLS","c":"1202-1211","status":"unknown"}
 {"fn":"cnf_line_WIZKIT","c":"1214-1218","status":"unknown"}

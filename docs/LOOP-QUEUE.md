@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `cfgfiles.c` adjust_prefix — coverage MISSING (C 11 code L `cfgfiles.c:441–459` / JS no symbol; hops —, callers 9, RNG 0, msg 0) @107847759
 - [ ] `mon.c` mimic_hit_msg — coverage PARTIAL (C 12 code L `mon.c:5776–5793` / JS 8 code L in js/zap.js; hops 5, callers 1, RNG 0, msg 2) @80c81d0a0
 - [ ] `mdlib.c` bannerc_string — coverage THIN (C 10 code L `mdlib.c:349–370` / JS 3 code L in js/date.js; hops —, callers 1, RNG 0, msg 2) @80c81d0a0
 - [ ] `mkmaze.c` mkportal — coverage PARTIAL (C 9 code L `mkmaze.c:1464–1479` / JS 5 code L in js/mklev.js; hops 2, callers 2, RNG 0, msg 0) @3a3d73a50
@@ -126,7 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `wizcmds.c` wiz_mon_diff — coverage MISSING (C 28 code L `wizcmds.c:1790–1828` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @260932ce5
 - [ ] `monmove.c` find_pmmonst — coverage PARTIAL (C 8 code L `monmove.c:375–388` / JS 5 code L in js/monmove.js; hops 2, callers 2, RNG 0, msg 0) @260932ce5
 - [ ] `insight.c` N_times — coverage THIN (C 15 code L `insight.c:362–380` / JS 5 code L in js/insight.js; hops 5, callers 3, RNG 0, msg 0) @260932ce5
-- [ ] `cfgfiles.c` get_uchars — coverage MISSING (C 41 code L `cfgfiles.c:381–437` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @9d11eaa9f
+- [ ] `weapon.c` dbon — coverage PARTIAL (C 19 code L `weapon.c:993–1016` / JS 10 code L in js/weapon.js; hops 4, callers 4, RNG 0, msg 0) @10017887d
+- [ ] `cmd.c` cmdq_print — coverage MISSING (C 24 code L `cmd.c:220–249` / JS no symbol; hops —, callers 0, RNG 0, msg 7) @10017887d
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
