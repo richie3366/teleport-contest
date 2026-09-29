@@ -1,5 +1,56 @@
 # Divergence log
 
+## D-3103 — makemon.c breadth cluster: mongen-order comparator/dump + furies whole, 5 verified-complete declarations (coverage)
+
+- **Status:** shipped (Open — coverage; 9-function makemon.c cluster, ~100 js/ insertions; head check_mongen_order is RELEASED-compiled-out → by-design, D-3042 pattern, shipped with 8 live same-file functions. File holds nothing more Open after: all other makemon.c unknowns measured ok, peace_minded already declared.)
+- **Symptom:** coverage — head `check_mongen_order` MISSING (C 12 code L, no JS symbol); same-file `cmp_init_mongen_order`/`dump_mongen`/`summon_furies`/`init_mextra` MISSING with live C users (`init_mongen_order` qsort, ARG_DUMPMONGEN, helm-on `uchangealign`, `newmextra`); `newmextra` THIN (init inlined into a literal), `m_initgrp`/`m_initthrow`/`temperature_shift` PARTIAL-measured but live-complete.
+- **C locus:**
+  - `check_mongen_order`: nethack-c/upstream/src/makemon.c:1783–1802 — whole body inside `#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)` (`:1779`); pinned patchlevel.h:33 sets RELEASED; both call sites (`:1822`, `:1826`) likewise gated.
+  - `cmp_init_mongen_order`: nethack-c/upstream/src/makemon.c:1760–1777 (qsort comparator, `(difficulty+offset)|(mlet<<8)` key `:1771–1775`, return `:1776`); `#if 0` G_NOGEN|G_UNIQ +99 arm `:1763–1769` compiled out (live offsets 0 at `:1768`); sole C use `:1824` qsort in init_mongen_order.
+  - `dump_mongen`: nethack-c/upstream/src/makemon.c:1835–1866 (`--dump=mongen` table: init `:1843`, header `:1844`, LOW_PM..SPECIAL_PM rows `:1845–1861` with PM_ name, seq/idx/sym/diff/freq/maxf/special columns); sole C caller earlyarg.c:537 (ARG_DUMPMONGEN `:536–538`).
+  - `summon_furies`: nethack-c/upstream/src/makemon.c:2604–2611 (mk_gen_ok(PM_ERINYS,G_GONE,0) loop `:2608`, makemon at u.ux/u.uy with MM_ADJACENTOK|MM_NOWAIT `:2609`); sole C caller attrib.c:1348 (uchangealign helm-on, guard `:1347`).
+  - `init_mextra`: nethack-c/upstream/src/makemon.c:1059–1063 (`*mex = zeromextra` `:1061`, `mcorpsenm = NON_PM` `:1062`); sole C caller `:1071` (newmextra).
+  - `newmextra`: nethack-c/upstream/src/makemon.c:1065–1073 (alloc `:1070` + init `:1071` + return `:1072`); C callers shknam.c:560, dog.c:26, minion.c:20, mon.c:2603, restore.c:317, priest.c:19, vault.c:26, do_name.c:38, bones.c:821, makemon.c:2373.
+  - `m_initgrp`: nethack-c/upstream/src/makemon.c:79–145 (rnd(n), ulevel swarm tuning `:106`, peace_minded/enexto/makemon loop); three HPUX/DGUX blocks `:87–104`/`:107–112`/`:115–120` compiled out; C callers are the m_initsgrp/m_initlgrp macros `:29–30` (n=3/10).
+  - `m_initthrow`: nethack-c/upstream/src/makemon.c:147–158 (mksobj, rn1 quan, weight, ORCISH_ARROW poison, mpickobj); 13 C call sites in m_initweap (`:243–556`).
+  - `temperature_shift`: nethack-c/upstream/src/makemon.c:1640–1648 (+3 when ptr resists level hot/cold); sole C caller `:1707` (rndmonst_adj).
+- **JS was:** no `check_mongen_order`/`cmp_init_mongen_order`/`dump_mongen`/`summon_furies`/`init_mextra` symbols; comparator logic inlined in the js/makemon.js sort closure; earlyarg.js:284 and attrib.js:814 carried named-omission stubs; js/restore.js `newmextra` inlined init as a one-line literal; `m_initgrp`/`m_initthrow`/`temperature_shift` bodies complete but the compiled-out arms uncited.
+- **Fix:** `cmp_init_mongen_order` extracted as a file-local (C staticfn) with the `#if 0` arm cited compiled-out, wired into the init_mongen_order sort (pre-existing `|| i1 - i2` tiebreak kept at the call site — C qsort ties are implementation order, the port pins ascending mndx, fortress-held); `dump_mongen` ported whole in C order with C-exact pre-formatted widths (dump_enums `:404` precedent) via live raw_printf/monsym (existing display.js edge extended, no new edge); `summon_furies` ported whole via live mk_gen_ok/makemon; `init_mextra`/`newmextra` restarted as the C alloc+init+return pair; earlyarg ARG_DUMPMONGEN and attrib helm-on arms wired live (doc omissions retired); m_initgrp/m_initthrow/temperature_shift verified complete, compiled-out arms cited. `imports.mjs --can` hung (100 s CPU, no output, killed by timeout — tool failure, not a verdict); substituted manual cycle analysis: earlyarg.js has zero static importers in js/ (no cycle possible), attrib→makemon joins existing display/hack/mon→attrib back-edges (same shape as the live makemon↔mon cycle) with runtime-only use, and both edges import clean in node (smoke below).
+- **JS:** js/makemon.js:834 cmp_init_mongen_order, js/makemon.js:859 sort wiring, js/makemon.js:879 dump_mongen, js/makemon.js:907 summon_furies, js/makemon.js:536/2304/3251 cited completes, js/makemon.js:172 raw_printf import, js/restore.js:38 init_mextra, js/restore.js:46 newmextra, js/earlyarg.js:24 + :285 arm, js/attrib.js:85 + :815 arm.
+- **Callers:**
+  - `check_mongen_order`: C makemon.c:1822/:1826 (init_mongen_order) — both RELEASED-gated, no live C call; JS init_mongen_order correctly call-free. Nothing to wire.
+  - `cmp_init_mongen_order`: C makemon.c:1824 (qsort) → JS js/makemon.js:859 sort comparator wired (sole call site; file-local matches staticfn).
+  - `dump_mongen`: C earlyarg.c:537 (ARG_DUMPMONGEN) → JS js/earlyarg.js:285 wired live.
+  - `summon_furies`: C attrib.c:1348 (uchangealign helm-on) → JS js/attrib.js:815 wired live (`Is_astralevel(u.uz) ? 0 : 1`, C arg order).
+  - `init_mextra`: C makemon.c:1071 (newmextra) → JS js/restore.js:48 wired (sole call site; file-local matches staticfn).
+  - `newmextra`: restore.c:317 → JS restore.js export used at its pre-existing call sites (signature/behavior unchanged); the other 9 C caller files' JS counterparts keep the pre-existing `if (!mextra) mextra = {}` idiom (MCORPSENM-equivalent via `?? -1`, const.js:3159) — not rewired (9 new restore.js edges), named omission.
+  - `m_initgrp`: C macros `:29–30` → JS js/makemon.js:3272/:3276 (sgrp/lgrp wrappers, n=3/10, pre-existing); body untouched (comment-only).
+  - `m_initthrow`: 13 C sites in m_initweap → 13 pre-existing JS sites in js/makemon.js m_initweap (14 `m_initthrow(` hits incl. the definition); body untouched (cite-only).
+  - `temperature_shift`: C `:1707` (rndmonst_adj) → JS js/makemon.js:646 (pre-existing); body untouched (cite-only).
+- **Verify:**
+  - `check_mongen_order`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+  - `cmp_init_mongen_order`: note hidden; REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+  - `dump_mongen`: note hidden; REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+  - `summon_furies`: note hidden; REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+  - `init_mextra`: note hidden; REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+  - `newmextra`: note hidden; REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+  - `m_initgrp`: note hidden; REACH-OK (147 baseline-PASS reach; 80-run spread 80 PASS, 0 regressed).
+  - `m_initthrow`: note hidden; REACH-OK (153 reach; 80-run spread 80 PASS, 0 regressed).
+  - `temperature_shift`: note hidden; REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+  - Shared: `PASS syntax (4 changed js files: attrib/earlyarg/makemon/restore) · PASS rule2 · PASS green 2/2 · PASS strict x2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS`. --reach-all skipped on the two hot functions: their diffs are comment-only (REACH regression definitionally impossible); the behavior-touching cmp extract is covered by full 44/44 exact RNG+screen match. /tmp/makemon-cluster-smoke.mjs: newmextra shape OK, dump_mongen x2 no-throw, ARG_DUMPMONGEN arm returns 2, both new edges import clean.
+- **Named omissions:**
+  - `check_mongen_order`: whole function — C `#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)`, never compiled (patchlevel.h:33 RELEASED; both trees).
+  - `cmp_init_mongen_order`: `#if 0` G_NOGEN|G_UNIQ +99 branch `:1763–1767` compiled out (live `:1768` offsets 0). (Range `:1760–1777` per ledger name-line convention; type line is `:1759`.)
+  - `dump_mongen`: monst_globals_init `:1842` (memcpy of static mons_init — JS mons table is module-initialized, no re-copy channel); three raw_print sinks `:1849`/`:1863–1864` (D-3086 precedent: no pre-window channel, no counter effect — raw_printf stays 1:1); freedynamicdata `:1865` (by-design: save-freeing).
+  - `summon_furies`: none in-body — whole body, every callee live (mk_gen_ok, makemon, pm/mons).
+  - `init_mextra`: none — `*mex = zeromextra` (all-NULL) ≡ absent keys (house mapping), corpsenm live.
+  - `newmextra`: 9 cross-file C callers (dog/minion/mon/priest/vault/do_name/bones/shknam/makemon.c:2373) keep the pre-existing `{}` idiom — unifying them on the live export is follow-up work (9 new restore.js edges).
+  - `m_initgrp`: three HPUX/DGUX blocks `:87–104`/`:107–112`/`:115–120` compiled out (predefined platform macros, never defined on contest builds; patchlevel.h:397).
+  - `m_initthrow`: none in-body — whole body, every callee live.
+  - `temperature_shift`: none in-body — whole body, every callee live.
+- **Ledger:** check_mongen_order by-design; cmp_init_mongen_order ported; dump_mongen partial; summon_furies ported; init_mextra ported; newmextra partial; m_initgrp ported; m_initthrow ported; temperature_shift ported
+- **Next:** queue head after finish regenerates the block (`earlyarg.c` lopt MISSING C47 was next at iteration start).
+
 ## D-3102 — read.c forget + weapon.c drain_weapon_skill: await chain + panic/message fidelity (coverage)
 
 - **Status:** shipped (Open — coverage; 2-function read.c/weapon.c callee-closure cluster, ~36 js/ insertions — below the ~80 guideline because the head's file holds nothing more Open: all other read.c unknowns measured ok, doread THIN is campaign-scale, hawaiian_design zero-heat; callee closure's losespells/rnd already ported.)

@@ -21,6 +21,7 @@ import { NROFARTIFACTS, artilistRaw } from './generated/artifacts_data.js';
 import { ENUMDUMP_CMAP, ENUMDUMP_MON_SYMS, ENUMDUMP_MON_DEFCHARS, ENUMDUMP_OC_DEFCHARS, ENUMDUMP_OC_CLASSES, ENUMDUMP_OC_SYMS } from './generated/enumdumps_data.js';
 import { MCASTU_SPELL_DEFS } from './mcastu.js';
 import { MAXSPELL } from './spell.js';
+import { dump_mongen } from './makemon.js';
 // imports.mjs --can: earlyarg.js has no importers, so these edges cannot
 // close a cycle. version.js stays a leaf (const.js reads it at load);
 // early_version_info lives here so it can call raw_printf.
@@ -281,7 +282,7 @@ export function argcheck(argc, argv, eArg) {
         // Named omission: earlyarg.c:806 dump_glyphids → dump_all_glyphids(stdout).
         return 2;
     case ARG_DUMPMONGEN: // C `:536–538`
-        // Named omission: makemon.c:1835 dump_mongen.
+        dump_mongen(); // C `:537`
         return 2;
     case ARG_DUMPWEIGHTS: // C `:538–540`
         // Named omission: hack.c:4421 dump_weights.

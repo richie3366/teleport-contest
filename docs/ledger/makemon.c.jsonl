@@ -1,7 +1,7 @@
 {"fn":"is_home_elemental","c":"33-50","status":"unknown"}
 {"fn":"wrong_elem_type","c":"56-75","status":"unknown"}
-{"fn":"m_initgrp","c":"79-145","status":"unknown"}
-{"fn":"m_initthrow","c":"148-158","status":"unknown"}
+{"fn":"m_initgrp","c":"79-145","status":"ported","js":["js/makemon.js:m_initgrp"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
+{"fn":"m_initthrow","c":"148-158","status":"ported","js":["js/makemon.js:m_initthrow"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
 {"fn":"m_initweap","c":"161-572","status":"ported","js":["js/makemon.js:m_initweap"],"d":["D-1094","D-1088"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"mkmonmoney","c":"576-586","status":"unknown"}
 {"fn":"m_initinv","c":"589-833","status":"unknown"}
@@ -9,8 +9,8 @@
 {"fn":"propagate","c":"958-982","status":"unknown"}
 {"fn":"monhp_per_lvl","c":"986-1007","status":"unknown","d":["D-2719"],"at":"seed@a30a7de84"}
 {"fn":"newmonhp","c":"1012-1054","status":"unknown","d":["D-2163","D-2017"],"at":"seed@a30a7de84"}
-{"fn":"init_mextra","c":"1059-1063","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"newmextra","c":"1066-1073","status":"unknown"}
+{"fn":"init_mextra","c":"1059-1063","status":"ported","js":["js/restore.js:init_mextra"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"newmextra","c":"1066-1073","status":"partial","js":["js/restore.js:newmextra"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"unknown","d":["D-2264"],"at":"seed@a30a7de84"}
 {"fn":"makemon","c":"1147-1510","status":"unknown","d":["D-2421","D-2299","D-2139","D-2001"],"at":"seed@a30a7de84"}
 {"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
@@ -18,14 +18,14 @@
 {"fn":"create_critters","c":"1556-1590","status":"unknown"}
 {"fn":"uncommon","c":"1593-1603","status":"unknown"}
 {"fn":"align_shift","c":"1611-1637","status":"unknown"}
-{"fn":"temperature_shift","c":"1641-1648","status":"unknown"}
+{"fn":"temperature_shift","c":"1641-1648","status":"ported","js":["js/makemon.js:temperature_shift"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
 {"fn":"rndmonst","c":"1652-1655","status":"unknown"}
 {"fn":"rndmonst_adj","c":"1659-1732","status":"ported","js":["js/makemon.js:rndmonst_adj"],"d":["D-2823","D-1566"],"at":"seed@a30a7de84"}
 {"fn":"mk_gen_ok","c":"1736-1752","status":"unknown"}
-{"fn":"cmp_init_mongen_order","c":"1760-1777","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"check_mongen_order","c":"1783-1802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cmp_init_mongen_order","c":"1760-1777","status":"ported","js":["js/makemon.js:cmp_init_mongen_order"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"check_mongen_order","c":"1783-1802","status":"by-design","d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"init_mongen_order","c":"1807-1828","status":"unknown"}
-{"fn":"dump_mongen","c":"1835-1866","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dump_mongen","c":"1835-1866","status":"partial","js":["js/makemon.js:dump_mongen"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mkclass","c":"1873-1876","status":"unknown"}
 {"fn":"mkclass_aligned","c":"1880-1974","status":"unknown"}
 {"fn":"mkclass_poly","c":"1983-2012","status":"unknown"}
@@ -39,4 +39,4 @@
 {"fn":"freemcorpsenm","c":"2379-2383","status":"unknown"}
 {"fn":"set_mimic_sym","c":"2393-2550","status":"unknown","d":["D-1564","D-1557","D-1556","D-1543","D-1536","D-1525"],"at":"seed@a30a7de84"}
 {"fn":"bagotricks","c":"2554-2601","status":"unknown","d":["D-2354"],"at":"seed@a30a7de84"}
-{"fn":"summon_furies","c":"2605-2612","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"summon_furies","c":"2605-2612","status":"ported","js":["js/makemon.js:summon_furies"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}

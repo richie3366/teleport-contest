@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `makemon.c` check_mongen_order — coverage MISSING (C 12 code L `makemon.c:1783–1802` / JS no symbol; hops 6, callers 1, RNG 0, msg 0) @773e13c9a
 - [ ] `earlyarg.c` lopt — coverage MISSING (C 47 code L `earlyarg.c:71–144` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @92b27f0c4
 - [ ] `hack.c` rounddiv — coverage PARTIAL (C 15 code L `hack.c:4551–4572` / JS 10 code L in js/eat.js; hops 4, callers 3, RNG 0, msg 0) @92b27f0c4
 - [ ] `pager.c` append_str — coverage PARTIAL (C 15 code L `pager.c:82–104` / JS 9 code L in js/pager.js; hops 2, callers 1, RNG 0, msg 0) @b6b281b0a
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mondata.c` olfaction — coverage PARTIAL (C 9 code L `mondata.c:1507–1518` / JS 6 code L in js/monsters.js; hops 4, callers 4, RNG 0, msg 0) @e028921a0
 - [ ] `rect.c` get_rect — coverage PARTIAL (C 12 code L `rect.c:82–97` / JS 7 code L in js/rect.js; hops 3, callers 2, RNG 0, msg 0) @e028921a0
 - [ ] `o_init.c` disco_output_sorted — coverage THIN (C 11 code L `o_init.c:741–760` / JS 3 code L in js/o_init.js; hops —, callers 1, RNG 0, msg 1) @920907eb7
+- [ ] `ball.c` lift_covet_and_placebc — coverage PARTIAL (C 11 code L `ball.c:236–254` / JS 7 code L in js/ball.js; hops 3, callers 2, RNG 0, msg 0) @73f4a382f
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

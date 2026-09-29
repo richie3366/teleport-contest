@@ -82,6 +82,7 @@ import {
 import { ART_OGRESMASHER, ART_EYES_OF_THE_OVERWORLD } from './generated/artifacts_data.js';
 import { adj_erinys } from './monsters.js';
 import { uasmon_maxStr } from './polyself.js';
+import { summon_furies } from './makemon.js';
 
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
 
@@ -769,9 +770,9 @@ export function adjalign(n) {
 /**
  * C ref: attrib.c uchangealign `:1319–1362` — altar conversion
  * (A_CG_CONVERT) + helm on/off arms.
- * Named omissions: summon_furies (C makemon.c:2605, helm-on astral/abuse
- * arm) + retouch_equipment (C artifact.c:2639, align-change tail); both
- * have no live JS counterpart, so the arms name them instead of stubbing.
+ * Named omissions: retouch_equipment (C artifact.c:2639, align-change
+ * tail); it has no live JS counterpart, so the arm names it instead of
+ * stubbing. (summon_furies went live in the makemon.c breadth cluster.)
  */
 export async function uchangealign(newalign, reason) {
     const u = game.u || (game.u = {});
@@ -811,7 +812,7 @@ export async function uchangealign(newalign, reason) {
             );
             await make_confused(rn1(2, 3), false);
             if (Is_astralevel(u.uz) || rn2(50) < (u.ualign.abuse | 0)) {
-                /* summon_furies named — C makemon.c:2605 */
+                summon_furies(Is_astralevel(u.uz) ? 0 : 1); // C `:1348`
             }
             /* don't livelog taking it back off */
             livelog_printf(

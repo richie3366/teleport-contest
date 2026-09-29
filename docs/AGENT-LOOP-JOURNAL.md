@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3103 makemon.c breadth cluster: mongen-order comparator/dump + furies whole, 5 verified-complete declarations (coverage)
+
+**C locus:** - `check_mongen_order`: nethack-c/upstream/src/makemon.c:1783–1802 — whole body inside `#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)` (`:1779`); pinned patchlevel.h:33 sets RELEASED; both call sites (`:1822`, `:1826`) likewise gated.
+**JS:** js/makemon.js:834 cmp_init_mongen_order, js/makemon.js:859 sort wiring, js/makemon.js:879 dump_mongen, js/makemon.js:907 summon_furies, js/makemon.js:536/2304/3251 cited completes, js/makemon.js:172 raw_printf import, js/restore.js:38 init_mextra, js/restore.js:46 newmextra, js/earlyarg.js:24 + :285 arm, js/attrib.js:85 + :815 arm.
+**Change:** `cmp_init_mongen_order` extracted as a file-local (C staticfn) with the `#if 0` arm cited compiled-out, wired into the init_mongen_order sort (pre-existing `|| i1 - i2` tiebreak kept at the call site — C qsort ties are implementation order, the port pins ascending mndx, fortress-held); `dump_mongen` ported whole in C order with C-exact pre-formatted widths (dump_enums `:404` precedent) via live raw_printf/monsym (existing display.js edge extended, no new edge); `summon_furies` ported whole via live mk_gen_ok/makemon; `init_mextra`/`newmextra` restarted as the C alloc+init+return pair; earlyarg ARG_DUMPMONGEN and attrib helm-on arms wired live (doc omissions retired); m_initgrp/m_initthrow/temperature_shift verified complete, compiled-out arms cited. `imports.mjs --can` hung (100 s CPU, no output, killed by timeout — tool failure, not a verdict); substituted manual cycle analysis: earlyarg.js has zero static importers in js/ (no cycle possible), attrib→makemon joins existing display/hack/mon→attrib back-edges (same shape as the live makemon↔mon cycle) with runtime-only use, and both edges import clean in node (smoke below).
+**Verify:** - `check_mongen_order`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke 24/24 PASS).
+**Named:** - `check_mongen_order`: whole function — C `#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)`, never compiled (patchlevel.h:33 RELEASED; both trees).
+**Next:** queue head after finish regenerates the block (`earlyarg.c` lopt MISSING C47 was next at iteration start).
 ## 2026-09-29 — D-3102 read.c forget + weapon.c drain_weapon_skill: await chain + panic/message fidelity (coverage)
 
 **C locus:** - `forget`: nethack-c/upstream/src/read.c:1020–1040 (Punished→bc_felt, ALL_SPELLS→losespells, drain `:1031`, fmon loop with usteed/ustuck guard, migrating_mons loop); Punished ≡ youprop.h:77 `(uball != 0)`, ALL_SPELLS ≡ spell.h:29 `0x2`; sole C caller seffect_amnesia `:1836`.
