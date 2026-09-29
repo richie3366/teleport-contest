@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3088 — dump_enums: earlyarg.c `--dumpenums` enum tables (coverage)
+
+- **Status:** shipped (coverage — queue head `calendar.c` yyyymmddhhmmss went stale at js/calendar.js:346, body complete with all live callers wired; shipped next row `earlyarg.c` dump_enums MISSING same iteration)
+- **Symptom:** `argcheck` ARG_DUMPENUMS arm was a named omission; `--dumpenums` printed nothing.
+- **C locus:**
+  - `dump_enums`: nethack-c/upstream/src/earlyarg.c:706–801 (tables :624–703, loop :777–800)
+- **JS was:** no symbol; js/earlyarg.js:271 named omission.
+- **Fix:**
+  - `dump_enums`: new file-local in C order — 11 `edmp` tables via exported `dump_enums_tables()` assembler (monsdump from live monsterNames slice(3) + 5 fenceposts with HIGH_PM≡NUMMONS-1 per permonst.h:22; objdump from live objectNames + NUM_OBJECTS; omdump 15 rows from objects_data consts + indexOf MARKER anchors + objclass.h:180–181 gem counts; six defsym tables from new js/generated/enumdumps_data.js; arti from artilistRaw bn + NROFARTIFACTS+1 per hack.h:102/106; mcast from new MCASTU_SPELL_DEFS), prefix/unprefixed/nmwidth/comment logic verbatim, rows pre-formatted (`padEnd` ≡ negative-width `%*s`, `padStart(3)` ≡ `%3d`) through `raw_printf('%s', …)` (early_version_info precedent; vpline_expand strips width per D-2573). Extended scripts/extract-glyphsyms.py (owns defsym.h parsing) to emit enumdumps_data.js with density + OBJCLASS2 + printability asserts; added MAXMCLASSES=61 (sym.h:24) to js/display.js. Wired the ARG_DUMPENUMS arm (returns 2, as C).
+- **JS:** js/earlyarg.js:dump_enums (file-local), dump_enums_tables (exported for the oracle probe); js/generated/enumdumps_data.js (new); js/mcastu.js:MCASTU_SPELL_DEFS; js/display.js:MAXMCLASSES.
+- **Callers:**
+  - `dump_enums`: argcheck ARG_DUMPENUMS js/earlyarg.js:271 (sole C caller earlyarg.c:529) — now live.
+- **Verify:**
+  - `dump_enums`: /tmp/dumpenums_probe.mjs rebuilt all 11 tables (388+482+15+106+61+60+17+18+17+35+20 rows) from the real `dump_enums_tables()` and byte-diffed 1251/1251 lines vs `./nethack --dumpenums` (recorder binary) — BYTE-EXACT; `argcheck(2,['nethack','--dumpenums'],ARG_DUMPENUMS)` → 2, no throw. `verify --fn dump_enums`: hidden note (no sessions blocked), REACH-OK (smoke 24/24), green 2/2, strict ×2, cohort 7/7, full 44/44 → VERIFY: PASS.
+- **Named omissions:**
+  - `dump_enums`: `raw_print` `:797–798`,`:800` stdout sink (no pre-window channel in dual-runtime ESM; `vraw_printf` `:577` sink-omit precedent — routing through `raw_printf` would invent +2 early_raw_messages counts per line that C never records).
+- **Ledger:** dump_enums partial
+- **Next:** ARG_DUMPGLYPHIDS/ARG_DUMPMONGEN/ARG_DUMPWEIGHTS arms stay named (dump_all_glyphids, dump_mongen, dump_weights unported).
+
 ## D-3087 — doborn + enlght_halfdmg + cause_known + walking_on_water: insight.c census + enlightenment leaves (coverage)
 
 - **Status:** shipped (coverage — queue head `insight.c` doborn MISSING + same-file enlght_halfdmg/cause_known/walking_on_water MISSING; 2 ledger-hygiene resolutions same iteration, both set directly: characteristics_enlightenment + item_resistance_message split, bodies verified complete under `_lines`/inline names)

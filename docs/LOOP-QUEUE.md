@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `calendar.c` yyyymmddhhmmss — coverage PARTIAL (C 15 code L `calendar.c:95–117` / JS 9 code L in js/calendar.js; hops 4, callers 4, RNG 0, msg 0) @29685b8e4
 - [ ] `earlyarg.c` dump_enums — coverage MISSING (C 79 code L `earlyarg.c:706–801` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @29685b8e4
 - [ ] `wizcmds.c` wiz_custom — coverage MISSING (C 36 code L `wizcmds.c:1934–1984` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @29685b8e4
 - [ ] `weapon.c` lose_weapon_skill — coverage MISSING (C 10 code L `weapon.c:1453–1473` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @29685b8e4
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `wizcmds.c` wiz_kill — coverage MISSING (C 66 code L `wizcmds.c:243–347` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @590ebd616
 - [ ] `timeout.c` burn_object — coverage PARTIAL (C 209 code L `timeout.c:1383–1680` / JS 154 code L in js/timeout.js; hops —, callers 0, RNG 0, msg 9) @a1c4832f4
 - [ ] `cfgfiles.c` config_erradd — coverage PARTIAL (C 29 code L `cfgfiles.c:1544–1589` / JS 18 code L in js/cfgfiles.js; hops —, callers 1, RNG 0, msg 3) @a1c4832f4
+- [ ] `selvar.c` selection_getbounds — coverage PARTIAL (C 13 code L `selvar.c:77–95` / JS 9 code L in js/region.js; hops 6, callers 16, RNG 0, msg 0) @ffb380a5c
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

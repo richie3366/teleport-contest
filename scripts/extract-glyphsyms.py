@@ -163,6 +163,48 @@ for line in text.split("\n"):
 # C ref: defsym.h MONSYMS_PARSE — { SYM_MON, sym + SYM_OFF_M, #sym }.
 monsyms = collect(text, "MONSYM", 3)
 
+
+def collect_full(text, macro):
+    """Like collect() but return full top-level arg lists (for the
+    DUMP_ENUMS_* tables, which also need the ch and basename args)."""
+    invocs = []
+    buf, depth, active = "", 0, False
+    for line in text.split("\n"):
+        if not active:
+            m = re.match(r"    " + macro + r"2?\(\s*(.*)$", line)
+            if not m:
+                continue
+            buf, active = m.group(1), True
+            bare = strip_literals(buf)
+            depth = 1 + bare.count("(") - bare.count(")")
+        else:
+            buf += " " + line.strip()
+            bare = strip_literals(line)
+            depth += bare.count("(") - bare.count(")")
+        if active and depth <= 0:
+            invocs.append(buf[: buf.rfind(")")])
+            buf, active = "", False
+    rows = []
+    for inv in invocs:
+        args = split_top_commas(inv)
+        if not args or not re.match(r"^\d+$", args[0]):
+            continue
+        rows.append(args)
+    return rows
+
+
+def char_code(lit):
+    """C char literal ('a', ']' — incl. backslash/quote escapes) to code."""
+    lit = lit.strip()
+    assert len(lit) >= 3 and lit[0] == "'" and lit[-1] == "'", lit
+    body = lit[1:-1]
+    if len(body) == 1:
+        return ord(body)
+    esc = {"\\\\": 92, "\\'": 39, '\\"': 34, "\\n": 10, "\\t": 9,
+           "\\r": 13, "\\0": 0}
+    assert body in esc, lit
+    return esc[body]
+
 # C ref: hack.h:1081–1082 symbol offsets — SYM_OFF_P 0 + MAXPCHARS 105
 # (S_expl_br 104 fencepost + 1) gives SYM_OFF_O 105; + MAXOCLASSES 18
 # gives SYM_OFF_M 123. C ref: sym.h:112–117 SYM_NOTHING 0 ..
@@ -213,3 +255,67 @@ for r, i, n in entries:
 lines.append("];")
 DST.write_text("\n".join(lines) + "\n")
 print(f"wrote {DST} ({len(entries)} entries)")
+
+# --- earlyarg.c dump_enums() DUMP_ENUMS_* tables (js/generated/enumdumps_data.js)
+# C ref: earlyarg.c:642–679 defsym_cmap_dump, defsym_mon_syms_dump,
+# defsym_mon_defchars_dump, objclass_defchars_dump, objclass_classes_dump,
+# objclass_syms_dump. Each entry is [val, name] ≡ enum_dump {val, nm}.
+# S_* values equal the macro idx (sym = idx per the *_S_ENUM expansions);
+# DEF_*/ *_SYM values are the default-char codes.
+EDST = ROOT / "js/generated/enumdumps_data.js"
+
+monrows = collect_full(text, "MONSYM")
+assert [(int(a[0]), a[3]) for a in monrows] == monsyms, "MONSYM full/parse drift"
+ocrows = []  # (is_oc2, args)
+buf, depth, active, is_oc2 = "", 0, False, False
+for line in text.split("\n"):
+    if not active:
+        m = re.match(r"    OBJCLASS(2)?\(\s*(.*)$", line)
+        if not m:
+            continue
+        is_oc2 = m.group(1) == "2"
+        buf, active = m.group(2), True
+        bare = strip_literals(buf)
+        depth = 1 + bare.count("(") - bare.count(")")
+    else:
+        buf += " " + line.strip()
+        bare = strip_literals(line)
+        depth += bare.count("(") - bare.count(")")
+    if active and depth <= 0:
+        args = split_top_commas(buf[: buf.rfind(")")])
+        if args and re.match(r"^\d+$", args[0]):
+            ocrows.append((is_oc2, args))
+        buf, active = "", False
+assert [(int(a[0]), a[4] if o2 else a[3]) for o2, a in ocrows] == oc_syms, \
+    "OBJCLASS full/parse drift"
+# C ref: defsym.h:479 — the only OBJCLASS2 (COIN basename, GOLD_SYM sname).
+assert sum(1 for o2, _ in ocrows if o2) == 1, "expected one OBJCLASS2"
+
+mon_defchars = [(char_code(a[1]), f"DEF_{a[2]}") for a in monrows]
+oc_defchars = [(char_code(a[1]), a[3] if o2 else f"{a[2]}_SYM")
+               for o2, a in ocrows]
+oc_classes = [(int(a[0]), f"{a[2]}_CLASS") for _, a in ocrows]
+for v, n in mon_defchars + oc_defchars:
+    assert 32 <= v <= 126, f"non-printable defchar {v} {n}"
+
+ed = [
+    "// AUTO-GENERATED from nethack-c/upstream/include/defsym.h — do not edit.",
+    "// Regenerate: python3 scripts/extract-glyphsyms.py",
+    "// C ref: earlyarg.c dump_enums() DUMP_ENUMS_* tables (:642–679).",
+    "// Each entry is [val, name] ≡ enum_dump {val, nm}; S_* values equal",
+    "// the macro idx (sym = idx per the *_S_ENUM expansions); DEF_*/ *_SYM",
+    "// values are the default-char codes. The C trailing fenceposts",
+    "// (MAXPCHARS, MAXMCLASSES, MAXOCLASSES) stay with the consumer.",
+    f"export const ENUMDUMP_CMAP = {[[i, n] for i, n in pchars]};",
+    f"export const ENUMDUMP_MON_SYMS = {[[i, n] for i, n in monsyms]};",
+    f"export const ENUMDUMP_MON_DEFCHARS = "
+    f"{[[v, n] for v, n in mon_defchars]};",
+    f"export const ENUMDUMP_OC_DEFCHARS = "
+    f"{[[v, n] for v, n in oc_defchars]};",
+    f"export const ENUMDUMP_OC_CLASSES = "
+    f"{[[v, n] for v, n in oc_classes]};",
+    f"export const ENUMDUMP_OC_SYMS = {[[i, n] for i, n in oc_syms]};",
+]
+EDST.write_text("\n".join(ed) + "\n")
+print(f"wrote {EDST} (cmap {len(pchars)}, monsyms {len(monsyms)}, "
+      f"oc {len(ocrows)})", file=sys.stderr)

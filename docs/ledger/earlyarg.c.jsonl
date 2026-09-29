@@ -8,5 +8,5 @@
 {"fn":"scores_only","c":"406-441","status":"unknown"}
 {"fn":"argcheck","c":"450-560","status":"partial","js":["js/earlyarg.js:argcheck"],"omit":"`dump_version_info` (`version.c:494`), `dump_enums` (`earlyarg.c:705`), `dump_glyphids` (`earlyarg.c:806`), `dump_mongen` (`makemon.c:1835`), `dump_weights` (`hack.c:4421`), and `crashreport_bidshow` (`report.c:189`) stay unported; those arms still return 2.","d":["D-2986"],"at":"2026-09-27@9b244f090"}
 {"fn":"debug_fields","c":"576-621","status":"ported","js":["js/earlyarg.js:debug_fields"],"d":["D-2986"],"at":"2026-09-27@9b244f090"}
-{"fn":"dump_enums","c":"706-801","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dump_enums","c":"706-801","status":"partial","js":["js/earlyarg.js:dump_enums"],"omit":"- `dump_enums`: `raw_print` `:797–798`,`:800` stdout sink (no pre-window channel in dual-runtime ESM; `vraw_printf` `:577` sink-omit precedent — routing through `raw_printf` would invent +2 early_raw_messages counts per line that C never records).","d":["D-3088"],"at":"2026-09-29@ffb380a5c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dump_glyphids","c":"806-809","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

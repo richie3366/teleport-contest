@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-29
 
-- [x] `insight.c` doborn — coverage MISSING (C 24 code L `insight.c:3145–3176` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @643ef6af3 **Addressed:** D-3087
+- [x] `insight.c` doborn — coverage MISSING (C 24 code L `insight.c:3145–3176` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @643ef6af3 **Addressed:** D-3087 `ffb380a5c`
 
 
 - [x] `read.c` create_particular_creation class-`d` — C read.c:3279–3282 `whichpm = mkclass(d->monclass, 0)` absent from js/read.js:create_particular_creation (never reads d.monclass; creates urole.mnum placeholder instead of a random class member for ^G class letters). Source: reviews/loop-unattended/2035-3a3d73a50-create-particular-parse.md. **Addressed:** D-3083 `a2037c0d5`
