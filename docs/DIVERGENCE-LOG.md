@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3127 — `insight.c` enlght_line port + enlght_out split (coverage)
+
+- **Status:** fixed (queue head `mon.c` qst_guardians_respond stale-complete at js/mon.js:1396, wired from setmangry js/mon.js:1472–1474 → direct `ledger.mjs set`; shipped the next row enlght_line: C-order body over live strstri/strsubst, exported, invent.js clone consolidated onto it; enlght_out split across the per-builder sinks. Drive-by stale declares: attrval js/invent.js:4976, trap_predicament js/invent.js:5713. 16 js/ insertions / 27 deletions across 2 files — below the density floor (D-3126 precedent: 79 ins); the head file holds no more queue rows and the callee closure is closed (see Next). No review Source — no stamp.)
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify enlght_line,enlght_out`: no corpus session blocked at baseline — enlightenment display path, no RNG).
+- **C locus:**
+  - `enlght_line`: insight.c:127–156 (Sprintf :148, contra table :133–147, strstri gate :150, strsubst loop :151–153, emit :155).
+  - `enlght_out`: insight.c:118–124 (en_via_menu → add_menu_str, else putstr).
+  - `qst_guardians_respond` (stale): mon.c:4135–4159 whole at js/mon.js:1396 (DEADMONSTER ≡ mhp < 1 per monst.h:214; Hallucination-gated plural pline).
+  - `attrval` (stale): insight.c:287–299 whole at js/invent.js:4976 (all 3 arms; STR18_100 const).
+  - `trap_predicament` (stale): insight.c:233–261 whole at js/invent.js:5713 (all switch arms + wizxtra `{utrap}` suffix).
+- **JS was:** insight.js:245 local enlght_line with a case-sensitive `includes(' not ')` gate + replace-ALL per row (`split(from).join(to)`); invent.js:5251 second clone enlght_line_txt with the identical divergences; enlght_out had no symbol.
+- **Fix:** C-order body over live hacklib.js strstri (:585, case-insensitive gate ≡ :150) + strsubst (:636, first-only ≡ hacklib.c:544 `strstr`); dropped the non-C `includes` guard (C calls strsubst unconditionally per row — it no-ops when absent); exported. invent.js imports it as enlght_line_txt (extends the existing static insight edge; calls are runtime-only inside builders, and the export is a hoisted function — no TDZ on the pre-existing invent↔insight cycle) and the 18-line clone is deleted. All 107 invent.js call sites verified 4-arg (balanced-paren audit; the "5"s are trailing commas), so the C-exact 4-param signature is safe.
+- **JS:** js/insight.js:252 `export function enlght_line`; js/invent.js:253 import alias (+ pointer comment at the deletion site).
+- **Callers:**
+  - `enlght_line`: C enl_msg macro :106 → JS enl_msg js/insight.js:263; C :641 direct → JS js/insight.js:437; C builder macros (you_are/you_have/enl_msg in the status/attributes/conduct builders) → 107 invent.js builder sites via the alias.
+  - `enlght_out`: C call sites (enlght_line :155 + direct separator/title lines) → JS per-builder sinks: background `out` closure js/insight.js:296 (+ separators :311); final-disclosure pages js/invent.js:6820 `show_nhw_menu_text` (inside enlightenment :6173); ^X overlay `o` closure js/invent.js:7029 (inside doattributes :6900).
+- **Verify:**
+  - `enlght_line`: hidden note (no corpus session blocked) + REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `enlght_out`: hidden note (no corpus session blocked) + REACH-OK (smoke spread 24 run, 24 PASS, 0 regressed).
+  - Once: syntax 2 changed files · Rule #2 · green 2/2 · strict (seed8000 + seed0900) · cohort 7/7 → `VERIFY: PASS`.
+- **Named omissions:**
+  - `enlght_line`: none — whole body, every callee live (CONTRA table, strstri, strsubst); the :155 emit is the sinks below, not a missing call.
+  - `enlght_out`: none missing — split across the three sinks above (C add_menu_str/putstr window dispatch ≡ JS lines-array + renderer dispatch).
+- **Ledger:** enlght_line ported; enlght_out split js=js/insight.js:background_enlightenment+js/invent.js:enlightenment+js/invent.js:doattributes
+- **Next:** remaining same-file insight.c unknowns hold no queue rows: status_enlightenment (326L, campaign-scale) and attributes_enlightenment (large) need their own iterations; one_characteristic (split names one_characteristic_line/_final), doattributes, enlightenment, doconduct each need a one-brief stale-verify. D-2423 (attributes Unchanging arm) stays open.
+
 ## D-3126 — `artifact.c` abil_to_adtyp whole-body + what_gives completion + arti_immune (coverage)
 
 - **Status:** fixed (Open — coverage head `artifact.c` abil_to_adtyp MISSING → whole body as a file-local propidx switch in C table order beside its abil_to_spfx sibling + what_gives completed (dtyp cary/defn arms, cspfx arm, EWarn_of_mon warntype guard; the `!bits` early return and wield-bits table gate removed — C scans unconditionally) + arti_immune whole-body export (0 C callers). Same-file growth rows bane_applies + abil_to_spfx stale-complete via direct `ledger.mjs set`. 79 js/ insertions (1 file) — at the density floor (D-3124 precedent); the head file's remaining queue-eligible row is set_artifact_intrinsic PARTIAL (HALRES make_hallucinated message path + inv_prop async split need their own iteration, see Next). Rows cite no review Source — no stamp.)

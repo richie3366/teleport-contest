@@ -73,7 +73,7 @@
 {"fn":"m_respond_shrieker","c":"4089-4105","status":"unknown"}
 {"fn":"m_respond_medusa","c":"4109-4118","status":"unknown"}
 {"fn":"m_respond","c":"4122-4131","status":"unknown","d":["D-1314"],"at":"seed@a30a7de84"}
-{"fn":"qst_guardians_respond","c":"4135-4159","status":"unknown"}
+{"fn":"qst_guardians_respond","c":"4135-4159","status":"ported","js":["js/mon.js:qst_guardians_respond"],"at":"2026-09-29@d0fb9f36b","note":"stale: js/mon.js:1396"}
 {"fn":"peacefuls_respond","c":"4163-4257","status":"unknown","d":["D-1772"],"at":"seed@a30a7de84"}
 {"fn":"setmangry","c":"4265-4318","status":"partial","js":["js/mon.js:setmangry"],"omit":"`quest.c:479` `quest_chat` pissed_off → `setmangry` (pre-existing deferral, `js/quest.js:432` comment); vault greeting Croesus-alive `waves goodbye` / `Sorry to have disturbed you` dialogue (`vault.c:514–523`, JS leaves via `mongone_guard`); `sengr_at` has no live ESM export (teleport.js:175 module…","d":["D-2494"],"at":"seed@a30a7de84"}
 {"fn":"wake_msg","c":"4322-4329","status":"unknown"}

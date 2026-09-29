@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3127 `insight.c` enlght_line port + enlght_out split (coverage)
+
+**C locus:** - `enlght_line`: insight.c:127–156 (Sprintf :148, contra table :133–147, strstri gate :150, strsubst loop :151–153, emit :155).
+**JS:** js/insight.js:252 `export function enlght_line`; js/invent.js:253 import alias (+ pointer comment at the deletion site).
+**Change:** C-order body over live hacklib.js strstri (:585, case-insensitive gate ≡ :150) + strsubst (:636, first-only ≡ hacklib.c:544 `strstr`); dropped the non-C `includes` guard (C calls strsubst unconditionally per row — it no-ops when absent); exported. invent.js imports it as enlght_line_txt (extends the existing static insight edge; calls are runtime-only inside builders, and the export is a hoisted function — no TDZ on the pre-existing invent↔insight cycle) and the 18-line clone is deleted. All 107 invent.js call sites verified 4-arg (balanced-paren audit; the "5"s are trailing commas), so the C-exact 4-param signature is safe.
+**Verify:** - `enlght_line`: hidden note (no corpus session blocked) + REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `enlght_line`: none — whole body, every callee live (CONTRA table, strstri, strsubst); the :155 emit is the sinks below, not a missing call.
+**Next:** remaining same-file insight.c unknowns hold no queue rows: status_enlightenment (326L, campaign-scale) and attributes_enlightenment (large) need their own iterations; one_characteristic (split names one_characteristic_line/_final), doattributes, enlightenment, doconduct each need a one-brief stale-verify. D-2423 (attributes Unchanging arm) stays open.
 ## 2026-09-29 — Audit 2078-2086 (D-3118..D-3126): 9 ACCEPT; full cadence
 
 Reviews 2078-2086 audit c1be7a049..eeb30e858 against pinned C (Resists_Elem Must-fix closing 2070, botl 4-fn query closure, num_genocides+livelog, options 9-fn term cluster, container_at+dirprompt, make_version+9 dispositions, hawaiian_design+shirt block, reorder gold-arm fix, artifact 5-fn abil cluster): 9 ACCEPT, no Must-fix. Every corpus claim re-measured with --reach-all (all vacuous + REACH-OK, no REGRESSED). Cadence: public 44/44, corpus 648/953 (0 flips, full:true), held-out 13/44 flat. Ledger snapshot + 5/5 seeded-ported sample live.
