@@ -1,5 +1,48 @@
 # Divergence log
 
+## D-3112 — `version.c` copyright_banner_line + dump_version_info + get_critical_size_count (3× MISSING→whole; queue head stale)
+
+- **Status:** fixed (Open — coverage row `version.c` copyright_banner_line; cites no review — no stamp needed; density note ~71 js/ insertions: version.c holds nothing more Open — rest ported/partial/measured-ok/by-design — and the callee closure is live).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on all three: no corpus session blocked at baseline — banner/dump/startup paths). Queue head `mkobj.c` peek_at_iced_corpse_age declared stale (brief: body complete at js/mkobj.js:3583, all 5 C sites wired, only gap debug-only debugpline with no JS counterpart); same-file `version_string`/`doversion` stale (js/version.js:77, js/pager.js:2975, both arms live); `comp_times` by-design (`#ifdef MICRO`, 0 C references).
+- **C locus:**
+  - `copyright_banner_line`: `nethack-c/upstream/src/version.c:471–490` (A `:473–475`, B `:477–479`, runtime C `:482–483`, D `:485–487`, `""` `:488`; all four `#ifdef`s live — patchlevel.h:39–44).
+  - `dump_version_info`: `nethack-c/upstream/src/version.c:494–510` (hname default `:497`, last-33 slice `:499–500`, init `:501`, `%-12.33s %08lx %08lx %08lx` `:502–506`, raw_print `:507`, release `:508`).
+  - `get_critical_size_count`: `nethack-c/upstream/src/version.c:669–672` (`SIZE(critical_sizes)` `:671`).
+- **JS was:** all three MISSING — no JS symbols. argcheck's `--version:dump` arm (js/earlyarg.js) carried a named omission and returned 2 without printing.
+- **Fix:** `copyright_banner_line` + `get_critical_size_count` as new exports in js/files.js (C order, per-arm cites) — files.js, not version.js, because version.js stays import-free (D-1881: const.js reads COMMIT_NUMBER at top level) and files.js already hosts the version.c save-validation family with live const.js + game imports. `dump_version_info` as a new export in js/earlyarg.js next to `early_version_info` (same reason: needs the `raw_printf` channel; sole C caller earlyarg.c:512), in C order: `game.gh?.hname ?? 'nethack'` (botl.js:2322: no gh.hname in JS), `slice(eos(hname) - 33)` (`nhStr` is the identity cast, lint.h:16), live `runtime_info_init`/`release_runtime_info` (added to the existing version.js edge — version.js is a leaf, no cycle), `%-12.33s` slice+padEnd, `%08lx` via `>>> 0` hex padStart(8), `raw_printf('%s', buf)` for C `raw_print` (no JS channel — the live early-output adaptation). Wired the argcheck `:dump` arm to call it (replacing the named omission). No new cross-module edges (const.js/version.js/hacklib/game edges pre-existing in both files).
+- **JS:** js/files.js (+37), js/earlyarg.js (+34/−3).
+- **Callers:**
+  - `copyright_banner_line`: restore.c:1559 + :1613 (`restore_menu`) → no JS symbol — named omission (caller unported; export ready for wiring). wintty.c:571 (tty startup banner) → served by the pre-existing inlined split site js/askname.js:52–60 `show_copyright_splash` (not rewired: its pinned line-3 value differs from the runtime banner_c — pre-existing, out of scope).
+  - `dump_version_info`: earlyarg.c:512 → js/earlyarg.js `dump_version_info()` call in the `:dump` arm (new; returns 2 like C, caller terminates). No call from a site C never calls from.
+  - `get_critical_size_count`: files.c:2869 (`recover_savefile`) + util/recover.c:45 → compiled out (`SELF_RECOVER` commented out, unixconf.h:126; util is not the game) — named omission, no wiring.
+- **Verify:** `node scripts/verify.mjs --fn copyright_banner_line,dump_version_info,get_critical_size_count` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/earlyarg.js js/files.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify copyright_banner_line: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    copyright_banner_line: no RNG-tagged reach; fixed smoke spread (24 run, 6.6s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify dump_version_info: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    dump_version_info: no RNG-tagged reach; fixed smoke spread (24 run, 6.6s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify get_critical_size_count: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    get_critical_size_count: no RNG-tagged reach; fixed smoke spread (24 run, 6.6s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `copyright_banner_line`: none in-body — whole body, every value live (A/B/D pins, runtime banner_c). Pre-populate line 3 reads `""` (C static dummies deliberately not copied — js/date.js:98–103).
+  - `dump_version_info`: none in-body — whole body; `raw_print` renders as the live `raw_printf` early-output channel (adaptation, not omission).
+  - `get_critical_size_count`: none — whole body (`CRITICAL_SIZES.length`, rated 80 at smoke).
+- **Ledger:** copyright_banner_line ported; dump_version_info ported; get_critical_size_count ported; comp_times by-design
+- **Next:** `report.c` NH_panictrace_libc (next coverage row; dead callee submit_web_report needs a by-design check first).
+
 ## D-3111 — `options.c` test_regex_pattern + change_inv_order (THIN→whole + MISSING→whole; 16 stale rows declared)
 
 - **Status:** fixed (Open — coverage rows `options.c` test_regex_pattern + change_inv_order; cites no review — no stamp needed; density note ~64 js/ insertions: queue holds no more options.c rows and the callee closure is live-or-designed-sink).

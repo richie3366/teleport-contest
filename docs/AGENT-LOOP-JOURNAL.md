@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3112 `version.c` copyright_banner_line + dump_version_info + get_critical_size_count (3× MISSING→whole; queue head stale)
+
+**C locus:** - `copyright_banner_line`: `nethack-c/upstream/src/version.c:471–490` (A `:473–475`, B `:477–479`, runtime C `:482–483`, D `:485–487`, `""` `:488`; all four `#ifdef`s live — patchlevel.h:39–44).
+**JS:** js/files.js (+37), js/earlyarg.js (+34/−3).
+**Change:** `copyright_banner_line` + `get_critical_size_count` as new exports in js/files.js (C order, per-arm cites) — files.js, not version.js, because version.js stays import-free (D-1881: const.js reads COMMIT_NUMBER at top level) and files.js already hosts the version.c save-validation family with live const.js + game imports. `dump_version_info` as a new export in js/earlyarg.js next to `early_version_info` (same reason: needs the `raw_printf` channel; sole C caller earlyarg.c:512), in C order: `game.gh?.hname ?? 'nethack'` (botl.js:2322: no gh.hname in JS), `slice(eos(hname) - 33)` (`nhStr` is the identity cast, lint.h:16), live `runtime_info_init`/`release_runtime_info` (added to the existing version.js edge — version.js is a leaf, no cycle), `%-12.33s` slice+padEnd, `%08lx` via `>>> 0` hex padStart(8), `raw_printf('%s', buf)` for C `raw_print` (no JS channel — the live early-output adaptation). Wired the argcheck `:dump` arm to call it (replacing the named omission).
+**Verify:** `node scripts/verify.mjs --fn copyright_banner_line,dump_version_info,get_critical_size_count` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `copyright_banner_line`: none in-body — whole body, every value live (A/B/D pins, runtime banner_c). Pre-populate line 3 reads `""` (C static dummies deliberately not copied — js/date.js:98–103).
+**Next:** `report.c` NH_panictrace_libc (next coverage row; dead callee submit_web_report needs a by-design check first).
 ## 2026-09-29 — D-3111 `options.c` test_regex_pattern + change_inv_order (THIN→whole + MISSING→whole; 16 stale rows declared)
 
 **C locus:** - `test_regex_pattern`: `nethack-c/upstream/src/options.c:7869–7901` (NULL-only `!str` `:7878–7879`, errmsg default `:7880–7881`, regex_init `:7883`, !match sink `:7884–7887`, compile `:7889`, error_desc `:7893`, free-before-message `:7895`, failure sink `:7897–7898`).

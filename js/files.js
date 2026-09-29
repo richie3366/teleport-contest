@@ -36,6 +36,7 @@ import {
     UTD_CHECKFIELDCOUNTS, UTD_SKIP_SANITY1, UTD_WITHOUT_WAITSYNCH_PERFILE,
     UTD_QUIETLY, WIN_ERR, SFCTOOL_BIT, OBJ_FLOOR, CONVERTING,
     UNCONVERTING, TURN_OFF_LOGGING,
+    COPYRIGHT_BANNER_A, COPYRIGHT_BANNER_B, COPYRIGHT_BANNER_D,
 } from './const.js';
 import { shop_keeper, inhishop, inside_shop } from './shk.js';
 import { datamodel, what_datamodel_is_this } from './version.js';
@@ -1385,6 +1386,42 @@ export function store_critical_bytes(nhfp) {
             sfo_uchar(nhfp, CRITICAL_SIZES[i].ucsize | 0, 'critical_sizes');
         }
     }
+}
+
+/**
+ * C ref: version.c get_critical_size_count `:669–672` — `SIZE` of the
+ * `critical_sizes` table, i.e. `CRITICAL_SIZES.length` here. Lives next
+ * to the table's readers (store/compare above/below), like the rest of
+ * the version.c save-validation family in this module. Sole in-tree C
+ * caller files.c:2869 `recover_savefile` is compiled out (`SELF_RECOVER`
+ * commented out in unixconf.h:126).
+ * @returns {number}
+ */
+export function get_critical_size_count() {
+    return CRITICAL_SIZES.length; // `:671`
+}
+
+/**
+ * C ref: version.c copyright_banner_line `:471–490` — banner line `indx`
+ * 1–4, `""` otherwise. All four `#ifdef` arms are live in the contest
+ * build (patchlevel.h:39–44); A/B/D are the live const.js pins, line 3
+ * is the runtime `game.nomakedefs.copyright_banner_c` (js/date.js:167
+ * `bannerc_string`, populated by `runtime_info_init`). Lives here —
+ * not js/version.js — because that module stays import-free (D-1881:
+ * const.js reads `COMMIT_NUMBER` at top level), and this module already
+ * hosts the version.c save-validation family with live const.js + game
+ * imports. C NONNULL: pre-populate readers get `""` (the C static
+ * dummies are deliberately not copied — js/date.js:98–103).
+ * @param {number} indx 1-based banner line
+ * @returns {string}
+ */
+export function copyright_banner_line(indx) {
+    const i = indx | 0; // C `int` param
+    if (i === 1) return COPYRIGHT_BANNER_A; // `:473–475`
+    if (i === 2) return COPYRIGHT_BANNER_B; // `:477–479`
+    if (i === 3) return game.nomakedefs?.copyright_banner_c ?? ''; // `:482–483`
+    if (i === 4) return COPYRIGHT_BANNER_D; // `:485–487`
+    return ''; // `:488`
 }
 
 /**

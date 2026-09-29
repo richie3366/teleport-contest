@@ -64,7 +64,7 @@
 {"fn":"place_object","c":"2305-2366","status":"ported","js":["js/mkobj.js:place_object"],"d":["D-2734","D-2732"],"at":"seed@a30a7de84"}
 {"fn":"recreate_pile_at","c":"2371-2389","status":"unknown"}
 {"fn":"obj_ice_effects","c":"2397-2413","status":"ported","js":["js/mkobj.js:obj_ice_effects"],"at":"2026-09-28@fb9c2049c","note":"stale: js/mkobj.js:3563 whole C body in C order; 5/6 C sites wired (mkmaze.c:103 open)"}
-{"fn":"peek_at_iced_corpse_age","c":"2423-2437","status":"unknown"}
+{"fn":"peek_at_iced_corpse_age","c":"2423-2437","status":"ported","js":["js/mkobj.js:peek_at_iced_corpse_age"],"at":"2026-09-29@b43d7bb86","note":"stale: js/mkobj.js:3583 (body complete; only gap is debug-only debugpline3/1, no JS counterpart)"}
 {"fn":"obj_timer_checks","c":"2440-2503","status":"ported","js":["js/mkobj.js:obj_timer_checks"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"remove_object","c":"2508-2521","status":"partial","js":["js/mkobj.js:remove_object"],"omit":"recreate_pile_at body (own row); splev monster-invent/saddle arm (map-named); moverock standalone relink (subsumed, proof above — no observable delta).","d":["D-2607"],"at":"seed@a30a7de84"}
 {"fn":"discard_minvent","c":"2525-2536","status":"unknown"}
