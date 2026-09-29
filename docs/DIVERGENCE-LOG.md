@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3095 — fix_curse_trouble: whole-body restart (coverage)
+
+- **Status:** shipped (coverage — queue head `pray.c` fix_curse_trouble PARTIAL; sole pray.c row with a measured gap, callees live / none queue-eligible; 1-function cluster)
+- **Symptom:** prayer uncurse path diverged from C in six places: silent null return (no impossible), hardcoded "gloves" (no gloves_simple_name), xname-composed glow (no Yobjnam2 — wrong verb for plural quan), missing last_msg PLNMSG_OBJ_GLOWS, boolean bknown, missing update_inventory; Glib test read the flat leftover instead of the live uprops export. Review 83 §fix_curse_trouble named the same gaps. No corpus session blocked (coverage row; REACH-OK is the evidence).
+- **C locus:**
+  - `fix_curse_trouble`: nethack-c/upstream/src/pray.c:349–370 (null+impossible `:353–356`, Glib arm `:357–362`, glow gate `:363–369`, uncurse+update_inventory `:370`).
+- **JS was:** js/pray.js:521 local async clone, 11 code L: silent `if (!otmp) return`; `(u.Glib | 0)` flat test; hardcoded `pline('Your gloves are no longer slippery.')`; ``Your ${xname} softly glows`` template glow; boolean bknown; no last_msg; no update_inventory. Named omits (update_inventory redraw, PLNMSG_OBJ_GLOWS) both wired now.
+- **Fix:** restarted the body in C order — `await impossible('fix_curse_trouble: nothing to uncurse.')` on null; `Glib()` live (potion.js uprops-first) test; `Your('%s are no longer slippery.', gloves_simple_name(u.uarmg))` via live display.js Your + live objnam.js gloves_simple_name; `pline('%s %s.', what || Yobjnam2(otmp, 'softly glow'), hcolor('amber'))` (C `"%s %s."` form, %-safe); `game.iflags.last_msg = PLNMSG_OBJ_GLOWS` (const already imported; in-file precedent :1468); int bknown `Hallucination() ? 0 : 1` (SADDLE-case precedent); `await uncurse` kept; `update_inventory()` wired. Deleted the pray-local `Your` clone — live Your is identical for the 4 remaining single-nonempty-string call sites (pline is a vpline passthrough, display.js:8141–8143). NH_AMBER ≡ 'amber' (no color-name config in JS; potion.js:256/read.js:241 precedent).
+- **JS:** js/pray.js:528–547 fix_curse_trouble; imports +Your (display.js), +gloves_simple_name (objnam.js), +Glib (potion.js) on existing edges.
+- **Callers:**
+  - `fix_curse_trouble`: all 7 C fix_worst_trouble sites wired 1:1 (unchanged this iteration) — C:456→js/pray.js:727 COLLAPSING, C:489→:751 CURSED_LEVITATION, C:494→:755 UNUSEABLE welded, C:503→:765 unchanger, C:512→:773 CURSED_BLINDFOLD, C:531→:789 FUMBLING, C:539→:795 CURSED_ITEMS.
+- **Verify:** `node scripts/verify.mjs --fn fix_curse_trouble` → VERIFY: PASS (syntax 1 file; rule2; hidden note no-corpus-block; reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full skipped per no-shared-file rule).
+- **Named omissions:**
+  - `fix_curse_trouble`: none in-body — whole body, every callee live (impossible, make_glib, Glib, Your, gloves_simple_name, pline, Yobjnam2, hcolor, uncurse, update_inventory) or faithfully local (Blind/Blindfolded_only/Hallucination state readers, unchanged).
+- **Ledger:** fix_curse_trouble ported
+- **Next:** none in pray.c (no further measured gap); SADDLE-case xname glow belongs to fix_worst_trouble (measured ok, out of cluster).
+
 ## D-3094 — pfxfn_cond_ + condopt + parse_cond_option: cond_ prefix option path (coverage)
 
 - **Status:** shipped (coverage — queue head `options.c` pfxfn_cond_ MISSING + Open callee `botl.c` condopt + closure `botl.c` parse_cond_option; same-file queue rows: none; 3-function cluster, 131 js/ insertions)

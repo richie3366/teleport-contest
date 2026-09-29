@@ -2,7 +2,7 @@
 {"fn":"stuck_in_wall","c":"161-181","status":"unknown"}
 {"fn":"in_trouble","c":"198-284","status":"unknown"}
 {"fn":"worst_cursed_item","c":"288-346","status":"unknown"}
-{"fn":"fix_curse_trouble","c":"349-370","status":"unknown"}
+{"fn":"fix_curse_trouble","c":"349-370","status":"ported","js":["js/pray.js:fix_curse_trouble"],"d":["D-3095"],"at":"2026-09-29@9fca9cdda"}
 {"fn":"fix_worst_trouble","c":"373-600","status":"unknown"}
 {"fn":"god_zaps_you","c":"610-691","status":"unknown"}
 {"fn":"fry_by_god","c":"694-701","status":"unknown"}

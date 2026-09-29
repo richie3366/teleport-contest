@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3095 fix_curse_trouble: whole-body restart (coverage)
+
+**C locus:** - `fix_curse_trouble`: nethack-c/upstream/src/pray.c:349–370 (null+impossible `:353–356`, Glib arm `:357–362`, glow gate `:363–369`, uncurse+update_inventory `:370`).
+**JS:** js/pray.js:528–547 fix_curse_trouble; imports +Your (display.js), +gloves_simple_name (objnam.js), +Glib (potion.js) on existing edges.
+**Change:** restarted the body in C order — `await impossible('fix_curse_trouble: nothing to uncurse.')` on null; `Glib()` live (potion.js uprops-first) test; `Your('%s are no longer slippery.', gloves_simple_name(u.uarmg))` via live display.js Your + live objnam.js gloves_simple_name; `pline('%s %s.', what || Yobjnam2(otmp, 'softly glow'), hcolor('amber'))` (C `"%s %s."` form, %-safe); `game.iflags.last_msg = PLNMSG_OBJ_GLOWS` (const already imported; in-file precedent :1468); int bknown `Hallucination() ? 0 : 1` (SADDLE-case precedent); `await uncurse` kept; `update_inventory()` wired. Deleted the pray-local `Your` clone — live Your is identical for the 4 remaining single-nonempty-string call sites (pline is a vpline passthrough, display.js:8141–8143). NH_AMBER ≡ 'amber' (no color-name config in JS; potion.js:256/read.js:241 precedent).
+**Verify:** `node scripts/verify.mjs --fn fix_curse_trouble` → VERIFY: PASS (syntax 1 file; rule2; hidden note no-corpus-block; reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full skipped per no-shared-file rule).
+**Named:** - `fix_curse_trouble`: none in-body — whole body, every callee live (impossible, make_glib, Glib, Your, gloves_simple_name, pline, Yobjnam2, hcolor, uncurse, update_inventory) or faithfully local (Blind/Blindfolded_only/Hallucination state readers, unchanged).
+**Next:** none in pray.c (no further measured gap); SADDLE-case xname glow belongs to fix_worst_trouble (measured ok, out of cluster).
 ## 2026-09-29 — D-3094 pfxfn_cond_ + condopt + parse_cond_option: cond_ prefix option path (coverage)
 
 **C locus:** - `pfxfn_cond_`: nethack-c/upstream/src/options.c:4994–5036 (do_init `:5001–5003`, do_set `:5005–5025` + case-3/1/2/default `:5008–5019`, get_val/get_cnf_val `:5027–5029`, do_handler "not used" `:5031–5033`).
