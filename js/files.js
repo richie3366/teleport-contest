@@ -48,6 +48,7 @@ import { TRIBUTE_TEXT } from './generated/tribute_data.js';
 import { maxledgerno } from './dungeon.js';
 import { pmatch } from './cmd.js';
 import { wish_history_add } from './zap.js';
+import { after_opt_showpaths } from './earlyarg.js'; // C do_deferred_showpaths `:3101` (imports.mjs SAFE: hoisted fn)
 
 const INVLET_BASIC = 52;
 const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
@@ -1815,5 +1816,26 @@ export function debugcore(filename, wildcards) {
         if (prevOk && nextOk) return true; // `:3163`
     }
     return false; // `:3165`
+}
+
+/**
+ * C ref: files.c do_deferred_showpaths `:3089–3114` — ATTRNORETURN.
+ * Deferred `--showpaths` exit: clear the flag, reveal the paths, run the
+ * pre-exit cleanup, then tail back through the showpaths dir and
+ * terminate (unix `:3101`; `:3105` chdirx + `:3109`/`:3111` exits are
+ * the non-unix tail, not this build). C callers: cfgfiles.c:2064
+ * (assure_syscf_file — wired) and options.c:7112 (initoptions — wired).
+ * @param {number} code C int (1 = sysconf-missing path, 0 = options path)
+ */
+export function do_deferred_showpaths(code) {
+    void code; // consumed only by the omitted `:3093` reveal_paths
+    if (!game.gd) game.gd = {}; // gd lives on game (decl.js:51)
+    game.gd.deferred_showpaths = false; // C `:3092`
+    /* C `:3093` reveal_paths(code) — named omit (files.c:3175, 117 code
+       lines, no scored port; surfaces as its own coverage row). */
+    /* C `:3096–3098` freedynamicdata + dlb_cleanup + l_nhcore_done —
+       named omits (seed by-design: save-freeing, dlb teardown, Lua). */
+    after_opt_showpaths(game.gd.deferred_showpaths_dir); // C `:3101`; does not return
+    /*NOTREACHED*/
 }
 

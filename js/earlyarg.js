@@ -454,8 +454,8 @@ function opt_usage(hackdir) {
 /**
  * C ref: earlyarg.c after_opt_showpaths `:391–400` — deferred-showpaths
  * tail: back to the showpaths dir, then terminate (no return in C).
- * Sole C caller files.c:3101 (do_deferred_showpaths, itself unported —
- * options.js:6976 names the omit); exported for that path.
+ * Sole C caller files.c:3101 (do_deferred_showpaths, files.js — wired);
+ * exported for that path.
  * @param {string} dir C gd.deferred_showpaths_dir (chdir arm only)
  */
 export function after_opt_showpaths(dir) {

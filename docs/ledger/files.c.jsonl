@@ -62,7 +62,7 @@
 {"fn":"paniclog","c":"2801-2833","status":"by-design","at":"seed@a30a7de84","note":"seed: filesystem (CURRENT.md Do not)"}
 {"fn":"testinglog","c":"2836-2854","status":"unknown"}
 {"fn":"recover_savefile","c":"2865-3082","status":"unknown"}
-{"fn":"do_deferred_showpaths","c":"3090-3114","status":"unknown"}
+{"fn":"do_deferred_showpaths","c":"3090-3114","status":"partial","js":["js/files.js:do_deferred_showpaths"],"d":["D-3117"],"at":"2026-09-29@c21da30e8"}
 {"fn":"debugcore","c":"3126-3166","status":"unknown"}
 {"fn":"reveal_paths","c":"3175-3413","status":"unknown"}
 {"fn":"choose_passage","c":"3431-3470","status":"unknown"}

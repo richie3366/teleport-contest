@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3117 — `cfgfiles.c` assure_syscf_file + `files.c` do_deferred_showpaths + fopen_config_file completion (coverage cluster)
+
+- **Status:** fixed (Open — coverage head `cfgfiles.c` assure_syscf_file + Open callee `files.c` do_deferred_showpaths + same-file `cfgfiles.c` fopen_config_file completion; `botl.c` status_hilites_viewall went stale via ledger in the same iteration; cites no review — no stamp needed. 74 js/ insertions: both cfgfiles.c queue rows shipped and the only in-closure callee shipped — remainder is the 117-line reveal_paths whole-function row + by-design teardown, so the <80-insertion density exception applies, cf. D-3115/D-3116).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on all three: no corpus session blocked at baseline — config-startup paths, no RNG).
+- **C locus:**
+  - `assure_syscf_file`: cfgfiles.c:2031–2068 (unix open `:2052`, fd>=0 `:2057–2060`, deferred gate `:2063–2064`, raw_printf `:2066`, exit `:2067`)
+  - `do_deferred_showpaths`: files.c:3089–3114 (flag clear `:3092`, reveal `:3093`, cleanup `:3096–3098`, unix tail `:3101`)
+  - `fopen_config_file`: cfgfiles.c:222–372 (sysconf fqname `:234` now wired; access `:254–264`, fopen-ok `:266–267` pre-existing; errno-gated `:269–273` + `:356–369` cited unreachable)
+- **JS was:** no assure_syscf_file/do_deferred_showpaths symbols; both initoptions bodies carried named omits (review-1985/2021-accepted POSIX-open+exit / ATTRNORETURN-exit); fopen sysconf arm skipped fqname ("bare SYSCF_FILE") with the errno-gated arms uncited.
+- **Fix:** new assure export in C order (VFS readability ≡ open `:2052` — same VFS-for-fopen precedent as fopen below; gd-gated do_deferred_showpaths(1); raw_printf literal with `\n`; nh_terminate(EXIT_FAILURE) ≡ exit). New do_deferred_showpaths export in C order (gd ensure + flag clear `:3092`; reveal_paths + 3 by-design cleanups named; after_opt_showpaths live tail `:3101`). fopen fqname wired `:234` (identity when no SYSCONFPREFIX configured); wait_synch `:262`/`:273` cited as this-TU no-op macro (cfgfiles.c:117–120); errno-gated arms cited as VFS-unreachable (one read, one failure; every miss ENOENT-class, no errno channel). 3 caller sites wired in options.js; both omit docs retired; earlyarg.js:457 stale "itself unported" cite fixed.
+- **JS:** js/cfgfiles.js assure_syscf_file `:356`, fopen_config_file `:385`; js/files.js do_deferred_showpaths `:1830`; js/options.js wirings `:7093`/`:7118`/`:7131`; scripts/initoptions-init.test.mjs (3 new pins, 8 pass). New cross-module imports: cfgfiles←files (fqname, do_deferred_showpaths), cfgfiles←end (nh_terminate), files←earlyarg (after_opt_showpaths), options←files (do_deferred_showpaths) — all hoisted fns read lazily (imports.mjs).
+- **Callers:**
+  - `assure_syscf_file`: options.c:7093 → js/options.js:7118 initoptions; options.c:7289 → js/options.js:7093 initoptions_init; util/sfctool.c:680 → by-design (sysconf tool, not the game).
+  - `do_deferred_showpaths`: cfgfiles.c:2064 → new assure body js/cfgfiles.js:359; options.c:7112 → js/options.js:7131 initoptions.
+  - `fopen_config_file`: cfgfiles.c:1629 → read_config_file (pre-wired; export name + signature kept).
+- **Verify:** `node scripts/verify.mjs --fn assure_syscf_file,do_deferred_showpaths,fopen_config_file` → VERIFY: PASS (syntax 4 files js/cfgfiles.js js/earlyarg.js js/files.js js/options.js; rule2; hidden note 0 blocked ×3; REACH-OK smoke spread 24 run 24 PASS ×3; green 2/2; strict ×2; cohort 7/7; full 44/44 shared). `node --test scripts/initoptions-init.test.mjs` → 8 pass.
+- **Named omissions:**
+  - `assure_syscf_file`: none in-body — whole body, every callee live (WIN32 `:2035–2038` / NOCWD `:2050` / VMS `:2055` opens compiled out, cited; sfctool.c:680 caller by-design, not game code).
+  - `do_deferred_showpaths`: reveal_paths `:3093` (files.c:3175, 117 code lines, no scored port); freedynamicdata + dlb_cleanup + l_nhcore_done `:3096–3098` (seed by-design: save-freeing, dlb teardown, Lua).
+  - `fopen_config_file`: `:269–273` "Couldn't open requested config file" (access-ok-but-fopen-failed has no VFS shape — null already maps to `:254`); `:356–369` "Couldn't open default config file" (errno != ENOENT gate; every VFS miss ENOENT-class).
+- **Ledger:** assure_syscf_file ported; do_deferred_showpaths partial; fopen_config_file partial
+- **Next:** reveal_paths (files.c:3175, 117 lines) is the named remainder — surfaces as its own coverage row; completes the deferred-showpaths chain.
+
 ## D-3116 — `selvar.c` selection_filter_mapchar restart + getpoint/setpoint guards (coverage)
 
 - **Status:** fixed (Open — coverage head `selvar.c` selection_filter_mapchar + 3 Open callees; region.c add_rect_to_reg went stale via ledger in the same iteration. Small diff (~45 js/ insertions: sole selvar.c queue row, closure holds nothing else Open — the <80-insertion density exception applies, cf. D-3115).

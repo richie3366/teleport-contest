@@ -225,8 +225,9 @@ import {
 import {
     clearrolefilter, setrolefilter, rolefilterstring,
 } from './player_selection.js';
-import { rcfile, read_config_file, config_error_init, config_error_done } from './cfgfiles.js';
+import { rcfile, read_config_file, config_error_init, config_error_done, assure_syscf_file } from './cfgfiles.js';
 import { nh_terminate } from './end.js';
+import { do_deferred_showpaths } from './files.js'; // C initoptions `:7112` (imports.mjs: hoisted fn, lazy reads only)
 
 /** C ref: global.h PL_FSIZ — fruit name buffer. */
 const PL_FSIZ = 32;
@@ -7013,8 +7014,8 @@ export function freeroleoptvals() {
  * unix+TTY; guards read POSIX TERM/termcap AS/AE with no Rule-#2
  * analogue and bodies drive by-design symsets; use_color stays unset =
  * C's non-AT FALSE); MSDOS/WIN32 `:7246–7252` + MAC `:7253–7257`
- * (compiled out on unix); assure_syscf_file `:7289` (POSIX open + exit;
- * the VFS read_config_file below handles absence).
+ * (compiled out on unix). assure_syscf_file `:7289` is wired
+ * (cfgfiles.js; VFS readability stands in for the POSIX open).
  */
 export function initoptions_init() {
     const have_branch = !!(game.nomakedefs?.git_branch); // C `:7125`
@@ -7089,7 +7090,7 @@ export function initoptions_init() {
     // stands in because init_fruit_chain overwrote objectNameStrs there
     // with "fruit" (D-1511).
     game.pl_fruit = nmcpy('slime mold', PL_FSIZ);
-    /* C `:7289` assure_syscf_file() — named omit, see doc above. */
+    assure_syscf_file(); // C `:7289`
     config_error_init(true, SYSCF_FILE, false); // C `:7290`
     game.go.opt_phase = SYSCF_OPT; // C `:7293`
     if (!read_config_file(SYSCF_FILE, SET_IN_SYSCONF)) { // C `:7294`
@@ -7105,17 +7106,16 @@ export function initoptions_init() {
  * unixmain.c `:150`; restore.c:716 and wintty.c:523 cite it in
  * comments): JS startup resolves options in-process (rcfile +
  * init_fruit_chain run there directly); initoptions_init is live (same
- * file). Named omits: assure_syscf_file (no scored port — POSIX open +
- * exit, Rule #2);
- * do_deferred_showpaths (ATTRNORETURN exit; reveal_paths 117-line
- * MISSING, freedynamicdata/dlb_cleanup/l_nhcore_done by-design).
+ * file). assure_syscf_file `:7093` (cfgfiles.js) and
+ * do_deferred_showpaths `:7112` (files.js; reveal_paths named there)
+ * are wired; no named omits remain in this body.
  */
 export function initoptions() {
     if ((game.go?.opt_phase | 0) !== BUILTIN_OPT) // C `:7087–7088`
         initoptions_init();
     /* C `:7090–7108` SYSCF (config.h:233) + SYSCF_FILE (config.h:234)
        both live on this build. */
-    /* C `:7093` assure_syscf_file() — named omit, see doc above. */
+    assure_syscf_file(); // C `:7093`
     config_error_init(true, SYSCF_FILE, false); // C `:7094`
     if (!game.go) game.go = {};
     game.go.opt_phase = SYSCF_OPT; // C `:7097`
@@ -7124,11 +7124,11 @@ export function initoptions() {
             nh_terminate(EXIT_FAILURE); // C `:7100`
     }
     config_error_done(); // C `:7102`
-    /* C `:7111–7112` deferred --showpaths exit. C-gd fields live flat on
-       game in JS (game.dogname precedent); deferred_showpaths has no JS
-       writer, so this stays false like C's default. */
+    /* C `:7111–7112` deferred --showpaths exit. C-gd fields live on
+       game.gd in JS (decl.js:51; earlyarg.js:343 writes
+       deferred_showpaths for --showpaths). */
     if (game.gd?.deferred_showpaths) { // C `:7111`
-        /* Named omit: do_deferred_showpaths(0) — see doc above. */
+        do_deferred_showpaths(0); // C `:7112` — does not return
     }
     initoptions_finish(); // C `:7114`
 }
