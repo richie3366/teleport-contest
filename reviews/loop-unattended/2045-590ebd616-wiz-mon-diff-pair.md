@@ -140,3 +140,5 @@ wiz_show_vision body ACCEPT / caller QUALITY-RISK → SHA QUALITY-RISK.
    the D-2779 pattern, ~14 lines).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3092
