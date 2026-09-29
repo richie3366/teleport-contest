@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3075 read.c create_particular_parse whole-body restart
+
+**C locus:** - `create_particular_parse`: nethack-c/upstream/src/read.c:3137–3249 (struct `_create_particular_data` include/hack.h:314–323; `wizard` ≡ flags.debug include/flag.h:30; `digit()` src/hacklib.c:61–65)
+**JS:** js/read.js:2744 `function create_particular_parse(str, d)` (local — C staticfn); new static `monster_census` import (imports.mjs: hoisted, call-time, cycle-safe), `strstri`/`strncmpi` added to the hacklib edge, `ismnum` to the const edge, `PM_STALKER`/`PM_LONG_WORM` consts.
+**Change:** - `create_particular_parse`: restarted whole in C order — all 12 `d` defaults (`:3145–3152`), digit-run quan + space skip (`:3155–3160`, `parseInt` ≡ `atoi` under the digit guard), QUAN_LIMIT=`ROWNO*(COLNO-1)` clamp via live `monster_census` (`:3161–3167`), six terms blanked via live bare `strstri` (`:3169–3194`, female-before-male), `mungspaces` (`:3195`), disposition via live `strncmpi` (`:3197–3205`), wizard `*`/`random` via file-local `wizard_mode()` (`:3207–3210`), `name_to_mon` + explicit-vs-name merge (`:3212–3229`), `ismnum` accept (`:3230–3231`), `name_to_monclass` species / S_invisible→stalker / S_WORM_TAIL→long worm / class→urole.mnum arms (`:3232–3248`); C `(str, &d) → boolean` signature; caller `create_particular` to `if (parse(bufp, d)) break`.
+**Verify:** - `create_particular_parse`: `node scripts/verify.mjs --fn create_particular_parse` → syntax PASS (1 file) · rule2 PASS · hidden note (no corpus session blocked) · reach REACH-OK (no RNG-tagged reach; smoke 24/24 PASS) · green 2/2 · strict 2/2 · cohort 7/7 → VERIFY: PASS.
+**Named:** - `create_particular_parse`: none in-body — every arm ported, every callee live (`monster_census`, `strstri`, `mungspaces`, `strncmpi`, `name_to_mon`, `name_to_monclass`), sole C caller wired. Representation notes: `monclass` -1 ≡ C MAXMCLASSES (no JS const; thin-body convention); `digit()` inlined as a 1-line predicate (no JS export).
+**Next:** `create_particular_creation` randmonst/monclass + post-flag arms (open D-2004) consume the newly filled `d`.
 ## 2026-09-29 — D-3074 zap.c breadth cluster: boxlock_invent + item_what + zhitu ports; obj_shudders/adtyp_to_prop/zombie_can_dig verified complete
 
 **C locus:** - `boxlock_invent`: nethack-c/upstream/src/zap.c:2687–2702

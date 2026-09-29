@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `read.c` create_particular_parse — coverage THIN (C 74 code L `read.c:3137–3249` / JS 30 code L in js/read.js; hops 5, callers 1, RNG 0, msg 0) @1b84498a2
 - [ ] `trap.c` keep_saddle_with_steedcorpse — coverage MISSING (C 17 code L `trap.c:939–967` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b93547133
 - [ ] `do_wear.c` doffing — coverage PARTIAL (C 31 code L `do_wear.c:1603–1640` / JS 19 code L in js/do_wear.js; hops 4, callers 4, RNG 0, msg 0) @774d64d58
 - [ ] `rnd.c` set_random — coverage MISSING (C 1 code L `rnd.c:235–239` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: init_isaac64) @774d64d58
@@ -125,8 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `cmd.c` handler_change_autocompletions — coverage MISSING (C 46 code L `cmd.c:2449–2515` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: parseautocomplete) @9e3e6255b
 - [ ] `cmd.c` parseautocomplete — coverage MISSING (C 28 code L `cmd.c:3244–3292` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @7e25e3c42
 - [ ] `sfbase.c` sf_log — coverage MISSING (C 14 code L `sfbase.c:377–404` / JS no symbol; hops —, callers 7, RNG 0, msg 0) @7e25e3c42
-- [ ] `read.c` disintegrate_cursed_armor — coverage PARTIAL (C 22 code L `read.c:1294–1321` / JS 12 code L in js/read.js; hops 6, callers 1, RNG 1, msg 0) @7e25e3c42
 - [ ] `cfgfiles.c` adjust_prefix — coverage MISSING (C 11 code L `cfgfiles.c:441–459` / JS no symbol; hops —, callers 9, RNG 0, msg 0) @107847759
+- [ ] `mon.c` mimic_hit_msg — coverage PARTIAL (C 12 code L `mon.c:5776–5793` / JS 8 code L in js/zap.js; hops 5, callers 1, RNG 0, msg 2) @80c81d0a0
+- [ ] `mdlib.c` bannerc_string — coverage THIN (C 10 code L `mdlib.c:349–370` / JS 3 code L in js/date.js; hops —, callers 1, RNG 0, msg 2) @80c81d0a0
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
