@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3115 — `dog.c` mon_leave completion: minvent + residency arms (coverage)
+
+- **Status:** fixed (Open — coverage head `dog.c` mon_leave, sole function; cites no review — no stamp needed; small diff: sole dog.c Open row and all C callees ported/ok, so the <80-insertion density exception applies).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mon_leave`: no corpus session blocked at baseline; draws no RNG).
+- **C locus:**
+  - `mon_leave`: dog.c:729–763 (minvent loop `:735–740`, isshk residency `:744–745`; worm arm `:748–761` shipped D-2296)
+- **JS was:** js/dog.js mon_leave worm arm only; minvent no_charge/picked_container loop and isshk set_residency named omissions (D-2296).
+- **Fix:** completed the body in C order over live callees: minvent walk with Has_contents→picked_container before `no_charge = 0`; `if (mtmp.isshk) set_residency(mtmp, true)` (TRUE ≡ clear; mon_arrive sets it back with false); worm arm untouched. Has_contents added to the const.js import, picked_container to the existing shk.js import (edge already existed — no new cross-module import). Retired the stale named-omission notes in the keepdogs and migrate_to_level docs.
+- **JS:** js/dog.js mon_leave `:408`; scripts/mon-leave.test.mjs (4 pins).
+- **Callers:**
+  - `mon_leave`: dog.c:861 → js/dog.js:537 keepdogs follower arm; dog.c:904 → js/teleport.js:2886 migrate_to_level (both pre-wired; new arms execute through both).
+- **Verify:** `node scripts/verify.mjs --fn mon_leave` → VERIFY: PASS (syntax 2 files js/dog.js js/teleport.js; rule2; hidden note no baseline blocks; reach smoke spread 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7). `node --test scripts/mon-leave.test.mjs` → 4 pass.
+- **Named omissions:**
+  - `mon_leave`: none — whole body, every callee live (picked_container, set_residency, count_wsegs, wormgone, place_monster, Has_contents).
+- **Ledger:** mon_leave ported
+- **Next:** generated block refills on finish; migrating shopkeepers now shed bill flags and residency like C.
+
 ## D-3114 — `options.c` test_regex_pattern completion via regex_error_desc + txt2key restart + 4 caller wirings (coverage cluster)
 
 - **Status:** fixed (Open — coverage head `options.c` test_regex_pattern + queue row `options.c` txt2key + 4 same-closure companions; cites no review — no stamp needed; 133 js/ insertions: head's file/closure holds nothing more Open — config_error_add is the established no-op sink, assure_syscf_file a review-accepted omit).

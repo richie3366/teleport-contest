@@ -10,7 +10,7 @@
 {"fn":"losedogs","c":"304-416","status":"unknown","d":["D-2722"],"at":"seed@a30a7de84"}
 {"fn":"mon_arrive","c":"420-623","status":"partial","js":["js/dog.js:mon_arrive"],"omit":"losedogs kops-dismiss scan (dismissKops/make_happy_shoppers `:310–356`); full mnearto yank (move_other=FALSE always); resurrect SetVoice + Deaf acoustics (pre-existing).","d":["D-2459","D-1505","D-1199"],"at":"seed@a30a7de84"}
 {"fn":"mon_catchup_elapsed_time","c":"627-724","status":"ported","js":["js/dog.js:mon_catchup_elapsed_time"],"d":["D-2562"],"at":"seed@a30a7de84"}
-{"fn":"mon_leave","c":"729-763","status":"unknown"}
+{"fn":"mon_leave","c":"729-763","status":"ported","js":["js/dog.js:mon_leave"],"d":["D-3115"],"at":"2026-09-29@6e3bbfbe7"}
 {"fn":"keep_mon_accessible","c":"768-785","status":"unknown"}
 {"fn":"keepdogs","c":"789-884","status":"unknown","d":["D-1789","D-1783"],"at":"seed@a30a7de84"}
 {"fn":"migrate_to_level","c":"887-932","status":"unknown","d":["D-1198"],"at":"seed@a30a7de84"}
