@@ -1,5 +1,42 @@
 # Divergence log
 
+## D-3130 — `mkobj.c` oextra family whole: newoextra C-signature + fracture_rock mislabel fix + 8 verify-stamp (coverage head dealloc_oextra)
+
+- **Status:** shipped (breadth-phase cluster: queue head `dealloc_oextra` + its callee closure / same-file oextra family, 10 functions, 2 files).
+- **Symptom:** coverage PARTIAL/THIN on the oextra family. JS `newoextra(obj)` was a same-file local with a non-C signature (ensure-bag; sym clone-drift flag) while C `newoextra(void)` returns a fresh bag every caller assigns; `newomid` kept a stale omid (`== null` guard) where C assigns unconditionally; the `dealloc_oextra` doc named a zap.c "poly_obj" caller that does not exist (D-2275 misread — enclosing function of zap.c:5564 is `fracture_rock`, already wired from `js/dig.js`).
+- **C locus:**
+  - `init_oextra`: mkobj.c:79–83 (staticfn, `*oex = zerooextra`, DUMMY={0}).
+  - `newoextra`: mkobj.c:85–93 (alloc + init + return).
+  - `dealloc_oextra`: mkobj.c:95–111.
+  - `newomonst`: mkobj.c:113–125 (`newmonst()` alloc macro + `*m = zeromonst`).
+  - `free_omonst`: mkobj.c:127–140.
+  - `newomid`: mkobj.c:142–148. `free_omid`: mkobj.c:150–154.
+  - `new_omailcmd`: mkobj.c:156–164. `free_omailcmd`: mkobj.c:166–173.
+  - `copy_oextra`: mkobj.c:416–448.
+- **JS was:** local `function newoextra(obj)` ensure-bag (4 in-file users); `do_name.js` new_oname inlined `oextra = {}`; `newomid` conditional zero; `free_omonst` collapsed C's nested guards; stale "poly_obj" doc on `dealloc_oextra`.
+- **Fix:** exported C-signature `newoextra()` (`return {}`; alloc is GC per D-2991); all 4 in-file sites + `do_name.js` new_oname now `x.oextra = newoextra()` under C's `if (!oextra)` guard (`--can`: ALREADY, same 90-module SCC edge, hoisted fn, call-time use); `newomid` unconditional `= 0`; `free_omonst` restarted in C order (early return, local `m`); docs carry C ranges + caller lists. Zero behavior delta by construction: fresh `{}` both sides at every site; `newomid` callers all assign after or guard; `newomonst` `{}` ≡ zero (shell always filled by caller — save_mtraits key-copy / copy_oextra memcpy / restmon — no bare-shell reader reachable; `has_omonst` audit); `free_omonst` mextra stays GC per D-2275 (stands).
+- **JS:** 2 files, +57/−25 (`js/mkobj.js` oextra block `:4182–4312`, `js/do_name.js` import `:72` + site `:1484`). Density note: 57 < 80 is structural — 10-function cap reached on a thin-but-complete family; the head's further same-file PARTIALs (erosion/naming/where_name) are other subsystems.
+- **Callers:**
+  - `init_oextra`: newoextra :91 (by-design, see omissions).
+  - `newoextra`: newomonst js/mkobj.js:4198; newomid js/mkobj.js:4225; new_omailcmd js/mkobj.js:4250; copy_oextra js/mkobj.js:4294; new_oname js/do_name.js:1484; restore.c:195 named.
+  - `dealloc_oextra`: dealloc_obj_real js/mkobj.js:3906 (C :2818); fracture_rock js/dig.js:1934 (C zap.c:5564, in C position).
+  - `newomonst`: copy_oextra js/mkobj.js:4297 (C :428); save_mtraits js/mkobj.js:4337 (C :2162); restore.c:207 named.
+  - `free_omonst`: dealloc_oextra js/mkobj.js:4276 (C :104); resetobjs js/bones.js:286 (C bones.c:157); zombify_mon js/timeout.js:2553 (C do.c:2308); revive js/zap.js:3251 (C zap.c:991).
+  - `newomid`: copy_oextra js/mkobj.js:4309 (C :445); obj_attach_mid js/mkobj.js:4319 (C :2151); add_one_tobill js/shk.js:4208 (C shk.c:3357); restore.c:224 named.
+  - `free_omid`: splitobj js/mkobj.js:503 (C :497); bill_dummy_object js/shk.js:1351 (C :729); zombify_mon js/timeout.js:2552 (C do.c:2306); revive js/zap.js:3250 + js/zap.js:3342 (C zap.c:989 + :1093, `used`≡corpse local); restore.c:1527 named.
+  - `new_omailcmd`: copy_oextra js/mkobj.js:4307 (C :441); newmail js/mail.js:435 (C mail.c:429); restore.c:219 named.
+  - `free_omailcmd`: new_omailcmd js/mkobj.js:4251 (C :162, sole caller).
+  - `copy_oextra`: splitobj js/mkobj.js:502 (C :495); bill_dummy_object js/shk.js:1350 (C :727).
+- **Verify:** `node scripts/verify.mjs --fn init_oextra,newoextra,dealloc_oextra,newomonst,free_omonst,newomid,free_omid,new_omailcmd,free_omailcmd,copy_oextra` → PASS syntax (2 files) · PASS rule2 · hidden vacuous ×10 (no corpus session blocked — NOT corpus PASSes; coverage row cited 0 blocks so no --base owed) · REACH-OK ×10 (no RNG-tagged reach; fixed 24-smoke each, 0 regressed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. Preflight `verify --no-cohort` green on a clean tree before edits.
+- **Named omissions:**
+  - `init_oextra`: whole function by-design (C staticfn; fresh `{}` is the zero state — explicit zero keys would be truthy-distinct under `!= null` at js/lev_json.js:142; set directly, D-3121 precedent).
+  - `newoextra`/`newomonst`/`newomid`/`new_omailcmd`/`free_omid`: restore.c save-path callers (:195/:207/:224/:219/:1527 — NHFILE→JSON structural, Constitution §1.6).
+  - `new_omailcmd`: `dupstr('')`-truthy edge unreachable (all callers pass truthy).
+  - `copy_oextra`: `:433` assert dropped (holds by construction — newomonst just ran); `#if 0` m_id renewal stays out (m_id copied, D-2275).
+  - `free_omonst`: `:134–135` dealloc_mextra is GC (D-2275 named, stands — shell dropped, no live reader).
+- **Ledger:** newoextra ported; dealloc_oextra ported; newomonst ported; free_omonst ported; newomid ported; free_omid ported; new_omailcmd ported; free_omailcmd ported; copy_oextra ported.
+- **Next:** do not re-pop this family. Falsifier: a rescore or fresh `verify` showing a session blocked with one as owner. Next same-file PARTIALs (other subsystems): may_generate_eroded, mk_named_object, is_rottable, where_name, obj_nexto.
+
 ## D-3129 — `engrave.c` disturb_grave whole + doengrave_ctx_init gaps + engr_at/del_engr_at verify-whole (coverage)
 
 - **Status:** fixed (queue head disturb_grave PARTIAL→whole incl. the unwired doengrave caller; same-file doengrave_ctx_init fbuf/qbuf/jello/ECMD_OK/writer-NULL; engr_at + del_engr_at verified whole with full C↔JS caller maps, no code change. ~55 js/ insertions in 1 file — below the ~80 floor; the head file holds nothing more Open needing code (ledger engrave.c: rest declared ported/partial/by-design or measured ok) and the callee closure is closed (impossible partial-declared, You THIN but 1232 call sites — out of cluster scope, makemon/exercise ok). D-3127/D-3128 precedent. No review Source — no stamp.)

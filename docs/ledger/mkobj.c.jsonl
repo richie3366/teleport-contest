@@ -1,12 +1,12 @@
-{"fn":"init_oextra","c":"80-83","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"newoextra","c":"86-93","status":"unknown"}
-{"fn":"dealloc_oextra","c":"96-111","status":"unknown"}
-{"fn":"newomonst","c":"114-125","status":"unknown"}
-{"fn":"free_omonst","c":"128-140","status":"unknown"}
-{"fn":"newomid","c":"143-148","status":"unknown"}
-{"fn":"free_omid","c":"151-154","status":"unknown"}
-{"fn":"new_omailcmd","c":"157-164","status":"unknown"}
-{"fn":"free_omailcmd","c":"167-173","status":"unknown"}
+{"fn":"init_oextra","c":"80-83","status":"by-design","at":"2026-09-29@74bd8ea11","note":"D-3130: C staticfn, fresh {} is the zero state (explicit zero keys would trip lev_json != null)"}
+{"fn":"newoextra","c":"86-93","status":"ported","js":["js/mkobj.js:newoextra"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
+{"fn":"dealloc_oextra","c":"96-111","status":"ported","js":["js/mkobj.js:dealloc_oextra"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
+{"fn":"newomonst","c":"114-125","status":"ported","js":["js/mkobj.js:newomonst"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
+{"fn":"free_omonst","c":"128-140","status":"ported","js":["js/mkobj.js:free_omonst"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
+{"fn":"newomid","c":"143-148","status":"ported","js":["js/mkobj.js:newomid"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
+{"fn":"free_omid","c":"151-154","status":"ported","js":["js/mkobj.js:free_omid"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
+{"fn":"new_omailcmd","c":"157-164","status":"ported","js":["js/mkobj.js:new_omailcmd"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
+{"fn":"free_omailcmd","c":"167-173","status":"ported","js":["js/mkobj.js:free_omailcmd"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
 {"fn":"may_generate_eroded","c":"177-192","status":"unknown"}
 {"fn":"mkobj_erosions","c":"196-222","status":"ported","js":["js/mkobj.js:mkobj_erosions"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"mkobj_at","c":"227-234","status":"unknown"}
@@ -16,7 +16,7 @@
 {"fn":"mkbox_cnts","c":"304-384","status":"unknown"}
 {"fn":"rndmonnum","c":"388-391","status":"unknown"}
 {"fn":"rndmonnum_adj","c":"395-414","status":"unknown"}
-{"fn":"copy_oextra","c":"417-448","status":"unknown","d":["D-2275"],"at":"seed@a30a7de84"}
+{"fn":"copy_oextra","c":"417-448","status":"ported","js":["js/mkobj.js:copy_oextra"],"d":["D-3130","D-2275"],"at":"2026-09-29@74bd8ea11"}
 {"fn":"splitobj","c":"457-503","status":"unknown"}
 {"fn":"next_ident","c":"509-531","status":"unknown","d":["D-2228","D-2202","D-2111","D-2022"],"at":"seed@a30a7de84"}
 {"fn":"nextoid","c":"536-551","status":"ported","js":["js/mkobj.js:nextoid"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f","note":"refresh: no JS symbol (measured MISSING)"}
