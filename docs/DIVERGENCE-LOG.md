@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-3101 — dungeon.c init_dungeon_branches + nhlua get_table_int/int_opt/option: branch-parse restart (coverage)
+
+- **Status:** shipped (Open — coverage; 4-function dungeon.js cluster, ~90 js/ insertions. Queue head handler_msg_window brief-proven stale-complete → `ledger.mjs set … ported` with stale note, next PARTIAL row shipped same iteration.)
+- **Symptom:** coverage — `init_dungeon_branches` PARTIAL (C 51 / JS 25 code L): raw field reads instead of the get_table_* calls, no table-check/not-a-hash arm, no debugplines, invented fallback chain-search loop; the three nhlua readers were live one-liners without C-order cites.
+- **C locus:**
+  - `init_dungeon_branches`: nethack-c/upstream/src/dungeon.c:866–930 (static tables `:872–879`, len `:885–888`, row reads `:893–900`, stores `:905–910`, chain `:911–921`, not-a-hash `:924`, tally `:927–929`).
+  - `get_table_int`: nethack-c/upstream/src/nhlua.c:1016–1025 (getfield `:1019`, checkinteger `:1020`, pop `:1021`).
+  - `get_table_int_opt`: nethack-c/upstream/src/nhlua.c:1028–1039 (ret=defval `:1031`, getfield `:1033`, nil test `:1034`, pop `:1037`).
+  - `get_table_option`: nethack-c/upstream/src/nhlua.c:1121–1133 (getfield `:1129`, checkoption `:1130`, pop `:1131`).
+- **JS was:** js/dungeon.js:793 raw reads (`B.name`, `B.range ?? 0`, `BRTYPE_MAP[…] ?? TBR_STAIR`, direction ternary), falsy `if (B.chainlevel)`, C-bound loop plus an invented whole-`n_levs` fallback loop, no debugplines, no not-a-hash arm; readers as uncited one-liners.
+- **Fix:** restart in C order mirroring init_dungeon_levels. Static 2i tables as BR_DIR_STRS/BITS + BR_TYPE_STRS/BITS (get_dgn_align precedent; C's trailing terminator slots unreachable — checkoption returns 0..3); lua_len + per-row table check with the `:924` not-a-hash throw; name/chainlevel/base/range through the live get_table_* readers; branchtype/direction through live get_table_option; slot assigned before stores (`:901`); BRANCH/CHAINBRANCH debugplines via live debugpline_dungeon; `!= null` chain test (C `:911` is a pointer test — `""` still chains); chain loop at the exact `:913` bound with the invented fallback loop deleted (real chained branches f=1,2,4 target oracle/castle, found in-loop — verified in dungeonProto); `?.` skips the past-prefix hole where C reads past the filled array for f>=1 (no match there by construction). Readers restarted as C-order getfield/check/pop with per-line cites; int_opt restructured to ret=defval + nil-test (was early-return). BRTYPE_MAP removed (sole user was the old body).
+- **JS:** js/dungeon.js:816 init_dungeon_branches, js/dungeon.js:328 get_table_int, js/dungeon.js:343 get_table_int_opt, js/dungeon.js:410 get_table_option, js/dungeon.js:174 tables. No new module edges (all file-local).
+- **Callers:**
+  - `init_dungeon_branches`: C dungeon.c:1045 (branches arm) → JS js/dungeon.js:940 wired. Caller's `:1046` "not an array of hashes" panic arm is absent in JS (falsy check) — belongs to init_dungeon_dungeons, out of cluster (named).
+  - `get_table_int`: C dungeon.c:819 levels arm → JS levels reader wired; C :895 branches arm → JS js/dungeon.js:826 wired; C :1010 dungeons arm is raw reads in init_dungeon_dungeons (that function's gap, named); nhlsel/nhlua/sp_lev C sites belong to those files' ports — this file-local serves dungeon.js only (named).
+  - `get_table_int_opt`: C dungeon.c:820–822 levels arms wired; C :896 → JS js/dungeon.js:827 wired; C :1011–1014 + nhlsel/sp_lev sites as above (named).
+  - `get_table_option`: C dungeon.c:791 align arm → JS get_dgn_align wired; C :897–900 → JS js/dungeon.js:828–829 wired; nhlsel/questpgr/sp_lev sites as above (named).
+- **Verify:** `verify.mjs --fn init_dungeon_branches,get_table_int,get_table_int_opt,get_table_option` → syntax/rule2 PASS; all four `no corpus session blocked` + `fixed smoke spread (24 run): 24 PASS, 0 regressed → REACH-OK`; green 2/2 + strict 2/2 PASS; cohort 7/7 PASS; VERIFY: PASS. Full `frozen/ps_test_runner.mjs sessions` (fallback-loop removal is load-path): 44/44 PASS, Scr/RNG exact.
+- **Named omissions:**
+  - `init_dungeon_branches`: none in-body — whole body, every callee live (get_table_* file-locals, debugpline_dungeon, strcmp, lua_len/lua_type) or house-mapped (panic≡throw, free≡GC, lua stack≡object reads).
+  - `get_table_int` / `get_table_int_opt` / `get_table_option`: none in-body — whole bodies over live lua_field/luaL_checkinteger_dgn/luaL_checkoption/lua_type.
+- **Ledger:** init_dungeon_branches ported; get_table_int ported; get_table_int_opt ported; get_table_option ported
+- **Next:** queue head `read.c` forget (PARTIAL C11/JS7, RNG 1).
+
 ## D-3100 — wizcmds.c wiz_show_wmodes + wiz_objprobs: wizard dump pair + # runners (coverage)
 
 - **Status:** shipped (Open — coverage; 2-function wizcmds.c cluster, ~134 js/ insertions. Queue heads bogusmon, collect_obj_classes, get_dgn_flags brief-proven stale-complete → `ledger.mjs set … ported` with stale notes, next MISSING rows shipped same iteration.)

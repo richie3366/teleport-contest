@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` handler_msg_window — coverage PARTIAL (C 45 code L `options.c:5832–5890` / JS 24 code L in js/options.js; hops —, callers 1, RNG 0, msg 2) @22c393674
-- [ ] `dungeon.c` init_dungeon_branches — coverage PARTIAL (C 51 code L `dungeon.c:867–930` / JS 25 code L in js/dungeon.js; hops 3, callers 1, RNG 0, msg 0) @cf7eb9a6b
 - [ ] `read.c` forget — coverage PARTIAL (C 11 code L `read.c:1020–1040` / JS 7 code L in js/read.js; hops 6, callers 1, RNG 1, msg 0) @773e13c9a
 - [ ] `makemon.c` check_mongen_order — coverage MISSING (C 12 code L `makemon.c:1783–1802` / JS no symbol; hops 6, callers 1, RNG 0, msg 0) @773e13c9a
 - [ ] `earlyarg.c` lopt — coverage MISSING (C 47 code L `earlyarg.c:71–144` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @92b27f0c4
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `pline.c` vraw_printf — coverage THIN (C 12 code L `pline.c:563–581` / JS 5 code L in js/display.js; hops 4, callers 1, RNG 0, msg 0) @9798beecd
 - [ ] `report.c` crashreport_init — coverage MISSING (C 44 code L `report.c:113–174` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @9798beecd
 - [ ] `rumors.c` init_oracles — coverage THIN (C 12 code L `rumors.c:577–595` / JS 4 code L in js/rumors.js; hops 5, callers 2, RNG 0, msg 0) @9798beecd
+- [ ] `mondata.c` olfaction — coverage PARTIAL (C 9 code L `mondata.c:1507–1518` / JS 6 code L in js/monsters.js; hops 4, callers 4, RNG 0, msg 0) @e028921a0
+- [ ] `rect.c` get_rect — coverage PARTIAL (C 12 code L `rect.c:82–97` / JS 7 code L in js/rect.js; hops 3, callers 2, RNG 0, msg 0) @e028921a0
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
