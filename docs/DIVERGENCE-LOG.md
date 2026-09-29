@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3096 — validspecmon + isspecmon: specmon cham-form gate (coverage)
+
+- **Status:** shipped (coverage — queue head `mon.c` validspecmon THIN + Open callee `mon.c` isspecmon MISSING; same-file queue rows: none; 2-function cluster, 30 js/ insertions)
+- **Symptom:** JS validspecmon returned after the accept_newcham_form gate and never applied the isspecmon arm, so a shopkeeper/priest/vault-guard/quest-leader polymorph candidate accepted notake and nohead forms C rejects (object manipulation and speech capability expected). No corpus session blocked (coverage rows; REACH-OK is the evidence).
+- **C locus:**
+  - `validspecmon`: nethack-c/upstream/src/mon.c:4993–5011 (NON_PM random `:4997–4998`, accept_newcham_form gate `:5000–5001`, isspecmon notake/nohead reject `:5003–5010`).
+  - `isspecmon`: nethack-c/upstream/src/mon.c:4983–4987 (isshk/ispriest/isgd/m_id==leader_m_id).
+- **JS was:** js/makemon.js:1237 local clone, 2 code L: `if (mndx === NON_PM) return true; return !!accept_newcham_form(mon, mndx)` with the isspecmon arm as a named omission ("ordinary doppel at mklev is never isspecmon"). No isspecmon symbol anywhere in js/.
+- **Fix:** restarted validspecmon in C order — NON_PM → true; `!accept_newcham_form` → false; isspecmon arm with `mons(mndx)`, inlined mondata.h notake (M1_NOTAKE macro, not a pinned-C function — no export to import; dothrow.js:186/pickup.js:153 expression mirrored, no clone #3) `|| !has_head(ptr)` short-circuit, C comments verbatim incl. the msound question. New file-local isspecmon in C order above it: isshk/ispriest/isgd fields then the leader m_id match with the mhitm.js:3915–3917 nonzero guard (leader_m_id is 0/undefined before the quest leader spawns; no live mon carries m_id 0 either side).
+- **JS:** js/makemon.js:1241–1246 isspecmon, :1252–1264 validspecmon; imports +has_head +M1_NOTAKE on the existing monsters.js edge (no new edge; `imports.mjs --can` ALREADY).
+- **Callers:**
+  - `validspecmon`: both C sites wired 1:1 (unchanged this iteration) — C validvamp :5032→js/makemon.js:1285, C select_newcham_form :5219→js/makemon.js:1484 (split-out select_newcham_random arm, D-0928).
+  - `isspecmon`: sole C caller is validspecmon :5003→js/makemon.js:1255.
+- **Verify:** `node scripts/verify.mjs --fn validspecmon,isspecmon` → VERIFY: PASS (syntax 1 file; rule2; hidden note no-corpus-block both; reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK both; green 2/2; strict both; cohort 7/7; full 44/44 shared-file).
+- **Named omissions:**
+  - `validspecmon`: none in-body — whole body, every callee live (accept_newcham_form file-local, isspecmon this commit, mons/has_head/M1_NOTAKE monsters.js) or macro-inlined (notake).
+  - `isspecmon`: none in-body — whole body, field reads only (isshk/ispriest/isgd/m_id live on mon; quest_status.leader_m_id live on game).
+- **Ledger:** validspecmon ported; isspecmon ported
+- **Next:** none in mon.c closure (accept_newcham_form measured ok; has_head live export; notake is a C macro). No maintained unit-test layout in repo (no tests/ dir; sessions + verify.mjs are the harness) — no new test file per skill rule against adding a framework.
+
 ## D-3095 — fix_curse_trouble: whole-body restart (coverage)
 
 - **Status:** shipped (coverage — queue head `pray.c` fix_curse_trouble PARTIAL; sole pray.c row with a measured gap, callees live / none queue-eligible; 1-function cluster)

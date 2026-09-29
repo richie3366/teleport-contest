@@ -88,6 +88,8 @@ import {
     is_mplayer,
     olfaction,
     is_orc,
+    has_head,
+    M1_NOTAKE,
     hides_under,
     throws_rocks,
     touch_petrifies,
@@ -1231,12 +1233,34 @@ function accept_newcham_form(mon, mndx) {
 }
 
 /**
- * C ref: mon.c validspecmon — accept_newcham_form; isspecmon notake/nohead
- * named omission (ordinary doppel at mklev is never isspecmon).
+ * C ref: mon.c isspecmon :4983–4987 — shopkeeper, priest, vault guard,
+ * or the quest leader (m_id match). The leader arm guards nonzero
+ * (mhitm.js precedent): leader_m_id is 0/undefined before the quest
+ * leader spawns, and no live mon carries m_id 0 on either side.
+ */
+function isspecmon(mon) {
+    if (mon.isshk || mon.ispriest || mon.isgd) return true;
+    const lid = game.quest_status?.leader_m_id | 0;
+    return !!lid && (mon.m_id | 0) === lid;
+}
+
+/**
+ * C ref: mon.c validspecmon :4993–5011 — NON_PM random; accept_newcham_form
+ * geno/polyok gate; isspecmon notake/nohead reject (notake = mondata.h
+ * M1_NOTAKE macro, inlined — not a pinned-C function, no export to import).
  */
 function validspecmon(mon, mndx) {
-    if (mndx === NON_PM) return true;
-    return !!accept_newcham_form(mon, mndx);
+    if (mndx === NON_PM) return true; /* caller wants random */
+    if (!accept_newcham_form(mon, mndx)) return false; /* geno'd or !polyok */
+    if (isspecmon(mon)) {
+        const ptr = mons(mndx);
+        /* reject notake because object manipulation is expected
+           and nohead because speech capability is expected */
+        if (((ptr?.mflags1 ?? 0) & M1_NOTAKE) || !has_head(ptr))
+            return false;
+        /* [should we check ptr->msound here too?] */
+    }
+    return true; /* potential new form is ok */
 }
 
 /**
