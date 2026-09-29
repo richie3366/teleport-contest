@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3104 — earlyarg.c breadth cluster: lopt matcher + early_options scan + consume/terminate/usage/scores/dump tails (coverage)
+
+- **Status:** shipped (Open — coverage; 9-function earlyarg.c closure, ~430 js/ insertions; head `lopt` MISSING + caller `early_options` MISSING + 6 same-file tails/restart. File holds nothing more Open after: argcheck/debug_fields/dump_enums already declared, dump_glyphids + scores_only retire this iteration.)
+- **Symptom:** coverage — head `lopt` MISSING (C 47 code L `earlyarg.c:71–144`, no JS symbol); its caller `early_options` (C 112 L `:180–361`, 7 lopt calls) and the consume/terminate/usage/showpaths tails likewise absent; `scores_only` THIN (config/initoptions/terminate arms omitted); `dump_glyphids` a named omission in the live argcheck `:533` arm.
+- **C locus:**
+  - `lopt`: nethack-c/upstream/src/earlyarg.c:71–144 (first-letter gate `:86`, `=`/`:` split `:100–101`, prefix/one-letter arms `:107–131`, `#if 0` `:120–124` compiled out, nextarg consume `:132–141`); 6 early_options sites `:245`,`:262–263`,`:272`,`:290`,`:315`,`:340`.
+  - `consume_arg`: earlyarg.c:149–162 (rotate-to-end `:155–159`, hide `:161`); C callers `:172`,`:174` (consume_two_args), `:231`,`:253`,`:277` (early_options).
+  - `consume_two_args`: earlyarg.c:166–176 (consume/restore/consume `:172–175`); C callers `:255`,`:279`.
+  - `early_options`: earlyarg.c:180–361 (ENHANCED_SYMBOLS pre-check `:185–188` live, `?` `:195–196`, ndx scan `:204–357` with `b/d/h/?/n/s/u/v/w` arms, done `:358`); sole C caller sys/unix/unixmain.c:134.
+  - `opt_terminate`: earlyarg.c:366–373; C callers `:187`,`:223`,`:233`,`:237`,`:240`,`:333` (early_options), `:386` (opt_usage), `:398` (after_opt_showpaths).
+  - `opt_usage`: earlyarg.c:375–387 (chdir `:378–381`, dlb `:383`, genl `:385`, terminate `:386`); C callers `:196`,`:265`,`:316`.
+  - `after_opt_showpaths`: earlyarg.c:389–400; sole C caller files.c:3101 (do_deferred_showpaths).
+  - `scores_only`: earlyarg.c:404–441 (done `:410`, chdir `:412–416`, SYSCF `:417–421`, PANICTRACE `:422–427`, whoami `:428–430`, prscore `:431`, terminate `:439`); sole C caller `:309` (-s arm).
+  - `dump_glyphids`: earlyarg.c:806–809; sole C caller `:533` (argcheck ARG_DUMPGLYPHIDS).
+- **JS was:** no `lopt`/`early_options`/`consume_arg`/`consume_two_args`/`opt_terminate`/`opt_usage`/`after_opt_showpaths`/`dump_glyphids` symbols; `scores_only` (js/earlyarg.js:46) omitted config_error_done/initoptions and inlined the terminate tail via nh_terminate_capture; argcheck `:282` carried the dump_glyphids named omission; options.js:6974 noted deferred_showpaths had no JS writer.
+- **Fix:** whole-file closure ported in C order into js/earlyarg.js. `{ v }` boxes render C's `int *`/`char ***` out-params (botl.js precedent); C null-pointer tests render as `=== null` (empty-string argv is non-null in C, falsy in JS — probed); `charAt` renders NUL-at-end indexing; `strncmp` ≡ slice compare. lopt's three `config_error_add("…%.60s")` diagnostics route to the live config_erradd core (D-3098) with pre-truncated text (botl.js sink stays the options/doset path). early_options per-iteration locals are boxes so lopt's `--argc/++argv` arm lands as in C; `-s` passes `[base[ndx-1], …argv]` for C's `argv-1` (Disallowed arm never consumes, so local ≡ base+ndx). Every ATTRNORETURN tail runs its live effects and returns (no process to exit). `imports.mjs --can` killed after hanging with no output (D-3103 tool precedent); substituted manual analysis — earlyarg.js has zero static importers in js/ (verified by search), all six new names are hoisted exports used only in function bodies — plus a node import smoke (IMPORT-OK).
+- **JS:** js/earlyarg.js:82 enum (`:56–65`), js/earlyarg.js:104 lopt, js/earlyarg.js:181 consume_arg, js/earlyarg.js:199 consume_two_args, js/earlyarg.js:223 early_options, js/earlyarg.js:419 errorNoReturn (unixtty.c:473–486 observable half), js/earlyarg.js:430 opt_terminate, js/earlyarg.js:443 opt_usage, js/earlyarg.js:460 after_opt_showpaths, js/earlyarg.js:50 scores_only (restart), js/earlyarg.js:804 dump_glyphids, js/earlyarg.js:665 argcheck wiring; imports +cfgfiles/+glyphs/+end, +EXIT_*/initoptions/eos on live edges, nh_terminate_capture dropped.
+- **Callers:**
+  - `lopt`: C `:245`→js/earlyarg.js:289, `:262–263`→:311–312, `:272`→:324, `:290`→:348, `:315`→:378, `:340`→:391 (all six early_options arms wired).
+  - `consume_arg`: C `:172`,`:174`→:204,:206; `:231`→:275, `:253`→:299, `:277`→:330 (all wired).
+  - `consume_two_args`: C `:255`→:302, `:279`→:333 (both wired).
+  - `early_options`: C unixmain.c:134 (CLI entry) — no JS caller (scored JS has no argv path); exported, unwired by design.
+  - `opt_terminate`: C `:187`→:229, `:223`→:267, `:233`→:278, `:237`→:281, `:240`→:284, `:333`→:385, `:386`→:450, `:398`→:464 (all wired, each followed by return ≡ NOTREACHED).
+  - `opt_usage`: C `:196`→:238, `:265`→:314, `:316`→:379 (all wired + return).
+  - `after_opt_showpaths`: C files.c:3101 via do_deferred_showpaths — caller unported (options.js:6976 names the omit); exported for that path.
+  - `scores_only`: C `:309`→:370 (awaited, argv-1 adjusted, + return).
+  - `dump_glyphids`: C `:533`→:665 (omit retired, live).
+- **Verify:** `node scripts/verify.mjs --fn lopt,early_options,consume_arg,consume_two_args,opt_terminate,opt_usage,after_opt_showpaths,scores_only,dump_glyphids` → VERIFY: PASS (syntax · Rule #2 · 9× `no corpus session blocked` note + REACH-OK smoke 24/24 each · green 2/2 · strict ×2 · cohort 7/7; no shared file → full skipped). /tmp/lopt-probe.mjs: 22/22 C-transcribed checks (`-wfoo`/`-w:foo`/`-windowtype=`/`-d`×2/`-n`×3/`?`/`--showpaths`/rotation/`-u`×2/bare-`-w`/default/`-decgraphics` e-guard/`--help`/empty-nextarg/after_opt_showpaths/argcheck-2); `-s` one-shot exits 1/0 via live initoptions+prscore+nh_terminate. No maintained harness in repo (sessions+verify are the gates); probe stays in /tmp.
+- **Named omissions:**
+  - `lopt`: none — every callee live (config_erradd core, eos).
+  - `consume_arg`: none. `consume_two_args`: none.
+  - `early_options`: sys/share/unixtty.c:473–486 `error()` (not pinned-C) — exit_nhwindows/settty arms platform-vacuous this early, message+EXIT_FAILURE rendered live via errorNoReturn; `D`/`X` `:346–353` + WIN32 `-u` `:317–329` compile out (UNIX).
+  - `opt_terminate`: none (exit ≡ return).
+  - `opt_usage`: chdirx `:379` (Rule #2), dlb_init `:383` (data-library init), genl_display_file(USAGEHELP, TRUE) `:385` (usagehlp window — own row if ever wired).
+  - `after_opt_showpaths`: chdirx `:394` (Rule #2).
+  - `scores_only`: chdirx `:413`, whoami `:429`, PANICTRACE ARGV0/signals `:423–427` (platform/Rule #2); MSWIN `:432–437` compiles out.
+  - `dump_glyphids`: none (stdout ≡ raw_printf sink, dump_mongen precedent).
+- **Ledger:** lopt ported; consume_arg ported; consume_two_args ported; early_options ported; opt_terminate ported; opt_usage partial; after_opt_showpaths ported; scores_only ported; dump_glyphids ported
+- **Next:** opt_usage's genl_display_file(USAGEHELP) rendering if a usage-text channel ever exists; earlyarg.c otherwise fully declared.
+
 ## D-3103 — makemon.c breadth cluster: mongen-order comparator/dump + furies whole, 5 verified-complete declarations (coverage)
 
 - **Status:** shipped (Open — coverage; 9-function makemon.c cluster, ~100 js/ insertions; head check_mongen_order is RELEASED-compiled-out → by-design, D-3042 pattern, shipped with 8 live same-file functions. File holds nothing more Open after: all other makemon.c unknowns measured ok, peace_minded already declared.)
