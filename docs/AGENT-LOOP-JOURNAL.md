@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3133 `sp_lev.c` get_unpacked_coord whole port + traptype-opt/name_from_player stale, enter_force_field by-design (coverage head)
+
+**C locus:** - `get_unpacked_coord`: sp_lev.c:1316–1334 (RANDOM arm :1321–1326 — x=y=-1 :1322, is_random=1 :1323, flags=loc&~MASK :1324, defhumidity fallback :1325–1326; fixed arm :1327–1332 — flags=defhumidity, SP_COORD_X/Y :1330–1331; return-by-value :1333). Struct sp_lev.h:106–110; macros sp_lev.h:66/82–85.
+**JS:** 1 file, +28/−0 (mklev.js), far under caps. Density note: full `ledger.mjs rows` lists exactly the 12 block rows — no further same-file (sp_lev.c) Open rows exist and the port has zero callees, so the file + callee closure hold nothing more Open.
+**Change:** `js/mklev.js` — new module-local `get_unpacked_coord(loc, defhumidity)` + `SP_COORD_IS_RANDOM` const in C order immediately before `get_location_coord` (same relative order as C :1316/:1336); C `c.x = c.y = -1` chain kept; C return-by-value ≡ fresh object (no aliasing). No imports (zero C callees — pure macro/struct logic). No js/ for the other three (ledger dispositions with stale/by-design notes).
+**Verify:** `node scripts/verify.mjs --fn name_from_player,enter_force_field,get_unpacked_coord,get_table_traptype_opt` → PASS syntax (1 file: mklev.js) · PASS rule2 · note hidden ×4 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×4 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) · VERIFY: PASS. Verify ran after the last js/ edit.
+**Named:** - `get_unpacked_coord`: sole-C-caller wiring — JS get_location_coord takes (humidity, croom, rx, ry), packed longs never enter JS; none in-body (zero callees).
+**Next:** falsifier — a session blocked with get_unpacked_coord as owner, or a JS des path producing packed coords (wire the caller then). Do not re-pop the three disposition labels.
 ## 2026-09-29 — D-3132 `end.c` should_query_disclose_option whole port + fixup_death/sort_valuables stale (coverage head)
 
 **C locus:** - `should_query_disclose_option`: end.c:475–515 (`*defquery='n'` :482, strchr :483, idx :484, range :485, impossible :486–488, YES-default/TRUE :489–490, disclose dispatch :492–511, bad-category impossible :513, TRUE :514).

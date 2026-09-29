@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do_name.c` name_from_player — coverage PARTIAL (C 11 code L `do_name.c:105–128` / JS 6 code L in js/do_name.js; hops 4, callers 3, RNG 0, msg 0) @d0fb9f36b
-- [ ] `region.c` enter_force_field — coverage MISSING (C 13 code L `region.c:983–1000` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @d3ab32283
-- [ ] `sp_lev.c` get_unpacked_coord — coverage MISSING (C 13 code L `sp_lev.c:1317–1334` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @d3ab32283
 - [ ] `hacklib.c` copy_bytes — coverage MISSING (C 11 code L `hacklib.c:946–961` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @d3ab32283
 - [ ] `attrib.c` role_abil — coverage PARTIAL (C 22 code L `attrib.c:789–815` / JS 15 code L in js/attrib.js; hops 5, callers 2, RNG 0, msg 0) @3606b8f8d
 - [ ] `shknam.c` is_izchak — coverage PARTIAL (C 11 code L `shknam.c:908–924` / JS 6 code L in js/shknam.js; hops 4, callers 2, RNG 0, msg 0) @74bd8ea11
 - [ ] `role.c` role_selection_prolog — coverage PARTIAL (C 73 code L `role.c:1726–1812` / JS 51 code L in js/player_selection.js; hops —, callers 0, RNG 0, msg 10) @f789bb94f
 - [ ] `cfgfiles.c` vconfig_error_add — coverage MISSING (C 9 code L `cfgfiles.c:1875–1890` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @f789bb94f
-- [ ] `sp_lev.c` get_table_traptype_opt — coverage MISSING (C 9 code L `sp_lev.c:4350–4364` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @f789bb94f
 - [ ] `pickup.c` mon_beside — coverage THIN (C 9 code L `pickup.c:2072–2085` / JS 4 code L in js/pickup.js; hops 6, callers 1, RNG 0, msg 0) @b90b1a381
 - [ ] `end.c` done2 — coverage THIN (C 35 code L `end.c:90–148` / JS 14 code L in js/end.js; hops —, callers 1, RNG 0, msg 0) @b90b1a381
 - [ ] `lock.c` lock_action — coverage PARTIAL (C 19 code L `lock.c:38–64` / JS 11 code L in js/lock.js; hops 5, callers 2, RNG 0, msg 0) @b90b1a381
+- [ ] `ball.c` Unplacebc_and_covet_placebc — coverage MISSING (C 14 code L `ball.c:306–324` / JS no symbol; hops —, callers 0, RNG 1, msg 0) @e3690fe26
+- [ ] `botl.c` clear_status_hilites — coverage MISSING (C 8 code L `botl.c:3351–3366` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @e3690fe26
+- [ ] `glyphs.c` glyphrep — coverage MISSING (C 8 code L `glyphs.c:470–481` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @e3690fe26
+- [ ] `pickup.c` count_target_containers — coverage MISSING (C 8 code L `pickup.c:3849–3864` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @e3690fe26
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

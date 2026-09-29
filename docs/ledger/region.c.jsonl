@@ -27,7 +27,7 @@
 {"fn":"region_stats","c":"899-922","status":"unknown"}
 {"fn":"reset_region_mids","c":"928-943","status":"unknown"}
 {"fn":"create_msg_region","c":"955-973","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"enter_force_field","c":"983-1000","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"enter_force_field","c":"983-1000","status":"by-design","d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"#if 0: proto :32-39, def :945-1032 not-yet-used; cf D-3121"}
 {"fn":"create_force_field","c":"1003-1030","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"expire_gas_cloud","c":"1046-1087","status":"unknown","d":["D-1155"],"at":"seed@a30a7de84"}
 {"fn":"inside_gas_cloud","c":"1091-1165","status":"unknown","d":["D-1146"],"at":"seed@a30a7de84"}

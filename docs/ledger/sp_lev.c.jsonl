@@ -31,7 +31,7 @@
 {"fn":"set_ok_location_func","c":"1274-1277","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_ok_location","c":"1280-1308","status":"unknown","d":["D-2368"],"at":"seed@a30a7de84"}
 {"fn":"pm_good_location","c":"1311-1314","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"get_unpacked_coord","c":"1317-1334","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_unpacked_coord","c":"1317-1334","status":"ported","js":["js/mklev.js:get_unpacked_coord"],"d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_location_coord","c":"1337-1353","status":"unknown"}
 {"fn":"get_room_loc","c":"1360-1378","status":"ported","js":["js/mklev.js:get_room_loc"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f"}
 {"fn":"get_free_room_loc","c":"1385-1404","status":"unknown"}
@@ -89,7 +89,7 @@
 {"fn":"lspo_ladder","c":"4232-4235","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_grave","c":"4243-4278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_altar","c":"4283-4318","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"get_table_traptype_opt","c":"4350-4364","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_table_traptype_opt","c":"4350-4364","status":"split","js":["js/mklev.js:lspo_traptype_opt"],"d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"stale: lspo_traptype_opt; caller lspo_trap :1403"}
 {"fn":"get_trapname_bytype","c":"4367-4376","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_traptype_byname","c":"4379-4388","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_trap","c":"4397-4470","status":"unknown"}

@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3133 — `sp_lev.c` get_unpacked_coord whole port + traptype-opt/name_from_player stale, enter_force_field by-design (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head `name_from_player` stale → `enter_force_field` by-design (#if 0, uncompiled) → shipped head `get_unpacked_coord` + same-file Open `get_table_traptype_opt` stale-split; 1 port + 3 dispositions, 1 file).
+- **Symptom:** no corpus divergence — coverage. C `get_unpacked_coord` (packed long → {x, y, is_random, getloc_flags}) had no JS symbol and no `SP_COORD_*` exists in js/; JS `get_location_coord` takes unpacked (rx, ry), so the packed path was absent.
+- **C locus:**
+  - `get_unpacked_coord`: sp_lev.c:1316–1334 (RANDOM arm :1321–1326 — x=y=-1 :1322, is_random=1 :1323, flags=loc&~MASK :1324, defhumidity fallback :1325–1326; fixed arm :1327–1332 — flags=defhumidity, SP_COORD_X/Y :1330–1331; return-by-value :1333). Struct sp_lev.h:106–110; macros sp_lev.h:66/82–85.
+  - `get_table_traptype_opt`: sp_lev.c:4349–4364 (get_table_str_opt :4352, res=defval :4353, nonempty strcmpi loop :4355–4362, Free :4363).
+  - `name_from_player`: do_name.c:105–128 (nhUse defres :117, getlin :119, empty/ESC→NULL :120–121, mungspaces :124, PL_PSIZ truncate :125–126).
+  - `enter_force_field`: region.c:983–1000 — inside `#if 0` (:945–1032 "not yet used"); prototype also ifdef'd (:32–39); sole wiring commented out (:1026–1027). Uncompiled in contest C.
+- **JS was:** no `get_unpacked_coord` / `SP_COORD_*` anywhere in js/. `lspo_traptype_opt` (mklev.js:1313) already the complete opt port (null/'' → defval, lowercase loop over LSPO_TRAPTYPES, defval on no match); `name_from_player` (do_name.js:199) already whole (void defres, awaited getlin, empty/ESC→null, mungspaces, PL_PSIZ slice).
+- **Fix:** `js/mklev.js` — new module-local `get_unpacked_coord(loc, defhumidity)` + `SP_COORD_IS_RANDOM` const in C order immediately before `get_location_coord` (same relative order as C :1316/:1336); C `c.x = c.y = -1` chain kept; C return-by-value ≡ fresh object (no aliasing). No imports (zero C callees — pure macro/struct logic). No js/ for the other three (ledger dispositions with stale/by-design notes).
+- **JS:** 1 file, +28/−0 (mklev.js), far under caps. Density note: full `ledger.mjs rows` lists exactly the 12 block rows — no further same-file (sp_lev.c) Open rows exist and the port has zero callees, so the file + callee closure hold nothing more Open.
+- **Callers:**
+  - `get_unpacked_coord`: sole C caller get_location_coord (sp_lev.c:1345) → named omission (JS port mklev.js:21682 takes unpacked (rx, ry); packed-crd path unwired — the JS des pipeline never packs).
+  - `get_table_traptype_opt`: C sp_lev.c:4430 (lspo_trap table form, "type", -1) → JS mklev.js:1403 (`lspo_traptype_opt(o, -1)`, C-order table-form arm).
+  - `name_from_player`: C do_name.c:253/306/656 → JS do_name.js:582 (do_mgivenname, has_mgivenname/MGIVENNAME) / :223 (do_oname, safe_oname) / :1818 (docall, oc_uname); no 4th caller either side.
+  - `enter_force_field`: none — zero live C callers (wiring commented out, creator in #if 0).
+- **Verify:** `node scripts/verify.mjs --fn name_from_player,enter_force_field,get_unpacked_coord,get_table_traptype_opt` → PASS syntax (1 file: mklev.js) · PASS rule2 · note hidden ×4 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×4 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) · VERIFY: PASS. Verify ran after the last js/ edit.
+- **Named omissions:**
+  - `get_unpacked_coord`: sole-C-caller wiring — JS get_location_coord takes (humidity, croom, rx, ry), packed longs never enter JS; none in-body (zero callees).
+  - `get_table_traptype_opt`: none — whole body under split name (stale: js/mklev.js:lspo_traptype_opt; Lua-table read ≡ o.type per lspo convention; strcmpi ≡ lowercase compare).
+  - `name_from_player`: none — whole body (stale: js/do_name.js:199; whole-string ESC check ≡ C first-char check — JS getlin yields exactly '\x1b' on cancel, buf never contains ESC).
+  - `enter_force_field`: whole function uncompiled (by-design: #if 0 region.c:945–1032 + :32–39; cf D-3121).
+- **Ledger:** get_unpacked_coord ported; get_table_traptype_opt split js=js/mklev.js:lspo_traptype_opt; name_from_player ported; enter_force_field by-design
+- **Next:** falsifier — a session blocked with get_unpacked_coord as owner, or a JS des path producing packed coords (wire the caller then). Do not re-pop the three disposition labels.
+
 ## D-3132 — `end.c` should_query_disclose_option whole port + fixup_death/sort_valuables stale (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head `should_query_disclose_option` PARTIAL + same-file Open `fixup_death`, `sort_valuables`; 1 fix + 2 stale sets, 1 file).

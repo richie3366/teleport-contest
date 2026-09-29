@@ -21646,6 +21646,34 @@ function get_location(x, y, humidity, croom) {
     return { x, y };
 }
 
+/* C ref: sp_lev.h SP_COORD_IS_RANDOM `:66`; SP_COORD_X/Y `:82–83`. */
+const SP_COORD_IS_RANDOM = 0x01000000;
+
+/**
+ * C ref: sp_lev.c get_unpacked_coord `:1316–1334` (staticfn) —
+ * unpacked_coord is { is_random, getloc_flags, x, y } (`sp_lev.h:106–110`).
+ * C returns the static by value (a fresh copy per call `:1333`); JS builds
+ * a fresh object, the same observable state (no aliasing).
+ * Sole C caller get_location_coord `:1345`: its JS port below takes
+ * unpacked (rx, ry), so this stays unwired (named omission).
+ */
+function get_unpacked_coord(loc, defhumidity) {
+    const c = { is_random: 0, getloc_flags: 0, x: 0, y: 0 };
+    if (loc & SP_COORD_IS_RANDOM) { // C `:1321`
+        c.x = c.y = -1;
+        c.is_random = 1;
+        // C `:1324` (getloc_flags_t)(loc & ~SP_COORD_IS_RANDOM)
+        c.getloc_flags = loc & ~SP_COORD_IS_RANDOM;
+        if (!c.getloc_flags) c.getloc_flags = defhumidity; // C `:1325–1326`
+    } else {
+        c.is_random = 0;
+        c.getloc_flags = defhumidity;
+        c.x = loc & 0xff; // C SP_COORD_X
+        c.y = (loc >> 16) & 0xff; // C SP_COORD_Y
+    }
+    return c;
+}
+
 /**
  * C ref: sp_lev.c get_location_coord — packed add origin; random DRY retry.
  * Packed does not consult humidity (same as l_create_stairway). Random uses

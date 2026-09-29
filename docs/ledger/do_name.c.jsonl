@@ -4,7 +4,7 @@
 {"fn":"new_oname","c":"61-77","status":"unknown"}
 {"fn":"free_oname","c":"81-87","status":"unknown"}
 {"fn":"safe_oname","c":"95-100","status":"unknown"}
-{"fn":"name_from_player","c":"105-128","status":"unknown"}
+{"fn":"name_from_player","c":"105-128","status":"ported","js":["js/do_name.js:name_from_player"],"d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"stale: js/do_name.js:199, all 3 C callers wired (:223/:582/:1818)"}
 {"fn":"christen_monst","c":"133-152","status":"ported","js":["js/do_name.js:christen_monst"],"d":["D-2916"],"at":"seed@a30a7de84"}
 {"fn":"alreadynamed","c":"158-195","status":"unknown"}
 {"fn":"do_mgivenname","c":"199-282","status":"unknown","d":["D-1638"],"at":"seed@a30a7de84"}
