@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `pager.c` append_str — coverage PARTIAL (C 15 code L `pager.c:82–104` / JS 9 code L in js/pager.js; hops 2, callers 1, RNG 0, msg 0) @b6b281b0a
 - [ ] `wizcmds.c` makemap_remove_mons — coverage MISSING (C 19 code L `wizcmds.c:110–150` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: makemap_unmakemon) @9798beecd
 - [ ] `region.c` visible_region_summary — coverage PARTIAL (C 22 code L `region.c:674–711` / JS 14 code L in js/region.js; hops —, callers 1, RNG 0, msg 3) @9798beecd
 - [ ] `pline.c` vraw_printf — coverage THIN (C 12 code L `pline.c:563–581` / JS 5 code L in js/display.js; hops 4, callers 1, RNG 0, msg 0) @9798beecd
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `ball.c` lift_covet_and_placebc — coverage PARTIAL (C 11 code L `ball.c:236–254` / JS 7 code L in js/ball.js; hops 3, callers 2, RNG 0, msg 0) @73f4a382f
 - [ ] `role.c` Goodbye — coverage PARTIAL (C 11 code L `role.c:2143–2157` / JS 6 code L in js/roles.js; hops 3, callers 2, RNG 0, msg 0) @5b7eef822
 - [ ] `selvar.c` selection_size_description — coverage MISSING (C 11 code L `selvar.c:764–778` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @e32d557c0
+- [ ] `sounds.c` activate_chosen_soundlib — coverage MISSING (C 11 code L `sounds.c:1779–1795` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @30647ba3c
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3106 pager.c append_str: impossible arm + NULL-exact strstri test (coverage)
+
+**C locus:** - `append_str`: nethack-c/upstream/src/pager.c:82–104 (strstri guard `:89–90`, overfull `:92–97` with impossible `:93–95`, sep strncat `:100–101`, new_str strncat `:102–103`); 11 live callers in do_screen_description (`:1237`, `:1317`, `:1342`, `:1353`, `:1400`, `:1417`, `:1428`, `:1441`, `:1520`, `:1538`) + `:1559` inside `#if 0`.
+**JS:** js/pager.js:1021 append_str (`:1026` NULL test, `:1028–1034` overfull+impossible, `:1037–1042` sep/new_str append).
+**Change:** ported the `:93–95` arm in C position as fire-and-forget `void impossible(...)` (sync look helper cannot await the async impossible — artifact.js:1419 / botl.js:355 / do_name.js:714 precedent; `%lu` preformatted to `%s` since the JS formatter expands `%s`/`%d` only); presence test is now `!= null`, NULL-exact for every input including empty new_str (no live caller passes one — all 10 sites pass literals/`an`/`the` results).
+**Verify:** `node scripts/verify.mjs --fn append_str` → VERIFY: PASS (syntax 1 file js/pager.js · Rule #2 · hidden note `no corpus session blocked` · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped, no shared file).
+**Named:** - `append_str`: none — whole body; impossible is fire-and-forget rather than awaited (sync boundary, named precedent above), message text C-exact.
+**Next:** `wizcmds.c` makemap_remove_mons (next queue head; callee makemap_unmakemon ships in its closure).
 ## 2026-09-29 — D-3105 hack.c breadth cluster: rounddiv canonical + showdamage/doorless whole + to_any family + rock/notice completes (coverage)
 
 **C locus:** - `rounddiv`: nethack-c/upstream/src/hack.c:4550–4572 (divsgn `:4554`, y==0 panic `:4556–4557`, y-sign `:4558–4561`, x-sign `:4562–4565`, trunc `:4566`, mod `:4567`, half-up `:4568–4569`, return `:4571`); callers eat.c:3058, mthrowu.c:236, polyself.c:390/:396/:404/:409.

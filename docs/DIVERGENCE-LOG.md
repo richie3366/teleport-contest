@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3106 — pager.c append_str: impossible arm + NULL-exact strstri test (coverage)
+
+- **Status:** shipped (Open — coverage; single-function cluster — the only pager.c Open row; callees strstri/impossible declared partial so no callee growth; ~15 js/ insertions.)
+- **Symptom:** coverage PARTIAL (C 15 code L `pager.c:82–104` / JS 9 code L in js/pager.js): the `:93–95` overfull-buf `impossible()` arm was absent, and the `:89` strstri presence test used JS truthiness instead of C NULL-ness (diverges only for empty new_str: C returns buf non-NULL → 0, JS `''` is falsy → appends).
+- **C locus:**
+  - `append_str`: nethack-c/upstream/src/pager.c:82–104 (strstri guard `:89–90`, overfull `:92–97` with impossible `:93–95`, sep strncat `:100–101`, new_str strncat `:102–103`); 11 live callers in do_screen_description (`:1237`, `:1317`, `:1342`, `:1353`, `:1400`, `:1417`, `:1428`, `:1441`, `:1520`, `:1538`) + `:1559` inside `#if 0`.
+- **JS was:** js/pager.js:1021 — sep/truncation logic C-exact, but `if (oldlen >= BUFSZ - 1) return 0` skipped the inner impossible, and `if (strstri(...))` tested truthiness.
+- **Fix:** ported the `:93–95` arm in C position as fire-and-forget `void impossible(...)` (sync look helper cannot await the async impossible — artifact.js:1419 / botl.js:355 / do_name.js:714 precedent; `%lu` preformatted to `%s` since the JS formatter expands `%s`/`%d` only); presence test is now `!= null`, NULL-exact for every input including empty new_str (no live caller passes one — all 10 sites pass literals/`an`/`the` results).
+- **JS:** js/pager.js:1021 append_str (`:1026` NULL test, `:1028–1034` overfull+impossible, `:1037–1042` sep/new_str append).
+- **Callers:**
+  - `append_str`: pager.c:1237→js/pager.js:1155 (cmap the/an fold helper), :1317→:1418, :1342→:1440, :1353→:1450 (`"you"`), :1400→:1484, :1417→:1498, :1428→:1511, :1441→:1524, :1520→:1594 (warnsyms), :1538→:1611 (venom); :1559 boulder arm is `#if 0` compiled-out upstream (JS cites at :1614–1615) — no site.
+- **Verify:** `node scripts/verify.mjs --fn append_str` → VERIFY: PASS (syntax 1 file js/pager.js · Rule #2 · hidden note `no corpus session blocked` · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped, no shared file).
+- **Named omissions:**
+  - `append_str`: none — whole body; impossible is fire-and-forget rather than awaited (sync boundary, named precedent above), message text C-exact.
+- **Ledger:** append_str ported
+- **Next:** `wizcmds.c` makemap_remove_mons (next queue head; callee makemap_unmakemon ships in its closure).
+
 ## D-3105 — hack.c breadth cluster: rounddiv canonical + showdamage/doorless whole + to_any family + rock/notice completes (coverage)
 
 - **Status:** shipped (Open — coverage; 10-function hack.c closure, ~100 js/ insertions; head `rounddiv` PARTIAL-clone-drift + 4 same-file ports + 5 verified-complete declarations. File still holds Open: check_capacity PARTIAL, findtravelpath MISSING, dump_weights THIN — named, not this iteration.)
