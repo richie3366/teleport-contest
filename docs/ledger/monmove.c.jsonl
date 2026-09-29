@@ -12,7 +12,7 @@
 {"fn":"mon_regen","c":"307-320","status":"unknown"}
 {"fn":"disturb","c":"327-358","status":"ported","js":["js/monmove.js:disturb"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"release_hero","c":"362-372","status":"unknown"}
-{"fn":"find_pmmonst","c":"375-388","status":"unknown"}
+{"fn":"find_pmmonst","c":"375-388","status":"ported","js":["js/monmove.js:find_pmmonst"],"at":"2026-09-29@590ebd616","note":"stale: js/monmove.js:2325"}
 {"fn":"bee_eat_jelly","c":"394-420","status":"unknown","d":["D-1246"],"at":"seed@a30a7de84"}
 {"fn":"gelcube_digests","c":"424-445","status":"unknown","d":["D-1257"],"at":"seed@a30a7de84"}
 {"fn":"monflee","c":"462-530","status":"unknown","d":["D-2189"],"at":"seed@a30a7de84"}

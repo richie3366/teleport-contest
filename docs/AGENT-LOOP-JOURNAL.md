@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3086 cmdq_print + bind_mousebtn + get_adjacent_loc: cmd.c MISSING pair + restart (coverage)
+
+**C locus:** - `cmdq_print`: nethack-c/upstream/src/cmd.c:220–249 (queue head :223, CQ header :225, KEY :228–230, EXTCMD :231–233, DIR :234–236, USER_INPUT :237–239, INT :240–242, default :243–245)
+**JS:** js/cmd.js:481 cmdq_print, js/cmd.js:1676 bind_mousebtn, js/cmd.js:1991–1992 commands_init wiring; js/lock.js:766 get_adjacent_loc. Imports: +CMDQ_INT/+MOUSECMD (same const.js edge), +isok/+Never_mind (same const.js edge) — no new module edges. Tests: scripts/bind-mousebtn.test.mjs (7), scripts/get-adjacent-loc.test.mjs (3).
+**Change:** - `cmdq_print`: new async export in C order — queue via cmdq_qname, CQ header, full 5-arm switch + default; KEY code from string-or-number node key into live key2txt (buf out-param≡GC); EXTCMD ec_entry ef_txt with wrapper-txt fallback; async because pline awaits.
+**Verify:** `node scripts/verify.mjs --fn cmdq_print,bind_mousebtn,get_adjacent_loc` → VERIFY: PASS (syntax 2 files js/cmd.js js/lock.js; rule2; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). `node --test scripts/bind-mousebtn.test.mjs scripts/get-adjacent-loc.test.mjs` → 10/10 pass.
+**Named:** - `cmdq_print`: none in-body — whole body, every callee live (pline, key2txt); 0 callers both sides.
+**Next:** pop the regenerated block head.
 ## 2026-09-29 — D-3085 wiz_mon_diff + wiz_show_vision: wizcmds MISSING pair (coverage)
 
 **C locus:** - `wiz_mon_diff`: nethack-c/upstream/src/wizcmds.c:1789–1828 (title :1792, mons walk :1804, mstrength/difficulty :1805–1807, trouble post-incr :1809–1810, mlev clamp :1811–1813, format :1814–1818, no-discrepancies :1822)

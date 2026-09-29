@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3086 — cmdq_print + bind_mousebtn + get_adjacent_loc: cmd.c MISSING pair + restart (coverage)
+
+- **Status:** shipped (coverage — queue head `monmove.c` find_pmmonst stale-ported, next head `cmd.c` cmdq_print MISSING + same-file bind_mousebtn MISSING + get_adjacent_loc PARTIAL; cmdq_add_int stale-ported same iteration, both ledger-noted)
+- **Symptom:** cmdq_print/bind_mousebtn absent from `js/` (no symbol). cmdq_print is a 0-caller debug dump; bind_mousebtn's C callers left `game.Cmd.mousebtn` unset (commands_init defaults) so the click_to_cmd queue arm was inert. get_adjacent_loc thin (inline bounds, literal message). No corpus session blocked on any (coverage rows; REACH-OK is the evidence). Stales: find_pmmonst brief-complete at js/monmove.js:2325 (both C callers wired: js/dogmove.js:231 dog.c:1025, js/monmove.js:2341 monmove.c:397); cmdq_add_int brief-complete at js/invent.js:8523 (tail-append≡push, alloc≡GC; C caller invent.c:2052 wired at invent.js:8562).
+- **C locus:**
+  - `cmdq_print`: nethack-c/upstream/src/cmd.c:220–249 (queue head :223, CQ header :225, KEY :228–230, EXTCMD :231–233, DIR :234–236, USER_INPUT :237–239, INT :240–242, default :243–245)
+  - `bind_mousebtn`: nethack-c/upstream/src/cmd.c:2624–2659 (range gate :2628–2631, btn-- :2633, nothing :2636–2638, ef_txt walk :2641–2643, MOUSECMD gate :2644–2645, store :2646, #if 0 note :2648–2656, FALSE :2659)
+  - `get_adjacent_loc`: nethack-c/upstream/src/cmd.c:3931–3953 (getdir fail :3937–3940, new_x/new_y :3941–3942, cc+isok :3943–3945, emsg :3947–3949, return 1 :3952)
+- **JS was:** no symbol for cmdq_print/bind_mousebtn (sym.mjs NOT FOUND); get_adjacent_loc thin at js/lock.js:756 (inline bounds, literal 'Never mind.').
+- **Fix:**
+  - `cmdq_print`: new async export in C order — queue via cmdq_qname, CQ header, full 5-arm switch + default; KEY code from string-or-number node key into live key2txt (buf out-param≡GC); EXTCMD ec_entry ef_txt with wrapper-txt fallback; async because pline awaits.
+  - `bind_mousebtn`: new export in C order — range gate with live config_error_add sink, btn-- index, nothing→null, EXTCMDLIST ef_txt walk (toLowerCase strcmpi, bind_key precedent), MOUSECMD gate with no INTERNALCMD skip (clicklook carries it), row store; #if 0 note dead in C, omitted like bind_key's. Wired into commands_init (:2758–2759); refreshed the three stale named-omit docs (click_to_cmd, lock_mouse_buttons, domouseaction).
+  - `get_adjacent_loc`: restarted in C order, kept the (prompt, emsg)→{x,y}|null signature — every C site passes u.ux/u.uy (apply.c:793, lock.c:424, lock.c:804, pickup.c:2298) so the params collapse and cc is the return (null≡0); live isok gate, Never_mind const; pline1≡pline (no % in any message, spell.js :767 precedent).
+- **JS:** js/cmd.js:481 cmdq_print, js/cmd.js:1676 bind_mousebtn, js/cmd.js:1991–1992 commands_init wiring; js/lock.js:766 get_adjacent_loc. Imports: +CMDQ_INT/+MOUSECMD (same const.js edge), +isok/+Never_mind (same const.js edge) — no new module edges. Tests: scripts/bind-mousebtn.test.mjs (7), scripts/get-adjacent-loc.test.mjs (3).
+- **Callers:**
+  - `cmdq_print`: 0 C references (debug helper) — nothing to wire; exported for debugger parity.
+  - `bind_mousebtn`: cmd.c:2758–2759 → js/cmd.js:1991–1992 commands_init (wired); options.c:7637 parsebindings MOUSEBTN= arm — JS parsebindings has no mousebtn arm (named omission).
+  - `get_adjacent_loc`: lock.c:804 → js/lock.js doopen_indir (unchanged); lock.c:424 → js/lock.js pick_lock (unchanged); pickup.c:2298 → js/pickup.js:4415 lootmon (unchanged); apply.c:793 doleash → pre-existing leash clone get_adjacent_loc_leash js/apply.js:1672 (unchanged, named).
+- **Verify:** `node scripts/verify.mjs --fn cmdq_print,bind_mousebtn,get_adjacent_loc` → VERIFY: PASS (syntax 2 files js/cmd.js js/lock.js; rule2; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). `node --test scripts/bind-mousebtn.test.mjs scripts/get-adjacent-loc.test.mjs` → 10/10 pass.
+  - `cmdq_print`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+  - `bind_mousebtn`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+  - `get_adjacent_loc`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+- **Named omissions:**
+  - `cmdq_print`: none in-body — whole body, every callee live (pline, key2txt); 0 callers both sides.
+  - `bind_mousebtn`: options.c:7637 parsebindings MOUSEBTN= arm (no JS counterpart); in-body whole, every callee live (config_error_add sink, EXTCMDLIST).
+  - `get_adjacent_loc`: (x, y, cc) params collapsed to u.ux/u.uy + return (all 4 C sites pass u.ux/u.uy); apply.c:793 served by the pre-existing leash clone; in-body whole, every callee live (getdir, isok, pline).
+- **Ledger:** cmdq_print ported; bind_mousebtn ported; get_adjacent_loc ported
+- **Next:** pop the regenerated block head.
+
 ## D-3085 — wiz_mon_diff + wiz_show_vision: wizcmds MISSING pair (coverage)
 
 - **Status:** shipped (coverage — queue head `wizcmds.c` wiz_mon_diff MISSING + same-file wiz_show_vision MISSING; 8 queue-hygiene resolutions same iteration, all ledger-noted: bannerc_string/mkportal/skill_level_name/dbon/size_str/N_times/save_oracles stale-ported, mixed_to_utf8 by-design)

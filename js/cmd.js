@@ -27,8 +27,8 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          AIR,
          isok, Upolyd, Is_container, CLICK_1, CLICK_2,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, DOMOVE_RUSH, DOMOVE_WALK,
-         CMDQ_EXTCMD, CMDQ_KEY, CMDQ_DIR, CMDQ_USER_INPUT, CQ_CANNED, CQ_REPEAT,
-         IFBURIED, WIZMODECMD, NOFUZZERCMD, PREFIXCMD, MOVEMENTCMD,
+         CMDQ_EXTCMD, CMDQ_KEY, CMDQ_DIR, CMDQ_USER_INPUT, CMDQ_INT, CQ_CANNED, CQ_REPEAT,
+         IFBURIED, WIZMODECMD, NOFUZZERCMD, PREFIXCMD, MOVEMENTCMD, MOUSECMD,
          AUTOCOMPLETE, CMD_NOT_AVAILABLE, INTERNALCMD, GENERALCMD, AUTOCOMP_ADJ,
          CMD_M_PREFIX, CMD_gGF_PREFIX, CMD_INSANE, QBUFSZ, BUFSZ,
          xdir, ydir, zdir, xytodir, N_DIRS, N_MOVEMODES, DIR_W, DIR_N, DIR_E, DIR_S,
@@ -466,6 +466,46 @@ export function cmdq_add_userinput(q) {
     const name = cmdq_qname(q);
     if (!game[name]) game[name] = [];
     game[name].push({ typ: CMDQ_USER_INPUT, key: '\0' });
+}
+
+/**
+ * C ref: cmd.c cmdq_print `:220–249` — debug dump of command_queue[q].
+ * C has no callers (debug helper); exported for debugger parity. Async
+ * because pline awaits. KEY nodes store a 1-char string (cmdq_add_key)
+ * or a char code (canned clones); key2txt takes the code (C passes
+ * `char` into `key2txt(c, buf)`; the buf out-param is GC here).
+ * EXTCMD prints ec_entry ef_txt (C `:232`); anonymous wrappers fall
+ * back to the node's txt.
+ * @param {number} q CQ_CANNED or CQ_REPEAT
+ */
+export async function cmdq_print(q) {
+    const qq = game[cmdq_qname(q)] || []; // C `:223` gc.command_queue[q]
+    await pline(`CQ:${q | 0}`); // C `:225` pline("CQ:%i", q)
+    for (const cq of qq) { // C `:226` while (cq)
+        switch (cq.typ) { // C `:227`
+        case CMDQ_KEY: { // C `:228–230`
+            const code = typeof cq.key === 'string'
+                ? cq.key.charCodeAt(0) : (cq.key | 0);
+            await pline(`(key:${key2txt(code)})`);
+            break;
+        }
+        case CMDQ_EXTCMD: // C `:231–233`
+            await pline(`(extcmd:#${cq.ec_entry?.txt ?? cq.txt ?? ''})`);
+            break;
+        case CMDQ_DIR: // C `:234–236`
+            await pline(`(dir:${cq.dirx | 0},${cq.diry | 0},${cq.dirz | 0})`);
+            break;
+        case CMDQ_USER_INPUT: // C `:237–239`
+            await pline('(userinput)');
+            break;
+        case CMDQ_INT: // C `:240–242`
+            await pline(`(int:${cq.intval | 0})`);
+            break;
+        default: // C `:243–245`
+            await pline(`(ERROR:${cq.typ | 0})`);
+            break;
+        }
+    }
 }
 
 /**
@@ -992,9 +1032,9 @@ export async function hangup(sig_unused = 0) {
 /**
  * C ref: cmd.c click_to_cmd `:4905–4913` — stamp clicklook_cc, then queue
  * the bound mouse-button command. Caller: readchar_core click arm
- * (`:5264`). Named: bind_mousebtn (cmd.c:2624 — no JS port, so
- * game.Cmd.mousebtn stays undefined and the queue arm is inert); the
- * entry shape below (run + tab) matches cmdq_add_ec's live call shapes.
+ * (`:5264`). game.Cmd.mousebtn is bound by commands_init
+ * (therecmdmenu/clicklook); the entry shape below (run + tab) matches
+ * cmdq_add_ec's live call shapes.
  * @param {number} x
  * @param {number} y
  * @param {number} mod CLICK_1 / CLICK_2
@@ -1012,9 +1052,8 @@ export function click_to_cmd(x, y, mod) {
  * `game.Cmd.mousebtn` bindings while getpos runs (so map clicks cannot
  * fire bound commands mid-targeting) and restore them after. The stash
  * is function-static in C (`:3329`); here it is module-local. When no
- * binding table exists (bind_mousebtn `:2624` unported, so
- * `game.Cmd.mousebtn` stays undefined and the click_to_cmd queue arm is
- * inert), both arms are no-ops and the stash keeps nulls.
+ * binding table exists yet (fresh game before commands_init), both arms
+ * are no-ops and the stash keeps nulls.
  * Callers getpos.c:858 → js/getpos.js getpos() loop entry (TRUE);
  * getpos.c:1155 exitgetpos → the same function's finally (FALSE).
  * @param {boolean|number} savebtns nonzero to stash + clear, zero to restore
@@ -1621,6 +1660,49 @@ export function bind_key(key, command, user) {
     return false; // C `:2727` FALSE
 }
 
+/**
+ * C ref: cmd.c bind_mousebtn `:2624–2659` — bind mouse button to a
+ * MOUSECMD extcmd, or "nothing" to unbind. bind_key sibling: same
+ * nothing-first shape (`:2636`), ef_txt walk (`:2641`), MOUSECMD gate
+ * (`:2644–2645`, no INTERNALCMD skip — clicklook carries it), and the
+ * live config_error_add sink. C `:2650–2656` #if 0 CMD_NOT_AVAILABLE
+ * note is dead in C, omitted like bind_key's. Callers: commands_init
+ * `:2758–2759` (wired); options.c:7637 parsebindings MOUSEBTN= arm (JS
+ * parsebindings has no mousebtn arm — named omission).
+ * @param {number} btn 1-based button
+ * @param {string} command extcmd ef_txt, or "nothing"
+ * @returns {boolean} TRUE unless no command matched
+ */
+export function bind_mousebtn(btn, command) {
+    const b = btn | 0;
+    if (b < 1 || b > NUM_MOUSE_BUTTONS) { // C `:2628`
+        config_error_add('Wrong mouse button, valid are 1-%i', NUM_MOUSE_BUTTONS); // C `:2629–2630`
+        return false; // C `:2631` FALSE
+    }
+    const i = b - 1; // C `:2633` btn--
+    if (!game.Cmd) game.Cmd = {};
+    if (!game.Cmd.mousebtn) {
+        game.Cmd.mousebtn = new Array(NUM_MOUSE_BUTTONS).fill(null);
+    }
+
+    /* special case: "nothing" is reserved for unbinding */ // C `:2635`
+    if (String(command ?? '').toLowerCase() === 'nothing') { // C `:2636` !strcmpi
+        game.Cmd.mousebtn[i] = null; // C `:2637` (struct ext_func_tab *) 0
+        return true; // C `:2638` TRUE
+    }
+
+    // C `:2641`: to the null terminator (the generated table has none).
+    for (const extcmd of EXTCMDLIST) {
+        if (String(command ?? '').toLowerCase() !== extcmd.txt.toLowerCase()) continue; // C `:2642–2643` strcmpi
+        if (((extcmd.flags | 0) & MOUSECMD) === 0) continue; // C `:2644–2645`
+        game.Cmd.mousebtn[i] = extcmd; // C `:2646`
+        // C `:2648–2656` #if 0 CMD_NOT_AVAILABLE note — not compiled.
+        return true; // C `:2657` TRUE
+    }
+
+    return false; // C `:2659` FALSE
+}
+
 /* C cmd.c:2070–2083 move_funcs[N_DIRS_Z][N_MOVEMODES] — txt identity. */
 const MOVE_FUNC_TXT = [
     ['movewest', 'runwest', 'rushwest'],
@@ -1901,14 +1983,13 @@ function bind_key_fn(key, txt) {
 
 /**
  * C ref: cmd.c commands_init `:2749–2782` (staticfn).
- * Named: bind_mousebtn `:2752–2753` (`cmd.c:2624`) — click_to_cmd keeps
- * an unset `game.Cmd.mousebtn`, so the click queue arm stays inert.
  */
 function commands_init() {
     for (const extcmd of EXTCMDLIST) { // C `:2754` through the null ef_txt
         if (extcmd.key) cmdbind_add(extcmd.key, extcmd, false); // C `:2755–2756`
     }
-    // bind_mousebtn(1, "therecmdmenu") / (2, "clicklook") — named above.
+    bind_mousebtn(1, 'therecmdmenu'); // C `:2758`
+    bind_mousebtn(2, 'clicklook'); // C `:2759`
     bind_key(Ccode(108), 'redraw', false); // C `:2762` C('l')
     bind_key(104, 'help', false); // C `:2763` 'h'
     bind_key(106, 'jump', false); // C `:2764` 'j'
@@ -2599,8 +2680,8 @@ async function doclicklook() {
  * move_funcs[*][MV_WALK] → live move_funcs_walk (xytodir order, same rows);
  * On_stairs_up/dn live js/mklev.js; test_move is async in JS (awaited,
  * short-circuit kept). C caller cmd.c:2061 cmdlist row → JS
- * extcmdlist_data.js:165 row, dispatched via click_to_cmd (inert while
- * game.Cmd.mousebtn is undefined — bind_mousebtn :2624 named omit).
+ * extcmdlist_data.js:165 row, dispatched via click_to_cmd on the
+ * commands_init mousebtn bindings.
  * @returns {Promise<number>} ECMD_*
  */
 export async function domouseaction() {

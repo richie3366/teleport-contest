@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `monmove.c` find_pmmonst — coverage PARTIAL (C 8 code L `monmove.c:375–388` / JS 5 code L in js/monmove.js; hops 2, callers 2, RNG 0, msg 0) @260932ce5
-- [ ] `cmd.c` cmdq_print — coverage MISSING (C 24 code L `cmd.c:220–249` / JS no symbol; hops —, callers 0, RNG 0, msg 7) @10017887d
 - [ ] `insight.c` doborn — coverage MISSING (C 24 code L `insight.c:3145–3176` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @643ef6af3
 - [ ] `calendar.c` yyyymmddhhmmss — coverage PARTIAL (C 15 code L `calendar.c:95–117` / JS 9 code L in js/calendar.js; hops 4, callers 4, RNG 0, msg 0) @29685b8e4
 - [ ] `earlyarg.c` dump_enums — coverage MISSING (C 79 code L `earlyarg.c:706–801` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @29685b8e4
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `options.c` pfxfn_cond_ — coverage MISSING (C 28 code L `options.c:4994–5036` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: parse_cond_option) @29685b8e4
 - [ ] `pray.c` fix_curse_trouble — coverage PARTIAL (C 16 code L `pray.c:349–370` / JS 11 code L in js/pray.js; hops —, callers 1, RNG 0, msg 2) @29685b8e4
 - [ ] `mon.c` validspecmon — coverage THIN (C 9 code L `mon.c:4993–5011` / JS 2 code L in js/makemon.js; hops 4, callers 2, RNG 0, msg 0) @29685b8e4
+- [ ] `minion.c` monster_census — coverage PARTIAL (C 11 code L `minion.c:40–55` / JS 7 code L in js/minion.js; hops 4, callers 5, RNG 0, msg 0) @590ebd616
+- [ ] `wizcmds.c` wiz_kill — coverage MISSING (C 66 code L `wizcmds.c:243–347` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @590ebd616
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
