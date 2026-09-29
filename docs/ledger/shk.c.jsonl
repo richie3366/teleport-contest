@@ -108,7 +108,7 @@
 {"fn":"fix_shop_damage","c":"4850-4874","status":"unknown"}
 {"fn":"shk_move","c":"4880-4993","status":"partial","js":["js/shk.js:shk_move"],"omit":"`shk_fixes_damage` (`shk.c:4556`, damage-list subsystem — map turns.md shk_move section + file header); `after_shk_move` `check_special_room(FALSE)` occupancy arm (map-named, file header).","d":["D-2560"],"at":"seed@a30a7de84"}
 {"fn":"after_shk_move","c":"4997-5008","status":"unknown"}
-{"fn":"is_fshk","c":"5012-5015","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"is_fshk","c":"5012-5015","status":"ported","js":["js/shk.js:is_fshk"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shopdig","c":"5019-5110","status":"unknown","d":["D-2308"],"at":"seed@a30a7de84"}
 {"fn":"makekops","c":"5113-5135","status":"unknown"}
 {"fn":"getcad","c":"5138-5171","status":"unknown"}

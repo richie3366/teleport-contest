@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3110 mondata.c max_passive_dmg restart + ranged_attk/can_track/levl_follower/is_fshk (coverage)
+
+**C locus:** - `max_passive_dmg`: nethack-c/upstream/src/mondata.c:720–767 (multi2 contact loop, complete-burn/rot/rust `:749–752` → magr.mhp, elemental/PHYS dice `damn||mlevel+1` × damd × multi2).
+**JS:** js/mhitm.js:2299, js/mondata.js:1235, js/monsters.js:403 (+ set_can_track_excalibur_hook above, bound js/artifact.js:920), js/dog.js:346, js/shk.js:237.
+**Change:** restarted max_passive_dmg in C order (in-file completely*_mm + resists_* locals — no new clones/imports); new ranged_attk export in js/mondata.js (NATTK + AT_* already imported); can_track Excalibur arm via artifact.js late-bind setter (static monsters→artifact edge is a TDZ cycle — artifact.js:13 reads M2_UNDEAD at eval — D-2349 precedent; first verify caught it, cohort 0/7 ReferenceError); levl_follower both arms (mon_has_amulet already imported; is_fshk added to the existing shk.js import); new is_fshk export in js/shk.js (ESHK live). Stale-set, bodies complete + all C callers wired: little_to_big, big_to_little, mon_knows_traps, gender.
+**Verify:** `node scripts/verify.mjs --fn max_passive_dmg,ranged_attk,can_track,levl_follower,is_fshk` → VERIFY: PASS; per-function hidden note (no corpus session blocked — coverage row) + REACH-OK (no RNG-tagged reach; 24-session smoke spread 24 PASS each); syntax 6 files; rule2; green 2/2; strict ×2; cohort 7/7. First run FAILed cohort 0/7 on the monsters→artifact TDZ (fixed via late-bind, re-ran PASS).
+**Named:** - `max_passive_dmg`: none — whole body, every callee live.
+**Next:** queue head now `mklev.c` add_door (coverage PARTIAL); mondata.c remainder verified shipped-undeclared (name_to_monclass mon.c:5124 caller belongs to the unported wiz_force family — left unknown) or deferred (monstseesu 59-caller audit, sliparm dup-canonical).
 ## 2026-09-29 — D-3109 sounds.c activate_chosen_soundlib port + 6 same-file dispositions (coverage)
 
 **C locus:** - `activate_chosen_soundlib`: nethack-c/upstream/src/sounds.c:1779–1795 (idx `:1781`, IndexOk panic `:1783–1784`, exit arm `:1786–1788`, struct copy `:1790`, init `:1791–1792`, active/chosen publish `:1793–1794`); table sounds.c:1726–1776 (nosound-only in contest build), soundprocs BSS global `:1693`; sole scored caller allmain.c:703 init_sound_disp_gamewindows (options.c:3839 + unixmain.c:111 refs are comments).

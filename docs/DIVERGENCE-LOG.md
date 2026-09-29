@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3110 — mondata.c max_passive_dmg restart + ranged_attk/can_track/levl_follower/is_fshk (coverage)
+
+- **Status:** shipped (Open — coverage; 5-function mondata.c cluster — head PARTIAL restarted whole, 1 MISSING ported, 2 arm completions, 1 shk.c callee ported + 4 stale siblings set; density exception: ~66 js/ insertions; queue holds no more mondata.c/callee rows — rest of file verified shipped-undeclared or out of cluster.)
+- **Symptom:** coverage PARTIAL (C 39 code L `mondata.c:720–767` / JS 28 code L in js/mhitm.js; hops 3, callers 1, RNG 0, msg 0): complete-burn/rot/rust → magr.mhp arm absent (named omit), elemental arm used an inline mres bitmask instead of the live resists_* calls.
+- **C locus:**
+  - `max_passive_dmg`: nethack-c/upstream/src/mondata.c:720–767 (multi2 contact loop, complete-burn/rot/rust `:749–752` → magr.mhp, elemental/PHYS dice `damn||mlevel+1` × damd × multi2).
+  - `ranged_attk`: nethack-c/upstream/src/mondata.c:402–410 (DISTANCE_ATTK_TYPE = SPIT/BREA/MAGC/GAZE, monattk.h:31); no src callers (extern.h:1873 only).
+  - `can_track`: nethack-c/upstream/src/mondata.c:623–628 (u_wield_art(ART_EXCALIBUR) `:625` → TRUE, else haseyes).
+  - `levl_follower`: nethack-c/upstream/src/mondata.c:1211–1226 (usteed `:1213`, iswiz+amulet `:1217–1218` → FALSE, tame/wiz/fshk `:1220–1221`, M2_STALK `:1224–1225`).
+  - `is_fshk`: nethack-c/upstream/src/shk.c:5011–5015 (isshk && ESHK->following); sole caller mondata.c:1220.
+- **JS was:** max_passive_dmg exported local in js/mhitm.js:2299 missing the `:749–752` arm and inlining resists; ranged_attk/is_fshk no symbol; can_track haseyes-only (Excalibur named omit); levl_follower missing amulet short-circuit + is_fshk (named omits).
+- **Fix:** restarted max_passive_dmg in C order (in-file completely*_mm + resists_* locals — no new clones/imports); new ranged_attk export in js/mondata.js (NATTK + AT_* already imported); can_track Excalibur arm via artifact.js late-bind setter (static monsters→artifact edge is a TDZ cycle — artifact.js:13 reads M2_UNDEAD at eval — D-2349 precedent; first verify caught it, cohort 0/7 ReferenceError); levl_follower both arms (mon_has_amulet already imported; is_fshk added to the existing shk.js import); new is_fshk export in js/shk.js (ESHK live). Stale-set, bodies complete + all C callers wired: little_to_big, big_to_little, mon_knows_traps, gender.
+- **JS:** js/mhitm.js:2299, js/mondata.js:1235, js/monsters.js:403 (+ set_can_track_excalibur_hook above, bound js/artifact.js:920), js/dog.js:346, js/shk.js:237.
+- **Callers:**
+  - `max_passive_dmg`: dogmove.c:1123 → js/dogmove.js:1432 (pre-wired, live).
+  - `ranged_attk`: none in C (extern.h only) — no wiring.
+  - `can_track`: monmove.c:1880 → js/monmove.js:2120 (pre-wired, live).
+  - `levl_follower`: dog.c:811 → js/dog.js:474 (pre-wired, live).
+  - `is_fshk`: mondata.c:1220 → js/dog.js:351 (wired this iteration).
+- **Verify:** `node scripts/verify.mjs --fn max_passive_dmg,ranged_attk,can_track,levl_follower,is_fshk` → VERIFY: PASS; per-function hidden note (no corpus session blocked — coverage row) + REACH-OK (no RNG-tagged reach; 24-session smoke spread 24 PASS each); syntax 6 files; rule2; green 2/2; strict ×2; cohort 7/7. First run FAILed cohort 0/7 on the monsters→artifact TDZ (fixed via late-bind, re-ran PASS).
+- **Named omissions:**
+  - `max_passive_dmg`: none — whole body, every callee live.
+  - `ranged_attk`: none — whole body, leaf.
+  - `can_track`: none — whole body; Excalibur arm live via late-bind.
+  - `levl_follower`: none — whole body, every callee live.
+  - `is_fshk`: none — whole body, ESHK live.
+- **Ledger:** max_passive_dmg ported; ranged_attk ported; can_track ported; levl_follower ported; is_fshk ported.
+- **Next:** queue head now `mklev.c` add_door (coverage PARTIAL); mondata.c remainder verified shipped-undeclared (name_to_monclass mon.c:5124 caller belongs to the unported wiz_force family — left unknown) or deferred (monstseesu 59-caller audit, sliparm dup-canonical).
+
 ## D-3109 — sounds.c activate_chosen_soundlib port + 6 same-file dispositions (coverage)
 
 - **Status:** shipped (Open — coverage; 7-function sounds.c cluster — head MISSING ported + wired, 4 stale siblings, 2 compiled-out by-design; queue head after 9 stale pops — density exception: ~45 js/ insertions; head's file holds nothing more portable-Open — rest is shipped-undeclared, `#ifdef USER_SOUNDS`/`#if 0` compiled out, or 0-line stubs.)

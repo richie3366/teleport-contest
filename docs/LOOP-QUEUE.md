@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mondata.c` max_passive_dmg — coverage PARTIAL (C 39 code L `mondata.c:720–767` / JS 28 code L in js/mhitm.js; hops 3, callers 1, RNG 0, msg 0) @cb3b01855
 - [ ] `mklev.c` add_door — coverage PARTIAL (C 25 code L `mklev.c:574–612` / JS 14 code L in js/mklev.js; hops 4, callers 2, RNG 0, msg 0) @ebd112f3b
 - [ ] `mkroom.c` nexttodoor — coverage PARTIAL (C 10 code L `mkroom.c:623–637` / JS 7 code L in js/fountain.js; hops 3, callers 2, RNG 0, msg 0) @ebd112f3b
 - [ ] `mkobj.c` peek_at_iced_corpse_age — coverage PARTIAL (C 9 code L `mkobj.c:2423–2437` / JS 6 code L in js/mkobj.js; hops 4, callers 4, RNG 0, msg 0) @671c54bfc
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `cfgfiles.c` choose_random_part — coverage PARTIAL (C 29 code L `cfgfiles.c:464–504` / JS 18 code L in js/cfgfiles.js; hops —, callers 1, RNG 1, msg 0) @671c54bfc
 - [ ] `muse.c` mon_likes_objpile_at — coverage PARTIAL (C 11 code L `muse.c:1395–1415` / JS 7 code L in js/muse.js; hops 2, callers 1, RNG 0, msg 0) @671c54bfc
 - [ ] `pickup.c` pickup_prinv — coverage PARTIAL (C 16 code L `pickup.c:1948–1972` / JS 11 code L in js/pickup.js; hops 3, callers 2, RNG 0, msg 0) @671c54bfc
+- [ ] `sp_lev.c` l_get_lregion — coverage MISSING (C 16 code L `sp_lev.c:5410–5436` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @ad1aa7146
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

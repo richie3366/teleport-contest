@@ -52,7 +52,7 @@ import {
     impossible,
 } from './display.js';
 import { redraw_worm, count_wsegs, wormgone, get_wormno, initworm } from './worm.js';
-import { set_residency, make_happy_shoppers } from './shk.js';
+import { set_residency, make_happy_shoppers, is_fshk } from './shk.js';
 import { Is_qstart } from './quest.js';
 import { builds_up } from './hacklib.js';
 import { hero_conflict } from './mondata.js';
@@ -340,15 +340,17 @@ export async function makedog() {
 }
 
 /**
- * C ref: mondata.c levl_follower — pets / wiz / following-shk / M2_STALK.
- * Named omissions: mon_has_amulet short-circuit for iswiz; is_fshk.
+ * C ref: mondata.c levl_follower `:1211–1226` — steed / pets / wiz /
+ * following shopkeeper / M2_STALK stalkers.
  */
 export function levl_follower(mtmp) {
     if (mtmp === game.u?.usteed) return true;
-    // C: iswiz && mon_has_amulet → FALSE (mon_has_amulet deferred)
-    if (mtmp.mtame || mtmp.iswiz) return true;
-    // C: is_fshk(mtmp) deferred
-    // C: (mflags2 & M2_STALK) && (!mflee || u.uhave.amulet)
+    /* Wizard with Amulet won't bother trying to follow across levels */
+    if (mtmp.iswiz && mon_has_amulet(mtmp)) return false;
+    /* some monsters will follow even while intending to flee from you */
+    if (mtmp.mtame || mtmp.iswiz || is_fshk(mtmp)) return true;
+    /* stalking types follow, but won't when fleeing unless you hold
+       the Amulet */
     return !!((mtmp.data?.mflags2 | 0) & M2_STALK)
         && (!mtmp.mflee || !!(game.u?.uhave?.amulet));
 }

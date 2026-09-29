@@ -2294,35 +2294,36 @@ export async function mdisplacem(magr, mdef, quietly) {
 // C ref: worn.c find_mac — body lives in worn.js (minvent ARM_BONUS).
 export { find_mac };
 
-// C ref: mondata.c max_passive_dmg() — AT_NONE/AT_BOOM passives × magr hits.
-// Elemental AD_ACID/FIRE/COLD/ELEC + AD_PHYS; complete-burn/rot/rust deferred.
+// C ref: mondata.c max_passive_dmg `:720–767` — AT_NONE/AT_BOOM passive
+// dice × magr contact hits; complete-burn/rot/rust slays outright.
 function max_passive_dmg(mdef, magr) {
     const md = mdef?.data;
     if (!md) return 0;
+    /* each attack by magr can result in passive damage */
     let multi2 = 0;
     for (let i = 0; i < NATTK; i++) {
         const a = get_mattk(magr, i).aatyp;
-        // C: CLAR/BITE/KICK/BUTT/TUCH/STNG/HUGS/ENGL/TENT/WEAP
+        // C: CLAW/BITE/KICK/BUTT/TUCH/STNG/HUGS/ENGL/TENT/WEAP
         if (a === AT_CLAW || a === AT_BITE || a === AT_KICK || a === AT_BUTT
             || a === AT_TUCH || a === AT_STNG || a === AT_HUGS || a === AT_ENGL
             || a === AT_TENT || a === AT_WEAP) {
             multi2++;
         }
     }
-    const mres = (magr?.data?.mresists | 0)
-        | (magr?.mextrinsics | 0)
-        | (magr?.mintrinsics | 0);
     let dmg = 0;
     for (let i = 0; i < NATTK; i++) {
         const at = get_mattk(mdef, i);
         if (at.aatyp !== AT_NONE && at.aatyp !== AT_BOOM) continue;
         const adtyp = at.adtyp | 0;
-        // Named omission: completelyburns/rots/rusts → dmg = magr.mhp
-        if ((adtyp === AD_ACID && !(mres & MR_ACID))
-            || (adtyp === AD_COLD && !(mres & MR_COLD))
-            || (adtyp === AD_FIRE && !(mres & MR_FIRE))
-            || (adtyp === AD_ELEC && !(mres & MR_ELEC))
-            || adtyp === AD_PHYS) {
+        if ((adtyp === AD_FIRE && completelyburns_mm(magr?.data)) // C `:750–752`
+            || (adtyp === AD_DCAY && completelyrots_mm(magr?.data))
+            || (adtyp === AD_RUST && completelyrusts_mm(magr?.data))) {
+            dmg = magr?.mhp | 0;
+        } else if ((adtyp === AD_ACID && !resists_acid(magr))
+                   || (adtyp === AD_COLD && !resists_cold(magr))
+                   || (adtyp === AD_FIRE && !resists_fire(magr))
+                   || (adtyp === AD_ELEC && !resists_elec(magr))
+                   || adtyp === AD_PHYS) {
             dmg = at.damn | 0;
             if (!dmg) dmg = (md.mlevel | 0) + 1;
             dmg *= at.damd | 0;

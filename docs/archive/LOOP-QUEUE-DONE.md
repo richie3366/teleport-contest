@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-29
 
+- [x] `mondata.c` max_passive_dmg — coverage PARTIAL (C 39 code L `mondata.c:720–767` / JS 28 code L in js/mhitm.js; hops 3, callers 1, RNG 0, msg 0) @cb3b01855
+
+
 - [x] `selvar.c` selection_getbounds — coverage PARTIAL (C 13 code L `selvar.c:77–95` / JS 9 code L in js/region.js; hops 6, callers 16, RNG 0, msg 0) @ffb380a5c
 
 
