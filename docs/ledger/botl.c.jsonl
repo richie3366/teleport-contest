@@ -47,12 +47,12 @@
 {"fn":"parse_status_hl1","c":"2593-2648","status":"unknown"}
 {"fn":"is_ltgt_percentnumber","c":"2652-2669","status":"unknown"}
 {"fn":"has_ltgt_percentnumber","c":"2673-2683","status":"unknown"}
-{"fn":"splitsubfields","c":"2688-2727","status":"unknown"}
+{"fn":"splitsubfields","c":"2688-2727","status":"ported","js":["js/botl.js:splitsubfields"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b"}
 {"fn":"is_fld_arrayvalues","c":"2730-2744","status":"unknown"}
-{"fn":"query_arrayvalue","c":"2747-2781","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"query_arrayvalue","c":"2747-2781","status":"ported","js":["js/botl.js:query_arrayvalue"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"status_hilite_add_threshold","c":"2784-2811","status":"unknown"}
 {"fn":"parse_status_hl2","c":"2814-3106","status":"ported","js":["js/botl.js:parse_status_hl2"],"d":["D-2649"],"at":"seed@a30a7de84"}
-{"fn":"query_conditions","c":"3109-3138","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"query_conditions","c":"3109-3138","status":"ported","js":["js/botl.js:query_conditions"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"conditionbitmask2str","c":"3141-3168","status":"unknown"}
 {"fn":"match_str2conditionbitmask","c":"3171-3206","status":"unknown"}
 {"fn":"str2conditionbitmask","c":"3209-3230","status":"unknown"}
@@ -66,7 +66,7 @@
 {"fn":"status_hilite_linestr_gather_conditions","c":"3488-3567","status":"ported","js":["js/botl.js:status_hilite_linestr_gather_conditions"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
 {"fn":"status_hilite_linestr_gather","c":"3570-3586","status":"unknown"}
 {"fn":"status_hilite2str","c":"3590-3669","status":"unknown"}
-{"fn":"status_hilite_menu_choose_field","c":"3672-3704","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"status_hilite_menu_choose_field","c":"3672-3704","status":"ported","js":["js/botl.js:status_hilite_menu_choose_field"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"status_hilite_menu_choose_behavior","c":"3707-3808","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"status_hilite_menu_choose_updownboth","c":"3811-3887","status":"partial","js":["js/botl.js:status_hilite_menu_choose_updownboth"],"omit":"`status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes the FALSE return), the `while (add)` arm (`:4446`), and `reset_status_hilites` at `:4300`.","d":["D-2757"],"at":"seed@a30a7de84"}
 {"fn":"status_hilite_menu_add","c":"3890-4302","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}

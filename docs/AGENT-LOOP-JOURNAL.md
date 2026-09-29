@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3119 botl.c status-hilite query closure: 3 menu ports + `splitsubfields` overflow fix (coverage cluster)
+
+**C locus:** - `query_arrayvalue`: botl.c:2747–2781 (PICK_ONE over arr[arrmin..arrmax), adj `:2756`, NULL-gap skip `:2763–2764`, decode `:2776`)
+**JS:** js/botl.js query_arrayvalue `:3182`, query_conditions `:3216`, status_hilite_menu_choose_field `:3252`, splitsubfields `:1707`.
+**Change:** three new async exports in C order reusing the shipped menu fold (dynamic select_menu_pick_one/pick_any from options.js + hiliteMenuRows — choose_updownboth/status_hilite_menu_fld precedent): adj/NULL-gap/decode verbatim; conditions a_ulong OR with `>>> 0` unsigned-long return; live SCORE_ON_BOTL-off skip arm (config.h:627); splitsubfields overflow test moved to the pre-pop cut count with corrected cites. Export names are new (C staticfn, sibling exported); no new static cross-module import (dynamic options.js edge mirrors the in-file precedent).
+**Verify:** `node scripts/verify.mjs --fn query_arrayvalue,query_conditions,status_hilite_menu_choose_field,splitsubfields` → VERIFY: PASS (syntax 1 file js/botl.js; rule2; hidden note 0 blocked ×4; REACH-OK smoke spread 24 run 24 PASS 0 regressed ×4; green 2/2; strict ×2; cohort 7/7).
+**Named:** - `query_arrayvalue`: sole-C-caller status_hilite_menu_add (botl.c:3889–4302) has no JS body (pre-existing, js/botl.js:1437).
+**Next:** next coverage head after finish (block refills itself).
 ## 2026-09-29 — D-3118 `max_passive_dmg` elemental arm via live `Resists_Elem` (Must-fix, review 2070)
 
 **C locus:** - `max_passive_dmg`: mondata.c:720–767, elemental arm `:753–757`; C `resists_*` are monst.h:271–277 macros for `Resists_Elem(mon, *_RES)` whose body is mondata.c:129–197 (bits `:171`, wielded-artifact `defends` `:173–176`, worn/carried `:178–196`).

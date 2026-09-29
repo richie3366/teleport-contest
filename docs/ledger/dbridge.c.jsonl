@@ -8,7 +8,7 @@
 {"fn":"is_drawbridge_wall","c":"137-162","status":"unknown"}
 {"fn":"is_db_wall","c":"170-173","status":"unknown"}
 {"fn":"find_drawbridge","c":"180-205","status":"ported","js":["js/dbridge.js:find_drawbridge"],"at":"2026-09-28@70c901367","note":"stale: js/dbridge.js:160, body whole + all 11 C call sites wired in js (dig×2,dokick,trap,zap×3,detect,music,muse,dbridge:616)"}
-{"fn":"get_wall_for_db","c":"211-227","status":"unknown"}
+{"fn":"get_wall_for_db","c":"211-227","status":"ported","js":["js/dbridge.js:get_wall_for_db"],"at":"2026-09-29@2c9129a4b","note":"stale: js/dbridge.js:180"}
 {"fn":"create_drawbridge","c":"235-283","status":"unknown","d":["D-2708"],"at":"seed@a30a7de84"}
 {"fn":"e_at","c":"286-301","status":"unknown","d":["D-1943"],"at":"seed@a30a7de84"}
 {"fn":"m_to_e","c":"304-318","status":"unknown"}

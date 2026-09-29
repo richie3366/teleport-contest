@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3119 — botl.c status-hilite query closure: 3 menu ports + `splitsubfields` overflow fix (coverage cluster)
+
+- **Status:** fixed (Open — coverage head `botl.c` query_arrayvalue + same-file queue rows status_hilite_menu_choose_field, splitsubfields, query_conditions in queue order; all botl.c Open rows shipped. `uhitm.c` dynamic_multi_reason and `dbridge.c` get_wall_for_db went stale via ledger ahead of the cluster in the same iteration. 130 js/ insertions, js/botl.js only; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on all four: no corpus session blocked at baseline — menu/config paths, no RNG).
+- **C locus:**
+  - `query_arrayvalue`: botl.c:2747–2781 (PICK_ONE over arr[arrmin..arrmax), adj `:2756`, NULL-gap skip `:2763–2764`, decode `:2776`)
+  - `query_conditions`: botl.c:3109–3138 (PICK_ANY over conditions[], mask `:3123`, OR-accumulate `:3133–3134`)
+  - `status_hilite_menu_choose_field`: botl.c:3672–3704 (PICK_ONE over initblstats[].fldname, SCORE skip `:3684–3688`, index decode `:3700`)
+  - `splitsubfields`: botl.c:2688–2727 (overflow `:2716–2717` counts separators cut, not stored segments)
+- **JS was:** no query_arrayvalue/query_conditions/status_hilite_menu_choose_field symbol; splitsubfields (js/botl.js:1707) tested `parts.length >= cap - 1`, failing inputs C accepts (cap-2 cuts + trailing content → C returns cap-1) — off by one at the boundary, plus drifted cites (`:2714-2715` for the `:2716–2717` arm).
+- **Fix:** three new async exports in C order reusing the shipped menu fold (dynamic select_menu_pick_one/pick_any from options.js + hiliteMenuRows — choose_updownboth/status_hilite_menu_fld precedent): adj/NULL-gap/decode verbatim; conditions a_ulong OR with `>>> 0` unsigned-long return; live SCORE_ON_BOTL-off skip arm (config.h:627); splitsubfields overflow test moved to the pre-pop cut count with corrected cites. Export names are new (C staticfn, sibling exported); no new static cross-module import (dynamic options.js edge mirrors the in-file precedent).
+- **JS:** js/botl.js query_arrayvalue `:3182`, query_conditions `:3216`, status_hilite_menu_choose_field `:3252`, splitsubfields `:1707`.
+- **Callers:**
+  - `query_arrayvalue`: C botl.c:4135/4148/4161/4199 all inside status_hilite_menu_add (no JS body — named omission); export is the call those sites make.
+  - `query_conditions`: C botl.c:4113 in status_hilite_menu_add (named omission).
+  - `status_hilite_menu_choose_field`: C botl.c:3905 in status_hilite_menu_add (named omission).
+  - `splitsubfields`: C :3034 → js/botl.js:1916 (parse_status_hl2), C :3215 → js/botl.js:2064 (str2conditionbitmask), C :3292 → js/botl.js:2107 (parse_condition).
+- **Verify:** `node scripts/verify.mjs --fn query_arrayvalue,query_conditions,status_hilite_menu_choose_field,splitsubfields` → VERIFY: PASS (syntax 1 file js/botl.js; rule2; hidden note 0 blocked ×4; REACH-OK smoke spread 24 run 24 PASS 0 regressed ×4; green 2/2; strict ×2; cohort 7/7).
+- **Named omissions:**
+  - `query_arrayvalue`: sole-C-caller status_hilite_menu_add (botl.c:3889–4302) has no JS body (pre-existing, js/botl.js:1437).
+  - `query_conditions`: same caller omission (site `:4113`).
+  - `status_hilite_menu_choose_field`: same caller omission (site `:3905`).
+  - `splitsubfields`: none — whole body, all 3 callers wired.
+- **Ledger:** query_arrayvalue ported; query_conditions ported; status_hilite_menu_choose_field ported; splitsubfields ported
+- **Next:** next coverage head after finish (block refills itself).
+
 ## D-3118 — `max_passive_dmg` elemental arm via live `Resists_Elem` (Must-fix, review 2070)
 
 - **Status:** fixed (Must-fix, ships alone; review 2070 QUALITY-RISK actionable #1 — stamp `**Addressed:** D-3118` on `reviews/loop-unattended/2070-d27c7b945-max-passive-dmg-cluster.md`).

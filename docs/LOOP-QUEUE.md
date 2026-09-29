@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `uhitm.c` dynamic_multi_reason — coverage PARTIAL (C 12 code L `uhitm.c:104–123` / JS 7 code L in js/uhitm.js; hops 3, callers 2, RNG 0, msg 0) @d27c7b945
-- [ ] `dbridge.c` get_wall_for_db — coverage PARTIAL (C 13 code L `dbridge.c:211–227` / JS 7 code L in js/dbridge.js; hops 4, callers 4, RNG 0, msg 0) @d27c7b945
-- [ ] `botl.c` query_arrayvalue — coverage MISSING (C 22 code L `botl.c:2747–2781` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @b43d7bb86
-- [ ] `botl.c` status_hilite_menu_choose_field — coverage MISSING (C 22 code L `botl.c:3672–3704` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @b43d7bb86
-- [ ] `botl.c` splitsubfields — coverage THIN (C 28 code L `botl.c:2688–2727` / JS 9 code L in js/botl.js; hops —, callers 3, RNG 0, msg 0) @caf637f80
-- [ ] `botl.c` query_conditions — coverage MISSING (C 21 code L `botl.c:3109–3138` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @405ed7298
 - [ ] `insight.c` num_genocides — coverage PARTIAL (C 8 code L `insight.c:2953–2966` / JS 5 code L in js/insight.js; hops 5, callers 6, RNG 0, msg 0) @405ed7298
 - [ ] `options.c` all_options_palette — coverage MISSING (C 9 code L `options.c:9658–9673` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: count_alt_palette) @6e3bbfbe7
 - [ ] `cfgfiles.c` fopen_config_file — coverage THIN (C 87 code L `cfgfiles.c:223–372` / JS 34 code L in js/cfgfiles.js; hops —, callers 1, RNG 0, msg 0) @1a4567167
 - [ ] `o_init.c` shuffle_tiles — coverage MISSING (C 10 code L `o_init.c:35–50` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @1a4567167
 - [ ] `pickup.c` container_at — coverage PARTIAL (C 9 code L `pickup.c:2024–2038` / JS 6 code L in js/pickup.js; hops 4, callers 3, RNG 0, msg 0) @c21da30e8
 - [ ] `dig.c` wiz_debug_cmd_bury — coverage MISSING (C 19 code L `dig.c:2288–2320` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @c21da30e8
+- [ ] `mdlib.c` make_version — coverage MISSING (C 19 code L `mdlib.c:248–295` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @2c9129a4b
+- [ ] `muse.c` munstone — coverage PARTIAL (C 13 code L `muse.c:2884–2903` / JS 9 code L in js/muse.js; hops 5, callers 4, RNG 0, msg 0) @2c9129a4b
+- [ ] `sp_lev.c` get_table_coords_or_region — coverage MISSING (C 9 code L `sp_lev.c:5561–5577` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @2c9129a4b
+- [ ] `read.c` hawaiian_design — coverage MISSING (C 17 code L `read.c:224–251` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @2c9129a4b
+- [ ] `role.c` clearrolefilter — coverage THIN (C 18 code L `role.c:1358–1381` / JS 6 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @2c9129a4b
+- [ ] `invent.c` reorder_invent — coverage PARTIAL (C 19 code L `invent.c:739–767` / JS 11 code L in js/u_init.js; hops 4, callers 2, RNG 0, msg 0) @2c9129a4b
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

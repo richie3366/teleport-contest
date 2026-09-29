@@ -5,7 +5,7 @@
 - js/ insertions: ~66 (js/mhitm.js, js/mondata.js, js/monsters.js, js/dog.js, js/shk.js, js/artifact.js)
 - Prior index: 2069; queue Must-fix at review time: empty
 
-**Addressed:** D-3118
+**Addressed:** D-3118 `c1be7a049`
 
 ## Intent vs deliverable
 
