@@ -1,5 +1,46 @@
 # Divergence log
 
+## D-3135 — `pickup.c` mon_beside + dotip + allow_cat_no_uchain + container_gone ports, count_target_containers by-design, count_categories/n_or_more/count_justpicked/stash_ok stale (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head mon_beside port → count_target_containers by-design (#if 0, uncompiled) → count_categories stale → shipped same-file dotip spill/statue/verbose arms + allow_cat_no_uchain port + container_gone rename-port + n_or_more/count_justpicked/stash_ok stale; 4 ports + 5 dispositions, 1 file).
+- **Symptom:** no corpus divergence — coverage. `mon_beside` dropped the `isok` guard; `dotip` named-omitted the spill chain + statue arm + !verbose noun; `allow_cat_no_uchain` had no JS symbol; `container_gone` lived split-named as `container_gone_ask`.
+- **C locus:**
+  - `mon_beside`: pickup.c:2072–2085 (3x3 i/j :2078–2084, nx/ny :2080–2081, isok+MON_AT :2082).
+  - `count_target_containers`: pickup.c:3848–3864 — inside `#if 0` (:3843–3865); sole call :3886 inside `#if 0` (:3884–3894, tipcontainer_gettarget). Uncompiled (the `box->` refs at :3858–3859 name the caller's local).
+  - `count_categories`: pickup.c:1511–1536 (inv_order do-while :1519–1534, FOLLOW walk :1521, WORN skip :1523–1525, counted_category :1526–1529).
+  - `dotip`: pickup.c:3562–3677 (capacity noun :3592–3593, spill chain :3633–3650, spill message :3651–3666, potion/helm/statue/nothing :3667–3676).
+  - `allow_cat_no_uchain`: pickup.c:597–604 (uchain :599, unpaid-'u'/oclass vmc :600–601).
+  - `container_gone`: pickup.c:2903–2908 (fn-identity :2906, !current_container :2907).
+  - `n_or_more`: pickup.c:460–465 (uchain FALSE :462–463, quan>=val :464).
+  - `count_justpicked`: pickup.c:635–645 (nobj walk :640, pickup_prev :641).
+  - `stash_ok`: pickup.c:2957–2969 (null EXCLUDE :2960–2961, !ck_bag EXCLUDE_SELECTABLE :2964–2965, SUGGEST :2969).
+- **JS was:** mon_beside (pickup.js:4583) without isok; dotip (pickup.js:5193) with "Named omissions: spill; statue" and no verbose noun; no allow_cat_no_uchain; container_gone_ask (pickup.js:3717) split-named. count_categories (:486), n_or_more (:316), count_justpicked (:288), stash_ok (:2920) already whole with callers wired.
+- **Fix:** `js/pickup.js` only — restarted `mon_beside` in C order (nx/ny + `isok && m_at`; MON_AT ≡ m_at per rm.h :515–516 live `#else`); `dotip`: verbose noun (:3592–3593), full spill chain + pool/lava tail + grease `consume_obj_charge` (:3633–3666), single potion/helm/statue/nothing chain with `pline_The` + STATUE arm (:3667–3676); new `allow_cat_no_uchain` local in C position (after allow_category, same order as C :523/:597); renamed `container_gone_ask` → `container_gone` + C cite (def + askchain use). Imports added to existing edges only (isok, Is_candle, vtense, consume_obj_charge; `--can` ALREADY) + 7 otyp consts via the file's `objectNames.indexOf` convention. No js/ for the other five (ledger dispositions).
+- **JS:** 1 file, +95/−19 (pickup.js), far under caps. Density note: cluster adds dotip's 30-line gap + 3 small ports; the file's remaining Open rows are the secondary-pool giants (pickup/use_container/doloot_core, 100+ C lines each) — one per future cluster.
+- **Callers:**
+  - `mon_beside`: C :2296 (doloot_core) → JS pickup.js:4443 (same `c !== 'y' && (mon_beside || menu_requested)` arm).
+  - `count_target_containers`: no live C callers (sole call :3886 uncompiled).
+  - `count_categories`: C :1287 (query_category) → JS pickup.js:582.
+  - `dotip`: no direct C call sites (cmd-table dispatch, cmd.c:74 decl) → JS cmd.js:1810 [dotip,'tip'] + :2642/:2959 canned + getline.js:695–696 extcmd.
+  - `allow_cat_no_uchain`: 0 C call sites (prototype :23 only).
+  - `container_gone`: C invent.c:2497 (askchain) → JS askchain pickup.js:3841.
+  - `n_or_more`: C :767–769 (pickup PICK_ONE) → JS pickup.js:2028 (val set) + :2031 (callback pass).
+  - `count_justpicked`: C do.c:1063 → JS do.js:3120; C invent.c:2251 → JS invent.js:1950; C :1284 → JS pickup.js:579; C :3343 → JS pickup.js:2867.
+  - `stash_ok`: C :3176 (use_container getobj stash) → JS stash flow pickup.js:2955/:2981/:3011/:3027/:4061.
+- **Verify:** `node scripts/verify.mjs --fn mon_beside,count_target_containers,count_categories,dotip,allow_cat_no_uchain,container_gone,n_or_more,count_justpicked,stash_ok` → PASS syntax (1 file) · PASS rule2 · note hidden ×9 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×9 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file per verifier) · VERIFY: PASS. Verify ran after the last js/ edit. No maintained test added: the new arms sit behind interactive getobj/yn/pline with no headless harness (handle_tip precedent — covered by session verify, not node:test).
+- **Named omissions:**
+  - `mon_beside`: none — whole body, every callee live (isok, m_at), sole caller wired.
+  - `count_target_containers`: whole function by-design (uncompiled `#if 0` def + call; D-3133 enter_force_field precedent).
+  - `count_categories`: none — whole body (stale: js/pickup.js:510; WORN mask + inv_order walk exact; review 591 Match).
+  - `dotip`: none — whole body now (spill/statue/verbose arms added; every callee live incl. vtense/consume_obj_charge/pline_The; pline1 ≡ pline per hack.h:1026).
+  - `allow_cat_no_uchain`: none — whole body, 0 C callers (JS null guard is file convention, unobservable).
+  - `container_gone`: none — whole body (renamed from container_gone_ask; fn-identity + _current_container exact; caller wired).
+  - `n_or_more`: none — whole body (stale: js/pickup.js:323; uchain + quan>=val exact; caller wired).
+  - `count_justpicked`: none — whole body (stale: js/pickup.js:295; walk+count exact; 4/4 callers wired).
+  - `stash_ok`: none — whole body (stale: js/pickup.js:2944; EXCLUDE/EXCLUDE_SELECTABLE/SUGGEST exact; C :3176 ≡ JS stash flow wired).
+- **Ledger:** mon_beside ported; count_target_containers by-design; count_categories ported; dotip ported; allow_cat_no_uchain ported; container_gone ported; n_or_more ported; count_justpicked ported; stash_ok ported
+- **Next:** falsifier — a session blocked with any of the nine as owner (dotip spill/statue arms are #tip-only; mon_beside guard only narrows column 0). Do not re-pop the five disposition labels. Brief's `name(` refs miss callback-pass sites (n_or_more :769, stash_ok :3176) — backstop caller checks with grep.
+
 ## D-3134 — `cfgfiles.c` vconfig_error_add whole port + copy_bytes by-design, role_abil/is_izchak/role_selection_prolog stale (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head copy_bytes by-design (Rule #2 raw-fd copy) → role_abil/is_izchak/role_selection_prolog stale → shipped vconfig_error_add; 1 port + 4 dispositions, 2 files).

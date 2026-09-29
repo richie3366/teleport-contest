@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `pickup.c` mon_beside — coverage THIN (C 9 code L `pickup.c:2072–2085` / JS 4 code L in js/pickup.js; hops 6, callers 1, RNG 0, msg 0) @b90b1a381
 - [ ] `end.c` done2 — coverage THIN (C 35 code L `end.c:90–148` / JS 14 code L in js/end.js; hops —, callers 1, RNG 0, msg 0) @b90b1a381
 - [ ] `lock.c` lock_action — coverage PARTIAL (C 19 code L `lock.c:38–64` / JS 11 code L in js/lock.js; hops 5, callers 2, RNG 0, msg 0) @b90b1a381
 - [ ] `ball.c` Unplacebc_and_covet_placebc — coverage MISSING (C 14 code L `ball.c:306–324` / JS no symbol; hops —, callers 0, RNG 1, msg 0) @e3690fe26
 - [ ] `botl.c` clear_status_hilites — coverage MISSING (C 8 code L `botl.c:3351–3366` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @e3690fe26
 - [ ] `glyphs.c` glyphrep — coverage MISSING (C 8 code L `glyphs.c:470–481` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @e3690fe26
-- [ ] `pickup.c` count_target_containers — coverage MISSING (C 8 code L `pickup.c:3849–3864` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @e3690fe26
 - [ ] `sp_lev.c` get_table_montype — coverage MISSING (C 8 code L `sp_lev.c:3167–3179` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @463ffffc2
 - [ ] `mkobj.c` where_name — coverage PARTIAL (C 9 code L `mkobj.c:3296–3309` / JS 5 code L in js/mkobj.js; hops 4, callers 2, RNG 0, msg 0) @463ffffc2
 - [ ] `hacklib.c` datamodel — coverage PARTIAL (C 10 code L `hacklib.c:982–997` / JS 6 code L in js/version.js; hops 5, callers 2, RNG 0, msg 0) @463ffffc2
 - [ ] `sp_lev.c` l_create_stairway — coverage PARTIAL (C 52 code L `sp_lev.c:4147–4213` / JS 31 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0; dead callees: nhl_get_xy_params) @463ffffc2
 - [ ] `do_wear.c` dotakeoff — coverage PARTIAL (C 16 code L `do_wear.c:1833–1855` / JS 10 code L in js/do_wear.js; hops —, callers 1, RNG 0, msg 1) @463ffffc2
+- [ ] `attrib.c` restore_attrib — coverage MISSING (C 12 code L `attrib.c:455–484` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @f292ec32c
+- [ ] `topten.c` outheader — coverage PARTIAL (C 8 code L `topten.c:929–940` / JS 4 code L in js/topten.js; hops 4, callers 2, RNG 0, msg 0) @f292ec32c
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

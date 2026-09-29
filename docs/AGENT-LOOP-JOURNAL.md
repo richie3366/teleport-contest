@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3135 `pickup.c` mon_beside + dotip + allow_cat_no_uchain + container_gone ports, count_target_containers by-design, count_categories/n_or_more/count_justpicked/stash_ok stale (coverage head)
+
+**C locus:** - `mon_beside`: pickup.c:2072–2085 (3x3 i/j :2078–2084, nx/ny :2080–2081, isok+MON_AT :2082).
+**JS:** 1 file, +95/−19 (pickup.js), far under caps. Density note: cluster adds dotip's 30-line gap + 3 small ports; the file's remaining Open rows are the secondary-pool giants (pickup/use_container/doloot_core, 100+ C lines each) — one per future cluster.
+**Change:** `js/pickup.js` only — restarted `mon_beside` in C order (nx/ny + `isok && m_at`; MON_AT ≡ m_at per rm.h :515–516 live `#else`); `dotip`: verbose noun (:3592–3593), full spill chain + pool/lava tail + grease `consume_obj_charge` (:3633–3666), single potion/helm/statue/nothing chain with `pline_The` + STATUE arm (:3667–3676); new `allow_cat_no_uchain` local in C position (after allow_category, same order as C :523/:597); renamed `container_gone_ask` → `container_gone` + C cite (def + askchain use). Imports added to existing edges only (isok, Is_candle, vtense, consume_obj_charge; `--can` ALREADY) + 7 otyp consts via the file's `objectNames.indexOf` convention. No js/ for the other five (ledger dispositions).
+**Verify:** `node scripts/verify.mjs --fn mon_beside,count_target_containers,count_categories,dotip,allow_cat_no_uchain,container_gone,n_or_more,count_justpicked,stash_ok` → PASS syntax (1 file) · PASS rule2 · note hidden ×9 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×9 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file per verifier) · VERIFY: PASS. Verify ran after the last js/ edit. No maintained test added: the new arms sit behind interactive getobj/yn/pline with no headless harness (handle_tip precedent — covered by session verify, not node:test).
+**Named:** - `mon_beside`: none — whole body, every callee live (isok, m_at), sole caller wired.
+**Next:** falsifier — a session blocked with any of the nine as owner (dotip spill/statue arms are #tip-only; mon_beside guard only narrows column 0). Do not re-pop the five disposition labels. Brief's `name(` refs miss callback-pass sites (n_or_more :769, stash_ok :3176) — backstop caller checks with grep.
 ## 2026-09-29 — D-3134 `cfgfiles.c` vconfig_error_add whole port + copy_bytes by-design, role_abil/is_izchak/role_selection_prolog stale (coverage head)
 
 **C locus:** - `vconfig_error_add`: cfgfiles.c:1875–1890 (vlen :1877, buf[BIGBUFSZ] :1878, vsnprintf :1880, DEBUG panic :1881–1887, chop :1888, config_erradd :1889).
