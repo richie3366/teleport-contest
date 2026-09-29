@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3132 `end.c` should_query_disclose_option whole port + fixup_death/sort_valuables stale (coverage head)
+
+**C locus:** - `should_query_disclose_option`: end.c:475–515 (`*defquery='n'` :482, strchr :483, idx :484, range :485, impossible :486–488, YES-default/TRUE :489–490, disclose dispatch :492–511, bad-category impossible :513, TRUE :514).
+**JS:** 1 file, +43/−29 (end.js), far under caps.
+**Change:** `js/end.js` — restarted should_query_disclose_option in C order (async; two awaited impossible arms with C texts, `%s` for the category since JS impossible has no `%c`; bad-category returns ask with `'n'`); `await` at all 6 disclose sites (i/a/v/g/c/o). No new imports (impossible already imported :13).
+**Verify:** `node scripts/verify.mjs --fn should_query_disclose_option,fixup_death,sort_valuables` → PASS syntax (1 file) · PASS rule2 · note hidden ×3 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×3 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. Verify ran after the last js/ edit.
+**Named:** - `should_query_disclose_option`: none — whole body, every callee live (impossible async display.js; short-string `end_disclose` fallback lands on the C else arm identically).
+**Next:** falsifier — a session blocked with any of the three as owner (all are end-of-game disclose paths; impossible arms unreachable from the 6 valid categories). Do not re-pop fixup_death/sort_valuables labels.
 ## 2026-09-29 — D-3131 `wizcmds.c` wiz_flip_level whole port + `sp_lev.c` flip_level remainder (coverage head)
 
 **C locus:** - `wiz_flip_level`: wizcmds.c:412–442 (prompts :414–415, caveat comment :417–424, `if (wizard)` :425, yn :426, strchr :428, `-= '0'` :429, rnd :431–432 / flip :433–434, docrt :436, Never_mind :437–438, ECMD_OK :441).

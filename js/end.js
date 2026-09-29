@@ -443,32 +443,46 @@ function money_cnt(invent) {
 /* deepest_lev_reached: canonical import from hacklib.js (dungeon.c:1338–1371). */
 
 /**
- * C ref: end.c should_query_disclose_option.
+ * C ref: end.c should_query_disclose_option `:475–515` (staticfn).
+ * strchr over decl.c disclosure_options "iavgco" (`:54`); bad index →
+ * impossible + DISCLOSE_PROMPT_DEFAULT_YES/ask; bad category →
+ * impossible + ask with C's initial `*defquery = 'n'` (`:482`).
+ * Async only because the live `impossible` (display.js) awaits.
  * @returns {{ ask: boolean, defquery: string }}
  */
-function should_query_disclose_option(category) {
-    const idx = DISCLOSURE_OPTIONS.indexOf(category);
-    if (idx < 0 || idx >= NUM_DISCLOSURE_OPTIONS) {
-        return { ask: true, defquery: DISCLOSE_PROMPT_DEFAULT_YES };
+async function should_query_disclose_option(category) {
+    let defquery = 'n'; // C `:482`
+    const dop = DISCLOSURE_OPTIONS.indexOf(category); // C strchr `:483`
+    if (dop >= 0) {
+        const idx = dop; // C `:484` pointer difference
+        if (idx < 0 || idx >= NUM_DISCLOSURE_OPTIONS) { // C `:485`
+            await impossible( // C `:486–488` (%s: JS impossible has no %c)
+                'should_query_disclose_option: bad disclosure index %d %s',
+                idx, category);
+            return { ask: true, defquery: DISCLOSE_PROMPT_DEFAULT_YES };
+        }
+        const ed = String(game.flags?.end_disclose || '');
+        const disclose = ed[idx] || DISCLOSE_PROMPT_DEFAULT_NO; // C `:492`
+        if (disclose === DISCLOSE_YES_WITHOUT_PROMPT) { // C `:493–495`
+            return { ask: false, defquery: 'y' };
+        }
+        if (disclose === DISCLOSE_SPECIAL_WITHOUT_PROMPT) { // C `:496–498`
+            return { ask: false, defquery: 'a' };
+        }
+        if (disclose === DISCLOSE_NO_WITHOUT_PROMPT) { // C `:499–501`
+            return { ask: false, defquery: 'n' };
+        }
+        if (disclose === DISCLOSE_PROMPT_DEFAULT_YES) { // C `:502–504`
+            return { ask: true, defquery: 'y' };
+        }
+        if (disclose === DISCLOSE_PROMPT_DEFAULT_SPECIAL) { // C `:505–507`
+            return { ask: true, defquery: 'a' };
+        }
+        return { ask: true, defquery: 'n' }; // C `:508–511` else
     }
-    const ed = String(game.flags?.end_disclose || '');
-    const disclose = ed[idx] || DISCLOSE_PROMPT_DEFAULT_NO;
-    if (disclose === DISCLOSE_YES_WITHOUT_PROMPT) {
-        return { ask: false, defquery: 'y' };
-    }
-    if (disclose === DISCLOSE_SPECIAL_WITHOUT_PROMPT) {
-        return { ask: false, defquery: 'a' };
-    }
-    if (disclose === DISCLOSE_NO_WITHOUT_PROMPT) {
-        return { ask: false, defquery: 'n' };
-    }
-    if (disclose === DISCLOSE_PROMPT_DEFAULT_YES) {
-        return { ask: true, defquery: 'y' };
-    }
-    if (disclose === DISCLOSE_PROMPT_DEFAULT_SPECIAL) {
-        return { ask: true, defquery: 'a' };
-    }
-    return { ask: true, defquery: 'n' };
+    await impossible( // C `:513`
+        'should_query_disclose_option: bad category %s', category);
+    return { ask: true, defquery }; // C `:514` ('n' from `:482`)
 }
 
 /**
@@ -799,7 +813,7 @@ async function disclose(how, taken) {
         const qbuf = taken
             ? 'Do you want to see what you had when you died?'
             : 'Do you want your possessions identified?';
-        const { ask, defquery } = should_query_disclose_option('i');
+        const { ask, defquery } = await should_query_disclose_option('i');
         const c = ask
             ? await yn_function(qbuf, 'ynq', defquery)
             : defquery;
@@ -817,7 +831,7 @@ async function disclose(how, taken) {
     }
 
     if (!stop()) {
-        const { ask, defquery } = should_query_disclose_option('a');
+        const { ask, defquery } = await should_query_disclose_option('a');
         const c = ask
             ? await yn_function(
                 'Do you want to see your attributes?',
@@ -842,19 +856,19 @@ async function disclose(how, taken) {
     }
 
     if (!stop()) {
-        const { ask, defquery } = should_query_disclose_option('v');
+        const { ask, defquery } = await should_query_disclose_option('v');
         await list_vanquished(defquery, ask);
     }
 
     if (!stop()) {
-        const { ask, defquery } = should_query_disclose_option('g');
+        const { ask, defquery } = await should_query_disclose_option('g');
         await list_genocided(defquery, ask);
     }
 
     if (!stop()) {
         // C ref: end.c:664-680 — Sprintf "conduct%s?" with " and achievements"
         // iff count_achievements() > 0; yn asked only when should_query 'c'.
-        const { ask, defquery } = should_query_disclose_option('c');
+        const { ask, defquery } = await should_query_disclose_option('c');
         let c;
         if (ask) {
             const acnt = count_achievements();
@@ -879,7 +893,7 @@ async function disclose(how, taken) {
     }
 
     if (!stop()) {
-        const { ask, defquery } = should_query_disclose_option('o');
+        const { ask, defquery } = await should_query_disclose_option('o');
         const c = ask
             ? await yn_function(
                 'Do you want to see the dungeon overview?',

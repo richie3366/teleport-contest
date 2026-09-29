@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3132 — `end.c` should_query_disclose_option whole port + fixup_death/sort_valuables stale (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head `should_query_disclose_option` PARTIAL + same-file Open `fixup_death`, `sort_valuables`; 1 fix + 2 stale sets, 1 file).
+- **Symptom:** no corpus divergence — coverage. JS `should_query_disclose_option` dropped both C `impossible` arms (bad index `:486–488`, bad category `:513`) and returned the YES-default on bad category where C returns the initial `'n'` (`:482`/`:514`).
+- **C locus:**
+  - `should_query_disclose_option`: end.c:475–515 (`*defquery='n'` :482, strchr :483, idx :484, range :485, impossible :486–488, YES-default/TRUE :489–490, disclose dispatch :492–511, bad-category impossible :513, TRUE :514).
+  - `fixup_death`: end.c:365–384 (table :352–361, multi_reason gate :370, include-substitute/remove :374–377, multireasonbuf clear :378, unmulti :379–380).
+  - `sort_valuables`: end.c:797–818 (insertion sort by count desc, empty-slot skip, struct copies).
+- **JS was:** should_query sync with one merged bad arm (bad category → DISCLOSE_PROMPT_DEFAULT_YES, C says 'n') and no impossible calls; 6 disclose sites called it sync. fixup_death (js/end.js:421) and sort_valuables (js/end.js:243) already whole — table/order/arms identical to C.
+- **Fix:** `js/end.js` — restarted should_query_disclose_option in C order (async; two awaited impossible arms with C texts, `%s` for the category since JS impossible has no `%c`; bad-category returns ask with `'n'`); `await` at all 6 disclose sites (i/a/v/g/c/o). No new imports (impossible already imported :13).
+- **JS:** 1 file, +43/−29 (end.js), far under caps.
+- **Callers:**
+  - `should_query_disclose_option`: C end.c:632/646/659/664/669/691 (disclose i/a/v/g/c/o) → JS end.js:816/834/859/864/871/896 (all awaited).
+  - `fixup_death`: C end.c:1232 (really_done) → JS end.js:1113 (done flow, C-order position after killer-format, before paybill).
+  - `sort_valuables`: C end.c:1492 (really_done valuables list) → JS end.js:311 (list_valuables).
+- **Verify:** `node scripts/verify.mjs --fn should_query_disclose_option,fixup_death,sort_valuables` → PASS syntax (1 file) · PASS rule2 · note hidden ×3 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×3 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. Verify ran after the last js/ edit.
+- **Named omissions:**
+  - `should_query_disclose_option`: none — whole body, every callee live (impossible async display.js; short-string `end_disclose` fallback lands on the C else arm identically).
+  - `fixup_death`: none — whole body (stale: js/end.js:421).
+  - `sort_valuables`: none — whole body (stale: js/end.js:243).
+- **Ledger:** should_query_disclose_option ported; fixup_death ported; sort_valuables ported
+- **Next:** falsifier — a session blocked with any of the three as owner (all are end-of-game disclose paths; impossible arms unreachable from the 6 valid categories). Do not re-pop fixup_death/sort_valuables labels.
+
 ## D-3131 — `wizcmds.c` wiz_flip_level whole port + `sp_lev.c` flip_level remainder (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head `wiz_flip_level` MISSING + its Open callee `flip_level` remainder; 2 functions, 4 files). Pre-work stale sets, ≤3 calls each: `find_branch` → ported (js/dungeon.js:550, whole C body, all 5 C sites wired at 571/601/625/1214/1219, throw=panic — no panic helper in js/); `save_track` → ported (js/track.js:59, D-0367 JSON design: peek write arm + initrack release arm, callers do.js:1714 + bones.js:459).
