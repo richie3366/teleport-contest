@@ -18,7 +18,7 @@ import { arti_reflects, artifact_hit, permapoisoned, is_art, protects } from './
 import { find_mac, which_armor, bypass_obj, is_flimsy, extract_from_minvent } from './worn.js';
 import { update_monster_region } from './region.js';
 import { remove_worm, place_worm_tail_randomly, worm_known } from './worm.js';
-import { place_monster, remove_monster, dismount_steed, doorless_door } from './steed.js';
+import { place_monster, remove_monster, dismount_steed } from './steed.js';
 import {
     M_ATTK_MISS,
     M_ATTK_HIT,
@@ -91,7 +91,6 @@ import {
     W_SADDLE,
     DISMOUNT_KNOCKED,
     DISMOUNT_POLY,
-    Is_rogue_level,
     ERODE_NONE,
     ERODE_BURN,
     ERODE_RUST,
@@ -182,7 +181,7 @@ import { livelog_printf } from './pline.js';
 import { shtypes } from './shknam.js';
 import { obfree, setpaid, discard_damage_owned_by } from './shk.js';
 import { search_special } from './sounds.js';
-import { closed_door, Passes_walls_prop, test_move, u_locomotion, You_hear } from './hack.js';
+import { closed_door, Passes_walls_prop, test_move, u_locomotion, You_hear, doorless_door } from './hack.js';
 import { surface } from './sit.js';
 import { emits_light, del_light_source } from './light.js';
 import { on_level } from './dungeon.js';
@@ -2809,8 +2808,8 @@ function is_blunt_weapon_mm(o) {
  * rn2(2)+rn2(2), effect rn2(4) stun. Called from mhitu hitmu, mhitm mdamagem,
  * and uhitm hmon (maybe_knockback).
  * Named omissions: test_move block_door shopkeeper arm (stub-false);
- * block_entry is live via test_move. rogue-level arm of doorless_door is inlined here
- * (steed.js clone omits it).
+ * block_entry is live via test_move. doorless_door canonical in hack.js
+ * (rogue arm live, D-3105).
  */
 export async function mhitm_knockback(magr, mdef, mattk, mhm, weapon_used) {
     const sgn1 = (v) => ((v | 0) < 0 ? -1 : ((v | 0) > 0 ? 1 : 0));
@@ -2864,7 +2863,7 @@ export async function mhitm_knockback(magr, mdef, mattk, mhm, weapon_used) {
         if (!isok(defx + dx, defy + dy)) return false;
         const curloc = game.level?.at?.(defx, defy);
         if (curloc && IS_DOOR(curloc.typ) && dx && dy
-            && (Is_rogue_level(game.u?.uz) || !doorless_door(defx, defy))) {
+            && !doorless_door(defx, defy)) { // C `:5302–5305`
             return false;
         }
     }

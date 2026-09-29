@@ -1,5 +1,49 @@
 # Divergence log
 
+## D-3105 — hack.c breadth cluster: rounddiv canonical + showdamage/doorless whole + to_any family + rock/notice completes (coverage)
+
+- **Status:** shipped (Open — coverage; 10-function hack.c closure, ~100 js/ insertions; head `rounddiv` PARTIAL-clone-drift + 4 same-file ports + 5 verified-complete declarations. File still holds Open: check_capacity PARTIAL, findtravelpath MISSING, dump_weights THIN — named, not this iteration.)
+- **Symptom:** coverage — head `rounddiv` PARTIAL (C 15 code L `hack.c:4551–4572`, 3 local clones, no export, `y==0` returned 0 vs C panic); `showdamage` MISSING (no symbol; mdamageu/losehp carried "deferred"); `doorless_door` PARTIAL (steed export + 2 clones, rogue arm absent everywhere, hack.js `m===` form wrong on combined masks); `uint_to_any`/`long_to_any` MISSING; rock/moverock_done/monst/obj/notice_mons_cmp PARTIAL/THIN-measured but live-complete.
+- **C locus:**
+  - `rounddiv`: nethack-c/upstream/src/hack.c:4550–4572 (divsgn `:4554`, y==0 panic `:4556–4557`, y-sign `:4558–4561`, x-sign `:4562–4565`, trunc `:4566`, mod `:4567`, half-up `:4568–4569`, return `:4571`); callers eat.c:3058, mthrowu.c:236, polyself.c:390/:396/:404/:409.
+  - `showdamage`: nethack-c/upstream/src/hack.c:4247–4253 (showdamage/dmg guard + `[HP %i, %i left]` pline); callers hack.c:4269/:4280 (losehp), mhitu.c:1912/:1920 (mdamageu).
+  - `doorless_door`: nethack-c/upstream/src/hack.c:4062–4074 (lev_p `:4065`, IS_DOOR `:4067–4068`, rogue `:4071–4072`, mask `:4073`); callers hack.c:435 (moverock_core), :1141/:1209 (test_move), :4095 (crawl_destination), uhitm.c:5304 (knockback).
+  - `rock_disappear_msg`: nethack-c/upstream/src/hack.c:315–324 (staticfn; usteed/YMonnam arm vs You arm); sole caller :579 (moverock_core TELEP_TRAP).
+  - `moverock_done`: nethack-c/upstream/src/hack.c:327–333 (staticfn; leftover boulders next_boulder=0); sole caller :343 (moverock).
+  - `uint_to_any`: nethack-c/upstream/src/hack.c:73–78 (zero + a_uint + &tmp_anything); no live C callers (extern.h decl only).
+  - `long_to_any`: nethack-c/upstream/src/hack.c:81–86 (zero + a_long + &tmp_anything); callers zap.c:5109 (start_melt_ice_timeout), nhlua.c:1635 (Lua bridge).
+  - `monst_to_any`: nethack-c/upstream/src/hack.c:89–94 (zero + a_monst + &tmp_anything); 14 C timer/light arms (dog/makemon/mon/polyself/sp_lev/timeout).
+  - `obj_to_any`: nethack-c/upstream/src/hack.c:97–102 (zero + a_obj + &tmp_anything); 51 C timer/light arms.
+  - `notice_mons_cmp`: nethack-c/upstream/src/hack.c:1735–1741 (staticfn QSORTCALLBACK, distu delta); sole use :1774–1775 qsort in notice_all_mons.
+- **JS was:** 3 rounddiv clones (eat.js:1059 `|0`-truncating, polyself.js:896, weapon.js:186 — all `if (!y) return 0`); no showdamage (mhitu.js:606 + hack.js:1791 "deferred"); doorless export steed.js:142 + clones cmd.js:3375/hack.js:143 (rogue arm absent; hack.js `m===` form wrong on NODOOR|BROKEN; mhitm.js:2867 inlined the rogue gate to compensate); no uint/long_to_any (zap.js:1029 passed raw `where`); rock/moverock_done/monst/obj/notice bodies complete but undeclared.
+- **Fix:** canonical `rounddiv` exported from js/hack.js in C order (else-if chain kept, Math.trunc renders C long/int conversion — double-exact, no `|0` wrap; y==0 loud throw ≡ C panic, mklev.js:32565 precedent); 3 clones deleted, imports extended. `showdamage` ported async in C order (guard → Upolyd pline); mdamageu arms wired. `doorless_door` restarted as the hack.js export in C order (IS_DOOR → rogue → mask); steed/cmd clones → imports, mhitm condition simplified to C-exact (redundant inline gate + now-unused Is_rogue_level import removed). `uint_to_any` (`>>> 0` ≡ C unsigned) + `long_to_any` (identity; start_timer copies a_long) exported by the to_any family; zap melt site wrapped. rock/moverock_done verified complete (untouched); monst/obj/notice docs sharpened (caller counts, identity-wiring, staticfn shape). All 8 import extends hit pre-existing static edges (`imports.mjs --can`: 8× ALREADY, no new edge) + node import smoke IMPORT-OK.
+- **JS:** js/hack.js:148 doorless_door, js/hack.js:212 monst_to_any (doc), js/hack.js:226 obj_to_any (doc), js/hack.js:236 uint_to_any, js/hack.js:246 long_to_any, js/hack.js:257 rounddiv, js/hack.js:1856 showdamage, js/hack.js:3527 notice_mons_cmp (doc); js/eat.js:113 import + :4488 call; js/weapon.js:24 import + :1781 call; js/polyself.js:70 import + :1158/:1162/:1169/:1173 calls; js/cmd.js:143 import; js/steed.js:57 import; js/mhitm.js:185 import + :2866 call; js/mhitu.js:28 import + :616/:625 calls; js/zap.js:257 import + :1029 call.
+- **Callers:**
+  - `rounddiv`: eat.c:3058→js/eat.js:4488, mthrowu.c:236→js/weapon.js:1781, polyself.c:390→js/polyself.js:1158, :396→:1162 (`oldHpmax||1` zero-guard kept), :404→:1169, :409→:1173 (oldEnmax clamp kept) — all y≠0, panic arm unreachable.
+  - `showdamage`: mhitu.c:1912→js/mhitu.js:616, :1920→:625 (both awaited in C order); hack.c:4269/:4280 (losehp) deferred — named omission.
+  - `doorless_door`: hack.c:435→js/hack.js:998, :1141→:568 + :576 (closed-goto/open-door split arms), :1209→:632 + js/cmd.js:3354 (travel_test_move) + :3336/:3340 (travel :1141 equivalents), :4095→:2370, uhitm.c:5304→js/mhitm.js:2866; subset mirrors js/cmd.js:5913/:5925 (domove testdiag) + js/steed.js:149/:151 (test_move_ok) keep calling the now-canonical export — conditions untouched.
+  - `rock_disappear_msg`: hack.c:579→js/hack.js:1141 (awaited, TELEP_TRAP/LEVEL_TELEP fallthrough).
+  - `moverock_done`: hack.c:343→js/hack.js:1214 (moverock, post-core).
+  - `uint_to_any`: no C callers; no JS callers (family export).
+  - `long_to_any`: zap.c:5109→js/zap.js:1029 (wrapped); nhlua.c:1635 Lua-only — named omission.
+  - `monst_to_any`: explicit js/mklev.js:21433/:21438, js/makemon.js:1834/:1836, js/polyself.js:1254/:2293/:2299, js/timeout.js:909; remaining C arms' counterparts pass the monst itself (≡ collapsed handle by identity).
+  - `obj_to_any`: explicit js/mkobj.js:693/:1859/:1865, js/timeout.js:1805/:1808/:1828; remaining C arms' counterparts pass the object itself (≡ by identity).
+  - `notice_mons_cmp`: hack.c:1774–1775→js/hack.js:3557 (`arr.sort`, notice_all_mons; C passes it as a qsort pointer — no call parens, hence the 1-ref brief).
+- **Verify:** `node scripts/verify.mjs --fn rounddiv,showdamage,doorless_door,rock_disappear_msg,moverock_done,uint_to_any,long_to_any,monst_to_any,obj_to_any,notice_mons_cmp` → VERIFY: PASS (syntax 9 files · Rule #2 · 10× `no corpus session blocked` note + REACH-OK smoke 24/24 each · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 auto on shared files). /tmp/d3105-probe.mjs: 24/24 C-transcribed checks (rounddiv matrix incl. half-up, signs, 2^32 no-wrap, both panic arms; uint wrap; long identity; showdamage guards). Probe stays in /tmp.
+- **Named omissions:**
+  - `rounddiv`: none — whole body, panic live (leaf).
+  - `showdamage`: losehp's C `:4269`/:4280 unwired — JS losehp is sync (C blocks on pline/More inside it); async conversion cascades to all losehp callers — own iteration. Option defaults off (options.js initval false): zero session delta.
+  - `doorless_door`: none in-body — whole body incl. rogue arm; all 5 C sites wired (12 JS lines via split/subset ports).
+  - `rock_disappear_msg`: none — whole body, every callee live (pline/You/YMonnam/the/xname).
+  - `moverock_done`: none — whole body (leaf).
+  - `uint_to_any`: none — whole body; callerless in C and JS.
+  - `long_to_any`: nhlua.c:1635 Lua bridge (no JS Lua bridge — by-design); js/mklev.js:30258 deliberately NOT wrapped (its C counterpart never calls long_to_any — wrapping would be C-wrong).
+  - `monst_to_any`: none in-body — whole body; non-explicit counterparts wired by identity.
+  - `obj_to_any`: none in-body — same.
+  - `notice_mons_cmp`: none in-body — whole body; notice_all_mons body untouched (its partial omit stands).
+- **Ledger:** rounddiv ported; showdamage partial; doorless_door ported; rock_disappear_msg ported; moverock_done ported; uint_to_any ported; long_to_any ported; monst_to_any ported; obj_to_any ported; notice_mons_cmp ported
+- **Next:** showdamage's losehp arms want a sync-losehp/async-conversion iteration of their own; hack.c remainder Open (check_capacity sync-stash vs C async pline + 13 callers, findtravelpath MISSING C157, dump_weights THIN) for future same-file clusters.
+
 ## D-3104 — earlyarg.c breadth cluster: lopt matcher + early_options scan + consume/terminate/usage/scores/dump tails (coverage)
 
 - **Status:** shipped (Open — coverage; 9-function earlyarg.c closure, ~430 js/ insertions; head `lopt` MISSING + caller `early_options` MISSING + 6 same-file tails/restart. File holds nothing more Open after: argcheck/debug_fields/dump_enums already declared, dump_glyphids + scores_only retire this iteration.)

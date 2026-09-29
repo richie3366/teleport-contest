@@ -1,14 +1,14 @@
-{"fn":"uint_to_any","c":"73-78","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"long_to_any","c":"81-86","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"monst_to_any","c":"89-94","status":"unknown"}
-{"fn":"obj_to_any","c":"97-102","status":"unknown"}
+{"fn":"uint_to_any","c":"73-78","status":"ported","js":["js/hack.js:uint_to_any"],"d":["D-3105"],"at":"2026-09-29@e32d557c0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"long_to_any","c":"81-86","status":"ported","js":["js/hack.js:long_to_any"],"d":["D-3105"],"at":"2026-09-29@e32d557c0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"monst_to_any","c":"89-94","status":"ported","js":["js/hack.js:monst_to_any"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
+{"fn":"obj_to_any","c":"97-102","status":"ported","js":["js/hack.js:obj_to_any"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
 {"fn":"revive_nasty","c":"105-137","status":"unknown"}
 {"fn":"could_move_onto_boulder","c":"145-163","status":"unknown"}
 {"fn":"dopush","c":"166-244","status":"unknown"}
 {"fn":"cannot_push_msg","c":"247-259","status":"ported","js":["js/hack.js:cannot_push_msg"],"d":["D-3044"],"at":"2026-09-28@b689d8429","note":"stale: js/hack.js:234, body whole, both C callers wired js/hack.js:997,1138"}
 {"fn":"cannot_push","c":"262-312","status":"unknown","d":["D-1239"],"at":"seed@a30a7de84"}
-{"fn":"rock_disappear_msg","c":"315-324","status":"unknown"}
-{"fn":"moverock_done","c":"327-333","status":"unknown"}
+{"fn":"rock_disappear_msg","c":"315-324","status":"ported","js":["js/hack.js:rock_disappear_msg"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
+{"fn":"moverock_done","c":"327-333","status":"ported","js":["js/hack.js:moverock_done"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
 {"fn":"moverock","c":"336-345","status":"unknown","d":["D-1294"],"at":"seed@a30a7de84"}
 {"fn":"moverock_core","c":"348-638","status":"partial","js":["js/hack.js:moverock_core"],"omit":"unmap_object trap/engr arms in dopush (remembered-glyph clear stands in); squeezeablylightinvent pack-weight arm lives in could_move_onto_boulder, not here; u.Levitation field + Is_airlevel topology flag (pre-existing renderings, untouched); launch_obj's own omissions stay with D-2318.","d":["D-2739","D-1859"],"at":"seed@a30a7de84"}
 {"fn":"still_chewing","c":"647-822","status":"unknown"}
@@ -25,7 +25,7 @@
 {"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-2029"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"u_rooted","c":"1694-1705","status":"unknown"}
 {"fn":"notice_mon","c":"1708-1732","status":"unknown"}
-{"fn":"notice_mons_cmp","c":"1735-1741","status":"unknown"}
+{"fn":"notice_mons_cmp","c":"1735-1741","status":"ported","js":["js/hack.js:notice_mons_cmp"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
 {"fn":"notice_all_mons","c":"1744-1783","status":"partial","js":["js/hack.js:notice_all_mons"],"omit":"blocked: CURRENT.md Do not (fortress guard; newgame arm live D-1200)","at":"seed@a30a7de84"}
 {"fn":"impact_disturbs_zombies","c":"1787-1794","status":"unknown","d":["D-1229"],"at":"seed@a30a7de84"}
 {"fn":"disturb_buried_zombies","c":"1798-1813","status":"unknown","d":["D-1214"],"at":"seed@a30a7de84"}
@@ -72,14 +72,14 @@
 {"fn":"pickup_checks","c":"3788-3872","status":"unknown","d":["D-1838"],"at":"seed@a30a7de84"}
 {"fn":"dopickup","c":"3876-3892","status":"unknown"}
 {"fn":"lookaround","c":"3898-4059","status":"ported","js":["js/cmd.js:lookaround"],"d":["D-2759"],"at":"seed@a30a7de84"}
-{"fn":"doorless_door","c":"4063-4074","status":"unknown"}
+{"fn":"doorless_door","c":"4063-4074","status":"ported","js":["js/hack.js:doorless_door"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
 {"fn":"crawl_destination","c":"4079-4101","status":"unknown"}
 {"fn":"monster_nearby","c":"4106-4127","status":"unknown"}
 {"fn":"end_running","c":"4130-4158","status":"unknown"}
 {"fn":"nomul","c":"4161-4173","status":"unknown"}
 {"fn":"unmul","c":"4177-4208","status":"unknown"}
 {"fn":"maybe_wail","c":"4211-4243","status":"unknown"}
-{"fn":"showdamage","c":"4247-4253","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"showdamage","c":"4247-4253","status":"partial","js":["js/hack.js:showdamage"],"omit":"- `rounddiv`: none — whole body, panic live (leaf).","d":["D-3105"],"at":"2026-09-29@e32d557c0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"losehp","c":"4256-4292","status":"unknown","d":["D-2051"],"at":"seed@a30a7de84"}
 {"fn":"weight_cap","c":"4295-4346","status":"ported","js":["js/invent.js:weight_cap"],"d":["D-2819"],"at":"seed@a30a7de84"}
 {"fn":"inv_weight","c":"4351-4365","status":"ported","js":["js/invent.js:inv_weight"],"d":["D-2827"],"at":"seed@a30a7de84"}
@@ -92,4 +92,4 @@
 {"fn":"inv_cnt","c":"4496-4507","status":"unknown"}
 {"fn":"money_cnt","c":"4514-4522","status":"unknown"}
 {"fn":"spot_checks","c":"4525-4547","status":"ported","js":["js/hack.js:spot_checks"],"d":["D-3062"],"at":"2026-09-28@fb9c2049c","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"rounddiv","c":"4551-4572","status":"unknown"}
+{"fn":"rounddiv","c":"4551-4572","status":"ported","js":["js/hack.js:rounddiv"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}

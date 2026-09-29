@@ -140,7 +140,7 @@ import {
     closed_door, avoid_moving_on_trap, avoid_moving_on_liquid,
     escape_from_sticky_mon, domove_fight_ironbars, domove_fight_web,
     air_turbulence, slippery_ice_fumbling,
-    test_move,
+    test_move, doorless_door,
 } from './hack.js';
 import { t_at, dountrap } from './trap.js';
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
@@ -3371,13 +3371,6 @@ async function travel_test_move(ux, uy, dx, dy) {
     return true;
 }
 
-// C ref: hack.c doorless_door — only D_NODOOR / D_BROKEN (no intact door)
-function doorless_door(x, y) {
-    const loc = game.level?.at(x, y);
-    if (!loc || !IS_DOOR(loc.typ)) return false;
-    // Rogue-level override deferred (all rogue doors treated as present)
-    return !((loc.doormask || 0) & ~(D_NODOOR | D_BROKEN));
-}
 
 /**
  * C ref: hack.c test_move DO_MOVE + flags.mention_walls on IS_OBSTRUCTED.

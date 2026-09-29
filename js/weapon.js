@@ -21,7 +21,7 @@ import {
     WEAPON_CLASS, GEM_CLASS, TOOL_CLASS, BALL_CLASS, CHAIN_CLASS,
     objectNames, objectNameStrs, is_axe, is_pick, is_spear, LEATHER, SILVER,
 } from './objects.js';
-import { is_pool, handle_tip } from './hack.js';
+import { is_pool, handle_tip, rounddiv } from './hack.js';
 import { dist2 } from './hacklib.js';
 import {
     is_ammo, ammo_and_launcher, matching_launcher, is_missile, mwelded, is_weptool, bimanual,
@@ -182,19 +182,6 @@ async function possibly_unwield_drop(mon, obj, mw_tmp, polyspot) {
     }
 }
 
-/** C hack.c rounddiv */
-function rounddiv(x, y) {
-    if (!y) return 0;
-    let divsgn = 1;
-    let yy = y;
-    let xx = x;
-    if (yy < 0) { divsgn = -divsgn; yy = -yy; }
-    if (xx < 0) { divsgn = -divsgn; xx = -xx; }
-    let r = Math.trunc(xx / yy);
-    const m = xx % yy;
-    if (2 * m >= yy) r++;
-    return divsgn * r;
-}
 
 /**
  * C ref: weapon.c hitval `:149–187` — spe (weapon/weptool) + oc_hitbon,

@@ -25,7 +25,7 @@ import {
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
 import { destroy_items, resists_drli, Drain_resistance, drain_item } from './zap.js';
-import { nomul, stop_occupation, maybe_half_phys, is_pool, losehp, unmul, fall_asleep, You_hear } from './hack.js';
+import { nomul, stop_occupation, maybe_half_phys, is_pool, losehp, unmul, fall_asleep, You_hear, showdamage } from './hack.js';
 import { upstart } from './hacklib.js';
 import { rnd, d, rn2, rn1 } from './rng.js';
 import {
@@ -603,7 +603,7 @@ export async function wildmiss(mtmp, mattk) {
 
 /**
  * C ref: mhitu.c mdamageu — subtract HP; Upolyd mh<1 → rehumanize;
- * else uhp<1 → done_in_by. showdamage deferred.
+ * else uhp<1 → done_in_by. showdamage wired (D-3105).
  */
 export async function mdamageu(mtmp, n) {
     let dmg = n | 0;
@@ -613,6 +613,7 @@ export async function mdamageu(mtmp, n) {
     const u = game.u || (game.u = {});
     if (Upolyd(u)) {
         u.mh = (u.mh || 0) - dmg;
+        await showdamage(dmg); // C `:1912`
         if ((u.mh || 0) > (u.mhmax || 0)) u.mh = u.mhmax;
         if ((u.mh || 0) < 1) {
             u.mh = 0;
@@ -621,6 +622,7 @@ export async function mdamageu(mtmp, n) {
         return;
     }
     u.uhp = (u.uhp || 0) - dmg;
+    await showdamage(dmg); // C `:1920`
     if ((u.uhp || 0) > (u.uhpmax || 0)) u.uhp = u.uhpmax;
     if ((u.uhp || 0) < 1) {
         await done_in_by(mtmp, DIED);
