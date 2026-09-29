@@ -4,7 +4,7 @@
 {"fn":"Fread","c":"268-278","status":"by-design","d":["D-3001"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dname_to_dnum","c":"284-295","status":"unknown"}
 {"fn":"find_level","c":"300-307","status":"unknown"}
-{"fn":"find_branch","c":"311-337","status":"unknown"}
+{"fn":"find_branch","c":"311-337","status":"ported","js":["js/dungeon.js:find_branch"],"at":"2026-09-29@f789bb94f","note":"stale: js/dungeon.js:550, whole C body in C order, all 5 C sites wired (571/601/625/1214/1219), throw=panic (no panic helper in js/)"}
 {"fn":"parent_dnum","c":"346-365","status":"unknown"}
 {"fn":"level_range","c":"380-412","status":"unknown"}
 {"fn":"parent_dlevel","c":"415-436","status":"unknown"}

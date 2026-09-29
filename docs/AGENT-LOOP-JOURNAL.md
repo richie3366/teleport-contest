@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3131 `wizcmds.c` wiz_flip_level whole port + `sp_lev.c` flip_level remainder (coverage head)
+
+**C locus:** - `wiz_flip_level`: wizcmds.c:412–442 (prompts :414–415, caveat comment :417–424, `if (wizard)` :425, yn :426, strchr :428, `-= '0'` :429, rnd :431–432 / flip :433–434, docrt :436, Never_mind :437–438, ECMD_OK :441).
+**JS:** 4 files, +179/−29 (`getline.js` +10, `mklev.js` +136/−27, `mkobj.js` +1/−1, `wizcmds.js` +32/−1), far under caps.
+**Change:** `js/wizcmds.js` — new `wiz_flip_level` in C order (`wizard` ≡ flags.debug per flag.h:30, `|| wizard` mirrors the WIZMODECMD dispatcher gate per wiz_level_tele; yn over "0123", 0 → rnd(3, true) else flip(n, true), docrt; ESC/quit → Never_mind), dynamic mklev import (mklev statically imports wizcmds — makemap_prepost — so a static edge back would cycle; wiz_identify's invent.js precedent). `js/getline.js` — extcmd row `wizfliplevel` (wiz, no autocomplete) mirroring C cmd.c:1959–1960. `js/mklev.js` — export flip_level/flip_level_rnd; new staticfn-locals flip_dbridge_horizontal/vertical wired on both swap cells pre-swap; migrating loop restructured to C if/else-if with priest/shk arms; new regions arm in C position; exclusion block moved after the map swap to C :876–896 with new timers arm before it (timeout_func_index idiom, remove_timer precedent); new extras hero/travelcc/digging arm; docstring omits retired.
+**Verify:** `/tmp/flip-probe.mjs` 8/8 PASS (left in place for re-run; no tests/ harness — sessions are the suite): single flip mutates; W→E / N→S facing; ROT_ORGANIC untouched, MELT_ICE moved; off-level priest unflipped; ux0 follows; double-flip identity. `node scripts/verify.mjs --fn wiz_flip_level,flip_level` → PASS syntax (4 files) · PASS rule2 · note hidden ×2 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×2 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared files) · VERIFY: PASS. Verify ran after the last js/ edit (no D-1831 gap).
+**Named:** - `wiz_flip_level`: none — whole body, every callee live (yn_function/pline/docrt async, flip pair via dynamic import, Never_mind/ECMD_OK consts).
+**Next:** falsifier — a session blocked with flip_level/wiz_flip_level as owner, or #wizfliplevel behavior vs C (Punished + straddling bbox exercises the named ball omit). Do not re-pop flip_level regions/dbridge/timers/migrating/extras-hero labels.
 ## 2026-09-29 — D-3130 `mkobj.c` oextra family whole: newoextra C-signature + fracture_rock mislabel fix + 8 verify-stamp (coverage head dealloc_oextra)
 
 **C locus:** - `init_oextra`: mkobj.c:79–83 (staticfn, `*oex = zerooextra`, DUMMY={0}).

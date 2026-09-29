@@ -11,7 +11,7 @@
 {"fn":"wiz_load_lua","c":"353-372","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_load_splua","c":"376-395","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_level_tele","c":"399-406","status":"unknown"}
-{"fn":"wiz_flip_level","c":"412-442","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_flip_level","c":"412-442","status":"ported","js":["js/wizcmds.js:wiz_flip_level"],"d":["D-3131"],"at":"2026-09-29@f789bb94f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_level_change","c":"446-488","status":"unknown"}
 {"fn":"wiz_telekinesis","c":"494-528","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_panic","c":"534-545","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

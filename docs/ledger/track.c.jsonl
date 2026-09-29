@@ -2,5 +2,5 @@
 {"fn":"settrack","c":"24-37","status":"unknown"}
 {"fn":"gettrack","c":"42-58","status":"unknown"}
 {"fn":"hastrack","c":"63-72","status":"unknown"}
-{"fn":"save_track","c":"76-89","status":"unknown"}
+{"fn":"save_track","c":"76-89","status":"ported","js":["js/track.js:save_track"],"at":"2026-09-29@f789bb94f","note":"stale: js/track.js:59, write arm=peek_track snapshot, release arm=initrack, callers do.js:1714 + bones.js:459 (D-0367 design)"}
 {"fn":"rest_track","c":"93-105","status":"unknown"}

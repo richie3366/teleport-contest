@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `dungeon.c` find_branch — coverage PARTIAL (C 17 code L `dungeon.c:311–337` / JS 12 code L in js/dungeon.js; hops 5, callers 4, RNG 0, msg 0) @cd4bc2a21
-- [ ] `track.c` save_track — coverage THIN (C 8 code L `track.c:76–89` / JS 3 code L in js/track.js; hops 5, callers 1, RNG 0, msg 0) @7e46744a0
-- [ ] `wizcmds.c` wiz_flip_level — coverage MISSING (C 14 code L `wizcmds.c:412–442` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @7e46744a0
 - [ ] `end.c` should_query_disclose_option — coverage PARTIAL (C 33 code L `end.c:476–515` / JS 16 code L in js/end.js; hops 4, callers 1, RNG 0, msg 0) @be48bbe4a
 - [ ] `do_name.c` name_from_player — coverage PARTIAL (C 11 code L `do_name.c:105–128` / JS 6 code L in js/do_name.js; hops 4, callers 3, RNG 0, msg 0) @d0fb9f36b
 - [ ] `end.c` fixup_death — coverage PARTIAL (C 13 code L `end.c:366–384` / JS 8 code L in js/end.js; hops 3, callers 1, RNG 0, msg 0) @d0fb9f36b
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `hacklib.c` copy_bytes — coverage MISSING (C 11 code L `hacklib.c:946–961` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @d3ab32283
 - [ ] `attrib.c` role_abil — coverage PARTIAL (C 22 code L `attrib.c:789–815` / JS 15 code L in js/attrib.js; hops 5, callers 2, RNG 0, msg 0) @3606b8f8d
 - [ ] `shknam.c` is_izchak — coverage PARTIAL (C 11 code L `shknam.c:908–924` / JS 6 code L in js/shknam.js; hops 4, callers 2, RNG 0, msg 0) @74bd8ea11
+- [ ] `role.c` role_selection_prolog — coverage PARTIAL (C 73 code L `role.c:1726–1812` / JS 51 code L in js/player_selection.js; hops —, callers 0, RNG 0, msg 10) @f789bb94f
+- [ ] `cfgfiles.c` vconfig_error_add — coverage MISSING (C 9 code L `cfgfiles.c:1875–1890` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @f789bb94f
+- [ ] `sp_lev.c` get_table_traptype_opt — coverage MISSING (C 9 code L `sp_lev.c:4350–4364` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @f789bb94f
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

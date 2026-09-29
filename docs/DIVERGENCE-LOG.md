@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3131 — `wizcmds.c` wiz_flip_level whole port + `sp_lev.c` flip_level remainder (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head `wiz_flip_level` MISSING + its Open callee `flip_level` remainder; 2 functions, 4 files). Pre-work stale sets, ≤3 calls each: `find_branch` → ported (js/dungeon.js:550, whole C body, all 5 C sites wired at 571/601/625/1214/1219, throw=panic — no panic helper in js/); `save_track` → ported (js/track.js:59, D-0367 JSON design: peek write arm + initrack release arm, callers do.js:1714 + bones.js:459).
+- **Symptom:** no corpus divergence — coverage. C `cmd.c:1959–1960` `#wizfliplevel` row had no JS symbol (extcmd table gap); `flip_level` carried D-2336 + docstring named omits (regions, dbridge, timers, migrating priest/shk, extras hero) with the exclusion arm out of C order (pre-rooms vs C `:876–896`).
+- **C locus:**
+  - `wiz_flip_level`: wizcmds.c:412–442 (prompts :414–415, caveat comment :417–424, `if (wizard)` :425, yn :426, strchr :428, `-= '0'` :429, rnd :431–432 / flip :433–434, docrt :436, Never_mind :437–438, ECMD_OK :441).
+  - `flip_level`: sp_lev.c:531–922 remainder — migrating priest/shk :678–684, regions :735–763, dbridge helpers :428–453 + calls :824–825/:845–846, timers :862–874, exclusion :876–896 (moved to C order), extras hero :898–907 + travelcc :911 + digging.pos :912.
+- **JS was:** no same-named `wiz_flip_level` anywhere (extcmd `wizfliplevel` unlisted); `flip_level`/`flip_level_rnd` file-locals in mklev.js (used by creation paths with extras=false only), missing the arms above.
+- **Fix:** `js/wizcmds.js` — new `wiz_flip_level` in C order (`wizard` ≡ flags.debug per flag.h:30, `|| wizard` mirrors the WIZMODECMD dispatcher gate per wiz_level_tele; yn over "0123", 0 → rnd(3, true) else flip(n, true), docrt; ESC/quit → Never_mind), dynamic mklev import (mklev statically imports wizcmds — makemap_prepost — so a static edge back would cycle; wiz_identify's invent.js precedent). `js/getline.js` — extcmd row `wizfliplevel` (wiz, no autocomplete) mirroring C cmd.c:1959–1960. `js/mklev.js` — export flip_level/flip_level_rnd; new staticfn-locals flip_dbridge_horizontal/vertical wired on both swap cells pre-swap; migrating loop restructured to C if/else-if with priest/shk arms; new regions arm in C position; exclusion block moved after the map swap to C :876–896 with new timers arm before it (timeout_func_index idiom, remove_timer precedent); new extras hero/travelcc/digging arm; docstring omits retired. `js/mkobj.js` — export timeout_func_index (mklev→mkobj edge ALREADY). Observed, out of scope: the pre-existing spread-swap (`{...a}`/assign) leaks fields across cells (C assigns whole structs) — benign, mask read only under IS_DRAWBRIDGE; probe snapshots mask on bridge cells only.
+- **JS:** 4 files, +179/−29 (`getline.js` +10, `mklev.js` +136/−27, `mkobj.js` +1/−1, `wizcmds.js` +32/−1), far under caps.
+- **Callers:**
+  - `wiz_flip_level`: C cmd.c:1959–1960 extcmd row → JS getline.js `wizfliplevel` row; no other C callers (0 refs).
+  - `flip_level`: C sp_lev.c:981 (flip_level_rnd body) → JS mklev.js flip_level_rnd (live, now exported); C wizcmds.c:434 → JS wiz_flip_level (new, dynamic import); C nhlua.c:1517 (`nh.flip_level` Lua binding) → named omission (no JS binding).
+- **Verify:** `/tmp/flip-probe.mjs` 8/8 PASS (left in place for re-run; no tests/ harness — sessions are the suite): single flip mutates; W→E / N→S facing; ROT_ORGANIC untouched, MELT_ICE moved; off-level priest unflipped; ux0 follows; double-flip identity. `node scripts/verify.mjs --fn wiz_flip_level,flip_level` → PASS syntax (4 files) · PASS rule2 · note hidden ×2 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×2 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared files) · VERIFY: PASS. Verify ran after the last js/ edit (no D-1831 gap).
+- **Named omissions:**
+  - `wiz_flip_level`: none — whole body, every callee live (yn_function/pline/docrt async, flip pair via dynamic import, Never_mind/ECMD_OK consts).
+  - `flip_level`: ball/chain unplace (:566–585, unplacebc :582) + re-place (:909–910, placebc :910) — async in JS (ball.js), flip_level stays sync; C leaves SpLev_Map unflipped (by design, pre-existing); `nh.flip_level` Lua caller (nhlua.c:1517) unwired.
+- **Ledger:** wiz_flip_level ported; flip_level partial
+- **Next:** falsifier — a session blocked with flip_level/wiz_flip_level as owner, or #wizfliplevel behavior vs C (Punished + straddling bbox exercises the named ball omit). Do not re-pop flip_level regions/dbridge/timers/migrating/extras-hero labels.
+
 ## D-3130 — `mkobj.c` oextra family whole: newoextra C-signature + fracture_rock mislabel fix + 8 verify-stamp (coverage head dealloc_oextra)
 
 - **Status:** shipped (breadth-phase cluster: queue head `dealloc_oextra` + its callee closure / same-file oextra family, 10 functions, 2 files).

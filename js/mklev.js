@@ -26,7 +26,7 @@ import {
     WEAPONSHOP, ARMORSHOP, SCROLLSHOP, POTIONSHOP, RINGSHOP,
     W_NORTH, W_SOUTH, W_EAST, W_WEST, W_ANY, W_RANDOM, D_SECRET,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
-    IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
+    IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL, IS_DRAWBRIDGE,
     SVALL, MAP_Y_LIM,
     IS_LAVA, IS_THRONE, SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL, ICED_POOL, ICED_MOAT,
@@ -55,7 +55,7 @@ import {
     LVLINIT_NONE, LVLINIT_SOLIDFILL, LVLINIT_MAZEGRID, LVLINIT_MAZE,
     LVLINIT_MINES, LVLINIT_ROGUE, LVLINIT_SWAMP,
     ACCESSIBLE,
-    DB_NORTH, DB_SOUTH, DB_EAST, DB_WEST, DB_LAVA,
+    DB_NORTH, DB_SOUTH, DB_EAST, DB_WEST, DB_LAVA, DB_DIR,
     In_mines,
     In_quest,
     In_endgame,
@@ -107,7 +107,7 @@ import {
     mkobj, mksobj, mksobj_at, mk_tt_object, mksobj_migr_to_species, mkobj_at, mkgold,
     mkcorpstat, next_ident,
     curse, bless, unbless, uncurse, blessorcurse, place_object, add_to_buried, weight, OBJ,
-    set_corpsenm, obj_stop_timers, start_timer, spot_stop_timers,
+    set_corpsenm, obj_stop_timers, start_timer, spot_stop_timers, timeout_func_index,
     obj_extract_self, is_organic, remove_object,
     add_to_container, objects_at, sobj_at, stackobj, oc_merge_of, dealloc_obj,
 } from './mkobj.js';
@@ -19009,7 +19009,36 @@ function flip_encoded_dir_bits(flp, val) {
     return val | 0;
 }
 
-function flip_level_rnd(flp, extras) {
+/**
+ * C ref: sp_lev.c flip_dbridge_horizontal `:428–439` (staticfn) — mirror
+ * a drawbridge's facing across a horizontal flip (west ↔ east); the
+ * vertical twin below is `:442–453` (north ↔ south). Both call sites are
+ * the terrain swap inside flip_level (`:824–825`, `:845–846`): each runs
+ * on both cells before the struct swap.
+ */
+function flip_dbridge_horizontal(lev) {
+    if (!IS_DRAWBRIDGE(lev.typ)) return; /* C :430 */
+    if (((lev.drawbridgemask | 0) & DB_DIR) === DB_WEST) { /* C :431 */
+        lev.drawbridgemask &= ~DB_WEST; /* C :432 */
+        lev.drawbridgemask |= DB_EAST; /* C :433 */
+    } else if (((lev.drawbridgemask | 0) & DB_DIR) === DB_EAST) { /* C :434 */
+        lev.drawbridgemask &= ~DB_EAST; /* C :435 */
+        lev.drawbridgemask |= DB_WEST; /* C :436 */
+    }
+}
+
+function flip_dbridge_vertical(lev) {
+    if (!IS_DRAWBRIDGE(lev.typ)) return; /* C :444 */
+    if (((lev.drawbridgemask | 0) & DB_DIR) === DB_NORTH) { /* C :445 */
+        lev.drawbridgemask &= ~DB_NORTH; /* C :446 */
+        lev.drawbridgemask |= DB_SOUTH; /* C :447 */
+    } else if (((lev.drawbridgemask | 0) & DB_DIR) === DB_SOUTH) { /* C :448 */
+        lev.drawbridgemask &= ~DB_SOUTH; /* C :449 */
+        lev.drawbridgemask |= DB_NORTH; /* C :450 */
+    }
+}
+
+export function flip_level_rnd(flp, extras) {
     let c = 0;
     if ((flp & 1) && rn2(2)) c |= 1;
     if ((flp & 2) && rn2(2)) c |= 2;
@@ -19071,14 +19100,18 @@ function flip_vault_guard(flp, grd, minx, miny, maxx, maxy) {
  * (D-0804; preserves nexthere — never rebuild from fobj); mgoal / priest
  * shrpos / shk shk|shd via Flip_coord (inFlipArea+x gate); ungated stairs;
  * `_level_monsters` swap (C level.monsters[][]). Vault-guard egd flips
- * through flip_vault_guard when extras (`sp_lev.c:640–645`, `:674–677`).
- * Named omissions:
- * SpLev_Map flip (C leaves unflipped); drawbridge helpers; ball/chain.
- * Migrating priest shrpos and shopkeeper shk/shd (`sp_lev.c:678–685`)
- * stay omitted. `flip_visuals` runs when `extras` (`sp_lev.c:916–919`).
+ * through flip_vault_guard when extras (`sp_lev.c:640–645`, `:674–677`);
+ * migrating priest shrpos / shk shk|shd ride the same walk (`:678–685`).
+ * Drawbridge facing mirrors on both swap cells (`:824–825`, `:845–846`);
+ * regions bounding-box + rects (`:735–763`); MELT_ICE_AWAY timer coords
+ * (`:862–874`); extras hero + travelcc + digging.pos (`:898–907`,
+ * `:911–912`). `flip_visuals` runs when `extras` (`sp_lev.c:916–919`).
  * Exclusion rectangles flip with the level (D-1109).
+ * Named omissions: SpLev_Map flip (C leaves unflipped); ball/chain
+ * unplace (`:566–585`, `unplacebc :582`) + re-place (`:909–910`,
+ * `placebc :910`) — async in JS (ball.js), flip_level stays sync.
  */
-function flip_level(flp, extras) {
+export function flip_level(flp, extras) {
     if ((flp & 3) === 0) return;
     let { xmin: minx, ymin: miny, xmax: maxx, ymax: maxy } = get_level_extends();
     if (miny < 0) miny = 0;
@@ -19189,15 +19222,24 @@ function flip_level(flp, extras) {
             }
         }
     }
-    /* C sp_lev.c:674–677 — guards who left this level still have egd here.
-       Priest shrpos and shk shk/shd on the same walk (`:678–685`) stay
-       the named omit on flip_level. */
+    /* C sp_lev.c:674–686 — migrating mons whose home is this level flip
+       their anchor: guard egd (`:676–677`), priest shrpos (`:678–680`),
+       shk shk|shd (`:681–684`). */
     if (extras) {
         for (const mtmp of game.migrating_mons || []) {
-            if (!mtmp?.isgd) continue;
-            const egd = EGD(mtmp);
-            if (egd && on_level(game.u?.uz, egd.gdlevel))
-                flip_vault_guard(flp, mtmp, minx, miny, maxx, maxy);
+            if (!mtmp) continue;
+            if (mtmp.isgd) { /* C :676 */
+                const egd = EGD(mtmp);
+                if (egd && on_level(game.u?.uz, egd.gdlevel))
+                    flip_vault_guard(flp, mtmp, minx, miny, maxx, maxy);
+            } else if (mtmp.ispriest && mtmp.mextra?.epri /* C :678–679 */
+                && on_level(game.u?.uz, mtmp.mextra.epri.shrlevel)) {
+                Flip_coord(mtmp.mextra.epri.shrpos); /* C :680 */
+            } else if (mtmp.isshk && mtmp.mextra?.eshk /* C :681–682 */
+                && on_level(game.u?.uz, mtmp.mextra.eshk.shoplevel)) {
+                Flip_coord(mtmp.mextra.eshk.shk); /* C :683 */
+                Flip_coord(mtmp.mextra.eshk.shd); /* C :684 */
+            }
         }
     }
 
@@ -19235,20 +19277,42 @@ function flip_level(flp, extras) {
             }
         }
     }
-    // C ref: sp_lev.c flip_level — exclusion zones (ungated FlipX/Y, swap if inverted)
-    for (let ez = game.exclusion_zones; ez; ez = ez.next) {
+    // C ref: sp_lev.c flip_level — regions (poison clouds, etc) `:735–763`
+    for (const reg of game.regions || []) {
+        if (!reg) continue;
+        const box = reg.bounding_box;
+        const rects = reg.rects || [];
+        const nrects = reg.nrects ?? rects.length;
         if (flp & 1) {
-            ez.ly = FlipY(ez.ly);
-            ez.hy = FlipY(ez.hy);
-            if (ez.ly > ez.hy) {
-                const t = ez.ly; ez.ly = ez.hy; ez.hy = t;
+            if (box) { /* C :738–741 — stored at create_region; else rects only */
+                const t1 = FlipY(box.ly);
+                const t2 = FlipY(box.hy);
+                box.ly = Math.min(t1, t2);
+                box.hy = Math.max(t1, t2);
+            }
+            for (let j = 0; j < nrects; j++) { /* C :742 */
+                const r = rects[j];
+                if (!r) continue;
+                const u1 = FlipY(r.ly); /* C :743–744 */
+                const u2 = FlipY(r.hy);
+                r.ly = Math.min(u1, u2); /* C :745–746 */
+                r.hy = Math.max(u1, u2);
             }
         }
         if (flp & 2) {
-            ez.lx = FlipX(ez.lx);
-            ez.hx = FlipX(ez.hx);
-            if (ez.lx > ez.hx) {
-                const t = ez.lx; ez.lx = ez.hx; ez.hx = t;
+            if (box) { /* C :749–752 */
+                const t1 = FlipX(box.lx);
+                const t2 = FlipX(box.hx);
+                box.lx = Math.min(t1, t2);
+                box.hx = Math.max(t1, t2);
+            }
+            for (let j = 0; j < nrects; j++) { /* C :753 */
+                const r = rects[j];
+                if (!r) continue;
+                const u1 = FlipX(r.lx); /* C :754–755 */
+                const u2 = FlipX(r.hx);
+                r.lx = Math.min(u1, u2); /* C :756–757 */
+                r.hx = Math.max(u1, u2);
             }
         }
     }
@@ -19317,6 +19381,8 @@ function flip_level(flp, extras) {
                 const a = game.level.at(x, y);
                 const b = game.level.at(x, ny);
                 if (!a || !b) continue;
+                flip_dbridge_vertical(a); /* C :824 */
+                flip_dbridge_vertical(b); /* C :825 */
                 const tmp = { ...a };
                 Object.assign(a, b);
                 Object.assign(b, tmp);
@@ -19333,6 +19399,8 @@ function flip_level(flp, extras) {
                 const a = game.level.at(x, y);
                 const b = game.level.at(nx, y);
                 if (!a || !b) continue;
+                flip_dbridge_horizontal(a); /* C :845 */
+                flip_dbridge_horizontal(b); /* C :846 */
                 const tmp = { ...a };
                 Object.assign(a, b);
                 Object.assign(b, tmp);
@@ -19341,6 +19409,47 @@ function flip_level(flp, extras) {
                 swapMonstersAt(x, y, nx, y);
             }
         }
+    }
+
+    // C ref: sp_lev.c flip_level — timed effects `:862–874`
+    const meltIdx = timeout_func_index(MELT_ICE_AWAY);
+    for (let timer = game._timer_base; timer; timer = timer.next) {
+        if (timeout_func_index(timer.action) !== meltIdx) continue; /* C :864 */
+        let ty = (timer.a_long | 0) & 0xffff; /* C :865 */
+        let tx = ((timer.a_long | 0) >> 16) & 0xffff; /* C :866 */
+        if (flp & 1) ty = FlipY(ty); /* C :868–869 */
+        if (flp & 2) tx = FlipX(tx); /* C :870–871 */
+        timer.a_long = ((tx << 16) | ty) | 0; /* C :872 */
+    }
+    // C ref: sp_lev.c flip_level — exclusion zones `:876–896`
+    // (ungated FlipX/Y, swap if inverted)
+    for (let ez = game.exclusion_zones; ez; ez = ez.next) {
+        if (flp & 1) {
+            ez.ly = FlipY(ez.ly);
+            ez.hy = FlipY(ez.hy);
+            if (ez.ly > ez.hy) {
+                const t = ez.ly; ez.ly = ez.hy; ez.hy = t;
+            }
+        }
+        if (flp & 2) {
+            ez.lx = FlipX(ez.lx);
+            ez.hx = FlipX(ez.hx);
+            if (ez.lx > ez.hx) {
+                const t = ez.lx; ez.lx = ez.hx; ez.hx = t;
+            }
+        }
+    }
+    if (extras) { /* C :898 — for #wizfliplevel rather than level creation */
+        /* C :899–900 — flip hero location only if inside the flip area */
+        if (inFlipArea(game.u?.ux, game.u?.uy)) {
+            if (flp & 1) game.u.uy = FlipY(game.u.uy); /* C :901–902 */
+            if (flp & 2) game.u.ux = FlipX(game.u.ux); /* C :903–904 */
+            /* C :905–907 — ux0/uy0 reset to the new spot unconditionally. */
+            game.u.ux0 = game.u.ux, game.u.uy0 = game.u.uy; /* C :907 */
+        }
+        /* C :909–910 placebc() is the named ball/chain omit (async). */
+        Flip_coord(game.iflags?.travelcc); /* C :911 */
+        Flip_coord(game.context?.digging?.pos); /* C :912 */
     }
 
     // C flip_level: fix_wall_spines after cell swap so corners/T-junctions

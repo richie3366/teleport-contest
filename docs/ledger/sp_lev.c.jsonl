@@ -15,7 +15,7 @@
 {"fn":"flip_dbridge_vertical","c":"442-453","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"flip_visuals","c":"458-495","status":"ported","js":["js/mklev.js:flip_visuals"],"d":["D-2898","D-2889"],"at":"seed@a30a7de84"}
 {"fn":"flip_encoded_dir_bits","c":"499-514","status":"unknown"}
-{"fn":"flip_level","c":"533-922","status":"unknown","d":["D-2336"],"at":"seed@a30a7de84"}
+{"fn":"flip_level","c":"533-922","status":"partial","js":["js/mklev.js:flip_level"],"omit":"- `wiz_flip_level`: none — whole body, every callee live (yn_function/pline/docrt async, flip pair via dynamic import, Never_mind/ECMD_OK consts).","d":["D-3131","D-2336"],"at":"2026-09-29@f789bb94f"}
 {"fn":"flip_vault_guard","c":"926-958","status":"ported","js":["js/mklev.js:flip_vault_guard"],"d":["D-2913"],"at":"seed@a30a7de84"}
 {"fn":"flip_level_rnd","c":"967-982","status":"ported","js":["js/mklev.js:flip_level_rnd"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"sel_set_wall_property","c":"986-995","status":"unknown"}

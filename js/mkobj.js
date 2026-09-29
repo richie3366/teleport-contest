@@ -1468,7 +1468,7 @@ export const TIMEOUT_FUNC_NAMES = [
  * which is `ROT_ORGANIC`, so that coercion is not the index.
  * An unknown string is -1 (start_timer panics; it must not match rot).
  */
-function timeout_func_index(action) {
+export function timeout_func_index(action) {
     if (action === 'MELT_ICE_AWAY' || action === 'melt_ice_away' || action === 'melt-ice')
         return MELT_ICE_AWAY;
     if (typeof action === 'string') {
