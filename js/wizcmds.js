@@ -31,10 +31,12 @@ import {
     MIGR_EXACT_XY, MIGR_RANDOM, MM_NOMSG,
     DIED, XKILL_NOMSG, SUPPRESS_IT, SUPPRESS_HALLUCINATION, SUPPRESS_SADDLE,
     ARTICLE_YOUR, ARTICLE_THE, ARTICLE_A, PRIMARYSET, KNOWN_HANDLING,
+    G_EXTINCT, MON_OFFMAP, MON_MIGRATING, MON_LIMBO, MON_ENDGAME_MIGR,
+    ESHK, EPRI, EGD,
 } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
 import { make_blinded, save_currentstate } from './do.js';
-import { m_at, rescham, dmonsfree } from './mon.js';
+import { m_at, rescham, dmonsfree, mongone } from './mon.js';
 import { dobjsfree } from './mkobj.js';
 /* C lock.c maybe_reset_pick — hoisted fn, called only from
    makemap_prepost (`imports.mjs --can wizcmds.js lock.js` SAFE). */
@@ -51,10 +53,10 @@ import { check_wornmask_slots } from './worn.js';
 import { rn2 } from './rng.js';
 import { float_vs_flight, body_part } from './polyself.js';
 import { pooleffects } from './pickup.js';
-import { mons, olfaction, NUMMONS, nonliving } from './monsters.js';
+import { mons, olfaction, NUMMONS, nonliving, G_UNIQ } from './monsters.js';
 import { PM_GRID_BUG, PM_SAMURAI, pmnames } from './generated/monsters_data.js';
 /* C mondata.c mstrength — hoisted fn (`imports.mjs --can wizcmds.js mondata.js mstrength` SAFE). */
-import { mstrength } from './mondata.js';
+import { mstrength, monsndx } from './mondata.js';
 import { NUM_OBJECTS, FIRST_OBJECT, MAXOCLASSES, objectNameStrs } from './objects.js';
 /* C dungeon.c overview_stats — hoisted fn
    (`imports.mjs --can wizcmds.js dungeon.js overview_stats` SAFE). */
@@ -82,6 +84,12 @@ import { done } from './end.js';
 /* C uhis — #wizkill killer-name possessive
    (`imports.mjs --can wizcmds.js roles.js uhis` SAFE). */
 import { uhis } from './roles.js';
+/* C dog.c keepdogs — makemap_remove_mons pets-only keep
+   (`imports.mjs --can wizcmds.js dog.js keepdogs` SAFE). */
+import { keepdogs } from './dog.js';
+/* C shk.c setpaid — makemap_unmakemon local-shopkeeper settle
+   (`imports.mjs --can wizcmds.js shk.js setpaid` SAFE). */
+import { setpaid } from './shk.js';
 
 const DEFAULT_TIMEOUT_INCR = 30;
 
@@ -534,12 +542,98 @@ function zero_dest_area() {
 }
 
 /**
+ * C ref: wizcmds.c makemap_unmakemon `:73–105` (staticfn) — uncreate one
+ * monster for the old incarnation of a #wizmakemap level: un-extinct a
+ * unique (`:80–81`, ignores DEADMONSTER per the C comment), decrement
+ * born (`:82–83`), vault-guard isgd clear then fall through to mongone
+ * (`:88–89`), dead monsters return already-discarded (`:90–91`),
+ * same-level shopkeeper setpaid (`:92–93`), then the migratory arm
+ * re-prepends onto fmon so dmonsfree bookkeeping stays in sync
+ * (`:95–103`) before mongone (`:104`).
+ * JS fmon/migrating_mons are arrays: C nmon splice ≡ unshift/splice
+ * (teleport.js:2892 / vault.js:467 precedent). Vitals-ensure mirrors
+ * makemon.js unmakemon (C svm.mvitals[] always present; JS on-demand).
+ * Async only because JS mongone awaits.
+ */
+async function makemap_unmakemon(mtmp, migratory) {
+    const ndx = monsndx(mtmp.data); // C `:75`
+    if (!game.mvitals) game.mvitals = [];
+    if (!game.mvitals[ndx]) game.mvitals[ndx] = { mvflags: 0, born: 0, died: 0 };
+    const mv = game.mvitals[ndx];
+    // C `:80–81` — uncreate any unique so it can be remade.
+    if ((((mtmp.data?.geno | 0)) & G_UNIQ) !== 0) {
+        mv.mvflags = (mv.mvflags | 0) & ~G_EXTINCT;
+    }
+    // C `:82–83` — plain decrement (no 255-cap guard; that is unmakemon's).
+    if ((mv.born | 0)) mv.born = (mv.born | 0) - 1;
+
+    // C `:88–93` — vault guard falls through to mongone after isgd clear.
+    if (mtmp.isgd) {
+        mtmp.isgd = 0;
+    } else if ((mtmp.mhp | 0) < 1) { // DEADMONSTER, monst.h:214
+        return;
+    } else if (mtmp.isshk && on_level(game.u?.uz, ESHK(mtmp)?.shoplevel)) {
+        setpaid(mtmp);
+    }
+    if (migratory) {
+        // C `:100–103` — caller already unlinked from migrating_mons.
+        mtmp.mstate = (mtmp.mstate | 0) | MON_OFFMAP;
+        mtmp.mstate &= ~(MON_MIGRATING | MON_LIMBO | MON_ENDGAME_MIGR);
+        if (!game.fmon) game.fmon = [];
+        mtmp.nmon = game.fmon[0] || null;
+        game.fmon.unshift(mtmp);
+    }
+    await mongone(mtmp); // C `:104`
+}
+
+/**
+ * C ref: wizcmds.c makemap_remove_mons `:110–150` — keepdogs(TRUE) pets-only
+ * keep (`:116`), unmake every surviving fmon member (`:118–123`), unmake
+ * migrating shk/priest/guard whose home level is this one (`:132–142`),
+ * dmonsfree (`:144`), then fmon must be empty (`:145–146`).
+ * The fmon walk is a snapshot: makemap_unmakemon → mongone splices the
+ * live array underneath (keepdogs dog.js:448 precedent for the C nmon
+ * walk). Sole C caller: cmd.c:992 makemap_prepost(pre).
+ */
+export async function makemap_remove_mons() {
+    const u = game.u || {};
+    // C `:116` — pets-only keep (ascending-style release from traps etc).
+    await keepdogs(true);
+    // C `:118–123` — dead members stay for dmonsfree below.
+    for (const mtmp of [...(game.fmon || [])]) {
+        if ((mtmp.mhp | 0) < 1) continue; // DEADMONSTER, monst.h:214
+        await makemap_unmakemon(mtmp, false);
+    }
+    // C `:132–142` — migrating home-level shk/priest/guard keep stale
+    // mextra for this level; C unlinks via mprev then passes migratory.
+    const mig = game.migrating_mons || [];
+    for (let i = 0; i < mig.length;) {
+        const mtmp = mig[i];
+        if (mtmp.mextra
+            && ((mtmp.isshk && on_level(u.uz, ESHK(mtmp)?.shoplevel))
+                || (mtmp.ispriest && on_level(u.uz, EPRI(mtmp)?.shrlevel))
+                || (mtmp.isgd && on_level(u.uz, EGD(mtmp)?.gdlevel)))) {
+            mig.splice(i, 1);
+            await makemap_unmakemon(mtmp, true);
+        } else {
+            i++;
+        }
+    }
+    game.migrating_mons = mig;
+    // C `:144–146` — release dead/unmade; fmon must be empty now.
+    await dmonsfree();
+    if ((game.fmon || []).length) {
+        await impossible("makemap_remove_mons: 'fmon' did not get emptied?");
+    }
+}
+
+/**
  * C ref: cmd.c makemap_prepost — discard (pre) then place (post) after
  * #wizmakemap mklev. Post places via u_on_rndspot
  * ((amulet?1:0)|(wiztower?2:0)) (D-1288; C :1043–1046) instead of
  * safe_teleds, then losedogs / kill_genocided / u_collide_m / initrack /
  * Punished placebc / docrt / flush / splev / check_special_room(FALSE).
- * Named omissions: makemap_remove_mons / mine·soko prize;
+ * Named omissions: mine·soko prize;
  * digging memset; polearm.hitmon;
  * savelev freeing nhfile;
  * sp_lev.c lspo_reset_level / lspo_finalize_level.
@@ -547,8 +641,9 @@ function zero_dest_area() {
 export async function makemap_prepost(pre, wiztower) {
     const u = game.u || (game.u = {});
     if (pre) {
-        // C cmd.c:992-993 — makemap_remove_mons (named omit) then
-        // rm_mapseen: discard overview info for the level being remade.
+        // C cmd.c:992-993 — makemap_remove_mons then rm_mapseen:
+        // discard monsters and overview info for the level being remade.
+        await makemap_remove_mons();
         const { rm_mapseen, ledger_no } = await import('./dungeon.js');
         rm_mapseen(ledger_no(game.u?.uz));
         const { ballrelease, unplacebc } = await import('./ball.js');

@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3107 — wizcmds.c makemap_remove_mons + makemap_unmakemon whole (coverage)
+
+- **Status:** shipped (Open — coverage; 2-function closure — head MISSING + absent/MISSING C-staticfn callee; no other same-file queue rows; ~105 js/ insertions + focused test.)
+- **Symptom:** coverage MISSING (C 19 code L `wizcmds.c:110–150` / JS no symbol; callee `makemap_unmakemon` C 17 code L `wizcmds.c:73–105` / JS no symbol): `#wizmakemap` pre-arm ran without monster teardown (named omit at js/wizcmds.js:550), so the old incarnation's fmon/migrating home-level shk-priest-guard survived mklev.
+- **C locus:**
+  - `makemap_remove_mons`: nethack-c/upstream/src/wizcmds.c:110–150 (keepdogs(TRUE) `:116`, fmon unmake `:118–123` with DEADMONSTER skip `:120–121`, migrating home-level unmake `:132–142`, dmonsfree `:144`, fmon-empty `:145–146`); sole caller cmd.c:992 makemap_prepost(pre).
+  - `makemap_unmakemon`: nethack-c/upstream/src/wizcmds.c:73–105 (staticfn; unique un-extinct `:80–81`, born-- `:82–83`, isgd fall-through `:88–89`, dead return `:90–91`, shk setpaid `:92–93`, migratory fmon re-prepend `:95–103`, mongone `:104`); callers :122 (FALSE) / :139 (TRUE).
+- **JS was:** no symbol for either; makemap_prepost pre-arm named makemap_remove_mons as omit then ran rm_mapseen directly.
+- **Fix:** ported both in C order into js/wizcmds.js — file-local async makemap_unmakemon (vitals-ensure mirrors makemon.js unmakemon; plain born-- with no 255-cap guard, that is unmakemon's own C; C nmon splice ≡ unshift per teleport.js:2892) + exported makemap_remove_mons (fmon snapshot walk — mongone splices live, keepdogs dog.js:448 precedent; migrating index-splice ≡ C mprev unlink); pre-arm now awaits it at cmd.c:992 position. Imports: keepdogs (dog.js), setpaid (shk.js) both `imports.mjs --can` SAFE; mongone/monsndx/G_UNIQ/G_EXTINCT/MON_*/ESH-PRI-GD extend pre-existing static edges.
+- **JS:** js/wizcmds.js:558 makemap_unmakemon, :598 makemap_remove_mons (`:605` fmon arm, `:617` migratory arm, `:626` fmon-empty), :646 pre-arm wire; scripts/makemap-remove-mons.test.mjs (node:test: unique/guard unmake, dead-skip, migrating home/away arms).
+- **Callers:**
+  - `makemap_remove_mons`: cmd.c:992→js/wizcmds.js:646 (makemap_prepost pre-arm, awaited before rm_mapseen).
+  - `makemap_unmakemon`: wizcmds.c:122→js/wizcmds.js:605 (fmon arm, FALSE), :139→:617 (migrating arm, TRUE).
+- **Verify:** `node scripts/verify.mjs --fn makemap_remove_mons,makemap_unmakemon` → VERIFY: PASS (syntax 1 file js/wizcmds.js · Rule #2 · hidden notes `no corpus session blocked` ×2 · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS each → REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full skipped, no shared file). `node --test scripts/makemap-remove-mons.test.mjs`: 3/3 pass.
+- **Named omissions:**
+  - `makemap_remove_mons`: none — whole body, every callee live (keepdogs, dmonsfree, impossible, on_level).
+  - `makemap_unmakemon`: none — whole body, every callee live (monsndx, setpaid, mongone); JS mongone's own named omits (m_detach subset) stay in D-1149.
+- **Ledger:** makemap_remove_mons ported; makemap_unmakemon ported
+- **Next:** `region.c` visible_region_summary (next queue head; PARTIAL 22C/14JS, region summary text).
+
 ## D-3106 — pager.c append_str: impossible arm + NULL-exact strstri test (coverage)
 
 - **Status:** shipped (Open — coverage; single-function cluster — the only pager.c Open row; callees strstri/impossible declared partial so no callee growth; ~15 js/ insertions.)
