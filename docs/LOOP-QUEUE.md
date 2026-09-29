@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `engrave.c` disturb_grave — coverage PARTIAL (C 10 code L `engrave.c:1707–1721` / JS 7 code L in js/engrave.js; hops —, callers 2, RNG 0, msg 1) @cd4bc2a21
 - [ ] `mkobj.c` dealloc_oextra — coverage PARTIAL (C 10 code L `mkobj.c:96–111` / JS 6 code L in js/mkobj.js; hops 4, callers 2, RNG 0, msg 0) @cd4bc2a21
 - [ ] `dungeon.c` find_branch — coverage PARTIAL (C 17 code L `dungeon.c:311–337` / JS 12 code L in js/dungeon.js; hops 5, callers 4, RNG 0, msg 0) @cd4bc2a21
 - [ ] `track.c` save_track — coverage THIN (C 8 code L `track.c:76–89` / JS 3 code L in js/track.js; hops 5, callers 1, RNG 0, msg 0) @7e46744a0
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sp_lev.c` get_unpacked_coord — coverage MISSING (C 13 code L `sp_lev.c:1317–1334` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @d3ab32283
 - [ ] `end.c` sort_valuables — coverage PARTIAL (C 12 code L `end.c:798–818` / JS 8 code L in js/end.js; hops 3, callers 1, RNG 0, msg 0) @d3ab32283
 - [ ] `hacklib.c` copy_bytes — coverage MISSING (C 11 code L `hacklib.c:946–961` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @d3ab32283
+- [ ] `attrib.c` role_abil — coverage PARTIAL (C 22 code L `attrib.c:789–815` / JS 15 code L in js/attrib.js; hops 5, callers 2, RNG 0, msg 0) @3606b8f8d
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

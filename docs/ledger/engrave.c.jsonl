@@ -2,18 +2,18 @@
 {"fn":"wipeout_text","c":"120-183","status":"unknown"}
 {"fn":"can_reach_floor","c":"187-214","status":"unknown","d":["D-1085","D-1083","D-1082","D-1071","D-1070"],"at":"seed@a30a7de84"}
 {"fn":"cant_reach_floor","c":"218-228","status":"unknown"}
-{"fn":"engr_at","c":"231-241","status":"unknown"}
+{"fn":"engr_at","c":"231-241","status":"ported","js":["js/engrave.js:engr_at"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
 {"fn":"sengr_at","c":"251-261","status":"unknown"}
 {"fn":"u_wipe_engr","c":"264-268","status":"unknown"}
 {"fn":"wipe_engr_at","c":"271-290","status":"unknown"}
 {"fn":"engr_can_be_felt","c":"297-315","status":"ported","js":["js/display.js:engr_can_be_felt"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — switch exact (ENGRAVE/HEADSTONE/BURN); null guard is C-UB-only"}
 {"fn":"read_engr_at","c":"318-405","status":"unknown"}
 {"fn":"make_engr_at","c":"408-457","status":"partial","js":["js/engrave.js:make_engr_at"],"omit":"newengr/engr_text_space arena (by design — JS strings need no arena; sizes kept on the record); `return ep` JS extension noted above.","d":["D-2567"],"at":"seed@a30a7de84"}
-{"fn":"del_engr_at","c":"461-467","status":"unknown"}
+{"fn":"del_engr_at","c":"461-467","status":"ported","js":["js/engrave.js:del_engr_at"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
 {"fn":"freehand","c":"473-477","status":"unknown"}
 {"fn":"stylus_ok","c":"481-499","status":"unknown"}
 {"fn":"u_can_engrave","c":"503-541","status":"ported","js":["js/engrave.js:u_can_engrave"],"d":["D-2994"],"at":"2026-09-27@e61bdd324"}
-{"fn":"doengrave_ctx_init","c":"545-579","status":"unknown"}
+{"fn":"doengrave_ctx_init","c":"545-579","status":"ported","js":["js/engrave.js:doengrave_ctx_init"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
 {"fn":"doengrave_sfx_item_WAN","c":"583-738","status":"ported","js":["js/engrave.js:doengrave_sfx_item_WAN"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"doengrave_sfx_item","c":"742-892","status":"unknown"}
 {"fn":"doengrave_ctx_verb","c":"896-925","status":"unknown"}
@@ -28,7 +28,7 @@
 {"fn":"del_engr","c":"1645-1663","status":"ported","js":["js/engrave.js:del_engr"],"d":["D-3027"],"at":"2026-09-28@34c78a6ac"}
 {"fn":"rloc_engr","c":"1667-1681","status":"unknown"}
 {"fn":"make_grave","c":"1687-1703","status":"unknown"}
-{"fn":"disturb_grave","c":"1707-1721","status":"unknown"}
+{"fn":"disturb_grave","c":"1707-1721","status":"ported","js":["js/engrave.js:disturb_grave"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
 {"fn":"see_engraving","c":"1724-1727","status":"ported","js":["js/engrave.js:see_engraving"],"d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"feel_engraving","c":"1732-1741","status":"ported","js":["js/engrave.js:feel_engraving"],"d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"blengr","c":"1765-1768","status":"unknown"}

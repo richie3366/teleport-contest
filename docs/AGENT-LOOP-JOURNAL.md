@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3129 `engrave.c` disturb_grave whole + doengrave_ctx_init gaps + engr_at/del_engr_at verify-whole (coverage)
+
+**C locus:** - `disturb_grave`: engrave.c:1707–1721 (non-grave impossible :1711–1713, disturbed impossible :1714–1716, You + set + makemon NO_MM_FLAGS + exercise :1717–1720).
+**JS:** js/engrave.js disturb_grave:1702, doengrave grave arm :1497–1513, doengrave_ctx_init:838; imports: MM_NOMSG→NO_MM_FLAGS, +ECMD_OK (const.js, no new module edge).
+**Change:** restarted disturb_grave in C order (both impossible arms with C texts, You, unguarded makemon with NO_MM_FLAGS); wired the doengrave :1019 grave arm in C position (hands→smudge You, undisturbed→disturb_grave, doengr_exit disprefresh/ret mirror); completed ctx_init (fbuf/qbuf, writer null, ret ECMD_OK, C jello predicate over uswallow/ustuck via live is_animal/is_whirly; everb/eloc kept as JS prompt words — C builds qbuf inline :1187); engr_at/del_engr_at verified whole (bodies exact; canonical + clones + every C caller mapped — no code change). lev->disturbed IS the 'horizontal' bit (dokick.c:1118) — mapping confirmed, callers already use it.
+**Verify:** `node scripts/verify.mjs --fn disturb_grave,doengrave_ctx_init,engr_at,del_engr_at` → VERIFY: PASS.
+**Named:** - `disturb_grave`: none — whole body, every callee live (impossible/You async display.js, makemon, exercise).
+**Next:** engrave.c remainder is declared (make_engr_at/save/rest partial — arena/binary omits) or measured ok; doengrave altar + jello-consumer arms stay header omits for a future doengrave-partial claim.
 ## 2026-09-29 — D-3128 `objnam.c` fruitname completion + minimal_xname port + makesingular arms (coverage)
 
 **C locus:** - `fruitname`: objnam.c:412–427 (nextobuf :416 GC no-op, strstri " of " :417–422, makesingular :424, " juice" suffix).
