@@ -6595,9 +6595,20 @@ export function optfn_sortvanquished(optidx, req, negated, opts, _op, optInitial
  * Lives here, not `js/sounds.js`: that module already imports this file.
  */
 const SOUNDLIB_NOSOUND = 0;
+// C sounds.c nosound_procs `:1726–1739` in struct order (sndprocs.h:43):
+// SOUNDID(nosound) name+id, sound_triggers 0L, all eight hooks NULL.
 const nosound_procs = {
     soundname: 'nosound',
     soundlib_id: SOUNDLIB_NOSOUND,
+    sound_triggers: 0,
+    sound_init_nhsound: null,
+    sound_exit_nhsound: null,
+    sound_achievement: null,
+    sound_soundeffect: null,
+    sound_hero_playnotes: null,
+    sound_play_usersound: null,
+    sound_ambience: null,
+    sound_verbal: null,
 };
 const soundlib_choices = [
     { sndprocs: nosound_procs },
@@ -6621,6 +6632,36 @@ export function assign_soundlib(idx) {
     if (!game.gc) game.gc = {};
     game.gc.chosen_soundlib = // C `:1803–1804` (uint32_t)
         soundlib_choices[i].sndprocs.soundlib_id >>> 0;
+}
+
+/**
+ * C sounds.c activate_chosen_soundlib `:1779–1795`. `chosen_soundlib`
+ * doubles as the index into `soundlib_choices` (same id/index conflation
+ * as C optfn_soundlib `:3848–3849`, where only id 0 exists); a bad index
+ * panics (NORETURN). Exits the outgoing library when either side is
+ * non-nosound, struct-copies the chosen row into the live procs, inits
+ * it, then publishes active_soundlib (= the row id) back into
+ * chosen_soundlib. C `soundprocs` (BSS-zero global, sounds.c:1693) lives
+ * at game.soundprocs (cmd.js end_of_input reads its exit hook); the
+ * contest build compiles only the nosound row, so both hooks stay null
+ * and the call is a state publish.
+ */
+export function activate_chosen_soundlib() {
+    const idx = (game.gc?.chosen_soundlib ?? 0) | 0; // C `:1781` int (BSS 0)
+    if (!soundlibIndexOk(idx)) // C `:1783`
+        throw new Error(`activate_chosen_soundlib: invalid soundlib (${idx})`); // C `:1784`
+    const active = (game.ga?.active_soundlib ?? SOUNDLIB_NOSOUND) | 0; // C `:1786` BSS 0
+    if (active !== SOUNDLIB_NOSOUND || idx !== SOUNDLIB_NOSOUND) { // C `:1786`
+        const exit = game.soundprocs?.sound_exit_nhsound; // C `:1787`
+        if (typeof exit === 'function') exit('assigning a new sound library'); // C `:1788`
+    }
+    game.soundprocs = { ...soundlib_choices[idx].sndprocs }; // C `:1790` struct copy
+    const init = game.soundprocs.sound_init_nhsound; // C `:1791`
+    if (typeof init === 'function') init(); // C `:1792`
+    if (!game.ga) game.ga = {};
+    game.ga.active_soundlib = game.soundprocs.soundlib_id; // C `:1793`
+    if (!game.gc) game.gc = {};
+    game.gc.chosen_soundlib = game.ga.active_soundlib >>> 0; // C `:1794` (uint32_t)
 }
 
 /**

@@ -20,7 +20,7 @@
 {"fn":"disco_typename","c":"661-689","status":"unknown"}
 {"fn":"disco_append_typename","c":"694-721","status":"unknown"}
 {"fn":"disco_fmt_uniq","c":"725-737","status":"unknown"}
-{"fn":"disco_output_sorted","c":"741-760","status":"unknown"}
+{"fn":"disco_output_sorted","c":"741-760","status":"ported","js":["js/o_init.js:disco_output_sorted"],"at":"2026-09-29@671c54bfc","note":"stale: js/o_init.js:631; callers wired invent.js:4930,4957; review 1641 ACCEPT"}
 {"fn":"dodiscovered","c":"764-873","status":"unknown","d":["D-2682"],"at":"seed@a30a7de84"}
 {"fn":"oclass_to_name","c":"877-885","status":"unknown"}
 {"fn":"doclassdisco","c":"891-1127","status":"unknown","d":["D-1951"],"at":"seed@a30a7de84"}

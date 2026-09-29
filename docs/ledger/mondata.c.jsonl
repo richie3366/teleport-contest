@@ -46,7 +46,7 @@
 {"fn":"stagger","c":"1395-1407","status":"unknown"}
 {"fn":"on_fire","c":"1411-1445","status":"unknown"}
 {"fn":"msummon_environ","c":"1449-1495","status":"unknown"}
-{"fn":"olfaction","c":"1507-1518","status":"unknown"}
+{"fn":"olfaction","c":"1507-1518","status":"ported","js":["js/monsters.js:olfaction"],"at":"2026-09-29@671c54bfc","note":"stale: js/monsters.js:709; callers wired do.js:2295 eat.js:1444 makemon.js:1667 wizcmds.js:1740"}
 {"fn":"cvt_adtyp_to_mseenres","c":"1522-1536","status":"unknown"}
 {"fn":"cvt_prop_to_mseenres","c":"1540-1554","status":"unknown"}
 {"fn":"monstseesu","c":"1558-1568","status":"unknown"}

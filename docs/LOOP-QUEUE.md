@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `report.c` crashreport_init — coverage MISSING (C 44 code L `report.c:113–174` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @9798beecd
-- [ ] `rumors.c` init_oracles — coverage THIN (C 12 code L `rumors.c:577–595` / JS 4 code L in js/rumors.js; hops 5, callers 2, RNG 0, msg 0) @9798beecd
-- [ ] `mondata.c` olfaction — coverage PARTIAL (C 9 code L `mondata.c:1507–1518` / JS 6 code L in js/monsters.js; hops 4, callers 4, RNG 0, msg 0) @e028921a0
-- [ ] `rect.c` get_rect — coverage PARTIAL (C 12 code L `rect.c:82–97` / JS 7 code L in js/rect.js; hops 3, callers 2, RNG 0, msg 0) @e028921a0
-- [ ] `o_init.c` disco_output_sorted — coverage THIN (C 11 code L `o_init.c:741–760` / JS 3 code L in js/o_init.js; hops —, callers 1, RNG 0, msg 1) @920907eb7
-- [ ] `ball.c` lift_covet_and_placebc — coverage PARTIAL (C 11 code L `ball.c:236–254` / JS 7 code L in js/ball.js; hops 3, callers 2, RNG 0, msg 0) @73f4a382f
-- [ ] `role.c` Goodbye — coverage PARTIAL (C 11 code L `role.c:2143–2157` / JS 6 code L in js/roles.js; hops 3, callers 2, RNG 0, msg 0) @5b7eef822
-- [ ] `selvar.c` selection_size_description — coverage MISSING (C 11 code L `selvar.c:764–778` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @e32d557c0
-- [ ] `sounds.c` activate_chosen_soundlib — coverage MISSING (C 11 code L `sounds.c:1779–1795` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @30647ba3c
 - [ ] `mondata.c` max_passive_dmg — coverage PARTIAL (C 39 code L `mondata.c:720–767` / JS 28 code L in js/mhitm.js; hops 3, callers 1, RNG 0, msg 0) @cb3b01855
 - [ ] `mklev.c` add_door — coverage PARTIAL (C 25 code L `mklev.c:574–612` / JS 14 code L in js/mklev.js; hops 4, callers 2, RNG 0, msg 0) @ebd112f3b
 - [ ] `mkroom.c` nexttodoor — coverage PARTIAL (C 10 code L `mkroom.c:623–637` / JS 7 code L in js/fountain.js; hops 3, callers 2, RNG 0, msg 0) @ebd112f3b
+- [ ] `mkobj.c` peek_at_iced_corpse_age — coverage PARTIAL (C 9 code L `mkobj.c:2423–2437` / JS 6 code L in js/mkobj.js; hops 4, callers 4, RNG 0, msg 0) @671c54bfc
+- [ ] `light.c` delete_ls — coverage PARTIAL (C 17 code L `light.c:142–165` / JS 9 code L in js/light.js; hops 3, callers 2, RNG 0, msg 0) @671c54bfc
+- [ ] `role.c` pick_race — coverage PARTIAL (C 15 code L `role.c:1081–1102` / JS 10 code L in js/player_selection.js; hops —, callers 2, RNG 1, msg 0) @671c54bfc
+- [ ] `role.c` pick_gend — coverage PARTIAL (C 15 code L `role.c:1146–1167` / JS 10 code L in js/player_selection.js; hops —, callers 2, RNG 1, msg 0) @671c54bfc
+- [ ] `role.c` pick_align — coverage PARTIAL (C 15 code L `role.c:1211–1232` / JS 10 code L in js/player_selection.js; hops —, callers 2, RNG 1, msg 0) @671c54bfc
+- [ ] `do_name.c` objtyp_is_callable — coverage PARTIAL (C 22 code L `do_name.c:429–463` / JS 16 code L in js/do_name.js; hops 5, callers 3, RNG 0, msg 0) @671c54bfc
+- [ ] `cfgfiles.c` choose_random_part — coverage PARTIAL (C 29 code L `cfgfiles.c:464–504` / JS 18 code L in js/cfgfiles.js; hops —, callers 1, RNG 1, msg 0) @671c54bfc
+- [ ] `muse.c` mon_likes_objpile_at — coverage PARTIAL (C 11 code L `muse.c:1395–1415` / JS 7 code L in js/muse.js; hops 2, callers 1, RNG 0, msg 0) @671c54bfc
+- [ ] `pickup.c` pickup_prinv — coverage PARTIAL (C 16 code L `pickup.c:1948–1972` / JS 11 code L in js/pickup.js; hops 3, callers 2, RNG 0, msg 0) @671c54bfc
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

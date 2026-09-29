@@ -4,7 +4,7 @@
 {"fn":"rumor_check","c":"196-302","status":"partial","js":["js/rumors.js:rumor_check"],"omit":"`init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sections); absolute file START offsets (embed has no \"don't edit\" + header bytes; section-relative with true_end == false_start); `dlb_fopen` first-failure + init-fa…","d":["D-2556"],"at":"seed@a30a7de84"}
 {"fn":"get_rnd_text","c":"499-526","status":"ported","js":["js/rumors.js:get_rnd_text"],"d":["D-2962"],"at":"2026-09-27@988c639a6"}
 {"fn":"outrumor","c":"529-574","status":"ported","js":["js/rumors.js:outrumor"],"at":"2026-09-27@988c639a6","note":"stale: js/rumors.js:233"}
-{"fn":"init_oracles","c":"577-595","status":"unknown"}
+{"fn":"init_oracles","c":"577-595","status":"ported","js":["js/rumors.js:init_oracles"],"at":"2026-09-29@671c54bfc","note":"stale: js/rumors.js:449 (embed port, caller wired :481, review 1562 ACCEPT)"}
 {"fn":"save_oracles","c":"598-619","status":"ported","js":["js/rumors.js:save_oracles"],"at":"2026-09-29@29685b8e4","note":"stale: js/rumors.js:530 (JSON-analogue save arm live; NHFILE/free arm architectural omit per in-code doc)"}
 {"fn":"restore_oracles","c":"623-636","status":"unknown"}
 {"fn":"outoracle","c":"640-693","status":"ported","js":["js/rumors.js:outoracle"],"d":["D-2603"],"at":"seed@a30a7de84"}

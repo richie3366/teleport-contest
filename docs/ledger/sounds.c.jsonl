@@ -12,19 +12,19 @@
 {"fn":"whimper","c":"479-515","status":"unknown"}
 {"fn":"beg","c":"519-542","status":"unknown","d":["D-1763"],"at":"seed@a30a7de84"}
 {"fn":"maybe_gasp","c":"546-610","status":"unknown","d":["D-1762"],"at":"seed@a30a7de84"}
-{"fn":"cry_sound","c":"617-655","status":"unknown"}
-{"fn":"mon_is_gecko","c":"659-674","status":"unknown"}
+{"fn":"cry_sound","c":"617-655","status":"ported","js":["js/sounds.js:cry_sound"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
+{"fn":"mon_is_gecko","c":"659-674","status":"ported","js":["js/sounds.js:mon_is_gecko"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
 {"fn":"domonnoise","c":"679-1242","status":"ported","js":["js/sounds.js:domonnoise"],"d":["D-1980","D-1979","D-1978","D-1977","D-1969","D-1808"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"dotalk","c":"1248-1254","status":"unknown"}
+{"fn":"dotalk","c":"1248-1254","status":"ported","js":["js/sounds.js:dotalk"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
 {"fn":"dochat","c":"1257-1409","status":"unknown"}
 {"fn":"responsive_mon_at","c":"1413-1423","status":"unknown"}
 {"fn":"tiphat","c":"1427-1537","status":"ported","js":["js/sounds.js:tiphat"],"d":["D-2522"],"at":"seed@a30a7de84"}
 {"fn":"add_sound_mapping","c":"1556-1626","status":"ported","js":["js/sounds.js:add_sound_mapping"],"d":["D-2776"],"at":"seed@a30a7de84"}
-{"fn":"sound_matches_message","c":"1629-1639","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"play_sound_for_message","c":"1642-1656","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"maybe_play_sound","c":"1659-1673","status":"unknown"}
+{"fn":"sound_matches_message","c":"1629-1639","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out (sounds.c:1539-1691 guard; no -DUSER_SOUNDS); cf js/sounds.js maybe_play_sound doc"}
+{"fn":"play_sound_for_message","c":"1642-1656","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out + zero C callers; cf js/sounds.js maybe_play_sound doc"}
+{"fn":"maybe_play_sound","c":"1659-1673","status":"ported","js":["js/sounds.js:maybe_play_sound"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
 {"fn":"release_sound_mappings","c":"1676-1690","status":"ported","js":["js/sounds.js:release_sound_mappings"],"d":["D-3072"],"at":"2026-09-29@7e25e3c42","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"activate_chosen_soundlib","c":"1779-1795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"activate_chosen_soundlib","c":"1779-1795","status":"ported","js":["js/options.js:activate_chosen_soundlib"],"d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assign_soundlib","c":"1798-1805","status":"unknown"}
 {"fn":"choose_soundlib","c":"1809-1858","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_soundlib_name","c":"1864-1880","status":"unknown"}

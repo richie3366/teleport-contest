@@ -6,7 +6,7 @@
 {"fn":"placebc","c":"193-209","status":"ported","js":["js/ball.js:placebc"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"unplacebc","c":"212-219","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}
 {"fn":"unplacebc_and_covet_placebc","c":"222-233","status":"unknown"}
-{"fn":"lift_covet_and_placebc","c":"236-254","status":"unknown"}
+{"fn":"lift_covet_and_placebc","c":"236-254","status":"ported","js":["js/ball.js:lift_covet_and_placebc"],"at":"2026-09-29@671c54bfc","note":"stale: js/ball.js:544; callers wired end.js:567 mklev.js:18157"}
 {"fn":"Placebc","c":"259-284","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"Unplacebc","c":"287-303","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"Unplacebc_and_covet_placebc","c":"306-324","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3109 — sounds.c activate_chosen_soundlib port + 6 same-file dispositions (coverage)
+
+- **Status:** shipped (Open — coverage; 7-function sounds.c cluster — head MISSING ported + wired, 4 stale siblings, 2 compiled-out by-design; queue head after 9 stale pops — density exception: ~45 js/ insertions; head's file holds nothing more portable-Open — rest is shipped-undeclared, `#ifdef USER_SOUNDS`/`#if 0` compiled out, or 0-line stubs.)
+- **Symptom:** coverage MISSING (C 11 code L `sounds.c:1779–1795` / JS no symbol; hops —, callers 1): startup soundlib switch had no JS home (named omit at js/allmain.js:188). Pop chain this iteration: crashreport_init `blocked:`-prefix (shipped-partial D-3108 kept head by the stable-block verbatim rule — ledger.mjs:295 — with secondary-pool eligibility; omit documents Rule-#2 terminal, no scored follow-up), then init_oracles / olfaction / get_rect / disco_output_sorted / lift_covet_and_placebc / Goodbye stale-ported (bodies complete, all callers wired, reviews 1562/1641 ACCEPT where cited), selvar pair stale-split (look_sel_size_description js/cmd.js:3894 + look_sel_is_irregular :3882, review 179 Match).
+- **C locus:**
+  - `activate_chosen_soundlib`: nethack-c/upstream/src/sounds.c:1779–1795 (idx `:1781`, IndexOk panic `:1783–1784`, exit arm `:1786–1788`, struct copy `:1790`, init `:1791–1792`, active/chosen publish `:1793–1794`); table sounds.c:1726–1776 (nosound-only in contest build), soundprocs BSS global `:1693`; sole scored caller allmain.c:703 init_sound_disp_gamewindows (options.c:3839 + unixmain.c:111 refs are comments).
+  - `mon_is_gecko`: nethack-c/upstream/src/sounds.c:658–674 (staticfn; GECKO-true, LONG_WORM-false, glyph_to_mon fallback); caller :713 domonnoise Hallu arm.
+  - `dotalk`: nethack-c/upstream/src/sounds.c:1247–1253 (#chat entry → dochat); callers cmd.c:1692 extcmd table + :4761 MCMD_TALK cmdq.
+  - `cry_sound`: nethack-c/upstream/src/sounds.c:617–655 (MS_SILENT default + 7 stems); caller timeout.c:1121 hatch_egg.
+  - `maybe_play_sound`: nethack-c/upstream/src/sounds.c:1658–1673 (`#ifdef USER_SOUNDS` :1539–1691; hook-guard + regex walk + Play_usersound); caller pline.c:251 (same guard).
+  - `sound_matches_message`: nethack-c/upstream/src/sounds.c:1628–1639 (staticfn, same USER_SOUNDS guard; soundmap regex walk); callers play_sound_for_message + maybe_play_sound (both guarded out).
+  - `play_sound_for_message`: nethack-c/upstream/src/sounds.c:1641–1656 (same guard; zero C callers anywhere in src/sys).
+- **JS was:** no activate symbol; nosound_procs carried only soundname+id; allmain.js:188 named the omit. Siblings already live: mon_is_gecko js/sounds.js:1243, dotalk :1951, cry_sound :1047, maybe_play_sound :108 (compiled-out no-op stub, D-1807).
+- **Fix:** activate ported in C order into js/options.js next to the D-2785 soundlib family (table + assign/get/id_from_opt live there): idx `|0` (C uint32→int), IndexOk throw ≡ panic (assign_soundlib precedent), `||` exit arm with cmd.js:358 typeof-hook shape, `{...}` struct copy into game.soundprocs (established C-global home), init-hook call, active publish + chosen `>>>0` (uint32_t). nosound_procs extended to the full 11-field C struct shape (sound_triggers 0 + 8 null hooks — behavior-neutral: only reader cmd.js:358 is typeof-guarded). allmain.js imports (imports.mjs: same 100-module SCC, lazy body read + hoisted function export — safe) and calls it at C :703; header omit line retired.
+- **JS:** js/options.js:6649 activate_chosen_soundlib (`:6650` idx, `:6651–6652` panic, `:6653–6656` exit, `:6658` copy, `:6659–6660` init, `:6661–6664` publish), nosound_procs full shape :6600–6613; js/allmain.js:19 import + :188 wire.
+- **Callers:**
+  - `activate_chosen_soundlib`: allmain.c:703→js/allmain.js:188 (init_sound_disp_gamewindows, sync — no RNG in C).
+  - `mon_is_gecko`: sounds.c:713→js/sounds.js:1288 (domonnoise Hallu arm).
+  - `dotalk`: cmd.c:1692→js/getline.js:410–414 (extcmd `chat` table); cmd.c:4761→js/cmd.js:2918 (MCMD_TALK cmdq_add_ec; :1853 mobile map).
+  - `cry_sound`: timeout.c:1121→js/timeout.js:2412 (ing_suffix(cry_sound(mon))).
+  - `maybe_play_sound`: pline.c:251→no JS call (correct: C call is USER_SOUNDS-guarded out; no -DUSER_SOUNDS in contest build).
+  - `sound_matches_message`: callers guarded out → no JS (by-design, USER_SOUNDS compiled out).
+  - `play_sound_for_message`: zero C callers → no JS (by-design, USER_SOUNDS compiled out).
+- **Verify:** `node scripts/verify.mjs --fn activate_chosen_soundlib,mon_is_gecko,dotalk,cry_sound,maybe_play_sound,sound_matches_message,play_sound_for_message` → VERIFY: PASS (syntax 2 files js/allmain.js js/options.js · Rule #2 · hidden notes `no corpus session blocked` ×7 · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS each → REACH-OK ×7 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 auto, shared file).
+- **Named omissions:**
+  - `activate_chosen_soundlib`: none — whole body, panic ≡ throw; SND_LIB_* rows stay compiled out (contest table is nosound-only).
+  - `mon_is_gecko`: none — whole body (mndx-index reads ≡ C pointer compares), sole caller wired.
+  - `dotalk`: none — whole body (async wrapper returns dochat), both call shapes wired.
+  - `cry_sound`: none — whole body (default + 7 stems), sole caller wired.
+  - `maybe_play_sound`: USER_SOUNDS body (hook-guard + soundmap walk + Play_usersound) compiled out — stub is the port.
+  - `sound_matches_message`: whole function compiled out (`#ifdef USER_SOUNDS`, no -DUSER_SOUNDS) — by-design, no scored analogue.
+  - `play_sound_for_message`: whole function compiled out + zero C callers — by-design, no scored analogue.
+- **Ledger:** activate_chosen_soundlib ported; mon_is_gecko ported; dotalk ported; cry_sound ported; maybe_play_sound ported; sound_matches_message by-design; play_sound_for_message by-design
+- **Next:** `mondata.c` max_passive_dmg (next queue head; PARTIAL 39C/28JS in js/mhitm.js).
+
 ## D-3108 — report.c crashreport_init degenerate port + 2 stale pops (coverage)
 
 - **Status:** shipped (Open — coverage; single-function cluster + 2 stale pops — head MISSING C 44 L `report.c:113–174`; no same-file queue rows; only callee raw_printf is a compiled-out BETA arm; new js/report.js ~50 lines — density exception: head's file and callee closure hold nothing more Open.)

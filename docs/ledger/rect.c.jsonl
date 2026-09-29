@@ -1,7 +1,7 @@
 {"fn":"init_rect","c":"29-42","status":"unknown"}
 {"fn":"free_rect","c":"45-51","status":"unknown"}
 {"fn":"get_rect_ind","c":"60-75","status":"unknown"}
-{"fn":"get_rect","c":"82-97","status":"unknown"}
+{"fn":"get_rect","c":"82-97","status":"ported","js":["js/rect.js:get_rect"],"at":"2026-09-29@671c54bfc","note":"stale: js/rect.js:49; callers wired rect.js:112 mklev.js:31400"}
 {"fn":"rnd_rect","c":"104-107","status":"unknown"}
 {"fn":"intersect","c":"116-130","status":"unknown"}
 {"fn":"rect_bounds","c":"134-140","status":"unknown"}
