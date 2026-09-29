@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do_name.c` bogusmon — coverage PARTIAL (C 11 code L `do_name.c:1369–1385` / JS 7 code L in js/do_name.js; hops 3, callers 3, RNG 0, msg 0) @aeb41ef5f
-- [ ] `pickup.c` collect_obj_classes — coverage PARTIAL (C 11 code L `pickup.c:101–118` / JS 7 code L in js/pickup.js; hops 3, callers 3, RNG 0, msg 0) @aeb41ef5f
-- [ ] `dungeon.c` get_dgn_flags — coverage PARTIAL (C 26 code L `dungeon.c:744–778` / JS 16 code L in js/dungeon.js; hops 3, callers 2, RNG 0, msg 0) @d1541778d
-- [ ] `wizcmds.c` wiz_show_wmodes — coverage MISSING (C 26 code L `wizcmds.c:657–689` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @7a7abead6
 - [ ] `options.c` handler_msg_window — coverage PARTIAL (C 45 code L `options.c:5832–5890` / JS 24 code L in js/options.js; hops —, callers 1, RNG 0, msg 2) @22c393674
-- [ ] `wizcmds.c` wiz_objprobs — coverage MISSING (C 25 code L `wizcmds.c:1832–1868` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @9fca9cdda
 - [ ] `dungeon.c` init_dungeon_branches — coverage PARTIAL (C 51 code L `dungeon.c:867–930` / JS 25 code L in js/dungeon.js; hops 3, callers 1, RNG 0, msg 0) @cf7eb9a6b
 - [ ] `read.c` forget — coverage PARTIAL (C 11 code L `read.c:1020–1040` / JS 7 code L in js/read.js; hops 6, callers 1, RNG 1, msg 0) @773e13c9a
 - [ ] `makemon.c` check_mongen_order — coverage MISSING (C 12 code L `makemon.c:1783–1802` / JS no symbol; hops 6, callers 1, RNG 0, msg 0) @773e13c9a
 - [ ] `earlyarg.c` lopt — coverage MISSING (C 47 code L `earlyarg.c:71–144` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @92b27f0c4
 - [ ] `hack.c` rounddiv — coverage PARTIAL (C 15 code L `hack.c:4551–4572` / JS 10 code L in js/eat.js; hops 4, callers 3, RNG 0, msg 0) @92b27f0c4
 - [ ] `pager.c` append_str — coverage PARTIAL (C 15 code L `pager.c:82–104` / JS 9 code L in js/pager.js; hops 2, callers 1, RNG 0, msg 0) @b6b281b0a
+- [ ] `wizcmds.c` makemap_remove_mons — coverage MISSING (C 19 code L `wizcmds.c:110–150` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: makemap_unmakemon) @9798beecd
+- [ ] `region.c` visible_region_summary — coverage PARTIAL (C 22 code L `region.c:674–711` / JS 14 code L in js/region.js; hops —, callers 1, RNG 0, msg 3) @9798beecd
+- [ ] `pline.c` vraw_printf — coverage THIN (C 12 code L `pline.c:563–581` / JS 5 code L in js/display.js; hops 4, callers 1, RNG 0, msg 0) @9798beecd
+- [ ] `report.c` crashreport_init — coverage MISSING (C 44 code L `report.c:113–174` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @9798beecd
+- [ ] `rumors.c` init_oracles — coverage THIN (C 12 code L `rumors.c:577–595` / JS 4 code L in js/rumors.js; hops 5, callers 2, RNG 0, msg 0) @9798beecd
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -986,6 +986,29 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c:2002-2003 "wmode" IFBURIED|AUTOCOMPLETE|WIZMODECMD
+        // → wiz_show_wmodes
+        name: 'wmode',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_show_wmodes } = await import('./wizcmds.js');
+            return wiz_show_wmodes();
+        },
+    },
+    {
+        // C: cmd.c:1977-1978 "wizobjprobs" IFBURIED|WIZMODECMD
+        // (no AUTOCOMPLETE; #if DEVEL||DEBUG — live: patchlevel.h:36
+        // defines DEBUG) → wiz_objprobs
+        name: 'wizobjprobs',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_objprobs } = await import('./wizcmds.js');
+            return wiz_objprobs();
+        },
+    },
+    {
         name: 'monster',
         wiz: false,
         autocomplete: true,

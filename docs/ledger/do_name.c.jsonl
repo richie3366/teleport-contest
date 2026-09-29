@@ -41,7 +41,7 @@
 {"fn":"pmname","c":"1303-1308","status":"unknown"}
 {"fn":"mon_pmname","c":"1313-1317","status":"unknown"}
 {"fn":"obj_pmname","c":"1321-1359","status":"ported","js":["js/do_name.js:obj_pmname"],"d":["D-2887"],"at":"seed@a30a7de84"}
-{"fn":"bogusmon","c":"1369-1385","status":"unknown"}
+{"fn":"bogusmon","c":"1369-1385","status":"ported","js":["js/do_name.js:bogusmon"],"at":"2026-09-29@9798beecd","note":"stale: js/do_name.js:279, callers do_name.js:308,1736 + mcastu.js:726"}
 {"fn":"rndmonnam","c":"1389-1411","status":"ported","js":["js/do_name.js:rndmonnam"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"bogon_is_pname","c":"1415-1420","status":"unknown"}
 {"fn":"roguename","c":"1424-1439","status":"unknown","d":["D-2088"],"at":"seed@a30a7de84"}

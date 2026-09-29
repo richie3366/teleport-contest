@@ -17,7 +17,7 @@
 {"fn":"pick_level","c":"632-643","status":"unknown"}
 {"fn":"indent","c":"651-655","status":"by-design","d":["D-3001"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"place_level","c":"666-705","status":"ported","js":["js/dungeon.js:place_level"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"get_dgn_flags","c":"744-778","status":"unknown"}
+{"fn":"get_dgn_flags","c":"744-778","status":"ported","js":["js/dungeon.js:get_dgn_flags"],"at":"2026-09-29@9798beecd","note":"stale: js/dungeon.js:442 (C staticfn, local correct), callers dungeon.js:741,875"}
 {"fn":"get_dgn_align","c":"781-794","status":"ported","js":["js/dungeon.js:get_dgn_align"],"d":["D-3072"],"at":"2026-09-29@7e25e3c42","note":"stale: js/dungeon.js:474, callers wired :740/:872"}
 {"fn":"init_dungeon_levels","c":"797-864","status":"ported","js":["js/dungeon.js:init_dungeon_levels"],"d":["D-2864"],"at":"seed@a30a7de84"}
 {"fn":"init_dungeon_branches","c":"867-930","status":"unknown"}

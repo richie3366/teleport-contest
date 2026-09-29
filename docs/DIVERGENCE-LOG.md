@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3100 — wizcmds.c wiz_show_wmodes + wiz_objprobs: wizard dump pair + # runners (coverage)
+
+- **Status:** shipped (Open — coverage; 2-function wizcmds.c cluster, ~134 js/ insertions. Queue heads bogusmon, collect_obj_classes, get_dgn_flags brief-proven stale-complete → `ledger.mjs set … ported` with stale notes, next MISSING rows shipped same iteration.)
+- **Symptom:** coverage — both absent from `js/` (no symbol, 0 C references each — extcmd-table-dispatched wizard debug dumps). `#wmode` (wall-mode map) and `#wizobjprobs` (object probability table) did not exist.
+- **C locus:**
+  - `wiz_show_wmodes`: nethack-c/upstream/src/wizcmds.c:656–689 (istty `:663`, tty blank `:666–667`, cell arms `:671–680`, &row[1] `:682–684`, display/destroy `:686–688`); dispatch cmd.c:2002–2003 "wmode" IFBURIED|AUTOCOMPLETE|WIZMODECMD.
+  - `wiz_objprobs`: nethack-c/upstream/src/wizcmds.c:1831–1868 (oclass init `:1838`, totals `:1841–1843`, placeholder skip `:1847–1849`, class break `:1851–1854`, Snprintf `:1856–1862`, display/destroy `:1864–1867`); dispatch cmd.c:1977–1978 "wizobjprobs" IFBURIED|WIZMODECMD, no AUTOCOMPLETE, `#if DEVEL||DEBUG` (live: patchlevel.h:36 defines DEBUG).
+- **JS was:** no symbol for either; no EXT_CMDS runners.
+- **Fix:** new async exports in C order with per-arm `:line` cites. wmodes: constant-true istty gate in C position (scored port is tty — options.js windowport_tty() idiom), `game.level.at` cells with STONE unloaded-guard (wiz_map_levltyp idiom), verbatim 5-arm chain via live IS_WALL/SDOOR/CORR/IS_ROOM/IS_DOOR/WM_MASK (const.js enum verified identical to rm.h, STONE=0 both sides — `IS_WALL(0)` false in C and JS alike, so STONE renders 'x' in both), &row[1]≡x=1..79 run (wiz_show_vision idiom), show_text_pages NHW_TEXT idiom. objprobs: game.objects totals loop, OBJ_NAME≡generated objectNameStrs (null≡placeholder skip before the class-break test), Math.fround C-float division + padStart widths for "%4d / %4d (%6.2f%%): %s". Bodies + EXT_CMDS runners ship together (unlike D-3085, whose missing runners became review-2045 Must-fix D-3092).
+- **JS:** js/wizcmds.js:2243 wiz_show_wmodes, js/wizcmds.js:2297 wiz_objprobs (const.js + objects.js imports extended — no new module edges; imports.mjs: objects.js ALREADY); js/getline.js:991 'wmode' (wiz, autocomplete), js/getline.js:1003 'wizobjprobs' (wiz, no autocomplete); scripts/wmode-wizobjprobs-runners.test.mjs (D-3092 pattern).
+- **Callers:**
+  - `wiz_show_wmodes`: C extcmd table only (0 references) → JS getline.js:991 `#wmode` runner wired; generated EXTCMDLIST "wmode" row + EXT_CMD_AC entry pre-exist, so typed-`#` resolution is complete.
+  - `wiz_objprobs`: C extcmd table only (0 references) → JS getline.js:1003 `#wizobjprobs` runner wired; no EXT_CMD_AC entry (C has no AUTOCOMPLETE — correct); generated EXTCMDLIST row absent (extractor skips `#if DEVEL||DEBUG` rows — same dormant-runner state as wizmondiff/wizdispmacros, named).
+- **Verify:**
+  - `wiz_show_wmodes`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed). /tmp/wizcapture2.mjs (loader-stubbed pager): 22 captured lines — tty blank top, 79-char rows, wall '5'/sdoor '2'/#/././x arms + '@' hero + STONE→'x' all match C.
+  - `wiz_objprobs`: note hidden (no corpus session blocked); REACH-OK (smoke spread 24 run, 24 PASS, 0 regressed). All 455 captured lines byte-identical to a C program using the exact `:1856` Snprintf + `:1859–1860` float arithmetic (diff empty).
+  - Shared: `PASS syntax (2 changed js files) · PASS rule2 · PASS green 2/2 · PASS strict x2 · PASS cohort 7/7 · VERIFY: PASS`. `node --test scripts/wmode-wizobjprobs-runners.test.mjs` 3/3 pass.
+- **Named omissions:**
+  - `wiz_show_wmodes`: none in-body — whole body, every callee/macro live.
+  - `wiz_objprobs`: none in-body — whole body live; typed-`#` exact resolution needs the generated EXTCMDLIST row (extractor DEBUG=False premise excludes it; cmdbind path via extcmd_run_by_txt live; same state as the ACCEPTed wizmondiff/wizdispmacros runners).
+- **Ledger:** wiz_show_wmodes ported; wiz_objprobs ported
+- **Next:** extractor DEBUG-premise revisit (would activate typed-`#` for the three dormant DEVEL runners) — out of cluster scope, needs its own iteration.
+
 ## D-3099 — selvar.c selection_getbounds: canonical export, 3 clones retired, 16 C sites wired (coverage)
 
 - **Status:** shipped (Open — coverage head `selvar.c` selection_getbounds PARTIAL; 1-function cluster, 72 js/ insertions — below the ~80 density line, excused per D-3098 precedent: sole selvar.c Open row in the generated block and the callee closure is ported — selection_recalc_bounds ok D-2696.)

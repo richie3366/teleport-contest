@@ -1,5 +1,5 @@
 {"fn":"simple_look","c":"76-98","status":"unknown"}
-{"fn":"collect_obj_classes","c":"101-118","status":"unknown"}
+{"fn":"collect_obj_classes","c":"101-118","status":"ported","js":["js/pickup.js:collect_obj_classes"],"at":"2026-09-29@9798beecd","note":"stale: js/pickup.js:367, callers pickup.js:3481 + invent.js:1734,1938"}
 {"fn":"query_classes","c":"141-262","status":"unknown"}
 {"fn":"u_safe_from_fatal_corpse","c":"273-281","status":"unknown"}
 {"fn":"fatal_corpse_mistake","c":"285-299","status":"unknown"}

@@ -24,6 +24,7 @@ import {
     ENERGY_REGENERATION, PROTECTION, PROT_FROM_SHAPE_CHANGERS,
     POLYMORPH_CONTROL, UNCHANGING, REFLECTING, FREE_ACTION, FIXED_ABIL,
     LIFESAVED, Upolyd, COLNO, ROWNO, STONE, S_sink, S_fountain, S_vbeam, S_rslant,
+    SDOOR, CORR, IS_WALL, IS_ROOM, IS_DOOR, WM_MASK,
     COULD_SEE, IN_SIGHT, TEMP_LIT, NEUTRAL,
     In_sokoban, Is_knox, In_endgame, ARM, u_at,
     Is_stronghold, Is_botlevel, has_mgivenname, MGIVENNAME,
@@ -54,7 +55,7 @@ import { mons, olfaction, NUMMONS, nonliving } from './monsters.js';
 import { PM_GRID_BUG, PM_SAMURAI, pmnames } from './generated/monsters_data.js';
 /* C mondata.c mstrength — hoisted fn (`imports.mjs --can wizcmds.js mondata.js mstrength` SAFE). */
 import { mstrength } from './mondata.js';
-import { NUM_OBJECTS } from './objects.js';
+import { NUM_OBJECTS, FIRST_OBJECT, MAXOCLASSES, objectNameStrs } from './objects.js';
 /* C dungeon.c overview_stats — hoisted fn
    (`imports.mjs --can wizcmds.js dungeon.js overview_stats` SAFE). */
 import { overview_stats, on_level } from './dungeon.js';
@@ -2225,4 +2226,112 @@ export async function wiz_kill() {
     }
     await dmonsfree(); // C `:343` — force dead-monster cleanup
     return ECMD_OK; // C `:345` — no time elapses
+}
+
+// ── wiz_show_wmodes / wiz_objprobs ──
+/**
+ * C ref: wizcmds.c wiz_show_wmodes `:656–689` — wizard `#wmode` dump
+ * (cmd.c extcmdlist "wmode" `:2002–2003`, IFBURIED|AUTOCOMPLETE|WIZMODECMD
+ * → EXT_CMDS runnable entry in getline.js) of wall-info modes: '@' at
+ * the hero, '0'+(wall_info&WM_MASK) on walls/secret doors, '#' on
+ * corridors, '.' on rooms/doors, 'x' elsewhere. NHW_TEXT via
+ * show_text_pages (file idiom): each C putstr is one collected line;
+ * display_nhwindow/destroy_nhwindow subsume into the page wait. C has
+ * no callers (dispatched from the extcmd table only) — the JS caller
+ * is the getline.js `#wmode` runner.
+ */
+export async function wiz_show_wmodes() {
+    const { show_text_pages } = await import('./pager.js');
+    // C `:663` — boolean istty = WINDOWPORT(tty). The scored port is
+    // tty (options.js windowport_tty() unconditionally true; bones.js
+    // idiom), so the gate is a constant, kept in C position.
+    const istty = true;
+    const lines = []; // C `:665` win = create_nhwindow(NHW_TEXT)
+    if (istty)
+        lines.push(''); // C `:666–667` putstr(win, 0, "") — tty blank top line
+    // C `:668` — for (y = 0; y < ROWNO; y++).
+    for (let y = 0; y < ROWNO; y++) {
+        // C `:669–681` — row[x] per cell for x in 0..COLNO-1, but C
+        // `:684` prints &row[1] (column 0 is off the left screen
+        // edge), so JS builds that same run directly (wiz_show_vision
+        // idiom).
+        let row = '';
+        for (let x = 1; x < COLNO; x++) {
+            const lev = game.level?.at(x, y); // C `:670` lev = &levl[x][y]
+            // C cells always exist; STONE is the JS unloaded-level
+            // guard (wiz_map_levltyp idiom).
+            const typ = lev?.typ ?? STONE;
+            if (u_at(x, y)) { // C `:671–672`
+                row += '@';
+            } else if (IS_WALL(typ) || typ === SDOOR) { // C `:673–674`
+                // C `:674` '0' + (lev->wall_info & WM_MASK).
+                row += String.fromCharCode(48 + (((lev?.wall_info || 0) & WM_MASK)));
+            } else if (typ === CORR) { // C `:675–676`
+                row += '#';
+            } else if (IS_ROOM(typ) || IS_DOOR(typ)) { // C `:677–678`
+                row += '.';
+            } else { // C `:679–680`
+                row += 'x';
+            }
+        }
+        // C `:682–684` — row[COLNO] = '\0'; putstr(win, 0, &row[1]).
+        lines.push(row);
+    }
+    // C `:686–687` — display_nhwindow(win, TRUE); destroy_nhwindow(win).
+    await show_text_pages(lines);
+    return ECMD_OK; // C `:688`
+}
+
+/**
+ * C ref: wizcmds.c wiz_objprobs `:1831–1868` — wizard `#wizobjprobs`
+ * dump (cmd.c extcmdlist "wizobjprobs" `:1977–1978`,
+ * IFBURIED|WIZMODECMD, no AUTOCOMPLETE; the `#if DEVEL||DEBUG` guard
+ * is live — patchlevel.h:36 defines DEBUG — so the row ships like
+ * wizmondiff; → EXT_CMDS runnable entry in getline.js) of
+ * per-object generation probabilities: "%4d / %4d (%6.2f%%): %s"
+ * per named object with a blank line before each new object class.
+ * NHW_TEXT via show_text_pages (file idiom). C has no callers
+ * (dispatched from the extcmd table only) — the JS caller is the
+ * getline.js `#wizobjprobs` runner.
+ */
+export async function wiz_objprobs() {
+    const { show_text_pages } = await import('./pager.js');
+    const objs = game.objects || []; // C `objects[]` global
+    // C `:1838` — oclass starts at the first object's class so the
+    // first named row prints no leading blank line.
+    let oclass = objs[FIRST_OBJECT]?.oc_class | 0;
+    // C `:1839` — memset(probsum, 0, sizeof probsum).
+    const probsum = new Array(MAXOCLASSES).fill(0);
+    // C `:1841–1843` — class totals over every otyp, placeholders
+    // included (their oc_prob is 0, so they add nothing).
+    for (let otyp = FIRST_OBJECT; otyp < NUM_OBJECTS; otyp++) {
+        probsum[objs[otyp]?.oc_class | 0] += objs[otyp]?.oc_prob | 0;
+    }
+    const lines = []; // C `:1845` win = create_nhwindow(NHW_TEXT)
+    // C `:1846–1863`.
+    for (let otyp = FIRST_OBJECT; otyp < NUM_OBJECTS; otyp++) {
+        // C `:1847–1849` — placeholders for extra descriptions carry
+        // no name (OBJ_NAME(objclass.h:190) ≡ generated
+        // objectNameStrs, null there); skip before the class-break
+        // test so the blank line tracks named rows only.
+        const name = objectNameStrs[otyp];
+        if (!name)
+            continue;
+        // C `:1851–1853` — blank line before a new class's first row.
+        if ((objs[otyp]?.oc_class | 0) !== oclass)
+            lines.push('');
+        oclass = objs[otyp]?.oc_class | 0; // C `:1854`
+        // C `:1856–1862` — "%4d / %4d (%6.2f%%): %s". The division is
+        // C float (Math.fround), the widths padStart (no truncation
+        // either side: %4d/%6.2f never truncate).
+        const prob = objs[otyp]?.oc_prob | 0;
+        const total = probsum[oclass] | 0;
+        const pct = Math.fround((prob * 100) / total).toFixed(2);
+        lines.push(
+            `${String(prob).padStart(4)} / ${String(total).padStart(4)} (${pct.padStart(6)}%): ${name}`,
+        );
+    }
+    // C `:1864–1865` — display_nhwindow(win, FALSE); destroy_nhwindow(win).
+    await show_text_pages(lines);
+    return ECMD_OK; // C `:1867`
 }
