@@ -101,8 +101,8 @@
 {"fn":"pick_animal","c":"4855-4869","status":"ported","js":["js/makemon.js:pick_animal"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/makemon.js:1206; mon.c:5190->makemon.js:1420 wired"}
 {"fn":"decide_to_shapeshift","c":"4872-4938","status":"unknown","d":["D-2254"],"at":"seed@a30a7de84"}
 {"fn":"pickvampshape","c":"4941-4979","status":"unknown"}
-{"fn":"isspecmon","c":"4983-4987","status":"ported","js":["js/makemon.js:isspecmon"],"d":["D-3096"],"at":"2026-09-29@cf7eb9a6b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"validspecmon","c":"4993-5011","status":"ported","js":["js/makemon.js:validspecmon"],"d":["D-3096"],"at":"2026-09-29@cf7eb9a6b"}
+{"fn":"isspecmon","c":"4983-4987","status":"ported","js":["js/makemon.js:isspecmon"],"d":["D-3096"],"at":"2026-09-29@1a48fe148","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"validspecmon","c":"4993-5011","status":"ported","js":["js/makemon.js:validspecmon"],"d":["D-3096"],"at":"2026-09-29@1a48fe148"}
 {"fn":"valid_vampshiftform","c":"5015-5023","status":"unknown"}
 {"fn":"validvamp","c":"5028-5075","status":"unknown"}
 {"fn":"wiz_force_cham_form","c":"5078-5154","status":"unknown","d":["D-2245"],"at":"seed@a30a7de84"}
