@@ -1,5 +1,67 @@
 # Divergence log
 
+## D-3113 — `report.c` NH_panictrace_libc + NH_panictrace_gdb + crashreport_bidshow + dobugreport + swr_add_uricoded + panictrace_handler (6× same-file closure)
+
+- **Status:** fixed (Open — coverage row `report.c` NH_panictrace_libc + 5 same-file Open companions; cites no review — no stamp needed; ~183 js/ insertions: whole-file closure of what's portable — submit_web_report/setsignals by-design, get_saved_pline ported D-3031, init partial D-3108).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on all six: no corpus session blocked at baseline — crash-report/panictrace paths never run in play).
+- **C locus:**
+  - `NH_panictrace_libc`: `nethack-c/upstream/src/report.c:484–512` (`#if 0` `:487–490`, `#ifdef PANICTRACE_LIBC` backtrace arm `:492–508`, compiled `#else` `:510`).
+  - `NH_panictrace_gdb`: `nethack-c/upstream/src/report.c:528–560` (`#ifdef PANICTRACE_GDB` gdb/popen arm `:531–556`, compiled `#else` `:558`).
+  - `crashreport_bidshow`: `nethack-c/upstream/src/report.c:188–200` (WIN32 helper arm `:191–193`, `raw_print(bid)` `:195`, WIN32notyet `:196–198`).
+  - `dobugreport`: `nethack-c/upstream/src/report.c:460–471` (`!submit_web_report` gate `:463`, fallback pline `:464–468`, `ECMD_OK` `:470`).
+  - `swr_add_uricoded`: `nethack-c/upstream/src/report.c:236–281` (verbatim arm `:244–247`, space `:248–251`, `rem<=3` `:253–257`, `%02X` `:262–267`, `in++`/zero-gate `:271–276`, normal return `:280`).
+  - `panictrace_handler`: `nethack-c/upstream/src/report.c:599–622` (CURSES arm `:605–617`, `write(2)` `:619`, `NH_abort` `:621`).
+- **JS was:** all six MISSING — no JS symbols. earlyarg.js `ARG_BIDSHOW` carried a named omission; `#bugreport` had only its generated EXTCMDLIST row (no runner, no reverse entry).
+- **Fix:** six new exports in js/report.js in C order with per-arm cites. `NH_panictrace_libc`/`NH_panictrace_gdb` return `false`: the compiled arms — neither `PANICTRACE_LIBC` nor `PANICTRACE_GDB` is ever `-D`-defined (no define in sys/unix Makefiles or hints; sysconf values are only the end.c runtime priorities) and the `#if 0` block is dead in C. `crashreport_bidshow` documents the compiled-out WIN32 arms and names the `raw_print(bid)` sink (no pre-window stdout channel — D-2573 — and routing through `raw_printf` would invent handler/count effects C lacks). `dobugreport` is async only because pline is: the by-design `submit_web_report` always fails, so the fallback pline with `crashreporturl`-or-`DEVTEAM_URL` is the only reachable outcome, returning live `ECMD_OK`. `swr_add_uricoded` ports the whole pure body (C out-params as one `{ text, rem, mark }` cursor; `TextEncoder` bytes; signed-char `%02X` incl. 8-digit sign-extension; `!rem` exact-zero gate; rollback zeroes `rem` per C). `panictrace_handler` cites the compiled-out CURSES arm and names `write(2)` + by-design `NH_abort` (no invented throw). New edges: report.js → display.js (pline), const.js, gstate.js (all call-time, cycle-free — display/const/gstate import none of cmd/earlyarg/report); earlyarg.js → report.js (bidshow); cmd.js → report.js (FUNCT_TXT binding only).
+- **JS:** js/report.js (+172/−7 incl. header/imports), js/earlyarg.js (+2/−1), js/cmd.js (+2), js/getline.js (+6).
+- **Callers:**
+  - `NH_panictrace_libc`: end.c:1921,1923 (`NH_abort`) → by-design unported (C runtime) — exported unwired, named.
+  - `NH_panictrace_gdb`: end.c:1920,1924 (`NH_abort`) → same, named.
+  - `crashreport_bidshow`: earlyarg.c:543 → js/earlyarg.js:703 call in the `ARG_BIDSHOW` arm (named omission replaced; still returns 2). No call from a site C never calls from.
+  - `dobugreport`: cmd.c:1685 extcmd row → generated EXTCMDLIST `bugreport` row (pre-existing) + new EXT_CMDS runner js/getline.js:1123 (lazy import, C position after autopickup) + new FUNCT_TXT reverse entry js/cmd.js:1832. Flags GENERALCMD|NOFUZZERCMD, no AUTOCOMPLETE → `wiz: false, autocomplete: false`.
+  - `swr_add_uricoded`: sole caller `submit_web_report` by-design — exported unwired, named.
+  - `panictrace_handler`: 0 C references (installed only by by-design `panictrace_setsignals`) — exported unwired, named.
+- **Verify:** `node scripts/verify.mjs --fn NH_panictrace_libc,NH_panictrace_gdb,crashreport_bidshow,dobugreport,swr_add_uricoded,panictrace_handler` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   4 changed js file(s): js/cmd.js js/earlyarg.js js/getline.js js/report.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify NH_panictrace_libc: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    NH_panictrace_libc: no RNG-tagged reach; fixed smoke spread (24 run, 6.5s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify NH_panictrace_gdb: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    NH_panictrace_gdb: no RNG-tagged reach; fixed smoke spread (24 run, 6.6s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify crashreport_bidshow: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    crashreport_bidshow: no RNG-tagged reach; fixed smoke spread (24 run, 6.5s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify dobugreport: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    dobugreport: no RNG-tagged reach; fixed smoke spread (24 run, 6.7s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify swr_add_uricoded: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    swr_add_uricoded: no RNG-tagged reach; fixed smoke spread (24 run, 6.5s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify panictrace_handler: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    panictrace_handler: no RNG-tagged reach; fixed smoke spread (24 run, 6.5s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Plus: full public `sessions` 44/44 PASS (dispatch tables touched — run explicitly); differential probe of `swr_add_uricoded` vs the verbatim pinned-C body compiled with cc (`/tmp/swr_probe.mjs`, 15 vectors incl. `%FFFFFFC3` sign-extension, mark rollback, exact-zero gate): ALL MATCH.
+- **Named omissions:**
+  - `NH_panictrace_libc`: none — whole body; the compiled arm is `return FALSE` (`:510`).
+  - `NH_panictrace_gdb`: none — whole body; the compiled arm is `return FALSE` (`:558`).
+  - `crashreport_bidshow`: report.c:195 `raw_print(bid)` sink (no pre-window stdout channel in dual-runtime ESM — D-2573).
+  - `dobugreport`: report.c:463 `submit_web_report` send (by-design network, Rule #2); the pline fallback + `ECMD_OK` are live.
+  - `swr_add_uricoded`: none — whole body, every line live (differentially verified against C).
+  - `panictrace_handler`: report.c:619 `write(2, SIG_MSG)` (no fd I/O, Rule #2) + report.c:621 `NH_abort` (by-design C runtime).
+- **Ledger:** NH_panictrace_libc ported; NH_panictrace_gdb ported; crashreport_bidshow partial; dobugreport partial; swr_add_uricoded ported; panictrace_handler partial
+- **Next:** report.c now holds nothing more Open (submit_web_report/setsignals by-design; get_saved_pline ported; init/bidshow/dobugreport/handler partial on Rule #2/by-design grounds only) — pop the next coverage row.
+
 ## D-3112 — `version.c` copyright_banner_line + dump_version_info + get_critical_size_count (3× MISSING→whole; queue head stale)
 
 - **Status:** fixed (Open — coverage row `version.c` copyright_banner_line; cites no review — no stamp needed; density note ~71 js/ insertions: version.c holds nothing more Open — rest ported/partial/measured-ok/by-design — and the callee closure is live).

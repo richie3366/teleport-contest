@@ -27,6 +27,7 @@ import { ENUMDUMP_CMAP, ENUMDUMP_MON_SYMS, ENUMDUMP_MON_DEFCHARS, ENUMDUMP_OC_DE
 import { MCASTU_SPELL_DEFS } from './mcastu.js';
 import { MAXSPELL } from './spell.js';
 import { dump_mongen } from './makemon.js';
+import { crashreport_bidshow } from './report.js';
 // imports.mjs --can: earlyarg.js has no importers, so these edges cannot
 // close a cycle. version.js stays a leaf (const.js reads it at load);
 // early_version_info lives here so it can call raw_printf.
@@ -699,7 +700,7 @@ export function argcheck(argc, argv, eArg) {
         // Named omission: hack.c:4421 dump_weights.
         return 2;
     case ARG_BIDSHOW: // C `:542–544` under CRASHREPORT
-        // Named omission: report.c:189 crashreport_bidshow (hashes the binary).
+        crashreport_bidshow(); // C `:543` (report.c:189; js/report.js)
         return 2;
     default:
         break;

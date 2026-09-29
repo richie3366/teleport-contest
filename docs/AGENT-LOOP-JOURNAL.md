@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3113 `report.c` NH_panictrace_libc + NH_panictrace_gdb + crashreport_bidshow + dobugreport + swr_add_uricoded + panictrace_handler (6× same-file closure)
+
+**C locus:** - `NH_panictrace_libc`: `nethack-c/upstream/src/report.c:484–512` (`#if 0` `:487–490`, `#ifdef PANICTRACE_LIBC` backtrace arm `:492–508`, compiled `#else` `:510`).
+**JS:** js/report.js (+172/−7 incl. header/imports), js/earlyarg.js (+2/−1), js/cmd.js (+2), js/getline.js (+6).
+**Change:** six new exports in js/report.js in C order with per-arm cites. `NH_panictrace_libc`/`NH_panictrace_gdb` return `false`: the compiled arms — neither `PANICTRACE_LIBC` nor `PANICTRACE_GDB` is ever `-D`-defined (no define in sys/unix Makefiles or hints; sysconf values are only the end.c runtime priorities) and the `#if 0` block is dead in C. `crashreport_bidshow` documents the compiled-out WIN32 arms and names the `raw_print(bid)` sink (no pre-window stdout channel — D-2573 — and routing through `raw_printf` would invent handler/count effects C lacks).
+**Verify:** `node scripts/verify.mjs --fn NH_panictrace_libc,NH_panictrace_gdb,crashreport_bidshow,dobugreport,swr_add_uricoded,panictrace_handler` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `NH_panictrace_libc`: none — whole body; the compiled arm is `return FALSE` (`:510`).
+**Next:** report.c now holds nothing more Open (submit_web_report/setsignals by-design; get_saved_pline ported; init/bidshow/dobugreport/handler partial on Rule #2/by-design grounds only) — pop the next coverage row.
 ## 2026-09-29 — D-3112 `version.c` copyright_banner_line + dump_version_info + get_critical_size_count (3× MISSING→whole; queue head stale)
 
 **C locus:** - `copyright_banner_line`: `nethack-c/upstream/src/version.c:471–490` (A `:473–475`, B `:477–479`, runtime C `:482–483`, D `:485–487`, `""` `:488`; all four `#ifdef`s live — patchlevel.h:39–44).

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `report.c` NH_panictrace_libc — coverage MISSING (C 13 code L `report.c:485–512` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: submit_web_report) @d27c7b945
 - [ ] `options.c` test_regex_pattern — coverage THIN (C 18 code L `options.c:7871–7901` / JS 7 code L in js/options.js; hops —, callers 4, RNG 0, msg 0) @d27c7b945
 - [ ] `dog.c` mon_leave — coverage PARTIAL (C 15 code L `dog.c:729–763` / JS 7 code L in js/dog.js; hops 3, callers 2, RNG 0, msg 0) @d27c7b945
 - [ ] `region.c` add_rect_to_reg — coverage PARTIAL (C 17 code L `region.c:133–155` / JS 9 code L in js/region.js; hops 4, callers 4, RNG 0, msg 0) @d27c7b945
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `dbridge.c` get_wall_for_db — coverage PARTIAL (C 13 code L `dbridge.c:211–227` / JS 7 code L in js/dbridge.js; hops 4, callers 4, RNG 0, msg 0) @d27c7b945
 - [ ] `botl.c` query_arrayvalue — coverage MISSING (C 22 code L `botl.c:2747–2781` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @b43d7bb86
 - [ ] `botl.c` status_hilite_menu_choose_field — coverage MISSING (C 22 code L `botl.c:3672–3704` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @b43d7bb86
+- [ ] `botl.c` splitsubfields — coverage THIN (C 28 code L `botl.c:2688–2727` / JS 9 code L in js/botl.js; hops —, callers 3, RNG 0, msg 0) @caf637f80
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
