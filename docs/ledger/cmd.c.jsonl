@@ -73,7 +73,7 @@
 {"fn":"get_changed_key_binds","c":"2235-2287","status":"unknown","d":["D-2550"],"at":"seed@a30a7de84"}
 {"fn":"handler_rebind_keys_add","c":"2291-2405","status":"ported","js":["js/cmd.js:handler_rebind_keys_add"],"at":"2026-09-28@34c78a6ac","note":"stale: js/cmd.js:2122"}
 {"fn":"handler_rebind_keys","c":"2408-2446","status":"partial","js":["js/cmd.js:handler_rebind_keys"],"omit":"`bind->param` store (overlay is name-only; CMD_PARAM display already named in `dokeylist.js` header); C key-0+param NULL-deref crash path (JS stays total); `commands_init`/`reset_commands` `cmdbind_add`/`_remove` callers (pre-existing equivalents); C `Strcat`-onto-uninit wart read as assignment.","d":["D-2762"],"at":"seed@a30a7de84"}
-{"fn":"handler_change_autocompletions","c":"2449-2515","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"handler_change_autocompletions","c":"2449-2515","status":"ported","js":["js/cmd.js:handler_change_autocompletions"],"d":["D-3079"],"at":"2026-09-29@260932ce5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"extcmds_match","c":"2523-2558","status":"unknown"}
 {"fn":"key2extcmddesc","c":"2561-2621","status":"unknown","d":["D-2702"],"at":"seed@a30a7de84"}
 {"fn":"bind_mousebtn","c":"2624-2659","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -92,7 +92,7 @@
 {"fn":"bind_specialkey","c":"3194-3205","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spkey_name","c":"3208-3220","status":"ported","js":["js/dokeylist.js:spkey_name"],"d":["D-3028"],"at":"2026-09-28@759e72748","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"key2txt","c":"3225-3240","status":"ported","js":["js/dokeylist.js:key2txt"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2"}
-{"fn":"parseautocomplete","c":"3244-3292","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"parseautocomplete","c":"3244-3292","status":"partial","js":["js/cmd.js:parseautocomplete"],"omit":"- `handler_change_autocompletions`: none in-body — whole body; window layer via live select_menu_pick_any, sole C callee parseautocomplete live.","d":["D-3079"],"at":"2026-09-29@260932ce5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_autocomplete","c":"3296-3308","status":"unknown"}
 {"fn":"count_autocompletions","c":"3312-3322","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lock_mouse_buttons","c":"3326-3340","status":"ported","js":["js/cmd.js:lock_mouse_buttons"],"d":["D-3006"],"at":"2026-09-28@92e07989a","note":"refresh: no JS symbol (measured MISSING)"}

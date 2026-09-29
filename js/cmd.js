@@ -17,7 +17,7 @@ import {
     glyph_is_warning, unmap_object, map_object,
     look_shown_at, Norep, tty_doprev_message, putmsghistory,
     unmap_invisible, map_invisible, custompline,
-    Hallucination,
+    Hallucination, raw_printf,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN, SCORR, LAVAWALL,
@@ -29,7 +29,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, DOMOVE_RUSH, DOMOVE_WALK,
          CMDQ_EXTCMD, CMDQ_KEY, CMDQ_DIR, CMDQ_USER_INPUT, CQ_CANNED, CQ_REPEAT,
          IFBURIED, WIZMODECMD, NOFUZZERCMD, PREFIXCMD, MOVEMENTCMD,
-         AUTOCOMPLETE, CMD_NOT_AVAILABLE, INTERNALCMD, GENERALCMD,
+         AUTOCOMPLETE, CMD_NOT_AVAILABLE, INTERNALCMD, GENERALCMD, AUTOCOMP_ADJ,
          CMD_M_PREFIX, CMD_gGF_PREFIX, CMD_INSANE, QBUFSZ, BUFSZ,
          xdir, ydir, zdir, xytodir, N_DIRS, N_MOVEMODES, DIR_W, DIR_N, DIR_E, DIR_S,
          DIR_NW, DIR_NE, DIR_SE, DIR_SW,
@@ -79,7 +79,7 @@ import { donull, dodown, doup, dodrop, doddrop, reset_occupations } from './do.j
 import { dosave, dosave0 } from './save.js';
 import { clearlocks } from './files.js';
 import { nh_terminate } from './end.js';
-import { doset_simple, dotogglepickup, toggle_bool_option, select_menu_pick_one, strbuf_append } from './options.js';
+import { doset_simple, dotogglepickup, toggle_bool_option, select_menu_pick_one, select_menu_pick_any, strbuf_append } from './options.js';
 import {
     do_attack, mon_at, is_safemon, explum, attacktype_fordmg,
     defsym_explanation, stumble_onto_mimic,
@@ -89,7 +89,7 @@ import { rehumanize, body_part, domonability } from './polyself.js';
 import { Levitation, Flying } from './mhitu.js';
 import { doopen, doopen_indir, doclose, doforce } from './lock.js';
 import { doextcmd, getlin, mungspaces, extcmd_run_by_txt, paranoid_query } from './getline.js';
-import { strstri, strsubst, upstart } from './hacklib.js';
+import { strstri, strsubst, upstart, trimspaces } from './hacklib.js';
 import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, doddoremarm, dowear, doputon, doremring, remarm_swapwep, ia_dotakeoff } from './do_wear.js';
 import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
@@ -2249,6 +2249,120 @@ export async function handler_rebind_keys() {
             await show_text_pages(lines);
         }
         // C `:2444` goto redo_rebind.
+    }
+}
+
+/**
+ * C ref: cmd.c parseautocomplete `:3244–3292` — apply one AUTOCOMPLETE=
+ * value (or one handler row name) to the generated EXTCMDLIST flags
+ * (txt/flags; C loops to the null terminator, JS exhausts the array —
+ * all_options_autocomplete precedent). C order: comma/colon split with
+ * tail recursion first (`:3249–3254`), trimspaces (`:3257`), empty
+ * return (`:3259–3260`), '!' negation (`:3263–3269`), flag update
+ * (`:3272–3285`), bad-name raw_printf (`:3289–3290`).
+ * C's in-place `*autoc = '\0'` split is head/tail slices (JS strings are
+ * immutable); the short-circuit tries ',' before ':' (`:3250–3251`).
+ * Named omission: wait_synch `:3291` (windowed input boundary; the config
+ * parser stays sync — cfgfiles.js configMsg precedent).
+ * C callers: cfgfiles.c cnf_line_AUTOCOMPLETE `:627` (wired in
+ * js/cfgfiles.js), handler_change_autocompletions `:2500`/`:2507` (live
+ * below), self `:3253`.
+ * @param {string} autocomplete
+ * @param {boolean} condition
+ */
+export function parseautocomplete(autocomplete, condition) {
+    let text = String(autocomplete ?? ''); // C `:3244` char *autocomplete
+    // C `:3249–3251` — strchr(',') first, strchr(':') only when no comma.
+    let sep = text.indexOf(',');
+    if (sep < 0) sep = text.indexOf(':');
+    if (sep >= 0) { // C `:3249`
+        // C `:3252–3253` — NUL the separator, recurse on the tail first.
+        parseautocomplete(text.slice(sep + 1), condition);
+        text = text.slice(0, sep);
+    }
+
+    text = trimspaces(text); // C `:3257`
+    if (!text) return; // C `:3259–3260`
+
+    // C `:3263–3269` — a leading '!' negates (unlike most options a
+    // leading "no" may be part of the command name).
+    if (text[0] === '!') {
+        text = trimspaces(text.slice(1)); // C `:3267`
+        condition = !condition; // C `:3268`
+    }
+
+    for (const efp of EXTCMDLIST) { // C `:3272` to the null terminator
+        if (text === efp.txt) { // C `:3273` strcmp
+            // C `:3274` — the toggle fires exactly when the requested
+            // state differs from the current AUTOCOMPLETE bit.
+            const has = (efp.flags & AUTOCOMPLETE) !== 0;
+            if (!!condition !== has) { // C `:3274–3279`
+                if (efp.flags & AUTOCOMP_ADJ) efp.flags &= ~AUTOCOMP_ADJ;
+                else efp.flags |= AUTOCOMP_ADJ;
+            }
+            if (condition) efp.flags |= AUTOCOMPLETE; // C `:3281–3282`
+            else efp.flags &= ~AUTOCOMPLETE; // C `:3283–3284`
+            return; // C `:3285`
+        }
+    }
+
+    // C `:3288–3290` — not a real extended command.
+    raw_printf("Bad autocomplete: invalid extended command '%s'.", text);
+    // C `:3291` wait_synch — named omission (see doc comment).
+}
+
+/**
+ * C ref: cmd.c handler_change_autocompletions `:2449–2515` — the
+ * "Which commands autocomplete?" PICK_ANY menu behind the Othr
+ * 'autocompletions' row. C order: menu build over extcmdlist_length
+ * (`:2463–2481`, INTERNALCMD|CMD_NOT_AVAILABLE and short-name skips,
+ * a_int i+1, '*' when AUTOCOMP_ADJ, SELECTED when AUTOCOMPLETE),
+ * end_menu prompt (`:2483`), select_menu (`:2484`), the n>=0 apply loop
+ * (`:2485–2512`, parseautocomplete TRUE for picks else FALSE), destroy
+ * (`:2514`). EXTCMDLIST.length ≡ extcmdlist_length (no C null
+ * terminator in the generated table — handler_rebind_keys_add `:2159`
+ * precedent). The create/start/add/end/select/destroy window layer maps
+ * to one select_menu_pick_any call (cond_menu precedent); cancelValue
+ * -1 keeps C's n>=0 gate (ESC skips the apply loop, finish-empty still
+ * clears every listed row). free(picks) `:2511` is GC; cg.zeroany has no
+ * JS carrier (a_int rides each row).
+ * Async only because the JS menu awaits input (Constitution §2); C
+ * callers treat it as a plain blocking call.
+ * C caller: options.c optfn_o_autocomplete do_handler `:8362` (wired in
+ * js/options.js doset).
+ */
+export async function handler_change_autocompletions() {
+    // C `:2462–2481` — one row per adjustable command.
+    const raw = [
+        // C `:2483` end_menu prompt rides the title row (cond_menu precedent).
+        { text: 'Which commands autocomplete?', selectable: false },
+    ];
+    for (let i = 0; i < EXTCMDLIST.length; i++) { // C `:2463`
+        const ec = EXTCMDLIST[i]; // C `:2464`
+        if ((ec.flags & (INTERNALCMD | CMD_NOT_AVAILABLE)) !== 0) continue; // C `:2466–2467`
+        if (ec.txt.length < 2) continue; // C `:2468–2469` strlen
+        // C `:2471–2475` — "%c %s: %s".
+        raw.push({
+            text: `${(ec.flags & AUTOCOMP_ADJ) ? '*' : ' '} ${ec.txt}: ${ec.desc}`,
+            selectable: true,
+            selected: (ec.flags & AUTOCOMPLETE) !== 0, // C `:2478–2480`
+            a_int: i + 1, // C `:2471`
+        });
+    }
+
+    // C `:2484` select + `:2514` destroy (destroy inside the helper).
+    const picked = await select_menu_pick_any(raw, { cancelValue: -1 });
+    if (picked !== -1) { // C `:2485` n >= 0
+        const chosen = new Set(picked.map((it) => it.a_int | 0));
+        for (let i = 0; i < EXTCMDLIST.length; i++) { // C `:2486`
+            const ec = EXTCMDLIST[i]; // C `:2489`
+            if ((ec.flags & (INTERNALCMD | CMD_NOT_AVAILABLE)) !== 0) continue; // C `:2491–2492`
+            if (ec.txt.length < 2) continue; // C `:2493–2494`
+            // C `:2496–2504` — ec == &extcmdlist[a_int-1] ≡ i+1 picked.
+            if (chosen.has(i + 1)) parseautocomplete(ec.txt, true);
+            else parseautocomplete(ec.txt, false); // C `:2506–2508`
+        }
+        // C `:2510–2511` free(picks) is GC here.
     }
 }
 

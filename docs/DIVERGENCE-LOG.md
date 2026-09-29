@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3079 — cmd.c handler_change_autocompletions + parseautocomplete port; counter_were stale-retired
+
+- **Status:** fixed (breadth — head row + its Open callee; were.c counter_were stale → ported, body complete at js/were.js:124)
+- **Symptom:** coverage MISSING — no JS symbol for `handler_change_autocompletions` (cmd.c:2449–2515, the "Which commands autocomplete?" PICK_ANY menu) or `parseautocomplete` (cmd.c:3244–3292, AUTOCOMPLETE= flag writer). The doset Othr 'autocompletions' row was pickable but fell through the dispatch with no handler; AUTOCOMPLETE= config lines were swallowed by `cnf_line_named_true`.
+- **C locus:**
+  - `handler_change_autocompletions`: nethack-c/upstream/src/cmd.c:2449–2515 (caller options.c:8362 optfn_o_autocomplete do_handler)
+  - `parseautocomplete`: nethack-c/upstream/src/cmd.c:3244–3292 (callers cfgfiles.c:627 cnf_line_AUTOCOMPLETE, cmd.c:2500/:2507 handler apply loop, self :3253)
+- **JS was:**
+  - `handler_change_autocompletions`: no symbol; js/options.js doset offered 'autocompletions' with no dispatch arm.
+  - `parseautocomplete`: no symbol; js/cfgfiles.js mapped AUTOCOMPLETE= to `cnf_line_named_true`.
+- **Fix:**
+  - `handler_change_autocompletions`: new async export in C order — menu build over EXTCMDLIST.length ≡ extcmdlist_length (`:2463–2481`, INTERNALCMD|CMD_NOT_AVAILABLE + short-name skips, a_int i+1, '*' when AUTOCOMP_ADJ, SELECTED when AUTOCOMPLETE), title row for the `:2483` prompt, one `select_menu_pick_any` with cancelValue -1 (cond_menu precedent) keeping the `:2485` n>=0 gate, apply loop (`:2486–2512`, Set of picked a_int ≡ C's `ec == &extcmdlist[a_int-1]`), free `:2511` GC.
+  - `parseautocomplete`: new sync export in C order — comma-before-colon split with tail recursion first (`:3249–3254`, slices ≡ in-place NUL), trimspaces (`:3257`), empty return (`:3259–3260`), '!' negation (`:3263–3269`), AUTOCOMP_ADJ toggle iff requested state differs from the AUTOCOMPLETE bit + set/clear (`:3272–3285`, mutates generated EXTCMDLIST flags in place like C), bad-name raw_printf (`:3289–3290`).
+- **JS:**
+  - `handler_change_autocompletions`: js/cmd.js:2334 (export async).
+  - `parseautocomplete`: js/cmd.js:2273 (export sync).
+- **Callers:**
+  - `handler_change_autocompletions`: options.c:8362 → js/options.js:8949 doset Othr arm (new; marks opt_set_in_config per C `:8939` since the optfn returns optn_ok).
+  - `parseautocomplete`: cfgfiles.c:627 → js/cfgfiles.js:476 cnf_line_AUTOCOMPLETE (new; AUTOCOMPLETE= row repointed off cnf_line_named_true); cmd.c:2500/:2507 → js/cmd.js apply loop (live above); self :3253 → direct recursion.
+- **Verify:** `node scripts/verify.mjs --fn handler_change_autocompletions,parseautocomplete` → syntax PASS (3 files: js/cfgfiles.js js/cmd.js js/options.js) · rule2 PASS · hidden note ×2 (no corpus session blocked — coverage rows) · REACH-OK ×2 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict 2/2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS. /tmp/parseautocomplete-probe.mjs 11/11 (toggle symmetry, list/colon/whitespace/empty/bad-name arms). New cfgfiles→cmd edge: same 100-module SCC, hoisted function export, call-time use only (imports.mjs --can CHECK-analyzed); probe import smoke ok.
+- **Named omissions:**
+  - `handler_change_autocompletions`: none in-body — whole body; window layer via live select_menu_pick_any, sole C callee parseautocomplete live.
+  - `parseautocomplete`: wait_synch `:3291` (windowed input boundary; config parser stays sync — cfgfiles.js configMsg precedent); callees trimspaces/raw_printf live.
+- **Ledger:** handler_change_autocompletions ported; parseautocomplete partial
+- **Next:** downstream static snapshot — js/getline.js EXT_CMD_AC (NEWAUTOCOMP uniqueness set) is taken once from C's AUTOCOMPLETE flags and does not follow runtime EXTCMDLIST flag changes; making `#` completion read live flags is a get_ext_cmd change, out of this cluster. Same-optfn sibling `count_autocompletions` (options.c:8358 get_val) still MISSING/unqueued — the doset row keeps its hardcoded '(0 currently set)'.
+
 ## D-3078 — eat.c temp_resist + food_substitution + 4 same-file restarts; 2 #if 0 by-designed
 
 - **Status:** fixed (breadth — head row; 6 fns: 2 new, 4 whole-function restarts; `leather_cover`/`maybe_extend_timed_resist` are `#if 0` dead C → by-design, not ported)

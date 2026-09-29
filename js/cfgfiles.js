@@ -42,6 +42,7 @@ import {
     clear_ignore_errors_on_unmatched,
 } from './options.js';
 import { vfsReadFile, vfsWriteFile } from './storage.js';
+import { parseautocomplete } from './cmd.js';
 
 /** C ref: hack.h `:1504–1506` FEATURE_NOTICE_VER(3, 7, 0). */
 const FEATURE_NOTICE_VER_3_7_0 = (3 << 24) | (7 << 16);
@@ -471,6 +472,12 @@ function cnf_line_MSGTYPE(bufp) {
     return !!msgtype_parse_add(bufp); // C `:634`
 }
 
+/** C ref: cfgfiles.c cnf_line_AUTOCOMPLETE `:624–628`. */
+function cnf_line_AUTOCOMPLETE(bufp) {
+    parseautocomplete(bufp, true); // C `:626`
+    return true; // C `:627`
+}
+
 function cnf_line_MENUCOLOR(bufp) {
     return !!add_menu_coloring(bufp); // C `:1166`
 }
@@ -614,7 +621,7 @@ const configLineStmt = [
     { name: 'OPTIONS', len: 4, syscnf: false, origbuf: true, fn: cnf_line_OPTIONS },
     { name: 'AUTOPICKUP_EXCEPTION', len: 5, syscnf: false, origbuf: false, fn: cnf_line_AUTOPICKUP_EXCEPTION },
     { name: 'BINDINGS', len: 4, syscnf: false, origbuf: false, fn: cnf_line_named_true },
-    { name: 'AUTOCOMPLETE', len: 5, syscnf: false, origbuf: false, fn: cnf_line_named_true },
+    { name: 'AUTOCOMPLETE', len: 5, syscnf: false, origbuf: false, fn: cnf_line_AUTOCOMPLETE },
     { name: 'MSGTYPE', len: 7, syscnf: false, origbuf: false, fn: cnf_line_MSGTYPE },
     { name: 'HACKDIR', len: 4, syscnf: false, origbuf: false, fn: cnf_line_nhUse },
     { name: 'LEVELDIR', len: 4, syscnf: false, origbuf: false, fn: cnf_line_nhUse },

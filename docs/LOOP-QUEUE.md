@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `were.c` counter_were — coverage PARTIAL (C 15 code L `were.c:48–66` / JS 8 code L in js/were.js; hops 3, callers 3, RNG 0, msg 0) @9e3e6255b
-- [ ] `cmd.c` handler_change_autocompletions — coverage MISSING (C 46 code L `cmd.c:2449–2515` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: parseautocomplete) @9e3e6255b
-- [ ] `cmd.c` parseautocomplete — coverage MISSING (C 28 code L `cmd.c:3244–3292` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @7e25e3c42
 - [ ] `sfbase.c` sf_log — coverage MISSING (C 14 code L `sfbase.c:377–404` / JS no symbol; hops —, callers 7, RNG 0, msg 0) @7e25e3c42
 - [ ] `cfgfiles.c` adjust_prefix — coverage MISSING (C 11 code L `cfgfiles.c:441–459` / JS no symbol; hops —, callers 9, RNG 0, msg 0) @107847759
 - [ ] `mon.c` mimic_hit_msg — coverage PARTIAL (C 12 code L `mon.c:5776–5793` / JS 8 code L in js/zap.js; hops 5, callers 1, RNG 0, msg 2) @80c81d0a0
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `utf8map.c` mixed_to_utf8 — coverage MISSING (C 38 code L `utf8map.c:86–145` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: decode_glyph) @11ac109be
 - [ ] `insight.c` size_str — coverage THIN (C 24 code L `insight.c:3203–3231` / JS 8 code L in js/insight.js; hops 4, callers 1, RNG 0, msg 0) @11ac109be
 - [ ] `rumors.c` save_oracles — coverage THIN (C 12 code L `rumors.c:598–619` / JS 5 code L in js/rumors.js; hops 4, callers 2, RNG 0, msg 0) @01a639d1b
+- [ ] `wizcmds.c` wiz_mon_diff — coverage MISSING (C 28 code L `wizcmds.c:1790–1828` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @260932ce5
+- [ ] `monmove.c` find_pmmonst — coverage PARTIAL (C 8 code L `monmove.c:375–388` / JS 5 code L in js/monmove.js; hops 2, callers 2, RNG 0, msg 0) @260932ce5
+- [ ] `insight.c` N_times — coverage THIN (C 15 code L `insight.c:362–380` / JS 5 code L in js/insight.js; hops 5, callers 3, RNG 0, msg 0) @260932ce5
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

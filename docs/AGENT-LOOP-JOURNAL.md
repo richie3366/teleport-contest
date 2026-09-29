@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3079 cmd.c handler_change_autocompletions + parseautocomplete port; counter_were stale-retired
+
+**C locus:** - `handler_change_autocompletions`: nethack-c/upstream/src/cmd.c:2449–2515 (caller options.c:8362 optfn_o_autocomplete do_handler)
+**JS:** - `handler_change_autocompletions`: js/cmd.js:2334 (export async).
+**Change:** - `handler_change_autocompletions`: new async export in C order — menu build over EXTCMDLIST.length ≡ extcmdlist_length (`:2463–2481`, INTERNALCMD|CMD_NOT_AVAILABLE + short-name skips, a_int i+1, '*' when AUTOCOMP_ADJ, SELECTED when AUTOCOMPLETE), title row for the `:2483` prompt, one `select_menu_pick_any` with cancelValue -1 (cond_menu precedent) keeping the `:2485` n>=0 gate, apply loop (`:2486–2512`, Set of picked a_int ≡ C's `ec == &extcmdlist[a_int-1]`), free `:2511` GC.
+**Verify:** `node scripts/verify.mjs --fn handler_change_autocompletions,parseautocomplete` → syntax PASS (3 files: js/cfgfiles.js js/cmd.js js/options.js) · rule2 PASS · hidden note ×2 (no corpus session blocked — coverage rows) · REACH-OK ×2 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict 2/2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS. /tmp/parseautocomplete-probe.mjs 11/11 (toggle symmetry, list/colon/whitespace/empty/bad-name arms). New cfgfiles→cmd edge: same 100-module SCC, hoisted function export, call-time use only (imports.mjs --can CHECK-analyzed); probe import smoke ok.
+**Named:** - `handler_change_autocompletions`: none in-body — whole body; window layer via live select_menu_pick_any, sole C callee parseautocomplete live.
+**Next:** downstream static snapshot — js/getline.js EXT_CMD_AC (NEWAUTOCOMP uniqueness set) is taken once from C's AUTOCOMPLETE flags and does not follow runtime EXTCMDLIST flag changes; making `#` completion read live flags is a get_ext_cmd change, out of this cluster. Same-optfn sibling `count_autocompletions` (options.c:8358 get_val) still MISSING/unqueued — the doset row keeps its hardcoded '(0 currently set)'.
 ## 2026-09-29 — D-3078 eat.c temp_resist + food_substitution + 4 same-file restarts; 2 #if 0 by-designed
 
 **C locus:** - `temp_resist`: nethack-c/upstream/src/eat.c:453–469 (live callers insight.c:1544,1555; eat.c:502 caller is `#if 0` dead)
