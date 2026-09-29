@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3099 selvar.c selection_getbounds: canonical export, 3 clones retired, 16 C sites wired (coverage)
+
+**C locus:** - `selection_getbounds`: nethack-c/upstream/src/selvar.c:76–95 (guard `:80–81`, recalc `:82`, empty→full `:84–89`, stored `:90–94`).
+**JS:** js/mklev.js:29715 selection_getbounds; call sites mklev.js:1819/4398/29128/29215/29237/29751/29776/30575, region.js:1218 (import :58), cmd.js:3831/3846/3877/3891/3903 (import :123; existing edges extended, no new module edge).
+**Change:** canonical `export function selection_getbounds(sel, b)` in mklev.js in C order (`!sel||!b` guard, live selection_recalc_bounds, `sel.wid ?? COLNO` empty test, out-param writes); retired all 3 clones + the lspo inline copy; routed every rect-reading caller through it (out-param form, `NhRect rect` locals).
+**Verify:** - `selection_getbounds`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `selection_getbounds`: nhlsel.c:459 `sel:bounds()` Lua bridge (no JS Lua-selection bridge method and zero repo callers — surfaces if des Lua ever calls it).
+**Next:** standalone selection_is_irregular / selection_size_description mklev exports (only dolookaround-local look_sel_* versions exist) when the generated block surfaces them.
 ## 2026-09-29 — D-3098 cfgfiles.c config_erradd in_lua arm + parse_conf_file export (coverage)
 
 **C locus:** - `config_erradd`: nethack-c/upstream/src/cfgfiles.c:1544–1589 (in_lua arm `:1566–1574`; list `:1467`; drain l_get_config_errors `:1514–1541`).

@@ -2,7 +2,7 @@
 {"fn":"selection_free","c":"33-44","status":"unknown"}
 {"fn":"selection_clear","c":"48-62","status":"unknown"}
 {"fn":"selection_clone","c":"65-73","status":"unknown"}
-{"fn":"selection_getbounds","c":"77-95","status":"unknown"}
+{"fn":"selection_getbounds","c":"77-95","status":"ported","js":["js/mklev.js:selection_getbounds"],"d":["D-3099"],"at":"2026-09-29@b6b281b0a"}
 {"fn":"selection_recalc_bounds","c":"99-165","status":"unknown","d":["D-2696"],"at":"seed@a30a7de84"}
 {"fn":"selection_getpoint","c":"168-178","status":"unknown"}
 {"fn":"selection_setpoint","c":"181-208","status":"unknown"}

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `selvar.c` selection_getbounds — coverage PARTIAL (C 13 code L `selvar.c:77–95` / JS 9 code L in js/region.js; hops 6, callers 16, RNG 0, msg 0) @ffb380a5c
 - [ ] `do_name.c` bogusmon — coverage PARTIAL (C 11 code L `do_name.c:1369–1385` / JS 7 code L in js/do_name.js; hops 3, callers 3, RNG 0, msg 0) @aeb41ef5f
 - [ ] `pickup.c` collect_obj_classes — coverage PARTIAL (C 11 code L `pickup.c:101–118` / JS 7 code L in js/pickup.js; hops 3, callers 3, RNG 0, msg 0) @aeb41ef5f
 - [ ] `dungeon.c` get_dgn_flags — coverage PARTIAL (C 26 code L `dungeon.c:744–778` / JS 16 code L in js/dungeon.js; hops 3, callers 2, RNG 0, msg 0) @d1541778d
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `makemon.c` check_mongen_order — coverage MISSING (C 12 code L `makemon.c:1783–1802` / JS no symbol; hops 6, callers 1, RNG 0, msg 0) @773e13c9a
 - [ ] `earlyarg.c` lopt — coverage MISSING (C 47 code L `earlyarg.c:71–144` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @92b27f0c4
 - [ ] `hack.c` rounddiv — coverage PARTIAL (C 15 code L `hack.c:4551–4572` / JS 10 code L in js/eat.js; hops 4, callers 3, RNG 0, msg 0) @92b27f0c4
+- [ ] `pager.c` append_str — coverage PARTIAL (C 15 code L `pager.c:82–104` / JS 9 code L in js/pager.js; hops 2, callers 1, RNG 0, msg 0) @b6b281b0a
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

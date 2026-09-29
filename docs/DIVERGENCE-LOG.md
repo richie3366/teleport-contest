@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3099 — selvar.c selection_getbounds: canonical export, 3 clones retired, 16 C sites wired (coverage)
+
+- **Status:** shipped (Open — coverage head `selvar.c` selection_getbounds PARTIAL; 1-function cluster, 72 js/ insertions — below the ~80 density line, excused per D-3098 precedent: sole selvar.c Open row in the generated block and the callee closure is ported — selection_recalc_bounds ok D-2696.)
+- **Symptom:** coverage — three divergent local clones of the recalc + empty→full-map + stored-bounds body (region.js `lx >= COLNO` instead of `lx >= sel->wid` plus full-map-on-`!sel`; mklev.js selvar_getbounds_rect without the `!sel||!b` guard; cmd.js look_sel_bounds without the recalc), and the iterate/filter/rndcoord family read cached bounds with no recalc, so a dirty-subset selection missed cells C visits.
+- **C locus:**
+  - `selection_getbounds`: nethack-c/upstream/src/selvar.c:76–95 (guard `:80–81`, recalc `:82`, empty→full `:84–89`, stored `:90–94`).
+- **JS was:** region.js:1209 clone (wrong empty predicate, invented `!sel` full-map arm), mklev.js:29703 selvar_getbounds_rect clone (no guard), cmd.js:3757 look_sel_bounds clone (no recalc), mklev.js:1818–1821 inline copy in lspo_replace_terrain, and 6 rect readers on raw cached bounds.
+- **Fix:** canonical `export function selection_getbounds(sel, b)` in mklev.js in C order (`!sel||!b` guard, live selection_recalc_bounds, `sel.wid ?? COLNO` empty test, out-param writes); retired all 3 clones + the lspo inline copy; routed every rect-reading caller through it (out-param form, `NhRect rect` locals).
+- **JS:** js/mklev.js:29715 selection_getbounds; call sites mklev.js:1819/4398/29128/29215/29237/29751/29776/30575, region.js:1218 (import :58), cmd.js:3831/3846/3877/3891/3903 (import :123; existing edges extended, no new module edge).
+- **Callers:**
+  - `selection_getbounds`: cmd.c:1200/1218/1251 → cmd.js:3831/3846/3877 wired; nhlsel.c:934 → mklev.js:4398 wired; region.c:1323 → region.js:1218 wired; selvar.c:335/359 → mklev.js:29751/29776 wired; selvar.c:237/259/294/737 → mklev.js:29215/30575/29128/29237 wired; sp_lev.c:5121 → mklev.js:1819 wired; selvar.c:752/769 (no standalone JS — dolookaround-local look_sel_*) → cmd.js:3891/3903 wired; selvar.c:219 selection_not (C's tmprect unused — recalc-only effect, subsumed: JS builds the result via clean setpoints so bounds stay tight) and nhlsel.c:210 l_selection_numpoints (JS Set-size, no rect read) need no call by construction; nhlsel.c:459 l_selection_getbounds has no JS counterpart and no `:bounds()` caller anywhere in repo (named).
+- **Verify:**
+  - `selection_getbounds`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+  - Shared: `PASS syntax (3 changed js files) · PASS rule2 · PASS green 2/2 · PASS strict x2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS`.
+- **Named omissions:**
+  - `selection_getbounds`: nhlsel.c:459 `sel:bounds()` Lua bridge (no JS Lua-selection bridge method and zero repo callers — surfaces if des Lua ever calls it).
+- **Ledger:** selection_getbounds ported
+- **Next:** standalone selection_is_irregular / selection_size_description mklev exports (only dolookaround-local look_sel_* versions exist) when the generated block surfaces them.
+
 ## D-3098 — cfgfiles.c config_erradd in_lua arm + parse_conf_file export (coverage)
 
 - **Status:** shipped (Open — coverage head `cfgfiles.c` config_erradd PARTIAL + same-file row parse_conf_file MISSING; 2-function cluster, ~30 js/ insertions — below the ~80 density line, excused: the head's file holds no further Open row and the callee closure verified whole by C-vs-JS read — dupstr (gap is the D-1951 u32-wrap panic, unreachable in JS), free_config_sections, cnf_parser_done.)
