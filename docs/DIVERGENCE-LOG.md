@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3092 — wiz_show_vision + wiz_mon_diff EXT_CMDS runners: #vision/#wizmondiff dispatch (Must-fix review 2045)
+
+- **Status:** shipped (Must-fix — review 2045 Keep'd C-wrong on D-3085: bodies ported, dispatch runners missing; ships alone)
+- **Symptom:** typed #vision/#wizmondiff were wizard-mode dead ends — extcmd_run_by_txt → null (confirmed pre-fix) — although both C extcmdlist rows are live and the D-3085 exports exist.
+- **C locus:**
+  - `wiz_show_vision`: nethack-c/upstream/src/cmd.c:1928–1929 "vision" IFBURIED|AUTOCOMPLETE|WIZMODECMD (unconditional) → wiz_show_vision
+  - `wiz_mon_diff`: nethack-c/upstream/src/cmd.c:1985–1986 "wizmondiff" IFBURIED|AUTOCOMPLETE|WIZMODECMD (#if DEVEL||DEBUG — live: patchlevel.h:35–37 defines DEBUG) → wiz_mon_diff
+- **JS was:** js/getline.js EXT_CMDS had no vision/wizmondiff rows (EXT_CMD_AC already listed both :346/:352); exports live at js/wizcmds.js:2059/:2016 since D-3085.
+- **Fix:**
+  - `wiz_show_vision`: new EXT_CMDS row — wiz:true, autocomplete:true, lazy `import('./wizcmds.js')` → wiz_show_vision() (D-2779 sibling pattern; dynamic import, no new static edge).
+  - `wiz_mon_diff`: new EXT_CMDS row — wiz:true, autocomplete:true, lazy `import('./wizcmds.js')` → wiz_mon_diff() (same pattern).
+- **JS:** js/getline.js EXT_CMDS vision:945, wizmondiff:958; scripts/vision-wizmondiff-runners.test.mjs (new, 3 its).
+- **Callers:**
+  - `wiz_show_vision`: C cmd.c:1928–1929 → js/getline.js:945 runnable entry (new, this commit).
+  - `wiz_mon_diff`: C cmd.c:1985–1986 → js/getline.js:958 runnable entry (new, this commit).
+- **Verify:** `node --test scripts/vision-wizmondiff-runners.test.mjs` → null runners pre-fix, 3/3 pass post-fix. `node scripts/verify.mjs --fn wiz_show_vision,wiz_mon_diff` → PASS syntax (1 changed js file: js/getline.js) · PASS rule2 · note hidden ×2 (no corpus session blocked at baseline — review 2045 notes the corpus cannot reach wizard extcmds) · PASS reach ×2 (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+- **Named omissions:**
+  - `wiz_show_vision`: none — runner-only change; body unchanged since D-3085 ACCEPT.
+  - `wiz_mon_diff`: none — runner-only change; body unchanged since D-3085 ACCEPT.
+- **Ledger:** wiz_show_vision ported; wiz_mon_diff ported
+- **Next:** Must-fix queue empty; resume coverage block (head: uhitm.c mhitm_ad_ssex THIN).
+
 ## D-3091 — wiz_custom + wiz_kill EXT_CMDS runners: #wizcustom/#wizkill dispatch (Must-fix review 2049)
 
 - **Status:** shipped (Must-fix — review 2049 Keep'd C-wrong on D-3089: bodies ported, dispatch runners missing; ships alone)

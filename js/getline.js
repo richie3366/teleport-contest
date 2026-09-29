@@ -943,6 +943,29 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c:1928-1929 "vision" IFBURIED|AUTOCOMPLETE|WIZMODECMD
+        // (unconditional) → wiz_show_vision (D-3085; runners review 2045)
+        name: 'vision',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_show_vision } = await import('./wizcmds.js');
+            return wiz_show_vision();
+        },
+    },
+    {
+        // C: cmd.c:1985-1986 "wizmondiff" IFBURIED|AUTOCOMPLETE|WIZMODECMD
+        // (#if DEVEL||DEBUG — live: patchlevel.h:35-37 defines DEBUG)
+        // → wiz_mon_diff (D-3085; runners review 2045)
+        name: 'wizmondiff',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_mon_diff } = await import('./wizcmds.js');
+            return wiz_mon_diff();
+        },
+    },
+    {
         // C: cmd.c "migratemons" IFBURIED|AUTOCOMPLETE|WIZMODECMD → wiz_migrate_mons (D-2779)
         name: 'migratemons',
         wiz: true,

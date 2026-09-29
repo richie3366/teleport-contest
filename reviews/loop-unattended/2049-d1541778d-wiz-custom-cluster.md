@@ -148,4 +148,4 @@ ecname_from_fn ACCEPT → SHA QUALITY-RISK.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3091
+**Addressed:** D-3091 `da4f12710`

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3092 wiz_show_vision + wiz_mon_diff EXT_CMDS runners: #vision/#wizmondiff dispatch (Must-fix review 2045)
+
+**C locus:** - `wiz_show_vision`: nethack-c/upstream/src/cmd.c:1928–1929 "vision" IFBURIED|AUTOCOMPLETE|WIZMODECMD (unconditional) → wiz_show_vision
+**JS:** js/getline.js EXT_CMDS vision:945, wizmondiff:958; scripts/vision-wizmondiff-runners.test.mjs (new, 3 its).
+**Change:** - `wiz_show_vision`: new EXT_CMDS row — wiz:true, autocomplete:true, lazy `import('./wizcmds.js')` → wiz_show_vision() (D-2779 sibling pattern; dynamic import, no new static edge).
+**Verify:** `node --test scripts/vision-wizmondiff-runners.test.mjs` → null runners pre-fix, 3/3 pass post-fix. `node scripts/verify.mjs --fn wiz_show_vision,wiz_mon_diff` → PASS syntax (1 changed js file: js/getline.js) · PASS rule2 · note hidden ×2 (no corpus session blocked at baseline — review 2045 notes the corpus cannot reach wizard extcmds) · PASS reach ×2 (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+**Named:** - `wiz_show_vision`: none — runner-only change; body unchanged since D-3085 ACCEPT.
+**Next:** Must-fix queue empty; resume coverage block (head: uhitm.c mhitm_ad_ssex THIN).
 ## 2026-09-29 — D-3091 wiz_custom + wiz_kill EXT_CMDS runners: #wizcustom/#wizkill dispatch (Must-fix review 2049)
 
 **C locus:** - `wiz_custom`: nethack-c/upstream/src/cmd.c:1951–1952 "wizcustom" IFBURIED|WIZMODECMD|NOFUZZERCMD (no AUTOCOMPLETE) → wiz_custom
