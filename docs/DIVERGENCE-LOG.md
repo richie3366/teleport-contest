@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3120 — `insight.c` num_genocides unique+impossible arm + `read.c:2956` do_genocide livelog caller wiring (coverage)
+
+- **Status:** fixed (Open — coverage head `insight.c` num_genocides, ships alone: no other same-file Open queue rows — one_characteristic parked MISATTRIBUTED 2026-09-09, enlght_out below the C≥8 threshold, num_extinct/num_gone measured-ok. ~20 js/ insertions, js/insight.js + js/read.js; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify num_genocides`: no corpus session blocked at baseline — conduct/gamelog path, no RNG).
+- **C locus:**
+  - `num_genocides`: insight.c:2953–2966 (G_GENOD count `:2958–2959`, UniqCritterIndx+impossible `:2960–2962`); caller read.c:2956–2961 (do_genocide REALLY-arm first/subsequent livelog, read before the G_GENOD set).
+- **JS was:** num_genocides (js/insight.js:483) counted G_GENOD but dropped the unique+impossible arm; JS do_genocide (js/read.js:2677) jumped from the REALLY gate straight to the G_GENOD set with no livelog (a named omission in the read.js header).
+- **Fix:** added the UniqCritterIndx guard + impossible arm in C order (local UniqCritterIndx ≡ C `:2777–2778`; fire-and-forget impossible — sync callers don't await, cf. record_achievement `:2419`); wired the read.c:2956 livelog guard into do_genocide before the G_GENOD set (dynamic insight.js import, same cycle-avoidance as do_class_genocide `:2508`); lifted "do_genocide livelog" from the header omissions.
+- **JS:** js/insight.js:483 num_genocides; js/read.js:2681 do_genocide REALLY arm.
+- **Callers:**
+  - `num_genocides`: show_conduct C:2158 → js/insight.js:926; list_genocided C:3029 → js/insight.js:1488; do_class_genocide C:2739 → js/read.js:2510; do_genocide C:2956 → js/read.js:2682 (this iteration); topten C:437 → js/topten.js:229; topten C:598 → js/topten.js:391. All 6 C sites wired, none added.
+- **Verify:**
+  - `num_genocides`: `node scripts/verify.mjs --fn num_genocides` → hidden note (no corpus session blocked at baseline); reach: no RNG-tagged reach, smoke spread 24 run → 24 PASS, 0 regressed → REACH-OK; syntax 2 files, rule2, green 2/2, strict ×2, cohort 7/7; VERIFY: PASS.
+- **Named omissions:**
+  - `num_genocides`: none — whole body, every callee live (UniqCritterIndx local, impossible async fire-and-forget).
+- **Ledger:** num_genocides ported
+- **Next:** generated block refills via finish (head passes to `options.c` all_options_palette).
+
 ## D-3119 — botl.c status-hilite query closure: 3 menu ports + `splitsubfields` overflow fix (coverage cluster)
 
 - **Status:** fixed (Open — coverage head `botl.c` query_arrayvalue + same-file queue rows status_hilite_menu_choose_field, splitsubfields, query_conditions in queue order; all botl.c Open rows shipped. `uhitm.c` dynamic_multi_reason and `dbridge.c` get_wall_for_db went stale via ledger ahead of the cluster in the same iteration. 130 js/ insertions, js/botl.js only; cites no review — no stamp needed).

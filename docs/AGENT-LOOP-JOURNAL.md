@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3120 `insight.c` num_genocides unique+impossible arm + `read.c:2956` do_genocide livelog caller wiring (coverage)
+
+**C locus:** - `num_genocides`: insight.c:2953–2966 (G_GENOD count `:2958–2959`, UniqCritterIndx+impossible `:2960–2962`); caller read.c:2956–2961 (do_genocide REALLY-arm first/subsequent livelog, read before the G_GENOD set).
+**JS:** js/insight.js:483 num_genocides; js/read.js:2681 do_genocide REALLY arm.
+**Change:** added the UniqCritterIndx guard + impossible arm in C order (local UniqCritterIndx ≡ C `:2777–2778`; fire-and-forget impossible — sync callers don't await, cf. record_achievement `:2419`); wired the read.c:2956 livelog guard into do_genocide before the G_GENOD set (dynamic insight.js import, same cycle-avoidance as do_class_genocide `:2508`); lifted "do_genocide livelog" from the header omissions.
+**Verify:** - `num_genocides`: `node scripts/verify.mjs --fn num_genocides` → hidden note (no corpus session blocked at baseline); reach: no RNG-tagged reach, smoke spread 24 run → 24 PASS, 0 regressed → REACH-OK; syntax 2 files, rule2, green 2/2, strict ×2, cohort 7/7; VERIFY: PASS.
+**Named:** - `num_genocides`: none — whole body, every callee live (UniqCritterIndx local, impossible async fire-and-forget).
+**Next:** generated block refills via finish (head passes to `options.c` all_options_palette).
 ## 2026-09-29 — D-3119 botl.c status-hilite query closure: 3 menu ports + `splitsubfields` overflow fix (coverage cluster)
 
 **C locus:** - `query_arrayvalue`: botl.c:2747–2781 (PICK_ONE over arr[arrmin..arrmax), adj `:2756`, NULL-gap skip `:2763–2764`, decode `:2776`)
