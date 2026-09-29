@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-29
 
+- [x] `max_passive_dmg` elemental arm uses bits-only resists_* locals — C `resists_*` ≡ `Resists_Elem` (mondata.c:129–197) artifact `:173–176` + worn/carried `:178–196` arms absent from js/mhitm.js:2318–2322 (locals :407–431 test bits only); full `Resists_Elem` live at js/mondata.js:240, already imported by mhitm.js:15. Call `Resists_Elem(magr, *_RES)` or name the omit. Source: reviews/loop-unattended/2070-d27c7b945-max-passive-dmg-cluster.md. **Addressed:** D-3118
+
+
 - [x] `mondata.c` max_passive_dmg — coverage PARTIAL (C 39 code L `mondata.c:720–767` / JS 28 code L in js/mhitm.js; hops 3, callers 1, RNG 0, msg 0) @cb3b01855
 
 

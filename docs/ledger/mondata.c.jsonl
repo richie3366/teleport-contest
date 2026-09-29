@@ -30,7 +30,7 @@
 {"fn":"num_horns","c":"678-695","status":"ported","js":["js/worn.js:num_horns"],"at":"2026-09-28@000445a8b","note":"stale: js/worn.js:207 — switch on mndx returns 2/1/0 for the same 8 monster cases as C mondata.c:678-695"}
 {"fn":"dmgtype_fromattack","c":"700-708","status":"unknown"}
 {"fn":"dmgtype","c":"712-715","status":"unknown"}
-{"fn":"max_passive_dmg","c":"720-767","status":"ported","js":["js/mhitm.js:max_passive_dmg"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146"}
+{"fn":"max_passive_dmg","c":"720-767","status":"ported","js":["js/mhitm.js:max_passive_dmg"],"d":["D-3118","D-3110"],"at":"2026-09-29@138a5a96f"}
 {"fn":"same_race","c":"771-871","status":"ported","js":["js/mondata.js:same_race"],"d":["D-2655"],"at":"seed@a30a7de84"}
 {"fn":"name_to_mon","c":"883-886","status":"unknown"}
 {"fn":"name_to_monplus","c":"893-1085","status":"ported","js":["js/mondata.js:name_to_monplus"],"d":["D-2577"],"at":"seed@a30a7de84"}

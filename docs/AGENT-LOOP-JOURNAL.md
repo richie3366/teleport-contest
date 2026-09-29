@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3118 `max_passive_dmg` elemental arm via live `Resists_Elem` (Must-fix, review 2070)
+
+**C locus:** - `max_passive_dmg`: mondata.c:720–767, elemental arm `:753–757`; C `resists_*` are monst.h:271–277 macros for `Resists_Elem(mon, *_RES)` whose body is mondata.c:129–197 (bits `:171`, wielded-artifact `defends` `:173–176`, worn/carried `:178–196`).
+**JS:** js/mhitm.js `max_passive_dmg` `:2303`, elemental arm `:2329–2333`, export `:2344`; const.js import `:84–87`.
+**Change:** 4-line swap to `Resists_Elem(magr, ACID_RES/COLD_RES/FIRE_RES/SHOCK_RES)` with C cites; added the four `*_RES` constants to the existing const.js import (same precedent as `resists_poison_mm` js/mhitm.js:1899). Export name + signature kept; no new cross-module import (Resists_Elem already on the mondata.js edge).
+**Verify:** `node scripts/verify.mjs --fn max_passive_dmg --reach-all` → VERIFY: PASS (syntax 1 file js/mhitm.js; rule2; hidden note 0 blocked; REACH-OK smoke spread 24 run 24 PASS 0 regressed; green 2/2; strict ×2; cohort 7/7).
+**Named:** - `max_passive_dmg`: none — whole body, every callee live (Resists_Elem + completely*_mm). The bits-only `resists_*` locals remain for pre-existing gazemm/explmm/passivemm call sites — untouched, out of scope for this Must-fix.
+**Next:** none (Must-fix closed; elemental arm now matches C).
 ## 2026-09-29 — Audit 2069-2077 (D-3109..D-3117): 8 ACCEPT, 1 QUALITY-RISK; full cadence
 
 Reviews 2069-2077 audit ad1aa7146..78a21f6e4 against pinned C (soundlib switch, mondata 5-fn, regex/invorder, version trio, report 6-fn, regex-desc/txt2key, mon_leave, selvar filter, syscf/showpaths cluster): 8 ACCEPT, 2070 QUALITY-RISK (max_passive_dmg bits-only resists_* locals vs live Resists_Elem already imported in mhitm.js — Must-fix prepended, Next cluster set). Every corpus claim re-measured with --reach-all (all vacuous + REACH-OK, no REGRESSED). Cadence: public 44/44, corpus 648/953 (0 flips, full:true), held-out 13/44 flat. Ledger snapshot + 5/5 seeded-ported sample live.

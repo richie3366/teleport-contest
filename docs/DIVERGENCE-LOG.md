@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3118 — `max_passive_dmg` elemental arm via live `Resists_Elem` (Must-fix, review 2070)
+
+- **Status:** fixed (Must-fix, ships alone; review 2070 QUALITY-RISK actionable #1 — stamp `**Addressed:** D-3118` on `reviews/loop-unattended/2070-d27c7b945-max-passive-dmg-cluster.md`).
+- **Symptom:** C-wrong, not a corpus divergence (`hidden-proxy verify max_passive_dmg`: no corpus session blocked at baseline; the arm draws no RNG).
+- **C locus:**
+  - `max_passive_dmg`: mondata.c:720–767, elemental arm `:753–757`; C `resists_*` are monst.h:271–277 macros for `Resists_Elem(mon, *_RES)` whose body is mondata.c:129–197 (bits `:171`, wielded-artifact `defends` `:173–176`, worn/carried `:178–196`).
+- **JS was:** js/mhitm.js elemental arm called bits-only in-file locals `resists_acid/cold/fire/elec` (mresists|mextrinsics|mintrinsics bit test only), dropping the artifact + worn/carried arms while full `Resists_Elem` was live at js/mondata.js:240 and already imported (D-3110 named "none").
+- **Fix:** 4-line swap to `Resists_Elem(magr, ACID_RES/COLD_RES/FIRE_RES/SHOCK_RES)` with C cites; added the four `*_RES` constants to the existing const.js import (same precedent as `resists_poison_mm` js/mhitm.js:1899). Export name + signature kept; no new cross-module import (Resists_Elem already on the mondata.js edge).
+- **JS:** js/mhitm.js `max_passive_dmg` `:2303`, elemental arm `:2329–2333`, export `:2344`; const.js import `:84–87`.
+- **Callers:**
+  - `max_passive_dmg`: dogmove.c:1123 → js/dogmove.js:1432 (pre-wired via mhitm.js import; only C call site).
+- **Verify:** `node scripts/verify.mjs --fn max_passive_dmg --reach-all` → VERIFY: PASS (syntax 1 file js/mhitm.js; rule2; hidden note 0 blocked; REACH-OK smoke spread 24 run 24 PASS 0 regressed; green 2/2; strict ×2; cohort 7/7).
+- **Named omissions:**
+  - `max_passive_dmg`: none — whole body, every callee live (Resists_Elem + completely*_mm). The bits-only `resists_*` locals remain for pre-existing gazemm/explmm/passivemm call sites — untouched, out of scope for this Must-fix.
+- **Ledger:** max_passive_dmg ported
+- **Next:** none (Must-fix closed; elemental arm now matches C).
+
 ## D-3117 — `cfgfiles.c` assure_syscf_file + `files.c` do_deferred_showpaths + fopen_config_file completion (coverage cluster)
 
 - **Status:** fixed (Open — coverage head `cfgfiles.c` assure_syscf_file + Open callee `files.c` do_deferred_showpaths + same-file `cfgfiles.c` fopen_config_file completion; `botl.c` status_hilites_viewall went stale via ledger in the same iteration; cites no review — no stamp needed. 74 js/ insertions: both cfgfiles.c queue rows shipped and the only in-closure callee shipped — remainder is the 117-line reveal_paths whole-function row + by-design teardown, so the <80-insertion density exception applies, cf. D-3115/D-3116).

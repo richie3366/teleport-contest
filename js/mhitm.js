@@ -81,6 +81,10 @@ import {
     W_ARM,
     W_ARMC,
     POISON_RES,
+    FIRE_RES,
+    COLD_RES,
+    ACID_RES,
+    SHOCK_RES,
     W_ARMH,
     W_ARMS,
     W_ARMF,
@@ -2319,10 +2323,13 @@ function max_passive_dmg(mdef, magr) {
             || (adtyp === AD_DCAY && completelyrots_mm(magr?.data))
             || (adtyp === AD_RUST && completelyrusts_mm(magr?.data))) {
             dmg = magr?.mhp | 0;
-        } else if ((adtyp === AD_ACID && !resists_acid(magr))
-                   || (adtyp === AD_COLD && !resists_cold(magr))
-                   || (adtyp === AD_FIRE && !resists_fire(magr))
-                   || (adtyp === AD_ELEC && !resists_elec(magr))
+        // C `:753–757` — resists_* are monst.h macros for Resists_Elem
+        // (mondata.c:129–197): bits OR wielded-artifact defends OR
+        // worn/carried (oc_oprop, alchemy smock, defends_when_carried).
+        } else if ((adtyp === AD_ACID && !Resists_Elem(magr, ACID_RES))
+                   || (adtyp === AD_COLD && !Resists_Elem(magr, COLD_RES))
+                   || (adtyp === AD_FIRE && !Resists_Elem(magr, FIRE_RES))
+                   || (adtyp === AD_ELEC && !Resists_Elem(magr, SHOCK_RES))
                    || adtyp === AD_PHYS) {
             dmg = at.damn | 0;
             if (!dmg) dmg = (md.mlevel | 0) + 1;
