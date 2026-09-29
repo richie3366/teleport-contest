@@ -1,9 +1,9 @@
 {
- "commit": "ebd112f3b",
- "at": "2026-09-29T12:45:29.401Z",
- "full": false,
- "fullCommit": "463ebb0e2",
- "fullAt": "2026-09-29T10:10:15.856Z",
+ "commit": "32d25b3c3",
+ "at": "2026-09-29T13:21:07.211Z",
+ "full": true,
+ "fullCommit": "32d25b3c3",
+ "fullAt": "2026-09-29T13:21:07.211Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -5935,7 +5935,7 @@
    "steps": 253,
    "owner": "distfleeck",
    "loc": "monmove.c:564",
-   "jsOwner": "mattacku(mhitu.js:4210)",
+   "jsOwner": "mattacku(mhitu.js:4212)",
    "cTopline": "The gnome lord turns to flee. The saddled pony misses the gnome lord.--More--",
    "jsTopline": "The gnome lord hits! You stop searching.",
    "error": null
@@ -6428,7 +6428,7 @@
    "steps": 174,
    "owner": "dmgval",
    "loc": "weapon.c:227",
-   "jsOwner": "dmgval(weapon.js:284)",
+   "jsOwner": "dmgval(weapon.js:271)",
    "cTopline": "It tries to move where you are hiding. You are hit.--More--",
    "jsTopline": "It tries to move where you are hiding. You are hit.--More--",
    "error": null
@@ -8893,7 +8893,7 @@
    "steps": 206,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "rottenfood(eat.js:2487)",
+   "jsOwner": "rottenfood(eat.js:2474)",
    "cTopline": "You resume your meal. You hear the footsteps of a guard on patrol.--More--",
    "jsTopline": "Blecch! Rotten food! You finish eating the food ration.",
    "error": null
@@ -10746,7 +10746,7 @@
    "steps": 313,
    "owner": "peffect_polymorph",
    "loc": "potion.c:1327",
-   "jsOwner": "exercise(attrib.js:214)",
+   "jsOwner": "exercise(attrib.js:215)",
    "cTopline": "Use the command #sit to lay an egg.",
    "jsTopline": "Use the command #sit to lay an egg.",
    "error": null
@@ -10814,7 +10814,7 @@
    "steps": 263,
    "owner": "com_pager_core",
    "loc": "questpgr.c:566",
-   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1440)",
+   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1482)",
    "cTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "jsTopline": "",
    "error": null
@@ -11205,7 +11205,7 @@
    "steps": 333,
    "owner": "abuse_dog",
    "loc": "dog.c:1381",
-   "jsOwner": "exercise(attrib.js:214)",
+   "jsOwner": "exercise(attrib.js:215)",
    "cTopline": "Sirius yelps! The dagger hits it.",
    "jsTopline": "The dagger hits it. Sirius misses the kobold.--More--",
    "error": null
@@ -12191,7 +12191,7 @@
    "steps": 85,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "m_initinv(makemon.js:3060)",
+   "jsOwner": "m_initinv(makemon.js:3121)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -12242,7 +12242,7 @@
    "steps": 299,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "m_initinv(makemon.js:3060)",
+   "jsOwner": "m_initinv(makemon.js:3121)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level! You see here a red gem.",
    "error": null
@@ -12378,7 +12378,7 @@
    "steps": 248,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "m_initinv(makemon.js:3060)",
+   "jsOwner": "m_initinv(makemon.js:3121)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -12497,7 +12497,7 @@
    "steps": 198,
    "owner": "start_melt_ice_timeout",
    "loc": "zap.c:5101",
-   "jsOwner": "slippery_ice_fumbling(hack.js:2608)",
+   "jsOwner": "slippery_ice_fumbling(hack.js:2676)",
    "cTopline": "Steady ice.",
    "jsTopline": "Ice.",
    "error": null
@@ -12565,7 +12565,7 @@
    "steps": 189,
    "owner": "start_melt_ice_timeout",
    "loc": "zap.c:5101",
-   "jsOwner": "slippery_ice_fumbling(hack.js:2608)",
+   "jsOwner": "slippery_ice_fumbling(hack.js:2676)",
    "cTopline": "Sturdy ice.",
    "jsTopline": "Ice.",
    "error": null
@@ -12752,7 +12752,7 @@
    "steps": 252,
    "owner": "start_melt_ice_timeout",
    "loc": "zap.c:5101",
-   "jsOwner": "slippery_ice_fumbling(hack.js:2608)",
+   "jsOwner": "slippery_ice_fumbling(hack.js:2676)",
    "cTopline": "Sturdy ice.",
    "jsTopline": "Ice.",
    "error": null
@@ -13075,7 +13075,7 @@
    "steps": 95,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3106)",
+   "jsOwner": "m_initinv(makemon.js:3167)",
    "cTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "jsTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "error": null
@@ -13347,7 +13347,7 @@
    "steps": 87,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:216)",
+   "jsOwner": "exercise(attrib.js:217)",
    "cTopline": "some gold pieces",
    "jsTopline": "a eucalyptus leaf",
    "error": null
@@ -13398,7 +13398,7 @@
    "steps": 253,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:216)",
+   "jsOwner": "exercise(attrib.js:217)",
    "cTopline": "some gold pieces",
    "jsTopline": "7 candles",
    "error": null
@@ -13500,7 +13500,7 @@
    "steps": 227,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3106)",
+   "jsOwner": "m_initinv(makemon.js:3167)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -13568,7 +13568,7 @@
    "steps": 171,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3106)",
+   "jsOwner": "m_initinv(makemon.js:3167)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -13653,7 +13653,7 @@
    "steps": 211,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "u_maybe_impaired(hack.js:2444)",
+   "jsOwner": "u_maybe_impaired(hack.js:2512)",
    "cTopline": "some gold pieces",
    "jsTopline": "a food ration",
    "error": null
@@ -14027,7 +14027,7 @@
    "steps": 159,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3193)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14044,7 +14044,7 @@
    "steps": 162,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3193)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14095,7 +14095,7 @@
    "steps": 151,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3193)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14282,7 +14282,7 @@
    "steps": 181,
    "owner": "u_calc_moveamt",
    "loc": "allmain.c:131",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3193)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14333,7 +14333,7 @@
    "steps": 145,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3193)",
    "cTopline": "",
    "jsTopline": "",
    "error": null

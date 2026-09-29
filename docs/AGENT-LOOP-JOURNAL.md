@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — Audit 2060–2068 (D-3100..D-3108): 9 ACCEPT; full cadence
+
+Reviews 2060–2068 audit e028921a0..32d25b3c3 (wiz dumps, dungeon branches, forget/drain, makemon 9-fn, earlyarg 9-fn, hack 10-fn, append_str, makemap_remove_mons, crashreport_init): all ACCEPT, no Must-fix. Re-measured every corpus claim with `--reach-all` (m_initgrp 147/147, m_initthrow 153/153); `--can` on D-3103/D-3107 edges returns ALREADY (no new edges). Cadence: public 44/44 (Scr 11,405, RNG 792,838, `271+1.62/turn`); corpus 648/953, RNG 96.75%, screens 90.7%, 0 flips, `full: true`; held-out 13/44 flat. Ledger snapshot + 5/5 seeded-ported sample live.
 ## 2026-09-29 — D-3108 report.c crashreport_init degenerate port + 2 stale pops (coverage)
 
 **C locus:** - `crashreport_init`: nethack-c/upstream/src/report.c:112–174 (once `:115–117`, HASH decl/init `:118–122`, BINFILE readlink `:123`, open `:125–131` with BETA raw_printf `:127–129`, 4K read loop `:133–143`, finish `:144–147`, hex `:148–164`, skip bid `:168–169` + nhUse `:172–173`; bid static `:107–109`); sole caller allmain.c:38 early_init (`#ifdef CRASHREPORT`, active on Linux via config.h:244-254).

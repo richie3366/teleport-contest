@@ -2069,3 +2069,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2057-92b27f0c4-burn-object.md](./2057-92b27f0c4-burn-object.md) | `92b27f0c4` | D-3097 burn_object whole-body restart | **ACCEPT** |
 | [2058-b6b281b0a-config-erradd-conf-file.md](./2058-b6b281b0a-config-erradd-conf-file.md) | `b6b281b0a` | D-3098 config_erradd in_lua arm + parse_conf_file | **ACCEPT** |
 | [2059-463ebb0e2-selection-getbounds.md](./2059-463ebb0e2-selection-getbounds.md) | `463ebb0e2` | D-3099 selection_getbounds canonical export + 3 retirements | **ACCEPT** |
+| [2060-e028921a0-wiz-show-wmodes-objprobs.md](./2060-e028921a0-wiz-show-wmodes-objprobs.md) | `e028921a0` | D-3100 wiz_show_wmodes + wiz_objprobs dump pair + runners | **ACCEPT** |
+| [2061-920907eb7-init-dungeon-branches.md](./2061-920907eb7-init-dungeon-branches.md) | `920907eb7` | D-3101 init_dungeon_branches + nhlua readers restart | **ACCEPT** |
+| [2062-73f4a382f-forget-drain-skill.md](./2062-73f4a382f-forget-drain-skill.md) | `73f4a382f` | D-3102 forget + drain_weapon_skill await/panic fidelity | **ACCEPT** |
+| [2063-5b7eef822-mongen-cluster.md](./2063-5b7eef822-mongen-cluster.md) | `5b7eef822` | D-3103 makemon.c mongen/furies/mextra cluster (9 fns) | **ACCEPT** |
+| [2064-e32d557c0-earlyarg-cluster.md](./2064-e32d557c0-earlyarg-cluster.md) | `e32d557c0` | D-3104 earlyarg.c lopt/scan/tails closure (9 fns) | **ACCEPT** |
+| [2065-30647ba3c-hack-cluster.md](./2065-30647ba3c-hack-cluster.md) | `30647ba3c` | D-3105 hack.c rounddiv/doorless/to_any cluster (10 fns) | **ACCEPT** |
+| [2066-cb3b01855-append-str.md](./2066-cb3b01855-append-str.md) | `cb3b01855` | D-3106 append_str impossible arm + NULL test | **ACCEPT** |
+| [2067-ebd112f3b-makemap-remove-mons.md](./2067-ebd112f3b-makemap-remove-mons.md) | `ebd112f3b` | D-3107 makemap_remove_mons + unmakemon whole | **ACCEPT** |
+| [2068-32d25b3c3-crashreport-init.md](./2068-32d25b3c3-crashreport-init.md) | `32d25b3c3` | D-3108 crashreport_init degenerate port + 2 stale | **ACCEPT** |
