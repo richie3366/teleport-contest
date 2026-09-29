@@ -495,7 +495,7 @@ function posix_class_pat(s) {
 
 /** Exported for sounds.js add_sound_mapping (sounds.c `:1590`). */
 export function regex_init() {
-    return { jsre: null, err: 0 };
+    return { jsre: null, err: 0, errdesc: '' };
 }
 
 /** Exported for sounds.js add_sound_mapping (sounds.c `:1596`). */
@@ -504,10 +504,14 @@ export function regex_compile(s, re) {
     try {
         re.jsre = new RegExp(posix_class_pat(s));
         re.err = 0;
+        re.errdesc = '';
         return true;
-    } catch {
+    } catch (e) {
         re.jsre = null;
         re.err = 1;
+        // C posixregex.c `:70` stores the regcomp code for regerror; the
+        // JS engine's SyntaxError text is captured for regex_error_desc.
+        re.errdesc = (e && e.message) || '';
         return false;
     }
 }
@@ -528,7 +532,27 @@ export function regex_free(re) {
     if (re) {
         re.jsre = null;
         re.err = 0;
+        re.errdesc = '';
     }
+}
+
+/**
+ * C ref: sys/share/posixregex.c regex_error_desc `:76–89` in C order —
+ * describe why the last regex_compile/regex_match on `re` failed. `re`
+ * is `{ jsre, err, errdesc }` (regex_init above); the C `errbuf`
+ * out-param collapses to the return (every C caller uses the return
+ * only). C `:84` regerror(3) over the stored code ≡ the SyntaxError
+ * text regex_compile captured (V8 RegExp is the POSIX engine here);
+ * C `:85–86` empty-message fallback kept. Wired at all five C call
+ * sites: test_regex_pattern (same file), msgtype_add (same file),
+ * add_autopickup_exception (same file), coloratt.c
+ * add_menu_coloring_parsed (same file), sounds.c add_sound_mapping
+ * (value computed there; raw_print sink still named).
+ */
+export function regex_error_desc(re) {
+    if (!re) return 'no regexp'; // C `:78–79`
+    if (!re.err) return 'no explanation'; // C `:80–81`
+    return re.errdesc || 'unspecified regexp error'; // C `:83–86`
 }
 
 /**
@@ -557,22 +581,30 @@ async function query_msgtype() {
 }
 
 /**
- * C ref: options.c msgtype_add `:7730–7754` — prepend onto
- * gp.plinemsg_types. Compile fail → FALSE (config_error_add named).
+ * C ref: options.c msgtype_add `:7730–7754` in C order — prepend onto
+ * gp.plinemsg_types. C `:7733` static re_error kept; the compile-fail
+ * arm describes via the live regex_error_desc, frees first (OOM
+ * ordering — the unlinked tmp is GC), then the config_error_add call
+ * (no-op sink, test_regex_pattern precedent).
  */
 export function msgtype_add(typ, pattern) {
+    const re_error = 'MSGTYPE regex error'; // C `:7733`
     const tmp = {
-        msgtype: typ | 0,
-        regex: regex_init(),
-        pattern: String(pattern ?? ''),
-        next: gp.plinemsg_types,
+        msgtype: typ | 0, // C `:7736`
+        regex: regex_init(), // C `:7737`
+        pattern: '',
+        next: null,
     };
-    if (!regex_compile(tmp.pattern, tmp.regex)) {
-        regex_free(tmp.regex);
-        return false;
+    if (!regex_compile(String(pattern ?? ''), tmp.regex)) { // C `:7740`
+        const re_error_desc = regex_error_desc(tmp.regex); // C `:7742`
+        regex_free(tmp.regex); // C `:7745`
+        config_error_add('%s: %s', re_error, re_error_desc); // C `:7747`
+        return false; // C `:7748`
     }
-    gp.plinemsg_types = tmp;
-    return true;
+    tmp.pattern = String(pattern ?? ''); // C `:7750` dupstr
+    tmp.next = gp.plinemsg_types; // C `:7751`
+    gp.plinemsg_types = tmp; // C `:7752`
+    return true; // C `:7753`
 }
 
 /**
@@ -826,36 +858,57 @@ export function set_playmode() {
 }
 
 /**
- * C ref: options.c txt2key — key token in BIND=key:command.
- * Covers single char, <enter>/<space>/<esc>, ^X/C-x, M-x, 3-digit
- * decimal. Named omissions: escapes() \\b/\\7 paths; quoted chars.
+ * C ref: options.c txt2key `:6971–7067` in C order — key token in
+ * BIND=key:command (sole C callers `:5462` menu-cmd keys, `:7645`
+ * bind_key; wired at spcfn_misc_menu_cmd + parsebindings below).
+ * trimspaces/highc are the live hacklib.js imports (space/tab only —
+ * not String.trim; ASCII-upper only), escapes the file-local port.
+ * M(c) ≡ 0x80|c (global.h `:480`; NHSTDC undefined on unix),
+ * C(c) ≡ 0x1f&c (`:487`). No named omissions: the `:7048–7051`
+ * single-quote FIXME is unimplemented in C too.
  */
 export function txt2key(txt) {
-    if (txt == null) return 0;
-    txt = String(txt).trim();
-    if (!txt) return 0;
-    if (txt.length === 1) return txt.charCodeAt(0) & 0xff;
-    const low = txt.toLowerCase();
-    if (low === '<enter>') return 10;
-    if (low === '<space>') return 32;
-    if (low === '<esc>') return 27;
-    // ^X or C-x / C-X
-    if (txt[0] === '^' || ((txt[0] === 'C' || txt[0] === 'c') && txt[1] === '-')) {
-        let rest = txt[0] === '^' ? txt.slice(1) : txt.slice(2);
-        if (rest.startsWith('-')) rest = rest.slice(1);
-        if (!rest) return txt[0] === '^' ? '^'.charCodeAt(0) : 'C'.charCodeAt(0);
-        if (rest === '?') return 0x7f;
-        return (rest.charCodeAt(0) & 0x1f);
+    let makemeta = false; // C `:6974`
+    txt = trimspaces(txt); // C `:6976`
+    if (!txt.length) return 0; // C `:6977–6978` !*txt
+    if (txt.length === 1) return txt.charCodeAt(0) & 0xff; // C `:6981–6982`
+    if (txt === '<enter>') return 10; // C `:6985–6986` strcmp, case-sensitive
+    if (txt === '<space>') return 32; // C `:6987–6988`
+    if (txt === '<esc>') return 27; // C `:6989–6990` \033
+    if (txt[0] === '\\') { // C `:6993`
+        // C `:6996–6997` — clip to QBUFSZ-1 before decoding.
+        const clipped = txt.length >= QBUFSZ ? txt.slice(0, QBUFSZ - 1) : txt;
+        const tbuf = escapes(clipped); // C `:6998` (single-arg, returns decoded)
+        return tbuf.length ? tbuf.charCodeAt(0) & 0xff : 0; // C `:6999` *tbuf
     }
-    // M-x / M-X
-    if ((txt[0] === 'M' || txt[0] === 'm') && (txt[1] === '-' || txt.length > 1)) {
-        let rest = txt.slice(1);
-        if (rest.startsWith('-')) rest = rest.slice(1);
-        if (!rest) return 'M'.charCodeAt(0);
-        if (rest.length === 1) return (0x80 | rest.charCodeAt(0)) & 0xff;
+    if (highc(txt[0]) === 'M') { // C `:7003`
+        if (txt.length === 1) return txt.charCodeAt(0) & 0xff; // C `:7012–7013`
+        txt = txt.slice(1); // C `:7015` past 'M'/'m'
+        if (txt[0] === '-' && txt.length > 1) txt = txt.slice(1); // C `:7016–7017`
+        if (txt.length === 1) return (0x80 | txt.charCodeAt(0)) & 0xff; // C `:7018–7019`
+        makemeta = true; // C `:7020` — pending through ^/C- processing
     }
-    if (/^\d{3}$/.test(txt)) return parseInt(txt, 10) & 0xff;
-    return 0;
+    if (txt[0] === '^' || highc(txt[0]) === 'C') { // C `:7022`
+        let uc = txt.charCodeAt(0) & 0xff; // C `:7030`
+        if (txt.length === 1) return makemeta ? (0x80 | uc) & 0xff : uc; // C `:7031–7032`
+        txt = txt.slice(1); // C `:7033`
+        if (txt[0] === '-' && txt.length > 1) txt = txt.slice(1); // C `:7037–7038`
+        if (txt[0] === '?') return makemeta ? 0xff : 0x7f; // C `:7040–7041` \377/\177
+        uc = txt.charCodeAt(0) & 0x1f; // C `:7042` C()
+        return makemeta ? (0x80 | uc) & 0xff : uc; // C `:7043`
+    }
+    if (makemeta && txt.length) return (0x80 | txt.charCodeAt(0)) & 0xff; // C `:7045–7046`
+    // C `:7048–7051` FIXME — single-quote forms: unimplemented in C; fall through.
+    if (txt[0] >= '0' && txt[0] <= '9') { // C `:7054`
+        let key = 0; // C `:7055` uchar
+        for (let i = 0; i < 3; i++) { // C `:7058`
+            const ch = i < txt.length ? txt[i] : '\0'; // C `:7059` NUL past end
+            if (ch < '0' || ch > '9') return 0; // C `:7059–7060`
+            key = (10 * key + (ch.charCodeAt(0) - 48)) & 0xff; // C `:7061` uchar wrap
+        }
+        return key; // C `:7063` (no txt[3] check — "1234" → 123)
+    }
+    return 0; // C `:7066`
 }
 
 /**
@@ -1302,7 +1355,7 @@ function spcfn_misc_menu_cmd(midx, req, negated, opts, op) {
             bad_negation(default_menu_cmd_info[midx].name, false); // C `:5459–5460`
             return OPTN_ERR; // C `:5461`
         } else if ((op = string_for_opt(opts, false)) !== EMPTY_OPTSTR) { // C `:5462`
-            const c = txt2key(op); // C `:5463`
+            const c = txt2key(op); // C `:5462`
 
             if (illegal_menu_cmd_key(c)) // C `:5465`
                 return OPTN_ERR; // C `:5466`
@@ -4516,18 +4569,24 @@ export function free_menu_coloring() {
 }
 
 /**
- * C ref: coloratt.c add_menu_coloring_parsed `:585–613` — validated
- * callers only (test_regex_pattern ran first); recompile can still fail,
- * then FALSE. config_error_add paths named (msgtype_add precedent).
- * C `:595` guards NULL only: an empty pattern compiles (match-everything),
- * reachable from add_menu_coloring's `MENUCOLOR==color` / `""` arms.
+ * C ref: coloratt.c add_menu_coloring_parsed `:585–613` in C order —
+ * validated callers only (test_regex_pattern ran first); recompile can
+ * still fail, then FALSE. C `:587` static re_error kept; the fail arm
+ * describes via the live regex_error_desc, frees first (OOM ordering),
+ * then the config_error_add call (no-op sink, msgtype_add precedent).
+ * C `:590` guards NULL only: an empty pattern compiles
+ * (match-everything), reachable from add_menu_coloring's
+ * `MENUCOLOR==color` / `""` arms.
  */
 export function add_menu_coloring_parsed(str, c, a) {
-    if (str === null || str === undefined) return false; // C :595 !str (NULL only)
-    const match = regex_init();
-    if (!regex_compile(String(str), match)) {
-        regex_free(match);
-        return false;
+    const re_error = 'Menucolor regex error'; // C `:587`
+    if (str === null || str === undefined) return false; // C `:590–591` !str (NULL only)
+    const match = regex_init(); // C `:593`
+    if (!regex_compile(String(str), match)) { // C `:596`
+        const re_error_desc = regex_error_desc(match); // C `:598`
+        regex_free(match); // C `:601`
+        config_error_add('%s: %s', re_error, re_error_desc); // C `:603`
+        return false; // C `:604`
     }
     menuColorings = {
         match,
@@ -5294,8 +5353,7 @@ export async function query_color_attr(ca, prompt) {
  * C ref: options.c test_regex_pattern `:7869–7901` — validate only, the
  * compiled regexp is discarded. Staticfn → file-local. Both C callers
  * (:6438 menucolors, :6520 msgtype) already call this site.
- * Named omit: regex_error_desc (sys/ port, no src/*.c body — its value
- * flows only into the config sink; msgtype_add/coloratt precedent).
+ * regex_error_desc is the live sys/share/posixregex.c port (same file).
  */
 function test_regex_pattern(str, errmsg) {
     if (str == null) return false; // C `:7878–7879` — NULL only; "" compiles below
@@ -5306,10 +5364,11 @@ function test_regex_pattern(str, errmsg) {
         return false;
     }
     const retval = regex_compile(String(str), match); // C `:7889`
-    // C `:7893` — re_error_desc via regex_error_desc: NAMED OMIT (above).
+    // C `:7893` — describe before freeing (message delivery may alloc).
+    const re_error_desc = !retval ? regex_error_desc(match) : null;
     regex_free(match); // C `:7895` — free before message (OOM ordering)
     if (!retval) // C `:7897–7898` — failure → sink
-        config_error_add('%s: %s', errmsg, null);
+        config_error_add('%s: %s', errmsg, re_error_desc);
     return retval; // C `:7900`
 }
 
@@ -5445,7 +5504,7 @@ export function add_autopickup_exception(mapping) {
     const APE_syntax_error = 'syntax error in AUTOPICKUP_EXCEPTION';
     let grab = false;
     let text = '';
-    // C `:9318–9328`
+    // C `:9317–9322`
     let r = ape_sscanf_quoted(mapping, '<');
     if (r.n === 1 || (r.n === 2 && r.end === '#')) {
         grab = true;
@@ -5461,26 +5520,26 @@ export function add_autopickup_exception(mapping) {
                 grab = false;
                 text = r2.text;
             } else {
-                config_error_add('%s', APE_syntax_error); // C `:9330`
+                config_error_add('%s', APE_syntax_error); // C `:9325`
                 return 0;
             }
         }
     }
     const ape = {
-        regex: regex_init(), // C `:9334`
+        regex: regex_init(), // C `:9330`
         pattern: '',
         grab,
     };
-    if (!regex_compile(text, ape.regex)) { // C `:9335`
-        regex_free(ape.regex); // C `:9340`
-        // regex_error_desc (posixregex.c) has no JS body.
-        config_error_add('%s: %s', APE_regex_error, 'invalid regular expression'); // C `:9342`
+    if (!regex_compile(text, ape.regex)) { // C `:9331`
+        const re_error_desc = regex_error_desc(ape.regex); // C `:9333`
+        regex_free(ape.regex); // C `:9336`
+        config_error_add('%s: %s', APE_regex_error, re_error_desc); // C `:9338`
         return 0;
     }
-    ape.pattern = text; // C `:9344` dupstr
+    ape.pattern = text; // C `:9341` dupstr
     ape.grab = grab;
     if (!Array.isArray(game.apelist)) game.apelist = [];
-    game.apelist.unshift(ape); // C `:9345–9346` prepend
+    game.apelist.unshift(ape); // C `:9343–9344` prepend
     return 1;
 }
 

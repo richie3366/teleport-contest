@@ -19,7 +19,7 @@
 {"fn":"dochat","c":"1257-1409","status":"unknown"}
 {"fn":"responsive_mon_at","c":"1413-1423","status":"unknown"}
 {"fn":"tiphat","c":"1427-1537","status":"ported","js":["js/sounds.js:tiphat"],"d":["D-2522"],"at":"seed@a30a7de84"}
-{"fn":"add_sound_mapping","c":"1556-1626","status":"ported","js":["js/sounds.js:add_sound_mapping"],"d":["D-2776"],"at":"seed@a30a7de84"}
+{"fn":"add_sound_mapping","c":"1556-1626","status":"ported","js":["js/sounds.js:add_sound_mapping"],"d":["D-3114","D-2776"],"at":"2026-09-29@405ed7298"}
 {"fn":"sound_matches_message","c":"1629-1639","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out (sounds.c:1539-1691 guard; no -DUSER_SOUNDS); cf js/sounds.js maybe_play_sound doc"}
 {"fn":"play_sound_for_message","c":"1642-1656","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out + zero C callers; cf js/sounds.js maybe_play_sound doc"}
 {"fn":"maybe_play_sound","c":"1659-1673","status":"ported","js":["js/sounds.js:maybe_play_sound"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}

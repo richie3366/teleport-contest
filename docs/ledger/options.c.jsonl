@@ -157,7 +157,7 @@
 {"fn":"nh_getenv","c":"6848-6856","status":"unknown"}
 {"fn":"nmcpy","c":"6861-6871","status":"partial","js":["js/options.js:nmcpy"],"omit":"`petname_optfn` (`:866`), `optfn_name` (`:2561`), `optfn_windowtype` (`:4972`), and `initoptions_init` (`:7134`, `:7283`) are not JS functions.","d":["D-2790"],"at":"seed@a30a7de84"}
 {"fn":"escapes","c":"6896-6966","status":"unknown"}
-{"fn":"txt2key","c":"6971-7067","status":"unknown"}
+{"fn":"txt2key","c":"6971-7067","status":"ported","js":["js/options.js:txt2key"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
 {"fn":"initoptions","c":"7079-7115","status":"partial","js":["js/options.js:initoptions"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"initoptions_init","c":"7119-7305","status":"ported","js":["js/options.js:initoptions_init"],"d":["D-3061"],"at":"2026-09-28@fb9c2049c","note":"stale: js/options.js:6791 D-3061 body complete, omits by-design/compiled-out/no-analogue"}
 {"fn":"initoptions_finish","c":"7324-7384","status":"partial","js":["js/options.js:initoptions_finish"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
@@ -170,14 +170,14 @@
 {"fn":"parsebindings","c":"7596-7674","status":"unknown"}
 {"fn":"msgtype2name","c":"7690-7698","status":"unknown"}
 {"fn":"query_msgtype","c":"7701-7728","status":"unknown"}
-{"fn":"msgtype_add","c":"7731-7754","status":"unknown"}
+{"fn":"msgtype_add","c":"7731-7754","status":"ported","js":["js/options.js:msgtype_add"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
 {"fn":"msgtype_free","c":"7757-7769","status":"unknown"}
 {"fn":"free_one_msgtype","c":"7772-7794","status":"unknown"}
 {"fn":"msgtype_type","c":"7797-7810","status":"unknown"}
 {"fn":"hide_unhide_msgtypes","c":"7815-7828","status":"unknown"}
 {"fn":"msgtype_count","c":"7831-7841","status":"unknown"}
 {"fn":"msgtype_parse_add","c":"7844-7866","status":"unknown"}
-{"fn":"test_regex_pattern","c":"7871-7901","status":"partial","js":["js/options.js:test_regex_pattern"],"omit":"- `test_regex_pattern`: regex_error_desc (sys/ port, no src/*.c body; value flows only into the config sink — msgtype_add/coloratt precedent).","d":["D-3111"],"at":"2026-09-29@d27c7b945"}
+{"fn":"test_regex_pattern","c":"7871-7901","status":"ported","js":["js/options.js:test_regex_pattern"],"d":["D-3114","D-3111"],"at":"2026-09-29@405ed7298"}
 {"fn":"parse_role_opt","c":"7905-8016","status":"unknown"}
 {"fn":"get_cnf_role_opt","c":"8021-8033","status":"unknown"}
 {"fn":"illegal_menu_cmd_key","c":"8037-8054","status":"unknown"}
@@ -207,7 +207,7 @@
 {"fn":"handle_add_list_remove","c":"9208-9251","status":"unknown"}
 {"fn":"dotogglepickup","c":"9256-9274","status":"unknown"}
 {"fn":"toggle_bool_option","c":"9278-9297","status":"unknown"}
-{"fn":"add_autopickup_exception","c":"9300-9346","status":"unknown"}
+{"fn":"add_autopickup_exception","c":"9300-9346","status":"ported","js":["js/options.js:add_autopickup_exception"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
 {"fn":"remove_autopickup_exception","c":"9349-9369","status":"unknown"}
 {"fn":"free_autopickup_exceptions","c":"9372-9382","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sym_val","c":"9385-9426","status":"unknown"}

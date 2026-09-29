@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3114 `options.c` test_regex_pattern completion via regex_error_desc + txt2key restart + 4 caller wirings (coverage cluster)
+
+**C locus:** - `test_regex_pattern`: options.c:7869–7901 (D-3111 left `:7893` regex_error_desc a named omit)
+**JS:** js/options.js regex_error_desc `:552`, msgtype_add `:590`, txt2key `:870`, add_menu_coloring_parsed `:4581`, test_regex_pattern `:5358`, add_autopickup_exception `:5502`; js/sounds.js add_sound_mapping `:252`; scripts/txt2key.test.mjs (14 pins).
+**Change:** new `regex_error_desc` export in C order (errbuf collapses to the return — every C caller uses it only; regerror ≡ captured SyntaxError text, empty-message fallback kept); regex_init carries `errdesc`, regex_compile captures `e.message`, regex_free clears it; all five C call sites wired (test_regex_pattern live value; msgtype_add + coloratt-parsed full C-order fail arms with statics; APE live value; sounds computes, raw_print stays named); txt2key restarted whole in C order over live trimspaces/highc/escapes; cite fixes (APE +4 drift, coloratt :595→:590, spcfn :5463→:5462).
+**Verify:** `node scripts/verify.mjs --fn test_regex_pattern,txt2key,msgtype_add,add_autopickup_exception,add_menu_coloring_parsed,add_sound_mapping` → VERIFY: PASS (syntax 2 files; rule2; hidden note ×6 no baseline blocks; reach ×6 smoke spread 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared change). `node --test scripts/txt2key.test.mjs` → 14 pass.
+**Named:** - `add_sound_mapping`: raw_print(re_error_desc) sounds.c:1604 (no pre-window stdout channel — display.js vraw_printf precedent; value computed live).
+**Next:** generated block refills on finish; txt2key BIND/menu-cmd paths now C-exact for held-out config names.
 ## 2026-09-29 — D-3113 `report.c` NH_panictrace_libc + NH_panictrace_gdb + crashreport_bidshow + dobugreport + swr_add_uricoded + panictrace_handler (6× same-file closure)
 
 **C locus:** - `NH_panictrace_libc`: `nethack-c/upstream/src/report.c:484–512` (`#if 0` `:487–490`, `#ifdef PANICTRACE_LIBC` backtrace arm `:492–508`, compiled `#else` `:510`).

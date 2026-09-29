@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3114 — `options.c` test_regex_pattern completion via regex_error_desc + txt2key restart + 4 caller wirings (coverage cluster)
+
+- **Status:** fixed (Open — coverage head `options.c` test_regex_pattern + queue row `options.c` txt2key + 4 same-closure companions; cites no review — no stamp needed; 133 js/ insertions: head's file/closure holds nothing more Open — config_error_add is the established no-op sink, assure_syscf_file a review-accepted omit).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on all six: no corpus session blocked at baseline — config-parse paths).
+- **C locus:**
+  - `test_regex_pattern`: options.c:7869–7901 (D-3111 left `:7893` regex_error_desc a named omit)
+  - `regex_error_desc`: sys/share/posixregex.c:76–89 (unpinned sys/ support export, no ledger row)
+  - `txt2key`: options.c:6971–7067
+  - `msgtype_add`: options.c:7730–7754
+  - `add_autopickup_exception`: options.c:9299–9346
+  - `add_menu_coloring_parsed`: coloratt.c:585–613
+  - `add_sound_mapping`: sounds.c fail arm :1596–1605 (rest ported D-2776)
+- **JS was:** test_regex_pattern passed null for re_error_desc (partial); no regex_error_desc symbol and regex_compile discarded the SyntaxError; txt2key THIN with five C-wrongs (String.trim vs space/tab-only, case-insensitive specials, no backslash/escapes arm, ^-before-M order dropping M-C- combos, digit arm requiring exactly 3); msgtype_add/coloratt-parsed lacked the re_error + config call; APE passed a literal with +4-stale cites; sounds named desc+raw_print.
+- **Fix:** new `regex_error_desc` export in C order (errbuf collapses to the return — every C caller uses it only; regerror ≡ captured SyntaxError text, empty-message fallback kept); regex_init carries `errdesc`, regex_compile captures `e.message`, regex_free clears it; all five C call sites wired (test_regex_pattern live value; msgtype_add + coloratt-parsed full C-order fail arms with statics; APE live value; sounds computes, raw_print stays named); txt2key restarted whole in C order over live trimspaces/highc/escapes; cite fixes (APE +4 drift, coloratt :595→:590, spcfn :5463→:5462).
+- **JS:** js/options.js regex_error_desc `:552`, msgtype_add `:590`, txt2key `:870`, add_menu_coloring_parsed `:4581`, test_regex_pattern `:5358`, add_autopickup_exception `:5502`; js/sounds.js add_sound_mapping `:252`; scripts/txt2key.test.mjs (14 pins).
+- **Callers:**
+  - `test_regex_pattern`: options.c:6438 → js/options.js:5689; options.c:6520 → js/options.js:5815 (both pre-wired).
+  - `txt2key`: options.c:5462 → js/options.js:1358 spcfn_misc_menu_cmd; options.c:7645 → js/options.js:935 parsebindings.
+  - `msgtype_add`: options.c:6522 → js/options.js:5817; options.c:7859 → js/options.js:703 msgtype_parse_add.
+  - `add_autopickup_exception`: options.c:6361 → js/options.js:5597; cfgfiles.c:614 → js/cfgfiles.js:539.
+  - `add_menu_coloring_parsed`: coloratt.c:567 → js/options.js:5244 basic_menu_colors; coloratt.c:659 → js/options.js:4652 add_menu_coloring; options.c:6441 → js/options.js:5692.
+  - `add_sound_mapping`: cfgfiles.c:1233 cnf_line_SOUND is `#ifdef USER_SOUNDS` (off — no JS caller, pre-existing D-2776 state).
+- **Verify:** `node scripts/verify.mjs --fn test_regex_pattern,txt2key,msgtype_add,add_autopickup_exception,add_menu_coloring_parsed,add_sound_mapping` → VERIFY: PASS (syntax 2 files; rule2; hidden note ×6 no baseline blocks; reach ×6 smoke spread 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared change). `node --test scripts/txt2key.test.mjs` → 14 pass.
+- **Named omissions:**
+  - `add_sound_mapping`: raw_print(re_error_desc) sounds.c:1604 (no pre-window stdout channel — display.js vraw_printf precedent; value computed live).
+  - Cluster declines (not omissions): config_error_add stays the no-op sink (established map design, D-3111 precedent); assure_syscf_file not ported (review-accepted VFS-absence omit, reviews 1985/2021 — literal port always-exits since VFS has no sysconf).
+- **Ledger:** test_regex_pattern ported; txt2key ported; msgtype_add ported; add_autopickup_exception ported; add_menu_coloring_parsed ported; add_sound_mapping ported
+- **Next:** generated block refills on finish; txt2key BIND/menu-cmd paths now C-exact for held-out config names.
+
 ## D-3113 — `report.c` NH_panictrace_libc + NH_panictrace_gdb + crashreport_bidshow + dobugreport + swr_add_uricoded + panictrace_handler (6× same-file closure)
 
 - **Status:** fixed (Open — coverage row `report.c` NH_panictrace_libc + 5 same-file Open companions; cites no review — no stamp needed; ~183 js/ insertions: whole-file closure of what's portable — submit_web_report/setsignals by-design, get_saved_pline ported D-3031, init partial D-3108).
