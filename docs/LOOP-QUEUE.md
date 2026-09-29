@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `dig.c` wiz_debug_cmd_bury — coverage MISSING (C 19 code L `dig.c:2288–2320` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @c21da30e8
-- [ ] `mdlib.c` make_version — coverage MISSING (C 19 code L `mdlib.c:248–295` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @2c9129a4b
 - [ ] `muse.c` munstone — coverage PARTIAL (C 13 code L `muse.c:2884–2903` / JS 9 code L in js/muse.js; hops 5, callers 4, RNG 0, msg 0) @2c9129a4b
 - [ ] `sp_lev.c` get_table_coords_or_region — coverage MISSING (C 9 code L `sp_lev.c:5561–5577` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @2c9129a4b
 - [ ] `read.c` hawaiian_design — coverage MISSING (C 17 code L `read.c:224–251` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @2c9129a4b
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `insight.c` enlght_line — coverage THIN (C 16 code L `insight.c:127–156` / JS 5 code L in js/insight.js; hops 6, callers 1, RNG 0, msg 0) @c983587e0
 - [ ] `light.c` restore_light_sources — coverage PARTIAL (C 8 code L `light.c:479–493` / JS 5 code L in js/mkobj.js; hops 3, callers 2, RNG 0, msg 0) @c983587e0
 - [ ] `sp_lev.c` get_table_align — coverage MISSING (C 8 code L `sp_lev.c:3114–3128` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @c983587e0
+- [ ] `mkobj.c` check_glob — coverage PARTIAL (C 9 code L `mkobj.c:3420–3443` / JS 5 code L in js/mkobj.js; hops 4, callers 4, RNG 0, msg 0) @ee5dff112
+- [ ] `objnam.c` fruitname — coverage PARTIAL (C 8 code L `objnam.c:414–427` / JS 4 code L in js/potion.js; hops 5, callers 4, RNG 0, msg 0) @ee5dff112
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

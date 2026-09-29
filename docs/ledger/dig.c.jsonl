@@ -3,7 +3,7 @@
 {"fn":"mkcavearea","c":"88-137","status":"ported","js":["js/dig.js:mkcavearea"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"pick_can_reach","c":"141-165","status":"unknown"}
 {"fn":"dig_typ","c":"169-192","status":"unknown","d":["D-2312"],"at":"seed@a30a7de84"}
-{"fn":"is_digging","c":"195-201","status":"unknown"}
+{"fn":"is_digging","c":"195-201","status":"ported","js":["js/dig.js:is_digging"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/dig.js:281; callers js/dig.js:1090 + js/monmove.js:1193"}
 {"fn":"dig_check","c":"207-252","status":"unknown","d":["D-2311"],"at":"seed@a30a7de84"}
 {"fn":"digcheck_fail_message","c":"255-297","status":"unknown"}
 {"fn":"dig","c":"300-568","status":"unknown"}
@@ -16,7 +16,7 @@
 {"fn":"dig_up_grave","c":"1027-1089","status":"unknown"}
 {"fn":"use_pick_axe","c":"1092-1156","status":"unknown","d":["D-2166"],"at":"seed@a30a7de84"}
 {"fn":"use_pick_axe2","c":"1162-1359","status":"unknown"}
-{"fn":"watchman_canseeu","c":"1362-1368","status":"unknown"}
+{"fn":"watchman_canseeu","c":"1362-1368","status":"ported","js":["js/dig.js:watchman_canseeu"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/dig.js:1034 (C staticfn, local); caller js/dig.js:1067"}
 {"fn":"watch_dig","c":"1377-1410","status":"unknown","d":["D-2319"],"at":"seed@a30a7de84"}
 {"fn":"mdig_tunnel","c":"1414-1497","status":"unknown"}
 {"fn":"draft_message","c":"1504-1544","status":"ported","js":["js/dig.js:draft_message"],"d":["D-2536"],"at":"seed@a30a7de84"}
@@ -31,9 +31,9 @@
 {"fn":"unearth_objs","c":"2086-2112","status":"unknown"}
 {"fn":"rot_organic","c":"2125-2140","status":"unknown"}
 {"fn":"rot_corpse","c":"2146-2189","status":"unknown","d":["D-1213"],"at":"seed@a30a7de84"}
-{"fn":"bury_monst","c":"2193-2209","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"bury_you","c":"2212-2227","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"bury_monst","c":"2193-2209","status":"by-design","d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"inside #if 0 dig.c:2191-2283 (with bury_you, unearth_you, escape_tomb, bury_obj); extern.h decl only"}
+{"fn":"bury_you","c":"2212-2227","status":"by-design","d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"inside #if 0 dig.c:2191-2283; zero C refs"}
 {"fn":"unearth_you","c":"2230-2238","status":"ported","js":["js/dig.js:unearth_you"],"d":["D-3058"],"at":"2026-09-28@1483a276d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"escape_tomb","c":"2241-2270","status":"ported","js":["js/dig.js:escape_tomb"],"d":["D-3058"],"at":"2026-09-28@1483a276d","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"bury_obj","c":"2273-2282","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_debug_cmd_bury","c":"2288-2320","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"bury_obj","c":"2273-2282","status":"by-design","d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"inside #if 0 dig.c:2191-2283; extern.h decl only"}
+{"fn":"wiz_debug_cmd_bury","c":"2288-2320","status":"by-design","d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"ifdef DEBUG def dig.c:2285 + caller cmd.c:1944; contest unix build + recorder carry no -DDEBUG; no patch touches it"}

@@ -1,5 +1,49 @@
 # Divergence log
 
+## D-3123 — `mdlib.c` make_version whole-body + dig.c DEBUG/`#if 0` by-design set (10 functions; coverage)
+
+- **Status:** fixed (Open — coverage head `dig.c` wiz_debug_cmd_bury is `#ifdef DEBUG` (def + sole caller) with no `-DDEBUG` in the contest build → by-design, so the second row `mdlib.c` make_version ships as the code head: static version struct + runtime_info_init `:841` wire, js/date.js interimVersionInfo collapses. ~70 js/ insertions in js/version.js + js/date.js — dig.c and mdlib.c hold nothing more queue-eligible after this, so the <80-insertion density exception applies (cf. D-3122/D-3115). Same iteration: 3 more by-design + 5 stale→ported via direct `ledger.mjs set`, D-3121 precedent. Reviews 1494 (ACCEPT, named make_version omitted for "no JS save-compat reader") and 1612 (ACCEPT, "interim collapses on the make_version row") checked as prior art — both ACCEPT, no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on all ten: no corpus session blocked at baseline — startup/version paths, no RNG).
+- **C locus:**
+  - `make_version`: mdlib.c:248–295 (incarnation `:255–258`, feature_set `:266–281`, entity_count `:286–292`); game caller mdlib.c:841 runtime_info_init (makedefs/sfctool callers are build tools).
+  - `wiz_debug_cmd_bury` (by-design): dig.c:2288–2320 inside `#ifdef DEBUG` `:2285`; sole caller the `#wizbury` table row cmd.c:1944–1948 under the same guard.
+  - `bury_monst` (by-design): dig.c:2193–2209 inside `#if 0` `:2191–2283`; extern.h:576 decl only.
+  - `bury_you` (by-design): dig.c:2212–2227 inside the same `#if 0`; zero C refs.
+  - `bury_obj` (by-design): dig.c:2273–2282 inside the same `#if 0`; extern.h:580 decl only.
+  - `is_digging` (stale): dig.c:195–201 (`go.occupation == dig`); callers dig.c:1406 watch_dig, monmove.c:194.
+  - `watchman_canseeu` (stale): dig.c:1362–1368 (C staticfn); caller dig.c:1385 get_iter_mons callback.
+  - `version_id_string` (stale): mdlib.c:316–344 (RELEASED/empty-Snprintf arms); game caller date.c:116 populate_nomakedefs.
+  - `build_savebones_compat_string` (stale): mdlib.c:393–415 (C staticfn; VERSION_COMPATIBILITY compiled out); callers :681 build_options, :839 runtime_info_init.
+  - `count_and_validate_winopts` (stale): mdlib.c:602–623 (C staticfn; WIN32 block compiled out); caller :716 build_options.
+- **JS was:** no make_version/version struct — js/date.js interimVersionInfo pinned the three fields and the `:842` hook called populate with no argument (version.js:627); the other nine had no symbol (by-design four) or complete bodies (stale five: dig.js:281/:1034, version.js:59/:353/:425 pre-shift).
+- **Fix:** new module-local `version` + `make_version()` in js/version.js in C order (C staticfn in game builds `:244–246`, so local; incarnation from VERSION_*/EDITLEVEL pins, feature_set bits 6+17+18 with bit 19 off per global.h:430/config.h:435/config.h:627, entity_count by counting artilistRaw names from 1 ≡ C `:286–287` over artilist.h:12 + C shift order, `>>> 0` exact since all values fit 32 bits); `:841` wire + struct forwarded at `:842`; interim deleted, hook takes the struct, date.js drops its three generated imports; version.js gains its first imports (three generated leaves — import-free, no TDZ/cycle; D-1881 comments narrowed to the real ban: no const.js/hacklib.js/date.js edge) + EDITLEVEL pin. /tmp convergence probe: version_number/version_features/version_sanity1 bit-identical to the interim (83886080/393280/555618687, NUM_OBJECTS 481).
+- **JS:** js/version.js imports `:18–20`, EDITLEVEL `:32`, version `:630`, make_version `:640`, runtime_info_init `:671` (`:841` wire `:675`, `:842` forward `:676`); js/date.js hook `:172`, interim deleted (`:68–84` replaced by collapse note).
+- **Callers:**
+  - `make_version`: mdlib.c:841 → js/version.js:675 (new wire); util/makedefs.c:309 + util/sfctool.c:136 are build tools, never ported (named).
+  - `wiz_debug_cmd_bury`: cmd.c:1946 under `#ifdef DEBUG` — no compiled caller (by-design; js/getline.js:348 autocomplete-only entry pre-exists, unrunnable, untouched).
+  - `bury_monst`: none — extern.h decl only (by-design).
+  - `bury_you`: none — zero C refs (by-design).
+  - `bury_obj`: none — extern.h decl only (by-design).
+  - `is_digging`: dig.c:1406 → js/dig.js:1090 (pre-wired); monmove.c:194 → js/monmove.js:1193 via dynamic dig.js import (pre-wired).
+  - `watchman_canseeu`: dig.c:1385 → js/dig.js:1067 `if (!watch)` gate (pre-wired, ≡ C `:1384–1385`).
+  - `version_id_string`: date.c:116 → js/date.js:172 populate `:115–116` (pre-wired); util/makedefs.c:1875 is a build tool (named).
+  - `build_savebones_compat_string`: :681 → js/version.js:534 (pre-wired); :839 → js/version.js:674 (pre-wired).
+  - `count_and_validate_winopts`: :716 → js/version.js:550 (pre-wired).
+- **Verify:** `node scripts/verify.mjs --fn make_version,wiz_debug_cmd_bury,bury_monst,bury_you,bury_obj,is_digging,watchman_canseeu,version_id_string,build_savebones_compat_string,count_and_validate_winopts` → VERIFY: PASS (syntax 2 files js/date.js js/version.js; rule2; hidden note 0 blocked ×10; REACH-OK smoke 24/24 ×10, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file).
+- **Named omissions:**
+  - `make_version`: makedefs.c/sfctool.c build-tool callers (never ported); none in-body — whole body, every value live (pins + generated counts).
+  - `wiz_debug_cmd_bury`: whole function uncompiled (by-design).
+  - `bury_monst`: whole function uncompiled (by-design; block also covers the D-3058 unearth_you/escape_tomb pair — shipped live, left untouched, not reopened).
+  - `bury_you`: whole function uncompiled (by-design).
+  - `bury_obj`: whole function uncompiled (by-design).
+  - `is_digging`: none — whole body, every caller wired.
+  - `watchman_canseeu`: none — whole body, caller wired.
+  - `version_id_string`: none — contest arms complete (Beta/WIP/post-release + PORT_SUB_ID compiled out).
+  - `build_savebones_compat_string`: none — contest arm complete (VERSION_COMPATIBILITY compiled out).
+  - `count_and_validate_winopts`: none — contest arm complete (WIN32 block compiled out).
+- **Ledger:** make_version ported
+- **Next:** pop the next Open — coverage row (post-ship head: `muse.c` munstone PARTIAL). Sub-threshold mdlib.c residues verified this iteration but left unknown (cap): mkstemp C7 MSVC-only (`:372–387` `#ifdef _MSC_VER` → by-design) + md_ignored_features/mdlib_version_string C4 bodies complete (js/date.js:49, js/version.js:57 → stale).
+
 ## D-3122 — `pickup.c` container_at whole-body + lock.c:794 pit-dirprompt caller wiring (coverage)
 
 - **Status:** fixed (Open — coverage head `pickup.c` container_at PARTIAL → whole body in C order + its last unwired C caller. ~12 js/ insertions: sole pickup.c queue row, 0 callees, closure holds nothing else Open — the <80-insertion density exception applies, cf. D-3115/D-3116/D-3117. Same iteration: fopen_config_file stale→ported, shuffle_tiles by-design (both via direct `ledger.mjs set`, D-3121 precedent); cites no review — no stamp needed).

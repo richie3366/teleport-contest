@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3123 `mdlib.c` make_version whole-body + dig.c DEBUG/`#if 0` by-design set (10 functions; coverage)
+
+**C locus:** - `make_version`: mdlib.c:248–295 (incarnation `:255–258`, feature_set `:266–281`, entity_count `:286–292`); game caller mdlib.c:841 runtime_info_init (makedefs/sfctool callers are build tools).
+**JS:** js/version.js imports `:18–20`, EDITLEVEL `:32`, version `:630`, make_version `:640`, runtime_info_init `:671` (`:841` wire `:675`, `:842` forward `:676`); js/date.js hook `:172`, interim deleted (`:68–84` replaced by collapse note).
+**Change:** new module-local `version` + `make_version()` in js/version.js in C order (C staticfn in game builds `:244–246`, so local; incarnation from VERSION_*/EDITLEVEL pins, feature_set bits 6+17+18 with bit 19 off per global.h:430/config.h:435/config.h:627, entity_count by counting artilistRaw names from 1 ≡ C `:286–287` over artilist.h:12 + C shift order, `>>> 0` exact since all values fit 32 bits); `:841` wire + struct forwarded at `:842`; interim deleted, hook takes the struct, date.js drops its three generated imports; version.js gains its first imports (three generated leaves — import-free, no TDZ/cycle; D-1881 comments narrowed to the real ban: no const.js/hacklib.js/date.js edge) + EDITLEVEL pin. /tmp convergence probe: version_number/version_features/version_sanity1 bit-identical to the interim (83886080/393280/555618687, NUM_OBJECTS 481).
+**Verify:** `node scripts/verify.mjs --fn make_version,wiz_debug_cmd_bury,bury_monst,bury_you,bury_obj,is_digging,watchman_canseeu,version_id_string,build_savebones_compat_string,count_and_validate_winopts` → VERIFY: PASS (syntax 2 files js/date.js js/version.js; rule2; hidden note 0 blocked ×10; REACH-OK smoke 24/24 ×10, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file).
+**Named:** - `make_version`: makedefs.c/sfctool.c build-tool callers (never ported); none in-body — whole body, every value live (pins + generated counts).
+**Next:** pop the next Open — coverage row (post-ship head: `muse.c` munstone PARTIAL). Sub-threshold mdlib.c residues verified this iteration but left unknown (cap): mkstemp C7 MSVC-only (`:372–387` `#ifdef _MSC_VER` → by-design) + md_ignored_features/mdlib_version_string C4 bodies complete (js/date.js:49, js/version.js:57 → stale).
 ## 2026-09-29 — D-3122 `pickup.c` container_at whole-body + lock.c:794 pit-dirprompt caller wiring (coverage)
 
 **C locus:** - `container_at`: pickup.c:2024–2038 (floor chain `:2029`, nobj cache `:2030`, Is_container `:2031`, !countem break `:2033–2034`); callers lock.c:794/847, pickup.c:2217/2302/2326/3586.
