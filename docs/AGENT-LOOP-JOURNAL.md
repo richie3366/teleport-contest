@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — Audit 2051–2059: 9A/0Q; public 44/44, corpus 648/953 (+0, 0 flips, full)
+
+**Reviews:** 2051 A (wizcustom/wizkill runners Must-fix), 2052 A (vision/wizmondiff runners Must-fix), 2053 A (mhitm_ad_ssex dispatcher; could_seduce export-block sym gap noted), 2054 A (pfxfn_cond_ cluster; set_hidden unreachability + useroption uniqueness proved), 2055 A (fix_curse_trouble restart), 2056 A (validspecmon + isspecmon; m_id-0 claim proved both sides), 2057 A (burn_object restart, arm-for-arm), 2058 A (config_erradd in_lua + parse_conf_file rename), 2059 A (selection_getbounds canonical, all 17 C sites accounted). All re-measures REACH-OK, 0 regressed. Held-out 13/44 flat. 5 seeded rows briefed, sound (sqlite absent, NOTES-known). Must-fix empty. Next: coverage head do_name.c bogusmon.
 ## 2026-09-29 — D-3099 selvar.c selection_getbounds: canonical export, 3 clones retired, 16 C sites wired (coverage)
 
 **C locus:** - `selection_getbounds`: nethack-c/upstream/src/selvar.c:76–95 (guard `:80–81`, recalc `:82`, empty→full `:84–89`, stored `:90–94`).

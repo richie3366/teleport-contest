@@ -2060,3 +2060,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2048-aeb41ef5f-dump-enums.md](./2048-aeb41ef5f-dump-enums.md) | `aeb41ef5f` | D-3088 dump_enums enum tables (byte-exact) | **ACCEPT** |
 | [2049-d1541778d-wiz-custom-cluster.md](./2049-d1541778d-wiz-custom-cluster.md) | `d1541778d` | D-3089 wiz_custom + wiz_kill + ecname_from_fn (unwired runners) | **QUALITY-RISK** |
 | [2050-56c8b137b-lose-weapon-skill-cluster.md](./2050-56c8b137b-lose-weapon-skill-cluster.md) | `56c8b137b` | D-3090 lose_weapon_skill + abon + show_skills | **ACCEPT** |
+| [2051-da4f12710-wizcustom-wizkill-runners.md](./2051-da4f12710-wizcustom-wizkill-runners.md) | `da4f12710` | D-3091 wizcustom + wizkill EXT_CMDS runners Must-fix | **ACCEPT** |
+| [2052-5428c6c98-vision-wizmondiff-runners.md](./2052-5428c6c98-vision-wizmondiff-runners.md) | `5428c6c98` | D-3092 vision + wizmondiff EXT_CMDS runners Must-fix | **ACCEPT** |
+| [2053-22c393674-mhitm-ad-ssex.md](./2053-22c393674-mhitm-ad-ssex.md) | `22c393674` | D-3093 mhitm_ad_ssex unified dispatcher + 3 homes | **ACCEPT** |
+| [2054-9fca9cdda-pfxfn-cond-cluster.md](./2054-9fca9cdda-pfxfn-cond-cluster.md) | `9fca9cdda` | D-3094 pfxfn_cond_ + condopt + parse_cond_option | **ACCEPT** |
+| [2055-cf7eb9a6b-fix-curse-trouble.md](./2055-cf7eb9a6b-fix-curse-trouble.md) | `cf7eb9a6b` | D-3095 fix_curse_trouble whole-body restart | **ACCEPT** |
+| [2056-1a48fe148-validspecmon-isspecmon.md](./2056-1a48fe148-validspecmon-isspecmon.md) | `1a48fe148` | D-3096 validspecmon + isspecmon cham-form gate | **ACCEPT** |
+| [2057-92b27f0c4-burn-object.md](./2057-92b27f0c4-burn-object.md) | `92b27f0c4` | D-3097 burn_object whole-body restart | **ACCEPT** |
+| [2058-b6b281b0a-config-erradd-conf-file.md](./2058-b6b281b0a-config-erradd-conf-file.md) | `b6b281b0a` | D-3098 config_erradd in_lua arm + parse_conf_file | **ACCEPT** |
+| [2059-463ebb0e2-selection-getbounds.md](./2059-463ebb0e2-selection-getbounds.md) | `463ebb0e2` | D-3099 selection_getbounds canonical export + 3 retirements | **ACCEPT** |

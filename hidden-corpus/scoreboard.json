@@ -1,9 +1,9 @@
 {
- "commit": "b6b281b0a",
- "at": "2026-09-29T09:42:34.476Z",
- "full": false,
- "fullCommit": "56c8b137b",
- "fullAt": "2026-09-29T07:56:00.585Z",
+ "commit": "463ebb0e2",
+ "at": "2026-09-29T10:10:15.856Z",
+ "full": true,
+ "fullCommit": "463ebb0e2",
+ "fullAt": "2026-09-29T10:10:15.856Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4762,7 +4762,7 @@
    "steps": 288,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2652)",
+   "jsOwner": "l_nhcore_init(mklev.js:2650)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!",
    "error": null
@@ -5136,7 +5136,7 @@
    "steps": 135,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2652)",
+   "jsOwner": "l_nhcore_init(mklev.js:2650)",
    "cTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "error": null
@@ -5935,7 +5935,7 @@
    "steps": 253,
    "owner": "distfleeck",
    "loc": "monmove.c:564",
-   "jsOwner": "mattacku(mhitu.js:4226)",
+   "jsOwner": "mattacku(mhitu.js:4210)",
    "cTopline": "The gnome lord turns to flee. The saddled pony misses the gnome lord.--More--",
    "jsTopline": "The gnome lord hits! You stop searching.",
    "error": null
@@ -10304,7 +10304,7 @@
    "steps": 117,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2652)",
+   "jsOwner": "l_nhcore_init(mklev.js:2650)",
    "cTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "error": null
@@ -12191,7 +12191,7 @@
    "steps": 85,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "m_initinv(makemon.js:3036)",
+   "jsOwner": "m_initinv(makemon.js:3060)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -12242,7 +12242,7 @@
    "steps": 299,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "m_initinv(makemon.js:3036)",
+   "jsOwner": "m_initinv(makemon.js:3060)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level! You see here a red gem.",
    "error": null
@@ -12378,7 +12378,7 @@
    "steps": 248,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "m_initinv(makemon.js:3036)",
+   "jsOwner": "m_initinv(makemon.js:3060)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -12786,7 +12786,7 @@
    "steps": 202,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2652)",
+   "jsOwner": "l_nhcore_init(mklev.js:2650)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "error": null
@@ -13075,7 +13075,7 @@
    "steps": 95,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3082)",
+   "jsOwner": "m_initinv(makemon.js:3106)",
    "cTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "jsTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "error": null
@@ -13330,7 +13330,7 @@
    "steps": 112,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4766)",
+   "jsOwner": "do_attack(uhitm.js:4770)",
    "cTopline": "a dart (no travel path)",
    "jsTopline": "a brilliant blue potion",
    "error": null
@@ -13364,7 +13364,7 @@
    "steps": 295,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4766)",
+   "jsOwner": "do_attack(uhitm.js:4770)",
    "cTopline": "a pair of leather gloves",
    "jsTopline": "2 candles",
    "error": null
@@ -13432,7 +13432,7 @@
    "steps": 180,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4766)",
+   "jsOwner": "do_attack(uhitm.js:4770)",
    "cTopline": "some gold pieces",
    "jsTopline": "an oak wand (no travel path)",
    "error": null
@@ -13466,7 +13466,7 @@
    "steps": 265,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4766)",
+   "jsOwner": "do_attack(uhitm.js:4770)",
    "cTopline": "a whistle",
    "jsTopline": "a food ration",
    "error": null
@@ -13500,7 +13500,7 @@
    "steps": 227,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3082)",
+   "jsOwner": "m_initinv(makemon.js:3106)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -13568,7 +13568,7 @@
    "steps": 171,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3082)",
+   "jsOwner": "m_initinv(makemon.js:3106)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -14027,7 +14027,7 @@
    "steps": 159,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3108)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14044,7 +14044,7 @@
    "steps": 162,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3108)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14095,7 +14095,7 @@
    "steps": 151,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3108)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14282,7 +14282,7 @@
    "steps": 181,
    "owner": "u_calc_moveamt",
    "loc": "allmain.c:131",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3108)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14333,7 +14333,7 @@
    "steps": 145,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3108)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3132)",
    "cTopline": "",
    "jsTopline": "",
    "error": null

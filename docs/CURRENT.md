@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-29** — full `sessions` on the working tree
-(audit **2042–2050**, `56c8b137b`, 2026-09-29T07:49Z).
+(audit **2051–2059**, `463ebb0e2`, 2026-09-29T10:04Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`265+1.61/turn` (R² 0.76).
+`270+1.60/turn` (R² 0.76).
 
 ## Score
 
@@ -36,15 +36,15 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `265+1.61/turn` (R² 0.76) |
+| Speed label | `270+1.60/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 13/44, flat.
-**Corpus fortress (07:56Z, 953/953, 0 unrec):**
-**648 / 953** PASS (68.0 %), RNG 96.75 %, screens 90.7 %; 0 flips, +9; `full: true`.
-Reviews 1225–2050 (index; no row 1618): 731 ACCEPT, 28 WITH-DEBT, 66 QUALITY-RISK (2042–50: 7A/0D/2Q).
+**Corpus fortress (10:10Z, 953/953, 0 unrec):**
+**648 / 953** PASS (68.0 %), RNG 96.75 %, screens 90.7 %; 0 flips, +0; `full: true`.
+Reviews 1225–2059 (index; no row 1618): 740 ACCEPT, 28 WITH-DEBT, 66 QUALITY-RISK (2051–59: 9A/0D/0Q).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2040 complex_dump trailing-space (sink voided).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -139,7 +139,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** D-3099 selection_getbounds shipped (sole selvar.c row).
+**Next cluster:** coverage head `do_name.c` bogusmon (Must-fix empty; D-3099 shipped).
 
 ## Parked (diagnose only — do not implement)
 
