@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-3085 — wiz_mon_diff + wiz_show_vision: wizcmds MISSING pair (coverage)
+
+- **Status:** shipped (coverage — queue head `wizcmds.c` wiz_mon_diff MISSING + same-file wiz_show_vision MISSING; 8 queue-hygiene resolutions same iteration, all ledger-noted: bannerc_string/mkportal/skill_level_name/dbon/size_str/N_times/save_oracles stale-ported, mixed_to_utf8 by-design)
+- **Symptom:** both absent from `js/` (no symbol, 0 C references each — uncalled debug review commands). No corpus session blocked on either (coverage rows; REACH-OK is the evidence). Hygiene: the 7 stales are brief-complete bodies (compact returns vs C break+Strcpy; save_oracles JSON-analogue save arm live, NHFILE/free arm an architectural omit per in-code doc + savelev-freeing ban); mixed_to_utf8 is terminal-layer (sole C caller tty_putmixed wintty.c:4185 = frozen terminal; siblings decode_glyph/decode_mixed seed by-design; JS bypasses `\G` via pre-resolved chars — pager.js:2296, display.js:6139).
+- **C locus:**
+  - `wiz_mon_diff`: nethack-c/upstream/src/wizcmds.c:1789–1828 (title :1792, mons walk :1804, mstrength/difficulty :1805–1807, trouble post-incr :1809–1810, mlev clamp :1811–1813, format :1814–1818, no-discrepancies :1822)
+  - `wiz_show_vision`: nethack-c/upstream/src/wizcmds.c:620–653 (flags line :625–627, blank :628, y/x walk :629–638, trailing trim :640–644, putstr :646)
+- **JS was:** no symbol for either (sym.mjs NOT FOUND).
+- **Fix:**
+  - `wiz_mon_diff`: new async export in C order — title const, NUMMONS-bounded walk with verbatim `!mlet` sentinel break (C's table carries the sentinel so the bound never fires first), live `mstrength` + `difficulty`, post-incr trouble gate, mlev 50-clamp, printf→padEnd/padStart format (no-truncation parity both sides, `%+d` sign arm), collected lines + `show_text_pages` (file NHW_TEXT idiom), ECMD_OK. Names via generated `pmnames[i][NEUTRAL]` (ptr carries no names in JS).
+  - `wiz_show_vision`: new async export in C order — `%x` flags line (lowercase, no pad), blank line, ROWNO×COLNO walk with `u_at`→'@' else `'0'+v` via fromCharCode (exact for all v), `game.viz_array?.[y]?.[x] | 0` (vision_reset precedent; absent≡BSS 0), verbatim trailing-space trim (all-space→empty), collected lines + `show_text_pages`, ECMD_OK.
+- **JS:** js/wizcmds.js:1992 (§ banner), wiz_mon_diff :2002, wiz_show_vision :2045; imports: +pmnames (same generated edge), +mstrength (new mondata.js edge, `--can` SAFE), +COULD_SEE/IN_SIGHT/TEMP_LIT/NEUTRAL (same const.js edge).
+- **Callers:**
+  - `wiz_mon_diff`: 0 C references (uncalled debug review) — nothing to wire (random_dir D-3077 zero-site precedent).
+  - `wiz_show_vision`: 0 C references — nothing to wire (same).
+- **Verify:** `node scripts/verify.mjs --fn wiz_mon_diff,wiz_show_vision` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). No new test script: both need live UI paging + full game state and have 0 callers (sessions/** frozen) — D-3084 precedent; the verify gates are the maintained coverage.
+  - `wiz_mon_diff`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+  - `wiz_show_vision`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+- **Named omissions:**
+  - `wiz_mon_diff`: none in-body — whole body, every callee live (mstrength; putstr/display/destroy via show_text_pages idiom); `d()` is mstrength's transitive callee, live, untouched.
+  - `wiz_show_vision`: none in-body — whole body, zero C callees (u_at macro≡live import; window via show_text_pages idiom).
+- **Ledger:** wiz_mon_diff ported; wiz_show_vision ported
+- **Next:** pop the regenerated block head.
+
 ## D-3084 — mimic_hit_msg restart: C switch + live simple_typename (coverage)
 
 - **Status:** shipped (coverage — queue head `mon.c` mimic_hit_msg PARTIAL; sole mon.c row in the 12-row eligible block, ships alone)

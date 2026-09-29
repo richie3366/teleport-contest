@@ -13,11 +13,11 @@
 {"fn":"mon_wield_item","c":"801-934","status":"ported","js":["js/weapon.js:mon_wield_item"],"d":["D-2460"],"at":"seed@a30a7de84"}
 {"fn":"mwepgone","c":"938-946","status":"unknown"}
 {"fn":"abon","c":"950-989","status":"unknown"}
-{"fn":"dbon","c":"993-1016","status":"unknown"}
+{"fn":"dbon","c":"993-1016","status":"ported","js":["js/weapon.js:dbon"],"at":"2026-09-29@29685b8e4","note":"stale: js/weapon.js:1327"}
 {"fn":"finish_towel_change","c":"1020-1034","status":"unknown"}
 {"fn":"wet_a_towel","c":"1038-1063","status":"unknown"}
 {"fn":"dry_a_towel","c":"1067-1088","status":"unknown"}
-{"fn":"skill_level_name","c":"1092-1122","status":"unknown"}
+{"fn":"skill_level_name","c":"1092-1122","status":"ported","js":["js/weapon.js:skill_level_name"],"at":"2026-09-29@29685b8e4","note":"stale: js/weapon.js:1260 (+dup js/invent.js:5164)"}
 {"fn":"skill_name","c":"1125-1128","status":"unknown"}
 {"fn":"slots_required","c":"1132-1152","status":"unknown"}
 {"fn":"can_advance","c":"1156-1169","status":"unknown"}

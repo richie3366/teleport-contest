@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mdlib.c` bannerc_string — coverage THIN (C 10 code L `mdlib.c:349–370` / JS 3 code L in js/date.js; hops —, callers 1, RNG 0, msg 2) @80c81d0a0
-- [ ] `mkmaze.c` mkportal — coverage PARTIAL (C 9 code L `mkmaze.c:1464–1479` / JS 5 code L in js/mklev.js; hops 2, callers 2, RNG 0, msg 0) @3a3d73a50
-- [ ] `weapon.c` skill_level_name — coverage THIN (C 25 code L `weapon.c:1092–1122` / JS 8 code L in js/weapon.js; hops 6, callers 2, RNG 0, msg 0) @11ac109be
-- [ ] `utf8map.c` mixed_to_utf8 — coverage MISSING (C 38 code L `utf8map.c:86–145` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: decode_glyph) @11ac109be
-- [ ] `insight.c` size_str — coverage THIN (C 24 code L `insight.c:3203–3231` / JS 8 code L in js/insight.js; hops 4, callers 1, RNG 0, msg 0) @11ac109be
-- [ ] `rumors.c` save_oracles — coverage THIN (C 12 code L `rumors.c:598–619` / JS 5 code L in js/rumors.js; hops 4, callers 2, RNG 0, msg 0) @01a639d1b
-- [ ] `wizcmds.c` wiz_mon_diff — coverage MISSING (C 28 code L `wizcmds.c:1790–1828` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @260932ce5
 - [ ] `monmove.c` find_pmmonst — coverage PARTIAL (C 8 code L `monmove.c:375–388` / JS 5 code L in js/monmove.js; hops 2, callers 2, RNG 0, msg 0) @260932ce5
-- [ ] `insight.c` N_times — coverage THIN (C 15 code L `insight.c:362–380` / JS 5 code L in js/insight.js; hops 5, callers 3, RNG 0, msg 0) @260932ce5
-- [ ] `weapon.c` dbon — coverage PARTIAL (C 19 code L `weapon.c:993–1016` / JS 10 code L in js/weapon.js; hops 4, callers 4, RNG 0, msg 0) @10017887d
 - [ ] `cmd.c` cmdq_print — coverage MISSING (C 24 code L `cmd.c:220–249` / JS no symbol; hops —, callers 0, RNG 0, msg 7) @10017887d
 - [ ] `insight.c` doborn — coverage MISSING (C 24 code L `insight.c:3145–3176` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @643ef6af3
+- [ ] `calendar.c` yyyymmddhhmmss — coverage PARTIAL (C 15 code L `calendar.c:95–117` / JS 9 code L in js/calendar.js; hops 4, callers 4, RNG 0, msg 0) @29685b8e4
+- [ ] `earlyarg.c` dump_enums — coverage MISSING (C 79 code L `earlyarg.c:706–801` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @29685b8e4
+- [ ] `wizcmds.c` wiz_custom — coverage MISSING (C 36 code L `wizcmds.c:1934–1984` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @29685b8e4
+- [ ] `insight.c` characteristics_enlightenment — coverage MISSING (C 10 code L `insight.c:827–842` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @29685b8e4
+- [ ] `weapon.c` lose_weapon_skill — coverage MISSING (C 10 code L `weapon.c:1453–1473` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @29685b8e4
+- [ ] `uhitm.c` mhitm_ad_ssex — coverage THIN (C 19 code L `uhitm.c:4751–4779` / JS 7 code L in js/mhitu.js; hops 4, callers 1, RNG 0, msg 0) @29685b8e4
+- [ ] `options.c` pfxfn_cond_ — coverage MISSING (C 28 code L `options.c:4994–5036` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: parse_cond_option) @29685b8e4
+- [ ] `pray.c` fix_curse_trouble — coverage PARTIAL (C 16 code L `pray.c:349–370` / JS 11 code L in js/pray.js; hops —, callers 1, RNG 0, msg 2) @29685b8e4
+- [ ] `mon.c` validspecmon — coverage THIN (C 9 code L `mon.c:4993–5011` / JS 2 code L in js/makemon.js; hops 4, callers 2, RNG 0, msg 0) @29685b8e4
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

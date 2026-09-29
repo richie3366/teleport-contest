@@ -2,7 +2,7 @@
 {"fn":"make_version","c":"248-295","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mdlib_version_string","c":"300-308","status":"unknown"}
 {"fn":"version_id_string","c":"316-344","status":"unknown","d":["D-1881"],"at":"seed@a30a7de84"}
-{"fn":"bannerc_string","c":"349-370","status":"unknown"}
+{"fn":"bannerc_string","c":"349-370","status":"ported","js":["js/date.js:bannerc_string"],"at":"2026-09-29@29685b8e4","note":"stale: js/date.js:60"}
 {"fn":"mkstemp","c":"375-385","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"build_savebones_compat_string","c":"393-415","status":"unknown"}
 {"fn":"count_and_validate_winopts","c":"602-623","status":"unknown"}

@@ -24,6 +24,7 @@ import {
     ENERGY_REGENERATION, PROTECTION, PROT_FROM_SHAPE_CHANGERS,
     POLYMORPH_CONTROL, UNCHANGING, REFLECTING, FREE_ACTION, FIXED_ABIL,
     LIFESAVED, Upolyd, COLNO, ROWNO, STONE, S_sink, S_fountain, S_vbeam, S_rslant,
+    COULD_SEE, IN_SIGHT, TEMP_LIT, NEUTRAL,
     In_sokoban, Is_knox, In_endgame, ARM, u_at,
     Is_stronghold, Is_botlevel, has_mgivenname, MGIVENNAME,
     MIGR_EXACT_XY, MIGR_RANDOM, MM_NOMSG,
@@ -48,7 +49,9 @@ import { rn2 } from './rng.js';
 import { float_vs_flight, body_part } from './polyself.js';
 import { pooleffects } from './pickup.js';
 import { mons, olfaction, NUMMONS } from './monsters.js';
-import { PM_GRID_BUG } from './generated/monsters_data.js';
+import { PM_GRID_BUG, pmnames } from './generated/monsters_data.js';
+/* C mondata.c mstrength — hoisted fn (`imports.mjs --can wizcmds.js mondata.js mstrength` SAFE). */
+import { mstrength } from './mondata.js';
 import { NUM_OBJECTS } from './objects.js';
 /* C dungeon.c overview_stats — hoisted fn
    (`imports.mjs --can wizcmds.js dungeon.js overview_stats` SAFE). */
@@ -1984,4 +1987,92 @@ export async function wiz_show_seenv() {
     // C `:614–615` — display_nhwindow(win, TRUE); destroy_nhwindow(win).
     await show_text_pages(lines);
     return ECMD_OK; // C `:616`.
+}
+
+// ── wiz_mon_diff / wiz_show_vision ──
+/**
+ * C ref: wizcmds.c wiz_mon_diff `:1789–1828` — wizard review of monster
+ * difficulty ratings: one line per monster whose hardcoded `difficulty`
+ * differs from the calculated `mstrength()`, else the no-discrepancies
+ * line. NHW_TEXT via show_text_pages (file idiom): each C putstr is one
+ * collected line; display_nhwindow/destroy_nhwindow subsume into the
+ * page wait. C has no callers (0 references; debug review command) —
+ * no JS caller to wire.
+ */
+export async function wiz_mon_diff() {
+    // C `:1792–1795` — static title const; trouble/cnt/mdiff ints.
+    const window_title = 'Review of monster difficulty ratings [index:level]:';
+    let trouble = 0;
+    const lines = [];
+    // C `:1804` — for (ptr = &mons[0]; ptr->mlet; ptr++, cnt++). NUMMONS
+    // bounds the walk; the !mlet sentinel break is verbatim (C's table
+    // carries the sentinel, so the bound never fires first).
+    for (let i = 0, cnt = 0; i < NUMMONS; i++, cnt++) {
+        const ptr = mons(i);
+        if (!ptr || !ptr.mlet) break; // C `:1804` ptr->mlet
+        const mcalculated = mstrength(ptr); // C `:1805`
+        const mhardcoded = ptr.difficulty | 0; // C `:1806` (int)
+        const mdiff = mhardcoded - mcalculated; // C `:1807`
+        if (mdiff) { // C `:1808`
+            if (!trouble++) lines.push(window_title); // C `:1809–1810` (post-incr)
+            let mlev = ptr.mlevel | 0; // C `:1811`
+            if (mlev > 50) mlev = 50; // C `:1812–1813` named-demon hack
+            // C `:1814–1818` — "%-18s [%3d:%2d]: calculated: %2d,
+            // hardcoded: %2d (%+d)". Names live in the generated pmnames
+            // table (ptr carries no names in JS); padEnd/padStart match
+            // printf widths (no truncation either side).
+            const name = pmnames[i]?.[NEUTRAL] ?? '';
+            lines.push(
+                `${name.padEnd(18)} [${String(cnt).padStart(3)}:${String(mlev).padStart(2)}]: ` +
+                `calculated: ${String(mcalculated).padStart(2)}, ` +
+                `hardcoded: ${String(mhardcoded).padStart(2)} (${mdiff < 0 ? '' : '+'}${mdiff})`,
+            );
+        }
+    }
+    if (!trouble) // C `:1822`
+        lines.push('No monster difficulty discrepancies were detected.');
+    // C `:1823–1824` — display_nhwindow(win, FALSE); destroy_nhwindow(win).
+    await show_text_pages(lines);
+    return ECMD_OK; // C `:1826`
+}
+
+/**
+ * C ref: wizcmds.c wiz_show_vision `:620–653` — wizard `#vision` dump of
+ * gv.viz_array as flag characters ('@' at the hero, ' ' for 0, '0'+v
+ * else), trailing spaces trimmed per row. NHW_TEXT via show_text_pages
+ * (file idiom). C has no callers (0 references) — no JS caller to wire.
+ */
+export async function wiz_show_vision() {
+    const lines = [];
+    // C `:625–627` — "Flags: 0x%x could see, 0x%x in sight, 0x%x temp
+    // lit" (%x: lowercase hex, no pad).
+    lines.push(
+        `Flags: 0x${COULD_SEE.toString(16)} could see, ` +
+        `0x${IN_SIGHT.toString(16)} in sight, 0x${TEMP_LIT.toString(16)} temp lit`,
+    );
+    lines.push(''); // C `:628` putstr(win, 0, "")
+    // C `:629` — for (y = 0; y < ROWNO; y++).
+    for (let y = 0; y < ROWNO; y++) {
+        // C `:630–638` — row[1..COLNO): '@' at the hero else the viz
+        // char. (C indexes row[x] for x in 1..COLNO-1; JS builds the
+        // same run 0-based.)
+        let row = '';
+        for (let x = 1; x < COLNO; x++) {
+            if (u_at(x, y)) { // C `:631`
+                row += '@';
+            } else {
+                const v = game.viz_array?.[y]?.[x] | 0; // C `:634` gv.viz_array[y][x]
+                row += (v === 0) ? ' ' : String.fromCharCode(48 + v); // C `:635` '0'+v
+            }
+        }
+        // C `:640–644` — remove trailing spaces (terminate after the
+        // last non-space; an all-space row becomes the empty string).
+        let end = row.length;
+        while (end > 0 && row[end - 1] === ' ')
+            end--;
+        lines.push(row.slice(0, end)); // C `:646` putstr(win, 0, &row[1])
+    }
+    // C `:648–649` — display_nhwindow(win, TRUE); destroy_nhwindow(win).
+    await show_text_pages(lines);
+    return ECMD_OK; // C `:651`
 }

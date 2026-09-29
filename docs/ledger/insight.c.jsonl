@@ -6,7 +6,7 @@
 {"fn":"cause_known","c":"267-283","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"attrval","c":"287-299","status":"unknown"}
 {"fn":"fmt_elapsed_time","c":"314-358","status":"ported","js":["js/insight.js:fmt_elapsed_time"],"d":["D-2602"],"at":"seed@a30a7de84"}
-{"fn":"N_times","c":"362-380","status":"unknown"}
+{"fn":"N_times","c":"362-380","status":"ported","js":["js/insight.js:N_times"],"at":"2026-09-29@29685b8e4","note":"stale: js/insight.js:232"}
 {"fn":"enlightenment","c":"383-463","status":"unknown","d":["D-2269","D-2208","D-2104","D-1997"],"at":"seed@a30a7de84"}
 {"fn":"background_enlightenment","c":"468-722","status":"ported","js":["js/insight.js:background_enlightenment"],"d":["D-2971"],"at":"2026-09-27@5398b19c2"}
 {"fn":"basics_enlightenment","c":"728-823","status":"partial","js":["js/invent.js:doattributes","js/invent.js:basics_autopickup_buf","js/invent.js:basics_ac_buf","js/invent.js:basics_hitdice_buf","js/invent.js:money_cnt_local"],"omit":"`money_cnt` first-match vs local sum (equivalent under the gold-merge invariant; `doprgold` keeps its own first-match loop); `game.apelist` null-check arm is live but has no producer yet (options.js notes the same); `plur`/`abs` via ternary/`Math.abs`.","d":["D-2579"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across doattributes + basics_*_buf + money_cnt_local; omit unchanged (D-2579)"}
@@ -39,7 +39,7 @@
 {"fn":"dogenocided","c":"3135-3139","status":"unknown"}
 {"fn":"doborn","c":"3145-3176","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"align_str","c":"3187-3200","status":"ported","js":["js/roles.js:align_str"],"d":["D-2985"],"at":"2026-09-27@406969f14"}
-{"fn":"size_str","c":"3203-3231","status":"unknown"}
+{"fn":"size_str","c":"3203-3231","status":"ported","js":["js/insight.js:size_str"],"at":"2026-09-29@29685b8e4","note":"stale: js/insight.js:1603"}
 {"fn":"piousness","c":"3235-3271","status":"ported","js":["js/insight.js:piousness"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"mstatusline","c":"3275-3398","status":"ported","js":["js/insight.js:mstatusline"],"d":["D-2446"],"at":"seed@a30a7de84"}
 {"fn":"ustatusline","c":"3402-3489","status":"unknown","d":["D-2210"],"at":"seed@a30a7de84"}

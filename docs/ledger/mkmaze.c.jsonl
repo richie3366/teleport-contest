@@ -30,7 +30,7 @@
 {"fn":"mazexy","c":"1316-1350","status":"unknown","d":["D-1952"],"at":"seed@a30a7de84"}
 {"fn":"get_level_extends","c":"1353-1427","status":"ported","js":["js/mklev.js:get_level_extends"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"bound_digging","c":"1441-1461","status":"unknown"}
-{"fn":"mkportal","c":"1464-1479","status":"unknown"}
+{"fn":"mkportal","c":"1464-1479","status":"ported","js":["js/mklev.js:mkportal"],"at":"2026-09-29@29685b8e4","note":"stale: js/mklev.js:32363"}
 {"fn":"fumaroles","c":"1484-1514","status":"unknown"}
 {"fn":"movebubbles","c":"1539-1685","status":"partial","js":["js/mklev.js:movebubbles"],"omit":"`panic(\"movebubbles: cons != null\")` → `impossible` (no live JS panic export); BREADCRUMBS `Unplacebc_and_covet_placebc`/`Lift_covet_and_placebc` crumb variants (build uses the plain path); dev-build `paniclog` in the lift denied arm (Rule #2); `end.c:894` lift caller; `remove_object` ≡ live `obj_e…","d":["D-2501"],"at":"seed@a30a7de84"}
 {"fn":"water_friction","c":"1689-1720","status":"unknown"}
