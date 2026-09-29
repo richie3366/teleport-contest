@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3077 worm.c random_dir port; 3 same-file PARTIALs stale-retired
+
+**C locus:** - `random_dir`: nethack-c/upstream/src/worm.c:802–822 (staticfn decl :22; zero call sites)
+**JS:** - `random_dir`: js/worm.js:668 (local; no callers, as in C).
+**Change:** - `random_dir`: new local (C staticfn) in C order — x-step ternary `:805–809` (interior rn2(3)-1, right-edge -rn2(2), left-edge rn2(2)), x-changed y-step `:810–815`, forced y-change `:816–821` (rn2(2)?1:-1 / -1 / +1); C `int *nx,*ny` out-params ≡ `out.nx`/`out.ny` (mutable-coords-object convention per `rnd_nextto_goodpos_mon`); edge checks precede each single draw, preserving short-circuit + RNG order; COLNO/ROWNO added to the existing const.js edge (no new edge).
+**Verify:** `node scripts/verify.mjs --fn random_dir,create_worm_tail,shrink_worm,count_wsegs` → syntax PASS (1 file) · rule2 PASS · hidden note ×4 (no corpus session blocked — coverage rows) · REACH-OK ×4 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict 2/2 · cohort 7/7 → VERIFY: PASS. No full sessions (js/worm.js not shared).
+**Named:** - `random_dir`: none — whole body, sole callee rn2 live.
+**Next:** stale-retired this commit via `ledger.mjs set` (bodies verified complete + callers wired): queue-head pops `doffing` (ported, js/do_wear.js:3920, all 14 arms) and `set_random` (split→js/rng.js:initRng — live body is one init_isaac64 call, D-3033; sole C caller init_random routes there); same-file `create_worm_tail` (C stores subsumed by newseg zero-literal js/worm.js:35; caller initworm wired js/worm.js:111), `shrink_worm` (3 C callers wired js/worm.js:324,471,480), `count_wsegs` (11/12 C callers wired; C trap.c:1975 trapeffect_pit arm unwired — belongs to a trapeffect_pit port). worm.c now holds no more Open (rest unknown+ok / ported / by-design); ~25 insertions with the file exhausted.
 ## 2026-09-29 — D-3076 trap.c keep_saddle_with_steedcorpse + join_adjacent_pits port; 7 stale retired
 
 **C locus:** - `keep_saddle_with_steedcorpse`: nethack-c/upstream/src/trap.c:938–967 (caller trapeffect_landmine :2591–2592; decl :13; self :962)

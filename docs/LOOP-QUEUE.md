@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do_wear.c` doffing — coverage PARTIAL (C 31 code L `do_wear.c:1603–1640` / JS 19 code L in js/do_wear.js; hops 4, callers 4, RNG 0, msg 0) @774d64d58
-- [ ] `rnd.c` set_random — coverage MISSING (C 1 code L `rnd.c:235–239` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: init_isaac64) @774d64d58
-- [ ] `worm.c` random_dir — coverage MISSING (C 17 code L `worm.c:803–822` / JS no symbol; hops —, callers 0, RNG 7, msg 0) @3bee10e1d
 - [ ] `eat.c` temp_resist — coverage MISSING (C 8 code L `eat.c:453–469` / JS no symbol; hops 6, callers 2, RNG 0, msg 0) @9e3e6255b
 - [ ] `were.c` counter_were — coverage PARTIAL (C 15 code L `were.c:48–66` / JS 8 code L in js/were.js; hops 3, callers 3, RNG 0, msg 0) @9e3e6255b
 - [ ] `cmd.c` handler_change_autocompletions — coverage MISSING (C 46 code L `cmd.c:2449–2515` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: parseautocomplete) @9e3e6255b
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mon.c` mimic_hit_msg — coverage PARTIAL (C 12 code L `mon.c:5776–5793` / JS 8 code L in js/zap.js; hops 5, callers 1, RNG 0, msg 2) @80c81d0a0
 - [ ] `mdlib.c` bannerc_string — coverage THIN (C 10 code L `mdlib.c:349–370` / JS 3 code L in js/date.js; hops —, callers 1, RNG 0, msg 2) @80c81d0a0
 - [ ] `mkmaze.c` mkportal — coverage PARTIAL (C 9 code L `mkmaze.c:1464–1479` / JS 5 code L in js/mklev.js; hops 2, callers 2, RNG 0, msg 0) @3a3d73a50
+- [ ] `weapon.c` skill_level_name — coverage THIN (C 25 code L `weapon.c:1092–1122` / JS 8 code L in js/weapon.js; hops 6, callers 2, RNG 0, msg 0) @11ac109be
+- [ ] `utf8map.c` mixed_to_utf8 — coverage MISSING (C 38 code L `utf8map.c:86–145` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: decode_glyph) @11ac109be
+- [ ] `insight.c` size_str — coverage THIN (C 24 code L `insight.c:3203–3231` / JS 8 code L in js/insight.js; hops 4, callers 1, RNG 0, msg 0) @11ac109be
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -1,7 +1,7 @@
 {"fn":"get_wormno","c":"96-106","status":"unknown"}
 {"fn":"initworm","c":"120-137","status":"unknown"}
 {"fn":"toss_wsegs","c":"146-167","status":"ported","js":["js/worm.js:toss_wsegs"],"at":"2026-09-28@6f36d2ab4","note":"stale: js/worm.js:194 (all arms + 4 callers wired; dealloc_seg=free() is GC no-op)"}
-{"fn":"shrink_worm","c":"175-186","status":"unknown"}
+{"fn":"shrink_worm","c":"175-186","status":"ported","js":["js/worm.js:shrink_worm"],"at":"2026-09-29@11ac109be","note":"stale: js/worm.js:253 (body complete; 3 C callers wired js/worm.js:324,471,480)"}
 {"fn":"worm_move","c":"196-278","status":"ported","js":["js/worm.js:worm_move"],"d":["D-1491"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"worm_nomove","c":"288-297","status":"unknown"}
 {"fn":"wormgone","c":"308-332","status":"unknown","d":["D-2296"],"at":"seed@a30a7de84"}
@@ -16,10 +16,10 @@
 {"fn":"wormno_sanity_check","c":"682-703","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"remove_worm","c":"714-726","status":"unknown"}
 {"fn":"place_worm_tail_randomly","c":"738-792","status":"unknown"}
-{"fn":"random_dir","c":"803-822","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"random_dir","c":"803-822","status":"ported","js":["js/worm.js:random_dir"],"d":["D-3077"],"at":"2026-09-29@11ac109be","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"size_wseg","c":"827-830","status":"ported","js":["js/worm.js:size_wseg"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
-{"fn":"count_wsegs","c":"836-846","status":"unknown"}
-{"fn":"create_worm_tail","c":"852-875","status":"unknown"}
+{"fn":"count_wsegs","c":"836-846","status":"ported","js":["js/worm.js:count_wsegs"],"at":"2026-09-29@11ac109be","note":"stale: js/worm.js:126 (body complete; 11/12 C callers wired, C trap.c:1975 trapeffect_pit arm unwired)"}
+{"fn":"create_worm_tail","c":"852-875","status":"ported","js":["js/worm.js:create_worm_tail"],"at":"2026-09-29@11ac109be","note":"stale: js/worm.js:92 (C nseg/wx/wy stores subsumed by newseg zero-literal js/worm.js:35; sole C caller initworm :122 wired js/worm.js:111)"}
 {"fn":"worm_known","c":"883-893","status":"unknown","d":["D-1548"],"at":"seed@a30a7de84"}
 {"fn":"worm_cross","c":"898-942","status":"ported","js":["js/worm.js:worm_cross"],"d":["D-3012","D-2670"],"at":"2026-09-28@7cd5d050b","note":"stale: complete at js/worm.js:685, callers js/hack.js:545 js/mon.js:3197"}
 {"fn":"wseg_at","c":"946-965","status":"unknown"}

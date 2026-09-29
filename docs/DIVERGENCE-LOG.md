@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3077 — worm.c random_dir port; 3 same-file PARTIALs stale-retired
+
+- **Status:** fixed (breadth — head row after 2 stale pops; 1 fn ported; 3 same-file PARTIAL rows stale-retired; worm.c holds no more Open)
+- **Symptom:** coverage MISSING — no JS symbol for `random_dir` (worm.c:802–822, dead staticfn: no C callers, decl :22 only); same-file `create_worm_tail`/`shrink_worm`/`count_wsegs` measured PARTIAL but bodies complete.
+- **C locus:**
+  - `random_dir`: nethack-c/upstream/src/worm.c:802–822 (staticfn decl :22; zero call sites)
+- **JS was:**
+  - `random_dir`: no symbol (sym.mjs NOT FOUND).
+- **Fix:**
+  - `random_dir`: new local (C staticfn) in C order — x-step `:805–809` (interior rn2(3)-1, right-edge -rn2(2), left-edge rn2(2)), x-changed y-step `:810–815`, forced y-change `:816–821`. C `int *nx,*ny` out-params ≡ `out.nx`/`out.ny` (mutable-coords convention per `rnd_nextto_goodpos_mon`); edge checks precede each single draw, preserving short-circuit + RNG order; COLNO/ROWNO added to the existing const.js edge (no new edge).
+- **JS:**
+  - `random_dir`: js/worm.js:668 (local; no callers, as in C).
+- **Callers:**
+  - `random_dir`: none in C (decl :22 only) → none wired.
+- **Verify:** `node scripts/verify.mjs --fn random_dir,create_worm_tail,shrink_worm,count_wsegs` → syntax PASS (1 file) · rule2 PASS · hidden note ×4 (no corpus session blocked — coverage rows) · REACH-OK ×4 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict 2/2 · cohort 7/7 → VERIFY: PASS. No full sessions (js/worm.js not shared).
+- **Named omissions:**
+  - `random_dir`: none — whole body, sole callee rn2 live.
+- **Ledger:** random_dir ported
+- **Next:** stale-retired this commit via `ledger.mjs set` (bodies verified complete + callers wired): queue-head pops `doffing` (ported, js/do_wear.js:3920, all 14 arms) and `set_random` (split→js/rng.js:initRng — live body is one init_isaac64 call, D-3033; sole C caller init_random routes there); same-file `create_worm_tail` (C stores subsumed by newseg zero-literal js/worm.js:35; caller initworm wired js/worm.js:111), `shrink_worm` (3 C callers wired js/worm.js:324,471,480), `count_wsegs` (11/12 C callers wired; C trap.c:1975 trapeffect_pit arm unwired — belongs to a trapeffect_pit port). worm.c now holds no more Open (rest unknown+ok / ported / by-design); ~25 insertions with the file exhausted.
+
 ## D-3076 — trap.c keep_saddle_with_steedcorpse + join_adjacent_pits port; 7 stale retired
 
 - **Status:** fixed (breadth — head row; 2 fns ported; 7 same-file THIN/PARTIAL rows stale-retired; `reset_utrap` left Open — msg arm needs async float_up/You across ~25 sync call sites)

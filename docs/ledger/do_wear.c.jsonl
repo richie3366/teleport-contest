@@ -33,7 +33,7 @@
 {"fn":"Blindf_off","c":"1495-1534","status":"unknown","d":["D-2050"],"at":"seed@a30a7de84"}
 {"fn":"set_wear","c":"1539-1569","status":"unknown"}
 {"fn":"donning","c":"1574-1597","status":"ported","js":["js/do_wear.js:donning"],"d":["D-3040"],"at":"2026-09-28@4e6edc522","note":"stale: js/do_wear.js:3930"}
-{"fn":"doffing","c":"1603-1640","status":"unknown"}
+{"fn":"doffing","c":"1603-1640","status":"ported","js":["js/do_wear.js:doffing"],"at":"2026-09-29@11ac109be","note":"stale: js/do_wear.js:3920"}
 {"fn":"cancel_doff","c":"1645-1659","status":"unknown","d":["D-1766"],"at":"seed@a30a7de84"}
 {"fn":"cancel_don","c":"1664-1684","status":"unknown"}
 {"fn":"stop_donning","c":"1688-1727","status":"ported","js":["js/do_wear.js:stop_donning"],"at":"seed@a30a7de84","note":"stale (grouped)"}

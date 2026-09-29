@@ -9,7 +9,7 @@
 {"fn":"d","c":"175-188","status":"unknown"}
 {"fn":"rne","c":"192-210","status":"ported","js":["js/rng.js:rne"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
 {"fn":"rnz","c":"214-229","status":"ported","js":["js/rng.js:rnz"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
-{"fn":"set_random","c":"235-239","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_random","c":"235-239","status":"split","js":["js/rng.js:initRng"],"at":"2026-09-29@11ac109be","note":"stale: live body is one init_isaac64 call, effect live in initRng (D-3033); sole C caller init_random routes there"}
 {"fn":"init_random","c":"282-285","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reseed_random","c":"289-295","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shuffle_int_array","c":"299-310","status":"unknown"}
