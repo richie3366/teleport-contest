@@ -1,5 +1,54 @@
 # Divergence log
 
+## D-3121 — `options.c` doset-term + roguesymset cluster (9 functions; CHANGE_COLOR pair by-design)
+
+- **Status:** fixed (Open — coverage head all_options_palette + callee count_alt_palette by-design via ledger ahead of the cluster — both uncompiled `#ifdef CHANGE_COLOR` (D-3025 precedent); code cluster = 7 same-file functions in live queue order + handler_sortloot verified whole. ~135 js/ insertions, js/options.js only + scripts/doset-terms.test.mjs (10 vectors); cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on all seven: no corpus session blocked at baseline — config/menu paths, no RNG).
+- **C locus:**
+  - `all_options_palette`: options.c:9656–9674 (`#ifdef CHANGE_COLOR`); call site :9731–9733 same guard.
+  - `count_alt_palette`: coloratt.c:1035–1045 inside :1033–1166 `#ifdef CHANGE_COLOR`.
+  - `handler_sortloot`: options.c:6166–6203 (menu loop :6179–6187, PICK_ONE :6189, n>1 :6191–6195, perm_invent :6197–6198).
+  - `term_for_boolean`: options.c:8737–8752 (table :8742–8745, gate :8749); caller :8853–8854.
+  - `string_for_opt`: options.c:6664–6680 (missing-param :6675–6677); 39 call sites.
+  - `enhance_menu_text`: options.c:10154–10180 (`#if 0` :10169–10173); caller :8855–8857.
+  - `doset_add_menu`: options.c:9017–9065 (get_val :9036–9044, PREFIX else :9045–9058, tail :9060–9064); callers :8875/:8892/:8901.
+  - `complain_about_duplicate`: options.c:6789–6809 (MACOS9 :6794–6798 out, alias :6801–6802, call :6803–6806); callers :623/:2758/:5080/:7992.
+  - `optfn_roguesymset`: options.c:3544–3586 (do_set :3552–3573, get_val/cnf :3574–3581, do_handler :3582–3584).
+- **JS was:** no palette/count_alt symbol (correct — uncompiled); handler_sortloot (:6681) already whole; term_for_boolean/enhance absent with doset_bool_term hardcoded (bgcolors/idlecheckpoint/sounds→on/off, voices→excluded); string_for_opt (:10231) missing the :6675–6677 arm (named omit); complain (:10352) empty stub; doset_add_menu (:8420) format-only with OthrOpt sites inlined; optfn_roguesymset absent (allopt row optfn null :9953, doset hardcoded 'default' :9115).
+- **Fix:** by-design pair via direct `ledger.mjs set` (CHANGE_COLOR only in amiconf.h; contest unix build + recorder carry no -DCHANGE_COLOR; no patch touches it). handler_sortloot: no code — verified whole (n>1 folded in select_menu_pick_one: new-key hit ≡ C pick[1], ENTER ≡ preselect finish, ESC ≡ n≤0; perm_invent/update_inventory, free/GC, destroy-in-helper all cited). term_for_boolean: new export, table + gate verbatim; termpref on bgcolors/idlecheckpoint/perm_invent/sounds (Off) + voices (Excluded — SND_SPEECH multisnd-only); doset_bool_term unified (all listed rows render identically; voices-true now C-correct 'included'). enhance_menu_text: degenerate no-op port (`#if 0` cited out); wired in NONMOD loop (≡ C pass 0, :8834–8839). string_for_opt: wired :6675–6677 to live config_error_add (optfn_sortloot precedent); fixed :6679 + range cites. complain_about_duplicate: restarted stub (alias tail via OPT_ALIAS/usingAliasOpt, CompOpt ternary) + wired call. doset_add_menu: split-doc (get_val in callers); OthrOpt rows rewired through helper (output byte-identical); :8901 PREFIXES named (doset docblock precedent). optfn_roguesymset: new export in C order (flat+gs store, live rogue assign_graphics, sibling-gated flags, combined get_val/cnf without handler tail); allopt row + doset get_val wired.
+- **JS:** js/options.js term_for_boolean :8956, enhance_menu_text :8974, doset_bool_term :8979, NONMOD wire :9037, optfn_roguesymset :3066, allopt row :9953, doset compound :9115, string_for_opt :10231, complain_about_duplicate :10352, doset_add_menu :8420, Othr wire :9152, handler_sortloot :6681 (unchanged), display import :174; scripts/doset-terms.test.mjs (new, 10 vectors).
+- **Callers:**
+  - `all_options_palette`: C :9732 under `#ifdef CHANGE_COLOR` :9731 — no compiled caller (by-design).
+  - `count_alt_palette`: C :2726/:2804 inside CHANGE_COLOR :2694–2814, :9660 inside guard — no compiled caller (by-design).
+  - `handler_sortloot`: C :3952 → JS :3014 (doset_optfn_do_handler) + JS :7558 (simple-doset path), both pre-existing.
+  - `term_for_boolean`: C :8854 → JS :9035/:9047 via doset_bool_term :8979 (both bool loops).
+  - `string_for_opt`: 19 wired JS sites (:315/:1358/:2131/:2331/:2373/:2451/:2635/:2890/:3227/:3281 wrapper/:6167/:6255/:6375/:6451/:6561/:8514/:8866/:9460/:9486/:10509; cites drift ≤3, pre-existing) + C :3066 split across perminv do_set callers (tails pre-split); 15 C sites in absent optfns (crash_name/urlmax, cursesgraphics, hilite_status, map_mode, mouse_support, pile_limit, player_selection, scroll_amount/margin, statushilites, statuslines, term_cols/rows, tile_height/width, vary_msgcount, video_width/height) arrive with those ports.
+  - `enhance_menu_text`: C :8856 → JS :9037 (NONMOD ≡ pass 0).
+  - `doset_add_menu`: C :8875 → JS :9132, C :8892 → JS :9152 (this iteration), C :8901 → named (PREFIXES section omitted, doset docblock).
+  - `complain_about_duplicate`: C :623 → JS :10500 (parseoptions) + :3554 (rc_do_set_role_family replicate); C :2758 → compiled out (CHANGE_COLOR :2694–2814); C :5080 → JS :9458; C :7992 → JS :7322 (JS cites −3, pre-existing drift).
+  - `optfn_roguesymset`: table-driven, 0 direct C refs — wired via allopt row :9953 + doset get_val :9115 (no handler flag: do_handler named, symset-row precedent).
+- **Verify:**
+  - `handler_sortloot`: hidden note (0 blocked); REACH-OK smoke 24/24.
+  - `term_for_boolean`: hidden note (0 blocked); REACH-OK smoke 24/24.
+  - `string_for_opt`: hidden note (0 blocked); REACH-OK smoke 24/24.
+  - `enhance_menu_text`: hidden note (0 blocked); REACH-OK smoke 24/24.
+  - `doset_add_menu`: hidden note (0 blocked); REACH-OK smoke 24/24.
+  - `complain_about_duplicate`: hidden note (0 blocked); REACH-OK smoke 24/24.
+  - `optfn_roguesymset`: hidden note (0 blocked); REACH-OK smoke 24/24.
+  - Cluster gates: `node scripts/verify.mjs --fn handler_sortloot,term_for_boolean,string_for_opt,enhance_menu_text,doset_add_menu,complain_about_duplicate,optfn_roguesymset` → VERIFY: PASS (syntax 1 file js/options.js; rule2; green 2/2; strict ×2; cohort 7/7; full 44/44 shared). scripts/doset-terms.test.mjs 10/10.
+- **Named omissions:**
+  - `all_options_palette`: whole function uncompiled (by-design).
+  - `count_alt_palette`: whole function uncompiled (by-design).
+  - `handler_sortloot`: none — whole body, n>1 folded in live helper, caller wired.
+  - `term_for_boolean`: none — whole body, caller wired.
+  - `string_for_opt`: none in-body (sink live); 15 C callers in absent optfns arrive with those ports.
+  - `enhance_menu_text`: none — degenerate remainder, `#if 0` compiled out, caller wired.
+  - `doset_add_menu`: :8901 PREFIXES section + :9050–9054 PREFIX loop (doset's named PREFIXES omission; no JS caller passes invalid idx).
+  - `complain_about_duplicate`: none in-body (sink live); C :2758 caller compiled out.
+  - `optfn_roguesymset`: read_sym_file failure arm :3558–3563 (SYMBOLS file IO, Rule #2) + do_handler :3582–3584 (do_symset by-design C133) — optfn_symset precedent.
+- **Ledger:** handler_sortloot ported; term_for_boolean ported; string_for_opt ported; enhance_menu_text ported; doset_add_menu split js=options.js:doset_add_menu+options.js:doset_compopt_get_val+options.js:doset; complain_about_duplicate ported; optfn_roguesymset partial
+- **Next:** block refills via finish; fopen_config_file (partial D-3117, compiled arms complete per review 2077) needs a stale-check before any same-file growth.
+
 ## D-3120 — `insight.c` num_genocides unique+impossible arm + `read.c:2956` do_genocide livelog caller wiring (coverage)
 
 - **Status:** fixed (Open — coverage head `insight.c` num_genocides, ships alone: no other same-file Open queue rows — one_characteristic parked MISATTRIBUTED 2026-09-09, enlght_out below the C≥8 threshold, num_extinct/num_gone measured-ok. ~20 js/ insertions, js/insight.js + js/read.js; cites no review — no stamp needed).

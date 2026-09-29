@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3121 `options.c` doset-term + roguesymset cluster (9 functions; CHANGE_COLOR pair by-design)
+
+**C locus:** - `all_options_palette`: options.c:9656–9674 (`#ifdef CHANGE_COLOR`); call site :9731–9733 same guard.
+**JS:** js/options.js term_for_boolean :8956, enhance_menu_text :8974, doset_bool_term :8979, NONMOD wire :9037, optfn_roguesymset :3066, allopt row :9953, doset compound :9115, string_for_opt :10231, complain_about_duplicate :10352, doset_add_menu :8420, Othr wire :9152, handler_sortloot :6681 (unchanged), display import :174; scripts/doset-terms.test.mjs (new, 10 vectors).
+**Change:** by-design pair via direct `ledger.mjs set` (CHANGE_COLOR only in amiconf.h; contest unix build + recorder carry no -DCHANGE_COLOR; no patch touches it). handler_sortloot: no code — verified whole (n>1 folded in select_menu_pick_one: new-key hit ≡ C pick[1], ENTER ≡ preselect finish, ESC ≡ n≤0; perm_invent/update_inventory, free/GC, destroy-in-helper all cited). term_for_boolean: new export, table + gate verbatim; termpref on bgcolors/idlecheckpoint/perm_invent/sounds (Off) + voices (Excluded — SND_SPEECH multisnd-only); doset_bool_term unified (all listed rows render identically; voices-true now C-correct 'included'). enhance_menu_text: degenerate no-op port (`#if 0` cited out); wired in NONMOD loop (≡ C pass 0, :8834–8839). string_for_opt: wired :6675–6677 to live config_error_add (optfn_sortloot precedent); fixed :6679 + range cites. complain_about_duplicate: restarted stub (alias tail via OPT_ALIAS/usingAliasOpt, CompOpt ternary) + wired call. doset_add_menu: split-doc (get_val in callers); OthrOpt rows rewired through helper (output byte-identical); :8901 PREFIXES named (doset docblock precedent). optfn_roguesymset: new export in C order (flat+gs store, live rogue assign_graphics, sibling-gated flags, combined get_val/cnf without handler tail); allopt row + doset get_val wired.
+**Verify:** - `handler_sortloot`: hidden note (0 blocked); REACH-OK smoke 24/24.
+**Named:** - `all_options_palette`: whole function uncompiled (by-design).
+**Next:** block refills via finish; fopen_config_file (partial D-3117, compiled arms complete per review 2077) needs a stale-check before any same-file growth.
 ## 2026-09-29 — D-3120 `insight.c` num_genocides unique+impossible arm + `read.c:2956` do_genocide livelog caller wiring (coverage)
 
 **C locus:** - `num_genocides`: insight.c:2953–2966 (G_GENOD count `:2958–2959`, UniqCritterIndx+impossible `:2960–2962`); caller read.c:2956–2961 (do_genocide REALLY-arm first/subsequent livelog, read before the G_GENOD set).

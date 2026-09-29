@@ -171,7 +171,7 @@ import { rnd } from './rng.js';
 import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst, strkitten, fuzzymatch, trimspaces } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, You_cant, docrt, bot, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X, reglyph_darkroom, raw_printf, init_ov_primary_symbols, init_ov_rogue_symbols } from './display.js';
+import { flush_screen, pline, You_cant, docrt, bot, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X, reglyph_darkroom, raw_printf, init_ov_primary_symbols, init_ov_rogue_symbols, assign_graphics } from './display.js';
 import { get_feature_notice_ver, get_current_feature_ver } from './version.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none, DEF_INV_ORDER } from './invent.js';
 import {
@@ -3041,6 +3041,64 @@ function doset_compopt_get_val(optfn, name) {
     const holder = { buf: '' };
     optfn(allopt_idx(name), REQ_GET_VAL, false, holder, EMPTY_OPTSTR);
     return holder.buf;
+}
+
+/**
+ * C options.c optfn_roguesymset `:3545–3586` (staticfn; NHOPT_PARSE wires
+ * &optfn_roguesymset into the roguesymset allopt row, optlist.h `:626`).
+ * do_set stores the name (flat + gs ROGUESET slot mirror, optfn_symset
+ * `:3068–3071` precedent); the `:3558–3563` read_sym_file failure arm
+ * (clear_symsetentry + "Unable to load" sink) is named with the sibling's
+ * `:3072–3075`; the rogue-level assign_graphics (`:3565–3566`) is live;
+ * the `:3567–3568` flags are gated like the sibling's `:3076` (no JS
+ * startup consumer); get_val/get_cnf_val stay combined per C (`:3574` —
+ * no ', handler=' tail, symset-only `:4211–4214`); do_handler (`:3582`)
+ * is named (handler_symset → do_symset by-design, sibling `:3049`).
+ * No do_handler branch here (optfn_perminv_mode precedent).
+ * @param {number} _optidx C optidx (unused: only feeds the named do_handler)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} _negated C UNUSED — even "!roguesymset:foo" stores
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only)
+ * @param {string} op value tail (EMPTY_OPTSTR when valueless)
+ * @param {object|null} [store] name home (rc result at parse; game in game)
+ * @param {boolean} [optInitial] C go.opt_initial — skip redraw flags at init
+ */
+export function optfn_roguesymset(_optidx, req, _negated, opts, op, store, optInitial) {
+    const st = store || game;
+    if (req === REQ_DO_INIT) { // C `:3549–3551`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:3552`
+        if (op !== EMPTY_OPTSTR) { // C `:3553`
+            // C `:3554–3557` free old name + dupstr(op) (GC: overwrite).
+            st.roguesymset = String(op);
+            const slot = st.gs?.symset?.[ROGUESET]; // C-mirror home (no live .name readers yet)
+            if (slot) slot.name = String(op);
+            /* Named (map): read_sym_file `:3558` (SYMBOLS file IO under
+               Rule #2), clear_symsetentry + "Unable to load" sink
+               `:3559–3563` (optfn_symset `:3072–3075` precedent). */
+            if (!optInitial) { // C `:3567–3568` unconditional; gated: JS startup has no consumer (sibling `:3076` precedent)
+                if (Is_rogue_level(game.u?.uz)) assign_graphics(ROGUESET); // C `:3565–3566`
+                mark_opt_need_redraw(); // C `:3567`
+                mark_opt_need_glyph_reset(); // C `:3567`
+                if (!game.go) game.go = {};
+                game.go.opt_symset_changed = true; // C `:3568`
+            }
+        } else {
+            return OPTN_ERR; // C `:3570–3571`
+        }
+        return OPTN_OK; // C `:3572`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3574` combined
+        const gsname = st.gs?.symset?.[ROGUESET]?.name || null;
+        const nm = gsname || st.roguesymset || game._parsed_rc?.roguesymset || game.flags?.roguesymset;
+        let s = nm ? String(nm) : 'default'; // C `:3575–3577`
+        // C `:3578–3579` tests the gs home; the union matches C once homes unify (mirror is write-only today).
+        if ((game.currentgraphics | 0) === ROGUESET && (gsname || st.roguesymset)) s += ', active';
+        set_optbuf(opts, s);
+        return OPTN_OK; // C `:3580`
+    }
+    return OPTN_OK; // C `:3585`
 }
 
 /**
@@ -8346,9 +8404,18 @@ function format_doset_opt_line(name, value, indent = '') {
 }
 
 /**
- * C options.c doset_add_menu `:9016–9065`.
- * indexoffset 0 → non-selectable (indent replaces "a - ").
- * Caller supplies get_val text (optfn get_val / empty_optstr).
+ * C options.c doset_add_menu `:9017–9065` (staticfn) — one doset row for a
+ * compound/other option, split across the fold: the `:9036–9044` get_val
+ * dispatch (optfn get_val into buf2, "unknown" unless optn_ok + non-empty)
+ * lives in the callers (doset_compopt_get_val, or a literal like
+ * crash_email's 'unknown' where C's optfn is itself unported); this helper
+ * is the `:9060–9064` tail (indent `"    "` ⟺ a_int 0 ⟺ indexoffset 0,
+ * Sprintf fmt, add_menu SKIPINVERT → row object). The `:9045–9058`
+ * invalid-idx else arm (PREFIXES_IN_USE fqn_prefix loop `:9050–9054`,
+ * "unknown" default `:9055–9057`) follows doset's named PREFIXES omission
+ * — no JS caller passes an invalid row. Callers: `:8875` (Compounds),
+ * `:8892` (Other settings), `:8901` (Variable playground locations —
+ * named omission with the section, doset docblock).
  */
 function doset_add_menu(name, value, indexoffset, extra = {}) {
     const indent = indexoffset === 0 ? '    ' : '';
@@ -8874,12 +8941,43 @@ async function reset_needed_visuals() {
     go.opt_update_basic_palette = false; // C `:9013`
 }
 
+/* C optlist.h `:27` enum menu_terminology_preference + num_terms. */
+const Term_False = 0, Term_Off = 1, Term_Disabled = 2, Term_Excluded = 3,
+    num_terms = 4;
+
+/* C options.c term_for_boolean `:8738–8752` (staticfn) — doset value
+ * column for a boolean row (`:8854`). booleanterms is C's function-static
+ * table (`:8742–8745`); termpref rides the allopt row (optlist.h `:42`;
+ * rows without one read Term_False via `| 0`). Non-False rows on this
+ * build: bgcolors/idlecheckpoint/perm_invent/sounds → Term_Off
+ * (optlist.h `:197`/`:391`/`:563`/`:698,702`), voices → Term_Excluded
+ * (`:842`; the Term_Off row `:838` needs SND_SPEECH, multisnd-only).
+ * Exported (C staticfn, sibling optfn_* precedent) for the doset term. */
+export function term_for_boolean(idx, b) {
+    const f_t = b ? 1 : 0; // C `:8740`
+    const booleanterms = [ // C `:8742–8745`
+        ['false', 'off', 'disabled', 'excluded from build'],
+        ['true', 'on', 'enabled', 'included'],
+    ];
+    let boolean_term = booleanterms[f_t][0]; // C `:8747`
+    const i = allopt[idx]?.termpref | 0; // C `:8748`
+    if (i > Term_False && i < num_terms && i < booleanterms[0].length) // C `:8749`
+        boolean_term = booleanterms[f_t][i]; // C `:8750`
+    return boolean_term; // C `:8751`
+}
+
+/* C options.c enhance_menu_text `:10154–10180` (staticfn) — pass-0
+ * bool row tweak (`:8856`). Live body is a no-op: null guard
+ * (`:10164–10165`), size arithmetic (`:10166–10167`), then `#if 0`
+ * TTY_PERM_INVENT arm (`:10169–10173`, compiled out) with nhUse
+ * (`:10175–10177`). */
+function enhance_menu_text(buf, _sz, _whichpass, _bool_p, _thisopt) {
+    if (buf == null) return; // C `:10164–10165`
+    /* C `:10166–10167` nowsz/availsz feed only the compiled-out arm. */
+}
+
 function doset_bool_term(name) {
-    if (name === 'bgcolors' || name === 'idlecheckpoint' || name === 'sounds') {
-        return doset_bool_value(name) ? 'on' : 'off';
-    }
-    if (name === 'voices') return 'excluded from build';
-    return doset_bool_value(name) ? 'true' : 'false';
+    return term_for_boolean(allopt_idx(name), doset_bool_value(name)); // C `:8854`
 }
 
 /**
@@ -8934,8 +9032,12 @@ export async function doset() {
     });
     for (const name of DOSET_BOOL_NONMOD) {
         if (doset_skip_unsupported(name)) continue;
+        const line = format_doset_opt_line(name, doset_bool_term(name), '    ');
+        // C `:8855–8857` pass-0 enhance_menu_text (live no-op, wired for order).
+        enhance_menu_text(line, line.length + 1, 0,
+            doset_bool_value(name), allopt[allopt_idx(name)]);
         raw.push({
-            text: format_doset_opt_line(name, doset_bool_term(name), '    '),
+            text: line,
             selectable: false,
         });
     }
@@ -9010,7 +9112,7 @@ export async function doset() {
         { name: 'pickup_burden', get_val: () => doset_compopt_get_val(optfn_pickup_burden, 'pickup_burden'), handler: true },
         { name: 'pickup_types', get_val: () => doset_compopt_get_val(optfn_pickup_types, 'pickup_types'), handler: true },
         { name: 'pile_limit', val: '5' },
-        { name: 'roguesymset', val: 'default' },
+        { name: 'roguesymset', get_val: () => doset_compopt_get_val(optfn_roguesymset, 'roguesymset') },
         { name: 'runmode', get_val: () => doset_compopt_get_val(optfn_runmode, 'runmode'), handler: true },
         { name: 'scores', get_val: () => doset_compopt_get_val(optfn_scores, 'scores') },
         { name: 'sortdiscoveries', get_val: () => doset_compopt_get_val(optfn_sortdiscoveries, 'sortdiscoveries'), handler: true },
@@ -9045,12 +9147,9 @@ export async function doset() {
         { name: 'status condition fields', val: '(16 currently set)' },
         { name: 'status highlight rules', val: '(0 currently set)' },
     ]) {
-        raw.push({
-            text: format_doset_opt_line(t.name, t.val, ''),
-            selectable: true,
-            kind: 'othr',
-            name: t.name,
-        });
+        // C `:8892` doset_add_menu (OthrOpt; all 7 rows set_in_game so
+        // indexoffset is nonzero — optlist.h NHOPTO rows are selectable).
+        raw.push(doset_add_menu(t.name, t.val, 1, { kind: 'othr' }));
     }
 
     if (!game.go) game.go = {};
@@ -9356,7 +9455,7 @@ export function pfxfn_font(optidx, req, negated, opts, op) {
                     allopt_name(optidx), opts);
                 return OPTN_ERR; // C `:5078`
             }
-            if (duplicateOpt) complain_about_duplicate(optidx); // C `:5080–5081` (stub: sink named)
+            if (duplicateOpt) complain_about_duplicate(optidx); // C `:5080–5081` (sink: botl.js no-op)
             if (opttype > 0 && !negated // C `:5082–5083`
                 && (op = string_for_opt(opts, false)) !== EMPTY_OPTSTR) {
                 switch (opttype) { // C `:5084`
@@ -9605,7 +9704,7 @@ const allopt = [
     // optlist.h:193 NHOPTC(autounlock)
     { name: 'autounlock', opttyp: CompOpt, idx: 22, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_autounlock },
     // optlist.h:196 NHOPTB(bgcolors)
-    { name: 'bgcolors', opttyp: BoolOpt, idx: 23, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'bgcolors' }, optfn: null },
+    { name: 'bgcolors', opttyp: BoolOpt, idx: 23, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'bgcolors' }, optfn: null, termpref: Term_Off },
     // optlist.h:199 NHOPTO("bind keys")
     { name: 'bind keys', opttyp: OthrOpt, idx: 24, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
     // optlist.h:206 NHOPTB(BIOS)
@@ -9717,7 +9816,7 @@ const allopt = [
     // optlist.h:386 NHOPTC(IBMgraphics)
     { name: 'IBMgraphics', opttyp: CompOpt, idx: 78, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
     // optlist.h:390 NHOPTB(idlecheckpoint)
-    { name: 'idlecheckpoint', opttyp: BoolOpt, idx: 79, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'idlecheckpoint' }, optfn: null },
+    { name: 'idlecheckpoint', opttyp: BoolOpt, idx: 79, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'idlecheckpoint' }, optfn: null, termpref: Term_Off },
     // optlist.h:394 NHOPTB(ignintr)
     { name: 'ignintr', opttyp: BoolOpt, idx: 80, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'ignintr' }, optfn: null },
     // optlist.h:402 NHOPTB(implicit_uncursed)
@@ -9813,7 +9912,7 @@ const allopt = [
     // optlist.h:559 NHOPTB(pauper)
     { name: 'pauper', opttyp: BoolOpt, idx: 126, setwhere: SET_IN_CONFIG, initval: false, addr: { obj: 'flags', key: 'pauper' }, optfn: null },
     // optlist.h:562 NHOPTB(perm_invent)
-    { name: 'perm_invent', opttyp: BoolOpt, idx: 127, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'perm_invent' } /* C: &iflags.perm_invent */, optfn: null },
+    { name: 'perm_invent', opttyp: BoolOpt, idx: 127, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'perm_invent' } /* C: &iflags.perm_invent */, optfn: null, termpref: Term_Off },
     // optlist.h:565 NHOPTC(perminv_mode)
     { name: 'perminv_mode', opttyp: CompOpt, idx: 128, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:568 NHOPTC(petattr)
@@ -9851,7 +9950,7 @@ const allopt = [
     // optlist.h:623 NHOPTB(rest_on_space)
     { name: 'rest_on_space', opttyp: BoolOpt, idx: 145, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'rest_on_space' }, optfn: null },
     // optlist.h:626 NHOPTC(roguesymset)
-    { name: 'roguesymset', opttyp: CompOpt, idx: 146, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'roguesymset', opttyp: CompOpt, idx: 146, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_roguesymset },
     // optlist.h:630 NHOPTC(runmode)
     { name: 'runmode', opttyp: CompOpt, idx: 147, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_runmode },
     // optlist.h:633 NHOPTB(safe_pet)
@@ -9893,7 +9992,7 @@ const allopt = [
     // optlist.h:693 NHOPTC(soundlib)
     { name: 'soundlib', opttyp: CompOpt, idx: 166, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_soundlib },
     // optlist.h:701 NHOPTB(sounds)
-    { name: 'sounds', opttyp: BoolOpt, idx: 167, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'sounds' }, optfn: null },
+    { name: 'sounds', opttyp: BoolOpt, idx: 167, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'sounds' }, optfn: null, termpref: Term_Off },
     // optlist.h:705 NHOPTB(sparkle)
     { name: 'sparkle', opttyp: BoolOpt, idx: 168, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'sparkle' }, optfn: null },
     // optlist.h:708 NHOPTB(spot_monsters)
@@ -9961,7 +10060,7 @@ const allopt = [
     // optlist.h:816 NHOPTC(versinfo)
     { name: 'versinfo', opttyp: CompOpt, idx: 200, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_versinfo },
     // optlist.h:841 NHOPTB(voices)
-    { name: 'voices', opttyp: BoolOpt, idx: 201, setwhere: SET_GAMEVIEW, initval: false, addr: null /* C: &iflags.voices, no live field (no SND_LIB) */, optfn: null },
+    { name: 'voices', opttyp: BoolOpt, idx: 201, setwhere: SET_GAMEVIEW, initval: false, addr: null /* C: &iflags.voices, no live field (no SND_LIB) */, optfn: null, termpref: Term_Excluded },
     // optlist.h:850 NHOPTB(vt_tiledata)
     { name: 'vt_tiledata', opttyp: BoolOpt, idx: 202, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
     // optlist.h:859 NHOPTB(vt_sounddata)
@@ -10125,18 +10224,19 @@ export function match_optname(userString, optName, minLength, valAllowed) {
         && optStrncasecmp(optName, userString, len) === 0;
 }
 
-/* C options.c `string_for_opt` `:6665–6684` (staticfn) — value tail after
+/* C options.c `string_for_opt` `:6664–6680` (staticfn) — value tail after
  * the first ':' (or '=' when it comes first); EMPTY_OPTSTR stands in for C's
- * `empty_optstr`. The `:6678–6681` "Missing parameter" config_error_add is a
- * named omission (map: no JS config-error sink). */
+ * `empty_optstr`. The `:6675–6677` "Missing parameter" arm calls the live
+ * config_error_add (botl.js no-op sink — text discarded there, not here). */
 function string_for_opt(opts, valOptional) {
     let colon = opts.indexOf(':'); // C `:6669`
     const equals = opts.indexOf('=');
     if (colon < 0 || (equals >= 0 && equals < colon)) colon = equals; // C `:6671–6672`
     if (colon < 0 || colon + 1 >= opts.length) { // C `:6674 !colon || !*++colon`
+        if (!valOptional) config_error_add("Missing parameter for '%s'", opts); // C `:6675–6677`
         return EMPTY_OPTSTR;
     }
-    return opts.slice(colon + 1); // C `:6683`
+    return opts.slice(colon + 1); // C `:6679`
 }
 
 /* C options.c `bad_negation` `:6693–6700` (staticfn) — body is one
@@ -10243,13 +10343,18 @@ function duplicate_opt_detection(optidx) {
     return false; // C `:6787`
 }
 
-/* C options.c `complain_about_duplicate` `:6790–6807` (staticfn) — the
- * MACOS9 early return is compiled out on unix; the body is one
- * config_error_add ("%s option specified multiple times: %s%s" with
- * "compound"/"boolean" folded exactly like C's `opttyp == CompOpt` ternary
- * plus the " (via alias: %s)" tail); named omission (map). */
-function complain_about_duplicate(_optidx) {
-    // Named omission (map): config_error_add sink.
+/* C options.c `complain_about_duplicate` `:6789–6809` (staticfn) — the
+ * MACOS9 early return (`:6794–6798`) is compiled out on unix; the body is
+ * one config_error_add call (live botl.js no-op sink). using_alias is
+ * usingAliasOpt; allopt[optidx].alias reads OPT_ALIAS (C optlist.h `:45`,
+ * NoAlias rows never take the arm — C only sets using_alias on an alias
+ * match). */
+function complain_about_duplicate(optidx) {
+    let buf = ''; // C `:6800` buf[0] = '\0'
+    if (usingAliasOpt) buf = ` (via alias: ${OPT_ALIAS[allopt[optidx].name] ?? ''})`; // C `:6801–6802`
+    config_error_add('%s option specified multiple times: %s%s', // C `:6803–6806`
+        allopt[optidx].opttyp === CompOpt ? 'compound' : 'boolean',
+        allopt[optidx].name, buf);
 }
 
 /**

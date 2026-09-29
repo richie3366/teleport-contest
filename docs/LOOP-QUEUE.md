@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` all_options_palette — coverage MISSING (C 9 code L `options.c:9658–9673` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: count_alt_palette) @6e3bbfbe7
 - [ ] `cfgfiles.c` fopen_config_file — coverage THIN (C 87 code L `cfgfiles.c:223–372` / JS 34 code L in js/cfgfiles.js; hops —, callers 1, RNG 0, msg 0) @1a4567167
 - [ ] `o_init.c` shuffle_tiles — coverage MISSING (C 10 code L `o_init.c:35–50` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @1a4567167
 - [ ] `pickup.c` container_at — coverage PARTIAL (C 9 code L `pickup.c:2024–2038` / JS 6 code L in js/pickup.js; hops 4, callers 3, RNG 0, msg 0) @c21da30e8
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `role.c` clearrolefilter — coverage THIN (C 18 code L `role.c:1358–1381` / JS 6 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @2c9129a4b
 - [ ] `invent.c` reorder_invent — coverage PARTIAL (C 19 code L `invent.c:739–767` / JS 11 code L in js/u_init.js; hops 4, callers 2, RNG 0, msg 0) @2c9129a4b
 - [ ] `artifact.c` abil_to_adtyp — coverage MISSING (C 16 code L `artifact.c:2320–2341` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @4e2ac5b98
+- [ ] `mon.c` qst_guardians_respond — coverage PARTIAL (C 16 code L `mon.c:4135–4159` / JS 11 code L in js/mon.js; hops 3, callers 1, RNG 0, msg 0) @75eb7fe42
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

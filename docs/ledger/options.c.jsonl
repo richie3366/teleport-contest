@@ -79,7 +79,7 @@
 {"fn":"optfn_player_selection","c":"3438-3468","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_playmode","c":"3471-3504","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_race","c":"3507-3542","status":"partial","js":["js/options.js:optfn_race"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
-{"fn":"optfn_roguesymset","c":"3545-3586","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_roguesymset","c":"3545-3586","status":"partial","js":["js/options.js:optfn_roguesymset"],"omit":"- `all_options_palette`: whole function uncompiled (by-design).","d":["D-3121"],"at":"2026-09-29@75eb7fe42","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_role","c":"3589-3624","status":"partial","js":["js/options.js:optfn_role"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
 {"fn":"optfn_runmode","c":"3627-3666","status":"ported","js":["js/options.js:optfn_runmode"],"d":["D-2830"],"at":"seed@a30a7de84"}
 {"fn":"optfn_scores","c":"3669-3760","status":"ported","js":["js/options.js:optfn_scores"],"d":["D-2830"],"at":"seed@a30a7de84"}
@@ -135,7 +135,7 @@
 {"fn":"handler_pickup_types","c":"6114-6121","status":"unknown"}
 {"fn":"handler_runmode","c":"6124-6149","status":"unknown"}
 {"fn":"handler_petattr","c":"6152-6164","status":"unknown"}
-{"fn":"handler_sortloot","c":"6167-6203","status":"unknown"}
+{"fn":"handler_sortloot","c":"6167-6203","status":"ported","js":["js/options.js:handler_sortloot"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"handler_whatis_coord","c":"6206-6276","status":"partial","js":["js/options.js:handler_whatis_coord"],"omit":"`config_error_add(\"Unknown %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `pick_cnt > 1` disambiguation `:6270–6271` folded — the pick-one helper returns the single new pick, which is the entry C chooses.","d":["D-2775"],"at":"seed@a30a7de84"}
 {"fn":"handler_whatis_filter","c":"6279-6318","status":"unknown"}
 {"fn":"handler_symset","c":"6321-6328","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -144,7 +144,7 @@
 {"fn":"handler_msgtype","c":"6502-6570","status":"partial","js":["js/options.js:handler_msgtype"],"omit":"`config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink.","d":["D-2842"],"at":"seed@a30a7de84"}
 {"fn":"handler_versinfo","c":"6573-6617","status":"unknown"}
 {"fn":"handler_windowborders","c":"6620-6654","status":"unknown"}
-{"fn":"string_for_opt","c":"6665-6680","status":"unknown"}
+{"fn":"string_for_opt","c":"6665-6680","status":"ported","js":["js/options.js:string_for_opt"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"string_for_env_opt","c":"6683-6690","status":"unknown"}
 {"fn":"bad_negation","c":"6693-6697","status":"unknown"}
 {"fn":"determine_ambiguities","c":"6703-6736","status":"unknown"}
@@ -152,7 +152,7 @@
 {"fn":"match_optname","c":"6760-6770","status":"unknown"}
 {"fn":"reset_duplicate_opt_detection","c":"6773-6779","status":"unknown"}
 {"fn":"duplicate_opt_detection","c":"6782-6787","status":"unknown"}
-{"fn":"complain_about_duplicate","c":"6790-6809","status":"unknown"}
+{"fn":"complain_about_duplicate","c":"6790-6809","status":"ported","js":["js/options.js:complain_about_duplicate"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"rejectoption","c":"6812-6820","status":"unknown"}
 {"fn":"nh_getenv","c":"6848-6856","status":"unknown"}
 {"fn":"nmcpy","c":"6861-6871","status":"partial","js":["js/options.js:nmcpy"],"omit":"`petname_optfn` (`:866`), `optfn_name` (`:2561`), `optfn_windowtype` (`:4972`), and `initoptions_init` (`:7134`, `:7283`) are not JS functions.","d":["D-2790"],"at":"seed@a30a7de84"}
@@ -197,10 +197,10 @@
 {"fn":"longest_option_name","c":"8508-8532","status":"ported","js":["js/options.js:longest_option_name"],"d":["D-3009"],"at":"2026-09-28@c704500d7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doset_simple_menu","c":"8536-8702","status":"partial","js":["js/options.js:doset_simple_menu"],"omit":"- `doset_simple_menu`: symset pick → handler_symset `:6320–6328` → symbols.c do_symset (no live JS port; file IO under Rule #2); BoolOpt pick keeps `simple_bool_toggle` (C `:8654–8656` parseoptions is a bool no-op in JS — allopt bool rows carry optfn:null vs C &optfn_boolean, `:635` guard; own row)…","d":["D-3009"],"at":"2026-09-28@c704500d7"}
 {"fn":"doset_simple","c":"8707-8735","status":"unknown"}
-{"fn":"term_for_boolean","c":"8738-8752","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"term_for_boolean","c":"8738-8752","status":"ported","js":["js/options.js:term_for_boolean"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doset","c":"8758-8975","status":"unknown","d":["D-2773"],"at":"seed@a30a7de84"}
 {"fn":"reset_needed_visuals","c":"8980-9014","status":"ported","js":["js/options.js:reset_needed_visuals"],"d":["D-3069"],"at":"2026-09-28@774d64d58"}
-{"fn":"doset_add_menu","c":"9018-9065","status":"unknown"}
+{"fn":"doset_add_menu","c":"9018-9065","status":"split","js":["js/options.js:doset_add_menu","js/options.js:doset_compopt_get_val","js/options.js:doset"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}
 {"fn":"count_cond","c":"9179-9188","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_apes","c":"9191-9202","status":"unknown"}
@@ -216,7 +216,7 @@
 {"fn":"all_options_menucolors","c":"9595-9625","status":"unknown"}
 {"fn":"all_options_msgtypes","c":"9628-9640","status":"unknown"}
 {"fn":"all_options_apes","c":"9643-9654","status":"unknown"}
-{"fn":"all_options_palette","c":"9658-9673","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"all_options_palette","c":"9658-9673","status":"by-design","at":"2026-09-29@75eb7fe42","note":"uncompiled: options.c:9656-9674 inside #ifdef CHANGE_COLOR (only amiconf.h defines it; contest unix build does not)"}
 {"fn":"all_options_strbuf","c":"9678-9748","status":"partial","js":["js/options.js:all_options_strbuf"],"omit":"`get_option_value` + allopt table [2/7]; `all_options_conds` (+opt_next_cond) [3/7]; `get_changed_key_binds` (unconditional call — throws if body invoked before [4/7]) [4/7]; `parsesymbols` producer (savedSymbols stays empty) [5/7]; `all_options_statushilites` (unconditional call, STATUS_HILITES on…","d":["D-2544"],"at":"seed@a30a7de84"}
 {"fn":"next_opt","c":"9755-9785","status":"split","js":["js/options.js:next_opt_lines"],"d":["D-2989"],"at":"2026-09-27@080c16023","note":"split: boolean-list body lives in next_opt_lines (D-0091); sole caller option_help reads it via option_help_lines"}
 {"fn":"set_option_mod_status","c":"9855-9869","status":"ported","js":["js/options.js:set_option_mod_status"],"d":["D-3040"],"at":"2026-09-28@4e6edc522","note":"refresh: no JS symbol (measured MISSING)"}
@@ -230,7 +230,7 @@
 {"fn":"wc_set_window_colors","c":"10023-10113","status":"ported","js":["js/options.js:wc_set_window_colors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"options_free_window_colors","c":"10116-10127","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"set_playmode","c":"10134-10152","status":"unknown"}
-{"fn":"enhance_menu_text","c":"10155-10180","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"enhance_menu_text","c":"10155-10180","status":"ported","js":["js/options.js:enhance_menu_text"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"heed_all_options","c":"10183-10189","status":"unknown"}
 {"fn":"disregard_all_options","c":"10192-10198","status":"unknown"}
 {"fn":"heed_this_option","c":"10201-10205","status":"unknown"}
