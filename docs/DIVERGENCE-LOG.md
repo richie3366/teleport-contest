@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3098 — cfgfiles.c config_erradd in_lua arm + parse_conf_file export (coverage)
+
+- **Status:** shipped (Open — coverage head `cfgfiles.c` config_erradd PARTIAL + same-file row parse_conf_file MISSING; 2-function cluster, ~30 js/ insertions — below the ~80 density line, excused: the head's file holds no further Open row and the callee closure verified whole by C-vs-JS read — dupstr (gap is the D-1951 u32-wrap panic, unreachable in JS), free_config_sections, cnf_parser_done.)
+- **Symptom:** coverage — config_erradd lacked its in_lua error-list arm (`:1566–1574`, stale-named "no lua state"); parse_conf_file had no JS export (body live only as the local parse_conf_text).
+- **C locus:**
+  - `config_erradd`: nethack-c/upstream/src/cfgfiles.c:1544–1589 (in_lua arm `:1566–1574`; list `:1467`; drain l_get_config_errors `:1514–1541`).
+  - `parse_conf_file`: nethack-c/upstream/src/cfgfiles.c:1844–1860.
+- **JS was:** config_erradd whole except the in_lua arm; parse_conf_file body live as local `parse_conf_text` (js/cfgfiles.js), called only by read_config_file.
+- **Fix:** ported the in_lua arm in C order (alloc ≡ object literal, prepend to a new module-level configErrorMsg list, `dupstr` imported live from dungeon.js — imports.mjs verdict SAFE, hoisted fn); exported the string-fed parse_conf_file (Rule #2 FILE*→text adaptation) and rewired the read_config_file call site.
+- **JS:** js/cfgfiles.js:275 config_erradd (in_lua arm `:284–292`, configErrorMsg list `:214`, dupstr import `:53`); js/cfgfiles.js:1057 parse_conf_file export, called at `:1091`.
+- **Callers:**
+  - `config_erradd`: C `:1889` vconfig_error_add → js/cfgfiles.js cnf_error (live) + botl.js config_error_add no-op (established named omission).
+  - `parse_conf_file`: C `:1638` read_config_file → js/cfgfiles.js:1091 wired; files.c:2594 read_wizkit → parse_wizkit_text subset clone (named, review-154 ACCEPT debt: no CHOOSE/sections/nextline, EOF-continuation diverge); files.c:2646 read_sym_file MISSING in JS (named, own future row; its proc_symset_line is by-design).
+- **Verify:**
+  - `config_erradd`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+  - `parse_conf_file`: note hidden (no corpus session blocked); REACH-OK (smoke spread 24 run, 24 PASS, 0 regressed).
+  - Shared: `PASS syntax (1 changed js file) · PASS rule2 · PASS green 2/2 · PASS strict x2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS`.
+- **Named omissions:**
+  - `config_erradd`: wait_synch `:1562` (windowed input boundary — parser stays sync, parseoptions precedent); l_get_config_errors drain (lua-stack sink, lua-callable via nhlua.c:1887; no JS Lua state — mklev.js themerooms precedent — and nothing sets iflags.in_lua today).
+  - `parse_conf_file`: FILE* signature (Rule #2 — caller passes VFS text); read_wizkit subset-caller + read_sym_file MISSING caller (see Callers).
+- **Ledger:** config_erradd partial; parse_conf_file ported
+- **Next:** read_sym_file (files.c MISSING, C 28) would complete the parse_conf_file caller table when the generated block surfaces it.
+
 ## D-3097 — timeout.c burn_object: whole-body restart (coverage)
 
 - **Status:** shipped (Open — coverage `timeout.c` burn_object PARTIAL (C 209 code L `timeout.c:1383–1680` / JS 154 code L) as cluster head; no same-file Open row in the generated block and no Open callee-closure row — 1-function cluster, ~200 js/ insertions. Queue-head `minion.c` monster_census stale-ported in the same iteration — body whole at `js/minion.js:107` (DEADMONSTER ≡ mhp<1, isgd/mx skip, live canspotmon) with all 9 C call sites wired.)

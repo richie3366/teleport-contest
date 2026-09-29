@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3098 cfgfiles.c config_erradd in_lua arm + parse_conf_file export (coverage)
+
+**C locus:** - `config_erradd`: nethack-c/upstream/src/cfgfiles.c:1544–1589 (in_lua arm `:1566–1574`; list `:1467`; drain l_get_config_errors `:1514–1541`).
+**JS:** js/cfgfiles.js:275 config_erradd (in_lua arm `:284–292`, configErrorMsg list `:214`, dupstr import `:53`); js/cfgfiles.js:1057 parse_conf_file export, called at `:1091`.
+**Change:** ported the in_lua arm in C order (alloc ≡ object literal, prepend to a new module-level configErrorMsg list, `dupstr` imported live from dungeon.js — imports.mjs verdict SAFE, hoisted fn); exported the string-fed parse_conf_file (Rule #2 FILE*→text adaptation) and rewired the read_config_file call site.
+**Verify:** - `config_erradd`: note hidden (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `config_erradd`: wait_synch `:1562` (windowed input boundary — parser stays sync, parseoptions precedent); l_get_config_errors drain (lua-stack sink, lua-callable via nhlua.c:1887; no JS Lua state — mklev.js themerooms precedent — and nothing sets iflags.in_lua today).
+**Next:** read_sym_file (files.c MISSING, C 28) would complete the parse_conf_file caller table when the generated block surfaces it.
 ## 2026-09-29 — D-3097 timeout.c burn_object: whole-body restart (coverage)
 
 **C locus:** - `burn_object`: `nethack-c/upstream/src/timeout.c:1383–1680` (away catch-up + unhide `:1416`, POT_OIL burn-away, lamp milestones `:1482`/`:1492`, candle/menorah milestones + unhide `:1652`, impossible default `:1673`, newsym/update_inventory tail).
