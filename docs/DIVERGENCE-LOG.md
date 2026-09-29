@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3124 — `read.c` hawaiian_design whole-body + doread shirt-block caller wiring (coverage)
+
+- **Status:** fixed (Open — coverage head `read.c` hawaiian_design MISSING → whole body in C order in js/objnam.js beside its hawaiian_motif sibling + the read.c:376–413 shirt block wired into doread (its sole C caller :394). ~80 js/ insertions (objnam +30, read +54) — at the density floor; the head file's remaining Open is doread's non-shirt arms (blind-scroll/silently corpus residuals = phase 2, untouched). Same iteration: 3 stale→ported/split via direct `ledger.mjs set` (munstone, get_table_coords_or_region, assign_candy_wrapper), D-3121 precedent. Row cites no review Source — no stamp (brief citations: 1672 ACCEPT verified the wall_property coords_or_region inline; 771/2003 name hawaiian_design)).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify hawaiian_design`: no corpus session blocked at baseline — shirt reads, no RNG).
+- **C locus:**
+  - `hawaiian_design`: read.c:224–251 (hawaiian_bgs `:227–239`, o_id ^ ~ubirthday hash `:244`, Sprintf `:246–249`); sole caller doread :394.
+  - `munstone` (stale): muse.c:2884–2903 already complete in js/muse.js:1468 (D-2507; 9 JS vs 13 C code L is density).
+  - `get_table_coords_or_region` (stale-split): sp_lev.c:5561–5577 inlined with C-line cites at both C callers — lspo_region js/mklev.js:1879, lspo_wall_property js/mklev.js:4948.
+  - `assign_candy_wrapper` (stale): read.c:304–311 already complete in js/mkobj.js:2363 (D-0196), caller wired :2447.
+- **JS was:** no hawaiian_design/hawaiian_bgs; doread routed all three shirt otyps to "That is a silly thing to read." (deferred note); hawaiian_motif doc named hawaiian_design as its omit.
+- **Fix:** new hawaiian_design export in C order (bg = o_id ^ (unsigned)~ubirthday with explicit `>>> 0` casts; makeplural(motif) on an(bg); C's buf double-write collapses — makeplural/an own their static bufs, so plain strings match with no aliasing); doread shirt block in C order (Blind gate with the :332 Braille string, obscured-by-suit gate with the smock exemption, HAWAIIAN arm with the verbose ternary, literate++ post-increment, tshirt/apron text + verbose endpunct); T_SHIRT/ALCHEMY_SMOCK/HAWAIIAN_SHIRT consts via the file `_on` helper; names added to the existing objnam/display/do_wear edges only (no new module edge). No maintained unit harness in-repo (durable-test-collateral: verify.mjs + sessions are the project check — no new framework).
+- **JS:** js/objnam.js hawaiian_bgs `:520`, hawaiian_design `:617` (motif omit line retired); js/read.js consts `:217`, shirt block `:2216–2251` (Blind `:2219`, obscured `:2226`, HAWAIIAN `:2230`, text `:2243`; header + deferred/grease notes retired).
+- **Callers:**
+  - `hawaiian_design`: read.c:394 → js/read.js:2230 new HAWAIIAN arm (only C caller).
+  - `munstone`: pre-wired by D-2507 (mthrowu.c:445, uhitm.c:1160/1214/3953/4209 sites unchanged).
+  - `get_table_coords_or_region`: sp_lev.c:5607 → js/mklev.js:1879 inline (pre-wired); sp_lev.c:5889 → js/mklev.js:4948 inline (pre-wired).
+  - `assign_candy_wrapper`: mkobj.c:950 → js/mkobj.js:2447 (pre-wired).
+- **Verify:** `node scripts/verify.mjs --fn hawaiian_design` → VERIFY: PASS (syntax 2 files js/objnam.js js/read.js; rule2; hidden note 0 blocked; REACH-OK smoke 24/24, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). Extra probe `--fn hawaiian_design,doread`: doread REACH-OK smoke 24/24, 0 worse; its 3 blocked sessions (scen-impaired-Healer-94190 s70 + scen-impaired-Tourist-94350 s118 blind-scroll gate, scen-normal-Tourist-92061 s17 silently gate) are pre-existing phase-2 residuals on untouched doread arms — unchanged, not queued.
+- **Named omissions:**
+  - `hawaiian_design`: none — whole body, sole caller wired.
+  - doread wiring: doread's remaining arms (DUNCE_CAP/CORNUTHAUM hats, credit/marker/coin/orb/candy, blind-scroll + silently refinements) stay deferred — pre-existing, out of this row.
+  - `munstone` / `get_table_coords_or_region` / `assign_candy_wrapper`: none — bodies complete at the cited sites.
+- **Ledger:** hawaiian_design ported
+- **Next:** pop the next Open — coverage row (post-ship head: `role.c` clearrolefilter THIN).
+
 ## D-3123 — `mdlib.c` make_version whole-body + dig.c DEBUG/`#if 0` by-design set (10 functions; coverage)
 
 - **Status:** fixed (Open — coverage head `dig.c` wiz_debug_cmd_bury is `#ifdef DEBUG` (def + sole caller) with no `-DDEBUG` in the contest build → by-design, so the second row `mdlib.c` make_version ships as the code head: static version struct + runtime_info_init `:841` wire, js/date.js interimVersionInfo collapses. ~70 js/ insertions in js/version.js + js/date.js — dig.c and mdlib.c hold nothing more queue-eligible after this, so the <80-insertion density exception applies (cf. D-3122/D-3115). Same iteration: 3 more by-design + 5 stale→ported via direct `ledger.mjs set`, D-3121 precedent. Reviews 1494 (ACCEPT, named make_version omitted for "no JS save-compat reader") and 1612 (ACCEPT, "interim collapses on the make_version row") checked as prior art — both ACCEPT, no stamp needed).

@@ -4,10 +4,10 @@
 {"fn":"erode_obj_text","c":"89-97","status":"unknown"}
 {"fn":"tshirt_text","c":"100-187","status":"ported","js":["js/objnam.js:tshirt_text"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is the string table (shirt_msgs objnam.js:426 verified); o_id % SIZE + erode_obj_text exact"}
 {"fn":"hawaiian_motif","c":"190-221","status":"ported","js":["js/objnam.js:hawaiian_motif"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"stale: js/objnam.js:588 table+hash C-exact, objnam caller wired"}
-{"fn":"hawaiian_design","c":"224-251","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"hawaiian_design","c":"224-251","status":"ported","js":["js/objnam.js:hawaiian_design"],"d":["D-3124"],"at":"2026-09-29@cd4bc2a21","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"apron_text","c":"254-281","status":"ported","js":["js/objnam.js:apron_text"],"at":"2026-09-28@2f39bdcea","note":"stale: js/objnam.js:597 whole C body; apron_msgs table js/objnam.js:520-531 matches C order exactly"}
 {"fn":"candy_wrapper_text","c":"296-300","status":"unknown"}
-{"fn":"assign_candy_wrapper","c":"304-311","status":"unknown"}
+{"fn":"assign_candy_wrapper","c":"304-311","status":"ported","js":["js/mkobj.js:assign_candy_wrapper"],"at":"2026-09-29@cd4bc2a21","note":"stale: js/mkobj.js:2363 whole body, caller wired :2447"}
 {"fn":"read_ok","c":"315-324","status":"unknown"}
 {"fn":"doread","c":"330-647","status":"unknown","d":["D-2080"],"at":"seed@a30a7de84"}
 {"fn":"stripspe","c":"652-664","status":"unknown"}

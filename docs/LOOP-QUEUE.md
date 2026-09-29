@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `muse.c` munstone — coverage PARTIAL (C 13 code L `muse.c:2884–2903` / JS 9 code L in js/muse.js; hops 5, callers 4, RNG 0, msg 0) @2c9129a4b
-- [ ] `sp_lev.c` get_table_coords_or_region — coverage MISSING (C 9 code L `sp_lev.c:5561–5577` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @2c9129a4b
-- [ ] `read.c` hawaiian_design — coverage MISSING (C 17 code L `read.c:224–251` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @2c9129a4b
 - [ ] `role.c` clearrolefilter — coverage THIN (C 18 code L `role.c:1358–1381` / JS 6 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @2c9129a4b
 - [ ] `invent.c` reorder_invent — coverage PARTIAL (C 19 code L `invent.c:739–767` / JS 11 code L in js/u_init.js; hops 4, callers 2, RNG 0, msg 0) @2c9129a4b
 - [ ] `artifact.c` abil_to_adtyp — coverage MISSING (C 16 code L `artifact.c:2320–2341` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @4e2ac5b98
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sp_lev.c` get_table_align — coverage MISSING (C 8 code L `sp_lev.c:3114–3128` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @c983587e0
 - [ ] `mkobj.c` check_glob — coverage PARTIAL (C 9 code L `mkobj.c:3420–3443` / JS 5 code L in js/mkobj.js; hops 4, callers 4, RNG 0, msg 0) @ee5dff112
 - [ ] `objnam.c` fruitname — coverage PARTIAL (C 8 code L `objnam.c:414–427` / JS 4 code L in js/potion.js; hops 5, callers 4, RNG 0, msg 0) @ee5dff112
+- [ ] `engrave.c` disturb_grave — coverage PARTIAL (C 10 code L `engrave.c:1707–1721` / JS 7 code L in js/engrave.js; hops —, callers 2, RNG 0, msg 1) @cd4bc2a21
+- [ ] `mkobj.c` dealloc_oextra — coverage PARTIAL (C 10 code L `mkobj.c:96–111` / JS 6 code L in js/mkobj.js; hops 4, callers 2, RNG 0, msg 0) @cd4bc2a21
+- [ ] `dungeon.c` find_branch — coverage PARTIAL (C 17 code L `dungeon.c:311–337` / JS 12 code L in js/dungeon.js; hops 5, callers 4, RNG 0, msg 0) @cd4bc2a21
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

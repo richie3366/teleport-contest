@@ -35,7 +35,7 @@
 {"fn":"mon_reflects","c":"2797-2833","status":"unknown"}
 {"fn":"ureflects","c":"2836-2866","status":"unknown"}
 {"fn":"mcureblindness","c":"2872-2880","status":"unknown"}
-{"fn":"munstone","c":"2884-2903","status":"unknown"}
+{"fn":"munstone","c":"2884-2903","status":"ported","js":["js/muse.js:munstone"],"at":"2026-09-29@cd4bc2a21","note":"stale: js/muse.js:1468 (D-2507 shipped whole body; 9 JS code L = 13 C code L, density only)"}
 {"fn":"mon_consume_unstone","c":"2906-2981","status":"unknown"}
 {"fn":"cures_stoning","c":"2985-2998","status":"unknown"}
 {"fn":"mcould_eat_tin","c":"3001-3027","status":"ported","js":["js/muse.js:mcould_eat_tin"],"d":["D-3072"],"at":"2026-09-29@7e25e3c42","note":"stale: js/muse.js:1483, callers wired :447/:1472/:1955"}

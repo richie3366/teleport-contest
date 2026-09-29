@@ -516,6 +516,21 @@ const hawaiian_motifs = [
     'ukulele',
 ];
 
+/** C ref: read.c hawaiian_bgs[] in hawaiian_design. */
+const hawaiian_bgs = [
+    'purple',
+    'yellow',
+    'red',
+    'blue',
+    'orange',
+    'black',
+    'green',
+    'abstract',
+    'geometric',
+    'patterned',
+    'naturalistic',
+];
+
 /** C ref: read.c apron_msgs[] in apron_text. */
 const apron_msgs = [
     'Kiss the cook',
@@ -583,12 +598,25 @@ export function tshirt_text(tshirt) {
 /**
  * C ref: read.c hawaiian_motif `:189–221` — (o_id ^ ubirthday) % SIZE.
  * Tourist starter shirt o_id is stable; birthday supplies the mix.
- * Named omit: hawaiian_design (doread; different ~ubirthday hash).
+ * (hawaiian_design, the doread-only ~ubirthday sibling, follows.)
  */
 export function hawaiian_motif(shirt) {
     const n = hawaiian_motifs.length;
     const motif = ((shirt?.o_id >>> 0) ^ (game.ubirthday >>> 0)) >>> 0;
     return hawaiian_motifs[motif % n] || hawaiian_motifs[0];
+}
+
+/**
+ * C ref: read.c hawaiian_design `:224–251` — "%s on %s background" from
+ * makeplural(hawaiian_motif) over an(bg). The bg hash is o_id ^ ~ubirthday
+ * (C comment: deliberately different from motif's o_id ^ ubirthday so
+ * combos with common list-size factors still appear). C writes buf twice
+ * (motif in, Sprintf out); makeplural/an own their static bufs, so plain
+ * JS strings match with no aliasing. Sole C caller: doread `:394`.
+ */
+export function hawaiian_design(shirt) {
+    const bg = (((shirt?.o_id >>> 0) ^ (~(game.ubirthday >>> 0) >>> 0)) >>> 0);
+    return `${makeplural(hawaiian_motif(shirt))} on ${an(hawaiian_bgs[bg % hawaiian_bgs.length])} background`;
 }
 
 /**

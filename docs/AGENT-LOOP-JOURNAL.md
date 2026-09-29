@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3124 `read.c` hawaiian_design whole-body + doread shirt-block caller wiring (coverage)
+
+**C locus:** - `hawaiian_design`: read.c:224–251 (hawaiian_bgs `:227–239`, o_id ^ ~ubirthday hash `:244`, Sprintf `:246–249`); sole caller doread :394.
+**JS:** js/objnam.js hawaiian_bgs `:520`, hawaiian_design `:617` (motif omit line retired); js/read.js consts `:217`, shirt block `:2216–2251` (Blind `:2219`, obscured `:2226`, HAWAIIAN `:2230`, text `:2243`; header + deferred/grease notes retired).
+**Change:** new hawaiian_design export in C order (bg = o_id ^ (unsigned)~ubirthday with explicit `>>> 0` casts; makeplural(motif) on an(bg); C's buf double-write collapses — makeplural/an own their static bufs, so plain strings match with no aliasing); doread shirt block in C order (Blind gate with the :332 Braille string, obscured-by-suit gate with the smock exemption, HAWAIIAN arm with the verbose ternary, literate++ post-increment, tshirt/apron text + verbose endpunct); T_SHIRT/ALCHEMY_SMOCK/HAWAIIAN_SHIRT consts via the file `_on` helper; names added to the existing objnam/display/do_wear edges only (no new module edge). No maintained unit harness in-repo (durable-test-collateral: verify.mjs + sessions are the project check — no new framework).
+**Verify:** `node scripts/verify.mjs --fn hawaiian_design` → VERIFY: PASS (syntax 2 files js/objnam.js js/read.js; rule2; hidden note 0 blocked; REACH-OK smoke 24/24, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). Extra probe `--fn hawaiian_design,doread`: doread REACH-OK smoke 24/24, 0 worse; its 3 blocked sessions (scen-impaired-Healer-94190 s70 + scen-impaired-Tourist-94350 s118 blind-scroll gate, scen-normal-Tourist-92061 s17 silently gate) are pre-existing phase-2 residuals on untouched doread arms — unchanged, not queued.
+**Named:** - `hawaiian_design`: none — whole body, sole caller wired.
+**Next:** pop the next Open — coverage row (post-ship head: `role.c` clearrolefilter THIN).
 ## 2026-09-29 — D-3123 `mdlib.c` make_version whole-body + dig.c DEBUG/`#if 0` by-design set (10 functions; coverage)
 
 **C locus:** - `make_version`: mdlib.c:248–295 (incarnation `:255–258`, feature_set `:266–281`, entity_count `:286–292`); game caller mdlib.c:841 runtime_info_init (makedefs/sfctool callers are build tools).
