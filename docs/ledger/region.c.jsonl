@@ -1,7 +1,7 @@
 {"fn":"inside_rect","c":"54-57","status":"unknown","d":["D-1962"],"at":"seed@a30a7de84"}
 {"fn":"inside_region","c":"63-73","status":"unknown"}
 {"fn":"create_region","c":"79-127","status":"unknown","d":["D-2297"],"at":"seed@a30a7de84"}
-{"fn":"add_rect_to_reg","c":"133-155","status":"unknown"}
+{"fn":"add_rect_to_reg","c":"133-155","status":"ported","js":["js/region.js:add_rect_to_reg"],"at":"2026-09-29@1a4567167","note":"stale: js/region.js:262 (D-2297 shipped; alloc/memcpy/free = push under GC, 4-field NhRect copy + 4 bbox arms in C order)"}
 {"fn":"add_mon_to_reg","c":"161-186","status":"ported","js":["js/region.js:add_mon_to_reg"],"d":["D-2953"],"at":"seed@a30a7de84"}
 {"fn":"remove_mon_from_reg","c":"192-202","status":"unknown"}
 {"fn":"mon_in_region","c":"210-218","status":"unknown"}

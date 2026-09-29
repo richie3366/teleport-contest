@@ -4,11 +4,11 @@
 {"fn":"selection_clone","c":"65-73","status":"unknown"}
 {"fn":"selection_getbounds","c":"77-95","status":"ported","js":["js/mklev.js:selection_getbounds"],"d":["D-3099"],"at":"2026-09-29@b6b281b0a"}
 {"fn":"selection_recalc_bounds","c":"99-165","status":"unknown","d":["D-2696"],"at":"seed@a30a7de84"}
-{"fn":"selection_getpoint","c":"168-178","status":"unknown"}
-{"fn":"selection_setpoint","c":"181-208","status":"unknown"}
+{"fn":"selection_getpoint","c":"168-178","status":"ported","js":["js/mklev.js:selection_getpoint"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
+{"fn":"selection_setpoint","c":"181-208","status":"ported","js":["js/mklev.js:selection_setpoint"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
 {"fn":"selection_not","c":"211-221","status":"unknown"}
 {"fn":"selection_filter_percent","c":"224-245","status":"unknown","d":["D-1840"],"at":"seed@a30a7de84"}
-{"fn":"selection_filter_mapchar","c":"248-281","status":"unknown"}
+{"fn":"selection_filter_mapchar","c":"248-281","status":"ported","js":["js/mklev.js:selection_filter_mapchar"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
 {"fn":"selection_rndcoord","c":"284-318","status":"unknown","d":["D-2095"],"at":"seed@a30a7de84"}
 {"fn":"selection_do_grow","c":"321-367","status":"unknown"}
 {"fn":"set_selection_floodfillchk","c":"372-375","status":"unknown"}

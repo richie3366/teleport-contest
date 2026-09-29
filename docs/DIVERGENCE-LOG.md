@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3116 — `selvar.c` selection_filter_mapchar restart + getpoint/setpoint guards (coverage)
+
+- **Status:** fixed (Open — coverage head `selvar.c` selection_filter_mapchar + 3 Open callees; region.c add_rect_to_reg went stale via ledger in the same iteration. Small diff (~45 js/ insertions: sole selvar.c queue row, closure holds nothing else Open — the <80-insertion density exception applies, cf. D-3115).
+- **Symptom:** coverage gap, not a corpus divergence (all four: `hidden-proxy verify` notes 0 blocked at baseline; live paths draw no RNG — the lit -1 arm is unreached).
+- **C locus:**
+  - `selection_filter_mapchar`: selvar.c:248–281 (NULL guard `:254-255`, ret `:257`, getbounds `:259`, scan `:261-265`, lit switch `:266-278`)
+  - `selection_getpoint`: selvar.c:168–178 (guards `:172-175`, map-1 `:177`)
+  - `selection_setpoint`: selvar.c:181–208 (guards `:186-189`; body `:191-207` already C-order)
+  - `match_maptyps`: sp_lev.c:217–224 (MATCH_WALL `:220`, MAX_TYPE `:222`)
+- **JS was:** js/mklev.js local `selection_filter_mapchar(sel, typ)` clone: no `lit` param (dropped the -1 rn2(2) + 0/1 levl.lit arms), ROOM-only `loc.typ !== typ` equality instead of match_maptyps wildcards, hand-rolled bounds instead of selection_new+setpoint; getpoint/setpoint used COLNO/ROWNO constants with no map guard.
+- **Fix:** restarted the filter exported in C order over live callees (selection_new/getbounds/getpoint/setpoint, local match_maptyps, rn2): NULL→null, getbounds rect, x-outer/y-inner scan with C short-circuit (getpoint, then levl read, then match_maptyps), switch with `default:`+`case -2:` first like C, `(loc.lit | 0) === lit` for JS bool/0/1 levl.lit; default lit -2 mirrors the Lua binding's luaL_optinteger(L, 3, -2) (nhlsel.c:663) so the two themerms callers keep behavior. Aligned getpoint/setpoint guards to C order (`!sel.pts` ≡ `!sel->map`, `sel.wid ?? COLNO` per the recalc_bounds idiom; dead on live shapes — every selection carries pts + COLNO/ROWNO wid/hei). match_maptyps audited line-exact, untouched.
+- **JS:** js/mklev.js selection_filter_mapchar `:30588`, selection_getpoint `:29261`, selection_setpoint `:29273`, match_maptyps `:28716` (unchanged). No new cross-module imports (all callees in-file; rn2 already imported).
+- **Callers:**
+  - `selection_filter_mapchar`: C caller nhlsel.c:669 l_selection_filter_mapchar → named omission (no JS Lua-selection bridge; js/ has no nhlsel module); in-file themerms callers selection_all_room_floors js/mklev.js:30624 and themeroom_fill_teleport_hub js/mklev.js:30635 keep behavior via default lit -2 (both feed selection_rndcoord only — pts/getbounds-compatible with the new selection_new-based return).
+  - `selection_getpoint` / `selection_setpoint`: pre-existing JS call sites unchanged (export name + signature kept; new C-order call from the filter above); C's wider caller fan (cmd/getpos/hack/nhlsel/sp_lev) rides the same live exports.
+  - `match_maptyps`: selvar.c:264 → the filter above; sp_lev.c:308 mapfrag_match → js/mklev.js:28731 (pre-existing, calls the clone).
+- **Verify:** `node scripts/verify.mjs --fn selection_filter_mapchar,selection_getpoint,selection_setpoint,match_maptyps` → per-function hidden note (0 blocked, coverage row) + REACH-OK (no RNG-tagged reach; 24-session smoke spread 24 PASS ×4); syntax · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file). VERIFY: PASS.
+- **Named omissions:**
+  - `selection_filter_mapchar`: C caller nhlsel.c:669 l_selection_filter_mapchar (Lua `selection.filter_mapchar` binding — whole Lua-selection bridge absent in JS).
+  - `selection_getpoint`: none — whole body.
+  - `selection_setpoint`: none — whole body.
+  - `match_maptyps`: none — whole body (audited, untouched).
+- **Ledger:** selection_filter_mapchar ported; selection_getpoint ported; selection_setpoint ported; match_maptyps ported
+- **Next:** coverage head moves to `botl.c` status_hilites_viewall; selvar.c holds no other queue row.
+
 ## D-3115 — `dog.c` mon_leave completion: minvent + residency arms (coverage)
 
 - **Status:** fixed (Open — coverage head `dog.c` mon_leave, sole function; cites no review — no stamp needed; small diff: sole dog.c Open row and all C callees ported/ok, so the <80-insertion density exception applies).

@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `region.c` add_rect_to_reg — coverage PARTIAL (C 17 code L `region.c:133–155` / JS 9 code L in js/region.js; hops 4, callers 4, RNG 0, msg 0) @d27c7b945
-- [ ] `selvar.c` selection_filter_mapchar — coverage PARTIAL (C 25 code L `selvar.c:248–281` / JS 18 code L in js/mklev.js; hops —, callers 1, RNG 1, msg 0) @d27c7b945
 - [ ] `botl.c` status_hilites_viewall — coverage PARTIAL (C 12 code L `botl.c:4456–4474` / JS 7 code L in js/botl.js; hops —, callers 1, RNG 0, msg 1) @d27c7b945
 - [ ] `cfgfiles.c` assure_syscf_file — coverage MISSING (C 12 code L `cfgfiles.c:2031–2068` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @d27c7b945
 - [ ] `uhitm.c` dynamic_multi_reason — coverage PARTIAL (C 12 code L `uhitm.c:104–123` / JS 7 code L in js/uhitm.js; hops 3, callers 2, RNG 0, msg 0) @d27c7b945
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `botl.c` query_conditions — coverage MISSING (C 21 code L `botl.c:3109–3138` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @405ed7298
 - [ ] `insight.c` num_genocides — coverage PARTIAL (C 8 code L `insight.c:2953–2966` / JS 5 code L in js/insight.js; hops 5, callers 6, RNG 0, msg 0) @405ed7298
 - [ ] `options.c` all_options_palette — coverage MISSING (C 9 code L `options.c:9658–9673` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: count_alt_palette) @6e3bbfbe7
+- [ ] `cfgfiles.c` fopen_config_file — coverage THIN (C 87 code L `cfgfiles.c:223–372` / JS 34 code L in js/cfgfiles.js; hops —, callers 1, RNG 0, msg 0) @1a4567167
+- [ ] `o_init.c` shuffle_tiles — coverage MISSING (C 10 code L `o_init.c:35–50` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @1a4567167
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3116 `selvar.c` selection_filter_mapchar restart + getpoint/setpoint guards (coverage)
+
+**C locus:** - `selection_filter_mapchar`: selvar.c:248–281 (NULL guard `:254-255`, ret `:257`, getbounds `:259`, scan `:261-265`, lit switch `:266-278`)
+**JS:** js/mklev.js selection_filter_mapchar `:30588`, selection_getpoint `:29261`, selection_setpoint `:29273`, match_maptyps `:28716` (unchanged). No new cross-module imports (all callees in-file; rn2 already imported).
+**Change:** restarted the filter exported in C order over live callees (selection_new/getbounds/getpoint/setpoint, local match_maptyps, rn2): NULL→null, getbounds rect, x-outer/y-inner scan with C short-circuit (getpoint, then levl read, then match_maptyps), switch with `default:`+`case -2:` first like C, `(loc.lit | 0) === lit` for JS bool/0/1 levl.lit; default lit -2 mirrors the Lua binding's luaL_optinteger(L, 3, -2) (nhlsel.c:663) so the two themerms callers keep behavior. Aligned getpoint/setpoint guards to C order (`!sel.pts` ≡ `!sel->map`, `sel.wid ?? COLNO` per the recalc_bounds idiom; dead on live shapes — every selection carries pts + COLNO/ROWNO wid/hei). match_maptyps audited line-exact, untouched.
+**Verify:** `node scripts/verify.mjs --fn selection_filter_mapchar,selection_getpoint,selection_setpoint,match_maptyps` → per-function hidden note (0 blocked, coverage row) + REACH-OK (no RNG-tagged reach; 24-session smoke spread 24 PASS ×4); syntax · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file). VERIFY: PASS.
+**Named:** - `selection_filter_mapchar`: C caller nhlsel.c:669 l_selection_filter_mapchar (Lua `selection.filter_mapchar` binding — whole Lua-selection bridge absent in JS).
+**Next:** coverage head moves to `botl.c` status_hilites_viewall; selvar.c holds no other queue row.
 ## 2026-09-29 — D-3115 `dog.c` mon_leave completion: minvent + residency arms (coverage)
 
 **C locus:** - `mon_leave`: dog.c:729–763 (minvent loop `:735–740`, isshk residency `:744–745`; worm arm `:748–761` shipped D-2296)

@@ -1,5 +1,5 @@
 {"fn":"reset_xystart_size","c":"206-212","status":"unknown"}
-{"fn":"match_maptyps","c":"217-224","status":"unknown"}
+{"fn":"match_maptyps","c":"217-224","status":"ported","js":["js/mklev.js:match_maptyps"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
 {"fn":"mapfrag_fromstr","c":"227-253","status":"partial","js":["js/mklev.js:mapfrag_fromstr"],"omit":"`#wizfliplevel` (`wizcmds.c:412–434`) and `nhl_flip_level` (`nhlua.c:1509–1517`) are what pass `extras` true; neither is wired, so this body runs only when a caller sets that flag.","d":["D-2889"],"at":"seed@a30a7de84"}
 {"fn":"mapfrag_free","c":"256-263","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mapfrag_get","c":"266-272","status":"unknown"}
