@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3083 — create_particular_creation whole: class-d mkclass + randmonst + post-flags (review 2035 Must-fix)
+
+- **Status:** shipped (Must-fix — review 2035 Keep'd C-wrong on D-3075; ships alone)
+- **Symptom:** post-D-3075, ^G class letters parsed TRUE with `d.monclass` set and `d.which = urole.mnum` placeholder, but creation never read `d.monclass`: it created `d.quan` copies of the player's role monster instead of `mkclass(d->monclass, 0)` per iteration (C read.c:3279), and returned false for every `*` request. No corpus session blocked (Must-fix fidelity row; REACH-OK is the evidence).
+- **C locus:**
+  - `create_particular_creation`: nethack-c/upstream/src/read.c:3252–3357 (Must-fix arm :3278–3281; `*` arm :3281; post-flags :3313–3347)
+- **JS was:** js/read.js create_particular_creation returned false for `d.randmonst`, ran the named path only (cant_revive gate + gender flags + newcham fixup), broke unconditionally on makemon failure, and named randmonst/monclass + all post-flags deferred.
+- **Fix:**
+  - `create_particular_creation`: restarted whole in C order — firstchoice/NON_PM + cant_revive named gate (`:3261–3273`), per-iteration `mkclass(d.monclass, 0)` (`:3279`, S_* string ≡ C mlet) / `rndmonst()` (`:3281`) select, unchanged gender arms (`:3282–3312`, citations re-anchored to pinned lines), `MM_MINVIS` (`:3313`), break-if-named / continue-if-class on makemon failure (`:3316–3322`), tame (`:3324–3325`, await live tamedog) / peaceful|hostile (`:3326–3329`, mtame=0 + set_malign), saddled (`:3331–3334`, live can_saddle/which_armor/put_saddle_on_mon), hidden (`:3335–3340`, live is_hider/hides_under/OBJ_AT/is_pool, S_MIMIC/S_EEL literals), sleeping (`:3341–3342`), hidden|invisible flash_mon when !canspotmon (`:3343–3347`, newly exported from muse.js — no muse↔read cycle, lazy call), doppelganger newcham fixup (`:3349–3354`). makemon_appear_msg stays per-iteration post-makemon (D-2096). No new scripts/*.test.mjs: creation needs a live level (enexto/makemon/tamedog/flash) and sessions/** is loop-agent-frozen — the verify gates below are the maintained coverage.
+- **JS:** js/read.js:2866 (imports +2 lines: steed.js, muse.js); js/muse.js:1348 flash_mon export + doc.
+- **Callers:**
+  - `create_particular_creation`: C read.c:3405 `return create_particular_creation(&d)` wired (js/read.js:3009 inside create_particular :2982). No other C call sites (decl :55 only).
+- **Verify:** `node scripts/verify.mjs --fn create_particular_creation` → PASS syntax (2 files: js/muse.js js/read.js) · PASS rule2 · `no corpus session is blocked` (expected — review row, 0 blocks) + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- **Named omissions:**
+  - `create_particular_creation`: none in-body — whole body, every callee live (mkclass, rndmonst, cant_revive, makemon, tamedog, set_malign, can_saddle, which_armor, put_saddle_on_mon, is_hider, hides_under, OBJ_AT, is_pool, canspotmon, flash_mon, newcham, y_n).
+- **Ledger:** create_particular_creation ported
+- **Next:** none — Must-fix closed. Queue line marked `- [x]` + archive in this commit; review 2035 stamped by finish-iteration.
+
 ## D-3082 — get_uchars wait_synch: named omit + ledger partial (review 2041 Must-fix)
 
 - **Status:** shipped (Must-fix — review 2041 Keep'd C-wrong on D-3081; ships alone)

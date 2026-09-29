@@ -58,5 +58,5 @@
 {"fn":"do_stinking_cloud","c":"3082-3105","status":"unknown"}
 {"fn":"cant_revive","c":"3112-3134","status":"unknown"}
 {"fn":"create_particular_parse","c":"3137-3249","status":"ported","js":["js/read.js:create_particular_parse"],"d":["D-3075"],"at":"2026-09-29@80c81d0a0"}
-{"fn":"create_particular_creation","c":"3252-3357","status":"unknown","d":["D-2004"],"at":"seed@a30a7de84"}
+{"fn":"create_particular_creation","c":"3252-3357","status":"ported","js":["js/read.js:create_particular_creation"],"d":["D-3083","D-2004"],"at":"2026-09-29@e09865e97"}
 {"fn":"create_particular","c":"3372-3408","status":"unknown"}

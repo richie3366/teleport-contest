@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `read.c` create_particular_creation class-`d` — C read.c:3279–3282 `whichpm = mkclass(d->monclass, 0)` absent from js/read.js:create_particular_creation (never reads d.monclass; creates urole.mnum placeholder instead of a random class member for ^G class letters). Source: reviews/loop-unattended/2035-3a3d73a50-create-particular-parse.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

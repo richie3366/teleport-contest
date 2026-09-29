@@ -106,4 +106,4 @@ vacuous) + ten 24/24 smokes → REACH-OK, 0 regressed
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3082
+**Addressed:** D-3082 `e09865e97`
