@@ -16,10 +16,10 @@
 {"fn":"armor_status","c":"559-615","status":"unknown"}
 {"fn":"bot_via_windowport","c":"962-1279","status":"ported","js":["js/botl.js:bot_via_windowport"],"d":["D-2515"],"at":"seed@a30a7de84"}
 {"fn":"stat_update_time","c":"1285-1299","status":"ported","js":["js/botl.js:stat_update_time"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"condopt","c":"1303-1329","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"condopt","c":"1303-1329","status":"ported","js":["js/botl.js:condopt"],"d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cond_cmp","c":"1333-1342","status":"unknown"}
 {"fn":"menualpha_cmp","c":"1346-1351","status":"unknown"}
-{"fn":"parse_cond_option","c":"1354-1371","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"parse_cond_option","c":"1354-1371","status":"ported","js":["js/botl.js:parse_cond_option"],"d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cond_menu","c":"1376-1454","status":"ported","js":["js/botl.js:cond_menu"],"d":["D-2635"],"at":"seed@a30a7de84"}
 {"fn":"opt_next_cond","c":"1460-1490","status":"unknown"}
 {"fn":"eval_notify_windowport_field","c":"1493-1618","status":"unknown"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3094 pfxfn_cond_ + condopt + parse_cond_option: cond_ prefix option path (coverage)
+
+**C locus:** - `pfxfn_cond_`: nethack-c/upstream/src/options.c:4994–5036 (do_init `:5001–5003`, do_set `:5005–5025` + case-3/1/2/default `:5008–5019`, get_val/get_cnf_val `:5027–5029`, do_handler "not used" `:5031–5033`).
+**JS:** js/options.js:pfxfn_cond_:9123 (new) + botl import :206 + row wire :9838; js/botl.js:cond_idx:1247 (new, C :852), condopt:1258 (new), parse_cond_option:1318 (new), match_optname import :103 (`imports.mjs --can` SAFE — hoisted fn, runtime use only, same 100-module SCC).
+**Change:** - `pfxfn_cond_`: new export in C order before pfxfn_font — do_init → condopt(0,null,0); do_set → parse_cond_option + full switch (0 marks opt_set_in_config[PFX_COND_IDX], 3 ambiguous, 1/2/default unknown), reslt!=0 → OPTN_ERR, FIXME kept, mark_opt_need_redraw; get arms → set_optbuf(opts,''); do_handler returns OPTN_OK (named omission below); cond_ row wired.
+**Verify:** `node scripts/verify.mjs --fn pfxfn_cond_,condopt,parse_cond_option` → PASS syntax (2 changed js files: js/botl.js js/options.js) · PASS rule2 · note hidden ×3 (no corpus session blocked at baseline) · PASS reach ×3 (no RNG-tagged reach; fixed smoke spread 24 run each: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** - `pfxfn_cond_`: do_handler `:5032` `(void) cond_menu()` — async in JS, arm unreachable in C (set_hidden never doset-listed); config_error_add message text (existing no-op sink, house precedent).
+**Next:** resume coverage block ([3/7] cond-row note at js/options.js:9857 now satisfied for `:5010`).
 ## 2026-09-29 — D-3093 mhitm_ad_ssex: unified AD_SSEX dispatcher + three dispatch homes (coverage)
 
 **C locus:** - `mhitm_ad_ssex`: nethack-c/upstream/src/uhitm.c:4750–4779 (uhitm `:4754–4758`, mhitu SYSOPT/could_seduce/doseduce `:4759–4768` + sedu fallback `:4770–4772`, mhitm `:4773–4778`) + dispatch `mhitm_adtyping` AD_SSEX `:4797`.

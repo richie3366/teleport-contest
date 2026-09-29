@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3094 — pfxfn_cond_ + condopt + parse_cond_option: cond_ prefix option path (coverage)
+
+- **Status:** shipped (coverage — queue head `options.c` pfxfn_cond_ MISSING + Open callee `botl.c` condopt + closure `botl.c` parse_cond_option; same-file queue rows: none; 3-function cluster, 131 js/ insertions)
+- **Symptom:** C's `cond_<name>` config path was absent — the `cond_` allopt row had `optfn: null`, so `OPTIONS=cond_blind` silently did nothing and choices never reset to defaults at init. No corpus session blocked (coverage rows; REACH-OK is the evidence).
+- **C locus:**
+  - `pfxfn_cond_`: nethack-c/upstream/src/options.c:4994–5036 (do_init `:5001–5003`, do_set `:5005–5025` + case-3/1/2/default `:5008–5019`, get_val/get_cnf_val `:5027–5029`, do_handler "not used" `:5031–5033`).
+  - `condopt`: nethack-c/upstream/src/botl.c:1303–1329 (sanity `:1308–1310`, init `:1312–1321` incl. cond_idx qsort, set `:1322–1327`).
+  - `parse_cond_option`: nethack-c/upstream/src/botl.c:1354–1371 (shape gate `:1359–1361`, match loop `:1362–1368`, miss `:1370`).
+- **JS was:** no symbols; `cond_` allopt row `optfn: null` (js/options.js:9838); condtests[].choice stuck at literal false (never choice:=enabled).
+- **Fix:**
+  - `pfxfn_cond_`: new export in C order before pfxfn_font — do_init → condopt(0,null,0); do_set → parse_cond_option + full switch (0 marks opt_set_in_config[PFX_COND_IDX], 3 ambiguous, 1/2/default unknown), reslt!=0 → OPTN_ERR, FIXME kept, mark_opt_need_redraw; get arms → set_optbuf(opts,''); do_handler returns OPTN_OK (named omission below); cond_ row wired.
+  - `condopt`: new export in C order — null-addr init (game.gc.condmenu_sortorder=0, cond_idx fill, choice:=enabled, cond_idx.sort(cond_cmp); no-tie stability per cond_menu precedent); set arm enabled:=!negated, choice:=enabled, test:=false. C `&condtests[idx].choice` pointer check rides the entry object (identity vs condtests[idx]).
+  - `parse_cond_option`: new export in C order — `cond_` length-5 shape gate → 2, leading-substring match (min 4, live match_optname) → condopt(i, entry, negated) → 0, else 1.
+- **JS:** js/options.js:pfxfn_cond_:9123 (new) + botl import :206 + row wire :9838; js/botl.js:cond_idx:1247 (new, C :852), condopt:1258 (new), parse_cond_option:1318 (new), match_optname import :103 (`imports.mjs --can` SAFE — hoisted fn, runtime use only, same 100-module SCC).
+- **Callers:**
+  - `pfxfn_cond_`: C dispatches via allopt table — parseoptions do_set `:637` → js/options.js:10251 generic (pfxMatch row → optfn) ✓; allopt_array_init do_init `:7428` → js/options.js:10073 generic ✓; get_option_value `:8496` → js/options.js:10318 generic ✓; doset display `:8616` + do_handler `:8666`/`:8935` + doset_add_menu `:9041` — C-unreachable for cond_ (set_hidden=7 "never show it", doset endpass≤set_wiznofuz=6, simple menu excludes Advanced section), no JS site needed.
+  - `condopt`: C pfxfn_cond_ do_init `:5002` → js/options.js:9125 ✓; C parse_cond_option `:1366` → js/botl.js:1327 ✓.
+  - `parse_cond_option`: C pfxfn_cond_ do_set `:5006` → js/options.js:9129 ✓.
+- **Verify:** `node scripts/verify.mjs --fn pfxfn_cond_,condopt,parse_cond_option` → PASS syntax (2 changed js files: js/botl.js js/options.js) · PASS rule2 · note hidden ×3 (no corpus session blocked at baseline) · PASS reach ×3 (no RNG-tagged reach; fixed smoke spread 24 run each: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:**
+  - `pfxfn_cond_`: do_handler `:5032` `(void) cond_menu()` — async in JS, arm unreachable in C (set_hidden never doset-listed); config_error_add message text (existing no-op sink, house precedent).
+  - `condopt`: none in-body — whole body, every callee live (cond_cmp local); cond_idx write-only in C too (no reader in src/ or include/).
+  - `parse_cond_option`: none in-body — whole body, every callee live (match_optname, condopt).
+- **Ledger:** pfxfn_cond_ partial; condopt ported; parse_cond_option ported
+- **Next:** resume coverage block ([3/7] cond-row note at js/options.js:9857 now satisfied for `:5010`).
+
 ## D-3093 — mhitm_ad_ssex: unified AD_SSEX dispatcher + three dispatch homes (coverage)
 
 - **Status:** shipped (coverage — queue head `uhitm.c` mhitm_ad_ssex THIN; single-function cluster: only uhitm.c row in the generated set, callee closure mhitm_ad_sedu partial / could_seduce ok / doseduce ok — nothing more Open in file or closure, so the ~80-insertion density floor does not apply)

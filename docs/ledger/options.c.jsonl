@@ -114,7 +114,7 @@
 {"fn":"optfn_windowchain","c":"4857-4881","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_windowcolors","c":"4894-4940","status":"ported","js":["js/options.js:optfn_windowcolors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_windowtype","c":"4943-4987","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"pfxfn_cond_","c":"4994-5036","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"pfxfn_cond_","c":"4994-5036","status":"partial","js":["js/options.js:pfxfn_cond_"],"omit":"- `pfxfn_cond_`: do_handler `:5032` `(void) cond_menu()` — async in JS, arm unreachable in C (set_hidden never doset-listed); config_error_add message text (existing no-op sink, house precedent).","d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pfxfn_font","c":"5039-5165","status":"ported","js":["js/options.js:pfxfn_font"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"pfxfn_IBM_","c":"5169-5183","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_boolean","c":"5192-5449","status":"ported","js":["js/options.js:optfn_boolean"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
