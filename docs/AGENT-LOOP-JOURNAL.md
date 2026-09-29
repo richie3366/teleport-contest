@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3073 `query_color` PICK_ONE menu-earlier (review 2031 C-wrong)
+
+**C locus:** nethack-c/upstream/src/coloratt.c:505–508 (`query_color` pick_cnt==2 arm) + win/tty/wintty.c:1755–1759 (letter-press toggles + finishes, no PICK_ONE deselect) and :2808–2817 (picks gathered in menu order) ⇒ C ≡ menu-earlier(preselected, explicit)
+**JS:** js/options.js `query_color` (:5209) + corrected doc comment; new headless test scripts/query-color-pick-one.test.mjs (5 cases: both menu orders, NO_COLOR path, Enter-preselected, ESC)
+**Change:** after the helper returns explicit Y with dflt X≠NO_COLOR, index-compare in MENU_COLORNAMES (≡ C colornames[] pre-alias order, verified both sides) and return X when Y sorts strictly after X; NO_COLOR-default path unchanged (C then always yields explicit — picks[0]=Y since "no color" sorts last). Enter/ESC/own-letter arms unchanged (same values as C pick_cnt==1/0/-1).
+**Verify:** `node --test scripts/query-color-pick-one.test.mjs` → 1 fail pre-fix (black+green-letter), 5/5 post-fix. `node scripts/verify.mjs --fn query_color` → VERIFY: PASS — syntax 1 file (js/options.js) · rule2 clean · hidden: no corpus session blocked (expected — review found it by audit, no corpus reach) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict seed8000 + seed0900 · cohort 7/7 · full 44/44 (auto: shared file changed)
+**Named:** none new — whole readback now C-faithful; botl.c:4234 caller stays with the pre-existing `status_hilite_menu_add` omission
+**Next:** none — Must-fix closed; review 2031 stamped
 ## 2026-09-29 — Audit 2024–2032 (D-3064..D-3072): 8 ACCEPT, 1 QUALITY-RISK; full cadence
 
 **Reviews:** 2024 fd2badce9 ACCEPT, 2025 709b8aea7 ACCEPT, 2026 1b84498a2 ACCEPT, 2027 b93547133 ACCEPT, 2028 774d64d58 ACCEPT, 2029 3bee10e1d ACCEPT, 2030 9e3e6255b ACCEPT, 2031 7e25e3c42 QUALITY-RISK (query_color PICK_ONE resolves explicit-pick-after-default to explicit; C coloratt.c:505–508 resolves to menu-earlier — D-3071 "provably dead" proof insufficient, review-2007 citation empty; Must-fix prepended), 2032 aa12e06ff ACCEPT.

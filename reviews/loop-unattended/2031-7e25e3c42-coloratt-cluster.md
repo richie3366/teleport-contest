@@ -107,3 +107,5 @@ the C-wrong is outside corpus reach, found by C audit. Confirm.
    RNG — size it as a small Must-fix.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3073

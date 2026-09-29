@@ -5195,9 +5195,15 @@ export function basic_menu_colors(load_colors) {
 
 /**
  * C ref: coloratt.c query_color `:475–518` — basic_menu_colors around a
- * PICK_ONE over colornames (dflt_color preselected), -1 on ESC. The C
- * pick_cnt==2 arm (preselected NO_COLOR + explicit pick) collapses: the
- * helper returns the explicit pick directly, Enter-with-preselected
+ * PICK_ONE over colornames (dflt_color preselected), -1 on ESC. A tty
+ * letter-press toggles the explicit row on and finishes with the
+ * preselected row still selected (wintty.c:1755–1759, no PICK_ONE
+ * deselect), and picks come back in menu order (`:2808–2817`) — so the
+ * C pick_cnt==2 arm (`:505–508`) returns menu-earlier(preselected,
+ * explicit). The `:507` i==NO_COLOR redirect is dead ("no color" sorts
+ * last) but that implies menu-earlier, not the explicit pick
+ * (review 2031, correcting D-3071). The helper returns the explicit
+ * pick directly, so index-compare below; Enter-with-preselected
  * returns the preselected entry (pick_cnt==0 → dflt_color, same value).
  */
 export async function query_color(prompt, dflt_color) {
@@ -5211,8 +5217,14 @@ export async function query_color(prompt, dflt_color) {
     }
     const res = await select_menu_pick_one(raw);
     basic_menu_colors(false);
-    if (res.kind !== 'pick') return -1;
-    return res.item.color | 0;
+    if (res.kind !== 'pick') return -1; // C `:517` pick_cnt < 0 (ESC)
+    const y = res.item.color | 0;
+    if (dflt !== NO_COLOR) { // C `:505–508` pick_cnt==2 menu-earlier arm
+        const idxD = MENU_COLORNAMES.findIndex((row) => (row[1] | 0) === dflt);
+        const idxY = MENU_COLORNAMES.findIndex((row) => (row[1] | 0) === y);
+        if (idxD >= 0 && idxY > idxD) return dflt;
+    }
+    return y;
 }
 
 /**

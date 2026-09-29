@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3073 — `query_color` PICK_ONE menu-earlier (review 2031 C-wrong)
+
+- **Status:** fixed (Must-fix, ships alone — review 2031 Keep'd C-wrong on the D-3071 disposition)
+- **Symptom:** C-wrong — dflt X≠NO_COLOR + explicit letter pick Y sorting strictly after X yields X in C but Y in JS (e.g. dflt black + letter for green: C keeps black, JS applied green). Menu-value only, no RNG; outside corpus reach (found by C audit).
+- **C locus:** nethack-c/upstream/src/coloratt.c:505–508 (`query_color` pick_cnt==2 arm) + win/tty/wintty.c:1755–1759 (letter-press toggles + finishes, no PICK_ONE deselect) and :2808–2817 (picks gathered in menu order) ⇒ C ≡ menu-earlier(preselected, explicit)
+- **JS was:** js/options.js `query_color` returned the helper's explicit pick directly; the D-3071 "provably dead" note proved the `:507` i==NO_COLOR redirect dead but wrongly concluded "collapse stands" — gate-dead ⟹ menu-earlier, not explicit (review 2031 §Hallucinations; review-2007 citation was empty — it reviewed query_color_attr, the caller)
+- **Fix:** after the helper returns explicit Y with dflt X≠NO_COLOR, index-compare in MENU_COLORNAMES (≡ C colornames[] pre-alias order, verified both sides) and return X when Y sorts strictly after X; NO_COLOR-default path unchanged (C then always yields explicit — picks[0]=Y since "no color" sorts last). Enter/ESC/own-letter arms unchanged (same values as C pick_cnt==1/0/-1).
+- **JS:** js/options.js `query_color` (:5209) + corrected doc comment; new headless test scripts/query-color-pick-one.test.mjs (5 cases: both menu orders, NO_COLOR path, Enter-preselected, ESC)
+- **Callers:** coloratt.c:308 `query_color_attr` → js/options.js:5283 wired (the affected flow); options.c:6439 → js/options.js:5576 wired (passes NO_COLOR → unaffected); botl.c:4234 → enclosing `status_hilite_menu_add` unported, pre-existing named omission (js/botl.js:3205)
+- **Verify:** `node --test scripts/query-color-pick-one.test.mjs` → 1 fail pre-fix (black+green-letter), 5/5 post-fix. `node scripts/verify.mjs --fn query_color` → VERIFY: PASS — syntax 1 file (js/options.js) · rule2 clean · hidden: no corpus session blocked (expected — review found it by audit, no corpus reach) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict seed8000 + seed0900 · cohort 7/7 · full 44/44 (auto: shared file changed)
+- **Named omissions:** none new — whole readback now C-faithful; botl.c:4234 caller stays with the pre-existing `status_hilite_menu_add` omission
+- **Ledger:** query_color ported
+- **Next:** none — Must-fix closed; review 2031 stamped
+
 ## D-3072 — sounds.c `release_sound_mappings` port; `mcould_eat_tin` + `get_dgn_align` retired stale
 
 - **Status:** fixed (breadth-phase coverage: queue head #1 MISSING → ported; ships alone — 0 C callees, no other sounds.c row in the 12-row Open block; two stale rows retired ahead of the head, same-iteration pop rule)
