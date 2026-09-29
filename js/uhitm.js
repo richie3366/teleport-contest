@@ -44,7 +44,7 @@ import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, tp_sensemon,
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
-    dbon, weapon_dam_bonus, use_skill, weapon_type, uwep_skill_type,
+    abon, dbon, weapon_dam_bonus, use_skill, weapon_type, uwep_skill_type,
     special_dmgval, silver_sears, MON_WEP, setmnotwielded, possibly_unwield,
     is_wet_towel, dry_a_towel,
 } from './weapon.js';
@@ -100,7 +100,7 @@ import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare, find_arti
 import { artifact_light } from './timeout.js';
 import { xname, vtense, The, the, An, an, singular, makeplural, cxname, simpleonames, obj_is_pname, otense, mshot_xname, Yobjnam2, Yname2, doname, corpse_xname, ysimple_name, yname } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
-import { makemon, makemon_appear_msg, newcham, adj_lev, clone_mon, mpickobj } from './makemon.js';
+import { makemon, makemon_appear_msg, newcham, clone_mon, mpickobj } from './makemon.js';
 import { ndemon } from './minion.js';
 import { ART_GIANTSLAYER, ART_STORMBRINGER, ART_SNICKERSNEE, ART_CLEAVER } from './generated/artifacts_data.js';
 import { paranoid_query } from './getline.js';
@@ -474,34 +474,7 @@ function m_at(x, y) {
     return null;
 }
 
-/**
- * C ref: weapon.c abon — poly'd hero ignores STR/DEX bands entirely
- * (`if (Upolyd) return adj_lev(&mons[u.umonnum]) - 3`, weapon.c:955-956).
- */
-function abon() {
-    // Same rnd(20) then misses in C, hits in JS while poly'd
-    // (scen-poly-Rogue-92026: yeti claws, dieroll 8 both sides).
-    if (Upolyd(game.u) && game.youmonst?.data) {
-        return adj_lev(game.youmonst.data) - 3;
-    }
-    const str = acurr(A_STR);
-    const dex = acurr(A_DEX);
-    const STR18_50 = 18 + 50; // STR18(50) encoding stub: treat encoded >18 as high
-    let sbon;
-    // Full 18/xx encoding deferred; early heroes use raw acurr ≤18
-    if (str < 6) sbon = -2;
-    else if (str < 8) sbon = -1;
-    else if (str < 17) sbon = 0;
-    else if (str <= 18) sbon = 1; // up to 18 (incl. unencoded)
-    else if (str < STR18_50) sbon = 1;
-    else sbon = 2;
-    if ((game.u?.ulevel | 0) < 3) sbon += 1;
-    if (dex < 4) return sbon - 3;
-    if (dex < 6) return sbon - 2;
-    if (dex < 8) return sbon - 1;
-    if (dex < 14) return sbon;
-    return sbon + dex - 14;
-}
+/* weapon.c abon now imported from weapon.js (canonical home). */
 
 /** C ref: you.h Luck — u.uluck + u.moreluck */
 function Luck() {

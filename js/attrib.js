@@ -58,6 +58,7 @@ import { livelog_printf } from './pline.js';
 import { ysimple_name } from './objnam.js';
 import { carrying } from './hack.js';
 import { what_gives, bare_artifactname, confers_luck, u_wield_art, is_art, retouch_equipment } from './artifact.js';
+import { add_weapon_skill, lose_weapon_skill } from './weapon.js';
 import {
     PM_ARCHEOLOGIST,
     PM_BARBARIAN,
@@ -838,7 +839,7 @@ export async function uchangealign(newalign, reason) {
 /*
  * C ref: attrib.c innate tables + role_abil() / adjabil().
  * Prop names match the H* macros that C stores via long* ability.
- * Level-up add_weapon_skill / lose_weapon_skill deferred (oldlevel>0).
+ * Level-up add_weapon_skill / lose_weapon_skill via the adjabil tail (oldlevel>0).
  * postadjabil see_monsters deferred (init path has u.ulevel==0 → no-op).
  */
 const arc_abil = [
@@ -945,7 +946,7 @@ function role_abil(rolePm) {
 /**
  * C ref: attrib.c adjabil(oldlevel, newlevel)
  * Grants/revokes role and (elf/orc) race intrinsics by level thresholds.
- * Gain You_feel for nonempty gainstr; lose/postadjabil/weapon-skill deferred.
+ * Gain You_feel for nonempty gainstr; weapon-skill tail live, postadjabil deferred.
  */
 export async function adjabil(oldlevel, newlevel) {
     const u = game.u || (game.u = {});
@@ -1000,7 +1001,15 @@ export async function adjabil(oldlevel, newlevel) {
         }
         // postadjabil deferred
     }
-    // C: if (oldlevel > 0) add/lose_weapon_skill — deferred
+    // C attrib.c:1068–1073 — a level change grants or drains skill slots
+    // (add_weapon_skill is async: give_may_advance_msg can reach nhgetch).
+    if (oldlevel > 0) {
+        if (newlevel > oldlevel) {
+            await add_weapon_skill(newlevel - oldlevel);
+        } else {
+            lose_weapon_skill(oldlevel - newlevel);
+        }
+    }
 }
 
 /** C ref: youprop.h Fast — HFast||EFast ≡ uprops[FAST].intrinsic||extrinsic */

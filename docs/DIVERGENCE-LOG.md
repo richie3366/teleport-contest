@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3090 — lose_weapon_skill + abon + show_skills: weapon.c head + clone unification (coverage)
+
+- **Status:** shipped (coverage — queue head `weapon.c` lose_weapon_skill MISSING + same-file abon PARTIAL row + same-file show_skills stale at js/weapon.js:1665)
+- **Symptom:** level drain never dropped skill slots/ranks (adjabil tail deferred at js/attrib.js:1003); `abon` existed as two drifted local clones (dig.js:1596 dropped the DEX + Upolyd arms, both capped the STR ladder at sbon 2 — STR ≥ 18/100 short by 1); show_skills already complete. No corpus session blocked on any (coverage rows; REACH-OK is the evidence).
+- **C locus:**
+  - `lose_weapon_skill`: nethack-c/upstream/src/weapon.c:1453–1473 (slots-first :1459–1461, record pop :1462, panic :1463–1464, rank-- :1465, refund :1467)
+  - `abon`: nethack-c/upstream/src/weapon.c:950–989 (ACURR pair :953, Upolyd :955–956, STR ladder :963–972, ulevel kludge :976, DEX ladder :978–987)
+  - `show_skills`: nethack-c/upstream/src/weapon.c:1306–1318 (stale — body complete at js/weapon.js:1665)
+- **JS was:** no lose_weapon_skill symbol; abon local clones js/dig.js:1596 + js/uhitm.js:481; show_skills live since D-2704.
+- **Fix:**
+  - `lose_weapon_skill`: new sync export in C order — free-slots-first, record pop, P_SKILL-- via setter, slots_required-1 refund, panic ≡ loud throw (insert_branch precedent).
+  - `abon`: canonical export in C order — ACURR pair first, Upolyd → adj_lev-3, full STR ladder via live STR18() (restores sbon 3), ulevel kludge, full DEX ladder; both call sites rewired to the import, clones deleted (adj_lev dropped from uhitm's makemon import).
+  - `show_skills`: no code change — verified complete (pline + add_skills_to_menu FALSE/FALSE + select_menu_pick_none house PICK_NONE mapping); ledger stale→ported.
+- **JS:** js/weapon.js:lose_weapon_skill:1081, abon:1362 (new); js/attrib.js adjabil tail:1004–1012 (wired); js/dig.js:69 import; js/uhitm.js:47 import.
+- **Callers:**
+  - `lose_weapon_skill`: sole C caller attrib.c:1072 (adjabil) now wired js/attrib.js:1006–1012 — both arms, live add_weapon_skill awaited (async: give_may_advance_msg can reach nhgetch).
+  - `abon`: C dig.c:366 → js/dig.js:2309, C uhitm.c:376 → js/uhitm.js:571 (both now imported; no other C/JS callers). New edges: weapon→makemon adj_lev (`--can` SAFE, hoisted); attrib→weapon joins the existing 100-module SCC, lazy body-use only.
+  - `show_skills`: sole C caller end.c:602 dump_everything (DUMPLOG retired, D-1776) — no JS caller; kept live per existing doc comment.
+- **Verify:**
+  - `lose_weapon_skill`: hidden note (no sessions blocked), REACH-OK (smoke 24/24).
+  - `abon`: hidden note, REACH-OK (smoke 24/24).
+  - `show_skills`: hidden note, REACH-OK (smoke 24/24).
+  - Gates: syntax 4 files, Rule #2 clean, green 2/2, strict ×2, cohort 7/7, full 44/44 → VERIFY: PASS.
+- **Named omissions:**
+  - `lose_weapon_skill`: none in-body — whole body, every callee live (slots_required, P_SKILL/set_P_SKILL).
+  - `abon`: none in-body — whole body, every callee live (acurr, adj_lev); the `?.data` guard only fires in C-unreachable states.
+  - `show_skills`: none — window verbs house-mapped (raw array + select_menu_pick_none, D-2704).
+- **Ledger:** lose_weapon_skill ported; abon ported; show_skills ported
+- **Next:** postadjabil in adjabil stays deferred (pre-existing, untouched); queue continues from the generated block.
+
 ## D-3089 — wiz_custom + wiz_kill + ecname_from_fn: wizcmds MISSING pair + cmd lookup (coverage)
 
 - **Status:** shipped (coverage — queue head `earlyarg.c` dump_enums went stale at js/earlyarg.js:387, D-3088 whole body with the `raw_print` sink omit unclosable — `vraw_printf` `:577` precedent, no pre-window channel; ledger `ported`. Shipped next row `wizcmds.c` wiz_custom MISSING + same-file wiz_kill MISSING + callee-closure `cmd.c` ecname_from_fn absent, same iteration)

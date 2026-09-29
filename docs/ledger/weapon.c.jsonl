@@ -12,7 +12,7 @@
 {"fn":"possibly_unwield","c":"747-795","status":"partial","js":["js/weapon.js:possibly_unwield"],"omit":"get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-carried).","d":["D-2745"],"at":"seed@a30a7de84"}
 {"fn":"mon_wield_item","c":"801-934","status":"ported","js":["js/weapon.js:mon_wield_item"],"d":["D-2460"],"at":"seed@a30a7de84"}
 {"fn":"mwepgone","c":"938-946","status":"unknown"}
-{"fn":"abon","c":"950-989","status":"unknown"}
+{"fn":"abon","c":"950-989","status":"ported","js":["js/weapon.js:abon"],"d":["D-3090"],"at":"2026-09-29@d1541778d"}
 {"fn":"dbon","c":"993-1016","status":"ported","js":["js/weapon.js:dbon"],"at":"2026-09-29@29685b8e4","note":"stale: js/weapon.js:1327"}
 {"fn":"finish_towel_change","c":"1020-1034","status":"unknown"}
 {"fn":"wet_a_towel","c":"1038-1063","status":"unknown"}
@@ -25,12 +25,12 @@
 {"fn":"peaked_skill","c":"1187-1195","status":"unknown"}
 {"fn":"skill_advance","c":"1198-1213","status":"unknown"}
 {"fn":"add_skills_to_menu","c":"1229-1302","status":"unknown","d":["D-2704"],"at":"seed@a30a7de84"}
-{"fn":"show_skills","c":"1306-1318","status":"unknown"}
+{"fn":"show_skills","c":"1306-1318","status":"ported","js":["js/weapon.js:show_skills"],"d":["D-3090"],"at":"2026-09-29@d1541778d","note":"stale: js/weapon.js:1665"}
 {"fn":"enhance_weapon_skill","c":"1329-1407","status":"unknown"}
 {"fn":"unrestrict_weapon_skill","c":"1414-1421","status":"unknown"}
 {"fn":"use_skill","c":"1424-1434","status":"unknown","d":["D-2385"],"at":"seed@a30a7de84"}
 {"fn":"add_weapon_skill","c":"1437-1450","status":"unknown"}
-{"fn":"lose_weapon_skill","c":"1453-1473","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lose_weapon_skill","c":"1453-1473","status":"ported","js":["js/weapon.js:lose_weapon_skill"],"d":["D-3090"],"at":"2026-09-29@d1541778d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"drain_weapon_skill","c":"1476-1514","status":"unknown"}
 {"fn":"weapon_type","c":"1517-1529","status":"unknown"}
 {"fn":"uwep_skill_type","c":"1532-1537","status":"unknown"}

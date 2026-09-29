@@ -60,7 +60,8 @@ import { flooreffects } from './do.js';
 import { artifact_light, begin_burn, end_burn } from './timeout.js';
 import { mbodypart } from './polyself.js';
 import { attacktype_fordmg } from './uhitm.js';
-import { acurr, A_STR } from './attrib.js';
+import { acurr, A_STR, A_DEX } from './attrib.js';
+import { adj_lev } from './makemon.js';
 import { m_carrying, mon_has_shield } from './mon.js';
 import { mhis, monsndx } from './mondata.js';
 import { ATR_INVERSE, ATR_NONE } from './terminal.js';
@@ -1071,6 +1072,35 @@ export async function add_weapon_skill(n) {
 }
 
 /**
+ * C ref: weapon.c lose_weapon_skill `:1453–1473` — drop n skill slots on
+ * level drain (adjabil oldlevel>newlevel, attrib.c:1072): free slots
+ * first, else pop the last advanced skill, rank--, refund
+ * slots_required-1. C panic on an already-Unskilled record entry ≡ loud
+ * throw (insert_branch precedent).
+ */
+export function lose_weapon_skill(n) {
+    const u = game.u || {};
+    n = n | 0;
+    while (--n >= 0) {
+        /* deduct first from unused slots then from last placed one, if any */
+        if (u.weapon_slots) {
+            u.weapon_slots--;
+        } else if (u.skills_advanced) {
+            const skill = u.skill_record[--u.skills_advanced];
+            if (P_SKILL(skill) <= P_UNSKILLED) {
+                throw new Error(`lose_weapon_skill (${skill})`);
+            }
+            set_P_SKILL(skill, P_SKILL(skill) - 1); /* drop skill one level */
+            /* Lost skill might have taken more than one slot; refund rest. */
+            u.weapon_slots = slots_required(skill) - 1;
+            /* It might now be possible to advance some other pending
+               skill by using the refunded slots, but giving a message
+               to that effect would seem pretty confusing.... */
+        }
+    }
+}
+
+/**
  * C ref: weapon.c drain_weapon_skill `:1476–1514` — drop n advanced
  * skills (mhitu AD_DRIN D-1329). Each pick `rn2(skills_advanced)` then
  * shift skill_record, P_SKILL--, refund slots_required at the new
@@ -1318,6 +1348,45 @@ export function weapon_type(obj) {
 export function uwep_skill_type() {
     if (game.u?.twoweap) return P_TWO_WEAPON_COMBAT;
     return weapon_type(game.u?.uwep);
+}
+
+/**
+ * C ref: weapon.c abon `:950–989` — to-hit bonus from STR/DEX bands
+ * (+1 kludge for ulevel<3); a poly'd hero uses the form's level
+ * instead. Canonical home (C weapon.c): replaces the former dig.js /
+ * uhitm.js local clones (dig's dropped the DEX + Upolyd arms, both
+ * capped the STR ladder at sbon 2). C `&mons[u.umonnum]` ≡
+ * `game.youmonst.data` when Upolyd; the `?.data` guard only fires in
+ * states C cannot reach (Upolyd with no form entry).
+ */
+export function abon() {
+    const str = acurr(A_STR), dex = acurr(A_DEX);
+
+    if (Upolyd(game.u) && game.youmonst?.data) {
+        return adj_lev(game.youmonst.data) - 3;
+    }
+
+    /* this used to be '<= 18/50' for bonus of 1 but got changed to '< 18/50'
+       so that '18/50' gives a bonus of 2; gnome and orc player characters
+       have max Str of 18/50 and giving an extra bonus at that break point
+       provides an incentive for them to max out that characteristic */
+    let sbon;
+    if (str < 6) sbon = -2;
+    else if (str < 8) sbon = -1;
+    else if (str < 17) sbon = 0;
+    else if (str < STR18(50)) sbon = 1; /* up to 18/49 */
+    else if (str < STR18(100)) sbon = 2;
+    else sbon = 3;
+
+    /* Game tuning kludge: make it a bit easier for a low level character to
+     * hit */
+    sbon += ((game.u?.ulevel | 0) < 3) ? 1 : 0;
+
+    if (dex < 4) return sbon - 3;
+    else if (dex < 6) return sbon - 2;
+    else if (dex < 8) return sbon - 1;
+    else if (dex < 14) return sbon;
+    else return sbon + dex - 14;
 }
 
 /**

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3090 lose_weapon_skill + abon + show_skills: weapon.c head + clone unification (coverage)
+
+**C locus:** - `lose_weapon_skill`: nethack-c/upstream/src/weapon.c:1453–1473 (slots-first :1459–1461, record pop :1462, panic :1463–1464, rank-- :1465, refund :1467)
+**JS:** js/weapon.js:lose_weapon_skill:1081, abon:1362 (new); js/attrib.js adjabil tail:1004–1012 (wired); js/dig.js:69 import; js/uhitm.js:47 import.
+**Change:** - `lose_weapon_skill`: new sync export in C order — free-slots-first, record pop, P_SKILL-- via setter, slots_required-1 refund, panic ≡ loud throw (insert_branch precedent).
+**Verify:** - `lose_weapon_skill`: hidden note (no sessions blocked), REACH-OK (smoke 24/24).
+**Named:** - `lose_weapon_skill`: none in-body — whole body, every callee live (slots_required, P_SKILL/set_P_SKILL).
+**Next:** postadjabil in adjabil stays deferred (pre-existing, untouched); queue continues from the generated block.
 ## 2026-09-29 — D-3089 wiz_custom + wiz_kill + ecname_from_fn: wizcmds MISSING pair + cmd lookup (coverage)
 
 **C locus:** - `wiz_custom`: nethack-c/upstream/src/wizcmds.c:1934–1984 (wizard gate :1938, cache fill :1946–1947, menu build :1951–1955, bufa :1956–1964, dead buf copy :1965, fill :1967, end/select/destroy :1968–1970, free :1974–1975, cache drop :1976–1977, docrt :1978, else :1982–1983)
