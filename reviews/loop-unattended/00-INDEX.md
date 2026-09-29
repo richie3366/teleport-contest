@@ -2051,3 +2051,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2039-9d11eaa9f-cmd-autocompletions.md](./2039-9d11eaa9f-cmd-autocompletions.md) | `9d11eaa9f` | D-3079 cmd.c autocompletions pair + stale | **ACCEPT** |
 | [2040-10017887d-sfbase-cluster.md](./2040-10017887d-sfbase-cluster.md) | `10017887d` | D-3080 sfbase.c cluster (complex_dump space debt) | **ACCEPT-WITH-DEBT** |
 | [2041-7ec9a24df-cfgfiles-family.md](./2041-7ec9a24df-cfgfiles-family.md) | `7ec9a24df` | D-3081 cfgfiles.c family (get_uchars wait_synch C-wrong) | **QUALITY-RISK** |
+| [2042-e09865e97-get-uchars-omit.md](./2042-e09865e97-get-uchars-omit.md) | `e09865e97` | D-3082 get_uchars wait_synch named omit Must-fix | **ACCEPT** |
+| [2043-a2037c0d5-create-particular-creation.md](./2043-a2037c0d5-create-particular-creation.md) | `a2037c0d5` | D-3083 create_particular_creation whole restart Must-fix | **ACCEPT** |
+| [2044-29685b8e4-mimic-hit-msg.md](./2044-29685b8e4-mimic-hit-msg.md) | `29685b8e4` | D-3084 mimic_hit_msg C-switch restart | **ACCEPT** |
+| [2045-590ebd616-wiz-mon-diff-pair.md](./2045-590ebd616-wiz-mon-diff-pair.md) | `590ebd616` | D-3085 wiz_mon_diff + wiz_show_vision (unwired extcmd runners) | **QUALITY-RISK** |
+| [2046-a1c4832f4-cmdq-print-cluster.md](./2046-a1c4832f4-cmdq-print-cluster.md) | `a1c4832f4` | D-3086 cmdq_print + bind_mousebtn + get_adjacent_loc | **ACCEPT** |
+| [2047-ffb380a5c-doborn-cluster.md](./2047-ffb380a5c-doborn-cluster.md) | `ffb380a5c` | D-3087 doborn + 3 enlightenment leaves | **ACCEPT** |
+| [2048-aeb41ef5f-dump-enums.md](./2048-aeb41ef5f-dump-enums.md) | `aeb41ef5f` | D-3088 dump_enums enum tables (byte-exact) | **ACCEPT** |
+| [2049-d1541778d-wiz-custom-cluster.md](./2049-d1541778d-wiz-custom-cluster.md) | `d1541778d` | D-3089 wiz_custom + wiz_kill + ecname_from_fn (unwired runners) | **QUALITY-RISK** |
+| [2050-56c8b137b-lose-weapon-skill-cluster.md](./2050-56c8b137b-lose-weapon-skill-cluster.md) | `56c8b137b` | D-3090 lose_weapon_skill + abon + show_skills | **ACCEPT** |
