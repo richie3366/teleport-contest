@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3072 — sounds.c `release_sound_mappings` port; `mcould_eat_tin` + `get_dgn_align` retired stale
+
+- **Status:** fixed (breadth-phase coverage: queue head #1 MISSING → ported; ships alone — 0 C callees, no other sounds.c row in the 12-row Open block; two stale rows retired ahead of the head, same-iteration pop rule)
+- **Symptom:** coverage MISSING — `release_sound_mappings` had no JS symbol (C 9 code L; the `soundmap`/`sounddir` state and `add_sound_mapping` writer are live in js/sounds.js since D-2776).
+- **C locus:**
+  - `release_sound_mappings`: nethack-c/upstream/src/sounds.c:1675–1690 (`#ifdef USER_SOUNDS`, source-level port per the D-2776 file note)
+- **JS was:**
+  - `release_sound_mappings`: no JS symbol
+- **Fix:**
+  - `release_sound_mappings`: new export in js/sounds.js in C order — `:1678` nextsound pre-NULL, `:1680–1686` while-loop (next `:1681`, live `regex_free` `:1682`, frees-as-unlink `:1683–1684`, advance `:1685`), `:1688–1689` sounddir null under the if; C `free` ≡ unlink (GC collects, free_menu_coloring D-3071 precedent)
+- **JS:** js/sounds.js `release_sound_mappings` (after `add_sound_mapping`, file order); no new import (`regex_free` already used at add_sound_mapping `:1596` arm)
+- **Callers:**
+  - `release_sound_mappings`: sole C caller `freedynamicdata` (save.c:1161, FREE_ALL_MEMORY + USER_SOUNDS) has no JS counterpart — named omission, save-freeing precedent (js/end.js:522); deliberately not wired, like `add_sound_mapping` (D-2776: C never calls it in this build)
+- **Verify:** `node scripts/verify.mjs --fn release_sound_mappings` → VERIFY: PASS — syntax 1 file (js/sounds.js) · rule2 clean · hidden: no corpus session blocked (expected for a coverage row) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict seed8000 + seed0900 · cohort 7/7 · full skipped (no shared file)
+- **Named omissions:**
+  - `release_sound_mappings`: none in-body — whole body; sole C caller `freedynamicdata` unported (save-freeing teardown, map-named)
+- **Ledger:** release_sound_mappings ported; mcould_eat_tin ported; get_dgn_align ported
+- **Next:** pop the next Open — coverage row (`zap.c boxlock_invent` at ship time)
+
 ## D-3071 — coloratt.c breadth cluster: free_menu_coloring port; query_attr/query_color verified complete; add_menu_coloring_parsed partial; alternative_palette by-design
 
 - **Status:** fixed (breadth-phase coverage cluster — queue head #1 plus three same-file Open rows colder than the 12-row block, D-3070 pattern; `bones_include_name` retired stale ahead of the head; `alternative_palette` #93 retired by-design, compiled out)

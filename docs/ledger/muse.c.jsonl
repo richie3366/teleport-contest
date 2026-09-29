@@ -38,7 +38,7 @@
 {"fn":"munstone","c":"2884-2903","status":"unknown"}
 {"fn":"mon_consume_unstone","c":"2906-2981","status":"unknown"}
 {"fn":"cures_stoning","c":"2985-2998","status":"unknown"}
-{"fn":"mcould_eat_tin","c":"3001-3027","status":"unknown"}
+{"fn":"mcould_eat_tin","c":"3001-3027","status":"ported","js":["js/muse.js:mcould_eat_tin"],"d":["D-3072"],"at":"2026-09-29@7e25e3c42","note":"stale: js/muse.js:1483, callers wired :447/:1472/:1955"}
 {"fn":"munslime","c":"3031-3100","status":"unknown"}
 {"fn":"muse_unslime","c":"3104-3242","status":"unknown"}
 {"fn":"cures_sliming","c":"3246-3261","status":"unknown"}

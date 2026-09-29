@@ -23,7 +23,7 @@
 {"fn":"sound_matches_message","c":"1629-1639","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"play_sound_for_message","c":"1642-1656","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"maybe_play_sound","c":"1659-1673","status":"unknown"}
-{"fn":"release_sound_mappings","c":"1676-1690","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"release_sound_mappings","c":"1676-1690","status":"ported","js":["js/sounds.js:release_sound_mappings"],"d":["D-3072"],"at":"2026-09-29@7e25e3c42","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"activate_chosen_soundlib","c":"1779-1795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assign_soundlib","c":"1798-1805","status":"unknown"}
 {"fn":"choose_soundlib","c":"1809-1858","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
