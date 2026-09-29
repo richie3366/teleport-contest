@@ -79,7 +79,7 @@
 {"fn":"mhitm_ad_samu","c":"4570-4589","status":"unknown","d":["D-2074"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_dise","c":"4593-4619","status":"unknown"}
 {"fn":"mhitm_ad_sedu","c":"4623-4748","status":"partial","js":["js/mhitm.js:mhitm_ad_sedu"],"omit":"`mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arms route through sedu exactly as C does).","d":["D-2575"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_ssex","c":"4751-4779","status":"unknown"}
+{"fn":"mhitm_ad_ssex","c":"4751-4779","status":"ported","js":["js/mhitm.js:mhitm_ad_ssex"],"d":["D-3093"],"at":"2026-09-29@7a7abead6"}
 {"fn":"mhitm_adtyping","c":"4782-4832","status":"unknown","d":["D-2251"],"at":"seed@a30a7de84"}
 {"fn":"damageum","c":"4835-4884","status":"unknown"}
 {"fn":"explum","c":"4891-4928","status":"unknown"}

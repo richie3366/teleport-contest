@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3093 mhitm_ad_ssex: unified AD_SSEX dispatcher + three dispatch homes (coverage)
+
+**C locus:** - `mhitm_ad_ssex`: nethack-c/upstream/src/uhitm.c:4750–4779 (uhitm `:4754–4758`, mhitu SYSOPT/could_seduce/doseduce `:4759–4768` + sedu fallback `:4770–4772`, mhitm `:4773–4778`) + dispatch `mhitm_adtyping` AD_SSEX `:4797`.
+**JS:** js/mhitm.js:mhitm_ad_ssex:1558 (new); mhitu import +dosed uce,+sedu_u :146 (edge pre-exists — `imports.mjs --can` ALREADY, same 98-module SCC, call-time use only); js/mhitu.js sedu_u exported :2121, clone deleted, AD_SSEX → 4-arg call :2959, import :93; js/uhitm.js AD_SSEX split out :2826–2829, import :59; js/mhitm.js mdamagem AD_SSEX branch :5161.
+**Change:** - `mhitm_ad_ssex`: new export in C order right after mhitm_ad_sedu — is_youmonst(magr) → sedu + done-check; is_youmonst(mdef) → SYSOPT_SEDUCE gate with could_seduce==1 && !mcan short-circuit then doseduce → AGR_DONE/done/return, always return under SYSOPT, else sedu_u + done-check; else sedu + done-check. The !SYSOPT mhitu fallback spells sedu_u (mhitu.js split half of sedu `:4633–4691`; full sedu returns past mdef==you by D-2575 design) — the one non-literal line, behavior-identical to the deleted clone.
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_ssex` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+**Named:** - `mhitm_ad_ssex`: none in-body — whole body, every callee live (mhitm_ad_sedu, could_seduce, doseduce, mhitm_ad_sedu_u); 3 C dispatch paths wired.
+**Next:** resume coverage block (mhitm_ad_sedu D-2575 omit — the ssex remainder + dispatch home — is now satisfied; follow-up may clear its omit text).
 ## 2026-09-29 — D-3092 wiz_show_vision + wiz_mon_diff EXT_CMDS runners: #vision/#wizmondiff dispatch (Must-fix review 2045)
 
 **C locus:** - `wiz_show_vision`: nethack-c/upstream/src/cmd.c:1928–1929 "vision" IFBURIED|AUTOCOMPLETE|WIZMODECMD (unconditional) → wiz_show_vision

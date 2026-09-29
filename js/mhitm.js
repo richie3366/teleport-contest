@@ -143,7 +143,7 @@ import { m_unleash } from './apply.js';
 import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
 import { is_pole, is_weptool } from './wield.js';
-import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg, diseasemu } from './mhitu.js';
+import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg, diseasemu, doseduce, mhitm_ad_sedu_u } from './mhitu.js';
 import { sticks } from './engrave.js';
 import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
@@ -1542,6 +1542,43 @@ export async function mhitm_ad_sedu(magr, mattk, mdef, mhm) {
         }
     }
     mhm.damage = 0;
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_ssex `:4750–4779` — AD_SSEX dispatch home
+ * (mhitm_adtyping `:4797`). Hero-as-attacker and mon-vs-mon arms route
+ * through mhitm_ad_sedu; the mon-vs-you arm seduces via doseduce when
+ * SYSOPT_SEDUCE and could_seduce==1 && !mcan, else falls through to the
+ * mhitu sedu arm — spelled mhitm_ad_sedu_u (mhitu.js), the split half of
+ * sedu's `:4633–4691` which mhitm_ad_sedu itself returns past for
+ * mdef==you (blnd/elec precedent).
+ * C callers: mhitm_adtyping AD_SSEX `:4797` — damageum AD_SSEX (uhitm.js),
+ * mhitm_adtyping_u AD_SSEX (mhitu.js), mdamagem AD_SSEX (below).
+ */
+export async function mhitm_ad_ssex(magr, mattk, mdef, mhm) {
+    if (is_youmonst(magr)) {
+        /* C `:4754–4758` uhitm (hero as attacker) */
+        await mhitm_ad_sedu(magr, mattk, mdef, mhm);
+        if (mhm.done) return;
+    } else if (is_youmonst(mdef)) {
+        /* C `:4759–4772` mhitu (monster→you) */
+        if (SYSOPT_SEDUCE()) {
+            if (could_seduce(magr, mdef, mattk) === 1 && !magr.mcan) {
+                if (await doseduce(magr)) {
+                    mhm.hitflags = M_ATTK_AGR_DONE;
+                    mhm.done = true;
+                    return;
+                }
+            }
+            return;
+        }
+        await mhitm_ad_sedu_u(magr, mattk, mhm);
+        if (mhm.done) return;
+    } else {
+        /* C `:4773–4778` mhitm (mon→mon) */
+        await mhitm_ad_sedu(magr, mattk, mdef, mhm);
+        if (mhm.done) return;
+    }
 }
 
 /**
@@ -5107,12 +5144,12 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
     }
 
     // C: mhitm_adtyping → mhitm_ad_sedu for AD_SITM/AD_SEDU (uhitm.c:4799
-    // mhitm arm) + mhitm_ad_ssex → mhitm_ad_sedu for AD_SSEX (uhitm.c:4775
-    // mhitm arm; C sets no SYSOPT_SEDUCE gate there). Nymph/mon theft via
-    // the mhm arm; the arms always zero the leftover dice, so like AD_SAMU
-    // above the !damage arm returns hitflags after knockback — DEF_DIED
-    // (petrifying saddle-thief) still preempts via the HIT/DEF_DIED/offmap
-    // gate. uhitm/mhitu arms named in the callee.
+    // mhitm arm) + mhitm_ad_ssex for AD_SSEX (uhitm.c:4797 → :4775 mhitm
+    // arm, which routes through sedu; C sets no SYSOPT_SEDUCE gate there).
+    // Nymph/mon theft via the mhm arm; the arms always zero the leftover
+    // dice, so like AD_SAMU above the !damage arm returns hitflags after
+    // knockback — DEF_DIED (petrifying saddle-thief) still preempts via
+    // the HIT/DEF_DIED/offmap gate. uhitm/mhitu arms named in the callee.
     if ((mattk.adtyp | 0) === AD_SITM || (mattk.adtyp | 0) === AD_SEDU
         || (mattk.adtyp | 0) === AD_SSEX) {
         const mhm = {
@@ -5120,7 +5157,11 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             hitflags: M_ATTK_MISS,
             done: false,
         };
-        await mhitm_ad_sedu(magr, mattk, mdef, mhm);
+        if ((mattk.adtyp | 0) === AD_SSEX) {
+            await mhitm_ad_ssex(magr, mattk, mdef, mhm);
+        } else {
+            await mhitm_ad_sedu(magr, mattk, mdef, mhm);
+        }
         // C mhitm.c:1061-1065 — knockback preempts damage on HIT/DEF_DIED/offmap
         if (await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep)
             && (((mhm.hitflags & (M_ATTK_DEF_DIED | M_ATTK_HIT)) !== 0) || mon_offmap(mdef))) {

@@ -141,4 +141,4 @@ wiz_show_vision body ACCEPT / caller QUALITY-RISK → SHA QUALITY-RISK.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3092
+**Addressed:** D-3092 `5428c6c98`

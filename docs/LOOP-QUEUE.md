@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `uhitm.c` mhitm_ad_ssex — coverage THIN (C 19 code L `uhitm.c:4751–4779` / JS 7 code L in js/mhitu.js; hops 4, callers 1, RNG 0, msg 0) @29685b8e4
 - [ ] `options.c` pfxfn_cond_ — coverage MISSING (C 28 code L `options.c:4994–5036` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: parse_cond_option) @29685b8e4
 - [ ] `pray.c` fix_curse_trouble — coverage PARTIAL (C 16 code L `pray.c:349–370` / JS 11 code L in js/pray.js; hops —, callers 1, RNG 0, msg 2) @29685b8e4
 - [ ] `mon.c` validspecmon — coverage THIN (C 9 code L `mon.c:4993–5011` / JS 2 code L in js/makemon.js; hops 4, callers 2, RNG 0, msg 0) @29685b8e4
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `pickup.c` collect_obj_classes — coverage PARTIAL (C 11 code L `pickup.c:101–118` / JS 7 code L in js/pickup.js; hops 3, callers 3, RNG 0, msg 0) @aeb41ef5f
 - [ ] `botl.c` condopt — coverage MISSING (C 15 code L `botl.c:1303–1329` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @d1541778d
 - [ ] `dungeon.c` get_dgn_flags — coverage PARTIAL (C 26 code L `dungeon.c:744–778` / JS 16 code L in js/dungeon.js; hops 3, callers 2, RNG 0, msg 0) @d1541778d
+- [ ] `wizcmds.c` wiz_show_wmodes — coverage MISSING (C 26 code L `wizcmds.c:657–689` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @7a7abead6
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

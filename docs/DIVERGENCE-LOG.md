@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3093 — mhitm_ad_ssex: unified AD_SSEX dispatcher + three dispatch homes (coverage)
+
+- **Status:** shipped (coverage — queue head `uhitm.c` mhitm_ad_ssex THIN; single-function cluster: only uhitm.c row in the generated set, callee closure mhitm_ad_sedu partial / could_seduce ok / doseduce ok — nothing more Open in file or closure, so the ~80-insertion density floor does not apply)
+- **Symptom:** C's single 4-arg AD_SSEX dispatcher existed only as an mhitu-only 3-arg local clone (js/mhitu.js:2195, D-1750); uhitm/mhitm AD_SSEX paths called mhitm_ad_sedu directly, bypassing the `:4797` dispatch home (D-2575 named omit). No corpus session blocked (coverage row; REACH-OK is the evidence).
+- **C locus:**
+  - `mhitm_ad_ssex`: nethack-c/upstream/src/uhitm.c:4750–4779 (uhitm `:4754–4758`, mhitu SYSOPT/could_seduce/doseduce `:4759–4768` + sedu fallback `:4770–4772`, mhitm `:4773–4778`) + dispatch `mhitm_adtyping` AD_SSEX `:4797`.
+- **JS was:** local mhitu-only clone js/mhitu.js:2195 (SYSOPT → doseduce; else sedu_u); damageum AD_SSEX folded into the SEDU/SITM case (js/uhitm.js:2820); mdamagem AD_SSEX folded into the SEDU/SITM block (js/mhitm.js:5116).
+- **Fix:**
+  - `mhitm_ad_ssex`: new export in C order right after mhitm_ad_sedu — is_youmonst(magr) → sedu + done-check; is_youmonst(mdef) → SYSOPT_SEDUCE gate with could_seduce==1 && !mcan short-circuit then doseduce → AGR_DONE/done/return, always return under SYSOPT, else sedu_u + done-check; else sedu + done-check. The !SYSOPT mhitu fallback spells sedu_u (mhitu.js split half of sedu `:4633–4691`; full sedu returns past mdef==you by D-2575 design) — the one non-literal line, behavior-identical to the deleted clone.
+- **JS:** js/mhitm.js:mhitm_ad_ssex:1558 (new); mhitu import +dosed uce,+sedu_u :146 (edge pre-exists — `imports.mjs --can` ALREADY, same 98-module SCC, call-time use only); js/mhitu.js sedu_u exported :2121, clone deleted, AD_SSEX → 4-arg call :2959, import :93; js/uhitm.js AD_SSEX split out :2826–2829, import :59; js/mhitm.js mdamagem AD_SSEX branch :5161.
+- **Callers:**
+  - `mhitm_ad_ssex`: C mhitm_adtyping AD_SSEX `:4797` → js/uhitm.js:2829 damageum (uhitm arm) + js/mhitu.js:2959 mhitm_adtyping_u (mhitu arm) + js/mhitm.js:5161 mdamagem (mhitm arm). All three wirings behavior-preserving by construction (dispatched arm calls the same callee the direct call did; tail done-checks are C-fidelity no-ops at function end).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_ssex` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+- **Named omissions:**
+  - `mhitm_ad_ssex`: none in-body — whole body, every callee live (mhitm_ad_sedu, could_seduce, doseduce, mhitm_ad_sedu_u); 3 C dispatch paths wired.
+- **Ledger:** mhitm_ad_ssex ported
+- **Next:** resume coverage block (mhitm_ad_sedu D-2575 omit — the ssex remainder + dispatch home — is now satisfied; follow-up may clear its omit text).
+
 ## D-3092 — wiz_show_vision + wiz_mon_diff EXT_CMDS runners: #vision/#wizmondiff dispatch (Must-fix review 2045)
 
 - **Status:** shipped (Must-fix — review 2045 Keep'd C-wrong on D-3085: bodies ported, dispatch runners missing; ships alone)

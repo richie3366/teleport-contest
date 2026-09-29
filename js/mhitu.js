@@ -90,7 +90,7 @@ import {
 } from './invent.js';
 import { burn_away_slime } from './timeout.js';
 import {
-    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, mhitm_ad_conf, mattackm, rustm,
+    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, mhitm_ad_conf, mhitm_ad_ssex, mattackm, rustm,
     could_seduce, failed_grab, engulf_target, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
     golemeffects_mm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
@@ -2118,7 +2118,7 @@ async function gulpmu(mtmp, mattk) {
  * Brag/remarks is pline_mon (D-1240); charm-fail stays pline.
  * uhitm + mhitm arms live in mhitm.js mhitm_ad_sedu (blnd/elec precedent).
  */
-async function mhitm_ad_sedu_u(mtmp, mattk, mhm) {
+export async function mhitm_ad_sedu_u(mtmp, mattk, mhm) {
     if (is_animal(mtmp.data)) {
         await hitmsg(mtmp, mattk);
         if (mtmp.mcan) return;
@@ -2185,24 +2185,6 @@ async function mhitm_ad_sedu_u(mtmp, mattk, mhm) {
         mhm.done = true;
         return;
     }
-}
-
-/**
- * C ref: uhitm.c mhitm_ad_ssex `:4750–4778` — mhitu (monster→you) arm.
- * SYSOPT_SEDUCE (default on) → doseduce when could_seduce==1 && !mcan.
- * Named: uhitm hero-as-seducer; mhitm mon-mon AD_SSEX.
- */
-async function mhitm_ad_ssex(mtmp, mattk, mhm) {
-    if (SYSOPT_SEDUCE()) {
-        if (could_seduce(mtmp, game.youmonst, mattk) === 1 && !mtmp.mcan) {
-            if (await doseduce(mtmp)) {
-                mhm.hitflags = M_ATTK_AGR_DONE;
-                mhm.done = true;
-            }
-        }
-        return;
-    }
-    await mhitm_ad_sedu_u(mtmp, mattk, mhm);
 }
 
 /**
@@ -2972,7 +2954,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         await mhitm_ad_sedu_u(mtmp, mattk, mhm);
         break;
     case AD_SSEX:
-        await mhitm_ad_ssex(mtmp, mattk, mhm);
+        /* C ref: uhitm.c mhitm_adtyping `:4797` → mhitm_ad_ssex
+           mhitu arm (mdef is youmonst). */
+        await mhitm_ad_ssex(mtmp, mattk, game.youmonst, mhm);
         break;
     case AD_BLND:
         await mhitm_ad_blnd_u(mtmp, mattk, mhm);

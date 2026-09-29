@@ -56,7 +56,7 @@ import { near_capacity, useup, useupall, hold_another_object, Blind, observe_obj
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE, PM_ELF } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
-    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_corr, mhitm_ad_fire, mhitm_ad_dren, mhitm_ad_conf, could_seduce, failed_grab, shade_miss,
+    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_ssex, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_corr, mhitm_ad_fire, mhitm_ad_dren, mhitm_ad_conf, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
     mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, erode_armor, engulf_target, golemeffects_mm,
     attk_protection,
@@ -2817,12 +2817,16 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            attacker) arm zeroes the leftover d(); no message, no steal
            roll (those are the mhitu `:4577–4586` arm). */
         mhm.damage = 0;
-    } else if (adtyp === AD_SEDU || adtyp === AD_SSEX || adtyp === AD_SITM) {
+    } else if (adtyp === AD_SEDU || adtyp === AD_SITM) {
         /* C ref: uhitm.c mhitm_adtyping `:4799` → mhitm_ad_sedu `:4629–4632`
-           (AD_SSEX via mhitm_ad_ssex `:4754–4758`) — uhitm (hero as
-           attacker) arm: steal_it, leftover d() zeroed. Routed through the
-           shared mhitm.js arm (poly precedent). */
+           — uhitm (hero as attacker) arm: steal_it, leftover d() zeroed.
+           Routed through the shared mhitm.js arm (poly precedent). */
         await mhitm_ad_sedu(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_SSEX) {
+        /* C ref: uhitm.c mhitm_adtyping `:4797` → mhitm_ad_ssex `:4754–4758`
+           uhitm (hero as attacker) arm: steal_it via mhitm_ad_sedu,
+           leftover d() zeroed. */
+        await mhitm_ad_ssex(game.youmonst, mattk, mdef, mhm);
     } else if (adtyp === AD_SGLD) {
         await damageum_ad_sgld(mdef, mhm);
     } else if (adtyp === AD_CURS) {
