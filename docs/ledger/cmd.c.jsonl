@@ -87,7 +87,7 @@
 {"fn":"cmd_from_dir","c":"3029-3032","status":"unknown"}
 {"fn":"cmd_from_func","c":"3036-3066","status":"partial","js":["js/dokeylist.js:cmd_from_func"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"seed@a30a7de84"}
 {"fn":"cmd_from_ecname","c":"3071-3089","status":"unknown"}
-{"fn":"ecname_from_fn","c":"3092-3102","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"ecname_from_fn","c":"3092-3102","status":"ported","js":["js/dokeylist.js:ecname_from_fn"],"d":["D-3089"],"at":"2026-09-29@aeb41ef5f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdname_from_func","c":"3106-3155","status":"unknown"}
 {"fn":"bind_specialkey","c":"3194-3205","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spkey_name","c":"3208-3220","status":"ported","js":["js/dokeylist.js:spkey_name"],"d":["D-3028"],"at":"2026-09-28@759e72748","note":"refresh: no JS symbol (measured MISSING)"}

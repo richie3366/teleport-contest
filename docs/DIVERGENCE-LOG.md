@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3089 — wiz_custom + wiz_kill + ecname_from_fn: wizcmds MISSING pair + cmd lookup (coverage)
+
+- **Status:** shipped (coverage — queue head `earlyarg.c` dump_enums went stale at js/earlyarg.js:387, D-3088 whole body with the `raw_print` sink omit unclosable — `vraw_printf` `:577` precedent, no pre-window channel; ledger `ported`. Shipped next row `wizcmds.c` wiz_custom MISSING + same-file wiz_kill MISSING + callee-closure `cmd.c` ecname_from_fn absent, same iteration)
+- **Symptom:** all three absent from `js/` (no symbol). `#wizcustom` (customized-glyph menu) and `#wizkill` (slay picked monsters) did not exist; every wizard-only else arm predating this used a hardcoded `Unavailable command` string instead of the C `pline(unavailcmd, ecname_from_fn(...))` call. No corpus session blocked on any (coverage rows; REACH-OK is the evidence).
+- **C locus:**
+  - `wiz_custom`: nethack-c/upstream/src/wizcmds.c:1934–1984 (wizard gate :1938, cache fill :1946–1947, menu build :1951–1955, bufa :1956–1964, dead buf copy :1965, fill :1967, end/select/destroy :1968–1970, free :1974–1975, cache drop :1976–1977, docrt :1978, else :1982–1983)
+  - `wiz_kill`: nethack-c/upstream/src/wizcmds.c:243–347 (no wizard gate — WIZMODECMD dispatch; pick loop :254–341, hero-square arms :268–285, swallow :286–287, m_at :288–289, name/message :297–322, credited :311–314 vs m-prefix :315–327, level-change break :330–331, dmonsfree :343)
+  - `ecname_from_fn`: nethack-c/upstream/src/cmd.c:3091–3102 (extcmdlist scan :3095–3100, null :3101) + `unavailcmd` cmd.c:157
+- **JS was:** no symbol for any; js/wizcmds.js:167/486/515 hardcoded the unavailcmd text with "house hardcode / named omission" comments.
+- **Fix:**
+  - `wiz_custom`: new async export in C order — sibling wizard gate, cache fill, raw-array win (create/start), verbatim heading, bufa (`#wizcustom: colorcount=N name|default`, `, active` with BSS-0 currentgraphics, `, handler=` via new KNOWN_HANDLING), dead `:1965` copy dropped (buf never read), live `wizcustom_glyphids` fill, prompt-last (tty_end_menu idiom), `select_menu_pick_none` (= end+select+destroy), free arm noted (no allocation), cache drop, `docrt`, ECMD_OK; else arm is the first live `pline(UNAVAILCMD, ecname_from_fn('wizcustom'))` call site.
+  - `wiz_kill`: new async export in C order — prompt/save/uz-copy prelude, `pline('%s:', prompt)` + verbose/autodescribe save-swap around live `getpos`, `ans<0||cc.x<1` break, steed `ynq` (awaited — JS ynq returns a promise) + seppuku/suicide `paranoid_query` (Role_if macro expanded inline per you.h:247 — no 22nd clone; `game.killer` dothrow/eat idiom; `done(DIED)`), `next2u` via live `dist2 ≤ 2` (you.h:558 macro — no 7th distu clone), `unmap_invisible`, tame/seen/flags/article/adjs block with `===` pointer identity, credited `You+xkilled` vs m-prefix `mon_moving` + `pline+monkilled(null, AD_PHYS=0)`, `utotype/on_level` break, `There` arm, `dmonsfree`, ECMD_OK. 5 new edges (`xkilled`, `monkilled`, `done`, `uhis`, + `on_level`/`canspotmon`/`There` extends) all `--can` SAFE.
+  - `ecname_from_fn`: new export in js/dokeylist.js next to sibling `cmdname_from_func` — EXTCMDLIST scan with the efTxt txt-bridge idiom (generated table has no funct pointers; null ≡ `(char *) 0`), plus `UNAVAILCMD` const (cmd.c:157) and `KNOWN_HANDLING` in js/const.js (symbols.c:376–384, 6 names + null terminator).
+- **JS:** js/wizcmds.js:wiz_custom:2109, wiz_kill:2149 (new); js/dokeylist.js:ecname_from_fn:652, UNAVAILCMD:641 (new); js/const.js:KNOWN_HANDLING:2881 (new).
+- **Callers:**
+  - `wiz_custom`: 0 C references (WIZMODECMD dispatch only, unported) — no JS callers yet.
+  - `wiz_kill`: 0 C references (WIZMODECMD dispatch only, unported) — no JS callers yet.
+  - `ecname_from_fn`: 12 C sites — wiz_custom :1982 now live (js/wizcmds.js:2113); wiz_identify :64 / wiz_where :223 / wiz_intrinsic :1094 already emit C-identical text via house hardcodes (js/wizcmds.js:515/486/167 — rewiring is churn); wiz_wish :42, wiz_makemap :168, wiz_map :197, wiz_genesis :212, wiz_detect :234, wiz_load_lua :370, wiz_load_splua :393, wiz_level_tele :404 unported — will call it when their else arms land.
+- **Verify:**
+  - `wiz_custom`: /tmp/wiz_probe.mjs — non-wizard arm → ECMD_OK (pline headless-clean); cache fill→glyphids→free cycle no-throw, 0 items on default game (C-correct: nothing customized). `verify --fn`: hidden note (no sessions blocked), REACH-OK (smoke 24/24).
+  - `wiz_kill`: probe loads whole graph incl. 4 new edges (no cycle/TDZ). `verify --fn`: hidden note, REACH-OK (smoke 24/24).
+  - `ecname_from_fn`: probe — 'wizcustom'→'wizcustom', 'wizkill'→'wizkill', miss→null, null→null. `verify --fn`: hidden note, REACH-OK (smoke 24/24).
+  - Gates: syntax 3 files, Rule #2 clean, green 2/2, strict ×2, cohort 7/7 → VERIFY: PASS. No maintained unit-test layout in repo (sessions + verify are the harness); probe kept at /tmp/wiz_probe.mjs per skill disclosure.
+- **Named omissions:**
+  - `wiz_custom`: none in-body — whole body, every callee live or house-mapped (menu verbs → raw array + `select_menu_pick_none`; dead `:1965` copy and `free` have no JS analogue).
+  - `wiz_kill`: none in-body — whole body, every callee live (Role_if/next2u are C macros expanded inline with cites).
+  - `ecname_from_fn`: none — whole body; funct match via the efTxt txt idiom (cmdname_from_func precedent).
+- **Ledger:** wiz_custom ported; wiz_kill ported; ecname_from_fn ported
+- **Next:** wire the 8 unported `ecname_from_fn` hosts when their wiz arms land; `game.gs.symset`/`gc.currentgraphics`/`iflags.colorcount` writers (init_symbols/symset path) will light up the `, active`/handler arms.
+
 ## D-3088 — dump_enums: earlyarg.c `--dumpenums` enum tables (coverage)
 
 - **Status:** shipped (coverage — queue head `calendar.c` yyyymmddhhmmss went stale at js/calendar.js:346, body complete with all live callers wired; shipped next row `earlyarg.c` dump_enums MISSING same iteration)
