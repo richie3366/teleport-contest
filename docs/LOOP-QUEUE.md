@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `artifact.c` abil_to_adtyp — coverage MISSING (C 16 code L `artifact.c:2320–2341` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @4e2ac5b98
 - [ ] `mon.c` qst_guardians_respond — coverage PARTIAL (C 16 code L `mon.c:4135–4159` / JS 11 code L in js/mon.js; hops 3, callers 1, RNG 0, msg 0) @75eb7fe42
 - [ ] `insight.c` enlght_line — coverage THIN (C 16 code L `insight.c:127–156` / JS 5 code L in js/insight.js; hops 6, callers 1, RNG 0, msg 0) @c983587e0
 - [ ] `light.c` restore_light_sources — coverage PARTIAL (C 8 code L `light.c:479–493` / JS 5 code L in js/mkobj.js; hops 3, callers 2, RNG 0, msg 0) @c983587e0
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `dungeon.c` find_branch — coverage PARTIAL (C 17 code L `dungeon.c:311–337` / JS 12 code L in js/dungeon.js; hops 5, callers 4, RNG 0, msg 0) @cd4bc2a21
 - [ ] `track.c` save_track — coverage THIN (C 8 code L `track.c:76–89` / JS 3 code L in js/track.js; hops 5, callers 1, RNG 0, msg 0) @7e46744a0
 - [ ] `wizcmds.c` wiz_flip_level — coverage MISSING (C 14 code L `wizcmds.c:412–442` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @7e46744a0
+- [ ] `end.c` should_query_disclose_option — coverage PARTIAL (C 33 code L `end.c:476–515` / JS 16 code L in js/end.js; hops 4, callers 1, RNG 0, msg 0) @be48bbe4a
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

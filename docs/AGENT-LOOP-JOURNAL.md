@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3126 `artifact.c` abil_to_adtyp whole-body + what_gives completion + arti_immune (coverage)
+
+**C locus:** - `abil_to_adtyp`: artifact.c:2320–2341 (7-row static table, linear scan, 0 default); sole caller what_gives :2389.
+**JS:** js/artifact.js abil_to_adtyp `:3240` (new, before abil_to_spfx); what_gives `:3290` (doc + body); arti_immune `:1464` (new, before bane_applies).
+**Change:** new abil_to_adtyp local in C table order (pointer identity → propidx switch, sibling convention); what_gives rewritten in C order (ungated tables, warntype.obj guard folded into the artifact-branch condition with C's else fallthrough for gated artifacts, dtyp/cspfx/spfx/Sunsword arms in order, wornmask arm); new arti_immune export in C order (`?.adtyp | 0` per same-file precedent). No new module edge (all in-file; AD_*/W_*/prop consts already present). No maintained unit harness in-repo (verify.mjs + sessions are the project check — no new framework).
+**Verify:** `node scripts/verify.mjs --fn abil_to_adtyp,what_gives,arti_immune,bane_applies,abil_to_spfx` → VERIFY: PASS (syntax 1 file js/artifact.js; rule2; hidden notes 0 blocked ×5; REACH-OK smoke 24/24 ×5, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file).
+**Named:** - `abil_to_adtyp`: none — whole body, sole caller wired.
+**Next:** pop the next Open — coverage row (post-ship head: `mon.c` qst_guardians_respond PARTIAL); artifact.c set_artifact_intrinsic PARTIAL row remains for its own iteration (HALRES make_hallucinated message path + inv_prop async split).
 ## 2026-09-29 — D-3125 `invent.c` reorder_invent inv_rank gold-arm fix + 2 stale (coverage)
 
 **C locus:** - `reorder_invent`: invent.c:738–767 (inv_rank macro `:735`, `#undef` `:769`; callers `:1121` addinv_core0, `:5266`/`:5275` doorganize_core).

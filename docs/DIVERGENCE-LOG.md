@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-3126 — `artifact.c` abil_to_adtyp whole-body + what_gives completion + arti_immune (coverage)
+
+- **Status:** fixed (Open — coverage head `artifact.c` abil_to_adtyp MISSING → whole body as a file-local propidx switch in C table order beside its abil_to_spfx sibling + what_gives completed (dtyp cary/defn arms, cspfx arm, EWarn_of_mon warntype guard; the `!bits` early return and wield-bits table gate removed — C scans unconditionally) + arti_immune whole-body export (0 C callers). Same-file growth rows bane_applies + abil_to_spfx stale-complete via direct `ledger.mjs set`. 79 js/ insertions (1 file) — at the density floor (D-3124 precedent); the head file's remaining queue-eligible row is set_artifact_intrinsic PARTIAL (HALRES make_hallucinated message path + inv_prop async split need their own iteration, see Next). Rows cite no review Source — no stamp.)
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify abil_to_adtyp,what_gives,arti_immune`: no corpus session blocked at baseline — wizard-^X display path, no RNG).
+- **C locus:**
+  - `abil_to_adtyp`: artifact.c:2320–2341 (7-row static table, linear scan, 0 default); sole caller what_gives :2389.
+  - `what_gives`: artifact.c:2376–2424 (wornmask :2382–2388, tables :2389–2391, invent scan :2393–2422); sole caller attrib.c:958 from_what.
+  - `arti_immune`: artifact.c:979–990 (NONART gate, AD_PHYS never, attk/defn/cary match); 0 callers (extern.h declaration only — tree-wide grep confirms).
+  - `bane_applies` (stale): artifact.c:993–1005 already complete in js/artifact.js:1479 (DBONUS mask + spec_applies; C staticfn so JS-local is correct).
+  - `abil_to_spfx` (stale): artifact.c:2344–2370 already complete in js/artifact.js:3256 (all 12 rows).
+- **JS was:** no abil_to_adtyp/arti_immune; what_gives ran only the wielded/worn spfx arm behind a `!bits` early return + wield-bits table gate, with the dtyp arms, cspfx arm and warntype guard as named omissions (D-2025).
+- **Fix:** new abil_to_adtyp local in C table order (pointer identity → propidx switch, sibling convention); what_gives rewritten in C order (ungated tables, warntype.obj guard folded into the artifact-branch condition with C's else fallthrough for gated artifacts, dtyp/cspfx/spfx/Sunsword arms in order, wornmask arm); new arti_immune export in C order (`?.adtyp | 0` per same-file precedent). No new module edge (all in-file; AD_*/W_*/prop consts already present). No maintained unit harness in-repo (verify.mjs + sessions are the project check — no new framework).
+- **JS:** js/artifact.js abil_to_adtyp `:3240` (new, before abil_to_spfx); what_gives `:3290` (doc + body); arti_immune `:1464` (new, before bane_applies).
+- **Callers:**
+  - `abil_to_adtyp`: artifact.c:2389 → js/artifact.js:3298 needDtyp (new).
+  - `what_gives`: attrib.c:958 → js/attrib.js:1211 from_what (pre-wired, wizard-gated).
+  - `arti_immune`: none in C — no wiring (exported for parity).
+  - `bane_applies`: artifact.c:942 → js/artifact.js:1517 touch_artifact_mon + :1559 touch_artifact hero (C's single site split across the sync/async halves, pre-wired); artifact.c:2524 → js/artifact.js:1638 retouch_object (pre-wired).
+  - `abil_to_spfx`: artifact.c:2390 → js/artifact.js:3299 needSpfx (pre-wired, gate removed).
+- **Verify:** `node scripts/verify.mjs --fn abil_to_adtyp,what_gives,arti_immune,bane_applies,abil_to_spfx` → VERIFY: PASS (syntax 1 file js/artifact.js; rule2; hidden notes 0 blocked ×5; REACH-OK smoke 24/24 ×5, 0 regressed; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file).
+- **Named omissions:**
+  - `abil_to_adtyp`: none — whole body, sole caller wired.
+  - `what_gives`: none — whole body, sole caller wired.
+  - `arti_immune`: none — whole body, no C callers.
+  - `bane_applies` / `abil_to_spfx`: none — bodies complete at the cited sites.
+- **Ledger:** abil_to_adtyp ported; what_gives ported; arti_immune ported
+- **Next:** pop the next Open — coverage row (post-ship head: `mon.c` qst_guardians_respond PARTIAL); artifact.c set_artifact_intrinsic PARTIAL row remains for its own iteration (HALRES make_hallucinated message path + inv_prop async split).
+
 ## D-3125 — `invent.c` reorder_invent inv_rank gold-arm fix + 2 stale (coverage)
 
 - **Status:** fixed (Open — coverage head `role.c` clearrolefilter THIN → stale-complete (if-chain ≡ C switch; roles.length 13 ≡ SIZE(roles)-1), so second row `invent.c` reorder_invent PARTIAL ships as the code head: the inv_rank gold→-1 arm C lacks is removed in both JS copies. Same-file growth row this_type_only also stale-complete (arm-for-arm + callback wiring). ~6 js/ insertions — invent.c holds no more queue-eligible rows after this (this_type_only was the only other invent.c row in the eligible 30), so the <80-insertion density exception applies (D-3123/D-3124 precedent). Same iteration: 2 stale→ported via direct `ledger.mjs set`. Rows cite no review Source — no stamp (brief citations 582/1727/1765/1745 are prior-art mentions)).

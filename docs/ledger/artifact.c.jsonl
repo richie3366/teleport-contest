@@ -23,8 +23,8 @@
 {"fn":"protects","c":"698-709","status":"unknown"}
 {"fn":"set_artifact_intrinsic","c":"716-893","status":"unknown","d":["D-2378"],"at":"seed@a30a7de84"}
 {"fn":"touch_artifact","c":"908-974","status":"unknown","d":["D-2172","D-2134","D-2010"],"at":"seed@a30a7de84"}
-{"fn":"arti_immune","c":"979-990","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"bane_applies","c":"993-1005","status":"unknown"}
+{"fn":"arti_immune","c":"979-990","status":"ported","js":["js/artifact.js:arti_immune"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"bane_applies","c":"993-1005","status":"ported","js":["js/artifact.js:bane_applies"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:1479 (D-3126; DBONUS mask + spec_applies complete, split-path callers wired)"}
 {"fn":"spec_applies","c":"1009-1060","status":"unknown"}
 {"fn":"spec_m2","c":"1065-1072","status":"unknown"}
 {"fn":"spec_abon","c":"1076-1087","status":"unknown"}
@@ -57,9 +57,9 @@
 {"fn":"arti_speak","c":"2279-2296","status":"ported","js":["js/artifact.js:arti_speak"],"d":["D-3018"],"at":"2026-09-28@0cb4128d8","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_has_invprop","c":"2299-2305","status":"unknown"}
 {"fn":"arti_cost","c":"2309-2317","status":"ported","js":["js/artifact.js:arti_cost"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"abil_to_adtyp","c":"2320-2341","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"abil_to_spfx","c":"2344-2370","status":"unknown"}
-{"fn":"what_gives","c":"2376-2424","status":"unknown"}
+{"fn":"abil_to_adtyp","c":"2320-2341","status":"ported","js":["js/artifact.js:abil_to_adtyp"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"abil_to_spfx","c":"2344-2370","status":"ported","js":["js/artifact.js:abil_to_spfx"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:3256 (D-3126; all 12 rows complete, caller wired)"}
+{"fn":"what_gives","c":"2376-2424","status":"ported","js":["js/artifact.js:what_gives"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a"}
 {"fn":"glow_color","c":"2427-2433","status":"unknown"}
 {"fn":"glow_strength","c":"2442-2448","status":"unknown"}
 {"fn":"glow_verb","c":"2451-2462","status":"unknown"}
