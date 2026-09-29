@@ -1,5 +1,55 @@
 # Divergence log
 
+## D-3078 — eat.c temp_resist + food_substitution + 4 same-file restarts; 2 #if 0 by-designed
+
+- **Status:** fixed (breadth — head row; 6 fns: 2 new, 4 whole-function restarts; `leather_cover`/`maybe_extend_timed_resist` are `#if 0` dead C → by-design, not ported)
+- **Symptom:** coverage MISSING — no JS symbol for `temp_resist` (eat.c:453–469) or `food_substitution` (eat.c:409–419); same-file `recalc_wt` THIN (no `impossible` arm), `do_reset_eat`/`foodword`/`start_eating` PARTIAL (touchfood+o_id rewrite / FOOD_CLASS+makeknown arms / nomovemsg dance absent). The enlightenment "temporarily " prefix lived as a verbatim local clone `enl_temp_resist` in js/invent.js.
+- **C locus:**
+  - `temp_resist`: nethack-c/upstream/src/eat.c:453–469 (live callers insight.c:1544,1555; eat.c:502 caller is `#if 0` dead)
+  - `food_substitution`: nethack-c/upstream/src/eat.c:409–419 (zero call sites; extern.h:965 decl only)
+  - `recalc_wt`: nethack-c/upstream/src/eat.c:292–305 (callers do_reset_eat :433, bite :3157)
+  - `do_reset_eat`: nethack-c/upstream/src/eat.c:422–447 (callers eatfood :527, doeat :2940,:2975,:3039, bite :3143)
+  - `foodword`: nethack-c/upstream/src/eat.c:2498–2506 staticfn (callers choke :274, rottenfood :1816, doeat :2808)
+  - `start_eating`: nethack-c/upstream/src/eat.c:2022–2074 staticfn (callers doeat :2949,:3080)
+- **JS was:**
+  - `temp_resist`: no symbol; behavior as `enl_temp_resist` clone at js/invent.js:5625 (deleted this commit).
+  - `food_substitution`: no symbol.
+  - `recalc_wt`: js/eat.js — silent return with no piece, no `impossible`.
+  - `do_reset_eat`: js/eat.js — flags + stop_occupation + newuhs only; touchfood/o_id/recalc_wt named-omitted.
+  - `foodword`: js/eat.js — material word + coins arm; missing FOOD_CLASS→"food" and GEM+GLASS+dknown→makeknown arms.
+  - `start_eating`: js/eat.js — missing the `:2048–2060` nomovemsg save/restore around bite→done_eating.
+- **Fix:**
+  - `temp_resist`: new export in C order — timeout `:456`, four conjuncts `:458–466` (form/extrinsic/blocked guards + C comments); body verbatim the deleted clone.
+  - `food_substitution`: new export in C order — victual reseat `:411–414`, tin reseat `:415–418` (`===` identity; `o_id | 0` per file convention).
+  - `recalc_wt`: restarted whole — `impossible('recalc_wt without piece')` `:296–299` (un-awaited, js/eat.js:1124 precedent), `piece->owt = weight(piece)` `:303`; debugpline compiled out.
+  - `do_reset_eat`: restarted whole — o_id=0 + `await touchfood` + reseat + recalc_wt `:425–434`, flag clear `:436–439`, canchoke untouched per C `:440–444`, stop_occupation + newuhs `:445–446`.
+  - `foodword`: restarted whole — FOOD_CLASS→"food" `:2500–2501`, GEM+GLASS+dknown→makeknown `:2502–2504` (local `GLASS = 19`, objclass.h order; makeknown edge pre-existing), foodwords[material] `:2505`; dropped the non-C coins arm (coins are GOLD → foodwords "gold", identical).
+  - `start_eating`: restarted whole — added old/save_nomovemsg dance `:2048–2060` (C NULL ≡ JS null, js/eat.js:1022 precedent); debugpline `:2027–2036` out; 2-arg set_occupation ≡ C xtime 0 (default).
+- **JS:**
+  - `temp_resist`: js/eat.js:964 (export); js/invent.js:67 (import), sites js/invent.js:6315,6330,7038,7059.
+  - `food_substitution`: js/eat.js:899 (export; no callers, as in C).
+  - `recalc_wt`: js/eat.js:924 (local, as before).
+  - `do_reset_eat`: js/eat.js:938 (local async, as before).
+  - `foodword`: js/eat.js:339 (local, as before).
+  - `start_eating`: js/eat.js:2419 (local async, as before).
+- **Callers:**
+  - `temp_resist`: insight.c:1544 → js/invent.js:6315,7038 (acid, both enlightenment paths); insight.c:1555 → js/invent.js:6330,7059 (stone); eat.c:502 → C-dead (`#if 0` maybe_extend_timed_resist), unwired by design.
+  - `food_substitution`: none in C → none wired.
+  - `recalc_wt`: eat.c:433 → js/eat.js:938 do_reset_eat (wired this commit); eat.c:3157 → js/eat.js:1620 bite (pre-existing).
+  - `do_reset_eat`: eat.c:3143 → js/eat.js:1607 bite (pre-existing); eat.c:527 eatfood / :2940,:2975,:3039 doeat → caller-body gaps (JS doeat/eatfood never call it; eatfood fenced by the D-2720 park — named, out of cluster).
+  - `foodword`: eat.c:274 → js/eat.js:2989 choke (pre-existing); eat.c:2808 → js/eat.js:3345 doeat (pre-existing); eat.c:1816 → rottenfood hardcodes 'Blecch! Rotten food!' (caller-body gap, named).
+  - `start_eating`: eat.c:2949,:3080 → js/eat.js:4523 doeat single site (pre-existing; C calls from two arms, JS one — caller shape, named).
+- **Verify:** `node scripts/verify.mjs --fn temp_resist,food_substitution,recalc_wt,do_reset_eat,foodword,start_eating` → syntax PASS (2 files: js/eat.js js/invent.js) · rule2 PASS · hidden note ×6 (no corpus session blocked — coverage rows) · REACH-OK ×6 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict 2/2 · cohort 7/7 → VERIFY: PASS. No full sessions (no shared file changed). New invent→eat edge: same 100-module SCC, hoisted export, call-time use only (imports.mjs --can CHECK-analyzed); /tmp/cluster-probe.mjs import smoke ok. No maintained test harness in repo (no tests/ dir, no test script) — REACH smoke + gates are the evidence.
+- **Named omissions:**
+  - `temp_resist`: none — whole body, zero C callees.
+  - `food_substitution`: none — whole body, zero C callees.
+  - `recalc_wt`: none — whole body (debugpline compiled out); sole callee weight live.
+  - `do_reset_eat`: none in-body — every arm ported, all callees live (touchfood/recalc_wt/stop_occupation/newuhs).
+  - `foodword`: none in-body — every arm ported; callee makeknown live. Null-otmp guard kept (defensive; C dereferences).
+  - `start_eating`: none in-body — every arm ported, all callees live (cprefx/bite/done_eating/food_xname/set_occupation).
+- **Ledger:** temp_resist ported; food_substitution ported; recalc_wt ported; do_reset_eat ported; foodword ported; start_eating ported
+- **Next:** `leather_cover` + `maybe_extend_timed_resist` set by-design this commit (`#if 0`, uncompiled — D-3025 precedent). Caller-body gaps for future caller ports (not this cluster): doeat's 3 do_reset_eat sites + 2nd start_eating arm, eatfood's do_reset_eat site (D-2720-fenced), rottenfood's foodword message. eat.c still holds PARTIALs below block heat (reset_eat/tinopen_ok/eat_ok/use_up_tin/foodword-adjacent one-liners).
+
 ## D-3077 — worm.c random_dir port; 3 same-file PARTIALs stale-retired
 
 - **Status:** fixed (breadth — head row after 2 stale pops; 1 fn ported; 3 same-file PARTIAL rows stale-retired; worm.c holds no more Open)

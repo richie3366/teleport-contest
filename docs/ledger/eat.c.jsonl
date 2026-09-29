@@ -4,17 +4,17 @@
 {"fn":"eatmupdate","c":"181-213","status":"partial","js":["js/eat.js:eatmupdate"],"omit":"`alloc` and `free` are the string reseat; there is no C heap in `js/`.","d":["D-2896"],"at":"seed@a30a7de84"}
 {"fn":"food_xname","c":"217-235","status":"unknown"}
 {"fn":"choke","c":"245-288","status":"unknown","d":["D-1344"],"at":"seed@a30a7de84"}
-{"fn":"recalc_wt","c":"292-305","status":"unknown"}
+{"fn":"recalc_wt","c":"292-305","status":"ported","js":["js/eat.js:recalc_wt"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
 {"fn":"reset_eat","c":"309-319","status":"unknown"}
 {"fn":"obj_nutrition","c":"325-332","status":"unknown"}
 {"fn":"adj_victual_nutrition","c":"338-356","status":"unknown"}
 {"fn":"touchfood","c":"360-388","status":"unknown"}
 {"fn":"food_disappears","c":"396-403","status":"unknown"}
-{"fn":"food_substitution","c":"409-419","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_reset_eat","c":"422-447","status":"unknown"}
-{"fn":"temp_resist","c":"453-469","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"food_substitution","c":"409-419","status":"ported","js":["js/eat.js:food_substitution"],"d":["D-3078"],"at":"2026-09-29@01a639d1b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_reset_eat","c":"422-447","status":"ported","js":["js/eat.js:do_reset_eat"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
+{"fn":"temp_resist","c":"453-469","status":"ported","js":["js/eat.js:temp_resist"],"d":["D-3078"],"at":"2026-09-29@01a639d1b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"eating_dangerous_corpse","c":"475-493","status":"unknown"}
-{"fn":"maybe_extend_timed_resist","c":"500-514","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"maybe_extend_timed_resist","c":"500-514","status":"by-design","at":"2026-09-29@01a639d1b","note":"#if 0 no longer used (eat.c:497): uncompiled timed-resist extender"}
 {"fn":"eatfood","c":"519-541","status":"unknown","d":["D-2720"],"at":"seed@a30a7de84"}
 {"fn":"done_eating","c":"544-573","status":"unknown"}
 {"fn":"eating_conducts","c":"576-599","status":"ported","js":["js/eat.js:eating_conducts"],"d":["D-2907"],"at":"seed@a30a7de84"}
@@ -42,7 +42,7 @@
 {"fn":"Hear_again","c":"1801-1809","status":"unknown"}
 {"fn":"rottenfood","c":"1813-1851","status":"unknown"}
 {"fn":"eatcorpse","c":"1855-2018","status":"unknown","d":["D-1774"],"at":"seed@a30a7de84"}
-{"fn":"start_eating","c":"2022-2074","status":"unknown"}
+{"fn":"start_eating","c":"2022-2074","status":"ported","js":["js/eat.js:start_eating"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
 {"fn":"eating_glob","c":"2078-2081","status":"unknown"}
 {"fn":"garlic_breath","c":"2085-2089","status":"unknown"}
 {"fn":"fprefx","c":"2099-2217","status":"unknown","d":["D-2159"],"at":"seed@a30a7de84"}
@@ -50,9 +50,9 @@
 {"fn":"accessory_has_effect","c":"2258-2262","status":"unknown"}
 {"fn":"eataccessory","c":"2265-2410","status":"unknown"}
 {"fn":"eatspecial","c":"2414-2486","status":"unknown","d":["D-1204"],"at":"seed@a30a7de84"}
-{"fn":"foodword","c":"2498-2506","status":"unknown"}
+{"fn":"foodword","c":"2498-2506","status":"ported","js":["js/eat.js:foodword"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
 {"fn":"fpostfx","c":"2510-2600","status":"unknown"}
-{"fn":"leather_cover","c":"2609-2618","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"leather_cover","c":"2609-2618","status":"by-design","at":"2026-09-29@01a639d1b","note":"#if 0 not used (eat.c:2601): uncompiled; intended for poly spellbook-eating"}
 {"fn":"edibility_prompts","c":"2627-2731","status":"unknown","d":["D-2690"],"at":"seed@a30a7de84"}
 {"fn":"doeat_nonfood","c":"2734-2813","status":"ported","js":["js/eat.js:doeat_nonfood"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"doeat","c":"2817-3084","status":"unknown","d":["D-2361"],"at":"seed@a30a7de84"}

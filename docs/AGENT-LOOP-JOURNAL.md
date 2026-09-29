@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3078 eat.c temp_resist + food_substitution + 4 same-file restarts; 2 #if 0 by-designed
+
+**C locus:** - `temp_resist`: nethack-c/upstream/src/eat.c:453–469 (live callers insight.c:1544,1555; eat.c:502 caller is `#if 0` dead)
+**JS:** - `temp_resist`: js/eat.js:964 (export); js/invent.js:67 (import), sites js/invent.js:6315,6330,7038,7059.
+**Change:** - `temp_resist`: new export in C order — timeout `:456`, four conjuncts `:458–466` (form/extrinsic/blocked guards + C comments); body verbatim the deleted clone.
+**Verify:** `node scripts/verify.mjs --fn temp_resist,food_substitution,recalc_wt,do_reset_eat,foodword,start_eating` → syntax PASS (2 files: js/eat.js js/invent.js) · rule2 PASS · hidden note ×6 (no corpus session blocked — coverage rows) · REACH-OK ×6 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict 2/2 · cohort 7/7 → VERIFY: PASS. No full sessions (no shared file changed). New invent→eat edge: same 100-module SCC, hoisted export, call-time use only (imports.mjs --can CHECK-analyzed); /tmp/cluster-probe.mjs import smoke ok.
+**Named:** - `temp_resist`: none — whole body, zero C callees.
+**Next:** `leather_cover` + `maybe_extend_timed_resist` set by-design this commit (`#if 0`, uncompiled — D-3025 precedent). Caller-body gaps for future caller ports (not this cluster): doeat's 3 do_reset_eat sites + 2nd start_eating arm, eatfood's do_reset_eat site (D-2720-fenced), rottenfood's foodword message. eat.c still holds PARTIALs below block heat (reset_eat/tinopen_ok/eat_ok/use_up_tin/foodword-adjacent one-liners).
 ## 2026-09-29 — D-3077 worm.c random_dir port; 3 same-file PARTIALs stale-retired
 
 **C locus:** - `random_dir`: nethack-c/upstream/src/worm.c:802–822 (staticfn decl :22; zero call sites)

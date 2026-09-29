@@ -64,6 +64,7 @@ import { hidden_gold } from './vault.js';
 import { setnotworn, dropy } from './do.js';
 import { s_suffix, a_monnam, pmname, x_monnam, hliquid } from './do_name.js';
 import { inv_cnt } from './steal.js';
+import { temp_resist } from './eat.js'; // C eat.c:453 — enlightenment "temporarily " prefix; call-time use only (same-SCC edge)
 import { assigninvlet, find_ac, addinv_core2 } from './u_init.js';
 import { cansee } from './vision.js';
 import {
@@ -5618,24 +5619,6 @@ function item_what(dmgtyp) {
 }
 
 /**
- * C ref: eat.c temp_resist `:450–469` — intrinsic timeout with no form,
- * worn-gear or blocked cover; used by enlightenment for the Acid/Stone
- * "temporarily " prefix.
- */
-function enl_temp_resist(prop) {
-    const p = game.u?.uprops?.[prop] || {};
-    const intr = p.intrinsic | 0;
-    const timeout = intr & TIMEOUT;
-    if (timeout
-        && (intr & ~TIMEOUT) === 0
-        && !(p.extrinsic | 0)
-        && !(p.blocked | 0)) {
-        return timeout;
-    }
-    return 0;
-}
-
-/**
  * C ref: insight.c item_resistance_message — "Your items are [somewhat]
  * protected from …" + item_what.
  */
@@ -6329,7 +6312,7 @@ export async function enlightenment(mode, final = 0) {
         }
         // C insight.c:1542-1548 — Acid (+ "temporarily ") + item-acid.
         if (hero_Acid_resistance(u)) {
-            const acidPre = enl_temp_resist(ACID_RES) ? 'temporarily ' : '';
+            const acidPre = temp_resist(ACID_RES) ? 'temporarily ' : '';
             lines.push(you_are(`${acidPre}acid resistant`, from_what(ACID_RES)));
         }
         lines.push(...item_resistance_message_lines(
@@ -6344,7 +6327,7 @@ export async function enlightenment(mode, final = 0) {
         }
         // C insight.c:1553-1557 — Stone (+ "temporarily ").
         if (hero_Stone_resistance(u)) {
-            const stonePre = enl_temp_resist(STONE_RES) ? 'temporarily ' : '';
+            const stonePre = temp_resist(STONE_RES) ? 'temporarily ' : '';
             lines.push(you_are(
                 `${stonePre}petrification resistant`, from_what(STONE_RES),
             ));
@@ -7052,7 +7035,7 @@ export async function doattributes(enl_mode = null) {
             )));
         }
         if (hero_Acid_resistance(u)) {
-            const acidPre = enl_temp_resist(ACID_RES) ? 'temporarily ' : '';
+            const acidPre = temp_resist(ACID_RES) ? 'temporarily ' : '';
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', `${acidPre}acid resistant`,
                 from_what(ACID_RES),
@@ -7073,7 +7056,7 @@ export async function doattributes(enl_mode = null) {
             )));
         }
         if (hero_Stone_resistance(u)) {
-            const stonePre = enl_temp_resist(STONE_RES) ? 'temporarily ' : '';
+            const stonePre = temp_resist(STONE_RES) ? 'temporarily ' : '';
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', `${stonePre}petrification resistant`,
                 from_what(STONE_RES),
