@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3097 — timeout.c burn_object: whole-body restart (coverage)
+
+- **Status:** shipped (Open — coverage `timeout.c` burn_object PARTIAL (C 209 code L `timeout.c:1383–1680` / JS 154 code L) as cluster head; no same-file Open row in the generated block and no Open callee-closure row — 1-function cluster, ~200 js/ insertions. Queue-head `minion.c` monster_census stale-ported in the same iteration — body whole at `js/minion.js:107` (DEADMONSTER ≡ mhp<1, isgd/mx skip, live canspotmon) with all 9 C call sites wired.)
+- **Symptom:** coverage cluster — `burn_object` dropped C arms: no need_invupdate flag or update_inventory() call anywhere (named omit), `default: break` instead of the `:1673` impossible (D-3010 named pre-existing), `delobj()` at the three deletion sites instead of C's `obfree(obj, 0)` (obj_resists gate burns a spurious rn2(100) C never draws, plus double obj_extract_self and an un-awaited maybe_unhide_at), file-local Yname2/Shk_Your clones instead of the live objnam.js exports (MINVENT possessive C-wrong), and an inline Hallucination test instead of the live helper. No corpus session blocked (coverage row; REACH-OK is the evidence).
+- **C locus:**
+  - `burn_object`: `nethack-c/upstream/src/timeout.c:1383–1680` (away catch-up + unhide `:1416`, POT_OIL burn-away, lamp milestones `:1482`/`:1492`, candle/menorah milestones + unhide `:1652`, impossible default `:1673`, newsym/update_inventory tail).
+- **JS was:** `js/timeout.js:1930` if/else-chain compression of the three otyp arms — no need_invupdate, `default: break`, three `delobj(obj)` sites, local `Yname2`/`Shk_Your` clones, inline `u.Hallucination || HHallucination&TIMEOUT` test.
+- **Fix:** restart in C order with C's switch/case nesting, FALLTHRU comments and comments verbatim. need_invupdate arms (POT_OIL INVENT, lamp-0 INVENT, menorah-0 INVENT + carried-menorah; candle-0 INVENT deliberately flagless per C's useupall→freeinv comment) + `update_inventory()` tail; `await impossible('burn_object: unexpected obj %s', xname(obj))` default; `obj_extract_self` + `obfree(obj, null)` (live shk.js export, new edge — `imports.mjs --can` SAFE, hoisted fn) at the three deletion sites; live `Yname2` import (local clone deleted; see_lamp_flicker rides along); `Shk_Your` reimplemented as a file-local `upstart(shk_your(obj))` one-liner over the live export (no live Shk_Your exists; C's other callers are shop paths); post-message test via live `Hallucination()`; `The`/`delobj` imports removed. Retained: the `if (msg)` guard around the Blind '' post-message (C pline("") is a tty no-op) and the `&& loc` guard on the tail newsym (need_newsym implies a found location in C).
+- **JS:** `js/timeout.js:1939` (doc `:1919`, away `:1945`, POT_OIL `:1990`, lamps `:2019`, candles `:2091`, default `:2228`, tail `:2232`), wrapper `:1702`, imports `:54`/`:82`; `js/objnam.js:2810` (clone-retired doc touch).
+- **Callers:**
+  - `burn_object`: no in-repo C caller (BURN_OBJECT timer callback; extern.h decl only) → JS timer dispatcher `js/mkobj.js:1818–1819` (`await burn_object(curr.obj, curr.timeout | 0)`, dynamic import, unchanged); C's `arg->a_obj` is resolved by the dispatcher so the (obj, timeout) signature stays.
+- **Verify:**
+  - `burn_object`: `node scripts/verify.mjs --fn burn_object` → PASS syntax (2 changed js files: js/objnam.js js/timeout.js) · PASS rule2 · note hidden (no corpus session blocked at baseline — expected) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS; forced `node frozen/ps_test_runner.mjs sessions` → 44/44 (timer path is turn-loop-adjacent, D-3010 precedent).
+- **Named omissions:**
+  - `burn_object`: none in-body — whole body, every callee live (end_burn/begin_burn/get_obj_location/Is_candle/carried/lantern_message/see_lamp_flicker file-local; weight/obj_extract_self mkobj.js; obfree shk.js; maybe_unhide_at monmove.js; pline/You_see/impossible/Hallucination/Blind display.js; useupall/update_inventory invent.js; Yname2/shk_your/xname/an objnam.js; m_at mon.js; cansee vision.js). No live Shk_Your export (one-liner over live shk_your; C's other callers are shop paths — own row if queued).
+- **Ledger:** burn_object ported
+- **Next:** timeout.c burn family complete (D-3010 + this); no follow-up row.
+
 ## D-3096 — validspecmon + isspecmon: specmon cham-form gate (coverage)
 
 - **Status:** shipped (coverage — queue head `mon.c` validspecmon THIN + Open callee `mon.c` isspecmon MISSING; same-file queue rows: none; 2-function cluster, 30 js/ insertions)

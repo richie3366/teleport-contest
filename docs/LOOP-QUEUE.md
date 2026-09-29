@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `minion.c` monster_census — coverage PARTIAL (C 11 code L `minion.c:40–55` / JS 7 code L in js/minion.js; hops 4, callers 5, RNG 0, msg 0) @590ebd616
-- [ ] `timeout.c` burn_object — coverage PARTIAL (C 209 code L `timeout.c:1383–1680` / JS 154 code L in js/timeout.js; hops —, callers 0, RNG 0, msg 9) @a1c4832f4
 - [ ] `cfgfiles.c` config_erradd — coverage PARTIAL (C 29 code L `cfgfiles.c:1544–1589` / JS 18 code L in js/cfgfiles.js; hops —, callers 1, RNG 0, msg 3) @a1c4832f4
 - [ ] `selvar.c` selection_getbounds — coverage PARTIAL (C 13 code L `selvar.c:77–95` / JS 9 code L in js/region.js; hops 6, callers 16, RNG 0, msg 0) @ffb380a5c
 - [ ] `do_name.c` bogusmon — coverage PARTIAL (C 11 code L `do_name.c:1369–1385` / JS 7 code L in js/do_name.js; hops 3, callers 3, RNG 0, msg 0) @aeb41ef5f
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `options.c` handler_msg_window — coverage PARTIAL (C 45 code L `options.c:5832–5890` / JS 24 code L in js/options.js; hops —, callers 1, RNG 0, msg 2) @22c393674
 - [ ] `wizcmds.c` wiz_objprobs — coverage MISSING (C 25 code L `wizcmds.c:1832–1868` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @9fca9cdda
 - [ ] `dungeon.c` init_dungeon_branches — coverage PARTIAL (C 51 code L `dungeon.c:867–930` / JS 25 code L in js/dungeon.js; hops 3, callers 1, RNG 0, msg 0) @cf7eb9a6b
+- [ ] `read.c` forget — coverage PARTIAL (C 11 code L `read.c:1020–1040` / JS 7 code L in js/read.js; hops 6, callers 1, RNG 1, msg 0) @773e13c9a
+- [ ] `makemon.c` check_mongen_order — coverage MISSING (C 12 code L `makemon.c:1783–1802` / JS no symbol; hops 6, callers 1, RNG 0, msg 0) @773e13c9a
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

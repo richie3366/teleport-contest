@@ -1,6 +1,6 @@
 {"fn":"newemin","c":"17-26","status":"unknown"}
 {"fn":"free_emin","c":"29-36","status":"unknown"}
-{"fn":"monster_census","c":"40-55","status":"unknown"}
+{"fn":"monster_census","c":"40-55","status":"ported","js":["js/minion.js:monster_census"],"at":"2026-09-29@773e13c9a","note":"stale: js/minion.js:107"}
 {"fn":"msummon","c":"59-195","status":"unknown"}
 {"fn":"summon_minion","c":"198-257","status":"unknown"}
 {"fn":"demon_talk","c":"263-358","status":"unknown"}
