@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-29
 
+- [x] `wizcmds.c` wiz_custom + wiz_kill extcmd runners — C cmd.c:1951–1952 "wizcustom" (IFBURIED|WIZMODECMD|NOFUZZERCMD) and C cmd.c:1967–1969 "wizkill" (+AUTOCOMPLETE|CMD_M_PREFIX), both unconditional, dispatch to the D-3089 exports, but js/getline.js EXT_CMDS has no runnable rows, so typed #wizcustom/#wizkill are wizard-mode dead ends (same family as the vision/wizmondiff line below; D-2779 wired siblings in-commit). Fix: add both EXT_CMDS rows (wiz:true; autocomplete false for wizcustom, true for wizkill; lazy import). Source: reviews/loop-unattended/2049-d1541778d-wiz-custom-cluster.md. **Addressed:** D-3091
+
+
 - [x] `insight.c` doborn — coverage MISSING (C 24 code L `insight.c:3145–3176` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @643ef6af3 **Addressed:** D-3087 `ffb380a5c`
 
 

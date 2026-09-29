@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3091 wiz_custom + wiz_kill EXT_CMDS runners: #wizcustom/#wizkill dispatch (Must-fix review 2049)
+
+**C locus:** - `wiz_custom`: nethack-c/upstream/src/cmd.c:1951–1952 "wizcustom" IFBURIED|WIZMODECMD|NOFUZZERCMD (no AUTOCOMPLETE) → wiz_custom
+**JS:** js/getline.js EXT_CMDS wizcustom:782, wizkill:795; scripts/wizcustom-wizkill-runners.test.mjs (new, 3 its).
+**Change:** - `wiz_custom`: new EXT_CMDS row — wiz:true, autocomplete:false, lazy `import('./wizcmds.js')` → wiz_custom() (D-2779 sibling pattern; dynamic import, no new static edge).
+**Verify:** `node --test scripts/wizcustom-wizkill-runners.test.mjs` → 2 fail pre-fix (null runners), 3/3 pass post-fix. `node scripts/verify.mjs --fn wiz_custom,wiz_kill` → PASS syntax (1 changed js file: js/getline.js) · PASS rule2 · note hidden ×2 (no corpus session blocked at baseline — review 2049 notes the corpus cannot reach wizard extcmds) · PASS reach ×2 (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+**Named:** - `wiz_custom`: none — runner-only change; body unchanged since D-3089 ACCEPT.
+**Next:** Must-fix vision+wizmondiff runners (review 2045) remain queued; bodies live since D-3085.
 ## 2026-09-29 — Audit 2042–2050: 7A/2Q; public 44/44, corpus 648/953 (+9, 0 flips, full)
 
 **Reviews:** 2042 A, 2043 A, 2044 A, 2045 Q (unwired vision/wizmondiff runners — Must-fix), 2046 A, 2047 A, 2048 A (own 1230/1230 byte-diff; D-log "1251" wrong, immaterial), 2049 Q (unwired wizcustom/wizkill runners — Must-fix), 2050 A. All re-measures REACH-OK, 0 regressed. Held-out 13/44 flat. 5 ledger rows briefed, sound (sqlite absent, NOTES-known). Next: 2049 runner Must-fix, then 2045's.

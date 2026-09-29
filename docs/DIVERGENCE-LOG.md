@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3091 — wiz_custom + wiz_kill EXT_CMDS runners: #wizcustom/#wizkill dispatch (Must-fix review 2049)
+
+- **Status:** shipped (Must-fix — review 2049 Keep'd C-wrong on D-3089: bodies ported, dispatch runners missing; ships alone)
+- **Symptom:** typed #wizcustom/#wizkill were wizard-mode dead ends — extcmd_run_by_txt → null — although both C extcmdlist rows are unconditional and the D-3089 exports exist.
+- **C locus:**
+  - `wiz_custom`: nethack-c/upstream/src/cmd.c:1951–1952 "wizcustom" IFBURIED|WIZMODECMD|NOFUZZERCMD (no AUTOCOMPLETE) → wiz_custom
+  - `wiz_kill`: nethack-c/upstream/src/cmd.c:1967–1969 "wizkill" IFBURIED|AUTOCOMPLETE|WIZMODECMD|CMD_M_PREFIX|NOFUZZERCMD → wiz_kill
+- **JS was:** js/getline.js EXT_CMDS had no wizcustom/wizkill rows (EXT_CMD_AC already listed wizkill :351; wizcustom correctly absent — no AUTOCOMPLETE); exports live at js/wizcmds.js:2109/:2149 since D-3089.
+- **Fix:**
+  - `wiz_custom`: new EXT_CMDS row — wiz:true, autocomplete:false, lazy `import('./wizcmds.js')` → wiz_custom() (D-2779 sibling pattern; dynamic import, no new static edge).
+  - `wiz_kill`: new EXT_CMDS row — wiz:true, autocomplete:true, lazy `import('./wizcmds.js')` → wiz_kill() (CMD_M_PREFIX needs no runner-side handling — wizwish :773 precedent).
+- **JS:** js/getline.js EXT_CMDS wizcustom:782, wizkill:795; scripts/wizcustom-wizkill-runners.test.mjs (new, 3 its).
+- **Callers:**
+  - `wiz_custom`: C cmd.c:1951–1952 → js/getline.js:782 runnable entry (new, this commit).
+  - `wiz_kill`: C cmd.c:1967–1969 → js/getline.js:795 runnable entry (new, this commit).
+- **Verify:** `node --test scripts/wizcustom-wizkill-runners.test.mjs` → 2 fail pre-fix (null runners), 3/3 pass post-fix. `node scripts/verify.mjs --fn wiz_custom,wiz_kill` → PASS syntax (1 changed js file: js/getline.js) · PASS rule2 · note hidden ×2 (no corpus session blocked at baseline — review 2049 notes the corpus cannot reach wizard extcmds) · PASS reach ×2 (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+- **Named omissions:**
+  - `wiz_custom`: none — runner-only change; body unchanged since D-3089 ACCEPT.
+  - `wiz_kill`: none — runner-only change; body unchanged since D-3089 ACCEPT.
+- **Ledger:** wiz_custom ported; wiz_kill ported
+- **Next:** Must-fix vision+wizmondiff runners (review 2045) remain queued; bodies live since D-3085.
+
 ## D-3090 — lose_weapon_skill + abon + show_skills: weapon.c head + clone unification (coverage)
 
 - **Status:** shipped (coverage — queue head `weapon.c` lose_weapon_skill MISSING + same-file abon PARTIAL row + same-file show_skills stale at js/weapon.js:1665)

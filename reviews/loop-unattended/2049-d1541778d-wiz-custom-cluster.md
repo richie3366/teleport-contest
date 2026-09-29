@@ -147,3 +147,5 @@ ecname_from_fn ACCEPT → SHA QUALITY-RISK.
    (wiz:true; autocomplete false/true per C flags; lazy import).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3091

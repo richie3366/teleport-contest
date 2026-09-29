@@ -780,6 +780,28 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c:1951-1952 "wizcustom" IFBURIED|WIZMODECMD|NOFUZZERCMD
+        // (no AUTOCOMPLETE) → wiz_custom (D-3089; runners review 2049)
+        name: 'wizcustom',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_custom } = await import('./wizcmds.js');
+            return wiz_custom();
+        },
+    },
+    {
+        // C: cmd.c:1967-1969 "wizkill" IFBURIED|AUTOCOMPLETE|WIZMODECMD|
+        // CMD_M_PREFIX|NOFUZZERCMD → wiz_kill (D-3089; runners review 2049)
+        name: 'wizkill',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_kill } = await import('./wizcmds.js');
+            return wiz_kill();
+        },
+    },
+    {
         // C: cmd.c "invoke" IFBURIED|AUTOCOMPLETE → doinvoke (D-0715)
         name: 'invoke',
         wiz: false,
