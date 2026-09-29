@@ -1,5 +1,49 @@
 # Divergence log
 
+## D-3074 — zap.c breadth sextet (boxlock/item_what/zhitu)
+
+- **Status:** fixed (breadth cluster — head boxlock_invent + 5 same-file rows in queue order; ~290 JS lines, 6 fns)
+- **Symptom:** coverage THIN/PARTIAL — `boxlock_invent` dropped the `boxing` flag + `update_inventory`; `item_what` used short nouns for 6 slot arms + a stale suit-name clone; `zhitu` deferred shieldeff/monstseen, death-breath, poison and killer-verb arms; three rows were compact-but-complete file-locals.
+- **C locus:**
+  - `boxlock_invent`: nethack-c/upstream/src/zap.c:2687–2702
+  - `obj_shudders`: nethack-c/upstream/src/zap.c:1476–1497
+  - `adtyp_to_prop`: nethack-c/upstream/src/zap.c:5654–5671
+  - `item_what`: nethack-c/upstream/src/zap.c:5722–5763
+  - `zombie_can_dig`: nethack-c/upstream/src/zap.c:863–875
+  - `zhitu`: nethack-c/upstream/src/zap.c:4401–4591
+- **JS was:**
+  - `boxlock_invent`: js/lock.js:1470 looped boxes but never set `boxing` nor called `update_inventory` (named omit)
+  - `obj_shudders`: js/zap.js file-local — bypass gate, odds ladder, quan halve, `!rn2` all present
+  - `adtyp_to_prop`: js/invent.js file-local — all 5 AD→prop arms + `0` default present
+  - `item_what`: js/invent.js file-local — W_ARMG/W_ARMF/W_ARMS/W_AMUL|W_TOOL/W_RING/W_WEP arms were short nouns or inline lowercased names; W_ARM used the stale `enl_suit_simple_name` clone
+  - `zombie_can_dig`: js/zap.js file-local — isok gate, t_at veto, ROOM/CORR/GRAVE all present
+  - `zhitu`: js/zap.js file-local — no shieldeff/monstseen on FIRE/COLD/SLEEP/LIGHTNING/ACID/DEATH arms, no death-breath strip, POISON_GAS empty, killer was bare fltxt
+- **Fix:**
+  - `boxlock_invent`: `boxing` flag in C order (`:2691–2699`, snapshot ≡ `nextobj` pre-fetch) + `update_inventory()` when hit (`:2700–2701`); added to the existing lock→invent import (no new edge)
+  - `obj_shudders`: verified complete, no change (C `:1480–1496` ≡ JS arm for arm)
+  - `adtyp_to_prop`: verified complete, no change (C `:5657–5670` ≡ JS)
+  - `item_what`: full C-order rewrite — every slot arm now calls the live export (`cloak/suit/shirt/helm/gloves/boots/shield_simple_name`, `simpleonames`), ring both/one (`:5750–5753`), W_WEP (`:5755`); deleted the `enl_suit_simple_name` clone (live `suit_simple_name` covers dragon since D-1905); exported `boots_simple_name` from do_wear.js; same-edge import additions only
+  - `zombie_can_dig`: verified complete, no change
+  - `zhitu`: shieldeff + monstseesu/monstunseesu on FIRE (`:4424–4430`)/COLD (`:4443–4449`)/SLEEP (`:4456–4460`, hero coords)/LIGHTNING (`:4513–4520`)/ACID (`:4530–4537`) and DEATH nonliving (`:4494`) + Antimagic (`:4498–4500`, C order); full disintegration-breath arm (`:4465–4492`, `disn_prot` drawn before the checks); `ugrave_arise` breath conditional (`:4507`); POISON_GAS `poisoned` (`:4526`); killer verb + "by self" arm (`:4563–4582`, C FIXME kept); new `AD_DISN` const + `Disint_resistance` local (sibling pattern); same-edge imports (`poisoned`, `inventory_resistance_check`, `disintegrate_arm`)
+- **JS:** js/lock.js `boxlock_invent`; js/invent.js `item_what` (+`adtyp_to_prop` verified); js/do_wear.js `boots_simple_name` export; js/zap.js `zhitu` (+`obj_shudders`, `zombie_can_dig` verified)
+- **Callers:**
+  - `boxlock_invent`: C zap.c:2943 + :2952 (zapyourself) → js/zap.js:4638, :4810, :4817, all in `zapyourself` (wiring per D-1434, unchanged)
+  - `obj_shudders`: C zap.c:2206 (bhito) → js/zap.js `bhito` obj_shudders site (verified wired)
+  - `adtyp_to_prop`: C :5678 → js/invent.js `u_adtyp_resistance_obj`; C :5726 → js/invent.js `item_what` (both verified wired)
+  - `item_what`: C insight.c:1481 → js/invent.js `item_resistance_message_lines` (verified wired)
+  - `zombie_can_dig`: C zap.c:954 (revive) → js/zap.js `revive` (verified wired)
+  - `zhitu`: C :3021 (ubreatheu) → js/zap.js `ubreatheu`; C :4980 (dobuzz) → js/zap.js `dobuzz` (both verified wired)
+- **Verify:** `node scripts/verify.mjs --fn boxlock_invent,obj_shudders,adtyp_to_prop,item_what,zombie_can_dig,zhitu` → VERIFY: PASS — syntax 4 files · rule2 clean · hidden: no corpus session blocked on any (expected for coverage rows) · reach: zhitu 17/17 baseline-PASS reachers PASS → REACH-OK, other five smoke spread 24/24 each → REACH-OK · green 2/2 · strict seed8000 + seed0900 · cohort 7/7 · full skipped by detector so ran `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS (RNG 792,838/792,838, screens 11,405/11,405). No new headless test — the maintained gate for breadth ports is per-function REACH + full suite (D-3070–3072 precedent); a query_color-style test is disproportionate here since every new arm is session-reached.
+- **Named omissions:**
+  - `boxlock_invent`: none — whole body; `!obj` guard kept (C NONNULLARG1, defensive)
+  - `obj_shudders`: none — whole body, caller wired
+  - `adtyp_to_prop`: none — whole body, both callers wired
+  - `item_what`: none — every slot arm live, caller wired
+  - `zombie_can_dig`: none — whole body, caller wired
+  - `zhitu`: `death_inflicted_by` monster-name render + `strsubst` (C :4574–4577; mcastu-local, zap↔mcastu cycle, imports.mjs CHECK) — with no buzzer C keeps fltxt, kept; `if (dam)` losehp gate kept (C losehp(0) moves no HP/killer/death; JS losehp writes botl/run state unconditionally)
+- **Ledger:** boxlock_invent ported; obj_shudders ported; adtyp_to_prop ported; item_what ported; zombie_can_dig ported; zhitu partial
+- **Next:** pop the next Open — coverage row
+
 ## D-3073 — `query_color` PICK_ONE menu-earlier (review 2031 C-wrong)
 
 - **Status:** fixed (Must-fix, ships alone — review 2031 Keep'd C-wrong on the D-3071 disposition)

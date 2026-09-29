@@ -8,7 +8,7 @@
 {"fn":"get_mon_location","c":"692-709","status":"ported","js":["js/timeout.js:get_mon_location"],"d":["D-2996"],"at":"2026-09-27@806473d71","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"montraits","c":"713-827","status":"unknown"}
 {"fn":"get_container_location","c":"841-859","status":"unknown"}
-{"fn":"zombie_can_dig","c":"863-875","status":"unknown"}
+{"fn":"zombie_can_dig","c":"863-875","status":"ported","js":["js/zap.js:zombie_can_dig"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"revive","c":"884-1140","status":"unknown"}
 {"fn":"revive_egg","c":"1143-1152","status":"unknown"}
 {"fn":"unturn_dead","c":"1156-1222","status":"unknown"}
@@ -17,7 +17,7 @@
 {"fn":"blank_novel","c":"1367-1376","status":"unknown"}
 {"fn":"drain_item","c":"1382-1455","status":"unknown"}
 {"fn":"obj_resists","c":"1458-1473","status":"unknown"}
-{"fn":"obj_shudders","c":"1476-1497","status":"unknown"}
+{"fn":"obj_shudders","c":"1476-1497","status":"ported","js":["js/zap.js:obj_shudders"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"polyuse","c":"1505-1539","status":"unknown","d":["D-1939"],"at":"seed@a30a7de84"}
 {"fn":"create_polymon","c":"1546-1633","status":"ported","js":["js/zap.js:create_polymon"],"d":["D-2571"],"at":"seed@a30a7de84"}
 {"fn":"do_osshock","c":"1637-1674","status":"partial","omit":"`fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`).","d":["D-2879"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
@@ -32,7 +32,7 @@
 {"fn":"backfire","c":"2605-2614","status":"unknown","d":["D-1416"],"at":"seed@a30a7de84"}
 {"fn":"zap_ok","c":"2618-2623","status":"unknown"}
 {"fn":"dozap","c":"2627-2683","status":"unknown"}
-{"fn":"boxlock_invent","c":"2687-2702","status":"unknown"}
+{"fn":"boxlock_invent","c":"2687-2702","status":"ported","js":["js/lock.js:boxlock_invent"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"zapyourself","c":"2705-3013","status":"unknown","d":["D-2065","D-1446","D-1435","D-1434","D-1433","D-1410"],"at":"seed@a30a7de84"}
 {"fn":"ubreatheu","c":"3017-3022","status":"unknown"}
 {"fn":"lightdamage","c":"3026-3056","status":"unknown","d":["D-1366"],"at":"seed@a30a7de84"}
@@ -54,7 +54,7 @@
 {"fn":"bhit","c":"3827-4139","status":"unknown","d":["D-1928","D-1604","D-1482","D-1475","D-1462","D-1393"],"at":"seed@a30a7de84"}
 {"fn":"boomhit","c":"4148-4233","status":"unknown"}
 {"fn":"zhitm","c":"4238-4398","status":"unknown","d":["D-2127"],"at":"seed@a30a7de84"}
-{"fn":"zhitu","c":"4401-4591","status":"unknown","d":["D-2232"],"at":"seed@a30a7de84"}
+{"fn":"zhitu","c":"4401-4591","status":"partial","js":["js/zap.js:zhitu"],"d":["D-3074","D-2232"],"at":"2026-09-29@107847759"}
 {"fn":"burn_floor_objects","c":"4598-4656","status":"unknown"}
 {"fn":"bounce_dir","c":"4664-4701","status":"unknown"}
 {"fn":"zap_hit","c":"4705-4720","status":"unknown","d":["D-2107"],"at":"seed@a30a7de84"}
@@ -69,10 +69,10 @@
 {"fn":"fracture_rock","c":"5537-5578","status":"partial","js":["js/dig.js:fracture_rock"],"omit":"`poly_obj` shop-anger bill (`zap.c:1965–1986`) stays named at `js/zap.js:5255`.","d":["D-2798"],"at":"seed@a30a7de84"}
 {"fn":"break_statue","c":"5582-5605","status":"unknown","d":["D-2360"],"at":"seed@a30a7de84"}
 {"fn":"destroyable","c":"5613-5650","status":"unknown"}
-{"fn":"adtyp_to_prop","c":"5654-5671","status":"unknown"}
+{"fn":"adtyp_to_prop","c":"5654-5671","status":"ported","js":["js/invent.js:adtyp_to_prop"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"u_adtyp_resistance_obj","c":"5676-5698","status":"unknown"}
 {"fn":"inventory_resistance_check","c":"5710-5718","status":"unknown"}
-{"fn":"item_what","c":"5722-5763","status":"unknown"}
+{"fn":"item_what","c":"5722-5763","status":"ported","js":["js/invent.js:item_what"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"maybe_destroy_item","c":"5798-5954","status":"unknown","d":["D-2164","D-1368"],"at":"seed@a30a7de84"}
 {"fn":"destroy_items","c":"5965-6097","status":"ported","js":["js/zap.js:destroy_items"],"d":["D-2454"],"at":"seed@a30a7de84"}
 {"fn":"resist","c":"6100-6158","status":"unknown","d":["D-2366","D-2116"],"at":"seed@a30a7de84"}

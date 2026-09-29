@@ -108,4 +108,4 @@ the C-wrong is outside corpus reach, found by C audit. Confirm.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3073
+**Addressed:** D-3073 `107847759`

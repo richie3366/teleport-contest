@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `zap.c` boxlock_invent — coverage THIN (C 9 code L `zap.c:2687–2702` / JS 3 code L in js/lock.js; hops 6, callers 1, RNG 0, msg 0) @709b8aea7
 - [ ] `read.c` create_particular_parse — coverage THIN (C 74 code L `read.c:3137–3249` / JS 30 code L in js/read.js; hops 5, callers 1, RNG 0, msg 0) @1b84498a2
 - [ ] `trap.c` keep_saddle_with_steedcorpse — coverage MISSING (C 17 code L `trap.c:939–967` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @b93547133
 - [ ] `do_wear.c` doffing — coverage PARTIAL (C 31 code L `do_wear.c:1603–1640` / JS 19 code L in js/do_wear.js; hops 4, callers 4, RNG 0, msg 0) @774d64d58
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `cmd.c` parseautocomplete — coverage MISSING (C 28 code L `cmd.c:3244–3292` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @7e25e3c42
 - [ ] `sfbase.c` sf_log — coverage MISSING (C 14 code L `sfbase.c:377–404` / JS no symbol; hops —, callers 7, RNG 0, msg 0) @7e25e3c42
 - [ ] `read.c` disintegrate_cursed_armor — coverage PARTIAL (C 22 code L `read.c:1294–1321` / JS 12 code L in js/read.js; hops 6, callers 1, RNG 1, msg 0) @7e25e3c42
+- [ ] `cfgfiles.c` adjust_prefix — coverage MISSING (C 11 code L `cfgfiles.c:441–459` / JS no symbol; hops —, callers 9, RNG 0, msg 0) @107847759
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

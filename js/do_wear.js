@@ -1776,8 +1776,9 @@ export function helm_simple_name(helmet) {
 /**
  * C ref: objnam.c boots_simple_name `:5550–5566` — dknown "shoes"
  * (descr match, else actual match once the type is known), else boots.
+ * Exported for zap.c item_what W_ARMF.
  */
-function boots_simple_name(boots) {
+export function boots_simple_name(boots) {
     if (boots && boots.dknown) {
         const otyp = boots.otyp | 0;
         const ocl = game.objects?.[otyp];

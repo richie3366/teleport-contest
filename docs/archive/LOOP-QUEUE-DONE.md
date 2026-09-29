@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-29
 
-- [x] `query_color` PICK_ONE menu-earlier — C coloratt.c:505–508 returns menu-earlier(preselected, explicit) (tty toggle-and-finish + menu-order picks, wintty.c:1755–1759/:2808–2817) but js/options.js `query_color` returns the explicit pick: dflt X≠NO_COLOR + letter-Y-after-X yields X in C, Y in JS (D-3071 "provably dead" proof insufficient — gate-dead ⟹ menu-earlier, not explicit). Fix: index-compare, return X when Y sorts strictly after X; headless test both orders. Source: reviews/loop-unattended/2031-7e25e3c42-coloratt-cluster.md **Addressed:** D-3073
+- [x] `query_color` PICK_ONE menu-earlier — C coloratt.c:505–508 returns menu-earlier(preselected, explicit) (tty toggle-and-finish + menu-order picks, wintty.c:1755–1759/:2808–2817) but js/options.js `query_color` returns the explicit pick: dflt X≠NO_COLOR + letter-Y-after-X yields X in C, Y in JS (D-3071 "provably dead" proof insufficient — gate-dead ⟹ menu-earlier, not explicit). Fix: index-compare, return X when Y sorts strictly after X; headless test both orders. Source: reviews/loop-unattended/2031-7e25e3c42-coloratt-cluster.md **Addressed:** D-3073 `107847759`
 
 ## 2026-09-28
 
