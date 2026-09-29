@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3087 doborn + enlght_halfdmg + cause_known + walking_on_water: insight.c census + enlightenment leaves (coverage)
+
+**C locus:** - `doborn`: nethack-c/upstream/src/insight.c:3145–3176 (fmt :3147, header :3153, census loop :3154–3167, E/G/X flag :3159–3162, blank+totals :3169–3170, display :3172–3173)
+**JS:** js/insight.js:1578 doborn; js/getline.js:754 'wizborn' EXT_CMDS entry; js/invent.js:5335 cause_known, js/invent.js:5348/5355 Half_physical/spell_damage guards (youprop.h, allmain.js shape), js/invent.js:5367 walking_on_water, js/invent.js:5674 enlght_halfdmg_lines; js/dbridge.js:317 hero_Wwalking export. Imports: +HALF_PHDAM/+HALF_SPDAM/+WWALKING (same const.js edge), +Levitation/+Flying (mhitu.js, imports.mjs SAFE), +hero_Wwalking (existing dbridge edge).
+**Change:** - `doborn`: new async export in C order — fmt closure (`%4i %4i %c %-30s` via padStart/padEnd), header, LOW_PM..NUMMONS census over game.mvitals (born/died/G_GONE skip, E/G/X/blank flag, pmname_neutral≡pmnames[NEUTRAL]), blank, totals row, NHW_TEXT via show_text_pages, ECMD_OK.
+**Verify:** `node scripts/verify.mjs --fn doborn,enlght_halfdmg,cause_known,walking_on_water` → VERIFY: PASS (syntax 4 files js/dbridge.js js/getline.js js/insight.js js/invent.js; rule2; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). Full `sessions` forced: 44/44 PASS (RNG + screens exact).
+**Named:** - `doborn`: none in-body — whole body, every callee live or const (show_text_pages, pmname_neutral, game.mvitals); sole C caller wired.
+**Next:** pop the regenerated block head (characteristics_enlightenment row already resolved split this iteration).
 ## 2026-09-29 — D-3086 cmdq_print + bind_mousebtn + get_adjacent_loc: cmd.c MISSING pair + restart (coverage)
 
 **C locus:** - `cmdq_print`: nethack-c/upstream/src/cmd.c:220–249 (queue head :223, CQ header :225, KEY :228–230, EXTCMD :231–233, DIR :234–236, USER_INPUT :237–239, INT :240–242, default :243–245)

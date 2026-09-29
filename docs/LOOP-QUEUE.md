@@ -115,11 +115,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `insight.c` doborn — coverage MISSING (C 24 code L `insight.c:3145–3176` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @643ef6af3
 - [ ] `calendar.c` yyyymmddhhmmss — coverage PARTIAL (C 15 code L `calendar.c:95–117` / JS 9 code L in js/calendar.js; hops 4, callers 4, RNG 0, msg 0) @29685b8e4
 - [ ] `earlyarg.c` dump_enums — coverage MISSING (C 79 code L `earlyarg.c:706–801` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @29685b8e4
 - [ ] `wizcmds.c` wiz_custom — coverage MISSING (C 36 code L `wizcmds.c:1934–1984` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @29685b8e4
-- [ ] `insight.c` characteristics_enlightenment — coverage MISSING (C 10 code L `insight.c:827–842` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @29685b8e4
 - [ ] `weapon.c` lose_weapon_skill — coverage MISSING (C 10 code L `weapon.c:1453–1473` / JS no symbol; hops 5, callers 1, RNG 0, msg 0) @29685b8e4
 - [ ] `uhitm.c` mhitm_ad_ssex — coverage THIN (C 19 code L `uhitm.c:4751–4779` / JS 7 code L in js/mhitu.js; hops 4, callers 1, RNG 0, msg 0) @29685b8e4
 - [ ] `options.c` pfxfn_cond_ — coverage MISSING (C 28 code L `options.c:4994–5036` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: parse_cond_option) @29685b8e4
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mon.c` validspecmon — coverage THIN (C 9 code L `mon.c:4993–5011` / JS 2 code L in js/makemon.js; hops 4, callers 2, RNG 0, msg 0) @29685b8e4
 - [ ] `minion.c` monster_census — coverage PARTIAL (C 11 code L `minion.c:40–55` / JS 7 code L in js/minion.js; hops 4, callers 5, RNG 0, msg 0) @590ebd616
 - [ ] `wizcmds.c` wiz_kill — coverage MISSING (C 66 code L `wizcmds.c:243–347` / JS no symbol; hops —, callers 0, RNG 0, msg 3) @590ebd616
+- [ ] `timeout.c` burn_object — coverage PARTIAL (C 209 code L `timeout.c:1383–1680` / JS 154 code L in js/timeout.js; hops —, callers 0, RNG 0, msg 9) @a1c4832f4
+- [ ] `cfgfiles.c` config_erradd — coverage PARTIAL (C 29 code L `cfgfiles.c:1544–1589` / JS 18 code L in js/cfgfiles.js; hops —, callers 1, RNG 0, msg 3) @a1c4832f4
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

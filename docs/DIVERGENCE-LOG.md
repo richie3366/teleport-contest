@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3087 — doborn + enlght_halfdmg + cause_known + walking_on_water: insight.c census + enlightenment leaves (coverage)
+
+- **Status:** shipped (coverage — queue head `insight.c` doborn MISSING + same-file enlght_halfdmg/cause_known/walking_on_water MISSING; 2 ledger-hygiene resolutions same iteration, both set directly: characteristics_enlightenment + item_resistance_message split, bodies verified complete under `_lines`/inline names)
+- **Symptom:** all four absent from `js/` (no symbol). doborn is the #wizborn monster birth/death census (cmd.c:1943 WIZMODECMD); the other three are enlightenment leaves whose JS call sites carried explicit "deferred" comments (halfdmg ×2, cause_known ×3 arms, Wwalking ×3 sites). No corpus session blocked on any (coverage rows; REACH-OK is the evidence).
+- **C locus:**
+  - `doborn`: nethack-c/upstream/src/insight.c:3145–3176 (fmt :3147, header :3153, census loop :3154–3167, E/G/X flag :3159–3162, blank+totals :3169–3170, display :3172–3173)
+  - `enlght_halfdmg`: nethack-c/upstream/src/insight.c:201–220 (switch :206–216, half/reduced :217–218, enl_msg :219)
+  - `cause_known`: nethack-c/upstream/src/insight.c:267–283 (mask :271, invent walk :275–281, oprop+name+dknown :278–280)
+  - `walking_on_water`: nethack-c/upstream/src/insight.c:224–229 (uinwater/Levitation/Flying gate :226–227, Wwalking+pool/lava :228)
+- **JS was:** no symbol for any (sym.mjs NOT FOUND). cause_known_sleepy() subset (SLEEPY-only, amulet-otyp match) stood in for cause_known(SLEEPY); halfdmg/Wwalking/cause_known(FUMBLING,HUNGER) sites were "deferred" comments.
+- **Fix:**
+  - `doborn`: new async export in C order — fmt closure (`%4i %4i %c %-30s` via padStart/padEnd), header, LOW_PM..NUMMONS census over game.mvitals (born/died/G_GONE skip, E/G/X/blank flag, pmname_neutral≡pmnames[NEUTRAL]), blank, totals row, NHW_TEXT via show_text_pages, ECMD_OK.
+  - `enlght_halfdmg`: new enlght_halfdmg_lines in C order — full 3-arm switch + default, half iff final||wizard, enl_msg via enlght_line_txt('You ', take/took) + live from_what(category); `_lines` name/signature follow item_resistance_message_lines (ledger split).
+  - `cause_known`: new function in C order — W_ARMOR|W_AMUL|W_RING|W_TOOL mask, game.invent walk, owornmask skip, oc_oprop==propindx + oc_name_known + dknown; replaces the cause_known_sleepy subset (deleted, single caller rewired).
+  - `walking_on_water`: new function in C order — u.uinwater||Levitation()||Flying() FALSE gate (live mhitu.js imports), Wwalking via newly-exported hero_Wwalking (dbridge.js) + is_pool||is_lava (live hack.js imports, ≡dbridge.c is_pool_or_lava, no 5th clone).
+- **JS:** js/insight.js:1578 doborn; js/getline.js:754 'wizborn' EXT_CMDS entry; js/invent.js:5335 cause_known, js/invent.js:5348/5355 Half_physical/spell_damage guards (youprop.h, allmain.js shape), js/invent.js:5367 walking_on_water, js/invent.js:5674 enlght_halfdmg_lines; js/dbridge.js:317 hero_Wwalking export. Imports: +HALF_PHDAM/+HALF_SPDAM/+WWALKING (same const.js edge), +Levitation/+Flying (mhitu.js, imports.mjs SAFE), +hero_Wwalking (existing dbridge edge).
+- **Callers:**
+  - `doborn`: cmd.c:1943 extcmd "wizborn" → js/getline.js:754 runnable entry (wiz, no-autocomplete, doborn body); generated EXTCMDLIST/doextlist already listed wizborn (no menu change).
+  - `enlght_halfdmg`: :1811 → js/invent.js:6574 disclosure + js/invent.js:7312 overlay (Half_physical_damage guards); :1813 → js/invent.js:6577 + js/invent.js:7315 (Half_spell_damage guards).
+  - `cause_known`: :1178 Fumbling → js/invent.js:5962; :1182 Sleepy → js/invent.js:5972 (subset retired); :1191 Hunger → js/invent.js:5984 (status_core_lines serves disclosure + overlay).
+  - `walking_on_water`: :994 → js/invent.js:5793 status arm (standalone `if` ≡ elif: predicate FALSE while uinwater; buf via is_pool/is_lava/surface + from_what(WWALKING)); :1755 → js/invent.js:6518 disclosure + js/invent.js:7259 overlay (`Wwalking && !walking_on_water` you_can arms).
+- **Verify:** `node scripts/verify.mjs --fn doborn,enlght_halfdmg,cause_known,walking_on_water` → VERIFY: PASS (syntax 4 files js/dbridge.js js/getline.js js/insight.js js/invent.js; rule2; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file). Full `sessions` forced: 44/44 PASS (RNG + screens exact).
+  - `doborn`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+  - `enlght_halfdmg`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+  - `cause_known`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+  - `walking_on_water`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS, 0 regressed → REACH-OK.
+- **Named omissions:**
+  - `doborn`: none in-body — whole body, every callee live or const (show_text_pages, pmname_neutral, game.mvitals); sole C caller wired.
+  - `enlght_halfdmg`: none in-body — whole body, every callee live (from_what); both C callers wired ×2 copies. The adjacent `:1815` Half_gas_damage arm stays with attributes_enlightenment (not this function).
+  - `cause_known`: none in-body — whole body, zero C callees (table reads); all 3 C callers wired. C artifacts/wielded exclusions kept verbatim.
+  - `walking_on_water`: none in-body — whole body, every callee live (Levitation, Flying, hero_Wwalking, is_pool/is_lava); both C callers wired (status + 2 attributes copies).
+- **Ledger:** doborn ported; enlght_halfdmg split js=invent.js:enlght_halfdmg_lines; cause_known ported; walking_on_water ported
+- **Next:** pop the regenerated block head (characteristics_enlightenment row already resolved split this iteration).
+
 ## D-3086 — cmdq_print + bind_mousebtn + get_adjacent_loc: cmd.c MISSING pair + restart (coverage)
 
 - **Status:** shipped (coverage — queue head `monmove.c` find_pmmonst stale-ported, next head `cmd.c` cmdq_print MISSING + same-file bind_mousebtn MISSING + get_adjacent_loc PARTIAL; cmdq_add_int stale-ported same iteration, both ledger-noted)
