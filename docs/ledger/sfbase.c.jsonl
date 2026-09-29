@@ -1,16 +1,16 @@
 {"fn":"SF_X","c":"246-262","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sfo_char","c":"249-262","status":"ported","js":["js/files.js:sfo_char"],"d":["D-2973"],"at":"2026-09-27@1c7c62258"}
-{"fn":"sfi_char","c":"265-287","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"sfo_genericptr","c":"290-304","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"sfi_genericptr","c":"306-327","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfi_char","c":"265-287","status":"ported","js":["js/files.js:sfi_char"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfo_genericptr","c":"290-304","status":"ported","js":["js/files.js:sfo_genericptr"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfi_genericptr","c":"306-327","status":"ported","js":["js/files.js:sfi_genericptr"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sfo_version_info","c":"330-346","status":"ported","js":["js/files.js:sfo_version_info"],"d":["D-2973"],"at":"2026-09-27@1c7c62258"}
-{"fn":"sfi_version_info","c":"348-372","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"sf_log","c":"377-404","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfi_version_info","c":"348-372","status":"ported","js":["js/files.js:sfi_version_info"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sf_log","c":"377-404","status":"ported","js":["js/files.js:sf_log"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sfvalue_any","c":"449-457","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"sfvalue_genericptr","c":"460-467","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfvalue_genericptr","c":"460-467","status":"ported","js":["js/files.js:sfvalue_genericptr"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sfvalue_bitfield","c":"608-614","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bitfield_dump","c":"617-623","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"complex_dump","c":"625-639","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"complex_dump","c":"625-639","status":"ported","js":["js/files.js:complex_dump"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sf_init","c":"647-655","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sf_setprocs","c":"658-662","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sf_setflprocs","c":"664-669","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

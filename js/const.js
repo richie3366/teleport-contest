@@ -1809,6 +1809,8 @@ export const WRITING = 0x02;
 export const FREEING = 0x04;
 export const CONVERTING = 0x08;
 export const UNCONVERTING = 0x10;
+/** C sfbase.c:15 `#define TURN_OFF_LOGGING (UNCONVERTING << 1)`. */
+export const TURN_OFF_LOGGING = 0x20;
 export const HACKPREFIX = 0;
 export const LEVELPREFIX = 1;
 export const SAVEPREFIX = 2;

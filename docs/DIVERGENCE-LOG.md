@@ -1,5 +1,53 @@
 # Divergence log
 
+## D-3080 — sfbase.c save-file base: sf_log + sfi_char/sfo_genericptr/sfi_genericptr/sfi_version_info/complex_dump + sfvalue_ trio
+
+- **Status:** shipped (breadth — head row sf_log + 5 same-file Open rows + 3 sub-8-line helpers; SF_X excluded, macro not a function)
+- **Symptom:** coverage MISSING — no JS symbol for `sf_log` (sfbase.c:376–404), `sfi_char` (:264–287), `sfo_genericptr` (:289–304), `sfi_genericptr` (:305–327), `sfi_version_info` (:347–372), `complex_dump` (:624–639); sfo_char/sfo_uchar/sfo_version_info carried `sf_log` named omits and uptodate carried a no-JS-home Sfi_version_info omit. No corpus session blocked (coverage row; REACH-OK is the evidence).
+- **C locus:**
+  - `sf_log`: nethack-c/upstream/src/sfbase.c:376–404
+  - `sfi_char`: nethack-c/upstream/src/sfbase.c:264–287
+  - `sfo_genericptr`: nethack-c/upstream/src/sfbase.c:289–304
+  - `sfi_genericptr`: nethack-c/upstream/src/sfbase.c:305–327
+  - `sfi_version_info`: nethack-c/upstream/src/sfbase.c:347–372
+  - `complex_dump`: nethack-c/upstream/src/sfbase.c:624–639
+  - `sfvalue_char`: nethack-c/upstream/src/sfbase.c:406–421; `sfvalue_genericptr`: nethack-c/upstream/src/sfbase.c:460–467; `sfvalue_uchar`: nethack-c/upstream/src/sfbase.c:492–500
+- **JS was:** no symbols for any of the nine; js/files.js sfo_char/sfo_uchar/sfo_version_info had `if (nhfp.fplog)` named-omit stubs; uptodate had `// :735 — Sfi_version_info feed (named omit above)`.
+- **Fix:**
+  - `sf_log`: new export in C order — fplog read (`:379`), TURN_OFF_LOGGING gate (`:381`, new js/const.js const from sfbase.c:15), WRITING→rcount/wcount select (`:384`); fprintf+fflush named omit (Rule #2); `:399–401` stays dead, VMS shape compiled out.
+  - `sfi_char`/`sfi_genericptr`/`sfi_version_info`: new exports in C order — structlevel proc omit (historical mread), fieldlevel mode save/fiddle/restore live, convert-back live (sfo_char / sfo_genericptr / SFCTOOL_BIT `|=` + sfo_version_info), fplog arm live (sf_log + sfvalue_*).
+  - `sfo_genericptr`: new export in C order — live log arm (sizeof 8 LP64), structlevel bwrite-pointer-image omit, fieldlevel fplog save/clear/restore + null proc.
+  - `complex_dump`: new pure export — ten `%03x` groups + spaces, 40 chars exactly (`:637` lands on the Snprintf terminator).
+  - helpers `sfvalue_char` (charBytes + 119 buf cap), `sfvalue_genericptr` (`"0"`/`"glorkum"` verbatim), `sfvalue_uchar` (`%03u`, pointer flattened to value); local `version_info_bytes` builds the 10-byte LE image for the version_info log arms (JS keeps longs `>>> 0`, high bytes 0). sfvalue_char/sfvalue_uchar are ported but uninventoried in docs/ledger (`ledger.mjs sync` adds nothing — same-line return type), so they ride along without Ledger rows.
+  - rewires: sfo_char/sfo_uchar/sfo_version_info fplog arms now call live sf_log; uptodate :736 calls live sfi_version_info (vers_info still zero-filled — the fill stays a binary-mread omit).
+- **JS:** js/files.js:1153 sfi_char, :1189 sfo_genericptr, :1213 sfi_genericptr, :1246 sfi_version_info, :1285 sf_log, :1306 sfvalue_char, :1316 sfvalue_genericptr, :1327 sfvalue_uchar, :1359 complex_dump; js/const.js TURN_OFF_LOGGING.
+- **Callers:**
+  - `sf_log`: SF_A sfo :123 wired in sfo_uchar (js/files.js:1097); sfo_char :251–252 wired (:1071); sfi_char :284–285 wired (:1172); sfo_genericptr :293–294 wired (:1191); sfi_genericptr :324–325 wired (:1231); sfo_version_info :334–335 wired (:1122); sfi_version_info :369–370 wired (:1266); SF_A sfi :153, SF_C :162/:194, SF_X :203/:216/:239 hosts unported — no JS home.
+  - `complex_dump`: SF_C :163/:195 hosts unported (no JS home); sfo_version_info :335 wired (:1123); sfi_version_info :370 wired (:1267).
+  - `sfo_genericptr`: sfi_genericptr :321 wired (:1228); no other C uses.
+  - `sfi_genericptr`: no C callers (decl + Sfi_ macro only).
+  - `sfi_version_info`: version.c:736 uptodate wired (js/files.js:1577).
+  - `sfi_char`: version.c:725 uptodate + :771 compare_critical_bytes feed omits stay (indicator unread / count unfillable — value omits); ~25 restore/bones/dungeon/options/o_init/region/engrave/nhlua Sfi_ feeds in unported hosts (no JS home).
+  - helpers: sfvalue_char ← sfo_char :252 + sfi_char :285 (both wired); sfvalue_genericptr ← sfo/sfi_genericptr log arms (wired); sfvalue_uchar ← SF_A :123 uchar host (wired in sfo_uchar).
+- **Verify:** `node scripts/verify.mjs --fn sf_log,complex_dump,sfo_genericptr,sfi_genericptr,sfi_version_info,sfi_char,sfvalue_char,sfvalue_genericptr,sfvalue_uchar` → VERIFY: PASS (green 2/2, strict ×2, cohort 7/7; full skipped — no shared file per detector):
+  - `sf_log`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `complex_dump`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `sfo_genericptr`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `sfi_genericptr`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `sfi_version_info`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `sfi_char`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `sfvalue_char`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `sfvalue_genericptr`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - `sfvalue_uchar`: hidden none blocked; REACH smoke 24/24 → REACH-OK
+  - /tmp/sfbase-probe.mjs (scratch, not committed — repo has no unit harness; sessions are the maintained suite): 25 checks PROBE PASS (dump/value formats, mode net-zero, convert-back bag writes, SFCTOOL_BIT set, counters untouched).
+- **Named omissions:**
+  - `sf_log`: `:385–398` fprintf + `:402` fflush (Rule #2, no fs log; viable_nhfile precedent).
+  - `sfo_genericptr`: `:296` historical bwrite of the pointer image (binary NHFILE; pointers have no JSON-save analogue).
+  - `sfi_char`/`sfi_genericptr`/`sfi_version_info`: structlevel historical mread fills + fieldlevel sfiflprocs (never installed) — binary NHFILE by design; the sfi_version_info fill leaves uptodate's vers_info zeroed as before.
+  - `complex_dump`/`sfvalue_*`: none — whole bodies live (version_info log image reads high bytes 0: JS keeps LP64 longs `>>> 0`).
+- **Ledger:** sf_log ported; sfi_char ported; sfo_genericptr ported; sfi_genericptr ported; sfi_version_info ported; complex_dump ported; sfvalue_genericptr ported
+- **Next:** SF_X queue row stays Open (macro generating sfo_bitfield/sfi_bitfield, not a portable function); binary NHFILE restore (mread/bread) remains the by-design boundary for the sfi_ fills.
+
 ## D-3079 — cmd.c handler_change_autocompletions + parseautocomplete port; counter_were stale-retired
 
 - **Status:** fixed (breadth — head row + its Open callee; were.c counter_were stale → ported, body complete at js/were.js:124)
