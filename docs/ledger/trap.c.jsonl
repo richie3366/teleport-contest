@@ -9,7 +9,7 @@
 {"fn":"fall_through","c":"602-696","status":"unknown"}
 {"fn":"animate_statue","c":"726-900","status":"unknown"}
 {"fn":"activate_statue_trap","c":"908-936","status":"unknown"}
-{"fn":"keep_saddle_with_steedcorpse","c":"939-967","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"keep_saddle_with_steedcorpse","c":"939-967","status":"ported","js":["js/trap.js:keep_saddle_with_steedcorpse"],"d":["D-3076"],"at":"2026-09-29@3a3d73a50","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mu_maybe_destroy_web","c":"972-1014","status":"unknown"}
 {"fn":"t_missile","c":"1018-1027","status":"unknown"}
 {"fn":"set_utrap","c":"1030-1042","status":"unknown"}
@@ -17,11 +17,11 @@
 {"fn":"floor_trigger","c":"1061-1082","status":"unknown"}
 {"fn":"check_in_air","c":"1086-1094","status":"unknown"}
 {"fn":"wearing_iron_shoes","c":"1098-1102","status":"unknown"}
-{"fn":"m_harmless_trap","c":"1106-1187","status":"unknown","d":["D-2194"],"at":"seed@a30a7de84"}
+{"fn":"m_harmless_trap","c":"1106-1187","status":"ported","js":["js/trap.js:m_harmless_trap"],"d":["D-2194"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:585, all arms, impossible default named"}
 {"fn":"trapeffect_arrow_trap","c":"1190-1248","status":"unknown"}
 {"fn":"trapeffect_dart_trap","c":"1251-1321","status":"ported","js":["js/trap.js:trapeffect_dart_trap"],"d":["D-2969"],"at":"2026-09-27@f02368fbc"}
 {"fn":"trapeffect_rocktrap","c":"1324-1400","status":"unknown"}
-{"fn":"trapeffect_sqky_board","c":"1403-1476","status":"unknown","d":["D-2206"],"at":"seed@a30a7de84"}
+{"fn":"trapeffect_sqky_board","c":"1403-1476","status":"ported","js":["js/trap.js:trapeffect_sqky_board"],"d":["D-2206"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:4086, all arms, Soundeffect no-op named"}
 {"fn":"trapeffect_bear_trap","c":"1479-1560","status":"unknown"}
 {"fn":"trapeffect_slp_gas_trap","c":"1563-1592","status":"unknown"}
 {"fn":"trapeffect_rust_trap","c":"1595-1727","status":"unknown"}
@@ -42,12 +42,12 @@
 {"fn":"immune_to_trap","c":"2783-2934","status":"unknown","d":["D-2689"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_selector","c":"2937-2993","status":"unknown"}
 {"fn":"dotrap","c":"2996-3060","status":"ported","js":["js/trap.js:dotrap"],"d":["D-1924"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"trapnote","c":"3063-3078","status":"unknown"}
+{"fn":"trapnote","c":"3063-3078","status":"ported","js":["js/trap.js:trapnote"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:1161, an()=just_an+str, callers js/trap.js:4104,4121,4137"}
 {"fn":"choose_trapnote","c":"3083-3099","status":"unknown"}
 {"fn":"steedintrap","c":"3102-3168","status":"unknown","d":["D-2290"],"at":"seed@a30a7de84"}
 {"fn":"blow_up_landmine","c":"3172-3219","status":"unknown","d":["D-2338"],"at":"seed@a30a7de84"}
 {"fn":"launch_drop_spot","c":"3222-3233","status":"unknown"}
-{"fn":"launch_in_progress","c":"3236-3241","status":"unknown"}
+{"fn":"launch_in_progress","c":"3236-3241","status":"ported","js":["js/trap.js:launch_in_progress"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:2606, caller js/end.js:1086"}
 {"fn":"force_launch_placement","c":"3244-3250","status":"unknown"}
 {"fn":"launch_obj","c":"3260-3575","status":"unknown","d":["D-2330"],"at":"seed@a30a7de84"}
 {"fn":"seetrap","c":"3578-3584","status":"unknown"}
@@ -80,7 +80,7 @@
 {"fn":"rescued_from_terrain","c":"5014-5055","status":"ported","js":["js/trap.js:rescued_from_terrain"],"d":["D-2829"],"at":"seed@a30a7de84"}
 {"fn":"drown","c":"5059-5199","status":"unknown","d":["D-2284","D-1814"],"at":"seed@a30a7de84"}
 {"fn":"drain_en","c":"5202-5244","status":"unknown"}
-{"fn":"dountrap","c":"5248-5254","status":"unknown"}
+{"fn":"dountrap","c":"5248-5254","status":"ported","js":["js/trap.js:dountrap"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:7960, dispatch js/cmd.js:1778"}
 {"fn":"could_untrap","c":"5258-5284","status":"unknown"}
 {"fn":"untrap_prob","c":"5289-5337","status":"ported","js":["js/trap.js:untrap_prob"],"at":"2026-09-28@6dd29ef91","note":"stale: js/trap.js:7263 whole C body in C order, both C callers wired js/trap.js:7433,7602"}
 {"fn":"cnv_trap_obj","c":"5341-5371","status":"ported","js":["js/trap.js:cnv_trap_obj"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
@@ -90,7 +90,7 @@
 {"fn":"reward_untrap","c":"5530-5548","status":"unknown"}
 {"fn":"disarm_holdingtrap","c":"5553-5591","status":"unknown"}
 {"fn":"disarm_landmine","c":"5594-5603","status":"unknown"}
-{"fn":"unsqueak_ok","c":"5607-5626","status":"unknown"}
+{"fn":"unsqueak_ok","c":"5607-5626","status":"ported","js":["js/trap.js:unsqueak_ok"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:7589, callback js/trap.js:7604"}
 {"fn":"disarm_squeaky_board","c":"5630-5660","status":"unknown"}
 {"fn":"disarm_shooting_trap","c":"5664-5673","status":"unknown"}
 {"fn":"try_lift","c":"5677-5696","status":"unknown"}
@@ -106,9 +106,9 @@
 {"fn":"count_traps","c":"6516-6528","status":"unknown"}
 {"fn":"deltrap","c":"6531-6549","status":"ported","js":["js/trap.js:deltrap"],"d":["D-2921"],"at":"seed@a30a7de84"}
 {"fn":"conjoined_pits","c":"6552-6577","status":"unknown"}
-{"fn":"clear_conjoined_pits","c":"6580-6601","status":"unknown"}
+{"fn":"clear_conjoined_pits","c":"6580-6601","status":"ported","js":["js/trap.js:clear_conjoined_pits"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:1292, caller js/trap.js:1372"}
 {"fn":"adj_nonconjoined_pit","c":"6604-6614","status":"unknown"}
-{"fn":"join_adjacent_pits","c":"6622-6641","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"join_adjacent_pits","c":"6622-6641","status":"ported","js":["js/trap.js:join_adjacent_pits"],"d":["D-3076"],"at":"2026-09-29@3a3d73a50","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"uteetering_at_seen_pit","c":"6648-6653","status":"unknown"}
 {"fn":"uescaped_shaft","c":"6660-6664","status":"unknown"}
 {"fn":"delfloortrap","c":"6668-6690","status":"unknown"}

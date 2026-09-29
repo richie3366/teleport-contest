@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3076 trap.c keep_saddle_with_steedcorpse + join_adjacent_pits port; 7 stale retired
+
+**C locus:** - `keep_saddle_with_steedcorpse`: nethack-c/upstream/src/trap.c:938–967 (caller trapeffect_landmine :2591–2592; decl :13; self :962)
+**JS:** - `keep_saddle_with_steedcorpse`: js/trap.js:5794, wired at js/trap.js:5890.
+**Change:** - `keep_saddle_with_steedcorpse`: new local (C staticfn) in C order — `!saddle` guard (`:944–945`), fobj while-walk (`:946`), CORPSE+has_omonst test (`:947`), m_id match (`:950`), saddle move via live `get_obj_location(chain, 0)` + `obj_extract_self` + `place_object` + `stackobj` (`:953–956`, `{x,y}|null` ≡ `&x,&y`+bool), cobj depth-first recurse (`:961–963`), nobj advance (`:964`); caller hoists `steed_mid`/`saddle` to branch scope (`:2545–2546`), assigns at `:2575–2576`/`:2580`, calls under `steed_mid && saddle && !u.usteed` after `blow_up_landmine` (`:2591–2592`).
+**Verify:** `node scripts/verify.mjs --fn keep_saddle_with_steedcorpse,join_adjacent_pits` → syntax PASS · rule2 PASS · hidden note (no corpus session blocked on either — coverage rows) · REACH-OK both (no RNG-tagged reach; 24-session smoke spread 24/24 PASS each) · green 2/2 · strict 2/2 · cohort 7/7 · VERIFY: PASS; full `sessions` 44/44 (forced; Scr 11,405/RNG 792,838 intact, `266+1.59/turn`). No maintained unit harness in repo (sessions are the harness); new locals verified via REACH smoke + full suite, no /tmp probe kept.
+**Named:** - `keep_saddle_with_steedcorpse`: none — every arm ported, every callee live (`has_omonst`/`OMONST`/`get_obj_location`/`obj_extract_self`/`place_object`/`stackobj` all pre-imported; no new cross-module edge).
+**Next:** `reset_utrap` (trap.c:1045 THIN — msg arm wants async `float_up` + `You("can fly.")`; ~25 sync JS call sites need `await`, some chains need async conversion — own iteration); stale-retired this commit via `ledger.mjs set` (bodies verified complete + callers wired): `trapnote` (an≡just_an+str, js/trap.js:1161), `launch_in_progress` (js/trap.js:2606), `clear_conjoined_pits` (js/trap.js:1292), `unsqueak_ok` (js/trap.js:7589), `dountrap` (js/trap.js:7960), `m_harmless_trap` (all arms, impossible default named, js/trap.js:585), `trapeffect_sqky_board` (all arms, Soundeffect no-op named, js/trap.js:4086).
 ## 2026-09-29 — D-3075 read.c create_particular_parse whole-body restart
 
 **C locus:** - `create_particular_parse`: nethack-c/upstream/src/read.c:3137–3249 (struct `_create_particular_data` include/hack.h:314–323; `wizard` ≡ flags.debug include/flag.h:30; `digit()` src/hacklib.c:61–65)
