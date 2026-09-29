@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3071 coloratt.c breadth cluster: free_menu_coloring port; query_attr/query_color verified complete; add_menu_coloring_parsed partial; alternative_palette by-design
+
+**C locus:** - `free_menu_coloring`: nethack-c/upstream/src/coloratt.c:664–680
+**JS:** - `free_menu_coloring`: js/options.js:4505 (exported)
+**Change:** - `free_menu_coloring`: new export in C order — do-loop over both chains (`:668–679`), regex_free per node, unlink ≡ C free (GC)
+**Verify:** `node scripts/verify.mjs --fn free_menu_coloring,query_attr,query_color,add_menu_coloring_parsed` → VERIFY: PASS
+**Named:** - `free_menu_coloring`: none in-body — whole body; sole C caller `freedynamicdata` unported (see Callers)
+**Next:** pop the regenerated head.
 ## 2026-09-28 — D-3070 teleport.c enexto_core null-mdat arm + set_mon_data; tele_jump_ok, dotelecmd, m_blocks_teleporting verified complete
 
 **C locus:** - `enexto_core`: nethack-c/upstream/src/teleport.c:219–276 (NEW_ENEXTO live; `:281–376` is the uncompiled `#else`)

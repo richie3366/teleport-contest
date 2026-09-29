@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3071 — coloratt.c breadth cluster: free_menu_coloring port; query_attr/query_color verified complete; add_menu_coloring_parsed partial; alternative_palette by-design
+
+- **Status:** fixed (breadth-phase coverage cluster — queue head #1 plus three same-file Open rows colder than the 12-row block, D-3070 pattern; `bones_include_name` retired stale ahead of the head; `alternative_palette` #93 retired by-design, compiled out)
+- **Symptom:** coverage MISSING — `free_menu_coloring` had no JS symbol (C 10 code L, full menucoloring family live around it); `query_attr`/`query_color` THIN-by-delegation (menu mechanics in the shared single-pick helpers); `add_menu_coloring_parsed` PARTIAL (config_error_add desc arm); `alternative_palette` MISSING-but-dead (`#ifdef CHANGE_COLOR`, contest build does not define it).
+- **C locus:**
+  - `free_menu_coloring`: nethack-c/upstream/src/coloratt.c:664–680
+  - `query_attr`: nethack-c/upstream/src/coloratt.c:396–472
+  - `query_color`: nethack-c/upstream/src/coloratt.c:475–518
+  - `add_menu_coloring_parsed`: nethack-c/upstream/src/coloratt.c:585–613
+- **JS was:**
+  - `free_menu_coloring`: no JS symbol
+  - `query_attr` / `query_color` / `add_menu_coloring_parsed`: complete under own names except the named desc arm — no code change
+- **Fix:**
+  - `free_menu_coloring`: new export in C order — do-loop over both chains (`:668–679`), regex_free per node, unlink ≡ C free (GC)
+  - `query_attr` / `query_color`: no code — brief-verified complete (see Named omissions); wintty.c toggle (`:1755–1757`) + menu-order picks (`:2808–2817`) confirm the helper subsumptions
+  - `add_menu_coloring_parsed`: no code — body complete except the `:601–607` desc arm (blocked, named)
+- **JS:**
+  - `free_menu_coloring`: js/options.js:4505 (exported)
+  - `query_attr`: js/options.js:5226 (exported async)
+  - `query_color`: js/options.js:5203 (exported async)
+  - `add_menu_coloring_parsed`: js/options.js:4524 (exported)
+- **Callers:**
+  - `free_menu_coloring`: save.c:1084 (`freedynamicdata`) — no JS counterpart (save-freeing teardown, map-named precedent)
+  - `query_attr`: coloratt.c:311 (`query_color_attr`) → js/options.js:5273; options.c:6155 → js/options.js:6127; options.c:6440 → js/options.js:5565; botl.c:4241 inside `status_hilite_menu_add` (named omission, js/botl.js:3205)
+  - `query_color`: coloratt.c:308 (`query_color_attr`) → js/options.js:5271; options.c:6439 → js/options.js:5564; botl.c:4234 inside `status_hilite_menu_add` (named omission, js/botl.js:3205)
+  - `add_menu_coloring_parsed`: coloratt.c:567 (`basic_menu_colors`) → js/options.js:5184; coloratt.c:659 (`add_menu_coloring`) → js/options.js:4592; options.c:6441 → js/options.js:5566
+- **Verify:** `node scripts/verify.mjs --fn free_menu_coloring,query_attr,query_color,add_menu_coloring_parsed` → VERIFY: PASS
+  - `free_menu_coloring`: note hidden (no corpus session blocked) · REACH-OK (smoke spread 24/24)
+  - `query_attr`: note hidden · REACH-OK (24/24)
+  - `query_color`: note hidden · REACH-OK (24/24)
+  - `add_menu_coloring_parsed`: note hidden · REACH-OK (24/24)
+  - shared: syntax 1 file (js/options.js) · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). Headless /tmp/fmc-probe.mjs: empty/idempotent free, 2-node user chain → 0, 13-node basic+color alias chains → 0, restore 0.
+- **Named omissions:**
+  - `free_menu_coloring`: none in-body — whole body; sole C caller `freedynamicdata` unported (see Callers)
+  - `query_attr`: none — whole body: allow_many ≡ strncmpi-6 (str_start_is), MENU_ATTRNAMES ≡ pre-alias attrnames, PICK_ANY HL-mask + ATR_NONE-exclusion verbatim, PICK_ONE pick_cnt==2/==0 arms helper-subsumed (Enter→preselected, letter→explicit, ESC→cancel ≡ C -1), ESC/empty → -1
+  - `query_color`: none — whole body: basic_menu_colors bracket live, MENU_COLORNAMES ≡ pre-alias colornames, PICK_ONE arms helper-subsumed; the `:507` i==NO_COLOR gate is provably dead pre-alias (tty returns picks in menu order and "no color" sorts last, so picks[0] can never be it with count==2) — collapse stands per review-2007 pattern
+  - `add_menu_coloring_parsed`: the `:601–607` recompile-failure `config_error_add("Menucolor regex error: …")` arm — `regex_error_desc` (posixregex.c:76) has no JS counterpart (JS regex_compile records only an err flag; regerror text is libc-specific), precedents js/sounds.js:290, js/options.js:5283/5409; arm reachable only when a validated pattern fails recompile (OOM-class)
+- **Ledger:** free_menu_coloring ported; query_attr ported; query_color ported; add_menu_coloring_parsed partial
+- **Next:** pop the regenerated head.
+
 ## D-3070 — teleport.c enexto_core null-mdat arm + set_mon_data; tele_jump_ok, dotelecmd, m_blocks_teleporting verified complete
 
 - **Status:** fixed (breadth-phase coverage cluster — queue head plus three same-file Open functions colder than the 12-row block, verified complete in-brief with no code; `enexto`/`enexto_gpflags` examined and left Open — bodies ≡ C but 58 C call sites need a dedicated wiring pass)

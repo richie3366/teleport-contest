@@ -9,7 +9,7 @@
 {"fn":"remove_mon_from_bones","c":"390-399","status":"unknown"}
 {"fn":"savebones","c":"403-625","status":"unknown","d":["D-2068"],"at":"seed@a30a7de84"}
 {"fn":"getbones","c":"630-756","status":"unknown","d":["D-2255"],"at":"seed@a30a7de84"}
-{"fn":"bones_include_name","c":"762-780","status":"unknown"}
+{"fn":"bones_include_name","c":"762-780","status":"ported","js":["js/bones.js:bones_include_name"],"at":"2026-09-28@9e3e6255b","note":"stale: js/bones.js:482, caller wired js/do.js:1866"}
 {"fn":"set_ghostly_objlist","c":"784-790","status":"unknown"}
 {"fn":"fix_ghostly_obj","c":"796-815","status":"ported","js":["js/bones.js:fix_ghostly_obj"],"d":["D-2918"],"at":"seed@a30a7de84"}
 {"fn":"newebones","c":"818-829","status":"unknown"}

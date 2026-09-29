@@ -4494,6 +4494,27 @@ export function free_one_menu_coloring(idx) {
 }
 
 /**
+ * C ref: coloratt.c free_menu_coloring `:664–680` — free the
+ * gm.menu_colorings chain, then the gc.color_colorings chain (the do-loop
+ * iterates at most twice, `:666–667`). regex_free per node (live, same
+ * file); C `free(origstr)`/`free(tmp)` `:674–675` ≡ unlink, GC collects
+ * (free_all_glyphmap_u precedent). Sole C caller is save.c
+ * freedynamicdata `:1084` (save-freeing teardown, no JS counterpart —
+ * named).
+ */
+export function free_menu_coloring() {
+    do { // C :668
+        for (let tmp = menuColorings; tmp;) { // C :671
+            const tmp2 = tmp.next; // C :672
+            regex_free(tmp.match); // C :673
+            tmp = tmp2; // C :674–675 free origstr/tmp ≡ unlink (GC)
+        }
+        menuColorings = colorColorings; // C :677
+        colorColorings = null; // C :678
+    } while (menuColorings); // C :679
+}
+
+/**
  * C ref: coloratt.c add_menu_coloring_parsed `:585–613` — validated
  * callers only (test_regex_pattern ran first); recompile can still fail,
  * then FALSE. config_error_add paths named (msgtype_add precedent).
