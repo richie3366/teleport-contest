@@ -33,7 +33,7 @@
 {"fn":"pick_obj","c":"1897-1942","status":"unknown"}
 {"fn":"pickup_prinv","c":"1948-1972","status":"ported","js":["js/pickup.js:pickup_prinv"],"at":"2026-09-29@d27c7b945","note":"stale: js/pickup.js:1152 (D-0456)"}
 {"fn":"encumber_msg","c":"1978-2020","status":"unknown"}
-{"fn":"container_at","c":"2024-2038","status":"unknown"}
+{"fn":"container_at","c":"2024-2038","status":"ported","js":["js/pickup.js:container_at"],"d":["D-3122"],"at":"2026-09-29@c983587e0"}
 {"fn":"able_to_loot","c":"2041-2069","status":"unknown"}
 {"fn":"mon_beside","c":"2072-2085","status":"unknown"}
 {"fn":"do_loot_cont","c":"2088-2162","status":"ported","js":["js/pickup.js:do_loot_cont"],"d":["D-2576"],"at":"seed@a30a7de84"}

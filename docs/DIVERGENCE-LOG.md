@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3122 — `pickup.c` container_at whole-body + lock.c:794 pit-dirprompt caller wiring (coverage)
+
+- **Status:** fixed (Open — coverage head `pickup.c` container_at PARTIAL → whole body in C order + its last unwired C caller. ~12 js/ insertions: sole pickup.c queue row, 0 callees, closure holds nothing else Open — the <80-insertion density exception applies, cf. D-3115/D-3116/D-3117. Same iteration: fopen_config_file stale→ported, shuffle_tiles by-design (both via direct `ledger.mjs set`, D-3121 precedent); cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify`: no corpus session blocked at baseline — floor-scan predicate, no RNG).
+- **C locus:**
+  - `container_at`: pickup.c:2024–2038 (floor chain `:2029`, nobj cache `:2030`, Is_container `:2031`, !countem break `:2033–2034`); callers lock.c:794/847, pickup.c:2217/2302/2326/3586.
+  - `fopen_config_file` (stale): cfgfiles.c:222–372 already complete in js/cfgfiles.js:385 (D-3117); only VMS/MICRO/WIN32 compiled-out arms + VFS-unreachable errno gates `:269–273`/`:356–369` missing.
+  - `shuffle_tiles` (by-design): o_init.c:34–50; both call sites `#ifdef TILES_IN_GLYPHMAP` (`:231–233` init, `:432–436` restnames) and the tty build defines no tile graphics (config.h:607 TTY_TILES_ESCCODES commented out; no GRAPHICS `-D` in unix Makefiles/recorder; D-3121 precedent).
+- **JS was:** js/pickup.js:4161 stepped `cobj = cobj.nexthere` without the C `:2030` next-cache; js/lock.js doopen_indir carried the pit "Open where? [.>]" dirprompt as a named deferral (doc :818) and passed null to get_adjacent_loc.
+- **Fix:** C-order `nobj` cache (`for (cobj, nobj); cobj; cobj = nobj` + `nobj = cobj.nexthere` — unobservable today, C-exact list semantics). lock.js doopen_indir: pit + container-underfoot arm in C order (`:793–795`, `uu.utrap && utraptype === TT_PIT && container_at(ux, uy, false)` → `'Open where? [.>]'`, passed to get_adjacent_loc); dirprompt retired from the Named omissions doc (pit-reach gate `:815–818` stays named). No new imports (TT_PIT + container_at already in lock.js).
+- **JS:** js/pickup.js container_at `:4161`; js/lock.js doopen_indir dirprompt `:830`, get_adjacent_loc call `:845`.
+- **Callers:**
+  - `container_at`: lock.c:794 → js/lock.js:830 new dirprompt arm; lock.c:847 → js/lock.js:886 (pre-wired); pickup.c:2217 → js/pickup.js:4223 loot_floor_containers (pre-wired; :4401 re-query is the `:2288` grave-else, equivalent to num_conts<=0); pickup.c:2302 → js/pickup.js:4422 (pre-wired goto-lootcont); pickup.c:2326 → js/pickup.js:4439 (pre-wired); pickup.c:3586 → js/pickup.js:5198 dotip boxes (pre-wired).
+- **Verify:** `node scripts/verify.mjs --fn container_at` → VERIFY: PASS (syntax 2 files js/lock.js js/pickup.js; rule2; hidden note 0 blocked; REACH-OK no RNG-tagged reach, smoke spread 24 run 24 PASS; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file).
+- **Named omissions:**
+  - `container_at`: none — whole body, every callee live (Is_container + objects_at pre-existing), every C caller wired.
+- **Ledger:** container_at ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3121 — `options.c` doset-term + roguesymset cluster (9 functions; CHANGE_COLOR pair by-design)
 
 - **Status:** fixed (Open — coverage head all_options_palette + callee count_alt_palette by-design via ledger ahead of the cluster — both uncompiled `#ifdef CHANGE_COLOR` (D-3025 precedent); code cluster = 7 same-file functions in live queue order + handler_sortloot verified whole. ~135 js/ insertions, js/options.js only + scripts/doset-terms.test.mjs (10 vectors); cites no review — no stamp needed).
