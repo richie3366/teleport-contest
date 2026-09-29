@@ -2078,3 +2078,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2066-cb3b01855-append-str.md](./2066-cb3b01855-append-str.md) | `cb3b01855` | D-3106 append_str impossible arm + NULL test | **ACCEPT** |
 | [2067-ebd112f3b-makemap-remove-mons.md](./2067-ebd112f3b-makemap-remove-mons.md) | `ebd112f3b` | D-3107 makemap_remove_mons + unmakemon whole | **ACCEPT** |
 | [2068-32d25b3c3-crashreport-init.md](./2068-32d25b3c3-crashreport-init.md) | `32d25b3c3` | D-3108 crashreport_init degenerate port + 2 stale | **ACCEPT** |
+| [2069-ad1aa7146-activate-chosen-soundlib.md](./2069-ad1aa7146-activate-chosen-soundlib.md) | `ad1aa7146` | D-3109 activate_chosen_soundlib port + 6 dispositions | **ACCEPT** |
+| [2070-d27c7b945-max-passive-dmg-cluster.md](./2070-d27c7b945-max-passive-dmg-cluster.md) | `d27c7b945` | D-3110 max_passive_dmg restart + mondata cluster (resists-clone C-wrong) | **QUALITY-RISK** |
+| [2071-b43d7bb86-test-regex-change-inv-order.md](./2071-b43d7bb86-test-regex-change-inv-order.md) | `b43d7bb86` | D-3111 test_regex_pattern + change_inv_order whole | **ACCEPT** |
+| [2072-caf637f80-version-banner-trio.md](./2072-caf637f80-version-banner-trio.md) | `caf637f80` | D-3112 copyright_banner_line + dump_version_info + critical count | **ACCEPT** |
+| [2073-405ed7298-report-closure.md](./2073-405ed7298-report-closure.md) | `405ed7298` | D-3113 report.c panictrace/bidshow/bugreport/uricoded/handler (6 fns) | **ACCEPT** |
+| [2074-6e3bbfbe7-regex-desc-txt2key.md](./2074-6e3bbfbe7-regex-desc-txt2key.md) | `6e3bbfbe7` | D-3114 regex_error_desc + txt2key + 4 fail-arm wirings | **ACCEPT** |
+| [2075-1a4567167-mon-leave.md](./2075-1a4567167-mon-leave.md) | `1a4567167` | D-3115 mon_leave minvent + residency completion | **ACCEPT** |
+| [2076-c21da30e8-selection-filter-mapchar.md](./2076-c21da30e8-selection-filter-mapchar.md) | `c21da30e8` | D-3116 selection_filter_mapchar restart + guards | **ACCEPT** |
+| [2077-78a21f6e4-assure-syscf-showpaths.md](./2077-78a21f6e4-assure-syscf-showpaths.md) | `78a21f6e4` | D-3117 assure_syscf_file + do_deferred_showpaths + fopen | **ACCEPT** |

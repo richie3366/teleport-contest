@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — Audit 2069-2077 (D-3109..D-3117): 8 ACCEPT, 1 QUALITY-RISK; full cadence
+
+Reviews 2069-2077 audit ad1aa7146..78a21f6e4 against pinned C (soundlib switch, mondata 5-fn, regex/invorder, version trio, report 6-fn, regex-desc/txt2key, mon_leave, selvar filter, syscf/showpaths cluster): 8 ACCEPT, 2070 QUALITY-RISK (max_passive_dmg bits-only resists_* locals vs live Resists_Elem already imported in mhitm.js — Must-fix prepended, Next cluster set). Every corpus claim re-measured with --reach-all (all vacuous + REACH-OK, no REGRESSED). Cadence: public 44/44, corpus 648/953 (0 flips, full:true), held-out 13/44 flat. Ledger snapshot + 5/5 seeded-ported sample live.
 ## 2026-09-29 — D-3117 `cfgfiles.c` assure_syscf_file + `files.c` do_deferred_showpaths + fopen_config_file completion (coverage cluster)
 
 **C locus:** - `assure_syscf_file`: cfgfiles.c:2031–2068 (unix open `:2052`, fd>=0 `:2057–2060`, deferred gate `:2063–2064`, raw_printf `:2066`, exit `:2067`)

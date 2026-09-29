@@ -97,6 +97,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `max_passive_dmg` elemental arm uses bits-only resists_* locals — C `resists_*` ≡ `Resists_Elem` (mondata.c:129–197) artifact `:173–176` + worn/carried `:178–196` arms absent from js/mhitm.js:2318–2322 (locals :407–431 test bits only); full `Resists_Elem` live at js/mondata.js:240, already imported by mhitm.js:15. Call `Resists_Elem(magr, *_RES)` or name the omit. Source: reviews/loop-unattended/2070-d27c7b945-max-passive-dmg-cluster.md.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
