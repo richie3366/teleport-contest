@@ -1921,14 +1921,22 @@ function singplur_compound(str) {
  * special_subjs + craft + slice/mongoose + badman-men keep
  * (singplur_lookup `:2719–2762` singular arms); one_off reverse;
  * -ies/-ves/-es/-s; men→man (badman gate); matzot/ae/eaux.
- * Named omissions: pronoun they/them/their block; ia→ium
- * (balactherium `:3149–3153`, own row); full Strcasecpy case polish.
+ * Named omissions: full Strcasecpy case polish on the older arms
+ * (the ia→ium arm uses the in-module strcasecpy_at).
  */
 export function makesingular(oldstr) {
     if (oldstr == null) return '';
     let s = String(oldstr);
     while (s.startsWith(' ')) s = s.slice(1);
     if (!s) return '';
+
+    // C :3053–3068 — pronouns (makeplural isn't reversible); cap follows input
+    const pl = s.toLowerCase();
+    if (pl === 'they' || pl === 'them' || pl === 'their') {
+        let pron = (pl === 'their') ? 'its' : 'it';
+        if (s[0] === s[0].toUpperCase()) pron = pron[0].toUpperCase() + pron.slice(1);
+        return pron;
+    }
 
     // C: singplur_compound — singularize only the part before marker
     let excess = '';
@@ -2039,6 +2047,12 @@ export function makesingular(oldstr) {
     if (/matzot$/i.test(bp) || /ae$/i.test(bp) || /eaux$/i.test(bp)) {
         bp = bp.slice(0, -1);
         return bp + excess;
+    }
+    /* C :3147–3153 — balactheria -> balactherium (no return: falls through
+       to bottom like C); in-module strcasecpy_at takes each char's case. */
+    if (bp.length >= 4 && eqCI(bp.slice(-2), 'ia')
+        && 'lrLR'.includes(bp[bp.length - 3]) && eqCI(bp[bp.length - 4], 'e')) {
+        bp = strcasecpy_at(bp, bp.length - 1, 'um');
     }
 
     return bp + excess;
@@ -2912,6 +2926,52 @@ export function simpleonames(obj) {
  * same minimal_xname subset); SLIME_MOLD spe copy (pretty_base reads live
  * spe); distant_name wrapper (identity for carried objects).
  */
+/**
+ * C ref: objnam.c minimal_xname `:1037–1086` (staticfn) — bareobj xname:
+ * suppress oc_uname (`:1045–1046`) + unknown description (`:1047–1051`),
+ * zeroobj base (`:1056`) with otyp/oclass (`:1057–1058`), dknown
+ * (`:1061`), AMULET known else !oc_uses_known (`:1063–1066`), quan 1
+ * (`:1067`), corpsenm NON_PM unless BOULDER (`:1069–1070`), SLIME_MOLD
+ * spe (`:1074–1075`), distant_name+xname (`:1080`), cleric "uncursed "
+ * strip (`:1084–1086`), oc_ restore. Exported — C callers yname `:2397`,
+ * simpleonames `:2430`, actualoname `:2495` keep their reviewed subset
+ * inlines (D-2640/D-2958); not rewired, zero churn.
+ * @param {object} obj
+ * @returns {string}
+ */
+export function minimal_xname(obj) {
+    const otyp = obj.otyp | 0; // C :1042
+    const oc = game.objects?.[otyp]; // C objects[otyp]
+    const save_uname = oc?.oc_uname; // C :1045
+    const save_name_known = oc?.oc_name_known; // C :1047
+    if (oc) oc.oc_uname = 0; // C :1046
+    if (game.iflags?.override_ID) { // C :1048-1049
+        if (oc) oc.oc_name_known = 1;
+    } else if (!obj.dknown) { // C :1050-1051
+        if (oc) oc.oc_name_known = 0;
+    }
+    // C :1056 — cg.zeroobj: absent fields read as 0/NULL (init_dummyobj idiom)
+    const bareobj = {
+        otyp, // C :1057
+        oclass: obj.oclass, // C :1058
+        dknown: (obj.dknown || game.iflags?.override_ID) ? 1 : 0, // C :1061
+        known: (obj.oclass === AMULET_CLASS) // C :1063-1066
+            ? obj.known
+            : ((!oc || !oc.oc_uses_known) ? 1 : 0),
+        quan: 1, // C :1067 don't want plural
+        spe: 0, // C zeroobj (SLIME_MOLD overwrites below)
+    };
+    if (otyp !== BOULDER) bareobj.corpsenm = NON_PM; // C :1069-1070
+    if ((obj.otyp | 0) === SLIME_MOLD) bareobj.spe = obj.spe | 0; // C :1074-1075
+    let bufp = distant_name(bareobj, xname); // C :1080
+    if (bufp.startsWith('uncursed ')) bufp = bufp.slice('uncursed '.length); // C :1084-1086
+    if (oc) { // restore C :1045/:1047
+        oc.oc_uname = save_uname;
+        oc.oc_name_known = save_name_known;
+    }
+    return bufp;
+}
+
 export function actualoname(obj) {
     const oc = game.objects?.[obj.otyp | 0];
     const save_uname = oc ? oc.oc_uname : undefined;

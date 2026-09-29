@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-29 — D-3128 `objnam.c` fruitname completion + minimal_xname port + makesingular arms (coverage)
+
+**C locus:** - `fruitname`: objnam.c:412–427 (nextobuf :416 GC no-op, strstri " of " :417–422, makesingular :424, " juice" suffix).
+**JS:** js/potion.js (restarted export + 2 import names); js/fountain.js (+1 import, runoff line); js/objnam.js (+minimal_xname export, +2 makesingular arms, doc); scripts/fruitname-minimal-xname.test.mjs (new, 9 its).
+**Change:** restarted fruitname in C order over live strstri (tail+4 ≡ C pointer bump) + makesingular (potion→objnam/hacklib edges ALREADY); fountain case-21 runoff line now interpolates fruitname(false) (new fountain→potion edge, imports.mjs SAFE — hoisted, runtime-only); fresh exported minimal_xname in C-home js/objnam.js in C order ({} zero base per init_dummyobj idiom, explicit spe:0, AMULET/BOULDER/SLIME_MOLD arms, distant_name+xname, restore); makesingular pronoun + ia→ium arms in C order (pronoun before compound; ia→ium after matzot, no-return fall-through, in-module strcasecpy_at for C's Strcasecpy). Retires the two makesingular arms from the D-2646 omit (row text refreshes on next touch).
+**Verify:** `node --test scripts/fruitname-minimal-xname.test.mjs` → 9/9 (default/juice, C's slice-of-pizza example, case-insensitive+singular, singular-name, uname suppress+restore, name_known restore, 3 makesingular arms). `node scripts/verify.mjs --fn fruitname,minimal_xname,makesingular --full` → VERIFY: PASS — syntax (3 changed); rule2; hidden notes ×3 (no corpus session blocked); REACH-OK ×3 (smoke 24/24 each, no RNG-tagged reach — all RNG-free); green 2/2; strict ×2; cohort 7/7; full 44/44.
+**Named:** - `fruitname`: nextobuf (GC no-op); none else — every callee live.
+**Next:** pop the next Open — coverage row. Same-file sweep done this iteration (all objnam.c sub-threshold PARTIALs verified complete in JS: obj_is_pname js/objnam.js:2743, yobjnam :2863, Japanese_item_name :3808, thesimpleoname one-line collapse; `an` null-arm impossible stays a named omit per the makeplural sync-helper precedent): the head file holds no more Open rows and the closure is closed, so the next head ships from whatever file the queue names.
 ## 2026-09-29 — D-3127 `insight.c` enlght_line port + enlght_out split (coverage)
 
 **C locus:** - `enlght_line`: insight.c:127–156 (Sprintf :148, contra table :133–147, strstri gate :150, strsubst loop :151–153, emit :155).

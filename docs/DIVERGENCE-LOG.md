@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3128 — `objnam.c` fruitname completion + minimal_xname port + makesingular arms (coverage)
+
+- **Status:** fixed (queue head `light.c` restore_light_sources stale-complete at js/mkobj.js:1316 (JSON-adapted push matches C post-restore traversal) → direct `ledger.mjs set`; next `sp_lev.c` get_table_align stale-split at js/mklev.js:22297 (D-2645 unpacked) → direct set; next `mkobj.c` check_glob stale-complete at js/mkobj.js:2034 → direct set; shipped the fourth row fruitname: live strstri + makesingular in C order, fountain.c:303 caller wired (was a fixed "fruit farm" string); same-file mate minimal_xname fresh port; callee makesingular's two documented omits shipped (pronoun block, ia→ium). 76 js/ insertions across 3 files + committed test (9 its) — below the ~80 floor standing alone (D-3127 precedent: 16 ins); the head file holds no more queue rows (rows-200 grep: only fruitname) and the callee closure is closed (nextobuf C2/GC-no-op; strstri live; makesingular shipped — see Next). No review Source — no stamp.)
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify fruitname,minimal_xname,makesingular`: no corpus session blocked at baseline — all three RNG-free).
+- **C locus:**
+  - `fruitname`: objnam.c:412–427 (nextobuf :416 GC no-op, strstri " of " :417–422, makesingular :424, " juice" suffix).
+  - `minimal_xname`: objnam.c:1037–1086 (oc_uname/oc_name_known suppress :1045–1051, zeroobj+7 fields :1056–1075, distant_name+xname :1080, cleric strip :1084–1086, restore).
+  - `makesingular` arms: objnam.c:3053–3068 (pronoun they/them/their→it/it/its + cap), :3147–3153 (ia→ium, falls to bottom).
+  - `restore_light_sources` (stale): light.c:478–493 whole at js/mkobj.js:1316 (count≡list, alloc/deser≡JSON/stash records, push reproduces C post-restore traversal under the mirrored live list — new_light_core appends in JS vs prepends in C).
+  - `get_table_align` (stale): sp_lev.c:3113–3128 whole at js/mklev.js:22297 (D-2645 get_table_align_unpacked; both C-caller analogues wired :22430/:22617).
+  - `check_glob` (stale): mkobj.c:3419–3443 whole at js/mkobj.js:2034 (guard+globbuf+insane_object; :1522/:3399 wired, :3122/:3225 callers objlist_sanity/mon_obj_sanity unported).
+- **JS was:** fruitname (js/potion.js:420) deferred makesingular ("default fruit has no trailing s") and hand-rolled the case-insensitive search; fountain case-21 printed a fixed "fruit farm"; no minimal_xname symbol (callers inline reviewed subsets); makesingular carried the two named omits.
+- **Fix:** restarted fruitname in C order over live strstri (tail+4 ≡ C pointer bump) + makesingular (potion→objnam/hacklib edges ALREADY); fountain case-21 runoff line now interpolates fruitname(false) (new fountain→potion edge, imports.mjs SAFE — hoisted, runtime-only); fresh exported minimal_xname in C-home js/objnam.js in C order ({} zero base per init_dummyobj idiom, explicit spe:0, AMULET/BOULDER/SLIME_MOLD arms, distant_name+xname, restore); makesingular pronoun + ia→ium arms in C order (pronoun before compound; ia→ium after matzot, no-return fall-through, in-module strcasecpy_at for C's Strcasecpy). Retires the two makesingular arms from the D-2646 omit (row text refreshes on next touch).
+- **JS:** js/potion.js (restarted export + 2 import names); js/fountain.js (+1 import, runoff line); js/objnam.js (+minimal_xname export, +2 makesingular arms, doc); scripts/fruitname-minimal-xname.test.mjs (new, 9 its).
+- **Callers:**
+  - `fruitname`: do.c:521→js/do.js:2726 (pre-wired); potion.c:855→js/potion.js:441/:445 (both message forms, pre-wired); potion.c:968→js/potion.js:499 (pre-wired); potion.c:976→js/potion.js:507 (pre-wired); fountain.c:303→js/fountain.js:825 (NEW wire — was fixed string).
+  - `minimal_xname`: yname :2397 (ported D-2958), simpleonames :2430 + actualoname :2495 (verified subset inlines, D-2640) — not rewired, zero churn (named, not missed).
+  - `makesingular` arms: in-body (no new call sites; all existing callers get C behavior for pronouns/balactheria).
+- **Verify:** `node --test scripts/fruitname-minimal-xname.test.mjs` → 9/9 (default/juice, C's slice-of-pizza example, case-insensitive+singular, singular-name, uname suppress+restore, name_known restore, 3 makesingular arms). `node scripts/verify.mjs --fn fruitname,minimal_xname,makesingular --full` → VERIFY: PASS — syntax (3 changed); rule2; hidden notes ×3 (no corpus session blocked); REACH-OK ×3 (smoke 24/24 each, no RNG-tagged reach — all RNG-free); green 2/2; strict ×2; cohort 7/7; full 44/44.
+- **Named omissions:**
+  - `fruitname`: nextobuf (GC no-op); none else — every callee live.
+  - `minimal_xname`: none — whole body, sole callee live (distant_name); caller subsets stay (above).
+  - `makesingular`: full Strcasecpy case polish on the older arms (pre-existing doc omit, kept); null/empty impossible log (makeplural `:2841` precedent — sync helper, named).
+- **Ledger:** fruitname ported; minimal_xname ported; makesingular ported
+- **Next:** pop the next Open — coverage row. Same-file sweep done this iteration (all objnam.c sub-threshold PARTIALs verified complete in JS: obj_is_pname js/objnam.js:2743, yobjnam :2863, Japanese_item_name :3808, thesimpleoname one-line collapse; `an` null-arm impossible stays a named omit per the makeplural sync-helper precedent): the head file holds no more Open rows and the closure is closed, so the next head ships from whatever file the queue names.
+
 ## D-3127 — `insight.c` enlght_line port + enlght_out split (coverage)
 
 - **Status:** fixed (queue head `mon.c` qst_guardians_respond stale-complete at js/mon.js:1396, wired from setmangry js/mon.js:1472–1474 → direct `ledger.mjs set`; shipped the next row enlght_line: C-order body over live strstri/strsubst, exported, invent.js clone consolidated onto it; enlght_out split across the per-builder sinks. Drive-by stale declares: attrval js/invent.js:4976, trap_predicament js/invent.js:5713. 16 js/ insertions / 27 deletions across 2 files — below the density floor (D-3126 precedent: 79 ins); the head file holds no more queue rows and the callee closure is closed (see Next). No review Source — no stamp.)
