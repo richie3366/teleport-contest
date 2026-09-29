@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3108 — report.c crashreport_init degenerate port + 2 stale pops (coverage)
+
+- **Status:** shipped (Open — coverage; single-function cluster + 2 stale pops — head MISSING C 44 L `report.c:113–174`; no same-file queue rows; only callee raw_printf is a compiled-out BETA arm; new js/report.js ~50 lines — density exception: head's file and callee closure hold nothing more Open.)
+- **Symptom:** coverage MISSING (JS no symbol): startup build-id init had no JS home. Stale pops: `visible_region_summary` PARTIAL (22C/14JS) and `vraw_printf` THIN (12C/5JS) are both review-ACCEPTed complete (reviews 488/1532, no C-wrongs, callers wired).
+- **C locus:**
+  - `crashreport_init`: nethack-c/upstream/src/report.c:112–174 (once `:115–117`, HASH decl/init `:118–122`, BINFILE readlink `:123`, open `:125–131` with BETA raw_printf `:127–129`, 4K read loop `:133–143`, finish `:144–147`, hex `:148–164`, skip bid `:168–169` + nhUse `:172–173`; bid static `:107–109`); sole caller allmain.c:38 early_init (`#ifdef CRASHREPORT`, active on Linux via config.h:244-254).
+- **JS was:** no symbol; no js/report.js; bid absent; caller early_init unported.
+- **Fix:** new js/report.js — degenerate remainder in C order: live once-guard, `skip:`-arm bid "unknown" (the only reachable outcome: readlink/open/read have no scored analogue — Rule #2; nhmd4 is live in js/nhmd4.js per D-2688 but has no input bytes here), BETA arm cited compiled-out, nhUse as void cites. Exported unwired — C calls only from early_init.
+- **JS:** js/report.js:28 crashreport_init (`:30–31` once, `:32–40` omitted-hash cites, `:41–42` skip, `:43–46` tail); module-local bid `:13`, _crashreport_once `:16`. No imports (nhmd4.js-style import-free module).
+- **Callers:**
+  - `crashreport_init`: allmain.c:38→named (early_init unported — no JS startup site; not wired elsewhere, C calls only from early_init).
+- **Verify:** `node scripts/verify.mjs --fn crashreport_init` → VERIFY: PASS (syntax 1 file js/report.js · Rule #2 · hidden note `no corpus session blocked` · reach: no RNG-tagged reach, smoke spread 24 run / 24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped, no shared file).
+- **Named omissions:**
+  - `crashreport_init`: report.c:118–166 binary self-hash (HASH_BINFILE readlink `:123`, open `:125`, read loop `:133–143`, nhmd4 init/update/finish `:120–122`/`:137–138`/`:144–145`, hex `:148–164` — Rule #2, no /proc or fd I/O) + caller early_init unported; BETA raw_printf `:127–129` compiled out (no BETA in contest build).
+- **Ledger:** visible_region_summary ported; vraw_printf ported; crashreport_init partial
+- **Next:** `rumors.c` init_oracles (next in queue order; review 1562 ACCEPTs the embed port — stale-check, then ship the head).
+
 ## D-3107 — wizcmds.c makemap_remove_mons + makemap_unmakemon whole (coverage)
 
 - **Status:** shipped (Open — coverage; 2-function closure — head MISSING + absent/MISSING C-staticfn callee; no other same-file queue rows; ~105 js/ insertions + focused test.)

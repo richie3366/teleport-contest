@@ -1,4 +1,4 @@
-{"fn":"crashreport_init","c":"113-174","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"crashreport_init","c":"113-174","status":"partial","js":["js/report.js:crashreport_init"],"omit":"- `crashreport_init`: report.c:118–166 binary self-hash (HASH_BINFILE readlink `:123`, open `:125`, read loop `:133–143`, nhmd4 init/update/finish `:120–122`/`:137–138`/`:144–145`, hex `:148–164` — Rule #2, no /proc or fd I/O) + caller early_init unported; BETA raw_printf `:127–129` compiled out (n…","d":["D-3108"],"at":"2026-09-29@ebd112f3b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"crashreport_bidshow","c":"189-200","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"swr_add_uricoded","c":"237-281","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"submit_web_report","c":"290-458","status":"by-design","at":"seed@a30a7de84","note":"seed: network crash report (Rule #2)"}

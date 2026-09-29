@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `region.c` visible_region_summary — coverage PARTIAL (C 22 code L `region.c:674–711` / JS 14 code L in js/region.js; hops —, callers 1, RNG 0, msg 3) @9798beecd
-- [ ] `pline.c` vraw_printf — coverage THIN (C 12 code L `pline.c:563–581` / JS 5 code L in js/display.js; hops 4, callers 1, RNG 0, msg 0) @9798beecd
 - [ ] `report.c` crashreport_init — coverage MISSING (C 44 code L `report.c:113–174` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @9798beecd
 - [ ] `rumors.c` init_oracles — coverage THIN (C 12 code L `rumors.c:577–595` / JS 4 code L in js/rumors.js; hops 5, callers 2, RNG 0, msg 0) @9798beecd
 - [ ] `mondata.c` olfaction — coverage PARTIAL (C 9 code L `mondata.c:1507–1518` / JS 6 code L in js/monsters.js; hops 4, callers 4, RNG 0, msg 0) @e028921a0
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `selvar.c` selection_size_description — coverage MISSING (C 11 code L `selvar.c:764–778` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @e32d557c0
 - [ ] `sounds.c` activate_chosen_soundlib — coverage MISSING (C 11 code L `sounds.c:1779–1795` / JS no symbol; hops —, callers 2, RNG 0, msg 0) @30647ba3c
 - [ ] `mondata.c` max_passive_dmg — coverage PARTIAL (C 39 code L `mondata.c:720–767` / JS 28 code L in js/mhitm.js; hops 3, callers 1, RNG 0, msg 0) @cb3b01855
+- [ ] `mklev.c` add_door — coverage PARTIAL (C 25 code L `mklev.c:574–612` / JS 14 code L in js/mklev.js; hops 4, callers 2, RNG 0, msg 0) @ebd112f3b
+- [ ] `mkroom.c` nexttodoor — coverage PARTIAL (C 10 code L `mkroom.c:623–637` / JS 7 code L in js/fountain.js; hops 3, callers 2, RNG 0, msg 0) @ebd112f3b
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

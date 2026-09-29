@@ -19,7 +19,7 @@
 {"fn":"remove_mon_from_regions","c":"638-645","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reg_damg","c":"651-656","status":"unknown"}
 {"fn":"any_visible_region","c":"660-670","status":"unknown"}
-{"fn":"visible_region_summary","c":"674-711","status":"unknown"}
+{"fn":"visible_region_summary","c":"674-711","status":"ported","js":["js/region.js:visible_region_summary"],"d":["D-3108"],"at":"2026-09-29@ebd112f3b","note":"stale: js/region.js:149 complete per review 488, caller wiz_timeout_queue wired"}
 {"fn":"visible_region_at","c":"718-729","status":"unknown"}
 {"fn":"show_region","c":"732-735","status":"unknown"}
 {"fn":"save_regions","c":"741-795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

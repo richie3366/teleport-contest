@@ -25,7 +25,7 @@
 {"fn":"gamelog_add","c":"495-511","status":"ported","js":["js/pline.js:gamelog_add"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/pline.js:12"}
 {"fn":"livelog_printf","c":"514-526","status":"ported","js":["js/pline.js:livelog_printf"],"d":["D-2968"],"at":"2026-09-27@06237de26","note":"alt 538-542"}
 {"fn":"raw_printf","c":"549-558","status":"partial","js":["js/display.js:raw_printf"],"omit":"the caller remainder above + `raw_print` sink + `vpline_expand` width/precision strip (hits only unported `%*s` debug tables) + `ge.early_raw_messages` consumers (unported pauses).","d":["D-2573"],"at":"seed@a30a7de84"}
-{"fn":"vraw_printf","c":"563-581","status":"unknown"}
+{"fn":"vraw_printf","c":"563-581","status":"ported","js":["js/display.js:vraw_printf"],"d":["D-3108"],"at":"2026-09-29@ebd112f3b","note":"stale: js/display.js:8171 file-local complete per review 1532 ACCEPT, caller raw_printf wired"}
 {"fn":"impossible","c":"584-634","status":"partial","js":["js/display.js:impossible"],"omit":"paniclog file (Rule #2); recursive-in_impossible panic; debug_fuzzer panic; sysopt.support line; CRASHREPORT web report (network)","at":"2026-09-27@d2d72caa6","note":"refresh: reclassed by-design→partial — on-screen behavior is scored (703 call sites); omits per js/display.js:8327"}
 {"fn":"execplinehandler","c":"641-686","status":"ported","js":["js/display.js:execplinehandler"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — early-return + latch FALSE exact for scored config (no msghandler; fork/spawn unreachable under Rule #2)"}
 {"fn":"nhassert_failed","c":"690-717","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime/debug path (former SKIP_FN)"}
