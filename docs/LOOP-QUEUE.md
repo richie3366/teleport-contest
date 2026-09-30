@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `ball.c` Lift_covet_and_placebc — coverage MISSING (C 12 code L `ball.c:327–346` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @1b5d1374c
-- [ ] `ball.c` Unplacebc — coverage MISSING (C 11 code L `ball.c:287–303` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
 - [ ] `glyphs.c` find_display_sym_customization — coverage MISSING (C 11 code L `glyphs.c:1196–1215` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
 - [ ] `options.c` optfn_o_bind_keys — coverage MISSING (C 11 code L `options.c:8324–8343` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `options.c` optfn_o_menu_colors — coverage MISSING (C 11 code L `options.c:8368–8386` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `cfgfiles.c` cnf_line_WIZARDS — coverage MISSING (C 8 code L `cfgfiles.c:795–809` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `options.c` optfn_monsters — coverage MISSING (C 8 code L `options.c:2378–2393` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `options.c` pfxfn_IBM_ — coverage MISSING (C 8 code L `options.c:5169–5183` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4bcfa8a7a
+- [ ] `cfgfiles.c` cnf_line_PORTABLE_DEVICE_PATHS — coverage THIN (C 9 code L `cfgfiles.c:1134–1150` / JS 1 code L in js/cfgfiles.js; hops —, callers 0, RNG 0, msg 0) @232081f95
+- [ ] `mail.c` ck_server_admin_msg — coverage THIN (C 8 code L `mail.c:685–700` / JS 0 code L in js/mail.js; hops —, callers 0, RNG 0, msg 0) @232081f95
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

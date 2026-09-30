@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3179 — ball-and-chain breadcrumb unplace and covet placement wrappers
+
+- **Status:** fixed for Lift_covet_and_placebc; Unplacebc has a named filesystem diagnostic omission. No Must-fix item was open.
+- **Symptom:** generated coverage head Lift_covet_and_placebc and same-file Unplacebc had no JS symbols. No corpus session was blocked on either. Both are optional BREADCRUMBS variants, disabled by pinned config.h:644; the ordinary build already uses lowercase wrappers.
+- **C locus:** whole bodies and every brief reference read:
+  - `Lift_covet_and_placebc`: ball.c:327–346, restriction guard, released-build conditional, chain-placement collision and placebc_core. The existing check_restriction body at :180–189 was read whole and found complete.
+  - `Unplacebc`: ball.c:287–303, restricted diagnostic (does not return), ordered breadcrumb mutations and unplacebc_core. Static breadcrumb zero initialization is ball.c:18–20.
+- **JS was:** both uppercase symbols absent; both cores and the ordinary wrappers live in ball.js. The equivalent check_restriction callee was complete at js/ball.js:509 before edits, marked stale/ported through ledger.mjs rather than rewritten.
+- **Fix:** added the two C-shaped async exports beside the existing wrappers, using the existing live cores and restriction check without a new import. Unplacebc clears placement breadcrumbs, sets unplacement breadcrumbs and records caller/line before entering the core, including with a restriction. Lift preserves the exact chain OBJ_FREE guard and restriction/core order; it does not mutate breadcrumbs. The C build leaves the uppercase macro dispatch disabled.
+- **JS:** js/ball.js:562 Unplacebc; :584 Lift_covet_and_placebc. 41 insertions/2 deletions in one scored file. Density exception: these two small wrappers exhaust eligible MISSING/THIN gaps in ball.c; Placebc and Unplacebc_and_covet_placebc are already declared by-design, check_restriction is stale/complete, and the other same-file bodies are live. No unrelated cluster padding.
+- **Callers:**
+  - `Lift_covet_and_placebc`: only brief reference is extern.h:240, the BREADCRUMBS macro definition forwarding pin/function/line. config.h:644 leaves that macro disabled; no active C caller to wire. Explicit JS export :584 preserves that signature; check_restriction :585, impossible :588, placebc_core :591. The ordinary lower-case wrapper stays active for the ordinary C build.
+  - `Unplacebc`: only brief reference is extern.h:236, the disabled BREADCRUMBS unplacebc macro forwarding function/line. No active C caller to wire. Explicit JS export :562 preserves that signature; unplacebc_core :575. The ordinary lower-case wrapper remains at :496, with C's separate refusal behavior.
+- **Verify:** clean preflight green + strict PASS with installed Node 22.22.0 after correcting shell PATH. Final command `node scripts/verify.mjs --fn Lift_covet_and_placebc,Unplacebc --full`. Tail (/tmp/D3179-verify.log): `PASS syntax 1 changed js file(s): js/ball.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS green 2/2 passing`; `PASS strict seed8000-tourist-starter.session.json`; `PASS strict seed0900-tourist-explore-actions.session.json`; `PASS cohort 7/7 passing`; `PASS full 44/44 passing`; `VERIFY: PASS`. git diff --check clean; no started verifier/replay worker remains running.
+  - `Lift_covet_and_placebc`: no blocked sessions (note, not a corpus PASS); no RNG-tagged reach, fixed smoke spread 24/24 PASS, zero regressions, REACH-OK. Measured /tmp/D3179-oracle.c compiles the unchanged pinned wrapper/check bodies with released-build constants and core/diagnostic recording hooks. /tmp/D3179-parity.mjs executes the actual JS wrapper/check source with corresponding hooks: all 36 restriction/pin/chain-presence-or-where combinations match core counts, collision calls, restriction state and breadcrumb flags. This isolates wrappers, not the placement core or terminal diagnostics.
+  - `Unplacebc`: no blocked sessions (note); fixed smoke spread 24/24 PASS, zero regressions, REACH-OK. The same C-vs-JS harness measures three restriction cases: unplacement always follows the exact breadcrumb writes, caller/line fields match and restriction is retained. Additional JS checks cover zero initialization and signed-int line conversion. Filesystem logging is intentionally not compared.
+- **Named omissions:**
+  - `Lift_covet_and_placebc`: none in the released-build body. ball.c:330–338 development paniclog is compiled out by NH_DEVEL_STATUS == NH_STATUS_RELEASED. BREADCRUMBS macro expansion wiring is disabled in the pinned build (config.h:644), so no production caller was invented. Existing core behavior is inherited unchanged.
+  - `Unplacebc`: ball.c:290–297 restricted panicbuf formatting and :296 paniclog filesystem output have no live allowed export and are omitted; they do not return or change gameplay state. Macro expansion wiring is disabled by the same pinned build. Existing core behavior is inherited unchanged.
+- **Ledger:** Lift_covet_and_placebc ported; Unplacebc partial
+- **Next:** first regenerated Open coverage head; Phase-2 parks remain closed.
+
 ## D-3178 — string-buffer CRLF expansion and bounded Strlen
 
 - **Status:** fixed for strbuf_nl_to_crlf; Strlen_ body complete with named panic/macro integration omissions. No Must-fix row was open.
