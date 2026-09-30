@@ -1460,8 +1460,9 @@ export function get_changed_key_binds(sbuf) {
         );
         if (!ext || ext.key === key) continue;
         // C `:2253–2260`: CMD_PARAM arm prints BIND=key:cmd(param), plain arm
-        // BIND=key:cmd; the JS RC parser strips (param) at parsebindings (named
-        // omission in options.js), so both arms print BIND=key:cmd here.
+        // BIND=key:cmd; the param lives in game.Cmd._bindParam (stored at
+        // parsebindings), unread by this emitter, so both arms print
+        // BIND=key:cmd here.
         // key2txt(bind->key, buf2) takes the single key.
         emit(`BIND=${key2txt(key)}:${ext.txt}`);
     }
@@ -1731,8 +1732,8 @@ export function bind_key(key, command, user) {
  * (`:2644–2645`, no INTERNALCMD skip — clicklook carries it), and the
  * live config_error_add sink. C `:2650–2656` #if 0 CMD_NOT_AVAILABLE
  * note is dead in C, omitted like bind_key's. Callers: commands_init
- * `:2758–2759` (wired); options.c:7637 parsebindings MOUSEBTN= arm (JS
- * parsebindings has no mousebtn arm — named omission).
+ * `:2758–2759` (wired); options.c:7637 parsebindings mouse arm (wired —
+ * failure falls through to txt2key per `:7638`).
  * @param {number} btn 1-based button
  * @param {string} command extcmd ef_txt, or "nothing"
  * @returns {boolean} TRUE unless no command matched
@@ -1799,38 +1800,69 @@ const REST_ON_SPACE = Object.freeze({
     text: 'waiting',
 });
 
-/** C cmd.c:3161–3191 spkeys_binds — index is the nhkf enum, not row order. */
+/**
+ * C cmd.c:3161–3191 spkeys_binds — index is the nhkf enum, not row order.
+ * Rows are [nhkf, defaultKey, name] in C row order; the third column is C's
+ * bind-name field (`:3161–3191`), matched case-sensitively by
+ * bind_specialkey below. NHKF_ESC carries null: C's `(char *) 0`
+ * "no binding" row never matches (`:3199`).
+ */
 const SPKEYS_BINDS = [
-    [NHKF_ESC, 0x1b],
-    [NHKF_GETDIR_SELF, 46],
-    [NHKF_GETDIR_SELF2, 115],
-    [NHKF_GETDIR_HELP, 63],
-    [NHKF_GETDIR_MOUSE, 95],
-    [NHKF_COUNT, 110],
-    [NHKF_GETPOS_SELF, 64],
-    [NHKF_GETPOS_PICK, 46],
-    [NHKF_GETPOS_PICK_Q, 44],
-    [NHKF_GETPOS_PICK_O, 59],
-    [NHKF_GETPOS_PICK_V, 58],
-    [NHKF_GETPOS_SHOWVALID, 36],
-    [NHKF_GETPOS_AUTODESC, 35],
-    [NHKF_GETPOS_MON_NEXT, 109],
-    [NHKF_GETPOS_MON_PREV, 77],
-    [NHKF_GETPOS_OBJ_NEXT, 111],
-    [NHKF_GETPOS_OBJ_PREV, 79],
-    [NHKF_GETPOS_DOOR_NEXT, 100],
-    [NHKF_GETPOS_DOOR_PREV, 68],
-    [NHKF_GETPOS_UNEX_NEXT, 120],
-    [NHKF_GETPOS_UNEX_PREV, 88],
-    [NHKF_GETPOS_VALID_NEXT, 122],
-    [NHKF_GETPOS_VALID_PREV, 90],
-    [NHKF_GETPOS_INTERESTING_NEXT, 97],
-    [NHKF_GETPOS_INTERESTING_PREV, 65],
-    [NHKF_GETPOS_HELP, 63],
-    [NHKF_GETPOS_LIMITVIEW, 34],
-    [NHKF_GETPOS_MOVESKIP, 42],
-    [NHKF_GETPOS_MENU, 33],
+    [NHKF_ESC, 0x1b, null],
+    [NHKF_GETDIR_SELF, 46, 'getdir.self'],
+    [NHKF_GETDIR_SELF2, 115, 'getdir.self2'],
+    [NHKF_GETDIR_HELP, 63, 'getdir.help'],
+    [NHKF_GETDIR_MOUSE, 95, 'getdir.mouse'],
+    [NHKF_COUNT, 110, 'count'],
+    [NHKF_GETPOS_SELF, 64, 'getpos.self'],
+    [NHKF_GETPOS_PICK, 46, 'getpos.pick'],
+    [NHKF_GETPOS_PICK_Q, 44, 'getpos.pick.quick'],
+    [NHKF_GETPOS_PICK_O, 59, 'getpos.pick.once'],
+    [NHKF_GETPOS_PICK_V, 58, 'getpos.pick.verbose'],
+    [NHKF_GETPOS_SHOWVALID, 36, 'getpos.valid'],
+    [NHKF_GETPOS_AUTODESC, 35, 'getpos.autodescribe'],
+    [NHKF_GETPOS_MON_NEXT, 109, 'getpos.mon.next'],
+    [NHKF_GETPOS_MON_PREV, 77, 'getpos.mon.prev'],
+    [NHKF_GETPOS_OBJ_NEXT, 111, 'getpos.obj.next'],
+    [NHKF_GETPOS_OBJ_PREV, 79, 'getpos.obj.prev'],
+    [NHKF_GETPOS_DOOR_NEXT, 100, 'getpos.door.next'],
+    [NHKF_GETPOS_DOOR_PREV, 68, 'getpos.door.prev'],
+    [NHKF_GETPOS_UNEX_NEXT, 120, 'getpos.unexplored.next'],
+    [NHKF_GETPOS_UNEX_PREV, 88, 'getpos.unexplored.prev'],
+    [NHKF_GETPOS_VALID_NEXT, 122, 'getpos.valid.next'],
+    [NHKF_GETPOS_VALID_PREV, 90, 'getpos.valid.prev'],
+    [NHKF_GETPOS_INTERESTING_NEXT, 97, 'getpos.all.next'],
+    [NHKF_GETPOS_INTERESTING_PREV, 65, 'getpos.all.prev'],
+    [NHKF_GETPOS_HELP, 63, 'getpos.help'],
+    [NHKF_GETPOS_LIMITVIEW, 34, 'getpos.filter'],
+    [NHKF_GETPOS_MOVESKIP, 42, 'getpos.moveskip'],
+    [NHKF_GETPOS_MENU, 33, 'getpos.menu'],
 ];
+
+/**
+ * C ref: cmd.c bind_specialkey `:3194–3205` — bind key to a special-key
+ * command by name (extern). Walks spkeys_binds in C row order; a null-name
+ * row never matches (`:3199` !name → continue) and the compare is
+ * case-sensitive strcmp. Writes the live game.Cmd.spkeys[nhkf] slot
+ * (reset_commands `:3365–3366` seeds it from these defaults; cmd_spkey
+ * reads it with the same fallback). Sole C caller: options.c:7651
+ * (parsebindings special-key arm).
+ * @param {number} key
+ * @param {string} command
+ * @returns {boolean} TRUE when the command named a special key
+ */
+export function bind_specialkey(key, command) {
+    const cmd = String(command ?? ''); // C `const char *command`
+    for (let i = 0; i < SPKEYS_BINDS.length; i++) { // C `:3198` SIZE
+        const name = SPKEYS_BINDS[i][2]; // C `:3199` spkeys_binds[i].name
+        if (!name || cmd !== name) continue; // C `:3199–3200` !name/strcmp
+        if (!game.Cmd) game.Cmd = {};
+        if (!game.Cmd.spkeys) game.Cmd.spkeys = []; // C array always exists
+        game.Cmd.spkeys[SPKEYS_BINDS[i][0]] = key & 0xff; // C `:3201` uchar
+        return true; // C `:3202` TRUE
+    }
+    return false; // C `:3204` FALSE
+}
 
 /**
  * C extcmdlist ef_funct identity. The generated table stores ef_txt,

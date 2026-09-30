@@ -115,11 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` sym_val — coverage PARTIAL (C 23 code L `options.c:9385–9426` / JS 17 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
-- [ ] `role.c` setup_racemenu — coverage PARTIAL (C 23 code L `role.c:2905–2940` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
-- [ ] `role.c` setup_gendmenu — coverage PARTIAL (C 23 code L `role.c:2943–2976` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
-- [ ] `role.c` setup_algnmenu — coverage PARTIAL (C 23 code L `role.c:2979–3012` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
-- [ ] `options.c` parsebindings — coverage PARTIAL (C 43 code L `options.c:7596–7674` / JS 30 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @1300fdc94
 - [ ] `cfgfiles.c` l_get_config_errors — coverage MISSING (C 17 code L `cfgfiles.c:1516–1539` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: nhl_add_table_entry_int, nhl_add_table_entry_str) @5f75ba02c
 - [ ] `worn.c` nxt_unbypassed_loot — coverage PARTIAL (C 10 code L `worn.c:1159–1174` / JS 7 code L in js/pickup.js; hops 6, callers 1, RNG 0, msg 0) @8e8a996ab
 - [ ] `hacklib.c` case_insensitive_comp — coverage PARTIAL (C 11 code L `hacklib.c:922–937` / JS 8 code L in js/date.js; hops —, callers 2, RNG 0, msg 0) @8e8a996ab
@@ -127,6 +122,11 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `selvar.c` selection_iterate — coverage PARTIAL (C 9 code L `selvar.c:726–743` / JS 6 code L in js/mklev.js; hops —, callers 4, RNG 0, msg 0) @442754b32
 - [ ] `o_init.c` sortloot_descr — coverage PARTIAL (C 18 code L `o_init.c:567–591` / JS 13 code L in js/invent.js; hops —, callers 2, RNG 0, msg 0) @442754b32
 - [ ] `sp_lev.c` mapfrag_error — coverage PARTIAL (C 10 code L `sp_lev.c:281–295` / JS 5 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @442754b32
+- [ ] `options.c` handler_whatis_filter — coverage PARTIAL (C 33 code L `options.c:6279–6318` / JS 20 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @5fd602958
+- [ ] `options.c` optfn_map_mode — coverage MISSING (C 66 code L `options.c:1963–2047` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @5fd602958
+- [ ] `sp_lev.c` lspo_mazewalk — coverage MISSING (C 66 code L `sp_lev.c:5769–5869` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @5fd602958
+- [ ] `options.c` optfn_menu_headings — coverage MISSING (C 24 code L `options.c:2183–2222` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: color_attr_to_str) @5fd602958
+- [ ] `sp_lev.c` set_wallprop_in_selection — coverage PARTIAL (C 14 code L `sp_lev.c:5911–5932` / JS 9 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @5fd602958
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

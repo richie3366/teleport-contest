@@ -42,6 +42,6 @@
 {"fn":"maybe_skip_seps","c":"2777-2802","status":"unknown"}
 {"fn":"plsel_startmenu","c":"2806-2845","status":"partial","js":["js/player_selection.js:plsel_startmenu"],"omit":"`create_nhwindow(NHW_MENU)`, the `WIN_ERR` panic, and `start_menu(MENU_BEHAVE_STANDARD)` have no winid in the corner menu; the returned lines are that window.","d":["D-2890"],"at":"seed@a30a7de84"}
 {"fn":"setup_rolemenu","c":"2854-2902","status":"unknown","d":["D-1912"],"at":"seed@a30a7de84"}
-{"fn":"setup_racemenu","c":"2905-2940","status":"unknown"}
-{"fn":"setup_gendmenu","c":"2943-2976","status":"unknown"}
-{"fn":"setup_algnmenu","c":"2979-3012","status":"unknown"}
+{"fn":"setup_racemenu","c":"2905-2940","status":"ported","js":["js/player_selection.js:setup_racemenu"],"at":"2026-09-30@5fd602958","note":"stale: js/player_selection.js:503 (D-1912 rolemenu-precedent entry-builder; TRUE :1459 FALSE :184)"}
+{"fn":"setup_gendmenu","c":"2943-2976","status":"ported","js":["js/player_selection.js:setup_gendmenu"],"at":"2026-09-30@5fd602958","note":"stale: js/player_selection.js:529 (same precedent; TRUE :1536 FALSE :195)"}
+{"fn":"setup_algnmenu","c":"2979-3012","status":"ported","js":["js/player_selection.js:setup_algnmenu"],"at":"2026-09-30@5fd602958","note":"stale: js/player_selection.js:555 (same precedent; TRUE :1614 FALSE :206)"}

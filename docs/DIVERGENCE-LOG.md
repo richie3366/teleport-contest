@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3151 — `options.c` parsebindings restart + bind_specialkey + versinfo gacc (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `parsebindings` + Open callee `bind_specialkey` + same-file `handler_versinfo` gacc fix; 0 corpus sessions blocked on any — coverage completion, not a divergence. +124/-47 js/options.js, +66/-34 js/cmd.js, +2/-2 js/dokeylist.js, +212 test. Stale-cleared `sym_val` (js/options.js:10775, review-1510 branch-exact) and `setup_racemenu/gendmenu/algnmenu` (js/player_selection.js:503/529/555, D-1912 entry-builder precedent, both C callers wired) in the same iteration — all four ledger-ported, rows already left the block.)
+- **Symptom:** coverage gap — `parsebindings` PARTIAL (C 43/JS 30): naive comma split, left-to-right order, silent miss arms, no mouse/special-key/menu arms, `(param)` cut wrong; `bind_specialkey` MISSING (no symbol); `handler_versinfo` branch digit `'3'` vs C `'4'`.
+- **C locus:**
+  - `parsebindings`: options.c:7596–7674 (static mousebtn_names `:7602–7604`, quote-aware comma scan `:7606–7619`, tail-first recursion `:7620–7626`, first-colon split `:7628–7631`, trimspaces `:7633`, mouse arm `:7635–7642`, txt2key `:7644–7649`, special-key `:7651–7653`, menu arm `:7655–7666`, extcmd `:7668–7672`).
+  - `bind_specialkey`: cmd.c:3194–3205 over spkeys_binds `:3161–3191` (null-name skip + case-sensitive strcmp `:3199–3200`, live write `:3201`, TRUE `:3202`, FALSE `:3204`).
+  - `handler_versinfo`: options.c:6593–6594 (branch row gacc `n + '0'`, `n = VI_BRANCH = 4`).
+- **JS was:** `parsebindings` (js/options.js:930) split on every comma, trimmed both sides, skipped empties, returned an invented `ok` (FALSE on unknown commands where C returns ret), and named mouse/menu/param/comma-quote omissions; no `bind_specialkey` in `js/` (SPKEYS_BINDS rows lacked C's name column); versinfo branch row carried `gselector: '3'`.
+- **Fix:** restarted `parsebindings` in C order — separator scan with `\\,`/`','` skip, tail-first recursion with ret aggregation, first-colon split (missing colon returns FALSE outright), untrimmed key strcmp for the mouse arm with C's fall-through on bind failure, live `txt2key`/`bind_mousebtn`/`bind_specialkey`/menu-alias calls, extcmd miss → error + ret; new module-local `overlay_bind_key` runs the bind_key `:2661–2728` match flow (`nothing`, C-exact paren cut, INTERNALCMD skip, CMD_PARAM error arms into the live sink, params stored live, param clears on rebind/unbind) over the pre-existing outMap overlay. Added the C name column to SPKEYS_BINDS + exported `bind_specialkey` in C order after it. Fixed the versinfo gacc to `'4'`; refreshed three comments that claimed the old omissions (cmd.js bind_mousebtn callers, cmd.js get_changed_key_binds emitter, dokeylist.js header). New scripts/parsebindings.test.mjs (22 tests; 10 pins failed pre-fix, incl. the M-'o' mouse fall-through and both gacc arms).
+- **JS:** js/options.js:943 (`parsebindings`), js/options.js:1012 (`overlay_bind_key`, module-local — the adapted bind_key call), js/cmd.js:1854 (`bind_specialkey`, exported — cmd.c extern), js/cmd.js:1803 (SPKEYS_BINDS name column), js/options.js:3271 (versinfo `gselector: '4'`).
+- **Callers:**
+  - `parsebindings`: C cfgfiles.c:621 cnf_line_BINDINGS → JS cfgfiles.js:612 cnf_line_BINDINGS + JS parseNethackrc BIND= (js/options.js:3707); self-recursion options.c:7624 → in-function.
+  - `bind_specialkey`: sole C caller options.c:7652 (parsebindings arm) → JS js/options.js:981; no other C callers.
+  - `handler_versinfo`: sole C caller options.c:4513 optfn_versinfo do_handler arm → pre-existing async-split wiring (unchanged by this fix).
+- **Verify:** `node scripts/verify.mjs --fn parsebindings,bind_specialkey,handler_versinfo` → VERIFY: PASS (syntax 3 files; Rule #2; hidden: no corpus session blocked on any at baseline; REACH-OK × 3 via fixed smoke spreads 24/24; green 2/2; strict × 2; cohort 7/7; full 44/44 incl. seed2600-wizard-custom-binds). `node --test scripts/parsebindings.test.mjs` 22/22; neighbor suites (get-changed-key-binds, bind-mousebtn, txt2key, rebind-keys) 44/44.
+- **Named omissions:**
+  - `parsebindings`: none missing — every arm ported; the outMap overlay (pre-existing D-0897/D-2550 architecture, read over defaults at key resolution) stands in for live cmdbind_add in the extcmd arm only; config_error_add text stays the pre-existing void sink (botl.js).
+  - `bind_specialkey`: none — whole body, sole data source the restored table column.
+  - `handler_versinfo`: none — whole body already ported; this iteration fixed the last diverging literal.
+- **Ledger:** parsebindings ported; bind_specialkey ported; handler_versinfo ported
+- **Next:** pop the next Open — coverage row (same-file `handler_whatis_filter`/`optfn_map_mode` remain for a later cluster).
+
 ## D-3150 — `sounds.c` sound-effect filename automap (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `get_sound_effect_filename` + Open callee `initialize_semap_basenames` + `se_mappings_init` via the checked-in extractor; 0 corpus sessions blocked on either — coverage completion, not a divergence. +201 generated table, +128 js/sounds.js, +12 extractor, +88 test. Stale-popped `may_generate_eroded` (js/mkobj.js:899, caller wired :908) and `status_hilite_menu_fld` (js/botl.js:3459, only gap the by-design `status_hilite_menu_add`) in the same iteration — both ledger-ported, rows already left the block.)
