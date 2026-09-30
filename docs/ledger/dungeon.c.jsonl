@@ -108,5 +108,5 @@
 {"fn":"br_string2","c":"3388-3406","status":"unknown"}
 {"fn":"endgamelevelname","c":"3410-3437","status":"ported","js":["js/display.js:endgamelevelname"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"shop_string","c":"3441-3455","status":"unknown"}
-{"fn":"tunesuffix","c":"3460-3476","status":"unknown"}
+{"fn":"tunesuffix","c":"3460-3476","status":"ported","js":["js/dungeon.js:tunesuffix"],"at":"2026-09-30@1b5d1374c","note":"stale: js/dungeon.js:2873; print_mapseen named-place helper:2911"}
 {"fn":"print_mapseen","c":"3516-3728","status":"ported","js":["js/dungeon.js:print_mapseen"],"d":["D-1693","D-1658"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3170 monmove.c mon_regen whole regeneration and meal completion
+
+**C locus:** - `mon_regen`: pinned monmove.c:307–320, whole body read in brief; sole caller mon.c:1193 passes FALSE.
+**JS:** js/mon.js:1006; live healmon at :2327, imported finish_meating at :93 (js/dogmove.js:1675).
+**Change:** restarted the body in C order: moves modulo 20 short-circuits regenerates; live healmon(mon, 1, 0); nonzero mspec_used decrement; nested digest_meal/meating guards, decrement and finish_meating at <=0. No new module edge: dogmove.js was already imported and finish_meating already bound. Exported the existing name and preserved its two-argument signature.
+**Verify:** - `mon_regen`: preflight green + strict PASS before edits. `node scripts/verify.mjs --fn mon_regen`: no blocked corpus sessions (note); 24/24 smoke REACH-OK, syntax/Rule #2/green/strict/cohort PASS. Forced `node scripts/verify.mjs --fn mon_regen --full` because mon.js is shared although the script skipped full by default; tail:
+**Named:** - `mon_regen`: none in this whole body. Both callees are live. healmon's pre-existing youmonst/healup omission (mon.c:4598–4602) remains outside this cluster: the sole C caller supplies fmon monsters, never youmonst.
+**Next:** generated coverage head set_playmode; CURRENT's prior sysconf authorization prerequisite remains relevant. Do not pad this singleton with unrelated coverage rows.
 ## 2026-09-30 — D-3169 options.c optfn 6-pack (coverage) + stale Placebc/optfn_video; set_playmode restart reverted on sysconf gap
 
 **C locus:** - `optfn_scroll_amount`: options.c:3763–3791 (do_set `:3770–3782`: bare negation stores 1, value stores atoi; negated+value bad_negation `:3777–3779`; get_val defopt `:3787`).
