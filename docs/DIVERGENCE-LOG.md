@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3174 — absolute coordinates preserve coordxy width and Lua 5.4.8 integer conversion
+
+- **Status:** fixed (review 2128 Must-fix, alone; both bodies complete, inherited cvt caller closure remains partial).
+- **Symptom:** JS nhl_abs_coord(65536, 0) retained 65536 instead of C 0; map/room origin addition retained 32768 instead of C -32768. The Lua integer adapter also truncated fractions that Lua 5.4.8 rejects.
+- **C locus:**
+  - `nhl_abs_coord`: sp_lev.c:4810–4836, whole brief body and registration read; input casts :4817–4818/:4824–4825, pair/table/error dispatch in C order. global.h:71 defines coordxy as int16_t. nhlua.c:1017–1024 get_table_int casts checkinteger to int before coordxy. Recorder Lua 5.4.8 lapi.c:389–396 lua_tointegerx, lvm.c:122–157 integer conversion, lobject.c:239–337 numeric-string parsing, lauxlib.c:437–451 checkinteger; C99 strtod enabled by luaconf.h:609–610.
+  - `cvt_to_abscoord`: sp_lev.c:4771–4788, whole brief body and all 14 C call sites read; room compound writes :4782–4783 and map-origin writes :4785–4786 narrow to int16_t.
+- **JS was:** both coordinate inputs and offset writes used int32 coercion; shared Lua integer adapters used Math.trunc and generic Number(string), accepting fractions and JS binary/octal strings and losing low bits of large decimal integers. The old float test asserted that incorrect truncation.
+- **Fix:** signed-16 input casts and all four offset writes; Lua 5.4.8 exact-integral/range checks with pair failures returning 0 and table failures throwing. ASCII numeral syntax, decimal integer overflow to float, wrapping hex integers, and hexadecimal floats follow the measured library semantics. BigInts preserve integer strings through their destination casts and never escape the coordinate result. The checkinteger adapter's optional destination width retains exact low bits before returning a Number. Existing valid integer callers keep their signatures and order. Corrected the fractional test and added overflow/error/numeral tests; the test loads jsmain first to use the scored module evaluation order.
+- **JS:** js/mklev.js:22359 lua_number_unpacked, :22412 luaL_checkinteger_unpacked, :22438 cvt_to_abscoord, :22463 nhl_abs_coord; scripts/nhl-abscoord.test.mjs (15 tests). No new production imports.
+- **Callers:**
+  - `nhl_abs_coord`: no direct C callers (extern.h declaration only); nhlua.c:1863 nh.abscoord registration is represented by the JS export at js/mklev.js:22463. There is no general JS nh.* Lua registry; that inherited adapter boundary is named below.
+  - `cvt_to_abscoord`: sp_lev.c:4819/:4826 → js/mklev.js:22470/:22476, both live. Every other site remains an inherited named omission: nhlobj.c:398 l_obj_at, :424 l_obj_placeobj, :616 l_obj_bury; nhlsel.c:888/:889 l_selection_gradient; nhlua.c:428 nhl_gettrap, :483 nhl_deltrap, :541 nhl_getmap, :1545 nhl_timer_has_at, :1575 nhl_timer_peek_at, :1602 nhl_timer_stop_at, :1628 nhl_timer_start_at. The last has the existing absolute-cell analogue js/mklev.js:30887 nhl_start_timer_at called at :30908 after selection_iterate_lua (:4657); it skips the relative/absolute round trip and is not a new C caller.
+- **Verify:** preflight green + strict PASS on a clean tree (Node 22.22.0 via /tmp/nethack-node22/bin). Focused tests 15/15 PASS. **Measured:** /tmp/D3174-oracle.c extracts the two pinned sp_lev.c bodies unchanged (lines 4771–4788 and 4810–4836), links the recorder's lib/lua-5.4.8/src/liblua.a, and supplies matching get_table_int/state adapters; /tmp/D3174-parity.mjs compares 696 pair/table × map/room × origin × float/integer/string/type/error cases: 696/696 PASS. Fractional pair → 0, table → error; signed-16 input and offset wrap confirmed against C, including exact signed-64 strings.
+  - `nhl_abs_coord`: no blocked corpus session; smoke 24 PASS, 0 regressed → REACH-OK.
+  - `cvt_to_abscoord`: no blocked corpus session; smoke 24 PASS, 0 regressed → REACH-OK.
+  Tail of `node scripts/verify.mjs --fn nhl_abs_coord,cvt_to_abscoord --reach-all` (/tmp/D3174-verify.log):
+  ```text
+  PASS  reach    nhl_abs_coord: no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+  PASS  reach    cvt_to_abscoord: no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+  PASS  green    2/2 passing
+  PASS  strict   seed8000-tourist-starter.session.json
+  PASS  strict   seed0900-tourist-explore-actions.session.json
+  PASS  cohort   7/7 passing
+  PASS  full     44/44 passing (auto: shared file changed)
+
+  VERIFY: PASS
+  ```
+  Syntax and Rule #2/DIAG/FORCE/seed-gate scans also PASS; later production edits only correct source/predicate comments.
+- **Named omissions:**
+  - `nhl_abs_coord`: no missing branch. Inherited by-design unpacked Lua boundary: stack/newtable/push/nhl_add_table_entry_int operations become JS values; no general nh.* registry. nhl_error's Lua source-stack diagnostic suffix (nhlua.c:198–218) remains absent without a Lua runtime; throwing behavior is live.
+  - `cvt_to_abscoord`: no missing body arm or callee. The 12 other C sites in 11 caller functions listed above remain unwired/unported Lua bindings, including the existing absolute timer analogue. They keep the caller closure partial; this Must-fix changes neither those APIs nor the relative selection adapter.
+- **Ledger:** nhl_abs_coord ported; cvt_to_abscoord partial
+- **Next:** the second Must-fix, lspo_teleport_region/lspo_levregion validation (review 2126), alone.
+
 ## D-3173 — options error closure uses the real cfgfiles diagnostic sink
 
 - **Status:** fixed Must-fix from reviews 2127/2129/2131; five-function callee closure. The wrappers and all fifteen reviewed option error paths now format/report through config_erradd. Inherited caller and windowed-display omissions remain explicitly partial.

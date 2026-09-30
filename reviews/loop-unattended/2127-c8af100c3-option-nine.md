@@ -2,7 +2,7 @@
 
 SHA `c8af100c3`, D-3167; 2026-09-30; +339 JS. No closure.
 
-**Addressed:** D-3173
+**Addressed:** D-3173 `b5e29a0ee`
 
 ## Intent vs deliverable
 

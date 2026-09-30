@@ -2,6 +2,8 @@
 
 SHA `e79d836f7`, D-3168; 2026-09-30; +68 JS. No closure claimed.
 
+**Addressed:** D-3174
+
 ## Intent vs deliverable
 
 Subject promises “nhl_abs_coord + cvt_to_abscoord ports”. Diff adds both

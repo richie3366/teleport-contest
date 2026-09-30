@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3174 absolute coordinates preserve coordxy width and Lua 5.4.8 integer conversion
+
+**C locus:** - `nhl_abs_coord`: sp_lev.c:4810–4836, whole brief body and registration read; input casts :4817–4818/:4824–4825, pair/table/error dispatch in C order. global.h:71 defines coordxy as int16_t. nhlua.c:1017–1024 get_table_int casts checkinteger to int before coordxy. Recorder Lua 5.4.8 lapi.c:389–396 lua_tointegerx, lvm.c:122–157 integer conversion, lobject.c:239–337 numeric-string parsing, lauxlib.c:437–451 checkinteger; C99 strtod enabled by luaconf.h:609–610.
+**JS:** js/mklev.js:22359 lua_number_unpacked, :22412 luaL_checkinteger_unpacked, :22438 cvt_to_abscoord, :22463 nhl_abs_coord; scripts/nhl-abscoord.test.mjs (15 tests). No new production imports.
+**Change:** signed-16 input casts and all four offset writes; Lua 5.4.8 exact-integral/range checks with pair failures returning 0 and table failures throwing. ASCII numeral syntax, decimal integer overflow to float, wrapping hex integers, and hexadecimal floats follow the measured library semantics. BigInts preserve integer strings through their destination casts and never escape the coordinate result.
+**Verify:** preflight green + strict PASS on a clean tree (Node 22.22.0 via /tmp/nethack-node22/bin). Focused tests 15/15 PASS. **Measured:** /tmp/D3174-oracle.c extracts the two pinned sp_lev.c bodies unchanged (lines 4771–4788 and 4810–4836), links the recorder's lib/lua-5.4.8/src/liblua.a, and supplies matching get_table_int/state adapters; /tmp/D3174-parity.mjs compares 696 pair/table × map/room × origin × float/integer/string/type/error cases: 696/696 PASS.
+**Named:** - `nhl_abs_coord`: no missing branch. Inherited by-design unpacked Lua boundary: stack/newtable/push/nhl_add_table_entry_int operations become JS values; no general nh.* registry. nhl_error's Lua source-stack diagnostic suffix (nhlua.c:198–218) remains absent without a Lua runtime; throwing behavior is live.
+**Next:** the second Must-fix, lspo_teleport_region/lspo_levregion validation (review 2126), alone.
 ## 2026-09-30 — D-3173 options error closure uses the real cfgfiles diagnostic sink
 
 **C locus:** - `config_error_add`: cfgfiles.c:1864–1872, whole brief and all 177 references read; va_start → vconfig_error_add → va_end, represented by a JS rest-argument array.

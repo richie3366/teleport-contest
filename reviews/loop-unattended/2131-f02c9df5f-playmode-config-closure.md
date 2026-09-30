@@ -5,7 +5,7 @@ claimed.
 
 **Addressed:** D-3172 `1b3985d44`
 
-**Addressed:** D-3173
+**Addressed:** D-3173 `b5e29a0ee`
 
 ## Intent vs deliverable
 

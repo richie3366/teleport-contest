@@ -22351,32 +22351,78 @@ function nhl_error(msg) {
 }
 
 /**
- * C ref: lauxlib luaL_checkinteger, as get_coord calls it on the "x"/"y"
- * fields (:5331, :5339). A finite number truncates toward 0 like the
- * file's other checkinteger stand-in; a numeric string converts the same
- * way lua_isnumber does. Anything else is nhl_error (C typeerror).
+ * Lua 5.4.8 lobject.c luaO_str2num/l_str2int and C99 strtod syntax.
+ * Preserve integer strings as signed-64 BigInts until the C destination
+ * cast; converting "9223372036854775807" to a JS Number loses its low bits.
+ * Decimal integer overflow falls back to a float; hex integers wrap u64.
  */
-function luaL_checkinteger_unpacked(v) {
-    if (typeof v === 'number' && Number.isFinite(v)) return Math.trunc(v);
-    if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v)))
-        return Math.trunc(Number(v));
+function lua_number_unpacked(v) {
+    if (typeof v === 'number') return v;
+    if (typeof v !== 'string') return null;
+    const text = v.replace(/^[ \t\n\v\f\r]+|[ \t\n\v\f\r]+$/g, '');
+    if (/^[+-]?\d+$/.test(text)) {
+        const integer = BigInt(text);
+        if (integer >= -(1n << 63n) && integer < (1n << 63n)) return integer;
+        return Number(text);
+    }
+    if (/^[+-]?0[xX][0-9a-fA-F]+$/.test(text)) {
+        const negative = text[0] === '-';
+        const integer = BigInt(text.replace(/^[+-]/, ''));
+        return BigInt.asIntN(64, negative ? -integer : integer);
+    }
+    if (/^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$/.test(text))
+        return Number(text);
+    const hex = /^([+-]?)0[xX]([0-9a-fA-F]*)(?:\.([0-9a-fA-F]*))?(?:[pP]([+-]?\d+))?$/.exec(text);
+    if (!hex || !(hex[2] + (hex[3] ?? '')).length) return null;
+    // Convert the exact hexadecimal significand, rounding once to double
+    // (nearest, ties to even), including the subnormal/underflow boundary.
+    const fraction = hex[3] ?? '';
+    let mantissa = BigInt('0x' + hex[2] + fraction);
+    if (!mantissa) return 0;
+    let exponent = Number(hex[4] ?? 0) - 4 * fraction.length;
+    const bits = mantissa.toString(2).length;
+    const discard = Math.max(0, bits - 53, -1074 - exponent);
+    if (discard > bits) return 0;
+    if (discard) {
+        const shift = BigInt(discard);
+        const remainder = mantissa & ((1n << shift) - 1n);
+        mantissa >>= shift;
+        const half = 1n << (shift - 1n);
+        if (remainder > half || (remainder === half && (mantissa & 1n))) mantissa++;
+        exponent += discard;
+    }
+    const number = Number(mantissa) * (2 ** exponent);
+    return hex[1] === '-' ? -number : number;
+}
+
+// Lua 5.4.8 lvm.c luaV_flttointeger(F2Ieq), luaconf.h
+// lua_numbertointeger: integral floats in [-2^63, 2^63) only.
+function lua_integer_unpacked(number) {
+    if (typeof number === 'bigint') return number;
+    if (typeof number === 'number' && Number.isInteger(number)
+        && number >= -(2 ** 63) && number < 2 ** 63) return BigInt(number);
+    return null;
+}
+
+/**
+ * Lua 5.4.8 lauxlib.c luaL_checkinteger/interror: no truncation.
+ * The optional width applies a C destination cast before returning a JS
+ * Number, so coordinate/table input retains exact low bits of Lua integers.
+ */
+function luaL_checkinteger_unpacked(v, width = null) {
+    const number = lua_number_unpacked(v);
+    const integer = lua_integer_unpacked(number);
+    if (integer !== null)
+        return Number(width === null ? integer : BigInt.asIntN(width, integer));
+    if (number !== null) nhl_error('bad argument (number has no integer representation)');
     const got = (v == null) ? 'nil'
         : (typeof v === 'object' ? 'table' : typeof v);
     nhl_error(`bad argument (number expected, got ${got})`);
 }
 
-/**
- * C ref: lauxlib lua_tointeger, as nhl_abs_coord calls it on stack
- * positions 1/2 (`:4818–4819`). Unlike luaL_checkinteger, a wrong
- * type is NOT an error: a finite number truncates toward 0, a
- * numeric string converts the way lua_tonumber does, anything else
- * (nil, table, boolean) is 0.
- */
+// Lua 5.4.8 lapi.c lua_tointegerx: a failed conversion returns integer 0.
 function lua_tointeger_unpacked(v) {
-    if (typeof v === 'number' && Number.isFinite(v)) return Math.trunc(v);
-    if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v)))
-        return Math.trunc(Number(v));
-    return 0; // C lua_tointeger: not a number, not convertible → 0
+    return lua_integer_unpacked(lua_number_unpacked(v)) ?? 0n;
 }
 
 /**
@@ -22385,24 +22431,25 @@ function lua_tointeger_unpacked(v) {
  * lx/ly when a coder room is active, else gx.xstart/gy.ystart) onto
  * an in/out coord pair. Unpacked stand-in for (coordxy *x,
  * coordxy *y): mutates xy in place (get_coord out-param idiom).
+ * Every compound write narrows to signed-16 coordxy (global.h:71).
  * Outside mklev the offsets are 0 (C `:4773–4780` comment).
  * @param {{x:number,y:number}} xy in/out coord pair
  */
 export function cvt_to_abscoord(xy) {
     const coder = game.gc?.coder ?? null; // C `:4781` gc.coder
     if (coder && coder.croom) { // C `:4781` gc.coder->croom
-        xy.x = (xy.x + coder.croom.lx) | 0; // C `:4782`
-        xy.y = (xy.y + coder.croom.ly) | 0; // C `:4783`
+        xy.x = ((xy.x + coder.croom.lx) << 16) >> 16; // C `:4782`
+        xy.y = ((xy.y + coder.croom.ly) << 16) >> 16; // C `:4783`
     } else { // C `:4784`
-        xy.x = (xy.x + (game.splev_xstart | 0)) | 0; // C `:4785` gx.xstart
-        xy.y = (xy.y + (game.splev_ystart | 0)) | 0; // C `:4786` gy.ystart
+        xy.x = ((xy.x + (game.splev_xstart | 0)) << 16) >> 16; // C `:4785` gx.xstart
+        xy.y = ((xy.y + (game.splev_ystart | 0)) << 16) >> 16; // C `:4786` gy.ystart
     }
 }
 
 /**
  * C ref: sp_lev.c nhl_abs_coord `:4810–4836` — the `nh.abscoord`
  * entry (nhlua.c `:1863`): convert a map/room-relative coord to
- * absolute. Unpacked forms (C `:4814` lua_gettop): an (x, y) pair
+ * absolute. Unpacked forms (C `:4813` lua_gettop): an (x, y) pair
  * (C `:4817–4822`; lua_tointeger, so mistypes are 0, never an
  * error) returning the converted [x, y] pair (C pushes 2 values),
  * or a single {x, y} table (C `:4823–4830`; get_table_int ≡
@@ -22414,17 +22461,17 @@ export function cvt_to_abscoord(xy) {
  * the object directly).
  */
 export function nhl_abs_coord(a, b) {
-    const argc = arguments.length; // C `:4814` lua_gettop
-    let x = -1, y = -1; // C `:4815`
-    if (argc === 2) { // C `:4817`
-        x = lua_tointeger_unpacked(a) | 0; // C `:4818` (coordxy) lua_tointeger
-        y = lua_tointeger_unpacked(b) | 0; // C `:4819`
+    const argc = arguments.length; // C `:4813` lua_gettop
+    let x = -1, y = -1; // C `:4814`
+    if (argc === 2) { // C `:4816`
+        x = Number(BigInt.asIntN(16, lua_tointeger_unpacked(a))); // C `:4817` (coordxy) lua_tointeger
+        y = Number(BigInt.asIntN(16, lua_tointeger_unpacked(b))); // C `:4818`
         const xy = { x, y };
-        cvt_to_abscoord(xy); // C `:4820`
-        return [xy.x, xy.y]; // C `:4821–4822` two pushed integers
+        cvt_to_abscoord(xy); // C `:4819`
+        return [xy.x, xy.y]; // C `:4820–4822` two pushed integers
     } else if (argc === 1 && a !== null && typeof a === 'object') { // C `:4823` LUA_TTABLE
-        x = luaL_checkinteger_unpacked(a.x) | 0; // C `:4824` (coordxy) get_table_int "x"
-        y = luaL_checkinteger_unpacked(a.y) | 0; // C `:4825` (coordxy) get_table_int "y"
+        x = luaL_checkinteger_unpacked(a.x, 16); // C `:4824` (coordxy) get_table_int "x"
+        y = luaL_checkinteger_unpacked(a.y, 16); // C `:4825` (coordxy) get_table_int "y"
         const xy = { x, y };
         cvt_to_abscoord(xy); // C `:4826`
         return { x: xy.x, y: xy.y }; // C `:4827–4829` newtable + x/y entries
@@ -22605,8 +22652,8 @@ function lspo_object_from_string(paramstr, arg2, arg3) {
 }
 
 /**
- * C lua_isnumber for get_table_int_or_random. Same predicate as
- * luaL_checkinteger_unpacked in this file: a finite number, or a string
+ * Existing lua_isnumber adapter for get_table_int_or_random: a finite
+ * number, or a string
  * whose trimmed form is a finite Number (Lua skips leading and trailing
  * spaces). A non-finite number is not an integer in that stand-in.
  * @param {*} v
