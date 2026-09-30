@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `mon.c` normal_shape → new_were message continuation — C mon.c:4430–4462/were.c:95–138 emits visible transformation pline before set_mon_data/heal/armor; js/were.js:164 starts void pline then mutates immediately. Await in normal_shape only observes armor chain. Complete/propagate message boundary before mutation and mimic processing; verify input suspension. Source: reviews/loop-unattended/2136-ae5beffe4-monster-closure.md.
-
 - [ ] `options.c` initoptions noreturn closure — C options.c:7078–7115, :7100/:7112 terminate; changed JS wrapper continues into config_error_done/initoptions_finish. Builtin-phase invalid-sysconf probe exits=1 but initializes fruit/clears opt_initial. Stop after fatal second read/assure/deferred-showpaths, verify finish unreachable. Source: reviews/loop-unattended/2132-d10e96661-startup-exit.md.
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3181 await were transformation messages before mutation
+
+**C locus:** whole bodies and every reference table read in briefs; caller guards read:
+**JS:** js/were.js:141 new_were; js/mhitu.js:3384/:3388 awaited callers; js/mon.js:1204 existing normal_shape now observes the full message continuation; scripts/new-were-message.test.mjs suspension regression.
+**Change:** restarted new_were as one async whole body in C order. Await pline before every transformation mutation; then await armor, unwield and monflee sequentially. Use live monsndx, Hallucination, pmname/Mgender, impossible and healmon; expand helpless exactly and truncate the healing division toward zero.
+**Verify:** clean preflight green/strict PASS with Node 22 from /tmp/nethack-node22/bin. Final command: node scripts/verify.mjs --fn normal_shape,new_were --reach-all --full (log /tmp/D3181-verify-full.log).
+**Named:** - `normal_shape`: none added in the whole body or its caller wiring; its existing new_were await now includes the initial message input boundary.
+**Next:** first remaining Must-fix: options.c initoptions fatal-exit continuation (review 2132). Phase-2 parks remain closed.
 ## 2026-09-30 — audit 2132–2140, D-3172–D-3180
 
 **Review:** nine JS SHAs, oldest first, each review written before the next SHA; 2 QUALITY-RISK, 7 ACCEPT-WITH-DEBT. No JS edits. Must-fix: normal_shape→new_were emits without awaiting the message before mutation; initoptions continues after fatal second sysconf/assure/showpaths. First queue item is the were-message continuation.

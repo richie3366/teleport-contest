@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-3181 — await were transformation messages before mutation
+
+- **Status:** fixed; review 2136 Must-fix ships alone, closing normal_shape → new_were input continuation.
+- **Symptom:** inferred from the read C and JS bodies: visible new_were called void pline and changed form/HP before its input wait finished; normal_shape only awaited the later armor chain. summonmu also discarded both transformation results. Recorded C corpus evidence: scen-hazard-Monk-94153 first differed at were.c:114, step 52, with C's transformation --More-- absent in JS.
+- **C locus:** whole bodies and every reference table read in briefs; caller guards read:
+  - `normal_shape`: mon.c:4430–4462, transformation completes before mimic reveal/meal termination; direct callers mon.c:4653 and zap.c:3199.
+  - `new_were`: were.c:95–138, Protection_from_shape_changers guard, impossible diagnostic, visible non-hallucinating message, set_mon_data, helpless, healmon, newsym, armor, unwield, scared-tail short-circuit and rn1. helpless is the monst.h:251 macro (sleeping or unable to move). were_change and summonmu whole C bodies read; potion.c:1833–1852 caller guards read.
+- **JS was:** new_were was sync-or-promise with void pline, silent invalid-counter return, local name/HP approximations and nested armor continuations; summonmu called it twice without awaiting. normal_shape, were_change and potionhit already awaited its returned result.
+- **Fix:** restarted new_were as one async whole body in C order. Await pline before every transformation mutation; then await armor, unwield and monflee sequentially. Use live monsndx, Hallucination, pmname/Mgender, impossible and healmon; expand helpless exactly and truncate the healing division toward zero. Both summonmu branches await completion before refreshing mdat or drawing summon RNG. All added bindings use already-existing module edges (six imports.mjs --can checks: ALREADY); no top-level reads or new cycles.
+- **JS:** js/were.js:141 new_were; js/mhitu.js:3384/:3388 awaited callers; js/mon.js:1204 existing normal_shape now observes the full message continuation; scripts/new-were-message.test.mjs suspension regression.
+- **Callers:**
+  - `normal_shape`: mon.c:4653 → js/mon.js:3733 restore_cham; zap.c:3199 → js/zap.js:3673 cancel_monst; both await. rescham callback adaptation remains awaited at js/mon.js:1237. extern.h is a declaration.
+  - `new_were`: were.c:18/:42 → js/were.js:306/:330 were_change; mon.c:4446 → js/mon.js:1216 normal_shape; potion.c:1844/:1852 → js/potion.js:3814/:3824 potionhit; mhitu.c:980/:983 → js/mhitu.js:3384/:3388 summonmu. All seven executable sites await; mattacku awaits summonmu at js/mhitu.js:4043. mhitu.c:975 is a comment and extern.h a declaration.
+- **Verify:** clean preflight green/strict PASS with Node 22 from /tmp/nethack-node22/bin. Final command: node scripts/verify.mjs --fn normal_shape,new_were --reach-all --full (log /tmp/D3181-verify-full.log).
+  - `normal_shape`: no blocked sessions (note); no RNG-tagged reach, fixed smoke spread 24 PASS, 0 regressed → REACH-OK.
+  - `new_were`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; recorded-C case scen-hazard-Monk-94153 moves from step 52 to digactualhole at step 57. No RNG-tagged reach; fixed smoke spread 24 PASS, 0 regressed → REACH-OK.
+  - Tail: `PASS green 2/2 passing`; `PASS strict seed8000-tourist-starter.session.json`; `PASS strict seed0900-tourist-explore-actions.session.json`; `PASS cohort 7/7 passing`; `PASS full 44/44 passing`; `VERIFY: PASS`. Syntax (2 changed JS files) and Rule #2/DIAG/FORCE/seed-gate scan PASS. Initial verify skipped full, so final verification explicitly forced it.
+  - `node --test scripts/new-were-message.test.mjs`: 2/2 PASS. JS assertions against the read C order hold the actual nhgetch capture hook at a real MSGTYPE-stop transformation message: form, HP, sleep/freeze/movement, mimic disguise and RNG remain unchanged until dismissal; then healing, reveal and flee-duration draw complete. This is JS suspension evidence, not a new C-state measurement. A temporary missing-await mutation makes both tests fail; restored before verification. git diff --check clean.
+- **Named omissions:**
+  - `normal_shape`: none added in the whole body or its caller wiring; its existing new_were await now includes the initial message input boundary.
+  - `new_were`: none in this whole body or seven callers. All C callees use live exports; helpless is a macro expansion. Existing independent helper ledger debts are unchanged; Soundeffect is not called by this pinned C body and its obsolete omission comment was removed.
+- **Ledger:** normal_shape ported; new_were ported
+- **Next:** first remaining Must-fix: options.c initoptions fatal-exit continuation (review 2132). Phase-2 parks remain closed.
+
 ## D-3180 — option dispatch, menu-color handler and menu-key lookup with cleanup exports
 
 - **Status:** fixed seven whole bodies; caller and native-menu omissions remain explicitly partial below. No Must-fix item was queued.

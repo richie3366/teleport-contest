@@ -82,7 +82,7 @@
 {"fn":"wake_nearto_core","c":"4374-4399","status":"unknown"}
 {"fn":"wake_nearto","c":"4402-4405","status":"unknown"}
 {"fn":"seemimic","c":"4409-4427","status":"unknown"}
-{"fn":"normal_shape","c":"4431-4462","status":"ported","js":["js/mon.js:normal_shape"],"d":["D-3176","D-1594"],"at":"2026-09-30@3f8f47e04"}
+{"fn":"normal_shape","c":"4431-4462","status":"ported","js":["js/mon.js:normal_shape"],"d":["D-3181","D-3176","D-1594"],"at":"2026-09-30@baba5ed90"}
 {"fn":"alloc_itermonarr","c":"4471-4490","status":"unknown"}
 {"fn":"iter_mons_safe","c":"4500-4522","status":"partial","js":["js/mon.js:iter_mons_safe"],"omit":"`save.c:1108` `alloc_itermonarr(0)` stays inside unported `freedynamicdata` (`FREE_ALL_MEMORY`).","d":["D-2843"],"at":"seed@a30a7de84"}
 {"fn":"iter_mons","c":"4527-4538","status":"unknown"}

@@ -1,7 +1,7 @@
 {"fn":"were_change","c":"9-45","status":"unknown","d":["D-2113"],"at":"seed@a30a7de84"}
 {"fn":"counter_were","c":"48-66","status":"ported","js":["js/were.js:counter_were"],"at":"2026-09-29@260932ce5","note":"stale: js/were.js:124"}
 {"fn":"were_beastie","c":"70-93","status":"unknown"}
-{"fn":"new_were","c":"96-138","status":"unknown"}
+{"fn":"new_were","c":"96-138","status":"ported","js":["js/were.js:new_were"],"d":["D-3181"],"at":"2026-09-30@baba5ed90"}
 {"fn":"were_summon","c":"142-189","status":"unknown"}
 {"fn":"you_were","c":"192-210","status":"unknown"}
 {"fn":"you_unwere","c":"213-228","status":"unknown"}
