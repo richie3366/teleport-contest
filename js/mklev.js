@@ -4854,8 +4854,8 @@ function splev_irregular_oroom(dx1, dy1, rlit) {
  * C ref: sp_lev.c sel_set_wall_property `:986-996` — OR prop into
  * wall_info on stone walls, trees and iron bars (C `:990-995`, incl. the
  * 3.6.2 iron-bars note checked by chewing/zap_over_floor). The isok + null
- * guards stand in for C selection_iterate's isok gate (`selvar.c:736`);
- * the JS same-file selection_iterate (x-outer/y-inner, C order) has none,
+ * guards mirror C selection_iterate's isok gate (`selvar.c:741`), now also
+ * present in the JS same-file selection_iterate (x-outer/y-inner, C order),
  * cf. sel_set_ter's guards. prop passes by value (C takes genericptr arg).
  */
 function sel_set_wall_property(x, y, prop) {
@@ -29472,14 +29472,21 @@ function selection_filter_percent(sel, pct) {
     return { pts, lx, ly, hx, hy };
 }
 
-// C ref: selection.room() iterate order — x-outer then y (same as filter_percent)
-function selection_iterate(sel, fn) {
-    if (!sel || !sel.pts.size) return;
-    const rect = {}; // C `:732` NhRect rect
+// C ref: selvar.c selection_iterate `:726-743` — whole body in C order:
+// null guard (`:734-735`), getbounds (`:737`), x-outer/y-inner scan
+// (`:739-740`) gated on isok + selection_getpoint (`:741`), callback
+// with arg (`:742`). No empty-selection shortcut: C scans the getbounds
+// rect (full map when empty, `:84-89`) and getpoint reads 0 everywhere,
+// so the callback never fires — the old `!sel.pts.size` return was
+// behaviorally identical but not C. Call-site closures keep the (x, y)
+// shape; arg passes through for C-signature fidelity.
+function selection_iterate(sel, fn, arg) {
+    if (!sel) return; // C `:734-735`
+    const rect = {}; // C `:732` NhRect rect (getbounds fills all four)
     selection_getbounds(sel, rect); // C `:737`
-    for (let x = rect.lx; x <= rect.hx; x++) {
-        for (let y = rect.ly; y <= rect.hy; y++) {
-            if (sel.pts.has(`${x},${y}`)) fn(x, y);
+    for (let x = rect.lx; x <= rect.hx; x++) { // C `:739`
+        for (let y = rect.ly; y <= rect.hy; y++) { // C `:740`
+            if (isok(x, y) && selection_getpoint(x, y, sel)) fn(x, y, arg); // C `:741-742`
         }
     }
 }

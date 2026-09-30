@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `selvar.c` selection_iterate — coverage PARTIAL (C 9 code L `selvar.c:726–743` / JS 6 code L in js/mklev.js; hops —, callers 4, RNG 0, msg 0) @442754b32
 - [ ] `o_init.c` sortloot_descr — coverage PARTIAL (C 18 code L `o_init.c:567–591` / JS 13 code L in js/invent.js; hops —, callers 2, RNG 0, msg 0) @442754b32
 - [ ] `sp_lev.c` mapfrag_error — coverage PARTIAL (C 10 code L `sp_lev.c:281–295` / JS 5 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @442754b32
 - [ ] `options.c` handler_whatis_filter — coverage PARTIAL (C 33 code L `options.c:6279–6318` / JS 20 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @5fd602958
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sp_lev.c` lspo_terrain — coverage MISSING (C 47 code L `sp_lev.c:4978–5038` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a610d9a06
 - [ ] `options.c` query_msgtype — coverage PARTIAL (C 22 code L `options.c:7701–7728` / JS 10 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @779a41942
 - [ ] `options.c` optfn_pettype — coverage MISSING (C 45 code L `options.c:3197–3253` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @779a41942
+- [ ] `options.c` optfn_palette — coverage MISSING (C 18 code L `options.c:2699–2730` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: count_alt_palette) @8a2b677db
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

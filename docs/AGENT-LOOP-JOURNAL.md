@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3156 `selvar.c` selection_iterate whole-body restart (coverage)
+
+**C locus:** - `selection_iterate`: selvar.c:726–743 (null guard `:734–735`, getbounds `:737`, x-outer/y-inner scan `:739–740`, isok+getpoint gate `:741`, callback with arg `:742`).
+**JS:** js/mklev.js:29483 (`selection_iterate`), :4857 (comment).
+**Change:** restarted in C order — `if (!sel) return`, getbounds, bounds loop, `if (isok(x, y) && selection_getpoint(x, y, sel)) fn(x, y, arg)`; dropped the `!sel.pts.size` shortcut (equivalent: empty pts ⇒ getpoint 0 everywhere ⇒ the C loop body never fires; the full-map empty scan `:84–89` only costs level-gen-time cycles). All ~25 call-site closures keep the (x, y) shape; the trailing `arg` passes through for C-signature fidelity. `isok` already imported in-file (used at :4862) — no new cross-module import.
+**Verify:** `node scripts/verify.mjs --fn selection_iterate` → VERIFY: PASS — hidden note (no corpus session blocked, expected for a coverage row); reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `selection_iterate`: C caller `lspo_terrain` (:5025) unwired — function MISSING in JS, own Open coverage row (different C file, not this cluster).
+**Next:** continue the breadth queue from the regenerated block.
 ## 2026-09-30 — D-3155 `write.c` cost impossible arm + async (coverage)
 
 **C locus:** - `cost`: write.c:14–57 (SPBOOK `:17–18`, switch `:20–56`, SCR_MAIL `:22–23` under `#ifdef MAIL_STRUCTURES`, BLANK_PAPER/default impossible `:53–55`, `return 1000` `:57`).

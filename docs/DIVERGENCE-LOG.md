@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3156 — `selvar.c` selection_iterate whole-body restart (coverage)
+
+- **Status:** fixed (coverage row; single-function cluster — selvar.c holds no other Open row and all 3 callees are ported/measured-ok, so the density exception applies. +16/-9 js/mklev.js, 1 file.)
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify selection_iterate`: no session blocked): the JS same-file `selection_iterate` scanned the getbounds rect with a bare `sel.pts.has` gate, dropping C's `isok(x,y) && selection_getpoint(x, y, ov)` gate (`selvar.c:741`) and the `arg` pass-through (`:742`), and carried a non-C `!sel.pts.size` early return.
+- **C locus:**
+  - `selection_iterate`: selvar.c:726–743 (null guard `:734–735`, getbounds `:737`, x-outer/y-inner scan `:739–740`, isok+getpoint gate `:741`, callback with arg `:742`).
+- **JS was:** js/mklev.js:29476 local `selection_iterate(sel, fn)` — `if (!sel || !sel.pts.size) return`, bounds loop, `if (sel.pts.has(...)) fn(x, y)`; no isok gate (a `sel_set_wall_property` comment documented its absence), no arg.
+- **Fix:** restarted in C order — `if (!sel) return`, getbounds, bounds loop, `if (isok(x, y) && selection_getpoint(x, y, sel)) fn(x, y, arg)`; dropped the `!sel.pts.size` shortcut (equivalent: empty pts ⇒ getpoint 0 everywhere ⇒ the C loop body never fires; the full-map empty scan `:84–89` only costs level-gen-time cycles). All ~25 call-site closures keep the (x, y) shape; the trailing `arg` passes through for C-signature fidelity. `isok` already imported in-file (used at :4862) — no new cross-module import. Updated the `sel_set_wall_property` comment that documented the missing gate.
+- **JS:** js/mklev.js:29483 (`selection_iterate`), :4857 (comment).
+- **Callers:**
+  - `selection_iterate`: C sp_lev.c:5025 (`lspo_terrain`) → named omission (`lspo_terrain` MISSING, own Open row; the iterate arm exists as JS `lspo_terrain_sel` :29779 + Lua-path inlines e.g. :4102); C :5626 (`lspo_region` argc==2 arm) → JS js/mklev.js:1943; C :5928 (`set_wallprop_in_selection`) → JS js/mklev.js:4889; C :4722 commented out in C (JS :18796 notes it). The other ~20 JS call sites are pre-existing Lua-des-equivalent inlines (level-gen), untouched.
+- **Verify:** `node scripts/verify.mjs --fn selection_iterate` → VERIFY: PASS — hidden note (no corpus session blocked, expected for a coverage row); reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `selection_iterate`: C caller `lspo_terrain` (:5025) unwired — function MISSING in JS, own Open coverage row (different C file, not this cluster).
+- **Ledger:** selection_iterate ported
+- **Next:** continue the breadth queue from the regenerated block.
+
 ## D-3155 — `write.c` cost impossible arm + async (coverage)
 
 - **Status:** fixed (coverage row; queue head `case_insensitive_comp` proved stale and marked ported via `ledger.mjs` in the same iteration. +10/-5 js/write.js, 1 file.)

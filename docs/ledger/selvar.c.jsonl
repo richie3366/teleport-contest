@@ -19,7 +19,7 @@
 {"fn":"selection_do_gradient","c":"570-622","status":"unknown"}
 {"fn":"selection_do_line","c":"626-680","status":"unknown"}
 {"fn":"selection_do_randline","c":"683-723","status":"unknown"}
-{"fn":"selection_iterate","c":"726-743","status":"unknown"}
+{"fn":"selection_iterate","c":"726-743","status":"ported","js":["js/mklev.js:selection_iterate"],"d":["D-3156"],"at":"2026-09-30@8a2b677db"}
 {"fn":"selection_is_irregular","c":"747-760","status":"split","js":["js/cmd.js:look_sel_is_irregular"],"at":"2026-09-29@671c54bfc","note":"stale: js/cmd.js:3882; sole caller selection_size_description wired; review 179"}
 {"fn":"selection_size_description","c":"764-778","status":"split","js":["js/cmd.js:look_sel_size_description"],"at":"2026-09-29@671c54bfc","note":"stale: js/cmd.js:3894; callers wired cmd.js:3924,3927; review 179 Match"}
 {"fn":"selection_from_mkroom","c":"781-799","status":"unknown"}
