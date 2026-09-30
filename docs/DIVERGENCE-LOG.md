@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3164 — `music.c` generic_lvl_desc sanctum arm (coverage)
+
+- **Status:** fixed (coverage, 1 C function whole; +3 js/music.js — below the ~80 density line, but music.c holds nothing more Open: sole music.c row of 12 eligible, all 5 level predicates already live in const.js). Also in this iteration: queue head `dothrow.c` find_launcher proved stale (C body complete at js/dothrow.js:2675, caller wired at :2775) → ledger ported, popped to this row.
+- **Symptom:** queue head `generic_lvl_desc` PARTIAL — C `:484–485` `Is_sanctum` arm deferred in JS (`// Is_sanctum deferred → rare sanctum wording`), so drum-of-earthquake on the sanctum level printed "dungeon" instead of "sanctum". No corpus session blocked; draws no RNG.
+- **C locus:** music.c:478–492 — `if/else-if` chain over `&u.uz`: astral plane → plane → sanctum → puzzle → tower → dungeon.
+- **JS was:** js/music.js:466 `generic_lvl_desc` — astral/plane/puzzle/tower/dungeon chain, sanctum arm missing (deferred comment).
+- **Fix:** added the sanctum arm in C order between the endgame and sokoban arms over the live `Is_sanctum` export (js/const.js:3294, `Lcheck(&sanctum_level)`); extended the existing `./const.js` import (no new module edge).
+- **JS:** js/music.js:466 generic_lvl_desc (sanctum arm at :470, C pin `:484–485`). Sequential-`if` with early returns preserves C's else-if semantics (each arm returns).
+- **Callers:** sole C call site music.c:697 (drum-of-earthquake `pline_The("entire %s is shaking…")`) wired at js/music.js:832.
+- **Verify:** note hidden verify generic_lvl_desc: no corpus session blocked on it at baseline; PASS reach (no RNG-tagged reach; smoke 24/24 PASS, 0 regressed → REACH-OK); syntax 1 file · Rule #2 PASS · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (music.js not shared) → VERIFY: PASS.
+- **Named omissions:** none — whole body, all 5 callees live (dungeon.h macros exported from const.js).
+- **Ledger:** generic_lvl_desc ported
+- **Next:** generated Open — coverage head after refill.
+
 ## D-3163 — `worn.c` wornmask_to_armcat + allunworn (coverage)
 
 - **Status:** fixed (coverage cluster, 2 C functions whole; +55 js/worn.js — below the ~80 density line, but worn.c holds nothing more Open with a measured gap: all other rows are measured ok or declared ported).

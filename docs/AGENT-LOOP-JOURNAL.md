@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3164 `music.c` generic_lvl_desc sanctum arm (coverage)
+
+**C locus:** music.c:478–492 — `if/else-if` chain over `&u.uz`: astral plane → plane → sanctum → puzzle → tower → dungeon.
+**JS:** js/music.js:466 generic_lvl_desc (sanctum arm at :470, C pin `:484–485`). Sequential-`if` with early returns preserves C's else-if semantics (each arm returns).
+**Change:** added the sanctum arm in C order between the endgame and sokoban arms over the live `Is_sanctum` export (js/const.js:3294, `Lcheck(&sanctum_level)`); extended the existing `./const.js` import (no new module edge).
+**Verify:** note hidden verify generic_lvl_desc: no corpus session blocked on it at baseline; PASS reach (no RNG-tagged reach; smoke 24/24 PASS, 0 regressed → REACH-OK); syntax 1 file · Rule #2 PASS · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (music.js not shared) → VERIFY: PASS.
+**Named:** none — whole body, all 5 callees live (dungeon.h macros exported from const.js).
+**Next:** generated Open — coverage head after refill.
 ## 2026-09-30 — D-3163 `worn.c` wornmask_to_armcat + allunworn (coverage)
 
 **C locus:** - `wornmask_to_armcat`: worn.c:218–246 — `cat = 0`, `switch (mask & W_ARMOR)` over the 7 armor slots, no default arm.

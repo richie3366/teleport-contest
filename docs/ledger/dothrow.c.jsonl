@@ -4,7 +4,7 @@
 {"fn":"throw_ok","c":"317-348","status":"unknown"}
 {"fn":"dothrow","c":"352-376","status":"unknown"}
 {"fn":"autoquiver","c":"381-442","status":"unknown"}
-{"fn":"find_launcher","c":"447-465","status":"unknown"}
+{"fn":"find_launcher","c":"447-465","status":"ported","js":["js/dothrow.js:find_launcher"],"at":"2026-09-30@e611ec47f","note":"stale: js/dothrow.js:2675"}
 {"fn":"dofire","c":"469-586","status":"unknown","d":["D-2056","D-1851"],"at":"seed@a30a7de84"}
 {"fn":"endmultishot","c":"590-601","status":"unknown"}
 {"fn":"hitfloor","c":"606-647","status":"unknown"}

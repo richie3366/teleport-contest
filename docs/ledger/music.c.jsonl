@@ -7,7 +7,7 @@
 {"fn":"charm_monsters","c":"196-217","status":"unknown"}
 {"fn":"do_pit","c":"221-338","status":"unknown"}
 {"fn":"do_earthquake","c":"344-475","status":"unknown","d":["D-2315"],"at":"seed@a30a7de84"}
-{"fn":"generic_lvl_desc","c":"478-492","status":"unknown"}
+{"fn":"generic_lvl_desc","c":"478-492","status":"ported","js":["js/music.js:generic_lvl_desc"],"d":["D-3164"],"at":"2026-09-30@e611ec47f"}
 {"fn":"do_improvisation","c":"503-730","status":"unknown"}
 {"fn":"improvised_notes","c":"733-753","status":"unknown"}
 {"fn":"do_play_instrument","c":"759-899","status":"unknown","d":["D-2046"],"at":"seed@a30a7de84"}
