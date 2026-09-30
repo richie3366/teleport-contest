@@ -887,6 +887,12 @@ export function option_help_lines() {
  * Contest/JS: flags.debug already means wizard authorized (no
  * sysopt.wizards gate); explore authorize / deferred_X explore prompt
  * deferred.
+ * NOTE (D-next): a C-order restart with the live authorize gates was
+ * reverted — it refuses explore where C grants, because JS sessions
+ * never load the recorder sysconf's WIZARDS-star / EXPLORERS-star lines
+ * (game.sysopt keeps the sys_early_init nulls). Port that sysconf seed
+ * first, then re-apply the `:10134–10150` restart (unixmain.c:627–636
+ * authorize_wizard_mode beside authorize_explore_mode in cmd.js).
  */
 export function set_playmode() {
     if (!game.flags) game.flags = {};
@@ -3518,6 +3524,71 @@ export function optfn_altkeyhandling(_optidx, req, _negated, opts, _op) {
 }
 
 /**
+ * C options.c optfn_crash_email `:1259–1282` (staticfn;
+ * NHOPTC(crash_email) optlist.h `:243`; CRASHREPORT is defined on
+ * linux, config.h `:250`, so the `:1257–1341` block is live). do_set
+ * stores dupstr(op) over the old value (`:1269–1271` — free is GC in
+ * JS); get_val writes only when set (`:1277–1278` — unset returns
+ * optn_ok with opts untouched, and doset shows "unknown").
+ * @param {number} _optidx C optidx UNUSED
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} _negated C negated UNUSED
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:1267`
+ */
+export function optfn_crash_email(_optidx, req, _negated, opts, _op) {
+    const gc = game.gc || (game.gc = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:1263–1265`
+    if (req === REQ_DO_SET) { // C `:1266`
+        const op = string_for_opt(String(opts), false); // C `:1267` FALSE
+        if (op === EMPTY_OPTSTR) // C `:1267`
+            return OPTN_ERR; // C `:1268`
+        // C `:1269–1270` free(gc.crash_email) — GC
+        gc.crash_email = dupstr(op); // C `:1271`
+        return OPTN_OK; // C `:1272`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1274`
+        if (!opts) // C `:1275`
+            return OPTN_ERR; // C `:1276`
+        if (gc.crash_email) // C `:1277`
+            set_optbuf(opts, String(gc.crash_email)); // C `:1278`
+        return OPTN_OK; // C `:1279`
+    }
+    return OPTN_OK; // C `:1281–1282`
+}
+
+/**
+ * C options.c optfn_crash_name `:1285–1308` (staticfn;
+ * NHOPTC(crash_name) optlist.h `:246`; same live CRASHREPORT block).
+ * Same shape as optfn_crash_email over gc.crash_name.
+ * @param {number} _optidx C optidx UNUSED
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} _negated C negated UNUSED
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:1293`
+ */
+export function optfn_crash_name(_optidx, req, _negated, opts, _op) {
+    const gc = game.gc || (game.gc = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:1289–1291`
+    if (req === REQ_DO_SET) { // C `:1292`
+        const op = string_for_opt(String(opts), false); // C `:1293` FALSE
+        if (op === EMPTY_OPTSTR) // C `:1293`
+            return OPTN_ERR; // C `:1294`
+        // C `:1295–1296` free(gc.crash_name) — GC
+        gc.crash_name = dupstr(op); // C `:1297`
+        return OPTN_OK; // C `:1298`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1300`
+        if (!opts) // C `:1301`
+            return OPTN_ERR; // C `:1302`
+        if (gc.crash_name) // C `:1303`
+            set_optbuf(opts, String(gc.crash_name)); // C `:1304`
+        return OPTN_OK; // C `:1305`
+    }
+    return OPTN_OK; // C `:1307–1308`
+}
+
+/**
  * C options.c optfn_crash_urlmax `:1311–1339` (staticfn;
  * NHOPTC(crash_urlmax) optlist.h `:249`) — crash_urlmax:nn below 75 is
  * config_error_add + optn_err (`:1322–1326`); else gc.crash_urlmax keeps
@@ -3830,6 +3901,128 @@ export function optfn_vary_msgcount(optidx, req, negated, opts, _op, iflagsBag) 
 }
 
 /**
+ * C options.c optfn_scroll_amount `:3763–3791` (staticfn;
+ * NHOPTC(scroll_amount) optlist.h `:645`) — WINCAP scroll_amount:nn:
+ * bare negation stores 1, a value stores atoi (`:3773–3776`,
+ * vary_msgcount precedent); negated-with-value is bad_negation
+ * (`:3777–3779`); unset get_val is defopt (`:3787`). The wc_ field is
+ * absent until set (C static 0).
+ * @param {number} optidx C optidx (allopt_name for bad_negation)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:3773`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_scroll_amount(optidx, req, negated, opts, _op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3767–3769`
+    if (req === REQ_DO_SET) { // C `:3770`
+        /* C `:3771` WINCAP scroll_amount:nn */
+        const op = string_for_opt(String(opts), negated); // C `:3773`
+        if ((negated && op === EMPTY_OPTSTR) // C `:3774–3775`
+            || (!negated && op !== EMPTY_OPTSTR)) {
+            iflags.wc_scroll_amount = negated ? 1 : opt_atoi(op); // C `:3776` atoi
+        } else if (negated) { // C `:3777`
+            bad_negation(allopt_name(optidx), true); // C `:3778`
+            return OPTN_ERR; // C `:3779`
+        }
+        return OPTN_OK; // C `:3781`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3783`
+        if ((iflags.wc_scroll_amount | 0)) // C `:3784` (absent ≡ C static 0)
+            set_optbuf(opts, String(iflags.wc_scroll_amount | 0)); // C `:3785`
+        else
+            set_optbuf(opts, 'default'); // C `:3787` defopt[]
+        return OPTN_OK; // C `:3788`
+    }
+    return OPTN_OK; // C `:3790–3791`
+}
+
+/**
+ * C options.c optfn_scroll_margin `:3794–3821` (staticfn;
+ * NHOPTC(scroll_margin) optlist.h `:648`) — WINCAP scroll_margin:nn:
+ * bare negation stores 5, a value stores atoi (`:3803–3806`); otherwise
+ * the optfn_scroll_amount shape over iflags.wc_scroll_margin.
+ * @param {number} optidx C optidx (allopt_name for bad_negation)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:3803`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_scroll_margin(optidx, req, negated, opts, _op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3798–3800`
+    if (req === REQ_DO_SET) { // C `:3801`
+        /* C `:3802` WINCAP scroll_margin:nn */
+        const op = string_for_opt(String(opts), negated); // C `:3803`
+        if ((negated && op === EMPTY_OPTSTR) // C `:3804–3805`
+            || (!negated && op !== EMPTY_OPTSTR)) {
+            iflags.wc_scroll_margin = negated ? 5 : opt_atoi(op); // C `:3806` atoi
+        } else if (negated) { // C `:3807`
+            bad_negation(allopt_name(optidx), true); // C `:3808`
+            return OPTN_ERR; // C `:3809`
+        }
+        return OPTN_OK; // C `:3811`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3813`
+        if ((iflags.wc_scroll_margin | 0)) // C `:3814` (absent ≡ C static 0)
+            set_optbuf(opts, String(iflags.wc_scroll_margin | 0)); // C `:3815`
+        else
+            set_optbuf(opts, 'default'); // C `:3817` defopt[]
+        return OPTN_OK; // C `:3818`
+    }
+    return OPTN_OK; // C `:3820–3821`
+}
+
+/**
+ * C options.c optfn_windowtype `:4943–4987` (staticfn;
+ * NHOPTC(windowtype) optlist.h `:117`) — windowtype:name do_set stores
+ * nmcpy(gc.chosen_windowtype) past the window_inited / windowtype_locked
+ * gates (`:4966–4972`); get_val is windowprocs.name (`:4983`), which is
+ * "tty" in this single-windowport build (windows.c:100 &tty_procs,
+ * `:233` win_choices_find("tty")). choose_windows (`:4974`,
+ * windows.c:266–338: winchoices table + ini_routine calls) is the named
+ * omission — nothing here can switch window systems.
+ * @param {number} optidx C optidx (allopt_name for string_for_env_opt)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} _negated C negated UNUSED
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:4970`
+ */
+export function optfn_windowtype(optidx, req, _negated, opts, _op) {
+    if (!game.iflags) game.iflags = {};
+    if (!game.gc) game.gc = {};
+    const iflags = game.iflags, gc = game.gc;
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:4948–4950`
+    if (req === REQ_DO_SET) { // C `:4951`
+        /* C `:4952–4965` windowtype: interface choice, first in file. */
+        if (!iflags.window_inited) { // C `:4966`
+            if (iflags.windowtype_locked) // C `:4967`
+                return OPTN_OK; // C `:4968`
+            const op = string_for_env_opt(allopt_name(optidx), String(opts), false); // C `:4970–4971` FALSE
+            if (op !== EMPTY_OPTSTR) { // C `:4971`
+                gc.chosen_windowtype = nmcpy(op, WINTYPELEN); // C `:4972`
+                if (!iflags.windowtype_deferred) { // C `:4973`
+                    // Named omission (map): choose_windows(gc.chosen_windowtype)
+                    // (windows.c:266–338) — window-system table dispatch with
+                    // ini_routine calls; JS is tty-only.
+                }
+            } else {
+                return OPTN_ERR; // C `:4977`
+            }
+        }
+        return OPTN_OK; // C `:4980`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4982`
+        set_optbuf(opts, 'tty'); // C `:4983` windowprocs.name (sole winchoice)
+        return OPTN_OK; // C `:4984`
+    }
+    return OPTN_OK; // C `:4986–4987`
+}
+
+/**
  * C options.c handler_versinfo `:6572–6617` (staticfn) — 'O' menu picker
  * for the flags.versinfo bitmask. Sole C caller is the optfn_versinfo
  * do_handler arm (`:4513`), async-split into doset_optfn_do_handler.
@@ -3886,19 +4079,20 @@ export function optfn_versinfo(optidx, req, negated, opts, op) {
         const vgb = game.nomakedefs?.git_branch;
         const have_branch = !!(vgb && vgb[0]); // C `:4489–4490`
         const dflt = have_branch ? VI_BRANCH : VI_NUMBER; // C `:4491`
-        void dflt; // feeds the named `:4499–4501` sink text only
         if (negated) { // C `:4493`
             bad_negation(optname, true); // C `:4494` (stub: sink named)
             return OPTN_SILENTERR; // C `:4495`
         }
         op = string_for_opt(opts, false); // C `:4497` (reassigns op)
         if (op === EMPTY_OPTSTR) { // C `:4498`
-            // Named omission (map): config_error_add("'%s' requires a value; defaulting to %d") — no JS config-error sink.
+            config_error_add("'%s' requires a value; defaulting to %d", // C `:4499–4500`
+                optname, dflt);
             return OPTN_SILENTERR; // C `:4501`
         }
         const val = Number.parseInt(op, 10) || 0; // C `:4503` atoi
         if (!val || (val & ~7) !== 0) { // C `:4504`
-            // Named omission (map): config_error_add("'%s' must be one of 1, 2, 4, ...") — no JS config-error sink.
+            config_error_add("'%s' must be one of 1, 2, 4, or" // C `:4505–4507`
+                + ' the sum of two or all three of those', optname);
             return OPTN_SILENTERR; // C `:4508`
         }
         game.flags.versinfo = val >>> 0; // C `:4510` (unsigned)
@@ -10331,8 +10525,8 @@ export async function doset() {
     const compounds = [
         { name: 'autounlock', get_val: () => doset_compopt_get_val(optfn_autounlock, 'autounlock'), handler: true },
         { name: 'boulder', get_val: () => doset_compopt_get_val(optfn_boulder, 'boulder') },
-        { name: 'crash_email', val: 'unknown' },
-        { name: 'crash_name', val: 'unknown' },
+        { name: 'crash_email', get_val: () => doset_compopt_get_val(optfn_crash_email, 'crash_email') || 'unknown' }, // C `:9043` "unknown" unless non-empty
+        { name: 'crash_name', get_val: () => doset_compopt_get_val(optfn_crash_name, 'crash_name') || 'unknown' }, // C `:9043` "unknown" unless non-empty
         { name: 'crash_urlmax', val: '-1' },
         { name: 'disclose', get_val: () => doset_compopt_get_val(optfn_disclose, 'disclose'), handler: true },
         { name: 'fruit', val: 'slime mold' },
@@ -10903,7 +11097,7 @@ export async function optfn_suppress_alert(optidx, req, negated, opts, op) {
  * JS length terminates the loops. */
 const allopt = [
     // optlist.h:117 NHOPTC(windowtype)
-    { name: 'windowtype', opttyp: CompOpt, idx: 0, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'windowtype', opttyp: CompOpt, idx: 0, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_windowtype },
     // optlist.h:120 NHOPTC(playmode)
     { name: 'playmode', opttyp: CompOpt, idx: 1, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_playmode },
     // optlist.h:123 NHOPTC(name)
@@ -10971,9 +11165,9 @@ const allopt = [
     // optlist.h:239 NHOPTB(confirm)
     { name: 'confirm', opttyp: BoolOpt, idx: 33, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'confirm' }, optfn: null },
     // optlist.h:243 NHOPTC(crash_email)
-    { name: 'crash_email', opttyp: CompOpt, idx: 34, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'crash_email', opttyp: CompOpt, idx: 34, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_crash_email },
     // optlist.h:246 NHOPTC(crash_name)
-    { name: 'crash_name', opttyp: CompOpt, idx: 35, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'crash_name', opttyp: CompOpt, idx: 35, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_crash_name },
     // optlist.h:249 NHOPTC(crash_urlmax)
     { name: 'crash_urlmax', opttyp: CompOpt, idx: 36, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_crash_urlmax },
     // optlist.h:258 NHOPTB(customcolors)
@@ -11207,9 +11401,9 @@ const allopt = [
     // optlist.h:642 NHOPTC(scores)
     { name: 'scores', opttyp: CompOpt, idx: 151, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_scores },
     // optlist.h:645 NHOPTC(scroll_amount)
-    { name: 'scroll_amount', opttyp: CompOpt, idx: 152, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'scroll_amount', opttyp: CompOpt, idx: 152, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_scroll_amount },
     // optlist.h:648 NHOPTC(scroll_margin)
-    { name: 'scroll_margin', opttyp: CompOpt, idx: 153, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'scroll_margin', opttyp: CompOpt, idx: 153, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_scroll_margin },
     // optlist.h:651 NHOPTB(selectsaved)
     { name: 'selectsaved', opttyp: BoolOpt, idx: 154, setwhere: SET_IN_CONFIG, initval: true, addr: { obj: 'iflags', key: 'wc2_selectsaved' }, optfn: null },
     // optlist.h:654 NHOPTB(showdamage)

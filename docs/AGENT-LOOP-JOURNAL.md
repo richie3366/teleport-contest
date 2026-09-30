@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3169 options.c optfn 6-pack (coverage) + stale Placebc/optfn_video; set_playmode restart reverted on sysconf gap
+
+**C locus:** - `optfn_scroll_amount`: options.c:3763–3791 (do_set `:3770–3782`: bare negation stores 1, value stores atoi; negated+value bad_negation `:3777–3779`; get_val defopt `:3787`).
+**JS:** js/options.js:3539 (optfn_crash_email), :3570 (optfn_crash_name), :3917 (optfn_scroll_amount), :3954 (optfn_scroll_margin), :3994 (optfn_windowtype), :4066+ (optfn_versinfo 2-site wiring), :11100/:11168/:11170/:11404/:11406 (row wiring), :10528–10529 (doset crash get_val), :884–897 (set_playmode restored + NOTE).
+**Change:** ported all 5 whole in C order (vary_msgcount/crash_urlmax precedent: REQ_/OPTN_/EMPTY_OPTSTR, string_for_opt re-derive, opt_atoi for C atoi, allopt_name, set_optbuf, `| 0` int reads; absent wc_ fields ≡ C static 0; get_val 'default' ≡ defopt[]; windowtype get_val 'tty' ≡ sole winchoice windows.c:100/:233; crash free ≡ GC + live dupstr import). Wired all 5 allopt rows (D-3167 precedent) + doset crash get_val with C `:9043` `|| 'unknown'` fallback (unset output unchanged). Versinfo: 2 live config_error_add calls (botl.js no-op sink — behavior-neutral), dropped `void dflt`.
+**Verify:** `node scripts/verify.mjs --fn optfn_scroll_amount,optfn_scroll_margin,optfn_windowtype,optfn_crash_email,optfn_crash_name,optfn_versinfo` → VERIFY: PASS — hidden notes ×6 (no corpus session blocked, expected for coverage rows); REACH-OK ×6 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Arm probe /tmp/optfn8-probe.mjs: ALL PASS (32 checks: do_set/get_val roundtrips, negated bare/valued, locked/inited gates, valueless errs, versinfo silenterrs, do_init dispatch over wired rows). Intermediate set_playmode restart falsified by green gate (seed0900 FAIL → reverted → green again).
+**Named:** - `optfn_scroll_amount`: none — whole body; bad_negation is the live shared stub (own THIN row, pile_limit precedent).
+**Next:** set_playmode PARTIAL row stays Open — re-ship only with the sysconf WIZARDS/EXPLORERS seed (JS sessions must see the recorder sysconf lines before the authorize gates can grant like C); recipe + measurements in Fix above.
 ## 2026-09-30 — D-3168 `sp_lev.c` nhl_abs_coord + cvt_to_abscoord ports (coverage) + stale optfn_symset
 
 **C locus:** - `nhl_abs_coord`: sp_lev.c:4810–4836 (lua_gettop dispatch `:4814`; pair arm `:4817–4822` lua_tointeger; table arm `:4823–4830` get_table_int; error `:4831–4833`; registered `nh.abscoord` nhlua.c:1863).

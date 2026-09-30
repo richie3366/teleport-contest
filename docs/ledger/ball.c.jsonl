@@ -7,7 +7,7 @@
 {"fn":"unplacebc","c":"212-219","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}
 {"fn":"unplacebc_and_covet_placebc","c":"222-233","status":"unknown"}
 {"fn":"lift_covet_and_placebc","c":"236-254","status":"ported","js":["js/ball.js:lift_covet_and_placebc"],"at":"2026-09-29@671c54bfc","note":"stale: js/ball.js:544; callers wired end.js:567 mklev.js:18157"}
-{"fn":"Placebc","c":"259-284","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"Placebc","c":"259-284","status":"by-design","at":"2026-09-30@e79d836f7","note":"stale: compiled out — #else BREADCRUMBS arm (ball.c:256–347); config.h:644 leaves BREADCRUMBS undefined; live path is lowercase placebc (js/ball.js:435)"}
 {"fn":"Unplacebc","c":"287-303","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"Unplacebc_and_covet_placebc","c":"306-324","status":"by-design","at":"2026-09-30@92b27a5b5","note":"compiled out: #else BREADCRUMBS ball.c:256-347, config.h:644 leaves it undefined; live lowercase ported js/ball.js:524"}
 {"fn":"Lift_covet_and_placebc","c":"327-346","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

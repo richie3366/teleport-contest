@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-3169 — options.c optfn 6-pack (coverage) + stale Placebc/optfn_video; set_playmode restart reverted on sysconf gap
+
+- **Status:** open (coverage cluster: 5 whole-body ports + versinfo completion, all in C order with per-line cites; stale Placebc + optfn_video → by-design directly; set_playmode C-order restart + authorize_wizard_mode reverted after fortress falsification — see Fix. +204/-10 js/options.js, 1 file.)
+- **Symptom:** coverage gap, not a corpus divergence — 5 `options.c` optfn_* MISSING in `js/` (generated Open — coverage rows; no corpus session blocked, no RNG reach) + `optfn_versinfo` PARTIAL (2 config_error_add sites named-omitted). Queue head `Placebc` and `optfn_video` were stale (compiled out, guards cited below).
+- **C locus:**
+  - `optfn_scroll_amount`: options.c:3763–3791 (do_set `:3770–3782`: bare negation stores 1, value stores atoi; negated+value bad_negation `:3777–3779`; get_val defopt `:3787`).
+  - `optfn_scroll_margin`: options.c:3794–3821 (same shape over wc_scroll_margin; bare negation stores 5 `:3806`).
+  - `optfn_windowtype`: options.c:4943–4987 (window_inited/locked gates `:4966–4968`; string_for_env_opt + nmcpy `:4970–4972`; choose_windows `:4974`; get_val windowprocs.name `:4983`).
+  - `optfn_crash_email`: options.c:1259–1282 (CRASHREPORT block `:1257–1341`, live on linux per config.h:250; dupstr store `:1271`; get_val writes only when set `:1277–1278`).
+  - `optfn_crash_name`: options.c:1285–1308 (same shape over gc.crash_name).
+  - `optfn_versinfo`: options.c:4471–4534 (this commit wires the two do_set config_error_add arms `:4499–4501`, `:4505–4508`; body + do_handler split pre-exist).
+- **JS was:** no symbols for the 5 (allopt rows optfn:null; doset crash rows literal 'unknown'); versinfo's 2 error arms returned SILENTERR past a `void dflt` + named-omission comments; set_playmode thin (no authorize gates, discover arm deferred).
+- **Fix:** ported all 5 whole in C order (vary_msgcount/crash_urlmax precedent: REQ_/OPTN_/EMPTY_OPTSTR, string_for_opt re-derive, opt_atoi for C atoi, allopt_name, set_optbuf, `| 0` int reads; absent wc_ fields ≡ C static 0; get_val 'default' ≡ defopt[]; windowtype get_val 'tty' ≡ sole winchoice windows.c:100/:233; crash free ≡ GC + live dupstr import). Wired all 5 allopt rows (D-3167 precedent) + doset crash get_val with C `:9043` `|| 'unknown'` fallback (unset output unchanged). Versinfo: 2 live config_error_add calls (botl.js no-op sink — behavior-neutral), dropped `void dflt`. Stale: Placebc → by-design (BREADCRUMBS `#else` arm ball.c:256–347, config.h:644 commented out; live lowercase placebc at js/ball.js:435); optfn_video → by-design (`#ifdef NO_TERMS` options.c:4645–4678, never defined, zero C references, no allopt row). REVERTED in-commit: set_playmode `:10134–10150` restart + unixmain.c:627–636 authorize_wizard_mode (js/cmd.js) — green gate broke (seed0900 rng@0 getbones/makelevel): measured entry state has flags.explore=true + game.discover=true with game.sysopt.explorers=null (JS sessions never load the recorder sysconf's WIZARDS-star/EXPLORERS-star lines), so the faithful gates refuse explore where C grants. Old body restored + NOTE pointer at the site; no behavior delta remains.
+- **JS:** js/options.js:3539 (optfn_crash_email), :3570 (optfn_crash_name), :3917 (optfn_scroll_amount), :3954 (optfn_scroll_margin), :3994 (optfn_windowtype), :4066+ (optfn_versinfo 2-site wiring), :11100/:11168/:11170/:11404/:11406 (row wiring), :10528–10529 (doset crash get_val), :884–897 (set_playmode restored + NOTE).
+- **Callers:**
+  - `optfn_scroll_amount`: C allopt row optlist.h:645 (parseoptions `:637` dispatch, get_option_value `:8496`, allopt_array_init `:7428` do_init) → JS row idx 152 wired :11404 (same dispatch arms); no doset compound row (SET_GAMEVIEW, like sibling vary_msgcount).
+  - `optfn_scroll_margin`: same via optlist.h:648 → JS row idx 153 wired :11406.
+  - `optfn_windowtype`: same via optlist.h:117 → JS row idx 0 wired :11100; set_gameview display keeps its 'tty' literal (matches new get_val output).
+  - `optfn_crash_email`: same via optlist.h:243 → JS row idx 34 wired :11168 + doset_add_menu `:9038` value column → :10528 get_val dispatch.
+  - `optfn_crash_name`: same via optlist.h:246 → JS row idx 35 wired :11170 + doset `:9038` → :10529.
+  - `optfn_versinfo`: rows/dispatch pre-wired (D-2773/D-2821); this commit adds no callers, only the 2 sink calls inside already-wired arms.
+- **Verify:** `node scripts/verify.mjs --fn optfn_scroll_amount,optfn_scroll_margin,optfn_windowtype,optfn_crash_email,optfn_crash_name,optfn_versinfo` → VERIFY: PASS — hidden notes ×6 (no corpus session blocked, expected for coverage rows); REACH-OK ×6 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Arm probe /tmp/optfn8-probe.mjs: ALL PASS (32 checks: do_set/get_val roundtrips, negated bare/valued, locked/inited gates, valueless errs, versinfo silenterrs, do_init dispatch over wired rows). Intermediate set_playmode restart falsified by green gate (seed0900 FAIL → reverted → green again).
+- **Named omissions:**
+  - `optfn_scroll_amount`: none — whole body; bad_negation is the live shared stub (own THIN row, pile_limit precedent).
+  - `optfn_scroll_margin`: none — same.
+  - `optfn_windowtype`: choose_windows `:4974` (windows.c:266–338 winchoices table + ini_routines; JS tty-only, nothing to switch to).
+  - `optfn_crash_email`: none — whole body.
+  - `optfn_crash_name`: none — whole body.
+  - `optfn_versinfo`: none new — do_handler stays the D-2773 async split (doset_optfn_do_handler), bad_negation the shared stub; the 2 config_error_add namings are now live calls.
+- **Ledger:** optfn_scroll_amount ported; optfn_scroll_margin ported; optfn_windowtype ported; optfn_crash_email ported; optfn_crash_name ported; optfn_versinfo ported
+- **Next:** set_playmode PARTIAL row stays Open — re-ship only with the sysconf WIZARDS/EXPLORERS seed (JS sessions must see the recorder sysconf lines before the authorize gates can grant like C); recipe + measurements in Fix above.
+
 ## D-3168 — `sp_lev.c` nhl_abs_coord + cvt_to_abscoord ports (coverage) + stale optfn_symset
 
 - **Status:** open (coverage cluster: 2 whole-body ports + lua_tointeger stand-in + 11 tests; stale optfn_symset → ported directly. +68 js/mklev.js — under the ~80 bar with the file/closure exhausted: only sp_lev.c queue row, closure = ported/by-design/live-documented.)
