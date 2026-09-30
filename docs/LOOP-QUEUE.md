@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `spell.c` spelltypemnemonic — coverage PARTIAL (C 18 code L `spell.c:832–853` / JS 9 code L in js/spell.js; hops 6, callers 1, RNG 0, msg 0) @990da2b8d
 - [ ] `cmd.c` dosuspend_core — coverage MISSING (C 9 code L `cmd.c:5662–5678` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @990da2b8d
 - [ ] `mkobj.c` may_generate_eroded — coverage PARTIAL (C 9 code L `mkobj.c:177–192` / JS 5 code L in js/mkobj.js; hops 5, callers 1, RNG 0, msg 0) @990da2b8d
 - [ ] `botl.c` status_hilite_menu_fld — coverage PARTIAL (C 66 code L `botl.c:4357–4453` / JS 41 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `role.c` setup_algnmenu — coverage PARTIAL (C 23 code L `role.c:2979–3012` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
 - [ ] `cmd.c` cmdbind_remove — coverage PARTIAL (C 14 code L `cmd.c:2158–2177` / JS 9 code L in js/cmd.js; hops —, callers 3, RNG 0, msg 0) @a1b562159
 - [ ] `options.c` parsebindings — coverage PARTIAL (C 43 code L `options.c:7596–7674` / JS 30 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @1300fdc94
+- [ ] `cfgfiles.c` l_get_config_errors — coverage MISSING (C 17 code L `cfgfiles.c:1516–1539` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: nhl_add_table_entry_int, nhl_add_table_entry_str) @5f75ba02c
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

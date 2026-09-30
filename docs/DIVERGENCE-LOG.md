@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-3148 — `spell.c` remainder: spelltypemnemonic impossible arm + dowizcast/show_spells/book_substitution (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `spelltypemnemonic` + queue-eligible same-file `dowizcast` + same-file absent `show_spells`, `book_substitution` + same-file verify-whole `age_spells`, `spell_idx`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +84/−2 `js/spell.js`. Exhausts spell.c measured gaps: every other spell.c function is ledger-ported or measured ok.)
+- **Symptom:** no corpus divergence — coverage. `spelltypemnemonic` default arm dropped C's `impossible("Unknown spell skill, %d;")`; `dowizcast`/`show_spells`/`book_substitution` had no JS symbol; `age_spells`/`spell_idx` bodies already complete (`decrnknow` is the spell.h:31 `sp_know--` macro, inlined exactly).
+- **C locus:**
+  - `spelltypemnemonic`: `spell.c:832–853` (7 skill arms, default impossible-then-"" `:852–853`).
+  - `dowizcast`: `spell.c:787–815` (SPE_DIG+i loop + blank-paper break `:797–804`, PICK_ONE "Cast which spell?" `:805–808`, n>0 → spelleffects `:810–814`, ECMD_OK `:815`). No C call sites.
+  - `show_spells`: `spell.c:2059–2069` (no-spells two-pline `:2062–2064`, else "Spells:" + nhUse(dospellmenu DUMP) `:2066–2067`).
+  - `book_substitution`: `spell.c:658–665` (identity gate + o_id sync `:661–664`). No C call sites (extern.h:3082 decl only).
+  - `age_spells`: `spell.c:669–682` — verify-whole, body complete (loop + spellknow-gated decrnknow).
+  - `spell_idx`: `spell.c:2379–2387` — verify-whole, body complete (loop + UNKNOWN_SPELL).
+- **JS was:** `default: return '';` with no impossible; dospellmenu had no SPELLMENU_DUMP (C `:8–11`) and an unconditional 4-space heading indent; three functions absent.
+- **Fix:** default arm now `void impossible('Unknown spell skill, %d;', skill)` then `return ''` (fire-and-forget keeps it sync, dungeon.js correct_branch_type precedent); added `SPELLMENU_DUMP = -3` + DUMP heading unindent in dospellmenu (C `:2104`; PICK_ONE key flow already DUMP-correct, return ignored per nhUse); new `show_spells`/`book_substitution`/`dowizcast` in C order over live in-file/imported callees (dowizcast menu via the dospellmenu corner-menu pattern; OBJ_NAME ≡ objectNameStrs like spellname()).
+- **JS:** `js/spell.js` only — spelltypemnemonic `:499`, SPELLMENU_DUMP `:270`, show_spells `:1645`, book_substitution `:1805`, dowizcast `:1948`; no new imports (all edges already present).
+- **Callers:**
+  - `spelltypemnemonic`: sole C caller spell.c:2121 dospellmenu Sprintf → JS js/spell.js:1698 (pre-existing, unchanged).
+  - `dowizcast`: no C call sites — unwired, exported for parity.
+  - `show_spells`: sole C caller end.c:601 dump_everything (by-design D-1776) — unwired, named.
+  - `book_substitution`: no C call sites — unwired, exported for parity.
+  - `age_spells`: C caller allmain.c:355 → JS js/allmain.js:1232 (pre-existing, unchanged).
+  - `spell_idx`: C caller spell.c:1387 spelleffects → JS js/spell.js:2626 (pre-existing, unchanged).
+- **Verify:** `node scripts/verify.mjs --fn spelltypemnemonic,dowizcast,show_spells,book_substitution,age_spells,spell_idx` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+  - `spelltypemnemonic`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `dowizcast`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `show_spells`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `book_substitution`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `age_spells`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `spell_idx`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `spelltypemnemonic`: none — whole body, sole callee live (impossible).
+  - `dowizcast`: no-C-caller wiring (dead in C); display-order letter selection (C passes accelerator 0 — window-port concern, dospellmenu pattern).
+  - `show_spells`: sole-C-caller wiring — end.c:601 dump_everything is by-design (D-1776); whole body, every callee live (pline, dospellmenu).
+  - `book_substitution`: no-C-caller wiring (extern decl only); whole body, no callees.
+  - `age_spells`: none — verify-whole (decrnknow macro inlined per spell.h:31).
+  - `spell_idx`: none — verify-whole.
+- **Ledger:** spelltypemnemonic ported; dowizcast ported; show_spells ported; book_substitution ported; age_spells ported; spell_idx ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3147 — `invent.c` display_cinventory restart + cinv_ansimpleoname (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `display_cinventory` + Open callee `cinv_ansimpleoname`; 0 corpus sessions blocked on either — coverage completion, not a divergence. +60/−15 `js/invent.js`. Only `invent.c` row eligible (`ledger.mjs rows` grep); closure otherwise ported/split/live.)

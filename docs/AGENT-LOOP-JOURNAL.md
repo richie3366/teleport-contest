@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3148 `spell.c` remainder: spelltypemnemonic impossible arm + dowizcast/show_spells/book_substitution (coverage)
+
+**C locus:** - `spelltypemnemonic`: `spell.c:832–853` (7 skill arms, default impossible-then-"" `:852–853`).
+**JS:** `js/spell.js` only — spelltypemnemonic `:499`, SPELLMENU_DUMP `:270`, show_spells `:1645`, book_substitution `:1805`, dowizcast `:1948`; no new imports (all edges already present).
+**Change:** default arm now `void impossible('Unknown spell skill, %d;', skill)` then `return ''` (fire-and-forget keeps it sync, dungeon.js correct_branch_type precedent); added `SPELLMENU_DUMP = -3` + DUMP heading unindent in dospellmenu (C `:2104`; PICK_ONE key flow already DUMP-correct, return ignored per nhUse); new `show_spells`/`book_substitution`/`dowizcast` in C order over live in-file/imported callees (dowizcast menu via the dospellmenu corner-menu pattern; OBJ_NAME ≡ objectNameStrs like spellname()).
+**Verify:** `node scripts/verify.mjs --fn spelltypemnemonic,dowizcast,show_spells,book_substitution,age_spells,spell_idx` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+**Named:** - `spelltypemnemonic`: none — whole body, sole callee live (impossible).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — D-3147 `invent.c` display_cinventory restart + cinv_ansimpleoname (coverage)
 
 **C locus:** - `display_cinventory`: `invent.c:5446–5473` (safe_qbuf title `:5453–5457`, cobj → query_objlist INVORDER_SORT/PICK_NONE/allow_all `:5459–5461`, empty → invdisp_nothing + n=0 `:5462–5464`, n>0 selected[0] `:5466–5470`, cknown `:5471`, return `:5472`).
