@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3183 — initialize vision before newgame or restore
+
+- **Status:** fixed coverage cluster; both complete bodies shipped. Small-cluster exception: the head and its sole callee contain 11 C code lines total, and there are no further same-file Open queue rows. No unrelated functions added for density.
+- **Symptom:** inferred from the read C and JS bodies: startup omitted vision_init, leaving visibility buffers from a prior in-process game until the later level reset and not selecting the row-bound pointers at the C startup site. No corpus session is blocked on either function.
+- **C locus:** whole bodies and all reference tables read in briefs; unixmain startup guard/order read around the executable caller.
+  - `vision_init`: vision.c:121–142; row-pointer setup, cs0/rmin0/rmax0 selection, vision_full_recalc zero, both could_see planes zeroed, then view_init. unixmain.c:215 calls it before init_sound_disp_gamewindows and restoration/newgame.
+  - `view_init`: vision.c:1651–1653; the compiled Algorithm C body is empty.
+- **JS was:** no vision_init or view_init symbol; module allocation established the row references, but no startup call cleared the two persistent could-see planes. init_vision_globals selected cs0 without clearing both planes or selecting the bounds. A view_from comment incorrectly attributed the clear-row aliases to view_init.
+- **Fix:** added both whole C-shaped exports. Existing typed row arrays implement the C row-pointer aliases directly; vision_init selects the existing current-plane and bound arrays, clears the recalculation flag and both visibility planes, then calls view_init. Wired the sole executable startup caller in C order and corrected the row-alias comment. The import check reported ALREADY, with no new module edge or top-level read.
+- **JS:** js/vision.js:104 vision_init, :120 view_init; js/jsmain.js:23 import, :197 startup call. game.active_buf mirrors the selected plane for existing JS consumers; game._viz_rmin/_viz_rmax are the existing C bound-pointer representation.
+- **Callers:**
+  - `vision_init`: unixmain.c:215 → js/jsmain.js:197 NethackGame.start, after askname and before init_sound_disp_gamewindows/try_restore_save. vision.c:113 is a comment, not an executable caller.
+  - `view_init`: vision.c:141 → js/vision.js:116 inside vision_init; vision.c:92 is its forward declaration.
+- **Verify:** clean-tree preflight green + strict PASS after putting the installed Node 22 runtime on PATH. Final command: node scripts/verify.mjs --fn vision_init,view_init --full. git diff --check clean; all verification workers exited.
+  - `vision_init`: no blocked sessions (note); no RNG-tagged reach, fixed smoke spread 24 PASS, 0 regressed → REACH-OK.
+  - `view_init`: no blocked sessions (note); no RNG-tagged reach, fixed smoke spread 24 PASS, 0 regressed → REACH-OK.
+  - Final output:
+
+```text
+PASS  syntax   2 changed js file(s): js/jsmain.js js/vision.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify vision_init: no corpus session blocked on it at baseline
+PASS  reach    vision_init: no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify view_init: no corpus session blocked on it at baseline
+PASS  reach    view_init: no RNG-tagged reach; fixed smoke spread (24 run, 6.2s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+- **Named omissions:**
+  - `vision_init`: none in its whole body or executable caller. Existing cs_buf0/1 and viz_clear row objects are the live C pointer aliases, so no redundant pointer arrays are introduced.
+  - `view_init`: none; the empty body matches compiled pinned C.
+- **Ledger:** vision_init ported; view_init ported
+- **Next:** first remaining generated Open coverage row shknam.c init_shop_selection; brief and grow its Open callee/same-file cluster. No hand-written coverage refill.
+
 ## D-3182 — stop initoptions after every fatal startup exit
 
 - **Status:** fixed review 2132 Must-fix, shipped alone; inherited startup-adapter and callee omissions keep initoptions partial.

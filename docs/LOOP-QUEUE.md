@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `vision.c` vision_init — coverage MISSING (C 11 code L `vision.c:121–142` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `shknam.c` init_shop_selection — coverage MISSING (C 10 code L `shknam.c:360–374` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `sfbase.c` SF_X — coverage MISSING (C 9 code L `sfbase.c:246–262` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `cfgfiles.c` cnf_line_WIZARDS — coverage MISSING (C 8 code L `cfgfiles.c:795–809` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sp_lev.c` lspo_level_init — coverage PARTIAL (C 26 code L `sp_lev.c:3837–3875` / JS 18 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `invent.c` doprarm — coverage PARTIAL (C 22 code L `invent.c:4601–4638` / JS 14 code L in js/invent.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `getpos.c` cmp_coord_distu — coverage PARTIAL (C 12 code L `getpos.c:312–329` / JS 8 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
+- [ ] `getpos.c` gloc_filter_floodfill_matcharea — coverage PARTIAL (C 9 code L `getpos.c:364–379` / JS 6 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @5e7475cd1
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

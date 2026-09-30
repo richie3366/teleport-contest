@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3183 initialize vision before newgame or restore
+
+**C locus:** whole bodies and all reference tables read in briefs; unixmain startup guard/order read around the executable caller.
+**JS:** js/vision.js:104 vision_init, :120 view_init; js/jsmain.js:23 import, :197 startup call. game.active_buf mirrors the selected plane for existing JS consumers; game._viz_rmin/_viz_rmax are the existing C bound-pointer representation.
+**Change:** added both whole C-shaped exports. Existing typed row arrays implement the C row-pointer aliases directly; vision_init selects the existing current-plane and bound arrays, clears the recalculation flag and both visibility planes, then calls view_init. Wired the sole executable startup caller in C order and corrected the row-alias comment.
+**Verify:** clean-tree preflight green + strict PASS after putting the installed Node 22 runtime on PATH. Final command: node scripts/verify.mjs --fn vision_init,view_init --full. git diff --check clean; all verification workers exited.
+**Named:** - `vision_init`: none in its whole body or executable caller. Existing cs_buf0/1 and viz_clear row objects are the live C pointer aliases, so no redundant pointer arrays are introduced.
+**Next:** first remaining generated Open coverage row shknam.c init_shop_selection; brief and grow its Open callee/same-file cluster. No hand-written coverage refill.
 ## 2026-09-30 — D-3182 stop initoptions after every fatal startup exit
 
 **C locus:** whole initoptions body and all five references read in brief; scores_only whole C body read in csym.
