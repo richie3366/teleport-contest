@@ -2132,3 +2132,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2120-deff666da-polearm-isqrt.md](./2120-deff666da-polearm-isqrt.md) | `deff666da` | D-3160 could_pole_mon restart + isqrt export (11 rows) | **ACCEPT** |
 | [2121-a8bd0bc2e-status-cluster.md](./2121-a8bd0bc2e-status-cluster.md) | `a8bd0bc2e` | D-3161 statushilites + statuslines + IBM omit fix | **ACCEPT** |
 | [2122-7fce929bc-dec-term-cluster.md](./2122-7fce929bc-dec-term-cluster.md) | `7fce929bc` | D-3162 DEC/playmode/hilite/term/autocomplete (14 rows) | **ACCEPT** |
+| [2123-e611ec47f-worn-slots.md](./2123-e611ec47f-worn-slots.md) | `e611ec47f` | D-3163 worn slots | **ACCEPT** |
+| [2124-e3edb2ef9-sanctum-description.md](./2124-e3edb2ef9-sanctum-description.md) | `e3edb2ef9` | D-3164 sanctum description | **ACCEPT** |
+| [2125-4d4f8e851-there-command.md](./2125-4d4f8e851-there-command.md) | `4d4f8e851` | D-3165 there command | **ACCEPT** |
+| [2126-2b25db15c-special-level-bindings.md](./2126-2b25db15c-special-level-bindings.md) | `2b25db15c` | D-3166 special-level bindings | **QUALITY-RISK** |
+| [2127-c8af100c3-option-nine.md](./2127-c8af100c3-option-nine.md) | `c8af100c3` | D-3167 option nine | **QUALITY-RISK** |
+| [2128-e79d836f7-absolute-coordinate-width.md](./2128-e79d836f7-absolute-coordinate-width.md) | `e79d836f7` | D-3168 absolute-coordinate width | **QUALITY-RISK** |
+| [2129-0f8744c49-option-error-stubs.md](./2129-0f8744c49-option-error-stubs.md) | `0f8744c49` | D-3169 option error stubs | **QUALITY-RISK** |
+| [2130-9865882fc-monster-regeneration.md](./2130-9865882fc-monster-regeneration.md) | `9865882fc` | D-3170 monster regeneration | **ACCEPT** |
+| [2131-f02c9df5f-playmode-config-closure.md](./2131-f02c9df5f-playmode-config-closure.md) | `f02c9df5f` | D-3171 playmode/config closure | **QUALITY-RISK** |

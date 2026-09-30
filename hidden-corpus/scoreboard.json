@@ -1,9 +1,9 @@
 {
- "commit": "9865882fc",
- "at": "2026-09-30T16:42:48.841Z",
- "full": false,
- "fullCommit": "7fce929bc",
- "fullAt": "2026-09-30T11:04:05.122Z",
+ "commit": "f02c9df5f",
+ "at": "2026-09-30T17:20:04.680Z",
+ "full": true,
+ "fullCommit": "f02c9df5f",
+ "fullAt": "2026-09-30T17:20:04.680Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4762,7 +4762,7 @@
    "steps": 288,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2833)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!",
    "error": null
@@ -5136,7 +5136,7 @@
    "steps": 135,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2833)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "error": null
@@ -10304,7 +10304,7 @@
    "steps": 117,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2833)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "error": null
@@ -12786,7 +12786,7 @@
    "steps": 202,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2833)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "error": null

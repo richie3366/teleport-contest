@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — Audit reviews 2123–2131 (D-3163–D-3171)
+
+**Order:** e611ec47f → e3edb2ef9 → 4d4f8e851 → 2b25db15c → c8af100c3 → e79d836f7 → 0f8744c49 → 9865882fc → f02c9df5f. Each review written before opening the next SHA; detached worktree held the SHA's code for its parent-baseline remeasure.
+**Findings:** 4 ACCEPT, 5 QUALITY-RISK. Four consolidated Must-fix families: system OPTIONS/name overwritten after sysconf read (first); no-op config_error_add behind purported live reporting; int32 instead of coordxy int16; permissive region option/boolean adapters. No REJECT; no js edits or STOP write. Green traces do not prove those branches.
+**Verification:** every ported function remeasured in its SHA via hidden-proxy verify --base SHA~1 --reach-all (0 blocked, smoke 24/24 REACH-OK individually; no REGRESSED). Full public 44/44, RNG 792838/792838, screens 11405/11405, 280+1.64/turn (R² .768). record: all corpus sessions present; final unfiltered score 648/953, RNG 96.75%, screens 90.7%, fullAt 2026-09-30T17:20:04.680Z; zero committed-PASS losses, +0. Leaderboard ours 13/44, 6882/11265, RNG 33.6%, screens 61.1% (judge score 13:20Z; unchanged).
+**Ledger sample:** summary --snapshot; SQL via Node 22 (host 20 has no node:sqlite), one brief each: big_little_match (mondata.c:1329–1351 reciprocal growth); Shield_on (do_wear.c:704–730 nine shields/known); flip_visuals (sp_lev.c:456–495 octants/wall glyph); sink_into_lava (trap.c:6990–7034 guards/death/RNG); vision_reset (vision.c:210–265 plane/pointer dig). Five seeded ported rows match their bodies, no ledger correction. Addressed stamps have hashes; no checked queue leftovers.
+**Next:** first Must-fix, startup sysconf ordering; ship alone. The config-error sink row then closes 2127/2129/2131 together. Review index and CURRENT/NOTES updated; full scoreboard committed with the grouped audit.
+
 ## 2026-09-30 — D-3171 options.c playmode authorization and option dispatch cluster
 
 **C locus:** - `set_playmode`: options.c:10134–10152, whole brief; wizard authorization/rename, refusal fallback, discover authorization and deferred_X clearing in C order.

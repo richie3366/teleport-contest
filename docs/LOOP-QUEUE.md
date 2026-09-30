@@ -86,6 +86,13 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
+- [ ] `options.c` initoptions_init startup sysconf ordering — C options.c:7118–7305 initializes defaults before read_config_file and checks failure (:7293–7296). JS NethackGame.start reads system OPTIONS then overwrites flags/name: VFS OPTIONS=!autopickup,name:SysName loses pickup=false/SysName. Preserve system settings through rc initialization and handle failed system config in C order. Source: reviews/loop-unattended/2131-f02c9df5f-playmode-config-closure.md.
+- [ ] `options.c` option-error callee closure — bad_negation/optfn_menuinvertmode/msghistory/name and D-3167/3169 error arms reach no-op botl.config_error_add. C options.c:6692–6697 → cfgfiles.c:1864–1890 must format/enqueue. Export/wire the real sink, verify every affected error arm, correct false live-sink claims. Source: reviews/loop-unattended/2131-f02c9df5f-playmode-config-closure.md; reviews/loop-unattended/2129-0f8744c49-option-error-stubs.md; reviews/loop-unattended/2127-c8af100c3-option-nine.md.
+
+- [ ] `sp_lev.c` nhl_abs_coord/cvt_to_abscoord signed-16 semantics — C sp_lev.c:4810–4836/:4771–4788 and global.h:71 narrow coordxy; JS retains int32 (65536→65536, 32767+1→32768 instead of 0/-32768). Fix input and room/map offset narrowing, establish Lua integer conversion behavior. Source: reviews/loop-unattended/2128-e79d836f7-absolute-coordinate-width.md.
+
+- [ ] `sp_lev.c` lspo_teleport_region/lspo_levregion validation — C sp_lev.c:5442–5460/:5471–5494 and nhlua.c:1078–1104/:1121–1133 reject invalid dir/type and numeric boolean 2; JS l_teleport_region/l_levregion silently default/coerce. Re-port shared adapters in C order including padding/name. Source: reviews/loop-unattended/2126-2b25db15c-special-level-bindings.md.
+
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: stamp the cited review
 `**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then
