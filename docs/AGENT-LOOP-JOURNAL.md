@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3178 string-buffer CRLF expansion and bounded Strlen
+
+**C locus:** whole bodies and every reference table read in briefs:
+**JS:** js/options.js:11051 strbuf_nl_to_crlf and :11080 Strlen_. 45 js/ insertions in one file. Density exception: the file's eligible absent bodies are these two small functions; its only other eligible THIN body, strbuf_empty, is already complete under GC and was marked stale. Other measured-ok functions are not new Open coverage work; strbuf_reserve is already declared ported. No unrelated file was added to pad the cluster.
+**Change:** added both whole bodies beside the existing buffer helpers, with C order, signed-int length arithmetic, NUL termination and unsigned length return. CRLF expansion reserves before moving characters backwards and expands every LF, including an LF already preceded by CR. Strlen_ preserves the exact 32767 failure threshold via a non-returning Error while naming the absent panic subsystem.
+**Verify:** clean preflight green + strict PASS using installed Node 22.22.0 after correcting PATH. Final command: `node scripts/verify.mjs --fn strbuf_nl_to_crlf,Strlen_ --full` Tail (/tmp/D3178-verify.log): `PASS syntax 1 changed js file(s): js/options.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS green 2/2 passing`; `PASS strict seed8000-tourist-starter.session.json`; `PASS strict seed0900-tourist-explore-actions.session.json`; `PASS cohort 7/7 passing`; `PASS full 44/44 passing`; `VERIFY: PASS`. Both per-function reach lines are recorded below. git diff --check clean; no worker started by this iteration remains running.
+**Named:** - `strbuf_nl_to_crlf`: none in its whole body or caller closure. Existing in-process JS strings replace C buffer identity/allocation/free; reserve tracks the C capacity.
+**Next:** first regenerated Open coverage row after this head leaves. Phase-2 parks stay closed.
 ## 2026-09-30 — D-3177 packorder and object-class string conversion with obsolete symbol handlers
 
 **C locus:** whole bodies and every reference table read in the briefs:

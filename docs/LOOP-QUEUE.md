@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `strutil.c` strbuf_nl_to_crlf — coverage MISSING (C 13 code L `strutil.c:58–77` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @1b5d1374c
 - [ ] `ball.c` Lift_covet_and_placebc — coverage MISSING (C 12 code L `ball.c:327–346` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @1b5d1374c
 - [ ] `ball.c` Unplacebc — coverage MISSING (C 11 code L `ball.c:287–303` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
 - [ ] `glyphs.c` find_display_sym_customization — coverage MISSING (C 11 code L `glyphs.c:1196–1215` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sfbase.c` SF_X — coverage MISSING (C 9 code L `sfbase.c:246–262` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `cfgfiles.c` cnf_line_WIZARDS — coverage MISSING (C 8 code L `cfgfiles.c:795–809` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `options.c` optfn_monsters — coverage MISSING (C 8 code L `options.c:2378–2393` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `options.c` pfxfn_IBM_ — coverage MISSING (C 8 code L `options.c:5169–5183` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4bcfa8a7a
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

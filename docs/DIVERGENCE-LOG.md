@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3178 — string-buffer CRLF expansion and bounded Strlen
+
+- **Status:** fixed for strbuf_nl_to_crlf; Strlen_ body complete with named panic/macro integration omissions. No Must-fix row was open.
+- **Symptom:** generated coverage head strbuf_nl_to_crlf and same-file Strlen_ had no JS symbol; no corpus session was blocked on either. Coverage evidence, not a recorded session divergence.
+- **C locus:** whole bodies and every reference table read in briefs:
+  - `strbuf_nl_to_crlf`: strutil.c:58–77, null guard, LF count, reservation and backward expansion including the terminator. Its existing strbuf_reserve callee (:28–45) was also read whole.
+  - `Strlen_`: strutil.c:82–98, bounded scan, panic threshold, unsigned return; global.h:135 defines LARGEST_INT=32767, :288 defines the Strlen macro.
+- **JS was:** neither body existed. strbuf_init/append/reserve/empty already implement the string-buffer abstraction in options.js. strbuf_empty was a stale THIN row: conditional C free is JS GC, then its live strbuf_init call resets both fields.
+- **Fix:** added both whole bodies beside the existing buffer helpers, with C order, signed-int length arithmetic, NUL termination and unsigned length return. CRLF expansion reserves before moving characters backwards and expands every LF, including an LF already preceded by CR. Strlen_ preserves the exact 32767 failure threshold via a non-returning Error while naming the absent panic subsystem. No new cross-module import or production caller invented.
+- **JS:** js/options.js:11051 strbuf_nl_to_crlf and :11080 Strlen_. 45 js/ insertions in one file. Density exception: the file's eligible absent bodies are these two small functions; its only other eligible THIN body, strbuf_empty, is already complete under GC and was marked stale. Other measured-ok functions are not new Open coverage work; strbuf_reserve is already declared ported. No unrelated file was added to pad the cluster.
+- **Callers:**
+  - `strbuf_nl_to_crlf`: zero C calls. strutil.c:56 is a comment and extern.h:1260 is a declaration. Live callee strbuf_reserve is called at js/options.js:11064. No gameplay or config-write invocation added, since C has none.
+  - `Strlen_`: no direct C calls; extern.h:1261 and hacklib.h:78 are declarations, hacklib.h:77 is commented out. global.h:288 Strlen macro is the sole invocation site in the brief; its expansion callers remain the named integration omission below. No invented caller.
+- **Verify:** clean preflight green + strict PASS using installed Node 22.22.0 after correcting PATH. Final command: `node scripts/verify.mjs --fn strbuf_nl_to_crlf,Strlen_ --full` Tail (/tmp/D3178-verify.log): `PASS syntax 1 changed js file(s): js/options.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS green 2/2 passing`; `PASS strict seed8000-tourist-starter.session.json`; `PASS strict seed0900-tourist-explore-actions.session.json`; `PASS cohort 7/7 passing`; `PASS full 44/44 passing`; `VERIFY: PASS`. Both per-function reach lines are recorded below. git diff --check clean; no worker started by this iteration remains running.
+  - `strbuf_nl_to_crlf`: no blocked sessions (note); fixed smoke spread 24/24 PASS, zero regressions, REACH-OK. Measured /tmp/D3178-oracle.c compiles the unchanged pinned bodies with C allocation/string macros and a panic longjmp sink; /tmp/D3178-parity.mjs compares 126 CRLF content/capacity cases, including all strings of length 0–4 over a/CR/LF, capacity growth, null buffer and embedded NUL: PASS. Allocation failure/panic presentation are not measured by this harness.
+  - `Strlen_`: no blocked sessions (note); fixed smoke spread 24/24 PASS, zero regressions, REACH-OK. The same C harness measures length 32766 returning 32766 and lengths 32767/32768 reaching panic; JS matches the returns/failures and embedded-NUL prefix length.
+- **Named omissions:**
+  - `strbuf_nl_to_crlf`: none in its whole body or caller closure. Existing in-process JS strings replace C buffer identity/allocation/free; reserve tracks the C capacity. The implicit terminator is removed from the JS contents after expansion.
+  - `Strlen_`: strutil.c:97 panic's output/log/termination subsystem has no live JS export; Error preserves non-return but not that presentation. global.h:288 Strlen macro expansion callers still use existing local JS lengths rather than this export; this iteration adds the reusable bounded primitive and does not rewrite those callers. Inputs retain this port's existing JS string representation, rather than C pointer storage.
+- **Ledger:** strbuf_nl_to_crlf ported; Strlen_ partial
+- **Next:** first regenerated Open coverage row after this head leaves. Phase-2 parks stay closed.
+
 ## D-3177 — packorder and object-class string conversion with obsolete symbol handlers
 
 - **Status:** fixed (six whole options.c bodies; oc_to_str caller closure partial). Three inspected platform-only rows are by-design: optfn_subkeyvalue is WIN32CON-only (options.c:4109–4132; optlist.h:736–739), optfn_video_width and optfn_video_height are in the MSDOS block (options.c:4602–4645; optlist.h:830–835); neither platform is compiled in contest Unix C. No Must-fix row was open; iteration 4026 is a port iteration.

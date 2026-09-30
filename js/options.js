@@ -11047,6 +11047,51 @@ export function strbuf_empty(sbuf) {
     strbuf_init(sbuf);
 }
 
+/** C ref: strutil.c:58–77 — expand each LF backwards after reserving. */
+export function strbuf_nl_to_crlf(sbuf) {
+    if (sbuf.str != null) {
+        // C strings end at NUL; JS stores their contents without the sentinel.
+        const nul = sbuf.str.indexOf('\0');
+        const str = nul < 0 ? sbuf.str : sbuf.str.slice(0, nul);
+        const len = str.length | 0;
+        let count = 0;
+        let cp = 0;
+
+        while (cp < len) {
+            if (str[cp++] === '\n') count++;
+        }
+        if (count) {
+            strbuf_reserve(sbuf, (len + count + 1) | 0);
+            const chars = str.split('');
+            chars.push('\0');
+            for (cp = len + count; count; --cp) {
+                chars[cp] = chars[cp - count];
+                if (chars[cp] === '\n') {
+                    chars[--cp] = '\r';
+                    --count;
+                }
+            }
+            sbuf.str = chars.slice(0, -1).join('');
+        }
+    }
+}
+
+/** C ref: strutil.c:82–98 — bounded Strlen, not unbounded strlen. */
+export function Strlen_(str, file, line) {
+    let p = 0;
+    let len;
+
+    for (len = 0; len < LARGEST_INT; ++len) {
+        const ch = str[p++] ?? '\0';
+        if (ch === '\0') break;
+    }
+    if (len === LARGEST_INT) {
+        // The panic subsystem is absent; retain its non-returning failure.
+        throw new Error(`${file}:${line | 0} string too long`);
+    }
+    return len >>> 0;
+}
+
 /** C ref: optlist.h `:19` enum OptType; global.h `:580–588` optset_restrictions. */
 const BoolOpt = 0, CompOpt = 1, OthrOpt = 2;
 export const SET_IN_SYSCONF = 0, SET_IN_CONFIG = 1, SET_GAMEVIEW = 3, SET_IN_GAME = 4; // C global.h `:581–586` sysconf first
