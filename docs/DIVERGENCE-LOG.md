@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3147 — `invent.c` display_cinventory restart + cinv_ansimpleoname (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `display_cinventory` + Open callee `cinv_ansimpleoname`; 0 corpus sessions blocked on either — coverage completion, not a divergence. +60/−15 `js/invent.js`. Only `invent.c` row eligible (`ledger.mjs rows` grep); closure otherwise ported/split/live.)
+- **Symptom:** no corpus divergence — coverage. `display_cinventory` built the title with a template string (no `safe_qbuf` overflow → `cinv_ansimpleoname` path) and rendered contents through the `query_objlist_pick_none_binv` analog instead of live `query_objlist`; `cinv_ansimpleoname` had no JS symbol.
+- **C locus:**
+  - `display_cinventory`: `invent.c:5446–5473` (safe_qbuf title `:5453–5457`, cobj → query_objlist INVORDER_SORT/PICK_NONE/allow_all `:5459–5461`, empty → invdisp_nothing + n=0 `:5462–5464`, n>0 selected[0] `:5466–5470`, cknown `:5471`, return `:5472`).
+  - `cinv_ansimpleoname`: `invent.c:5422–5441` (staticfn; otrapped `:5428`, mismatch-fired strncmp arms `:5429–5435`, front-insert else `:5437–5438`).
+- **JS was:** `qbuf` template `` `Contents of ${cinv_doname(obj)}:` ``; contents via `query_objlist_pick_none_binv(qbuf, items, true)`; `if (!obj) return null` guard C lacks; always `return null`. Named omit admitted the safe_qbuf overflow path.
+- **Fix:** restarted `display_cinventory` in C order over live `safe_qbuf(null, 'Contents of ', ':', obj, cinv_doname, cinv_ansimpleoname, 'that')` (same-module edge, already imported from objnam.js) and live `query_objlist(qbuf, items, INVORDER_SORT, PICK_NONE, allow_all)` (pickup.js edge, already imported); chain order into an array; `n>0 → pick_list[0].obj else null`; kept the split `invdisp_nothing` inline (hdr/''/'(empty)' PICK_NONE) and `obj.cknown = 1`. New module-local `cinv_ansimpleoname` in C order over live `ansimpleoname`/`strsubst`, keeping the mismatch-fired `strncmp` arms verbatim (no `!` in C) and spelling the empty-orig arm as an explicit prepend (C `strstr(bp,"")` hits; JS `strsubst` no-ops on empty orig).
+- **JS:** `js/invent.js` only — `cinv_ansimpleoname` `:4576`, `display_cinventory` `:4603`; import names added on existing objnam.js/pickup.js edges (`imports.mjs --can`: ALREADY).
+- **Callers:**
+  - `display_cinventory`: sole C caller zap.c:2255 bhito WAN_PROBING → JS js/zap.js:5633 (pre-existing, non-null obj; unchanged).
+  - `cinv_ansimpleoname`: C function-pointer arg at invent.c:5457 safe_qbuf call → JS same call (new); no other C references (decl only at invent.c:19).
+- **Verify:** `node scripts/verify.mjs --fn display_cinventory,cinv_ansimpleoname` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+  - `display_cinventory`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `cinv_ansimpleoname`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `display_cinventory`: none — whole body, every callee live (safe_qbuf, query_objlist, allow_all) or ledger-split inline (invdisp_nothing).
+  - `cinv_ansimpleoname`: none — whole body, every callee live (ansimpleoname, strsubst).
+- **Ledger:** display_cinventory ported; cinv_ansimpleoname ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3146 — `options.c` msgtype_parse_add error arms + sscanf fidelity (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `handler_disclose` + 4 same-file Open rows; 0 corpus sessions blocked on any — coverage completion, not a divergence. +20/−12 `js/options.js`. 4 stale proofs in this commit, all →ported: handler_disclose js/options.js:399, all_options_msgtypes js/options.js:10612, handler_align_misc js/options.js:2420, determine_ambiguities js/options.js:10264.)

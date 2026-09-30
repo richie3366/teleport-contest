@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3147 `invent.c` display_cinventory restart + cinv_ansimpleoname (coverage)
+
+**C locus:** - `display_cinventory`: `invent.c:5446–5473` (safe_qbuf title `:5453–5457`, cobj → query_objlist INVORDER_SORT/PICK_NONE/allow_all `:5459–5461`, empty → invdisp_nothing + n=0 `:5462–5464`, n>0 selected[0] `:5466–5470`, cknown `:5471`, return `:5472`).
+**JS:** `js/invent.js` only — `cinv_ansimpleoname` `:4576`, `display_cinventory` `:4603`; import names added on existing objnam.js/pickup.js edges (`imports.mjs --can`: ALREADY).
+**Change:** restarted `display_cinventory` in C order over live `safe_qbuf(null, 'Contents of ', ':', obj, cinv_doname, cinv_ansimpleoname, 'that')` (same-module edge, already imported from objnam.js) and live `query_objlist(qbuf, items, INVORDER_SORT, PICK_NONE, allow_all)` (pickup.js edge, already imported); chain order into an array; `n>0 → pick_list[0].obj else null`; kept the split `invdisp_nothing` inline (hdr/''/'(empty)' PICK_NONE) and `obj.cknown = 1`. New module-local `cinv_ansimpleoname` in C order over live `ansimpleoname`/`strsubst`, keeping the mismatch-fired `strncmp` arms verbatim (no `!` in C) and spelling the empty-orig arm as an explicit prepend (C `strstr(bp,"")` hits; JS `strsubst` no-ops on empty orig).
+**Verify:** `node scripts/verify.mjs --fn display_cinventory,cinv_ansimpleoname` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+**Named:** - `display_cinventory`: none — whole body, every callee live (safe_qbuf, query_objlist, allow_all) or ledger-split inline (invdisp_nothing).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — D-3146 `options.c` msgtype_parse_add error arms + sscanf fidelity (coverage)
 
 **C locus:** - `handler_disclose`: `options.c:5674–5777` (category PICK_ANY `:5696–5714`, per-category PICK_ONE `:5717–5771`, v/g `#`+`?` rows, n>1 keep-second `:5769–5770`) — stale, body complete.

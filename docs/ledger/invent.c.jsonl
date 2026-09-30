@@ -109,8 +109,8 @@
 {"fn":"worn_wield_only","c":"5309-5325","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_minventory","c":"5341-5386","status":"unknown"}
 {"fn":"cinv_doname","c":"5391-5419","status":"unknown"}
-{"fn":"cinv_ansimpleoname","c":"5423-5441","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"display_cinventory","c":"5446-5473","status":"unknown"}
+{"fn":"cinv_ansimpleoname","c":"5423-5441","status":"ported","js":["js/invent.js:cinv_ansimpleoname"],"d":["D-3147"],"at":"2026-09-30@1300fdc94","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"display_cinventory","c":"5446-5473","status":"ported","js":["js/invent.js:display_cinventory"],"d":["D-3147"],"at":"2026-09-30@1300fdc94"}
 {"fn":"only_here","c":"5477-5480","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_binventory","c":"5489-5546","status":"unknown"}
 {"fn":"prepare_perminvent","c":"5549-5562","status":"unknown"}
