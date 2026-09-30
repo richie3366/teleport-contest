@@ -98,7 +98,7 @@ export async function do_write_config_file() {
     // representable trigger (map-named).
     const sbuf = {};
     strbuf_init(sbuf); // C `:199` (all_options_strbuf re-inits too, js/options.js)
-    all_options_strbuf(sbuf); // C `:200`
+    await all_options_strbuf(sbuf); // C :200; oc_to_str errors can prompt.
     const text = sbuf.str ?? ''; // C `:201` strlen
     if (vfsWriteFile(configfile, text)) { // C `:202` fwrite + `:203` fclose
         // Wrote the whole buffer: nothing left to report.

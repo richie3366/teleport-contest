@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-3177 — packorder and object-class string conversion with obsolete symbol handlers
+
+- **Status:** fixed (six whole options.c bodies; oc_to_str caller closure partial). Three inspected platform-only rows are by-design: optfn_subkeyvalue is WIN32CON-only (options.c:4109–4132; optlist.h:736–739), optfn_video_width and optfn_video_height are in the MSDOS block (options.c:4602–4645; optlist.h:830–835); neither platform is compiled in contest Unix C. No Must-fix row was open; iteration 4026 is a port iteration.
+- **Symptom:** generated coverage head optfn_packorder and its oc_to_str callee had no JS symbol. The full options menu displayed a constant packorder and discarded its selection; standalone rc parsing ignored packorder. The obsolete dungeon/effects/objects/traps handlers were absent, with null allopt dispatch bindings. No corpus session was blocked on these functions.
+- **C locus:** whole bodies and every reference table read in the briefs:
+  - `optfn_packorder`: options.c:2670–2692, do_init/do_set/get_val/get_cnf_val and empty-value/change_inv_order error returns.
+  - `oc_to_str`: options.c:8062–8073, signed char promotion, NUL termination, impossible on invalid class and default symbol writes; all seven references read. Existing change_inv_order options.c:7465–7510 was also read whole before adapting its flags-bag argument.
+  - `optfn_dungeon`: options.c:1572–1591, all five request/fallthrough arms; no direct references.
+  - `optfn_effects`: options.c:1594–1613, all five request/fallthrough arms; no direct references.
+  - `optfn_objects`: options.c:2648–2667, all five request/fallthrough arms; no direct references.
+  - `optfn_traps`: options.c:4418–4437, all five request/fallthrough arms; no direct references.
+- **JS was:** no same-named bodies. pickup_class_syms silently filtered invalid numeric classes in a local converter. Other pickup callers used the JS symbol-string representation directly; get_option_value and the config writer could not wait for a conversion diagnostic. change_inv_order existed but its sole C caller was unwired.
+- **Fix:** added all six bodies in C order. packorder calls the existing ordering helper and changes the same numeric class array, including C's partial mutation on an invalid value; the optional bag serves standalone rc parsing. The new converter accepts numeric arrays or C byte strings, sign-extends each byte, stops at NUL and uses the live impossible export. Valid conversion remains synchronous; only impossible's input-capable branch resumes the walk through its promise, before consuming another byte. A destination holder receives each byte immediately, retains its old suffix across a diagnostic, then truncates at the final NUL. Replaced the local converter and wired pickup callers through the live export with a symbol-storage adapter. Getter/menu/config-writer adapters wait for an input-capable diagnostic before using output. Registered the five option handlers in allopt and wired packorder's rc, full/simple menu values and full-menu getlin selection. No new module import edge, production diagnostic, seed gate or filesystem dependency.
+- **JS:** js/options.js:1420 oc_to_str, :1463 optfn_dungeon, :1482 optfn_effects, :1501 optfn_objects, :1520 optfn_packorder, :1542 optfn_traps; js/cfgfiles.js:101 awaited config serialization. 219 js/ insertions across two files.
+- **Callers:**
+  - `optfn_packorder`: brief options.c:7462 is a comment, not a call. Macro registration optlist.h:541 → js/options.js:11636 allopt; the existing allopt init/parse/get-value dispatch now reaches the function. Standalone rc → :5116; full-menu get_val → :10834, non-handler selection/getlin/parseoptions → :10913; simple-menu get_val → :9358 and its existing doset_compound_via_getlin parser path. No invented direct call from gameplay.
+  - `oc_to_str`: options.c:2687 → js/options.js:1533 with_oc_string in packorder; options.c:3324 → :7699 (sync optfn) / :5660 (split async handler); options.c:3335 → :5645 pickup_class_syms, consumed at :5667/:5685; options.c:3393 → :7717; options.c:9262 → :5506 dotogglepickup. insight.c:812 is the named absent caller below; extern.h:2316 is a declaration.
+  - `optfn_dungeon`: brief has no direct references; optlist.h:294 macro registration → js/options.js:11484 allopt, reaching existing init/parser/getter dispatch and the rc adapter :5123.
+  - `optfn_effects`: brief has no direct references; optlist.h:297 → js/options.js:11486 allopt and the same dispatch/rc adapter.
+  - `optfn_objects`: brief has no direct references; optlist.h:538 → js/options.js:11634 allopt and the same dispatch/rc adapter.
+  - `optfn_traps`: brief has no direct references; optlist.h:783 → js/options.js:11770 allopt and the same dispatch/rc adapter.
+- **Verify:** clean preflight green/strict PASS before changes (Node was initially absent from PATH; installed Node used). Final command: `node scripts/verify.mjs --fn optfn_packorder,oc_to_str,optfn_dungeon,optfn_effects,optfn_objects,optfn_traps --full`:
+  - `optfn_packorder`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `oc_to_str`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK. A standalone C harness compiled the exact pinned body with the pinned defsym.h tables: class 255 promoted to -1, class 18 rejected, both diagnostics observed dest=!bcd; final conversion !? and embedded-NUL conversion !. JS assertions matched those measured C writes and results.
+  - `optfn_dungeon`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `optfn_effects`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `optfn_objects`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `optfn_traps`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK. First verify alone reported scen-poly-Rogue-92026 as `worker: ` with no result/exception text; all other gates passed. Triage: unchanged-code standalone replay PASS (RNG 3094/3094, Screen 266/266), then the complete second verify PASS. The worker failure was not reproduced; an infrastructure interruption is inferred, not measured. No session or production logic was changed to obtain the rerun.
+  - Final verify tail (/tmp/D3177-verify2.log): `PASS green 2/2 passing`; `PASS strict seed8000-tourist-starter.session.json`; `PASS strict seed0900-tourist-explore-actions.session.json`; `PASS cohort 7/7 passing`; `PASS full 44/44 passing`; `VERIFY: PASS`. Syntax for both changed JS files and Rule #2/DIAG/FORCE/seed-gate scan PASS. Targeted /tmp/D3177-probe.mjs assertions PASS for the requests, duplicate-error partial mutations, rc/parser/getters/config writer and converter continuation; these additional option assertions are JS checks against read C, not new C measurements. git diff --check clean; no worker started by this iteration remains running.
+- **Named omissions:**
+  - `optfn_packorder`: none in the whole body or newly wired dispatch/menu/parser paths. change_inv_order and oc_to_str are live. Existing wider options-menu selection ordering and unrelated parser/rc diagnostics remain outside this cluster.
+  - `oc_to_str`: body complete; insight.c:812 basics_enlightenment caller remains unwired because that surrounding C function has no JS implementation. Its caller closure is partial. Existing optfn_pickup_types prompt/body split and impossible's independent panic/log/network omissions are unchanged.
+  - `optfn_dungeon`: none; the no-op setting and `(to be done)` value are C behavior, not JS stubs.
+  - `optfn_effects`: none; same complete C request envelope.
+  - `optfn_objects`: none; same complete C request envelope.
+  - `optfn_traps`: none; same complete C request envelope.
+- **Ledger:** optfn_packorder ported; oc_to_str partial; optfn_dungeon ported; optfn_effects ported; optfn_objects ported; optfn_traps ported
+- **Next:** generated coverage head after these rows leave; platform-only rows have their compiled-out guards recorded by-design. Phase-2 parks remain closed.
+
 ## D-3176 — monster iteration, pickup capacity and normal-shape closure
 
 - **Status:** fixed (six whole mon.c bodies; coverage head get_iter_mons_xy; no blocked corpus sessions). Stale role_gendercount is ported at js/roles.js:1055; golemeffects is split to the already complete golemeffects_mm at js/mhitm.js:2366, retaining D-2735's inherited explode.c:525 caller omission.

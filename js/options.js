@@ -1411,6 +1411,153 @@ function set_optbuf(opts, s) {
 }
 
 /**
+ * C options.c:8062–8073 oc_to_str. Class-index bytes become the default
+ * object symbols. Arrays model C char buffers; strings contain byte codes.
+ * The valid path stays synchronous for configuration parsing. Only the
+ * impossible() branch can reach input; its promise resumes this same walk
+ * after the message, before consuming another byte or terminating dest.
+ */
+export function oc_to_str(src, dest) {
+    let pos = 0;
+    let out = '';
+    const oldDest = dest?.buf || '';
+    function convert() {
+        for (;;) {
+            const byte = typeof src === 'string'
+                ? src.charCodeAt(pos++) : src[pos++];
+            // C char on the contest target is signed, promoted to int.
+            const i = ((byte ?? 0) << 24) >> 24;
+            if (i === 0) break;
+            if (i < 0 || i >= MAXOCLASSES) { // C :8067–8068
+                return impossible('oc_to_str:  illegal object class %d', i)
+                    .then(convert);
+            } else {
+                out += def_oc_syms[i].sym; // C :8070
+                // C writes this byte now; the old suffix is untouched until
+                // the final NUL, including across an impossible() prompt.
+                set_optbuf(dest, out + oldDest.slice(out.length));
+            }
+        }
+        set_optbuf(dest, out); // C :8072 *dest = '\0'
+        return out;
+    }
+    return convert();
+}
+
+// C buffer/result adapter, including the input-capable diagnostic path.
+function with_oc_string(src, use) {
+    const value = oc_to_str(src);
+    return value && typeof value.then === 'function'
+        ? value.then(use) : use(value);
+}
+
+// JS pickup_types stores validated display symbols (pickup.c consumers).
+// Convert that representation to the class bytes accepted by oc_to_str.
+function pickup_type_classes(flags) {
+    const types = flags.pickup_types || '';
+    return typeof types === 'string'
+        ? Array.from(types.split('\0', 1)[0], def_char_to_objclass) : types;
+}
+
+/** C options.c:1572–1591; obsolete dungeon-symbol option. */
+export function optfn_dungeon(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) {
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) {
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_VAL) {
+        set_optbuf(opts, to_be_done);
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_CNF_VAL) {
+        set_optbuf(opts, '');
+        return OPTN_OK;
+    }
+    return OPTN_OK;
+}
+
+/** C options.c:1594–1613; obsolete effect-symbol option. */
+export function optfn_effects(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) {
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) {
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_VAL) {
+        set_optbuf(opts, to_be_done);
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_CNF_VAL) {
+        set_optbuf(opts, '');
+        return OPTN_OK;
+    }
+    return OPTN_OK;
+}
+
+/** C options.c:2648–2667; obsolete object-symbol option. */
+export function optfn_objects(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) {
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) {
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_VAL) {
+        set_optbuf(opts, to_be_done);
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_CNF_VAL) {
+        set_optbuf(opts, '');
+        return OPTN_OK;
+    }
+    return OPTN_OK;
+}
+
+/** C options.c:2670–2692; packorder requests in C order. */
+export function optfn_packorder(_optidx, req, _negated, opts, op, flagsBag) {
+    const flags = flagsBag || game.flags || (game.flags = {});
+    if (req === REQ_DO_INIT) {
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) {
+        if (op === EMPTY_OPTSTR) return OPTN_ERR;
+        // Standalone rc parsing has not run initoptions_init :7204–7205.
+        if (!flags.inv_order) flags.inv_order = [...DEF_INV_ORDER];
+        if (!change_inv_order(op, flags)) return OPTN_ERR;
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) {
+        return with_oc_string(flags.inv_order || DEF_INV_ORDER, (ocl) => {
+            set_optbuf(opts, ocl);
+            return OPTN_OK;
+        });
+    }
+    return OPTN_OK;
+}
+
+/** C options.c:4418–4437; obsolete trap-symbol option. */
+export function optfn_traps(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) {
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) {
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_VAL) {
+        set_optbuf(opts, to_be_done);
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_CNF_VAL) {
+        set_optbuf(opts, '');
+        return OPTN_OK;
+    }
+    return OPTN_OK;
+}
+
+/**
  * C options.c `check_misc_menu_command` `:694–706` (staticfn) — index into
  * `default_menu_cmd_info` whose name matches the option head, else -1.
  * C's second param is UNUSED; the match runs on `opts` only. The `:649–659`
@@ -3376,8 +3523,9 @@ async function doset_optfn_do_handler(name) {
  */
 function doset_compopt_get_val(optfn, name) {
     const holder = { buf: '' };
-    optfn(allopt_idx(name), REQ_GET_VAL, false, holder, EMPTY_OPTSTR);
-    return holder.buf;
+    const result = optfn(allopt_idx(name), REQ_GET_VAL, false, holder, EMPTY_OPTSTR);
+    return result && typeof result.then === 'function'
+        ? result.then(() => holder.buf) : holder.buf;
 }
 
 /**
@@ -4965,6 +5113,20 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                         allopt_idx('runmode'), REQ_DO_SET, negated, stripped, val, result.flags,
                     );
                 }
+                else if (key === 'packorder') {
+                    if (negated) continue; // C :626, negateok No
+                    const idx = allopt_idx('packorder');
+                    if (optfn_packorder(idx, REQ_DO_SET, false,
+                        stripped, val, result.flags) === OPTN_OK)
+                        opt_set_in_config[idx] = true; // C :639–640
+                }
+                else if (key === 'dungeon' || key === 'effects'
+                    || key === 'objects' || key === 'traps') {
+                    if (negated) continue; // C :626, negateok No
+                    const fn = { dungeon: optfn_dungeon, effects: optfn_effects,
+                        objects: optfn_objects, traps: optfn_traps }[key];
+                    fn(allopt_idx(key), REQ_DO_SET, false, stripped, val);
+                }
                 else if (key === 'pickup_types') {
                     if (negated) continue; // C `:626` negateok-No
                     optfn_pickup_types(
@@ -5341,7 +5503,7 @@ export async function dotogglepickup() {
     game.flags.pickup = !game.flags.pickup;
     let buf;
     if (game.flags.pickup) {
-        const ocl = String(game.flags.pickup_types || '');
+        const ocl = await oc_to_str(pickup_type_classes(game.flags)); // C :9262
         // C `:9264–9268` — null head prints nothing; one vs some.
         let extra = '';
         if (game.apelist) {
@@ -5481,24 +5643,7 @@ function pickup_types_apply(flags, optidx, negated, op) {
  * DEFAULT_PICKUP_CLASS_SYMS (C def_inv_order via oc_to_str).
  */
 function pickup_class_syms() {
-    const raw = game.flags?.inv_order;
-    if (Array.isArray(raw) && raw.length) {
-        let s = '';
-        for (const oc of raw) {
-            const sym = def_oc_syms[oc]?.sym;
-            if (sym) s += sym;
-        }
-        if (s) return s;
-    }
-    if (typeof raw === 'string' && raw.length) {
-        let s = '';
-        for (let i = 0; i < raw.length; i++) {
-            const sym = def_oc_syms[raw.charCodeAt(i)]?.sym;
-            if (sym) s += sym;
-        }
-        if (s) return s;
-    }
-    return DEFAULT_PICKUP_CLASS_SYMS;
+    return oc_to_str(game.flags?.inv_order || DEF_INV_ORDER);
 }
 
 /**
@@ -5512,14 +5657,14 @@ async function handler_pickup_types() {
     if (!game.flags) game.flags = {};
     const flags = game.flags;
     const optidx = allopt_idx('pickup_types');
-    const prior = String(flags.pickup_types || ''); // C `:3324` tbuf
+    const prior = await oc_to_str(pickup_type_classes(flags)); // C :3324 tbuf
     flags.pickup_types = ''; // C `:3325` all
     let useMenu = true; // C `:3336`
     let op = '';
     const style = flags.menu_style;
     if (style === MENU_TRADITIONAL || style === MENU_COMBINATION) { // C `:3337–3338`
         useMenu = false; // C `:3340`
-        const ocl = pickup_class_syms(); // C `:3335` oc_to_str(inv_order)
+        const ocl = await pickup_class_syms(); // C :3335 oc_to_str(inv_order)
         const shown = prior || 'all'; // C `:3343`
         const qbuf = `New pickup_types: [${ocl} am] (${shown})`; // C `:3342–3343`
         const abuf = String((await getlin(qbuf)) ?? ''); // C `:3345`
@@ -5537,7 +5682,7 @@ async function handler_pickup_types() {
         }
     }
     if (useMenu) { // C `:3357`
-        let ocl = pickup_class_syms();
+        let ocl = await pickup_class_syms();
         const venom = def_oc_syms[VENOM_CLASS]?.sym || '.'; // C VENOM_SYM
         if (game.wizard && !ocl.includes(venom)) // C `:3358`
             ocl = strkitten(ocl, venom); // C `:3359`
@@ -6544,15 +6689,15 @@ function test_regex_pattern(str, errmsg) {
  * display-char string into flags.inv_order (class indices). Staticfn →
  * file-local. JS models inv_order as a number array (C: index bytes),
  * so buf.push is C's strkitten and includes() is strchr. Sole C caller
- * :2680 (optfn_packorder do_set) has no JS symbol yet — named omission
- * (the packorder option row carries optfn:null).
+ * :2680 (optfn_packorder do_set) calls this live body. The optional flags
+ * bag is the standalone rc adapter; the game uses its initialized bag.
  */
-function change_inv_order(op) {
+function change_inv_order(op, flags = game.flags) {
     // C `:7472–7474` — prepend COIN_CLASS unless GOLD_SYM ('$') present.
     const buf = [];
     if (!op.includes('$')) buf.push(COIN_CLASS);
     let retval = 1;
-    const inv = game.flags.inv_order; // C flags.inv_order (index bytes)
+    const inv = flags.inv_order; // C flags.inv_order (index bytes)
     for (let k = 0; k < op.length; k++) { // C `:7476`
         const ch = op[k];
         let fail = false; // C `:7477`
@@ -7551,26 +7696,28 @@ export function optfn_pickup_types(optidx, req, negated, opts, _op, flagsBag, op
         const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
         const compat = optstr.length <= 6; // C `:3316` strlen(opts) <= 6
         const optInit = optInitial ?? !!game.go?.opt_initial;
-        const priorTypes = String(flags.pickup_types || '');
-        flags.pickup_types = ''; // C `:3325` all (symbol string, not indices)
-        const op = string_for_opt(optstr, compat || !optInit); // C `:3326`
-        if (op === EMPTY_OPTSTR) { // C `:3327`
-            if (compat || negated || optInit) { // C `:3328`
-                flags.pickup = !negated; // C `:3332`
-                return OPTN_OK; // C `:3333`
+        return with_oc_string(pickup_type_classes(flags), (priorTypes) => {
+            flags.pickup_types = ''; // C `:3325` all (symbol string, not indices)
+            const op = string_for_opt(optstr, compat || !optInit); // C `:3326`
+            if (op === EMPTY_OPTSTR) { // C `:3327`
+                if (compat || negated || optInit) { // C `:3328`
+                    flags.pickup = !negated; // C `:3332`
+                    return OPTN_OK; // C `:3333`
+                }
+                // C `:3335–3363` getlin / choose_classes_menu. Sync parseoptions
+                // cannot await; handler_pickup_types owns that arm. Put the
+                // list back so a sync empty call does not wipe it.
+                flags.pickup_types = priorTypes;
+                return OPTN_ERR;
             }
-            // C `:3335–3363` getlin / choose_classes_menu. Sync parseoptions
-            // cannot await; handler_pickup_types owns that arm. Put the
-            // list back so a sync empty call does not wipe it.
-            flags.pickup_types = priorTypes;
-            return OPTN_ERR;
-        }
-        return pickup_types_apply(flags, optidx, negated, op); // C `:3365`
+            return pickup_types_apply(flags, optidx, negated, op); // C `:3365`
+        });
     }
     if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3392`
-        const ocl = String(flags.pickup_types || ''); // C `:3393` oc_to_str
-        set_optbuf(opts, ocl ? ocl : 'all'); // C `:3394`
-        return OPTN_OK; // C `:3395`
+        return with_oc_string(pickup_type_classes(flags), (ocl) => { // C :3393
+            set_optbuf(opts, ocl ? ocl : 'all'); // C :3394
+            return OPTN_OK; // C :3395
+        });
     }
     return OPTN_OK; // C `:3397–3400` do_handler is handler_pickup_types
 }
@@ -9208,6 +9355,7 @@ function simple_opt_get_val(opt) {
     if (name === 'align_status') return doset_compopt_get_val(optfn_align_status, 'align_status');
     if (name === 'autounlock') return doset_compopt_get_val(optfn_autounlock, 'autounlock');
     if (name === 'pickup_types') return doset_compopt_get_val(optfn_pickup_types, 'pickup_types');
+    if (name === 'packorder') return doset_compopt_get_val(optfn_packorder, 'packorder');
     if (name === 'boulder') return doset_compopt_get_val(optfn_boulder, 'boulder');
     if (name === 'runmode') return doset_compopt_get_val(optfn_runmode, 'runmode');
     if (name === 'scores') return doset_compopt_get_val(optfn_scores, 'scores');
@@ -9275,13 +9423,14 @@ function simple_bool_toggle(opt) {
     }
 }
 
-function format_simple_opt_line(opt, nameWidth, tabSep = false, dispName = null) {
+async function format_simple_opt_line(opt, nameWidth, tabSep = false, dispName = null) {
     const name = dispName ?? opt.name;
     let val;
     if (opt.opttyp === 'Bool') {
         val = simple_bool_value(opt) ? 'X' : ' ';
     } else if (opt.opttyp === 'Comp' || opt.opttyp === 'Othr') {
         val = simple_opt_get_val(opt);
+        if (val && typeof val.then === 'function') val = await val;
     } else {
         val = 'ERROR';
     }
@@ -9532,7 +9681,7 @@ async function doset_simple_menu() {
                 // roguesymset entry (same optfn_symset get_val).
                 const dispName = (opt.name === 'symset' && Is_rogue_level()) ? 'roguesymset' : opt.name;
                 raw.push({
-                    text: format_simple_opt_line(opt, nameWidth, tabSep, dispName),
+                    text: await format_simple_opt_line(opt, nameWidth, tabSep, dispName),
                     attr: 0,
                     selectable: true,
                     opt,
@@ -10682,7 +10831,7 @@ export async function doset() {
         { name: 'mouse_support', get_val: () => doset_compopt_get_val(optfn_mouse_support, 'mouse_support') },
         { name: 'msg_window', get_val: () => doset_compopt_get_val(optfn_msg_window, 'msg_window'), handler: true },
         { name: 'number_pad', get_val: () => doset_compopt_get_val(optfn_number_pad, 'number_pad'), handler: true },
-        { name: 'packorder', val: '$")[%?+!=/(*`0_' },
+        { name: 'packorder', get_val: () => doset_compopt_get_val(optfn_packorder, 'packorder') },
         { name: 'paranoid_confirmation', get_val: () => doset_compopt_get_val(optfn_paranoid_confirmation, 'paranoid_confirmation'), handler: true },
         // C optlist.h NHOPTC perminv_mode set_in_game before petattr.
         // doset_skip_unsupported when !WC_PERM_INVENT (contest tty).
@@ -10710,7 +10859,8 @@ export async function doset() {
     ];
     for (const c of compounds) {
         if (doset_skip_unsupported(c.name)) continue;
-        const val = c.get_val ? c.get_val() : c.val;
+        let val = c.get_val ? c.get_val() : c.val;
+        if (val && typeof val.then === 'function') val = await val;
         raw.push(doset_add_menu(c.name, val, 1, { handler: !!c.handler }));
     }
     raw.push({ text: '', selectable: false });
@@ -10743,7 +10893,8 @@ export async function doset() {
     const othrPicks = [];
     for (const it of selected) {
         if (it.kind === 'bool') boolPicks.push(it.name);
-        else if (it.kind === 'comp' && it.handler) handlerPicks.push(it.name);
+        else if (it.kind === 'comp' && (it.handler || it.name === 'packorder'))
+            handlerPicks.push(it.name);
         else if (it.kind === 'othr') othrPicks.push(it.name);
     }
     // C options.c doset → parseoptions → optfn_boolean: one pline per bool.
@@ -10759,7 +10910,10 @@ export async function doset() {
         await pline(`'${name}' option toggled ${!negated ? 'on' : 'off'}.`);
     }
     for (const name of handlerPicks) {
-        if (name === 'pickup_types') {
+        if (name === 'packorder') {
+            // C doset :8941–8956, no handler: getlin, ESC, parseoptions.
+            await doset_compound_via_getlin({ name, hasHandler: false });
+        } else if (name === 'pickup_types') {
             const reslt = await handler_pickup_types();
             if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         } else if (name === 'perminv_mode') {
@@ -11327,9 +11481,9 @@ const allopt = [
     // optlist.h:291 NHOPTB(dropped_nopick)
     { name: 'dropped_nopick', opttyp: BoolOpt, idx: 47, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'nopick_dropped' }, optfn: null },
     // optlist.h:294 NHOPTC(dungeon)
-    { name: 'dungeon', opttyp: CompOpt, idx: 48, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'dungeon', opttyp: CompOpt, idx: 48, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_dungeon },
     // optlist.h:297 NHOPTC(effects)
-    { name: 'effects', opttyp: CompOpt, idx: 49, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'effects', opttyp: CompOpt, idx: 49, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_effects },
     // optlist.h:300 NHOPTB(eight_bit_tty)
     { name: 'eight_bit_tty', opttyp: BoolOpt, idx: 50, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'wc_eight_bit_input' } /* C: &iflags.wc_eight_bit_input; gameplay reads this, not eight_bit_tty */, optfn: null },
     // optlist.h:303 NHOPTB(extmenu)
@@ -11477,9 +11631,9 @@ const allopt = [
     // optlist.h:535 NHOPTC(number_pad)
     { name: 'number_pad', opttyp: CompOpt, idx: 122, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_number_pad },
     // optlist.h:538 NHOPTC(objects)
-    { name: 'objects', opttyp: CompOpt, idx: 123, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'objects', opttyp: CompOpt, idx: 123, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_objects },
     // optlist.h:541 NHOPTC(packorder)
-    { name: 'packorder', opttyp: CompOpt, idx: 124, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'packorder', opttyp: CompOpt, idx: 124, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_packorder },
     // optlist.h:556 NHOPTC(paranoid_confirmation)
     { name: 'paranoid_confirmation', opttyp: CompOpt, idx: 125, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_paranoid_confirmation },
     // optlist.h:559 NHOPTB(pauper)
@@ -11613,7 +11767,7 @@ const allopt = [
     // optlist.h:780 NHOPTB(toptenwin)
     { name: 'toptenwin', opttyp: BoolOpt, idx: 190, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'toptenwin' }, optfn: null },
     // optlist.h:783 NHOPTC(traps)
-    { name: 'traps', opttyp: CompOpt, idx: 191, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'traps', opttyp: CompOpt, idx: 191, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_traps },
     // optlist.h:786 NHOPTB(travel)
     { name: 'travel', opttyp: BoolOpt, idx: 192, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'travel' }, optfn: null },
     // optlist.h:794 NHOPTB(travel_debug)
@@ -12153,8 +12307,10 @@ export function get_option_value(optname, cnfvalid) {
                 reslt = allopt[i].optfn( // C `:8496–8498`
                     allopt[i].idx, cnfvalid ? REQ_GET_CNF_VAL : REQ_GET_VAL,
                     false, holder, EMPTY_OPTSTR);
-                if (reslt === OPTN_OK && holder.buf.length > 0) return holder.buf; // C `:8499–8500`
-                return null; // C `:8501`
+                const value = (result) =>
+                    result === OPTN_OK && holder.buf.length > 0 ? holder.buf : null;
+                return reslt && typeof reslt.then === 'function'
+                    ? reslt.then(value) : value(reslt); // C :8499–8501
             }
         }
     }
@@ -12693,7 +12849,7 @@ export function all_options_statushilites(sbuf) {
  * "guaranteed to fit" — plain concat is exact in JS.
  * Only C caller cfgfiles.c do_write_config_file `:200` (live js/cfgfiles.js [7/7]).
  */
-export function all_options_strbuf(sbuf) {
+export async function all_options_strbuf(sbuf) {
     strbuf_init(sbuf);
     strbuf_append(sbuf, `# NetHack config, saved ${yyyymmddhhmmss(0)}\n#\n`);
 
@@ -12713,7 +12869,8 @@ export function all_options_strbuf(sbuf) {
                 || allopt[i].setwhere === SET_IN_GAME)) continue; // C `:9705` switch-break = skip entry
             // C FIXME (options.c:get_option_value): menu_deselect_all &c menu
             // control keys, term_cols, term_rows.
-            const buf2 = get_option_value(name, true);
+            let buf2 = get_option_value(name, true);
+            if (buf2 && typeof buf2.then === 'function') buf2 = await buf2;
             if (buf2) strbuf_append(sbuf, `OPTIONS=${name}:${buf2}\n`);
         } else {
             // OthrOpt `:9718–9719` — break.

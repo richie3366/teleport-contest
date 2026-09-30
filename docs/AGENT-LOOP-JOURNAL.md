@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3177 packorder and object-class string conversion with obsolete symbol handlers
+
+**C locus:** whole bodies and every reference table read in the briefs:
+**JS:** js/options.js:1420 oc_to_str, :1463 optfn_dungeon, :1482 optfn_effects, :1501 optfn_objects, :1520 optfn_packorder, :1542 optfn_traps; js/cfgfiles.js:101 awaited config serialization. 219 js/ insertions across two files.
+**Change:** added all six bodies in C order. packorder calls the existing ordering helper and changes the same numeric class array, including C's partial mutation on an invalid value; the optional bag serves standalone rc parsing. The new converter accepts numeric arrays or C byte strings, sign-extends each byte, stops at NUL and uses the live impossible export. Valid conversion remains synchronous; only impossible's input-capable branch resumes the walk through its promise, before consuming another byte.
+**Verify:** clean preflight green/strict PASS before changes (Node was initially absent from PATH; installed Node used). Final command: `node scripts/verify.mjs --fn optfn_packorder,oc_to_str,optfn_dungeon,optfn_effects,optfn_objects,optfn_traps --full`:
+**Named:** - `optfn_packorder`: none in the whole body or newly wired dispatch/menu/parser paths. change_inv_order and oc_to_str are live. Existing wider options-menu selection ordering and unrelated parser/rc diagnostics remain outside this cluster.
+**Next:** generated coverage head after these rows leave; platform-only rows have their compiled-out guards recorded by-design. Phase-2 parks remain closed.
 ## 2026-09-30 — D-3176 monster iteration, pickup capacity and normal-shape closure
 
 **C locus:** whole bodies and every brief call-site table read:

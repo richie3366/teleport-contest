@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` optfn_packorder — coverage MISSING (C 14 code L `options.c:2670–2692` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e79d836f7
 - [ ] `strutil.c` strbuf_nl_to_crlf — coverage MISSING (C 13 code L `strutil.c:58–77` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @1b5d1374c
 - [ ] `ball.c` Lift_covet_and_placebc — coverage MISSING (C 12 code L `ball.c:327–346` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @1b5d1374c
 - [ ] `ball.c` Unplacebc — coverage MISSING (C 11 code L `ball.c:287–303` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
 - [ ] `glyphs.c` find_display_sym_customization — coverage MISSING (C 11 code L `glyphs.c:1196–1215` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
-- [ ] `options.c` optfn_dungeon — coverage MISSING (C 11 code L `options.c:1572–1591` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
-- [ ] `options.c` optfn_effects — coverage MISSING (C 11 code L `options.c:1594–1613` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
-- [ ] `options.c` optfn_objects — coverage MISSING (C 11 code L `options.c:2648–2667` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
-- [ ] `options.c` optfn_subkeyvalue — coverage MISSING (C 11 code L `options.c:4111–4131` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
-- [ ] `options.c` optfn_traps — coverage MISSING (C 11 code L `options.c:4418–4437` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
-- [ ] `options.c` optfn_video_width — coverage MISSING (C 11 code L `options.c:4604–4622` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @3f8f47e04
-- [ ] `options.c` optfn_video_height — coverage MISSING (C 11 code L `options.c:4625–4643` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @3f8f47e04
+- [ ] `options.c` optfn_o_bind_keys — coverage MISSING (C 11 code L `options.c:8324–8343` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `options.c` optfn_o_menu_colors — coverage MISSING (C 11 code L `options.c:8368–8386` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `vision.c` vision_init — coverage MISSING (C 11 code L `vision.c:121–142` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `glyphs.c` find_display_urep_customization — coverage MISSING (C 10 code L `glyphs.c:1218–1236` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `shknam.c` init_shop_selection — coverage MISSING (C 10 code L `shknam.c:360–374` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `sfbase.c` SF_X — coverage MISSING (C 9 code L `sfbase.c:246–262` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `cfgfiles.c` cnf_line_WIZARDS — coverage MISSING (C 8 code L `cfgfiles.c:795–809` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
+- [ ] `options.c` optfn_monsters — coverage MISSING (C 8 code L `options.c:2378–2393` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
