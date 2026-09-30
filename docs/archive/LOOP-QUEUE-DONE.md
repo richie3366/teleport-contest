@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-30
 
+- [x] `options.c` initoptions_init startup sysconf ordering — C options.c:7118–7305 initializes defaults before read_config_file and checks failure (:7293–7296). JS NethackGame.start reads system OPTIONS then overwrites flags/name: VFS OPTIONS=!autopickup,name:SysName loses pickup=false/SysName. Preserve system settings through rc initialization and handle failed system config in C order. Source: reviews/loop-unattended/2131-f02c9df5f-playmode-config-closure.md. **Addressed:** D-3172
+
+
 - [x] `worn.c` wornmask_to_armcat — coverage MISSING (C 24 code L `worn.c:218–246` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @deff666da
 
 

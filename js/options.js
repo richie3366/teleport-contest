@@ -4544,10 +4544,10 @@ function rc_do_set_role_family(canonName, optfn, negated, opts, op) {
     return reslt;
 }
 
-export function parseNethackrc(rc) {
+export function parseNethackrc(rc, defaultsInitialized = false) {
     // C cfgfiles.c cnf_line_MSGTYPE → msgtype_parse_add onto gp.plinemsg_types.
-    // Free first so a reused Node process does not keep the previous rc list.
-    msgtype_free();
+    // Standalone parsing resets the list; startup reset it before sysconf.
+    if (!defaultsInitialized) msgtype_free();
     // C read_config_file `:1633` clears dupdetected before the file is read.
     // Startup calls this function, not rcfile(), so the bracket lives here.
     // A reused Node process would otherwise treat the next file's first
@@ -4555,45 +4555,54 @@ export function parseNethackrc(rc) {
     reset_duplicate_opt_detection();
     duplicateOpt = false; // C options.c:502, fresh file
     const result = {
-        name: '', role: -1, race: -1, gender: -1, align: -1,
-        flags: {}, iflags: {},
+        name: defaultsInitialized ? (game.plname || '') : '',
+        role: defaultsInitialized ? (get_cnf_role_opt(OPT_ROLE) || -1) : -1,
+        race: defaultsInitialized ? (get_cnf_role_opt(OPT_RACE) || -1) : -1,
+        gender: defaultsInitialized ? (get_cnf_role_opt(OPT_GENDER) || -1) : -1,
+        align: defaultsInitialized ? (get_cnf_role_opt(OPT_ALIGNMENT) || -1) : -1,
+        flags: defaultsInitialized ? game.flags : {},
+        iflags: defaultsInitialized ? game.iflags : {},
         // C optlist.h NHOPTB accessiblemsg addr &a11y.accessiblemsg (D-1218);
         // mention_map &a11y.glyph_updates (D-1219); spot_monsters
         // &a11y.mon_notices (D-1235); mon_movement &a11y.mon_movement
         // (D-1236).
-        a11y: {},
+        a11y: defaultsInitialized ? (game.a11y || {}) : {},
+        symset: defaultsInitialized ? game.symset : undefined,
         // C: cfgfiles.c BINDINGS → parsebindings → Cmd.cmdbinds overlays
-        binds: new Map(),
+        binds: defaultsInitialized ? (game.Cmd?.binds || new Map()) : new Map(),
     };
-    // C options.c `:7426–7430` optfn(do_init) pass before the rc file.
-    optfn_menu_objsyms(allopt_idx('menu_objsyms'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.iflags);
-    // C allopt_array_init `:7428` optfn(do_init). The flags object built in
-    // jsmain replaces game.flags, so the mode is also stored on the rc result.
-    optfn_sortvanquished(allopt_idx('sortvanquished'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    result.flags.vanq_sortmode = game.flags.vanq_sortmode;
-    // C allopt_array_init `:7428` optfn_sortdiscoveries do_init stores 'o'
-    // on the rc flags bag (jsmain replaces game.flags).
-    optfn_sortdiscoveries(
-        allopt_idx('sortdiscoveries'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags,
-    );
-    // C allopt_array_init `:7428` optfn(do_init). soundlib's init is optn_ok.
-    optfn_soundlib(allopt_idx('soundlib'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    // C allopt_array_init `:7428` optfn(do_init). petattr's init is optn_ok.
-    optfn_petattr(allopt_idx('petattr'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    // C allopt_array_init `:7428` do_init. gender/race/role/alignment
-    // inits are optn_ok (no flag write).
-    optfn_gender(allopt_idx('gender'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    optfn_race(allopt_idx('race'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    optfn_role(allopt_idx('role'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    optfn_alignment(allopt_idx('alignment'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    // C allopt_array_init `:7428` do_init. These five return optn_ok and
-    // do not write the initoptions defaults (those stay stand-ins on get_val).
-    optfn_boulder(allopt_idx('boulder'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
-    optfn_pickup_types(allopt_idx('pickup_types'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
-    optfn_runmode(allopt_idx('runmode'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
-    optfn_scores(allopt_idx('scores'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
-    optfn_sortloot(allopt_idx('sortloot'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
-    result.iflags.getpos_coords = GPCOORDS_NONE; // C initoptions_init `:7190`
+    // Startup already ran allopt_array_init before sysconf; direct parser
+    // users retain the standalone defaults. C never reinitializes at rcfile.
+    if (!defaultsInitialized) {
+        // C options.c `:7426–7430` optfn(do_init) pass before the rc file.
+        optfn_menu_objsyms(allopt_idx('menu_objsyms'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.iflags);
+        // Standalone parser callers receive their own result bags.
+        optfn_sortvanquished(allopt_idx('sortvanquished'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        result.flags.vanq_sortmode = game.flags.vanq_sortmode;
+        // C allopt_array_init `:7428` optfn_sortdiscoveries do_init stores 'o'
+        // on the standalone rc flags bag.
+        optfn_sortdiscoveries(
+            allopt_idx('sortdiscoveries'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags,
+        );
+        // C allopt_array_init `:7428` optfn(do_init). soundlib's init is optn_ok.
+        optfn_soundlib(allopt_idx('soundlib'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        // C allopt_array_init `:7428` optfn(do_init). petattr's init is optn_ok.
+        optfn_petattr(allopt_idx('petattr'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        // C allopt_array_init `:7428` do_init. gender/race/role/alignment
+        // inits are optn_ok (no flag write).
+        optfn_gender(allopt_idx('gender'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        optfn_race(allopt_idx('race'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        optfn_role(allopt_idx('role'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        optfn_alignment(allopt_idx('alignment'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        // C allopt_array_init `:7428` do_init. These five return optn_ok and
+        // do not write the initoptions defaults (those stay stand-ins on get_val).
+        optfn_boulder(allopt_idx('boulder'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+        optfn_pickup_types(allopt_idx('pickup_types'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
+        optfn_runmode(allopt_idx('runmode'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
+        optfn_scores(allopt_idx('scores'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
+        optfn_sortloot(allopt_idx('sortloot'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
+        result.iflags.getpos_coords = GPCOORDS_NONE; // C initoptions_init `:7190`
+    }
     if (!rc) return result;
 
     for (const rawLine of rc.split('\n')) {
@@ -8644,6 +8653,12 @@ export function initoptions_init() {
     if (!game.iflags) game.iflags = {};
     const flags = game.flags;
     const iflags = game.iflags;
+    // Each fresh game represents C process startup: module-static lists
+    // and role-option strings must start empty before system config.
+    if (!game.go.optionsArrayInited) {
+        msgtype_free();
+        for (const values of roleoptvals) values.fill(null);
+    }
     game.go.opt_phase = BUILTIN_OPT; // C `:7127`
     /* C `:7129` sf_init() — named omit, see doc above. */
     allopt_array_init(); // C `:7130`
@@ -8700,7 +8715,7 @@ export function initoptions_init() {
     iflags.wc_align_message = ALIGN_TOP; // C `:7260`
     iflags.wc_align_status = ALIGN_BOTTOM; // C `:7261`
     iflags.wc2_statuslines = 2; // C `:7263`
-    iflags.wc2_petattr = ATR_INVERSE; // C `:7264`
+    iflags.wc2_petattr = MC_ATR_INVERSE; // C `:7264` wintype.h attr (7), not tty bitmask
     iflags.wc2_windowborders = 2; // C `:7266` 'Auto'
     iflags.menuinvertmode = 1; // C `:7279`
     const slime = objectNames.indexOf('SLIME_MOLD');
@@ -8711,11 +8726,14 @@ export function initoptions_init() {
     // with "fruit" (D-1511).
     game.pl_fruit = nmcpy('slime mold', PL_FSIZ);
     assure_syscf_file(); // C `:7289`
+    if (game.program_state?.gameover) return; // C fatal open never returns
     config_error_init(true, SYSCF_FILE, false); // C `:7290`
     game.go.opt_phase = SYSCF_OPT; // C `:7293`
     if (!read_config_file(SYSCF_FILE, SET_IN_SYSCONF)) { // C `:7294`
-        if (config_error_done() && !iflags.initoptions_noterminate) // C `:7295`
+        if (config_error_done() && !iflags.initoptions_noterminate) { // C `:7295`
             nh_terminate(EXIT_FAILURE); // C `:7296`
+            return; // C exit() does not reach the second config_error_done.
+        }
     }
     config_error_done(); // C `:7298`
 }
@@ -8731,8 +8749,10 @@ export function initoptions_init() {
  * are wired; no named omits remain in this body.
  */
 export function initoptions() {
-    if ((game.go?.opt_phase | 0) !== BUILTIN_OPT) // C `:7087–7088`
+    if ((game.go?.opt_phase | 0) !== BUILTIN_OPT) { // C `:7087–7088`
         initoptions_init();
+        if (game.program_state?.gameover) return; // propagate C noreturn
+    }
     /* C `:7090–7108` SYSCF (config.h:233) + SYSCF_FILE (config.h:234)
        both live on this build. */
     assure_syscf_file(); // C `:7093`
@@ -11873,11 +11893,12 @@ export function disregard_this_option(optidx) {
 /* C options.c allopt_array_init `:7404–7433`. One-shot: copy is the live
  * table (no separate allopt_init image), then initval writes, ambiguity
  * scan, heed, and every optfn(do_init). Caller options.c:7130 is
- * initoptions_init (live, same file); do not call from the partial
- * optfn do_init list at `:2187`. */
-let optionsArrayInited = false;
+ * initoptions_init (live, same file and wired from startup). Standalone
+ * parseNethackrc retains its partial do_init list. */
 export function allopt_array_init() {
-    if (optionsArrayInited) return; // C `:7410`
+    // A fresh NethackGame models a fresh C process, including this static.
+    if (!game.go) game.go = {};
+    if (game.go.optionsArrayInited) return; // C `:7410`
     determine_ambiguities(); // C `:7412` (memcpy of allopt_init is the live table)
     for (let i = 0; allopt[i] && allopt[i].name; i++) { // C `:7413–7416`
         const addr = allopt[i].addr;
@@ -11891,7 +11912,7 @@ export function allopt_array_init() {
         if (allopt[i].optfn)
             allopt[i].optfn(i, REQ_DO_INIT, false, EMPTY_OPTSTR, EMPTY_OPTSTR);
     }
-    optionsArrayInited = true; // C `:7431`
+    game.go.optionsArrayInited = true; // C `:7431`
 }
 
 /* C options.c `duplicate_opt_detection` `:6782–6788` (staticfn) — only

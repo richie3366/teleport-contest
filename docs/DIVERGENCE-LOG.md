@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3172 — options.c startup keeps system options through user rc
+
+- **Status:** fixed Must-fix review 2131 startup ordering; initoptions_init remains partial for the explicitly named pre-existing platform/symbol/config-error omissions. This iteration ships this Must-fix alone.
+- **Symptom:** NethackGame.start read system OPTIONS before constructing replacement flags/iflags/name defaults. A VFS sysconf with `OPTIONS=!autopickup,name:SysName` lost its stored pickup flag and name; system iflags and other configuration state could also be overwritten by the user-rc defaults pass. Failed system parsing was not checked.
+- **C locus:**
+  - `initoptions_init`: pinned options.c:7118–7305, whole body and reference table read in brief. Builtin defaults precede system config; :7289 requires readability; :7294–7298 checks parse failure, drains errors before testing initoptions_noterminate, terminates when required, then closes the bracket only on a continuing path. :7264 stores wintype.h ATR_INVERSE (7).
+- **JS was:** the existing js/options.js initializer already represented the body but was bypassed by startup. jsmain.js had a separate unchecked system read followed by replacement option bags; parseNethackrc repeated some builtin defaults after sysconf. The initializer stored the tty inverse bitmask in the C-domain petattr field. Its allopt one-shot flag was module-wide, surviving fresh game instances.
+- **Fix:** startup now uses the existing C-shaped initializer before user rc, retaining the initialized live flags/iflags/name and system role-option strings. The rc adapter overlays those bags and skips builtin initialization on this path; standalone parser callers keep their existing defaults. Fresh game instances reset the allopt-init guard, message-type list and role-option string slots before sysconf. PRNG initialization remains the session-seed adapter before configuration. Corrected petattr's C attribute value, stopped both startup and the existing initoptions caller after a noreturn termination, and stopped runSegment before entering moveloop for a startup exit. Set opt_initial false at the existing finish boundary. No new cross-module edge: imports.mjs reports jsmain→options ALREADY.
+- **JS:** js/jsmain.js:108–127 (defaults/sysconf/rc sequence), :160 (finish phase), :344 (exit guard); js/options.js:4547 (rc overlay adapter), :8649 (initializer), :8728–8738 (failure order), :8752–8754 (existing caller's noreturn propagation), :11898 (per-game allopt guard); scripts/initoptions-startup.test.mjs (five focused regression checks).
+- **Callers:**
+  - `initoptions_init`: sole direct C call options.c:7088 in initoptions remains js/options.js:8753. The unixmain.c:150 → initoptions → :7088 startup closure is flattened to js/jsmain.js:115, followed by the existing session-text rc/fruit adapter at :126/:159. cmd.c:3479, options.c:7082/:7084 and sfbase.c:642 are comments, not additional calls; util/sfctool.c:199 is a commented-out tool call, not a game caller.
+- **Verify:**
+  - `initoptions_init`: preflight green + strict PASS before changes. MEASURED extracted pinned-C whole-body oracle `/tmp/D3172-c-oracle.c` with deterministic callee doubles: four cases confirm defaults are visible to the system read, system mutations survive, successful parsing calls config_error_done once, reported-error fatal parsing calls it once then exits, and the nonterminate/zero-reported-error continuing branches call it twice. This measures the body's control flow, not a full recorder session. Checked-in `node scripts/initoptions-startup.test.mjs`: 5/5 PASS for system pickup/name/iflags retention, user overrides, invalid-statement fatal exit before rc, fresh-game defaults in a reused process, and initoptions_noterminate. First verify found exactly two public regressions (seed0006, seed0007; all RNG matched), caused by the newly exposed petattr default using a tty bitmask; corrected to C's 7. Every failing session was triaged and both are now PASS. Final command `node scripts/verify.mjs --fn initoptions_init --full --reach-all` passes; no corpus session is blocked on this function, and smoke REACH is 24/24 PASS with zero regressions. Final output:
+
+```text
+PASS  syntax   2 changed js file(s): js/jsmain.js js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify initoptions_init: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    initoptions_init: no RNG-tagged reach; fixed smoke spread (24 run, 6.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+- **Named omissions:**
+  - `initoptions_init`: pre-existing sf_init :7129 (NHFILE procedure tables; JS saves JSON through VFS); choose_windows :7136 (single tty interface); init_random ×2 :7161–7162 is represented by the session initRng adapter at jsmain.js:113 rather than separate per-stream entry points; init_symbols :7199, switch_symbols :7212 and init_rogue_symbols :7213 (existing symbol-system by-design omissions); TERM AT/vt probes and load_symset :7223–7242 (POSIX TERM/termcap and unported symset loading). MSDOS/WIN32/MAC :7246–7257 are compiled out, not live missing arms. System OPTIONS error reporting still reaches the pre-existing botl.config_error_add no-op at cfgfiles.c:1864–1890 through parseoptions/optfn callees, so some option errors cannot increment the config-error count yet; the next Must-fix explicitly owns that closure. The separate outer initoptions second sysconf pass :7093–7102 and the broader rcfile/initoptions_finish platform/customization work remain bypassed by the pre-existing startup adapter, outside this head's body. No new missing arm is concealed as a fortress regression.
+- **Ledger:** initoptions_init partial
+- **Next:** first remaining Must-fix: option-error callee closure (reviews 2127/2129/2131), export and wire the real configuration-error sink and correct prior live-sink claims. No coverage refill by hand.
+
 ## D-3171 — options.c playmode authorization and option dispatch cluster
 
 - **Status:** fixed (seven whole bodies; six src/options.c ledger functions plus the Unix authorization callee outside the ledger's src/*.c index; bad_negation retains one named caller omission).
