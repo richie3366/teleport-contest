@@ -1,6 +1,6 @@
 {"fn":"picking_lock","c":"17-27","status":"unknown"}
 {"fn":"picking_at","c":"30-34","status":"unknown"}
-{"fn":"lock_action","c":"38-64","status":"unknown"}
+{"fn":"lock_action","c":"38-64","status":"ported","js":["js/lock.js:lock_action"],"at":"2026-09-30@92b27a5b5","note":"stale: js/lock.js:355 complete, picktyp arms merged with identical body"}
 {"fn":"picklock","c":"68-159","status":"unknown"}
 {"fn":"breakchestlock","c":"162-212","status":"unknown"}
 {"fn":"forcelock","c":"216-256","status":"unknown"}

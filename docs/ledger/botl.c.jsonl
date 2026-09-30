@@ -33,17 +33,17 @@
 {"fn":"percentage","c":"1977-2047","status":"unknown"}
 {"fn":"exp_percentage","c":"2052-2085","status":"unknown"}
 {"fn":"exp_percent_changing","c":"2090-2125","status":"partial","js":["js/botl.js:exp_percent_changing"],"omit":"A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored.","d":["D-2847"],"at":"seed@a30a7de84"}
-{"fn":"stat_cap_indx","c":"2131-2141","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"stat_hunger_indx","c":"2146-2156","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"bl_idx_to_fldname","c":"2160-2165","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"repad_with_dashes","c":"2170-2178","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"stat_cap_indx","c":"2131-2141","status":"ported","js":["js/botl.js:stat_cap_indx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"stat_hunger_indx","c":"2146-2156","status":"ported","js":["js/botl.js:stat_hunger_indx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"bl_idx_to_fldname","c":"2160-2165","status":"ported","js":["js/botl.js:bl_idx_to_fldname"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"repad_with_dashes","c":"2170-2178","status":"ported","js":["js/botl.js:repad_with_dashes"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"fldname_to_bl_indx","c":"2221-2254","status":"unknown"}
 {"fn":"hilite_reset_needed","c":"2257-2275","status":"ported","js":["js/botl.js:hilite_reset_needed"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
 {"fn":"status_eval_next_unhilite","c":"2279-2317","status":"ported","js":["js/botl.js:status_eval_next_unhilite"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
 {"fn":"reset_status_hilites","c":"2321-2331","status":"unknown"}
 {"fn":"noneoftheabove","c":"2336-2344","status":"unknown"}
 {"fn":"get_hilite","c":"2364-2570","status":"partial","js":["js/botl.js:get_hilite"],"omit":"``exp_percent_changing`` caller (``botl.c:2117``); ``hilite_reset_needed``/``status_update`` stays named (windowport registry); rule-node producers (threshold chains are null until the status-hilite option parser lands — gate reads false, returns null + NO_COLOR).","d":["D-2619"],"at":"seed@a30a7de84"}
-{"fn":"split_clridx","c":"2576-2582","status":"unknown"}
+{"fn":"split_clridx","c":"2576-2582","status":"ported","js":["js/botl.js:split_clridx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
 {"fn":"parse_status_hl1","c":"2593-2648","status":"unknown"}
 {"fn":"is_ltgt_percentnumber","c":"2652-2669","status":"unknown"}
 {"fn":"has_ltgt_percentnumber","c":"2673-2683","status":"unknown"}
@@ -57,15 +57,15 @@
 {"fn":"match_str2conditionbitmask","c":"3171-3206","status":"unknown"}
 {"fn":"str2conditionbitmask","c":"3209-3230","status":"unknown"}
 {"fn":"parse_condition","c":"3233-3348","status":"ported","js":["js/botl.js:parse_condition"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"clear_status_hilites","c":"3351-3366","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"clear_status_hilites","c":"3351-3366","status":"ported","js":["js/botl.js:clear_status_hilites"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hlattr2attrname","c":"3369-3401","status":"ported","js":["js/botl.js:hlattr2attrname"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/botl.js:2732 local staticfn clone; :3558->2852, :3662->2935 wired, :4272 in named-omission status_hilite_menu_add"}
 {"fn":"status_hilite_linestr_add","c":"3417-3445","status":"unknown"}
-{"fn":"status_hilite_linestr_done","c":"3448-3459","status":"unknown"}
-{"fn":"status_hilite_linestr_countfield","c":"3462-3473","status":"unknown"}
-{"fn":"count_status_hilites","c":"3477-3485","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"status_hilite_linestr_done","c":"3448-3459","status":"ported","js":["js/botl.js:status_hilite_linestr_done"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
+{"fn":"status_hilite_linestr_countfield","c":"3462-3473","status":"ported","js":["js/botl.js:status_hilite_linestr_countfield"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
+{"fn":"count_status_hilites","c":"3477-3485","status":"ported","js":["js/botl.js:count_status_hilites"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"status_hilite_linestr_gather_conditions","c":"3488-3567","status":"ported","js":["js/botl.js:status_hilite_linestr_gather_conditions"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
 {"fn":"status_hilite_linestr_gather","c":"3570-3586","status":"unknown"}
-{"fn":"status_hilite2str","c":"3590-3669","status":"unknown"}
+{"fn":"status_hilite2str","c":"3590-3669","status":"partial","js":["js/botl.js:status_hilite2str"],"omit":"- `clear_status_hilites`: sole-C-caller wiring — options.c:1867 do_set negated arm (JS hilite_status optfn null).","d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
 {"fn":"status_hilite_menu_choose_field","c":"3672-3704","status":"ported","js":["js/botl.js:status_hilite_menu_choose_field"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"status_hilite_menu_choose_behavior","c":"3707-3808","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"status_hilite_menu_choose_updownboth","c":"3811-3887","status":"partial","js":["js/botl.js:status_hilite_menu_choose_updownboth"],"omit":"`status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes the FALSE return), the `while (add)` arm (`:4446`), and `reset_status_hilites` at `:4300`.","d":["D-2757"],"at":"seed@a30a7de84"}

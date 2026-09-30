@@ -1,5 +1,49 @@
 # Divergence log
 
+## D-3137 — `botl.c` hilite small-function closure: clear/stat_idx/fldname/repad/count ports + 4 verified-complete (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head clear_status_hilites + 5 same-file NEW ports + 4 verified-complete; 2 files).
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on all ten: no corpus session blocked at baseline — tty/status-hilite paths). Stale pops before the head: `lock_action` PARTIAL (brief: body complete at js/lock.js:355, picktyp arms merged with identical body) → ledger ported; `Unplacebc_and_covet_placebc` MISSING (brief: `#else /* BREADCRUMBS */` ball.c:256–347, `/* #define BREADCRUMBS */` config.h:644, no -D in build; live lowercase ported js/ball.js:524) → ledger by-design.
+- **C locus:**
+  - `clear_status_hilites`: botl.c:3351–3366 (free loop :3359–3362, zero pair :3363–3365).
+  - `stat_cap_indx`: botl.c:2131–2141 (STATUS_HILITES arm :2136; `#else` near_capacity :2138 compiled out).
+  - `stat_hunger_indx`: botl.c:2146–2156 (STATUS_HILITES arm :2151; `#else` u.uhs :2153 compiled out).
+  - `bl_idx_to_fldname`: botl.c:2160–2165 (bounds + initblstats[].fldname :2163–2164, NULL :2165).
+  - `repad_with_dashes`: botl.c:2170–2178 (eos walk :2173–2177).
+  - `count_status_hilites`: botl.c:3477–3485 (gather/count(BL_FLUSH)/done :3481–3483).
+  - `status_hilite_linestr_done`: botl.c:3448–3459 (free chain :3450–3456, null + id=0 :3457–3458).
+  - `status_hilite_linestr_countfield`: botl.c:3462–3473 (BL_FLUSH countall :3465, match loop :3469–3471).
+  - `status_hilite2str`: botl.c:3590–3669 (op table :3606–3611, 8 behavior arms :3614–3656, split/clrbuf :3659–3663, fmt :3665–3667).
+  - `split_clridx`: botl.c:2576–2582 (low/high byte :2580–2582).
+- **JS was:** no symbol for the 6 NEW functions; both `count_status_hilites` get_val sites hardcoded (`hilite_status` val `'(none)'`, `'status highlight rules'` val `'(0 currently set)'`); the other 4 complete locals/exports (THIN/PARTIAL by measure only).
+- **Fix:** `js/botl.js` — 6 new exports in C order with per-arm cites (stat pair after `exp_percent_changing` :2090; clear after `conditionbitmask2str` :3141; count after `linestr_countfield` :3462): `stat_cap_indx`/`stat_hunger_indx` read `game.gb.blstats[now_or_before_idx][BL_CAP|BL_HUNGER].a.a_int` (module-local idx, exp_percent_changing :602 precedent; `?.` → 0 unbuilt); `bl_idx_to_fldname` bounds-checks to `initblstats[idx].name` (C fldname ≡ name per hilite2str mirror note) else null; `repad_with_dashes` ports the eos back-walk over live `eos` (new name on the existing hacklib edge) returning a new string (C mutates in place); `clear_status_hilites` nulls thresholds + hilite_rule in both buffers (GC ≡ free, linestr_done precedent); `count_status_hilites` gather/count/done over in-file callees. `js/options.js` — `count_status_hilites` added to the existing botl edge (ALREADY); both get_val rows wired (currently_set_val ≡ n_currently_set, bind-keys precedent).
+- **JS:** js/botl.js:626,634,642,653,2909,2996; js/options.js:9100,9149.
+- **Callers:**
+  - `clear_status_hilites`: options.c:1867 (optfn_hilite_status do_set negated) → NAMED (JS hilite_status optfn null, no do_set site).
+  - `stat_cap_indx`: wintty.c:4574 (tty status update BL_CAP) → NAMED (no JS tty-status caller).
+  - `stat_hunger_indx`: none in C → exported unwired like C.
+  - `bl_idx_to_fldname`: extern.h:286 decl only, no C callers → exported unwired like C.
+  - `repad_with_dashes`: wintty.c:5137 (tty HP-bar critical) → NAMED (no JS hpbar caller).
+  - `count_status_hilites`: options.c:1887 → js/options.js:9100; options.c:8461 (optfn_o_status_hilites) → js/options.js:9149.
+  - `status_hilite_linestr_done`: :3483 → js/botl.js:2999 (new); :3575 → js/botl.js:3070; :4371 → NAMED (menu_add-TRUE arm, menu_add by-design); :4482/:4494 → js/options.js:11025/11032; :4564 → js/botl.js:3602.
+  - `status_hilite_linestr_countfield`: :3482 → js/botl.js:2998 (new); :4363 → js/botl.js:3460; :4373 → NAMED (menu_add-TRUE arm); :4515/:4531/:4563 → js/botl.js:3568/3579/3601.
+  - `status_hilite2str`: :3580 → js/botl.js:3076; :4289/:4298 → NAMED (status_hilite_menu_add by-design).
+  - `split_clridx`: :3549 → js/botl.js:3053; :3659 → js/botl.js:3136.
+- **Verify:** `node scripts/verify.mjs --fn clear_status_hilites,stat_cap_indx,stat_hunger_indx,bl_idx_to_fldname,repad_with_dashes,count_status_hilites,status_hilite_linestr_done,status_hilite_linestr_countfield,status_hilite2str,split_clridx` → PASS syntax (2 files) · PASS rule2 · note hidden ×10 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×10 (no RNG-tagged reach; smoke spread 24 run / 24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) · VERIFY: PASS. Plus /tmp/botl-smoke.mjs: cap/hunger unbuilt 0, fldname 0/9/-1/99 → title/carrying-capacity/null/null, repad pairs→dashes, count unbuilt 0, clear no-op.
+- **Named omissions:**
+  - `clear_status_hilites`: sole-C-caller wiring — options.c:1867 do_set negated arm (JS hilite_status optfn null).
+  - `stat_cap_indx`: C-caller wiring — wintty.c:4574 tty status update (no JS caller); `#else` near_capacity arm compiled out (config.h:616).
+  - `stat_hunger_indx`: `#else` u.uhs arm compiled out (config.h:616); none else — whole body, no C callers.
+  - `bl_idx_to_fldname`: none — whole body, no live C callers.
+  - `repad_with_dashes`: C-caller wiring — wintty.c:5137 HP-bar critical arm (no JS caller); none in-body.
+  - `count_status_hilites`: none — whole body, both callers wired.
+  - `status_hilite_linestr_done`: :4371 recount-arm call (inside by-design menu_add-TRUE arm); none else — body complete at js/botl.js:2972.
+  - `status_hilite_linestr_countfield`: :4373 recount-arm call (inside by-design menu_add-TRUE arm); none else — body complete at js/botl.js:2982.
+  - `status_hilite2str`: 5 in-body impossible() arms (:3617,:3627,:3633,:3639,:3645) dropped per init_blstats precedent (async cascade for corrupt-rule-only arms) + :4289/:4298 menu_add callers.
+  - `split_clridx`: none — whole body (C null-out-pointer guards moot: both C sites pass non-null), both callers wired.
+- **Ledger:** clear_status_hilites ported; stat_cap_indx ported; stat_hunger_indx ported; bl_idx_to_fldname ported; repad_with_dashes ported; count_status_hilites ported; status_hilite_linestr_done ported; status_hilite_linestr_countfield ported; status_hilite2str partial; split_clridx ported.
+- **Next:** same-file remainder (status_hilite_menu_fld PARTIAL 66/41, all_options_statushilites, is/has_ltgt_percentnumber, menualpha_cmp) or next coverage head.
+
 ## D-3136 — `end.c` quit cluster: done2 restart + done1/done_intr/done_hangup ports, odds_and_ends by-design (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head done2 restart + same-file done1/done_intr/done_hangup ports + odds_and_ends by-design (#if 0, uncompiled); 4 ports + 1 disposition, 1 file).

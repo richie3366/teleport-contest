@@ -201,6 +201,7 @@ import { clr2colorname } from './artifact.js';
 import {
     opt_next_cond, cond_menu, status_hilite_menu,
     status_hilite_linestr_done, status_hilite_linestr_gather,
+    count_status_hilites,
     match_str2clr, match_str2attr, status_version,
     config_error_add, status_initialize,
     condopt, parse_cond_option,
@@ -9096,7 +9097,7 @@ export async function doset() {
         { name: 'disclose', get_val: () => doset_compopt_get_val(optfn_disclose, 'disclose'), handler: true },
         { name: 'fruit', val: 'slime mold' },
         { name: 'glyph', val: '(to be done)' },
-        { name: 'hilite_status', val: '(none)' },
+        { name: 'hilite_status', get_val: () => (count_status_hilites() ? '(see "status highlight rules" below)' : '(none)') }, // C options.c:1887 get_val
         { name: 'menu_headings', val: 'no-color&inverse' },
         { name: 'menu_objsyms', get_val: () => doset_compopt_get_val(optfn_menu_objsyms, 'menu_objsyms'), handler: true },
         { name: 'menuinvertmode', val: '1' },
@@ -9145,7 +9146,7 @@ export async function doset() {
         { name: 'menu colors', val: currently_set_val(count_menucolors()) },
         { name: 'message types', val: currently_set_val(msgtype_count()) },
         { name: 'status condition fields', val: '(16 currently set)' },
-        { name: 'status highlight rules', val: '(0 currently set)' },
+        { name: 'status highlight rules', val: currently_set_val(count_status_hilites()) }, // C options.c:8461 get_val (n_currently_set)
     ]) {
         // C `:8892` doset_add_menu (OthrOpt; all 7 rows set_in_game so
         // indexoffset is nonzero — optlist.h NHOPTO rows are selectable).

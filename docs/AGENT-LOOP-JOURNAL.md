@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3137 `botl.c` hilite small-function closure: clear/stat_idx/fldname/repad/count ports + 4 verified-complete (coverage head)
+
+**C locus:** - `clear_status_hilites`: botl.c:3351–3366 (free loop :3359–3362, zero pair :3363–3365).
+**JS:** js/botl.js:626,634,642,653,2909,2996; js/options.js:9100,9149.
+**Change:** `js/botl.js` — 6 new exports in C order with per-arm cites (stat pair after `exp_percent_changing` :2090; clear after `conditionbitmask2str` :3141; count after `linestr_countfield` :3462): `stat_cap_indx`/`stat_hunger_indx` read `game.gb.blstats[now_or_before_idx][BL_CAP|BL_HUNGER].a.a_int` (module-local idx, exp_percent_changing :602 precedent; `?.` → 0 unbuilt); `bl_idx_to_fldname` bounds-checks to `initblstats[idx].name` (C fldname ≡ name per hilite2str mirror note) else null; `repad_with_dashes` ports the eos back-walk over live `eos` (new name on the existing hacklib edge) returning a new string (C mutates in place); `clear_status_hilites` nulls thresholds + hilite_rule in both buffers (GC ≡ free, linestr_done precedent); `count_status_hilites` gather/count/done over in-file callees. `js/options.js` — `count_status_hilites` added to the existing botl edge (ALREADY); both get_val rows wired (currently_set_val ≡ n_currently_set, bind-keys precedent).
+**Verify:** `node scripts/verify.mjs --fn clear_status_hilites,stat_cap_indx,stat_hunger_indx,bl_idx_to_fldname,repad_with_dashes,count_status_hilites,status_hilite_linestr_done,status_hilite_linestr_countfield,status_hilite2str,split_clridx` → PASS syntax (2 files) · PASS rule2 · note hidden ×10 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×10 (no RNG-tagged reach; smoke spread 24 run / 24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) · VERIFY: PASS. Plus /tmp/botl-smoke.mjs: cap/hunger unbuilt 0, fldname 0/9/-1/99 → title/carrying-capacity/null/null, repad pairs→dashes, count unbuilt 0, clear no-op.
+**Named:** - `clear_status_hilites`: sole-C-caller wiring — options.c:1867 do_set negated arm (JS hilite_status optfn null).
+**Next:** same-file remainder (status_hilite_menu_fld PARTIAL 66/41, all_options_statushilites, is/has_ltgt_percentnumber, menualpha_cmp) or next coverage head.
 ## 2026-09-30 — D-3136 `end.c` quit cluster: done2 restart + done1/done_intr/done_hangup ports, odds_and_ends by-design (coverage head)
 
 **C locus:** - `done2`: end.c:90–148 (abandon gate :94–96, cancel arm :98–117, wizard arm :120–144, done(QUIT) :146).
