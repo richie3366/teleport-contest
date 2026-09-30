@@ -1676,8 +1676,8 @@ function cmdbind_remove(key) {
  * extcmdlist (INTERNALCMD skipped — the same predicate parsebindings and
  * get_changed_key_binds use). C order kept, including the bind-before-error
  * order: cmdbind_add `:2693` runs before the CMD_PARAM error arms, so an
- * empty param still binds (error sunk). config_error_add is the live botl
- * sink (message text is the pre-existing named omission there).
+ * empty param still binds before reporting. The botl.js re-export resolves
+ * to cfgfiles.js config_error_add for formatting and config_erradd reporting.
  * Callers: cmd.c:2393 (handler_rebind_keys_add, live below);
  * options.c:7669 (parsebindings BIND= — JS parsebindings writes the overlay
  * directly, pre-existing equivalent); commands_init `:2762–2780`

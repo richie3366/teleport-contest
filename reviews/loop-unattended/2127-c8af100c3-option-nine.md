@@ -2,6 +2,8 @@
 
 SHA `c8af100c3`, D-3167; 2026-09-30; +339 JS. No closure.
 
+**Addressed:** D-3173
+
 ## Intent vs deliverable
 
 Subject promises “9× optfn ports”. Diff adds nine sync exports and allopt

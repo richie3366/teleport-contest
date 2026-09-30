@@ -218,7 +218,7 @@ import {
     count_status_hilites, reset_status_hilites,
     clear_status_hilites, parse_status_hl1,
     match_str2clr, match_str2attr, status_version,
-    config_error_add, status_initialize,
+    status_initialize,
     condopt, parse_cond_option,
 } from './botl.js';
 import { classify_terrain } from './hack.js';
@@ -244,7 +244,7 @@ import {
 import {
     clearrolefilter, setrolefilter, rolefilterstring,
 } from './player_selection.js';
-import { rcfile, read_config_file, config_error_init, config_error_done, assure_syscf_file } from './cfgfiles.js';
+import { rcfile, read_config_file, config_error_init, config_error_done, config_error_add, assure_syscf_file } from './cfgfiles.js';
 import { nh_terminate } from './end.js';
 import { do_deferred_showpaths } from './files.js'; // C initoptions `:7112` (imports.mjs: hoisted fn, lazy reads only)
 
@@ -605,7 +605,7 @@ async function query_msgtype() {
  * gp.plinemsg_types. C `:7733` static re_error kept; the compile-fail
  * arm describes via the live regex_error_desc, frees first (OOM
  * ordering — the unlinked tmp is GC), then the config_error_add call
- * (no-op sink, test_regex_pattern precedent).
+ * (shared cfgfiles.js configuration-error sink).
  */
 export function msgtype_add(typ, pattern) {
     const re_error = 'MSGTYPE regex error'; // C `:7733`
@@ -706,7 +706,7 @@ function msgtype_count() {
 /**
  * C ref: options.c msgtype_parse_add `:7843–7866` — sscanf
  * `%10s \"%255[^\"]\"` then str_start_is on msgtype_names, whole body in C order
- * (the config_error_add arms are the no-op sink, msgtype_add `:7747` precedent).
+ * (the config_error_add arms use the shared cfgfiles.js sink).
  */
 export function msgtype_parse_add(str) {
     // C `:7848` sscanf == 2: %10s skips leading space, takes to 10 non-space;
@@ -1430,8 +1430,7 @@ function check_misc_menu_command(opts, _op) {
  * C options.c `illegal_menu_cmd_key` `:8037–8057` (staticfn) — TRUE for NUL,
  * CR/LF/ESC/space, digits, letters other than '@' (C `letter()` counts '@'
  * as a letter; hacklib.c `:62–72`), and default object-class symbols.
- * Both `config_error_add` arms are the named map sink (no JS config-error
- * channel); the `visctrl` text belongs to those messages.
+ * Both `config_error_add` calls remain omitted at these caller sites; the `visctrl` text belongs to those messages.
  */
 function illegal_menu_cmd_key(c) {
     c &= 0xff; // C uchar `:8038`
@@ -1686,7 +1685,7 @@ export function optfn_msg_window(optidx, req, negated, opts, op, iflagsBag) {
             tmp = negated ? 's' : 'f'; // C `:2478`
         } else {
             if (negated) { // C `:2480`
-                bad_negation(allopt_name(optidx), true); // C `:2481` (stub: sink named)
+                bad_negation(allopt_name(optidx), true); // C `:2481` (shared cfgfiles sink)
                 return OPTN_ERR; // C `:2482`
             }
             tmp = lowc(op[0]); // C `:2484 lowc(*op)`
@@ -1699,7 +1698,7 @@ export function optfn_msg_window(optidx, req, negated, opts, op, iflagsBag) {
             iflags.prevmsg_window = tmp; // C `:2491`
             break;
         default:
-            // Named omission (map): config_error_add("Unknown %s parameter '%s'") — no JS config-error sink (file precedent).
+            // Named omission (map): config_error_add("Unknown %s parameter '%s'") — this caller diagnostic is not yet wired.
             retval = OPTN_ERR; // C `:2496`
         }
         return retval; // C `:2499`
@@ -1836,7 +1835,7 @@ export function optfn_menu_objsyms(optidx, req, negated, opts, op, iflagsBag) {
             const i = Number.parseInt(op, 10); // C `:2251` atoi
             if (i >= objsymvals.length) { // C `:2252`
                 // Named omission (map): config_error_add("Illegal %s parameter '%s'",
-                // allopt[optidx].name, op) — no JS config-error sink (file precedent).
+                // allopt[optidx].name, op) — this caller diagnostic is not yet wired.
                 void optidx;
                 return OPTN_ERR; // C `:2255`
             }
@@ -2154,7 +2153,7 @@ export function optfn_whatis_coord(optidx, req, negated, opts, _op, iflagsBag, o
                 iflags.getpos_coords = c; // C `:4722`
             else {
                 // Named omission (map): config_error_add("Unknown %s parameter '%s'")
-                // — no JS config-error sink (file precedent).
+                // — this caller diagnostic is not yet wired.
                 return OPTN_ERR; // C `:4726`
             }
         } else
@@ -2272,7 +2271,7 @@ export function optfn_number_pad(optidx, req, negated, opts, _op, iflagsBag, opt
             if (Number.isNaN(mode) || mode < -1 || mode > 4 // C `:2599`
                 || (mode === 0 && op[0] !== '0')) {
                 // Named omission (map): config_error_add("Illegal %s parameter '%s'",
-                // allopt[optidx].name, op) — no JS config-error sink (file precedent).
+                // allopt[optidx].name, op) — this caller diagnostic is not yet wired.
                 void optidx;
                 return OPTN_ERR; // C `:2602`
             } else if (mode <= 0) { // C `:2603`
@@ -4084,7 +4083,7 @@ export function optfn_versinfo(optidx, req, negated, opts, op) {
         const have_branch = !!(vgb && vgb[0]); // C `:4489–4490`
         const dflt = have_branch ? VI_BRANCH : VI_NUMBER; // C `:4491`
         if (negated) { // C `:4493`
-            bad_negation(optname, true); // C `:4494` (stub: sink named)
+            bad_negation(optname, true); // C `:4494` (shared cfgfiles sink)
             return OPTN_SILENTERR; // C `:4495`
         }
         op = string_for_opt(opts, false); // C `:4497` (reassigns op)
@@ -5741,7 +5740,7 @@ export function free_menu_coloring() {
  * validated callers only (test_regex_pattern ran first); recompile can
  * still fail, then FALSE. C `:587` static re_error kept; the fail arm
  * describes via the live regex_error_desc, frees first (OOM ordering),
- * then the config_error_add call (no-op sink, msgtype_add precedent).
+ * then the config_error_add call (shared cfgfiles.js sink).
  * C `:590` guards NULL only: an empty pattern compiles
  * (match-everything), reachable from add_menu_coloring's
  * `MENUCOLOR==color` / `""` arms.
@@ -7280,10 +7279,6 @@ export function optfn_fruit(optidx, req, negated, opts, _op, optInitial) {
         const valOptional = negated || !optInit; // C `:1717`
         const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
         let op = string_for_opt(optstr, valOptional); // C `:1717`
-        // C string_for_opt `:6678` — JS helper omits the sink; this caller
-        // still fires it when the value is required.
-        if (!valOptional && op === EMPTY_OPTSTR)
-            config_error_add("Missing parameter for '%s'", optstr);
         if (negated) { // C `:1718`
             if (op !== EMPTY_OPTSTR) { // C `:1719`
                 bad_negation('fruit', true); // C `:1720`
@@ -7368,11 +7363,6 @@ export function optfn_petattr(optidx, req, negated, opts, _op, optInitial) {
         /* WINCAP2 petattr:string */
         const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
         const op = string_for_opt(optstr, negated); // C `:3151` val_optional = negated
-        // C string_for_opt `:6675–6676` when the value is required. The
-        // helper omits the sink; retval stays optn_ok like C (the error
-        // does not select the optn_err arms below).
-        if (!negated && op === EMPTY_OPTSTR)
-            config_error_add("Missing parameter for '%s'", optstr);
         if (op !== EMPTY_OPTSTR && negated) { // C `:3152–3155`
             bad_negation(allopt_name(optidx), true);
             retval = OPTN_ERR;
@@ -10077,7 +10067,7 @@ const OPT_BOOL_VALOK = new Set(['menucolors']);
  * the two C pline arms (idlecheckpoint notice, toggled message); the body
  * otherwise runs synchronously in C order. Word parse reuses
  * optfn_boolean_word (same true/yes/on/1 : false/no/off/0 mapping);
- * config_error_add is the no-op map sink (return values kept).
+ * config_error_add formats/reports via cfgfiles.js (return values kept).
  * @param {number} optidx C optidx (allopt row index)
  * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
  * @param {boolean} negated
@@ -11038,7 +11028,7 @@ export function pfxfn_font(optidx, req, negated, opts, op) {
                     allopt_name(optidx), opts);
                 return OPTN_ERR; // C `:5078`
             }
-            if (duplicateOpt) complain_about_duplicate(optidx); // C `:5080–5081` (sink: botl.js no-op)
+            if (duplicateOpt) complain_about_duplicate(optidx); // C `:5080–5081` (shared cfgfiles sink)
             if (opttype > 0 && !negated // C `:5082–5083`
                 && (op = string_for_opt(opts, false)) !== EMPTY_OPTSTR) {
                 switch (opttype) { // C `:5084`
@@ -11071,7 +11061,7 @@ export function pfxfn_font(optidx, req, negated, opts, op) {
             // C `:5111–5113` set_font_name is MACOS9-only (not this build).
             return OPTN_OK; // C `:5114`
         } else if (negated) { // C `:5115`
-            bad_negation(allopt_name(optidx), true); // C `:5116` (stub: sink named)
+            bad_negation(allopt_name(optidx), true); // C `:5116` (shared cfgfiles sink)
             return OPTN_ERR; // C `:5117`
         }
         return OPTN_OK; // C `:5119`
@@ -11203,7 +11193,7 @@ export async function optfn_suppress_alert(optidx, req, negated, opts, op) {
     }
     if (req === REQ_DO_SET) { // C `:4142`
         if (negated) { // C `:4143`
-            bad_negation(allopt_name(optidx), false); // C `:4144` (stub: sink named)
+            bad_negation(allopt_name(optidx), false); // C `:4144` (shared cfgfiles sink)
             return OPTN_ERR; // C `:4145`
         } else if (op !== EMPTY_OPTSTR) { // C `:4146`
             await feature_alert_opts(op, allopt_name(optidx)); // C `:4147` (void)
@@ -11809,8 +11799,8 @@ export function match_optname(userString, optName, minLength, valAllowed) {
 
 /* C options.c `string_for_opt` `:6664–6680` (staticfn) — value tail after
  * the first ':' (or '=' when it comes first); EMPTY_OPTSTR stands in for C's
- * `empty_optstr`. The `:6675–6677` "Missing parameter" arm calls the live
- * config_error_add (botl.js no-op sink — text discarded there, not here). */
+ * `empty_optstr`. The `:6675–6677` "Missing parameter" arm calls the shared
+ * cfgfiles.js formatter and config_erradd sink. */
 function string_for_opt(opts, valOptional) {
     let colon = opts.indexOf(':'); // C `:6669`
     const equals = opts.indexOf('=');
@@ -11822,7 +11812,7 @@ function string_for_opt(opts, valOptional) {
     return opts.slice(colon + 1); // C `:6679`
 }
 
-/* C options.c `bad_negation` `:6693–6700` (staticfn) — body is one
+/* C options.c `bad_negation` `:6692–6697` (staticfn) — body is one
  * config_error_add ("The %s option may not %sbe negated.", optname,
  * with_parameter ? "both have a value and " : ""). */
 function bad_negation(optname, withParameter) {
@@ -11931,7 +11921,7 @@ function duplicate_opt_detection(optidx) {
 
 /* C options.c `complain_about_duplicate` `:6789–6809` (staticfn) — the
  * MACOS9 early return (`:6794–6798`) is compiled out on unix; the body is
- * one config_error_add call (live botl.js no-op sink). using_alias is
+ * one config_error_add call (shared cfgfiles.js sink). using_alias is
  * usingAliasOpt; allopt[optidx].alias reads OPT_ALIAS (C optlist.h `:45`,
  * NoAlias rows never take the arm — C only sets using_alias on an alias
  * match). */
@@ -11954,7 +11944,7 @@ function complain_about_duplicate(optidx) {
  * exactly like C with a null optfn. Live effects: comma recursion, negation folding,
  * duplicate detection state, opt_set_in_config marking (fires once an optfn
  * ships), and the S_ → parsesymbols/check_gold_symbol fallback (both live).
- * Named omissions (map): config_error_add sink (6 sites), switch_symbols
+ * Named omissions (map): six config_error_add caller diagnostics, switch_symbols
  * application. disregard/heed setters are live (`heed_all_options` and
  * siblings); rows still start unset (C FALSE) until one of them runs.
  * Sync like C (no prompts in-body).

@@ -2,6 +2,8 @@
 
 SHA `0f8744c49`, D-3169; 2026-09-30; +204 JS. No prior-review closure.
 
+**Addressed:** D-3173
+
 ## Intent vs deliverable
 
 Subject promises “optfn 6-pack”. Diff adds five exports/allopt rows, changes

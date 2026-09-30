@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3173 options error closure uses the real cfgfiles diagnostic sink
+
+**C locus:** - `config_error_add`: cfgfiles.c:1864–1872, whole brief and all 177 references read; va_start → vconfig_error_add → va_end, represented by a JS rest-argument array.
+**JS:** js/cfgfiles.js:374 (vsnprintf adapter), :425 (exported wrapper), :430 (private formatter); js/botl.js:22–23 (live import/re-export); js/options.js:247 (import), :7270/:7353 (duplicate-report removal), :11818 (bad_negation); js/cmd.js caller documentation; docs/c-js-map/startup.md sink/remaining caller map; scripts/option-error-closure.test.mjs differential C oracle and regressions.
+**Change:** exported config_error_add from cfgfiles.js and re-exported it from botl.js, preserving every existing imported binding; options.js imports the real sink directly. Restarted vconfig_error_add around a C-format adapter and the existing counted/Lua-list config_erradd. Removed the two extra missing-value calls.
+**Verify:** preflight green + strict PASS, clean initial tree. MEASURED checked-in C oracle compiles the exact extracted pinned definitions of config_error_add/vconfig_error_add/string_for_opt/string_for_env_opt/bad_negation and all fifteen reviewed optfn bodies; only the final config_erradd collector and unrelated callees are doubled. Seven formatting vectors agree with libc vsnprintf, including BUFSZ chop, percent arguments, signed/unsigned narrowing, precision and 64-bit long/size_t.
+**Named:** - `config_error_add`: wrapper body complete; inherited absent caller diagnostics keep the broader caller closure partial: cfgfiles.c:1058/1073/1086/1101 (PANICTRACE/GDBPATH/GREPPATH platform handlers), :1140/:1147 (PORTABLE_DEVICE_PATHS platform branches); coloratt.c:627 (Malformed MENUCOLOR); files.c:2577/:2669 (wizkit/symset diagnostics); options.c:523/536/585/680/689 (parseoptions parser errors), :1230 (obsolete boulder), :1373/:1380/:1429/:1950 (legacy symbol-set platform/error branches), :2253/:2494/:2600/:2715 (menu_objsyms/msg_window/number_pad/palette errors), :3084/:3096 (perminv_mode), :3560 (prayconfirm), :4182/:4190 (term_cols/term_rows), :4553/:4588/:4661 (wc_* error-handling options), :4724 (whatis_coord), :8041/:8048 (illegal_menu_cmd_key); sounds.c:1839/:1853 (soundlib platform diagnostics), symbols.c:475/:497 (symset parser diagnostics), windows.c:313/:330 (windowport chooser diagnostics), unixmain.c:367/395/405/414/445/461/470 (OS command-line parsing). Some listed platform branches are compiled out in the contest build; none is falsely claimed wired. botl.c:2955/:2961 abbreviated threshold messages and :2969/:2993/:3000/:3013/:3062 missing formatting arguments remain inherited caller debt (sink now receives those calls, but cannot invent their omitted arguments).
+**Next:** first remaining Must-fix: sp_lev.c nhl_abs_coord/cvt_to_abscoord signed-16 semantics (review 2128). No manual coverage refill.
 ## 2026-09-30 — D-3172 options.c startup keeps system options through user rc
 
 **C locus:** - `initoptions_init`: pinned options.c:7118–7305, whole body and reference table read in brief. Builtin defaults precede system config; :7289 requires readability; :7294–7298 checks parse failure, drains errors before testing initoptions_noterminate, terminates when required, then closes the bracket only on a continuing path. :7264 stores wintype.h ATR_INVERSE (7).
@@ -22,7 +30,6 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verification:** every ported function remeasured in its SHA via hidden-proxy verify --base SHA~1 --reach-all (0 blocked, smoke 24/24 REACH-OK individually; no REGRESSED). Full public 44/44, RNG 792838/792838, screens 11405/11405, 280+1.64/turn (R² .768). record: all corpus sessions present; final unfiltered score 648/953, RNG 96.75%, screens 90.7%, fullAt 2026-09-30T17:20:04.680Z; zero committed-PASS losses, +0. Leaderboard ours 13/44, 6882/11265, RNG 33.6%, screens 61.1% (judge score 13:20Z; unchanged).
 **Ledger sample:** summary --snapshot; SQL via Node 22 (host 20 has no node:sqlite), one brief each: big_little_match (mondata.c:1329–1351 reciprocal growth); Shield_on (do_wear.c:704–730 nine shields/known); flip_visuals (sp_lev.c:456–495 octants/wall glyph); sink_into_lava (trap.c:6990–7034 guards/death/RNG); vision_reset (vision.c:210–265 plane/pointer dig). Five seeded ported rows match their bodies, no ledger correction. Addressed stamps have hashes; no checked queue leftovers.
 **Next:** first Must-fix, startup sysconf ordering; ship alone. The config-error sink row then closes 2127/2129/2131 together. Review index and CURRENT/NOTES updated; full scoreboard committed with the grouped audit.
-
 ## 2026-09-30 — D-3171 options.c playmode authorization and option dispatch cluster
 
 **C locus:** - `set_playmode`: options.c:10134–10152, whole brief; wizard authorization/rename, refusal fallback, discover authorization and deferred_X clearing in C order.
@@ -79,58 +86,3 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** note hidden verify dotherecmdmenu: no corpus session blocked on it at baseline; PASS reach (no RNG-tagged reach; smoke 24/24 PASS, 0 regressed → REACH-OK); syntax 2 files · Rule #2 PASS · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (gate: no shared file changed) → VERIFY: PASS.
 **Named:** none — whole body, every callee live (isok/CLICK_1/CLICK_2/ECMD_* from const.js, here_cmd_menu/there_cmd_menu same-module, getdir from lock.js).
 **Next:** generated Open — coverage head after refill.
-## 2026-09-30 — D-3164 `music.c` generic_lvl_desc sanctum arm (coverage)
-
-**C locus:** music.c:478–492 — `if/else-if` chain over `&u.uz`: astral plane → plane → sanctum → puzzle → tower → dungeon.
-**JS:** js/music.js:466 generic_lvl_desc (sanctum arm at :470, C pin `:484–485`). Sequential-`if` with early returns preserves C's else-if semantics (each arm returns).
-**Change:** added the sanctum arm in C order between the endgame and sokoban arms over the live `Is_sanctum` export (js/const.js:3294, `Lcheck(&sanctum_level)`); extended the existing `./const.js` import (no new module edge).
-**Verify:** note hidden verify generic_lvl_desc: no corpus session blocked on it at baseline; PASS reach (no RNG-tagged reach; smoke 24/24 PASS, 0 regressed → REACH-OK); syntax 1 file · Rule #2 PASS · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (music.js not shared) → VERIFY: PASS.
-**Named:** none — whole body, all 5 callees live (dungeon.h macros exported from const.js).
-**Next:** generated Open — coverage head after refill.
-## 2026-09-30 — D-3163 `worn.c` wornmask_to_armcat + allunworn (coverage)
-
-**C locus:** - `wornmask_to_armcat`: worn.c:218–246 — `cat = 0`, `switch (mask & W_ARMOR)` over the 7 armor slots, no default arm.
-**JS:** js/worn.js:308 allunworn, js/worn.js:356 wornmask_to_armcat. twoweap cleared by direct assignment (no botl, per C); slot nulls match setnotworn idiom; switch keeps C's exact-match semantics (multi-bit armor mask → 0).
-**Change:** ported both whole in C order into js/worn.js next to their C neighbors (allunworn before wearmask_to_obj, wornmask_to_armcat before its inverse armcat_to_wornmask); added W_ARMOR to the existing const.js import (no new module edge).
-**Verify:** - `wornmask_to_armcat`: hidden note (no corpus session blocked); REACH-OK (no RNG reach; smoke 24/24 PASS); /tmp/worn-probe.mjs: 7 slots + 0/W_WEP/multi-bit/W_ARMOR cases + armcat round-trip both directions all pass.
-**Named:** - `wornmask_to_armcat`: none — whole body, no callees, no C callers.
-**Next:** generated Open — coverage head after refill.
-## 2026-09-30 — Audit 2114–2122 (D-3154..D-3162): 9 ACCEPT; full cadence
-
-Reviews cover the 9 js/ SHAs since 5ab8920e9 against pinned C with
-per-function fidelity + hidden-proxy re-measure. D-3154 closes review
-2111's Must-fix (miss arm now FALSE, pins flipped, 22/22). Reproduced
-D-3159's burden PROGRESS (scen-options-Samurai-94071 41→43) and all
-other verify claims; no C-wrongs, no Must-fix. Noted (unqueued):
-D-3159's IBM ledger omit carried the wrong bullet at its SHA (fixed
-in-tree by D-3161); D-3160 11 rows and D-3162 14 rows exceed the
-10-count on zero-code walk retirements (review-1962 precedent:
-review-debt, all rows verified).
-Cadence: public 44/44 (Scr 11405/11405, RNG 792838/792838);
-corpus rescore 648/953 with full:true, 0 flips; held-out 13/44 flat.
-Ledger snapshot + seeded sample 4/5 resolve (mhitm_ad_drin corrected
-ported→split: uhitm + mhitm arms).
-## 2026-09-30 — D-3162 `options.c` optfn DEC/playmode/hilite/term/autocomplete cluster (coverage)
-
-**C locus:** - `optfn_DECgraphics`: options.c:1393–1439 (BACKWARD_COMPAT on, optlist.h:15: do_set `:1409–1427` single-PRIMARYSET load, no rogue set `:1410`; `#else` `:1428–1431` compiled out; get arms `:1434–1436` empty).
-**JS:** js/options.js:7119 (DECgraphics), :7166 (playmode), :7212 (hilite_status), :7256/:7301 (term_cols/rows), :11931 (o_autocomplete), rc key :4043/:4237 + lname :4350, allopt rows 1/15/41/75/179/180, doset rows :10001/:10047; js/cmd.js:2521 (count_autocompletions); scripts/optfn-dec-term-cluster.test.mjs (25 tests).
-**Change:** ported all seven whole in C order over live string_for_opt/opt_atoi/allopt_name/set_optbuf CURRENTLY_SET (same module), clear_status_hilites/parse_status_hl1/count_status_hilites/config_error_add (botl.js edge, extended) + count_autocompletions (new cmd.js export over generated EXTCMDLIST, null-terminator-free loop) + LARGEST_INT (const.js edge; both edges imports.mjs ALREADY). playmode writes game.wizard/game.discover (C globals; discover new dynamic field like wizard); strcmpi("play") is a length gate + strncmpi (map_mode precedent); cursesgraphics declared by-design, no code (porting ifdef'd-out C would add dead JS — necrophiliac precedent).
-**Verify:** `node scripts/verify.mjs --fn optfn_DECgraphics,optfn_o_autocomplete,optfn_hilite_status,optfn_playmode,optfn_term_cols,optfn_term_rows,count_autocompletions,optfn_cursesgraphics` → VERIFY: PASS — hidden notes ×8 (no corpus session blocked, expected for coverage rows); REACH-OK ×8 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/optfn-dec-term-cluster.test.mjs`: 25/25 PASS (all do_set/get arms incl. badflag, mode families, clear/parse, atoi edges, bare/default, rc + dispatch + dump wiring); siblings optfn-coverage/optfn-status/all-options-statushilites/all-options-conds: 48/48 PASS.
-**Named:** - `optfn_DECgraphics`: read_sym_file `:1415` + clear_symsetentry `:1417` failure arm (SYMBOLS file IO under Rule #2) + switch_symbols `:1419` (by-design) — IBMgraphics precedent.
-**Next:** continue the breadth queue from the regenerated block.
-## 2026-09-30 — D-3161 `options.c` optfn_statushilites + optfn_statuslines (coverage cluster)
-
-**C locus:** - `optfn_statushilites`: options.c:4012–4064 (STATUS_HILITES on, config.h:616: do_set `:4025–4036` delta store + from_file reset gate; `#else` `:4037–4042` compiled out; get_val `:4046–4050`; get_cnf_val `:4058`).
-**JS:** js/options.js:7096 (optfn_statushilites), :7146 (optfn_statuslines), rc valued :4231/:4239 + valueless :4400/:4407, allopt rows 174/176, doset rows :9770/:9774; js/botl.js reset_status_hilites doc (caller now live); scripts/optfn-status-cluster.test.mjs (15 tests).
-**Change:** ported both whole in C order over live string_for_opt/bad_negation/wc2_supported/opt_atoi/config_error_add (same module) + imported reset_status_hilites (botl.js; pre-existing edge, imports.mjs ALREADY). Statushilites full-doset row is live get_val now; statuslines displays keep the C-observable `:4101` supported arm (contest tty sets WC2_STATUSLINES, wintty.c:119; the live optfn reads 'unknown' under the deliberate minimal JS wincap2).
-**Verify:** `node scripts/verify.mjs --fn optfn_statushilites,optfn_statuslines` → VERIFY: PASS — hidden notes ×2 (no corpus session blocked, expected for coverage rows); REACH-OK ×2 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/optfn-status-cluster.test.mjs`: 15/15 PASS (all do_set/get arms incl. negated fall-through, bare/default, atoi edges, rc + dispatch + dump wiring, both wc2 arms); sibling `scripts/optfn-coverage-cluster.test.mjs`: 20/20 PASS.
-**Named:** - `optfn_statushilites`: none — whole body; STATUS_HILITES-off arms compiled out (config.h:616).
-**Next:** continue the breadth queue from the regenerated block.
-## 2026-09-30 — D-3160 `apply.c` could_pole_mon cluster + `hacklib.c` isqrt (coverage)
-
-**C locus:** - `could_pole_mon`: apply.c:3391–3412 (hitm entry snapshot `:3395`, uwep/pole gate `:3397–3398`, range `:3400`, find `:3404`, hitm arm `:3405–3407`, mdistu ×2 `:3406`).
-**JS:** js/apply.js:3771 (`could_pole_mon` restart), :3696 (`find_poleable_mon` impaired `:3698` + isqrt `:3699`), :3660/:3679 (calc/get_valid docs), 3 import names; js/hacklib.js:36 (`isqrt` export); scripts/polearm-coverage-cluster.test.mjs (3 tests).
-**Change:** restarted `could_pole_mon` in C order (entry hitm, live `mdistu`, per-line C pins, C-shaped else); impaired now calls the gated display.js `Hallucination` youprop (D-1493; aliased — do_name.js squats the bare name and documents itself as not-the-macro); ported `isqrt` as the hacklib.js C-locus export, rewired find, deleted `isqrt_pole`; C-ref docs on the two staticfn locals (distu is a macro, hack.h:1531 — `distu_apply` is its expansion).
-**Verify:** `node scripts/verify.mjs --fn could_pole_mon,calc_pole_range,find_poleable_mon,get_valid_polearm_position,isqrt` → VERIFY: PASS — hidden notes ×5 (no corpus session blocked, expected for coverage rows); REACH-OK ×5 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7. Focused `node --test scripts/polearm-coverage-cluster.test.mjs`: 3/3 PASS. First verify run caught a real bug (bare `Hallucination` import collided with the do_name.js squat — `Identifier already declared`, cohort 0/7); fixed via alias, re-verified PASS.
-**Named:** - `could_pole_mon`: none — whole body, every callee live.
-**Next:** `optfn_IBMgraphics` coverage row persists while declared partial (generator re-queues partial + measured-gap rows); retires only via a `read_sym_file` port or a generator tweak — out of scope, D-3159 stands.

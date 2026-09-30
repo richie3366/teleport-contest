@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-30
 
-- [x] `options.c` initoptions_init startup sysconf ordering — C options.c:7118–7305 initializes defaults before read_config_file and checks failure (:7293–7296). JS NethackGame.start reads system OPTIONS then overwrites flags/name: VFS OPTIONS=!autopickup,name:SysName loses pickup=false/SysName. Preserve system settings through rc initialization and handle failed system config in C order. Source: reviews/loop-unattended/2131-f02c9df5f-playmode-config-closure.md. **Addressed:** D-3172
+- [x] `options.c` option-error callee closure — bad_negation/optfn_menuinvertmode/msghistory/name and D-3167/3169 error arms reach no-op botl.config_error_add. C options.c:6692–6697 → cfgfiles.c:1864–1890 must format/enqueue. Export/wire the real sink, verify every affected error arm, correct false live-sink claims. Source: reviews/loop-unattended/2131-f02c9df5f-playmode-config-closure.md; reviews/loop-unattended/2129-0f8744c49-option-error-stubs.md; reviews/loop-unattended/2127-c8af100c3-option-nine.md. **Addressed:** D-3173
+
+
+- [x] `options.c` initoptions_init startup sysconf ordering — C options.c:7118–7305 initializes defaults before read_config_file and checks failure (:7293–7296). JS NethackGame.start reads system OPTIONS then overwrites flags/name: VFS OPTIONS=!autopickup,name:SysName loses pickup=false/SysName. Preserve system settings through rc initialization and handle failed system config in C order. Source: reviews/loop-unattended/2131-f02c9df5f-playmode-config-closure.md. **Addressed:** D-3172 `1b3985d44`
 
 
 - [x] `worn.c` wornmask_to_armcat — coverage MISSING (C 24 code L `worn.c:218–246` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @deff666da

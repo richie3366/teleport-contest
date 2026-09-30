@@ -35,7 +35,7 @@
 {"fn":"optfn_font_size_text","c":"1679-1685","status":"ported","js":["js/options.js:optfn_font_size_text"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_font_status","c":"1688-1694","status":"ported","js":["js/options.js:optfn_font_status"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_font_text","c":"1697-1703","status":"ported","js":["js/options.js:optfn_font_text"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"optfn_fruit","c":"1706-1774","status":"partial","js":["js/options.js:optfn_fruit"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2783"],"at":"seed@a30a7de84"}
+{"fn":"optfn_fruit","c":"1706-1774","status":"partial","js":["js/options.js:optfn_fruit"],"d":["D-3173","D-2783"],"at":"2026-09-30@1b3985d44"}
 {"fn":"optfn_gender","c":"1777-1812","status":"partial","js":["js/options.js:optfn_gender"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
 {"fn":"optfn_glyph","c":"1815-1849","status":"ported","js":["js/options.js:optfn_glyph"],"d":["D-3167"],"at":"2026-09-30@2b25db15c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_hilite_status","c":"1852-1894","status":"ported","js":["js/options.js:optfn_hilite_status"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
@@ -71,7 +71,7 @@
 {"fn":"optfn_palette","c":"2699-2730","status":"by-design","at":"2026-09-30@e47a5e02a","note":"compiled out: body :2698-2730 inside ifdef CHANGE_COLOR (Amiga-only, windconf.h:29 commented), optlist rows :544-554 same guard, MacOS9 variant at if 0"}
 {"fn":"optfn_paranoid_confirmation","c":"2818-3043","status":"partial","js":["js/options.js:optfn_paranoid_confirmation"],"omit":"`config_error_add` still discards the message text.","d":["D-2821"],"at":"seed@a30a7de84"}
 {"fn":"optfn_perminv_mode","c":"3046-3135","status":"unknown","d":["D-1661"],"at":"seed@a30a7de84"}
-{"fn":"optfn_petattr","c":"3138-3194","status":"partial","js":["js/options.js:optfn_petattr"],"omit":"`config_error_add` and `bad_negation` message text (existing no-op sinks).","d":["D-2792"],"at":"seed@a30a7de84"}
+{"fn":"optfn_petattr","c":"3138-3194","status":"split","js":["js/options.js:optfn_petattr","js/options.js:doset_optfn_do_handler"],"d":["D-3173","D-2792"],"at":"2026-09-30@1b3985d44"}
 {"fn":"optfn_pettype","c":"3197-3253","status":"ported","js":["js/options.js:optfn_pettype"],"d":["D-3157"],"at":"2026-09-30@e47a5e02a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_pickup_burden","c":"3256-3305","status":"partial","js":["js/options.js:optfn_pickup_burden"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_pickup_types","c":"3308-3401","status":"ported","js":["js/options.js:optfn_pickup_types"],"d":["D-2830"],"at":"seed@a30a7de84"}
@@ -146,7 +146,7 @@
 {"fn":"handler_windowborders","c":"6620-6654","status":"ported","js":["js/options.js:handler_windowborders"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:3032; 5 text arms + a+i/0+i selectors + a_int+1 present, wired via doset_optfn_do_handler :3094 + getlin :7656"}
 {"fn":"string_for_opt","c":"6665-6680","status":"ported","js":["js/options.js:string_for_opt"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"string_for_env_opt","c":"6683-6690","status":"unknown"}
-{"fn":"bad_negation","c":"6693-6697","status":"partial","js":["js/options.js:bad_negation"],"omit":"- `set_playmode`: none in its whole body or two direct callers.","d":["D-3171"],"at":"2026-09-30@9865882fc"}
+{"fn":"bad_negation","c":"6693-6697","status":"partial","js":["js/options.js:bad_negation"],"d":["D-3173","D-3171"],"at":"2026-09-30@1b3985d44"}
 {"fn":"determine_ambiguities","c":"6703-6736","status":"ported","js":["js/options.js:determine_ambiguities"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:10264 local staticfn (R1520; wrong was sibling table, D-2566)"}
 {"fn":"length_without_val","c":"6739-6754","status":"unknown"}
 {"fn":"match_optname","c":"6760-6770","status":"unknown"}

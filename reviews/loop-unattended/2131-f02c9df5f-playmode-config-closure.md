@@ -3,7 +3,9 @@
 SHA `f02c9df5f`, D-3171; 2026-09-30; +254 JS. No older review closure
 claimed.
 
-**Addressed:** D-3172
+**Addressed:** D-3172 `1b3985d44`
+
+**Addressed:** D-3173
 
 ## Intent vs deliverable
 
