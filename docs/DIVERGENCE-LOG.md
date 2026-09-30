@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-3152 — `cfgfiles.c` config-error drain + sysconf stores + statement heed + default configfile (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `l_get_config_errors` + same-file `cnf_line_BONES_POOLS`/`cnf_line_DEBUGFILES` + `heed/disregard_this_config_statement` + `get_default_configfile`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +97/-8 js/, +100 test. Stale-split 20 folded siblings — 9 dir + 4 QT handlers (unix body ≡ shared `cnf_line_nhUse`) and 7 plain sysopt stores (≡ table row + `cnf_store_str`) — via the Ledger bullet in the same iteration, no JS change.)
+- **Symptom:** coverage gap — `l_get_config_errors` MISSING (no symbol; the D-3098 `config_erradd` omit named its drain); `cnf_line_BONES_POOLS` mistyped (table lambda stored the raw string where C stores clamped atoi); `cnf_line_DEBUGFILES`/`heed/disregard_this_config_statement`/`get_default_configfile` MISSING (lambdas/absent); 20 sibling handlers folded into shared helpers with no ledger row.
+- **C locus:**
+  - `l_get_config_errors`: cfgfiles.c:1516–1539 (head→tail drain `:1524–1536`, per-entry line+error table `:1525–1530`, free + head-null `:1531–1537`, return 1 `:1539`).
+  - `cnf_line_BONES_POOLS`: cfgfiles.c:874–885 (atoi `:878`, (n<=0)?0:min(n,10) `:880`).
+  - `cnf_line_DEBUGFILES`: cfgfiles.c:839–849 (env_dbgfl gate `:843`, free+dupstr store `:844–846`).
+  - `heed_this_config_statement`: cfgfiles.c:1997–2001 (bounds `:1999`, clear `:2000`).
+  - `disregard_this_config_statement`: cfgfiles.c:2003–2007 (bounds `:2005`, set `:2006`).
+  - `get_default_configfile`: cfgfiles.c:149–152 over default_configfile `:126–139` (UNIX ".nethackrc" `:128`).
+- **JS was:** no `l_get_config_errors` (config_erradd doc + configErrorMsg comment named the drain); BONES_POOLS/DEBUGFILES table rows used raw `cnf_store_str` lambdas; no heed/disregard_this, no default-configfile accessor.
+- **Fix:** new exported `l_get_config_errors` in C order returning the drained `[{line, error}]` array (Lua-table sink adapted: no JS Lua state, D-3098 precedent; by-design nhl_add_table_entry_* effects inlined as the entry shape; free ≡ GC); new file-local `cnf_line_DEBUGFILES` (env gate over live `cnf_store_str` — Rule #2 keeps env_dbgfl 0 so the store arm runs) and `cnf_line_BONES_POOLS` (parseInt atoi + clamp, CHECK_SAVE_UID precedent), both wired into `configLineStmt` in place of the lambdas; new exported heed/disregard_this over `disregardedConfigLines` (59-row C-order table verified index-compatible: 20 + 28 SYSCF + 7 + 4 QT, USER_SOUNDS omitted both sides); new exported `get_default_configfile` in js/options.js next to `get_configfile`. Refreshed the two comments that named the drain as omitted. New scripts/cfgfiles-config-lines.test.mjs (5 tests; fails pre-fix on the missing exports).
+- **JS:** js/cfgfiles.js:278 (`l_get_config_errors`, exported — extern.h decl), js/cfgfiles.js:710 (`cnf_line_DEBUGFILES`, module-local — C staticfn; table row :928), js/cfgfiles.js:721 (`cnf_line_BONES_POOLS`, module-local; table row :931), js/cfgfiles.js:986/997 (heed/disregard_this, exported — extern.h decls), js/options.js:744 (`get_default_configfile`, exported — extern.h decl).
+- **Callers:**
+  - `l_get_config_errors`: sole C caller nhlua.c:1887 lua `get_config_errors` registration → named (no Lua state in ESM); the in_lua producer `config_erradd` (js/cfgfiles.js:304) feeds the drained list.
+  - `cnf_line_BONES_POOLS`: C config_line_stmt `:1342` → JS table row js/cfgfiles.js:931 (sole caller both sides).
+  - `cnf_line_DEBUGFILES`: C config_line_stmt `:1338` → JS table row js/cfgfiles.js:928 (sole caller both sides).
+  - `heed_this_config_statement`: no C callers (extern.h:344 decl only) — exported for API completeness, deliberately unwired.
+  - `disregard_this_config_statement`: no C callers (extern.h:345 decl only) — same.
+  - `get_default_configfile`: C files.c reveal_paths `:3369`/`:3387` (unported — named), `:3398`/`:3400` (!UNIX, compiled out); cfgfiles.c fopen_config_file `:280`/`:284` (MICRO/MACOS9/BEOS/WIN32, compiled out — D-3117). JS fopen_config_file already inlines the UNIX literal (js/cfgfiles.js:456–460); not rewired.
+- **Verify:**
+  - `l_get_config_errors`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24/24 PASS).
+  - `cnf_line_BONES_POOLS`: same → REACH-OK (24/24).
+  - `cnf_line_DEBUGFILES`: same → REACH-OK (24/24).
+  - `heed_this_config_statement`: same → REACH-OK (24/24).
+  - `disregard_this_config_statement`: same → REACH-OK (24/24).
+  - `get_default_configfile`: same → REACH-OK (24/24).
+  Full tail: VERIFY: PASS (syntax 2 files; Rule #2; green 2/2; strict × 2; cohort 7/7; full 44/44 auto on shared-file change). `node --test scripts/cfgfiles-config-lines.test.mjs` 5/5 (fails pre-change: missing exports); neighbors get-uchars + initoptions-init pass; parseoptions 13/14 — the 1 fail (`pfx rows suffix-variation gate`) reproduces identically on the clean tree (pre-existing, D-3151 area, untouched by this cluster).
+- **Named omissions:**
+  - `l_get_config_errors`: lua registration sink (nhlua.c:1887; no Lua state in ESM — the export returns the table as a JS array); nhl_add_table_entry_int/str by-design, effects inlined.
+  - `cnf_line_BONES_POOLS`: none — whole body, every arm ported.
+  - `cnf_line_DEBUGFILES`: getenv("DEBUGFILES") `:841` (Rule #2: no getenv in scored JS; sys.js env_dbgfl stays 0, store arm runs).
+  - `heed_this_config_statement`: none — whole body, no C callers to wire.
+  - `disregard_this_config_statement`: none — whole body, no C callers to wire.
+  - `get_default_configfile`: MACOS9/BEOS/MSDOS/WIN32/NetHack.cnf default arms (`:130–138`, compiled out); reveal_paths caller unported.
+- **Ledger:** l_get_config_errors ported; cnf_line_BONES_POOLS ported; cnf_line_DEBUGFILES ported; heed_this_config_statement ported; disregard_this_config_statement ported; get_default_configfile ported; cnf_line_HACKDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_LEVELDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_SAVEDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_BONESDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_DATADIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_SCOREDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_LOCKDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_CONFIGDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_TROUBLEDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_QT_TILEWIDTH split js=cfgfiles.js:cnf_line_nhUse; cnf_line_QT_TILEHEIGHT split js=cfgfiles.js:cnf_line_nhUse; cnf_line_QT_FONTSIZE split js=cfgfiles.js:cnf_line_nhUse; cnf_line_QT_COMPACT split js=cfgfiles.js:cnf_line_nhUse; cnf_line_SHELLERS split js=cfgfiles.js:cnf_store_str; cnf_line_MSGHANDLER split js=cfgfiles.js:cnf_store_str; cnf_line_EXPLORERS split js=cfgfiles.js:cnf_store_str; cnf_line_GENERICUSERS split js=cfgfiles.js:cnf_store_str; cnf_line_SUPPORT split js=cfgfiles.js:cnf_store_str; cnf_line_RECOVER split js=cfgfiles.js:cnf_store_str; cnf_line_CRASHREPORTURL split js=cfgfiles.js:cnf_store_str
+- **Next:** pop the next Open — coverage row (same-file WIZARDS fmtd arm needs async build_english_list — sync-parser boundary, future row; GDBPATH/GREPPATH PANICTRACE file_exists gates unportable under Rule #2).
+
 ## D-3151 — `options.c` parsebindings restart + bind_specialkey + versinfo gacc (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `parsebindings` + Open callee `bind_specialkey` + same-file `handler_versinfo` gacc fix; 0 corpus sessions blocked on any — coverage completion, not a divergence. +124/-47 js/options.js, +66/-34 js/cmd.js, +2/-2 js/dokeylist.js, +212 test. Stale-cleared `sym_val` (js/options.js:10775, review-1510 branch-exact) and `setup_racemenu/gendmenu/algnmenu` (js/player_selection.js:503/529/555, D-1912 entry-builder precedent, both C callers wired) in the same iteration — all four ledger-ported, rows already left the block.)

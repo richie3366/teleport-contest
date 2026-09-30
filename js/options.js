@@ -730,6 +730,21 @@ export function get_configfile() {
     return configfile;
 }
 
+/**
+ * C ref: cfgfiles.c default_configfile `:125–139` / get_default_configfile
+ * `:148–152`. Contest is UNIX → ".nethackrc" (`:128`); the MACOS9/BEOS/
+ * MSDOS/WIN32 CONFIG_FILE / NetHack.cnf arms are compiled out.
+ * C callers: files.c reveal_paths `:3369` (unix arm; unported — named),
+ * `:3387` (__APPLE__-gated; named), `:3398`/`:3400` (!UNIX, compiled
+ * out); cfgfiles.c fopen_config_file `:280`/`:284` (MICRO/MACOS9/BEOS/
+ * WIN32, compiled out — D-3117). JS fopen_config_file already inlines
+ * the UNIX literal (cfgfiles.js:456–460); not rewired.
+ * @returns {string}
+ */
+export function get_default_configfile() {
+    return '.nethackrc'; // C `:128` UNIX
+}
+
 export function set_configfile_name(fname) {
     configfile = String(fname || CONTEST_RECORDER_CONFIGFILE);
 }
