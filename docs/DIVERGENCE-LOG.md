@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3158 — `sp_lev.c` lspo_mazewalk + lspo_terrain (coverage cluster)
+
+- **Status:** fixed (coverage cluster, 2 whole C functions; queue siblings set_wallprop_in_selection/sp_amask_to_amask proved stale — whole bodies at js/mklev.js:5063/21552, D-2701/D-1553 — and marked via `ledger.mjs` in the same iteration. +183 js/mklev.js, +1 test file.)
+- **Symptom:** coverage gap, not a corpus divergence (no session blocked on either): the des.mazewalk and des.terrain special-level entries were MISSING in JS (no symbols), so any held-out wizard tour reaching a mazewalk/terrain des line is a cliff.
+- **C locus:**
+  - `lspo_mazewalk`: sp_lev.c:5769–5869 (mwdirs tables `:5771–5776`; triple `:5786–5789` vs table `:5790–5796` dispatch; get_location ANY_LOC `:5803`; isok `:5805–5809`; ftyp<1 corrmaze `:5811–5813`; W_RANDOM roll `:5815–5816`; move switch `:5819–5834`; non-door write `:5836–5839`; parity fixups `:5846–5862`; walkfrom `:5864`; fill when stocked `:5865–5866`).
+  - `lspo_terrain`: sp_lev.c:4978–5038 (table `:4989–5001`, coord-pair `:5002–5009`, selection-pair `:5010–5012`, triple `:5013–5016`, else `:5018`; INVALID gate `:5021–5022`; iterate `:5024–5025` else locate `:5027–5028`, isok `:5029–5033`, single set `:5034`).
+- **JS was:** no symbols for either. D-3156's `selection_iterate` restart named `lspo_terrain` (`:5025`) as its unwired C caller.
+- **Fix:** ported both whole in C order, unpacked-args idiom (lspo_drawbridge/gold/region precedent). mazewalk: arguments.length dispatch (triple checkintegers + checkoption dir default random; table form get_table_xy_or_coord + mapchr_opt ROOM + boolean stocked + option dir), ANY_LOC locate, isok throw, corrmaze ftyp default, W_RANDOM roll, W_NORTH/SOUTH/EAST/WEST move switch (default impossibles bare like the sync lspo siblings, then falls through to the write like C), non-door write, even-x EAST/write vs shift fixup (x arm writes, y arm only moves), walkfrom, fill when stocked; own north/south/east/west tables (the drawbridge LSPO_MWDIRS above holds DB_* values in west/east order). terrain: all four argc arms (table with -1,-1 selection-field read; coord pair gated on table-but-not-selection since a selection userdata is not LUA_TTABLE; selection pair; triple), required-typ Erroneous-map-char throws, shared INVALID gate, selection_iterate with the (ter,tlit) unpack closure else locate+isok+single sel_set_ter. l_selection_check errors on missing selection (nhlsel.c:58-66 checktype USERDATA, no nil pass), so -1,-1 without a selection-shaped field throws. levl indexes go through level.at with the walkfrom null guard (C indexes raw levl).
+- **JS:** js/mklev.js:1271 (lspo_mazewalk), :1857 (lspo_terrain); scripts/lspo-terrain-mazewalk.test.mjs (12 tests).
+- **Callers:**
+  - `lspo_mazewalk`: no C call sites (Lua des entry, decl sp_lev.c:144); no JS callers — invoked by des level scripts when wired.
+  - `lspo_terrain`: no C call sites (Lua des entry, decl sp_lev.c:161); no JS callers — same. Retires D-3156's "C caller lspo_terrain (:5025) unwired" note: the iterate arm now calls live selection_iterate.
+- **Verify:** `node scripts/verify.mjs --fn lspo_mazewalk,lspo_terrain` → VERIFY: PASS — hidden notes ×2 (no corpus session blocked, expected for coverage rows); REACH-OK ×2 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/lspo-terrain-mazewalk.test.mjs`: 12/12 PASS (dispatch per arm, step/parity writes, selection vs single-cell split, all nhl_error throws).
+- **Named omissions:**
+  - `lspo_mazewalk`: lcheck_param_table (table-or-empty + object check); get_table_mapchr_opt/get_table_boolean_opt/get_table_option (inline splev_chr2typ/splev_opt_boolean/splev_opt_index); luaL_checkinteger (luaL_checkinteger_unpacked). nhl_error line-suffix omitted (file precedent — no lua_State).
+  - `lspo_terrain`: lcheck_param_table; l_selection_check (pts-Set shape check); get_table_mapchr/check_mapchr (inline string + splev_chr2typ); luaL_checkstring (Wrong-parameters throw, lspo_trap precedent).
+- **Ledger:** lspo_mazewalk ported; lspo_terrain ported
+- **Next:** continue the breadth queue from the regenerated block (sp_lev.c's 4 rows all resolve this iteration: 2 shipped + 2 stale).
+
 ## D-3157 — `options.c` optfn_map_mode + optfn_menu_headings + color_attr_to_str + optfn_pettype (coverage cluster)
 
 - **Status:** fixed (coverage cluster, 4 whole C functions + C-domain attr consistency + jsmain default; queue heads sortloot_descr/mapfrag_error/handler_whatis_filter/handler_windowborders/query_msgtype proved stale and optfn_palette compiled-out — all marked via `ledger.mjs` in the same iteration. +269/-14 js/options.js, +9 js/const.js, +5 js/jsmain.js, +1 test file.)

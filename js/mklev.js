@@ -1239,6 +1239,106 @@ export function lspo_drawbridge(opts) {
     return 0;
 }
 
+// C ref: sp_lev.c lspo_mazewalk static tables `:5771–5776`. North/south/
+// east/west order with W_* values — not the drawbridge table above
+// (DB_* values, west/east swapped).
+const LSPO_MAZEWALK_DIRS = ['north', 'south', 'east', 'west', 'random'];
+const LSPO_MAZEWALK_DIRS2I = [W_NORTH, W_SOUTH, W_EAST, W_WEST, W_RANDOM];
+
+/**
+ * C ref: sp_lev.c lspo_mazewalk `:5769–5869` — des.mazewalk entry in C
+ * order. Unpacked forms (C `:5782` lua_gettop): (mx, my, dir?) triple
+ * (C `:5786–5789`; dir defaults "random" like luaL_checkoption) or the
+ * table form (C `:5790–5796`: x/y-or-coord via get_table_xy_or_coord,
+ * "typ" via get_table_mapchr_opt default ROOM, "stocked" via
+ * get_table_boolean_opt default 1, "dir" via get_table_option default
+ * "random"). A non-table arg-1 throws like C lcheck_param_table.
+ * get_location_coord ANY_LOC (C `:5803`), the isok guard
+ * (C `:5805–5809`), ftyp<1 corrmaze default (C `:5811–5813`), the
+ * W_RANDOM roll (C `:5815–5816`), the one-step move switch
+ * (C `:5819–5834`; the default arm impossibles then falls through to
+ * the write, like C), the non-door write (C `:5836–5839`), the
+ * odd-parity fixups (C `:5846–5862`; the x arm writes, the y arm only
+ * moves, like C), walkfrom (C `:5864`), fill_empty_maze when stocked
+ * (C `:5865–5866`). levl indexes go through level.at with a null
+ * guard (walkfrom idiom above — C indexes raw levl).
+ * Named: lcheck_param_table (table-or-empty + object check);
+ * get_table_mapchr_opt / get_table_boolean_opt / get_table_option
+ * (inline splev_chr2typ / splev_opt_boolean / splev_opt_index, C
+ * nhlua.c :256/:1107/:1122); luaL_checkinteger
+ * (luaL_checkinteger_unpacked).
+ */
+export function lspo_mazewalk(a, b, c) {
+    const argc = arguments.length; // C :5782 lua_gettop
+    create_des_coder(); // C :5784
+    let mx, my, ftyp = ROOM, fstocked = 1, dir = -1; // C :5779-5780
+    if (argc === 3) { // C :5786
+        mx = luaL_checkinteger_unpacked(a); // C :5787
+        my = luaL_checkinteger_unpacked(b); // C :5788
+        dir = LSPO_MAZEWALK_DIRS2I[splev_opt_index(c, 'random', LSPO_MAZEWALK_DIRS)]; // C :5789
+    } else { // C :5790
+        const o = a ?? {}; // C :5791 lcheck_param_table
+        if (o === null || typeof o !== 'object') throw new Error('lspo_mazewalk: Wrong parameters');
+        const mm = get_table_xy_or_coord(o); // C :5793
+        mx = mm.x;
+        my = mm.y;
+        if (o.typ != null && o.typ !== '') { // C :5794 get_table_mapchr_opt (nhlua.c:256-271: missing/empty → defval)
+            if (typeof o.typ !== 'string' || o.typ.length !== 1)
+                throw new Error('lspo_mazewalk: Erroneous map char');
+            ftyp = splev_chr2typ(o.typ); // C nhlua.c:393-397 check_mapchr
+            if (ftyp === INVALID_TYPE) throw new Error('lspo_mazewalk: Erroneous map char'); // C nhlua.c:265-266
+        }
+        fstocked = splev_opt_boolean(o.stocked, 1); // C :5795
+        dir = LSPO_MAZEWALK_DIRS2I[splev_opt_index(o.dir, 'random', LSPO_MAZEWALK_DIRS)]; // C :5796
+    }
+    let x = mx | 0; // C :5799-5801 (mcoord pack is implicit in the twin)
+    let y = my | 0;
+    const coder = game.gc?.coder ?? null; // C gc.coder->croom
+    const pos = get_location_coord(ANY_LOC, coder?.croom ?? null, x, y); // C :5803
+    x = pos.x;
+    y = pos.y;
+    if (!isok(x, y)) throw new Error('lspo_mazewalk: mazewalk coord not ok'); // C :5805-5809 nhl_error
+    if (ftyp < 1) ftyp = game.level?.flags?.corrmaze ? CORR : ROOM; // C :5811-5813
+    if (dir === W_RANDOM) dir = random_wdir(); // C :5815-5816
+    switch (dir) { // C :5819 (move, not mz_move — C comment)
+    case W_NORTH: // C :5820
+        y--; // C :5821
+        break;
+    case W_SOUTH: // C :5823
+        y++; // C :5824
+        break;
+    case W_EAST: // C :5826
+        x++; // C :5827
+        break;
+    case W_WEST: // C :5829
+        x--; // C :5830
+        break;
+    default: // C :5832
+        impossible('mazewalk: Bad direction'); // C :5833
+    }
+    const loc = game.level.at(x, y); // C :5836 levl[x][y]
+    if (loc && !IS_DOOR(loc.typ)) { // C :5836
+        loc.typ = ftyp; // C :5837
+        loc.flags = 0; // C :5838
+    }
+    if (!(x % 2)) { // C :5846
+        if (dir === W_EAST) x++; // C :5847-5848
+        else x--; // C :5849-5850
+        const loc2 = game.level.at(x, y); // C :5852-5853 (no IS_DOOR check, like C)
+        if (loc2) {
+            loc2.typ = ftyp; // C :5853
+            loc2.flags = 0; // C :5854
+        }
+    }
+    if (!(y % 2)) { // C :5857
+        if (dir === W_SOUTH) y++; // C :5858-5859
+        else y--; // C :5860-5861
+    }
+    walkfrom(x, y, ftyp); // C :5864
+    if (fstocked) fill_empty_maze(); // C :5865-5866
+    return 0; // C :5868
+}
+
 /**
  * C ref: sp_lev.c lspo_gold `:4480–4522` — des.gold entry in C order.
  * C dispatches on the Lua stack shape; JS takes the unpacked equivalents:
@@ -1728,6 +1828,89 @@ function mapfrag_error(mf) {
     const center = mapfrag_get(mf, Math.trunc(mf.wid / 2), Math.trunc(mf.hei / 2)); // C :290
     if (center === MAX_TYPE || center === INVALID_TYPE) return 'mapfragment center must be valid terrain'; // C :290-294
     return null;
+}
+
+/**
+ * C ref: sp_lev.c lspo_terrain `:4978–5038` — des.terrain entry in C
+ * order. Unpacked forms (C `:4983` lua_gettop): (opts) table form
+ * (C `:4989–5001`: x/y-or-coord via get_table_xy_or_coord, the -1,-1
+ * "selection" field via l_selection_check, required "typ" via
+ * get_table_mapchr, "lit" via get_table_int_opt default NOCHANGE),
+ * (coord, typStr) pair (C `:5002–5009`: table-but-not-selection first
+ * arg — a selection userdata is not LUA_TTABLE in C — plus a string),
+ * (selection, typStr) pair (C `:5010–5012`), or (x, y, typStr) triple
+ * (C `:5013–5016`). Anything else throws like C `:5018` nhl_error.
+ * The INVALID_TYPE gate (C `:5021–5022`), the selection iterate
+ * (C `:5025`, wiring sel_set_ter through the unpacked ter/tlit),
+ * else get_location_coord ANY_LOC (C `:5027–5028`), the isok guard
+ * (C `:5029–5033`) and the single sel_set_ter (C `:5034`) follow in
+ * order. Missing/non-1-char/unknown "typ" throws "Erroneous map
+ * char" (C nhlua.c:241-252 get_table_mapchr + check_mapchr :393-397);
+ * a non-string type arg throws like C luaL_checkstring (lspo_trap
+ * precedent). l_selection_check errors on a missing selection (C
+ * nhlsel.c:58-66 luaL_checktype USERDATA — no nil pass), so -1,-1
+ * without a selection-shaped field throws.
+ * Named: lcheck_param_table (table-or-empty + object check);
+ * l_selection_check (pts-Set shape check); get_table_mapchr /
+ * check_mapchr (inline string + splev_chr2typ, C nhlua.c:241/393).
+ */
+export function lspo_terrain(a, b, c) {
+    const argc = arguments.length; // C :4983 lua_gettop
+    create_des_coder(); // C :4985
+    const tmpterrain = { tlit: SET_LIT_NOCHANGE, ter: INVALID_TYPE }; // C :4986-4987
+    let x = 0, y = 0; // C :4981
+    let sel = null; // C :4982
+    if (argc === 1) { // C :4989
+        const o = a ?? {}; // C :4991 lcheck_param_table
+        if (o === null || typeof o !== 'object') throw new Error('lspo_terrain: Wrong parameters');
+        const mm = get_table_xy_or_coord(o); // C :4993
+        x = mm.x;
+        y = mm.y; // C :4994
+        if (mm.x === -1 && mm.y === -1) { // C :4995
+            const s = o.selection; // C :4996 lua_getfield
+            if (!s || typeof s !== 'object' || !(s.pts instanceof Set)) // C :4997 l_selection_check
+                throw new Error('lspo_terrain: selection expected');
+            sel = s;
+        }
+        if (typeof o.typ !== 'string' || o.typ.length !== 1) // C :5000 get_table_mapchr
+            throw new Error('lspo_terrain: Erroneous map char');
+        tmpterrain.ter = splev_chr2typ(o.typ); // C nhlua.c:393-397 check_mapchr
+        if (tmpterrain.ter === INVALID_TYPE) throw new Error('lspo_terrain: Erroneous map char'); // C nhlua.c:247-248
+        tmpterrain.tlit = splev_opt_int(o.lit, SET_LIT_NOCHANGE); // C :5001
+    } else if (argc === 2 && a !== null && typeof a === 'object' // C :5002-5003 LUA_TTABLE
+               && !(a.pts instanceof Set) && typeof b === 'string') { // (a selection is LUA_TUSERDATA, not TABLE)
+        if (b.length !== 1) tmpterrain.ter = INVALID_TYPE; // C :5005 check_mapchr(checkstring(2))
+        else tmpterrain.ter = splev_chr2typ(b);
+        const out = { x: 0, y: 0 };
+        get_coord(a, out); // C :5007 get_coord(L, 1, &tx, &ty)
+        x = out.x; // C :5008
+        y = out.y; // C :5009
+    } else if (argc === 2) { // C :5010
+        if (!a || typeof a !== 'object' || !(a.pts instanceof Set)) // C :5011 l_selection_check
+            throw new Error('lspo_terrain: selection expected');
+        sel = a;
+        if (typeof b !== 'string') throw new Error('lspo_terrain: Wrong parameters'); // C :5012 luaL_checkstring
+        tmpterrain.ter = b.length === 1 ? splev_chr2typ(b) : INVALID_TYPE; // C :5012 check_mapchr
+    } else if (argc === 3) { // C :5013
+        x = luaL_checkinteger_unpacked(a); // C :5014
+        y = luaL_checkinteger_unpacked(b); // C :5015
+        if (typeof c !== 'string') throw new Error('lspo_terrain: Wrong parameters'); // C :5016 luaL_checkstring
+        tmpterrain.ter = c.length === 1 ? splev_chr2typ(c) : INVALID_TYPE; // C :5016 check_mapchr
+    } else {
+        throw new Error('lspo_terrain: Wrong parameters'); // C :5018 nhl_error
+    }
+    if (tmpterrain.ter === INVALID_TYPE) throw new Error('lspo_terrain: Erroneous map char'); // C :5021-5022
+    if (sel) { // C :5024
+        selection_iterate(sel, (sx, sy, t) => sel_set_ter(sx, sy, t.ter, t.tlit), tmpterrain); // C :5025
+    } else {
+        const coder = game.gc?.coder ?? null; // C gc.coder->croom
+        const pos = get_location_coord(ANY_LOC, coder?.croom ?? null, x, y); // C :5027-5028 (RANDOM when x=y=-1)
+        x = pos.x;
+        y = pos.y;
+        if (!isok(x, y)) throw new Error('lspo_terrain: terrain coord not ok'); // C :5029-5033 nhl_error
+        sel_set_ter(x, y, tmpterrain.ter, tmpterrain.tlit); // C :5034
+    }
+    return 0; // C :5037
 }
 
 /**
