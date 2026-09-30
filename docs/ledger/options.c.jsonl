@@ -1,7 +1,7 @@
 {"fn":"ask_do_tutorial","c":"430-479","status":"unknown"}
 {"fn":"parseoptions","c":"489-691","status":"partial","js":["js/options.js:parseoptions"],"omit":"`config_error_add` sink (6 sites — map precedent, no JS sink); `switch_symbols(TRUE)` application (map precedent, lazy ov_* reads); disregard/heed setters (rows read `disregarded`, never set); optfn bodies (`optfn_boolean`/optfn_*/pfxfn_* unported — dispatch dormant by C's own null guard).","d":["D-2561"],"at":"seed@a30a7de84"}
 {"fn":"check_misc_menu_command","c":"694-707","status":"unknown"}
-{"fn":"opt2roleopt","c":"715-730","status":"unknown"}
+{"fn":"opt2roleopt","c":"715-730","status":"ported","js":["js/options.js:opt2roleopt"],"at":"2026-09-30@990da2b8d","note":"stale: js/options.js:6964, exact C port, 3 C callers wired (:6983,:7008,:7033)"}
 {"fn":"getoptstr","c":"734-754","status":"unknown"}
 {"fn":"saveoptstr","c":"758-772","status":"unknown"}
 {"fn":"unsaveoptstr","c":"776-783","status":"ported","js":["js/options.js:unsaveoptstr"],"d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
@@ -204,7 +204,7 @@
 {"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}
 {"fn":"count_cond","c":"9179-9188","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_apes","c":"9191-9202","status":"unknown"}
-{"fn":"handle_add_list_remove","c":"9208-9251","status":"unknown"}
+{"fn":"handle_add_list_remove","c":"9208-9251","status":"ported","js":["js/options.js:handle_add_list_remove"],"at":"2026-09-30@990da2b8d","note":"stale: js/options.js:5490, whole C body in C order, 3 C callers wired (:5645,:5739,:5866); pick_cnt>1 arm documented unarisable"}
 {"fn":"dotogglepickup","c":"9256-9274","status":"unknown"}
 {"fn":"toggle_bool_option","c":"9278-9297","status":"unknown"}
 {"fn":"add_autopickup_exception","c":"9300-9346","status":"ported","js":["js/options.js:add_autopickup_exception"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}

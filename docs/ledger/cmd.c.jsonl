@@ -6,11 +6,11 @@
 {"fn":"cmdq_add_ec","c":"254-270","status":"ported","js":["js/cmd.js:cmdq_add_ec"],"d":["D-2977","D-2976"],"at":"2026-09-27@25beec7af"}
 {"fn":"cmdq_add_key","c":"274-290","status":"ported","js":["js/invent.js:cmdq_add_key"],"d":["D-2976"],"at":"2026-09-27@b3da2ae0e"}
 {"fn":"cmdq_add_dir","c":"294-312","status":"ported","js":["js/cmd.js:cmdq_add_dir"],"at":"2026-09-28@2f39bdcea","note":"stale: js/cmd.js:452 whole C body (tail-append + empty-head arms collapse into push; alloc is GC)"}
-{"fn":"cmdq_add_userinput","c":"316-331","status":"unknown"}
+{"fn":"cmdq_add_userinput","c":"316-331","status":"ported","js":["js/cmd.js:cmdq_add_userinput"],"at":"2026-09-30@990da2b8d","note":"stale: js/cmd.js:466, whole C body (array push = list append), 3 C callers wired (:2849,:2934,:2989)"}
 {"fn":"cmdq_add_int","c":"335-351","status":"ported","js":["js/invent.js:cmdq_add_int"],"at":"2026-09-29@590ebd616","note":"stale: js/invent.js:8523 whole C body (tail-append collapses into push; alloc is GC)"}
 {"fn":"cmdq_shift","c":"355-370","status":"ported","js":["js/cmd.js:cmdq_shift"],"at":"2026-09-27@e61bdd324","note":"stale: js/cmd.js:400"}
 {"fn":"cmdq_reverse","c":"373-384","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cmdq_copy","c":"387-404","status":"unknown"}
+{"fn":"cmdq_copy","c":"387-404","status":"ported","js":["js/cmd.js:cmdq_copy"],"at":"2026-09-30@990da2b8d","note":"stale: js/cmd.js:391, slice = prepend+reverse; sole caller do_repeat (:4780) guards peek so []-vs-NULL unreachable"}
 {"fn":"cmdq_pop","c":"410-420","status":"unknown"}
 {"fn":"cmdq_peek","c":"424-427","status":"unknown"}
 {"fn":"cmdq_clear","c":"431-442","status":"unknown"}
@@ -120,11 +120,11 @@
 {"fn":"dotherecmdmenu","c":"4343-4375","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mcmd_addmenu","c":"4421-4431","status":"unknown"}
 {"fn":"there_cmd_menu_self","c":"4435-4520","status":"ported","js":["js/cmd.js:there_cmd_menu_self"],"d":["D-2891"],"at":"seed@a30a7de84"}
-{"fn":"there_cmd_menu_next2u","c":"4524-4621","status":"unknown","d":["D-2266"],"at":"seed@a30a7de84"}
-{"fn":"there_cmd_menu_far","c":"4624-4636","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"there_cmd_menu_next2u","c":"4524-4621","status":"ported","js":["js/cmd.js:there_cmd_menu_next2u"],"d":["D-3144","D-2266"],"at":"2026-09-30@990da2b8d"}
+{"fn":"there_cmd_menu_far","c":"4624-4636","status":"ported","js":["js/cmd.js:there_cmd_menu_far"],"d":["D-3144"],"at":"2026-09-30@990da2b8d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"there_cmd_menu_common","c":"4639-4654","status":"unknown","d":["D-2706"],"at":"seed@a30a7de84"}
 {"fn":"act_on_act","c":"4658-4838","status":"partial","js":["js/cmd.js:act_on_act"],"omit":"``doidtrap`` (``pager.c:2336`` — MCMD_LOOK_TRAP arm queues a lazy import from its 1:1 home, resolves when it lands); ``auto_describe`` (``getpos.c:640`` — same treatment inside doclicklook); C ``:4880``/``:4892`` caller paths (next2u/far builders, own rows); ``there_cmd_menu_far`` is a sibling, not…","d":["D-2620"],"at":"seed@a30a7de84"}
-{"fn":"there_cmd_menu","c":"4843-4896","status":"unknown"}
+{"fn":"there_cmd_menu","c":"4843-4896","status":"ported","js":["js/cmd.js:there_cmd_menu"],"d":["D-3144"],"at":"2026-09-30@990da2b8d"}
 {"fn":"here_cmd_menu","c":"4899-4903","status":"unknown"}
 {"fn":"click_to_cmd","c":"4906-4913","status":"unknown"}
 {"fn":"domouseaction","c":"4916-5006","status":"unknown","d":["D-2698"],"at":"seed@a30a7de84"}

@@ -31,7 +31,7 @@
 {"fn":"hmon_hitmon","c":"1754-1935","status":"unknown","d":["D-1907","D-1232"],"at":"seed@a30a7de84"}
 {"fn":"mhurtle_to_doom","c":"1942-1958","status":"unknown"}
 {"fn":"first_weapon_hit","c":"1963-1989","status":"partial","js":["js/uhitm.js:first_weapon_hit"],"omit":"`hmon_hitmon_do_hit`'s `saved_oname` fill (`uhitm.c:1410–1413`, `cxname` when the object is not a lit light-artifact) is still absent; weapon `silvermsg`/`silverobj` (`uhitm.c:1035–1036`) stays unnamed.","d":["D-2865"],"at":"seed@a30a7de84"}
-{"fn":"shade_aware","c":"1992-2011","status":"unknown"}
+{"fn":"shade_aware","c":"1992-2011","status":"ported","js":["js/mhitm.js:shade_aware"],"at":"2026-09-30@990da2b8d","note":"stale: js/mhitm.js:5677, whole C body, 2 C callers wired (uhitm.js:1894, mhitm.js:5710)"}
 {"fn":"shade_miss","c":"2016-2051","status":"unknown"}
 {"fn":"m_slips_free","c":"2056-2093","status":"unknown","d":["D-1348"],"at":"seed@a30a7de84"}
 {"fn":"joust","c":"2098-2129","status":"unknown"}

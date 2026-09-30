@@ -1,4 +1,4 @@
 {"fn":"cost","c":"14-57","status":"unknown"}
 {"fn":"write_ok","c":"61-70","status":"unknown"}
 {"fn":"dowrite","c":"74-385","status":"unknown","d":["D-1735"],"at":"seed@a30a7de84"}
-{"fn":"new_book_description","c":"395-418","status":"unknown"}
+{"fn":"new_book_description","c":"395-418","status":"ported","js":["js/write.js:new_book_description"],"at":"2026-09-30@990da2b8d","note":"stale: js/write.js:225, whole C body, caller wired (:466)"}

@@ -11,16 +11,16 @@ import { rn2, rn1, rnd } from './rng.js';
 import {
     newsym, flush_screen, pline, You, You_cant, impossible, pline_dir, pline_xy, pline_The, set_msg_xy,
     clear_nhwindow_message, tty_nhbell,
-    mon_visible, sensemon, canspotmon, glyph_at, hero_glyph, glyph_is_invisible_id,
+    mon_visible, sensemon, canspotmon, glyph_at, objnum_to_glyph, hero_glyph, glyph_is_invisible_id,
     glyph_is_statue, glyph_is_monster, glyph_to_cmap, back_to_glyph,
     GLYPH_UNEXPLORED,
     glyph_is_warning, unmap_object, map_object,
-    look_shown_at, Norep, tty_doprev_message, putmsghistory,
+    look_shown_at, Norep, tty_doprev_message, putmsghistory, NO_GLYPH,
     unmap_invisible, map_invisible, custompline,
     Hallucination, raw_printf,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
-         D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN, SCORR, LAVAWALL,
+         D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN, D_ISOPEN, SCORR, LAVAWALL,
          DRAWBRIDGE_UP, ROOMOFFSET,
          IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_STWALL, IS_WALL, IS_TREE,
          IS_FOUNTAIN, IS_SINK, IS_THRONE, IS_ALTAR, IS_ROOM, IS_WATERWALL, IS_AIR,
@@ -37,7 +37,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          GFILTER_VIEW, GLOC_INTERESTING,
          M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, S_hcdoor, S_vcdoor,
          S_fountain, S_sink, VIBRATING_SQUARE,
-         u_at, ARTICLE_THE, SUPPRESS_SADDLE,
+         u_at, has_mgivenname, ARTICLE_THE, SUPPRESS_SADDLE, W_SADDLE,
          PARANOID_TRAP, PARANOID_QUIT, GP_ALLOW_U, NO_TRAP_FLAGS, FOOT, Something,
          LARGEST_INT, GC_NOFLAGS, GC_SAVEHIST, GC_CONDHIST, GC_ECHOFIRST,
          SUPPRESS_HISTORY,
@@ -148,7 +148,9 @@ import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
 import { in_out_region } from './region.js';
 import { m_postmove_effect, can_ooze, accessible } from './monmove.js';
-import { exercise_steed, stucksteed, helpless_steed, doride } from './steed.js';
+import { exercise_steed, stucksteed, helpless_steed, doride, can_saddle } from './steed.js';
+import { which_armor } from './worn.js';
+import { linedup } from './mthrowu.js';
 
 /** C flag.h:30,33 — `wizard` is `flags.debug`, `discover` is `flags.explore`. */
 function wizardOn() {
@@ -2624,40 +2626,6 @@ const CREDIT_CARD_OTYP = objectNames.indexOf('CREDIT_CARD');
 const SADDLE_OTYP = objectNames.indexOf('SADDLE');
 
 /**
- * C ref: cmd.c act_on_act — self / here actions (queue CQ_CANNED).
- * Named omissions: next2u/far arms; CMDQ_KEY/DIR follow-ups for tip/eat/
- * dip/offer (caller still queues the ec; yn/getobj consume interactively).
- */
-function act_on_act_here(act) {
-    switch (act) {
-    case MCMD_QUAFF: cmdq_add_ec(CQ_CANNED, dodrink); break;
-    case MCMD_DIP: cmdq_add_ec(CQ_CANNED, dodip); break;
-    case MCMD_SIT: cmdq_add_ec(CQ_CANNED, dosit); break;
-    case MCMD_UP: cmdq_add_ec(CQ_CANNED, doup); break;
-    case MCMD_DOWN: cmdq_add_ec(CQ_CANNED, dodown); break;
-    case MCMD_DISMOUNT: cmdq_add_ec(CQ_CANNED, doride); break;
-    case MCMD_MONABILITY: cmdq_add_ec(CQ_CANNED, domonability); break;
-    case MCMD_PICKUP: cmdq_add_ec(CQ_CANNED, dopickup); break;
-    case MCMD_LOOT: cmdq_add_ec(CQ_CANNED, doloot); break;
-    case MCMD_TIP: cmdq_add_ec(CQ_CANNED, dotip); break;
-    case MCMD_EAT: cmdq_add_ec(CQ_CANNED, doeat); break;
-    case MCMD_DROP: cmdq_add_ec(CQ_CANNED, dodrop); break;
-    case MCMD_INVENTORY: cmdq_add_ec(CQ_CANNED, ddoinv); break;
-    case MCMD_REST: cmdq_add_ec(CQ_CANNED, donull); break;
-    case MCMD_SEARCH: cmdq_add_ec(CQ_CANNED, dosearch); break;
-    case MCMD_LOOK_HERE: cmdq_add_ec(CQ_CANNED, dolook); break;
-    case MCMD_UNTRAP_HERE: cmdq_add_ec(CQ_CANNED, dountrap); break;
-    case MCMD_OFFER: cmdq_add_ec(CQ_CANNED, dosacrifice); break;
-    case MCMD_CAST_SPELL: cmdq_add_ec(CQ_CANNED, docast); break;
-    case MCMD_LOOK_AT:
-        // C: doclicklook via clicklook_cc — deferred with therecmdmenu
-        break;
-    default:
-        break;
-    }
-}
-
-/**
  * C ref: cmd.c doclicklook `:5380–5390` (staticfn → module-local) — look at
  * gc.clicklook_cc. auto_describe is getpos.c:640 (js/getpos.js).
  * @returns {Promise<number>} ECMD_*
@@ -2810,9 +2778,7 @@ const move_funcs_walk = [
  * Named: doidtrap (pager.c:2336) is not exported — the look-trap arm
  * still dynamic-imports pager.js and is not an ef_funct lookup.
  * C callers cmd.c:4880 (there_cmd_menu K==1 fast path) + :4892 (menu pick):
- * JS there_cmd_menu below is self+common only (next2u/far builders not yet
- * ported), so no wired caller yet — self picks keep act_on_act_here with
- * its deliberate KEY/DIR omissions.
+ * both wired in JS there_cmd_menu below (self/next2u/far/common).
  * @param {number} act MCMD_* action
  * @param {number} dx delta to target (sgn-clamped unless throw/travel/look)
  * @param {number} dy delta to target
@@ -3099,6 +3065,135 @@ function there_cmd_menu_self(win, x, y) {
 }
 
 /**
+ * C you.h:558 — `#define next2u(px,py) (distu((px),(py)) <= 2)`;
+ * distu is squared dist2 (hack.h:1531; m_next2u precedent, apply.js).
+ * Macro (no C symbol) → module-local; no isok guard, like C.
+ */
+function next2u(x, y) {
+    const u = game.u || {};
+    return dist2(x | 0, y | 0, u.ux | 0, u.uy | 0) <= 2;
+}
+
+/**
+ * C ref: cmd.c there_cmd_menu_next2u `:4524–4621` (staticfn →
+ * module-local) — adjacent-cell [t]herecmdmenu rows: door, search, trap,
+ * boulder, steed saddle on/off, peaceful talk/swap/name, hostile attack.
+ * C order kept arm by arm. `win` is the items array (mcmd_addmenu form);
+ * `actOut` is C `int *act` (only the attack arm writes it, `:4616`).
+ * levl glyph is loc.remembered_glyph (hero_memory store, detect.js);
+ * glyph_is_invisible(glyph_at()) is glyph_is_invisible_id (display.js).
+ * @param {Array<{act:number, text:string}>} win
+ * @param {{act:number}} actOut
+ * @returns {number} C `K`
+ */
+function there_cmd_menu_next2u(win, x, y, mod, actOut) {
+    let K = 0; // `:4530`
+    const typ = game.level?.at(x, y)?.typ | 0; // `:4532`
+
+    if (!next2u(x, y)) // `:4536`
+        return K; // `:4537`
+
+    if (IS_DOOR(typ)) { // `:4539`
+        const dm = game.level?.at(x, y)?.doormask | 0; // `:4541`
+
+        if (dm & (D_CLOSED | D_LOCKED)) { // `:4543`
+            mcmd_addmenu(win, MCMD_OPEN_DOOR, 'Open the door'), ++K; // `:4544`
+            /* no lknown flag for doors to remember locked/unlocked `:4545–4546` */
+            const key_or_pick = !!(carrying(SKELETON_KEY_OTYP) || carrying(LOCK_PICK_OTYP)); // `:4547`
+            const card = carrying(CREDIT_CARD_OTYP) != null; // `:4548`
+            if (key_or_pick || card) { // `:4549`
+                mcmd_addmenu(win, MCMD_LOCK_DOOR, // `:4550–4552`
+                    upstart(`${key_or_pick ? 'lock or ' : ''}unlock the door`)), ++K;
+            }
+            /* no tknown flag for doors (or chests) `:4554–4555` */
+            mcmd_addmenu(win, MCMD_UNTRAP_DOOR, // `:4556–4557`
+                'Search the door for a trap'), ++K;
+            /* [what about #force?] `:4558` */
+            mcmd_addmenu(win, MCMD_KICK_DOOR, 'Kick the door'), ++K; // `:4559`
+        } else if ((dm & D_ISOPEN) && mod === CLICK_2) { // `:4560`
+            mcmd_addmenu(win, MCMD_CLOSE_DOOR, 'Close the door'), ++K; // `:4561`
+        }
+    }
+
+    if (typ <= SCORR) // `:4565`
+        mcmd_addmenu(win, MCMD_SEARCH, 'Search for secret doors'), ++K; // `:4566`
+
+    const ttmp = t_at(x, y); // `:4568` (ttmp = t_at) — tseen below
+    if (ttmp && ttmp.tseen) {
+        mcmd_addmenu(win, MCMD_LOOK_TRAP, 'Examine trap'), ++K; // `:4569`
+        if ((ttmp.ttyp | 0) !== VIBRATING_SQUARE) // `:4570`
+            mcmd_addmenu(win, MCMD_UNTRAP_TRAP, // `:4571–4572`
+                'Attempt to disarm trap'), ++K;
+        mcmd_addmenu(win, MCMD_MOVE_DIR, 'Move on the trap'), ++K; // `:4573`
+    }
+
+    const bloc = game.level?.at(x, y); // `:4576` levl[x][y].glyph
+    const bmem = bloc?.remembered_glyph;
+    if ((bmem && typeof bmem.glyph === 'number' ? bmem.glyph : NO_GLYPH)
+            === objnum_to_glyph(BOULDER_OTYP))
+        mcmd_addmenu(win, MCMD_MOVE_DIR, 'Push the boulder'), ++K; // `:4577`
+
+    let mtmp = m_at(x, y); // `:4579`
+    if (mtmp && !canspotmon(mtmp)) // `:4580`
+        mtmp = null; // `:4581`
+    if (mtmp && which_armor(mtmp, W_SADDLE)) { // `:4582`
+        const mnam = x_monnam(mtmp, ARTICLE_THE, null, SUPPRESS_SADDLE, false); // `:4583–4584`
+
+        if (!game.u?.usteed) { // `:4586`
+            mcmd_addmenu(win, MCMD_RIDE, `Ride ${mnam}`), ++K; // `:4587–4588`
+        }
+        mcmd_addmenu(win, MCMD_REMOVE_SADDLE, // `:4590–4591`
+            `Remove saddle from ${mnam}`), ++K;
+    }
+    if (mtmp && can_saddle(mtmp) && !which_armor(mtmp, W_SADDLE) // `:4593–4594`
+        && carrying(SADDLE_OTYP)) {
+        mcmd_addmenu(win, MCMD_APPLY_SADDLE, // `:4595–4596`
+            `Put saddle on ${mon_nam(mtmp)}`), ++K;
+    }
+    if (mtmp && (mtmp.mpeaceful || mtmp.mtame)) { // `:4598`
+        mcmd_addmenu(win, MCMD_TALK, // `:4599–4600`
+            `Talk to ${mon_nam(mtmp)}`), ++K;
+
+        mcmd_addmenu(win, MCMD_MOVE_DIR, // `:4602–4603`
+            `Swap places with ${mon_nam(mtmp)}`), ++K;
+
+        mcmd_addmenu(win, MCMD_NAME, // `:4605–4608`
+            `${!has_mgivenname(mtmp) ? 'Name' : 'Rename'} ${mon_nam(mtmp)}`), ++K;
+    }
+
+    if ((mtmp && !(mtmp.mpeaceful || mtmp.mtame)) // `:4611–4612`
+        || glyph_is_invisible_id(glyph_at(x, y))) {
+        mcmd_addmenu(win, MCMD_ATTACK_NEXT2U, // `:4613–4614`
+            `Attack ${mtmp ? mon_nam(mtmp) : 'unseen creature'}`), ++K;
+        /* attacking overrides any other automatic action `:4615` */
+        actOut.act = MCMD_ATTACK_NEXT2U; // `:4616`
+    }
+    /* `:4617–4619` else is a comment ("Move %s", direction — handled below) */
+    return K; // `:4620`
+}
+
+/**
+ * C ref: cmd.c there_cmd_menu_far `:4623–4636` (staticfn →
+ * module-local) — far-cell [t]herecmdmenu rows on CLICK_1: linedup throw
+ * within 18 squares, then Travel. `win` is the items array; returns K.
+ * @param {Array<{act:number, text:string}>} win
+ * @returns {number} C `K`
+ */
+function there_cmd_menu_far(win, x, y, mod) {
+    let K = 0; // `:4626`
+
+    if (mod === CLICK_1) { // `:4628`
+        const u = game.u || {};
+        if (linedup(u.ux | 0, u.uy | 0, x | 0, y | 0, 1) // `:4629–4630` boulderhandling 1=ignore
+            && dist2(u.ux | 0, u.uy | 0, x | 0, y | 0) < 18 * 18)
+            mcmd_addmenu(win, MCMD_THROW_OBJ, 'Throw something'), ++K; // `:4631`
+
+        mcmd_addmenu(win, MCMD_TRAVEL, 'Travel here'), ++K; // `:4633`
+    }
+    return K; // `:4635`
+}
+
+/**
  * C ref: cmd.c there_cmd_menu_common `:4638–4654` in C order — append the
  * shared "Look at map symbol" entry on CLICK_1/CLICK_2 (C ignores
  * iflags.clicklook here). JS builds an items array where C calls
@@ -3124,42 +3219,76 @@ export function there_cmd_menu_common(x, y, mod) {
 }
 
 /**
- * C ref: cmd.c there_cmd_menu `:4841–4896` — NHW_MENU "What do you want to do?"
- * Self rows are `there_cmd_menu_self` (`:4857`). Named omissions of this
- * function: `there_cmd_menu_next2u` / `there_cmd_menu_far`, the `K==0`
- * travel/move fallback, and the `K==1` `act_on_act` fast path. Self picks
- * still go through `act_on_act_here` (D-2620).
+ * C ref: cmd.c there_cmd_menu `:4841–4896` (staticfn → module-local) —
+ * NHW_MENU "What do you want to do?" over the self / next2u / far /
+ * common builders, then the K==0 travel/move fallback, the K==1
+ * act_on_act fast path, or the PICK_ONE menu. C order kept arm by arm.
+ * `actBox` is C `int act` (address-taken by the next2u builder);
+ * `pickAct` is C npick/picks; move_funcs[dir][MV_WALK] is
+ * move_funcs_walk (xytodir order, same rows); flags.travelcmd is the
+ * JS 'travel' key (default On, domouseaction precedent).
  * @returns {Promise<string>} '\0' after act / ESC cancel (C ch)
  */
 async function there_cmd_menu(x, y, mod) {
-    const items = [];
-    let K = 0;
-    if (u_at(x, y)) { // `:4856–4857`
-        K += there_cmd_menu_self(items, x, y);
-    }
-    // `:4858–4861` next2u / far — builders not ported
+    const u = game.u || {};
+    let ch = '\0'; // `:4846`
+    let K = 0; // `:4847` (npick alongside — pickAct below)
+    const dx = (x | 0) - (u.ux | 0), dy = (y | 0) - (u.uy | 0); // `:4850`
+    const actBox = { act: MCMD_NOTHING }; // `:4851` int act
+    const items = []; // `:4853–4854` create/start menu
+
+    if (u_at(x, y)) // `:4856`
+        K += there_cmd_menu_self(items, x, y); // `:4857`
+    else if (next2u(x, y)) // `:4858`
+        K += there_cmd_menu_next2u(items, x, y, mod, actBox); // `:4859`
+    else // `:4860`
+        K += there_cmd_menu_far(items, x, y, mod); // `:4861`
     const common = there_cmd_menu_common(x, y, mod); // `:4862`
     if (common.length) {
         items.push(...common);
         K += common.length;
     }
 
-    if (!K) return '\0'; // C `:4864` — travel/move fallback named on this function
+    let pickAct = null; // C `:4847–4848` npick/picks — set at the menu pick
+    if (!K) { // `:4864`
+        /* no menu options, try to move `:4865` */
+        if (next2u(x, y) // `:4866`
+            && await test_move(u.ux | 0, u.uy | 0, dx, dy, TEST_MOVE)) {
+            const dir = xytodir(dx, dy); // `:4867`
 
-    const raw = [
-        { text: 'What do you want to do?', attr: ATR_INVERSE, selectable: false },
-        { text: '', attr: 0, selectable: false },
-        ...items.map((it) => ({
-            text: it.text,
-            attr: 0,
-            selectable: true,
-            act: it.act,
-        })),
-    ];
-    const res = await select_menu_pick_one(raw);
-    if (res.kind !== 'pick' || res.item?.act == null) return '\x1b';
-    act_on_act_here(res.item.act | 0);
-    return '\0';
+            cmdq_add_ec(CQ_CANNED, move_funcs_walk[dir]); // `:4869`
+        } else if ((game.flags?.travel ?? true)) { // `:4870` flags.travelcmd
+            if (!game.iflags) game.iflags = {};
+            if (!game.iflags.travelcc) game.iflags.travelcc = { x: 0, y: 0 };
+            game.iflags.travelcc.x = game.u.tx = x | 0; // `:4871`
+            game.iflags.travelcc.y = game.u.ty = y | 0; // `:4872`
+            cmdq_add_ec(CQ_CANNED, dotravel_target); // `:4873`
+        }
+        ch = '\0'; // `:4875–4876` npick = 0, ch
+    } else if (K === 1 // `:4877`
+        && actBox.act !== MCMD_NOTHING && actBox.act !== MCMD_TRAVEL) {
+        act_on_act(actBox.act, dx, dy); // `:4880` (`:4878` destroy is display plumbing)
+        return '\0'; // `:4881`
+    } else { // `:4882`
+        const raw = [ // `:4883` end_menu "What do you want to do?"
+            { text: 'What do you want to do?', attr: ATR_INVERSE, selectable: false },
+            { text: '', attr: 0, selectable: false },
+            ...items.map((it) => ({
+                text: it.text,
+                attr: 0,
+                selectable: true,
+                act: it.act,
+            })),
+        ];
+        const res = await select_menu_pick_one(raw); // `:4884` PICK_ONE
+        ch = '\x1b'; // `:4885`
+        if (res.kind === 'pick' && res.item?.act != null) pickAct = res.item.act | 0; // `:4889`
+    }
+    if (pickAct !== null) { // `:4888` npick > 0
+        act_on_act(pickAct, dx, dy); // `:4892`
+        return '\0'; // `:4893`
+    }
+    return ch; // `:4895`
 }
 
 /**

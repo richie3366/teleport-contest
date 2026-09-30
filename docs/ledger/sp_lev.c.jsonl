@@ -126,7 +126,7 @@
 {"fn":"add_doors_to_room","c":"5544-5555","status":"unknown"}
 {"fn":"get_table_coords_or_region","c":"5561-5577","status":"split","js":["js/mklev.js:lspo_region","js/mklev.js:lspo_wall_property"],"at":"2026-09-29@cd4bc2a21","note":"stale: inlined at both C callers, review 1672 verified"}
 {"fn":"lspo_region","c":"5584-5715","status":"unknown"}
-{"fn":"lspo_drawbridge","c":"5720-5763","status":"unknown"}
+{"fn":"lspo_drawbridge","c":"5720-5763","status":"ported","js":["js/mklev.js:lspo_drawbridge"],"at":"2026-09-30@990da2b8d","note":"stale: js/mklev.js:1226, whole C body in C order (micro-gap: :1234 raw throw vs live nhl_error)"}
 {"fn":"lspo_mazewalk","c":"5769-5869","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_wall_property","c":"5876-5908","status":"unknown"}
 {"fn":"set_wallprop_in_selection","c":"5911-5932","status":"unknown"}

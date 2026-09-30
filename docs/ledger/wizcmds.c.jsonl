@@ -8,7 +8,7 @@
 {"fn":"wiz_where","c":"218-225","status":"unknown"}
 {"fn":"wiz_detect","c":"229-236","status":"ported","js":["js/wizcmds.js:wiz_detect"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_kill","c":"243-347","status":"ported","js":["js/wizcmds.js:wiz_kill"],"d":["D-3091","D-3089"],"at":"2026-09-29@615518801","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_load_lua","c":"353-372","status":"partial","js":["js/wizcmds.js:wiz_load_lua"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_load_lua","c":"353-372","status":"ported","js":["js/wizcmds.js:wiz_load_lua"],"d":["D-3142"],"at":"2026-09-30@990da2b8d","note":"stale: js/wizcmds.js:460 via D-3142, whole body; sole gap load_lua by-design file IO"}
 {"fn":"wiz_load_splua","c":"376-395","status":"partial","js":["js/wizcmds.js:wiz_load_splua"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_level_tele","c":"399-406","status":"unknown"}
 {"fn":"wiz_flip_level","c":"412-442","status":"ported","js":["js/wizcmds.js:wiz_flip_level"],"d":["D-3131"],"at":"2026-09-29@f789bb94f","note":"refresh: no JS symbol (measured MISSING)"}

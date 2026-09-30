@@ -1,5 +1,5 @@
 {"fn":"mkroom_cmp","c":"60-69","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"good_rm_wall_doorpos","c":"73-102","status":"unknown"}
+{"fn":"good_rm_wall_doorpos","c":"73-102","status":"ported","js":["js/mklev.js:good_rm_wall_doorpos"],"at":"2026-09-30@990da2b8d","note":"stale: js/mklev.js:31844, whole C body (rmno hoist unobservable), 2 C callers wired (:31867,:31878)"}
 {"fn":"finddpos_shift","c":"106-141","status":"unknown"}
 {"fn":"finddpos","c":"147-205","status":"ported","js":["js/mklev.js:finddpos"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"sort_rooms","c":"210-228","status":"unknown"}

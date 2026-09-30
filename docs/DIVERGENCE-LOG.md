@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3144 — `cmd.c` there-menu trio: next2u + far builders, whole-menu restart (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `there_cmd_menu` + Open callees `there_cmd_menu_next2u` + `there_cmd_menu_far`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +197/−68 `js/cmd.js`. 13 stale proofs in this commit, all →ported: grapple_range js/apply.js:3900, lspo_drawbridge js/mklev.js:1226, opt2roleopt js/options.js:6964, br_string js/dungeon.js:3250, shade_aware js/mhitm.js:5677, good_rm_wall_doorpos js/mklev.js:31844, parent_dnum js/dungeon.js:570, handle_add_list_remove js/options.js:5490, new_book_description js/write.js:225, wiz_load_lua js/wizcmds.js:460, get_rect_ind js/rect.js:36, cmdq_add_userinput js/cmd.js:466, cmdq_copy js/cmd.js:391.)
+- **Symptom:** no corpus divergence — coverage. `there_cmd_menu` was self+common only with the next2u/far arms, the K==0 travel/move fallback and the K==1 fast path named missing; picks went through the interim `act_on_act_here` shim while live `act_on_act` (D-2620) had no wired caller.
+- **C locus:**
+  - `there_cmd_menu_far`: `cmd.c:4623–4636` (CLICK_1 `:4628`, linedup+dist2 throw `:4629–4631`, travel `:4633`).
+  - `there_cmd_menu_next2u`: `cmd.c:4524–4621` (door `:4539–4563`, search `:4565–4566`, trap `:4568–4573`, boulder `:4576–4577`, steed `:4582–4596`, peaceful `:4598–4608`, attack+*act `:4611–4616`).
+  - `there_cmd_menu`: `cmd.c:4841–4896` (builder chain `:4856–4862`, K==0 fallback `:4864–4876`, K==1 fast path `:4877–4881`, menu pick `:4882–4895`).
+- **JS was:** `there_cmd_menu` self+common only (`act_on_act_here` shim for picks); no `there_cmd_menu_next2u` / `there_cmd_menu_far` / `next2u` symbols; `act_on_act` live but callerless.
+- **Fix:** new module-local `next2u` (you.h:558 macro, squared dist2, no isok guard like C); new `there_cmd_menu_next2u` in C order over live exports (carrying/t_at/m_at/x_monnam/mon_nam/upstart/glyph_at/glyph_is_invisible_id/canspotmon/dist2 + has_mgivenname/W_SADDLE/D_ISOPEN consts + can_saddle on the existing steed edge; levl glyph ≡ remembered_glyph per detect.js; C `int *act` ≡ actOut box); new `there_cmd_menu_far` over live linedup (new SAFE mthrowu edge) + dist2; restarted `there_cmd_menu` whole in C order (test_move awaited, move_funcs[dir][MV_WALK] ≡ move_funcs_walk, travelcmd ≡ flags.travel default-On, pickAct ≡ npick/picks); deleted the dead `act_on_act_here` shim (sole caller was the menu); added which_armor (new SAFE worn edge).
+- **JS:** `js/cmd.js` only — next2u `:3072`, there_cmd_menu_next2u `:3089`, there_cmd_menu_far `:3182`, there_cmd_menu `:3232`.
+- **Callers:**
+  - `there_cmd_menu_far`: sole C caller `:4861` → JS there_cmd_menu `:3245` wired.
+  - `there_cmd_menu_next2u`: sole C caller `:4859` → JS there_cmd_menu `:3243` wired.
+  - `there_cmd_menu`: C `:4901` here_cmd_menu → JS here_cmd_menu `:3297` wired (unchanged); C `:4356`/`:4370` dotherecmdmenu → unwired, named omission (caller fn not ported).
+- **Verify:** `node scripts/verify.mjs --fn there_cmd_menu_far,there_cmd_menu_next2u,there_cmd_menu` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+  - `there_cmd_menu_far`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `there_cmd_menu_next2u`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `there_cmd_menu`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `there_cmd_menu_far`: none — whole body, every callee live.
+  - `there_cmd_menu_next2u`: none — whole body, every callee live (create/start/end/destroy windows fold into the items array per the D-2706 mcmd_addmenu idiom).
+  - `there_cmd_menu`: dotherecmdmenu C-caller wiring (`:4356`/`:4370` — caller fn not ported; menu entry via here_cmd_menu stays live). No durable unit test: repo has no maintained JS harness (sessions + verify are the gates) and C-staticfn locals are unimportable; verification is the verify line above.
+- **Ledger:** there_cmd_menu_far ported; there_cmd_menu_next2u ported; there_cmd_menu ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3143 — `questpgr.c` quest-artifact search + pline delivery quartet (coverage head + same-file THIN siblings)
 
 - **Status:** fixed (breadth-phase cluster: head `find_quest_artifact` + Open callee `find_qarti` + same-file THIN `deliver_by_pline` + `skip_pager`; 0 corpus sessions blocked on any — coverage completion, not a divergence.)

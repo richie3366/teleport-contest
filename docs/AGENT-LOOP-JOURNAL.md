@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3144 `cmd.c` there-menu trio: next2u + far builders, whole-menu restart (coverage)
+
+**C locus:** - `there_cmd_menu_far`: `cmd.c:4623–4636` (CLICK_1 `:4628`, linedup+dist2 throw `:4629–4631`, travel `:4633`).
+**JS:** `js/cmd.js` only — next2u `:3072`, there_cmd_menu_next2u `:3089`, there_cmd_menu_far `:3182`, there_cmd_menu `:3232`.
+**Change:** new module-local `next2u` (you.h:558 macro, squared dist2, no isok guard like C); new `there_cmd_menu_next2u` in C order over live exports (carrying/t_at/m_at/x_monnam/mon_nam/upstart/glyph_at/glyph_is_invisible_id/canspotmon/dist2 + has_mgivenname/W_SADDLE/D_ISOPEN consts + can_saddle on the existing steed edge; levl glyph ≡ remembered_glyph per detect.js; C `int *act` ≡ actOut box); new `there_cmd_menu_far` over live linedup (new SAFE mthrowu edge) + dist2; restarted `there_cmd_menu` whole in C order (test_move awaited, move_funcs[dir][MV_WALK] ≡ move_funcs_walk, travelcmd ≡ flags.travel default-On, pickAct ≡ npick/picks); deleted the dead `act_on_act_here` shim (sole caller was the menu); added which_armor (new SAFE worn edge).
+**Verify:** `node scripts/verify.mjs --fn there_cmd_menu_far,there_cmd_menu_next2u,there_cmd_menu` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+**Named:** - `there_cmd_menu_far`: none — whole body, every callee live.
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — D-3143 `questpgr.c` quest-artifact search + pline delivery quartet (coverage head + same-file THIN siblings)
 
 **C locus:** - `find_quest_artifact`: `questpgr.c:88–120` (INVENT `:94–95`, FLOOR `:96–97`, MINVENT fmon loop `:98–103`, MIGRATING mons+objs `:104–115`, BURIED `:116–117`).

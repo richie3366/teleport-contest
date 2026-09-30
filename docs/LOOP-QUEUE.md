@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `apply.c` grapple_range — coverage THIN (C 9 code L `apply.c:3686–3698` / JS 4 code L in js/apply.js; hops —, callers 2, RNG 0, msg 0) @e5816afe0
-- [ ] `sp_lev.c` lspo_drawbridge — coverage THIN (C 30 code L `sp_lev.c:5720–5763` / JS 13 code L in js/mklev.js; hops —, callers 0, RNG 1, msg 0) @b20fdf92d
-- [ ] `options.c` opt2roleopt — coverage PARTIAL (C 12 code L `options.c:715–730` / JS 7 code L in js/options.js; hops 6, callers 3, RNG 0, msg 0) @6c8474344
-- [ ] `dungeon.c` br_string — coverage PARTIAL (C 10 code L `dungeon.c:2240–2253` / JS 6 code L in js/dungeon.js; hops 5, callers 2, RNG 0, msg 0) @6c8474344
-- [ ] `uhitm.c` shade_aware — coverage PARTIAL (C 10 code L `uhitm.c:1992–2011` / JS 6 code L in js/mhitm.js; hops 5, callers 2, RNG 0, msg 0) @6c8474344
-- [ ] `mklev.c` good_rm_wall_doorpos — coverage PARTIAL (C 19 code L `mklev.c:73–102` / JS 14 code L in js/mklev.js; hops 5, callers 1, RNG 0, msg 0) @6c8474344
-- [ ] `dungeon.c` parent_dnum — coverage PARTIAL (C 8 code L `dungeon.c:346–365` / JS 5 code L in js/dungeon.js; hops 5, callers 2, RNG 0, msg 0) @6c8474344
-- [ ] `options.c` handle_add_list_remove — coverage PARTIAL (C 36 code L `options.c:9208–9251` / JS 21 code L in js/options.js; hops —, callers 3, RNG 0, msg 0) @6c8474344
-- [ ] `write.c` new_book_description — coverage THIN (C 12 code L `write.c:395–418` / JS 5 code L in js/write.js; hops —, callers 1, RNG 0, msg 0) @6c8474344
-- [ ] `wizcmds.c` wiz_load_lua — coverage MISSING (C 14 code L `wizcmds.c:353–372` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @6c8474344
-- [ ] `rect.c` get_rect_ind — coverage PARTIAL (C 12 code L `rect.c:60–75` / JS 7 code L in js/rect.js; hops 5, callers 1, RNG 0, msg 0) @6c8474344
-- [ ] `cmd.c` cmdq_add_userinput — coverage THIN (C 10 code L `cmd.c:316–331` / JS 3 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 0) @2f2a26da6
+- [ ] `do_wear.c` obj_erode_type — coverage PARTIAL (C 11 code L `do_wear.c:3260–3273` / JS 6 code L in js/do_wear.js; hops 5, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `dungeon.c` correct_branch_type — coverage PARTIAL (C 11 code L `dungeon.c:440–454` / JS 6 code L in js/dungeon.js; hops 5, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `options.c` handler_disclose — coverage PARTIAL (C 86 code L `options.c:5675–5777` / JS 44 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `invent.c` display_cinventory — coverage PARTIAL (C 19 code L `invent.c:5446–5473` / JS 14 code L in js/invent.js; hops 6, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `spell.c` spelltypemnemonic — coverage PARTIAL (C 18 code L `spell.c:832–853` / JS 9 code L in js/spell.js; hops 6, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `options.c` all_options_msgtypes — coverage THIN (C 8 code L `options.c:9628–9640` / JS 3 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `cmd.c` dosuspend_core — coverage MISSING (C 9 code L `cmd.c:5662–5678` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @990da2b8d
+- [ ] `dungeon.c` traverse_mapseenchn — coverage PARTIAL (C 9 code L `dungeon.c:3344–3365` / JS 6 code L in js/dungeon.js; hops 5, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `mkobj.c` may_generate_eroded — coverage PARTIAL (C 9 code L `mkobj.c:177–192` / JS 5 code L in js/mkobj.js; hops 5, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `options.c` handler_align_misc — coverage PARTIAL (C 31 code L `options.c:5586–5621` / JS 20 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @990da2b8d
+- [ ] `botl.c` status_hilite_menu_fld — coverage PARTIAL (C 66 code L `botl.c:4357–4453` / JS 41 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
+- [ ] `options.c` msgtype_parse_add — coverage PARTIAL (C 16 code L `options.c:7844–7866` / JS 11 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @990da2b8d
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

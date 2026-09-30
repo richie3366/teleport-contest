@@ -61,7 +61,7 @@
 {"fn":"use_cream_pie","c":"3568-3603","status":"unknown"}
 {"fn":"jelly_ok","c":"3607-3613","status":"unknown"}
 {"fn":"use_royal_jelly","c":"3616-3683","status":"unknown","d":["D-2331"],"at":"seed@a30a7de84"}
-{"fn":"grapple_range","c":"3686-3698","status":"unknown"}
+{"fn":"grapple_range","c":"3686-3698","status":"ported","js":["js/apply.js:grapple_range"],"at":"2026-09-30@990da2b8d","note":"stale: js/apply.js:3900, both C callers wired (:3908, :3961)"}
 {"fn":"can_grapple_location","c":"3701-3704","status":"unknown"}
 {"fn":"display_grapple_positions","c":"3707-3726","status":"unknown"}
 {"fn":"use_grapple","c":"3729-3873","status":"unknown","d":["D-2213"],"at":"seed@a30a7de84"}

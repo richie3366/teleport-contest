@@ -5,7 +5,7 @@
 {"fn":"dname_to_dnum","c":"284-295","status":"unknown"}
 {"fn":"find_level","c":"300-307","status":"unknown"}
 {"fn":"find_branch","c":"311-337","status":"ported","js":["js/dungeon.js:find_branch"],"at":"2026-09-29@f789bb94f","note":"stale: js/dungeon.js:550, whole C body in C order, all 5 C sites wired (571/601/625/1214/1219), throw=panic (no panic helper in js/)"}
-{"fn":"parent_dnum","c":"346-365","status":"unknown"}
+{"fn":"parent_dnum","c":"346-365","status":"ported","js":["js/dungeon.js:parent_dnum"],"at":"2026-09-30@990da2b8d","note":"stale: js/dungeon.js:570, whole C body, 2 C callers wired (:600,:632)"}
 {"fn":"level_range","c":"380-412","status":"unknown"}
 {"fn":"parent_dlevel","c":"415-436","status":"unknown"}
 {"fn":"correct_branch_type","c":"440-454","status":"unknown"}
@@ -74,7 +74,7 @@
 {"fn":"unplaced_floater","c":"2175-2187","status":"unknown"}
 {"fn":"unreachable_level","c":"2190-2201","status":"unknown"}
 {"fn":"tport_menu","c":"2204-2236","status":"unknown"}
-{"fn":"br_string","c":"2240-2253","status":"unknown"}
+{"fn":"br_string","c":"2240-2253","status":"ported","js":["js/dungeon.js:br_string"],"at":"2026-09-30@990da2b8d","note":"stale: js/dungeon.js:3250, exact C port, 2 C callers wired (:3344,:3434)"}
 {"fn":"chr_u_on_lvl","c":"2256-2259","status":"unknown"}
 {"fn":"print_branch","c":"2263-2286","status":"unknown"}
 {"fn":"print_dungeon","c":"2290-2438","status":"unknown"}
