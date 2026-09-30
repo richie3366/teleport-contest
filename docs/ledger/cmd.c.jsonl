@@ -18,7 +18,7 @@
 {"fn":"extcmd_initiator","c":"457-460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"can_do_extcmd","c":"463-489","status":"partial","js":["js/cmd.js:can_do_extcmd"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"seed@a30a7de84"}
 {"fn":"doextcmd","c":"493-520","status":"unknown"}
-{"fn":"doc_extcmd_flagstr","c":"524-557","status":"unknown"}
+{"fn":"doc_extcmd_flagstr","c":"524-557","status":"ported","js":["js/cmd.js:doc_extcmd_flagstr"],"at":"2026-09-30@850d390ba","note":"stale: js/cmd.js:848 (both arms + both doextlist sites :1296/:1306 wired)"}
 {"fn":"doextlist","c":"562-734","status":"unknown","d":["D-1625"],"at":"seed@a30a7de84"}
 {"fn":"extcmd_via_menu","c":"752-882","status":"ported","js":["js/getline.js:extcmd_via_menu"],"d":["D-2871","D-2863"],"at":"seed@a30a7de84"}
 {"fn":"domonability","c":"890-949","status":"unknown"}
@@ -80,7 +80,7 @@
 {"fn":"bind_key","c":"2662-2728","status":"ported","js":["js/cmd.js:bind_key"],"at":"2026-09-30@6c8474344","note":"stale: js/cmd.js:1614"}
 {"fn":"bind_key_fn","c":"2732-2746","status":"unknown"}
 {"fn":"commands_init","c":"2750-2782","status":"unknown"}
-{"fn":"keylist_func_has_key","c":"2785-2799","status":"unknown"}
+{"fn":"keylist_func_has_key","c":"2785-2799","status":"ported","js":["js/dokeylist.js:keylist_func_has_key"],"at":"2026-09-30@850d390ba","note":"stale: js/dokeylist.js:712 (exact loop + both sites :777/:867 wired)"}
 {"fn":"keylist_putcmds","c":"2802-2863","status":"partial","js":["js/dokeylist.js:keylist_putcmds"],"omit":"`parsebindings` still strips `(param)`, so an rc BIND= does not fill `_bindParam`.","d":["D-2863"],"at":"seed@a30a7de84"}
 {"fn":"dokeylist","c":"2867-3013","status":"split","js":["js/dokeylist.js:dokeylist_lines","js/pager.js:show_text_pages"],"d":["D-3028"],"at":"2026-09-28@759e72748"}
 {"fn":"ext_func_tab_from_func","c":"3016-3025","status":"ported","js":["js/cmd.js:ext_func_tab_from_func"],"d":["D-2978","D-2977"],"at":"2026-09-27@516c184a8"}

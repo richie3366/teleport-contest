@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3159 `options.c` burden/runmode prompt rows + o_status_cond/count_cond + mouse_support + IBMgraphics (coverage cluster)
+
+**C locus:** - `handler_pickup_burden`: options.c:6085–6111 (letters `:6091`, items `:6097–6101`, end_menu prompt `:6103`, select `:6104–6106`); paint rule wintty.c tty_end_menu `:2685–2689` (promptstyle + blank item), promptstyle default menu_headings (allmain.c:728).
+**JS:** js/options.js:2700 (handler_pickup_burden), :6913 (handler_runmode), :6951 (optfn_mouse_support), :7013 (optfn_IBMgraphics), :11492 (count_cond), :11510 (optfn_o_status_cond); scripts/optfn-coverage-cluster.test.mjs (20 tests).
+**Change:** burden/runmode prompt rows now `{attr: ATR_INVERSE}` + `{text: ''}` (pickup.js query_objlist precedent, tty_end_menu `:2685–2689`); simple-menu cond arm sets [PFX_COND_IDX] on TRUE and returns OPTN_OK unconditionally (full-doset `:9733` precedent); both O-menu cond vals call live count_cond(); ported the 3 optfns + count_cond whole in C order (mouse: compat/atoi/range/get tables over opt_atoi+string_for_opt; IBM: gs.symset mirror loop with RogueIBM rename, rogue-level assign gated on optInitial like C; o_status_cond: `;` arms as comments, no do_handler branch per async-split precedent) with allopt + rc-parse + doset wiring.
+**Verify:** `node scripts/verify.mjs --fn handler_pickup_burden,handler_runmode,optfn_o_status_cond,count_cond,optfn_mouse_support,optfn_IBMgraphics` → VERIFY: PASS — hidden: burden PROGRESS (scen-options-Samurai-94071 step 41 → obj_resists at step 43, later owner), notes ×5 (no corpus session blocked, expected for coverage rows); REACH-OK ×6 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/optfn-coverage-cluster.test.mjs`: 20/20 PASS (cond counts, all do_set/get arms incl. compat/atoi edges, rc-parse + dump wiring).
+**Named:** - `handler_pickup_burden`: none — whole body + tty paint rule.
+**Next:** other select_menu_pick_one prompt headers (menustyle, disclose, …) still lack the tty promptstyle+blank convention — same 3-line shape when a session reaches them; continue the breadth queue from the regenerated block.
 ## 2026-09-30 — D-3158 `sp_lev.c` lspo_mazewalk + lspo_terrain (coverage cluster)
 
 **C locus:** - `lspo_mazewalk`: sp_lev.c:5769–5869 (mwdirs tables `:5771–5776`; triple `:5786–5789` vs table `:5790–5796` dispatch; get_location ANY_LOC `:5803`; isok `:5805–5809`; ftyp<1 corrmaze `:5811–5813`; W_RANDOM roll `:5815–5816`; move switch `:5819–5834`; non-door write `:5836–5839`; parity fixups `:5846–5862`; walkfrom `:5864`; fill when stocked `:5865–5866`).

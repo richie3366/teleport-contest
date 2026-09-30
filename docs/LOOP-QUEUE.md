@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `cmd.c` doc_extcmd_flagstr — coverage PARTIAL (C 21 code L `cmd.c:524–557` / JS 14 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
-- [ ] `options.c` all_options_menucolors — coverage PARTIAL (C 21 code L `options.c:9595–9625` / JS 12 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
-- [ ] `options.c` handler_pickup_burden — coverage PARTIAL (C 20 code L `options.c:6086–6111` / JS 13 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
-- [ ] `options.c` handler_runmode — coverage PARTIAL (C 20 code L `options.c:6124–6149` / JS 13 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
-- [ ] `options.c` optfn_o_status_cond — coverage MISSING (C 16 code L `options.c:8414–8442` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: count_cond) @e47a5e02a
 - [ ] `selvar.c` line_dist_coord — coverage PARTIAL (C 18 code L `selvar.c:542–566` / JS 13 code L in js/mklev.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
-- [ ] `options.c` optfn_windowchain — coverage MISSING (C 15 code L `options.c:4857–4881` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: addto_windowchain) @e47a5e02a
 - [ ] `options.c` optfn_IBMgraphics — coverage MISSING (C 33 code L `options.c:1906–1960` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e47a5e02a
 - [ ] `glyphs.c` test_glyphnames — coverage MISSING (C 7 code L `glyphs.c:1252–1262` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: find_glyphs, glyphs_to_unicode) @db34c42bb
-- [ ] `cmd.c` keylist_func_has_key — coverage PARTIAL (C 8 code L `cmd.c:2785–2799` / JS 5 code L in js/dokeylist.js; hops —, callers 2, RNG 0, msg 0) @db34c42bb
-- [ ] `options.c` optfn_mouse_support — coverage MISSING (C 31 code L `options.c:2396–2453` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @db34c42bb
 - [ ] `apply.c` could_pole_mon — coverage PARTIAL (C 15 code L `apply.c:3391–3412` / JS 11 code L in js/apply.js; hops —, callers 1, RNG 0, msg 0) @db34c42bb
+- [ ] `getpos.c` gloc_filter_classify_glyph — coverage PARTIAL (C 15 code L `getpos.c:341–361` / JS 8 code L in js/getpos.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
+- [ ] `mkmap.c` pass_two — coverage PARTIAL (C 15 code L `mkmap.c:101–121` / JS 11 code L in js/mkmap.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
+- [ ] `mkmap.c` pass_three — coverage PARTIAL (C 15 code L `mkmap.c:124–144` / JS 11 code L in js/mkmap.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
+- [ ] `options.c` remove_autopickup_exception — coverage PARTIAL (C 15 code L `options.c:9349–9369` / JS 9 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
+- [ ] `options.c` optfn_statushilites — coverage MISSING (C 30 code L `options.c:4013–4064` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
+- [ ] `sounds.c` choose_soundlib — coverage MISSING (C 29 code L `sounds.c:1809–1858` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
+- [ ] `vision.c` _q1_path — coverage MISSING (C 29 code L `vision.c:1419–1460` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
+- [ ] `vision.c` _q4_path — coverage MISSING (C 29 code L `vision.c:1466–1507` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

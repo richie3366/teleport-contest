@@ -40,7 +40,7 @@
 {"fn":"optfn_glyph","c":"1815-1849","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_hilite_status","c":"1852-1894","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_horsename","c":"1897-1903","status":"unknown"}
-{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"partial","js":["js/options.js:optfn_IBMgraphics"],"omit":"- `handler_pickup_burden`: none — whole body + tty paint rule.","d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_map_mode","c":"1963-2047","status":"ported","js":["js/options.js:optfn_map_mode"],"d":["D-3157"],"at":"2026-09-30@e47a5e02a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shared_menu_optfn","c":"2052-2074","status":"partial","js":["js/options.js:shared_menu_optfn"],"omit":"``config_error_add`` sink (+4 sites: both ``illegal_menu_cmd_key`` arms, ``bad_negation`` inside ``spcfn``, ``string_for_opt`` missing-parameter — map's existing sink line); C ``parsebindings :7658–7662`` menu-command arm (travels with the future BINDINGS row); ``menu_headings``/``menu_objsyms`` op…","d":["D-2651"],"at":"seed@a30a7de84"}
 {"fn":"optfn_menu_deselect_all","c":"2077-2082","status":"unknown"}
@@ -61,7 +61,7 @@
 {"fn":"optfn_menuinvertmode","c":"2290-2317","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_menustyle","c":"2320-2375","status":"partial","js":["js/options.js:optfn_menustyle"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_monsters","c":"2378-2393","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"optfn_mouse_support","c":"2396-2453","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_mouse_support","c":"2396-2453","status":"ported","js":["js/options.js:optfn_mouse_support"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_msg_window","c":"2456-2520","status":"unknown"}
 {"fn":"optfn_msghistory","c":"2523-2546","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_name","c":"2549-2571","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -111,7 +111,7 @@
 {"fn":"optfn_whatis_coord","c":"4703-4745","status":"unknown"}
 {"fn":"optfn_whatis_filter","c":"4748-4794","status":"partial","js":["js/options.js:optfn_whatis_filter"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_windowborders","c":"4797-4853","status":"partial","js":["js/options.js:optfn_windowborders"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
-{"fn":"optfn_windowchain","c":"4857-4881","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_windowchain","c":"4857-4881","status":"by-design","at":"2026-09-30@850d390ba","note":"WINCHAIN undefined (config.h:618 commented, plain make, no WANT_WINCHAIN) — body ifdef'd out of build"}
 {"fn":"optfn_windowcolors","c":"4894-4940","status":"ported","js":["js/options.js:optfn_windowcolors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_windowtype","c":"4943-4987","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pfxfn_cond_","c":"4994-5036","status":"partial","js":["js/options.js:pfxfn_cond_"],"omit":"- `pfxfn_cond_`: do_handler `:5032` `(void) cond_menu()` — async in JS, arm unreachable in C (set_hidden never doset-listed); config_error_add message text (existing no-op sink, house precedent).","d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
@@ -131,9 +131,9 @@
 {"fn":"handler_number_pad","c":"5893-5950","status":"ported","js":["js/options.js:handler_number_pad"],"d":["D-2778"],"at":"seed@a30a7de84"}
 {"fn":"handler_paranoid_confirmation","c":"5953-6008","status":"unknown"}
 {"fn":"handler_perminv_mode","c":"6011-6083","status":"unknown"}
-{"fn":"handler_pickup_burden","c":"6086-6111","status":"unknown"}
+{"fn":"handler_pickup_burden","c":"6086-6111","status":"ported","js":["js/options.js:handler_pickup_burden"],"d":["D-3159"],"at":"2026-09-30@850d390ba"}
 {"fn":"handler_pickup_types","c":"6114-6121","status":"unknown"}
-{"fn":"handler_runmode","c":"6124-6149","status":"unknown"}
+{"fn":"handler_runmode","c":"6124-6149","status":"ported","js":["js/options.js:handler_runmode"],"d":["D-3159"],"at":"2026-09-30@850d390ba"}
 {"fn":"handler_petattr","c":"6152-6164","status":"unknown"}
 {"fn":"handler_sortloot","c":"6167-6203","status":"ported","js":["js/options.js:handler_sortloot"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"handler_whatis_coord","c":"6206-6276","status":"partial","js":["js/options.js:handler_whatis_coord"],"omit":"`config_error_add(\"Unknown %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `pick_cnt > 1` disambiguation `:6270–6271` folded — the pick-one helper returns the single new pick, which is the entry C chooses.","d":["D-2775"],"at":"seed@a30a7de84"}
@@ -191,7 +191,7 @@
 {"fn":"optfn_o_autocomplete","c":"8346-8365","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_o_menu_colors","c":"8368-8386","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_o_message_types","c":"8389-8411","status":"unknown"}
-{"fn":"optfn_o_status_cond","c":"8414-8442","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_o_status_cond","c":"8414-8442","status":"ported","js":["js/options.js:optfn_o_status_cond"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_o_status_hilites","c":"8446-8474","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_option_value","c":"8481-8505","status":"unknown"}
 {"fn":"longest_option_name","c":"8508-8532","status":"ported","js":["js/options.js:longest_option_name"],"d":["D-3009"],"at":"2026-09-28@c704500d7","note":"refresh: no JS symbol (measured MISSING)"}
@@ -202,7 +202,7 @@
 {"fn":"reset_needed_visuals","c":"8980-9014","status":"ported","js":["js/options.js:reset_needed_visuals"],"d":["D-3069"],"at":"2026-09-28@774d64d58"}
 {"fn":"doset_add_menu","c":"9018-9065","status":"split","js":["js/options.js:doset_add_menu","js/options.js:doset_compopt_get_val","js/options.js:doset"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}
-{"fn":"count_cond","c":"9179-9188","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"count_cond","c":"9179-9188","status":"ported","js":["js/options.js:count_cond"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_apes","c":"9191-9202","status":"unknown"}
 {"fn":"handle_add_list_remove","c":"9208-9251","status":"ported","js":["js/options.js:handle_add_list_remove"],"at":"2026-09-30@990da2b8d","note":"stale: js/options.js:5490, whole C body in C order, 3 C callers wired (:5645,:5739,:5866); pick_cnt>1 arm documented unarisable"}
 {"fn":"dotogglepickup","c":"9256-9274","status":"unknown"}
@@ -213,7 +213,7 @@
 {"fn":"sym_val","c":"9385-9426","status":"ported","js":["js/options.js:sym_val"],"at":"2026-09-30@5fd602958","note":"stale: js/options.js:10775 (review-1510 branch-exact; :839 caller wired :10956, :631 caller in by-design parse_sym_line)"}
 {"fn":"option_help","c":"9462-9549","status":"split","js":["js/options.js:option_help_lines","js/pager.js:show_text_pages"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_conds","c":"9556-9591","status":"unknown","d":["D-2549"],"at":"seed@a30a7de84"}
-{"fn":"all_options_menucolors","c":"9595-9625","status":"unknown"}
+{"fn":"all_options_menucolors","c":"9595-9625","status":"ported","js":["js/options.js:all_options_menucolors"],"at":"2026-09-30@850d390ba","note":"stale: js/options.js:10973 (full body + wired :11442 in dump sequence)"}
 {"fn":"all_options_msgtypes","c":"9628-9640","status":"ported","js":["js/options.js:all_options_msgtypes"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:10612 (R1503; wrong was sibling, D-2547)"}
 {"fn":"all_options_apes","c":"9643-9654","status":"unknown"}
 {"fn":"all_options_palette","c":"9658-9673","status":"by-design","at":"2026-09-29@75eb7fe42","note":"uncompiled: options.c:9656-9674 inside #ifdef CHANGE_COLOR (only amiconf.h defines it; contest unix build does not)"}

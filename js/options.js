@@ -213,7 +213,7 @@ import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
 import { clr2colorname } from './artifact.js';
 import {
-    opt_next_cond, cond_menu, status_hilite_menu,
+    opt_next_cond, cond_menu, status_hilite_menu, condtests,
     status_hilite_linestr_done, status_hilite_linestr_gather,
     count_status_hilites,
     match_str2clr, match_str2attr, status_version,
@@ -230,6 +230,7 @@ import {
 import { cmd_from_func, cmdname_from_func, visctrl, bind_param_set, bind_param_clear } from './dokeylist.js';
 import {
     Is_rogue_level,
+    CONDITION_COUNT, NUM_GRAPHICS,
     ROLE_NONE, ROLE_RANDOM, PL_NSIZ,
     RS_ROLE, RS_RACE, RS_GENDER, RS_ALGNMNT, RS_filter,
     EXIT_FAILURE,
@@ -2699,7 +2700,13 @@ export function optfn_pickup_burden(optidx, req, _negated, opts, _op, flagsBag, 
 export async function handler_pickup_burden() {
     if (!game.flags) game.flags = {};
     const letters = 'ubsntl'; // C `:6091`
-    const raw = [{ text: 'Select encumbrance level:', selectable: false }]; // C `:6103`
+    // C tty_end_menu (wintty.c `:2685–2689`): the end_menu prompt paints
+    // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
+    // then a blank separator, then the add_menu items (pickup.js precedent).
+    const raw = [
+        { text: 'Select encumbrance level:', selectable: false, attr: ATR_INVERSE }, // C `:6103` end_menu prompt
+        { text: '', selectable: false }, // C wintty.c blank item
+    ];
     for (let i = 0; i < BURDENTYPE.length; i++) { // C `:6097` SIZE(burdentype)
         raw.push({
             text: BURDENTYPE[i],
@@ -4207,6 +4214,20 @@ export function parseNethackrc(rc) {
                         allopt_idx('menustyle'), REQ_DO_SET, negated, stripped, val, result.flags,
                     );
                 }
+                else if (key === 'mouse_support') {
+                    // C optfn_mouse_support do_set (opt_initial) on result.iflags.
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_mouse_support(
+                        allopt_idx('mouse_support'), REQ_DO_SET, false, stripped, val, result.iflags, true,
+                    );
+                }
+                else if (key === 'ibmgraphics') {
+                    // C optfn_IBMgraphics do_set (opt_initial). Negation
+                    // skips the symset loop (negateok Yes).
+                    optfn_IBMgraphics(
+                        allopt_idx('IBMgraphics'), REQ_DO_SET, negated, stripped, val, true,
+                    );
+                }
                 else if (key === 'pickup_burden') {
                     // C parseoptions `:626` negateok-No returns before the optfn.
                     if (negated) continue;
@@ -4345,6 +4366,20 @@ export function parseNethackrc(rc) {
                 else if (lname === 'menustyle') {
                     optfn_menustyle(
                         allopt_idx('menustyle'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, result.flags,
+                    );
+                }
+                else if (lname === 'mouse_support') {
+                    // C optfn_mouse_support do_set, valueless (opt_initial):
+                    // bare name is mouse_support:1 (`:2408–2412`).
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_mouse_support(
+                        allopt_idx('mouse_support'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, result.iflags, true,
+                    );
+                }
+                else if (lname === 'ibmgraphics') {
+                    // C optfn_IBMgraphics do_set, valueless (opt_initial).
+                    optfn_IBMgraphics(
+                        allopt_idx('IBMgraphics'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
                     );
                 }
                 else if (lname === 'pickup_burden') {
@@ -6877,7 +6912,12 @@ export function optfn_runmode(optidx, req, negated, opts, op, flagsBag) {
  */
 export async function handler_runmode() {
     if (!game.flags) game.flags = {};
-    const raw = [{ text: 'Select run/travel display mode:', selectable: false }]; // C `:6142`
+    // C tty_end_menu (wintty.c `:2685–2689`): promptstyle (= menu_headings,
+    // default ATR_INVERSE) + blank separator, then items (pickup.js precedent).
+    const raw = [
+        { text: 'Select run/travel display mode:', selectable: false, attr: ATR_INVERSE }, // C `:6142` end_menu prompt
+        { text: '', selectable: false }, // C wintty.c blank item
+    ];
     for (let i = 0; i < RUNMODES.length; i++) { // C `:6136`
         const modeName = RUNMODES[i];
         raw.push({
@@ -6892,6 +6932,120 @@ export async function handler_runmode() {
         game.flags.runmode = res.item.a_int - 1; // C `:6144`
     }
     return OPTN_OK; // C `:6148`
+}
+
+/**
+ * C options.c optfn_mouse_support `:2395–2453` (staticfn; NHOPT_PARSE wires
+ * &optfn_mouse_support into the mouse_support allopt row, optlist.h `:505`).
+ * do_set stores the mode (compat: bare name is `:1`); get_val is the
+ * mousemodes table (`:2435–2439`, unix O/S fixes — WIN32 off); get_cnf_val
+ * is `%i`. No do_handler (has_handler No).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts full option string (do_set) / out holder
+ * @param {string} op value tail (recomputed inside like C `:2407`)
+ * @param {object} [iflagsBag] C iflags home (rc result at parse; game in game)
+ * @param {boolean} [optInitial] C go.opt_initial for the string_for_opt gate
+ */
+export function optfn_mouse_support(optidx, req, negated, opts, op, iflagsBag, optInitial) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) { // C `:2402–2404`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:2405`
+        const optstr = String(opts ?? ''); // C `:2406` strlen(opts)
+        const compat = optstr.length <= 13; // C `:2406`
+        const optInit = optInitial ?? !!game.go?.opt_initial; // C go.opt_initial
+        op = string_for_opt(optstr, compat || !optInit); // C `:2407`
+        if (op === EMPTY_OPTSTR) { // C `:2408`
+            if (compat || negated || optInit) { // C `:2409`
+                /* C `:2410–2411` bare "mouse_support" is mouse_support:1 */
+                iflags.wc_mouse_support = !negated ? 1 : 0; // C `:2412`
+            }
+        } else {
+            const mode = opt_atoi(op); // C `:2415` atoi
+            if (mode < 0 || mode > 2 || (mode === 0 && op[0] !== '0')) { // C `:2417`
+                config_error_add("Illegal %s parameter '%s'", // C `:2418–2419`
+                    allopt_name(optidx), op);
+                return OPTN_ERR; // C `:2420`
+            }
+            /* C `:2421–2422` mode >= 0 */
+            iflags.wc_mouse_support = mode;
+        }
+        return OPTN_OK; // C `:2425`
+    }
+    if (req === REQ_GET_VAL) { // C `:2427`
+        // C `:2428–2434` WIN32 off: MOUSEFIX1 ", O/S adjusted", MOUSEFIX2 ", O/S unchanged".
+        const mousemodes = [ // C `:2435–2439`
+            ['0=off', ''],
+            ['1=on', ', O/S adjusted'],
+            ['2=on', ', O/S unchanged'],
+        ];
+        const ms = iflags.wc_mouse_support | 0; // C `:2442` (zero-init when absent)
+        if (ms >= 0 && ms <= 2) // C `:2444`
+            set_optbuf(opts, `${mousemodes[ms][0]}${mousemodes[ms][1]}`); // C `:2445`
+        return OPTN_OK; // C `:2446`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:2448`
+        set_optbuf(opts, String(iflags.wc_mouse_support | 0)); // C `:2449` %i
+        return OPTN_OK; // C `:2450`
+    }
+    return OPTN_OK; // C `:2452`
+}
+
+/**
+ * C options.c optfn_IBMgraphics `:1905–1960` (staticfn; NHOPT_PARSE wires
+ * &optfn_IBMgraphics into the IBMgraphics allopt row, optlist.h `:386`).
+ * BACKWARD_COMPAT is defined (optlist.h `:15`), so do_set is the symset
+ * loop (`:1924–1948`); the `#else` no-longer-supported arm (`:1949–1953`)
+ * is compiled out. No do_handler (has_handler No).
+ * Named (map): read_sym_file `:1932–1936` (SYMBOLS file IO under Rule #2),
+ * clear_symsetentry `:1934` + switch_symbols `:1943` (both by-design, no
+ * scored analogue) — optfn_symset/roguesymset precedent.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts out holder (do_set ignores the value)
+ * @param {string} _op value tail (C UNUSED)
+ * @param {boolean} [optInitial] C go.opt_initial — rogue-level assign gate
+ */
+export function optfn_IBMgraphics(optidx, req, negated, opts, _op, optInitial) {
+    if (req === REQ_DO_INIT) { // C `:1916–1918`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:1919`
+        /* C `:1920` "IBMgraphics" */
+        // (BACKWARD_COMPAT on: the `:1949–1953` #else is compiled out.)
+        if (!negated) { // C `:1924`
+            let symName = allopt_name(optidx); // C `:1911` sym_name
+            let badflag = false; // C `:1912`
+            for (let i = 0; i < NUM_GRAPHICS; ++i) { // C `:1925`
+                const slot = game.gs?.symset?.[i]; // C `:1926` gs.symset[i]
+                if (slot?.name) { // C `:1926–1927` name already set
+                    badflag = true;
+                } else {
+                    if (i === ROGUESET) symName = 'RogueIBM'; // C `:1929–1930`
+                    if (slot) slot.name = symName; // C `:1931` dupstr (GC: overwrite)
+                    /* Named (map): read_sym_file `:1932` + clear_symsetentry
+                       `:1934` failure arm (SYMBOLS file IO under Rule #2). */
+                }
+            }
+            if (badflag) { // C `:1939`
+                config_error_add('Failure to load symbol set %s.', symName); // C `:1940`
+                return OPTN_ERR; // C `:1941`
+            }
+            /* Named (map): switch_symbols(TRUE) `:1943` (by-design). */
+            const optInit = optInitial ?? !!game.go?.opt_initial; // C go.opt_initial
+            if (!optInit && Is_rogue_level(game.u?.uz)) assign_graphics(ROGUESET); // C `:1944–1945`
+        }
+        return OPTN_OK; // C `:1948`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1955`
+        set_optbuf(opts, ''); // C `:1956` opts[0] = '\0'
+        return OPTN_OK; // C `:1957`
+    }
+    return OPTN_OK; // C `:1959`
 }
 
 /**
@@ -7918,8 +8072,11 @@ async function doset_compound_via_getlin(opt) {
         } else if (name === 'autounlock') {
             reslt = await handler_autounlock(allopt_idx(name)); // C optfn_autounlock do_handler `:1165` (doset precedent)
         } else if (name === 'status condition fields') {
-            // C optfn_o_status_cond do_handler `:8436–8439` cond_menu (doset precedent); boolean result → optn.
-            reslt = (await cond_menu()) ? OPTN_OK : OPTN_ERR;
+            // C optfn_o_status_cond do_handler `:8436–8439` cond_menu
+            // (full-doset `:9576` precedent); the optfn always returns
+            // optn_ok, setting opt_set_in_config[pfx_cond_] on TRUE.
+            if (await cond_menu()) opt_set_in_config[PFX_COND_IDX] = true; // C `:8437–8438`
+            reslt = OPTN_OK; // C `:8439` unconditional
         } else if (name === 'status highlight rules') {
             // C optfn_o_status_hilites do_handler `:8464–8471` status_hilite_menu (doset precedent); TRUE → optn_ok.
             reslt = (await status_hilite_menu()) ? OPTN_OK : OPTN_ERR;
@@ -8024,8 +8181,7 @@ function simple_opt_get_val(opt) {
         return currently_set_val(game.iflags?.status_hilite_count ?? 0);
     }
     if (name === 'status condition fields') {
-        // C: condopt defaults → 16 fields selected
-        return currently_set_val(game.iflags?.status_cond_count ?? 16);
+        return currently_set_val(count_cond()); // C optfn_o_status_cond get_val `:8427–8432`
     }
     return 'unknown';
 }
@@ -9458,6 +9614,7 @@ export async function doset() {
         { name: 'menu_objsyms', get_val: () => doset_compopt_get_val(optfn_menu_objsyms, 'menu_objsyms'), handler: true },
         { name: 'menuinvertmode', val: '1' },
         { name: 'menustyle', get_val: () => doset_compopt_get_val(optfn_menustyle, 'menustyle'), handler: true },
+        { name: 'mouse_support', get_val: () => doset_compopt_get_val(optfn_mouse_support, 'mouse_support') },
         { name: 'msg_window', get_val: () => doset_compopt_get_val(optfn_msg_window, 'msg_window'), handler: true },
         { name: 'number_pad', get_val: () => doset_compopt_get_val(optfn_number_pad, 'number_pad'), handler: true },
         { name: 'packorder', val: '$")[%?+!=/(*`0_' },
@@ -9501,7 +9658,7 @@ export async function doset() {
         { name: 'bind keys', val: currently_set_val(count_bind_keys()) },
         { name: 'menu colors', val: currently_set_val(count_menucolors()) },
         { name: 'message types', val: currently_set_val(msgtype_count()) },
-        { name: 'status condition fields', val: '(16 currently set)' },
+        { name: 'status condition fields', val: currently_set_val(count_cond()) }, // C optfn_o_status_cond get_val `:8427–8432`
         { name: 'status highlight rules', val: currently_set_val(count_status_hilites()) }, // C options.c:8461 get_val (n_currently_set)
     ]) {
         // C `:8892` doset_add_menu (OthrOpt; all 7 rows set_in_game so
@@ -10171,7 +10328,7 @@ const allopt = [
     // optlist.h:382 NHOPTC(horsename)
     { name: 'horsename', opttyp: CompOpt, idx: 77, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_horsename },
     // optlist.h:386 NHOPTC(IBMgraphics)
-    { name: 'IBMgraphics', opttyp: CompOpt, idx: 78, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'IBMgraphics', opttyp: CompOpt, idx: 78, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_IBMgraphics },
     // optlist.h:390 NHOPTB(idlecheckpoint)
     { name: 'idlecheckpoint', opttyp: BoolOpt, idx: 79, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'idlecheckpoint' }, optfn: null, termpref: Term_Off },
     // optlist.h:394 NHOPTB(ignintr)
@@ -10247,7 +10404,7 @@ const allopt = [
     // optlist.h:502 NHOPTC(monsters)
     { name: 'monsters', opttyp: CompOpt, idx: 115, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
     // optlist.h:505 NHOPTC(mouse_support)
-    { name: 'mouse_support', opttyp: CompOpt, idx: 116, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'mouse_support', opttyp: CompOpt, idx: 116, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_mouse_support },
     // optlist.h:509 NHOPTC(msg_window)
     { name: 'msg_window', opttyp: CompOpt, idx: 117, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_msg_window },
     // optlist.h:516 NHOPTC(msghistory)
@@ -10361,7 +10518,7 @@ const allopt = [
     // optlist.h:717 NHOPTB(status_updates)
     { name: 'status_updates', opttyp: BoolOpt, idx: 172, setwhere: SET_IN_CONFIG, initval: true, addr: { obj: 'iflags', key: 'status_updates' }, optfn: null },
     // optlist.h:720 NHOPTO("status condition fields")
-    { name: 'status condition fields', opttyp: OthrOpt, idx: 173, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
+    { name: 'status condition fields', opttyp: OthrOpt, idx: 173, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: optfn_o_status_cond },
     // optlist.h:724 NHOPTC(statushilites)
     { name: 'statushilites', opttyp: CompOpt, idx: 174, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:727 NHOPTO("status highlight rules")
@@ -11325,6 +11482,50 @@ function parsesymbolsSeg(buf, start, which_set) {
 export function parsesymbols(opts, which_set) {
     const buf = [...String(opts ?? '')];
     return parsesymbolsSeg(buf, 0, which_set);
+}
+
+/**
+ * C ref: options.c count_cond `:9179–9188` — enabled count over condtests.
+ * Sole C caller optfn_o_status_cond get_val (`:8430`); the JS O-menu val
+ * arms call it directly (count_status_hilites precedent).
+ */
+export function count_cond() {
+    let cnt = 0; // C `:9181`
+    for (let i = 0; i < CONDITION_COUNT; ++i) { // C `:9183`
+        if (condtests[i].enabled) // C `:9184`
+            cnt++; // C `:9185`
+    }
+    return cnt; // C `:9187`
+}
+
+/**
+ * C options.c optfn_o_status_cond `:8413–8442` (staticfn; NHOPT_PARSE wires
+ * &optfn_o_status_cond into the "status condition fields" Othr row,
+ * optlist.h `:720`). do_set is a `;` no-op (sets go through pfxfn_cond_);
+ * get_val is n_currently_set(count_cond()); get_cnf_val is handled inline
+ * by all_options_strbuf via all_options_conds. No do_handler branch here:
+ * cond_menu() is async in JS, inlined at both doset dispatches
+ * (optfn_menustyle precedent).
+ */
+export function optfn_o_status_cond(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C `:8421–8423`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) {
+        /* C `:8424–8426` `;` — setting status condition options goes through pfxfn_cond_() */
+    }
+    if (req === REQ_GET_VAL) { // C `:8427`
+        if (opts === null || opts === undefined) // C `:8428` !opts
+            return OPTN_ERR; // C `:8429`
+        set_optbuf(opts, currently_set_val(count_cond())); // C `:8430` n_currently_set
+        return OPTN_OK; // C `:8431`
+    }
+    if (req === REQ_GET_CNF_VAL) {
+        /* C `:8433–8435` `;` — handled inline by all_options_strbuf() via all_options_conds() */
+    }
+    // C `:8436–8440` do_handler is cond_menu() + opt_set_in_config[pfx_cond_]:
+    // async in JS, inlined at both doset dispatches (no branch here).
+    return OPTN_OK; // C `:8441`
 }
 
 /**

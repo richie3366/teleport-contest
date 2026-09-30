@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-3159 — `options.c` burden/runmode prompt rows + o_status_cond/count_cond + mouse_support + IBMgraphics (coverage cluster)
+
+- **Status:** fixed (coverage cluster, 6 C functions: 2 prompt-row fixes incl. 1 corpus move + 4 new ports; 3 queue siblings proved stale — doc_extcmd_flagstr, keylist_func_has_key, all_options_menucolors (whole bodies + wired callers at js/cmd.js:848, js/dokeylist.js:712, js/options.js:10973) — and optfn_windowchain proved compiled-out (by-design, WINCHAIN undefined), all marked via `ledger.mjs` in the same iteration. +212/-11 js/options.js, +1 test file.)
+- **Symptom:** scen-options-Samurai-94071 blocked step 41/78 kind=screen at the burden submenu: /tmp cell probe showed C prompt attr 1 + blank row 1 with items from row 2, JS prompt attr 0 and items shifted up one row (cursor [47,8] vs [47,7]); O-menu cond counts hardcoded (`'(16 currently set)'`, `?? 16` standin); simple-menu cond edit dropped opt_set_in_config[pfx_cond_] (saveoptions would omit cond_ lines); mouse_support/IBMgraphics/o_status_cond allopt rows `optfn: null`.
+- **C locus:**
+  - `handler_pickup_burden`: options.c:6085–6111 (letters `:6091`, items `:6097–6101`, end_menu prompt `:6103`, select `:6104–6106`); paint rule wintty.c tty_end_menu `:2685–2689` (promptstyle + blank item), promptstyle default menu_headings (allmain.c:728).
+  - `handler_runmode`: options.c:6123–6149 (same shape; prompt `:6142`, select `:6143–6144`).
+  - `optfn_o_status_cond`: options.c:8413–8442 (do_init `:8421–8423`, do_set `;` `:8424–8426`, get_val `:8427–8432`, get_cnf_val `;` `:8433–8435`, do_handler `:8436–8440`).
+  - `count_cond`: options.c:9179–9188.
+  - `optfn_mouse_support`: options.c:2395–2453 (do_set `:2405–2425`: compat `:2406`, empty `:2408–2413`, atoi+range `:2415–2422`; get_val `:2427–2446` table `:2435–2439`; get_cnf_val `:2448–2450`).
+  - `optfn_IBMgraphics`: options.c:1905–1960 (BACKWARD_COMPAT on, optlist.h:15: do_set loop `:1924–1948`, name-check `:1926–1927`, RogueIBM `:1929–1930`, read `:1932–1936`, badflag `:1939–1941`, switch+assign `:1942–1945`; `#else` `:1949–1953` compiled out; get_val/cnf `:1955–1958`).
+- **JS was:** handlers built single-row prompt headers (attr 0, no blank); no count_cond/optfn_o_status_cond/optfn_mouse_support/optfn_IBMgraphics symbols; hardcoded cond counts; simple-menu cond arm mapped cancel→ERR and skipped the pfx_cond_ mark.
+- **Fix:** burden/runmode prompt rows now `{attr: ATR_INVERSE}` + `{text: ''}` (pickup.js query_objlist precedent, tty_end_menu `:2685–2689`); simple-menu cond arm sets [PFX_COND_IDX] on TRUE and returns OPTN_OK unconditionally (full-doset `:9733` precedent); both O-menu cond vals call live count_cond(); ported the 3 optfns + count_cond whole in C order (mouse: compat/atoi/range/get tables over opt_atoi+string_for_opt; IBM: gs.symset mirror loop with RogueIBM rename, rogue-level assign gated on optInitial like C; o_status_cond: `;` arms as comments, no do_handler branch per async-split precedent) with allopt + rc-parse + doset wiring.
+- **JS:** js/options.js:2700 (handler_pickup_burden), :6913 (handler_runmode), :6951 (optfn_mouse_support), :7013 (optfn_IBMgraphics), :11492 (count_cond), :11510 (optfn_o_status_cond); scripts/optfn-coverage-cluster.test.mjs (20 tests).
+- **Callers:**
+  - `handler_pickup_burden`: C sole caller optfn_pickup_burden do_handler arm (`:3302`) → JS async-split doset_optfn_do_handler :3331 + doset_compound_via_getlin :8056 (pre-existing; body fixed here).
+  - `handler_runmode`: C `:3663` → JS :3344 + :8071 (same).
+  - `optfn_o_status_cond`: table-only in C (0 refs): doset get_val via simple :8184 + full :9661 menu arms (live now); do_handler via simple :8078 + full :9733 dispatches; get_cnf_val via all_options_strbuf→all_options_conds (pre-existing); parse do_set unrouted (JS Othr rows unparsed, menu-colors precedent; arm is `;`).
+  - `count_cond`: C sole caller optfn get_val (`:8430`) → JS :11520 + menu arms :8184/:9661.
+  - `optfn_mouse_support`: C parseoptions do_set → rc valued :4217 + valueless :4371 (negateok-No gate); C doset get_val → compounds row :9617 (wc self-skip like C `:8871–8873`); dump via allopt row :10407 + get_option_value; do_init no-op (no arm, file precedent).
+  - `optfn_IBMgraphics`: rc valued :4224 + valueless :4379 (negateok Yes, passed through); dump via allopt row :10331; no doset row — C hides set_in_config pass (startpass gameview=3, IN_CONFIG=1).
+- **Verify:** `node scripts/verify.mjs --fn handler_pickup_burden,handler_runmode,optfn_o_status_cond,count_cond,optfn_mouse_support,optfn_IBMgraphics` → VERIFY: PASS — hidden: burden PROGRESS (scen-options-Samurai-94071 step 41 → obj_resists at step 43, later owner), notes ×5 (no corpus session blocked, expected for coverage rows); REACH-OK ×6 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/optfn-coverage-cluster.test.mjs`: 20/20 PASS (cond counts, all do_set/get arms incl. compat/atoi edges, rc-parse + dump wiring).
+- **Named omissions:**
+  - `handler_pickup_burden`: none — whole body + tty paint rule.
+  - `handler_runmode`: none — same.
+  - `optfn_o_status_cond`: do_handler body lives in the doset dispatches (async-split, cited above); no other omission.
+  - `count_cond`: none — whole body.
+  - `optfn_mouse_support`: none — whole body.
+  - `optfn_IBMgraphics`: read_sym_file failure arm (`:1932–1936`, SYMBOLS file IO under Rule #2), clear_symsetentry (`:1934`) + switch_symbols (`:1943`) (both by-design); optfn_symset/roguesymset precedent.
+- **Ledger:** handler_pickup_burden ported; handler_runmode ported; optfn_o_status_cond ported; count_cond ported; optfn_mouse_support ported; optfn_IBMgraphics partial
+- **Next:** other select_menu_pick_one prompt headers (menustyle, disclose, …) still lack the tty promptstyle+blank convention — same 3-line shape when a session reaches them; continue the breadth queue from the regenerated block.
+
 ## D-3158 — `sp_lev.c` lspo_mazewalk + lspo_terrain (coverage cluster)
 
 - **Status:** fixed (coverage cluster, 2 whole C functions; queue siblings set_wallprop_in_selection/sp_amask_to_amask proved stale — whole bodies at js/mklev.js:5063/21552, D-2701/D-1553 — and marked via `ledger.mjs` in the same iteration. +183 js/mklev.js, +1 test file.)
