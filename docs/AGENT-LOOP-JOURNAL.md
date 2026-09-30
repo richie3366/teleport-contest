@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — audit 2132–2140, D-3172–D-3180
+
+**Review:** nine JS SHAs, oldest first, each review written before the next SHA; 2 QUALITY-RISK, 7 ACCEPT-WITH-DEBT. No JS edits. Must-fix: normal_shape→new_were emits without awaiting the message before mutation; initoptions continues after fatal second sysconf/assure/showpaths. First queue item is the were-message continuation.
+**Verify:** each SHA remeasured on its code against its parent with --reach-all; no REGRESSED sessions. Public full sessions 44/44, RNG 792,838/792,838, screens 11,405/11,405; speed 287+1.41/turn (R² .793). Full record found all recordings; final hidden-proxy command was unfiltered score: 648/953 PASS, RNG 96.75%, screens 90.7%, 953 entries, 0 unrecorded, full=true at 20:48:37Z. Committed-baseline comparison: 0 PASS losses/gains. Held-out 13/44, 6,883/11,265 points, RNG 33.6%, screens 61.1%.
+**Ledger:** snapshot appended; compiled-out Lift_covet_and_placebc/Unplacebc corrected to by-design. Five seeded ported samples briefed: visctrl, peffect_acid, autokey, yname, makeroguerooms; ordinary branch bodies represented, existing diagnostics/buffer omissions remain documented.
+**Next:** ship first Must-fix alone; do not treat the full fortress as proof of unexercised failure/message branches.
+
 ## 2026-09-30 — D-3180 option dispatch, menu-color handler and menu-key lookup with cleanup exports
 
 **C locus:** whole bodies and every brief reference table read:

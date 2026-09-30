@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-30** — full `sessions` on `f02c9df5f`
-(audit **2123–2131**, 2026-09-30T17:13:32.119Z).
+Score last measured: **2026-09-30** — full `sessions` on `94d7337ef`
+(audit **2132–2140**, 2026-09-30T20:42:13.471Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`280+1.64/turn` (R² 0.768).
+`287+1.41/turn` (R² 0.793).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-30 13:20Z)** | **13 / 44**, 6,882 / 11,265 pts, RNG **33.6 %**, rngSteps 87.4 %, screens **61.1 %** |
+| **Held-out (judge, 2026-09-30 19:07Z)** | **13 / 44**, 6,883 / 11,265 pts, RNG **33.6 %**, rngSteps 87.4 %, screens **61.1 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `280+1.64/turn` (R² 0.768) |
+| Speed label | `287+1.41/turn` (R² 0.793) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best fork 35/44. Held-out 13/44, flat.
-**Corpus fortress (17:20Z, 953/953, 0 unrecorded):**
+**Corpus fortress (20:48Z, 953/953, 0 unrecorded):**
 **648 / 953** PASS (68.0 %), RNG 96.75 %, screens 90.7 %; 0 PASS losses, +0; `full: true`.
-Reviews 1225–2131 (index; no row 1618): 803 ACCEPT, 30 WITH-DEBT, 73 QUALITY-RISK (2123–2131: 4A/5Q; 4 Must-fix families).
+Reviews 1225–2140 (index; no row 1618): 803 ACCEPT, 37 WITH-DEBT, 75 QUALITY-RISK (2132–2140: 7 debt/2Q; 2 Must-fix families).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** `options.c` head `optfn_o_bind_keys`, then `optfn_o_menu_colors`, its `handler_menu_colors` callee, `optfn_monsters`, `map_menu_cmd`, `free_autopickup_exceptions`, and `options_free_window_colors` (seven whole bodies). Wire option-table/menu dispatch and active menu-key callers; name absent save teardown. The glyphs head pair, MICRO IBM prefix and TTY_PERM_INVENT recheck are uncompiled and retired by-design.
+**Next cluster:** Must-fix `mon.c` normal_shape → new_were message continuation (review 2136), before transformation mutation and mimic processing.
 
 ## Parked (diagnose only — do not implement)
 

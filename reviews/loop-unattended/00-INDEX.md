@@ -2141,3 +2141,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2129-0f8744c49-option-error-stubs.md](./2129-0f8744c49-option-error-stubs.md) | `0f8744c49` | D-3169 option error stubs | **QUALITY-RISK** |
 | [2130-9865882fc-monster-regeneration.md](./2130-9865882fc-monster-regeneration.md) | `9865882fc` | D-3170 monster regeneration | **ACCEPT** |
 | [2131-f02c9df5f-playmode-config-closure.md](./2131-f02c9df5f-playmode-config-closure.md) | `f02c9df5f` | D-3171 playmode/config closure | **QUALITY-RISK** |
+| [2132-d10e96661-startup-exit.md](./2132-d10e96661-startup-exit.md) | `d10e96661` | D-3172 startup exit | **QUALITY-RISK** |
+| [2133-b5e29a0ee-config-error-closure.md](./2133-b5e29a0ee-config-error-closure.md) | `b5e29a0ee` | D-3173 config error closure | **ACCEPT-WITH-DEBT** |
+| [2134-adc5a35c2-coordinate-conversion.md](./2134-adc5a35c2-coordinate-conversion.md) | `adc5a35c2` | D-3174 coordinate conversion | **ACCEPT-WITH-DEBT** |
+| [2135-3f8f47e04-region-validation.md](./2135-3f8f47e04-region-validation.md) | `3f8f47e04` | D-3175 region validation | **ACCEPT-WITH-DEBT** |
+| [2136-ae5beffe4-monster-closure.md](./2136-ae5beffe4-monster-closure.md) | `ae5beffe4` | D-3176 monster closure | **QUALITY-RISK** |
+| [2137-4bcfa8a7a-packorder-converter.md](./2137-4bcfa8a7a-packorder-converter.md) | `4bcfa8a7a` | D-3177 packorder converter | **ACCEPT-WITH-DEBT** |
+| [2138-232081f95-string-buffer.md](./2138-232081f95-string-buffer.md) | `232081f95` | D-3178 string buffer | **ACCEPT-WITH-DEBT** |
+| [2139-d37e25ba4-breadcrumb-wrappers.md](./2139-d37e25ba4-breadcrumb-wrappers.md) | `d37e25ba4` | D-3179 disabled breadcrumb wrappers | **ACCEPT-WITH-DEBT** |
+| [2140-94d7337ef-menu-dispatch-cleanup.md](./2140-94d7337ef-menu-dispatch-cleanup.md) | `94d7337ef` | D-3180 menu dispatch cleanup | **ACCEPT-WITH-DEBT** |
