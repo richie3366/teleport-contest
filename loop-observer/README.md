@@ -1,7 +1,7 @@
 # Loop observer
 
 Local browser view of the unattended port loop: Cursor `stream-json`,
-Muse `exec --json`, or Claude Code `-p --output-format stream-json`
+Muse/Codex `exec --json`, or Claude Code `-p --output-format stream-json`
 from `.agent-port-loop-logs/iter-NNNN-STAMP.raw`, rendered as a
 conversation (prompt, thoughts, tools, Edit/Write diffs, result).
 
@@ -17,6 +17,19 @@ Claude print-mode stream-json already carries tool names, args, and
 stays on that stdout `.raw` — it does **not** tail
 `~/.claude/projects/` (different, noisier format; empty thinking
 signatures). Claude session UUIDs are not treated as Muse session ids.
+
+Codex also stays on stdout `.raw`. `thread.*`, `turn.*`, and `item.*`
+events become the same prompt, reasoning, assistant, tool, and result
+cards in both browser and CLI observers. Commands include exit codes and
+output; file changes show every changed path and any supplied diff. Some
+Codex exec versions emit only file paths/kinds, so no diff can be displayed
+for those events. MCP, search, and todo items are supported. Recoverable
+stream errors stay visible while the turn continues; `turn.failed` ends it.
+The supervisor adds prompt/model metadata and receive-time timestamps
+because native exec JSONL omits them. Without `MODEL`, the header says
+`Codex configured default`. No Codex rollout/session file is required,
+including with `CODEX_NO_SESSION_LOG=1`. The event format follows the
+[official OpenAI documentation](https://developers.openai.com/codex/noninteractive#make-output-machine-readable).
 
 Zero npm dependencies. Binds **`127.0.0.1`** on an ephemeral port
 (OS-assigned first free). Not scored; not imported from `js/`.
@@ -70,17 +83,19 @@ The header follows **one** `.raw` at a time.
   (`extract-agent-usage.mjs`: sum `model_completed` input+output+reasoning,
   cache listed in the breakdown but not added again). Claude totals use
   `result.usage` (and overwrite the live bar from each
-  `assistant.message.usage` so the count moves during the turn). The count
-  **updates live** after each Muse model step / Claude assistant usage
-  (not only when the iter ends). Hover the meta bar for the exact
-  `tokens: +N (…)` string.
+  `assistant.message.usage` so the count moves during the turn). Codex
+  usage arrives on `turn.completed`: input + output, with cached input,
+  cache-write input, and reasoning output shown as subsets rather than
+  added twice. The count **updates live** after each Muse model step /
+  Claude assistant usage (not only when the iter ends). Hover the meta
+  bar for the exact `tokens: +N (…)` string.
 - **Show timings** — off by default. When on, thought and tool cards
   show `MM:SS for 12m34s`: offset from this iteration’s first event,
   then how long that card ran. The toggle is kept for later iters
   (`localStorage` plus `.agent-port-loop-logs/observer-prefs.json` so a
   new observer port still remembers). Cursor `timestamp_ms`, Muse
   `session.jsonl` `recorded_at`, and Claude `timestamp` / `timestamp_ms`
-  all work; Muse stdout-only `.raw` clocks are synthetic and those labels
+  all work; Codex uses supervisor receive times. Muse stdout-only `.raw` clocks are synthetic and those labels
   stay hidden. Claude thoughts need `--include-partial-messages` (the
   loop default); the model may still omit thinking text. Already-finished
   cards update as soon as you turn it on.

@@ -21,7 +21,7 @@
  * The human extract (`iter-NNNN-*.log`) only carries `[tool] started /
  * completed` markers, which is why this exists.
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { parseRawText } from './loop-raw.mjs';
 
@@ -39,6 +39,9 @@ const EVIDENCE = /verify\.mjs|ps_test_runner|hidden-worker|hidden-proxy|rng-diff
 
 const text = readFileSync(file, 'utf8');
 const { events, stray } = parseRawText(text);
+const stderrFile = file.replace(/\.raw$/, '.err');
+const stderrText = stderrFile !== file && existsSync(stderrFile) ? readFileSync(stderrFile, 'utf8') : '';
+stray.push(...stderrText.split(/\r?\n/).filter((line) => line.trim()));
 const t0 = events.find((e) => e.timestamp_ms)?.timestamp_ms ?? 0;
 let tLast = t0;
 for (const e of events) if (e.timestamp_ms > tLast) tLast = e.timestamp_ms;
@@ -94,7 +97,7 @@ if (resultEv) ending = resultEv.subtype === 'success' ? 'result: success (agent 
 const strayTail = stray.slice(-3).map((l) => clip(l, 220));
 if (!resultEv && strayTail.length) ending = `no result event; stream ended with: ${strayTail.join(' | ')}`;
 if (!ending) ending = 'no result event (killed / timeout)';
-const quota = /out of usage|ActionRequiredError|usage limit/i.test(text.slice(-4000)) ? ' — PROVIDER QUOTA, the work itself did not fail' : '';
+const quota = /out of usage|ActionRequiredError|usage limit|hit your.*limit|rate.?limit|insufficient_quota|quota exceeded/i.test(text.slice(-4000) + stderrText.slice(-4000)) ? ' — PROVIDER QUOTA, the work itself did not fail' : '';
 
 /* ---- sections ---- */
 const header = [

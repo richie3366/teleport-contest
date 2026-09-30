@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # agent-port-loop.sh — repeatedly continue the port until human stop,
-# token-budget exhaustion, Muse/Claude plan-usage thresholds, short-run
+# token-budget exhaustion, Muse/Claude/Codex plan-usage thresholds, short-run
 # streak, or missing-usage streak.
 #
 # Crash / resource_exhausted before commit: keep the tree, arm
@@ -24,6 +24,7 @@
 #   ./scripts/agent-port-loop.sh --token-budget-m 50
 #   AGENT_FORCE=1 ./scripts/agent-port-loop.sh --muse --token-budget-m 50
 #   AGENT_FORCE=1 ./scripts/agent-port-loop.sh --claude --token-budget-m 50
+#   AGENT_FORCE=1 ./scripts/agent-port-loop.sh --codex --token-budget-m 50
 # Crash leftover: supervisor retries in-process (continue prompt + prior
 # .raw/.log). Or --continue-unfinished / NEXT_AGENT_PROMPT.md on relaunch.
 
@@ -72,11 +73,20 @@ Options:
                         stream-json --verbose`). Model defaults to
                         claude-opus-5 at --effort high. AGENT_FORCE=1 maps
                         to --dangerously-skip-permissions. Mutually exclusive
-                        with --muse. Observer reads the same iter-*.raw
+                        with --muse / --codex. Observer reads the same iter-*.raw
                         (stdout only; stderr is iter-*.err).
                         After a finished iter, stop (exit 0, keep the
                         commit) if current session >= 90% or weekly >= 95%
                         (same snapshot as `claude -p /usage`; env below).
+  --codex               Use Codex (`codex exec --json`). Uses Codex's
+                        configured model unless MODEL is set; reasoning
+                        effort defaults to high. AGENT_FORCE=1 bypasses
+                        approvals and sandbox; otherwise uses workspace-write
+                        with approvals disabled (headless). Mutually exclusive
+                        with --muse / --claude. Observer, token budget, and
+                        resume brief read iter-*.raw; stderr is iter-*.err.
+                        Plan quota checks use account/rateLimits/read and
+                        wait at window >= 90% or weekly >= 95% (env below).
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
@@ -87,6 +97,12 @@ Claude knobs: CLAUDE_BIN, CLAUDE_EFFORT (low|medium|high|xhigh|max),
 LOOP_CLAUDE, CLAUDE_NO_PARTIAL=1 to skip --include-partial-messages,
 CLAUDE_PLAN_WINDOW_STOP_PCT (90), CLAUDE_PLAN_WEEKLY_STOP_PCT (95),
 CLAUDE_PLAN_USAGE_SKIP=1 to disable the post-iter `claude -p /usage` probe.
+Codex knobs: CODEX_BIN, LOOP_CODEX,
+CODEX_REASONING_EFFORT (none|minimal|low|medium|high|xhigh|max; default high),
+CODEX_SANDBOX (workspace-write), CODEX_PROFILE, CODEX_NO_SESSION_LOG=1,
+CODEX_PLAN_WINDOW_STOP_PCT (90), CODEX_PLAN_WEEKLY_STOP_PCT (95),
+CODEX_PLAN_USAGE_TIMEOUT_SEC (30), CODEX_PLAN_USAGE_SKIP=1.
+AGENT_TRUST is Cursor/Muse-specific; Codex uses CODEX_SANDBOX / AGENT_FORCE.
 Self-healing (default): density → iteration undone (reset --hard, or a
 forward git revert + push when already on origin) and the next port iter
 told to split; protected authority files → restored from before_head and
@@ -123,6 +139,7 @@ NEXT_PROMPT_SRC="${LOOP_NEXT_PROMPT:-}"
 NEXT_MODE_CLI="${LOOP_NEXT_MODE:-}"
 USE_MUSE="${LOOP_MUSE:-0}"
 USE_CLAUDE="${LOOP_CLAUDE:-0}"
+USE_CODEX="${LOOP_CODEX:-0}"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --token-budget-m)
@@ -161,6 +178,10 @@ while [[ $# -gt 0 ]]; do
       USE_CLAUDE=1
       shift
       ;;
+    --codex)
+      USE_CODEX=1
+      shift
+      ;;
     -h|--help)
       usage
       exit 0
@@ -180,8 +201,12 @@ if [[ -n "$NEXT_PROMPT_SRC" && ! -f "$NEXT_PROMPT_SRC" ]]; then
   echo "error: --next-prompt file not found: $NEXT_PROMPT_SRC" >&2
   exit 2
 fi
-if [[ "$USE_MUSE" == "1" && "$USE_CLAUDE" == "1" ]]; then
-  echo "error: --muse and --claude are mutually exclusive" >&2
+provider_count=0
+for provider_enabled in "$USE_MUSE" "$USE_CLAUDE" "$USE_CODEX"; do
+  if [[ "$provider_enabled" == "1" ]]; then provider_count=$((provider_count + 1)); fi
+done
+if (( provider_count > 1 )); then
+  echo "error: --muse, --claude and --codex (or LOOP_MUSE/LOOP_CLAUDE/LOOP_CODEX) are mutually exclusive" >&2
   exit 2
 fi
 
@@ -193,6 +218,7 @@ EXTRACT_USAGE="$ROOT/scripts/extract-agent-usage.mjs"
 EXTRACT_LOG="$ROOT/scripts/extract-agent-log.mjs"
 MUSE_PLAN_USAGE="$ROOT/scripts/muse-plan-usage.mjs"
 CLAUDE_PLAN_USAGE="$ROOT/scripts/claude-plan-usage.mjs"
+CODEX_PLAN_USAGE="$ROOT/scripts/codex-plan-usage.mjs"
 
 if [[ -n "$TOKEN_BUDGET_M" ]]; then
   TOKEN_BUDGET="$(node --input-type=module -e '
@@ -390,6 +416,8 @@ if [[ "$USE_MUSE" == "1" ]]; then
   MODEL="${MODEL:-muse-spark-1.3-contributor}"
 elif [[ "$USE_CLAUDE" == "1" ]]; then
   MODEL="${MODEL:-claude-opus-5}"
+elif [[ "$USE_CODEX" == "1" ]]; then
+  MODEL="${MODEL:-}"
 else
   MODEL="${MODEL:-muse-spark-1.3-max}"
 fi
@@ -400,6 +428,9 @@ MUSE_REASONING_EFFORT="${MUSE_REASONING_EFFORT:-xhigh}"
 MUSE_EXTRA=()
 CLAUDE_EFFORT="${CLAUDE_EFFORT:-high}"
 CLAUDE_EXTRA=()
+CODEX_REASONING_EFFORT="${CODEX_REASONING_EFFORT:-high}"
+CODEX_SANDBOX="${CODEX_SANDBOX:-workspace-write}"
+CODEX_CMD=()
 if [[ "$USE_MUSE" == "1" ]]; then
   if [[ ! "$MUSE_REASONING_EFFORT" =~ ^(none|minimal|low|medium|high|xhigh|max|ultra)$ ]]; then
     echo "error: MUSE_REASONING_EFFORT must be none|minimal|low|medium|high|xhigh|max|ultra (got ${MUSE_REASONING_EFFORT})" >&2
@@ -436,6 +467,31 @@ elif [[ "$USE_CLAUDE" == "1" ]]; then
   else
     CLAUDE_EXTRA+=(--permission-mode auto)
   fi
+elif [[ "$USE_CODEX" == "1" ]]; then
+  if [[ ! "$CODEX_REASONING_EFFORT" =~ ^(none|minimal|low|medium|high|xhigh|max)$ ]]; then
+    echo "error: CODEX_REASONING_EFFORT must be none|minimal|low|medium|high|xhigh|max (got ${CODEX_REASONING_EFFORT})" >&2
+    exit 2
+  fi
+  if [[ ! "$CODEX_SANDBOX" =~ ^(read-only|workspace-write|danger-full-access)$ ]]; then
+    echo "error: CODEX_SANDBOX must be read-only|workspace-write|danger-full-access (got ${CODEX_SANDBOX})" >&2
+    exit 2
+  fi
+  AGENT_BIN="${CODEX_BIN:-codex}"
+  if ! command -v "$AGENT_BIN" >/dev/null 2>&1; then
+    echo "error: codex binary not found on PATH (${AGENT_BIN}); install Codex CLI or set CODEX_BIN" >&2
+    exit 1
+  fi
+  CODEX_CMD=("$AGENT_BIN" exec --json --color never --cd "$ROOT")
+  if [[ -n "${CODEX_PROFILE:-}" ]]; then CODEX_CMD+=(--profile "$CODEX_PROFILE"); fi
+  if [[ -n "$MODEL" ]]; then CODEX_CMD+=(--model "$MODEL"); fi
+  CODEX_CMD+=(-c "model_reasoning_effort=\"$CODEX_REASONING_EFFORT\"" -c 'approval_policy="never"')
+  if [[ "${AGENT_FORCE:-0}" == "1" ]]; then
+    CODEX_CMD+=(--dangerously-bypass-approvals-and-sandbox)
+  else
+    CODEX_CMD+=(--sandbox "$CODEX_SANDBOX")
+  fi
+  if [[ "${CODEX_NO_SESSION_LOG:-0}" == "1" ]]; then CODEX_CMD+=(--ephemeral); fi
+  CODEX_CMD+=(-)
 elif [[ -z "$AGENT_BIN" ]]; then
   if command -v cursor-agent >/dev/null 2>&1; then
     AGENT_BIN="cursor-agent"
@@ -469,11 +525,14 @@ if [[ "$USE_MUSE" == "1" ]]; then
 elif [[ "$USE_CLAUDE" == "1" ]]; then
   OUTPUT_FORMAT="stream-json"
   JSONL_LOGS=1
+elif [[ "$USE_CODEX" == "1" ]]; then
+  OUTPUT_FORMAT="codex-jsonl"
+  JSONL_LOGS=1
 elif [[ "$OUTPUT_FORMAT" == "stream-json" || "$OUTPUT_FORMAT" == "json" ]]; then
   JSONL_LOGS=1
 fi
 # Token budget metering needs usage on stream-json result events.
-if (( TOKEN_BUDGET > 0 )) && [[ "$USE_MUSE" != "1" ]] && [[ "$OUTPUT_FORMAT" != "stream-json" && "$OUTPUT_FORMAT" != "json" ]]; then
+if (( TOKEN_BUDGET > 0 )) && [[ "$USE_MUSE" != "1" && "$USE_CODEX" != "1" ]] && [[ "$OUTPUT_FORMAT" != "stream-json" && "$OUTPUT_FORMAT" != "json" ]]; then
   echo "warning: --token-budget-m requires stream-json/json; overriding AGENT_OUTPUT_FORMAT=$OUTPUT_FORMAT → stream-json" \
     | tee -a "$MASTER_LOG"
   OUTPUT_FORMAT="stream-json"
@@ -630,6 +689,28 @@ exit_if_claude_plan_quota() {
   echo "$(date -Iseconds) CLAUDE PLAN QUOTA: ${summary} — waiting for the window to reset (commit kept)" \
     | tee -a "$MASTER_LOG"
   wait_for_plan_quota "claude plan quota: ${summary}"
+}
+
+# Read-only account probe; no model turn, no /usage prompt or rollout scraping.
+exit_if_codex_plan_quota() {
+  [[ "$USE_CODEX" == "1" ]] || return 0
+  [[ "${CODEX_PLAN_USAGE_SKIP:-0}" == "1" ]] && return 0
+  [[ -f "$CODEX_PLAN_USAGE" ]] || return 0
+  local json rc stop summary
+  set +e
+  json="$(CODEX_BIN="$AGENT_BIN" node "$CODEX_PLAN_USAGE")"
+  rc=$?
+  set -e
+  if [[ "$rc" -ne 0 || -z "$json" ]]; then
+    echo "$(date -Iseconds) warning: codex plan-usage probe failed (rc=${rc}); continuing" | tee -a "$MASTER_LOG"
+    return 0
+  fi
+  echo "$(date -Iseconds) ${json}" | tee -a "$MASTER_LOG"
+  stop="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(j.shouldStop?"1":"0")' "$json" 2>/dev/null || echo 0)"
+  [[ "$stop" == "1" ]] || return 0
+  summary="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(String(j.stopReason||j.summary||"codex plan usage threshold"))' "$json")"
+  echo "$(date -Iseconds) CODEX PLAN QUOTA: ${summary} — waiting for the window to reset (commit kept)" | tee -a "$MASTER_LOG"
+  wait_for_plan_quota "codex plan quota: ${summary}"
 }
 
 # Parse one iteration raw stream; update TOKENS_USED / missing-usage streak.
@@ -974,7 +1055,16 @@ run_agent_iteration() {
   local iter_raw="$2"
   shift 2
   echo "$(date -Iseconds) === agent exec starting ===" | tee -a "$MASTER_LOG"
-  if [[ "$USE_CLAUDE" == "1" ]]; then
+  if [[ "$USE_CODEX" == "1" ]]; then
+    local err_file="${iter_raw%.raw}.err"
+    # exec JSONL omits the prompt/model. Preserve those as observer-compatible
+    # metadata and receive times for timing cards. Read prompt from stdin so large
+    # continue/audit overlays do not hit the OS argument-size limit.
+    (
+      run_with_timeout "$@" <"$iter_prompt" \
+        | node "$ROOT/scripts/codex-loop-stream.mjs" "$MODEL" "$iter_prompt"
+    ) >"$iter_raw" 2>"$err_file" &
+  elif [[ "$USE_CLAUDE" == "1" ]]; then
     local err_file="${iter_raw%.raw}.err"
     run_with_timeout "$@" >"$iter_raw" 2>"$err_file" &
   else
@@ -992,10 +1082,10 @@ run_agent_iteration() {
     kill "$prog_pid" 2>/dev/null || true
     wait "$prog_pid" 2>/dev/null || true
   fi
-  if [[ "$USE_CLAUDE" == "1" ]]; then
+  if [[ "$USE_CLAUDE" == "1" || "$USE_CODEX" == "1" ]]; then
     local err_file="${iter_raw%.raw}.err"
     if [[ -s "$err_file" ]]; then
-      echo "$(date -Iseconds) note: Claude stderr → $err_file ($(wc -c <"$err_file" | tr -d '[:space:]') bytes)" \
+      echo "$(date -Iseconds) note: agent stderr → $err_file ($(wc -c <"$err_file" | tr -d '[:space:]') bytes)" \
         | tee -a "$MASTER_LOG"
     fi
   fi
@@ -1375,7 +1465,10 @@ agent_exit_hint() {
   local err="${raw%.raw}.err"
   if [[ "$st" -eq 124 ]]; then
     echo " timeout"
-  elif rg -q "out of usage|ActionRequiredError|usage limit|payment_gate|token_budget_exceeded|rate_limit|hit your limit|You've hit your limit|weekly limit" "$raw" "$log" "$err" 2>/dev/null; then
+  # Shared quota pattern (intentionally case-insensitive and broad): Cursor,
+  # Muse, Claude, and Codex terms all match. Only consulted on nonzero exit
+  # with no commit, so a passing run that merely mentions "rate limit" is safe.
+  elif rg -qi "out of usage|ActionRequiredError|usage limit|payment_gate|token_budget_exceeded|rate_limit|rate limit|hit your limit|You've hit your limit|weekly limit|insufficient_quota|quota exceeded" "$raw" "$log" "$err" 2>/dev/null; then
     # Provider plan quota (Cursor "You're out of usage", Claude Pro "hit your
     # limit"): retrying now just dies again; keep leftover + latch and stop.
     echo " quota"
@@ -1574,6 +1667,8 @@ plan_quota_blocked() {
     json="$(MUSE_BIN="${MUSE_BIN:-${AGENT_BIN:-muse}}" node "$MUSE_PLAN_USAGE" 2>/dev/null)"
   elif [[ "$USE_CLAUDE" == "1" && -f "$CLAUDE_PLAN_USAGE" && "${CLAUDE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
     json="$(CLAUDE_BIN="${CLAUDE_BIN:-${AGENT_BIN:-claude}}" node "$CLAUDE_PLAN_USAGE" 2>/dev/null)"
+  elif [[ "$USE_CODEX" == "1" && -f "$CODEX_PLAN_USAGE" && "${CODEX_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
+    json="$(CODEX_BIN="$AGENT_BIN" node "$CODEX_PLAN_USAGE" 2>/dev/null)"
   fi
   set -e
   [[ -n "$json" ]] || return 1
@@ -1612,7 +1707,10 @@ fi
 if [[ "$USE_CLAUDE" == "1" ]]; then
   echo "claude: 1  (print stream-json, effort=${CLAUDE_EFFORT})"
 fi
-echo "model:  $MODEL"
+if [[ "$USE_CODEX" == "1" ]]; then
+  echo "codex:  1  (exec --json, reasoning-effort=${CODEX_REASONING_EFFORT})"
+fi
+echo "model:  ${MODEL:-Codex configured default}"
 echo "trust:  ${AGENT_TRUST:-1}"
 echo "force:  ${AGENT_FORCE:-0}"
 echo "format: $OUTPUT_FORMAT"
@@ -1623,6 +1721,8 @@ if [[ "${AGENT_FORCE:-0}" != "1" ]]; then
   elif [[ "$USE_CLAUDE" == "1" ]]; then
     echo "note:   AGENT_FORCE=0 — Claude --permission-mode auto; prompts are denied."
     echo "        Use AGENT_FORCE=1 after checkpointing if the agent must run scorers."
+  elif [[ "$USE_CODEX" == "1" ]]; then
+    echo "note:   AGENT_FORCE=0 — Codex sandbox=${CODEX_SANDBOX}; approval_policy=never."
   else
     echo "note:   AGENT_FORCE=0 — headless Shell/tool approvals are auto-denied (no interactive prompt)."
     echo "        Use AGENT_FORCE=1 after checkpointing if the agent must run scorers."
@@ -1643,6 +1743,9 @@ if [[ "$USE_MUSE" == "1" && "${MUSE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
 fi
 if [[ "$USE_CLAUDE" == "1" && "${CLAUDE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
   echo "plan:   after a finished iter, stop if session >= ${CLAUDE_PLAN_WINDOW_STOP_PCT:-70}% or weekly >= ${CLAUDE_PLAN_WEEKLY_STOP_PCT:-95}% (claude -p /usage)"
+fi
+if [[ "$USE_CODEX" == "1" && "${CODEX_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
+  echo "plan:   after a finished iter, wait if window >= ${CODEX_PLAN_WINDOW_STOP_PCT:-90}% or weekly >= ${CODEX_PLAN_WEEKLY_STOP_PCT:-95}% (Codex account/rateLimits/read)"
 fi
 echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
 echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
@@ -1719,6 +1822,7 @@ while true; do
   if (( RAN_AGENT_THIS_RUN )); then
     exit_if_muse_plan_quota
     exit_if_claude_plan_quota
+    exit_if_codex_plan_quota
   fi
 
   iter=$((iter + 1))
@@ -1753,6 +1857,8 @@ while true; do
   elif [[ "$USE_CLAUDE" == "1" ]]; then
     echo "cli: $AGENT_BIN -p --output-format stream-json --verbose --model $MODEL --effort $CLAUDE_EFFORT ${CLAUDE_EXTRA[*]+${CLAUDE_EXTRA[*]}}" \
       | tee -a "$MASTER_LOG"
+  elif [[ "$USE_CODEX" == "1" ]]; then
+    printf 'cli: %s\n' "${CODEX_CMD[*]} < $iter_prompt" | tee -a "$MASTER_LOG"
   else
     echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
       | tee -a "$MASTER_LOG"
@@ -1879,6 +1985,9 @@ while true; do
     claude_cmd+=(${CLAUDE_EXTRA[@]+"${CLAUDE_EXTRA[@]}"})
     claude_cmd+=(-- "$prompt_body")
     run_agent_iteration "$iter" "$iter_raw" "${claude_cmd[@]}"
+  elif [[ "$USE_CODEX" == "1" ]]; then
+    printf '%s' "$prompt_body" >"$iter_prompt"
+    run_agent_iteration "$iter" "$iter_raw" "${CODEX_CMD[@]}"
   else
     run_agent_iteration "$iter" "$iter_raw" \
       "$AGENT_BIN" -p \

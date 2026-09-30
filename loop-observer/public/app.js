@@ -627,11 +627,16 @@ function renderDiff(msg) {
   const lines = r.lines || [];
   const collapsed = lines.length > DIFF_PREVIEW;
   appendDiffLines(body, collapsed ? lines.slice(0, DIFF_PREVIEW) : lines, ext);
-  if (!lines.length && msg.detail) {
-    const dl = document.createElement("div");
-    dl.className = "dl ctx";
-    dl.textContent = msg.detail;
-    body.appendChild(dl);
+  if (!lines.length) {
+    // Path-only changes (Codex exec versions without patch diffs): show the
+    // kind + path preview when present, else the card detail (the path).
+    const text = r.preview || msg.detail;
+    if (text) {
+      const dl = document.createElement("div");
+      dl.className = "dl ctx";
+      dl.textContent = text;
+      body.appendChild(dl);
+    }
   }
   card.append(head, body);
   if (collapsed && !r.truncated) {

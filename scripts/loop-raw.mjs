@@ -1,6 +1,6 @@
 /**
- * Cursor stream-json, Muse exec --json, and Claude Code `-p --output-format
- * stream-json` share one .raw NDJSON file per iteration. Muse and Claude
+ * Cursor stream-json, Muse/Codex exec --json, and Claude Code `-p --output-format
+ * stream-json` share one .raw NDJSON file per iteration. Muse, Codex and Claude
  * records are folded into Cursor-shaped events the observer, usage meter,
  * resume brief, and nav report already understand. Cursor lines pass through
  * unchanged.
@@ -65,6 +65,143 @@ export function isMuseRecord(ev) {
   if (!ev || typeof ev !== "object") return false;
   if (typeof ev.payload_type === "string") return true;
   return ev.schema_version === 1 && ev.payload != null && typeof ev.payload === "object" && ev.type == null;
+}
+
+/** Codex exec JSONL (not app-server or on-disk rollout records).
+ * Unknown top-level types pass through as Cursor events and are ignored by
+ * the observer; unknown item.* payloads get a generic tool card below. */
+export function isCodexRecord(ev) {
+  return !!ev && typeof ev === "object" &&
+    (/^(thread\.started|turn\.(started|completed|failed)|item\.(started|updated|completed))$/.test(ev.type) ||
+      (ev.type === "error" && typeof ev.message === "string" && !ev.uuid && !ev.session_id));
+}
+
+export function codexUsage(u) {
+  if (!u || typeof u.input_tokens !== "number" || typeof u.output_tokens !== "number" ||
+      !Number.isFinite(u.input_tokens) || !Number.isFinite(u.output_tokens)) return null;
+  const breakdown = { inputTokens: u.input_tokens, outputTokens: u.output_tokens };
+  if (Number.isFinite(u.cached_input_tokens)) breakdown.cachedInputTokens = u.cached_input_tokens;
+  if (Number.isFinite(u.cache_write_input_tokens)) breakdown.cacheWriteTokens = u.cache_write_input_tokens;
+  if (Number.isFinite(u.reasoning_output_tokens)) breakdown.reasoningOutputTokens = u.reasoning_output_tokens;
+  // Cached input, cache-write input, and reasoning output are subsets, not additional billable tokens.
+  return { found: true, total: u.input_tokens + u.output_tokens, breakdown };
+}
+
+export function createCodexNormalizer() {
+  const items = new Map();
+  const started = new Set();
+  const textSeen = new Map();
+  let sessionId = null;
+  let errorSeq = 0;
+  let turnStartedAt;
+  const textEvent = (text, id) => ({
+    type: "assistant", model_call_id: id,
+    message: { content: [{ type: "text", text }] },
+  });
+  // Exec flattens reasoning to `text`, but app-server uses summary/content
+  // arrays; accept all so a shape change yields text, not empty cards.
+  const itemText = (item) => {
+    if (typeof item?.text === "string" && item.text) return item.text;
+    if (typeof item?.summary === "string" && item.summary) return item.summary;
+    if (Array.isArray(item?.summary)) return item.summary.map((s) => typeof s === "string" ? s : s?.text || "").filter(Boolean).join("\n");
+    if (typeof item?.content === "string") return item.content;
+    if (Array.isArray(item?.content)) return item.content.map((c) => typeof c === "string" ? c : c?.text || "").filter(Boolean).join("\n");
+    return "";
+  };
+
+  function normalize(ev) {
+    const out = [];
+    // Same timestamp shape as Claude (timestamp_ms/timestampMs/timestamp);
+    // reused deliberately instead of a second parser.
+    const timestamp_ms = claudeTimestampMs(ev);
+    if (ev.type === "thread.started") {
+      sessionId = ev.thread_id;
+      out.push({ type: "system", subtype: "init", session_id: sessionId, model: ev.model });
+    } else if (ev.type === "turn.started") {
+      turnStartedAt = timestamp_ms;
+    } else if (ev.type === "turn.completed" || ev.type === "turn.failed") {
+      out.push({ type: "thinking", subtype: "completed" });
+      const failed = ev.type === "turn.failed";
+      const error = ev.error?.message || ev.error || "Codex turn failed";
+      if (failed) out.push(textEvent(String(error), `codex-failure-${++errorSeq}`));
+      out.push({ type: "result", subtype: failed ? "error" : "success", is_error: failed,
+        result: failed ? String(error) : "", error: failed ? String(error) : undefined,
+        duration_ms: ev.duration_ms ?? (timestamp_ms != null && turnStartedAt != null ? timestamp_ms - turnStartedAt : undefined) });
+    } else if (ev.type === "error") {
+      // A stream error may be a reconnect attempt; only turn.failed ends the turn.
+      out.push(textEvent(`Codex error: ${ev.message}`, `codex-error-${++errorSeq}`));
+    } else if (/^item\./.test(ev.type) && ev.item?.id) {
+      const item = { ...items.get(ev.item.id), ...ev.item };
+      items.set(item.id, item);
+      const done = ev.type === "item.completed";
+      if (item.type === "agent_message" || item.type === "reasoning") {
+        const text = String(itemText(item) || "");
+        const prev = textSeen.get(item.id) || "";
+        if (item.type === "reasoning") {
+          if (text && text !== prev) {
+            if (prev && !text.startsWith(prev)) out.push({ type: "thinking", subtype: "completed" });
+            out.push({ type: "thinking", subtype: "delta", text: text.startsWith(prev) ? text.slice(prev.length) : text });
+          }
+          if (done) out.push({ type: "thinking", subtype: "completed" });
+        } else if (done || (prev && !text.startsWith(prev))) {
+          if (text) out.push(textEvent(text, item.id));
+        } else if (text !== prev) {
+          out.push({ ...textEvent(text.slice(prev.length), item.id), subtype: "delta" });
+        }
+        textSeen.set(item.id, text);
+      } else if (item.type === "error") {
+        if (done) out.push(textEvent(`Codex error: ${item.message || item.text || "unknown error"}`, item.id));
+      } else {
+        const tool = (id, kind, args, result) => {
+          if (!started.has(id)) {
+            started.add(id);
+            out.push({ type: "tool_call", subtype: "started", call_id: id,
+              tool_call: { [`${kind}ToolCall`]: { args } } });
+          }
+          if (done) out.push({ type: "tool_call", subtype: "completed", call_id: id,
+            tool_call: { [`${kind}ToolCall`]: { args, result } } });
+        };
+        const failure = item.status === "failed" || item.status === "declined";
+        if (item.type === "command_execution") {
+          const output = item.aggregated_output || "";
+          const exitCode = item.exit_code ?? (failure ? 1 : 0);
+          const result = failure && item.exit_code == null
+            ? { failure: { message: output || item.error?.message || "command failed" } }
+            : { success: { stdout: output, exitCode } };
+          tool(item.id, "shell", { command: item.command || "" }, result);
+        } else if (item.type === "file_change") {
+          for (const [index, change] of (item.changes || []).entries()) {
+            const changeKind = change?.kind ?? change?.type ?? "update";
+            const kind = changeKind === "add" ? "write" : changeKind === "delete" ? "delete" : "edit";
+            const diff = change?.diff ?? change?.unified_diff ?? change?.patch;
+            tool(`${item.id}-${index}`, kind, { path: change?.path }, failure
+              ? { failure: { message: item.error?.message || "patch failed" } }
+              : { success: { path: change?.path, diffString: diff, preview: `${changeKind || "update"}: ${change?.path}` } });
+          }
+        } else if (item.type === "mcp_tool_call") {
+          tool(item.id, "callMcp", { server: item.server, tool: item.tool, ...parseArgs(item.arguments) },
+            failure || item.error ? { failure: { message: item.error?.message || String(item.error || "MCP call failed") } }
+              : { success: item.result || {} });
+        } else if (item.type === "web_search") {
+          tool(item.id, "webSearch", { query: item.query }, { success: { query: item.query } });
+        } else if (item.type === "todo_list") {
+          tool(item.id, "updateTodos", { todos: item.items || [] }, { success: { todos: item.items || [] } });
+        } else if (item.type === "collab_tool_call") {
+          tool(item.id, "task", { tool: item.tool, prompt: item.prompt, agents: item.agents },
+            failure ? { failure: { message: "agent task failed" } } : { success: { agents: item.agents } });
+        } else {
+          // Future/unknown item types must stay visible (observer, brief,
+          // nav counts) rather than silently dropped.
+          const preview = (() => { try { return JSON.stringify(item).slice(0, 2000); } catch { return String(item?.type || "unknown"); } })();
+          tool(item.id, "tool", { type: item.type || "unknown" }, failure
+            ? { failure: { message: item.error?.message || preview } }
+            : { success: { preview } });
+        }
+      }
+    }
+    return out.map((one) => ({ ...one, timestamp_ms }));
+  }
+  return { normalize, sessionId: () => sessionId };
 }
 
 /** Claude Code print-mode stream-json (not Cursor, not Muse). */
@@ -1260,12 +1397,22 @@ function sumMuseSteps(steps) {
 export function createUsageFold() {
   return {
     cursorUsage: null,
+    codexUsage: null,
     museAcc: { cumulative: null, usage: null, completed: [], attributions: [] },
   };
 }
 
 export function foldUsageEvent(fold, ev) {
   if (!fold || !ev || typeof ev !== "object") return;
+  if (ev.type === "turn.completed" && isCodexRecord(ev)) {
+    const u = codexUsage(ev.usage);
+    if (u) {
+      const acc = fold.codexUsage || (fold.codexUsage = { found: true, total: 0, breakdown: {} });
+      acc.total += u.total;
+      for (const [k, v] of Object.entries(u.breakdown)) acc.breakdown[k] = (acc.breakdown[k] || 0) + v;
+    }
+    return;
+  }
   if (ev.type === "result" && ev.usage && typeof ev.usage === "object") {
     fold.cursorUsage = isClaudeRecord(ev) ? claudeUsage(ev.usage) || ev.usage : ev.usage;
   }
@@ -1290,6 +1437,7 @@ export function foldUsageEvent(fold, ev) {
 
 export function usageFromFold(fold) {
   if (!fold) return { found: false, total: 0, breakdown: {} };
+  if (fold.codexUsage) return fold.codexUsage;
   const { cursorUsage, museAcc } = fold;
   if (cursorUsage) {
     const breakdown = filterNumeric(cursorUsage);
@@ -1345,6 +1493,7 @@ export function extractUsageFromPath(filePath) {
 export function parseRawText(text) {
   const muse = createNormalizer();
   const claude = createClaudeNormalizer();
+  const codex = createCodexNormalizer();
   const events = [];
   const stray = [];
   for (const line of String(text).split(/\r?\n/)) {
@@ -1358,6 +1507,7 @@ export function parseRawText(text) {
     }
     if (!ev || typeof ev !== "object") continue;
     if (isMuseRecord(ev)) events.push(...muse.normalize(ev));
+    else if (isCodexRecord(ev)) events.push(...codex.normalize(ev));
     else if (isClaudeRecord(ev)) events.push(...claude.normalize(ev));
     else events.push(ev);
   }

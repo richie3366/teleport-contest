@@ -1,14 +1,16 @@
 /**
  * Incremental Cursor stream-json → conversation messages.
- * Muse `exec --json` and Claude Code print stream-json are normalized
+ * Muse/Codex `exec --json` and Claude Code print stream-json are normalized
  * first (scripts/loop-raw.mjs). Thinking deltas are coalesced; tool
  * started/completed share one card.
  */
 import {
   isMuseRecord,
   isClaudeRecord,
+  isCodexRecord,
   createNormalizer,
   createClaudeNormalizer,
+  createCodexNormalizer,
   createUsageFold,
   foldUsageEvent,
   usageFromFold,
@@ -28,6 +30,7 @@ export function createTranscript() {
     seq: 0,
     muse: createNormalizer(),
     claude: createClaudeNormalizer(),
+    codex: createCodexNormalizer(),
     usageFold: createUsageFold(),
   };
 }
@@ -63,6 +66,7 @@ export function resetTranscript(state, metaPatch = {}) {
   state.seq = 0;
   state.muse = createNormalizer();
   state.claude = createClaudeNormalizer();
+  state.codex = createCodexNormalizer();
   state.usageFold = createUsageFold();
 }
 
@@ -86,6 +90,8 @@ export function applyNdjsonChunk(state, text) {
     if (billed.found) state.meta.usage = { total: billed.total, breakdown: billed.breakdown };
     const batch = isMuseRecord(ev)
       ? (state.muse || (state.muse = createNormalizer())).normalize(ev)
+      : isCodexRecord(ev)
+        ? (state.codex || (state.codex = createCodexNormalizer())).normalize(ev)
       : isClaudeRecord(ev)
         ? (state.claude || (state.claude = createClaudeNormalizer())).normalize(ev)
         : [ev];
@@ -532,6 +538,9 @@ function summarizeResult(camel, result) {
             error: null,
           };
         }
+        if (ok.linesAdded == null && ok.linesRemoved == null && !ok.diffString && !ok.afterFullFileContent) {
+          return { result: { path: ok.path && shortPath(ok.path), preview: ok.preview ? clip(String(ok.preview), PREVIEW) : undefined }, error: null };
+        }
       }
       return {
         result: {
@@ -540,6 +549,7 @@ function summarizeResult(camel, result) {
           lines: diff.lines,
           truncated: diff.truncated,
           path: ok.path && shortPath(ok.path),
+          preview: ok.preview ? clip(String(ok.preview), PREVIEW) : undefined,
         },
         error: null,
       };

@@ -1,7 +1,7 @@
 # Agent port loop (fail-closed unattended)
 
-Repeatedly asks Cursor Agent CLI, Muse (`--muse`), or Claude Code
-(`--claude`) to continue the
+Repeatedly asks Cursor Agent CLI, Muse (`--muse`), Claude Code
+(`--claude`), or Codex (`--codex`) to continue the
 NetHack JS port. The
 shell is the **gate**: agents **commit and `git push`** inside the
 iteration. Density overflow, protected-file edits, empty ports (unless an
@@ -42,6 +42,11 @@ AGENT_FORCE=1 ./scripts/agent-port-loop.sh --muse --token-budget-m 50
 
 # Same loop, Claude Code (Opus 5, --effort high). Mutually exclusive with --muse.
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --claude --token-budget-m 50
+
+# Same loop, Codex (configured model, high reasoning; selectors are exclusive).
+./scripts/agent-port-loop.sh --codex --token-budget-m 50
+# Match the other providers' force mode when needed for scorers/git push:
+AGENT_FORCE=1 ./scripts/agent-port-loop.sh --codex --token-budget-m 50
 
 # Retry a cadence slot that crashed before commit (next iter = n+1).
 # Example: failed audit #1465 → treat last completed as 1464.
@@ -112,7 +117,19 @@ Claude (`--claude`): default slug `claude-opus-5` at `--effort high`
 (`CLAUDE_EFFORT` override: `low|medium|high|xhigh|max`). The loop **must**
 pass `--model` — `~/.claude/settings.json` may default to another alias
 (e.g. Fable) and would otherwise ignore the table below. `MODEL=` still
-overrides the slug. Mutually exclusive with `--muse`.
+overrides the slug. Mutually exclusive with `--muse` / `--codex`.
+
+Codex (`--codex` or `LOOP_CODEX=1`): uses the configured Codex model unless
+`MODEL` is set. `CODEX_REASONING_EFFORT` defaults to `high`; accepted values
+are `none|minimal|low|medium|high|xhigh|max` (choose one supported by your model).
+`CODEX_PROFILE` selects a CLI profile. Without force, `CODEX_SANDBOX` defaults
+to `workspace-write` and `approval_policy="never"` prevents interactive
+approval prompts. `AGENT_FORCE=1` maps to
+`--dangerously-bypass-approvals-and-sandbox`. `AGENT_TRUST` does not apply.
+`--codex`, `--muse`, and `--claude`, including their environment equivalents,
+are mutually exclusive. The same cadence, timeout, STOP, one-shot prompt,
+continue-unfinished, gates, commit/push, and token-budget options apply.
+Prompts go through stdin to accommodate large resume/audit overlays.
 
 Override (Cursor):
 
@@ -277,11 +294,18 @@ Optional **per supervisor run** (not saved across launches):
   on-disk `session.jsonl` and **sums** every `model_completed` step
   (input + output + reasoning; cache fields are already inside input).
   `MUSE_NO_SESSION_LOG=1` cannot meter a budget.
+- Codex sums `turn.completed.usage.input_tokens + output_tokens` across
+  turns. `cached_input_tokens`, `cache_write_input_tokens`, and
+  `reasoning_output_tokens` are subsets, shown in the breakdown without
+  adding them twice. Usage is available
+  on stdout even with `CODEX_NO_SESSION_LOG=1` (`--ephemeral`). A killed or
+  failed turn may omit usage; it follows the existing missing-usage path.
 - The current iteration always finishes; if the cumulative total is then over
   budget, the loop exits before starting another.
 - Requires Cursor `stream-json` (or `json`), Claude `--output-format
   stream-json` (always on with `--claude`), or Muse `--json` (always on
-  with `--muse`); the script overrides other Cursor formats when a budget is set.
+  with `--muse`), or Codex `--json` (always on with `--codex`); the script
+  overrides other Cursor formats when a budget is set.
 - Three consecutive iterations with **no** usage in the stream → halt (exit 1).
 
 ### Muse plan usage (`--muse` only)
@@ -331,6 +355,34 @@ node scripts/claude-plan-usage.mjs   # {"ok":true,"windowUsedPercent":0,"weeklyU
 - Needs a logged-in Claude (`claude auth status`).
 - Mid-iter “hit your limit” still halts at once (`.raw` / `.err` grep);
   this check is the early stop *before* the next iter.
+
+### Codex plan usage (`--codex` only)
+
+After a finished iteration, `scripts/codex-plan-usage.mjs` starts
+`codex app-server` over stdio, initializes the connection, and reads
+`account/rateLimits/read`. This reads the logged-in account without starting
+a model turn. It prefers the `codex` bucket when multiple buckets are present.
+The protocol is described in the [official OpenAI documentation](https://developers.openai.com/codex/app-server#account-endpoints).
+`primary` is the short window (`windowDurationMins: 300`, 5h) and `secondary`
+is the weekly window (`windowDurationMins: 10080`), verified against a live
+`plus` account; the probe reports both durations alongside the percents.
+
+```bash
+node scripts/codex-plan-usage.mjs
+```
+
+- Window ≥ 90% or weekly ≥ 95% enters the existing quota wait/re-probe loop;
+  commits and unfinished work stay in place. Override with
+  `CODEX_PLAN_WINDOW_STOP_PCT` / `CODEX_PLAN_WEEKLY_STOP_PCT`.
+- Set `CODEX_PLAN_USAGE_SKIP=1` to disable probing. API-key accounts may
+  have no ChatGPT plan windows; missing windows or probe failures warn
+  and continue. A missing secondary window is reported as unavailable.
+- `CODEX_BIN` also selects the probe binary; `CODEX_PLAN_USAGE_TIMEOUT_SEC`
+  defaults to 30 seconds. `CODEX_PROFILE` applies to exec; account probing
+  uses the login stored under the same `CODEX_HOME`.
+- Quota errors in `.raw` or `.err` arm the usual continue latch, then wait
+  and retry in the current supervisor. `LOOP_QUOTA_POLL_SEC` and
+  `LOOP_QUOTA_WAIT_MAX_SEC` apply.
 
 ### Why a stop file (not Ctrl-C only)
 
@@ -383,11 +435,12 @@ Under `.agent-port-loop-logs/` (gitignored):
 - `iter-NNNN-<stamp>.log` — human-readable extract per iteration (`NNNN` is
   global and monotonic across restarts)
 - `iter-NNNN-<stamp>.raw` — full CLI stdout (`stream-json`, Claude
-  stream-json, or Muse `exec --json`)
-- `iter-NNNN-<stamp>.err` — Claude stderr only (`--claude`; mixing it
+  stream-json, or Muse/Codex `exec --json`). Codex includes prompt/model
+  metadata and receive-time `timestamp_ms` for observer timing cards.
+- `iter-NNNN-<stamp>.err` — Claude/Codex stderr (`--claude` / `--codex`; mixing it
   into `.raw` would break the observer)
 - `iter-NNNN-<stamp>.prompt.md` — prompt body actually sent (Muse /
-  Claude; Cursor still passes the prompt as a CLI argument)
+  Claude / Codex; Cursor still passes the prompt as a CLI argument)
 - `last-halt-reason.txt` — why the supervisor stopped itself
 - `iteration-count` — total claimed global iterations (survives restarts).
   Bootstraps from the **count** of `iter-*.log` files if higher than the
@@ -408,12 +461,23 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 | Variable | Default | Meaning |
 |----------|---------|---------|
-| `MODEL` | `cursor-grok-4.6-xhigh` (Cursor) / `muse-spark-1.3-contributor` (`--muse`) / `claude-opus-5` (`--claude`) | Agent model slug |
-| `AGENT_BIN` | `cursor-agent` or `agent` | Cursor CLI binary (ignored with `--muse` / `--claude`) |
+| `MODEL` | `cursor-grok-4.6-xhigh` (Cursor) / `muse-spark-1.3-contributor` (`--muse`) / `claude-opus-5` (`--claude`) / configured Codex model (`--codex`) | Agent model slug |
+| `AGENT_BIN` | `cursor-agent` or `agent` | Cursor CLI binary (ignored with `--muse` / `--claude` / `--codex`) |
 | `--muse` (CLI) | unset | Use `muse exec --json` instead of cursor-agent |
 | `LOOP_MUSE` | `0` | Same as `--muse` |
-| `--claude` (CLI) | unset | Use `claude -p --output-format stream-json` instead of cursor-agent (xor `--muse`) |
+| `--claude` (CLI) | unset | Use `claude -p --output-format stream-json` instead of cursor-agent (xor `--muse` / `--codex`) |
 | `LOOP_CLAUDE` | `0` | Same as `--claude` |
+| `--codex` (CLI) | unset | Use `codex exec --json`; exclusive with `--muse` / `--claude` |
+| `LOOP_CODEX` | `0` | Same as `--codex` |
+| `CODEX_BIN` | `codex` | Codex CLI binary for exec and account probes |
+| `CODEX_REASONING_EFFORT` | `high` | `model_reasoning_effort` override (none, minimal, low, medium, high, xhigh, max) |
+| `CODEX_PROFILE` | unset | Codex exec config profile |
+| `CODEX_SANDBOX` | `workspace-write` | Sandbox without force: read-only, workspace-write, danger-full-access |
+| `CODEX_NO_SESSION_LOG` | `0` | Set `1` to pass `--ephemeral`; observer and budget still use `.raw` |
+| `CODEX_PLAN_WINDOW_STOP_PCT` | `90` | Enter quota wait when primary window usage reaches this % |
+| `CODEX_PLAN_WEEKLY_STOP_PCT` | `95` | Enter quota wait when secondary window usage reaches this % |
+| `CODEX_PLAN_USAGE_SKIP` | `0` | Set `1` to disable the account rate-limit probe |
+| `CODEX_PLAN_USAGE_TIMEOUT_SEC` | `30` | Timeout for the app-server account probe |
 | `MUSE_BIN` | `muse` | Muse CLI binary |
 | `MUSE_REASONING_EFFORT` | `xhigh` | Muse `--reasoning-effort` (none…ultra) |
 | `MUSE_NO_SESSION_LOG` | `0` | Set `1` to pass `--no-session-log` (`.raw` remains the loop log) |
@@ -430,9 +494,9 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `CLAUDE_PLAN_WEEKLY_STOP_PCT` | `95` | `--claude`: stop after a finished iter when weekly usage is ≥ this % |
 | `CLAUDE_PLAN_USAGE_SKIP` | `0` | Set `1` to disable the post-iter `claude -p /usage` probe |
 | `CLAUDE_PLAN_USAGE_TIMEOUT_SEC` | `30` | Cap for the print-mode `/usage` helper |
-| `AGENT_TRUST` | `1` | Cursor: `--trust`. Muse without `--yolo`: `--trust-workspace`. Unused for Claude `-p`. |
-| `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo`. Claude: `--dangerously-skip-permissions --permission-mode bypassPermissions` |
-| `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` always uses `--json`; `--claude` always uses `stream-json` |
+| `AGENT_TRUST` | `1` | Cursor: `--trust`. Muse without `--yolo`: `--trust-workspace`. Unused for Claude/Codex. |
+| `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo`. Claude: `--dangerously-skip-permissions --permission-mode bypassPermissions`. Codex: `--dangerously-bypass-approvals-and-sandbox` |
+| `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` / `--codex` always use `--json`; `--claude` always uses `stream-json` |
 | `ITERATION_TIMEOUT_SEC` | `5400` | Kill an overlong agent run (then **retry** as continue-unfinished, same as crash-before-commit). 3600 before the 2026-09-18 breadth phase |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
@@ -470,7 +534,12 @@ stream. For `--muse`, the observer follows the on-disk Muse
 `session.jsonl` (thoughts + tool args) once the session id is known;
 stdout `.raw` is the fallback. For `--claude`, it stays on stdout `.raw`
 (tool names, args, thinking deltas with `--include-partial-messages`);
-it does **not** tail `~/.claude/projects/`. Zero-dep; localhost only.
+it does **not** tail `~/.claude/projects/`. Codex stays on `.raw` too,
+rendering reasoning summaries, assistant messages, shell commands/output,
+changed files, MCP/search/todo tools, token usage, and success/failure.
+Receive timestamps support timing cards. Exec versions that omit patch
+diffs still show the changed file paths; supplied diffs render normally.
+Zero-dep; localhost only.
 Full usage: `loop-observer/README.md`.
 
 ```bash
@@ -486,9 +555,9 @@ Halt reason is still `last-halt-reason.txt`.
 
 ## Operator checklist
 
-1. `agent login` (once) so `--list-models` / runs work. For `--muse`: `muse login`. For `--claude`: `claude auth status` (claude.ai / Pro is enough; do not use `--bare`, which needs `ANTHROPIC_API_KEY`).
+1. `agent login` (once) so `--list-models` / runs work. For `--muse`: `muse login`. For `--claude`: `claude auth status` (claude.ai / Pro is enough; do not use `--bare`, which needs `ANTHROPIC_API_KEY`). For `--codex`: `codex login`.
 2. Clean committed tree (or continue-unfinished leftover). Queue below 8 open items is refilled in-loop.
-3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh` — or add `--muse` / `--claude`.
+3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh` — or add `--muse` / `--claude` / `--codex`.
 4. Watch the live tee, or `npm run observe-loop` (see **Loop observer**
    above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
@@ -508,7 +577,8 @@ Halt reason is still `last-halt-reason.txt`.
 | `neither cursor-agent nor agent found` | Install CLI / fix PATH |
 | `muse binary not found` | Install Muse / fix PATH, or set `MUSE_BIN` |
 | `claude binary not found` | Install Claude Code / fix PATH, or set `CLAUDE_BIN` |
-| Auth errors | `agent login` (Cursor), `muse login` (Muse), or `claude auth status` (Claude) |
+| `codex binary not found` | Install Codex CLI / fix PATH, or set `CODEX_BIN` |
+| Auth errors | `agent login` (Cursor), `muse login` (Muse), `claude auth status` (Claude), or `codex login` (Codex) |
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
 | banned-pattern (DIAG/FORCE/seed gate) | **Continue** (unpushed → revert this iter; already pushed → heal prompt, next iter strips hits). Does **not** write STOP |
 | density / protected | **Self-heal + continue** (2026-09-16): density → the iteration is undone (`git reset --hard` if unpushed, forward `git revert` + push if pushed) and the next port iteration gets a "split the cluster" overlay; protected authority/fixture files → restored from `before_head` (commit + push when needed), "do not edit" overlay, `authority_streak` — 3 in a row still halts. Halt only when the pushed revert conflicts |
