@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3140 — `do_wear.c` takeoff pair (dotakeoff uskin/ECMD_CANCEL + wornarm_destroyed cancel_don/live-useup)
+
+- **Status:** fixed (breadth-phase cluster: head `dotakeoff` + the only same-file Open row `wornarm_destroyed`; 0 corpus sessions blocked on either — coverage completion, not a divergence. Small by lines (+41/−40 js/) because both bodies were near-complete and every callee was already live; the head's file and both callee closures hold nothing more Open.)
+- **Symptom:** none on the corpus — `T` with merged dragon scales printed "Not wearing any armor or accessories" instead of C's "The dragon scales are merged with your skin!"; `!otmp` cancel returned 0 where C returns ECMD_CANCEL; `wornarm_destroyed` skipped `cancel_don()` when donning and consumed via a drifted local `invent_useup` (no in_use clear, weight, or update_inventory) instead of the live `useup` export.
+- **C locus:**
+  - `dotakeoff`: `nethack-c/upstream/src/do_wear.c:1833–1855` (uskin arm `:1840–1844` + assert `:1839`; ECMD_OK `:1847`; ECMD_CANCEL `:1851–1852`).
+  - `wornarm_destroyed`: `do_wear.c:3144–3182` (staticfn; wornoid `:3147`; cancel_don `:3151–3155`; slot chain `:3157–3168`; o_id-guarded invent scan + useup `:3170–3182`).
+- **JS was:** `dotakeoff` at `js/do_wear.js:2075` with the uskin arm as a named omit, `return 0` on both the empty and cancel paths; `wornarm_destroyed` at `:4037` with `// cancel_don deferred` and `invent_useup` (`:4007` local clone); `rhack` 'T' arm (`js/cmd.js:5312`) read the result as boolean took-time.
+- **Fix:** `js/do_wear.js` — `dotakeoff` gains the uskin arm in C order (`game.u.uskin`, live `pline_The` already imported, `GRAY_DRAGON_SCALES` const at `:166`, assert kept as a comment), `return ECMD_OK` / `return ECMD_CANCEL` (added to the const.js import — same module, no new edge); `wornarm_destroyed` gains `if (donning(wornarm)) cancel_don()` with the C comment (both live in-file sync) and calls live `useup` (invent.js export, already imported and used at `:2988`); deleted the now-unused `invent_useup` clone; dropped the stale `cancel_don` omit from the `disintegrate_arm` doc. `js/cmd.js` — `rhack` 'T' arm now uses the `(res & ECMD_TIME)` bitmask like the 'A'/'d'/'D' siblings so ECMD_CANCEL (0x02) cannot read as took-time. No new cross-module import; Rule #2 clean; no DIAG/FORCE/seed gates.
+- **JS:** `js/do_wear.js` (+37/−37: dotakeoff `:2076`, wornarm_destroyed `:4032`); `js/cmd.js` (+4/−3: 'T' arm `:5310–5315`).
+- **Callers:**
+  - `dotakeoff`: C `ia_dotakeoff` (`:1867`) → wired (`js/do_wear.js:2114`); 'T' key + `#takeoff` extcmd → `js/cmd.js:5313` (bitmask-fixed), `:1811`/`:4682` table (generic bitmask handler `:2561–2573`), `js/getline.js:1250` (`| 0` numeric, bitmask downstream), `js/iactions.js:161–162` canned. No call from a site C never calls from.
+  - `wornarm_destroyed`: C `disintegrate_arm` (`:3249`) → wired (`js/do_wear.js:4114`, otmp provably non-null via the `:4110–4112` else-return).
+- **Verify:** `node scripts/verify.mjs --fn dotakeoff,wornarm_destroyed` → PASS syntax (2 changed: js/cmd.js js/do_wear.js) · PASS rule2 · hidden note ×2 (0 blocked — normal for coverage rows) · PASS reach ×2 (no RNG-tagged reach; fixed smoke spread 24/24 each → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS; plus full `node frozen/ps_test_runner.mjs sessions` → 44/44 (RNG + screens exact). Preflight `verify --no-cohort` before edits likewise PASS.
+- **Named omissions:**
+  - `dotakeoff`: none — whole body, every callee live (count_worn_stuff/pline_The/pline/getobj/armor_or_accessory_off).
+  - `wornarm_destroyed`: none — whole body, every callee live (donning/cancel_don/7 × *_off/useup); `if (!wornarm) return` kept as a pre-existing null guard (sole caller passes non-null); for..of + immediate break ≡ C's nextobj pre-fetch (no iteration continues past useup).
+- **Ledger:** dotakeoff ported; wornarm_destroyed ported.
+- **Next:** breadth queue continues from the regenerated block; note (not a row): sibling `doremring` has the same `!otmp → 0` shape where C `:1885–1886` returns ECMD_CANCEL — left untouched (not Open, 'R' arm still boolean-consistent).
+
 ## D-3139 — `sp_lev.c` stair/altar/grave des-binding closure (l_create_stairway gap + lspo_stair/ladder/grave/altar) + 7 stale proofs
 
 - **Status:** fixed (breadth-phase cluster: `l_create_stairway` PARTIAL row — the queue head after 7 stale pops — plus 4 same-file Open companions; 0 corpus sessions blocked on any of the 5 — coverage completion, not a divergence. 7 stale arm-verified complete in JS and ledger-marked this iteration: `get_table_montype`, `get_table_monclass`, `get_table_objclass`, `get_table_objtype`, `lspo_map`, `where_name`, `datamodel`.)

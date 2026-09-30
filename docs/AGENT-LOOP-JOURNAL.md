@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3140 `do_wear.c` takeoff pair (dotakeoff uskin/ECMD_CANCEL + wornarm_destroyed cancel_don/live-useup)
+
+**C locus:** - `dotakeoff`: `nethack-c/upstream/src/do_wear.c:1833–1855` (uskin arm `:1840–1844` + assert `:1839`; ECMD_OK `:1847`; ECMD_CANCEL `:1851–1852`).
+**JS:** `js/do_wear.js` (+37/−37: dotakeoff `:2076`, wornarm_destroyed `:4032`); `js/cmd.js` (+4/−3: 'T' arm `:5310–5315`).
+**Change:** `js/do_wear.js` — `dotakeoff` gains the uskin arm in C order (`game.u.uskin`, live `pline_The` already imported, `GRAY_DRAGON_SCALES` const at `:166`, assert kept as a comment), `return ECMD_OK` / `return ECMD_CANCEL` (added to the const.js import — same module, no new edge); `wornarm_destroyed` gains `if (donning(wornarm)) cancel_don()` with the C comment (both live in-file sync) and calls live `useup` (invent.js export, already imported and used at `:2988`); deleted the now-unused `invent_useup` clone; dropped the stale `cancel_don` omit from the `disintegrate_arm` doc. `js/cmd.js` — `rhack` 'T' arm now uses the `(res & ECMD_TIME)` bitmask like the 'A'/'d'/'D' siblings so ECMD_CANCEL (0x02) cannot read as took-time. No new cross-module import; Rule #2 clean; no DIAG/FORCE/seed gates.
+**Verify:** `node scripts/verify.mjs --fn dotakeoff,wornarm_destroyed` → PASS syntax (2 changed: js/cmd.js js/do_wear.js) · PASS rule2 · hidden note ×2 (0 blocked — normal for coverage rows) · PASS reach ×2 (no RNG-tagged reach; fixed smoke spread 24/24 each → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS; plus full `node frozen/ps_test_runner.mjs sessions` → 44/44 (RNG + screens exact). Preflight `verify --no-cohort` before edits likewise PASS.
+**Named:** - `dotakeoff`: none — whole body, every callee live (count_worn_stuff/pline_The/pline/getobj/armor_or_accessory_off).
+**Next:** breadth queue continues from the regenerated block; note (not a row): sibling `doremring` has the same `!otmp → 0` shape where C `:1885–1886` returns ECMD_CANCEL — left untouched (not Open, 'R' arm still boolean-consistent).
 ## 2026-09-30 — D-3139 `sp_lev.c` stair/altar/grave des-binding closure (l_create_stairway gap + lspo_stair/ladder/grave/altar) + 7 stale proofs
 
 **C locus:** - `l_create_stairway`: `nethack-c/upstream/src/sp_lev.c:4147–4213` (`:4159` coder guard; `:4161–4177` table/string Lua parse; `:4180–4191` RANDOM scoord + set_ok_location_func(good_stair_loc) + get_location_coord DRY + reset NULL; `:4192–4195` deltrap + SpLev_Map; `:4197–4213` ladder dest + mkstairs force).

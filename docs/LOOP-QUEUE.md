@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do_wear.c` dotakeoff — coverage PARTIAL (C 16 code L `do_wear.c:1833–1855` / JS 10 code L in js/do_wear.js; hops —, callers 1, RNG 0, msg 1) @463ffffc2
 - [ ] `attrib.c` restore_attrib — coverage MISSING (C 12 code L `attrib.c:455–484` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @f292ec32c
 - [ ] `topten.c` outheader — coverage PARTIAL (C 8 code L `topten.c:929–940` / JS 4 code L in js/topten.js; hops 4, callers 2, RNG 0, msg 0) @f292ec32c
 - [ ] `mail.c` getmailstatus — coverage THIN (C 25 code L `mail.c:97–141` / JS 8 code L in js/mail.js; hops —, callers 0, RNG 0, msg 3) @7cc43ecc2
@@ -126,7 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `strutil.c` strbuf_reserve — coverage THIN (C 11 code L `strutil.c:28–45` / JS 4 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @042bdf039
 - [ ] `iactions.c` item_naming_classification — coverage PARTIAL (C 24 code L `iactions.c:46–82` / JS 17 code L in js/iactions.js; hops 5, callers 1, RNG 0, msg 0) @042bdf039
 - [ ] `wizcmds.c` wiz_telekinesis — coverage MISSING (C 24 code L `wizcmds.c:494–528` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @042bdf039
-- [ ] `do_wear.c` wornarm_destroyed — coverage PARTIAL (C 23 code L `do_wear.c:3144–3182` / JS 14 code L in js/do_wear.js; hops 5, callers 1, RNG 0, msg 0) @042bdf039
+- [ ] `questpgr.c` find_quest_artifact — coverage PARTIAL (C 23 code L `questpgr.c:89–120` / JS 11 code L in js/quest.js; hops 5, callers 1, RNG 0, msg 0) @e5816afe0
+- [ ] `apply.c` grapple_range — coverage THIN (C 9 code L `apply.c:3686–3698` / JS 4 code L in js/apply.js; hops —, callers 2, RNG 0, msg 0) @e5816afe0
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

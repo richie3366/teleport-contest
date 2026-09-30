@@ -39,7 +39,7 @@
 {"fn":"stop_donning","c":"1688-1727","status":"ported","js":["js/do_wear.js:stop_donning"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"count_worn_stuff","c":"1733-1766","status":"unknown"}
 {"fn":"armor_or_accessory_off","c":"1771-1829","status":"unknown"}
-{"fn":"dotakeoff","c":"1833-1855","status":"unknown"}
+{"fn":"dotakeoff","c":"1833-1855","status":"ported","js":["js/do_wear.js:dotakeoff"],"d":["D-3140"],"at":"2026-09-30@e5816afe0"}
 {"fn":"ia_dotakeoff","c":"1862-1870","status":"unknown","d":["D-1934"],"at":"seed@a30a7de84"}
 {"fn":"doremring","c":"1874-1889","status":"unknown"}
 {"fn":"cursed","c":"1893-1917","status":"ported","js":["js/do_wear.js:cursed"],"d":["D-2920"],"at":"seed@a30a7de84"}
@@ -63,7 +63,7 @@
 {"fn":"doddoremarm","c":"3022-3057","status":"unknown"}
 {"fn":"remarm_swapwep","c":"3062-3087","status":"unknown"}
 {"fn":"menu_remarm","c":"3090-3138","status":"unknown","d":["D-1866","D-1630"],"at":"seed@a30a7de84"}
-{"fn":"wornarm_destroyed","c":"3144-3182","status":"unknown"}
+{"fn":"wornarm_destroyed","c":"3144-3182","status":"ported","js":["js/do_wear.js:wornarm_destroyed"],"d":["D-3140"],"at":"2026-09-30@e5816afe0"}
 {"fn":"maybe_destroy_armor","c":"3189-3197","status":"unknown"}
 {"fn":"disintegrate_arm","c":"3201-3256","status":"unknown"}
 {"fn":"obj_erode_type","c":"3260-3273","status":"unknown"}

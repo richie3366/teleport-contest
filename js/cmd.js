@@ -5309,9 +5309,10 @@ export async function rhack(key) {
         if (dropRes & ECMD_TIME) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'T') {
         // C ref: do_wear.c dotakeoff — take off armor/accessory
-        const tookTime = await dotakeoff();
-        game.context.move = tookTime ? 1 : 0;
-        if (tookTime) game.kickedloc = { x: 0, y: 0 };
+        // (ECMD bitmask: ECMD_CANCEL must not read as took-time).
+        const takeRes = await dotakeoff();
+        game.context.move = (takeRes & ECMD_TIME) ? 1 : 0;
+        if (takeRes & ECMD_TIME) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'R') {
         // C ref: do_wear.c doremring — 'R' remove accessory
         const tookTime = await doremring();
