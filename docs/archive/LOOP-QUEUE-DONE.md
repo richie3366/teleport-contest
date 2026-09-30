@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-30
 
+- [x] `worn.c` wornmask_to_armcat — coverage MISSING (C 24 code L `worn.c:218–246` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @deff666da
+
+
 - [x] `options.c` parsebindings extcmd-miss must return FALSE — JS `js/options.js` miss arm returns `ret` (TRUE on clean tail), C `options.c:7670–7671` returns FALSE after the error; committed test pins the wrong value twice (`parsebindings.test.mjs` `"a:boguscmd"`, `"mouse1:boguscmd"` → `true`). Fix arm + both pins, re-run 22/22 + neighbors. Source: reviews/loop-unattended/2111-836f908c6-parsebindings.md. **Addressed:** D-3154 `779a41942`
 
 

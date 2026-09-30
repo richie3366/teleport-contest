@@ -1,9 +1,9 @@
 {"fn":"recalc_telepat_range","c":"50-69","status":"unknown"}
 {"fn":"setworn","c":"73-145","status":"unknown","d":["D-1757"],"at":"seed@a30a7de84"}
 {"fn":"setnotworn","c":"150-184","status":"unknown"}
-{"fn":"allunworn","c":"188-201","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"allunworn","c":"188-201","status":"ported","js":["js/worn.js:allunworn"],"d":["D-3163"],"at":"2026-09-30@12c02ee30","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wearmask_to_obj","c":"206-214","status":"unknown"}
-{"fn":"wornmask_to_armcat","c":"218-246","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wornmask_to_armcat","c":"218-246","status":"ported","js":["js/worn.js:wornmask_to_armcat"],"d":["D-3163"],"at":"2026-09-30@12c02ee30","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"armcat_to_wornmask","c":"250-278","status":"unknown"}
 {"fn":"wearslot","c":"282-351","status":"ported","js":["js/worn.js:wearslot"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"check_wornmask_slots","c":"355-471","status":"ported","js":["js/worn.js:check_wornmask_slots"],"d":["D-2982"],"at":"2026-09-27@7040c7cd0"}

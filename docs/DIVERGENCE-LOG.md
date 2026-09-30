@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3163 — `worn.c` wornmask_to_armcat + allunworn (coverage)
+
+- **Status:** fixed (coverage cluster, 2 C functions whole; +55 js/worn.js — below the ~80 density line, but worn.c holds nothing more Open with a measured gap: all other rows are measured ok or declared ported).
+- **Symptom:** queue head `wornmask_to_armcat` MISSING (no JS symbol) + same-file `allunworn` absent+MISSING. No corpus session blocked on either; both draw no RNG.
+- **C locus:**
+  - `wornmask_to_armcat`: worn.c:218–246 — `cat = 0`, `switch (mask & W_ARMOR)` over the 7 armor slots, no default arm.
+  - `allunworn`: worn.c:188–201 — `u.twoweap = 0` (`:193`), then null all 16 worn[] slots (`:197–199`, table `:18–34`); owornmask untouched (objects already freed during save).
+- **JS was:** neither symbol existed in js/** (brief sym.mjs MISSING for both).
+- **Fix:** ported both whole in C order into js/worn.js next to their C neighbors (allunworn before wearmask_to_obj, wornmask_to_armcat before its inverse armcat_to_wornmask); added W_ARMOR to the existing const.js import (no new module edge).
+- **JS:** js/worn.js:308 allunworn, js/worn.js:356 wornmask_to_armcat. twoweap cleared by direct assignment (no botl, per C); slot nulls match setnotworn idiom; switch keeps C's exact-match semantics (multi-bit armor mask → 0).
+- **Callers:**
+  - `wornmask_to_armcat`: none — zero C call sites (def worn.c:218 + extern.h:3929 decl only); nothing to wire.
+  - `allunworn`: sole C caller save.c:820 savegamestate (binary NHFILE save, ledger by-design); no JS call site — named omission.
+- **Verify:**
+  - `wornmask_to_armcat`: hidden note (no corpus session blocked); REACH-OK (no RNG reach; smoke 24/24 PASS); /tmp/worn-probe.mjs: 7 slots + 0/W_WEP/multi-bit/W_ARMOR cases + armcat round-trip both directions all pass.
+  - `allunworn`: hidden note (no corpus session blocked); REACH-OK (smoke 24/24 PASS); probe: 16 slots nulled, twoweap false.
+  - Gates: syntax 1 file · Rule #2 PASS · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (worn.js not shared) → VERIFY: PASS.
+- **Named omissions:**
+  - `wornmask_to_armcat`: none — whole body, no callees, no C callers.
+  - `allunworn`: C caller savegamestate (save.c:820) — binary-save teardown, by-design in JS (JSON saves never free-then-clear).
+- **Ledger:** wornmask_to_armcat ported; allunworn ported
+- **Next:** generated Open — coverage head after refill.
+
 ## D-3162 — `options.c` optfn DEC/playmode/hilite/term/autocomplete cluster (coverage)
 
 - **Status:** fixed (coverage cluster, 8 C functions: 7 whole-body ports + 1 by-design + wiring + 25 tests; stale-walk retired 6 rows ahead of it: choose_soundlib → by-design (C `#if 0` both trees, 0 callers), vision _q1..4_path → split (whole bodies == q1..4_path locals js/vision.js:476/:500/:524/:548, wired in clear_path), is_ltgt_percentnumber → ported (whole body js/botl.js:1719, wired at C caller :2921 → js/botl.js:1882). +294/-14 js/options.js, +18 js/cmd.js, +1 test file.)

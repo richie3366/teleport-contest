@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3163 `worn.c` wornmask_to_armcat + allunworn (coverage)
+
+**C locus:** - `wornmask_to_armcat`: worn.c:218–246 — `cat = 0`, `switch (mask & W_ARMOR)` over the 7 armor slots, no default arm.
+**JS:** js/worn.js:308 allunworn, js/worn.js:356 wornmask_to_armcat. twoweap cleared by direct assignment (no botl, per C); slot nulls match setnotworn idiom; switch keeps C's exact-match semantics (multi-bit armor mask → 0).
+**Change:** ported both whole in C order into js/worn.js next to their C neighbors (allunworn before wearmask_to_obj, wornmask_to_armcat before its inverse armcat_to_wornmask); added W_ARMOR to the existing const.js import (no new module edge).
+**Verify:** - `wornmask_to_armcat`: hidden note (no corpus session blocked); REACH-OK (no RNG reach; smoke 24/24 PASS); /tmp/worn-probe.mjs: 7 slots + 0/W_WEP/multi-bit/W_ARMOR cases + armcat round-trip both directions all pass.
+**Named:** - `wornmask_to_armcat`: none — whole body, no callees, no C callers.
+**Next:** generated Open — coverage head after refill.
 ## 2026-09-30 — Audit 2114–2122 (D-3154..D-3162): 9 ACCEPT; full cadence
 
 Reviews cover the 9 js/ SHAs since 5ab8920e9 against pinned C with
