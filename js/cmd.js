@@ -8,6 +8,8 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { rn2, rn1, rnd } from './rng.js';
+import { getnow } from './calendar.js';
+import { timet_delta } from './allmain.js';
 import {
     newsym, flush_screen, pline, You, You_cant, impossible, pline_dir, pline_xy, pline_The, set_msg_xy,
     clear_nhwindow_message, tty_nhbell,
@@ -1344,6 +1346,65 @@ export async function doextlist() {
         }
     }
     return ECMD_OK;
+}
+
+/** C ref: cmd.c `:160` — `static const char cmdnotavail[]`. */
+const cmdnotavail = "'%s' command not available.";
+
+/**
+ * C ref: `(*windowprocs.win_can_suspend)()` (`cmd.c:5666`). The tty port
+ * answers `genl_can_suspend_yes` (`wintty.c:162`), but scored ESM has no
+ * suspend (no SIGTSTP in Chrome/Node ESM; Contest Rule #2), so the
+ * window system here cannot suspend and the Norep arm is live.
+ * @returns {boolean}
+ */
+function win_can_suspend() {
+    return false;
+}
+
+/**
+ * C ref: cmd.c dosuspend_core `:5661–5678` (^Z, #suspend) — in C order.
+ * SUSPEND is defined (`unixconf.h:291`), so the capability branch is
+ * live; `win_can_suspend()` is false here, taking the Norep arm
+ * (`:5676`). The suspend arm keeps C order over live `getnow` /
+ * `timet_delta` / `game.urealtime`; `dosuspend()` (`:5672`,
+ * `sys/share/ioctl.c:161`, SIGTSTP) is unportable (Rule #2) and named
+ * in the D-entry. Caller: extcmdlist `:1878` "suspend" row, wired via
+ * the getline EXT_CMDS entry.
+ * @returns {Promise<number>} ECMD_OK
+ */
+export async function dosuspend_core() {
+    if (win_can_suspend()) { // C `:5666`
+        const now = getnow(); // C `:5667`
+        game.urealtime.realtime += timet_delta(now, game.urealtime.start_timing); // C `:5669`
+        game.urealtime.start_timing = now; // C `:5670`
+        /* dosuspend() `:5672` — named omission (SIGTSTP; Rule #2). */
+        game.urealtime.start_timing = getnow(); // C `:5673`
+    } else {
+        await Norep(cmdnotavail, '#suspend'); // C `:5676`
+    }
+    return ECMD_OK; // C `:5677`
+}
+
+/**
+ * C ref: cmd.c dosh_core `:5681–5696` (!, #shell) — in C order. SHELL
+ * is defined (`unixconf.h:322`), so the live arm runs: urealtime
+ * accounting over live `getnow` / `timet_delta` / `game.urealtime`,
+ * then `dosh()` (`:5691`, port subshell), unportable under Rule #2
+ * (named in the D-entry). With no subshell the command is
+ * unavailable, so the arm falls back to C's own !SHELL text
+ * (`:5693`). Caller: extcmdlist `:1860` "shell" row, wired via the
+ * getline EXT_CMDS entry.
+ * @returns {Promise<number>} ECMD_OK
+ */
+export async function dosh_core() {
+    const now = getnow(); // C `:5686`
+    game.urealtime.realtime += timet_delta(now, game.urealtime.start_timing); // C `:5688`
+    game.urealtime.start_timing = now; // C `:5689`
+    /* dosh() `:5691` — named omission (subshell spawn; Rule #2). */
+    await Norep(cmdnotavail, '#shell'); // C `:5693` !SHELL text
+    game.urealtime.start_timing = getnow(); // C `:5692`
+    return ECMD_OK; // C `:5695`
 }
 
 /**

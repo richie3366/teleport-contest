@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3149 `cmd.c` suspend/shell + extcmd-match family (coverage)
+
+**C locus:** - `dosuspend_core`: `cmd.c:5661–5678` (SUSPEND-defined capability branch `:5666`, urealtime accounting `:5667–5670`, `dosuspend()` `:5672`, retime `:5673`, Norep else `:5676`, ECMD_OK `:5677`).
+**JS:** `js/cmd.js:1352` (`cmdnotavail`), `:1361` (`win_can_suspend`), `:1376` (`dosuspend_core`), `:1400` (`dosh_core`); `js/getline.js:1247` (`shell` entry), `:1260` (`suspend` entry), `:1377` (`extcmds_getentry`), `:1398` (`extCmdAutocomplete` rewire); `js/generated/extcmdlist_data.js` (170 entries); `scripts/extract-extcmdlist.py` (flags + docstring).
+**Change:** new `dosuspend_core`/`dosh_core` in C order over live `getnow`/`timet_delta`/`game.urealtime` + new `cmdnotavail` (`:160`) + `win_can_suspend()` (false here — tty answers `genl_can_suspend_yes`, ESM has no SIGTSTP); `dosh` live arm falls back to C's own !SHELL text since the subshell call is the omission. Wired both C table callers via `EXT_CMDS` `shell`/`suspend` runners (key + `#` dispatch flow through `extcmd_run_by_txt`). Rewired `extCmdAutocomplete` through live `extcmds_match(base, ECM_NOFLAGS)` + new `extcmds_getentry`; deleted dead `EXT_CMD_AC`/`availableAcNames` (−63).
+**Verify:** `verify.mjs --fn dosuspend_core,dosh_core,extcmds_match,extcmds_getentry,cmdbind_remove` → syntax PASS (3 js files), Rule #2 PASS, 5× `no corpus session blocked` + smoke-spread REACH-OK (24/24 each), green 2/2, strict 2/2, cohort 7/7, VERIFY PASS; full `sessions` 44/44 after the regen (seed4500 failed 1802/1814 pre-regen at `#wizm` echo screens 778/804/820, fixed by the DEBUG rows); `node --test scripts/extcmd-debug-completion.test.mjs` 4/4 + `vision-wizmondiff-runners` 3/3; /tmp oracle vs git-HEAD hand list: identical except the 4 C-wrong removals (travel + 3 DEBUG rows, all confirmed against C guards).
+**Named:** - `dosuspend_core`: `dosuspend()` (`cmd.c:5672`, `sys/share/ioctl.c:161`, SIGTSTP suspend) unportable under Rule #2; the suspend arm keeps C order with the call named in place.
+**Next:** `#wizbury` exact entry prints "unknown extended command" (EXTCMDLIST row now resolves, no EXT_CMDS runner — `wiz_debug_cmd_bury` unported); queue it with its body when coverage reaches it. `bind_key` `:2651`/:2718 `cmdnotavail` arms (pre-existing port) could reuse the new `cmdnotavail` const.
 ## 2026-09-30 — D-3148 `spell.c` remainder: spelltypemnemonic impossible arm + dowizcast/show_spells/book_substitution (coverage)
 
 **C locus:** - `spelltypemnemonic`: `spell.c:832–853` (7 skill arms, default impossible-then-"" `:852–853`).

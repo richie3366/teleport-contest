@@ -3,7 +3,9 @@
 
 Parses default key / ef_txt / ef_desc / flags for dokeylist. Feature flags
 mirror the contest MacOS tty recorder (CRASHREPORT/SHELL/SUSPEND on;
-DEBUG off; released status).
+DEBUG on — patchlevel.h:35-37 defines it unconditionally and no build
+flag passes -UDEBUG, so the DEBUG-gated extcmd rows are compiled in;
+released status).
 """
 from __future__ import annotations
 
@@ -19,8 +21,8 @@ FLAGS = {
     "CRASHREPORT": True,
     "SHELL": True,
     "SUSPEND": True,
-    "DEBUG": False,
-    "DEBUG_MIGRATING_MONS": False,
+    "DEBUG": True,
+    "DEBUG_MIGRATING_MONS": True,
     # NH_DEVEL_STATUS == NH_STATUS_RELEASED → skip NH_DEVEL-only entries
     "NH_DEVEL_STATUS_RELEASED": True,
 }

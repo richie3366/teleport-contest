@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3149 — `cmd.c` suspend/shell + extcmd-match family (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `dosuspend_core` + same-file `dosh_core`, `extcmds_match`, `extcmds_getentry` + stale `cmdbind_remove`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +113/−87 across 8 tracked files + new test. Mid-iteration screen regression seed4500 1802/1814 found and fixed: extractor modeled DEBUG off, recorder builds DEBUG on.)
+- **Symptom:** no corpus divergence — coverage. `dosuspend_core`/`dosh_core`/`extcmds_getentry` had no JS symbol; `extcmds_match` body was complete but its C caller 1 (`ext_cmd_getlin_hook`) was reimplemented by a hand list instead of wired; `cmdbind_remove` already complete (stale).
+- **C locus:**
+  - `dosuspend_core`: `cmd.c:5661–5678` (SUSPEND-defined capability branch `:5666`, urealtime accounting `:5667–5670`, `dosuspend()` `:5672`, retime `:5673`, Norep else `:5676`, ECMD_OK `:5677`).
+  - `dosh_core`: `cmd.c:5681–5696` (SHELL-defined live arm: accounting `:5686–5689`, `dosh()` `:5691`, retime `:5692`; !SHELL Norep `:5693`).
+  - `extcmds_match`: `cmd.c:2523–2558` (NOT_AVAILABLE|INTERNALCMD skip, wiz gate, IGNOREAC/NO1CHARCMD gates, all/exact/prefix arms, count + `*matchlist` out).
+  - `extcmds_getentry`: `cmd.c:2100–2106` (`i < 0 || i > extcmdlist_length` → 0 where length is `SIZE-1` `:2097`, else `&extcmdlist[i]`).
+  - `cmdbind_remove`: `cmd.c:2157–2177` (walk, key match, prev/head unlink, param free, node free) — stale, complete at `js/cmd.js:1645`.
+- **JS was:** no `dosuspend_core`/`dosh_core`/`extcmds_getentry`; `!`/^Z keys and `#shell`/`#suspend` fell through `extcmd_run_by_txt` → null → `{}` (silent no-op); per-keystroke `#` completion ran a hand-maintained 53-name `EXT_CMD_AC` filter instead of `extcmds_match`; generated `EXTCMDLIST` omitted the 4 DEBUG-gated rows (extractor `DEBUG: False`).
+- **Fix:** new `dosuspend_core`/`dosh_core` in C order over live `getnow`/`timet_delta`/`game.urealtime` + new `cmdnotavail` (`:160`) + `win_can_suspend()` (false here — tty answers `genl_can_suspend_yes`, ESM has no SIGTSTP); `dosh` live arm falls back to C's own !SHELL text since the subshell call is the omission. Wired both C table callers via `EXT_CMDS` `shell`/`suspend` runners (key + `#` dispatch flow through `extcmd_run_by_txt`). Rewired `extCmdAutocomplete` through live `extcmds_match(base, ECM_NOFLAGS)` + new `extcmds_getentry`; deleted dead `EXT_CMD_AC`/`availableAcNames` (−63). Fixed extractor `DEBUG`/`DEBUG_MIGRATING_MONS` → True (patchlevel.h:35–37 defines DEBUG unconditionally; no `-UDEBUG` in the recorder build; seed4500's C side expands `#wizm` → `wizmondiff`) and regenerated (+4 rows, migratemons desc). The rewire also drops 4 hand-list C-wrongs: `travel` (no AUTOCOMPLETE `:1909–1910`, any build) and the 3 compiled-out assumptions now live via DEBUG. New `scripts/extcmd-debug-completion.test.mjs` (4 tests; failed 2/4 pre-regen).
+- **JS:** `js/cmd.js:1352` (`cmdnotavail`), `:1361` (`win_can_suspend`), `:1376` (`dosuspend_core`), `:1400` (`dosh_core`); `js/getline.js:1247` (`shell` entry), `:1260` (`suspend` entry), `:1377` (`extcmds_getentry`), `:1398` (`extCmdAutocomplete` rewire); `js/generated/extcmdlist_data.js` (170 entries); `scripts/extract-extcmdlist.py` (flags + docstring).
+- **Callers:**
+  - `dosuspend_core`: extcmdlist `:1878` ^Z `suspend` row → `js/getline.js:1260` runner (key via `commands_init` cmdbind + `rhack` `extcmd_run_by_txt`, `#` via `get_ext_cmd`).
+  - `dosh_core`: extcmdlist `:1860` `!` `shell` row → `js/getline.js:1247` runner (same dispatch paths).
+  - `extcmds_match`: `tty/getline.c:275` hook → `js/getline.js:1398` (rewired this iteration); `tty/getline.c:317` `tty_get_ext_cmd` → `js/getline.js:1612` (pre-existing direct call).
+  - `extcmds_getentry`: `tty/getline.c:278` hook → `js/getline.js:1398` (this iteration; sole C caller).
+  - `cmdbind_remove`: `:2133` (`cmdbind_add`) → `js/cmd.js:1598+1624` (slots/non-slots paths); `:2670` (`bind_key`) → `:1683`; `:3413` → `:2201`; `:3456` (`reset_commands`) → `:2233`.
+- **Verify:** `verify.mjs --fn dosuspend_core,dosh_core,extcmds_match,extcmds_getentry,cmdbind_remove` → syntax PASS (3 js files), Rule #2 PASS, 5× `no corpus session blocked` + smoke-spread REACH-OK (24/24 each), green 2/2, strict 2/2, cohort 7/7, VERIFY PASS; full `sessions` 44/44 after the regen (seed4500 failed 1802/1814 pre-regen at `#wizm` echo screens 778/804/820, fixed by the DEBUG rows); `node --test scripts/extcmd-debug-completion.test.mjs` 4/4 + `vision-wizmondiff-runners` 3/3; /tmp oracle vs git-HEAD hand list: identical except the 4 C-wrong removals (travel + 3 DEBUG rows, all confirmed against C guards).
+- **Named omissions:**
+  - `dosuspend_core`: `dosuspend()` (`cmd.c:5672`, `sys/share/ioctl.c:161`, SIGTSTP suspend) unportable under Rule #2; the suspend arm keeps C order with the call named in place.
+  - `dosh_core`: `dosh()` (`cmd.c:5691`, port subshell spawn) unportable under Rule #2; arm falls back to C's !SHELL text (`:5693`).
+  - `extcmds_match`: none — whole body; C `*matchlist` static-array out-param is a fresh-array return (count ≡ length), observably identical at both call sites.
+  - `extcmds_getentry`: none — whole body; C `i == length` yields the `{ 0 }` terminator row which the generated table omits, and no caller passes it (match indices only).
+  - `cmdbind_remove`: none (stale) — whole body; null-overlay marker is the D-1657 adaptation.
+- **Ledger:** dosuspend_core partial; dosh_core partial; extcmds_match ported; extcmds_getentry ported
+- **Next:** `#wizbury` exact entry prints "unknown extended command" (EXTCMDLIST row now resolves, no EXT_CMDS runner — `wiz_debug_cmd_bury` unported); queue it with its body when coverage reaches it. `bind_key` `:2651`/:2718 `cmdnotavail` arms (pre-existing port) could reuse the new `cmdnotavail` const.
+
 ## D-3148 — `spell.c` remainder: spelltypemnemonic impossible arm + dowizcast/show_spells/book_substitution (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `spelltypemnemonic` + queue-eligible same-file `dowizcast` + same-file absent `show_spells`, `book_substitution` + same-file verify-whole `age_spells`, `spell_idx`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +84/−2 `js/spell.js`. Exhausts spell.c measured gaps: every other spell.c function is ledger-ported or measured ok.)
