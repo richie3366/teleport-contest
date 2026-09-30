@@ -6,16 +6,16 @@
 {"fn":"wiz_map","c":"176-199","status":"unknown"}
 {"fn":"wiz_genesis","c":"203-214","status":"unknown"}
 {"fn":"wiz_where","c":"218-225","status":"unknown"}
-{"fn":"wiz_detect","c":"229-236","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_detect","c":"229-236","status":"ported","js":["js/wizcmds.js:wiz_detect"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_kill","c":"243-347","status":"ported","js":["js/wizcmds.js:wiz_kill"],"d":["D-3091","D-3089"],"at":"2026-09-29@615518801","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_load_lua","c":"353-372","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_load_splua","c":"376-395","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_load_lua","c":"353-372","status":"partial","js":["js/wizcmds.js:wiz_load_lua"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_load_splua","c":"376-395","status":"partial","js":["js/wizcmds.js:wiz_load_splua"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_level_tele","c":"399-406","status":"unknown"}
 {"fn":"wiz_flip_level","c":"412-442","status":"ported","js":["js/wizcmds.js:wiz_flip_level"],"d":["D-3131"],"at":"2026-09-29@f789bb94f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_level_change","c":"446-488","status":"unknown"}
-{"fn":"wiz_telekinesis","c":"494-528","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_panic","c":"534-545","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_fuzzer","c":"549-564","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_telekinesis","c":"494-528","status":"ported","js":["js/wizcmds.js:wiz_telekinesis"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_panic","c":"534-545","status":"ported","js":["js/wizcmds.js:wiz_panic"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_fuzzer","c":"549-564","status":"ported","js":["js/wizcmds.js:wiz_fuzzer"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_polyself","c":"568-572","status":"unknown"}
 {"fn":"wiz_show_seenv","c":"576-617","status":"partial","js":["js/wizcmds.js:wiz_show_seenv"],"omit":"`:1603` display_nhwindow(win, FALSE) → blocking pager stands in for tty print-and-continue (Terminal has no scrollback vehicle; house NHW_TEXT idiom); generated `extcmdlist_data.js` \"migratemons\" desc keeps the #else string while DEBUG-live C registers \"show migrating monsters and migrate N random …","d":["D-2779"],"at":"seed@a30a7de84"}
 {"fn":"wiz_show_vision","c":"621-653","status":"ported","js":["js/wizcmds.js:wiz_show_vision"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
@@ -40,7 +40,7 @@
 {"fn":"list_migrating_mons","c":"1506-1610","status":"unknown"}
 {"fn":"wiz_show_stats","c":"1616-1697","status":"ported","js":["js/wizcmds.js:wiz_show_stats"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
 {"fn":"wiz_display_macros","c":"1705-1778","status":"ported","js":["js/wizcmds.js:wiz_display_macros"],"d":["D-3020"],"at":"2026-09-28@5a77080f1","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_show_nhuuid","c":"1782-1786","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_show_nhuuid","c":"1782-1786","status":"partial","js":["js/wizcmds.js:wiz_show_nhuuid"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_mon_diff","c":"1790-1828","status":"ported","js":["js/wizcmds.js:wiz_mon_diff"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_objprobs","c":"1832-1868","status":"ported","js":["js/wizcmds.js:wiz_objprobs"],"d":["D-3100"],"at":"2026-09-29@9798beecd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_migrate_mons","c":"1873-1930","status":"partial","js":["js/wizcmds.js:wiz_migrate_mons"],"omit":"`:1603` display_nhwindow(win, FALSE) → blocking pager stands in for tty print-and-continue (Terminal has no scrollback vehicle; house NHW_TEXT idiom); generated `extcmdlist_data.js` \"migratemons\" desc keeps the #else string while DEBUG-live C registers \"show migrating monsters and migrate N random …","d":["D-2779"],"at":"seed@a30a7de84"}

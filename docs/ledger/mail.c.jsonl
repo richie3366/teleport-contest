@@ -1,5 +1,5 @@
 {"fn":"free_maildata","c":"90-94","status":"unknown"}
-{"fn":"getmailstatus","c":"97-141","status":"unknown"}
+{"fn":"getmailstatus","c":"97-141","status":"ported","js":["js/mail.js:getmailstatus"],"at":"2026-09-30@6c8474344","note":"stale: js/mail.js:539"}
 {"fn":"md_start","c":"149-239","status":"unknown"}
 {"fn":"md_stop","c":"248-274","status":"unknown"}
 {"fn":"md_rush","c":"288-394","status":"unknown"}

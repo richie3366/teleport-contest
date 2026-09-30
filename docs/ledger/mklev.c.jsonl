@@ -13,7 +13,7 @@
 {"fn":"alloc_doors","c":"556-571","status":"ported","js":["js/mklev.js:alloc_doors"],"at":"2026-09-29@d27c7b945","note":"stale: js/mklev.js:31911 (D-2559)"}
 {"fn":"add_door","c":"574-612","status":"ported","js":["js/mklev.js:add_door"],"at":"2026-09-29@d27c7b945","note":"stale: js/mklev.js:31918 (D-2559)"}
 {"fn":"dosdoor","c":"615-676","status":"ported","js":["js/mklev.js:dosdoor"],"d":["D-2559"],"at":"seed@a30a7de84"}
-{"fn":"cardinal_nextto_room","c":"681-698","status":"unknown"}
+{"fn":"cardinal_nextto_room","c":"681-698","status":"ported","js":["js/mklev.js:cardinal_nextto_room"],"at":"2026-09-30@6c8474344","note":"stale: js/mklev.js:32509"}
 {"fn":"place_niche","c":"701-725","status":"unknown"}
 {"fn":"makeniche","c":"740-799","status":"unknown"}
 {"fn":"make_niches","c":"802-818","status":"unknown"}

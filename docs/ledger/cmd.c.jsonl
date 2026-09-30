@@ -77,7 +77,7 @@
 {"fn":"extcmds_match","c":"2523-2558","status":"unknown"}
 {"fn":"key2extcmddesc","c":"2561-2621","status":"unknown","d":["D-2702"],"at":"seed@a30a7de84"}
 {"fn":"bind_mousebtn","c":"2624-2659","status":"ported","js":["js/cmd.js:bind_mousebtn"],"d":["D-3086"],"at":"2026-09-29@590ebd616","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"bind_key","c":"2662-2728","status":"unknown"}
+{"fn":"bind_key","c":"2662-2728","status":"ported","js":["js/cmd.js:bind_key"],"at":"2026-09-30@6c8474344","note":"stale: js/cmd.js:1614"}
 {"fn":"bind_key_fn","c":"2732-2746","status":"unknown"}
 {"fn":"commands_init","c":"2750-2782","status":"unknown"}
 {"fn":"keylist_func_has_key","c":"2785-2799","status":"unknown"}

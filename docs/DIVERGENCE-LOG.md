@@ -1,5 +1,47 @@
 # Divergence log
 
+## D-3142 — `wizcmds.c` wizard-debug septet: telekinesis + detect/load_lua/load_splua/panic/fuzzer/nhuuid (coverage head + same-file MISSING siblings)
+
+- **Status:** fixed (breadth-phase cluster: head `wiz_telekinesis` + the 6 other same-file MISSING rows; 0 corpus sessions blocked on any — coverage completion, not a divergence. +171/−1 `js/wizcmds.js`, +70 `js/getline.js` dispatch, +2/−2 `js/mklev.js` docs. 8 stale proofs in this commit, all →ported: outheader js/topten.js:659, getmailstatus js/mail.js:539, encodeconduct js/topten.js:214, cardinal_nextto_room js/mklev.js:32509, bind_key js/cmd.js:1614, tt_oname js/topten.js:593, strbuf_reserve js/options.js:9311, item_naming_classification js/iactions.js:367.)
+- **Symptom:** no corpus divergence — coverage. Seven `cmd.c` extcmd rows had no JS symbols and no EXT_CMDS runners (`debugfuzzer`, `panic`, `wizdetect`, `wizloaddes`, `wizloadlua`, `wizshownhuuid`, `wiztelekinesis`); `mklev.js` docs named `wiz_load_splua` unported.
+- **C locus:**
+  - `wiz_telekinesis`: `wizcmds.c:494–528` (getpos `:504` + cancel `:505–506`, m_at-assign test `:508`, getdir `:510–511`, mhurtle `:514` + landing re-seed `:515–517`, hero hurtle `:520–521`, utotype loop `:524`).
+  - `wiz_detect`: `wizcmds.c:229–237` (findit `:232`, unavailcmd `:234`).
+  - `wiz_load_lua`: `wizcmds.c:353–372` (getlin `:361`, ESC/empty cancel `:362–363`, “.lua” `:364–365`, load_lua `:366`).
+  - `wiz_load_splua`: `wizcmds.c:376–394` (getlin `:381`, cancel `:382–383`, “.lua” `:384–386`, reset `:389` / load `:390` / finalize `:391`).
+  - `wiz_panic`: `wizcmds.c:534–545` (fuzzer top-up `:537–540`, paranoid query `:542–543`, panic `:544`).
+  - `wiz_fuzzer`: `wizcmds.c:549–565` (notice gate `:552`, pline+There `:553–554`, query `:556`, y_n `:558` → continue/panic `:559–561`).
+  - `wiz_show_nhuuid`: `wizcmds.c:1782–1786` (one pline `:1784`).
+- **JS was:** no same-named symbols for any of the 7. EXT_CMD_AC already listed `panic`/`wizshownhuuid`/`wiztelekinesis` (autocomplete set, untouched); EXT_CMDS had no runners.
+- **Fix:** `js/wizcmds.js` — 7 new `export async` fns in C order (detect/load_lua/load_splua before `wiz_flip_level`, telekinesis/panic/fuzzer after it, nhuuid before `wiz_mon_diff`); new names on live edges (getdir, y_n, UTOTYPE_NONE, fuzzer_impossible_*) + 2 new SAFE edges (dothrow mhurtle/hurtle, detect findit); `load_special`/`lspo_finalize_level(false)` via dynamic mklev import (D-3131 cycle precedent). `js/getline.js` — 7 EXT_CMDS runners with C flags (autocomplete iff C AUTOCOMPLETE). `js/mklev.js` — 2 doc lines now point at the live `wiz_load_splua` site.
+- **JS:**
+  - `wiz_telekinesis`: js/wizcmds.js:540 (cc init, pline, do/while; `:508` assign-ahead-of-test kept; `(mhp|0) >= 1` ≡ !DEADMONSTER).
+  - `wiz_detect`: js/wizcmds.js:444 (`wizard` ≡ debug||wizard gate, wiz_level_tele precedent; `ecname_from_fn('wizdetect')`).
+  - `wiz_load_lua`: js/wizcmds.js:460 (getlin string; `buf[0] === '\x1b'` ≡ ESC arm — getlin returns '\x1b' on cancel).
+  - `wiz_load_splua`: js/wizcmds.js:485 (`lspo_finalize_level(false)` ≡ C NULL form, mklev arm kept for it).
+  - `wiz_panic`: js/wizcmds.js:573 (panic → house `throw new Error`, alloc.js precedent).
+  - `wiz_fuzzer`: js/wizcmds.js:596 (FEATURE_NOTICE_VER(3,7,0) inlined from hack.h:1504–1506; `(await y_n(...)) === 'n'`).
+  - `wiz_show_nhuuid`: js/wizcmds.js:2294 (pline with the C format; value omitted, see below).
+- **Callers:**
+  - `wiz_telekinesis`: C cmd.c:1996–1997 extcmd → JS getline.js:977 runner.
+  - `wiz_detect`: C cmd.c:1953–1954 extcmd → JS getline.js:937 runner.
+  - `wiz_load_lua`: C cmd.c:1974–1975 extcmd → JS getline.js:957 runner.
+  - `wiz_load_splua`: C cmd.c:1972–1973 extcmd → JS getline.js:947 runner.
+  - `wiz_panic`: C cmd.c:1793–1794 extcmd → JS getline.js:927 runner.
+  - `wiz_fuzzer`: C cmd.c:1699–1700 extcmd → JS getline.js:917 runner.
+  - `wiz_show_nhuuid`: C cmd.c:1992–1993 extcmd → JS getline.js:967 runner.
+- **Verify:** `node scripts/verify.mjs --fn wiz_telekinesis,wiz_detect,wiz_load_lua,wiz_load_splua,wiz_panic,wiz_fuzzer,wiz_show_nhuuid` → syntax PASS (3 files) · rule2 PASS · 7× hidden-note (no corpus session blocked) + REACH-OK (fixed smoke spread 24/24 each, no RNG-tagged reach — wizard-debug, unreachable in scored sessions) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `wiz_telekinesis`: none — whole body, every callee live.
+  - `wiz_detect`: none — whole body, every callee live.
+  - `wiz_load_lua`: `:366` load_lua (ledger by-design — file IO, no scored analogue); `:357–358` sbi rides with it.
+  - `wiz_load_splua`: `:389` lspo_reset_level (no scored analogue — each load_special entry builds a fresh des coder).
+  - `wiz_panic`: none — whole body (panic via house throw idiom).
+  - `wiz_fuzzer`: none — whole body, every callee live (NOFUZZERCMD is a C-fuzzer flag, comment-noted).
+  - `wiz_show_nhuuid`: the svn.nhuuid value (get_nhuuid is platform startup code; CROSS builds likewise print empty — pcmain.c:755).
+- **Ledger:** wiz_telekinesis ported; wiz_detect ported; wiz_load_lua partial; wiz_load_splua partial; wiz_panic ported; wiz_fuzzer ported; wiz_show_nhuuid partial
+- **Next:** falsifier — a session blocked with any of the 7 as owner, or `#`-command behavior vs C in wizard mode. Do not re-pop the 8 stale proofs above (ledger notes carry the JS sites).
+
 ## D-3141 — `attrib.c` restore_attrib + postadjabil (coverage head + same-file MISSING sibling)
 
 - **Status:** fixed (breadth-phase cluster: head `restore_attrib` + `postadjabil`, the only other same-file MISSING row; 0 corpus sessions blocked on either — coverage completion, not a divergence. +65/−3 in `js/attrib.js` only. Small because `attrib.c` holds nothing more Open: `vary_init_attr` + `check_innate_abil` proved stale→ported in this commit, the rest measured ok/ported.)

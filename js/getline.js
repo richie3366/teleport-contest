@@ -913,6 +913,76 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c:1699-1700 "debugfuzzer" IFBURIED|WIZMODECMD|NOFUZZERCMD (no AUTOCOMPLETE) → wiz_fuzzer
+        name: 'debugfuzzer',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_fuzzer } = await import('./wizcmds.js');
+            return wiz_fuzzer();
+        },
+    },
+    {
+        // C: cmd.c:1793-1794 "panic" IFBURIED|AUTOCOMPLETE|WIZMODECMD → wiz_panic
+        name: 'panic',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_panic } = await import('./wizcmds.js');
+            return wiz_panic();
+        },
+    },
+    {
+        // C: cmd.c:1953-1954 C('e') "wizdetect" IFBURIED|WIZMODECMD (no AUTOCOMPLETE) → wiz_detect
+        name: 'wizdetect',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_detect } = await import('./wizcmds.js');
+            return wiz_detect();
+        },
+    },
+    {
+        // C: cmd.c:1972-1973 "wizloaddes" IFBURIED|WIZMODECMD|NOFUZZERCMD (no AUTOCOMPLETE) → wiz_load_splua
+        name: 'wizloaddes',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_load_splua } = await import('./wizcmds.js');
+            return wiz_load_splua();
+        },
+    },
+    {
+        // C: cmd.c:1974-1975 "wizloadlua" IFBURIED|WIZMODECMD|NOFUZZERCMD (no AUTOCOMPLETE) → wiz_load_lua
+        name: 'wizloadlua',
+        wiz: true,
+        autocomplete: false,
+        run: async () => {
+            const { wiz_load_lua } = await import('./wizcmds.js');
+            return wiz_load_lua();
+        },
+    },
+    {
+        // C: cmd.c:1992-1993 "wizshownhuuid" AUTOCOMPLETE|WIZMODECMD → wiz_show_nhuuid
+        name: 'wizshownhuuid',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_show_nhuuid } = await import('./wizcmds.js');
+            return wiz_show_nhuuid();
+        },
+    },
+    {
+        // C: cmd.c:1996-1997 "wiztelekinesis" IFBURIED|AUTOCOMPLETE|WIZMODECMD → wiz_telekinesis
+        name: 'wiztelekinesis',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_telekinesis } = await import('./wizcmds.js');
+            return wiz_telekinesis();
+        },
+    },
+    {
         // C: cmd.c "wizidentify" IFBURIED|WIZMODECMD (no AUTOCOMPLETE) → wiz_identify
         name: 'wizidentify',
         wiz: true,

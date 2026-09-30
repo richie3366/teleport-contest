@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3142 `wizcmds.c` wizard-debug septet: telekinesis + detect/load_lua/load_splua/panic/fuzzer/nhuuid (coverage head + same-file MISSING siblings)
+
+**C locus:** - `wiz_telekinesis`: `wizcmds.c:494–528` (getpos `:504` + cancel `:505–506`, m_at-assign test `:508`, getdir `:510–511`, mhurtle `:514` + landing re-seed `:515–517`, hero hurtle `:520–521`, utotype loop `:524`).
+**JS:** - `wiz_telekinesis`: js/wizcmds.js:540 (cc init, pline, do/while; `:508` assign-ahead-of-test kept; `(mhp|0) >= 1` ≡ !DEADMONSTER).
+**Change:** `js/wizcmds.js` — 7 new `export async` fns in C order (detect/load_lua/load_splua before `wiz_flip_level`, telekinesis/panic/fuzzer after it, nhuuid before `wiz_mon_diff`); new names on live edges (getdir, y_n, UTOTYPE_NONE, fuzzer_impossible_*) + 2 new SAFE edges (dothrow mhurtle/hurtle, detect findit); `load_special`/`lspo_finalize_level(false)` via dynamic mklev import (D-3131 cycle precedent). `js/getline.js` — 7 EXT_CMDS runners with C flags (autocomplete iff C AUTOCOMPLETE). `js/mklev.js` — 2 doc lines now point at the live `wiz_load_splua` site.
+**Verify:** `node scripts/verify.mjs --fn wiz_telekinesis,wiz_detect,wiz_load_lua,wiz_load_splua,wiz_panic,wiz_fuzzer,wiz_show_nhuuid` → syntax PASS (3 files) · rule2 PASS · 7× hidden-note (no corpus session blocked) + REACH-OK (fixed smoke spread 24/24 each, no RNG-tagged reach — wizard-debug, unreachable in scored sessions) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file changed) → VERIFY: PASS.
+**Named:** - `wiz_telekinesis`: none — whole body, every callee live.
+**Next:** falsifier — a session blocked with any of the 7 as owner, or `#`-command behavior vs C in wizard mode. Do not re-pop the 8 stale proofs above (ledger notes carry the JS sites).
 ## 2026-09-30 — D-3141 `attrib.c` restore_attrib + postadjabil (coverage head + same-file MISSING sibling)
 
 **C locus:** - `restore_attrib`: `nethack-c/upstream/src/attrib.c:455–484` (equilibrium `:472–473`; countdown `:474–475`; step+botl `:476–477`; retimer `:478–479`; encumber_msg `:483–484`; zero C call sites — dead since the moveloop call was dropped).

@@ -1,6 +1,6 @@
 {"fn":"strbuf_init","c":"9-13","status":"unknown"}
 {"fn":"strbuf_append","c":"17-24","status":"unknown"}
-{"fn":"strbuf_reserve","c":"28-45","status":"unknown"}
+{"fn":"strbuf_reserve","c":"28-45","status":"ported","js":["js/options.js:strbuf_reserve"],"at":"2026-09-30@6c8474344","note":"stale: js/options.js:9311"}
 {"fn":"strbuf_empty","c":"49-54","status":"unknown"}
 {"fn":"strbuf_nl_to_crlf","c":"58-77","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"Strlen_","c":"82-98","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

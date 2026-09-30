@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `topten.c` outheader — coverage PARTIAL (C 8 code L `topten.c:929–940` / JS 4 code L in js/topten.js; hops 4, callers 2, RNG 0, msg 0) @f292ec32c
-- [ ] `mail.c` getmailstatus — coverage THIN (C 25 code L `mail.c:97–141` / JS 8 code L in js/mail.js; hops —, callers 0, RNG 0, msg 3) @7cc43ecc2
-- [ ] `topten.c` encodeconduct — coverage PARTIAL (C 30 code L `topten.c:411–452` / JS 18 code L in js/topten.js; hops 5, callers 1, RNG 0, msg 0) @92b27a5b5
-- [ ] `mklev.c` cardinal_nextto_room — coverage PARTIAL (C 14 code L `mklev.c:681–698` / JS 7 code L in js/mklev.js; hops 4, callers 1, RNG 0, msg 0) @92b27a5b5
-- [ ] `cmd.c` bind_key — coverage PARTIAL (C 39 code L `cmd.c:2662–2728` / JS 29 code L in js/cmd.js; hops —, callers 3, RNG 0, msg 0) @1edc89993
-- [ ] `topten.c` tt_oname — coverage PARTIAL (C 13 code L `topten.c:1422–1441` / JS 8 code L in js/topten.js; hops 4, callers 1, RNG 0, msg 0) @042bdf039
-- [ ] `strutil.c` strbuf_reserve — coverage THIN (C 11 code L `strutil.c:28–45` / JS 4 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @042bdf039
-- [ ] `iactions.c` item_naming_classification — coverage PARTIAL (C 24 code L `iactions.c:46–82` / JS 17 code L in js/iactions.js; hops 5, callers 1, RNG 0, msg 0) @042bdf039
-- [ ] `wizcmds.c` wiz_telekinesis — coverage MISSING (C 24 code L `wizcmds.c:494–528` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @042bdf039
 - [ ] `questpgr.c` find_quest_artifact — coverage PARTIAL (C 23 code L `questpgr.c:89–120` / JS 11 code L in js/quest.js; hops 5, callers 1, RNG 0, msg 0) @e5816afe0
 - [ ] `apply.c` grapple_range — coverage THIN (C 9 code L `apply.c:3686–3698` / JS 4 code L in js/apply.js; hops —, callers 2, RNG 0, msg 0) @e5816afe0
 - [ ] `sp_lev.c` lspo_drawbridge — coverage THIN (C 30 code L `sp_lev.c:5720–5763` / JS 13 code L in js/mklev.js; hops —, callers 0, RNG 1, msg 0) @b20fdf92d
+- [ ] `options.c` opt2roleopt — coverage PARTIAL (C 12 code L `options.c:715–730` / JS 7 code L in js/options.js; hops 6, callers 3, RNG 0, msg 0) @6c8474344
+- [ ] `dungeon.c` br_string — coverage PARTIAL (C 10 code L `dungeon.c:2240–2253` / JS 6 code L in js/dungeon.js; hops 5, callers 2, RNG 0, msg 0) @6c8474344
+- [ ] `uhitm.c` shade_aware — coverage PARTIAL (C 10 code L `uhitm.c:1992–2011` / JS 6 code L in js/mhitm.js; hops 5, callers 2, RNG 0, msg 0) @6c8474344
+- [ ] `mklev.c` good_rm_wall_doorpos — coverage PARTIAL (C 19 code L `mklev.c:73–102` / JS 14 code L in js/mklev.js; hops 5, callers 1, RNG 0, msg 0) @6c8474344
+- [ ] `dungeon.c` parent_dnum — coverage PARTIAL (C 8 code L `dungeon.c:346–365` / JS 5 code L in js/dungeon.js; hops 5, callers 2, RNG 0, msg 0) @6c8474344
+- [ ] `options.c` handle_add_list_remove — coverage PARTIAL (C 36 code L `options.c:9208–9251` / JS 21 code L in js/options.js; hops —, callers 3, RNG 0, msg 0) @6c8474344
+- [ ] `write.c` new_book_description — coverage THIN (C 12 code L `write.c:395–418` / JS 5 code L in js/write.js; hops —, callers 1, RNG 0, msg 0) @6c8474344
+- [ ] `wizcmds.c` wiz_load_lua — coverage MISSING (C 14 code L `wizcmds.c:353–372` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @6c8474344
+- [ ] `rect.c` get_rect_ind — coverage PARTIAL (C 12 code L `rect.c:60–75` / JS 7 code L in js/rect.js; hops 5, callers 1, RNG 0, msg 0) @6c8474344
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
