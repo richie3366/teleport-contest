@@ -1,4 +1,4 @@
-{"fn":"SF_X","c":"246-262","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"SF_X","c":"246-262","status":"by-design","at":"2026-09-30@a60a91a98","note":"Inventory is macro invocation SF_X(uint8_t, bitfield), not a C function; generated NHFILE binary scalar adapters remain omitted under existing save-contract boundary (review 2040)."}
 {"fn":"sfo_char","c":"249-262","status":"ported","js":["js/files.js:sfo_char"],"d":["D-2973"],"at":"2026-09-27@1c7c62258"}
 {"fn":"sfi_char","c":"265-287","status":"ported","js":["js/files.js:sfi_char"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sfo_genericptr","c":"290-304","status":"ported","js":["js/files.js:sfo_genericptr"],"d":["D-3080"],"at":"2026-09-29@9d11eaa9f","note":"refresh: no JS symbol (measured MISSING)"}

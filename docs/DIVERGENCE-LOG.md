@@ -1,5 +1,54 @@
 # Divergence log
 
+## D-3184 — initialize SYSCF wizard lists and report unsupported portable paths
+
+- **Status:** coverage cluster shipped with a named diagnostic omission. Small-cluster exception: the live cfgfiles.c head and its only remaining same-file Open queue row have 17 C code lines total; no further same-file Open rows or Open callees. The already-ported formatter is a shared callee refactor, not density padding. Retired two inventory false positives before the live cluster: init_shop_selection is inside shknam.c:356–375 `#if 0` with no compiled callers; SF_X is a macro invocation, not a C function. Its generated NHFILE scalar adapters remain outside the existing JS JSON-save contract; no binary-save coverage is claimed.
+- **Symptom:** coverage, no blocked corpus sessions. JS WIZARDS stored the raw list without initializing fmtd_wizard_list. PORTABLE_DEVICE_PATHS returned TRUE without C's non-WIN32 unsupported-directive diagnostic. This is inferred from C/JS reads and independently measured with extracted C handler bodies below.
+- **C locus:** whole bodies and all reference tables read in briefs; registration sites read by targeted search; mungspaces whole body read to check the formatter boundary.
+  - `cnf_line_WIZARDS`: cfgfiles.c:795–809, replace wizards first, format only for nonempty values other than exactly '*', leave the previous formatted list intact otherwise. CNFL_S registration :1334 is the actual indirect caller; :59 is only a prototype.
+  - `cnf_line_PORTABLE_DEVICE_PATHS`: cfgfiles.c:1134–1150, whole compiled non-WIN32 arm calls config_error_add and returns TRUE. The WIN32 atoi/range/store arm :1136–1144 is excluded in the pinned Unix target. CNFL_S registration :1361; :87 is only a prototype.
+  - `build_english_list`: end.c:1823–1859, retained every formatting arm and the async case-0 impossible diagnostic in one shared formatting core plus wrapper. C caller sites cfgfiles.c:806 and unixmain.c:659; extern.h:1003 is only a declaration.
+- **JS was:** WIZARDS's configLineStmt callback used cnf_store_str('wizards', b); portable-path handler was a one-line TRUE stub. build_english_list was an async whole-body port whose case-0 input boundary prevented use by the synchronous config parser.
+- **Fix:** added the whole WIZARDS handler in C order, using the already-imported live dupstr and replacing the same sysopt strings (GC implements free). Empty and wildcard values preserve fmtd_wizard_list. Reused one formatter body via english_list_parts and a synchronous config adapter; kept the existing async export/signature and live impossible call. Restored the portable-path diagnostic through the live same-module config_error_add. imports.mjs reports ALREADY for end.js and dungeon.js; no new static edge or top-level read. Corrected the initial hypothesis that mungspaces excludes all wordless values: it only normalizes space/tab and stops at LF; CR/VT/FF survive, so the config-only diagnostic is explicitly omitted, never claimed unreachable.
+- **JS:** js/cfgfiles.js:664 cnf_line_WIZARDS, :951 cnf_line_PORTABLE_DEVICE_PATHS; js/end.js:2249 build_english_list, :2261 build_english_list_config, :2265 english_list_parts. docs/c-js-map/turns.md updates the retired WIZARDS caller omission and names the remaining diagnostic.
+- **Callers:**
+  - `cnf_line_WIZARDS`: cfgfiles.c:1334 config_line_stmt registration → js/cfgfiles.js:988 configLineStmt, dispatched at :1092 parse_config_line. cfgfiles.c:59 is nonexecuting declaration.
+  - `cnf_line_PORTABLE_DEVICE_PATHS`: cfgfiles.c:1361 registration → js/cfgfiles.js:1015 configLineStmt, dispatched at :1092 parse_config_line. cfgfiles.c:87 is nonexecuting declaration.
+  - `build_english_list`: cfgfiles.c:806 → js/cfgfiles.js:673 via js/end.js:2261 build_english_list_config and :2265 english_list_parts; existing async wrapper :2249 shares the same core. unixmain.c:659 authorization-denial formatting remains an inherited named omission; no new caller invented. extern.h:1003 is nonexecuting declaration.
+- **Verify:** preflight green + strict PASS on the clean tree after locating installed Node 22 on PATH. Final command: node scripts/verify.mjs --fn cnf_line_WIZARDS,cnf_line_PORTABLE_DEVICE_PATHS,build_english_list --full. git diff --check clean.
+  - `cnf_line_WIZARDS`: no blocked sessions (note), 24-session smoke PASS, 0 regressed → REACH-OK. MEASURED /tmp/D3184-oracle.c compiles the exact pinned handlers, wordcount, bel_copy1, build_english_list and mungspaces with allocator/diagnostic doubles. /tmp/D3184-oracle.mjs uses the live parser: 8/8 C-vs-JS wizard string and formatted-list states match (single/two/three names, wildcard and empty preserving old list, wildcard+name, mixed TAB/CR separators, bare CR). Normal config formatting also matches the retained async export. C's bare-CR impossible count is 1; JS's omitted diagnostic is recorded below. The first oracle comparison used raw TAB input against normalized parser input; adding the exact C mungspaces caller normalization resolves that harness mismatch without any production change.
+  - `cnf_line_PORTABLE_DEVICE_PATHS`: no blocked sessions (note), 24-session smoke PASS, 0 regressed → REACH-OK. Extracted non-WIN32 C returns TRUE and calls config_error_add once; JS returns TRUE and emits exactly 'PORTABLE_DEVICE_PATHS is not supported' into the live config-error list, without creating portable_device_paths.
+  - `build_english_list`: no blocked sessions (note), 24-session smoke PASS, 0 regressed → REACH-OK; formatter outputs compared through both live wrappers. Async wrapper retains its original case-0 live impossible call.
+  - Final output:
+
+```text
+PASS  syntax   2 changed js file(s): js/cfgfiles.js js/end.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify cnf_line_WIZARDS: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    cnf_line_WIZARDS: no RNG-tagged reach; fixed smoke spread (24 run, 6.3s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify cnf_line_PORTABLE_DEVICE_PATHS: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    cnf_line_PORTABLE_DEVICE_PATHS: no RNG-tagged reach; fixed smoke spread (24 run, 6.3s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify build_english_list: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    build_english_list: no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+- **Named omissions:**
+  - `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value (CR/VT/FF); empty and '*' guards and the returned empty formatted list are exact. The config parser remains synchronous and cannot await the diagnostic's possible nhgetch boundary. This diagnostic remains live in the async build_english_list export. free/dupstr ownership uses immutable JS strings and GC. No executable caller omitted.
+  - `cnf_line_PORTABLE_DEVICE_PATHS`: none in the compiled non-WIN32 body or registration; cfgfiles.c:1136–1144 WIN32-only branch is excluded for this target. Inherited config_error_add/config_erradd windowed wait_synch omission remains D-3173/D-3082; the diagnostic itself is restored here.
+  - `build_english_list`: unixmain.c:659 pre-existing platform authorization-denial caller remains unwired; cfgfiles.c:806 now uses the shared config adapter with the end.c:1836 diagnostic omission above. C alloc sizing/ownership is represented by JS strings/GC. Pre-existing panic and docontact formatted-list consumers remain outside this cluster; sysopt_release already clears the stored formatted list.
+- **Ledger:** cnf_line_WIZARDS partial; cnf_line_PORTABLE_DEVICE_PATHS ported; build_english_list partial
+- **Next:** first remaining generated Open coverage row; no hand-written coverage refill. Synchronous config diagnostics need an input-boundary caller campaign before retiring the wordless-list omission.
+
 ## D-3183 — initialize vision before newgame or restore
 
 - **Status:** fixed coverage cluster; both complete bodies shipped. Small-cluster exception: the head and its sole callee contain 11 C code lines total, and there are no further same-file Open queue rows. No unrelated functions added for density.

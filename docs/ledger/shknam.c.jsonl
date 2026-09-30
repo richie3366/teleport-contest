@@ -1,4 +1,4 @@
-{"fn":"init_shop_selection","c":"360-374","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"init_shop_selection","c":"360-374","status":"by-design","at":"2026-09-30@a60a91a98","note":"shknam.c:356–375 is #if 0; no compiled body or callers. Validator also includes zero-item sentinel."}
 {"fn":"veggy_item","c":"380-405","status":"unknown"}
 {"fn":"shkveg","c":"408-439","status":"unknown"}
 {"fn":"mkveggy_at","c":"443-450","status":"unknown"}

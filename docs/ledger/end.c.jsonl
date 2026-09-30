@@ -26,5 +26,5 @@
 {"fn":"restore_killers","c":"1780-1790","status":"ported","js":["js/end.js:restore_killers"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wordcount","c":"1793-1806","status":"unknown"}
 {"fn":"bel_copy1","c":"1809-1820","status":"unknown"}
-{"fn":"build_english_list","c":"1823-1859","status":"ported","js":["js/end.js:build_english_list"],"d":["D-2629"],"at":"seed@a30a7de84"}
+{"fn":"build_english_list","c":"1823-1859","status":"partial","js":["js/end.js:build_english_list"],"omit":"- `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value (CR/VT/FF); empty and '*' guards and the returned empty formatted list are exact.","d":["D-3184","D-2629"],"at":"2026-09-30@a60a91a98"}
 {"fn":"NH_abort","c":"1896-1945","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime"}

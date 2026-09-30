@@ -115,10 +115,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `shknam.c` init_shop_selection — coverage MISSING (C 10 code L `shknam.c:360–374` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
-- [ ] `sfbase.c` SF_X — coverage MISSING (C 9 code L `sfbase.c:246–262` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `cfgfiles.c` cnf_line_WIZARDS — coverage MISSING (C 8 code L `cfgfiles.c:795–809` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
-- [ ] `cfgfiles.c` cnf_line_PORTABLE_DEVICE_PATHS — coverage THIN (C 9 code L `cfgfiles.c:1134–1150` / JS 1 code L in js/cfgfiles.js; hops —, callers 0, RNG 0, msg 0) @232081f95
 - [ ] `mail.c` ck_server_admin_msg — coverage THIN (C 8 code L `mail.c:685–700` / JS 0 code L in js/mail.js; hops —, callers 0, RNG 0, msg 0) @232081f95
 - [ ] `sp_lev.c` lspo_room — coverage PARTIAL (C 68 code L `sp_lev.c:4028–4116` / JS 46 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `sp_lev.c` lspo_level_flags — coverage PARTIAL (C 62 code L `sp_lev.c:3759–3831` / JS 39 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `invent.c` doprarm — coverage PARTIAL (C 22 code L `invent.c:4601–4638` / JS 14 code L in js/invent.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `getpos.c` cmp_coord_distu — coverage PARTIAL (C 12 code L `getpos.c:312–329` / JS 8 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `getpos.c` gloc_filter_floodfill_matcharea — coverage PARTIAL (C 9 code L `getpos.c:364–379` / JS 6 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @5e7475cd1
+- [ ] `wizcmds.c` migrsort_cmp — coverage PARTIAL (C 9 code L `wizcmds.c:1485–1501` / JS 6 code L in js/wizcmds.js; hops —, callers 0, RNG 0, msg 0) @a60a91a98
+- [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 18 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: paniclog file (Rule #2); recursive-in_impossible panic; debug_fuzzer panic; sysopt.support line; CRASHREPORT web report (network)) @a60a91a98
+- [ ] `cmd.c` getdir — coverage PARTIAL (C 104 code L `cmd.c:3958–4119` / JS 66 code L in js/lock.js; hops 2, callers 29, RNG 5, msg 2; declared partial: `readchar`/`readchar_queue`/`readchar_core` (altmeta pushback empty in sessions; nhgetch covers it); `docrt_flags` (live `flush_screen(1)` i) @a60a91a98
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
