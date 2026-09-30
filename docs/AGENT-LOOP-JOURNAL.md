@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3175 special-level region bindings validate options and booleans in C order
+
+**C locus:** whole bodies and reference tables read in briefs:
+**JS:** js/mklev.js:969 lcheck_param_table, :977 get_table_boolean, :993 get_table_boolean_opt, :999 l_get_lregion, :1022 l_teleport_region, :1034 l_levregion, :1042 padding expansion, :22831 get_table_intarray_entry_unpacked; js/dungeon.js:380 get_table_str_opt, :431 get_table_option export; scripts/lregion-validation.test.mjs.
+**Change:** restarted both binding bodies in C order over one l_get_lregion, one parameter-table adapter and the whole boolean/optional-boolean adapters. Imported the existing get_table_option and get_table_str_opt exports after imports --can confirmed the existing mklev→dungeon edge. Preserved option indices for boolean strings, signed-16 assignments, the exclude guard on the original lua_Integer, and nil-only defaults.
+**Verify:** clean preflight green + strict PASS (Node 22.22.0 via /tmp/nethack-node22/bin). **Measured:** /tmp/D3175-oracle.c extracts the unchanged region bindings, l_get_lregion, array/region readers and nhlua adapters, linked with recorder Lua 5.4.8; create_des_coder/levregion_add are test sinks, so this measures validation/conversion, not placement. /tmp/D3175-parity.mjs compares 112 boolean/option/padding/name/width/error cases: 112/112 PASS. Focused tests: 12/12 PASS.
+**Named:** - `lspo_teleport_region`: none in its body/loader bindings. Inherited Lua stack/registry adaptation uses unpacked JS objects and arrays; nhl_error source-stack diagnostic suffix absent (nhlua.c:198–218), throwing live. create_des_coder and levregion_add are existing live callees.
+**Next:** first generated Open — coverage row, role_gendercount; grow a whole-function same-file/callee cluster after its brief. Must-fix queue now empty.
 ## 2026-09-30 — D-3174 absolute coordinates preserve coordxy width and Lua 5.4.8 integer conversion
 
 **C locus:** - `nhl_abs_coord`: sp_lev.c:4810–4836, whole brief body and registration read; input casts :4817–4818/:4824–4825, pair/table/error dispatch in C order. global.h:71 defines coordxy as int16_t. nhlua.c:1017–1024 get_table_int casts checkinteger to int before coordxy. Recorder Lua 5.4.8 lapi.c:389–396 lua_tointegerx, lvm.c:122–157 integer conversion, lobject.c:239–337 numeric-string parsing, lauxlib.c:437–451 checkinteger; C99 strtod enabled by luaconf.h:609–610.

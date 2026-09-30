@@ -114,13 +114,13 @@
 {"fn":"lspo_replace_terrain","c":"5051-5143","status":"unknown","d":["D-1856"],"at":"seed@a30a7de84"}
 {"fn":"generate_way_out_method","c":"5146-5214","status":"unknown"}
 {"fn":"ensure_way_out","c":"5217-5255","status":"unknown","d":["D-2101"],"at":"seed@a30a7de84"}
-{"fn":"get_table_intarray_entry","c":"5260-5279","status":"split","js":["js/mklev.js:get_table_intarray_entry_unpacked"],"at":"2026-09-29@d27c7b945","note":"stale: get_table_intarray_entry_unpacked (D-2668)"}
+{"fn":"get_table_intarray_entry","c":"5260-5279","status":"split","js":["js/mklev.js:get_table_intarray_entry_unpacked"],"d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"stale: get_table_intarray_entry_unpacked (D-2668)"}
 {"fn":"get_table_region","c":"5282-5316","status":"split","js":["js/mklev.js:get_table_region_unpacked"],"d":["D-2668"],"at":"2026-09-29@d27c7b945","note":"stale: get_table_region_unpacked (D-2668)"}
 {"fn":"get_coord","c":"5319-5366","status":"partial","js":["js/mklev.js:get_coord"],"omit":"`nhl_get_xy_params` (`nhlua.c:506–522`) and its caller `nhl_getmap` (`nhlua.c:530`) have no JS function, so the `get_coord` at `nhlua.c:518` is unwired.","d":["D-2862"],"at":"seed@a30a7de84"}
 {"fn":"levregion_add","c":"5371-5402","status":"unknown"}
-{"fn":"l_get_lregion","c":"5410-5436","status":"split","js":["js/mklev.js:l_teleport_region","js/mklev.js:l_levregion"],"at":"2026-09-29@d27c7b945","note":"stale: inlined in l_teleport_region/l_levregion (D-2668)"}
-{"fn":"lspo_teleport_region","c":"5443-5460","status":"split","js":["js/mklev.js:l_teleport_region"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_levregion","c":"5472-5494","status":"split","js":["js/mklev.js:l_levregion"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"l_get_lregion","c":"5410-5436","status":"ported","js":["js/mklev.js:l_get_lregion"],"d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"stale: inlined in l_teleport_region/l_levregion (D-2668)"}
+{"fn":"lspo_teleport_region","c":"5443-5460","status":"split","js":["js/mklev.js:l_teleport_region"],"d":["D-3175","D-3166"],"at":"2026-09-30@adc5a35c2","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_levregion","c":"5472-5494","status":"split","js":["js/mklev.js:l_levregion"],"d":["D-3175","D-3166"],"at":"2026-09-30@adc5a35c2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_exclusion","c":"5498-5532","status":"unknown","d":["D-1109"],"at":"seed@a30a7de84"}
 {"fn":"sel_set_lit","c":"5535-5540","status":"unknown"}
 {"fn":"add_doors_to_room","c":"5544-5555","status":"unknown"}

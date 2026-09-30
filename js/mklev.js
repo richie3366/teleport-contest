@@ -144,7 +144,7 @@ import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at, 
 import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch, get_level,
-    on_level, init_dungeons, Is_special, Invocation_lev, In_W_tower, dupstr,
+    on_level, init_dungeons, Is_special, Invocation_lev, In_W_tower, dupstr, get_table_option, get_table_str_opt,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
 import {
@@ -965,93 +965,83 @@ function levregion_add(lregion) {
     });
 }
 
-/**
- * C ref: sp_lev.c lspo_teleport_region / l_get_lregion (unpacked table).
- * dir default "both" → LR_TELE. Missing exclude → delarea -1,-1,-1,-1 and
- * del_islev. Named omit: unknown dir falls back to LR_TELE where C
- * get_table_option nhl_errors (house ?? idiom, lspo_exclusion precedent);
- * other load_* still push lregions by hand (earth/fire/air/hell) rather
- * than this helper.
- */
-export function l_teleport_region(opts) {
-    create_des_coder(); // C lspo_teleport_region :5449
-    const o = opts ?? {}; // C :5450 lcheck_param_table
-    if (o === null || typeof o !== 'object') nhl_error('l_teleport_region: Wrong parameters');
-    // C l_get_lregion (sp_lev.c:5410–5441): required "region", optional
-    // "exclude" over pre-set -1s; del_islev forced when exclude x1 < 0.
-    const region = get_table_region_unpacked(o, 'region', false); // :5414
-    const exclude = get_table_region_unpacked(o, 'exclude', true); // :5421
-    const dir = o.dir || 'both';
-    const rtype = dir === 'up' ? LR_UPTELE
-        : dir === 'down' ? LR_DOWNTELE
-        : LR_TELE;
-    const lregion = {
-        inarea: {
-            x1: region[0], y1: region[1],
-            x2: region[2], y2: region[3],
-        },
-        delarea: exclude
-            ? {
-                x1: exclude[0], y1: exclude[1],
-                x2: exclude[2], y2: exclude[3],
-            }
-            : { x1: -1, y1: -1, x2: -1, y2: -1 },
-        in_islev: !!o.region_islev,
-        del_islev: !!o.exclude_islev,
-        rtype,
-        padding: 0,
-        rname: { str: null },
-    };
-    if (!exclude || exclude[0] < 0)
-        lregion.del_islev = true;
-    levregion_add(lregion);
+/** C nhlua.c:225–236: empty table only for no arguments; discard extras. */
+function lcheck_param_table(args) {
+    const table = args.length < 1 ? {} : args[0];
+    if (table === null || typeof table !== 'object')
+        nhl_error('bad argument (table expected)');
+    return table;
 }
 
-/**
- * C ref: sp_lev.c lspo_levregion / l_get_lregion.
- * type default "stair-down". Missing exclude → delarea -1 and del_islev.
- * Named omit: unknown type falls back to LR_DOWNSTAIR where C
- * get_table_option nhl_errors (house ?? idiom).
- */
-const LREGION_TYPES = {
-    'stair-down': LR_DOWNSTAIR,
-    'stair-up': LR_UPSTAIR,
-    portal: LR_PORTAL,
-    branch: LR_BRANCH,
-    teleport: LR_TELE,
-    'teleport-up': LR_UPTELE,
-    'teleport-down': LR_DOWNTELE,
-};
+/** C nhlua.c:1078–1104. String results are option indices in pinned C. */
+function get_table_boolean(table, name) {
+    const value = table[name];
+    let ret = -1;
+    if (typeof value === 'string') {
+        ret = get_table_option(table, name, null, ['true', 'false', 'yes', 'no']);
+    } else if (typeof value === 'boolean') {
+        ret = value ? 1 : 0;
+    } else if (typeof value === 'number') {
+        ret = luaL_checkinteger_unpacked(value, 32);
+        if (ret < 0 || ret > 1) ret = -1;
+    }
+    if (ret === -1) nhl_error('Expected a boolean');
+    return ret;
+}
 
-export function l_levregion(opts) {
-    create_des_coder(); // C lspo_levregion :5484
-    const o = opts ?? {}; // C :5485 lcheck_param_table
-    if (o === null || typeof o !== 'object') nhl_error('l_levregion: Wrong parameters');
-    // C l_get_lregion (sp_lev.c:5410–5441): required "region", optional
-    // "exclude" over pre-set -1s; del_islev forced when exclude x1 < 0.
-    const region = get_table_region_unpacked(o, 'region', false); // :5414
-    const exclude = get_table_region_unpacked(o, 'exclude', true); // :5421
-    const rtype = LREGION_TYPES[o.type || 'stair-down'] ?? LR_DOWNSTAIR;
-    const lregion = {
+/** C nhlua.c:1106–1118: nil defaults; every other type is validated. */
+function get_table_boolean_opt(table, name, defval) {
+    if (table[name] != null) return get_table_boolean(table, name);
+    return defval;
+}
+
+/** C sp_lev.c:5410–5436: region, exclude, booleans, negative exclude guard. */
+function l_get_lregion(table) {
+    const region = get_table_region_unpacked(table, 'region', false);
+    const narrow = value => typeof value === 'bigint'
+        ? Number(BigInt.asIntN(16, value)) : (value << 16) >> 16;
+    const tmplregion = {
         inarea: {
-            x1: region[0], y1: region[1],
-            x2: region[2], y2: region[3],
+            x1: narrow(region[0]), y1: narrow(region[1]),
+            x2: narrow(region[2]), y2: narrow(region[3]),
         },
-        delarea: exclude
-            ? {
-                x1: exclude[0], y1: exclude[1],
-                x2: exclude[2], y2: exclude[3],
-            }
-            : { x1: -1, y1: -1, x2: -1, y2: -1 },
-        in_islev: !!o.region_islev,
-        del_islev: !!o.exclude_islev,
-        rtype,
-        padding: o.padding | 0,
-        rname: { str: o.name ?? null },
     };
-    if (!exclude || exclude[0] < 0)
-        lregion.del_islev = true;
-    levregion_add(lregion);
+    // C keeps the lua_Integer x1 for the final guard, before coordxy narrowing.
+    const exclude = get_table_region_unpacked(table, 'exclude', true) ?? [-1, -1, -1, -1];
+    tmplregion.delarea = {
+        x1: narrow(exclude[0]), y1: narrow(exclude[1]),
+        x2: narrow(exclude[2]), y2: narrow(exclude[3]),
+    };
+    tmplregion.in_islev = get_table_boolean_opt(table, 'region_islev', 0);
+    tmplregion.del_islev = get_table_boolean_opt(table, 'exclude_islev', 0);
+    if (exclude[0] < 0) tmplregion.del_islev = 1;
+    return tmplregion;
+}
+
+/** C sp_lev.c:5442–5460 lspo_teleport_region (unpacked des table). */
+export function l_teleport_region(opts) {
+    create_des_coder();
+    const table = lcheck_param_table(arguments);
+    const tmplregion = l_get_lregion(table);
+    tmplregion.rtype = [LR_TELE, LR_DOWNTELE, LR_UPTELE][
+        get_table_option(table, 'dir', 'both', ['both', 'down', 'up'])];
+    tmplregion.padding = 0;
+    tmplregion.rname = { str: null };
+    levregion_add(tmplregion);
+}
+
+/** C sp_lev.c:5471–5494 lspo_levregion (unpacked des table). */
+export function l_levregion(opts) {
+    create_des_coder();
+    const table = lcheck_param_table(arguments);
+    const tmplregion = l_get_lregion(table);
+    tmplregion.rtype = [LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH,
+        LR_TELE, LR_UPTELE, LR_DOWNTELE][get_table_option(table, 'type', 'stair-down',
+        ['stair-down', 'stair-up', 'portal', 'branch', 'teleport', 'teleport-up', 'teleport-down'])];
+    // C get_table_int_opt :1028–1039, then coordxy assignment (:5489).
+    tmplregion.padding = table.padding == null ? 0 : luaL_checkinteger_unpacked(table.padding, 16);
+    tmplregion.rname = { str: get_table_str_opt(table, 'name', null) };
+    levregion_add(tmplregion);
 }
 
 /**
@@ -22834,19 +22824,21 @@ function lspo_bool_opt(v, dflt) {
 }
 
 /**
- * C ref: sp_lev.c get_table_intarray_entry :5260–5280 (unpacked; not
- * lua_State). 1-based entry read: a number truncates like lua_tointeger
- * (Math.trunc — no ToInt32 wrap); a numeric string coerces like
- * lua_isnumber/lua_tointeger. Anything else throws like C nhl_error
- * ("Array entry #… is %s, expected number" — C prints a hardcoded 1).
+ * C sp_lev.c:5260–5279: lua_isnumber then lua_tointeger, which returns
+ * zero for fractional/out-of-range floats. The unpacked array replaces
+ * the Lua stack index adjustment; integer strings retain all 64 bits.
  */
 function get_table_intarray_entry_unpacked(arr, entrynum) {
-    const v = arr[entrynum - 1]; // C :5267–5268 lua_pushinteger + lua_gettable
-    if (typeof v === 'number' && Number.isFinite(v)) return Math.trunc(v); // :5270
-    if (typeof v === 'string' && v.trim() !== '' && !Number.isNaN(Number(v)))
-        return Math.trunc(Number(v)); // C lua_isnumber coerces numeric strings
-    const typename = v == null ? 'nil' : (Array.isArray(v) ? 'table' : typeof v);
-    nhl_error(`Array entry #1 is ${typename}, expected number`); // C :5273–5276
+    const value = arr[entrynum - 1];
+    const number = lua_number_unpacked(value);
+    if (number !== null) {
+        const integer = lua_integer_unpacked(number) ?? 0n;
+        const result = Number(integer);
+        return Number.isSafeInteger(result) ? result : integer;
+    }
+    const typename = value == null ? 'nil'
+        : (typeof value === 'object' ? 'table' : typeof value);
+    nhl_error(`Array entry #1 is ${typename}, expected number`);
 }
 
 /**

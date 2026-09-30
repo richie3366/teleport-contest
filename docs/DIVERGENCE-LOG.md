@@ -1,5 +1,68 @@
 # Divergence log
 
+## D-3175 — special-level region bindings validate options and booleans in C order
+
+- **Status:** fixed (review 2126 Must-fix, alone; region binding bodies complete; shared adapter caller closures partial as named below).
+- **Symptom:** l_teleport_region/l_levregion silently defaulted invalid dir/type, truth-coerced numeric boolean 2, and accepted malformed padding/name. Region and padding assignments also retained JS-width values instead of coordxy.
+- **C locus:** whole bodies and reference tables read in briefs:
+  - `lspo_teleport_region`: sp_lev.c:5442–5460; des registration :6410.
+  - `lspo_levregion`: sp_lev.c:5471–5494; des registration :6404.
+  - `l_get_lregion`: sp_lev.c:5410–5436; two live callers :5451/:5486. hack.h:879–889 stores region coordinates and padding as int16_t coordxy.
+  - `get_table_boolean`: nhlua.c:1078–1104; strings return luaL_checkoption's index, not the commented-out boolstr2i mapping; numeric int cast precedes range validation.
+  - `get_table_boolean_opt`: nhlua.c:1106–1118; nil defaults, all other types validate.
+  - `lcheck_param_table`: nhlua.c:225–236; no args creates an empty table; extra args discarded; explicit nil fails checktype.
+  - `get_table_intarray_entry`: sp_lev.c:5260–5279; lua_isnumber then lua_tointeger, not truncation.
+  - `get_table_str_opt`: nhlua.c:1054–1076; callback luaL_optstring permits numbers, nil, and strings; direct number fields fail.
+  - `get_table_int_opt`: nhlua.c:1028–1039; nil/default/checkinteger/int cast, followed here by the coordxy padding assignment at sp_lev.c:5489.
+- **JS was:** duplicated region adapters parsed type/direction ahead of booleans, used truthiness defaults and coercion, left names unconverted, and truncated array fractions. Existing dungeon get_table_option already enforced exact matching; its name adapter rejected callback numeric results.
+- **Fix:** restarted both binding bodies in C order over one l_get_lregion, one parameter-table adapter and the whole boolean/optional-boolean adapters. Imported the existing get_table_option and get_table_str_opt exports after imports --can confirmed the existing mklev→dungeon edge. Preserved option indices for boolean strings, signed-16 assignments, the exclude guard on the original lua_Integer, and nil-only defaults. Padding expands the complete get_table_int_opt boundary over the measured Lua integer converter; int32 then int16 has the same low bits as its direct int16 destination cast. Reused the Lua numeric adapters for array conversion; large integer strings retain exact low bits. Callback names now accept Lua numeric results and retain NUL-terminated dupstr semantics. No new production filesystem or runtime dependency.
+- **JS:** js/mklev.js:969 lcheck_param_table, :977 get_table_boolean, :993 get_table_boolean_opt, :999 l_get_lregion, :1022 l_teleport_region, :1034 l_levregion, :1042 padding expansion, :22831 get_table_intarray_entry_unpacked; js/dungeon.js:380 get_table_str_opt, :431 get_table_option export; scripts/lregion-validation.test.mjs.
+- **Callers:**
+  - `lspo_teleport_region`: C references table has only a prototype; des.teleport_region registration sp_lev.c:6410 maps to the unchanged l_teleport_region export js/mklev.js:1022. Existing dat-script loader calls stay wired at js/mklev.js:4874,5883,5884,6028,6029,13369,13370,15813,15987,16905,19865,26843. These are Lua des-call adaptations, not invented C physics callers.
+  - `lspo_levregion`: C references table has only a prototype; des.levregion registration :6404 maps to l_levregion js/mklev.js:1034. Existing loader sites :13368,15815,26831,26835,26839,26849 retain their export/signature.
+  - `l_get_lregion`: sp_lev.c:5451/:5486 → js/mklev.js:1025/:1037.
+  - `get_table_boolean`: nhlua.c:1114 → js/mklev.js:994.
+  - `get_table_boolean_opt`: sp_lev.c:5427/:5428 → js/mklev.js:1015/:1016. All other 49 direct C sites remain inherited omissions enumerated below.
+  - `lcheck_param_table`: sp_lev.c:5450/:5485 → js/mklev.js:1024/:1036; other 25 direct sites are named below.
+  - `get_table_intarray_entry`: sp_lev.c:5309–5312 → js/mklev.js:22866–22869; :5356/:5357 → :22523/:22524. The unpacked array replaces stack-relative indexing. Existing get_table_region_unpacked readers remain wired at :1000/:1010 (l_get_lregion), :1067 (exclusion), :2045 (replace terrain), :2138/:5207 (region adapters).
+  - `get_table_str_opt`: dungeon.c:817/:818/:894 → js/dungeon.js:773/:774/:851; sp_lev.c:5490 → js/mklev.js:1043. The other 20 direct sites remain inherited omissions listed below.
+  - `get_table_int_opt`: sp_lev.c:5489 → js/mklev.js:1042, complete padding expansion. Other 46 direct C sites retain their pre-existing adapters/omissions as named below.
+- **Verify:** clean preflight green + strict PASS (Node 22.22.0 via /tmp/nethack-node22/bin). **Measured:** /tmp/D3175-oracle.c extracts the unchanged region bindings, l_get_lregion, array/region readers and nhlua adapters, linked with recorder Lua 5.4.8; create_des_coder/levregion_add are test sinks, so this measures validation/conversion, not placement. /tmp/D3175-parity.mjs compares 112 boolean/option/padding/name/width/error cases: 112/112 PASS. Focused tests: 12/12 PASS. The first fixture failure requested random placement with no initialized RNG; corrected it to test negative original exclude x1 narrowing to zero without random placement; no production change after verification.
+  - `lspo_teleport_region`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `lspo_levregion`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `l_get_lregion`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `get_table_boolean`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `get_table_boolean_opt`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `lcheck_param_table`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `get_table_intarray_entry`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `get_table_str_opt`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK.
+  - `get_table_int_opt`: no blocked session; 24 smoke PASS, 0 regressed → REACH-OK (separate padding verify).
+  Tail of `node scripts/verify.mjs --fn lspo_teleport_region,lspo_levregion,l_get_lregion,get_table_boolean,get_table_boolean_opt,lcheck_param_table,get_table_intarray_entry,get_table_str_opt --reach-all` (/tmp/D3175-verify.log):
+  ```text
+  PASS  reach    get_table_intarray_entry: no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+  PASS  reach    get_table_str_opt: no RNG-tagged reach; fixed smoke spread (24 run, 6.3s): 24 PASS, 0 regressed → REACH-OK
+  PASS  green    2/2 passing
+  PASS  strict   seed8000-tourist-starter.session.json
+  PASS  strict   seed0900-tourist-explore-actions.session.json
+  PASS  cohort   7/7 passing
+  PASS  full     44/44 passing (auto: shared file changed)
+
+  VERIFY: PASS
+  ```
+  Syntax (both changed JS files) and Rule #2/DIAG/FORCE/seed-gate scan PASS. Padding verify also green/strict/cohort/full 44/44 PASS.
+- **Named omissions:**
+  - `lspo_teleport_region`: none in its body/loader bindings. Inherited Lua stack/registry adaptation uses unpacked JS objects and arrays; nhl_error source-stack diagnostic suffix absent (nhlua.c:198–218), throwing live. create_des_coder and levregion_add are existing live callees.
+  - `lspo_levregion`: none in its body/loader bindings; same inherited unpacked Lua boundary and diagnostic suffix. Padding's local expansion avoids the pre-existing inaccurate dungeon integer converter.
+  - `l_get_lregion`: none in body or two callers; get_table_region_unpacked is live. Lua sequences are JS arrays; Lua metatable/stack behavior remains by-design outside this adapter.
+  - `get_table_boolean`: none in body or sole direct caller; inherited nhl_error diagnostic suffix only.
+  - `get_table_boolean_opt`: body complete; remaining direct callers not rewired here: nhlua.c:1470,1486,1492,1498; sp_lev.c:3293,3294,3299–3303,3307–3309,3313,3315,3317,3319,3321,3323; :3639,3640,3642–3644,3646–3648,3709,3711,3713,3717; :3858–3861,3865; :3909,3910; :4078; :4431–4433; :4745; :5601–5603; :5795; :6121. Their existing lspo_bool_opt/raw-field approximations remain outside the region Must-fix.
+  - `lcheck_param_table`: body complete; other direct callers remain existing per-binding guards, not this shared helper: nhlsel.c:882; nhlua.c:1467; sp_lev.c:3291,3632,3850,3902,3945,4035,4163,4258,4299,4427,4500,4541,4694,4875,4943,4991,5065,5511,5596,5740,5791,5887,6116.
+  - `get_table_intarray_entry`: none in body or six direct calls; stack/index operations become an unpacked array read. Exact large integers may remain internal BigInts until destination-width conversion.
+  - `get_table_str_opt`: body adapted; nhl_pcall_handle is the existing by-design direct zero-arg JS callback (exceptions propagate; Lua panic wrapper/source diagnostic absent). JS numbers cannot distinguish a Lua integer 1 from a Lua float 1.0; integral JS values represent integer results. Missing/non-shared direct callers: dungeon.c:1008,1009,1016,1017; nhlua.c:261,1412; questpgr.c:524,543,549; sp_lev.c:3133,3169,3295,3326,3457,3541,3637,3673,4006,4262,4352. Their existing field/inline adapters retain inherited gaps; no claim that this Must-fix ports those callers.
+  - `get_table_int_opt`: region padding expansion complete; the existing js/dungeon.js:343 adapter remains approximate through luaL_checkinteger_dgn (fractions truncate, broad JS numeric strings). Other direct sites retain existing adapters/omissions: dungeon.c:820–822,896,1011,1013,1014; nhlsel.c:886,887,893; sp_lev.c:3193,3194,3304–3306,3310,3641,3645,3863,3864,3947–3950,4062,4063,4073,4074,4076,4502,4717,4952,4953,5001,5086–5091,5565–5568,5600,5605. No global optional-integer closure completion claimed.
+- **Ledger:** lspo_teleport_region split js=mklev.js:l_teleport_region; lspo_levregion split js=mklev.js:l_levregion; l_get_lregion ported; get_table_boolean ported; get_table_boolean_opt partial; lcheck_param_table partial; get_table_intarray_entry split js=mklev.js:get_table_intarray_entry_unpacked; get_table_str_opt partial; get_table_int_opt partial
+- **Next:** first generated Open — coverage row, role_gendercount; grow a whole-function same-file/callee cluster after its brief. Must-fix queue now empty.
+
 ## D-3174 — absolute coordinates preserve coordxy width and Lua 5.4.8 integer conversion
 
 - **Status:** fixed (review 2128 Must-fix, alone; both bodies complete, inherited cvt caller closure remains partial).

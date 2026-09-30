@@ -1,5 +1,7 @@
 # Review 2126 — 2b25db15c — special-level bindings
 
+**Addressed:** D-3175
+
 SHA `2b25db15c`, D-3166; 2026-09-30; +110 JS lines. No review closure.
 
 ## Intent vs deliverable
