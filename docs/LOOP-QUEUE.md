@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `end.c` done2 — coverage THIN (C 35 code L `end.c:90–148` / JS 14 code L in js/end.js; hops —, callers 1, RNG 0, msg 0) @b90b1a381
 - [ ] `lock.c` lock_action — coverage PARTIAL (C 19 code L `lock.c:38–64` / JS 11 code L in js/lock.js; hops 5, callers 2, RNG 0, msg 0) @b90b1a381
 - [ ] `ball.c` Unplacebc_and_covet_placebc — coverage MISSING (C 14 code L `ball.c:306–324` / JS no symbol; hops —, callers 0, RNG 1, msg 0) @e3690fe26
 - [ ] `botl.c` clear_status_hilites — coverage MISSING (C 8 code L `botl.c:3351–3366` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @e3690fe26
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `do_wear.c` dotakeoff — coverage PARTIAL (C 16 code L `do_wear.c:1833–1855` / JS 10 code L in js/do_wear.js; hops —, callers 1, RNG 0, msg 1) @463ffffc2
 - [ ] `attrib.c` restore_attrib — coverage MISSING (C 12 code L `attrib.c:455–484` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @f292ec32c
 - [ ] `topten.c` outheader — coverage PARTIAL (C 8 code L `topten.c:929–940` / JS 4 code L in js/topten.js; hops 4, callers 2, RNG 0, msg 0) @f292ec32c
+- [ ] `mail.c` getmailstatus — coverage THIN (C 25 code L `mail.c:97–141` / JS 8 code L in js/mail.js; hops —, callers 0, RNG 0, msg 3) @7cc43ecc2
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

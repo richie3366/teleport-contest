@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3136 `end.c` quit cluster: done2 restart + done1/done_intr/done_hangup ports, odds_and_ends by-design (coverage head)
+
+**C locus:** - `done2`: end.c:90–148 (abandon gate :94–96, cancel arm :98–117, wizard arm :120–144, done(QUIT) :146).
+**JS:** 1 file, +108/−21 (end.js), far under caps. Density note: all 30 end.c functions are now declared (ported/partial/by-design) or measured-ok; nothing more Open in end.c after this cluster.
+**Change:** `js/end.js` only — restarted `done2` in C order (In_tutorial + y_n abandon gate with || short-circuit; cancel arm with curs_on_u + two-if multi/nomul + invuln/sleep + schedule_goto abandon goto; wizard arm over the ynq() helper with split 'y'/'q': 'y' → sound-exit guard + nh_terminate(EXIT_FAILURE), 'q' → stopprint++); new `done1` export in C position (before done2, same relative order as C :68/:90); new module-local `done_intr`/`done_hangup` after done2 (staticfn, same relative order as C :154/:169). New names on existing edges (nomul, y_n, ynq, In_tutorial, UTOTYPE_ATSTAIRS, fuzzer_off, EXIT_FAILURE) + 1 new edge end.js → do.js schedule_goto (`--can`: SAFE, hoisted decl). No js/ for odds_and_ends (ledger by-design via direct set, D-3121 precedent).
+**Verify:** `node scripts/verify.mjs --fn done2,done1,done_intr,done_hangup` → PASS syntax (1 file) · PASS rule2 · note hidden ×4 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×4 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS + full `sessions` 44/44 (forced: end.js has 10+ importers) incl. seed0398 (Dump-core exerciser) RNG 3026/3026 + Scr 87/87. Verify ran after the last js/ edit. No maintained test added: repo has no unit harness; the arms sit behind interactive y_n/ynq/paranoid prompts, covered by session verify (D-3135 precedent).
+**Named:** - `done2`: signal() re-arms (:101, :135); wait_synch (:105); exit_nhwindows (:140); NH_abort (:141, by-design → nh_terminate analogue); VMS/LATTICE prompt arms (:122–129, not this build). None else — every portable callee live.
+**Next:** end.c has nothing more Open; next iteration pops the new coverage head (`lock.c` lock_action).
 ## 2026-09-30 — Audit 2087-2095 (D-3127..D-3135): 8 ACCEPT, 1 WITH-DEBT; full cadence
 
 Reviews 2087-2095 audit d3ab32283..4399b92c1 vs pinned C (8A/1D: 2088 ia→ium debt unqueued). All verifys re-measured --reach-all, no REGRESSED. No Must-fix. Ledger: flip_level omit + rndtrap split fixed. Cadence: 44/44, 648/953 0 flips full:true, held-out 13/44 flat. Snapshot + 4/5 seeded sample (1 fixed).

@@ -1,7 +1,7 @@
-{"fn":"done1","c":"68-86","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"done2","c":"90-148","status":"unknown"}
-{"fn":"done_intr","c":"154-164","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"done_hangup","c":"169-177","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"done1","c":"68-86","status":"ported","js":["js/end.js:done1"],"d":["D-3136"],"at":"2026-09-30@7cc43ecc2","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"done2","c":"90-148","status":"ported","js":["js/end.js:done2"],"d":["D-3136"],"at":"2026-09-30@7cc43ecc2"}
+{"fn":"done_intr","c":"154-164","status":"ported","js":["js/end.js:done_intr"],"d":["D-3136"],"at":"2026-09-30@7cc43ecc2","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"done_hangup","c":"169-177","status":"ported","js":["js/end.js:done_hangup"],"d":["D-3136"],"at":"2026-09-30@7cc43ecc2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"done_in_by","c":"185-344","status":"ported","js":["js/end.js:done_in_by"],"d":["D-2770","D-2351","D-2348","D-2102"],"at":"seed@a30a7de84"}
 {"fn":"fixup_death","c":"366-384","status":"ported","js":["js/end.js:fixup_death"],"d":["D-3132"],"at":"2026-09-29@b90b1a381","note":"stale: js/end.js:421"}
 {"fn":"should_query_disclose_option","c":"476-515","status":"ported","js":["js/end.js:should_query_disclose_option"],"d":["D-3132"],"at":"2026-09-29@b90b1a381"}
@@ -11,7 +11,7 @@
 {"fn":"savelife","c":"704-756","status":"unknown","d":["D-2181","D-2172"],"at":"seed@a30a7de84"}
 {"fn":"get_valuables","c":"763-791","status":"unknown","d":["D-1741"],"at":"seed@a30a7de84"}
 {"fn":"sort_valuables","c":"798-818","status":"ported","js":["js/end.js:sort_valuables"],"d":["D-3132"],"at":"2026-09-29@b90b1a381","note":"stale: js/end.js:243"}
-{"fn":"odds_and_ends","c":"830-846","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"odds_and_ends","c":"830-846","status":"by-design","at":"2026-09-30@7cc43ecc2","note":"#if 0 uncompiled in C (end.c:820-847; was 3.6.0/3.6.1 only)"}
 {"fn":"done_object_cleanup","c":"851-903","status":"unknown","d":["D-2724"],"at":"seed@a30a7de84"}
 {"fn":"artifact_score","c":"907-940","status":"unknown","d":["D-1730"],"at":"seed@a30a7de84"}
 {"fn":"fuzzer_savelife","c":"945-1016","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}

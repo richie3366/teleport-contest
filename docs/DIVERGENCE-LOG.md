@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3136 — `end.c` quit cluster: done2 restart + done1/done_intr/done_hangup ports, odds_and_ends by-design (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head done2 restart + same-file done1/done_intr/done_hangup ports + odds_and_ends by-design (#if 0, uncompiled); 4 ports + 1 disposition, 1 file).
+- **Symptom:** no corpus divergence — coverage. `done2` named-omitted the tutorial abandon gate, the cancel-arm multi/invuln/sleep handling, and conflated Dump-core 'y' (abort) with 'q' (stopprint); `done1`/`done_intr`/`done_hangup` had no JS symbols.
+- **C locus:**
+  - `done2`: end.c:90–148 (abandon gate :94–96, cancel arm :98–117, wizard arm :120–144, done(QUIT) :146).
+  - `done1`: end.c:68–86 (fuzzer off :73, ignintr arm :74–82, done2() :84).
+  - `done_intr`: end.c:154–164 (stopprint :156, signal ignores :157–162).
+  - `done_hangup`: end.c:169–177 (done_hup :172, done_intr chain :175).
+  - `odds_and_ends`: end.c:830–846 — inside `#if 0` (:820–847, "was used for 3.6.0 and 3.6.1"). Uncompiled.
+- **JS was:** done2 (end.js:1807) with "Named omissions: In_tutorial abandon / schedule_goto; Dump-core 'y' → NH_abort / sound_exit (treated as stopprint quit); curs_on_u / wait_synch / multi nomul on cancel". No done1/done_intr/done_hangup symbols.
+- **Fix:** `js/end.js` only — restarted `done2` in C order (In_tutorial + y_n abandon gate with || short-circuit; cancel arm with curs_on_u + two-if multi/nomul + invuln/sleep + schedule_goto abandon goto; wizard arm over the ynq() helper with split 'y'/'q': 'y' → sound-exit guard + nh_terminate(EXIT_FAILURE), 'q' → stopprint++); new `done1` export in C position (before done2, same relative order as C :68/:90); new module-local `done_intr`/`done_hangup` after done2 (staticfn, same relative order as C :154/:169). New names on existing edges (nomul, y_n, ynq, In_tutorial, UTOTYPE_ATSTAIRS, fuzzer_off, EXIT_FAILURE) + 1 new edge end.js → do.js schedule_goto (`--can`: SAFE, hoisted decl). No js/ for odds_and_ends (ledger by-design via direct set, D-3121 precedent).
+- **JS:** 1 file, +108/−21 (end.js), far under caps. Density note: all 30 end.c functions are now declared (ported/partial/by-design) or measured-ok; nothing more Open in end.c after this cluster.
+- **Callers:**
+  - `done2`: C :84 (done1) → JS end.js:1824 (done1 else arm).
+  - `done1`: no C call sites (signal() handler only) → no JS callers.
+  - `done_intr`: C :175 (done_hangup) → JS end.js:1919.
+  - `done_hangup`: no C call sites (sethanguphandler only) → no JS callers.
+  - `odds_and_ends`: no live C callers (uncompiled).
+- **Verify:** `node scripts/verify.mjs --fn done2,done1,done_intr,done_hangup` → PASS syntax (1 file) · PASS rule2 · note hidden ×4 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×4 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS + full `sessions` 44/44 (forced: end.js has 10+ importers) incl. seed0398 (Dump-core exerciser) RNG 3026/3026 + Scr 87/87. Verify ran after the last js/ edit. No maintained test added: repo has no unit harness; the arms sit behind interactive y_n/ynq/paranoid prompts, covered by session verify (D-3135 precedent).
+- **Named omissions:**
+  - `done2`: signal() re-arms (:101, :135); wait_synch (:105); exit_nhwindows (:140); NH_abort (:141, by-design → nh_terminate analogue); VMS/LATTICE prompt arms (:122–129, not this build). None else — every portable callee live.
+  - `done1`: signal() re-arms (:71, :76); wait_synch (:80). None else.
+  - `done_intr`: signal() ignores (:157, :160). None else.
+  - `done_hangup`: sethanguphandler (:174). None else.
+  - `odds_and_ends`: whole function uncompiled (by-design).
+- **Ledger:** done2 ported; done1 ported; done_intr ported; done_hangup ported
+- **Next:** end.c has nothing more Open; next iteration pops the new coverage head (`lock.c` lock_action).
+
 ## D-3135 — `pickup.c` mon_beside + dotip + allow_cat_no_uchain + container_gone ports, count_target_containers by-design, count_categories/n_or_more/count_justpicked/stash_ok stale (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head mon_beside port → count_target_containers by-design (#if 0, uncompiled) → count_categories stale → shipped same-file dotip spill/statue/verbose arms + allow_cat_no_uchain port + container_gone rename-port + n_or_more/count_justpicked/stash_ok stale; 4 ports + 5 dispositions, 1 file).
