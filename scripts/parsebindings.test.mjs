@@ -17,7 +17,8 @@ import {
 // tail-first recursion with ret aggregation, first-colon split, the
 // mouse1/mouse2 arm (failure falls through to txt2key), txt2key,
 // bind_specialkey, the menu-command arm, and the extcmd overlay arm
-// (miss records an error but returns ret). The extcmd overlay Map is the
+// (miss records an error and returns FALSE, C :7670-7671). The extcmd
+// overlay Map is the
 // pre-existing JS keymap-write channel (D-0897/D-2550); mouse, special
 // keys, menu aliases and bind params go to their live stores like C.
 
@@ -49,9 +50,9 @@ describe("parsebindings (options.c:7596-7674)", () => {
     assert.equal(m.get(97), "kick");
   });
 
-  it("unknown command records an error but returns ret TRUE (C :7670-7673)", () => {
+  it("unknown command records an error and returns FALSE (C :7670-7671)", () => {
     const m = new Map();
-    assert.equal(parsebindings("a:boguscmd", m), true);
+    assert.equal(parsebindings("a:boguscmd", m), false);
     assert.equal(m.has(97), false);
   });
 
@@ -92,11 +93,11 @@ describe("parsebindings (options.c:7596-7674)", () => {
     assert.equal(m.size, 0);
   });
 
-  it("failed mouse bind falls through, both errors sunk, ret (C :7638)", () => {
+  it("failed mouse bind falls through, extcmd miss returns FALSE (C :7638, :7670-7671)", () => {
     // txt2key("mouse1") is M-'o' (239), nonzero, so the fall-through runs
-    // the later arms: "boguscmd" misses everywhere, error sunk, ret TRUE.
+    // the later arms: "boguscmd" misses everywhere, error sunk, FALSE.
     const m = new Map();
-    assert.equal(parsebindings("mouse1:boguscmd", m), true);
+    assert.equal(parsebindings("mouse1:boguscmd", m), false);
     assert.equal(game.Cmd?.mousebtn?.[0] ?? null, null);
     assert.equal(m.size, 0);
   });

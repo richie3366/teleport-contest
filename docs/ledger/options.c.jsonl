@@ -167,7 +167,7 @@
 {"fn":"warning_opts","c":"7521-7538","status":"unknown"}
 {"fn":"assign_warnings","c":"7541-7548","status":"unknown"}
 {"fn":"feature_alert_opts","c":"7558-7585","status":"ported","js":["js/options.js:feature_alert_opts"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"parsebindings","c":"7596-7674","status":"ported","js":["js/options.js:parsebindings"],"d":["D-3151"],"at":"2026-09-30@5fd602958"}
+{"fn":"parsebindings","c":"7596-7674","status":"ported","js":["js/options.js:parsebindings"],"d":["D-3154","D-3151"],"at":"2026-09-30@d2c2c1ca0"}
 {"fn":"msgtype2name","c":"7690-7698","status":"unknown"}
 {"fn":"query_msgtype","c":"7701-7728","status":"unknown"}
 {"fn":"msgtype_add","c":"7731-7754","status":"ported","js":["js/options.js:msgtype_add"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}

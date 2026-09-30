@@ -946,7 +946,7 @@ export function txt2key(txt) {
  * command (`:7633`), mouse1/mouse2 arm (`:7635–7642`, a failed bind falls
  * through to txt2key like C), txt2key (`:7644–7649`), bind_specialkey
  * (`:7651–7653`), menu-command arm (`:7655–7666`), extcmd arm (`:7668–7672`,
- * a miss records an error but returns ret).
+ * a miss records an error and returns FALSE (`:7670–7671`).
  * Sole C caller: cfgfiles.c:621 cnf_line_BINDINGS (wired at cfgfiles.js
  * cnf_line_BINDINGS + parseNethackrc BIND= below).
  * JS adaptation (pre-existing, D-0897/D-2550): extcmd binds land in the
@@ -1006,9 +1006,10 @@ export function parsebindings(bindings, outMap) {
         return ret; // C `:7664`
     }
     // C `:7668–7672` — extended commands over the overlay (below). A miss
-    // records an error but returns ret.
+    // records an error and returns FALSE.
     if (!overlay_bind_key(key, bind, outMap)) {
         config_error_add("Unknown key binding command '%s'", bind); // C `:7670`
+        return false; // C `:7671`
     }
     return ret; // C `:7672`
 }

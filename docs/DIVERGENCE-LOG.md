@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3154 — `options.c` parsebindings extcmd-miss returns FALSE (Must-fix 2111)
+
+- **Status:** fixed (Must-fix from review 2111 — C-wrong introduced by the D-3151 restart; ships alone. +3/-2 js/options.js incl. doc line, two test pins corrected.)
+- **Symptom:** C-wrong, not a corpus divergence: the restarted JS miss arm recorded the `config_error_add("Unknown key binding command ...")` but `return ret` — TRUE on a clean tail — where C `options.c:7670–7671` returns FALSE after the error. Since JS `config_error_add` is a void sink, the return is the only surviving error signal, so a bogus BINDINGS command was totally silent; the boolean flows `parsebindings` → `cnf_line_BINDINGS` (cfgfiles.c:621) → `parse_conf_buf` (`p->rv=FALSE`, cfgfiles.c:1798). The committed suite pinned the wrong value twice.
+- **C locus:**
+  - `parsebindings`: options.c:7668–7672 (`if (!bind_key(...))` miss gate `:7668`, `config_error_add` `:7670`, `return FALSE` `:7671`, hit path `return ret` `:7672`).
+- **JS was:** js/options.js:1010 miss arm recorded the error then fell through to `return ret` (doc line claimed "records an error but returns ret"); `scripts/parsebindings.test.mjs` pinned `true` for `"a:boguscmd"` (:54) and `"mouse1:boguscmd"` (:99).
+- **Fix:** miss arm now `return false` right after the error (hit path still `return ret`); doc line corrected to "records an error and returns FALSE (`:7670–7671`)"; both pins flipped to `false` with the C locus in the test names.
+- **JS:** js/options.js:1010 (`return false` in the miss arm; export signature unchanged).
+- **Callers:**
+  - `parsebindings`: C cfgfiles.c:621 `cnf_line_BINDINGS` → JS js/cfgfiles.js:639 (`return !!parsebindings(...)` — FALSE now propagates to `p->rv` like C); C self-recursion options.c:7624 → JS js/options.js:973 (ret aggregation unchanged); JS-only `parseNethackrc` BIND= js/options.js:3722 ignores the return (unaffected).
+- **Verify:**
+  - `parsebindings`: pins flipped first → 20/22 (2 red, the two miss pins); after the arm fix 22/22 + neighbors 18/18 (`get-changed-key-binds`, `bind-mousebtn`, `cfgfiles-config-lines` — none call `parsebindings` directly).
+  Full tail: VERIFY: PASS (syntax 1 file js/options.js; Rule #2; hidden: no corpus session blocked at baseline; reach: no RNG-tagged reach, smoke 24 run 24 PASS 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto — shared file changed).
+- **Named omissions:**
+  - `parsebindings`: none — one-arm return fix on the D-3151 whole body; every callee already live.
+- **Ledger:** parsebindings ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3153 — `worn.c` nxt_unbypassed_loot restart + askchain ret: global clear_bypasses (coverage)
 
 - **Status:** fixed (breadth-phase single-function cluster: head `nxt_unbypassed_loot` is the sole worn.c row in the 12-row eligible set and its callee `bypass_obj` is already live — density exception applies. 0 corpus sessions blocked — coverage completion, not a divergence. +31/-13 js/pickup.js. `clear_bypasses` ledger-ported as a pre-existing complete port newly wired.)

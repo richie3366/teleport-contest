@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3154 `options.c` parsebindings extcmd-miss returns FALSE (Must-fix 2111)
+
+**C locus:** - `parsebindings`: options.c:7668–7672 (`if (!bind_key(...))` miss gate `:7668`, `config_error_add` `:7670`, `return FALSE` `:7671`, hit path `return ret` `:7672`).
+**JS:** js/options.js:1010 (`return false` in the miss arm; export signature unchanged).
+**Change:** miss arm now `return false` right after the error (hit path still `return ret`); doc line corrected to "records an error and returns FALSE (`:7670–7671`)"; both pins flipped to `false` with the C locus in the test names.
+**Verify:** - `parsebindings`: pins flipped first → 20/22 (2 red, the two miss pins); after the arm fix 22/22 + neighbors 18/18 (`get-changed-key-binds`, `bind-mousebtn`, `cfgfiles-config-lines` — none call `parsebindings` directly).
+**Named:** - `parsebindings`: none — one-arm return fix on the D-3151 whole body; every callee already live.
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — Audit 2105–2113 (D-3145..D-3153): 7 ACCEPT, 1 WITH-DEBT, 1 QUALITY-RISK; full cadence
 
 9 `js/` SHAs reviewed (2105–2113): 7A/1D/1Q. 2111 catch (`parsebindings` miss-arm FALSE) → Must-fix. Cadence: 44/44 public, 648/953 corpus (0 flips, full), held-out 13/44 flat.

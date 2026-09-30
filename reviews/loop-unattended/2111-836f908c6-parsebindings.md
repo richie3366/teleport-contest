@@ -8,6 +8,8 @@
   (`options.c` head + `cmd.c` callee — one caller/callee closure).
 - Prior-review closure claimed: none.
 
+**Addressed:** D-3154
+
 ## Intent vs deliverable
 
 Subject promises: "parsebindings restart + bind_specialkey + versinfo
