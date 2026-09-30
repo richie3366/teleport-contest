@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `hacklib.c` case_insensitive_comp — coverage PARTIAL (C 11 code L `hacklib.c:922–937` / JS 8 code L in js/date.js; hops —, callers 2, RNG 0, msg 0) @8e8a996ab
-- [ ] `write.c` cost — coverage PARTIAL (C 37 code L `write.c:14–57` / JS 21 code L in js/write.js; hops —, callers 1, RNG 0, msg 0) @8e8a996ab
 - [ ] `selvar.c` selection_iterate — coverage PARTIAL (C 9 code L `selvar.c:726–743` / JS 6 code L in js/mklev.js; hops —, callers 4, RNG 0, msg 0) @442754b32
 - [ ] `o_init.c` sortloot_descr — coverage PARTIAL (C 18 code L `o_init.c:567–591` / JS 13 code L in js/invent.js; hops —, callers 2, RNG 0, msg 0) @442754b32
 - [ ] `sp_lev.c` mapfrag_error — coverage PARTIAL (C 10 code L `sp_lev.c:281–295` / JS 5 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @442754b32
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sp_lev.c` set_wallprop_in_selection — coverage PARTIAL (C 14 code L `sp_lev.c:5911–5932` / JS 9 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @5fd602958
 - [ ] `options.c` handler_windowborders — coverage PARTIAL (C 26 code L `options.c:6620–6654` / JS 19 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @836f908c6
 - [ ] `sp_lev.c` lspo_terrain — coverage MISSING (C 47 code L `sp_lev.c:4978–5038` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a610d9a06
+- [ ] `options.c` query_msgtype — coverage PARTIAL (C 22 code L `options.c:7701–7728` / JS 10 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @779a41942
+- [ ] `options.c` optfn_pettype — coverage MISSING (C 45 code L `options.c:3197–3253` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @779a41942
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

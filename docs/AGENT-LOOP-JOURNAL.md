@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3155 `write.c` cost impossible arm + async (coverage)
+
+**C locus:** - `cost`: write.c:14–57 (SPBOOK `:17–18`, switch `:20–56`, SCR_MAIL `:22–23` under `#ifdef MAIL_STRUCTURES`, BLANK_PAPER/default impossible `:53–55`, `return 1000` `:57`).
+**JS:** js/write.js:96 (`async function cost`), :123 (await impossible), :395 (call site), :15 (import).
+**Change:** tail now `await impossible("You can't write such a weird scroll!");` then `return 1000`; `cost` is `async` (C `:55` can block on --More--) with the single caller awaiting; `impossible` added to the existing `./display.js` import (edge already exists — no new cross-module import). SCR_MAIL arm confirmed live: `MAIL_STRUCTURES` unconditionally defined (`include/global.h:430`).
+**Verify:** `node scripts/verify.mjs --fn cost` → VERIFY: PASS — hidden note (no corpus session blocked, expected for a coverage row); reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full skipped (no shared file changed).
+**Named:** - `cost`: none — whole body, sole callee live (`impossible`; its own omits stay on its partial row).
+**Next:** continue the breadth queue from the regenerated block (`case_insensitive_comp` already ported-stale this iteration).
 ## 2026-09-30 — D-3154 `options.c` parsebindings extcmd-miss returns FALSE (Must-fix 2111)
 
 **C locus:** - `parsebindings`: options.c:7668–7672 (`if (!bind_key(...))` miss gate `:7668`, `config_error_add` `:7670`, `return FALSE` `:7671`, hit path `return ret` `:7672`).

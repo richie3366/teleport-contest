@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-30
 
-- [x] `options.c` parsebindings extcmd-miss must return FALSE — JS `js/options.js` miss arm returns `ret` (TRUE on clean tail), C `options.c:7670–7671` returns FALSE after the error; committed test pins the wrong value twice (`parsebindings.test.mjs` `"a:boguscmd"`, `"mouse1:boguscmd"` → `true`). Fix arm + both pins, re-run 22/22 + neighbors. Source: reviews/loop-unattended/2111-836f908c6-parsebindings.md. **Addressed:** D-3154
+- [x] `options.c` parsebindings extcmd-miss must return FALSE — JS `js/options.js` miss arm returns `ret` (TRUE on clean tail), C `options.c:7670–7671` returns FALSE after the error; committed test pins the wrong value twice (`parsebindings.test.mjs` `"a:boguscmd"`, `"mouse1:boguscmd"` → `true`). Fix arm + both pins, re-run 22/22 + neighbors. Source: reviews/loop-unattended/2111-836f908c6-parsebindings.md. **Addressed:** D-3154 `779a41942`
 
 
 - [x] `worn.c` nxt_unbypassed_loot — coverage PARTIAL (C 10 code L `worn.c:1159–1174` / JS 7 code L in js/pickup.js; hops 6, callers 1, RNG 0, msg 0) @8e8a996ab

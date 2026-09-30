@@ -8,7 +8,7 @@
   (`options.c` head + `cmd.c` callee — one caller/callee closure).
 - Prior-review closure claimed: none.
 
-**Addressed:** D-3154
+**Addressed:** D-3154 `779a41942`
 
 ## Intent vs deliverable
 

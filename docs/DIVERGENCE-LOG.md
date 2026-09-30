@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3155 — `write.c` cost impossible arm + async (coverage)
+
+- **Status:** fixed (coverage row; queue head `case_insensitive_comp` proved stale and marked ported via `ledger.mjs` in the same iteration. +10/-5 js/write.js, 1 file.)
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify cost`: no session blocked): the JS `cost` priced every scroll arm but returned 1000 silently on SCR_BLANK_PAPER/default, where C calls impossible first.
+- **C locus:**
+  - `cost`: write.c:14–57 (SPBOOK `:17–18`, switch `:20–56`, SCR_MAIL `:22–23` under `#ifdef MAIL_STRUCTURES`, BLANK_PAPER/default impossible `:53–55`, `return 1000` `:57`).
+- **JS was:** js/write.js:92 local sync `cost` — all priced arms present, but the tail was a `// C impossible` comment + `return 1000`, dropping the C `:55` call.
+- **Fix:** tail now `await impossible("You can't write such a weird scroll!");` then `return 1000`; `cost` is `async` (C `:55` can block on --More--) with the single caller awaiting; `impossible` added to the existing `./display.js` import (edge already exists — no new cross-module import). SCR_MAIL arm confirmed live: `MAIL_STRUCTURES` unconditionally defined (`include/global.h:430`).
+- **JS:** js/write.js:96 (`async function cost`), :123 (await impossible), :395 (call site), :15 (import).
+- **Callers:**
+  - `cost`: C write.c:256 (`dowrite`) → JS js/write.js:395 (`await cost(new_obj)`); sole caller (module-local; `sym.mjs` finds no other `cost` in js/).
+- **Verify:** `node scripts/verify.mjs --fn cost` → VERIFY: PASS — hidden note (no corpus session blocked, expected for a coverage row); reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; green 2/2; strict both; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:**
+  - `cost`: none — whole body, sole callee live (`impossible`; its own omits stay on its partial row).
+- **Ledger:** cost ported
+- **Next:** continue the breadth queue from the regenerated block (`case_insensitive_comp` already ported-stale this iteration).
+
 ## D-3154 — `options.c` parsebindings extcmd-miss returns FALSE (Must-fix 2111)
 
 - **Status:** fixed (Must-fix from review 2111 — C-wrong introduced by the D-3151 restart; ships alone. +3/-2 js/options.js incl. doc line, two test pins corrected.)
