@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` handler_disclose — coverage PARTIAL (C 86 code L `options.c:5675–5777` / JS 44 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
 - [ ] `invent.c` display_cinventory — coverage PARTIAL (C 19 code L `invent.c:5446–5473` / JS 14 code L in js/invent.js; hops 6, callers 1, RNG 0, msg 0) @990da2b8d
 - [ ] `spell.c` spelltypemnemonic — coverage PARTIAL (C 18 code L `spell.c:832–853` / JS 9 code L in js/spell.js; hops 6, callers 1, RNG 0, msg 0) @990da2b8d
-- [ ] `options.c` all_options_msgtypes — coverage THIN (C 8 code L `options.c:9628–9640` / JS 3 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
 - [ ] `cmd.c` dosuspend_core — coverage MISSING (C 9 code L `cmd.c:5662–5678` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @990da2b8d
 - [ ] `mkobj.c` may_generate_eroded — coverage PARTIAL (C 9 code L `mkobj.c:177–192` / JS 5 code L in js/mkobj.js; hops 5, callers 1, RNG 0, msg 0) @990da2b8d
-- [ ] `options.c` handler_align_misc — coverage PARTIAL (C 31 code L `options.c:5586–5621` / JS 20 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @990da2b8d
 - [ ] `botl.c` status_hilite_menu_fld — coverage PARTIAL (C 66 code L `botl.c:4357–4453` / JS 41 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
-- [ ] `options.c` msgtype_parse_add — coverage PARTIAL (C 16 code L `options.c:7844–7866` / JS 11 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @990da2b8d
 - [ ] `sounds.c` get_sound_effect_filename — coverage MISSING (C 46 code L `sounds.c:1995–2080` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: initialize_semap_basenames) @fa5a786a1
 - [ ] `cmd.c` extcmds_match — coverage PARTIAL (C 26 code L `cmd.c:2523–2558` / JS 19 code L in js/getline.js; hops —, callers 2, RNG 0, msg 0) @fa5a786a1
-- [ ] `options.c` determine_ambiguities — coverage PARTIAL (C 23 code L `options.c:6703–6736` / JS 17 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @fa5a786a1
+- [ ] `options.c` sym_val — coverage PARTIAL (C 23 code L `options.c:9385–9426` / JS 17 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
+- [ ] `role.c` setup_racemenu — coverage PARTIAL (C 23 code L `role.c:2905–2940` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
+- [ ] `role.c` setup_gendmenu — coverage PARTIAL (C 23 code L `role.c:2943–2976` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
+- [ ] `role.c` setup_algnmenu — coverage PARTIAL (C 23 code L `role.c:2979–3012` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
+- [ ] `cmd.c` cmdbind_remove — coverage PARTIAL (C 14 code L `cmd.c:2158–2177` / JS 9 code L in js/cmd.js; hops —, callers 3, RNG 0, msg 0) @a1b562159
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

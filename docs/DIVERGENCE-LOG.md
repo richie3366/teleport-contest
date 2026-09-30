@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3146 — `options.c` msgtype_parse_add error arms + sscanf fidelity (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `handler_disclose` + 4 same-file Open rows; 0 corpus sessions blocked on any — coverage completion, not a divergence. +20/−12 `js/options.js`. 4 stale proofs in this commit, all →ported: handler_disclose js/options.js:399, all_options_msgtypes js/options.js:10612, handler_align_misc js/options.js:2420, determine_ambiguities js/options.js:10264.)
+- **Symptom:** no corpus divergence — coverage. `msgtype_parse_add` dropped both C error arms (no `config_error_add` on unknown-type or malformed input) and accepted empty patterns C's `%255[^"]` rejects; the other four bodies already complete.
+- **C locus:**
+  - `handler_disclose`: `options.c:5674–5777` (category PICK_ANY `:5696–5714`, per-category PICK_ONE `:5717–5771`, v/g `#`+`?` rows, n>1 keep-second `:5769–5770`) — stale, body complete.
+  - `all_options_msgtypes`: `options.c:9627–9640` (one MSGTYPE= line per plinemsg_types node) — stale, body complete.
+  - `handler_align_misc`: `options.c:5585–5621` (t/b/l/r menu, message-vs-status `:5609–5616`) — stale, body complete.
+  - `msgtype_parse_add`: `options.c:7843–7866` (sscanf `== 2` `:7848`, str_start_is walk `:7852–7856`, add `:7858`, unknown-type `:7860`, malformed `:7862`).
+  - `determine_ambiguities`: `options.c:6700–6736` (pairwise prefix scan `:6714–6732`, min-3 clamp `:6733–6736`) — stale, body complete.
+- **JS was:** `if (!m) return false` / `if (typ === -1) return false` with no error arms; `{0,255}` accepted `TYPE ""` (C sscanf returns 1 → Malformed → FALSE).
+- **Fix:** restarted `msgtype_parse_add` in C order: `if (m)` keeps the hit path, miss arm calls live `config_error_add("Unknown message type '%s'")` (`:7860`), else arm calls `config_error_add('Malformed MSGTYPE')` (`:7862`), `return false` (`:7864`); class is now `{1,255}` per `%255[^"]`. 8-case node probe (hit/unknown/empty-pattern/garbage/long-token/unterminated) all C-agreeing.
+- **JS:** `js/options.js` only — msgtype_parse_add `:693` (+doc `:688–692`).
+- **Callers:**
+  - `handler_disclose`: sole C caller `:1557` optfn_disclose do_handler → JS doset_optfn_do_handler async-split wiring (established D-2788/R1747; untouched by this commit).
+  - `all_options_msgtypes`: sole C caller `:9737` all_options_strbuf → JS `:11095` (unchanged).
+  - `handler_align_misc`: C `:967`/`:1016` optfn_align_message/status do_handler → JS `:3004`/`:7565` (unchanged).
+  - `msgtype_parse_add`: C cfgfiles.c:634 cnf_line_MSGTYPE → JS js/cfgfiles.js:595 (direct) + js/options.js:3636 startup rc path (pre-existing split citing the same C lines); C sounds.c:1611 → JS js/sounds.js:303 (unchanged, export kept).
+  - `determine_ambiguities`: sole C caller `:7412` allopt_array_init → JS `:10325` + memoized lazy call `:10466` ahead of the parseoptions match loop (R1520-verified adaptation, unchanged).
+- **Verify:** `node scripts/verify.mjs --fn handler_disclose,all_options_msgtypes,handler_align_misc,msgtype_parse_add,determine_ambiguities` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+  - `handler_disclose`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `all_options_msgtypes`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `handler_align_misc`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `msgtype_parse_add`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `determine_ambiguities`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `handler_disclose`: n>1 keep-second pick (`:5769–5770`) folded into select_menu_pick_one; nul_glyphinfo; sinks (D-2788/R1747, unchanged).
+  - `all_options_msgtypes`: none — stale-complete.
+  - `handler_align_misc`: none — stale-complete.
+  - `msgtype_parse_add`: config_error_add sink body (no-op; file-precedent map-named, calls now present).
+  - `determine_ambiguities`: none — stale-complete (memoization guard is the R1520-verified adaptation).
+- **Ledger:** handler_disclose ported; all_options_msgtypes ported; handler_align_misc ported; msgtype_parse_add ported; determine_ambiguities ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3145 — `dungeon.c` branch-type default arm + mapseen traverse stale (coverage)
 
 - **Status:** fixed (breadth-phase cluster: dungeon.c pair; 0 corpus sessions blocked on any — coverage completion, not a divergence. +7/−1 `js/dungeon.js`. 1 stale proof in this commit: obj_erode_type js/do_wear.js:3488 — original queue head, 5-arm body complete with all 5 predicates imported (`:79`) and sole C caller wired (`:4148`), popped next per the stale rule.)

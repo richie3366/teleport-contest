@@ -687,22 +687,30 @@ function msgtype_count() {
 
 /**
  * C ref: options.c msgtype_parse_add `:7843–7866` — sscanf
- * `%10s \"%255[^\"]\"` then str_start_is on msgtype_names.
+ * `%10s \"%255[^\"]\"` then str_start_is on msgtype_names, whole body in C order
+ * (the config_error_add arms are the no-op sink, msgtype_add `:7747` precedent).
  */
 export function msgtype_parse_add(str) {
-    const m = String(str ?? '').match(/^\s*(\S{1,10})\s+"([^"]{0,255})"/);
-    if (!m) return false;
-    const token = m[1];
-    const pattern = m[2];
-    let typ = -1;
-    for (let i = 0; i < msgtype_names.length; i++) {
-        if (str_start_is(msgtype_names[i].name, token, true)) {
-            typ = msgtype_names[i].msgtyp;
-            break;
+    // C `:7848` sscanf == 2: %10s skips leading space, takes to 10 non-space;
+    // the format space skips separator space; %255[^"] needs 1+ non-quote.
+    const m = String(str ?? '').match(/^\s*(\S{1,10})\s+"([^"]{1,255})"/);
+    if (m) {
+        const token = m[1]; // C `:7845` msgtype[11] via %10s
+        const pattern = m[2]; // C `:7844` pattern[256] via %255[^"]
+        let typ = -1; // C `:7849`
+        for (let i = 0; i < msgtype_names.length; i++) { // C `:7852` SIZE
+            if (str_start_is(msgtype_names[i].name, token, true)) { // C `:7853`
+                typ = msgtype_names[i].msgtyp; // C `:7854`
+                break; // C `:7855`
+            }
         }
+        if (typ !== -1) // C `:7857`
+            return msgtype_add(typ, pattern); // C `:7858`
+        config_error_add("Unknown message type '%s'", token); // C `:7860`
+    } else {
+        config_error_add('Malformed MSGTYPE'); // C `:7862`
     }
-    if (typ === -1) return false;
-    return msgtype_add(typ, pattern);
+    return false; // C `:7864` FALSE
 }
 
 /**

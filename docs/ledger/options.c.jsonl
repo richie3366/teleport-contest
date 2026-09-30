@@ -122,9 +122,9 @@
 {"fn":"can_set_perm_invent","c":"5488-5527","status":"unknown"}
 {"fn":"check_perm_invent_again","c":"5532-5540","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_menustyle","c":"5544-5583","status":"unknown"}
-{"fn":"handler_align_misc","c":"5586-5621","status":"unknown"}
+{"fn":"handler_align_misc","c":"5586-5621","status":"ported","js":["js/options.js:handler_align_misc"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:2420 (R1781 ACCEPT)"}
 {"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
-{"fn":"handler_disclose","c":"5675-5777","status":"unknown"}
+{"fn":"handler_disclose","c":"5675-5777","status":"ported","js":["js/options.js:handler_disclose"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:399 (D-2788, R1747 ACCEPT)"}
 {"fn":"handler_menu_headings","c":"5780-5792","status":"ported","js":["js/options.js:handler_menu_headings"],"d":["D-3047"],"at":"2026-09-28@d81780b83","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_menu_objsyms","c":"5795-5829","status":"partial","js":["js/options.js:handler_menu_objsyms"],"omit":"`config_error_add(\"Illegal %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `n > 1` two-pick disambiguation `:5822–5823` folded — the helper returns the single new pick, which is the non-preselected entry C chooses; readers of `use_menu_g…","d":["D-2774"],"at":"seed@a30a7de84"}
 {"fn":"handler_msg_window","c":"5832-5890","status":"ported","js":["js/options.js:handler_msg_window"],"at":"2026-09-29@e028921a0","note":"stale: js/options.js:1547 body complete per review 1724, doset caller wired js/options.js:2923 (D-2773)"}
@@ -147,7 +147,7 @@
 {"fn":"string_for_opt","c":"6665-6680","status":"ported","js":["js/options.js:string_for_opt"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"string_for_env_opt","c":"6683-6690","status":"unknown"}
 {"fn":"bad_negation","c":"6693-6697","status":"unknown"}
-{"fn":"determine_ambiguities","c":"6703-6736","status":"unknown"}
+{"fn":"determine_ambiguities","c":"6703-6736","status":"ported","js":["js/options.js:determine_ambiguities"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:10264 local staticfn (R1520; wrong was sibling table, D-2566)"}
 {"fn":"length_without_val","c":"6739-6754","status":"unknown"}
 {"fn":"match_optname","c":"6760-6770","status":"unknown"}
 {"fn":"reset_duplicate_opt_detection","c":"6773-6779","status":"unknown"}
@@ -176,7 +176,7 @@
 {"fn":"msgtype_type","c":"7797-7810","status":"unknown"}
 {"fn":"hide_unhide_msgtypes","c":"7815-7828","status":"unknown"}
 {"fn":"msgtype_count","c":"7831-7841","status":"unknown"}
-{"fn":"msgtype_parse_add","c":"7844-7866","status":"unknown"}
+{"fn":"msgtype_parse_add","c":"7844-7866","status":"ported","js":["js/options.js:msgtype_parse_add"],"d":["D-3146"],"at":"2026-09-30@a1b562159"}
 {"fn":"test_regex_pattern","c":"7871-7901","status":"ported","js":["js/options.js:test_regex_pattern"],"d":["D-3114","D-3111"],"at":"2026-09-29@405ed7298"}
 {"fn":"parse_role_opt","c":"7905-8016","status":"unknown"}
 {"fn":"get_cnf_role_opt","c":"8021-8033","status":"unknown"}
@@ -214,7 +214,7 @@
 {"fn":"option_help","c":"9462-9549","status":"split","js":["js/options.js:option_help_lines","js/pager.js:show_text_pages"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_conds","c":"9556-9591","status":"unknown","d":["D-2549"],"at":"seed@a30a7de84"}
 {"fn":"all_options_menucolors","c":"9595-9625","status":"unknown"}
-{"fn":"all_options_msgtypes","c":"9628-9640","status":"unknown"}
+{"fn":"all_options_msgtypes","c":"9628-9640","status":"ported","js":["js/options.js:all_options_msgtypes"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:10612 (R1503; wrong was sibling, D-2547)"}
 {"fn":"all_options_apes","c":"9643-9654","status":"unknown"}
 {"fn":"all_options_palette","c":"9658-9673","status":"by-design","at":"2026-09-29@75eb7fe42","note":"uncompiled: options.c:9656-9674 inside #ifdef CHANGE_COLOR (only amiconf.h defines it; contest unix build does not)"}
 {"fn":"all_options_strbuf","c":"9678-9748","status":"partial","js":["js/options.js:all_options_strbuf"],"omit":"`get_option_value` + allopt table [2/7]; `all_options_conds` (+opt_next_cond) [3/7]; `get_changed_key_binds` (unconditional call — throws if body invoked before [4/7]) [4/7]; `parsesymbols` producer (savedSymbols stays empty) [5/7]; `all_options_statushilites` (unconditional call, STATUS_HILITES on…","d":["D-2544"],"at":"seed@a30a7de84"}
