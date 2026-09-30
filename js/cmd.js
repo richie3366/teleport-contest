@@ -223,6 +223,18 @@ export function check_user_string(optstr) {
     return false; // C `:728`
 }
 
+// C unixmain.c:627–636 — wizard authorization uses the same user matcher
+// as explore authorization; refusal records the deferred startup error.
+export function authorize_wizard_mode() {
+    const wizards = game.sysopt?.wizards;
+    if (wizards && wizards[0]) {
+        if (check_user_string(wizards)) return true;
+    }
+    if (!game.iflags) game.iflags = {};
+    game.iflags.wiz_error_flag = true;
+    return false;
+}
+
 /**
  * C ref: unixmain.c authorize_explore_mode `:638–651`. SYSCF is on
  * (config.h:233), so an empty or missing EXPLORERS list refuses and

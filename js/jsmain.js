@@ -14,13 +14,15 @@ import { game, resetGame } from './gstate.js';
 import { decl_globals_init } from './decl.js';
 import { sys_early_init } from './sys.js';
 import { initRng, enableRngLog, getRngLog } from './rng.js';
-import { setStorageForTesting } from './storage.js';
+import { setStorageForTesting, vfsReadFile, vfsWriteFile } from './storage.js';
+import { SYSCONF_TEXT } from './generated/sysconf_data.js';
+import { read_config_file, config_error_init, config_error_done } from './cfgfiles.js';
 import { pushKey, nhgetch } from './input.js';
 import { newgame, moveloop_core, welcome, moveloop_preamble, init_sound_disp_gamewindows } from './allmain.js';
 import { getmailstatus } from './mail.js';
 import { try_restore_save } from './save.js';
 import { vision_recalc, init_vision_globals } from './vision.js';
-import { parseNethackrc, set_playmode, init_fruit_chain } from './options.js';
+import { parseNethackrc, set_playmode, init_fruit_chain, SET_IN_SYSCONF, set_configfile_name } from './options.js';
 import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot } from './display.js';
 import { GameDisplay } from './game_display.js';
 import { askname_if_needed } from './askname.js';
@@ -105,6 +107,16 @@ export class NethackGame {
         reset_display_messages();
         // Frozen VFS contract: the harness shares this handle across segments.
         setStorageForTesting(this._storage);
+        // C options.c:7293–7298, unixmain.c:150 — system configuration
+        // precedes the user rc and set_playmode. Use the recorder's installed
+        // sysconf as the initial VFS file, preserving any existing file.
+        if (vfsReadFile('sysconf') == null) vfsWriteFile('sysconf', SYSCONF_TEXT);
+        config_error_init(true, 'sysconf', false); // C options.c:7290
+        read_config_file('sysconf', SET_IN_SYSCONF);
+        config_error_done(); // C options.c:7298
+        // C initoptions_finish -> rcfile switches configfile back to the
+        // user file. The session API supplies its text, not a filename.
+        set_configfile_name(null);
         // Stored now for future C time predicates; consumers remain incomplete.
         g.datetime = this._datetime;
 
@@ -414,4 +426,3 @@ export async function runSegment(input) {
 
     return nhGame;
 }
-

@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3170 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3171 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings: `.cache/hidden/sessions` is empty (941 recipes). `hidden-proxy score` sees 12 `private-sessions` only — do not read 12/12 as the 648/953 fortress.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3170.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3170.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3171.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3171.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3171: restarted set_playmode in C order, keeping the existing JS mode aliases coherent and recording gp.plnamelen on a granted wizard rename. Named: - `set_playmode`: none in its whole body or two direct callers.
 - D-3170: restarted the body in C order: moves modulo 20 short-circuits regenerates; live healmon(mon, 1, 0); nonzero mspec_used decrement; nested digest_meal/m Named: - `mon_regen`: none in this whole body.
 - D-3169: ported all 5 whole in C order (vary_msgcount/crash_urlmax precedent: REQ_/OPTN_/EMPTY_OPTSTR, string_for_opt re-derive, opt_atoi for C atoi, allopt_na Named: - `optfn_scroll_amount`: none — whole body; bad_negation is the live shared stub (own THIN
 - D-3168: ported both whole in C order, unpacked-args idiom (lspo_mazewalk precedent): arguments.length dispatch, new `lua_tointeger_unpacked` (mistype → 0, nev Named: - `nhl_abs_coord`: nhl_add_table_entry_int (by-design; the table arm builds the object dir
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3159: burden/runmode prompt rows now `{attr: ATR_INVERSE}` + `{text: ''}` (pickup.js query_objlist precedent, tty_end_menu `:2685–2689`); simple-menu cond a Named: - `handler_pickup_burden`: none — whole body + tty paint rule.
 - D-3158: ported both whole in C order, unpacked-args idiom (lspo_drawbridge/gold/region precedent). mazewalk: arguments.length dispatch (triple checkintegers + Named: - `lspo_mazewalk`: lcheck_param_table (table-or-empty + object check); get_table_mapchr_op
 - D-3157: ported all four whole in C order. map_mode: exact-tiles via length gate + strncmpi (hacklib has no strcmpi), prefix lengths = sizeof-name minus 1, wc_ Named: - `optfn_map_mode`: none — whole body.
-- D-3156: restarted in C order — `if (!sel) return`, getbounds, bounds loop, `if (isok(x, y) && selection_getpoint(x, y, sel)) fn(x, y, arg)`; dropped the `!sel Named: - `selection_iterate`: C caller `lspo_terrain` (:5025) unwired — function MISSING in JS, o
 <!-- landmarks:end -->

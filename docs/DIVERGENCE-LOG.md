@@ -1,5 +1,68 @@
 # Divergence log
 
+## D-3171 — options.c playmode authorization and option dispatch cluster
+
+- **Status:** fixed (seven whole bodies; six src/options.c ledger functions plus the Unix authorization callee outside the ledger's src/*.c index; bad_negation retains one named caller omission).
+- **Symptom:** generated coverage head set_playmode authorized wizard unconditionally, omitted explore refusal, and never set plnamelen. Four option bodies were missing or inlined at menus/rc; the shared bad_negation body was empty. No corpus session blocked on any cluster function. D-3169's measured prerequisite was the missing installed sysconf.
+- **C locus:**
+  - `set_playmode`: options.c:10134–10152, whole brief; wizard authorization/rename, refusal fallback, discover authorization and deferred_X clearing in C order.
+  - `authorize_wizard_mode`: sys/unix/unixmain.c:627–636, whole brief; nonempty wizards list, check_user_string, wiz_error_flag on refusal.
+  - `optfn_o_status_hilites`: options.c:8446–8474, whole brief; STATUS_HILITES compiled in; all five request arms including empty do_set, NULL buffer refusal, live menu result and preference hook.
+  - `optfn_menuinvertmode`: options.c:2290–2317, whole brief; missing-value no-op, atoi, 0–2 validation, signed get_val.
+  - `optfn_msghistory`: options.c:2523–2546, whole brief; environment gate, bare negation, valued negation error, unsigned field/get_val (flag.h:320).
+  - `optfn_name`: options.c:2549–2571, whole brief; environment gate, nmcpy PL_NSIZ copy and get_val.
+  - `bad_negation`: options.c:6693–6697, whole brief; both config_error_add format variants; all 26 executable callers accounted below.
+- **JS was:** set_playmode ignored authorization and plnamelen; the startup sysopt wizards/explorers were NULL; no exported optfn bodies for the four options; menuinvertmode was reimplemented in rc and hardcoded to 1 in doset; status rules handler was split across two menu sites without the preference call; bad_negation discarded its inputs.
+- **Fix:** restarted set_playmode in C order, keeping the existing JS mode aliases coherent and recording gp.plnamelen on a granted wizard rename. Added the whole Unix authorize_wizard_mode beside the existing explore gate; both use the live check_user_string. Added scripts/extract-sysconf.py to apply the checked-in recorder install sed recipe to the pinned Unix sysconf and embed it in js/generated/sysconf_data.js. Startup seeds only an absent storage.js VFS sysconf and uses the live read_config_file within C's config_error_init/done bracket, before rc; the rc filename then returns to the existing API default. Wired the restore.c:587–595 caller/guard over saved vs startup mode flags. Ported all four optfn bodies in C order, wired their allopt rows, rc and doset consumers; name copies with live nmcpy, msghistory uses C unsigned storage, menuinvertmode uses live opt_atoi/config_error_add. Status rules retains synchronous non-input requests and an awaited handler continuation. bad_negation now calls the live config-error sink. Stale hide_unhide_msgtypes retired at js/options.js:686 (whole body); optfn_videoshades retired by-design (whole body guarded by VIDEOSHADES options.c:4536–4600, macro only in pcconf.h:274, not included by Unix). packorder/oc_to_str left out of the cluster and Open, neither changed.
+- **JS:** js/options.js:890 (set_playmode), :4146 (menuinvertmode), :4175 (msghistory), :4204 (name), :4231 + :4249 (status rules and awaited handler), :11808 (bad_negation); js/cmd.js:228 (authorize_wizard_mode); js/jsmain.js:107–121 (VFS sysconf + bracket), :262 (startup head call); js/save.js:802–820 (restore guard/call); js/generated/sysconf_data.js + scripts/extract-sysconf.py (reproducible embedded installed config).
+- **Callers:**
+  - `set_playmode`: unixmain.c:193 → js/jsmain.js:262; restore.c:594 → js/save.js:819 inside the C-matched saved-special-mode guard (new startup debug override handled immediately before it).
+  - `authorize_wizard_mode`: options.c:10137 → js/options.js:896; no extra caller.
+  - `optfn_o_status_hilites`: optlist.h:727 NHOPTO row → js/options.js:11574; generic do_init :11892, do_set :12075; both JS do_handler sites :9135/:10793 call and await the whole function; simple menu get_val :9234 and full menu :10720 dispatch its live count. Brief's 0 direct C calls excludes the optlist function-pointer row.
+  - `optfn_menuinvertmode`: optlist.h:484 → js/options.js:11442; generic do_init :11892, do_set :12075, get_option_value :12142; startup rc :4804 and full doset :10669 use the same body, parser-level negateok-No preserved at rc.
+  - `optfn_msghistory`: optlist.h:516 → js/options.js:11460; generic do_init :11892, do_set :12075, get_option_value :12142; rc valued :4808 and bare/negated :5130 both dispatch the body.
+  - `optfn_name`: optlist.h:123 → js/options.js:11228; generic do_init :11892, do_set :12075, get_option_value :12142; startup rc :4662 uses the same body, parser-level negateok-No preserved at rc.
+  - `bad_negation`: C :627 (parseoptions) → js/options.js:12068; C :949 (optfn_align_message) → js/options.js:2475; C :998 (optfn_align_status) → js/options.js:2517; C :1481 (optfn_disclose) → js/options.js:336; C :1719 (optfn_fruit) → js/options.js:7280; C :1828 (optfn_glyph) → js/options.js:3651; C :2023 (optfn_map_mode) → js/options.js:3070; C :2201 (optfn_menu_headings) → js/options.js:3120; C :2481 (optfn_msg_window) → js/options.js:1689; C :2536 (optfn_msghistory) → js/options.js:4187; C :2594 (optfn_number_pad) → js/options.js:2268; C :3068 (optfn_perminv_mode) → named omission at js/options.js:4409–4411; C :3152 (optfn_petattr) → js/options.js:7368; C :3366 (optfn_pickup_types) → js/options.js:5444; C :3421 (optfn_pile_limit) → js/options.js:3698; C :3778 (optfn_scroll_amount) → js/options.js:3931; C :3808 (optfn_scroll_margin) → js/options.js:3968; C :4082 (optfn_statuslines) → js/options.js:8076; C :4144 (optfn_suppress_alert) → js/options.js:11186; C :4368 (optfn_tile_height) → js/options.js:3816; C :4400 (optfn_tile_width) → js/options.js:3853; C :4454 (optfn_vary_msgcount) → js/options.js:3890; C :4494 (optfn_versinfo) → js/options.js:4087; C :4809 (optfn_windowborders) → js/options.js:3227; C :5115 (pfxfn_font) → js/options.js:11054; C :5459 (spcfn_misc_menu_cmd) → js/options.js:1484.
+- **Verify:**
+  - `set_playmode`: preflight green + strict PASS. MEASURED C: /tmp/playmode-oracle.c extracts the pinned set_playmode/authorize bodies; /tmp/cluster-D3171-probe.mjs compares all 16 wizard/discover/request-authorization combinations including deferred_X, refusal flags, name and length: 16/16 identical (star/empty-list matcher inputs). Final 24/24 smoke, REACH-OK.
+  - `authorize_wizard_mode`: same measured C matrix, 16/16; final 24/24 smoke, REACH-OK. imports.mjs reports options→cmd ALREADY and save→options SAFE hoisted function; jsmain→cfgfiles scanner timed out (own process reaped), imported functions are hoisted and runtime module evaluation passed all gates.
+  - `optfn_o_status_hilites`: direct init/set/get_val/NULL-buffer probe PASS; both live menu paths covered by regression suite; final 24/24 smoke, REACH-OK.
+  - `optfn_menuinvertmode`: /tmp arm probe covers 0/2/junk atoi, out-of-range refusal retaining value, empty value, get_val, rc and parseoptions dispatch: PASS; final 24/24 smoke, REACH-OK.
+  - `optfn_msghistory`: /tmp arm probe covers UINT wrap/get_cnf_val, valued-negation refusal, bare-negation zero, rc dispatch: PASS; final 24/24 smoke, REACH-OK.
+  - `optfn_name`: /tmp arm probe covers PL_NSIZ truncation, comma stop, empty refusal, get_val and rc dispatch: PASS; final 24/24 smoke, REACH-OK.
+  - `bad_negation`: live sink wired; valued msghistory refusal probe PASS; final 24/24 smoke, REACH-OK.
+  Initial verify falsified the startup integration. All 15 unique corpus regressions and every public rng@0 failure shared the uninitialized config-error bracket (sysconf parser never stored WIZARDS/EXPLORERS). Other public failures: seed0007 screen@35 had an undefined status-rules value because the OthrOpt table still passed t.val; seed2200 screen@158 retained the sysconf filename in option_help. Fixed each cause, rerun passed; after preserving the rc negateok-No guards, final verification also passed. No session changed. Final command: `node scripts/verify.mjs --fn set_playmode,authorize_wizard_mode,optfn_o_status_hilites,optfn_menuinvertmode,optfn_msghistory,optfn_name,bad_negation --full`. Its reach lines and tail:
+
+```text
+PASS  reach    set_playmode: no RNG-tagged reach; fixed smoke spread (24 run, 5.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  reach    authorize_wizard_mode: no RNG-tagged reach; fixed smoke spread (24 run, 5.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  reach    optfn_o_status_hilites: no RNG-tagged reach; fixed smoke spread (24 run, 5.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  reach    optfn_menuinvertmode: no RNG-tagged reach; fixed smoke spread (24 run, 5.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  reach    optfn_msghistory: no RNG-tagged reach; fixed smoke spread (24 run, 5.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  reach    optfn_name: no RNG-tagged reach; fixed smoke spread (24 run, 5.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  reach    bad_negation: no RNG-tagged reach; fixed smoke spread (24 run, 6.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  reach    bad_negation: no RNG-tagged reach; fixed smoke spread (24 run, 6.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+- **Named omissions:**
+  - `set_playmode`: none in its whole body or two direct callers. Startup's wider initoptions omissions pre-exist; this change wires only its required system-config pass.
+  - `authorize_wizard_mode`: none in its whole body. check_user_string is live; its pre-existing get_unix_pw no-passwd adapter (unixmain.c:731–760) remains the Rule #2 OS-identity limitation, outside this unit.
+  - `optfn_o_status_hilites`: none in its whole body; all callees live, including preference_update. The status_hilite_menu implementation retains its own existing ledger debt, unchanged.
+  - `optfn_menuinvertmode`: none.
+  - `optfn_msghistory`: none.
+  - `optfn_name`: none.
+  - `bad_negation`: C optfn_perminv_mode call at options.c:3068 remains unwired at js/options.js:4409–4411 (existing SILENTERR branch contains only a comment). Whole bad_negation body is complete; ledger partial records the named caller omission.
+- **Ledger:** set_playmode ported; optfn_o_status_hilites split js=options.js:optfn_o_status_hilites+options.js:optfn_o_status_hilites_handler; optfn_menuinvertmode ported; optfn_msghistory ported; optfn_name ported; bad_negation partial
+- **Unix helper ledger:** authorize_wizard_mode ported at js/cmd.js:228; `ledger.mjs show authorize_wizard_mode` reports “not a pinned-C function” because its index is src/*.c. Recorded here rather than inventing a src function row.
+- **Next:** generated coverage head role_gendercount; options.c packorder/oc_to_str remain Open, to be ported with the async impossible diagnostic and synchronous get_val caller contract handled together. No hand-written coverage refill.
+
 ## D-3170 — monmove.c mon_regen whole regeneration and meal completion
 
 - **Status:** fixed (coverage; bounded singleton density exception).

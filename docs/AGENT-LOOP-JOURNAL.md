@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3171 options.c playmode authorization and option dispatch cluster
+
+**C locus:** - `set_playmode`: options.c:10134–10152, whole brief; wizard authorization/rename, refusal fallback, discover authorization and deferred_X clearing in C order.
+**JS:** js/options.js:890 (set_playmode), :4146 (menuinvertmode), :4175 (msghistory), :4204 (name), :4231 + :4249 (status rules and awaited handler), :11808 (bad_negation); js/cmd.js:228 (authorize_wizard_mode); js/jsmain.js:107–121 (VFS sysconf + bracket), :262 (startup head call); js/save.js:802–820 (restore guard/call); js/generated/sysconf_data.js + scripts/extract-sysconf.py (reproducible embedded installed config).
+**Change:** restarted set_playmode in C order, keeping the existing JS mode aliases coherent and recording gp.plnamelen on a granted wizard rename. Added the whole Unix authorize_wizard_mode beside the existing explore gate; both use the live check_user_string. Added scripts/extract-sysconf.py to apply the checked-in recorder install sed recipe to the pinned Unix sysconf and embed it in js/generated/sysconf_data.js.
+**Verify:** - `set_playmode`: preflight green + strict PASS. MEASURED C: /tmp/playmode-oracle.c extracts the pinned set_playmode/authorize bodies; /tmp/cluster-D3171-probe.mjs compares all 16 wizard/discover/request-authorization combinations including deferred_X, refusal flags, name and length: 16/16 identical (star/empty-list matcher inputs). Final 24/24 smoke, REACH-OK.
+**Named:** - `set_playmode`: none in its whole body or two direct callers. Startup's wider initoptions omissions pre-exist; this change wires only its required system-config pass.
+**Next:** generated coverage head role_gendercount; options.c packorder/oc_to_str remain Open, to be ported with the async impossible diagnostic and synchronous get_val caller contract handled together. No hand-written coverage refill.
 ## 2026-09-30 — D-3170 monmove.c mon_regen whole regeneration and meal completion
 
 **C locus:** - `mon_regen`: pinned monmove.c:307–320, whole body read in brief; sole caller mon.c:1193 passes FALSE.
