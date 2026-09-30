@@ -15,7 +15,7 @@
 {"fn":"sel_flood_havepoint","c":"379-392","status":"unknown"}
 {"fn":"selection_floodfill","c":"395-452","status":"unknown","d":["D-2665"],"at":"seed@a30a7de84"}
 {"fn":"selection_do_ellipse","c":"456-538","status":"unknown"}
-{"fn":"line_dist_coord","c":"542-566","status":"unknown"}
+{"fn":"line_dist_coord","c":"542-566","status":"ported","js":["js/mklev.js:line_dist_coord"],"at":"2026-09-30@746254c61","note":"stale: js/mklev.js:30384 (D-2684 shipped whole body + all 6 selection_do_gradient sites)"}
 {"fn":"selection_do_gradient","c":"570-622","status":"unknown"}
 {"fn":"selection_do_line","c":"626-680","status":"unknown"}
 {"fn":"selection_do_randline","c":"683-723","status":"unknown"}

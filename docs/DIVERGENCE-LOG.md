@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3160 — `apply.c` could_pole_mon cluster + `hacklib.c` isqrt (coverage)
+
+- **Status:** fixed
+- **Symptom:** coverage queue walk. Head `line_dist_coord` stale (D-2684 body complete, all 6 sites wired — ledger-ported); `optfn_IBMgraphics` already shipped D-3159 partial (remainder is Rule-#2 SYMBOLS file IO + by-design seeds — stands); `glyphs.c` TEST_GLYPHNAMES ×5 uncompiled (`#ifdef` at glyphs.c:1239 undefined in tree, R-1851 — ledger by-design, no JS). Shipped head: `could_pole_mon` PARTIAL — hitmon snapshot read after find instead of at entry, range via local `distu_apply` where C calls the live `mdistu`; `find_poleable_mon` read the sometimes-ungated sticky `u.Hallucination` where C wants the youprop macro, and served `isqrt` from a file-local clone with no live export anywhere.
+- **C locus:**
+  - `could_pole_mon`: apply.c:3391–3412 (hitm entry snapshot `:3395`, uwep/pole gate `:3397–3398`, range `:3400`, find `:3404`, hitm arm `:3405–3407`, mdistu ×2 `:3406`).
+  - `calc_pole_range`: apply.c:3371–3386 (staticfn; min 4, skill-gated max 4/5/8, gp mirror).
+  - `find_poleable_mon`: apply.c:3284–3318 (staticfn; impaired `:3292`, rt `:3293`, unique-candidate scan).
+  - `get_valid_polearm_position`: apply.c:3321–3331 (staticfn; isok + distu range + cansee/couldsee-poleable).
+  - `isqrt`: hacklib.c:681–700 (odd-subtraction; callers apply.c:3293, dothrow.c:1667, spell.c:2244).
+- **JS was:** `could_pole_mon` (js/apply.js) read hitmon post-find with a one-line doc; impaired OR'd the sticky field; `isqrt_pole` local served find; calc/get_valid present but undocumented; no `isqrt` export in js/.
+- **Fix:** restarted `could_pole_mon` in C order (entry hitm, live `mdistu`, per-line C pins, C-shaped else); impaired now calls the gated display.js `Hallucination` youprop (D-1493; aliased — do_name.js squats the bare name and documents itself as not-the-macro); ported `isqrt` as the hacklib.js C-locus export, rewired find, deleted `isqrt_pole`; C-ref docs on the two staticfn locals (distu is a macro, hack.h:1531 — `distu_apply` is its expansion).
+- **JS:** js/apply.js:3771 (`could_pole_mon` restart), :3696 (`find_poleable_mon` impaired `:3698` + isqrt `:3699`), :3660/:3679 (calc/get_valid docs), 3 import names; js/hacklib.js:36 (`isqrt` export); scripts/polearm-coverage-cluster.test.mjs (3 tests).
+- **Callers:**
+  - `could_pole_mon`: C dothrow.c:561 → js/dothrow.js:2765.
+  - `calc_pole_range`: C :3400 (could_pole_mon) → js/apply.js:3775; C :3450 (use_pole) → js/apply.js:3812.
+  - `find_poleable_mon`: C :3404 → js/apply.js:3777; C :3457 (use_pole) → js/apply.js:3816.
+  - `get_valid_polearm_position`: C :3298 (find) → js/apply.js:3708; C :3345 (display_polearm_positions) → js/apply.js:3747.
+  - `isqrt`: C apply.c:3293 → js/apply.js:3699; C dothrow.c:1667/spell.c:2244 → pre-existing js/dothrow.js:274 + js/spell.js:348 locals (out of cluster, named).
+- **Verify:** `node scripts/verify.mjs --fn could_pole_mon,calc_pole_range,find_poleable_mon,get_valid_polearm_position,isqrt` → VERIFY: PASS — hidden notes ×5 (no corpus session blocked, expected for coverage rows); REACH-OK ×5 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7. Focused `node --test scripts/polearm-coverage-cluster.test.mjs`: 3/3 PASS. First verify run caught a real bug (bare `Hallucination` import collided with the do_name.js squat — `Identifier already declared`, cohort 0/7); fixed via alias, re-verified PASS.
+- **Named omissions:**
+  - `could_pole_mon`: none — whole body, every callee live.
+  - `calc_pole_range`: none — whole body (`uwep_skill_type` live weapon.js import).
+  - `find_poleable_mon`: none — whole body (Confusion/Stun field reads kept as the C H-reads' superset; glyph `_at` helpers are the D-1040 reviewed macro expansions).
+  - `get_valid_polearm_position`: none — whole body (`isok` live const.js import, bounds-identical to the C-locus hacklib copy).
+  - `isqrt`: none — whole body (dothrow/spell C callers served by pre-existing locals, not missing C).
+- **Ledger:** could_pole_mon ported; calc_pole_range ported; find_poleable_mon ported; get_valid_polearm_position ported; isqrt ported js=hacklib.js:isqrt
+- **Next:** `optfn_IBMgraphics` coverage row persists while declared partial (generator re-queues partial + measured-gap rows); retires only via a `read_sym_file` port or a generator tweak — out of scope, D-3159 stands.
+
 ## D-3159 — `options.c` burden/runmode prompt rows + o_status_cond/count_cond + mouse_support + IBMgraphics (coverage cluster)
 
 - **Status:** fixed (coverage cluster, 6 C functions: 2 prompt-row fixes incl. 1 corpus move + 4 new ports; 3 queue siblings proved stale — doc_extcmd_flagstr, keylist_func_has_key, all_options_menucolors (whole bodies + wired callers at js/cmd.js:848, js/dokeylist.js:712, js/options.js:10973) — and optfn_windowchain proved compiled-out (by-design, WINCHAIN undefined), all marked via `ledger.mjs` in the same iteration. +212/-11 js/options.js, +1 test file.)

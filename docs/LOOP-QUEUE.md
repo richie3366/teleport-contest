@@ -115,10 +115,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `selvar.c` line_dist_coord — coverage PARTIAL (C 18 code L `selvar.c:542–566` / JS 13 code L in js/mklev.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
 - [ ] `options.c` optfn_IBMgraphics — coverage MISSING (C 33 code L `options.c:1906–1960` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e47a5e02a
-- [ ] `glyphs.c` test_glyphnames — coverage MISSING (C 7 code L `glyphs.c:1252–1262` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: find_glyphs, glyphs_to_unicode) @db34c42bb
-- [ ] `apply.c` could_pole_mon — coverage PARTIAL (C 15 code L `apply.c:3391–3412` / JS 11 code L in js/apply.js; hops —, callers 1, RNG 0, msg 0) @db34c42bb
 - [ ] `getpos.c` gloc_filter_classify_glyph — coverage PARTIAL (C 15 code L `getpos.c:341–361` / JS 8 code L in js/getpos.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
 - [ ] `mkmap.c` pass_two — coverage PARTIAL (C 15 code L `mkmap.c:101–121` / JS 11 code L in js/mkmap.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
 - [ ] `mkmap.c` pass_three — coverage PARTIAL (C 15 code L `mkmap.c:124–144` / JS 11 code L in js/mkmap.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sounds.c` choose_soundlib — coverage MISSING (C 29 code L `sounds.c:1809–1858` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
 - [ ] `vision.c` _q1_path — coverage MISSING (C 29 code L `vision.c:1419–1460` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
 - [ ] `vision.c` _q4_path — coverage MISSING (C 29 code L `vision.c:1466–1507` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
+- [ ] `vision.c` _q2_path — coverage MISSING (C 29 code L `vision.c:1513–1554` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @746254c61
+- [ ] `vision.c` _q3_path — coverage MISSING (C 29 code L `vision.c:1560–1601` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @746254c61
+- [ ] `botl.c` is_ltgt_percentnumber — coverage PARTIAL (C 14 code L `botl.c:2652–2669` / JS 9 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0) @746254c61
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

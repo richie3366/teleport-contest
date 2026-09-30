@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3160 `apply.c` could_pole_mon cluster + `hacklib.c` isqrt (coverage)
+
+**C locus:** - `could_pole_mon`: apply.c:3391–3412 (hitm entry snapshot `:3395`, uwep/pole gate `:3397–3398`, range `:3400`, find `:3404`, hitm arm `:3405–3407`, mdistu ×2 `:3406`).
+**JS:** js/apply.js:3771 (`could_pole_mon` restart), :3696 (`find_poleable_mon` impaired `:3698` + isqrt `:3699`), :3660/:3679 (calc/get_valid docs), 3 import names; js/hacklib.js:36 (`isqrt` export); scripts/polearm-coverage-cluster.test.mjs (3 tests).
+**Change:** restarted `could_pole_mon` in C order (entry hitm, live `mdistu`, per-line C pins, C-shaped else); impaired now calls the gated display.js `Hallucination` youprop (D-1493; aliased — do_name.js squats the bare name and documents itself as not-the-macro); ported `isqrt` as the hacklib.js C-locus export, rewired find, deleted `isqrt_pole`; C-ref docs on the two staticfn locals (distu is a macro, hack.h:1531 — `distu_apply` is its expansion).
+**Verify:** `node scripts/verify.mjs --fn could_pole_mon,calc_pole_range,find_poleable_mon,get_valid_polearm_position,isqrt` → VERIFY: PASS — hidden notes ×5 (no corpus session blocked, expected for coverage rows); REACH-OK ×5 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7. Focused `node --test scripts/polearm-coverage-cluster.test.mjs`: 3/3 PASS. First verify run caught a real bug (bare `Hallucination` import collided with the do_name.js squat — `Identifier already declared`, cohort 0/7); fixed via alias, re-verified PASS.
+**Named:** - `could_pole_mon`: none — whole body, every callee live.
+**Next:** `optfn_IBMgraphics` coverage row persists while declared partial (generator re-queues partial + measured-gap rows); retires only via a `read_sym_file` port or a generator tweak — out of scope, D-3159 stands.
 ## 2026-09-30 — D-3159 `options.c` burden/runmode prompt rows + o_status_cond/count_cond + mouse_support + IBMgraphics (coverage cluster)
 
 **C locus:** - `handler_pickup_burden`: options.c:6085–6111 (letters `:6091`, items `:6097–6101`, end_menu prompt `:6103`, select `:6104–6106`); paint rule wintty.c tty_end_menu `:2685–2689` (promptstyle + blank item), promptstyle default menu_headings (allmain.c:728).

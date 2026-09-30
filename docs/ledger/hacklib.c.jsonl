@@ -34,7 +34,7 @@
 {"fn":"sgn","c":"650-653","status":"unknown"}
 {"fn":"distmin","c":"657-669","status":"unknown"}
 {"fn":"dist2","c":"673-678","status":"unknown"}
-{"fn":"isqrt","c":"682-700","status":"unknown"}
+{"fn":"isqrt","c":"682-700","status":"ported","js":["js/hacklib.js:isqrt"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"online2","c":"704-711","status":"unknown"}
 {"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"The `strncmpi` compare loop is complete, but call sites in `artifact.c`, `attrib.c`, `botl.c`, `cmd.c`, `coloratt.c`, `do.c`, `do_name.c`, `dungeon.c`, `earlyarg.c`, `eat.c`, `files.c` tribute tags, `hack.c`, `invent.c`, `mon.c` gasp, `mondata.c`, `mthrowu.c`, `nhlua.c`, `objnam.c` outside the `rea…","d":["D-2967"],"at":"2026-09-27@b43d2c68f"}
 {"fn":"strstri","c":"740-779","status":"partial","js":["js/hacklib.js:strstri"],"omit":"`apply.c:1412` (the attach prompt at `js/apply.js:4813` is built without the ` to\\033` strip).","d":["D-2877"],"at":"seed@a30a7de84"}

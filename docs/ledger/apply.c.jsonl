@@ -51,11 +51,11 @@
 {"fn":"use_trap","c":"2821-2912","status":"ported","js":["js/apply.js:use_trap"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"set_trap","c":"2916-2952","status":"unknown"}
 {"fn":"use_whip","c":"2955-3271","status":"ported","js":["js/apply.js:use_whip"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
-{"fn":"find_poleable_mon","c":"3284-3318","status":"unknown"}
-{"fn":"get_valid_polearm_position","c":"3321-3331","status":"unknown"}
+{"fn":"find_poleable_mon","c":"3284-3318","status":"ported","js":["js/apply.js:find_poleable_mon"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
+{"fn":"get_valid_polearm_position","c":"3321-3331","status":"ported","js":["js/apply.js:get_valid_polearm_position"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"display_polearm_positions","c":"3334-3353","status":"unknown"}
-{"fn":"calc_pole_range","c":"3371-3386","status":"unknown"}
-{"fn":"could_pole_mon","c":"3391-3412","status":"unknown"}
+{"fn":"calc_pole_range","c":"3371-3386","status":"ported","js":["js/apply.js:calc_pole_range"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
+{"fn":"could_pole_mon","c":"3391-3412","status":"ported","js":["js/apply.js:could_pole_mon"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"snickersnee_used_dist_attk","c":"3416-3422","status":"unknown"}
 {"fn":"use_pole","c":"3426-3563","status":"ported","js":["js/apply.js:use_pole"],"d":["D-2059"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"use_cream_pie","c":"3568-3603","status":"unknown"}

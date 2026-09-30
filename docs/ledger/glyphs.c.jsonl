@@ -27,8 +27,8 @@
 {"fn":"reset_customcolors","c":"1179-1183","status":"ported","js":["js/glyphs.js:reset_customcolors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"find_display_sym_customization","c":"1196-1215","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"find_display_urep_customization","c":"1218-1236","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"test_glyphnames","c":"1252-1262","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"just_find_callback","c":"1265-1268","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"find_glyphs","c":"1271-1278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"to_unicode_callback","c":"1281-1300","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"glyphs_to_unicode","c":"1303-1317","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"test_glyphnames","c":"1252-1262","status":"by-design","at":"2026-09-30@746254c61","note":"uncompiled: #ifdef TEST_GLYPHNAMES (glyphs.c:1239-1319) undefined in tree; R-1851"}
+{"fn":"just_find_callback","c":"1265-1268","status":"by-design","at":"2026-09-30@746254c61","note":"uncompiled: #ifdef TEST_GLYPHNAMES (glyphs.c:1239-1319) undefined in tree; R-1851"}
+{"fn":"find_glyphs","c":"1271-1278","status":"by-design","at":"2026-09-30@746254c61","note":"uncompiled: #ifdef TEST_GLYPHNAMES (glyphs.c:1239-1319) undefined in tree; R-1851"}
+{"fn":"to_unicode_callback","c":"1281-1300","status":"by-design","at":"2026-09-30@746254c61","note":"uncompiled: #ifdef TEST_GLYPHNAMES (glyphs.c:1239-1319) undefined in tree; R-1851"}
+{"fn":"glyphs_to_unicode","c":"1303-1317","status":"by-design","at":"2026-09-30@746254c61","note":"uncompiled: #ifdef TEST_GLYPHNAMES (glyphs.c:1239-1319) undefined in tree; R-1851"}
