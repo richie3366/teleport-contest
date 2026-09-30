@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3176 monster iteration, pickup capacity and normal-shape closure
+
+**C locus:** whole bodies and every brief call-site table read:
+**JS:** js/monmove.js:242 get_iter_mons_xy, :308 curr_mon_load, :323 max_mon_load, :374 can_carry, :495 mpickstuff; js/mon.js:1204 normal_shape, :251 shared load call; js/dokick.js:496 iterator caller.
+**Change:** replaced the local iterator with one live async export using mon_offmap, saved successor identity and signed-16 arguments. A callback may remove both earlier nodes and the current node without skipping the saved successor. Re-port of the carrying closure preserves C branch order, 32767 threshold and rn2(12768), signed-int loads and return values, truncating capacity divisions, and every pickup ownership step.
+**Verify:** clean preflight green/strict PASS using Node 22.22.0 in /tmp/nethack-node22/bin. `node scripts/verify.mjs --fn get_iter_mons_xy,mpickstuff,can_carry,curr_mon_load,max_mon_load,normal_shape`:
+**Named:** - `get_iter_mons_xy`: none in the whole body or sole caller. JS represents the linked fmon list as an array of monster identities; message callback requires await.
+**Next:** generated coverage queue after removal of this head and stale rows; phase-2 parks remain closed.
 ## 2026-09-30 — D-3175 special-level region bindings validate options and booleans in C order
 
 **C locus:** whole bodies and reference tables read in briefs:

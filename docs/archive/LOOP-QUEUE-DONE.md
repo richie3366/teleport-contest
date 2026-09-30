@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-30
 
-- [x] `sp_lev.c` lspo_teleport_region/lspo_levregion validation — C sp_lev.c:5442–5460/:5471–5494 and nhlua.c:1078–1104/:1121–1133 reject invalid dir/type and numeric boolean 2; JS l_teleport_region/l_levregion silently default/coerce. Re-port shared adapters in C order including padding/name. Source: reviews/loop-unattended/2126-2b25db15c-special-level-bindings.md. **Addressed:** D-3175
+- [x] `sp_lev.c` lspo_teleport_region/lspo_levregion validation — C sp_lev.c:5442–5460/:5471–5494 and nhlua.c:1078–1104/:1121–1133 reject invalid dir/type and numeric boolean 2; JS l_teleport_region/l_levregion silently default/coerce. Re-port shared adapters in C order including padding/name. Source: reviews/loop-unattended/2126-2b25db15c-special-level-bindings.md. **Addressed:** D-3175 `3f8f47e04`
 
 
 - [x] `sp_lev.c` nhl_abs_coord/cvt_to_abscoord signed-16 semantics — C sp_lev.c:4810–4836/:4771–4788 and global.h:71 narrow coordxy; JS retains int32 (65536→65536, 32767+1→32768 instead of 0/-32768). Fix input and room/map offset narrowing, establish Lua integer conversion behavior. Source: reviews/loop-unattended/2128-e79d836f7-absolute-coordinate-width.md. **Addressed:** D-3174 `adc5a35c2`

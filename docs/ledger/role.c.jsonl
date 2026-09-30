@@ -25,7 +25,7 @@
 {"fn":"rolefilterstring","c":"1318-1355","status":"unknown"}
 {"fn":"clearrolefilter","c":"1358-1381","status":"ported","js":["js/player_selection.js:clearrolefilter"],"at":"2026-09-29@7e46744a0","note":"stale: js/player_selection.js:80"}
 {"fn":"promptsep","c":"1384-1396","status":"unknown"}
-{"fn":"role_gendercount","c":"1399-1412","status":"unknown"}
+{"fn":"role_gendercount","c":"1399-1412","status":"ported","js":["js/roles.js:role_gendercount"],"at":"2026-09-30@3f8f47e04","note":"stale: js/roles.js:1055"}
 {"fn":"race_alignmentcount","c":"1415-1428","status":"unknown"}
 {"fn":"root_plselection_prompt","c":"1431-1580","status":"ported","js":["js/player_selection.js:root_plselection_prompt"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: js/player_selection.js:734 complete arm-by-arm, caller wired at :861, review 874 ACCEPT"}
 {"fn":"build_plselection_prompt","c":"1583-1656","status":"unknown"}

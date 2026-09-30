@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-3176 — monster iteration, pickup capacity and normal-shape closure
+
+- **Status:** fixed (six whole mon.c bodies; coverage head get_iter_mons_xy; no blocked corpus sessions). Stale role_gendercount is ported at js/roles.js:1055; golemeffects is split to the already complete golemeffects_mm at js/mhitm.js:2366, retaining D-2735's inherited explode.c:525 caller omission.
+- **Symptom:** coverage gaps, inferred from the pinned C and JS briefs: the kick-door iterator substituted mx for mstate and could skip a successor after unlink; can_carry omitted the large-stack quantity RNG; normal_shape omitted were restoration and early completion of mimic-corpse meals. Pickup used plain pline and advanced through nexthere after callbacks instead of retaining it first.
+- **C locus:** whole bodies and every brief call-site table read:
+  - `get_iter_mons_xy`: mon.c:4562–4576 (coordxy arguments, saved nmon, DEADMONSTER/mon_offmap, first matching callback).
+  - `mpickstuff`: mon.c:1847–1910 (shop/reach guards, saved nexthere, prize/corpse/touch/carry arms, split/name/extract/pickup/equip/redraw order).
+  - `can_carry`: mon.c:1990–2053 (notake/touch, LARGEST_INT quantity draw, glomper/hands, steed/shopkeeper/peaceful, boulder/nymph and weight guards).
+  - `curr_mon_load`: mon.c:1913–1924 (linked inventory, boulder exemption, int accumulation).
+  - `max_mon_load`: mon.c:1927–1954 (long integer scaling/divisions, strong-monster arms, minimum and int return).
+  - `normal_shape`: mon.c:4431–4462 (cham/mcan preservation, were restoration, sleeping/revealed mimic or finish_meating).
+- **JS was:** local coordinate-based iterator in dokick.js; pickup/carry/load family in monmove.js with quantity fallback and missing large-quantity draw, unbounded integer load sums and unused public max-load export; partial normal_shape in mon.js. All existing C callers were live through these bodies or the existing inline curr_mon_load expansion in cant_squeeze_thru.
+- **Fix:** replaced the local iterator with one live async export using mon_offmap, saved successor identity and signed-16 arguments. A callback may remove both earlier nodes and the current node without skipping the saved successor. Re-port of the carrying closure preserves C branch order, 32767 threshold and rn2(12768), signed-int loads and return values, truncating capacity divisions, and every pickup ownership step. Pickup now uses pline_mon; normal_shape awaits the live new_were result before the mimic arm and calls finish_meating for an active mimic-corpse meal. cant_squeeze_thru imports curr_mon_load instead of duplicating its inventory walk. Import checks found existing static edges only; no new module dependency or production diagnostics.
+- **JS:** js/monmove.js:242 get_iter_mons_xy, :308 curr_mon_load, :323 max_mon_load, :374 can_carry, :495 mpickstuff; js/mon.js:1204 normal_shape, :251 shared load call; js/dokick.js:496 iterator caller.
+- **Callers:**
+  - `get_iter_mons_xy`: dokick.c:968 → js/dokick.js:496 (kick_door, same watchman_door_damage callback; live export imported at :64).
+  - `mpickstuff`: monmove.c:1680 → js/monmove.js:1809 (postmov); artifact.c:440 is a comment, not a caller.
+  - `can_carry`: bones.c:251 → js/end.js:1498 (give_to_nearby_mon); dogmove.c:443/:555 → js/dogmove.js:1034/:720; mon.c:1883 → js/monmove.js:524; monmove.c:1424 → js/monmove.js:623; muse.c:2343 → js/muse.js:3030; steal.c:475 → js/steal.js:592. Other brief references are declarations/comments, not missing callers.
+  - `curr_mon_load`: hack.c:969 → js/mon.js:251 (cant_squeeze_thru implementation); hack.c:2130/:2137 → js/hack.js:1402/:1410; mon.c:2049 → js/monmove.js:417; monmove.c:1001 → js/monmove.js:429 (mon_would_take_item).
+  - `max_mon_load`: mon.c:2049 → js/monmove.js:417; monmove.c:1001 → js/monmove.js:429.
+  - `normal_shape`: mon.c:4653 → js/mon.js:3733 (restore_cham); zap.c:3199 → js/zap.js:3673 (cancel_monst). Existing rescham callback adaptation remains awaited at js/mon.js:1237.
+- **Verify:** clean preflight green/strict PASS using Node 22.22.0 in /tmp/nethack-node22/bin. `node scripts/verify.mjs --fn get_iter_mons_xy,mpickstuff,can_carry,curr_mon_load,max_mon_load,normal_shape`:
+  - `get_iter_mons_xy`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `mpickstuff`: no blocked sessions (note); all 3 baseline-PASS reaching sessions PASS, 0 regressed → REACH-OK.
+  - `can_carry`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `curr_mon_load`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `max_mon_load`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - `normal_shape`: no blocked sessions (note); fixed smoke spread 24/24 PASS, 0 regressed → REACH-OK.
+  - Verify tail (/tmp/D3176-verify.log): `PASS green 2/2 passing`; `PASS strict seed8000-tourist-starter.session.json`; `PASS strict seed0900-tourist-explore-actions.session.json`; `PASS cohort 7/7 passing`; `PASS full 44/44 passing (auto: shared file changed)`; `VERIFY: PASS`. Syntax (3 JS files) and Rule #2/DIAG/FORCE/seed-gate scan PASS. Targeted JS assertions (/tmp/D3176-probe.mjs) PASS: removing earlier/current nodes preserves successor visitation, dead/off-map skipping, coordxy truncation, 32767/32768 quantity boundary, one rn2(12768), notake before RNG and no-hands/steed after RNG, load/capacity. These are JS checks against the read C control flow, not new C-state measurements. git diff --check clean.
+- **Named omissions:**
+  - `get_iter_mons_xy`: none in the whole body or sole caller. JS represents the linked fmon list as an array of monster identities; message callback requires await.
+  - `mpickstuff`: none in the whole body/caller; live same-module can_touch_safely uses artifact.js touch_artifact_mon, the shared synchronous monster branch of touch_artifact. Existing callee implementations remain outside this cluster.
+  - `can_carry`: none in the whole body or seven callers; uses the same live can_touch_safely monster branch.
+  - `curr_mon_load`: none in the whole body or five callers.
+  - `max_mon_load`: none in the whole body or two callers.
+  - `normal_shape`: none in the whole body or its callers; live newcham/new_were/seemimic/finish_meating retain their independent existing implementation debt.
+- **Ledger:** get_iter_mons_xy ported; mpickstuff ported; can_carry ported; curr_mon_load ported; max_mon_load ported; normal_shape ported
+- **Next:** generated coverage queue after removal of this head and stale rows; phase-2 parks remain closed.
+
 ## D-3175 — special-level region bindings validate options and booleans in C order
 
 - **Status:** fixed (review 2126 Must-fix, alone; region binding bodies complete; shared adapter caller closures partial as named below).

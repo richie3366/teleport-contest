@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `role.c` role_gendercount — coverage PARTIAL (C 9 code L `role.c:1399–1412` / JS 6 code L in js/roles.js; hops —, callers 1, RNG 0, msg 0) @2b25db15c
-- [ ] `mon.c` get_iter_mons_xy — coverage PARTIAL (C 8 code L `mon.c:4562–4576` / JS 5 code L in js/dokick.js; hops —, callers 1, RNG 0, msg 0) @e79d836f7
 - [ ] `options.c` optfn_packorder — coverage MISSING (C 14 code L `options.c:2670–2692` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e79d836f7
 - [ ] `strutil.c` strbuf_nl_to_crlf — coverage MISSING (C 13 code L `strutil.c:58–77` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @1b5d1374c
 - [ ] `ball.c` Lift_covet_and_placebc — coverage MISSING (C 12 code L `ball.c:327–346` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @1b5d1374c
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `options.c` optfn_objects — coverage MISSING (C 11 code L `options.c:2648–2667` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
 - [ ] `options.c` optfn_subkeyvalue — coverage MISSING (C 11 code L `options.c:4111–4131` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
 - [ ] `options.c` optfn_traps — coverage MISSING (C 11 code L `options.c:4418–4437` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
+- [ ] `options.c` optfn_video_width — coverage MISSING (C 11 code L `options.c:4604–4622` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @3f8f47e04
+- [ ] `options.c` optfn_video_height — coverage MISSING (C 11 code L `options.c:4625–4643` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @3f8f47e04
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

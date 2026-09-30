@@ -23,11 +23,11 @@
 {"fn":"mon_give_prop","c":"1726-1774","status":"ported","js":["js/mon.js:mon_give_prop"],"d":["D-2660"],"at":"seed@a30a7de84"}
 {"fn":"mon_givit","c":"1778-1824","status":"ported","js":["js/mon.js:mon_givit"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"mpickgold","c":"1827-1843","status":"unknown"}
-{"fn":"mpickstuff","c":"1847-1910","status":"unknown","d":["D-2085"],"at":"seed@a30a7de84"}
-{"fn":"curr_mon_load","c":"1913-1924","status":"unknown"}
-{"fn":"max_mon_load","c":"1927-1954","status":"unknown"}
+{"fn":"mpickstuff","c":"1847-1910","status":"ported","js":["js/monmove.js:mpickstuff"],"d":["D-3176","D-2085"],"at":"2026-09-30@3f8f47e04"}
+{"fn":"curr_mon_load","c":"1913-1924","status":"ported","js":["js/monmove.js:curr_mon_load"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
+{"fn":"max_mon_load","c":"1927-1954","status":"ported","js":["js/monmove.js:max_mon_load"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"can_touch_safely","c":"1958-1974","status":"unknown"}
-{"fn":"can_carry","c":"1990-2053","status":"unknown"}
+{"fn":"can_carry","c":"1990-2053","status":"ported","js":["js/monmove.js:can_carry"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"monlineu","c":"2057-2060","status":"unknown"}
 {"fn":"mon_allowflags","c":"2064-2126","status":"unknown"}
 {"fn":"m_in_air","c":"2130-2136","status":"unknown"}
@@ -82,12 +82,12 @@
 {"fn":"wake_nearto_core","c":"4374-4399","status":"unknown"}
 {"fn":"wake_nearto","c":"4402-4405","status":"unknown"}
 {"fn":"seemimic","c":"4409-4427","status":"unknown"}
-{"fn":"normal_shape","c":"4431-4462","status":"unknown","d":["D-1594"],"at":"seed@a30a7de84"}
+{"fn":"normal_shape","c":"4431-4462","status":"ported","js":["js/mon.js:normal_shape"],"d":["D-3176","D-1594"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"alloc_itermonarr","c":"4471-4490","status":"unknown"}
 {"fn":"iter_mons_safe","c":"4500-4522","status":"partial","js":["js/mon.js:iter_mons_safe"],"omit":"`save.c:1108` `alloc_itermonarr(0)` stays inside unported `freedynamicdata` (`FREE_ALL_MEMORY`).","d":["D-2843"],"at":"seed@a30a7de84"}
 {"fn":"iter_mons","c":"4527-4538","status":"unknown"}
 {"fn":"get_iter_mons","c":"4544-4556","status":"unknown"}
-{"fn":"get_iter_mons_xy","c":"4562-4576","status":"unknown"}
+{"fn":"get_iter_mons_xy","c":"4562-4576","status":"ported","js":["js/monmove.js:get_iter_mons_xy"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"healmon","c":"4596-4614","status":"unknown"}
 {"fn":"rescham","c":"4621-4624","status":"unknown"}
 {"fn":"m_restartcham","c":"4627-4635","status":"unknown"}
@@ -115,7 +115,7 @@
 {"fn":"dead_species","c":"5587-5605","status":"ported","js":["js/mon.js:dead_species"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"kill_eggs","c":"5609-5635","status":"unknown","d":["D-1097"],"at":"seed@a30a7de84"}
 {"fn":"kill_genocided_monsters","c":"5639-5677","status":"unknown"}
-{"fn":"golemeffects","c":"5680-5707","status":"unknown","d":["D-2735"],"at":"seed@a30a7de84"}
+{"fn":"golemeffects","c":"5680-5707","status":"split","js":["js/mhitm.js:golemeffects_mm"],"d":["D-2735"],"at":"2026-09-30@3f8f47e04","note":"stale: js/mhitm.js:2366; inherited explode.c:525 caller omission D-2735"}
 {"fn":"angry_guards","c":"5711-5760","status":"unknown"}
 {"fn":"pacify_guard","c":"5763-5767","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pacify_guards","c":"5770-5773","status":"unknown"}
