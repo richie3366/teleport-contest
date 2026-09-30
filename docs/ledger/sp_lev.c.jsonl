@@ -15,7 +15,7 @@
 {"fn":"flip_dbridge_vertical","c":"442-453","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"flip_visuals","c":"458-495","status":"ported","js":["js/mklev.js:flip_visuals"],"d":["D-2898","D-2889"],"at":"seed@a30a7de84"}
 {"fn":"flip_encoded_dir_bits","c":"499-514","status":"unknown"}
-{"fn":"flip_level","c":"533-922","status":"partial","js":["js/mklev.js:flip_level"],"omit":"- `wiz_flip_level`: none — whole body, every callee live (yn_function/pline/docrt async, flip pair via dynamic import, Never_mind/ECMD_OK consts).","d":["D-3131","D-2336"],"at":"2026-09-29@f789bb94f"}
+{"fn":"flip_level","c":"533-922","status":"partial","js":["js/mklev.js:flip_level"],"omit":"ball/chain unplace (:566-585, unplacebc :582) + re-place (:909-910, placebc :910) — async in JS (ball.js), flip_level stays sync; C leaves SpLev_Map unflipped (by design, pre-existing); nh.flip_level Lua caller (nhlua.c:1517) unwired","d":["D-3131","D-2336"],"at":"2026-09-30@4399b92c1"}
 {"fn":"flip_vault_guard","c":"926-958","status":"ported","js":["js/mklev.js:flip_vault_guard"],"d":["D-2913"],"at":"seed@a30a7de84"}
 {"fn":"flip_level_rnd","c":"967-982","status":"ported","js":["js/mklev.js:flip_level_rnd"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"sel_set_wall_property","c":"986-995","status":"unknown"}
@@ -26,7 +26,7 @@
 {"fn":"maybe_add_door","c":"1110-1118","status":"unknown"}
 {"fn":"link_doors_rooms","c":"1122-1142","status":"unknown"}
 {"fn":"rnddoor","c":"1148-1153","status":"unknown"}
-{"fn":"rndtrap","c":"1159-1188","status":"ported","js":["js/mklev.js:create_maze"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"rndtrap","c":"1159-1188","status":"split","js":["js/mklev.js:splev_rndtrap"],"at":"2026-09-30@4399b92c1","note":"audit 2087-2095: seed row pointed at create_maze (no rndtrap logic there); true home splev_rndtrap, whole body + both call sites"}
 {"fn":"get_location","c":"1202-1269","status":"unknown"}
 {"fn":"set_ok_location_func","c":"1274-1277","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_ok_location","c":"1280-1308","status":"unknown","d":["D-2368"],"at":"seed@a30a7de84"}

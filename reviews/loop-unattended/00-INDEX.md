@@ -2096,3 +2096,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2084-7e46744a0-hawaiian-design.md](./2084-7e46744a0-hawaiian-design.md) | `7e46744a0` | D-3124 hawaiian_design whole-body + shirt block | **ACCEPT** |
 | [2085-be48bbe4a-reorder-invent.md](./2085-be48bbe4a-reorder-invent.md) | `be48bbe4a` | D-3125 reorder_invent gold-arm fix + 2 stale | **ACCEPT** |
 | [2086-eeb30e858-artifact-abil-cluster.md](./2086-eeb30e858-artifact-abil-cluster.md) | `eeb30e858` | D-3126 artifact abil_to_adtyp + what_gives + arti_immune | **ACCEPT** |
+| [2087-d3ab32283-enlght-line-split.md](./2087-d3ab32283-enlght-line-split.md) | `d3ab32283` | D-3127 enlght_line port + enlght_out split + 3 stale | **ACCEPT** |
+| [2088-3606b8f8d-fruitname-minimal-xname.md](./2088-3606b8f8d-fruitname-minimal-xname.md) | `3606b8f8d` | D-3128 fruitname + minimal_xname + makesingular (ia→ium debt) | **ACCEPT-WITH-DEBT** |
+| [2089-74bd8ea11-disturb-grave-ctx.md](./2089-74bd8ea11-disturb-grave-ctx.md) | `74bd8ea11` | D-3129 disturb_grave + ctx_init + engr verify-whole | **ACCEPT** |
+| [2090-f789bb94f-oextra-family.md](./2090-f789bb94f-oextra-family.md) | `f789bb94f` | D-3130 oextra family C-signature + stamps (10 fns) | **ACCEPT** |
+| [2091-b90b1a381-wiz-flip-level.md](./2091-b90b1a381-wiz-flip-level.md) | `b90b1a381` | D-3131 wiz_flip_level + flip_level remainder (probe 8/8) | **ACCEPT** |
+| [2092-e3690fe26-disclose-option.md](./2092-e3690fe26-disclose-option.md) | `e3690fe26` | D-3132 should_query_disclose_option + 2 stale | **ACCEPT** |
+| [2093-463ffffc2-unpacked-coord.md](./2093-463ffffc2-unpacked-coord.md) | `463ffffc2` | D-3133 get_unpacked_coord + 3 dispositions | **ACCEPT** |
+| [2094-f292ec32c-vconfig-error-add.md](./2094-f292ec32c-vconfig-error-add.md) | `f292ec32c` | D-3134 vconfig_error_add + 4 dispositions | **ACCEPT** |
+| [2095-4399b92c1-pickup-cluster.md](./2095-4399b92c1-pickup-cluster.md) | `4399b92c1` | D-3135 pickup 4-port + 5 dispositions (9 fns) | **ACCEPT** |

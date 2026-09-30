@@ -1,9 +1,9 @@
 {
- "commit": "f292ec32c",
- "at": "2026-09-29T23:37:16.779Z",
- "full": false,
- "fullCommit": "eeb30e858",
- "fullAt": "2026-09-29T20:34:22.718Z",
+ "commit": "4399b92c1",
+ "at": "2026-09-30T00:21:31.940Z",
+ "full": true,
+ "fullCommit": "4399b92c1",
+ "fullAt": "2026-09-30T00:21:31.940Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4286,7 +4286,7 @@
    "steps": 226,
    "owner": "wipeout_text",
    "loc": "engrave.c:134",
-   "jsOwner": "wipeout_text(engrave.js:426)",
+   "jsOwner": "wipeout_text(engrave.js:428)",
    "cTopline": "You begin to memorize the runes.--More--",
    "jsTopline": "You begin to memorize the runes.--More--",
    "error": null
@@ -11783,7 +11783,7 @@
    "steps": 240,
    "owner": "wipeout_text",
    "loc": "engrave.c:134",
-   "jsOwner": "wipeout_text(engrave.js:426)",
+   "jsOwner": "wipeout_text(engrave.js:428)",
    "cTopline": "The white unicorn hits the horse. The horse picks up a splint mail.--More--",
    "jsTopline": "The white unicorn hits the horse. The horse picks up a splint mail.--More--",
    "error": null
@@ -12619,7 +12619,7 @@
    "jsOwner": null,
    "cTopline": "Hello wizard, welcome to NetHack! You are a chaotic female human Monk.--More--",
    "jsTopline": "",
-   "error": "ReferenceError: mhis is not defined |     at dowaterdemon (file:///home/debian/dev/teleport-contest/js/fountain.js:594:21) |     at async drinkfountain (file://"
+   "error": "ReferenceError: mhis is not defined |     at dowaterdemon (file:///home/debian/dev/teleport-contest/js/fountain.js:595:21) |     at async drinkfountain (file://"
   },
   "scen-terrain-Monk-94160": {
    "src": "corpus",
