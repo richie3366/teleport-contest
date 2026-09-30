@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3161 — `options.c` optfn_statushilites + optfn_statuslines (coverage cluster)
+
+- **Status:** fixed (coverage cluster, 2 whole C functions + wiring + 15 tests; stale-walk retired 5 rows ahead of it: optfn_IBMgraphics → blocked-partial — D-3159 partial stands, remainder is Rule-#2 SYMBOLS file IO + by-design seeds per D-3160 — and gloc_filter_classify_glyph/pass_two/pass_three/remove_autopickup_exception → ported, whole bodies + wired callers at js/getpos.js:776/:797-798, js/mkmap.js:98/:357 + :117/:361 (review 872 ACCEPT), js/options.js:5994/:6079 (review 1797 ACCEPT). +144/-6 js/options.js, +2/-2 js/botl.js, +1 test file.)
+- **Symptom:** statushilites/statuslines allopt rows `optfn: null` (rc, parseoptions do_set, dump all skipped them); full-doset value columns hardcoded (`'0 (off:…)'`, `'2'`). No corpus session blocked on either (coverage rows, no RNG reach).
+- **C locus:**
+  - `optfn_statushilites`: options.c:4012–4064 (STATUS_HILITES on, config.h:616: do_set `:4025–4036` delta store + from_file reset gate; `#else` `:4037–4042` compiled out; get_val `:4046–4050`; get_cnf_val `:4058`).
+  - `optfn_statuslines`: options.c:4066–4107 (do_set `:4080–4097`: string_for_opt, negated fall-through `:4081–4084`, 2|3 validation, redraw gate; get arms `:4099–4104` wc2 gate).
+- **JS was:** no optfn_statushilites/optfn_statuslines symbols; statushilites/statuslines rows unrouted.
+- **Fix:** ported both whole in C order over live string_for_opt/bad_negation/wc2_supported/opt_atoi/config_error_add (same module) + imported reset_status_hilites (botl.js; pre-existing edge, imports.mjs ALREADY). Statushilites full-doset row is live get_val now; statuslines displays keep the C-observable `:4101` supported arm (contest tty sets WC2_STATUSLINES, wintty.c:119; the live optfn reads 'unknown' under the deliberate minimal JS wincap2).
+- **JS:** js/options.js:7096 (optfn_statushilites), :7146 (optfn_statuslines), rc valued :4231/:4239 + valueless :4400/:4407, allopt rows 174/176, doset rows :9770/:9774; js/botl.js reset_status_hilites doc (caller now live); scripts/optfn-status-cluster.test.mjs (15 tests).
+- **Callers:**
+  - `optfn_statushilites`: table-only in C (0 refs) → JS rc valued :4231 + valueless :4400 (negateok Yes, passed through); parseoptions generic dispatch (allopt optfn); full-doset value column :9770; dump via get_option_value get_cnf_val.
+  - `optfn_statuslines`: table-only in C (0 refs) → JS rc valued :4239 + valueless :4407 (`:626` negateok-No gate); parseoptions generic dispatch; full-doset display :9774 (non-handler, mouse/scores precedent); simple-menu display (pre-existing computed arm, kept C-observable); dump via get_option_value.
+- **Verify:** `node scripts/verify.mjs --fn optfn_statushilites,optfn_statuslines` → VERIFY: PASS — hidden notes ×2 (no corpus session blocked, expected for coverage rows); REACH-OK ×2 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/optfn-status-cluster.test.mjs`: 15/15 PASS (all do_set/get arms incl. negated fall-through, bare/default, atoi edges, rc + dispatch + dump wiring, both wc2 arms); sibling `scripts/optfn-coverage-cluster.test.mjs`: 20/20 PASS.
+- **Named omissions:**
+  - `optfn_statushilites`: none — whole body; STATUS_HILITES-off arms compiled out (config.h:616).
+  - `optfn_statuslines`: none in the body — whole body; live get arms read 'unknown' under the minimal JS wincap2 where C reads '2'/'3' (display.js install_tty_wincap2 design keeps VIA_WINDOWPORT false — out of scope); doset/simple displays use the C-observable arm.
+- **Ledger:** optfn_statushilites ported; optfn_statuslines ported
+- **Next:** continue the breadth queue from the regenerated block.
+
 ## D-3160 — `apply.c` could_pole_mon cluster + `hacklib.c` isqrt (coverage)
 
 - **Status:** fixed

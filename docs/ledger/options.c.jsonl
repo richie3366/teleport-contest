@@ -40,7 +40,7 @@
 {"fn":"optfn_glyph","c":"1815-1849","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_hilite_status","c":"1852-1894","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_horsename","c":"1897-1903","status":"unknown"}
-{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"partial","js":["js/options.js:optfn_IBMgraphics"],"omit":"- `handler_pickup_burden`: none — whole body + tty paint rule.","d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"partial","js":["js/options.js:optfn_IBMgraphics"],"omit":"blocked: remainder unportable — read_sym_file arm needs SYMBOLS file IO (Rule #2) and clear_symsetentry/switch_symbols are by-design seeds; D-3159 partial stands (D-3160).","d":["D-3159"],"at":"2026-09-30@deff666da","note":"stale-row retired: portable body complete at js/options.js:7013"}
 {"fn":"optfn_map_mode","c":"1963-2047","status":"ported","js":["js/options.js:optfn_map_mode"],"d":["D-3157"],"at":"2026-09-30@e47a5e02a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shared_menu_optfn","c":"2052-2074","status":"partial","js":["js/options.js:shared_menu_optfn"],"omit":"``config_error_add`` sink (+4 sites: both ``illegal_menu_cmd_key`` arms, ``bad_negation`` inside ``spcfn``, ``string_for_opt`` missing-parameter — map's existing sink line); C ``parsebindings :7658–7662`` menu-command arm (travels with the future BINDINGS row); ``menu_headings``/``menu_objsyms`` op…","d":["D-2651"],"at":"seed@a30a7de84"}
 {"fn":"optfn_menu_deselect_all","c":"2077-2082","status":"unknown"}
@@ -89,8 +89,8 @@
 {"fn":"optfn_sortdiscoveries","c":"3863-3911","status":"partial","js":["js/options.js:optfn_sortdiscoveries"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_sortloot","c":"3914-3955","status":"ported","js":["js/options.js:optfn_sortloot"],"d":["D-2830"],"at":"seed@a30a7de84"}
 {"fn":"optfn_sortvanquished","c":"3958-4010","status":"partial","js":["js/options.js:optfn_sortvanquished"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2784"],"at":"seed@a30a7de84"}
-{"fn":"optfn_statushilites","c":"4013-4064","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"optfn_statuslines","c":"4067-4107","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_statushilites","c":"4013-4064","status":"ported","js":["js/options.js:optfn_statushilites"],"d":["D-3161"],"at":"2026-09-30@deff666da","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_statuslines","c":"4067-4107","status":"ported","js":["js/options.js:optfn_statuslines"],"d":["D-3161"],"at":"2026-09-30@deff666da","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_subkeyvalue","c":"4111-4131","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_suppress_alert","c":"4135-4161","status":"ported","js":["js/options.js:optfn_suppress_alert"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_symset","c":"4167-4236","status":"unknown"}
@@ -208,7 +208,7 @@
 {"fn":"dotogglepickup","c":"9256-9274","status":"unknown"}
 {"fn":"toggle_bool_option","c":"9278-9297","status":"unknown"}
 {"fn":"add_autopickup_exception","c":"9300-9346","status":"ported","js":["js/options.js:add_autopickup_exception"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
-{"fn":"remove_autopickup_exception","c":"9349-9369","status":"unknown"}
+{"fn":"remove_autopickup_exception","c":"9349-9369","status":"ported","js":["js/options.js:remove_autopickup_exception"],"at":"2026-09-30@deff666da","note":"stale: js/options.js:5994 whole body + caller :6079; review 1797 ACCEPT"}
 {"fn":"free_autopickup_exceptions","c":"9372-9382","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sym_val","c":"9385-9426","status":"ported","js":["js/options.js:sym_val"],"at":"2026-09-30@5fd602958","note":"stale: js/options.js:10775 (review-1510 branch-exact; :839 caller wired :10956, :631 caller in by-design parse_sym_line)"}
 {"fn":"option_help","c":"9462-9549","status":"split","js":["js/options.js:option_help_lines","js/pager.js:show_text_pages"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}

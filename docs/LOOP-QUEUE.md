@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` optfn_IBMgraphics — coverage MISSING (C 33 code L `options.c:1906–1960` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e47a5e02a
-- [ ] `getpos.c` gloc_filter_classify_glyph — coverage PARTIAL (C 15 code L `getpos.c:341–361` / JS 8 code L in js/getpos.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
-- [ ] `mkmap.c` pass_two — coverage PARTIAL (C 15 code L `mkmap.c:101–121` / JS 11 code L in js/mkmap.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
-- [ ] `mkmap.c` pass_three — coverage PARTIAL (C 15 code L `mkmap.c:124–144` / JS 11 code L in js/mkmap.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
-- [ ] `options.c` remove_autopickup_exception — coverage PARTIAL (C 15 code L `options.c:9349–9369` / JS 9 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @850d390ba
-- [ ] `options.c` optfn_statushilites — coverage MISSING (C 30 code L `options.c:4013–4064` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
 - [ ] `sounds.c` choose_soundlib — coverage MISSING (C 29 code L `sounds.c:1809–1858` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
 - [ ] `vision.c` _q1_path — coverage MISSING (C 29 code L `vision.c:1419–1460` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
 - [ ] `vision.c` _q4_path — coverage MISSING (C 29 code L `vision.c:1466–1507` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @850d390ba
 - [ ] `vision.c` _q2_path — coverage MISSING (C 29 code L `vision.c:1513–1554` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @746254c61
 - [ ] `vision.c` _q3_path — coverage MISSING (C 29 code L `vision.c:1560–1601` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @746254c61
 - [ ] `botl.c` is_ltgt_percentnumber — coverage PARTIAL (C 14 code L `botl.c:2652–2669` / JS 9 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0) @746254c61
+- [ ] `options.c` optfn_cursesgraphics — coverage MISSING (C 26 code L `options.c:1345–1390` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @deff666da
+- [ ] `options.c` optfn_DECgraphics — coverage MISSING (C 26 code L `options.c:1394–1439` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @deff666da
+- [ ] `options.c` optfn_o_autocomplete — coverage MISSING (C 11 code L `options.c:8346–8365` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: count_autocompletions) @deff666da
+- [ ] `options.c` optfn_hilite_status — coverage MISSING (C 25 code L `options.c:1852–1894` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @deff666da
+- [ ] `worn.c` wornmask_to_armcat — coverage MISSING (C 24 code L `worn.c:218–246` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @deff666da
+- [ ] `dothrow.c` find_launcher — coverage PARTIAL (C 12 code L `dothrow.c:447–465` / JS 8 code L in js/dothrow.js; hops —, callers 1, RNG 0, msg 0) @deff666da
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

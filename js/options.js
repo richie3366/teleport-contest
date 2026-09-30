@@ -215,7 +215,7 @@ import { clr2colorname } from './artifact.js';
 import {
     opt_next_cond, cond_menu, status_hilite_menu, condtests,
     status_hilite_linestr_done, status_hilite_linestr_gather,
-    count_status_hilites,
+    count_status_hilites, reset_status_hilites,
     match_str2clr, match_str2attr, status_version,
     config_error_add, status_initialize,
     condopt, parse_cond_option,
@@ -4228,6 +4228,21 @@ export function parseNethackrc(rc) {
                         allopt_idx('IBMgraphics'), REQ_DO_SET, negated, stripped, val, true,
                     );
                 }
+                else if (key === 'statushilites') {
+                    // C optfn_statushilites do_set (opt_initial) on
+                    // result.iflags. Negation stores 0 (negateok Yes);
+                    // from_file skips the reset (`:4034–4035`).
+                    optfn_statushilites(
+                        allopt_idx('statushilites'), REQ_DO_SET, negated, stripped, val, result.iflags, true,
+                    );
+                }
+                else if (key === 'statuslines') {
+                    // C optfn_statuslines do_set (opt_initial) on result.iflags.
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_statuslines(
+                        allopt_idx('statuslines'), REQ_DO_SET, false, stripped, val, result.iflags, true,
+                    );
+                }
                 else if (key === 'pickup_burden') {
                     // C parseoptions `:626` negateok-No returns before the optfn.
                     if (negated) continue;
@@ -4380,6 +4395,21 @@ export function parseNethackrc(rc) {
                     // C optfn_IBMgraphics do_set, valueless (opt_initial).
                     optfn_IBMgraphics(
                         allopt_idx('IBMgraphics'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
+                    );
+                }
+                else if (lname === 'statushilites') {
+                    // C optfn_statushilites do_set, valueless (opt_initial):
+                    // bare name stores the 3-turn default (`:4029–4030`).
+                    optfn_statushilites(
+                        allopt_idx('statushilites'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, result.iflags, true,
+                    );
+                }
+                else if (lname === 'statuslines') {
+                    // C optfn_statuslines do_set, valueless (opt_initial):
+                    // bare name is silenterr (`:4085–4091`).
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_statuslines(
+                        allopt_idx('statuslines'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, result.iflags, true,
                     );
                 }
                 else if (lname === 'pickup_burden') {
@@ -7049,6 +7079,109 @@ export function optfn_IBMgraphics(optidx, req, negated, opts, _op, optInitial) {
 }
 
 /**
+ * C options.c optfn_statushilites `:4012–4064` (staticfn; NHOPT_PARSE wires
+ * &optfn_statushilites into the statushilites allopt row, optlist.h `:724`).
+ * STATUS_HILITES is defined (config.h `:616`), so do_set is the delta
+ * store (`:4025–4036`); the `:4037–4042` #else is compiled out, as are the
+ * get_val `:4051–4053` and get_cnf_val `:4059–4061` #else arms.
+ * No do_handler (has_handler No).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts full option string (do_set) / out holder
+ * @param {string} op value tail (recomputed inside like C `:4028`)
+ * @param {object} [iflagsBag] C iflags home (rc result at parse; game in game)
+ * @param {boolean} [optFromFile] C go.opt_from_file — reset gate
+ */
+export function optfn_statushilites(optidx, req, negated, opts, op, iflagsBag, optFromFile) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) { // C `:4017–4019`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:4020`
+        /* C `:4021–4022` highlight control + N-turn comment */
+        // (STATUS_HILITES on: the `:4037–4042` #else is compiled out.)
+        if (negated) { // C `:4025`
+            iflags.hilite_delta = 0; // C `:4026` 0L
+        } else {
+            op = string_for_opt(String(opts ?? ''), true); // C `:4028` TRUE
+            // C `:4029–4030`: empty_optstr/empty → 3L default, else atol
+            // (EMPTY_OPTSTR is '', so both C disjuncts are `!op`).
+            iflags.hilite_delta = !op ? 3 : opt_atoi(op);
+            if (iflags.hilite_delta < 0) // C `:4031`
+                iflags.hilite_delta = 1; // C `:4032` 1L
+        }
+        const fromFile = optFromFile ?? !!game.go?.opt_from_file; // C go.opt_from_file
+        if (!fromFile) // C `:4034`
+            reset_status_hilites(); // C `:4035`
+        return OPTN_OK; // C `:4036`
+    }
+    if (req === REQ_GET_VAL) { // C `:4044`
+        if (!iflags.hilite_delta) // C `:4046`
+            set_optbuf(opts, "0 (off: don't highlight status fields)"); // C `:4047`
+        else // C `:4048`
+            set_optbuf(opts, `${iflags.hilite_delta | 0} (on: highlight status for ${iflags.hilite_delta | 0} turns)`); // C `:4049–4050` %ld
+        return OPTN_OK; // C `:4054`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:4056`
+        set_optbuf(opts, String(iflags.hilite_delta | 0)); // C `:4058` %ld
+    }
+    return OPTN_OK; // C `:4063` (get_cnf_val falls through, no early return)
+}
+
+/**
+ * C options.c optfn_statuslines `:4066–4107` (staticfn; NHOPT_PARSE wires
+ * &optfn_statuslines into the statuslines allopt row, optlist.h `:734`).
+ * do_set validates 2|3 (the negated arm `:4081–4084` falls through to the
+ * range check like C — no early return); the get arms read the wc2 gate.
+ * No do_handler (has_handler No).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts full option string (do_set) / out holder
+ * @param {string} op value tail (recomputed inside like C `:4080`)
+ * @param {object} [iflagsBag] C iflags home (rc result at parse; game in game)
+ * @param {boolean} [optInitial] C go.opt_initial — redraw gate
+ */
+export function optfn_statuslines(optidx, req, negated, opts, op, iflagsBag, optInitial) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    let retval = OPTN_OK, itmp = 0; // C `:4071`
+    if (req === REQ_DO_INIT) { // C `:4073–4075`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:4076`
+        /* C `:4077–4078` WINCAP2 statuslines:n */
+        op = string_for_opt(String(opts ?? ''), negated); // C `:4080`
+        if (negated) { // C `:4081`
+            bad_negation(allopt_name(optidx), true); // C `:4082` TRUE
+            itmp = 2; // C `:4083`
+            retval = OPTN_ERR; // C `:4084` (falls through like C)
+        } else if (op !== EMPTY_OPTSTR) { // C `:4085`
+            itmp = opt_atoi(op); // C `:4086` atoi
+        }
+        if (itmp < 2 || itmp > 3) { // C `:4088`
+            config_error_add("'%s:%s' is invalid; must be 2 or 3", // C `:4089–4090`
+                allopt_name(optidx), op);
+            retval = OPTN_SILENTERR; // C `:4091`
+        } else {
+            iflags.wc2_statuslines = itmp; // C `:4093`
+            const optInit = optInitial ?? !!game.go?.opt_initial; // C go.opt_initial
+            if (!optInit) // C `:4094`
+                mark_opt_need_redraw(); // C `:4095`
+        }
+        return retval; // C `:4097`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4099`
+        if (wc2_supported(allopt_name(optidx))) // C `:4100`
+            set_optbuf(opts, (iflags.wc2_statuslines | 0) < 3 ? '2' : '3'); // C `:4101`
+        else
+            set_optbuf(opts, 'unknown'); // C `:4103`
+        return OPTN_OK; // C `:4104`
+    }
+    return OPTN_OK; // C `:4106`
+}
+
+/**
  * C options.c optfn_scores `:3669–3760`. No do_handler (has_handler No).
  * do_set resets the three fields, then walks top/around/own tokens.
  * A leading '!' or "no" on a token clears that part. '-' before a digit
@@ -8122,7 +8255,7 @@ function currently_set_val(n) {
 /**
  * C ref: options.c optfn_* get_val for doset_simple_menu compound/othr rows.
  * Named omissions: full handlers for symset/
- * statuslines/exceptions/status rules — display values only until those
+ * exceptions/status rules — display values only until those
  * handlers are ported (menu colors, number_pad and autounlock handlers are live).
  */
 function simple_opt_get_val(opt) {
@@ -8171,6 +8304,8 @@ function simple_opt_get_val(opt) {
         return s;
     }
     if (name === 'statuslines') {
+        // C `:4101` supported arm (contest tty sets the bit; the live
+        // optfn reads 'unknown' under the minimal JS wincap2).
         const n = game.iflags?.wc2_statuslines;
         return (n != null && n >= 3) ? '3' : '2';
     }
@@ -9632,8 +9767,11 @@ export async function doset() {
         { name: 'sortdiscoveries', get_val: () => doset_compopt_get_val(optfn_sortdiscoveries, 'sortdiscoveries'), handler: true },
         { name: 'sortloot', get_val: () => doset_compopt_get_val(optfn_sortloot, 'sortloot'), handler: true },
         { name: 'sortvanquished', get_val: () => doset_compopt_get_val(optfn_sortvanquished, 'sortvanquished'), handler: true },
-        { name: 'statushilites', val: '0 (off: don\'t highlight status fields)' },
-        { name: 'statuslines', val: '2' },
+        { name: 'statushilites', get_val: () => doset_compopt_get_val(optfn_statushilites, 'statushilites') },
+        // C `:4101` supported arm (contest tty sets WC2_STATUSLINES,
+        // wintty.c `:119`; the live optfn reads 'unknown' under the
+        // minimal JS wincap2, display.js install_tty_wincap2).
+        { name: 'statuslines', get_val: () => (((game.iflags?.wc2_statuslines | 0) < 3) ? '2' : '3') },
         { name: 'suppress_alert', val: '(none)' },
         { name: 'symset', val: 'DECgraphics, active, handler=DEC' },
         { name: 'versinfo', get_val: () => doset_compopt_get_val(optfn_versinfo, 'versinfo'), handler: true },
@@ -10520,11 +10658,11 @@ const allopt = [
     // optlist.h:720 NHOPTO("status condition fields")
     { name: 'status condition fields', opttyp: OthrOpt, idx: 173, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: optfn_o_status_cond },
     // optlist.h:724 NHOPTC(statushilites)
-    { name: 'statushilites', opttyp: CompOpt, idx: 174, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'statushilites', opttyp: CompOpt, idx: 174, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_statushilites },
     // optlist.h:727 NHOPTO("status highlight rules")
     { name: 'status highlight rules', opttyp: OthrOpt, idx: 175, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
     // optlist.h:734 NHOPTC(statuslines)
-    { name: 'statuslines', opttyp: CompOpt, idx: 176, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'statuslines', opttyp: CompOpt, idx: 176, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_statuslines },
     // optlist.h:740 NHOPTC(suppress_alert)
     { name: 'suppress_alert', opttyp: CompOpt, idx: 177, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_suppress_alert },
     // optlist.h:743 NHOPTC(symset)

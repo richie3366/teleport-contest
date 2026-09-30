@@ -2,8 +2,8 @@
 {"fn":"init_fill","c":"37-52","status":"unknown"}
 {"fn":"get_map","c":"55-60","status":"unknown"}
 {"fn":"pass_one","c":"68-96","status":"unknown"}
-{"fn":"pass_two","c":"101-121","status":"unknown"}
-{"fn":"pass_three","c":"124-144","status":"unknown"}
+{"fn":"pass_two","c":"101-121","status":"ported","js":["js/mkmap.js:pass_two"],"at":"2026-09-30@deff666da","note":"stale: js/mkmap.js:98 whole body + caller :357; review 872 ACCEPT"}
+{"fn":"pass_three","c":"124-144","status":"ported","js":["js/mkmap.js:pass_three"],"at":"2026-09-30@deff666da","note":"stale: js/mkmap.js:117 whole body + caller :361; review 872 ACCEPT"}
 {"fn":"flood_fill_rm","c":"153-242","status":"unknown"}
 {"fn":"join_map_cleanup","c":"246-255","status":"unknown"}
 {"fn":"join_map","c":"258-328","status":"unknown","d":["D-1910"],"at":"seed@a30a7de84"}
