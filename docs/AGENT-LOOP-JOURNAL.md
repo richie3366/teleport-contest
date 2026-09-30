@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3167 options.c 9× optfn ports (altkeyhandling/glyph/tile_file/tile_height/tile_width/vary_msgcount/crash_urlmax/pile_limit/player_selection)
+
+**C locus:** - `optfn_altkeyhandling`: options.c:1022–1063
+**JS:** js/options.js:3505 (altkeyhandling), :3532 (crash_urlmax), :3570 (glyph), :3612 (pile_limit), :3640 (VIA_*), :3655 (player_selection), :3692 (tile_file), :3731 (tile_height), :3768 (tile_width), :3805 (vary_msgcount).
+**Change:** ported all nine whole in C order into one `js/options.js` block (map_mode/menu_headings/symset idiom: REQ_/OPTN_/EMPTY_OPTSTR, `string_for_opt` re-derive, `opt_atoi` for C atoi, `allopt_name`, `set_optbuf`, `| 0` int reads, `defopt[]`→'default', VIA_DIALOG/VIA_PROMPTS from winprocs.h:275–276, crash_urlmax decl.c:261 -1 default) and wired the 9 allopt dispatch rows. Every C callee live: bad_negation/string_for_opt/opt_atoi/allopt_name/set_optbuf/mungspaces in-module, strncmpi (hacklib), dupstr (dungeon), config_error_add (botl), glyphrep_to_custom_map_entries (glyphs) — no new module edge (hacklib import extension reverted: options.js already defines mungspaces in-module).
+**Verify:** `node scripts/verify.mjs --fn <9 fns>` → VERIFY: PASS (first run caught `mungspaces` double-declaration from my import extension — reverted to the in-module def, re-ran green):
+**Named:** none — whole bodies. `optfn_altkeyhandling` WIN32CON/TTY_GRAPHICS/WIN32 arms (`:1035–1042`, `:1047–1054`, `:1057–1061`) are compiled out on unix, documented in place (STATUS_HILITES-off precedent).
+**Next:** next coverage rows (`sp_lev.c` nhl_abs_coord head / options.c refill).
 ## 2026-09-30 — D-3166 `sp_lev.c` lspo_message/corridor/random_corridors ports + levregion splits + 5 region.c #if 0 by-design (coverage head)
 
 **C locus:** - `clone_region`: region.c:227–254 — inside `#if 0` (:220–256 "not yet used"); prototype also ifdef'd (:26–28); zero callers.

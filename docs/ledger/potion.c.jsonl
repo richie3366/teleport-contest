@@ -48,7 +48,7 @@
 {"fn":"strange_feeling","c":"1461-1476","status":"unknown"}
 {"fn":"bottlename","c":"1488-1494","status":"unknown"}
 {"fn":"H2Opotion_dip","c":"1498-1589","status":"unknown","d":["D-1501"],"at":"seed@a30a7de84"}
-{"fn":"impact_arti_light","c":"1595-1621","status":"unknown"}
+{"fn":"impact_arti_light","c":"1595-1621","status":"ported","js":["js/potion.js:impact_arti_light"],"at":"2026-09-30@2b25db15c","note":"stale: js/potion.js:3689"}
 {"fn":"potionhit","c":"1625-1928","status":"unknown","d":["D-1472"],"at":"seed@a30a7de84"}
 {"fn":"potionbreathe","c":"1932-2118","status":"unknown","d":["D-1477"],"at":"seed@a30a7de84"}
 {"fn":"mixtype","c":"2122-2209","status":"unknown"}

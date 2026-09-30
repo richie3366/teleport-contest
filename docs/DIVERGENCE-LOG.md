@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3167 — options.c 9× optfn ports (altkeyhandling/glyph/tile_file/tile_height/tile_width/vary_msgcount/crash_urlmax/pile_limit/player_selection)
+
+- **Status:** open
+- **Symptom:** coverage gap, not a corpus divergence — 9 `options.c` optfn_* MISSING in `js/` (generated Open — coverage rows; no corpus session blocked on any). Also in this iter, booked directly: stale `init_glyph_cache` (`js/glyphs.js:170`), stale `impact_arti_light` (`js/potion.js:3689`, both C callers wired at `js/read.js:437,460`), stale-partial `optfn_symset` (`js/options.js:3447`, read_sym_file/switch_symbols/handler_symset named), by-design `optfn_videocolors` (VIDEOSHADES pcconf-only; whole fn `#ifdef`'d out, no unix optlist row, no JS allopt row).
+- **C locus:**
+  - `optfn_altkeyhandling`: options.c:1022–1063
+  - `optfn_crash_urlmax`: options.c:1311–1339
+  - `optfn_glyph`: options.c:1815–1849
+  - `optfn_pile_limit`: options.c:3404–3435
+  - `optfn_player_selection`: options.c:3438–3468
+  - `optfn_tile_file`: options.c:4321–4351
+  - `optfn_tile_height`: options.c:4354–4383
+  - `optfn_tile_width`: options.c:4386–4415
+  - `optfn_vary_msgcount`: options.c:4440–4469
+- **JS was:** no symbol (MISSING) ×9; the 9 allopt rows carried `optfn: null`.
+- **Fix:** ported all nine whole in C order into one `js/options.js` block (map_mode/menu_headings/symset idiom: REQ_/OPTN_/EMPTY_OPTSTR, `string_for_opt` re-derive, `opt_atoi` for C atoi, `allopt_name`, `set_optbuf`, `| 0` int reads, `defopt[]`→'default', VIA_DIALOG/VIA_PROMPTS from winprocs.h:275–276, crash_urlmax decl.c:261 -1 default) and wired the 9 allopt dispatch rows. Every C callee live: bad_negation/string_for_opt/opt_atoi/allopt_name/set_optbuf/mungspaces in-module, strncmpi (hacklib), dupstr (dungeon), config_error_add (botl), glyphrep_to_custom_map_entries (glyphs) — no new module edge (hacklib import extension reverted: options.js already defines mungspaces in-module).
+- **JS:** js/options.js:3505 (altkeyhandling), :3532 (crash_urlmax), :3570 (glyph), :3612 (pile_limit), :3640 (VIA_*), :3655 (player_selection), :3692 (tile_file), :3731 (tile_height), :3768 (tile_width), :3805 (vary_msgcount).
+- **Callers:** C has 0 direct references each (optlist table dispatch); JS allopt rows wired:
+  - `optfn_altkeyhandling`: C none → js/options.js:10928
+  - `optfn_crash_urlmax`: C none → js/options.js:10978
+  - `optfn_glyph`: C none → js/options.js:11042
+  - `optfn_pile_limit`: C none → js/options.js:11176
+  - `optfn_player_selection`: C none → js/options.js:11178
+  - `optfn_tile_file`: C none → js/options.js:11270
+  - `optfn_tile_height`: C none → js/options.js:11272
+  - `optfn_tile_width`: C none → js/options.js:11274
+  - `optfn_vary_msgcount`: C none → js/options.js:11302
+- **Verify:** `node scripts/verify.mjs --fn <9 fns>` → VERIFY: PASS (first run caught `mungspaces` double-declaration from my import extension — reverted to the in-module def, re-ran green):
+  - per function: `note hidden … no corpus session blocked on it at baseline` (normal for coverage rows) + `PASS reach … no RNG-tagged reach; fixed smoke spread (24 run): 24 PASS, 0 regressed → REACH-OK` ×9
+  - shared gates: `PASS green 2/2`, `PASS strict` ×2 (seed8000, seed0900), `PASS cohort 7/7`, `PASS full 44/44 (auto: shared file changed)`
+- **Named omissions:** none — whole bodies. `optfn_altkeyhandling` WIN32CON/TTY_GRAPHICS/WIN32 arms (`:1035–1042`, `:1047–1054`, `:1057–1061`) are compiled out on unix, documented in place (STATUS_HILITES-off precedent).
+- **Ledger:** optfn_altkeyhandling ported; optfn_crash_urlmax ported; optfn_glyph ported; optfn_pile_limit ported; optfn_player_selection ported; optfn_tile_file ported; optfn_tile_height ported; optfn_tile_width ported; optfn_vary_msgcount ported
+- **Next:** next coverage rows (`sp_lev.c` nhl_abs_coord head / options.c refill).
+
 ## D-3166 — `sp_lev.c` lspo_message/corridor/random_corridors ports + levregion splits + 5 region.c #if 0 by-design (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head `clone_region` by-design (#if 0, uncompiled) + 4 same-file #if 0 by-design + shipped `sp_lev.c` lspo_message/lspo_corridor/lspo_random_corridors ports + lspo_teleport_region/lspo_levregion stale-split with create_des_coder completion; 3 ports + 2 splits + 5 dispositions, 1 file).

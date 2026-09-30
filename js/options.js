@@ -3491,6 +3491,345 @@ export function optfn_symset(_optidx, req, _negated, opts, op, store, optInitial
 }
 
 /**
+ * C options.c optfn_altkeyhandling `:1022–1063` (staticfn) — altkeyhandling
+ * is a Windows-only string option: do_set's guards + set_altkeyhandling
+ * (`:1035–1042`, WIN32CON+TTY_GRAPHICS), get_val's key_handling Sprintf
+ * (`:1047–1054`, WIN32) and do_handler (`:1057–1061`, WIN32CON) are all
+ * compiled out on unix, leaving the accept/empty skeleton.
+ * @param {number} _optidx C optidx UNUSED
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} _negated C nhUse on unix
+ * @param {{buf:string}|string} opts get_val holder
+ * @param {string} _op C nhUse on unix
+ */
+export function optfn_altkeyhandling(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:1029–1031`
+    if (req === REQ_DO_SET) { // C `:1032`
+        /* C `:1033–1042` altkeyhandling:string; op/negated guards and
+           set_altkeyhandling need WIN32CON+TTY_GRAPHICS (unix: nhUse). */
+        return OPTN_OK; // C `:1043`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1045`
+        set_optbuf(opts, ''); // C `:1046` (WIN32 Sprintf `:1047–1054` out)
+        return OPTN_OK; // C `:1055`
+    }
+    /* C `:1057–1061` WIN32CON do_handler (set_keyhandling_via_option) out. */
+    return OPTN_OK; // C `:1062–1063`
+}
+
+/**
+ * C options.c optfn_crash_urlmax `:1311–1339` (staticfn;
+ * NHOPTC(crash_urlmax) optlist.h `:249`) — crash_urlmax:nn below 75 is
+ * config_error_add + optn_err (`:1322–1326`); else gc.crash_urlmax keeps
+ * its decl.c `:261` -1 until set (report.c `:292–293` clamps <0/>MAX_URL
+ * to MAX_URL).
+ * @param {number} _optidx C optidx UNUSED
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} _negated C negated UNUSED
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:1319`
+ */
+export function optfn_crash_urlmax(_optidx, req, _negated, opts, _op) {
+    const gc = game.gc || (game.gc = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:1315–1317`
+    if (req === REQ_DO_SET) { // C `:1318`
+        const op = string_for_opt(String(opts), false); // C `:1319` FALSE
+        if (op !== EMPTY_OPTSTR) { // C `:1319`
+            const temp = opt_atoi(op); // C `:1320` atoi
+            if (temp < 75) { // C `:1322`
+                config_error_add('Invalid value %d for crash_urlmax. ' // C `:1323–1324`
+                    + ' Minimum value is 75.', temp);
+                return OPTN_ERR; // C `:1325`
+            }
+            gc.crash_urlmax = temp; // C `:1327`
+        } else
+            return OPTN_ERR; // C `:1328–1329`
+        return OPTN_OK; // C `:1330`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1332`
+        if (!opts) // C `:1333`
+            return OPTN_ERR; // C `:1334`
+        const urlmax = (gc.crash_urlmax ?? -1) | 0; // C decl.c `:261` -1
+        set_optbuf(opts, String(urlmax)); // C `:1335`
+        return OPTN_OK; // C `:1336`
+    }
+    return OPTN_OK; // C `:1338–1339`
+}
+
+/**
+ * C options.c optfn_glyph `:1815–1849` (staticfn) —
+ * OPTION=glyph:G_glyph/U+NNNN/r-g-b: negated with a value is bad_negation
+ * (`:1826–1831`), valueless is optn_err (`:1832–1833`); else mungspaces +
+ * parse (`:1834–1837`). C's `glyph` out-int (`:1819`) is never read.
+ * @param {number} _optidx C optidx UNUSED (bad_negation takes "glyph")
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder
+ * @param {string} op value tail (EMPTY_OPTSTR when valueless)
+ */
+export function optfn_glyph(_optidx, req, negated, opts, op) {
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:1821–1823`
+    if (req === REQ_DO_SET) { // C `:1824`
+        /* C `:1825` OPTION=glyph:G_glyph/U+NNNN/r-g-b */
+        if (negated) { // C `:1826`
+            if (op !== EMPTY_OPTSTR) { // C `:1827`
+                bad_negation('glyph', true); // C `:1828`
+                return OPTN_ERR; // C `:1829`
+            }
+        }
+        if (op === EMPTY_OPTSTR) // C `:1832`
+            return OPTN_ERR; // C `:1833`
+        /* C `:1834` strip/condense spaces (3.6.2); JS strings immutable. */
+        const munged = mungspaces(op); // C `:1835`
+        const glyphBox = { value: 0 }; // C `:1819` int glyph (&glyph, unread)
+        if (!glyphrep_to_custom_map_entries(munged, glyphBox)) // C `:1836`
+            return OPTN_ERR; // C `:1837`
+        return OPTN_OK; // C `:1838`
+    }
+    if (req === REQ_GET_VAL) { // C `:1840`
+        set_optbuf(opts, to_be_done); // C `:1841`
+        return OPTN_OK; // C `:1842`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:1844`
+        set_optbuf(opts, ''); // C `:1845`
+        return OPTN_OK; // C `:1846`
+    }
+    return OPTN_OK; // C `:1848–1849`
+}
+
+/**
+ * C options.c optfn_pile_limit `:3404–3435` (staticfn;
+ * NHOPTC(pile_limit) optlist.h `:585`) — pile_limit:nn: negated+value is
+ * bad_negation (`:3420–3422`), bare is PILE_LIMIT_DFLT (`:3423–3424`),
+ * then the <0 sanity check (`:3425–3427`).
+ * @param {number} optidx C optidx (allopt_name for bad_negation)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:3416`
+ * @param {object|null} [flagsBag] flags home (result.flags at rc; game.flags in game)
+ */
+export function optfn_pile_limit(optidx, req, negated, opts, _op, flagsBag) {
+    const flags = flagsBag || game.flags || (game.flags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3408–3410`
+    if (req === REQ_DO_SET) { // C `:3411`
+        /* C `:3412–3414` pile limit: walk-over count triggering
+           "there are several/many objects here" instead of listing. */
+        const op = string_for_opt(String(opts), negated); // C `:3416`
+        if ((negated && op === EMPTY_OPTSTR) // C `:3417–3418`
+            || (!negated && op !== EMPTY_OPTSTR))
+            flags.pile_limit = negated ? 0 : opt_atoi(op); // C `:3419` atoi
+        else if (negated) { // C `:3420`
+            bad_negation(allopt_name(optidx), true); // C `:3421`
+            return OPTN_ERR; // C `:3422`
+        } else /* op == empty_optstr */ // C `:3423`
+            flags.pile_limit = PILE_LIMIT_DFLT; // C `:3424`
+        /* C `:3425` sanity check */
+        if (flags.pile_limit < 0) // C `:3426`
+            flags.pile_limit = PILE_LIMIT_DFLT; // C `:3427`
+        return OPTN_OK; // C `:3428`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3430`
+        set_optbuf(opts, String(flags.pile_limit | 0)); // C `:3431`
+        return OPTN_OK; // C `:3432`
+    }
+    return OPTN_OK; // C `:3434–3435`
+}
+
+/* C winprocs.h `:275–276` — player_selection method. */
+const VIA_DIALOG = 0, VIA_PROMPTS = 1;
+
+/**
+ * C options.c optfn_player_selection `:3438–3468` (staticfn;
+ * NHOPTC(player_selection) optlist.h `:588`) — WINCAP
+ * player_selection: dialog | prompt/prompts/prompting via strncmpi
+ * (`:3450–3453`, n is sizeof-name minus 1); unknown is config_error_add
+ * + optn_err (`:3454–3457`).
+ * @param {number} optidx C optidx (allopt_name for config_error_add)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:3448`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_player_selection(optidx, req, negated, opts, _op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3442–3444`
+    if (req === REQ_DO_SET) { // C `:3445`
+        /* C `:3446` WINCAP player_selection: dialog | prompt/prompts/prompting */
+        const op = string_for_opt(String(opts), negated); // C `:3448`
+        if (op !== EMPTY_OPTSTR && !negated) { // C `:3449`
+            if (strncmpi(op, 'dialog', 6) === 0) // C `:3450` sizeof-1
+                iflags.wc_player_selection = VIA_DIALOG; // C `:3451`
+            else if (strncmpi(op, 'prompt', 6) === 0) // C `:3452`
+                iflags.wc_player_selection = VIA_PROMPTS; // C `:3453`
+            else {
+                config_error_add('Unknown %s parameter \'%s\'', // C `:3455–3456`
+                    allopt_name(optidx), op);
+                return OPTN_ERR; // C `:3457`
+            }
+        }
+        return OPTN_OK; // C `:3460`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3462`
+        set_optbuf(opts, iflags.wc_player_selection ? 'prompts' : 'dialog'); // C `:3463–3464`
+        return OPTN_OK; // C `:3465`
+    }
+    return OPTN_OK; // C `:3467–3468`
+}
+
+/**
+ * C options.c optfn_tile_file `:4321–4351` (staticfn) — WINCAP
+ * tile_file:name: valueless is optn_err (`:4334–4335`); else free + dupstr
+ * (`:4330–4333`, GC: overwrite).
+ * @param {number} _optidx C optidx UNUSED
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} _negated C negated UNUSED
+ * @param {{buf:string}|string} opts get_val holder
+ * @param {string} op value tail (EMPTY_OPTSTR when valueless)
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_tile_file(_optidx, req, _negated, opts, op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:4325–4327`
+    if (req === REQ_DO_SET) { // C `:4328`
+        /* C `:4329` WINCAP tile_file:name */
+        if (op !== EMPTY_OPTSTR) { // C `:4330`
+            /* C `:4331–4332` free old (GC: overwrite). */
+            iflags.wc_tile_file = dupstr(op); // C `:4333`
+        } else
+            return OPTN_ERR; // C `:4334–4335`
+        return OPTN_OK; // C `:4336`
+    }
+    if (req === REQ_GET_VAL) { // C `:4338`
+        set_optbuf(opts, iflags.wc_tile_file // C `:4339–4340`
+            ? String(iflags.wc_tile_file) : 'default'); // defopt[]
+        return OPTN_OK; // C `:4341`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:4343`
+        if (iflags.wc_tile_file) // C `:4344`
+            set_optbuf(opts, String(iflags.wc_tile_file)); // C `:4345`
+        else
+            set_optbuf(opts, ''); // C `:4346–4347`
+        return OPTN_OK; // C `:4348`
+    }
+    return OPTN_OK; // C `:4350–4351`
+}
+
+/**
+ * C options.c optfn_tile_height `:4354–4383` (staticfn) — WINCAP
+ * tile_height:nn: negated+value is bad_negation (`:4367–4369`), bare
+ * non-negated is a silent no-op; get_val prints the int, defopt, or empty
+ * (`:4373–4380`).
+ * @param {number} optidx C optidx (allopt_name for bad_negation)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:4363`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_tile_height(optidx, req, negated, opts, _op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:4358–4360`
+    if (req === REQ_DO_SET) { // C `:4361`
+        /* C `:4362` WINCAP tile_height:nn */
+        const op = string_for_opt(String(opts), negated); // C `:4363`
+        if ((negated && op === EMPTY_OPTSTR) // C `:4364–4365`
+            || (!negated && op !== EMPTY_OPTSTR)) {
+            iflags.wc_tile_height = negated ? 0 : opt_atoi(op); // C `:4366` atoi
+        } else if (negated) { // C `:4367`
+            bad_negation(allopt_name(optidx), true); // C `:4368`
+            return OPTN_ERR; // C `:4369`
+        }
+        return OPTN_OK; // C `:4371`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4373`
+        if (iflags.wc_tile_height) // C `:4374`
+            set_optbuf(opts, String(iflags.wc_tile_height | 0)); // C `:4375`
+        else if (req === REQ_GET_CNF_VAL) // C `:4376`
+            set_optbuf(opts, ''); // C `:4377`
+        else // C `:4378`
+            set_optbuf(opts, 'default'); // C `:4379` defopt[]
+        return OPTN_OK; // C `:4380`
+    }
+    return OPTN_OK; // C `:4382–4383`
+}
+
+/**
+ * C options.c optfn_tile_width `:4386–4415` (staticfn) — WINCAP
+ * tile_width:nn, same shape as optfn_tile_height (`:4354–4383`).
+ * @param {number} optidx C optidx (allopt_name for bad_negation)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:4395`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_tile_width(optidx, req, negated, opts, _op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:4390–4392`
+    if (req === REQ_DO_SET) { // C `:4393`
+        /* C `:4394` WINCAP tile_width:nn */
+        const op = string_for_opt(String(opts), negated); // C `:4395`
+        if ((negated && op === EMPTY_OPTSTR) // C `:4396–4397`
+            || (!negated && op !== EMPTY_OPTSTR)) {
+            iflags.wc_tile_width = negated ? 0 : opt_atoi(op); // C `:4398` atoi
+        } else if (negated) { // C `:4399`
+            bad_negation(allopt_name(optidx), true); // C `:4400`
+            return OPTN_ERR; // C `:4401`
+        }
+        return OPTN_OK; // C `:4403`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4405`
+        if (iflags.wc_tile_width) // C `:4406`
+            set_optbuf(opts, String(iflags.wc_tile_width | 0)); // C `:4407`
+        else if (req === REQ_GET_CNF_VAL) // C `:4408`
+            set_optbuf(opts, ''); // C `:4409`
+        else // C `:4410`
+            set_optbuf(opts, 'default'); // C `:4411` defopt[]
+        return OPTN_OK; // C `:4412`
+    }
+    return OPTN_OK; // C `:4414–4415`
+}
+
+/**
+ * C options.c optfn_vary_msgcount `:4440–4469` (staticfn) — WINCAP
+ * vary_msgcount:nn, same shape as optfn_tile_height (`:4354–4383`).
+ * @param {number} optidx C optidx (allopt_name for bad_negation)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:4449`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_vary_msgcount(optidx, req, negated, opts, _op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:4444–4446`
+    if (req === REQ_DO_SET) { // C `:4447`
+        /* C `:4448` WINCAP vary_msgcount:nn */
+        const op = string_for_opt(String(opts), negated); // C `:4449`
+        if ((negated && op === EMPTY_OPTSTR) // C `:4450–4451`
+            || (!negated && op !== EMPTY_OPTSTR)) {
+            iflags.wc_vary_msgcount = negated ? 0 : opt_atoi(op); // C `:4452` atoi
+        } else if (negated) { // C `:4453`
+            bad_negation(allopt_name(optidx), true); // C `:4454`
+            return OPTN_ERR; // C `:4455`
+        }
+        return OPTN_OK; // C `:4457`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4459`
+        if (iflags.wc_vary_msgcount) // C `:4460`
+            set_optbuf(opts, String(iflags.wc_vary_msgcount | 0)); // C `:4461`
+        else if (req === REQ_GET_CNF_VAL) // C `:4462`
+            set_optbuf(opts, ''); // C `:4463`
+        else // C `:4464`
+            set_optbuf(opts, 'default'); // C `:4465` defopt[]
+        return OPTN_OK; // C `:4466`
+    }
+    return OPTN_OK; // C `:4468–4469`
+}
+
+/**
  * C options.c handler_versinfo `:6572–6617` (staticfn) — 'O' menu picker
  * for the flags.versinfo bitmask. Sole C caller is the optfn_versinfo
  * do_handler arm (`:4513`), async-split into doset_optfn_do_handler.
@@ -10586,7 +10925,7 @@ const allopt = [
     // optlist.h:149 NHOPTC(align_status)
     { name: 'align_status', opttyp: CompOpt, idx: 10, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_align_status },
     // optlist.h:155 NHOPTC(altkeyhandling)
-    { name: 'altkeyhandling', opttyp: CompOpt, idx: 11, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'altkeyhandling', opttyp: CompOpt, idx: 11, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_altkeyhandling },
     // optlist.h:159 NHOPTB(altmeta)
     { name: 'altmeta', opttyp: BoolOpt, idx: 12, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'altmeta' }, optfn: null },
     // optlist.h:167 NHOPTB(armorstatus)
@@ -10636,7 +10975,7 @@ const allopt = [
     // optlist.h:246 NHOPTC(crash_name)
     { name: 'crash_name', opttyp: CompOpt, idx: 35, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:249 NHOPTC(crash_urlmax)
-    { name: 'crash_urlmax', opttyp: CompOpt, idx: 36, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'crash_urlmax', opttyp: CompOpt, idx: 36, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_crash_urlmax },
     // optlist.h:258 NHOPTB(customcolors)
     { name: 'customcolors', opttyp: BoolOpt, idx: 37, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'customcolors' }, optfn: null },
     // optlist.h:261 NHOPTB(customsymbols)
@@ -10700,7 +11039,7 @@ const allopt = [
     // optlist.h:341 NHOPTB(fullscreen)
     { name: 'fullscreen', opttyp: BoolOpt, idx: 67, setwhere: SET_IN_CONFIG, initval: false, addr: null /* C: &iflags.wc2_fullscreen, no live field */, optfn: null },
     // optlist.h:345 NHOPTC(glyph)
-    { name: 'glyph', opttyp: CompOpt, idx: 68, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'glyph', opttyp: CompOpt, idx: 68, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_glyph },
     // optlist.h:348 NHOPTB(goldX)
     { name: 'goldX', opttyp: BoolOpt, idx: 69, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'goldX' }, optfn: null },
     // optlist.h:351 NHOPTB(guicolor)
@@ -10834,9 +11173,9 @@ const allopt = [
     // optlist.h:582 NHOPTC(pickup_types)
     { name: 'pickup_types', opttyp: CompOpt, idx: 134, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_pickup_types },
     // optlist.h:585 NHOPTC(pile_limit)
-    { name: 'pile_limit', opttyp: CompOpt, idx: 135, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'pile_limit', opttyp: CompOpt, idx: 135, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_pile_limit },
     // optlist.h:588 NHOPTC(player_selection)
-    { name: 'player_selection', opttyp: CompOpt, idx: 136, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'player_selection', opttyp: CompOpt, idx: 136, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_player_selection },
     // optlist.h:592 NHOPTB(popup_dialog)
     { name: 'popup_dialog', opttyp: BoolOpt, idx: 137, setwhere: SET_IN_GAME, initval: false, addr: null /* C: &iflags.wc_popup_dialog, no live field */, optfn: null },
     // optlist.h:595 NHOPTB(preload_tiles)
@@ -10928,11 +11267,11 @@ const allopt = [
     // optlist.h:750 NHOPTB(terrainstatus)
     { name: 'terrainstatus', opttyp: BoolOpt, idx: 181, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'terrainstatus' }, optfn: null },
     // optlist.h:753 NHOPTC(tile_file)
-    { name: 'tile_file', opttyp: CompOpt, idx: 182, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'tile_file', opttyp: CompOpt, idx: 182, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_tile_file },
     // optlist.h:755 NHOPTC(tile_height)
-    { name: 'tile_height', opttyp: CompOpt, idx: 183, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'tile_height', opttyp: CompOpt, idx: 183, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_tile_height },
     // optlist.h:757 NHOPTC(tile_width)
-    { name: 'tile_width', opttyp: CompOpt, idx: 184, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'tile_width', opttyp: CompOpt, idx: 184, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_tile_width },
     // optlist.h:759 NHOPTB(tiled_map)
     { name: 'tiled_map', opttyp: BoolOpt, idx: 185, setwhere: SET_IN_GAME, initval: false /* tiled_map_Def: no TILES_IN_GLYPHMAP */, addr: null /* C: &iflags.wc_tiled_map, no live field */, optfn: null },
     // optlist.h:762 NHOPTB(time)
@@ -10960,7 +11299,7 @@ const allopt = [
     // optlist.h:807 NHOPTB(use_truecolor)
     { name: 'use_truecolor', opttyp: BoolOpt, idx: 197, setwhere: SET_IN_CONFIG, initval: false, addr: { obj: 'iflags', key: 'use_truecolor' }, optfn: null },
     // optlist.h:811 NHOPTC(vary_msgcount)
-    { name: 'vary_msgcount', opttyp: CompOpt, idx: 198, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'vary_msgcount', opttyp: CompOpt, idx: 198, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_vary_msgcount },
     // optlist.h:813 NHOPTB(verbose)
     { name: 'verbose', opttyp: BoolOpt, idx: 199, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'verbose' }, optfn: null },
     // optlist.h:816 NHOPTC(versinfo)

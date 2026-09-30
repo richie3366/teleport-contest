@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `glyphs.c` init_glyph_cache — coverage PARTIAL (C 11 code L `glyphs.c:334–352` / JS 8 code L in js/glyphs.js; hops —, callers 1, RNG 0, msg 0) @a8bd0bc2e
-- [ ] `potion.c` impact_arti_light — coverage PARTIAL (C 11 code L `potion.c:1595–1621` / JS 7 code L in js/potion.js; hops —, callers 1, RNG 0, msg 0) @a8bd0bc2e
-- [ ] `options.c` optfn_altkeyhandling — coverage MISSING (C 21 code L `options.c:1022–1063` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
-- [ ] `options.c` optfn_glyph — coverage MISSING (C 21 code L `options.c:1815–1849` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
-- [ ] `options.c` optfn_tile_file — coverage MISSING (C 21 code L `options.c:4321–4351` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
-- [ ] `options.c` optfn_videocolors — coverage MISSING (C 21 code L `options.c:4538–4570` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @12c02ee30
 - [ ] `options.c` optfn_symset — coverage PARTIAL (C 51 code L `options.c:4167–4236` / JS 31 code L in js/options.js; hops —, callers 0, RNG 0, msg 1) @e611ec47f
-- [ ] `options.c` optfn_tile_height — coverage MISSING (C 20 code L `options.c:4354–4383` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e3edb2ef9
-- [ ] `options.c` optfn_tile_width — coverage MISSING (C 20 code L `options.c:4386–4415` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e3edb2ef9
-- [ ] `options.c` optfn_vary_msgcount — coverage MISSING (C 20 code L `options.c:4440–4469` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4d4f8e851
 - [ ] `sp_lev.c` nhl_abs_coord — coverage MISSING (C 20 code L `sp_lev.c:4811–4836` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4d4f8e851
-- [ ] `options.c` optfn_crash_urlmax — coverage MISSING (C 19 code L `options.c:1311–1339` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4d4f8e851
+- [ ] `ball.c` Placebc — coverage MISSING (C 18 code L `ball.c:259–284` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
+- [ ] `options.c` optfn_scroll_amount — coverage MISSING (C 18 code L `options.c:3763–3791` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
+- [ ] `options.c` optfn_scroll_margin — coverage MISSING (C 18 code L `options.c:3794–3821` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
+- [ ] `options.c` optfn_video — coverage MISSING (C 18 code L `options.c:4647–4676` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
+- [ ] `options.c` optfn_windowtype — coverage MISSING (C 18 code L `options.c:4943–4987` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
+- [ ] `dungeon.c` tunesuffix — coverage PARTIAL (C 9 code L `dungeon.c:3460–3476` / JS 5 code L in js/dungeon.js; hops —, callers 1, RNG 0, msg 0) @2b25db15c
+- [ ] `monmove.c` mon_regen — coverage PARTIAL (C 9 code L `monmove.c:307–320` / JS 6 code L in js/mon.js; hops —, callers 1, RNG 0, msg 0) @2b25db15c
+- [ ] `options.c` set_playmode — coverage PARTIAL (C 9 code L `options.c:10134–10152` / JS 5 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @2b25db15c
+- [ ] `role.c` role_gendercount — coverage PARTIAL (C 9 code L `role.c:1399–1412` / JS 6 code L in js/roles.js; hops —, callers 1, RNG 0, msg 0) @2b25db15c
+- [ ] `options.c` optfn_versinfo — coverage PARTIAL (C 42 code L `options.c:4472–4534` / JS 31 code L in js/options.js; hops —, callers 0, RNG 0, msg 1) @2b25db15c
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
