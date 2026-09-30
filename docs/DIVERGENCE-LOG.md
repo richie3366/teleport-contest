@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3153 — `worn.c` nxt_unbypassed_loot restart + askchain ret: global clear_bypasses (coverage)
+
+- **Status:** fixed (breadth-phase single-function cluster: head `nxt_unbypassed_loot` is the sole worn.c row in the 12-row eligible set and its callee `bypass_obj` is already live — density exception applies. 0 corpus sessions blocked — coverage completion, not a divergence. +31/-13 js/pickup.js. `clear_bypasses` ledger-ported as a pre-existing complete port newly wired.)
+- **Symptom:** coverage gap — `nxt_unbypassed_loot` PARTIAL (C 10/JS 7): the review-542 cursor clone advanced a JS-only cursor instead of C's re-scan-from-[0], set `obj.bypass` directly (missing `context.bypasses=TRUE`), and skipped rather than stopped at a null entry; askchain's four `ret:` exits used the list-local clear C explicitly rejects (`invent.c:2536–2538` comment), leaving bypass=1 on objects fn moved to another chain.
+- **C locus:**
+  - `nxt_unbypassed_loot`: worn.c:1159–1174 (null-entry stop, listhead walk, `o && !obj->bypass` gate, bypass_obj call `:1168`); caller invent.c:2433 (same sortedchn every call → re-scan); caller ret: invent.c:2534–2540 (unsortloot + clear_bypasses; `:2536–2538` comment rejects list-local clear).
+- **JS was:** module-local cursor clone js/pickup.js:3729 (`sorted, listhead, cursor`; review-542 CLONE "stale + bypass"); askchain exits cleared only `getHead()` (doc: "Named: worn.c clear_bypasses").
+- **Fix:** restarted `nxt_unbypassed_loot` in C order — length-bounded scan from [0] (cursor deleted), null-entry break, `obj_still_on_list` (listhead nobj walk + Array-invent adaptation) && `!bypass` → live `bypass_obj` (worn.c:1118–1123, sets `context.bypasses` too); caller rewired to C `:2433` shape (same `sorted`, `getHead()` re-read); four `ret:` exits → live `clear_bypasses()` (complete `:1070–1116` port: floor/invent/migrating/buried/bill/deleted, minvents, worm mcorpsenm, mydogs, floating ball+chain, flag reset); list-local `bypass_objlist_ask` retained only at the two C `:2432` sites; `unsortloot :2535` ≡ GC (no JS symbol — allocation-free by design). Import extended on the existing pickup→worn edge (`imports.mjs` ALREADY, no new edge).
+- **JS:** js/pickup.js:3741 (`nxt_unbypassed_loot`, module-local — sole caller askchain :3797, same module; extern.h:3946 decl noted in doc).
+- **Callers:**
+  - `nxt_unbypassed_loot`: sole C caller invent.c:2433 askchain loop → JS askchain js/pickup.js:3797 (same `sorted` every call, `getHead()` re-read like `*objchn`); exits js/pickup.js:3862/:3869/:3880/:3898 = C `ret:` (three `goto ret` + fall-through).
+- **Verify:**
+  - `nxt_unbypassed_loot`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed; draw-free function, no RNG tags).
+  Full tail: VERIFY: PASS (syntax 1 file; Rule #2; green 2/2; strict ×2; cohort 7/7; full 44/44 forced for askchain breadth).
+- **Named omissions:**
+  - `nxt_unbypassed_loot`: none — whole body, sole callee live (`bypass_obj` import js/pickup.js:140); NULL-terminated Loot scan adapted to a length-bounded array scan with the null-entry break kept (JS sortloot emits no sentinel); caller-side `unsortloot` free ≡ GC. Pre-existing js/zap.js:2897 `bypass_obj` local clone untouched (named in js/worn.js doc) — out of cluster.
+- **Ledger:** nxt_unbypassed_loot ported; clear_bypasses ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3152 — `cfgfiles.c` config-error drain + sysconf stores + statement heed + default configfile (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `l_get_config_errors` + same-file `cnf_line_BONES_POOLS`/`cnf_line_DEBUGFILES` + `heed/disregard_this_config_statement` + `get_default_configfile`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +97/-8 js/, +100 test. Stale-split 20 folded siblings — 9 dir + 4 QT handlers (unix body ≡ shared `cnf_line_nhUse`) and 7 plain sysopt stores (≡ table row + `cnf_store_str`) — via the Ledger bullet in the same iteration, no JS change.)

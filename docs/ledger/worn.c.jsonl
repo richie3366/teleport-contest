@@ -16,11 +16,11 @@
 {"fn":"which_armor","c":"1006-1036","status":"ported","js":["js/worn.js:which_armor"],"d":["D-2977"],"at":"2026-09-27@25beec7af","note":"stale: js/worn.js:408"}
 {"fn":"m_lose_armor","c":"1040-1051","status":"unknown"}
 {"fn":"clear_bypass","c":"1055-1064","status":"unknown"}
-{"fn":"clear_bypasses","c":"1070-1116","status":"ported","js":["js/worn.js:clear_bypasses"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
+{"fn":"clear_bypasses","c":"1070-1116","status":"ported","js":["js/worn.js:clear_bypasses"],"d":["D-3153"],"at":"2026-09-30@a610d9a06","note":"stale 2026-09-20"}
 {"fn":"bypass_obj","c":"1119-1123","status":"unknown"}
 {"fn":"bypass_objlist","c":"1127-1137","status":"unknown"}
 {"fn":"nxt_unbypassed_obj","c":"1142-1152","status":"unknown"}
-{"fn":"nxt_unbypassed_loot","c":"1159-1174","status":"unknown"}
+{"fn":"nxt_unbypassed_loot","c":"1159-1174","status":"ported","js":["js/pickup.js:nxt_unbypassed_loot"],"d":["D-3153"],"at":"2026-09-30@a610d9a06"}
 {"fn":"mon_break_armor","c":"1177-1335","status":"ported","js":["js/worn.js:mon_break_armor"],"d":["D-1917"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"extra_pref","c":"1339-1349","status":"unknown"}
 {"fn":"racial_exception","c":"1360-1373","status":"ported","js":["js/worn.js:racial_exception"],"d":["D-2663"],"at":"seed@a30a7de84"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3153 `worn.c` nxt_unbypassed_loot restart + askchain ret: global clear_bypasses (coverage)
+
+**C locus:** - `nxt_unbypassed_loot`: worn.c:1159–1174 (null-entry stop, listhead walk, `o && !obj->bypass` gate, bypass_obj call `:1168`); caller invent.c:2433 (same sortedchn every call → re-scan); caller ret: invent.c:2534–2540 (unsortloot + clear_bypasses; `:2536–2538` comment rejects list-local clear).
+**JS:** js/pickup.js:3741 (`nxt_unbypassed_loot`, module-local — sole caller askchain :3797, same module; extern.h:3946 decl noted in doc).
+**Change:** restarted `nxt_unbypassed_loot` in C order — length-bounded scan from [0] (cursor deleted), null-entry break, `obj_still_on_list` (listhead nobj walk + Array-invent adaptation) && `!bypass` → live `bypass_obj` (worn.c:1118–1123, sets `context.bypasses` too); caller rewired to C `:2433` shape (same `sorted`, `getHead()` re-read); four `ret:` exits → live `clear_bypasses()` (complete `:1070–1116` port: floor/invent/migrating/buried/bill/deleted, minvents, worm mcorpsenm, mydogs, floating ball+chain, flag reset); list-local `bypass_objlist_ask` retained only at the two C `:2432` sites; `unsortloot :2535` ≡ GC (no JS symbol — allocation-free by design). Import extended on the existing pickup→worn edge (`imports.mjs` ALREADY, no new edge).
+**Verify:** - `nxt_unbypassed_loot`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed; draw-free function, no RNG tags).
+**Named:** - `nxt_unbypassed_loot`: none — whole body, sole callee live (`bypass_obj` import js/pickup.js:140); NULL-terminated Loot scan adapted to a length-bounded array scan with the null-entry break kept (JS sortloot emits no sentinel); caller-side `unsortloot` free ≡ GC. Pre-existing js/zap.js:2897 `bypass_obj` local clone untouched (named in js/worn.js doc) — out of cluster.
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — D-3152 `cfgfiles.c` config-error drain + sysconf stores + statement heed + default configfile (coverage)
 
 **C locus:** - `l_get_config_errors`: cfgfiles.c:1516–1539 (head→tail drain `:1524–1536`, per-entry line+error table `:1525–1530`, free + head-null `:1531–1537`, return 1 `:1539`).

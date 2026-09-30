@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-30
 
+- [x] `worn.c` nxt_unbypassed_loot — coverage PARTIAL (C 10 code L `worn.c:1159–1174` / JS 7 code L in js/pickup.js; hops 6, callers 1, RNG 0, msg 0) @8e8a996ab
+
+
 - [x] `questpgr.c` find_quest_artifact — coverage PARTIAL (C 23 code L `questpgr.c:89–120` / JS 11 code L in js/quest.js; hops 5, callers 1, RNG 0, msg 0) @e5816afe0
 
 ## 2026-09-29
