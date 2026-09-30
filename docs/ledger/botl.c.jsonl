@@ -45,7 +45,7 @@
 {"fn":"get_hilite","c":"2364-2570","status":"partial","js":["js/botl.js:get_hilite"],"omit":"``exp_percent_changing`` caller (``botl.c:2117``); ``hilite_reset_needed``/``status_update`` stays named (windowport registry); rule-node producers (threshold chains are null until the status-hilite option parser lands — gate reads false, returns null + NO_COLOR).","d":["D-2619"],"at":"seed@a30a7de84"}
 {"fn":"split_clridx","c":"2576-2582","status":"ported","js":["js/botl.js:split_clridx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
 {"fn":"parse_status_hl1","c":"2593-2648","status":"unknown"}
-{"fn":"is_ltgt_percentnumber","c":"2652-2669","status":"unknown"}
+{"fn":"is_ltgt_percentnumber","c":"2652-2669","status":"ported","js":["js/botl.js:is_ltgt_percentnumber"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body js/botl.js:1719, wired at C caller :2921 -> js/botl.js:1882"}
 {"fn":"has_ltgt_percentnumber","c":"2673-2683","status":"unknown"}
 {"fn":"splitsubfields","c":"2688-2727","status":"ported","js":["js/botl.js:splitsubfields"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b"}
 {"fn":"is_fld_arrayvalues","c":"2730-2744","status":"unknown"}

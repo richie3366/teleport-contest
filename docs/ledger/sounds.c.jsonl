@@ -26,7 +26,7 @@
 {"fn":"release_sound_mappings","c":"1676-1690","status":"ported","js":["js/sounds.js:release_sound_mappings"],"d":["D-3072"],"at":"2026-09-29@7e25e3c42","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"activate_chosen_soundlib","c":"1779-1795","status":"ported","js":["js/options.js:activate_chosen_soundlib"],"d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assign_soundlib","c":"1798-1805","status":"unknown"}
-{"fn":"choose_soundlib","c":"1809-1858","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"choose_soundlib","c":"1809-1858","status":"by-design","at":"2026-09-30@a8bd0bc2e","note":"C #if 0 sounds.c:1807-1858 both trees, 0 callers; porting would add dead JS (D-3042 necrophiliac precedent; already named in D-2785)"}
 {"fn":"get_soundlib_name","c":"1864-1880","status":"unknown"}
 {"fn":"soundlib_id_from_opt","c":"1883-1895","status":"unknown"}
 {"fn":"nosound_init_nhsound","c":"1917-1919","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

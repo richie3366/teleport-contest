@@ -2509,6 +2509,24 @@ export function parseautocomplete(autocomplete, condition) {
  * C caller: options.c optfn_o_autocomplete do_handler `:8362` (wired in
  * js/options.js doset).
  */
+
+/**
+ * C ref: cmd.c count_autocompletions `:3312–3322` — count extcmdlist rows
+ * with AUTOCOMP_ADJ set. The generated EXTCMDLIST omits the C null
+ * terminator (handler_rebind_keys_add `:2159` precedent), so the loop runs
+ * to the end instead of stopping at a null ef_txt (`:3317`).
+ * Sole C caller: options.c optfn_o_autocomplete get_val `:8358` (wired in
+ * js/options.js).
+ */
+export function count_autocompletions() {
+    let n = 0; // C `:3315`
+    for (const efp of EXTCMDLIST) { // C `:3317`
+        if ((efp.flags & AUTOCOMP_ADJ) !== 0) // C `:3318`
+            n++;
+    }
+    return n; // C `:3321`
+}
+
 export async function handler_change_autocompletions() {
     // C `:2462–2481` — one row per adjustable command.
     const raw = [

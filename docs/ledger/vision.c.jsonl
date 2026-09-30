@@ -11,10 +11,10 @@
 {"fn":"recalc_block_point","c":"911-917","status":"unknown"}
 {"fn":"dig_point","c":"967-1048","status":"unknown"}
 {"fn":"fill_point","c":"1051-1128","status":"unknown"}
-{"fn":"_q1_path","c":"1419-1460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"_q4_path","c":"1466-1507","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"_q2_path","c":"1513-1554","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"_q3_path","c":"1560-1601","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"_q1_path","c":"1419-1460","status":"split","js":["js/vision.js:q1_path"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body == q1_path local js/vision.js, wired in clear_path"}
+{"fn":"_q4_path","c":"1466-1507","status":"split","js":["js/vision.js:q4_path"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body == q4_path local js/vision.js, wired in clear_path"}
+{"fn":"_q2_path","c":"1513-1554","status":"split","js":["js/vision.js:q2_path"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body == q2_path local js/vision.js, wired in clear_path"}
+{"fn":"_q3_path","c":"1560-1601","status":"split","js":["js/vision.js:q3_path"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body == q3_path local js/vision.js, wired in clear_path"}
 {"fn":"clear_path","c":"1613-1636","status":"ported","js":["js/vision.js:clear_path"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"view_init","c":"1651-1653","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"right_side","c":"1666-1851","status":"ported","js":["js/vision.js:right_side"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}

@@ -1,5 +1,41 @@
 # Divergence log
 
+## D-3162 — `options.c` optfn DEC/playmode/hilite/term/autocomplete cluster (coverage)
+
+- **Status:** fixed (coverage cluster, 8 C functions: 7 whole-body ports + 1 by-design + wiring + 25 tests; stale-walk retired 6 rows ahead of it: choose_soundlib → by-design (C `#if 0` both trees, 0 callers), vision _q1..4_path → split (whole bodies == q1..4_path locals js/vision.js:476/:500/:524/:548, wired in clear_path), is_ltgt_percentnumber → ported (whole body js/botl.js:1719, wired at C caller :2921 → js/botl.js:1882). +294/-14 js/options.js, +18 js/cmd.js, +1 test file.)
+- **Symptom:** six options.c allopt rows `optfn: null` (playmode 1, autocompletions 15, DECgraphics 41, hilite_status 75, term_cols 179, term_rows 180 — rc, parseoptions do_set, dump all skipped them); doset autocompletions value hardcoded `'(0 currently set)'`, hilite_status via a lambda instead of its optfn. No corpus session blocked on any of the eight (coverage rows, no RNG reach).
+- **C locus:**
+  - `optfn_DECgraphics`: options.c:1393–1439 (BACKWARD_COMPAT on, optlist.h:15: do_set `:1409–1427` single-PRIMARYSET load, no rogue set `:1410`; `#else` `:1428–1431` compiled out; get arms `:1434–1436` empty).
+  - `optfn_playmode`: options.c:3470–3504 (do_set `:3478–3497`: duplicate/negated `:3481`, empty `:3483`, normal/play `:3485`, explore/discovery `:3487–3488`, debug/wizard `:3490`, error `:3493–3495`; get `:3499–3501`).
+  - `optfn_hilite_status`: options.c:1851–1894 (STATUS_HILITES on, config.h:616: do_set `:1865–1875` clear/parse store; `#else` `:1876–1881` compiled out; get `:1883–1891`, cnf keeps '').
+  - `optfn_term_cols`: options.c:4238–4277 (do_set `:4249–4265`: string_for_opt valOptional-is-negated `:4253`, atol sanity `:4257–4262`; get `:4267–4274` with defopt[] `:126` fallback).
+  - `optfn_term_rows`: options.c:4279–4318 (term_cols twin over wc2_term_rows).
+  - `optfn_o_autocomplete`: options.c:8345–8365 (do_init `:8350–8352`, do_set `;` `:8353–8354`, combined get `:8355–8360` n_currently_set `:340`, do_handler `:8361–8363`).
+  - `count_autocompletions`: cmd.c:3312–3322 (AUTOCOMP_ADJ count over extcmdlist).
+  - `optfn_cursesgraphics`: options.c:1343–1390 (`#ifdef CURSES_GRAPHICS`, commented out config.h:58 — compiled out of the contest TTY_GRAPHICS build).
+- **JS was:** no symbols for any of the seven ported functions; six allopt rows unrouted; thin inline playmode/decgraphics handling in parseNethackrc result bags only.
+- **Fix:** ported all seven whole in C order over live string_for_opt/opt_atoi/allopt_name/set_optbuf CURRENTLY_SET (same module), clear_status_hilites/parse_status_hl1/count_status_hilites/config_error_add (botl.js edge, extended) + count_autocompletions (new cmd.js export over generated EXTCMDLIST, null-terminator-free loop) + LARGEST_INT (const.js edge; both edges imports.mjs ALREADY). playmode writes game.wizard/game.discover (C globals; discover new dynamic field like wizard); strcmpi("play") is a length gate + strncmpi (map_mode precedent); cursesgraphics declared by-design, no code (porting ifdef'd-out C would add dead JS — necrophiliac precedent).
+- **JS:** js/options.js:7119 (DECgraphics), :7166 (playmode), :7212 (hilite_status), :7256/:7301 (term_cols/rows), :11931 (o_autocomplete), rc key :4043/:4237 + lname :4350, allopt rows 1/15/41/75/179/180, doset rows :10001/:10047; js/cmd.js:2521 (count_autocompletions); scripts/optfn-dec-term-cluster.test.mjs (25 tests).
+- **Callers:**
+  - `optfn_DECgraphics`: table-only in C (0 refs) → JS rc valued :4237 + valueless :4350 (flags line kept: symset-name derivation reads it); parseoptions generic dispatch; dump via get_option_value (null on empty get_val).
+  - `optfn_playmode`: table-only in C → JS rc valued :4043 (flags lines kept: set_playmode() plname consumer); parseoptions generic dispatch; dump via get_option_value.
+  - `optfn_hilite_status`: table-only in C → JS parseoptions generic dispatch; doset value column :10001 now live get_val (output-identical to the retired lambda); dump via get_option_value.
+  - `optfn_term_cols`/`optfn_term_rows`: table-only in C → JS parseoptions generic dispatch (no rc key sites exist); dump via get_option_value ('default'/digits/null per arm).
+  - `optfn_o_autocomplete`: table-only in C → JS doset Othr row :10047 now live n_currently_set (was hardcoded); do_handler stays inlined at the doset dispatch (async; o_status_cond precedent).
+  - `count_autocompletions`: C options.c:8358 → js/options.js:11941 + doset row :10047.
+  - `optfn_cursesgraphics`: none in C (0 refs, ifdef'd out) → none in JS (by-design).
+- **Verify:** `node scripts/verify.mjs --fn optfn_DECgraphics,optfn_o_autocomplete,optfn_hilite_status,optfn_playmode,optfn_term_cols,optfn_term_rows,count_autocompletions,optfn_cursesgraphics` → VERIFY: PASS — hidden notes ×8 (no corpus session blocked, expected for coverage rows); REACH-OK ×8 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/optfn-dec-term-cluster.test.mjs`: 25/25 PASS (all do_set/get arms incl. badflag, mode families, clear/parse, atoi edges, bare/default, rc + dispatch + dump wiring); siblings optfn-coverage/optfn-status/all-options-statushilites/all-options-conds: 48/48 PASS.
+- **Named omissions:**
+  - `optfn_DECgraphics`: read_sym_file `:1415` + clear_symsetentry `:1417` failure arm (SYMBOLS file IO under Rule #2) + switch_symbols `:1419` (by-design) — IBMgraphics precedent.
+  - `optfn_playmode`: none — whole body (rc deferred-flags lines kept alongside; set_playmode authorize flow out of cluster).
+  - `optfn_hilite_status`: none — whole body; STATUS_HILITES-off arms compiled out (config.h:616).
+  - `optfn_term_cols`/`optfn_term_rows`: none — whole body.
+  - `optfn_o_autocomplete`: do_handler branch (async handler inlined at doset dispatch, not missing C).
+  - `count_autocompletions`: none — whole body (generated table omits the C null terminator).
+  - `optfn_cursesgraphics`: whole function — C `#ifdef CURSES_GRAPHICS`, never compiled in the contest build.
+- **Ledger:** optfn_DECgraphics ported; optfn_o_autocomplete ported; optfn_hilite_status ported; optfn_playmode ported; optfn_term_cols ported; optfn_term_rows ported; count_autocompletions ported js=cmd.js:count_autocompletions; optfn_cursesgraphics by-design
+- **Next:** continue the breadth queue from the regenerated block.
+
 ## D-3161 — `options.c` optfn_statushilites + optfn_statuslines (coverage cluster)
 
 - **Status:** fixed (coverage cluster, 2 whole C functions + wiring + 15 tests; stale-walk retired 5 rows ahead of it: optfn_IBMgraphics → blocked-partial — D-3159 partial stands, remainder is Rule-#2 SYMBOLS file IO + by-design seeds per D-3160 — and gloc_filter_classify_glyph/pass_two/pass_three/remove_autopickup_exception → ported, whole bodies + wired callers at js/getpos.js:776/:797-798, js/mkmap.js:98/:357 + :117/:361 (review 872 ACCEPT), js/options.js:5994/:6079 (review 1797 ACCEPT). +144/-6 js/options.js, +2/-2 js/botl.js, +1 test file.)

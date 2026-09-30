@@ -216,6 +216,7 @@ import {
     opt_next_cond, cond_menu, status_hilite_menu, condtests,
     status_hilite_linestr_done, status_hilite_linestr_gather,
     count_status_hilites, reset_status_hilites,
+    clear_status_hilites, parse_status_hl1,
     match_str2clr, match_str2attr, status_version,
     config_error_add, status_initialize,
     condopt, parse_cond_option,
@@ -225,12 +226,12 @@ import { vision_recalc } from './vision.js';
 import {
     get_changed_key_binds, handler_rebind_keys, count_bind_keys,
     reset_commands, update_rest_on_space, handler_change_autocompletions,
-    bind_mousebtn, bind_specialkey,
+    bind_mousebtn, bind_specialkey, count_autocompletions,
 } from './cmd.js';
 import { cmd_from_func, cmdname_from_func, visctrl, bind_param_set, bind_param_clear } from './dokeylist.js';
 import {
     Is_rogue_level,
-    CONDITION_COUNT, NUM_GRAPHICS,
+    CONDITION_COUNT, NUM_GRAPHICS, LARGEST_INT,
     ROLE_NONE, ROLE_RANDOM, PL_NSIZ,
     RS_ROLE, RS_RACE, RS_GENDER, RS_ALGNMNT, RS_filter,
     EXIT_FAILURE,
@@ -4040,8 +4041,13 @@ export function parseNethackrc(rc) {
                     }
                 }
                 else if (key === 'playmode') {
-                    // C ref: options.c optfn_playmode — sets wizard/discover;
-                    // set_playmode() later renames plname to "wizard".
+                    // C optfn_playmode do_set (opt_initial): duplicate/
+                    // negated/empty gates + wizard/discover store. The
+                    // result.flags lines stay: set_playmode() consumes them
+                    // (plname rename).
+                    optfn_playmode(
+                        allopt_idx('playmode'), REQ_DO_SET, negated, stripped, val,
+                    );
                     const mode = val.toLowerCase();
                     if (mode === 'debug' || mode === 'wizard') result.flags.debug = true;
                     else if (mode === 'explore' || mode === 'discover') result.flags.explore = true;
@@ -4228,6 +4234,14 @@ export function parseNethackrc(rc) {
                         allopt_idx('IBMgraphics'), REQ_DO_SET, negated, stripped, val, true,
                     );
                 }
+                else if (key === 'decgraphics') {
+                    // C optfn_DECgraphics do_set (opt_initial); the value
+                    // tail is ignored like C (op UNUSED).
+                    optfn_DECgraphics(
+                        allopt_idx('DECgraphics'), REQ_DO_SET, negated, stripped, val,
+                    );
+                    result.flags.decgraphics = !negated;
+                }
                 else if (key === 'statushilites') {
                     // C optfn_statushilites do_set (opt_initial) on
                     // result.iflags. Negation stores 0 (negateok Yes);
@@ -4333,8 +4347,14 @@ export function parseNethackrc(rc) {
                 else if (lname === 'showexp') result.flags.showexp = value;
                 else if (lname === 'time') result.flags.time = value;
                 else if (lname === 'verbose') result.flags.verbose = value;
-                // C: OPTIONS=DECgraphics loads Primary DEC showsyms (same as symset:)
-                else if (lname === 'decgraphics') result.flags.decgraphics = value;
+                else if (lname === 'decgraphics') {
+                    // C optfn_DECgraphics do_set, valueless (opt_initial).
+                    // The flags line stays: symset-name derivation reads it.
+                    optfn_DECgraphics(
+                        allopt_idx('DECgraphics'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR,
+                    );
+                    result.flags.decgraphics = value;
+                }
                 else if (lname === 'msg_window') {
                     // C optfn_msg_window do_set, valueless (opt_initial).
                     optfn_msg_window(
@@ -7079,6 +7099,240 @@ export function optfn_IBMgraphics(optidx, req, negated, opts, _op, optInitial) {
 }
 
 /**
+ * C options.c optfn_DECgraphics `:1393–1439` (staticfn; NHOPT_PARSE wires
+ * &optfn_DECgraphics into the DECgraphics allopt row, optlist.h `:271`).
+ * BACKWARD_COMPAT is defined (optlist.h `:15`), so do_set is the
+ * single-PRIMARYSET load (`:1409–1427`); the `#else`
+ * no-longer-supported arm (`:1428–1431`) is compiled out. Unlike
+ * optfn_IBMgraphics there is no rogue-level set (`:1410`) and no
+ * assign_graphics gate — switch_symbols(TRUE) runs inside the load arm
+ * (`:1418–1419`). No do_handler (has_handler No).
+ * Named (map): read_sym_file `:1415` + clear_symsetentry `:1417` failure
+ * arm (SYMBOLS file IO under Rule #2), switch_symbols `:1419`
+ * (by-design) — optfn_symset/IBMgraphics precedent.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts out holder (do_set ignores the value)
+ * @param {string} _op value tail (C UNUSED)
+ */
+export function optfn_DECgraphics(optidx, req, negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C `:1402–1404`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:1405`
+        /* C `:1406` "DECgraphics" */
+        // (BACKWARD_COMPAT on: the `:1428–1431` #else is compiled out.)
+        if (!negated) { // C `:1409`
+            /* C `:1410` There is no rogue level DECgraphics-specific set */
+            let badflag = false; // C `:1399`
+            const slot = game.gs?.symset?.[PRIMARYSET]; // C `:1411` gs.symset[PRIMARYSET]
+            if (slot?.name) { // C `:1411–1412` name already set
+                badflag = true;
+            } else {
+                if (slot) slot.name = allopt_name(optidx); // C `:1414` dupstr (GC: overwrite)
+                /* Named (map): read_sym_file `:1415` + clear_symsetentry
+                   `:1417` failure arm (SYMBOLS file IO under Rule #2). */
+                /* Named (map): switch_symbols(TRUE) `:1418–1419` (by-design). */
+            }
+            if (badflag) { // C `:1421`
+                config_error_add('Failure to load symbol set %s.', allopt_name(optidx)); // C `:1422–1423`
+                return OPTN_ERR; // C `:1424`
+            }
+        }
+        return OPTN_OK; // C `:1427`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1434`
+        set_optbuf(opts, ''); // C `:1435` opts[0] = '\0'
+        return OPTN_OK; // C `:1436`
+    }
+    return OPTN_OK; // C `:1438`
+}
+
+/**
+ * C options.c optfn_playmode `:3470–3504` (staticfn; NHOPT_PARSE wires
+ * &optfn_playmode into the playmode allopt row, optlist.h `:120`).
+ * do_set reads the caller-extracted op directly (C calls no
+ * string_for_opt); `duplicate` is the module duplicateOpt (C
+ * file-static, `:107`). `!strcmpi(op, "play")` is a length gate +
+ * strncmpi (hacklib has no strcmpi — map_mode precedent). No do_handler
+ * (has_handler No).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts out holder (do_set reads op only)
+ * @param {string} op extracted value tail
+ */
+export function optfn_playmode(optidx, req, negated, opts, op) {
+    if (req === REQ_DO_INIT) { // C `:3475–3477`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:3478`
+        /* C `:3479` play mode: normal, explore/discovery, or debug/wizard */
+        if (duplicateOpt || negated) // C `:3481`
+            return OPTN_ERR; // C `:3482`
+        if (!op) // C `:3483` op == empty_optstr
+            return OPTN_ERR; // C `:3484`
+        if (strncmpi(op, 'normal', 6) === 0 // C `:3485`
+            || (op.length === 4 && strncmpi(op, 'play', 4) === 0)) { // C `:3485` !strcmpi
+            game.wizard = game.discover = false; // C `:3486`
+        } else if (strncmpi(op, 'explore', 6) === 0 // C `:3487`
+            || strncmpi(op, 'discovery', 6) === 0) { // C `:3488`
+            game.wizard = false; game.discover = true; // C `:3489`
+        } else if (strncmpi(op, 'debug', 5) === 0 // C `:3490`
+            || strncmpi(op, 'wizard', 6) === 0) { // C `:3490`
+            game.wizard = true; game.discover = false; // C `:3491`
+        } else {
+            config_error_add('Invalid value for "%s":%s', allopt_name(optidx), op); // C `:3493–3494`
+            return OPTN_ERR; // C `:3495`
+        }
+        return OPTN_OK; // C `:3497`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3499`
+        set_optbuf(opts, game.wizard ? 'debug' : game.discover ? 'explore' : 'normal'); // C `:3500`
+        return OPTN_OK; // C `:3501`
+    }
+    return OPTN_OK; // C `:3503`
+}
+
+/**
+ * C options.c optfn_hilite_status `:1851–1894` (staticfn; NHOPT_PARSE wires
+ * &optfn_hilite_status into the hilite_status allopt row, optlist.h
+ * `:372`). STATUS_HILITES is defined (config.h `:616`), so do_set is the
+ * clear/parse store (`:1865–1875`); the `:1876–1881` #else is compiled
+ * out, as is the get_val #else (no arm — get_cnf_val keeps ''). No
+ * do_handler (has_handler No).
+ * @param {number} _optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts full option string (do_set) / out holder
+ * @param {string} _op value tail (recomputed inside like C `:1865`)
+ * @param {boolean} [optFromFile] C go.opt_from_file — parse origin gate
+ */
+export function optfn_hilite_status(_optidx, req, negated, opts, _op, optFromFile) {
+    if (req === REQ_DO_INIT) { // C `:1859–1861`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:1862`
+        /* C `:1863` hilite fields in status prompt */
+        // (STATUS_HILITES on: the `:1876–1881` #else is compiled out.)
+        const op = string_for_opt(String(opts ?? ''), true); // C `:1865` TRUE
+        if (op !== EMPTY_OPTSTR && negated) { // C `:1866`
+            clear_status_hilites(); // C `:1867`
+            return OPTN_OK; // C `:1868`
+        } else if (op === EMPTY_OPTSTR) { // C `:1869`
+            config_error_add('Value is mandatory for hilite_status'); // C `:1870`
+            return OPTN_ERR; // C `:1871`
+        }
+        const fromFile = optFromFile ?? !!game.go?.opt_from_file; // C go.opt_from_file
+        if (!parse_status_hl1(op, fromFile)) // C `:1873`
+            return OPTN_ERR; // C `:1874`
+        return OPTN_OK; // C `:1875`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1883`
+        set_optbuf(opts, ''); // C `:1884` opts[0] = '\0'
+        if (req === REQ_GET_VAL) // C `:1886`
+            set_optbuf(opts, count_status_hilites() // C `:1887–1889`
+                ? '(see "status highlight rules" below)'
+                : '(none)');
+        return OPTN_OK; // C `:1891`
+    }
+    return OPTN_OK; // C `:1893`
+}
+
+/**
+ * C options.c optfn_term_cols `:4238–4277` (staticfn; NHOPT_PARSE wires
+ * &optfn_term_cols into the term_cols allopt row, optlist.h `:746`).
+ * do_set stores the atol value after the sanity gate (`:4253–4265` —
+ * note string_for_opt's valOptional is negated, `:4253`); get arms read
+ * iflags.wc2_term_cols with the defopt[] ("default", `:126`) fallback.
+ * No do_handler (has_handler No).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts full option string (do_set) / out holder
+ * @param {string} _op value tail (recomputed inside like C `:4253`)
+ */
+export function optfn_term_cols(optidx, req, negated, opts, _op) {
+    const iflags = game.iflags || (game.iflags = {});
+    let retval = OPTN_OK; // C `:4243`
+    if (req === REQ_DO_INIT) { // C `:4246–4248`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:4249`
+        /* C `:4250–4251` WINCAP2 term_cols:amount */
+        const op = string_for_opt(String(opts ?? ''), negated); // C `:4253`
+        if (op !== EMPTY_OPTSTR) { // C `:4253`
+            const ltmp = opt_atoi(op); // C `:4254` atol
+            /* C `:4255–4256` just checks atol() sanity, not logical window size sanity */
+            if (ltmp <= 0 || ltmp >= LARGEST_INT) { // C `:4257`
+                config_error_add('Invalid %s: %ld', allopt_name(optidx), ltmp); // C `:4258–4259`
+                retval = OPTN_ERR; // C `:4260`
+            } else {
+                iflags.wc2_term_cols = ltmp | 0; // C `:4262` (int) ltmp
+            }
+        }
+        return retval; // C `:4265`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4267`
+        const v = iflags.wc2_term_cols | 0;
+        if (v) // C `:4268`
+            set_optbuf(opts, String(v)); // C `:4269` %d
+        else if (req === REQ_GET_CNF_VAL) // C `:4270`
+            set_optbuf(opts, ''); // C `:4271` opts[0] = '\0'
+        else // C `:4272`
+            set_optbuf(opts, 'default'); // C `:4273` defopt[]
+        return OPTN_OK; // C `:4274`
+    }
+    return OPTN_OK; // C `:4276`
+}
+
+/**
+ * C options.c optfn_term_rows `:4279–4318` (staticfn; NHOPT_PARSE wires
+ * &optfn_term_rows into the term_rows allopt row, optlist.h `:748`).
+ * term_cols twin (above) over iflags.wc2_term_rows. No do_handler
+ * (has_handler No).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts full option string (do_set) / out holder
+ * @param {string} _op value tail (recomputed inside like C `:4294`)
+ */
+export function optfn_term_rows(optidx, req, negated, opts, _op) {
+    const iflags = game.iflags || (game.iflags = {});
+    let retval = OPTN_OK; // C `:4284`
+    if (req === REQ_DO_INIT) { // C `:4287–4289`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:4290`
+        /* C `:4291–4292` WINCAP2 term_rows:amount */
+        const op = string_for_opt(String(opts ?? ''), negated); // C `:4294`
+        if (op !== EMPTY_OPTSTR) { // C `:4294`
+            const ltmp = opt_atoi(op); // C `:4295` atol
+            /* C `:4296–4297` just checks atol() sanity, not logical window size sanity */
+            if (ltmp <= 0 || ltmp >= LARGEST_INT) { // C `:4298`
+                config_error_add('Invalid %s: %ld', allopt_name(optidx), ltmp); // C `:4299–4300`
+                retval = OPTN_ERR; // C `:4301`
+            } else {
+                iflags.wc2_term_rows = ltmp | 0; // C `:4303` (int) ltmp
+            }
+        }
+        return retval; // C `:4306`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4308`
+        const v = iflags.wc2_term_rows | 0;
+        if (v) // C `:4309`
+            set_optbuf(opts, String(v)); // C `:4310` %d
+        else if (req === REQ_GET_CNF_VAL) // C `:4311`
+            set_optbuf(opts, ''); // C `:4312` opts[0] = '\0'
+        else // C `:4313`
+            set_optbuf(opts, 'default'); // C `:4314` defopt[]
+        return OPTN_OK; // C `:4315`
+    }
+    return OPTN_OK; // C `:4317`
+}
+
+/**
  * C options.c optfn_statushilites `:4012–4064` (staticfn; NHOPT_PARSE wires
  * &optfn_statushilites into the statushilites allopt row, optlist.h `:724`).
  * STATUS_HILITES is defined (config.h `:616`), so do_set is the delta
@@ -9744,7 +9998,7 @@ export async function doset() {
         { name: 'disclose', get_val: () => doset_compopt_get_val(optfn_disclose, 'disclose'), handler: true },
         { name: 'fruit', val: 'slime mold' },
         { name: 'glyph', val: '(to be done)' },
-        { name: 'hilite_status', get_val: () => (count_status_hilites() ? '(see "status highlight rules" below)' : '(none)') }, // C options.c:1887 get_val
+        { name: 'hilite_status', get_val: () => doset_compopt_get_val(optfn_hilite_status, 'hilite_status') },
         { name: 'menu_headings', get_val: () => doset_compopt_get_val(optfn_menu_headings, 'menu_headings'), handler: true },
         { name: 'menu_objsyms', get_val: () => doset_compopt_get_val(optfn_menu_objsyms, 'menu_objsyms'), handler: true },
         { name: 'menuinvertmode', val: '1' },
@@ -9790,7 +10044,7 @@ export async function doset() {
         attr: ATR_INVERSE,
     });
     for (const t of [
-        { name: 'autocompletions', val: '(0 currently set)' },
+        { name: 'autocompletions', val: currently_set_val(count_autocompletions()) }, // C options.c:8358 optfn_o_autocomplete get_val (n_currently_set)
         { name: 'autopickup exceptions', val: currently_set_val(count_apes()) },
         // C options.c:8336 optfn_o_bind_keys get_val (n_currently_set).
         { name: 'bind keys', val: currently_set_val(count_bind_keys()) },
@@ -10312,7 +10566,7 @@ const allopt = [
     // optlist.h:117 NHOPTC(windowtype)
     { name: 'windowtype', opttyp: CompOpt, idx: 0, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:120 NHOPTC(playmode)
-    { name: 'playmode', opttyp: CompOpt, idx: 1, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'playmode', opttyp: CompOpt, idx: 1, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_playmode },
     // optlist.h:123 NHOPTC(name)
     { name: 'name', opttyp: CompOpt, idx: 2, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:126 NHOPTC(role)
@@ -10340,7 +10594,7 @@ const allopt = [
     // optlist.h:170 NHOPTB(ascii_map)
     { name: 'ascii_map', opttyp: BoolOpt, idx: 14, setwhere: SET_IN_GAME, initval: true /* ascii_map_Def: tty */, addr: null /* C: &iflags.wc_ascii_map, no live field */, optfn: null },
     // optlist.h:173 NHOPTO("autocompletions")
-    { name: 'autocompletions', opttyp: OthrOpt, idx: 15, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
+    { name: 'autocompletions', opttyp: OthrOpt, idx: 15, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: optfn_o_autocomplete },
     // optlist.h:175 NHOPTB(autodescribe)
     { name: 'autodescribe', opttyp: BoolOpt, idx: 16, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'autodescribe' }, optfn: null },
     // optlist.h:178 NHOPTB(autodig)
@@ -10392,7 +10646,7 @@ const allopt = [
     // optlist.h:267 NHOPTB(deaf)
     { name: 'deaf', opttyp: BoolOpt, idx: 40, setwhere: SET_IN_CONFIG, initval: false, addr: { obj: 'flags', key: 'deaf' }, optfn: null },
     // optlist.h:271 NHOPTC(DECgraphics)
-    { name: 'DECgraphics', opttyp: CompOpt, idx: 41, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'DECgraphics', opttyp: CompOpt, idx: 41, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_DECgraphics },
     // optlist.h:275 NHOPTB(debug_hunger)
     { name: 'debug_hunger', opttyp: BoolOpt, idx: 42, setwhere: SET_WIZNOFUZ, initval: false, addr: null /* C: &iflags.debug_hunger, no live field */, optfn: null },
     // optlist.h:278 NHOPTB(debug_mongen)
@@ -10460,7 +10714,7 @@ const allopt = [
     // optlist.h:368 NHOPTB(hilite_pile)
     { name: 'hilite_pile', opttyp: BoolOpt, idx: 74, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'hilite_pile' }, optfn: null },
     // optlist.h:372 NHOPTC(hilite_status)
-    { name: 'hilite_status', opttyp: CompOpt, idx: 75, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'hilite_status', opttyp: CompOpt, idx: 75, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_hilite_status },
     // optlist.h:379 NHOPTB(hitpointbar)
     { name: 'hitpointbar', opttyp: BoolOpt, idx: 76, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'wc2_hitpointbar' } /* C: &iflags.wc2_hitpointbar; botl.js reads this */, optfn: null },
     // optlist.h:382 NHOPTC(horsename)
@@ -10668,9 +10922,9 @@ const allopt = [
     // optlist.h:743 NHOPTC(symset)
     { name: 'symset', opttyp: CompOpt, idx: 178, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_symset },
     // optlist.h:746 NHOPTC(term_cols)
-    { name: 'term_cols', opttyp: CompOpt, idx: 179, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'term_cols', opttyp: CompOpt, idx: 179, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_term_cols },
     // optlist.h:748 NHOPTC(term_rows)
-    { name: 'term_rows', opttyp: CompOpt, idx: 180, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'term_rows', opttyp: CompOpt, idx: 180, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_term_rows },
     // optlist.h:750 NHOPTB(terrainstatus)
     { name: 'terrainstatus', opttyp: BoolOpt, idx: 181, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'terrainstatus' }, optfn: null },
     // optlist.h:753 NHOPTC(tile_file)
@@ -11664,6 +11918,32 @@ export function optfn_o_status_cond(_optidx, req, _negated, opts, _op) {
     // C `:8436–8440` do_handler is cond_menu() + opt_set_in_config[pfx_cond_]:
     // async in JS, inlined at both doset dispatches (no branch here).
     return OPTN_OK; // C `:8441`
+}
+
+/**
+ * C options.c optfn_o_autocomplete `:8345–8365` (staticfn; NHOPT_PARSE wires
+ * &optfn_o_autocomplete into the "autocompletions" Othr row, optlist.h
+ * `:173`). do_set is a `;` no-op (`:8353–8354`); get_val and get_cnf_val
+ * share the n_currently_set arm (`:8355–8360`). No do_handler branch
+ * here: handler_change_autocompletions() is async in JS, inlined at the
+ * doset dispatch (optfn_o_status_cond precedent).
+ */
+export function optfn_o_autocomplete(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C `:8350–8352`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) {
+        /* C `:8353–8354` `;` */
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:8355`
+        if (opts === null || opts === undefined) // C `:8356` !opts
+            return OPTN_ERR; // C `:8357`
+        set_optbuf(opts, currently_set_val(count_autocompletions())); // C `:8358` n_currently_set
+        return OPTN_OK; // C `:8359`
+    }
+    // C `:8361–8363` do_handler is handler_change_autocompletions():
+    // async in JS, inlined at the doset dispatch (no branch here).
+    return OPTN_OK; // C `:8364`
 }
 
 /**
