@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3165 — `cmd.c` dotherecmdmenu whole port (coverage)
+
+- **Status:** fixed (coverage, 1 C function whole; ~50 js/ lines — below the ~80 density line, but cmd.c holds nothing more Open: sole cmd.c row of 12 eligible, and the only other cmd.c rows in the 40-eligible list — bind_key_fn, all_options_autocomplete — proved stale this iteration, as did the queue head). Also in this iteration: queue head `u_init.c` ini_inv_obj_substitution proved stale (race gate + 25-row inv_subs loop + break + return complete at js/u_init.js:813, caller wired at :1499; only delta debugpline3, empty unless DEBUG per lint.h:70) → ledger ported, popped to this row; same-file companions `cmd.c` bind_key_fn (loop + both continues + cmdbind_add + both returns at js/cmd.js:2071, 4 C callers wired at :2272–2277) and `cmd.c` all_options_autocomplete (AUTOCOMP_ADJ gate + `!`-prefix + strbuf_append at js/options.js:11557, C caller options.c:9739 wired at :12064 in C order) proved stale → ledger ported.
+- **Symptom:** queue head `dotherecmdmenu` MISSING — no JS symbol; `#therecmdmenu` (cmd.c:1900 extcmdlist row, AUTOCOMPLETE|GENERALCMD|MOUSECMD) had no runner, and review 2104's there_cmd_menu callers at cmd.c:4356/4370 were its named omission. No corpus session blocked; draws no RNG.
+- **C locus:** cmd.c:4342–4375 — click-stamped cell (`gc.clicklook_cc`) first: hero cell → here_cmd_menu, else there_cmd_menu + stamp reset; else getdir(NULL) → ECMD_CANCEL unless dir + isok(ux+dx), then dx|dy → there_cmd_menu(ux+dx, click) else here_cmd_menu; ECMD_TIME iff ch && ch != ESC.
+- **JS was:** no dotherecmdmenu in js/**; EXT_CMDS (js/getline.js) had no 'therecmdmenu' entry (typed `#therecmdmenu`, keybinds via extcmd_run_by_txt, and mouse button 1 pre-bound at js/cmd.js:2088 all unresolved).
+- **Fix:** ported the whole body in C order as exported async js/cmd.js dotherecmdmenu (getdir/here_cmd_menu/there_cmd_menu are async in JS): BSS-{0,0} clicklook_cc read via `| 0` (isok-false like C), unconditional getdir_click set/clear, single-return ECMD shape with the doherecmdmenu NUL guard (`'\0'` is truthy in JS); extended the pre-existing `./lock.js` import with getdir (imports.mjs ALREADY, no new edge); added the 'therecmdmenu' EXT_CMDS entry after 'terrain' (C table adjacency) with the lazy `./cmd.js` runner.
+- **JS:** js/cmd.js:3436 dotherecmdmenu (per-line C pins `:4347–:4374`); js/getline.js:563 'therecmdmenu' EXT_CMDS entry.
+- **Callers:** sole C caller extcmdlist cmd.c:1900 → JS 'therecmdmenu' EXT_CMDS entry (js/getline.js:563, resolves typed-#/keybind/mouse paths via extcmd_run_by_txt); generated EXTCMDLIST row pre-exists (js/generated/extcmdlist_data.js:97); mouse button 1 pre-bound (js/cmd.js:2088).
+- **Verify:** note hidden verify dotherecmdmenu: no corpus session blocked on it at baseline; PASS reach (no RNG-tagged reach; smoke 24/24 PASS, 0 regressed → REACH-OK); syntax 2 files · Rule #2 PASS · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (gate: no shared file changed) → VERIFY: PASS.
+- **Named omissions:** none — whole body, every callee live (isok/CLICK_1/CLICK_2/ECMD_* from const.js, here_cmd_menu/there_cmd_menu same-module, getdir from lock.js).
+- **Ledger:** dotherecmdmenu ported
+- **Next:** generated Open — coverage head after refill.
+
 ## D-3164 — `music.c` generic_lvl_desc sanctum arm (coverage)
 
 - **Status:** fixed (coverage, 1 C function whole; +3 js/music.js — below the ~80 density line, but music.c holds nothing more Open: sole music.c row of 12 eligible, all 5 level predicates already live in const.js). Also in this iteration: queue head `dothrow.c` find_launcher proved stale (C body complete at js/dothrow.js:2675, caller wired at :2775) → ledger ported, popped to this row.

@@ -78,7 +78,7 @@
 {"fn":"key2extcmddesc","c":"2561-2621","status":"unknown","d":["D-2702"],"at":"seed@a30a7de84"}
 {"fn":"bind_mousebtn","c":"2624-2659","status":"ported","js":["js/cmd.js:bind_mousebtn"],"d":["D-3086"],"at":"2026-09-29@590ebd616","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bind_key","c":"2662-2728","status":"ported","js":["js/cmd.js:bind_key"],"at":"2026-09-30@6c8474344","note":"stale: js/cmd.js:1614"}
-{"fn":"bind_key_fn","c":"2732-2746","status":"unknown"}
+{"fn":"bind_key_fn","c":"2732-2746","status":"ported","js":["js/cmd.js:bind_key_fn"],"at":"2026-09-30@e3edb2ef9","note":"stale: complete at js/cmd.js:2071 (loop + both INTERNALCMD/funct continues + cmdbind_add + both returns); 4 C callers wired at js/cmd.js:2272-2277"}
 {"fn":"commands_init","c":"2750-2782","status":"unknown"}
 {"fn":"keylist_func_has_key","c":"2785-2799","status":"ported","js":["js/dokeylist.js:keylist_func_has_key"],"at":"2026-09-30@850d390ba","note":"stale: js/dokeylist.js:712 (exact loop + both sites :777/:867 wired)"}
 {"fn":"keylist_putcmds","c":"2802-2863","status":"partial","js":["js/dokeylist.js:keylist_putcmds"],"omit":"`parsebindings` still strips `(param)`, so an rc BIND= does not fill `_bindParam`.","d":["D-2863"],"at":"seed@a30a7de84"}
@@ -93,7 +93,7 @@
 {"fn":"spkey_name","c":"3208-3220","status":"ported","js":["js/dokeylist.js:spkey_name"],"d":["D-3028"],"at":"2026-09-28@759e72748","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"key2txt","c":"3225-3240","status":"ported","js":["js/dokeylist.js:key2txt"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2"}
 {"fn":"parseautocomplete","c":"3244-3292","status":"partial","js":["js/cmd.js:parseautocomplete"],"omit":"- `handler_change_autocompletions`: none in-body — whole body; window layer via live select_menu_pick_any, sole C callee parseautocomplete live.","d":["D-3079"],"at":"2026-09-29@260932ce5","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"all_options_autocomplete","c":"3296-3308","status":"unknown"}
+{"fn":"all_options_autocomplete","c":"3296-3308","status":"ported","js":["js/options.js:all_options_autocomplete"],"at":"2026-09-30@e3edb2ef9","note":"stale: complete at js/options.js:11557 (AUTOCOMP_ADJ gate + AUTOCOMPLETE !-prefix + strbuf_append); C caller options.c:9739 wired at js/options.js:12064 in C order"}
 {"fn":"count_autocompletions","c":"3312-3322","status":"ported","js":["js/cmd.js:count_autocompletions"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lock_mouse_buttons","c":"3326-3340","status":"ported","js":["js/cmd.js:lock_mouse_buttons"],"d":["D-3006"],"at":"2026-09-28@92e07989a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_commands","c":"3344-3476","status":"partial","js":["js/cmd.js:reset_commands"],"omit":"`bind_mousebtn` (`cmd.c:2624`, called from `commands_init` `:2752–2753`); `click_to_cmd` still reads `game.Cmd.mousebtn` and stays inert.","d":["D-2861"],"at":"seed@a30a7de84"}
@@ -117,7 +117,7 @@
 {"fn":"directionname","c":"4313-4323","status":"unknown"}
 {"fn":"isok","c":"4326-4330","status":"unknown"}
 {"fn":"doherecmdmenu","c":"4334-4339","status":"unknown"}
-{"fn":"dotherecmdmenu","c":"4343-4375","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dotherecmdmenu","c":"4343-4375","status":"ported","js":["js/cmd.js:dotherecmdmenu"],"d":["D-3165"],"at":"2026-09-30@e3edb2ef9","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mcmd_addmenu","c":"4421-4431","status":"unknown"}
 {"fn":"there_cmd_menu_self","c":"4435-4520","status":"ported","js":["js/cmd.js:there_cmd_menu_self"],"d":["D-2891"],"at":"seed@a30a7de84"}
 {"fn":"there_cmd_menu_next2u","c":"4524-4621","status":"ported","js":["js/cmd.js:there_cmd_menu_next2u"],"d":["D-3144","D-2266"],"at":"2026-09-30@990da2b8d"}

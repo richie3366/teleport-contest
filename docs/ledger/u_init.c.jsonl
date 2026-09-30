@@ -9,7 +9,7 @@
 {"fn":"restricted_spell_discipline","c":"1094-1105","status":"unknown"}
 {"fn":"trquan","c":"1109-1114","status":"unknown"}
 {"fn":"ini_inv_mkobj_filter","c":"1118-1177","status":"unknown"}
-{"fn":"ini_inv_obj_substitution","c":"1182-1203","status":"unknown"}
+{"fn":"ini_inv_obj_substitution","c":"1182-1203","status":"ported","js":["js/u_init.js:ini_inv_obj_substitution"],"at":"2026-09-30@e3edb2ef9","note":"stale: complete at js/u_init.js:813, caller wired at js/u_init.js:1499; only delta is debugpline3 (empty unless DEBUG, lint.h:70)"}
 {"fn":"ini_inv_adjust_obj","c":"1208-1250","status":"unknown"}
 {"fn":"ini_inv_use_obj","c":"1254-1298","status":"unknown"}
 {"fn":"ini_inv","c":"1301-1366","status":"unknown","d":["D-2694"],"at":"seed@a30a7de84"}

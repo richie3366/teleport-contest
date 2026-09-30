@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3165 `cmd.c` dotherecmdmenu whole port (coverage)
+
+**C locus:** cmd.c:4342–4375 — click-stamped cell (`gc.clicklook_cc`) first: hero cell → here_cmd_menu, else there_cmd_menu + stamp reset; else getdir(NULL) → ECMD_CANCEL unless dir + isok(ux+dx), then dx|dy → there_cmd_menu(ux+dx, click) else here_cmd_menu; ECMD_TIME iff ch && ch != ESC.
+**JS:** js/cmd.js:3436 dotherecmdmenu (per-line C pins `:4347–:4374`); js/getline.js:563 'therecmdmenu' EXT_CMDS entry.
+**Change:** ported the whole body in C order as exported async js/cmd.js dotherecmdmenu (getdir/here_cmd_menu/there_cmd_menu are async in JS): BSS-{0,0} clicklook_cc read via `| 0` (isok-false like C), unconditional getdir_click set/clear, single-return ECMD shape with the doherecmdmenu NUL guard (`'\0'` is truthy in JS); extended the pre-existing `./lock.js` import with getdir (imports.mjs ALREADY, no new edge); added the 'therecmdmenu' EXT_CMDS entry after 'terrain' (C table adjacency) with the lazy `./cmd.js` runner.
+**Verify:** note hidden verify dotherecmdmenu: no corpus session blocked on it at baseline; PASS reach (no RNG-tagged reach; smoke 24/24 PASS, 0 regressed → REACH-OK); syntax 2 files · Rule #2 PASS · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (gate: no shared file changed) → VERIFY: PASS.
+**Named:** none — whole body, every callee live (isok/CLICK_1/CLICK_2/ECMD_* from const.js, here_cmd_menu/there_cmd_menu same-module, getdir from lock.js).
+**Next:** generated Open — coverage head after refill.
 ## 2026-09-30 — D-3164 `music.c` generic_lvl_desc sanctum arm (coverage)
 
 **C locus:** music.c:478–492 — `if/else-if` chain over `&u.uz`: astral plane → plane → sanctum → puzzle → tower → dungeon.
