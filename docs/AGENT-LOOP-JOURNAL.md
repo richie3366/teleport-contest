@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3182 stop initoptions after every fatal startup exit
+
+**C locus:** whole initoptions body and all five references read in brief; scores_only whole C body read in csym.
+**JS:** js/options.js:8900 initoptions, :8908 assurance guard, :8915 fatal parse return, :8924 deferred-showpaths return; js/earlyarg.js:63–64 caller; scripts/initoptions-startup.test.mjs:64–125 regression cases; docs/c-js-map/data.md D-3182 omission landmark.
+**Change:** preserve the whole existing C-ordered wrapper and add the missing noreturn propagation: return after fatal assurance, return immediately after second-pass nh_terminate, return unconditionally after deferred showpaths. scores_only returns immediately when initoptions exits, before flag reset or prscore. Updated the obsolete no-live-caller comment. All callees remain live exports; no new import edge.
+**Verify:** - `initoptions`: clean-tree preflight green/strict PASS (installed Node v24.5.0 added to command PATH). MEASURED `/tmp/D3182-initoptions-oracle.c`: extracted the exact pinned C body, compiled with cc and deterministic callee doubles using setjmp/longjmp for exit; 8/8 cases establish initializer fatal, assurance fatal, second-parse fatal, showpaths noreturn, nontermination, zero-reported-error continuation, successful builtin-phase read and initializer-then-success call order. Checked-in startup regressions 13/13 PASS, including caller-owned error-bracket preservation, no fruit/opt_initial finish mutation after every fatal path, success/nontermination continuation and scores_only preserving exit_status=1.
+**Named:** - `initoptions`: no new missing arm in this body or the earlyarg caller. Pre-existing unixmain.c:150 startup adapter skips outer options.c:7093–7112 (second sysconf pass and deferred showpaths), as already named in D-3172.
+**Next:** first generated coverage row vision.c vision_init; brief and grow within its C file/callee closure. No hand-written coverage refill.
 ## 2026-09-30 — D-3181 await were transformation messages before mutation
 
 **C locus:** whole bodies and every reference table read in briefs; caller guards read:

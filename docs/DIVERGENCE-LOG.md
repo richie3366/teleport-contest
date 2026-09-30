@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3182 — stop initoptions after every fatal startup exit
+
+- **Status:** fixed review 2132 Must-fix, shipped alone; inherited startup-adapter and callee omissions keep initoptions partial.
+- **Symptom:** builtin-phase initoptions with an invalid sysconf recorded exit_status=1 but continued through a second config_error_done and initoptions_finish, initialized fruit and cleared opt_initial. Missing-file assurance and deferred showpaths also continued into finish. Its scores_only caller could overwrite a fatal exit with EXIT_SUCCESS after running prscore.
+- **C locus:** whole initoptions body and all five references read in brief; scores_only whole C body read in csym.
+  - `initoptions`: options.c:7078–7115; :7087–7088 initializer conditional, :7093 fatal assurance, :7098–7102 ordered error drain and short-circuit initoptions_noterminate, :7111–7112 noreturn deferred showpaths, :7114 finish only on continuing paths. earlyarg.c:404–441 caller cannot reach :420/prscore after a fatal initoptions exit.
+- **JS was:** only the initializer call propagated gameover. Assurance returned into config setup; nh_terminate at the second-read error returned into the second error drain/finish; deferred showpaths returned into finish. scores_only unconditionally reset initoptions_noterminate, ran prscore and terminated successfully.
+- **Fix:** preserve the whole existing C-ordered wrapper and add the missing noreturn propagation: return after fatal assurance, return immediately after second-pass nh_terminate, return unconditionally after deferred showpaths. scores_only returns immediately when initoptions exits, before flag reset or prscore. Updated the obsolete no-live-caller comment. All callees remain live exports; no new import edge.
+- **JS:** js/options.js:8900 initoptions, :8908 assurance guard, :8915 fatal parse return, :8924 deferred-showpaths return; js/earlyarg.js:63–64 caller; scripts/initoptions-startup.test.mjs:64–125 regression cases; docs/c-js-map/data.md D-3182 omission landmark.
+- **Callers:**
+  - `initoptions`: earlyarg.c:419 → js/earlyarg.js:63, now guarded at :64 before subsequent work. unixmain.c:150 remains flattened at js/jsmain.js:115 initoptions_init, :126 user-rc overlay and :160 fruit finish; its pre-existing absent second-pass/deferred-showpaths closure is explicitly named below. options.c:7082, restore.c:716 and wintty.c:523 are comments, not executable calls.
+- **Verify:**
+  - `initoptions`: clean-tree preflight green/strict PASS (installed Node v24.5.0 added to command PATH). MEASURED `/tmp/D3182-initoptions-oracle.c`: extracted the exact pinned C body, compiled with cc and deterministic callee doubles using setjmp/longjmp for exit; 8/8 cases establish initializer fatal, assurance fatal, second-parse fatal, showpaths noreturn, nontermination, zero-reported-error continuation, successful builtin-phase read and initializer-then-success call order. Checked-in startup regressions 13/13 PASS, including caller-owned error-bracket preservation, no fruit/opt_initial finish mutation after every fatal path, success/nontermination continuation and scores_only preserving exit_status=1. Two initial test assertions were corrected after inspecting live representations: fruit is a linked object, and showpaths' opt_terminate intentionally drains the caller bracket. No production correction was required after the initial patch. `node scripts/verify.mjs --fn initoptions --full --reach-all` completed without fortress failures; no corpus session is blocked on initoptions. Final output:
+
+```text
+PASS  syntax   2 changed js file(s): js/earlyarg.js js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify initoptions: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    initoptions: no RNG-tagged reach; fixed smoke spread (24 run, 6.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+- **Named omissions:**
+  - `initoptions`: no new missing arm in this body or the earlyarg caller. Pre-existing unixmain.c:150 startup adapter skips outer options.c:7093–7112 (second sysconf pass and deferred showpaths), as already named in D-3172. Live initoptions_init retains sf_init :7129, choose_windows :7136 and platform/symbol omissions named in D-3172; live initoptions_finish retains showsyms :7343–7347/reset_glyphmap :7349 named in D-3025. Live do_deferred_showpaths retains reveal_paths files.c:3093 and teardown :3096–3098 named in D-3117. These remain map-named inherited omissions, not REACH regressions.
+- **Ledger:** initoptions partial
+- **Next:** first generated coverage row vision.c vision_init; brief and grow within its C file/callee closure. No hand-written coverage refill.
+
 ## D-3181 — await were transformation messages before mutation
 
 - **Status:** fixed; review 2136 Must-fix ships alone, closing normal_shape → new_were input continuation.

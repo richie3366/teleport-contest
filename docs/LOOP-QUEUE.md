@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `options.c` initoptions noreturn closure — C options.c:7078–7115, :7100/:7112 terminate; changed JS wrapper continues into config_error_done/initoptions_finish. Builtin-phase invalid-sysconf probe exits=1 but initializes fruit/clears opt_initial. Stop after fatal second read/assure/deferred-showpaths, verify finish unreachable. Source: reviews/loop-unattended/2132-d10e96661-startup-exit.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-30
 
-- [x] `mon.c` normal_shape → new_were message continuation — C mon.c:4430–4462/were.c:95–138 emits visible transformation pline before set_mon_data/heal/armor; js/were.js:164 starts void pline then mutates immediately. Await in normal_shape only observes armor chain. Complete/propagate message boundary before mutation and mimic processing; verify input suspension. Source: reviews/loop-unattended/2136-ae5beffe4-monster-closure.md. **Addressed:** D-3181
+- [x] `options.c` initoptions noreturn closure — C options.c:7078–7115, :7100/:7112 terminate; changed JS wrapper continues into config_error_done/initoptions_finish. Builtin-phase invalid-sysconf probe exits=1 but initializes fruit/clears opt_initial. Stop after fatal second read/assure/deferred-showpaths, verify finish unreachable. Source: reviews/loop-unattended/2132-d10e96661-startup-exit.md. **Addressed:** D-3182
+
+
+- [x] `mon.c` normal_shape → new_were message continuation — C mon.c:4430–4462/were.c:95–138 emits visible transformation pline before set_mon_data/heal/armor; js/were.js:164 starts void pline then mutates immediately. Await in normal_shape only observes armor chain. Complete/propagate message boundary before mutation and mimic processing; verify input suspension. Source: reviews/loop-unattended/2136-ae5beffe4-monster-closure.md. **Addressed:** D-3181 `b230d7c85`
 
 
 - [x] `sp_lev.c` lspo_teleport_region/lspo_levregion validation — C sp_lev.c:5442–5460/:5471–5494 and nhlua.c:1078–1104/:1121–1133 reject invalid dir/type and numeric boolean 2; JS l_teleport_region/l_levregion silently default/coerce. Re-port shared adapters in C order including padding/name. Source: reviews/loop-unattended/2126-2b25db15c-special-level-bindings.md. **Addressed:** D-3175 `3f8f47e04`

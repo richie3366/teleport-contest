@@ -8890,11 +8890,10 @@ export function initoptions_init() {
 
 /**
  * C options.c initoptions `:7078–7115` — sysconf pass + finish.
- * No live JS caller yet (C callers: earlyarg.c scores_only `:419`,
- * unixmain.c `:150`; restore.c:716 and wintty.c:523 cite it in
- * comments): JS startup resolves options in-process (rcfile +
- * init_fruit_chain run there directly); initoptions_init is live (same
- * file). assure_syscf_file `:7093` (cfgfiles.js) and
+ * Live caller: earlyarg.js scores_only (C earlyarg.c `:419`). Unix
+ * startup is flattened in jsmain.js start; restore.c:716 and
+ * wintty.c:523 mention this wrapper only in comments.
+ * assure_syscf_file `:7093` (cfgfiles.js) and
  * do_deferred_showpaths `:7112` (files.js; reveal_paths named there)
  * are wired; no named omits remain in this body.
  */
@@ -8906,12 +8905,15 @@ export function initoptions() {
     /* C `:7090–7108` SYSCF (config.h:233) + SYSCF_FILE (config.h:234)
        both live on this build. */
     assure_syscf_file(); // C `:7093`
+    if (game.program_state?.gameover) return; // C fatal open never returns
     config_error_init(true, SYSCF_FILE, false); // C `:7094`
     if (!game.go) game.go = {};
     game.go.opt_phase = SYSCF_OPT; // C `:7097`
     if (!read_config_file(SYSCF_FILE, SET_IN_SYSCONF)) { // C `:7098`
-        if (config_error_done() && !game.iflags?.initoptions_noterminate) // C `:7099`
+        if (config_error_done() && !game.iflags?.initoptions_noterminate) { // C `:7099`
             nh_terminate(EXIT_FAILURE); // C `:7100`
+            return; // C exit() cannot reach the second error drain or finish
+        }
     }
     config_error_done(); // C `:7102`
     /* C `:7111–7112` deferred --showpaths exit. C-gd fields live on
@@ -8919,6 +8921,7 @@ export function initoptions() {
        deferred_showpaths for --showpaths). */
     if (game.gd?.deferred_showpaths) { // C `:7111`
         do_deferred_showpaths(0); // C `:7112` — does not return
+        return; // C ATTRNORETURN: never enter initoptions_finish
     }
     initoptions_finish(); // C `:7114`
 }

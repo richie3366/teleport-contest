@@ -2,6 +2,8 @@
 
 SHA `d10e96661`, D-3172; 2026-09-30; +105/-124 JS. Claims review 2131 startup closure.
 
+**Addressed:** D-3182
+
 ## Intent vs deliverable
 
 “Startup keeps system options through user rc” replaces startup defaults,
