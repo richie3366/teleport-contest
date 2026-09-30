@@ -105,9 +105,9 @@
 {"fn":"sel_set_door","c":"4647-4662","status":"ported","js":["js/mklev.js:sel_set_door"],"d":["D-3007"],"at":"2026-09-28@12641c043"}
 {"fn":"lspo_door","c":"4671-4734","status":"ported","js":["js/mklev.js:lspo_door"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"l_table_getset_feature_flag","c":"4739-4755","status":"unknown"}
-{"fn":"cvt_to_abscoord","c":"4772-4788","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cvt_to_abscoord","c":"4772-4788","status":"ported","js":["js/mklev.js:cvt_to_abscoord"],"d":["D-3168"],"at":"2026-09-30@c8af100c3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cvt_to_relcoord","c":"4793-4802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nhl_abs_coord","c":"4811-4836","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nhl_abs_coord","c":"4811-4836","status":"ported","js":["js/mklev.js:nhl_abs_coord"],"d":["D-3168"],"at":"2026-09-30@c8af100c3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_feature","c":"4844-4923","status":"unknown","d":["D-2712"],"at":"seed@a30a7de84"}
 {"fn":"lspo_gas_cloud","c":"4929-4965","status":"unknown"}
 {"fn":"lspo_terrain","c":"4978-5038","status":"ported","js":["js/mklev.js:lspo_terrain"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}

@@ -93,7 +93,7 @@
 {"fn":"optfn_statuslines","c":"4067-4107","status":"ported","js":["js/options.js:optfn_statuslines"],"d":["D-3161"],"at":"2026-09-30@deff666da","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_subkeyvalue","c":"4111-4131","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_suppress_alert","c":"4135-4161","status":"ported","js":["js/options.js:optfn_suppress_alert"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"optfn_symset","c":"4167-4236","status":"partial","js":["js/options.js:optfn_symset"],"at":"2026-09-30@2b25db15c","note":"stale: js/options.js:3447 (read_sym_file/switch_symbols/handler named)"}
+{"fn":"optfn_symset","c":"4167-4236","status":"ported","js":["js/options.js:optfn_symset"],"at":"2026-09-30@c8af100c3","note":"stale: js/options.js:3447 whole per D-3162 DECgraphics (read_sym_file/switch_symbols file-IO + do_handler/do_symset browser named; flags gated, roguesymset/perminv precedent)"}
 {"fn":"optfn_term_cols","c":"4239-4277","status":"ported","js":["js/options.js:optfn_term_cols"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_term_rows","c":"4280-4318","status":"ported","js":["js/options.js:optfn_term_rows"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_tile_file","c":"4321-4351","status":"ported","js":["js/options.js:optfn_tile_file"],"d":["D-3167"],"at":"2026-09-30@2b25db15c","note":"refresh: no JS symbol (measured MISSING)"}

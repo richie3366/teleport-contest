@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `options.c` optfn_symset — coverage PARTIAL (C 51 code L `options.c:4167–4236` / JS 31 code L in js/options.js; hops —, callers 0, RNG 0, msg 1) @e611ec47f
-- [ ] `sp_lev.c` nhl_abs_coord — coverage MISSING (C 20 code L `sp_lev.c:4811–4836` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4d4f8e851
 - [ ] `ball.c` Placebc — coverage MISSING (C 18 code L `ball.c:259–284` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
 - [ ] `options.c` optfn_scroll_amount — coverage MISSING (C 18 code L `options.c:3763–3791` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
 - [ ] `options.c` optfn_scroll_margin — coverage MISSING (C 18 code L `options.c:3794–3821` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @2b25db15c
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `options.c` set_playmode — coverage PARTIAL (C 9 code L `options.c:10134–10152` / JS 5 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @2b25db15c
 - [ ] `role.c` role_gendercount — coverage PARTIAL (C 9 code L `role.c:1399–1412` / JS 6 code L in js/roles.js; hops —, callers 1, RNG 0, msg 0) @2b25db15c
 - [ ] `options.c` optfn_versinfo — coverage PARTIAL (C 42 code L `options.c:4472–4534` / JS 31 code L in js/options.js; hops —, callers 0, RNG 0, msg 1) @2b25db15c
+- [ ] `options.c` optfn_crash_email — coverage MISSING (C 16 code L `options.c:1259–1282` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @c8af100c3
+- [ ] `options.c` optfn_crash_name — coverage MISSING (C 16 code L `options.c:1285–1308` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @c8af100c3
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

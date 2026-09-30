@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3168 — `sp_lev.c` nhl_abs_coord + cvt_to_abscoord ports (coverage) + stale optfn_symset
+
+- **Status:** open (coverage cluster: 2 whole-body ports + lua_tointeger stand-in + 11 tests; stale optfn_symset → ported directly. +68 js/mklev.js — under the ~80 bar with the file/closure exhausted: only sp_lev.c queue row, closure = ported/by-design/live-documented.)
+- **Symptom:** coverage gap, not a corpus divergence — the `nh.abscoord` entry + its map-origin helper MISSING in `js/` (generated Open — coverage row; no corpus session blocked, no RNG reach). The queue head above it (`optfn_symset` PARTIAL) was stale-complete per D-3162.
+- **C locus:**
+  - `nhl_abs_coord`: sp_lev.c:4810–4836 (lua_gettop dispatch `:4814`; pair arm `:4817–4822` lua_tointeger; table arm `:4823–4830` get_table_int; error `:4831–4833`; registered `nh.abscoord` nhlua.c:1863).
+  - `cvt_to_abscoord`: sp_lev.c:4771–4788 (coder-room arm `:4781–4783`; xstart arm `:4784–4786`; no-effect-outside-mklev comment `:4773–4780`; coordxy = int16_t, global.h:71).
+- **JS was:** no symbols for either; absolute-analogue sites documented the skipped round-trip (`selection_iterate_lua` js/mklev.js:4652, `nhl_start_timer_at` js/mklev.js:30768, reviews 791/810).
+- **Fix:** ported both whole in C order, unpacked-args idiom (lspo_mazewalk precedent): arguments.length dispatch, new `lua_tointeger_unpacked` (mistype → 0, never throws — unlike checkinteger), get_table_int ≡ in-module `luaL_checkinteger_unpacked` on the fields (`:5979` precedent), {x, y} out-param for cvt (get_coord idiom), pair returns [x, y] (C pushes 2 values) / table returns a fresh {x, y} (C newtable + entries), nhl_error on bad forms. No new cross-module edge (all callees in-module: cvt, checkinteger, nhl_error). optfn_symset ledger → ported direct (stale: D-3162 DECgraphics file-IO/do_handler namings + H_UTF8 arm compiled out under ENHANCED_SYMBOLS, config.h:368).
+- **JS:** js/mklev.js:22375 (lua_tointeger_unpacked), :22391 (cvt_to_abscoord), :22416 (nhl_abs_coord); scripts/nhl-abscoord.test.mjs (11 tests).
+- **Callers:**
+  - `nhl_abs_coord`: table-registered lua_CFunction, 0 C call sites (extern.h decl + nhlua.c:1863 reg only) → JS export, no wired callers yet (lspo_mazewalk precedent: exported, zero callers); no JS `nh.*` registry exists to extend.
+  - `cvt_to_abscoord`: C sp_lev.c:4819/:4826 → js/mklev.js:22423/:22429 pair/table arms (wired, this commit); the other 11 C sites sit in ledger by-design callers with no JS bodies (l_obj_at :398, l_obj_placeobj :424, l_obj_bury :616, l_selection_gradient :888–889, nhl_gettrap :428, nhl_deltrap :483, nhl_getmap :541, nhl_timer_has/peek/stop/start_at :1545/:1575/:1602/:1628 — all seed:file); nhl_timer_start_at keeps its local absolute analogue `nhl_start_timer_at` (:30768 doc folds rel+cvt, not rewired).
+- **Verify:** `node scripts/verify.mjs --fn nhl_abs_coord,cvt_to_abscoord` → VERIFY: PASS — hidden notes ×2 (no corpus session blocked, expected for coverage rows); REACH-OK ×2 (no RNG-tagged reach, smoke spreads 24/24 PASS each); syntax; rule2; green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). Focused `node --test scripts/nhl-abscoord.test.mjs`: 11/11 PASS (origin split incl. roomless-coder else, pair/table shapes, tointeger truncation + mistype-0s, checkinteger throws incl. array input, all 4 bad-form throws).
+- **Named omissions:**
+  - `nhl_abs_coord`: nhl_add_table_entry_int (by-design; the table arm builds the object directly); lua_newtable/push stack ops (no Lua runtime — unpacked idiom).
+  - `cvt_to_abscoord`: none — whole body, 0 callees.
+- **Ledger:** nhl_abs_coord ported; cvt_to_abscoord ported
+- **Next:** continue the breadth queue from the regenerated block.
+
 ## D-3167 — options.c 9× optfn ports (altkeyhandling/glyph/tile_file/tile_height/tile_width/vary_msgcount/crash_urlmax/pile_limit/player_selection)
 
 - **Status:** open

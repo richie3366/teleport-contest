@@ -22366,6 +22366,74 @@ function luaL_checkinteger_unpacked(v) {
 }
 
 /**
+ * C ref: lauxlib lua_tointeger, as nhl_abs_coord calls it on stack
+ * positions 1/2 (`:4818–4819`). Unlike luaL_checkinteger, a wrong
+ * type is NOT an error: a finite number truncates toward 0, a
+ * numeric string converts the way lua_tonumber does, anything else
+ * (nil, table, boolean) is 0.
+ */
+function lua_tointeger_unpacked(v) {
+    if (typeof v === 'number' && Number.isFinite(v)) return Math.trunc(v);
+    if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v)))
+        return Math.trunc(Number(v));
+    return 0; // C lua_tointeger: not a number, not convertible → 0
+}
+
+/**
+ * C ref: sp_lev.c cvt_to_abscoord `:4771–4788` — guts of
+ * nhl_abs_coord (`:4757` comment): add the map origin (coder-room
+ * lx/ly when a coder room is active, else gx.xstart/gy.ystart) onto
+ * an in/out coord pair. Unpacked stand-in for (coordxy *x,
+ * coordxy *y): mutates xy in place (get_coord out-param idiom).
+ * Outside mklev the offsets are 0 (C `:4773–4780` comment).
+ * @param {{x:number,y:number}} xy in/out coord pair
+ */
+export function cvt_to_abscoord(xy) {
+    const coder = game.gc?.coder ?? null; // C `:4781` gc.coder
+    if (coder && coder.croom) { // C `:4781` gc.coder->croom
+        xy.x = (xy.x + coder.croom.lx) | 0; // C `:4782`
+        xy.y = (xy.y + coder.croom.ly) | 0; // C `:4783`
+    } else { // C `:4784`
+        xy.x = (xy.x + (game.splev_xstart | 0)) | 0; // C `:4785` gx.xstart
+        xy.y = (xy.y + (game.splev_ystart | 0)) | 0; // C `:4786` gy.ystart
+    }
+}
+
+/**
+ * C ref: sp_lev.c nhl_abs_coord `:4810–4836` — the `nh.abscoord`
+ * entry (nhlua.c `:1863`): convert a map/room-relative coord to
+ * absolute. Unpacked forms (C `:4814` lua_gettop): an (x, y) pair
+ * (C `:4817–4822`; lua_tointeger, so mistypes are 0, never an
+ * error) returning the converted [x, y] pair (C pushes 2 values),
+ * or a single {x, y} table (C `:4823–4830`; get_table_int ≡
+ * luaL_checkinteger_unpacked on the fields, `:5979` precedent)
+ * returning a fresh {x, y} table (C `:4827–4829` lua_newtable +
+ * entries). Anything else is nhl_error (C `:4831–4833`; the
+ * return after it is NOTREACHED).
+ * Named: nhl_add_table_entry_int (by-design; the table arm builds
+ * the object directly).
+ */
+export function nhl_abs_coord(a, b) {
+    const argc = arguments.length; // C `:4814` lua_gettop
+    let x = -1, y = -1; // C `:4815`
+    if (argc === 2) { // C `:4817`
+        x = lua_tointeger_unpacked(a) | 0; // C `:4818` (coordxy) lua_tointeger
+        y = lua_tointeger_unpacked(b) | 0; // C `:4819`
+        const xy = { x, y };
+        cvt_to_abscoord(xy); // C `:4820`
+        return [xy.x, xy.y]; // C `:4821–4822` two pushed integers
+    } else if (argc === 1 && a !== null && typeof a === 'object') { // C `:4823` LUA_TTABLE
+        x = luaL_checkinteger_unpacked(a.x) | 0; // C `:4824` (coordxy) get_table_int "x"
+        y = luaL_checkinteger_unpacked(a.y) | 0; // C `:4825` (coordxy) get_table_int "y"
+        const xy = { x, y };
+        cvt_to_abscoord(xy); // C `:4826`
+        return { x: xy.x, y: xy.y }; // C `:4827–4829` newtable + x/y entries
+    } else {
+        nhl_error('nhl_abs_coord: Wrong args'); // C `:4832` (NOTREACHED below)
+    }
+}
+
+/**
  * C ref: sp_lev.c get_coord :5319–5366.
  * Unpacked stand-in for (lua_State, stack index, *x, *y): a JS object or
  * array is LUA_TTABLE, null/undefined is LUA_TNIL, anything else is a
