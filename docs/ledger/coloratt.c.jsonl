@@ -13,7 +13,7 @@
 {"fn":"add_menu_coloring","c":"617-660","status":"partial","js":["js/options.js:add_menu_coloring"],"omit":"`config_error_add(\"Malformed MENUCOLOR\")` sink (msgtype_add precedent); `cnf_line_MENUCOLOR` caller (no JS read_config_file dispatch).","d":["D-2763"],"at":"seed@a30a7de84"}
 {"fn":"free_menu_coloring","c":"664-680","status":"ported","js":["js/options.js:free_menu_coloring"],"d":["D-3071"],"at":"2026-09-29@9e3e6255b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"free_one_menu_coloring","c":"684-706","status":"unknown"}
-{"fn":"count_menucolors","c":"709-717","status":"unknown"}
+{"fn":"count_menucolors","c":"709-717","status":"ported","js":["js/options.js:count_menucolors"],"at":"2026-09-30@d37e25ba4","note":"stale: js/options.js:5835; complete linked-list walk"}
 {"fn":"check_enhanced_colors","c":"723-760","status":"ported","js":["js/options.js:check_enhanced_colors"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wc_color_name","c":"764-797","status":"ported","js":["js/options.js:wc_color_name"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"onlyhexdigits","c":"801-810","status":"ported","js":["js/options.js:onlyhexdigits"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}

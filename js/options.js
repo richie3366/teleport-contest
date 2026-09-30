@@ -6992,69 +6992,82 @@ function menucolors_done() {
  * C short-circuit, ESC, truncation and remove-shift semantics below.
  */
 export async function handler_menu_colors() {
-    for (;;) { // :6416 menucolors_again
-        const nmc = count_menucolors(); // :6417
-        const opt_idx = await handle_add_list_remove('menucolor', nmc); // :6418
-        if (opt_idx === 3) { // :6419 done
-            return menucolors_done(); // :6420–6430
-        } else if (opt_idx === 0) { // :6432 add new
-            const mcbuf = await getlin('What new menucolor pattern?'); // :6433–6434
-            if (mcbuf.charCodeAt(0) === 0x1b) return menucolors_done(); // :6435–6436 ESC
-            let mcclr = -1;
-            let mcattr = MC_ATR_NONE;
-            if (
-                mcbuf.length > 0 && // :6437 *mcbuf
-                test_regex_pattern(mcbuf, 'MENUCOLORS regex') && // :6438
-                (mcclr = await query_color(null, NO_COLOR)) !== -1 && // :6439
-                (mcattr = await query_attr(null, MC_ATR_NONE)) !== -1 && // :6440
-                !add_menu_coloring_parsed(mcbuf, mcclr, mcattr) // :6441
-            ) {
-                await pline('Error adding the menu color.'); // :6442
-                await tty_wait_synch(); // :6443
+    const clr = NO_COLOR; // C :6414; menu rows use this color, not mcclr.
+    for (;;) { // C :6416 menucolors_again
+        const nmc = count_menucolors(); // C :6417
+        const opt_idx = await handle_add_list_remove('menucolor', nmc); // C :6418
+        if (opt_idx === 3) { // C :6419–6430 menucolors_done
+            return menucolors_done();
+        } else if (opt_idx === 0) { // C :6432 add new
+            // C :6433–6434 initializes the input buffer before getlin.
+            const mcbuf = await getlin('What new menucolor pattern?');
+            if (mcbuf[0] === '\x1b') { // C :6435–6436
+                return menucolors_done();
             }
-            // :6445 goto menucolors_again
-        } else { // :6447 list (1) or remove (2)
-            // :6482–6484 end_menu prompt, painted as header (perminv precedent)
-            const raw = [
-                {
-                    text: `${opt_idx === 1 ? 'List of' : 'Remove which'} menu colors`,
-                    selectable: false,
-                },
-            ];
-            let mc_idx = 0; // :6459
-            for (let tmp = menuColorings; tmp; tmp = tmp.next) { // :6453, :6460
-                const sattr = attr2attrname(tmp.attr); // :6461
-                // :6462 clrbuf[QBUFSZ] copy + :6463 (void) strNsubst ' ' → '-'
-                const sclr = strNsubst(clr2colorname(tmp.color), ' ', '-', 0)
-                    .slice(0, QBUFSZ - 1);
-                mc_idx++; // :6464 any.a_int = ++mc_idx
-                // :6466–6468 suffix — buf is `"` `\` `"` `=color[&attr]`
-                // (single backslash + quote, no trailing quote); :6470 length available
-                const buf = `"\\\"=${sclr}${tmp.attr !== MC_ATR_NONE ? `&${sattr}` : ''}`;
-                const ln = BUFSZ - buf.length - 1;
-                // :6471–6475 main string with '...' truncation
-                const main = `"${tmp.origstr.length > ln
-                    ? `${tmp.origstr.slice(0, Math.max(ln - 3, 0))}...`
-                    : tmp.origstr}`;
-                // :6477 combine (skip buf's initial quote)
-                raw.push({ text: main + buf.slice(1), selectable: true, a_int: mc_idx }); // :6478–6479
+            let mcclr, mcattr;
+            // C :6437–6441: retain the ordered short-circuit assignments.
+            if (mcbuf.length !== 0
+                && test_regex_pattern(mcbuf, 'MENUCOLORS regex')
+                && (mcclr = await query_color(null, NO_COLOR)) !== -1
+                && (mcattr = await query_attr(null, MC_ATR_NONE)) !== -1
+                && !add_menu_coloring_parsed(mcbuf, mcclr, mcattr)) {
+                await pline('Error adding the menu color.'); // C :6442
+                await tty_wait_synch(); // C :6443 wait_synch
             }
-            if (opt_idx === 1) { // :6485–6486 PICK_NONE
-                await select_menu_pick_none(raw); // :6487
-                continue; // :6495–6496 pick_cnt >= 0 → again
+            continue; // C :6445
+        } else { // C :6447 list (1) or remove (2)
+            let pickCnt;
+            let mc_idx = 0; // C :6459
+            // C :6456–6458: window creation, start_menu, zeroany are
+            // represented by the raw menu consumed by the live selectors.
+            const raw = [];
+            for (let tmp = menuColorings; tmp; tmp = tmp.next) { // C :6460
+                const sattr = attr2attrname(tmp.attr); // C :6461
+                const sclr = strNsubst(clr2colorname(tmp.color), ' ', '-', 0); // C :6462–6463
+                const a_int = ++mc_idx; // C :6464
+                // C :6466–6468: two quotes, then =color[&attribute].
+                // The first quote is skipped when this suffix is appended.
+                const buf = `""=${sclr}${tmp.attr !== MC_ATR_NONE ? '&' : ''}${tmp.attr !== MC_ATR_NONE ? sattr : ''}`;
+                const ln = (BUFSZ - buf.length - 1) >>> 0; // C :6470 unsigned
+                let mcbuf = '"'; // C :6471
+                if (tmp.origstr.length > ln) { // C :6472
+                    mcbuf += tmp.origstr.slice(0, ln - 3) + '...'; // C :6473
+                } else {
+                    mcbuf += tmp.origstr; // C :6475
+                }
+                mcbuf += buf.slice(1); // C :6477
+                raw.push({ // C :6478–6479 add_menu
+                    text: mcbuf,
+                    selectable: true,
+                    a_int,
+                    attr: ATR_NONE,
+                    color: clr,
+                });
             }
-            // :6485–6487 PICK_ANY; cancelValue keeps C's pick_cnt -1
-            // (ESC) distinct from pick_cnt 0 (finish-empty).
-            const picks = await select_menu_pick_any(raw, { cancelValue: null });
-            if (picks === null) return optn_ok; // :6495 pick_cnt == -1 → :6498 return
-            if (!picks.length) continue; // :6495 pick_cnt == 0 → menucolors_again
-            for (let k = 0; k < picks.length; k++) { // :6488–6491
-                // -k: earlier removals shift later indices (filter order).
-                free_one_menu_coloring((picks[k].a_int | 0) - 1 - k);
+            // C :6482–6484 end_menu; selector adapters take the prompt
+            // as their first nonselectable row.
+            const prompt = `${opt_idx === 1 ? 'List of' : 'Remove which'} menu colors`;
+            raw.unshift({ text: prompt, selectable: false });
+            let pick_list = null; // C :6452
+            if (opt_idx === 1) { // C :6485–6487 PICK_NONE
+                pickCnt = await select_menu_pick_none(raw);
+            } else { // C :6485–6487 PICK_ANY
+                pick_list = await select_menu_pick_any(raw, { cancelValue: null });
+                pickCnt = pick_list === null ? -1 : pick_list.length;
             }
-            // :6492 pick_list freed (GC); :6494 destroy (inside helpers);
-            // :6495–6496 pick_cnt >= 0 → again
+            if (pickCnt > 0) { // C :6488
+                for (let pick_idx = 0; pick_idx < pickCnt; ++pick_idx) {
+                    free_one_menu_coloring((pick_list[pick_idx].a_int | 0)
+                        - 1 - pick_idx); // C :6490–6491
+                }
+                pick_list = null; // C :6492 free; JS owns rows via GC.
+            }
+            // C :6494 destroy_nhwindow is performed by the selector.
+            if (pickCnt >= 0) { // C :6495–6496
+                continue;
+            }
         }
+        return OPTN_OK; // C :6498; cancellation skips menucolors_done.
     }
 }
 
@@ -9253,7 +9266,7 @@ async function doset_compound_via_getlin(opt) {
         } else if (name === 'perminv_mode') {
             reslt = await handler_perminv_mode();
         } else if (name === 'menu colors') {
-            reslt = await handler_menu_colors();
+            reslt = await optfn_o_menu_colors(allopt_idx(name), REQ_DO_HANDLER, false, null, EMPTY_OPTSTR);
         } else if (name === 'autopickup exceptions') {
             reslt = await handler_autopickup_exception(); // C `:8318`
         } else if (name === 'number_pad') {
@@ -9388,7 +9401,7 @@ function simple_opt_get_val(opt) {
         return (n != null && n >= 3) ? '3' : '2';
     }
     if (name === 'menu colors') {
-        return currently_set_val(count_menucolors());
+        return doset_compopt_get_val(optfn_o_menu_colors, name);
     }
     if (name === 'status highlight rules') {
         return doset_compopt_get_val(optfn_o_status_hilites, name);
@@ -9498,7 +9511,11 @@ export async function select_menu_pick_one(rawItems) {
             : '(end) ';
         await paint_corner_nhw_menu(entries, morestr);
         await flush_screen(1);
-        const key = await nhgetch();
+        const input = String.fromCharCode(await nhgetch());
+        // C wintty.c:1555–1561 — explicit choices bypass command remapping.
+        const explicit = page.some(it => it.selectable && it.selector === input)
+            || collect_menu_gacc(items.filter(it => it.selectable), PICK_ONE).includes(input);
+        const key = (explicit ? input : map_menu_cmd(input)).charCodeAt(0);
         const ch = String.fromCharCode(key);
         const hit = (key !== 27 && key !== 13 && key !== 10 && key !== 32
             && ch !== '>' && ch !== '<' && ch !== '^' && ch !== '|')
@@ -9846,7 +9863,10 @@ export async function select_menu_pick_any(rawItems, opts = {}) {
                 : '(end) ';
             await paint_corner_nhw_menu(entries, morestr);
             await flush_screen(1);
-            const key = await nhgetch();
+            const input = String.fromCharCode(await nhgetch());
+        // C wintty.c:1555–1561 — explicit choices bypass command remapping.
+        const explicit = page.some(it => it.selectable && it.selector === input);
+        const key = (explicit ? input : map_menu_cmd(input)).charCodeAt(0);
             // C wintty.c:1395–1399 — the pending count lives for exactly
             // one key: apply the reset queued by the previous key first.
             if (resetCount) {
@@ -10873,8 +10893,8 @@ export async function doset() {
         { name: 'autocompletions', val: currently_set_val(count_autocompletions()) }, // C options.c:8358 optfn_o_autocomplete get_val (n_currently_set)
         { name: 'autopickup exceptions', val: currently_set_val(count_apes()) },
         // C options.c:8336 optfn_o_bind_keys get_val (n_currently_set).
-        { name: 'bind keys', val: currently_set_val(count_bind_keys()) },
-        { name: 'menu colors', val: currently_set_val(count_menucolors()) },
+        { name: 'bind keys', get_val: () => doset_compopt_get_val(optfn_o_bind_keys, 'bind keys') },
+        { name: 'menu colors', get_val: () => doset_compopt_get_val(optfn_o_menu_colors, 'menu colors') },
         { name: 'message types', val: currently_set_val(msgtype_count()) },
         { name: 'status condition fields', val: currently_set_val(count_cond()) }, // C optfn_o_status_cond get_val `:8427–8432`
         { name: 'status highlight rules', get_val: () => doset_compopt_get_val(optfn_o_status_hilites, 'status highlight rules') }, // C options.c:8461 get_val (n_currently_set)
@@ -10935,7 +10955,8 @@ export async function doset() {
     for (const name of othrPicks) {
         // C options.c:8340 optfn_o_bind_keys do_handler.
         if (name === 'bind keys') {
-            await handler_rebind_keys();
+            const reslt = await optfn_o_bind_keys(allopt_idx(name), REQ_DO_HANDLER, false, null, EMPTY_OPTSTR);
+            if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         } else if (name === 'autocompletions') {
             // C options.c:8362 optfn_o_autocomplete do_handler; the optfn
             // returns optn_ok, so doset `:8939` marks the row for a later
@@ -10950,7 +10971,8 @@ export async function doset() {
             const reslt = await handler_msgtype();
             if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         } else if (name === 'menu colors') {
-            await handler_menu_colors();
+            const reslt = await optfn_o_menu_colors(allopt_idx(name), REQ_DO_HANDLER, false, null, EMPTY_OPTSTR);
+            if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         } else if (name === 'status condition fields') {
             if (await cond_menu()) opt_set_in_config[PFX_COND_IDX] = true;
         } else if (name === 'status highlight rules') {
@@ -11478,7 +11500,7 @@ const allopt = [
     // optlist.h:196 NHOPTB(bgcolors)
     { name: 'bgcolors', opttyp: BoolOpt, idx: 23, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'bgcolors' }, optfn: null, termpref: Term_Off },
     // optlist.h:199 NHOPTO("bind keys")
-    { name: 'bind keys', opttyp: OthrOpt, idx: 24, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
+    { name: 'bind keys', opttyp: OthrOpt, idx: 24, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: optfn_o_bind_keys },
     // optlist.h:206 NHOPTB(BIOS)
     { name: 'BIOS', opttyp: BoolOpt, idx: 25, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
     // optlist.h:210 NHOPTB(blind)
@@ -11646,7 +11668,7 @@ const allopt = [
     // optlist.h:479 NHOPTB(menucolors)
     { name: 'menucolors', opttyp: BoolOpt, idx: 107, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'use_menu_color' }, optfn: null },
     // optlist.h:482 NHOPTO("menu colors")
-    { name: 'menu colors', opttyp: OthrOpt, idx: 108, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
+    { name: 'menu colors', opttyp: OthrOpt, idx: 108, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: optfn_o_menu_colors },
     // optlist.h:484 NHOPTC(menuinvertmode)
     { name: 'menuinvertmode', opttyp: CompOpt, idx: 109, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_menuinvertmode },
     // optlist.h:487 NHOPTC(menustyle)
@@ -11660,7 +11682,7 @@ const allopt = [
     // optlist.h:499 NHOPTB(montelecontrol)
     { name: 'montelecontrol', opttyp: BoolOpt, idx: 114, setwhere: SET_WIZONLY, initval: false, addr: { obj: 'iflags', key: 'mon_telecontrol' } /* C: &iflags.mon_telecontrol */, optfn: null },
     // optlist.h:502 NHOPTC(monsters)
-    { name: 'monsters', opttyp: CompOpt, idx: 115, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
+    { name: 'monsters', opttyp: CompOpt, idx: 115, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_monsters },
     // optlist.h:505 NHOPTC(mouse_support)
     { name: 'mouse_support', opttyp: CompOpt, idx: 116, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_mouse_support },
     // optlist.h:509 NHOPTC(msg_window)
@@ -12937,4 +12959,122 @@ export async function all_options_strbuf(sbuf) {
     all_options_statushilites(sbuf); // C `:9740–9742` hilites (live [6/7], STATUS_HILITES on)
     const wizkit = game.wizkit || '';
     if (wizkit) strbuf_append(sbuf, `WIZKIT=${wizkit}\n`);
+}
+
+
+/** C options.c:8324–8343 — OthrOpt "bind keys", optlist.h:199.
+ * Value requests are synchronous; the handler returns its input promise.
+ * C ignores handler_rebind_keys' result and always returns optn_ok.
+ */
+export function optfn_o_bind_keys(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C :8328–8330
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C :8331–8332, empty arm
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C :8333
+        if (opts == null) { // C :8334–8335
+            return OPTN_ERR;
+        }
+        set_optbuf(opts, currently_set_val(count_bind_keys())); // C :8336
+        return OPTN_OK; // C :8337
+    }
+    if (req === REQ_DO_HANDLER) { // C :8339–8341
+        return handler_rebind_keys().then(() => OPTN_OK);
+    }
+    return OPTN_OK; // C :8342
+}
+
+/** C options.c:8368–8386 — OthrOpt "menu colors", optlist.h:482.
+ * Only do_handler can reach input; all other requests keep sync callers.
+ */
+export function optfn_o_menu_colors(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C :8371–8373
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C :8374–8375, empty arm
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C :8376
+        if (opts == null) { // C :8377–8378
+            return OPTN_ERR;
+        }
+        set_optbuf(opts, currently_set_val(count_menucolors())); // C :8379
+        return OPTN_OK; // C :8380
+    }
+    if (req === REQ_DO_HANDLER) { // C :8382–8384
+        return handler_menu_colors();
+    }
+    return OPTN_OK; // C :8385
+}
+
+/** C options.c:2378–2393 — obsolete "monsters" compound option.
+ * Init, set, and other requests succeed; value requests write empty.
+ * Unlike the Othr handlers, C does not guard a NULL output buffer here.
+ */
+export function optfn_monsters(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C :2382–2384
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C :2385–2387
+        return OPTN_OK;
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C :2388–2391
+        set_optbuf(opts, '');
+        return OPTN_OK;
+    }
+    return OPTN_OK; // C :2392
+}
+
+/** C options.c:8111–8121 — first mapped command for an input byte.
+ * Menu callers preserve explicit selectors before applying this lookup
+ * (wintty.c:1555–1561). Duplicate aliases retain first-match behavior.
+ */
+export function map_menu_cmd(ch) {
+    const { cmds, ops } = mapped_menu_strings();
+    // C strchr sees the implicit terminator when ch is NUL.
+    const byte = typeof ch === 'number'
+        ? String.fromCharCode(ch & 0xff) : ch;
+    const found = (cmds + '\0').indexOf(byte); // C :8113
+    if (found >= 0) { // C :8115
+        const mapped = (ops + '\0')[found]; // C :8116–8118
+        return typeof ch === 'number' ? mapped.charCodeAt(0) : mapped;
+    }
+    return ch; // C :8120
+}
+
+/** C options.c:9372–9382 — release every autopickup exception.
+ * game.apelist holds the C chain as a newest-first array. Advance the
+ * live head after regex_free; allocations are owned by JS GC.
+ * save.c:1155 freedynamicdata is the absent caller (named in D-3180).
+ */
+export function free_autopickup_exceptions() {
+    while (game.apelist != null && game.apelist.length !== 0) { // C :9376
+        const ape = game.apelist[0];
+        // C :9377 free(pattern): GC releases it with the detached node.
+        regex_free(ape.regex); // C :9378
+        game.apelist.shift(); // C :9379 ga.apelist = ape->next
+        if (game.apelist.length === 0) {
+            game.apelist = null; // C NULL at the end of the chain.
+        }
+        // C :9380 free(ape): no state writes to a freed node.
+    }
+    game.apelist = null;
+}
+
+/** C options.c:10116–10127 — clear each window's foreground/background.
+ * fgp and bgp alias the live wcolors table; empty strings are non-NULL
+ * allocations in C and must also become null. JS GC replaces free.
+ * save.c:1176 freedynamicdata is the absent caller (named in D-3180).
+ */
+export function options_free_window_colors() {
+    const colors = wcolors_table();
+    for (let j = 0; j < WC_COUNT; ++j) { // C :10120
+        if (colors[j].fg != null) { // C :10121–10122
+            colors[j].fg = null;
+        }
+        if (colors[j].bg != null) { // C :10123–10124
+            colors[j].bg = null;
+        }
+    }
+    game.options_set_window_colors_flag = 0; // C :10126
 }

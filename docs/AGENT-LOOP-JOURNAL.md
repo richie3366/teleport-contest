@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3180 option dispatch, menu-color handler and menu-key lookup with cleanup exports
+
+**C locus:** whole bodies and every brief reference table read:
+**JS:** js/options.js:6994 handler_menu_colors; :12969 optfn_o_bind_keys; :12991 optfn_o_menu_colors; :13014 optfn_monsters; :13032 map_menu_cmd; :13050 free_autopickup_exceptions; :13069 options_free_window_colors. js/invent.js:3216 shared PICK_NONE remap. Scored diff: 216 insertions/75 deletions across two files, seven C functions.
+**Change:** added six complete C-shaped exports and restarted handler_menu_colors in C order. Synchronous option requests stay synchronous; input-bearing do_handler returns the existing async callee promise. Wired option-table pointers, value display and handler dispatch, including C's successful-change marks.
+**Verify:** clean preflight green + strict PASS using installed Node 22.22.0 after correcting PATH. Final command `node scripts/verify.mjs --fn optfn_o_bind_keys,optfn_o_menu_colors,handler_menu_colors,optfn_monsters,map_menu_cmd,free_autopickup_exceptions,options_free_window_colors --full`. Tail from /tmp/D3180-verify-final.log: `PASS syntax 2 changed js file(s): js/invent.js js/options.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS green 2/2 passing`; `PASS strict seed8000-tourist-starter.session.json`; `PASS strict seed0900-tourist-explore-actions.session.json`; `PASS cohort 7/7 passing`; `PASS full 44/44 passing`; `VERIFY: PASS`. git diff --check clean.
+**Named:** - `optfn_o_bind_keys`: none in this body or registered callers. Existing live handler_rebind_keys carries its D-2762 binding-parameter/command integration debt; no new clone was added.
+**Next:** first regenerated Open coverage head, vision_init; grow its same-file/callee cluster from briefs. Phase-2 parks remain closed.
 ## 2026-09-30 — D-3179 ball-and-chain breadcrumb unplace and covet placement wrappers
 
 **C locus:** whole bodies and every brief reference read:

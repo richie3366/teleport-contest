@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `glyphs.c` find_display_sym_customization — coverage MISSING (C 11 code L `glyphs.c:1196–1215` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @9865882fc
-- [ ] `options.c` optfn_o_bind_keys — coverage MISSING (C 11 code L `options.c:8324–8343` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
-- [ ] `options.c` optfn_o_menu_colors — coverage MISSING (C 11 code L `options.c:8368–8386` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `vision.c` vision_init — coverage MISSING (C 11 code L `vision.c:121–142` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
-- [ ] `glyphs.c` find_display_urep_customization — coverage MISSING (C 10 code L `glyphs.c:1218–1236` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `shknam.c` init_shop_selection — coverage MISSING (C 10 code L `shknam.c:360–374` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `sfbase.c` SF_X — coverage MISSING (C 9 code L `sfbase.c:246–262` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
 - [ ] `cfgfiles.c` cnf_line_WIZARDS — coverage MISSING (C 8 code L `cfgfiles.c:795–809` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
-- [ ] `options.c` optfn_monsters — coverage MISSING (C 8 code L `options.c:2378–2393` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
-- [ ] `options.c` pfxfn_IBM_ — coverage MISSING (C 8 code L `options.c:5169–5183` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4bcfa8a7a
 - [ ] `cfgfiles.c` cnf_line_PORTABLE_DEVICE_PATHS — coverage THIN (C 9 code L `cfgfiles.c:1134–1150` / JS 1 code L in js/cfgfiles.js; hops —, callers 0, RNG 0, msg 0) @232081f95
 - [ ] `mail.c` ck_server_admin_msg — coverage THIN (C 8 code L `mail.c:685–700` / JS 0 code L in js/mail.js; hops —, callers 0, RNG 0, msg 0) @232081f95
+- [ ] `sp_lev.c` lspo_room — coverage PARTIAL (C 68 code L `sp_lev.c:4028–4116` / JS 46 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
+- [ ] `sp_lev.c` lspo_level_flags — coverage PARTIAL (C 62 code L `sp_lev.c:3759–3831` / JS 39 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
+- [ ] `sp_lev.c` lspo_gas_cloud — coverage PARTIAL (C 27 code L `sp_lev.c:4929–4965` / JS 16 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
+- [ ] `sp_lev.c` lspo_level_init — coverage PARTIAL (C 26 code L `sp_lev.c:3837–3875` / JS 18 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
+- [ ] `invent.c` doprarm — coverage PARTIAL (C 22 code L `invent.c:4601–4638` / JS 14 code L in js/invent.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
+- [ ] `getpos.c` cmp_coord_distu — coverage PARTIAL (C 12 code L `getpos.c:312–329` / JS 8 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

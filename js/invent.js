@@ -248,7 +248,7 @@ import {
 } from './attrib.js';
 import { ing_suffix, strstri, strsubst, ordin, highc, lcase } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
-import { select_menu_pick_any, select_menu_pick_one, hide_unhide_msgtypes, set_option_mod_status, SET_GAMEVIEW } from './options.js';
+import { map_menu_cmd, select_menu_pick_any, select_menu_pick_one, hide_unhide_msgtypes, set_option_mod_status, SET_GAMEVIEW } from './options.js';
 import { rn2 } from './rng.js';
 import { background_enlightenment, enlght_line as enlght_line_txt } from './insight.js';
 import {
@@ -3212,7 +3212,8 @@ export async function select_menu_pick_none(entries) {
             cursor: [morestr.length + 1, page.length],
         });
         await flush_screen(1);
-        const key = await nhgetch();
+        // C wintty.c:1561 — PICK_NONE has no explicit selectors.
+        const key = map_menu_cmd(await nhgetch());
         // C tty_select_menu `:2796–2797` — ESC is pick_cnt -1; Enter/space is 0.
         if (key === 27) {
             cancelled = true;
