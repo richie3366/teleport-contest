@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-30
+
+- [x] `questpgr.c` find_quest_artifact — coverage PARTIAL (C 23 code L `questpgr.c:89–120` / JS 11 code L in js/quest.js; hops 5, callers 1, RNG 0, msg 0) @e5816afe0
+
 ## 2026-09-29
 
 - [x] `max_passive_dmg` elemental arm uses bits-only resists_* locals — C `resists_*` ≡ `Resists_Elem` (mondata.c:129–197) artifact `:173–176` + worn/carried `:178–196` arms absent from js/mhitm.js:2318–2322 (locals :407–431 test bits only); full `Resists_Elem` live at js/mondata.js:240, already imported by mhitm.js:15. Call `Resists_Elem(magr, *_RES)` or name the omit. Source: reviews/loop-unattended/2070-d27c7b945-max-passive-dmg-cluster.md. **Addressed:** D-3118 `c1be7a049`

@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3143 — `questpgr.c` quest-artifact search + pline delivery quartet (coverage head + same-file THIN siblings)
+
+- **Status:** fixed (breadth-phase cluster: head `find_quest_artifact` + Open callee `find_qarti` + same-file THIN `deliver_by_pline` + `skip_pager`; 0 corpus sessions blocked on any — coverage completion, not a divergence.)
+- **Symptom:** no corpus divergence — coverage. `find_quest_artifact` covered only FLOOR/MINVENT/BURIED (JS 11 vs C 23 code lines); `find_qarti` inlined the artifact test with no container recursion; `deliver_by_pline` split on newlines (extra empty pline on a trailing newline, no BUFSZ-1 truncation); `do.js` `deliver_splev_message` carried its own split clone that skipped blank lines.
+- **C locus:**
+  - `find_quest_artifact`: `questpgr.c:88–120` (INVENT `:94–95`, FLOOR `:96–97`, MINVENT fmon loop `:98–103`, MIGRATING mons+objs `:104–115`, BURIED `:116–117`).
+  - `find_qarti`: `questpgr.c:72–84` (is_quest_artifact `:78`, Has_contents cobj recursion `:80`; null-invent note `:17`).
+  - `deliver_by_pline`: `questpgr.c:422–436` (eos `:425`, copynchars chunk `:428`, msgp += strlen+1 `:429`, convert_line + pline `:431–432`).
+  - `skip_pager`: `questpgr.c:458–465` (wizkit_wishing TRUE `:462`, else FALSE `:464`).
+- **JS was:** `js/quest.js:138` `find_quest_artifact` (floor/minvent/buried subset, INVENT+MIGRATING named omission); `js/quest.js:124` `find_qarti` (inline oartifact check, no recursion); `js/questpgr.js:1039` `deliver_by_pline` (local, split('\n')); `js/questpgr.js:969` `skip_pager` (already whole); `js/do.js:2279` inlined split clone in `deliver_splev_message`.
+- **Fix:** restarted both quest.js functions in C order over live in-file `is_quest_artifact` (C `:66–70`) + `Has_contents` (const.js); added OBJ_INVENT/OBJ_MIGRATING imports (same const.js edge); restarted `deliver_by_pline` over live eos/copynchars/convert_line/pline and exported it; wired `do.js` `deliver_splev_message` to the live export (inline clone deleted, now-unused `convert_line` import dropped); `skip_pager` verified whole, no diff.
+- **JS:** `js/quest.js` (find_qarti `:131`, find_quest_artifact `:160`), `js/questpgr.js` (deliver_by_pline export `:1043`), `js/do.js` (deliver_splev_message wiring `:2278`).
+- **Callers:**
+  - `find_quest_artifact`: sole C caller quest.c:81 on_goal → JS on_goal `js/quest.js:201` wired (which omits INVENT per C quest.c:78–80, unchanged).
+  - `find_qarti`: callers all inside find_quest_artifact (C `:95` `:97` `:102` `:110` `:114` `:117` + self `:80`) → in-file calls wired.
+  - `deliver_by_pline`: C com_pager_core `:593` → JS com_pager_core `js/questpgr.js:1165` wired; C deliver_splev_message `:659` → JS deliver_splev_message `js/do.js:2278` now calls the live export.
+  - `skip_pager`: sole C caller com_pager_core `:484` → JS com_pager_core `js/questpgr.js:1113` wired.
+- **Verify:** `node scripts/verify.mjs --fn find_quest_artifact,find_qarti,deliver_by_pline,skip_pager` → VERIFY: PASS (syntax 3 files; rule2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+  - `find_quest_artifact`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `find_qarti`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `deliver_by_pline`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `skip_pager`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `find_quest_artifact`: none — whole body, every callee live (DEADMONSTER ≡ mhp<1 per monst.h:214; invent/fmon/migrating_mons arrays per D-1691/dog.js).
+  - `find_qarti`: none — whole body (array-head walk is the D-1691 invent shaping, invent.js o_on precedent).
+  - `deliver_by_pline`: none — whole body, every callee live (C truncation/blank-line/trailing-newline quirks kept).
+  - `skip_pager`: none — already whole (boolean ≡ C TRUE/FALSE at its `if` caller).
+- **Ledger:** find_quest_artifact ported; find_qarti ported; deliver_by_pline ported; skip_pager ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3142 — `wizcmds.c` wizard-debug septet: telekinesis + detect/load_lua/load_splua/panic/fuzzer/nhuuid (coverage head + same-file MISSING siblings)
 
 - **Status:** fixed (breadth-phase cluster: head `wiz_telekinesis` + the 6 other same-file MISSING rows; 0 corpus sessions blocked on any — coverage completion, not a divergence. +171/−1 `js/wizcmds.js`, +70 `js/getline.js` dispatch, +2/−2 `js/mklev.js` docs. 8 stale proofs in this commit, all →ported: outheader js/topten.js:659, getmailstatus js/mail.js:539, encodeconduct js/topten.js:214, cardinal_nextto_room js/mklev.js:32509, bind_key js/cmd.js:1614, tt_oname js/topten.js:593, strbuf_reserve js/options.js:9311, item_naming_classification js/iactions.js:367.)

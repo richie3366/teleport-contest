@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `questpgr.c` find_quest_artifact — coverage PARTIAL (C 23 code L `questpgr.c:89–120` / JS 11 code L in js/quest.js; hops 5, callers 1, RNG 0, msg 0) @e5816afe0
 - [ ] `apply.c` grapple_range — coverage THIN (C 9 code L `apply.c:3686–3698` / JS 4 code L in js/apply.js; hops —, callers 2, RNG 0, msg 0) @e5816afe0
 - [ ] `sp_lev.c` lspo_drawbridge — coverage THIN (C 30 code L `sp_lev.c:5720–5763` / JS 13 code L in js/mklev.js; hops —, callers 0, RNG 1, msg 0) @b20fdf92d
 - [ ] `options.c` opt2roleopt — coverage PARTIAL (C 12 code L `options.c:715–730` / JS 7 code L in js/options.js; hops 6, callers 3, RNG 0, msg 0) @6c8474344
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `write.c` new_book_description — coverage THIN (C 12 code L `write.c:395–418` / JS 5 code L in js/write.js; hops —, callers 1, RNG 0, msg 0) @6c8474344
 - [ ] `wizcmds.c` wiz_load_lua — coverage MISSING (C 14 code L `wizcmds.c:353–372` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @6c8474344
 - [ ] `rect.c` get_rect_ind — coverage PARTIAL (C 12 code L `rect.c:60–75` / JS 7 code L in js/rect.js; hops 5, callers 1, RNG 0, msg 0) @6c8474344
+- [ ] `cmd.c` cmdq_add_userinput — coverage THIN (C 10 code L `cmd.c:316–331` / JS 3 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 0) @2f2a26da6
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

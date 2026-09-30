@@ -2,8 +2,8 @@
 {"fn":"ldrname","c":"50-57","status":"unknown"}
 {"fn":"intermed","c":"61-64","status":"unknown"}
 {"fn":"is_quest_artifact","c":"67-70","status":"unknown"}
-{"fn":"find_qarti","c":"73-84","status":"unknown"}
-{"fn":"find_quest_artifact","c":"89-120","status":"unknown"}
+{"fn":"find_qarti","c":"73-84","status":"ported","js":["js/quest.js:find_qarti"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
+{"fn":"find_quest_artifact","c":"89-120","status":"ported","js":["js/quest.js:find_quest_artifact"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"neminame","c":"124-131","status":"unknown"}
 {"fn":"guardname","c":"134-139","status":"unknown"}
 {"fn":"homebase","c":"142-145","status":"unknown"}
@@ -11,9 +11,9 @@
 {"fn":"qtext_pronoun","c":"199-233","status":"unknown"}
 {"fn":"convert_arg","c":"236-325","status":"unknown","d":["D-1649"],"at":"seed@a30a7de84"}
 {"fn":"convert_line","c":"328-420","status":"ported","js":["js/questpgr.js:convert_line"],"d":["D-1634"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"deliver_by_pline","c":"423-436","status":"unknown"}
+{"fn":"deliver_by_pline","c":"423-436","status":"ported","js":["js/questpgr.js:deliver_by_pline"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"deliver_by_window","c":"439-456","status":"ported","js":["js/questpgr.js:deliver_by_window"],"d":["D-2946"],"at":"seed@a30a7de84"}
-{"fn":"skip_pager","c":"459-465","status":"unknown"}
+{"fn":"skip_pager","c":"459-465","status":"ported","js":["js/questpgr.js:skip_pager"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"com_pager_core","c":"468-621","status":"partial","js":["js/questpgr.js:com_pager_core"],"omit":"impossible() text on all miss arms (tables are embedded constants so load cannot fail, and a JS miss also covers unported role bodies where C shows text and never calls impossible() — emitting would be C-wrong); lua VM init/load/teardown (nhl_init/nhl_loadlua/nhl_done — no VM) and get_table_str_opt…","d":["D-2731","D-1622"],"at":"seed@a30a7de84"}
 {"fn":"com_pager","c":"624-627","status":"unknown"}
 {"fn":"qt_pager","c":"630-634","status":"unknown","d":["D-1662"],"at":"seed@a30a7de84"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3143 `questpgr.c` quest-artifact search + pline delivery quartet (coverage head + same-file THIN siblings)
+
+**C locus:** - `find_quest_artifact`: `questpgr.c:88–120` (INVENT `:94–95`, FLOOR `:96–97`, MINVENT fmon loop `:98–103`, MIGRATING mons+objs `:104–115`, BURIED `:116–117`).
+**JS:** `js/quest.js` (find_qarti `:131`, find_quest_artifact `:160`), `js/questpgr.js` (deliver_by_pline export `:1043`), `js/do.js` (deliver_splev_message wiring `:2278`).
+**Change:** restarted both quest.js functions in C order over live in-file `is_quest_artifact` (C `:66–70`) + `Has_contents` (const.js); added OBJ_INVENT/OBJ_MIGRATING imports (same const.js edge); restarted `deliver_by_pline` over live eos/copynchars/convert_line/pline and exported it; wired `do.js` `deliver_splev_message` to the live export (inline clone deleted, now-unused `convert_line` import dropped); `skip_pager` verified whole, no diff.
+**Verify:** `node scripts/verify.mjs --fn find_quest_artifact,find_qarti,deliver_by_pline,skip_pager` → VERIFY: PASS (syntax 3 files; rule2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+**Named:** - `find_quest_artifact`: none — whole body, every callee live (DEADMONSTER ≡ mhp<1 per monst.h:214; invent/fmon/migrating_mons arrays per D-1691/dog.js).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — D-3142 `wizcmds.c` wizard-debug septet: telekinesis + detect/load_lua/load_splua/panic/fuzzer/nhuuid (coverage head + same-file MISSING siblings)
 
 **C locus:** - `wiz_telekinesis`: `wizcmds.c:494–528` (getpos `:504` + cancel `:505–506`, m_at-assign test `:508`, getdir `:510–511`, mhurtle `:514` + landing re-seed `:515–517`, hero hurtle `:520–521`, utotype loop `:524`).
