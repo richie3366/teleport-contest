@@ -8,7 +8,7 @@
 {"fn":"parent_dnum","c":"346-365","status":"ported","js":["js/dungeon.js:parent_dnum"],"at":"2026-09-30@990da2b8d","note":"stale: js/dungeon.js:570, whole C body, 2 C callers wired (:600,:632)"}
 {"fn":"level_range","c":"380-412","status":"unknown"}
 {"fn":"parent_dlevel","c":"415-436","status":"unknown"}
-{"fn":"correct_branch_type","c":"440-454","status":"unknown"}
+{"fn":"correct_branch_type","c":"440-454","status":"ported","js":["js/dungeon.js:correct_branch_type"],"d":["D-3145"],"at":"2026-09-30@fa5a786a1"}
 {"fn":"insert_branch","c":"463-508","status":"ported","js":["js/dungeon.js:insert_branch"],"d":["D-2630"],"at":"seed@a30a7de84"}
 {"fn":"add_branch","c":"514-536","status":"unknown"}
 {"fn":"add_level","c":"545-563","status":"unknown"}
@@ -103,7 +103,7 @@
 {"fn":"room_discovered","c":"3282-3290","status":"unknown"}
 {"fn":"dooverview","c":"3294-3301","status":"unknown","d":["D-1650"],"at":"seed@a30a7de84"}
 {"fn":"show_overview","c":"3305-3340","status":"unknown"}
-{"fn":"traverse_mapseenchn","c":"3344-3365","status":"unknown"}
+{"fn":"traverse_mapseenchn","c":"3344-3365","status":"ported","js":["js/dungeon.js:traverse_mapseenchn"],"d":["D-3145"],"at":"2026-09-30@fa5a786a1","note":"stale: js/dungeon.js:3065"}
 {"fn":"seen_string","c":"3368-3384","status":"unknown"}
 {"fn":"br_string2","c":"3388-3406","status":"unknown"}
 {"fn":"endgamelevelname","c":"3410-3437","status":"ported","js":["js/display.js:endgamelevelname"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}

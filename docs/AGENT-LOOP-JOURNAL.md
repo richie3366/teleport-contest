@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3145 `dungeon.c` branch-type default arm + mapseen traverse stale (coverage)
+
+**C locus:** - `correct_branch_type`: `dungeon.c:439–454` (TBR_STAIR/NO_UP/NO_DOWN/PORTAL `:443–450`, impossible + BR_STAIR default `:452–453`).
+**JS:** `js/dungeon.js` only — correct_branch_type `:497` (+cite comment `:494–496`, impossible `:504`).
+**Change:** default arm now `void impossible('correct_branch_type: unknown branch type')` then `return BR_STAIR` in C order (live `display.js` export, already imported `:154`; void-fire keeps the predicate sync — `In_W_tower` `:1289` / `mkobj.js` precedent).
+**Verify:** `node scripts/verify.mjs --fn correct_branch_type,traverse_mapseenchn` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+**Named:** - `correct_branch_type`: none — whole body, every callee live.
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — Audit 2096–2104 (D-3136..D-3144): 9 ACCEPT; full cadence
 
 Reviews 2096–2104 audit 92b27a5b5..dbe017e06 against pinned C (quit cluster, botl hilite

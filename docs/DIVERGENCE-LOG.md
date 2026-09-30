@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3145 — `dungeon.c` branch-type default arm + mapseen traverse stale (coverage)
+
+- **Status:** fixed (breadth-phase cluster: dungeon.c pair; 0 corpus sessions blocked on any — coverage completion, not a divergence. +7/−1 `js/dungeon.js`. 1 stale proof in this commit: obj_erode_type js/do_wear.js:3488 — original queue head, 5-arm body complete with all 5 predicates imported (`:79`) and sole C caller wired (`:4148`), popped next per the stale rule.)
+- **Symptom:** no corpus divergence — coverage. `correct_branch_type` default arm dropped C's `impossible()` before the `BR_STAIR` return; `traverse_mapseenchn` body already complete.
+- **C locus:**
+  - `correct_branch_type`: `dungeon.c:439–454` (TBR_STAIR/NO_UP/NO_DOWN/PORTAL `:443–450`, impossible + BR_STAIR default `:452–453`).
+  - `traverse_mapseenchn`: `dungeon.c:3343–3365` (XOR skip `:3356–3357`, why/interest gate `:3360`, showheader + print + lastdun `:3361–3363`) — stale, body complete.
+- **JS was:** `default: return BR_STAIR` with no `impossible`; traverse complete since the earlier port.
+- **Fix:** default arm now `void impossible('correct_branch_type: unknown branch type')` then `return BR_STAIR` in C order (live `display.js` export, already imported `:154`; void-fire keeps the predicate sync — `In_W_tower` `:1289` / `mkobj.js` precedent).
+- **JS:** `js/dungeon.js` only — correct_branch_type `:497` (+cite comment `:494–496`, impossible `:504`).
+- **Callers:**
+  - `correct_branch_type`: sole C caller `:527` add_branch → JS add_branch `:635` wired (unchanged).
+  - `traverse_mapseenchn`: C `:3323`/`:3326` show_overview → JS show_overview `:3214`/`:3217` wired (unchanged; In_endgame guards + lastdun −1 match C `:3322–3326`/`:3312`).
+- **Verify:** `node scripts/verify.mjs --fn correct_branch_type,traverse_mapseenchn` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+  - `correct_branch_type`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+  - `traverse_mapseenchn`: hidden note (no corpus session blocked); REACH smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `correct_branch_type`: none — whole body, every callee live.
+  - `traverse_mapseenchn`: none — stale-complete (win→entries/ctx + int*→{v} are the file's established adaptation).
+- **Ledger:** correct_branch_type ported; traverse_mapseenchn ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3144 — `cmd.c` there-menu trio: next2u + far builders, whole-menu restart (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `there_cmd_menu` + Open callees `there_cmd_menu_next2u` + `there_cmd_menu_far`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +197/−68 `js/cmd.js`. 13 stale proofs in this commit, all →ported: grapple_range js/apply.js:3900, lspo_drawbridge js/mklev.js:1226, opt2roleopt js/options.js:6964, br_string js/dungeon.js:3250, shade_aware js/mhitm.js:5677, good_rm_wall_doorpos js/mklev.js:31844, parent_dnum js/dungeon.js:570, handle_add_list_remove js/options.js:5490, new_book_description js/write.js:225, wiz_load_lua js/wizcmds.js:460, get_rect_ind js/rect.js:36, cmdq_add_userinput js/cmd.js:466, cmdq_copy js/cmd.js:391.)

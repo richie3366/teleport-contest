@@ -66,7 +66,7 @@
 {"fn":"wornarm_destroyed","c":"3144-3182","status":"ported","js":["js/do_wear.js:wornarm_destroyed"],"d":["D-3140"],"at":"2026-09-30@e5816afe0"}
 {"fn":"maybe_destroy_armor","c":"3189-3197","status":"unknown"}
 {"fn":"disintegrate_arm","c":"3201-3256","status":"unknown"}
-{"fn":"obj_erode_type","c":"3260-3273","status":"unknown"}
+{"fn":"obj_erode_type","c":"3260-3273","status":"ported","js":["js/do_wear.js:obj_erode_type"],"at":"2026-09-30@fa5a786a1","note":"stale: js/do_wear.js:3488"}
 {"fn":"destroy_arm","c":"3278-3316","status":"unknown","d":["D-2721"],"at":"seed@a30a7de84"}
 {"fn":"adj_abon","c":"3319-3336","status":"unknown"}
 {"fn":"inaccessible_equipment","c":"3342-3400","status":"partial","js":["js/apply.js:inaccessible_equipment"],"omit":"``SetVoice``-class none here; prompt letter-hiding (which letters the dip/grease prompts suggest) stays with each getobj path's own simplification — C-observable enforcement (message + ECMD_OK) is wired at every caller.","d":["D-2632"],"at":"seed@a30a7de84"}
