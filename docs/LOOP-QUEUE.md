@@ -97,6 +97,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `options.c` parsebindings extcmd-miss must return FALSE — JS `js/options.js` miss arm returns `ret` (TRUE on clean tail), C `options.c:7670–7671` returns FALSE after the error; committed test pins the wrong value twice (`parsebindings.test.mjs` `"a:boguscmd"`, `"mouse1:boguscmd"` → `true`). Fix arm + both pins, re-run 22/22 + neighbors. Source: reviews/loop-unattended/2111-836f908c6-parsebindings.md.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

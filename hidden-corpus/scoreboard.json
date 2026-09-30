@@ -1,9 +1,9 @@
 {
- "commit": "a610d9a06",
- "at": "2026-09-30T06:18:13.197Z",
- "full": false,
- "fullCommit": "dbe017e06",
- "fullAt": "2026-09-30T03:29:58.096Z",
+ "commit": "5ab8920e9",
+ "at": "2026-09-30T07:03:18.572Z",
+ "full": true,
+ "fullCommit": "5ab8920e9",
+ "fullAt": "2026-09-30T07:03:18.572Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -3421,7 +3421,7 @@
    "loc": null,
    "jsOwner": null,
    "cTopline": "Unavailable command '!'.",
-   "jsTopline": "Unknown command '!'.",
+   "jsTopline": "'#shell' command not available.",
    "error": null
   },
   "random-seed0200-monk-north-search-bd95fa2e": {
@@ -3472,7 +3472,7 @@
    "loc": null,
    "jsOwner": null,
    "cTopline": "Unavailable command '!'.",
-   "jsTopline": "Unknown command '!'.",
+   "jsTopline": "'#shell' command not available.",
    "error": null
   },
   "random-seed0360-wizard-world-tour-02d1e2b3": {
@@ -10814,7 +10814,7 @@
    "steps": 263,
    "owner": "com_pager_core",
    "loc": "questpgr.c:566",
-   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1482)",
+   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1487)",
    "cTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "jsTopline": "",
    "error": null

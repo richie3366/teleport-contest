@@ -2114,3 +2114,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2102-2f2a26da6-wizcmds-septet.md](./2102-2f2a26da6-wizcmds-septet.md) | `2f2a26da6` | D-3142 wizcmds septet + 7 extcmd runners | **ACCEPT** |
 | [2103-990da2b8d-quest-quartet.md](./2103-990da2b8d-quest-quartet.md) | `990da2b8d` | D-3143 quest artifact search + pline delivery quartet | **ACCEPT** |
 | [2104-dbe017e06-there-menu-trio.md](./2104-dbe017e06-there-menu-trio.md) | `dbe017e06` | D-3144 there-menu next2u/far + whole restart | **ACCEPT** |
+| [2105-a1b562159-branch-type-default-arm.md](./2105-a1b562159-branch-type-default-arm.md) | `a1b562159` | D-3145 correct_branch_type impossible arm + 2 stale | **ACCEPT** |
+| [2106-1300fdc94-msgtype-parse-add.md](./2106-1300fdc94-msgtype-parse-add.md) | `1300fdc94` | D-3146 msgtype_parse_add restart + 4 stale (ssep debt) | **ACCEPT-WITH-DEBT** |
+| [2107-5f75ba02c-display-cinventory.md](./2107-5f75ba02c-display-cinventory.md) | `5f75ba02c` | D-3147 display_cinventory restart + cinv_ansimpleoname | **ACCEPT** |
+| [2108-8e8a996ab-spell-remainder.md](./2108-8e8a996ab-spell-remainder.md) | `8e8a996ab` | D-3148 spell remainder: 3 ports + arm + 2 stale | **ACCEPT** |
+| [2109-40d1154a3-suspend-shell-extcmd.md](./2109-40d1154a3-suspend-shell-extcmd.md) | `40d1154a3` | D-3149 suspend/shell + extcmd match/getentry + stale | **ACCEPT** |
+| [2110-5fd602958-sound-automap.md](./2110-5fd602958-sound-automap.md) | `5fd602958` | D-3150 sound automap filename pair + 2 stale | **ACCEPT** |
+| [2111-836f908c6-parsebindings.md](./2111-836f908c6-parsebindings.md) | `836f908c6` | D-3151 parsebindings restart (miss-arm C-wrong) | **QUALITY-RISK** |
+| [2112-a610d9a06-cfgfiles-drain.md](./2112-a610d9a06-cfgfiles-drain.md) | `a610d9a06` | D-3152 cfgfiles drain + stores + heed + configfile | **ACCEPT** |
+| [2113-5ab8920e9-unbypassed-loot.md](./2113-5ab8920e9-unbypassed-loot.md) | `5ab8920e9` | D-3153 nxt_unbypassed_loot restart + clear_bypasses | **ACCEPT** |

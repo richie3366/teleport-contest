@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — Audit 2105–2113 (D-3145..D-3153): 7 ACCEPT, 1 WITH-DEBT, 1 QUALITY-RISK; full cadence
+
+9 `js/` SHAs reviewed (2105–2113): 7A/1D/1Q. 2111 catch (`parsebindings` miss-arm FALSE) → Must-fix. Cadence: 44/44 public, 648/953 corpus (0 flips, full), held-out 13/44 flat.
 ## 2026-09-30 — D-3153 `worn.c` nxt_unbypassed_loot restart + askchain ret: global clear_bypasses (coverage)
 
 **C locus:** - `nxt_unbypassed_loot`: worn.c:1159–1174 (null-entry stop, listhead walk, `o && !obj->bypass` gate, bypass_obj call `:1168`); caller invent.c:2433 (same sortedchn every call → re-scan); caller ret: invent.c:2534–2540 (unsortloot + clear_bypasses; `:2536–2538` comment rejects list-local clear).
