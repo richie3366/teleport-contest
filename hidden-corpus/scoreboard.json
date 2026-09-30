@@ -1,9 +1,9 @@
 {
- "commit": "990da2b8d",
- "at": "2026-09-30T02:51:59.206Z",
- "full": false,
- "fullCommit": "4399b92c1",
- "fullAt": "2026-09-30T00:21:31.940Z",
+ "commit": "dbe017e06",
+ "at": "2026-09-30T03:29:58.096Z",
+ "full": true,
+ "fullCommit": "dbe017e06",
+ "fullAt": "2026-09-30T03:29:58.096Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -10746,7 +10746,7 @@
    "steps": 313,
    "owner": "peffect_polymorph",
    "loc": "potion.c:1327",
-   "jsOwner": "exercise(attrib.js:215)",
+   "jsOwner": "exercise(attrib.js:216)",
    "cTopline": "Use the command #sit to lay an egg.",
    "jsTopline": "Use the command #sit to lay an egg.",
    "error": null
@@ -11205,7 +11205,7 @@
    "steps": 333,
    "owner": "abuse_dog",
    "loc": "dog.c:1381",
-   "jsOwner": "exercise(attrib.js:215)",
+   "jsOwner": "exercise(attrib.js:216)",
    "cTopline": "Sirius yelps! The dagger hits it.",
    "jsTopline": "The dagger hits it. Sirius misses the kobold.--More--",
    "error": null
@@ -13347,7 +13347,7 @@
    "steps": 87,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:217)",
+   "jsOwner": "exercise(attrib.js:218)",
    "cTopline": "some gold pieces",
    "jsTopline": "a eucalyptus leaf",
    "error": null
@@ -13398,7 +13398,7 @@
    "steps": 253,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:217)",
+   "jsOwner": "exercise(attrib.js:218)",
    "cTopline": "some gold pieces",
    "jsTopline": "7 candles",
    "error": null

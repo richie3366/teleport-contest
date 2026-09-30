@@ -2105,3 +2105,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2093-463ffffc2-unpacked-coord.md](./2093-463ffffc2-unpacked-coord.md) | `463ffffc2` | D-3133 get_unpacked_coord + 3 dispositions | **ACCEPT** |
 | [2094-f292ec32c-vconfig-error-add.md](./2094-f292ec32c-vconfig-error-add.md) | `f292ec32c` | D-3134 vconfig_error_add + 4 dispositions | **ACCEPT** |
 | [2095-4399b92c1-pickup-cluster.md](./2095-4399b92c1-pickup-cluster.md) | `4399b92c1` | D-3135 pickup 4-port + 5 dispositions (9 fns) | **ACCEPT** |
+| [2096-92b27a5b5-quit-cluster.md](./2096-92b27a5b5-quit-cluster.md) | `92b27a5b5` | D-3136 end.c quit cluster (4 ports + odds by-design) | **ACCEPT** |
+| [2097-1edc89993-botl-hilite-closure.md](./2097-1edc89993-botl-hilite-closure.md) | `1edc89993` | D-3137 botl hilite closure (6 ports + 4 verified) | **ACCEPT** |
+| [2098-042bdf039-glyphrep-match-glyph.md](./2098-042bdf039-glyphrep-match-glyph.md) | `042bdf039` | D-3138 glyphrep + match_glyph, closes 1510 Debt 1 | **ACCEPT** |
+| [2099-e5816afe0-splev-des-bindings.md](./2099-e5816afe0-splev-des-bindings.md) | `e5816afe0` | D-3139 lspo stair/ladder/grave/altar + grave NULL edge | **ACCEPT** |
+| [2100-b20fdf92d-takeoff-pair.md](./2100-b20fdf92d-takeoff-pair.md) | `b20fdf92d` | D-3140 dotakeoff uskin/ECMD_CANCEL + wornarm live-useup | **ACCEPT** |
+| [2101-6c8474344-restore-attrib.md](./2101-6c8474344-restore-attrib.md) | `6c8474344` | D-3141 restore_attrib + postadjabil wiring | **ACCEPT** |
+| [2102-2f2a26da6-wizcmds-septet.md](./2102-2f2a26da6-wizcmds-septet.md) | `2f2a26da6` | D-3142 wizcmds septet + 7 extcmd runners | **ACCEPT** |
+| [2103-990da2b8d-quest-quartet.md](./2103-990da2b8d-quest-quartet.md) | `990da2b8d` | D-3143 quest artifact search + pline delivery quartet | **ACCEPT** |
+| [2104-dbe017e06-there-menu-trio.md](./2104-dbe017e06-there-menu-trio.md) | `dbe017e06` | D-3144 there-menu next2u/far + whole restart | **ACCEPT** |

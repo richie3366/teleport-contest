@@ -7,6 +7,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — Audit 2096–2104 (D-3136..D-3144): 9 ACCEPT; full cadence
+
+Reviews 2096–2104 audit 92b27a5b5..dbe017e06 against pinned C (quit cluster, botl hilite
+closure, glyphrep pair closing 1510 Debt 1, lspo des bindings, takeoff pair, attrib pair,
+wizcmds septet, quest quartet, there-menu trio). All corpus claims re-measured with
+--reach-all (all vacuous + REACH-OK, no REGRESSED). No Must-fix — queue stays empty.
+Observations (not queued): 2098 map mega-lines still name match_glyph/glyphrep (stale as to
+these two); seeded sample 5/5 live (pet_ranged_attk cmd.c:941 caller is map-named under
+domonability; shuffle_customizations `c` cites the dead #if 0 arm — inventory-level, `set`
+recomputes the same range and would clobber `seed@`, so left for an inventory fix).
+Cadence: public 44/44, corpus 648/953 (0 flips, full:true), held-out 13/44 flat.
+Ledger snapshot + 5/5 seeded-ported sample live (0 fixed).
 ## 2026-09-30 — D-3144 `cmd.c` there-menu trio: next2u + far builders, whole-menu restart (coverage)
 
 **C locus:** - `there_cmd_menu_far`: `cmd.c:4623–4636` (CLICK_1 `:4628`, linedup+dist2 throw `:4629–4631`, travel `:4633`).
