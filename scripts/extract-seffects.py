@@ -6,6 +6,10 @@ se_zero_invalid = 0, then the seffect() X-macro, then
 number_of_se_entries. Contest recorder has no SND_LIB_* so
 Soundeffect() is an empty macro; the enum values are still the
 call-site identity.
+
+Also emits sounds.c se_mappings_init (`:1969-1975`, SEFFECTS_AUTOMAP):
+index 0 is { se_zero_invalid, "" }, entries 1..N are
+{ se_<name>, "<name>" } in enum order for initialize_semap_basenames.
 """
 from __future__ import annotations
 
@@ -49,6 +53,14 @@ def main() -> int:
         lines.append(f"export const se_{name} = {i};")
     nentries = len(names) + 1
     lines.append(f"export const number_of_se_entries = {nentries};")
+    lines.append(
+        "// C ref: sounds.c `:1969-1975` se_mappings_init (SEFFECTS_AUTOMAP)."
+    )
+    lines.append("export const se_mappings_init = [")
+    lines.append("    { seid: 0, base_filename: '' },")
+    for i, name in enumerate(names, start=1):
+        lines.append(f"    {{ seid: {i}, base_filename: '{name}' }},")
+    lines.append("];")
     lines.append("")
     OUT.write_text("\n".join(lines))
     print(

@@ -7,7 +7,7 @@
 {"fn":"free_omid","c":"151-154","status":"ported","js":["js/mkobj.js:free_omid"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
 {"fn":"new_omailcmd","c":"157-164","status":"ported","js":["js/mkobj.js:new_omailcmd"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
 {"fn":"free_omailcmd","c":"167-173","status":"ported","js":["js/mkobj.js:free_omailcmd"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
-{"fn":"may_generate_eroded","c":"177-192","status":"unknown"}
+{"fn":"may_generate_eroded","c":"177-192","status":"ported","js":["js/mkobj.js:may_generate_eroded"],"at":"2026-09-30@442754b32","note":"stale: js/mkobj.js:899, whole C body + caller mkobj_erosions wired at :908"}
 {"fn":"mkobj_erosions","c":"196-222","status":"ported","js":["js/mkobj.js:mkobj_erosions"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"mkobj_at","c":"227-234","status":"unknown"}
 {"fn":"mksobj_at","c":"238-248","status":"unknown"}

@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3150 — `sounds.c` sound-effect filename automap (coverage)
+
+- **Status:** fixed (breadth-phase cluster: head `get_sound_effect_filename` + Open callee `initialize_semap_basenames` + `se_mappings_init` via the checked-in extractor; 0 corpus sessions blocked on either — coverage completion, not a divergence. +201 generated table, +128 js/sounds.js, +12 extractor, +88 test. Stale-popped `may_generate_eroded` (js/mkobj.js:899, caller wired :908) and `status_hilite_menu_fld` (js/botl.js:3459, only gap the by-design `status_hilite_menu_add`) in the same iteration — both ledger-ported, rows already left the block.)
+- **Symptom:** coverage gap — both functions MISSING in `js/` (brief: no symbol); contest C compiles neither (no SND_SOUNDEFFECTS_AUTOMAP in the unix build — only the extern.h `:3025–3027` decl), so no screen/RNG effect; the port closes the measured gap as a live source-level body (D-2776 USER_SOUNDS precedent).
+- **C locus:**
+  - `get_sound_effect_filename`: sounds.c:1994–2080 (null/dir guard `:2008`, lazy init `:2011–2014`, baselen `:2016–2017`, consumes `:2019–2040`, `#if 0` Strcat `:2043–2059` compiled out, Snprintf build `:2060–2077`, return `:2079`).
+  - `initialize_semap_basenames`: sounds.c:1980–1992 (loop `:1986` over `se_mappings_init` `:1969–1975`, range guard `:1987–1988`, assign `:1989–1990`).
+- **JS was:** no `get_sound_effect_filename` / `initialize_semap_basenames` / `semap_basenames` / `se_mappings_init` anywhere in `js/`; sibling `base_soundname_to_filename` (js/sounds.js:349) already set the buf/bufsz/approach convention this port follows.
+- **Fix:** extended scripts/extract-seffects.py to emit `se_mappings_init` (198 rows: index 0 `{ seid: 0, '' }` per `:1972`, entries 1..197 in enum order) and regenerated js/generated/seffects_data.js; added module state (`semap_basenames` `:1977`, `basenames_initialized` `:1978`) + both functions in C order in js/sounds.js, reusing the live `sounddir`/`sff_*` module consts; new scripts/seffects-automap.test.mjs (6 tests).
+- **JS:** js/sounds.js:420 (`semap_basenames`), js/sounds.js:429 (`initialize_semap_basenames`, module-local — C staticfn), js/sounds.js:450 (`get_sound_effect_filename`, exported — extern.h decl), js/generated/seffects_data.js:204 (`se_mappings_init`).
+- **Callers:**
+  - `get_sound_effect_filename`: none in this build (sole C reference is the extern.h `:3026` decl; only platform backends outside the build call in) — deliberately unwired.
+  - `initialize_semap_basenames`: sole C caller `get_sound_effect_filename` `:2012`, wired js/sounds.js:470 (`:1962` is the prototype).
+- **Verify:**
+  - `get_sound_effect_filename`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24/24 PASS); /tmp probe 20/20 on C-computed strings/gates (incl. cap-exact 9/8 and 15/14, trailing-slash/backslash, existinglen>=cap).
+  - `initialize_semap_basenames`: `verify.mjs --fn` → no corpus session blocked + smoke-spread REACH-OK (24/24 PASS); table envelope pinned by the committed test.
+  - Gates: syntax PASS (2 js files), Rule #2 PASS, green 2/2, strict 2/2, cohort 7/7, VERIFY PASS; `node --test scripts/seffects-automap.test.mjs` 6/6 (pre-port the import itself fails — brief MISSING).
+- **Named omissions:**
+  - `get_sound_effect_filename`: none — whole body (the `:2043–2059` `#if 0` Strcat block is compiled out, not ported; the out-of-range-id read is JS-only totality — C UB, same NULL via the `:2040` gate).
+  - `initialize_semap_basenames`: none — whole body, every callee live (none).
+- **Ledger:** get_sound_effect_filename ported; initialize_semap_basenames ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3149 — `cmd.c` suspend/shell + extcmd-match family (coverage)
 
 - **Status:** fixed (breadth-phase cluster: head `dosuspend_core` + same-file `dosh_core`, `extcmds_match`, `extcmds_getentry` + stale `cmdbind_remove`; 0 corpus sessions blocked on any — coverage completion, not a divergence. +113/−87 across 8 tracked files + new test. Mid-iteration screen regression seed4500 1802/1814 found and fixed: extractor modeled DEBUG off, recorder builds DEBUG on.)

@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mkobj.c` may_generate_eroded — coverage PARTIAL (C 9 code L `mkobj.c:177–192` / JS 5 code L in js/mkobj.js; hops 5, callers 1, RNG 0, msg 0) @990da2b8d
-- [ ] `botl.c` status_hilite_menu_fld — coverage PARTIAL (C 66 code L `botl.c:4357–4453` / JS 41 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0) @990da2b8d
-- [ ] `sounds.c` get_sound_effect_filename — coverage MISSING (C 46 code L `sounds.c:1995–2080` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: initialize_semap_basenames) @fa5a786a1
 - [ ] `options.c` sym_val — coverage PARTIAL (C 23 code L `options.c:9385–9426` / JS 17 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
 - [ ] `role.c` setup_racemenu — coverage PARTIAL (C 23 code L `role.c:2905–2940` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
 - [ ] `role.c` setup_gendmenu — coverage PARTIAL (C 23 code L `role.c:2943–2976` / JS 15 code L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0) @a1b562159
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `worn.c` nxt_unbypassed_loot — coverage PARTIAL (C 10 code L `worn.c:1159–1174` / JS 7 code L in js/pickup.js; hops 6, callers 1, RNG 0, msg 0) @8e8a996ab
 - [ ] `hacklib.c` case_insensitive_comp — coverage PARTIAL (C 11 code L `hacklib.c:922–937` / JS 8 code L in js/date.js; hops —, callers 2, RNG 0, msg 0) @8e8a996ab
 - [ ] `write.c` cost — coverage PARTIAL (C 37 code L `write.c:14–57` / JS 21 code L in js/write.js; hops —, callers 1, RNG 0, msg 0) @8e8a996ab
+- [ ] `selvar.c` selection_iterate — coverage PARTIAL (C 9 code L `selvar.c:726–743` / JS 6 code L in js/mklev.js; hops —, callers 4, RNG 0, msg 0) @442754b32
+- [ ] `o_init.c` sortloot_descr — coverage PARTIAL (C 18 code L `o_init.c:567–591` / JS 13 code L in js/invent.js; hops —, callers 2, RNG 0, msg 0) @442754b32
+- [ ] `sp_lev.c` mapfrag_error — coverage PARTIAL (C 10 code L `sp_lev.c:281–295` / JS 5 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @442754b32
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

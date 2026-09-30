@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3150 `sounds.c` sound-effect filename automap (coverage)
+
+**C locus:** - `get_sound_effect_filename`: sounds.c:1994–2080 (null/dir guard `:2008`, lazy init `:2011–2014`, baselen `:2016–2017`, consumes `:2019–2040`, `#if 0` Strcat `:2043–2059` compiled out, Snprintf build `:2060–2077`, return `:2079`).
+**JS:** js/sounds.js:420 (`semap_basenames`), js/sounds.js:429 (`initialize_semap_basenames`, module-local — C staticfn), js/sounds.js:450 (`get_sound_effect_filename`, exported — extern.h decl), js/generated/seffects_data.js:204 (`se_mappings_init`).
+**Change:** extended scripts/extract-seffects.py to emit `se_mappings_init` (198 rows: index 0 `{ seid: 0, '' }` per `:1972`, entries 1..197 in enum order) and regenerated js/generated/seffects_data.js; added module state (`semap_basenames` `:1977`, `basenames_initialized` `:1978`) + both functions in C order in js/sounds.js, reusing the live `sounddir`/`sff_*` module consts; new scripts/seffects-automap.test.mjs (6 tests).
+**Verify:** - `get_sound_effect_filename`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24/24 PASS); /tmp probe 20/20 on C-computed strings/gates (incl. cap-exact 9/8 and 15/14, trailing-slash/backslash, existinglen>=cap).
+**Named:** - `get_sound_effect_filename`: none — whole body (the `:2043–2059` `#if 0` Strcat block is compiled out, not ported; the out-of-range-id read is JS-only totality — C UB, same NULL via the `:2040` gate).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-30 — D-3149 `cmd.c` suspend/shell + extcmd-match family (coverage)
 
 **C locus:** - `dosuspend_core`: `cmd.c:5661–5678` (SUSPEND-defined capability branch `:5666`, urealtime accounting `:5667–5670`, `dosuspend()` `:5672`, retime `:5673`, Norep else `:5676`, ECMD_OK `:5677`).
