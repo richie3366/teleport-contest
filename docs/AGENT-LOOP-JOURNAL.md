@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3157 `options.c` optfn_map_mode + optfn_menu_headings + color_attr_to_str + optfn_pettype (coverage cluster)
+
+**C locus:** - `optfn_map_mode`: options.c:1962–2047 (do_set `:1972–2026`: exact-tiles strcmpi `:1983`, strncmpi prefix chain `:1985–2011`, unknown `:2012–2016`, wc/preference gate `:2017–2021`, negation `:2022–2025`; get_val `:2028–2045`, TILES_FIT unnamed → defopt `:2041–2043`).
+**JS:** js/options.js:3008 (optfn_map_mode), :3089 (optfn_menu_headings), :3125 (color_attr_to_str), :3143 (optfn_pettype); js/const.js:1517–1525 (MAP_MODE_ASCII 1–9); js/jsmain.js:183 (default); scripts/optfn-mapmode-headings-pettype.test.mjs (17 tests).
+**Change:** ported all four whole in C order. map_mode: exact-tiles via length gate + strncmpi (hacklib has no strcmpi), prefix lengths = sizeof-name minus 1, wc_supported/preference_update gate, negated→bad_negation+ERR, get_val chain with 11→'default'. menu_headings: direct-op do_set (empty→C-domain INVERSE/NONE+NO_COLOR; silenterr; parse whole-struct assign), get_val to_str + space→hyphen; do_handler async-split (no branch, msg_window precedent). color_attr_to_str: C-`"%s&%s"` over live clr2colorname/attr2attrname (`|0` ≡ C zero-struct). pettype: env_opt parse, 9-letter switch (C `'\0'` random is JS `''` so get_cnf_val truthiness matches C 0), dead post-return `break` skipped. Attr-domain consistency: empty arm, initoptions default (:7475) and handler default (:6172) now store C-domain (MC_ATR_*, = C ATR_*); ape_heading_attr (:5980) translates C→terminal for the painter (DIM/ITALIC/BLINK unrenderable, named). jsmain iflags assembly gains the C `:7188–7189` default {7,8} (initoptions_init is not on the JS startup path; rc spread overrides).
+**Verify:** `node scripts/verify.mjs --fn optfn_map_mode,optfn_menu_headings,color_attr_to_str,optfn_pettype` → VERIFY: PASS — hidden notes ×4 (no corpus session blocked, expected for coverage rows); REACH-OK ×4 (no RNG-tagged reach, smoke spreads 24/24 PASS each); green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). First run caught seed0007 doset `[black&none]` (menu_headings unset on the JS startup path) → fixed with the jsmain C-default; re-run green. Focused `node --test scripts/optfn-mapmode-headings-pettype.test.mjs`: 17/17 PASS.
+**Named:** - `optfn_map_mode`: none — whole body. Valueless map_mode rc arm skipped (bare→OK no-op, `!`→sink-only bad_negation+ERR; zero observable effect).
+**Next:** continue the breadth queue from the regenerated block (options.c's 7 rows all resolve this iteration: 3 shipped + color_attr_to_str callee + 3 stale + palette by-design).
 ## 2026-09-30 — D-3156 `selvar.c` selection_iterate whole-body restart (coverage)
 
 **C locus:** - `selection_iterate`: selvar.c:726–743 (null guard `:734–735`, getbounds `:737`, x-outer/y-inner scan `:739–740`, isok+getpoint gate `:741`, callback with arg `:742`).
@@ -74,55 +82,3 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** `verify.mjs --fn dosuspend_core,dosh_core,extcmds_match,extcmds_getentry,cmdbind_remove` → syntax PASS (3 js files), Rule #2 PASS, 5× `no corpus session blocked` + smoke-spread REACH-OK (24/24 each), green 2/2, strict 2/2, cohort 7/7, VERIFY PASS; full `sessions` 44/44 after the regen (seed4500 failed 1802/1814 pre-regen at `#wizm` echo screens 778/804/820, fixed by the DEBUG rows); `node --test scripts/extcmd-debug-completion.test.mjs` 4/4 + `vision-wizmondiff-runners` 3/3; /tmp oracle vs git-HEAD hand list: identical except the 4 C-wrong removals (travel + 3 DEBUG rows, all confirmed against C guards).
 **Named:** - `dosuspend_core`: `dosuspend()` (`cmd.c:5672`, `sys/share/ioctl.c:161`, SIGTSTP suspend) unportable under Rule #2; the suspend arm keeps C order with the call named in place.
 **Next:** `#wizbury` exact entry prints "unknown extended command" (EXTCMDLIST row now resolves, no EXT_CMDS runner — `wiz_debug_cmd_bury` unported); queue it with its body when coverage reaches it. `bind_key` `:2651`/:2718 `cmdnotavail` arms (pre-existing port) could reuse the new `cmdnotavail` const.
-## 2026-09-30 — D-3148 `spell.c` remainder: spelltypemnemonic impossible arm + dowizcast/show_spells/book_substitution (coverage)
-
-**C locus:** - `spelltypemnemonic`: `spell.c:832–853` (7 skill arms, default impossible-then-"" `:852–853`).
-**JS:** `js/spell.js` only — spelltypemnemonic `:499`, SPELLMENU_DUMP `:270`, show_spells `:1645`, book_substitution `:1805`, dowizcast `:1948`; no new imports (all edges already present).
-**Change:** default arm now `void impossible('Unknown spell skill, %d;', skill)` then `return ''` (fire-and-forget keeps it sync, dungeon.js correct_branch_type precedent); added `SPELLMENU_DUMP = -3` + DUMP heading unindent in dospellmenu (C `:2104`; PICK_ONE key flow already DUMP-correct, return ignored per nhUse); new `show_spells`/`book_substitution`/`dowizcast` in C order over live in-file/imported callees (dowizcast menu via the dospellmenu corner-menu pattern; OBJ_NAME ≡ objectNameStrs like spellname()).
-**Verify:** `node scripts/verify.mjs --fn spelltypemnemonic,dowizcast,show_spells,book_substitution,age_spells,spell_idx` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
-**Named:** - `spelltypemnemonic`: none — whole body, sole callee live (impossible).
-**Next:** pop the next Open — coverage row.
-## 2026-09-30 — D-3147 `invent.c` display_cinventory restart + cinv_ansimpleoname (coverage)
-
-**C locus:** - `display_cinventory`: `invent.c:5446–5473` (safe_qbuf title `:5453–5457`, cobj → query_objlist INVORDER_SORT/PICK_NONE/allow_all `:5459–5461`, empty → invdisp_nothing + n=0 `:5462–5464`, n>0 selected[0] `:5466–5470`, cknown `:5471`, return `:5472`).
-**JS:** `js/invent.js` only — `cinv_ansimpleoname` `:4576`, `display_cinventory` `:4603`; import names added on existing objnam.js/pickup.js edges (`imports.mjs --can`: ALREADY).
-**Change:** restarted `display_cinventory` in C order over live `safe_qbuf(null, 'Contents of ', ':', obj, cinv_doname, cinv_ansimpleoname, 'that')` (same-module edge, already imported from objnam.js) and live `query_objlist(qbuf, items, INVORDER_SORT, PICK_NONE, allow_all)` (pickup.js edge, already imported); chain order into an array; `n>0 → pick_list[0].obj else null`; kept the split `invdisp_nothing` inline (hdr/''/'(empty)' PICK_NONE) and `obj.cknown = 1`. New module-local `cinv_ansimpleoname` in C order over live `ansimpleoname`/`strsubst`, keeping the mismatch-fired `strncmp` arms verbatim (no `!` in C) and spelling the empty-orig arm as an explicit prepend (C `strstr(bp,"")` hits; JS `strsubst` no-ops on empty orig).
-**Verify:** `node scripts/verify.mjs --fn display_cinventory,cinv_ansimpleoname` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
-**Named:** - `display_cinventory`: none — whole body, every callee live (safe_qbuf, query_objlist, allow_all) or ledger-split inline (invdisp_nothing).
-**Next:** pop the next Open — coverage row.
-## 2026-09-30 — D-3146 `options.c` msgtype_parse_add error arms + sscanf fidelity (coverage)
-
-**C locus:** - `handler_disclose`: `options.c:5674–5777` (category PICK_ANY `:5696–5714`, per-category PICK_ONE `:5717–5771`, v/g `#`+`?` rows, n>1 keep-second `:5769–5770`) — stale, body complete.
-**JS:** `js/options.js` only — msgtype_parse_add `:693` (+doc `:688–692`).
-**Change:** restarted `msgtype_parse_add` in C order: `if (m)` keeps the hit path, miss arm calls live `config_error_add("Unknown message type '%s'")` (`:7860`), else arm calls `config_error_add('Malformed MSGTYPE')` (`:7862`), `return false` (`:7864`); class is now `{1,255}` per `%255[^"]`. 8-case node probe (hit/unknown/empty-pattern/garbage/long-token/unterminated) all C-agreeing.
-**Verify:** `node scripts/verify.mjs --fn handler_disclose,all_options_msgtypes,handler_align_misc,msgtype_parse_add,determine_ambiguities` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
-**Named:** - `handler_disclose`: n>1 keep-second pick (`:5769–5770`) folded into select_menu_pick_one; nul_glyphinfo; sinks (D-2788/R1747, unchanged).
-**Next:** pop the next Open — coverage row.
-## 2026-09-30 — D-3145 `dungeon.c` branch-type default arm + mapseen traverse stale (coverage)
-
-**C locus:** - `correct_branch_type`: `dungeon.c:439–454` (TBR_STAIR/NO_UP/NO_DOWN/PORTAL `:443–450`, impossible + BR_STAIR default `:452–453`).
-**JS:** `js/dungeon.js` only — correct_branch_type `:497` (+cite comment `:494–496`, impossible `:504`).
-**Change:** default arm now `void impossible('correct_branch_type: unknown branch type')` then `return BR_STAIR` in C order (live `display.js` export, already imported `:154`; void-fire keeps the predicate sync — `In_W_tower` `:1289` / `mkobj.js` precedent).
-**Verify:** `node scripts/verify.mjs --fn correct_branch_type,traverse_mapseenchn` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
-**Named:** - `correct_branch_type`: none — whole body, every callee live.
-**Next:** pop the next Open — coverage row.
-## 2026-09-30 — Audit 2096–2104 (D-3136..D-3144): 9 ACCEPT; full cadence
-
-Reviews 2096–2104 audit 92b27a5b5..dbe017e06 against pinned C (quit cluster, botl hilite
-closure, glyphrep pair closing 1510 Debt 1, lspo des bindings, takeoff pair, attrib pair,
-wizcmds septet, quest quartet, there-menu trio). All corpus claims re-measured with
---reach-all (all vacuous + REACH-OK, no REGRESSED). No Must-fix — queue stays empty.
-Observations (not queued): 2098 map mega-lines still name match_glyph/glyphrep (stale as to
-these two); seeded sample 5/5 live (pet_ranged_attk cmd.c:941 caller is map-named under
-domonability; shuffle_customizations `c` cites the dead #if 0 arm — inventory-level, `set`
-recomputes the same range and would clobber `seed@`, so left for an inventory fix).
-Cadence: public 44/44, corpus 648/953 (0 flips, full:true), held-out 13/44 flat.
-Ledger snapshot + 5/5 seeded-ported sample live (0 fixed).
-## 2026-09-30 — D-3144 `cmd.c` there-menu trio: next2u + far builders, whole-menu restart (coverage)
-
-**C locus:** - `there_cmd_menu_far`: `cmd.c:4623–4636` (CLICK_1 `:4628`, linedup+dist2 throw `:4629–4631`, travel `:4633`).
-**JS:** `js/cmd.js` only — next2u `:3072`, there_cmd_menu_next2u `:3089`, there_cmd_menu_far `:3182`, there_cmd_menu `:3232`.
-**Change:** new module-local `next2u` (you.h:558 macro, squared dist2, no isok guard like C); new `there_cmd_menu_next2u` in C order over live exports (carrying/t_at/m_at/x_monnam/mon_nam/upstart/glyph_at/glyph_is_invisible_id/canspotmon/dist2 + has_mgivenname/W_SADDLE/D_ISOPEN consts + can_saddle on the existing steed edge; levl glyph ≡ remembered_glyph per detect.js; C `int *act` ≡ actOut box); new `there_cmd_menu_far` over live linedup (new SAFE mthrowu edge) + dist2; restarted `there_cmd_menu` whole in C order (test_move awaited, move_funcs[dir][MV_WALK] ≡ move_funcs_walk, travelcmd ≡ flags.travel default-On, pickAct ≡ npick/picks); deleted the dead `act_on_act_here` shim (sole caller was the menu); added which_armor (new SAFE worn edge).
-**Verify:** `node scripts/verify.mjs --fn there_cmd_menu_far,there_cmd_menu_next2u,there_cmd_menu` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
-**Named:** - `there_cmd_menu_far`: none — whole body, every callee live.
-**Next:** pop the next Open — coverage row.

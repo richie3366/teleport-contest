@@ -15,7 +15,7 @@
 {"fn":"undiscover_object","c":"498-523","status":"unknown","d":["D-1691"],"at":"seed@a30a7de84"}
 {"fn":"interesting_to_discover","c":"526-540","status":"unknown"}
 {"fn":"discovered_cmp","c":"553-564","status":"unknown"}
-{"fn":"sortloot_descr","c":"567-591","status":"unknown"}
+{"fn":"sortloot_descr","c":"567-591","status":"ported","js":["js/invent.js:sortloot_descr"],"at":"2026-09-30@e47a5e02a","note":"stale: js/invent.js:4884 local (C staticfn); zeroobj/dknown/known/corpsenm/slime-spe + loot_classify + %02d key all present, caller dodiscovered wired :4987, doclassdisco caller missing in JS"}
 {"fn":"choose_disco_sort","c":"611-657","status":"unknown"}
 {"fn":"disco_typename","c":"661-689","status":"unknown"}
 {"fn":"disco_append_typename","c":"694-721","status":"unknown"}

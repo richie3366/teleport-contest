@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-3157 — `options.c` optfn_map_mode + optfn_menu_headings + color_attr_to_str + optfn_pettype (coverage cluster)
+
+- **Status:** fixed (coverage cluster, 4 whole C functions + C-domain attr consistency + jsmain default; queue heads sortloot_descr/mapfrag_error/handler_whatis_filter/handler_windowborders/query_msgtype proved stale and optfn_palette compiled-out — all marked via `ledger.mjs` in the same iteration. +269/-14 js/options.js, +9 js/const.js, +5 js/jsmain.js, +1 test file.)
+- **Symptom:** coverage gap, not a corpus divergence (no session blocked on any of the four): three `options.c` compound-option parsers and one `coloratt.c` formatter were MISSING in JS (allopt rows carried `optfn: null`), so config/doset/get paths for map_mode, menu_headings and pettype were dead or hand-subsetted (rc pettype parsed only none/dog/cat; doset menu_headings showed a static string).
+- **C locus:**
+  - `optfn_map_mode`: options.c:1962–2047 (do_set `:1972–2026`: exact-tiles strcmpi `:1983`, strncmpi prefix chain `:1985–2011`, unknown `:2012–2016`, wc/preference gate `:2017–2021`, negation `:2022–2025`; get_val `:2028–2045`, TILES_FIT unnamed → defopt `:2041–2043`).
+  - `optfn_menu_headings`: options.c:2182–2222 (do_set `:2191–2208` reads op directly: empty `:2194–2199`, negated-valued `:2200–2202`, parse-assign `:2204–2206`; get_val `:2209–2216`; do_handler `:2218–2220`).
+  - `color_attr_to_str`: coloratt.c:249–257 (`"%s&%s"` of clr2colorname + attr2attrname).
+  - `optfn_pettype`: options.c:3196–3253 (do_set `:3204–3235` via string_for_env_opt valOptional=negated: letter switch `:3207–3227`, unknown `:3228–3230`, empty+negated `:3233–3234`; get_val `:3237–3243`; get_cnf_val `:3245–3250`).
+- **JS was:** no symbols; allopt rows map_mode/menu_headings/pettype `optfn: null`; rc pettype a 3-value hand subset (js/options.js:3825 pre-edit); doset menu_headings a static `'no-color&inverse'`; `iflags.menu_headings` stored terminal-bitmask attrs (ATR_INVERSE=1) at init/handler-default while parse/handler/query paths produce C-domain (7) — mixed domains, exposed by naming.
+- **Fix:** ported all four whole in C order. map_mode: exact-tiles via length gate + strncmpi (hacklib has no strcmpi), prefix lengths = sizeof-name minus 1, wc_supported/preference_update gate, negated→bad_negation+ERR, get_val chain with 11→'default'. menu_headings: direct-op do_set (empty→C-domain INVERSE/NONE+NO_COLOR; silenterr; parse whole-struct assign), get_val to_str + space→hyphen; do_handler async-split (no branch, msg_window precedent). color_attr_to_str: C-`"%s&%s"` over live clr2colorname/attr2attrname (`|0` ≡ C zero-struct). pettype: env_opt parse, 9-letter switch (C `'\0'` random is JS `''` so get_cnf_val truthiness matches C 0), dead post-return `break` skipped. Attr-domain consistency: empty arm, initoptions default (:7475) and handler default (:6172) now store C-domain (MC_ATR_*, = C ATR_*); ape_heading_attr (:5980) translates C→terminal for the painter (DIM/ITALIC/BLINK unrenderable, named). jsmain iflags assembly gains the C `:7188–7189` default {7,8} (initoptions_init is not on the JS startup path; rc spread overrides).
+- **JS:** js/options.js:3008 (optfn_map_mode), :3089 (optfn_menu_headings), :3125 (color_attr_to_str), :3143 (optfn_pettype); js/const.js:1517–1525 (MAP_MODE_ASCII 1–9); js/jsmain.js:183 (default); scripts/optfn-mapmode-headings-pettype.test.mjs (17 tests).
+- **Callers:**
+  - `optfn_map_mode`: generic parseoptions do_set (:10610-path), get_option_value, DO_INIT loop via allopt row :10190; rc valued arm :4050. No do_handler in C; not in doset lists (gameview wc sibling precedent).
+  - `optfn_menu_headings`: allopt row :10204 (generic do_set/get/init); doset compound get_val+handler :9457; doset_optfn_do_handler :3312; getlin dispatch :7911; rc valued :4056 + valueless :4463. Retires D-3047's "caller unported (wires later)".
+  - `color_attr_to_str`: sole C caller optfn_menu_headings get_val (:3111) — the only site, wired.
+  - `optfn_pettype`: allopt row :10278 (generic do_set/get/init); rc valued reroute (replaces the hand subset) + valueless :4456; consumer dog.js pet_type reads game.preferred_pet (pre-existing); jsmain applies opts.preferred_pet (pre-existing).
+- **Verify:** `node scripts/verify.mjs --fn optfn_map_mode,optfn_menu_headings,color_attr_to_str,optfn_pettype` → VERIFY: PASS — hidden notes ×4 (no corpus session blocked, expected for coverage rows); REACH-OK ×4 (no RNG-tagged reach, smoke spreads 24/24 PASS each); green 2/2; strict both; cohort 7/7; full 44/44 (auto: shared file changed). First run caught seed0007 doset `[black&none]` (menu_headings unset on the JS startup path) → fixed with the jsmain C-default; re-run green. Focused `node --test scripts/optfn-mapmode-headings-pettype.test.mjs`: 17/17 PASS.
+- **Named omissions:**
+  - `optfn_map_mode`: none — whole body. Valueless map_mode rc arm skipped (bare→OK no-op, `!`→sink-only bad_negation+ERR; zero observable effect).
+  - `optfn_menu_headings`: do_handler body lives in doset_optfn_do_handler/getlin (async-split precedent); adjust_menu_promptstyle stays with handler_menu_headings (D-3047's omit).
+  - `color_attr_to_str`: none — whole body.
+  - `optfn_pettype`: C `:3231` break-after-return skipped (unreachable).
+  - Painter: menu_headings DIM/ITALIC/BLINK render as NONE (terminal has no such code).
+- **Ledger:** optfn_map_mode ported; optfn_menu_headings ported; color_attr_to_str ported; optfn_pettype ported
+- **Next:** continue the breadth queue from the regenerated block (options.c's 7 rows all resolve this iteration: 3 shipped + color_attr_to_str callee + 3 stale + palette by-design).
+
 ## D-3156 — `selvar.c` selection_iterate whole-body restart (coverage)
 
 - **Status:** fixed (coverage row; single-function cluster — selvar.c holds no other Open row and all 3 callees are ported/measured-ok, so the density exception applies. +16/-9 js/mklev.js, 1 file.)

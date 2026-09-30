@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `o_init.c` sortloot_descr — coverage PARTIAL (C 18 code L `o_init.c:567–591` / JS 13 code L in js/invent.js; hops —, callers 2, RNG 0, msg 0) @442754b32
-- [ ] `sp_lev.c` mapfrag_error — coverage PARTIAL (C 10 code L `sp_lev.c:281–295` / JS 5 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @442754b32
-- [ ] `options.c` handler_whatis_filter — coverage PARTIAL (C 33 code L `options.c:6279–6318` / JS 20 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @5fd602958
-- [ ] `options.c` optfn_map_mode — coverage MISSING (C 66 code L `options.c:1963–2047` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @5fd602958
 - [ ] `sp_lev.c` lspo_mazewalk — coverage MISSING (C 66 code L `sp_lev.c:5769–5869` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @5fd602958
-- [ ] `options.c` optfn_menu_headings — coverage MISSING (C 24 code L `options.c:2183–2222` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: color_attr_to_str) @5fd602958
 - [ ] `sp_lev.c` set_wallprop_in_selection — coverage PARTIAL (C 14 code L `sp_lev.c:5911–5932` / JS 9 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @5fd602958
-- [ ] `options.c` handler_windowborders — coverage PARTIAL (C 26 code L `options.c:6620–6654` / JS 19 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @836f908c6
 - [ ] `sp_lev.c` lspo_terrain — coverage MISSING (C 47 code L `sp_lev.c:4978–5038` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a610d9a06
-- [ ] `options.c` query_msgtype — coverage PARTIAL (C 22 code L `options.c:7701–7728` / JS 10 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @779a41942
-- [ ] `options.c` optfn_pettype — coverage MISSING (C 45 code L `options.c:3197–3253` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @779a41942
-- [ ] `options.c` optfn_palette — coverage MISSING (C 18 code L `options.c:2699–2730` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: count_alt_palette) @8a2b677db
+- [ ] `cmd.c` doc_extcmd_flagstr — coverage PARTIAL (C 21 code L `cmd.c:524–557` / JS 14 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
+- [ ] `options.c` all_options_menucolors — coverage PARTIAL (C 21 code L `options.c:9595–9625` / JS 12 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
+- [ ] `options.c` handler_pickup_burden — coverage PARTIAL (C 20 code L `options.c:6086–6111` / JS 13 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
+- [ ] `options.c` handler_runmode — coverage PARTIAL (C 20 code L `options.c:6124–6149` / JS 13 code L in js/options.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
+- [ ] `sp_lev.c` sp_amask_to_amask — coverage PARTIAL (C 10 code L `sp_lev.c:1908–1922` / JS 7 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0) @e47a5e02a
+- [ ] `options.c` optfn_o_status_cond — coverage MISSING (C 16 code L `options.c:8414–8442` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: count_cond) @e47a5e02a
+- [ ] `selvar.c` line_dist_coord — coverage PARTIAL (C 18 code L `selvar.c:542–566` / JS 13 code L in js/mklev.js; hops —, callers 1, RNG 0, msg 0) @e47a5e02a
+- [ ] `options.c` optfn_windowchain — coverage MISSING (C 15 code L `options.c:4857–4881` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: addto_windowchain) @e47a5e02a
+- [ ] `options.c` optfn_IBMgraphics — coverage MISSING (C 33 code L `options.c:1906–1960` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e47a5e02a
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

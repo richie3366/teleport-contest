@@ -1,10 +1,10 @@
 {"fn":"reset_xystart_size","c":"206-212","status":"unknown"}
 {"fn":"match_maptyps","c":"217-224","status":"ported","js":["js/mklev.js:match_maptyps"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
 {"fn":"mapfrag_fromstr","c":"227-253","status":"partial","js":["js/mklev.js:mapfrag_fromstr"],"omit":"`#wizfliplevel` (`wizcmds.c:412–434`) and `nhl_flip_level` (`nhlua.c:1509–1517`) are what pass `extras` true; neither is wired, so this body runs only when a caller sets that flag.","d":["D-2889"],"at":"seed@a30a7de84"}
-{"fn":"mapfrag_free","c":"256-263","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"mapfrag_free","c":"256-263","status":"by-design","at":"2026-09-30@e47a5e02a","note":"GC no-op: free(data)+free+NULL (C sp_lev.c:256); named in lspo_replace_terrain/map_themeroom docs"}
 {"fn":"mapfrag_get","c":"266-272","status":"unknown"}
 {"fn":"mapfrag_canmatch","c":"275-278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mapfrag_error","c":"281-295","status":"unknown"}
+{"fn":"mapfrag_error","c":"281-295","status":"ported","js":["js/mklev.js:mapfrag_error"],"at":"2026-09-30@e47a5e02a","note":"stale: js/mklev.js:1725; null/odd/center arms + exact msgs present, canmatch/TYP_CANNOT_MATCH match C :203/:275-279, caller :5080 wired :1781, nhlsel l_selection_match Lua-only"}
 {"fn":"mapfrag_match","c":"298-312","status":"unknown"}
 {"fn":"solidify_map","c":"315-323","status":"unknown"}
 {"fn":"map_cleanup","c":"328-356","status":"unknown","d":["D-2334"],"at":"seed@a30a7de84"}
