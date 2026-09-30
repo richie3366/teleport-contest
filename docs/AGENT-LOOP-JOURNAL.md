@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3138 `glyphs.c` glyphrep + match_glyph ports, parsesymbols G_ arm wired (coverage head)
+
+**C locus:** - `glyphrep`: nethack-c/upstream/src/glyphs.c:470–481 (no-cache debugger arm :474–475, nhUse :476, custom-map call :477, 1/0 tail :478–480).
+**JS:** js/glyphs.js `match_glyph` + `glyphrep` (NO_GLYPH added to the existing display.js import); js/options.js:196 import + :10937 call-site comment + parsesymbols doc omits updated.
+**Change:** ported both functions whole in C order into js/glyphs.js (C-order slot right after `glyphid_cache_status`, mirroring C :454/:458/:470); wired the options.js G_ arm through the existing glyphs.js import (same edge, one added name — no new module edge, call-time use only).
+**Verify:** `node scripts/verify.mjs --fn match_glyph,glyphrep` → VERIFY: PASS (syntax 2 files; rule2; hidden note no baseline blocks, expected for coverage; REACH-OK both — no RNG-tagged reach, smoke spread 24/24 PASS; green 2/2; strict both; cohort 7/7; full 44/44 auto on shared-file change). Smoke probe /tmp/glyphrep-probe.mjs: unknown id → glyphrep 0, match_glyph 0, parsesymbols FALSE (C `:829`).
+**Named:** - `glyphrep`: none — whole body, every callee live (`glyphrep_to_custom_map_entries` D-3002; `:476` nhUse lint no-op elided with cite; `&glyph` box discarded like C's unread out-param).
+**Next:** parse_sym_line symbols.c:438+ when it surfaces as a coverage row (carries the :486 match_glyph caller); review 1510's single Debt item is now fully wired (both bare callees live — no stamp: Debt, row cited no review).
 ## 2026-09-30 — D-3137 `botl.c` hilite small-function closure: clear/stat_idx/fldname/repad/count ports + 4 verified-complete (coverage head)
 
 **C locus:** - `clear_status_hilites`: botl.c:3351–3366 (free loop :3359–3362, zero pair :3363–3365).

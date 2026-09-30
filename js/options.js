@@ -193,7 +193,7 @@ import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
 import { LOADSYMS, SYM_CONTROL } from './generated/glyphsyms_data.js';
 import { COLORTABLE } from './generated/colortable_data.js';
 import { dupstr } from './dungeon.js';
-import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, fill_glyphid_cache, apply_customizations, reset_customcolors, reset_customsymbols } from './glyphs.js';
+import { glyphrep_to_custom_map_entries, free_glyphid_cache, glyphid_cache_status, fill_glyphid_cache, apply_customizations, reset_customcolors, reset_customsymbols, match_glyph } from './glyphs.js';
 import { yyyymmddhhmmss } from './calendar.js';
 import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
@@ -10934,7 +10934,7 @@ function parsesymbolsSeg(buf, start, which_set) {
     const symp = match_sym(symname); // C `:823`
     let is_glyph = false;
     if (!symp && symname[0] === 'G' && symname[1] === '_') { // C `:824–826`
-        is_glyph = match_glyph(symname); // bare: glyphs.c:458, named omit
+        is_glyph = match_glyph(symname); // C `:824–826` G_ arm — live glyphs.js
     }
     if (!symp && !is_glyph) return false; // C `:829`
     if (symp) { // C `:830`
@@ -10960,8 +10960,9 @@ function parsesymbolsSeg(buf, start, which_set) {
  * SYMBOLS/ROGUESYMBOLS value (or OPTIONS S_ item) into the override tables
  * + the savedSymbols registry, in C order. Exported (C extern,
  * extern.h:3180). The `:837` glyphrep_to_custom_map_entries arm (H_UTF8
- * handling, u+ values) is wired to glyphs.js. Named omissions (map):
- * match_glyph (G_ names) and the switch_symbols application step at the
+ * handling, u+ values) is wired to glyphs.js, as is the `:824–826` G_
+ * arm (live match_glyph). Named omissions (map):
+ * the switch_symbols application step at the
  * wired callers (JS reads ov_* lazily at render; reset_glyphmap stays
  * untouched per the fortress guard).
  */

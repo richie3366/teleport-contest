@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3138 — `glyphs.c` glyphrep + match_glyph ports, parsesymbols G_ arm wired (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head + sole caller, same file; 2 files; small cluster — head's file holds no further Open queue rows and the callee was already ported).
+- **Symptom:** coverage MISSING — no JS symbol for either function; the live parsesymbols `:824–826` G_ arm called bare `match_glyph` (ReferenceError on any top-level `SYMBOLS=G_…` RC line; review 1510 Debt 1, map-named).
+- **C locus:**
+  - `glyphrep`: nethack-c/upstream/src/glyphs.c:470–481 (no-cache debugger arm :474–475, nhUse :476, custom-map call :477, 1/0 tail :478–480).
+  - `match_glyph`: nethack-c/upstream/src/glyphs.c:458–467 (workbuf copy :465, glyphrep tail :466).
+- **JS was:** no `match_glyph`/`glyphrep` in js/; js/options.js:10937 bare call (named omit); callee `glyphrep_to_custom_map_entries` live since D-3002.
+- **Fix:** ported both functions whole in C order into js/glyphs.js (C-order slot right after `glyphid_cache_status`, mirroring C :454/:458/:470); wired the options.js G_ arm through the existing glyphs.js import (same edge, one added name — no new module edge, call-time use only).
+- **JS:** js/glyphs.js `match_glyph` + `glyphrep` (NO_GLYPH added to the existing display.js import); js/options.js:196 import + :10937 call-site comment + parsesymbols doc omits updated.
+- **Callers:**
+  - `glyphrep`: glyphs.c:466 match_glyph → wired (js/glyphs.js `match_glyph`, same module).
+  - `match_glyph`: symbols.c:825 parsesymbols → wired (js/options.js:10937); symbols.c:486 parse_sym_line → unported, named omission.
+- **Verify:** `node scripts/verify.mjs --fn match_glyph,glyphrep` → VERIFY: PASS (syntax 2 files; rule2; hidden note no baseline blocks, expected for coverage; REACH-OK both — no RNG-tagged reach, smoke spread 24/24 PASS; green 2/2; strict both; cohort 7/7; full 44/44 auto on shared-file change). Smoke probe /tmp/glyphrep-probe.mjs: unknown id → glyphrep 0, match_glyph 0, parsesymbols FALSE (C `:829`).
+- **Named omissions:**
+  - `glyphrep`: none — whole body, every callee live (`glyphrep_to_custom_map_entries` D-3002; `:476` nhUse lint no-op elided with cite; `&glyph` box discarded like C's unread out-param).
+  - `match_glyph`: C workbuf `:465` copy elided with cite (immutable strings; glyphrep re-copies at :126); parse_sym_line :486 caller unported (no JS symbol, travels with its own future row).
+- **Ledger:** match_glyph ported; glyphrep ported
+- **Next:** parse_sym_line symbols.c:438+ when it surfaces as a coverage row (carries the :486 match_glyph caller); review 1510's single Debt item is now fully wired (both bare callees live — no stamp: Debt, row cited no review).
+
 ## D-3137 — `botl.c` hilite small-function closure: clear/stat_idx/fldname/repad/count ports + 4 verified-complete (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head clear_status_hilites + 5 same-file NEW ports + 4 verified-complete; 2 files).

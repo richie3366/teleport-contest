@@ -11,8 +11,8 @@
 {"fn":"find_glyphid_in_cache_by_glyphnum","c":"418-432","status":"unknown"}
 {"fn":"glyph_hash","c":"435-449","status":"unknown"}
 {"fn":"glyphid_cache_status","c":"452-455","status":"unknown"}
-{"fn":"match_glyph","c":"458-467","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"glyphrep","c":"470-481","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"match_glyph","c":"458-467","status":"ported","js":["js/glyphs.js:match_glyph"],"d":["D-3138"],"at":"2026-09-30@1edc89993","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"glyphrep","c":"470-481","status":"ported","js":["js/glyphs.js:glyphrep"],"d":["D-3138"],"at":"2026-09-30@1edc89993","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_custom_nhcolor_entry","c":"484-528","status":"partial","js":["js/glyphs.js:add_custom_nhcolor_entry"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771"],"at":"seed@a30a7de84"}
 {"fn":"apply_customizations","c":"531-574","status":"ported","js":["js/glyphs.js:apply_customizations"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"maybe_shuffle_customizations","c":"581-587","status":"unknown"}
