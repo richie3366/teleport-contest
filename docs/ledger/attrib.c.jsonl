@@ -7,7 +7,7 @@
 {"fn":"change_luck","c":"411-418","status":"unknown"}
 {"fn":"stone_luck","c":"423-437","status":"unknown"}
 {"fn":"set_moreluck","c":"441-451","status":"unknown"}
-{"fn":"restore_attrib","c":"455-484","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restore_attrib","c":"455-484","status":"ported","js":["js/attrib.js:restore_attrib"],"d":["D-3141"],"at":"2026-09-30@b20fdf92d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"exercise","c":"489-518","status":"unknown","d":["D-2169","D-2023","D-1994","D-1993"],"at":"seed@a30a7de84"}
 {"fn":"exerper","c":"521-584","status":"unknown"}
 {"fn":"exerchk","c":"598-677","status":"unknown"}
@@ -15,10 +15,10 @@
 {"fn":"init_attr_role_redist","c":"699-719","status":"unknown"}
 {"fn":"init_attr","c":"723-737","status":"unknown"}
 {"fn":"redist_attr","c":"740-760","status":"ported","js":["js/attrib.js:redist_attr"],"d":["D-2954"],"at":"seed@a30a7de84"}
-{"fn":"vary_init_attr","c":"764-776","status":"unknown"}
-{"fn":"postadjabil","c":"780-786","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"vary_init_attr","c":"764-776","status":"ported","js":["js/attrib.js:vary_init_attr"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:640 complete, caller js/u_init.js:2025 (C u_init.c:1391)"}
+{"fn":"postadjabil","c":"780-786","status":"ported","js":["js/attrib.js:postadjabil"],"d":["D-3141"],"at":"2026-09-30@b20fdf92d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"role_abil","c":"789-815","status":"ported","js":["js/attrib.js:role_abil"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"stale: js/attrib.js:928 — switch ≡ C table+sentinel scan for all inputs (default null ≡ sentinel NULL); staticfn→local correct; both C callers wired (check_innate_abil :823→JS :1101, adjabil :1011→JS :954)"}
-{"fn":"check_innate_abil","c":"818-851","status":"unknown"}
+{"fn":"check_innate_abil","c":"818-851","status":"ported","js":["js/attrib.js:check_innate_abil"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:1098 complete, callers js/attrib.js:1124,1126 (C :868,:870); hum_abil empty in C"}
 {"fn":"innately","c":"864-877","status":"unknown"}
 {"fn":"is_innate","c":"880-900","status":"unknown"}
 {"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

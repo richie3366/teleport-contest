@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3141 — `attrib.c` restore_attrib + postadjabil (coverage head + same-file MISSING sibling)
+
+- **Status:** fixed (breadth-phase cluster: head `restore_attrib` + `postadjabil`, the only other same-file MISSING row; 0 corpus sessions blocked on either — coverage completion, not a divergence. +65/−3 in `js/attrib.js` only. Small because `attrib.c` holds nothing more Open: `vary_init_attr` + `check_innate_abil` proved stale→ported in this commit, the rest measured ok/ported.)
+- **Symptom:** none on the corpus — `restore_attrib` (ATEMP/ATIME countdown toward weak/wounded equilibrium) had no JS symbol, and `adjabil` carried `// postadjabil deferred`, skipping the Warning/See_invisible `see_monsters()` refresh C runs when an ability's bits change.
+- **C locus:**
+  - `restore_attrib`: `nethack-c/upstream/src/attrib.c:455–484` (equilibrium `:472–473`; countdown `:474–475`; step+botl `:476–477`; retimer `:478–479`; encumber_msg `:483–484`; zero C call sites — dead since the moveloop call was dropped).
+  - `postadjabil`: `attrib.c:780–786` (staticfn; ulevel guard `:782–783`; HWarning/HSee_invisible → see_monsters `:784–785`); sole C caller `adjabil` `:1063–1064` behind the `prevabil !=` changed-gate.
+- **JS was:** neither symbol existed in `js/`; `adjabil` (`js/attrib.js:952`) ended its per-entry loop with `// postadjabil deferred` plus two doc deferrals; `restore_attrib`'s countdown/equilibrium absent (dead in C too — no callers).
+- **Fix:** `js/attrib.js` only — new exported async `restore_attrib` (`:752`) in C order (Wounded_legs macro inlined per the allmain/apply precedent, `u.uhs >= WEAK` per apply.js:799, `--ATIME` countdown, ATEMP step toward 0, `Math.trunc(100/acurr(A_CON))` retimer, live `disp.botl` read before `encumber_msg` like C `:483`); new local `postadjabil` (`:996`, C staticfn → local like `check_innate_abil`, pointer identity → prop-field compare); wired into the `adjabil` loop (`:1060`) behind `prev !== (u[prop] || 0)` ≡ C `:1063`. `WEAK` added to the const.js import, `see_monsters` to the existing display.js import (same edge, no new module dependency); `encumber_msg` via the file's existing dynamic-import idiom (avoids an invent cycle); dropped the two stale deferral comments. Stale siblings `vary_init_attr` (`:640`, caller `js/u_init.js:2025`) and `check_innate_abil` (`:1098`, callers `:1124`/`:1126`, hum_abil empty in C) set ported directly with notes. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/attrib.js` (+65/−3: restore_attrib `:752`; postadjabil `:996`; adjabil gate `:1060`).
+- **Callers:**
+  - `restore_attrib`: none in C (verified: the only `restore_attrib` hit in upstream src is the definition) → shipped called from nowhere, like C.
+  - `postadjabil`: C `adjabil` `:1064` → wired (`js/attrib.js:1060`) inside the per-entry loop behind the C `:1063` changed-gate. No call from a site C never calls from.
+- **Verify:**
+  - `restore_attrib`: `note hidden verify restore_attrib: no corpus session blocked on it at baseline`; `PASS reach restore_attrib: no RNG-tagged reach; fixed smoke spread (24 run): 24 PASS, 0 regressed → REACH-OK`.
+  - `postadjabil`: `note hidden verify postadjabil: no corpus session blocked on it at baseline`; `PASS reach postadjabil: no RNG-tagged reach; fixed smoke spread (24 run): 24 PASS, 0 regressed → REACH-OK`.
+  - Shared: `PASS syntax (1 changed js file)` · `PASS rule2` · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `VERIFY: PASS`. /tmp countdown probe (expiry/equilibrium/countdown/callee-resolves, 8 asserts) PASS.
+- **Named omissions:**
+  - `restore_attrib`: none — whole body, every callee live (in-file `acurr`; `encumber_msg` via dynamic invent.js import).
+  - `postadjabil`: none — whole body, sole callee live (`see_monsters`, display.js, pre-existing edge).
+- **Ledger:** restore_attrib ported; postadjabil ported
+- **Next:** next coverage head from the regenerated block (post-`restore_attrib`).
+
 ## D-3140 — `do_wear.c` takeoff pair (dotakeoff uskin/ECMD_CANCEL + wornarm_destroyed cancel_don/live-useup)
 
 - **Status:** fixed (breadth-phase cluster: head `dotakeoff` + the only same-file Open row `wornarm_destroyed`; 0 corpus sessions blocked on either — coverage completion, not a divergence. Small by lines (+41/−40 js/) because both bodies were near-complete and every callee was already live; the head's file and both callee closures hold nothing more Open.)
