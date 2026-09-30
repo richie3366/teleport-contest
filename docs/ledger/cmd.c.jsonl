@@ -145,5 +145,5 @@
 {"fn":"paranoid_ynq","c":"5588-5650","status":"unknown"}
 {"fn":"paranoid_query","c":"5655-5658","status":"unknown"}
 {"fn":"dosuspend_core","c":"5662-5678","status":"partial","js":["js/cmd.js:dosuspend_core"],"omit":"- `dosuspend_core`: `dosuspend()` (`cmd.c:5672`, `sys/share/ioctl.c:161`, SIGTSTP suspend) unportable under Rule #2; the suspend arm keeps C order with the call named in place.","d":["D-3149"],"at":"2026-09-30@8e8a996ab","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"dosh_core","c":"5682-5696","status":"partial","js":["js/cmd.js:dosh_core"],"omit":"- `dosuspend_core`: `dosuspend()` (`cmd.c:5672`, `sys/share/ioctl.c:161`, SIGTSTP suspend) unportable under Rule #2; the suspend arm keeps C order with the call named in place.","d":["D-3149"],"at":"2026-09-30@8e8a996ab","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dosh_core","c":"5682-5696","status":"partial","js":["js/cmd.js:dosh_core"],"omit":"dosh() (cmd.c:5691, port subshell spawn) unportable under Rule #2.","d":["D-3149"],"at":"2026-09-30@40d1154a3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dummyfunction","c":"5699-5702","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
