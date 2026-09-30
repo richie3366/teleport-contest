@@ -62,7 +62,7 @@
 {"fn":"spo_pop_container","c":"3040-3046","status":"unknown"}
 {"fn":"l_push_wid_hei_table","c":"3050-3055","status":"ported","js":["js/mklev.js:l_push_wid_hei_table"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"l_push_mkroom_table","c":"3059-3070","status":"ported","js":["js/mklev.js:l_push_mkroom_table"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_message","c":"3076-3109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_message","c":"3076-3109","status":"ported","js":["js/mklev.js:lspo_message"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_align","c":"3114-3128","status":"split","js":["js/mklev.js:get_table_align_unpacked"],"at":"2026-09-29@d3ab32283","note":"stale: D-2645 unpacked local, both C-caller analogues wired"}
 {"fn":"get_table_monclass","c":"3131-3140","status":"split","js":["js/mklev.js:get_table_objclass_field"],"at":"2026-09-30@042bdf039","note":"stale: body identical to get_table_objclass, served by js/mklev.js:22187; sole C caller :3358 wired at :22608"}
 {"fn":"find_montype","c":"3143-3164","status":"ported","js":["js/mklev.js:find_montype"],"d":["D-2997"],"at":"2026-09-28@a7a0f55e5","note":"audit 1990-1998: C staticfn, file-local js/mklev.js:29179 whole with cites (D-2997); 'no export' is correct linkage, prior note stale"}
@@ -94,8 +94,8 @@
 {"fn":"get_traptype_byname","c":"4379-4388","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_trap","c":"4397-4470","status":"unknown"}
 {"fn":"lspo_gold","c":"4480-4522","status":"unknown"}
-{"fn":"lspo_corridor","c":"4529-4554","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_random_corridors","c":"4558-4574","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_corridor","c":"4529-4554","status":"ported","js":["js/mklev.js:lspo_corridor"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_random_corridors","c":"4558-4574","status":"ported","js":["js/mklev.js:lspo_random_corridors"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"random_wdir","c":"4578-4582","status":"unknown"}
 {"fn":"floodfillchk_match_under","c":"4587-4590","status":"unknown"}
 {"fn":"set_floodfillchk_match_under","c":"4593-4597","status":"unknown"}
@@ -119,8 +119,8 @@
 {"fn":"get_coord","c":"5319-5366","status":"partial","js":["js/mklev.js:get_coord"],"omit":"`nhl_get_xy_params` (`nhlua.c:506–522`) and its caller `nhl_getmap` (`nhlua.c:530`) have no JS function, so the `get_coord` at `nhlua.c:518` is unwired.","d":["D-2862"],"at":"seed@a30a7de84"}
 {"fn":"levregion_add","c":"5371-5402","status":"unknown"}
 {"fn":"l_get_lregion","c":"5410-5436","status":"split","js":["js/mklev.js:l_teleport_region","js/mklev.js:l_levregion"],"at":"2026-09-29@d27c7b945","note":"stale: inlined in l_teleport_region/l_levregion (D-2668)"}
-{"fn":"lspo_teleport_region","c":"5443-5460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_levregion","c":"5472-5494","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_teleport_region","c":"5443-5460","status":"split","js":["js/mklev.js:l_teleport_region"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_levregion","c":"5472-5494","status":"split","js":["js/mklev.js:l_levregion"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_exclusion","c":"5498-5532","status":"unknown","d":["D-1109"],"at":"seed@a30a7de84"}
 {"fn":"sel_set_lit","c":"5535-5540","status":"unknown"}
 {"fn":"add_doors_to_room","c":"5544-5555","status":"unknown"}

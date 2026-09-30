@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — D-3166 `sp_lev.c` lspo_message/corridor/random_corridors ports + levregion splits + 5 region.c #if 0 by-design (coverage head)
+
+**C locus:** - `clone_region`: region.c:227–254 — inside `#if 0` (:220–256 "not yet used"); prototype also ifdef'd (:26–28); zero callers.
+**JS:** 1 file, +110/−30 (mklev.js), far under caps.
+**Change:** `js/mklev.js` — new `lspo_message(msg)` in C order (argc + string check via live in-module nhl_error, create_des_coder, null-vs-undefined append mirroring C's NULL-pointer check so stale '' still joins with '\n'); new async `lspo_corridor(opts)` (LSPO_WALLDIRS tables, required ints via luaL_checkinteger_unpacked ≡ get_table_int, walls via splev_opt_index default "all", awaited create_corridor) and async `lspo_random_corridors()` (all -1); rewired load_earth/air/astral des.message sites to per-line lspo_message calls (behavior-neutral); added create_des_coder + `?? {}` + object check to l_teleport_region/l_levregion; retired the create_corridor-doc omits. No new imports (all callees same-module).
+**Verify:** `node scripts/verify.mjs --fn clone_region,create_force_field,create_msg_region,replace_mon_regions,remove_mon_from_regions,lspo_message,lspo_corridor,lspo_random_corridors,lspo_teleport_region,lspo_levregion` → PASS syntax (1 file: mklev.js) · PASS rule2 · note hidden ×10 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×10 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) · VERIFY: PASS. Verify ran after the last js/ edit. /tmp probe: 9/9 (append/null/''/argc/typeof arms + 3 corridor validation throws).
+**Named:** - `clone_region`: whole function uncompiled (by-design: #if 0 region.c:220–256 + :26–28; cf D-3133).
+**Next:** falsifier — a session blocked with any shipped function as owner, or a table-form des.corridor call appearing in dat/*.lua (wire lspo_corridor then). Do not re-pop the five by-design labels or the two split labels.
 ## 2026-09-30 — D-3165 `cmd.c` dotherecmdmenu whole port (coverage)
 
 **C locus:** cmd.c:4342–4375 — click-stamped cell (`gc.clicklook_cc`) first: hero cell → here_cmd_menu, else there_cmd_menu + stamp reset; else getdir(NULL) → ECMD_CANCEL unless dir + isok(ux+dx), then dx|dy → there_cmd_menu(ux+dx, click) else here_cmd_menu; ECMD_TIME iff ch && ch != ESC.

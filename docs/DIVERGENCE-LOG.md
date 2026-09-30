@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-3166 — `sp_lev.c` lspo_message/corridor/random_corridors ports + levregion splits + 5 region.c #if 0 by-design (coverage head)
+
+- **Status:** fixed (breadth-phase cluster: queue head `clone_region` by-design (#if 0, uncompiled) + 4 same-file #if 0 by-design + shipped `sp_lev.c` lspo_message/lspo_corridor/lspo_random_corridors ports + lspo_teleport_region/lspo_levregion stale-split with create_des_coder completion; 3 ports + 2 splits + 5 dispositions, 1 file).
+- **Symptom:** no corpus divergence — coverage. Queue head `clone_region` (region.c:227–254) and row-9 `create_force_field` sit inside `#if 0 "not yet used"` blocks (uncompiled in contest C, cf D-3133 enter_force_field); `sp_lev.c` des entries lspo_message/lspo_corridor/lspo_random_corridors had no JS symbol while earth/air/astral loaders inlined the message joins by hand.
+- **C locus:**
+  - `clone_region`: region.c:227–254 — inside `#if 0` (:220–256 "not yet used"); prototype also ifdef'd (:26–28); zero callers.
+  - `create_force_field`: region.c:1003–1030 — inside `#if 0` (:945–1032 "not yet used"); prototype ifdef'd (:32–39); sole wiring commented out (:1026–1027).
+  - `create_msg_region`: region.c:955–973 — same `#if 0` block (:945–1032); prototype ifdef'd (:32–39).
+  - `replace_mon_regions`: region.c:622–632 — inside `#if 0` (:613–647); prototype ifdef'd (:32–39).
+  - `remove_mon_from_regions`: region.c:638–645 — same `#if 0` block (:613–647); prototype ifdef'd (:32–39).
+  - `lspo_message`: sp_lev.c:3076–3109 (argc<1 :3083–3087, create_des_coder :3089, checkstring :3091, old_n :3093–3094, alloc/join :3095–3107, return 0 :3109).
+  - `lspo_corridor`: sp_lev.c:4529–4554 (walldirs tables :4532–4537, coder :4539, lcheck :4541, src/dest ints+options :4542–4546, create_corridor :4548).
+  - `lspo_random_corridors`: sp_lev.c:4558–4574 (L UNUSED, coder :4562, all -1 :4564–4570, create_corridor :4572).
+  - `lspo_teleport_region`: sp_lev.c:5443–5460 (teledirs :5444–5445, coder :5449, lcheck :5450, l_get_lregion :5451, dir :5452–5453, padding :5454, rname :5455, levregion_add :5457).
+  - `lspo_levregion`: sp_lev.c:5472–5494 (regiontypes :5473–5480, coder :5484, lcheck :5485, l_get_lregion :5486, type :5487–5488, padding :5489, name :5490, levregion_add :5492).
+- **JS was:** no `lspo_message`/`lspo_corridor`/`lspo_random_corridors` anywhere (create_corridor doc named both as omissions); earth/air/astral loaders assigned pre-joined `g.lev_message` literals; `l_teleport_region` (mklev.js:974) / `l_levregion` (:1019) already held the full l_get_lregion+levregion_add bodies but skipped create_des_coder and took `opts` without the table-or-empty check.
+- **Fix:** `js/mklev.js` — new `lspo_message(msg)` in C order (argc + string check via live in-module nhl_error, create_des_coder, null-vs-undefined append mirroring C's NULL-pointer check so stale '' still joins with '\n'); new async `lspo_corridor(opts)` (LSPO_WALLDIRS tables, required ints via luaL_checkinteger_unpacked ≡ get_table_int, walls via splev_opt_index default "all", awaited create_corridor) and async `lspo_random_corridors()` (all -1); rewired load_earth/air/astral des.message sites to per-line lspo_message calls (behavior-neutral); added create_des_coder + `?? {}` + object check to l_teleport_region/l_levregion; retired the create_corridor-doc omits. No new imports (all callees same-module).
+- **JS:** 1 file, +110/−30 (mklev.js), far under caps.
+- **Callers:**
+  - `clone_region`/`create_force_field`/`create_msg_region`/`replace_mon_regions`/`remove_mon_from_regions`: none — zero live C callers (prototypes + defs in #if 0).
+  - `lspo_message`: C dat/earth.lua:17-19 + air.lua:12-13 + astral.lua:10-12 (des.message; registered sp_lev.c:6380) → JS mklev.js:15319-15321 (load_earth) / :15702-15703 (load_air) / :15888-15890 (load_astral). No 4th des.message in dat/*.lua.
+  - `lspo_corridor`: none — Lua-registered des entry (sp_lev.c:6397); no table-form des.corridor call in dat/*.lua (only random_corridors).
+  - `lspo_random_corridors`: C 12 .lua des.random_corridors calls (10 quest fila/filb + minetn-2/3; registered sp_lev.c:6398) → JS quest/mines loaders keep the equivalent inline makecorridors() (3 sites, pre-existing documented design); new async export stands for the registered entry.
+  - `lspo_teleport_region`/`lspo_levregion`: C Lua-registered (sp_lev.c:6404/6410) → JS l_teleport_region/l_levregion called from 10+ des sites (mklev.js:4803/5812-5813/5957-5958/13297-13299/15742-15744…).
+- **Verify:** `node scripts/verify.mjs --fn clone_region,create_force_field,create_msg_region,replace_mon_regions,remove_mon_from_regions,lspo_message,lspo_corridor,lspo_random_corridors,lspo_teleport_region,lspo_levregion` → PASS syntax (1 file: mklev.js) · PASS rule2 · note hidden ×10 (vacuous: 0 blocked — coverage rows, NOT corpus PASSes) · REACH-OK ×10 (no RNG tags; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) · VERIFY: PASS. Verify ran after the last js/ edit. /tmp probe: 9/9 (append/null/''/argc/typeof arms + 3 corridor validation throws).
+- **Named omissions:**
+  - `clone_region`: whole function uncompiled (by-design: #if 0 region.c:220–256 + :26–28; cf D-3133).
+  - `create_force_field`: whole function uncompiled (by-design: #if 0 region.c:945–1032 + :32–39).
+  - `create_msg_region`: whole function uncompiled (by-design: same #if 0 block).
+  - `replace_mon_regions`: whole function uncompiled (by-design: #if 0 region.c:613–647 + :32–39).
+  - `remove_mon_from_regions`: whole function uncompiled (by-design: same #if 0 block).
+  - `lspo_message`: none — whole body, every callee live (nhl_error/create_des_coder same-module, alloc ≡ GC); luaL_checkstring numbers rejected (house string-only idiom, lspo_terrain precedent).
+  - `lspo_corridor`: none in-body — whole body, every callee live; no live des callers to wire (no table-form call in dat/*.lua).
+  - `lspo_random_corridors`: loader-site rewiring — the 3 inline makecorridors() sites stay (equivalent all -1 path; awaiting would force async up the sync loader chain).
+  - `lspo_teleport_region`: unknown dir falls back to LR_TELE where C get_table_option nhl_errors (house ?? idiom, lspo_exclusion precedent); other load_* still push lregions by hand (pre-existing).
+  - `lspo_levregion`: unknown type falls back to LR_DOWNSTAIR where C get_table_option nhl_errors (house ?? idiom).
+- **Ledger:** clone_region by-design; create_force_field by-design; create_msg_region by-design; replace_mon_regions by-design; remove_mon_from_regions by-design; lspo_message ported; lspo_corridor ported; lspo_random_corridors ported; lspo_teleport_region split js=js/mklev.js:l_teleport_region; lspo_levregion split js=js/mklev.js:l_levregion
+- **Next:** falsifier — a session blocked with any shipped function as owner, or a table-form des.corridor call appearing in dat/*.lua (wire lspo_corridor then). Do not re-pop the five by-design labels or the two split labels.
+
 ## D-3165 — `cmd.c` dotherecmdmenu whole port (coverage)
 
 - **Status:** fixed (coverage, 1 C function whole; ~50 js/ lines — below the ~80 density line, but cmd.c holds nothing more Open: sole cmd.c row of 12 eligible, and the only other cmd.c rows in the 40-eligible list — bind_key_fn, all_options_autocomplete — proved stale this iteration, as did the queue head). Also in this iteration: queue head `u_init.c` ini_inv_obj_substitution proved stale (race gate + 25-row inv_subs loop + break + return complete at js/u_init.js:813, caller wired at :1499; only delta debugpline3, empty unless DEBUG per lint.h:70) → ledger ported, popped to this row; same-file companions `cmd.c` bind_key_fn (loop + both continues + cmdbind_add + both returns at js/cmd.js:2071, 4 C callers wired at :2272–2277) and `cmd.c` all_options_autocomplete (AUTOCOMP_ADJ gate + `!`-prefix + strbuf_append at js/options.js:11557, C caller options.c:9739 wired at :12064 in C order) proved stale → ledger ported.

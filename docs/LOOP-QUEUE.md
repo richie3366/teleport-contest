@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `region.c` clone_region — coverage MISSING (C 23 code L `region.c:227–254` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
-- [ ] `sp_lev.c` lspo_message — coverage MISSING (C 22 code L `sp_lev.c:3076–3109` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
 - [ ] `glyphs.c` init_glyph_cache — coverage PARTIAL (C 11 code L `glyphs.c:334–352` / JS 8 code L in js/glyphs.js; hops —, callers 1, RNG 0, msg 0) @a8bd0bc2e
 - [ ] `potion.c` impact_arti_light — coverage PARTIAL (C 11 code L `potion.c:1595–1621` / JS 7 code L in js/potion.js; hops —, callers 1, RNG 0, msg 0) @a8bd0bc2e
 - [ ] `options.c` optfn_altkeyhandling — coverage MISSING (C 21 code L `options.c:1022–1063` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
 - [ ] `options.c` optfn_glyph — coverage MISSING (C 21 code L `options.c:1815–1849` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
 - [ ] `options.c` optfn_tile_file — coverage MISSING (C 21 code L `options.c:4321–4351` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @a8bd0bc2e
 - [ ] `options.c` optfn_videocolors — coverage MISSING (C 21 code L `options.c:4538–4570` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @12c02ee30
-- [ ] `region.c` create_force_field — coverage MISSING (C 21 code L `region.c:1003–1030` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e611ec47f
 - [ ] `options.c` optfn_symset — coverage PARTIAL (C 51 code L `options.c:4167–4236` / JS 31 code L in js/options.js; hops —, callers 0, RNG 0, msg 1) @e611ec47f
 - [ ] `options.c` optfn_tile_height — coverage MISSING (C 20 code L `options.c:4354–4383` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e3edb2ef9
 - [ ] `options.c` optfn_tile_width — coverage MISSING (C 20 code L `options.c:4386–4415` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @e3edb2ef9
+- [ ] `options.c` optfn_vary_msgcount — coverage MISSING (C 20 code L `options.c:4440–4469` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4d4f8e851
+- [ ] `sp_lev.c` nhl_abs_coord — coverage MISSING (C 20 code L `sp_lev.c:4811–4836` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4d4f8e851
+- [ ] `options.c` optfn_crash_urlmax — coverage MISSING (C 19 code L `options.c:1311–1339` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @4d4f8e851
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -968,15 +968,20 @@ function levregion_add(lregion) {
 /**
  * C ref: sp_lev.c lspo_teleport_region / l_get_lregion (unpacked table).
  * dir default "both" → LR_TELE. Missing exclude → delarea -1,-1,-1,-1 and
- * del_islev. Named omit: Lua argc parse; other load_* still push lregions
- * by hand (earth/fire/air/hell) rather than this helper.
+ * del_islev. Named omit: unknown dir falls back to LR_TELE where C
+ * get_table_option nhl_errors (house ?? idiom, lspo_exclusion precedent);
+ * other load_* still push lregions by hand (earth/fire/air/hell) rather
+ * than this helper.
  */
 export function l_teleport_region(opts) {
+    create_des_coder(); // C lspo_teleport_region :5449
+    const o = opts ?? {}; // C :5450 lcheck_param_table
+    if (o === null || typeof o !== 'object') nhl_error('l_teleport_region: Wrong parameters');
     // C l_get_lregion (sp_lev.c:5410–5441): required "region", optional
     // "exclude" over pre-set -1s; del_islev forced when exclude x1 < 0.
-    const region = get_table_region_unpacked(opts, 'region', false); // :5414
-    const exclude = get_table_region_unpacked(opts, 'exclude', true); // :5421
-    const dir = opts.dir || 'both';
+    const region = get_table_region_unpacked(o, 'region', false); // :5414
+    const exclude = get_table_region_unpacked(o, 'exclude', true); // :5421
+    const dir = o.dir || 'both';
     const rtype = dir === 'up' ? LR_UPTELE
         : dir === 'down' ? LR_DOWNTELE
         : LR_TELE;
@@ -991,8 +996,8 @@ export function l_teleport_region(opts) {
                 x2: exclude[2], y2: exclude[3],
             }
             : { x1: -1, y1: -1, x2: -1, y2: -1 },
-        in_islev: !!opts.region_islev,
-        del_islev: !!opts.exclude_islev,
+        in_islev: !!o.region_islev,
+        del_islev: !!o.exclude_islev,
         rtype,
         padding: 0,
         rname: { str: null },
@@ -1005,6 +1010,8 @@ export function l_teleport_region(opts) {
 /**
  * C ref: sp_lev.c lspo_levregion / l_get_lregion.
  * type default "stair-down". Missing exclude → delarea -1 and del_islev.
+ * Named omit: unknown type falls back to LR_DOWNSTAIR where C
+ * get_table_option nhl_errors (house ?? idiom).
  */
 const LREGION_TYPES = {
     'stair-down': LR_DOWNSTAIR,
@@ -1017,11 +1024,14 @@ const LREGION_TYPES = {
 };
 
 export function l_levregion(opts) {
+    create_des_coder(); // C lspo_levregion :5484
+    const o = opts ?? {}; // C :5485 lcheck_param_table
+    if (o === null || typeof o !== 'object') nhl_error('l_levregion: Wrong parameters');
     // C l_get_lregion (sp_lev.c:5410–5441): required "region", optional
     // "exclude" over pre-set -1s; del_islev forced when exclude x1 < 0.
-    const region = get_table_region_unpacked(opts, 'region', false); // :5414
-    const exclude = get_table_region_unpacked(opts, 'exclude', true); // :5421
-    const rtype = LREGION_TYPES[opts.type || 'stair-down'] ?? LR_DOWNSTAIR;
+    const region = get_table_region_unpacked(o, 'region', false); // :5414
+    const exclude = get_table_region_unpacked(o, 'exclude', true); // :5421
+    const rtype = LREGION_TYPES[o.type || 'stair-down'] ?? LR_DOWNSTAIR;
     const lregion = {
         inarea: {
             x1: region[0], y1: region[1],
@@ -1033,11 +1043,11 @@ export function l_levregion(opts) {
                 x2: exclude[2], y2: exclude[3],
             }
             : { x1: -1, y1: -1, x2: -1, y2: -1 },
-        in_islev: !!opts.region_islev,
-        del_islev: !!opts.exclude_islev,
+        in_islev: !!o.region_islev,
+        del_islev: !!o.exclude_islev,
         rtype,
-        padding: opts.padding | 0,
-        rname: { str: opts.name ?? null },
+        padding: o.padding | 0,
+        rname: { str: o.name ?? null },
     };
     if (!exclude || exclude[0] < 0)
         lregion.del_islev = true;
@@ -1376,6 +1386,77 @@ export function lspo_gold(a, b, c) {
     if (amount < 0) amount = rnd(200); // C :4521-4522
     mkgold(amount, pos.x, pos.y); // C :4523
     return 0;
+}
+
+/**
+ * C ref: sp_lev.c lspo_message `:3076–3109` — des.message entry in C
+ * order. Unpacked form: (msg) string. argc<1 throws like C `:3083–3087`
+ * nhl_error("Wrong parameters"); a non-string throws like C `:3091`
+ * luaL_checkstring (house string-only idiom, lspo_terrain precedent).
+ * Appends to game.lev_message newline-joined like C `:3093–3107`
+ * (alloc/memcpy/Free ≡ string concat under GC; the null-vs-'' split
+ * mirrors C's NULL-pointer check, not string falsiness). Strlen ≡
+ * length (des messages are ASCII). Returns 0 results like C `:3109`.
+ */
+export function lspo_message(msg) {
+    const argc = arguments.length; // C :3081 lua_gettop
+    if (argc < 1) nhl_error('lspo_message: Wrong parameters'); // C :3083-3087 (NOTREACHED)
+    create_des_coder(); // C :3089
+    if (typeof msg !== 'string') nhl_error('lspo_message: Wrong parameters'); // C :3091 luaL_checkstring
+    const old = game.lev_message; // C :3093-3094 gl.lev_message
+    game.lev_message = (old === null || old === undefined) ? msg : old + '\n' + msg; // C :3095-3107
+    return 0; // C :3109
+}
+
+// C ref: sp_lev.c lspo_corridor static tables `:4532–4537`.
+const LSPO_WALLDIRS = ['all', 'random', 'north', 'west', 'east', 'south'];
+const LSPO_WALLDIRS2I = [W_ANY, W_RANDOM, W_NORTH, W_WEST, W_EAST, W_SOUTH];
+
+/**
+ * C ref: sp_lev.c lspo_corridor `:4529–4554` — des.corridor entry in C
+ * order. Unpacked-table form (opts object; lcheck_param_table ≡
+ * table-or-empty + object check). Required srcroom/srcdoor/destroom/
+ * destdoor via luaL_checkinteger_unpacked like C get_table_int
+ * (nhlua.c:1017–1025); srcwall/destwall via splev_opt_index default
+ * "all" like C get_table_option `:4542–4546`. Async: create_corridor
+ * awaits impossible on the W_ANY/W_RANDOM guard. No table-form
+ * des.corridor call exists in dat/*.lua (only des.random_corridors).
+ */
+export async function lspo_corridor(opts) {
+    create_des_coder(); // C :4539
+    const o = opts ?? {}; // C :4541 lcheck_param_table
+    if (o === null || typeof o !== 'object') nhl_error('lspo_corridor: Wrong parameters');
+    const tc = { // C :4542-4546
+        src: {
+            room: luaL_checkinteger_unpacked(o.srcroom),
+            door: luaL_checkinteger_unpacked(o.srcdoor),
+            wall: LSPO_WALLDIRS2I[splev_opt_index(o.srcwall, 'all', LSPO_WALLDIRS)],
+        },
+        dest: {
+            room: luaL_checkinteger_unpacked(o.destroom),
+            door: luaL_checkinteger_unpacked(o.destdoor),
+            wall: LSPO_WALLDIRS2I[splev_opt_index(o.destwall, 'all', LSPO_WALLDIRS)],
+        },
+    };
+    await create_corridor(tc); // C :4548
+    return 0; // C :4550
+}
+
+/**
+ * C ref: sp_lev.c lspo_random_corridors `:4558–4574` —
+ * des.random_corridors entry in C order. L UNUSED: no args read.
+ * All -1 corridor into create_corridor (→ makecorridors like C
+ * `:2675–2678`). Async: awaits create_corridor. The quest/mines
+ * loader sites keep the pre-existing inline makecorridors()
+ * (equivalent all -1 path, sync chain; cf create_corridor doc).
+ */
+export async function lspo_random_corridors() {
+    create_des_coder(); // C :4562
+    await create_corridor({ // C :4564-4570
+        src: { room: -1, door: -1, wall: -1 },
+        dest: { room: -1, door: -1, wall: -1 },
+    }); // C :4572
+    return 0; // C :4574
 }
 
 // C ref: sp_lev.c trap_types static table `:4322–4347`.
@@ -15234,10 +15315,10 @@ function load_earth() {
     g.level.flags.hardfloor = true;
     g.level.flags.shortsighted = true;
 
-    g.lev_message =
-        'Well done, mortal!\n'
-        + 'But now thou must face the final Test...\n'
-        + 'Prove thyself worthy or perish!';
+    // C: des.message ×3 (dat/earth.lua:17-19) → lev_message newline-joined
+    lspo_message('Well done, mortal!');
+    lspo_message('But now thou must face the final Test...');
+    lspo_message('Prove thyself worthy or perish!');
 
     // C ref: dat/earth.lua des.map — 76×20 cavern (mostly diggable rock)
     const EARTH_MAP = `
@@ -15617,9 +15698,9 @@ function load_air() {
     g.level.flags.shortsighted = true;
     g.level.flags.stormy = true;
 
-    // C: des.message ×2 → lev_message newline-joined for deliver_splev_message
-    g.lev_message =
-        'What a strange feeling!\nYou notice that there is no gravity here.';
+    // C: des.message ×2 (dat/air.lua:12-13) → lev_message newline-joined
+    lspo_message('What a strange feeling!');
+    lspo_message('You notice that there is no gravity here.');
 
     // C ref: dat/air.lua des.map — 76×20 AIR
     const AIR_MAP = `
@@ -15803,11 +15884,10 @@ function load_astral() {
     g.level.flags.shortsighted = true;
     // "solidify" → coder.solidify (epilogue solidify_map)
 
-    // C: des.message ×3 → lev_message newline-joined; convert_line at deliver
-    g.lev_message =
-        'You arrive on the Astral Plane!\n'
-        + 'Here the High Temple of %d is located.\n'
-        + 'You sense alarm, hostility, and excitement in the air!';
+    // C: des.message ×3 (dat/astral.lua:10-12) → lev_message newline-joined
+    lspo_message('You arrive on the Astral Plane!');
+    lspo_message('Here the High Temple of %d is located.');
+    lspo_message('You sense alarm, hostility, and excitement in the air!');
 
     // C ref: dat/astral.lua des.map — 75×20 temples (string form lit=FALSE)
     const ASTRAL_MAP = `
@@ -32174,9 +32254,9 @@ export function search_door(croom, wall, cnt) {
  * wall }, dest: { room, door, wall } }. Async: the W_ANY/W_RANDOM guard
  * reports via impossible (async, continues like C) then returns.
  * The dig_corridor return is discarded like C's (void) cast (:2723).
- * Named omissions: lspo_corridor table-form (sp_lev.c:4551 — no
- * des.corridor table call in the compiled levels); lspo_random_corridors
- * (:4571) stays inline as makecorridors() at the loader sites.
+ * Des entries lspo_corridor / lspo_random_corridors are exported above;
+ * no table-form des.corridor call exists in dat/*.lua, and the quest /
+ * mines loaders keep the equivalent inline makecorridors() (sync chain).
  */
 export async function create_corridor(c) {
     if (c.src.room === -1) { // :2675–2678
