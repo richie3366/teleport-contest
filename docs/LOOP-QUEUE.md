@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `sp_lev.c` get_table_montype — coverage MISSING (C 8 code L `sp_lev.c:3167–3179` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @463ffffc2
-- [ ] `mkobj.c` where_name — coverage PARTIAL (C 9 code L `mkobj.c:3296–3309` / JS 5 code L in js/mkobj.js; hops 4, callers 2, RNG 0, msg 0) @463ffffc2
-- [ ] `hacklib.c` datamodel — coverage PARTIAL (C 10 code L `hacklib.c:982–997` / JS 6 code L in js/version.js; hops 5, callers 2, RNG 0, msg 0) @463ffffc2
-- [ ] `sp_lev.c` l_create_stairway — coverage PARTIAL (C 52 code L `sp_lev.c:4147–4213` / JS 31 code L in js/mklev.js; hops —, callers 2, RNG 0, msg 0; dead callees: nhl_get_xy_params) @463ffffc2
 - [ ] `do_wear.c` dotakeoff — coverage PARTIAL (C 16 code L `do_wear.c:1833–1855` / JS 10 code L in js/do_wear.js; hops —, callers 1, RNG 0, msg 1) @463ffffc2
 - [ ] `attrib.c` restore_attrib — coverage MISSING (C 12 code L `attrib.c:455–484` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @f292ec32c
 - [ ] `topten.c` outheader — coverage PARTIAL (C 8 code L `topten.c:929–940` / JS 4 code L in js/topten.js; hops 4, callers 2, RNG 0, msg 0) @f292ec32c
 - [ ] `mail.c` getmailstatus — coverage THIN (C 25 code L `mail.c:97–141` / JS 8 code L in js/mail.js; hops —, callers 0, RNG 0, msg 3) @7cc43ecc2
 - [ ] `topten.c` encodeconduct — coverage PARTIAL (C 30 code L `topten.c:411–452` / JS 18 code L in js/topten.js; hops 5, callers 1, RNG 0, msg 0) @92b27a5b5
-- [ ] `sp_lev.c` lspo_map — coverage PARTIAL (C 182 code L `sp_lev.c:6075–6319` / JS 128 code L in js/mklev.js; hops —, callers 0, RNG 2, msg 0) @92b27a5b5
 - [ ] `mklev.c` cardinal_nextto_room — coverage PARTIAL (C 14 code L `mklev.c:681–698` / JS 7 code L in js/mklev.js; hops 4, callers 1, RNG 0, msg 0) @92b27a5b5
 - [ ] `cmd.c` bind_key — coverage PARTIAL (C 39 code L `cmd.c:2662–2728` / JS 29 code L in js/cmd.js; hops —, callers 3, RNG 0, msg 0) @1edc89993
+- [ ] `topten.c` tt_oname — coverage PARTIAL (C 13 code L `topten.c:1422–1441` / JS 8 code L in js/topten.js; hops 4, callers 1, RNG 0, msg 0) @042bdf039
+- [ ] `strutil.c` strbuf_reserve — coverage THIN (C 11 code L `strutil.c:28–45` / JS 4 code L in js/options.js; hops —, callers 2, RNG 0, msg 0) @042bdf039
+- [ ] `iactions.c` item_naming_classification — coverage PARTIAL (C 24 code L `iactions.c:46–82` / JS 17 code L in js/iactions.js; hops 5, callers 1, RNG 0, msg 0) @042bdf039
+- [ ] `wizcmds.c` wiz_telekinesis — coverage MISSING (C 24 code L `wizcmds.c:494–528` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @042bdf039
+- [ ] `do_wear.c` wornarm_destroyed — coverage PARTIAL (C 23 code L `do_wear.c:3144–3182` / JS 14 code L in js/do_wear.js; hops 5, callers 1, RNG 0, msg 0) @042bdf039
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

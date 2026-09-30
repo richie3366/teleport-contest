@@ -22800,6 +22800,11 @@ export function splev_create_altar(a, croom = null) {
  * other des.stair loaders still raw mkstairs without force.
  */
 export function l_create_stairway(up, rx, ry, croom, using_ladder) {
+    create_des_coder(); // C :4159
+    // C :4183–4191 — set_ok_location_func(good_stair_loc) + get_location_coord
+    // DRY + reset(NULL); the ok_fn params below are that emulation (see the
+    // is_ok_location doc — C :1287–1288 replaces the humidity checks, like the
+    // `ok_fn ||` default in get_location_random), so no reset call exists.
     const random = rx === -1 && ry === -1;
     let x, y;
     if (random) {
@@ -22839,6 +22844,106 @@ export function l_create_stairway(up, rx, ry, croom, using_ladder) {
     }
     // C: mkstairs(..., !(scoord & SP_COORD_IS_RANDOM))
     mkstairs(x, y, up ? 1 : 0, croom, !random);
+}
+
+/**
+ * C ref: sp_lev.c lspo_stair `:4223–4226` (unpacked; not lua_State) — the
+ * des.stair binding. C passes the Lua stack through to l_create_stairway
+ * with using_ladder=FALSE; the unpacked form passes dir/coord/croom
+ * through with the flag fixed. Defaults are C's (:4157 down, :4180–4187
+ * random spot when no coord). Returns 0 like C (lspo_trap precedent).
+ */
+export function lspo_stair(up = 0, rx = -1, ry = -1, croom = null) {
+    l_create_stairway(up, rx, ry, croom, false); // C :4225
+    return 0;
+}
+
+/**
+ * C ref: sp_lev.c lspo_ladder `:4232–4235` (unpacked; not lua_State) — the
+ * des.ladder binding. Same shape as lspo_stair with using_ladder=TRUE.
+ */
+export function lspo_ladder(up = 0, rx = -1, ry = -1, croom = null) {
+    l_create_stairway(up, rx, ry, croom, true); // C :4234
+    return 0;
+}
+
+/**
+ * C ref: sp_lev.c lspo_grave `:4243–4278` (unpacked; not lua_State) — the
+ * des.grave binding. Triple (x, y, text) when the first arg is a number
+ * (C `:4251–4255` checkinteger/checkstring), else the table form (C
+ * `:4256–4261`: x/y-or-coord plus "text", NULL when absent). -1,-1 packs
+ * RANDOM, anything else packs the coord (C `:4263–4266`); both run
+ * get_location_coord DRY (C `:4268`; RANDOM when x=y=-1 idiom). isok and
+ * no trap (C `:4270`) sets GRAVE then make_grave (C `:4271–4272`; txt
+ * may be NULL → random epitaph). croom is JS-only (C reads
+ * gc.coder->croom); the table form also accepts it as the 2nd arg
+ * (lspo_monster_from_string precedent). Returns 0 like C.
+ * Named omits: lcheck_param_table (object check); dupstr/Free (GC);
+ * number-as-text coercion (checkstring throws unless string, lspo_map
+ * precedent — des text is always a string).
+ */
+export function lspo_grave(a, b, c, croom = null) {
+    let ax, ay, txt;
+    create_des_coder(); // C :4249
+    let room = croom;
+    if (typeof a === 'number') { // C :4251 argc == 3
+        ax = luaL_checkinteger_unpacked(a); // C :4252
+        ay = luaL_checkinteger_unpacked(b); // C :4253
+        if (typeof c !== 'string') // C :4254 luaL_checkstring
+            throw new Error("bad argument 'text' (string expected)");
+        txt = c;
+    } else { // C :4256 table form
+        if (a == null || typeof a !== 'object') // C :4257 lcheck_param_table
+            throw new Error('lspo_grave: Wrong parameters');
+        if (b != null && typeof b === 'object' && b.lx != null) room = b;
+        const xy = get_table_xy_or_coord(a); // C :4259
+        ax = xy.x;
+        ay = xy.y;
+        const v = a.text; // C :4261 get_table_str_opt(L, "text", NULL)
+        if (v == null) txt = null;
+        else if (typeof v === 'string') txt = v;
+        else if (typeof v === 'function') { // C nhlua.c:1064-1066 pcall
+            const produced = v();
+            if (produced == null) txt = null;
+            else if (typeof produced === 'string') txt = produced;
+            else throw new Error('get_table_str_opt: no string');
+        } else throw new Error('get_table_str_opt: no string');
+    }
+    const pos = get_location_coord(DRY, room, ax, ay); // C :4263-4268 scoord pack + get_location_coord
+    const x = pos.x, y = pos.y;
+    if (isok(x, y) && !t_at(x, y)) { // C :4270
+        const loc = game.level.at(x, y);
+        if (loc) loc.typ = GRAVE; // C :4271
+        make_grave(x, y, txt); // C :4272 (txt may be NULL)
+    }
+    // C :4274 Free(txt) — GC no-op
+    return 0; // C :4275
+}
+
+/**
+ * C ref: sp_lev.c lspo_altar `:4283–4318` (unpacked; not lua_State) — the
+ * des.altar binding. Table-only (C `:4298` lcheck_param_table):
+ * x/y-or-coord (C `:4300`), align (C `:4302` get_table_align), type
+ * altar/shrine/sanctum defaulting to altar (C `:4303` get_table_option).
+ * -1,-1 packs RANDOM, else the coord (C `:4305–4308`); coord + sp_amask
+ * + shrine run create_altar in croom (C `:4310–4315`, the D-2990
+ * splev_create_altar split port — shrine is always 0/1/2, never the
+ * -1 random case). croom is JS-only (C reads gc.coder->croom).
+ * Returns 0 like C. Named omits: lcheck_param_table (object check);
+ * the tmpaltar struct (fields pass straight into splev_create_altar).
+ */
+export function lspo_altar(o, croom = null) {
+    const shrines = ['altar', 'shrine', 'sanctum']; // C :4285-4287
+    const shrines2i = [0, 1, 2, 0]; // C :4289
+    create_des_coder(); // C :4296
+    if (o == null || typeof o !== 'object') // C :4298 lcheck_param_table
+        throw new Error('lspo_altar: Wrong parameters');
+    const xy = get_table_xy_or_coord(o); // C :4300
+    const al = get_table_align_unpacked(o.align); // C :4302
+    const shrine = shrines2i[splev_opt_index(o.type, 'altar', shrines)]; // C :4303
+    // C :4305-4315 — acoord pack + tmpaltar.coord/sp_amask/shrine + create_altar
+    splev_create_altar({ rx: xy.x, ry: xy.y, sp_amask: al, shrine }, croom);
+    return 0; // C :4317
 }
 
 function splev_create_stair(up) {

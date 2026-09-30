@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3139 — `sp_lev.c` stair/altar/grave des-binding closure (l_create_stairway gap + lspo_stair/ladder/grave/altar) + 7 stale proofs
+
+- **Status:** fixed (breadth-phase cluster: `l_create_stairway` PARTIAL row — the queue head after 7 stale pops — plus 4 same-file Open companions; 0 corpus sessions blocked on any of the 5 — coverage completion, not a divergence. 7 stale arm-verified complete in JS and ledger-marked this iteration: `get_table_montype`, `get_table_monclass`, `get_table_objclass`, `get_table_objtype`, `lspo_map`, `where_name`, `datamodel`.)
+- **Symptom:** none on the corpus — no JS path built des.stair/des.ladder/des.grave/des.altar from Lua bindings (stairs came only from hand-rolled `l_create_stairway` loader calls; graves/altars from per-level inline code), and `l_create_stairway` skipped the `:4159` create_des_coder guard its own `:2863` doc lists as wiring up with this row. Stale side: the head `get_table_montype` row (MISSING) re-reports a body review 1957 ACCEPTed as deliberately non-wired (D-2645 replay design).
+- **C locus:**
+  - `l_create_stairway`: `nethack-c/upstream/src/sp_lev.c:4147–4213` (`:4159` coder guard; `:4161–4177` table/string Lua parse; `:4180–4191` RANDOM scoord + set_ok_location_func(good_stair_loc) + get_location_coord DRY + reset NULL; `:4192–4195` deltrap + SpLev_Map; `:4197–4213` ladder dest + mkstairs force).
+  - `lspo_stair`: `sp_lev.c:4223–4226` (passthrough with using_ladder=FALSE).
+  - `lspo_ladder`: `sp_lev.c:4232–4235` (passthrough with using_ladder=TRUE).
+  - `lspo_grave`: `sp_lev.c:4243–4278` (`:4249` coder; `:4251–4255` triple checkinteger/checkstring; `:4256–4261` table xy-or-coord + text opt; `:4263–4268` RANDOM-or-PACK + get_location_coord DRY; `:4270–4272` isok + no-trap → GRAVE + make_grave with possibly-NULL txt).
+  - `lspo_altar`: `sp_lev.c:4283–4318` (`:4296` coder; `:4298–4303` table xy-or-coord + align + type altar/shrine/sanctum; `:4305–4315` acoord pack + tmpaltar + create_altar in croom).
+- **JS was:** `l_create_stairway` live at `js/mklev.js:22802` without the coder guard (Lua-parse arms already by-design unpacked); no symbol for the other four; `make_grave` (`js/engrave.js:400`) randomized the epitaph on `""` where C `if (!str)` is NULL-only.
+- **Fix:** `js/mklev.js` only (+105, all in-file): `l_create_stairway` gains `create_des_coder()` (`:4159`) plus a comment recording that the ok_fn params are the set/reset emulation (C `:1287–1288` replaces the humidity checks, exactly like the `ok_fn ||` default in `get_location_random` — verified, not assumed); new exports `lspo_stair`/:22856 + `lspo_ladder`/:22865 (unpacked passthroughs with C defaults down/random, `return 0` per lspo_trap); `lspo_grave`/:22885 in C order (number-first-arg triple via live `luaL_checkinteger_unpacked`, else table form with object check, live `get_table_xy_or_coord`, text NULL/string plus zero-arg function pcall per nhlua.c:1064-1066, `get_location_coord` DRY RANDOM-when-(-1,-1) idiom, isok + `!t_at` → GRAVE + `make_grave`); `lspo_altar`/:22935 in C order (table-only, live `get_table_align_unpacked` + `splev_opt_index` over shrines/shrines2i, fields straight into the D-2990 `splev_create_altar` split port — shrine always 0/1/2, never the -1 rn2 case). `js/engrave.js` (+1/-1): `if (!text)` → `if (text == null)` with the C cite — all 7 live callers pass null or non-empty strings (checked), so behavior-preserving outside the "" edge. No new cross-module edge (make_grave/t_at/isok/GRAVE already imported); Rule #2 clean; no DIAG/FORCE/seed gates.
+- **JS:** `js/mklev.js` (+105 after `l_create_stairway`, C-relative order :4223/:4232/:4243/:4283); `js/engrave.js` (+1/-1 NULL-edge).
+- **Callers:**
+  - `l_create_stairway`: C callers `:4225` lspo_stair + `:4234` lspo_ladder → now wired (`:22856`, `:22865`); pre-existing hand-rolled loader calls unchanged.
+  - `lspo_stair`: C has no direct callers (Lua des dispatch `:158`) → export in the C-home module, 0 JS callers (lspo_map/lspo_trap precedent). No call from a site C never calls from.
+  - `lspo_ladder`: same — Lua des dispatch (`:138`), 0 JS callers.
+  - `lspo_grave`: same — Lua des dispatch (`:137`), 0 JS callers.
+  - `lspo_altar`: same — Lua des dispatch (`:129`), 0 JS callers.
+- **Verify:** `node scripts/verify.mjs --fn l_create_stairway,lspo_stair,lspo_ladder,lspo_grave,lspo_altar` → PASS syntax (2 changed: js/engrave.js js/mklev.js) · PASS rule2 · hidden note ×5 (0 blocked — normal for coverage rows) · PASS reach ×5 (no RNG-tagged reach; fixed smoke spread 24/24 each → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS. Preflight `verify --no-cohort` before edits likewise PASS.
+- **Named omissions:**
+  - `l_create_stairway`: Lua argc table/string parse (loaders pass unpacked dir/coord — pre-existing doc note, kept); set_ok_location_func NULL reset (no JS global; ok_fn params are the emulation).
+  - `lspo_stair`: Lua-stack passthrough itself (unpacked args per file precedent).
+  - `lspo_ladder`: same as lspo_stair.
+  - `lspo_grave`: lcheck_param_table (object check); dupstr/Free (GC); number-as-text coercion (checkstring throws unless string, lspo_map precedent).
+  - `lspo_altar`: lcheck_param_table (object check); tmpaltar struct (fields into splev_create_altar).
+- **Ledger:** l_create_stairway ported; lspo_stair ported; lspo_ladder ported; lspo_grave ported; lspo_altar ported.
+- **Next:** breadth queue continues from the regenerated block (dotakeoff head after the stale pops).
+
 ## D-3138 — `glyphs.c` glyphrep + match_glyph ports, parsesymbols G_ arm wired (coverage head)
 
 - **Status:** fixed (breadth-phase cluster: queue head + sole caller, same file; 2 files; small cluster — head's file holds no further Open queue rows and the callee was already ported).

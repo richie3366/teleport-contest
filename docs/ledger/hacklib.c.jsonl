@@ -44,5 +44,5 @@
 {"fn":"unicodeval_to_utf8str","c":"882-919","status":"partial","js":["js/hacklib.js:unicodeval_to_utf8str"],"omit":"`to_custom_symset_entry_callback` (`glyphs.c:52–104`, call at `:70`) plus `unicode_val` (`utf8map.c:18–34`) and `add_custom_urep_entry` (`utf8map.c:148–207`) stay the unported customization writer (`ENHANCED_SYMBOLS` is on).","d":["D-2892"],"at":"seed@a30a7de84"}
 {"fn":"case_insensitive_comp","c":"922-937","status":"unknown"}
 {"fn":"copy_bytes","c":"946-961","status":"by-design","d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"Rule #2: raw-fd read/write copy; scored callers all in recover_savefile binary path (files.c:3011/3021/3040, review 1431 no-counterpart); util/recover.c callers are build tools"}
-{"fn":"datamodel","c":"982-997","status":"unknown"}
+{"fn":"datamodel","c":"982-997","status":"ported","js":["js/version.js:datamodel"],"at":"2026-09-30@042bdf039","note":"stale: js/version.js:306; version.c:784 wired at js/files.js:1549, mdlib.c:699 at js/version.js:543"}
 {"fn":"what_datamodel_is_this","c":"1000-1013","status":"unknown"}

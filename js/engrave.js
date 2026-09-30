@@ -404,7 +404,7 @@ export function make_grave(x, y, str) {
     loc.typ = GRAVE;
     del_engr(engr_at(x, y));
     let text = str;
-    if (!text) {
+    if (text == null) { // C make_grave `if (!str)` — NULL only; "" engraves empty
         text = get_rnd_text(EPITAPHFILE, rn2, MD_PAD_RUMORS) || '';
     }
     make_engr_at(x, y, text, null, 0, HEADSTONE);
