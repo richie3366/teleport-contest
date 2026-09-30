@@ -7,6 +7,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-30 — Audit 2114–2122 (D-3154..D-3162): 9 ACCEPT; full cadence
+
+Reviews cover the 9 js/ SHAs since 5ab8920e9 against pinned C with
+per-function fidelity + hidden-proxy re-measure. D-3154 closes review
+2111's Must-fix (miss arm now FALSE, pins flipped, 22/22). Reproduced
+D-3159's burden PROGRESS (scen-options-Samurai-94071 41→43) and all
+other verify claims; no C-wrongs, no Must-fix. Noted (unqueued):
+D-3159's IBM ledger omit carried the wrong bullet at its SHA (fixed
+in-tree by D-3161); D-3160 11 rows and D-3162 14 rows exceed the
+10-count on zero-code walk retirements (review-1962 precedent:
+review-debt, all rows verified).
+Cadence: public 44/44 (Scr 11405/11405, RNG 792838/792838);
+corpus rescore 648/953 with full:true, 0 flips; held-out 13/44 flat.
+Ledger snapshot + seeded sample 4/5 resolve (mhitm_ad_drin corrected
+ported→split: uhitm + mhitm arms).
 ## 2026-09-30 — D-3162 `options.c` optfn DEC/playmode/hilite/term/autocomplete cluster (coverage)
 
 **C locus:** - `optfn_DECgraphics`: options.c:1393–1439 (BACKWARD_COMPAT on, optlist.h:15: do_set `:1409–1427` single-PRIMARYSET load, no rogue set `:1410`; `#else` `:1428–1431` compiled out; get arms `:1434–1436` empty).
@@ -79,46 +94,3 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** - `parsebindings`: pins flipped first → 20/22 (2 red, the two miss pins); after the arm fix 22/22 + neighbors 18/18 (`get-changed-key-binds`, `bind-mousebtn`, `cfgfiles-config-lines` — none call `parsebindings` directly).
 **Named:** - `parsebindings`: none — one-arm return fix on the D-3151 whole body; every callee already live.
 **Next:** pop the next Open — coverage row.
-## 2026-09-30 — Audit 2105–2113 (D-3145..D-3153): 7 ACCEPT, 1 WITH-DEBT, 1 QUALITY-RISK; full cadence
-
-9 `js/` SHAs reviewed (2105–2113): 7A/1D/1Q. 2111 catch (`parsebindings` miss-arm FALSE) → Must-fix. Cadence: 44/44 public, 648/953 corpus (0 flips, full), held-out 13/44 flat.
-## 2026-09-30 — D-3153 `worn.c` nxt_unbypassed_loot restart + askchain ret: global clear_bypasses (coverage)
-
-**C locus:** - `nxt_unbypassed_loot`: worn.c:1159–1174 (null-entry stop, listhead walk, `o && !obj->bypass` gate, bypass_obj call `:1168`); caller invent.c:2433 (same sortedchn every call → re-scan); caller ret: invent.c:2534–2540 (unsortloot + clear_bypasses; `:2536–2538` comment rejects list-local clear).
-**JS:** js/pickup.js:3741 (`nxt_unbypassed_loot`, module-local — sole caller askchain :3797, same module; extern.h:3946 decl noted in doc).
-**Change:** restarted `nxt_unbypassed_loot` in C order — length-bounded scan from [0] (cursor deleted), null-entry break, `obj_still_on_list` (listhead nobj walk + Array-invent adaptation) && `!bypass` → live `bypass_obj` (worn.c:1118–1123, sets `context.bypasses` too); caller rewired to C `:2433` shape (same `sorted`, `getHead()` re-read); four `ret:` exits → live `clear_bypasses()` (complete `:1070–1116` port: floor/invent/migrating/buried/bill/deleted, minvents, worm mcorpsenm, mydogs, floating ball+chain, flag reset); list-local `bypass_objlist_ask` retained only at the two C `:2432` sites; `unsortloot :2535` ≡ GC (no JS symbol — allocation-free by design). Import extended on the existing pickup→worn edge (`imports.mjs` ALREADY, no new edge).
-**Verify:** - `nxt_unbypassed_loot`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24 run, 24 PASS, 0 regressed; draw-free function, no RNG tags).
-**Named:** - `nxt_unbypassed_loot`: none — whole body, sole callee live (`bypass_obj` import js/pickup.js:140); NULL-terminated Loot scan adapted to a length-bounded array scan with the null-entry break kept (JS sortloot emits no sentinel); caller-side `unsortloot` free ≡ GC. Pre-existing js/zap.js:2897 `bypass_obj` local clone untouched (named in js/worn.js doc) — out of cluster.
-**Next:** pop the next Open — coverage row.
-## 2026-09-30 — D-3152 `cfgfiles.c` config-error drain + sysconf stores + statement heed + default configfile (coverage)
-
-**C locus:** - `l_get_config_errors`: cfgfiles.c:1516–1539 (head→tail drain `:1524–1536`, per-entry line+error table `:1525–1530`, free + head-null `:1531–1537`, return 1 `:1539`).
-**JS:** js/cfgfiles.js:278 (`l_get_config_errors`, exported — extern.h decl), js/cfgfiles.js:710 (`cnf_line_DEBUGFILES`, module-local — C staticfn; table row :928), js/cfgfiles.js:721 (`cnf_line_BONES_POOLS`, module-local; table row :931), js/cfgfiles.js:986/997 (heed/disregard_this, exported — extern.h decls), js/options.js:744 (`get_default_configfile`, exported — extern.h decl).
-**Change:** new exported `l_get_config_errors` in C order returning the drained `[{line, error}]` array (Lua-table sink adapted: no JS Lua state, D-3098 precedent; by-design nhl_add_table_entry_* effects inlined as the entry shape; free ≡ GC); new file-local `cnf_line_DEBUGFILES` (env gate over live `cnf_store_str` — Rule #2 keeps env_dbgfl 0 so the store arm runs) and `cnf_line_BONES_POOLS` (parseInt atoi + clamp, CHECK_SAVE_UID precedent), both wired into `configLineStmt` in place of the lambdas; new exported heed/disregard_this over `disregardedConfigLines` (59-row C-order table verified index-compatible: 20 + 28 SYSCF + 7 + 4 QT, USER_SOUNDS omitted both sides); new exported `get_default_configfile` in js/options.js next to `get_configfile`. Refreshed the two comments that named the drain as omitted. New scripts/cfgfiles-config-lines.test.mjs (5 tests; fails pre-fix on the missing exports).
-**Verify:** - `l_get_config_errors`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24/24 PASS).
-**Named:** - `l_get_config_errors`: lua registration sink (nhlua.c:1887; no Lua state in ESM — the export returns the table as a JS array); nhl_add_table_entry_int/str by-design, effects inlined.
-**Next:** pop the next Open — coverage row (same-file WIZARDS fmtd arm needs async build_english_list — sync-parser boundary, future row; GDBPATH/GREPPATH PANICTRACE file_exists gates unportable under Rule #2).
-## 2026-09-30 — D-3151 `options.c` parsebindings restart + bind_specialkey + versinfo gacc (coverage)
-
-**C locus:** - `parsebindings`: options.c:7596–7674 (static mousebtn_names `:7602–7604`, quote-aware comma scan `:7606–7619`, tail-first recursion `:7620–7626`, first-colon split `:7628–7631`, trimspaces `:7633`, mouse arm `:7635–7642`, txt2key `:7644–7649`, special-key `:7651–7653`, menu arm `:7655–7666`, extcmd `:7668–7672`).
-**JS:** js/options.js:943 (`parsebindings`), js/options.js:1012 (`overlay_bind_key`, module-local — the adapted bind_key call), js/cmd.js:1854 (`bind_specialkey`, exported — cmd.c extern), js/cmd.js:1803 (SPKEYS_BINDS name column), js/options.js:3271 (versinfo `gselector: '4'`).
-**Change:** restarted `parsebindings` in C order — separator scan with `\\,`/`','` skip, tail-first recursion with ret aggregation, first-colon split (missing colon returns FALSE outright), untrimmed key strcmp for the mouse arm with C's fall-through on bind failure, live `txt2key`/`bind_mousebtn`/`bind_specialkey`/menu-alias calls, extcmd miss → error + ret; new module-local `overlay_bind_key` runs the bind_key `:2661–2728` match flow (`nothing`, C-exact paren cut, INTERNALCMD skip, CMD_PARAM error arms into the live sink, params stored live, param clears on rebind/unbind) over the pre-existing outMap overlay. Added the C name column to SPKEYS_BINDS + exported `bind_specialkey` in C order after it. Fixed the versinfo gacc to `'4'`; refreshed three comments that claimed the old omissions (cmd.js bind_mousebtn callers, cmd.js get_changed_key_binds emitter, dokeylist.js header).
-**Verify:** `node scripts/verify.mjs --fn parsebindings,bind_specialkey,handler_versinfo` → VERIFY: PASS (syntax 3 files; Rule #2; hidden: no corpus session blocked on any at baseline; REACH-OK × 3 via fixed smoke spreads 24/24; green 2/2; strict × 2; cohort 7/7; full 44/44 incl. seed2600-wizard-custom-binds). `node --test scripts/parsebindings.test.mjs` 22/22; neighbor suites (get-changed-key-binds, bind-mousebtn, txt2key, rebind-keys) 44/44.
-**Named:** - `parsebindings`: none missing — every arm ported; the outMap overlay (pre-existing D-0897/D-2550 architecture, read over defaults at key resolution) stands in for live cmdbind_add in the extcmd arm only; config_error_add text stays the pre-existing void sink (botl.js).
-**Next:** pop the next Open — coverage row (same-file `handler_whatis_filter`/`optfn_map_mode` remain for a later cluster).
-## 2026-09-30 — D-3150 `sounds.c` sound-effect filename automap (coverage)
-
-**C locus:** - `get_sound_effect_filename`: sounds.c:1994–2080 (null/dir guard `:2008`, lazy init `:2011–2014`, baselen `:2016–2017`, consumes `:2019–2040`, `#if 0` Strcat `:2043–2059` compiled out, Snprintf build `:2060–2077`, return `:2079`).
-**JS:** js/sounds.js:420 (`semap_basenames`), js/sounds.js:429 (`initialize_semap_basenames`, module-local — C staticfn), js/sounds.js:450 (`get_sound_effect_filename`, exported — extern.h decl), js/generated/seffects_data.js:204 (`se_mappings_init`).
-**Change:** extended scripts/extract-seffects.py to emit `se_mappings_init` (198 rows: index 0 `{ seid: 0, '' }` per `:1972`, entries 1..197 in enum order) and regenerated js/generated/seffects_data.js; added module state (`semap_basenames` `:1977`, `basenames_initialized` `:1978`) + both functions in C order in js/sounds.js, reusing the live `sounddir`/`sff_*` module consts; new scripts/seffects-automap.test.mjs (6 tests).
-**Verify:** - `get_sound_effect_filename`: `verify.mjs --fn` → no corpus session blocked (coverage row) + smoke-spread REACH-OK (24/24 PASS); /tmp probe 20/20 on C-computed strings/gates (incl. cap-exact 9/8 and 15/14, trailing-slash/backslash, existinglen>=cap).
-**Named:** - `get_sound_effect_filename`: none — whole body (the `:2043–2059` `#if 0` Strcat block is compiled out, not ported; the out-of-range-id read is JS-only totality — C UB, same NULL via the `:2040` gate).
-**Next:** pop the next Open — coverage row.
-## 2026-09-30 — D-3149 `cmd.c` suspend/shell + extcmd-match family (coverage)
-
-**C locus:** - `dosuspend_core`: `cmd.c:5661–5678` (SUSPEND-defined capability branch `:5666`, urealtime accounting `:5667–5670`, `dosuspend()` `:5672`, retime `:5673`, Norep else `:5676`, ECMD_OK `:5677`).
-**JS:** `js/cmd.js:1352` (`cmdnotavail`), `:1361` (`win_can_suspend`), `:1376` (`dosuspend_core`), `:1400` (`dosh_core`); `js/getline.js:1247` (`shell` entry), `:1260` (`suspend` entry), `:1377` (`extcmds_getentry`), `:1398` (`extCmdAutocomplete` rewire); `js/generated/extcmdlist_data.js` (170 entries); `scripts/extract-extcmdlist.py` (flags + docstring).
-**Change:** new `dosuspend_core`/`dosh_core` in C order over live `getnow`/`timet_delta`/`game.urealtime` + new `cmdnotavail` (`:160`) + `win_can_suspend()` (false here — tty answers `genl_can_suspend_yes`, ESM has no SIGTSTP); `dosh` live arm falls back to C's own !SHELL text since the subshell call is the omission. Wired both C table callers via `EXT_CMDS` `shell`/`suspend` runners (key + `#` dispatch flow through `extcmd_run_by_txt`). Rewired `extCmdAutocomplete` through live `extcmds_match(base, ECM_NOFLAGS)` + new `extcmds_getentry`; deleted dead `EXT_CMD_AC`/`availableAcNames` (−63).
-**Verify:** `verify.mjs --fn dosuspend_core,dosh_core,extcmds_match,extcmds_getentry,cmdbind_remove` → syntax PASS (3 js files), Rule #2 PASS, 5× `no corpus session blocked` + smoke-spread REACH-OK (24/24 each), green 2/2, strict 2/2, cohort 7/7, VERIFY PASS; full `sessions` 44/44 after the regen (seed4500 failed 1802/1814 pre-regen at `#wizm` echo screens 778/804/820, fixed by the DEBUG rows); `node --test scripts/extcmd-debug-completion.test.mjs` 4/4 + `vision-wizmondiff-runners` 3/3; /tmp oracle vs git-HEAD hand list: identical except the 4 C-wrong removals (travel + 3 DEBUG rows, all confirmed against C guards).
-**Named:** - `dosuspend_core`: `dosuspend()` (`cmd.c:5672`, `sys/share/ioctl.c:161`, SIGTSTP suspend) unportable under Rule #2; the suspend arm keeps C order with the call named in place.
-**Next:** `#wizbury` exact entry prints "unknown extended command" (EXTCMDLIST row now resolves, no EXT_CMDS runner — `wiz_debug_cmd_bury` unported); queue it with its body when coverage reaches it. `bind_key` `:2651`/:2718 `cmdnotavail` arms (pre-existing port) could reuse the new `cmdnotavail` const.

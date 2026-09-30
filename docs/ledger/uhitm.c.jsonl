@@ -53,7 +53,7 @@
 {"fn":"mhitm_ad_curs","c":"3015-3096","status":"ported","js":["js/mhitm.js:mhitm_ad_curs"],"d":["D-2260","D-2259"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"mhitm_really_poison","c":"3104-3119","status":"unknown"}
 {"fn":"mhitm_ad_drst","c":"3122-3165","status":"partial","js":["js/mhitm.js:mhitm_ad_drst"],"omit":"`resists_poison_mm` still omits artifact and worn poison resistance (same gap as `js/zap.js` `resists_poison`).","d":["D-2797"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_drin","c":"3168-3303","status":"ported","js":["js/uhitm.js:mhitm_ad_drin"],"d":["D-1307"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
+{"fn":"mhitm_ad_drin","c":"3168-3303","status":"split","js":["js/uhitm.js:mhitm_ad_drin","js/mhitm.js:mhitm_ad_drin"],"d":["D-1307"],"at":"2026-09-30@7fce929bc","note":"audit 2114-2122: uhitm hero-mon arm + mhitm mon-mon arm (D-1329); was ported@uhitm only"}
 {"fn":"mhitm_ad_stck","c":"3306-3334","status":"partial","js":["js/mhitm.js:mhitm_ad_stck"],"omit":"The cream-pie arm of `hmon_hitmon` still returns before `nohandglow`.","d":["D-2855"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_wrap","c":"3337-3428","status":"ported","js":["js/uhitm.js:mhitm_ad_wrap"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mhitm_ad_plys","c":"3431-3476","status":"split","js":["js/mhitm.js:mhitm_ad_plys","js/mhitu.js:mhitm_ad_plys_u","js/uhitm.js:damageum_ad_plys"],"d":["D-2128"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_plys, mhitu plys_u, mhitm base; D-2128)"}

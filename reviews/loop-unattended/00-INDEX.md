@@ -2123,3 +2123,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2111-836f908c6-parsebindings.md](./2111-836f908c6-parsebindings.md) | `836f908c6` | D-3151 parsebindings restart (miss-arm C-wrong) | **QUALITY-RISK** |
 | [2112-a610d9a06-cfgfiles-drain.md](./2112-a610d9a06-cfgfiles-drain.md) | `a610d9a06` | D-3152 cfgfiles drain + stores + heed + configfile | **ACCEPT** |
 | [2113-5ab8920e9-unbypassed-loot.md](./2113-5ab8920e9-unbypassed-loot.md) | `5ab8920e9` | D-3153 nxt_unbypassed_loot restart + clear_bypasses | **ACCEPT** |
+| [2114-779a41942-parsebindings-mustfix.md](./2114-779a41942-parsebindings-mustfix.md) | `779a41942` | D-3154 parsebindings miss-arm FALSE (closes 2111) | **ACCEPT** |
+| [2115-8a2b677db-cost-impossible-arm.md](./2115-8a2b677db-cost-impossible-arm.md) | `8a2b677db` | D-3155 cost impossible arm + async + stale | **ACCEPT** |
+| [2116-e47a5e02a-selection-iterate.md](./2116-e47a5e02a-selection-iterate.md) | `e47a5e02a` | D-3156 selection_iterate restart (named :5025) | **ACCEPT** |
+| [2117-db34c42bb-optfn-cluster.md](./2117-db34c42bb-optfn-cluster.md) | `db34c42bb` | D-3157 map_mode + menu_headings + color_attr + pettype (10 fns) | **ACCEPT** |
+| [2118-850d390ba-lspo-mazewalk-terrain.md](./2118-850d390ba-lspo-mazewalk-terrain.md) | `850d390ba` | D-3158 lspo_mazewalk + lspo_terrain (closes 2116 named) | **ACCEPT** |
+| [2119-746254c61-burden-cond-cluster.md](./2119-746254c61-burden-cond-cluster.md) | `746254c61` | D-3159 burden/runmode paint + cond/mouse/IBM (PROGRESS 41→43) | **ACCEPT** |
+| [2120-deff666da-polearm-isqrt.md](./2120-deff666da-polearm-isqrt.md) | `deff666da` | D-3160 could_pole_mon restart + isqrt export (11 rows) | **ACCEPT** |
+| [2121-a8bd0bc2e-status-cluster.md](./2121-a8bd0bc2e-status-cluster.md) | `a8bd0bc2e` | D-3161 statushilites + statuslines + IBM omit fix | **ACCEPT** |
+| [2122-7fce929bc-dec-term-cluster.md](./2122-7fce929bc-dec-term-cluster.md) | `7fce929bc` | D-3162 DEC/playmode/hilite/term/autocomplete (14 rows) | **ACCEPT** |

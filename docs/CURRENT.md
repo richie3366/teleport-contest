@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-30** — full `sessions` on the working tree
-(audit **2105–2113**, `5ab8920e9`, 2026-09-30T07:05Z).
+(audit **2114–2122**, `7fce929bc`, 2026-09-30T10:58Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`271+1.61/turn` (R² 0.76).
+`270+1.63/turn` (R² 0.76).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `271+1.61/turn` (R² 0.76) |
+| Speed label | `270+1.63/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best fork 35/44. Held-out 13/44, flat.
-**Corpus fortress (07:03Z, 953/953, 0 unrec):**
+**Corpus fortress (11:04Z, 953/953, 0 unrec):**
 **648 / 953** PASS (68.0 %), RNG 96.75 %, screens 90.7 %; 0 flips, +0; `full: true`.
-Reviews 1225–2113 (index; no row 1618): 790 ACCEPT, 30 WITH-DEBT, 68 QUALITY-RISK (2105–2113: 7A/1D/1Q).
+Reviews 1225–2122 (index; no row 1618): 799 ACCEPT, 30 WITH-DEBT, 68 QUALITY-RISK (2114–2122: 9A).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
