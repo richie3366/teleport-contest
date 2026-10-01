@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `lock.c` doforce — blocks 1/953 (scen-container-Barbarian-94366, step 200, kind=screen) @a308a919b **Addressed:** D-3243
+- [x] `makemon.c` m_initinv — blocks 1/953 (scen-special-Samurai-94217, step 5, kind=rng) @a308a919b **Addressed:** D-3244
+
+
+- [x] `lock.c` doforce — blocks 1/953 (scen-container-Barbarian-94366, step 200, kind=screen) @a308a919b **Addressed:** D-3243 `f247f6b3c`
 
 
 - [x] `mhitu.c` mswings_verb — blocks 1/953 (scen-caster-Wizard-94389, step 252, kind=screen) @a308a919b **Addressed:** D-3242 `1634fa4fa`.

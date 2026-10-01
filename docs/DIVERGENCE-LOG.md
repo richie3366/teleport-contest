@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3244 — m_initinv: ARM_BONUS erosion term (mercenary mac over-count skipped the round-4/5 gates; Samurai s5→s6, +9596 RNG)
+
+- **Status:** fixed (corpus-residual head `m_initinv`; ~15 insertions in `js/makemon.js` — under the density floor, but the head's file holds nothing more Open: coverage block empty, no other makemon.c residuals; callee closure all live. D-3242 exception precedent.)
+- **Symptom:** queue row blocks 1/953 @a308a919b: scen-special-Samurai-94217 s5 kind=rng — C `rn2(2)=1 @ m_initinv(makemon.c:668)` (round-4 boots HIGH_BOOTS gate) vs JS `rnd(2)=2 @ next_ident(mkobj.js:423)`. Mechanism (read from the two draws): C drew round-4 `rn2(3)=0` then `rn2(2)=1` (mac<10 at both gates); JS skipped both round-4/5 gate pairs (mac≥10) and reached soldier-gear `!rn2(3)`→mongets(K_RATION)→next_ident, whose `rn2(3)=0` positionally matched C's :666 draw, so the first mismatch surfaced at :668. Cause: JS armBonus computed `a_ac + spe`, omitting C ARM_BONUS's `- min(greatest_erosion, a_ac)` (hack.h:1526–1528) — eroded armor over-counted mac, crossing the <10 gate early.
+- **C locus:**
+  - `m_initinv`: `makemon.c:589–833` whole body in C order — rogue-level return; S_HUMAN mercenary 7-case mac + 5 armor rounds with add_ac + watch/guard/soldier gear, shopkeeper fallthrough wand/potion chain, priest robe/shield/gold, monk robe; S_NYMPH/S_GIANT/S_WRAITH/S_LICH/S_MUMMY/S_QUANTMECH/S_LEPRECHAUN/S_DEMON/S_GNOME arms; soldier rn2(13) return; defensive/misc/gold tail. Only gaps found: erosion term + mercenary-default impossible.
+- **JS was:** armBonus closure returned `a_ac + spe` with no erosion subtraction; mercenary switch default set mac=0 without C's `impossible("odd mercenary %d?")`; stale `// elf / guardian invent arms deferred` comment (C m_initinv has no such arms). All other arms verified identical (round order/draws, mongets-merge nulling via live mongets, QUANTMECH box+corpsenm+stop_timer+container, GNOME candle+begin_burn, trailing gates).
+- **Fix:** `js/makemon.js` only — armBonus subtracts `min(max(oeroded,oeroded2), a_ac)` per hack.h ARM_BONUS + obj.h greatest_erosion (:3066–3077; macro expanded at the use site, no new imports); mercenary default calls `void impossible('odd mercenary %d?', …)` per the file's fire-and-forget idiom (:3060–3064; impossible already imported); stale elf/guardian comment removed.
+- **JS:** `js/makemon.js` (1 closure + 1 default arm + 1 comment removal). Far under the 1500/15 caps.
+- **Callers:**
+  - `m_initinv`: C makemon.c:1444 (sole site, allow_minvent arm) → js/makemon.js:3712 makemon allow_minvent (`is_armed→m_initweap; m_initinv; m_dowear(TRUE)`, C order); js/makemon.js:3181 `m_initinv_tail` alias is dead (zero callers) — left untouched. Signature unchanged.
+- **Verify:** `node scripts/verify.mjs --fn m_initinv --reach-all` → PASS (syntax 1 file; rule2; hidden: 1 moved past → PROGRESS, scen-special-Samurai-94217 5→6, rngM 4145→13741, scrM 7→8, now a step-6 unattributed map-glyph screen diff owner=null plus the same pre-existing relink_light_sources replay error, both downstream of m_initinv; reach 668/668 REACH-OK full spread, 268.5s; green 2/2; strict ×2; cohort 7/7; full 44/44 auto — shared file). No committed unit test: repo has no maintained unit harness; pinned by the recorded corpus session + gates (D-3242 precedent).
+- **Named omissions:**
+  - `m_initinv`: none in-body — every arm live; every C callee live (mongets/mksobj/curse/mpickobj/mkmonmoney/rnd_class/weight/rnd/set_corpsenm/stop_timer/add_to_container/d/level_difficulty/begin_burn/rnd_defensive_item/rnd_misc_item/findgold — findgold via the file-local steal.c-exact clone :2823, curse fire-and-forget per the sync-file convention; ARM_BONUS/greatest_erosion are header macros expanded at the use site).
+- **Ledger:** m_initinv ported
+- **Next:** none for this row; session's step-6 screen diff is owner-null (phase-2 corpus debugging, closed); relink_light_sources replay error pre-exists identically on master, likely GIGO from the upstream divergence — no row filed.
+
 ## D-3243 — `lock.c` force/pick family: doforce prompt-order fix (Barbarian container 200→285) + picklock/forcelock/breakchestlock whole bodies
 
 - **Status:** fixed (corpus-residual head `doforce`; `js/lock.js` only, ~105 insertions — 9 whole lock.c functions, 4 verified-no-change).

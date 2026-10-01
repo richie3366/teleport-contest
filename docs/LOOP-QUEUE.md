@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `makemon.c` m_initinv — blocks 1/953 (scen-special-Samurai-94217, step 5, kind=rng) @a308a919b
 - [ ] `muse.c` use_defensive — blocks 1/953 (scen-hazard-Monk-94153, step 57, kind=screen) @caf1b5991
 - [ ] `cmd.c` set_move_cmd — blocks 1/953 (scen-dig-Archeologist-94035, step 44, kind=screen) @caf1b5991
 - [ ] `dig.c` dig — blocks 1/953 (scen-terrain-Rogue-94040, step 70, kind=screen) @caf1b5991

@@ -4,7 +4,7 @@
 {"fn":"m_initthrow","c":"148-158","status":"ported","js":["js/makemon.js:m_initthrow"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
 {"fn":"m_initweap","c":"161-572","status":"ported","js":["js/makemon.js:m_initweap"],"d":["D-1094","D-1088"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"mkmonmoney","c":"576-586","status":"unknown"}
-{"fn":"m_initinv","c":"589-833","status":"unknown"}
+{"fn":"m_initinv","c":"589-833","status":"ported","js":["js/makemon.js:m_initinv"],"d":["D-3244"],"at":"2026-10-01@f247f6b3c"}
 {"fn":"clone_mon","c":"837-944","status":"unknown","d":["D-1565"],"at":"seed@a30a7de84"}
 {"fn":"propagate","c":"958-982","status":"unknown"}
 {"fn":"monhp_per_lvl","c":"986-1007","status":"unknown","d":["D-2719"],"at":"seed@a30a7de84"}
