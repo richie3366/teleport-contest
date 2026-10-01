@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
+- [x] `attributes_enlightenment` pray else-arm absent from `enlightenment()` — C `insight.c:1937–1955` emits "can [not] safely pray" (+ wizard ublesscnt) when !ugangr && !final; `js/invent.js:7208–7218` has the ugangr `if` with no `else` (overlay-only arm at :8313; D-3205 claims "whole/none"). Reachable via `enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS)` (`js/potion.js:1998`, `js/zap.js:2787` ← C potion.c:710/zap.c:2529). Mirror the overlay else-arm with the !final gate. Falsifier: enlightenment potion with !ugangr shows the line. Source: reviews/loop-unattended/2165-9cc52a0d2-enlightenment.md **Addressed:** D-3207
+
+
 - [x] `sp_lev.c` lspo_room → get_table_roomtype_opt validation/message closure — C :4003–4020 calls get_table_str_opt (nhlua.c:1053–1076) then synchronous impossible; JS coerces raw type and discards impossible promise before build_room RNG. Extracted C `type=true` errors before rn2(100), function returning ordinary resolves; JS builds after impossible in both. Import canonical string reader and propagate diagnostic completion through callers. Source: reviews/loop-unattended/2145-c88e33eda-special-level-closure.md.
 
 

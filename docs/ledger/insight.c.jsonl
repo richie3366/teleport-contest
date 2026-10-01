@@ -15,7 +15,7 @@
 {"fn":"status_enlightenment","c":"940-1266","status":"split","js":["js/invent.js:status_core_lines","js/invent.js:enlightenment","js/invent.js:doattributes"],"d":["D-3205","D-2406"],"at":"2026-10-01@55cdefbf9"}
 {"fn":"weapon_insight","c":"1270-1465","status":"ported","js":["js/invent.js:weapon_insight"],"d":["D-2610","D-2609"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — full body js/invent.js:5977-6141 (JS=0 is a coverage-indexer artifact, cf. food_detect)"}
 {"fn":"item_resistance_message","c":"1468-1483","status":"split","js":["js/invent.js:item_resistance_message_lines"],"at":"2026-09-29@a1c4832f4","note":"stale: whole body under _lines name, 5 C sites wired x2 copies (disclosure + overlay)"}
-{"fn":"attributes_enlightenment","c":"1487-2005","status":"split","js":["js/invent.js:enlightenment","js/invent.js:doattributes"],"d":["D-3205","D-2276","D-2120","D-1839"],"at":"2026-10-01@55cdefbf9"}
+{"fn":"attributes_enlightenment","c":"1487-2005","status":"split","js":["js/invent.js:enlightenment","js/invent.js:doattributes"],"d":["D-3207","D-3205","D-2276","D-2120","D-1839"],"at":"2026-10-01@7eb25b655"}
 {"fn":"doattributes","c":"2009-2019","status":"unknown"}
 {"fn":"youhiding","c":"2022-2077","status":"partial","js":["js/polyself.js:youhiding"],"omit":"Riding, Levitation, Flying, Underwater, and `walking_on_water` in `status_enlightenment` are still absent; the hiding line sits immediately before Stoned, the next live arm.","d":["D-2834"],"at":"seed@a30a7de84"}
 {"fn":"doconduct","c":"2081-2085","status":"unknown"}

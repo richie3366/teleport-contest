@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3207 `insight.c` enlightenment() pray else-arm (review 2165 finding 1)
+
+**C locus:** - `attributes_enlightenment`: `nethack-c/upstream/src/insight.c:1937–1955` else-arm whole — `if (!final)` suppression (death can change can_pray(); C comment), `can_pray(FALSE)` → "[not ]safely pray", wizard `ublesscnt` suffix, `you_can(buf, "")`; the `#if 0` "could have safely prayed" wording stays unported (compiled out).
+**JS:** `js/invent.js:7208–7232` (god-anger block + pray else); 1 js file.
+**Change:** `else { if (!final) { … } }` in C nesting: inline `await import('./pray.js')` (reuses the live invent→pray edge from `:7539`, no new module edge), `can_pray(false)` → "[not ]safely pray", wizard `ublesscnt` suffix, `enlght_line_txt(You_, 'can ', …)` (verb fixed — the gate pins present tense, matching the overlay). Dead on this builder today (`enlightenment()` routes !final to `doattributes()` at `:6335–6340`, so `final` is always truthy below) — ported as written for the whole-body claim; zero behavior change. Potion/zap in-progress path (`js/potion.js:1998`, `js/zap.js:2787` ← C potion.c:710/zap.c:2529) already shows the line via the overlay builder.
+**Verify:** `node scripts/verify.mjs --fn attributes_enlightenment` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+**Named:** - `attributes_enlightenment`: none added — the `#if 0` pray wording is compiled out of C (pre-existing, same as D-3205).
+**Next:** next Must-fix row (`from_what` negative INVIS + CLAIRVOYANT, review 2165 finding 2).
 ## 2026-10-01 — Audit 2158–2166 (9 SHAs D-3198–D-3206; 5 ACCEPT / 1 DEBT / 3 QUALITY-RISK; 4 Must-fix)
 
 **Reviews:** 2158 checkfile/findtravelpath ACCEPT; 2159 pickup/use_container ACCEPT; 2160 s_suffix QUALITY-RISK (5 suffixed clones keep the S-arm, zap the full old shape — ledger split closed early); 2161 accessory_or_armor_on ACCEPT; 2162 savebones QUALITY-RISK (snapshot loop → live `iter_mons` drops splice-safety; mongone skip); 2163 roguename ACCEPT (reach 21/21); 2164 com_pager_core ACCEPT (PROGRESS, scen-quest-Arch-94096 → dog_goal same step); 2165 enlightenment QUALITY-RISK (pray else-arm overlay-only, reachable via potion/zap final=0; from_what negative INVIS/CLAIRVOYANT stubbed); 2166 mkshop ACCEPT-WITH-DEBT (SHOPTYPE="" corner: C general-store + :173 truthy vs JS random + falsy; wizard+empty-env only, fix in review).

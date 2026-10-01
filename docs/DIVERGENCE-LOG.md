@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-3207 — `insight.c` enlightenment() pray else-arm (review 2165 finding 1)
+
+- **Status:** fixed (Must-fix from review 2165 QUALITY-RISK on D-3205: C `insight.c:1937–1955` pray else-arm absent from the final `enlightenment()` builder; `hidden-proxy verify attributes_enlightenment`: no corpus session blocked). 1-arm fix in `js/invent.js` (+13/−1): mirrors the overlay else-arm with the C `!final` gate. Ships alone (Must-fix).
+- **Symptom:** C-wrong against the D-3205 "whole/none" claim, not a corpus divergence. The `doattributes()` ^X overlay prints "can [not] safely pray" (+ wizard ublesscnt) when !ugangr, but the final `enlightenment()` builder's ugangr block had no `else` (comment cited only `:1931–1936`). C emits the line whenever !ugangr && !final.
+- **C locus:**
+  - `attributes_enlightenment`: `nethack-c/upstream/src/insight.c:1937–1955` else-arm whole — `if (!final)` suppression (death can change can_pray(); C comment), `can_pray(FALSE)` → "[not ]safely pray", wizard `ublesscnt` suffix, `you_can(buf, "")`; the `#if 0` "could have safely prayed" wording stays unported (compiled out).
+- **JS was:** `js/invent.js:7208–7218` ugangr `if` with no `else` in the final builder (overlay-only arm at `:8315–8321`).
+- **Fix:** `else { if (!final) { … } }` in C nesting: inline `await import('./pray.js')` (reuses the live invent→pray edge from `:7539`, no new module edge), `can_pray(false)` → "[not ]safely pray", wizard `ublesscnt` suffix, `enlght_line_txt(You_, 'can ', …)` (verb fixed — the gate pins present tense, matching the overlay). Dead on this builder today (`enlightenment()` routes !final to `doattributes()` at `:6335–6340`, so `final` is always truthy below) — ported as written for the whole-body claim; zero behavior change. Potion/zap in-progress path (`js/potion.js:1998`, `js/zap.js:2787` ← C potion.c:710/zap.c:2529) already shows the line via the overlay builder.
+- **JS:** `js/invent.js:7208–7232` (god-anger block + pray else); 1 js file.
+- **Callers:**
+  - `attributes_enlightenment`: C `insight.c:422` (enlightenment, MAGIC-gated) → final `enlightenment()` MAGIC block (arm completed inside) + `doattributes()` magic block (pre-existing, unchanged). Reverse-checked: no other JS callers.
+- **Verify:** `node scripts/verify.mjs --fn attributes_enlightenment` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/invent.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify attributes_enlightenment: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    attributes_enlightenment: no RNG-tagged reach; fixed smoke spread (24 run, 12.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+No maintained unit-test harness in repo (sessions + verify are the gates); no new test added — the arm is `!final`-gated dead code on the final≠0 builder with zero behavior change, and the live overlay arm already renders the line.
+- **Named omissions:**
+  - `attributes_enlightenment`: none added — the `#if 0` pray wording is compiled out of C (pre-existing, same as D-3205).
+- **Ledger:** attributes_enlightenment split
+- **Next:** next Must-fix row (`from_what` negative INVIS + CLAIRVOYANT, review 2165 finding 2).
+
 ## D-3206 — `mkroom.c` mkshop SHOPTYPE dispatch live (retires the D-2569 Rule #2 omit)
 
 - **Status:** fixed (Open — coverage head THIN: C 78 code L `mkroom.c:95–216`, the `:104–153` SHOPTYPE dispatch; `hidden-proxy verify mkshop`: no corpus session blocked). 1-function cluster in `js/mklev.js` (+52/−16: live dispatch, one SAFE mail.js edge). Below the ~80-insertion density guideline under the stated exception: mkshop is the sole mkroom.c row of the 12-row generated block (`ledger.mjs rows`: 12 rows, no other mkroom.c entry), and the callee closure holds nothing more Open — `has_dnstairs`/`has_upstairs` (`mkroom.c:639–663`) and `isbig` (`:41–48`) verified C-exact against `csym.mjs` bodies this iteration (PARTIAL is line-count noise), `mkzoo`/`mktemple`/`mkswamp`/`invalid_shop_shape` measured ok.

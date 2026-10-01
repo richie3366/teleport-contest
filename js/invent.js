@@ -7205,7 +7205,8 @@ export async function enlightenment(mode, final = 0) {
                 }
             }
         }
-        // C insight.c:1931-1936 — god anger ("The Lady was angry with you").
+        // C insight.c:1931-1955 — god anger ("The Lady was angry with you"),
+        // else pray safety ("can [not] safely pray" + wizard ublesscnt).
         {
             const ugangr = u.ugangr | 0;
             if (ugangr) {
@@ -7215,6 +7216,17 @@ export async function enlightenment(mode, final = 0) {
                     u_gname(game.urole, atype), final ? ' was' : ' is',
                     anger, '',
                 ));
+            } else {
+                // C :1937-1955 — suppressed when the game is over (death can
+                // change can_pray(); C comment). Dead on this builder today
+                // (!final routes to doattributes() above) — ported as written,
+                // mirroring the overlay arm; the #if 0 wording stays unported.
+                if (!final) {
+                    const { can_pray } = await import('./pray.js');
+                    let prayAttr = `${(await can_pray(false)) ? '' : 'not '}safely pray`;
+                    if (wiz) prayAttr += ` (${u.ublesscnt | 0})`;
+                    lines.push(enlght_line_txt(You_, 'can ', prayAttr, ''));
+                }
             }
         }
         // C insight.c:1958-1977 — #ifdef DEBUG wizard fruit list (fires
