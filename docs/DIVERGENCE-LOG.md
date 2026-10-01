@@ -1,5 +1,42 @@
 # Divergence log
 
+## D-3217 — s_suffix 8-home second wave (review 2170: objnam/apply/fig/hatch disjunct + towel/leash/poison/inv restarts)
+
+- **Status:** fixed (Must-fix from review 2170 QUALITY-RISK on D-3210: the D-3210 sweep enumerated 6 + 5 queued names instead of the definition census and left 8 suffixed clones C-wrong; `hidden-proxy verify s_suffix`: no corpus session blocked). Ships alone (Must-fix).
+- **Symptom:** C-wrong against C, not a corpus divergence (message text, no RNG tag — verification cannot see it, hence the census falsifier). C `hacklib.c:344–359` is lowercase-'s'-only (`*(eos(buf)-1) == 's'`) with case-insensitive it→+s / you→+r. Four homes kept `|| endsWith('S')` (all-caps names: C `XERXES's`, JS `XERXES'`); four kept full pre-fix shapes: towel (falsy passthrough, no it/you, lowercased z/x/sh/ch arm), leash (no it/you: "you"→"you's" vs C "your", z/x/ch/sh arm), poison (falsy→'the', case-sensitive it/you, z/x/sh/ch arm), inv (case-sensitive It/You only, z/x/ch/sh arm).
+- **C locus:** `nethack-c/upstream/src/hacklib.c:344–359` whole (Strcpy; strcmpi it→+s / you→+r; lowercase-'s' →+'; else →+'s; static buf).
+- **JS was:** `js/objnam.js:2802` s_suffix_objnam, `js/apply.js:3223` s_suffix_apply, `js/apply.js:4347` s_suffix_fig, `js/timeout.js:2271` s_suffix_hatch (all with `|| endsWith('S')`); `js/weapon.js:1823` s_suffix_towel, `js/apply.js:1445` s_suffix_leash, `js/mhitu.js:1086` s_suffix_poison, `js/invent.js:4355` s_suffix_inv (pre-fix shapes above); stale `s_suffix_hitmsg` doc citing poison's removed z/x/sh/ch arm.
+- **Fix:** the 4 one-line clones drop the `|| endsWith('S')` disjunct (comments now cite the lowercase-only C predicate); towel/leash/poison/inv restarted as the C-exact 4-arm body (toLowerCase strcmpi it/you, case preserved in output; lowercase-`endsWith('s')` only; `String(s ?? '')`, so empty/null/undefined → `'s` ≡ C's buf[-1] read); hitmsg doc de-staled. Zero new module edges; every caller keeps its callee. `scripts/s_suffix_clones.test.mjs` CLONES extended 5 → 19 (all non-canonical defs) + a census test that scans `js/*.js` for `function s_suffix*` and fails on any unpinned def, so the next sweep cannot miss.
+- **JS:** `js/objnam.js:2802`, `js/apply.js:1445/3223/4348`, `js/timeout.js:2271`, `js/weapon.js:1823`, `js/mhitu.js:1085`, `js/invent.js:4355` (sole js/ edits; 6 files) + `scripts/s_suffix_clones.test.mjs`.
+- **Callers:** every JS call site verified at a genuine C `s_suffix` site; no call from a site C never calls from.
+  - `s_suffix_objnam`: objnam.c:1855 → `js/objnam.js:1290`; shk.c:5903 (mon_owns) → `js/objnam.js:2827` (shk_your).
+  - `s_suffix_apply`: apply.c:3236 (yank) → `js/apply.js:3526`; apply.c:1685 (flame) → `js/apply.js:4988`.
+  - `s_suffix_fig`: apply.c:2478 (pack) → `js/apply.js:4470`.
+  - `s_suffix_hatch`: timeout.c:1145 (pack) → `js/timeout.js:2442`.
+  - `s_suffix_towel`: weapon.c:1056/1081 → `js/weapon.js:1871/1893`.
+  - `s_suffix_leash`: apply.c:972/848 → `js/apply.js:1646/1720`.
+  - `s_suffix_poison`: uhitm.c:4226 (hissing) → `js/mhitu.js:2236`.
+  - `s_suffix_inv`: invent.c:5356 → `js/invent.js:4385`.
+- **Verify:** `node scripts/verify.mjs --fn s_suffix` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+```
+PASS  syntax   6 changed js file(s): js/apply.js js/invent.js js/mhitu.js js/objnam.js js/timeout.js js/weapon.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify s_suffix: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    s_suffix: no RNG-tagged reach; fixed smoke spread (24 run, 10.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+`node --test scripts/s_suffix_clones.test.mjs`: 21/21 pass (canonical + 19 clones + census). Census falsifier: `grep -rn "function s_suffix" js/` = 20 defs (12 pre-existing C-exact + 8 fixed here), zero `endsWith('S')` in the touched files.
+- **Named omissions:** none — all 20 homes now C-exact: canonical `js/do_name.js:411` + 5 name-exact (explode/minion/mthrowu/questpgr/shk, re-read C-exact this iteration) + 5 D-3210 homes + `s_suffix_hitmsg` (pre-existing C-exact) + these 8. (`s_suffix_ucatch` is an import alias of the export, not a def.)
+- **Ledger:** s_suffix split js=js/do_name.js:s_suffix+js/explode.js:s_suffix+js/minion.js:s_suffix+js/mthrowu.js:s_suffix+js/questpgr.js:s_suffix+js/shk.js:s_suffix+js/eat.js:s_suffix_eat+js/mhitm.js:s_suffix_mm+js/dothrow.js:s_suffix_throw_gold+js/potion.js:s_suffix_pot+js/zap.js:s_suffix_zap+js/objnam.js:s_suffix_objnam+js/apply.js:s_suffix_apply+js/apply.js:s_suffix_fig+js/timeout.js:s_suffix_hatch+js/weapon.js:s_suffix_towel+js/apply.js:s_suffix_leash+js/mhitu.js:s_suffix_poison+js/invent.js:s_suffix_inv+js/mhitu.js:s_suffix_hitmsg
+- **Next:** none for s_suffix — the census test guards all 20 homes. Next cluster per queue: first Open — coverage row (`do.c` obj_no_longer_held).
+
 ## D-3216 — vision_clears "quickly" text (review 2174: 12 literals + VISION_CLEARS const)
 
 - **Status:** fixed (Must-fix from review 2174 QUALITY-RISK on D-3214: the blnd arm copied the tree's value-unchecked `pline('Your vision clears.')` idiom; C emits "Your vision quickly clears."; `hidden-proxy verify mhitm_ad_blnd`: no corpus session blocked). 14-line text fix in 10 files, no behavior besides the topline string. Ships alone (Must-fix).

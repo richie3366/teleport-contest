@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] s_suffix 8-home second wave — `C hacklib.c:344–359` lowercase-'s'-only + case-insensitive it/you absent from js/objnam.js:2802 s_suffix_objnam, js/apply.js:3223 s_suffix_apply, js/apply.js:4347 s_suffix_fig, js/timeout.js:2271 s_suffix_hatch (`|| endsWith('S')`), js/weapon.js:1823 s_suffix_towel, js/apply.js:1445 s_suffix_leash, js/mhitu.js:1086 s_suffix_poison, js/invent.js:4355 s_suffix_inv (pre-fix shapes); falsifier `grep -rn "function s_suffix" js/` = 20 defs all C-equal to the export. Source: reviews/loop-unattended/2170-b9de54524-s-suffix-second-wave.md
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

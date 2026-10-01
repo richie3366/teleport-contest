@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3217 s_suffix 8-home second wave (review 2170: objnam/apply/fig/hatch disjunct + towel/leash/poison/inv restarts)
+
+**C locus:** `nethack-c/upstream/src/hacklib.c:344–359` whole (Strcpy; strcmpi it→+s / you→+r; lowercase-'s' →+'; else →+'s; static buf).
+**JS:** `js/objnam.js:2802`, `js/apply.js:1445/3223/4348`, `js/timeout.js:2271`, `js/weapon.js:1823`, `js/mhitu.js:1085`, `js/invent.js:4355` (sole js/ edits; 6 files) + `scripts/s_suffix_clones.test.mjs`.
+**Change:** the 4 one-line clones drop the `|| endsWith('S')` disjunct (comments now cite the lowercase-only C predicate); towel/leash/poison/inv restarted as the C-exact 4-arm body (toLowerCase strcmpi it/you, case preserved in output; lowercase-`endsWith('s')` only; `String(s ?? '')`, so empty/null/undefined → `'s` ≡ C's buf[-1] read); hitmsg doc de-staled. Zero new module edges; every caller keeps its callee. `scripts/s_suffix_clones.test.mjs` CLONES extended 5 → 19 (all non-canonical defs) + a census test that scans `js/*.js` for `function s_suffix*` and fails on any unpinned def, so the next sweep cannot miss.
+**Verify:** `node scripts/verify.mjs --fn s_suffix` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+**Named:** none — all 20 homes now C-exact: canonical `js/do_name.js:411` + 5 name-exact (explode/minion/mthrowu/questpgr/shk, re-read C-exact this iteration) + 5 D-3210 homes + `s_suffix_hitmsg` (pre-existing C-exact) + these 8. (`s_suffix_ucatch` is an import alias of the export, not a def.)
+**Next:** none for s_suffix — the census test guards all 20 homes. Next cluster per queue: first Open — coverage row (`do.c` obj_no_longer_held).
 ## 2026-10-01 — D-3216 vision_clears "quickly" text (review 2174: 12 literals + VISION_CLEARS const)
 
 **C locus:** `nethack-c/upstream/src/decl.c:40–52` (10th positional `c_vision_clears` = "vision quickly clears.") + all 13 `Your1(vision_clears)` use sites: `eat.c:1829`, `mthrowu.c:840`, `detect.c:1234`, `zap.c:3066`, `dothrow.c:1326`, `uhitm.c:2983` (mhitm_ad_blnd_u), `trap.c:4332`, `potion.c:2078`, `mhitu.c:1480/1631/1813`, `engrave.c:1252`, `mcastu.c:740`. Upstream grep confirms no other producers (13 sites + the `decl.h:40` define).

@@ -391,8 +391,7 @@ export async function mswings(mtmp, otemp, bash) {
 
 /**
  * C ref: hacklib.c s_suffix — it→its, you→your, *s→*', else *'s.
- * C compares only the last char to 's' (not 'S'). Distinct from
- * s_suffix_poison (extra z/x/sh/ch).
+ * C compares only the last char to 's' (not 'S').
  */
 function s_suffix_hitmsg(s) {
     const buf = String(s ?? '');
@@ -1082,16 +1081,15 @@ function mpoisons_subj(mtmp, mattk) {
     return 'sting';
 }
 
-/** C hacklib.c s_suffix — possessive for poison reason. */
+/** C ref: hacklib.c s_suffix `:345–359` — it→its, you→your, lowercase-*s→*', else *'s. */
 function s_suffix_poison(s) {
-    if (!s) return 'the';
-    if (s === 'it') return 'its';
-    if (s === 'you') return 'your';
-    if (s.endsWith('s') || s.endsWith('z') || s.endsWith('x')
-        || s.endsWith('sh') || s.endsWith('ch')) {
-        return `${s}'`;
-    }
-    return `${s}'s`;
+    const buf = String(s ?? '');
+    const low = buf.toLowerCase();
+    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
+    if (low === 'you') return `${buf}r`;
+    /* C `*(eos(buf)-1) == 's'` — lowercase 's' only, no z/x/ch/sh arm. */
+    if (buf.endsWith('s')) return `${buf}'`;
+    return `${buf}'s`;
 }
 
 /**
