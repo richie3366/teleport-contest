@@ -3862,7 +3862,7 @@ inshop/isshk dopay/frozen-helpless/longworm/`passes_walls`/Vrock deferred);
 **`mondead`→`relobj_on_death` minvent + death-drop `distant_name` disco** (D-0108/D-0632); 
 **`mvitals.died++`** (D-0126); **`xkilled` → `experience`/`more_experienced`/`newexplevel`** 
 (D-0130); pet safemon displace; **`mdisplacem` + region after both places (D-1174; 
-`should_displace` / dogmove caller / dbridge named)**; **`mondead`/`newsym` on kill** (D-0037); 
+whole body to live exports + `should_displace` wild-`m_move` gate wired D-3248; dbridge named)**; **`mondead`/`newsym` on kill** (D-0037); 
 **`mondead` `glyph_is_invisible`→`unmap_object`** (D-0479); 
 **mhitm `mondied`→`make_corpse` ordinary default_1** (D-0167); 
 **`monkilled`/`mondied` split + `nonliving` verb** (D-0698; worm_known/disintegested deferred); 

@@ -1,6 +1,6 @@
 {"fn":"somegold","c":"14-34","status":"unknown"}
 {"fn":"findgold","c":"45-52","status":"unknown"}
-{"fn":"stealgold","c":"58-116","status":"unknown"}
+{"fn":"stealgold","c":"58-116","status":"ported","js":["js/steal.js:stealgold"],"at":"2026-10-01@37d6d3fe7","note":"stale: js/steal.js:125"}
 {"fn":"thiefdead","c":"120-128","status":"unknown","d":["D-2271"],"at":"seed@a30a7de84"}
 {"fn":"unresponsive","c":"133-142","status":"unknown"}
 {"fn":"unstolenarm","c":"147-161","status":"unknown"}

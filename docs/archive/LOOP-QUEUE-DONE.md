@@ -5,9 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `cmd.c` set_move_cmd — blocks 1/953 (scen-dig-Archeologist-94035, step 44, kind=screen) @caf1b5991 **Addressed:** D-3247
-- [x] `dig.c` dig — blocks 1/953 (scen-terrain-Rogue-94040, step 70, kind=screen) @caf1b5991 **Addressed:** D-3247
-- [x] `dig.c` use_pick_axe2 — blocks 2/953 (scen-dig-Archeologist-94215, step 32, kind=screen) @2b9efeed4 **Addressed:** D-3247
+- [x] `mhitm.c` mdisplacem — blocks 1/953 (scen-special-Ranger-94277, step 157, kind=rng) @f572fe77c **Addressed:** D-3248
+
+
+- [x] `cmd.c` set_move_cmd — blocks 1/953 (scen-dig-Archeologist-94035, step 44, kind=screen) @caf1b5991 **Addressed:** D-3247 `37d6d3fe7`
+- [x] `dig.c` dig — blocks 1/953 (scen-terrain-Rogue-94040, step 70, kind=screen) @caf1b5991 **Addressed:** D-3247 `37d6d3fe7`
+- [x] `dig.c` use_pick_axe2 — blocks 2/953 (scen-dig-Archeologist-94215, step 32, kind=screen) @2b9efeed4 **Addressed:** D-3247 `37d6d3fe7`
 
 
 - [x] `js` js-throw lev_json.js:452 relink_light_sources "no monster 0" — blocks 1/953 (scen-special-Samurai-94217, step 6, kind=screen, error in restoreOtherLedgers/deserLevel; cf D-3244 GIGO note — confirm throw precedes the step-6 diff) @2ad1aa828 **Addressed:** D-3246 `f0a64859`
