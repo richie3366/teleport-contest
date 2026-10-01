@@ -2,7 +2,7 @@
 
 SHA `c88e33eda`, D-3185; 2026-10-01; +500/-324 JS. No prior review closure.
 
-**Addressed:** D-3190
+**Addressed:** D-3190 `c64bdefb7`
 
 Actionable 1 closed; Actionable 2 remains queued (roomtype validation and diagnostic completion).
 

@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-3191 — restore prinv verbose default-ON gate plus inventory hardening
+
+- **Status:** fixed review 2150 items 1, 3–4; first Must-fix ships alone. Whole pinned C body and all brief reference tables read before editing; existing complete control flow retained, one gate corrected and two unreachable-arm hardenings added. Must-fix density exception: 2 scored JS files, 7 insertions; no unrelated coverage row.
+- **Symptom:** measured by review 2150's C-vs-JS read at tree 949324ac1, not a blocked corpus session: with `game.flags` uninitialized, `prinv` suppressed the " (N in total)." suffix C prints (decl-TRUE `flags.verbose`); a null hole in `game.invent` would throw in the `dispinv_with_action` post-menu scan; a removed `otmp` would restart `doprtool` iteration at the head.
+- **C locus:**
+  - `prinv`: invent.c:2875–2890; whole body read in brief output; the suffix gate is `flags.verbose ? totalbuf : ""` at :2889 with `flags.verbose` decl-initialized TRUE.
+  - `dispinv_with_action`: invent.c post-menu letter scan; JS-side null hole guard only — no C arm changed.
+  - `doprtool`: invent.c:4718–4734 successor walk; JS-side -1 guard only — no C arm changed.
+- **JS was:** js/invent.js:7692 (D-3186) used truthy `game.flags?.verbose ?`, contradicting the port's own default-ON convention (`!== false` at js/invent.js:7641,9188,9205 and js/options.js:2331,2797,3021). js/iactions.js:958 tested `otmp.invlet === c` with no guard. js/invent.js:7861 did `inv[inv.indexOf(otmp) + 1]` with no -1 guard.
+- **Fix:** restored `game.flags?.verbose !== false` in `prinv` with a C-citing comment; restored the `o &&`-class guard (`otmp &&`) in the `dispinv_with_action` post-menu scan; `doprtool` now ends iteration (`undefined`) when `indexOf` returns -1 instead of restarting at the head. No new imports, runtime filesystem, RNG/frame alignment or recorded-input gates.
+- **JS:** js/invent.js:7694 prinv gate; js/iactions.js:958 post-menu scan guard; js/invent.js:7864 doprtool -1 guard. Same export names and signatures retained.
+- **Callers:**
+  - `prinv`: gate-only change; all 22 executable C call sites keep their existing JS wiring (no caller touched).
+  - `dispinv_with_action`: guard-only change inside the post-menu scan; no caller touched.
+  - `doprtool`: guard-only change inside the successor walk; no caller touched.
+- **Verify:** no failed sessions to triage. `node scripts/verify.mjs --fn prinv,doprtool` completed with this actual tail:
+
+```text
+PASS  syntax   2 changed js file(s): js/iactions.js js/invent.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify prinv: no corpus session blocked on it at baseline
+PASS  reach    prinv: no RNG-tagged reach; fixed smoke spread (24 run, 7.6s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify doprtool: no corpus session blocked on it at baseline
+PASS  reach    doprtool: no RNG-tagged reach; fixed smoke spread (24 run, 7.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+VERIFY: PASS
+```
+
+- **Named omissions:**
+  - `prinv`: none added; restores the D-3186 body to the C gate.
+  - `dispinv_with_action`: none; null holes are unobserved in production (review item 3).
+  - `doprtool`: none; removal mid-walk is unreachable today since reassign only reorders (review item 4).
+- **Ledger:** prinv ported; doprtool ported; dispinv_with_action ported
+- **Next:** pop the next Must-fix row (review 2150 item 2, mon.c mpickstuff verbose gate).
+
 ## D-3190 — preserve exact Lua coordinate integers through destination casts
 
 - **Status:** fixed review 2145 Actionable 1; first Must-fix ships alone. Clean preflight green/strict PASS using Node 22.23.3 (added its existing installation to the command PATH). Three whole pinned bodies and all brief references read before editing; existing complete control flow retained, integer transport and affected caller boundaries corrected. Must-fix density exception: 2 scored JS files, 40 insertions; no unrelated coverage row.

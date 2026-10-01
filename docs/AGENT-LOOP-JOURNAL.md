@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3191 restore prinv verbose default-ON gate plus inventory hardening
+
+**C locus:** - `prinv`: invent.c:2875–2890; whole body read in brief output; the suffix gate is `flags.verbose ? totalbuf : ""` at :2889 with `flags.verbose` decl-initialized TRUE.
+**JS:** js/invent.js:7694 prinv gate; js/iactions.js:958 post-menu scan guard; js/invent.js:7864 doprtool -1 guard. Same export names and signatures retained.
+**Change:** restored `game.flags?.verbose !== false` in `prinv` with a C-citing comment; restored the `o &&`-class guard (`otmp &&`) in the `dispinv_with_action` post-menu scan; `doprtool` now ends iteration (`undefined`) when `indexOf` returns -1 instead of restarting at the head. No new imports, runtime filesystem, RNG/frame alignment or recorded-input gates.
+**Verify:** no failed sessions to triage. `node scripts/verify.mjs --fn prinv,doprtool` completed with this actual tail:
+**Named:** - `prinv`: none added; restores the D-3186 body to the C gate.
+**Next:** pop the next Must-fix row (review 2150 item 2, mon.c mpickstuff verbose gate).
 ## 2026-10-01 — D-3190 preserve exact Lua coordinate integers through destination casts
 
 **C locus:** whole bodies and every reference table read in brief outputs; destination assignments and SP_COORD_PACK read at the immediate callers.
