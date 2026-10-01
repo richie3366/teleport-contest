@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-3208 — `attrib.c` from_what negative INVIS + CLAIRVOYANT arms (review 2165 finding 2)
+
+- **Status:** fixed (Must-fix from review 2165 QUALITY-RISK on D-3205: C `attrib.c:977–997` negative `switch (-propidx)` handles three cases but `js/attrib.js` from_what returned `''` for everything but BLINDED; `hidden-proxy verify from_what`: no corpus session blocked). 2-arm fix in `js/attrib.js` (+20/−6: INVIS + CLAIRVOYANT cases in C order, 4 const imports) + `scripts/from_what.test.mjs` (5 pins). Ships alone (Must-fix).
+- **Symptom:** C-wrong against C, not a corpus divergence. D-3205's Clairvoyant blocked arm (`js/invent.js:6691–6700`) strsubsts `from_what(-CLAIRVOYANT)` into an "if not for X" suffix, and the pre-existing blocked-invisible arm (`:6762–6764`) passes `from_what(-INVIS)` to the "visible" line — both rendered unsuffixed in wizard mode because the callee stubbed the two cases (ledger row said ported-stale 2026-09-09, predating D-3205).
+- **C locus:**
+  - `from_what`: `nethack-c/upstream/src/attrib.c:986–995` whole — `case INVIS: if (uprops[INVIS].blocked & W_ARMC) Sprintf(buf, because_of, ysimple_name(uarmc))` (mummy wrapping); `case CLAIRVOYANT: if (wizard && (uprops[CLAIRVOYANT].blocked & W_ARMH)) Sprintf(buf, because_of, ysimple_name(uarmh))` (cornuthaum). BLINDED arm (`:979–983`) untouched.
+- **JS was:** `js/attrib.js:1224–1231` (pre-edit) — negative arm handled only `-propidx === BLINDED` (Eyes of the Overworld), `return ''` otherwise; JSDoc named the two cases as omissions.
+- **Fix:** the two `if` arms in C switch order after the BLINDED arm. Blocked masks read the JS dual store (flat `BInvis`/`BClairvoyant` mirror OR `uprops[].blocked` — `apply_w_blocks` in `js/do_wear.js:620–637` writes both, and every live reader in `js/do_wear.js:869`/`js/invent.js:6687/6755` ORs them); the tested slot bit (`W_ARMC`/`W_ARMH`) and the `ysimple_name(uarmc/uarmh)` suffix are C-exact, as is the inner `wizard &&` on CLAIRVOYANT (vacuous under the outer wizard gate, ported as written). No new module edges — `INVIS`/`CLAIRVOYANT`/`W_ARMC`/`W_ARMH` join the existing static `./const.js` import; `ysimple_name` already imported.
+- **JS:** `js/attrib.js:1225–1254` (negative block), imports `:37–38,44–45`; 1 js file.
+- **Callers:**
+  - `from_what`: C `insight.c:1617` (Clairvoyant blocked "if not for" strsubst) → `js/invent.js:6692–6695` (pre-wired, now yields the suffix); C `insight.c:1666` (blocked-invisible "visible" line) → `js/invent.js:6763` (pre-wired, now yields the suffix). All other C call sites are positive-propidx (unaffected). Reverse-checked: no new JS callers added.
+- **Verify:** `node scripts/verify.mjs --fn from_what` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/attrib.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify from_what: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    from_what: no RNG-tagged reach; fixed smoke spread (24 run, 12.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Focused gate: `node --test scripts/from_what.test.mjs` — 5/5 pass (failed 3/5 pre-fix: the two new arms returned `''`; silent-when-unblocked, silent-outside-wizard, and CLAIRVOYANT-unblocked pins passed throughout). Display-only suffix, no RNG tags — REACH-OK via the fixed smoke spread, as in D-3205/D-3207.
+- **Named omissions:**
+  - `from_what`: none added — birth blind/deaf + Blindfolded_only/cream stay named in the JSDoc (pre-existing, positive-propidx arms outside this Must-fix).
+- **Ledger:** from_what ported
+- **Next:** next Must-fix row (`savebones` removal-skip via `iter_mons`, review 2162).
+
 ## D-3207 — `insight.c` enlightenment() pray else-arm (review 2165 finding 1)
 
 - **Status:** fixed (Must-fix from review 2165 QUALITY-RISK on D-3205: C `insight.c:1937–1955` pray else-arm absent from the final `enlightenment()` builder; `hidden-proxy verify attributes_enlightenment`: no corpus session blocked). 1-arm fix in `js/invent.js` (+13/−1): mirrors the overlay else-arm with the C `!final` gate. Ships alone (Must-fix).

@@ -21,7 +21,7 @@
 {"fn":"check_innate_abil","c":"818-851","status":"ported","js":["js/attrib.js:check_innate_abil"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:1098 complete, callers js/attrib.js:1124,1126 (C :868,:870); hum_abil empty in C"}
 {"fn":"innately","c":"864-877","status":"unknown"}
 {"fn":"is_innate","c":"880-900","status":"unknown"}
-{"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"d":["D-3208"],"at":"2026-10-01@8a149124b","note":"stale 2026-09-09"}
 {"fn":"adjabil","c":"1006-1074","status":"unknown"}
 {"fn":"newhp","c":"1080-1142","status":"ported","js":["js/attrib.js:newhp"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"minuhpmax","c":"1147-1152","status":"unknown"}

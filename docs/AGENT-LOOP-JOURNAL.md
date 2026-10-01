@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3208 `attrib.c` from_what negative INVIS + CLAIRVOYANT arms (review 2165 finding 2)
+
+**C locus:** - `from_what`: `nethack-c/upstream/src/attrib.c:986–995` whole — `case INVIS: if (uprops[INVIS].blocked & W_ARMC) Sprintf(buf, because_of, ysimple_name(uarmc))` (mummy wrapping); `case CLAIRVOYANT: if (wizard && (uprops[CLAIRVOYANT].blocked & W_ARMH)) Sprintf(buf, because_of, ysimple_name(uarmh))` (cornuthaum). BLINDED arm (`:979–983`) untouched.
+**JS:** `js/attrib.js:1225–1254` (negative block), imports `:37–38,44–45`; 1 js file.
+**Change:** the two `if` arms in C switch order after the BLINDED arm. Blocked masks read the JS dual store (flat `BInvis`/`BClairvoyant` mirror OR `uprops[].blocked` — `apply_w_blocks` in `js/do_wear.js:620–637` writes both, and every live reader in `js/do_wear.js:869`/`js/invent.js:6687/6755` ORs them); the tested slot bit (`W_ARMC`/`W_ARMH`) and the `ysimple_name(uarmc/uarmh)` suffix are C-exact, as is the inner `wizard &&` on CLAIRVOYANT (vacuous under the outer wizard gate, ported as written). No new module edges — `INVIS`/`CLAIRVOYANT`/`W_ARMC`/`W_ARMH` join the existing static `./const.js` import; `ysimple_name` already imported.
+**Verify:** `node scripts/verify.mjs --fn from_what` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+**Named:** - `from_what`: none added — birth blind/deaf + Blindfolded_only/cream stay named in the JSDoc (pre-existing, positive-propidx arms outside this Must-fix).
+**Next:** next Must-fix row (`savebones` removal-skip via `iter_mons`, review 2162).
 ## 2026-10-01 — D-3207 `insight.c` enlightenment() pray else-arm (review 2165 finding 1)
 
 **C locus:** - `attributes_enlightenment`: `nethack-c/upstream/src/insight.c:1937–1955` else-arm whole — `if (!final)` suppression (death can change can_pray(); C comment), `can_pray(FALSE)` → "[not ]safely pray", wizard `ublesscnt` suffix, `you_can(buf, "")`; the `#if 0` "could have safely prayed" wording stays unported (compiled out).

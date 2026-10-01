@@ -4,6 +4,10 @@ SHA `9cc52a0d2`, D-3205; 2026-10-01; `js/invent.js` only (+1014/−~100).
 Three-function same-file cluster (insight.c): status_enlightenment +
 attributes_enlightenment + enlght_combatinc. Closes no prior review.
 
+**Addressed:** D-3207 `8a149124b`
+
+**Addressed:** D-3208
+
 ## Metadata
 
 - Subject: "`insight.c` status_enlightenment + attributes_enlightenment
