@@ -28,8 +28,8 @@
 {"fn":"rnddoor","c":"1148-1153","status":"unknown"}
 {"fn":"rndtrap","c":"1159-1188","status":"split","js":["js/mklev.js:splev_rndtrap"],"at":"2026-09-30@4399b92c1","note":"audit 2087-2095: seed row pointed at create_maze (no rndtrap logic there); true home splev_rndtrap, whole body + both call sites"}
 {"fn":"get_location","c":"1202-1269","status":"unknown"}
-{"fn":"set_ok_location_func","c":"1274-1277","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"is_ok_location","c":"1280-1308","status":"unknown","d":["D-2368"],"at":"seed@a30a7de84"}
+{"fn":"set_ok_location_func","c":"1274-1277","status":"ported","js":["js/mklev.js:set_ok_location_func"],"d":["D-3229"],"at":"2026-10-01@1633dc128","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"is_ok_location","c":"1280-1308","status":"ported","js":["js/mklev.js:is_ok_location"],"d":["D-3229","D-2368"],"at":"2026-10-01@1633dc128"}
 {"fn":"pm_good_location","c":"1311-1314","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_unpacked_coord","c":"1317-1334","status":"ported","js":["js/mklev.js:get_unpacked_coord"],"d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_location_coord","c":"1337-1353","status":"unknown"}
@@ -69,7 +69,7 @@
 {"fn":"get_table_montype","c":"3167-3179","status":"split","js":["js/mklev.js:lspo_monster_normalize_table"],"at":"2026-09-30@042bdf039","note":"stale: C :3167-3179 complete inline js/mklev.js:22599-22607 (D-2645 replay design, review 1957 ACCEPT); sole C caller :3343 via l_create_monster:22667"}
 {"fn":"get_table_xy_or_coord","c":"3188-3204","status":"partial","js":["js/mklev.js:get_table_xy_or_coord"],"omit":"- `get_table_xy_or_coord`: no missing helper arm.","d":["D-3190","D-3185"],"at":"2026-10-01@447ada6e3"}
 {"fn":"lspo_monster","c":"3214-3400","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as l_create_monster + helpers mklev.js:22134-22353, review 1604 ACCEPT"}
-{"fn":"get_table_int_or_random","c":"3407-3437","status":"partial","js":["js/mklev.js:get_table_int_or_random"],"omit":"`lua_pop` has no stack in the unpacked loader.","d":["D-2881"],"at":"seed@a30a7de84"}
+{"fn":"get_table_int_or_random","c":"3407-3437","status":"ported","js":["js/mklev.js:get_table_int_or_random"],"d":["D-2881"],"at":"2026-10-01@1633dc128","note":"stale: whole C body live js/mklev.js:22842 (D-2881, review 1840 ACCEPT); both C callers wired :22871/:22881; lua_pop omit stands (no stack in unpacked loader)"}
 {"fn":"get_table_buc","c":"3442-3452","status":"unknown"}
 {"fn":"get_table_objclass","c":"3455-3464","status":"split","js":["js/mklev.js:get_table_objclass_field"],"at":"2026-09-30@042bdf039","note":"stale: js/mklev.js:22187; C :3653 wired at :22364, :3542 value-flow at :22366; nhlobj.c:366 caller (l_obj_new_readobjnam) has no JS analogue"}
 {"fn":"find_objtype","c":"3468-3536","status":"ported","js":["js/mklev.js:find_objtype"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
@@ -83,7 +83,7 @@
 {"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3193","D-3032"],"at":"2026-10-01@24e6bea47","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_room","c":"4028-4116","status":"ported","js":["js/mklev.js:lspo_room"],"d":["D-3193","D-3185"],"at":"2026-10-01@24e6bea47","note":"review 2145: live get_table_roomtype_opt bypasses optional string/function validation and diagnostic waits; coordinate lua_Integer rounding bypasses mixed-position rejection"}
 {"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
-{"fn":"good_stair_loc","c":"4139-4144","status":"unknown"}
+{"fn":"good_stair_loc","c":"4139-4144","status":"ported","js":["js/mklev.js:good_stair_loc"],"d":["D-3229"],"at":"2026-10-01@1633dc128"}
 {"fn":"l_create_stairway","c":"4147-4213","status":"ported","js":["js/mklev.js:l_create_stairway"],"d":["D-3139"],"at":"2026-09-30@042bdf039"}
 {"fn":"lspo_stair","c":"4223-4226","status":"ported","js":["js/mklev.js:lspo_stair"],"d":["D-3139"],"at":"2026-09-30@042bdf039","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_ladder","c":"4232-4235","status":"ported","js":["js/mklev.js:lspo_ladder"],"d":["D-3139"],"at":"2026-09-30@042bdf039","note":"refresh: no JS symbol (measured MISSING)"}

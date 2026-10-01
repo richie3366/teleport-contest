@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `hack.c` dump_weights — coverage THIN (C 51 code L `hack.c:4421–4483` / JS 5 code L in js/hack.js; hops —, callers 1, RNG 0, msg 0; declared partial: - `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).) @e45cb9654
-- [ ] `sp_lev.c` is_ok_location — coverage PARTIAL (C 18 code L `sp_lev.c:1280–1308` / JS 11 code L in js/mklev.js; hops 5, callers 3, RNG 0, msg 0) @e45cb9654
-- [ ] `sp_lev.c` get_table_int_or_random — coverage PARTIAL (C 22 code L `sp_lev.c:3407–3437` / JS 12 code L in js/mklev.js; hops —, callers 1, RNG 0, msg 1; declared partial: `lua_pop` has no stack in the unpacked loader.) @e0549fe8b
 - [ ] `makemon.c` dump_mongen — coverage THIN (C 27 code L `makemon.c:1835–1866` / JS 12 code L in js/makemon.js; hops —, callers 1, RNG 0, msg 0; declared partial: ) @e0549fe8b
 - [ ] `shk.c` remote_burglary — coverage PARTIAL (C 10 code L `shk.c:665–682` / JS 7 code L in js/shk.js; hops 4, callers 1, RNG 0, msg 0) @e0549fe8b
 - [ ] `botl.c` status_hilite2str — coverage PARTIAL (C 70 code L `botl.c:3590–3669` / JS 42 code L in js/botl.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `clear_status_hilites`: sole-C-caller wiring — options.c:1867 do_set negated arm (JS hilite_status optfn null).) @e0549fe8b
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `shk.c` bill_box_content — coverage PARTIAL (C 10 code L `shk.c:3387–3407` / JS 5 code L in js/shk.js; hops 5, callers 1, RNG 0, msg 0) @0fcd10790
 - [ ] `botl.c` status_hilite_menu_choose_updownboth — coverage PARTIAL (C 58 code L `botl.c:3811–3887` / JS 33 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0; declared partial: `status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes th) @0fcd10790
 - [ ] `options.c` handler_whatis_coord — coverage PARTIAL (C 58 code L `options.c:6206–6276` / JS 33 code L in js/options.js; hops —, callers 1, RNG 0, msg 0; declared partial: `config_error_add("Unknown %s parameter")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `pi) @0fcd10790
+- [ ] `options.c` initoptions_finish — coverage PARTIAL (C 26 code L `options.c:7324–7384` / JS 18 code L in js/options.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `unsaveoptstr`: none — every arm ported, callee live.) @1633dc128
+- [ ] `botl.c` status_hilite_menu — coverage PARTIAL (C 52 code L `botl.c:4498–4578` / JS 37 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0; declared partial: `status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes th) @1633dc128
+- [ ] `dokick.c` kickstr — coverage PARTIAL (C 34 code L `dokick.c:794–831` / JS 22 code L in js/dokick.js; hops —, callers 1, RNG 0, msg 0) @1633dc128
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
