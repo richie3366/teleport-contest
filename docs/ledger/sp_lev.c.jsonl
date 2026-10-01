@@ -81,7 +81,7 @@
 {"fn":"lspo_mineralize","c":"3939-3955","status":"ported","js":["js/mklev.js:lspo_mineralize"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_mkroom_name","c":"3991-4001","status":"ported","js":["js/mklev.js:get_mkroom_name"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_room","c":"4028-4116","status":"ported","js":["js/mklev.js:lspo_room"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
+{"fn":"lspo_room","c":"4028-4116","status":"partial","js":["js/mklev.js:lspo_room"],"d":["D-3185"],"at":"2026-10-01@c47034f0d","note":"review 2145: live get_table_roomtype_opt bypasses optional string/function validation and diagnostic waits; coordinate lua_Integer rounding bypasses mixed-position rejection"}
 {"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
 {"fn":"good_stair_loc","c":"4139-4144","status":"unknown"}
 {"fn":"l_create_stairway","c":"4147-4213","status":"ported","js":["js/mklev.js:l_create_stairway"],"d":["D-3139"],"at":"2026-09-30@042bdf039"}
@@ -109,7 +109,7 @@
 {"fn":"cvt_to_relcoord","c":"4793-4802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"nhl_abs_coord","c":"4811-4836","status":"ported","js":["js/mklev.js:nhl_abs_coord"],"d":["D-3174","D-3168"],"at":"2026-09-30@b5e29a0ee","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_feature","c":"4844-4923","status":"unknown","d":["D-2712"],"at":"seed@a30a7de84"}
-{"fn":"lspo_gas_cloud","c":"4929-4965","status":"ported","js":["js/mklev.js:lspo_gas_cloud"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
+{"fn":"lspo_gas_cloud","c":"4929-4965","status":"partial","js":["js/mklev.js:lspo_gas_cloud"],"d":["D-3185"],"at":"2026-10-01@c47034f0d","note":"review 2145: Number(tx) before signed-16 narrowing loses full-width Lua integer low bits in array coord; exact coordinate transport Must-fix"}
 {"fn":"lspo_terrain","c":"4978-5038","status":"ported","js":["js/mklev.js:lspo_terrain"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_replace_terrain","c":"5051-5143","status":"unknown","d":["D-1856"],"at":"seed@a30a7de84"}
 {"fn":"generate_way_out_method","c":"5146-5214","status":"unknown"}

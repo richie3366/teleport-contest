@@ -2150,3 +2150,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2138-232081f95-string-buffer.md](./2138-232081f95-string-buffer.md) | `232081f95` | D-3178 string buffer | **ACCEPT-WITH-DEBT** |
 | [2139-d37e25ba4-breadcrumb-wrappers.md](./2139-d37e25ba4-breadcrumb-wrappers.md) | `d37e25ba4` | D-3179 disabled breadcrumb wrappers | **ACCEPT-WITH-DEBT** |
 | [2140-94d7337ef-menu-dispatch-cleanup.md](./2140-94d7337ef-menu-dispatch-cleanup.md) | `94d7337ef` | D-3180 menu dispatch cleanup | **ACCEPT-WITH-DEBT** |
+| [2141-b230d7c85-were-message-continuation.md](./2141-b230d7c85-were-message-continuation.md) | `b230d7c85` | D-3181 were message continuation | **ACCEPT** |
+| [2142-5e7475cd1-fatal-startup-exits.md](./2142-5e7475cd1-fatal-startup-exits.md) | `5e7475cd1` | D-3182 fatal startup exits | **ACCEPT-WITH-DEBT** |
+| [2143-a60a91a98-vision-startup.md](./2143-a60a91a98-vision-startup.md) | `a60a91a98` | D-3183 vision startup | **ACCEPT** |
+| [2144-03eae3466-system-wizard-formatting.md](./2144-03eae3466-system-wizard-formatting.md) | `03eae3466` | D-3184 system wizard formatting | **ACCEPT-WITH-DEBT** |
+| [2145-c88e33eda-special-level-closure.md](./2145-c88e33eda-special-level-closure.md) | `c88e33eda` | D-3185 special-level closure | **QUALITY-RISK** |
+| [2146-c1c0d92f4-inventory-action-state.md](./2146-c1c0d92f4-inventory-action-state.md) | `c1c0d92f4` | D-3186 inventory action state | **ACCEPT-WITH-DEBT** |
+| [2147-2c5d70e9a-migration-sort-input.md](./2147-2c5d70e9a-migration-sort-input.md) | `2c5d70e9a` | D-3187 migration sort/input | **ACCEPT** |
+| [2148-d946e150c-impossible-diagnostics.md](./2148-d946e150c-impossible-diagnostics.md) | `d946e150c` | D-3188 impossible diagnostics | **ACCEPT-WITH-DEBT** |
+| [2149-c47034f0d-ledger-sample.md](./2149-c47034f0d-ledger-sample.md) | `c47034f0d` | Audit ledger sample (inherited armor continuation) | **QUALITY-RISK** |

@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — audit 2141–2149, D-3181–D-3188
+
+**Review:** eight JS SHAs oldest first, each file written before opening the next; 3 ACCEPT, 4 ACCEPT-WITH-DEBT, 1 QUALITY-RISK. Prior 2132/2136 fixes confirmed. Ledger overlay 2149 is another QUALITY-RISK. No JS edits. Three Must-fix families: mon_break_armor consumes/drops armor before queued messages complete; full-width Lua coordinates round before destination casts; roomtype helper bypasses optional-string/function validation and diagnostic completion. First queue row is mon_break_armor, to ship alone.
+**Verify:** each JS SHA remeasured on its historical code against its parent with --reach-all; no REGRESSED sessions. Extended extracted-C probes exposed the coordinate/roomtype defects; a suspension probe confirms armor consumption precedes the message wait. Public sessions 44/44, RNG 792,838/792,838, screens 11,405/11,405, speed 302+1.36/turn (R² .761). Full record: all 953 recordings present. Last hidden-proxy command: unfiltered score --jobs 8, 648/953 PASS, RNG 96.75%, screens 90.7%, 953 entries, 0 unrecorded, full=true at 01:29:01Z. Committed-scoreboard comparison: zero PASS losses/gains. Held-out refreshed: 13/44, 6,883/11,265 points, RNG 33.6%, screens 61.1%, last judged Sept 30 19:07Z.
+**Ledger:** snapshots before/after corrections. Five random seeded ported briefs: drop_uswapwep, mon_break_armor, mhitm_ad_famn, weight_cap, shuffle_customizations. mon_break_armor corrected to partial; famn corrected to split with both live helpers. Review 2145 also corrects room/gas rows to partial. Final ledger: ported 1,186, partial 273, split 73. Hot-doc checks pass; no manual coverage refill or invented corpus FAIL.
+**Next:** ship first Must-fix, then exact coordinate transport, then roomtype closure; preserve full corpus score as the guard, not proof of unexercised branches.
+
 ## 2026-10-01 — D-3188 restore impossible diagnostics, fatal guards and printf formatting
 
 **C locus:** whole impossible and pline bodies and the complete brief reference tables read before editing; end.c panic:394–470 read to distinguish the fatal guard from its unported lifecycle.

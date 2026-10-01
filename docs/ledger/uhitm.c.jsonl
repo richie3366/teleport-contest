@@ -63,7 +63,7 @@
 {"fn":"mhitm_ad_slow","c":"3652-3687","status":"unknown","d":["D-2392"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_conf","c":"3690-3726","status":"partial","js":["js/mhitm.js:mhitm_ad_conf"],"omit":"`gazemu`'s AD_CONF case (`js/mhitu.js:3694`) is the hero-gaze attack, not a caller of `mhitm_ad_conf`.","d":["D-2894"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_poly","c":"3729-3774","status":"ported","js":["js/mhitm.js:mhitm_ad_poly"],"d":["D-2657"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_famn","c":"3777-3805","status":"ported","js":["js/mhitm.js:mhitm_ad_famn"],"d":["D-2033"],"at":"seed@a30a7de84","note":"stale 2026-09-08"}
+{"fn":"mhitm_ad_famn","c":"3777-3805","status":"split","js":["js/mhitm.js:mhitm_ad_famn","js/mhitu.js:mhitm_ad_famn_u"],"d":["D-2033"],"at":"2026-10-01@c47034f0d","note":"audit 2149: uhitm.c:3776-3805 represented by mon-mon body plus mhitu helper at mhitu.js:2595; unreachable hero FAMN entry routes the same mon-mon arm"}
 {"fn":"mhitm_ad_pest","c":"3808-3834","status":"partial","js":["js/mhitm.js:mhitm_ad_pest"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_deth","c":"3837-3894","status":"partial","js":["js/mhitm.js:mhitm_ad_deth"],"omit":"`hmon_hitmon_do_hit`'s `saved_oname` fill (`uhitm.c:1410–1413`, `cxname` when the object is not a lit light-artifact) is still absent; weapon `silvermsg`/`silverobj` (`uhitm.c:1035–1036`) stays unnamed.","d":["D-2865"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_halu","c":"3897-3921","status":"unknown"}

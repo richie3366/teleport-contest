@@ -1,9 +1,9 @@
 {
- "commit": "2c5d70e9a",
- "at": "2026-10-01T00:51:31.239Z",
- "full": false,
- "fullCommit": "94d7337ef",
- "fullAt": "2026-09-30T20:48:37.352Z",
+ "commit": "c47034f0d",
+ "at": "2026-10-01T01:29:01.286Z",
+ "full": true,
+ "fullCommit": "c47034f0d",
+ "fullAt": "2026-10-01T01:29:01.286Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4762,7 +4762,7 @@
    "steps": 288,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2904)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!",
    "error": null
@@ -5136,7 +5136,7 @@
    "steps": 135,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2904)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Archeologist, welcome back to NetHack!--More--",
    "error": null
@@ -7407,16 +7407,16 @@
    "passed": false,
    "rngM": 3902,
    "rngT": 3902,
-   "scrM": 173,
+   "scrM": 174,
    "scrT": 177,
    "kind": "screen",
-   "step": 93,
+   "step": 105,
    "steps": 177,
-   "owner": "name_to_monplus",
-   "loc": "mondata.c:987",
+   "owner": "summonmu",
+   "loc": "mhitu.c:995",
    "jsOwner": null,
-   "cTopline": "You hit the wererat! The wererat bites! The disenchanter hits!--More--",
-   "jsTopline": "You hit the wererat! The wererat bites! The disenchanter hits!--More--",
+   "cTopline": "The wererat summons help! A sewer rat suddenly appears next to you!--More--",
+   "jsTopline": "The wererat summons help! The wererat bites! The disenchanter hits!",
    "error": null
   },
   "scen-hazard-Rogue-94173": {
@@ -10304,7 +10304,7 @@
    "steps": 117,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2904)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello merlin, the gnomish Wizard, welcome back to NetHack!--More--",
    "error": null
@@ -10814,7 +10814,7 @@
    "steps": 263,
    "owner": "com_pager_core",
    "loc": "questpgr.c:566",
-   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1508)",
+   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1500)",
    "cTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "jsTopline": "",
    "error": null
@@ -12786,7 +12786,7 @@
    "steps": 202,
    "owner": "role_init",
    "loc": "role.c:2060",
-   "jsOwner": "l_nhcore_init(mklev.js:2904)",
+   "jsOwner": "l_nhcore_init(mklev.js:2914)",
    "cTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "jsTopline": "Hello wizard, the human Wizard, welcome back to NetHack!--More--",
    "error": null
