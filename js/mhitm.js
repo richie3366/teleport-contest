@@ -5814,9 +5814,10 @@ async function hitmm(magr, mdef, mattk, mwep, dieroll) {
 function s_suffix_mm(s) {
     const buf = String(s ?? '');
     const low = buf.toLowerCase();
-    if (low === 'it') return `${buf}s`;
+    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
     if (low === 'you') return `${buf}r`;
-    if (buf.endsWith('s') || buf.endsWith('S')) return `${buf}'`;
+    /* C `*(eos(buf)-1) == 's'` — lowercase 's' only. */
+    if (buf.endsWith('s')) return `${buf}'`;
     return `${buf}'s`;
 }
 

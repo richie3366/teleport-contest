@@ -5,6 +5,8 @@ SHA `6e06fa8e7`, D-3200; 2026-10-01; 6 js files, ~30 insertions
 (s_suffix) + pickup/use_container STALE-SPLIT retirement. Closes no
 prior review.
 
+**Addressed:** D-3210
+
 ## Metadata
 
 - Subject: "`hacklib.c` s_suffix completion (lowercase-S arm +

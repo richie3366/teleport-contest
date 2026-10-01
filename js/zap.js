@@ -2686,13 +2686,13 @@ export function learnwand(obj) {
  * C ref: hacklib.c s_suffix — possessive for saddle drop msg.
  */
 function s_suffix_zap(s) {
-    if (!s) return s;
-    if (s === 'it' || s === 'It') return 'its';
-    if (s.endsWith('s') || s.endsWith('z') || s.endsWith('x')
-        || s.endsWith('ch') || s.endsWith('sh')) {
-        return `${s}'`;
-    }
-    return `${s}'s`;
+    const buf = String(s ?? '');
+    const low = buf.toLowerCase();
+    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
+    if (low === 'you') return `${buf}r`;
+    /* C `*(eos(buf)-1) == 's'` — lowercase 's' only. */
+    if (buf.endsWith('s')) return `${buf}'`;
+    return `${buf}'s`;
 }
 
 /**

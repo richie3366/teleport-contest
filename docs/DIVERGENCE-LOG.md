@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3210 — `hacklib.c` s_suffix suffixed-clone completion (review 2160: drop `|| endsWith('S')` ×4 + zap 4-arm rewrite)
+
+- **Status:** fixed (Must-fix from review 2160 QUALITY-RISK on D-3200: the name-exact sweep fixed 6 plain homes but missed 5 suffixed clones, each doc'd "C ref: hacklib.c s_suffix" at genuine call sites; `hidden-proxy verify s_suffix`: no corpus session blocked). 5-body fix in place + `scripts/s_suffix_clones.test.mjs` (6 pins). Ships alone (Must-fix).
+- **Symptom:** C-wrongs against C, not a corpus divergence. `s_suffix_eat/mm/throw_gold/pot` kept `|| buf.endsWith('S')` (C `*(eos(buf)-1) == 's'` is lowercase-only: "XERXES" → C "XERXES's", JS "XERXES'"); `s_suffix_zap` kept the full pre-fix shape: `if (!s) return s`, It-only case, no you arm at all ("you" → JS "you's", C "your"), z/x/ch/sh arm ("box" → JS "box'", C "box's"). Observable whenever an uppercase-S name flows through (e.g. an all-caps pet name in the eat brain plines).
+- **C locus:** `nethack-c/upstream/src/hacklib.c:344–359` whole — Strcpy + strcmpi it→+s / you→+r / trailing-'s'→+' / else→+'s, in order (static-buf aliasing needs no JS counterpart — fresh strings are safe).
+- **JS was:** `js/eat.js:3392`, `js/mhitm.js:5814`, `js/dothrow.js:872`, `js/potion.js:3010` (all: correct it/you + `|| endsWith('S')`); `js/zap.js:2688–2696` (falsy passthrough + It-only case + z/x/ch/sh arm, no you arm).
+- **Fix:** the 4 one-line clones drop the `|| endsWith('S')` disjunct (comment now cites the lowercase-only C predicate); zap restarted as the C-exact 4-arm body (toLowerCase strcmpi it/you; lowercase-`endsWith('s')` only; `String(s ?? '')` input), deleting the falsy passthrough and the z/x/ch/sh arm. Fix in place, zero new module edges (D-3200 precedent); every caller keeps its callee; behavior changes only where JS≠C, so baseline-PASS sessions cannot newly diverge.
+- **JS:** `js/eat.js:3392–3400`, `js/mhitm.js:5814–5822`, `js/dothrow.js:872–880`, `js/potion.js:3010–3018`, `js/zap.js:2688–2696` (sole edits; 5 files) + `scripts/s_suffix_clones.test.mjs` (new).
+- **Callers:** call sites untouched, now C-exact per home. eat (review-verified): C eat.c:622/625/630 brain plines → `js/eat.js:3432/3437/3441`; C eat.c:742–744 "last thought fades away" → `js/eat.js:3549`. mm (15 sites): C mhitm.c:712/715 failed_grab names → `js/mhitm.js:5790/5793`; C uhitm.c:2038 whose-gate → `:5715`; tentacle/sears `:5763`; futile `:6359`; helmet `:757`; radiance `:870`; poison `:1916`; muse-steal fmt `:2395–2415`; splash `:2532`; gaze `:2572/2579`. throw_gold: C dothrow.c:2676 entrails strcat → `js/dothrow.js:904`. pot: C potion.c:1662/1666/1713 smoke/gas-cloud bufs → `js/potion.js:3891/3894/3940`. zap: C zap.c:3203 writing-vanishes → `js/zap.js:3678`; minventory "possessions:" title → `:3807`; saddle-drop buf → `:4291`. Reverse-checked: no new JS callers added; no call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn s_suffix` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+```
+PASS  syntax   5 changed js file(s): js/dothrow.js js/eat.js js/mhitm.js js/potion.js js/zap.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify s_suffix: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    s_suffix: no RNG-tagged reach; fixed smoke spread (24 run, 12.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Focused gate: `node --test scripts/s_suffix_clones.test.mjs` — 6/6 pass (canonical + 5 clones × 16 C-arm cases each); HEAD bodies fail the same pins (old eat: XERXES→`XERXES'`; old zap: you→`you's`, box→`box'`, null→null). Message-text, no RNG tags — REACH-OK via the fixed smoke spread, as in D-3200.
+- **Named omissions:**
+  - `s_suffix`: none in the body — all 11 homes now C-exact (D-3200's caller-level omits files.c:3215 SYSCF / nhlua.c:888 / insight.c:1137 stand unchanged).
+- **Ledger:** s_suffix split js=js/do_name.js:s_suffix+js/explode.js:s_suffix+js/minion.js:s_suffix+js/mthrowu.js:s_suffix+js/questpgr.js:s_suffix+js/shk.js:s_suffix+js/eat.js:s_suffix_eat+js/mhitm.js:s_suffix_mm+js/dothrow.js:s_suffix_throw_gold+js/potion.js:s_suffix_pot+js/zap.js:s_suffix_zap
+- **Next:** breadth queue continues (Must-fix row leaves via archive; s_suffix split now covers all 11 homes).
+
 ## D-3209 — `mon.c` iter_mons splice-safety (review 2162 savebones removal-skip)
 
 - **Status:** fixed (Must-fix from review 2162 QUALITY-RISK on D-3202: C `mon.c:4526–4538` caches `mtmp2 = mtmp->nmon` before each callback but `js/mon.js` iterated the live `game.fmon` array; D-3202 re-pointed savebones at the shared helper, so a qualifying mon immediately following a mongone'd one was skipped and wrongly kept on the bones level; `hidden-proxy verify iter_mons`: no corpus session blocked). 1-function fix in `js/mon.js` (+8/−3: snapshot loop + corrected JSDoc) + `scripts/iter-mons-splice.test.mjs` (2 pins). Ships alone (Must-fix).

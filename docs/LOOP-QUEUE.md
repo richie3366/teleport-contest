@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `s_suffix` suffixed clones keep pre-D-3200 C-wrongs — C `hacklib.c:344–359` `*(eos(buf)-1)=='s'` is lowercase-only but `|| endsWith('S')` survives in `js/eat.js:3392` s_suffix_eat, `js/mhitm.js:5814` s_suffix_mm, `js/dothrow.js:872` s_suffix_throw_gold, `js/potion.js:3010` s_suffix_pot; `js/zap.js:2688` s_suffix_zap additionally lacks the you arm and keeps z/x/ch/sh + falsy passthrough (all 5 doc'd "C ref: hacklib.c s_suffix"; eat sites are eat.c:622/625/630 brain plines; D-3200 closed the ledger split on the 6 plain homes). Fix in place or import canonical `js/do_name.js:411`. Source: reviews/loop-unattended/2160-6e06fa8e7-s-suffix.md
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

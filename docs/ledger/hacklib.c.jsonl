@@ -18,7 +18,7 @@
 {"fn":"copynchars","c":"287-297","status":"unknown"}
 {"fn":"chrcasecpy","c":"301-317","status":"ported","js":["js/hacklib.js:chrcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b"}
 {"fn":"strcasecpy","c":"323-341","status":"ported","js":["js/hacklib.js:strcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"s_suffix","c":"345-359","status":"split","js":["js/do_name.js:s_suffix","js/explode.js:s_suffix","js/minion.js:s_suffix","js/mthrowu.js:s_suffix","js/questpgr.js:s_suffix","js/shk.js:s_suffix"],"d":["D-3200","D-2268"],"at":"2026-10-01@057174e0c"}
+{"fn":"s_suffix","c":"345-359","status":"split","js":["js/do_name.js:s_suffix","js/explode.js:s_suffix","js/minion.js:s_suffix","js/mthrowu.js:s_suffix","js/questpgr.js:s_suffix","js/shk.js:s_suffix","js/eat.js:s_suffix_eat","js/mhitm.js:s_suffix_mm","js/dothrow.js:s_suffix_throw_gold","js/potion.js:s_suffix_pot","js/zap.js:s_suffix_zap"],"d":["D-3210","D-3200","D-2268"],"at":"2026-10-01@6b304d1a2"}
 {"fn":"ing_suffix","c":"363-396","status":"unknown"}
 {"fn":"xcrypt","c":"400-415","status":"unknown"}
 {"fn":"onlyspace","c":"419-425","status":"unknown"}

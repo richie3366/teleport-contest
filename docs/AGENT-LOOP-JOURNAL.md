@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3210 `hacklib.c` s_suffix suffixed-clone completion (review 2160: drop `|| endsWith('S')` ×4 + zap 4-arm rewrite)
+
+**C locus:** `nethack-c/upstream/src/hacklib.c:344–359` whole — Strcpy + strcmpi it→+s / you→+r / trailing-'s'→+' / else→+'s, in order (static-buf aliasing needs no JS counterpart — fresh strings are safe).
+**JS:** `js/eat.js:3392–3400`, `js/mhitm.js:5814–5822`, `js/dothrow.js:872–880`, `js/potion.js:3010–3018`, `js/zap.js:2688–2696` (sole edits; 5 files) + `scripts/s_suffix_clones.test.mjs` (new).
+**Change:** the 4 one-line clones drop the `|| endsWith('S')` disjunct (comment now cites the lowercase-only C predicate); zap restarted as the C-exact 4-arm body (toLowerCase strcmpi it/you; lowercase-`endsWith('s')` only; `String(s ?? '')` input), deleting the falsy passthrough and the z/x/ch/sh arm. Fix in place, zero new module edges (D-3200 precedent); every caller keeps its callee; behavior changes only where JS≠C, so baseline-PASS sessions cannot newly diverge.
+**Verify:** `node scripts/verify.mjs --fn s_suffix` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+**Named:** - `s_suffix`: none in the body — all 11 homes now C-exact (D-3200's caller-level omits files.c:3215 SYSCF / nhlua.c:888 / insight.c:1137 stand unchanged).
+**Next:** breadth queue continues (Must-fix row leaves via archive; s_suffix split now covers all 11 homes).
 ## 2026-10-01 — D-3209 `mon.c` iter_mons splice-safety (review 2162 savebones removal-skip)
 
 **C locus:** - `iter_mons`: `nethack-c/upstream/src/mon.c:4526–4538` whole — `for (mtmp = fmon; mtmp; mtmp = mtmp2)` with `mtmp2 = mtmp->nmon` cached before the DEADMONSTER/mon_offmap skip and the `(*vfunc)(mtmp)` call.
