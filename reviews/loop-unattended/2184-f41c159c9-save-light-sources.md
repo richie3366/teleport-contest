@@ -116,3 +116,5 @@ session produces, hence Must-fix with a code falsifier.
    RANGE_GLOBAL must exclude it. One port iter. Queueable below.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3225

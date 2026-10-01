@@ -1317,11 +1317,12 @@ export function save_light_sources(range) {
         } else if (t !== LS_OBJECT && t !== LS_MONSTER) { // C :454–459
             void impossible('save_light_sources: bad type (%d) [range=%d]', t, range | 0); // C :456–458
         }
-        // C :446/:449/:452/:455 — no-id and bad-type are local;
-        // light_is_local already maps bad-type → local, but id-less
-        // LS_OBJECT via obj_is_local(null) reads global, so no-id
-        // overrides to local here.
-        const is_local = !ls.id ? true : light_is_local(ls);
+        // C :446/:455 — no-id and bad-type are local. light_is_local
+        // only handles LS_OBJECT/LS_MONSTER (its fallthrough is
+        // `return false` = global), so both force local here; id-less
+        // LS_OBJECT via obj_is_local(null) would also read global.
+        const badType = t !== LS_OBJECT && t !== LS_MONSTER;
+        const is_local = (!ls.id || badType) ? true : light_is_local(ls);
         if (is_local === wantLocal) saved.push(ls); // C :462
         else kept.push(ls);
     }

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3225 save_light_sources peel bad-type classification (review 2184 Must-fix)
+
+**C locus:** - `save_light_sources`: `light.c:454–459` (default arm: `is_global = 0` + `impossible("save_light_sources: bad type (%d) [range=%d]")`), free rule `:462` (`is_global ^ (range == RANGE_LEVEL)`).
+**JS:** `js/mkobj.js` save_light_sources (+6/−5); `scripts/save-light-sources.test.mjs` new (regression test, unscored).
+**Change:** `js/mkobj.js` — `const badType = t !== LS_OBJECT && t !== LS_MONSTER; const is_local = (!ls.id || badType) ? true : light_is_local(ls)` (review's one-line fix); comment corrected (fallthrough is global; both no-id and bad-type force local here). Added `scripts/save-light-sources.test.mjs` (node:test, repo's scripts-harness convention): the review falsifier — `{ type: 99, id: {} }` peeled at RANGE_LEVEL, kept at RANGE_GLOBAL — fails 0/2 pre-fix, passes 2/2 post-fix.
+**Verify:** - `save_light_sources`: `node scripts/verify.mjs --fn save_light_sources` → PASS syntax (1 changed js file: js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (runner: no shared file) · VERIFY: PASS. `node --test scripts/save-light-sources.test.mjs`: 2/2 pass.
+**Named:** - `save_light_sources`: none added — D-3224 omits stand (NHFILE count/panic half, stash silent skip, FREE_ALL_MEMORY caller).
+**Next:** Must-fix row retires; review 2184 stamped.
 ## 2026-10-01 — Audit 2176–2184: review D-3216–D-3224 (7 ACCEPT, 1 WITH-DEBT, 1 QUALITY-RISK) + full score
 
 Reviews 2176–2184 over 002545e23..f41c159c9 (9 js SHAs): 2176 vision-clears text ACCEPT; 2177 s_suffix 20-home census ACCEPT (completion true); 2178 hurtle_step restart ACCEPT; 2179 doidtrap ACCEPT; 2180 adtyping+FAMN/pie ACCEPT; 2181 create_monster WITH-DEBT (FURNITURE scan 88 vs C MAXPCHARS=105, latent); 2182 key_binds ACCEPT; 2183 HALRES ACCEPT; 2184 save_light_sources QUALITY-RISK (peel bad-type→global, C says local — Must-fix queued). Fortress 44/44 (Scr 11,405, RNG 792,838, `341+1.59/turn`); corpus 671/953 (+5 scen-trap via D-3219 `^`, 0 losses, `full: true`); held-out 14/44 (rank 5). Next: Must-fix peel bad-type (review 2184).

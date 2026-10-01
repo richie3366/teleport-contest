@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3225 — save_light_sources peel bad-type classification (review 2184 Must-fix)
+
+- **Status:** fixed (Must-fix review **2184** on D-3224; QUALITY-RISK arm. `hidden-proxy verify`: no corpus session blocked at baseline — impossible-class arm, REACH-OK is the corpus evidence.)
+- **Symptom:** C-wrong in the new peel: C `light.c:454–459` forces bad-type → local (is_global = 0) + impossible; JS fired the impossible but classified via light_is_local's `return false` fallthrough (global) — inverted for both ranges. The "already maps bad-type → local" comment was false about the code it cited.
+- **C locus:**
+  - `save_light_sources`: `light.c:454–459` (default arm: `is_global = 0` + `impossible("save_light_sources: bad type (%d) [range=%d]")`), free rule `:462` (`is_global ^ (range == RANGE_LEVEL)`).
+- **JS was:** `js/mkobj.js:1324` `const is_local = !ls.id ? true : light_is_local(ls)` — bad-type-with-id fell into `light_is_local` (`js/mkobj.js:1277–1286`), whose fallthrough is `return false` (global); comment claimed the opposite mapping.
+- **Fix:** `js/mkobj.js` — `const badType = t !== LS_OBJECT && t !== LS_MONSTER; const is_local = (!ls.id || badType) ? true : light_is_local(ls)` (review's one-line fix); comment corrected (fallthrough is global; both no-id and bad-type force local here). Added `scripts/save-light-sources.test.mjs` (node:test, repo's scripts-harness convention): the review falsifier — `{ type: 99, id: {} }` peeled at RANGE_LEVEL, kept at RANGE_GLOBAL — fails 0/2 pre-fix, passes 2/2 post-fix.
+- **JS:** `js/mkobj.js` save_light_sources (+6/−5); `scripts/save-light-sources.test.mjs` new (regression test, unscored).
+- **Callers:**
+  - `save_light_sources`: no caller change — peel contract unchanged (D-3224 sites stand: `js/do.js:1758` LEVEL peel + stash write via `js/save.js:240` serLightList; `js/save.js:587` dosave GLOBAL; `js/do.js:1770` FREEING drop).
+- **Verify:**
+  - `save_light_sources`: `node scripts/verify.mjs --fn save_light_sources` → PASS syntax (1 changed js file: js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (runner: no shared file) · VERIFY: PASS. `node --test scripts/save-light-sources.test.mjs`: 2/2 pass.
+- **Named omissions:**
+  - `save_light_sources`: none added — D-3224 omits stand (NHFILE count/panic half, stash silent skip, FREE_ALL_MEMORY caller).
+- **Ledger:** save_light_sources split js=js/mkobj.js:save_light_sources+js/lev_json.js:snapshotGlobalLights+js/lev_json.js:snapshotLocalLights
+- **Next:** Must-fix row retires; review 2184 stamped.
+
 ## D-3224 — `light.c` save_light_sources whole-body: write passes via maybe_write_ls + peel diagnostics
 
 - **Status:** fixed (Open coverage row `light.c` save_light_sources THIN C35/JS10; `hidden-proxy verify`: no corpus session blocked at baseline — coverage gap, REACH-OK is the corpus evidence. Three stale heads popped first this iteration: set_artifact_intrinsic → ledger `split`, name_to_monclass → `ported`, build_english_list → `split`.)
