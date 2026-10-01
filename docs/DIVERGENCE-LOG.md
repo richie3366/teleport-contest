@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-3193 — close lspo_room→get_table_roomtype_opt validation/diagnostic closure
+
+- **Status:** fixed review 2145 item 2; Must-fix ships alone. Whole C bodies (sp_lev.c:4003–4020, nhlua.c:1053–1076, lspo_room :4027–4116, lspo_region :5583–5715) and every JS call site mapped before editing (91 sites, brace-tracked arrows). 1 scored JS file, ~150 modified lines (mechanical async/await); canonical reader already imported, no new cross-module edge, no RNG/frame alignment or recorded-input gates.
+- **Symptom:** review 2145 extracted-C probes (no blocked corpus session): `type=true` must nhl_error before rn2(100) but JS coerced `"true"`, impossibled, then built; a function returning "ordinary" must resolve cleanly but JS stringified the function, impossibled, then built; the unknown-type diagnostic promise was discarded before build_room RNG and contents callbacks.
+- **C locus:**
+  - `get_table_roomtype_opt`: sp_lev.c:4003–4020 — reads via get_table_str_opt (:4006), case-insensitive room_types[] scan (:4009–4013), synchronous impossible (:4015–4016).
+  - `lspo_room`: sp_lev.c:4027–4116 — roomtype read at :4072 precedes build_room RNG at :4081 and contents pcall at :4092–4098.
+  - `lspo_region`: sp_lev.c:5583–5715 — roomtype read at :5604 precedes litstate/get_location RNG and contents pcall at :5706–5710.
+- **JS was:** js/mklev.js:23654 read `opts[name]` raw (String()-coercing booleans, numbers and functions) and fired impossible without await; lspo_room/lspo_region/splev_des_room/splev_build_room sync.
+- **Fix:** reader restarted on canonical get_table_str_opt (dungeon.js, already imported) with `''` emptystr default; unknown arm awaits impossible; async propagated through the full caller closure so the diagnostic completes before room RNG and callbacks — 21 defs async (reader + 2 entries + 2 adapters + 9 load_* + nested_room/nesting_contents + 5 themeroom contents fns), await at 85 splev_des_room + 6 themeroom_nested_room + 12 nest() + 6 themeroom dispatch + 8 inner sites, 7 contents/nest arrows async, contents invocations awaited in both entries (C pcall completes before spo_endroom). All 9 load_* callers already thenable-tolerant (`if (isThenable(p)) await p`); themeroom dispatches land in async themerooms_generate; mklev.js holds the only try blocks (both in already-async fns) and the three entries have no other JS callers. The mechanical closure was applied by assert-or-abort /tmp/roomtype-patch.cjs (kept out of the repo).
+- **JS:** js/mklev.js get_table_roomtype_opt:23654 (restarted), lspo_room:1835, lspo_region:2129, splev_des_room:23914, splev_build_room:23866. Export names kept (async added).
+- **Callers:**
+  - `get_table_roomtype_opt`: lspo_room:1858, lspo_region:2141, splev_build_room:23869 — all awaited (C :4072, :5604; third is a JS-only adapter with no live callers).
+  - `lspo_room`: sole JS caller splev_des_room:23935, awaited; its 85 sites awaited across 11 now-async fns.
+  - `lspo_region`: no live JS callers (C-side Lua-registered entry); async is free.
+- **Verify:** /tmp/roomtype-probe.mjs (missing/empty→defval, string/function equivalence, type=true/5/function→boolean all reject /no string/, three entries AsyncFunction) — all assertions passed. No maintained unit harness exists in-repo (no tests/ dir), so the probe plus the fortress below is the evidence. `node scripts/verify.mjs --fn get_table_roomtype_opt,lspo_room,lspo_region`:
+  - `get_table_roomtype_opt`: no corpus session blocked (expected for a review row); smoke 24 PASS/0 regressed → REACH-OK.
+  - `lspo_room`: no corpus session blocked; smoke 24 PASS/0 regressed → REACH-OK.
+  - `lspo_region`: no corpus session blocked; smoke 24 PASS/0 regressed → REACH-OK.
+  - Gates: syntax 1 file; Rule #2 clean; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed). VERIFY: PASS.
+- **Named omissions:**
+  - `get_table_roomtype_opt`: none.
+  - `lspo_room`: none added (D-3185 unpacked-architecture mappings stand; review-2145 note cause fixed, coordinate half was D-3190).
+  - `lspo_region`: none added (D-2737 unpacked mappings stand).
+- **Ledger:** get_table_roomtype_opt ported; lspo_room ported; lspo_region ported.
+- **Next:** none for this closure; breadth queue continues.
+
 ## D-3192 — restore mpickstuff verbose default-ON gate
 
 - **Status:** fixed review 2150 item 2; Must-fix ships alone. Whole pinned C body and all brief reference tables read before editing; existing complete control flow retained, one gate corrected. Must-fix density exception: 1 scored JS file, 3 insertions; no unrelated coverage row.

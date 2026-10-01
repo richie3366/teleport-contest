@@ -86,8 +86,6 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
-- [ ] `sp_lev.c` lspo_room → get_table_roomtype_opt validation/message closure — C :4003–4020 calls get_table_str_opt (nhlua.c:1053–1076) then synchronous impossible; JS coerces raw type and discards impossible promise before build_room RNG. Extracted C `type=true` errors before rn2(100), function returning ordinary resolves; JS builds after impossible in both. Import canonical string reader and propagate diagnostic completion through callers. Source: reviews/loop-unattended/2145-c88e33eda-special-level-closure.md.
-
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: stamp the cited review
 `**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then

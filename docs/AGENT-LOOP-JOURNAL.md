@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3193 close lspo_room→get_table_roomtype_opt validation/diagnostic closure
+
+**C locus:** - `get_table_roomtype_opt`: sp_lev.c:4003–4020 — reads via get_table_str_opt (:4006), case-insensitive room_types[] scan (:4009–4013), synchronous impossible (:4015–4016).
+**JS:** js/mklev.js get_table_roomtype_opt:23654 (restarted), lspo_room:1835, lspo_region:2129, splev_des_room:23914, splev_build_room:23866. Export names kept (async added).
+**Change:** reader restarted on canonical get_table_str_opt (dungeon.js, already imported) with `''` emptystr default; unknown arm awaits impossible; async propagated through the full caller closure so the diagnostic completes before room RNG and callbacks — 21 defs async (reader + 2 entries + 2 adapters + 9 load_* + nested_room/nesting_contents + 5 themeroom contents fns), await at 85 splev_des_room + 6 themeroom_nested_room + 12 nest() + 6 themeroom dispatch + 8 inner sites, 7 contents/nest arrows async, contents invocations awaited in both entries (C pcall completes before spo_endroom). All 9 load_* callers already thenable-tolerant (`if (isThenable(p)) await p`); themeroom dispatches land in async themerooms_generate; mklev.js holds the only try blocks (both in already-async fns) and the three entries have no other JS callers. The mechanical closure was applied by assert-or-abort /tmp/roomtype-patch.cjs (kept out of the repo).
+**Verify:** /tmp/roomtype-probe.mjs (missing/empty→defval, string/function equivalence, type=true/5/function→boolean all reject /no string/, three entries AsyncFunction) — all assertions passed. No maintained unit harness exists in-repo (no tests/ dir), so the probe plus the fortress below is the evidence. `node scripts/verify.mjs --fn get_table_roomtype_opt,lspo_room,lspo_region`:
+**Named:** - `get_table_roomtype_opt`: none.
+**Next:** none for this closure; breadth queue continues.
 ## 2026-10-01 — D-3192 restore mpickstuff verbose default-ON gate
 
 **C locus:** - `mpickstuff`: mon.c:1847–1910; whole body read in brief output; the message gate is `if (flags.verbose)` at :1898 with `flags.verbose` decl-initialized TRUE.

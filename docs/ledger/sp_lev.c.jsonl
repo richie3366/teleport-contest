@@ -80,8 +80,8 @@
 {"fn":"lspo_engraving","c":"3881-3936","status":"unknown"}
 {"fn":"lspo_mineralize","c":"3939-3955","status":"ported","js":["js/mklev.js:lspo_mineralize"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_mkroom_name","c":"3991-4001","status":"ported","js":["js/mklev.js:get_mkroom_name"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_room","c":"4028-4116","status":"partial","js":["js/mklev.js:lspo_room"],"d":["D-3185"],"at":"2026-10-01@c47034f0d","note":"review 2145: live get_table_roomtype_opt bypasses optional string/function validation and diagnostic waits; coordinate lua_Integer rounding bypasses mixed-position rejection"}
+{"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3193","D-3032"],"at":"2026-10-01@24e6bea47","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_room","c":"4028-4116","status":"ported","js":["js/mklev.js:lspo_room"],"d":["D-3193","D-3185"],"at":"2026-10-01@24e6bea47","note":"review 2145: live get_table_roomtype_opt bypasses optional string/function validation and diagnostic waits; coordinate lua_Integer rounding bypasses mixed-position rejection"}
 {"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
 {"fn":"good_stair_loc","c":"4139-4144","status":"unknown"}
 {"fn":"l_create_stairway","c":"4147-4213","status":"ported","js":["js/mklev.js:l_create_stairway"],"d":["D-3139"],"at":"2026-09-30@042bdf039"}
@@ -125,7 +125,7 @@
 {"fn":"sel_set_lit","c":"5535-5540","status":"unknown"}
 {"fn":"add_doors_to_room","c":"5544-5555","status":"unknown"}
 {"fn":"get_table_coords_or_region","c":"5561-5577","status":"split","js":["js/mklev.js:lspo_region","js/mklev.js:lspo_wall_property"],"at":"2026-09-29@cd4bc2a21","note":"stale: inlined at both C callers, review 1672 verified"}
-{"fn":"lspo_region","c":"5584-5715","status":"unknown"}
+{"fn":"lspo_region","c":"5584-5715","status":"ported","js":["js/mklev.js:lspo_region"],"d":["D-3193"],"at":"2026-10-01@24e6bea47"}
 {"fn":"lspo_drawbridge","c":"5720-5763","status":"ported","js":["js/mklev.js:lspo_drawbridge"],"at":"2026-09-30@990da2b8d","note":"stale: js/mklev.js:1226, whole C body in C order (micro-gap: :1234 raw throw vs live nhl_error)"}
 {"fn":"lspo_mazewalk","c":"5769-5869","status":"ported","js":["js/mklev.js:lspo_mazewalk"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_wall_property","c":"5876-5908","status":"unknown"}

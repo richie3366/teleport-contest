@@ -8,7 +8,7 @@ prepended to docs/LOOP-QUEUE.md in the same commit.
 
 **Addressed:** D-3191 `4a2447e2`
 
-**Addressed:** D-3192
+**Addressed:** D-3192 `24e6bea47`
 
 Items 1–4 closed.
 

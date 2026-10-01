@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `mon.c` mpickstuff verbose gate flipped to truthy — C tests decl-TRUE `flags.verbose` before the "%s picks up %s." message; js/monmove.js:535 (D-3176) uses truthy `game.flags.verbose` (also dropped `?.`), suppressing the message when flags are uninitialized. Prior code was `game.flags?.verbose !== false`. Restore `!== false` with `?.`. Source: reviews/loop-unattended/2150-949324ac1-post-d3190-review-followup.md. **Addressed:** D-3192
+- [x] `sp_lev.c` lspo_room → get_table_roomtype_opt validation/message closure — C :4003–4020 calls get_table_str_opt (nhlua.c:1053–1076) then synchronous impossible; JS coerces raw type and discards impossible promise before build_room RNG. Extracted C `type=true` errors before rn2(100), function returning ordinary resolves; JS builds after impossible in both. Import canonical string reader and propagate diagnostic completion through callers. Source: reviews/loop-unattended/2145-c88e33eda-special-level-closure.md.
+
+
+- [x] `mon.c` mpickstuff verbose gate flipped to truthy — C tests decl-TRUE `flags.verbose` before the "%s picks up %s." message; js/monmove.js:535 (D-3176) uses truthy `game.flags.verbose` (also dropped `?.`), suppressing the message when flags are uninitialized. Prior code was `game.flags?.verbose !== false`. Restore `!== false` with `?.`. Source: reviews/loop-unattended/2150-949324ac1-post-d3190-review-followup.md. **Addressed:** D-3192 `24e6bea47`
 
 
 - [x] `invent.c` prinv verbose gate flipped to truthy — C gates the "(N in total)" suffix on decl-TRUE `flags.verbose`; js/invent.js:7692 (D-3186) uses `game.flags?.verbose ?`, suppressing the suffix when the flags bag is still undefined ("JS never ran allopt_array_init", js/options.js:10137). Prior code and every sibling site (js/invent.js:7641,9188,9205; js/options.js:2331,2797,3021) use `!== false`. Restore `!== false`. Same-iteration hardening, same file: js/iactions.js:958 post-menu scan dropped its `o &&` guard (null hole now throws); js/invent.js:7861 `indexOf(otmp)+1` restarts at head on removal — guard the -1 case. Source: reviews/loop-unattended/2150-949324ac1-post-d3190-review-followup.md. **Addressed:** D-3191 `4a2447e2`

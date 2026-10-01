@@ -2,9 +2,9 @@
 
 SHA `c88e33eda`, D-3185; 2026-10-01; +500/-324 JS. No prior review closure.
 
-**Addressed:** D-3190 `c64bdefb7`
+**Addressed:** D-3190 `c64bdefb7`, D-3193
 
-Actionable 1 closed; Actionable 2 remains queued (roomtype validation and diagnostic completion).
+Actionable 1 closed; Actionable 2 closed by D-3193 (roomtype validation and diagnostic completion).
 
 ## Intent vs deliverable
 
