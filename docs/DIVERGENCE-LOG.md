@@ -1,5 +1,48 @@
 # Divergence log
 
+## D-3205 — `insight.c` status_enlightenment + attributes_enlightenment + enlght_combatinc whole (split-completion cluster)
+
+- **Status:** fixed (2 Open — coverage heads MISSING + 1 whole helper: status_enlightenment C 236 code L `insight.c:940–1266`, attributes_enlightenment C 383 code L `insight.c:1487–2005`, enlght_combatinc `insight.c:159–197`; `hidden-proxy verify`: no corpus session blocked at baseline for any of the three). 3-function cluster, all in `js/invent.js` — the established split home (shared `status_core_lines` + final `enlightenment()` + `doattributes()` ^X overlay). +928/−86 in 1 file: over the 800-line cluster guideline because both heads are whole MISSING functions landed completely (619 C code lines, every arm in C order, C-cited); under the 1500/15 supervisor caps. enlght_combatinc ships as an unindexed helper (the pinned-C index lacks the def — `ledger.mjs show`/`sync` report "not a pinned-C function", and sync adds 0 rows — so no ledger row can be written; whole body + 8 call sites documented below). Queue-head com_pager_core stale-ported in the same iteration (body whole since D-2731/D-1622 + D-3204 data closure; miss-arm impossible() intentionally silent — `ledger.mjs set ported`, no js/).
+- **Symptom:** coverage gap, not a corpus divergence. Both functions live SPLIT in the invent.js builders (landed arm-by-arm since D-1995; brief-measured MISSING is the missing-symbol artifact). Closed here: status Riding/Levitation/Flying/Underwater/Glib/saddle/steed-legs/tux arms; attributes hofe/Warn×3/Undead/Clairvoyant/Detect/umconf/Adornment/blocked-Stealth/Aggravate/Conflict/Teleportation(^X)/BLev/BFly/clinger/Slow/combat×3/Half-gas/lays_eggs/were-form(^X)/Free/Fixed/fruit arms; plus 4 C-wrongs in live arms (overlay pray gating, final nudist, Wounded_legs hardcoded legs, overlay N_times clone).
+- **C locus:**
+  - `status_enlightenment`: `nethack-c/upstream/src/insight.c:940–1266` whole — Riding/steedname hoist `:946–956`, Riding+youtoo `:975–980`, Lev/Fly `:982–988`, Underwater `:989–1000`, Punished dead-impossible `:1081–1084`, saddle `:1132–1140`, Wounded_legs bp+steed `:1141–1171`, Glib `:1172–1176`, tux `:1252–1258`, nudist `:1260–1263` (Stoned→Deaf, utrap, held, Fumbling→encumbrance pre-existing).
+  - `attributes_enlightenment`: `nethack-c/upstream/src/insight.c:1487–2005` whole — hofe `:1497–1502`, Warn×3+Undead `:1584–1615`, Clairvoyant `:1617–1623`, Detect+umconf `:1625–1645`, Adornment `:1647–1659`, blocked-Stealth+Aggravate+Conflict `:1666–1675`, BLev `:1684–1702`, BFly `:1703–1730`, clinger `:1734–1753`, Slow+uhitinc+udaminc+spellprot `:1770–1796`, Half-gas `:1813–1814`, lays_eggs+were-form `:1879–1891`, Free+Fixed `:1900–1902`, pray else `:1937–1955`, fruit `:1958–1977`, umort case-0 `:1995–1997` (resists catalogue, Invis trio, shape-change block, Luck tail pre-existing).
+  - `enlght_combatinc`: `nethack-c/upstream/src/insight.c:159–197` whole — defense 2/3 scale, small–huge bands, an()/bonus-penalty/invrt wording, wizard/final signed amount.
+- **JS was:** `js/invent.js` `status_core_lines` (shared) + final `enlightenment()` + `doattributes()` with in-code "deferred" lists (map startup.md:30); Riding/steedname computed only inside the utrap block; Wounded_legs hardcoded leg/legs behind a `!usteed` gate; overlay pray line printed even when angry; final nudity lacked the nudist arm; overlay umortality cloned N_times inline.
+- **Fix:** `js/invent.js` only, no new module edges (16 consts join the existing static `./const.js` import; per-arm dynamic imports reuse live edges — `imports.mjs --can` SAFE ×3 for the worn/dungeon/potion edges). New local `enlght_combatinc` (C order, string return — callers hold no BUFSZ). status_core_lines: Riding/steedname/youtoo hoisted to C position; Riding line, Levitation (canonical mhitu.js macros + youprop.h Lev_at_will bit-exact) / Flying with youtoo, Underwater→uinwater(dead in C too)→walking_on_water chain; Punished dead-impossible; saddle via live which_armor/s_suffix/simpleonames; Wounded_legs via body_part/mbodypart/makeplural + wizard-steed arm; Glib intrinsic-only + fingers_or_gloves. Both builders: hofe titles, Warn obj/polyd/species + Undead_warning, Clairvoyant + blocked strsubst arm, Detect_monsters + umconf, Adornment, blocked-Stealth + Aggravate + Conflict, Teleportation (^X), BLev/BFly (dual-store save/clear/restore), clinger, Slow_digestion, uhitinc (+tux interplay) + udaminc + spellprot via enlght_combatinc, Half-gas, lays_eggs, were-form (^X), Free_action + Fixed_abil (extrinsic-only), fruit (files.c debugcore element match on sysopt.debugfiles), umortality case-0 impossible (final); C-wrong fixes: overlay pray gated under !ugangr (C else arm), final nudist arm, overlay N_times import (replaces the inline clone). Dead arms ported as written (Punished-impossible, uinwater elif, umort case-0); `#if 0` pray wording not ported (compiled out).
+- **JS:** `js/invent.js` +928/−86 (16 const imports; enlght_combatinc; status_core_lines arms; both builders' attributes arms); 1 js file, under the 1500/15 caps.
+- **Callers:**
+  - `status_enlightenment`: C `insight.c:417` (enlightenment, BASIC+MAGIC) → `status_core_lines` via final `enlightenment()` + `doattributes()` (both pre-existing calls; arms completed inside; tux+nudity in the builders at the C `:1249+` position). Reverse-checked: no other JS callers.
+  - `attributes_enlightenment`: C `insight.c:422` (enlightenment, MAGIC-gated) → final `enlightenment()` MAGIC block + `doattributes()` magic block (pre-existing gates; arms completed inside). Reverse-checked: no other JS callers.
+  - `enlght_combatinc`: C `:1254` tux → both builders' tux arms; C `:1772` uhitinc → both uhitinc arms; C `:1782` udaminc → both udaminc arms; C `:1795` spellprot → both spellprot arms. 8 JS sites, no call from elsewhere.
+- **Verify:** `node scripts/verify.mjs --fn status_enlightenment,attributes_enlightenment,enlght_combatinc` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/invent.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify status_enlightenment: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    status_enlightenment: no RNG-tagged reach; fixed smoke spread (24 run, 10.9s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify attributes_enlightenment: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    attributes_enlightenment: no RNG-tagged reach; fixed smoke spread (24 run, 10.8s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify enlght_combatinc: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    enlght_combatinc: no RNG-tagged reach; fixed smoke spread (24 run, 10.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+Plus forced full `node frozen/ps_test_runner.mjs sessions`: **44/44** (same code modulo comment-only cleanup). Plus `/tmp/enl-import-probe.mjs` 19/19 (every dynamic import resolves to a live export; makeplural('leg')='legs' + body_part_latebound(LEG)='leg' prove the Wounded_legs rewire is a no-op for human heroes; pmname NEUTRAL string). No maintained unit-test layout in repo (sessions + verify are the harness); the probe stays under /tmp.
+- **Named omissions:**
+  - `status_enlightenment`: none — every arm live, including the three dead-in-C arms.
+  - `attributes_enlightenment`: none — every arm live in both builders, including the DEBUG fruit arm (debugfiles-gated, unset in the contest build) and the dead case-0 impossible.
+  - `enlght_combatinc`: none.
+- **Ledger:** status_enlightenment split js=js/invent.js:status_core_lines+js/invent.js:enlightenment+js/invent.js:doattributes; attributes_enlightenment split js=js/invent.js:enlightenment+js/invent.js:doattributes
+- **Next:** next Open — coverage row (insight.c enlightenment pair exhausted; overlay misc bones `encountered N` arm belongs to a future C enlightenment() row, not these functions).
+
 ## D-3204 — `questpgr.c` com_pager_core guardtalk role arrays (blocked quest session unblocked)
 
 - **Status:** fixed (Open — coverage head THIN, C 101 code L `questpgr.c:468–621` / JS 29 code L; hops 3, callers 3, RNG 1, msg 0; `hidden-proxy verify`: 1 corpus session blocked at baseline, moved past). Single-function cluster: the C body was already whole (D-2731/D-1622) — this iteration completes its data closure for the recorded divergence. questpgr.c queue-eligible rows exhausted (only com_pager_core in the block) and the callee closure holds nothing Open (skip_pager/deliver_by_pline/deliver_by_window/convert_line/get_table_option/rn2 ported, impossible/get_table_str_opt partial, nhl_init/nhl_loadlua/nhl_done by-design, dupstr/strNsubst live ok) — small diff by exhaustion, not by choice.

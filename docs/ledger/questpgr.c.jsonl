@@ -14,7 +14,7 @@
 {"fn":"deliver_by_pline","c":"423-436","status":"ported","js":["js/questpgr.js:deliver_by_pline"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"deliver_by_window","c":"439-456","status":"ported","js":["js/questpgr.js:deliver_by_window"],"d":["D-2946"],"at":"seed@a30a7de84"}
 {"fn":"skip_pager","c":"459-465","status":"ported","js":["js/questpgr.js:skip_pager"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
-{"fn":"com_pager_core","c":"468-621","status":"partial","js":["js/questpgr.js:com_pager_core"],"omit":"- `com_pager_core`: impossible() text on all miss arms (pre-existing — embedded tables cannot fail to load, and a JS miss covers unported role bodies where C shows text); other unextracted role bodies still miss (hasamulet, posthanks, leader_next, leader_last, gotit, encourage, badlevel — same doub…","d":["D-3204","D-2731","D-1622"],"at":"2026-10-01@3476ed37a"}
+{"fn":"com_pager_core","c":"468-621","status":"ported","js":["js/questpgr.js:com_pager_core"],"d":["D-3204","D-2731","D-1622"],"at":"2026-10-01@55cdefbf9","note":"stale: js/questpgr.js:1120 — whole C body shipped (D-2731/D-1622) + D-3204 guardtalk data closure; miss-arm impossible() intentionally silent (a JS miss also covers unported role bodies where C shows text, never impossible())"}
 {"fn":"com_pager","c":"624-627","status":"unknown"}
 {"fn":"qt_pager","c":"630-634","status":"unknown","d":["D-1662"],"at":"seed@a30a7de84"}
 {"fn":"qt_montype","c":"637-651","status":"unknown"}
