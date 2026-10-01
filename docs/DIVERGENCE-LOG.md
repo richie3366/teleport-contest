@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3222 — cmd.c get_changed_key_binds CMD_PARAM arm (BIND=key:cmd(param)) + strbuf_append declared
+
+- **Status:** fixed (Open coverage row `cmd.c` get_changed_key_binds PARTIAL C38/JS20; `hidden-proxy verify`: no corpus session blocked at baseline — coverage gap, REACH-OK is the corpus evidence).
+- **Symptom:** a user bind of the only CMD_PARAM command (`toggle`, cmd.c:1908) printed `BIND=x:toggle` instead of C's `BIND=x:toggle(param)` in both the #saveoptions dump and the rebind-menu window, so a saved config lost the toggle target on reload. No public/corpus divergence (44/44 + fortress unaffected — no session rebinds `toggle` with a param).
+- **C locus:**
+  - `get_changed_key_binds`: `nethack-c/upstream/src/cmd.c:2235–2287` whole — win setup :2244–2247, userbind-delta loop :2250–2268 (CMD_PARAM arm :2253–2257, plain arm :2258–2261, sbuf/putstr sink :2262–2265), unbound-defaults loop :2271–2282, display/destroy tail :2283–2286. Sole CMD_PARAM extcmd is `toggle` (:1908, default key '\0').
+  - `strbuf_append`: `nethack-c/upstream/src/strutil.c:17–24` — len + strbuf_reserve + Strcat; no code change (already whole in JS).
+- **JS was:** `get_changed_key_binds` (`js/cmd.js:1446`) folded the CMD_PARAM arm into the plain arm (comment: "param stripped at parse"); params were in fact stored live by overlay_bind_key (`js/options.js`, `:2706–2708` equivalent) and the live bind_key via bind_param_set, but never read here.
+- **Fix:** port the `:2253–2257` arm in C order: `((ext.flags | 0) & CMD_PARAM) !== 0` → ``BIND=${key2txt(key)}:${ext.txt}(${bind_param_get(key) ?? ''})``. Unset-param prints `()` per the keylist_putcmds sibling idiom (`js/dokeylist.js`, D-2863; C passes bind->param NULL to %s only when bind_key never stored one). CMD_PARAM + bind_param_get already imported in js/cmd.js — no new module edge. Corrected the stale "param stripped at parse" doc + Callees lines.
+- **JS:** `js/cmd.js` get_changed_key_binds (arm + doc, +8/−5); strbuf_append untouched (`js/options.js:11051`, reserve + concat whole).
+- **Callers:**
+  - `get_changed_key_binds`: options.c:9734 all_options_strbuf sbuf arm → `js/options.js:12956` (live); cmd.c:2442 handler_rebind_keys NULL arm → `js/cmd.js:2439` (drains returned lines via show_text_pages, D-2762). Both pre-wired; this iter changes only the emitted BIND= text.
+  - `strbuf_append`: 16 C call sites (cmd.c :2263/:2278/:3306, options.c x9, botl.c:4491, symbols.c:766 + decl); JS callers use the live `js/options.js:11051` export (this iter's caller: get_changed_key_binds emit).
+- **Verify:**
+  - `get_changed_key_binds`: `node scripts/verify.mjs --fn get_changed_key_binds,strbuf_append` → VERIFY: PASS — PASS syntax (1 file js/cmd.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (no RNG reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict (both) · PASS cohort 7/7. /tmp probe: `x:toggle(verbose)` → `BIND=x:toggle(verbose)`, `z:quaff` → `BIND=z:quaff`, param-less `q:toggle` → `BIND=q:toggle()`, identical in sbuf and null arms.
+  - `strbuf_append`: same verify call → hidden note + REACH-OK (smoke 24/24); no code change.
+- **Named omissions:**
+  - `get_changed_key_binds`: none added — NHW_TEXT tail stays the D-2550/D-2762 adaptation (winLines returned; caller drains); keys[] marking stays the cmdbind_get oracle (defaults + overlay, verified equivalent in cmdbinds_live); unset-param `()` vs glibc `(null)` follows the keylist_putcmds sibling precedent (error-path-only: bind without param already raised a config error at parse).
+  - `strbuf_append`: none — NUL/len bookkeeping collapses into JS string concat (documented in situ).
+- **Ledger:** get_changed_key_binds ported; strbuf_append ported
+- **Next:** block regenerates via finish (`rows --write`); no follow-up — same-file growth exhausted (no other cmd.c Open rows in block or `rows --all`; tiny PARTIALs below the 8-line floor).
+
 ## D-3221 — sp_lev.c create_monster whole-body completion (geno arms, class panic, FURNITURE/OBJECT appear, direct-path post-spawn)
 
 - **Status:** fixed (Open coverage row `sp_lev.c` create_monster MISSING C193/JS0 split?-28×; body split across `splev_create_monster` + `l_create_monster` — this iter ports every remaining arm; `hidden-proxy verify`: no corpus session blocked at baseline — coverage gap, REACH-OK is the corpus evidence).

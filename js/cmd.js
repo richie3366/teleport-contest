@@ -1434,9 +1434,10 @@ export async function dosh_core() {
  * Effective-bind reads go through the live cmdbind_get export (dokeylist.js);
  * userbind iteration below mirrors C list order (cmdbind_add `:2152`
  * prepends: most recent first, in-place on rebind — same as Map order,
- * reversed). CMD_PARAM arm folds into the plain arm (param stripped at parse).
+ * reversed). CMD_PARAM arm prints BIND=key:cmd(param) from the live
+ * bind_param store (bind_param_get, `?? ''` like keylist_putcmds).
  * Callees: key2txt (dokeylist.js live), strbuf_append (options.js live),
- * cmdbind_get (dokeylist.js live). Callers: options.c all_options_strbuf
+ * cmdbind_get + bind_param_get (dokeylist.js live). Callers: options.c all_options_strbuf
  * `:9734` (live: js/options.js all_options_strbuf); cmd.c handler_rebind_keys
  * `:2442` NULL arm (live: drained via `show_text_pages`, D-2762).
  * @param {{ str: string|null, len: number }|null} sbuf strbuf or null
@@ -1471,12 +1472,17 @@ export function get_changed_key_binds(sbuf) {
                 && ((e.flags | 0) & INTERNALCMD) === 0,
         );
         if (!ext || ext.key === key) continue;
-        // C `:2253–2260`: CMD_PARAM arm prints BIND=key:cmd(param), plain arm
-        // BIND=key:cmd; the param lives in game.Cmd._bindParam (stored at
-        // parsebindings), unread by this emitter, so both arms print
-        // BIND=key:cmd here.
+        // C `:2253–2261`: CMD_PARAM arm prints BIND=key:cmd(param), plain
+        // arm BIND=key:cmd. The param is the live bind_param store (written
+        // by overlay_bind_key `:2706–2708` and the live bind_key), read here
+        // like the keylist_putcmds sibling (dokeylist.js).
         // key2txt(bind->key, buf2) takes the single key.
-        emit(`BIND=${key2txt(key)}:${ext.txt}`);
+        if (((ext.flags | 0) & CMD_PARAM) !== 0) { // C `:2253`
+            const param = bind_param_get(key) ?? ''; // C `:2256` bind->param
+            emit(`BIND=${key2txt(key)}:${ext.txt}(${param})`); // C `:2254–2257`
+        } else {
+            emit(`BIND=${key2txt(key)}:${ext.txt}`); // C `:2259–2261`
+        }
     }
 
     /* commands which should be bound to a key, but aren't */ // C `:2269`

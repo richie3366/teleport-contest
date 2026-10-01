@@ -1,5 +1,5 @@
 {"fn":"strbuf_init","c":"9-13","status":"unknown"}
-{"fn":"strbuf_append","c":"17-24","status":"unknown"}
+{"fn":"strbuf_append","c":"17-24","status":"ported","js":["js/options.js:strbuf_append"],"d":["D-3222"],"at":"2026-10-01@bd7787f89"}
 {"fn":"strbuf_reserve","c":"28-45","status":"ported","js":["js/options.js:strbuf_reserve"],"at":"2026-09-30@6c8474344","note":"stale: js/options.js:9311"}
 {"fn":"strbuf_empty","c":"49-54","status":"ported","js":["js/options.js:strbuf_empty"],"at":"2026-09-30@4bcfa8a7a","note":"stale: js/options.js:11046 (conditional free replaced by GC)"}
 {"fn":"strbuf_nl_to_crlf","c":"58-77","status":"ported","js":["js/options.js:strbuf_nl_to_crlf"],"d":["D-3178"],"at":"2026-09-30@4bcfa8a7a","note":"refresh: no JS symbol (measured MISSING)"}
