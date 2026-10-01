@@ -4,7 +4,7 @@
 {"fn":"vision_reset","c":"211-265","status":"ported","js":["js/vision.js:vision_reset"],"d":["D-2883"],"at":"seed@a30a7de84"}
 {"fn":"get_unused_cs","c":"274-299","status":"partial","js":["js/vision.js:get_unused_cs"],"omit":"The header comment's \"light routine\" is not a call in this tree; `do_light_sources` receives the buffer `vision_recalc` already obtained.","d":["D-2850"],"at":"seed@a30a7de84"}
 {"fn":"rogue_vision","c":"314-364","status":"unknown"}
-{"fn":"new_angle","c":"414-451","status":"unknown","d":["D-1955"],"at":"seed@a30a7de84"}
+{"fn":"new_angle","c":"414-451","status":"ported","js":["js/vision.js:new_angle"],"d":["D-1955"],"at":"2026-10-01@3d715b8cd","note":"stale: js/vision.js:54 identity is the live C macro vision.c:461; staticfn :413-451 compiled out (EXTEND_SPINE commented :366)"}
 {"fn":"vision_recalc","c":"512-857","status":"ported","js":["js/vision.js:vision_recalc"],"d":["D-1571"],"at":"seed@a30a7de84","note":"seed: full C-order port (former BY_DESIGN)"}
 {"fn":"block_point","c":"865-891","status":"ported","js":["js/vision.js:block_point"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"unblock_point","c":"899-907","status":"unknown","d":["D-1574"],"at":"seed@a30a7de84"}

@@ -115,11 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `insight.c` show_gamelog — coverage PARTIAL (C 22 code L `insight.c:2561–2593` / JS 12 code L in js/insight.js; hops 4, callers 2, RNG 0, msg 4) @b0eed7df4
-- [ ] `getpos.c` getpos_menu — coverage PARTIAL (C 47 code L `getpos.c:665–725` / JS 30 code L in js/getpos.js; hops 2, callers 2, RNG 0, msg 1) @2eced4253
-- [ ] `rip.c` genl_outrip — coverage PARTIAL (C 51 code L `rip.c:86–163` / JS 27 code L in js/rip.js; hops 3, callers 1, RNG 0, msg 4; declared partial: NH320 dual stone; DUMPLOG Game over header) @2eced4253
-- [ ] `detect.c` trapped_chest_at — coverage PARTIAL (C 21 code L `detect.c:139–177` / JS 15 code L in js/detect.js; hops 3, callers 3, RNG 1, msg 0) @2eced4253
-- [ ] `vision.c` new_angle — coverage THIN (C 28 code L `vision.c:414–451` / JS 1 code L in js/vision.js; hops 1, callers 1, RNG 0, msg 0) @2eced4253
 - [ ] `version.c` doextversion — coverage PARTIAL (C 60 code L `version.c:169–277` / JS 42 code L in js/pager.js; hops —, callers 2, RNG 0, msg 6; declared partial: `dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_in) @2eced4253
 - [ ] `sounds.c` sound_speak — coverage THIN (C 25 code L `sounds.c:2185–2220` / JS 1 code L in js/sounds.js; hops 2, callers 2, RNG 0, msg 0) @f9a10fead
 - [ ] `display.c` redraw_map — coverage PARTIAL (C 14 code L `display.c:1778–1812` / JS 9 code L in js/display.js; hops 2, callers 2, RNG 0, msg 0) @cdbc41097
@@ -127,6 +122,11 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `cmd.c` yn_function_menu — coverage PARTIAL (C 33 code L `cmd.c:5419–5463` / JS 22 code L in js/getline.js; hops 2, callers 1, RNG 0, msg 1) @cdbc41097
 - [ ] `getpos.c` coord_desc — coverage PARTIAL (C 24 code L `getpos.c:595–635` / JS 17 code L in js/display.js; hops 2, callers 7, RNG 0, msg 0; declared partial: `auto_describe_text` still returns firstmatch only (`show_glyph` / lookaround).) @cdbc41097
 - [ ] `uhitm.c` mhitm_adtyping — coverage MISSING (C 45 code L `uhitm.c:4782–4832` / JS no symbol; hops 3, callers 3, RNG 0, msg 0; split? cited 67× in js/ — brief first) @cdbc41097
+- [ ] `sp_lev.c` create_monster — coverage MISSING (C 193 code L `sp_lev.c:1925–2187` / JS no symbol; hops —, callers 1, RNG 1, msg 0; split? cited 28× in js/ — brief first) @3d715b8cd
+- [ ] `cmd.c` get_changed_key_binds — coverage PARTIAL (C 38 code L `cmd.c:2235–2287` / JS 20 code L in js/cmd.js; hops —, callers 2, RNG 0, msg 2) @3d715b8cd
+- [ ] `steed.c` poly_steed — coverage PARTIAL (C 10 code L `steed.c:852–873` / JS 7 code L in js/steed.js; hops 3, callers 2, RNG 0, msg 1) @3d715b8cd
+- [ ] `artifact.c` set_artifact_intrinsic — coverage PARTIAL (C 127 code L `artifact.c:716–893` / JS 71 code L in js/artifact.js; hops 4, callers 5, RNG 0, msg 0) @3d715b8cd
+- [ ] `mondata.c` name_to_monclass — coverage PARTIAL (C 54 code L `mondata.c:1090–1176` / JS 40 code L in js/mondata.js; hops 3, callers 4, RNG 0, msg 0) @3d715b8cd
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

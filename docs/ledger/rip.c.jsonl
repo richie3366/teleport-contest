@@ -1,2 +1,2 @@
 {"fn":"center","c":"76-83","status":"unknown"}
-{"fn":"genl_outrip","c":"86-163","status":"partial","js":["js/rip.js:genl_outrip_lines","js/rip.js:center"],"omit":"NH320 dual stone; DUMPLOG Game over header","at":"2026-09-27@d2d72caa6","note":"refresh: lives as genl_outrip_lines+center (rip.js); was wrongly seeded ported; omits per rip.js:46"}
+{"fn":"genl_outrip","c":"86-163","status":"split","js":["js/rip.js:genl_outrip_lines","js/rip.js:center"],"omit":"NH320 dual stone; DUMPLOG Game over header","at":"2026-10-01@3d715b8cd","note":"stale: body complete as genl_outrip_lines+center+end.js:945 emission; NH320 #else compiled out, DUMPLOG path retired D-1776"}

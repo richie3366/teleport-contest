@@ -99,7 +99,7 @@ import { dosacrifice } from './pray.js';
 import { doinvoke } from './artifact.js';
 import { dotelecmd, goodpos } from './teleport.js';
 import { dowield, dowieldquiver, doswapweapon, dotwoweapon } from './wield.js';
-import { dowhatis, doquickwhatis, dohelp, dowhatdoes, doversion, show_text_pages } from './pager.js';
+import { dowhatis, doquickwhatis, doidtrap, dohelp, dowhatdoes, doversion, show_text_pages } from './pager.js';
 import {
     visctrl, key2txt, cmdbind_get, cmd_from_dir, cmd_from_func,
     bind_param_get, bind_param_set, bind_param_clear, bind_param_swap,
@@ -1934,6 +1934,7 @@ const FUNCT_TXT = new Map([
     [dowhatis, 'whatis'],
     [doquickwhatis, 'glance'],
     [dovspell, 'showspells'],
+    [doidtrap, 'showtrap'],
     [dodiscovered, 'known'],
     [dotogglepickup, 'autopickup'],
     [dobugreport, 'bugreport'], // C cmd.c:1685 (after autopickup, its C predecessor)
@@ -2898,8 +2899,8 @@ const move_funcs_walk = [
  * CQ_CANNED input for a [t]herecmdmenu action at adjacent (dx,dy).
  * C order kept arm by arm; sgn clamp `:4666–4677` (live eat.js sgn ≡
  * hacklib.c:650); MCMD_* ids are the cmd.c:4379 enum.
- * Named: doidtrap (pager.c:2336) is not exported — the look-trap arm
- * still dynamic-imports pager.js and is not an ef_funct lookup.
+ * The look-trap arm dynamic-imports pager.js `doidtrap` (live export,
+ * C pager.c:2336) rather than an ef_funct lookup.
  * C callers cmd.c:4880 (there_cmd_menu K==1 fast path) + :4892 (menu pick):
  * both wired in JS there_cmd_menu below (self/next2u/far/common).
  * @param {number} act MCMD_* action
@@ -5020,6 +5021,7 @@ function rhack_repeat_command(ch, key) {
     case ';': return doquickwhatis;
     case '?': return dohelp;
     case '+': return dovspell;
+    case '^': return doidtrap;
     case '\\': return dodiscovered;
     case '@': return dotogglepickup;
     case 'O': return doset_simple;
@@ -5075,7 +5077,7 @@ function rhack_repeat_txt(ch, key) {
         S: 'save', t: 'throw', T: 'takeoff', V: 'versionshort', w: 'wield', W: 'wear',
         x: 'swap', z: 'zap', Z: 'cast', ',': 'pickup', '.': 'wait',
         '>': 'down', '<': 'up', _: 'travel', ':': 'look', '/': 'whatis',
-        ';': 'glance', '?': 'help', '+': 'showspells', '\\': 'known',
+        ';': 'glance', '?': 'help', '+': 'showspells', '^': 'showtrap', '\\': 'known',
         '@': 'autopickup', O: 'options', $: 'showgold', ')': 'seeweapon',
         '[': 'seearmor', '=': 'seerings', '"': 'seeamulet', '(': 'seetools',
         '*': 'seeall',

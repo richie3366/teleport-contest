@@ -27,7 +27,7 @@
 {"fn":"achieve_rank","c":"2506-2513","status":"unknown"}
 {"fn":"sokoban_in_play","c":"2517-2528","status":"unknown"}
 {"fn":"do_gamelog","c":"2532-2544","status":"unknown"}
-{"fn":"show_gamelog","c":"2561-2593","status":"unknown","d":["D-1878"],"at":"seed@a30a7de84"}
+{"fn":"show_gamelog","c":"2561-2593","status":"ported","js":["js/insight.js:show_gamelog"],"d":["D-1878"],"at":"2026-10-01@3d715b8cd","note":"stale: js/insight.js:846 complete, do_gamelog wired :867, end.c:599 caller under retired DUMPLOG"}
 {"fn":"vanqsort_cmp","c":"2621-2714","status":"unknown"}
 {"fn":"set_vanq_order","c":"2718-2765","status":"unknown"}
 {"fn":"dovanquished","c":"2769-2774","status":"unknown"}

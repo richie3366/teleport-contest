@@ -16,7 +16,7 @@
 {"fn":"dxdy_to_dist_descr","c":"557-589","status":"unknown"}
 {"fn":"coord_desc","c":"595-635","status":"partial","js":["js/display.js:coord_desc"],"omit":"`auto_describe_text` still returns firstmatch only (`show_glyph` / lookaround).","d":["D-2811"],"at":"seed@a30a7de84"}
 {"fn":"auto_describe","c":"640-662","status":"ported","js":["js/getpos.js:auto_describe"],"d":["D-2966"],"at":"2026-09-27@c12d7df2f"}
-{"fn":"getpos_menu","c":"665-725","status":"unknown","d":["D-2534"],"at":"seed@a30a7de84"}
+{"fn":"getpos_menu","c":"665-725","status":"ported","js":["js/getpos.js:getpos_menu"],"d":["D-2534"],"at":"2026-10-01@3d715b8cd","note":"stale: js/getpos.js:999 complete per D-2534, callers wired js/cmd.js:4819 + js/getpos.js:1592"}
 {"fn":"truncate_to_map","c":"729-748","status":"unknown"}
 {"fn":"getpos_refresh","c":"753-766","status":"unknown"}
 {"fn":"getpos","c":"771-1167","status":"unknown","d":["D-2242","D-2205","D-1845"],"at":"seed@a30a7de84"}

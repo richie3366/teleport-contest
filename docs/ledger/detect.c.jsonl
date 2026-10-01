@@ -3,7 +3,7 @@
 {"fn":"map_redisplay","c":"94-102","status":"ported","js":["js/detect.js:map_redisplay"],"d":["D-3045"],"at":"2026-09-28@25bf764f0"}
 {"fn":"browse_map","c":"106-118","status":"unknown"}
 {"fn":"map_monst","c":"122-134","status":"unknown","d":["D-1549"],"at":"seed@a30a7de84"}
-{"fn":"trapped_chest_at","c":"139-177","status":"unknown","d":["D-2298"],"at":"seed@a30a7de84"}
+{"fn":"trapped_chest_at","c":"139-177","status":"ported","js":["js/detect.js:trapped_chest_at"],"d":["D-3219","D-2298"],"at":"2026-10-01@3d715b8cd"}
 {"fn":"trapped_door_at","c":"182-197","status":"ported","js":["js/detect.js:trapped_door_at"],"d":["D-3006"],"at":"2026-09-28@92e07989a","note":"stale: js/detect.js:1590 whole C body in C order; caller pager.c:176 wired js/pager.js:334, pager.c:2357 in unported doidtrap (named js/pager.js:2292)"}
 {"fn":"o_in","c":"201-223","status":"unknown"}
 {"fn":"o_material","c":"229-246","status":"unknown"}
