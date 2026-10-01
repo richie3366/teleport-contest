@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3228 — `mklev.c` mktrap_victim: retire mktrap_breaktest clone to live breaktest
+
+- **Status:** fixed (Open coverage row: `mklev.c` mktrap_victim — PARTIAL C 73/JS 53; 2 stale pops retired en route — explosionmask (`ledger.mjs set … ported --note "stale: js/explode.js:254"`, whole C body `:25–115` live in C order incl. both impossible defaults, both C call sites wired `:548`/`:554`), role_menu_extra (`ledger.mjs set … split --js js/player_selection.js:menu_extra_lines`, D-2633+D-2636 whole body `:1816–1960` under split name, all 24 C sites wired via `:1271`/`:1281` + 4 extras lists) — each brief-complete in JS)
+- **Symptom:** none on any suite (no corpus session blocked on mktrap_victim at HEAD — coverage row) — clone drift (D-1849 class): the PIT/landmine arm called a 17-line local `mktrap_breaktest` clone instead of the live `dothrow.js breaktest` export; the clone inlined `obj_resists` as bare `rn2(100)`, dropping the invocation-arti/rider no-RNG early-true arm (D-0864).
+- **C locus:**
+  - `mktrap_victim`: `mklev.c:1814–1934` (staticfn) — ammo switch `:1833–1847` (ARROW opoisoned=0, no quantity adjust); possession loop `:1858–1891` (`rn2(4)` class, mkobj+curse, PIT+breaktest `:1877–1885` → dealloc else place, `while (!rn2(5))`); corpse `rn2(15)` `:1894–1925` (elf + SLP_GAS `lvl<=2 && rn2(2)` gate, dwarf, orc, gnome + candle `:1909–1919` with `!lit → begin_burn`, human); HUMAN→`rn1` fake-player `:1928–1929`; mkcorpstat CORPSTAT_INIT + `age -= TAINT_AGE+1` `:1931–1933`. Sole C caller `:2151` inside mktrap's victim gate (`:2136–2152`).
+- **JS was:** module-local `mktrap_breaktest` (`js/mklev.js:33501`) — GLASS literal, `obj.oclass ?? oc_class` fallback, inlined resist roll; called at `:33548`. The mktrap_victim body itself was already C-order complete.
+- **Fix:** `js/mklev.js` — deleted the clone; `import { breaktest } from './dothrow.js'` (`imports.mjs --can`: SAFE, hoisted function); call site cites C `:1877–1885` + D-0864. No other body change. Sync `curse()` calls kept: doc-blessed (`js/mkobj.js:633` — no await on reachable paths: fresh floor objects, candle unlit at curse time, no spellbooks from WEAPON/TOOL/FOOD/GEM mkobj). `if (!otmp)` guards kept (C would deref; defensive, unreachable). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/mklev.js` (+4/−18; 1 js file, under caps). Density note: single-arm clone retirement; the file+closure hold nothing more Open (no other mklev.c block row; all 11 callees live/ok) — small-C exception per D-3227 precedent; net iteration effect is 3 rows retired (2 stale + this port).
+- **Callers:**
+  - `mktrap_victim`: C `:2151`→`js/mklev.js:20349` (JS mktrap victim gate — LANDMINE→PIT + tseen first, gate predicate C-identical incl. `rnd(4)` burn order). JS `:31553` (`make_a_trap_postprocess`, themerms.lua make_a_trap path): mirrors C's gate for the create_trap→mktrap route (C `sp_lev.c:1845` `mktrap(t->type, …)` verified — des traps route through mktrap); kind is const TELEP_TRAP so the gate rejects exactly as C's does — never invokes; live effect is the C-order `rnd(4)` burn. Caller-scope, untouched.
+- **Verify:**
+  - `mktrap_victim`: `node scripts/verify.mjs --fn mktrap_victim --reach-all` → VERIFY: PASS — syntax (1 changed: js/mklev.js); rule2; hidden note (no corpus session blocked — coverage row); reach 325/325 PASS, 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (shared file).
+- **Named omissions:**
+  - `mktrap_victim`: none in the body — every arm, every callee live (`level_difficulty`, `mksobj`, `place_object`, `rn2`/`rn1`, `mkobj`, `curse`, `breaktest`, `dealloc_obj`, `weight`, `begin_burn`, `mkcorpstat`), every C caller wired.
+- **Ledger:** mktrap_victim ported
+- **Next:** pop the next Open — coverage row.
+
 ## D-3227 — eat.c eatfood stolen-food arm + eating-gate reset semantics
 
 - **Status:** fixed (Open coverage row: `eat.c` eatfood — PARTIAL C 15/JS 11; 6 stale pops retired en route — mhitm_ad_pest, all_options_strbuf, rest_regions, row_refresh, doset_simple_menu, handler_autopickup_exception — each brief-complete in JS, `ledger.mjs set … ported --note "stale: …"`)

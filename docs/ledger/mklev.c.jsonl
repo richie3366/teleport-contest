@@ -38,7 +38,7 @@
 {"fn":"maybe_sdoor","c":"1793-1796","status":"unknown"}
 {"fn":"dodoor","c":"1800-1803","status":"unknown"}
 {"fn":"occupied","c":"1806-1811","status":"unknown"}
-{"fn":"mktrap_victim","c":"1815-1934","status":"unknown","d":["D-1519"],"at":"seed@a30a7de84"}
+{"fn":"mktrap_victim","c":"1815-1934","status":"ported","js":["js/mklev.js:mktrap_victim"],"d":["D-3228","D-1519"],"at":"2026-10-01@0fcd10790"}
 {"fn":"traptype_rnd","c":"1938-1998","status":"ported","js":["js/mklev.js:traptype_rnd"],"d":["D-2716"],"at":"seed@a30a7de84"}
 {"fn":"traptype_roguelvl","c":"2002-2030","status":"unknown"}
 {"fn":"mkstairs","c":"2159-2197","status":"ported","js":["js/mklev.js:mkstairs"],"d":["D-2931"],"at":"seed@a30a7de84"}

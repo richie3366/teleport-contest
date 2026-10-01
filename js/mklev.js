@@ -125,6 +125,7 @@ import { m_at, mnearto, mnexto, elemental_clog, seemimic, minliquid, dmonsfree, 
 import { enexto, rloc, goodpos, migrate_to_level, single_level_branch, Inhell } from './teleport.js';
 import { clear_wormdata, flip_worm_segs_horizontal, flip_worm_segs_vertical, remove_worm } from './worm.js';
 import { obj_resists } from './dogmove.js';
+import { breaktest } from './dothrow.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
@@ -33497,25 +33498,6 @@ function find_okay_roompos(croom, crd) {
     return true;
 }
 
-// C ref: dothrow.c breaktest() — RNG-consuming; used when landmine → PIT debris.
-function mktrap_breaktest(obj) {
-    if (!obj) return false;
-    const GLASS = 19;
-    const o = game.objects?.[obj.otyp];
-    const oclass = obj.oclass ?? o?.oc_class;
-    let nonbreakchance = 1;
-    if (oclass === ARMOR_CLASS && o?.oc_material === GLASS) nonbreakchance = 90;
-    // C: if (obj_resists(obj, nonbreakchance, 99)) return FALSE;
-    const chance = rn2(100);
-    if (chance < (obj.oartifact ? 99 : nonbreakchance)) return false;
-    if (o?.oc_material === GLASS && !obj.oartifact && oclass !== GEM_CLASS)
-        return true;
-    if (oclass === POTION_CLASS) return true;
-    const n = objectNames[obj.otyp];
-    return n === 'EXPENSIVE_CAMERA' || n === 'EGG' || n === 'CREAM_PIE'
-        || n === 'MELON' || n === 'ACID_VENOM' || n === 'BLINDING_VENOM';
-}
-
 // C ref: mklev.c mktrap_victim — trap ammo + cursed possessions on fobj, then corpse.
 function mktrap_victim(trap) {
     const lvl = level_difficulty();
@@ -33544,8 +33526,10 @@ function mktrap_victim(trap) {
         otmp = mkobj(cls, false);
         if (!otmp) break;
         curse(otmp);
-        // C: for mktrap_victim, PIT is an exploded LANDMINE
-        if (trap.ttyp === PIT && mktrap_breaktest(otmp)) {
+        // C `:1877–1885` — PIT here is an exploded LANDMINE; live
+        // dothrow.js breaktest (local mktrap_breaktest clone retired: it
+        // dropped obj_resists' no-RNG invocation/rider early-true arm, D-0864).
+        if (trap.ttyp === PIT && breaktest(otmp)) {
             dealloc_obj(otmp);
         } else {
             place_object(otmp, x, y);

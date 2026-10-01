@@ -1,4 +1,4 @@
-{"fn":"explosionmask","c":"26-115","status":"unknown","d":["D-2691"],"at":"seed@a30a7de84"}
+{"fn":"explosionmask","c":"26-115","status":"ported","js":["js/explode.js:explosionmask"],"d":["D-2691"],"at":"2026-10-01@0fcd10790","note":"stale: js/explode.js:254"}
 {"fn":"engulfer_explosion_msg","c":"118-179","status":"ported","js":["js/explode.js:engulfer_explosion_msg"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"explode","c":"199-696","status":"unknown","d":["D-1925"],"at":"seed@a30a7de84"}
 {"fn":"scatter","c":"721-947","status":"unknown","d":["D-2303","D-2274"],"at":"seed@a30a7de84"}
