@@ -16,6 +16,8 @@ export {
     se_item_tumble_downwards,
     se_ring_in_drain,
     se_zero_invalid,
+    se_clash,
+    se_bang_weapon_side,
     number_of_se_entries,
 } from './generated/seffects_data.js';
 

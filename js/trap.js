@@ -990,6 +990,18 @@ export function maketrap(x, y, typ) {
         // C: undestroyable existing trap → refuse overwrite
         if (undestroyable_trap(ttmp.ttyp)) return null;
         oldplace = true;
+        // C trap.c:466-473 — replacing the trap under a trapped hero
+        // frees them when the new type can't hold that trap kind
+        // (self-dug pit -> HOLE mid-digactualhole; vision restored by
+        // the pline-time recalc, D-3247).
+        const u = game.u || {};
+        if ((u.utrap | 0) && u_at(x, y)
+            && (((u.utraptype | 0) === TT_BEARTRAP && typ !== BEAR_TRAP)
+                || ((u.utraptype | 0) === TT_WEB && typ !== WEB)
+                || ((u.utraptype | 0) === TT_PIT && !is_pit(typ))
+                || ((u.utraptype | 0) === TT_LAVA && !is_lava(x, y)))) {
+            reset_utrap(false);
+        }
     } else {
         const lev = game.level?.at?.(x, y);
         const ltyp = lev?.typ;

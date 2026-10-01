@@ -33,7 +33,7 @@
 {"fn":"lookaround_known_room","c":"1276-1306","status":"unknown"}
 {"fn":"dolookaround","c":"1310-1369","status":"unknown","d":["D-1217"],"at":"seed@a30a7de84"}
 {"fn":"dotoggleoption","c":"1376-1384","status":"unknown","d":["D-2698"],"at":"seed@a30a7de84"}
-{"fn":"set_move_cmd","c":"1387-1400","status":"unknown"}
+{"fn":"set_move_cmd","c":"1387-1400","status":"ported","js":["js/cmd.js:set_move_cmd"],"at":"2026-10-01@f0a648599","note":"stale: js/cmd.js:558"}
 {"fn":"do_move_west","c":"1404-1408","status":"unknown"}
 {"fn":"do_move_northwest","c":"1411-1415","status":"unknown"}
 {"fn":"do_move_north","c":"1418-1422","status":"unknown"}
