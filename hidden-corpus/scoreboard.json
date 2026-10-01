@@ -1,9 +1,9 @@
 {
- "commit": "f9a10fead",
- "at": "2026-10-01T11:00:40.084Z",
- "full": false,
- "fullCommit": "b76d68a29",
- "fullAt": "2026-10-01T09:30:32.179Z",
+ "commit": "a6017c8d7",
+ "at": "2026-10-01T11:32:35.492Z",
+ "full": true,
+ "fullCommit": "a6017c8d7",
+ "fullAt": "2026-10-01T11:32:35.492Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -5935,7 +5935,7 @@
    "steps": 253,
    "owner": "distfleeck",
    "loc": "monmove.c:564",
-   "jsOwner": "mattacku(mhitu.js:4212)",
+   "jsOwner": "mattacku(mhitu.js:4219)",
    "cTopline": "The gnome lord turns to flee. The saddled pony misses the gnome lord.--More--",
    "jsTopline": "The gnome lord hits! You stop searching.",
    "error": null
@@ -10719,19 +10719,19 @@
   },
   "scen-poly-Tourist-92171": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3637,
    "rngT": 3637,
-   "scrM": 144,
+   "scrM": 145,
    "scrT": 145,
-   "kind": "screen",
-   "step": 88,
+   "kind": null,
+   "step": null,
    "steps": 145,
-   "owner": "break_armor",
-   "loc": "polyself.c:1253",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You drop your gloves!--More--",
-   "jsTopline": "You drop your gloves!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-poly-Valkyrie-92195": {
@@ -10746,7 +10746,7 @@
    "steps": 313,
    "owner": "peffect_polymorph",
    "loc": "potion.c:1327",
-   "jsOwner": "exercise(attrib.js:216)",
+   "jsOwner": "exercise(attrib.js:220)",
    "cTopline": "Use the command #sit to lay an egg.",
    "jsTopline": "Use the command #sit to lay an egg.",
    "error": null
@@ -11205,7 +11205,7 @@
    "steps": 333,
    "owner": "abuse_dog",
    "loc": "dog.c:1381",
-   "jsOwner": "exercise(attrib.js:216)",
+   "jsOwner": "exercise(attrib.js:220)",
    "cTopline": "Sirius yelps! The dagger hits it.",
    "jsTopline": "The dagger hits it. Sirius misses the kobold.--More--",
    "error": null
@@ -12565,7 +12565,7 @@
    "steps": 189,
    "owner": "water_damage",
    "loc": "trap.c:4771",
-   "jsOwner": "exercise(attrib.js:216)",
+   "jsOwner": "exercise(attrib.js:220)",
    "cTopline": "You fall into the moat! You sink like a rock.--More--",
    "jsTopline": "Dip it into the moat? [yn] (n)",
    "error": null
@@ -13330,7 +13330,7 @@
    "steps": 112,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4770)",
+   "jsOwner": "do_attack(uhitm.js:4808)",
    "cTopline": "a dart (no travel path)",
    "jsTopline": "a brilliant blue potion",
    "error": null
@@ -13347,7 +13347,7 @@
    "steps": 87,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:218)",
+   "jsOwner": "exercise(attrib.js:222)",
    "cTopline": "some gold pieces",
    "jsTopline": "a eucalyptus leaf",
    "error": null
@@ -13364,7 +13364,7 @@
    "steps": 295,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4770)",
+   "jsOwner": "do_attack(uhitm.js:4808)",
    "cTopline": "a pair of leather gloves",
    "jsTopline": "2 candles",
    "error": null
@@ -13398,7 +13398,7 @@
    "steps": 253,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:218)",
+   "jsOwner": "exercise(attrib.js:222)",
    "cTopline": "some gold pieces",
    "jsTopline": "7 candles",
    "error": null
@@ -13432,7 +13432,7 @@
    "steps": 180,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4770)",
+   "jsOwner": "do_attack(uhitm.js:4808)",
    "cTopline": "some gold pieces",
    "jsTopline": "an oak wand (no travel path)",
    "error": null
@@ -13466,7 +13466,7 @@
    "steps": 265,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4770)",
+   "jsOwner": "do_attack(uhitm.js:4808)",
    "cTopline": "a whistle",
    "jsTopline": "a food ration",
    "error": null
@@ -13491,7 +13491,7 @@
   "scen-town-Ranger-94002": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4743,
+   "rngM": 4750,
    "rngT": 16074,
    "scrM": 64,
    "scrT": 227,

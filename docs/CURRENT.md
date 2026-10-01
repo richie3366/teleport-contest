@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-01** — full `sessions` on `b76d68a29`
-(audit **2158–2166**, 2026-10-01T09:24:47.435Z).
+Score last measured: **2026-10-01** — full `sessions` on `a6017c8d7`
+(audit **2167–2175**, 2026-10-01T11:26:54.684Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`333+1.62/turn` (R² 0.77).
+`325+1.68/turn` (R² 0.79).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `333+1.62/turn` (R² 0.77) |
+| Speed label | `325+1.68/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best fork 35/44. Held-out 13/44, +136 pts since 01:48Z.
-**Corpus fortress (2026-10-01 09:30Z; scored 953/953 entries, 0 unrecorded):**
-**665 / 953** PASS (69.8 %), RNG 96.90 %, screens 91.2 %; 0 PASS losses, +11 against committed scoreboard; `full: true`, `fullAt: 2026-10-01T09:30:32.179Z`.
-Reviews 1225–2166 (index; no row 1618): 817 ACCEPT, 43 WITH-DEBT, 81 QUALITY-RISK (2158–2166: 5 accept/1 debt/3Q; 4 Must-fix families).
+**Corpus fortress (2026-10-01 11:32Z; scored 953/953 entries, 0 unrecorded):**
+**666 / 953** PASS (69.9 %), RNG 96.90 %, screens 91.2 %; 0 PASS losses, +1 (scen-poly-Tourist-92171, ex-break_armor screen @88, plausibly D-3215 Gloves_off); `full: true`, `fullAt: 2026-10-01T11:32:35.492Z`.
+Reviews 1225–2175 (index; no row 1618): 824 ACCEPT, 43 WITH-DEBT, 83 QUALITY-RISK (2167–2175: 7 accept/0 debt/2Q; 2 Must-fix families).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** `do_wear.c` ×2 — Gloves_off (head, PARTIAL: switch/encumber/Glib/bareh arms) + armoroff (THIN: default impossibles, armcat dispatch, mask/what tail); stale trio better_not_take_that_off/hard_helmet/any_worn_armor_ok.
+**Next cluster:** vision_clears "quickly" text (Must-fix from review 2174: 12 literal lines + VISION_CLEARS const; falsifier `grep -rn "Your vision clears" js/` empty).
 
 ## Parked (diagnose only — do not implement)
 

@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — Audit 2167–2175: review D-3207–D-3215 (7 ACCEPT, 2 QUALITY-RISK) + full score
+
+**Reviews:** 2167–2169 ACCEPT (D-3207 pray else, D-3208 from_what, D-3209 iter_mons — all three close review-2165/2162 Must-fix items); 2170 QUALITY-RISK (D-3210 fixed the 5 queued s_suffix homes but "all 11 C-exact" misses 8 more: objnam/apply/fig/hatch `|| 'S'` + towel/leash/poison/inv pre-fix shapes; census is 20 defs); 2171–2173 ACCEPT (D-3211 uhitm×4, D-3212 resist+osshock, D-3213 doloot+loot); 2174 QUALITY-RISK (D-3214 blnd fill copies the wrong idiom: C `Your1(vision_clears)` = "Your vision quickly clears." (decl.c:49), JS drops "quickly" at 13 lines/10 files); 2175 ACCEPT (D-3215 Gloves_off+armoroff; "new botl edge" is actually ALREADY).
+**Must-fix (2 families, prepended):** vision_clears "quickly" text (review 2174, first) + s_suffix 8-home second wave (review 2170). Next cluster set to vision_clears.
+**Fortress:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `325+1.68/turn`); corpus 666/953 (+1 scen-poly-Tourist-92171 ex-break_armor@88, plausibly D-3215; 0 losses; full:true 11:32Z); held-out 13/44 unchanged (scored 07:09Z). Rule #2 clean. Ledger snapshot + 5 seeded-ported rows sampled (all resolve, no fix).
 ## 2026-10-01 — D-3215 `do_wear.c` ×2: Gloves_off + armoroff whole-body restarts
 
 **C locus:** - `Gloves_off`: `nethack-c/upstream/src/do_wear.c:646–702` whole — JS carried only the CORPSE-gated wielding pair; the otyp switch (Fumbling/Power/Dexterity + default), encumber_msg, Glib cure and barehanded-condtests tail were absent.

@@ -2176,3 +2176,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2164-55cdefbf9-com-pager-guardtalk.md](./2164-55cdefbf9-com-pager-guardtalk.md) | `55cdefbf9` | D-3204 com_pager_core guardtalk arrays (PROGRESS) | **ACCEPT** |
 | [2165-9cc52a0d2-enlightenment.md](./2165-9cc52a0d2-enlightenment.md) | `9cc52a0d2` | D-3205 enlightenment pair (pray + from_what gaps) | **QUALITY-RISK** |
 | [2166-b76d68a29-mkshop-shoptype.md](./2166-b76d68a29-mkshop-shoptype.md) | `b76d68a29` | D-3206 mkshop SHOPTYPE dispatch (empty-env debt) | **ACCEPT-WITH-DEBT** |
+| [2167-8a149124b-enlightenment-pray-else.md](./2167-8a149124b-enlightenment-pray-else.md) | `8a149124b` | D-3207 enlightenment() pray else-arm (finding 1) | **ACCEPT** |
+| [2168-c70774a6c-from-what-negative-arms.md](./2168-c70774a6c-from-what-negative-arms.md) | `c70774a6c` | D-3208 from_what INVIS/CLAIRVOYANT (finding 2) | **ACCEPT** |
+| [2169-6b304d1a2-iter-mons-splice.md](./2169-6b304d1a2-iter-mons-splice.md) | `6b304d1a2` | D-3209 iter_mons splice-safety | **ACCEPT** |
+| [2170-b9de54524-s-suffix-second-wave.md](./2170-b9de54524-s-suffix-second-wave.md) | `b9de54524` | D-3210 s_suffix 5 homes (8 more missed) | **QUALITY-RISK** |
+| [2171-1eadda2ce-uhitm-x4-cold-stun-slee-hmon.md](./2171-1eadda2ce-uhitm-x4-cold-stun-slee-hmon.md) | `1eadda2ce` | D-3211 uhitm ×4 cold/stun/slee/hmon | **ACCEPT** |
+| [2172-b0eed7df4-resist-osshock.md](./2172-b0eed7df4-resist-osshock.md) | `b0eed7df4` | D-3212 resist dlev+TELL + do_osshock hoist | **ACCEPT** |
+| [2173-2eced4253-doloot-able-to-loot.md](./2173-2eced4253-doloot-able-to-loot.md) | `2eced4253` | D-3213 doloot nobj cache + able_to_loot | **ACCEPT** |
+| [2174-f9a10fead-uhitm-x5-vision-text.md](./2174-f9a10fead-uhitm-x5-vision-text.md) | `f9a10fead` | D-3214 uhitm ×5 (vision text C-wrong) | **QUALITY-RISK** |
+| [2175-a6017c8d7-gloves-armoroff.md](./2175-a6017c8d7-gloves-armoroff.md) | `a6017c8d7` | D-3215 Gloves_off + armoroff restarts | **ACCEPT** |

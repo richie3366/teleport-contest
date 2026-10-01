@@ -17,7 +17,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 2151–2157: 6 ACCEPT, 1 debt (2155, map); 0 Must-fix families; public 44/44; corpus 654/953 (+6, 0 losses). Gap: D-3189/D-3190 lack per-SHA audits.
+- Audit 2167–2175: 7 ACCEPT, 2 QUALITY-RISK (2170 s_suffix 2nd wave ×8, 2174 vision_clears "quickly" ×13); 2 Must-fix families; public 44/44; corpus 666/953 (+1, 0 losses). Gap: D-3189/D-3190 lack per-SHA audits.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 
