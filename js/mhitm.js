@@ -139,7 +139,7 @@ import { stairway_find_type_dir } from './mklev.js';
 import { polyself } from './polyself.js';
 import { you_were, you_unwere, were_change } from './were.js';
 import { night } from './calendar.js';
-import { resists_drli } from './zap.js';
+import { resists_drli, shieldeff_mon } from './zap.js';
 import { poisoned, A_STR, A_DEX, A_CON } from './attrib.js';
 import { rloc, tele_restrict, tele, goodpos, u_teleport_mon, enexto, rloc_to } from './teleport.js';
 import { m_unleash } from './apply.js';
@@ -576,14 +576,14 @@ function resists_magm(mon) {
 }
 
 /**
- * C ref: zap.c resist — WAND_CLASS alev=12; tell/shield polish deferred.
+ * C ref: zap.c resist — WAND_CLASS alev=12; TELL shield fires at the mon_poly call site.
  * @returns {boolean} true if resisted
  */
 function resist_poly(mtmp, _tell) {
     const alev = 12; // WAND_CLASS
     let dlev = mtmp.m_lev | 0;
     if (dlev > 50) dlev = 50;
-    else if (dlev < 1) dlev = 1;
+    else if (dlev < 1) dlev = is_mplayer(mtmp.data) ? game.u?.ulevel | 0 : 1;
     const mr = mtmp.data?.mr | 0;
     return rn2(100 + alev - dlev) < mr;
 }
@@ -599,7 +599,7 @@ function is_youmonst(m) {
  * Await `newcham(..., NO_NC_FLAGS)` so mleashed unleash / Elbereth
  * flee finish before the vis pline / tele (D-1648; C `:1174` is
  * sync int). Named omissions: shieldeff / shieldeff_mon flash;
- * ANTIMAGIC gear scan in resists_magm; TELL resist pline polish.
+ * ANTIMAGIC gear scan in resists_magm (TELL resist shield live via shieldeff_mon).
  * @returns {Promise<number>} remaining damage (0 when shape-change applied)
  */
 export async function mon_poly(magr, mdef, dmg) {
@@ -632,7 +632,8 @@ export async function mon_poly(magr, mdef, dmg) {
         if (resists_magm(mdef)) {
             // shieldeff_mon deferred
         } else if (resist_poly(mdef, TELL)) {
-            // general resistance to magic — TELL pline deferred
+            /* C zap.c:6143-6144 — TELL shield lives inside resist(). */
+            await shieldeff_mon(mdef);
         } else if (!rn2(25) && (mdef.cham ?? NON_PM) === NON_PM
                    && (mdef.mcan
                        || pm_to_cham(mdef.data?.mndx ?? mdef.mnum ?? NON_PM)

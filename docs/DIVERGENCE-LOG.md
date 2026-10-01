@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3212 — `zap.c` ×2: resist clone dlev+TELL completion, do_osshock stale hoist
+
+- **Status:** fixed (breadth-phase coverage cluster: head row `zap.c` resist PARTIAL + same-file `zap.c` do_osshock MISSING-as-stale; measured gaps were line-count artifacts on whole canonical bodies — 3 clone arms + 2 TELL shields were the real missing C).
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on both: no corpus session blocked; REACH-OK is the corpus evidence).
+- **C locus:**
+  - `resist`: `nethack-c/upstream/src/zap.c:6099–6158` whole (mplayer Conflict early return; WAND12/TOOL10/WEAPON10/SCROLL9/POTION6/RING5/ulevel alev; dlev clamp + mplayer-ulevel; `rn2(100+alev-dlev) < mr`; TELL `shieldeff_mon` + halve; HP apply + `m_using`?`monkilled(AD_RBRE)`:`killed`).
+  - `do_osshock`: `nethack-c/upstream/src/zap.c:1636–1674` whole (SCR_MAIL live — MAIL_STRUCTURES unconditional `global.h:430`; `obj_zapped`; `poly_zapped` `rn2(Luck+45)` loop; LARGEST_INT/`rnd(quan-1)` split; costly bill/stolen; delobj).
+- **JS was:** canonical `resist` whole at `js/zap.js:1854`; sync clones `js/music.js:167`, `js/pray.js:2852`, `js/mhitm.js:582` dropped the mplayer dlev arm (`dlev<1 → 1` unconditionally); TELL shields deferred at `mon_poly` (`js/mhitm.js:634`) and pray turn-undead (`js/pray.js:2896`); `shieldeff_mon` zap.js-local. `do_osshock` whole but nested at `js/zap.js:5012` (invisible to sym/ledger/measure → false MISSING), wired at bhito `:5597`.
+- **Fix:** mplayer dlev arm in all 3 clones (`is_mplayer` via existing monsters.js edges — mhitm already imported it); TELL `shieldeff_mon` at both async TELL sites (export from zap.js — body verified exact vs `mon.c:6056–6064` — via existing zap.js edges in pray/mhitm; names on existing edges only, both hoisted functions, so no new cycle/TDZ — `--can` skipped); hoist `do_osshock` to top level (byte-identical body, zero closure vars — pure visibility move so sym/ledger/measure resolve it).
+- **JS:** `js/music.js:167` (arm), `js/pray.js:2852` (arm) + `:2896–2900` (shield), `js/mhitm.js:582` (arm) + `:634–636` (shield), `js/zap.js:3850` (`shieldeff_mon` export) + `:5012` (`do_osshock` top-level).
+- **Callers:**
+  - `resist`: `artifact.c:1368`→`js/artifact.js:2916`; `explode.c:534`→`js/explode.js:655` (sync clone, exact for 0/NOTELL); `mhitm.c:1154`→`js/mhitm.js:634` (resist_poly + shield now); `mhitm.c:1232` (sleep_monst)→`js/music.js:290` (sleep_monst_music; `js/mhitm.js:1405` ports the how=-1 path only, where C skips the arm); `muse.c:1684`→`js/muse.js:864`; `muse.c:1640`→NAMED (mbhitm STRIKING vs-mon drops all of `:1632–1644`, `js/muse.js:827` RNG stub); `music.c:56`→`js/music.js:231`; `music.c:213`→`js/music.js:431`; `potion.c:1780/1824/1871`→NAMED (potionhit unported D-1472, `js/potion.js:28`); `pray.c:2366`→`js/pray.js:2896` (shield now); `pray.c:2393`→`js/pray.js:2918`; `read.c:1056`→`js/read.js:1074`; `read.c:1470`→`js/read.js:1526`; `trap.c:2518`→`js/trap.js:5778`; `trap.c:3153`→`js/trap.js:2140`; `uhitm.c:1913`→`js/uhitm.js:2172`; `zap.c:211/220/234/257/274/470/531/3159/4390`→`js/zap.js:3973/3990/4010/4041/4060/4364/4221/3624/2030`.
+  - `do_osshock`: `zap.c:2213` (bhito poly shudder)→`js/zap.js:5587` (`if (p) await p` preserves hideunder order).
+- **Verify:** `node scripts/verify.mjs --fn resist,do_osshock` → PASS syntax (4 files) · PASS rule2 · hidden none-blocked ×2 · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+  - `resist`: REACH-OK (57 reach, 57 PASS).
+  - `do_osshock`: REACH-OK (smoke spread 24 PASS, no RNG-tagged reach).
+- **Named omissions:**
+  - `resist`: caller-side only — mbhitm STRIKING vs-monster arm (`muse.c:1632–1644`: resists_magm/Boing/hit/resist/miss all absent from the `js/muse.js:827` RNG stub; owns its row); potionhit confusion/blindness/acid arms (`potion.c:1780/1824/1871`; `js/potion.js:28` D-1472). Body whole in all five JS incarnations (canonical + 4 sync clones).
+  - `do_osshock`: none — whole. (The ledger's old `fill_pit` omit named `bhitpile`'s `:2503` epilogue, not this body; it stays correctly homed on bhitpile's partial row — `fill_pit` live `js/dig.js:1001`, `recreate_pile_at` live `js/mkobj.js:2982`, both unwired there.)
+- **Ledger:** resist split js=js/zap.js:resist+js/explode.js:resist+js/music.js:resist+js/pray.js:resist+js/mhitm.js:resist_poly; do_osshock ported
+- **Next:** next Open — coverage row (`weapon.c` possibly_unwield PARTIAL); bhitpile restack+fill_pit rides its own ledger row.
+
 ## D-3211 — `uhitm.c` ×4: mhitm_ad_cold defended+seesu, hmon anger_guards tail, mhitm_ad_stun uhitm arm, mhitm_ad_slee defended/shieldeff
 
 - **Status:** fixed (breadth-phase coverage cluster: head row `uhitm.c` mhitm_ad_cold THIN + same-file Open hmon THIN, mhitm_ad_stun THIN, mhitm_ad_slee PARTIAL; `mhitm_ad_blnd` excluded — its standing omit `Your1(vision_clears)` still has no JS symbol).

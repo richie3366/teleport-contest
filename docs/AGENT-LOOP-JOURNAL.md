@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3212 `zap.c` ×2: resist clone dlev+TELL completion, do_osshock stale hoist
+
+**C locus:** - `resist`: `nethack-c/upstream/src/zap.c:6099–6158` whole (mplayer Conflict early return; WAND12/TOOL10/WEAPON10/SCROLL9/POTION6/RING5/ulevel alev; dlev clamp + mplayer-ulevel; `rn2(100+alev-dlev) < mr`; TELL `shieldeff_mon` + halve; HP apply + `m_using`?`monkilled(AD_RBRE)`:`killed`).
+**JS:** `js/music.js:167` (arm), `js/pray.js:2852` (arm) + `:2896–2900` (shield), `js/mhitm.js:582` (arm) + `:634–636` (shield), `js/zap.js:3850` (`shieldeff_mon` export) + `:5012` (`do_osshock` top-level).
+**Change:** mplayer dlev arm in all 3 clones (`is_mplayer` via existing monsters.js edges — mhitm already imported it); TELL `shieldeff_mon` at both async TELL sites (export from zap.js — body verified exact vs `mon.c:6056–6064` — via existing zap.js edges in pray/mhitm; names on existing edges only, both hoisted functions, so no new cycle/TDZ — `--can` skipped); hoist `do_osshock` to top level (byte-identical body, zero closure vars — pure visibility move so sym/ledger/measure resolve it).
+**Verify:** `node scripts/verify.mjs --fn resist,do_osshock` → PASS syntax (4 files) · PASS rule2 · hidden none-blocked ×2 · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+**Named:** - `resist`: caller-side only — mbhitm STRIKING vs-monster arm (`muse.c:1632–1644`: resists_magm/Boing/hit/resist/miss all absent from the `js/muse.js:827` RNG stub; owns its row); potionhit confusion/blindness/acid arms (`potion.c:1780/1824/1871`; `js/potion.js:28` D-1472). Body whole in all five JS incarnations (canonical + 4 sync clones).
+**Next:** next Open — coverage row (`weapon.c` possibly_unwield PARTIAL); bhitpile restack+fill_pit rides its own ledger row.
 ## 2026-10-01 — D-3211 `uhitm.c` ×4: mhitm_ad_cold defended+seesu, hmon anger_guards tail, mhitm_ad_stun uhitm arm, mhitm_ad_slee defended/shieldeff
 
 **C locus:** - `mhitm_ad_cold`: `uhitm.c:2626–2681` whole (uhitm `:2633–2652`, mhitu `:2654–2663`, mhitm `:2665–2680`).

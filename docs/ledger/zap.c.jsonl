@@ -20,7 +20,7 @@
 {"fn":"obj_shudders","c":"1476-1497","status":"ported","js":["js/zap.js:obj_shudders"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"polyuse","c":"1505-1539","status":"unknown","d":["D-1939"],"at":"seed@a30a7de84"}
 {"fn":"create_polymon","c":"1546-1633","status":"ported","js":["js/zap.js:create_polymon"],"d":["D-2571"],"at":"seed@a30a7de84"}
-{"fn":"do_osshock","c":"1637-1674","status":"partial","omit":"`fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`).","d":["D-2879"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
+{"fn":"do_osshock","c":"1637-1674","status":"ported","js":["js/zap.js:do_osshock"],"d":["D-3212","D-2879"],"at":"2026-10-01@1eadda2ce","note":"stale: js/zap.js:do_osshock top-level hoist, wired at bhito"}
 {"fn":"obj_unpolyable","c":"1678-1683","status":"unknown"}
 {"fn":"poly_obj","c":"1702-1989","status":"unknown","d":["D-1510"],"at":"seed@a30a7de84"}
 {"fn":"stone_to_flesh_obj","c":"1993-2112","status":"unknown"}
@@ -75,7 +75,7 @@
 {"fn":"item_what","c":"5722-5763","status":"ported","js":["js/invent.js:item_what"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"maybe_destroy_item","c":"5798-5954","status":"unknown","d":["D-2164","D-1368"],"at":"seed@a30a7de84"}
 {"fn":"destroy_items","c":"5965-6097","status":"ported","js":["js/zap.js:destroy_items"],"d":["D-2454"],"at":"seed@a30a7de84"}
-{"fn":"resist","c":"6100-6158","status":"unknown","d":["D-2366","D-2116"],"at":"seed@a30a7de84"}
+{"fn":"resist","c":"6100-6158","status":"split","js":["js/zap.js:resist","js/explode.js:resist","js/music.js:resist","js/pray.js:resist","js/mhitm.js:resist_poly"],"d":["D-3212","D-2366","D-2116"],"at":"2026-10-01@1eadda2ce"}
 {"fn":"wishcmdassist","c":"6165-6219","status":"ported","js":["js/zap.js:wishcmdassist"],"d":["D-2484"],"at":"2026-10-01@6e06fa8e7","note":"stale: js/zap.js:7240 whole C body present (D-2484); declared omits are siblings/caller not callees (wish_history_add/menu zap.c:6227/6275, MAXWISHTRY retry loop in makewish); caller wired zap.js:7391"}
 {"fn":"wish_history_add","c":"6227-6255","status":"partial","js":["js/zap.js:wish_history_add"],"omit":"`wish_history_menu` (`zap.c:6275–6309`) stays a no-op, and `makewish` does not call it (`zap.c:6334–6335`, `menu_requested`).","d":["D-2873"],"at":"seed@a30a7de84"}
 {"fn":"wish_history_flush","c":"6259-6270","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

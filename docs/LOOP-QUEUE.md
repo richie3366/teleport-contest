@@ -115,9 +115,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `zap.c` resist — coverage PARTIAL (C 44 code L `zap.c:6100–6158` / JS 26 code L in js/zap.js; hops 4, callers 17, RNG 1, msg 0) @6e06fa8e7
 - [ ] `weapon.c` possibly_unwield — coverage PARTIAL (C 26 code L `weapon.c:747–795` / JS 13 code L in js/weapon.js; hops 3, callers 7, RNG 0, msg 1; declared partial: get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-c) @6e06fa8e7
-- [ ] `zap.c` do_osshock — coverage MISSING (C 20 code L `zap.c:1637–1674` / JS no symbol; hops 6, callers 2, RNG 3, msg 0; declared partial: `fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`).) @6e06fa8e7
 - [ ] `pickup.c` doloot_core — coverage PARTIAL (C 114 code L `pickup.c:2178–2346` / JS 80 code L in js/pickup.js; hops 5, callers 1, RNG 2, msg 8) @6e06fa8e7
 - [ ] `steal.c` relobj — coverage THIN (C 12 code L `steal.c:875–898` / JS 5 code L in js/dogmove.js; hops 4, callers 3, RNG 0, msg 1) @a5f89dd93
 - [ ] `cmd.c` can_do_extcmd — coverage PARTIAL (C 19 code L `cmd.c:463–489` / JS 14 code L in js/cmd.js; hops 1, callers 2, RNG 0, msg 2; declared partial: `lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.) @55cdefbf9
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `do.c` obj_no_longer_held — coverage PARTIAL (C 14 code L `do.c:893–920` / JS 10 code L in js/do.js; hops 3, callers 8, RNG 1, msg 0) @b9de54524
 - [ ] `rumors.c` rumor_check — coverage THIN (C 71 code L `rumors.c:196–302` / JS 24 code L in js/rumors.js; hops —, callers 1, RNG 0, msg 7; declared partial: `init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sectio) @b9de54524
 - [ ] `mail.c` readmail — coverage THIN (C 35 code L `mail.c:487–541` / JS 4 code L in js/mail.js; hops 6, callers 1, RNG 1, msg 3) @b9de54524
+- [ ] `mcastu.c` choose_monster_spell — coverage PARTIAL (C 20 code L `mcastu.c:89–123` / JS 13 code L in js/mcastu.js; hops 2, callers 1, RNG 3, msg 0) @1eadda2ce
+- [ ] `dothrow.c` hurtle_step — coverage PARTIAL (C 138 code L `dothrow.c:773–972` / JS 77 code L in js/dothrow.js; hops —, callers 1, RNG 1, msg 14) @1eadda2ce
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
