@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3188 restore impossible diagnostics, fatal guards and printf formatting
+
+**C locus:** whole impossible and pline bodies and the complete brief reference tables read before editing; end.c panic:394–470 read to distinguish the fatal guard from its unported lifecycle.
+**JS:** js/display.js:8056 vpline_expand; :8578 impossible. The formatter is the existing export used by cfgfiles/display message wrappers, which is why verification forced the complete public suite.
+**Change:** restart impossible in C order, retaining its name and async signature. Throw at both fatal guards using the existing scored-JS panic idiom; keep the latch set on fatal termination. Reuse and extend the live vpline_expand export: consume star width/precision arguments before the converted value; preserve field alignment, sign/base prefixes, zero-padding and explicit precision; use BigInt narrowing for promoted int/short/char and pinned 64-bit long/long-long/size_t conversions.
+**Verify:** `node scripts/verify.mjs --fn impossible --full`, /tmp/D3188-verify.log. Coverage row cites no blocked-session count; hidden note is not a corpus PASS. No failures to triage.
+**Named:** - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog and report.c submit_web_report already have by-design ledger rows. At :592/:600 the fatal throw is wired, but end.c panic:398–470 panicking state, raw feedback/window teardown, error save/recover, core dump and really_done lifecycle remain absent.
+**Next:** first remaining generated Open coverage row; no manual refill or phase-2 work.
 ## 2026-10-01 — D-3187 preserve unsigned migration sorting and reread the list after input
 
 **C locus:** whole bodies and all brief reference tables read before editing; the qsort function-pointer site and extcmd registration were checked separately because the reference scanner misses them.

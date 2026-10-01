@@ -1,5 +1,355 @@
 # Divergence log
 
+## D-3188 — restore impossible diagnostics, fatal guards and printf formatting
+
+- **Status:** fixed with named omissions; one pline.c coverage-head unit, loop 4039 (not an audit). Clean-tree preflight green + strict PASS using installed Node 22 on PATH. No Must-fix row or source-review row. pline callee was already complete and retired through the ledger stale operation. The generated coverage block has no other Open pline.c row; remaining indexed callees are ported or by-design filesystem/network paths. The whole impossible body plus its shared formatting helper and adjacent documentation total 178 JS lines, 154 scored insertions in one file; below the 200-line target because this head has no further Open same-file/callee row, without adding unrelated work.
+- **Symptom:** inferred from pinned C and JS, then guard/message behavior measured against the whole pinned C body: recursive impossible silently returned, debug_fuzzer panic mode continued printing, formatting recognized only %s/%d/%% without truncation, and sysopt.support feedback was absent. The shared vpline formatter stripped field width/precision and narrowed long integers to 32 bits.
+- **C locus:** whole impossible and pline bodies and the complete brief reference tables read before editing; end.c panic:394–470 read to distinguish the fatal guard from its unported lifecycle.
+  - `impossible`: pline.c:584–634, every guarded arm in C order. pline.c:595–597 requires vsnprintf expansion and prefix-only BUFSZ-1 chopping; artifact.c:511 uses %4o, ball.c:1066/1079 uses %08lx. vpline:192–212 is the live shared formatting implementation reused here rather than a new formatter clone.
+- **JS was:** display.js impossible returned on recursion, expanded a three-verb regex, called urgent_pline, then omitted local support. vpline_expand removed flags/width/precision and converted every integer through signed/unsigned 32-bit Number operations.
+- **Fix:** restart impossible in C order, retaining its name and async signature. Throw at both fatal guards using the existing scored-JS panic idiom; keep the latch set on fatal termination. Reuse and extend the live vpline_expand export: consume star width/precision arguments before the converted value; preserve field alignment, sign/base prefixes, zero-padding and explicit precision; use BigInt narrowing for promoted int/short/char and pinned 64-bit long/long-long/size_t conversions. Percent-containing argument strings are never re-expanded. Chop the diagnostic to BUFSZ-1 before the fuzzer guard. Call pline with the C urgent flag set and let live putmesg/putstr own tty ATR_URGENT STOP/NOSTOP handling. Clear the flag after the first pline, retain the sanity early-return, save hint and devteam report, and add the non-NULL support arm (including empty configured strings). No new module imports.
+- **JS:** js/display.js:8056 vpline_expand; :8578 impossible. The formatter is the existing export used by cfgfiles/display message wrappers, which is why verification forced the complete public suite.
+- **Callers:**
+  - `impossible`: retain the live export and existing caller bindings. The following map accounts for all 633 brief references (including non-call comments/macros/tool declarations). Direct JS sites require the same enclosing C function, an active matching diagnostic literal, and await or promise return. Multiple candidates and missing async propagation are named omissions rather than asserted wiring. `OMIT caller diagnostic correspondence` names that C site as omitted/unestablished in this handoff; it does not assert that its surrounding caller function is absent. Non-call references are not executable wiring. No new non-C caller was introduced. Paths below are relative to nethack-c/upstream or the repository as shown.
+    - `src/apply.c:900,941,1371,2108,2255,2379,2409,2494` → OMIT caller diagnostic correspondence.
+    - `src/artifact.c:412,414,511,1056,1126` → OMIT caller diagnostic correspondence.
+    - `src/artifact.c:1473` → `js/artifact.js:3001` (await/promise returned).
+    - `src/artifact.c:2137` → `js/artifact.js:2341` (await/promise returned).
+    - `src/artifact.c:2174` → `js/artifact.js:2387` (await/promise returned).
+    - `src/attrib.c:228` → OMIT caller diagnostic correspondence.
+    - `src/ball.c:123` → `js/ball.js:404` (await/promise returned).
+    - `src/ball.c:205` → `js/ball.js:440` (await/promise returned).
+    - `src/ball.c:215` → `js/ball.js:498` (await/promise returned).
+    - `src/ball.c:227` → `js/ball.js:528` (await/promise returned).
+    - `src/ball.c:250` → `js/ball.js:550` (await/promise returned).
+    - `src/ball.c:274,311,369,766,1040,1045,1066,1079,1097` → OMIT caller diagnostic correspondence.
+    - `src/ball.c:342` → `js/ball.js:588` (await/promise returned).
+    - `src/bones.c:521,529` → reference only.
+    - `src/botl.c:129,1052` → reference only.
+    - `src/botl.c:1693` → OMIT await: `js/botl.js:357`.
+    - `src/botl.c:1765,1989,3617,3627,3633,3639,3645` → OMIT caller diagnostic correspondence.
+    - `src/cmd.c:786,864,3977,5066,5574` → OMIT caller diagnostic correspondence.
+    - `src/cmd.c:4085` → `js/lock.js:699` (await/promise returned).
+    - `src/dbridge.c:257` → OMIT await: `js/mklev.js:21509`.
+    - `src/detect.c:618` → OMIT caller diagnostic correspondence.
+    - `src/detect.c:2269` → reference only.
+    - `src/dig.c:83,665,851,1459` → OMIT caller diagnostic correspondence.
+    - `src/display.c:535,647,1993,1998,2411,2421,2442,2464,2570,3496,3591,3620,3640,3659,3745,3776,3783` → OMIT caller diagnostic correspondence.
+    - `src/do.c:56,1696,1739` → OMIT caller diagnostic correspondence.
+    - `src/do.c:1417` → `js/do.js:2388` (await/promise returned).
+    - `src/do.c:1436` → reference only.
+    - `src/do.c:2203` → `js/do.js:3775` (await/promise returned).
+    - `src/do.c:2240` → `js/do.js:3812` (await/promise returned).
+    - `src/do_name.c:1357` → OMIT caller diagnostic correspondence.
+    - `src/do_wear.c:251,319,373,428,507,559,596,671,723,751,768,789,1354,1823,1963,1998,2423,2660,2818,2891,2971` → OMIT caller diagnostic correspondence.
+    - `src/do_wear.c:1503` → `js/do_wear.js:1965` (await/promise returned).
+    - `src/do_wear.c:1896` → `js/do_wear.js:320` (await/promise returned).
+    - `src/dog.c:276,566` → OMIT caller diagnostic correspondence.
+    - `src/dog.c:640` → `js/dog.js:1319` (await/promise returned).
+    - `src/dog.c:714` → `js/dog.js:1375` (await/promise returned).
+    - `src/dog.c:854` → `js/dog.js:523` (await/promise returned).
+    - `src/dogmove.c:321` → OMIT caller diagnostic correspondence.
+    - `src/dogmove.c:1005` → `js/dogmove.js:1316` (await/promise returned).
+    - `src/dothrow.c:2069` → `js/dothrow.js:610` (await/promise returned).
+    - `src/dothrow.c:2623` → OMIT caller diagnostic correspondence.
+    - `src/dungeon.c:452` → OMIT await: `js/dungeon.js:517`.
+    - `src/dungeon.c:769,1491,2469,2472` → OMIT caller diagnostic correspondence.
+    - `src/dungeon.c:774` → OMIT await: `js/dungeon.js:487`.
+    - `src/dungeon.c:1928` → OMIT await: `js/dungeon.js:1302`.
+    - `src/eat.c:297` → OMIT await: `js/eat.js:927`.
+    - `src/eat.c:3718` → `js/eat.js:4161` (await/promise returned).
+    - `src/eat.c:3796` → OMIT caller diagnostic correspondence.
+    - `src/eat.c:3822` → OMIT await: `js/eat.js:1111`.
+    - `src/end.c:486,513` → OMIT caller diagnostic correspondence.
+    - `src/end.c:1751` → OMIT await: `js/end.js:2140`.
+    - `src/end.c:1836` → `js/end.js:2252` (await/promise returned).
+    - `src/engrave.c:367,887,1530,1538,1543` → OMIT caller diagnostic correspondence.
+    - `src/engrave.c:1315` → `js/engrave.js:1294` (await/promise returned).
+    - `src/engrave.c:1317` → `js/engrave.js:1296` (await/promise returned).
+    - `src/engrave.c:1375` → `js/engrave.js:1340` (await/promise returned).
+    - `src/engrave.c:1398` → `js/engrave.js:1361` (await/promise returned).
+    - `src/engrave.c:1658` → OMIT await: `js/engrave.js:338`.
+    - `src/engrave.c:1712` → `js/engrave.js:1705` (await/promise returned).
+    - `src/engrave.c:1714` → `js/engrave.js:1709` (await/promise returned).
+    - `src/explode.c:69,110` → OMIT exact correspondence; same-caller candidates `js/explode.js:282,js/explode.js:311`.
+    - `src/explode.c:236,741` → OMIT caller diagnostic correspondence.
+    - `src/explode.c:347` → `js/explode.js:519` (await/promise returned).
+    - `src/explode.c:979` → `js/explode.js:1124` (await/promise returned).
+    - `src/explode.c:1009` → `js/explode.js:338` (await/promise returned).
+    - `src/explode.c:1045` → `js/explode.js:839` (await/promise returned).
+    - `src/extralev.c:62,104` → OMIT await: `js/extralev.js:86,js/extralev.js:139`.
+    - `src/extralev.c:68` → OMIT await: `js/extralev.js:97`.
+    - `src/extralev.c:84` → OMIT await: `js/extralev.js:114`.
+    - `src/extralev.c:110` → OMIT await: `js/extralev.js:150`.
+    - `src/extralev.c:126` → OMIT await: `js/extralev.js:167`.
+    - `src/extralev.c:134` → OMIT await: `js/extralev.js:180`.
+    - `src/extralev.c:270` → OMIT await: `js/extralev.js:286`.
+    - `src/extralev.c:272` → OMIT await: `js/extralev.js:288`.
+    - `src/files.c:373` → OMIT await: `js/files.js:590`.
+    - `src/files.c:383` → OMIT await: `js/files.js:596`.
+    - `src/files.c:465` → OMIT await: `js/files.js:613`.
+    - `src/files.c:470` → OMIT await: `js/files.js:618`.
+    - `src/files.c:956,1119,2265` → OMIT caller diagnostic correspondence.
+    - `src/hack.c:1683,1686,1875,4261` → OMIT caller diagnostic correspondence.
+    - `src/hack.c:2220` → `js/hack.js:1493` (await/promise returned).
+    - `src/hacklib.c:869` → OMIT caller diagnostic correspondence.
+    - `src/iactions.c:144` → `js/iactions.js:261` (await/promise returned).
+    - `src/insight.c:1081,1991` → OMIT caller diagnostic correspondence.
+    - `src/insight.c:2417` → OMIT await: `js/insight.js:648`.
+    - `src/insight.c:2961` → OMIT await: `js/insight.js:500`.
+    - `src/invent.c:896` → OMIT await: `js/mkobj.js:3233`.
+    - `src/invent.c:966,971,976,981,987,1868,1897,4903` → OMIT caller diagnostic correspondence.
+    - `src/invent.c:1363` → OMIT await: `js/invent.js:8414`.
+    - `src/invent.c:1367` → OMIT await: `js/invent.js:8418`.
+    - `src/invent.c:1371` → OMIT await: `js/invent.js:8422`.
+    - `src/invent.c:1375` → OMIT await: `js/invent.js:8426`.
+    - `src/invent.c:1380` → OMIT await: `js/invent.js:8431`.
+    - `src/light.c:76,287,445,457,651,678,837` → OMIT caller diagnostic correspondence.
+    - `src/light.c:110` → OMIT await: `js/light.js:134`.
+    - `src/light.c:135` → OMIT await: `js/light.js:170`.
+    - `src/light.c:162` → OMIT await: `js/light.js:110`.
+    - `src/light.c:427,873` → reference only.
+    - `src/light.c:578` → OMIT await: `js/light.js:423`.
+    - `src/light.c:590` → OMIT await: `js/light.js:436`.
+    - `src/light.c:685` → OMIT await: `js/light.js:518`.
+    - `src/light.c:700` → OMIT await: `js/light.js:473`.
+    - `src/lock.c:416` → `js/lock.js:1206` (await/promise returned).
+    - `src/lock.c:1255` → OMIT caller diagnostic correspondence.
+    - `src/mail.c:529` → OMIT caller diagnostic correspondence.
+    - `src/makemon.c:629,857,1189,1892,1910` → OMIT caller diagnostic correspondence.
+    - `src/makemon.c:1709` → OMIT await: `js/makemon.js:648`.
+    - `src/makemon.c:2562` → `js/apply.js:5203` (await/promise returned).
+    - `src/mcastu.c:162,235,804,809,890` → OMIT caller diagnostic correspondence.
+    - `src/mcastu.c:417` → `js/mcastu.js:496` (await/promise returned).
+    - `src/mcastu.c:500` → `js/mcastu.js:546` (await/promise returned).
+    - `src/mcastu.c:742` → `js/mcastu.js:362` (await/promise returned).
+    - `src/mhitu.c:188,281,1653,1884,1905` → OMIT caller diagnostic correspondence.
+    - `src/mhitu.c:655` → `js/mhitu.js:3977` (await/promise returned).
+    - `src/mhitu.c:2107` → `js/mhitu.js:1344` (await/promise returned).
+    - `src/minion.c:215` → OMIT caller diagnostic correspondence.
+    - `src/mklev.c:179,1235,1245,2179` → OMIT caller diagnostic correspondence.
+    - `src/mklev.c:959` → `js/mklev.js:33614` (await/promise returned).
+    - `src/mklev.c:1074` → `js/mklev.js:33696` (await/promise returned).
+    - `src/mklev.c:1163` → `js/mklev.js:33759` (await/promise returned).
+    - `src/mklev.c:1261` → `js/mklev.js:27998` (await/promise returned).
+    - `src/mklev.c:1670` → OMIT await: `js/mklev.js:33064`.
+    - `src/mklev.c:2169` → OMIT await: `js/mklev.js:32870`.
+    - `src/mklev.c:2520` → reference only.
+    - `src/mklev.c:2576` → `js/mklev.js:21074` (await/promise returned).
+    - `src/mkmap.c:309` → `js/mkmap.js:268` (await/promise returned).
+    - `src/mkmap.c:395` → `js/mkmap.js:393` (await/promise returned).
+    - `src/mkmaze.c:114,133,1789,1808,1896` → OMIT caller diagnostic correspondence.
+    - `src/mkmaze.c:409` → OMIT await: `js/mklev.js:817`.
+    - `src/mkmaze.c:1194` → `js/mklev.js:3202` (await/promise returned).
+    - `src/mkmaze.c:1471` → OMIT await: `js/mklev.js:33079`.
+    - `src/mkmaze.c:1578` → `js/mklev.js:18323` (await/promise returned).
+    - `src/mkmaze.c:2079` → `js/mklev.js:18521` (await/promise returned).
+    - `src/mkobj.c:296,761,1893,2704,2750,2761,2855,3006,3240,3333,3336,3646,3752` → OMIT caller diagnostic correspondence.
+    - `src/mkobj.c:1164` → reference only.
+    - `src/mkobj.c:1478` → OMIT await: `js/mkobj.js:1853`.
+    - `src/mkobj.c:1516` → `js/mkobj.js:2100` (await/promise returned).
+    - `src/mkobj.c:2078` → OMIT await: `js/mkobj.js:4128`.
+    - `src/mkobj.c:3394` → `js/mkobj.js:2002` (await/promise returned).
+    - `src/mkobj.c:3811` → `js/mkobj.js:3441` (await/promise returned).
+    - `src/mkroom.c:89,1070` → OMIT caller diagnostic correspondence.
+    - `src/mkroom.c:166` → OMIT await: `js/mklev.js:28574`.
+    - `src/mon.c:65,105,113,211,232,239,242,251,271,277,280,288,300,303,307,319,2355,2507,2792,3425,3762` → OMIT caller diagnostic correspondence.
+    - `src/mon.c:91` → `js/mon.js:483` (await/promise returned).
+    - `src/mon.c:119` → `js/mon.js:508` (await/promise returned).
+    - `src/mon.c:122` → `js/mon.js:511` (await/promise returned).
+    - `src/mon.c:126` → `js/mon.js:514` (await/promise returned).
+    - `src/mon.c:128` → `js/mon.js:516` (await/promise returned).
+    - `src/mon.c:130` → `js/mon.js:518` (await/promise returned).
+    - `src/mon.c:132` → `js/mon.js:520` (await/promise returned).
+    - `src/mon.c:136` → `js/mon.js:524` (await/promise returned).
+    - `src/mon.c:148` → `js/mon.js:536` (await/promise returned).
+    - `src/mon.c:157` → `js/mon.js:545` (await/promise returned).
+    - `src/mon.c:164` → `js/mon.js:552` (await/promise returned).
+    - `src/mon.c:175` → `js/mon.js:563` (await/promise returned).
+    - `src/mon.c:177` → `js/mon.js:565` (await/promise returned).
+    - `src/mon.c:180` → `js/mon.js:568` (await/promise returned).
+    - `src/mon.c:193` → `js/mon.js:577` (await/promise returned).
+    - `src/mon.c:198` → `js/mon.js:582` (await/promise returned).
+    - `src/mon.c:208` → `js/mon.js:593` (await/promise returned).
+    - `src/mon.c:221` → `js/mon.js:608` (await/promise returned).
+    - `src/mon.c:2522` → OMIT await: `js/mon.js:3674`.
+    - `src/mon.c:4835` → reference only.
+    - `src/mondata.c:167` → OMIT await: `js/mondata.js:268`.
+    - `src/mondata.c:268` → OMIT await: `js/mondata.js:428`.
+    - `src/monmove.c:468` → reference only.
+    - `src/monmove.c:1818` → OMIT caller diagnostic correspondence.
+    - `src/mplayer.c:251` → OMIT await: `js/mplayer.js:264`.
+    - `src/mthrowu.c:707,1043,1145` → OMIT caller diagnostic correspondence.
+    - `src/muse.c:171,1213,2027,2621` → OMIT caller diagnostic correspondence.
+    - `src/muse.c:835` → `js/muse.js:2498` (await/promise returned).
+    - `src/music.c:725` → OMIT caller diagnostic correspondence.
+    - `src/nhlua.c:155,625,1235,1796,2081,2170,2200,2262,2272,3083` → OMIT caller diagnostic correspondence.
+    - `src/nhlua.c:179,190,618,2095,2180,2708` → reference only.
+    - `src/nhlua.c:1695` → `js/cmd.js:716` (await/promise returned).
+    - `src/o_init.c:216` → OMIT await: `js/o_init.js:323`.
+    - `src/o_init.c:255` → OMIT await: `js/o_init.js:251`.
+    - `src/o_init.c:357,1083` → OMIT caller diagnostic correspondence.
+    - `src/o_init.c:518` → OMIT await: `js/o_init.js:463`.
+    - `src/objnam.c:129,534,537,751,933,1438,1441,2150,2178,2847,3047,5464,5647,5649,5652` → OMIT caller diagnostic correspondence.
+    - `src/objnam.c:216,611` → reference only.
+    - `src/objnam.c:321` → `js/objnam.js:4006` (await/promise returned).
+    - `src/options.c:1519,9860,9886,9940` → OMIT caller diagnostic correspondence.
+    - `src/options.c:8068` → `js/options.js:1432` (await/promise returned).
+    - `src/pager.c:93,550,853,998,1003,1123,2529,2545,2551,2564,2652` → OMIT caller diagnostic correspondence.
+    - `src/pickup.c:84` → `js/pickup.js:3472` (await/promise returned).
+    - `src/pickup.c:1373` → `js/pickup.js:672` (await/promise returned).
+    - `src/pickup.c:1811` → OMIT caller diagnostic correspondence.
+    - `src/pickup.c:1919` → reference only.
+    - `src/pickup.c:2565` → `js/pickup.js:3172` (await/promise returned).
+    - `src/pickup.c:2735` → `js/pickup.js:2603` (await/promise returned).
+    - `src/pline.c:715` → OMIT caller diagnostic correspondence.
+    - `src/polyself.c:1441` → `js/polyself.js:2344` (await/promise returned).
+    - `src/polyself.c:1459` → `js/polyself.js:2364` (await/promise returned).
+    - `src/polyself.c:1467` → `js/polyself.js:2373` (await/promise returned).
+    - `src/polyself.c:1525` → `js/polyself.js:2865` (await/promise returned).
+    - `src/polyself.c:1603,1657,2058` → OMIT caller diagnostic correspondence.
+    - `src/polyself.c:1946` → `js/polyself.js:980` (await/promise returned).
+    - `src/potion.c:1421` → OMIT caller diagnostic correspondence.
+    - `src/potion.c:2385` → `js/potion.js:2738` (await/promise returned).
+    - `src/pray.c:352` → `js/pray.js:531` (await/promise returned).
+    - `src/pray.c:508` → OMIT caller diagnostic correspondence.
+    - `src/pray.c:1352` → `js/pray.js:1633` (await/promise returned).
+    - `src/pray.c:2548` → OMIT await: `js/roles.js:890`.
+    - `src/pray.c:2615` → `js/pray.js:2829` (await/promise returned).
+    - `src/pray.c:2618` → `js/pray.js:2833` (await/promise returned).
+    - `src/priest.c:550` → OMIT caller diagnostic correspondence.
+    - `src/quest.c:214` → `js/quest.js:326` (await/promise returned).
+    - `src/quest.c:490` → `js/quest.js:596` (await/promise returned).
+    - `src/questpgr.c:43` → OMIT await: `js/questpgr.js:54`.
+    - `src/questpgr.c:490,496,504,512,532,536,560` → OMIT caller diagnostic correspondence.
+    - `src/read.c:2283` → OMIT caller diagnostic correspondence.
+    - `src/rect.c:164` → OMIT caller diagnostic correspondence.
+    - `src/region.c:170,1239` → OMIT caller diagnostic correspondence.
+    - `src/report.c:203` → reference only.
+    - `src/restore.c:296,442,460,509,911` → OMIT caller diagnostic correspondence.
+    - `src/rnd.c:99,118,159,181` → OMIT caller diagnostic correspondence.
+    - `src/role.c:1349` → OMIT await: `js/player_selection.js:152`.
+    - `src/role.c:1958` → OMIT caller diagnostic correspondence.
+    - `src/rumors.c:163` → OMIT await: `js/rumors.js:195`.
+    - `src/rumors.c:173` → OMIT await: `js/rumors.js:205`.
+    - `src/rumors.c:325` → OMIT caller diagnostic correspondence.
+    - `src/rumors.c:403,774` → reference only.
+    - `src/rumors.c:780` → OMIT await: `js/rumors.js:284`.
+    - `src/save.c:139` → reference only.
+    - `src/selvar.c:591` → OMIT await: `js/mklev.js:30658`.
+    - `src/sfstruct.c:543` → OMIT caller diagnostic correspondence.
+    - `src/shk.c:162,166,195,1065,1239,1267,1946,2341,2375,2383,2738,2936,3631,3636,3640,3643,3687,4191` → OMIT caller diagnostic correspondence.
+    - `src/shk.c:191` → `js/shk.js:2665` (await/promise returned).
+    - `src/shk.c:977` → OMIT await: `js/shk.js:3823`.
+    - `src/shk.c:1146` → OMIT await: `js/shk.js:3785`.
+    - `src/shk.c:1152` → OMIT await: `js/shk.js:3792`.
+    - `src/shk.c:1573` → `js/shk.js:5457` (await/promise returned).
+    - `src/shk.c:2234` → `js/shk.js:5701` (await/promise returned).
+    - `src/shk.c:3303` → OMIT await: `js/shk.js:1199`.
+    - `src/shk.c:4211` → `js/shk.js:5318` (await/promise returned).
+    - `src/shk.c:4238` → `js/shk.js:5348` (await/promise returned).
+    - `src/shk.c:5927` → OMIT await: `js/shk.js:1901`.
+    - `src/shk.c:5986` → `js/shk.js:3904` (await/promise returned).
+    - `src/shknam.c:644,867` → OMIT caller diagnostic correspondence.
+    - `src/sit.c:207` → OMIT caller diagnostic correspondence.
+    - `src/sp_lev.c:1251,1800,2011,2021,2035,2073,2116,2349,2402,2411,3999,4016,4637` → OMIT caller diagnostic correspondence.
+    - `src/sp_lev.c:2307` → reference only.
+    - `src/sp_lev.c:2417` → OMIT await: `js/mklev.js:22294`.
+    - `src/sp_lev.c:2685` → `js/mklev.js:32427` (await/promise returned).
+    - `src/sp_lev.c:2986` → `js/mklev.js:20757` (await/promise returned).
+    - `src/sp_lev.c:4894` → OMIT await: `js/mklev.js:1725`.
+    - `src/sp_lev.c:5657` → OMIT await: `js/mklev.js:2160`.
+    - `src/sp_lev.c:5695` → OMIT await: `js/mklev.js:2184`.
+    - `src/sp_lev.c:5759` → OMIT await: `js/mklev.js:1252`.
+    - `src/sp_lev.c:5833` → OMIT await: `js/mklev.js:1328`.
+    - `src/spell.c:398,556,1592,2349,2352` → OMIT caller diagnostic correspondence.
+    - `src/spell.c:850` → OMIT await: `js/spell.js:511`.
+    - `src/spell.c:1725` → `js/spell.js:566` (await/promise returned).
+    - `src/spell.c:2403` → `js/spell.js:406` (await/promise returned).
+    - `src/steal.c:179` → `js/steal.js:760` (await/promise returned).
+    - `src/steal.c:244` → `js/steal.js:314` (await/promise returned).
+    - `src/steal.c:430` → `js/steal.js:538` (await/promise returned).
+    - `src/steal.c:563` → `js/steal.js:664` (await/promise returned).
+    - `src/steal.c:624,628` → OMIT caller diagnostic correspondence.
+    - `src/steed.c:146,909,917,926` → OMIT caller diagnostic correspondence.
+    - `src/steed.c:265` → reference only.
+    - `src/teleport.c:478` → reference only.
+    - `src/teleport.c:796,820,2080` → OMIT caller diagnostic correspondence.
+    - `src/teleport.c:1887` → `js/teleport.js:1341` (await/promise returned).
+    - `src/timeout.c:1161` → `js/timeout.js:2459` (await/promise returned).
+    - `src/timeout.c:1673` → `js/timeout.js:2229` (await/promise returned).
+    - `src/timeout.c:1769,1795,2147,2164,2168,2175,2197,2201,2207,2210` → OMIT caller diagnostic correspondence.
+    - `src/timeout.c:1807` → OMIT await: `js/timeout.js:1797`.
+    - `src/timeout.c:1821` → OMIT await: `js/timeout.js:1809`.
+    - `src/timeout.c:1833` → OMIT await: `js/timeout.js:1825`.
+    - `src/timeout.c:1999` → OMIT await: `js/timeout.js:2657`.
+    - `src/timeout.c:2273` → OMIT await: `js/mkobj.js:1529`.
+    - `src/topten.c:112,1373,1390` → OMIT caller diagnostic correspondence.
+    - `src/trap.c:235` → `js/trap.js:4497` (await/promise returned).
+    - `src/trap.c:332,571,1182,2790,2930,2988,6339,6491,6836,7204,7206` → OMIT caller diagnostic correspondence.
+    - `src/trap.c:2021` → `js/trap.js:4308` (await/promise returned).
+    - `src/trap.c:2034` → `js/trap.js:4325` (await/promise returned).
+    - `src/trap.c:2505` → `js/trap.js:5766` (await/promise returned).
+    - `src/trap.c:3118` → `js/trap.js:2104` (await/promise returned).
+    - `src/trap.c:3126` → `js/trap.js:2112` (await/promise returned).
+    - `src/uhitm.c:669` → `js/uhitm.js:3419` (await/promise returned).
+    - `src/uhitm.c:3993` → OMIT caller diagnostic correspondence.
+    - `src/uhitm.c:5819` → `js/uhitm.js:4228` (await/promise returned).
+    - `src/vault.c:260,311` → OMIT caller diagnostic correspondence.
+    - `src/vault.c:766` → `js/vault.js:937` (await/promise returned).
+    - `src/version.c:383` → `js/files.js:1480` (await/promise returned).
+    - `src/vision.c:828` → reference only.
+    - `src/weapon.c:844` → `js/weapon.js:865` (await/promise returned).
+    - `src/weapon.c:1561,1584,1659,1798` → OMIT caller diagnostic correspondence.
+    - `src/were.c:108` → `js/were.js:146` (await/promise returned).
+    - `src/wizcmds.c:147` → `js/wizcmds.js:811` (await/promise returned).
+    - `src/wizcmds.c:557,1423,1428,1434,1454` → OMIT caller diagnostic correspondence.
+    - `src/wizcmds.c:1408` → `js/wizcmds.js:925` (await/promise returned).
+    - `src/wizcmds.c:1418` → `js/wizcmds.js:936` (await/promise returned).
+    - `src/worm.c:313` → OMIT await: `js/worm.js:216`.
+    - `src/worm.c:401` → `js/worm.js:317` (await/promise returned).
+    - `src/worm.c:626,628,645,653,659,670,672,697,746,754` → OMIT caller diagnostic correspondence.
+    - `src/worm.c:914` → OMIT await: `js/worm.js:776`.
+    - `src/worn.c:88,1394` → OMIT caller diagnostic correspondence.
+    - `src/worn.c:385,401,432` → OMIT exact correspondence; same-caller candidates `js/worn.js:1368,js/worn.js:1380,js/worn.js:1411`.
+    - `src/worn.c:466` → `js/worn.js:1440` (await/promise returned).
+    - `src/worn.c:1025` → OMIT await: `js/worn.js:485`.
+    - `src/write.c:54` → `js/write.js:123` (await/promise returned).
+    - `src/zap.c:549,583,897,2416,3005,3467,5883` → OMIT caller diagnostic correspondence.
+    - `src/zap.c:2179` → `js/zap.js:5548` (await/promise returned).
+    - `src/zap.c:5070` → `js/zap.js:1000` (await/promise returned).
+    - `src/zap.c:5530` → `js/zap.js:7202` (await/promise returned).
+    - `src/zap.c:6057` → `js/zap.js:1808` (await/promise returned).
+    - `include/extern.h:2258,3129,3553` → reference only.
+    - `include/flag.h:235` → OMIT caller diagnostic correspondence.
+    - `include/hack.h:799,1392` → reference only.
+    - `include/rm.h:523,529` → OMIT caller diagnostic correspondence.
+    - `win/tty/termcap.c:572` → reference only.
+    - `win/tty/wintty.c:2103,3191,4786` → reference only.
+    - `win/tty/wintty.c:2189,2599,3006,5089` → OMIT caller diagnostic correspondence.
+- **Verify:** `node scripts/verify.mjs --fn impossible --full`, /tmp/D3188-verify.log. Coverage row cites no blocked-session count; hidden note is not a corpus PASS. No failures to triage. Final tail:
+
+```text
+PASS  syntax   1 changed js file(s): js/display.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify impossible: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    impossible: no RNG-tagged reach; fixed smoke spread (24 run, 6.7s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+  - `impossible`: REACH-OK, fixed 24-session smoke spread 24 PASS / 0 regressed; green 2/2 + both strict; cohort 7/7; full 44/44. /tmp/D3188-measure.py compiles the actual whole body extracted from the brief with message/panic sinks, and /tmp/D3188-measure.mjs executes the actual JS body with equivalent dependency sinks: all 72 recursion/sanity/save/fuzzer/support combinations match C latch, fatal outcome, message flags/order/text. 498 format vectors match compiled libc snprintf, covering signed/unsigned narrowing, 64-bit long values, octal/hex alternate form, zero/left/sign padding, integer/string precision, negative star arguments, characters and literal percent. This measures function/control-flow and ASCII formatting, not panic lifecycle or real tty rendering. One initial harness failure was its wrong hardcoded devteam email; the harness was corrected to the actual constant and rerun, with no production change.
+- **Named omissions:**
+  - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog and report.c submit_web_report already have by-design ledger rows. At :592/:600 the fatal throw is wired, but end.c panic:398–470 panicking state, raw feedback/window teardown, error save/recover, core dump and really_done lifecycle remain absent. The shared formatter's unneeded floating-point/pointer/%n library conversions and non-ASCII byte precision/truncation remain unported (pline.c:595); measured coverage here is the actual ASCII integer/string diagnostic formats, not a claim of a complete libc. Caller diagnostics/correspondence and async propagation at every `OMIT` site in the caller map above remain named; reference-only rows need no caller. Other already-ported callees are pline and its live vpline/putmesg/putstr closure. The function stays partial for these explicit omissions.
+- **Ledger:** impossible partial
+- **Next:** first remaining generated Open coverage row; no manual refill or phase-2 work.
+
 ## D-3187 — preserve unsigned migration sorting and reread the list after input
 
 - **Status:** fixed; one three-function wizcmds.c caller closure, loop 4038 (not an audit). Clean-tree preflight green and strict PASS with installed Node 22 on PATH. No Must-fix row. The first two coverage heads, cmp_coord_distu and gloc_filter_floodfill_matcharea, already matched the whole C bodies and were retired through ledger stale notes. The only further eligible same-file row, wiz_levltyp_legend, also matched and was retired. Head migrsort_cmp ships with its list_migrating_mons / wiz_migrate_mons caller closure: 206 JS lines including adjacent C documentation, 155 insertions in one scored file.
