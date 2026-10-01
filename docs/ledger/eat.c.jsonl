@@ -54,7 +54,7 @@
 {"fn":"fpostfx","c":"2510-2600","status":"unknown"}
 {"fn":"leather_cover","c":"2609-2618","status":"by-design","at":"2026-09-29@01a639d1b","note":"#if 0 not used (eat.c:2601): uncompiled; intended for poly spellbook-eating"}
 {"fn":"edibility_prompts","c":"2627-2731","status":"unknown","d":["D-2690"],"at":"seed@a30a7de84"}
-{"fn":"doeat_nonfood","c":"2734-2813","status":"ported","js":["js/eat.js:doeat_nonfood"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"doeat_nonfood","c":"2734-2813","status":"partial","js":["js/eat.js:doeat_nonfood"],"at":"2026-10-01@07cfb4831","note":"MAIL arm absent: C eat.c:2757-2761 SCR_MAIL basenutrit=0+nodelicious (MAIL_STRUCTURES live); JS gives oc_nutrition 5 (audit 2185-2194 sample)"}
 {"fn":"doeat","c":"2817-3084","status":"unknown","d":["D-2361"],"at":"seed@a30a7de84"}
 {"fn":"tinopen_ok","c":"3088-3094","status":"unknown"}
 {"fn":"use_tin_opener","c":"3098-3127","status":"unknown"}

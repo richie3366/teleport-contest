@@ -2194,3 +2194,13 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2182-5139f3d2e-key-binds-param.md](./2182-5139f3d2e-key-binds-param.md) | `5139f3d2e` | D-3222 key_binds CMD_PARAM arm + strbuf declare | **ACCEPT** |
 | [2183-8f3d63508-halres-sync.md](./2183-8f3d63508-halres-sync.md) | `8f3d63508` | D-3223 HALRES sync half + 5 stales | **ACCEPT** |
 | [2184-f41c159c9-save-light-sources.md](./2184-f41c159c9-save-light-sources.md) | `f41c159c9` | D-3224 save_light_sources (bad-type inverted) | **QUALITY-RISK** |
+| [2185-e45cb9654-save-light-badtype.md](./2185-e45cb9654-save-light-badtype.md) | `e45cb9654` | D-3225 save_light_sources bad-type fix | **ACCEPT** |
+| [2186-cf2801fa2-doread-six-arms.md](./2186-cf2801fa2-doread-six-arms.md) | `cf2801fa2` | D-3226 doread six arms + Blind gate | **ACCEPT** |
+| [2187-e0549fe8b-ephemeral-vfs.md](./2187-e0549fe8b-ephemeral-vfs.md) | `e0549fe8b` | null-storage ephemeral VFS (hotfix) | **ACCEPT** |
+| [2188-0fcd10790-eatfood-stolen.md](./2188-0fcd10790-eatfood-stolen.md) | `0fcd10790` | D-3227 eatfood stolen guard + reset | **ACCEPT** |
+| [2189-1633dc128-mktrap-breaktest.md](./2189-1633dc128-mktrap-breaktest.md) | `1633dc128` | D-3228 mktrap_victim clone retire | **ACCEPT** |
+| [2190-b4ca336ef-is-ok-location.md](./2190-b4ca336ef-is-ok-location.md) | `b4ca336ef` | D-3229 is_ok_location override + setter | **ACCEPT** |
+| [2191-5bdc19f37-hilite-closure.md](./2191-5bdc19f37-hilite-closure.md) | `5bdc19f37` | D-3230 hilite2str arms + 3 whole | **ACCEPT** |
+| [2192-516e71ff9-menucolor-closure.md](./2192-516e71ff9-menucolor-closure.md) | `516e71ff9` | D-3231 MENUCOLOR sink + 4 whole | **ACCEPT** |
+| [2193-e5887aa2a-optfn-sinks.md](./2193-e5887aa2a-optfn-sinks.md) | `e5887aa2a` | D-3232 4 optfn sinks + 3 whole | **ACCEPT** |
+| [2194-07cfb4831-prompt-inverse-blank.md](./2194-07cfb4831-prompt-inverse-blank.md) | `07cfb4831` | D-3233 end_menu inverse + blank | **ACCEPT** |

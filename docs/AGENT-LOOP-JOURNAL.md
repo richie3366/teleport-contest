@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — Audit 2185–2194: review D-3225–D-3233 + hotfix (10 ACCEPT) + full score
+
+**Reviews:** 2185 e45cb9654 save_light bad-type fix / 2186 cf2801fa2 doread six arms / 2187 e0549fe8b ephemeral VFS hotfix / 2188 0fcd10790 eatfood stolen guard / 2189 1633dc128 mktrap breaktest retire / 2190 b4ca336ef is_ok_location override / 2191 5bdc19f37 hilite closure / 2192 516e71ff9 menucolor closure / 2193 e5887aa2a optfn sinks / 2194 07cfb4831 prompt inverse+blank — all ACCEPT, 0 Must-fix families. Every D-log PROGRESS claim re-measured identical (doread 1+2, prompt-style 0+4).
+**Score:** public 44/44 (Scr 11,405, RNG 792,838, `323+1.63/turn`); corpus 672/953 (70.5 %), RNG 97.02 %, screens 91.7 %, 0 PASS losses, +1 vs last audit (Tourist-94350 doread PASS); held-out 14/44 unchanged (last scored 13:15Z).
+**Ledger sample:** 5 seeded ported rows briefed — 4 exact (some_armor, noteleport_level, deliver_by_window, sanitize_name); doeat_nonfood → partial (MAIL arm C :2757–2761 absent: JS gives oc_nutrition 5 where C zeroes).
+**Refill:** coverage block unchanged (3 rows); appended 7 eligible corpus-residual rows (read_engr_at, digactualhole, dig_up_grave, water_damage, wipeout_text, self_lookat, flooreffects) → 10 eligible, in band.
 ## 2026-10-01 — D-3233 end_menu prompt style: handler_rebind_keys + handle_add_list_remove + handler_rebind_keys_add paint inverse + blank (4 scen-options blocks move)
 
 **C locus:** - `handler_rebind_keys`: cmd.c:2407–2446 (menu `:2417–2430`, end_menu prompt `:2432`, select/destroy `:2433–2434`, dispatch `:2435–2444`).

@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-01** — full `sessions` on `f41c159c9`
-(audit **2176–2184**, 2026-10-01T13:55:02.149Z).
+Score last measured: **2026-10-01** — full `sessions` on `07cfb4831`
+(audit **2185–2194**, 2026-10-01T16:51:31.901Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`341+1.59/turn` (R² 0.76).
+`323+1.63/turn` (R² 0.78).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `341+1.59/turn` (R² 0.76) |
+| Speed label | `323+1.63/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5, 3rd agentic; best fork 35/44. Held-out 14/44, +1 pt since 07:09Z.
-**Corpus fortress (2026-10-01 14:00Z; scored 953/953 entries, 0 unrecorded):**
-**671 / 953** PASS (70.4 %), RNG 97.01 %, screens 91.6 %; 0 PASS losses, +5 (scen-trap Archaeologist/Barbarian/Monk/Priest/Ranger, ex-getdir screen @72/@22 — D-3219 doidtrap `^` wiring); `full: true`, `fullAt: 2026-10-01T14:00:44.754Z`.
-Reviews 1225–2184 (index; no row 1618): 831 ACCEPT, 44 WITH-DEBT, 84 QUALITY-RISK (2176–2184: 7 accept/1 debt/1Q; 1 Must-fix family).
+**Corpus fortress (2026-10-01 17:02Z; scored 953/953 entries, 0 unrecorded):**
+**672 / 953** PASS (70.5 %), RNG 97.02 %, screens 91.7 %; 0 PASS losses, +1 vs last audit (scen-impaired-Tourist-94350 — D-3226 doread); `full: true`, `fullAt: 2026-10-01T17:02:03.911Z`.
+Reviews 1225–2194 (index; no row 1618): 841 ACCEPT, 44 WITH-DEBT, 84 QUALITY-RISK (2185–2194: 10 accept/0 debt/0Q; 0 Must-fix families).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
