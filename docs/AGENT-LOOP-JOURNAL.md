@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3187 preserve unsigned migration sorting and reread the list after input
+
+**C locus:** whole bodies and all brief reference tables read before editing; the qsort function-pointer site and extcmd registration were checked separately because the reference scanner misses them.
+**JS:** js/wizcmds.js:1987 migrsort_cmp, :2012 list_migrating_mons, :2132 wiz_migrate_mons.
+**Change:** restart the three whole bodies in C order and retain names/signatures. Compare IDs as unsigned 32-bit values and use the C less-than/greater-than result. Count and collect with separate reads of game.migrating_mons and game.u.uz; retain every switch arm and pass the counts to pline in C argument order.
+**Verify:** `node scripts/verify.mjs --fn migrsort_cmp,list_migrating_mons,wiz_migrate_mons --full`, /tmp/D3187-verify.log. The coverage head cites no blocked session count; all three hidden checks correctly report notes, not hidden PASS. No failing sessions to triage.
+**Named:** - `migrsort_cmp`: none in the whole body or executable callback wiring.
+**Next:** first remaining generated Open coverage row; no manual refill or phase-2 work.
 ## 2026-10-01 — D-3186 restore inventory menu state before actions and preserve equipment command results
 
 **C locus:** whole bodies and every brief reference table read; command registration and prinv caller guards read where needed.

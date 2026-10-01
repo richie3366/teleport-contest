@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3187 — preserve unsigned migration sorting and reread the list after input
+
+- **Status:** fixed; one three-function wizcmds.c caller closure, loop 4038 (not an audit). Clean-tree preflight green and strict PASS with installed Node 22 on PATH. No Must-fix row. The first two coverage heads, cmp_coord_distu and gloc_filter_floodfill_matcharea, already matched the whole C bodies and were retired through ledger stale notes. The only further eligible same-file row, wiz_levltyp_legend, also matched and was retired. Head migrsort_cmp ships with its list_migrating_mons / wiz_migrate_mons caller closure: 206 JS lines including adjacent C documentation, 155 insertions in one scored file.
+- **Symptom:** inferred from pinned C versus JS, then comparator behavior measured against extracted pinned C: signed `| 0` on m_id sorts IDs at or above 2147483648 before smaller unsigned IDs. list_migrating_mons retained the pre-input migration-array and u.uz references for its second walk. Its documentation incorrectly described display_nhwindow(FALSE) as nonblocking; the whole tty_display_nhwindow C body explicitly blocks every NHW_TEXT window regardless of that parameter.
+- **C locus:** whole bodies and all brief reference tables read before editing; the qsort function-pointer site and extcmd registration were checked separately because the reference scanner misses them.
+  - `migrsort_cmp`: wizcmds.c:1484–1501; destination int ordering, unsigned m_id tie-break.
+  - `list_migrating_mons`: wizcmds.c:1504–1610; counting, all prompt/selection/header arms, new list traversal after input, sorting, names/destinations/exact coordinates and text window. tty_display_nhwindow wintty.c:1854–1950 read whole to resolve FALSE semantics.
+  - `wiz_migrate_mons`: wizcmds.c:1872–1930; all three destination arms and the live DEBUG_MIGRATING_MONS body, input cancellation, signed count selection/clamp, random/on-map migration and debug flag restoration.
+- **JS was:** comparator narrowed IDs to signed int; list collection reused a cached array and level object across both input boundaries; migration inlined assign_level despite the live export. Existing body documentation named a nonexistent tty nonblocking omission and an already-fixed generated command description gap.
+- **Fix:** restart the three whole bodies in C order and retain names/signatures. Compare IDs as unsigned 32-bit values and use the C less-than/greater-than result. Count and collect with separate reads of game.migrating_mons and game.u.uz; retain every switch arm and pass the counts to pline in C argument order. Import the live strkitten and assign_level functions; reuse live pline/yn_function/minimal_monnam/strsubst/getlin/get_level/ledger_no/rndmonst/makemon/migrate_to_level. Keep the existing blocking text pager because it matches the pinned tty window behavior. imports.mjs --can checked all added bindings: existing module edges for hacklib/do/dungeon; pager show_text_pages is a hoisted cycle-safe function with no new top-level read. C char buffers are strings, the allocated pointer array is an identity-preserving JS array with length replacing its NULL sentinel, and GC frees it.
+- **JS:** js/wizcmds.js:1987 migrsort_cmp, :2012 list_migrating_mons, :2132 wiz_migrate_mons.
+- **Callers:**
+  - `migrsort_cmp`: C wizcmds.c:1583–1585 qsort callback is js/wizcmds.js:2099 marray.sort(migrsort_cmp). Brief :25 is only a declaration; it misses the function-pointer call.
+  - `list_migrating_mons`: C wizcmds.c:1892 is js/wizcmds.js:2147 awaited list_migrating_mons(tolevel). Brief :26 declaration and :1483 comment are not executable calls.
+  - `wiz_migrate_mons`: C cmd.c:1764–1771 command-table registration is js/getline.js:1000–1005 migratemons run callback, returning the async export. Brief wizcmds.c:1507 is a comment; the multiline registration was read separately. The generated description already matches DEBUG-live C in js/generated/extcmdlist_data.js:47, so the old omission is retired without editing generated data.
+- **Verify:** `node scripts/verify.mjs --fn migrsort_cmp,list_migrating_mons,wiz_migrate_mons --full`, /tmp/D3187-verify.log. The coverage head cites no blocked session count; all three hidden checks correctly report notes, not hidden PASS. No failing sessions to triage. Final tail:
+
+```text
+note  hidden   verify wiz_migrate_mons: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    wiz_migrate_mons: no RNG-tagged reach; fixed smoke spread (24 run, 6.2s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+  - `migrsort_cmp`: no RNG-tagged reach; fixed smoke spread 24 PASS / 0 regressed → REACH-OK. /tmp/D3187-check.py extracts the actual pinned comparator, compiles it with cc and measures 225 destination/unsigned-ID vectors; /tmp/D3187-check.mjs extracts the actual JS comparator and all outputs match, including 0, 2147483647, 2147483648 and 4294967295.
+  - `list_migrating_mons`: no RNG-tagged reach; fixed smoke spread 24 PASS / 0 regressed → REACH-OK. Actual JS body with dependency sinks passes 48 category/choice cases plus one input mutation case replacing both the migration chain and current level, retaining unsigned sort order. These JS checks assert branch/state expectations; only the comparator vectors were measured against C.
+  - `wiz_migrate_mons`: no RNG-tagged reach; fixed smoke spread 24 PASS / 0 regressed → REACH-OK. Actual JS body with dependency sinks passes 18 destination/count/cancellation cases; negative counts remove successive live fmon heads, migration observes debug_mongen=false and the saved flag is restored. These checks validate the command control flow, not callee internals.
+- **Named omissions:**
+  - `migrsort_cmp`: none in the whole body or executable callback wiring.
+  - `list_migrating_mons`: none in the whole body or caller wiring. alloc/free, eos, Strcat/Sprintf and plur are JS array/string/formatting and GC adaptations, not omitted arms. create/putstr/display/destroy NHW_TEXT use the existing live show_text_pages adapter; FALSE still blocks in the pinned tty implementation. mtrack optional access uses the port's zero-initialized missing-track representation.
+  - `wiz_migrate_mons`: none in the whole body or command registration. Existing generated description is already exact; DEBUG_MIGRATING_MONS remains live. atoi is signed-32 decimal parsing; C signed overflow is undefined and no new out-of-range policy is introduced.
+- **Ledger:** migrsort_cmp ported; list_migrating_mons ported; wiz_migrate_mons ported
+- **Next:** first remaining generated Open coverage row; no manual refill or phase-2 work.
+
 ## D-3186 — restore inventory menu state before actions and preserve equipment command results
 
 - **Status:** fixed; one eight-function invent.c caller/callee closure. Clean preflight PASS after making installed Node 22 available on PATH. Queue head doprarm; `ledger.mjs rows 1000` identified prinv as the only other eligible same-file row. The dispinv_with_action caller audit exposed the same ignored-result mismatch in five siblings, so their whole bodies joined the cluster before editing them. Whole-function code and adjacent function documentation total approximately 220 JS lines; 130 scored-JS insertions across five files, within caps. No Must-fix or source-review row was present; this is loop 4037, not an audit.

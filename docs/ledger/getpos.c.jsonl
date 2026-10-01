@@ -4,9 +4,9 @@
 {"fn":"getpos_getvalids_selection","c":"102-115","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"getpos_help_keyxhelp","c":"137-161","status":"unknown"}
 {"fn":"getpos_help","c":"167-307","status":"unknown","d":["D-1880"],"at":"seed@a30a7de84"}
-{"fn":"cmp_coord_distu","c":"312-329","status":"unknown"}
+{"fn":"cmp_coord_distu","c":"312-329","status":"ported","js":["js/getpos.js:cmp_coord_distu"],"at":"2026-10-01@c1c0d92f4","note":"stale: js/getpos.js:685"}
 {"fn":"gloc_filter_classify_glyph","c":"341-361","status":"ported","js":["js/getpos.js:gloc_filter_classify_glyph"],"at":"2026-09-30@deff666da","note":"stale: js/getpos.js:776 whole body + caller :797-798"}
-{"fn":"gloc_filter_floodfill_matcharea","c":"364-379","status":"unknown"}
+{"fn":"gloc_filter_floodfill_matcharea","c":"364-379","status":"ported","js":["js/getpos.js:gloc_filter_floodfill_matcharea"],"at":"2026-10-01@c1c0d92f4","note":"stale: js/getpos.js:792"}
 {"fn":"gloc_filter_floodfill","c":"382-388","status":"unknown"}
 {"fn":"gloc_filter_init","c":"391-409","status":"unknown","d":["D-1941"],"at":"seed@a30a7de84"}
 {"fn":"gloc_filter_done","c":"412-419","status":"unknown"}

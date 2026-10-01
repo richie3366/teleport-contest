@@ -21,7 +21,7 @@
 {"fn":"wiz_show_vision","c":"621-653","status":"ported","js":["js/wizcmds.js:wiz_show_vision"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_show_wmodes","c":"657-689","status":"ported","js":["js/wizcmds.js:wiz_show_wmodes"],"d":["D-3100"],"at":"2026-09-29@9798beecd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_map_levltyp","c":"693-835","status":"partial","js":["js/wizcmds.js:wiz_map_levltyp"],"omit":"`eos`/`Sprintf`/`Strcat` (no JS export exists — inline appends); `strncmpi` (inline `/^the /i` strip; write.js:82/insight.js:743/vault.js:128 stay the only copies); `Sokoban()` import (module-local in dungeon.js — inlined mirror); `create_nhwindow`/`putstr`/`display_nhwindow`/`destroy_nhwindow` mac…","d":["D-2516"],"at":"seed@a30a7de84"}
-{"fn":"wiz_levltyp_legend","c":"841-877","status":"unknown","d":["D-2516"],"at":"seed@a30a7de84"}
+{"fn":"wiz_levltyp_legend","c":"841-877","status":"ported","js":["js/wizcmds.js:wiz_levltyp_legend"],"d":["D-2516"],"at":"2026-10-01@c1c0d92f4","note":"stale: js/wizcmds.js:1141 whole body; caller js/cmd.js doterrain"}
 {"fn":"wiz_smell","c":"885-939","status":"ported","js":["js/wizcmds.js:wiz_smell"],"d":["D-2766"],"at":"seed@a30a7de84"}
 {"fn":"wiz_intrinsic","c":"949-1096","status":"unknown","d":["D-1998"],"at":"seed@a30a7de84"}
 {"fn":"wiz_rumor_check","c":"1102-1106","status":"unknown"}
@@ -36,13 +36,13 @@
 {"fn":"you_sanity_check","c":"1402-1441","status":"unknown"}
 {"fn":"levl_sanity_check","c":"1444-1457","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"sanity_check","c":"1460-1481","status":"unknown","d":["D-1664"],"at":"seed@a30a7de84"}
-{"fn":"migrsort_cmp","c":"1485-1501","status":"unknown"}
-{"fn":"list_migrating_mons","c":"1506-1610","status":"unknown"}
+{"fn":"migrsort_cmp","c":"1485-1501","status":"ported","js":["js/wizcmds.js:migrsort_cmp"],"d":["D-3187"],"at":"2026-10-01@c1c0d92f4"}
+{"fn":"list_migrating_mons","c":"1506-1610","status":"ported","js":["js/wizcmds.js:list_migrating_mons"],"d":["D-3187"],"at":"2026-10-01@c1c0d92f4"}
 {"fn":"wiz_show_stats","c":"1616-1697","status":"ported","js":["js/wizcmds.js:wiz_show_stats"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
 {"fn":"wiz_display_macros","c":"1705-1778","status":"ported","js":["js/wizcmds.js:wiz_display_macros"],"d":["D-3020"],"at":"2026-09-28@5a77080f1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_show_nhuuid","c":"1782-1786","status":"partial","js":["js/wizcmds.js:wiz_show_nhuuid"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_mon_diff","c":"1790-1828","status":"ported","js":["js/wizcmds.js:wiz_mon_diff"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_objprobs","c":"1832-1868","status":"ported","js":["js/wizcmds.js:wiz_objprobs"],"d":["D-3100"],"at":"2026-09-29@9798beecd","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_migrate_mons","c":"1873-1930","status":"partial","js":["js/wizcmds.js:wiz_migrate_mons"],"omit":"`:1603` display_nhwindow(win, FALSE) → blocking pager stands in for tty print-and-continue (Terminal has no scrollback vehicle; house NHW_TEXT idiom); generated `extcmdlist_data.js` \"migratemons\" desc keeps the #else string while DEBUG-live C registers \"show migrating monsters and migrate N random …","d":["D-2779"],"at":"seed@a30a7de84"}
+{"fn":"wiz_migrate_mons","c":"1873-1930","status":"ported","js":["js/wizcmds.js:wiz_migrate_mons"],"d":["D-3187","D-2779"],"at":"2026-10-01@c1c0d92f4"}
 {"fn":"wiz_custom","c":"1934-1984","status":"ported","js":["js/wizcmds.js:wiz_custom"],"d":["D-3091","D-3089"],"at":"2026-09-29@615518801","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wizcustom_callback","c":"1987-2027","status":"ported","js":["js/wizcmds.js:wizcustom_callback"],"d":["D-3029"],"at":"2026-09-28@72bf1dec2","note":"refresh: no JS symbol (measured MISSING)"}

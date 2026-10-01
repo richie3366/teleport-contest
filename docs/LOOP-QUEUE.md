@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `getpos.c` cmp_coord_distu — coverage PARTIAL (C 12 code L `getpos.c:312–329` / JS 8 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
-- [ ] `getpos.c` gloc_filter_floodfill_matcharea — coverage PARTIAL (C 9 code L `getpos.c:364–379` / JS 6 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @5e7475cd1
-- [ ] `wizcmds.c` migrsort_cmp — coverage PARTIAL (C 9 code L `wizcmds.c:1485–1501` / JS 6 code L in js/wizcmds.js; hops —, callers 0, RNG 0, msg 0) @a60a91a98
 - [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 18 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: paniclog file (Rule #2); recursive-in_impossible panic; debug_fuzzer panic; sysopt.support line; CRASHREPORT web report (network)) @a60a91a98
 - [ ] `cmd.c` getdir — coverage PARTIAL (C 104 code L `cmd.c:3958–4119` / JS 66 code L in js/lock.js; hops 2, callers 29, RNG 5, msg 2; declared partial: `readchar`/`readchar_queue`/`readchar_core` (altmeta pushback empty in sessions; nhgetch covers it); `docrt_flags` (live `flush_screen(1)` i) @a60a91a98
 - [ ] `dog.c` mon_arrive — coverage THIN (C 136 code L `dog.c:420–623` / JS 2 code L in js/dog.js; hops 2, callers 6, RNG 5, msg 0; declared partial: losedogs kops-dismiss scan (dismissKops/make_happy_shoppers `:310–356`); full mnearto yank (move_other=FALSE always); resurrect SetVoice + D) @03eae3466
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `teleport.c` rloc_to_core — coverage THIN (C 75 code L `teleport.c:1645–1768` / JS 12 code L in js/teleport.js; hops 2, callers 4, RNG 0, msg 4; declared partial: `u_on_newpos` inlined (ux/uy/uundetected/steed; `see_nearby_objects` correctly skipped — uswallow true fails C's gate; `earth_sense` map-nam) @03eae3466
 - [ ] `objnam.c` xname_flags — coverage THIN (C 300 code L `objnam.c:581–1029` / JS 52 code L in js/objnam.js; hops 3, callers 2, RNG 0, msg 17; declared partial: nextobuf/PREFIX/ConcUpdate/Concat truncation + eos overflow paniclog (by-design JS strings); glorkum default + SLIME_MOLD-bad-fruit `impossi) @03eae3466
 - [ ] `pickup.c` pickup — coverage PARTIAL (C 168 code L `pickup.c:672–910` / JS 113 code L in js/pickup.js; hops 1, callers 12, RNG 0, msg 1) @c88e33eda
+- [ ] `hacklib.c` s_suffix — coverage PARTIAL (C 11 code L `hacklib.c:345–359` / JS 7 code L in js/mthrowu.js; hops 2, callers 109, RNG 0, msg 4) @c1c0d92f4
+- [ ] `mkmaze.c` movebubbles — coverage PARTIAL (C 96 code L `mkmaze.c:1539–1685` / JS 57 code L in js/mklev.js; hops 2, callers 3, RNG 3, msg 0; declared partial: `panic("movebubbles: cons != null")` → `impossible` (no live JS panic export); BREADCRUMBS `Unplacebc_and_covet_placebc`/`Lift_covet_and_pla) @c1c0d92f4
+- [ ] `zap.c` wishcmdassist — coverage THIN (C 51 code L `zap.c:6165–6219` / JS 16 code L in js/zap.js; hops 3, callers 2, RNG 0, msg 7; declared partial: `wish_history_add`/`wish_history_menu` DEBUG menu (pre-existing no-op/deferred, map turns.md); MAXWISHTRY retry loop for unrecognized names ) @c1c0d92f4
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
