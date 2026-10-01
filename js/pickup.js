@@ -42,7 +42,7 @@ import {
     ysimple_name as ysimple_name_objnam,
     Ysimple_name2 as Ysimple_name2_objnam,
 } from './objnam.js';
-import { can_reach_floor } from './engrave.js';
+import { can_reach_floor, cant_reach_floor } from './engrave.js';
 import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
     OBJ_FREE, OBJ_CONTAINED,
@@ -4363,7 +4363,10 @@ async function loot_floor_containers(x, y) {
         return { timepassed, c: pick.n !== 0 ? 'y' : -1 };
     }
     let anyfound = false;
-    for (let o = objects_at(x, y); o; o = o.nexthere) {
+    // C `:2283–2285` — cache nexthere before do_loot_cont (a chest trap
+    // or mbag blast may destroy cobj).
+    for (let o = objects_at(x, y), nobj = null; o; o = nobj) {
+        nobj = o.nexthere;
         if (!Is_container(o)) continue;
         anyfound = true;
         timepassed |= await do_loot_cont(o, 1, 1);
@@ -4721,9 +4724,9 @@ function check_capacity(str) {
 }
 
 /**
- * C ref: pickup.c able_to_loot — tip/loot reachability gates.
- * Named omissions: usteed rider_cant_reach; Underwater tip carve-out
- * (`looting || !Underwater`). The pool/lava noun is hliquid.
+ * C ref: pickup.c able_to_loot `:2041–2069` — tip/loot reachability gates.
+ * rider_cant_reach / cant_reach_floor / nolimbs are the live exports
+ * (steed.js, engrave.js, monsters.js); freehand is the in-file clone.
  * @param {number} x
  * @param {number} y
  * @param {boolean} looting true=loot, false=tip
@@ -4731,11 +4734,18 @@ function check_capacity(str) {
 async function able_to_loot(x, y, looting) {
     const verb = looting ? 'loot' : 'tip';
     const t = t_at(x, y);
-    if (!can_reach_floor(!!(t && is_pit(t.ttyp)))) {
-        await pline(`You can't reach the floor.`);
+    if (!can_reach_floor(!!(t && is_pit(t.ttyp)))) { // C `:2050`
+        // C `:2051–2055` — usteed without Basic riding can't reach.
+        if (game.u?.usteed && P_SKILL(P_RIDING) < P_BASIC) {
+            await rider_cant_reach();
+        } else {
+            await cant_reach_floor(x, y, false, true, false);
+        }
         return false;
     }
-    if ((is_pool(x, y) && looting) || is_lava(x, y)) {
+    // C `:2056–2061` — can't loot in water even when Underwater; tip is
+    // allowed underwater, but never over lava. Underwater ≡ u.uinwater.
+    if ((is_pool(x, y) && (looting || !game.u?.uinwater)) || is_lava(x, y)) {
         await pline(
             `You cannot ${verb} things that are deep in the ${
                 hliquid(is_lava(x, y) ? 'lava' : 'water')
@@ -4743,16 +4753,11 @@ async function able_to_loot(x, y, looting) {
         );
         return false;
     }
-    try {
-        const md = await import('./mondata.js');
-        if (md.nolimbs?.(game.youmonst?.data)) {
-            await pline(`Without limbs, you cannot ${verb} anything.`);
-            return false;
-        }
-    } catch {
-        /* mondata optional */
+    if (nolimbs(game.youmonst?.data)) { // C `:2062–2064`
+        await pline(`Without limbs, you cannot ${verb} anything.`);
+        return false;
     }
-    if (looting && !freehand()) {
+    if (looting && !freehand()) { // C `:2065–2068`
         await pline(
             `Without a free ${body_part_latebound(HAND)}, you cannot loot anything.`,
         );

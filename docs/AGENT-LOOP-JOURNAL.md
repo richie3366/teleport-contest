@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3213 `pickup.c` ×2: doloot_core single-walk cache, able_to_loot reachability arms
+
+**C locus:** - `doloot_core`: `nethack-c/upstream/src/pickup.c:2178–2346` whole (check_capacity; nohands; Confusion rn2(6)&&reverse_loot / rn2(2); menu_requested goto lootmon; lootcont count/able_to_loot/blind-cockatrice/PICK_ANY multi/single walk/grave; lootmon direction/underfoot/dz/m_at/loot_mon/Confusion||Stunned/!looted_mon arms).
+**JS:** `js/pickup.js:45` (import), `:4334–4378` (`loot_floor_containers` walk cache), `:4731–4769` (`able_to_loot`).
+**Change:** cache `nobj` before `do_loot_cont` in the single walk; restart `able_to_loot` in C order wiring the live `rider_cant_reach` (steed.js), `cant_reach_floor` (engrave.js, added to the existing static edge — `--can` ALREADY), and static `nolimbs` (monsters.js, already imported) exports; pool arm is now `(looting || !u.uinwater)` per C (Underwater ≡ u.uinwater).
+**Verify:** `node scripts/verify.mjs --fn doloot_core,able_to_loot` → PASS syntax (1 file) · PASS rule2 · hidden none-blocked ×2 · reach REACH-OK ×2 (fixed smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+**Named:** - `doloot_core`: none in the body — PICK_ANY extras (invert/pages/>26 accelerators) are `select_menu` menu-machinery (by-design, same standing as D-3199).
+**Next:** callee closure holds no more Open rows (`check_capacity` body whole, no change; `mon_beside`/`get_adjacent_loc`/`ceiling` declared ported; pline-family THIN is hot display machinery, out of scope); same-file `pickup.c` remainder measures ok.
 ## 2026-10-01 — D-3212 `zap.c` ×2: resist clone dlev+TELL completion, do_osshock stale hoist
 
 **C locus:** - `resist`: `nethack-c/upstream/src/zap.c:6099–6158` whole (mplayer Conflict early return; WAND12/TOOL10/WEAPON10/SCROLL9/POTION6/RING5/ulevel alev; dlev clamp + mplayer-ulevel; `rn2(100+alev-dlev) < mr`; TELL `shieldeff_mon` + halve; HP apply + `m_using`?`monkilled(AD_RBRE)`:`killed`).

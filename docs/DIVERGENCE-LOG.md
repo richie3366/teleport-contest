@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3213 — `pickup.c` ×2: doloot_core single-walk cache, able_to_loot reachability arms
+
+- **Status:** fixed (breadth-phase coverage cluster: head row `pickup.c` doloot_core PARTIAL + Open callee `pickup.c` able_to_loot; queue head `weapon.c` possibly_unwield proved stale and marked ported via CLI in this iteration).
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on both: no corpus session blocked; REACH-OK is the corpus evidence).
+- **C locus:**
+  - `doloot_core`: `nethack-c/upstream/src/pickup.c:2178–2346` whole (check_capacity; nohands; Confusion rn2(6)&&reverse_loot / rn2(2); menu_requested goto lootmon; lootcont count/able_to_loot/blind-cockatrice/PICK_ANY multi/single walk/grave; lootmon direction/underfoot/dz/m_at/loot_mon/Confusion||Stunned/!looted_mon arms).
+  - `able_to_loot`: `nethack-c/upstream/src/pickup.c:2041–2069` whole (can_reach_floor pit-arg → usteed+P_SKILL(P_RIDING)<P_BASIC rider_cant_reach else cant_reach_floor(x,y,FALSE,TRUE,FALSE); pool (looting||!Underwater) / lava hliquid; nolimbs; looting&&!freehand).
+- **JS was:** `doloot_core` whole at `js/pickup.js:4462` across split homes (`loot_floor_containers` `:4334`, `loot_which_containers_menu` `:4289`) except the single-walk loop read `o.nexthere` after `do_loot_cont` instead of caching `nobj` before it (C `:2283–2285`); `able_to_loot` at `:4731` printed a generic "can't reach the floor", dropped the `|| !Underwater` tip carve-out, and late-bound `nolimbs` via try/catch dynamic import despite the live static export already imported in-file.
+- **Fix:** cache `nobj` before `do_loot_cont` in the single walk; restart `able_to_loot` in C order wiring the live `rider_cant_reach` (steed.js), `cant_reach_floor` (engrave.js, added to the existing static edge — `--can` ALREADY), and static `nolimbs` (monsters.js, already imported) exports; pool arm is now `(looting || !u.uinwater)` per C (Underwater ≡ u.uinwater).
+- **JS:** `js/pickup.js:45` (import), `:4334–4378` (`loot_floor_containers` walk cache), `:4731–4769` (`able_to_loot`).
+- **Callers:**
+  - `doloot_core`: C `pickup.c:2171` (`doloot`) → JS `js/pickup.js:4451` (`doloot` awaits it).
+  - `able_to_loot`: C `pickup.c:2220` (doloot_core lootcont) → JS `js/pickup.js:4337` (`loot_floor_containers`); C `pickup.c:3594` (dotip floor arm) → JS `js/pickup.js:5333` (`dotip`).
+- **Verify:** `node scripts/verify.mjs --fn doloot_core,able_to_loot` → PASS syntax (1 file) · PASS rule2 · hidden none-blocked ×2 · reach REACH-OK ×2 (fixed smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+- **Named omissions:**
+  - `doloot_core`: none in the body — PICK_ANY extras (invert/pages/>26 accelerators) are `select_menu` menu-machinery (by-design, same standing as D-3199).
+  - `able_to_loot`: none — all four C arms live; `freehand` is the pre-existing in-file clone (`js/pickup.js:3384`), not a new one.
+- **Ledger:** doloot_core ported; able_to_loot ported
+- **Next:** callee closure holds no more Open rows (`check_capacity` body whole, no change; `mon_beside`/`get_adjacent_loc`/`ceiling` declared ported; pline-family THIN is hot display machinery, out of scope); same-file `pickup.c` remainder measures ok.
+
 ## D-3212 — `zap.c` ×2: resist clone dlev+TELL completion, do_osshock stale hoist
 
 - **Status:** fixed (breadth-phase coverage cluster: head row `zap.c` resist PARTIAL + same-file `zap.c` do_osshock MISSING-as-stale; measured gaps were line-count artifacts on whole canonical bodies — 3 clone arms + 2 TELL shields were the real missing C).

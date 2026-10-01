@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `weapon.c` possibly_unwield — coverage PARTIAL (C 26 code L `weapon.c:747–795` / JS 13 code L in js/weapon.js; hops 3, callers 7, RNG 0, msg 1; declared partial: get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-c) @6e06fa8e7
-- [ ] `pickup.c` doloot_core — coverage PARTIAL (C 114 code L `pickup.c:2178–2346` / JS 80 code L in js/pickup.js; hops 5, callers 1, RNG 2, msg 8) @6e06fa8e7
 - [ ] `steal.c` relobj — coverage THIN (C 12 code L `steal.c:875–898` / JS 5 code L in js/dogmove.js; hops 4, callers 3, RNG 0, msg 1) @a5f89dd93
 - [ ] `cmd.c` can_do_extcmd — coverage PARTIAL (C 19 code L `cmd.c:463–489` / JS 14 code L in js/cmd.js; hops 1, callers 2, RNG 0, msg 2; declared partial: `lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.) @55cdefbf9
 - [ ] `wizcmds.c` wiz_map_levltyp — coverage PARTIAL (C 113 code L `wizcmds.c:693–835` / JS 70 code L in js/wizcmds.js; hops —, callers 2, RNG 0, msg 36; declared partial: `eos`/`Sprintf`/`Strcat` (no JS export exists — inline appends); `strncmpi` (inline `/^the /i` strip; write.js:82/insight.js:743/vault.js:12) @55cdefbf9
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mail.c` readmail — coverage THIN (C 35 code L `mail.c:487–541` / JS 4 code L in js/mail.js; hops 6, callers 1, RNG 1, msg 3) @b9de54524
 - [ ] `mcastu.c` choose_monster_spell — coverage PARTIAL (C 20 code L `mcastu.c:89–123` / JS 13 code L in js/mcastu.js; hops 2, callers 1, RNG 3, msg 0) @1eadda2ce
 - [ ] `dothrow.c` hurtle_step — coverage PARTIAL (C 138 code L `dothrow.c:773–972` / JS 77 code L in js/dothrow.js; hops —, callers 1, RNG 1, msg 14) @1eadda2ce
+- [ ] `insight.c` show_gamelog — coverage PARTIAL (C 22 code L `insight.c:2561–2593` / JS 12 code L in js/insight.js; hops 4, callers 2, RNG 0, msg 4) @b0eed7df4
+- [ ] `uhitm.c` mhitm_ad_were — coverage THIN (C 18 code L `uhitm.c:4265–4293` / JS 2 code L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 1) @b0eed7df4
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

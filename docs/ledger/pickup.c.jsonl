@@ -34,11 +34,11 @@
 {"fn":"pickup_prinv","c":"1948-1972","status":"ported","js":["js/pickup.js:pickup_prinv"],"at":"2026-09-29@d27c7b945","note":"stale: js/pickup.js:1152 (D-0456)"}
 {"fn":"encumber_msg","c":"1978-2020","status":"unknown"}
 {"fn":"container_at","c":"2024-2038","status":"ported","js":["js/pickup.js:container_at"],"d":["D-3122"],"at":"2026-09-29@c983587e0"}
-{"fn":"able_to_loot","c":"2041-2069","status":"unknown"}
+{"fn":"able_to_loot","c":"2041-2069","status":"ported","js":["js/pickup.js:able_to_loot"],"d":["D-3213"],"at":"2026-10-01@b0eed7df4"}
 {"fn":"mon_beside","c":"2072-2085","status":"ported","js":["js/pickup.js:mon_beside"],"d":["D-3135"],"at":"2026-09-29@f292ec32c"}
 {"fn":"do_loot_cont","c":"2088-2162","status":"ported","js":["js/pickup.js:do_loot_cont"],"d":["D-2576"],"at":"seed@a30a7de84"}
 {"fn":"doloot","c":"2166-2174","status":"unknown"}
-{"fn":"doloot_core","c":"2178-2346","status":"unknown","d":["D-1837"],"at":"seed@a30a7de84"}
+{"fn":"doloot_core","c":"2178-2346","status":"ported","js":["js/pickup.js:doloot_core"],"d":["D-3213","D-1837"],"at":"2026-10-01@b0eed7df4"}
 {"fn":"reverse_loot","c":"2350-2426","status":"ported","js":["js/pickup.js:reverse_loot"],"d":["D-2768"],"at":"seed@a30a7de84"}
 {"fn":"loot_mon","c":"2431-2481","status":"unknown"}
 {"fn":"mbag_explodes","c":"2488-2507","status":"unknown"}

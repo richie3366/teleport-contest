@@ -9,7 +9,7 @@
 {"fn":"select_rwep","c":"533-676","status":"partial","js":["js/weapon.js:select_rwep"],"omit":"`can_touch_safely` inside `oselect` (`mon.c:1957–1974`; `js/monmove.js:230` stub stays always-safe — select_hwep precedent, map-named).","d":["D-2563"],"at":"seed@a30a7de84"}
 {"fn":"monmightthrowwep","c":"680-688","status":"unknown"}
 {"fn":"select_hwep","c":"705-741","status":"unknown","d":["D-1930"],"at":"seed@a30a7de84"}
-{"fn":"possibly_unwield","c":"747-795","status":"partial","js":["js/weapon.js:possibly_unwield"],"omit":"get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-carried).","d":["D-2745"],"at":"seed@a30a7de84"}
+{"fn":"possibly_unwield","c":"747-795","status":"ported","js":["js/weapon.js:possibly_unwield"],"d":["D-2745"],"at":"2026-10-01@b0eed7df4","note":"stale: js/weapon.js:143 whole C body + drop helper :166, all 6 C call sites wired (apply:3493, mhitm:6272+1533, makemon/newcham:1978, uhitm:2689, were:167); declared omit names get_obj_location which is not a callee"}
 {"fn":"mon_wield_item","c":"801-934","status":"ported","js":["js/weapon.js:mon_wield_item"],"d":["D-2460"],"at":"seed@a30a7de84"}
 {"fn":"mwepgone","c":"938-946","status":"unknown"}
 {"fn":"abon","c":"950-989","status":"ported","js":["js/weapon.js:abon"],"d":["D-3090"],"at":"2026-09-29@d1541778d"}
