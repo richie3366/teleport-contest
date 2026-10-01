@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3239 — `pager.c` self_lookat: steed `, mounted on %s` arm + live invis predicate; both ride sessions move past
+
+- **Status:** fixed (corpus-residual head `self_lookat`; `js/pager.js` + one `js/display.js` export, ~20 insertions — lean but the coverage block holds 0 rows globally and all 7 C callees are live in `js/`, so the density exception applies (D-3238 precedent)).
+- **Symptom:** scen-ride-Knight-94415 step 109 + scen-ride-Samurai-94419 step 115, kind=screen at pager.c:121: C `human knight called wizard, mounted on your pony`, JS `human knight called wizard` — the steed arm was deferred in JS ("own row on a falsifier").
+- **C locus:**
+  - `self_lookat`: `pager.c:108–133` whole body in C order — race `:114–115`, invis `:118`, steed `:120–121`, mhidden `:122–126`, Punished `:127–129`, utrap `:130–131`; predicate macros `youprop.h:198` (Invis) + `display.h:175` (senseself).
+- **JS was:** `js/pager.js:381` local `self_lookat` — steed arm absent; invis predicate read the `u.Invis` flat plus the never-written `u.senseself` field (no writers anywhere in `js/`) and the `u.Blind` flat.
+- **Fix:** steed arm inserted in C order (before mhidden) via live `y_monnam` (existing `do_name.js` edge extended); invis predicate is now live `Invis()` (`timeout.js`, new edge — `imports.mjs --can`: SAFE, hoisted function) `&&` (`senseself()` (`display.js`, newly exported, existing edge) `||` `!Blind_look()` (same-module live Blind)). Doc comment restarted to whole-body C order.
+- **JS:** `js/pager.js` (2 import lines + body), `js/display.js` (export + 2-line comment). Far under the 1500/15 caps.
+- **Callers:**
+  - `self_lookat`: 2/3 C sites wired — pager.c:670 (`lookat`) → `js/pager.js:2018` (guard + call verified live); pager.c:1999 (look_all loop) → `js/pager.js:2212` (verified live); pickup.c:1162 (`query_objlist` engulfer fake-hero item `an(self_lookat(buf))`) → named omission: JS `query_objlist` (`js/pickup.js:802`) has no engulfer arm at all (no `fake_hero`/`engulfer` in the file) and wiring it needs the swallowed-menu machinery plus the fake-pick fixup (C `:1176–1190`) — own row on a falsifier.
+- **Verify:** `node scripts/verify.mjs --fn self_lookat` → PASS (syntax 2 files; rule2; hidden PROGRESS: Knight-94415 moved 109→mcalcmove@118, Samurai-94419 moved 115→dog_move@126; reach smoke spread 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared display.js change). No committed unit test: repo has no maintained unit harness; pinned by the two recorded corpus sessions + full-suite green (disclosed per durable-test-collateral).
+- **Named omissions:**
+  - `self_lookat`: pickup.c:1162 engulfer caller arm (see Callers); C `:128` `"nothing?"` Punished-else is dead in C too (Punished ≡ uball nonzero) — not ported, no behavior.
+- **Ledger:** self_lookat ported
+- **Next:** none for this row; mcalcmove/dog_move are the sessions' next owners (phase-2 corpus debugging, closed).
+
 ## D-3238 — `engrave.c` wipeout_text: checkpoint unskip + trim-always + u32 seed; Valkyrie PASS, Priest 70→144
 
 - **Status:** fixed (corpus-residual head `wipeout_text`; `js/engrave.js` + `js/do.js`, ~103 insertions — lean but the head's file holds no other queue row (coverage block 0 rows globally) and the callee closure (rn2) is ported, so the density exception applies. Head popped after `trap.c` water_damage stale-marked: its JS body is complete at js/trap.js:6255 (every C arm in order, ledger C 96/JS 94 ok) while its 3 sessions show JS at a dodip yn-prompt (`rn2(19) @ exercise` / `rn2(5) @ distfleeck`) where C draws the luck check `rn2(20) @ water_damage(trap.c:4771)` while sinking in the moat — JS never enters water_damage at all, so no body edit can move them; misattributed owner, phase-2 writer hunt (evidence preserved here); ledger `ported`, row archived).

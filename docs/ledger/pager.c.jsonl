@@ -1,6 +1,6 @@
 {"fn":"is_swallow_sym","c":"68-76","status":"unknown"}
 {"fn":"append_str","c":"82-104","status":"ported","js":["js/pager.js:append_str"],"d":["D-3106"],"at":"2026-09-29@30647ba3c"}
-{"fn":"self_lookat","c":"108-133","status":"unknown"}
+{"fn":"self_lookat","c":"108-133","status":"ported","js":["js/pager.js:self_lookat"],"d":["D-3239"],"at":"2026-10-01@25100632c"}
 {"fn":"monhealthdescr","c":"138-163","status":"unknown"}
 {"fn":"trap_description","c":"167-181","status":"unknown","d":["D-1779"],"at":"seed@a30a7de84"}
 {"fn":"mhidden_description","c":"186-280","status":"unknown","d":["D-1554"],"at":"seed@a30a7de84"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3239 `pager.c` self_lookat: steed `, mounted on %s` arm + live invis predicate; both ride sessions move past
+
+**C locus:** - `self_lookat`: `pager.c:108–133` whole body in C order — race `:114–115`, invis `:118`, steed `:120–121`, mhidden `:122–126`, Punished `:127–129`, utrap `:130–131`; predicate macros `youprop.h:198` (Invis) + `display.h:175` (senseself).
+**JS:** `js/pager.js` (2 import lines + body), `js/display.js` (export + 2-line comment). Far under the 1500/15 caps.
+**Change:** steed arm inserted in C order (before mhidden) via live `y_monnam` (existing `do_name.js` edge extended); invis predicate is now live `Invis()` (`timeout.js`, new edge — `imports.mjs --can`: SAFE, hoisted function) `&&` (`senseself()` (`display.js`, newly exported, existing edge) `||` `!Blind_look()` (same-module live Blind)). Doc comment restarted to whole-body C order.
+**Verify:** `node scripts/verify.mjs --fn self_lookat` → PASS (syntax 2 files; rule2; hidden PROGRESS: Knight-94415 moved 109→mcalcmove@118, Samurai-94419 moved 115→dog_move@126; reach smoke spread 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared display.js change). No committed unit test: repo has no maintained unit harness; pinned by the two recorded corpus sessions + full-suite green (disclosed per durable-test-collateral).
+**Named:** - `self_lookat`: pickup.c:1162 engulfer caller arm (see Callers); C `:128` `"nothing?"` Punished-else is dead in C too (Punished ≡ uball nonzero) — not ported, no behavior.
+**Next:** none for this row; mcalcmove/dog_move are the sessions' next owners (phase-2 corpus debugging, closed).
 ## 2026-10-01 — D-3238 `engrave.c` wipeout_text: checkpoint unskip + trim-always + u32 seed; Valkyrie PASS, Priest 70→144
 
 **C locus:** - `wipeout_text`: `engrave.c:119–183` whole body (loop gate `:129`, seeded u32 path `:136–143/:165–167`, trim `:180–182`); side-effect locus `engrave.c:1565–1567` via `do.c:1375–1395` checkpoints (`allmain.c:838`, `do.c:1969`, `cmd.c:1064`).
