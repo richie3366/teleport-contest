@@ -30,7 +30,7 @@ import {
     is_poisonable, def_char_to_objclass,
 } from './objects.js';
 import {
-    mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm, rnd_class, start_timer,
+    mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm, rnd_class, start_timer, objects_at,
     erosion_matters, is_flammable, is_rustprone, is_crackable,
     is_corrodeable, is_rottable, is_damageable,
     place_object, obj_extract_self,
@@ -74,6 +74,7 @@ import {
     P_HAMMER, P_POLEARMS,
     Is_box, Has_contents, BEAR_TRAP, LANDMINE,
     WT_IRON_BALL_INCR, ONAME_NO_FLAGS, TIMER_OBJECT, ZOMBIFY_MON,
+    DB_UNDER, DB_MOAT, DB_LAVA, DB_ICE, DB_FLOOR, HAND, something,
 } from './const.js';
 import { obj_to_any } from './hack.js';
 
@@ -536,29 +537,39 @@ function readobjnam_parse_class_words(d) {
  * Used when bp is NULL (makewish after MAXWISHTRY) or empty after preparse
  * (ESC/empty wish → makewish clears ESC to "" → preparse returns 1).
  */
+/**
+ * C ref: objnam.c readobjnam `any:` `:4994–4996` — default a random class,
+ * then fall through to the shared `typfnd:` body (readobjnam_finish): C
+ * runs the whole fine-tune (wizard remap, create, quan, spe, corpsenm,
+ * blessed/erosion, vanish...) on the any path too. (mksobj/mkobj never
+ * return null in JS, so C's missing guard is safe to mirror.)
+ */
 function readobjnam_any(d) {
     if (!d.oclass) {
         d.oclass = WRPSYMS[rn2(WRPSYMS.length)];
     }
-    if (d.typ) {
-        d.oclass = game.objects?.[d.typ]?.oc_class ?? d.oclass;
-        d.otmp = mksobj(d.typ, true, false);
-    } else {
-        d.otmp = mkobj(d.oclass, false);
-    }
-    if (!d.otmp) return null;
-    d.typ = d.otmp.otyp;
-    d.oclass = d.otmp.oclass;
-    d.otmp.owt = weight(d.otmp);
-    return d.otmp;
+    return readobjnam_finish(d);
 }
 
 /**
- * C ref: objnam.c wizterrainwish — trap loop then furniture/terrain wish
- * then madeterrain postamble switch_terrain (D-1279 furniture; D-1289
- * traps; D-1290 door/wall; D-1304 secret corridor; C :3563–3582 then
- * :3740–3845 then :3872–3910). Drawbridge under, lava pooleffects,
- * water/fire_damage_chain, melting ice still named.
+ * C ref: objnam.c dbterrainmesg `:3919–3926` (staticfn) — message common
+ * to several wizterrainwish() drawbridge-under results. Async only for
+ * the JS pline; call order and text are C-exact.
+ */
+async function dbterrainmesg(newtype, x, y) {
+    const { pline } = await import('./display.js');
+    const lev = game.level?.at(x, y);
+    await pline(`${newtype} ${(lev?.typ | 0) === DRAWBRIDGE_UP ? 'in front of' : 'under'} the drawbridge.`);
+}
+
+/**
+ * C ref: objnam.c wizterrainwish `:3554–3916` whole — trap loop, then
+ * furniture/terrain wish, then the madeterrain postamble (D-1279
+ * furniture; D-1289 traps; D-1290 door/wall; D-1304 secret corridor;
+ * this D: drawbridge-under arms, water/fire_damage_chain, lava
+ * pooleffects, melting-ice timeout, ice_descr, count_level_features,
+ * live is_ice/reset_utrap). Dynamic cross-module imports below are
+ * hoisted-function edges (`imports.mjs --can` SAFE).
  */
 async function wizterrainwish(d) {
     const u = game.u;
@@ -572,7 +583,14 @@ async function wizterrainwish(d) {
     } = await import('./hack.js');
     const { feel_newsym, pline, docrt } = await import('./display.js');
     const { recalc_block_point } = await import('./vision.js');
-    const { maketrap, trapname } = await import('./trap.js');
+    const {
+        maketrap, trapname, water_damage_chain, fire_damage_chain,
+        ice_descr, reset_utrap,
+    } = await import('./trap.js');
+    const { count_level_features } = await import('./mklev.js');
+    const { pooleffects } = await import('./pickup.js');
+    const { start_melt_ice_timeout, is_ice } = await import('./zap.js');
+    const { Levitation, Flying } = await import('./mhitu.js');
     const bp = d.bp || '';
     let madeterrain = false;
     let badterrain = false;
@@ -601,6 +619,8 @@ async function wizterrainwish(d) {
         if (oldtyp !== FOUNTAIN) lf.nfountains = (lf.nfountains | 0) + 1;
         lev.looted = d.looted ? F_LOOTED : 0;
         lev.blessedftn = !!(d.blessed || strncmpi_start(bp, 'magic '));
+        /* rm.h:404 — blessedftn IS horizontal (#define); keep split fields in sync. */
+        lev.horizontal = !!lev.blessedftn;
         await pline(`A ${lev.blessedftn ? 'magic ' : ''}fountain.`);
         madeterrain = true;
     } else if (bstrcmpi_end(bp, 'throne')) {
@@ -614,37 +634,81 @@ async function wizterrainwish(d) {
         lev.looted = d.looted ? (S_LPUDDING | S_LDWASHER | S_LRING) : 0;
         await pline('A sink.');
         madeterrain = true;
-    } else if (!is_dbridge && (bstrcmpi_end(bp, 'pool')
+    } else if (bstrcmpi_end(bp, 'pool')
             || bstrcmpi_end(bp, 'moat')
-            || bstrcmpi_end(bp, 'wall of water'))) {
+            || bstrcmpi_end(bp, 'wall of water')) {
+        /* C `:3609–3633` — ltyp first; drawbridge keeps its typ and takes
+           DB_MOAT under it; the damage chain runs either way. */
         const ltyp = bstrcmpi_end(bp, 'pool') ? POOL
             : bstrcmpi_end(bp, 'moat') ? MOAT
             : WATER;
-        lev.typ = ltyp;
-        lev.flags = 0;
+        if (!is_dbridge) {
+            lev.typ = ltyp;
+            lev.flags = 0;
+        } else {
+            /* drawbridgemask overloads flags */
+            lev.drawbridgemask = (lev.drawbridgemask | 0) & ~DB_UNDER;
+            lev.drawbridgemask |= DB_MOAT;
+        }
         const { del_engr_at } = await import('./engrave.js');
         del_engr_at(x, y);
-        const save = u.EHalluc_resistance | 0;
-        u.EHalluc_resistance = 1;
-        const new_water = waterbody_name(x, y);
-        u.EHalluc_resistance = save;
-        await pline(`${An(new_water)}.`);
+        if (!is_dbridge) {
+            const save = u.EHalluc_resistance | 0;
+            u.EHalluc_resistance = 1;
+            const new_water = waterbody_name(x, y);
+            u.EHalluc_resistance = save;
+            await pline(`${An(new_water)}.`);
+            /* Must manually make kelp! */
+        } else {
+            await dbterrainmesg('Moat', x, y);
+        }
+        await water_damage_chain(objects_at(x, y), true);
         madeterrain = true;
-    } else if (!is_dbridge && (bstrcmpi_end(bp, 'lava')
-            || bstrcmpi_end(bp, 'wall of lava'))) {
+    } else if (bstrcmpi_end(bp, 'lava')
+            || bstrcmpi_end(bp, 'wall of lava')) {
+        /* C `:3637–3662` — same dbridge split with DB_LAVA; pooleffects
+           unless airborne over a pool; the fire chain runs either way. */
         const ltyp = bstrcmpi_end(bp, 'wall of lava') ? LAVAWALL : LAVAPOOL;
-        lev.typ = ltyp;
-        lev.flags = 0;
+        if (!is_dbridge) {
+            lev.typ = ltyp;
+            lev.flags = 0;
+        } else {
+            /* drawbridgemask overloads flags */
+            lev.drawbridgemask = (lev.drawbridgemask | 0) & ~DB_UNDER;
+            lev.drawbridgemask |= DB_LAVA;
+        }
         const { del_engr_at } = await import('./engrave.js');
         del_engr_at(x, y);
-        await pline(`A ${ltyp === LAVAPOOL ? 'pool' : 'wall'} of molten lava.`);
+        if (!is_dbridge) {
+            await pline(`A ${(lev.typ | 0) === LAVAPOOL ? 'pool' : 'wall'} of molten lava.`);
+            if (!(Levitation() || Flying()) || (lev.typ | 0) === LAVAWALL)
+                await pooleffects(false);
+        } else {
+            await dbterrainmesg('Lava', x, y);
+        }
+        await fire_damage_chain(objects_at(x, y), true, true, x, y);
         madeterrain = true;
-    } else if (!is_dbridge && bstrcmpi_end(bp, 'ice')) {
-        lev.typ = ICE;
-        lev.icedpool = (oldtyp === ROOM) ? ICED_POOL : ICED_MOAT;
+    } else if (bstrcmpi_end(bp, 'ice')) {
+        /* C `:3663–3689` — DB_ICE under a drawbridge; "melting ice"
+           starts the melt timeout at once; ice_descr names the result. */
+        if (!is_dbridge) {
+            lev.typ = ICE;
+            /* icedpool overloads flags; specifies what ice will melt into */
+            lev.icedpool = (oldtyp === ROOM) ? ICED_POOL : ICED_MOAT;
+        } else {
+            /* drawbridgemask overloads flags */
+            lev.drawbridgemask = (lev.drawbridgemask | 0) & ~DB_UNDER;
+            lev.drawbridgemask |= DB_ICE;
+        }
         const { del_engr_at } = await import('./engrave.js');
         del_engr_at(x, y);
-        await pline(`${upstart(waterbody_name(x, y))}.`);
+        if (strncmpi_start(bp, 'melting '))
+            start_melt_ice_timeout(x, y, 0);
+        if (!is_dbridge) {
+            await pline(`${upstart(ice_descr(x, y))}.`);
+        } else {
+            await dbterrainmesg('Ice', x, y);
+        }
         madeterrain = true;
     } else if (bstrcmpi_end(bp, 'altar')) {
         lev.typ = ALTAR;
@@ -664,6 +728,7 @@ async function wizterrainwish(d) {
         if (IS_GRAVE(lev.typ)) {
             lev.looted = 0;
             lev.disturbed = d.looted ? 1 : 0;
+            /* rm.h:405 — disturbed IS horizontal (#define); keep split fields in sync. */
             lev.horizontal = !!lev.disturbed;
             await pline(`A ${lev.disturbed ? 'disturbed ' : ''}grave.`);
             madeterrain = true;
@@ -776,17 +841,27 @@ async function wizterrainwish(d) {
             await pline('Secret corridor requires corridor location.');
             badterrain = true;
         }
-    } else if (!is_dbridge && (bstrcmpi_end(bp, 'room')
+    } else if (bstrcmpi_end(bp, 'room')
             || bstrcmpi_end(bp, 'floor')
-            || bstrcmpi_end(bp, 'ground'))) {
+            || bstrcmpi_end(bp, 'ground')) {
+        /* C `:3852` is_pool_or_lava ≡ is_pool || is_lava (dbridge.c:77–83). */
         if (oldtyp === ROOM
             || (IS_FURNITURE(oldtyp) && CAN_OVERWRITE_TERRAIN(oldtyp))
             || oldtyp === ICE
             || is_pool(x, y) || is_lava(x, y)) {
             lev.typ = ROOM;
             await pline('Room floor.');
+            /* C `:3857–3858` — recount fountains/sinks after clobbering one. */
+            if (IS_FURNITURE(oldtyp))
+                count_level_features();
             const t = t_at(x, y);
             if (t && (t.ttyp | 0) !== MAGIC_PORTAL) deltrap(t);
+            madeterrain = true;
+        } else if (is_dbridge) {
+            /* C `:3863–3867` — floor under the drawbridge. */
+            lev.drawbridgemask = (lev.drawbridgemask | 0) & ~DB_UNDER;
+            lev.drawbridgemask |= DB_FLOOR;
+            await dbterrainmesg('Floor', x, y);
             madeterrain = true;
         } else {
             await pline('Room|floor|ground not allowed here.');
@@ -796,26 +871,25 @@ async function wizterrainwish(d) {
 
     if (madeterrain) {
         feel_newsym(x, y);
+        /* C `:3878–3879` — the hero might have left <x,y> (lava wish,
+           declined death, teleported to safety). */
         if ((u.uinwater | 0) && !is_pool(u.ux | 0, u.uy | 0)) {
             await set_uinwater(0);
             await docrt();
+            /* [block/unblock_point handled by docrt -> vision_recalc] */
         } else {
             if ((u.utrap | 0) && (u.utraptype | 0) === TT_LAVA
                 && !is_lava(u.ux | 0, u.uy | 0)) {
-                u.utrap = 0;
-                u.utraptype = TT_NONE;
+                /* C `:3887` — live export; msg FALSE skips float/fly notes. */
+                reset_utrap(false);
             }
             recalc_block_point(x, y);
         }
-        if (IS_FOUNTAIN(oldtyp) && !IS_FOUNTAIN(lev.typ)
-            && (lf.nfountains | 0) > 0) {
-            lf.nfountains--;
-        }
-        if (IS_SINK(oldtyp) && !IS_SINK(lev.typ)
-            && (lf.nsinks | 0) > 0) {
-            lf.nsinks--;
-        }
-        if ((lev.typ | 0) !== ICE) spot_stop_timers(x, y, MELT_ICE_AWAY);
+        /* C `:3893–3894` — recount fountains/sinks from the level. */
+        if (IS_FOUNTAIN(oldtyp) || IS_SINK(oldtyp))
+            count_level_features();
+        /* C `:3895–3896` — live is_ice covers ICE and DB_ICE-under. */
+        if (!is_ice(x, y)) spot_stop_timers(x, y, MELT_ICE_AWAY);
         if (IS_FOUNTAIN(oldtyp) || IS_GRAVE(oldtyp)
             || IS_WALL(oldtyp) || oldtyp === IRONBARS
             || IS_DOOR(oldtyp) || oldtyp === SDOOR) {
@@ -855,7 +929,16 @@ export async function readobjnam_wish(bp, no_wish) {
     } finally {
         deferSkillPrefixForWiztrap = false;
     }
-    if (otmp) return otmp;
+    if (otmp) {
+        /* C objnam.c:5378–5379 — the vanish pline is async-only in JS:
+           the sync finish marks d.vanished and this wrapper emits it. */
+        if (otmp === HANDS_OBJ && missOut.d && missOut.d.vanished) {
+            const { pline } = await import('./display.js');
+            const { body_part } = await import('./polyself.js');
+            await pline(`For a moment, you feel ${something} in your ${makeplural(body_part(HAND))}, but it disappears!`);
+        }
+        return otmp;
+    }
     if (wizardMode() && !(game.program_state?.wizkit_wishing | 0)
         && missOut.d && !(missOut.d.oclass | 0) && !(missOut.d.typ | 0)) {
         const t = await wizterrainwish(missOut.d);
@@ -1931,6 +2014,9 @@ export function readobjnam(bp, no_wish, missOut) {
     let munged = null;
     const ret = (value) => {
         publishWishbuf(missOut, d, munged);
+        /* Vanish arm (finish) marks d.vanished; the async wrapper needs d
+           to emit C's `:5378–5379` pline after this sync return. */
+        if (d.vanished && missOut) missOut.d = d;
         return value;
     };
     // C objnam.c:4914 — init even when bp is null, then goto any.
@@ -2035,53 +2121,51 @@ export function readobjnam(bp, no_wish, missOut) {
  * Every other arrival keeps the previous `mksobj(d.typ)` line.
  */
 function readobjnam_finish(d) {
-    if (!(d.typ | 0) && !(d.oclass | 0)) {
-        d.otmp = mkobj(0, false);
-        d.typ = d.otmp.otyp;
-        d.oclass = d.otmp.oclass;
-    } else {
-        if (d.typ) d.oclass = game.objects?.[d.typ]?.oc_class ?? 0;
+    /* C `typfnd:` `:4997–4998` — the any path defaulted oclass (or typ
+       is set); a set typ recomputes oclass. Unreachable with neither. */
+    if (d.typ) d.oclass = game.objects?.[d.typ]?.oc_class ?? 0;
 
-        // C `typfnd:` `:4998–5020` — wizard-only objects remap for normal
-        // play (same-class remaps, so oclass needs no recompute).
-        if (d.typ && !wizardMode()) {
-            switch (d.typ) {
-            case AMULET_OF_YENDOR:
-                d.typ = FAKE_AMULET_OF_YENDOR;
-                break;
-            case CANDELABRUM_OF_INVOCATION:
-                d.typ = rnd_class(TALLOW_CANDLE, WAX_CANDLE);
-                break;
-            case BELL_OF_OPENING:
-                d.typ = BELL;
-                break;
-            case SPE_BOOK_OF_THE_DEAD:
-                d.typ = SPE_BLANK_PAPER;
-                break;
-            case MAGIC_LAMP:
-                d.typ = OIL_LAMP;
-                break;
-            default:
-                /* catch any other non-wishable objects (venom);
-                   vacuous: no object sets oc_nowish in C. */
-                if (game.objects?.[d.typ]?.oc_nowish)
-                    return null;
-                break;
-            }
+    // C `typfnd:` `:4998–5020` — wizard-only objects remap for normal
+    // play (same-class remaps, so oclass needs no recompute).
+    if (d.typ && !wizardMode()) {
+        switch (d.typ) {
+        case AMULET_OF_YENDOR:
+            d.typ = FAKE_AMULET_OF_YENDOR;
+            break;
+        case CANDELABRUM_OF_INVOCATION:
+            d.typ = rnd_class(TALLOW_CANDLE, WAX_CANDLE);
+            break;
+        case BELL_OF_OPENING:
+            d.typ = BELL;
+            break;
+        case SPE_BOOK_OF_THE_DEAD:
+            d.typ = SPE_BLANK_PAPER;
+            break;
+        case MAGIC_LAMP:
+            d.typ = OIL_LAMP;
+            break;
+        default:
+            /* catch any other non-wishable objects (venom);
+               vacuous: no object sets oc_nowish in C. */
+            if (game.objects?.[d.typ]?.oc_nowish)
+                return null;
+            break;
         }
-
-        // C `:5022–5028` — a pudding corpse wish is a glob, not a
-        // random-corpse rejection (JS mlet is a string).
-        if (d.typ === CORPSE && d.mntmp >= LOW_PM
-            && mons(d.mntmp)?.mlet === 'S_PUDDING') {
-            d.typ = GLOB_OF_GRAY_OOZE + (d.mntmp - PM_GRAY_OOZE);
-            d.mntmp = NON_PM; // not used for globs
-        }
-
-        d.otmp = mksobj(d.typ, true, false);
-        d.typ = d.otmp.otyp;
-        d.oclass = d.otmp.oclass;
     }
+
+    // C `:5022–5028` — a pudding corpse wish is a glob, not a
+    // random-corpse rejection (JS mlet is a string).
+    if (d.typ === CORPSE && d.mntmp >= LOW_PM
+        && mons(d.mntmp)?.mlet === 'S_PUDDING') {
+        d.typ = GLOB_OF_GRAY_OOZE + (d.mntmp - PM_GRAY_OOZE);
+        d.mntmp = NON_PM; // not used for globs
+    }
+
+    /* C `:5031–5033` — mksobj for a set typ, else mkobj of the class;
+       then re-read what we actually got. */
+    d.otmp = d.typ ? mksobj(d.typ, true, false) : mkobj(d.oclass, false);
+    d.typ = d.otmp.otyp;
+    d.oclass = d.otmp.oclass; /* what we actually got */
 
     // C ref: objnam.c readobjnam `:5042–5083` — globs weigh by gsize
     // and cnt (quan always 1); other mergeables honor d.cnt when
@@ -2429,8 +2513,9 @@ function readobjnam_finish(d) {
          || (d.otmp.oartifact && rn2(nartifact_exist()) > 1)) && !wizardMode()) {
         artifact_exists(d.otmp, safe_oname(d.otmp), false, ONAME_NO_FLAGS);
         obfree(d.otmp, null);
-        /* C `:5378–5379` "For a moment, you feel ..." pline is async-only
-           in JS; named omission (map). */
+        /* C `:5378–5379` "For a moment ..." pline is async-only in JS:
+           mark it; readobjnam_wish emits it after this sync return. */
+        d.vanished = 1;
         return HANDS_OBJ;
     }
 

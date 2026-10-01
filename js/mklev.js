@@ -1169,7 +1169,7 @@ function splev_opt_boolean(v, defval) {
  * C ref: mklev.c count_level_features `:828–841` — recount fountains and
  * sinks over x 1..COLNO-1, y 0..ROWNO-1 (x = 1 lower bound like C).
  */
-function count_level_features() {
+export function count_level_features() {
     const flags = game.level.flags || (game.level.flags = {});
     flags.nfountains = 0; // C :832
     flags.nsinks = 0;

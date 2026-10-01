@@ -64,15 +64,15 @@
 {"fn":"rnd_otyp_by_namedesc","c":"3455-3529","status":"unknown","d":["D-2084"],"at":"seed@a30a7de84"}
 {"fn":"shiny_obj","c":"3532-3535","status":"unknown"}
 {"fn":"set_wallprop_from_str","c":"3539-3550","status":"unknown"}
-{"fn":"wizterrainwish","c":"3554-3916","status":"unknown","d":["D-1304","D-1290","D-1289"],"at":"seed@a30a7de84"}
-{"fn":"dbterrainmesg","c":"3920-3926","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wizterrainwish","c":"3554-3916","status":"ported","js":["js/readobjnam.js:wizterrainwish"],"d":["D-3197","D-1304","D-1290","D-1289"],"at":"2026-10-01@2ab288d08"}
+{"fn":"dbterrainmesg","c":"3920-3926","status":"ported","js":["js/readobjnam.js:dbterrainmesg"],"d":["D-3197"],"at":"2026-10-01@2ab288d08","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"readobjnam_init","c":"3933-3961","status":"ported","js":["js/readobjnam.js:readobjnam_init"],"d":["D-2912"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam_preparse","c":"3966-4175","status":"partial","js":["js/readobjnam.js:readobjnam_preparse"],"omit":"readobjnam-body applications of the newly parsed fields (future readobjnam/postparse rows, same pattern as the tin-D-2084 split): `erodeproof`/`eroded`/`eroded2` (today zeroed at the oeroded tail), `isgreased`, `unlabeled`, `isdiluted`, `very`, `gsize` (glob weight override), `islit` (pre-existing …","d":["D-2545"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam_parse_charges","c":"4178-4237","status":"unknown"}
 {"fn":"readobjnam_postparse1","c":"4240-4663","status":"ported","js":["js/readobjnam.js:readobjnam_postparse1"],"d":["D-3196","D-3195","D-2137","D-1886"],"at":"2026-10-01@5b559b238"}
 {"fn":"readobjnam_postparse2","c":"4666-4724","status":"partial","js":["js/readobjnam.js:readobjnam_postparse2"],"omit":"postparse3 `case 6` retry re-entry (above); single-char class code (C postparse1 `return 4`, pre-existing gap — postparse2 no-ops on 1-char bp); `paperback`/`unlabeled`/`holy-water`/`orange`/`versus-poison` typ arms (pre-existing inline gaps — postparse2 no-ops on those strings, baseline flow kept).","d":["D-2568"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam_postparse3","c":"4727-4899","status":"partial","js":["js/readobjnam.js:readobjnam_postparse3"],"omit":"postparse1 remainder stays deferred (grey-spell `grey spell`→`gray spell` fix `:4468–4469`, wider typfnd remaps — D-2021/D-2568 map lines, not this row); `d.un` NULL path draws nothing (C `:3463` NULL/empty guard mirrored).","d":["D-2600"],"at":"seed@a30a7de84"}
-{"fn":"readobjnam","c":"4910-5400","status":"partial","js":["js/readobjnam.js:readobjnam"],"omit":"- `readobjnam`: wizard-interactive y_n(\"Override glob weight limit?\") override (async y_n; sync chain clamps as on 'n' — normal + wizkit wishes exact); vanish \"For a moment...\" pline (`:5378–5379`, async pline; state ported D-3195); C zap.c:6366 + nhlobj.c:360 callers unwired (pre-existing).","d":["D-3196","D-3195","D-2111","D-2089","D-2055","D-2022"],"at":"2026-10-01@5b559b238"}
+{"fn":"readobjnam","c":"4910-5400","status":"partial","js":["js/readobjnam.js:readobjnam"],"omit":"- `readobjnam`: wizard-interactive y_n(\"Override glob weight limit?\") override (async y_n; sync chain clamps as on 'n' — normal + wizkit wishes exact); vanish pline for SYNC callers only (files wizkit, mklev escape items — the async wish path now emits it); C zap.c:6366 (needs makewish's MAXWISHTRY…","d":["D-3197","D-3196","D-3195","D-2111","D-2089","D-2055"],"at":"2026-10-01@2ab288d08"}
 {"fn":"rnd_class","c":"5403-5419","status":"unknown"}
 {"fn":"Japanese_item_name","c":"5422-5432","status":"unknown"}
 {"fn":"armor_simple_name","c":"5435-5468","status":"ported","js":["js/do_wear.js:armor_simple_name"],"d":["D-3064"],"at":"2026-09-28@2f39bdcea"}
