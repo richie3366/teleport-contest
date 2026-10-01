@@ -22,29 +22,29 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-01** — full `sessions` on `c47034f0d`
-(audit **2141–2149**, 2026-10-01T01:21:46.686Z).
+Score last measured: **2026-10-01** — full `sessions` on `139f221a9`
+(audit **2151–2157**, 2026-10-01T06:19:58.136Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`302+1.36/turn` (R² 0.761).
+`333+1.62/turn` (R² 0.776).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, scored 2026-09-30 19:07Z; fetched 2026-10-01)** | **13 / 44**, 6,883 / 11,265 pts, RNG **33.6 %**, rngSteps 87.4 %, screens **61.1 %** |
+| **Held-out (judge, scored 2026-10-01 01:48Z; fetched 2026-10-01)** | **13 / 44**, 6,883 / 11,265 pts, RNG **33.6 %**, rngSteps 87.4 %, screens **61.1 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `302+1.36/turn` (R² 0.761) |
+| Speed label | `333+1.62/turn` (R² 0.776) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best fork 35/44. Held-out 13/44, flat.
-**Corpus fortress (2026-10-01 01:29Z; scored 953/953 entries, 0 unrecorded):**
-**648 / 953** PASS (68.0 %), RNG 96.75 %, screens 90.7 %; 0 PASS losses, +0 against committed scoreboard; `full: true`, `fullAt: 2026-10-01T01:29:01.286Z`.
-Reviews 1225–2149 (index; no row 1618): 806 ACCEPT, 41 WITH-DEBT, 77 QUALITY-RISK (2141–2148: 3 accept/4 debt/1Q; 2149 ledger Q; 3 Must-fix families).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued).
+**Corpus fortress (2026-10-01 06:25Z; scored 953/953 entries, 0 unrecorded):**
+**654 / 953** PASS (68.6 %), RNG 96.86 %, screens 91.0 %; 0 PASS losses, +6 against committed scoreboard; `full: true`, `fullAt: 2026-10-01T06:25:37.243Z`.
+Reviews 1225–2157 (index; no row 1618): 812 ACCEPT, 42 WITH-DEBT, 78 QUALITY-RISK (2151–2157: 6 accept/1 debt/0Q; 0 Must-fix families).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
 --jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.

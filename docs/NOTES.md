@@ -17,7 +17,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 2141–2148: 3 ACCEPT, 4 ACCEPT-WITH-DEBT, 1 QUALITY-RISK; review 2145 queues exact Lua coordinate transport and roomtype validation/diagnostic closure. Ledger overlay 2149 armor message-before-mutation and nested extraction waits are fixed by D-3189; review 2145 coordinate transport is fixed by D-3190; roomtype validation/diagnostic completion is now the first Must-fix. Historical parent-based remeasures have no regressions; public 44/44. Previous 2132/2136 fixes confirmed. Ledger: armor ported, extraction/room/gas partial, famn split.
+- Audit 2151–2157: 6 ACCEPT, 1 ACCEPT-WITH-DEBT (2155 s' possessive, map debt); 2145/2150 closures confirmed by D-3191–D-3193; zero Must-fix families. Historical parent-based remeasures have no regressions; public 44/44; corpus 654/953 (+6, 0 losses). Gap: D-3189/D-3190 never got per-SHA audits. Ledger sample: 5 seeded ported rows all correct.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

@@ -2160,3 +2160,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2148-d946e150c-impossible-diagnostics.md](./2148-d946e150c-impossible-diagnostics.md) | `d946e150c` | D-3188 impossible diagnostics | **ACCEPT-WITH-DEBT** |
 | [2149-c47034f0d-ledger-sample.md](./2149-c47034f0d-ledger-sample.md) | `c47034f0d` | Audit ledger sample (inherited armor continuation) | **QUALITY-RISK** |
 | [2150-949324ac1-post-d3190-review-followup.md](./2150-949324ac1-post-d3190-review-followup.md) | `949324ac1` | Post-D-3190 follow-up (verbose gates, invent guards) | **QUALITY-RISK** |
+| [2151-4a2447e27-prinv-verbose-gate.md](./2151-4a2447e27-prinv-verbose-gate.md) | `4a2447e27` | D-3191 prinv verbose gate + invent hardening | **ACCEPT** |
+| [2152-24e6bea47-mpickstuff-verbose-gate.md](./2152-24e6bea47-mpickstuff-verbose-gate.md) | `24e6bea47` | D-3192 mpickstuff verbose gate | **ACCEPT** |
+| [2153-92ffa7863-roomtype-closure.md](./2153-92ffa7863-roomtype-closure.md) | `92ffa7863` | D-3193 roomtype validation/diagnostic closure | **ACCEPT** |
+| [2154-d95923a13-mon-arrive-with-you.md](./2154-d95923a13-mon-arrive-with-you.md) | `d95923a13` | D-3194 mon_arrive With_you completion | **ACCEPT** |
+| [2155-5b559b238-readobjnam-postparse1.md](./2155-5b559b238-readobjnam-postparse1.md) | `5b559b238` | D-3195 readobjnam finish + postparse1 extraction | **ACCEPT-WITH-DEBT** |
+| [2156-2ab288d08-readobjnam-glob-zombify.md](./2156-2ab288d08-readobjnam-glob-zombify.md) | `2ab288d08` | D-3196 readobjnam glob/zombify remainder | **ACCEPT** |
+| [2157-139f221a9-wizterrainwish-any-vanish.md](./2157-139f221a9-wizterrainwish-any-vanish.md) | `139f221a9` | D-3197 any fallthrough + vanish pline + wizterrainwish | **ACCEPT** |

@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — audit 2151–2157, D-3191–D-3197
+
+**Review:** seven JS SHAs oldest first, each file written before opening the next; 6 ACCEPT, 1 ACCEPT-WITH-DEBT (2155 s' possessive micro-gap, map debt unqueued). Prior closures confirmed: D-3191→2150 items 1,3–4; D-3192→2150 item 2; D-3193→2145 actionable 2 (hash filled). No JS edits. Zero Must-fix families; review-debt gap: D-3189/D-3190 predate the last review file and never got per-SHA Method audits (2150 covered the tree only for the verbose-gate regressions).
+**Verify:** each SHA re-measured with hidden-proxy verify --base HASH~1 --reach-all; no REGRESSED sessions. Public sessions 44/44, RNG 792,838/792,838, screens 11,405/11,405, speed 333+1.62/turn (R² .776). Full record: all 953 recordings present. Last hidden-proxy command: unfiltered score --jobs 8, 654/953 PASS, RNG 96.86%, screens 91.0%, 953 entries, 0 unrecorded, full=true at 06:25:37Z. Committed-scoreboard comparison: 0 PASS losses, +6 gains (container/terrain scenarios). Held-out refreshed: 13/44 flat, 6,883/11,265 points, RNG 33.6%, screens 61.1%, last judged Oct 1 01:48Z.
+**Ledger:** snapshot appended. Five seeded-ported briefs all correct, no corrections: peffect_restore_ability, mloot_container, return_throw_to_inv, rescued_from_terrain, does_block. (ledger.mjs sql needs node:sqlite/Node 22.5+; env is v20.12.2 — sampled via the jsonl seed@ filter instead.) 2145 Addressed hash filled (D-3193 92ffa7863). Hot-doc checks pass; no manual coverage refill.
+**Next:** breadth queue continues (readobjnam row persists for the glob y_n + sync pline + callers; next head after it is pager.c checkfile).
 ## 2026-10-01 — D-3197 `objnam.c` readobjnam any→typfnd fallthrough + vanish pline + wizterrainwish completion + dbterrainmesg
 
 **C locus:** - `readobjnam`: `nethack-c/upstream/src/objnam.c:4910–5400` — `any:` `:4994–4996`, `typfnd:` head `:4997–5033`, vanish `:5371–5380`.
