@@ -5,6 +5,6 @@
 {"fn":"md_rush","c":"288-394","status":"unknown"}
 {"fn":"newmail","c":"399-456","status":"partial","js":["js/mail.js:newmail"],"omit":"`ckmailstatus` mustgetmail/stat/broadcast variants (mailbox `stat()` is Rule #2 filesystem; no broadcast queue in scored JS); `m_next2u`/`MON_AT`/`distu` read as `distu > 2`/`m_at`/local (C-macro, mklev :18897 precedent); `display_nhwindow(WIN_MESSAGE, FALSE)` as `flush_topl_more` (readmail precede…","d":["D-2478"],"at":"seed@a30a7de84"}
 {"fn":"ckmailstatus","c":"461-479","status":"ported","js":["js/mail.js:ckmailstatus"],"d":["D-2917"],"at":"seed@a30a7de84","note":"alt 550-584 744-760"}
-{"fn":"readmail","c":"487-541","status":"unknown","d":["D-1958"],"at":"seed@a30a7de84","note":"alt 704-733 763-798"}
+{"fn":"readmail","c":"487-541","status":"ported","js":["js/mail.js:readmail"],"d":["D-1958"],"at":"2026-10-01@cdbc41097","note":"stale: js/mail.js:288 ports the compiled-in UNIX variant (mail.c:704-735; D-1958); 487-variant is !UNIX&&!VMS, 763-variant VMS"}
 {"fn":"read_simplemail","c":"589-680","status":"ported","js":["js/mail.js:read_simplemail"],"d":["D-2599"],"at":"seed@a30a7de84"}
 {"fn":"ck_server_admin_msg","c":"685-700","status":"by-design","at":"2026-09-30@03eae3466","note":"stale: js/mail.js:575; SERVER_ADMIN_MSG undefined in pinned unixconf.h:212, compiled C body empty"}

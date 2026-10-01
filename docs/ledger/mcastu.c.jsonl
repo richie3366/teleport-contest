@@ -1,5 +1,5 @@
 {"fn":"cursetxt","c":"63-85","status":"unknown","d":["D-2137"],"at":"seed@a30a7de84"}
-{"fn":"choose_monster_spell","c":"89-123","status":"unknown","d":["D-2253"],"at":"seed@a30a7de84"}
+{"fn":"choose_monster_spell","c":"89-123","status":"ported","js":["js/mcastu.js:choose_monster_spell"],"d":["D-2253"],"at":"2026-10-01@cdbc41097","note":"stale: js/mcastu.js:300 file-local line-for-line C (D-2253); staticfn shape correct"}
 {"fn":"castmu","c":"130-305","status":"unknown","d":["D-2140","D-1825"],"at":"seed@a30a7de84"}
 {"fn":"m_cure_self","c":"308-318","status":"unknown"}
 {"fn":"touch_of_death","c":"323-354","status":"unknown"}

@@ -115,11 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do.c` obj_no_longer_held — coverage PARTIAL (C 14 code L `do.c:893–920` / JS 10 code L in js/do.js; hops 3, callers 8, RNG 1, msg 0) @b9de54524
-- [ ] `rumors.c` rumor_check — coverage THIN (C 71 code L `rumors.c:196–302` / JS 24 code L in js/rumors.js; hops —, callers 1, RNG 0, msg 7; declared partial: `init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sectio) @b9de54524
-- [ ] `mail.c` readmail — coverage THIN (C 35 code L `mail.c:487–541` / JS 4 code L in js/mail.js; hops 6, callers 1, RNG 1, msg 3) @b9de54524
-- [ ] `mcastu.c` choose_monster_spell — coverage PARTIAL (C 20 code L `mcastu.c:89–123` / JS 13 code L in js/mcastu.js; hops 2, callers 1, RNG 3, msg 0) @1eadda2ce
-- [ ] `dothrow.c` hurtle_step — coverage PARTIAL (C 138 code L `dothrow.c:773–972` / JS 77 code L in js/dothrow.js; hops —, callers 1, RNG 1, msg 14) @1eadda2ce
 - [ ] `insight.c` show_gamelog — coverage PARTIAL (C 22 code L `insight.c:2561–2593` / JS 12 code L in js/insight.js; hops 4, callers 2, RNG 0, msg 4) @b0eed7df4
 - [ ] `getpos.c` getpos_menu — coverage PARTIAL (C 47 code L `getpos.c:665–725` / JS 30 code L in js/getpos.js; hops 2, callers 2, RNG 0, msg 1) @2eced4253
 - [ ] `rip.c` genl_outrip — coverage PARTIAL (C 51 code L `rip.c:86–163` / JS 27 code L in js/rip.js; hops 3, callers 1, RNG 0, msg 4; declared partial: NH320 dual stone; DUMPLOG Game over header) @2eced4253
@@ -127,6 +122,11 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `vision.c` new_angle — coverage THIN (C 28 code L `vision.c:414–451` / JS 1 code L in js/vision.js; hops 1, callers 1, RNG 0, msg 0) @2eced4253
 - [ ] `version.c` doextversion — coverage PARTIAL (C 60 code L `version.c:169–277` / JS 42 code L in js/pager.js; hops —, callers 2, RNG 0, msg 6; declared partial: `dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_in) @2eced4253
 - [ ] `sounds.c` sound_speak — coverage THIN (C 25 code L `sounds.c:2185–2220` / JS 1 code L in js/sounds.js; hops 2, callers 2, RNG 0, msg 0) @f9a10fead
+- [ ] `display.c` redraw_map — coverage PARTIAL (C 14 code L `display.c:1778–1812` / JS 9 code L in js/display.js; hops 2, callers 2, RNG 0, msg 0) @cdbc41097
+- [ ] `do_wear.c` inaccessible_equipment — coverage PARTIAL (C 33 code L `do_wear.c:3342–3400` / JS 24 code L in js/apply.js; hops —, callers 6, RNG 0, msg 6; declared partial: ``SetVoice``-class none here; prompt letter-hiding (which letters the dip/grease prompts suggest) stays with each getobj path's own simplifi) @cdbc41097
+- [ ] `cmd.c` yn_function_menu — coverage PARTIAL (C 33 code L `cmd.c:5419–5463` / JS 22 code L in js/getline.js; hops 2, callers 1, RNG 0, msg 1) @cdbc41097
+- [ ] `getpos.c` coord_desc — coverage PARTIAL (C 24 code L `getpos.c:595–635` / JS 17 code L in js/display.js; hops 2, callers 7, RNG 0, msg 0; declared partial: `auto_describe_text` still returns firstmatch only (`show_glyph` / lookaround).) @cdbc41097
+- [ ] `uhitm.c` mhitm_adtyping — coverage MISSING (C 45 code L `uhitm.c:4782–4832` / JS no symbol; hops 3, callers 3, RNG 0, msg 0; split? cited 67× in js/ — brief first) @cdbc41097
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

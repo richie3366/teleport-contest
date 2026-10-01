@@ -10,7 +10,7 @@
 {"fn":"hitfloor","c":"606-647","status":"unknown"}
 {"fn":"walk_path","c":"656-735","status":"ported","js":["js/dothrow.js:walk_path"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"hurtle_jump","c":"742-752","status":"unknown"}
-{"fn":"hurtle_step","c":"773-972","status":"unknown","d":["D-2188","D-1277","D-1165"],"at":"seed@a30a7de84"}
+{"fn":"hurtle_step","c":"773-972","status":"ported","js":["js/dothrow.js:hurtle_step"],"d":["D-3218","D-2188","D-1277","D-1165"],"at":"2026-10-01@cdbc41097"}
 {"fn":"will_hurtle","c":"977-989","status":"unknown"}
 {"fn":"mhurtle_step","c":"992-1068","status":"unknown","d":["D-1176"],"at":"seed@a30a7de84"}
 {"fn":"hurtle","c":"1078-1126","status":"unknown"}

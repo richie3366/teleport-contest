@@ -12,6 +12,8 @@ literally — but re-asserts completion falsely (below).
 - Promises: the 4 one-line disjunct drops + zap 4-arm restart; "all
   11 homes now C-exact"; Named: none.
 
+**Addressed:** D-3217 `cdbc41097`
+
 ## Intent vs deliverable
 
 Half kept. The 5 queued homes are fixed exactly as review 2160
