@@ -2,6 +2,10 @@
 
 SHA `c88e33eda`, D-3185; 2026-10-01; +500/-324 JS. No prior review closure.
 
+**Addressed:** D-3190
+
+Actionable 1 closed; Actionable 2 remains queued (roomtype validation and diagnostic completion).
+
 ## Intent vs deliverable
 
 “Restore special-level entry contracts and Lua integer checks” restarts

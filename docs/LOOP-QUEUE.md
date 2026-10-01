@@ -86,7 +86,6 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
-- [ ] `sp_lev.c` get_table_xy_or_coord → get_coord integer transport and gas narrowing — C :3187–3204/:5318–5366 retains lua_Integer until destination cast; JS object fields round `"9223372036854775807"`, so lspo_room :4027–4116 builds/draws rn2(100) instead of rejecting mixed −1/0; lspo_gas_cloud :4928–4965 turns BigInt array x=−1 into 0 via Number(tx). Preserve exact object/array integers and cast at the C destinations; compare extracted C. Source: reviews/loop-unattended/2145-c88e33eda-special-level-closure.md.
 - [ ] `sp_lev.c` lspo_room → get_table_roomtype_opt validation/message closure — C :4003–4020 calls get_table_str_opt (nhlua.c:1053–1076) then synchronous impossible; JS coerces raw type and discards impossible promise before build_room RNG. Extracted C `type=true` errors before rn2(100), function returning ordinary resolves; JS builds after impossible in both. Import canonical string reader and propagate diagnostic completion through callers. Source: reviews/loop-unattended/2145-c88e33eda-special-level-closure.md.
 
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS

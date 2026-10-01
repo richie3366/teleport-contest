@@ -67,7 +67,7 @@
 {"fn":"get_table_monclass","c":"3131-3140","status":"split","js":["js/mklev.js:get_table_objclass_field"],"at":"2026-09-30@042bdf039","note":"stale: body identical to get_table_objclass, served by js/mklev.js:22187; sole C caller :3358 wired at :22608"}
 {"fn":"find_montype","c":"3143-3164","status":"ported","js":["js/mklev.js:find_montype"],"d":["D-2997"],"at":"2026-09-28@a7a0f55e5","note":"audit 1990-1998: C staticfn, file-local js/mklev.js:29179 whole with cites (D-2997); 'no export' is correct linkage, prior note stale"}
 {"fn":"get_table_montype","c":"3167-3179","status":"split","js":["js/mklev.js:lspo_monster_normalize_table"],"at":"2026-09-30@042bdf039","note":"stale: C :3167-3179 complete inline js/mklev.js:22599-22607 (D-2645 replay design, review 1957 ACCEPT); sole C caller :3343 via l_create_monster:22667"}
-{"fn":"get_table_xy_or_coord","c":"3188-3204","status":"partial","js":["js/mklev.js:get_table_xy_or_coord"],"omit":"- `get_table_xy_or_coord` / `check_mapchr` / `get_table_int_opt`: inherited callers still omit stair table parsing (sp_lev.c:4164), shared mandatory-mapchar parsing (nhlua.c:247), and exact integer checks in noncluster splev_opt_int/dungeon readers.","d":["D-3185"],"at":"2026-10-01@03eae3466"}
+{"fn":"get_table_xy_or_coord","c":"3188-3204","status":"partial","js":["js/mklev.js:get_table_xy_or_coord"],"omit":"- `get_table_xy_or_coord`: no missing helper arm.","d":["D-3190","D-3185"],"at":"2026-10-01@447ada6e3"}
 {"fn":"lspo_monster","c":"3214-3400","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as l_create_monster + helpers mklev.js:22134-22353, review 1604 ACCEPT"}
 {"fn":"get_table_int_or_random","c":"3407-3437","status":"partial","js":["js/mklev.js:get_table_int_or_random"],"omit":"`lua_pop` has no stack in the unpacked loader.","d":["D-2881"],"at":"seed@a30a7de84"}
 {"fn":"get_table_buc","c":"3442-3452","status":"unknown"}
@@ -109,14 +109,14 @@
 {"fn":"cvt_to_relcoord","c":"4793-4802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"nhl_abs_coord","c":"4811-4836","status":"ported","js":["js/mklev.js:nhl_abs_coord"],"d":["D-3174","D-3168"],"at":"2026-09-30@b5e29a0ee","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_feature","c":"4844-4923","status":"unknown","d":["D-2712"],"at":"seed@a30a7de84"}
-{"fn":"lspo_gas_cloud","c":"4929-4965","status":"partial","js":["js/mklev.js:lspo_gas_cloud"],"d":["D-3185"],"at":"2026-10-01@c47034f0d","note":"review 2145: Number(tx) before signed-16 narrowing loses full-width Lua integer low bits in array coord; exact coordinate transport Must-fix"}
+{"fn":"lspo_gas_cloud","c":"4929-4965","status":"ported","js":["js/mklev.js:lspo_gas_cloud"],"d":["D-3190","D-3185"],"at":"2026-10-01@447ada6e3","note":"review 2145: Number(tx) before signed-16 narrowing loses full-width Lua integer low bits in array coord; exact coordinate transport Must-fix"}
 {"fn":"lspo_terrain","c":"4978-5038","status":"ported","js":["js/mklev.js:lspo_terrain"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_replace_terrain","c":"5051-5143","status":"unknown","d":["D-1856"],"at":"seed@a30a7de84"}
 {"fn":"generate_way_out_method","c":"5146-5214","status":"unknown"}
 {"fn":"ensure_way_out","c":"5217-5255","status":"unknown","d":["D-2101"],"at":"seed@a30a7de84"}
 {"fn":"get_table_intarray_entry","c":"5260-5279","status":"split","js":["js/mklev.js:get_table_intarray_entry_unpacked"],"d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"stale: get_table_intarray_entry_unpacked (D-2668)"}
 {"fn":"get_table_region","c":"5282-5316","status":"split","js":["js/mklev.js:get_table_region_unpacked"],"d":["D-2668"],"at":"2026-09-29@d27c7b945","note":"stale: get_table_region_unpacked (D-2668)"}
-{"fn":"get_coord","c":"5319-5366","status":"partial","js":["js/mklev.js:get_coord"],"omit":"`nhl_get_xy_params` (`nhlua.c:506–522`) and its caller `nhl_getmap` (`nhlua.c:530`) have no JS function, so the `get_coord` at `nhlua.c:518` is unwired.","d":["D-2862"],"at":"seed@a30a7de84"}
+{"fn":"get_coord","c":"5319-5366","status":"partial","js":["js/mklev.js:get_coord"],"omit":"- `get_table_xy_or_coord`: no missing helper arm.","d":["D-3190","D-2862"],"at":"2026-10-01@447ada6e3"}
 {"fn":"levregion_add","c":"5371-5402","status":"unknown"}
 {"fn":"l_get_lregion","c":"5410-5436","status":"ported","js":["js/mklev.js:l_get_lregion"],"d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"stale: inlined in l_teleport_region/l_levregion (D-2668)"}
 {"fn":"lspo_teleport_region","c":"5443-5460","status":"split","js":["js/mklev.js:l_teleport_region"],"d":["D-3175","D-3166"],"at":"2026-09-30@adc5a35c2","note":"refresh: no JS symbol (measured MISSING)"}

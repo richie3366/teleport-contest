@@ -1,5 +1,50 @@
 # Divergence log
 
+## D-3190 — preserve exact Lua coordinate integers through destination casts
+
+- **Status:** fixed review 2145 Actionable 1; first Must-fix ships alone. Clean preflight green/strict PASS using Node 22.23.3 (added its existing installation to the command PATH). Three whole pinned bodies and all brief references read before editing; existing complete control flow retained, integer transport and affected caller boundaries corrected. Must-fix density exception: 2 scored JS files, 40 insertions; no unrelated coverage row.
+- **Symptom:** measured by the review's extracted-C oracle, not a blocked corpus session: object coord.x="9223372036854775807" rounded before room's coordxy assignment, bypassing mixed -1/0 rejection and drawing rn2(100); array-form gas coords retained BigInt in the reader but Number(tx) rounded before signed-16 narrowing, passing 0 instead of -1.
+- **C locus:** whole bodies and every reference table read in brief outputs; destination assignments and SP_COORD_PACK read at the immediate callers.
+  - `get_table_xy_or_coord`: sp_lev.c:3187–3204; optional x/y readers return signed int before promotion to lua_Integer, fallback only for both -1, then full-width out writes.
+  - `get_coord`: sp_lev.c:5318–5366; nil leaves outputs unchanged, x field precedes y validation/mutation, otherwise length-two array conversion. Field checkinteger rejects nonintegral values; array lua_tointeger produces zero for numeric nonintegers. Lua 5.4.8 lauxlib.c checkinteger and existing shared numeric helpers retain their validation.
+  - `lspo_gas_cloud`: sp_lev.c:4928–4965; coordxy assignment precedes comparison of original lua_Integer tx/ty for selection; damage/TTL, constructor choice, overwrite and return stay in C order.
+- **JS was:** get_coord's object arm used an unchecked-width Number return while the array reader already preserved unsafe integers. Gas explicitly converted BigInt to Number before narrowing. Several live caller adapters passed those values to Number-only bitwise operations or omitted destination narrowing.
+- **Fix:** the existing luaL_checkinteger_unpacked now supports exact signed-64 transport with width=64: safe values remain Numbers, unsafe values remain BigInts. Both object fields use that mode, matching the existing exact array reader; get_table_xy_or_coord passes the result unchanged. Gas applies width=16 before conversion to Number while testing the original integers for selection. Existing feature/engraving/terrain/door coordxy assignments and trap launchplace writes apply the same destination cast. Packed-coordinate expansions in mazewalk, location, room-location and the altar adapter mask BigInt low eight bits before Number conversion, as SP_COORD_PACK does. No new imports, runtime filesystem, RNG/frame alignment or recorded-input gates.
+- **JS:** js/nhlua.js:65 luaL_checkinteger_unpacked; js/mklev.js:22516 get_coord, :22572 get_table_xy_or_coord, :1093 lspo_gas_cloud; destination callers listed below, packed adapters :1305/:22039/:23148/:23500. Same export names and signatures retained.
+- **Callers:**
+  - `get_table_xy_or_coord`: all 16 executable C references accounted for. sp_lev.c monster :3341 → js/mklev.js:22995; object :3650 → :22774; engraving :3904 → :1787; room :4057 → :1846; stair :4164 remains the named omission; grave :4260 → :23301; altar :4301 → :23343; trap :4429 → :1582; gold :4503 → :1379; door :4696 → :19042; feature :4877 → :1706; gas :4945 → :1103; terrain :4993 → :1953; drawbridge :5742 → :1244; mazewalk :5793 → :1297; map :6119 → :2264. No added C call site; existing internal altar fallback :23151 remains a lowered adapter.
+  - `get_coord`: sp_lev.c :3198 → js/mklev.js:22577; monster :3262 → :22939; object :3608 → :22656; engraving :3913 → :1801; trap :4419/:4439/:4450 → :1571/:1591/:1598; gold :4496 → :1372; feature :4866 → :1697; terrain :5007 → :1971. nhlua.c:518 remains the named omission. Declaration extern.h:3066 has no executable call.
+  - `lspo_gas_cloud`: des registration sp_lev.c:6413 is represented by the existing public export; Cloud-room fill js/mklev.js:31208 remains wired with its Set-backed selection. No new caller.
+- **Verify:** no failed sessions to triage. Extracted pinned-C/Lua oracle /tmp/D3185-oracle (source extraction /tmp/D3185-oracle-build.py) versus current JS /tmp/D3190-parity.mjs: **153/153 PASS**, including both coordinate forms, signed-64 extrema, low-bit casts, fractional/error differences between object and array forms, int32 optional fields and selection TTL. External room/gas constructors and RNG are observation sinks: this measures arguments, guards, mutations and call order, not placement. Review's three reported coordinate counterexamples now agree with C; mixed room coordinates fail before RNG. node scripts/verify.mjs --fn get_table_xy_or_coord,get_coord,lspo_gas_cloud completed with this actual tail:
+
+```text
+PASS  syntax   2 changed js file(s): js/mklev.js js/nhlua.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify get_table_xy_or_coord: no corpus session blocked on it at baseline
+PASS  reach    get_table_xy_or_coord: no RNG-tagged reach; fixed smoke spread (24 run, 6.2s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify get_coord: no corpus session blocked on it at baseline
+PASS  reach    get_coord: no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify lspo_gas_cloud: no corpus session blocked on it at baseline
+PASS  reach    lspo_gas_cloud: no RNG-tagged reach; fixed smoke spread (24 run, 6.2s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+
+  - `get_table_xy_or_coord`: no baseline blocked session (note, not hidden PASS); 24/24 smoke PASS → REACH-OK, plus public green/strict/cohort/full.
+  - `get_coord`: no baseline blocked session; 24/24 smoke PASS → REACH-OK, plus the same public gates and extracted-C object/array validation and transport checks.
+  - `lspo_gas_cloud`: no baseline blocked session; 24/24 smoke PASS → REACH-OK, plus the same public gates and extracted-C constructor/narrowing/selection checks. None of these functions draws RNG, so smoke reach does not prove unexecuted arms.
+- **Named omissions:**
+  - `get_table_xy_or_coord`: no missing helper arm. Inherited stair table parsing at sp_lev.c:4164 remains absent in lowered js/mklev.js:l_create_stairway. Existing callers' other behavior is not claimed whole: gold/grave's narrowed-output random guard versus full-width packed operands (sp_lev.c:4511/:4265), map int ox/oy copies (:6140–6141), and safe-Number SP_COORD_PACK masks/general get_location control flow (:1336–1353) remain inherited adapter debt. Roomtype validation/diagnostic completion (:4072 → :4003–4020) is the next Must-fix, not closed here. Noncluster direct scalar checkinteger callers retain their pre-existing default-width conversion.
+  - `get_coord`: no missing body arm; existing array entry reader and nhl_error clone are reused. nhlua.c:518 nhl_get_xy_params→nhl_getmap is still unwired. General Lua stack/metatable/script execution and nhl_error's source/debug suffix (nhlua.c:198–218) remain absent in the unpacked JS boundary; objects/arrays, direct callbacks and throws represent the live subset. Caller adapter debt is named above.
+  - `lspo_gas_cloud`: no missing body arm or executable public caller. Set-backed selections represent Lua userdata and live constructors remain imported; no full Lua VM/source-stack diagnostics claim.
+- **Ledger:** get_table_xy_or_coord partial; get_coord partial; lspo_gas_cloud ported
+- **Next:** first remaining Must-fix, review 2145 Actionable 2: canonical optional-string roomtype validation/function evaluation and diagnostic completion before build_room RNG. Coverage block is regenerated by finish; no hand refill.
+
 ## D-3189 — complete monster armor messages before mutation and riding RNG
 
 - **Status:** fixed with inherited named omissions in extraction; review 2149 Must-fix ships alone. Clean working tree and preflight green/strict PASS. One armor continuation unit: whole mon_break_armor plus its m_lose_armor → extract_from_minvent → update_mon_extrinsics closure; no unrelated coverage row. Four C bodies (350 lines including declarations/comments) and every brief caller table read before coding. Scored change: 2 JS files, 281 insertions, below caps.

@@ -1101,8 +1101,8 @@ export async function lspo_gas_cloud(opts) {
         && !(opts.pts instanceof Set)) {
         const o = lcheck_param_table(arguments);
         const { x: tx, y: ty } = get_table_xy_or_coord(o);
-        x = (Number(tx) << 16) >> 16; // coordxy, before the lua_Integer test
-        y = (Number(ty) << 16) >> 16;
+        x = luaL_checkinteger_unpacked(tx, 16); // C :4946 coordxy, before the lua_Integer test
+        y = luaL_checkinteger_unpacked(ty, 16);
         if (tx === -1 && ty === -1) {
             // nhlsel.c:58–66 l_selection_check: JS selections are Set-backed
             // objects, the unpacked equivalent of the selection userdata.
@@ -1302,8 +1302,8 @@ export function lspo_mazewalk(a, b, c) {
         fstocked = splev_opt_boolean(o.stocked, 1); // C :5795
         dir = LSPO_MAZEWALK_DIRS2I[splev_opt_index(o.dir, 'random', LSPO_MAZEWALK_DIRS)]; // C :5796
     }
-    let x = mx | 0; // C :5799-5801 (mcoord pack is implicit in the twin)
-    let y = my | 0;
+    let x = typeof mx === 'bigint' ? Number(mx & 0xffn) : mx | 0; // C :5799 SP_COORD_PACK
+    let y = typeof my === 'bigint' ? Number(my & 0xffn) : my | 0;
     const coder = game.gc?.coder ?? null; // C gc.coder->croom
     const pos = get_location_coord(ANY_LOC, coder?.croom ?? null, x, y); // C :5803
     x = pos.x;
@@ -1590,15 +1590,15 @@ export function lspo_trap(a, b, c) {
             const lc = { x: -1, y: -1 }; // C :4438
             get_coord(o.launchfrom, lc); // C :4439 get_coord(L, -1, &lx, &ly)
             const lp = game.launchplace ?? (game.launchplace = { x: 0, y: 0 });
-            lp.x = lc.x; // C :4442
-            lp.y = lc.y; // C :4443
+            lp.x = luaL_checkinteger_unpacked(lc.x, 16); // C :4442
+            lp.y = luaL_checkinteger_unpacked(lc.y, 16); // C :4443
         }
         if (o.teledest != null && typeof o.teledest === 'object') { // C :4448-4460
             const lc = { x: -1, y: -1 }; // C :4449
             get_coord(o.teledest, lc); // C :4450 get_coord(L, -1, &lx, &ly)
             const lp = game.launchplace ?? (game.launchplace = { x: 0, y: 0 });
-            lp.x = lc.x; // C :4453
-            lp.y = lc.y; // C :4454
+            lp.x = luaL_checkinteger_unpacked(lc.x, 16); // C :4453
+            lp.y = luaL_checkinteger_unpacked(lc.y, 16); // C :4454
         }
     }
     if (tmp.type === NO_TRAP) throw new Error('lspo_trap: Unknown trap type'); // C :4463-4464
@@ -1695,8 +1695,8 @@ export function lspo_feature(a, b, c) {
         typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
         const fx = { x: -1, y: -1 }; // C :4864 fx, fy
         get_coord(b, fx); // C :4866 get_coord(L, 2, &fx, &fy)
-        x = fx.x;
-        y = fx.y;
+        x = luaL_checkinteger_unpacked(fx.x, 16);
+        y = luaL_checkinteger_unpacked(fx.y, 16);
     } else if (argc === 3) { // C :4868-4872
         typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
         x = b | 0;
@@ -1704,8 +1704,8 @@ export function lspo_feature(a, b, c) {
     } else { // C :4873-4880 table form (lcheck_param_table: argc<1 ≡ {})
         o = a ?? {};
         const xy = get_table_xy_or_coord(o); // C :4877
-        x = xy.x;
-        y = xy.y;
+        x = luaL_checkinteger_unpacked(xy.x, 16);
+        y = luaL_checkinteger_unpacked(xy.y, 16);
         typ = LSPO_FEATURES2I[splev_opt_index(o.type, null, LSPO_FEATURES)]; // C :4878
         can_have_flags = true; // C :4879
     }
@@ -1785,8 +1785,8 @@ export function lspo_engraving(a, b, c) {
             throw new Error('bad argument #1 (table expected)');
         const o = a;
         const xy = get_table_xy_or_coord(o); // C :3904
-        x = xy.x;
-        y = xy.y;
+        x = luaL_checkinteger_unpacked(xy.x, 16);
+        y = luaL_checkinteger_unpacked(xy.y, 16);
         etyp = LSPO_ENGRTYPES2I[splev_opt_index(o.type, 'engrave', LSPO_ENGRTYPES)]; // C :3907
         if (typeof o.text !== 'string') // C :3908 get_table_str luaL_checkstring
             throw new Error("bad argument 'text' (string expected)");
@@ -1799,8 +1799,8 @@ export function lspo_engraving(a, b, c) {
     } else if (argc === 3) { // C :3911-3917
         const ex = { x, y }; // C :3912 ex, ey; nil leaves the -1 seed
         get_coord(a, ex); // C :3913 (void) get_coord(L, 1, &ex, &ey)
-        x = ex.x;
-        y = ex.y;
+        x = luaL_checkinteger_unpacked(ex.x, 16);
+        y = luaL_checkinteger_unpacked(ex.y, 16);
         etyp = LSPO_ENGRTYPES2I[splev_opt_index(b, 'engrave', LSPO_ENGRTYPES)]; // C :3916
         if (typeof c !== 'string') // C :3917 dupstr(luaL_checkstring)
             throw new Error('bad argument #3 (string expected)');
@@ -1951,8 +1951,8 @@ export function lspo_terrain(a, b, c) {
         const o = a ?? {}; // C :4991 lcheck_param_table
         if (o === null || typeof o !== 'object') throw new Error('lspo_terrain: Wrong parameters');
         const mm = get_table_xy_or_coord(o); // C :4993
-        x = mm.x;
-        y = mm.y; // C :4994
+        x = luaL_checkinteger_unpacked(mm.x, 16);
+        y = luaL_checkinteger_unpacked(mm.y, 16); // C :4994
         if (mm.x === -1 && mm.y === -1) { // C :4995
             const s = o.selection; // C :4996 lua_getfield
             if (!s || typeof s !== 'object' || !(s.pts instanceof Set)) // C :4997 l_selection_check
@@ -1969,8 +1969,8 @@ export function lspo_terrain(a, b, c) {
         tmpterrain.ter = check_mapchr(b); // C :5005
         const out = { x: 0, y: 0 };
         get_coord(a, out); // C :5007 get_coord(L, 1, &tx, &ty)
-        x = out.x; // C :5008
-        y = out.y; // C :5009
+        x = luaL_checkinteger_unpacked(out.x, 16); // C :5008
+        y = luaL_checkinteger_unpacked(out.y, 16); // C :5009
     } else if (argc === 2) { // C :5010
         if (!a || typeof a !== 'object' || !(a.pts instanceof Set)) // C :5011 l_selection_check
             throw new Error('lspo_terrain: selection expected');
@@ -19040,8 +19040,8 @@ export function lspo_door(a, b, c) {
     } else if (argc === 0 || (argc === 1 && (a == null || typeof a === 'object'))) { // C :4693-4700 table form
         o = a ?? {}; // C :4695 lcheck_param_table
         const xy = get_table_xy_or_coord(o); // C :4697
-        x = xy.x;
-        y = xy.y;
+        x = luaL_checkinteger_unpacked(xy.x, 16);
+        y = luaL_checkinteger_unpacked(xy.y, 16);
         msk = doorstates2i[splev_opt_index(o.state, 'random', doorstates)]; // C :4698-4699
     } else {
         nhl_error('lspo_door: Wrong parameters'); // C param-table failure
@@ -22037,6 +22037,9 @@ function get_unpacked_coord(loc, defhumidity) {
  * get_location_coord_random / in-room double-try.
  */
 function get_location_coord(humidity, croom, rx, ry) {
+    // C sp_lev.h:84 SP_COORD_PACK: retain exact low bits before Number.
+    if (typeof rx === 'bigint') rx = Number(rx & 0xffn);
+    if (typeof ry === 'bigint') ry = Number(ry & 0xffn);
     if (rx < 0 && ry < 0) {
         return croom
             ? get_location_coord_in_room(croom, humidity)
@@ -22503,7 +22506,7 @@ export function nhl_abs_coord(a, b) {
  * C ref: sp_lev.c get_coord :5319–5366.
  * Unpacked stand-in for (lua_State, stack index, *x, *y): a JS object or
  * array is LUA_TTABLE, null/undefined is LUA_TNIL, anything else is a
- * non-nil non-table. Writes xy.x and xy.y only on a success arm (C
+ * non-nil non-table. Writes x before reading y, even when y errors (C
  * out-params). Nil returns false and leaves xy untouched — that is the
  * "non-existent coord is ok" case. A bad table or a non-nil non-table
  * throws via nhl_error; the C returns after those calls are NOTREACHED.
@@ -22524,14 +22527,14 @@ export function get_coord(coord, xy) {
         // C :5329–5334 lua_getfield(L, i, "x"); nil skips; else checkinteger.
         // lua_pop of that field has no unpacked equivalent.
         if (coord.x != null) {
-            xy.x = luaL_checkinteger_unpacked(coord.x); // C :5331
+            xy.x = luaL_checkinteger_unpacked(coord.x, 64); // C :5331
             gotx = true; // C :5332
         }
 
         if (gotx) { // C :5336
             // C :5337–5341 lua_getfield "y". Both fields set → TRUE.
             if (coord.y != null) {
-                xy.y = luaL_checkinteger_unpacked(coord.y); // C :5339
+                xy.y = luaL_checkinteger_unpacked(coord.y, 64); // C :5339
                 ret = true; // C :5341
             } else {
                 nhl_error('Not a coordinate'); // C :5343
@@ -23142,8 +23145,8 @@ export async function l_create_monster(o, arg2, croom = null) {
  */
 export function splev_create_altar(a, croom = null) {
     const t = { ...(a ?? {}) };
-    let rx = (t.rx != null) ? (t.rx | 0) : -1;
-    let ry = (t.ry != null) ? (t.ry | 0) : -1;
+    let rx = (t.rx != null) ? (typeof t.rx === 'bigint' ? Number(t.rx & 0xffn) : t.rx | 0) : -1;
+    let ry = (t.ry != null) ? (typeof t.ry === 'bigint' ? Number(t.ry & 0xffn) : t.ry | 0) : -1;
     if (rx === -1 && ry === -1) {
         const xy = get_table_xy_or_coord(t);
         rx = xy.x;
@@ -23495,6 +23498,9 @@ function get_free_room_loc(croom) {
  * create_trap starts x=y=-1 so the retry arm always somexy-random.
  */
 function get_free_room_loc_coord(croom, rx, ry) {
+    // C sp_lev.h:84 SP_COORD_PACK: retain exact low bits before Number.
+    if (typeof rx === 'bigint') rx = Number(rx & 0xffn);
+    if (typeof ry === 'bigint') ry = Number(ry & 0xffn);
     let pos = get_location_coord(DRY, croom, rx, ry);
     if (game.level.at(pos.x, pos.y)?.typ === ROOM) return pos;
     let trycnt = 0;

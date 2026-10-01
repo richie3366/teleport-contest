@@ -4,7 +4,7 @@ Date: 2026-10-01. Docs-only audit overlay, not a ninth JS port.
 Scope: five random seeded ported rows, sampled after reviews 2141–2148.
 No JS or upstream C edits. This records inherited audit findings.
 
-**Addressed:** D-3189
+**Addressed:** D-3189 `447ada6e3`
 
 ## Intent vs deliverable
 

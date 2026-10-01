@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `mon_break_armor` continuation order: missing waits at C worn.c:1196–1201 and the subsequent armor/drop/riding arms; JS worn.js:546–549 consumes armor before its queued message starts at :674 (actual suspension probe: armor consumed → message waiting). Restart the whole body in C order, verify m_lose_armor closure and callers; ship alone. Source: reviews/loop-unattended/2149-c47034f0d-ledger-sample.md. **Addressed:** D-3189
+- [x] `sp_lev.c` get_table_xy_or_coord → get_coord integer transport and gas narrowing — C :3187–3204/:5318–5366 retains lua_Integer until destination cast; JS object fields round `"9223372036854775807"`, so lspo_room :4027–4116 builds/draws rn2(100) instead of rejecting mixed −1/0; lspo_gas_cloud :4928–4965 turns BigInt array x=−1 into 0 via Number(tx). Preserve exact object/array integers and cast at the C destinations; compare extracted C. Source: reviews/loop-unattended/2145-c88e33eda-special-level-closure.md. **Addressed:** D-3190
+
+
+- [x] `mon_break_armor` continuation order: missing waits at C worn.c:1196–1201 and the subsequent armor/drop/riding arms; JS worn.js:546–549 consumes armor before its queued message starts at :674 (actual suspension probe: armor consumed → message waiting). Restart the whole body in C order, verify m_lose_armor closure and callers; ship alone. Source: reviews/loop-unattended/2149-c47034f0d-ledger-sample.md. **Addressed:** D-3189 `447ada6e3`
 
 ## 2026-09-30
 
