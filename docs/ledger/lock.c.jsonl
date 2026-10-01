@@ -1,15 +1,15 @@
-{"fn":"picking_lock","c":"17-27","status":"unknown"}
-{"fn":"picking_at","c":"30-34","status":"unknown"}
+{"fn":"picking_lock","c":"17-27","status":"ported","js":["js/lock.js:picking_lock"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
+{"fn":"picking_at","c":"30-34","status":"ported","js":["js/lock.js:picking_at"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
 {"fn":"lock_action","c":"38-64","status":"ported","js":["js/lock.js:lock_action"],"at":"2026-09-30@92b27a5b5","note":"stale: js/lock.js:355 complete, picktyp arms merged with identical body"}
-{"fn":"picklock","c":"68-159","status":"unknown"}
-{"fn":"breakchestlock","c":"162-212","status":"unknown"}
-{"fn":"forcelock","c":"216-256","status":"unknown"}
-{"fn":"reset_pick","c":"259-265","status":"unknown"}
+{"fn":"picklock","c":"68-159","status":"ported","js":["js/lock.js:picklock"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
+{"fn":"breakchestlock","c":"162-212","status":"ported","js":["js/lock.js:breakchestlock"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
+{"fn":"forcelock","c":"216-256","status":"ported","js":["js/lock.js:forcelock"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
+{"fn":"reset_pick","c":"259-265","status":"ported","js":["js/lock.js:reset_pick"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
 {"fn":"maybe_reset_pick","c":"269-285","status":"ported","js":["js/lock.js:maybe_reset_pick"],"d":["D-2949"],"at":"seed@a30a7de84"}
 {"fn":"autokey","c":"289-344","status":"ported","js":["js/lock.js:autokey"],"d":["D-2715"],"at":"seed@a30a7de84"}
 {"fn":"pick_lock","c":"358-656","status":"partial","js":["js/lock.js:pick_lock"],"omit":"(1) `maybe_absorb_item` (`steal.c:772`, no JS port — D-2002-carried); (2) `!IS_DOOR` DID_NOTHING half (`:579–586`, own Open row this commit — historically always-LEARNED, fortress-green).","d":["D-2755","D-2744","D-2286","D-2167","D-2002"],"at":"seed@a30a7de84"}
-{"fn":"u_have_forceable_weapon","c":"660-670","status":"unknown"}
-{"fn":"doforce","c":"676-756","status":"unknown"}
+{"fn":"u_have_forceable_weapon","c":"660-670","status":"ported","js":["js/lock.js:u_have_forceable_weapon"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
+{"fn":"doforce","c":"676-756","status":"ported","js":["js/lock.js:doforce"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
 {"fn":"stumble_on_door_mimic","c":"759-769","status":"unknown"}
 {"fn":"doopen","c":"773-776","status":"unknown"}
 {"fn":"doopen_indir","c":"780-923","status":"unknown"}
@@ -17,4 +17,4 @@
 {"fn":"doclose","c":"957-1051","status":"unknown"}
 {"fn":"boxlock","c":"1056-1098","status":"unknown"}
 {"fn":"doorlock","c":"1103-1273","status":"unknown"}
-{"fn":"chest_shatter_msg","c":"1276-1318","status":"unknown","d":["D-2676"],"at":"seed@a30a7de84"}
+{"fn":"chest_shatter_msg","c":"1276-1318","status":"ported","js":["js/lock.js:chest_shatter_msg"],"d":["D-3243","D-2676"],"at":"2026-10-01@1634fa4fa"}

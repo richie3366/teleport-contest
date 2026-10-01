@@ -1,5 +1,46 @@
 # Divergence log
 
+## D-3243 — `lock.c` force/pick family: doforce prompt-order fix (Barbarian container 200→285) + picklock/forcelock/breakchestlock whole bodies
+
+- **Status:** fixed (corpus-residual head `doforce`; `js/lock.js` only, ~105 insertions — 9 whole lock.c functions, 4 verified-no-change).
+- **Symptom:** queue row blocks 1/953 @a308a919b: scen-container-Barbarian-94366 s200 kind=screen — C «There is a large box here; force its lock? [ynq] (q)» vs JS «There is a locked large box here; force its lock? [ynq] (q)». Cause: JS set `otmp.lknown = 1` before building the prompt, so `doname()` included the "locked" prefix; C builds the prompt via `safe_qbuf` first and sets `lknown = 1` after (doforce box-scan arm).
+- **C locus:**
+  - `doforce`: `lock.c:676–756` whole body in C order — uswallow / no-weapon / can't-reach ECMD_OK guards; picktyp blade-vs-blunt; resume gate; underfoot box scan with broken/unlocked There arm; safe_qbuf prompt + ynq; pry/bash + set_occupation(forcelock); no-box ECMD_TIME.
+  - `u_have_forceable_weapon`: `lock.c:660–670` whole body, verified identical — no change.
+  - `forcelock`: `lock.c:216–256` whole body — moved-box gate; `usedtime++ >= 50` give-up; blade break (rn2/cursed/obj_resists short-circuit, useup, DEX); blunt wake_nearby; rn2(100) vs chance; success + `destroyit = !picktyp && !rn2(3)`; breakchestlock + reset_pick.
+  - `breakchestlock`: `lock.c:162–212` whole body — !destroyit COST_BRKLCK billing with cobj hidden; destroy path (spill loop with shatter + stolen_value + obfree/useup; ICE_BOX corpse age + start_corpse_timeout; box stolen_value; loss You; delobj).
+  - `chest_shatter_msg`: `lock.c:1276–1318` whole body, verified (D-2676) — no change; C staticfn → local async fn correct.
+  - `picklock`: `lock.c:68–159` whole body — box-floor / door-pointer moved gates; doormask NODOOR/ISOPEN/BROKEN messages; `usedtime++ >= 50` give-up; rn2(100) vs chance; magic-key trap-find + y_n disarm; success (trapped-door b_trapped → D_NODOOR + unblock + shop damage + newsym; locked↔closed toggle; box olocked toggle + chest_trap).
+  - `reset_pick`: `lock.c:259–265` 5-field clear, verified — no change.
+  - `picking_lock`: `lock.c:17–27` occupation==picklock fill, verified — no change.
+  - `picking_at`: `lock.c:30–34` occupation + door-identity, verified — no change.
+- **JS was:** doforce set lknown=1 before doname (the divergence); plain-doname prompt instead of safe_qbuf; hardcoded pline templates instead of live You/You_cant/There; hardcoded "can't reach the floor" instead of cant_reach_floor; redundant dynamic getline import; extra `xlock.door = null` not in C. forcelock/picklock pre-incremented usedtime (give-up one turn early). picklock deferred the magic-key disarm arm, reordered the trapped-door arm (D_NODOOR before b_trapped, recalc+vision instead of unblock_point, no shop damage), deferred chest_trap. breakchestlock deferred COST_BRKLCK billing + ICE_BOX corpse age.
+- **Fix:** `js/lock.js` only — 7 pre-existing edges extended (cant_reach_floor; COST_BRKLCK/SHOP_DOOR_COST; A_WIS; y_n/ynq; unblock_point; start_corpse_timeout; chest_trap), no new module edges; new ICE_BOX/CORPSE otyp consts beside CHEST (:293–294). doforce prompt built via live safe_qbuf before lknown=1 (:2087) with live ynq; guards/messages on live You_cant/You/There/cant_reach_floor; door=null removed. picklock gains the magic-key y_n disarm arm (:527–557, exact C two-space message), C-order trapped-door arm with unblock_point + SHOP_DOOR_COST (:565–576), box chest_trap; both occupations use post-increment give-up (:510, :1969). breakchestlock gains cobj-hiding COST_BRKLCK billing (:1890–1895) + ICE_BOX age arm (:1933–1936) + live loss You.
+- **JS:** `js/lock.js` (imports + consts + 4 function bodies). Far under the 1500/15 caps.
+- **Callers:**
+  - `doforce`: C cmd.c:55 extern + #force dispatch → js/cmd.js:1979 extcmd table, js/getline.js:626 #force handler, js/pickup.js:4238 CQ_CANNED (C pickup.c:2142); signature unchanged, all stay wired.
+  - `u_have_forceable_weapon`: C lock.c:691 → js/lock.js:2045 doforce guard; C pickup.c:2139 → js/pickup.js:4236; no body change.
+  - `forcelock`: C staticfn, occupation callback only → set_occupation(forcelock, …) at js/lock.js:2069 (resume) + :2108 (box arm), same file.
+  - `breakchestlock`: C dokick.c:659 → js/dokick.js:1415; C lock.c:252 → js/lock.js:2013.
+  - `chest_shatter_msg`: C staticfn, sole caller lock.c:187 → js/lock.js:1915 destroy loop.
+  - `picklock`: C staticfn, occupation callback via pick_lock set_occupation (same file, unchanged); picking_lock/picking_at identity compares unchanged.
+  - `reset_pick`: no body change — JS sites unchanged (js/do.js:3067, js/zap.js:1362, js/lock.js:351/1226/1230/1520/1731/2014).
+  - `picking_lock`: no body change — JS site unchanged (js/monmove.js:1225).
+  - `picking_at`: no body change — JS sites unchanged (js/zap.js:1360, js/shk.js:1678, js/lock.js:1729).
+- **Verify:** `node scripts/verify.mjs --fn doforce,u_have_forceable_weapon,forcelock,breakchestlock,chest_shatter_msg,picklock,reset_pick,picking_lock,picking_at` → PASS (syntax 1 file; rule2; hidden doforce: 1 moved past → PROGRESS, scen-container-Barbarian-94366 moved 200→doname_base@285; reach forcelock 14/14, breakchestlock 13/13, picklock 3/3 REACH-OK, other six fixed smoke spread 24/24 REACH-OK each; green 2/2; strict ×2; cohort 7/7; full skipped by the tool — no shared file per its heuristic). No committed unit test: repo has no maintained unit harness; pinned by the recorded corpus session + gates (D-3242 precedent).
+- **Named omissions:**
+  - `doforce`: none in-body — door force with edged weapon is a C TODO (unimplemented in C too).
+  - `forcelock`: useup via the local async-capable clone (useup_invent: setuwep may return a promise); none else.
+  - `breakchestlock`: same useup clone; quan==1 obfree inline (quan=0, where=OBJ_FREE); none else.
+  - `u_have_forceable_weapon`: none — whole body live.
+  - `chest_shatter_msg`: none — whole body live (D-2676).
+  - `picklock`: none — whole body live.
+  - `reset_pick`: none (door_x/door_y zeroing is pre-existing JS bookkeeping, kept).
+  - `picking_lock`: none — whole body live.
+  - `picking_at`: none — whole body live.
+- **Ledger:** doforce ported; u_have_forceable_weapon ported; forcelock ported; breakchestlock ported; chest_shatter_msg ported; picklock ported; reset_pick ported; picking_lock ported; picking_at ported
+- **Next:** none for this row; session's next owner is doname_base@285 (phase-2 corpus debugging, closed); queue head moves to `makemon.c` m_initinv.
+
 ## D-3242 — mswings_verb row: mswingsm drops C's mhis space ("itscrude"); caster-Wizard PASS + mon_avoiding_this_attack
 
 - **Status:** fixed (corpus-residual head `mswings_verb`; ~25 insertions in `js/mhitm.js` + `js/mhitu.js` — under the density floor, but the head's file holds nothing more Open: mhitu.c's only other MISSING pair is `ranged_attk_assessed` (#if 0 in C, ledger by-design via CLI) + `mon_avoiding_this_attack` (ported here); mhitm.c has zero MISSING. D-3240 exception precedent.)
