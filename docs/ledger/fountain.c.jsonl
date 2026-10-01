@@ -1,6 +1,6 @@
 {"fn":"floating_above","c":"21-32","status":"unknown"}
 {"fn":"dowatersnakes","c":"38-60","status":"unknown","d":["D-1125"],"at":"seed@a30a7de84"}
-{"fn":"dowaterdemon","c":"64-90","status":"unknown"}
+{"fn":"dowaterdemon","c":"64-90","status":"ported","js":["js/fountain.js:dowaterdemon"],"d":["D-3241"],"at":"2026-10-01@2b9efeed4"}
 {"fn":"dowaternymph","c":"94-116","status":"unknown"}
 {"fn":"dogushforth","c":"120-131","status":"unknown"}
 {"fn":"gush","c":"134-161","status":"unknown","d":["D-2197","D-1148","D-1138","D-1117"],"at":"seed@a30a7de84"}

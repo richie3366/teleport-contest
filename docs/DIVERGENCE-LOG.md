@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3241 — `fountain.c` dowaterdemon: wire live `mhis`/`mhe` + `You`; Monk terrain 0→220 (randomize_gem_colors stale)
+
+- **Status:** fixed (Must-fix js-throw; `js/fountain.js` only, ~6 insertions — Must-fix ships alone. Head row `randomize_gem_colors` stale-marked: its JS body is complete at js/o_init.js:114 with the sole C caller wired (see Symptom); ledger `ported` via CLI stale note, row archived.)
+- **Symptom:** queue head blocks 1/953 @a308a919b: scen-terrain-Monk-94060 step 0 kind=rng, C `rn2(2)=0 @ randomize_gem_colors(o_init.c:89)` vs J empty — MEASURED misattribution: `hidden-proxy show` records `ReferenceError: mhis is not defined at dowaterdemon (js/fountain.js:595) ← drinkfountain (:843) ← dodrink`, rngM 0/scrM 0. The runner voids the run on the throw, so the first C RNG entry becomes the owner. C `randomize_gem_colors` (o_init.c:84–109: two rn2(2) gates + rn2(4) switch, all 4 arms) is already complete in JS (js/o_init.js:114–131, local — C is staticfn) and the sole C caller o_init.c:189 fires inside init_objects' GEM_CLASS arm, wired at js/o_init.js:299–302 (D-2627) — no body edit there can move the session.
+- **C locus:**
+  - `dowaterdemon`: `fountain.c:64–90` whole body in C order — G_GONE gate; makemon water demon; !Blind unleash vs feel; rnd(100) wish (mhis/mhe message + mongrantswish) vs t_at mintrap; else furious-bubbling arm.
+- **JS was:** `js/fountain.js:580` local — wish message called bare `mhis(mtmp)`/`mhe(mtmp)` with no import anywhere in the file (ReferenceError on the wish arm); unleash line used `pline('You ...')` instead of live `You`.
+- **Fix:** extended the existing `./mondata.js` import with the live sync `mhis`/`mhe` (C you.h `:322–324`); extended the existing `./display.js` import with live async `You` (C pline.c You) and switched the unleash line to it (same vpline path, identical text). No new module edges (both edges pre-existing), no TDZ risk. Rest of the body already C-ordered (makemon/rnd/level_difficulty/pline/mongrantswish/t_at/mintrap all live).
+- **JS:** `js/fountain.js` (2 import lines + doc comment + 1 call line). Far under the 1500/15 caps.
+- **Callers:**
+  - `dowaterdemon`: 2/2 C sites wired — fountain.c:315 (drinkfountain case 23) → `js/fountain.js:843` (verified: the throw trace's call site); fountain.c:477 (dipfountain case 21) → `js/fountain.js:1305` (case 21 Water Demon, verified live). No extra JS call sites.
+- **Verify:** `node scripts/verify.mjs --fn dowaterdemon` → PASS (syntax 1 file; rule2; hidden note: no corpus session blocked on dowaterdemon at baseline; reach: no RNG-tagged reach, smoke spread 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7). Session movement (the row's evidence): `hidden-proxy verify randomize_gem_colors` → PROGRESS: scen-terrain-Monk-94060 moved 0→yn_function@220, error null, RNG 7235/7235, screens 244/246. No committed unit test: repo has no maintained unit harness; pinned by the recorded corpus session + full-gate green (disclosed per durable-test-collateral; D-3239/D-3240 precedent).
+- **Named omissions:**
+  - `dowaterdemon`: C `:88` `Soundeffect(se_furious_bubbling, 20)` — named, not wired (contest !SND_LIB build: C macro is empty, JS `Soundeffect` is a no-op; dig.js `Soundeffect (no RNG)` precedent); `a_monnam` served by the file's pre-existing local clone (js/fountain.js:278, crude ARTICLE_A approx, hallu deferred) rather than the live do_name.js export — pre-existing debt, behavior unchanged in passing sessions, switch needs its own falsifier.
+- **Ledger:** dowaterdemon ported
+- **Next:** none for this row; yn_function owns the session's next block at step 220 (phase-2 corpus debugging, closed).
+
 ## D-3240 — `do.c` flooreffects whole-body restart: boulder/pit hmon + squish goto + useupf; sokoban 232→320
 
 - **Status:** fixed (corpus-residual head `flooreffects`; `js/do.js` restart + `sndprocs.js` se re-exports, ~100 insertions — one whole C function (194 lines); the coverage block holds 0 rows globally so the density exception applies (D-3238/D-3239 precedent)).

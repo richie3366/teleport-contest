@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3241 `fountain.c` dowaterdemon: wire live `mhis`/`mhe` + `You`; Monk terrain 0→220 (randomize_gem_colors stale)
+
+**C locus:** - `dowaterdemon`: `fountain.c:64–90` whole body in C order — G_GONE gate; makemon water demon; !Blind unleash vs feel; rnd(100) wish (mhis/mhe message + mongrantswish) vs t_at mintrap; else furious-bubbling arm.
+**JS:** `js/fountain.js` (2 import lines + doc comment + 1 call line). Far under the 1500/15 caps.
+**Change:** extended the existing `./mondata.js` import with the live sync `mhis`/`mhe` (C you.h `:322–324`); extended the existing `./display.js` import with live async `You` (C pline.c You) and switched the unleash line to it (same vpline path, identical text). No new module edges (both edges pre-existing), no TDZ risk. Rest of the body already C-ordered (makemon/rnd/level_difficulty/pline/mongrantswish/t_at/mintrap all live).
+**Verify:** `node scripts/verify.mjs --fn dowaterdemon` → PASS (syntax 1 file; rule2; hidden note: no corpus session blocked on dowaterdemon at baseline; reach: no RNG-tagged reach, smoke spread 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7). Session movement (the row's evidence): `hidden-proxy verify randomize_gem_colors` → PROGRESS: scen-terrain-Monk-94060 moved 0→yn_function@220, error null, RNG 7235/7235, screens 244/246. No committed unit test: repo has no maintained unit harness; pinned by the recorded corpus session + full-gate green (disclosed per durable-test-collateral; D-3239/D-3240 precedent).
+**Named:** - `dowaterdemon`: C `:88` `Soundeffect(se_furious_bubbling, 20)` — named, not wired (contest !SND_LIB build: C macro is empty, JS `Soundeffect` is a no-op; dig.js `Soundeffect (no RNG)` precedent); `a_monnam` served by the file's pre-existing local clone (js/fountain.js:278, crude ARTICLE_A approx, hallu deferred) rather than the live do_name.js export — pre-existing debt, behavior unchanged in passing sessions, switch needs its own falsifier.
+**Next:** none for this row; yn_function owns the session's next block at step 220 (phase-2 corpus debugging, closed).
 ## 2026-10-01 — D-3240 `do.c` flooreffects whole-body restart: boulder/pit hmon + squish goto + useupf; sokoban 232→320
 
 **C locus:** - `flooreffects`: `do.c:162–359` whole body in C order — OBJ_FREE gate; bhitpos save/restore; boulder+pool; boulder+pit (ttyp/tseen, trapped message, monster dmgval/hmon+mondied + mtrapped clear, hero squish goto, verb messages, deletedwithboulder tail); lava; pool splash + water_damage; teeter/shaft tumble/ship_object; globby meld loop; mon_moving altar; hot-ground potion shatter.

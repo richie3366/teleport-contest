@@ -1,6 +1,6 @@
 {"fn":"shuffle_tiles","c":"35-50","status":"by-design","at":"2026-09-29@c983587e0","note":"both C call sites ifdef TILES_IN_GLYPHMAP-only (o_init.c:231-233 init, :432-436 restnames); tty build defines no tile graphics (config.h:607 TTY_TILES_ESCCODES commented out; no GRAPHICS -D in unix Makefiles/recorder); D-2627 named omit"}
 {"fn":"setgemprobs","c":"54-81","status":"unknown"}
-{"fn":"randomize_gem_colors","c":"85-109","status":"unknown"}
+{"fn":"randomize_gem_colors","c":"85-109","status":"ported","js":["js/o_init.js:randomize_gem_colors"],"at":"2026-10-01@2b9efeed4","note":"stale: js/o_init.js:114 (C staticfn local, all arms); sole C caller o_init.c:189 wired js/o_init.js:301"}
 {"fn":"shuffle","c":"113-148","status":"unknown"}
 {"fn":"init_objects","c":"151-235","status":"ported","js":["js/o_init.js:init_objects"],"d":["D-2627"],"at":"seed@a30a7de84"}
 {"fn":"init_oclass_probs","c":"240-265","status":"unknown"}
