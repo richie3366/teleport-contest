@@ -4,6 +4,8 @@ Date: 2026-10-01. Docs-only audit overlay, not a ninth JS port.
 Scope: five random seeded ported rows, sampled after reviews 2141–2148.
 No JS or upstream C edits. This records inherited audit findings.
 
+**Addressed:** D-3189
+
 ## Intent vs deliverable
 
 The audit requires a snapshot and five seeded ported briefs.

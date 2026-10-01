@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-01
+
+- [x] `mon_break_armor` continuation order: missing waits at C worn.c:1196–1201 and the subsequent armor/drop/riding arms; JS worn.js:546–549 consumes armor before its queued message starts at :674 (actual suspension probe: armor consumed → message waiting). Restart the whole body in C order, verify m_lose_armor closure and callers; ship alone. Source: reviews/loop-unattended/2149-c47034f0d-ledger-sample.md. **Addressed:** D-3189
+
 ## 2026-09-30
 
 - [x] `options.c` initoptions noreturn closure — C options.c:7078–7115, :7100/:7112 terminate; changed JS wrapper continues into config_error_done/initoptions_finish. Builtin-phase invalid-sysconf probe exits=1 but initializes fruit/clears opt_initial. Stop after fatal second read/assure/deferred-showpaths, verify finish unreachable. Source: reviews/loop-unattended/2132-d10e96661-startup-exit.md. **Addressed:** D-3182 `5e7475cd1`
