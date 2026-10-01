@@ -1,6 +1,6 @@
 {"fn":"dodrop","c":"29-43","status":"unknown"}
 {"fn":"boulder_hits_pool","c":"50-155","status":"unknown"}
-{"fn":"flooreffects","c":"162-359","status":"unknown"}
+{"fn":"flooreffects","c":"162-359","status":"ported","js":["js/do.js:flooreffects"],"d":["D-3240"],"at":"2026-10-01@9e990eefc"}
 {"fn":"doaltarobj","c":"363-390","status":"unknown"}
 {"fn":"trycall","c":"395-399","status":"unknown"}
 {"fn":"polymorph_sink","c":"404-455","status":"unknown"}

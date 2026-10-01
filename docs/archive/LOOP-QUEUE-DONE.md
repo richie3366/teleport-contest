@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `pager.c` self_lookat — blocks 2/953 (scen-ride-Knight-94415, step 109, kind=screen) @07cfb4831 **Addressed:** D-3239
+- [x] `do.c` flooreffects — blocks 2/953 (scen-dig-Archeologist-94275, step 30, kind=screen) @07cfb4831 **Addressed:** D-3240
+
+
+- [x] `pager.c` self_lookat — blocks 2/953 (scen-ride-Knight-94415, step 109, kind=screen) @07cfb4831 **Addressed:** D-3239 `9e990eefc`
 
 
 - [x] `trap.c` water_damage — blocks 3/953 (scen-terrain-Caveman-94220, step 121, kind=rng) @07cfb4831 **Addressed:** D-3238 `25100632c`

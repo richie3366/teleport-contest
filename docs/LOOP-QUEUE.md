@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `do.c` flooreffects — blocks 2/953 (scen-dig-Archeologist-94275, step 30, kind=screen) @07cfb4831
 - [ ] `o_init.c` randomize_gem_colors — blocks 1/953 (scen-terrain-Monk-94060, step 0, kind=rng) @a308a919b
 - [ ] `mhitu.c` mswings_verb — blocks 1/953 (scen-caster-Wizard-94389, step 252, kind=screen) @a308a919b
 - [ ] `lock.c` doforce — blocks 1/953 (scen-container-Barbarian-94366, step 200, kind=screen) @a308a919b
