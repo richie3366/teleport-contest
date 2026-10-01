@@ -7,7 +7,7 @@
 {"fn":"u_wipe_engr","c":"264-268","status":"unknown"}
 {"fn":"wipe_engr_at","c":"271-290","status":"unknown"}
 {"fn":"engr_can_be_felt","c":"297-315","status":"ported","js":["js/display.js:engr_can_be_felt"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — switch exact (ENGRAVE/HEADSTONE/BURN); null guard is C-UB-only"}
-{"fn":"read_engr_at","c":"318-405","status":"unknown"}
+{"fn":"read_engr_at","c":"318-405","status":"ported","js":["js/engrave.js:read_engr_at"],"d":["D-3236"],"at":"2026-10-01@a308a919b"}
 {"fn":"make_engr_at","c":"408-457","status":"partial","js":["js/engrave.js:make_engr_at"],"omit":"newengr/engr_text_space arena (by design — JS strings need no arena; sizes kept on the record); `return ep` JS extension noted above.","d":["D-2567"],"at":"seed@a30a7de84"}
 {"fn":"del_engr_at","c":"461-467","status":"ported","js":["js/engrave.js:del_engr_at"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
 {"fn":"freehand","c":"473-477","status":"unknown"}

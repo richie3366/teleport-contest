@@ -126,13 +126,16 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `engrave.c` read_engr_at — blocks 11/953 (scen-engrave-Ranger-94398, step 95, kind=screen) @07cfb4831
 - [ ] `dig.c` digactualhole — blocks 6/953 (scen-dig-Archeologist-94215, step 28, kind=screen) @07cfb4831
 - [ ] `dig.c` dig_up_grave — blocks 3/953 (scen-dig-Archeologist-94035, step 39, kind=screen) @07cfb4831
 - [ ] `trap.c` water_damage — blocks 3/953 (scen-terrain-Caveman-94220, step 121, kind=rng) @07cfb4831
 - [ ] `engrave.c` wipeout_text — blocks 2/953 (scen-caster-Priest-94149, step 70, kind=rng) @07cfb4831
 - [ ] `pager.c` self_lookat — blocks 2/953 (scen-ride-Knight-94415, step 109, kind=screen) @07cfb4831
 - [ ] `do.c` flooreffects — blocks 2/953 (scen-dig-Archeologist-94275, step 30, kind=screen) @07cfb4831
+- [ ] `o_init.c` randomize_gem_colors — blocks 1/953 (scen-terrain-Monk-94060, step 0, kind=rng) @a308a919b
+- [ ] `mhitu.c` mswings_verb — blocks 1/953 (scen-caster-Wizard-94389, step 252, kind=screen) @a308a919b
+- [ ] `lock.c` doforce — blocks 1/953 (scen-container-Barbarian-94366, step 200, kind=screen) @a308a919b
+- [ ] `makemon.c` m_initinv — blocks 1/953 (scen-special-Samurai-94217, step 5, kind=rng) @a308a919b
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 
