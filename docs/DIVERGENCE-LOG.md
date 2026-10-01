@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3231 — `coloratt.c` MENUCOLOR closure: sink wired + 4 verified-complete, palette by-design (coverage)
+
+- **Status:** fixed (breadth-phase cluster: queue head add_menu_coloring D-2763-omit retirement + 4 verified-complete; 1 js file, ~5 insertions — below the ~80 guideline because the head's file and callee closure hold nothing more Open: remaining callees mungspaces/add_menu_coloring_parsed already ported, config_error_add body live (its partial is caller-closure), and the file's only other ledger-Open row change_palette is CHANGE_COLOR-compiled-out, retired by-design en route.)
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on all five: 0 blocked — config-parse paths). add_menu_coloring dropped its `Malformed MENUCOLOR` config_error_add as a named sink and its cnf_line_MENUCOLOR caller as missing (D-2763); both resolved since (sink live D-3173, caller + MENUCOLOR dispatch shipped js/cfgfiles.js:705/:1017).
+- **C locus:**
+  - `add_menu_coloring`: coloratt.c:617–660 (strncpy `:623–624`, `=` split + Malformed arm `:626–628`, mungspace + `&` split `:631–634`, clr `:636–638`, attr `:640–644`, quote-strip `:648–657`, parsed `:659`).
+  - `match_str2clr`: coloratt.c:349–371 (fuzzymatch over colornames `:356–361`, digit+atoi `:360–361`, CLR_MAX + sink `:363–366`).
+  - `match_str2attr`: coloratt.c:374–389 (fuzzymatch over attrnames `:379–384`, complain sink `:386–387`).
+  - `clr2colorname`: coloratt.c:338–346 (first-match scan `:342–344`, NULL `:345`).
+  - `cnf_line_MENUCOLOR`: cfgfiles.c:1164–1167 (`return add_menu_coloring(bufp)` `:1166`).
+- **JS was:** js/options.js:5934 add_menu_coloring with the sink as a `// Named omission` comment and a stale doc (no dispatch); siblings complete (match_str2clr js/botl.js:1667, match_str2attr js/botl.js:1691, clr2colorname js/artifact.js:877, cnf_line_MENUCOLOR js/cfgfiles.js:705).
+- **Fix:** the sink is one live `config_error_add('Malformed MENUCOLOR')` call (C `:627`; import already present js/options.js:247, no new edge); doc + map clause retired (startup.md:11). Siblings untouched (comment-accurate as briefed; clr2colorname's C NULL OOB arm stays `''` — all C callers pass valid colors, C would strcpy-crash otherwise, and every JS caller flows into strNsubst/template).
+- **JS:** js/options.js:5939 sink + :5929–5931 doc; verified-untouched js/botl.js:1667/:1691, js/artifact.js:877, js/cfgfiles.js:705.
+- **Callers:**
+  - `add_menu_coloring`: cfgfiles.c:1166 → js/cfgfiles.js:706 wired (+ dispatch :1017).
+  - `match_str2clr`: botl.c:3059 → js/botl.js:1966; botl.c:3331 → js/botl.js:2161; coloratt.c:275/:281/:290 → js/options.js:6492/:6498/:6506; coloratt.c:636 → js/options.js:5951; coloratt.c:729 → js/options.js:6183; coloratt.c:1080 → NAMED (inside CHANGE_COLOR-compiled-out alternative_palette).
+  - `match_str2attr`: botl.c:3042 → js/botl.js:1957; botl.c:3309 → js/botl.js:2146; coloratt.c:276/:282/:288 → js/options.js:6493/:6499/:6504; coloratt.c:642 → js/options.js:5954; options.c:3156 → js/options.js:7530.
+  - `clr2colorname`: artifact.c:2430 → js/artifact.js:892; botl.c:3556 → js/botl.js:3048; botl.c:3660 → js/botl.js:3131; botl.c:4271 → NAMED (inside by-design status_hilite_menu_add, D-3230 precedent); coloratt.c:254 → js/options.js:3291; options.c:6462 → js/options.js:7026; options.c:9615 → js/options.js:12426; options.c:9669 → NAMED (CHANGE_COLOR-compiled-out all_options_palette).
+  - `cnf_line_MENUCOLOR`: parsers[] MENUCOLOR → js/cfgfiles.js:1017 wired.
+- **Verify:** `node scripts/verify.mjs --fn add_menu_coloring,match_str2clr,match_str2attr,clr2colorname,cnf_line_MENUCOLOR` → PASS syntax (1 file: js/options.js) · PASS rule2 · note hidden ×5 (vacuous: 0 blocked — coverage rows) · REACH-OK ×5 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `add_menu_coloring`: none — sink live, sole caller wired.
+  - `match_str2clr`: `:1080` alternative_palette caller (CHANGE_COLOR by-design); none in-body.
+  - `match_str2attr`: none — whole body, all 5 C callers wired.
+  - `clr2colorname`: `:4271` status_hilite_menu_add caller (by-design) + `:9669` all_options_palette caller (CHANGE_COLOR by-design); none in-body (NULL→'' OOB adaptation noted above).
+  - `cnf_line_MENUCOLOR`: none — whole body, dispatch wired.
+- **Ledger:** add_menu_coloring ported; match_str2clr ported; match_str2attr ported; clr2colorname ported; cnf_line_MENUCOLOR ported
+- **Next:** next coverage head after finish regenerates the block.
+
 ## D-3230 — `botl.c` status-hilite closure: hilite2str impossible arms live + 3 verified-complete (coverage)
 
 - **Status:** fixed (breadth-phase cluster: queue head status_hilite2str D-3137-omit retirement + 3 same-file verified-complete; 1 file, ~10 insertions — below the ~80 guideline because the head's file and callee closure hold nothing more Open: `rows 60` shows only these 4 botl.c rows, all callees ported/measured-ok/by-design. 2 stale pops retired en route: dump_mongen THIN → ported (D-3103 whole body; raw_print sinks unclosable per vraw_printf `:577`/D-3086, dump_enums stale precedent), remote_burglary PARTIAL → ported (D-1717 whole body, sole C caller pickup.c:1939 wired js/pickup.js:1164).)

@@ -5927,9 +5927,8 @@ function mc_isspace(ch) {
  * copy-then-split at the first '=' (the regexp half is never mungspaced,
  * C `:647`), mungspaced color[&attr] with the color validated before the
  * attr arm runs, then the quote-strip which backs over isspace before
- * matching the closer. Sole C caller is cfgfiles.c cnf_line_MENUCOLOR
- * (`:1166`); no JS read_config_file dispatch exists yet (map-named), so
- * this is wired for that future caller like reset_duplicate_opt_detection.
+ * matching the closer. Sole C caller cfgfiles.c cnf_line_MENUCOLOR
+ * (`:1166`) is wired (js/cfgfiles.js:705, MENUCOLOR dispatch :1017).
  */
 export function add_menu_coloring(tmpstr) {
     let c = NO_COLOR, a = MC_ATR_NONE; // C :619 (C ATR_NONE=0, wintype.h:128)
@@ -5937,8 +5936,8 @@ export function add_menu_coloring(tmpstr) {
     const str = String(tmpstr ?? '').slice(0, BUFSZ - 1);
     const eq = str.indexOf('='); // C :626 strchr(str, '=')
     if (eq === -1) {
-        // Named omission (map): config_error_add("Malformed MENUCOLOR") sink.
-        return false; // C :627-628
+        config_error_add('Malformed MENUCOLOR'); // C :627 (live since D-3173)
+        return false; // C :628
     }
     // C :631-634: mungspace past '=', split at the first '&'.
     let colorPart = mungspaces(str.slice(eq + 1)); // C :631-632

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `coloratt.c` add_menu_coloring — coverage PARTIAL (C 30 code L `coloratt.c:617–660` / JS 22 code L in js/options.js; hops —, callers 2, RNG 0, msg 0; declared partial: `config_error_add("Malformed MENUCOLOR")` sink (msgtype_add precedent); `cnf_line_MENUCOLOR` caller (no JS read_config_file dispatch).) @e0549fe8b
 - [ ] `cfgfiles.c` get_uchars — coverage PARTIAL (C 41 code L `cfgfiles.c:381–437` / JS 24 code L in js/cfgfiles.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `get_uchars`: wait_synch `:433` (windowed input boundary; game build blocks in tty_wait_synch wintty.c:3624–3631; config parser stays sync) @e0549fe8b
 - [ ] `dbridge.c` e_at — coverage PARTIAL (C 10 code L `dbridge.c:286–301` / JS 7 code L in js/dbridge.js; hops 5, callers 1, RNG 0, msg 0) @e0549fe8b
 - [ ] `shk.c` bill_box_content — coverage PARTIAL (C 10 code L `shk.c:3387–3407` / JS 5 code L in js/shk.js; hops 5, callers 1, RNG 0, msg 0) @0fcd10790

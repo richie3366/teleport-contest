@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3231 `coloratt.c` MENUCOLOR closure: sink wired + 4 verified-complete, palette by-design (coverage)
+
+**C locus:** - `add_menu_coloring`: coloratt.c:617–660 (strncpy `:623–624`, `=` split + Malformed arm `:626–628`, mungspace + `&` split `:631–634`, clr `:636–638`, attr `:640–644`, quote-strip `:648–657`, parsed `:659`).
+**JS:** js/options.js:5939 sink + :5929–5931 doc; verified-untouched js/botl.js:1667/:1691, js/artifact.js:877, js/cfgfiles.js:705.
+**Change:** the sink is one live `config_error_add('Malformed MENUCOLOR')` call (C `:627`; import already present js/options.js:247, no new edge); doc + map clause retired (startup.md:11). Siblings untouched (comment-accurate as briefed; clr2colorname's C NULL OOB arm stays `''` — all C callers pass valid colors, C would strcpy-crash otherwise, and every JS caller flows into strNsubst/template).
+**Verify:** `node scripts/verify.mjs --fn add_menu_coloring,match_str2clr,match_str2attr,clr2colorname,cnf_line_MENUCOLOR` → PASS syntax (1 file: js/options.js) · PASS rule2 · note hidden ×5 (vacuous: 0 blocked — coverage rows) · REACH-OK ×5 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** - `add_menu_coloring`: none — sink live, sole caller wired.
+**Next:** next coverage head after finish regenerates the block.
 ## 2026-10-01 — D-3230 `botl.c` status-hilite closure: hilite2str impossible arms live + 3 verified-complete (coverage)
 
 **C locus:** - `status_hilite2str`: botl.c:3590–3669 (null guard `:3600–3601`, op table `:3606–3611`, 8 behavior arms `:3614–3656` with 5 impossible else-arms `:3617`/`:3627`/`:3633`/`:3639`/`:3645`, split/clrbuf `:3659–3663`, fmt `:3665–3667`).

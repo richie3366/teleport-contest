@@ -57,7 +57,7 @@
 {"fn":"cnf_line_ACCESSIBILITY","c":"1121-1131","status":"unknown"}
 {"fn":"cnf_line_PORTABLE_DEVICE_PATHS","c":"1134-1150","status":"ported","js":["js/cfgfiles.js:cnf_line_PORTABLE_DEVICE_PATHS"],"d":["D-3184"],"at":"2026-09-30@a60a91a98"}
 {"fn":"cnf_line_BOULDER","c":"1156-1161","status":"ported","js":["js/cfgfiles.js:cnf_line_BOULDER"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_MENUCOLOR","c":"1164-1167","status":"unknown"}
+{"fn":"cnf_line_MENUCOLOR","c":"1164-1167","status":"ported","js":["js/cfgfiles.js:cnf_line_MENUCOLOR"],"d":["D-3231"],"at":"2026-10-01@5bdc19f37"}
 {"fn":"cnf_line_HILITE_STATUS","c":"1170-1178","status":"unknown"}
 {"fn":"cnf_line_WARNINGS","c":"1181-1188","status":"ported","js":["js/cfgfiles.js:cnf_line_WARNINGS"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_ROGUESYMBOLS","c":"1191-1199","status":"unknown"}
