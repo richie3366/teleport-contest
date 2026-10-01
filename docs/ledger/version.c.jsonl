@@ -2,7 +2,7 @@
 {"fn":"getversionstring","c":"35-79","status":"ported","js":["js/version.js:getversionstring"],"d":["D-2988"],"at":"2026-09-27@05a11d7e9"}
 {"fn":"status_version","c":"89-152","status":"unknown"}
 {"fn":"doversion","c":"156-165","status":"ported","js":["js/pager.js:doversion"],"at":"2026-09-29@b43d7bb86","note":"stale: js/pager.js:2975 (async adaptation, both arms live)"}
-{"fn":"doextversion","c":"169-277","status":"partial","js":["js/pager.js:doextversion"],"omit":"`dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_info` (no JS shutdown path); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (D-2535 standing); `bannerc_string`/`status_version`/`early_version_info` (st…","d":["D-2558"],"at":"seed@a30a7de84"}
+{"fn":"doextversion","c":"169-277","status":"ported","js":["js/pager.js:doextversion"],"d":["D-2558"],"at":"2026-10-01@250701173","note":"stale: js/pager.js:2988 — live body whole, both C callers wired (:3060,:3276), dlb arms dead (OPTIONS_AT_RUNTIME forced :13-15) + by-design, release_runtime_info not in body (exists js/version.js:708)"}
 {"fn":"early_version_info","c":"280-312","status":"ported","js":["js/earlyarg.js:early_version_info"],"d":["D-2986"],"at":"2026-09-27@9b244f090"}
 {"fn":"insert_rtoption","c":"339-353","status":"unknown"}
 {"fn":"comp_times","c":"357-362","status":"by-design","d":["D-3112"],"at":"2026-09-29@b43d7bb86","note":"refresh: no JS symbol (measured MISSING)"}

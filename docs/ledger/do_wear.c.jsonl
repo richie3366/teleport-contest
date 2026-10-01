@@ -69,7 +69,7 @@
 {"fn":"obj_erode_type","c":"3260-3273","status":"ported","js":["js/do_wear.js:obj_erode_type"],"at":"2026-09-30@fa5a786a1","note":"stale: js/do_wear.js:3488"}
 {"fn":"destroy_arm","c":"3278-3316","status":"unknown","d":["D-2721"],"at":"seed@a30a7de84"}
 {"fn":"adj_abon","c":"3319-3336","status":"unknown"}
-{"fn":"inaccessible_equipment","c":"3342-3400","status":"partial","js":["js/apply.js:inaccessible_equipment"],"omit":"``SetVoice``-class none here; prompt letter-hiding (which letters the dip/grease prompts suggest) stays with each getobj path's own simplification — C-observable enforcement (message + ECMD_OK) is wired at every caller.","d":["D-2632"],"at":"seed@a30a7de84"}
+{"fn":"inaccessible_equipment","c":"3342-3400","status":"ported","js":["js/apply.js:inaccessible_equipment"],"d":["D-2632"],"at":"2026-10-01@250701173","note":"stale: body whole js/apply.js:2225+2245, sites wired (:2321,:2990 do_wear,:2751/53 potion) or parked D-2632/getobj-simplification"}
 {"fn":"equip_ok","c":"3404-3447","status":"ported","js":["js/do_wear.js:equip_ok"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"puton_ok","c":"3451-3454","status":"unknown"}
 {"fn":"remove_ok","c":"3458-3461","status":"unknown"}

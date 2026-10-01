@@ -41,4 +41,4 @@
 {"fn":"get_sound_effect_filename","c":"1995-2080","status":"ported","js":["js/sounds.js:get_sound_effect_filename"],"d":["D-3150"],"at":"2026-09-30@442754b32","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"base_soundname_to_filename","c":"2084-2152","status":"ported","js":["js/sounds.js:base_soundname_to_filename"],"d":["D-2776"],"at":"seed@a30a7de84"}
 {"fn":"set_voice","c":"2161-2182","status":"unknown","d":["D-1752"],"at":"seed@a30a7de84"}
-{"fn":"sound_speak","c":"2185-2220","status":"unknown","d":["D-1761"],"at":"seed@a30a7de84"}
+{"fn":"sound_speak","c":"2185-2220","status":"ported","js":["js/sounds.js:sound_speak"],"d":["D-1761"],"at":"2026-10-01@250701173","note":"stale: js/sounds.js:121 no-op matches ifdef-out C per D-1761, no patch defines SND_SPEECH"}

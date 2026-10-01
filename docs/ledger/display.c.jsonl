@@ -41,7 +41,7 @@
 {"fn":"doredraw","c":"1694-1698","status":"unknown"}
 {"fn":"docrt","c":"1702-1705","status":"unknown"}
 {"fn":"docrt_flags","c":"1709-1773","status":"partial","js":["js/display.js:docrt_flags"],"omit":"wintty.c:435 rescale trigger (above); non-docrt under_water/under_ground caller wiring (pre-existing D-1981 names stand); `feel_can_reach_floor` usteed P_RIDING (pre-existing name stands).","d":["D-2461"],"at":"seed@a30a7de84"}
-{"fn":"redraw_map","c":"1778-1812","status":"unknown","d":["D-1974"],"at":"seed@a30a7de84"}
+{"fn":"redraw_map","c":"1778-1812","status":"ported","js":["js/display.js:redraw_map"],"d":["D-1974"],"at":"2026-10-01@250701173","note":"stale: js/display.js:6983 body whole, both callers wired (:5829,:7115), on_level imported"}
 {"fn":"reglyph_darkroom","c":"1818-1854","status":"unknown","d":["D-1975"],"at":"seed@a30a7de84"}
 {"fn":"newsym_force","c":"1863-1871","status":"unknown"}
 {"fn":"show_glyph","c":"1877-2072","status":"split","js":["js/display.js:show_glyph_cell","js/display.js:show_glyph_change_wanted","js/display.js:emit_show_glyph_change"],"d":["D-3013","D-1767","D-1221"],"at":"2026-09-28@2af820a38","note":"audit 1937-1945: sym NOT FOUND; seed marked ported with js location unresolved. D-1767 and D-1221 live in show_glyph_cell, not show_glyph."}

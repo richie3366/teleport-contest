@@ -1096,9 +1096,11 @@ export async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
  * ("just inflict the normal damage"). No message either way.
  * The uhitm arm cannot happen (hero never polymorphs into a FAMN
  * attacker — C `:3780–3783` comment); the mhitu arm is
- * mhitm_ad_famn_u in mhitu.js.
+ * mhitm_ad_famn_u in mhitu.js. Routed from damageum_adtyping for
+ * AD_FAMN: C's uhitm arm is `goto mhitm_famn` (`:3784–3788`), and this
+ * arm ignores magr, so the shared body is exactly C's goto.
  */
-async function mhitm_ad_famn(magr, mattk, mdef, mhm) {
+export async function mhitm_ad_famn(magr, mattk, mdef, mhm) {
     void magr;
     void mattk;
     const pd = mdef.data;

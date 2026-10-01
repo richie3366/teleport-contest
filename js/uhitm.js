@@ -56,7 +56,7 @@ import { near_capacity, useup, useupall, hold_another_object, Blind, observe_obj
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE, PM_ELF } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
-    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_ssex, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_corr, mhitm_ad_fire, mhitm_ad_dren, mhitm_ad_conf, could_seduce, failed_grab, shade_miss,
+    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_ssex, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_corr, mhitm_ad_fire, mhitm_ad_famn, mhitm_ad_dren, mhitm_ad_conf, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
     mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, erode_armor, engulf_target, golemeffects_mm, stagger,
     attk_protection,
@@ -64,7 +64,7 @@ import {
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
     AD_DRST, AD_DRDX, AD_DRCO, AD_SAMU, AD_DRLI, AD_SITM, AD_SEDU, AD_SSEX,
-    AD_CONF, AD_WERE,
+    AD_CONF, AD_WERE, AD_FAMN,
 } from './mhitm.js';
 import { resists_drli, resists_cold, resists_poison, destroy_items, resist } from './zap.js';
 import {
@@ -1901,6 +1901,26 @@ async function hmon_hitmon_do_hit(hmd, mon, obj) {
     }
 }
 
+/**
+ * C ref: uhitm.c hmon_hitmon `:1911–1917` — umconf hand-to-hand tail:
+ * nohandglow, then confuse the target unless already confused or the
+ * spellbook resist roll succeeds. Reached from the normal tail AND from
+ * the melee cream-pie/blinding-venom exit: C's misc_obj case
+ * (`:1265–1317`) ends `break` (no doreturn), so via do_hit (called at
+ * `:1795`) it falls through to `:1911`; the JS pie block's early return
+ * must not skip this gate.
+ */
+async function umconf_tail(mon, hand_to_hand) {
+    if (!((game.u?.umconf | 0) && hand_to_hand)) return;
+    await nohandglow(mon);
+    if (!mon.mconf && !(await resist(mon, SPBOOK_CLASS, 0, NOTELL))) {
+        mon.mconf = 1;
+        if (!mon.mstun && !helpless(mon) && canseemon(mon)) {
+            await pline(`${Monnam(mon)} appears confused.`);
+        }
+    }
+}
+
 async function hmon_hitmon(mon, obj, thrown, _dieroll) {
     // C hmon_hitmon_misc_obj CREAM_PIE / BLINDING_VENOM before weapon dmg
     if (obj && (obj.otyp === CREAM_PIE || obj.otyp === BLINDING_VENOM)) {
@@ -1942,6 +1962,11 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
             obj.quan = 0;
             obj.where = OBJ_FREE;
         }
+        // C `:1265–1317` ends `break`, so a melee pie falls through to the
+        // `:1911` umconf gate before the `:1923` wakeup — gate mirrored from
+        // C `:1780` (melee, or an applied polearm).
+        await umconf_tail(mon, thrown === HMON_MELEE
+            || (thrown === HMON_APPLIED && is_pole(game.u?.uwep)));
         await wakeup(mon, true);
         return true; // mon alive (dmg forced 0)
     }
@@ -2165,16 +2190,9 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
             await killed(mon);
             game.mkcorpstat_norevive = false;
         }
-    } else if ((game.u?.umconf | 0) && hand_to_hand) {
-        /* C :1911–1917 — nohandglow, then confuse unless already
-           confused or the spellbook resist roll succeeds. */
-        await nohandglow(mon);
-        if (!mon.mconf && !(await resist(mon, SPBOOK_CLASS, 0, NOTELL))) {
-            mon.mconf = 1;
-            if (!mon.mstun && !helpless(mon) && canseemon(mon)) {
-                await pline(`${Monnam(mon)} appears confused.`);
-            }
-        }
+    } else {
+        // C :1911 — umconf gate lives in umconf_tail (shared with pie exit).
+        await umconf_tail(mon, hand_to_hand);
     }
     if (unpoisonmsg && obj) {
         const saved = cxname(obj);
@@ -2963,6 +2981,25 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            is end-of-function dead). Routed to the uhitm phys home like the
            AD_PHYS row; mhitu lycanthropy arm is mhitm_ad_were_u. */
         damageum_ad_phys(mdef, mattk, mhm);
+    } else if (adtyp === AD_FAMN) {
+        /* C ref: uhitm.c mhitm_adtyping `:4826` → mhitm_ad_famn `:3784–3788`
+           uhitm (hero as attacker) arm: `goto mhitm_famn` (C notes the hero
+           can never polymorph into a FAMN attacker). Routed through the
+           shared mhitm.js arm, which ignores magr — exactly C's goto. */
+        await mhitm_ad_famn(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_DGST) {
+        /* C ref: uhitm.c mhitm_adtyping `:4827` → mhitm_ad_dgst `:4499–4501`
+           uhitm (hero as attacker, poly'd digester) arm: leftover d()
+           zeroed, no Rider/Burrrrp/corpse effects (those are the mhitm
+           `:4506–4566` arm). SAMU precedent: inline zero. */
+        mhm.damage = 0;
+    } else if (adtyp === AD_HALU) {
+        /* C ref: uhitm.c mhitm_adtyping `:4828` → mhitm_ad_halu `:3904–3906`
+           uhitm (hero as attacker) arm: leftover d() zeroed, no confusion
+           gaze (that is the mhitm `:3911–3919` arm — routing there would be
+           wrong). No melee owner exists (black-light explosions route
+           mon-mon via explmm); the arm completes the C switch. */
+        mhm.damage = 0;
     }
 }
 

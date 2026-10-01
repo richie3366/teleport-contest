@@ -80,7 +80,7 @@
 {"fn":"mhitm_ad_dise","c":"4593-4619","status":"unknown"}
 {"fn":"mhitm_ad_sedu","c":"4623-4748","status":"split","js":["js/mhitm.js:mhitm_ad_sedu","js/mhitu.js:mhitm_ad_sedu_u"],"omit":"`mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arms route through sedu exactly as C does).","d":["D-2575"],"at":"2026-10-01@6e06fa8e7","note":"stale-split: uhitm+mhitm arms mhitm.js:1491 + mhitu _u home (D-2575, all callers wired); omit names sibling mhitm_ad_ssex (own row D-3093)"}
 {"fn":"mhitm_ad_ssex","c":"4751-4779","status":"ported","js":["js/mhitm.js:mhitm_ad_ssex"],"d":["D-3093"],"at":"2026-09-29@7a7abead6"}
-{"fn":"mhitm_adtyping","c":"4782-4832","status":"unknown","d":["D-2251"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_adtyping","c":"4782-4832","status":"split","js":["js/uhitm.js:damageum_adtyping","js/mhitu.js:mhitm_adtyping_u","js/mhitm.js:mdamagem"],"d":["D-3220","D-2251"],"at":"2026-10-01@250701173"}
 {"fn":"damageum","c":"4835-4884","status":"unknown"}
 {"fn":"explum","c":"4891-4928","status":"unknown"}
 {"fn":"start_engulf","c":"4931-4946","status":"unknown"}
@@ -96,6 +96,6 @@
 {"fn":"stumble_onto_mimic","c":"6282-6297","status":"ported","js":["js/uhitm.js:stumble_onto_mimic"],"d":["D-2993"],"at":"2026-09-27@e74c75d1f"}
 {"fn":"disguised_as_non_mon","c":"6300-6305","status":"unknown"}
 {"fn":"disguised_as_mon","c":"6308-6312","status":"unknown"}
-{"fn":"nohandglow","c":"6315-6337","status":"partial","js":["js/uhitm.js:nohandglow"],"omit":"The cream-pie arm of `hmon_hitmon` still returns before `nohandglow`.","d":["D-2855"],"at":"seed@a30a7de84"}
+{"fn":"nohandglow","c":"6315-6337","status":"ported","js":["js/uhitm.js:nohandglow"],"d":["D-3220","D-2855"],"at":"2026-10-01@250701173"}
 {"fn":"flash_hits_mon","c":"6341-6422","status":"unknown"}
 {"fn":"light_hits_gremlin","c":"6425-6445","status":"unknown"}

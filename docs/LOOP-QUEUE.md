@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `version.c` doextversion — coverage PARTIAL (C 60 code L `version.c:169–277` / JS 42 code L in js/pager.js; hops —, callers 2, RNG 0, msg 6; declared partial: `dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_in) @2eced4253
-- [ ] `sounds.c` sound_speak — coverage THIN (C 25 code L `sounds.c:2185–2220` / JS 1 code L in js/sounds.js; hops 2, callers 2, RNG 0, msg 0) @f9a10fead
-- [ ] `display.c` redraw_map — coverage PARTIAL (C 14 code L `display.c:1778–1812` / JS 9 code L in js/display.js; hops 2, callers 2, RNG 0, msg 0) @cdbc41097
-- [ ] `do_wear.c` inaccessible_equipment — coverage PARTIAL (C 33 code L `do_wear.c:3342–3400` / JS 24 code L in js/apply.js; hops —, callers 6, RNG 0, msg 6; declared partial: ``SetVoice``-class none here; prompt letter-hiding (which letters the dip/grease prompts suggest) stays with each getobj path's own simplifi) @cdbc41097
-- [ ] `cmd.c` yn_function_menu — coverage PARTIAL (C 33 code L `cmd.c:5419–5463` / JS 22 code L in js/getline.js; hops 2, callers 1, RNG 0, msg 1) @cdbc41097
-- [ ] `getpos.c` coord_desc — coverage PARTIAL (C 24 code L `getpos.c:595–635` / JS 17 code L in js/display.js; hops 2, callers 7, RNG 0, msg 0; declared partial: `auto_describe_text` still returns firstmatch only (`show_glyph` / lookaround).) @cdbc41097
-- [ ] `uhitm.c` mhitm_adtyping — coverage MISSING (C 45 code L `uhitm.c:4782–4832` / JS no symbol; hops 3, callers 3, RNG 0, msg 0; split? cited 67× in js/ — brief first) @cdbc41097
 - [ ] `sp_lev.c` create_monster — coverage MISSING (C 193 code L `sp_lev.c:1925–2187` / JS no symbol; hops —, callers 1, RNG 1, msg 0; split? cited 28× in js/ — brief first) @3d715b8cd
 - [ ] `cmd.c` get_changed_key_binds — coverage PARTIAL (C 38 code L `cmd.c:2235–2287` / JS 20 code L in js/cmd.js; hops —, callers 2, RNG 0, msg 2) @3d715b8cd
 - [ ] `steed.c` poly_steed — coverage PARTIAL (C 10 code L `steed.c:852–873` / JS 7 code L in js/steed.js; hops 3, callers 2, RNG 0, msg 1) @3d715b8cd
 - [ ] `artifact.c` set_artifact_intrinsic — coverage PARTIAL (C 127 code L `artifact.c:716–893` / JS 71 code L in js/artifact.js; hops 4, callers 5, RNG 0, msg 0) @3d715b8cd
 - [ ] `mondata.c` name_to_monclass — coverage PARTIAL (C 54 code L `mondata.c:1090–1176` / JS 40 code L in js/mondata.js; hops 3, callers 4, RNG 0, msg 0) @3d715b8cd
+- [ ] `end.c` build_english_list — coverage THIN (C 26 code L `end.c:1823–1859` / JS 4 code L in js/end.js; hops —, callers 1, RNG 0, msg 3; declared partial: - `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value (CR/VT/FF); empty and '*' gua) @250701173
+- [ ] `light.c` save_light_sources — coverage THIN (C 35 code L `light.c:421–471` / JS 10 code L in js/mkobj.js; hops 4, callers 3, RNG 0, msg 0) @250701173
+- [ ] `monmove.c` can_hide_under_obj — coverage PARTIAL (C 19 code L `monmove.c:2121–2167` / JS 13 code L in js/monmove.js; hops 2, callers 3, RNG 0, msg 0) @250701173
+- [ ] `mdlib.c` build_options — coverage PARTIAL (C 95 code L `mdlib.c:669–830` / JS 66 code L in js/version.js; hops —, callers 1, RNG 0, msg 4; declared partial: `eos` (pointer-arithmetic helper — folded into `+=`, C hacklib.c:192); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (save-compat v) @250701173
+- [ ] `calendar.c` hhmmss — coverage THIN (C 8 code L `calendar.c:80–92` / JS 2 code L in js/calendar.js; hops 3, callers 2, RNG 0, msg 0) @250701173
+- [ ] `region.c` add_region — coverage PARTIAL (C 33 code L `region.c:284–338` / JS 17 code L in js/region.js; hops 5, callers 2, RNG 0, msg 0) @250701173
+- [ ] `options.c` handler_msgtype — coverage PARTIAL (C 60 code L `options.c:6502–6570` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 3; declared partial: `config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink.) @250701173
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
