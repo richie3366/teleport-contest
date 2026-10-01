@@ -25,7 +25,7 @@
 {"fn":"cmp_init_mongen_order","c":"1760-1777","status":"ported","js":["js/makemon.js:cmp_init_mongen_order"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"check_mongen_order","c":"1783-1802","status":"by-design","d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"init_mongen_order","c":"1807-1828","status":"unknown"}
-{"fn":"dump_mongen","c":"1835-1866","status":"partial","js":["js/makemon.js:dump_mongen"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dump_mongen","c":"1835-1866","status":"ported","js":["js/makemon.js:dump_mongen"],"d":["D-3103"],"at":"2026-10-01@b4ca336ef","note":"stale: js/makemon.js:879 (D-3103 whole body; raw_print sinks unclosable — vraw_printf :577/D-3086 precedent; monst_globals_init memcpy no-op; freedynamicdata by-design; dump_enums stale precedent)"}
 {"fn":"mkclass","c":"1873-1876","status":"unknown"}
 {"fn":"mkclass_aligned","c":"1880-1974","status":"unknown"}
 {"fn":"mkclass_poly","c":"1983-2012","status":"unknown"}

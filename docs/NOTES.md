@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3229 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3230 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3229.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3229 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3230.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3230 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3230: the 5 arms are live `else void impossible('hl->behavior=…')` one-liners with exact C strings, un-awaited per the same-file status_initialize `:357` pr Named: - `status_hilite2str`: `:4289`/`:4298` menu_add callers (caller by-design); none in-body —
 - D-3229: `js/mklev.js` only, no new modules/edges (all file-local like C's statics): new `let is_ok_location_func = null` + `set_ok_location_func(func)` (C `:1 Named: - `is_ok_location`: none — every arm live, every C caller wired; the `isok` OOB guard stay
 - D-3228: `js/mklev.js` — deleted the clone; `import { breaktest } from './dothrow.js'` (`imports.mjs --can`: SAFE, hoisted function); call site cites C `:1877– Named: - `mktrap_victim`: none in the body — every arm, every callee live (`level_difficulty`, `m
 - D-3227: `js/eat.js` — restarted the local in C order, same name/signature (all `game.occupation === eatfood` identity gates untouched): stolen guard via live  Named: - `eatfood`: none — all 4 C callees live same-module (`carried` exported; `obj_here`/`do_r
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3218: `js/dothrow.js` only — restarted hurtle_step in exact C order, same export name/signature: `via_jumping = (EWwalking & I_SPECIAL)`, `stopping_short =  Named: none — all 43 C callees live, every arm ported.
 - D-3217: the 4 one-line clones drop the `|| endsWith('S')` disjunct (comments now cite the lowercase-only C predicate); towel/leash/poison/inv restarted as the Named: none — all 20 homes now C-exact: canonical `js/do_name.js:411` + 5 name-exact (explode/min
 - D-3216: 12 literals → `'Your vision quickly clears.'`; `VISION_CLEARS` → `'vision quickly clears.'` (`:5082` composes the C string); comment cites the correct Named: - `mhitm_ad_blnd`: none — the split stands text-exact; the other 12 sites sit in already-p
-- D-3215: restart both in C order. Named: - `Gloves_off`: none added — null-gloves graceful clear kept (C dereferences uarmg; siblin
 <!-- landmarks:end -->

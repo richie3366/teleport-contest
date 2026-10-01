@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3230 `botl.c` status-hilite closure: hilite2str impossible arms live + 3 verified-complete (coverage)
+
+**C locus:** - `status_hilite2str`: botl.c:3590–3669 (null guard `:3600–3601`, op table `:3606–3611`, 8 behavior arms `:3614–3656` with 5 impossible else-arms `:3617`/`:3627`/`:3633`/`:3639`/`:3645`, split/clrbuf `:3659–3663`, fmt `:3665–3667`).
+**JS:** js/botl.js:3098/:3104/:3108/:3112/:3116 arms, js/botl.js:3081–3084 doc; siblings js/botl.js:3174, js/botl.js:3554, js/options.js:12896 (verified, untouched).
+**Change:** the 5 arms are live `else void impossible('hl->behavior=…')` one-liners with exact C strings, un-awaited per the same-file status_initialize `:357` precedent (sync caller; corrupt-rule-only arms no ported path reaches — no async cascade into the sync gather/count/options-strbuf callers). Doc comment updated (D-3137 drop note retired). Siblings untouched (comment-accurate as briefed).
+**Verify:** `node scripts/verify.mjs --fn status_hilite2str,status_hilite_menu_choose_updownboth,status_hilite_menu,all_options_statushilites` → PASS syntax (1 file: js/botl.js) · PASS rule2 · note hidden ×4 (vacuous: 0 blocked — coverage rows) · REACH-OK ×4 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (forced follow-up: display-path file) → VERIFY: PASS.
+**Named:** - `status_hilite2str`: `:4289`/`:4298` menu_add callers (caller by-design); none in-body — all 5 impossible arms live.
+**Next:** next coverage head after finish regenerates the block.
 ## 2026-10-01 — D-3229 `sp_lev.c` is_ok_location override arm + set_ok_location_func (ok_fn emulation retired)
 
 **C locus:** - `is_ok_location`: `sp_lev.c:1280–1308` — `:1284–1285` Is_waterlevel accept-any; `:1287–1288` `is_ok_location_func` override; `:1291` ANY_LOC; `:1293` SOLID IS_OBSTRUCTED; `:1297–1302` DRY|SPACELOC SPACE_POS + boulder; `:1303` WET is_pool; `:1305` HOT is_lava.

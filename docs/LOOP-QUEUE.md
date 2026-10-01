@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `makemon.c` dump_mongen — coverage THIN (C 27 code L `makemon.c:1835–1866` / JS 12 code L in js/makemon.js; hops —, callers 1, RNG 0, msg 0; declared partial: ) @e0549fe8b
-- [ ] `shk.c` remote_burglary — coverage PARTIAL (C 10 code L `shk.c:665–682` / JS 7 code L in js/shk.js; hops 4, callers 1, RNG 0, msg 0) @e0549fe8b
-- [ ] `botl.c` status_hilite2str — coverage PARTIAL (C 70 code L `botl.c:3590–3669` / JS 42 code L in js/botl.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `clear_status_hilites`: sole-C-caller wiring — options.c:1867 do_set negated arm (JS hilite_status optfn null).) @e0549fe8b
 - [ ] `coloratt.c` add_menu_coloring — coverage PARTIAL (C 30 code L `coloratt.c:617–660` / JS 22 code L in js/options.js; hops —, callers 2, RNG 0, msg 0; declared partial: `config_error_add("Malformed MENUCOLOR")` sink (msgtype_add precedent); `cnf_line_MENUCOLOR` caller (no JS read_config_file dispatch).) @e0549fe8b
 - [ ] `cfgfiles.c` get_uchars — coverage PARTIAL (C 41 code L `cfgfiles.c:381–437` / JS 24 code L in js/cfgfiles.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `get_uchars`: wait_synch `:433` (windowed input boundary; game build blocks in tty_wait_synch wintty.c:3624–3631; config parser stays sync) @e0549fe8b
 - [ ] `dbridge.c` e_at — coverage PARTIAL (C 10 code L `dbridge.c:286–301` / JS 7 code L in js/dbridge.js; hops 5, callers 1, RNG 0, msg 0) @e0549fe8b
 - [ ] `shk.c` bill_box_content — coverage PARTIAL (C 10 code L `shk.c:3387–3407` / JS 5 code L in js/shk.js; hops 5, callers 1, RNG 0, msg 0) @0fcd10790
-- [ ] `botl.c` status_hilite_menu_choose_updownboth — coverage PARTIAL (C 58 code L `botl.c:3811–3887` / JS 33 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0; declared partial: `status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes th) @0fcd10790
 - [ ] `options.c` handler_whatis_coord — coverage PARTIAL (C 58 code L `options.c:6206–6276` / JS 33 code L in js/options.js; hops —, callers 1, RNG 0, msg 0; declared partial: `config_error_add("Unknown %s parameter")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `pi) @0fcd10790
 - [ ] `options.c` initoptions_finish — coverage PARTIAL (C 26 code L `options.c:7324–7384` / JS 18 code L in js/options.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `unsaveoptstr`: none — every arm ported, callee live.) @1633dc128
-- [ ] `botl.c` status_hilite_menu — coverage PARTIAL (C 52 code L `botl.c:4498–4578` / JS 37 code L in js/botl.js; hops —, callers 1, RNG 0, msg 0; declared partial: `status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes th) @1633dc128
 - [ ] `dokick.c` kickstr — coverage PARTIAL (C 34 code L `dokick.c:794–831` / JS 22 code L in js/dokick.js; hops —, callers 1, RNG 0, msg 0) @1633dc128
+- [ ] `cmd.c` handler_rebind_keys — coverage PARTIAL (C 30 code L `cmd.c:2408–2446` / JS 15 code L in js/cmd.js; hops —, callers 1, RNG 0, msg 0; declared partial: `bind->param` store (overlay is name-only; CMD_PARAM display already named in `dokeylist.js` header); C key-0+param NULL-deref crash path (J) @b4ca336ef
+- [ ] `options.c` handler_menu_objsyms — coverage PARTIAL (C 28 code L `options.c:5795–5829` / JS 18 code L in js/options.js; hops —, callers 1, RNG 0, msg 0; declared partial: `config_error_add("Illegal %s parameter")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `n ) @b4ca336ef
+- [ ] `region.c` create_gas_cloud_selection — coverage PARTIAL (C 15 code L `region.c:1313–1336` / JS 10 code L in js/region.js; hops —, callers 1, RNG 0, msg 0) @b4ca336ef
+- [ ] `do.c` better_not_try_to_drop_that — coverage PARTIAL (C 8 code L `do.c:947–962` / JS 5 code L in js/do.js; hops —, callers 1, RNG 0, msg 0) @b4ca336ef
+- [ ] `sp_lev.c` lspo_exclusion — coverage PARTIAL (C 25 code L `sp_lev.c:5498–5532` / JS 16 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @b4ca336ef
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3230 — `botl.c` status-hilite closure: hilite2str impossible arms live + 3 verified-complete (coverage)
+
+- **Status:** fixed (breadth-phase cluster: queue head status_hilite2str D-3137-omit retirement + 3 same-file verified-complete; 1 file, ~10 insertions — below the ~80 guideline because the head's file and callee closure hold nothing more Open: `rows 60` shows only these 4 botl.c rows, all callees ported/measured-ok/by-design. 2 stale pops retired en route: dump_mongen THIN → ported (D-3103 whole body; raw_print sinks unclosable per vraw_printf `:577`/D-3086, dump_enums stale precedent), remote_burglary PARTIAL → ported (D-1717 whole body, sole C caller pickup.c:1939 wired js/pickup.js:1164).)
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on all four: 0 blocked — tty/status-hilite paths). status_hilite2str dropped its 5 corrupt-rule impossible() arms as comments (D-3137 named omit, misfiled on the ledger row under clear_status_hilites' bullet); the 3 siblings are brief-complete bodies whose only gaps are callers inside by-design status_hilite_menu_add.
+- **C locus:**
+  - `status_hilite2str`: botl.c:3590–3669 (null guard `:3600–3601`, op table `:3606–3611`, 8 behavior arms `:3614–3656` with 5 impossible else-arms `:3617`/`:3627`/`:3633`/`:3639`/`:3645`, split/clrbuf `:3659–3663`, fmt `:3665–3667`).
+  - `status_hilite_menu_choose_updownboth`: botl.c:3811–3887 (ltok Less/Less-or-equal rows `:3827–3844` with BL_AC Better/Worse wording, unconditional EQ `:3848–3855`, gtok GE/GT rows `:3857–3874`, prompt `:3876`, PICK_ONE res>0 → a_int-10 `:3877–3883`).
+  - `status_hilite_menu`: botl.c:4498–4578 (shlmenu_redo loop `:4509`, View-all + separator `:4516–4524`, per-field rows `:4526–4546` with SCORE_ON_BOTL skip `:4532–4538`, pick dispatch `:4550–4559`, recount/done `:4563–4564`, fuzzer gate `:4568–4569`, hilite_delta=3 `:4574–4575`, return TRUE `:4577`).
+  - `all_options_statushilites`: botl.c:4477–4495 (done/gather pair `:4482–4485`, OPTIONS=hilite_status walk with %.*s precision `:4487–4493`, done `:4494`).
+- **JS was:** js/botl.js:3085 status_hilite2str with the 5 impossible arms as `/* else C … */` comments; the 3 siblings complete (js/botl.js:3174, js/botl.js:3554, js/options.js:12896).
+- **Fix:** the 5 arms are live `else void impossible('hl->behavior=…')` one-liners with exact C strings, un-awaited per the same-file status_initialize `:357` precedent (sync caller; corrupt-rule-only arms no ported path reaches — no async cascade into the sync gather/count/options-strbuf callers). Doc comment updated (D-3137 drop note retired). Siblings untouched (comment-accurate as briefed).
+- **JS:** js/botl.js:3098/:3104/:3108/:3112/:3116 arms, js/botl.js:3081–3084 doc; siblings js/botl.js:3174, js/botl.js:3554, js/options.js:12896 (verified, untouched).
+- **Callers:**
+  - `status_hilite2str`: `:3580` (gather) → js/botl.js:3069 wired; `:4289`/`:4298` → NAMED (inside by-design status_hilite_menu_add).
+  - `status_hilite_menu_choose_updownboth`: `:4057`/`:4088` → NAMED (both inside by-design status_hilite_menu_add).
+  - `status_hilite_menu`: options.c:8465 → js/options.js:4397 wired.
+  - `all_options_statushilites`: options.c:9741 → js/options.js:12962 wired.
+- **Verify:** `node scripts/verify.mjs --fn status_hilite2str,status_hilite_menu_choose_updownboth,status_hilite_menu,all_options_statushilites` → PASS syntax (1 file: js/botl.js) · PASS rule2 · note hidden ×4 (vacuous: 0 blocked — coverage rows) · REACH-OK ×4 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (forced follow-up: display-path file) → VERIFY: PASS.
+- **Named omissions:**
+  - `status_hilite2str`: `:4289`/`:4298` menu_add callers (caller by-design); none in-body — all 5 impossible arms live.
+  - `status_hilite_menu_choose_updownboth`: both C callers inside by-design status_hilite_menu_add (menu_fld stale precedent); none in-body.
+  - `status_hilite_menu`: none — whole body, sole caller wired (the menu_add text on the queue row belongs to the sibling chooser, not this body).
+  - `all_options_statushilites`: none — whole body (D-2552 campaign 6/7), sole caller wired.
+- **Ledger:** status_hilite2str ported; status_hilite_menu_choose_updownboth ported; status_hilite_menu ported; all_options_statushilites ported
+- **Next:** next coverage head after finish regenerates the block.
+
 ## D-3229 — `sp_lev.c` is_ok_location override arm + set_ok_location_func (ok_fn emulation retired)
 
 - **Status:** fixed (Open coverage head `sp_lev.c` is_ok_location — PARTIAL C 18/JS 11; 2 stale pops retired en route — dump_weights (`ledger.mjs set … split --js js/hack.js:dump_weights,js/hack.js:dump_weights_lines`, whole C body `:4421–4483` live across the D-3062 split, sole C caller earlyarg.c:539 named), get_table_int_or_random (`ledger.mjs set … ported`, whole C body `:3407–3437` live at js/mklev.js:22842, both C callers wired `:22871`/`:22881`, review 1840 ACCEPT) — each brief-complete in JS)

@@ -16,7 +16,7 @@
 {"fn":"inside_shop","c":"568-576","status":"unknown"}
 {"fn":"u_left_shop","c":"579-625","status":"unknown"}
 {"fn":"credit_report","c":"628-661","status":"unknown","d":["D-2282"],"at":"seed@a30a7de84"}
-{"fn":"remote_burglary","c":"665-682","status":"unknown","d":["D-1717"],"at":"seed@a30a7de84"}
+{"fn":"remote_burglary","c":"665-682","status":"ported","js":["js/shk.js:remote_burglary"],"d":["D-1717"],"at":"2026-10-01@b4ca336ef","note":"stale: js/shk.js:561 whole C body live (D-1717), sole C caller pickup.c:1939 wired at js/pickup.js:1164 with fakeshop footnote"}
 {"fn":"rob_shop","c":"687-719","status":"unknown"}
 {"fn":"deserted_shop","c":"723-747","status":"unknown"}
 {"fn":"u_entered_shop","c":"751-917","status":"unknown","d":["D-2218","D-1080"],"at":"seed@a30a7de84"}
