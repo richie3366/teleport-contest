@@ -1,5 +1,60 @@
 # Divergence log
 
+## D-3185 — restore special-level Lua entry contracts and exact integer conversion
+
+- **Status:** resumed and shipped the existing nine-function closure from unfinished loop #4035. The predecessor stopped at provider quota after a green verify, before the hot-function REACH check and commit. No new cluster selected and no queue item popped. Whole bodies restored; the shared helpers retain named inherited caller omissions.
+- **Symptom:** coverage gaps, no blocked corpus session claim. Room contents received an internal mkroom instead of the public Lua table; gas-cloud input bypassed table/selection validation; level-init accepted only lowered loader fields and omitted coder.lvl_is_joined. Extracted C/Lua checks exposed fractional input truncation in the shared optional-integer reader.
+- **C locus:** predecessor read whole bodies and caller tables before coding; continuation reread the leftover diff and only targeted caller references needed for this handoff. sp_lev.c lspo_room:4028–4116, build_room:2807–2830, get_table_xy_or_coord:3188–3203, lspo_level_flags:3759–3831, lspo_gas_cloud:4929–4965, lspo_level_init:3837–3875; nhlua.c get_table_mapchr_opt:256–271, check_mapchr:393–398, get_table_int_opt:1028–1039. Pinned upstream bodies are the oracle source.
+- **Fix:** restored table/arity guards, C destination integer narrowing, public room callback tables and C nesting/error order; renamed the existing coder room builder to build_room without duplicating it. Nested compiled builders use the public entry through splev_des_room. Gas clouds validate selections, apply damage and TTL defaults, and return C's zero. Level-init consumes public style/map-character/boolean options in C order, stores lvl_is_joined and calls the live initializer; all compiled loaders translate their numeric fields through splev_level_init. Level flags preserve sequential mutations, case-insensitive C strings, numeric checkstring inputs and all flag arms. Shared optional map-character parsing and exact Lua integer conversions replace local copies; plain ESM nhlua.js holds the latter without game-state imports or top-level reads.
+- **JS:** js/mklev.js:1093 lspo_gas_cloud, :1210 build_room, :1835 lspo_room, :20584 lspo_level_flags, :20680 check_mapchr, :20687 get_table_mapchr_opt, :20701 lspo_level_init, :20729 compiled-init adapter, :22569 get_table_xy_or_coord, :23908 compiled-room adapter; js/dungeon.js:335 get_table_int_opt; js/nhlua.js shared conversions. docs/c-js-map/data.md records restored contracts and inherited boundaries.
+- **Callers:**
+  - lspo_room: C des registration sp_lev.c:6396 is represented by the public export; js/mklev.js:23929 splev_des_room now calls it. Compiled outer room builders retain their direct expansion (named below). C build_room's sole executable call :4081 is js/mklev.js:1866.
+  - lspo_level_init: des registration :6384 is represented by the public export; every compiled level-init call now uses splev_level_init -> js/mklev.js:20749 lspo_level_init. No loader passes numeric terrain enums directly to the public entry.
+  - lspo_level_flags: des registration :6383 is represented by the public export. Existing compiled level-flag assignments, including hellfill_set_mazelevel_noflip:27315 and icedpools loader assignments, remain direct expansions, not a Lua VM registration claim.
+  - lspo_gas_cloud: des registration :6413 is represented by the public export; the Cloud-room fill is wired at js/mklev.js:31202 with a Set-backed selection.
+  - get_table_xy_or_coord: 15 of the 16 executable sp_lev.c references are wired to one JS helper: monster :3341 -> :22771, object :3650 -> :22992, engraving :3904 -> :1787, room :4057 -> :1846, grave :4260 -> :23298, altar :4301 -> :23340, trap :4429 -> :1582, gold :4503 -> :1379, door :4696 -> :19042, feature :4877 -> :1706, gas :4945 -> :1103, terrain :4993 -> :1953, drawbridge :5742 -> :1244, mazewalk :5793 -> :1297, map :6119 -> :2264 (JS locations in mklev.js). l_create_stairway :4164 remains an inherited lowered-input caller omission; its JS :23201 takes direction and coordinates directly, with no public table path. The pre-existing splev_create_altar:23148 helper also uses the shared reader.
+  - get_table_mapchr_opt: all five C references are wired: level-init :3856/:3857/:3862 -> js/mklev.js:20710/:20711/:20716, replace-terrain :5072 -> :2039, mazewalk :5794 -> :1300.
+  - check_mapchr: optional reader nhlua.c:263 -> js/mklev.js:20691; terrain sp_lev.c:5005/:5012/:5016 -> :1969/:1979/:1984. Mandatory reader nhlua.c:247 remains inline, named below.
+  - get_table_int_opt: existing dungeon level/branch readers js/dungeon.js:768–770/:845 remain wired and now reject fractions through the shared conversion. Cluster x/y, room fields, gas damage/ttl and init corridor dimensions call the same export. Other sp_lev integer readers retain their pre-existing adapters, named below; no extra function added to the closure.
+- **Verify:** initial continuation command node scripts/verify.mjs --fn lspo_room,build_room,lspo_level_flags,lspo_gas_cloud,lspo_level_init,get_table_mapchr_opt,check_mapchr,get_table_int_opt,get_table_xy_or_coord. No failing sessions to triage; syntax and Rule #2 passed. Each function reported no corpus session blocked at baseline (notes, not hidden PASS); the queued coverage row cites no corpus block count, so no consumed-baseline claim. Eight functions had fixed 24-session smoke spreads, each 24 PASS / 0 regressed -> REACH-OK. build_room had 648 baseline-PASS sessions reaching it; initial spread 80 PASS / 0 regressed -> REACH-OK. Final public tail:
+
+```text
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+
+  - Re-ran predecessor /tmp/D3185-parity.mjs against live JS and its extracted pinned-C/Lua 5.4.8 oracle: 213/213 normalization, callback-table, cast, error, default and gas-TTL vectors PASS. Dependencies are observation sinks; this is argument/control-flow evidence, not room-placement proof. The predecessor's oversized-room callback mismatch was an oracle room-storage-width error; its corrected oracle uses coordxy storage, and the resumed run passes unchanged production code.
+  - Required hot-function full REACH: node scripts/verify.mjs --fn build_room --reach-all. Actual tail (no baseline blocked-session claim):
+
+```text
+PASS  syntax   3 changed js file(s): js/dungeon.js js/mklev.js js/nhlua.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify build_room: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    build_room: 648 baseline-PASS session(s) reach it (648 run, 237.9s): 648 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `get_table_xy_or_coord` / `check_mapchr` / `get_table_int_opt`: inherited callers still omit stair table parsing (sp_lev.c:4164), shared mandatory-mapchar parsing (nhlua.c:247), and exact integer checks in noncluster splev_opt_int/dungeon readers. Whole helper bodies are restored; details follow.
+  - lspo_room / build_room: no missing whole-body arm. Lua stack/pcall operations are unpacked JS objects and direct callbacks; throws implement error/panic, GC owns memory. Compiled outer splev_build_room:23860 and the main theme dispatch remain direct C expansions; the nested/public paths are now wired. General Lua script/metatable execution remains absent. lspo_region's existing raw-room callback is a separate entry outside this closure.
+  - lspo_level_flags / lspo_gas_cloud / lspo_level_init / get_table_mapchr_opt: no omitted whole-body arm; JS exports/tables, callbacks and Set-backed selections represent the Lua bindings. nhl_error's Lua source/debug suffix remains absent (D-2862), and immutable strings/GC implement free. Existing compiled flag assignments remain expansions as listed above.
+  - get_table_xy_or_coord: whole body ported; C l_create_stairway:4164 is unwired because js/mklev.js:23201 accepts lowered direction/coordinates and does not implement C's table-form parsing. Other 15 executable references call the shared helper. No stair/ladder table-entry claim.
+  - check_mapchr: whole body ported, but mandatory get_table_mapchr (nhlua.c:247) is still implemented in consumers without a shared export. lspo_replace_terrain's mandatory toterrain path js/mklev.js:2033–2035 still validates and uses splev_chr2typ directly. No claim to port the mandatory-reader function.
+  - get_table_int_opt: whole body and cluster readers ported; inherited noncluster integer readers in lspo_monster/object/gold/terrain/replace-terrain/region and l_get_lregion/get_table_coords_or_region still use splev_opt_int or local coercion. init_dungeon_dungeons' direct range/entry/chance expansion also remains outside this closure. Their permissive normalization is not claimed fixed; this helper stays partial for caller coverage.
+- **Ledger:** lspo_room ported; build_room ported; get_table_xy_or_coord partial; lspo_level_flags ported; lspo_gas_cloud ported; lspo_level_init ported; get_table_mapchr_opt ported; check_mapchr partial; get_table_int_opt partial
+- **Next:** first remaining generated Open coverage row after this closure. Prior stale cnf_line_WIZARDS row retired as a whole handler while build_english_list's D-3184 diagnostic omission remains; ck_server_admin_msg retired by-design because SERVER_ADMIN_MSG is undefined in the pinned build. No manual coverage refill or new FAIL peel.
+
 ## D-3184 — initialize SYSCF wizard lists and report unsupported portable paths
 
 - **Status:** coverage cluster shipped with a named diagnostic omission. Small-cluster exception: the live cfgfiles.c head and its only remaining same-file Open queue row have 17 C code lines total; no further same-file Open rows or Open callees. The already-ported formatter is a shared callee refactor, not density padding. Retired two inventory false positives before the live cluster: init_shop_selection is inside shknam.c:356–375 `#if 0` with no compiled callers; SF_X is a macro invocation, not a C function. Its generated NHFILE scalar adapters remain outside the existing JS JSON-save contract; no binary-save coverage is claimed.

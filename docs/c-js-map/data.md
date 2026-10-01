@@ -1785,8 +1785,38 @@ listed all 15; BODIES was 12); **`lspo_level_init` → `splev_initlev`**
 (D-2256; C `sp_lev.c:3834–3875` table defaults + `splev_init_present`,
 `:2981–3018` dispatch, MINES `linit->icedpools` from the `:192` static set
 by Val `level_flags("icedpools")`, reset per coder `:6350`; `sel_set_ter`
-ICE icedpool + CLOUD `del_engr_at` live; `lvl_is_joined` omitted — no C reader);
+ICE icedpool + CLOUD `del_engr_at` live; `lvl_is_joined` restored by D-3185);
 exclusion_zones save/rest deferred;
+
+**D-3185 `des.room` / level flags / gas cloud / level init closure**:
+`js/mklev.js` exports whole C-ordered `lspo_room`, `build_room`,
+`get_table_xy_or_coord`, `lspo_level_flags`, `lspo_gas_cloud`,
+`lspo_level_init`, `get_table_mapchr_opt` and `check_mapchr`;
+`js/dungeon.js:get_table_int_opt` shares exact Lua integer conversion
+through plain ESM `js/nhlua.js`. Fractional Lua values error rather than
+truncate; signed int32/coordxy narrowing follows the C destination.
+Room contents now receive `l_push_mkroom_table`; nested compiled themes
+route through `splev_des_room` -> `lspo_room` -> `build_room`.
+All compiled level-init calls route through `splev_level_init` -> public
+`lspo_level_init`, preserving enum/terrain inputs; coder `lvl_is_joined`
+is stored. Cloud-room fill calls the guarded gas entry with a Set-backed
+selection, and optional-mapchar readers share one implementation.
+Named inherited boundaries: no Lua VM/stack/metatable execution; unpacked
+JS tables/callbacks/selection objects implement the entries, JS throws
+represent nhl_error/panic and callback panic, GC implements free. Error
+messages omit nhl_error's Lua source/debug suffix (D-2862). Outer compiled
+room builders (`splev_build_room` and main theme dispatch) and compiled
+level-flag assignments remain direct C expansions, so no general Lua
+script loading or wholesale replacement of those builders is claimed.
+`get_table_xy_or_coord` retains an inherited caller gap at C
+`l_create_stairway:4164`: JS :23201 takes lowered direction/coordinates,
+without a table-input arm. `get_table_int_opt` retains permissive
+`splev_opt_int` in noncluster readers and direct dungeon range/entry/chance
+fields; `check_mapchr` retains mandatory-reader inline consumers. These
+three helpers remain partial for caller coverage.
+`lspo_region`'s pre-existing raw-room callback argument is outside this
+closure; this change restores the public table for `lspo_room` only.
+
 **Garden fill + `make_garden_walls` postprocess** (D-1861; numpoints/6
 asleep wood nymphs via `splev_room_monster` default-random `induced_align`,
 `percent(30)` DRY `des.feature` fountain, grown-sel walls→TREE +

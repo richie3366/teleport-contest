@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `cfgfiles.c` cnf_line_WIZARDS — coverage MISSING (C 8 code L `cfgfiles.c:795–809` / JS no symbol; hops —, callers 0, RNG 0, msg 0) @ae5beffe4
-- [ ] `mail.c` ck_server_admin_msg — coverage THIN (C 8 code L `mail.c:685–700` / JS 0 code L in js/mail.js; hops —, callers 0, RNG 0, msg 0) @232081f95
-- [ ] `sp_lev.c` lspo_room — coverage PARTIAL (C 68 code L `sp_lev.c:4028–4116` / JS 46 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
-- [ ] `sp_lev.c` lspo_level_flags — coverage PARTIAL (C 62 code L `sp_lev.c:3759–3831` / JS 39 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
-- [ ] `sp_lev.c` lspo_gas_cloud — coverage PARTIAL (C 27 code L `sp_lev.c:4929–4965` / JS 16 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
-- [ ] `sp_lev.c` lspo_level_init — coverage PARTIAL (C 26 code L `sp_lev.c:3837–3875` / JS 18 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `invent.c` doprarm — coverage PARTIAL (C 22 code L `invent.c:4601–4638` / JS 14 code L in js/invent.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `getpos.c` cmp_coord_distu — coverage PARTIAL (C 12 code L `getpos.c:312–329` / JS 8 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `getpos.c` gloc_filter_floodfill_matcharea — coverage PARTIAL (C 9 code L `getpos.c:364–379` / JS 6 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @5e7475cd1
 - [ ] `wizcmds.c` migrsort_cmp — coverage PARTIAL (C 9 code L `wizcmds.c:1485–1501` / JS 6 code L in js/wizcmds.js; hops —, callers 0, RNG 0, msg 0) @a60a91a98
 - [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 18 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: paniclog file (Rule #2); recursive-in_impossible panic; debug_fuzzer panic; sysopt.support line; CRASHREPORT web report (network)) @a60a91a98
 - [ ] `cmd.c` getdir — coverage PARTIAL (C 104 code L `cmd.c:3958–4119` / JS 66 code L in js/lock.js; hops 2, callers 29, RNG 5, msg 2; declared partial: `readchar`/`readchar_queue`/`readchar_core` (altmeta pushback empty in sessions; nhgetch covers it); `docrt_flags` (live `flush_screen(1)` i) @a60a91a98
+- [ ] `dog.c` mon_arrive — coverage THIN (C 136 code L `dog.c:420–623` / JS 2 code L in js/dog.js; hops 2, callers 6, RNG 5, msg 0; declared partial: losedogs kops-dismiss scan (dismissKops/make_happy_shoppers `:310–356`); full mnearto yank (move_other=FALSE always); resurrect SetVoice + D) @03eae3466
+- [ ] `objnam.c` readobjnam — coverage THIN (C 326 code L `objnam.c:4910–5400` / JS 142 code L in js/readobjnam.js; hops 3, callers 3, RNG 9, msg 1) @03eae3466
+- [ ] `pager.c` checkfile — coverage THIN (C 200 code L `pager.c:830–1129` / JS 48 code L in js/pager.js; hops 1, callers 2, RNG 0, msg 5; declared partial: do_supplemental_info (`pager.c:2255`, own row — verbose-glance fill stays live); supplemental_pm out of do_screen_description (own row); dlb) @03eae3466
+- [ ] `hack.c` findtravelpath — coverage MISSING (C 157 code L `hack.c:1266–1523` / JS no symbol; hops 2, callers 2, RNG 0, msg 1) @03eae3466
+- [ ] `teleport.c` rloc_to_core — coverage THIN (C 75 code L `teleport.c:1645–1768` / JS 12 code L in js/teleport.js; hops 2, callers 4, RNG 0, msg 4; declared partial: `u_on_newpos` inlined (ux/uy/uundetected/steed; `see_nearby_objects` correctly skipped — uswallow true fails C's gate; `earth_sense` map-nam) @03eae3466
+- [ ] `objnam.c` xname_flags — coverage THIN (C 300 code L `objnam.c:581–1029` / JS 52 code L in js/objnam.js; hops 3, callers 2, RNG 0, msg 17; declared partial: nextobuf/PREFIX/ConcUpdate/Concat truncation + eos overflow paniclog (by-design JS strings); glorkum default + SLIME_MOLD-bad-fruit `impossi) @03eae3466
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

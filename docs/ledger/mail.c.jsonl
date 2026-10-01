@@ -7,4 +7,4 @@
 {"fn":"ckmailstatus","c":"461-479","status":"ported","js":["js/mail.js:ckmailstatus"],"d":["D-2917"],"at":"seed@a30a7de84","note":"alt 550-584 744-760"}
 {"fn":"readmail","c":"487-541","status":"unknown","d":["D-1958"],"at":"seed@a30a7de84","note":"alt 704-733 763-798"}
 {"fn":"read_simplemail","c":"589-680","status":"ported","js":["js/mail.js:read_simplemail"],"d":["D-2599"],"at":"seed@a30a7de84"}
-{"fn":"ck_server_admin_msg","c":"685-700","status":"unknown"}
+{"fn":"ck_server_admin_msg","c":"685-700","status":"by-design","at":"2026-09-30@03eae3466","note":"stale: js/mail.js:575; SERVER_ADMIN_MSG undefined in pinned unixconf.h:212, compiled C body empty"}

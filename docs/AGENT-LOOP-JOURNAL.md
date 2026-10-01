@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3185 restore special-level Lua entry contracts and exact integer conversion
+
+**C locus:** predecessor read whole bodies and caller tables before coding; continuation reread the leftover diff and only targeted caller references needed for this handoff. sp_lev.c lspo_room:4028–4116, build_room:2807–2830, get_table_xy_or_coord:3188–3203, lspo_level_flags:3759–3831, lspo_gas_cloud:4929–4965, lspo_level_init:3837–3875; nhlua.c get_table_mapchr_opt:256–271, check_mapchr:393–398, get_table_int_opt:1028–1039. Pinned upstream bodies are the oracle source.
+**JS:** js/mklev.js:1093 lspo_gas_cloud, :1210 build_room, :1835 lspo_room, :20584 lspo_level_flags, :20680 check_mapchr, :20687 get_table_mapchr_opt, :20701 lspo_level_init, :20729 compiled-init adapter, :22569 get_table_xy_or_coord, :23908 compiled-room adapter; js/dungeon.js:335 get_table_int_opt; js/nhlua.js shared conversions. docs/c-js-map/data.md records restored contracts and inherited boundaries.
+**Change:** restored table/arity guards, C destination integer narrowing, public room callback tables and C nesting/error order; renamed the existing coder room builder to build_room without duplicating it. Nested compiled builders use the public entry through splev_des_room. Gas clouds validate selections, apply damage and TTL defaults, and return C's zero.
+**Verify:** initial continuation command node scripts/verify.mjs --fn lspo_room,build_room,lspo_level_flags,lspo_gas_cloud,lspo_level_init,get_table_mapchr_opt,check_mapchr,get_table_int_opt,get_table_xy_or_coord. No failing sessions to triage; syntax and Rule #2 passed. Each function reported no corpus session blocked at baseline (notes, not hidden PASS); the queued coverage row cites no corpus block count, so no consumed-baseline claim.
+**Named:** - lspo_room / build_room: no missing whole-body arm. Lua stack/pcall operations are unpacked JS objects and direct callbacks; throws implement error/panic, GC owns memory.
+**Next:** first remaining generated Open coverage row after this closure. Prior stale cnf_line_WIZARDS row retired as a whole handler while build_english_list's D-3184 diagnostic omission remains; ck_server_admin_msg retired by-design because SERVER_ADMIN_MSG is undefined in the pinned build. No manual coverage refill or new FAIL peel.
 ## 2026-09-30 — D-3184 initialize SYSCF wizard lists and report unsupported portable paths
 
 **C locus:** whole bodies and all reference tables read in briefs; registration sites read by targeted search; mungspaces whole body read to check the formatter boundary.

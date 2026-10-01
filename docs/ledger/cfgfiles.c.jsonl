@@ -28,7 +28,7 @@
 {"fn":"cnf_line_ROLE","c":"768-775","status":"unknown"}
 {"fn":"cnf_line_dogname","c":"778-782","status":"unknown"}
 {"fn":"cnf_line_catname","c":"785-789","status":"unknown"}
-{"fn":"cnf_line_WIZARDS","c":"795-809","status":"partial","js":["js/cfgfiles.js:cnf_line_WIZARDS"],"omit":"- `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value (CR/VT/FF); empty and '*' guards and the returned empty formatted list are exact.","d":["D-3184"],"at":"2026-09-30@a60a91a98","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_WIZARDS","c":"795-809","status":"ported","js":["js/cfgfiles.js:cnf_line_WIZARDS"],"d":["D-3184"],"at":"2026-10-01@03eae3466","note":"stale: js/cfgfiles.js:664 whole handler; shared formatter diagnostic remains named in build_english_list D-3184"}
 {"fn":"cnf_line_SHELLERS","c":"812-818","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MSGHANDLER","c":"821-827","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_EXPLORERS","c":"830-836","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}

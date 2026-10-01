@@ -51,7 +51,7 @@
 {"fn":"dig_corridor","c":"2549-2663","status":"ported","js":["js/mklev.js:dig_corridor"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"create_corridor","c":"2671-2725","status":"unknown","d":["D-2668"],"at":"seed@a30a7de84"}
 {"fn":"fill_special_room","c":"2731-2804","status":"ported","js":["js/mklev.js:fill_special_room"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
-{"fn":"build_room","c":"2807-2833","status":"unknown","d":["D-1836"],"at":"seed@a30a7de84"}
+{"fn":"build_room","c":"2807-2833","status":"ported","js":["js/mklev.js:build_room"],"d":["D-3185","D-1836"],"at":"2026-10-01@03eae3466"}
 {"fn":"light_region","c":"2839-2862","status":"unknown"}
 {"fn":"wallify_map","c":"2865-2891","status":"unknown"}
 {"fn":"maze1xy","c":"2900-2916","status":"unknown"}
@@ -67,7 +67,7 @@
 {"fn":"get_table_monclass","c":"3131-3140","status":"split","js":["js/mklev.js:get_table_objclass_field"],"at":"2026-09-30@042bdf039","note":"stale: body identical to get_table_objclass, served by js/mklev.js:22187; sole C caller :3358 wired at :22608"}
 {"fn":"find_montype","c":"3143-3164","status":"ported","js":["js/mklev.js:find_montype"],"d":["D-2997"],"at":"2026-09-28@a7a0f55e5","note":"audit 1990-1998: C staticfn, file-local js/mklev.js:29179 whole with cites (D-2997); 'no export' is correct linkage, prior note stale"}
 {"fn":"get_table_montype","c":"3167-3179","status":"split","js":["js/mklev.js:lspo_monster_normalize_table"],"at":"2026-09-30@042bdf039","note":"stale: C :3167-3179 complete inline js/mklev.js:22599-22607 (D-2645 replay design, review 1957 ACCEPT); sole C caller :3343 via l_create_monster:22667"}
-{"fn":"get_table_xy_or_coord","c":"3188-3204","status":"unknown"}
+{"fn":"get_table_xy_or_coord","c":"3188-3204","status":"partial","js":["js/mklev.js:get_table_xy_or_coord"],"omit":"- `get_table_xy_or_coord` / `check_mapchr` / `get_table_int_opt`: inherited callers still omit stair table parsing (sp_lev.c:4164), shared mandatory-mapchar parsing (nhlua.c:247), and exact integer checks in noncluster splev_opt_int/dungeon readers.","d":["D-3185"],"at":"2026-10-01@03eae3466"}
 {"fn":"lspo_monster","c":"3214-3400","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as l_create_monster + helpers mklev.js:22134-22353, review 1604 ACCEPT"}
 {"fn":"get_table_int_or_random","c":"3407-3437","status":"partial","js":["js/mklev.js:get_table_int_or_random"],"omit":"`lua_pop` has no stack in the unpacked loader.","d":["D-2881"],"at":"seed@a30a7de84"}
 {"fn":"get_table_buc","c":"3442-3452","status":"unknown"}
@@ -75,13 +75,13 @@
 {"fn":"find_objtype","c":"3468-3536","status":"ported","js":["js/mklev.js:find_objtype"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"get_table_objtype","c":"3539-3547","status":"split","js":["js/mklev.js:lspo_object_normalize_table"],"at":"2026-09-30@042bdf039","note":"stale: C :3539-3547 complete inline js/mklev.js:22364-22371; C :3652 via l_create_object:22398; nhlobj.c:365 caller has no JS analogue"}
 {"fn":"lspo_object","c":"3557-3755","status":"split","js":["js/mklev.js:create_object","js/mklev.js:lspo_object_from_string","js/mklev.js:lspo_object_normalize_table","js/mklev.js:lspo_object_montype_mndx","js/mklev.js:lspo_object_apply_montype"],"d":["D-1723"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across create_object + from_string/normalize_table/montype helpers (D-1723; cf. lspo_monster precedent)"}
-{"fn":"lspo_level_flags","c":"3759-3831","status":"unknown"}
-{"fn":"lspo_level_init","c":"3837-3875","status":"unknown"}
+{"fn":"lspo_level_flags","c":"3759-3831","status":"ported","js":["js/mklev.js:lspo_level_flags"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
+{"fn":"lspo_level_init","c":"3837-3875","status":"ported","js":["js/mklev.js:lspo_level_init"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
 {"fn":"lspo_engraving","c":"3881-3936","status":"unknown"}
 {"fn":"lspo_mineralize","c":"3939-3955","status":"ported","js":["js/mklev.js:lspo_mineralize"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_mkroom_name","c":"3991-4001","status":"ported","js":["js/mklev.js:get_mkroom_name"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_room","c":"4028-4116","status":"unknown"}
+{"fn":"lspo_room","c":"4028-4116","status":"ported","js":["js/mklev.js:lspo_room"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
 {"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
 {"fn":"good_stair_loc","c":"4139-4144","status":"unknown"}
 {"fn":"l_create_stairway","c":"4147-4213","status":"ported","js":["js/mklev.js:l_create_stairway"],"d":["D-3139"],"at":"2026-09-30@042bdf039"}
@@ -109,7 +109,7 @@
 {"fn":"cvt_to_relcoord","c":"4793-4802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"nhl_abs_coord","c":"4811-4836","status":"ported","js":["js/mklev.js:nhl_abs_coord"],"d":["D-3174","D-3168"],"at":"2026-09-30@b5e29a0ee","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_feature","c":"4844-4923","status":"unknown","d":["D-2712"],"at":"seed@a30a7de84"}
-{"fn":"lspo_gas_cloud","c":"4929-4965","status":"unknown"}
+{"fn":"lspo_gas_cloud","c":"4929-4965","status":"ported","js":["js/mklev.js:lspo_gas_cloud"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
 {"fn":"lspo_terrain","c":"4978-5038","status":"ported","js":["js/mklev.js:lspo_terrain"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_replace_terrain","c":"5051-5143","status":"unknown","d":["D-1856"],"at":"seed@a30a7de84"}
 {"fn":"generate_way_out_method","c":"5146-5214","status":"unknown"}
