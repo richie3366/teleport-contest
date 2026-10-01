@@ -64,7 +64,7 @@ import {
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
     AD_DRST, AD_DRDX, AD_DRCO, AD_SAMU, AD_DRLI, AD_SITM, AD_SEDU, AD_SSEX,
-    AD_CONF,
+    AD_CONF, AD_WERE,
 } from './mhitm.js';
 import { resists_drli, resists_cold, resists_poison, destroy_items, resist } from './zap.js';
 import {
@@ -2499,13 +2499,13 @@ async function damageum_ad_plys(mdef, mhm) {
  * `:3668–3669`, like the freeze arm above). Leftover damageum d() is
  * kept (the slow rides on top of the hit). No STRAT_WAITFORU here —
  * damageum clears it in its tail for every arm (C `:4859`).
- * Named omissions: defended(mdef, AD_SLOW) early return (`:3659–3660`;
- * the mhitu arm mhitm_ad_slow_u carries the same omit, D-2043);
- * mhitm (mon→mon) arm is mhitm_ad_slow in mhitm.js.
+ * C `:3659–3660` defended(mdef, AD_SLOW) early return is live (cold D-3211
+ * precedent). mhitm (mon→mon) arm is mhitm_ad_slow in mhitm.js.
  */
 async function damageum_ad_slow(mdef, mhm) {
     const magr = game.youmonst;
     const negated = await mhitm_mgc_atk_negated(magr, mdef, false);
+    if (defended(mdef, AD_SLOW)) return;
     void mhm; /* leftover d() stays */
     if (!negated && (mdef.mspeed | 0) !== MSLOW) {
         const oldspeed = mdef.mspeed | 0;
@@ -2957,6 +2957,12 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            confused." and mconf=1. Leftover d() stays. mhitu arm is
            mhitm_ad_conf_u. */
         await mhitm_ad_conf(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_WERE) {
+        /* C ref: uhitm.c mhitm_adtyping `:4789` → mhitm_ad_were `:4271–4275`
+           uhitm (hero as attacker) arm: mhitm_ad_phys (C's `if done return`
+           is end-of-function dead). Routed to the uhitm phys home like the
+           AD_PHYS row; mhitu lycanthropy arm is mhitm_ad_were_u. */
+        damageum_ad_phys(mdef, mattk, mhm);
     }
 }
 

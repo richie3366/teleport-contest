@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3214 — `uhitm.c` ×5: blnd vision_clears, were uhitm row, slow defended ×3, samu/pet stale splits
+
+- **Status:** fixed (breadth-phase coverage cluster: head row `uhitm.c` mhitm_ad_blnd PARTIAL + same-file queue row mhitm_ad_were THIN + same-file mhitm_ad_slow PARTIAL + mhitm_ad_samu/hmon_hitmon_pet stale-splits; queue rows relobj/can_do_extcmd/wiz_map_levltyp proved stale and marked via CLI in this iteration).
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on all five: no corpus session blocked; REACH-OK is the corpus evidence).
+- **C locus:**
+  - `mhitm_ad_blnd`: `nethack-c/upstream/src/uhitm.c:2958–3012` whole — the gap was only the mhitu `:2982–2983` `Your1(vision_clears)` arm (uhitm+mhitm arms live in `mhitm.js:850`).
+  - `mhitm_ad_were`: `nethack-c/upstream/src/uhitm.c:4265–4293` — the uhitm `:4271–4275` arm (`mhitm_ad_phys`) had no `damageum_adtyping` row; mhitm arm + mhitu split verified whole.
+  - `mhitm_ad_slow`: `nethack-c/upstream/src/uhitm.c:3652–3687` — the `:3659–3660` `defended(mdef, AD_SLOW)` early return was a named omit in all three arms (D-2043).
+  - `mhitm_ad_samu`: `nethack-c/upstream/src/uhitm.c:4570–4589` whole across three splits (no code — stale).
+  - `hmon_hitmon_pet`: `nethack-c/upstream/src/uhitm.c:1588–1601` whole inline at its single call site (no code — stale).
+- **JS was:** `mhitm_ad_blnd_u` (`js/mhitu.js:764`) carried an empty `// Eyes of the Overworld — vision_clears deferred` stub in the live `!Blind()` arm; `damageum_adtyping` (`js/uhitm.js:2810`) had no AD_WERE row (grep-clean), so hero were-attacks fell through untouched (D-3211 AD_STUN precedent); all three slow homes named the defended omit (D-2043); samu/pet bodies already complete (samu: local zero + `damageum_adtyping` AD_SAMU zero + `_u`; pet: inline `abuse_dog`/`monflee`).
+- **Fix:** fill the blnd stub with the established 8-site `pline('Your vision clears.')` idiom (`Your1` is the `Your("%s",·)` macro, `hack.h:1027`; `vision_clears` the `decl.h:40` common string); add the AD_WERE row routing to same-file `damageum_ad_phys` like the AD_PHYS row (C's `if done return` is end-of-function dead; the mhitm.js phys local is the mhitm arm — D-3211); wire live `defended(·, AD_SLOW)` after `negated` in all three slow homes (cold D-3211 precedent; mhitu passes `game.youmonst` before `hitmsg`); `defended` joins mhitu.js's existing mondata edge, `AD_WERE` uhitm.js's existing mhitm edge (both `--can` ALREADY, names only).
+- **JS:** `js/mhitu.js:85` (`defended` import), `:764–774` (`mhitm_ad_blnd_u` arm), `:2734–2741` (`mhitm_ad_slow_u` gate); `js/mhitm.js:1374–1383` (`mhitm_ad_slow` gate); `js/uhitm.js:68` (`AD_WERE` import), `:2505–2515` (`damageum_ad_slow` gate), `:2960–2967` (AD_WERE row).
+- **Callers:**
+  - `mhitm_ad_blnd`: C `uhitm.c:4802` (adtyping AD_BLND)→JS `js/mhitm.js:850` base + `js/mhitu.js:764` `_u` via `mhitm_adtyping_u`; C `mhitm.c:792` (gazemm Archon, mhm NULL)→JS `js/mhitm.js:850` (`if (mhm)` guard intact).
+  - `mhitm_ad_were`: C `uhitm.c:4789` (adtyping AD_WERE)→JS `js/mhitm.js:5254` (mhitm dispatch→`:1731` base), `js/uhitm.js:2960` (uhitm row, NEW), `js/mhitu.js:3026` (`mhitm_adtyping_u`→`:2755` `_u`).
+  - `mhitm_ad_slow`: C `uhitm.c:4819` (adtyping AD_SLOW)→JS `js/mhitm.js:1374` base + `js/uhitm.js:2505` `damageum_ad_slow` (row `:2838`) + `js/mhitu.js:2734` `_u` (row `:3020`).
+  - `mhitm_ad_samu`: C `uhitm.c:4823`→JS `js/mhitm.js:5553` (dispatch→`:1117` local zero) + `js/uhitm.js:2847` (row zeroes) + `js/mhitu.js:3017` (`:2618` `_u`, hitmsg+rn2(20)+stealamulet verified).
+  - `hmon_hitmon_pet`: C `uhitm.c:1866` (`hmon_hitmon`)→JS `js/uhitm.js:2099` (inline `mtame&&dmg>0`→`abuse_dog`, `mtame&&!destroyed`→`monflee(·,10*rnd(dmg),F,F)` verified exact).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_blnd,mhitm_ad_were,mhitm_ad_slow,mhitm_ad_samu,hmon_hitmon_pet` → PASS syntax (3 files) · PASS rule2 · hidden none-blocked ×5 · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS; plus full `sessions` 44/44 (RNG 792,838/792,838 scr-equivalent, speed `327+1.63/turn`).
+  - `mhitm_ad_blnd`: REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS).
+  - `mhitm_ad_were`: REACH-OK (6 reach, 6 PASS).
+  - `mhitm_ad_slow`: REACH-OK (2 reach, 2 PASS).
+  - `mhitm_ad_samu`: REACH-OK (3 reach, 3 PASS).
+  - `hmon_hitmon_pet`: REACH-OK (53 reach, 53 PASS).
+- **Named omissions:**
+  - `mhitm_ad_blnd`: none — all three arms live; `Your1`/`vision_clears` are a macro + common string (no JS symbols needed).
+  - `mhitm_ad_were`: none — all three arms live (uhitm via phys home, C's done-check dead).
+  - `mhitm_ad_slow`: none — D-2043 defended omit retired in all three arms.
+  - `mhitm_ad_samu`: none (stale-split — every C line verified across the three homes).
+  - `hmon_hitmon_pet`: none (stale-inline — C body exact at `js/uhitm.js:2099`).
+- **Ledger:** mhitm_ad_blnd split js=js/mhitm.js:mhitm_ad_blnd+js/mhitu.js:mhitm_ad_blnd_u; mhitm_ad_were split js=js/mhitm.js:mhitm_ad_were+js/uhitm.js:damageum_adtyping+js/mhitu.js:mhitm_ad_were_u; mhitm_ad_slow split js=js/mhitm.js:mhitm_ad_slow+js/uhitm.js:damageum_ad_slow+js/mhitu.js:mhitm_ad_slow_u; mhitm_ad_samu split js=js/mhitm.js:mhitm_ad_samu+js/uhitm.js:damageum_adtyping+js/mhitu.js:mhitm_ad_samu_u; hmon_hitmon_pet ported js=js/uhitm.js:hmon_hitmon
+- **Next:** uhitm.c remainder Open is campaign-scale (hmonas 284, drin 133, adtyping 39-case dispatch verification) or partials blocked on other functions' named gaps (nohandglow/stck/drst/dren/conf/pest/deth/ston omits name hit()/stagger/golemeffects); queue head moves to Gloves_off.
+
 ## D-3213 — `pickup.c` ×2: doloot_core single-walk cache, able_to_loot reachability arms
 
 - **Status:** fixed (breadth-phase coverage cluster: head row `pickup.c` doloot_core PARTIAL + Open callee `pickup.c` able_to_loot; queue head `weapon.c` possibly_unwield proved stale and marked ported via CLI in this iteration).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3214 `uhitm.c` ×5: blnd vision_clears, were uhitm row, slow defended ×3, samu/pet stale splits
+
+**C locus:** - `mhitm_ad_blnd`: `nethack-c/upstream/src/uhitm.c:2958–3012` whole — the gap was only the mhitu `:2982–2983` `Your1(vision_clears)` arm (uhitm+mhitm arms live in `mhitm.js:850`).
+**JS:** `js/mhitu.js:85` (`defended` import), `:764–774` (`mhitm_ad_blnd_u` arm), `:2734–2741` (`mhitm_ad_slow_u` gate); `js/mhitm.js:1374–1383` (`mhitm_ad_slow` gate); `js/uhitm.js:68` (`AD_WERE` import), `:2505–2515` (`damageum_ad_slow` gate), `:2960–2967` (AD_WERE row).
+**Change:** fill the blnd stub with the established 8-site `pline('Your vision clears.')` idiom (`Your1` is the `Your("%s",·)` macro, `hack.h:1027`; `vision_clears` the `decl.h:40` common string); add the AD_WERE row routing to same-file `damageum_ad_phys` like the AD_PHYS row (C's `if done return` is end-of-function dead; the mhitm.js phys local is the mhitm arm — D-3211); wire live `defended(·, AD_SLOW)` after `negated` in all three slow homes (cold D-3211 precedent; mhitu passes `game.youmonst` before `hitmsg`); `defended` joins mhitu.js's existing mondata edge, `AD_WERE` uhitm.js's existing mhitm edge (both `--can` ALREADY, names only).
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_blnd,mhitm_ad_were,mhitm_ad_slow,mhitm_ad_samu,hmon_hitmon_pet` → PASS syntax (3 files) · PASS rule2 · hidden none-blocked ×5 · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS; plus full `sessions` 44/44 (RNG 792,838/792,838 scr-equivalent, speed `327+1.63/turn`).
+**Named:** - `mhitm_ad_blnd`: none — all three arms live; `Your1`/`vision_clears` are a macro + common string (no JS symbols needed).
+**Next:** uhitm.c remainder Open is campaign-scale (hmonas 284, drin 133, adtyping 39-case dispatch verification) or partials blocked on other functions' named gaps (nohandglow/stck/drst/dren/conf/pest/deth/ston omits name hit()/stagger/golemeffects); queue head moves to Gloves_off.
 ## 2026-10-01 — D-3213 `pickup.c` ×2: doloot_core single-walk cache, able_to_loot reachability arms
 
 **C locus:** - `doloot_core`: `nethack-c/upstream/src/pickup.c:2178–2346` whole (check_capacity; nohands; Confusion rn2(6)&&reverse_loot / rn2(2); menu_requested goto lootmon; lootcont count/able_to_loot/blind-cockatrice/PICK_ANY multi/single walk/grave; lootmon direction/underfoot/dz/m_at/loot_mon/Confusion||Stunned/!looted_mon arms).

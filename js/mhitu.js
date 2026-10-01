@@ -82,7 +82,7 @@ import {
 import { xkilled, killed, Hate_silver, dynamic_multi_reason, attacktype_fordmg, can_blnd } from './uhitm.js';
 import {
     m_seenres, cvt_adtyp_to_mseenres, monstseesu, monstunseesu, m_canseeu,
-    mhis, on_fire,
+    mhis, on_fire, defended,
 } from './mondata.js';
 import { which_armor, find_mac } from './worn.js';
 import {
@@ -754,9 +754,12 @@ function can_blnd_u(magr, aatyp) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_blnd mhitu branch (mdef == youmonst).
+ * C ref: uhitm.c mhitm_ad_blnd mhitu branch (mdef == youmonst) `:2976–2985`.
  * "%s blinds you!" then make_blinded(BlindedTimeout+damage); damage→0.
- * Named omission: Eyes of the Overworld vision_clears; uhitm/mhitm arms.
+ * C `:2982–2983` Eyes of the Overworld: still !Blind after make_blinded →
+ * Your1(vision_clears) (Your("%s",·) macro, hack.h:1027; decl.h:40 common
+ * string), the established `pline('Your vision clears.')` idiom
+ * (detect/dothrow/eat/engrave/mcastu/mhitu×3). uhitm/mhitm arms in mhitm.js.
  */
 async function mhitm_ad_blnd_u(mtmp, mattk, mhm) {
     if (can_blnd_u(mtmp, mattk.aatyp | 0)) {
@@ -765,7 +768,7 @@ async function mhitm_ad_blnd_u(mtmp, mattk, mhm) {
         }
         await make_blinded(BlindedTimeout() + (mhm.damage | 0), false);
         if (!Blind()) {
-            // Eyes of the Overworld — vision_clears deferred
+            await pline('Your vision clears.');
         }
     }
     mhm.damage = 0;
@@ -2724,13 +2727,14 @@ async function mhitm_ad_heal_u(mtmp, mattk, mhm) {
  * The gate (FALSE) always burns rn2(10); then hitmsg; then
  * `!negated && HFast && !rn2(4)` → u_slow_down (leftover d() kept,
  * like FAMN — the slow arm never zeroes damage).
- * C `:3660–3661` defended(mdef, AD_SLOW) early return is a named omit:
- * RNG-free (wielded slow-defending artifact, or blue dragon scales/mail
- * per artifact.c defends `:651–676`), no corpus reach.
+ * C `:3660–3661` defended(mdef, AD_SLOW) early return is live via the
+ * mondata.js export (mdef is youmonst here; RNG-free wielded artifact /
+ * blue dragon scales-mail per artifact.c defends `:651–676`).
  */
 async function mhitm_ad_slow_u(mtmp, mattk, mhm) {
     void mhm; /* leftover d() stays */
     const negated = await mhitm_mgc_atk_negated(mtmp, null, false);
+    if (defended(game.youmonst, AD_SLOW)) return;
     await hitmsg(mtmp, mattk);
     /* C youprop.h:374 HFast = u.uprops[FAST].intrinsic; u.HFast is the
        flat mirror (attrib.js Fast idiom); either nonzero means intrinsic */

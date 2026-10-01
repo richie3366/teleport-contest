@@ -115,10 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `steal.c` relobj — coverage THIN (C 12 code L `steal.c:875–898` / JS 5 code L in js/dogmove.js; hops 4, callers 3, RNG 0, msg 1) @a5f89dd93
-- [ ] `cmd.c` can_do_extcmd — coverage PARTIAL (C 19 code L `cmd.c:463–489` / JS 14 code L in js/cmd.js; hops 1, callers 2, RNG 0, msg 2; declared partial: `lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.) @55cdefbf9
-- [ ] `wizcmds.c` wiz_map_levltyp — coverage PARTIAL (C 113 code L `wizcmds.c:693–835` / JS 70 code L in js/wizcmds.js; hops —, callers 2, RNG 0, msg 36; declared partial: `eos`/`Sprintf`/`Strcat` (no JS export exists — inline appends); `strncmpi` (inline `/^the /i` strip; write.js:82/insight.js:743/vault.js:12) @55cdefbf9
-- [ ] `uhitm.c` mhitm_ad_blnd — coverage PARTIAL (C 36 code L `uhitm.c:2958–3012` / JS 24 code L in js/mhitm.js; hops 4, callers 2, RNG 1, msg 3; declared partial: mhitu `:2982–2983` `Your1(vision_clears)` (Eyes of the Overworld; no Your1/vision_clears symbol in js/ — same standing omit as D-0926); live) @55cdefbf9
 - [ ] `do_wear.c` Gloves_off — coverage PARTIAL (C 34 code L `do_wear.c:646–702` / JS 18 code L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 0) @b9de54524
 - [ ] `do.c` obj_no_longer_held — coverage PARTIAL (C 14 code L `do.c:893–920` / JS 10 code L in js/do.js; hops 3, callers 8, RNG 1, msg 0) @b9de54524
 - [ ] `rumors.c` rumor_check — coverage THIN (C 71 code L `rumors.c:196–302` / JS 24 code L in js/rumors.js; hops —, callers 1, RNG 0, msg 7; declared partial: `init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sectio) @b9de54524
@@ -126,7 +122,11 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mcastu.c` choose_monster_spell — coverage PARTIAL (C 20 code L `mcastu.c:89–123` / JS 13 code L in js/mcastu.js; hops 2, callers 1, RNG 3, msg 0) @1eadda2ce
 - [ ] `dothrow.c` hurtle_step — coverage PARTIAL (C 138 code L `dothrow.c:773–972` / JS 77 code L in js/dothrow.js; hops —, callers 1, RNG 1, msg 14) @1eadda2ce
 - [ ] `insight.c` show_gamelog — coverage PARTIAL (C 22 code L `insight.c:2561–2593` / JS 12 code L in js/insight.js; hops 4, callers 2, RNG 0, msg 4) @b0eed7df4
-- [ ] `uhitm.c` mhitm_ad_were — coverage THIN (C 18 code L `uhitm.c:4265–4293` / JS 2 code L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 1) @b0eed7df4
+- [ ] `getpos.c` getpos_menu — coverage PARTIAL (C 47 code L `getpos.c:665–725` / JS 30 code L in js/getpos.js; hops 2, callers 2, RNG 0, msg 1) @2eced4253
+- [ ] `rip.c` genl_outrip — coverage PARTIAL (C 51 code L `rip.c:86–163` / JS 27 code L in js/rip.js; hops 3, callers 1, RNG 0, msg 4; declared partial: NH320 dual stone; DUMPLOG Game over header) @2eced4253
+- [ ] `detect.c` trapped_chest_at — coverage PARTIAL (C 21 code L `detect.c:139–177` / JS 15 code L in js/detect.js; hops 3, callers 3, RNG 1, msg 0) @2eced4253
+- [ ] `vision.c` new_angle — coverage THIN (C 28 code L `vision.c:414–451` / JS 1 code L in js/vision.js; hops 1, callers 1, RNG 0, msg 0) @2eced4253
+- [ ] `version.c` doextversion — coverage PARTIAL (C 60 code L `version.c:169–277` / JS 42 code L in js/pager.js; hops —, callers 2, RNG 0, msg 6; declared partial: `dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_in) @2eced4253
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -1366,16 +1366,16 @@ export async function mhitm_ad_plys(magr, mattk, mdef, mhm) {
  * WAITFORU cleared, then "slows down." pline_mon on an actual change
  * when vis && canspotmon. Leftover d() is kept (the slow rides on top
  * of the hit; mdamagem applies it after knockback, like PLYS).
- * Named omissions: defended(mdef, AD_SLOW) early return (`:3659–3660`,
- * RNG-free wielded-artifact / blue-scales arm, deferred with the
- * fire/cold defended omits per D-2043); uhitm you-as-agr arm is
- * damageum_ad_slow in uhitm.js; mhitu you-as-def arm is
- * mhitm_ad_slow_u in mhitu.js (D-2043).
+ * C `:3659–3660` defended(mdef, AD_SLOW) early return is live (cold D-3211
+ * precedent; RNG-free wielded-artifact / blue-scales arm). uhitm
+ * you-as-agr arm is damageum_ad_slow in uhitm.js; mhitu you-as-def arm
+ * is mhitm_ad_slow_u in mhitu.js.
  */
 export async function mhitm_ad_slow(magr, mattk, mdef, mhm) {
     void mattk;
     void mhm; /* leftover d() stays */
     const negated = await mhitm_mgc_atk_negated(magr, mdef, false);
+    if (defended(mdef, AD_SLOW)) return;
     if (!negated && (mdef.mspeed | 0) !== MSLOW) {
         const oldspeed = mdef.mspeed | 0;
         await mon_adjust_speed(mdef, -1, null);

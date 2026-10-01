@@ -16,7 +16,7 @@
 {"fn":"cmdq_clear","c":"431-442","status":"unknown"}
 {"fn":"pgetchar","c":"445-453","status":"unknown"}
 {"fn":"extcmd_initiator","c":"457-460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"can_do_extcmd","c":"463-489","status":"partial","js":["js/cmd.js:can_do_extcmd"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"seed@a30a7de84"}
+{"fn":"can_do_extcmd","c":"463-489","status":"ported","js":["js/cmd.js:can_do_extcmd"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"2026-10-01@2eced4253","note":"stale: js/cmd.js:762 — whole C body live incl NHCB_CMD_BEFORE via nh_callback_run; Lua-stack mechanics by-design (nhl_pcall_handle)"}
 {"fn":"doextcmd","c":"493-520","status":"unknown"}
 {"fn":"doc_extcmd_flagstr","c":"524-557","status":"ported","js":["js/cmd.js:doc_extcmd_flagstr"],"at":"2026-09-30@850d390ba","note":"stale: js/cmd.js:848 (both arms + both doextlist sites :1296/:1306 wired)"}
 {"fn":"doextlist","c":"562-734","status":"unknown","d":["D-1625"],"at":"seed@a30a7de84"}
