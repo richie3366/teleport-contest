@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3234 `region.c` gas-creation family: selection membership via live export + `create_gas_cloud` impossible arm (coverage)
+
+**C locus:** - `create_gas_cloud_selection`: region.c:1313–1336 (bounds `:1323`, create_region `:1325`, x-outer/y bitmap loop `:1326–1332`, make `:1334`).
+**JS:** `js/region.js` create_gas_cloud_selection `:1215` (call `:1225`), create_gas_cloud `:1129` (arm `:1144–1148`), make_gas_cloud `:608`, is_hero_inside_gas_cloud `:388`, create_region `:214`.
+**Change:** deleted the local; `selection_getpoint` joins the existing `from './mklev.js'` import (line 58 — no new module edge) and the loop calls the live export (sel-scoped wid/hei, `!sel.pts` guard, C selvar.c:172–175). Oversize arm gains `await impossible(\`create_gas_cloud: cloud too large (${cloudsize})!\`)` before the clamp (`impossible` already imported, async fn so awaited; disorder path, no live caller passes >150).
+**Verify:** `node scripts/verify.mjs --fn create_gas_cloud_selection,create_gas_cloud,make_gas_cloud,is_hero_inside_gas_cloud,create_region` → PASS syntax (js/region.js) · PASS rule2 · hidden ×5: no corpus session blocked (coverage rows, expected) · REACH-OK ×5 (create_gas_cloud: 60/60 reaching baseline-PASS sessions; other four: smoke spread 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+**Named:** - `create_gas_cloud_selection`: none — whole body live, membership now the live export.
+**Next:** `inside_gas_cloud` + `expire_gas_cloud` (unknown, measured ok, D-1146/D-1155) are the natural next closure; queue block regenerates via finish (2 rows left + refill).
 ## 2026-10-01 — Audit 2185–2194: review D-3225–D-3233 + hotfix (10 ACCEPT) + full score
 
 **Reviews:** 2185 e45cb9654 save_light bad-type fix / 2186 cf2801fa2 doread six arms / 2187 e0549fe8b ephemeral VFS hotfix / 2188 0fcd10790 eatfood stolen guard / 2189 1633dc128 mktrap breaktest retire / 2190 b4ca336ef is_ok_location override / 2191 5bdc19f37 hilite closure / 2192 516e71ff9 menucolor closure / 2193 e5887aa2a optfn sinks / 2194 07cfb4831 prompt inverse+blank — all ACCEPT, 0 Must-fix families. Every D-log PROGRESS claim re-measured identical (doread 1+2, prompt-style 0+4).

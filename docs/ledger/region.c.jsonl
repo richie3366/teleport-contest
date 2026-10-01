@@ -1,6 +1,6 @@
 {"fn":"inside_rect","c":"54-57","status":"unknown","d":["D-1962"],"at":"seed@a30a7de84"}
 {"fn":"inside_region","c":"63-73","status":"unknown"}
-{"fn":"create_region","c":"79-127","status":"unknown","d":["D-2297"],"at":"seed@a30a7de84"}
+{"fn":"create_region","c":"79-127","status":"ported","js":["js/region.js:create_region"],"d":["D-3234","D-2297"],"at":"2026-10-01@6f6236385"}
 {"fn":"add_rect_to_reg","c":"133-155","status":"ported","js":["js/region.js:add_rect_to_reg"],"at":"2026-09-29@1a4567167","note":"stale: js/region.js:262 (D-2297 shipped; alloc/memcpy/free = push under GC, 4-field NhRect copy + 4 bbox arms in C order)"}
 {"fn":"add_mon_to_reg","c":"161-186","status":"ported","js":["js/region.js:add_mon_to_reg"],"d":["D-2953"],"at":"seed@a30a7de84"}
 {"fn":"remove_mon_from_reg","c":"192-202","status":"unknown"}
@@ -31,9 +31,9 @@
 {"fn":"create_force_field","c":"1003-1030","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"expire_gas_cloud","c":"1046-1087","status":"unknown","d":["D-1155"],"at":"seed@a30a7de84"}
 {"fn":"inside_gas_cloud","c":"1091-1165","status":"unknown","d":["D-1146"],"at":"seed@a30a7de84"}
-{"fn":"is_hero_inside_gas_cloud","c":"1168-1177","status":"unknown"}
-{"fn":"make_gas_cloud","c":"1182-1205","status":"unknown","d":["D-1137"],"at":"seed@a30a7de84"}
-{"fn":"create_gas_cloud","c":"1213-1309","status":"unknown"}
-{"fn":"create_gas_cloud_selection","c":"1313-1336","status":"unknown","d":["D-1158"],"at":"seed@a30a7de84"}
+{"fn":"is_hero_inside_gas_cloud","c":"1168-1177","status":"ported","js":["js/region.js:is_hero_inside_gas_cloud"],"d":["D-3234"],"at":"2026-10-01@6f6236385"}
+{"fn":"make_gas_cloud","c":"1182-1205","status":"ported","js":["js/region.js:make_gas_cloud"],"d":["D-3234","D-1137"],"at":"2026-10-01@6f6236385"}
+{"fn":"create_gas_cloud","c":"1213-1309","status":"ported","js":["js/region.js:create_gas_cloud"],"d":["D-3234"],"at":"2026-10-01@6f6236385"}
+{"fn":"create_gas_cloud_selection","c":"1313-1336","status":"ported","js":["js/region.js:create_gas_cloud_selection"],"d":["D-3234","D-1158"],"at":"2026-10-01@6f6236385"}
 {"fn":"region_danger","c":"1341-1363","status":"unknown","d":["D-2383"],"at":"seed@a30a7de84"}
 {"fn":"region_safety","c":"1368-1405","status":"unknown"}

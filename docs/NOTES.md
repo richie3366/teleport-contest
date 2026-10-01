@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3233 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3234 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3233.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3233 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3234.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3234 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3234: deleted the local; `selection_getpoint` joins the existing `from './mklev.js'` import (line 58 — no new module edge) and the loop calls the live expor Named: - `create_gas_cloud_selection`: none — whole body live, membership now the live export.
 - D-3233: each prompt header gains `attr: ATR_INVERSE` plus a following `{ text: '', selectable: false }` blank, in C order [prompt, blank, items] (handler_pick Named: - `handler_rebind_keys`: blocked: remainder unportable — C key-0+param NULL-deref crash pa
 - D-3232: each sink is one live `config_error_add("<Unknown|Illegal> %s parameter '%s'", allopt_name(optidx), op)` call with the exact C format string (import a Named: - `handler_whatis_coord`: menu glyph columns + pick_cnt>1 folded into select_menu_pick_one
 - D-3231: the sink is one live `config_error_add('Malformed MENUCOLOR')` call (C `:627`; import already present js/options.js:247, no new edge); doc + map claus Named: - `add_menu_coloring`: none — sink live, sole caller wired.
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3222: port the `:2253–2257` arm in C order: `((ext.flags | 0) & CMD_PARAM) !== 0` → ``BIND=${key2txt(key)}:${ext.txt}(${bind_param_get(key) ?? ''})``. Named: - `get_changed_key_binds`: none added — NHW_TEXT tail stays the D-2550/D-2762 adaptation (
 - D-3221: `js/mklev.js` — named-id branch gains the :1949–1953 geno arms (`game.mvitals[mid].mvflags`, `pm.geno & G_UNIQ`; mid kept for the :1985 mk_mplayer dis Named: - `create_monster`: none missing — whole :1925–2187 live across the split.
 - D-3220: `js/uhitm.js` — damageum_adtyping +3 arms in file style (C-ref comments): AD_FAMN routes to shared `mhitm_ad_famn(game.youmonst,…)` (C's goto; the arm Named: - `mhitm_adtyping`: ENCH in damageum_adtyping + mdamagem — C arm is comment-only ("just do
-- D-3219: `js/pager.js` — new `doidtrap` export in C order: `getdir` from lock.js (`imports.mjs --can pager.js lock.js getdir` SAFE, hoisted); `ECMD_CANCEL`/`TR Named: - `trapped_chest_at`: none added — C's own TODO (recursive/buried containers) stays named 
 <!-- landmarks:end -->

@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3234 — `region.c` gas-creation family: selection membership via live export + `create_gas_cloud` impossible arm (coverage)
+
+- **Status:** fixed (breadth-phase cluster: queue head create_gas_cloud_selection + sibling create_gas_cloud + shared staticfns make_gas_cloud/is_hero_inside_gas_cloud + create_region; js/region.js only, ~10 insertions — below the ~80 guideline: the head's file holds no other queue-eligible row (3-row block, the others are do.c/sp_lev.c) and the callee closure verified whole arm-for-arm, so the only completable C gaps were the two below).
+- **Symptom:** coverage PARTIAL on the head (C 15 / JS 10). Arm-for-arm read found two real C gaps, no stale: (1) the head tested membership with a local `selection_getpoint_sel` using COLNO/ROWNO bounds while C selvar.c:174 tests sel->wid/sel->hei (C-wrong for sub-selections; D-1849 clone class); (2) `create_gas_cloud` clamped oversize clouds without the C :1238–1241 `impossible("create_gas_cloud: cloud too large (%d)!")`.
+- **C locus:**
+  - `create_gas_cloud_selection`: region.c:1313–1336 (bounds `:1323`, create_region `:1325`, x-outer/y bitmap loop `:1326–1332`, make `:1334`).
+  - `create_gas_cloud`: region.c:1213–1309 (hero-singleton `:1233–1236`, oversize `:1238–1241`, BFS + Fisher-Yates `:1243–1293`, rects `:1297–1302`, ttl rn1 + scale `:1303–1305`, make `:1307`).
+  - `make_gas_cloud`: region.c:1182–1205 (heros_fault `:1187–1188`, tags/arg/glyph `:1189–1194`, add_region `:1195`, envelop `:1197–1204`).
+  - `is_hero_inside_gas_cloud`: region.c:1168–1177 (REG_HERO_INSIDE scan).
+  - `create_region`: region.c:79–127 (alloc+zero, bbox seed/expand, rects copy, defaults + clears).
+- **JS was:** head called the COLNO/ROWNO local (js/region.js:1205, sole caller :1225); `create_gas_cloud` had a bare clamp (js/region.js:1144); the other three bodies were already C-exact.
+- **Fix:** deleted the local; `selection_getpoint` joins the existing `from './mklev.js'` import (line 58 — no new module edge) and the loop calls the live export (sel-scoped wid/hei, `!sel.pts` guard, C selvar.c:172–175). Oversize arm gains `await impossible(\`create_gas_cloud: cloud too large (${cloudsize})!\`)` before the clamp (`impossible` already imported, async fn so awaited; disorder path, no live caller passes >150).
+- **JS:** `js/region.js` create_gas_cloud_selection `:1215` (call `:1225`), create_gas_cloud `:1129` (arm `:1144–1148`), make_gas_cloud `:608`, is_hero_inside_gas_cloud `:388`, create_region `:214`.
+- **Callers:**
+  - `create_gas_cloud_selection` ← sp_lev.c:4957 lspo_gas_cloud → js/mklev.js:1121 (pre-existing wire).
+  - `create_gas_cloud` ← 14 C sites, all pre-existing live wires: monmove.c:523→js/monmove.js:1129, :661→:1614, :680→:1634, :682→:1636; zap.c:5186→js/zap.js:1092, :5230→:1125, :5341→:1217; mon.c:3104→js/mhitm.js:3905; mkmaze.c:1504→js/mklev.js:18703; trap.c:6423→js/trap.js:8120; fountain.c:698→js/fountain.js:481; quest.c:436→js/quest.js:740; read.c:3103→js/read.js:1820; sp_lev.c:4955→js/mklev.js:1119.
+  - `make_gas_cloud` ← region.c:1307 → js/region.js:1204; :1334 → :1230.
+  - `is_hero_inside_gas_cloud` ← region.c:1197 → js/region.js:633; :1229 → :1135; :1321 → :1216.
+  - `create_region` ← region.c:1297 → js/region.js:1193; :1325 → :1222; :233/:960/:1010 are the #if 0 clone/msg/force callers (D-2297 in-code doc :209–212; ledger by-design D-3166).
+  - No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn create_gas_cloud_selection,create_gas_cloud,make_gas_cloud,is_hero_inside_gas_cloud,create_region` → PASS syntax (js/region.js) · PASS rule2 · hidden ×5: no corpus session blocked (coverage rows, expected) · REACH-OK ×5 (create_gas_cloud: 60/60 reaching baseline-PASS sessions; other four: smoke spread 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+- **Named omissions:**
+  - `create_gas_cloud_selection`: none — whole body live, membership now the live export.
+  - `create_gas_cloud`: m_poisongas_ok served by the documented D-1159 local (js/region.js:348; mon.js cycle), not the mon.js export — pre-existing, untouched.
+  - `make_gas_cloud`: none in-body — glyph string tags are the port-wide idiom (consumers compare tags, D-1137); You() renders as exact-text pline (pre-existing); the extra `game.gi?.in_mklev` conjunct is inert (game.gi always `{}`, js/decl.js:55; display.js:5010 idiom) and left untouched.
+  - `is_hero_inside_gas_cloud`: none — exact.
+  - `create_region`: none — alloc/memset folded to the object literal (GC; D-2297).
+- **Ledger:** create_gas_cloud_selection ported; create_gas_cloud ported; make_gas_cloud ported; is_hero_inside_gas_cloud ported; create_region ported
+- **Next:** `inside_gas_cloud` + `expire_gas_cloud` (unknown, measured ok, D-1146/D-1155) are the natural next closure; queue block regenerates via finish (2 rows left + refill).
+
 ## D-3233 — end_menu prompt style: handler_rebind_keys + handle_add_list_remove + handler_rebind_keys_add paint inverse + blank (4 scen-options blocks move)
 
 - **Status:** fixed (breadth-phase cluster: queue head handler_rebind_keys + writer handle_add_list_remove + same-file callee handler_rebind_keys_add; 4 corpus blocks move to later owners/steps; js/cmd.js + js/options.js, ~13 insertions — below the ~80 guideline: the head's file and callee closure hold nothing more Open (4-row eligible pool, D-3232 Next), and the row's declared param-store omit had already retired (live bind_param_set)).

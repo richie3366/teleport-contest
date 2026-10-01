@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
+- [x] `region.c` create_gas_cloud_selection — coverage PARTIAL (C 15 code L `region.c:1313–1336` / JS 10 code L in js/region.js; hops —, callers 1, RNG 0, msg 0) @b4ca336ef
+
+
 - [x] save_light_sources peel bad-type classification — C `light.c:454–459` forces bad-type → local; JS `js/mkobj.js` peel falls through `light_is_local`'s `return false` (global), inverted for both ranges; the "already maps bad-type → local" comment is false. Force local for bad-type-with-id + correct the comment. Falsifier: `{ type: 99, id: {} }` must be peeled at RANGE_LEVEL, kept at RANGE_GLOBAL. Source: reviews/loop-unattended/2184-f41c159c9-save-light-sources.md.
 
 
