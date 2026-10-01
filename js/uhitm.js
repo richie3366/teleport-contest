@@ -4380,7 +4380,7 @@ function is_plural_that(otmp) {
  * (DELPHI S_fountain is D-1556). Water/ice/drawbridge/air/cloud +
  * trap cmap 38–73 covered (do_screen_description table scan).
  */
-const DEFSYM_EXPLANATION = [
+export const DEFSYM_EXPLANATION = [
     'stone', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall',
     'wall', 'wall', 'wall', 'wall', 'doorway', 'open door', 'open door',
     'closed door', 'closed door', 'iron bars', 'tree', 'floor of a room',

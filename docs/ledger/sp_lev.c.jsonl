@@ -44,7 +44,7 @@
 {"fn":"m_bad_boulder_spot","c":"1864-1881","status":"unknown"}
 {"fn":"pm_to_humidity","c":"1884-1899","status":"unknown"}
 {"fn":"sp_amask_to_amask","c":"1908-1922","status":"ported","js":["js/mklev.js:sp_amask_to_amask"],"at":"2026-09-30@db34c42bb","note":"stale: js/mklev.js:21552 (D-1553, all four C arms)"}
-{"fn":"create_monster","c":"1925-2187","status":"unknown","d":["D-1531"],"at":"seed@a30a7de84"}
+{"fn":"create_monster","c":"1925-2187","status":"split","js":["js/mklev.js:splev_create_monster","js/mklev.js:l_create_monster"],"d":["D-3221","D-1531"],"at":"2026-10-01@b938e081b"}
 {"fn":"create_object","c":"2193-2440","status":"unknown","d":["D-2726","D-1533"],"at":"seed@a30a7de84"}
 {"fn":"create_altar","c":"2446-2486","status":"split","js":["js/mklev.js:splev_create_altar"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as splev_create_altar mklev.js:22444, review 1604 ACCEPT"}
 {"fn":"search_door","c":"2492-2540","status":"unknown"}

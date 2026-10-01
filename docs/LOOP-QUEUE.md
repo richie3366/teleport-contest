@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `sp_lev.c` create_monster — coverage MISSING (C 193 code L `sp_lev.c:1925–2187` / JS no symbol; hops —, callers 1, RNG 1, msg 0; split? cited 28× in js/ — brief first) @3d715b8cd
 - [ ] `cmd.c` get_changed_key_binds — coverage PARTIAL (C 38 code L `cmd.c:2235–2287` / JS 20 code L in js/cmd.js; hops —, callers 2, RNG 0, msg 2) @3d715b8cd
 - [ ] `steed.c` poly_steed — coverage PARTIAL (C 10 code L `steed.c:852–873` / JS 7 code L in js/steed.js; hops 3, callers 2, RNG 0, msg 1) @3d715b8cd
 - [ ] `artifact.c` set_artifact_intrinsic — coverage PARTIAL (C 127 code L `artifact.c:716–893` / JS 71 code L in js/artifact.js; hops 4, callers 5, RNG 0, msg 0) @3d715b8cd
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `calendar.c` hhmmss — coverage THIN (C 8 code L `calendar.c:80–92` / JS 2 code L in js/calendar.js; hops 3, callers 2, RNG 0, msg 0) @250701173
 - [ ] `region.c` add_region — coverage PARTIAL (C 33 code L `region.c:284–338` / JS 17 code L in js/region.js; hops 5, callers 2, RNG 0, msg 0) @250701173
 - [ ] `options.c` handler_msgtype — coverage PARTIAL (C 60 code L `options.c:6502–6570` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 3; declared partial: `config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink.) @250701173
+- [ ] `sounds.c` set_voice — coverage THIN (C 12 code L `sounds.c:2161–2182` / JS 4 code L in js/sounds.js; hops 4, callers 2, RNG 0, msg 0) @b938e081b
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

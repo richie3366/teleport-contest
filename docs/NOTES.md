@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3220 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3221 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present: `hidden-proxy record --jobs 8` reports all sessions present (953 entries). Full scores require unfiltered `score`, after every audit verify.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3220.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3220 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3221.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3221 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3221: `js/mklev.js` — named-id branch gains the :1949–1953 geno arms (`game.mvitals[mid].mvflags`, `pm.geno & G_UNIQ`; mid kept for the :1985 mk_mplayer dis Named: - `create_monster`: none missing — whole :1925–2187 live across the split.
 - D-3220: `js/uhitm.js` — damageum_adtyping +3 arms in file style (C-ref comments): AD_FAMN routes to shared `mhitm_ad_famn(game.youmonst,…)` (C's goto; the arm Named: - `mhitm_adtyping`: ENCH in damageum_adtyping + mdamagem — C arm is comment-only ("just do
 - D-3219: `js/pager.js` — new `doidtrap` export in C order: `getdir` from lock.js (`imports.mjs --can pager.js lock.js getdir` SAFE, hoisted); `ECMD_CANCEL`/`TR Named: - `trapped_chest_at`: none added — C's own TODO (recursive/buried containers) stays named 
 - D-3218: `js/dothrow.js` only — restarted hurtle_step in exact C order, same export name/signature: `via_jumping = (EWwalking & I_SPECIAL)`, `stopping_short =  Named: none — all 43 C callees live, every arm ported.
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3209: walk `[...(game.fmon || [])]` — the snapshot is C's mtmp2 chain (C-created mons prepend to fmon and are likewise unvisited mid-walk, so the snapshot m Named: - `iter_mons`: none — whole 13-line C body live.
 - D-3208: the two `if` arms in C switch order after the BLINDED arm. Named: - `from_what`: none added — birth blind/deaf + Blindfolded_only/cream stay named in the JS
 - D-3207: `else { if (!final) { … } }` in C nesting: inline `await import('./pray.js')` (reuses the live invent→pray edge from `:7539`, no new module edge), `ca Named: - `attributes_enlightenment`: none added — the `#if 0` pray wording is compiled out of C (
-- D-3206: `ep` is now the live `nh_getenv('SHOPTYPE')` call under the existing `wizard` gate; the ten single-char arms ported in C order with C's early returns  Named: - `mkshop`: none — every arm live, every callee live (`nh_getenv` mail.js, `mkzoo`/`mktemp
 <!-- landmarks:end -->
