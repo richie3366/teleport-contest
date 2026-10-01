@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3242 mswings_verb row: mswingsm drops C's mhis space ("itscrude"); caster-Wizard PASS + mon_avoiding_this_attack
+
+**C locus:** - `mswings_verb`: `mhitu.c:105–126` whole body, verified — otyp/skill/oc_dir reads; lash (`P_WHIP` || is_wet_towel); thrust (PIERCE-only || !rn2(2)); bash→"bashes with" / lash→"lashes" / thrust→"thrusts" / "swings" chain. No body change needed.
+**JS:** `js/mhitm.js` (1 line), `js/mhitu.js` (1 import + 17-line export). Far under the 1500/15 caps.
+**Change:** one-space fix at `js/mhitm.js:6185` (`` `${mhis(magr)} ${xname(otemp)}` ``, exact C `"%s%s %s"` order); new live export `mon_avoiding_this_attack` (js/mhitu.js:3088) mirroring the `ranged_attk_available` idiom in js/monmove.js:1849 (live `get_atkdam_type` added to the existing mondata.js edge — no new module edge; `m_seenres`/cvt already imported); no `mswings_verb` body change (TOWEL-name check ≡ C is_wet_towel TOWEL+spe>0 per obj.h:256; rn2(2) short-circuit order ≡ C; `!mwep` guard kept, unreachable under C NONNULLARG1).
+**Verify:** `node scripts/verify.mjs --fn mswings_verb,mswingsm,mon_avoiding_this_attack` → PASS (syntax 2 files; rule2; hidden mswings_verb: 1 PASS → PROGRESS, scen-caster-Wizard-94389 PASS; reach mswings_verb 2/2 REACH-OK; mswingsm + mon_avoiding smoke 24/24 REACH-OK each; green 2/2; strict ×2; cohort 7/7; full skipped by the tool — no shared file per its heuristic). No committed unit test: repo has no maintained unit harness; pinned by the recorded corpus session + gates (D-3241 precedent).
+**Named:** - `mswings_verb`: none — whole body live (is_wet_towel served inline via the TOWEL-name check ≡ obj.h:256).
+**Next:** none for this row; queue head moves to `lock.c` doforce.
 ## 2026-10-01 — Audit 2195–2202: review D-3234–D-3241 (8 ACCEPT) + full score
 
 8 JS-touching SHAs since 2194, each audited against pinned C with re-measured hidden-proxy verify: gas live-membership + impossible, sp_lev decalog (10-fn, failure arms exact), read_engr_at blind feel + off (2 PASS + 9 identical-topline PROGRESS re-confirmed), digactualhole vision flag (3 PASS + 4 moved re-confirmed), wipeout_text restart + checkpoint unskip (291/291 reach re-confirmed), self_lookat steed + invis, flooreffects restart (sokoban 232→320 re-confirmed; D-log caller-table fix: dokick.c:640,771 ARE wired via aliased `fe` — no future row for them), dowaterdemon throw fix (Monk 0→220 re-confirmed; one reach-all worker flake proven flake by solo PASS replay). No C-wrongs, no Must-fix families.

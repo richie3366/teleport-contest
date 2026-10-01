@@ -6182,7 +6182,7 @@ async function mswingsm(magr, mdef, otemp) {
         && dist2(magr.mx, magr.my, mdef.mx, mdef.my) <= 2);
     await pline(
         `${Monnam(magr)} ${mswings_verb(otemp, bash)} `
-        + `${((otemp.quan | 0) > 1) ? 'one of ' : ''}${mhis(magr)}${xname(otemp)} `
+        + `${((otemp.quan | 0) > 1) ? 'one of ' : ''}${mhis(magr)} ${xname(otemp)} `
         + `at ${mon_nam(mdef)}.`,
     );
 }

@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3242 — mswings_verb row: mswingsm drops C's mhis space ("itscrude"); caster-Wizard PASS + mon_avoiding_this_attack
+
+- **Status:** fixed (corpus-residual head `mswings_verb`; ~25 insertions in `js/mhitm.js` + `js/mhitu.js` — under the density floor, but the head's file holds nothing more Open: mhitu.c's only other MISSING pair is `ranged_attk_assessed` (#if 0 in C, ledger by-design via CLI) + `mon_avoiding_this_attack` (ported here); mhitm.c has zero MISSING. D-3240 exception precedent.)
+- **Symptom:** queue row blocks 1/953 @a308a919b: scen-caster-Wizard-94389 s252 kind=screen — C «The kitten bites it. It thrusts its crude short sword at the kitten.--More--» vs JS «...It thrusts itscrude short sword...». Literal-misattribution: owner `mswings_verb` (mhitu.c:120 "thrusts") but the verb matches both sides; the dropped space is at the mswingsm call site — C mhitm.c:1293 `"%s %s %s%s %s at %s."` puts `' '` between `mhis` and `xname`, JS `js/mhitm.js:6185` concatenated them.
+- **C locus:**
+  - `mswings_verb`: `mhitu.c:105–126` whole body, verified — otyp/skill/oc_dir reads; lash (`P_WHIP` || is_wet_towel); thrust (PIERCE-only || !rn2(2)); bash→"bashes with" / lash→"lashes" / thrust→"thrusts" / "swings" chain. No body change needed.
+  - `mswingsm`: `mhitm.c:1282–1297` whole body — verbose && !Blind && mon_visible gate; pole/non-Snickersnee/dist2<=2 bash; pline `"%s %s %s%s %s at %s."`.
+  - `mon_avoiding_this_attack`: `mhitu.c:2390–2405` whole body — attkidx>=0 gate; get_atkdam_type (AD_RBRE roll past the gate only); m_seenres(cvt_adtyp_to_mseenres(typ)).
+- **JS was:** `js/mhitm.js:6185` template `` `${mhis(magr)}${xname(otemp)}` `` dropped the C space (sibling `mswings` js/mhitu.js:387 and thrwmu js/mthrowu.js:1585–1587 already exact); `mon_avoiding_this_attack` had no JS symbol (ledger absent/MISSING); `mswings_verb` body already complete (js/mhitu.js:355–369).
+- **Fix:** one-space fix at `js/mhitm.js:6185` (`` `${mhis(magr)} ${xname(otemp)}` ``, exact C `"%s%s %s"` order); new live export `mon_avoiding_this_attack` (js/mhitu.js:3088) mirroring the `ranged_attk_available` idiom in js/monmove.js:1849 (live `get_atkdam_type` added to the existing mondata.js edge — no new module edge; `m_seenres`/cvt already imported); no `mswings_verb` body change (TOWEL-name check ≡ C is_wet_towel TOWEL+spe>0 per obj.h:256; rn2(2) short-circuit order ≡ C; `!mwep` guard kept, unreachable under C NONNULLARG1).
+- **JS:** `js/mhitm.js` (1 line), `js/mhitu.js` (1 import + 17-line export). Far under the 1500/15 caps.
+- **Callers:**
+  - `mswings_verb`: 3/3 C sites wired, no extras — mhitu.c:137 (mswings) → `js/mhitu.js:385` (space present); mhitm.c:1293 (mswingsm) → `js/mhitm.js:6184` (space fixed here); mthrowu.c:1224 (thrwmu polearm) → `js/mthrowu.js:1586` (format verified vs C :1220–1226).
+  - `mswingsm`: 1/1 C site wired — mhitm.c:414 (mattackm AT_WEAP under gv.vis) → `js/mhitm.js:6277` (`mwep && _mm_vis`); no other JS call sites.
+  - `mon_avoiding_this_attack`: no C callers (dormant helper — only extern.h:1557 decl; documented assessed callback, assessed is #if 0) → export added, none to wire; no JS callers added, matching C.
+- **Verify:** `node scripts/verify.mjs --fn mswings_verb,mswingsm,mon_avoiding_this_attack` → PASS (syntax 2 files; rule2; hidden mswings_verb: 1 PASS → PROGRESS, scen-caster-Wizard-94389 PASS; reach mswings_verb 2/2 REACH-OK; mswingsm + mon_avoiding smoke 24/24 REACH-OK each; green 2/2; strict ×2; cohort 7/7; full skipped by the tool — no shared file per its heuristic). No committed unit test: repo has no maintained unit harness; pinned by the recorded corpus session + gates (D-3241 precedent).
+- **Named omissions:**
+  - `mswings_verb`: none — whole body live (is_wet_towel served inline via the TOWEL-name check ≡ obj.h:256).
+  - `mswingsm`: none in-body — gate kept as the file-local `Blind_slee()` clone (youprop.h:103 + synced Blind/ublind/uroleplay flats, mhitm.js 10-site convention); no recorded gate divergence, changing this one site alone would desync the file.
+  - `mon_avoiding_this_attack`: none — whole body live; attkidx>=NATTK reads undefined→adtyp 0 where C is UB (unreachable: the only conceivable caller bounds i < NATTK).
+- **Ledger:** mswings_verb ported; mswingsm ported; mon_avoiding_this_attack ported
+- **Next:** none for this row; queue head moves to `lock.c` doforce.
+
 ## D-3241 — `fountain.c` dowaterdemon: wire live `mhis`/`mhe` + `You`; Monk terrain 0→220 (randomize_gem_colors stale)
 
 - **Status:** fixed (Must-fix js-throw; `js/fountain.js` only, ~6 insertions — Must-fix ships alone. Head row `randomize_gem_colors` stale-marked: its JS body is complete at js/o_init.js:114 with the sole C caller wired (see Symptom); ledger `ported` via CLI stale note, row archived.)

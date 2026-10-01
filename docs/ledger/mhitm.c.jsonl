@@ -16,7 +16,7 @@
 {"fn":"sleep_monst","c":"1223-1246","status":"unknown","d":["D-2363"],"at":"seed@a30a7de84"}
 {"fn":"slept_monst","c":"1250-1257","status":"unknown"}
 {"fn":"rustm","c":"1260-1280","status":"unknown"}
-{"fn":"mswingsm","c":"1283-1297","status":"unknown"}
+{"fn":"mswingsm","c":"1283-1297","status":"ported","js":["js/mhitm.js:mswingsm"],"d":["D-3242"],"at":"2026-10-01@f572fe77c"}
 {"fn":"passivemm","c":"1304-1457","status":"unknown","d":["D-1241"],"at":"seed@a30a7de84"}
 {"fn":"xdrainenergym","c":"1461-1470","status":"unknown"}
 {"fn":"attk_protection","c":"1475-1512","status":"unknown"}

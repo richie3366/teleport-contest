@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `fountain.c` dowaterdemon — `ReferenceError: mhis is not defined` at js/fountain.js:595 (wish message; `mhis`/`mhe` never imported) voids scen-terrain-Monk-94060 (rngM 0/scrM 0, misattributed owner randomize_gem_colors step 0) @2b9efeed4 **Addressed:** D-3241
-- [x] `o_init.c` randomize_gem_colors — blocks 1/953 (scen-terrain-Monk-94060, step 0, kind=rng) @a308a919b **Addressed:** D-3241
+- [x] `mhitu.c` mswings_verb — blocks 1/953 (scen-caster-Wizard-94389, step 252, kind=screen) @a308a919b **Addressed:** D-3242
+
+
+- [x] `fountain.c` dowaterdemon — `ReferenceError: mhis is not defined` at js/fountain.js:595 (wish message; `mhis`/`mhe` never imported) voids scen-terrain-Monk-94060 (rngM 0/scrM 0, misattributed owner randomize_gem_colors step 0) @2b9efeed4 **Addressed:** D-3241 `ea58ae969`.
+- [x] `o_init.c` randomize_gem_colors — blocks 1/953 (scen-terrain-Monk-94060, step 0, kind=rng) @a308a919b **Addressed:** D-3241 `ea58ae969`.
 
 
 - [x] `do.c` flooreffects — blocks 2/953 (scen-dig-Archeologist-94275, step 30, kind=screen) @07cfb4831 **Addressed:** D-3240 `2b9efeed4`

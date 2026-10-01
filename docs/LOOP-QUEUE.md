@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `mhitu.c` mswings_verb — blocks 1/953 (scen-caster-Wizard-94389, step 252, kind=screen) @a308a919b
 - [ ] `lock.c` doforce — blocks 1/953 (scen-container-Barbarian-94366, step 200, kind=screen) @a308a919b
 - [ ] `makemon.c` m_initinv — blocks 1/953 (scen-special-Samurai-94217, step 5, kind=rng) @a308a919b
 - [ ] `muse.c` use_defensive — blocks 1/953 (scen-hazard-Monk-94153, step 57, kind=screen) @caf1b5991
@@ -134,6 +133,7 @@ coverage list is empty, or alongside a coverage row in the same C file.
 - [ ] `dig.c` dig — blocks 1/953 (scen-terrain-Rogue-94040, step 70, kind=screen) @caf1b5991
 - [ ] `dig.c` use_pick_axe2 — blocks 2/953 (scen-dig-Archeologist-94215, step 32, kind=screen) @2b9efeed4
 - [ ] `steal.c` stealgold — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen) @2b9efeed4
+- [ ] `mhitm.c` mdisplacem — blocks 1/953 (scen-special-Ranger-94277, step 157, kind=rng) @f572fe77c
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

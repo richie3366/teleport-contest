@@ -1,6 +1,6 @@
 {"fn":"hitmsg","c":"29-81","status":"unknown","d":["D-1894","D-1261"],"at":"seed@a30a7de84"}
 {"fn":"missmu","c":"85-100","status":"unknown","d":["D-1286"],"at":"seed@a30a7de84"}
-{"fn":"mswings_verb","c":"105-126","status":"unknown"}
+{"fn":"mswings_verb","c":"105-126","status":"ported","js":["js/mhitu.js:mswings_verb"],"d":["D-3242"],"at":"2026-10-01@f572fe77c"}
 {"fn":"mswings","c":"130-141","status":"unknown","d":["D-1305"],"at":"seed@a30a7de84"}
 {"fn":"mpoisons_subj","c":"145-159","status":"unknown"}
 {"fn":"u_slow_down","c":"163-171","status":"unknown"}
@@ -24,8 +24,8 @@
 {"fn":"doseduce","c":"1985-2305","status":"unknown","d":["D-1758","D-1750"],"at":"seed@a30a7de84"}
 {"fn":"mayberem","c":"2309-2352","status":"ported","js":["js/mhitu.js:mayberem"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"assess_dmg","c":"2355-2365","status":"unknown"}
-{"fn":"ranged_attk_assessed","c":"2374-2387","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mon_avoiding_this_attack","c":"2393-2405","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"ranged_attk_assessed","c":"2374-2387","status":"by-design","at":"2026-10-01@f572fe77c","note":"#if 0 in C mhitu.c:2367-2388; live equivalent ranged_attk_available (js/monmove.js)"}
+{"fn":"mon_avoiding_this_attack","c":"2393-2405","status":"ported","js":["js/mhitu.js:mon_avoiding_this_attack"],"d":["D-3242"],"at":"2026-10-01@f572fe77c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"ranged_attk_available","c":"2413-2425","status":"unknown"}
 {"fn":"passiveum","c":"2435-2613","status":"unknown"}
 {"fn":"cloneu","c":"2616-2638","status":"unknown"}
