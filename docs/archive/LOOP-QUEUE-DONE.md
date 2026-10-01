@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `engrave.c` read_engr_at — blocks 11/953 (scen-engrave-Ranger-94398, step 95, kind=screen) @07cfb4831 **Addressed:** D-3236
+- [x] `dig.c` digactualhole — blocks 6/953 (scen-dig-Archeologist-94215, step 28, kind=screen) @07cfb4831 **Addressed:** D-3237
+- [x] `dig.c` dig_up_grave — blocks 3/953 (scen-dig-Archeologist-94035, step 39, kind=screen) @07cfb4831 **Addressed:** D-3237
+
+
+- [x] `engrave.c` read_engr_at — blocks 11/953 (scen-engrave-Ranger-94398, step 95, kind=screen) @07cfb4831 **Addressed:** D-3236 `caf1b599`
 
 
 - [x] `do.c` better_not_try_to_drop_that — coverage PARTIAL (C 8 code L `do.c:947–962` / JS 5 code L in js/do.js; hops —, callers 1, RNG 0, msg 0) @b4ca336ef

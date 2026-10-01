@@ -10,10 +10,10 @@
 {"fn":"furniture_handled","c":"571-592","status":"unknown"}
 {"fn":"holetime","c":"597-602","status":"unknown"}
 {"fn":"fillholetyp","c":"606-637","status":"unknown"}
-{"fn":"digactualhole","c":"640-829","status":"unknown","d":["D-1269"],"at":"seed@a30a7de84"}
+{"fn":"digactualhole","c":"640-829","status":"ported","js":["js/dig.js:digactualhole"],"d":["D-3237","D-1269"],"at":"2026-10-01@caf1b5991"}
 {"fn":"liquid_flow","c":"838-879","status":"unknown"}
 {"fn":"dighole","c":"885-1024","status":"unknown","d":["D-2323"],"at":"seed@a30a7de84"}
-{"fn":"dig_up_grave","c":"1027-1089","status":"unknown"}
+{"fn":"dig_up_grave","c":"1027-1089","status":"ported","js":["js/dig.js:dig_up_grave"],"d":["D-3237"],"at":"2026-10-01@caf1b5991"}
 {"fn":"use_pick_axe","c":"1092-1156","status":"unknown","d":["D-2166"],"at":"seed@a30a7de84"}
 {"fn":"use_pick_axe2","c":"1162-1359","status":"unknown"}
 {"fn":"watchman_canseeu","c":"1362-1368","status":"ported","js":["js/dig.js:watchman_canseeu"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/dig.js:1034 (C staticfn, local); caller js/dig.js:1067"}

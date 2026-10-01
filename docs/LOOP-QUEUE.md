@@ -126,8 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `dig.c` digactualhole — blocks 6/953 (scen-dig-Archeologist-94215, step 28, kind=screen) @07cfb4831
-- [ ] `dig.c` dig_up_grave — blocks 3/953 (scen-dig-Archeologist-94035, step 39, kind=screen) @07cfb4831
 - [ ] `trap.c` water_damage — blocks 3/953 (scen-terrain-Caveman-94220, step 121, kind=rng) @07cfb4831
 - [ ] `engrave.c` wipeout_text — blocks 2/953 (scen-caster-Priest-94149, step 70, kind=rng) @07cfb4831
 - [ ] `pager.c` self_lookat — blocks 2/953 (scen-ride-Knight-94415, step 109, kind=screen) @07cfb4831
@@ -136,6 +134,9 @@ coverage list is empty, or alongside a coverage row in the same C file.
 - [ ] `mhitu.c` mswings_verb — blocks 1/953 (scen-caster-Wizard-94389, step 252, kind=screen) @a308a919b
 - [ ] `lock.c` doforce — blocks 1/953 (scen-container-Barbarian-94366, step 200, kind=screen) @a308a919b
 - [ ] `makemon.c` m_initinv — blocks 1/953 (scen-special-Samurai-94217, step 5, kind=rng) @a308a919b
+- [ ] `muse.c` use_defensive — blocks 1/953 (scen-hazard-Monk-94153, step 57, kind=screen) @caf1b5991
+- [ ] `cmd.c` set_move_cmd — blocks 1/953 (scen-dig-Archeologist-94035, step 44, kind=screen) @caf1b5991
+- [ ] `dig.c` dig — blocks 1/953 (scen-terrain-Rogue-94040, step 70, kind=screen) @caf1b5991
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 
