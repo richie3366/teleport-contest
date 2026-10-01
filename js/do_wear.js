@@ -28,7 +28,7 @@ import { cmdq_pop, cmdq_clear } from './cmd.js';
 import { set_occupation } from './engrave.js';
 import {
     makeknown, observe_object, ggetobj, is_worn, silly_thing, update_inventory,
-    weapon_descr, getobj, useup, prinv,
+    weapon_descr, getobj, useup, prinv, encumber_msg,
 } from './invent.js';
 import { w_blocks, cantweararm, racial_exception, WrappingAllowed, is_flimsy, has_horns, num_horns, which_armor } from './worn.js';
 import { monstunseesu_prop } from './mondata.js';
@@ -68,6 +68,7 @@ import {
     GETOBJ_NOFLAGS, Upolyd,
     A_CURRENT, A_CG_HELM_OFF,
 } from './const.js';
+import { condtests } from './botl.js';
 import { x_monnam, trycall, hcolor, hliquid, obj_pmname } from './do_name.js';
 import { PM_CLERIC } from './generated/monsters_data.js';
 import { change_sex, poly_gender, Unchanging, float_vs_flight, body_part, livelog_newform } from './polyself.js';
@@ -84,7 +85,7 @@ import { erode_obj, selftouch, instapetrify, drown, float_down, float_up } from 
 import { has_ceiling } from './dungeon.js';
 import { artifact_light, begin_burn, end_burn } from './timeout.js';
 import { strsubst } from './hacklib.js';
-import { make_hallucinated, make_slimed, incr_itimeout, Glib } from './potion.js';
+import { make_hallucinated, make_slimed, incr_itimeout, Glib, make_glib } from './potion.js';
 import { rn2, rnd } from './rng.js';
 import { set_mimic_blocking } from './vision.js';
 import { restartcham, rescham, cant_drown } from './mon.js';
@@ -110,6 +111,7 @@ const MEAT_RING = objectNames.indexOf('MEAT_RING');
 const GAUNTLETS_OF_POWER = objectNames.indexOf('GAUNTLETS_OF_POWER');
 const GAUNTLETS_OF_FUMBLING = objectNames.indexOf('GAUNTLETS_OF_FUMBLING');
 const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
+const LEATHER_GLOVES = objectNames.indexOf('LEATHER_GLOVES');
 const CLOAK_OF_PROTECTION = objectNames.indexOf('CLOAK_OF_PROTECTION');
 const CLOAK_OF_DISPLACEMENT = objectNames.indexOf('CLOAK_OF_DISPLACEMENT');
 const CLOAK_OF_INVISIBILITY = objectNames.indexOf('CLOAK_OF_INVISIBILITY');
@@ -1007,11 +1009,16 @@ export async function Shield_off() {
     return 0;
 }
 /**
- * C ref: do_wear.c Gloves_off `:646–702` — gloves doff: capture `gloves` +
- * `on_purpose` pre-clear (`:647–651`), takeoff.mask clear, setworn(NULL,
- * W_ARMG), then the CORPSE-gated `wielding_corpse` pair (`:687/696`) with
- * the captured gloves. Other switch arms (Fumbling/Power/Dexterity, Glib,
- * encumber) stay deferred (pre-existing).
+ * C ref: do_wear.c Gloves_off `:646–702` — full C-order restart: capture
+ * `gloves` + `oldprop` + `on_purpose` pre-clear (`:648–651`), takeoff.mask
+ * clear, per-otyp switch (LEATHER break; FUMBLING clear when no other
+ * source and no non-timeout intrinsic half; POWER makeknown + botl;
+ * DEXTERITY adj_abon(-spe) unless cancelled_don; default impossible),
+ * then setworn(NULL, W_ARMG), cancelled_don reset, encumber_msg, the
+ * Glib cure, the CORPSE-gated `wielding_corpse` pair (`:687/696`) with
+ * the captured gloves, and the barehanded-condtests botl tail.
+ * The switch precedes setworn (adj_abon reads the still-worn uarmg).
+ * Null gloves keep the old graceful clear (C dereferences uarmg).
  * @returns {Promise<number>} 0
  */
 export async function Gloves_off() {
@@ -1025,13 +1032,63 @@ export async function Gloves_off() {
         clear_worn(W_ARMG);
         return 0;
     }
-    // C `:647–651` — captured before uarmg is cleared below.
+    const otyp = gloves.otyp | 0;
+    /* C `:648–649` — oldprop before anything clears it. */
+    const oprop = game.objects?.[otyp]?.oc_oprop | 0;
+    const oldprop = (u.uprops?.[oprop]?.extrinsic | 0) & ~WORN_GLOVES;
+    /* C `:651` — captured before uarmg is cleared below. */
     const on_purpose = !game.context?.mon_moving && !gloves.in_use;
+    /* C `:653`. */
     if (game.context?.takeoff) {
         game.context.takeoff.mask =
             (game.context.takeoff.mask | 0) & ~W_ARMG;
     }
+    switch (otyp) {
+    case LEATHER_GLOVES:
+        break;
+    case GAUNTLETS_OF_FUMBLING:
+        /* C `:658–661` — clear only when no other fumble source remains and
+           no non-timeout intrinsic half; HFumbling ≡ uprops[FUMBLING]
+           intrinsic, EFumbling the extrinsic half (Boots_off convention). */
+        if (!oldprop
+            && !(((u.HFumbling | 0) | (u.uprops?.[oprop]?.intrinsic | 0))
+                & ~TIMEOUT)) {
+            u.HFumbling = 0;
+            u.EFumbling = 0;
+            if (u.uprops?.[oprop]) {
+                u.uprops[oprop].intrinsic = 0;
+                u.uprops[oprop].extrinsic = 0;
+            }
+        }
+        break;
+    case GAUNTLETS_OF_POWER:
+        /* C `:662–665` — makeknown; botl (taken care of in attrib.c). */
+        makeknown(otyp);
+        if (!game.flags) game.flags = {};
+        game.flags.botl = true;
+        break;
+    case GAUNTLETS_OF_DEXTERITY:
+        /* C `:666–669`. */
+        if (!game.context?.takeoff?.cancelled_don) {
+            adj_abon(gloves, -(gloves.spe | 0));
+        }
+        break;
+    default:
+        /* C `:670–671` impossible(unknown_type, c_gloves, otyp). */
+        await impossible('Unknown type of %s (%d)', 'gloves', otyp);
+        break;
+    }
+    /* C `:673` setworn((struct obj *) 0, W_ARMG). */
     clear_worn(W_ARMG);
+    /* C `:674`. */
+    if (game.context?.takeoff) {
+        game.context.takeoff.cancelled_don = false;
+    }
+    /* C `:675` — immediate feedback for GoP. */
+    await encumber_msg();
+    /* C `:677–683` — slippery gloves removed by fall/theft/destruction
+       must not transfer Glib to bare hands. */
+    if (Glib()) make_glib(0); /* for update_inventory() */
     /* C `:687` — prevent wielding cockatrice when not wearing gloves. */
     if (u.uwep && (u.uwep.otyp | 0) === CORPSE) {
         await wielding_corpse(u.uwep, gloves, on_purpose);
@@ -1045,6 +1102,12 @@ export async function Gloves_off() {
        be being touched simultaneously.] */
     if (u.twoweap && u.uswapwep && (u.uswapwep.otyp | 0) === CORPSE) {
         await wielding_corpse(u.uswapwep, gloves, on_purpose);
+    }
+    /* C `:698–699` — condtests[bl_bareh] is the first entry (botl.h enum
+       0; js/botl.js:1150); read lazily (botl edge is cycle-checked). */
+    if (condtests[0]?.enabled) {
+        if (!game.flags) game.flags = {};
+        game.flags.botl = true;
     }
     return 0;
 }
@@ -1875,47 +1938,110 @@ function armor_doff_simple_name(otmp) {
 }
 
 /**
- * C ref: do_wear.c armoroff — oc_delay → nomul/afternmv; else immediate *_off.
- * Returns 1 on success (ECMD_TIME caller), 0 if cursed/blocked.
+ * C ref: do_wear.c armoroff `:1920–2007` — full C-order restart. Cursed
+ * returns 0 (`:1926–1927`); delay arm (`:1930–1972`): nomul + "disrobing",
+ * per-armcat `what` + afternmv, nomovemsg only `if (what)`; no-delay arm
+ * (`:1973–2004`): per-armcat immediate `*_off()` (dispatch is on
+ * oc_armcat, not the worn slot) + off_msg after removal; both arms end
+ * with the takeoff mask/what clear (`:2006`). Default arms are
+ * impossible (afternmv/nomovemsg untouched). Returns 1 on success
+ * (ECMD_TIME caller), 0 if cursed. No find_ac (D-0883 / D-0810
+ * stale-botl until allmain once-per-input find_ac).
  */
 async function armoroff(otmp) {
-    // C do_wear.c:1926
+    /* C `:1926–1927`. */
     if (await cursed(otmp)) return 0;
+    /* C `:1923–1924`. */
     const delay = -(game.objects?.[otmp.otyp]?.oc_delay ?? 0);
     const cat = armcat(otmp);
     if (delay) {
-        // C: nomul(-oc_delay); afternmv = *_off; nomovemsg finish taking off
+        /* C `:1931–1932`. */
         nomul(delay);
         game.multi_reason = 'disrobing';
-        if (cat === ARM_SUIT) game.afternmv = Armor_off;
-        else if (cat === ARM_SHIELD) game.afternmv = Shield_off;
-        else if (cat === ARM_HELM) game.afternmv = Helmet_off;
-        else if (cat === ARM_GLOVES) game.afternmv = Gloves_off;
-        else if (cat === ARM_BOOTS) game.afternmv = Boots_off;
-        else if (cat === ARM_CLOAK) game.afternmv = Cloak_off;
-        else if (cat === ARM_SHIRT) game.afternmv = Shirt_off;
-        else game.afternmv = null;
-        const what = armor_doff_simple_name(otmp);
-        game.nomovemsg = `You finish taking off your ${what}.`;
-        // takeoff.mask clear deferred with full A-command path
-        return 1;
+        /* C `:1933–1966` — what + afternmv per arm. */
+        let what = null;
+        switch (cat) {
+        case ARM_SUIT:
+            what = suit_simple_name(otmp);
+            game.afternmv = Armor_off;
+            break;
+        case ARM_SHIELD:
+            what = shield_simple_name(otmp);
+            game.afternmv = Shield_off;
+            break;
+        case ARM_HELM:
+            what = helm_simple_name(otmp);
+            game.afternmv = Helmet_off;
+            break;
+        case ARM_GLOVES:
+            what = gloves_simple_name(otmp);
+            game.afternmv = Gloves_off;
+            break;
+        case ARM_BOOTS:
+            what = boots_simple_name(otmp);
+            game.afternmv = Boots_off;
+            break;
+        case ARM_CLOAK:
+            what = cloak_simple_name(otmp);
+            game.afternmv = Cloak_off;
+            break;
+        case ARM_SHIRT:
+            what = shirt_simple_name(otmp);
+            game.afternmv = Shirt_off;
+            break;
+        default:
+            /* C `:1962–1964` — afternmv stays untouched. */
+            await impossible(
+                'Taking off unknown armor (%d: %d), delay %d',
+                otmp.otyp | 0, cat | 0, delay | 0,
+            );
+            break;
+        }
+        /* C `:1967–1972` — nomovemsg only if (what). */
+        if (what) {
+            game.nomovemsg = `You finish taking off your ${what}.`;
+        }
+    } else {
+        /* C `:1973–1974` — no delay so no afternmv or nomovemsg. */
+        /* C `:1975–2001` — immediate *_off by oc_armcat. */
+        switch (cat) {
+        case ARM_SUIT:
+            await Armor_off();
+            break;
+        case ARM_SHIELD:
+            await Shield_off();
+            break;
+        case ARM_HELM:
+            await Helmet_off();
+            break;
+        case ARM_GLOVES:
+            await Gloves_off();
+            break;
+        case ARM_BOOTS:
+            await Boots_off();
+            break;
+        case ARM_CLOAK:
+            await Cloak_off();
+            break;
+        case ARM_SHIRT:
+            await Shirt_off();
+            break;
+        default:
+            /* C `:1997–1999`. */
+            await impossible(
+                'Taking off unknown armor (%d: %d), no delay',
+                otmp.otyp | 0, cat | 0,
+            );
+            break;
+        }
+        /* C `:2002–2004` — off_msg after removing the item to avoid
+           "You were wearing ____ (being worn)." */
+        await off_msg(otmp);
     }
-    // No delay — immediate remove + off_msg (fedora/leather jacket)
-    // C armoroff: *_off + off_msg only — no find_ac (D-0883 / ≡D-0810
-    // stale-botl until allmain once-per-input find_ac).
-    const u = game.u || {};
-    if (otmp === u.uarm) await Armor_off();
-    else if (otmp === u.uarmc) await Cloak_off();
-    else if (otmp === u.uarmh) await Helmet_off();
-    else if (otmp === u.uarms) await Shield_off();
-    else if (otmp === u.uarmg) await Gloves_off();
-    else if (otmp === u.uarmf) await Boots_off();
-    else if (otmp === u.uarmu) await Shirt_off();
-    else {
-        otmp.owornmask = (otmp.owornmask || 0) & ~W_ARMOR;
-    }
-    await off_msg(otmp);
-    // takeoff.mask clear deferred with full A-command path
+    /* C `:2006`. */
+    const doff = takeoff_info();
+    doff.mask = 0;
+    doff.what = 0;
     return 1;
 }
 

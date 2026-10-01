@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3215 `do_wear.c` ×2: Gloves_off + armoroff whole-body restarts
+
+**C locus:** - `Gloves_off`: `nethack-c/upstream/src/do_wear.c:646–702` whole — JS carried only the CORPSE-gated wielding pair; the otyp switch (Fumbling/Power/Dexterity + default), encumber_msg, Glib cure and barehanded-condtests tail were absent.
+**JS:** `js/do_wear.js:31` (encumber_msg import), `:71` (condtests import), `:88` (make_glib import), `:114` (LEATHER_GLOVES), `:1024–1114` (Gloves_off), `:1951–2046` (armoroff).
+**Change:** restart both in C order. Gloves_off: oldprop/on_purpose capture, switch before setworn (adj_abon reads the still-worn uarmg; Fumbling arm mirrors Boots_off's HFumbling/uprops convention), cancelled_don reset, encumber_msg, Glib cure, wielding pair, condtests[bl_bareh] botl tail. armoroff: cursed gate, delay arm with per-arm what+afternmv and `if (what)` nomovemsg, no-delay armcat switch + off_msg, mask/what=0 tail on both arms. `encumber_msg`/`make_glib` join the existing invent/potion edges; `condtests` is a new botl edge (`--can` CHECK: same 102-module SCC, lazy body read — safe); `LEATHER_GLOVES` const added.
+**Verify:** `node scripts/verify.mjs --fn Gloves_off,armoroff --full`: syntax PASS · rule2 PASS · hidden note (no corpus session blocked on either) · REACH-OK both (no RNG-tagged reach; smoke 24/24 PASS ×2) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** - `Gloves_off`: none added — null-gloves graceful clear kept (C dereferences uarmg; sibling convention); condtests[0] is bl_bareh (botl.h enum 0, `js/botl.js:1150`).
+**Next:** coverage head moves to `do.c` obj_no_longer_held; `do_wear.c` holds nothing more Open (file sweep: 2 ported this iteration + 3 stale-marked, rest ok/ported/declared).
 ## 2026-10-01 — D-3214 `uhitm.c` ×5: blnd vision_clears, were uhitm row, slow defended ×3, samu/pet stale splits
 
 **C locus:** - `mhitm_ad_blnd`: `nethack-c/upstream/src/uhitm.c:2958–3012` whole — the gap was only the mhitu `:2982–2983` `Your1(vision_clears)` arm (uhitm+mhitm arms live in `mhitm.js:850`).

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do_wear.c` Gloves_off — coverage PARTIAL (C 34 code L `do_wear.c:646–702` / JS 18 code L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 0) @b9de54524
 - [ ] `do.c` obj_no_longer_held — coverage PARTIAL (C 14 code L `do.c:893–920` / JS 10 code L in js/do.js; hops 3, callers 8, RNG 1, msg 0) @b9de54524
 - [ ] `rumors.c` rumor_check — coverage THIN (C 71 code L `rumors.c:196–302` / JS 24 code L in js/rumors.js; hops —, callers 1, RNG 0, msg 7; declared partial: `init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sectio) @b9de54524
 - [ ] `mail.c` readmail — coverage THIN (C 35 code L `mail.c:487–541` / JS 4 code L in js/mail.js; hops 6, callers 1, RNG 1, msg 3) @b9de54524
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `detect.c` trapped_chest_at — coverage PARTIAL (C 21 code L `detect.c:139–177` / JS 15 code L in js/detect.js; hops 3, callers 3, RNG 1, msg 0) @2eced4253
 - [ ] `vision.c` new_angle — coverage THIN (C 28 code L `vision.c:414–451` / JS 1 code L in js/vision.js; hops 1, callers 1, RNG 0, msg 0) @2eced4253
 - [ ] `version.c` doextversion — coverage PARTIAL (C 60 code L `version.c:169–277` / JS 42 code L in js/pager.js; hops —, callers 2, RNG 0, msg 6; declared partial: `dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_in) @2eced4253
+- [ ] `sounds.c` sound_speak — coverage THIN (C 25 code L `sounds.c:2185–2220` / JS 1 code L in js/sounds.js; hops 2, callers 2, RNG 0, msg 0) @f9a10fead
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

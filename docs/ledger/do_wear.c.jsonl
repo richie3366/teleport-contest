@@ -9,10 +9,10 @@
 {"fn":"Cloak_off","c":"383-431","status":"ported","js":["js/do_wear.js:Cloak_off"],"d":["D-2803"],"at":"seed@a30a7de84"}
 {"fn":"Helmet_on","c":"434-515","status":"unknown"}
 {"fn":"Helmet_off","c":"518-564","status":"ported","js":["js/do_wear.js:Helmet_off"],"d":["D-2554"],"at":"seed@a30a7de84"}
-{"fn":"hard_helmet","c":"568-573","status":"unknown"}
+{"fn":"hard_helmet","c":"568-573","status":"ported","js":["js/do_wear.js:hard_helmet"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:254"}
 {"fn":"Gloves_on","c":"576-603","status":"unknown"}
 {"fn":"wielding_corpse","c":"608-643","status":"unknown"}
-{"fn":"Gloves_off","c":"646-702","status":"unknown","d":["D-2397"],"at":"seed@a30a7de84"}
+{"fn":"Gloves_off","c":"646-702","status":"ported","js":["js/do_wear.js:Gloves_off"],"d":["D-3215","D-2397"],"at":"2026-10-01@f9a10fead"}
 {"fn":"Shield_on","c":"705-730","status":"ported","js":["js/do_wear.js:Shield_on"],"d":["D-2925"],"at":"seed@a30a7de84"}
 {"fn":"Shield_off","c":"733-756","status":"ported","js":["js/do_wear.js:Shield_off"],"d":["D-2930"],"at":"seed@a30a7de84"}
 {"fn":"Shirt_on","c":"759-775","status":"ported","js":["js/do_wear.js:Shirt_on"],"d":["D-2948"],"at":"seed@a30a7de84"}
@@ -43,7 +43,7 @@
 {"fn":"ia_dotakeoff","c":"1862-1870","status":"unknown","d":["D-1934"],"at":"seed@a30a7de84"}
 {"fn":"doremring","c":"1874-1889","status":"unknown"}
 {"fn":"cursed","c":"1893-1917","status":"ported","js":["js/do_wear.js:cursed"],"d":["D-2920"],"at":"seed@a30a7de84"}
-{"fn":"armoroff","c":"1920-2008","status":"unknown","d":["D-2077"],"at":"seed@a30a7de84"}
+{"fn":"armoroff","c":"1920-2008","status":"ported","js":["js/do_wear.js:armoroff"],"d":["D-3215","D-2077"],"at":"2026-10-01@f9a10fead"}
 {"fn":"already_wearing","c":"2011-2014","status":"unknown"}
 {"fn":"already_wearing2","c":"2017-2020","status":"ported","js":["js/do_wear.js:already_wearing2"],"d":["D-3201"],"at":"2026-10-01@6e06fa8e7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"canwearobj","c":"2030-2206","status":"unknown"}
@@ -58,7 +58,7 @@
 {"fn":"select_off","c":"2696-2821","status":"unknown"}
 {"fn":"do_takeoff","c":"2824-2896","status":"unknown"}
 {"fn":"take_off","c":"2900-2987","status":"unknown","d":["D-1619"],"at":"seed@a30a7de84"}
-{"fn":"better_not_take_that_off","c":"2990-3010","status":"unknown","d":["D-2389"],"at":"seed@a30a7de84"}
+{"fn":"better_not_take_that_off","c":"2990-3010","status":"ported","js":["js/do_wear.js:better_not_take_that_off"],"d":["D-2389"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:2311"}
 {"fn":"reset_remarm","c":"3014-3018","status":"unknown"}
 {"fn":"doddoremarm","c":"3022-3057","status":"unknown"}
 {"fn":"remarm_swapwep","c":"3062-3087","status":"unknown"}
@@ -75,5 +75,5 @@
 {"fn":"remove_ok","c":"3458-3461","status":"unknown"}
 {"fn":"wear_ok","c":"3465-3468","status":"unknown"}
 {"fn":"takeoff_ok","c":"3472-3475","status":"unknown"}
-{"fn":"any_worn_armor_ok","c":"3480-3485","status":"unknown"}
+{"fn":"any_worn_armor_ok","c":"3480-3485","status":"ported","js":["js/do_wear.js:any_worn_armor_ok"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:3006"}
 {"fn":"count_worn_armor","c":"3489-3502","status":"unknown"}

@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3215 — `do_wear.c` ×2: Gloves_off + armoroff whole-body restarts
+
+- **Status:** fixed (breadth-phase coverage cluster: head row `do_wear.c` Gloves_off PARTIAL + same-file armoroff THIN; same-file better_not_take_that_off/hard_helmet/any_worn_armor_ok proved stale and marked via CLI in this iteration).
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on both: no corpus session blocked; REACH-OK is the corpus evidence).
+- **C locus:**
+  - `Gloves_off`: `nethack-c/upstream/src/do_wear.c:646–702` whole — JS carried only the CORPSE-gated wielding pair; the otyp switch (Fumbling/Power/Dexterity + default), encumber_msg, Glib cure and barehanded-condtests tail were absent.
+  - `armoroff`: `nethack-c/upstream/src/do_wear.c:1920–2008` whole — JS dispatched the no-delay arm on worn-slot identity (C: oc_armcat) with an invented owornmask-clear else, nulled afternmv + set nomovemsg unconditionally in the delay default, and deferred the `:2006` mask/what tail clear.
+- **JS was:** `Gloves_off` (`js/do_wear.js:1017`) mask-clear + wielding pair only, switch/encumber/Glib/bareh deferred; `armoroff` (`js/do_wear.js:1881`, local) slot-identity if-chain + `armor_doff_simple_name` what + deferred tail.
+- **Fix:** restart both in C order. Gloves_off: oldprop/on_purpose capture, switch before setworn (adj_abon reads the still-worn uarmg; Fumbling arm mirrors Boots_off's HFumbling/uprops convention), cancelled_don reset, encumber_msg, Glib cure, wielding pair, condtests[bl_bareh] botl tail. armoroff: cursed gate, delay arm with per-arm what+afternmv and `if (what)` nomovemsg, no-delay armcat switch + off_msg, mask/what=0 tail on both arms. `encumber_msg`/`make_glib` join the existing invent/potion edges; `condtests` is a new botl edge (`--can` CHECK: same 102-module SCC, lazy body read — safe); `LEATHER_GLOVES` const added. `clear_worn` is `setworn(null, ·)` (same module), kept.
+- **JS:** `js/do_wear.js:31` (encumber_msg import), `:71` (condtests import), `:88` (make_glib import), `:114` (LEATHER_GLOVES), `:1024–1114` (Gloves_off), `:1951–2046` (armoroff).
+- **Callers:**
+  - `Gloves_off`: C `:1986` (armoroff no-delay ARM_GLOVES) → `js/do_wear.js:2018` (rewired by this commit's armcat switch); C `:2862` (do_takeoff WORN_GLOVES) → `js/do_wear.js:2517` (pre-existing, kept); C `:3164` (wornarm_destroyed) → `js/do_wear.js:4236` (kept); `polyself.c:1255` (polyself) → `js/polyself.js:1456` (kept); `steal.c:254` (stealarm) → `js/steal.js:320` (kept); `steal.c:751` comment only. Delay-arm `afternmv = Gloves_off` → `js/do_wear.js:1978` (kept); `:4133` is a JS-side predicate comparison, not a call.
+  - `armoroff`: C `:1808` (armor_or_accessory_off W_ARMOR arm) → `js/do_wear.js:2161` (sole caller, kept); C `:1804` comment only.
+- **Verify:** `node scripts/verify.mjs --fn Gloves_off,armoroff --full`: syntax PASS · rule2 PASS · hidden note (no corpus session blocked on either) · REACH-OK both (no RNG-tagged reach; smoke 24/24 PASS ×2) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+- **Named omissions:**
+  - `Gloves_off`: none added — null-gloves graceful clear kept (C dereferences uarmg; sibling convention); condtests[0] is bl_bareh (botl.h enum 0, `js/botl.js:1150`).
+  - `armoroff`: none — whole body live, every callee live (all *_off + simple-name helpers same-module or existing edges).
+- **Ledger:** Gloves_off ported; armoroff ported
+- **Next:** coverage head moves to `do.c` obj_no_longer_held; `do_wear.c` holds nothing more Open (file sweep: 2 ported this iteration + 3 stale-marked, rest ok/ported/declared).
+
 ## D-3214 — `uhitm.c` ×5: blnd vision_clears, were uhitm row, slow defended ×3, samu/pet stale splits
 
 - **Status:** fixed (breadth-phase coverage cluster: head row `uhitm.c` mhitm_ad_blnd PARTIAL + same-file queue row mhitm_ad_were THIN + same-file mhitm_ad_slow PARTIAL + mhitm_ad_samu/hmon_hitmon_pet stale-splits; queue rows relobj/can_do_extcmd/wiz_map_levltyp proved stale and marked via CLI in this iteration).
