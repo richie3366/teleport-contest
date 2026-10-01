@@ -14,7 +14,7 @@
 {"fn":"relink_light_sources","c":"517-563","status":"partial","js":["js/light.js:relink_light_sources"],"omit":"C ``lookup_id_mapping`` as its own row (restore.c:1484; bucket/list state = bones id map; ghostly obj-id recording unported — the arm resolves through ``lookup_bones_id`` like region.js reset_region_mids); ``find_mid`` FM_MIGRATE/FM_MYDOGS arms (pre-existing named omit in mon.js — flag passed for f…","d":["D-2644"],"at":"seed@a30a7de84"}
 {"fn":"maybe_write_ls","c":"571-603","status":"ported","js":["js/light.js:maybe_write_ls"],"d":["D-3060"],"at":"2026-09-28@1de43a4f5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"light_sources_sanity_check","c":"606-630","status":"unknown"}
-{"fn":"write_ls","c":"634-702","status":"unknown","d":["D-2666"],"at":"seed@a30a7de84"}
+{"fn":"write_ls","c":"634-702","status":"ported","js":["js/light.js:write_ls"],"d":["D-3246","D-2666"],"at":"2026-10-01@14db57058"}
 {"fn":"obj_move_light_source","c":"706-715","status":"ported","js":["js/light.js:obj_move_light_source"],"d":["D-3060"],"at":"2026-09-28@1de43a4f5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"any_light_source","c":"719-722","status":"ported","js":["js/light.js:any_light_source"],"d":["D-3021"],"at":"2026-09-28@9dc8a2506","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"snuff_light_source","c":"729-759","status":"unknown"}

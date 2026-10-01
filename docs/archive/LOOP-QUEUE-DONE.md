@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `muse.c` use_defensive — blocks 1/953 (scen-hazard-Monk-94153, step 57, kind=screen) @caf1b5991 **Addressed:** D-3245
+- [x] `js` js-throw lev_json.js:452 relink_light_sources "no monster 0" — blocks 1/953 (scen-special-Samurai-94217, step 6, kind=screen, error in restoreOtherLedgers/deserLevel; cf D-3244 GIGO note — confirm throw precedes the step-6 diff) @2ad1aa828 **Addressed:** D-3246
+
+
+- [x] `muse.c` use_defensive — blocks 1/953 (scen-hazard-Monk-94153, step 57, kind=screen) @caf1b5991 **Addressed:** D-3245 `14db57058`
 
 
 - [x] `makemon.c` m_initinv — blocks 1/953 (scen-special-Samurai-94217, step 5, kind=rng) @a308a919b **Addressed:** D-3244 `2ad1aa828`

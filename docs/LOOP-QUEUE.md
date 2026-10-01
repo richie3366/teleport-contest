@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `js` js-throw lev_json.js:452 relink_light_sources "no monster 0" — blocks 1/953 (scen-special-Samurai-94217, step 6, kind=screen, error in restoreOtherLedgers/deserLevel; cf D-3244 GIGO note — confirm throw precedes the step-6 diff) @2ad1aa828
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Generated block — do not edit between the markers. Row: measured class,
