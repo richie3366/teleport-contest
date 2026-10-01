@@ -140,8 +140,10 @@ size arithmetic, `unconverted` concat + `.exportascii` converted, TRUE;
 module-local `unconverted/converted_filename` = `:2056` file-statics).
 Callers wired: `files.c:2160` → `js/files.js delete_convertedfile`;
 `files.c:999` delete_bonesfile → `js/bones.js:211` (bare base = fqname with
-unconfigured prefixes). Named: `nh_getenv` NETHACKDIR/HACKDIR (Rule #2 no
-env, SHOPTYPE precedent) + `c_eos` inlined as last-char index (JS strings
+unconfigured prefixes). Named: `nh_getenv` NETHACKDIR/HACKDIR (prefixes
+unconfigured, bare base = fqname; the SHOPTYPE precedent retired in D-3206 —
+nh_getenv is a live mail.js export since D-3203) + `c_eos` inlined as
+last-char index (JS strings
 need no end-pointer) + `alloc`/`free` (GC) + `unlink` (no fs) + WIN32
 `get_user_home_folder` (platform) + SHORT_FILENAMES comment-only block +
 `#else SFCTOOL` externs + `free_convert_filenames` sibling (caller
@@ -1847,7 +1849,7 @@ shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203);
 SetVoice D-1752; Soundeffect + bill_p poison + Hallu shkname D-2218); **`shkname` whole body live in C order** (D-2727; isshk save/clear + noit_mon_nam fallback `:859–863`, `!isshk` fallthrough, `!has_eshk` panic→throw, Hallu `:870–890`, strip `:892–893`; `:866` impossible message named — async, unreachable for valid input, xname_flags precedent; was export + Hallu arm only, D-0307/D-2218); 
 **`paybill`/`inherits`/`money2mon`/`set_repo_loc` death loot** (D-0311; 
 angry takes-all + peaceful inherit); **`shkveg`/`mkveggy_at` + HEALTHY_TIN** (D-0902); 
-**Izchak minetown light-shk `nameshk` arm** (D-2234); **veggy_item obj-path tin/corpse species** (D-0994); omit wizard SHOPTYPE (nh_getenv — Rule #2, same class as the SPLEVTYPE getenv deferral); 
+**Izchak minetown light-shk `nameshk` arm** (D-2234); **veggy_item obj-path tin/corpse species** (D-0994); **wizard SHOPTYPE dispatch live** (D-3206; nh_getenv live mail.js import since D-3203, dispatch in C order); 
 **Orcus mongone invent+detach** (D-0767; full `shkgone`/`mdrop_obj` deferred); 
 **`pick_room`/`mkzoo` via `do_mkroom`** (D-0592); 
 **COURT `fill_zoo`/`mk_zoo_thronemon`/`courtmon`/chest/`has_court`** (D-0593); 
@@ -1858,8 +1860,8 @@ D-0645 hx=35 interim retired) + **put_lregion (59,14) m_at** (D-0657); **Pri-goa
 **`mktemple`/`shrine_pos`/`priestini`/`newepri`** (D-0600); 
 **`make_niches` depth/`!noteleport` + `makeniche` `Can_fall_thru` + `dosdoor` mimic + 
 special-room G_GONE** (D-0601); **`pick_room` wizard≡`flags.debug`** (D-0602;
-`mkshop` wizard/`ep` multi-door arm shipped D-2569 — `ep` null per the
-SHOPTYPE env omit above, only doorct==1 fires); 
+`mkshop` wizard/`ep` multi-door arm shipped D-2569, `ep` live since D-3206
+— fires only with wizard SHOPTYPE set, unset in normal play); 
 **BEEHIVE `fill_zoo` queen/killer + royal jelly** (D-0903); 
 **COCKNEST `fill_zoo` statue + `rn2(5)` loot / ANTHOLE `antholemon`+food + BARRACKS/SWAMP `has_*`** (this D); 
 **SWAMP `mkswamp`** (D-1869); `antholemon()` do_mkroom gate; `shk_fixes_damage`; holetime follow; following verbalize; 

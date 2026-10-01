@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3206 — `mkroom.c` mkshop SHOPTYPE dispatch live (retires the D-2569 Rule #2 omit)
+
+- **Status:** fixed (Open — coverage head THIN: C 78 code L `mkroom.c:95–216`, the `:104–153` SHOPTYPE dispatch; `hidden-proxy verify mkshop`: no corpus session blocked). 1-function cluster in `js/mklev.js` (+52/−16: live dispatch, one SAFE mail.js edge). Below the ~80-insertion density guideline under the stated exception: mkshop is the sole mkroom.c row of the 12-row generated block (`ledger.mjs rows`: 12 rows, no other mkroom.c entry), and the callee closure holds nothing more Open — `has_dnstairs`/`has_upstairs` (`mkroom.c:639–663`) and `isbig` (`:41–48`) verified C-exact against `csym.mjs` bodies this iteration (PARTIAL is line-count noise), `mkzoo`/`mktemple`/`mkswamp`/`invalid_shop_shape` measured ok.
+- **Symptom:** coverage gap, not a corpus divergence. D-2569's whole-body restart (review 1528 ACCEPT) named the SHOPTYPE endpoint + dispatch a Rule #2 omit (no environment in scored ESM, `const ep = null`). `nh_getenv` has since gone live as a Rule-#2-safe mail.js export (D-3203 roguename precedent: `globalThis.process.env`, null in Chrome), so the omit retires with zero behavior change in normal play (wizard-gated, env unset).
+- **C locus:**
+  - `mkshop`: `nethack-c/upstream/src/mkroom.c:95–216` whole — this iteration ports the `:101–155` wizard SHOPTYPE block (endpoint `:103`, single-char dispatch `:104–153`: 8 mkzoo arms, mktemple on `_`, mkswamp on `}`, shtypes def_oc_syms match → gottype, g/G general, v/V veggy food, else i=-1); gottype walk, light loop, rnd(100) pick, rtype/topologize/needfill shipped D-2569, untouched.
+- **JS was:** `js/mklev.js` `mkshop` with `const ep = null` + the `:104–153` dispatch carried as a cited omit comment.
+- **Fix:** `ep` is now the live `nh_getenv('SHOPTYPE')` call under the existing `wizard` gate; the ten single-char arms ported in C order with C's early returns (incl. `t`/`T`/`\` → COURT); the shtypes symb loop reads `def_oc_syms[symb].sym` with a `matched` flag for C's `goto gottype` (skips the g/v arms); g/G → 0, v/V → FODDERSHOP−SHOPBASE, else −1. Empty-string env yields `undefined`, matching nothing like C `'\0'`.
+- **JS:** `js/mklev.js:28559` `mkshop` (doc `:28540–28558`, SHOPTYPE block `:28565–28601`); `nh_getenv` import `:105` (new edge — `imports.mjs --can mklev.js mail.js nh_getenv` VERDICT SAFE, hoisted function); `def_oc_syms` joins the existing objects.js import `:96–103` (no new edge); `:173` doorct comment updated (wizard&&ep arm now live when SHOPTYPE set). Map: `docs/c-js-map/data.md` SHOPTYPE omits retired (fqname precedent note, Izchak line, pick_room line).
+- **Callers:**
+  - `mkshop`: sole C caller `mkroom` (`mkroom.c:55`) → JS `do_mkroom` (`js/mklev.js:28437`, call `:28439`, pre-existing D-0592 split naming) — wired, unchanged.
+- **Verify:**
+  - `mkshop`: `node scripts/verify.mjs --fn mkshop` → PASS (syntax 1 file js/mklev.js; rule2; hidden note no session blocked; reach 58 baseline-PASS reach, 58 run, 68.9s, 58 PASS, 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+- **Named omissions:**
+  - `mkshop`: none — every arm live, every callee live (`nh_getenv` mail.js, `mkzoo`/`mktemple`/`mkswamp` file-locals, `def_oc_syms` objects.js).
+- **Ledger:** mkshop ported
+- **Next:** next Open — coverage row (`uhitm.c` mhitm_ad_cold head once this ships).
+
 ## D-3205 — `insight.c` status_enlightenment + attributes_enlightenment + enlght_combatinc whole (split-completion cluster)
 
 - **Status:** fixed (2 Open — coverage heads MISSING + 1 whole helper: status_enlightenment C 236 code L `insight.c:940–1266`, attributes_enlightenment C 383 code L `insight.c:1487–2005`, enlght_combatinc `insight.c:159–197`; `hidden-proxy verify`: no corpus session blocked at baseline for any of the three). 3-function cluster, all in `js/invent.js` — the established split home (shared `status_core_lines` + final `enlightenment()` + `doattributes()` ^X overlay). +928/−86 in 1 file: over the 800-line cluster guideline because both heads are whole MISSING functions landed completely (619 C code lines, every arm in C order, C-cited); under the 1500/15 supervisor caps. enlght_combatinc ships as an unindexed helper (the pinned-C index lacks the def — `ledger.mjs show`/`sync` report "not a pinned-C function", and sync adds 0 rows — so no ledger row can be written; whole body + 8 call sites documented below). Queue-head com_pager_core stale-ported in the same iteration (body whole since D-2731/D-1622 + D-3204 data closure; miss-arm impossible() intentionally silent — `ledger.mjs set ported`, no js/).

@@ -1,6 +1,6 @@
 {"fn":"isbig","c":"42-48","status":"unknown"}
 {"fn":"do_mkroom","c":"52-92","status":"unknown"}
-{"fn":"mkshop","c":"95-216","status":"partial","js":["js/mklev.js:mkshop"],"omit":"SHOPTYPE single-char dispatch (`:104–153` — env endpoint absent per the omit above; every dispatch callee — `mkzoo` all 8 types, `mktemple`, `mkswamp` — is live in `js/mklev.js`).","d":["D-2569"],"at":"seed@a30a7de84"}
+{"fn":"mkshop","c":"95-216","status":"ported","js":["js/mklev.js:mkshop"],"d":["D-3206","D-2569"],"at":"2026-10-01@9cc52a0d2"}
 {"fn":"pick_room","c":"220-241","status":"unknown"}
 {"fn":"mkzoo","c":"244-254","status":"unknown"}
 {"fn":"mk_zoo_thronemon","c":"257-273","status":"unknown"}

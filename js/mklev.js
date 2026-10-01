@@ -99,9 +99,10 @@ import {
     SPBOOK_CLASS, WAND_CLASS, AMULET_CLASS, ROCK_CLASS, COIN_CLASS,
     MAXOCLASSES, NUM_OBJECTS,
     objectNames, objectNameStrs, objectDescrs, objects,
-    def_char_to_objclass,
+    def_char_to_objclass, def_oc_syms,
 } from './objects.js';
 import { shtypes, stock_room } from './shknam.js';
+import { nh_getenv } from './mail.js';
 import { setgemprobs } from './o_init.js';
 import { maketrap, t_at, undestroyable_trap, deltrap, reset_utrap, mintrap, set_levltyp, set_levltyp_lit } from './trap.js';
 import {
@@ -28540,17 +28541,20 @@ function invalid_shop_shape(sroom) {
  * C ref: mkroom.c mkshop :94-216 — whole-body port in C order.
  * :97-99 decls (i=-1, ep null); :101-155 wizard SHOPTYPE shoptype block —
  * wizard reads game.flags (wizard ≡ flags.debug per flag.h; pick_room
- * precedent); the nh_getenv("SHOPTYPE") endpoint (:103) is a named omit
- * (no environment in scored ESM per Rule #2, same class as the makemaz
- * SPLEVTYPE deferral), so ep stays null, the :104-153 dispatch never
- * fires, and i stays -1; :157-178 gottype room walk (hx<0 sentinel
- * return :163, past-nroom impossible :165-168, OROOM/stairs gates,
- * :173 doorct==1 or wizard&&ep multi-door arm with invalid_shop_shape
- * break); :180-187 light room; :189-201 rnd(100) shtypes pick with the
- * isbig wand/book→general clamp; :203-215 rtype/needfill/topologize
- * (SPECIALIZATION off per global.h:120, so the 1-arg topologize arm).
- * Stocking deferred to fill_special_room (D-0201). Named omissions:
- * SHOPTYPE dispatch endpoint (c-js-map data.md).
+ * precedent); nh_getenv("SHOPTYPE") (:103) is the live mail.js export
+ * (D-3203 roguename precedent; globalThis.process.env, null in Chrome
+ * and when unset), and the :104-153 single-char dispatch is live in C
+ * order (mkzoo ZOO/MORGUE/BEEHIVE/COURT/BARRACKS/ANTHOLE/COCKNEST/
+ * LEPREHALL, mktemple on '_', mkswamp on '}', shtypes def_oc_syms
+ * match → gottype, g/G general, v/V veggy food, else i=-1);
+ * :157-178 gottype room walk (hx<0 sentinel return :163, past-nroom
+ * impossible :165-168, OROOM/stairs gates, :173 doorct==1 or wizard&&ep
+ * multi-door arm with invalid_shop_shape break); :180-187 light room;
+ * :189-201 rnd(100) shtypes pick with the isbig wand/book→general clamp;
+ * :203-215 rtype/needfill/topologize (SPECIALIZATION off per
+ * global.h:120, so the 1-arg topologize arm). Stocking deferred to
+ * fill_special_room (D-0201). Named omissions: none — the D-2569
+ * SHOPTYPE Rule #2 omit is retired (nh_getenv live since D-3203).
  */
 function mkshop() {
     const g = game;
@@ -28558,15 +28562,43 @@ function mkshop() {
     let i = -1;
     // C :102 — wizard ≡ flags.debug (flag.h); playmode:debug sets flags.debug
     const wizard = !!(g.flags?.debug || g.flags?.wizard);
-    // C :103 — ep = nh_getenv("SHOPTYPE"). Named omit: scored ESM has no
-    // environment (Rule #2; makemaz SPLEVTYPE precedent), so the endpoint
-    // is always absent and ep stays null.
-    const ep = null;
-    // C :104-153 — SHOPTYPE single-char dispatch (mkzoo ZOO/MORGUE/BEEHIVE/
-    // COURT/BARRACKS/ANTHOLE/COCKNEST/LEPREHALL, mktemple on '_', mkswamp
-    // on '}', shtypes symb match → gottype, g/v arms). Named omit with the
-    // endpoint above: ep is always null, so this block never fires and i
-    // stays -1 (random pick below). Every callee is live in this file.
+    // C :101-104 — wizard-gated nh_getenv("SHOPTYPE") (live mail.js
+    // export; null in Chrome and when unset, so normal play is unchanged)
+    let ep = null;
+    if (wizard) {
+        ep = nh_getenv('SHOPTYPE');
+        if (ep != null) {
+            // C :104-153 — single-char dispatch on *ep (ep[0]; an empty
+            // string yields undefined, matching nothing like C '\0')
+            const c0 = ep[0];
+            if (c0 === 'z' || c0 === 'Z') { mkzoo(ZOO); return; }
+            if (c0 === 'm' || c0 === 'M') { mkzoo(MORGUE); return; }
+            if (c0 === 'b' || c0 === 'B') { mkzoo(BEEHIVE); return; }
+            if (c0 === 't' || c0 === 'T' || c0 === '\\') { mkzoo(COURT); return; }
+            if (c0 === 's' || c0 === 'S') { mkzoo(BARRACKS); return; }
+            if (c0 === 'a' || c0 === 'A') { mkzoo(ANTHOLE); return; }
+            if (c0 === 'c' || c0 === 'C') { mkzoo(COCKNEST); return; }
+            if (c0 === 'l' || c0 === 'L') { mkzoo(LEPREHALL); return; }
+            if (c0 === '_') { mktemple(); return; }
+            if (c0 === '}') { mkswamp(); return; }
+            // C :104-153 — shtypes def_oc_syms match → gottype (skips the
+            // g/v arms below, hence the matched flag for C's goto)
+            let matched = false;
+            for (i = 0; i < shtypes.length && shtypes[i].name; i++) {
+                if (c0 === def_oc_syms[shtypes[i].symb | 0]?.sym) {
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                // C :104-153 — g/G general store, v/V veggy food shop,
+                // else shoptype undetermined (random pick below)
+                if (c0 === 'g' || c0 === 'G') i = 0;
+                else if (c0 === 'v' || c0 === 'V') i = FODDERSHOP - SHOPBASE;
+                else i = -1;
+            }
+        }
+    }
 
     // C :157-161 gottype — walk rooms: return = none eligible,
     // continue = ineligible, break = eligible.
@@ -28583,8 +28615,8 @@ function mkshop() {
         // C :169-172 — OROOM + no-stairs gates
         if (cand.rtype !== OROOM) continue;
         if (has_dnstairs(cand) || has_upstairs(cand)) continue;
-        // C :173-177 — doorct==1, or the wizard multi-door arm (ep null
-        // per the omit above, so only doorct==1 fires in practice)
+        // C :173-177 — doorct==1, or the wizard&&ep multi-door arm
+        // (fires only with wizard SHOPTYPE set — unset in normal play)
         if ((cand.doorct | 0) === 1
             || (wizard && ep && (cand.doorct | 0) !== 0)) {
             if (invalid_shop_shape(cand)) continue;
