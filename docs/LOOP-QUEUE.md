@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `cmd.c` getdir — coverage PARTIAL (C 104 code L `cmd.c:3958–4119` / JS 66 code L in js/lock.js; hops 2, callers 29, RNG 5, msg 2; declared partial: `readchar`/`readchar_queue`/`readchar_core` (altmeta pushback empty in sessions; nhgetch covers it); `docrt_flags` (live `flush_screen(1)` i) @a60a91a98
-- [ ] `dog.c` mon_arrive — coverage THIN (C 136 code L `dog.c:420–623` / JS 2 code L in js/dog.js; hops 2, callers 6, RNG 5, msg 0; declared partial: losedogs kops-dismiss scan (dismissKops/make_happy_shoppers `:310–356`); full mnearto yank (move_other=FALSE always); resurrect SetVoice + D) @03eae3466
 - [ ] `objnam.c` readobjnam — coverage THIN (C 326 code L `objnam.c:4910–5400` / JS 142 code L in js/readobjnam.js; hops 3, callers 3, RNG 9, msg 1) @03eae3466
 - [ ] `pager.c` checkfile — coverage THIN (C 200 code L `pager.c:830–1129` / JS 48 code L in js/pager.js; hops 1, callers 2, RNG 0, msg 5; declared partial: do_supplemental_info (`pager.c:2255`, own row — verbose-glance fill stays live); supplemental_pm out of do_screen_description (own row); dlb) @03eae3466
 - [ ] `hack.c` findtravelpath — coverage MISSING (C 157 code L `hack.c:1266–1523` / JS no symbol; hops 2, callers 2, RNG 0, msg 1) @03eae3466
@@ -127,6 +125,8 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mkmaze.c` movebubbles — coverage PARTIAL (C 96 code L `mkmaze.c:1539–1685` / JS 57 code L in js/mklev.js; hops 2, callers 3, RNG 3, msg 0; declared partial: `panic("movebubbles: cons != null")` → `impossible` (no live JS panic export); BREADCRUMBS `Unplacebc_and_covet_placebc`/`Lift_covet_and_pla) @c1c0d92f4
 - [ ] `zap.c` wishcmdassist — coverage THIN (C 51 code L `zap.c:6165–6219` / JS 16 code L in js/zap.js; hops 3, callers 2, RNG 0, msg 7; declared partial: `wish_history_add`/`wish_history_menu` DEBUG menu (pre-existing no-op/deferred, map turns.md); MAXWISHTRY retry loop for unrecognized names ) @c1c0d92f4
 - [ ] `mkmaze.c` makemaz — coverage PARTIAL (C 67 code L `mkmaze.c:1127–1223` / JS 31 code L in js/mklev.js; hops 1, callers 1, RNG 6, msg 1; declared partial: SPLEVTYPE `getenv` endpoint (wizard-debug only; no environment in scored ESM, Rule #2); `Is_branchlev` (no live export — same-file local, on) @d946e150c
+- [ ] `uhitm.c` mhitm_ad_drli — coverage THIN (C 41 code L `uhitm.c:2445–2518` / JS 17 code L in js/mhitm.js; hops 4, callers 2, RNG 5, msg 3; declared partial: split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-) @92ffa7863
+- [ ] `getpos.c` getpos_help — coverage PARTIAL (C 121 code L `getpos.c:167–307` / JS 83 code L in js/getpos.js; hops 2, callers 1, RNG 0, msg 18) @92ffa7863
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

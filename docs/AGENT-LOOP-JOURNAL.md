@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3194 `dog.c` mon_arrive With_you completion (live mnexto + awaited placement + link nmon)
+
+**C locus:** `nethack-c/upstream/src/dog.c:419–623` (`mon_arrive`; With_you `:466–479`, link `:430–442`); `mon.c:3955–3983` (`mnexto`: usteed sync, enexto/isok fail → `deal_with_overcrowding`, mon_telecontrol, `rloc_to_flag(mm, rlocflags)`); callers dog.c `:371/:383/:397` (losedogs), wizard.c `:748` (resurrect, −1 = Wiz_arrive).
+**JS:** `js/dog.js:43` (mnexto import), `:794` (link nmon), `:818` (with_you live mnexto + awaits).
+**Change:** `js/dog.js` only — With_you else-branch now `await mnexto(mtmp, RLOC_NOMSG)` (live `js/mon.js:2054` export: C-exact fail arm, telecontrol, flags; dog→mon edge ALREADY, name added to the existing import — `imports.mjs --can` clean); rn2-gate branch `await rloc_to(...)` (rloc_to already imported, async); link sets `mtmp.nmon = game.fmon[0] || null` before unshift (C `:431–432`). No DIAG/FORCE/seed logic; Rule #2 clean. mnearto_no_yank re-verified against the live mnearto FALSE path (identical: early-out, goodpos/enexto/isok, rloc_to_flag, no recurse) — kept, not re-pointed (drop-in would add the move_other dead arm).
+**Verify:** `node scripts/verify.mjs --fn mon_arrive --reach-all` → PASS syntax (1 file: js/dog.js) · rule2 · hidden note (0 blocked at baseline) · **reach 142/142 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. (Repo keeps no tests/ harness — sessions + verify are the regression mechanism; no new framework per skill.)
+**Named:** none in this body. D-2459 family items re-attributed to their true owners (not mon_arrive C): losedogs kops-dismiss scan (dog.c:310–356, losedogs's body); full mnearto yank (mnearto move_other=TRUE path — mon_arrive always passes FALSE, C :611); resurrect SetVoice + Deaf acoustics (wizard.c:730–756, resurrect's body).
+**Next:** Open — coverage head after mon_arrive (`objnam.c` readobjnam THIN).
 ## 2026-10-01 — D-3193 close lspo_room→get_table_roomtype_opt validation/diagnostic closure
 
 **C locus:** - `get_table_roomtype_opt`: sp_lev.c:4003–4020 — reads via get_table_str_opt (:4006), case-insensitive room_types[] scan (:4009–4013), synchronous impossible (:4015–4016).
