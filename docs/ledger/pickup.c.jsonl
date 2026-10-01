@@ -19,7 +19,7 @@
 {"fn":"reset_justpicked","c":"616-632","status":"ported","js":["js/pickup.js:reset_justpicked"],"d":["D-2945"],"at":"seed@a30a7de84"}
 {"fn":"count_justpicked","c":"635-645","status":"ported","js":["js/pickup.js:count_justpicked"],"d":["D-3135"],"at":"2026-09-29@f292ec32c"}
 {"fn":"find_justpicked","c":"648-657","status":"unknown"}
-{"fn":"pickup","c":"672-910","status":"unknown","d":["D-2350","D-1926"],"at":"seed@a30a7de84"}
+{"fn":"pickup","c":"672-910","status":"partial","js":["js/pickup.js:pickup"],"omit":"- `pickup`: select_menu digit-count entry (menu picks are whole-pile; count-N `5,` path unaffected; menu-machinery domain, own row).","d":["D-3199","D-2350","D-1926"],"at":"2026-10-01@acf56d4dd"}
 {"fn":"check_autopickup_exceptions","c":"913-927","status":"unknown"}
 {"fn":"autopick_testobj","c":"930-965","status":"unknown"}
 {"fn":"autopick","c":"975-1003","status":"unknown"}
@@ -55,7 +55,7 @@
 {"fn":"explain_container_prompt","c":"2911-2940","status":"unknown"}
 {"fn":"u_handsy","c":"2943-2953","status":"unknown"}
 {"fn":"stash_ok","c":"2957-2969","status":"ported","js":["js/pickup.js:stash_ok"],"d":["D-3135"],"at":"2026-09-29@f292ec32c"}
-{"fn":"use_container","c":"2972-3226","status":"unknown","d":["D-2028"],"at":"seed@a30a7de84"}
+{"fn":"use_container","c":"2972-3226","status":"partial","js":["js/pickup.js:use_container"],"omit":"- `pickup`: select_menu digit-count entry (menu picks are whole-pile; count-N `5,` path unaffected; menu-machinery domain, own row).","d":["D-3199","D-2028"],"at":"2026-10-01@acf56d4dd"}
 {"fn":"traditional_loot","c":"3230-3261","status":"unknown","d":["D-1581"],"at":"seed@a30a7de84"}
 {"fn":"menu_loot","c":"3265-3394","status":"unknown"}
 {"fn":"in_or_out_menu","c":"3397-3477","status":"unknown"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3199 `pickup.c` pickup + use_container whole-body completion (gate nomul, cancel tail, via_menu sort, chest trap, cursed mbag, ':' reportempty)
+
+**C locus:** - `pickup`: `nethack-c/upstream/src/pickup.c:672–910` (gate/nomul order; traditional `:793–891` incl. cancel→pickupdone + via_menu sort/allow arms; ynaq/ynNaq are `yn_function(q,chars,'y',TRUE)` per hack.h:1331/1334 via csym).
+**JS:** `js/pickup.js` (sole file; +~90/−~30).
+**Change:** `js/pickup.js` only, no new module edges (every callee already imported or same-file: `chest_trap`/`You`/`theArt`/`xname`/`HAND`/`nomul`/`currency`/`weight`/`Tobjnam`/`Has_contents`/`doname_with_price`/`thesimpleoname`; same-file `boh_loss`/`Is_mbag`/`upstart`). pickup: gate restructured to C order (nomul removed from the gate branch; standalone nomul untouched); traditional cancel returns `cancelled` → `finally` skips the `!uswallow` tail but still runs the pickupdone reset; via_menu re-query passes `{sortpack: selective, feel_cockatrice: false}` through new wrapper overrides (menu PICK_ANY/PICK_ONE behavior unchanged). use_container: new `else if (otrapped)` arm (held `You open…`, live `chest_trap(obj,HAND,false)`, `multi>=0` nomul(-1)+reason+nomovemsg, abort+ECMD_TIME); new cursed-mbag arm before inokay/outokay (short-circuit `boh_loss`, owe/currency/re-weigh, ECMD_TIME; emptymsg "now " tracks quantum||cursed); ':' local reshaped to C (FALSE,FALSE,TRUE): empty→`upstart(thesimpleoname)+" is empty."` pline, contents via `doname_with_price`; containerdone null→`abort_looting`. Verified no-change: ynaq/ynNaq default 'y'/TRUE (csym) already matched; local ynaqchars/ynNaqchars value-match decl.c.
+**Verify:** `node scripts/verify.mjs --fn pickup,use_container --full` → PASS syntax (1 file) · rule2 · hidden notes (0 blocked each, coverage rows) · **REACH-OK** both (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · **full 44/44** → VERIFY: PASS. (First run caught a self-inflicted duplicate `upstart` import — local `js/pickup.js:289` already ports it; import reverted, zero new edges.)
+**Named:** - `pickup`: select_menu digit-count entry (menu picks are whole-pile; count-N `5,` path unaffected; menu-machinery domain, own row).
+**Next:** pop the next Open — coverage row.
 ## 2026-10-01 — D-3198 `pager.c` checkfile fruit-alt aliasing + `hack.c` findtravelpath TEST_MOVE retirement
 
 **C locus:** - `checkfile`: `nethack-c/upstream/src/pager.c:829–1129` — fruit/singular alt `:984–996` (`strcpy(newstr)` aliasing at `:990–992`).
