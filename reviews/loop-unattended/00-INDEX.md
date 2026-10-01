@@ -2159,3 +2159,4 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2147-2c5d70e9a-migration-sort-input.md](./2147-2c5d70e9a-migration-sort-input.md) | `2c5d70e9a` | D-3187 migration sort/input | **ACCEPT** |
 | [2148-d946e150c-impossible-diagnostics.md](./2148-d946e150c-impossible-diagnostics.md) | `d946e150c` | D-3188 impossible diagnostics | **ACCEPT-WITH-DEBT** |
 | [2149-c47034f0d-ledger-sample.md](./2149-c47034f0d-ledger-sample.md) | `c47034f0d` | Audit ledger sample (inherited armor continuation) | **QUALITY-RISK** |
+| [2150-949324ac1-post-d3190-review-followup.md](./2150-949324ac1-post-d3190-review-followup.md) | `949324ac1` | Post-D-3190 follow-up (verbose gates, invent guards) | **QUALITY-RISK** |
