@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — Audit 2195–2202: review D-3234–D-3241 (8 ACCEPT) + full score
+
+8 JS-touching SHAs since 2194, each audited against pinned C with re-measured hidden-proxy verify: gas live-membership + impossible, sp_lev decalog (10-fn, failure arms exact), read_engr_at blind feel + off (2 PASS + 9 identical-topline PROGRESS re-confirmed), digactualhole vision flag (3 PASS + 4 moved re-confirmed), wipeout_text restart + checkpoint unskip (291/291 reach re-confirmed), self_lookat steed + invis, flooreffects restart (sokoban 232→320 re-confirmed; D-log caller-table fix: dokick.c:640,771 ARE wired via aliased `fe` — no future row for them), dowaterdemon throw fix (Monk 0→220 re-confirmed; one reach-all worker flake proven flake by solo PASS replay). No C-wrongs, no Must-fix families.
+
+Score: public 44/44 (Scr 11,405, RNG 792,838, 327+1.65/turn); corpus 678/953 with full:true (+6 vs audit, 0 losses); held-out 15/44 (+1). Ledger sample: mhitm_ad_curs ported→split (three arms in three homes; other 4 samples clean).
 ## 2026-10-01 — D-3241 `fountain.c` dowaterdemon: wire live `mhis`/`mhe` + `You`; Monk terrain 0→220 (randomize_gem_colors stale)
 
 **C locus:** - `dowaterdemon`: `fountain.c:64–90` whole body in C order — G_GONE gate; makemon water demon; !Blind unleash vs feel; rnd(100) wish (mhis/mhe message + mongrantswish) vs t_at mintrap; else furious-bubbling arm.

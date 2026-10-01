@@ -2204,3 +2204,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2192-516e71ff9-menucolor-closure.md](./2192-516e71ff9-menucolor-closure.md) | `516e71ff9` | D-3231 MENUCOLOR sink + 4 whole | **ACCEPT** |
 | [2193-e5887aa2a-optfn-sinks.md](./2193-e5887aa2a-optfn-sinks.md) | `e5887aa2a` | D-3232 4 optfn sinks + 3 whole | **ACCEPT** |
 | [2194-07cfb4831-prompt-inverse-blank.md](./2194-07cfb4831-prompt-inverse-blank.md) | `07cfb4831` | D-3233 end_menu inverse + blank | **ACCEPT** |
+| [2195-6c82dd6e1-gas-live-membership.md](./2195-6c82dd6e1-gas-live-membership.md) | `6c82dd6e1` | D-3234 gas family live membership + impossible | **ACCEPT** |
+| [2196-a308a919b-splev-decalog.md](./2196-a308a919b-splev-decalog.md) | `a308a919b` | D-3235 exclusion rework + location arms | **ACCEPT** |
+| [2197-caf1b5991-read-engr-at.md](./2197-caf1b5991-read-engr-at.md) | `caf1b5991` | D-3236 read_engr_at blind feel + off | **ACCEPT** |
+| [2198-0148914f2-digactualhole-vision.md](./2198-0148914f2-digactualhole-vision.md) | `0148914f2` | D-3237 digactualhole vision flag + arms | **ACCEPT** |
+| [2199-25100632c-wipeout-text.md](./2199-25100632c-wipeout-text.md) | `25100632c` | D-3238 wipeout_text restart + unskip | **ACCEPT** |
+| [2200-9e990eefc-self-lookat.md](./2200-9e990eefc-self-lookat.md) | `9e990eefc` | D-3239 self_lookat steed + invis | **ACCEPT** |
+| [2201-2b9efeed4-flooreffects.md](./2201-2b9efeed4-flooreffects.md) | `2b9efeed4` | D-3240 flooreffects restart (dokick doc fix) | **ACCEPT** |
+| [2202-ea58ae969-dowaterdemon.md](./2202-ea58ae969-dowaterdemon.md) | `ea58ae969` | D-3241 dowaterdemon mhis/mhe + You | **ACCEPT** |
