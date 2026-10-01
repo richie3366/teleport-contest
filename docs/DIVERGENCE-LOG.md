@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3227 — eat.c eatfood stolen-food arm + eating-gate reset semantics
+
+- **Status:** fixed (Open coverage row: `eat.c` eatfood — PARTIAL C 15/JS 11; 6 stale pops retired en route — mhitm_ad_pest, all_options_strbuf, rest_regions, row_refresh, doset_simple_menu, handler_autopickup_exception — each brief-complete in JS, `ledger.mjs set … ported --note "stale: …"`)
+- **Symptom:** none on any suite (no corpus session blocked on eatfood at HEAD — coverage row) — latent C-omission: a hero whose meal vanished mid-occupation (stolen, revoked, floor piece gone) kept "eating" phantom food — JS never ran the `!carried && !obj_here` guard — and the `!food` path wiped `victual = {}` instead of `do_reset_eat()`, so the occupation never stopped and `newuhs` never ran; the merged `!eating` path also wiped victual where C returns with it untouched.
+- **C locus:**
+  - `eatfood`: `eat.c:518–541` — piece read `:521`; stolen guard `:523–524` (`food && !carried(food) && !obj_here(food, u.ux, u.uy)` → `food = 0`); `!food → do_reset_eat() + return 0` `:525–528`; `!eating → return 0` `:529–530` (no reset); `++usedtime <= reqtime` `:532` → bite `:533–534` (1 still busy `:535`) else done_eating(TRUE) `:536–539`.
+- **JS was:** module-local `eatfood` (`js/eat.js:2332`) merged `!food`/`!eating` into one branch that always wiped `victual = {}`; the stolen-food guard was a "deferred beyond leaving the square" comment; `do_reset_eat` (live local since D-3078) never called.
+- **Fix:** `js/eat.js` — restarted the local in C order, same name/signature (all `game.occupation === eatfood` identity gates untouched): stolen guard via live same-module `carried` (exported `:2678`) + `obj_here` (local `:2685`, `:1813` precedent shape) at `game.u.ux/uy`; `!food → await do_reset_eat() + return 0` (async adaptation, local `:938`); `!eating → return 0` untouched; usedtime/bite/done arms unchanged in C order with `:521–537` citations. One-line cross-ref fix in the `cant_finish_meal` comment (no longer "as in eatfood"). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/eat.js` (+19/−12; 1 js file, under caps). Density note: C is 15 lines; the file+closure hold nothing more Open (no other eat.c block row; all 4 callees live same-module) — small-C exception; net iteration effect is 7 rows retired (6 stale + this port).
+- **Callers:**
+  - `eatfood`: sole C call site `eat.c:3885` (`(void) eatfood()` in maybe_finished_meal) → `js/eat.js:2397` `await eatfood()` (pre-existing, D-2230); occupation-identity sites unchanged (`:590`, `:674`, `:702`, `:993`, `:1807`, `:2361`, `:2390`); `:392`/`:3908` are comments (latter wired at `:2367–2369`).
+- **Verify:**
+  - `eatfood`: `node scripts/verify.mjs --fn eatfood` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/eat.js`; `PASS rule2`; `note hidden verify eatfood: no corpus session is blocked on it at baseline`; `PASS reach eatfood: no RNG-tagged reach; fixed smoke spread (24 run, 12.4s): 24 PASS, 0 regressed → REACH-OK`; `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7` (incl. seed1800 eater); `skip full` (tool: no shared file changed).
+- **Named omissions:**
+  - `eatfood`: none — all 4 C callees live same-module (`carried` exported; `obj_here`/`do_reset_eat`/`bite`/`done_eating` locals; short-circuit, integer and ownership semantics preserved).
+- **Ledger:** eatfood ported
+- **Next:** pop the next Open row (`explode.c` explosionmask).
+
 ## D-3226 — doread whole-body: six arms + Blind-gate fix (3 scen-* blocked)
 
 - **Status:** fixed (coverage PARTIAL C223/JS124 + 3 blocked corpus sessions: scen-impaired-Healer-94190, scen-impaired-Tourist-94350, scen-normal-Tourist-92061.)

@@ -23,7 +23,7 @@
 {"fn":"visible_region_at","c":"718-729","status":"unknown"}
 {"fn":"show_region","c":"732-735","status":"unknown"}
 {"fn":"save_regions","c":"741-795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"rest_regions","c":"799-892","status":"partial","js":["js/region.js:rest_regions"],"omit":"binary ``save_regions`` format (stash/JSON architecture, data.md line stands + extended); ``Sfi_any`` arg ⇔ passthrough (gas damage number); numeric cmap glyph ⇔ tag (pre-existing header omission); C ``light.c:543`` / ``timeout.c:2760`` ghostly id lookups (no JS restore counterpart — future rows); …","d":["D-2639"],"at":"seed@a30a7de84"}
+{"fn":"rest_regions","c":"799-892","status":"ported","js":["js/region.js:rest_regions"],"d":["D-2639"],"at":"2026-10-01@e0549fe8b","note":"stale: js/region.js:767 (whole :798-892 in stash arch; omits architectural: NHFILE format, Sfi_any passthrough, cmap glyph tag)"}
 {"fn":"region_stats","c":"899-922","status":"unknown"}
 {"fn":"reset_region_mids","c":"928-943","status":"unknown"}
 {"fn":"create_msg_region","c":"955-973","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}

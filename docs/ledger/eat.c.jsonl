@@ -15,7 +15,7 @@
 {"fn":"temp_resist","c":"453-469","status":"ported","js":["js/eat.js:temp_resist"],"d":["D-3078"],"at":"2026-09-29@01a639d1b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"eating_dangerous_corpse","c":"475-493","status":"unknown"}
 {"fn":"maybe_extend_timed_resist","c":"500-514","status":"by-design","at":"2026-09-29@01a639d1b","note":"#if 0 no longer used (eat.c:497): uncompiled timed-resist extender"}
-{"fn":"eatfood","c":"519-541","status":"unknown","d":["D-2720"],"at":"seed@a30a7de84"}
+{"fn":"eatfood","c":"519-541","status":"ported","js":["js/eat.js:eatfood"],"d":["D-3227","D-2720"],"at":"2026-10-01@e0549fe8b"}
 {"fn":"done_eating","c":"544-573","status":"unknown"}
 {"fn":"eating_conducts","c":"576-599","status":"ported","js":["js/eat.js:eating_conducts"],"d":["D-2907"],"at":"seed@a30a7de84"}
 {"fn":"eat_brains","c":"603-754","status":"unknown","d":["D-1306"],"at":"seed@a30a7de84"}

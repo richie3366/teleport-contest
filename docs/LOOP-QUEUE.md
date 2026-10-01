@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `uhitm.c` mhitm_ad_pest — coverage PARTIAL (C 13 code L `uhitm.c:3808–3834` / JS 6 code L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 1; declared partial: `hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.) @8f3d63508
-- [ ] `options.c` all_options_strbuf — coverage PARTIAL (C 47 code L `options.c:9678–9748` / JS 29 code L in js/options.js; hops —, callers 2, RNG 0, msg 1; declared partial: `get_option_value` + allopt table [2/7]; `all_options_conds` (+opt_next_cond) [3/7]; `get_changed_key_binds` (unconditional call — throws if) @8f3d63508
-- [ ] `region.c` rest_regions — coverage PARTIAL (C 75 code L `region.c:799–892` / JS 54 code L in js/region.js; hops 3, callers 1, RNG 0, msg 0; declared partial: binary ``save_regions`` format (stash/JSON architecture, data.md line stands + extended); ``Sfi_any`` arg ⇔ passthrough (gas damage number);) @8f3d63508
-- [ ] `display.c` row_refresh — coverage THIN (C 28 code L `display.c:2147–2186` / JS 11 code L in js/display.js; hops 5, callers 1, RNG 0, msg 0) @8f3d63508
-- [ ] `options.c` doset_simple_menu — coverage PARTIAL (C 121 code L `options.c:8536–8702` / JS 61 code L in js/options.js; hops —, callers 1, RNG 0, msg 1; declared partial: - `doset_simple_menu`: symset pick → handler_symset `:6320–6328` → symbols.c do_symset (no live JS port; file IO under Rule #2); BoolOpt pic) @e45cb9654
-- [ ] `eat.c` eatfood — coverage PARTIAL (C 15 code L `eat.c:519–541` / JS 11 code L in js/eat.js; hops 3, callers 2, RNG 0, msg 0) @e45cb9654
 - [ ] `explode.c` explosionmask — coverage PARTIAL (C 77 code L `explode.c:26–115` / JS 51 code L in js/explode.js; hops 4, callers 1, RNG 0, msg 0) @e45cb9654
 - [ ] `role.c` role_menu_extra — coverage THIN (C 121 code L `role.c:1816–1960` / JS 51 code L in js/player_selection.js; hops —, callers 1, RNG 0, msg 0; declared partial: ``add_menu``/``add_menu_str`` (no JS export) — architectural mapping to menu_pick line objects, same protocol as setup_*menu entries (map-na) @e45cb9654
-- [ ] `options.c` handler_autopickup_exception — coverage PARTIAL (C 57 code L `options.c:6331–6404` / JS 38 code L in js/options.js; hops —, callers 1, RNG 0, msg 1; declared partial: `regex_error_desc` (the regex-error `config_error_add` uses a fixed phrase; the sink itself is still a no-op).) @e45cb9654
 - [ ] `mklev.c` mktrap_victim — coverage PARTIAL (C 73 code L `mklev.c:1815–1934` / JS 53 code L in js/mklev.js; hops —, callers 0, RNG 8, msg 0) @e45cb9654
 - [ ] `hack.c` dump_weights — coverage THIN (C 51 code L `hack.c:4421–4483` / JS 5 code L in js/hack.js; hops —, callers 1, RNG 0, msg 0; declared partial: - `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).) @e45cb9654
 - [ ] `sp_lev.c` is_ok_location — coverage PARTIAL (C 18 code L `sp_lev.c:1280–1308` / JS 11 code L in js/mklev.js; hops 5, callers 3, RNG 0, msg 0) @e45cb9654
+- [ ] `sp_lev.c` get_table_int_or_random — coverage PARTIAL (C 22 code L `sp_lev.c:3407–3437` / JS 12 code L in js/mklev.js; hops —, callers 1, RNG 0, msg 1; declared partial: `lua_pop` has no stack in the unpacked loader.) @e0549fe8b
+- [ ] `makemon.c` dump_mongen — coverage THIN (C 27 code L `makemon.c:1835–1866` / JS 12 code L in js/makemon.js; hops —, callers 1, RNG 0, msg 0; declared partial: ) @e0549fe8b
+- [ ] `shk.c` remote_burglary — coverage PARTIAL (C 10 code L `shk.c:665–682` / JS 7 code L in js/shk.js; hops 4, callers 1, RNG 0, msg 0) @e0549fe8b
+- [ ] `botl.c` status_hilite2str — coverage PARTIAL (C 70 code L `botl.c:3590–3669` / JS 42 code L in js/botl.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `clear_status_hilites`: sole-C-caller wiring — options.c:1867 do_set negated arm (JS hilite_status optfn null).) @e0549fe8b
+- [ ] `coloratt.c` add_menu_coloring — coverage PARTIAL (C 30 code L `coloratt.c:617–660` / JS 22 code L in js/options.js; hops —, callers 2, RNG 0, msg 0; declared partial: `config_error_add("Malformed MENUCOLOR")` sink (msgtype_add precedent); `cnf_line_MENUCOLOR` caller (no JS read_config_file dispatch).) @e0549fe8b
+- [ ] `cfgfiles.c` get_uchars — coverage PARTIAL (C 41 code L `cfgfiles.c:381–437` / JS 24 code L in js/cfgfiles.js; hops —, callers 2, RNG 0, msg 0; declared partial: - `get_uchars`: wait_synch `:433` (windowed input boundary; game build blocks in tty_wait_synch wintty.c:3624–3631; config parser stays sync) @e0549fe8b
+- [ ] `dbridge.c` e_at — coverage PARTIAL (C 10 code L `dbridge.c:286–301` / JS 7 code L in js/dbridge.js; hops 5, callers 1, RNG 0, msg 0) @e0549fe8b
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

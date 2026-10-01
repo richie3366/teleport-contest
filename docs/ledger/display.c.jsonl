@@ -46,7 +46,7 @@
 {"fn":"newsym_force","c":"1863-1871","status":"unknown"}
 {"fn":"show_glyph","c":"1877-2072","status":"split","js":["js/display.js:show_glyph_cell","js/display.js:show_glyph_change_wanted","js/display.js:emit_show_glyph_change"],"d":["D-3013","D-1767","D-1221"],"at":"2026-09-28@2af820a38","note":"audit 1937-1945: sym NOT FOUND; seed marked ported with js location unresolved. D-1767 and D-1221 live in show_glyph_cell, not show_glyph."}
 {"fn":"clear_glyph_buffer","c":"2107-2142","status":"ported","js":["js/display.js:clear_glyph_buffer"],"d":["D-1986"],"at":"2026-10-01@e45cb9654","note":"stale: js/display.js:7380 (D-0389/D-1986 gbuf->disp_* adaptation; spans + gnew; callers allmain.js:252 + cls:7419)"}
-{"fn":"row_refresh","c":"2147-2186","status":"unknown","d":["D-1964"],"at":"seed@a30a7de84"}
+{"fn":"row_refresh","c":"2147-2186","status":"ported","js":["js/display.js:row_refresh"],"d":["D-1964"],"at":"2026-10-01@e0549fe8b","note":"stale: js/display.js:6940 (shipped whole D-1964: export + docorner rewire + probe; force=false reduction + omits named there)"}
 {"fn":"cls","c":"2189-2202","status":"unknown"}
 {"fn":"flush_screen","c":"2208-2267","status":"ported","js":["js/display.js:flush_screen"],"d":["D-3013","D-2493","D-1986","D-1985"],"at":"2026-09-28@2af820a38","note":"stale: whole body live js/display.js flush_screen:7138 per D-2493; sole row omit is allmain.c:94 moveloop_preamble defer arm whose restore.c:682 setter has no JS counterpart (never set; see_monsters:5408 gate reads live)"}
 {"fn":"back_to_glyph","c":"2287-2427","status":"unknown"}
