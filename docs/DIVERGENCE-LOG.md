@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3245 — `muse.c` use_defensive: heal-arm pline_mon, unbless await, C-exact default (cited session already re-attributed to digactualhole)
+
+- **Status:** fixed (corpus-residual head `use_defensive`; ~10 insertions in `js/muse.js` — under the density floor, but the head's file holds nothing more Open: coverage block 0 rows, no other muse.c residuals; all 57 C callees live same-file or imported. D-3242/D-3244 exception precedent.)
+- **Symptom:** queue row blocks 1/953 @caf1b5991: scen-hazard-Monk-94153 s57 kind=screen. At HEAD the session resolves to owner `digactualhole` (dig.c:785) at the same step with matching toplines («The werewolf falls through...» both sides; map row 7 `^` vs `@`) — re-attributed since queue time, dig.c writer rows remain queued. Whole-body audit vs C found 3 real gaps: (1) heal arms used `pline` where C `:1170`/`:1184`/`:1199` use `pline_mon`; (2) FULL_HEALING called async `unbless` without await (C `:1193–1194`); (3) `default` returned 2 where C `:1212–1217` impossibles then returns 0.
+- **C locus:**
+  - `use_defensive`: `muse.c:795–1219` whole body in C order — precheck/cansee/canseemon/oseen/fleetim prologue + m_flee macro; 20-case switch (UNICORN_HORN, BUGLE, WAN_TELEPORTATION_SELF, WAN_TELEPORTATION, SCR_TELEPORTATION, WAN_DIGGING, WAN_UNDEAD_TURNING, WAN_CREATE_MONSTER, SCR_CREATE_MONSTER, TRAPDOOR, UPSTAIRS, DOWNSTAIRS, UP_LADDER, DN_LADDER, SSTAIRS, TELEPORT_TRAP, POT_HEALING, POT_EXTRA_HEALING, POT_FULL_HEALING, LIZARD_CORPSE, case 0, default). All 20 arms verified present with C-order calls; only gaps fixed: heal pline_mon ×3, unbless await, default.
+- **JS was:** `js/muse.js:2464` — full 20-arm body (D-1970/D-1809) with 3 gaps: heal arms `pline(...)`, floating `unbless(otmp)` promise, `default: return 2` with a "dead code" comment contradicting C's impossible + return 0.
+- **Fix:** `js/muse.js` only, no new imports (pline_mon/impossible/Monnam/unbless all live in-file): heal arms → `pline_mon(mtmp, …)` ×3; `await unbless(otmp)`; default → `await impossible('%s wanted to perform action %d?', Monnam(mtmp), m.has_defense); break;` + trailing `return 0`; doc comment updated (:1212–1217).
+- **JS:** `js/muse.js` (6 small edits). Far under the 1500/15 caps.
+- **Callers:**
+  - `use_defensive`: C monmove.c:795 `if (use_defensive(mtmp) != 0)` → js/monmove.js:2654 (awaited, `!== 0`); C monmove.c:1927 `find_defensive(TRUE) && use_defensive` → js/monmove.js:2211 (awaited). Both wired, signature unchanged. muse.c:1821/:3060 are comments, extern.h:2059 the decl — no code sites.
+- **Verify:** `node scripts/verify.mjs --fn use_defensive --base caf1b5991` → VERIFY: PASS — syntax 1 file (js/muse.js); rule2; hidden vacuous at HEAD and at --base (0 blocked; cited session now owner digactualhole s57); reach: no RNG-tagged reach, smoke spread 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped (no shared file). `hidden-proxy verify --base caf1b5991` likewise vacuous (baseline scoreboard a308a919b, 0 blocked).
+- **Named omissions:**
+  - `use_defensive`: `!otmp` guards return 0 where C panics (MissingDefensiveItem ×12 — unreachable when find_defensive pairs code+item; C abort untestable, pre-existing D-1809/D-1970 pattern); `vtense(null,…)` ≡ C `vtense(fakename[0]="mon",…)` (both force singular — C null-subj idiom objnam.c:2577, decl.c:51; TRAPDOOR + TELEPORT_TRAP sites); `pline('The …')` ≡ C `pline_The` (unicorn-tip + digging-ray arms; output-identical, pre-existing). All 57 C callees live: same-file locals (precheck/mzapwand/m_tele/mbhit/mreadmsg/reveal_trap/mon_escape/mquaffmsg/mon_consume_unstone/m_flee + m_useup/healmon file-local clones) or imports; `canspotmon` verified identical (`canseemon||sensemon`, display.h:129); mon_arrive ledger row is a comment mention (SSTAIRS comment), not a call.
+- **Ledger:** use_defensive ported
+- **Next:** refill filed in this commit: Must-fix js-throw lev_json.js:452 (scen-special-Samurai-94217 s6 — cf D-3244 GIGO note) + 5 Open corpus rows (seffect_magic_mapping, check_caitiff, dowipe, msummon, enhance_weapon_skill); cited session's digactualhole owner covered by queued dig.c rows.
+
 ## D-3244 — m_initinv: ARM_BONUS erosion term (mercenary mac over-count skipped the round-4/5 gates; Samurai s5→s6, +9596 RNG)
 
 - **Status:** fixed (corpus-residual head `m_initinv`; ~15 insertions in `js/makemon.js` — under the density floor, but the head's file holds nothing more Open: coverage block empty, no other makemon.c residuals; callee closure all live. D-3242 exception precedent.)

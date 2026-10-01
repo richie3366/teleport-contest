@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `js` js-throw lev_json.js:452 relink_light_sources "no monster 0" — blocks 1/953 (scen-special-Samurai-94217, step 6, kind=screen, error in restoreOtherLedgers/deserLevel; cf D-3244 GIGO note — confirm throw precedes the step-6 diff) @2ad1aa828
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Generated block — do not edit between the markers. Row: measured class,
@@ -126,13 +128,17 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `muse.c` use_defensive — blocks 1/953 (scen-hazard-Monk-94153, step 57, kind=screen) @caf1b5991
 - [ ] `cmd.c` set_move_cmd — blocks 1/953 (scen-dig-Archeologist-94035, step 44, kind=screen) @caf1b5991
 - [ ] `dig.c` dig — blocks 1/953 (scen-terrain-Rogue-94040, step 70, kind=screen) @caf1b5991
 - [ ] `dig.c` use_pick_axe2 — blocks 2/953 (scen-dig-Archeologist-94215, step 32, kind=screen) @2b9efeed4
 - [ ] `steal.c` stealgold — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen) @2b9efeed4
 - [ ] `mhitm.c` mdisplacem — blocks 1/953 (scen-special-Ranger-94277, step 157, kind=rng) @f572fe77c
 - [ ] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa
+- [ ] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828
+- [ ] `uhitm.c` check_caitiff — blocks 1/953 (scen-ride-Samurai-94407, step 125, kind=screen) @2ad1aa828
+- [ ] `do.c` dowipe — blocks 1/953 (scen-terrain-Valkyrie-94240, step 117, kind=screen) @2ad1aa828
+- [ ] `minion.c` msummon — blocks 1/953 (scen-engulf-Monk-94052, step 90, kind=screen) @2ad1aa828
+- [ ] `weapon.c` enhance_weapon_skill — blocks 1/953 (scen-caster-Healer-94269, step 225, kind=screen) @2ad1aa828
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

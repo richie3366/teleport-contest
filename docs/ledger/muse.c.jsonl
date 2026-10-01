@@ -10,7 +10,7 @@
 {"fn":"find_defensive","c":"441-750","status":"unknown","d":["D-1988"],"at":"seed@a30a7de84"}
 {"fn":"reveal_trap","c":"757-767","status":"unknown"}
 {"fn":"mon_escape","c":"780-789","status":"unknown"}
-{"fn":"use_defensive","c":"796-1219","status":"unknown","d":["D-1970","D-1809"],"at":"seed@a30a7de84"}
+{"fn":"use_defensive","c":"796-1219","status":"ported","js":["js/muse.js:use_defensive"],"d":["D-3245","D-1970","D-1809"],"at":"2026-10-01@2ad1aa828"}
 {"fn":"rnd_defensive_item","c":"1222-1270","status":"unknown"}
 {"fn":"linedup_chk_corpse","c":"1294-1297","status":"unknown"}
 {"fn":"m_use_undead_turning","c":"1300-1340","status":"ported","js":["js/muse.js:m_use_undead_turning"],"d":["D-2634"],"at":"seed@a30a7de84"}
