@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
+- [x] `do.c` better_not_try_to_drop_that — coverage PARTIAL (C 8 code L `do.c:947–962` / JS 5 code L in js/do.js; hops —, callers 1, RNG 0, msg 0) @b4ca336ef
+- [x] `sp_lev.c` lspo_exclusion — coverage PARTIAL (C 25 code L `sp_lev.c:5498–5532` / JS 16 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @b4ca336ef
+
+
 - [x] `region.c` create_gas_cloud_selection — coverage PARTIAL (C 15 code L `region.c:1313–1336` / JS 10 code L in js/region.js; hops —, callers 1, RNG 0, msg 0) @b4ca336ef
 
 

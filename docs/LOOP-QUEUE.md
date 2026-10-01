@@ -115,8 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do.c` better_not_try_to_drop_that — coverage PARTIAL (C 8 code L `do.c:947–962` / JS 5 code L in js/do.js; hops —, callers 1, RNG 0, msg 0) @b4ca336ef
-- [ ] `sp_lev.c` lspo_exclusion — coverage PARTIAL (C 25 code L `sp_lev.c:5498–5532` / JS 16 code L in js/mklev.js; hops —, callers 0, RNG 0, msg 0) @b4ca336ef
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

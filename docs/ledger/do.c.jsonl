@@ -14,7 +14,7 @@
 {"fn":"engulfer_digests_food","c":"849-888","status":"ported","js":["js/do.js:engulfer_digests_food"],"d":["D-2868"],"at":"seed@a30a7de84"}
 {"fn":"obj_no_longer_held","c":"893-920","status":"ported","js":["js/do.js:obj_no_longer_held"],"d":["D-2393"],"at":"2026-10-01@cdbc41097","note":"stale: js/do.js:711 canonical body complete (D-2393/D-2398/D-2734); sync-core caller arms live in owners"}
 {"fn":"doddrop","c":"924-944","status":"unknown"}
-{"fn":"better_not_try_to_drop_that","c":"947-962","status":"unknown","d":["D-1960"],"at":"seed@a30a7de84"}
+{"fn":"better_not_try_to_drop_that","c":"947-962","status":"ported","js":["js/do.js:better_not_try_to_drop_that"],"d":["D-1960"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/do.js:2640 complete, caller wired js/do.js:2892, review 930 ACCEPT"}
 {"fn":"menudrop_split","c":"964-977","status":"unknown"}
 {"fn":"menu_drop","c":"981-1107","status":"unknown"}
 {"fn":"u_stuck_cannot_go","c":"1110-1127","status":"ported","js":["js/do.js:u_stuck_cannot_go"],"at":"seed@a30a7de84","note":"stale (grouped)"}

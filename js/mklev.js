@@ -1048,32 +1048,34 @@ export function l_levregion(opts) {
 }
 
 /**
- * C ref: sp_lev.c lspo_exclusion.
- * des.exclusion({ type = "teleport"|"teleport-up"|"teleport-down"|
- *                 "monster-generation", region = { x1,y1,x2,y2 } }).
- * Default type "teleport". get_location(ANY_LOC|NO_LOC_WARN) so packed
- * coords become absolute (map origin, or croom lx/ly). Prepend onto
- * sve.exclusion_zones (persisted via save_exclusions / load_exclusions).
- * Named omit: hellfill rnd_hell_prefab maps.
+ * C ref: sp_lev.c lspo_exclusion `:5498–5532` — des.exclusion opcode in C
+ * order. type via the live get_table_option over ez_types
+ * `:5500–5505` (default "teleport"; an unknown type throws like C's
+ * luaL_checkoption — baked callers pass known types only). region via
+ * get_table_region_unpacked (FALSE: numeric four-tuple, `:5512`).
+ * get_location_coord `:5516–5525` runs on already-unpacked numbers, so
+ * the live get_location arm adds the coder-croom or map origin
+ * (ANY_LOC|NO_LOC_WARN skips the maze-max clamp like C). Prepend onto
+ * sve.exclusion_zones (`:5529–5530`; persisted via save_exclusions /
+ * load_exclusions). Named omit: hellfill rnd_hell_prefab maps.
  */
-const EZ_TYPES = {
-    teleport: LR_TELE,
-    'teleport-up': LR_UPTELE,
-    'teleport-down': LR_DOWNTELE,
-    'monster-generation': LR_MONGEN,
-};
-
 export function lspo_exclusion(opts) {
-    const typeName = opts?.type ?? 'teleport';
-    const zonetype = EZ_TYPES[typeName] ?? LR_TELE;
-    // C sp_lev.c:5514 get_table_region(L, "region", …, FALSE).
-    const region = get_table_region_unpacked(opts ?? {}, 'region', false);
-    const croom = opts.croom ?? null;
+    create_des_coder(); // C :5510
+    const table = lcheck_param_table(arguments); // C :5511
+    // C :5512–5513 — ez_types2i[get_table_option(L, "type", "teleport", ez_types)].
+    const zonetype = [LR_TELE, LR_UPTELE, LR_DOWNTELE, LR_MONGEN][
+        get_table_option(table, 'type', 'teleport',
+            ['teleport', 'teleport-up', 'teleport-down', 'monster-generation'])];
+    const region = get_table_region_unpacked(table, 'region', false); // C :5514
+    // C :5516–5522 — a1/b1/a2/b2 through get_location_coord with
+    // gc.coder->croom (null at every baked call site: no room opcode runs
+    // before des.exclusion in the soko/themerms loads).
+    const croom = game.gc.coder.croom;
     const a = get_location(region[0], region[1],
         ANY_LOC | NO_LOC_WARN, croom);
     const b = get_location(region[2], region[3],
         ANY_LOC | NO_LOC_WARN, croom);
-    const ez = {
+    const ez = { // C :5524–5530
         zonetype,
         lx: a.x,
         ly: a.y,
@@ -21600,6 +21602,12 @@ function pm_to_humidity(pm) {
     return loc;
 }
 
+/** C ref: sp_lev.c pm_good_location `:1310–1314`. Sole C caller
+ * priestini (priest.c:236), wired below. */
+function pm_good_location(x, y, pm) {
+    return is_ok_location(x, y, pm_to_humidity(pm));
+}
+
 /**
  * C ref: sp_lev.c is_ok_location :1280-1308 — Is_waterlevel accept-any,
  * is_ok_location_func override, ANY_LOC, SOLID IS_OBSTRUCTED,
@@ -21649,6 +21657,7 @@ function get_location_random(humidity = DRY) {
         if (ok(x, y)) break;
     } while (++cpt < 100);
     if (cpt >= 100) {
+        // C :1242–1250 last-try scan; a miss leaves x/y at the last cell.
         for (let xx = 0; xx < sx; xx++) {
             for (let yy = 0; yy < sy; yy++) {
                 x = mx + xx;
@@ -21656,8 +21665,12 @@ function get_location_random(humidity = DRY) {
                 if (ok(x, y)) return { x, y };
             }
         }
+        // C :1251–1255 — impossible keeps the last scan coords (sync
+        // caller: un-awaited, lspo_feature :1725 precedent); NO_LOC_WARN
+        // yields -1,-1.
         if (flags & NO_LOC_WARN) return { x: -1, y: -1 };
-        return { x: X_MAZE_MAX, y: Y_MAZE_MAX };
+        void impossible("get_location:  can't find a place!");
+        return { x, y };
     }
     return { x, y };
 }
@@ -22118,10 +22131,11 @@ function create_object_delete_contents(obj) {
 }
 
 /**
- * C ref: sp_lev.c get_location. Packed (x>=0): add map/room origin.
- * ANY_LOC skips the !isok maze-max clamp. Random (x<0): existing
- * get_location_random / in-room somexy. levregion_add always passes
- * ANY_LOC and NULL croom.
+ * C ref: sp_lev.c get_location `:1202–1269`. Packed (x>=0): add map/room
+ * origin. ANY_LOC skips the !isok maze-max clamp (`:1260–1268`).
+ * Random (x<0): get_location_random / get_location_in_room hold the
+ * 100-try loop, the unconditional last-try scan and the
+ * impossible-vs-(-1,-1) failure arms (`:1225–1256`).
  */
 function get_location(x, y, humidity, croom) {
     let mx, my;
@@ -23595,6 +23609,12 @@ function splev_create_trap_coord(croom, kind, absX, absY, opts = {}) {
  * Candidates run is_ok_location directly; the stair override is C module
  * state (set_ok_location_func), not a parameter.
  */
+/**
+ * C ref: sp_lev.c get_location `:1225–1256` — the croom (somexy) half of
+ * the random arm. The last-try scan runs regardless of NO_LOC_WARN
+ * (`:1242–1250`); the flag only picks the failure outcome (`:1251–1255`:
+ * impossible keeping the last scan cell, else -1,-1).
+ */
 function get_location_in_room(croom, humidity = DRY) {
     const flags = humidity | 0;
     const c = { x: 0, y: 0 };
@@ -23604,15 +23624,15 @@ function get_location_in_room(croom, humidity = DRY) {
         if (is_ok_location(c.x, c.y, flags))
             return { x: c.x, y: c.y };
     } while (++cpt < 100);
-    if (!(flags & NO_LOC_WARN)) {
-        for (let x = croom.lx; x <= croom.hx; x++) {
-            for (let y = croom.ly; y <= croom.hy; y++) {
-                if (is_ok_location(x, y, flags))
-                    return { x, y };
-            }
+    for (let x = croom.lx; x <= croom.hx; x++) {
+        for (let y = croom.ly; y <= croom.hy; y++) {
+            if (is_ok_location(x, y, flags))
+                return { x, y };
         }
     }
-    return { x: -1, y: -1 };
+    if (flags & NO_LOC_WARN) return { x: -1, y: -1 };
+    void impossible("get_location:  can't find a place!");
+    return { x: croom.hx, y: croom.hy };
 }
 
 /**
@@ -28517,8 +28537,7 @@ function priestini(lvl, sroom, sx, sy, sanctum) {
         const di = ((i + si) % N_DIRS + N_DIRS) % N_DIRS;
         px = (sx | 0) + xdir[di];
         py = (sy | 0) + ydir[di];
-        // C: pm_good_location → is_ok_location(pm_to_humidity); clerics → DRY
-        if (is_ok_location(px, py, DRY)) break;
+        if (pm_good_location(px, py, prim)) break; // C priest.c:236
     }
     if (i === N_DIRS) {
         px = sx | 0;

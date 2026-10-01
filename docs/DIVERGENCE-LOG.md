@@ -1,5 +1,49 @@
 # Divergence log
 
+## D-3235 — `sp_lev.c` exclusion/location decalog: lspo_exclusion C-order rework + get_location failure arms + pm_good_location (coverage)
+
+- **Status:** fixed (breadth-phase cluster: queue head `lspo_exclusion` + 9 same-file `sp_lev.c`; `js/mklev.js` only, +54/−35 — below the ~80 guideline, said plainly: the head's file holds nothing more Open — every other `sp_lev.c` unknown measures ok, every remaining absent verified `#if 0`/Lua-only/caller-unported (`sp_code_jmpaddr`, `sel_set_wallify`, `l_register_des`, `cvt_to_relcoord` adaptation, `get_trapname_bytype` whose sole caller `nhlua.c:440` is unported Lua introspection) — and the eligible coverage block is now 0 rows).
+- **Symptom:** none on any suite (coverage cluster; 0 corpus sessions blocked on any of the 10 at HEAD — vacuous notes, NOT corpus PASSes).
+- **C locus:**
+  - `lspo_exclusion`: `sp_lev.c:5498–5532` (des.exclusion opcode: coder+table setup, ez_types option, region, two get_location_coord, prepend).
+  - `get_location`: `sp_lev.c:1202–1269` (origin add; random 100-try + unconditional last-try scan + impossible-vs-(-1,-1) failure, `:1225–1256`; ANY_LOC clamp skip, `:1260–1268`).
+  - `pm_good_location`: `sp_lev.c:1310–1314` (`is_ok_location(x, y, pm_to_humidity(pm))`).
+  - `spo_end_moninvent`: `sp_lev.c:3031–3036` (m_dowear-if-set + clear).
+  - `noncoalignment`: `sp_lev.c:1852–1860` (rn2(2) vs original align).
+  - `mapfrag_canmatch`: `sp_lev.c:275–279` (odd wid/hei).
+  - `get_traptype_byname`: `sp_lev.c:4378–4388` (strcmpi loop, NO_TRAP default).
+  - `update_croom`: `sp_lev.c:6324–6333` (coder guard + n_subroom arms).
+  - `flip_dbridge_horizontal`: `sp_lev.c:428–439` (W↔E mask mirror).
+  - `flip_dbridge_vertical`: `sp_lev.c:442–453` (N↔S mask mirror).
+- **JS was:** `lspo_exclusion` (`js/mklev.js:1066`) skipped `create_des_coder`/`lcheck_param_table`, resolved the type through a local `EZ_TYPES` map with a silent `LR_TELE` fallback (C lua-errors), and read `opts.croom` (dead extension, no caller passes it) instead of `gc.coder->croom`. `get_location_random` returned maze-max on total failure (C: impossible + last scan cell); `get_location_in_room` skipped the last-try scan under `NO_LOC_WARN` and returned -1,-1 without the impossible arm. `priestini` inlined `is_ok_location(px, py, DRY)` for `pm_good_location`. The other seven already lived complete under this or split names.
+- **Fix:** `js/mklev.js` only, no new module edges (`get_table_option`/`impossible` already imported, `:150`/`:158`). `lspo_exclusion` restarted in C order (coder, lcheck, live option index, unpacked region, coder croom — null at all 10 baked sites since no room opcode precedes des.exclusion in the soko/themerms loads — prepend); `EZ_TYPES` deleted. Both `get_location` helpers gained the C failure arms (`void impossible("get_location:  can't find a place!")`, exact C `:1251` string, un-awaited per the `:819`/`:1725` sync precedents). New `pm_good_location` + `priestini` rewire (behavior-neutral: both clerics S_HUMAN, traitless — probed).
+- **JS:** 1 file (`mklev.js`, +54/−35), far under the 1500/15 caps.
+- **Callers:**
+  - `lspo_exclusion`: C Lua binding `sp_lev.c:6405` → 10 baked JS sites (9 soko + themerms vault `:31869`) unchanged, all passing known types.
+  - `get_location`: C `:1348`/`:1352`/`2049`/`5113+`/`5374+`/`5640+`/`5902+` → JS split serves `lspo_exclusion`, `l_get_lregion`, `lspo_terrain` and the `get_location_coord*` double-try wrappers; no call-site edits needed.
+  - `pm_good_location`: C `priest.c:236` → `priestini` `js/mklev.js:28540` now calls it.
+  - `spo_end_moninvent`: C `lspo_monster :3392` → split live at `l_create_monster :23290–23296` + 5 baked loaders (`:6590` Pelias, `:7526` Arch Priest, `:8021` Carnarvon, `:8643` Arthur, `:12368` Grand Master); D-2342.
+  - `noncoalignment`: C `:1915` → `sp_amask_to_amask` `:21777`.
+  - `mapfrag_canmatch`: C `:287` → inline `:1918`.
+  - `get_traptype_byname`: C `:4412`/`:4418`/`:4423` → `lspo_traptype_byname` `:1486`, called `:1570`/`:1573`/`:1580`.
+  - `update_croom`: C `:4091`/`:4111`/`:6358` family → `:1877`/`:1891`/`:2193`/`:3107`/room writers unchanged.
+  - `flip_dbridge_horizontal`: C `:845–846` → `:19669–19670`.
+  - `flip_dbridge_vertical`: C `:824–825` → `:19651–19652`.
+- **Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. `node scripts/verify.mjs --fn lspo_exclusion,get_location,pm_good_location,spo_end_moninvent,noncoalignment,mapfrag_canmatch,get_traptype_byname,update_croom,flip_dbridge_horizontal,flip_dbridge_vertical` → PASS syntax (1 changed js file) · PASS rule2 · 10× note hidden (vacuous: 0 blocked — NOT corpus PASSes; queue row cited 0 blocks so no --base owed) · 10× REACH-OK (smoke spreads 24/24; `get_location` RNG-tagged reach included) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Probes (`/tmp/lspo-exclusion-probe.mjs` 6/6: default/MONGEN rects, prepend, 4 zonetypes, unknown-type throw; `/tmp/pm-humidity-probe.mjs`: both clerics traitless ⇒ DRY) PASS. No committed unit test: no `tests/` dir, no `js/*.test.*`, no test script — sessions are the suite (disclosed per durable-test-collateral); failure arms unreached by any session (total-failure only), rewirings probe-proven neutral.
+- **Named omissions:**
+  - `lspo_exclusion`: hellfill `rnd_hell_prefab` maps (pre-existing, review 70).
+  - `get_location`: none — whole body live across the split.
+  - `pm_good_location`: none — whole body live, sole caller wired.
+  - `spo_end_moninvent`: none — whole body live across the split (D-2342).
+  - `noncoalignment`: none.
+  - `mapfrag_canmatch`: none.
+  - `get_traptype_byname`: none.
+  - `update_croom`: none.
+  - `flip_dbridge_horizontal`: none.
+  - `flip_dbridge_vertical`: none.
+- **Ledger:** lspo_exclusion ported; get_location split js=mklev.js:get_location+mklev.js:get_location_random+mklev.js:get_location_in_room; pm_good_location ported; spo_end_moninvent split js=mklev.js:l_create_monster; noncoalignment ported; mapfrag_canmatch split js=mklev.js:mapfrag_error; get_traptype_byname split js=mklev.js:lspo_traptype_byname; update_croom ported; flip_dbridge_horizontal ported; flip_dbridge_vertical ported
+- **Next:** coverage block is 0 rows after this commit — the heat-eligible breadth queue is exhausted. Next iteration pops the corpus-residuals section (first: `engrave.c read_engr_at`, 11 blocks) per the empty-list rule, unless a human refills heat eligibility or reopens phase 2. Do not re-pop any of these 10; falsifier for the failure arms is a session whose level-gen visibly hits total location failure (impossible topline where C prints it).
+
 ## D-3234 — `region.c` gas-creation family: selection membership via live export + `create_gas_cloud` impossible arm (coverage)
 
 - **Status:** fixed (breadth-phase cluster: queue head create_gas_cloud_selection + sibling create_gas_cloud + shared staticfns make_gas_cloud/is_hero_inside_gas_cloud + create_region; js/region.js only, ~10 insertions — below the ~80 guideline: the head's file holds no other queue-eligible row (3-row block, the others are do.c/sp_lev.c) and the callee closure verified whole arm-for-arm, so the only completable C gaps were the two below).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3235 `sp_lev.c` exclusion/location decalog: lspo_exclusion C-order rework + get_location failure arms + pm_good_location (coverage)
+
+**C locus:** - `lspo_exclusion`: `sp_lev.c:5498–5532` (des.exclusion opcode: coder+table setup, ez_types option, region, two get_location_coord, prepend).
+**JS:** 1 file (`mklev.js`, +54/−35), far under the 1500/15 caps.
+**Change:** `js/mklev.js` only, no new module edges (`get_table_option`/`impossible` already imported, `:150`/`:158`). `lspo_exclusion` restarted in C order (coder, lcheck, live option index, unpacked region, coder croom — null at all 10 baked sites since no room opcode precedes des.exclusion in the soko/themerms loads — prepend); `EZ_TYPES` deleted. Both `get_location` helpers gained the C failure arms (`void impossible("get_location:  can't find a place!")`, exact C `:1251` string, un-awaited per the `:819`/`:1725` sync precedents).
+**Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. `node scripts/verify.mjs --fn lspo_exclusion,get_location,pm_good_location,spo_end_moninvent,noncoalignment,mapfrag_canmatch,get_traptype_byname,update_croom,flip_dbridge_horizontal,flip_dbridge_vertical` → PASS syntax (1 changed js file) · PASS rule2 · 10× note hidden (vacuous: 0 blocked — NOT corpus PASSes; queue row cited 0 blocks so no --base owed) · 10× REACH-OK (smoke spreads 24/24; `get_location` RNG-tagged reach included) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Probes (`/tmp/lspo-exclusion-probe.mjs` 6/6: default/MONGEN rects, prepend, 4 zonetypes, unknown-type throw; `/tmp/pm-humidity-probe.mjs`: both clerics traitless ⇒ DRY) PASS.
+**Named:** - `lspo_exclusion`: hellfill `rnd_hell_prefab` maps (pre-existing, review 70).
+**Next:** coverage block is 0 rows after this commit — the heat-eligible breadth queue is exhausted. Next iteration pops the corpus-residuals section (first: `engrave.c read_engr_at`, 11 blocks) per the empty-list rule, unless a human refills heat eligibility or reopens phase 2. Do not re-pop any of these 10; falsifier for the failure arms is a session whose level-gen visibly hits total location failure (impossible topline where C prints it).
 ## 2026-10-01 — D-3234 `region.c` gas-creation family: selection membership via live export + `create_gas_cloud` impossible arm (coverage)
 
 **C locus:** - `create_gas_cloud_selection`: region.c:1313–1336 (bounds `:1323`, create_region `:1325`, x-outer/y bitmap loop `:1326–1332`, make `:1334`).
