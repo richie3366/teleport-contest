@@ -10,6 +10,6 @@
 {"fn":"landing_spot","c":"460-572","status":"unknown","d":["D-1640"],"at":"seed@a30a7de84"}
 {"fn":"dismount_steed","c":"576-822","status":"ported","js":["js/steed.js:dismount_steed"],"d":["D-1915","D-1627"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"maybewakesteed","c":"827-848","status":"unknown"}
-{"fn":"poly_steed","c":"852-873","status":"unknown","d":["D-2243"],"at":"seed@a30a7de84"}
+{"fn":"poly_steed","c":"852-873","status":"ported","js":["js/steed.js:poly_steed"],"d":["D-2243"],"at":"2026-10-01@5139f3d2e","note":"stale: js/steed.js:1086 (D-2243 shipped body + newcham wiring; re-queued on line-count)"}
 {"fn":"stucksteed","c":"878-895","status":"unknown"}
 {"fn":"place_monster","c":"898-932","status":"unknown"}

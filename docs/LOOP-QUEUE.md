@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `steed.c` poly_steed — coverage PARTIAL (C 10 code L `steed.c:852–873` / JS 7 code L in js/steed.js; hops 3, callers 2, RNG 0, msg 1) @3d715b8cd
 - [ ] `artifact.c` set_artifact_intrinsic — coverage PARTIAL (C 127 code L `artifact.c:716–893` / JS 71 code L in js/artifact.js; hops 4, callers 5, RNG 0, msg 0) @3d715b8cd
 - [ ] `mondata.c` name_to_monclass — coverage PARTIAL (C 54 code L `mondata.c:1090–1176` / JS 40 code L in js/mondata.js; hops 3, callers 4, RNG 0, msg 0) @3d715b8cd
 - [ ] `end.c` build_english_list — coverage THIN (C 26 code L `end.c:1823–1859` / JS 4 code L in js/end.js; hops —, callers 1, RNG 0, msg 3; declared partial: - `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value (CR/VT/FF); empty and '*' gua) @250701173
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `options.c` handler_msgtype — coverage PARTIAL (C 60 code L `options.c:6502–6570` / JS 43 code L in js/options.js; hops —, callers 1, RNG 0, msg 3; declared partial: `config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink.) @250701173
 - [ ] `sounds.c` set_voice — coverage THIN (C 12 code L `sounds.c:2161–2182` / JS 4 code L in js/sounds.js; hops 4, callers 2, RNG 0, msg 0) @b938e081b
 - [ ] `display.c` clear_glyph_buffer — coverage PARTIAL (C 24 code L `display.c:2107–2142` / JS 16 code L in js/display.js; hops 3, callers 2, RNG 0, msg 0) @bd7787f89
+- [ ] `read.c` doread — coverage PARTIAL (C 223 code L `read.c:330–647` / JS 124 code L in js/read.js; hops —, callers 0, RNG 0, msg 40) @5139f3d2e
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

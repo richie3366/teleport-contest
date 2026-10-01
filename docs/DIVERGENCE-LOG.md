@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3223 — `artifact.c` set_artifact_intrinsic HALRES changed-arm sync half + 4 same-file stales
+
+- **Status:** fixed (Open coverage row `artifact.c` set_artifact_intrinsic PARTIAL C127/JS71; `hidden-proxy verify`: no corpus session blocked at baseline — coverage gap, REACH-OK is the corpus evidence. Queue head `steed.c` poly_steed popped stale first: D-2243 body + `newcham` wiring verified complete, `ledger set poly_steed ported`.)
+- **Symptom:** no corpus divergence — coverage family. Wielding/wearing an SPFX_HALRES artifact (Grayswandir) while a hallucination timeout ran flipped only the EHalluc_resistance bit: stored u.Hallucination stayed stale (C Hallucination is a macro over the mask; dozens of JS readers use the stored bit) and the make_hallucinated changed-arm refresh (eatmupdate/see_*/update_inventory/botl) never ran.
+- **C locus:**
+  - `set_artifact_intrinsic`: `artifact.c:788–796` (SPFX_HALRES → `make_hallucinated(!on, !restoring, wp_mask)`); `potion.c:385–392` mask arm (HHallucination → changed, `!xtime` → `|=` else `&=~`); `potion.c:414–436` changed arm (`!Hallucination` → eatmupdate, uswallow → swallowed(0) else see_monsters/see_objects/see_traps, update_inventory, disp.botl, talk pline).
+  - `save_artifacts`: `artifact.c:119–128` (Sfo_arti_info/artiexist + Sfo_xint16/artidisco binary writes; sole caller `save.c:320`).
+  - `restore_artifacts`: `artifact.c:133–146` (Sfi reads + `hack_artifacts()` redo; sole caller `restore.c:711`).
+  - `doinvoke`: `artifact.c:1749–1759` (getobj invoke → ECMD_CANCEL → retouch_object → ECMD_TIME → arti_invoke).
+  - `invoke_taming`: `artifact.c:1769–1777` (staticfn: zeroobj pseudo + SCR_TAMING + seffects + ECMD_TIME; sole caller `:2155` TAMING case).
+- **JS was:** `js/artifact.js:1076–1079` HALRES arm ran only `set_spfx_extrinsic(HALLUC_RES, …)` — no Hallucination re-mirror, no changed arm. The other four already live: save half inline in `js/save.js:570–573` (JSON payload, cites save_artifacts); `restore_artifacts` at `js/artifact.js:467` (artidisco copy + hack_artifacts); `doinvoke` at `:2448` C-exact (retouch truthy ⇒ handle valid, loseit=FALSE so no drop); `invoke_taming` file-local at `:2045` like C staticfn (pseudo + seffects + ECMD_TIME).
+- **Fix:** `js/artifact.js` — HALRES arm rewritten in C order (flip + re-mirror + refresh). Changed is captured before the flip (raw HHallucination flat OR uprops[HALLUC].intrinsic, same OR as the file-local Hallucination()); the extrinsic flip runs via set_spfx_extrinsic and u.Hallucination is re-mirrored with the potion.js mask-arm formula (hallucResisted inline). When changed: `!Hallucination()` → eatmupdate, uswallow → swallowed(0) else see_monsters/see_objects/see_traps, update_inventory, disp+flags botl (potion.js changed-arm shape). Only the talk pline stays named (async; every C call site is sync). Imports: see_objects/see_traps/swallowed join the pre-existing display.js edge (ALREADY); new artifact.js→eat.js edge for eatmupdate (`imports.mjs --can`: SAFE, hoisted fn). Doc updated (HALRES sync-half note; omissions narrowed to the talk pline).
+- **JS:** 1 file (`js/artifact.js` +38/−8: 4 import lines + HALRES rewrite + doc), under caps. Density note: below the ~80 floor — verified the head's file and callee closure hold nothing more Open (all 7 head callees live; every other artifact.c gap row complete, shipped as stales below).
+- **Callers:**
+  - `set_artifact_intrinsic`: all 6 C sites wired — do_name.c:407 → js/do_name.js:1406; invent.c:991 → js/u_init.js:1012 (addinv_core1); invent.c:1383 → js/invent.js:9291 (freeinv_core); worn.c:106 → js/do_wear.js:676; worn.c:130 → js/do_wear.js:690; worn.c:173 → js/do.js:523 (setnotworn). inv_prop `:880–885` stays split via revoke_invoked_property (js/artifact.js:1157), awaited by dropx (js/do.js:2622) + zap poly (js/zap.js:5353).
+  - `save_artifacts`: C save.c:320 → js/save.js:570 (split; JSON save design, no NHFILE).
+  - `restore_artifacts`: C restore.c:711 → js/save.js:887.
+  - `doinvoke`: 0 direct C references (table dispatch); JS `#invoke` command live.
+  - `invoke_taming`: C `:2155` TAMING case → same-file arti_invoke dispatch (live).
+- **Verify:**
+  - `set_artifact_intrinsic`: `node scripts/verify.mjs --fn set_artifact_intrinsic,save_artifacts,restore_artifacts,doinvoke,invoke_taming` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (smoke spread 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (runner: no shared file) · VERIFY: PASS. /tmp/halres-probe.mjs (kept out of tree): Grayswandir idx 14 spfx&HALRES ✓; timeout+on → bit set + mirror false, no throw; timeout+off → bit clear + mirror true; no-timeout on → bit set + mirror false. No committed unit test: repo has no js/ harness (sessions + hidden-proxy are the suite).
+  - `save_artifacts`: same verify run → note hidden (no blocked session) + REACH-OK (smoke 24/24).
+  - `restore_artifacts`: same verify run → note hidden + REACH-OK (smoke 24/24).
+  - `doinvoke`: same verify run → note hidden + REACH-OK (smoke 24/24).
+  - `invoke_taming`: same verify run → note hidden + REACH-OK (smoke 24/24).
+- **Named omissions:**
+  - `set_artifact_intrinsic`: HALRES talk pline (`potion.c:434–436` "Everything %s SO boring/cosmic", Unaware/restoring-gated) — async-only, unportable into the sync body at any of the 6 C call sites.
+  - `save_artifacts`: none (binary NHFILE shape is the JS-save design split, behavior live).
+  - `restore_artifacts`: none.
+  - `doinvoke`: none.
+  - `invoke_taming`: none.
+- **Ledger:** set_artifact_intrinsic partial; save_artifacts split js=save.js:dosave0; restore_artifacts ported; doinvoke ported; invoke_taming ported
+- **Next:** do not re-pop any of the five (head whole except the named async pline; stales verified live). A future Grayswandir-while-hallucinating divergence attributes to the talk-pline owner or the see_* refresh callees, not this arm.
+
 ## D-3222 — cmd.c get_changed_key_binds CMD_PARAM arm (BIND=key:cmd(param)) + strbuf_append declared
 
 - **Status:** fixed (Open coverage row `cmd.c` get_changed_key_binds PARTIAL C38/JS20; `hidden-proxy verify`: no corpus session blocked at baseline — coverage gap, REACH-OK is the corpus evidence).

@@ -1,7 +1,7 @@
 {"fn":"hack_artifacts","c":"87-107","status":"unknown"}
 {"fn":"init_artifacts","c":"111-116","status":"unknown","d":["D-1201"],"at":"seed@a30a7de84"}
-{"fn":"save_artifacts","c":"119-128","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"restore_artifacts","c":"133-146","status":"unknown"}
+{"fn":"save_artifacts","c":"119-128","status":"split","js":["js/save.js:dosave0"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restore_artifacts","c":"133-146","status":"ported","js":["js/artifact.js:restore_artifacts"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e"}
 {"fn":"artiname","c":"151-156","status":"unknown"}
 {"fn":"mk_artifact","c":"172-309","status":"unknown","d":["D-2337"],"at":"seed@a30a7de84"}
 {"fn":"dispose_of_orig_obj","c":"312-319","status":"unknown"}
@@ -21,7 +21,7 @@
 {"fn":"defends","c":"636-683","status":"unknown"}
 {"fn":"defends_when_carried","c":"687-694","status":"unknown"}
 {"fn":"protects","c":"698-709","status":"unknown"}
-{"fn":"set_artifact_intrinsic","c":"716-893","status":"unknown","d":["D-2378"],"at":"seed@a30a7de84"}
+{"fn":"set_artifact_intrinsic","c":"716-893","status":"partial","js":["js/artifact.js:set_artifact_intrinsic"],"omit":"- `set_artifact_intrinsic`: HALRES talk pline (`potion.c:434–436` \"Everything %s SO boring/cosmic\", Unaware/restoring-gated) — async-only, unportable into the sync body at any of the 6 C call sites.","d":["D-3223","D-2378"],"at":"2026-10-01@5139f3d2e"}
 {"fn":"touch_artifact","c":"908-974","status":"unknown","d":["D-2172","D-2134","D-2010"],"at":"seed@a30a7de84"}
 {"fn":"arti_immune","c":"979-990","status":"ported","js":["js/artifact.js:arti_immune"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bane_applies","c":"993-1005","status":"ported","js":["js/artifact.js:bane_applies"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:1479 (D-3126; DBONUS mask + spec_applies complete, split-path callers wired)"}
@@ -36,9 +36,9 @@
 {"fn":"Mb_hit","c":"1249-1434","status":"partial","js":["js/artifact.js:Mb_hit"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771","D-2146"],"at":"seed@a30a7de84"}
 {"fn":"artifact_hit","c":"1447-1721","status":"unknown","d":["D-2144","D-1873"],"at":"seed@a30a7de84"}
 {"fn":"invoke_ok","c":"1727-1745","status":"unknown"}
-{"fn":"doinvoke","c":"1749-1759","status":"unknown","d":["D-1502","D-1488"],"at":"seed@a30a7de84"}
+{"fn":"doinvoke","c":"1749-1759","status":"ported","js":["js/artifact.js:doinvoke"],"d":["D-3223","D-1502","D-1488"],"at":"2026-10-01@5139f3d2e"}
 {"fn":"nothing_special","c":"1762-1766","status":"unknown"}
-{"fn":"invoke_taming","c":"1769-1777","status":"unknown"}
+{"fn":"invoke_taming","c":"1769-1777","status":"ported","js":["js/artifact.js:invoke_taming"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e"}
 {"fn":"invoke_healing","c":"1780-1815","status":"unknown","d":["D-1494"],"at":"seed@a30a7de84"}
 {"fn":"invoke_energy_boost","c":"1818-1835","status":"unknown"}
 {"fn":"invoke_untrap","c":"1838-1845","status":"unknown","d":["D-1495"],"at":"seed@a30a7de84"}
