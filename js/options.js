@@ -6745,7 +6745,14 @@ async function handle_add_list_remove(optname, numtotal) {
         { letr: 'r', desc: `remove existing ${name}` },
         { letr: 'x', desc: 'exit this menu' },
     ];
-    const raw = [{ text: 'Do what?', selectable: false }];
+    // C `:9241` end_menu "Do what?" — tty_end_menu paints the prompt with
+    // tty_menu_promptstyle (= menu_headings, default ATR_INVERSE;
+    // wintty.c `:2680–2689`, options.c `:7188–7189`), then a blank
+    // separator item (wintty.c `:2685–2686`; pickup.js precedent).
+    const raw = [
+        { text: 'Do what?', selectable: false, attr: ATR_INVERSE },
+        { text: '', selectable: false },
+    ];
     let a_int = 0; // C: any = cg.zeroany → a_int starts 0
     for (let i = 0; i < rows.length; i++) {
         a_int++; // :9227 any.a_int++ precedes the skip below

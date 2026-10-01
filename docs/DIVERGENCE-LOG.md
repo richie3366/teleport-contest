@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3233 — end_menu prompt style: handler_rebind_keys + handle_add_list_remove + handler_rebind_keys_add paint inverse + blank (4 scen-options blocks move)
+
+- **Status:** fixed (breadth-phase cluster: queue head handler_rebind_keys + writer handle_add_list_remove + same-file callee handler_rebind_keys_add; 4 corpus blocks move to later owners/steps; js/cmd.js + js/options.js, ~13 insertions — below the ~80 guideline: the head's file and callee closure hold nothing more Open (4-row eligible pool, D-3232 Next), and the row's declared param-store omit had already retired (live bind_param_set)).
+- **Symptom:** 4 scen-options sessions blocked kind=screen at cmd.c:2432 with the topline "Do what?" identical on both sides. Cell-level probe (/tmp/celldiff.mjs, /tmp/rowdiff.mjs): C paints the prompt attr=1 (inverse) + blank row 1 + items from row 2; JS painted attr 0 with no blank, shifting every item row up one. The owner heuristic named handler_rebind_keys, but the captured menu is the doset add/list/remove menu — the writer is handle_add_list_remove; the head and its _add callee carry the identical C-wrong (latent: no session captures their menus yet).
+- **C locus:**
+  - `handler_rebind_keys`: cmd.c:2407–2446 (menu `:2417–2430`, end_menu prompt `:2432`, select/destroy `:2433–2434`, dispatch `:2435–2444`).
+  - `handle_add_list_remove`: options.c:9207–9251 (action_titles `:9212–9219`, add loop `:9226–9237` with `:9229–9230` skip, end_menu `:9241`, pick + pick_cnt>1 `:9242–9249`).
+  - `handler_rebind_keys_add`: cmd.c:2290–2405 (keyfirst read `:2303–2308`, header `:2315–2326`, nothing row `:2329–2332`, extcmd loop `:2336–2346`, end prompt `:2347–2351`, pick `:2352–2354`, -1/param `:2361–2380`, bindit `:2383–2390`, prevcmd/Bound/failed `:2391–2403`).
+  - Shared mechanism: wintty.c tty_end_menu `:2680–2690` (prompt prepended with tty_menu_promptstyle + blank item `:2685–2686`); style default iflags.menu_headings = no-color&inverse, options.c `:7188–7189`, relayed via adjust_menu_promptstyle (windows.c `:1769–1777`).
+- **JS was:** all three painted the end_menu prompt as a plain attr-0 header row with no blank separator (js/cmd.js:2431, js/options.js:6748, js/cmd.js:2365).
+- **Fix:** each prompt header gains `attr: ATR_INVERSE` plus a following `{ text: '', selectable: false }` blank, in C order [prompt, blank, items] (handler_pickup_burden / pickup.js precedent). Paint only: selectors, counts and pick logic untouched.
+- **JS:** `js/cmd.js` handler_rebind_keys `:2429` (raw `:2436–2441`), handler_rebind_keys_add `:2320` (prompt `:2367–2373`); `js/options.js` handle_add_list_remove `:6739` (raw `:6751–6758`). ATR_INVERSE already imported in both files; no new edges.
+- **Callers:**
+  - `handler_rebind_keys` ← options.c:8340 do_handler → js/options.js:12990 optfn_o_bind_keys REQ_DO_HANDLER ← doset othrPicks 'bind keys' arm :10964 (pre-existing D-2762 wire).
+  - `handle_add_list_remove` ← options.c:6343 → js/options.js:6907 (autopickup), :6418 → :7002 (menucolor), :6511 → :7141 (message type) (pre-existing wires).
+  - `handler_rebind_keys_add` ← cmd.c:2440 → js/cmd.js:2450 (live).
+  - No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn handler_rebind_keys,handle_add_list_remove,handler_rebind_keys_add` → PASS syntax (2 files) · PASS rule2 · PASS hidden handler_rebind_keys: 0 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS (94011 → handler_autounlock step 16; 94091 → do_statusline2 step 38; 94211 → do_statusline2 step 41; 94151 → status_enlightenment step 40) · REACH-OK ×3 (no RNG-tagged reach; smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:**
+  - `handler_rebind_keys`: blocked: remainder unportable — C key-0+param NULL-deref crash path (bind_key `:2700–2707` segfaults; JS stays total; key 0 returns at _add `:2307`). The bind->param store omit is retired (live bind_param_set js/cmd.js:1733, display D-3222).
+  - `handle_add_list_remove`: none in-body — pick_cnt>1 folded into the single-pick helper (pre-existing doc-named adaptation).
+  - `handler_rebind_keys_add`: none — every arm live.
+- **Ledger:** handler_rebind_keys partial; handle_add_list_remove ported; handler_rebind_keys_add ported
+- **Next:** queue regenerates (3 rows left; eligible pool still below the 8–12 band — picker move stays a human call per D-3232 Next). The 4 sessions' later owners (handler_autounlock, do_statusline2 ×2, status_enlightenment) are future rows, not this cluster.
+
 ## D-3232 — `options.c` config_error_add-sink closure: 4 optfn diagnostics wired + 3 queued bodies verified whole (coverage)
 
 - **Status:** fixed (breadth-phase cluster: queued head handler_whatis_coord + initoptions_finish + handler_menu_objsyms verified whole + 4 same-file Open optfns whose do_set arms carry the rows' named sink omits; 1 js file, ~8 insertions — below the ~80 guideline because the queued rows' bodies were already whole (verified arm-for-arm against the briefed C): the only completable C gaps in the closure were the 4 "not yet wired" diagnostics, completable now that the shared sink is live (D-3173). 4 stale pops retired en route: get_uchars PARTIAL → ported (whole body js/cfgfiles.js:598, callers :722/:735; wait_synch `:433` windowed-input boundary stays doc-named per D-3082), e_at PARTIAL → ported (whole body js/dbridge.js:212, do_entity wires all 6 sites :626–637; debugpline1/wait_synch compiled out without DEBUG/D_DEBUG), bill_box_content PARTIAL → ported (D-1705 whole body js/shk.js:4223, addtobill wires :4303 + self-recurse :4228), kickstr PARTIAL → ported (D-1343 whole body js/dokick.js:297, kick_ouch wires :356).)

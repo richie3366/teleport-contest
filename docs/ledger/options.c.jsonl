@@ -204,7 +204,7 @@
 {"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}
 {"fn":"count_cond","c":"9179-9188","status":"ported","js":["js/options.js:count_cond"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_apes","c":"9191-9202","status":"unknown"}
-{"fn":"handle_add_list_remove","c":"9208-9251","status":"ported","js":["js/options.js:handle_add_list_remove"],"at":"2026-09-30@990da2b8d","note":"stale: js/options.js:5490, whole C body in C order, 3 C callers wired (:5645,:5739,:5866); pick_cnt>1 arm documented unarisable"}
+{"fn":"handle_add_list_remove","c":"9208-9251","status":"ported","js":["js/options.js:handle_add_list_remove"],"d":["D-3233"],"at":"2026-10-01@e5887aa2a","note":"stale: js/options.js:5490, whole C body in C order, 3 C callers wired (:5645,:5739,:5866); pick_cnt>1 arm documented unarisable"}
 {"fn":"dotogglepickup","c":"9256-9274","status":"unknown"}
 {"fn":"toggle_bool_option","c":"9278-9297","status":"unknown"}
 {"fn":"add_autopickup_exception","c":"9300-9346","status":"ported","js":["js/options.js:add_autopickup_exception"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
