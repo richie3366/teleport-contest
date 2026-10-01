@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3204 — `questpgr.c` com_pager_core guardtalk role arrays (blocked quest session unblocked)
+
+- **Status:** fixed (Open — coverage head THIN, C 101 code L `questpgr.c:468–621` / JS 29 code L; hops 3, callers 3, RNG 1, msg 0; `hidden-proxy verify`: 1 corpus session blocked at baseline, moved past). Single-function cluster: the C body was already whole (D-2731/D-1622) — this iteration completes its data closure for the recorded divergence. questpgr.c queue-eligible rows exhausted (only com_pager_core in the block) and the callee closure holds nothing Open (skip_pager/deliver_by_pline/deliver_by_window/convert_line/get_table_option/rn2 ported, impossible/get_table_str_opt partial, nhl_init/nhl_loadlua/nhl_done by-design, dupstr/strNsubst live ok) — small diff by exhaustion, not by choice.
+- **Symptom:** real C-vs-JS divergence with a recorded expectation: scen-quest-Archeologist-94096 step 72/263 kind=rng at `questpgr.c:566` — C `rn2(5)=0 @ com_pager_core` (the guardtalk array pick, Lash LaRue line) vs J `rn2(3)=1 @ nhl_nhlib_align_shuffle`. Root cause: JS `lookup_quest_entry` had no guardtalk_before/guardtalk_after role bodies, so `qt_pager` ran `com_pager_core` twice (role miss + common miss = two nhl_init shuffles) where C runs it once (one shuffle + the rn2(5) pick). The `js/quest.js` comment claiming a miss "still burns the C nhl_init shuffle, so RNG matches C either way (D-2623 pattern)" was wrong — a miss burns a *second* shuffle exactly where C draws the pick.
+- **C locus:**
+  - `com_pager_core`: `nethack-c/upstream/src/questpgr.c:468–621` whole (body unchanged this iteration) + `dat/quest.lua` guardtalk_after/guardtalk_before string arrays × 13 filecodes (Arc anchor `:290–302`, two 5-string arrays; every role verified array-shaped with ≥2 strings by the extractor).
+- **JS was:** `js/questpgr.js` QUEST_ROLE_TEXT with the five D-2853 nemesis msgids only — guardtalk_* missed on every role; `js/quest.js:553–558` carried the false D-2623-pattern comment.
+- **Fix:** `scripts/extract-quest-nemesis.py` generalized (ARRAY_KEYS incl. the guardtalk pair, GUARD_KEYS extraction, Arc Lash-LaRue anchor asserts) writing new `js/generated/quest_guardtalk.js` (QUEST_GUARDTALK, 13 roles × 2 arrays; the nemesis output regenerates byte-identical). `js/questpgr.js:27` imports it, `:624–629` adds both QUEST_ROLE_TEXT keys so the first filecode lookup hits (one shuffle + rn2(nelems) pick, C order); doc omit updated. `js/quest.js:554–560` comment corrected. All % codes in the arrays (%c/%d/%i/%l/%n/%o/%p/%r/%s + C/P/s/j modifiers) are covered by live convert_line/convert_arg (D-1634/D-1649) — no converter change.
+- **JS:** `js/generated/quest_guardtalk.js:1–193` (new) + `js/questpgr.js:27,624–629,1108` + `js/quest.js:554–560`; +72/−19 tracked per `git diff --stat` plus the 193-line generated file.
+- **Callers:**
+  - `com_pager_core`: C `questpgr.c:163` is `#if 0`-dead (no JS — named, not wired); C `:172` (stinky_nemesis rawtext) → `js/questpgr.js:1204`; C `:626` (com_pager) → `js/questpgr.js:1221`; C `:632–633` (qt_pager role-then-common) → `js/questpgr.js:1232–1233`. Reverse-checked: no other JS callers (com_pager_legacy path untouched).
+- **Verify:** `node scripts/verify.mjs --fn com_pager_core` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/quest.js js/questpgr.js js/generated/quest_guardtalk.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+PASS  hidden   verify com_pager_core: 0 PASS, 1 moved past (1 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS
+       scen-quest-Archeologist-94096: moved → dog_goal at step 72 (was 72; same step: re-attributed, read the row diff)
+PASS  reach    com_pager_core: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+Move-past confirmed genuine: C and JS toplines now both show the Lash LaRue line (`hidden-proxy show`: `rn2(5)` pick matched); the new owner is `dog_goal(dogmove.c:554)` pet-movement RNG, a different subsystem (known dogmove/obj_resists area, phase-2 context — not opened). No maintained unit-test layout in repo (sessions + verify are the harness); the blocked corpus session is the regression test.
+- **Named omissions:**
+  - `com_pager_core`: impossible() text on all miss arms (pre-existing — embedded tables cannot fail to load, and a JS miss covers unported role bodies where C shows text); other unextracted role bodies still miss (hasamulet, posthanks, leader_next, leader_last, gotit, encourage, badlevel — same double-shuffle shape when a live caller hits them, future extraction rows); lua VM init/load/teardown (by-design, no VM); TEST_PATTERN (lua self-test only); convert_arg catalogue D-1649 / pronoun D-1634 shipped, untouched.
+- **Ledger:** com_pager_core partial
+- **Next:** next Open — coverage row (questpgr.c exhausted).
+
 ## D-3203 — `do_name.c` roguename ROGUEOPTS arm + mon_nam_too/docallcmd stale (3-function cluster)
 
 - **Status:** fixed (Open — coverage head THIN, C 10 L `do_name.c:1424–1439` / JS 3 L; hops 2, callers 2, RNG 2, msg 0; `hidden-proxy verify`: no corpus session blocked at baseline). 3-function cluster: roguename ported (env arm over a shared nh_getenv), mon_nam_too + docallcmd stale-ported (bodies already complete, every C caller wired). Same-file closure exhausted (`rows 200` lists only these three do_name.c rows) and the callee closure (nh_getenv ok, rn2 ported) holds nothing Open — small diff by exhaustion, not by choice.

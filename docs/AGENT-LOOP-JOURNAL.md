@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3204 `questpgr.c` com_pager_core guardtalk role arrays (blocked quest session unblocked)
+
+**C locus:** - `com_pager_core`: `nethack-c/upstream/src/questpgr.c:468–621` whole (body unchanged this iteration) + `dat/quest.lua` guardtalk_after/guardtalk_before string arrays × 13 filecodes (Arc anchor `:290–302`, two 5-string arrays; every role verified array-shaped with ≥2 strings by the extractor).
+**JS:** `js/generated/quest_guardtalk.js:1–193` (new) + `js/questpgr.js:27,624–629,1108` + `js/quest.js:554–560`; +72/−19 tracked per `git diff --stat` plus the 193-line generated file.
+**Change:** `scripts/extract-quest-nemesis.py` generalized (ARRAY_KEYS incl. the guardtalk pair, GUARD_KEYS extraction, Arc Lash-LaRue anchor asserts) writing new `js/generated/quest_guardtalk.js` (QUEST_GUARDTALK, 13 roles × 2 arrays; the nemesis output regenerates byte-identical). `js/questpgr.js:27` imports it, `:624–629` adds both QUEST_ROLE_TEXT keys so the first filecode lookup hits (one shuffle + rn2(nelems) pick, C order); doc omit updated. `js/quest.js:554–560` comment corrected.
+**Verify:** `node scripts/verify.mjs --fn com_pager_core` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `com_pager_core`: impossible() text on all miss arms (pre-existing — embedded tables cannot fail to load, and a JS miss covers unported role bodies where C shows text); other unextracted role bodies still miss (hasamulet, posthanks, leader_next, leader_last, gotit, encourage, badlevel — same double-shuffle shape when a live caller hits them, future extraction rows); lua VM init/load/teardown (by-design, no VM); TEST_PATTERN (lua self-test only); convert_arg catalogue D-1649 / pronoun D-1634 shipped, untouched.
+**Next:** next Open — coverage row (questpgr.c exhausted).
 ## 2026-10-01 — D-3203 `do_name.c` roguename ROGUEOPTS arm + mon_nam_too/docallcmd stale (3-function cluster)
 
 **C locus:** - `roguename`: `nethack-c/upstream/src/do_name.c:1424–1439` whole — ROGUEOPTS `name=` scan with `,` truncation `:1428–1437`, rn2 fallback `:1438–1439`.

@@ -1,6 +1,6 @@
 {
- "commit": "a5f89dd93",
- "at": "2026-10-01T07:56:41.574Z",
+ "commit": "3476ed37a",
+ "at": "2026-10-01T08:05:58.469Z",
  "full": false,
  "fullCommit": "139f221a9",
  "fullAt": "2026-10-01T06:25:37.243Z",
@@ -10805,18 +10805,18 @@
   "scen-quest-Archeologist-94096": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4752,
+   "rngM": 4766,
    "rngT": 8010,
-   "scrM": 75,
+   "scrM": 76,
    "scrT": 263,
    "kind": "rng",
    "step": 72,
    "steps": 263,
-   "owner": "com_pager_core",
-   "loc": "questpgr.c:566",
-   "jsOwner": "nhl_nhlib_align_shuffle(dungeon.js:1500)",
+   "owner": "dog_goal",
+   "loc": "dogmove.c:554",
+   "jsOwner": "obj_resists(dogmove.js:186)",
    "cTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
-   "jsTopline": "",
+   "jsTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "error": null
   },
   "scen-quest-Archeologist-94276": {

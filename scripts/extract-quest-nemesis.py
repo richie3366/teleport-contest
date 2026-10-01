@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Embed quest.lua nemesis speech tables into js/generated/quest_nemesis_speech.js.
+"""Embed quest.lua nemesis speech + guardtalk tables into js/generated/.
 
 Contest Rule #2: scored js/ must not read dat/ at runtime. The five msgids
 nemesis_speaks passes to qt_pager live on each role table in dat/quest.lua.
 discourage is a string array (com_pager_core draws rn2(nelems)). The four
-nemesis_* entries are {text, synopsis?, output?} tables.
+nemesis_* entries are {text, synopsis?, output?} tables. The two msgids
+chat_with_guardian passes (guardtalk_after/guardtalk_before, quest.c:445/447)
+are string arrays on each role table; without them the JS role lookup misses
+and qt_pager burns a second nhl_init shuffle where C draws the rn2 pick.
 """
 from __future__ import annotations
 
@@ -14,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "nethack-c" / "upstream" / "dat" / "quest.lua"
 OUT = ROOT / "js" / "generated" / "quest_nemesis_speech.js"
+OUT_GUARD = ROOT / "js" / "generated" / "quest_guardtalk.js"
 
 ROLES = (
     "Arc", "Bar", "Cav", "Hea", "Kni", "Mon", "Pri",
@@ -26,6 +30,11 @@ KEYS = (
     "nemesis_other",
     "nemesis_wantsit",
 )
+GUARD_KEYS = (
+    "guardtalk_after",
+    "guardtalk_before",
+)
+ARRAY_KEYS = frozenset({"discourage", "guardtalk_after", "guardtalk_before"})
 
 
 def skip_ws(s: str, i: int) -> int:
@@ -206,15 +215,15 @@ def extract_key(body: str, key: str) -> object:
 
 def normalize(val: object, role: str, key: str) -> object:
     if isinstance(val, list):
-        if key != "discourage":
+        if key not in ARRAY_KEYS:
             raise SystemExit(f"{role}.{key} is an array; expected a text table")
         if len(val) < 2:
-            raise SystemExit(f"{role}.discourage has {len(val)} strings (<2)")
+            raise SystemExit(f"{role}.{key} has {len(val)} strings (<2)")
         return val
     if not isinstance(val, dict) or "text" not in val:
         raise SystemExit(f"{role}.{key} has no text")
-    if key == "discourage":
-        raise SystemExit(f"{role}.discourage is a text table; expected an array")
+    if key in ARRAY_KEYS:
+        raise SystemExit(f"{role}.{key} is a text table; expected an array")
     out: dict[str, str] = {"text": val["text"]}
     if "synopsis" in val:
         out["synopsis"] = val["synopsis"]
@@ -245,6 +254,24 @@ def main() -> None:
     assert arc_first["output"] == "text"
     assert "synopsis" in arc_first
 
+    guard: dict[str, dict[str, object]] = {k: {} for k in GUARD_KEYS}
+    for role in ROLES:
+        a, b = role_span(src, role)
+        body = src[a:b]
+        for key in GUARD_KEYS:
+            guard[key][role] = normalize(extract_key(body, key), role, key)
+
+    # Arc guardtalk anchor (quest.lua:290–302): two 5-string arrays; the
+    # Lash LaRue line is what scen-quest-Archeologist-94096 step 72 draws.
+    arc_after = guard["guardtalk_after"]["Arc"]
+    assert isinstance(arc_after, list) and len(arc_after) == 5
+    assert arc_after[0] == (
+        '"Did you see Lash LaRue in \'Song of Old Wyoming\' the other night?"'
+    )
+    arc_before = guard["guardtalk_before"]["Arc"]
+    assert isinstance(arc_before, list) and len(arc_before) == 5
+    assert arc_before[0] == arc_after[0]
+
     body = json.dumps(speech, ensure_ascii=False, indent=2)
     OUT.write_text(
         "// AUTO-GENERATED from nethack-c/upstream/dat/quest.lua\n"
@@ -258,6 +285,22 @@ def main() -> None:
     )
     nlines = OUT.read_text(encoding="utf-8").count("\n")
     print(f"wrote {OUT} ({OUT.stat().st_size} bytes, {nlines} lines, {len(ROLES)} roles)")
+
+    gbody = json.dumps(guard, ensure_ascii=False, indent=2)
+    OUT_GUARD.write_text(
+        "// AUTO-GENERATED from nethack-c/upstream/dat/quest.lua\n"
+        "// Regenerate: python3 scripts/extract-quest-nemesis.py\n"
+        "// Contest Rule #2: in-process only — no runtime filesystem.\n"
+        "// C: questtext[filecode].guardtalk_after/guardtalk_before are string\n"
+        "// arrays (rn2(nelems)) so the first com_pager_core(filecode) hits.\n"
+        f"export const QUEST_GUARDTALK = {gbody};\n",
+        encoding="utf-8",
+    )
+    glines = OUT_GUARD.read_text(encoding="utf-8").count("\n")
+    print(
+        f"wrote {OUT_GUARD} ({OUT_GUARD.stat().st_size} bytes, "
+        f"{glines} lines, {len(ROLES)} roles)"
+    )
 
 
 if __name__ == "__main__":
