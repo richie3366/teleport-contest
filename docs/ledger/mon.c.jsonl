@@ -23,7 +23,7 @@
 {"fn":"mon_give_prop","c":"1726-1774","status":"ported","js":["js/mon.js:mon_give_prop"],"d":["D-2660"],"at":"seed@a30a7de84"}
 {"fn":"mon_givit","c":"1778-1824","status":"ported","js":["js/mon.js:mon_givit"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"mpickgold","c":"1827-1843","status":"unknown"}
-{"fn":"mpickstuff","c":"1847-1910","status":"ported","js":["js/monmove.js:mpickstuff"],"d":["D-3176","D-2085"],"at":"2026-09-30@3f8f47e04"}
+{"fn":"mpickstuff","c":"1847-1910","status":"ported","js":["js/monmove.js:mpickstuff"],"d":["D-3192","D-3176","D-2085"],"at":"2026-10-01@480b65c81"}
 {"fn":"curr_mon_load","c":"1913-1924","status":"ported","js":["js/monmove.js:curr_mon_load"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"max_mon_load","c":"1927-1954","status":"ported","js":["js/monmove.js:max_mon_load"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"can_touch_safely","c":"1958-1974","status":"unknown"}

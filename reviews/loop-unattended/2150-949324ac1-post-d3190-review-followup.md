@@ -6,9 +6,11 @@ the JS bodies against pinned C at tree 949324ac1 (post-D-3190 + TDZ fix).
 No JS or upstream C edits here. Verdict rationale below; Must-fix rows
 prepended to docs/LOOP-QUEUE.md in the same commit.
 
-**Addressed:** D-3191
+**Addressed:** D-3191 `4a2447e2`
 
-Items 1, 3–4 closed; item 2 (mpickstuff verbose gate) remains queued.
+**Addressed:** D-3192
+
+Items 1–4 closed.
 
 ## 1. prinv verbose gate flipped to truthy (D-3186, C-wrong)
 

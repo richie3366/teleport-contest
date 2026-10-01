@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3192 — restore mpickstuff verbose default-ON gate
+
+- **Status:** fixed review 2150 item 2; Must-fix ships alone. Whole pinned C body and all brief reference tables read before editing; existing complete control flow retained, one gate corrected. Must-fix density exception: 1 scored JS file, 3 insertions; no unrelated coverage row.
+- **Symptom:** measured by review 2150's C-vs-JS read at tree 949324ac1, not a blocked corpus session: with `game.flags` uninitialized, `mpickstuff` suppressed the "%s picks up %s." message C prints (decl-TRUE `flags.verbose`).
+- **C locus:**
+  - `mpickstuff`: mon.c:1847–1910; whole body read in brief output; the message gate is `if (flags.verbose)` at :1898 with `flags.verbose` decl-initialized TRUE.
+- **JS was:** js/monmove.js:535 (D-3176) used truthy `game.flags.verbose` (also dropping `?.`), contradicting the port's own default-ON convention (`!== false` at js/invent.js:7641,7694,9192,9209 and js/options.js:2331,2797,3021).
+- **Fix:** restored `game.flags?.verbose !== false` in `mpickstuff` with a C-citing comment. No new imports, runtime filesystem, RNG/frame alignment or recorded-input gates.
+- **JS:** js/monmove.js:537 mpickstuff gate. Same export name and signature retained.
+- **Callers:**
+  - `mpickstuff`: gate-only change; the one executable C call site (monmove.c:1680) keeps its existing JS wiring (no caller touched).
+- **Verify:** no failed sessions to triage. `node scripts/verify.mjs --fn mpickstuff` completed with this actual tail:
+
+```text
+PASS  syntax   1 changed js file(s): js/monmove.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mpickstuff: no corpus session blocked on it at baseline
+PASS  reach    mpickstuff: 3 baseline-PASS session(s) reach it (3 run, 2.7s): 3 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+VERIFY: PASS
+```
+
+- **Named omissions:**
+  - `mpickstuff`: none added; restores the D-3176 body to the C gate.
+- **Ledger:** mpickstuff ported
+- **Next:** pop the next Must-fix row (review 2145 roomtype validation/diagnostic closure).
+
 ## D-3191 — restore prinv verbose default-ON gate plus inventory hardening
 
 - **Status:** fixed review 2150 items 1, 3–4; first Must-fix ships alone. Whole pinned C body and all brief reference tables read before editing; existing complete control flow retained, one gate corrected and two unreachable-arm hardenings added. Must-fix density exception: 2 scored JS files, 7 insertions; no unrelated coverage row.

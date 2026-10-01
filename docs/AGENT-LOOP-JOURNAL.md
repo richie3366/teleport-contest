@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3192 restore mpickstuff verbose default-ON gate
+
+**C locus:** - `mpickstuff`: mon.c:1847–1910; whole body read in brief output; the message gate is `if (flags.verbose)` at :1898 with `flags.verbose` decl-initialized TRUE.
+**JS:** js/monmove.js:537 mpickstuff gate. Same export name and signature retained.
+**Change:** restored `game.flags?.verbose !== false` in `mpickstuff` with a C-citing comment. No new imports, runtime filesystem, RNG/frame alignment or recorded-input gates.
+**Verify:** no failed sessions to triage. `node scripts/verify.mjs --fn mpickstuff` completed with this actual tail:
+**Named:** - `mpickstuff`: none added; restores the D-3176 body to the C gate.
+**Next:** pop the next Must-fix row (review 2145 roomtype validation/diagnostic closure).
 ## 2026-10-01 — D-3191 restore prinv verbose default-ON gate plus inventory hardening
 
 **C locus:** - `prinv`: invent.c:2875–2890; whole body read in brief output; the suffix gate is `flags.verbose ? totalbuf : ""` at :2889 with `flags.verbose` decl-initialized TRUE.
