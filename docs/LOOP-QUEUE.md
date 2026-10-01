@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `mkmaze.c` movebubbles — coverage PARTIAL (C 96 code L `mkmaze.c:1539–1685` / JS 57 code L in js/mklev.js; hops 2, callers 3, RNG 3, msg 0; declared partial: `panic("movebubbles: cons != null")` → `impossible` (no live JS panic export); BREADCRUMBS `Unplacebc_and_covet_placebc`/`Lift_covet_and_pla) @c1c0d92f4
-- [ ] `zap.c` wishcmdassist — coverage THIN (C 51 code L `zap.c:6165–6219` / JS 16 code L in js/zap.js; hops 3, callers 2, RNG 0, msg 7; declared partial: `wish_history_add`/`wish_history_menu` DEBUG menu (pre-existing no-op/deferred, map turns.md); MAXWISHTRY retry loop for unrecognized names ) @c1c0d92f4
-- [ ] `mkmaze.c` makemaz — coverage PARTIAL (C 67 code L `mkmaze.c:1127–1223` / JS 31 code L in js/mklev.js; hops 1, callers 1, RNG 6, msg 1; declared partial: SPLEVTYPE `getenv` endpoint (wizard-debug only; no environment in scored ESM, Rule #2); `Is_branchlev` (no live export — same-file local, on) @d946e150c
-- [ ] `uhitm.c` mhitm_ad_drli — coverage THIN (C 41 code L `uhitm.c:2445–2518` / JS 17 code L in js/mhitm.js; hops 4, callers 2, RNG 5, msg 3; declared partial: split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-) @92ffa7863
-- [ ] `getpos.c` getpos_help — coverage PARTIAL (C 121 code L `getpos.c:167–307` / JS 83 code L in js/getpos.js; hops 2, callers 1, RNG 0, msg 18) @92ffa7863
-- [ ] `uhitm.c` mhitm_ad_sedu — coverage THIN (C 92 code L `uhitm.c:4623–4748` / JS 39 code L in js/mhitm.js; hops 4, callers 2, RNG 1, msg 5; declared partial: `mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arm) @5b559b238
-- [ ] `uhitm.c` mhitm_ad_legs — coverage THIN (C 41 code L `uhitm.c:4425–4489` / JS 5 code L in js/mhitm.js; hops 4, callers 1, RNG 4, msg 6; declared partial: poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); `damageum_ad_phys` shade `impossible("bad shade attack function flow?")` (p) @c1022f867
-- [ ] `shknam.c` shkname — coverage PARTIAL (C 27 code L `shknam.c:856–897` / JS 16 code L in js/shknam.js; hops 3, callers 21, RNG 2, msg 0; declared partial: `:866` impossible message (async in JS; unreachable for valid input; C fallthrough stands); `zap.c:5549` fracture-rock shop-billable arm (pr) @c1022f867
-- [ ] `do_wear.c` accessory_or_armor_on — coverage PARTIAL (C 154 code L `do_wear.c:2209–2428` / JS 97 code L in js/do_wear.js; hops 4, callers 3, RNG 0, msg 9) @acf56d4dd
 - [ ] `bones.c` savebones — coverage PARTIAL (C 143 code L `bones.c:403–625` / JS 104 code L in js/end.js; hops 3, callers 3, RNG 0, msg 1; dead callees: commit_bonesfile) @057174e0c
 - [ ] `do_name.c` roguename — coverage THIN (C 10 code L `do_name.c:1424–1439` / JS 3 code L in js/do_name.js; hops 2, callers 2, RNG 2, msg 0) @057174e0c
 - [ ] `questpgr.c` com_pager_core — coverage THIN (C 101 code L `questpgr.c:468–621` / JS 29 code L in js/questpgr.js; hops 3, callers 3, RNG 1, msg 0; declared partial: impossible() text on all miss arms (tables are embedded constants so load cannot fail, and a JS miss also covers unported role bodies where ) @057174e0c
+- [ ] `insight.c` status_enlightenment — coverage MISSING (C 236 code L `insight.c:940–1266` / JS no symbol; hops 5, callers 1, RNG 0, msg 3) @6e06fa8e7
+- [ ] `mkroom.c` mkshop — coverage THIN (C 78 code L `mkroom.c:95–216` / JS 4 code L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0; declared partial: SHOPTYPE single-char dispatch (`:104–153` — env endpoint absent per the omit above; every dispatch callee — `mkzoo` all 8 types, `mktemple`,) @6e06fa8e7
+- [ ] `insight.c` attributes_enlightenment — coverage MISSING (C 383 code L `insight.c:1487–2005` / JS no symbol; hops 5, callers 1, RNG 0, msg 2) @6e06fa8e7
+- [ ] `uhitm.c` mhitm_ad_cold — coverage THIN (C 41 code L `uhitm.c:2626–2681` / JS 15 code L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 3) @6e06fa8e7
+- [ ] `zap.c` resist — coverage PARTIAL (C 44 code L `zap.c:6100–6158` / JS 26 code L in js/zap.js; hops 4, callers 17, RNG 1, msg 0) @6e06fa8e7
+- [ ] `weapon.c` possibly_unwield — coverage PARTIAL (C 26 code L `weapon.c:747–795` / JS 13 code L in js/weapon.js; hops 3, callers 7, RNG 0, msg 1; declared partial: get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-c) @6e06fa8e7
+- [ ] `uhitm.c` hmon — coverage THIN (C 9 code L `uhitm.c:819–834` / JS 3 code L in js/uhitm.js; hops 3, callers 5, RNG 1, msg 0) @6e06fa8e7
+- [ ] `zap.c` do_osshock — coverage MISSING (C 20 code L `zap.c:1637–1674` / JS no symbol; hops 6, callers 2, RNG 3, msg 0; declared partial: `fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`).) @6e06fa8e7
+- [ ] `pickup.c` doloot_core — coverage PARTIAL (C 114 code L `pickup.c:2178–2346` / JS 80 code L in js/pickup.js; hops 5, callers 1, RNG 2, msg 8) @6e06fa8e7
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

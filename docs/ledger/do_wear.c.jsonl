@@ -45,9 +45,9 @@
 {"fn":"cursed","c":"1893-1917","status":"ported","js":["js/do_wear.js:cursed"],"d":["D-2920"],"at":"seed@a30a7de84"}
 {"fn":"armoroff","c":"1920-2008","status":"unknown","d":["D-2077"],"at":"seed@a30a7de84"}
 {"fn":"already_wearing","c":"2011-2014","status":"unknown"}
-{"fn":"already_wearing2","c":"2017-2020","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"already_wearing2","c":"2017-2020","status":"ported","js":["js/do_wear.js:already_wearing2"],"d":["D-3201"],"at":"2026-10-01@6e06fa8e7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"canwearobj","c":"2030-2206","status":"unknown"}
-{"fn":"accessory_or_armor_on","c":"2209-2428","status":"unknown","d":["D-2192"],"at":"seed@a30a7de84"}
+{"fn":"accessory_or_armor_on","c":"2209-2428","status":"ported","js":["js/do_wear.js:accessory_or_armor_on"],"d":["D-3201","D-2192"],"at":"2026-10-01@6e06fa8e7"}
 {"fn":"dowear","c":"2432-2450","status":"unknown"}
 {"fn":"doputon","c":"2454-2469","status":"unknown"}
 {"fn":"find_ac","c":"2473-2525","status":"ported","js":["js/u_init.js:find_ac"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}

@@ -7,7 +7,7 @@
 
 import { game } from './gstate.js';
 import {
-    flush_topl_more, pline, You, Your, You_feel, mark_topline_prompt,
+    flush_topl_more, pline, You, Your, You_feel, You_cant, There, mark_topline_prompt,
     newsym, see_monsters, urgent_pline, impossible, Hallucination, pline_The,
     hero_Invisible, hero_Blind_telepat, hero_Unblind_telepat, Detect_monsters,
 } from './display.js';
@@ -60,7 +60,8 @@ import {
     ALL_FINISHED, ALL_TYPES_SELECTED, ALL_TYPES, WORN_TYPES, UNPAID_TYPES,
     BUCX_TYPES, SIGNAL_NOMENU, USE_INVLET, INVORDER_SORT, PICK_ANY,
     CXN_ARTICLE,
-    HAND, FOOT, FINGER, NECK, TT_BEARTRAP, TT_INFLOOR, TT_LAVA, TT_BURIEDBALL, P_SHORT_SWORD, P_SABER,
+    HAND, FOOT, FINGER, NECK, FACE, TT_BEARTRAP, TT_INFLOOR, TT_LAVA, TT_BURIEDBALL, P_SHORT_SWORD, P_SABER,
+    something,
     Is_waterlevel, Is_airlevel,
     rightleftchars, RIGHT_HANDED,
     GETOBJ_EXCLUDE, GETOBJ_EXCLUDE_INACCESS, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST,
@@ -74,7 +75,7 @@ import {
     ARMOR_CLASS, RING_CLASS, AMULET_CLASS, WEAPON_CLASS, TOOL_CLASS,
     objectNames, objectNameStrs, objectDescrs, is_sword,
 } from './objects.js';
-import { PM_ARCHEOLOGIST, PM_WIZARD, PM_MONK, nolimbs, nohands, has_head, verysmall, slithy, MZ_SMALL, touch_petrifies, mons, is_flyer, is_clinger } from './monsters.js';
+import { PM_ARCHEOLOGIST, PM_WIZARD, PM_MONK, nolimbs, nohands, has_head, verysmall, slithy, MZ_SMALL, touch_petrifies, mons, is_flyer, is_clinger, humanoid } from './monsters.js';
 import {
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, is_damageable, is_metallic, curse, set_bknown,
@@ -304,6 +305,15 @@ async function on_msg(otmp) {
 async function already_wearing(cc) {
     const punct = cc === 'that' ? '!' : '.';
     await pline(`You are already wearing ${cc}${punct}`);
+}
+
+/**
+ * C ref: do_wear.c already_wearing2 `:2016–2020` — You_cant cross-wear
+ * conflict. Callers: accessory_or_armor_on eyewear matrix (`:2335`,
+ * `:2340`) — the only two C call sites.
+ */
+async function already_wearing2(cc1, cc2) {
+    await You_cant('wear %s because you\'re wearing %s there already.', cc1, cc2);
 }
 
 /**
@@ -3228,18 +3238,21 @@ export async function Amulet_off() {
 
 /**
  * Ask Right/Left for a ring when both hands free.
- * C ref: do_wear.c accessory_or_armor_on —
- *   yn_function(qbuf, rightleftchars, '\0', TRUE).
- * query_menu is D-1728 (`resp === rightleftchars`). Named: poly
- * body_part(FINGER) wording.
+ * C ref: do_wear.c accessory_or_armor_on `:2279–2301` —
+ *   Sprintf(qbuf, "Which %s%s, Right or Left?", humanoid ? "ring-" : "",
+ *   body_part(FINGER)); yn_function(qbuf, rightleftchars, '\0', TRUE);
+ *   switch: '\0'/'\033' → ECMD_OK, l/L → LEFT_RING, r/R → RIGHT_RING,
+ *   while (!mask).
+ * query_menu is D-1728 (`resp === rightleftchars`). ESC ('\x1b', C
+ * '\033') cancels like C `:2289` (C's yn remap `:5559–5581` impossibles
+ * first, mirrored in getline.js — the path is C-exact end to end).
  */
 async function choose_ring_hand() {
-    // C: Sprintf(qbuf, "Which %s%s, Right or Left?", "ring-", finger)
-    // yn_function / tty_yn_function appends " [rl] " (no (def) when '\0').
-    const q = 'Which ring-finger, Right or Left?';
+    // C: yn_function / tty_yn_function appends " [rl] " (no (def) when '\0').
+    const q = `Which ${humanoid(game.youmonst?.data) ? 'ring-' : ''}${body_part(FINGER)}, Right or Left?`;
     for (;;) {
         const answer = await yn_function(q, rightleftchars, '\0');
-        if (!answer || answer === '\0') return 0;
+        if (!answer || answer === '\0' || answer === '\x1b') return 0;
         if (answer === 'l' || answer === 'L') return LEFT_RING;
         if (answer === 'r' || answer === 'R') return RIGHT_RING;
         // C: while (!mask) — only reachable if yn returns unexpected
@@ -3260,9 +3273,19 @@ function hero_glib() {
 }
 
 /**
- * C ref: do_wear.c accessory_or_armor_on — armor delay + accessory put-on.
- * Exotic amulet side effects deferred. Blindf_on / Blindf_off ported
- * (Punished set_bc D-1769).
+ * C ref: do_wear.c accessory_or_armor_on `:2209–2428` — whole body in C
+ * order: worn guard (`:2213–2216`); armor canwearobj + helm-of-opposite
+ * quest refusal (`:2222–2244`); ring nolimbs/full-fingers/hand-choice +
+ * Glib/cursed-gloves/welded gates (`:2260–2332`); amulet (`:2333–2338`);
+ * eyewear head + ublindf conflict matrix (`:2339–2353`); neither-arm
+ * (`:2354–2358`); retouch (`:2361–2362`); armor setworn + afternmv +
+ * delay/unmul + takeoff reset (`:2364–2415`); accessory Ring/Amulet/
+ * Blindf_on + unexpected-type impossible (`:2416–2427`).
+ * Returns 0/1 ≡ ECMD_OK/ECMD_TIME (const.js values); callers dowear /
+ * doputon (`:2449` / `:2468`) return it through. already_wearing2 is the
+ * same-file callee below. The `:2397` panic abort has no live panic
+ * export; the diagnostic is preserved via impossible + afternmv-null
+ * (remove_object/shkname precedent) — no omission. Named omissions: none.
  * @returns {number} 0 = no turn / fail, 1 = took time
  */
 async function accessory_or_armor_on(obj) {
@@ -3284,6 +3307,20 @@ async function accessory_or_armor_on(obj) {
         const maskBox = { mask: 0 };
         if (!(await canwearobj(obj, maskBox, true))) return 0;
         mask = maskBox.mask;
+        /* C `:2233–2243` — helm of opposite alignment, in quest (dnum
+         * compare, not on_level): refuse, lose divine protection. */
+        if (obj.otyp === HELM_OF_OPPOSITE_ALIGNMENT
+            && game.qstart_level
+            && (game.qstart_level.dnum | 0) === (u.uz?.dnum | 0)) {
+            if ((u.ualignbase?.current | 0) === (u.ualignbase?.original | 0))
+                await You('narrowly avoid losing all chance at your goal.');
+            else /* converted */
+                await You('are suddenly overcome with shame and change your mind.');
+            u.ublessed = 0; /* lose your god's protection */
+            makeknown(obj.otyp);
+            game.disp.botl = true; /* for AC after zeroing u.ublessed */
+            return 1;
+        }
     } else if (ring) {
         // C: nolimbs before hand choice — ECMD_OK, no Right/Left yn
         if (nolimbs(game.youmonst?.data)) {
@@ -3291,7 +3328,9 @@ async function accessory_or_armor_on(obj) {
             return 0;
         }
         if (u.uleft && u.uright) {
-            await pline('There are no more ring-fingers to fill.');
+            await There('are no more %s%s to fill.',
+                humanoid(game.youmonst?.data) ? 'ring-' : '',
+                fingers_or_gloves(false));
             return 0;
         }
         if (u.uleft) mask = RIGHT_RING;
@@ -3303,14 +3342,13 @@ async function accessory_or_armor_on(obj) {
         // C ref: do_wear.c accessory_or_armor_on — Glib / cursed gloves /
         // welded uwep gates after hand choice (D-0699).
         if (u.uarmg && hero_glib()) {
-            await pline(
-                'Your gloves are too slippery to remove, so you cannot put on the ring.',
-            );
+            await Your('%s are too slippery to remove, so you cannot put on the ring.',
+                gloves_simple_name(u.uarmg));
             return 1; // C: always ECMD_TIME
         }
         if (u.uarmg && u.uarmg.cursed) {
             const learned = !u.uarmg.bknown;
-            u.uarmg.bknown = 1;
+            set_bknown(u.uarmg, 1);
             await pline('You cannot remove your gloves to put on the ring.');
             return learned ? 1 : 0;
         }
@@ -3322,7 +3360,9 @@ async function accessory_or_armor_on(obj) {
                     || (mask === LEFT_RING && ulefty)
                     || ring_bimanual(u.uwep))
                 && welded(u.uwep)) {
-                const hand = ring_bimanual(u.uwep) ? 'hands' : 'hand';
+                /* C `:2324–2327` — welded() sets bknown above. */
+                const hand0 = body_part(HAND);
+                const hand = ring_bimanual(u.uwep) ? makeplural(hand0) : hand0;
                 await pline(
                     `You cannot free your weapon ${hand} to put on the ring.`,
                 );
@@ -3341,9 +3381,22 @@ async function accessory_or_armor_on(obj) {
             return 0;
         }
         if (u.ublindf) {
-            await already_wearing(
-                u.ublindf.otyp === LENSES ? 'some lenses' : 'a blindfold',
-            );
+            /* C `:2336–2352` — ublindf conflict matrix. */
+            if (u.ublindf.otyp === TOWEL) {
+                await Your('%s is already covered by a towel.', body_part(FACE));
+            } else if (u.ublindf.otyp === BLINDFOLD) {
+                if (obj.otyp === LENSES)
+                    await already_wearing2('lenses', 'a blindfold');
+                else
+                    await already_wearing('a blindfold');
+            } else if (u.ublindf.otyp === LENSES) {
+                if (obj.otyp === BLINDFOLD)
+                    await already_wearing2('a blindfold', 'some lenses');
+                else
+                    await already_wearing('some lenses');
+            } else {
+                await already_wearing(something); /* ??? */
+            }
             return 0;
         }
     } else {
@@ -3372,7 +3425,14 @@ async function accessory_or_armor_on(obj) {
         else if (obj === u.uarms) game.afternmv = Shield_on;
         else if (obj === u.uarmc) game.afternmv = Cloak_on;
         else if (obj === u.uarmu) game.afternmv = Shirt_on;
-        else game.afternmv = null;
+        else {
+            /* C `:2397` — panic (abort); no live panic export, so the
+             * diagnostic + afternmv-null stands (house idiom; the arm is
+             * unreachable since mask comes from canwearobj). */
+            await impossible('wearing armor not worn as armor? [%s]',
+                (obj.owornmask | 0).toString(16).padStart(8, '0'));
+            game.afternmv = null;
+        }
 
         const delay = -(game.objects?.[obj.otyp]?.oc_delay ?? 0);
         if (delay) {
@@ -3383,6 +3443,13 @@ async function accessory_or_armor_on(obj) {
             await unmul('');
             await on_msg(obj);
         }
+        /* C `:2414` — takeoff mask/what reset (wasinwater stays: Boots_on
+         * needs it via afternmv after this returns). Lazy-init idiom is
+         * allmain.js:261 (C's svc.context always exists). */
+        if (!game.context) game.context = {};
+        if (!game.context.takeoff) game.context.takeoff = {};
+        game.context.takeoff.mask = 0;
+        game.context.takeoff.what = 0;
         return 1;
     }
 
@@ -3392,8 +3459,7 @@ async function accessory_or_armor_on(obj) {
         setworn(obj, mask);
         await Ring_on(obj);
         // C: is_worn — levitation at sink may have removed the ring
-        if ((obj.owornmask | 0) & (W_ARMOR | W_RING | W_AMUL | W_TOOL
-            | W_WEAPONS /* | W_SADDLE */)) {
+        if (is_worn(obj)) {
             await on_msg(obj);
         }
     } else if (amulet) {
@@ -3401,6 +3467,11 @@ async function accessory_or_armor_on(obj) {
     } else if (eyewear) {
         // C: Blindf_on handles setworn + on_msg + blindness toggle
         await Blindf_on(obj);
+    } else {
+        /* C `:2425–2426` — unreachable: ring/amulet/eyewear is exhaustive
+         * past the neither-arm return above. */
+        await impossible('putting on unexpected type of accessory: %s',
+            await safe_typename(obj.otyp));
     }
     return 1;
 }

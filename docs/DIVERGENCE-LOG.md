@@ -1,6 +1,42 @@
 # Divergence log
 
-## D-3200 — `hacklib.c` s_suffix completion (lowercase-S arm + strcmpi it/you + mthrowu z/x/ch/sh removal; 6 C-exact homes)
+## D-3201 — `do_wear.c` accessory_or_armor_on whole-body completion (helm quest arm, ring/hand C names, eyewear matrix, takeoff reset) + already_wearing2 port
+
+- **Status:** fixed (Open — coverage row PARTIAL, C 154 L `do_wear.c:2209–2428` / JS 97 L; hops 4, callers 3, RNG 0, msg 9; `hidden-proxy verify`: no corpus session blocked at baseline). Same iteration retires 8 stale heads by direct `ledger.mjs set` (notes in ledger): movebubbles + wishcmdassist + getpos_help + shkname → ported; makemaz + mhitm_ad_drli + mhitm_ad_sedu + mhitm_ad_legs → split (bodies verified complete across split homes, omits name Rule #2 / NORETURN / sibling / caller arms).
+- **Symptom:** coverage gap, not a corpus divergence. The JS body carried the wear/put-on skeleton but dropped the helm-of-opposite-alignment quest refusal, hardcoded four C-computed messages (ring-fingers, ring-hand question, slippery gloves, welded hand), collapsed the ublindf conflict matrix, skipped the takeoff reset, inlined a narrower is_worn, and bypassed set_bknown's inventory update; ESC at the ring-hand prompt re-asked instead of cancelling.
+- **C locus:**
+  - `accessory_or_armor_on`: `nethack-c/upstream/src/do_wear.c:2209–2428` whole — worn guard `:2213–2216`; armor canwearobj + helm quest arm `:2222–2244`; ring nolimbs/full/hand-choice `:2260–2301` + Glib/cursed/welded `:2302–2332`; amulet `:2333–2338`; eyewear `:2339–2353`; neither `:2354–2358`; retouch `:2361–2362`; armor setworn/afternmv/delay/takeoff `:2364–2415`; accessory Ring/Amulet/Blindf_on `:2416–2427`.
+  - `already_wearing2`: `nethack-c/upstream/src/do_wear.c:2016–2020` whole (You_cant cross-wear conflict).
+- **JS was:** `js/do_wear.js:3268` — no helm arm; hardcoded `There are no more ring-fingers`, `Which ring-finger`, `Your gloves are too slippery`, `hand/hands`; ublindf collapsed to already_wearing(lenses-or-blindfold); no takeoff reset; inline owornmask test missing W_SADDLE/W_BLINDF; direct `bknown = 1`; choose_ring_hand ignored `\x1b`; already_wearing2 absent from `js/**`.
+- **Fix:** `js/do_wear.js` only, no new module edges (There/You_cant/humanoid/FACE/something added to existing imports): helm quest arm in C order (dnum compare, alignbase current-vs-original, ublessed=0, makeknown, disp.botl, ECMD_TIME); `There` + humanoid-gated `fingers_or_gloves(false)`; C ring-hand question (humanoid + body_part(FINGER)) with `\x1b` cancel (C `:2289`; C's yn remap `:5559–5581` impossibles first, mirrored in getline.js); Glib `gloves_simple_name`; `set_bknown(uarmg, 1)`; welded `body_part(HAND)` + bimanual makeplural; full ublindf matrix incl. towel/FACE + already_wearing2 cross arms + `something` fallthrough; armor `takeoff.mask/what = 0` (lazy-init idiom); `is_worn(obj)` replaces the inline; C impossibles on the armor-else (`%08lx` owornmask) and accessory-else (safe_typename) unreachable arms; new `already_wearing2` after `already_wearing` (You_cant, C `:2019` verbatim).
+- **JS:** `js/do_wear.js:315` (new already_wearing2) + `:3250` (choose_ring_hand) + `:3291–3470` (accessory_or_armor_on) + 3 import lines (+97/−26).
+- **Callers:**
+  - `accessory_or_armor_on`: C `:2449` (dowear) → `js/do_wear.js` dowear return-through; C `:2468` (doputon) → doputon return-through (0/1 ≡ ECMD_OK/ECMD_TIME values; `!otmp → 0` matches the no-turn convention). Reverse-checked: no other JS callers.
+  - `already_wearing2`: C `:2335` + `:2340` (eyewear matrix) → new matrix arms; the only two C call sites, both wired. No other JS callers.
+- **Verify:** `node scripts/verify.mjs --fn accessory_or_armor_on,already_wearing2` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/do_wear.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify accessory_or_armor_on: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    accessory_or_armor_on: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify already_wearing2: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    already_wearing2: no RNG-tagged reach; fixed smoke spread (24 run, 11.1s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `accessory_or_armor_on`: none (the `:2397` panic abort has no live panic export; the diagnostic is preserved via impossible + afternmv-null per the remove_object/shkname precedent, and the arm is unreachable since mask comes from canwearobj).
+  - `already_wearing2`: none.
+- **Ledger:** accessory_or_armor_on ported; already_wearing2 ported
+- **Next:** pop the next Open — coverage row.
+
+## D-3200 — `hacklib.c` s_suffix completion (lowercase-S arm + strcmpi it/you in 3 locals + mthrowu z/x/ch/sh removal; 6 C-exact homes)
 
 - **Status:** fixed (Open coverage row: s_suffix PARTIAL C 11 L `hacklib.c:345–359` / JS 7 L; hops 2, callers 109, RNG 0, msg 4; `hidden-proxy verify`: no corpus session blocked at baseline). Same iteration retires queue head pickup + same-file use_container STALE-SPLIT (D-3199 bodies verified complete across split homes — pickup gates/nomul/menu+count-N/traditional+via_menu/tail in `pickup`+`pickup_traditional_floor`+`query_objlist_pickup`, use_container otrapped/cursed-mbag/prompt-loop/loot-arms/containerdone in same-name + `use_container_traditional_prompt` with `yn_function` addcmdq=TRUE default confirmed; `ledger.mjs set pickup|use_container split`, kept omits in notes).
 - **Symptom:** coverage gap + C-wrongs, not a corpus divergence. Canonical `s_suffix` (do_name) + explode + shk locals appended a bare `'` after uppercase `'S'` (C `*(eos(buf)-1) == 's'` is lowercase-only: "CHRIS" → C "CHRIS's", JS "CHRIS'"); minion + questpgr locals compared it/you case-sensitively (C `strcmpi`: "It" → C "Its", JS "It's"); mthrowu local returned invented `"its"` for falsy input and applied `'` after z/x/ch/sh (no such C arm).

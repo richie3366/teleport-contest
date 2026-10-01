@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3201 `do_wear.c` accessory_or_armor_on whole-body completion (helm quest arm, ring/hand C names, eyewear matrix, takeoff reset) + already_wearing2 port
+
+**C locus:** - `accessory_or_armor_on`: `nethack-c/upstream/src/do_wear.c:2209–2428` whole — worn guard `:2213–2216`; armor canwearobj + helm quest arm `:2222–2244`; ring nolimbs/full/hand-choice `:2260–2301` + Glib/cursed/welded `:2302–2332`; amulet `:2333–2338`; eyewear `:2339–2353`; neither `:2354–2358`; retouch `:2361–2362`; armor setworn/afternmv/delay/takeoff `:2364–2415`; accessory Ring/Amulet/Blindf_on `:2416–2427`.
+**JS:** `js/do_wear.js:315` (new already_wearing2) + `:3250` (choose_ring_hand) + `:3291–3470` (accessory_or_armor_on) + 3 import lines (+97/−26).
+**Change:** `js/do_wear.js` only, no new module edges (There/You_cant/humanoid/FACE/something added to existing imports): helm quest arm in C order (dnum compare, alignbase current-vs-original, ublessed=0, makeknown, disp.botl, ECMD_TIME); `There` + humanoid-gated `fingers_or_gloves(false)`; C ring-hand question (humanoid + body_part(FINGER)) with `\x1b` cancel (C `:2289`; C's yn remap `:5559–5581` impossibles first, mirrored in getline.js); Glib `gloves_simple_name`; `set_bknown(uarmg, 1)`; welded `body_part(HAND)` + bimanual makeplural; full ublindf matrix incl. towel/FACE + already_wearing2 cross arms + `something` fallthrough; armor `takeoff.mask/what = 0` (lazy-init idiom); `is_worn(obj)` replaces the inline; C impossibles on the armor-else (`%08lx` owornmask) and accessory-else (safe_typename) unreachable arms; new `already_wearing2` after `already_wearing` (You_cant, C `:2019` verbatim).
+**Verify:** `node scripts/verify.mjs --fn accessory_or_armor_on,already_wearing2` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `accessory_or_armor_on`: none (the `:2397` panic abort has no live panic export; the diagnostic is preserved via impossible + afternmv-null per the remove_object/shkname precedent, and the arm is unreachable since mask comes from canwearobj).
+**Next:** pop the next Open — coverage row.
 ## 2026-10-01 — D-3200 `hacklib.c` s_suffix completion (lowercase-S arm + strcmpi it/you + mthrowu z/x/ch/sh removal; 6 C-exact homes)
 
 **C locus:** `nethack-c/upstream/src/hacklib.c:344–359` whole (Strcpy + strcmpi it→+s / you→+r / trailing-'s'→+' / else→+'s, in order; static-buf aliasing needs no JS counterpart — fresh strings are safe).

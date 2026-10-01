@@ -13,6 +13,6 @@
 {"fn":"saleable","c":"805-824","status":"unknown"}
 {"fn":"get_shop_item","c":"829-839","status":"unknown"}
 {"fn":"Shknam","c":"843-850","status":"unknown"}
-{"fn":"shkname","c":"856-897","status":"partial","js":["js/shknam.js:shkname"],"omit":"`:866` impossible message (async in JS; unreachable for valid input; C fallthrough stands); `zap.c:5549` fracture-rock shop-billable arm (pre-existing `fracture_rock` deferral, `js/dig.js:1839` comment — caller-side gap owned by fracture_rock, not this cluster); C `char *` buffer; `!mtmp` null guar…","d":["D-2727"],"at":"seed@a30a7de84"}
+{"fn":"shkname","c":"856-897","status":"ported","js":["js/shknam.js:shkname"],"d":["D-2727"],"at":"2026-10-01@6e06fa8e7","note":"stale: js/shknam.js:460 whole body present (D-2727); :866 impossible unreachable-for-valid-input (sync fn, fallthrough stands); zap.c:5549 omit is a caller arm"}
 {"fn":"shkname_is_pname","c":"900-905","status":"unknown"}
 {"fn":"is_izchak","c":"908-924","status":"ported","js":["js/shknam.js:is_izchak"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"stale: js/shknam.js:509 — all 5 C arms exact (hallu/isshk/in_town/prefix-skip/strcmp); both C callers wired (shk.c:3112→JS shk.js:2814, :5594→JS :6389); review 777 no C-wrong"}
