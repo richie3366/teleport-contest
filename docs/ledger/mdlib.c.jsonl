@@ -8,7 +8,7 @@
 {"fn":"count_and_validate_winopts","c":"602-623","status":"ported","js":["js/version.js:count_and_validate_winopts"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/version.js:436 (C staticfn, local); caller :550"}
 {"fn":"count_and_validate_soundlibopts","c":"627-637","status":"unknown"}
 {"fn":"opt_out_words","c":"641-666","status":"unknown"}
-{"fn":"build_options","c":"669-830","status":"partial","js":["js/version.js:build_options"],"omit":"`eos` (pointer-arithmetic helper — folded into `+=`, C hacklib.c:192); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (save-compat version struct, no JS reader — future row); callers-of-caller `early_init`/`dump_version_info` (different C functions — future rows); doextversion-loop rewire o…","d":["D-2535"],"at":"seed@a30a7de84"}
+{"fn":"build_options","c":"669-830","status":"ported","js":["js/version.js:build_options"],"d":["D-2535"],"at":"2026-10-01@e45cb9654","note":"stale: js/version.js:525 (D-2535 whole body; WIN32/USER_SOUNDS compiled out, eos folded, caller runtime_info_init:678)"}
 {"fn":"runtime_info_init","c":"835-846","status":"unknown"}
 {"fn":"do_runtime_info","c":"849-861","status":"unknown"}
 {"fn":"release_runtime_info","c":"864-872","status":"unknown"}

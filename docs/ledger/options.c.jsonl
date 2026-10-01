@@ -141,7 +141,7 @@
 {"fn":"handler_symset","c":"6321-6328","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_autopickup_exception","c":"6331-6404","status":"partial","js":["js/options.js:handler_autopickup_exception"],"omit":"`regex_error_desc` (the regex-error `config_error_add` uses a fixed phrase; the sink itself is still a no-op).","d":["D-2838"],"at":"seed@a30a7de84"}
 {"fn":"handler_menu_colors","c":"6407-6499","status":"partial","js":["js/options.js:handler_menu_colors"],"omit":"- `optfn_o_bind_keys`: none in this body or registered callers.","d":["D-3180","D-2506"],"at":"2026-09-30@d37e25ba4"}
-{"fn":"handler_msgtype","c":"6502-6570","status":"partial","js":["js/options.js:handler_msgtype"],"omit":"`config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink.","d":["D-2842"],"at":"seed@a30a7de84"}
+{"fn":"handler_msgtype","c":"6502-6570","status":"ported","js":["js/options.js:handler_msgtype"],"d":["D-2842"],"at":"2026-10-01@e45cb9654","note":"stale: js/options.js:7134 (D-2842 whole body; select_menu via pick helpers, caller doset:10974; msgtype_add sink omit lives in callee row)"}
 {"fn":"handler_versinfo","c":"6573-6617","status":"ported","js":["js/options.js:handler_versinfo"],"d":["D-3151"],"at":"2026-09-30@5fd602958"}
 {"fn":"handler_windowborders","c":"6620-6654","status":"ported","js":["js/options.js:handler_windowborders"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:3032; 5 text arms + a+i/0+i selectors + a_int+1 present, wired via doset_optfn_do_handler :3094 + getlin :7656"}
 {"fn":"string_for_opt","c":"6665-6680","status":"ported","js":["js/options.js:string_for_opt"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}

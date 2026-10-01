@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3226 — doread whole-body: six arms + Blind-gate fix (3 scen-* blocked)
+
+- **Status:** fixed (coverage PARTIAL C223/JS124 + 3 blocked corpus sessions: scen-impaired-Healer-94190, scen-impaired-Tourist-94350, scen-normal-Tourist-92061.)
+- **Symptom:** JS `doread` lacked six C arms (dunce/cornuthaum, credit card, magic marker, coin, Orb of Fate, candy bar all fell to "silly thing"); the blind-formula gate and the blind disappear message read the stale `u.Blind`/`u.ublind` snapshot fields (written only by make_blinded, do.js) instead of `Blind()` — blind heroes recited unknown scrolls. The scroll/book conduct bump skipped its livelog; the tail consume used the local `useup` clone (no update_inventory/setnotworn); the confused branch OR'd the sticky `u.Hallucination` instead of the youprop gate; `learnscroll` set a `dknown` C never writes.
+- **C locus:**
+  - `doread`: `read.c:329–647` whole — arms `:414–449` (dunce/cornuthaum), `:450–490` (credit), `:494–518` (marker), `:519–530` (coin), `:531–541` (orb), `:542–557` (candy); blind gate `:561–576`; mail conduct `:579–597`; literate `:598–603`; disappear `:605–629`; tail `:630–646`. Callee `learnscroll`/`learnscrolltyp` (dknown comment `:72` only).
+- **JS was:** `js/read.js:2177` doread — "credit / marker / coin / orb / candy deferred" comments; `!!(ub.Blind || ub.ublind)` at the gate and `const Blind = !!(u.Blind || u.ublind)` shadowing the import at the disappear block; `// livelog deferred`; local `useup(scroll)`; `u.HHallucination || u.Hallucination`; learnscroll `if (!game.u?.Blind) scroll.dknown = true`.
+- **Fix:** `js/read.js` — six arms in C order with exact strings (card_msgs[14] + `"%d0%d %ld%d1 0%d%d0"` from o_id; red_mons[14] via pmname/upwords; dunce `o_id % 3` + Role_if(PM_TOURIST) + trycall); `find_any_braille` hoisted to function top (C static); gate + disappear read `Blind()`; conduct livelog (book/scroll/`something`); `useup_live(scroll)`; `Hallucination()` canonical; learnscroll dknown line deleted, now exported. Added `scripts/doread-learnscroll.test.mjs` (node:test, repo convention): makeknown + dknown-untouched ×2 + spellbook-ignore — fails 1/3 pre-fix (2 dknown asserts), passes 3/3 post-fix.
+- **JS:** `js/read.js` doread `:2189` + learnscroll `:295` (+157/−21); `scripts/doread-learnscroll.test.mjs` new (regression test, unscored).
+- **Callers:**
+  - `doread`: no C direct callers (cmd.c dispatch via `extern`). JS sites unchanged: `js/cmd.js:5766` 'r' (`tookTime ? 1 : 0` truthiness — the 0/1 mapping stands, ECMD_CANCEL→0 correct), `js/getline.js:1239` extcmd.
+- **Verify:**
+  - `doread`: `node scripts/verify.mjs --fn doread` → PASS syntax (1 changed js file: js/read.js) · PASS rule2 · PASS hidden (1 PASS, 2 moved past, 0 worse → PROGRESS: Healer-94190 → object_detect step 198 (was 70); Tourist-94350 PASS; Tourist-92061 → seffect_magic_mapping step 18 (was 17)) · PASS reach (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (runner: no shared file) · VERIFY: PASS. `node --test scripts/doread-learnscroll.test.mjs`: 3/3 pass.
+- **Named omissions:**
+  - `doread`: unported-scroll allowlist gate kept (all 23 SCR_* listed, so currently dead; `seffects` default `-1` path returns 0 — owned by seffects rows, not this one); confused keeps `u.HConfusion || u.Confusion` superset (C Confusion ≡ HConfusion; dual-field file convention, no session evidence); ECMD_CANCEL→0 is the truthiness adaptation (cmd.js).
+- **Ledger:** doread ported
+- **Next:** same-file follow-ups (same stale-snapshot read, one line each when queued): `set_lit` `:432`, `seffect_light` `:565`, `seffect_remove_curse` `:717`, `seffect_enchant_weapon` `:1148`. Stale-cleared this iteration (ledger-set, no D): can_hide_under_obj, build_options, hhmmss, add_region, handler_msgtype, set_voice, clear_glyph_buffer.
+
 ## D-3225 — save_light_sources peel bad-type classification (review 2184 Must-fix)
 
 - **Status:** fixed (Must-fix review **2184** on D-3224; QUALITY-RISK arm. `hidden-proxy verify`: no corpus session blocked at baseline — impossible-class arm, REACH-OK is the corpus evidence.)

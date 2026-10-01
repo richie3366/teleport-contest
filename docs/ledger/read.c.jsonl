@@ -9,7 +9,7 @@
 {"fn":"candy_wrapper_text","c":"296-300","status":"unknown"}
 {"fn":"assign_candy_wrapper","c":"304-311","status":"ported","js":["js/mkobj.js:assign_candy_wrapper"],"at":"2026-09-29@cd4bc2a21","note":"stale: js/mkobj.js:2363 whole body, caller wired :2447"}
 {"fn":"read_ok","c":"315-324","status":"unknown"}
-{"fn":"doread","c":"330-647","status":"unknown","d":["D-2080"],"at":"seed@a30a7de84"}
+{"fn":"doread","c":"330-647","status":"ported","js":["js/read.js:doread"],"d":["D-3226","D-2080"],"at":"2026-10-01@e45cb9654"}
 {"fn":"stripspe","c":"652-664","status":"unknown"}
 {"fn":"p_glow1","c":"667-670","status":"unknown"}
 {"fn":"p_glow2","c":"673-677","status":"unknown"}

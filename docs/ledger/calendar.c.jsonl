@@ -2,7 +2,7 @@
 {"fn":"getlt","c":"41-46","status":"unknown","d":["D-1989"],"at":"seed@a30a7de84"}
 {"fn":"getyear","c":"49-52","status":"unknown","d":["D-1742"],"at":"seed@a30a7de84"}
 {"fn":"yyyymmdd","c":"56-77","status":"ported","js":["js/calendar.js:yyyymmdd"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is factored (C arms live in lt_for_date/yyyy_from_tm)"}
-{"fn":"hhmmss","c":"80-92","status":"unknown","d":["D-1725"],"at":"seed@a30a7de84"}
+{"fn":"hhmmss","c":"80-92","status":"ported","js":["js/calendar.js:hhmmss"],"d":["D-1725"],"at":"2026-10-01@e45cb9654","note":"stale: js/calendar.js:335 (D-1725 whole body via lt_for_date; callers paniclog/dump_fmtstr by-design filesystem)"}
 {"fn":"yyyymmddhhmmss","c":"95-117","status":"ported","js":["js/calendar.js:yyyymmddhhmmss"],"at":"2026-09-29@ffb380a5c","note":"stale: js/calendar.js:346"}
 {"fn":"time_from_yyyymmddhhmmss","c":"120-175","status":"ported","js":["js/calendar.js:time_from_yyyymmddhhmmss"],"d":["D-2893"],"at":"seed@a30a7de84"}
 {"fn":"phase_of_the_moon","c":"191-203","status":"unknown"}

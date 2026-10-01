@@ -117,4 +117,4 @@ session produces, hence Must-fix with a code falsifier.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3225
+**Addressed:** D-3225 `e45cb9654`

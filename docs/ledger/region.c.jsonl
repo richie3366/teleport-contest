@@ -7,7 +7,7 @@
 {"fn":"mon_in_region","c":"210-218","status":"unknown"}
 {"fn":"clone_region","c":"227-254","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"free_region","c":"263-276","status":"ported","js":["js/region.js:free_region"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"add_region","c":"284-338","status":"unknown","d":["D-1576"],"at":"seed@a30a7de84"}
+{"fn":"add_region","c":"284-338","status":"ported","js":["js/region.js:add_region"],"d":["D-1576"],"at":"2026-10-01@e45cb9654","note":"stale: js/region.js:578 (D-1576 whole body; alloc-grow folded to push/GC, #if0 worm arm out, bbox recomputed from rects, caller make_gas_cloud:630; :1028 caller #if0)"}
 {"fn":"remove_region","c":"344-386","status":"unknown"}
 {"fn":"clear_regions","c":"394-405","status":"ported","js":["js/region.js:clear_regions"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4"}
 {"fn":"run_regions","c":"414-474","status":"unknown","d":["D-1169"],"at":"seed@a30a7de84"}
