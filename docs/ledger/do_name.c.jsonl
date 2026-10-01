@@ -13,7 +13,7 @@
 {"fn":"objtyp_is_callable","c":"429-463","status":"ported","js":["js/do_name.js:objtyp_is_callable"],"at":"2026-09-29@d27c7b945","note":"stale: js/do_name.js:149 (D-1555)"}
 {"fn":"name_ok","c":"467-476","status":"unknown"}
 {"fn":"call_ok","c":"480-495","status":"unknown"}
-{"fn":"docallcmd","c":"499-601","status":"unknown","d":["D-1682","D-1671","D-1660"],"at":"seed@a30a7de84"}
+{"fn":"docallcmd","c":"499-601","status":"ported","js":["js/do_name.js:docallcmd"],"d":["D-3203","D-1682","D-1671","D-1660"],"at":"2026-10-01@a5f89dd93","note":"stale: js/do_name.js:1640 + menu helper docallcmd_menu :1592"}
 {"fn":"docall_xname","c":"605-633","status":"unknown"}
 {"fn":"docall","c":"636-676","status":"unknown","d":["D-1672"],"at":"seed@a30a7de84"}
 {"fn":"namefloorobj","c":"679-757","status":"unknown","d":["D-1555"],"at":"seed@a30a7de84"}
@@ -34,7 +34,7 @@
 {"fn":"a_monnam","c":"1152-1156","status":"unknown"}
 {"fn":"Amonnam","c":"1159-1165","status":"unknown"}
 {"fn":"distant_monnam","c":"1170-1186","status":"unknown","d":["D-1673"],"at":"seed@a30a7de84"}
-{"fn":"mon_nam_too","c":"1191-1216","status":"unknown","d":["D-1790"],"at":"seed@a30a7de84"}
+{"fn":"mon_nam_too","c":"1191-1216","status":"ported","js":["js/do_name.js:mon_nam_too"],"d":["D-3203","D-1790"],"at":"2026-10-01@a5f89dd93","note":"stale: js/do_name.js:1225, all C arms + callers wired"}
 {"fn":"monverbself","c":"1221-1249","status":"unknown"}
 {"fn":"minimal_monnam","c":"1254-1285","status":"unknown","d":["D-2375"],"at":"seed@a30a7de84"}
 {"fn":"Mgender","c":"1289-1300","status":"unknown"}
@@ -44,7 +44,7 @@
 {"fn":"bogusmon","c":"1369-1385","status":"ported","js":["js/do_name.js:bogusmon"],"at":"2026-09-29@9798beecd","note":"stale: js/do_name.js:279, callers do_name.js:308,1736 + mcastu.js:726"}
 {"fn":"rndmonnam","c":"1389-1411","status":"ported","js":["js/do_name.js:rndmonnam"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"bogon_is_pname","c":"1415-1420","status":"unknown"}
-{"fn":"roguename","c":"1424-1439","status":"unknown","d":["D-2088"],"at":"seed@a30a7de84"}
+{"fn":"roguename","c":"1424-1439","status":"ported","js":["js/do_name.js:roguename"],"d":["D-3203","D-2088"],"at":"2026-10-01@a5f89dd93"}
 {"fn":"hcolor","c":"1461-1466","status":"unknown","d":["D-1135"],"at":"seed@a30a7de84"}
 {"fn":"rndcolor","c":"1470-1477","status":"unknown","d":["D-1147"],"at":"seed@a30a7de84"}
 {"fn":"hliquid","c":"1493-1510","status":"ported","js":["js/do_name.js:hliquid"],"d":["D-2951","D-2943"],"at":"seed@a30a7de84"}

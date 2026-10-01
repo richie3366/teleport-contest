@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `do_name.c` roguename — coverage THIN (C 10 code L `do_name.c:1424–1439` / JS 3 code L in js/do_name.js; hops 2, callers 2, RNG 2, msg 0) @057174e0c
 - [ ] `questpgr.c` com_pager_core — coverage THIN (C 101 code L `questpgr.c:468–621` / JS 29 code L in js/questpgr.js; hops 3, callers 3, RNG 1, msg 0; declared partial: impossible() text on all miss arms (tables are embedded constants so load cannot fail, and a JS miss also covers unported role bodies where ) @057174e0c
 - [ ] `insight.c` status_enlightenment — coverage MISSING (C 236 code L `insight.c:940–1266` / JS no symbol; hops 5, callers 1, RNG 0, msg 3) @6e06fa8e7
 - [ ] `mkroom.c` mkshop — coverage THIN (C 78 code L `mkroom.c:95–216` / JS 4 code L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0; declared partial: SHOPTYPE single-char dispatch (`:104–153` — env endpoint absent per the omit above; every dispatch callee — `mkzoo` all 8 types, `mktemple`,) @6e06fa8e7
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `zap.c` do_osshock — coverage MISSING (C 20 code L `zap.c:1637–1674` / JS no symbol; hops 6, callers 2, RNG 3, msg 0; declared partial: `fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`).) @6e06fa8e7
 - [ ] `pickup.c` doloot_core — coverage PARTIAL (C 114 code L `pickup.c:2178–2346` / JS 80 code L in js/pickup.js; hops 5, callers 1, RNG 2, msg 8) @6e06fa8e7
 - [ ] `uhitm.c` mhitm_ad_stun — coverage THIN (C 24 code L `uhitm.c:4388–4422` / JS 9 code L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 2) @1a900fb27
+- [ ] `steal.c` relobj — coverage THIN (C 12 code L `steal.c:875–898` / JS 5 code L in js/dogmove.js; hops 4, callers 3, RNG 0, msg 1) @a5f89dd93
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

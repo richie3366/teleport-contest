@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3203 `do_name.c` roguename ROGUEOPTS arm + mon_nam_too/docallcmd stale (3-function cluster)
+
+**C locus:** - `roguename`: `nethack-c/upstream/src/do_name.c:1424–1439` whole — ROGUEOPTS `name=` scan with `,` truncation `:1428–1437`, rn2 fallback `:1438–1439`.
+**JS:** `js/do_name.js:622–642` (roguename + mail.js import) + `js/mail.js:482–496` (nh_getenv export + gate + BUFSZ import); +26/−7 js/ per `git diff --stat`.
+**Change:** roguename restarted in C order keeping name/signature: live `nh_getenv('ROGUEOPTS')` import from mail.js (no clone #2), per-position `startsWith('name=', i)` scan (= C `strncmp` loop), first-`,` slice (= C NUL-truncate), then the unchanged rn2 fallback. mail.js nh_getenv exported with the C `strlen <= BUFSZ/2` gate (`options.c:6847–6856`). New do_name→mail edge is call-time-lazy inside the existing 102-module SCC (imports.mjs --can CHECK: hoisted function declaration, no top-level read — probe + green confirm load).
+**Verify:** `node scripts/verify.mjs --fn roguename,mon_nam_too,docallcmd` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `roguename`: none in the body — C's NUL-write into the env string has no later reader, so the slice is the same prefix.
+**Next:** next Open — coverage row (do_name.c exhausted).
 ## 2026-10-01 — D-3202 `bones.c` savebones whole-body completion (make_bones head, arise/else-if control flow, ebones, fmon/ftrap/fobj loops, hero-zero, memclear, wizard_bones)
 
 **C locus:** - `savebones`: `nethack-c/upstream/src/bones.c:403–625` whole — clear_bypasses + open_bonesfile/wizard-Replace `:410–428`; make_bones unleash/unpunish/dismount `:431–442`; iter_mons + dmonsfree `:444–445`; forget_engravings + fid negate + ghostly invent `:447–455`; arise `:457–478` / LEAVESTATUE `:480–489` / ghost `:490–505`; shared mtmp tail + ebones `:506–540`; fmon `:541–551`, ftrap `:552–555`, fobj/buried `:556–559`; hero-zero + memclear `:561–572`; cemetery + wizard_bones `:574–599`; create/save/commit/compress `:600–625`.

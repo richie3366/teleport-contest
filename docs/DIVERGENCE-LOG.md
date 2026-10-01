@@ -1,5 +1,48 @@
 # Divergence log
 
+## D-3203 — `do_name.c` roguename ROGUEOPTS arm + mon_nam_too/docallcmd stale (3-function cluster)
+
+- **Status:** fixed (Open — coverage head THIN, C 10 L `do_name.c:1424–1439` / JS 3 L; hops 2, callers 2, RNG 2, msg 0; `hidden-proxy verify`: no corpus session blocked at baseline). 3-function cluster: roguename ported (env arm over a shared nh_getenv), mon_nam_too + docallcmd stale-ported (bodies already complete, every C caller wired). Same-file closure exhausted (`rows 200` lists only these three do_name.c rows) and the callee closure (nh_getenv ok, rn2 ported) holds nothing Open — small diff by exhaustion, not by choice.
+- **Symptom:** coverage gap, not a corpus divergence. JS roguename carried only the rn2(3)/rn2(2) fallback and deferred the ROGUEOPTS `name=` scan, dropping C `:1428–1437`; the only `nh_getenv` in `js/` was an unexported mail.js local that also dropped C's `strlen <= BUFSZ/2` gate.
+- **C locus:**
+  - `roguename`: `nethack-c/upstream/src/do_name.c:1424–1439` whole — ROGUEOPTS `name=` scan with `,` truncation `:1428–1437`, rn2 fallback `:1438–1439`.
+  - `mon_nam_too`: `nethack-c/upstream/src/do_name.c:1191–1216` whole — stale, body complete in JS.
+  - `docallcmd`: `nethack-c/upstream/src/do_name.c:499–601` whole — stale, body + menu helper complete in JS.
+- **JS was:** `js/do_name.js:624` roguename — fallback only ("ROGUEOPTS env deferred"); `js/mail.js:488` nh_getenv local clone without the length gate.
+- **Fix:** roguename restarted in C order keeping name/signature: live `nh_getenv('ROGUEOPTS')` import from mail.js (no clone #2), per-position `startsWith('name=', i)` scan (= C `strncmp` loop), first-`,` slice (= C NUL-truncate), then the unchanged rn2 fallback. mail.js nh_getenv exported with the C `strlen <= BUFSZ/2` gate (`options.c:6847–6856`). New do_name→mail edge is call-time-lazy inside the existing 102-module SCC (imports.mjs --can CHECK: hoisted function declaration, no top-level read — probe + green confirm load).
+- **JS:** `js/do_name.js:622–642` (roguename + mail.js import) + `js/mail.js:482–496` (nh_getenv export + gate + BUFSZ import); +26/−7 js/ per `git diff --stat`.
+- **Callers:**
+  - `roguename`: C `do_name.c:738` (namefloorobj `unames[4]`) → `js/do_name.js:1754`; C `extralev.c:303` → `js/extralev.js:307`. Reverse-checked: no other JS callers.
+  - `mon_nam_too`: C `do_name.c:1230` (monverbself) → `js/do_name.js:1261`; C `mhitm.c:87` (missmm) → `js/mhitm.js:4184`; C `mhitm.c:704,707` (hitmm) → `js/mhitm.js:5763/5769/5783/5789`; C `uhitm.c:4168` (mhitm_ad_phys artifact arm) → `js/mhitm.js:2079`.
+  - `docallcmd`: 0 C references (command dispatch); JS export `js/do_name.js:1640` complete with `docallcmd_menu :1592`.
+- **Verify:** `node scripts/verify.mjs --fn roguename,mon_nam_too,docallcmd` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/do_name.js js/mail.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify roguename: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    roguename: 21 baseline-PASS session(s) reach it (21 run, 32.2s): 21 PASS, 0 regressed → REACH-OK
+note  hidden   verify mon_nam_too: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    mon_nam_too: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify docallcmd: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    docallcmd: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+Plus `/tmp/roguename-probe.mjs` 8/8 (env mid-string / no-comma / empty-value hits, scan-miss fallthrough, 60-draw fallback-name set, `>BUFSZ/2` gate, short passthrough, unset). No maintained unit-test layout in repo (sessions + verify are the harness); the probe stays under /tmp, verify is the committed evidence.
+- **Named omissions:**
+  - `roguename`: none in the body — C's NUL-write into the env string has no later reader, so the slice is the same prefix.
+  - `mon_nam_too`: none — nextmbuf buffer vs JS string return is by-design.
+  - `docallcmd`: none added — select_menu interactive analogue is by-design; Space/Return re-prompt is pre-existing shipped behavior, untouched.
+- **Ledger:** roguename ported; mon_nam_too ported; docallcmd ported
+- **Next:** next Open — coverage row (do_name.c exhausted).
+
 ## D-3202 — `bones.c` savebones whole-body completion (make_bones head, arise/else-if control flow, ebones, fmon/ftrap/fobj loops, hero-zero, memclear, wizard_bones)
 
 - **Status:** fixed (Open — coverage row PARTIAL, C 143 L `bones.c:403–625` / JS 104 L; hops 3, callers 3, RNG 0, msg 1; dead callee commit_bonesfile; `hidden-proxy verify`: no corpus session blocked at baseline). Single-function cluster: same-file closure holds nothing more Open (getbones/no_bones_level ok, free_ebones an uncalled 3-liner, files.c file-lifecycle callees POSIX).
