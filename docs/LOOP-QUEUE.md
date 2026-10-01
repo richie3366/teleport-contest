@@ -115,9 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `objnam.c` readobjnam — coverage THIN (C 326 code L `objnam.c:4910–5400` / JS 142 code L in js/readobjnam.js; hops 3, callers 3, RNG 9, msg 1) @03eae3466
-- [ ] `pager.c` checkfile — coverage THIN (C 200 code L `pager.c:830–1129` / JS 48 code L in js/pager.js; hops 1, callers 2, RNG 0, msg 5; declared partial: do_supplemental_info (`pager.c:2255`, own row — verbose-glance fill stays live); supplemental_pm out of do_screen_description (own row); dlb) @03eae3466
-- [ ] `hack.c` findtravelpath — coverage MISSING (C 157 code L `hack.c:1266–1523` / JS no symbol; hops 2, callers 2, RNG 0, msg 1) @03eae3466
 - [ ] `teleport.c` rloc_to_core — coverage THIN (C 75 code L `teleport.c:1645–1768` / JS 12 code L in js/teleport.js; hops 2, callers 4, RNG 0, msg 4; declared partial: `u_on_newpos` inlined (ux/uy/uundetected/steed; `see_nearby_objects` correctly skipped — uswallow true fails C's gate; `earth_sense` map-nam) @03eae3466
 - [ ] `pickup.c` pickup — coverage PARTIAL (C 168 code L `pickup.c:672–910` / JS 113 code L in js/pickup.js; hops 1, callers 12, RNG 0, msg 1) @c88e33eda
 - [ ] `hacklib.c` s_suffix — coverage PARTIAL (C 11 code L `hacklib.c:345–359` / JS 7 code L in js/mthrowu.js; hops 2, callers 109, RNG 0, msg 4) @c1c0d92f4
@@ -127,6 +124,9 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `uhitm.c` mhitm_ad_drli — coverage THIN (C 41 code L `uhitm.c:2445–2518` / JS 17 code L in js/mhitm.js; hops 4, callers 2, RNG 5, msg 3; declared partial: split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-) @92ffa7863
 - [ ] `getpos.c` getpos_help — coverage PARTIAL (C 121 code L `getpos.c:167–307` / JS 83 code L in js/getpos.js; hops 2, callers 1, RNG 0, msg 18) @92ffa7863
 - [ ] `uhitm.c` mhitm_ad_sedu — coverage THIN (C 92 code L `uhitm.c:4623–4748` / JS 39 code L in js/mhitm.js; hops 4, callers 2, RNG 1, msg 5; declared partial: `mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arm) @5b559b238
+- [ ] `uhitm.c` mhitm_ad_legs — coverage THIN (C 41 code L `uhitm.c:4425–4489` / JS 5 code L in js/mhitm.js; hops 4, callers 1, RNG 4, msg 6; declared partial: poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); `damageum_ad_phys` shade `impossible("bad shade attack function flow?")` (p) @c1022f867
+- [ ] `pickup.c` use_container — coverage PARTIAL (C 161 code L `pickup.c:2972–3226` / JS 105 code L in js/pickup.js; hops 6, callers 4, RNG 0, msg 15) @c1022f867
+- [ ] `shknam.c` shkname — coverage PARTIAL (C 27 code L `shknam.c:856–897` / JS 16 code L in js/shknam.js; hops 3, callers 21, RNG 2, msg 0; declared partial: `:866` impossible message (async in JS; unreachable for valid input; C fallthrough stands); `zap.c:5549` fracture-rock shop-billable arm (pr) @c1022f867
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

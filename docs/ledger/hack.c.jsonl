@@ -20,7 +20,7 @@
 {"fn":"cant_squeeze_thru","c":"953-979","status":"unknown"}
 {"fn":"invocation_pos","c":"982-986","status":"unknown"}
 {"fn":"test_move","c":"991-1255","status":"partial","js":["js/hack.js:test_move"],"omit":"block_door (shk.c:5791 — stub-false js/cmd.js:1176, no shop ESHK wire-up); block_entry (shk.c:5826 — no JS impl); ECMD_OK + canned-kick fake (JS doopen_indir returns bool; cmdq_peek cmd.js-local); defsyms[].explanation prose (tree/wall/solid-stone heuristic); autodig flag (no JS option).","d":["D-2439","D-1800"],"at":"seed@a30a7de84"}
-{"fn":"findtravelpath","c":"1266-1523","status":"unknown","d":["D-2382","D-1971","D-1897"],"at":"seed@a30a7de84"}
+{"fn":"findtravelpath","c":"1266-1523","status":"split","js":["js/cmd.js:findtravelpath_bfs","js/cmd.js:findtravelpath_travel","js/cmd.js:findtravelpath_guess","js/cmd.js:travelmap_ensure"],"d":["D-3198","D-2382","D-1971","D-1897"],"at":"2026-10-01@c1022f867"}
 {"fn":"is_valid_travelpt","c":"1526-1544","status":"unknown"}
 {"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-2029"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"u_rooted","c":"1694-1705","status":"unknown"}
