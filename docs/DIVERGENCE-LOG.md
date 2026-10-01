@@ -1,5 +1,65 @@
 # Divergence log
 
+## D-3186 — restore inventory menu state before actions and preserve equipment command results
+
+- **Status:** fixed; one eight-function invent.c caller/callee closure. Clean preflight PASS after making installed Node 22 available on PATH. Queue head doprarm; `ledger.mjs rows 1000` identified prinv as the only other eligible same-file row. The dispinv_with_action caller audit exposed the same ignored-result mismatch in five siblings, so their whole bodies joined the cluster before editing them. Whole-function code and adjacent function documentation total approximately 220 JS lines; 130 scored-JS insertions across five files, within caps. No Must-fix or source-review row was present; this is loop 4037, not an audit.
+- **Symptom:** inferred from pinned C versus JS, then measured with extracted-C vectors: doprarm and five equipment siblings forwarded item-action results although C discards them; dispinv_with_action bypassed canned-input handling, kept temporary inventory flags active during itemactions, and discarded its return. prinv narrowed long quantities to signed int; wear/wield/quiver feedback bypassed obj_to_let. Tool array iteration could repeat the current object when reassign moved gold from later in the list to its head.
+- **C locus:** whole bodies and every brief reference table read; command registration and prinv caller guards read where needed.
+  - `doprarm`: invent.c:4601–4638; seven armor slots in SORTPACK_INUSE order and ignored menu result.
+  - `dispinv_with_action`: invent.c:2964–3002; temporary flags, display_inventory, restoration, list search and action result.
+  - `prinv`: invent.c:2875–2890; long quantity, prefix, optional total suffix, xprname and verbose gate.
+  - `doprwep`: invent.c:4550–4574; empty hands, ordinary primary/secondary messages, menu with one reassign.
+  - `doprring`: invent.c:4642–4675; right/left order, meat-ring class, count/menu ordering and Ring/Rings header.
+  - `dopramulet`: invent.c:4679–4694; empty slot or one-letter in-use view with Amulet header.
+  - `doprtool`: invent.c:4715–4735; live-list scan, capacity guard before obj_to_let, empty report and ignored action result.
+  - `doprinuse`: invent.c:4740–4757; early-break count, empty report and NULL in-use selector.
+- **JS was:** all eight exports existed, but six equipment commands forwarded the menu wrapper's result. The wrapper called display_pickinv_reply directly and restored state only after itemactions. Local prinv and empty_handed copies obscured live helper semantics; three wield callers printed xprname directly. prinv and its pickup caller cast long quantities with `| 0`.
+- **Fix:** restarted the affected control flow in C order, retaining signatures. Keep empty alternate headers as empty strings in the existing setter. Restore menu state before searching inventory and invoking the action, return that action's result from the wrapper, and ignore it in each equipment view. Route the wrapper through live display_inventory and wear/wield/quiver feedback through live prinv; remove the wear prinv and invent empty_handed clones. Keep quantity values without signed-32 narrowing. In doprtool resolve the current object's successor after reassign, preserving C's list mutation order and 52-letter bound. JS strings replace terminated char buffers, arrays retain object identities, and finally cleans up the temporary menu state if JS input throws.
+- **JS:** js/invent.js:7682 prinv, :7700 doprwep, :7763 doprarm, :7790 doprring, :7825 dopramulet, :7844 doprtool, :7902 doprinuse; js/iactions.js:921 dispinv_with_action. Caller changes in js/do_wear.js:283/:287, js/wield.js:609/:1108/:1110 and js/pickup.js:1190. imports.mjs --can confirmed existing static edges for iactions→invent display_inventory, do_wear→invent prinv and invent→wield empty_handed; no new module edge or top-level read.
+- **Callers:**
+  - `doprarm`: brief cmd.c:50 is declaration only. C extcmd registration cmd.c:1852–1853 is JS js/cmd.js:1943; '[' dispatch :4999 and action :5653 remain wired.
+  - `dispinv_with_action`: all eight executable C sites remain wired: invent.c:3008→js/invent.js:4646 (ddoinv returns the result); :4542→:7670 (doprgold discards it); :4571→:7719 (doprwep); :4635→:7781 (doprarm); :4669→:7814 (doprring); :4691→:7835 (dopramulet); :4733→:7868 (doprtool); :4755→:7917 (doprinuse). The six equipment-view callers now discard the result as C does; declarations and header comments are not calls.
+  - `prinv`: every executable brief site maps to a live export call: apply.c:2750→js/apply.js:3040; do_wear.c:83→js/do_wear.js:283/:287 (the split predicate arms); dothrow.c:535→js/dothrow.js:2743; engrave.c:1391→js/engrave.js:1355; invent.c:1287→js/invent.js:8387, :2654→:3453, :4555/:4557→:7707/:7709, :5279/:5281→:9785/:9786 through prinv_adjust :9344; mhitu.c:2109→js/mhitu.js:1347; pickup.c:1971→js/pickup.js:1190, :2362→:4543; potion.c:2493→js/potion.js:3317; teleport.c:1244→js/teleport.js:2374; trap.c:2485→js/trap.js:5745; wield.c:226→js/wield.js:609, :492→:502, :657/:661→:1108/:1110. C comments at invent.c:4686 and wield.c:541 and the extern declaration are not calls.
+  - `doprwep`: cmd.c:49 is declaration only; extcmd registration :1860–1861→js/cmd.js:1942, ')' dispatcher :4998 and action :5649 remain wired.
+  - `doprring`: cmd.c:51 is declaration only; registration :1854–1855→js/cmd.js:1944, '=' dispatcher :5000 and action :5657 remain wired.
+  - `dopramulet`: cmd.c:52 is declaration only; registration :1850–1851→js/cmd.js:1945, double-quote dispatcher :5001 and action :5661 remain wired.
+  - `doprtool`: cmd.c:53 is declaration only; registration :1856–1857→js/cmd.js:1946, '(' dispatcher :5002 and action :5665 remain wired.
+  - `doprinuse`: brief reference scanner reports zero because it misses the multiline command table. C registration cmd.c:1848–1849→js/cmd.js:1947, '*' dispatcher :5003 and action :5669 remain wired.
+- **Verify:** final command `node scripts/verify.mjs --fn doprarm,dispinv_with_action,prinv,doprwep,doprring,dopramulet,doprtool,doprinuse --full`; /tmp/D3186-final-verify.log. No failing sessions to triage. All eight hidden checks report no blocked corpus session (notes, not hidden PASS); coverage rows cite no block count. Final tail and per-function reach evidence:
+
+```text
+PASS  reach    doprinuse: no RNG-tagged reach; fixed smoke spread (24 run, 6.2s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+
+  - `doprarm`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; 512 extracted-C armor-slot/selection cases.
+  - `dispinv_with_action`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; 288 extracted-C ordering/header/menu/force/reply cases, including action-side mutation after restoration and returned 77.
+  - `prinv`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; 84 extracted-C quantity/prefix/verbose cases, including long values 2147483648 and 4294967296.
+  - `doprwep`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; 128 extracted-C primary/secondary/quiver/twoweap/menu/reply cases.
+  - `doprring`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; 128 extracted-C right/left/class/menu/reply cases.
+  - `dopramulet`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; 16 extracted-C slot/menu/reply cases.
+  - `doprtool`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; five extracted-C empty/55-tool/gold-reordering cases, checking the 52-letter bound and successor after mutation.
+  - `doprinuse`: fixed 24-session smoke spread, 24 PASS / 0 regressed → REACH-OK; 32 extracted-C in-use/reply cases.
+
+  `/tmp/D3186-oracle.py` + `/tmp/D3186-extend.py` extract the eight pinned bodies into a compiled C harness; `/tmp/D3186-parity.mjs` extracts the actual JS bodies and supplies equivalent dependency sinks while using the live header getter/setter. 1193 cases / 1342 output lines agree. This measures argument order, control flow, return and mutation semantics with dependency sinks; it does not prove the callees' internals. Live-module header assertions passed empty, alternate and restored values. Initial three-function verify also passed full 44/44; the final run follows the empty-header adapter correction. Final syntax passed five changed JS files; Rule #2 scan clean. git diff --check clean; no process started by this iteration remains running.
+- **Named omissions:**
+  - `doprarm`: none in the whole body or command registration. Existing local wearing_armor/noarmor/obj_to_let bodies read whole in briefs and reused without new clones.
+  - `dispinv_with_action`: none in the whole body or eight executable callers; display_inventory and itemactions are live exports. The inventory array supplies the same object identities and no callback occurs before the matching return.
+  - `prinv`: none in the whole body or executable caller wiring. Live xprname uses JS argument order `(obj, let, dot, quan, txt, cost)`; long inputs remain Numbers in the port's object representation, with no new 32-bit cast.
+  - `doprwep`: none in the whole body or registration; live wield.empty_handed replaces the identical local clone. You is the existing literal-prefix pline expansion.
+  - `doprring`: none in the whole body or registration; both meat-ring guards, mode triggers and header forms retained.
+  - `dopramulet`: none in the whole body or registration; the mentions of display_inventory/prinv in the C comment are not executable calls.
+  - `doprtool`: none in the whole body or registration; tool_being_used read whole in a brief and reused. Array successor lookup happens after reassign exactly where C reads nobj.
+  - `doprinuse`: none in the whole body or registration; is_inuse is the existing live C predicate, and sortloot is mentioned only in a C comment.
+- **Ledger:** doprarm ported; dispinv_with_action ported; prinv ported; doprwep ported; doprring ported; dopramulet ported; doprtool ported; doprinuse ported
+- **Next:** first remaining generated Open coverage row after this invent.c closure; no manual coverage refill or phase-2 work.
+
 ## D-3185 — restore special-level Lua entry contracts and exact integer conversion
 
 - **Status:** resumed and shipped the existing nine-function closure from unfinished loop #4035. The predecessor stopped at provider quota after a green verify, before the hot-function REACH check and commit. No new cluster selected and no queue item popped. Whole bodies restored; the shared helpers retain named inherited caller omissions.

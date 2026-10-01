@@ -2849,6 +2849,17 @@ side never relativizes; live export kept for time logic).
 
 ### `src/invent.c` / `src/iactions.c`
 
+**D-3186 equipment-view caller closure:** whole `doprarm`, `doprwep`,
+`doprring`, `dopramulet`, `doprtool`, `doprinuse`, `dispinv_with_action`,
+and `prinv` bodies live in `js/invent.js` / `js/iactions.js`. The menu wrapper
+uses live `display_inventory` (including canned input), restores sort/header/
+force flags before `itemactions`, and returns its result. Equipment commands
+ignore that result and return ECMD_OK. Tool iteration reads the successor
+identity after `obj_to_let` reassigns letters and moves gold to the list head.
+Wear/wield/quiver feedback uses the one live `prinv`, including !fixinv;
+its quantity and `pickup_prinv` argument retain C long values. `empty_handed`
+is imported from wield instead of cloned. No new missing body arm or caller.
+
 JS: `js/invent.js`, `js/iactions.js`, `js/do.js` — partial
 
 **`let_to_name` / `free_invbuf` D-2886** (`invent.c:4799–4850`): `names[]` / `oth_symbols` (`CONTAINED_SYM`), `gi.invbuf` resize, unpaid `"Unpaid "` prefix, showsym pad + `def_oc_syms` glyph. Callers: `display_pickinv` (`want_reply && menu_head_objsym`), `display_used_invlets`, `dounpaid`, `dodiscovered`, `oclass_to_name`, `doclassdisco`, `rename_disco`, `query_objlist` / floor pickup, `query_category`. Named: `save.c` `freedynamicdata` does not call `free_invbuf`; a NUL `let` does not read one past `oth_names`.

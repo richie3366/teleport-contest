@@ -63,9 +63,9 @@
 {"fn":"update_inventory","c":"2782-2810","status":"ported","js":["js/invent.js:update_inventory"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"doperminv","c":"2814-2857","status":"unknown"}
 {"fn":"obj_to_let","c":"2861-2868","status":"unknown"}
-{"fn":"prinv","c":"2875-2890","status":"unknown","d":["D-2207"],"at":"seed@a30a7de84"}
+{"fn":"prinv","c":"2875-2890","status":"ported","js":["js/invent.js:prinv"],"d":["D-3186","D-2207"],"at":"2026-10-01@c88e33eda"}
 {"fn":"xprname","c":"2895-2954","status":"unknown"}
-{"fn":"dispinv_with_action","c":"2964-3002","status":"unknown"}
+{"fn":"dispinv_with_action","c":"2964-3002","status":"ported","js":["js/iactions.js:dispinv_with_action"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"ddoinv","c":"3006-3009","status":"unknown"}
 {"fn":"find_unpaid","c":"3021-3041","status":"unknown"}
 {"fn":"free_pickinv_cache","c":"3044-3050","status":"unknown"}
@@ -87,14 +87,14 @@
 {"fn":"stackobj","c":"4366-4375","status":"unknown"}
 {"fn":"mergable","c":"4379-4499","status":"unknown"}
 {"fn":"doprgold","c":"4503-4546","status":"unknown","d":["D-1731"],"at":"seed@a30a7de84"}
-{"fn":"doprwep","c":"4550-4574","status":"unknown"}
+{"fn":"doprwep","c":"4550-4574","status":"ported","js":["js/invent.js:doprwep"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"noarmor","c":"4578-4597","status":"unknown","d":["D-1668"],"at":"seed@a30a7de84"}
-{"fn":"doprarm","c":"4601-4638","status":"unknown"}
-{"fn":"doprring","c":"4642-4675","status":"unknown"}
-{"fn":"dopramulet","c":"4679-4694","status":"unknown"}
+{"fn":"doprarm","c":"4601-4638","status":"ported","js":["js/invent.js:doprarm"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
+{"fn":"doprring","c":"4642-4675","status":"ported","js":["js/invent.js:doprring"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
+{"fn":"dopramulet","c":"4679-4694","status":"ported","js":["js/invent.js:dopramulet"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"tool_being_used","c":"4698-4711","status":"unknown"}
-{"fn":"doprtool","c":"4715-4735","status":"unknown"}
-{"fn":"doprinuse","c":"4740-4757","status":"unknown"}
+{"fn":"doprtool","c":"4715-4735","status":"ported","js":["js/invent.js:doprtool"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
+{"fn":"doprinuse","c":"4740-4757","status":"ported","js":["js/invent.js:doprinuse"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"useupf","c":"4763-4783","status":"unknown"}
 {"fn":"let_to_name","c":"4800-4839","status":"partial","js":["js/invent.js:let_to_name"],"omit":"`save.c` `freedynamicdata` (`:1085`) does not call `free_invbuf` (save-freeing teardown is unported).","d":["D-2886"],"at":"seed@a30a7de84"}
 {"fn":"free_invbuf","c":"4845-4850","status":"unknown"}

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `invent.c` doprarm — coverage PARTIAL (C 22 code L `invent.c:4601–4638` / JS 14 code L in js/invent.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `getpos.c` cmp_coord_distu — coverage PARTIAL (C 12 code L `getpos.c:312–329` / JS 8 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @d37e25ba4
 - [ ] `getpos.c` gloc_filter_floodfill_matcharea — coverage PARTIAL (C 9 code L `getpos.c:364–379` / JS 6 code L in js/getpos.js; hops —, callers 0, RNG 0, msg 0) @5e7475cd1
 - [ ] `wizcmds.c` migrsort_cmp — coverage PARTIAL (C 9 code L `wizcmds.c:1485–1501` / JS 6 code L in js/wizcmds.js; hops —, callers 0, RNG 0, msg 0) @a60a91a98
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `hack.c` findtravelpath — coverage MISSING (C 157 code L `hack.c:1266–1523` / JS no symbol; hops 2, callers 2, RNG 0, msg 1) @03eae3466
 - [ ] `teleport.c` rloc_to_core — coverage THIN (C 75 code L `teleport.c:1645–1768` / JS 12 code L in js/teleport.js; hops 2, callers 4, RNG 0, msg 4; declared partial: `u_on_newpos` inlined (ux/uy/uundetected/steed; `see_nearby_objects` correctly skipped — uswallow true fails C's gate; `earth_sense` map-nam) @03eae3466
 - [ ] `objnam.c` xname_flags — coverage THIN (C 300 code L `objnam.c:581–1029` / JS 52 code L in js/objnam.js; hops 3, callers 2, RNG 0, msg 17; declared partial: nextobuf/PREFIX/ConcUpdate/Concat truncation + eos overflow paniclog (by-design JS strings); glorkum default + SLIME_MOLD-bad-fruit `impossi) @03eae3466
+- [ ] `pickup.c` pickup — coverage PARTIAL (C 168 code L `pickup.c:672–910` / JS 113 code L in js/pickup.js; hops 1, callers 12, RNG 0, msg 1) @c88e33eda
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

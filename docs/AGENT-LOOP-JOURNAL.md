@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3186 restore inventory menu state before actions and preserve equipment command results
+
+**C locus:** whole bodies and every brief reference table read; command registration and prinv caller guards read where needed.
+**JS:** js/invent.js:7682 prinv, :7700 doprwep, :7763 doprarm, :7790 doprring, :7825 dopramulet, :7844 doprtool, :7902 doprinuse; js/iactions.js:921 dispinv_with_action. Caller changes in js/do_wear.js:283/:287, js/wield.js:609/:1108/:1110 and js/pickup.js:1190. imports.mjs --can confirmed existing static edges for iactions→invent display_inventory, do_wear→invent prinv and invent→wield empty_handed; no new module edge or top-level read.
+**Change:** restarted the affected control flow in C order, retaining signatures. Keep empty alternate headers as empty strings in the existing setter. Restore menu state before searching inventory and invoking the action, return that action's result from the wrapper, and ignore it in each equipment view.
+**Verify:** final command `node scripts/verify.mjs --fn doprarm,dispinv_with_action,prinv,doprwep,doprring,dopramulet,doprtool,doprinuse --full`; /tmp/D3186-final-verify.log. No failing sessions to triage. All eight hidden checks report no blocked corpus session (notes, not hidden PASS); coverage rows cite no block count.
+**Named:** - `doprarm`: none in the whole body or command registration. Existing local wearing_armor/noarmor/obj_to_let bodies read whole in briefs and reused without new clones.
+**Next:** first remaining generated Open coverage row after this invent.c closure; no manual coverage refill or phase-2 work.
 ## 2026-10-01 — D-3185 restore special-level Lua entry contracts and exact integer conversion
 
 **C locus:** predecessor read whole bodies and caller tables before coding; continuation reread the leftover diff and only targeted caller references needed for this handoff. sp_lev.c lspo_room:4028–4116, build_room:2807–2830, get_table_xy_or_coord:3188–3203, lspo_level_flags:3759–3831, lspo_gas_cloud:4929–4965, lspo_level_init:3837–3875; nhlua.c get_table_mapchr_opt:256–271, check_mapchr:393–398, get_table_int_opt:1028–1039. Pinned upstream bodies are the oracle source.
