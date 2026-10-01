@@ -77,7 +77,7 @@
 {"fn":"unpaid_cost","c":"3260-3305","status":"unknown","d":["D-2711"],"at":"seed@a30a7de84"}
 {"fn":"add_one_tobill","c":"3309-3363","status":"unknown"}
 {"fn":"add_to_billobjs","c":"3366-3383","status":"unknown"}
-{"fn":"bill_box_content","c":"3387-3407","status":"unknown","d":["D-1705"],"at":"seed@a30a7de84"}
+{"fn":"bill_box_content","c":"3387-3407","status":"ported","js":["js/shk.js:bill_box_content"],"d":["D-3232","D-1705"],"at":"2026-10-01@516e71ff9","note":"stale: js/shk.js:4223 whole body (D-1705), addtobill wires :4303 + self-recurse :4228"}
 {"fn":"shk_names_obj","c":"3413-3445","status":"unknown","d":["D-1703"],"at":"seed@a30a7de84"}
 {"fn":"billable","c":"3451-3487","status":"unknown"}
 {"fn":"addtobill","c":"3490-3599","status":"unknown"}

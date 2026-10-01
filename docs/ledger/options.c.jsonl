@@ -57,15 +57,15 @@
 {"fn":"optfn_menu_shift_left","c":"2165-2170","status":"unknown"}
 {"fn":"optfn_menu_shift_right","c":"2173-2178","status":"unknown"}
 {"fn":"optfn_menu_headings","c":"2183-2222","status":"ported","js":["js/options.js:optfn_menu_headings"],"d":["D-3157"],"at":"2026-09-30@e47a5e02a","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"optfn_menu_objsyms","c":"2225-2287","status":"unknown"}
+{"fn":"optfn_menu_objsyms","c":"2225-2287","status":"ported","js":["js/options.js:optfn_menu_objsyms"],"d":["D-3232"],"at":"2026-10-01@516e71ff9"}
 {"fn":"optfn_menuinvertmode","c":"2290-2317","status":"ported","js":["js/options.js:optfn_menuinvertmode"],"d":["D-3171"],"at":"2026-09-30@9865882fc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_menustyle","c":"2320-2375","status":"partial","js":["js/options.js:optfn_menustyle"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_monsters","c":"2378-2393","status":"ported","js":["js/options.js:optfn_monsters"],"d":["D-3180"],"at":"2026-09-30@d37e25ba4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_mouse_support","c":"2396-2453","status":"ported","js":["js/options.js:optfn_mouse_support"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"optfn_msg_window","c":"2456-2520","status":"unknown"}
+{"fn":"optfn_msg_window","c":"2456-2520","status":"ported","js":["js/options.js:optfn_msg_window"],"d":["D-3232"],"at":"2026-10-01@516e71ff9"}
 {"fn":"optfn_msghistory","c":"2523-2546","status":"ported","js":["js/options.js:optfn_msghistory"],"d":["D-3171"],"at":"2026-09-30@9865882fc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_name","c":"2549-2571","status":"ported","js":["js/options.js:optfn_name"],"d":["D-3171"],"at":"2026-09-30@9865882fc","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"optfn_number_pad","c":"2574-2645","status":"unknown"}
+{"fn":"optfn_number_pad","c":"2574-2645","status":"ported","js":["js/options.js:optfn_number_pad"],"d":["D-3232"],"at":"2026-10-01@516e71ff9"}
 {"fn":"optfn_objects","c":"2648-2667","status":"ported","js":["js/options.js:optfn_objects"],"d":["D-3177"],"at":"2026-09-30@ae5beffe4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_packorder","c":"2670-2692","status":"ported","js":["js/options.js:optfn_packorder"],"d":["D-3177"],"at":"2026-09-30@ae5beffe4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_palette","c":"2699-2730","status":"by-design","at":"2026-09-30@e47a5e02a","note":"compiled out: body :2698-2730 inside ifdef CHANGE_COLOR (Amiga-only, windconf.h:29 commented), optlist rows :544-554 same guard, MacOS9 variant at if 0"}
@@ -108,7 +108,7 @@
 {"fn":"optfn_video_height","c":"4625-4643","status":"by-design","at":"2026-09-30@ae5beffe4","note":"MSDOS-only block options.c:4602-4645 and optlist.h:830-835; compiled out in Unix contest C"}
 {"fn":"optfn_video","c":"4647-4676","status":"by-design","at":"2026-09-30@e79d836f7","note":"stale: compiled out — #ifdef NO_TERMS (options.c:4645–4678); NO_TERMS never defined; no allopt row references it"}
 {"fn":"optfn_warnings","c":"4682-4700","status":"unknown"}
-{"fn":"optfn_whatis_coord","c":"4703-4745","status":"unknown"}
+{"fn":"optfn_whatis_coord","c":"4703-4745","status":"ported","js":["js/options.js:optfn_whatis_coord"],"d":["D-3232"],"at":"2026-10-01@516e71ff9"}
 {"fn":"optfn_whatis_filter","c":"4748-4794","status":"partial","js":["js/options.js:optfn_whatis_filter"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_windowborders","c":"4797-4853","status":"partial","js":["js/options.js:optfn_windowborders"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_windowchain","c":"4857-4881","status":"by-design","at":"2026-09-30@850d390ba","note":"WINCHAIN undefined (config.h:618 commented, plain make, no WANT_WINCHAIN) — body ifdef'd out of build"}
@@ -126,7 +126,7 @@
 {"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
 {"fn":"handler_disclose","c":"5675-5777","status":"ported","js":["js/options.js:handler_disclose"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:399 (D-2788, R1747 ACCEPT)"}
 {"fn":"handler_menu_headings","c":"5780-5792","status":"ported","js":["js/options.js:handler_menu_headings"],"d":["D-3047"],"at":"2026-09-28@d81780b83","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"handler_menu_objsyms","c":"5795-5829","status":"partial","js":["js/options.js:handler_menu_objsyms"],"omit":"`config_error_add(\"Illegal %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `n > 1` two-pick disambiguation `:5822–5823` folded — the helper returns the single new pick, which is the non-preselected entry C chooses; readers of `use_menu_g…","d":["D-2774"],"at":"seed@a30a7de84"}
+{"fn":"handler_menu_objsyms","c":"5795-5829","status":"ported","js":["js/options.js:handler_menu_objsyms"],"d":["D-3232","D-2774"],"at":"2026-10-01@516e71ff9"}
 {"fn":"handler_msg_window","c":"5832-5890","status":"ported","js":["js/options.js:handler_msg_window"],"at":"2026-09-29@e028921a0","note":"stale: js/options.js:1547 body complete per review 1724, doset caller wired js/options.js:2923 (D-2773)"}
 {"fn":"handler_number_pad","c":"5893-5950","status":"ported","js":["js/options.js:handler_number_pad"],"d":["D-2778"],"at":"seed@a30a7de84"}
 {"fn":"handler_paranoid_confirmation","c":"5953-6008","status":"unknown"}
@@ -136,7 +136,7 @@
 {"fn":"handler_runmode","c":"6124-6149","status":"ported","js":["js/options.js:handler_runmode"],"d":["D-3159"],"at":"2026-09-30@850d390ba"}
 {"fn":"handler_petattr","c":"6152-6164","status":"unknown"}
 {"fn":"handler_sortloot","c":"6167-6203","status":"ported","js":["js/options.js:handler_sortloot"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
-{"fn":"handler_whatis_coord","c":"6206-6276","status":"partial","js":["js/options.js:handler_whatis_coord"],"omit":"`config_error_add(\"Unknown %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `pick_cnt > 1` disambiguation `:6270–6271` folded — the pick-one helper returns the single new pick, which is the entry C chooses.","d":["D-2775"],"at":"seed@a30a7de84"}
+{"fn":"handler_whatis_coord","c":"6206-6276","status":"ported","js":["js/options.js:handler_whatis_coord"],"d":["D-3232","D-2775"],"at":"2026-10-01@516e71ff9"}
 {"fn":"handler_whatis_filter","c":"6279-6318","status":"ported","js":["js/options.js:handler_whatis_filter"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:2949; 3 menu arms + preselect + PICK_ONE pick[1] quirk via select_menu_pick_one (whatis_coord precedent), wired via doset_optfn_do_handler :3090 + getlin :7653"}
 {"fn":"handler_symset","c":"6321-6328","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_autopickup_exception","c":"6331-6404","status":"ported","js":["js/options.js:handler_autopickup_exception"],"d":["D-2838"],"at":"2026-10-01@e0549fe8b","note":"stale: js/options.js:6900 (whole :6330-6404; regex_error_desc omit lives in add_autopickup_exception D-3114)"}
@@ -160,7 +160,7 @@
 {"fn":"txt2key","c":"6971-7067","status":"ported","js":["js/options.js:txt2key"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
 {"fn":"initoptions","c":"7079-7115","status":"partial","js":["js/options.js:initoptions"],"omit":"- `initoptions`: no new missing arm in this body or the earlyarg caller.","d":["D-3182","D-3025"],"at":"2026-09-30@b230d7c85","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"initoptions_init","c":"7119-7305","status":"partial","js":["js/options.js:initoptions_init"],"omit":"- `initoptions_init`: pre-existing sf_init :7129 (NHFILE procedure tables; JS saves JSON through VFS); choose_windows :7136 (single tty interface); init_random ×2 :7161–7162 is represented by the session initRng adapter at jsmain.js:113 rather than separate per-stream entry points; init_symbols :71…","d":["D-3172","D-3061"],"at":"2026-09-30@d10e96661","note":"stale: js/options.js:6791 D-3061 body complete, omits by-design/compiled-out/no-analogue"}
-{"fn":"initoptions_finish","c":"7324-7384","status":"partial","js":["js/options.js:initoptions_finish"],"omit":"- `unsaveoptstr`: none — every arm ported, callee live.","d":["D-3025"],"at":"2026-09-28@f4390cd9a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"initoptions_finish","c":"7324-7384","status":"ported","js":["js/options.js:initoptions_finish"],"d":["D-3232","D-3025"],"at":"2026-10-01@516e71ff9","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"allopt_array_init","c":"7405-7433","status":"unknown"}
 {"fn":"set_menuobjsyms_flags","c":"7446-7451","status":"unknown"}
 {"fn":"change_inv_order","c":"7466-7510","status":"ported","js":["js/options.js:change_inv_order"],"d":["D-3111"],"at":"2026-09-29@d27c7b945","note":"refresh: no JS symbol (measured MISSING)"}

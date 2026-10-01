@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3232 — `options.c` config_error_add-sink closure: 4 optfn diagnostics wired + 3 queued bodies verified whole (coverage)
+
+- **Status:** fixed (breadth-phase cluster: queued head handler_whatis_coord + initoptions_finish + handler_menu_objsyms verified whole + 4 same-file Open optfns whose do_set arms carry the rows' named sink omits; 1 js file, ~8 insertions — below the ~80 guideline because the queued rows' bodies were already whole (verified arm-for-arm against the briefed C): the only completable C gaps in the closure were the 4 "not yet wired" diagnostics, completable now that the shared sink is live (D-3173). 4 stale pops retired en route: get_uchars PARTIAL → ported (whole body js/cfgfiles.js:598, callers :722/:735; wait_synch `:433` windowed-input boundary stays doc-named per D-3082), e_at PARTIAL → ported (whole body js/dbridge.js:212, do_entity wires all 6 sites :626–637; debugpline1/wait_synch compiled out without DEBUG/D_DEBUG), bill_box_content PARTIAL → ported (D-1705 whole body js/shk.js:4223, addtobill wires :4303 + self-recurse :4228), kickstr PARTIAL → ported (D-1343 whole body js/dokick.js:297, kick_ouch wires :356).)
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on all seven: 0 blocked — config-parse/'O'-menu paths). The 4 optfns dropped their do_set error diagnostics as "not yet wired" named omits (D-2765/D-2774/D-2775/D-2778 era, before the shared sink ported); the 3 handlers were queued PARTIAL on line-count gaps only.
+- **C locus:**
+  - `handler_whatis_coord`: options.c:6205–6276 (5 add_menu rows `:6219–6245`, info strings `:6246–6250` + non-tty `:6251–6253` + COL80ARG `:6254–6262`, end/select `:6264–6266`, pick + pick_cnt>1 `:6267–6271`).
+  - `initoptions_finish`: options.c:7323–7384 (rcfile `:7327`, fruitadd + oc_name `:7329–7341`, boulder showsyms `:7343–7347`, reglyph `:7348`, reset_glyphmap `:7349`, STATUS_HILITES `:7350–7365`, rest_on_space `:7366`, tiled/ascii `:7368–7375`, ENHANCED_SYMBOLS `:7376–7381`, opt_initial `:7382`).
+  - `handler_menu_objsyms`: options.c:5794–5829 (objsymvals loop `:5807–5816`, end/select `:5818–5819`, pick + n>1 `:5820–5825`).
+  - `optfn_whatis_coord`: options.c:4702–4745 (do_init `:4707–4708`, do_set `:4710–4730` with Unknown sink `:4724–4725`, get_val `:4732–4739`, do_handler `:4741–4743`).
+  - `optfn_menu_objsyms`: options.c:2224–2287 (do_init `:2230–2235`, do_set `:2237–2277` with Illegal sink `:2253–2254`, get_val `:2279–2281`, do_handler `:2283–2285`).
+  - `optfn_msg_window`: options.c:2455–2520 (do_init `:2469–2471`, do_set `:2472–2499` with Unknown sink `:2494–2495`, get_val `:2501–2514` with curses-false `:2505`, do_handler `:2516–2518`).
+  - `optfn_number_pad`: options.c:2574–2645 (do_init `:2580–2581`, do_set `:2583–2620` with Illegal sink `:2600–2601` + reset_commands `:2618`, get_val `:2622–2639`, do_handler `:2641–2643`).
+- **JS was:** the 4 do_set arms carried `// Named omission (map): config_error_add(...) — this caller diagnostic is not yet wired` (optfn_msg_window :1848, optfn_menu_objsyms :1984–1985 with `void optidx`, optfn_whatis_coord :2302–2303, optfn_number_pad :2420–2421 with `void optidx`); all 7 bodies otherwise whole (D-2765/D-2774/D-2775/D-2778/D-3025).
+- **Fix:** each sink is one live `config_error_add("<Unknown|Illegal> %s parameter '%s'", allopt_name(optidx), op)` call with the exact C format string (import already present js/options.js:247, allopt_name same-module :1792, no new edge — D-3231 precedent); both `void optidx` placeholders removed (optidx now feeds the diagnostic like C); 4 map clauses retired (data.md:2049). Handlers/doc untouched (verified comment-accurate as briefed).
+- **JS:** js/options.js:1848 (msg_window `:2494–2495`), :1984–1985 (menu_objsyms `:2253–2254`), :2301–2302 (whatis_coord `:4724–4725`), :2419–2420 (number_pad `:2600–2601`).
+- **Callers:**
+  - `handler_whatis_coord`: options.c:4742 do_handler → js/options.js:3467 (doset_optfn_do_handler).
+  - `initoptions_finish`: options.c:7114 initoptions → js/options.js:8925 (options.c:1216 + cmd.c:3480 are comments, no site).
+  - `handler_menu_objsyms`: options.c:2284 → js/options.js:3455.
+  - `optfn_whatis_coord`: allopt table (optlist.h NHOPT_PARSE, no direct C call) → JS allopt row :11869 (parseoptions/get_option_value/parseNethackrc dispatch pre-wired D-2775).
+  - `optfn_menu_objsyms`: allopt table → JS row :11653 (dispatch pre-wired D-2774; do_init site :4725).
+  - `optfn_msg_window`: allopt table → JS row :11691 + direct C :5880 (handler_msg_window get_val) → JS :1905.
+  - `optfn_number_pad`: allopt table → JS row :11701 (dispatch pre-wired D-2778).
+- **Verify:** `node scripts/verify.mjs --fn handler_whatis_coord,initoptions_finish,handler_menu_objsyms,optfn_whatis_coord,optfn_menu_objsyms,optfn_msg_window,optfn_number_pad` → PASS syntax (1 file: js/options.js) · PASS rule2 · note hidden ×7 (vacuous: 0 blocked — coverage rows) · REACH-OK ×7 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `handler_whatis_coord`: menu glyph columns + pick_cnt>1 folded into select_menu_pick_one (D-2762 helper adaptation, permanent); none in-body.
+  - `initoptions_finish`: `:7343–7347` boulder showsyms write (get_othersym by-design) + `:7349` reset_glyphmap (by-design fortress guard); none else.
+  - `handler_menu_objsyms`: menu glyph columns + n>1 folded into the helper (same adaptation); none in-body.
+  - `optfn_whatis_coord`: none — every arm live (do_handler via async split to :3467).
+  - `optfn_menu_objsyms`: none — every arm live (do_handler via :3455).
+  - `optfn_msg_window`: none — every arm live (PREV_MSGS=1 side; `#else` nhUse side compiled out; do_handler via :3458).
+  - `optfn_number_pad`: none — every arm live (do_handler via :3461; number_pad() is a termcap keypad-mode escape, tty_number_pad termcap.c:359, no scored analogue — pre-existing named; get_val iflags-derivation pre-boot adaptation untouched).
+- **Ledger:** handler_whatis_coord ported; initoptions_finish ported; handler_menu_objsyms ported; optfn_whatis_coord ported; optfn_menu_objsyms ported; optfn_msg_window ported; optfn_number_pad ported; get_uchars ported; e_at ported; bill_box_content ported; kickstr ported
+- **Next:** queue regenerates (head: handler_rebind_keys); options.c parseoptions 6-site sink family (D-2561 omit, sink now live) + measured-ok unknown declaration sweep are future same-file work. STRUCTURAL (picker): the eligible pool at standard thresholds is exactly these 4 rows (`rows`/`rows --partial` → 4; `--all` → 12 via skipped files; `--min-c-lines 4` → 40) — the breadth-phase "never sits short" assumption (QUEUE band 8–12) no longer holds, so `finish-iteration` step 8 `check-hot-docs` exits REFILL and the step-9 commit was done by hand with finish's exact message/paths (all other finish steps ran green). Next picker move is a human call: lower minC, declare the measured-ok sweep, or reopen Phase 2.
+
 ## D-3231 — `coloratt.c` MENUCOLOR closure: sink wired + 4 verified-complete, palette by-design (coverage)
 
 - **Status:** fixed (breadth-phase cluster: queue head add_menu_coloring D-2763-omit retirement + 4 verified-complete; 1 js file, ~5 insertions — below the ~80 guideline because the head's file and callee closure hold nothing more Open: remaining callees mungspaces/add_menu_coloring_parsed already ported, config_error_add body live (its partial is caller-closure), and the file's only other ledger-Open row change_palette is CHANGE_COLOR-compiled-out, retired by-design en route.)

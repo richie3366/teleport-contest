@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3232 `options.c` config_error_add-sink closure: 4 optfn diagnostics wired + 3 queued bodies verified whole (coverage)
+
+**C locus:** - `handler_whatis_coord`: options.c:6205–6276 (5 add_menu rows `:6219–6245`, info strings `:6246–6250` + non-tty `:6251–6253` + COL80ARG `:6254–6262`, end/select `:6264–6266`, pick + pick_cnt>1 `:6267–6271`).
+**JS:** js/options.js:1848 (msg_window `:2494–2495`), :1984–1985 (menu_objsyms `:2253–2254`), :2301–2302 (whatis_coord `:4724–4725`), :2419–2420 (number_pad `:2600–2601`).
+**Change:** each sink is one live `config_error_add("<Unknown|Illegal> %s parameter '%s'", allopt_name(optidx), op)` call with the exact C format string (import already present js/options.js:247, allopt_name same-module :1792, no new edge — D-3231 precedent); both `void optidx` placeholders removed (optidx now feeds the diagnostic like C); 4 map clauses retired (data.md:2049). Handlers/doc untouched (verified comment-accurate as briefed).
+**Verify:** `node scripts/verify.mjs --fn handler_whatis_coord,initoptions_finish,handler_menu_objsyms,optfn_whatis_coord,optfn_menu_objsyms,optfn_msg_window,optfn_number_pad` → PASS syntax (1 file: js/options.js) · PASS rule2 · note hidden ×7 (vacuous: 0 blocked — coverage rows) · REACH-OK ×7 (no RNG-tagged reach; smoke 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** - `handler_whatis_coord`: menu glyph columns + pick_cnt>1 folded into select_menu_pick_one (D-2762 helper adaptation, permanent); none in-body.
+**Next:** queue regenerates (head: handler_rebind_keys); options.c parseoptions 6-site sink family (D-2561 omit, sink now live) + measured-ok unknown declaration sweep are future same-file work.
 ## 2026-10-01 — D-3231 `coloratt.c` MENUCOLOR closure: sink wired + 4 verified-complete, palette by-design (coverage)
 
 **C locus:** - `add_menu_coloring`: coloratt.c:617–660 (strncpy `:623–624`, `=` split + Malformed arm `:626–628`, mungspace + `&` split `:631–634`, clr `:636–638`, attr `:640–644`, quote-strip `:648–657`, parsed `:659`).

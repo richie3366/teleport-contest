@@ -10,7 +10,7 @@
 {"fn":"find_drawbridge","c":"180-205","status":"ported","js":["js/dbridge.js:find_drawbridge"],"at":"2026-09-28@70c901367","note":"stale: js/dbridge.js:160, body whole + all 11 C call sites wired in js (dig×2,dokick,trap,zap×3,detect,music,muse,dbridge:616)"}
 {"fn":"get_wall_for_db","c":"211-227","status":"ported","js":["js/dbridge.js:get_wall_for_db"],"at":"2026-09-29@2c9129a4b","note":"stale: js/dbridge.js:180"}
 {"fn":"create_drawbridge","c":"235-283","status":"unknown","d":["D-2708"],"at":"seed@a30a7de84"}
-{"fn":"e_at","c":"286-301","status":"unknown","d":["D-1943"],"at":"seed@a30a7de84"}
+{"fn":"e_at","c":"286-301","status":"ported","js":["js/dbridge.js:e_at"],"d":["D-3232","D-1943"],"at":"2026-10-01@516e71ff9","note":"stale: js/dbridge.js:212 whole body, do_entity wires all 6 sites :626-637; debugpline1/wait_synch compiled out without DEBUG/D_DEBUG"}
 {"fn":"m_to_e","c":"304-318","status":"unknown"}
 {"fn":"u_to_e","c":"321-327","status":"unknown"}
 {"fn":"set_entity","c":"330-338","status":"unknown"}

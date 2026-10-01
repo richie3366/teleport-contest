@@ -1845,7 +1845,7 @@ export function optfn_msg_window(optidx, req, negated, opts, op, iflagsBag) {
             iflags.prevmsg_window = tmp; // C `:2491`
             break;
         default:
-            // Named omission (map): config_error_add("Unknown %s parameter '%s'") — this caller diagnostic is not yet wired.
+            config_error_add("Unknown %s parameter '%s'", allopt_name(optidx), op); // C `:2494–2495`
             retval = OPTN_ERR; // C `:2496`
         }
         return retval; // C `:2499`
@@ -1981,9 +1981,8 @@ export function optfn_menu_objsyms(optidx, req, negated, opts, op, iflagsBag) {
         } else if (op[0] >= '0' && op[0] <= '9') { // C `:2250` digit(*op)
             const i = Number.parseInt(op, 10); // C `:2251` atoi
             if (i >= objsymvals.length) { // C `:2252`
-                // Named omission (map): config_error_add("Illegal %s parameter '%s'",
-                // allopt[optidx].name, op) — this caller diagnostic is not yet wired.
-                void optidx;
+                config_error_add("Illegal %s parameter '%s'", // C `:2253–2254`
+                    allopt_name(optidx), op);
                 return OPTN_ERR; // C `:2255`
             }
             osyms = i; // C `:2257`
@@ -2299,8 +2298,8 @@ export function optfn_whatis_coord(optidx, req, negated, opts, _op, iflagsBag, o
             if (c && gpcoords.includes(c)) // C `:4721`
                 iflags.getpos_coords = c; // C `:4722`
             else {
-                // Named omission (map): config_error_add("Unknown %s parameter '%s'")
-                // — this caller diagnostic is not yet wired.
+                config_error_add("Unknown %s parameter '%s'", // C `:4724–4725`
+                    allopt_name(optidx), op);
                 return OPTN_ERR; // C `:4726`
             }
         } else
@@ -2417,9 +2416,8 @@ export function optfn_number_pad(optidx, req, negated, opts, _op, iflagsBag, opt
             const mode = Number.parseInt(op, 10); // C `:2597` atoi
             if (Number.isNaN(mode) || mode < -1 || mode > 4 // C `:2599`
                 || (mode === 0 && op[0] !== '0')) {
-                // Named omission (map): config_error_add("Illegal %s parameter '%s'",
-                // allopt[optidx].name, op) — this caller diagnostic is not yet wired.
-                void optidx;
+                config_error_add("Illegal %s parameter '%s'", // C `:2600–2601`
+                    allopt_name(optidx), op);
                 return OPTN_ERR; // C `:2602`
             } else if (mode <= 0) { // C `:2603`
                 iflags.num_pad = false; // C `:2604`

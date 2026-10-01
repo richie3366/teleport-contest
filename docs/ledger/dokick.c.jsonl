@@ -5,7 +5,7 @@
 {"fn":"container_impact_dmg","c":"412-485","status":"unknown"}
 {"fn":"kick_object","c":"489-504","status":"unknown"}
 {"fn":"really_kick_object","c":"508-790","status":"unknown"}
-{"fn":"kickstr","c":"794-831","status":"unknown","d":["D-1343"],"at":"seed@a30a7de84"}
+{"fn":"kickstr","c":"794-831","status":"ported","js":["js/dokick.js:kickstr"],"d":["D-3232","D-1343"],"at":"2026-10-01@516e71ff9","note":"stale: js/dokick.js:297 whole body (D-1343), kick_ouch wires :356"}
 {"fn":"watchman_thief_arrest","c":"834-843","status":"unknown"}
 {"fn":"watchman_door_damage","c":"846-861","status":"unknown"}
 {"fn":"kick_dumb","c":"864-878","status":"unknown"}
