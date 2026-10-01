@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3202 — `bones.c` savebones whole-body completion (make_bones head, arise/else-if control flow, ebones, fmon/ftrap/fobj loops, hero-zero, memclear, wizard_bones)
+
+- **Status:** fixed (Open — coverage row PARTIAL, C 143 L `bones.c:403–625` / JS 104 L; hops 3, callers 3, RNG 0, msg 1; dead callee commit_bonesfile; `hidden-proxy verify`: no corpus session blocked at baseline). Single-function cluster: same-file closure holds nothing more Open (getbones/no_bones_level ok, free_ebones an uncalled 3-liner, files.c file-lifecycle callees POSIX).
+- **Symptom:** coverage gap, not a corpus divergence. The JS body carried the ghost envelope but dropped the make_bones head (clear_bypasses/unleash/unpunish/dismount), ran the ghost arm after the arise arm (two sequential ifs where C has if/else-if/else — a double drop_upon_death + extra ghost whenever ugrave_arise is a valid mnum), skipped obj_attach_mid, the newebones/EBONES death record, resetobjs/mlstmv/untame/seen_resistance on monster chains, the whole ftrap loop, ux/uy zeroing, the level-memory wipe (deferred into write_bonesfile instead of C order), and the wizard_bones flag; the mon loop duplicated live iter_mons inline.
+- **C locus:**
+  - `savebones`: `nethack-c/upstream/src/bones.c:403–625` whole — clear_bypasses + open_bonesfile/wizard-Replace `:410–428`; make_bones unleash/unpunish/dismount `:431–442`; iter_mons + dmonsfree `:444–445`; forget_engravings + fid negate + ghostly invent `:447–455`; arise `:457–478` / LEAVESTATUE `:480–489` / ghost `:490–505`; shared mtmp tail + ebones `:506–540`; fmon `:541–551`, ftrap `:552–555`, fobj/buried `:556–559`; hero-zero + memclear `:561–572`; cemetery + wizard_bones `:574–599`; create/save/commit/compress `:600–625`.
+- **JS was:** `js/end.js:1638` — VFS probe + Replace, inline mon loop + dmonsfree, three drop arms with the arise fallthrough bug, ghostly-only fmon/fobj/buried marking, cemetery attach, new_nhfile + store_version + write_bonesfile (which carried resetobjs/untame/memclear/mlstmv/fruitchn out of C order).
+- **Fix:** `js/end.js` savebones restarted in C order keeping name/signature: clear_bypasses head; unleash_all + Punished-gated unpunish + usteed-gated dismount_steed(DISMOUNT_BONES); live iter_mons(remove_mon_from_bones); arise/LEAVESTATUE/ghost as one if/else-if/else over an outer mtmp (statue arm returns NULL-mtmp); obj_attach_mid(corpse) in the ghost arm; shared mtmp tail with newebones + full EBONES record (role/race `i <= NUM_*` loops, oldalign type/record, deathlevel, luck sans moreluck, Role_switch mnum, female/demigod/crowned); fmon loop with resetobjs(FALSE)/mlstmv=0/untame/M_SEEN_NOTHING; ftrap madeby_u=0 + unhideable_trap tseen; fobj + buried ghostly/resetobjs (array-or-chain); ux0/uy0 save + ux/uy=0; per-cell memclear + lastseentyp null; wizard_bones flag. `js/bones.js`: resetobjs exported (no clone); write_bonesfile trimmed to the C save path (savefruitchn, then update_mlstmv, then serLevel/write). New edges end←apply/read/steed/restore/pray, all imports.mjs --can SAFE; mon_offmap import dropped (iter_mons owns the predicate now).
+- **JS:** `js/end.js:1647–1894` (savebones) + 5 import lines (+231/−106 across end.js/bones.js with the write_bonesfile trim).
+- **Callers:**
+  - `savebones`: C `end.c:1365` (done, bones_ok + paranoid gate) → `js/end.js:1235` done(); the bones.c/shk.c references are comments. Reverse-checked: no other JS callers.
+- **Verify:** `node scripts/verify.mjs --fn savebones` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/bones.js js/end.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify savebones: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    savebones: no RNG-tagged reach; fixed smoke spread (24 run, 11.1s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+Plus full `node frozen/ps_test_runner.mjs sessions` → 44/44 (incl. seed0030-ten-diverse-deaths full RNG+screen).
+- **Named omissions:**
+  - `savebones`: close_nhfile on the probe hit (no VFS handle); compress_bonesfile on all three return paths (VFS has no post compression); create_bonesfile creat/errno/VMS arms (VFS creat cannot fail, so neither can the wizard pline1(whynot); paniclog is by-design); commit_bonesfile temp→final rename (VFS write is atomic); binary savelev record layout (JSON payload carries bonesid/fruitchn/level).
+- **Ledger:** savebones partial
+- **Next:** pop the next Open — coverage row.
+
 ## D-3201 — `do_wear.c` accessory_or_armor_on whole-body completion (helm quest arm, ring/hand C names, eyewear matrix, takeoff reset) + already_wearing2 port
 
 - **Status:** fixed (Open — coverage row PARTIAL, C 154 L `do_wear.c:2209–2428` / JS 97 L; hops 4, callers 3, RNG 0, msg 9; `hidden-proxy verify`: no corpus session blocked at baseline). Same iteration retires 8 stale heads by direct `ledger.mjs set` (notes in ledger): movebubbles + wishcmdassist + getpos_help + shkname → ported; makemaz + mhitm_ad_drli + mhitm_ad_sedu + mhitm_ad_legs → split (bodies verified complete across split homes, omits name Rule #2 / NORETURN / sibling / caller arms).
