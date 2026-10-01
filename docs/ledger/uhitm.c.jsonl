@@ -49,7 +49,7 @@
 {"fn":"mhitm_ad_acid","c":"2742-2786","status":"ported","js":["js/mhitm.js:mhitm_ad_acid"],"d":["D-2511"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_sgld","c":"2790-2855","status":"ported","js":["js/mhitm.js:mhitm_ad_sgld"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mhitm_ad_tlpt","c":"2859-2955","status":"ported","js":["js/mhitm.js:mhitm_ad_tlpt"],"d":["D-2587"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_blnd","c":"2958-3012","status":"split","js":["js/mhitm.js:mhitm_ad_blnd","js/mhitu.js:mhitm_ad_blnd_u"],"d":["D-3214","D-2540"],"at":"2026-10-01@2eced4253"}
+{"fn":"mhitm_ad_blnd","c":"2958-3012","status":"split","js":["js/mhitm.js:mhitm_ad_blnd","js/mhitu.js:mhitm_ad_blnd_u"],"d":["D-3216","D-3214","D-2540"],"at":"2026-10-01@d54d5687c"}
 {"fn":"mhitm_ad_curs","c":"3015-3096","status":"ported","js":["js/mhitm.js:mhitm_ad_curs"],"d":["D-2260","D-2259"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"mhitm_really_poison","c":"3104-3119","status":"unknown"}
 {"fn":"mhitm_ad_drst","c":"3122-3165","status":"partial","js":["js/mhitm.js:mhitm_ad_drst"],"omit":"`resists_poison_mm` still omits artifact and worn poison resistance (same gap as `js/zap.js` `resists_poison`).","d":["D-2797"],"at":"seed@a30a7de84"}

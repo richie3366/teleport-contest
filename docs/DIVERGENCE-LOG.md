@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3216 — vision_clears "quickly" text (review 2174: 12 literals + VISION_CLEARS const)
+
+- **Status:** fixed (Must-fix from review 2174 QUALITY-RISK on D-3214: the blnd arm copied the tree's value-unchecked `pline('Your vision clears.')` idiom; C emits "Your vision quickly clears."; `hidden-proxy verify mhitm_ad_blnd`: no corpus session blocked). 14-line text fix in 10 files, no behavior besides the topline string. Ships alone (Must-fix).
+- **Symptom:** C-wrong against C, not a corpus divergence. `Your1(vision_clears)` ≡ `Your("%s", c_common_strings.c_vision_clears)` (`hack.h:1027`, `decl.h:40`) ≡ "Your vision quickly clears." — the decl.c:49 initializer is the 10th positional ("vision quickly clears.", struct order `hack.h:267–272` counted field-by-field, re-verified this iteration). JS emitted "Your vision clears." at all 13 sites. Observable whenever blindness ends while !Blind (cream/towel/unblind cures, food-egg, monster blind attacks cured, blindfold removal, etc.).
+- **C locus:** `nethack-c/upstream/src/decl.c:40–52` (10th positional `c_vision_clears` = "vision quickly clears.") + all 13 `Your1(vision_clears)` use sites: `eat.c:1829`, `mthrowu.c:840`, `detect.c:1234`, `zap.c:3066`, `dothrow.c:1326`, `uhitm.c:2983` (mhitm_ad_blnd_u), `trap.c:4332`, `potion.c:2078`, `mhitu.c:1480/1631/1813`, `engrave.c:1252`, `mcastu.c:740`. Upstream grep confirms no other producers (13 sites + the `decl.h:40` define).
+- **JS was:** 12× `pline('Your vision clears.')` (`js/dothrow.js:1672`, `js/eat.js:2487`, `js/potion.js:2950`, `js/mthrowu.js:1445`, `js/zap.js:4475`, `js/detect.js:2570`, `js/engrave.js:1688`, `js/mcastu.js:359`, `js/mhitu.js:771/2002/3711/3822`) + `VISION_CLEARS = 'vision clears.'` (`js/trap.js:537`, composed at `:5082`) + the `js/mhitu.js:761` comment citing the wrong idiom; zero "quickly" anywhere in js/.
+- **Fix:** 12 literals → `'Your vision quickly clears.'`; `VISION_CLEARS` → `'vision quickly clears.'` (`:5082` composes the C string); comment cites the corrected idiom. Guards untouched; zero new module edges; 13 C sites = 13 JS emitters, verified by upstream grep both sides.
+- **JS:** `js/dothrow.js:1672`, `js/eat.js:2487`, `js/potion.js:2950`, `js/mthrowu.js:1445`, `js/zap.js:4475`, `js/detect.js:2570`, `js/engrave.js:1688`, `js/mcastu.js:359`, `js/mhitu.js:761/771/2002/3711/3822`, `js/trap.js:537` (sole edits; 10 files, 14 lines).
+- **Callers:** each site is a C `Your1(vision_clears)` use, now C-exact per home. eat.c:1829 → `js/eat.js:2487`; mthrowu.c:840 → `js/mthrowu.js:1445`; detect.c:1234 → `js/detect.js:2570`; zap.c:3066 → `js/zap.js:4475`; dothrow.c:1326 → `js/dothrow.js:1672`; uhitm.c:2983 → `js/mhitu.js:771` (mhitm_ad_blnd_u, D-3214); trap.c:4332 → `js/trap.js:5082` (via const `:537`); potion.c:2078 → `js/potion.js:2950`; mhitu.c:1480/1631/1813 → `js/mhitu.js:2002/3711/3822`; engrave.c:1252 → `js/engrave.js:1688`; mcastu.c:740 → `js/mcastu.js:359`. Reverse-checked: no new emitters added; no emitter at a site C never prints from.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_blnd --full` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+```
+PASS  syntax   10 changed js file(s): js/detect.js js/dothrow.js js/eat.js js/engrave.js js/mcastu.js js/mhitu.js js/mthrowu.js js/potion.js js/trap.js js/zap.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mhitm_ad_blnd: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    mhitm_ad_blnd: no RNG-tagged reach; fixed smoke spread (24 run, 10.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+
+VERIFY: PASS
+```
+Falsifiers: `grep -rn "Your vision clears" js/` empty ✓; `grep -rn "quickly clears" js/` = 14 lines (13 emitters + the :761 comment citing the idiom). Message-text, no RNG tags — REACH-OK via the fixed smoke spread, as in D-3210/D-3214.
+- **Named omissions:**
+  - `mhitm_ad_blnd`: none — the split stands text-exact; the other 12 sites sit in already-ported functions whose ledger rows are unchanged.
+- **Ledger:** mhitm_ad_blnd split js=js/mhitm.js:mhitm_ad_blnd+js/mhitu.js:mhitm_ad_blnd_u
+- **Next:** Must-fix row leaves via archive; second Must-fix (s_suffix 2nd wave, review 2170) remains head.
+
 ## D-3215 — `do_wear.c` ×2: Gloves_off + armoroff whole-body restarts
 
 - **Status:** fixed (breadth-phase coverage cluster: head row `do_wear.c` Gloves_off PARTIAL + same-file armoroff THIN; same-file better_not_take_that_off/hard_helmet/any_worn_armor_ok proved stale and marked via CLI in this iteration).

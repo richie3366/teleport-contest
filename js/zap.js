@@ -4472,7 +4472,7 @@ export async function flashburn(duration, via_lightning) {
         const { make_blinded } = await import('./do.js');
         await make_blinded(duration | 0, false);
         if (!Blind_props()) {
-            await pline('Your vision clears.');
+            await pline('Your vision quickly clears.');
         }
         return true;
     }

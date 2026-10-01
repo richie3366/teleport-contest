@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
+- [x] vision_clears "quickly" text — C `Your1(vision_clears)` = "Your vision quickly clears." (decl.c 10th positional "vision quickly clears.", struct hack.h:267–272) but 12× `pline('Your vision clears.')` in js/dothrow.js:1672, js/eat.js:2487, js/potion.js:2950, js/mthrowu.js:1445, js/zap.js:4475, js/detect.js:2570, js/engrave.js:1688, js/mcastu.js:359, js/mhitu.js:771/2002/3711/3822 + `VISION_CLEARS` const js/trap.js:537; falsifier `grep -rn "Your vision clears" js/` empty. Source: reviews/loop-unattended/2174-f9a10fead-uhitm-x5-vision-text.md **Addressed:** D-3216
+
+
 - [x] `s_suffix` suffixed clones keep pre-D-3200 C-wrongs — C `hacklib.c:344–359` `*(eos(buf)-1)=='s'` is lowercase-only but `|| endsWith('S')` survives in `js/eat.js:3392` s_suffix_eat, `js/mhitm.js:5814` s_suffix_mm, `js/dothrow.js:872` s_suffix_throw_gold, `js/potion.js:3010` s_suffix_pot; `js/zap.js:2688` s_suffix_zap additionally lacks the you arm and keeps z/x/ch/sh + falsy passthrough (all 5 doc'd "C ref: hacklib.c s_suffix"; eat sites are eat.c:622/625/630 brain plines; D-3200 closed the ledger split on the 6 plain homes). Fix in place or import canonical `js/do_name.js:411`. Source: reviews/loop-unattended/2160-6e06fa8e7-s-suffix.md
 
 

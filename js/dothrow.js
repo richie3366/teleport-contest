@@ -1669,7 +1669,7 @@ export async function toss_up(obj, hitsroof) {
                 u.ucreamed = (u.ucreamed | 0) + blindinc;
                 const { make_blinded } = await import('./do.js');
                 await make_blinded(BlindedTimeout() + blindinc, false);
-                if (!Blind()) await pline('Your vision clears.');
+                if (!Blind()) await pline('Your vision quickly clears.');
             }
             break;
         default:

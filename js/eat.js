@@ -2484,7 +2484,7 @@ async function rottenfood(obj) {
         await pline('Everything suddenly goes dark.');
         // C eat.c:1824-1828 — Blinded timer may be nonzero via Eyes override
         await make_blinded(BlindedTimeout() + d(2, 10), false);
-        if (!Blind()) await pline('Your vision clears.');
+        if (!Blind()) await pline('Your vision quickly clears.');
     } else if (!rn2(3)) {
         const duration = rnd(10);
         await pline('The world spins and goes dark.');

@@ -97,7 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] vision_clears "quickly" text — C `Your1(vision_clears)` = "Your vision quickly clears." (decl.c 10th positional "vision quickly clears.", struct hack.h:267–272) but 12× `pline('Your vision clears.')` in js/dothrow.js:1672, js/eat.js:2487, js/potion.js:2950, js/mthrowu.js:1445, js/zap.js:4475, js/detect.js:2570, js/engrave.js:1688, js/mcastu.js:359, js/mhitu.js:771/2002/3711/3822 + `VISION_CLEARS` const js/trap.js:537; falsifier `grep -rn "Your vision clears" js/` empty. Source: reviews/loop-unattended/2174-f9a10fead-uhitm-x5-vision-text.md
 - [ ] s_suffix 8-home second wave — `C hacklib.c:344–359` lowercase-'s'-only + case-insensitive it/you absent from js/objnam.js:2802 s_suffix_objnam, js/apply.js:3223 s_suffix_apply, js/apply.js:4347 s_suffix_fig, js/timeout.js:2271 s_suffix_hatch (`|| endsWith('S')`), js/weapon.js:1823 s_suffix_towel, js/apply.js:1445 s_suffix_leash, js/mhitu.js:1086 s_suffix_poison, js/invent.js:4355 s_suffix_inv (pre-fix shapes); falsifier `grep -rn "function s_suffix" js/` = 20 defs all C-equal to the export. Source: reviews/loop-unattended/2170-b9de54524-s-suffix-second-wave.md
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner

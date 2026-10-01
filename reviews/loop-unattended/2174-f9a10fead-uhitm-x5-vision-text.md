@@ -4,6 +4,8 @@ SHA `f9a10fead`, D-3214; 2026-10-01; `js/mhitm.js`, `js/mhitu.js`,
 `js/uhitm.js` (+~30). Five-function same-C-file cluster (uhitm.c):
 3 code functions + 2 stale splits. Closes no prior review.
 
+**Addressed:** D-3216
+
 ## Metadata
 
 - Subject: "`uhitm.c` ×5: blnd vision_clears, were uhitm row, slow

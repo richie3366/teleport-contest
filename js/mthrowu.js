@@ -1442,7 +1442,7 @@ export async function m_throw(mon, x, y, dx, dy, range, obj) {
         const uu = game.u || {};
         uu.ucreamed = (uu.ucreamed | 0) + blindinc;
         await make_blinded(BlindedTimeout() + blindinc, false);
-        if (!Blind()) await pline('Your vision clears.');
+        if (!Blind()) await pline('Your vision quickly clears.');
     }
     game._thrownobj = null;
 }

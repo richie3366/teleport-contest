@@ -2947,7 +2947,7 @@ export async function potionbreathe(obj) {
             );
         }
         if (!Blind() && !Unaware_pot()) {
-            await pline('Your vision clears.');
+            await pline('Your vision quickly clears.');
         }
         break;
     case POT_WATER:

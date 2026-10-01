@@ -758,7 +758,7 @@ function can_blnd_u(magr, aatyp) {
  * "%s blinds you!" then make_blinded(BlindedTimeout+damage); damage→0.
  * C `:2982–2983` Eyes of the Overworld: still !Blind after make_blinded →
  * Your1(vision_clears) (Your("%s",·) macro, hack.h:1027; decl.h:40 common
- * string), the established `pline('Your vision clears.')` idiom
+ * string), the established `pline('Your vision quickly clears.')` idiom
  * (detect/dothrow/eat/engrave/mcastu/mhitu×3). uhitm/mhitm arms in mhitm.js.
  */
 async function mhitm_ad_blnd_u(mtmp, mattk, mhm) {
@@ -768,7 +768,7 @@ async function mhitm_ad_blnd_u(mtmp, mattk, mhm) {
         }
         await make_blinded(BlindedTimeout() + (mhm.damage | 0), false);
         if (!Blind()) {
-            await pline('Your vision clears.');
+            await pline('Your vision quickly clears.');
         }
     }
     mhm.damage = 0;
@@ -1999,7 +1999,7 @@ async function gulpmu(mtmp, mattk) {
                 const was_blinded = !!((u.HBlinded | 0) && !(u.BBlinded | 0));
                 if (!was_blinded) await pline("You can't see in here!");
                 await make_blinded(tmp, false);
-                if (!was_blinded && !Blind()) await pline('Your vision clears.');
+                if (!was_blinded && !Blind()) await pline('Your vision quickly clears.');
             } else {
                 // C mhitu.c:1482 + potion.c incr_itimeout(&HBlinded, 1L) —
                 // TIMEOUT bits only. C HBlinded IS uprops[BLINDED].intrinsic
@@ -3708,7 +3708,7 @@ export async function gazemu(mtmp, mattk) {
                 await make_blinded(blnd, false);
                 await stop_occupation();
                 if (!Blind()) {
-                    await pline('Your vision clears.');
+                    await pline('Your vision quickly clears.');
                 } else {
                     const oldstun = (game.u?.HStun | 0) & TIMEOUT;
                     const newstun = rnd(3);
@@ -3819,7 +3819,7 @@ export async function explmu(mtmp, mattk, ufound) {
                 || (rnd(tmp = Math.trunc(tmp / 2)) > (u.ulevel | 0))) {
                 await pline('You are blinded by a blast of light!');
                 await make_blinded(tmp, false);
-                if (!Blind()) await pline('Your vision clears.');
+                if (!Blind()) await pline('Your vision quickly clears.');
             } else if (game.flags?.verbose !== false) {
                 await pline(
                     'You get the impression it was not terribly bright.',
