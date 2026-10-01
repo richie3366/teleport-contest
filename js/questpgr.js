@@ -662,13 +662,14 @@ function intermed() {
     return game.urole?.intermed || '';
 }
 
-/** C ref: hacklib.c s_suffix — it→its, you→your, *s→*', else *'s. */
+/** C ref: hacklib.c s_suffix `:345–359` — it→its, you→your, *s→*', else *'s. */
 function s_suffix(s) {
-    if (!s) return s;
-    if (s === 'it') return 'its';
-    if (s === 'you') return 'your';
-    if (s.endsWith('s')) return `${s}'`;
-    return `${s}'s`;
+    const buf = String(s ?? '');
+    const low = buf.toLowerCase();
+    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
+    if (low === 'you') return `${buf}r`;
+    if (buf.endsWith('s')) return `${buf}'`;
+    return `${buf}'s`;
 }
 
 /**
