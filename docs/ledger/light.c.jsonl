@@ -8,7 +8,7 @@
 {"fn":"discard_flashes","c":"361-370","status":"unknown"}
 {"fn":"find_mid","c":"376-395","status":"ported","js":["js/mon.js:find_mid"],"d":["D-2919"],"at":"seed@a30a7de84"}
 {"fn":"whereis_mon","c":"398-417","status":"unknown"}
-{"fn":"save_light_sources","c":"421-471","status":"unknown","d":["D-1708"],"at":"seed@a30a7de84"}
+{"fn":"save_light_sources","c":"421-471","status":"split","js":["js/mkobj.js:save_light_sources","js/lev_json.js:snapshotGlobalLights","js/lev_json.js:snapshotLocalLights"],"d":["D-3224","D-1708"],"at":"2026-10-01@8f3d63508"}
 {"fn":"restore_light_sources","c":"479-493","status":"ported","js":["js/mkobj.js:restore_light_sources"],"at":"2026-09-29@d3ab32283","note":"stale: js/mkobj.js:1316 (JSON-adapted; push matches C post-restore traversal under mirrored live order)"}
 {"fn":"light_stats","c":"501-511","status":"unknown"}
 {"fn":"relink_light_sources","c":"517-563","status":"partial","js":["js/light.js:relink_light_sources"],"omit":"C ``lookup_id_mapping`` as its own row (restore.c:1484; bucket/list state = bones id map; ghostly obj-id recording unported — the arm resolves through ``lookup_bones_id`` like region.js reset_region_mids); ``find_mid`` FM_MIGRATE/FM_MYDOGS arms (pre-existing named omit in mon.js — flag passed for f…","d":["D-2644"],"at":"seed@a30a7de84"}

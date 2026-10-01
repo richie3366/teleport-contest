@@ -34,7 +34,7 @@
 {"fn":"same_race","c":"771-871","status":"ported","js":["js/mondata.js:same_race"],"d":["D-2655"],"at":"seed@a30a7de84"}
 {"fn":"name_to_mon","c":"883-886","status":"unknown"}
 {"fn":"name_to_monplus","c":"893-1085","status":"ported","js":["js/mondata.js:name_to_monplus"],"d":["D-2577"],"at":"seed@a30a7de84"}
-{"fn":"name_to_monclass","c":"1090-1176","status":"unknown","d":["D-2045"],"at":"seed@a30a7de84"}
+{"fn":"name_to_monclass","c":"1090-1176","status":"ported","js":["js/mondata.js:name_to_monclass"],"d":["D-2045"],"at":"2026-10-01@8f3d63508","note":"stale: js/mondata.js:911 complete (single-char via canonical DEF_CHAR_TO_MLET :840, falsematch/truematch/explain/name_to_mon arms in C order); 4 C callers wired (makemon.js:1440 wiz_force_cham_form, polyself.js:2089, read.js:2497, read.js:2880)"}
 {"fn":"gender","c":"1180-1185","status":"ported","js":["js/mhitm.js:gender"],"at":"2026-09-29@ad1aa7146","note":"stale: js/mhitm.js:2104 — is_neuter/female identical; mhitu.c pair wired mhitm.js:2148,2158, uhitm.c:2208 inlined uhitm.js:2609"}
 {"fn":"pronoun_gender","c":"1191-1207","status":"unknown"}
 {"fn":"levl_follower","c":"1211-1226","status":"ported","js":["js/dog.js:levl_follower"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146"}

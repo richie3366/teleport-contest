@@ -115,10 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `artifact.c` set_artifact_intrinsic — coverage PARTIAL (C 127 code L `artifact.c:716–893` / JS 71 code L in js/artifact.js; hops 4, callers 5, RNG 0, msg 0) @3d715b8cd
-- [ ] `mondata.c` name_to_monclass — coverage PARTIAL (C 54 code L `mondata.c:1090–1176` / JS 40 code L in js/mondata.js; hops 3, callers 4, RNG 0, msg 0) @3d715b8cd
-- [ ] `end.c` build_english_list — coverage THIN (C 26 code L `end.c:1823–1859` / JS 4 code L in js/end.js; hops —, callers 1, RNG 0, msg 3; declared partial: - `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value (CR/VT/FF); empty and '*' gua) @250701173
-- [ ] `light.c` save_light_sources — coverage THIN (C 35 code L `light.c:421–471` / JS 10 code L in js/mkobj.js; hops 4, callers 3, RNG 0, msg 0) @250701173
 - [ ] `monmove.c` can_hide_under_obj — coverage PARTIAL (C 19 code L `monmove.c:2121–2167` / JS 13 code L in js/monmove.js; hops 2, callers 3, RNG 0, msg 0) @250701173
 - [ ] `mdlib.c` build_options — coverage PARTIAL (C 95 code L `mdlib.c:669–830` / JS 66 code L in js/version.js; hops —, callers 1, RNG 0, msg 4; declared partial: `eos` (pointer-arithmetic helper — folded into `+=`, C hacklib.c:192); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (save-compat v) @250701173
 - [ ] `calendar.c` hhmmss — coverage THIN (C 8 code L `calendar.c:80–92` / JS 2 code L in js/calendar.js; hops 3, callers 2, RNG 0, msg 0) @250701173
@@ -127,6 +123,10 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `sounds.c` set_voice — coverage THIN (C 12 code L `sounds.c:2161–2182` / JS 4 code L in js/sounds.js; hops 4, callers 2, RNG 0, msg 0) @b938e081b
 - [ ] `display.c` clear_glyph_buffer — coverage PARTIAL (C 24 code L `display.c:2107–2142` / JS 16 code L in js/display.js; hops 3, callers 2, RNG 0, msg 0) @bd7787f89
 - [ ] `read.c` doread — coverage PARTIAL (C 223 code L `read.c:330–647` / JS 124 code L in js/read.js; hops —, callers 0, RNG 0, msg 40) @5139f3d2e
+- [ ] `uhitm.c` mhitm_ad_pest — coverage PARTIAL (C 13 code L `uhitm.c:3808–3834` / JS 6 code L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 1; declared partial: `hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.) @8f3d63508
+- [ ] `options.c` all_options_strbuf — coverage PARTIAL (C 47 code L `options.c:9678–9748` / JS 29 code L in js/options.js; hops —, callers 2, RNG 0, msg 1; declared partial: `get_option_value` + allopt table [2/7]; `all_options_conds` (+opt_next_cond) [3/7]; `get_changed_key_binds` (unconditional call — throws if) @8f3d63508
+- [ ] `region.c` rest_regions — coverage PARTIAL (C 75 code L `region.c:799–892` / JS 54 code L in js/region.js; hops 3, callers 1, RNG 0, msg 0; declared partial: binary ``save_regions`` format (stash/JSON architecture, data.md line stands + extended); ``Sfi_any`` arg ⇔ passthrough (gas damage number);) @8f3d63508
+- [ ] `display.c` row_refresh — coverage THIN (C 28 code L `display.c:2147–2186` / JS 11 code L in js/display.js; hops 5, callers 1, RNG 0, msg 0) @8f3d63508
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
