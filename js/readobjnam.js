@@ -5,7 +5,7 @@
 //        wish "poisoned " / permapoisoned (D-1732).
 
 import { game } from './gstate.js';
-import { rn2, rnd } from './rng.js';
+import { rn2, rnd, rn1 } from './rng.js';
 import { str_start_is, strstri, strsubst, mungspaces, strncmpi, fuzzymatch, copynchars } from './hacklib.js';
 import { ALT_SPELLINGS } from './generated/alt_spellings.js';
 import { LAST_REAL_GEM } from './generated/objects_data.js';
@@ -30,7 +30,7 @@ import {
     is_poisonable, def_char_to_objclass,
 } from './objects.js';
 import {
-    mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm, rnd_class,
+    mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm, rnd_class, start_timer,
     erosion_matters, is_flammable, is_rustprone, is_crackable,
     is_corrodeable, is_rottable, is_damageable,
     place_object, obj_extract_self,
@@ -46,10 +46,10 @@ import { makesingular, makeplural, An, an, japanese_otyp_by_name, maybereleaseob
 import { align_str } from './roles.js';
 import { is_weptool, is_ammo, is_missile } from './wield.js';
 import { Is_candle, begin_burn } from './timeout.js';
-import { genus, dead_species, can_be_hatched } from './mon.js';
+import { genus, dead_species, can_be_hatched, zombie_form } from './mon.js';
 import { counter_were } from './were.js';
 import {
-    NON_PM, LOW_PM, monsterNames, mons, G_UNIQ, G_NOCORPSE,
+    NON_PM, LOW_PM, monsterNames, mons, pmnames, G_UNIQ, G_NOCORPSE,
     is_male, is_female, is_neuter, is_human, is_were, verysmall,
 } from './monsters.js';
 import {
@@ -73,8 +73,9 @@ import {
     WM_MASK, W_NONDIGGABLE, W_NONPASSWALL, RANDOM_TIN,
     P_HAMMER, P_POLEARMS,
     Is_box, Has_contents, BEAR_TRAP, LANDMINE,
-    WT_IRON_BALL_INCR, ONAME_NO_FLAGS,
+    WT_IRON_BALL_INCR, ONAME_NO_FLAGS, TIMER_OBJECT, ZOMBIFY_MON,
 } from './const.js';
+import { obj_to_any } from './hack.js';
 
 const STRANGE_OBJECT = 0;
 const GRAY_DRAGON = monsterNames.indexOf('PM_GRAY_DRAGON');
@@ -137,6 +138,7 @@ const BRASS_LANTERN = objectNames.indexOf('BRASS_LANTERN');
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const AMULET_VERSUS_POISON = objectNames.indexOf('AMULET_VERSUS_POISON');
 const PM_GRAY_OOZE = monsterNames.indexOf('PM_GRAY_OOZE');
+const PM_BLACK_PUDDING = monsterNames.indexOf('PM_BLACK_PUDDING');
 const ROCK = objectNames.indexOf('ROCK');
 const FLINT = objectNames.indexOf('FLINT');
 const GOLD_SYM = '$';
@@ -1215,7 +1217,8 @@ const NUM_GLASS_GEMS = LAST_GLASS_GEM - FIRST_GLASS_GEM + 1;
  * 1 goto srch, 2 goto typfnd, 3 return otmp, 4 goto any, 5 goto wiztrap.
  * `*p = 0` truncations rewrite the caller buffer via cbufReplace while
  * `bp += n` advances keep the prefix (cbufAdvance) for wishbuf (D-2880).
- * Named: the pudding-glob intercept (`:4345–4370`, map).
+ * The pudding-glob intercept (`:4337–4368`) retargets bp at globbuf (a
+ * separate C buffer), leaving the caller wishbuf untouched (map).
  */
 export function readobjnam_postparse1(d) {
     // C `:4245–4250` — " named " truncates; oname() truncates long names.
@@ -1312,9 +1315,42 @@ export function readobjnam_postparse1(d) {
         d.bp = d.bp.slice(8);
     }
 
-    /* C `:4345–4370` — pudding-glob intercept ("glob", "<foo> glob",
-       "glob of <foo>"): canonical globbuf spelling + FOOD_CLASS goto
-       srch. Named omission (map): travels with the finish glob arm. */
+    /* C `:4337–4368` — intercept pudding globs here; they're a valid
+       wish target, but we need them to not get treated like a corpse.
+       If a count is specified, it will be used to magnify weight
+       rather than to specify quantity (which is always 1 for globs). */
+    /* check for "glob", "<foo> glob", and "glob of <foo>" */
+    d.p = null; // C `d->p = (char *) 0`
+    if (/^globs?$/i.test(d.bp) // C strcmpi "glob"/"globs"
+        || bstrcmpi_end(d.bp, ' glob') // C BSTRCMPI(bp, bp+i-5)
+        || bstrcmpi_end(d.bp, ' globs') // C BSTRCMPI(bp, bp+i-6)
+        || (d.p = strstri(d.bp, 'glob of ')) !== null
+        || (d.p = strstri(d.bp, 'globs of ')) !== null) {
+        // C `:4355–4357` — mgend NULL; name_to_monplus keeps the longest
+        // monster prefix, so inverted "<foo> glob" still resolves (the
+        // " glob" tail is extraneous, mondata.c); "glob of X" parses X.
+        const monTail = !d.p ? d.bp : strstri(d.p, ' of ').slice(4);
+        d.mntmp = name_to_mon(monTail, null);
+        /* if we didn't recognize monster type, pick a valid one at random */
+        if (d.mntmp === NON_PM)
+            d.mntmp = rn1(PM_BLACK_PUDDING - PM_GRAY_OOZE, PM_GRAY_OOZE);
+        /* normally this would be done when makesingular() changes the value
+           but canonical form here is already singular so that won't happen */
+        if (d.cnt < 2 && strstri(d.bp, 'globs') !== null)
+            d.cnt = 2; /* affects otmp->owt but not otmp->quan for globs */
+        /* construct canonical spelling in case name_to_mon() recognized a
+           variant (grey ooze) or player used inverted syntax (<foo> glob);
+           if player has given a valid monster type but not valid glob type,
+           object name lookup won't find it and wish attempt will fail */
+        d.globbuf = `glob of ${pmnames[d.mntmp][NEUTRAL]}`;
+        d.bp = d.globbuf;
+        d.mntmp = NON_PM; /* not useful for "glob of <foo>" object lookup */
+        d.oclass = FOOD_CLASS;
+        d.actualn = d.bp;
+        d.dn = null; // C 0
+        return 1; /*goto srch;*/
+    }
+    // C `:4369` else — corpse type via "of" below (tin/of arm).
 
     // C `:4378–4397` — corpse type via "of" (figurine of an orc, tin of
     // orc meat). "tin of" sets typ=TIN (return 2, goto typfnd); " of
@@ -2047,10 +2083,42 @@ function readobjnam_finish(d) {
         d.oclass = d.otmp.oclass;
     }
 
-    // C ref: objnam.c readobjnam :5071–5083 — honor d.cnt when oc_merge
-    // (wizard unrestricted; else rnd(6) / candle <=7 / ammo-or-rock <=20).
-    // Globby gsize/weight override still named.
-    if ((d.cnt | 0) > 0) {
+    // C ref: objnam.c readobjnam `:5042–5083` — globs weigh by gsize
+    // and cnt (quan always 1); other mergeables honor d.cnt when
+    // oc_merge (wizard unrestricted; else rnd(6) / candle <=7 /
+    // ammo-or-rock <=20).
+    if (d.otmp.globby) {
+        /* for globs, calculate weight based on gsize, then multiply by cnt;
+           asking for 2 globs or for 2 small globs produces 1 small glob
+           weighing 40au instead of normal 20au; asking for 5 medium globs
+           might produce 1 very large glob weighing 600au */
+        d.otmp.quan = 1; /* always 1 for globs */
+        d.otmp.owt = weight(d.otmp);
+        /* gsize 0: unspecified => small;
+           1: small (1..5) => keep default owt for 1, yielding 20;
+           2: medium (6..15) => use weight for 6, yielding 120;
+           3: large (16..25) => 320; 4: very large (26+) => 520 */
+        if ((d.gsize | 0) > 1)
+            d.otmp.owt += (5 + ((d.gsize | 0) - 2) * 10) * d.otmp.owt;
+        /* limit overall weight which limits shrink-away time which in turn
+           affects how long some of it will remain available to be eaten */
+        if ((d.cnt | 0) > 1) {
+            let rn1cnt = rn1(5, 2); /* 2..6 */
+            if (rn1cnt > 6 - (d.gsize | 0))
+                rn1cnt = 6 - (d.gsize | 0);
+            /* C's third disjunct (y_n("Override glob weight limit?")) is
+               async in JS (named map): this chain is sync for the
+               files/mklev callers, so an over-limit wizard-interactive
+               wish clamps as on 'n'; normal and wizkit wishes are exact. */
+            if ((d.cnt | 0) > rn1cnt
+                && (!wizardMode()
+                    || (game.program_state?.wizkit_wishing | 0) !== 0))
+                d.cnt = rn1cnt;
+            d.otmp.owt *= (d.cnt | 0);
+        }
+        /* note: the owt assignment below will not change glob's weight */
+        d.cnt = 0;
+    } else if ((d.cnt | 0) > 0) {
         if (oc_merge_of(d.typ)
             && (wizardMode()
                 || (d.cnt | 0) < rnd(6)
@@ -2207,9 +2275,14 @@ function readobjnam_finish(d) {
                     mntmp = genus(mntmp, 1);
                 set_corpsenm(d.otmp, mntmp);
             }
-            /* C zombify hatch timer (start_timer/rn1/obj_to_any) — deferred:
-               d.zombify is parsed by readobjnam_preparse (`:4074–4075`) but
-               JS has no obj_to_any; named in c-js-map. */
+            /* C `:5222–5225` — zombifying wish starts the hatch timer
+               even for monsters with no zombie form: zombie_form()
+               returns a mndx or NON_PM (-1), both nonzero, so the C
+               gate is vacuous-true and the port keeps the call shape. */
+            if (d.zombify && zombie_form(mons(mntmp))) {
+                start_timer(rn1(5, 10), TIMER_OBJECT, ZOMBIFY_MON,
+                            obj_to_any(d.otmp));
+            }
             break;
         case EGG:
             mntmp = can_be_hatched(mntmp);

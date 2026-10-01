@@ -119,7 +119,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `pager.c` checkfile — coverage THIN (C 200 code L `pager.c:830–1129` / JS 48 code L in js/pager.js; hops 1, callers 2, RNG 0, msg 5; declared partial: do_supplemental_info (`pager.c:2255`, own row — verbose-glance fill stays live); supplemental_pm out of do_screen_description (own row); dlb) @03eae3466
 - [ ] `hack.c` findtravelpath — coverage MISSING (C 157 code L `hack.c:1266–1523` / JS no symbol; hops 2, callers 2, RNG 0, msg 1) @03eae3466
 - [ ] `teleport.c` rloc_to_core — coverage THIN (C 75 code L `teleport.c:1645–1768` / JS 12 code L in js/teleport.js; hops 2, callers 4, RNG 0, msg 4; declared partial: `u_on_newpos` inlined (ux/uy/uundetected/steed; `see_nearby_objects` correctly skipped — uswallow true fails C's gate; `earth_sense` map-nam) @03eae3466
-- [ ] `objnam.c` xname_flags — coverage THIN (C 300 code L `objnam.c:581–1029` / JS 52 code L in js/objnam.js; hops 3, callers 2, RNG 0, msg 17; declared partial: nextobuf/PREFIX/ConcUpdate/Concat truncation + eos overflow paniclog (by-design JS strings); glorkum default + SLIME_MOLD-bad-fruit `impossi) @03eae3466
 - [ ] `pickup.c` pickup — coverage PARTIAL (C 168 code L `pickup.c:672–910` / JS 113 code L in js/pickup.js; hops 1, callers 12, RNG 0, msg 1) @c88e33eda
 - [ ] `hacklib.c` s_suffix — coverage PARTIAL (C 11 code L `hacklib.c:345–359` / JS 7 code L in js/mthrowu.js; hops 2, callers 109, RNG 0, msg 4) @c1c0d92f4
 - [ ] `mkmaze.c` movebubbles — coverage PARTIAL (C 96 code L `mkmaze.c:1539–1685` / JS 57 code L in js/mklev.js; hops 2, callers 3, RNG 3, msg 0; declared partial: `panic("movebubbles: cons != null")` → `impossible` (no live JS panic export); BREADCRUMBS `Unplacebc_and_covet_placebc`/`Lift_covet_and_pla) @c1c0d92f4
@@ -127,6 +126,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 - [ ] `mkmaze.c` makemaz — coverage PARTIAL (C 67 code L `mkmaze.c:1127–1223` / JS 31 code L in js/mklev.js; hops 1, callers 1, RNG 6, msg 1; declared partial: SPLEVTYPE `getenv` endpoint (wizard-debug only; no environment in scored ESM, Rule #2); `Is_branchlev` (no live export — same-file local, on) @d946e150c
 - [ ] `uhitm.c` mhitm_ad_drli — coverage THIN (C 41 code L `uhitm.c:2445–2518` / JS 17 code L in js/mhitm.js; hops 4, callers 2, RNG 5, msg 3; declared partial: split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-) @92ffa7863
 - [ ] `getpos.c` getpos_help — coverage PARTIAL (C 121 code L `getpos.c:167–307` / JS 83 code L in js/getpos.js; hops 2, callers 1, RNG 0, msg 18) @92ffa7863
+- [ ] `uhitm.c` mhitm_ad_sedu — coverage THIN (C 92 code L `uhitm.c:4623–4748` / JS 39 code L in js/mhitm.js; hops 4, callers 2, RNG 1, msg 5; declared partial: `mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arm) @5b559b238
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
