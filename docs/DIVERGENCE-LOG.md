@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3211 — `uhitm.c` ×4: mhitm_ad_cold defended+seesu, hmon anger_guards tail, mhitm_ad_stun uhitm arm, mhitm_ad_slee defended/shieldeff
+
+- **Status:** fixed (breadth-phase coverage cluster: head row `uhitm.c` mhitm_ad_cold THIN + same-file Open hmon THIN, mhitm_ad_stun THIN, mhitm_ad_slee PARTIAL; `mhitm_ad_blnd` excluded — its standing omit `Your1(vision_clears)` still has no JS symbol).
+- **Symptom:** coverage gaps, not corpus divergences — four uhitm.c bodies split across js/ with stale named omissions (callees that went live since) and one never-ported arm (AD_STUN uhitm fell through `damageum_adtyping` untouched).
+- **C locus:**
+  - `mhitm_ad_cold`: `uhitm.c:2626–2681` whole (uhitm `:2633–2652`, mhitu `:2654–2663`, mhitm `:2665–2680`).
+  - `hmon`: `uhitm.c:819–834` whole (anger_guards snapshot `:826–827` + tail `:831–833`).
+  - `mhitm_ad_stun`: `uhitm.c:4388–4402` uhitm arm (`!Blind` stagger pline, `mstun=1`, phys leftover).
+  - `mhitm_ad_slee`: `mhitm.c:1223–1244` `sleep_monst` how=-1 path (`resists_sleep || defended(AD_SLEE)` → shieldeff + 0).
+- **JS was:** `damageum_ad_cold` had `defended` commented out ("no JS export" — live since, same file line 112); `mhitm_ad_cold_u` deferred `monst[un]seesu` (both + `M_SEEN_COLD` live in mhitu.js); `hmon` ended after the `ghod_hitsu` smite; no AD_STUN case in `damageum_adtyping`; `sleep_slee_mm` returned 0 silently on `resists_sleep` and slept through `defended(AD_SLEE)`.
+- **Fix:** wire the live exports in C order — `defended(mdef, AD_COLD)` disjunct (`uhitm.c:2641`); `monstseesu(M_SEEN_COLD)` / `monstunseesu` else-branch (`:2660` / `:2663`); pre-`hmon_hitmon` anger snapshot + `angry_guards(!!Deaf)` tail (house inline Deaf disjunct); new `damageum_ad_stun` (`Blind_that` stagger pline via the now-exported mhitm.js `stagger` + house `makeplural`, `mstun=1`, sync `damageum_ad_phys` — the mhitm.js phys local is the mhitm arm) + AD_STUN dispatch; `sleep_slee_mm` async with `defended(AD_SLEE)` + `shieldeff` + 0 (`mhitm.c:1232–1234`), 3 call sites awaited. No new module edges (`imports.mjs --can` ALREADY ×2; names added to existing uhitm→mon/monsters/mhitm edges).
+- **JS:** `js/uhitm.js` (cold disjunct, hmon tail, stun arm + dispatch, 3 import names), `js/mhitu.js` (cold seesu pair), `js/mhitm.js` (`stagger` export, async `sleep_slee_mm` + awaits).
+- **Callers:**
+  - `mhitm_ad_cold`: C `uhitm.c:4793` → mhitm arm `js/mhitm.js:5067`; uhitm via `damageum` → `js/uhitm.js:2814`; mhitu via hitmu dispatch → `js/mhitu.js:2939`.
+  - `hmon`: C `uhitm.c:622` → `js/uhitm.js:3063`; `ball.c:806` → `js/ball.js:927`; `dothrow.c:2205/2239/2251/2259` → `js/dothrow.js:720/751/769/778`; `do.c:223` → named omission (boulder+pit `hmon/mondied` deferred, `js/do.js:801` flooreffects).
+  - `mhitm_ad_stun`: C `uhitm.c:4787` → mhitm arm `js/mhitm.js:4999`; uhitm via `damageum` → `js/uhitm.js:2846` (new); mhitu via hitmu dispatch → `js/mhitu.js:3035`.
+  - `mhitm_ad_slee`: C `uhitm.c:4816` → mhitm arm `js/mhitm.js:5133`; uhitm via `damageum` → `js/uhitm.js:2823`; mhitu via hitmu dispatch → `js/mhitu.js:2985`.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_cold,hmon,mhitm_ad_stun,mhitm_ad_slee` → PASS syntax (3 files) · PASS rule2 · hidden none-blocked ×4 · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+  - `mhitm_ad_cold`: REACH-OK (11 reach, 11 PASS).
+  - `hmon`: REACH-OK (smoke spread 24 PASS, no RNG-tagged reach).
+  - `mhitm_ad_stun`: REACH-OK (4 reach, 4 PASS).
+  - `mhitm_ad_slee`: REACH-OK (1 reach, 1 PASS).
+- **Named omissions:**
+  - `mhitm_ad_cold`: none — all three arms whole, every callee live.
+  - `hmon`: C `do.c:223` boulder+pit hero-credit path (pre-existing `flooreffects` deferral, `js/do.js:801` — owns its own row when queued).
+  - `mhitm_ad_stun`: none — uhitm arm whole (`mhm.done` checked by `damageum`, like C `:4856–4858`).
+  - `mhitm_ad_slee`: `sticks(youmonst.data)` engulfer-keeps-hold in `slept_slee_mm` (pre-existing, treated as release); meal break stays house `meating=0` (not `finish_meating`).
+- **Ledger:** mhitm_ad_cold split js=js/mhitm.js:mhitm_ad_cold+js/uhitm.js:damageum_ad_cold+js/mhitu.js:mhitm_ad_cold_u; hmon ported; mhitm_ad_stun split js=js/mhitm.js:mhitm_ad_stun+js/uhitm.js:damageum_ad_stun+js/mhitu.js:mhitm_ad_stun_u; mhitm_ad_slee split js=js/mhitm.js:mhitm_ad_slee+js/mhitu.js:mhitm_ad_slee_u
+- **Next:** next Open — coverage row (`zap.c` resist PARTIAL).
+
 ## D-3210 — `hacklib.c` s_suffix suffixed-clone completion (review 2160: drop `|| endsWith('S')` ×4 + zap 4-arm rewrite)
 
 - **Status:** fixed (Must-fix from review 2160 QUALITY-RISK on D-3200: the name-exact sweep fixed 6 plain homes but missed 5 suffixed clones, each doc'd "C ref: hacklib.c s_suffix" at genuine call sites; `hidden-proxy verify s_suffix`: no corpus session blocked). 5-body fix in place + `scripts/s_suffix_clones.test.mjs` (6 pins). Ships alone (Must-fix).

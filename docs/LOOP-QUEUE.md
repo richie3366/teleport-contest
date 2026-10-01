@@ -115,18 +115,18 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `uhitm.c` mhitm_ad_cold — coverage THIN (C 41 code L `uhitm.c:2626–2681` / JS 15 code L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 3) @6e06fa8e7
 - [ ] `zap.c` resist — coverage PARTIAL (C 44 code L `zap.c:6100–6158` / JS 26 code L in js/zap.js; hops 4, callers 17, RNG 1, msg 0) @6e06fa8e7
 - [ ] `weapon.c` possibly_unwield — coverage PARTIAL (C 26 code L `weapon.c:747–795` / JS 13 code L in js/weapon.js; hops 3, callers 7, RNG 0, msg 1; declared partial: get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-c) @6e06fa8e7
-- [ ] `uhitm.c` hmon — coverage THIN (C 9 code L `uhitm.c:819–834` / JS 3 code L in js/uhitm.js; hops 3, callers 5, RNG 1, msg 0) @6e06fa8e7
 - [ ] `zap.c` do_osshock — coverage MISSING (C 20 code L `zap.c:1637–1674` / JS no symbol; hops 6, callers 2, RNG 3, msg 0; declared partial: `fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`).) @6e06fa8e7
 - [ ] `pickup.c` doloot_core — coverage PARTIAL (C 114 code L `pickup.c:2178–2346` / JS 80 code L in js/pickup.js; hops 5, callers 1, RNG 2, msg 8) @6e06fa8e7
-- [ ] `uhitm.c` mhitm_ad_stun — coverage THIN (C 24 code L `uhitm.c:4388–4422` / JS 9 code L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 2) @1a900fb27
 - [ ] `steal.c` relobj — coverage THIN (C 12 code L `steal.c:875–898` / JS 5 code L in js/dogmove.js; hops 4, callers 3, RNG 0, msg 1) @a5f89dd93
 - [ ] `cmd.c` can_do_extcmd — coverage PARTIAL (C 19 code L `cmd.c:463–489` / JS 14 code L in js/cmd.js; hops 1, callers 2, RNG 0, msg 2; declared partial: `lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.) @55cdefbf9
 - [ ] `wizcmds.c` wiz_map_levltyp — coverage PARTIAL (C 113 code L `wizcmds.c:693–835` / JS 70 code L in js/wizcmds.js; hops —, callers 2, RNG 0, msg 36; declared partial: `eos`/`Sprintf`/`Strcat` (no JS export exists — inline appends); `strncmpi` (inline `/^the /i` strip; write.js:82/insight.js:743/vault.js:12) @55cdefbf9
 - [ ] `uhitm.c` mhitm_ad_blnd — coverage PARTIAL (C 36 code L `uhitm.c:2958–3012` / JS 24 code L in js/mhitm.js; hops 4, callers 2, RNG 1, msg 3; declared partial: mhitu `:2982–2983` `Your1(vision_clears)` (Eyes of the Overworld; no Your1/vision_clears symbol in js/ — same standing omit as D-0926); live) @55cdefbf9
-- [ ] `uhitm.c` mhitm_ad_slee — coverage PARTIAL (C 28 code L `uhitm.c:3479–3522` / JS 18 code L in js/mhitm.js; hops 4, callers 1, RNG 5, msg 4) @9cc52a0d2
+- [ ] `do_wear.c` Gloves_off — coverage PARTIAL (C 34 code L `do_wear.c:646–702` / JS 18 code L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 0) @b9de54524
+- [ ] `do.c` obj_no_longer_held — coverage PARTIAL (C 14 code L `do.c:893–920` / JS 10 code L in js/do.js; hops 3, callers 8, RNG 1, msg 0) @b9de54524
+- [ ] `rumors.c` rumor_check — coverage THIN (C 71 code L `rumors.c:196–302` / JS 24 code L in js/rumors.js; hops —, callers 1, RNG 0, msg 7; declared partial: `init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sectio) @b9de54524
+- [ ] `mail.c` readmail — coverage THIN (C 35 code L `mail.c:487–541` / JS 4 code L in js/mail.js; hops 6, callers 1, RNG 1, msg 3) @b9de54524
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

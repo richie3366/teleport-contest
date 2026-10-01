@@ -916,9 +916,9 @@ async function mhitm_ad_elec_u(mtmp, mattk, mhm) {
 
 /**
  * C ref: uhitm.c mhitm_ad_cold mhitu branch (mdef == youmonst, `:2654–2667`).
- * hitmsg, mgc_negated(TRUE) gate, frost pline, Cold_resistance zero,
- * m_lev > rn2(20) → (void) destroy_items (return discarded).
- * monstseesu / monstunseesu deferred (elec_u body deferred, keep).
+ * hitmsg, mgc_negated(TRUE) gate, frost pline, Cold_resistance zero +
+ * monstseesu(M_SEEN_COLD) else monstunseesu (live mondata.js pair, same
+ * as fire_u), m_lev > rn2(20) → (void) destroy_items (return discarded).
  */
 async function mhitm_ad_cold_u(mtmp, mattk, mhm) {
     const orig_dmg = mhm.damage;
@@ -930,7 +930,10 @@ async function mhitm_ad_cold_u(mtmp, mattk, mhm) {
             || u.ECold_resistance);
         if (Cold_resistance) {
             await pline("The frost doesn't seem cold!");
+            monstseesu(M_SEEN_COLD); // C uhitm.c:2660
             mhm.damage = 0;
+        } else {
+            monstunseesu(M_SEEN_COLD); // C uhitm.c:2663
         }
         // C uhitm.c:2661: if ((int) magr->m_lev > rn2(20))
         // (void) destroy_items(&gy.youmonst, AD_COLD, orig_dmg) — return

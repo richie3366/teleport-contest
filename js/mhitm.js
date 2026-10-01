@@ -1122,9 +1122,10 @@ function mhitm_ad_samu(magr, mattk, mdef, mhm) {
 
 /**
  * C ref: mondata.c stagger :1394–1407 — stun/wobble verb for the
- * mhitm AD_STUN pline. locomotion() itself named.
+ * AD_STUN plines (mhitm arm below + uhitm damageum_ad_stun).
+ * locomotion() itself named.
  */
-function stagger(ptr, def) {
+export function stagger(ptr, def) {
     const s = String(def ?? '');
     const ch = s.charAt(0);
     const code = ch.charCodeAt(0);
@@ -1152,9 +1153,9 @@ function stagger(ptr, def) {
  * Cancelled returns keeping leftover d() (no stun, no phys).
  * Else canseemon pline + mstun=1 even if already stunned (no
  * spec-used / wait-for-hero unlike CONF) then mhitm_ad_phys.
- * Named omit: uhitm you-as-agr (!Blind stagger + phys).
- * mhitu you-as-def lives in mhitu.js as mhitm_ad_stun_u.
- * mhitm_ad_fire leftover is D-1405.
+ * uhitm you-as-agr (!Blind stagger + phys) is damageum_ad_stun in
+ * uhitm.js (shares this file's stagger); mhitu you-as-def lives in
+ * mhitu.js as mhitm_ad_stun_u. mhitm_ad_fire leftover is D-1405.
  */
 async function mhitm_ad_stun(magr, mattk, mdef, mhm) {
     if (magr.mcan) return;
@@ -1403,11 +1404,15 @@ export function resists_sleep_slee(mon) {
 /**
  * C ref: mhitm.c sleep_monst for how=-1 (uhitm.c mhitm_ad_slee caller).
  * how>=0 mimic reveal / resist(how) never runs here (amt is rnd(10)).
- * Named omissions: defended(mon, AD_SLEE) orange-scales/artifact; shieldeff.
+ * resists_sleep || defended(AD_SLEE) → shieldeff + 0 via the live
+ * mondata.js / display.js imports; meal break is the house meating=0.
  */
-function sleep_slee_mm(mon, amt) {
+async function sleep_slee_mm(mon, amt) {
     if (!mon) return 0;
-    if (resists_sleep_slee(mon)) return 0;
+    if (resists_sleep_slee(mon) || defended(mon, AD_SLEE)) {
+        await shieldeff(mon.mx, mon.my); // C mhitm.c:1232–1234
+        return 0;
+    }
     if (mon.mcanmove) {
         mon.meating = 0;
         amt = (amt | 0) + (mon.mfrozen | 0);
@@ -1445,7 +1450,6 @@ async function slept_slee_mm(mon) {
  * sleep(rnd(10),-1) (C as written; second always fails once frozen, but
  * the first still sleeps), then vis&&canspotmon pline + clear WAITFORU +
  * slept. mhitu (mon→you) arm lives in mhitu.js mhitm_ad_slee_u.
- * Named omissions: defended(AD_SLEE); shieldeff on resist.
  */
 export async function mhitm_ad_slee(magr, mattk, mdef, mhm) {
     void mattk;
@@ -1453,7 +1457,7 @@ export async function mhitm_ad_slee(magr, mattk, mdef, mhm) {
     if (is_youmonst(magr)) {
         if (!mdef.msleeping
             && !(await mhitm_mgc_atk_negated(magr, mdef, false))
-            && sleep_slee_mm(mdef, rnd(10))) {
+            && (await sleep_slee_mm(mdef, rnd(10)))) {
             if (!Blind_slee()) {
                 await pline(`${Monnam(mdef)} is put to sleep by you!`);
             }
@@ -1463,8 +1467,8 @@ export async function mhitm_ad_slee(magr, mattk, mdef, mhm) {
     }
     if (is_youmonst(mdef)) return;
     if (!mdef.msleeping
-        && sleep_slee_mm(mdef, rnd(10))
-        && sleep_slee_mm(mdef, rnd(10))) {
+        && (await sleep_slee_mm(mdef, rnd(10)))
+        && (await sleep_slee_mm(mdef, rnd(10)))) {
         if (_mm_vis && canspotmon(mdef)) {
             await pline(`${Monnam(mdef)} is put to sleep by ${mon_nam(magr)}.`);
         }

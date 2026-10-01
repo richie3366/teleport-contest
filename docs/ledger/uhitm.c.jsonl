@@ -10,7 +10,7 @@
 {"fn":"hitum_cleave","c":"651-731","status":"ported","js":["js/uhitm.js:hitum_cleave"],"d":["D-2589"],"at":"seed@a30a7de84"}
 {"fn":"double_punch","c":"736-754","status":"ported","js":["js/uhitm.js:double_punch"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"hitum","c":"758-815","status":"unknown","d":["D-1862"],"at":"seed@a30a7de84"}
-{"fn":"hmon","c":"819-834","status":"unknown","d":["D-1384"],"at":"seed@a30a7de84"}
+{"fn":"hmon","c":"819-834","status":"ported","js":["js/uhitm.js:hmon"],"d":["D-3211","D-1384"],"at":"2026-10-01@b9de54524"}
 {"fn":"hmon_hitmon_barehands","c":"838-882","status":"partial","js":["js/uhitm.js:hmon_hitmon_barehands"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_weapon_ranged","c":"885-917","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon_ranged"],"d":["D-3054","D-2040"],"at":"2026-09-28@a196fca24"}
 {"fn":"backstabbable","c":"921-931","status":"unknown","d":["D-1937"],"at":"seed@a30a7de84"}
@@ -44,7 +44,7 @@
 {"fn":"mhitm_ad_dren","c":"2418-2442","status":"partial","js":["js/mhitm.js:mhitm_ad_dren"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_drli","c":"2445-2518","status":"split","js":["js/mhitm.js:mhitm_ad_drli","js/uhitm.js:damageum_ad_drli","js/mhitu.js:mhitm_ad_drli_u"],"omit":"split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-cited uwep-suppressed local form (never calls `resists_drli`, unaffected); sibling `defended(AD_COLD)`-style omits untouched.","d":["D-2518"],"at":"2026-10-01@6e06fa8e7","note":"stale-split: 3 arms complete across homes (mhitm.js:4444 DRLI+deth, uhitm.js:2444, mhitu.js:2511); D-2091/D-1870 outdated"}
 {"fn":"mhitm_ad_fire","c":"2521-2623","status":"partial","js":["js/mhitm.js:mhitm_ad_fire"],"omit":"`golemeffects` (C `mon.c:5680–5707`, clone `golemeffects_mm` `js/mhitm.js:2145` — iron FIRE heal live, flesh FIRE slow named per review 365); none new — whole C body live, every callee live or named above.","d":["D-2730","D-1405"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_cold","c":"2626-2681","status":"unknown","d":["D-2718"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_cold","c":"2626-2681","status":"split","js":["js/mhitm.js:mhitm_ad_cold","js/uhitm.js:damageum_ad_cold","js/mhitu.js:mhitm_ad_cold_u"],"d":["D-3211","D-2718"],"at":"2026-10-01@b9de54524"}
 {"fn":"mhitm_ad_elec","c":"2684-2739","status":"ported","js":["js/mhitm.js:mhitm_ad_elec"],"d":["D-2542"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_acid","c":"2742-2786","status":"ported","js":["js/mhitm.js:mhitm_ad_acid"],"d":["D-2511"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_sgld","c":"2790-2855","status":"ported","js":["js/mhitm.js:mhitm_ad_sgld"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
@@ -57,7 +57,7 @@
 {"fn":"mhitm_ad_stck","c":"3306-3334","status":"partial","js":["js/mhitm.js:mhitm_ad_stck"],"omit":"The cream-pie arm of `hmon_hitmon` still returns before `nohandglow`.","d":["D-2855"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_wrap","c":"3337-3428","status":"ported","js":["js/uhitm.js:mhitm_ad_wrap"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mhitm_ad_plys","c":"3431-3476","status":"split","js":["js/mhitm.js:mhitm_ad_plys","js/mhitu.js:mhitm_ad_plys_u","js/uhitm.js:damageum_ad_plys"],"d":["D-2128"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_plys, mhitu plys_u, mhitm base; D-2128)"}
-{"fn":"mhitm_ad_slee","c":"3479-3522","status":"unknown","d":["D-1857"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_slee","c":"3479-3522","status":"split","js":["js/mhitm.js:mhitm_ad_slee","js/mhitu.js:mhitm_ad_slee_u"],"d":["D-3211","D-1857"],"at":"2026-10-01@b9de54524"}
 {"fn":"mhitm_ad_slim","c":"3526-3600","status":"ported","js":["js/mhitm.js:mhitm_ad_slim"],"d":["D-2539"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_ench","c":"3603-3649","status":"split","js":["js/mhitu.js:mhitm_ad_ench_u"],"at":"2026-09-27@d2d72caa6","note":"refresh: mhitu arm in mhitm_ad_ench_u (uhitm/mhitm are C no-ops)"}
 {"fn":"mhitm_ad_slow","c":"3652-3687","status":"unknown","d":["D-2392"],"at":"seed@a30a7de84"}
@@ -73,7 +73,7 @@
 {"fn":"mhitm_ad_ston","c":"4203-4262","status":"partial","js":["js/mhitm.js:mhitm_ad_ston","js/mhitu.js:mhitm_ad_ston_u"],"omit":"Hallu-arm Soundeffect(se_cockatrice_hiss, 50); the constant is not in js/","at":"2026-09-27@d2d72caa6","note":"refresh: all other arms verified in base + ston_u; was wrongly seeded ported"}
 {"fn":"mhitm_ad_were","c":"4265-4293","status":"unknown","d":["D-2049"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_heal","c":"4296-4385","status":"split","js":["js/mhitm.js:mhitm_ad_heal","js/mhitu.js:mhitm_ad_heal_u"],"d":["D-2511"],"at":"2026-09-27@d2d72caa6","note":"refresh: nurse arm verified in mhitm_ad_heal_u (D-2511); uhitm/mhitm delegate to phys"}
-{"fn":"mhitm_ad_stun","c":"4388-4422","status":"unknown","d":["D-2075"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_stun","c":"4388-4422","status":"split","js":["js/mhitm.js:mhitm_ad_stun","js/uhitm.js:damageum_ad_stun","js/mhitu.js:mhitm_ad_stun_u"],"d":["D-3211","D-2075"],"at":"2026-10-01@b9de54524"}
 {"fn":"mhitm_ad_legs","c":"4425-4489","status":"split","js":["js/mhitm.js:mhitm_ad_legs","js/uhitm.js:damageum_adtyping","js/mhitu.js:mhitm_ad_legs_u"],"omit":"poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); `damageum_ad_phys` shade `impossible(\"bad shade attack function flow?\")` (pre-existing gap in that live callee, not this arm).","d":["D-2767","D-2490"],"at":"2026-10-01@6e06fa8e7","note":"stale-split: 3 arms complete (mhitm.js:1784, damageum AD_LEGS row uhitm.js:2855, mhitu.js:2256); D-2767/D-2490"}
 {"fn":"mhitm_ad_dgst","c":"4492-4567","status":"unknown"}
 {"fn":"mhitm_ad_samu","c":"4570-4589","status":"unknown","d":["D-2074"],"at":"seed@a30a7de84"}

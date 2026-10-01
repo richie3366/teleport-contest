@@ -58,7 +58,7 @@ import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_ssex, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_corr, mhitm_ad_fire, mhitm_ad_dren, mhitm_ad_conf, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
-    mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, erode_armor, engulf_target, golemeffects_mm,
+    mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, erode_armor, engulf_target, golemeffects_mm, stagger,
     attk_protection,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
@@ -78,6 +78,7 @@ import {
     is_human, is_orc, is_elf, always_hostile, is_unicorn, slimeproof,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
     resists_ston, resists_acid, mon_hates_blessings, poly_when_stoned,
+    is_watch,
 } from './monsters.js';
 import {
     mkobj, mksobj_at, place_object, stackobj, delobj, relobj_on_death, obj_extract_self,
@@ -87,7 +88,7 @@ import {
     monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2,
     m_next2u, wake_nearto, m_carrying, healmon, zombie_maker, zombie_form,
     mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE, unique_corpstat,
-    iter_mons, anger_quest_guardians, NODIAG,
+    iter_mons, anger_quest_guardians, NODIAG, angry_guards,
 } from './mon.js';
 import { monflee, m_move, accessible } from './monmove.js';
 import { livelog_printf } from './pline.js';
@@ -2199,16 +2200,24 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
 }
 
 /**
- * C ref: uhitm.c hmon `:819–836` — wrapper: hmon_hitmon, then the priest-
- * struck god smite (`:829–830`; runs even when the priest died, and the
- * rn2(2) always burns when ispriest). D-2474 wires ghod_hitsu here and in
- * mon.c wakeup.
- * Named: anger_guards tail (`:826–827` + `:831–833`; mon.js angry_guards
- * live, unwired on this path — pre-existing).
+ * C ref: uhitm.c hmon `:819–836` — wrapper: anger_guards snapshot
+ * (`:826–827`, before hmon_hitmon so a kill keeps the pre-strike
+ * peaceful/priest/shk/watch state), hmon_hitmon, then the priest-struck
+ * god smite (`:829–830`; runs even when the priest died, and the rn2(2)
+ * always burns when ispriest; D-2474), then angry_guards(!!Deaf)
+ * (`:831–833`) on the snapshot. Deaf is the house inline
+ * H||E||roleplay||base disjunct.
  */
 async function hmon(mon, obj, thrown, dieroll) {
+    const anger_guards = mon.mpeaceful // C uhitm.c:826–827
+        && (mon.ispriest || mon.isshk || is_watch(mon.data));
     const result = await hmon_hitmon(mon, obj, thrown, dieroll);
     if (mon.ispriest && !rn2(2)) await ghod_hitsu(mon);
+    if (anger_guards) { // C uhitm.c:831–833
+        const u = game.u || {};
+        const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+        await angry_guards(!!Deaf);
+    }
     return result;
 }
 
@@ -2512,8 +2521,8 @@ async function damageum_ad_slow(mdef, mhm) {
  * mhitm_mgc_atk_negated(TRUE) burns rn2(10) first (negated → damage 0,
  * return); !Blind "is covered in frost!"; resists_cold zeros leftover
  * after shieldeff + "The frost doesn't chill <mon>!"; leftover +=
- * destroy_items(AD_COLD, orig). Named omissions: defended(mdef, AD_COLD)
- * worn walk (no JS export; same omit on every defended call site);
+ * destroy_items(AD_COLD, orig). resists_cold || defended(AD_COLD) via
+ * the live mondata.js export (same disjunct as the mhitm arm);
  * golemeffects(mdef, AD_COLD, damage) via live golemeffects_mm
  * (C uhitm.c:2644 — heal-or-slow, flesh COLD slows).
  */
@@ -2527,7 +2536,7 @@ async function damageum_ad_cold(mdef, mhm) {
     if (!Blind_that()) {
         await pline(`${Monnam(mdef)} is covered in frost!`);
     }
-    if (resists_cold(mdef) /* || defended(mdef, AD_COLD) */) {
+    if (resists_cold(mdef) || defended(mdef, AD_COLD)) { // C uhitm.c:2641
         await shieldeff(mdef.mx, mdef.my);
         if (!Blind_that()) {
             await pline(`The frost doesn't chill ${mon_nam(mdef)}!`);
@@ -2536,6 +2545,23 @@ async function damageum_ad_cold(mdef, mhm) {
         mhm.damage = 0;
     }
     mhm.damage = (mhm.damage | 0) + ((await destroy_items(mdef, AD_COLD, orig_dmg)) | 0);
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_stun `:4388–4402` — uhitm (you→mon) arm.
+ * !Blind "%s %s for a moment." (stagger verb via the shared mhitm.js
+ * export + house makeplural), mstun=1 even if already stunned (no
+ * spec-used / wait-for-hero unlike CONF), then damageum_ad_phys (the
+ * uhitm arm of mhitm_ad_phys — the mhitm.js local is the mhitm arm);
+ * mhm.done is checked by damageum, like C damageum `:4856–4858`.
+ */
+async function damageum_ad_stun(mdef, mattk, mhm) {
+    const pd = mdef?.data;
+    if (!Blind_that()) {
+        await pline(`${Monnam(mdef)} ${makeplural(stagger(pd, 'stagger'))} for a moment.`);
+    }
+    mdef.mstun = 1;
+    damageum_ad_phys(mdef, mattk, mhm);
 }
 
 /**
@@ -2812,6 +2838,12 @@ async function damageum_adtyping(mattk, mdef, mhm) {
     } else if (adtyp === AD_SLOW) {
         /* C ref: uhitm.c mhitm_ad_slow `:3662–3670` — uhitm arm. */
         await damageum_ad_slow(mdef, mhm);
+    } else if (adtyp === AD_STUN) {
+        /* C ref: uhitm.c mhitm_adtyping `:4787` → mhitm_ad_stun `:4393–4402`
+           uhitm (hero as attacker) arm: !Blind stagger pline, mstun=1,
+           then the phys leftover. mhitu arm is mhitm_ad_stun_u in
+           mhitu.js; mhitm arm is mhitm_ad_stun in mhitm.js. */
+        await damageum_ad_stun(mdef, mattk, mhm);
     } else if (adtyp === AD_SAMU) {
         /* C ref: uhitm.c mhitm_ad_samu `:4573–4576` — uhitm (hero as
            attacker) arm zeroes the leftover d(); no message, no steal
