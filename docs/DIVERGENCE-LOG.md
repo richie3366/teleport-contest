@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-3209 — `mon.c` iter_mons splice-safety (review 2162 savebones removal-skip)
+
+- **Status:** fixed (Must-fix from review 2162 QUALITY-RISK on D-3202: C `mon.c:4526–4538` caches `mtmp2 = mtmp->nmon` before each callback but `js/mon.js` iterated the live `game.fmon` array; D-3202 re-pointed savebones at the shared helper, so a qualifying mon immediately following a mongone'd one was skipped and wrongly kept on the bones level; `hidden-proxy verify iter_mons`: no corpus session blocked). 1-function fix in `js/mon.js` (+8/−3: snapshot loop + corrected JSDoc) + `scripts/iter-mons-splice.test.mjs` (2 pins). Ships alone (Must-fix).
+- **Symptom:** C-wrong against C, not a corpus divergence. `mongone` (`js/mon.js:3650` `list.splice(i, 1)`) shifts the next element into the consumed index, so `for..of` over the live array skips it. Trigger: two mongone-qualifying monsters adjacent in fmon order at bones time (wiz/Medusa/nemesis-voice/leader-voice/Vlad/displaced-Oracle, `js/end.js:1624`); the second is skipped and `dmonsfree` (mhp<1 only) lets the live skipper persist on the bones level.
+- **C locus:**
+  - `iter_mons`: `nethack-c/upstream/src/mon.c:4526–4538` whole — `for (mtmp = fmon; mtmp; mtmp = mtmp2)` with `mtmp2 = mtmp->nmon` cached before the DEADMONSTER/mon_offmap skip and the `(*vfunc)(mtmp)` call.
+- **JS was:** `js/mon.js:2968–2978` (pre-edit) — `for (const mtmp of game.fmon || [])` with JSDoc claiming "no nmon unlink hazard" and "the C mtmp2 snapshot is the loop itself" — false for arrays under splice.
+- **Fix:** walk `[...(game.fmon || [])]` — the snapshot is C's mtmp2 chain (C-created mons prepend to fmon and are likewise unvisited mid-walk, so the snapshot matches C for both removal and insertion); DEADMONSTER (`mhp < 1`) + `mon_offmap` checks stay at visit time against live refs. JSDoc corrected to cite the unlink hazard and the snapshot. No new module edges; export name/signature unchanged.
+- **JS:** `js/mon.js:2968–2980`; 1 js file.
+- **Callers:**
+  - `iter_mons`: C `bones.c:446` → `js/end.js:1685` savebones (the Must-fix site — adjacent qualifying mons are both visited now); C `spell.c:325` → `js/spell.js:859` deadbook_pacify_undead (pacify, no splice — unaffected); C `mon.c:3684` → `js/uhitm.js:951` anger_quest_guardians (setmangry, no splice — unaffected). The other 9 C call sites have no live JS `iter_mons(` caller yet (mimic_light_blocking/reset_hostility/set_mon_lastmove/garlic_breath/m_calcdistress/normal_shape/m_restartcham/pacify_guard/maybe_turn_mon_iter survive only as comments/local walks). Reverse-checked: no new JS callers added.
+- **Verify:** `node scripts/verify.mjs --fn iter_mons` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mon.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify iter_mons: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    iter_mons: no RNG-tagged reach; fixed smoke spread (24 run, 12.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Focused gate: `node --test scripts/iter-mons-splice.test.mjs` — 2/2 pass (1/2 pre-fix: the adjacent-mon splice test failed on the live-array loop; the dead/offmap pin passed throughout). Message/RNG-silent path, no RNG tags — REACH-OK via the fixed smoke spread, as in D-3202.
+- **Named omissions:**
+  - `iter_mons`: none — whole 13-line C body live.
+- **Ledger:** iter_mons ported
+- **Next:** next Must-fix row (`s_suffix` suffixed clones, review 2160).
+
 ## D-3208 — `attrib.c` from_what negative INVIS + CLAIRVOYANT arms (review 2165 finding 2)
 
 - **Status:** fixed (Must-fix from review 2165 QUALITY-RISK on D-3205: C `attrib.c:977–997` negative `switch (-propidx)` handles three cases but `js/attrib.js` from_what returned `''` for everything but BLINDED; `hidden-proxy verify from_what`: no corpus session blocked). 2-arm fix in `js/attrib.js` (+20/−6: INVIS + CLAIRVOYANT cases in C order, 4 const imports) + `scripts/from_what.test.mjs` (5 pins). Ships alone (Must-fix).

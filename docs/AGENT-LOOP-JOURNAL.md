@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — D-3209 `mon.c` iter_mons splice-safety (review 2162 savebones removal-skip)
+
+**C locus:** - `iter_mons`: `nethack-c/upstream/src/mon.c:4526–4538` whole — `for (mtmp = fmon; mtmp; mtmp = mtmp2)` with `mtmp2 = mtmp->nmon` cached before the DEADMONSTER/mon_offmap skip and the `(*vfunc)(mtmp)` call.
+**JS:** `js/mon.js:2968–2980`; 1 js file.
+**Change:** walk `[...(game.fmon || [])]` — the snapshot is C's mtmp2 chain (C-created mons prepend to fmon and are likewise unvisited mid-walk, so the snapshot matches C for both removal and insertion); DEADMONSTER (`mhp < 1`) + `mon_offmap` checks stay at visit time against live refs. JSDoc corrected to cite the unlink hazard and the snapshot. No new module edges; export name/signature unchanged.
+**Verify:** `node scripts/verify.mjs --fn iter_mons` → VERIFY: PASS (ran after the last js/ edit). Tail pasted verbatim:
+**Named:** - `iter_mons`: none — whole 13-line C body live.
+**Next:** next Must-fix row (`s_suffix` suffixed clones, review 2160).
 ## 2026-10-01 — D-3208 `attrib.c` from_what negative INVIS + CLAIRVOYANT arms (review 2165 finding 2)
 
 **C locus:** - `from_what`: `nethack-c/upstream/src/attrib.c:986–995` whole — `case INVIS: if (uprops[INVIS].blocked & W_ARMC) Sprintf(buf, because_of, ysimple_name(uarmc))` (mummy wrapping); `case CLAIRVOYANT: if (wizard && (uprops[CLAIRVOYANT].blocked & W_ARMH)) Sprintf(buf, because_of, ysimple_name(uarmh))` (cornuthaum). BLINDED arm (`:979–983`) untouched.

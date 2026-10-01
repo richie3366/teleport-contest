@@ -85,7 +85,7 @@
 {"fn":"normal_shape","c":"4431-4462","status":"ported","js":["js/mon.js:normal_shape"],"d":["D-3181","D-3176","D-1594"],"at":"2026-09-30@baba5ed90"}
 {"fn":"alloc_itermonarr","c":"4471-4490","status":"unknown"}
 {"fn":"iter_mons_safe","c":"4500-4522","status":"partial","js":["js/mon.js:iter_mons_safe"],"omit":"`save.c:1108` `alloc_itermonarr(0)` stays inside unported `freedynamicdata` (`FREE_ALL_MEMORY`).","d":["D-2843"],"at":"seed@a30a7de84"}
-{"fn":"iter_mons","c":"4527-4538","status":"unknown"}
+{"fn":"iter_mons","c":"4527-4538","status":"ported","js":["js/mon.js:iter_mons"],"d":["D-3209"],"at":"2026-10-01@c70774a6c"}
 {"fn":"get_iter_mons","c":"4544-4556","status":"unknown"}
 {"fn":"get_iter_mons_xy","c":"4562-4576","status":"ported","js":["js/monmove.js:get_iter_mons_xy"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"healmon","c":"4596-4614","status":"unknown"}

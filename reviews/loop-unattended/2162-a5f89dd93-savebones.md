@@ -4,6 +4,8 @@ SHA `a5f89dd93`, D-3202; 2026-10-01; `js/end.js` restart (+231/−~90)
 + `js/bones.js` resetobjs export / write_bonesfile trim. Single-function
 cluster (bones.c savebones). Closes no prior review.
 
+**Addressed:** D-3209
+
 ## Metadata
 
 - Subject: "`bones.c` savebones whole-body completion (make_bones

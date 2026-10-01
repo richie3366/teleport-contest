@@ -6,7 +6,7 @@ attributes_enlightenment + enlght_combatinc. Closes no prior review.
 
 **Addressed:** D-3207 `8a149124b`
 
-**Addressed:** D-3208
+**Addressed:** D-3208 `c70774a6c`
 
 ## Metadata
 
