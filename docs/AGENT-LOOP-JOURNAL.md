@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-01 — Audit 2158–2166 (9 SHAs D-3198–D-3206; 5 ACCEPT / 1 DEBT / 3 QUALITY-RISK; 4 Must-fix)
+
+**Reviews:** 2158 checkfile/findtravelpath ACCEPT; 2159 pickup/use_container ACCEPT; 2160 s_suffix QUALITY-RISK (5 suffixed clones keep the S-arm, zap the full old shape — ledger split closed early); 2161 accessory_or_armor_on ACCEPT; 2162 savebones QUALITY-RISK (snapshot loop → live `iter_mons` drops splice-safety; mongone skip); 2163 roguename ACCEPT (reach 21/21); 2164 com_pager_core ACCEPT (PROGRESS, scen-quest-Arch-94096 → dog_goal same step); 2165 enlightenment QUALITY-RISK (pray else-arm overlay-only, reachable via potion/zap final=0; from_what negative INVIS/CLAIRVOYANT stubbed); 2166 mkshop ACCEPT-WITH-DEBT (SHOPTYPE="" corner: C general-store + :173 truthy vs JS random + falsy; wizard+empty-env only, fix in review).
+**Must-fix (first-unchecked order):** attributes pray else-arm (2165), from_what negatives (2165), iter_mons removal-skip (2162), s_suffix clones (2160). Next cluster set to pray.
+**Gates:** sessions 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, 333+1.62 R² 0.77); fortress 665/953 (+11, 0 lost, full:true 09:30Z); held-out 13/44, 7,019 pts (+136), screens 62.3 %. Hot sum ok after trim; ledger snapshot + 5 seeded samples clean (sql/brief subcommands unavailable — node:sqlite missing — sampled via jsonl + show).
 ## 2026-10-01 — D-3206 `mkroom.c` mkshop SHOPTYPE dispatch live (retires the D-2569 Rule #2 omit)
 
 **C locus:** - `mkshop`: `nethack-c/upstream/src/mkroom.c:95–216` whole — this iteration ports the `:101–155` wizard SHOPTYPE block (endpoint `:103`, single-char dispatch `:104–153`: 8 mkzoo arms, mktemple on `_`, mkswamp on `}`, shtypes def_oc_syms match → gottype, g/G general, v/V veggy food, else i=-1); gottype walk, light loop, rnd(100) pick, rtype/topologize/needfill shipped D-2569, untouched.

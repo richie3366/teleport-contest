@@ -22,29 +22,29 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-01** — full `sessions` on `139f221a9`
-(audit **2151–2157**, 2026-10-01T06:19:58.136Z).
+Score last measured: **2026-10-01** — full `sessions` on `b76d68a29`
+(audit **2158–2166**, 2026-10-01T09:24:47.435Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`333+1.62/turn` (R² 0.776).
+`333+1.62/turn` (R² 0.77).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, scored 2026-10-01 01:48Z; fetched 2026-10-01)** | **13 / 44**, 6,883 / 11,265 pts, RNG **33.6 %**, rngSteps 87.4 %, screens **61.1 %** |
+| **Held-out (judge, scored 2026-10-01 07:09Z; fetched 2026-10-01)** | **13 / 44**, 7,019 / 11,265 pts, RNG **33.8 %**, rngSteps 87.5 %, screens **62.3 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `333+1.62/turn` (R² 0.776) |
+| Speed label | `333+1.62/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 4, 2nd agentic; best fork 35/44. Held-out 13/44, flat.
-**Corpus fortress (2026-10-01 06:25Z; scored 953/953 entries, 0 unrecorded):**
-**654 / 953** PASS (68.6 %), RNG 96.86 %, screens 91.0 %; 0 PASS losses, +6 against committed scoreboard; `full: true`, `fullAt: 2026-10-01T06:25:37.243Z`.
-Reviews 1225–2157 (index; no row 1618): 812 ACCEPT, 42 WITH-DEBT, 78 QUALITY-RISK (2151–2157: 6 accept/1 debt/0Q; 0 Must-fix families).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued).
+every audit). Rank 4, 2nd agentic; best fork 35/44. Held-out 13/44, +136 pts since 01:48Z.
+**Corpus fortress (2026-10-01 09:30Z; scored 953/953 entries, 0 unrecorded):**
+**665 / 953** PASS (69.8 %), RNG 96.90 %, screens 91.2 %; 0 PASS losses, +11 against committed scoreboard; `full: true`, `fullAt: 2026-10-01T09:30:32.179Z`.
+Reviews 1225–2166 (index; no row 1618): 817 ACCEPT, 43 WITH-DEBT, 81 QUALITY-RISK (2158–2166: 5 accept/1 debt/3Q; 4 Must-fix families).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
 --jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** `mkroom.c` mkshop SHOPTYPE dispatch (`:104–153`, live nh_getenv) — sole mkroom.c Open row (12-row block; closure helpers has_dnstairs/has_upstairs/isbig verified C-exact, no companions).
+**Next cluster:** Must-fix attributes pray else-arm (review 2165) — ships alone; then 2165-from_what, 2162, 2160.
 
 ## Parked (diagnose only — do not implement)
 

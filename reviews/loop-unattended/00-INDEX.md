@@ -2167,3 +2167,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2155-5b559b238-readobjnam-postparse1.md](./2155-5b559b238-readobjnam-postparse1.md) | `5b559b238` | D-3195 readobjnam finish + postparse1 extraction | **ACCEPT-WITH-DEBT** |
 | [2156-2ab288d08-readobjnam-glob-zombify.md](./2156-2ab288d08-readobjnam-glob-zombify.md) | `2ab288d08` | D-3196 readobjnam glob/zombify remainder | **ACCEPT** |
 | [2157-139f221a9-wizterrainwish-any-vanish.md](./2157-139f221a9-wizterrainwish-any-vanish.md) | `139f221a9` | D-3197 any fallthrough + vanish pline + wizterrainwish | **ACCEPT** |
+| [2158-acf56d4dd-checkfile-findtravelpath.md](./2158-acf56d4dd-checkfile-findtravelpath.md) | `acf56d4dd` | D-3198 checkfile fruit alias + findtravelpath TEST_MOVE | **ACCEPT** |
+| [2159-057174e0c-pickup-use-container.md](./2159-057174e0c-pickup-use-container.md) | `057174e0c` | D-3199 pickup + use_container whole-body completion | **ACCEPT** |
+| [2160-6e06fa8e7-s-suffix.md](./2160-6e06fa8e7-s-suffix.md) | `6e06fa8e7` | D-3200 s_suffix 6 homes (5 suffixed clones missed) | **QUALITY-RISK** |
+| [2161-1a900fb27-accessory-armor-on.md](./2161-1a900fb27-accessory-armor-on.md) | `1a900fb27` | D-3201 accessory_or_armor_on + already_wearing2 | **ACCEPT** |
+| [2162-a5f89dd93-savebones.md](./2162-a5f89dd93-savebones.md) | `a5f89dd93` | D-3202 savebones restart (iter_mons removal-skip) | **QUALITY-RISK** |
+| [2163-3476ed37a-roguename.md](./2163-3476ed37a-roguename.md) | `3476ed37a` | D-3203 roguename ROGUEOPTS arm + 2 stales | **ACCEPT** |
+| [2164-55cdefbf9-com-pager-guardtalk.md](./2164-55cdefbf9-com-pager-guardtalk.md) | `55cdefbf9` | D-3204 com_pager_core guardtalk arrays (PROGRESS) | **ACCEPT** |
+| [2165-9cc52a0d2-enlightenment.md](./2165-9cc52a0d2-enlightenment.md) | `9cc52a0d2` | D-3205 enlightenment pair (pray + from_what gaps) | **QUALITY-RISK** |
+| [2166-b76d68a29-mkshop-shoptype.md](./2166-b76d68a29-mkshop-shoptype.md) | `b76d68a29` | D-3206 mkshop SHOPTYPE dispatch (empty-env debt) | **ACCEPT-WITH-DEBT** |
