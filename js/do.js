@@ -126,7 +126,7 @@ import {
     near_capacity, learn_unseen_invent, encumber_msg,
     freeinv_core, getobj, ggetobj, useup, useupall,
 } from './invent.js';
-import { can_reach_floor, set_occupation, engr_at, sticks, save_engravings, rest_engravings } from './engrave.js';
+import { can_reach_floor, set_occupation, engr_at, sticks, save_engravings, rest_engravings, unskip_engravings_for_save } from './engrave.js';
 import { rest_rooms } from './mkroom.js';
 import {
     pickup, pooleffects, query_category, query_objlist, add_valid_menu_class,
@@ -1563,7 +1563,14 @@ export function save_currentstate() {
         // C `:1385` bufon(nhfp->fd) when structlevel — sfstruct.c by-design.
         // C `:1386`
         nhfp.mode = WRITING;
-        // C `:1387–1388` savelev(nhfp, lev) and close_nhfile(nhfp) stay named.
+        // C `:1387–1388` savelev(nhfp, lev): WRITING-only checkpoint of the
+        // live level — the file write and close stay named, but savelev's
+        // live side-effect ships: save.c:548 save_engravings resets every
+        // live engr_txt pointer to its slot start (engrave.c:1565–1567),
+        // so head-wiped blanks reappear (off→0) with no reload to re-skip
+        // them. Other savelev arms are pure writes in WRITING mode, except
+        // update_mlstmv timestamps (named: unobserved, no RNG impact here).
+        unskip_engravings_for_save();
     }
     // C `:1393` savestateinlock — file body named (save.c:369–421).
     ps.saving = (ps.saving | 0) + 1;

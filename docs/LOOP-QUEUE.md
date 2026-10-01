@@ -126,8 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `trap.c` water_damage — blocks 3/953 (scen-terrain-Caveman-94220, step 121, kind=rng) @07cfb4831
-- [ ] `engrave.c` wipeout_text — blocks 2/953 (scen-caster-Priest-94149, step 70, kind=rng) @07cfb4831
 - [ ] `pager.c` self_lookat — blocks 2/953 (scen-ride-Knight-94415, step 109, kind=screen) @07cfb4831
 - [ ] `do.c` flooreffects — blocks 2/953 (scen-dig-Archeologist-94275, step 30, kind=screen) @07cfb4831
 - [ ] `o_init.c` randomize_gem_colors — blocks 1/953 (scen-terrain-Monk-94060, step 0, kind=rng) @a308a919b

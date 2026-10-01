@@ -72,7 +72,7 @@
 {"fn":"lava_damage","c":"4576-4615","status":"unknown"}
 {"fn":"acid_damage","c":"4618-4654","status":"unknown"}
 {"fn":"pot_acid_damage","c":"4657-4707","status":"ported","js":["js/trap.js:pot_acid_damage"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"water_damage","c":"4712-4852","status":"unknown"}
+{"fn":"water_damage","c":"4712-4852","status":"ported","js":["js/trap.js:water_damage"],"at":"2026-10-01@0148914f2","note":"stale: js/trap.js:6255"}
 {"fn":"water_damage_chain","c":"4855-4888","status":"unknown"}
 {"fn":"emergency_disrobe","c":"4897-4941","status":"unknown"}
 {"fn":"rnd_nextto_goodpos","c":"4947-4972","status":"unknown"}

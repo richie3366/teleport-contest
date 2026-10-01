@@ -5,8 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-01
 
-- [x] `dig.c` digactualhole — blocks 6/953 (scen-dig-Archeologist-94215, step 28, kind=screen) @07cfb4831 **Addressed:** D-3237
-- [x] `dig.c` dig_up_grave — blocks 3/953 (scen-dig-Archeologist-94035, step 39, kind=screen) @07cfb4831 **Addressed:** D-3237
+- [x] `trap.c` water_damage — blocks 3/953 (scen-terrain-Caveman-94220, step 121, kind=rng) @07cfb4831 **Addressed:** D-3238
+- [x] `engrave.c` wipeout_text — blocks 2/953 (scen-caster-Priest-94149, step 70, kind=rng) @07cfb4831 **Addressed:** D-3238
+
+
+- [x] `dig.c` digactualhole — blocks 6/953 (scen-dig-Archeologist-94215, step 28, kind=screen) @07cfb4831 **Addressed:** D-3237 `0148914f2`
+- [x] `dig.c` dig_up_grave — blocks 3/953 (scen-dig-Archeologist-94035, step 39, kind=screen) @07cfb4831 **Addressed:** D-3237 `0148914f2`
 
 
 - [x] `engrave.c` read_engr_at — blocks 11/953 (scen-engrave-Ranger-94398, step 95, kind=screen) @07cfb4831 **Addressed:** D-3236 `caf1b599`
