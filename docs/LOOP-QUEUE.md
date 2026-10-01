@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] save_light_sources peel bad-type classification — C `light.c:454–459` forces bad-type → local; JS `js/mkobj.js` peel falls through `light_is_local`'s `return false` (global), inverted for both ranges; the "already maps bad-type → local" comment is false. Force local for bad-type-with-id + correct the comment. Falsifier: `{ type: 99, id: {} }` must be peeled at RANGE_LEVEL, kept at RANGE_GLOBAL. Source: reviews/loop-unattended/2184-f41c159c9-save-light-sources.md.
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Generated block — do not edit between the markers. Row: measured class,

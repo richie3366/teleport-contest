@@ -2185,3 +2185,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2173-2eced4253-doloot-able-to-loot.md](./2173-2eced4253-doloot-able-to-loot.md) | `2eced4253` | D-3213 doloot nobj cache + able_to_loot | **ACCEPT** |
 | [2174-f9a10fead-uhitm-x5-vision-text.md](./2174-f9a10fead-uhitm-x5-vision-text.md) | `f9a10fead` | D-3214 uhitm ×5 (vision text C-wrong) | **QUALITY-RISK** |
 | [2175-a6017c8d7-gloves-armoroff.md](./2175-a6017c8d7-gloves-armoroff.md) | `a6017c8d7` | D-3215 Gloves_off + armoroff restarts | **ACCEPT** |
+| [2176-002545e23-vision-clears-quickly.md](./2176-002545e23-vision-clears-quickly.md) | `002545e23` | D-3216 vision_clears "quickly" text | **ACCEPT** |
+| [2177-cdbc41097-s-suffix-second-wave.md](./2177-cdbc41097-s-suffix-second-wave.md) | `cdbc41097` | D-3217 s_suffix 8-home second wave | **ACCEPT** |
+| [2178-3d715b8cd-hurtle-step.md](./2178-3d715b8cd-hurtle-step.md) | `3d715b8cd` | D-3218 hurtle_step whole-body restart | **ACCEPT** |
+| [2179-250701173-doidtrap.md](./2179-250701173-doidtrap.md) | `250701173` | D-3219 doidtrap whole port + `^` wiring | **ACCEPT** |
+| [2180-b938e081b-mhitm-adtyping.md](./2180-b938e081b-mhitm-adtyping.md) | `b938e081b` | D-3220 mhitm_adtyping DGST/FAMN/HALU + pie umconf | **ACCEPT** |
+| [2181-bd7787f89-create-monster.md](./2181-bd7787f89-create-monster.md) | `bd7787f89` | D-3221 create_monster whole-body (scan-bound debt) | **ACCEPT-WITH-DEBT** |
+| [2182-5139f3d2e-key-binds-param.md](./2182-5139f3d2e-key-binds-param.md) | `5139f3d2e` | D-3222 key_binds CMD_PARAM arm + strbuf declare | **ACCEPT** |
+| [2183-8f3d63508-halres-sync.md](./2183-8f3d63508-halres-sync.md) | `8f3d63508` | D-3223 HALRES sync half + 5 stales | **ACCEPT** |
+| [2184-f41c159c9-save-light-sources.md](./2184-f41c159c9-save-light-sources.md) | `f41c159c9` | D-3224 save_light_sources (bad-type inverted) | **QUALITY-RISK** |
