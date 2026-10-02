@@ -5,9 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `cmd.c` levltyp_to_name — C cmd.c:1089–1094 absent from js/ (no same-named symbol; callers mon.c:226, nhlua.c:551). **Addressed:** D-3296
-- [x] `cmd.c` do_rush_west — C cmd.c:1461–1465 absent from js/ (no same-named symbol; dispatch-table refs cmd.c:2026,2071; callee set_move_cmd live js/cmd.js:558; `set_move_cmd(DIR_W, 3)` + ECMD_TIME). **Addressed:** D-3296
-- [x] `cmd.c` cmdq_reverse — C cmd.c:373–384 absent from js/ (no same-named symbol; caller cmd.c:401; iterative _cmd_queue reversal). **Addressed:** D-3296
+- [x] `hacklib.c` digit — C hacklib.c:62–65 absent from js/ (no same-named symbol; 25 call sites botl.c/cmd.c/coloratt.c/invent.c/objnam.c/options.c/pager.c/read.c/teleport.c/topten.c; `boolean ('0'<=c && c<='9')`). **Addressed:** D-3297
+- [x] `hacklib.c` letter — C hacklib.c:69–72 absent from js/ (no same-named symbol; 11 call sites cmd.c/hacklib.c/invent.c/objnam.c/options.c/shknam.c/sounds.c; `@A-Z`+`a-z` incl `@`, excl `[`). **Addressed:** D-3297
+
+
+- [x] `cmd.c` levltyp_to_name — C cmd.c:1089–1094 absent from js/ (no same-named symbol; callers mon.c:226, nhlua.c:551). **Addressed:** D-3296 `b23f261b5`
+- [x] `cmd.c` do_rush_west — C cmd.c:1461–1465 absent from js/ (no same-named symbol; dispatch-table refs cmd.c:2026,2071; callee set_move_cmd live js/cmd.js:558; `set_move_cmd(DIR_W, 3)` + ECMD_TIME). **Addressed:** D-3296 `b23f261b5`
+- [x] `cmd.c` cmdq_reverse — C cmd.c:373–384 absent from js/ (no same-named symbol; caller cmd.c:401; iterative _cmd_queue reversal). **Addressed:** D-3296 `b23f261b5`
 
 
 - [x] `getpos.c` getpos_getvalids_selection — C getpos.c:102–115 absent from js/ (no same-named symbol; callers getpos.c:53,56).

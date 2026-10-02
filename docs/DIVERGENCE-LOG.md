@@ -1,5 +1,56 @@
 # Divergence log
 
+## D-3297 — `hacklib.c` char trio: digit + letter + onlyspace (canonical exports, 3 rewires)
+
+- **Status:** shipped (2 Open missing-arm `hacklib.c` rows checked off + archived — digit, letter; onlyspace same-file companion; no review cited, no stamp owed). 49 insertions — below the ~80 density bar, defended: every other same-file ledger-Open was brief/read-verified live-in-JS or unportable-standalone (audit in Next), so the head's file holds nothing more genuinely-missing.
+- **Symptom:** no corpus divergence — coverage rows (brief-read evidence, no `blocks N`). C `digit`/`letter` had no JS symbol (`sym.mjs` NOT FOUND × 2; 25 + 9 real call sites); C `onlyspace` survived only as a drifted `!String(s||'').trim()` clone (`js/topten.js:65`, also strips \n\r\f\v which C counts non-space).
+- **C locus:**
+  - `digit`: nethack-c/upstream/src/hacklib.c:62–65 whole body (C extern, hacklib.h) — `boolean ('0' <= c && c <= '9')`.
+  - `letter`: nethack-c/upstream/src/hacklib.c:69–72 whole body (C extern) — `boolean ('@' <= c && c <= 'Z') || ('a' <= c && c <= 'z')` ('@' counts, '[' does not).
+  - `onlyspace`: nethack-c/upstream/src/hacklib.c:419–425 whole body (C extern, NONNULLARG1) — space/tab-only walk, empty is TRUE. Sole C caller topten.c:325.
+- **JS was:** `js/hacklib.js` held the highc/lowc/upwords char family but no digit/letter/onlyspace; callers carried C-exact inlines (`>= '0'`, `(>= '@' && <= 'Z') || ...`, several C-cited, e.g. `js/options.js:1586-1588`, `:1981`, `:8301-8319`); `js/read.js:2951` had `isDigit` with a "(no JS export; 1-line pred)" comment; `js/topten.js:65` had the `!trim()` drift.
+- **Fix:**
+  - `digit`: `export function digit(c)` in C order, char-or-code param (highc/lowc idiom); single-char string compare is code compare, all below 128 (no signed-char trap).
+  - `letter`: `export function letter(c)`, same idiom, C `:71` disjunction order kept.
+  - `onlyspace`: `export function onlyspace(s)` in C order (walk + space/tab gate + TRUE fallthrough; embedded NUL ends the walk like C; `?? ''` guard is the file idiom for C NONNULL).
+  - Rewires (all zero-new-edge — `imports.mjs --can topten.js hacklib.js onlyspace`: ALREADY; read.js/hacklib.js same): upwords inline → `letter(ch)`; topten clone deleted → import (call site unchanged); read.js `isDigit` (def + 2 uses) → `digit`.
+- **JS:**
+  - `digit`: `js/hacklib.js:236` (exported, C extern).
+  - `letter`: `js/hacklib.js:247` (exported, C extern).
+  - `onlyspace`: `js/hacklib.js:258` (exported, C extern).
+- **Callers:**
+  - `digit`: read.c create_particular_parse (:3155,:3157) → WIRED `js/read.js:2950,2953`; botl.c is_ltgt_percentnumber (:2662,:2664) → `js/botl.js:1712` keeps inline `:1707`; cmd.c key2extcmddesc (:2579) → `js/pager.js:3090` local keeps idiom; cmd.c get_count (:5044) → `js/cmd.js:4966` keeps inline `:4993`; coloratt.c match_str2clr (:362) → `js/botl.js:1667` keeps C-cited inline `:1679`; coloratt.c rgbstr_to_int32 (:829) → `js/options.js:6278` keeps C-cited inline `:6291`; insight.c list_vanquished (:2913) → `js/insight.js:1275` keeps inline `:1039`; invent.c getobj (:1937) → `js/invent.js:10009` keeps idiom; invent.c adjust_split (:5024) → `js/invent.js:10667` keeps idiom; objnam.c corpse_xname (:1895) → `js/objnam.js:1261` keeps 48/57 inline `:1326`; objnam.c readobjnam_preparse (:3982-3992) → `js/readobjnam.js:966` local keeps `isDigit` `:978`; objnam.c readobjnam_parse_charges (:4193,:4199) → `js/readobjnam.js:418` local keeps inlines `:432,:439`; objnam.c readobjnam_postparse3 (:4820,:4822) → `js/readobjnam.js:1747` keeps C-cited inline `:1826`; options.c optfn_menu_objsyms (:2250) → `js/options.js:1961` keeps C-cited inline `:1981`; options.c optfn_scores (:3698,:3700,:3720) → `js/options.js:8280` keeps C-cited inlines `:8301,:8303,:8319`; options.c optfn_boolean (:5227,:5232) → `js/options.js:10253` keeps idiom; options.c illegal_menu_cmd_key (:8040) → `js/options.js:1582` local keeps C-cited inline `:1586`; pager.c checkfile (:890-1047, 6 sites) → `js/pager.js:906` local keeps inlines `:811-834`; teleport.c level_tele (:1250-1251) → `js/teleport.js:2337` keeps inlines incl '-' arm `:2425-2426`; topten.c score_wanted (:1181) → `js/topten.js:1038` local keeps inline `:1073`; topl.c tty_yn_function (:462,:495) → `js/getline.js:2046` local keeps inlines `:2107,:2172`; botl.c status_hilite_menu_add (:3981) + termcap.c term_startup (:301,:304) / tty_decgraphics_termcap_fixup (:445-451) / analyze_seq (:1146) → C callers unported in JS, NOT FOUND (named).
+  - `letter`: hacklib.c upwords (:131) → WIRED `js/hacklib.js:334`; cmd.c help_dir (:4243) → `js/lock.js:206` local keeps idiom; invent.c doorganize_core (:5172) → `js/invent.js:10461` local keeps idiom (`:10436` letter cite); objnam.c makeplural (:2898) → `js/objnam.js:2236` keeps inline `:2074`; options.c optfn_scores (:3735) → `js/options.js:8280` keeps idiom; options.c illegal_menu_cmd_key (:8040) → `js/options.js:1582` local keeps C-cited inline `:1587-1588`; shknam.c shkname (:892) → `js/shknam.js:461` keeps idiom; shknam.c is_izchak (:921) → `js/shknam.js:510` keeps idiom; sounds.c temple_priest_sound (:167) → `js/sounds.js:777` local keeps idiom.
+  - `onlyspace`: topten.c:325 → WIRED `js/topten.js:99` (import `:7`; drifted clone deleted).
+- **Verify:** `node scripts/verify.mjs --fn digit,letter,onlyspace` tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/hacklib.js js/read.js js/topten.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify digit: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    digit: no RNG-tagged reach; fixed smoke spread (24 run, 10.8s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify letter: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    letter: no RNG-tagged reach; fixed smoke spread (24 run, 10.8s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify onlyspace: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    onlyspace: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Direct smoke (`node --input-type=module`, throwaway): digit/letter boundaries (`/`,`:`,`[`,`backtick`,empty,code args), onlyspace (`''`,` \t `,`\n`,`a`), upwords sentences — all PASS. No maintained unit harness in repo; `verify --fn` REACH + green/strict/cohort is the durable check (skill: `durable-test-collateral`).
+- **Named omissions:**
+  - `digit`: none in-body — whole C body live (unwired callers keep C-exact inlines, listed above).
+  - `letter`: none in-body — whole C body live (same).
+  - `onlyspace`: none in-body — whole C body live (sole C caller wired).
+- **Ledger:** digit ported; letter ported; onlyspace ported
+- **Next:** queue head moves to `topten_print`. Same-file ledger-Open audit (this iter): brief-verified live — strip_newline `js/pager.js:2941` (D-2565), xcrypt `js/rumors.js:34`, what_datamodel_is_this `js/version.js:329`, sgn `js/eat.js:2848` + 17 clones (consolidation over cap, left); read-verified C-cited in `js/hacklib.js` — highc lowc lcase ucase upstart trimspaces eos str_start_is str_end_is str_lines_maxlen strkitten copynchars ing_suffix stripchars stripdigits strsubst strNsubst findword ordin distmin dist2 online2 fuzzymatch swapbits; nh_snprintf skipped (Snprintf-macro backend only, zero direct C callers — printf-family pass).
+
 ## D-3296 — `cmd.c` missing-arm trio: levltyp_to_name + table, do_rush_west, cmdq_reverse
 
 - **Status:** shipped (3 Open missing-arm `cmd.c` rows checked off + archived; no review cited, no stamp owed)

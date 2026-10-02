@@ -126,8 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `hacklib.c` digit — C hacklib.c:62–65 absent from js/ (no same-named symbol; 25 call sites botl.c/cmd.c/coloratt.c/invent.c/objnam.c/options.c/pager.c/read.c/teleport.c/topten.c; `boolean ('0'<=c && c<='9')`).
-- [ ] `hacklib.c` letter — C hacklib.c:69–72 absent from js/ (no same-named symbol; 11 call sites cmd.c/hacklib.c/invent.c/objnam.c/options.c/shknam.c/sounds.c; `@A-Z`+`a-z` incl `@`, excl `[`).
 - [ ] `topten.c` topten_print — C topten.c:165–171 absent from js/ (no same-named symbol; 12 call sites topten.c:730–1106; WIN_ERR→raw_print else putstr ATR_NONE).
 - [ ] `topten.c` topten_print_bold — C topten.c:174–180 absent from js/ (no same-named symbol; callers topten.c:1079,1104; WIN_ERR→raw_print_bold else putstr ATR_BOLD).
 - [ ] `display.c` type_to_name — C display.c:3108–3111 absent from js/ (no same-named symbol; caller display.c:3117; `type<0||>=MAX_TYPE ? "unknown" : type_names[type]`).
