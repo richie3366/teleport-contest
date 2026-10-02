@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3316 — `alloc.c` trio (dupstr_n head by-design + fmt_ptr stale-complete + dupstr guard arm)
+
+- **Status:** shipped (1 Open missing-arm `alloc.c` row checked off + archived — dupstr_n head; fmt_ptr/dupstr same-file undeclared gaps booked directly, D-3314/D-3312 precedent; whole `alloc.c` ledger set now declared, 12/12). ~10 insertions — below the ~80 density bar, defended: the whole remaining `alloc.c` Open set ships here (callee `alloc` ported D-2991; nothing more Open in the file or closure). Brief-named review 1951 (ACCEPT-WITH-DEBT) already inventories dupstr_n as "compiled out" — corroborating evidence, not a Must-fix; its Actionable 1 (nhdupstr u32 wrap, unreachable in JS) stays unqueued review-debt, no stamp owed.
+- **Symptom:** no corpus divergence — coverage row (0 blocked on all three).
+- **C locus:**
+  - `dupstr_n`: nethack-c/upstream/src/alloc.c:253–261 — inside `#if 0 /* suppress this … */` (:249–262); extern decl global.h:314; 0 call refs (brief ref scan: decl only).
+  - `fmt_ptr`: nethack-c/upstream/src/alloc.c:124–135 — rotating ptrbuf + Sprintf %p; 45 C refs (heaplog alloc.c:160/188/192/211, impossible debug payloads, decl extern.h:84).
+  - `dupstr`: nethack-c/upstream/src/alloc.c:235–247 — strlen → `len > (unsigned) (~0U - 1U)` panic guard (:241–244) → alloc+strcpy; live in-game (MONITOR_HEAP defined nowhere per review 1951; the `dupstr→nhdupstr` macro is MONITOR_HEAP-only, global.h:339); 132 call sites.
+- **JS was:** no dupstr_n symbol (sym.mjs NOT FOUND); fmt_ptr live js/mkobj.js:1959 (C-cited identity-hex port, D-2574) but ledger-unknown; dupstr live js/dungeon.js:267 (NUL-truncate + slice, alloc≡GC) missing the :241–244 guard (measured C 4/JS 2 PARTIAL).
+- **Fix:** dupstr_n resolved by-design (compiled out — no symbol, D-3314 precedent); fmt_ptr stale-complete booking (no `js/` change); ported dupstr's guard arm into js/dungeon.js in C order (len → guard → copy) with the C-identical panic message via throw (insert_branch idiom). Single `String(s)` coercion — behavior-identical on all reachable inputs (probe 5/5).
+- **JS:**
+  - `dupstr_n`: no symbol (by-design) — C `#if 0`'d out; nothing compiled to port.
+  - `fmt_ptr`: js/mkobj.js:1959 (stale-complete) — `0x`-hex of `o_id ?? m_id ?? 0`; C rotating-buffer shape folds (fresh string per call; callers consume synchronously).
+  - `dupstr`: js/dungeon.js:267–281 — doc now C-cites alloc.c:238–247; guard js/dungeon.js:276–277 (`len > 0xfffffffe` ≡ `(unsigned)(~0U - 1U)`).
+- **Callers:**
+  - `dupstr_n`: none — dead in C (`#if 0`; decl-only).
+  - `fmt_ptr`: C heaplog arms (alloc.c:160/188/192/211 — Rule #2 file I/O, omitted in JS alloc.js per D-2991, no JS call) · C mkobj.c:3333–3336/3395–3397 → js/mkobj.js:1987–1990/2041–2042 (insane_object/check_contained) · C light.c:162/136/965 → js/light.js:110/171/592 (delete_ls/del_light_source/dump) · C worn.c:377/418 → js/worn.js:1327/1365 (not-found whybuf). Remaining C sites sit in impossible()/debug payloads whose JS ports predate fmt_ptr and render field ids instead (pre-existing per-site shape, e.g. js/botl.js:420–421 — its "no JS port" wording is stale, out of scope).
+  - `dupstr`: same export/signature — all live JS call sites keep working (guard unreachable): js/dungeon.js:306/355/356/411, js/glyphs.js:939/957/1253, js/earlyarg.js:330/399/660 (C :275/:344), js/cfgfiles.js:318/667 (C :1572), js/options.js:3728/3759/3951/6434/10604/10609 (C :1271/:1297/:4333/:53/:10089/:10095), js/mklev.js:29556. Remaining C sites use the GC no-op assignment idiom at their ports (pre-existing, e.g. js/sounds.js:269, js/options.js:3577, js/sys.js:65).
+- **Verify:**
+  - `dupstr_n`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach).
+  - `fmt_ptr`: hidden note · REACH-OK (smoke 24/24).
+  - `dupstr`: hidden note · REACH-OK (smoke 24/24).
+  - Cluster gates: `node scripts/verify.mjs --fn dupstr_n,fmt_ptr,dupstr` → syntax PASS (1 changed js file: js/dungeon.js) · Rule #2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Reachable-input probe (NUL truncation, coerce, empty, 1k) 5/5.
+- **Named omissions:**
+  - `dupstr_n`: whole body — compiled out (`#if 0`); no scored caller.
+  - `fmt_ptr`: none in-body — whole C body live in js/mkobj.js:1959.
+  - `dupstr`: none in-body — guard now live; alloc≡GC (seed pattern); unreachable threshold noted (engine strings cap ~2^30 < 2^32−1, nhdupstr 1951-debt precedent).
+- **Ledger:** dupstr_n by-design; fmt_ptr ported; dupstr ported
+- **Next:** refill yielded 0 eligible (rows --write 0; hidden-proxy queue 30 shown, 0 not open/parked/archived; no Parked line names a concrete writer+session — falsifiers are multi-candidate or measurement-first; no new absent arm in this iter's briefs) — queue sits at 0 until coverage regenerates or the next refill authorization.
+
 ## D-3315 — `invent.c` safeq quartet (safeq_xprname head + safeq_shortxprname + any_obj_ok split + worn_wield_only)
 
 - **Status:** shipped (4 Open missing-arm `invent.c` rows checked off + archived — safeq_xprname head, safeq_shortxprname, any_obj_ok, worn_wield_only; no review cited, no stamp owed). Whole `invent.c` measured-MISSING set (coverage block ungeneratable, rows --write yields 0; the 90 `unknown` carry live JS symbols).

@@ -126,8 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `alloc.c` dupstr_n — C `alloc.c:253–261` absent from js/ (no symbol; extern global.h:314, 0 call refs — dead in C; LARGEST_INT panic guard + lenout + alloc/strcpy, callee live js/alloc.js:52; sibling of the dupstr PARTIAL panic-guard gap) — resolve by-design or port (brief 2026-10-02) @9332ca054
-
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;

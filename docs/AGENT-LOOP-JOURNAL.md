@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3316 `alloc.c` trio (dupstr_n head by-design + fmt_ptr stale-complete + dupstr guard arm)
+
+**C locus:** - `dupstr_n`: nethack-c/upstream/src/alloc.c:253–261 — inside `#if 0 /* suppress this … */` (:249–262); extern decl global.h:314; 0 call refs (brief ref scan: decl only).
+**JS:** - `dupstr_n`: no symbol (by-design) — C `#if 0`'d out; nothing compiled to port.
+**Change:** dupstr_n resolved by-design (compiled out — no symbol, D-3314 precedent); fmt_ptr stale-complete booking (no `js/` change); ported dupstr's guard arm into js/dungeon.js in C order (len → guard → copy) with the C-identical panic message via throw (insert_branch idiom). Single `String(s)` coercion — behavior-identical on all reachable inputs (probe 5/5).
+**Verify:** - `dupstr_n`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach).
+**Named:** - `dupstr_n`: whole body — compiled out (`#if 0`); no scored caller.
+**Next:** refill yielded 0 eligible (rows --write 0; hidden-proxy queue 30 shown, 0 not open/parked/archived; no Parked line names a concrete writer+session — falsifiers are multi-candidate or measurement-first; no new absent arm in this iter's briefs) — queue sits at 0 until coverage regenerates or the next refill authorization.
 ## 2026-10-02 — D-3315 `invent.c` safeq quartet (safeq_xprname head + safeq_shortxprname + any_obj_ok split + worn_wield_only)
 
 **C locus:** - `safeq_xprname`: nethack-c/upstream/src/invent.c:2179–2184 — staticfn xprname(obj, NULL, ctx.let, ctx.dot, 0L, 0L); ctx invent.c:2173–2176, written by askchain :2451–2452, passed as safe_qbuf func at :2463.
