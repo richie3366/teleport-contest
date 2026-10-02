@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3287 — `do.c` goto_level discarded-level + portal-missing arms
+
+- **Status:** shipped (2 Open corpus-residual `do.c` goto_level rows checked off + archived — discarded-level head + same-function portal-missing companion; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — C-fidelity residuals (rows carry C+JS-read evidence, no `blocks N`). js/do.js `goto_level`: `if (!exists)` went straight to mklev (C :1695–1697 VISITED check + `impossible("returning to discarded level?")` + clear absent); `!ttrap` took one `u_on_rndspot(0)` for both sub-arms (C :1731–1740 qexpelled-quest silent return vs fuzzer-gated `impossible("no corresponding portal")` distinction absent).
+- **C locus:**
+  - `goto_level`: do.c:1695–1697 (discarded-level arm) + do.c:1731–1740 (portal-missing distinction).
+- **JS was:** `:1982` `if (!exists)` → `mklev()` directly; `:2075` comment + single `u_on_rndspot(0)` for both portal-missing sub-arms.
+- **Fix:** VISITED arm in C position before mklev: `((info?.flags|0) & VISITED)` → `await impossible('goto_level: returning to discarded level?')` + clear (missing entry reads 0, like C's zeroed array slot). Portal-missing in C order: `u.uevent?.qexpelled && (Is_qstart(u.uz0) || Is_qstart(u.uz))` → silent rndspot (quest-home return after expulsion); else fuzzer-gated impossible + rndspot. `Is_qstart` added to the pre-existing quest.js import (edge pre-exists, no `--can` needed); `impossible` pre-imported (:68) — no new module edges. State idioms per :2308 (`u.uevent?.qexpelled`) / :3551 (`game.iflags?.debug_fuzzer`). Doc Ported lines added.
+- **JS:** js/do.js:167 (import), :1542–1543 (doc), :1984–1991 (VISITED arm), :2083–2096 (portal-missing).
+- **Callers:**
+  - `goto_level`: in-body arms only — no call edge added/removed/moved. All C call sites wired before this commit (D-3277/D-3284: artifact.c:1928, dig.c:791, do.c:1287/2085, dungeon.c ×5, potion.c:1105). New in-body reads all live: Is_qstart (quest.js), impossible (display.js), uevent/iflags state.
+- **Verify:** `node scripts/verify.mjs --fn goto_level` → VERIFY: PASS — syntax 1 file (js/do.js) · rule2 · hidden note (no corpus session blocked; rows cite no `blocks N`, so no `--base` re-run owed) · reach 33/33 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). No maintained unit harness (no tests/ dir — D-3284 precedent); REACH + fortress are the durable checks.
+- **Named omissions:**
+  - `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).
+- **Ledger:** goto_level partial
+- **Next:** density exception stands (sub-80 insertions; `ledger.mjs rows --write` → 0 eligible globally, coverage block empty — file/closure hold nothing more Open). Refill survey: `hidden-proxy queue --limit 30` → 0 eligible as-is (30/30 tagged); parked writers per the D-3282/D-3286 surveys (ready_weapon stale D-2182, rest archived/paint-class, phase 2); no new row from this brief (remaining NOT FOUND callees: NHFILE/file-infra + lua + reseed no-op + reset_glyphmap fortress-guard + tricked_fileremoved map-named-unreachable; oinit-after-getlev C :1712 and reglyph_darkroom C :1715 are absent from the JS body but need a portability read — JS oinit is mklev-local, reglyph is a display-arch question — left unqueued, no filler invented). Open 4→2 (< 8 → REFILL-gate path per D-3285/D-3286 precedent: manual commit+push after finish's writes).
+
 ## D-3286 — `m_carrying` youmonst→invent branch (mthrowu.c:1409)
 
 - **Status:** shipped (Open corpus-residual `mthrowu.c` row checked off; no review cited, no stamp owed)

@@ -25,7 +25,7 @@
 {"fn":"badspot","c":"1400-1406","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"u_collide_m","c":"1412-1445","status":"ported","js":["js/do.js:u_collide_m"],"d":["D-2902"],"at":"seed@a30a7de84"}
 {"fn":"familiar_level_msg","c":"1448-1476","status":"ported","js":["js/do.js:familiar_level_msg"],"at":"2026-09-27@988c639a6","note":"stale: js/do.js:1018"}
-{"fn":"goto_level","c":"1479-1998","status":"partial","js":["js/do.js:goto_level"],"omit":"- `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).","d":["D-3284","D-3277","D-3261","D-1194","D-1191","D-1190"],"at":"2026-10-02@1b0ae0968"}
+{"fn":"goto_level","c":"1479-1998","status":"partial","js":["js/do.js:goto_level"],"omit":"- `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).","d":["D-3287","D-3284","D-3277","D-3261","D-1194","D-1191"],"at":"2026-10-02@d8fa56ce0"}
 {"fn":"hellish_smoke_mesg","c":"2003-2012","status":"unknown"}
 {"fn":"temperature_change_msg","c":"2016-2028","status":"unknown"}
 {"fn":"maybe_lvltport_feedback","c":"2032-2040","status":"unknown"}

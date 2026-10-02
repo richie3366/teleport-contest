@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3287 `do.c` goto_level discarded-level + portal-missing arms
+
+**C locus:** - `goto_level`: do.c:1695–1697 (discarded-level arm) + do.c:1731–1740 (portal-missing distinction).
+**JS:** js/do.js:167 (import), :1542–1543 (doc), :1984–1991 (VISITED arm), :2083–2096 (portal-missing).
+**Change:** VISITED arm in C position before mklev: `((info?.flags|0) & VISITED)` → `await impossible('goto_level: returning to discarded level?')` + clear (missing entry reads 0, like C's zeroed array slot). Portal-missing in C order: `u.uevent?.qexpelled && (Is_qstart(u.uz0) || Is_qstart(u.uz))` → silent rndspot (quest-home return after expulsion); else fuzzer-gated impossible + rndspot. `Is_qstart` added to the pre-existing quest.js import (edge pre-exists, no `--can` needed); `impossible` pre-imported (:68) — no new module edges.
+**Verify:** `node scripts/verify.mjs --fn goto_level` → VERIFY: PASS — syntax 1 file (js/do.js) · rule2 · hidden note (no corpus session blocked; rows cite no `blocks N`, so no `--base` re-run owed) · reach 33/33 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). No maintained unit harness (no tests/ dir — D-3284 precedent); REACH + fortress are the durable checks.
+**Named:** - `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).
+**Next:** density exception stands (sub-80 insertions; `ledger.mjs rows --write` → 0 eligible globally, coverage block empty — file/closure hold nothing more Open). Refill survey: `hidden-proxy queue --limit 30` → 0 eligible as-is (30/30 tagged); parked writers per the D-3282/D-3286 surveys (ready_weapon stale D-2182, rest archived/paint-class, phase 2); no new row from this brief (remaining NOT FOUND callees: NHFILE/file-infra + lua + reseed no-op + reset_glyphmap fortress-guard + tricked_fileremoved map-named-unreachable; oinit-after-getlev C :1712 and reglyph_darkroom C :1715 are absent from the JS body but need a portability read — JS oinit is mklev-local, reglyph is a display-arch question — left unqueued, no filler invented). Open 4→2 (< 8 → REFILL-gate path per D-3285/D-3286 precedent: manual commit+push after finish's writes).
 ## 2026-10-02 — D-3286 `m_carrying` youmonst→invent branch (mthrowu.c:1409)
 
 **C locus:** - `m_carrying`: mthrowu.c:1405–1414, esp :1409 `(mtmp == &gy.youmonst) ? gi.invent : mtmp->minvent`.

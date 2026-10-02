@@ -164,7 +164,7 @@ import { place_wsegs, rest_worm, save_worm } from './worm.js';
 import { set_residency, costly_alteration, is_unpaid, stolen_value, obfree } from './shk.js';
 import { burn_away_slime } from './timeout.js';
 import { set_ustuck, gulp_blnd_check, digests, Flying } from './mhitu.js';
-import { onquest, ok_to_quest } from './quest.js';
+import { onquest, ok_to_quest, Is_qstart } from './quest.js';
 import { resurrect } from './wizard.js';
 import { create_mplayers } from './mplayer.js';
 import { gain_guardian_angel } from './minion.js';
@@ -1539,6 +1539,8 @@ export async function getlev_catchup_monsters(elapsed) {
 * Ported: entry dlevel clamp (C `:1501–1502`) + endgame-entry arm (C
 * `:1504–1509`: no-Amulet return, wizard ^V bypasses Earth redirect) +
 * plain-`else` arrival (C `:1803`: at_stairs endgame arrivals rndspot).
+* Ported: discarded-level VISITED impossible+clear (C `:1695–1697`) +
+* portal-missing qexpelled/impossible distinction (C `:1731–1740`).
  * Trap-door `ballfall` was already live; D-3261 omit text corrected.
  * Deferred: binary NHFILE, quest gate seal RMPORTAL, migrating-Wizard
  * resurrect arm, Lua NHCB_LVL_LEAVE, MICRO display_nhwindow after
@@ -1980,6 +1982,13 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     const madeNew = !exists;
     let familiar = false;
     if (!exists) {
+        // C do.c:1695–1697 — VISITED without LFILE_EXISTS means the
+        // level was discarded (cant_go_back): flag it, clear it, then
+        // the fresh mklev below starts unvisited.
+        if (((info?.flags | 0) & VISITED) !== 0) {
+            await impossible('goto_level: returning to discarded level?');
+            info.flags = (info.flags | 0) & ~VISITED;
+        }
         await mklev();
         if (!game.level_info[new_ledger]) game.level_info[new_ledger] = { flags: 0 };
         // C: LFILE_EXISTS is set on savelev leave, not on first mklev.
@@ -2072,8 +2081,18 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             }
         }
         if (!ttrap) {
-            // C: qexpelled quest return / missing portal → u_on_rndspot(0)
-            await u_on_rndspot(0);
+            // C do.c:1731–1740 — quest-home return after expulsion
+            // takes the silent rndspot (the portal back no longer
+            // exists, see expulsion()); any other missing portal is
+            // impossible (fuzzer runs excepted), then the same rndspot.
+            if (u.uevent?.qexpelled
+                && (Is_qstart(u.uz0) || Is_qstart(u.uz))) {
+                await u_on_rndspot(0);
+            } else {
+                if (!game.iflags?.debug_fuzzer)
+                    await impossible('goto_level: no corresponding portal!');
+                await u_on_rndspot(0);
+            }
         } else {
             seetrap(ttrap);
             await u_on_newpos(ttrap.tx, ttrap.ty); // C do.c:1744
