@@ -126,9 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `zap.c` boomhit — C zap.c:4148 boomhit :4202–4210 boomerang self-hit arm (thitu "boomerang" + endmultishot(TRUE)) absent from js/zap.js (no boomhit/boomerang in file; queued as bhit 4fbb3512e, pinned-C bhit zap.c:3827–4139 holds no such arm; endmultishot live js/dothrow.js:862) @4fbb3512e
-- [ ] `do.c` boulder_hits_pool — C do.c:148–151 pushing useupf(otmp, quan) absent from js/do.js:boulder_hits_pool (:1057 inlines the obfree path for both arms; useupf live js/invent.js:4851) @5a869cf51
-- [ ] `do.c` boulder_hits_pool — C do.c:137 burn_away_slime() in the lava arm absent from js/do.js:boulder_hits_pool (:1046 molten-lava arm without it; burn_away_slime live js/timeout.js:1709) @5a869cf51
 - [ ] `hack.c` check_capacity — C hack.c:4402–4406 pline1(str)/You_cant immediate-message arms absent from js/pickup.js:check_capacity (:4716 local-only clone; :4719 fire-and-forget game._check_capacity_msg; C has 13 call sites incl apply/dothrow/eat/engrave/pickup/read/spell/teleport/trap/uhitm/zap) @6ea16ae6e
 - [ ] `trap.c` trapeffect_fire_trap — C trap.c:1746–1753 surface(mx,my) in both erupt plines + :1736 seetrap(trap) hero branch absent from js/trap.js:trapeffect_fire_trap (:4840 const surf = 'floor' // surface() deferred; hero :4829–4832 dofiretrap-only; surface live js/sit.js, seetrap live js/trap.js) @6ea16ae6e
 - [ ] `apply.c` use_stethoscope — C apply.c:430–431 M_AP_FURNITURE defsyms[mappearance].explanation absent from js/apply.js:use_stethoscope (:598–600 keeps C default 'thing'; no JS defsyms table; named omit D-2594/ledger partial; prior whole-body row DONE:1437 left this arm) @6ea16ae6e

@@ -5,8 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `allmain.c` moveloop_core — blocks 1/953 (scen-death-Tourist-92095 step 49/111 kind=screen+rng: post-lifesave turn re-loops in JS — extra movemon + 2nd once-per-turn block incl. mcalcmove/maybe_generate_rnd_mon/2nd dosounds trio, +95 draws — while C exits after u_wipe_engr rn2(82); pet (48,15)→(48,14) paints I vs C floor; savelife/done set no loop state, u_calc_moveamt clone verbatim — gap in do-while `umovement < NORMAL_SPEED` turn accounting, allmain.c:196–380) @4fbb3512e **Addressed:** D-3264
-- [x] `end.c` done — C end.c:1098–1100 amulet-arm formatkiller + livelog_printf(LL_LIFESAVE) "averted death" absent from js/end.js:done (:2174 "livelog_printf deferred"; formatkiller live :518, livelog_printf live js/pline.js:44) @5a869cf51 **Addressed:** D-3264
+- [x] `zap.c` boomhit — C zap.c:4148 boomhit :4202–4210 boomerang self-hit arm (thitu "boomerang" + endmultishot(TRUE)) absent from js/zap.js (no boomhit/boomerang in file; queued as bhit 4fbb3512e, pinned-C bhit zap.c:3827–4139 holds no such arm; endmultishot live js/dothrow.js:862) @4fbb3512e **Addressed:** D-3265 (stale: whole body live js/dothrow.js:2116, D-1301)
+- [x] `do.c` boulder_hits_pool — C do.c:148–151 pushing useupf(otmp, quan) absent from js/do.js:boulder_hits_pool (:1057 inlines the obfree path for both arms; useupf live js/invent.js:4851) @5a869cf51 **Addressed:** D-3265
+- [x] `do.c` boulder_hits_pool — C do.c:137 burn_away_slime() in the lava arm absent from js/do.js:boulder_hits_pool (:1046 molten-lava arm without it; burn_away_slime live js/timeout.js:1709) @5a869cf51 **Addressed:** D-3265
+
+
+- [x] `allmain.c` moveloop_core — blocks 1/953 (scen-death-Tourist-92095 step 49/111 kind=screen+rng: post-lifesave turn re-loops in JS — extra movemon + 2nd once-per-turn block incl. mcalcmove/maybe_generate_rnd_mon/2nd dosounds trio, +95 draws — while C exits after u_wipe_engr rn2(82); pet (48,15)→(48,14) paints I vs C floor; savelife/done set no loop state, u_calc_moveamt clone verbatim — gap in do-while `umovement < NORMAL_SPEED` turn accounting, allmain.c:196–380) @4fbb3512e **Addressed:** D-3264 `c94c66b65`
+- [x] `end.c` done — C end.c:1098–1100 amulet-arm formatkiller + livelog_printf(LL_LIFESAVE) "averted death" absent from js/end.js:done (:2174 "livelog_printf deferred"; formatkiller live :518, livelog_printf live js/pline.js:44) @5a869cf51 **Addressed:** D-3264 `c94c66b65`
 
 
 - [x] `apply.c` use_mirror — C apply.c:1132–1138 Medusa mon_reflects gate + stoned/killed + :1155–1166 nymph takes-it/setnotworn/freeinv/mpickobj/tele_restrict rloc absent from js/apply.js:use_mirror (:872/:888 pline-only) @571bbecf7 **Addressed:** D-3263 `d947745c9`

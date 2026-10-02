@@ -1,5 +1,5 @@
 {"fn":"dodrop","c":"29-43","status":"unknown"}
-{"fn":"boulder_hits_pool","c":"50-155","status":"partial","js":["js/do.js:boulder_hits_pool"],"omit":"- `goto_level`: pre-existing — binary NHFILE savelev/getlev (by-design); Gehennom amulet mysteryforce arm; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow; Punished ballfall on falling; W-tower u_on_rndspot bit 2 (per fn doc).","d":["D-3261"],"at":"2026-10-02@5a869cf51"}
+{"fn":"boulder_hits_pool","c":"50-155","status":"ported","js":["js/do.js:boulder_hits_pool"],"d":["D-3265","D-3261"],"at":"2026-10-02@c94c66b65"}
 {"fn":"flooreffects","c":"162-359","status":"ported","js":["js/do.js:flooreffects"],"d":["D-3240"],"at":"2026-10-01@9e990eefc"}
 {"fn":"doaltarobj","c":"363-390","status":"unknown"}
 {"fn":"trycall","c":"395-399","status":"unknown"}

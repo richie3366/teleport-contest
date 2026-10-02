@@ -11,7 +11,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rnz, d } from './rng.js';
-import { depth, builds_up, level_difficulty } from './hacklib.js';
+import { depth, builds_up, level_difficulty, upstart } from './hacklib.js';
 import {
     STAIRS, LADDER, ECMD_OK, ECMD_TIME, ECMD_FAIL, ECMD_CANCEL,
     DIR_DOWN, DIR_UP, I_SPECIAL, W_ARTI, W_ART, TOOKPLUNGE, VIBRATING_SQUARE,
@@ -121,7 +121,7 @@ import {
     doname, xname, the, The, vtense, an, yname, yobjnam, corpse_xname, is_plural,
     otense, makeplural, body_part_latebound, Tobjnam,
 } from './objnam.js';
-import { Monnam, Amonnam, Adjmonnam, mon_nam, s_suffix, hliquid, rndmonnam, trycall, obj_pmname } from './do_name.js';
+import { Monnam, Amonnam, Adjmonnam, mon_nam, s_suffix, hliquid, rndmonnam, trycall, obj_pmname, y_monnam } from './do_name.js';
 import { revive } from './zap.js';
 import {
     near_capacity, learn_unseen_invent, encumber_msg,
@@ -156,9 +156,11 @@ import { more_experienced, newexplevel } from './exper.js';
 import {
     PM_TOURIST, PM_ROGUE, monsterNames,
 } from './generated/monsters_data.js';
+import { se_sizzling, se_splash } from './generated/seffects_data.js';
 import { dismount_steed, place_monster, stucksteed } from './steed.js';
 import { place_wsegs, rest_worm, save_worm } from './worm.js';
-import { set_residency, costly_alteration, is_unpaid, stolen_value } from './shk.js';
+import { set_residency, costly_alteration, is_unpaid, stolen_value, obfree } from './shk.js';
+import { burn_away_slime } from './timeout.js';
 import { set_ustuck, gulp_blnd_check, digests, Flying } from './mhitu.js';
 import { onquest, ok_to_quest } from './quest.js';
 import { resurrect } from './wizard.js';
@@ -962,14 +964,18 @@ export async function flooreffects(obj, x, y, verb) {
 /**
  * C ref: do.c boulder_hits_pool — boulder fills/sinks in pool or lava.
  * Branch envelope: fills_up chance; DRAWBRIDGE_UP mask morph / ROOM morph
- * + bury_objs; splash msgs; wake_nearto; adjacent lava dmg; obfree (!pushing).
- * Named omit: pushing useupf; steed whobuf; burn_away_slime.
+ * + bury_objs; splash msgs; wake_nearto; adjacent lava dmg + burn_away_slime;
+ * pushing useupf / obfree; steed whobuf; impossible non-boulder arm.
  * Ported: DRAWBRIDGE_UP drawbridgemask floor morph (C :74–77) + mondied
  * (C :89–91; DEADMONSTER/m_in_air gate). Dry-land set_uinwater is D-1267.
  * @returns {Promise<boolean>}
  */
 export async function boulder_hits_pool(otmp, rx, ry, pushing) {
-    if (!otmp || (otmp.otyp | 0) !== BOULDER) return false;
+    if (!otmp || (otmp.otyp | 0) !== BOULDER) {
+        /* C do.c:57 — impossible, then fall through to return FALSE */
+        await impossible('Not a boulder?');
+        return false;
+    }
     if (!(is_pool(rx, ry) || is_lava(rx, ry))) return false;
 
     const lava = is_lava(rx, ry);
@@ -1015,7 +1021,10 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
         }
         newsym(rx, ry);
         if (pushing) {
-            await pline(`You push ${the(xname(otmp))} into the ${what}.`);
+            /* C do.c:103–109 — whobuf is the steed's y_monnam when mounted */
+            let whobuf = 'you';
+            if (u.usteed) whobuf = y_monnam(u.usteed);
+            await pline(`${upstart(whobuf)} ${vtense(whobuf, 'push')} ${the(xname(otmp))} into the ${what}.`);
             if (game.flags?.verbose && !Blind()) {
                 await pline('Now you can cross it!');
             }
@@ -1030,6 +1039,8 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
                     } the ${what}.`,
                 );
             } else if (!Deaf()) {
+                /* C do.c:117–121 — sfx id differs by lava, message shared */
+                Soundeffect(lava ? se_sizzling : se_splash, 100);
                 await You_hear(`a${lava ? ' sizzling' : ''} splash.`);
             }
             await wake_nearto(rx, ry, 40);
@@ -1044,19 +1055,17 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
             const Fire_resistance = !!(u.Fire_resistance
                 || u.HFire_resistance || u.EFire_resistance);
             await pline(`You are hit by molten ${hliquid('lava')}${Fire_resistance ? '.' : '!'}`);
-            let dmg = 0;
-            const ndice = Fire_resistance ? 1 : 3;
-            for (let i = 0; i < ndice; i++) dmg += 1 + rn2(6);
+            await burn_away_slime(); /* C do.c:137 — before the damage roll */
+            const dmg = d(Fire_resistance ? 1 : 3, 6);
             await losehp(maybe_half_phys(dmg), 'molten lava', KILLED_BY);
         } else if (!fills_up && game.flags?.verbose
             && (pushing ? !Blind() : cansee(rx, ry))) {
             await pline('It sinks without a trace!');
         }
     }
-    // boulder gone — !pushing uses obfree (no obj_resists)
-    otmp.quan = 0;
-    otmp.where = OBJ_FREE;
-    otmp.nobj = otmp.nexthere = null;
+    /* C do.c:148–151 — boulder is now gone */
+    if (pushing) useupf(otmp, otmp.quan | 0);
+    else obfree(otmp, null);
     return true;
 }
 

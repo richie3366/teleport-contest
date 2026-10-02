@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3265 — `do.c` boulder_hits_pool whole-body completion (pushing useupf, lava burn_away_slime, steed whobuf, sfx, impossible arm; boomhit head stale)
+
+- **Status:** shipped (2 Open corpus-residual rows for `boulder_hits_pool` + stale `boomhit` head — all checked off and archived; no review cited, no stamp owed)
+- **Symptom:** queue rows: C do.c:148–151 pushing `useupf(otmp,quan)` absent (js/do.js:1057 inlined the obfree path for both arms); C do.c:137 `burn_away_slime()` in the lava arm absent (js/do.js:1046). Head `boomhit` row claimed the zap.c:4202–4210 self-hit arm absent from js/zap.js — STALE: the whole function is live at js/dothrow.js:2116 (D-1301; caller dothrow.c:1604 wired :2409); the row checked the wrong JS file.
+- **C locus:**
+  - `boulder_hits_pool`: do.c:50–155 — :57 impossible non-boulder; :74–77 DRAWBRIDGE_UP morph / ROOM morph + recalc; :89–91 mondied gate; :103–109 pushing whobuf (steed y_monnam) + verbose cross-msg; :111–126 splash (There vs sizzling/splash sfx + You_hear) + wake_nearto; :127–144 dry-land set_uinwater / lava next2u burn_away_slime + d(1|3,6) losehp / sinks-without-trace; :148–151 pushing useupf else obfree.
+- **JS was:** js/do.js:971 — doc comment named the omits (`pushing useupf; steed whobuf; burn_away_slime`); tail inlined quan=0/OBJ_FREE for both arms; pushing fill hardcoded `You push…`; lava arm rolled per-die `rn2(6)` loop with no burn_away_slime; splash Deaf-arm skipped the Soundeffect ids; non-boulder returned false silently.
+- **Fix:** js/do.js only — impossible arm (`await impossible('Not a boulder?')`, C :57, then FALSE fallthrough); steed whobuf (`y_monnam(u.usteed)` + `upstart`/`vtense(whobuf,'push')`, C :103–109); lava arm `await burn_away_slime()` before the roll (C :137) + live `d(1|3,6)` (C PRNG-log shape, replaces the rn2 loop); splash sfx `Soundeffect(lava?se_sizzling:se_splash,100)` (C :117–121); tail `pushing?useupf(otmp,quan):obfree(otmp,null)` (C :148–151). Edges: 3 extended pre-existing (hacklib upstart, do_name y_monnam, shk obfree — no new module edge, no `--can` needed); 1 new do.js→timeout.js (`imports.mjs --can` SAFE, hoisted fn); 1 generated leaf (`generated/seffects_data.js` se_splash/se_sizzling — pure const table, no imports, cycle impossible; `--can` tracks top-level js/ only); useupf/impossible/vtense/d/Soundeffect were already imported. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files. Cluster is one function: coverage `rows` default = 0 (empty block), same-file do.c all measured ok except by-design save infra + `badspot` (C static, ZERO call sites — dead, unported by rule), callee closure all live — the below-80 exception applies.
+- **JS:** 1 file, +23/−14 (js/do.js). Under the 1500/15 caps.
+- **Callers:**
+  - `boulder_hits_pool`: signature unchanged — apply.c:3903 → js/dig.js:1045 (maybe_dunk_boulders :1039, dynamic import); do.c:185 → js/do.js:791 (flooreffects, same-file); hack.c:620 → js/hack.js:1185 (moverock, pushing=TRUE); zap.c:5069 → js/zap.js:999. All four C call sites wired; new arms are path-gated (pushing/lava/blind-deaf/non-boulder) so only those paths can trigger them.
+- **Verify:** `node scripts/verify.mjs --fn boulder_hits_pool` → syntax PASS (1 file) · rule2 PASS · hidden vacuous (no corpus session blocked — expected for a coverage row) · REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file) · VERIFY: PASS.
+  - `boulder_hits_pool`: REACH-OK (smoke 24 PASS); cold arms (no pool/lava-boulder session in reach/smoke).
+- **Named omissions:**
+  - `boulder_hits_pool`: none in-body — whole C body live (pre-existing local notes kept: `m_in_air` file-local clone :558 with its clone-drift comment, `There`/`You` via text-identical pline, `next2u` via distu≤2, bury_objs dynamic import — all pre-existing, untouched).
+- **Ledger:** boulder_hits_pool ported
+- **Next:** do not re-pop boulder_hits_pool (whole), boomhit (stale, D-1301 complete), or badspot (dead C static). Remaining Open corpus residuals live in other C files (check_capacity hack.c, trapeffect_fire_trap trap.c, use_stethoscope apply.c, invault vault.c, exercise attrib.c) — each needs its own cluster.
+
 ## D-3264 — `hack.c` unmul lifesave-while-poly'd form reminder + `end.c` done amulet-arm livelog (Tourist-92095 writer row addressed; moveloop loop verified correct)
 
 - **Status:** shipped (2 Open corpus-residual rows: `allmain.c` moveloop_core writer row + `end.c` done amulet-arm row — both checked off and archived; no review cited, no stamp owed)

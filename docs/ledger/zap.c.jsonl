@@ -52,7 +52,7 @@
 {"fn":"maybe_explode_trap","c":"3594-3623","status":"unknown"}
 {"fn":"zap_map","c":"3628-3801","status":"ported","js":["js/zap.js:zap_map"],"d":["D-3259","D-1489","D-1476"],"at":"2026-10-02@1b5b36bb7"}
 {"fn":"bhit","c":"3827-4139","status":"unknown","d":["D-1928","D-1604","D-1482","D-1475","D-1462","D-1393"],"at":"seed@a30a7de84"}
-{"fn":"boomhit","c":"4148-4233","status":"unknown"}
+{"fn":"boomhit","c":"4148-4233","status":"ported","js":["js/dothrow.js:boomhit"],"at":"2026-10-02@c94c66b65","note":"stale: js/dothrow.js:2116 (D-1301; caller dothrow.c:1604 wired js/dothrow.js:2409)"}
 {"fn":"zhitm","c":"4238-4398","status":"unknown","d":["D-2127"],"at":"seed@a30a7de84"}
 {"fn":"zhitu","c":"4401-4591","status":"partial","js":["js/zap.js:zhitu"],"d":["D-3074","D-2232"],"at":"2026-09-29@107847759"}
 {"fn":"burn_floor_objects","c":"4598-4656","status":"unknown"}
