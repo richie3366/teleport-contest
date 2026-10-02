@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `uhitm.c` hmon_hitmon_stagger — C uhitm.c:1580–1585 canspotmon stagger pline + mhurtle_to_doom absent from js/uhitm.js:hmon_hitmon_stagger (:1020 "canspotmon stagger pline + mhurtle_to_doom deferred"; rnd(100) gate live) @571bbecf7 **Addressed:** D-3262
-- [x] `uhitm.c` hmon_hitmon_weapon_melee — C uhitm.c:1035–1036 silver-weapon silvermsg/silverobj flags absent from js/uhitm.js:hmon_hitmon_weapon_melee (:1216 "stays named"; ranged/misc paths set them, melee doesn't) @571bbecf7 **Addressed:** D-3262
+- [x] `apply.c` use_mirror — C apply.c:1132–1138 Medusa mon_reflects gate + stoned/killed + :1155–1166 nymph takes-it/setnotworn/freeinv/mpickobj/tele_restrict rloc absent from js/apply.js:use_mirror (:872/:888 pline-only) @571bbecf7 **Addressed:** D-3263
+
+
+- [x] `uhitm.c` hmon_hitmon_stagger — C uhitm.c:1580–1585 canspotmon stagger pline + mhurtle_to_doom absent from js/uhitm.js:hmon_hitmon_stagger (:1020 "canspotmon stagger pline + mhurtle_to_doom deferred"; rnd(100) gate live) @571bbecf7 **Addressed:** D-3262 `6ea16ae6e`
+- [x] `uhitm.c` hmon_hitmon_weapon_melee — C uhitm.c:1035–1036 silver-weapon silvermsg/silverobj flags absent from js/uhitm.js:hmon_hitmon_weapon_melee (:1216 "stays named"; ranged/misc paths set them, melee doesn't) @571bbecf7 **Addressed:** D-3262 `6ea16ae6e`
 
 
 - [x] `do.c` goto_level — C do.c:1619–1620,1622 fill_pit / set_ustuck / u.uundetected absent from js/do.js:goto_level (:1699 "still named"; set_uinwater live) @35e5e8f94 **Addressed:** D-3261 `a7d88d8ff`
