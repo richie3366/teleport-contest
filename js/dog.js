@@ -1249,6 +1249,15 @@ export async function losedogs() {
 const LARGEST_INT = 2147483647;
 
 /**
+ * C ref: dog.c set_mon_lastmove `:287–290` (staticfn) — stamp
+ * `mtmp->mlstmv = svm.moves`. Sole C caller dog.c:723
+ * (mon_catchup_elapsed_time tail). Non-exported like C.
+ */
+function set_mon_lastmove(mtmp) {
+    mtmp.mlstmv = game.moves | 0;
+}
+
+/**
  * C ref: dog.c mon_catchup_elapsed_time `:626–724` — heal/status for time
  * spent off-level, in C order. Devel-only nmv guards (`:632–640`, compiled
  * out in release): nmv < 0 → panic (loud throw per the lev_json.js
@@ -1262,8 +1271,8 @@ const LARGEST_INT = 2147483647;
  * non-minion carni/herbi, moves > hungrytime+500 && mhp<3 or moves >
  * hungrytime+750); leashed → impossible + m_unleash(FALSE) (`:704–709`,
  * apply.js async); heal via live healmon (`:712–714`, mon.js sync,
- * non-regen imv/20); set_mon_lastmove tail (`:715`, mon.c — mlstmv =
- * moves, the update_mlstmv idiom). Async for impossible/m_unleash; all
+ * non-regen imv/20); set_mon_lastmove tail (`:723`, dog.c staticfn —
+ * mlstmv = moves). Async for impossible/m_unleash; all
  * three C callers await. Named: none — every arm and callee live.
  */
 export async function mon_catchup_elapsed_time(mtmp, nmv) {
@@ -1335,8 +1344,8 @@ export async function mon_catchup_elapsed_time(mtmp, nmv) {
     if (!regenerates(mtmp.data)) imv = Math.trunc(imv / 20);
     healmon(mtmp, imv, 0);
 
-    /* C `:715` set_mon_lastmove(mtmp) */
-    mtmp.mlstmv = game.moves | 0;
+    /* C `:723` set_mon_lastmove(mtmp). */
+    set_mon_lastmove(mtmp);
 }
 
 /**

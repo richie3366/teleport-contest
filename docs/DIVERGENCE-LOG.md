@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3280 — `dog.c` migrate_to_level light tail + `set_mon_lastmove` staticfn mirror
+
+- **Status:** shipped (Open corpus-residual `dog.c` migrate_to_level vision-tail row checked off; the relmon take-off row stays Open — sync wall with measured proof, see Next; no review cited, no stamp owed)
+- **Symptom:** queue rows: C dog.c:928–931 `emits_light→vision_recalc(0)` tail absent from js/teleport.js migrate_to_level (body ended at mx=my=0); C dog.c:906 `relmon(mtmp, &gm.migrating_mons)` take-off-map likewise inline-absent. Measured the full call graph before wiring: 16 of 17 JS sites sit in async functions and could await, but `migrate_orc` (js/mklev.js:2506) ← `stolen_booty` (:2585) ← `fixup_special_tail` (:2833) is the sync level-gen path, so the function must stay sync; the live `relmon`/`mon_leaving_level`/`m_unleash` are async-only, the mixed-sync (D-1648) shape is blocked on mon.js↔mhitu.js having no static `unstuck` edge (a dynamic `import()` always suspends, and floating the take-off is the D-1648 anti-pattern), and `mon_leaving_level` itself is re-port-banned (D-3279). So the take-off + leash arms stay named, mirroring sync `replmon` (js/mon.js:3722–3726), which names its own inline-relmon take-off + panics the same way.
+- **C locus:**
+  - `migrate_to_level`: nethack-c/upstream/src/dog.c:928–931 (`if (emits_light(mtmp->data)) vision_recalc(0)`; whole fn :886–932, remainder already live).
+  - `set_mon_lastmove`: nethack-c/upstream/src/dog.c:287–290 whole body (`mtmp->mlstmv = svm.moves`; staticfn, sole C caller :723).
+- **JS was:** migrate_to_level ended at `mtmp.mx = mtmp.my = 0` with the light tail a doc-named omission; set_mon_lastmove had no JS symbol — its line sat inline at the mon_catchup_elapsed_time tail under a stale `:715`/mon.c cite.
+- **Fix:** js/teleport.js — `emits_light` on a new `./light.js` import edge (same 102-module SCC, hoisted, `imports.mjs --can` VERDICT: SAFE); tail appended in C position after mx=my=0; doc light omission retired and the :906 omission sharpened to the replmon wording with the level-gen proof (mklev.js:2833←2622/2642). js/dog.js — non-exported `set_mon_lastmove` (C staticfn mirror, same file as its caller so no new edge) + sole-caller wiring (inline line replaced by the call; stale `:715`/mon.c cites fixed to `:723`/dog.c).
+- **JS:** js/teleport.js:2886 (migrate_to_level), :85 (light import), :2937–2938 (tail); js/dog.js:1256 (set_mon_lastmove), :1348 (wiring), :1274–1275 (doc cite fix).
+- **Callers:**
+  - `migrate_to_level`: all 17 C call sites pre-wired, unchanged this iter (callee tail only): dig.c:823 (digactualhole) → js/dig.js:1005; dog.c:875 (keepdogs) → js/dog.js:532; mkmaze.c:744 (migrate_orc) → js/mklev.js:2524; mon.c:3860 (migrate_mon) → js/mon.js:1915; muse.c:903–1137 ×9 (m_tele; xyloc sequence flev-RANDOM/+1×3/stway-RANDOM/STAIRS_UP/LADDER_DOWN/LADDER_UP/SSTAIRS matches in order) → js/muse.js:2566/2633/2696/2714/2719/2731/2741/2751/2765 (use_defensive); muse.c:2419 (mloot_container) → js/muse.js:3125 (use_misc); shk.c:1425 (make_happy_shk) → js/shk.js:2061; teleport.c:2094 (mlevel_tele_trap) → js/teleport.js:3044; wizcmds.c:1923 (wiz_migrate_mons) → js/wizcmds.js:2181.
+  - `set_mon_lastmove`: C dog.c:723 → js/dog.js:1348 (mon_catchup_elapsed_time tail; wired this commit; sole caller both sides).
+- **Verify:** `node scripts/verify.mjs --fn migrate_to_level,set_mon_lastmove` → VERIFY: PASS — syntax 2 files · rule2 · hidden notes (no corpus session blocked on either — normal; rows carry no `blocks N` count so no `--base` re-run owed) · reach ×2: no RNG-tagged reach, smoke spreads 24/24 PASS each → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · manual `frozen/ps_test_runner.mjs sessions` 44/44 PASS (speed 331+1.58/turn, R² 0.768). No maintained unit harness exists (no tests/ dir); corpus REACH + full suite are the durable checks.
+- **Named omissions:**
+  - `migrate_to_level`: `:898–901` leash arm (mtame-- + m_unleash — live export async, sync wall); `:906` relmon take-off-map + both C panics (live relmon/mon_leaving_level async, sync wall — inherits D-3279's flag-free take-off when wired).
+  - `set_mon_lastmove`: none — whole C body live.
+- **Ledger:** migrate_to_level partial; set_mon_lastmove ported
+- **Next:** `dog.c` migrate_to_level relmon row stays Open (async take-off needs the level-gen chain or a static unstuck edge — both beyond one cluster); `ledger.mjs rows` still 0 globally (D-3272/D-3277/D-3279 precedent) so no same-file companions exist; density exception stands (32 js/ ins — file/closure hold no other port work: 14 dog.c unknowns measure ok, mon_arrive/mon_catchup/mon_leave re-port-banned).
+
 ## D-3279 — `dog.c` keepdogs relmon wiring + `mon.c` mon_leaving_level flag-free take-off
 
 - **Status:** shipped (Open corpus-residual row `dog.c` keepdogs checked off; no review cited, no stamp owed)

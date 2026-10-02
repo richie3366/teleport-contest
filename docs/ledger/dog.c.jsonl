@@ -5,7 +5,7 @@
 {"fn":"pick_familiar_pm","c":"104-135","status":"unknown"}
 {"fn":"make_familiar","c":"138-215","status":"unknown"}
 {"fn":"makedog","c":"219-284","status":"unknown","d":["D-2108"],"at":"seed@a30a7de84"}
-{"fn":"set_mon_lastmove","c":"287-290","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_mon_lastmove","c":"287-290","status":"ported","js":["js/dog.js:set_mon_lastmove"],"d":["D-3280"],"at":"2026-10-02@b15c3087f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"update_mlstmv","c":"295-298","status":"unknown","d":["D-1709"],"at":"seed@a30a7de84"}
 {"fn":"losedogs","c":"304-416","status":"unknown","d":["D-2722"],"at":"seed@a30a7de84"}
 {"fn":"mon_arrive","c":"420-623","status":"ported","js":["js/dog.js:mon_arrive"],"d":["D-3194","D-2459","D-1505","D-1199"],"at":"2026-10-01@92ffa7863"}
@@ -13,7 +13,7 @@
 {"fn":"mon_leave","c":"729-763","status":"ported","js":["js/dog.js:mon_leave"],"d":["D-3115"],"at":"2026-09-29@6e3bbfbe7"}
 {"fn":"keep_mon_accessible","c":"768-785","status":"unknown"}
 {"fn":"keepdogs","c":"789-884","status":"ported","js":["js/dog.js:keepdogs"],"d":["D-3279","D-1789","D-1783"],"at":"2026-10-02@3d8fe9bf9"}
-{"fn":"migrate_to_level","c":"887-932","status":"unknown","d":["D-1198"],"at":"seed@a30a7de84"}
+{"fn":"migrate_to_level","c":"887-932","status":"partial","js":["js/teleport.js:migrate_to_level"],"omit":"- `migrate_to_level`: `:898–901` leash arm (mtame-- + m_unleash — live export async, sync wall); `:906` relmon take-off-map + both C panics (live relmon/mon_leaving_level async, sync wall — inherits D-3279's flag-free take-off when wired).","d":["D-3280","D-1198"],"at":"2026-10-02@b15c3087f"}
 {"fn":"discard_migrations","c":"938-990","status":"unknown"}
 {"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-2760"],"at":"seed@a30a7de84"}
 {"fn":"tamedog","c":"1143-1282","status":"unknown","d":["D-1595","D-1593","D-1546","D-1532"],"at":"seed@a30a7de84"}

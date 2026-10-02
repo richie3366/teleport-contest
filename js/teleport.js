@@ -81,6 +81,8 @@ import { mon_leave } from './dog.js';
 import { get_iter_mons } from './monmove.js';
 /* mondata.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
 import { set_mon_data } from './mondata.js';
+/* light.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
+import { emits_light } from './light.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
@@ -2868,13 +2870,18 @@ function ledger_to_dlev(tolev) {
  * Envelope: remove from fmon, encode destination, mx=my=0.
  * D-1198: xyflags bit 2 when In_W_tower(mx,my,&u.uz) using pre-relmon
  * coords (C dog.c:913–915). Arrival copies flags into my (D-1199).
- * Named omissions: leash (`:898–901` mtame--/m_unleash); light sources
- * (`:928–931` vision_recalc); relmon's mon_leaving_level take-off-map
- * (C `:906` →
- * mon.c:2696–2732 mtrapped/unstuck/remove_monster/seemimic/fill_pit/
- * newsym/mundetected/polearm-forget — sync caller, cannot await the
- * async live export). Whole mon_leave live (D-2296 worm arm + no_charge
- * loop + residency clear).
+ * D-3280: `:928–931` light tail live (`emits_light(mtmp.data)` →
+ * `vision_recalc(0)`); C keeps a migrating mobile light global.
+ * Named omissions: leash (`:898–901` mtame--/m_unleash — live export
+ * is async); `:906` relmon take-off-map (mon.c:2696–2732 mtrapped/
+ * unstuck/grid-clear/seemimic/fill_pit/newsym/mundetected/polearm)
+ * + both C panics — this stays sync like C (replmon precedent
+ * js/mon.js:3722): live relmon/mon_leaving_level are async and the
+ * stolen_booty←fixup_special level-gen path (mklev.js:2833←2622/2642)
+ * cannot await. The fmon unlink + migrating_mons insert below match
+ * C relmon :2571–2593 (one indexOf covers C's head/scan split).
+ * Whole mon_leave live (D-2296 worm arm + no_charge loop + residency
+ * clear).
  */
 export function migrate_to_level(mtmp, tolev, xyloc, cc) {
     if (!mtmp) return;
@@ -2924,6 +2931,11 @@ export function migrate_to_level(mtmp, tolev, xyloc, cc) {
     mtmp.mlstmv = game.moves | 0;
     mtmp.mx = 0;
     mtmp.my = 0;
+
+    /* C dog.c:928–931 — don't extinguish a mobile light; it still
+     * exists but changed from local (mx > 0) to global (mx == 0). */
+    if (emits_light(mtmp.data))
+        vision_recalc(0);
 }
 
 /* seetrap / mon_has_amulet / is_home_elemental: canonical static imports

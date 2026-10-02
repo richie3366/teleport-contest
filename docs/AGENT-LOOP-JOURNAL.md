@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3280 `dog.c` migrate_to_level light tail + `set_mon_lastmove` staticfn mirror
+
+**C locus:** - `migrate_to_level`: nethack-c/upstream/src/dog.c:928–931 (`if (emits_light(mtmp->data)) vision_recalc(0)`; whole fn :886–932, remainder already live).
+**JS:** js/teleport.js:2886 (migrate_to_level), :85 (light import), :2937–2938 (tail); js/dog.js:1256 (set_mon_lastmove), :1348 (wiring), :1274–1275 (doc cite fix).
+**Change:** js/teleport.js — `emits_light` on a new `./light.js` import edge (same 102-module SCC, hoisted, `imports.mjs --can` VERDICT: SAFE); tail appended in C position after mx=my=0; doc light omission retired and the :906 omission sharpened to the replmon wording with the level-gen proof (mklev.js:2833←2622/2642). js/dog.js — non-exported `set_mon_lastmove` (C staticfn mirror, same file as its caller so no new edge) + sole-caller wiring (inline line replaced by the call; stale `:715`/mon.c cites fixed to `:723`/dog.c).
+**Verify:** `node scripts/verify.mjs --fn migrate_to_level,set_mon_lastmove` → VERIFY: PASS — syntax 2 files · rule2 · hidden notes (no corpus session blocked on either — normal; rows carry no `blocks N` count so no `--base` re-run owed) · reach ×2: no RNG-tagged reach, smoke spreads 24/24 PASS each → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · manual `frozen/ps_test_runner.mjs sessions` 44/44 PASS (speed 331+1.58/turn, R² 0.768). No maintained unit harness exists (no tests/ dir); corpus REACH + full suite are the durable checks.
+**Named:** - `migrate_to_level`: `:898–901` leash arm (mtame-- + m_unleash — live export async, sync wall); `:906` relmon take-off-map + both C panics (live relmon/mon_leaving_level async, sync wall — inherits D-3279's flag-free take-off when wired).
+**Next:** `dog.c` migrate_to_level relmon row stays Open (async take-off needs the level-gen chain or a static unstuck edge — both beyond one cluster); `ledger.mjs rows` still 0 globally (D-3272/D-3277/D-3279 precedent) so no same-file companions exist; density exception stands (32 js/ ins — file/closure hold no other port work: 14 dog.c unknowns measure ok, mon_arrive/mon_catchup/mon_leave re-port-banned).
 ## 2026-10-02 — D-3279 `dog.c` keepdogs relmon wiring + `mon.c` mon_leaving_level flag-free take-off
 
 **C locus:** - `keepdogs`: nethack-c/upstream/src/dog.c:789–884 whole body (this iter wires :862–863 `relmon(mtmp, &gm.mydogs)`; :864–866 mx/my/wormno/mlstmv tail kept after).

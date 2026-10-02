@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `dog.c` keepdogs — C dog.c:862–863 `relmon(mtmp, &gm.mydogs)` call absent from js/dog.js:keepdogs follower arm (:522–537 inline fmon splice + unshift; doc :525–529 names take-off-map; naive await regressed 6 REACH + public RNG — needs measured delta, C+JS-read) @b7d842138 **Addressed:** D-3279
+- [x] `dog.c` migrate_to_level — C dog.c:928–931 emits_light→vision_recalc(0) tail absent from js/teleport.js:migrate_to_level (:2925–2926 ends at mx=my=0; doc :2871 names vision_recalc; callees live: emits_light + js/vision.js:vision_recalc — sync shippable, brief-verified) @3d8fe9bf9 **Addressed:** D-3280
+
+
+- [x] `dog.c` keepdogs — C dog.c:862–863 `relmon(mtmp, &gm.mydogs)` call absent from js/dog.js:keepdogs follower arm (:522–537 inline fmon splice + unshift; doc :525–529 names take-off-map; naive await regressed 6 REACH + public RNG — needs measured delta, C+JS-read) @b7d842138 **Addressed:** D-3279 `b15c3087f`
 
 
 - [x] `makemon.c` makemon — C makemon.c:1295 `place_monster(mtmp, x, y)` grid-place call absent from js/makemon.js:makemon (:3475–3482 deferred comment only; callee live js/steed.js; C+JS-read; warn: naive grid write regresses per comment — movement parity first) @675a0c998 **Addressed:** D-3278 `3d8fe9bf9`

@@ -133,7 +133,7 @@ coverage list is empty, or alongside a coverage row in the same C file.
 - [ ] `do.c` goto_level — C do.c:1501–1502 newlevel dlevel clamp (`dunlev(newlevel) > dunlevs_in_dungeon(newlevel)` → clamp) absent from js/do.js:goto_level (entry :1642 goes straight to tutorial/newdungeon; C+JS-read) @a6213509c
 - [ ] `do.c` goto_level — C do.c:1504–1509 endgame-entry arm (!amulet return, wizard bypass, assign earth_level) absent from js/do.js:goto_level (`if (newdungeon)` :1659 handles tutorial only; C+JS-read) @a6213509c
 - [ ] `do.c` goto_level — C do.c:1803 plain `else` arm (trap door/level_tele/In_endgame rndspot for at_stairs arrivals) absent from js/do.js:goto_level (`else if (!at_stairs)` :2154 skips u_on_rndspot when at_stairs && In_endgame; C+JS-read; left untouched as out of scope) @a6213509c
-- [ ] `dog.c` migrate_to_level — C dog.c:928–931 emits_light→vision_recalc(0) tail absent from js/teleport.js:migrate_to_level (:2925–2926 ends at mx=my=0; doc :2871 names vision_recalc; callees live: emits_light + js/vision.js:vision_recalc — sync shippable, brief-verified) @3d8fe9bf9
+- [ ] `dog.c` migrate_to_level — C dog.c:898–901 leash arm (`mtmp->mtame--; m_unleash(mtmp, TRUE)`) absent from js/teleport.js:migrate_to_level (no mleashed/m_unleash in body; live m_unleash async — D-1648 mixed shape, 16 async sites await, sync migrate_orc path never mleashed; C+JS-read) @b15c3087f
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

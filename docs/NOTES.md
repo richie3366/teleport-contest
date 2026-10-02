@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3279 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3280 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3279.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3279 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3280.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3280 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3280: js/teleport.js — `emits_light` on a new `./light.js` import edge (same 102-module SCC, hoisted, `imports.mjs --can` VERDICT: SAFE); tail appended in C Named: - `migrate_to_level`: `:898–901` leash arm (mtame-- + m_unleash — live export async, sync 
 - D-3279: js/dog.js — follower arm `await relmon(mtmp, game.mydogs)` (canonical js/mon.js export, pre-existing import edge; no new module edge), doc omission re Named: - `keepdogs`: none in-body — whole C body live.
 - D-3278: `place_monster(mtmp, x, y)` in `makemon` at C position (import pre-existed); the three move sites clear only their own grid cell (`get(...) === mtmp`  Named: - `makemon`: ptr-arm G_GENOD veto + wizard-extinct debugpline (`:1204–1212`); `iflags.debu
 - D-3277: ported the mysteryforce arm in C order (Inhell && up && amulet && !newdungeon && !portal && dunlev < max-3 gate; `rn2(4+mysteryforce)` kick-in; odds 3 Named: - `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE 
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3268: js/apply.js — `defsym_explanation` added to the pre-existing uhitm.js import edge (call-time use of a hoisted export; no new module edge, no `--can` n Named: - `use_stethoscope`: none in-body — whole C body live (D-2594 omit retired; callee its_dea
 - D-3267: js/trap.js only, +11/−9, no new module edge (surface already imported :176 on the pre-existing trap→sit edge — `imports.mjs --can` ALREADY; pline_mon/ Named: - `trapeffect_fire_trap`: none in-body — whole C body live (pre-existing local notes kept:
 - D-3266: new `export async function check_capacity(str)` in js/hack.js (C home file; `near_capacity` + `pline` already imported there; extended the const.js ed Named: - `check_capacity`: none in-body — whole C body live (callees all live: near_capacity js/i
-- D-3265: js/do.js only — impossible arm (`await impossible('Not a boulder?')`, C :57, then FALSE fallthrough); steed whobuf (`y_monnam(u.usteed)` + `upstart`/` Named: - `boulder_hits_pool`: none in-body — whole C body live (pre-existing local notes kept: `m
 <!-- landmarks:end -->
