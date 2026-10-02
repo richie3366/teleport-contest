@@ -2,7 +2,7 @@
 {"fn":"use_camera","c":"79-109","status":"unknown"}
 {"fn":"use_towel","c":"112-194","status":"unknown"}
 {"fn":"its_dead","c":"198-309","status":"unknown"}
-{"fn":"use_stethoscope","c":"318-470","status":"partial","js":["js/apply.js:use_stethoscope"],"omit":"M_AP_FURNITURE `defsyms[mappearance].explanation` (no JS defsyms table anywhere — keeps C default `'thing'`).","d":["D-2594"],"at":"seed@a30a7de84"}
+{"fn":"use_stethoscope","c":"318-470","status":"ported","js":["js/apply.js:use_stethoscope"],"d":["D-3268","D-2594"],"at":"2026-10-02@883b4cc92"}
 {"fn":"use_whistle","c":"476-492","status":"unknown"}
 {"fn":"use_magic_whistle","c":"495-514","status":"unknown"}
 {"fn":"magic_whistled","c":"518-687","status":"unknown"}
@@ -10,7 +10,7 @@
 {"fn":"number_leashed","c":"698-707","status":"unknown"}
 {"fn":"o_unleash","c":"711-722","status":"unknown"}
 {"fn":"m_unleash","c":"726-742","status":"unknown"}
-{"fn":"unleash_all","c":"746-756","status":"unknown"}
+{"fn":"unleash_all","c":"746-756","status":"ported","js":["js/apply.js:unleash_all"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
 {"fn":"leashable","c":"761-766","status":"unknown"}
 {"fn":"use_leash","c":"769-818","status":"unknown"}
 {"fn":"use_leash_core","c":"821-876","status":"unknown"}
@@ -43,7 +43,7 @@
 {"fn":"fig_transform","c":"2398-2508","status":"ported","js":["js/apply.js:fig_transform"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"figurine_location_checks","c":"2511-2541","status":"unknown"}
 {"fn":"use_figurine","c":"2544-2581","status":"ported","js":["js/apply.js:use_figurine"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
-{"fn":"grease_ok","c":"2585-2601","status":"unknown"}
+{"fn":"grease_ok","c":"2585-2601","status":"ported","js":["js/apply.js:grease_ok"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
 {"fn":"use_grease","c":"2604-2654","status":"unknown","d":["D-2349","D-1656"],"at":"seed@a30a7de84"}
 {"fn":"touchstone_ok","c":"2658-2675","status":"unknown"}
 {"fn":"use_stone","c":"2680-2810","status":"ported","js":["js/apply.js:use_stone"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
@@ -59,13 +59,13 @@
 {"fn":"snickersnee_used_dist_attk","c":"3416-3422","status":"unknown"}
 {"fn":"use_pole","c":"3426-3563","status":"ported","js":["js/apply.js:use_pole"],"d":["D-2059"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"use_cream_pie","c":"3568-3603","status":"unknown"}
-{"fn":"jelly_ok","c":"3607-3613","status":"unknown"}
+{"fn":"jelly_ok","c":"3607-3613","status":"ported","js":["js/apply.js:jelly_ok"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
 {"fn":"use_royal_jelly","c":"3616-3683","status":"unknown","d":["D-2331"],"at":"seed@a30a7de84"}
 {"fn":"grapple_range","c":"3686-3698","status":"ported","js":["js/apply.js:grapple_range"],"at":"2026-09-30@990da2b8d","note":"stale: js/apply.js:3900, both C callers wired (:3908, :3961)"}
 {"fn":"can_grapple_location","c":"3701-3704","status":"unknown"}
 {"fn":"display_grapple_positions","c":"3707-3726","status":"unknown"}
 {"fn":"use_grapple","c":"3729-3873","status":"unknown","d":["D-2213"],"at":"seed@a30a7de84"}
-{"fn":"discard_broken_wand","c":"3876-3885","status":"unknown"}
+{"fn":"discard_broken_wand","c":"3876-3885","status":"ported","js":["js/apply.js:discard_broken_wand"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
 {"fn":"broken_wand_explode","c":"3888-3893","status":"unknown"}
 {"fn":"maybe_dunk_boulders","c":"3897-3905","status":"unknown"}
 {"fn":"do_break_wand","c":"3909-4146","status":"unknown","d":["D-2346"],"at":"seed@a30a7de84"}

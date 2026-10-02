@@ -21,7 +21,7 @@
 {"fn":"warning_of","c":"654-663","status":"unknown"}
 {"fn":"mon_overrides_region","c":"668-700","status":"ported","js":["js/display.js:mon_overrides_region"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"suppress_map_output","c":"715-718","status":"unknown"}
-{"fn":"feel_newsym","c":"726-732","status":"unknown"}
+{"fn":"feel_newsym","c":"726-732","status":"ported","js":["js/display.js:feel_newsym"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
 {"fn":"feel_location","c":"746-909","status":"partial","js":["js/display.js:feel_location"],"omit":"wintty.c:435 rescale trigger (above); non-docrt under_water/under_ground caller wiring (pre-existing D-1981 names stand); `feel_can_reach_floor` usteed P_RIDING (pre-existing name stands).","d":["D-2461","D-1749"],"at":"seed@a30a7de84"}
 {"fn":"newsym","c":"917-1099","status":"unknown","d":["D-1745","D-1737"],"at":"seed@a30a7de84"}
 {"fn":"shieldeff","c":"1110-1124","status":"unknown"}

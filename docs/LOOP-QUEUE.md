@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `apply.c` use_stethoscope — C apply.c:430–431 M_AP_FURNITURE defsyms[mappearance].explanation absent from js/apply.js:use_stethoscope (:598–600 keeps C default 'thing'; no JS defsyms table; named omit D-2594/ledger partial; prior whole-body row DONE:1437 left this arm) @6ea16ae6e
 - [ ] `vault.c` invault — C vault.c:495–498 guard-arrival `if (gm.multi>0){nomul(0);unmul((char*)0)}` — unmul(0) absent from js/vault.js:invault (:763–765 nomul-only; unmul live async js/hack.js:1766; brief-verified) @d947745c9
 - [ ] `attrib.c` exercise — blocks 1/953 (scen-death-Tourist-92095 step 66/111 kind=rng: C rn2(19)=15@exercise(attrib.c:509) vs JS rn2(5)=4@distfleeck(monmove.js:1140) after rn2(82)=74@moveloop_core; steps 0–66 screens all match; rescore + rng-diff + show this commit — visible in `hidden-proxy queue` once this commits; owner-tagged RNG divergence, not the parked presence-only/encumbrance claim) @d947745c9
 - [ ] `zap.c` exclam — C zap.c:3546–3553 `exclam(int force)` canonical export absent from js/zap.js (C home; 3 local clones js/mthrowu.js:286, js/uhitm.js:441, js/zap.js:1541; C callers in 5 files incl muse.c/spell.c with no JS clone; brief-verified) @a2542cfc9

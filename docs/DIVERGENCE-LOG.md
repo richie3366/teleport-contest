@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-3268 — `apply.c` stethoscope furniture-mimic naming via live defsym table + unleash_all/feel_newsym caller wiring (6-fn cluster; retires D-2594 omit)
+
+- **Status:** shipped (Open corpus-residual row `use_stethoscope` checked off and archived; no review cited, no stamp owed)
+- **Symptom:** queue row: C apply.c:430–431 M_AP_FURNITURE `defsyms[mappearance].explanation` absent from js/apply.js:use_stethoscope (:598–600 kept C default 'thing'; named omit D-2594/ledger partial). Same sweep found two caller gaps: shk.c:2745 `unleash_all()` deferred in js/end.js finish_paybill (:1328), and lock.c:1042 door-close calling `newsym` instead of C's `feel_newsym` (js/lock.js:1180 — Blind hero paints a seen glyph instead of mapping the spot felt).
+- **C locus:**
+  - `use_stethoscope`: nethack-c/upstream/src/apply.c:318–470 whole body; this iter :427–432 M_AP_FURNITURE arm (`what = defsyms[mtmp->mappearance].explanation`); table nethack-c/upstream/include/defsym.h:91–247 (PCHAR_DRAWING desc column, indices 0–104).
+  - `unleash_all`: apply.c:746–756 — invent LEASH leashmon=0 loop + fmon mleashed=0 loop.
+  - `feel_newsym`: display.c:726–732 — Blind → feel_location else newsym.
+  - `grease_ok`: apply.c:2585–2601 — null→SUGGEST, COIN_CLASS→EXCLUDE, inaccessible_equipment(null verb)→EXCLUDE_INACCESS, else SUGGEST.
+  - `jelly_ok`: apply.c:3607–3613 — EGG→SUGGEST else EXCLUDE.
+  - `discard_broken_wand`: apply.c:3876–3885 — delobj(current_wand) + nomul(0).
+- **JS was:** js/apply.js:598 M_AP_FURNITURE arm hardcoded 'thing' ("no JS defsyms table" — stale: uhitm.js DEFSYM_EXPLANATION + defsym_explanation have shipped since, used for the identical C expression at dogmove.js:1784); js/end.js:1328 `// unleash_all deferred` in finish_paybill; js/lock.js:1180 `newsym(x, y)` in the door-close arm. The other four bodies already whole (ledger unknown/PARTIAL by line-count only).
+- **Fix:** js/apply.js — `defsym_explanation` added to the pre-existing uhitm.js import edge (call-time use of a hoisted export; no new module edge, no `--can` needed); M_AP_FURNITURE arm now `what = defsym_explanation(mtmp.mappearance | 0)` (C :430–431). Table verified C-exact: DEFSYM_EXPLANATION[0–87] matches defsym.h desc verbatim (incl. 12 '' at 74–85, 'poison cloud', 'valid position'); every furniture-mimic appearance C can assign (makemon.c set_mimic_sym: S_vwall/S_hwall/S_vcdoor/S_hcdoor/S_fountain/S_altar/furnsyms — all ≤ 37) hits a non-empty matching slot, so the helper's 'furniture' fallback is unreachable here. js/end.js — finish_paybill calls `unleash_all()` at C shk.c:2745's position (import already present :97); doc omit retired. js/lock.js — door-close calls `feel_newsym(x, y)` (C lock.c:1042; import already present :7); non-Blind path identical (newsym), Blind path now maps felt. Doc/map omits retired (turns.md). No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files. Cluster is 6 functions: same-file apply.c PARTIAL sweep complete (all four measured-PARTIAL unknowns verified whole; remainder measured ok) + head's callee-closure PARTIALs (feel_newsym verified whole; Mgender body verified whole in-brief — matches the !PMNAME_MACROS C fn, macro #ifdef-guarded and PMNAME_MACROS never defined — but its 46 C call sites exceed this iteration's audit budget, left ledger-unknown) — the below-80 exception applies (js/ +11/−9).
+- **JS:** 3 files (js/apply.js, js/end.js, js/lock.js). Under the 1500/15 caps.
+- **Callers:**
+  - `use_stethoscope`: apply.c:4328 doapply STETHOSCOPE → js/apply.js:2546 (in doapply; pre-existing, unchanged).
+  - `unleash_all`: bones.c:435 savebones → js/end.js:1699; mhitu.c:1354 gulpmu → js/mhitu.js:1859 (in gulpmu :1810); shk.c:2745 finish_paybill → js/end.js:1329 (newly wired, was deferred); trap.c:5103 drown → js/trap.js:6640 (in drown :6590). All four C call sites wired.
+  - `feel_newsym`: apply.c:457,463 → js/apply.js:629,635; detect.c:1941,2059 → js/detect.js:353,519; dig.c:84,522 → js/dig.js:1753,2503; dokick.c:951 → js/dokick.js:459,469,479 (one dynamic call — JS replicates C's post-chain call at the end of each of the 3 door-break arms); dokick.c:992,1008 → js/dokick.js:533,547 (SDOOR/SCORR); lock.c:914 → js/lock.js:996; lock.c:1042 → js/lock.js:1180 (newly wired — was newsym); objnam.c:3873 → js/readobjnam.js:873; trap.c:934,5067,6806 → js/trap.js:525,6597,6807. All 15 C call sites wired (display.c:721 is a comment).
+  - `grease_ok`: getobj callback in use_grease → js/apply.js:2328 (pre-existing). Body uses sync `equipment_is_inaccessible(obj, false)` ≡ C `inaccessible_equipment(obj, 0, FALSE)` (js/apply.js:2254–2256 returns the predicate verb-free when verb is null).
+  - `jelly_ok`: getobj callback in use_royal_jelly → js/apply.js:3136 (pre-existing).
+  - `discard_broken_wand`: apply.c:3892 broken_wand_explode → js/apply.js:1195 (in broken_wand_explode :1191); apply.c:3956,3980,3993,4143 do_break_wand → js/apply.js:1254,1272,1284,1434 (all in do_break_wand :1210). All five C call sites wired.
+- **Verify:**
+  - `use_stethoscope`: hidden note "no corpus session blocked at baseline" (normal — row cited no blocks); reach: no RNG-tagged reach, smoke 24 run / 24 PASS / 0 regressed → REACH-OK.
+  - `unleash_all`: hidden note as above; reach: smoke 24/24 PASS → REACH-OK.
+  - `feel_newsym`: hidden note as above; reach: smoke 24/24 PASS → REACH-OK.
+  - `grease_ok`: hidden note as above; reach: smoke 24/24 PASS → REACH-OK.
+  - `jelly_ok`: hidden note as above; reach: smoke 24/24 PASS → REACH-OK.
+  - `discard_broken_wand`: hidden note as above; reach: smoke 24/24 PASS → REACH-OK.
+  - shared: `node scripts/verify.mjs --fn use_stethoscope,unleash_all,feel_newsym,grease_ok,jelly_ok,discard_broken_wand` → syntax 3 files PASS · rule2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file) · VERIFY: PASS.
+- **Named omissions:**
+  - `use_stethoscope`: none in-body — whole C body live (D-2594 omit retired; callee its_dead file-local js/apply.js:368, pre-existing).
+  - `unleash_all`: none — whole body live, all four callers wired.
+  - `feel_newsym`: none in-body — whole body live (callees feel_location partial-live js/display.js:5038, newsym live :5267), all 15 C call sites wired.
+  - `grease_ok`: none — whole body live, getobj caller wired.
+  - `jelly_ok`: none — whole body live, getobj caller wired.
+  - `discard_broken_wand`: none — whole body live, all five callers wired.
+- **Ledger:** use_stethoscope ported; unleash_all ported; feel_newsym ported; grease_ok ported; jelly_ok ported; discard_broken_wand ported
+- **Next:** do not re-pop any of the six (all whole + callers wired). Mgender: body verified whole in-brief but 46 C call sites unaudited — needs its own audit iteration; no row written (left ledger-unknown). Remaining Open corpus residuals live in other C files (invault vault.c head next, then exercise/attrib.c, exclam/zap.c, …). No maintained test harness in-repo (no tests/ dir; sessions + verify.mjs are the gates) — REACH/green/cohort above is the durable evidence.
+
 ## D-3267 — `trap.c` trapeffect_fire_trap whole-body completion (hero seetrap, surface() erupt wording, shieldeff, pline_mon; retires surface omit)
 
 - **Status:** shipped (Open corpus-residual row `trapeffect_fire_trap` checked off and archived; no review cited, no stamp owed)

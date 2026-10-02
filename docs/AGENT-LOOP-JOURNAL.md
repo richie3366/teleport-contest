@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3268 `apply.c` stethoscope furniture-mimic naming via live defsym table + unleash_all/feel_newsym caller wiring (6-fn cluster; retires D-2594 omit)
+
+**C locus:** - `use_stethoscope`: nethack-c/upstream/src/apply.c:318–470 whole body; this iter :427–432 M_AP_FURNITURE arm (`what = defsyms[mtmp->mappearance].explanation`); table nethack-c/upstream/include/defsym.h:91–247 (PCHAR_DRAWING desc column, indices 0–104).
+**JS:** 3 files (js/apply.js, js/end.js, js/lock.js). Under the 1500/15 caps.
+**Change:** js/apply.js — `defsym_explanation` added to the pre-existing uhitm.js import edge (call-time use of a hoisted export; no new module edge, no `--can` needed); M_AP_FURNITURE arm now `what = defsym_explanation(mtmp.mappearance | 0)` (C :430–431). Table verified C-exact: DEFSYM_EXPLANATION[0–87] matches defsym.h desc verbatim (incl. 12 '' at 74–85, 'poison cloud', 'valid position'); every furniture-mimic appearance C can assign (makemon.c set_mimic_sym: S_vwall/S_hwall/S_vcdoor/S_hcdoor/S_fountain/S_altar/furnsyms — all ≤ 37) hits a non-empty matching slot, so the helper's 'furniture' fallback is unreachable here. js/end.js — finish_paybill calls `unleash_all()` at C shk.c:2745's position (import already present :97); doc omit retired. js/lock.js — door-close calls `feel_newsym(x, y)` (C lock.c:1042; import already present :7); non-Blind path identical (newsym), Blind path now maps felt. Doc/map omits retired (turns.md).
+**Verify:** - `use_stethoscope`: hidden note "no corpus session blocked at baseline" (normal — row cited no blocks); reach: no RNG-tagged reach, smoke 24 run / 24 PASS / 0 regressed → REACH-OK.
+**Named:** - `use_stethoscope`: none in-body — whole C body live (D-2594 omit retired; callee its_dead file-local js/apply.js:368, pre-existing).
+**Next:** do not re-pop any of the six (all whole + callers wired). Mgender: body verified whole in-brief but 46 C call sites unaudited — needs its own audit iteration; no row written (left ledger-unknown). Remaining Open corpus residuals live in other C files (invault vault.c head next, then exercise/attrib.c, exclam/zap.c, …). No maintained test harness in-repo (no tests/ dir; sessions + verify.mjs are the gates) — REACH/green/cohort above is the durable evidence.
 ## 2026-10-02 — Audit 2221–2228: review D-3260–D-3267 (7 ACCEPT + 1 WITH-DEBT) + full score
 
 **Scope:** 5a869cf51…4f422de21 (8 js/ SHAs since 2220), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.
