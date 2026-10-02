@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3299 `pline.c` There (do.js clone removal + canonical import rewire)
+
+**C locus:** - `There`: nethack-c/upstream/src/pline.c:425–433 whole body (C extern) — `vpline(YouMessage(tmp, "There ", line), the_args)`; YouMessage = strcpy+strcat into the You_buf growable buffer (:338–363), memory mgmt unneeded in JS. 55 C call sites.
+**JS:** - `There`: js/display.js:7915 (canonical export, pre-existing, unchanged); rewire js/do.js:752 (import :65; clone deleted :505).
+**Change:** - `There`: deleted the do.js:505 clone (C-cite comment left at the site); added `There` to the existing `./display.js` import (do.js:65; `imports.mjs --can`: ALREADY, no new edge). Behavior-neutral at the sole caller: single preformatted arg (no dropped args) and `pline(fmt,...args) ≡ vpline(fmt,...args)` (display.js:8274).
+**Verify:** `node scripts/verify.mjs --fn There` tail pasted verbatim:
+**Named:** - `There`: none in-body — whole C body live in the canonical export (You_buf growth + free_youbuf are memory-mgmt only, by-design; null/empty guard is the file idiom). Audit omission: per-site mapping of 54 C call sites (see Callers).
+**Next:** queue holds 1 row (`objnam.c` nextobuf, by-design-or-port). Refill stays thin: generated block dry at C≥8 (all remaining unknown/absent gaps ≤7 lines); hidden-proxy owners all tagged; next iters continue hand-verified missing-arm rows from `rows --min-c-lines 1` + brief evidence (pline.c exhausted: You_buf/free_youbuf by-design, dumplog* retired D-1776).
 ## 2026-10-02 — D-3298 `decl.c` program_state_init (early_init zero-reset + jsmain wiring)
 
 **C locus:** - `program_state_init`: nethack-c/upstream/src/decl.c:1074–1077 whole body (C extern) — `program_state = init_program_state` (`{ 0 }`, decl.c:1001; every `struct sinfo` int reads 0, hack.h:776+). Sole C caller allmain.c:35 `early_init` (first call, before `decl_globals_init` :40).

@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3299 — `pline.c` There (do.js clone removal + canonical import rewire)
+
+- **Status:** shipped (1 Open missing-arm `pline.c` row checked off + archived — There; no review cited, no stamp owed). 2 insertions — below the ~80 density bar, defended: singleton rewire cluster (canonical export pre-existed; the deliverable is deleting a divergent clone + one import name). Head's file holds nothing more shippable: You_buf/free_youbuf are buffer/free machinery → ledger by-design this iter; dumplogfreemessages is retired DUMPLOG (D-1776, do not queue). This iteration also retired 5 stale rows without `js/` (You, You_cant, pline_The → ported-stale, bodies complete js/display.js:7899–7914; cmdq_clear, cmdq_pop → ported-stale, complete js/cmd.js:310,391) — evidence in ledger notes.
+- **Symptom:** no corpus divergence — coverage row (0 blocked). C `There` had a complete canonical JS export (`js/display.js:7915`), but `js/do.js:505` carried a divergent single-arg local clone (`There(line)` via `pline`, drops format args).
+- **C locus:**
+  - `There`: nethack-c/upstream/src/pline.c:425–433 whole body (C extern) — `vpline(YouMessage(tmp, "There ", line), the_args)`; YouMessage = strcpy+strcat into the You_buf growable buffer (:338–363), memory mgmt unneeded in JS. 55 C call sites.
+- **JS was:** canonical `export async function There(fmt, ...args)` at js/display.js:7915 (prefix + vpline, null/empty guard idiom) + unexported module-local clone `async function There(line)` at js/do.js:505 routing via `pline`; sole clone caller do.js:752 `doaltarobj` passed one preformatted template string.
+- **Fix:**
+  - `There`: deleted the do.js:505 clone (C-cite comment left at the site); added `There` to the existing `./display.js` import (do.js:65; `imports.mjs --can`: ALREADY, no new edge). Behavior-neutral at the sole caller: single preformatted arg (no dropped args) and `pline(fmt,...args) ≡ vpline(fmt,...args)` (display.js:8274).
+- **JS:**
+  - `There`: js/display.js:7915 (canonical export, pre-existing, unchanged); rewire js/do.js:752 (import :65; clone deleted :505).
+- **Callers:**
+  - `There`: 55 C sites; every JS `There(` call (17 occurrences, 12 files: apply, cmd, detect, display, do, do_wear, hack, lock, mail, pickup, shk, wizcmds) binds the canonical display.js:7915 export — the removed clone was module-local and unexported, so it provably served only do.js:752 (now rewired). Per-site C→JS mapping of the remaining 54 (JS counterparts use the export or inline `pline('There …')`) unaudited — named audit omission; zero behavior delta outside do.js:752 by scoping (fortress: full 44/44 + cohort 7/7 + smoke 24/24).
+- **Verify:** `node scripts/verify.mjs --fn There` tail pasted verbatim:
+```
+LOAD-OK
+PASS  syntax   1 changed js file(s): js/do.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify There: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    There: no RNG-tagged reach; fixed smoke spread (24 run, 10.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `There`: none in-body — whole C body live in the canonical export (You_buf growth + free_youbuf are memory-mgmt only, by-design; null/empty guard is the file idiom). Audit omission: per-site mapping of 54 C call sites (see Callers).
+- **Ledger:** There ported
+- **Next:** queue refilled to 10 rows (nextobuf head + mklev/topten/vision/sp_lev/iactions/decl companions, all brief-evidenced this iter). Generated block dry at C≥8 (all remaining unknown/absent gaps ≤7 lines); hidden-proxy owners all tagged; further refills continue hand-verified missing-arm rows from `rows --min-c-lines 1` + brief evidence (pline.c exhausted: You_buf/free_youbuf by-design, dumplog* retired D-1776).
+
 ## D-3298 — `decl.c` program_state_init (early_init zero-reset + jsmain wiring)
 
 - **Status:** shipped (1 Open missing-arm `decl.c` row checked off + archived — program_state_init; no review cited, no stamp owed). 17 insertions — below the ~80 density bar, defended: singleton cluster (no callees; no other `decl.c` row Open in queue). This iteration also retired 6 hand-written rows without `js/` (topten_print, topten_print_bold, wantdoor → ledger ported-stale, bodies complete at JS call sites; type_to_name, error4, glyphinfo_at → ledger by-design, WA_VERBOSE / UNBUFFERED_GLYPHINFO compiled out) — evidence in ledger notes + DONE archive lines.

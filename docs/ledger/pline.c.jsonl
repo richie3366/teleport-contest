@@ -11,14 +11,14 @@
 {"fn":"custompline","c":"299-308","status":"unknown"}
 {"fn":"urgent_pline","c":"315-324","status":"unknown"}
 {"fn":"Norep","c":"327-336","status":"unknown"}
-{"fn":"You_buf","c":"339-348","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"free_youbuf","c":"351-356","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"You","c":"366-374","status":"unknown"}
-{"fn":"Your","c":"377-385","status":"ported","js":["js/display.js:Your"],"d":["D-3258"],"at":"2026-10-02@e42cd0047","note":"stale: js/display.js:7878 whole C body (YouMessage prefix + vpline); artifact.js:1945/mhitu.js:269 clones pre-existing"}
+{"fn":"You_buf","c":"339-348","status":"by-design","at":"2026-10-02@42c45189d","note":"growable C buffer mgmt unneeded in JS; cf js/display.js:7894 doc"}
+{"fn":"free_youbuf","c":"351-356","status":"by-design","at":"2026-10-02@42c45189d","note":"free() of You_buf; unneeded in JS"}
+{"fn":"You","c":"366-374","status":"ported","js":["js/display.js:You"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7899"}
+{"fn":"Your","c":"377-385","status":"ported","js":["js/display.js:Your"],"d":["D-3258"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7903"}
 {"fn":"You_feel","c":"388-400","status":"ported","js":["js/display.js:You_feel"],"d":["D-2968"],"at":"2026-09-27@06237de26"}
-{"fn":"You_cant","c":"403-411","status":"unknown"}
-{"fn":"pline_The","c":"414-422","status":"unknown"}
-{"fn":"There","c":"425-433","status":"unknown"}
+{"fn":"You_cant","c":"403-411","status":"ported","js":["js/display.js:You_cant"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7907"}
+{"fn":"pline_The","c":"414-422","status":"ported","js":["js/display.js:pline_The"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7911"}
+{"fn":"There","c":"425-433","status":"ported","js":["js/display.js:There"],"d":["D-3299"],"at":"2026-10-02@42c45189d"}
 {"fn":"You_hear","c":"436-452","status":"ported","js":["js/hack.js:You_hear"],"d":["D-2941"],"at":"seed@a30a7de84"}
 {"fn":"You_see","c":"455-469","status":"ported","js":["js/display.js:You_see"],"d":["D-2981"],"at":"2026-09-27@de27c57ac"}
 {"fn":"verbalize","c":"476-490","status":"partial","js":["js/display.js:verbalize"],"omit":"`mail.c:342,373,418,434` (`md_rush` — no JS counterpart); `eat.c:2588` (inside `fpostfx`, its own Open coverage row); `nhlua.c:655` (lua binding, no JS lua); C `verbalize(\"\")` would print `\"\"` but JS keeps the file's empty no-op guard (no caller passes empty).","d":["D-2464"],"at":"seed@a30a7de84"}

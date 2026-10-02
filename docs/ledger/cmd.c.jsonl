@@ -11,9 +11,9 @@
 {"fn":"cmdq_shift","c":"355-370","status":"ported","js":["js/cmd.js:cmdq_shift"],"at":"2026-09-27@e61bdd324","note":"stale: js/cmd.js:400"}
 {"fn":"cmdq_reverse","c":"373-384","status":"ported","js":["js/cmd.js:cmdq_reverse"],"d":["D-3296"],"at":"2026-10-02@b4812e9cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdq_copy","c":"387-404","status":"ported","js":["js/cmd.js:cmdq_copy"],"at":"2026-09-30@990da2b8d","note":"stale: js/cmd.js:391, slice = prepend+reverse; sole caller do_repeat (:4780) guards peek so []-vs-NULL unreachable"}
-{"fn":"cmdq_pop","c":"410-420","status":"unknown"}
+{"fn":"cmdq_pop","c":"410-420","status":"ported","js":["js/cmd.js:cmdq_pop"],"at":"2026-10-02@42c45189d","note":"stale: js/cmd.js:391"}
 {"fn":"cmdq_peek","c":"424-427","status":"unknown"}
-{"fn":"cmdq_clear","c":"431-442","status":"unknown"}
+{"fn":"cmdq_clear","c":"431-442","status":"ported","js":["js/cmd.js:cmdq_clear"],"at":"2026-10-02@42c45189d","note":"stale: js/cmd.js:310"}
 {"fn":"pgetchar","c":"445-453","status":"unknown"}
 {"fn":"extcmd_initiator","c":"457-460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"can_do_extcmd","c":"463-489","status":"ported","js":["js/cmd.js:can_do_extcmd"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"2026-10-01@2eced4253","note":"stale: js/cmd.js:762 — whole C body live incl NHCB_CMD_BEFORE via nh_callback_run; Lua-stack mechanics by-design (nhl_pcall_handle)"}

@@ -62,7 +62,7 @@ import {
     is_pick,
 } from './objects.js';
 import {
-    pline, Norep, You, Your, You_cant, pline_The, You_see, docrt,
+    pline, Norep, You, Your, You_cant, pline_The, There, You_see, docrt,
     flush_screen, flush_topl_more, newsym, glyph_to_cmap, map_background,
     assign_graphics, check_gold_symbol,
     You_feel, canseemon, canspotmon, impossible, describe_level,
@@ -502,9 +502,7 @@ function Doname2(obj) {
     const s = doname(obj);
     return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
 }
-async function There(line) {
-    await pline(`There ${line}`);
-}
+// C pline.c There :425–433 — canonical export imported from display.js (D-3299; local clone removed).
 /**
  * C worn.c setnotworn — pointer-walk worn[]; does not call setworn.
  * Clears oc_oprop extrinsic only for slots that currently point at obj.
