@@ -1,5 +1,59 @@
 # Divergence log
 
+## D-3307 — `cmd.c` extcmd_initiator + do_run_* family + cmdbind_freeall by-design
+
+- **Status:** shipped (3 Open missing-arm rows checked off + archived — extcmd_initiator head, do_run_north, cmdbind_freeall; 7 same-file unqueued gaps booked directly, D-3302/D-3306 precedent; no review cited, no stamp owed). 49 insertions — below the ~80 density bar, defended: cluster fills the 10-function ceiling with the coherent run-family closure (C bodies are 1–2 lines each; faithful ports cannot be longer); the 7 do_rush_* siblings are the immediate next step (`ledger.mjs file cmd.c`: 19 absent, of which rush ×7 + run ×8 + initiator + freeall were this file's MISSING set).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all ten). `extcmd_initiator` (rebindable `#` prompt key) had no JS symbol and get_ext_cmd hardcoded `'#'`; the 8 do_run_* movement commands had no JS symbol (only do_rush_west of the 16 run/rush siblings existed, D-3296); `cmdbind_freeall` (save-time teardown) had no JS symbol.
+- **C locus:**
+  - `extcmd_initiator`: nethack-c/upstream/src/cmd.c:456–460 — `return gc.Cmd.extcmd_char`; sole caller win/tty/getline.c:310.
+  - `do_run_west`: nethack-c/upstream/src/cmd.c:1517–1522 — `set_move_cmd(DIR_W, 1)` + ECMD_TIME; extcmdlist :2042, move_funcs :2071.
+  - `do_run_northwest`: nethack-c/upstream/src/cmd.c:1524–1529 — same shape DIR_NW; extcmdlist :2044, move_funcs :2072.
+  - `do_run_north`: nethack-c/upstream/src/cmd.c:1531–1536 — same shape DIR_N; extcmdlist :2046, move_funcs :2073, getpos.c:186.
+  - `do_run_northeast`: nethack-c/upstream/src/cmd.c:1538–1543 — same shape DIR_NE; extcmdlist :2048, move_funcs :2074.
+  - `do_run_east`: nethack-c/upstream/src/cmd.c:1545–1550 — same shape DIR_E; extcmdlist :2050, move_funcs :2075, getpos.c:187.
+  - `do_run_southeast`: nethack-c/upstream/src/cmd.c:1552–1557 — same shape DIR_SE; extcmdlist :2052, move_funcs :2076.
+  - `do_run_south`: nethack-c/upstream/src/cmd.c:1559–1564 — same shape DIR_S; extcmdlist :2054, move_funcs :2077, getpos.c:185.
+  - `do_run_southwest`: nethack-c/upstream/src/cmd.c:1566–1571 — same shape DIR_SW; extcmdlist :2056, move_funcs :2078.
+  - `cmdbind_freeall`: nethack-c/upstream/src/cmd.c:2180–2191 — free cmdbinds list incl. params; sole caller save.c:1134 freedynamicdata.
+- **JS was:** no `extcmd_initiator` symbol (sym.mjs NOT FOUND); get_ext_cmd hardcoded `'#'` in the prompt paint and both "unknown extended command" plines. No do_run_* symbol (only module-local do_move_* ×8 and do_rush_west in js/cmd.js). No cmdbind_freeall symbol; binds live in GC'd `game.Cmd.binds` Map + `_layoutSlots`.
+- **Fix:** whole-body export of the head in C order (after pgetchar) + sole-caller wiring in get_ext_cmd; 8 module-local do_run_* in C order (do_move_*/do_rush_west idiom) + FUNCT_TXT identity rows; cmdbind_freeall by-design (sole C caller freedynamicdata is ledger by-design save-freeing).
+- **JS:**
+  - `extcmd_initiator`: js/cmd.js:971 — `export function extcmd_initiator() { return game.Cmd?.extcmd_char ?? 0; }` (C `:459`; code ≡ C char, set by reset_commands `:3475`); added to the existing `./cmd.js` import in js/getline.js:39 (`imports.mjs --can`: ALREADY, no new edge).
+  - `do_run_west`: js/cmd.js:611 — module-local one-liner, C order.
+  - `do_run_northwest`: js/cmd.js:612 — module-local one-liner, C order.
+  - `do_run_north`: js/cmd.js:613 — module-local one-liner, C order.
+  - `do_run_northeast`: js/cmd.js:614 — module-local one-liner, C order.
+  - `do_run_east`: js/cmd.js:615 — module-local one-liner, C order.
+  - `do_run_southeast`: js/cmd.js:616 — module-local one-liner, C order.
+  - `do_run_south`: js/cmd.js:617 — module-local one-liner, C order.
+  - `do_run_southwest`: js/cmd.js:618 — module-local one-liner, C order.
+  - `cmdbind_freeall`: no symbol (by-design) — list-free has no JS counterpart (GC'd Map/slots) and its only C caller is by-design.
+- **Callers:**
+  - `extcmd_initiator`: getline.c:310 → js/getline.js:1584 get_ext_cmd (`initiatorCode`, prompt `:1589`, plines `:1636`/`:1642` via visctrl — C `:320–321`).
+  - `do_run_west`: extcmdlist :2042 → FUNCT_TXT js/cmd.js:2051 (ext_func_tab_from_func identity); move_funcs :2071 → MOVE_FUNC_TXT/MOVE_RUN_ECNAMES txt columns (pre-existing); rhack run-key arm → js/cmd.js:5576 isRunKey (pre-existing txt-driven equivalent).
+  - `do_run_northwest`: extcmdlist :2044 → FUNCT_TXT js/cmd.js:2052; move_funcs :2072 → txt columns (same).
+  - `do_run_north`: extcmdlist :2046 → FUNCT_TXT js/cmd.js:2053; move_funcs :2073 → txt columns; getpos.c:186 → js/getpos.js:1156 vk('runnorth') (pre-existing).
+  - `do_run_northeast`: extcmdlist :2048 → FUNCT_TXT js/cmd.js:2054; move_funcs :2074 → txt columns (same).
+  - `do_run_east`: extcmdlist :2050 → FUNCT_TXT js/cmd.js:2055; move_funcs :2075 → txt columns; getpos.c:187 → js/getpos.js:1156 vk('runeast') (pre-existing).
+  - `do_run_southeast`: extcmdlist :2052 → FUNCT_TXT js/cmd.js:2056; move_funcs :2076 → txt columns (same).
+  - `do_run_south`: extcmdlist :2054 → FUNCT_TXT js/cmd.js:2057; move_funcs :2077 → txt columns; getpos.c:185 → js/getpos.js:1156 vk('runsouth') (pre-existing); getpos.c:184 do_run_west → vk('runwest') same line.
+  - `do_run_southwest`: extcmdlist :2056 → FUNCT_TXT js/cmd.js:2058; move_funcs :2078 → txt columns (same).
+  - `cmdbind_freeall`: save.c:1134 freedynamicdata (ledger by-design save-freeing, CURRENT Do-not) — no JS call site by design.
+- **Verify:** `node scripts/verify.mjs --fn extcmd_initiator,do_run_west,do_run_northwest,do_run_north,do_run_northeast,do_run_east,do_run_southeast,do_run_south,do_run_southwest,cmdbind_freeall` → syntax PASS · Rule #2 PASS · hidden note ×10 (no corpus session blocked — normal for coverage) · REACH-OK ×10 (no RNG-tagged reach; smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file per gate) → VERIFY: PASS; plus forced `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS (initiator prompt wiring).
+- **Named omissions:**
+  - `extcmd_initiator`: none in-body — whole C body live (`?? 0` ≡ zero-initialized field pre-reset_commands).
+  - `do_run_west`: none — whole C body live (set_move_cmd live js/cmd.js:577; ECMD_TIME/DIR_W live const.js).
+  - `do_run_northwest`: none — whole C body live (same callees).
+  - `do_run_north`: none — whole C body live (same callees).
+  - `do_run_northeast`: none — whole C body live (same callees).
+  - `do_run_east`: none — whole C body live (same callees).
+  - `do_run_southeast`: none — whole C body live (same callees).
+  - `do_run_south`: none — whole C body live (same callees).
+  - `do_run_southwest`: none — whole C body live (same callees).
+  - `cmdbind_freeall`: the free itself + the call — GC'd binds, by-design caller (sole C caller freedynamicdata is ledger by-design).
+- **Ledger:** extcmd_initiator ported; do_run_west ported; do_run_northwest ported; do_run_north ported; do_run_northeast ported; do_run_east ported; do_run_southeast ported; do_run_south ported; do_run_southwest ported; cmdbind_freeall by-design
+- **Next:** `cmd.c` do_rush_* ×7 (same file, same shape, over the 10-cap here) + next missing-arm row.
+
 ## D-3306 — `role.c` genl_player_selection port + 4 stale-complete closure mates
 
 - **Status:** shipped (1 Open missing-arm row checked off + archived — genl_player_selection head; 4 same-file unqueued gaps booked directly, D-3302/D-3304 precedent; no review cited, no stamp owed). 18 insertions — below the ~80 density bar, defended: head's file holds nothing more Open (`ledger.mjs file role.c`: 47 functions — 14 ported, 1 split, 3 partial declared, 24 unknown measured-ok, these 4 verified complete via brief, 1 absent = the head); callee closure live (genl_player_setup partial D-2833, nh_terminate by-design).

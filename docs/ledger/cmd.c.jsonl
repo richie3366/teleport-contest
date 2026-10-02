@@ -15,7 +15,7 @@
 {"fn":"cmdq_peek","c":"424-427","status":"unknown"}
 {"fn":"cmdq_clear","c":"431-442","status":"ported","js":["js/cmd.js:cmdq_clear"],"at":"2026-10-02@42c45189d","note":"stale: js/cmd.js:310"}
 {"fn":"pgetchar","c":"445-453","status":"unknown"}
-{"fn":"extcmd_initiator","c":"457-460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"extcmd_initiator","c":"457-460","status":"ported","js":["js/cmd.js:extcmd_initiator"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"can_do_extcmd","c":"463-489","status":"ported","js":["js/cmd.js:can_do_extcmd"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"2026-10-01@2eced4253","note":"stale: js/cmd.js:762 — whole C body live incl NHCB_CMD_BEFORE via nh_callback_run; Lua-stack mechanics by-design (nhl_pcall_handle)"}
 {"fn":"doextcmd","c":"493-520","status":"unknown"}
 {"fn":"doc_extcmd_flagstr","c":"524-557","status":"ported","js":["js/cmd.js:doc_extcmd_flagstr"],"at":"2026-09-30@850d390ba","note":"stale: js/cmd.js:848 (both arms + both doextlist sites :1296/:1306 wired)"}
@@ -50,14 +50,14 @@
 {"fn":"do_rush_southeast","c":"1496-1500","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_rush_south","c":"1503-1507","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_rush_southwest","c":"1510-1514","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_west","c":"1518-1522","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_northwest","c":"1525-1529","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_north","c":"1532-1536","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_northeast","c":"1539-1543","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_east","c":"1546-1550","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_southeast","c":"1553-1557","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_south","c":"1560-1564","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_run_southwest","c":"1567-1571","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_west","c":"1518-1522","status":"ported","js":["js/cmd.js:do_run_west"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_northwest","c":"1525-1529","status":"ported","js":["js/cmd.js:do_run_northwest"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_north","c":"1532-1536","status":"ported","js":["js/cmd.js:do_run_north"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_northeast","c":"1539-1543","status":"ported","js":["js/cmd.js:do_run_northeast"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_east","c":"1546-1550","status":"ported","js":["js/cmd.js:do_run_east"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_southeast","c":"1553-1557","status":"ported","js":["js/cmd.js:do_run_southeast"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_south","c":"1560-1564","status":"ported","js":["js/cmd.js:do_run_south"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_southwest","c":"1567-1571","status":"ported","js":["js/cmd.js:do_run_southwest"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_reqmenu","c":"1575-1586","status":"unknown"}
 {"fn":"do_rush","c":"1590-1602","status":"unknown"}
 {"fn":"do_run","c":"1606-1618","status":"unknown"}
@@ -67,7 +67,7 @@
 {"fn":"cmdbind_get","c":"2110-2123","status":"ported","js":["js/dokeylist.js:cmdbind_get"],"at":"2026-09-27@45ea89017","note":"stale: js/dokeylist.js:306"}
 {"fn":"cmdbind_add","c":"2126-2155","status":"unknown"}
 {"fn":"cmdbind_remove","c":"2158-2177","status":"ported","js":["js/cmd.js:cmdbind_remove"],"at":"2026-09-30@8e8a996ab","note":"stale: js/cmd.js:1645, whole C body (slots/order/overlay unlink + param clear); 4 C callers wired (:2133×2 paths, :2670, :3413, :3456)"}
-{"fn":"cmdbind_freeall","c":"2180-2191","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cmdbind_freeall","c":"2180-2191","status":"by-design","d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdbind_swapkeys","c":"2195-2204","status":"unknown"}
 {"fn":"count_bind_keys","c":"2208-2231","status":"unknown"}
 {"fn":"get_changed_key_binds","c":"2235-2287","status":"ported","js":["js/cmd.js:get_changed_key_binds"],"d":["D-3222","D-2550"],"at":"2026-10-01@bd7787f89"}

@@ -126,14 +126,18 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `cmd.c` extcmd_initiator — C `cmd.c:457–460` absent from js/ (no symbol; `return gc.Cmd.extcmd_char`); 1 C caller win/tty/getline.c:310 — port whole (brief 2026-10-02) @56ef5b381
-- [ ] `cmd.c` do_run_north — C `cmd.c:1532–1536` absent from js/ (no symbol; `set_move_cmd(DIR_N,1)` + ECMD_TIME, callee live js/cmd.js:577); 15 do_run/do_rush siblings C :1468–1571 same shape — port whole (brief 2026-10-02) @56ef5b381
-- [ ] `cmd.c` cmdbind_freeall — C `cmd.c:2180–2191` absent from js/ (no symbol; free cmdbinds list incl. params); sole C caller save.c:1134 — resolve by-design (GC) or port (brief 2026-10-02) @f5743f596
 - [ ] `monst.c` monst_globals_init — C `monst.c:72–76` absent from js/ (no symbol; memcpy mons_init→mons); C callers allmain.c:42, makemon.c:1841 — port whole (brief 2026-10-02) @f5743f596
 - [ ] `zap.c` wish_history_flush — C `zap.c:6259–6270` absent from js/ (no symbol; body entirely `#ifdef DEBUG`, free wish_history[] + reset idx); sole C caller save.c:1136 — resolve by-design (ifdef-off) or port (brief 2026-10-02) @c50c91230
 - [ ] `options.c` handler_symset — C `options.c:6321–6328` absent from js/ (no symbol; `staticfn` do_symset wrapper + opt_need_redraw, callee symbols.c:do_symset by-design); 2 C callers options.c:3583,:4228 — port whole, callee named (brief 2026-10-02) @c50c91230
 - [ ] `sfbase.c` sf_init — C `sfbase.c:647–655` absent from js/ (no symbol; procs-table init: sfoprocs/sfiprocs invalid+historical, sfofl/sfifl exportascii); sole C caller options.c:7129 — resolve by-design (no sf procs layer in JS) or port (brief 2026-10-02) @b2e34fd56
 - [ ] `sfbase.c` sfvalue_any — C `sfbase.c:449–457` absent from js/ (no symbol; static-buf PRId64 of a_int64); C refs fwd decl :23 + `Sfvalue_any` macro :53 only — resolve by-design or port (brief 2026-10-02) @b2e34fd56
+- [ ] `cmd.c` do_rush_northwest — C `cmd.c:1468–1472` absent from js/ (no symbol; `set_move_cmd(DIR_NW,3)` + ECMD_TIME, callee live js/cmd.js:577); 6 do_rush siblings C :1461–1514 same shape (do_rush_west ported D-3296) — port whole (brief 2026-10-02) @4265100f0
+- [ ] `cmd.c` do_rush_north — C `cmd.c:1475–1479` absent from js/ (no symbol; `set_move_cmd(DIR_N,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [ ] `cmd.c` do_rush_northeast — C `cmd.c:1482–1486` absent from js/ (no symbol; `set_move_cmd(DIR_NE,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [ ] `cmd.c` do_rush_east — C `cmd.c:1489–1493` absent from js/ (no symbol; `set_move_cmd(DIR_E,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [ ] `cmd.c` do_rush_southeast — C `cmd.c:1496–1500` absent from js/ (no symbol; `set_move_cmd(DIR_SE,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [ ] `cmd.c` do_rush_south — C `cmd.c:1503–1507` absent from js/ (no symbol; `set_move_cmd(DIR_S,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [ ] `cmd.c` do_rush_southwest — C `cmd.c:1510–1514` absent from js/ (no symbol; `set_move_cmd(DIR_SW,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

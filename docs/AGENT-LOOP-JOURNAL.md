@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3307 `cmd.c` extcmd_initiator + do_run_* family + cmdbind_freeall by-design
+
+**C locus:** - `extcmd_initiator`: nethack-c/upstream/src/cmd.c:456–460 — `return gc.Cmd.extcmd_char`; sole caller win/tty/getline.c:310.
+**JS:** - `extcmd_initiator`: js/cmd.js:971 — `export function extcmd_initiator() { return game.Cmd?.extcmd_char ?? 0; }` (C `:459`; code ≡ C char, set by reset_commands `:3475`); added to the existing `./cmd.js` import in js/getline.js:39 (`imports.mjs --can`: ALREADY, no new edge).
+**Change:** whole-body export of the head in C order (after pgetchar) + sole-caller wiring in get_ext_cmd; 8 module-local do_run_* in C order (do_move_*/do_rush_west idiom) + FUNCT_TXT identity rows; cmdbind_freeall by-design (sole C caller freedynamicdata is ledger by-design save-freeing).
+**Verify:** `node scripts/verify.mjs --fn extcmd_initiator,do_run_west,do_run_northwest,do_run_north,do_run_northeast,do_run_east,do_run_southeast,do_run_south,do_run_southwest,cmdbind_freeall` → syntax PASS · Rule #2 PASS · hidden note ×10 (no corpus session blocked — normal for coverage) · REACH-OK ×10 (no RNG-tagged reach; smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file per gate) → VERIFY: PASS; plus forced `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS (initiator prompt wiring).
+**Named:** - `extcmd_initiator`: none in-body — whole C body live (`?? 0` ≡ zero-initialized field pre-reset_commands).
+**Next:** `cmd.c` do_rush_* ×7 (same file, same shape, over the 10-cap here) + next missing-arm row.
 ## 2026-10-02 — D-3306 `role.c` genl_player_selection port + 4 stale-complete closure mates
 
 **C locus:** - `genl_player_selection`: nethack-c/upstream/src/role.c:2177–2185 — `if (genl_player_setup(0)) return; nh_terminate(EXIT_SUCCESS)`; 0 references in pinned C (generic window-port entry).
