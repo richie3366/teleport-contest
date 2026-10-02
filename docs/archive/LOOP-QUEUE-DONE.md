@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `iactions.c` ia_addmenu — C `iactions.c:127–136` absent from js/ (no symbol; `staticfn` add_menu wrapper, zeroany+act); 69 C refs — port whole (brief 2026-10-02) @42c45189d
-- [x] `decl.c` sa_victual — C `decl.c:1199–1203` absent from js/ (no symbol; static-analyzer no-op, `return;` UNUSED param); sole C caller eat.c:3136 — resolve by-design or port (brief 2026-10-02) @42c45189d
+- [x] `role.c` genl_player_selection — C `role.c:2177–2185` absent from js/ (no symbol; setup-or-terminate; callees live js/player_selection.js:1323 async + js/end.js:1039) — port whole (brief 2026-10-02) @56ef5b381 **Addressed:** D-3306
+
+
+- [x] `iactions.c` ia_addmenu — C `iactions.c:127–136` absent from js/ (no symbol; `staticfn` add_menu wrapper, zeroany+act); 69 C refs — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3305 `7dfa2aad1`
+- [x] `decl.c` sa_victual — C `decl.c:1199–1203` absent from js/ (no symbol; static-analyzer no-op, `return;` UNUSED param); sole C caller eat.c:3136 — resolve by-design or port (brief 2026-10-02) @42c45189d **Addressed:** D-3305 `7dfa2aad1`
 
 
 - [x] `sp_lev.c` l_register_des — C `sp_lev.c:6435–6441` absent from js/ (no symbol; Lua `des` table registration); sole C caller nhlua.c:2347 — resolve by-design (no Lua runtime in JS) or port (brief 2026-10-02) @42c45189d **Addressed:** D-3304 `b2e34fd56`

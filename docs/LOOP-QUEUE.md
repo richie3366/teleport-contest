@@ -126,7 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `role.c` genl_player_selection — C `role.c:2177–2185` absent from js/ (no symbol; setup-or-terminate; callees live js/player_selection.js:1323 async + js/end.js:1039) — port whole (brief 2026-10-02) @56ef5b381
 - [ ] `cmd.c` extcmd_initiator — C `cmd.c:457–460` absent from js/ (no symbol; `return gc.Cmd.extcmd_char`); 1 C caller win/tty/getline.c:310 — port whole (brief 2026-10-02) @56ef5b381
 - [ ] `cmd.c` do_run_north — C `cmd.c:1532–1536` absent from js/ (no symbol; `set_move_cmd(DIR_N,1)` + ECMD_TIME, callee live js/cmd.js:577); 15 do_run/do_rush siblings C :1468–1571 same shape — port whole (brief 2026-10-02) @56ef5b381
 - [ ] `cmd.c` cmdbind_freeall — C `cmd.c:2180–2191` absent from js/ (no symbol; free cmdbinds list incl. params); sole C caller save.c:1134 — resolve by-design (GC) or port (brief 2026-10-02) @f5743f596

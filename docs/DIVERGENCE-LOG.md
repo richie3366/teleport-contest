@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3306 — `role.c` genl_player_selection port + 4 stale-complete closure mates
+
+- **Status:** shipped (1 Open missing-arm row checked off + archived — genl_player_selection head; 4 same-file unqueued gaps booked directly, D-3302/D-3304 precedent; no review cited, no stamp owed). 18 insertions — below the ~80 density bar, defended: head's file holds nothing more Open (`ledger.mjs file role.c`: 47 functions — 14 ported, 1 split, 3 partial declared, 24 unknown measured-ok, these 4 verified complete via brief, 1 absent = the head); callee closure live (genl_player_setup partial D-2833, nh_terminate by-design).
+- **Symptom:** no corpus divergence — coverage row (0 blocked on all five). `genl_player_selection` (generic setup-or-terminate entry) had no JS symbol; the existing `player_selection()` is the tty variant (passes rows, throws on quit). Four same-file gaps complete in JS under this or local names.
+- **C locus:**
+  - `genl_player_selection`: nethack-c/upstream/src/role.c:2177–2185 — `if (genl_player_setup(0)) return; nh_terminate(EXIT_SUCCESS)`; 0 references in pinned C (generic window-port entry).
+  - `randrole`: nethack-c/upstream/src/role.c:719–728 — `rn2(SIZE(roles)-1)` / display-stream variant; callers pray.c:2591, role.c:743/:2069/:2303/:2364.
+  - `validrace`: nethack-c/upstream/src/role.c:778–784 — IndexOkT + allow-mask test (assumes validrole); callers role.c:2004/:2378/:2397.
+  - `gotrolefilter`: nethack-c/upstream/src/role.c:1303–1313 — mask/roles scan; callers role.c:1944/:2755.
+  - `character_race`: nethack-c/upstream/src/role.c:2163–2171 — races[] mnum walk, NULL fallthrough; caller polyself.c:1098.
+- **JS was:** no `genl_player_selection` symbol (sym.mjs NOT FOUND); `player_selection()` is the tty entry (passes nhDisplay rows, throws on quit). The other four live: randrole export js/roles.js:1090, validrace export js/player_selection.js:396, gotrolefilter local :73, character_race local js/polyself.js:631.
+- **Fix:** whole-body port of the head in C order (C file order, before genl_player_setup) + four stale-complete bookings (brief-verified, D-3302 precedent).
+- **JS:**
+  - `genl_player_selection`: js/player_selection.js:1324 — `export async function` (async: genl_player_setup is async in JS); `if (await genl_player_setup(0)) return;` (0 ≠ null → rows 0, C-exact) then `nh_terminate(EXIT_SUCCESS)`; new import `nh_terminate` from `./end.js` (`imports.mjs --can`: IN-SCC but hoisted — cycle-safe, no top-level TDZ read) + EXIT_SUCCESS added to the `./const.js` import.
+  - `randrole`: js/roles.js:1090 — complete (roles.length ≡ SIZE(roles)-1, no terminator entry).
+  - `validrace`: js/player_selection.js:396 — complete (IndexOkT ≡ bounds check, C "assumes validrole" kept).
+  - `gotrolefilter`: js/player_selection.js:73 local — complete; same module as both C callers.
+  - `character_race`: js/polyself.js:631 local — complete (`| 0` short compare, null ≡ NULL); same module as C caller.
+- **Callers:**
+  - `genl_player_selection`: none — 0 C references (window-port entry); new export stands unwired like other entries.
+  - `randrole`: role.c:743 → js/roles.js:1107 randrole_filtered; role.c:2069 → js/roles.js:1371 role_init; role.c:2303/:2364 → js/player_selection.js:1401/:1434 genl_player_setup; pray.c:2591 → js/pray.js:2812 C-exact inline (named, D-3297 precedent).
+  - `validrace`: role.c:2004 → js/roles.js:1298 role_init; role.c:2378/:2397 → js/player_selection.js:421 valid*-checked wrapper in the genl_player_setup flow.
+  - `gotrolefilter`: role.c:1944 → js/player_selection.js:1184 (`? 'Reset' : 'Set'`, verbatim); role.c:2755 → js/player_selection.js:218 (conditional title suffix, verbatim).
+  - `character_race`: polyself.c:1098 → js/polyself.js:654 (`const R = character_race(mndx)`).
+- **Verify:** `node scripts/verify.mjs --fn genl_player_selection,randrole,validrace,gotrolefilter,character_race` → syntax PASS (1 changed js file: js/player_selection.js) · Rule #2 PASS · hidden note ×5 (no corpus session blocked — normal for coverage) · REACH-OK ×5 (randrole: 69 reaching sessions 69 PASS; other four: no RNG-tagged reach, smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `genl_player_selection`: none in-body — whole C body live (C `exit` collapses into the by-design nh_terminate gameover/exiting flags).
+  - `randrole`: pray.js:2812 keeps the C-exact inline instead of a call (documented equivalence).
+  - `validrace`: none — whole C body live.
+  - `gotrolefilter`: none — whole C body live in the module-local (both C callers same-file).
+  - `character_race`: none — whole C body live in the module-local (C caller same-module).
+- **Ledger:** genl_player_selection ported; randrole ported js=roles.js:randrole; validrace ported js=player_selection.js:validrace; gotrolefilter ported js=player_selection.js:gotrolefilter; character_race ported js=polyself.js:character_race
+- **Next:** continue the missing-arm list (`cmd.c` extcmd_initiator head).
+
 ## D-3305 — `iactions.c` ia_addmenu + `decl.c` sa_victual (stale-complete + analyzer-no-op by-design)
 
 - **Status:** shipped (2 Open missing-arm rows checked off + archived — ia_addmenu head, sa_victual; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: head's file holds nothing more Open (`ledger.mjs file iactions.c`: 2 ported, 2 unknown measured-ok, 0 remaining gaps; `ledger.mjs file decl.c`: 3 functions, rest ported); callee closures empty (add_menu not a pinned-C function; sa_victual callee-free).

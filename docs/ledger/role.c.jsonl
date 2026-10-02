@@ -1,8 +1,8 @@
 {"fn":"validrole","c":"713-716","status":"unknown"}
-{"fn":"randrole","c":"719-728","status":"unknown"}
+{"fn":"randrole","c":"719-728","status":"ported","js":["js/roles.js:randrole"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
 {"fn":"randrole_filtered","c":"731-744","status":"unknown"}
 {"fn":"str2role","c":"747-775","status":"unknown"}
-{"fn":"validrace","c":"778-784","status":"unknown"}
+{"fn":"validrace","c":"778-784","status":"ported","js":["js/player_selection.js:validrace"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
 {"fn":"randrace","c":"787-810","status":"ported","js":["js/roles.js:randrace"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"str2race","c":"813-841","status":"unknown"}
 {"fn":"validgend","c":"844-850","status":"unknown"}
@@ -21,7 +21,7 @@
 {"fn":"pick_align","c":"1211-1232","status":"ported","js":["js/player_selection.js:pick_align"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:622"}
 {"fn":"rigid_role_checks","c":"1235-1281","status":"unknown","d":["D-2681"],"at":"seed@a30a7de84"}
 {"fn":"setrolefilter","c":"1284-1300","status":"unknown"}
-{"fn":"gotrolefilter","c":"1303-1313","status":"unknown"}
+{"fn":"gotrolefilter","c":"1303-1313","status":"ported","js":["js/player_selection.js:gotrolefilter"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
 {"fn":"rolefilterstring","c":"1318-1355","status":"unknown"}
 {"fn":"clearrolefilter","c":"1358-1381","status":"ported","js":["js/player_selection.js:clearrolefilter"],"at":"2026-09-29@7e46744a0","note":"stale: js/player_selection.js:80"}
 {"fn":"promptsep","c":"1384-1396","status":"unknown"}
@@ -35,8 +35,8 @@
 {"fn":"role_init","c":"1980-2117","status":"partial","js":["js/roles.js:role_init"],"omit":"restore-path re-derivation (above); `iflags.defer_plname`/`sysopt.genericusers` arms ported but unset in JS (unixmain-owned); `options.c:3609` pl_character writer (OPTIONS name back-compat; JS sets pl_character only via role_init copy-back).","d":["D-2481"],"at":"seed@a30a7de84"}
 {"fn":"Hello","c":"2120-2140","status":"ported","js":["js/roles.js:Hello"],"d":["D-3046"],"at":"2026-09-28@fa84aeeac"}
 {"fn":"Goodbye","c":"2143-2157","status":"ported","js":["js/roles.js:Goodbye"],"at":"2026-09-29@671c54bfc","note":"stale: js/roles.js:791; callers wired end.js:935 exper.js:376"}
-{"fn":"character_race","c":"2163-2171","status":"unknown"}
-{"fn":"genl_player_selection","c":"2177-2185","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"character_race","c":"2163-2171","status":"ported","js":["js/polyself.js:character_race"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
+{"fn":"genl_player_selection","c":"2177-2185","status":"ported","js":["js/player_selection.js:genl_player_selection"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"genl_player_setup","c":"2206-2725","status":"partial","js":["js/player_selection.js:genl_player_setup"],"omit":"`role.c:2179` passes screen height 0; the JS caller is the tty one.","d":["D-2833"],"at":"seed@a30a7de84","note":"alt 3017-3020"}
 {"fn":"reset_role_filtering","c":"2728-2770","status":"unknown"}
 {"fn":"maybe_skip_seps","c":"2777-2802","status":"unknown"}

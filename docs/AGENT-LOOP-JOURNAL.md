@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3306 `role.c` genl_player_selection port + 4 stale-complete closure mates
+
+**C locus:** - `genl_player_selection`: nethack-c/upstream/src/role.c:2177–2185 — `if (genl_player_setup(0)) return; nh_terminate(EXIT_SUCCESS)`; 0 references in pinned C (generic window-port entry).
+**JS:** - `genl_player_selection`: js/player_selection.js:1324 — `export async function` (async: genl_player_setup is async in JS); `if (await genl_player_setup(0)) return;` (0 ≠ null → rows 0, C-exact) then `nh_terminate(EXIT_SUCCESS)`; new import `nh_terminate` from `./end.js` (`imports.mjs --can`: IN-SCC but hoisted — cycle-safe, no top-level TDZ read) + EXIT_SUCCESS added to the `./const.js` import.
+**Change:** whole-body port of the head in C order (C file order, before genl_player_setup) + four stale-complete bookings (brief-verified, D-3302 precedent).
+**Verify:** `node scripts/verify.mjs --fn genl_player_selection,randrole,validrace,gotrolefilter,character_race` → syntax PASS (1 changed js file: js/player_selection.js) · Rule #2 PASS · hidden note ×5 (no corpus session blocked — normal for coverage) · REACH-OK ×5 (randrole: 69 reaching sessions 69 PASS; other four: no RNG-tagged reach, smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+**Named:** - `genl_player_selection`: none in-body — whole C body live (C `exit` collapses into the by-design nh_terminate gameover/exiting flags).
+**Next:** continue the missing-arm list (`cmd.c` extcmd_initiator head).
 ## 2026-10-02 — D-3305 `iactions.c` ia_addmenu + `decl.c` sa_victual (stale-complete + analyzer-no-op by-design)
 
 **C locus:** - `ia_addmenu`: nethack-c/upstream/src/iactions.c:127–136 (C staticfn) — `any = cg.zeroany; any.a_int = act; add_menu(win, &nul_glyphinfo, &any, let, 0, ATR_NONE, NO_COLOR, txt, MENU_ITEMFLAGS_NONE)`; sole caller itemactions (:278–716, 68 sites :306–:695).
