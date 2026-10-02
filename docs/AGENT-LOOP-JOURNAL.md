@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3325 allmain.c early_init whole-body port + jsmain entry wiring (domenucontrols stale-split)
+
+**C locus:** - `early_init`: nethack-c/upstream/src/allmain.c:32–45 whole body: program_state `:35`, crashreport `:38` (#ifdef CRASHREPORT), decl `:40`, objects `:41`, monst `:42`, sys `:43`, runtime `:44` — read in the brief this session.
+**JS:** js/allmain.js (imports :32–37; early_init :776); js/jsmain.js (import :18; call :132). Scripts: scripts/early-init.test.mjs (new, 6 cases: 3 behavioral + order census + 2 wiring).
+**Change:** `export function early_init(argc, argv)` in js/allmain.js (C locus, :776, immediately before newgame) with the 7 calls in C order and C-line cites; jsmain start() now calls `early_init(0, [])` (:132) and drops the 3 direct-init imports; the jsmain→allmain edge is ALREADY (extended :18); 5 new allmain edges `imports.mjs --can` SAFE (decl/report/objects/sys/version — 4 no-cycle, report hoisted). CRASHREPORT verified active (config.h:249 Linux default, no NOCRASHREPORT in unixconf.h — measured), so `:38` is live; (0, []) with comment (no argv in ESM, Rule #2; crashreport voids). Entry objects install is safe: newgame init_objects and restore both reinstall fresh downstream (measured o_init.js:266/save.js:796), and the install draws no RNG.
+**Verify:** `node scripts/verify.mjs --fn early_init` tail pasted verbatim:
+**Named:** - `early_init`: none in-body — whole C body live (7/7 calls; argv (0, []) documented Rule-#2 analogue, params C-voided).
+**Next:** continue the missing-arm list (`coloratt.c` get_nhcolor_from_256_index head).
 ## 2026-10-02 — D-3324 hacklib.c distmin clone removals (shknam local + mon.js duplicate) + nh_snprintf by-design
 
 **C locus:** - `distmin`: nethack-c/upstream/src/hacklib.c:657–669 whole body: abs both deltas, return the larger — read in the brief this session.

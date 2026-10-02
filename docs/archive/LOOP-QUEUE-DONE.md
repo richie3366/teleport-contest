@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `pager.c` domenucontrols — C pager.c:2820–2827 `create_nhwindow + show_menu_controls(cwin,FALSE) + display + destroy` absent from js/ (no symbol; brief this session; sole C ref is the decl-only :48 — dead in C; callee live js/dokeylist.js:210) — port module-local (C staticfn) or resolve by-design.
+- [x] `allmain.c` early_init — C allmain.c:33–45 `program_state_init + decl/objects/monst/sys/runtime inits` absent from js/ (no symbol; brief this session; sole caller unixmain.c:66 port entry; callees live incl js/decl.js:97 + js/sys.js:37 + js/monsters.js:222) — port or resolve by-design.
+
+
 - [x] `hacklib.c` distmin shknam.js clone removal — C hacklib.c:657–669 max(|dx|,|dy|) call absent from js/shknam.js (local clone :268 inlines it instead of importing the live export js/hacklib.js:19; brief this session: `!! ALSO 1 LOCAL CLONE(S)`; second export js/mon.js:1130 needs the C-locus decision); rewire its call site(s) to the C-locus export, delete clone.
 - [x] `hacklib.c` nh_snprintf — C hacklib.c:854–875 varargs `vsnprintf + nul-terminate` absent from js/ (no symbol; brief this session; refs are decls + date.c:11/mdlib.c:311 macro uses; impossible arm `#if 0`) — resolve by-design (JS strings need no snprintf) or port.
 

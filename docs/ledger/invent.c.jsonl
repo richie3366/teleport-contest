@@ -34,7 +34,7 @@
 {"fn":"u_have_novel","c":"1576-1584","status":"unknown"}
 {"fn":"o_on","c":"1587-1599","status":"unknown"}
 {"fn":"obj_here","c":"1602-1610","status":"unknown"}
-{"fn":"g_at","c":"1613-1623","status":"unknown"}
+{"fn":"g_at","c":"1613-1623","status":"ported","js":["js/mkobj.js:g_at"],"at":"2026-10-02@ba7109db3","note":"stale: js/mkobj.js:4084"}
 {"fn":"compactify","c":"1627-1660","status":"split","js":["js/invent.js:compactify_invlets"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2","note":"stale: full C body as compactify_invlets (:8427); both C callers wired (getobj promptBuf :8925, doorganize_core :9532)"}
 {"fn":"splittable","c":"1664-1668","status":"unknown"}
 {"fn":"taking_off","c":"1672-1675","status":"unknown"}

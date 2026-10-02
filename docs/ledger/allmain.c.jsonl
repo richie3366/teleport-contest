@@ -1,4 +1,4 @@
-{"fn":"early_init","c":"33-45","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"early_init","c":"33-45","status":"ported","js":["js/allmain.js:early_init"],"d":["D-3325"],"at":"2026-10-02@ba7109db3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"moveloop_preamble","c":"48-111","status":"unknown"}
 {"fn":"u_calc_moveamt","c":"114-158","status":"unknown"}
 {"fn":"maybe_generate_rnd_mon","c":"162-168","status":"unknown","d":["D-1867"],"at":"seed@a30a7de84"}

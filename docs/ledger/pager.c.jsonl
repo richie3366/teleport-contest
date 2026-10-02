@@ -40,7 +40,7 @@
 {"fn":"hmenu_dowhatis","c":"2802-2805","status":"unknown"}
 {"fn":"hmenu_dowhatdoes","c":"2808-2811","status":"unknown"}
 {"fn":"hmenu_doextlist","c":"2814-2817","status":"unknown"}
-{"fn":"domenucontrols","c":"2820-2827","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"domenucontrols","c":"2820-2827","status":"split","js":["js/dokeylist.js:domenucontrols_lines","js/pager.js:dohelp"],"at":"2026-10-02@ba7109db3","note":"stale: split-live domenucontrols_lines + dohelp ?l site (rev 1487 ACCEPT)"}
 {"fn":"dohelp","c":"2860-2899","status":"unknown"}
 {"fn":"setopt_cmd","c":"2908-2957","status":"ported","js":["js/pager.js:setopt_cmd"],"d":["D-2837"],"at":"seed@a30a7de84"}
 {"fn":"dohistory","c":"2961-2965","status":"unknown"}

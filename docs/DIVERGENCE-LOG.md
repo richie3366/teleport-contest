@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-3325 — allmain.c early_init whole-body port + jsmain entry wiring (domenucontrols stale-split)
+
+- **Status:** shipped (2 Open missing-arm rows checked off + archived in this commit — domenucontrols stale-split via direct `ledger.mjs set`, early_init ported). ~30 js/ insertions — below the ~80 bar, defended (D-3324 exception shape): the deliverable is a 7-call C-order entry sequence + caller wiring, the whole C body verified against the brief, and the head's file and callee closure hold nothing more Open (all 7 callees live; no other allmain.c row in the 8-row missing-arm list; coverage block regenerates 0 rows). Review 1487 (show_menu_controls) read this session — it ACCEPTED the domenucontrols split wiring as pre-existing paths, verdict ACCEPT with no Actionable C-wrongs, so no stamp owed (row cited no review as Source). Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); 2 missing-arm rows appended from this session's brief evidence (Is_special clones, Is_branchlev no-export) + 2 stale-complete booked via `ledger.mjs set` (Some_Monnam, g_at) — queue ships at 8 (band met so finish can commit).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on both).
+- **C locus:**
+  - `early_init`: nethack-c/upstream/src/allmain.c:32–45 whole body: program_state `:35`, crashreport `:38` (#ifdef CRASHREPORT), decl `:40`, objects `:41`, monst `:42`, sys `:43`, runtime `:44` — read in the brief this session.
+- **JS was:** js/jsmain.js start() inlined 4 of the 7 (program_state/decl/monst/sys at :131–134-then, decl comment off by one at `:41`); crashreport live-but-unwired (report.js:28 "exported unwired"); objects installed only downstream (init_objects preamble o_init.js:266, restore save.js:796); runtime lazy via do_runtime_info. No `early_init` symbol.
+- **Fix:** `export function early_init(argc, argv)` in js/allmain.js (C locus, :776, immediately before newgame) with the 7 calls in C order and C-line cites; jsmain start() now calls `early_init(0, [])` (:132) and drops the 3 direct-init imports; the jsmain→allmain edge is ALREADY (extended :18); 5 new allmain edges `imports.mjs --can` SAFE (decl/report/objects/sys/version — 4 no-cycle, report hoisted). CRASHREPORT verified active (config.h:249 Linux default, no NOCRASHREPORT in unixconf.h — measured), so `:38` is live; (0, []) with comment (no argv in ESM, Rule #2; crashreport voids). Entry objects install is safe: newgame init_objects and restore both reinstall fresh downstream (measured o_init.js:266/save.js:796), and the install draws no RNG. Export names/signatures unchanged otherwise. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** js/allmain.js (imports :32–37; early_init :776); js/jsmain.js (import :18; call :132). Scripts: scripts/early-init.test.mjs (new, 6 cases: 3 behavioral + order census + 2 wiring).
+- **Callers:**
+  - `early_init`: unixmain.c:66→js/jsmain.js:132 (this iter; the 4 inline calls replaced, not duplicated) — sole C caller wired; no call from a site C never calls from was added.
+- **Verify:** `node scripts/verify.mjs --fn early_init` tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/allmain.js js/jsmain.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify early_init: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    early_init: no RNG-tagged reach; fixed smoke spread (24 run, 11.1s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+Focused: `node --test scripts/early-init.test.mjs` 6/6.
+- **Named omissions:**
+  - `early_init`: none in-body — whole C body live (7/7 calls; argv (0, []) documented Rule-#2 analogue, params C-voided).
+- **Ledger:** early_init ported
+- **Next:** continue the missing-arm list (`coloratt.c` get_nhcolor_from_256_index head).
+
 ## D-3324 — hacklib.c distmin clone removals (shknam local + mon.js duplicate) + nh_snprintf by-design
 
 - **Status:** shipped (2 Open missing-arm rows checked off + archived in this commit — distmin head + same-C-file nh_snprintf; whole `hacklib.c` Open set now declared, 2/2). 16 insertions / 20 deletions across 10 js/ files — below the ~80 density bar, defended (D-3321/22/23 exception shape): the deliverable is rewire-to-live (deletion of wrong code is the port), both whole C bodies verified against the brief, and the head's file and callee closure hold nothing more Open (distmin has 0 C callees; coverage block regenerates 0 rows). No review cited, no stamp owed. Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); 2 missing-arm rows appended from this session's brief evidence (dist2 duplicate, shknam m_at clone) + 2 stale-complete booked via `ledger.mjs set` (is_art, visible_region_at) — queue ships at 8 (REFILL band met so finish can commit).
