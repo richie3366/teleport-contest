@@ -9,7 +9,7 @@
 {"fn":"cmdq_add_userinput","c":"316-331","status":"ported","js":["js/cmd.js:cmdq_add_userinput"],"at":"2026-09-30@990da2b8d","note":"stale: js/cmd.js:466, whole C body (array push = list append), 3 C callers wired (:2849,:2934,:2989)"}
 {"fn":"cmdq_add_int","c":"335-351","status":"ported","js":["js/invent.js:cmdq_add_int"],"at":"2026-09-29@590ebd616","note":"stale: js/invent.js:8523 whole C body (tail-append collapses into push; alloc is GC)"}
 {"fn":"cmdq_shift","c":"355-370","status":"ported","js":["js/cmd.js:cmdq_shift"],"at":"2026-09-27@e61bdd324","note":"stale: js/cmd.js:400"}
-{"fn":"cmdq_reverse","c":"373-384","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cmdq_reverse","c":"373-384","status":"ported","js":["js/cmd.js:cmdq_reverse"],"d":["D-3296"],"at":"2026-10-02@b4812e9cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdq_copy","c":"387-404","status":"ported","js":["js/cmd.js:cmdq_copy"],"at":"2026-09-30@990da2b8d","note":"stale: js/cmd.js:391, slice = prepend+reverse; sole caller do_repeat (:4780) guards peek so []-vs-NULL unreachable"}
 {"fn":"cmdq_pop","c":"410-420","status":"unknown"}
 {"fn":"cmdq_peek","c":"424-427","status":"unknown"}
@@ -24,7 +24,7 @@
 {"fn":"domonability","c":"890-949","status":"unknown"}
 {"fn":"enter_explore_mode","c":"952-983","status":"partial","js":["js/cmd.js:enter_explore_mode"],"omit":"`get_unix_pw` (`unixmain.c:731–760`) returns null: scored ESM has no passwd database.","d":["D-2845"],"at":"seed@a30a7de84"}
 {"fn":"makemap_prepost","c":"986-1067","status":"unknown","d":["D-2295"],"at":"seed@a30a7de84"}
-{"fn":"levltyp_to_name","c":"1089-1094","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"levltyp_to_name","c":"1089-1094","status":"ported","js":["js/cmd.js:levltyp_to_name"],"d":["D-3296"],"at":"2026-10-02@b4812e9cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doterrain","c":"1098-1191","status":"unknown"}
 {"fn":"u_have_seen_whole_selection","c":"1195-1209","status":"unknown"}
 {"fn":"u_have_seen_bounds_selection","c":"1213-1242","status":"unknown"}
@@ -42,7 +42,7 @@
 {"fn":"do_move_southeast","c":"1439-1443","status":"unknown"}
 {"fn":"do_move_south","c":"1446-1450","status":"unknown"}
 {"fn":"do_move_southwest","c":"1453-1457","status":"unknown"}
-{"fn":"do_rush_west","c":"1461-1465","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_west","c":"1461-1465","status":"ported","js":["js/cmd.js:do_rush_west"],"d":["D-3296"],"at":"2026-10-02@b4812e9cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_rush_northwest","c":"1468-1472","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_rush_north","c":"1475-1479","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_rush_northeast","c":"1482-1486","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

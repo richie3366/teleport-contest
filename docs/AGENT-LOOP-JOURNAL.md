@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3296 `cmd.c` missing-arm trio: levltyp_to_name + table, do_rush_west, cmdq_reverse
+
+**C locus:** - `levltyp_to_name`: nethack-c/upstream/src/cmd.c:1089–1094 whole body (C extern, extern.h:425) + `levltyp[MAX_TYPE+2]` table cmd.c:1072–1086 (37 rm.h-order names + `[37]` undiggable + `[38]` pad). C callers mon.c:226 (inside `#if 0` `:223–235`, dead) + nhlua.c:551 (in `nhl_getmap`, ledger by-design "no scored analogue").
+**JS:** - `levltyp_to_name`: `js/cmd.js:634` (exported, C extern); table `js/cmd.js:613`.
+**Change:** - `levltyp_to_name`: `export const levltyp` (39 entries, C `:1073–1085` order verbatim) + `export function levltyp_to_name` in C order (`typ >= 0 && typ < MAX_TYPE` short-circuit, NULL → null); `MAX_TYPE` added to the existing const.js import (value 37 = rm.h:94; no new edge).
+**Verify:** `node scripts/verify.mjs --fn levltyp_to_name,do_rush_west,cmdq_reverse` tail pasted verbatim:
+**Named:** - `levltyp_to_name`: none in-body — whole C body + table live (both C callers unwired as above).
+**Next:** head is now `hacklib.c` digit (missing-arm row); `cmd.c` holds no more Open rows.
 ## 2026-10-02 — D-3295 `getpos.c`/`selvar.c` sethilite gather pair: getpos_getvalids_selection + selection_force_newsyms port, sethilite restart
 
 **C locus:** - `getpos_getvalids_selection`: nethack-c/upstream/src/getpos.c:102–115 whole body (C staticfn) — null-guard `:108–109`, then `selection_setpoint(x, y, sel, 1)` every sel-scoped cell where validf is true (`:111–114`; x from 1, y from 0). C callers getpos.c:53 (old valids) + :56 (new valids), both in getpos_sethilite.

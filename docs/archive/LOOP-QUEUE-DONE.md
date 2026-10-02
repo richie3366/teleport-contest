@@ -5,6 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `cmd.c` levltyp_to_name — C cmd.c:1089–1094 absent from js/ (no same-named symbol; callers mon.c:226, nhlua.c:551). **Addressed:** D-3296
+- [x] `cmd.c` do_rush_west — C cmd.c:1461–1465 absent from js/ (no same-named symbol; dispatch-table refs cmd.c:2026,2071; callee set_move_cmd live js/cmd.js:558; `set_move_cmd(DIR_W, 3)` + ECMD_TIME). **Addressed:** D-3296
+- [x] `cmd.c` cmdq_reverse — C cmd.c:373–384 absent from js/ (no same-named symbol; caller cmd.c:401; iterative _cmd_queue reversal). **Addressed:** D-3296
+
+
 - [x] `getpos.c` getpos_getvalids_selection — C getpos.c:102–115 absent from js/ (no same-named symbol; callers getpos.c:53,56).
 - [x] `selvar.c` selection_force_newsyms — C selvar.c:802–810 absent from js/ (no same-named symbol; caller getpos.c:62; callees selection_getpoint + newsym_force live).
 

@@ -1,5 +1,55 @@
 # Divergence log
 
+## D-3296 — `cmd.c` missing-arm trio: levltyp_to_name + table, do_rush_west, cmdq_reverse
+
+- **Status:** shipped (3 Open missing-arm `cmd.c` rows checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — coverage rows (brief-read evidence, no `blocks N`). C `levltyp_to_name` + `levltyp[]`, `do_rush_west`, `cmdq_reverse` had no JS symbol (`sym.mjs` NOT FOUND × 3).
+- **C locus:**
+  - `levltyp_to_name`: nethack-c/upstream/src/cmd.c:1089–1094 whole body (C extern, extern.h:425) + `levltyp[MAX_TYPE+2]` table cmd.c:1072–1086 (37 rm.h-order names + `[37]` undiggable + `[38]` pad). C callers mon.c:226 (inside `#if 0` `:223–235`, dead) + nhlua.c:551 (in `nhl_getmap`, ledger by-design "no scored analogue").
+  - `do_rush_west`: nethack-c/upstream/src/cmd.c:1461–1465 whole body — `set_move_cmd(DIR_W, 3)` + `ECMD_TIME`. C sites ext_func_tab `"rushwest"` `:2026` (`:2025` rush comment: m prefix but not g/G/F) + `move_funcs[][MV_RUSH]` `:2071`.
+  - `cmdq_reverse`: nethack-c/upstream/src/cmd.c:373–384 whole body (C extern, extern.h:435) — iterative prev/curr/next reversal. Sole C caller cmdq_copy `:401`.
+- **JS was:** `js/cmd.js` had the `do_move_*` family + `FUNCT_TXT` move rows and array-based `cmdq_copy` ("C prepends then cmdq_reverse" in its doc comment), but no `levltyp` table, no `do_rush_*`/`do_run_*`, no reversal helper; generated `EXTCMDLIST` already carried the `rushwest` txt row (`js/generated/extcmdlist_data.js:152`).
+- **Fix:**
+  - `levltyp_to_name`: `export const levltyp` (39 entries, C `:1073–1085` order verbatim) + `export function levltyp_to_name` in C order (`typ >= 0 && typ < MAX_TYPE` short-circuit, NULL → null); `MAX_TYPE` added to the existing const.js import (value 37 = rm.h:94; no new edge).
+  - `do_rush_west`: module-local one-liner beside the `do_move_*` family (sibling idiom) + `[do_rush_west, 'rushwest']` `FUNCT_TXT` row so `ext_func_tab_from_func`/`cmdq_add_ec` resolve it like every `do_move_*`.
+  - `cmdq_reverse`: `export function cmdq_reverse(head)` beside `cmdq_copy`, C `:375–383` order (`next` capture → relink → advance → return prev) over `{next}`-chained nodes.
+- **JS:**
+  - `levltyp_to_name`: `js/cmd.js:634` (exported, C extern); table `js/cmd.js:613`.
+  - `do_rush_west`: `js/cmd.js:605` (module-local, `do_move_*` sibling idiom); `FUNCT_TXT` row `js/cmd.js:2024`.
+  - `cmdq_reverse`: `js/cmd.js:420` (exported, C extern).
+- **Callers:**
+  - `levltyp_to_name`: mon.c:226 → unwired, C `#if 0`-dead (named); nhlua.c:551 → unwired, `nhl_getmap` lua map-dump bridge absent by design (named). No live JS caller (cf. D-3294 whichrng).
+  - `do_rush_west`: cmd.c:2026 → generated `EXTCMDLIST` rushwest row + `FUNCT_TXT` row `js/cmd.js:2024` (fn→txt identity for `cmdq_add_ec`); cmd.c:2071 → `MOVE_FUNC_TXT` rush column already txt-wired (`js/cmd.js:1791`); no JS `move_funcs` rush fn-column — all `do_run_*`/`do_rush_*` siblings unported, unqueued (named).
+  - `cmdq_reverse`: cmd.c:401 → unwired; JS `cmdq_copy` (`js/cmd.js:407`) slices order-preserving arrays so the reversal step is designed out (named).
+- **Verify:** `node scripts/verify.mjs --fn levltyp_to_name,do_rush_west,cmdq_reverse` tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/cmd.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify levltyp_to_name: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    levltyp_to_name: no RNG-tagged reach; fixed smoke spread (24 run, 10.9s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify do_rush_west: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    do_rush_west: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify cmdq_reverse: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    cmdq_reverse: no RNG-tagged reach; fixed smoke spread (24 run, 11.1s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Direct smoke (`node --input-type=module`, throwaway): 39-entry table, `door`/`cloud`/boundary-null × 3, 3-node + null + singleton reversal — all OK. No maintained unit harness in repo; `verify --fn` REACH + green/strict/cohort is the durable check (skill: `durable-test-collateral`).
+- **Named omissions:**
+  - `levltyp_to_name`: none in-body — whole C body + table live (both C callers unwired as above).
+  - `do_rush_west`: none in-body — whole C body live (sibling `do_run_*`/`do_rush_*` + rush fn-column out of cluster, unqueued).
+  - `cmdq_reverse`: none in-body — whole C body live (sole C caller's JS port needs no reversal).
+- **Ledger:** levltyp_to_name ported; do_rush_west ported; cmdq_reverse ported
+- **Next:** head is now `hacklib.c` digit (missing-arm row); `cmd.c` holds no more Open rows.
+
 ## D-3295 — `getpos.c`/`selvar.c` sethilite gather pair: getpos_getvalids_selection + selection_force_newsyms port, sethilite restart
 
 - **Status:** shipped (Open missing-arm rows 1+2 checked off + archived; no review cited, no stamp owed)
