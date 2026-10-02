@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3294 `rnd.c` whichrng fn-dispatch port + file exhaustion (init_random split, 3 stale)
+
+**C locus:** - `whichrng`: nethack-c/upstream/src/rnd.c:32–40 whole body (C staticfn) — `for i < SIZE(rnglist)` pointer-compare `rnglist[i].fn == fn` → index else -1; table rnd.c:26–29 `{rn2}/{rn2_on_display_rng}` (CORE=0, DISP=1). Sole C caller init_isaac64 :47.
+**JS:** - `whichrng`: `js/rng.js:43` (table `js/rng.js:31`).
+**Change:** - `whichrng`: added `const rnglist` table (CORE/DISP entries, C :26–29 order + cites) + module-local `function whichrng(fn)` in C order (`===` identity, -1 fallthrough). Placed after `initRng` (C adjacency to init_isaac64); hoisted function declarations make the forward `rn2`/`rn2_on_display_rng` table cites safe.
+**Verify:** `node scripts/verify.mjs --fn whichrng` tail pasted verbatim:
+**Named:** - `whichrng`: no live JS caller (sole C caller split into both-streams `initRng`); module-local for fidelity — closes D-3033 "fn-dispatch unported".
+**Next:** head is now `getpos.c` getpos_getvalids_selection (missing-arm row 2); `rnd.c` fully retired. Refill survey (queue 7/8 — no evidence-backed 8th row; manual commit+push per D-3285/86/87 REFILL-gate precedent): stale-complete in JS — makevtele (inlined mklev.js:28302), ia_addmenu (local add closure iactions.js:473), cmdq_reverse (subsumed per cmd.js:404), You/You_cant/pline_The/There (prefix arms display.js:7899+), Mgender (do_name.js:661), randrole (roles.js:1090), distmin ×3, cmdq_clear/doprev_message/set_occupation+timed_occupation, mgender_from_permonst (makemon.js:1556), monstunseesu (mondata.js:1071), mapxy_valid (getpos.js:212), highc/lowc/lcase/ucase/upstart; named/review-skipped — discardexcess/nsb_unmung (readentry doc), cvt_to_relcoord (reviews 791/810); debug/dead — nextobuf (GC-moot ring), pos_to_room ((void) pure), error4 (WA_VERBOSE), wish_history_flush (DEBUG), levl_sanity_check/get_viz_clear (wizard-impossible only), monst_globals_init (load-time effect; mid-game caller is debug dump_mongen), extcmd_initiator (tty-getline caller).
 ## 2026-10-02 — D-3293 `mkobj.c` sanity/merge quartet: nomerge_exception port, rottenfood Rotten/Awful, obj_nexto impossible
 
 **C locus:** - `nomerge_exception`: nethack-c/upstream/src/mkobj.c:3278–3286 whole body (C staticfn) — `is_mines_prize(obj) || is_soko_prize(obj)` → TRUE else FALSE. Single C caller insane_obj_bits :3259 (by-design debug path).

@@ -1,15 +1,15 @@
-{"fn":"whichrng","c":"32-40","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"whichrng","c":"32-40","status":"ported","js":["js/rng.js:whichrng"],"d":["D-3294"],"at":"2026-10-02@3df1abeb4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"init_isaac64","c":"43-58","status":"split","js":["js/rng.js:initRng"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale-split: effect live in initRng (8 LE seed bytes isaac64_init both streams = init_random(rn2)+init_random(rn2_on_display_rng) options.c:7161-7162); whichrng/set_random dispatch unported"}
-{"fn":"RND","c":"61-64","status":"unknown"}
+{"fn":"RND","c":"61-64","status":"ported","js":["js/rng.js:RND"],"d":["D-3294"],"at":"2026-10-02@3df1abeb4","note":"stale: js/rng.js:77; USE_ISAAC64 arm live (= C RND :62-66), non-ISAAC RND macros compiled out"}
 {"fn":"rn2_on_display_rng","c":"70-73","status":"ported","js":["js/rng.js:rn2_on_display_rng"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
 {"fn":"rn2","c":"95-107","status":"ported","js":["js/rng.js:rn2"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
 {"fn":"rnl","c":"112-151","status":"ported","js":["js/rng.js:rnl"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
 {"fn":"rnd","c":"155-165","status":"ported","js":["js/rng.js:rnd"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
-{"fn":"rnd_on_display_rng","c":"168-171","status":"unknown"}
+{"fn":"rnd_on_display_rng","c":"168-171","status":"ported","js":["js/rng.js:rnd_on_display_rng"],"d":["D-3294"],"at":"2026-10-02@3df1abeb4","note":"stale: js/rng.js:96 whole live body"}
 {"fn":"d","c":"175-188","status":"ported","js":["js/rng.js:d"],"at":"2026-10-02@e42cd0047","note":"stale: js/rng.js:126 whole live body; DEVEL impossible-guard compiled out (patchlevel.h:33 RELEASED)"}
 {"fn":"rne","c":"192-210","status":"ported","js":["js/rng.js:rne"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
 {"fn":"rnz","c":"214-229","status":"ported","js":["js/rng.js:rnz"],"at":"seed@a30a7de84","note":"seed: RNG wrapper (former BY_DESIGN)"}
 {"fn":"set_random","c":"235-239","status":"split","js":["js/rng.js:initRng"],"at":"2026-09-29@11ac109be","note":"stale: live body is one init_isaac64 call, effect live in initRng (D-3033); sole C caller init_random routes there"}
-{"fn":"init_random","c":"282-285","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"init_random","c":"282-285","status":"split","js":["js/rng.js:initRng"],"d":["D-3294"],"at":"2026-10-02@3df1abeb4","note":"stale-split: effect live in initRng (jsmain.js:144 = options.c:7161-7162); same chain as init_isaac64/set_random D-3033; options.js:8791 documented"}
 {"fn":"reseed_random","c":"289-295","status":"by-design","at":"2026-10-02@e42cd0047","note":"C no-op unless has_strong_rngseed (/dev/random build); deterministic recorder + JS seeded RNG never reseed"}
-{"fn":"shuffle_int_array","c":"299-310","status":"unknown"}
+{"fn":"shuffle_int_array","c":"299-310","status":"ported","js":["js/rng.js:shuffle_int_array"],"d":["D-3294"],"at":"2026-10-02@3df1abeb4","note":"stale: js/rng.js:189 whole live body"}

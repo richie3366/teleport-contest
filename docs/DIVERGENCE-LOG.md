@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3294 — `rnd.c` whichrng fn-dispatch port + file exhaustion (init_random split, 3 stale)
+
+- **Status:** shipped (Open missing-arm `rnd.c` whichrng row checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — coverage rows (brief-read evidence, no `blocks N`). D-3033 split `init_isaac64`/`set_random` into `initRng` and left "fn-dispatch unported": C `whichrng` + the `rnglist` table had no JS symbol. `rnd.c` now holds nothing Open (whichrng ported; init_random split; RND/rnd_on_display_rng/shuffle_int_array stale→ported; reseed_random by-design; rest ported/split).
+- **C locus:**
+  - `whichrng`: nethack-c/upstream/src/rnd.c:32–40 whole body (C staticfn) — `for i < SIZE(rnglist)` pointer-compare `rnglist[i].fn == fn` → index else -1; table rnd.c:26–29 `{rn2}/{rn2_on_display_rng}` (CORE=0, DISP=1). Sole C caller init_isaac64 :47.
+  - `init_random` (stale-split): rnd.c:282–285 `set_random(sys_random_seed(), fn)`; C callers options.c:7161–7162 + by-design reseed_random :294.
+  - `RND` (stale): C RND :62–66 USE_ISAAC64 arm; `rnd_on_display_rng` (stale): :167–171; `shuffle_int_array` (stale): :299–311 Fisher-Yates.
+- **JS was:** `js/rng.js` had no `rnglist` table and no `whichrng`; `initRng` seeds both streams unconditionally.
+- **Fix:**
+  - `whichrng`: added `const rnglist` table (CORE/DISP entries, C :26–29 order + cites) + module-local `function whichrng(fn)` in C order (`===` identity, -1 fallthrough). Placed after `initRng` (C adjacency to init_isaac64); hoisted function declarations make the forward `rn2`/`rn2_on_display_rng` table cites safe.
+  - `init_random`: ledger split → `js/rng.js:initRng` (effect live: `jsmain.js:144` seeds both streams = options.c:7161–7162; same chain as D-3033; `js/options.js:8791` documents it as named omission).
+  - `RND`/`rnd_on_display_rng`/`shuffle_int_array`: ledger ported (same-named bodies complete in `js/rng.js:77/:96/:189`; non-ISAAC RND macros compiled out).
+- **JS:**
+  - `whichrng`: `js/rng.js:43` (table `js/rng.js:31`).
+- **Callers:**
+  - `whichrng`: rnd.c:47 (init_isaac64) → split effect in `initRng` (`js/rng.js:13`, via `jsmain.js:144`); no per-fn lookup needed — named, not wired.
+  - `init_random`: options.c:7161–7162 → `jsmain.js:144` `initRng(this._seed)`; rnd.c:294 in by-design `reseed_random`.
+- **Verify:** `node scripts/verify.mjs --fn whichrng` tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/rng.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify whichrng: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    whichrng: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+  - `init_random`/`RND`/`rnd_on_display_rng`/`shuffle_int_array`: ledger-only marks, bodies untouched; full 44/44 above covers.
+- **Named omissions:**
+  - `whichrng`: no live JS caller (sole C caller split into both-streams `initRng`); module-local for fidelity — closes D-3033 "fn-dispatch unported".
+  - `init_random`: `sys_random_seed()` port-specific seed source has no scored analogue (harness owns the seed via `initRng`).
+- **Ledger:** whichrng ported; init_random split js=js/rng.js:initRng; RND ported; rnd_on_display_rng ported; shuffle_int_array ported
+- **Next:** head is now `getpos.c` getpos_getvalids_selection (missing-arm row 2); `rnd.c` fully retired.
+
 ## D-3293 — `mkobj.c` sanity/merge quartet: nomerge_exception port, rottenfood Rotten/Awful, obj_nexto impossible
 
 - **Status:** shipped (Open missing-arm `mkobj.c` nomerge_exception row checked off + archived; queue-head `stairs.c` stairway_find went stale → ledger split, row checked off + archived; no review cited, no stamp owed)

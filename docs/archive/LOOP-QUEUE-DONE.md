@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `stairs.c` stairway_find — C stairs.c:50–61 absent from js/ (no same-named symbol; caller dog.c:536). **Addressed:** D-3293
-- [x] `mkobj.c` nomerge_exception — C mkobj.c:3278–3286 absent from js/ (no same-named symbol; caller mkobj.c:3259 nomerge gate). **Addressed:** D-3293
+- [x] `rnd.c` whichrng — C rnd.c:32–40 absent from js/ (no same-named symbol; caller rnd.c:47 rng-provenance index).
+
+
+- [x] `stairs.c` stairway_find — C stairs.c:50–61 absent from js/ (no same-named symbol; caller dog.c:536). **Addressed:** D-3293 `3df1abeb4`
+- [x] `mkobj.c` nomerge_exception — C mkobj.c:3278–3286 absent from js/ (no same-named symbol; caller mkobj.c:3259 nomerge gate). **Addressed:** D-3293 `3df1abeb4`
 
 
 - [x] `monmove.c` vamp_shift — C monmove.c:2377–2394 absent from js/ (no same-named symbol; caller monmove.c:1496; callee newcham live js/makemon.js:2066). **Addressed:** D-3292 `cb217f88d`
