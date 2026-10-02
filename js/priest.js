@@ -148,7 +148,7 @@ export function reset_hostility(roamer) {
  * teleport.js keeps its D-1110 cycle-avoidance clone. C callers:
  * artifact.c:933 (artifact.js touch_artifact), insight.c:3277
  * (insight.js mstatusline), priest.c:364 (priestname, below),
- * priest.c:372 (p_coaligned inlines a raw compare, pre-existing),
+ * priest.c:372 (p_coaligned, below),
  * monst.h:282 is_lminion (teleport.js clone).
  * JS `?? 0` guards: C derefs EPRI/EMIN directly (non-null when set).
  */
@@ -269,13 +269,18 @@ export function priestname(mon, article, reveal_high_priest) {
     return pname;
 }
 
-/** C ref: priest.c p_coaligned — shrine align matches hero. */
+/**
+ * C ref: priest.c p_coaligned `:370–373` — hero align equals
+ * mon_aligntyp(priest). Canonical export (C home): the raw-shralign
+ * compare skipped mon_aligntyp's isminion branch, A_NONE passthrough
+ * and sign normalization; the mklev.js priestini clone is rewired here.
+ * C callers: mon.c:3697/3699 (xkilled), mon.c:4298 (setmangry),
+ * pray.c:1684, priest.c:270 (priestini), priest.c:474/477 (intemple),
+ * priest.c:560 (priest_talk), priest.c:790 (in_your_sanctuary),
+ * sounds.c:557/561 (maybe_gasp).
+ */
 export function p_coaligned(priest) {
-    const shralign = EPRI(priest)?.shralign;
-    const algn = shralign != null
-        ? (shralign | 0)
-        : (priest?.data?.maligntyp | 0);
-    return (game.u?.ualign?.type | 0) === (algn | 0);
+    return (game.u?.ualign?.type | 0) === mon_aligntyp(priest);
 }
 
 /**

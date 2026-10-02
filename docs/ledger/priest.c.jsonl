@@ -8,7 +8,7 @@
 {"fn":"priestini","c":"220-276","status":"unknown"}
 {"fn":"mon_aligntyp","c":"280-289","status":"ported","js":["js/priest.js:mon_aligntyp"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
 {"fn":"priestname","c":"302-367","status":"ported","js":["js/priest.js:priestname"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
-{"fn":"p_coaligned","c":"370-373","status":"unknown"}
+{"fn":"p_coaligned","c":"370-373","status":"ported","js":["js/priest.js:p_coaligned"],"d":["D-3282"],"at":"2026-10-02@e3c036ca2"}
 {"fn":"has_shrine","c":"376-389","status":"unknown"}
 {"fn":"findpriest","c":"392-404","status":"unknown"}
 {"fn":"intemple","c":"410-538","status":"unknown"}

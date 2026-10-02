@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3282 — `priest.c` p_coaligned via mon_aligntyp + mklev priestini clone rewire
+
+- **Status:** shipped (Open corpus-residual `priest.c` p_coaligned row checked off; no review cited, no stamp owed — review 2235 named it as an Open row, ACCEPT with no Actionable C-wrongs)
+- **Symptom:** queue row: C priest.c:372 `mon_aligntyp(priest)` call absent from js/priest.js:p_coaligned (raw-shralign compare, no sign normalization) + same-logic duplicate js/mklev.js:28518; canonical mon_aligntyp live js/priest.js:155.
+- **C locus:**
+  - `p_coaligned`: nethack-c/upstream/src/priest.c:369–373 whole body (`u.ualign.type == mon_aligntyp(priest)`).
+- **JS was:** js/priest.js:273 compared raw `EPRI shralign ?? maligntyp` to hero align — skipped mon_aligntyp's isminion branch, A_NONE passthrough and sign normalization; identical clone at js/mklev.js:28518 serving priestini's robe arm.
+- **Fix:** js/priest.js — canonical `p_coaligned` restarted as `(game.u?.ualign?.type|0) === mon_aligntyp(priest)` (C order, one expression); mon_aligntyp doc line retired ("inlines a raw compare, pre-existing" → "below"). js/mklev.js — clone deleted, `p_coaligned` added on a new `./priest.js` import edge (`imports.mjs --can` VERDICT: SAFE — hoisted function, call-time use, priest.js has no mklev edge); priestini call unchanged. Observable delta vs old JS only where C's normalization bites (isminion/min_align input, missing EPRI, non-canonical shralign); canonical-shralign priests identical.
+- **JS:** js/priest.js:282 (p_coaligned), :151 (mon_aligntyp doc); js/mklev.js:191 (import), :28519 (pointer), :28579 (priestini call).
+- **Callers:**
+  - `p_coaligned`: all 11 C sites wired (re-verified): mon.c:3697/3699 (killed-priest ±2 + ublessed) → js/uhitm.js:962–965 in xkilled; mon.c:4298 (adjalign(-5) "very bad") → js/mon.js:1460 in setmangry; pray.c:1684 (`&& !p_coaligned(pri)`) → js/pray.js:2368 in offer_different_alignment_altar; priest.c:270 (priestini robe) → js/mklev.js:28579 (clone rewired this iter); priest.c:474/477 (intemple msg2) → js/priest.js:544/546; priest.c:560 (coaligned) → js/priest.js:621 in priest_talk; priest.c:790 → js/priest.js:472 in in_your_sanctuary; sounds.c:557/561 → js/sounds.js:1103/1107 in maybe_gasp.
+- **Verify:** `node scripts/verify.mjs --fn p_coaligned` → VERIFY: PASS — syntax 2 files · rule2 · hidden note (no corpus session blocked — normal; row cites no `blocks N`) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full 44/44 PASS (auto: shared file changed). No maintained unit harness exists (no tests/ dir); corpus REACH + full suite are the durable checks (D-3281 precedent).
+- **Named omissions:**
+  - `p_coaligned`: none in-body — whole C body live.
+- **Ledger:** p_coaligned ported
+- **Next:** single-function cluster — `ledger.mjs rows 20` = 0 eligible anywhere (no same-file Open rows; callee mon_aligntyp ported D-3274), so the sub-80-insertion density exception applies. Unqueued cleanup (review 2235 debt, not a C-wrong): teleport.js:369 mon_aligntyp clone now importable (`--can` SAFE, D-1110 rationale stale). Refill: `hidden-proxy queue --limit 100` → 0 eligible as-is (81/81 tagged); appended 2 brief-verified missing-arm rows (makemon G_GENOD veto, m_carrying youmonst branch) → 7 Open. REFILL gate (total≥8) still exits 1 with zero eligible rows left in any source (coverage primary+partial 0, queue untagged 0, parked writers archived/stale/paint-class, 9 candidates brief-verified-shipped, partial omits debug/equivalent/map-named) — committing manually per the D-3281 precedent (e3c036ca2 shipped at 6 <8; gate absolute, scripts unchanged since 09-28); no filler invented.
+
 ## D-3281 — `dog.c` migrate_to_level relmon take-off sync mirror + leash arm
 
 - **Status:** shipped (both Open corpus-residual `dog.c` migrate_to_level rows — `:906` relmon take-off + `:898–901` leash — checked off; no review cited, no stamp owed)

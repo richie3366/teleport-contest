@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `dog.c` migrate_to_level — C dog.c:906 `relmon(mtmp, &gm.migrating_mons)` call absent from js/teleport.js:migrate_to_level (:2887–2894 inline fmon splice + unshift; doc :2871–2876 names take-off-map, sync caller; C+JS-read) @b7d842138 **Addressed:** D-3281
-- [x] `dog.c` migrate_to_level — C dog.c:898–901 leash arm (`mtmp->mtame--; m_unleash(mtmp, TRUE)`) absent from js/teleport.js:migrate_to_level (no mleashed/m_unleash in body; live m_unleash async — D-1648 mixed shape, 16 async sites await, sync migrate_orc path never mleashed; C+JS-read) @b15c3087f **Addressed:** D-3281
+- [x] `priest.c` p_coaligned — C priest.c:372 `mon_aligntyp(priest)` call absent from js/priest.js:p_coaligned (:273 raw-shralign compare, no sign normalization) + same-logic duplicate js/mklev.js:28518; canonical mon_aligntyp live js/priest.js:155; brief-verified @faf4b9296 **Addressed:** D-3282
+
+
+- [x] `dog.c` migrate_to_level — C dog.c:906 `relmon(mtmp, &gm.migrating_mons)` call absent from js/teleport.js:migrate_to_level (:2887–2894 inline fmon splice + unshift; doc :2871–2876 names take-off-map, sync caller; C+JS-read) @b7d842138 **Addressed:** D-3281 `e3c036ca2`
+- [x] `dog.c` migrate_to_level — C dog.c:898–901 leash arm (`mtmp->mtame--; m_unleash(mtmp, TRUE)`) absent from js/teleport.js:migrate_to_level (no mleashed/m_unleash in body; live m_unleash async — D-1648 mixed shape, 16 async sites await, sync migrate_orc path never mleashed; C+JS-read) @b15c3087f **Addressed:** D-3281 `e3c036ca2`
 
 
 - [x] `dog.c` migrate_to_level — C dog.c:928–931 emits_light→vision_recalc(0) tail absent from js/teleport.js:migrate_to_level (:2925–2926 ends at mx=my=0; doc :2871 names vision_recalc; callees live: emits_light + js/vision.js:vision_recalc — sync shippable, brief-verified) @3d8fe9bf9 **Addressed:** D-3280 `1d636ae22`

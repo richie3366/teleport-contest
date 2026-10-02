@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3282 `priest.c` p_coaligned via mon_aligntyp + mklev priestini clone rewire
+
+**C locus:** - `p_coaligned`: nethack-c/upstream/src/priest.c:369–373 whole body (`u.ualign.type == mon_aligntyp(priest)`).
+**JS:** js/priest.js:282 (p_coaligned), :151 (mon_aligntyp doc); js/mklev.js:191 (import), :28519 (pointer), :28579 (priestini call).
+**Change:** js/priest.js — canonical `p_coaligned` restarted as `(game.u?.ualign?.type|0) === mon_aligntyp(priest)` (C order, one expression); mon_aligntyp doc line retired ("inlines a raw compare, pre-existing" → "below"). js/mklev.js — clone deleted, `p_coaligned` added on a new `./priest.js` import edge (`imports.mjs --can` VERDICT: SAFE — hoisted function, call-time use, priest.js has no mklev edge); priestini call unchanged. Observable delta vs old JS only where C's normalization bites (isminion/min_align input, missing EPRI, non-canonical shralign); canonical-shralign priests identical.
+**Verify:** `node scripts/verify.mjs --fn p_coaligned` → VERIFY: PASS — syntax 2 files · rule2 · hidden note (no corpus session blocked — normal; row cites no `blocks N`) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full 44/44 PASS (auto: shared file changed). No maintained unit harness exists (no tests/ dir); corpus REACH + full suite are the durable checks (D-3281 precedent).
+**Named:** - `p_coaligned`: none in-body — whole C body live.
+**Next:** single-function cluster — `ledger.mjs rows 20` = 0 eligible anywhere (no same-file Open rows; callee mon_aligntyp ported D-3274), so the sub-80-insertion density exception applies. Unqueued cleanup (review 2235 debt, not a C-wrong): teleport.js:369 mon_aligntyp clone now importable (`--can` SAFE, D-1110 rationale stale). Refill: `hidden-proxy queue --limit 30` → 0 eligible as-is (all open/parked/archived); no hand rows appended — queue at 5 Open, below the 8–12 band.
 ## 2026-10-02 — D-3281 `dog.c` migrate_to_level relmon take-off sync mirror + leash arm
 
 **C locus:** - `migrate_to_level`: nethack-c/upstream/src/dog.c:887–932 whole body (this iter wires :898–901 leash + :906 relmon take-off; :904 mon_leave, :908–927 destination encode, :928–931 light tail already live).
