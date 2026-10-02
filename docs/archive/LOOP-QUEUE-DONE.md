@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `end.c` really_done — C-correct first-stack return absent from js/end.js:1225 (local summing clone js/end.js:458; C hack.c:4513–4522 money_cnt returns the first stack, live js/shk.js:4767; same rewire + whole-body brief-check as the shipped fountain twin).
+- [x] `shk.c` finish_paybill — C-correct first-stack return absent from js/end.js:1331 (local summing clone js/end.js:458; C hack.c:4513–4522, live js/shk.js:4767; C shk.c:2723; same rewire + whole-body brief-check as the shipped fountain twin).
+- [x] `monmove.c` set_apparxy — C-correct first-stack return absent from js/monmove.js:1021 (local summing clone js/monmove.js:743; C hack.c:4513–4522, live js/shk.js:4767; C monmove.c:2198; same rewire + whole-body brief-check as the shipped fountain twin).
+
 
 - [x] `fountain.c` dipfountain — C :442 `set_levltyp(u.ux,u.uy,ROOM)` inlined as typ+flags+looted+counts at js/fountain.js:1269–1279 (brief 2026-10-02; live js/trap.js:881; CAN_OVERWRITE rm.h:320 passes: never LADDER/STAIRS here) + case-28 `money_cnt` sums via local clone js/fountain.js:243 while C hack.c:4513–4522 returns the first stack (live js/shk.js:4767).
 - [x] `fountain.c` dryup — C :231 `set_levltyp(x,y,ROOM)` inlined at js/fountain.js:761–766 (brief 2026-10-02; live js/trap.js:881); 7/7 C callers wired (cmd.c:921→js/polyself.js:3033 domonability gremlin arm).

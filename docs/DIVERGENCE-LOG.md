@@ -1,5 +1,50 @@
 # Divergence log
 
+## D-3320 — money_cnt first-stack trio (really_done + finish_paybill + set_apparxy rewires; impossible arm)
+
+- **Status:** shipped (3 Open missing-arm rows checked off + archived in this commit). ~17 js/ insertions / ~24 deletions + `scripts/moneycnt-trio-rewire.test.mjs` (6 subtests) — below the ~80 insertion bar, defended (D-3319 exception shape): the deliverable is rewire-to-live (deletions of wrong code are the port), one real C-wrong fixed at three sites (summing `money_cnt` vs C first-stack) plus a named omission retired (`finish_paybill` impossible arm), 3 whole functions verified C-line-by-C-line with the C proof read this session, and the head's file + callee closure hold nothing more Open (all three queued money_cnt twins ship here; sit.js:1084 already first-stack, no row). No review cited, no stamp owed. Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/open/ledger-tagged); no Parked line names a confirmed writer (falsifiers only, phase 2); this session's three whole-body brief-checks found no further absent arm — queue ships at 3. finish-iteration prepared the tree but its REFILL gate (3 < 8) cannot pass without unevidenced rows, so the tree was committed by hand (D-3319 title-only precedent at queue=3).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all three). Two summing `money_cnt` clones shadowed the live first-stack export; `finish_paybill` also carried a named-omitted `impossible` arm though the callee is live since D-3188.
+- **C locus:**
+  - `really_done`: nethack-c/upstream/src/end.c:1130–1590 whole body verified in C order (score block `:1316–1350`, `money_cnt` `:1322`); this iter changes only the `:1322` site.
+  - `finish_paybill`: shk.c:2723–2755 whole body; this iter: `:2749` money_cnt site + `:2735–2737` impossible arm (retires the named omit).
+  - `set_apparxy`: monmove.c:2198–2266 whole body verified in C order (`money_cnt` `:2203` feeding the Xorn `:2226–2228` gate); this iter changes only the `:2203` site.
+  C proof read this session: hack.c:4513–4522 (`while (otmp) { if COIN_CLASS return quan; }` — first stack, not a sum).
+- **JS was:** js/end.js:458 summing clone (served really_done :1225-then + finish_paybill :1331-then) + orphaned COIN_CLASS import; finish_paybill doc named the impossible off-map arm omitted; js/monmove.js:743 summing clone (served set_apparxy :1021-then).
+- **Fix:** deleted both clones; extended the existing static shk.js edges (imports.mjs ALREADY both files) with `money_cnt`; one C-cite comment per site; `if (shkp) await impossible('finish_paybill: bad location <%d,%d>.', ox, oy)` in the off-map arm (live display.js export, printf shape per the :486–488 precedent) + doc retired to whole-body-live; pruned the orphaned end.js COIN_CLASS import (monmove.js keeps its live uses). Export names/signatures unchanged, so all callers stay wired. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** js/end.js:69 (import) :457 (marker) :1219 (really_done site) :1313–1330 (finish_paybill, impossible :1320–1321, site :1329); js/monmove.js:88–91 (import) :743 (marker) :1016 (site); scripts/moneycnt-trio-rewire.test.mjs (6 subtests: 3 first-stack incl. leading-zero-quan, 2 Xorn-arm live-site, 1 module-wiring).
+- **Callers:**
+  - `really_done`: C end.c:1124 (done) → js/end.js:2217; C end.c:470 (panic) → panic unported, own row (pre-existing named omit).
+  - `finish_paybill`: sole C caller end.c:1302 → js/end.js:1192 (`bones_ok && taken`, C :1301–1302).
+  - `set_apparxy`: C dogmove.c:1354 → js/dogmove.js:1661; dokick.c:109 → js/dokick.js:887; dothrow.c:1017 → js/dothrow.js:3271; makemon.c:1394 → js/makemon.js:1818 (+ js/makemon.js:3672 second site, pre-existing); mhitu.c:593 → js/mhitu.js:3955; uhitm.c:5396/5411 → js/mhitm.js:2970/2983; teleport.c:1702 → js/teleport.js:837; 4 C monmove.c sites (:778/:787/:833/:1761) ↔ 4 JS monmove.js sites (:2148/:2713/:2720/:2761); C mon.c:5525 → no evident JS site (pre-existing gap, untouched). All wiring predates this iteration; no call from a site C never calls from was added.
+- **Verify:** `node scripts/verify.mjs --fn really_done,finish_paybill,set_apparxy` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/end.js js/monmove.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify really_done: no corpus session is blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    really_done: no RNG-tagged reach; fixed smoke spread (24 run, 10.9s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify finish_paybill: no corpus session is blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    finish_paybill: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify set_apparxy: no corpus session is blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    set_apparxy: 70 baseline-PASS session(s) reach it (70 run, 77.0s): 70 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+Focused test: `node --test scripts/moneycnt-trio-rewire.test.mjs` → 6/6 pass.
+- **Named omissions:**
+  - `really_done`: none new — pre-existing doc-named omissions stand (dumplog family incl. DUMPLOG second artifact_score; livelog/logfile/xlogfile; wait_synch/signals/exit_nhwindows; sound_exit; panic caller; done_stopprint raw_print path live).
+  - `finish_paybill`: none — whole C body live (impossible arm retired this iter).
+  - `set_apparxy`: none in-body — whole C body live (pre-existing local `accessible` js/monmove.js:840 + `closed_door` clones predate this iteration and are behavior-untouched; future clone-removal candidates, not rows — no brief evidence taken).
+- **Ledger:** really_done ported; finish_paybill ported; set_apparxy ported
+- **Next:** queue ships at 3 (fingers_or_gloves eat.js clone; a_monnam trap.js + hack.js clones). monmove.js `accessible`/`closed_door` local clones are leads for future brief-evidence rows, not rows yet.
+
 ## D-3319 — `fountain.c` completion septet (live set_levltyp rewires + 3 clone deletions + money_cnt first-stack fix)
 
 - **Status:** shipped (6 Open missing-arm rows checked off + archived; dipsink rides stale-complete, D-3318 precedent). ~50 js/ insertions / ~100 deletions + `scripts/fountain-rewire.test.mjs` (9 subtests) — below the ~80 insertion bar, defended: the deliverable is rewire-to-live (deletions of wrong code are the port), one real C-wrong fixed (summing `money_cnt` vs C first-stack), 7 whole functions verified C-line-by-C-line with C proofs read this session, and the head's file now holds nothing more eligible (only parked drinkfountain remains) — the explicit exception. No review cited, no stamp owed. Refill: `rows --write` 0 (all remaining gaps ≤7 lines); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/ported); 3 evidence rows queued from C+JS read this session (summing money_cnt twins) — queue ships at 3. Finish-check lesson (kept): never cite the live D-id in a next-iter row — finish treats the mention as addressed and archives it; all three rows were re-added without the citation after removing the auto-archived lines. No process orphans (all calls synchronous-completed).

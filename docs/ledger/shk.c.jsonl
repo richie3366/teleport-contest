@@ -59,7 +59,7 @@
 {"fn":"paybill","c":"2485-2570","status":"unknown"}
 {"fn":"inherits","c":"2577-2679","status":"unknown"}
 {"fn":"set_repo_loc","c":"2682-2718","status":"unknown"}
-{"fn":"finish_paybill","c":"2723-2755","status":"unknown"}
+{"fn":"finish_paybill","c":"2723-2755","status":"ported","js":["js/end.js:finish_paybill"],"d":["D-3320"],"at":"2026-10-02@d0ba4ea2a"}
 {"fn":"bp_to_obj","c":"2759-2769","status":"ported","js":["js/shk.js:bp_to_obj"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:5293; 6 callers wired (doinvbill x2, make_itemized_bill, buy_container x2, pay_billed_items)"}
 {"fn":"find_oid","c":"2777-2804","status":"unknown"}
 {"fn":"get_cost_of_shop_item","c":"2809-2843","status":"unknown"}

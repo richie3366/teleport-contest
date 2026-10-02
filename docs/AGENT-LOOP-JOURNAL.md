@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3320 money_cnt first-stack trio (really_done + finish_paybill + set_apparxy rewires; impossible arm)
+
+**C locus:** - `really_done`: nethack-c/upstream/src/end.c:1130–1590 whole body verified in C order (score block `:1316–1350`, `money_cnt` `:1322`); this iter changes only the `:1322` site.
+**JS:** js/end.js:69 (import) :457 (marker) :1219 (really_done site) :1313–1330 (finish_paybill, impossible :1320–1321, site :1329); js/monmove.js:88–91 (import) :743 (marker) :1016 (site); scripts/moneycnt-trio-rewire.test.mjs (6 subtests: 3 first-stack incl. leading-zero-quan, 2 Xorn-arm live-site, 1 module-wiring).
+**Change:** deleted both clones; extended the existing static shk.js edges (imports.mjs ALREADY both files) with `money_cnt`; one C-cite comment per site; `if (shkp) await impossible('finish_paybill: bad location <%d,%d>.', ox, oy)` in the off-map arm (live display.js export, printf shape per the :486–488 precedent) + doc retired to whole-body-live; pruned the orphaned end.js COIN_CLASS import (monmove.js keeps its live uses). Export names/signatures unchanged, so all callers stay wired. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+**Verify:** `node scripts/verify.mjs --fn really_done,finish_paybill,set_apparxy` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** - `really_done`: none new — pre-existing doc-named omissions stand (dumplog family incl. DUMPLOG second artifact_score; livelog/logfile/xlogfile; wait_synch/signals/exit_nhwindows; sound_exit; panic caller; done_stopprint raw_print path live).
+**Next:** queue ships at 3 (fingers_or_gloves eat.js clone; a_monnam trap.js + hack.js clones). monmove.js `accessible`/`closed_door` local clones are leads for future brief-evidence rows, not rows yet.
 ## 2026-10-02 — Audit 2269–2275: review D-3311–D-3319 (7 ACCEPT) + full score
 
 **Scope:** 7 js-touching SHAs since 2268 (D-3312/D-3314 docs-only, skipped): erinys-reset Must-fix, rush octet+idx, safeq quartet, alloc trio, mon sextet, fountain septet, fountain completion. Every verify re-measured per-function in one call each (incl. dryup 42/42, gush 24/24, mgender 90/90 real reach).
