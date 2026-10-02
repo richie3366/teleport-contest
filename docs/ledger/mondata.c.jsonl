@@ -50,7 +50,7 @@
 {"fn":"cvt_adtyp_to_mseenres","c":"1522-1536","status":"unknown"}
 {"fn":"cvt_prop_to_mseenres","c":"1540-1554","status":"unknown"}
 {"fn":"monstseesu","c":"1558-1568","status":"ported","js":["js/mondata.js:monstseesu"],"at":"2026-10-02@e42cd0047","note":"stale: js/mondata.js:1052 whole C body (guard + fmon loop)"}
-{"fn":"monstunseesu","c":"1572-1582","status":"unknown"}
+{"fn":"monstunseesu","c":"1572-1582","status":"ported","js":["js/mondata.js:monstunseesu"],"at":"2026-10-02@cb36dc362","note":"stale: js/mondata.js:1071 whole C body (M_SEEN_NOTHING/uswallow gate + fmon m_clearseenres loop)"}
 {"fn":"give_u_to_m_resistances","c":"1586-1598","status":"unknown"}
 {"fn":"resist_conflict","c":"1607-1613","status":"unknown"}
 {"fn":"mon_knows_traps","c":"1617-1625","status":"ported","js":["js/monsters.js:mon_knows_traps"],"at":"2026-09-29@ad1aa7146","note":"stale: js/monsters.js:565 — ALL_TRAPS/NO_TRAP/bit arms identical (TRAPNUM=26, 1<< exact); callers wired mon.js:3304 monmove.js:557,882 muse.js:726,2129,2143 trap.js:6150"}

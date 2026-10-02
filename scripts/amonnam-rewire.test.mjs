@@ -46,9 +46,9 @@ describe('live a_monnam ARTICLE_A (do_name.c:1151-1156)', () => {
     });
 });
 
-describe('a_monnam clone census (trap/hack rewires)', () => {
-    it('no local a_monnam remains in trap.js or hack.js', () => {
-        for (const f of ['trap.js', 'hack.js']) {
+describe('a_monnam clone census (trap/hack/music rewires)', () => {
+    it('no local a_monnam remains in trap.js, hack.js or music.js', () => {
+        for (const f of ['trap.js', 'hack.js', 'music.js']) {
             const src = readFileSync(new URL(`../js/${f}`, import.meta.url), 'utf8');
             assert.ok(!src.match(/^function a_monnam\(/m),
                 `local clone still defined in js/${f}`);
@@ -57,7 +57,7 @@ describe('a_monnam clone census (trap/hack rewires)', () => {
         }
     });
 
-    it('census: only the canonical export + the known music.js clone define a_monnam', () => {
+    it('census: only the canonical export defines a_monnam', () => {
         const dir = new URL('../js/', import.meta.url);
         const defs = [];
         for (const f of readdirSync(dir)) {
@@ -65,8 +65,15 @@ describe('a_monnam clone census (trap/hack rewires)', () => {
             const src = readFileSync(new URL(f, dir), 'utf8');
             if (src.match(/^(export )?function a_monnam\(/m)) defs.push(`js/${f}`);
         }
-        // js/music.js:266 is the third clone (C music.c:124 site) — not
-        // queued this iteration; its rewire updates this census.
-        assert.deepEqual(defs.sort(), ['js/do_name.js', 'js/music.js']);
+        // D-3323 rewired the third clone (js/music.js:266, C music.c:124).
+        assert.deepEqual(defs.sort(), ['js/do_name.js']);
+    });
+
+    it('no local Amonnam remains in music.js (D-3323 twin rewire)', () => {
+        const src = readFileSync(new URL('../js/music.js', import.meta.url), 'utf8');
+        assert.ok(!src.match(/^function Amonnam\(/m),
+            'local clone still defined in js/music.js');
+        assert.ok(src.match(/import \{[^}]*Amonnam[^}]*\} from '\.\/do_name\.js'/),
+            'js/music.js must import Amonnam from do_name.js');
     });
 });

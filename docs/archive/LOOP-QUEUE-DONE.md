@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `music.c` awakener a_monnam clone removal (D-3322 refill) — C do_name.c:1151–1156 `has_mgivenname ? SUPPRESS_SADDLE : 0` arm absent from js/music.js:266 (passes suppress `0` + invented `|| 'it'`) serving C music.c:124; live js/do_name.js:1221; rewire js/music.js:350 (ALREADY edge js/music.js:43), delete clone; same-file companion js/music.js:158 Amonnam twin inlines the same suppress-0 call (C Amonnam do_name.c:1158–1165 is highc(a_monnam)). **Addressed:** D-3322
+- [x] `music.c` awakener a_monnam clone removal (re-queued D-3323: D-3322 archived its refill unshipped — both clones still present, brief-verified this session) — C do_name.c:1151–1156 `has_mgivenname ? SUPPRESS_SADDLE : 0` arm absent from js/music.js:266 (passes suppress `0` + invented `|| 'it'`) serving C music.c:124; live js/do_name.js:1221; rewire js/music.js:350 (ALREADY edge js/music.js:43), delete clone; same-file companion js/music.js:158 Amonnam twin inlines the same suppress-0 call (C Amonnam do_name.c:1158–1165 is highc(a_monnam), live js/do_name.js:1234; rewire js/music.js:632 serving C music.c:376), delete clone.
 
 
 - [x] `trap.c` animate_statue a_monnam clone removal (audit 2269–2275) — C do_name.c:1151–1156 ARTICLE_A semantics (an/a selection, SUPPRESS_SADDLE, hallu/invisible arms) absent from js/trap.js:247 (naive `a ${mon_nam}`) serving C trap.c:847; live js/do_name.js:1221; rewire js/trap.js:452 (ALREADY edge), delete clone.

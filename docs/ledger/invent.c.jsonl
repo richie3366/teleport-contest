@@ -25,7 +25,7 @@
 {"fn":"delallobj","c":"1413-1426","status":"unknown"}
 {"fn":"delobj","c":"1430-1433","status":"unknown"}
 {"fn":"delobj_core","c":"1438-1462","status":"unknown"}
-{"fn":"sobj_at","c":"1466-1475","status":"unknown","d":["D-2285","D-2281"],"at":"seed@a30a7de84"}
+{"fn":"sobj_at","c":"1466-1475","status":"ported","js":["js/mkobj.js:sobj_at"],"d":["D-2285","D-2281"],"at":"2026-10-02@cb36dc362","note":"stale: js/mkobj.js:3321 whole C body (nexthere walk, otyp match, null)"}
 {"fn":"nxtobj","c":"1479-1491","status":"unknown"}
 {"fn":"carrying","c":"1495-1504","status":"unknown"}
 {"fn":"carrying_stoning_corpse","c":"1508-1516","status":"unknown"}

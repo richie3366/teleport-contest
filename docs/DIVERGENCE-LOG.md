@@ -1,5 +1,42 @@
 # Divergence log
 
+## D-3323 — music.c awakener a_monnam/Amonnam clone removals (re-queued — D-3322 mis-archived its refill unshipped)
+
+- **Status:** shipped (1 Open missing-arm row checked off + archived in this commit). ~5 js/ insertions / ~10 deletions + census test update — below the ~80 insertion bar, defended (D-3321/D-3322 exception shape): the deliverable is rewire-to-live (deletion of wrong code is the port), one real C-wrong fixed (suppress-0 + invented `|| 'it'`), both whole C bodies verified against the live exports, and the head's callee closure holds nothing more Open (x_monnam live; coverage block regenerates 0 rows). No review cited, no stamp owed. Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/ledger-tagged); 4 stale-complete booked via `ledger.mjs set` (sobj_at, Mgender, monstunseesu, distant_monnam); eight source-(4) rows appended from this session's brief evidence (distmin clone + 7 no-symbol MISSING: domenucontrols, early_init, nh_snprintf, get_nhcolor_from_256_index, badspot, free_eshk, free_egd) — queue ships at 8 (REFILL band met so finish can commit). Record fix: D-3322's Status says "queue ships at 1" but the music row landed in LOOP-QUEUE-DONE.md stamped `**Addressed:** D-3322` while commit cb36dc362 touched only trap.js/hack.js and both clones were still present (brief this session) — row removed from DONE, re-queued as Open, shipped here.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on both). js/music.js:266-then clone served charm_snakes with `x_monnam(..., 0, false) || 'it'` (suppress 0 always, invented fallback); js/music.js:158-then Amonnam twin served do_earthquake with the same suppress-0 call + toUpperCase — named saddled monsters showed the saddle where C suppresses it.
+- **C locus:**
+  - `a_monnam`: nethack-c/upstream/src/do_name.c:1151–1156 whole body: `x_monnam(mtmp, ARTICLE_A, 0, has_mgivenname ? SUPPRESS_SADDLE : 0, FALSE)` — read in the brief this session.
+  - `Amonnam`: nethack-c/upstream/src/do_name.c:1158–1165 whole body: `*bp = highc(*bp)` over `a_monnam(mtmp)` — read via sed this session.
+- **JS was:** js/music.js:266-then local `a_monnam`; js/music.js:158-then local `Amonnam`; live exports already C-exact and unchanged (js/do_name.js:1221 / :1234 `highc_name(a_monnam(mtmp))`).
+- **Fix:** extended the ALREADY static do_name edge (js/music.js:43; imports.mjs ALREADY both names) with `a_monnam, Amonnam`; deleted both clones; one C-cite comment per site (js/music.js:338, :621). Call-site expressions unchanged — both already C-shaped (`You notice %s, swaying` ≡ music.c:124; `%s is shaken loose from the ceiling!` ≡ music.c:376). Export names/signatures unchanged. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** js/music.js (import :43; sites :340/:623). Scripts: scripts/amonnam-rewire.test.mjs — census now trap/hack/music (global a_monnam census `['js/do_name.js']`) + new Amonnam no-clone test (first run 5/6: new Amonnam import regex crossed `}` — test fixed, live export correct; final 6/6).
+- **Callers:**
+  - `a_monnam`: music.c:124→js/music.js:340 (this iter); all other C sites predate this iteration and resolve to the live export or their long-standing locals, untouched — no call from a site C never calls from was added.
+  - `Amonnam`: music.c:376→js/music.js:623 (this iter); same — no new off-C call added.
+- **Verify:** `node scripts/verify.mjs --fn a_monnam,Amonnam` tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/music.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify a_monnam: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    a_monnam: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify Amonnam: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    Amonnam: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `a_monnam`: none in-body — whole C body live.
+  - `Amonnam`: none in-body — whole C body live.
+- **Ledger:** a_monnam ported; Amonnam ported
+- **Next:** ship the queued `hacklib.c` distmin shknam.js clone row (live js/hacklib.js:19; second export js/mon.js:1130 needs the C-locus decision); do_name.c sub-8-line THINs (free_oname/safe_oname/noit_Monnam/Some_Monnam/YMonnam) are leads, each needing its own brief; refill stays brief-evidence-only until a gap reopens.
+
 ## D-3322 — a_monnam trap+hack clone removals (animate_statue / moverock_core rewires)
 
 - **Status:** shipped (2 Open missing-arm rows checked off + archived in this commit). ~5 js/ insertions / ~22 deletions + `scripts/amonnam-rewire.test.mjs` (5 subtests) — below the ~80 insertion bar, defended (D-3319/D-3320/D-3321 exception shape): the deliverable is rewire-to-live (deletion of wrong code is the port), two real C-wrongs fixed (naive `a`-prefix before vowels; PM_-tag-derived names), the whole C body verified against the live export, and the head's file + callee closure hold nothing more Open (x_monnam live; coverage block regenerates 0 rows; both queued a_monnam rows ship here). No review cited (audit-2269–2275-range provenance, all ACCEPT), no stamp owed. Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/open/ledger-tagged); no Parked line names a confirmed writer (falsifiers only, phase 2); one source-(4) row appended from this session's brief+body evidence (music.js:266 third clone) — queue ships at 1.
