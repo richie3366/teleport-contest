@@ -363,7 +363,7 @@ async function seffect_magic_mapping(sobj) {
     if (cval) u.Confusion = 1; // C: HConfusion = 1 to screw up map
     const { notice_mon_off, notice_mon_on } = await import('./hack.js');
     notice_mon_off();
-    do_mapping();
+    await do_mapping();
     notice_mon_on();
     if (cval) {
         u.Confusion = 0;

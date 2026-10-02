@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3257 — `detect.c` show_map_spot oldglyph trap/object restore + do_mapping whole body (browse arm, reconstrain; async + 3 awaits)
+
+- **Status:** shipped.
+- **Symptom:** queue rows: `show_map_spot` C :1410–1413 oldglyph restore absent (js :970 "restore deferred", no glyph_at read; SCORR arm called `recalc_block_point` where C calls `unblock_point`); `do_mapping` C :1432–1442 `!hero_memory||unconstrained` arm absent (js :1000–1003 "deferred", no reconstrain; inline unconstrain skipped save/clear vs live :1043).
+- **C locus:**
+  - `show_map_spot`: nethack-c/upstream/src/detect.c:1371–1419 — cnf rn2(7) skip, seenv=SVALL, SCORR uncover, oldglyph snapshot, hero_memory background+newsym else display-only, !FURNITURE tseen-trap/engraving/oldglyph-restore (furniture > traps > objects), room_discovered.
+  - `do_mapping`: nethack-c/upstream/src/detect.c:1421–1444 — unconstrain_map, show_map_spot sweep, flush_screen+browse_map+map_redisplay else reconstrain_map, exercise(A_WIS).
+- **JS was:** js/detect.js:938 `show_map_spot` (no oldglyph read; `recalc_block_point` in the SCORR arm; restore arm a comment); js/detect.js:985 sync `do_mapping` (inline `!!(uinwater||uburied||uswallow)` without save/clear; browse arm a comment; no reconstrain call).
+- **Fix:** `show_map_spot` restart in C order: live `unblock_point` in the SCORR arm; `glyph_at` id + disp-render snapshot before the background repaint (C's `show_glyph(x,y,oldglyph)` repaints glyphmap[oldglyph], exactly the cell's current render; hallucination randomizes the id at map time, so the snapshot is RNG-free where a decode via `obj_glyph` would burn display RNG); restore arm repaints via fire-and-forget `show_glyph_cell(...,oldglyph)` (`map_trap`/`map_engraving` precedent — disp stores land synchronously) and stores `remember_shown_glyph(lev,oldtty,oldglyph)` for C's `lev->glyph` under hero_memory. `do_mapping` restart as async (only the browse arm awaits — flush_screen/browse_map/getpos/map_redisplay/docrt; the hero_memory path awaits nothing, and the else-arm reconstrain is a value no-op as C's comment says): live `unconstrain_map()` first, sweep, C-order browse/else arms, `exercise(A_WIS,true)`; `await` at all 3 call sites (enclosers already async). 4 js/ files, ~74 ins + focused test — under caps; below the density floor because the live queue holds nothing more in detect.c or the callee closure (all callees live; escape clause, not padding).
+- **JS:** js/detect.js:946 `show_map_spot` (port, stays sync), :1012 `do_mapping` (async port); `remember_shown_glyph` added to the pre-existing display.js edge (`imports.mjs --can`: ALREADY, no new edge); awaits js/read.js:366, js/sit.js:902, js/wizcmds.js:657; new scripts/show-map-spot.test.mjs (3/3; pre-fix run 1 pass / 2 fail, pinning the restore arm).
+- **Callers:**
+  - `show_map_spot`: detect.c:1430→detect.js:1018 (do_mapping sweep, this commit); detect.c:1504 (do_vicinity_map)→detect.js:1158 (pre-existing, args match C); zap.c:3731 (zap_map WAN_PROBING)→zap.js:6532 (pre-existing, oldtyp/oldglyph-compare arm intact).
+  - `do_mapping`: read.c:2147→read.js:366 (seffect_magic_mapping, awaited); sit.c:153 (throne case 10)→sit.js:902 (awaited); wizcmds.c:192 (wiz_map)→wizcmds.js:657 (awaited).
+- **Verify:** `node scripts/verify.mjs --fn show_map_spot,do_mapping` → syntax 4 files PASS; rule2 PASS; hidden vacuous both (missing-arm rows, no corpus session blocked); REACH smoke 24/24 PASS both → REACH-OK; green 2/2; strict ×2; cohort 7/7. VERIFY: PASS. `node --test scripts/show-map-spot.test.mjs` 3/3 (trap repaint+memory, no-memory repaint, SCORR uncover).
+- **Named omissions:**
+  - `show_map_spot`: none in-body — whole C body live.
+  - `do_mapping`: none in-body — whole C body live.
+- **Ledger:** show_map_spot ported; do_mapping ported
+- **Next:** same-file detect.c Open rows exhausted (both shipped). Refill: coverage generator 0 rows, `hidden-proxy queue --limit 30` 0 untagged (structural exhaustion per D-3255); hand-added 2 brief-verified `zap_map` arms — Open stands at 6; next head is the `seffect_magic_mapping` residual.
+
 ## D-3256 — `uhitm.c` passive_obj whole body (AD_RUST/AD_ENCH + tail + weapon fix) + passive whole body (kick erodes, M_SEEN, erode_armor, gaze reflect) + drop_throw caller wiring
 
 - **Status:** shipped.

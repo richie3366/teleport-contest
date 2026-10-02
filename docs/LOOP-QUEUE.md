@@ -126,12 +126,12 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `detect.c` show_map_spot — C detect.c:1410–1413 oldglyph trap/object restore (glyph_at read + show_glyph + hero_memory lev->glyph) absent from js/detect.js:show_map_spot (:938; :970 "restore deferred", no oldglyph read) @e4afe5879
-- [ ] `detect.c` do_mapping — C detect.c:1432–1442 !hero_memory||unconstrained arm (flush_screen/browse_map/map_redisplay, else reconstrain_map) absent from js/detect.js:do_mapping (:985; :1000–1003 "deferred", no reconstrain; :988 inline unconstrain skips save/clear vs live :1043) @e4afe5879
 - [ ] `read.c` seffect_magic_mapping — C read.c:2128–2129 Rogue blessed-scroll `unblock_point(x, y)` absent from js/read.js:seffect_magic_mapping (:320; :344 calls vision_recalc(1) instead + per-sdoor newsym :345 with no C counterpart) @e4afe5879
 - [ ] `zap.c` zap_over_floor — C zap.c:5300–5306 TT_LAVA Passes_walls arm (`reset_utrap(TRUE)` / `set_utrap(INFLOOR)` + "now-solid"/"cooling rock" msgs) absent from js/zap.js:zap_over_floor (:1060; no 'cooling rock'/'now-solid'/'firmly stuck' in js/zap.js) @35e5e8f94
 - [ ] `end.c` savelife — C end.c:744–745 `if (!mon_moving) endmultishot(FALSE)` absent from js/end.js:savelife (:2069 "stays named (not live)"; no endmultishot call in file) @35e5e8f94
 - [ ] `do.c` goto_level — C do.c:1619–1620,1622 fill_pit / set_ustuck / u.uundetected absent from js/do.js:goto_level (:1699 "still named"; set_uinwater live) @35e5e8f94
+- [ ] `zap.c` zap_map — C zap.c:3730,3732 int `oldglyph = glyph_at(x, y)` compare around show_map_spot absent from js/zap.js:zap_map (:6529–6537 disp `${ch}|${kind}|${color}` string compare; misses id-only glyph swaps when flipping learn_it) @1fe3dcc2a
+- [ ] `zap.c` zap_map — C zap.c:3752–3754 SCORR `unblock_point(x, y)` (unconditional) absent from js/zap.js:zap_map (:6553 calls `recalc_block_point`; SDOOR arm :6543 correctly uses recalc per C :3740) @1fe3dcc2a
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 
