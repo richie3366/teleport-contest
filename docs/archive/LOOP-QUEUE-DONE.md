@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `pline.c` There — C `pline.c:425–433` `vpline(YouMessage(tmp, "There ", line), args)`; canonical `js/display.js:7915` complete but `js/do.js:505` carries a single-arg local clone via `pline` (drops format args; sole caller `do.js:752` passes one preformatted string; `pline≡vpline` display.js:8274) — remove clone, import export (brief 2026-10-02) @42c45189d **Addressed:** D-3299
+- [x] `objnam.c` nextobuf — C `objnam.c:142–146` absent from js/objnam.js (no symbol; `staticfn` rotates static `obufs[obufidx]`); 17 same-file C callers — resolve by-design (JS returns fresh strings) or port (brief 2026-10-02) @42c45189d
+
+
+- [x] `pline.c` There — C `pline.c:425–433` `vpline(YouMessage(tmp, "There ", line), args)`; canonical `js/display.js:7915` complete but `js/do.js:505` carries a single-arg local clone via `pline` (drops format args; sole caller `do.js:752` passes one preformatted string; `pline≡vpline` display.js:8274) — remove clone, import export (brief 2026-10-02) @42c45189d **Addressed:** D-3299 `8859c7e6d`
 
 
 - [x] `topten.c` topten_print — C topten.c:165–171 absent from js/ (no same-named symbol; 12 call sites topten.c:730–1106; WIN_ERR→raw_print else putstr ATR_NONE). **Stale:** ledger ported — raw-panel arm inlined as emit(x,false) at all 12 C sites (js/topten.js outheader:662, outentry:788/805, topten:897/947/948/972/975/980/1007, wizard arm:853-857) → render_topten_lines:626; toptenwin/putstr branch is the topten doc-block named omit.

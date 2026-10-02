@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3300 `objnam.c` obuf/name-wrapper closure (nextobuf by-design + 11 stale-complete)
+
+**C locus:** - `nextobuf`: nethack-c/upstream/src/objnam.c:142–146 whole body (C staticfn) — `obufidx = (obufidx + 1) % NUMOBUF; return obufs[obufidx];` 17 same-file C call sites (:203–:3041).
+**JS:** - `nextobuf`: no symbol (by-design; pool cited at js/objnam.js:4064–4070).
+**Change:** - `nextobuf`: ledger by-design — no JS symbol to add (a `return ''` stub would be dead; every C caller is ported on fresh strings). Evidence: no `obufs[]`/`obufidx` in scored JS; releaseobuf doc :4064–4070; xname_flags + doname_base ledger omits (D-2483 by-design strings).
+**Verify:** `node scripts/verify.mjs --fn nextobuf,releaseobuf,thesimpleoname,Yname2,The,Yobjnam2,obj_is_pname,An,yobjnam,Japanese_item_name,Doname2,Ysimple_name2` → VERIFY: PASS — syntax 0 changed js files; rule2 clean; hidden 0 blocked ×12 (coverage rows); reach REACH-OK ×12 (fixed smoke spread 24/24 each, no RNG-tagged reach); green 2/2; strict ×2; cohort 7/7; full skipped (no shared file changed).
+**Named:** - `nextobuf`: the pool itself — `obufs[NUMOBUF][BUFSZ]` rotation has no JS counterpart (immutable strings; D-2483 by-design strings).
+**Next:** queue head now `mklev.c` pos_to_room (missing-arm row 2); objnam.c measured-gap unknowns exhausted (remaining unknowns measured-ok or declared). Observed, not queued (hand rows are Must-fix/corpus only): js/wield.js:1288 `Yobjnam2` clone is xname-based (drops yobjnam's aobjnam/shk_your-gate arms) and js/do_wear.js:276 `obj_is_pname` clone drops the gameover/override_ID gate — clone-drift candidates if a review ever names them.
 ## 2026-10-02 — D-3299 `pline.c` There (do.js clone removal + canonical import rewire)
 
 **C locus:** - `There`: nethack-c/upstream/src/pline.c:425–433 whole body (C extern) — `vpline(YouMessage(tmp, "There ", line), the_args)`; YouMessage = strcpy+strcat into the You_buf growable buffer (:338–363), memory mgmt unneeded in JS. 55 C call sites.

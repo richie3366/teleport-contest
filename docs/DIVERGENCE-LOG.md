@@ -1,5 +1,59 @@
 # Divergence log
 
+## D-3300 — `objnam.c` obuf/name-wrapper closure (nextobuf by-design + 11 stale-complete)
+
+- **Status:** shipped (1 Open missing-arm `objnam.c` row checked off + archived — nextobuf; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: the head resolves by-design (JS returns fresh strings; the obuf pool has no JS counterpart — js/objnam.js:4069 already declares "nextobuf stays the by-design string path", and the xname_flags/doname_base ledger omits record the same D-2483 decision), and every other measured-gap `objnam.c` unknown brief-verified complete at its canonical export — evidence in ledger notes. Head's file holds nothing more Open: `ledger.mjs file objnam.c` shows zero remaining unknown/absent THIN/PARTIAL/MISSING after this iter (rest measured-ok or declared). 10-function cluster + Doname2/Ysimple_name2 booked directly (D-3167 precedent).
+- **Symptom:** no corpus divergence — coverage row (0 blocked on all twelve). C `nextobuf` rotates the static `obufs[NUMOBUF][BUFSZ]` pool (:138–139); JS has no pool (`obufidx`/`NUMOBUF` occur only in the releaseobuf doc comment) and all 17 same-file C call sites live inside already-ported fresh-string functions.
+- **C locus:**
+  - `nextobuf`: nethack-c/upstream/src/objnam.c:142–146 whole body (C staticfn) — `obufidx = (obufidx + 1) % NUMOBUF; return obufs[obufidx];` 17 same-file C call sites (:203–:3041).
+  - `releaseobuf`: nethack-c/upstream/src/objnam.c:150–160 whole body (C staticfn) — rewind `obufidx` iff `bufp` lies inside `obufs[obufidx]` (PREFIX may point mid-buffer). 20 same-file C call sites.
+  - `thesimpleoname`: nethack-c/upstream/src/objnam.c:2474–2483 whole body (C extern) — `the(simpleonames(obj))` + copy-back + releaseobuf (two-obuf avoidance). 13 C callers.
+  - `Yname2`: nethack-c/upstream/src/objnam.c:2378–2384 whole body (C extern) — `*s = highc(*s)` over `yname(obj)`. 47 C call sites.
+  - `The`: nethack-c/upstream/src/objnam.c:2234–2240 whole body (C extern) — `*tmp = highc(*tmp)` over `the(str)`. 43 C callers.
+  - `Yobjnam2`: nethack-c/upstream/src/objnam.c:2280–2286 whole body (C extern) — `*s = highc(*s)` over `yobjnam(obj, verb)`. 30 C callers.
+  - `obj_is_pname`: nethack-c/upstream/src/objnam.c:333–342 whole body (C extern) — artifact + `has_oname`, `!gameover && !override_ID` gate, `not_fully_identified`. 11 C callers.
+  - `An`: nethack-c/upstream/src/objnam.c:2158–2164 whole body (C extern) — `*tmp = highc(*tmp)` over `an(str)`. 12 C callers.
+  - `yobjnam`: nethack-c/upstream/src/objnam.c:2262–2276 whole body (C extern) — `aobjnam` + `shk_your(nextobuf(), obj)` prefix under the `!carried \|\| !pname \|\| artifact >= ORB_OF_DETECTION` gate, strncat-capped at BUFSZ-1. 10 C refs.
+  - `Japanese_item_name`: nethack-c/upstream/src/objnam.c:5422–5432 whole body (C extern) — `Japanese_items` linear walk by `j->item`, fallthrough `ordinaryname`. 8 C refs.
+- **JS was:** no `nextobuf` symbol anywhere in `js/` (sym.mjs NOT FOUND); `releaseobuf` a module-local no-op with full C cite (js/objnam.js:4071); the other ten complete canonical exports pre-existing (see JS).
+- **Fix:**
+  - `nextobuf`: ledger by-design — no JS symbol to add (a `return ''` stub would be dead; every C caller is ported on fresh strings). Evidence: no `obufs[]`/`obufidx` in scored JS; releaseobuf doc :4064–4070; xname_flags + doname_base ledger omits (D-2483 by-design strings).
+  - `releaseobuf`: ledger ported-stale — js/objnam.js:4071 no-op is the complete mapping (range test unrepresentable without the pool; nothing to rewind).
+  - `thesimpleoname`: ledger ported-stale — js/objnam.js:3029 `the(simpleonames(obj))` (obuf copy-back/release collapse into fresh-string composition).
+  - `Yname2`: ledger ported-stale — js/objnam.js:2863 `upstart(yname(obj))` (upstart ≡ highc-first).
+  - `The`: ledger ported-stale — js/objnam.js:1825 `the(str)` + capitalize (falsy guard is the file idiom).
+  - `Yobjnam2`: ledger ported-stale — js/objnam.js:2895 `upstart(yobjnam(obj, verb))`.
+  - `obj_is_pname`: ledger ported-stale — js/objnam.js:2764 whole body in C order (`has_oname` live, gameover/override_ID gate, late-bound `not_fully_identified` js/invent.js:3410).
+  - `An`: ledger ported-stale — js/objnam.js:2395 `an(str)` + capitalize.
+  - `yobjnam`: ledger ported-stale — js/objnam.js:2885 whole body in C order (`carried_objnam` ≡ `where === OBJ_INVENT`, live `obj_is_pname`, `ART_ORB_OF_DETECTION`, one-arg `shk_your`; strncat cap collapses into concat per D-2483 strings).
+  - `Japanese_item_name`: ledger ported-stale — js/objnam.js:3876 `japaneseByOtyp().get(otyp) ?? ordinaryname` (Map ≡ unique-item table walk).
+- **JS:**
+  - `nextobuf`: no symbol (by-design; pool cited at js/objnam.js:4064–4070).
+  - `releaseobuf`: js/objnam.js:4071 (module-local, C staticfn).
+  - `thesimpleoname`: js/objnam.js:3029 (export).
+  - `Yname2`: js/objnam.js:2863 (export; do.js:496/music.js:260 clones stay).
+  - `The`: js/objnam.js:1825 (export; mthrowu.js:807 clone stays).
+  - `Yobjnam2`: js/objnam.js:2895 (export; sit.js:231/wield.js:1288 clones stay).
+  - `obj_is_pname`: js/objnam.js:2764 (export; do_wear.js:276 clone stays).
+  - `An`: js/objnam.js:2395 (export).
+  - `yobjnam`: js/objnam.js:2885 (export).
+  - `Japanese_item_name`: js/objnam.js:3876 (export).
+- **Callers:**
+  - `nextobuf`: 17 C sites, all inside ported fresh-string functions (xname/doname/yname family + shk_your paths) — no JS site needs the pool; zero JS callers by design.
+  - `releaseobuf`: 20 C sites in the same ported family; JS callers call the no-op or nothing (maybereleaseobuf live js/objnam.js).
+  - `thesimpleoname`/`Yname2`/`The`/`Yobjnam2`/`obj_is_pname`/`An`/`yobjnam`/`Japanese_item_name`: canonicals live — same-named references across js/do_name.js, js/dothrow.js, js/eat.js, js/dig.js, js/end.js, js/pray.js, js/dokick.js, js/potion.js (+ objnam.js internals); pre-existing local clones documented "stay" in file docs (D-1938 precedent), unwired to the canonical by prior design, not this iter.
+  - `Doname2`/`Ysimple_name2` (booked directly): canonicals js/objnam.js:2872 (`upstart(doname(obj))`) / :3047 (`upstart(ysimple_name(obj))`), whole C bodies (:2303–2309 / :2402–2408), callees live; clones stay per docs.
+- **Verify:** `node scripts/verify.mjs --fn nextobuf,releaseobuf,thesimpleoname,Yname2,The,Yobjnam2,obj_is_pname,An,yobjnam,Japanese_item_name,Doname2,Ysimple_name2` → VERIFY: PASS — syntax 0 changed js files; rule2 clean; hidden 0 blocked ×12 (coverage rows); reach REACH-OK ×12 (fixed smoke spread 24/24 each, no RNG-tagged reach); green 2/2; strict ×2; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:**
+  - `nextobuf`: the pool itself — `obufs[NUMOBUF][BUFSZ]` rotation has no JS counterpart (immutable strings; D-2483 by-design strings).
+  - `releaseobuf`: none in-body — whole C body live as the documented no-op.
+  - `thesimpleoname`/`Yname2`/`The`/`Yobjnam2`/`An`: none in-body — whole C bodies live (obuf dance / in-place highc collapse into fresh-string composition).
+  - `obj_is_pname`: none in-body — whole C body live (gate + late-bound callee).
+  - `yobjnam`: BUFSZ-1 strncat cap — collapses into concat (D-2483 by-design strings, same as the xname_flags omit).
+  - `Japanese_item_name`: none in-body — whole C body live (lookup-shape change only).
+- **Ledger:** nextobuf by-design; releaseobuf ported; thesimpleoname ported; Yname2 ported; The ported; Yobjnam2 ported; obj_is_pname ported; An ported; yobjnam ported; Japanese_item_name ported; Doname2 ported; Ysimple_name2 ported
+- **Next:** queue head now `mklev.c` pos_to_room (missing-arm row 2); objnam.c measured-gap unknowns exhausted (remaining unknowns measured-ok or declared). Observed, not queued (hand rows are Must-fix/corpus only): js/wield.js:1288 `Yobjnam2` clone is xname-based (drops yobjnam's aobjnam/shk_your-gate arms) and js/do_wear.js:276 `obj_is_pname` clone drops the gameover/override_ID gate — clone-drift candidates if a review ever names them.
+
 ## D-3299 — `pline.c` There (do.js clone removal + canonical import rewire)
 
 - **Status:** shipped (1 Open missing-arm `pline.c` row checked off + archived — There; no review cited, no stamp owed). 2 insertions — below the ~80 density bar, defended: singleton rewire cluster (canonical export pre-existed; the deliverable is deleting a divergent clone + one import name). Head's file holds nothing more shippable: You_buf/free_youbuf are buffer/free machinery → ledger by-design this iter; dumplogfreemessages is retired DUMPLOG (D-1776, do not queue). This iteration also retired 5 stale rows without `js/` (You, You_cant, pline_The → ported-stale, bodies complete js/display.js:7899–7914; cmdq_clear, cmdq_pop → ported-stale, complete js/cmd.js:310,391) — evidence in ledger notes.

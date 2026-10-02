@@ -1,11 +1,11 @@
 {"fn":"strprepend","c":"123-135","status":"split","js":["js/objnam.js:mshot_xname","js/objnam.js:doname_base","js/objnam.js:aobjnam","js/objnam.js:paydoname"],"at":"2026-09-28@34c78a6ac","note":"stale: concat inline at all 4 C call sites; PREFIX guard by-design JS strings (D-2483)"}
-{"fn":"nextobuf","c":"142-146","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"releaseobuf","c":"150-160","status":"unknown"}
+{"fn":"nextobuf","c":"142-146","status":"by-design","d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"obuf pool unneeded: JS returns fresh strings; releaseobuf doc js/objnam.js:4069"}
+{"fn":"releaseobuf","c":"150-160","status":"ported","js":["js/objnam.js:releaseobuf"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete no-op js/objnam.js:4071 (no obuf pool to rewind)"}
 {"fn":"maybereleaseobuf","c":"167-198","status":"partial","js":["js/objnam.js:maybereleaseobuf"],"omit":"An empty skill class `mkobj`s `RANDOM_CLASS`; with `init_objects` bases filled, `P_POLEARMS` has 12 weapons and `P_HAMMER` has `WAR_HAMMER` only, so that arm does not run.","d":["D-2851"],"at":"seed@a30a7de84"}
 {"fn":"obj_typename","c":"201-293","status":"unknown"}
 {"fn":"simple_typename","c":"298-308","status":"unknown"}
 {"fn":"safe_typename","c":"312-330","status":"unknown"}
-{"fn":"obj_is_pname","c":"333-342","status":"unknown"}
+{"fn":"obj_is_pname","c":"333-342","status":"ported","js":["js/objnam.js:obj_is_pname"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2764 (gate+not_fully_identified)"}
 {"fn":"distant_name","c":"347-409","status":"ported","js":["js/objnam.js:distant_name"],"d":["D-2745"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"fruitname","c":"414-427","status":"ported","js":["js/potion.js:fruitname"],"d":["D-3128"],"at":"2026-09-29@d3ab32283"}
 {"fn":"fruit_from_indx","c":"431-439","status":"unknown","d":["D-1511"],"at":"seed@a30a7de84"}
@@ -33,22 +33,22 @@
 {"fn":"singular","c":"2091-2105","status":"ported","js":["js/objnam.js:singular"],"d":["D-2980"],"at":"2026-09-27@68cdee2bb"}
 {"fn":"just_an","c":"2109-2142","status":"unknown"}
 {"fn":"an","c":"2145-2155","status":"ported","js":["js/objnam.js:an"],"at":"2026-10-02@e42cd0047","note":"stale: js/objnam.js:2390 whole C body (just_an+str; '' falsy covers C null+empty; impossible-diagnostic named per notice_mon precedent)"}
-{"fn":"An","c":"2158-2164","status":"unknown"}
+{"fn":"An","c":"2158-2164","status":"ported","js":["js/objnam.js:An"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2395 (an+highc)"}
 {"fn":"the","c":"2171-2231","status":"unknown","d":["D-1487","D-1357"],"at":"seed@a30a7de84"}
-{"fn":"The","c":"2234-2240","status":"unknown"}
+{"fn":"The","c":"2234-2240","status":"ported","js":["js/objnam.js:The"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:1825 (the+highc)"}
 {"fn":"aobjnam","c":"2244-2258","status":"ported","js":["js/objnam.js:aobjnam"],"d":["D-2969"],"at":"2026-09-27@f02368fbc","note":"stale: js/objnam.js:2816"}
-{"fn":"yobjnam","c":"2262-2276","status":"unknown"}
-{"fn":"Yobjnam2","c":"2280-2286","status":"unknown"}
+{"fn":"yobjnam","c":"2262-2276","status":"ported","js":["js/objnam.js:yobjnam"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2885 (aobjnam+shk_your gate)"}
+{"fn":"Yobjnam2","c":"2280-2286","status":"ported","js":["js/objnam.js:Yobjnam2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2895 (upstart(yobjnam))"}
 {"fn":"Tobjnam","c":"2290-2299","status":"unknown"}
-{"fn":"Doname2","c":"2303-2309","status":"unknown"}
+{"fn":"Doname2","c":"2303-2309","status":"ported","js":["js/objnam.js:Doname2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2872 (upstart(doname))"}
 {"fn":"paydoname","c":"2313-2355","status":"unknown","d":["D-2667"],"at":"seed@a30a7de84"}
 {"fn":"yname","c":"2359-2374","status":"ported","js":["js/objnam.js:yname"],"d":["D-2958"],"at":"seed@a30a7de84"}
-{"fn":"Yname2","c":"2378-2384","status":"unknown"}
+{"fn":"Yname2","c":"2378-2384","status":"ported","js":["js/objnam.js:Yname2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2863 (upstart(yname))"}
 {"fn":"ysimple_name","c":"2391-2398","status":"unknown"}
-{"fn":"Ysimple_name2","c":"2402-2408","status":"unknown"}
+{"fn":"Ysimple_name2","c":"2402-2408","status":"ported","js":["js/objnam.js:Ysimple_name2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:3047 (upstart(ysimple_name))"}
 {"fn":"simpleonames","c":"2428-2442","status":"unknown"}
 {"fn":"ansimpleoname","c":"2446-2470","status":"ported","js":["js/objnam.js:ansimpleoname"],"d":["D-2932"],"at":"seed@a30a7de84"}
-{"fn":"thesimpleoname","c":"2474-2483","status":"unknown"}
+{"fn":"thesimpleoname","c":"2474-2483","status":"ported","js":["js/objnam.js:thesimpleoname"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:3029 (the(simpleonames()))"}
 {"fn":"actualoname","c":"2490-2498","status":"unknown"}
 {"fn":"bare_artifactname","c":"2502-2515","status":"ported","js":["js/artifact.js:bare_artifactname"],"d":["D-3030"],"at":"2026-09-28@1fdd56bcc"}
 {"fn":"otense","c":"2531-2546","status":"ported","js":["js/objnam.js:otense"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
@@ -74,7 +74,7 @@
 {"fn":"readobjnam_postparse3","c":"4727-4899","status":"partial","js":["js/readobjnam.js:readobjnam_postparse3"],"omit":"postparse1 remainder stays deferred (grey-spell `grey spell`→`gray spell` fix `:4468–4469`, wider typfnd remaps — D-2021/D-2568 map lines, not this row); `d.un` NULL path draws nothing (C `:3463` NULL/empty guard mirrored).","d":["D-2600"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam","c":"4910-5400","status":"split","js":["js/readobjnam.js:readobjnam","js/readobjnam.js:readobjnam_any","js/readobjnam.js:readobjnam_finish","js/readobjnam.js:readobjnam_wish"],"omit":"- `readobjnam`: wizard-interactive y_n(\"Override glob weight limit?\") override (async y_n; sync chain clamps as on 'n' — normal + wizkit wishes exact); vanish pline for SYNC callers only (files wizkit, mklev escape items — the async wish path now emits it); C zap.c:6366 (needs makewish's MAXWISHTRY…","d":["D-3197","D-3196","D-3195","D-2111","D-2089","D-2055"],"at":"2026-10-01@c1022f867","note":"stale: whole C body complete across readobjnam+any+finish+wish (D-3197, review 2157 ACCEPT); kept omits: glob y_n override (async), sync-caller vanish pline"}
 {"fn":"rnd_class","c":"5403-5419","status":"unknown"}
-{"fn":"Japanese_item_name","c":"5422-5432","status":"unknown"}
+{"fn":"Japanese_item_name","c":"5422-5432","status":"ported","js":["js/objnam.js:Japanese_item_name"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:3876 (Map lookup = table walk)"}
 {"fn":"armor_simple_name","c":"5435-5468","status":"ported","js":["js/do_wear.js:armor_simple_name"],"d":["D-3064"],"at":"2026-09-28@2f39bdcea"}
 {"fn":"suit_simple_name","c":"5471-5489","status":"unknown","d":["D-1905"],"at":"seed@a30a7de84"}
 {"fn":"cloak_simple_name","c":"5492-5509","status":"ported","js":["js/do_wear.js:cloak_simple_name"],"d":["D-3044"],"at":"2026-09-28@b689d8429"}

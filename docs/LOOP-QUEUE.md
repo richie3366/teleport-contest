@@ -126,7 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `objnam.c` nextobuf — C `objnam.c:142–146` absent from js/objnam.js (no symbol; `staticfn` rotates static `obufs[obufidx]`); 17 same-file C callers — resolve by-design (JS returns fresh strings) or port (brief 2026-10-02) @42c45189d
 - [ ] `mklev.c` pos_to_room — C `mklev.c:1677–1687` absent from js/mklev.js (no symbol; `staticfn` rooms scan via live `inside_room` js/mklev.js:32964, NULL fallthrough); 1 C caller — port whole (brief 2026-10-02) @42c45189d
 - [ ] `mklev.c` makevtele — C `mklev.c:821–824` absent from js/mklev.js (no symbol; `staticfn` `makeniche(TELEP_TRAP)`, callee local js/mklev.js:33193); sole C caller mklev.c:1333 — port whole (brief 2026-10-02) @42c45189d
 - [ ] `topten.c` discardexcess — C `topten.c:208–215` absent from js/topten.js (no symbol; `staticfn` FILE* drain-to-newline); sole C caller topten.c:246 — resolve by-design (no FILE* score stream) or port (brief 2026-10-02) @42c45189d
