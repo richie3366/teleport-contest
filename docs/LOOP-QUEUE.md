@@ -126,14 +126,14 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `stairs.c` stairway_find — C stairs.c:50–61 absent from js/ (no same-named symbol; caller dog.c:536).
-- [ ] `mkobj.c` nomerge_exception — C mkobj.c:3278–3286 absent from js/ (no same-named symbol; caller mkobj.c:3259 nomerge gate).
 - [ ] `rnd.c` whichrng — C rnd.c:32–40 absent from js/ (no same-named symbol; caller rnd.c:47 rng-provenance index).
 - [ ] `getpos.c` getpos_getvalids_selection — C getpos.c:102–115 absent from js/ (no same-named symbol; callers getpos.c:53,56).
 - [ ] `selvar.c` selection_force_newsyms — C selvar.c:802–810 absent from js/ (no same-named symbol; caller getpos.c:62; callees selection_getpoint + newsym_force live).
 - [ ] `cmd.c` levltyp_to_name — C cmd.c:1089–1094 absent from js/ (no same-named symbol; callers mon.c:226, nhlua.c:551).
 - [ ] `hacklib.c` digit — C hacklib.c:62–65 absent from js/ (no same-named symbol; 25 call sites botl.c/cmd.c/coloratt.c/invent.c/objnam.c/options.c/pager.c/read.c/teleport.c/topten.c; `boolean ('0'<=c && c<='9')`).
 - [ ] `hacklib.c` letter — C hacklib.c:69–72 absent from js/ (no same-named symbol; 11 call sites cmd.c/hacklib.c/invent.c/objnam.c/options.c/shknam.c/sounds.c; `@A-Z`+`a-z` incl `@`, excl `[`).
+- [ ] `topten.c` topten_print — C topten.c:165–171 absent from js/ (no same-named symbol; 12 call sites topten.c:730–1106; WIN_ERR→raw_print else putstr ATR_NONE).
+- [ ] `topten.c` topten_print_bold — C topten.c:174–180 absent from js/ (no same-named symbol; callers topten.c:1079,1104; WIN_ERR→raw_print_bold else putstr ATR_BOLD).
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

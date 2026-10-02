@@ -58,9 +58,9 @@
 {"fn":"save_mtraits","c":"2157-2195","status":"unknown"}
 {"fn":"get_mtraits","c":"2201-2222","status":"unknown"}
 {"fn":"mk_tt_object","c":"2227-2248","status":"ported","js":["js/mkobj.js:mk_tt_object"],"d":["D-2915"],"at":"seed@a30a7de84"}
-{"fn":"mk_named_object","c":"2253-2267","status":"unknown"}
+{"fn":"mk_named_object","c":"2253-2267","status":"ported","js":["js/end.js:mk_named_object"],"d":["D-3293"],"at":"2026-10-02@cb217f88d"}
 {"fn":"is_flammable","c":"2270-2286","status":"ported","js":["js/mkobj.js:is_flammable"],"d":["D-2955"],"at":"seed@a30a7de84"}
-{"fn":"is_rottable","c":"2289-2296","status":"unknown"}
+{"fn":"is_rottable","c":"2289-2296","status":"ported","js":["js/mkobj.js:is_rottable"],"d":["D-3293"],"at":"2026-10-02@cb217f88d"}
 {"fn":"place_object","c":"2305-2366","status":"ported","js":["js/mkobj.js:place_object"],"d":["D-2734","D-2732"],"at":"seed@a30a7de84"}
 {"fn":"recreate_pile_at","c":"2371-2389","status":"unknown"}
 {"fn":"obj_ice_effects","c":"2397-2413","status":"ported","js":["js/mkobj.js:obj_ice_effects"],"at":"2026-09-28@fb9c2049c","note":"stale: js/mkobj.js:3563 whole C body in C order; 5/6 C sites wired (mkmaze.c:103 open)"}
@@ -85,14 +85,14 @@
 {"fn":"shop_obj_sanity","c":"3134-3200","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"mon_obj_sanity","c":"3204-3246","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"insane_obj_bits","c":"3249-3274","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
-{"fn":"nomerge_exception","c":"3278-3286","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nomerge_exception","c":"3278-3286","status":"ported","js":["js/mkobj.js:nomerge_exception"],"d":["D-3293"],"at":"2026-10-02@cb217f88d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"where_name","c":"3296-3309","status":"ported","js":["js/mkobj.js:where_name"],"at":"2026-09-30@042bdf039","note":"stale: js/mkobj.js:1919 (D-2520); insane_object :3333/:3336 wired at :1964/:1967; objlist_sanity :3112/:3116 unported per js/mkobj.js:1984"}
 {"fn":"insane_object","c":"3314-3339","status":"partial","js":["js/mkobj.js:insane_object"],"omit":"the 7 unported C caller functions (`obj_sanity_check`, `objlist_sanity`, `shop_obj_sanity`, `mon_obj_sanity`, `insane_obj_bits`, `check_contained`, `sanity_check_worn` — none exists in `js/`; their insane_object call sites wire up when each ships); `fmt_ptr` exported home (`alloc.c` has no `js/allo…","d":["D-2520"],"at":"seed@a30a7de84"}
 {"fn":"init_dummyobj","c":"3347-3370","status":"unknown"}
 {"fn":"check_contained","c":"3374-3416","status":"partial","js":["js/mkobj.js:check_contained"],"omit":"``objlist_sanity`` (mkobj.c:3032) + ``mon_obj_sanity`` (mkobj.c:3204) caller wiring (unported, own rows); ``copynchars`` export (inline port of the one call site; topten clone untouched); ``panic`` (no JS abort — loud throw); ``eos``/``Strcpy`` (string ops, no helper).","d":["D-2654"],"at":"seed@a30a7de84"}
 {"fn":"check_glob","c":"3420-3443","status":"ported","js":["js/mkobj.js:check_glob"],"at":"2026-09-29@d3ab32283","note":"stale: js/mkobj.js:2034 whole C body (:1522/:3399 wired; :3122/:3225 callers objlist_sanity/mon_obj_sanity unported)"}
 {"fn":"sanity_check_worn","c":"3447-3637","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
-{"fn":"obj_nexto","c":"3643-3650","status":"unknown"}
+{"fn":"obj_nexto","c":"3643-3650","status":"ported","js":["js/mkobj.js:obj_nexto"],"d":["D-3293"],"at":"2026-10-02@cb217f88d"}
 {"fn":"obj_nexto_xy","c":"3661-3695","status":"ported","js":["js/mkobj.js:obj_nexto_xy"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"obj_absorb","c":"3702-3754","status":"unknown"}
 {"fn":"obj_meld","c":"3768-3814","status":"ported","js":["js/mkobj.js:obj_meld"],"d":["D-2622"],"at":"seed@a30a7de84"}

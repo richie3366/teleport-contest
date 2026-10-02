@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `monmove.c` vamp_shift — C monmove.c:2377–2394 absent from js/ (no same-named symbol; caller monmove.c:1496; callee newcham live js/makemon.js:2066). **Addressed:** D-3292
+- [x] `stairs.c` stairway_find — C stairs.c:50–61 absent from js/ (no same-named symbol; caller dog.c:536). **Addressed:** D-3293
+- [x] `mkobj.c` nomerge_exception — C mkobj.c:3278–3286 absent from js/ (no same-named symbol; caller mkobj.c:3259 nomerge gate). **Addressed:** D-3293
+
+
+- [x] `monmove.c` vamp_shift — C monmove.c:2377–2394 absent from js/ (no same-named symbol; caller monmove.c:1496; callee newcham live js/makemon.js:2066). **Addressed:** D-3292 `cb217f88d`
 
 
 - [x] `polyself.c` dropp — C polyself.c:1123–1154 absent from js/ (no same-named symbol; 11 call sites polyself.c:1187–1299 in break_armor(); js/polyself.js break_armor calls dropx directly, invent-scan guard absent).

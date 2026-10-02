@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3293 — `mkobj.c` sanity/merge quartet: nomerge_exception port, rottenfood Rotten/Awful, obj_nexto impossible
+
+- **Status:** shipped (Open missing-arm `mkobj.c` nomerge_exception row checked off + archived; queue-head `stairs.c` stairway_find went stale → ledger split, row checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — coverage rows (brief-read evidence, no `blocks N`). C `nomerge_exception` had no JS symbol; `rottenfood` hardcoded "Rotten" where C gates on `is_rottable` (eat.c:1816); `obj_nexto` skipped the null-arm `impossible` report (mkobj.c:3645); `mk_named_object` verified complete with both callers wired (no edit).
+- **C locus:**
+  - `nomerge_exception`: nethack-c/upstream/src/mkobj.c:3278–3286 whole body (C staticfn) — `is_mines_prize(obj) || is_soko_prize(obj)` → TRUE else FALSE. Single C caller insane_obj_bits :3259 (by-design debug path).
+  - `is_rottable`: nethack-c/upstream/src/mkobj.c:2289–2296 whole body — `(mat <= WOOD && mat != LIQUID) || mat == DRAGON_HIDE`; body already complete in JS, missing caller arm eat.c:1816 (`is_rottable(obj) ? "Rotten" : "Awful"`).
+  - `mk_named_object`: nethack-c/upstream/src/mkobj.c:2253–2267 whole body — CORPSTAT_INIT/CORPSTAT_NONE flags, `mkcorpstat`, `oname` when nm; verified complete as js/end.js:1493 local, no edit.
+  - `obj_nexto`: nethack-c/upstream/src/mkobj.c:3643–3650 whole body — null arm `impossible("obj_nexto: wasn't given an object to check")` + return NULL, else `obj_nexto_xy(otmp, ox, oy, TRUE)`; only the report text was missing.
+- **JS was:** js/mkobj.js — no `nomerge_exception` symbol; `obj_nexto` (:3356) returned null silently; js/eat.js `rottenfood` (:2481) printed hardcoded `'Blecch!  Rotten food!'` with a `// foodword poly deferred` cite.
+- **Fix:** added module-local `function nomerge_exception` (C staticfn; same-file `is_mines_prize`/`is_soko_prize` live, C order, boolean return); `obj_nexto` null arm now `void impossible("obj_nexto: wasn't given an object to check")` (async-in-JS fire-and-forget, merged idiom); `rottenfood` gates `%s` on canonical `is_rottable` import (`imports.mjs --can`: ALREADY — extended the pre-existing mkobj edge); foodword stays 'food' (pre-existing deferral, untouched).
+- **JS:** js/mkobj.js — :2000–2007 `nomerge_exception` + C doc; :3371–3378 `obj_nexto` null arm. js/eat.js — :52 import, :2482 Rotten/Awful gate.
+- **Callers:**
+  - `nomerge_exception`: C's single caller insane_obj_bits :3259 → no JS site (insane_obj_bits ledger by-design: wizard sanity debug path); named omission, not a wire.
+  - `is_rottable`: do_wear.c:3268 → js/do_wear.js:3684 obj_erode_type (C order match); eat.c:1816 → js/eat.js:2482 (this commit); mkobj.c:211 → js/mkobj.js:915; objnam.c:1189 → js/objnam.js:292 via faithful local is_rottable_obj (:238); objnam.c:5277 → js/readobjnam.js:2417; trap.c:216 → js/trap.js:4511; zap.c:1792 → js/zap.js:5287; objclass.h:211 is_damageable macro → js/mkobj.js is_damageable (same 5-term order) + js/objnam.js is_damageable_obj.
+  - `mk_named_object`: bones.c:483 savebones LEAVESTATUE → js/end.js:1747 (savebones lives in end.js); end.c:1313 → js/end.js:1215; local js/end.js:1493 serves both in-file (body: flags + mkcorpstat + `oname(…, 0)` == ONAME_NO_FLAGS; `&& otmp` null-safety only addition).
+  - `obj_nexto`: C's single caller mon.c:725 pudding-merge loop → js/mhitm.js:3295 (same `while (obj)` + meld loop).
+- **Verify:**
+  - `nomerge_exception`: `node scripts/verify.mjs --fn nomerge_exception,is_rottable,mk_named_object,obj_nexto` → hidden note (no session blocked, expected for coverage); reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK.
+  - `is_rottable`: same run → hidden note; smoke spread 24/24 PASS → REACH-OK.
+  - `mk_named_object`: same run → hidden note; smoke spread 24/24 PASS → REACH-OK.
+  - `obj_nexto`: same run → hidden note; smoke spread 24/24 PASS → REACH-OK.
+  - Once: syntax (2 changed files) · rule2 · green 2/2 · strict ×2 · cohort 7/7. VERIFY: PASS. No unit-test harness in-repo (sessions are the maintained suite) — REACH + cohort is the durable evidence.
+- **Named omissions:**
+  - `nomerge_exception`: caller insane_obj_bits unported by design (wizard sanity debug path) — function itself whole, no live JS call site yet.
+  - `is_rottable`: none in-body — whole C body live (foodword poly in rottenfood stays deferred, pre-existing).
+  - `mk_named_object`: none — verify-only, whole C body live in-file for both callers.
+  - `obj_nexto`: none in-body — whole C body live.
+- **Ledger:** nomerge_exception ported; is_rottable ported; mk_named_object ported; obj_nexto ported
+- **Next:** mkobj.c holds no further Open gap (all 56 unknown/absent rows re-checked this iteration: 52 measured ok, these 4 shipped). stairway_find stale split recorded via `ledger.mjs set` (whole C body == js/dog.js:812 arrive_stairway_find, wired at only C caller dog.c:536 → js/dog.js:1051; mklev import would cycle mklev→trap→dog).
+
 ## D-3292 — `monmove.c` vamp_shift whole port + postmov door-dance wiring
 
 - **Status:** shipped (Open missing-arm `monmove.c` vamp_shift row checked off + archived; no review cited, no stamp owed)

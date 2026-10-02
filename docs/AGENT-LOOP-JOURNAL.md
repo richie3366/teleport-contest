@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3293 `mkobj.c` sanity/merge quartet: nomerge_exception port, rottenfood Rotten/Awful, obj_nexto impossible
+
+**C locus:** - `nomerge_exception`: nethack-c/upstream/src/mkobj.c:3278–3286 whole body (C staticfn) — `is_mines_prize(obj) || is_soko_prize(obj)` → TRUE else FALSE. Single C caller insane_obj_bits :3259 (by-design debug path).
+**JS:** js/mkobj.js — :2000–2007 `nomerge_exception` + C doc; :3371–3378 `obj_nexto` null arm. js/eat.js — :52 import, :2482 Rotten/Awful gate.
+**Change:** added module-local `function nomerge_exception` (C staticfn; same-file `is_mines_prize`/`is_soko_prize` live, C order, boolean return); `obj_nexto` null arm now `void impossible("obj_nexto: wasn't given an object to check")` (async-in-JS fire-and-forget, merged idiom); `rottenfood` gates `%s` on canonical `is_rottable` import (`imports.mjs --can`: ALREADY — extended the pre-existing mkobj edge); foodword stays 'food' (pre-existing deferral, untouched).
+**Verify:** - `nomerge_exception`: `node scripts/verify.mjs --fn nomerge_exception,is_rottable,mk_named_object,obj_nexto` → hidden note (no session blocked, expected for coverage); reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK.
+**Named:** - `nomerge_exception`: caller insane_obj_bits unported by design (wizard sanity debug path) — function itself whole, no live JS call site yet.
+**Next:** mkobj.c holds no further Open gap (all 56 unknown/absent rows re-checked this iteration: 52 measured ok, these 4 shipped). stairway_find stale split recorded via `ledger.mjs set` (whole C body == js/dog.js:812 arrive_stairway_find, wired at only C caller dog.c:536 → js/dog.js:1051; mklev import would cycle mklev→trap→dog).
 ## 2026-10-02 — D-3292 `monmove.c` vamp_shift whole port + postmov door-dance wiring
 
 **C locus:** - `vamp_shift`: nethack-c/upstream/src/monmove.c:2377–2394 whole body (C staticfn) — already that shape → 1; else `newcham(mon, ptr, domsg ? NC_SHOW_MSG : NO_NC_FLAGS)` + `display_nhwindow(WIN_MESSAGE, FALSE)` flush. Single C caller postmov :1496, inside the :1486–1506 gate (vampshifter && !amorphous && closed/locked door && can_fog; seenflgs move-back/forth dance); seenflgs computed pre-move in m_move :1756–1757.
