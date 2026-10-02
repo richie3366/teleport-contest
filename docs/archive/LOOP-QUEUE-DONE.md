@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `getpos.c` getpos_getvalids_selection — C getpos.c:102–115 absent from js/ (no same-named symbol; callers getpos.c:53,56).
+- [x] `selvar.c` selection_force_newsyms — C selvar.c:802–810 absent from js/ (no same-named symbol; caller getpos.c:62; callees selection_getpoint + newsym_force live).
+
+
 - [x] `rnd.c` whichrng — C rnd.c:32–40 absent from js/ (no same-named symbol; caller rnd.c:47 rng-provenance index).
 
 

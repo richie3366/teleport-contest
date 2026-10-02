@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3295 `getpos.c`/`selvar.c` sethilite gather pair: getpos_getvalids_selection + selection_force_newsyms port, sethilite restart
+
+**C locus:** - `getpos_getvalids_selection`: nethack-c/upstream/src/getpos.c:102–115 whole body (C staticfn) — null-guard `:108–109`, then `selection_setpoint(x, y, sel, 1)` every sel-scoped cell where validf is true (`:111–114`; x from 1, y from 0). C callers getpos.c:53 (old valids) + :56 (new valids), both in getpos_sethilite.
+**JS:** - `getpos_getvalids_selection`: `js/getpos.js:103` (module-local, C staticfn).
+**Change:** - `getpos_getvalids_selection`: module-local `function getpos_getvalids_selection(sel, validf)` in C order (guard + sel.wid/sel.hei scans + `selection_setpoint`); live `selection_setpoint` import (mklev.js:30157), no clone.
+**Verify:** `node scripts/verify.mjs --fn getpos_getvalids_selection,selection_force_newsyms` tail pasted verbatim:
+**Named:** - `getpos_getvalids_selection`: none in-body — whole C body live (`typeof validf` guard is the JS null-vs-undefined idiom for C `!validf`).
+**Next:** head is now `cmd.c` levltyp_to_name (missing-arm row); queue refilled per-row-evidence below.
 ## 2026-10-02 — Audit 2247–2255: review D-3286–D-3294 (9 ACCEPT) + full score
 
 **Scope:** d8fa56ce0…6f1e33d59 (9 js/ SHAs since 2246), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.

@@ -1,5 +1,47 @@
 # Divergence log
 
+## D-3295 — `getpos.c`/`selvar.c` sethilite gather pair: getpos_getvalids_selection + selection_force_newsyms port, sethilite restart
+
+- **Status:** shipped (Open missing-arm rows 1+2 checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — coverage rows (brief-read evidence, no `blocks N`). C `getpos_getvalids_selection` + `selection_force_newsyms` had no JS symbol; JS `getpos_sethilite` emulated the C gather-old∪new-then-newsym flow with a local `force_getvalid_newsyms` clone (`sym.mjs`: "Do NOT write clone #2" — clone drift, no C counterpart).
+- **C locus:**
+  - `getpos_getvalids_selection`: nethack-c/upstream/src/getpos.c:102–115 whole body (C staticfn) — null-guard `:108–109`, then `selection_setpoint(x, y, sel, 1)` every sel-scoped cell where validf is true (`:111–114`; x from 1, y from 0). C callers getpos.c:53 (old valids) + :56 (new valids), both in getpos_sethilite.
+  - `selection_force_newsyms`: nethack-c/upstream/src/selvar.c:802–810 whole body (C extern, NONNULLARG1 — no guard) — `newsym_force(x, y)` every set cell of the sel-scoped rect (`:806–809`). Sole C caller getpos.c:62.
+- **JS was:** `js/getpos.js:96` local `force_getvalid_newsyms(validf)` looped `COLNO×ROWNO` calling `newsym_force` directly, invoked twice from `getpos_sethilite`; no `selection_new`/`selection_free`, no gather selvar.
+- **Fix:**
+  - `getpos_getvalids_selection`: module-local `function getpos_getvalids_selection(sel, validf)` in C order (guard + sel.wid/sel.hei scans + `selection_setpoint`); live `selection_setpoint` import (mklev.js:30157), no clone.
+  - `selection_force_newsyms`: `export function selection_force_newsyms(sel)` in `js/mklev.js` beside the other selvar ports, in C order (`selection_getpoint` + `newsym_force`; `newsym_force` added to the existing display.js import — no new edge).
+  - `getpos_sethilite` restarted to C `:41–64` order: capture old + `selection_new()` → default-state reset → gather OLD (`:53`) → install hilitefunc/getvalid → gather NEW (`:56`) → frame-color store → single `selection_force_newsyms` when getvalid/color changed → `selection_free(sel, TRUE)`; `force_getvalid_newsyms` deleted (sole caller was sethilite; `imports.mjs --can getpos.js mklev.js`: SAFE, hoisted-function edge).
+- **JS:**
+  - `getpos_getvalids_selection`: `js/getpos.js:103` (module-local, C staticfn).
+  - `selection_force_newsyms`: `js/mklev.js:30179` (exported, C extern).
+- **Callers:**
+  - `getpos_getvalids_selection`: getpos.c:53 → `js/getpos.js:185` (old_getvalid, pre-install like C); getpos.c:56 → `js/getpos.js:189` (new). Other `getpos_sethilite` callers unchanged (`js/getpos.js:138,156,1420,1431,1667`).
+  - `selection_force_newsyms`: getpos.c:62 → `js/getpos.js:201` inside the `:60–61` changed-guard.
+- **Verify:** `node scripts/verify.mjs --fn getpos_getvalids_selection,selection_force_newsyms` tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/getpos.js js/mklev.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify getpos_getvalids_selection: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    getpos_getvalids_selection: no RNG-tagged reach; fixed smoke spread (24 run, 10.9s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify selection_force_newsyms: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    selection_force_newsyms: no RNG-tagged reach; fixed smoke spread (24 run, 10.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `getpos_getvalids_selection`: none in-body — whole C body live (`typeof validf` guard is the JS null-vs-undefined idiom for C `!validf`).
+  - `selection_force_newsyms`: none in-body — whole C body live (no NULL guard, per C NONNULLARG1).
+- **Ledger:** getpos_getvalids_selection ported; selection_force_newsyms ported
+- **Next:** head is now `cmd.c` levltyp_to_name (missing-arm row); queue refilled per-row-evidence below.
+
 ## D-3294 — `rnd.c` whichrng fn-dispatch port + file exhaustion (init_random split, 3 stale)
 
 - **Status:** shipped (Open missing-arm `rnd.c` whichrng row checked off + archived; no review cited, no stamp owed)

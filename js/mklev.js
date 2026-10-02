@@ -155,7 +155,7 @@ import {
     clear_heros_fault,
 } from './region.js';
 import {
-    Norep, newsym, impossible, pline, You, flush_screen, nh_delay_output, monsym,
+    Norep, newsym, newsym_force, impossible, pline, You, flush_screen, nh_delay_output, monsym,
     describe_level, cliparound, map_location, see_nearby_objects, Hallucination,
     glyph_is_cmap, glyph_to_cmap, back_to_glyph, terrain_glyph, remember_shown_glyph,
 } from './display.js';
@@ -30169,6 +30169,18 @@ export function selection_setpoint(x, y, sel, c) {
     } else {
         sel.bounds_dirty = true; // C `:203-204`
         sel.pts.delete(key); // C `:207` map = c + 1
+    }
+}
+
+// C ref: selvar.c selection_force_newsyms `:801-810` — whole body in C
+// order: newsym_force every set cell of the sel-scoped rect (x from 1,
+// y from 0, like C; no NULL guard — C marks it NONNULLARG1). Sole C
+// caller is getpos_sethilite (getpos.c:62), wired via getpos.js.
+export function selection_force_newsyms(sel) {
+    for (let x = 1; x < sel.wid; x++) { // C `:806`
+        for (let y = 0; y < sel.hei; y++) { // C `:807`
+            if (selection_getpoint(x, y, sel)) newsym_force(x, y); // C `:808-809`
+        }
     }
 }
 

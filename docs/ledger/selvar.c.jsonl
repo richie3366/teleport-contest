@@ -23,4 +23,4 @@
 {"fn":"selection_is_irregular","c":"747-760","status":"split","js":["js/cmd.js:look_sel_is_irregular"],"at":"2026-09-29@671c54bfc","note":"stale: js/cmd.js:3882; sole caller selection_size_description wired; review 179"}
 {"fn":"selection_size_description","c":"764-778","status":"split","js":["js/cmd.js:look_sel_size_description"],"at":"2026-09-29@671c54bfc","note":"stale: js/cmd.js:3894; callers wired cmd.js:3924,3927; review 179 Match"}
 {"fn":"selection_from_mkroom","c":"781-799","status":"unknown"}
-{"fn":"selection_force_newsyms","c":"802-810","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"selection_force_newsyms","c":"802-810","status":"ported","js":["js/mklev.js:selection_force_newsyms"],"d":["D-3295"],"at":"2026-10-02@e6a9a85cf","note":"refresh: no JS symbol (measured MISSING)"}
