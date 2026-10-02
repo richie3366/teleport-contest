@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3273 — `mon.c` relmon canonical export + replmon light/set_ustuck/replshk arms + `shk.c` replshk
+
+- **Status:** shipped (Open corpus-residual rows `mon.c` relmon + `mon.c` replmon checked off; no review cited, no stamp owed)
+- **Symptom:** queue rows: (1) C mon.c:2559–2594 `relmon()` had no canonical export in js/mon.js (C home) — only the js/dog.js local clone (callers dog.c:618/863/906 + mon.c:2531); (2) C mon.c:2538–2543 emits_light new/del_light_source swap absent from js/mon.js:replmon (whose doc also named set_ustuck botl + replshk bill). No corpus session blocked on any of the three (coverage rows; REACH-OK is the evidence).
+- **C locus:**
+  - `relmon`: nethack-c/upstream/src/mon.c:2561–2594 whole body — fmon-empty panic, mon_leaving_level take-off-map, fmon unlink (head :2572–2573 / scan :2577–2581 / absent panic :2583), prepend onto target list :2588–2589 or orphan :2592. 4 call sites: dog.c:618 mon_arrive failed_arrivals, dog.c:863 keepdogs follower, dog.c:906 migrate_to_level, mon.c:2531 replmon.
+  - `replmon`: nethack-c/upstream/src/mon.c:2515–2556 whole body; this iter ports :2538–2543 light swap, :2546–2547 set_ustuck call, :2550–2551 replshk call (minvent/polearm/relmon-inline/place_monster/place_wsegs/fmon/usteed/dealloc live since D-2299/D-2300). C caller zap.c:819.
+  - `replshk`: nethack-c/upstream/src/shk.c:280–286 whole body — rooms[shoproom-ROOMOFFSET].resident = mtmp2; hero's-first-shop-is-mtmp's-shop bill_p restart. C caller mon.c:2551 (zap.c:810 copies eshk mtmp2→mtmp first).
+- **JS was:** local `async function relmon` in js/dog.js (D-3049; only caller mon_arrive :1166); js/mon.js replmon jumped place_wsegs→fmon prepend with a direct `u.ustuck` assignment and a "replshk deferred" comment; no `replshk` anywhere in js/.
+- **Fix:** js/mon.js — canonical `export async function relmon` (same body, C-cited doc naming all 4 C callers); replmon gains the :2538–2543 light swap (live emits_light/new_light_source/del_light_source/monst_to_any, all sync), `set_ustuck(mtmp2)` (live, sets botl), `replshk(mtmp, mtmp2)` (new). Imports extend pre-existing light/hack/shk/const edges; one new mhitu edge (`imports.mjs --can`: VERDICT SAFE — hoisted fn, same 102-module SCC, call-time use). js/shk.js — new `export function replshk` (C home; set_residency rooms pattern + ushops0 charCodeAt pattern from :6033). js/dog.js — clone deleted, `relmon` added to the pre-existing mon.js import edge (mon_leaving_level dropped — sole use was the clone), keepdogs doc corrected (follower arm still inline by measured regression, not by missing relmon).
+- **JS:** js/mon.js:3681 (relmon export); js/mon.js:3721 replmon (:3753–3760 light swap, :3766 set_ustuck, :3770 replshk); js/shk.js:358 (replshk export); caller js/dog.js:1133.
+- **Callers:**
+  - `relmon`: C dog.c:618 → js/dog.js:1133 (mon_arrive failed_to_place, awaited); C dog.c:863 + C dog.c:906 + C mon.c:2531 → Named omissions (inline, measured).
+  - `replmon`: C zap.c:819 → js/zap.js:3073 (sync call kept; newsym + restore_cham follow as before).
+  - `replshk`: C mon.c:2551 → js/mon.js:3770 (isshk arm).
+- **Verify:** `node scripts/verify.mjs --fn relmon,replmon,replshk` → VERIFY: PASS — syntax 3 files · rule2 · hidden notes (no corpus session blocked on any) · reach ×3: no RNG-tagged reach, smoke spreads 24/24 PASS each → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (no shared-file change per script) + manual `frozen/ps_test_runner.mjs sessions` 44/44 PASS (speed 332+1.61/turn, R² 0.764). No maintained unit harness exists (no tests/ dir); corpus REACH + full suite are the durable checks.
+- **Named omissions:**
+  - `relmon`: none in-body — whole C body live. Unwired C callers: dog.c:863 keepdogs follower arm (inline fmon splice; awaiting regressed 6 REACH + public RNG — ships as its own row once measured); dog.c:906 migrate_to_level (js/teleport.js inline); mon.c:2531 replmon (sync; inline splice without panics/take-off-map).
+  - `replmon`: :2530 relmon(mtmp, NULL) stays an inline fmon splice — this stays sync like C, so the async mon_leaving_level take-off-map and both C panics are not run here.
+  - `replshk`: none in-body — whole C body live (bounds/`!eshk` guards are JS-array defensive).
+- **Ledger:** relmon ported; replmon partial; replshk ported
+- **Next:** mon.c holds no more Open rows (relmon/replmon were the only two); replmon partial closes when the :2530 inline is wired (needs async conversion + fortress measurement — own row). Queue head moves to `priest.c` priestname.
+
 ## D-3272 — `makemon.c` mbirth_limit canonical export (clone consolidation)
 
 - **Status:** shipped (Open corpus-residual row `makemon.c mbirth_limit` checked off; no review cited, no stamp owed)

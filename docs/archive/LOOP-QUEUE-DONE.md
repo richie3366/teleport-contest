@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `makemon.c` mbirth_limit — C makemon.c:1541–1551 `mbirth_limit(int mndx)` canonical export absent from js/makemon.js (2 local clones js/dog.js:165 + js/makemon.js:1568; C callers dog.c:117/makemon.c:961/mon.c:5298; brief-verified) @a2542cfc9 **Addressed:** D-3272
+- [x] `mon.c` relmon — C mon.c:2559–2594 `relmon()` fmon-list surgery canonical export absent from js/mon.js (C home; only clone js/dog.js:751; callers dog.c:618/863/906; brief-verified) @a2542cfc9 **Addressed:** D-3273
+- [x] `mon.c` replmon — C mon.c:2538–2543 emits_light new_light_source/del_light_source swap absent from js/mon.js:replmon (:3672–3716 jumps place_wsegs→fmon prepend; doc-named; D-3246 ruled out as trap-Wizard cause — port, not diagnosis) @4f422de21 **Addressed:** D-3273
+
+
+- [x] `makemon.c` mbirth_limit — C makemon.c:1541–1551 `mbirth_limit(int mndx)` canonical export absent from js/makemon.js (2 local clones js/dog.js:165 + js/makemon.js:1568; C callers dog.c:117/makemon.c:961/mon.c:5298; brief-verified) @a2542cfc9 **Addressed:** D-3272 `b7d842138`
 
 
 - [x] `zap.c` exclam — C zap.c:3546–3553 `exclam(int force)` canonical export absent from js/zap.js (C home; 3 local clones js/mthrowu.js:286, js/uhitm.js:441, js/zap.js:1541; C callers in 5 files incl muse.c/spell.c with no JS clone; brief-verified) @a2542cfc9 **Addressed:** D-3271 `675a0c998`

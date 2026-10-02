@@ -3,7 +3,7 @@
 {"fn":"next_shkp","c":"215-231","status":"unknown"}
 {"fn":"shkgone","c":"235-269","status":"unknown","d":["D-2272"],"at":"seed@a30a7de84"}
 {"fn":"set_residency","c":"272-277","status":"unknown"}
-{"fn":"replshk","c":"280-286","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"replshk","c":"280-286","status":"ported","js":["js/shk.js:replshk"],"d":["D-3273"],"at":"2026-10-02@b7d842138","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"restshk","c":"290-305","status":"ported","js":["js/shk.js:restshk"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"clear_unpaid_obj","c":"309-315","status":"unknown"}
 {"fn":"clear_unpaid","c":"319-325","status":"unknown"}

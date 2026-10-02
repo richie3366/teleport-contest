@@ -40,7 +40,7 @@ import { christen_monst, Monnam, mon_pmname, s_suffix } from './do_name.js';
 import {
     monnear, m_at, see_monster_closeup, minliquid, restore_cham,
     wake_nearto, discard_minvent, mdrop_special_objs,
-    mon_leaving_level, m_into_limbo, healmon, dealloc_monst, mnexto,
+    m_into_limbo, healmon, dealloc_monst, mnexto, relmon,
 } from './mon.js';
 import { mon_offmap } from './monmove.js';
 import {
@@ -439,9 +439,11 @@ export function mon_leave(mtmp) {
  * `mon_leave` (`:725–763`) is live above (minvent `no_charge` /
  * `picked_container` loop, shk `set_residency`, worm-seg count riding in
  * `wormno`).
- * Named omissions: `relmon` `mon.c:2561` itself, so the follower arm
- * splices `fmon` inline and never runs `mon_leaving_level`'s
- * take-off-map (`remove_monster` / `seemimic` / `fill_pit` / `newsym`).
+ * Named omissions: the follower arm still splices `fmon` inline
+ * instead of awaiting the live `relmon` (js/mon.js) — wiring it
+ * regressed 6 REACH sessions + a public-session RNG shift, so
+ * `mon_leaving_level`'s take-off-map (`remove_monster` / `seemimic` /
+ * `fill_pit` / `newsym`) stays unwired here.
  * @param {boolean} pets_only true for ascension or final escape
  */
 export async function keepdogs(pets_only = false) {
@@ -728,44 +730,9 @@ const Wiz_arrive = -1;
    part of struct 'g'`; losedogs() zeroes it on entry. */
 let failed_arrivals = [];
 
-/**
- * C ref: mon.c relmon `:2561–2594` — release mon from the display and
- * the map's monster list, maybe onto mydogs/migrating_mons (or the
- * mon_arrive failed_arrivals list), else orphan it. C order: panic
- * when fmon is empty, mon_leaving_level take-off-map, unlink from
- * fmon (head or scan; panic when absent), then prepend onto the target
- * list with the nmon link, or orphan nmon. JS level lists are arrays:
- * unlink by identity, prepend by unshift; C panics stay impossible
- * (fire-and-forget, execution continues). The `!mon` guard is
- * defensive (C declares NONNULLARG1; every call site passes live mtmp).
- */
-async function relmon(mon, list) {
-    if (!mon) return;
-    // C :2565–2566 — no fmon at all.
-    if (!(game.fmon || []).length) {
-        await impossible('relmon: no fmon available.');
-    }
-    // C :2569 — take 'mon' off the map.
-    await mon_leaving_level(mon);
-    // C :2571–2584 — remove 'mon' from the 'fmon' list (C splits the
-    // head case :2572–2573 from the scan :2577–2581; one indexOf covers
-    // both; :2583 absent → panic).
-    const fmon = game.fmon || [];
-    const i = fmon.indexOf(mon);
-    if (i < 0) {
-        await impossible('relmon: mon not in list.');
-    } else {
-        fmon.splice(i, 1);
-    }
-    // C :2586–2593 — insert into the target list (:2588–2589
-    // `mon->nmon = *monst_list`) or orphan (:2592 `mon->nmon = 0`).
-    if (list) {
-        mon.nmon = list[0] || null;
-        list.unshift(mon);
-    } else {
-        mon.nmon = null;
-    }
-}
+/* C ref: mon.c relmon — canonical `export async function relmon` now
+ * lives in js/mon.js (C home); this file's local clone is retired and
+ * the mon_arrive failed_arrivals caller below awaits that export. */
 
 /** C ref: stairs.c stairway_find_dir — first stairway with matching up.
  * Local mirror of the mklev.js clone (dog cannot import mklev:
