@@ -5059,6 +5059,11 @@ function mongone_nonlocal(mtmp) {
     const fmon = game.fmon || [];
     const i = fmon.indexOf(mtmp);
     if (i >= 0) fmon.splice(i, 1);
+    // Leaving fmon leaves the grid (C level.monsters⟺fmon invariant;
+    // the cell would otherwise read back as a phantom occupant via
+    // m_at once movers grid-place). Full mongone still deferred.
+    if (game._level_monsters?.get(`${mtmp.mx},${mtmp.my}`) === mtmp)
+        game._level_monsters.delete(`${mtmp.mx},${mtmp.my}`);
     const eshk = ESHK(mtmp);
     if (eshk) {
         const room = game.level?.rooms?.[((eshk.shoproom | 0) - ROOMOFFSET)];

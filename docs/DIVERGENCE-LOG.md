@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3278 — `makemon` grid place (`makemon.c:1295`) + m_move/dog_move parity + bones/shk leak fixes
+
+- **Status:** shipped (Open corpus-residual `makemon.c` makemon row checked off; no review cited, no stamp owed)
+- **Symptom:** `js/makemon.js:makemon` deferred the C `:1295` `place_monster(mtmp, x, y)` grid birth-cell write (comment only, "movement parity first"). Wiring it exposed two grid leaks as a fortress regression: `seed0030` step 1827 `rn2(28)` vs `rn2(24)` at the m_move track check (same site, `cnt-j` 7 vs 6) + 4 corpus mutants + public full 43/44. Ghost census at the divergence: 5 alive grid entries (mndx 12/59/70/lichen/gecko) on no list (`fmon`/`mydogs`/`migrating_mons`), coords matching their cells — the detached level's grid surviving under a bones `fmon`.
+- **C locus:**
+  - `makemon`: `makemon.c:1295` `place_monster(mtmp, x, y)` before mcansee (steed.c :897–932 sets mx/my + grid + `mstate = MON_FLOOR`).
+  - `m_move`: `monmove.c:2051–2052` `remove_monster(omx,omy)` + `place_monster(nix,niy)` after `m_postmove_effect`, before `msg_mon_movement` (rm.h `:526–534` remove is grid-only).
+  - `dog_move`: `dogmove.c:1296–1297` (newdogpos, after `wasseen`) and `:1351–1352` (leash kludge, at current mx/my, before newsym/set_apparxy).
+  - `getlev_bones`: `restore.c` ghostly getlev `:1177–1179` memset occupancy + place each restored mon.
+  - `mongone_nonlocal`: C `level.monsters⟺fmon` invariant on live fmon removal.
+- **JS was:** deferred comment (`js/makemon.js:3475–3482`); mx/my-only moves (`js/monmove.js:2359–2360`, `js/dogmove.js:1598–1599`, `:1652–1653`); `js/bones.js` had zero grid ops (`getlev_bones` installed bones fmon over the detached grid); `mongone_nonlocal` spliced live shk off fmon without grid clear.
+- **Fix:** `place_monster(mtmp, x, y)` in `makemon` at C position (import pre-existed); the three move sites clear only their own grid cell (`get(...) === mtmp` guard — C rm.h remove is grid-only; the OFFMAP fmon mark in `steed.js remove_monster` is gulpmm-only and must not stick on a stacked non-mover mid-move) then `place_monster` in C order; `getlev_bones` resets the grid after fmon install and places each restored mon after `rest_worm` (seg cells stay `rest_worm`'s output); `mongone_nonlocal` clears its cell on splice. New `monmove.js → steed.js` edge is IN-SCC, hoisted, cycle-safe (`imports.mjs --can`); `dogmove`/`makemon` reused pre-existing edges; `bones.js → steed.js` likewise IN-SCC cycle-safe.
+- **JS:** `js/makemon.js:3478` (place call); `js/monmove.js:76` (import), `:2358` (m_move site); `js/dogmove.js:65` (import), `:1594` + `:1655` (sites); `js/bones.js:42` (import), `:662` (memset), `:671` (place loop); `js/shk.js:5062` (clear).
+- **Callers:** in-body at all five sites; no caller rewiring. `makemon`'s 100+ existing JS callers unaffected (full-44 + makemon REACH-OK); m_move/dog_move dispatch, bones loader, shk inherits paths unchanged.
+- **Verify:** `node scripts/verify.mjs --fn makemon,m_move,dog_move` tail: `hidden makemon: 0 PASS, 0 moved past, 3 unchanged, 0 worse → NO MOVEMENT` (symptom blocks, see below) + `reach makemon: 80 PASS → REACH-OK` (701 reach it); `hidden m_move: 2 PASS, 0 moved past, 3 unchanged, 0 worse → PROGRESS` (the 2 PASS are the seed0030 mutants this iteration regressed-then-fixed) + `reach m_move: 80 PASS → REACH-OK` (627); `hidden dog_move: 0/0/3/0 → NO MOVEMENT` + `reach dog_move: 80 PASS → REACH-OK` (482); `green 2/2`, `strict` ×2, `cohort 7/7`, `full 44/44`, syntax + Rule #2 clean. Zero WORSE/REGRESSION anywhere. The 6 stuck blocks are pre-existing flow/visibility symptoms outside this row's grid domain, unmoved by design, each with same-step evidence: makemon's 3 = container use-prompt timing (JS at "What do you want to use or apply?" while C shows the appear message — display-flow turns draw display-RNG only, so core RNG matches while toplines differ) + pet-Healer s26 silent birth (JS drew the birth identically — genesis path wired incl. MM_NOEXCLAM + appear call — but judged it unseen); dog_move's 3 = engulf/ride/trap flows with identical-or-empty toplines; m_move's 3 = sokoban/descent screen rows. Fixing any of them is an off-cluster C file (apply/read/teleport/vision/sokoban) — Phase 2, correctly not opened.
+- **Named omissions:**
+  - `makemon`: ptr-arm G_GENOD veto + wizard-extinct debugpline (`:1204–1212`); `iflags.debug_mongen` gate; `isok` impossible gate; `discard_minvent` else-arm (dead code for fresh mons); D_DEBUG debugplines; `m_dowear` un-awaited async (D-1648 shape); S_BAT `mon_adjust_speed` inline (async in JS); newegd/neweshk/newemin/newepri/newedog order (draw-free, single-flag callers).
+  - `m_move`: dochug vampshifter door dance (`monmove.c:1489–1503`, different function, untouched).
+  - `dog_move`: none beyond the shipped sites (leash/region/kludge order kept).
+  - `getlev_bones`: residency/hideunder/steed-remap stay as this path handles them (pre-existing gaps, see rest_rooms note).
+  - `mongone_nonlocal`: full mongone still deferred (pre-existing).
+  - keepdogs `relmon` + migrate_to_level `relmon` full wiring stay their Open rows (this iteration wires only the grid arm the parity requires; both zero mx/my so their pre-existing leak reads stale-harmless).
+- **Ledger:** makemon partial
+- **Next:** (see LOOP-QUEUE)
+
 ## D-3277 — `do.c` goto_level: Gehennom amulet mysteryforce arm + W-tower rndspot bit 2
 
 - **Status:** shipped (two Open corpus-residual rows `do.c` goto_level checked off — the mysteryforce row is the head, the bit-2 row its same-C-file companion; `ledger.mjs rows` = 0 globally so no further companions exist; no review cited, no stamp owed)

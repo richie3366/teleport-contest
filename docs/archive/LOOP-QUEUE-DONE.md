@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `do.c` goto_level — C do.c:1541–1570 Gehennom amulet mysteryforce arm (rn2 gate, assign_rnd_level, W-tower diff=0, pline, mysteryforce increment, same-level safe_teleds/next_to_u return) absent from js/do.js:goto_level (:1675 named; blocks same-level safe_teleds per D-2815 omit) @4f422de21 **Addressed:** D-3277
-- [x] `do.c` goto_level — C do.c:1804 `u_on_rndspot((up?1:0)|(was_in_W_tower?2:0))` W-tower bit 2 absent from js/do.js:goto_level (:2112 passes `up?1:0` only; named D-1179; callee js/mklev.js:u_on_rndspot already decodes bit 2; adjacent ballfall/selftouch live — D-3261 omit text stale on ballfall) @4f422de21 **Addressed:** D-3277
+- [x] `makemon.c` makemon — C makemon.c:1295 `place_monster(mtmp, x, y)` grid-place call absent from js/makemon.js:makemon (:3475–3482 deferred comment only; callee live js/steed.js; C+JS-read; warn: naive grid write regresses per comment — movement parity first) @675a0c998 **Addressed:** D-3278
+
+
+- [x] `do.c` goto_level — C do.c:1541–1570 Gehennom amulet mysteryforce arm (rn2 gate, assign_rnd_level, W-tower diff=0, pline, mysteryforce increment, same-level safe_teleds/next_to_u return) absent from js/do.js:goto_level (:1675 named; blocks same-level safe_teleds per D-2815 omit) @4f422de21 **Addressed:** D-3277 `e14cd5d30`
+- [x] `do.c` goto_level — C do.c:1804 `u_on_rndspot((up?1:0)|(was_in_W_tower?2:0))` W-tower bit 2 absent from js/do.js:goto_level (:2112 passes `up?1:0` only; named D-1179; callee js/mklev.js:u_on_rndspot already decodes bit 2; adjacent ballfall/selftouch live — D-3261 omit text stale on ballfall) @4f422de21 **Addressed:** D-3277 `e14cd5d30`
 
 
 - [x] `end.c` container_contents — C end.c:1609 update_inventory() after cknown absent from js/pickup.js:container_contents single-box clone (:2532 sets cknown :2534 with no call; doc :2528 stale "deferred like js/end.js" — end.js has it since D-3260; D-3260 named the drift) @4f422de21 **Addressed:** D-3276 `715abdc4c`

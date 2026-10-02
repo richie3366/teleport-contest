@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `makemon.c` makemon — C makemon.c:1295 `place_monster(mtmp, x, y)` grid-place call absent from js/makemon.js:makemon (:3475–3482 deferred comment only; callee live js/steed.js; C+JS-read; warn: naive grid write regresses per comment — movement parity first) @675a0c998
 - [ ] `dog.c` keepdogs — C dog.c:862–863 `relmon(mtmp, &gm.mydogs)` call absent from js/dog.js:keepdogs follower arm (:522–537 inline fmon splice + unshift; doc :525–529 names take-off-map; naive await regressed 6 REACH + public RNG — needs measured delta, C+JS-read) @b7d842138
 - [ ] `dog.c` migrate_to_level — C dog.c:906 `relmon(mtmp, &gm.migrating_mons)` call absent from js/teleport.js:migrate_to_level (:2887–2894 inline fmon splice + unshift; doc :2871–2876 names take-off-map, sync caller; C+JS-read) @b7d842138
 - [ ] `priest.c` p_coaligned — C priest.c:372 `mon_aligntyp(priest)` call absent from js/priest.js:p_coaligned (:273 raw-shralign compare, no sign normalization) + same-logic duplicate js/mklev.js:28518; canonical mon_aligntyp live js/priest.js:155; brief-verified @faf4b9296

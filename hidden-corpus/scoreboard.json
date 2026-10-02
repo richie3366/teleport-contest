@@ -1,6 +1,6 @@
 {
- "commit": "a6213509c",
- "at": "2026-10-02T10:31:31.943Z",
+ "commit": "e14cd5d30",
+ "at": "2026-10-02T11:16:36.189Z",
  "full": false,
  "fullCommit": "715abdc4c",
  "fullAt": "2026-10-02T10:19:04.253Z",
@@ -5391,7 +5391,7 @@
    "steps": 113,
    "owner": "m_move",
    "loc": "monmove.c:1963",
-   "jsOwner": "m_move(monmove.js:2264)",
+   "jsOwner": "m_move(monmove.js:2265)",
    "cTopline": "A boulder blocks your path.",
    "jsTopline": "staircase down",
    "error": null
@@ -11936,7 +11936,7 @@
    "steps": 97,
    "owner": "m_move",
    "loc": "monmove.c:2064",
-   "jsOwner": "distfleeck(monmove.js:1140)",
+   "jsOwner": "distfleeck(monmove.js:1141)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -12106,7 +12106,7 @@
    "steps": 208,
    "owner": "m_move",
    "loc": "monmove.c:2064",
-   "jsOwner": "distfleeck(monmove.js:1140)",
+   "jsOwner": "distfleeck(monmove.js:1141)",
    "cTopline": "The wall glows then fades. You hear a door open.",
    "jsTopline": "The wall glows then fades. You hear a door open.",
    "error": null

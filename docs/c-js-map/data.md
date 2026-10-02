@@ -816,8 +816,9 @@ live `js/steed.js`; `_level_monsters` + `MON_FLOOR`; gulpmm clone retired;
 `level_mon_at` ignores stale mx/my; `cutworm` via live `clone_mon`;
 **D-2299** `replmon` place arm live (`mon.c:2533–2535` + relmon grid clear +
 inventory check) + `makemon` birth flags live (`:1296–1301` mcansee/mcanmove/
-mgenmklev/seen/MM_MINVIS); `makemon` grid `place_monster(mtmp,x,y)` deferred
-(movement stale-heads; own Open row); `place_wsegs` replmon stays next row); **D-1252 `demonpet` caller** (`uhitm.c`; 
+mgenmklev/seen/MM_MINVIS); `makemon` grid `place_monster(mtmp,x,y)` live
+(**D-3278** + m_move/dog_move remove+place parity, bones getlev memset/place,
+mongone_nonlocal clear); `place_wsegs` replmon stays next row); **D-1252 `demonpet` caller** (`uhitm.c`; 
 live `makemon` NO_MM_FLAGS + `tamedog` null FALSE);
 **D-1607 `mongets` demon/lminion/mplayer-sword/invocation** (`:2189–2214` after
 `mksobj`; `is_mplayer&&is_sword` `spe=3+rn2(4)`; callees `curse` /
