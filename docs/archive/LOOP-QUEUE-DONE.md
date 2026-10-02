@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa **Addressed:** D-3253
+- [x] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828 **Addressed:** D-3254
+
+
+- [x] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa **Addressed:** D-3253 `e4afe5879`
 
 
 - [x] `do.c` doup — C do.c:1301 set_move_cmd + :1303–1304 u_rooted + :1318–1320 stucksteed + :1326–1331 near_capacity load gate absent from js/do.js:doup (:3437; doc "Omits: rooted, stucksteed, encumbrance load gate") @b3c50cbeb **Addressed:** D-3252 `495619f68`

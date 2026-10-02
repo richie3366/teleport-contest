@@ -6,7 +6,7 @@
 {"fn":"canseemon","c":"201-204","status":"unknown"}
 {"fn":"knowninvisible","c":"208-211","status":"unknown"}
 {"fn":"is_safemon","c":"215-218","status":"unknown"}
-{"fn":"magic_map_background","c":"233-258","status":"unknown"}
+{"fn":"magic_map_background","c":"233-258","status":"ported","js":["js/display.js:magic_map_background"],"d":["D-3254"],"at":"2026-10-02@e4afe5879"}
 {"fn":"map_background","c":"279-287","status":"unknown"}
 {"fn":"map_trap","c":"296-305","status":"unknown"}
 {"fn":"map_engraving","c":"313-322","status":"unknown"}
