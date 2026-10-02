@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `steal.c` relobj — C steal.c:883–890 vault-guard gold arm (findgold + vanish pline + obj_extract_self/obfree) absent from js/dogmove.js:relobj (:937 doc "vault-guard gold omitted"; brief-verified; D-2407 measured relobj as obj_resists writer — sibling flooreffects gap is the parked mdrop_obj row, not this one) @9cdc961f3 **Addressed:** D-3284
-- [x] `do.c` goto_level — C do.c:1501–1502 newlevel dlevel clamp (`dunlev(newlevel) > dunlevs_in_dungeon(newlevel)` → clamp) absent from js/do.js:goto_level (entry :1642 goes straight to tutorial/newdungeon; C+JS-read) @a6213509c **Addressed:** D-3284
-- [x] `do.c` goto_level — C do.c:1504–1509 endgame-entry arm (!amulet return, wizard bypass, assign earth_level) absent from js/do.js:goto_level (`if (newdungeon)` :1659 handles tutorial only; C+JS-read) @a6213509c **Addressed:** D-3284
-- [x] `do.c` goto_level — C do.c:1803 plain `else` arm (trap door/level_tele/In_endgame rndspot for at_stairs arrivals) absent from js/do.js:goto_level (`else if (!at_stairs)` :2154 skips u_on_rndspot when at_stairs && In_endgame; C+JS-read; left untouched as out of scope) @a6213509c **Addressed:** D-3284
+- [x] `makemon.c` makemon ptr-arm G_GENOD veto — C makemon.c:1204–1212 (`if (ptr)` monsndx + `mvflags & G_GENOD → return 0` + wizard G_EXTINCT debugpline) absent from js/makemon.js:makemon (no GENOD/G_EXTINCT in brief body; ledger omit D-3278; brief-verified @e3c036ca2) **Addressed:** D-3285
+
+
+- [x] `steal.c` relobj — C steal.c:883–890 vault-guard gold arm (findgold + vanish pline + obj_extract_self/obfree) absent from js/dogmove.js:relobj (:937 doc "vault-guard gold omitted"; brief-verified; D-2407 measured relobj as obj_resists writer — sibling flooreffects gap is the parked mdrop_obj row, not this one) @9cdc961f3 **Addressed:** D-3284 `f52a2d2fb`.
+- [x] `do.c` goto_level — C do.c:1501–1502 newlevel dlevel clamp (`dunlev(newlevel) > dunlevs_in_dungeon(newlevel)` → clamp) absent from js/do.js:goto_level (entry :1642 goes straight to tutorial/newdungeon; C+JS-read) @a6213509c **Addressed:** D-3284 `f52a2d2fb`.
+- [x] `do.c` goto_level — C do.c:1504–1509 endgame-entry arm (!amulet return, wizard bypass, assign earth_level) absent from js/do.js:goto_level (`if (newdungeon)` :1659 handles tutorial only; C+JS-read) @a6213509c **Addressed:** D-3284 `f52a2d2fb`.
+- [x] `do.c` goto_level — C do.c:1803 plain `else` arm (trap door/level_tele/In_endgame rndspot for at_stairs arrivals) absent from js/do.js:goto_level (`else if (!at_stairs)` :2154 skips u_on_rndspot when at_stairs && In_endgame; C+JS-read; left untouched as out of scope) @a6213509c **Addressed:** D-3284 `f52a2d2fb`.
 
 
 - [x] `pickup.c` encumber_msg — blocks 1/953 (scen-trap-Valkyrie-94041 step 80 kind=screen: C «You falter under your heavy load. Movement is very hard.» vs JS «You stagger under your heavy load. Movement is very hard.») @9cdc961f3 **Addressed:** D-3283 `1b0ae0968`

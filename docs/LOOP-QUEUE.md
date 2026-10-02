@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `makemon.c` makemon ptr-arm G_GENOD veto — C makemon.c:1204–1212 (`if (ptr)` monsndx + `mvflags & G_GENOD → return 0` + wizard G_EXTINCT debugpline) absent from js/makemon.js:makemon (no GENOD/G_EXTINCT in brief body; ledger omit D-3278; brief-verified @e3c036ca2)
 - [ ] `mthrowu.c` m_carrying youmonst→invent branch — C mthrowu.c:1409 (`(mtmp==&gy.youmonst) ? gi.invent : minvent`) absent from js/mon.js:m_carrying (:419–424 minvent-only loop; full body read in brief @e3c036ca2; no youmonst.minvent↔invent alias in js/; porter's first check: live hero caller vs latent)
 - [ ] `do.c` goto_level — C do.c:1695–1697 discarded-level arm (VISITED check + `impossible("returning to discarded level?")` + clear) absent from js/do.js:goto_level (`if (!exists)` :1982 goes straight to mklev; C+JS-read) @1b0ae0968
 - [ ] `do.c` goto_level — C do.c:1731–1740 portal-missing distinction (qexpelled quest return vs fuzzer-gated `impossible("no corresponding portal")`) absent from js/do.js:goto_level (:2075 one rndspot for both sub-arms; C+JS-read) @1b0ae0968

@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-3285 — `makemon` remainder: ptr-arm GENOD veto + debug_mongen/isok gates + discard-minvent else + new* C order
+
+- **Status:** shipped (Open corpus-residual `makemon.c` GENOD row checked off; no review cited, no stamp owed)
+- **Symptom:** `js/makemon.js:makemon` was random-arm-only (`if (!ptr)`): no ptr-arm G_GENOD veto, no `iflags.debug_mongen` disjunct, no `isok` sanity gate, `/* else C discard_minvent — named */`, and new* order EGD/ESHK/EMIN/EPRI/EDOG vs C's EGD/EPRI/ESHK/EMIN/EDOG (ledger omit D-3278).
+- **C locus:** `makemon.c:1204–1212` ptr arm (`monsndx` + `mvflags & G_GENOD → return 0` + wizard G_EXTINCT debugpline); `:1168` debug_mongen gate; `:1188–1191` isok impossible gate; `:1454–1459` discard_minvent else; `:1237–1246` new* order.
+- **JS was:** `if (!ptr)` random loop only (`js/makemon.js:3351`); rndmongen-only gate (`:3309`); no isok check between enexto and MON_AT; `} /* else C discard_minvent — named */`; EPRI/ESHK/EMIN misordered.
+- **Fix:** restructured to C's `if (ptr)/else` with the veto `((game.mvitals?.[mndx0]?.mvflags ?? 0) & G_GENOD) !== 0 → return null` (clone_mon :4048 idiom; absent entry reads zero flags like C's array); debug_mongen disjunct via `game.iflags` (options NHOPTB bool); isok gate with `void impossible(...)` (sync-file convention); live discard else; new* reordered to C order. No new imports — G_GENOD/isok/monsndx/impossible/discard_minvent all pre-imported; no new module edges.
+- **JS:** `js/makemon.js:3311` (debug_mongen), `:3333` (isok), `:3364` (GENOD veto), `:3435` (new* order), `:3748` (discard else).
+- **Callers:** in-body at all five sites; no caller rewiring. makemon's 100+ JS callers unaffected: every new veto path is dormant in all passing runs (a fired veto/message/reorder would be observable; 701/701 REACH + 44/44 below prove none fired).
+- **Verify:** `node scripts/verify.mjs --fn makemon --reach-all` tail: `hidden makemon: 0 PASS, 0 moved past, 3 unchanged, 0 worse → NO MOVEMENT` (the same 3 D-3278 symptom blocks — container use-prompt timing ×2 + pet-Healer silent birth; C prints the appear message in all 3, proving C's makemon succeeded and the veto must stay dormant there; appear-flow writers are off-cluster Phase 2) + `reach makemon: 701 PASS, 0 regressed → REACH-OK` (701 run, 280.5s, --reach-all); `green 2/2`, `strict` ×2, `cohort 7/7`, `full 44/44` (shared file), syntax + Rule #2 clean. Zero WORSE/REGRESSION anywhere. Overall VERIFY: FAIL on hidden-NO-MOVEMENT alone (D-3278 precedent — identical 3 symptom blocks, shipped); REACH-OK + fortress green.
+- **Named omissions:**
+  - `makemon`: wizard G_EXTINCT debugpline1 (:1210–1212) + random-arm `debugpline0("Warning: no monster.")` (D_DEBUG-only, D-2586/D-3270 precedent); `m_dowear` un-awaited async (D-1648 shape); S_BAT `mon_adjust_speed` inline (async in JS). Retired: GENOD veto, debug_mongen, isok, discard else, new* order.
+- **Ledger:** makemon partial
+- **Next:** density exception stands (sub-80 insertions; `ledger.mjs rows` = 0 eligible globally, coverage block empty — file/closure hold nothing more Open). Refill: `hidden-proxy queue --limit 30` → 0 eligible as-is (30/30 tagged); parked writers per the D-3282 survey cited in D-3283 (phase 2, unchanged); no new missing arm in this iter's briefs (makemon remainder fully ported save D_DEBUG/async-shape omits). → 3 Open (< 8 → REFILL-gate path per D-3282/D-3283/D-3284 precedent: manual commit+push after finish's writes; no filler invented).
+
 ## D-3284 — `do.c` goto_level entry clamp + endgame-entry arm + plain-else arrival
 
 - **Status:** shipped (3 Open corpus-residual `do.c` goto_level rows checked off + archived — dlevel-clamp head + 2 same-C-file companions; no review cited, no stamp owed). Queue head `steal.c` relobj retired stale in the same commit (ledger split refreshed, row archived — proof in Symptom).

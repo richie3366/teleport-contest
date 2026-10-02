@@ -12,7 +12,7 @@
 {"fn":"init_mextra","c":"1059-1063","status":"ported","js":["js/restore.js:init_mextra"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"newmextra","c":"1066-1073","status":"partial","js":["js/restore.js:newmextra"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"unknown","d":["D-2264"],"at":"seed@a30a7de84"}
-{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `makemon`: ptr-arm G_GENOD veto + wizard-extinct debugpline (`:1204–1212`); `iflags.debug_mongen` gate; `isok` impossible gate; `discard_minvent` else-arm (dead code for fresh mons); D_DEBUG debugplines; `m_dowear` un-awaited async (D-1648 shape); S_BAT `mon_adjust_speed` inline (async in JS); ne…","d":["D-3278","D-2421","D-2299","D-2139","D-2001"],"at":"2026-10-02@e14cd5d30"}
+{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `makemon`: wizard G_EXTINCT debugpline1 (:1210–1212) + random-arm `debugpline0(\"Warning: no monster.\")` (D_DEBUG-only, D-2586/D-3270 precedent); `m_dowear` un-awaited async (D-1648 shape); S_BAT `mon_adjust_speed` inline (async in JS).","d":["D-3285","D-3278","D-2421","D-2299","D-2139","D-2001"],"at":"2026-10-02@f52a2d2fb"}
 {"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbirth_limit","c":"1542-1551","status":"ported","js":["js/makemon.js:mbirth_limit"],"d":["D-3272"],"at":"2026-10-02@675a0c998"}
 {"fn":"create_critters","c":"1556-1590","status":"unknown"}
