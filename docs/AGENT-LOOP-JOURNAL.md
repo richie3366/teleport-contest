@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2221–2228: review D-3260–D-3267 (7 ACCEPT + 1 WITH-DEBT) + full score
+
+**Scope:** 5a869cf51…4f422de21 (8 js/ SHAs since 2220), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.
+**Verdicts:** 7 ACCEPT, 1 debt, 0 QUALITY-RISK, 0 Must-fix. Notable: 2222 WITH-DEBT (D-3261 boulder mondied gate reuses the do.js m_in_air subset clone — drops C's clinger+ceiling+mundetected disjunct, mon.c:2130–2136; pre-existing, 4-condition trigger, SHA strictly reduced divergence → unqueued map debt, durably named in D-3265's D-log too); 2224 upstart/ordin clone choices verified doc-blessed; 2225 Tourist-92095 49→66 via unmul message-timing (moveloop falsified, exercise row queued same commit); 2227 all 13 check_capacity sites individually verified.
+**Fortress:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `334+1.65/turn` R² 0.77); corpus full rescore 702/953 (73.7%), RNG 97.93%, screens 93.4%, 0 unrecorded, 0 losses, 0 gains; `full: true` @4f422de21. Held-out 15/44, RNG 33.9% (+0), rank 5.
+**Refill:** coverage gen 0 rows, queue 30/30 tagged (queue proven read-only via md5) → 5 brief-verified missing-arm rows appended (replmon light-swap, hmon_hitmon :1877 weapon silver, pickup container_contents clone update_inventory, goto_level Gehennom arm, goto_level W-tower bit 2). Queue at 12 eligible. mlet local-table drift (mklev.js:21708 ' '→S_HUMAN, lacks I/:/~/]) confirmed but names no clean C function — not queued.
+**Notes:** `ledger.mjs sql` works under ~/.nvm v22.23.3 (v20 lacks node:sqlite) — 5/5 seeded ported rows (e_died, shrine_pos, find_objtype, mon_givit, end_burn) stand, no `set` fixes. D-3261 omit text stale on ballfall (live js/do.js:2118) — noted in the W-tower row.
+**Next:** queue head `apply.c` use_stethoscope.
 ## 2026-10-02 — D-3267 `trap.c` trapeffect_fire_trap whole-body completion (hero seetrap, surface() erupt wording, shieldeff, pline_mon; retires surface omit)
 
 **C locus:** - `trapeffect_fire_trap`: nethack-c/upstream/src/trap.c:1730–1822 — :1736 hero seetrap; :1743–1753 pline_mon/You_see erupt with surface(mx,my); :1755–1758 resists_fire shieldeff + uninjured; :1759–1791 golem alt-HP + thitm / rn2(num+1) mhpmax; :1793–1807 burnarmor||rn2(3) destroy_items(AD_FIRE) + ignite + xtradmg; :1808–1812 burn_floor_objects smell + melt_ice; :1813–1819 DEADMONSTER/seetrap tail + Trap_* return.

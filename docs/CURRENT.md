@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-02** — full `sessions` on `571bbecf7`
-(audit **2212–2220**, 2026-10-02T04:17:33.055Z).
+Score last measured: **2026-10-02** — full `sessions` on `4f422de21`
+(audit **2221–2228**, 2026-10-02T07:31:06.124Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`336+1.75/turn` (R² 0.79).
+`334+1.65/turn` (R² 0.77).
 
 ## Score
 
@@ -36,15 +36,15 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `336+1.75/turn` (R² 0.79) |
+| Speed label | `334+1.65/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5, 3rd agentic; best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 (+0.1 RNG) since last audit.
-**Corpus fortress (2026-10-02 04:39Z; scored 953/953 entries, 0 unrecorded):**
-**702 / 953** PASS (73.7 %), RNG 97.92 %, screens 93.3 %; 0 losses, +11 rescore; `full: true`, `fullAt: 2026-10-02T04:39:36.432Z`.
-Reviews 1225–2220 (index; no row 1618): 867 ACCEPT, 44 WITH-DEBT, 84 QUALITY-RISK (2212–2220: 9 accept/0 debt/0Q; 0 Must-fix families).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued).
+**Corpus fortress (2026-10-02 07:36Z; scored 953/953 entries, 0 unrecorded):**
+**702 / 953** PASS (73.7 %), RNG 97.93 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-02T07:36:49.470Z`.
+Reviews 1225–2228 (index; no row 1618): 874 ACCEPT, 45 WITH-DEBT, 84 QUALITY-RISK (2221–2228: 7 accept/1 debt/0Q; 0 Must-fix families).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
 --jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** use_stethoscope (apply.c) — next Open residual; coverage block empty, refill via parked-writer briefs.
+**Next cluster:** use_stethoscope (apply.c) — head Open residual (queue 12/12; coverage empty).
 
 ## Parked (diagnose only — do not implement)
 

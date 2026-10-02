@@ -2230,3 +2230,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2218-e42cd0047-show-map-spot-do-mapping.md](./2218-e42cd0047-show-map-spot-do-mapping.md) | `e42cd0047` | D-3257 show_map_spot + do_mapping whole | **ACCEPT** |
 | [2219-1b5b36bb7-seffect-unblock-your.md](./2219-1b5b36bb7-seffect-unblock-your.md) | `1b5b36bb7` | D-3258 seffect unblock + Your declare | **ACCEPT** |
 | [2220-571bbecf7-zap-freeze-probing.md](./2220-571bbecf7-zap-freeze-probing.md) | `571bbecf7` | D-3259 zap_over_floor freeze + probing | **ACCEPT** |
+| [2221-5a869cf51-savelife-container-contents.md](./2221-5a869cf51-savelife-container-contents.md) | `5a869cf51` | D-3260 savelife + container_contents whole bodies | **ACCEPT** |
+| [2222-a7d88d8ff-goto-level-done-boulder.md](./2222-a7d88d8ff-goto-level-done-boulder.md) | `a7d88d8ff` | D-3261 goto_level + done + boulder arms | **ACCEPT-WITH-DEBT** |
+| [2223-6ea16ae6e-stagger-melee-silver-m-useupall.md](./2223-6ea16ae6e-stagger-melee-silver-m-useupall.md) | `6ea16ae6e` | D-3262 stagger + melee silver + m_useupall | **ACCEPT** |
+| [2224-d947745c9-use-mirror.md](./2224-d947745c9-use-mirror.md) | `d947745c9` | D-3263 use_mirror whole-body completion | **ACCEPT** |
+| [2225-c94c66b65-unmul-done-livelog.md](./2225-c94c66b65-unmul-done-livelog.md) | `c94c66b65` | D-3264 unmul reminder + done livelog | **ACCEPT** |
+| [2226-a2542cfc9-boulder-completion.md](./2226-a2542cfc9-boulder-completion.md) | `a2542cfc9` | D-3265 boulder_hits_pool whole-body completion | **ACCEPT** |
+| [2227-66e8734cf-check-capacity.md](./2227-66e8734cf-check-capacity.md) | `66e8734cf` | D-3266 check_capacity + 13 call sites | **ACCEPT** |
+| [2228-4f422de21-trapeffect-fire-trap.md](./2228-4f422de21-trapeffect-fire-trap.md) | `4f422de21` | D-3267 trapeffect_fire_trap whole-body completion | **ACCEPT** |
