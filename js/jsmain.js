@@ -13,6 +13,7 @@
 import { game, resetGame } from './gstate.js';
 import { decl_globals_init, program_state_init } from './decl.js';
 import { sys_early_init } from './sys.js';
+import { monst_globals_init } from './monsters.js';
 import { initRng, enableRngLog, getRngLog } from './rng.js';
 import { setStorageForTesting, vfsReadFile, vfsWriteFile } from './storage.js';
 import { SYSCONF_TEXT } from './generated/sysconf_data.js';
@@ -129,6 +130,7 @@ export class NethackGame {
         const g = resetGame();
         program_state_init(); // C allmain.c:35 early_init → program_state_init (decl.c:1074–1077)
         decl_globals_init(); // C allmain.c:41 early_init → decl_globals_init (decl.c:1080–1187)
+        monst_globals_init(); // C allmain.c:42 early_init → monst_globals_init (monst.c:71–76)
         sys_early_init(); // C allmain.c:43 early_init → sys_early_init (sys.c:20–112)
         reset_display_messages();
         // Frozen VFS contract: the harness shares this handle across segments.

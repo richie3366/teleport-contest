@@ -1,1 +1,1 @@
-{"fn":"monst_globals_init","c":"72-76","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"monst_globals_init","c":"72-76","status":"ported","js":["js/monsters.js:monst_globals_init"],"d":["D-3308"],"at":"2026-10-02@9e5e83838","note":"refresh: no JS symbol (measured MISSING)"}

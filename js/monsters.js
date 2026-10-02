@@ -200,6 +200,27 @@ export function commit_pm_fixup(mndx, patch) {
     };
 }
 
+/**
+ * C ref: monst.c `monst_globals_init` `:71–76` — whole body in C order:
+ * `memcpy(mons, mons_init, sizeof mons)`. The generated per-field arrays
+ * are the immutable `mons_init` baseline; the only live-game divergence
+ * channel is the `game.pm_fixup` overlay (`commit_pm_fixup`, modeling
+ * role.c role_init `:2029–2056` in-place fixups of mons[ldr/guard/nem]:
+ * msound, M2/M3 flags, maligntyp — the sole live writers of C `mons[]`;
+ * the role.c `:2109` infravision fixup is `#if 0`). Clearing the overlay
+ * restores baseline, exactly like the memcpy. Genocide state is NOT part
+ * of `mons[]`: every C G_GENOD/G_EXTINCT writer targets
+ * `svm.mvitals[].mvflags` (makemon.c:968/979/1529, mon.c:3144, read.c,
+ * timeout.c, wizcmds.c:80; `mk_gen_ok` reads both), so `game.mvitals` is
+ * untouched here — as are `mongen_order[]`/`mclass_maxf[]` (makemon.js
+ * module state, separate C globals).
+ * Callers: jsmain.js start() (C allmain.c:42 early_init), makemon.js
+ * dump_mongen (C makemon.c:1841); makedefs.c:306 by-design (build tool).
+ */
+export function monst_globals_init() {
+    game.pm_fixup = Object.create(null);
+}
+
 export function mons(mndx) {
     if (mndx == null || mndx < 0 || mndx >= NUMMONS) return null;
     const fix = game.pm_fixup?.[mndx];

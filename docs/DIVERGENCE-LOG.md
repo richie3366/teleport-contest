@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3308 — `monst.c` monst_globals_init (mons baseline reset + both live callers wired)
+
+- **Status:** shipped (1 Open missing-arm row checked off + archived — monst_globals_init head; no review cited, no stamp owed). 28 insertions — below the ~80 density bar, defended (D-3307 precedent): monst.c is a single-function file (verified by full C read — mons_init[] + mons[] + c_sa_* data plus this init) with 0 C callees, so the head's file and callee closure hold nothing more Open; the faithful port cannot be longer.
+- **Symptom:** no corpus divergence — coverage row (0 blocked). `monst_globals_init` (process-start mons[] baseline restore) had no JS symbol; dump_mongen carried it as a named omission (review 2063 ACCEPT).
+- **C locus:** nethack-c/upstream/src/monst.c:71–76 — whole body in C order: `memcpy(mons, mons_init, sizeof mons)`. Callers: allmain.c:42 (early_init), makemon.c:1841 (dump_mongen), makedefs.c:306 (build tool).
+- **JS was:** no symbol. The generated per-field arrays (monsters_data.js) are the immutable baseline; the live divergence channel is the `game.pm_fixup` overlay (`commit_pm_fixup`, role_init ldr/guard/nem).
+- **Fix:** `export function monst_globals_init()` clearing the overlay (`game.pm_fixup = Object.create(null)`, commit_pm_fixup's container — drop-overlay ≡ memcpy-to-baseline), wired at both live C caller sites in C order.
+- **JS:** js/monsters.js:220 (export, after commit_pm_fixup); js/jsmain.js:16 (import) + :133 (call, C-order decl→monst→sys_early); js/makemon.js:98 (import) + :883 (call, C :1841 before init_mongen_order :1842; doc omit retired, adjacent off-by-one cites corrected).
+- **Callers:** C allmain.c:42 early_init → js/jsmain.js:133 start() (`imports.mjs --can`: SAFE, monsters.js is a leaf); C makemon.c:1841 dump_mongen → js/makemon.js:883 (ALREADY edge; pre-game argcheck path, pre-role no-op); C makedefs.c:306 → by-design (util/ build tool, no scored counterpart; generated data committed).
+- **Verify:** `node scripts/verify.mjs --fn monst_globals_init` → VERIFY: PASS — syntax (3 changed files) · rule2 · hidden note (no corpus session blocked — expected for a coverage row) · REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed).
+- **Named omissions:** none in-body — whole C body live (single memcpy ≡ overlay clear). `game.mvitals` deliberately untouched: genocide state is NOT part of C `mons[]` — every G_GENOD/G_EXTINCT writer targets `svm.mvitals[].mvflags` (makemon.c:968/979/1529, mon.c:3144, read.c, timeout.c, wizcmds.c:80; `mk_gen_ok` reads both). `mongen_order[]`/`mclass_maxf[]` untouched (separate C globals, makemon.js module state). Sole live writers of C `mons[]` are role.c role_init :2029–2056 (the `:2109` infravision fixup is `#if 0`), all modeled by the overlay.
+- **Ledger:** monst_globals_init ported
+- **Next:** queue head is now `zap.c` wish_history_flush (Open missing-arm).
+
 ## D-3307 — `cmd.c` extcmd_initiator + do_run_* family + cmdbind_freeall by-design
 
 - **Status:** shipped (3 Open missing-arm rows checked off + archived — extcmd_initiator head, do_run_north, cmdbind_freeall; 7 same-file unqueued gaps booked directly, D-3302/D-3306 precedent; no review cited, no stamp owed). 49 insertions — below the ~80 density bar, defended: cluster fills the 10-function ceiling with the coherent run-family closure (C bodies are 1–2 lines each; faithful ports cannot be longer); the 7 do_rush_* siblings are the immediate next step (`ledger.mjs file cmd.c`: 19 absent, of which rush ×7 + run ×8 + initiator + freeall were this file's MISSING set).
