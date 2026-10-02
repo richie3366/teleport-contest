@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3302 — `topten.c` score-stream quintet (discardexcess + nsb_mung/unmung + free_ttlist by-design, add_achieveX stale-complete)
+
+- **Status:** shipped (3 Open missing-arm `topten.c` rows checked off + archived — discardexcess head, nsb_mung_line, nsb_unmung_line; free_ttlist + add_achieveX same-file unqueued gaps booked directly, D-3301 mkroom_cmp precedent; no review cited, no stamp owed — review 1607 names discardexcess only as an ACCEPTed omit). 0 insertions — below the ~80 density bar, defended: all three queued rows resolve by-design per their row text (FILE* stream / ifdef-off), the fourth gap is pure-`free` (GC), the fifth brief-verified complete at its canonical local — evidence below. Head's file holds nothing more Open: `ledger.mjs file topten.c` shows zero remaining unknown/absent THIN/PARTIAL/MISSING after this iter (rest measured-ok or declared).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all five). Three `staticfn` score-file helpers with no JS symbol, one list-free with no JS symbol, one comma-join helper measured PARTIAL.
+- **C locus:**
+  - `discardexcess`: nethack-c/upstream/src/topten.c:208–215 — `do { c = fgetc(rfile); } while (c != '\n' && c != EOF)` drain-to-newline; callers readentry :246 (fscanf fail arm) and :256 (overlong-remainder arm).
+  - `nsb_mung_line`: nethack-c/upstream/src/topten.c:1471–1476 — `strchr(p,' ')`→`'|'` loop; callers writeentry :312–313 inside `#else /* NO_SCAN_BRACK */`.
+  - `nsb_unmung_line`: nethack-c/upstream/src/topten.c:1479–1484 — `strchr(p,'|')`→`' '` loop; callers readentry :285–286 and writeentry :329–330, both inside `#ifdef NO_SCAN_BRACK`.
+  - `free_ttlist`: nethack-c/upstream/src/topten.c:615–625 — `while (tt->points > 0)` list walk, `dealloc_ttentry` each (= `free`, :30 macro); callers topten :824 (inside `#else` of UPDATE_RECORD_IN_PLACE — defined at :14, so compiled out), topten :906, prscore :1343.
+  - `add_achieveX`: nethack-c/upstream/src/topten.c:480–488 — `if (condition) { if (buf[0]) Strcat(buf,","); Strcat(buf,achievement); }`; 22 call sites :577 (encode_extended_achievements) + :587–607 (encode_extended_conducts).
+- **JS was:** no `discardexcess`/`nsb_mung_line`/`nsb_unmung_line`/`free_ttlist` symbols; `add_achieveX` local at js/topten.js:255.
+- **Fix:** none in `js/` — four by-design resolutions + one stale-complete, all documented here and booked via Ledger.
+- **JS:**
+  - `discardexcess`: no symbol (by-design) — JS `readentry` (js/topten.js:433) parses one pre-split VFS line; there is no FILE* stream position to drain, and both fail arms keep C's `points = 0` (js/topten.js:445, 465 — the docblock at :425 already names this omit; review 1607 ACCEPT).
+  - `nsb_mung_line`: no symbol (by-design) — `#ifdef NO_SCAN_BRACK` region; the macro is never `#define`d anywhere in nethack-c/ (unix target), so neither the body nor its :312–313 call sites exist in the build.
+  - `nsb_unmung_line`: no symbol (by-design) — same ifdef-off region; all three call sites (:285–286, :329–330) compiled out; the readentry docblock at js/topten.js:429 already names it (unmunging would corrupt modern `|`-free record text).
+  - `free_ttlist`: no symbol (by-design) — whole body is `free()` via the :30 macro; alloc≡GC (review-1607 precedent); JS `topten`/`prscore` drop list references.
+  - `add_achieveX`: js/topten.js:255 — `if (!condition) return buf; return buf !== '' ? buf+','+ach : ach`, exactly C in the return-string idiom (C appends into `char *buf`); all 22 C call sites wired with C cites (js/topten.js:360, :379–400).
+- **Callers:**
+  - `discardexcess`: readentry fscanf-fail js/topten.js:444–447 (`points = 0`, C :243–246) and remainder-cut js/topten.js:464–465 (C :253–257) — both live, no drain needed post-split.
+  - `nsb_mung_line`: writeentry :312–313 — compiled out (ifdef off); `writeentry` itself ledger by-design (record-file infra).
+  - `nsb_unmung_line`: readentry :285–286 and writeentry :329–330 — compiled out (ifdef off).
+  - `free_ttlist`: topten :906 → js/topten.js `topten` (GC drop, no call needed); topten :824 compiled out (UPDATE_RECORD_IN_PLACE defined); prscore :1343 → js/topten.js `prscore` (GC drop).
+  - `add_achieveX`: encode_extended_achievements :577 → js/topten.js:360; encode_extended_conducts :587–607 → js/topten.js:379–400 (22/22 wired).
+- **Verify:** `node scripts/verify.mjs --fn discardexcess,nsb_mung_line,nsb_unmung_line,free_ttlist,add_achieveX` → syntax PASS (0 changed js files) · Rule #2 PASS · hidden note ×5 (no corpus session blocked — normal for coverage) · REACH-OK ×5 (smoke spread 24/24 PASS each, no RNG-tagged reach) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `discardexcess`: the FILE* drain itself — no stream exists post-split (readentry docblock omit, review-1607 ACCEPTed).
+  - `nsb_mung_line`: whole body + call sites — absent from the target C build (NO_SCAN_BRACK undefined).
+  - `nsb_unmung_line`: whole body + call sites — absent from the target C build (NO_SCAN_BRACK undefined).
+  - `free_ttlist`: whole body — `free()` ≡ GC.
+  - `add_achieveX`: none — whole C body live, all callers wired.
+- **Ledger:** discardexcess by-design; nsb_mung_line by-design; nsb_unmung_line by-design; free_ttlist by-design; add_achieveX ported
+- **Next:** continue the missing-arm list (`vision.c` get_viz_clear head).
+
 ## D-3301 — `mklev.c` vault/branch/sort triple (pos_to_room + makevtele + mkroom_cmp, all callers wired)
 
 - **Status:** shipped (2 Open missing-arm `mklev.c` rows checked off + archived — pos_to_room head, makevtele; mkroom_cmp ledger-absent same-file gap shipped unqueued; no review cited, no stamp owed). 32 insertions — below the ~80 density bar, defended: the head's file holds nothing more Open (exactly 3 ledger unknown/absent THIN/PARTIAL/MISSING rows in `mklev.c`, all shipped here; callee closure inside_room/makeniche measured-ok).

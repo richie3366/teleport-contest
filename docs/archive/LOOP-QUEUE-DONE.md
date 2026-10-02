@@ -5,8 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `mklev.c` pos_to_room — C `mklev.c:1677–1687` absent from js/mklev.js (no symbol; `staticfn` rooms scan via live `inside_room` js/mklev.js:32964, NULL fallthrough); 1 C caller — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3301
-- [x] `mklev.c` makevtele — C `mklev.c:821–824` absent from js/mklev.js (no symbol; `staticfn` `makeniche(TELEP_TRAP)`, callee local js/mklev.js:33193); sole C caller mklev.c:1333 — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3301
+- [x] `topten.c` discardexcess — C `topten.c:208–215` absent from js/topten.js (no symbol; `staticfn` FILE* drain-to-newline); sole C caller topten.c:246 — resolve by-design (no FILE* score stream) or port (brief 2026-10-02) @42c45189d
+- [x] `topten.c` nsb_mung_line — C `topten.c:1471–1476` absent from js/topten.js (no symbol; space→`|` in score name/death); 2 C call sites :312–313 — port whole (brief 2026-10-02) @42c45189d
+- [x] `topten.c` nsb_unmung_line — C `topten.c:1479–1484` absent from js/topten.js (no symbol; `|`→space); 3 C call sites :285–286,:329 — port whole (brief 2026-10-02) @42c45189d
+
+
+- [x] `mklev.c` pos_to_room — C `mklev.c:1677–1687` absent from js/mklev.js (no symbol; `staticfn` rooms scan via live `inside_room` js/mklev.js:32964, NULL fallthrough); 1 C caller — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3301 `3442eb4d9`
+- [x] `mklev.c` makevtele — C `mklev.c:821–824` absent from js/mklev.js (no symbol; `staticfn` `makeniche(TELEP_TRAP)`, callee local js/mklev.js:33193); sole C caller mklev.c:1333 — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3301 `3442eb4d9`
 
 
 - [x] `objnam.c` nextobuf — C `objnam.c:142–146` absent from js/objnam.js (no symbol; `staticfn` rotates static `obufs[obufidx]`); 17 same-file C callers — resolve by-design (JS returns fresh strings) or port (brief 2026-10-02) @42c45189d
