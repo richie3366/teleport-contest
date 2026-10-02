@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3303 — `vision.c` get_viz_clear (whole-body port, sole caller named)
+
+- **Status:** shipped (1 Open missing-arm `vision.c` row checked off + archived — get_viz_clear head; no review cited, no stamp owed). ~14 insertions — below the ~80 density bar, defended: the head's file holds nothing more Open (the other 7 `vision.c` ledger unknowns verified live in js/vision.js by search 2026-10-02 — unblock_point :482, recalc_block_point :492, dig_point :304, fill_point :391, do_clear_area :852, rogue_vision :889, howmonseen :1258; callee closure isok live at js/const.js:2313).
+- **Symptom:** no corpus divergence — coverage row (0 blocked). `get_viz_clear` absent from `js/` (no symbol; brief 2026-10-02 NOT FOUND).
+- **C locus:**
+  - `get_viz_clear`: nethack-c/upstream/src/vision.c:105–110 — `if (isok(x,y) && !viz_clear[y][x]) return TRUE; return FALSE;` sole C caller levl_sanity_check wizcmds.c:1453 (`(does_block(…) ? 1 : 0) != get_viz_clear(x, y)`).
+- **JS was:** no symbol anywhere in `js/`; the `viz_clear[ROWNO][COLNO]` plane itself live at js/vision.js:86 (Int8Array rows, 1 = clear).
+- **Fix:** whole-body port in C order as an export in js/vision.js (C file order, before vision_init); `isok` added to the existing `./const.js` import (`imports.mjs --can`: ALREADY, no new edge; const.js:2313 is the C-locus cmd.c:isok, not the hacklib duplicate).
+- **JS:**
+  - `get_viz_clear`: js/vision.js:104 — `if (isok(x, y) && !viz_clear[y][x]) return 1; return 0`; C short-circuit kept (isok guards the plane read); TRUE/FALSE → 1/0 ints matching the `does_block` int idiom and the sole C caller's `!=` int comparison.
+- **Callers:**
+  - `get_viz_clear`: levl_sanity_check (wizcmds.c:1443–1457, C staticfn) has no JS symbol (search 2026-10-02: no sanity_check/levl_sanity_check in `js/`) → named omit; export live for future wiring.
+- **Verify:** `node scripts/verify.mjs --fn get_viz_clear` → syntax PASS (1 changed js file: js/vision.js) · Rule #2 PASS · hidden note (no corpus session blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24/24 PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `get_viz_clear`: C caller levl_sanity_check (wizcmds.c:1443–1457) unported — no JS call site to wire; none in-body (whole C body live).
+- **Ledger:** get_viz_clear ported
+- **Next:** continue the missing-arm list (`sp_lev.c` l_register_des head).
+
 ## D-3302 — `topten.c` score-stream quintet (discardexcess + nsb_mung/unmung + free_ttlist by-design, add_achieveX stale-complete)
 
 - **Status:** shipped (3 Open missing-arm `topten.c` rows checked off + archived — discardexcess head, nsb_mung_line, nsb_unmung_line; free_ttlist + add_achieveX same-file unqueued gaps booked directly, D-3301 mkroom_cmp precedent; no review cited, no stamp owed — review 1607 names discardexcess only as an ACCEPTed omit). 0 insertions — below the ~80 density bar, defended: all three queued rows resolve by-design per their row text (FILE* stream / ifdef-off), the fourth gap is pure-`free` (GC), the fifth brief-verified complete at its canonical local — evidence below. Head's file holds nothing more Open: `ledger.mjs file topten.c` shows zero remaining unknown/absent THIN/PARTIAL/MISSING after this iter (rest measured-ok or declared).

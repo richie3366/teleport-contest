@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3303 `vision.c` get_viz_clear (whole-body port, sole caller named)
+
+**C locus:** - `get_viz_clear`: nethack-c/upstream/src/vision.c:105–110 — `if (isok(x,y) && !viz_clear[y][x]) return TRUE; return FALSE;` sole C caller levl_sanity_check wizcmds.c:1453 (`(does_block(…) ? 1 : 0) != get_viz_clear(x, y)`).
+**JS:** - `get_viz_clear`: js/vision.js:104 — `if (isok(x, y) && !viz_clear[y][x]) return 1; return 0`; C short-circuit kept (isok guards the plane read); TRUE/FALSE → 1/0 ints matching the `does_block` int idiom and the sole C caller's `!=` int comparison.
+**Change:** whole-body port in C order as an export in js/vision.js (C file order, before vision_init); `isok` added to the existing `./const.js` import (`imports.mjs --can`: ALREADY, no new edge; const.js:2313 is the C-locus cmd.c:isok, not the hacklib duplicate).
+**Verify:** `node scripts/verify.mjs --fn get_viz_clear` → syntax PASS (1 changed js file: js/vision.js) · Rule #2 PASS · hidden note (no corpus session blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24/24 PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** - `get_viz_clear`: C caller levl_sanity_check (wizcmds.c:1443–1457) unported — no JS call site to wire; none in-body (whole C body live).
+**Next:** continue the missing-arm list (`sp_lev.c` l_register_des head).
 ## 2026-10-02 — D-3302 `topten.c` score-stream quintet (discardexcess + nsb_mung/unmung + free_ttlist by-design, add_achieveX stale-complete)
 
 **C locus:** - `discardexcess`: nethack-c/upstream/src/topten.c:208–215 — `do { c = fgetc(rfile); } while (c != '\n' && c != EOF)` drain-to-newline; callers readentry :246 (fscanf fail arm) and :256 (overlong-remainder arm).

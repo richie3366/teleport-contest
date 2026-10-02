@@ -1,4 +1,4 @@
-{"fn":"get_viz_clear","c":"105-110","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_viz_clear","c":"105-110","status":"ported","js":["js/vision.js:get_viz_clear"],"d":["D-3303"],"at":"2026-10-02@7c607a0d1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"vision_init","c":"121-142","status":"ported","js":["js/vision.js:vision_init"],"d":["D-3183"],"at":"2026-09-30@5e7475cd1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"does_block","c":"153-202","status":"ported","js":["js/vision.js:does_block"],"d":["D-2883"],"at":"seed@a30a7de84"}
 {"fn":"vision_reset","c":"211-265","status":"ported","js":["js/vision.js:vision_reset"],"d":["D-2883"],"at":"seed@a30a7de84"}

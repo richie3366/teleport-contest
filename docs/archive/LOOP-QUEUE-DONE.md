@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `vision.c` get_viz_clear — C `vision.c:105–110` absent from js/vision.js (no symbol; `isok && !viz_clear` boolean); sole C caller wizcmds.c:1453 — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3303
+
+
 - [x] `topten.c` discardexcess — C `topten.c:208–215` absent from js/topten.js (no symbol; `staticfn` FILE* drain-to-newline); sole C caller topten.c:246 — resolve by-design (no FILE* score stream) or port (brief 2026-10-02) @42c45189d
 - [x] `topten.c` nsb_mung_line — C `topten.c:1471–1476` absent from js/topten.js (no symbol; space→`|` in score name/death); 2 C call sites :312–313 — port whole (brief 2026-10-02) @42c45189d
 - [x] `topten.c` nsb_unmung_line — C `topten.c:1479–1484` absent from js/topten.js (no symbol; `|`→space); 3 C call sites :285–286,:329 — port whole (brief 2026-10-02) @42c45189d
