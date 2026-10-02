@@ -126,7 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `zap.c` wish_history_flush — C `zap.c:6259–6270` absent from js/ (no symbol; body entirely `#ifdef DEBUG`, free wish_history[] + reset idx); sole C caller save.c:1136 — resolve by-design (ifdef-off) or port (brief 2026-10-02) @c50c91230
 - [ ] `options.c` handler_symset — C `options.c:6321–6328` absent from js/ (no symbol; `staticfn` do_symset wrapper + opt_need_redraw, callee symbols.c:do_symset by-design); 2 C callers options.c:3583,:4228 — port whole, callee named (brief 2026-10-02) @c50c91230
 - [ ] `sfbase.c` sf_init — C `sfbase.c:647–655` absent from js/ (no symbol; procs-table init: sfoprocs/sfiprocs invalid+historical, sfofl/sfifl exportascii); sole C caller options.c:7129 — resolve by-design (no sf procs layer in JS) or port (brief 2026-10-02) @b2e34fd56
 - [ ] `sfbase.c` sfvalue_any — C `sfbase.c:449–457` absent from js/ (no symbol; static-buf PRId64 of a_int64); C refs fwd decl :23 + `Sfvalue_any` macro :53 only — resolve by-design or port (brief 2026-10-02) @b2e34fd56

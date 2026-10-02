@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3309 — `zap.c` wish_history_flush (DEBUG-on ring clear + stale wish_history_add omit retired)
+
+- **Status:** shipped (1 Open missing-arm row checked off + archived — wish_history_flush head; review 1832 names flush only as a named omit, no stamp owed — its one actionable C-wrong was addressed by D-2880). 18 insertions — below the ~80 density bar, defended (D-3308 precedent): the row's by-design option is closed because `DEBUG` is defined in patchlevel.h:36 (same DEBUG-on treatment as the D-2873 wish_history_add port), so the deliverable is the 5-line body itself; `ledger.mjs file zap.c` shows zero remaining unknown/absent THIN/PARTIAL/MISSING after this iter (rest measured-ok or declared), so the head's file and callee closure (0 callees) hold nothing more Open.
+- **Symptom:** no corpus divergence — coverage row (0 blocked). `wish_history_flush` had no JS symbol while its DEBUG-gated siblings `wish_history_add` (js/zap.js:7308, D-2873) and `wish_history_menu` (js/zap.js:7343+, D-3057) are live.
+- **C locus:**
+  - `wish_history_flush`: nethack-c/upstream/src/zap.c:6259–6270 — whole body in C order: `for (idx = 0; idx < MAX_WISH_HISTORY; ++idx) free + NULL` (:6263–6266), `wish_history_idx = 0` (:6268). Sole C caller save.c:1136 (freedynamicdata). 0 C callees.
+  - `wish_history_add`: nethack-c/upstream/src/zap.c:6227–6255 — no body change; ledger omit retired (both halves shipped since D-2873).
+- **JS was:** no `wish_history_flush` symbol; `wish_history_add` carried the D-2873 omit "menu stays a no-op, makewish does not call it".
+- **Fix:** ported the flush body as a live export in C file order (after `wish_history_add`, before `wish_history_menu`); nulling the 20 ring slots is the GC `free`; index reset unconditional per C :6268. No new import (same module; `game` + `MAX_WISH_HISTORY` already in scope). Retired the stale `wish_history_add` omit via Ledger (D-3302 same-file-gap precedent).
+- **JS:**
+  - `wish_history_flush`: js/zap.js `export function wish_history_flush()` — C :6263–6266 loop nulls `game.wish_history[0..19]` (guarded on `Array.isArray`, C-equivalent when the ring was never created), C :6268 sets `game.wish_history_idx = 0` unconditionally. Probe: add×3 (1 dedup) → flush → 20 nulls + idx 0; no-array → idx 0, no throw.
+  - `wish_history_add`: unchanged js/zap.js:7308 — omit halves both verified shipped: menu live at js/zap.js:7343+ (D-3057), makewish C :6334–6337 condition (`menu_requested && wish_history[0] && tries == 0` → menu else getlin, mungspaces both) wired at js/zap.js:7407–7411.
+- **Callers:**
+  - `wish_history_flush`: save.c:1136 freedynamicdata — no JS counterpart (save-freeing teardown, map-named in js/end.js:559, js/files.js:1836, js/hack.js:4043, js/makemon.js:876); its four C callers (end.c:1685, files.c:3096, hack.c:4482, makemon.c:1865) are likewise unwired. Named omission, no JS call site.
+  - `wish_history_add`: makewish terrain/object arms + proc_wizkit_line — wired since D-2873/D-2880 (unchanged).
+- **Verify:** `node scripts/verify.mjs --fn wish_history_flush,wish_history_add` → syntax PASS (1 changed: js/zap.js) · Rule #2 PASS · hidden note ×2 (no corpus session blocked — normal for coverage) · REACH-OK ×2 (smoke spread 24/24 PASS each, no RNG-tagged reach) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `wish_history_flush`: sole C caller save.c:1136 — freedynamicdata has no JS counterpart (save-freeing teardown, map-named); no JS call site.
+  - `wish_history_add`: none remaining — stale D-2873 omit retired (menu + caller both live).
+- **Ledger:** wish_history_flush ported; wish_history_add ported
+- **Next:** continue the missing-arm list (`options.c` handler_symset head).
+
 ## D-3308 — `monst.c` monst_globals_init (mons baseline reset + both live callers wired)
 
 - **Status:** shipped (1 Open missing-arm row checked off + archived — monst_globals_init head; no review cited, no stamp owed). 28 insertions — below the ~80 density bar, defended (D-3307 precedent): monst.c is a single-function file (verified by full C read — mons_init[] + mons[] + c_sa_* data plus this init) with 0 C callees, so the head's file and callee closure hold nothing more Open; the faithful port cannot be longer.

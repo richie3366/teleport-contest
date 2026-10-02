@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3309 `zap.c` wish_history_flush (DEBUG-on ring clear + stale wish_history_add omit retired)
+
+**C locus:** - `wish_history_flush`: nethack-c/upstream/src/zap.c:6259–6270 — whole body in C order: `for (idx = 0; idx < MAX_WISH_HISTORY; ++idx) free + NULL` (:6263–6266), `wish_history_idx = 0` (:6268). Sole C caller save.c:1136 (freedynamicdata). 0 C callees.
+**JS:** - `wish_history_flush`: js/zap.js `export function wish_history_flush()` — C :6263–6266 loop nulls `game.wish_history[0..19]` (guarded on `Array.isArray`, C-equivalent when the ring was never created), C :6268 sets `game.wish_history_idx = 0` unconditionally. Probe: add×3 (1 dedup) → flush → 20 nulls + idx 0; no-array → idx 0, no throw.
+**Change:** ported the flush body as a live export in C file order (after `wish_history_add`, before `wish_history_menu`); nulling the 20 ring slots is the GC `free`; index reset unconditional per C :6268. No new import (same module; `game` + `MAX_WISH_HISTORY` already in scope). Retired the stale `wish_history_add` omit via Ledger (D-3302 same-file-gap precedent).
+**Verify:** `node scripts/verify.mjs --fn wish_history_flush,wish_history_add` → syntax PASS (1 changed: js/zap.js) · Rule #2 PASS · hidden note ×2 (no corpus session blocked — normal for coverage) · REACH-OK ×2 (smoke spread 24/24 PASS each, no RNG-tagged reach) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+**Named:** - `wish_history_flush`: sole C caller save.c:1136 — freedynamicdata has no JS counterpart (save-freeing teardown, map-named); no JS call site.
+**Next:** continue the missing-arm list (`options.c` handler_symset head).
 ## 2026-10-02 — D-3308 `monst.c` monst_globals_init (mons baseline reset + both live callers wired)
 
 **C locus:** nethack-c/upstream/src/monst.c:71–76 — whole body in C order: `memcpy(mons, mons_init, sizeof mons)`. Callers: allmain.c:42 (early_init), makemon.c:1841 (dump_mongen), makedefs.c:306 (build tool).
