@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `uhitm.c` hmon_hitmon — C uhitm.c:1876–1877 `if (hmd.silvermsg) hmon_hitmon_msg_silver(&hmd,mon,obj)` weapon path absent from js/uhitm.js:hmon_hitmon (:2176 gates on barehand_silver_rings>0 only, so melee/ranged silvermsg never prints; callee live; D-3262 follow-up) @4f422de21 **Addressed:** D-3275
+- [x] `end.c` container_contents — C end.c:1609 update_inventory() after cknown absent from js/pickup.js:container_contents single-box clone (:2532 sets cknown :2534 with no call; doc :2528 stale "deferred like js/end.js" — end.js has it since D-3260; D-3260 named the drift) @4f422de21
+
+
+- [x] `uhitm.c` hmon_hitmon — C uhitm.c:1876–1877 `if (hmd.silvermsg) hmon_hitmon_msg_silver(&hmd,mon,obj)` weapon path absent from js/uhitm.js:hmon_hitmon (:2176 gates on barehand_silver_rings>0 only, so melee/ranged silvermsg never prints; callee live; D-3262 follow-up) @4f422de21 **Addressed:** D-3275 `9cdc961f3`
 
 
 - [x] `priest.c` priestname — C priest.c:301–367 `priestname()` 67-line body canonical export absent from js/priest.js (C home; only clone js/do_name.js:929; caller do_name.c:898; brief-verified) @a2542cfc9 **Addressed:** D-3274 `51548d8db`

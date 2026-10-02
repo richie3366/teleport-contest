@@ -17,7 +17,7 @@
 {"fn":"fuzzer_savelife","c":"945-1016","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"done","c":"1020-1126","status":"partial","js":["js/end.js:done"],"omit":"- `done`: paniclog TRICKED file write (Rule #2); fuzzer_savelife (debug-fuzz only).","d":["D-3264","D-3261"],"at":"2026-10-02@d947745c9"}
 {"fn":"really_done","c":"1130-1590","status":"ported","js":["js/end.js:really_done"],"d":["D-2435","D-2283","D-2122","D-2061","D-1812"],"at":"seed@a30a7de84"}
-{"fn":"container_contents","c":"1594-1670","status":"ported","js":["js/end.js:container_contents"],"d":["D-3260"],"at":"2026-10-02@4fbb3512e","note":"whole-body port in end.js; js/pickup.js single-box clone is pre-existing drift (named D-3260)"}
+{"fn":"container_contents","c":"1594-1670","status":"ported","js":["js/end.js:container_contents"],"d":["D-3276","D-3260"],"at":"2026-10-02@9cdc961f3","note":"whole-body port in end.js; js/pickup.js single-box clone is pre-existing drift (named D-3260)"}
 {"fn":"nh_terminate","c":"1674-1703","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: audited — exit-path only (Lua/MACOS9/VMS/dlb arms have no scored analogue); js/end.js:994 sets gameover flags"}
 {"fn":"delayed_killer","c":"1707-1723","status":"unknown"}
 {"fn":"find_delayed_killer","c":"1726-1735","status":"unknown"}

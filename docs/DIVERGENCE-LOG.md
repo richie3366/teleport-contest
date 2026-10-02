@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3276 — `end.c` container_contents: pickup clone de-drift onto canonical export
+
+- **Status:** shipped (Open corpus-residual row `end.c` container_contents checked off; single-function cluster — `ledger.mjs rows` = 0 globally, so no same-file/closure companions exist; no review cited, no stamp owed)
+- **Symptom:** missing arm: C end.c:1605–1609 sets `cknown` (gated on `!cknown` when `!identified`) then calls `update_inventory()`, but the js/pickup.js single-box clone set `box.cknown` unconditionally with no `update_inventory()` call; its doc claimed the deferral matched js/end.js — stale since D-3260 shipped the call in the canonical end.js body.
+- **C locus:**
+  - `container_contents`: nethack-c/upstream/src/end.c:1594–1670 whole body (canonical whole-ported by D-3260; this iter deletes the drift clone and wires the last C caller).
+- **JS was:** js/pickup.js:2532 local `async function container_contents(box)` — unconditional cknown set, no update_inventory, no unsortloot, no BoT/Is_container arms; stale doc :2528 "deferred like js/end.js".
+- **Fix:** js/end.js — canonical `container_contents` exported; doc Callers line now names pickup.c:3122 → js/pickup.js use_container. js/pickup.js — clone + both doc blocks deleted; `container_contents` added on a new `./end.js` import edge (same 102-module SCC; hoisted async-fn export, call-time use only — `imports.mjs --can` CHECK-safe, no top-level TDZ read); ':' site now `await container_contents(obj, false, false, true)` per C pickup.c:3122. Every clone identifier (sortloot, SORTLOOT_*, doname_with_price, thesimpleoname_objnam, SchroedingersBox, show_nhw_menu_text) is used elsewhere in pickup.js — no import cleanup. No maintained unit harness in repo (no tests dir, no test script in package.json; sessions are the suite) — durable coverage is the fortress via Verify below.
+- **JS:** js/end.js:767 export, js/end.js:759–761 doc; js/pickup.js:152 import, js/pickup.js:2516–2517 pointer comment, js/pickup.js:4048–4052 ':' site.
+- **Callers:**
+  - `container_contents`: end.c:639 disclose → js/end.js:855 (pre-existing, untouched); end.c:1660 recursion → js/end.js:822 in-body (untouched); pickup.c:3122 use_container → js/pickup.js:4051 (newly wired); end.c:593 dump_everything — dumplog retired D-1776 (named).
+- **Verify:**
+  - `container_contents`: `node scripts/verify.mjs --fn container_contents` → VERIFY: PASS — syntax 2 files · rule2 · hidden note (no corpus session blocked; row cited none) · REACH-OK (no RNG-tagged reach; smoke spread 24/24) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file).
+- **Named omissions:**
+  - `container_contents`: none new — inherits the canonical's D-3260 omits (in_dumplog arms, retired D-1776; display_nhwindow(WIN_MESSAGE) after reportempty, live-displays).
+- **Ledger:** container_contents ported
+- **Next:** queue refill: 2 rows appended (`pickup.c` encumber_msg queue-eligible 1/953 screen; `steal.c` relobj :883–890 gold arm brief-verified absent js/dogmove.js:937–946, D-2407 writer context); remainder 8 after archive (band min met). `rows --write` = 0; `queue --limit 200` otherwise 0 eligible; other parked-writer checks aged out (dohide D-2069; m_throw/enlightenment/u_catch_thrown_obj ok; mon_arrive split fully live incl. :433 set_residency; mdrop_obj stays parked).
+
 ## D-3275 — `uhitm.c` hmon_hitmon :1876–1877 weapon silvermsg gate
 
 - **Status:** shipped (Open corpus-residual row `uhitm.c` hmon_hitmon checked off; D-3262 follow-up; no review cited, no stamp owed)

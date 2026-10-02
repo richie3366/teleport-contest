@@ -758,13 +758,13 @@ async function identify_invent_for_disclose() {
  * message window live-displays).
  * Callers: end.c:639 disclose → disclose(), end.c:1660 recursion;
  * end.c:593 dump_everything (dumplog, retired — named); pickup.c:3122
- * via the js/pickup.js local clone (pre-existing drift — named).
+ * use_container ':' → js/pickup.js use_container (canonical import).
  * @param {object[]|object|null} list invent array or cobj chain head
  * @param {boolean} identified
  * @param {boolean} all_containers
  * @param {boolean} reportempty
  */
-async function container_contents(list, identified, all_containers, reportempty) {
+export async function container_contents(list, identified, all_containers, reportempty) {
     const boxes = Array.isArray(list)
         ? list
         : (() => {
