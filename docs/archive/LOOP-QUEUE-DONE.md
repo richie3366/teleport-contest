@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `vision.c` get_viz_clear — C `vision.c:105–110` absent from js/vision.js (no symbol; `isok && !viz_clear` boolean); sole C caller wizcmds.c:1453 — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3303
+- [x] `sp_lev.c` l_register_des — C `sp_lev.c:6435–6441` absent from js/ (no symbol; Lua `des` table registration); sole C caller nhlua.c:2347 — resolve by-design (no Lua runtime in JS) or port (brief 2026-10-02) @42c45189d **Addressed:** D-3304
+
+
+- [x] `vision.c` get_viz_clear — C `vision.c:105–110` absent from js/vision.js (no symbol; `isok && !viz_clear` boolean); sole C caller wizcmds.c:1453 — port whole (brief 2026-10-02) @42c45189d **Addressed:** D-3303 `c50c91230`
 
 
 - [x] `topten.c` discardexcess — C `topten.c:208–215` absent from js/topten.js (no symbol; `staticfn` FILE* drain-to-newline); sole C caller topten.c:246 — resolve by-design (no FILE* score stream) or port (brief 2026-10-02) @42c45189d

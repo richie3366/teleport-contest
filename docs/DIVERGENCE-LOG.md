@@ -1,5 +1,46 @@
 # Divergence log
 
+## D-3304 — `sp_lev.c` Lua-adjacent septet (l_register_des head + 3 by-design + 2 stale-complete + sel_set_wallify port)
+
+- **Status:** shipped (1 Open missing-arm `sp_lev.c` row checked off + archived — l_register_des head; 6 same-file unqueued gaps booked directly, D-3302 precedent; no review cited, no stamp owed). 9 insertions — below the ~80 density bar, defended: head's file holds nothing more Open (all 5 absent + both PARTIAL unknown `sp_lev.c` ledger rows shipped here; the other 55 unknowns measured-ok, rest declared).
+- **Symptom:** no corpus divergence — coverage row (0 blocked on all seven). Five `sp_lev.c` functions with no JS symbol (Lua registration, `#if 0` arithmetic, Lua-only table walk, blessed-skipped coord convert, dead-in-C wallify callback) plus two des-table entries PARTIAL only by the line-count heuristic.
+- **C locus:**
+  - `l_register_des`: nethack-c/upstream/src/sp_lev.c:6435–6441 — `lua_newtable` + `luaL_setfuncs(nhl_functions)` + `lua_setglobal("des")`; sole caller nhlua.c:2347 (Lua-state init block).
+  - `sp_code_jmpaddr`: nethack-c/upstream/src/sp_lev.c:3022–3025 inside `#if 0` (:3020) — `return curpos + jmpaddr`; only ref is the fwd decl :74.
+  - `get_trapname_bytype`: nethack-c/upstream/src/sp_lev.c:4367–4376 — `trap_types[]` linear walk, NULL fallthrough; sole caller nhlua.c:440 (nhl_gettrap).
+  - `cvt_to_relcoord`: nethack-c/upstream/src/sp_lev.c:4793–4802 — subtract coder-room lx/ly else xstart/ystart; sole caller nhlsel.c:939 (l_selection_iterate per-cell).
+  - `lspo_non_diggable`: nethack-c/upstream/src/sp_lev.c:5937–5941 — `set_wallprop_in_selection(L, W_NONDIGGABLE); return 0`.
+  - `lspo_non_passwall`: nethack-c/upstream/src/sp_lev.c:5946–5950 — `set_wallprop_in_selection(L, W_NONPASSWALL); return 0`.
+  - `sel_set_wallify`: nethack-c/upstream/src/sp_lev.c:5955–5958 (C staticfn) — `wallify_map(x, y, x, y)`; only refs are fwd decl :89 + def (dead in C).
+- **JS was:** no `l_register_des`/`sp_code_jmpaddr`/`get_trapname_bytype`/`cvt_to_relcoord`/`sel_set_wallify` symbols (sym.mjs NOT FOUND); `lspo_non_diggable`/`lspo_non_passwall` complete exports at js/mklev.js:5173/:5182; callee `wallify_map` live js/mklev.js:20518, `set_wallprop_in_selection` live :5154, inverse `cvt_to_abscoord` live :22632.
+- **Fix:** four by-design resolutions + two stale-complete + one module-local port (C staticfn idiom, D-3293 precedent; same module as callee, no new import).
+- **JS:**
+  - `l_register_des`: no symbol (by-design) — no Lua runtime in scored ESM (nhlua.c 77 by-design seed; `nhlua_init`/`l_register` NOT FOUND in js/); des-table entries are called directly as JS exports (lspo_* live in js/mklev.js), so the registration itself has no analogue.
+  - `sp_code_jmpaddr`: no symbol (by-design) — `#if 0` region, absent from the target C build (D-3302 nsb_mung precedent).
+  - `get_trapname_bytype`: no symbol (by-design) — sole consumer is the Lua `nh.gettrap` API (ledger by-design, seed no-scored-analogue); `trap_types[]` has no JS counterpart (sym NOT FOUND) and embedding a table for zero scored callers would be dead (C `trapname` trap.c is a different function/table, not this body).
+  - `cvt_to_relcoord`: no symbol (by-design) — reviews 791/810/936 pre-blessed skip (936 ACCEPT: "des.* adds the origin back; absolute throughout"); sole caller l_selection_iterate ledger by-design D-1966.
+  - `lspo_non_diggable`: js/mklev.js:5173 — `set_wallprop_in_selection(sel, W_NONDIGGABLE)` (C `return 0` is Lua-stack-count, collapses in the sel-explicit idiom).
+  - `lspo_non_passwall`: js/mklev.js:5182 — `set_wallprop_in_selection(sel, W_NONPASSWALL)` (same collapse).
+  - `sel_set_wallify`: js/mklev.js:5192 — module-local `function sel_set_wallify(x, y) { wallify_map(x, y, x, y); }` in C order after lspo_non_passwall; `arg UNUSED` dropped (sel callback idiom, cf. sel_set_wall_property :5135).
+- **Callers:**
+  - `l_register_des`: nhlua.c:2347 Lua-init block (by-design file) — no JS call site by design.
+  - `sp_code_jmpaddr`: none — fwd decl only, body compiled out.
+  - `get_trapname_bytype`: nhlua.c:440 nhl_gettrap (by-design) — no JS call site by design.
+  - `cvt_to_relcoord`: nhlsel.c:939 l_selection_iterate (by-design D-1966) — JS selection_iterate stays absolute per reviews 791/810/936, no call site by design.
+  - `lspo_non_diggable`/`lspo_non_passwall`: Lua des-dispatch (C refs are fwd decls :148/:149); JS invokes the live exports directly.
+  - `sel_set_wallify`: none — dead in C (decl + def only); export-free module-local, live for future wiring.
+- **Verify:** `node scripts/verify.mjs --fn l_register_des,sp_code_jmpaddr,get_trapname_bytype,cvt_to_relcoord,lspo_non_diggable,lspo_non_passwall,sel_set_wallify` → syntax PASS (1 changed js file: js/mklev.js) · Rule #2 PASS · hidden note ×7 (no corpus session blocked — normal for coverage) · REACH-OK ×7 (smoke spread 24/24 PASS each, no RNG-tagged reach) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `l_register_des`: the registration itself — no `lua_State`/global table exists in scored ESM.
+  - `sp_code_jmpaddr`: whole body + call sites — absent from the target C build (`#if 0`).
+  - `get_trapname_bytype`: whole body — Lua-API-only consumer (by-design); no scored caller.
+  - `cvt_to_relcoord`: whole body — absolute-throughout JS idiom (reviews 791/810/936).
+  - `lspo_non_diggable`: none — whole C body live (Lua `return 0` collapses by idiom).
+  - `lspo_non_passwall`: none — whole C body live (same collapse).
+  - `sel_set_wallify`: none in-body — whole C body live (zero C callers to wire).
+- **Ledger:** l_register_des by-design; sp_code_jmpaddr by-design; get_trapname_bytype by-design; cvt_to_relcoord by-design; lspo_non_diggable ported; lspo_non_passwall ported; sel_set_wallify ported
+- **Next:** continue the missing-arm list (`iactions.c` ia_addmenu head).
+
 ## D-3303 — `vision.c` get_viz_clear (whole-body port, sole caller named)
 
 - **Status:** shipped (1 Open missing-arm `vision.c` row checked off + archived — get_viz_clear head; no review cited, no stamp owed). ~14 insertions — below the ~80 density bar, defended: the head's file holds nothing more Open (the other 7 `vision.c` ledger unknowns verified live in js/vision.js by search 2026-10-02 — unblock_point :482, recalc_block_point :492, dig_point :304, fill_point :391, do_clear_area :852, rogue_vision :889, howmonseen :1258; callee closure isok live at js/const.js:2313).

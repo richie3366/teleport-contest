@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3304 `sp_lev.c` Lua-adjacent septet (l_register_des head + 3 by-design + 2 stale-complete + sel_set_wallify port)
+
+**C locus:** - `l_register_des`: nethack-c/upstream/src/sp_lev.c:6435–6441 — `lua_newtable` + `luaL_setfuncs(nhl_functions)` + `lua_setglobal("des")`; sole caller nhlua.c:2347 (Lua-state init block).
+**JS:** - `l_register_des`: no symbol (by-design) — no Lua runtime in scored ESM (nhlua.c 77 by-design seed; `nhlua_init`/`l_register` NOT FOUND in js/); des-table entries are called directly as JS exports (lspo_* live in js/mklev.js), so the registration itself has no analogue.
+**Change:** four by-design resolutions + two stale-complete + one module-local port (C staticfn idiom, D-3293 precedent; same module as callee, no new import).
+**Verify:** `node scripts/verify.mjs --fn l_register_des,sp_code_jmpaddr,get_trapname_bytype,cvt_to_relcoord,lspo_non_diggable,lspo_non_passwall,sel_set_wallify` → syntax PASS (1 changed js file: js/mklev.js) · Rule #2 PASS · hidden note ×7 (no corpus session blocked — normal for coverage) · REACH-OK ×7 (smoke spread 24/24 PASS each, no RNG-tagged reach) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** - `l_register_des`: the registration itself — no `lua_State`/global table exists in scored ESM.
+**Next:** continue the missing-arm list (`iactions.c` ia_addmenu head).
 ## 2026-10-02 — D-3303 `vision.c` get_viz_clear (whole-body port, sole caller named)
 
 **C locus:** - `get_viz_clear`: nethack-c/upstream/src/vision.c:105–110 — `if (isok(x,y) && !viz_clear[y][x]) return TRUE; return FALSE;` sole C caller levl_sanity_check wizcmds.c:1453 (`(does_block(…) ? 1 : 0) != get_viz_clear(x, y)`).

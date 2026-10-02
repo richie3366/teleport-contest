@@ -5183,6 +5183,16 @@ export function lspo_non_passwall(sel) {
     set_wallprop_in_selection(sel, W_NONPASSWALL);
 }
 
+/**
+ * C ref: sp_lev.c sel_set_wallify `:5954–5958` (C staticfn) — wallify the
+ * single cell (x, y). The `genericptr_t arg UNUSED` param is dropped (sel
+ * callback idiom, cf. sel_set_wall_property). Dead in C too: only the
+ * forward declaration (:89) and this definition reference it.
+ */
+function sel_set_wallify(x, y) {
+    wallify_map(x, y, x, y);
+}
+
 // C ref: sp_lev.c lspo_wall_property static tables `:5878–5881`.
 const LSPO_WPROPS = ['nondiggable', 'nonpasswall'];
 const LSPO_WPROPS2I = [W_NONDIGGABLE, W_NONPASSWALL, -1];
