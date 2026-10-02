@@ -5,6 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `invent.c` safeq_xprname — C `invent.c:2180–2184` absent from js/ (no symbol; C staticfn xprname wrapper with safeq_xprn_ctx let/dot, decl-only :27 — dead in C; callee live js/objnam.js:3807) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [x] `invent.c` safeq_shortxprname — C `invent.c:2188–2192` absent from js/ (no symbol; C staticfn, decl-only :28 — dead in C; xprname over ansimpleoname, callees live js/objnam.js:3807 + :3007) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [x] `invent.c` any_obj_ok — C `invent.c:1710–1715` absent from js/ (no symbol; 0 refs in C — dead in C; getobj callback obj→GETOBJ_SUGGEST else EXCLUDE, callee-free) — resolve by-design or port (same C file as safeq pair; brief 2026-10-02) @9332ca054
+- [x] `invent.c` worn_wield_only — C `invent.c:5309–5325` absent from js/ (no symbol; C staticfn, decl-only :17 — dead in C; query_objlist callback owornmask!=0 `#if 1` arm with `#else` dead, callee-free) — resolve by-design or port (brief 2026-10-02) @9332ca054
+
+
 - [x] `cfgfiles.c` cnf_line_GDBPATH — C `cfgfiles.c:1082–1094` absent from js/ (no symbol; C staticfn, decl-only :82 — dead in C; PANICTRACE-gated file_exists + sysopt.gdbpath free/dupstr, callees live js/cfgfiles.js:425 + js/dungeon.js:267) — resolve by-design or port (brief 2026-10-02) @bdd35be25
 - [x] `cfgfiles.c` cnf_line_GREPPATH — C `cfgfiles.c:1097–1109` absent from js/ (no symbol; C staticfn, decl-only :83 — dead in C; same shape as GDBPATH, sysopt.greppath) — resolve by-design or port (brief 2026-10-02) @bdd35be25
 - [x] `cfgfiles.c` cnf_line_SOUNDDIR — C `cfgfiles.c:1222–1228` absent from js/ (no symbol; USER_SOUNDS-gated C staticfn, decl-only :98 — dead in C; sounddir free + dupstr, callee live js/dungeon.js:267) — resolve by-design or port (same C file as GDBPATH head; brief 2026-10-02) @9332ca054

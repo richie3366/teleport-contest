@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3315 — `invent.c` safeq quartet (safeq_xprname head + safeq_shortxprname + any_obj_ok split + worn_wield_only)
+
+- **Status:** shipped (4 Open missing-arm `invent.c` rows checked off + archived — safeq_xprname head, safeq_shortxprname, any_obj_ok, worn_wield_only; no review cited, no stamp owed). Whole `invent.c` measured-MISSING set (coverage block ungeneratable, rows --write yields 0; the 90 `unknown` carry live JS symbols).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all four). Queue rows said "dead in C" from stale brief ref-counts; whole-tree grep shows all four have live C callers. JS askchain inlined the safeq prompt path (invlet template instead of safe_qbuf + callbacks) and JS display_minventory hardcoded "(none)" for !do_all.
+- **C locus:**
+  - `safeq_xprname`: nethack-c/upstream/src/invent.c:2179–2184 — staticfn xprname(obj, NULL, ctx.let, ctx.dot, 0L, 0L); ctx invent.c:2173–2176, written by askchain :2451–2452, passed as safe_qbuf func at :2463.
+  - `safeq_shortxprname`: nethack-c/upstream/src/invent.c:2187–2192 — staticfn xprname(obj, ansimpleoname(obj), ctx.let, ctx.dot, 0L, 0L); safe_qbuf altfunc at :2464.
+  - `any_obj_ok`: nethack-c/upstream/src/invent.c:1709–1715 — obj ? GETOBJ_SUGGEST : GETOBJ_EXCLUDE; getobj predicate at do.c:35 (dodrop) + apply.c:2698 (touchstone !known arm).
+  - `worn_wield_only`: nethack-c/upstream/src/invent.c:5308–5325 — staticfn (boolean)(owornmask != 0L), `#if 1` arm (`#else` compiled out); query_objlist filter at display_minventory :5370 under the :5359 `(misc_worn_check || MON_WEP)` predicate.
+- **JS was:** no safeq/worn symbols (sym.mjs NOT FOUND ×3); askchain js/pickup.js built prompts via an invlet template (`letch` + `${qpfx}${shown}?`), skipping safe_qbuf/short_oname truncation + short-name fallback; display_minventory js/invent.js showed "(none)" whenever !do_all (`: false` arm); any_obj_ok already complete under two identical clones (drop_obj_ok js/do.js:3121, any_obj_ok_stone js/apply.js:2876).
+- **Fix:** ported the safeq ctx + pair module-local in js/pickup.js (C staticfn idiom, D-3301 precedent) with the JS xprname arg-order map (obj, let, dot, quan, txt, cost) vs C (obj, txt, let, dot, cost, quan); rewired askchain's !allflag block to C order (ctx writes :2451–2452, qpfx/first, safe_qbuf :2462–2465 with the `ininv ?` callback ternaries). Ported worn_wield_only module-local in js/invent.js and wired the !do_all armament filter + predicate in display_minventory. any_obj_ok booked split (no third clone — sym guidance). No new imports (pickup.js already imports xprname/ansimpleoname/safe_qbuf/doname; worn filter is field-local).
+- **JS:** js/pickup.js:3762 (safeq_xprn_ctx), :3770 (safeq_xprname), :3779 (safeq_shortxprname), :3837–3852 (askchain ctx writes + safe_qbuf call); js/invent.js:4394 (worn_wield_only), :4422–4423 (display_minventory filter + predicate), :4443 (shown groups).
+- **Callers:**
+  - `safeq_xprname`: C askchain :2463 → js/pickup.js:3850 (`ininv ? safeq_xprname : doname`). Output-identical on fitting names (C xprname :2941–2942 use_invlet override ≡ JS :3841; template `letch` was the same override precomputed); long names now take C's safe_qbuf/short_oname path instead of the untruncated template.
+  - `safeq_shortxprname`: C askchain :2464 → js/pickup.js:3851 (`ininv ? safeq_shortxprname : ansimpleoname`).
+  - `any_obj_ok`: C do.c:35 → js/do.js:3141/3150 via drop_obj_ok (identical body, doc cites C); C apply.c:2698 → js/apply.js touchstone path via any_obj_ok_stone (identical body).
+  - `worn_wield_only`: C display_minventory :5370 → js/invent.js:4422 filter; :5359 predicate → :4423 via nonempty-filter equivalence (sole JS caller passes MINV_ALL, js/zap.js:3837 — arm JS-unreachable, zero REACH risk).
+- **Verify:** `node scripts/verify.mjs --fn safeq_xprname,safeq_shortxprname,any_obj_ok,worn_wield_only` → VERIFY: PASS (syntax 2 files; rule2; 4× `no corpus session blocked` + smoke-spread REACH-OK 24/24 each; green 2/2; strict ×2; cohort 7/7). Full `sessions`: 44/44 PASS (Scr 11,405/11,405 equiv, RNG full match, `337+1.65/turn`).
+- **Named omissions:**
+  - `safeq_xprname`: none in-body — whole C body live (ctx + callback + caller wired).
+  - `safeq_shortxprname`: none in-body — whole C body live (ctx + callback + caller wired).
+  - `any_obj_ok`: none — body complete under both split names, both C callers wired.
+  - `worn_wield_only`: C :5359 predicate's `misc_worn_check` cache arm (caller-side; field has no JS counterpart; filter result is the observable equivalent — wielded ⇒ owornmask W_WEP ⇒ passes the filter).
+- **Ledger:** safeq_xprname ported; safeq_shortxprname ported; any_obj_ok split js=js/do.js:drop_obj_ok+js/apply.js:any_obj_ok_stone; worn_wield_only partial
+- **Next:** dupstr_n head (`alloc.c`); refill yielded 0 eligible (rows --write 0; hidden-proxy queue 30 shown, 0 not open/parked/archived; no Parked line names a concrete writer+session; no new absent arm verified) — queue sits at 1 until coverage regenerates or the next refill authorization.
+
 ## D-3314 — `cfgfiles.c` dead-handler sextet (GDBPATH head + 3 queued siblings + AUTOCOMPLETE stale + DUMPLOGFILE)
 
 - **Status:** shipped (4 Open missing-arm `cfgfiles.c` rows checked off + archived — GDBPATH head, GREPPATH, SOUNDDIR, SOUND; AUTOCOMPLETE/DUMPLOGFILE same-file unqueued gaps booked directly, D-3312/D-3304 precedent; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: the whole `cfgfiles.c` ledger-absent set ships here (6/6 absent; the 40 `unknown` all carry live JS symbols per `ledger.mjs file cfgfiles.c`); five dead-in-C handlers need no symbol and the sixth already ships complete. Commit landed manually (finish's message format): check-hot-docs REFILL (5 live rows < band 8–12; coverage block ungeneratable, rows --write yields 0) exits 1 and aborts finish before its commit step — no refill authorization in this iteration (hand rows are Must-fix/corpus only), so refill belongs to the next one.

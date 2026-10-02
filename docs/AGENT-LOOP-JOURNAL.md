@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3315 `invent.c` safeq quartet (safeq_xprname head + safeq_shortxprname + any_obj_ok split + worn_wield_only)
+
+**C locus:** - `safeq_xprname`: nethack-c/upstream/src/invent.c:2179–2184 — staticfn xprname(obj, NULL, ctx.let, ctx.dot, 0L, 0L); ctx invent.c:2173–2176, written by askchain :2451–2452, passed as safe_qbuf func at :2463.
+**JS:** js/pickup.js:3762 (safeq_xprn_ctx), :3770 (safeq_xprname), :3779 (safeq_shortxprname), :3837–3852 (askchain ctx writes + safe_qbuf call); js/invent.js:4394 (worn_wield_only), :4422–4423 (display_minventory filter + predicate), :4443 (shown groups).
+**Change:** ported the safeq ctx + pair module-local in js/pickup.js (C staticfn idiom, D-3301 precedent) with the JS xprname arg-order map (obj, let, dot, quan, txt, cost) vs C (obj, txt, let, dot, cost, quan); rewired askchain's !allflag block to C order (ctx writes :2451–2452, qpfx/first, safe_qbuf :2462–2465 with the `ininv ?` callback ternaries). Ported worn_wield_only module-local in js/invent.js and wired the !do_all armament filter + predicate in display_minventory. any_obj_ok booked split (no third clone — sym guidance). No new imports (pickup.js already imports xprname/ansimpleoname/safe_qbuf/doname; worn filter is field-local).
+**Verify:** `node scripts/verify.mjs --fn safeq_xprname,safeq_shortxprname,any_obj_ok,worn_wield_only` → VERIFY: PASS (syntax 2 files; rule2; 4× `no corpus session blocked` + smoke-spread REACH-OK 24/24 each; green 2/2; strict ×2; cohort 7/7). Full `sessions`: 44/44 PASS (Scr 11,405/11,405 equiv, RNG full match, `337+1.65/turn`).
+**Named:** - `safeq_xprname`: none in-body — whole C body live (ctx + callback + caller wired).
+**Next:** dupstr_n head (`alloc.c`); refill yielded 0 eligible (rows --write 0; hidden-proxy queue 30 shown, 0 not open/parked/archived; no Parked line names a concrete writer+session; no new absent arm verified) — queue sits at 1 until coverage regenerates or the next refill authorization.
 ## 2026-10-02 — D-3314 `cfgfiles.c` dead-handler sextet (GDBPATH head + 3 queued siblings + AUTOCOMPLETE stale + DUMPLOGFILE)
 
 **C locus:** - `cnf_line_GDBPATH`: nethack-c/upstream/src/cfgfiles.c:1082–1094 — PANICTRACE-gated file_exists + config_error_add, sysopt.gdbpath free/dupstr; refs are fwd decl :82 + definition only (whole-file textual scan).

@@ -126,11 +126,7 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `invent.c` safeq_xprname — C `invent.c:2180–2184` absent from js/ (no symbol; C staticfn xprname wrapper with safeq_xprn_ctx let/dot, decl-only :27 — dead in C; callee live js/objnam.js:3807) — resolve by-design or port (brief 2026-10-02) @bdd35be25
-- [ ] `invent.c` safeq_shortxprname — C `invent.c:2188–2192` absent from js/ (no symbol; C staticfn, decl-only :28 — dead in C; xprname over ansimpleoname, callees live js/objnam.js:3807 + :3007) — resolve by-design or port (brief 2026-10-02) @bdd35be25
 - [ ] `alloc.c` dupstr_n — C `alloc.c:253–261` absent from js/ (no symbol; extern global.h:314, 0 call refs — dead in C; LARGEST_INT panic guard + lenout + alloc/strcpy, callee live js/alloc.js:52; sibling of the dupstr PARTIAL panic-guard gap) — resolve by-design or port (brief 2026-10-02) @9332ca054
-- [ ] `invent.c` any_obj_ok — C `invent.c:1710–1715` absent from js/ (no symbol; 0 refs in C — dead in C; getobj callback obj→GETOBJ_SUGGEST else EXCLUDE, callee-free) — resolve by-design or port (same C file as safeq pair; brief 2026-10-02) @9332ca054
-- [ ] `invent.c` worn_wield_only — C `invent.c:5309–5325` absent from js/ (no symbol; C staticfn, decl-only :17 — dead in C; query_objlist callback owornmask!=0 `#if 1` arm with `#else` dead, callee-free) — resolve by-design or port (brief 2026-10-02) @9332ca054
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
