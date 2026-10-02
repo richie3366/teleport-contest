@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3288 — `mkobj.c` discard_minvent artifact+obfree arms + caller rewirings
+
+- **Status:** shipped (Open corpus-residual `mkobj.c` discard_minvent row checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — C-fidelity residual (row carries C+JS-read evidence, no `blocks N`). js/mon.js `discard_minvent` extracted+unlinked each item but ignored the flag (`_uncreate_artifacts`) and dropped C :2532–2534 (artifact un-create + `obfree`); two JS sites inlined the same extract-only loop (mklev.js sync stand-in despite its own "→ obfree" comment; shknam.js Orcus mongone-lite).
+- **C locus:**
+  - `discard_minvent`: mkobj.c:2524–2536 whole body, esp :2532–2533 artifact arm + :2534 obfree.
+- **JS was:** extract+unlink loop only (`js/mon.js:3644`); doc named the omit ("artifact_exists + obfree").
+- **Fix:** canonical restarted in C order: extract → `if (uncreate_artifacts && otmp.oartifact) artifact_exists(otmp, safe_oname(otmp), false, ONAME_NO_FLAGS)` → `obfree(otmp, null)` (uhitm.js:727 / shk.js delete_contents idioms); untagged-minvent unlink guard + stale-pointer nulls kept. Same-edge name additions only (artifact/shk/do_name/const edges pre-exist — `imports.mjs --can` ALREADY ×3); shknam.js→mon.js edge VERDICT: SAFE (hoisted fn). Caller rewirings: mklev.js splev_discard_default_minvent sync loop → `discard_minvent(mtmp, true)`; shknam.js Orcus loop → `discard_minvent(mtmp, false)` (C shknam.c:797 calls mongone → mon.c:3281 FALSE); shknam.js mkobj import drops now-unused obj_extract_self (sole use was :828). mongone doc retires the omit line.
+- **JS:** js/mon.js:32 (const name), :72/:85/:95 (imports), :3637–3659 (doc+body), :3661–3666 (mongone doc); js/mklev.js:4120; js/shknam.js:35/:50/:826.
+- **Callers:**
+  - `discard_minvent`: all 5 C direct sites wired — dog.c:955 FALSE → js/dog.js:1490; makemon.c:1457 TRUE → js/makemon.js:3748 (C `if (mtmp->minvent)` guard + minvent-null match C :1456–1458); makemon.c:1535 TRUE → js/makemon.js:3797 (unmakemon, D-3067); mon.c:3281 FALSE → js/mon.js:3675 (mongone); sp_lev.c:2181 TRUE → js/mklev.js:23292 (async table path) + js/mklev.js:4120 (sync stand-in, rewired this iter). Indirect: shknam.c:797 Orcus mongone → js/shknam.js:826 (rewired this iter). New in-body reads all live sync: artifact_exists (artifact.js:1467), safe_oname (do_name.js:1374, complete one-liner), obfree (shk.js:4121), ONAME_NO_FLAGS (const.js:2281).
+- **Verify:** `node scripts/verify.mjs --fn discard_minvent` → VERIFY: PASS — syntax 3 files (js/mon.js, js/mklev.js, js/shknam.js) · rule2 · hidden note (no corpus session blocked; row cites no `blocks N`, so no `--base` re-run owed) · reach: no RNG-tagged reach (function draws no RNG), fixed smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). No maintained unit harness (no tests/ dir — D-3284 precedent); REACH + fortress are the durable checks.
+- **Named omissions:**
+  - `discard_minvent`: none in-body — whole C body live.
+- **Ledger:** discard_minvent ported
+- **Next:** density exception stands (sub-80 insertions; `ledger.mjs rows` → 0 eligible globally, coverage block empty — file/closure hold nothing more Open: callees artifact_exists/obfree ok, safe_oname THIN-by-count but semantically complete). Refill survey: `hidden-proxy queue --limit 30` → 0 eligible as-is (30/30 tagged open/parked/archived, D-3287 confirmed); parked writers per D-3282/D-3286 surveys (phase 2); no new row from this iter's briefs (safe_oname complete; mklev/shknam inlines shipped as caller closure). Open 2→1 (< 8).
+
 ## D-3287 — `do.c` goto_level discarded-level + portal-missing arms
 
 - **Status:** shipped (2 Open corpus-residual `do.c` goto_level rows checked off + archived — discarded-level head + same-function portal-missing companion; no review cited, no stamp owed)

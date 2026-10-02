@@ -4117,7 +4117,7 @@ function splev_discard_default_minvent(mtmp) {
         // with ochance 0, so they stay for discard_minvent → obfree.
         obj = next;
     }
-    while (mtmp.minvent) obj_extract_self(mtmp.minvent);
+    discard_minvent(mtmp, true); /* C `:2181` — canonical; was extract-only. */
 }
 
 /** Apply CENTER-aligned des.map string; sets game.splev_* origin/size. */

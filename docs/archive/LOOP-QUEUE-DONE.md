@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `do.c` goto_level — C do.c:1695–1697 discarded-level arm (VISITED check + `impossible("returning to discarded level?")` + clear) absent from js/do.js:goto_level (`if (!exists)` :1982 goes straight to mklev; C+JS-read) @1b0ae0968 **Addressed:** D-3287
-- [x] `do.c` goto_level — C do.c:1731–1740 portal-missing distinction (qexpelled quest return vs fuzzer-gated `impossible("no corresponding portal")`) absent from js/do.js:goto_level (:2075 one rndspot for both sub-arms; C+JS-read) @1b0ae0968 **Addressed:** D-3287
+- [x] `mkobj.c` discard_minvent — C mkobj.c:2532–2535 artifact arm (`if (uncreate_artifacts && otmp->oartifact) artifact_exists(...)` + obfree) absent from js/mon.js:discard_minvent (:3630–3640 loop extracts+unlinks only, flag param ignored; doc :3628 names it; brief-verified @7bdcd631d; artifact_exists/safe_oname/obfree all live sync) **Addressed:** D-3288
+
+
+- [x] `do.c` goto_level — C do.c:1695–1697 discarded-level arm (VISITED check + `impossible("returning to discarded level?")` + clear) absent from js/do.js:goto_level (`if (!exists)` :1982 goes straight to mklev; C+JS-read) @1b0ae0968 **Addressed:** D-3287 `f49c6cdfa`
+- [x] `do.c` goto_level — C do.c:1731–1740 portal-missing distinction (qexpelled quest return vs fuzzer-gated `impossible("no corresponding portal")`) absent from js/do.js:goto_level (:2075 one rndspot for both sub-arms; C+JS-read) @1b0ae0968 **Addressed:** D-3287 `f49c6cdfa`
 
 
 - [x] `mthrowu.c` m_carrying youmonst→invent branch — C mthrowu.c:1409 (`(mtmp==&gy.youmonst) ? gi.invent : minvent`) absent from js/mon.js:m_carrying (:419–424 minvent-only loop; full body read in brief @e3c036ca2; no youmonst.minvent↔invent alias in js/; porter's first check: live hero caller vs latent) **Addressed:** D-3286 `d8fa56ce0`
