@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `monmove.c` vamp_shift — C monmove.c:2377–2394 absent from js/ (no same-named symbol; caller monmove.c:1496; callee newcham live js/makemon.js:2066). **Addressed:** D-3292
+
+
 - [x] `polyself.c` dropp — C polyself.c:1123–1154 absent from js/ (no same-named symbol; 11 call sites polyself.c:1187–1299 in break_armor(); js/polyself.js break_armor calls dropx directly, invent-scan guard absent).
 
 

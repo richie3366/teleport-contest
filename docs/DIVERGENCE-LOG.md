@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3292 — `monmove.c` vamp_shift whole port + postmov door-dance wiring
+
+- **Status:** shipped (Open missing-arm `monmove.c` vamp_shift row checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — coverage row (brief-read evidence, no `blocks N`). C `vamp_shift` had no JS symbol and postmov named "vampshift fog" as an omission, so a vampshifter stepping onto a closed/locked door never shifted to fog cloud (and never printed the shift message / flowed under the door).
+- **C locus:**
+  - `vamp_shift`: nethack-c/upstream/src/monmove.c:2377–2394 whole body (C staticfn) — already that shape → 1; else `newcham(mon, ptr, domsg ? NC_SHOW_MSG : NO_NC_FLAGS)` + `display_nhwindow(WIN_MESSAGE, FALSE)` flush. Single C caller postmov :1496, inside the :1486–1506 gate (vampshifter && !amorphous && closed/locked door && can_fog; seenflgs move-back/forth dance); seenflgs computed pre-move in m_move :1756–1757.
+- **JS was:** js/monmove.js — no `vamp_shift` symbol; postmov (:1687) ran newsym+mintrap with no :1486 gate and took no seenflgs (C postmov's 6th parameter had no JS equivalent); `const ptr` never refreshed.
+- **Fix:** added module-local `async function vamp_shift` (C staticfn; async because JS newcham may await via pline→more→nhgetch), C order, C int 1/0 at the return; `mon->data == ptr` by mndx (JS mons() mints fresh objects — file idiom, D-2348); `:2392` tty flush cite-only no-op. Wired the C :1473–1506 gate into postmov before newsym/mintrap (C position) with canonical remove_monster/place_monster + newsym order; `ptr = mtmp.data` on nonzero return (C :1498). Threaded pre-move seenflgs from m_move (C :1756–1757 position, in-file canseemon/canspotmon) as trailing postmov arg across all 6 call sites; `const ptr` → `let` (mintrap :1517 refresh stays deferred, pre-existing).
+- **JS:** js/monmove.js — :920–947 `vamp_shift` + C doc; :1700–1730 postmov gate; :2150 seenflgs; sites :2158/:2170/:2202/:2261/:2371/:2444. Extended 3 pre-existing import edges only (newcham, remove_monster, NC_SHOW_MSG/NO_NC_FLAGS; `imports.mjs --can` ALREADY ×2).
+- **Callers:**
+  - `vamp_shift`: C's single caller postmov :1496 → JS postmov gate js/monmove.js:1720 (`await vamp_shift(mtmp, mons(PM_FOG_CLOUD), (seenflgs & 1) !== 0)`); no other C call site exists.
+- **Verify:**
+  - `vamp_shift`: `node scripts/verify.mjs --fn vamp_shift` → hidden note (no session blocked, expected for coverage); reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK; syntax · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). VERIFY: PASS. No unit-test harness exists in-repo (sessions are the maintained suite) — REACH + full 44 is the durable evidence.
+- **Named omissions:**
+  - `vamp_shift`: none in-body — whole C body live (`display_nhwindow(WIN_MESSAGE, FALSE)` tty flush is cite-only: JS pline paints synchronously, no deferred window).
+- **Ledger:** vamp_shift ported
+- **Next:** cluster head alone — newcham/is_vampshifter live, display_nhwindow by-design; no other monmove.c queue rows (ledger unknowns there are stale declarations of shipped functions, e.g. distfleeck D-2420, mon_yells D-1248).
+
 ## D-3291 — `polyself.c` dropp invent-scan guard + 11 break_armor rewirings
 
 - **Status:** shipped (Open missing-arm `polyself.c` dropp row checked off + archived; no review cited, no stamp owed)
