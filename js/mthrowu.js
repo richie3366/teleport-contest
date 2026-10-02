@@ -72,7 +72,7 @@ import {
 } from './generated/monsters_data.js';
 import { potionhit, make_stoned } from './potion.js';
 import { make_blinded } from './do.js';
-import { dobuzz, resists_poison } from './zap.js';
+import { dobuzz, resists_poison, exclam } from './zap.js';
 import {
     m_seenres, cvt_adtyp_to_mseenres, get_atkdam_type, mhim,
     monstseesu, monstunseesu,
@@ -280,13 +280,6 @@ function canseemon(mtmp) {
         ? worm_known(mtmp)
         : (cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp));
     return loc_seen && mon_visible(mtmp);
-}
-
-/** C ref: zap.c exclam — punctuation by damage force. */
-function exclam(force) {
-    if (force < 0) return '?';
-    if (force <= 4) return '.';
-    return '!';
 }
 
 /** C ref: hacklib.c upstart — capitalize first letter in place. */

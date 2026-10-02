@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3271 `zap.c` exclam canonical export + 5-file caller sweep (clone consolidation)
+
+**C locus:** nethack-c/upstream/src/zap.c:3546–3553 whole body — `(force < 0) ? "?" : (force <= 4) ? "." : "!"` (comments: force==0 e.g. sleep ray; large force usual with wands). 15 call sites in 5 files (brief-verified): mthrowu.c:119,121 (thitu) + :393,401 (ohitmon); muse.c:1639 (mbhitm) + :3229 (muse_unslime); spell.c:1051 (cast_chain_lightning); uhitm.c:1547 (joust) + :1647 + :1658 + :5724 (hmonas); zap.c:210 (bhitm) + :4812 + :4875 + :4936 (dobuzz/buzz). (:3559 is a comment mention in `hit`'s doc, not a call.)
+**JS:** js/zap.js:1544 (canonical export); call sites js/mthrowu.js:666,668 + :919,924; js/uhitm.js:1619 + :1760 + :1771 + :3805; js/spell.js:2380; js/muse.js:1813; js/zap.js:2464 + :4001.
+**Change:** js/zap.js — local clone promoted to `export function exclam` (same if-chain, C-cited doc). js/mthrowu.js, js/uhitm.js, js/spell.js — clones deleted, `exclam` added to the pre-existing `./zap.js` import edge (all four consumers already imported from zap.js statically, so no new module edge, no `--can` needed; hoisted function decl, no TDZ). spell.js `exclam_chain(dmg)` → `exclam(dmg)`. js/muse.js — inline ternary replaced with `exclam(dmg)` + import extended. Zero behavior change by construction (identical predicate order).
+**Verify:** `node scripts/verify.mjs --fn exclam` → VERIFY: PASS — syntax 5 files · rule2 · hidden note (no corpus session blocked) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (no shared-file change per script).
+**Named:** - `exclam`: none in-body — whole C body live. Unwired C callers (pre-existing arm omissions, out of scope): muse.c:1639 `hit("wand", mtmp, exclam(tmp))` (mbhitm mon-target striking arm; doc-named js/muse.js:786-788, dice still burn); zap.c:4812 `pline("…rips into…", exclam(tmp))` (dobuzz uswallow early-return arm absent from JS); zap.c:4875 `hit(flash_str, mon, exclam(0))` (mon_reflects deferred, js/zap.js:2435).
+**Next:** coverage generator returns 0 rows (`ledger.mjs rows`); queue's remaining Open rows are corpus residuals (mbirth_limit next). Density note: cluster is exclam alone — head file zap.c holds no other Open row and exclam has no callees.
 ## 2026-10-02 — D-3270 `attrib.c` exercise + 2 caller writers (nh_timeout mtimedone-before-uprops order; thitu lifesave fallthrough to A_STR)
 
 **C locus:** - `exercise`: nethack-c/upstream/src/attrib.c:489–518 whole body — :492–493 INT/CHA guard, :496 Upolyd non-WIS guard, :499 `|AEXE| < AVAL` (`:486`, 50), :509 `(rn2(19) > ACURR) : -rn2(2)`, :516–517 moves>0 STR/CON encumber_msg tail.

@@ -67,7 +67,7 @@ import {
     AD_DRST, AD_DRDX, AD_DRCO, AD_SAMU, AD_DRLI, AD_SITM, AD_SEDU, AD_SSEX,
     AD_CONF, AD_WERE, AD_FAMN,
 } from './mhitm.js';
-import { resists_drli, resists_cold, resists_poison, destroy_items, resist, drain_item } from './zap.js';
+import { resists_drli, resists_cold, resists_poison, destroy_items, resist, drain_item, exclam } from './zap.js';
 import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM, MZ_HUGE,
     bigmonst, thick_skinned, monsterNames, nonliving, haseyes, dmgtype, hides_under,
@@ -435,13 +435,6 @@ export function can_blnd(magr, mdef, aatyp, obj) {
         }
     }
     return true; // C :398
-}
-
-/** C ref: zap.c exclam `:3546–3553` — punctuation by damage force. */
-function exclam(force) {
-    if (force < 0) return '?';
-    if (force <= 4) return '.';
-    return '!';
 }
 
 // C ref: display.h _is_safemon — peaceful + canspotmon + !conf/hallu/stun

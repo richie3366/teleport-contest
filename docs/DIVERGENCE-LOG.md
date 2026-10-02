@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3271 — `zap.c` exclam canonical export + 5-file caller sweep (clone consolidation)
+
+- **Status:** shipped (Open corpus-residual row `zap.c exclam` checked off; no review cited, no stamp owed)
+- **Symptom:** queue row: C zap.c:3546–3553 `exclam(int force)` had no canonical export in js/zap.js (C home) — 3 same-named local clones (js/mthrowu.js:286, js/uhitm.js:441, js/zap.js:1541) plus a 4th under another name (js/spell.js:2262 `exclam_chain`) and an inline ternary in js/muse.js:1813; C callers in 5 files. No corpus session blocked (pure function, no RNG).
+- **C locus:** nethack-c/upstream/src/zap.c:3546–3553 whole body — `(force < 0) ? "?" : (force <= 4) ? "." : "!"` (comments: force==0 e.g. sleep ray; large force usual with wands). 15 call sites in 5 files (brief-verified): mthrowu.c:119,121 (thitu) + :393,401 (ohitmon); muse.c:1639 (mbhitm) + :3229 (muse_unslime); spell.c:1051 (cast_chain_lightning); uhitm.c:1547 (joust) + :1647 + :1658 + :5724 (hmonas); zap.c:210 (bhitm) + :4812 + :4875 + :4936 (dobuzz/buzz). (:3559 is a comment mention in `hit`'s doc, not a call.)
+- **JS was:** local `function exclam` in mthrowu.js/uhitm.js/zap.js (identical bodies), `exclam_chain` in spell.js, inline `dmg < 0 ? '?' : dmg <= 4 ? '.' : '!'` in muse.js muse_unslime; muse.c:1639 + zap.c:4812/4875 had no JS call (pre-existing arm omits).
+- **Fix:** js/zap.js — local clone promoted to `export function exclam` (same if-chain, C-cited doc). js/mthrowu.js, js/uhitm.js, js/spell.js — clones deleted, `exclam` added to the pre-existing `./zap.js` import edge (all four consumers already imported from zap.js statically, so no new module edge, no `--can` needed; hoisted function decl, no TDZ). spell.js `exclam_chain(dmg)` → `exclam(dmg)`. js/muse.js — inline ternary replaced with `exclam(dmg)` + import extended. Zero behavior change by construction (identical predicate order).
+- **JS:** js/zap.js:1544 (canonical export); call sites js/mthrowu.js:666,668 + :919,924; js/uhitm.js:1619 + :1760 + :1771 + :3805; js/spell.js:2380; js/muse.js:1813; js/zap.js:2464 + :4001.
+- **Callers:** C mthrowu.c:119,121 → js/mthrowu.js:666,668 (thitu); C :393,401 → js/mthrowu.js:919,924 (ohitmon thrown-missile path); C muse.c:3229 → js/muse.js:1813 (muse_unslime); C spell.c:1051 → js/spell.js:2380 (cast_chain_lightning); C uhitm.c:1547 → js/uhitm.js:1619 (hmon_hitmon_jousting); C :1647 → :1760; C :1658 → :1771; C :5724 → :3805 (hmonas_hugs split helper); C zap.c:210 → js/zap.js:4001 (bhitm); C :4936 → :2464 (dobuzz); C muse.c:1639 + zap.c:4812/4875 → Named omissions (no JS call; pre-existing arm omits, not introduced here).
+- **Verify:** `node scripts/verify.mjs --fn exclam` → VERIFY: PASS — syntax 5 files · rule2 · hidden note (no corpus session blocked) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (no shared-file change per script).
+- **Named omissions:** - `exclam`: none in-body — whole C body live. Unwired C callers (pre-existing arm omissions, out of scope): muse.c:1639 `hit("wand", mtmp, exclam(tmp))` (mbhitm mon-target striking arm; doc-named js/muse.js:786-788, dice still burn); zap.c:4812 `pline("…rips into…", exclam(tmp))` (dobuzz uswallow early-return arm absent from JS); zap.c:4875 `hit(flash_str, mon, exclam(0))` (mon_reflects deferred, js/zap.js:2435).
+- **Ledger:** exclam ported
+- **Next:** coverage generator returns 0 rows (`ledger.mjs rows`); queue's remaining Open rows are corpus residuals (mbirth_limit next). Density note: cluster is exclam alone — head file zap.c holds no other Open row and exclam has no callees.
+
 ## D-3270 — `attrib.c` exercise + 2 caller writers (nh_timeout mtimedone-before-uprops order; thitu lifesave fallthrough to A_STR)
 
 - **Status:** shipped (Open corpus-residual row `attrib.c exercise` checked off and archived; no review cited, no stamp owed)

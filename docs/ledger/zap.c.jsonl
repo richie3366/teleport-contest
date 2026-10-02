@@ -45,7 +45,7 @@
 {"fn":"weffects","c":"3431-3476","status":"unknown","d":["D-1461","D-1460","D-1459","D-1458","D-1452","D-1451"],"at":"seed@a30a7de84"}
 {"fn":"spell_damage_bonus","c":"3480-3502","status":"unknown"}
 {"fn":"spell_hit_bonus","c":"3509-3544","status":"ported","js":["js/zap.js:spell_hit_bonus"],"d":["D-3056"],"at":"2026-09-28@886e83076","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"exclam","c":"3547-3553","status":"unknown"}
+{"fn":"exclam","c":"3547-3553","status":"ported","js":["js/zap.js:exclam"],"d":["D-3271"],"at":"2026-10-02@2798e7602"}
 {"fn":"hit","c":"3556-3568","status":"unknown"}
 {"fn":"miss","c":"3571-3576","status":"unknown"}
 {"fn":"skiprange","c":"3579-3588","status":"split","js":["js/zap.js:bhit_skiprange"],"at":"2026-10-02@e42cd0047","note":"stale: file-local bhit_skiprange js/zap.js:6001, bhit caller wired :6071"}
