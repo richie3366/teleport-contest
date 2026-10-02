@@ -6140,6 +6140,23 @@ export function closest_color(lcolor, closecolor, clridx) {
     return retbool; // C :1020
 }
 
+/**
+ * C ref: coloratt.c get_nhcolor_from_256_index `:1024–1031` — 256-color
+ * table lookup by 0-based slot (IndexOk = 0 <= idx < SIZE,
+ * hack.h:1498); out-of-range yields NO_COLOR | NH_BASIC_COLOR. 0 C
+ * callers in pinned C (dead in C); live export on the D-2776
+ * base_soundname_to_filename precedent (compiles in contest C), no JS
+ * caller wired (D-2393). Retires the D-2777 "table's other C reader"
+ * omit leg.
+ */
+export function get_nhcolor_from_256_index(idx) {
+    let retcolor = NO_COLOR | NH_BASIC_COLOR; // C :1026
+    const i = idx | 0; // C int idx
+    if (i >= 0 && i < color_256_definitions.length) // C :1028 IndexOk/SIZE
+        retcolor = color_256_definitions[i].value; // C :1029
+    return retcolor; // C :1030
+}
+
 /* C color.h:61 — `enum nhcolortype` (lowercase in C; unrelated to the
    color.h:22 NO_COLOR = 8 slot carried by terminal.js). */
 const NHCOLORTYPE_NO = 0, NHCOLORTYPE_NH = 1, NHCOLORTYPE_RGB = 2;

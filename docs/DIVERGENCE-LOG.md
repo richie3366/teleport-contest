@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3326 — `coloratt.c` get_nhcolor_from_256_index live-export port + 3 same-file stale-complete bookings
+
+- **Status:** shipped (Open missing-arm head ported + 3 same-file stale-complete bookings via Ledger, D-3314 precedent). ~18 js/ insertions — below the ~80 bar, defended (D-3325 exception shape): the head is a 4-line dead-in-C leaf (whole C body + zero-caller table now a live export), the trio brief-verifies body-complete with every C caller wired (6/6 code sites), and the head's file holds nothing more Open (18 ported, 3 partials keep UB/sink/compiled-out omits, 3 by-design CHANGE_COLOR-compiled-out; `rows --write` regenerates 0). Refill: 1 missing-arm row appended from this session's brief evidence (`dungeon.c` has_ceiling clones) — queue ships at 8.
+- **Symptom:** no corpus divergence — coverage row (0 blocked on all four at baseline).
+- **C locus:**
+  - `get_nhcolor_from_256_index`: nethack-c/upstream/src/coloratt.c:1024–1031 whole body: NO_COLOR|NH_BASIC_COLOR default `:1026`, IndexOk gate `:1028` (hack.h:1498, SIZE=240), table .value `:1029`; 0 C refs (brief this session — dead in C, compiles in contest C).
+  - `attr2attrname`: nethack-c/upstream/src/coloratt.c:320–328 whole body: attrnames first-match scan, (char *)0 fallthrough; 4 code refs + decl.
+  - `free_one_menu_coloring`: nethack-c/upstream/src/coloratt.c:684–706 whole body: idx walk, regex_free + frees, prev/head unlink; sole code ref options.c:6490.
+  - `color_distance`: nethack-c/upstream/src/coloratt.c:979–994 whole body: redmean distance (D-2777); sole ref :1009.
+- **JS was:** no `get_nhcolor_from_256_index` symbol (brief sym.mjs NOT FOUND); table + NO_COLOR/NH_BASIC_COLOR already live in js/options.js (D-2777). The trio live but ledger-unknown (attr2attrname :5854, free_one_menu_coloring :5875, color_distance :6096).
+- **Fix:** `export function get_nhcolor_from_256_index(idx)` in js/options.js (:6152, C-order slot between closest_color and colortable_to_int32) with C-line cites; IndexOk as `0 <= i < color_256_definitions.length` (closest_color :6122 SIZE idiom), `idx | 0` (C int), table `.value`, NO_COLOR|NH_BASIC_COLOR default — all values non-negative int32, no uint32 coercion needed. Live export with no JS caller on the D-2776 base_soundname_to_filename precedent (compiles in contest C; wiring from a site C never calls from is a C-wrong, D-2393); retires the D-2777 "table's other C reader" omit leg. Zero new imports/edges (both consts already imported :147/:197; table module-local). Stale trio: no js/ change, booked via Ledger. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:**
+  - `get_nhcolor_from_256_index`: js/options.js:6152 (export; +18/−0 with doc).
+  - `attr2attrname`: js/options.js:5854 (stale-complete, no change).
+  - `free_one_menu_coloring`: js/options.js:5875 (stale-complete, no change).
+  - `color_distance`: js/options.js:6096 (stale-complete, D-2777, no change).
+- **Callers:**
+  - `get_nhcolor_from_256_index`: 0 C callers — none wired, named (D-2393).
+  - `attr2attrname`: C :255 color_attr_to_str → js/options.js:3304; options.c :3180 → :7588; :6461 → :7061; :9614 → :12463 — 4/4 wired.
+  - `free_one_menu_coloring`: options.c :6490 → js/options.js:7096 (`pick_list[pick_idx].a_int - 1`, C-exact) — wired.
+  - `color_distance`: coloratt.c :1009 closest_color → js/options.js:6129 — wired.
+- **Verify:** `node scripts/verify.mjs --fn get_nhcolor_from_256_index,attr2attrname,free_one_menu_coloring,color_distance` → VERIFY: PASS. Tail verbatim:
+  - `get_nhcolor_from_256_index`: `note hidden verify …: no corpus session blocked on it at baseline` · `PASS reach …: no RNG-tagged reach; fixed smoke spread (24 run, 10.8s): 24 PASS, 0 regressed → REACH-OK`
+  - `attr2attrname`: `note hidden …` · `PASS reach … smoke spread (24 run, 10.9s): 24 PASS, 0 regressed → REACH-OK`
+  - `free_one_menu_coloring`: `note hidden …` · `PASS reach … smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK`
+  - `color_distance`: `note hidden …` · `PASS reach … smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK`
+  Shared: `PASS syntax 1 changed js file(s): js/options.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS green 2/2 passing` · `PASS strict` ×2 · `PASS cohort 7/7 passing` · `PASS full 44/44 passing (auto: shared file changed)`. Throwaway /tmp probe (not committed — repo has no tests/ dir; no new framework for a 4-line leaf, D-2777 precedent): 247/247 — slots 0/215/239 exact, 6 OOB arms → NO_COLOR|NH_BASIC_COLOR, 240-slot int32 domain.
+- **Named omissions:**
+  - `get_nhcolor_from_256_index`: none in-body — whole C body live.
+  - `attr2attrname`: none in-body — whole C body live (first-match scan + null fallthrough).
+  - `free_one_menu_coloring`: none in-body — whole C body live (frees ≡ GC; regex_free live).
+  - `color_distance`: none in-body — whole C body live.
+- **Ledger:** get_nhcolor_from_256_index ported; attr2attrname ported; free_one_menu_coloring ported; color_distance ported
+- **Next:** queue head `do.c` badspot.
+
 ## D-3325 — allmain.c early_init whole-body port + jsmain entry wiring (domenucontrols stale-split)
 
 - **Status:** shipped (2 Open missing-arm rows checked off + archived in this commit — domenucontrols stale-split via direct `ledger.mjs set`, early_init ported). ~30 js/ insertions — below the ~80 bar, defended (D-3324 exception shape): the deliverable is a 7-call C-order entry sequence + caller wiring, the whole C body verified against the brief, and the head's file and callee closure hold nothing more Open (all 7 callees live; no other allmain.c row in the 8-row missing-arm list; coverage block regenerates 0 rows). Review 1487 (show_menu_controls) read this session — it ACCEPTED the domenucontrols split wiring as pre-existing paths, verdict ACCEPT with no Actionable C-wrongs, so no stamp owed (row cited no review as Source). Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); 2 missing-arm rows appended from this session's brief evidence (Is_special clones, Is_branchlev no-export) + 2 stale-complete booked via `ledger.mjs set` (Some_Monnam, g_at) — queue ships at 8 (band met so finish can commit).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3326 `coloratt.c` get_nhcolor_from_256_index live-export port + 3 same-file stale-complete bookings
+
+**C locus:** - `get_nhcolor_from_256_index`: nethack-c/upstream/src/coloratt.c:1024–1031 whole body: NO_COLOR|NH_BASIC_COLOR default `:1026`, IndexOk gate `:1028` (hack.h:1498, SIZE=240), table .value `:1029`; 0 C refs (brief this session — dead in C, compiles in contest C).
+**JS:** - `get_nhcolor_from_256_index`: js/options.js:6152 (export; +18/−0 with doc).
+**Change:** `export function get_nhcolor_from_256_index(idx)` in js/options.js (:6152, C-order slot between closest_color and colortable_to_int32) with C-line cites; IndexOk as `0 <= i < color_256_definitions.length` (closest_color :6122 SIZE idiom), `idx | 0` (C int), table `.value`, NO_COLOR|NH_BASIC_COLOR default — all values non-negative int32, no uint32 coercion needed. Live export with no JS caller on the D-2776 base_soundname_to_filename precedent (compiles in contest C; wiring from a site C never calls from is a C-wrong, D-2393); retires the D-2777 "table's other C reader" omit leg. Zero new imports/edges (both consts already imported :147/:197; table module-local).
+**Verify:** `node scripts/verify.mjs --fn get_nhcolor_from_256_index,attr2attrname,free_one_menu_coloring,color_distance` → VERIFY: PASS. Tail verbatim:
+**Named:** - `get_nhcolor_from_256_index`: none in-body — whole C body live.
+**Next:** queue head `do.c` badspot.
 ## 2026-10-02 — D-3325 allmain.c early_init whole-body port + jsmain entry wiring (domenucontrols stale-split)
 
 **C locus:** - `early_init`: nethack-c/upstream/src/allmain.c:32–45 whole body: program_state `:35`, crashreport `:38` (#ifdef CRASHREPORT), decl `:40`, objects `:41`, monst `:42`, sys `:43`, runtime `:44` — read in the brief this session.

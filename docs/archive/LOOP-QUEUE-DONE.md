@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `coloratt.c` get_nhcolor_from_256_index — C coloratt.c:1024–1031 `IndexOk → color_256_definitions[idx].value else NO_COLOR|NH_BASIC_COLOR` absent from js/ (no symbol; brief this session; 0 C refs — dead in C) — resolve by-design or port. **Addressed:** D-3326
+
+
 - [x] `pager.c` domenucontrols — C pager.c:2820–2827 `create_nhwindow + show_menu_controls(cwin,FALSE) + display + destroy` absent from js/ (no symbol; brief this session; sole C ref is the decl-only :48 — dead in C; callee live js/dokeylist.js:210) — port module-local (C staticfn) or resolve by-design.
 - [x] `allmain.c` early_init — C allmain.c:33–45 `program_state_init + decl/objects/monst/sys/runtime inits` absent from js/ (no symbol; brief this session; sole caller unixmain.c:66 port entry; callees live incl js/decl.js:97 + js/sys.js:37 + js/monsters.js:222) — port or resolve by-design.
 
