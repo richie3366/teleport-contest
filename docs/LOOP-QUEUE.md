@@ -129,6 +129,8 @@ coverage list is empty, or alongside a coverage row in the same C file.
 - [ ] `mthrowu.c` m_carrying youmonst→invent branch — C mthrowu.c:1409 (`(mtmp==&gy.youmonst) ? gi.invent : minvent`) absent from js/mon.js:m_carrying (:419–424 minvent-only loop; full body read in brief @e3c036ca2; no youmonst.minvent↔invent alias in js/; porter's first check: live hero caller vs latent)
 - [ ] `do.c` goto_level — C do.c:1695–1697 discarded-level arm (VISITED check + `impossible("returning to discarded level?")` + clear) absent from js/do.js:goto_level (`if (!exists)` :1982 goes straight to mklev; C+JS-read) @1b0ae0968
 - [ ] `do.c` goto_level — C do.c:1731–1740 portal-missing distinction (qexpelled quest return vs fuzzer-gated `impossible("no corresponding portal")`) absent from js/do.js:goto_level (:2075 one rndspot for both sub-arms; C+JS-read) @1b0ae0968
+- [ ] `mkobj.c` discard_minvent — C mkobj.c:2532–2535 artifact arm (`if (uncreate_artifacts && otmp->oartifact) artifact_exists(...)` + obfree) absent from js/mon.js:discard_minvent (:3630–3640 loop extracts+unlinks only, flag param ignored; doc :3628 names it; brief-verified @7bdcd631d; artifact_exists/safe_oname/obfree all live sync)
+- [ ] `dungeon.c` u_on_rndspot — C dungeon.c:1614 `On_W_tower_level(&u.uz)` gate absent from js/mklev.js:u_on_rndspot (:738 `was_in_W_tower && dndest.nlx` takes the tower branch off-tower and misses nlx==0 on-tower; doc :739 names it; brief-verified @7bdcd631d; canonical On_W_tower_level live js/dungeon.js:1291)
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

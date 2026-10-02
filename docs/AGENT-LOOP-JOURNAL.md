@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2238–2246: review D-3277–D-3285 (9 ACCEPT) + full score
+
+**Scope:** e14cd5d30…7bdcd631d (9 js/ SHAs since 2237), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.
+**Verdicts:** 9 ACCEPT, 0 Must-fix. Re-measured each via verify --reach-all (full reach: 701/629/482 makemon/m_move/dog_move; Valkyrie-94041 PROGRESS 80→111 confirmed). Unqueued: mklev D-1179 doc line stale; mhis_leash hallu-rn2 on live path (helper-doc-named).
+**Fortress:** public 44/44 (Scr 11405, RNG 792838, `325+1.63/turn` R² 0.78); corpus 704/953 (73.9%), RNG 97.98%, scr 93.4%, 0 loss/gain; `full: true` @7bdcd631d. Held-out 15/44 (+0), rank 5.
+**Ledger:** snapshot appended; 10 seeded-ported sampled (5 + 5 sql under nvm v22): all stand. Refill: coverage 0, queue 0 eligible; +2 brief-verified arm rows → 5 Open.
 ## 2026-10-02 — D-3285 `makemon` remainder: ptr-arm GENOD veto + debug_mongen/isok gates + discard-minvent else + new* C order
 
 **C locus:** `makemon.c:1204–1212` ptr arm (`monsndx` + `mvflags & G_GENOD → return 0` + wizard G_EXTINCT debugpline); `:1168` debug_mongen gate; `:1188–1191` isok impossible gate; `:1454–1459` discard_minvent else; `:1237–1246` new* order.

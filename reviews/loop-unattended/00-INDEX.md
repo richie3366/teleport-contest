@@ -2247,3 +2247,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2235-51548d8db-priestname-cluster.md](./2235-51548d8db-priestname-cluster.md) | `51548d8db` | D-3274 priestname + mon_aligntyp + restpriest + bogon | **ACCEPT** |
 | [2236-9cdc961f3-hmon-silvermsg-gate.md](./2236-9cdc961f3-hmon-silvermsg-gate.md) | `9cdc961f3` | D-3275 hmon_hitmon silvermsg gate | **ACCEPT** |
 | [2237-715abdc4c-container-contents-dedrift.md](./2237-715abdc4c-container-contents-dedrift.md) | `715abdc4c` | D-3276 container_contents de-drift | **ACCEPT** |
+| [2238-e14cd5d30-goto-level-mysteryforce-bit2.md](./2238-e14cd5d30-goto-level-mysteryforce-bit2.md) | `e14cd5d30` | D-3277 goto_level mysteryforce + W-tower bit 2 | **ACCEPT** |
+| [2239-3d8fe9bf9-makemon-grid-parity-leaks.md](./2239-3d8fe9bf9-makemon-grid-parity-leaks.md) | `3d8fe9bf9` | D-3278 makemon grid place + move parity + leak fixes | **ACCEPT** |
+| [2240-b15c3087f-keepdogs-relmon-takeoff.md](./2240-b15c3087f-keepdogs-relmon-takeoff.md) | `b15c3087f` | D-3279 keepdogs relmon + flag-free take-off | **ACCEPT** |
+| [2241-1d636ae22-migrate-light-tail-lastmove.md](./2241-1d636ae22-migrate-light-tail-lastmove.md) | `1d636ae22` | D-3280 migrate light tail + set_mon_lastmove | **ACCEPT** |
+| [2242-e3c036ca2-migrate-sync-mirror-leash.md](./2242-e3c036ca2-migrate-sync-mirror-leash.md) | `e3c036ca2` | D-3281 migrate sync mirror + leash arm | **ACCEPT** |
+| [2243-7589db4a3-p-coaligned-mon-aligntyp.md](./2243-7589db4a3-p-coaligned-mon-aligntyp.md) | `7589db4a3` | D-3282 p_coaligned via mon_aligntyp | **ACCEPT** |
+| [2244-1b0ae0968-encumber-stagger-verbs.md](./2244-1b0ae0968-encumber-stagger-verbs.md) | `1b0ae0968` | D-3283 encumber stagger verbs + 3 callers | **ACCEPT** |
+| [2245-f52a2d2fb-goto-level-clamp-endgame-else.md](./2245-f52a2d2fb-goto-level-clamp-endgame-else.md) | `f52a2d2fb` | D-3284 goto_level clamp + endgame + else | **ACCEPT** |
+| [2246-7bdcd631d-makemon-remainder-arms.md](./2246-7bdcd631d-makemon-remainder-arms.md) | `7bdcd631d` | D-3285 makemon remainder (5 arms) | **ACCEPT** |
