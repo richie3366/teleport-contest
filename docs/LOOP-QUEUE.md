@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `uhitm.c` hmon_hitmon — C uhitm.c:1876–1877 `if (hmd.silvermsg) hmon_hitmon_msg_silver(&hmd,mon,obj)` weapon path absent from js/uhitm.js:hmon_hitmon (:2176 gates on barehand_silver_rings>0 only, so melee/ranged silvermsg never prints; callee live; D-3262 follow-up) @4f422de21
 - [ ] `end.c` container_contents — C end.c:1609 update_inventory() after cknown absent from js/pickup.js:container_contents single-box clone (:2532 sets cknown :2534 with no call; doc :2528 stale "deferred like js/end.js" — end.js has it since D-3260; D-3260 named the drift) @4f422de21
 - [ ] `do.c` goto_level — C do.c:1541–1570 Gehennom amulet mysteryforce arm (rn2 gate, assign_rnd_level, W-tower diff=0, pline, mysteryforce increment, same-level safe_teleds/next_to_u return) absent from js/do.js:goto_level (:1675 named; blocks same-level safe_teleds per D-2815 omit) @4f422de21
 - [ ] `do.c` goto_level — C do.c:1804 `u_on_rndspot((up?1:0)|(was_in_W_tower?2:0))` W-tower bit 2 absent from js/do.js:goto_level (:2112 passes `up?1:0` only; named D-1179; callee js/mklev.js:u_on_rndspot already decodes bit 2; adjacent ballfall/selftouch live — D-3261 omit text stale on ballfall) @4f422de21

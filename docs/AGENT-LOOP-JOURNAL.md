@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3275 `uhitm.c` hmon_hitmon :1876–1877 weapon silvermsg gate
+
+**C locus:** - `hmon_hitmon`: nethack-c/upstream/src/uhitm.c:1876–1877 gate (whole fn :1754–1935; all other arms shipped by prior D rows).
+**JS:** js/uhitm.js:1990–1991 locals, js/uhitm.js:2043–2044 plumb, js/uhitm.js:2179 gate.
+**Change:** js/uhitm.js only — `silvermsg`/`silverobj` locals plumbed from `hmdHit` (C :1771–1772 via do_hit :881/:897/:1036/:1378), gate replaced with C's `if (silvermsg)`, full field set passed to the live `hmon_hitmon_msg_silver` (C's `obj` arg is UNUSED inside it). Barehand behavior is unchanged: barehands sets silvermsg exactly when rings > 0. Doc sync: melee :1127–1128, misc :1262–1264 (+ shade-bump-:1817-live D-3253) and msg_silver :1636–1638 notes retired.
+**Verify:** - `hmon_hitmon`: `node scripts/verify.mjs --fn hmon_hitmon` (+ `--reach-all`) → syntax (1 file) PASS, rule2 PASS, `no corpus session blocked` (missing-arm row, no N cited — no --base owed), smoke-spread REACH-OK (24/24, no RNG-tagged reach — message gate), green 2/2, strict 2/2, cohort 7/7, VERIFY: PASS.
+**Named:** - `hmon_hitmon`: none in-body — whole C body live (ledger omits retired: weapon plumbing this iter, stagger D-3262, :1265 doc sync this iter; pre-existing local notes kept: knockback mattk derivation, pie fast path).
+**Next:** cluster of 1 by exhaustion — 0 coverage rows (`ledger.mjs rows`), no other uhitm.c queue row, all hmon_hitmon callees live. Next row: `end.c` container_contents.
 ## 2026-10-02 — D-3274 `priest.c` priestname + mon_aligntyp + restpriest canonical exports; `do_name.c` bogon_is_pname export
 
 **C locus:** - `priestname`: nethack-c/upstream/src/priest.c:302–367 (67 lines).

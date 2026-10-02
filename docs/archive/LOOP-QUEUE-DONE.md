@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `priest.c` priestname — C priest.c:301–367 `priestname()` 67-line body canonical export absent from js/priest.js (C home; only clone js/do_name.js:929; caller do_name.c:898; brief-verified) @a2542cfc9 **Addressed:** D-3274
+- [x] `uhitm.c` hmon_hitmon — C uhitm.c:1876–1877 `if (hmd.silvermsg) hmon_hitmon_msg_silver(&hmd,mon,obj)` weapon path absent from js/uhitm.js:hmon_hitmon (:2176 gates on barehand_silver_rings>0 only, so melee/ranged silvermsg never prints; callee live; D-3262 follow-up) @4f422de21 **Addressed:** D-3275
+
+
+- [x] `priest.c` priestname — C priest.c:301–367 `priestname()` 67-line body canonical export absent from js/priest.js (C home; only clone js/do_name.js:929; caller do_name.c:898; brief-verified) @a2542cfc9 **Addressed:** D-3274 `51548d8db`
 
 
 - [x] `mon.c` relmon — C mon.c:2559–2594 `relmon()` fmon-list surgery canonical export absent from js/mon.js (C home; only clone js/dog.js:751; callers dog.c:618/863/906; brief-verified) @a2542cfc9 **Addressed:** D-3273 `faf4b9296`
