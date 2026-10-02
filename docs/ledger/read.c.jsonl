@@ -43,7 +43,7 @@
 {"fn":"seffect_gold_detection","c":"2035-2043","status":"unknown"}
 {"fn":"seffect_food_detection","c":"2046-2052","status":"unknown"}
 {"fn":"seffect_identify","c":"2055-2099","status":"unknown"}
-{"fn":"seffect_magic_mapping","c":"2102-2153","status":"unknown"}
+{"fn":"seffect_magic_mapping","c":"2102-2153","status":"ported","js":["js/read.js:seffect_magic_mapping"],"d":["D-3249"],"at":"2026-10-01@012413194","note":"stale: js/read.js:320 session-path whole; Rogue sdoor arm approximates unblock_point via vision_recalc+newsym (pre-existing D-0075/D-1407); Tourist-92061 map-cell I-vs-floor is upstream monster state"}
 {"fn":"seffect_mail","c":"2157-2188","status":"ported","js":["js/read.js:seffect_mail"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"stale: js/read.js:1885 all arms + readmail default, seffects caller wired"}
 {"fn":"seffects","c":"2194-2291","status":"unknown","d":["D-1098"],"at":"seed@a30a7de84"}
 {"fn":"drop_boulder_on_player","c":"2294-2338","status":"unknown"}

@@ -126,14 +126,12 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `steal.c` stealgold — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen) @2b9efeed4
 - [ ] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa
 - [ ] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828
-- [ ] `uhitm.c` check_caitiff — blocks 1/953 (scen-ride-Samurai-94407, step 125, kind=screen) @2ad1aa828
 - [ ] `do.c` dowipe — blocks 1/953 (scen-terrain-Valkyrie-94240, step 117, kind=screen) @2ad1aa828
 - [ ] `minion.c` msummon — blocks 1/953 (scen-engulf-Monk-94052, step 90, kind=screen) @2ad1aa828
 - [ ] `weapon.c` enhance_weapon_skill — blocks 1/953 (scen-caster-Healer-94269, step 225, kind=screen) @2ad1aa828
-- [ ] `uhitm.c` known_hitum — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen; scoreboard owner stealgold is misattributed: C "You miss it" vs JS "You miss the kitten" under OPTIONS=!verbose) @37d6d3fe7; C uhitm.c:604–610 (override_confirmation verbose arm + missum call) absent from js/uhitm.js:known_hitum (:3077; inline pline :3089 drops the canspotmon/verbose gate)
+- [ ] `potion.c` make_stunned — blocks 1/953 (scen-ride-Samurai-94407, step 159, kind=screen; C "You miss it. You wobble in the saddle." vs JS "You miss it.") @012413194
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

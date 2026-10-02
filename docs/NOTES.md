@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3248 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3249 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3248.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3248 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3249.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3249 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3249: `js/uhitm.js` only, no new module edge (Your :43, set_ustuck :118 pre-imported; missum :2272 + sticks :3647 same-file — no `imports.mjs --can` needed) Named: - `known_hitum`: none in-body — whole C body live.
 - D-3248: `js/mhitm.js`: import live `finish_meating` on the pre-existing dogmove edge (`imports.mjs --can`: ALREADY, no new edge — the mhitm↔dogmove cycle pre- Named: - `mdisplacem`: none in-body — whole C body live (direct mx/my swap stands for remove/plac
 - D-3247: `js/dig.js`: use_pick_axe2 — swallowed `&&` short-circuit with fall-through + `u.uinwater` Turbulence arm (C youprop.h:279 macro read at site, no new  Named: - `dig`: none in-body — whole C body live (local on_level/assign_level/next2u/m_at/yobjnam
 - D-3246: `js/lev_json.js`: new serStashLight (lev_json.js:410) — stash-aware numeric write resolving pointers against the STASH roots (find_oid_in_blob over fr Named: - `write_ls`: none in-body — whole C body live (type gate, NEEDS_FIXUP, OBJECT/MONSTER ver
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3237: `js/dig.js` only (display.js import gains `pline_The, impossible` on the existing edge — no new module edge). Named: - `digactualhole`: none — every arm live, every C callee live (`buried_ball_to_punishment`
 - D-3236: `js/engrave.js` — ENGRAVE/HEADSTONE/BURN now `!blind \|\| can_reach_floor(true)` (same-module live export); default calls live `impossible('%s …', Som Named: `fix_shop_damage` (`allmain.c:88`, shop.c — stays deferred, comment kept).
 - D-3235: `js/mklev.js` only, no new module edges (`get_table_option`/`impossible` already imported, `:150`/`:158`). Named: - `lspo_exclusion`: hellfill `rnd_hell_prefab` maps (pre-existing, review 70).
-- D-3234: deleted the local; `selection_getpoint` joins the existing `from './mklev.js'` import (line 58 — no new module edge) and the loop calls the live expor Named: - `create_gas_cloud_selection`: none — whole body live, membership now the live export.
 <!-- landmarks:end -->

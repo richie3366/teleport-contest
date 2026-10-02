@@ -3073,6 +3073,8 @@ export async function damageum(mdef, mattk, specialdmg) {
  * C ref: uhitm.c known_hitum — missum or hmon; flee rn2(25) if survives low.
  * cutworm when wormno && *mhit after Vorpal-converted-miss (oldhp).
  * slice_or_chop is obj.h is_blade||is_axe remembered before hmon.
+ * Stormbringer override pline `:602–607` (verbose only); miss via live
+ * missum `:609–610`; ustuck release `:630–632`.
  */
 async function known_hitum(mon, weapon, mhit, rollneeded, armorpenalty, uattk, dieroll) {
     let malive = true;
@@ -3083,14 +3085,16 @@ async function known_hitum(mon, weapon, mhit, rollneeded, armorpenalty, uattk, d
         || ((weapon.oclass === WEAPON_CLASS || weapon.oclass === TOOL_CLASS)
             && sk === P_AXE)
     ));
+    // C `:602–607` — Stormbringer override_confirmation (verbose only)
+    if (game.override_confirmation) {
+        /* this may need to be generalized if weapons other than
+           Stormbringer acquire similar anti-social behavior... */
+        if (game.flags?.verbose !== false) await Your('bloodthirsty blade attacks!');
+    }
     if (!mhit.v) {
-        // missum — near-miss flavor when rollneeded+penalty > dieroll
-        void (rollneeded + armorpenalty > dieroll);
-        await pline(`You miss ${mon_nam(mon)}.`);
-        // C missum: if (!helpless(mdef)) wakeup(mdef, TRUE)
-        if (!mon.msleeping && mon.mcanmove !== 0) {
-            await wakeup(mon, true);
-        }
+        // C `:609–610` — live missum: near-miss armor pline, seduce
+        // pretend, canspotmon/verbose miss gate, helpless-gated wakeup
+        await missum(mon, uattk, (rollneeded + armorpenalty > dieroll));
     } else {
         const oldhp = mon.mhp | 0;
         if (!game.u.uconduct) game.u.uconduct = {};
@@ -3111,7 +3115,12 @@ async function known_hitum(mon, weapon, mhit, rollneeded, armorpenalty, uattk, d
                 && !engulfing_u(mon)) {
                 // C: monflee(mon, !rn2(3) ? rnd(100) : 0, FALSE, TRUE)
                 await monflee(mon, !rn2(3) ? rnd(100) : 0, false, true);
-                // C: ustuck release when !uswallow && !sticks — deferred
+                // C `:630–632` — ustuck release when !uswallow && !sticks
+                const uu = game.u || {};
+                if (uu.ustuck === mon && !uu.uswallow
+                    && !sticks(game.youmonst?.data)) {
+                    set_ustuck(null);
+                }
             }
             /* Vorpal Blade hit converted to miss — could be headless or tail */
             if ((mon.mhp | 0) === oldhp) {
@@ -3123,7 +3132,6 @@ async function known_hitum(mon, weapon, mhit, rollneeded, armorpenalty, uattk, d
             }
         }
     }
-    void uattk;
     return malive;
 }
 

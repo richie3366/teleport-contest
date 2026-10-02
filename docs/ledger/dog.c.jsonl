@@ -18,4 +18,4 @@
 {"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-2760"],"at":"seed@a30a7de84"}
 {"fn":"tamedog","c":"1143-1282","status":"unknown","d":["D-1595","D-1593","D-1546","D-1532"],"at":"seed@a30a7de84"}
 {"fn":"wary_dog","c":"1292-1359","status":"unknown"}
-{"fn":"abuse_dog","c":"1362-1393","status":"unknown"}
+{"fn":"abuse_dog","c":"1362-1393","status":"ported","js":["js/dog.js:abuse_dog"],"d":["D-3249"],"at":"2026-10-01@012413194","note":"stale: js/dog.js:1472 body whole; 5/5 C callers wired (dokick.js:846, hack.js:1463, trap.js:7508, uhitm.js:2127, zap.js:4286)"}

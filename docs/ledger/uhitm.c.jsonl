@@ -2,7 +2,7 @@
 {"fn":"dynamic_multi_reason","c":"104-123","status":"ported","js":["js/uhitm.js:dynamic_multi_reason"],"at":"2026-09-29@2c9129a4b","note":"stale: js/uhitm.js:259"}
 {"fn":"erode_armor","c":"126-185","status":"unknown","d":["D-2071","D-1883"],"at":"seed@a30a7de84"}
 {"fn":"attack_checks","c":"189-327","status":"ported","js":["js/uhitm.js:attack_checks"],"d":["D-2752","D-2747"],"at":"seed@a30a7de84"}
-{"fn":"check_caitiff","c":"331-347","status":"unknown"}
+{"fn":"check_caitiff","c":"331-347","status":"ported","js":["js/uhitm.js:check_caitiff"],"d":["D-3249"],"at":"2026-10-01@012413194","note":"stale: js/uhitm.js:536 body exact; Samurai-94407 s125 diverged on miss text (fixed via known_hitum D-3249), caitiff line matched"}
 {"fn":"mon_maybe_unparalyze","c":"351-359","status":"unknown"}
 {"fn":"find_roll_to_hit","c":"365-427","status":"unknown","d":["D-2673"],"at":"seed@a30a7de84"}
 {"fn":"force_attack","c":"432-443","status":"unknown"}
