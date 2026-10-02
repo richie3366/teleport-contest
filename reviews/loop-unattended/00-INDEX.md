@@ -2221,3 +2221,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2209-012413194-mdisplacem.md](./2209-012413194-mdisplacem.md) | `012413194` | D-3248 mdisplacem live exports + gate | **ACCEPT** |
 | [2210-084395223-known-hitum.md](./2210-084395223-known-hitum.md) | `084395223` | D-3249 known_hitum live missum | **ACCEPT** |
 | [2211-8dee36cb3-msummon-cluster.md](./2211-8dee36cb3-msummon-cluster.md) | `8dee36cb3` | D-3250 msummon 10-fn Amonnam cluster | **ACCEPT** |
+| [2212-b3c50cbeb-passive-stun-acid.md](./2212-b3c50cbeb-passive-stun-acid.md) | `b3c50cbeb` | D-3251 passive STUN + passive_obj ACID arms | **ACCEPT** |
+| [2213-495619f68-doup-dowipe.md](./2213-495619f68-doup-dowipe.md) | `495619f68` | D-3252 doup whole-body + dowipe FACE | **ACCEPT** |
+| [2214-e4afe5879-hmon-min1-floor.md](./2214-e4afe5879-hmon-min1-floor.md) | `e4afe5879` | D-3253 hmon_hitmon min-1 floor | **ACCEPT** |
+| [2215-35e5e8f94-magic-map-memory-guard.md](./2215-35e5e8f94-magic-map-memory-guard.md) | `35e5e8f94` | D-3254 magic_map_background memory guard | **ACCEPT** |
+| [2216-2716a3ced-reset-utrap-cascade.md](./2216-2716a3ced-reset-utrap-cascade.md) | `2716a3ced` | D-3255 reset_utrap restart + cascade | **ACCEPT** |
+| [2217-1fe3dcc2a-passive-whole-bodies.md](./2217-1fe3dcc2a-passive-whole-bodies.md) | `1fe3dcc2a` | D-3256 passive_obj + passive whole bodies | **ACCEPT** |
+| [2218-e42cd0047-show-map-spot-do-mapping.md](./2218-e42cd0047-show-map-spot-do-mapping.md) | `e42cd0047` | D-3257 show_map_spot + do_mapping whole | **ACCEPT** |
+| [2219-1b5b36bb7-seffect-unblock-your.md](./2219-1b5b36bb7-seffect-unblock-your.md) | `1b5b36bb7` | D-3258 seffect unblock + Your declare | **ACCEPT** |
+| [2220-571bbecf7-zap-freeze-probing.md](./2220-571bbecf7-zap-freeze-probing.md) | `571bbecf7` | D-3259 zap_over_floor freeze + probing | **ACCEPT** |
