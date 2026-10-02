@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3259 `zap.c` zap_over_floor underfoot freeze arms + zap_map probing arms
+
+**C locus:** - `zap_over_floor`: nethack-c/upstream/src/zap.c:5192 dead `t = 0`, :5246 + :5278–5280 `Soundeffect(se_soft_crackling)`, :5293–5308 u_at uinwater/TT_LAVA arms.
+**JS:** js/zap.js:1144/:1183 Soundeffect, :1200–1219 underfoot arms; :6554/:6559 glyph_at compare, :6574 SCORR unblock, :6592–6595 use_the. ~47 insertions, 1 file.
+**Change:** js/zap.js only, all six imports extend pre-existing module edges (display/hack/trap/dungeon/seffects_data/const — no `imports.mjs --can` needed). Cold arm: uinwater → `await set_uinwater(0)` + `uundetected = 0` + `await docrt()` + `vision_full_recalc = 1`; TT_LAVA → Passes_walls (youprop.h:286 read at site, no 7th clone) ? `You("pass through the now-solid rock.")` + `await reset_utrap(true)` : `set_utrap(rn1(50, 20), TT_INFLOOR)` + `You("are firmly stuck in the cooling rock.")`.
+**Verify:** `node scripts/verify.mjs --fn zap_over_floor,zap_map` → syntax PASS; rule2 PASS; hidden note (no corpus session blocked — expected, rows cited 0 blocks); reach zap_over_floor 12/12 PASS → REACH-OK; reach zap_map 24/24 smoke PASS → REACH-OK; green 2/2; strict 2/2; cohort 7/7; VERIFY: PASS. Import smoke `IMPORT-OK function`. `node --test scripts/zap-over-floor.test.mjs` 2/2 (TT_LAVA stuck infloor, Passes_walls walkout; 0/2 pre-fix via stash).
+**Named:** - `zap_over_floor`: none in-body — whole C body live (pre-existing "dotrap polish" doc phrase retained; no C arm behind it, unrecorded in map).
+**Next:** zap.c holds nothing more queue-eligible (`rows --write` → 0 rows): zap_ok stale-declared ported by hand (js/zap.js:2648 whole); wish_history_flush release body is empty (`#ifdef DEBUG` only, save.c teardown free — GC scope, cf. savelev-freeing convention). Density escape applies (~47 ins; file + callee closure exhausted). Refill: corpus queue 85 owners all open/parked/archived (0 eligible); ready_weapon shine writer-claim verified shipped (js/wield.js:627–632, no row); enlightenment infravision-gate claim needs phase-2 diagnosis (no row). Queue left at 2 eligible rows (savelife, goto_level).
 ## 2026-10-02 — D-3258 `read.c` seffect_magic_mapping Rogue blessed-scroll unblock_point + `Your` stale-declare
 
 **C locus:** - `seffect_magic_mapping`: nethack-c/upstream/src/read.c:2102–2153 — blessed-scroll SDOOR sweep :2124–2131 (Is_rogue_level-gated unblock_point :2128–2129); remainder shipped D-3254/D-3249.

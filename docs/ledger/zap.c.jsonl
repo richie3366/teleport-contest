@@ -30,7 +30,7 @@
 {"fn":"do_enlightenment_effect","c":"2525-2532","status":"unknown"}
 {"fn":"zapnodir","c":"2539-2602","status":"unknown","d":["D-1427","D-1412","D-1404","D-1395","D-1380","D-1379"],"at":"seed@a30a7de84"}
 {"fn":"backfire","c":"2605-2614","status":"unknown","d":["D-1416"],"at":"seed@a30a7de84"}
-{"fn":"zap_ok","c":"2618-2623","status":"unknown"}
+{"fn":"zap_ok","c":"2618-2623","status":"ported","js":["js/zap.js:zap_ok"],"at":"2026-10-02@1b5b36bb7","note":"stale: js/zap.js:2648 whole C body (WAND_CLASS SUGGEST else EXCLUDE) + cmd getdir caller wired"}
 {"fn":"dozap","c":"2627-2683","status":"unknown"}
 {"fn":"boxlock_invent","c":"2687-2702","status":"ported","js":["js/lock.js:boxlock_invent"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"zapyourself","c":"2705-3013","status":"unknown","d":["D-2065","D-1446","D-1435","D-1434","D-1433","D-1410"],"at":"seed@a30a7de84"}
@@ -50,7 +50,7 @@
 {"fn":"miss","c":"3571-3576","status":"unknown"}
 {"fn":"skiprange","c":"3579-3588","status":"split","js":["js/zap.js:bhit_skiprange"],"at":"2026-10-02@e42cd0047","note":"stale: file-local bhit_skiprange js/zap.js:6001, bhit caller wired :6071"}
 {"fn":"maybe_explode_trap","c":"3594-3623","status":"unknown"}
-{"fn":"zap_map","c":"3628-3801","status":"unknown","d":["D-1489","D-1476"],"at":"seed@a30a7de84"}
+{"fn":"zap_map","c":"3628-3801","status":"ported","js":["js/zap.js:zap_map"],"d":["D-3259","D-1489","D-1476"],"at":"2026-10-02@1b5b36bb7"}
 {"fn":"bhit","c":"3827-4139","status":"unknown","d":["D-1928","D-1604","D-1482","D-1475","D-1462","D-1393"],"at":"seed@a30a7de84"}
 {"fn":"boomhit","c":"4148-4233","status":"unknown"}
 {"fn":"zhitm","c":"4238-4398","status":"unknown","d":["D-2127"],"at":"seed@a30a7de84"}

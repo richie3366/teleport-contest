@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `read.c` seffect_magic_mapping — C read.c:2128–2129 Rogue blessed-scroll `unblock_point(x, y)` absent from js/read.js:seffect_magic_mapping (:320; :344 calls vision_recalc(1) instead + per-sdoor newsym :345 with no C counterpart) @e4afe5879 **Addressed:** D-3258
+- [x] `zap.c` zap_over_floor — C zap.c:5300–5306 TT_LAVA Passes_walls arm (`reset_utrap(TRUE)` / `set_utrap(INFLOOR)` + "now-solid"/"cooling rock" msgs) absent from js/zap.js:zap_over_floor (:1060; no 'cooling rock'/'now-solid'/'firmly stuck' in js/zap.js) @35e5e8f94 **Addressed:** D-3259
+- [x] `zap.c` zap_map — C zap.c:3730,3732 int `oldglyph = glyph_at(x, y)` compare around show_map_spot absent from js/zap.js:zap_map (:6529–6537 disp `${ch}|${kind}|${color}` string compare; misses id-only glyph swaps when flipping learn_it) @1fe3dcc2a **Addressed:** D-3259
+- [x] `zap.c` zap_map — C zap.c:3752–3754 SCORR `unblock_point(x, y)` (unconditional) absent from js/zap.js:zap_map (:6553 calls `recalc_block_point`; SDOOR arm :6543 correctly uses recalc per C :3740) @1fe3dcc2a **Addressed:** D-3259
+
+
+- [x] `read.c` seffect_magic_mapping — C read.c:2128–2129 Rogue blessed-scroll `unblock_point(x, y)` absent from js/read.js:seffect_magic_mapping (:320; :344 calls vision_recalc(1) instead + per-sdoor newsym :345 with no C counterpart) @e4afe5879 **Addressed:** D-3258 `1b5b36bb7`
 
 
 - [x] `detect.c` show_map_spot — C detect.c:1410–1413 oldglyph trap/object restore (glyph_at read + show_glyph + hero_memory lev->glyph) absent from js/detect.js:show_map_spot (:938; :970 "restore deferred", no oldglyph read) @e4afe5879 **Addressed:** D-3257 `e42cd0047`

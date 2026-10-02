@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3259 — `zap.c` zap_over_floor underfoot freeze arms + zap_map probing arms
+
+- **Status:** shipped.
+- **Symptom:** 3 missing-arm queue rows, no corpus blocks: zap_over_floor TT_LAVA/Passes_walls arm absent (JS `// uinwater / utrap lava arms deferred`); zap_map probing compared disp strings instead of `glyph_at` ids and called `recalc_block_point` where C calls `unblock_point`.
+- **C locus:**
+  - `zap_over_floor`: nethack-c/upstream/src/zap.c:5192 dead `t = 0`, :5246 + :5278–5280 `Soundeffect(se_soft_crackling)`, :5293–5308 u_at uinwater/TT_LAVA arms.
+  - `zap_map`: nethack-c/upstream/src/zap.c:3730/:3732 `oldglyph = glyph_at(x, y)` int compare, :3752–3754 SCORR `unblock_point`, :3786–3788 vibrating-square `use_the`.
+- **JS was:** js/zap.js:zap_over_floor (:1060) deferred the underfoot arms and both crackling calls; js/zap.js:zap_map (:6435) snapshotted `${disp_ch}|${disp_kind}|${disp_color}` strings, SCORR called `recalc_block_point`, non-hallu `use_the` hardcoded `false` ("named").
+- **Fix:** js/zap.js only, all six imports extend pre-existing module edges (display/hack/trap/dungeon/seffects_data/const — no `imports.mjs --can` needed). Cold arm: uinwater → `await set_uinwater(0)` + `uundetected = 0` + `await docrt()` + `vision_full_recalc = 1`; TT_LAVA → Passes_walls (youprop.h:286 read at site, no 7th clone) ? `You("pass through the now-solid rock.")` + `await reset_utrap(true)` : `set_utrap(rn1(50, 20), TT_INFLOOR)` + `You("are firmly stuck in the cooling rock.")`. Probing: live `glyph_at` int compare around `show_map_spot`; SCORR `unblock_point(x, y)`; `use_the = VIBRATING_SQUARE && Invocation_lev(game.u?.uz)` when !hallu else `!rn2(4)`.
+- **JS:** js/zap.js:1144/:1183 Soundeffect, :1200–1219 underfoot arms; :6554/:6559 glyph_at compare, :6574 SCORR unblock, :6592–6595 use_the. ~47 insertions, 1 file.
+- **Callers:**
+  - `zap_over_floor`: C explode.c:481 → js/explode.js:612; C zap.c:4858 → js/zap.js:2385; C zap.c:4996 → js/zap.js:2508; C zap.c:5528 (mon_spell_hits_spot) → js/zap.js:7200. Signature unchanged, all wired.
+  - `zap_map`: C zap.c:3248 → js/zap.js:6147; C zap.c:3389 → js/zap.js:6641; C zap.c:3921 → js/zap.js:6813. All wired.
+- **Verify:** `node scripts/verify.mjs --fn zap_over_floor,zap_map` → syntax PASS; rule2 PASS; hidden note (no corpus session blocked — expected, rows cited 0 blocks); reach zap_over_floor 12/12 PASS → REACH-OK; reach zap_map 24/24 smoke PASS → REACH-OK; green 2/2; strict 2/2; cohort 7/7; VERIFY: PASS. Import smoke `IMPORT-OK function`. `node --test scripts/zap-over-floor.test.mjs` 2/2 (TT_LAVA stuck infloor, Passes_walls walkout; 0/2 pre-fix via stash). New arms are cold paths — no corpus/REACH session executes them; the focused test + fortress-green is the evidence.
+  - `zap_over_floor`: REACH-OK (12 reach sessions PASS).
+  - `zap_map`: REACH-OK (24 smoke PASS).
+- **Named omissions:**
+  - `zap_over_floor`: none in-body — whole C body live (pre-existing "dotrap polish" doc phrase retained; no C arm behind it, unrecorded in map).
+  - `zap_map`: none in-body — whole C body live ("uswallow pile" header phrase retained; no C arm behind it in :3628–3801).
+- **Ledger:** zap_map ported
+- **Ledger gap (tooling):** `zap_over_floor` cannot be ledger-declared: `scripts/lib/c-index.mjs:31–35` misses its def because the `{` in the parameter comment at `zap.c:5143` (`{wand|spell|breath}`) trips the `{`-search heuristic (`loadCIndex().fns.has('zap_over_floor') === false`; `brief`/`csym`/`ledger sync` all miss it; no prior D-entry declared it either). Loop scripts are authority — not editing the parser; proposing the fix (strip `/* */` per line before the `{` test) to the supervisor. Port + verify + queue archive stand; declaration recorded here only.
+- **Next:** zap.c holds nothing more queue-eligible (`rows --write` → 0 rows): zap_ok stale-declared ported by hand (js/zap.js:2648 whole); wish_history_flush release body is empty (`#ifdef DEBUG` only, save.c teardown free — GC scope, cf. savelev-freeing convention). Density escape applies (~47 ins; file + callee closure exhausted). Refill: corpus queue 85 owners all open/parked/archived (0 eligible); ready_weapon shine writer-claim verified shipped (js/wield.js:627–632, no row); enlightenment infravision-gate claim needs phase-2 diagnosis (no row). Queue left at 2 eligible rows (savelife, goto_level).
+
 ## D-3258 — `read.c` seffect_magic_mapping Rogue blessed-scroll unblock_point + `Your` stale-declare
 
 - **Status:** shipped.
