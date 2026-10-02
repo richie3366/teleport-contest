@@ -32,7 +32,7 @@
 {"fn":"YMonnam","c":"1133-1139","status":"unknown"}
 {"fn":"Adjmonnam","c":"1142-1149","status":"unknown"}
 {"fn":"a_monnam","c":"1152-1156","status":"unknown"}
-{"fn":"Amonnam","c":"1159-1165","status":"unknown"}
+{"fn":"Amonnam","c":"1159-1165","status":"ported","js":["js/do_name.js:Amonnam"],"d":["D-3250"],"at":"2026-10-02@084395223"}
 {"fn":"distant_monnam","c":"1170-1186","status":"unknown","d":["D-1673"],"at":"seed@a30a7de84"}
 {"fn":"mon_nam_too","c":"1191-1216","status":"ported","js":["js/do_name.js:mon_nam_too"],"d":["D-3203","D-1790"],"at":"2026-10-01@a5f89dd93","note":"stale: js/do_name.js:1225, all C arms + callers wired"}
 {"fn":"monverbself","c":"1221-1249","status":"unknown"}

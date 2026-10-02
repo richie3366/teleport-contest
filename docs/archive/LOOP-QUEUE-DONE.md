@@ -3,15 +3,19 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-02
+
+- [x] `minion.c` msummon — blocks 1/953 (scen-engulf-Monk-94052, step 90, kind=screen) @2ad1aa828 **Addressed:** D-3250
+
 ## 2026-10-01
 
-- [x] `steal.c` stealgold — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen) @2b9efeed4 (D-3249: session moved to do_statusline2 s69 via known_hitum; body complete js/steal.js:125, ledger stale-ported — 1-call skip, kept Open for the 8-band per D-3248 precedent) **Addressed:** D-3249
-- [x] `uhitm.c` check_caitiff — blocks 1/953 (scen-ride-Samurai-94407, step 125, kind=screen) @2ad1aa828 (D-3249: session moved to make_stunned s159 via known_hitum; body exact js/uhitm.js:536, ledger stale-ported — 1-call skip, kept Open for the 8-band per D-3248 precedent) **Addressed:** D-3249
+- [x] `steal.c` stealgold — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen) @2b9efeed4 (D-3249: session moved to do_statusline2 s69 via known_hitum; body complete js/steal.js:125, ledger stale-ported — 1-call skip, kept Open for the 8-band per D-3248 precedent) **Addressed:** D-3249 `0843952`
+- [x] `uhitm.c` check_caitiff — blocks 1/953 (scen-ride-Samurai-94407, step 125, kind=screen) @2ad1aa828 (D-3249: session moved to make_stunned s159 via known_hitum; body exact js/uhitm.js:536, ledger stale-ported — 1-call skip, kept Open for the 8-band per D-3248 precedent) **Addressed:** D-3249 `0843952`
 
 
-- [x] `steal.c` stealgold — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen) @2b9efeed4 **Addressed:** D-3249
-- [x] `uhitm.c` check_caitiff — blocks 1/953 (scen-ride-Samurai-94407, step 125, kind=screen) @2ad1aa828 **Addressed:** D-3249
-- [x] `uhitm.c` known_hitum — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen; scoreboard owner stealgold is misattributed: C "You miss it" vs JS "You miss the kitten" under OPTIONS=!verbose) @37d6d3fe7; C uhitm.c:604–610 (override_confirmation verbose arm + missum call) absent from js/uhitm.js:known_hitum (:3077; inline pline :3089 drops the canspotmon/verbose gate) **Addressed:** D-3249
+- [x] `steal.c` stealgold — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen) @2b9efeed4 **Addressed:** D-3249 `0843952`
+- [x] `uhitm.c` check_caitiff — blocks 1/953 (scen-ride-Samurai-94407, step 125, kind=screen) @2ad1aa828 **Addressed:** D-3249 `0843952`
+- [x] `uhitm.c` known_hitum — blocks 1/953 (scen-special-Priest-94137, step 69, kind=screen; scoreboard owner stealgold is misattributed: C "You miss it" vs JS "You miss the kitten" under OPTIONS=!verbose) @37d6d3fe7; C uhitm.c:604–610 (override_confirmation verbose arm + missum call) absent from js/uhitm.js:known_hitum (:3077; inline pline :3089 drops the canspotmon/verbose gate) **Addressed:** D-3249 `0843952`
 
 
 - [x] `mhitm.c` mdisplacem — blocks 1/953 (scen-special-Ranger-94277, step 157, kind=rng) @f572fe77c **Addressed:** D-3248 `0124131`
