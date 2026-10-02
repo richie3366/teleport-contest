@@ -36,6 +36,7 @@ import {
     ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD,
     Is_container, IS_GRAVE, SORTLOOT_LOOT, SORTLOOT_PACK,
     PARANOID_DIE, PARANOID_BONES, PARANOID_QUIT, TT_LAVA, Has_contents,
+    PLNMSG_OK_DONT_DIE,
     has_oname, LIFESAVED, W_AMUL, ACH_BLND, ACH_NUDE, ACH_UWIN,
     DELPHI, ROOMOFFSET, Is_oracle_level, Is_astralevel, In_endgame,
     In_quest, ismnum, has_ebones, EBONES, has_mgivenname, MGIVENNAME, BUFSZ,
@@ -2098,8 +2099,10 @@ async function savelife(how) {
  * Ordinary deaths fall through to really_done.
  * bot() before HP zero so You die more() (no bot) keeps prior botl when
  * uhp was -1 at pline flush (D-0310/D-0314).
- * Named omissions: livelog_printf; formatkiller; CHOKING vomit arm;
- * GENOCIDED still-genocided pline polish.
+ * Ported: done_seq catch-up (C :1050–1051), hangup Die? gate (C :1110),
+ * last_msg PLNMSG_OK_DONT_DIE (C :1113; read by timeout.c:507 slime arm).
+ * Named omissions: livelog_printf LL_LIFESAVE; formatkiller; paniclog
+ * file write (Rule #2); fuzzer_savelife (debug-fuzz only).
  */
 export async function done(how) {
     const flags = game.flags || (game.flags = {});
@@ -2123,6 +2126,10 @@ export async function done(how) {
         flags.botlx = true;
         await bot();
     }
+    // C end.c:1050–1054 — done_seq catches up to hero_seq (hero_seq lives
+    // on game via allmain.js; done_seq is read by the debug-fuzz
+    // fuzzer_savelife, named, and by the hangup Die? gate below).
+    if ((game.done_seq | 0) < (game.hero_seq | 0)) game.done_seq = game.hero_seq | 0;
     if (!game.killer) game.killer = { name: '', format: 0 };
     // C: ASCENDED / empty GENOCIDED → NO_KILLER_PREFIX
     if (how === ASCENDED || (!game.killer.name && how === GENOCIDED)) {
@@ -2173,10 +2180,22 @@ export async function done(how) {
     const discover = !!(flags.explore || flags.discover);
     if (!survive && (wizard || discover) && how <= GENOCIDED) {
         const paranoidDie = ((flags.paranoia_bits | 0) & PARANOID_DIE) !== 0;
-        if (!(await paranoid_query(paranoidDie, 'Die?'))) {
+        // C end.c:1110 (HANGUPHANDLING, global.h:278) — on hangup the
+        // unanswerable Die? defaults 'no', but only once per hero_seq;
+        // the post-increment compare runs only when done_hup is set.
+        let hangupNo = false;
+        if ((game.program_state?.done_hup | 0)) {
+            const seq = game.done_seq | 0;
+            game.done_seq = seq + 1;
+            hangupNo = (seq === (game.hero_seq | 0));
+        }
+        if (!hangupNo && !(await paranoid_query(paranoidDie, 'Die?'))) {
             await pline(
                 `OK, so you don't ${how === CHOKING ? 'choke' : 'die'}.`,
             );
+            // C end.c:1113 — timeout.c:507 slimed_to_death reads this for
+            // the "Yes, you do." vs "Unfortunately," genocide follow-up.
+            if (game.iflags) game.iflags.last_msg = PLNMSG_OK_DONT_DIE;
             await savelife(how);
             survive = true;
         }

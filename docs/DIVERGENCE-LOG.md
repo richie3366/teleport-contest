@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3261 — `do.c` goto_level leave-arms + `end.c` done done_seq/last_msg + `do.c` boulder_hits_pool drawbridge/mondied
+
+- **Status:** shipped (3 Open corpus-residual missing-arm rows, 0 corpus blocks cited: `do.c` goto_level, `end.c` done, `do.c` boulder_hits_pool — all checked off and archived; no review cited, no stamp owed)
+- **Symptom:** queue rows (brief-verified missing arms, no blocked sessions): goto_level lacked C do.c:1619–1620,1622 `fill_pit` / `set_ustuck` / `u.uundetected` (js/do.js "still named"); done lacked C end.c:1113 `iflags.last_msg = PLNMSG_OK_DONT_DIE` + :1050–1051 done_seq/hero_seq (Die? arm set no last_msg; no done_seq write); boulder_hits_pool lacked C do.c:74–77 DRAWBRIDGE_UP drawbridgemask morph + :89–91 mondied (JS treated as ROOM, cleared mtrapped only).
+- **C locus:**
+  - `goto_level`: nethack-c/upstream/src/do.c:1619–1622 — `fill_pit(u.ux, u.uy)`, `set_ustuck(NULL)` (clears u.ustuck + u.uswallow), `u.uundetected = 0` around the live `set_uinwater(0)` (:1621, D-1267).
+  - `done`: nethack-c/upstream/src/end.c:1050–1051 `if (gd.done_seq < gh.hero_seq) gd.done_seq = gh.hero_seq`, :1110 HANGUPHANDLING `!(done_hup && done_seq++ == hero_seq)` Die? conjunct (same statement as :1113, shipped with the row), :1113 `iflags.last_msg = PLNMSG_OK_DONT_DIE` (consumer: timeout.c:507 slimed_to_death "Yes, you do." vs "Unfortunately," arm — already live js/timeout.js:933, previously never set).
+  - `boulder_hits_pool`: nethack-c/upstream/src/do.c:74–77 DRAWBRIDGE_UP `drawbridgemask &= ~DB_UNDER; |= DB_FLOOR` (no typ/flags/recalc in this arm), :89–91 `m_at` + `!DEADMONSTER` (mhp<1, monst.h:214) + `!m_in_air` → `mondied`.
+- **JS was:**
+  - `goto_level` (js/do.js:1699): `// C: fill_pit / set_ustuck / u.uundetected still named.` between live `reset_utrap(false)` and `set_uinwater(0)`.
+  - `done` (js/end.js:2104): no done_seq write after the bot block; Die? gate `!survive && (wizard||discover) && how <= GENOCIDED` without the hangup conjunct; no last_msg write before `savelife(how)`. Doc also listed the live CHOKING-vomit (:2158) and GENOCIDED-still-genocided (:2165) arms as omissions (stale).
+  - `boulder_hits_pool` (js/do.js:970): DRAWBRIDGE_UP arm morphed to ROOM; monster arm cleared `mtrapped` only. Doc also listed the live Fire_resistance lava-dmg arm as omitted (stale).
+- **Fix:** js/do.js only + js/end.js only; all imports extend pre-existing module edges (fill_pit on the do.js→dig.js edge :183; DB_FLOOR/DB_UNDER + PLNMSG_OK_DONT_DIE on the existing const.js edges — no `imports.mjs --can` needed). goto_level: `fill_pit(u.ux|0, u.uy|0)` + `set_ustuck(null)` in C order, `u.uundetected = 0` after set_uinwater; C set_ustuck sets disp.botl unconditionally (mon.c:3430) so the live export's botl write is exact. done: done_seq catch-up via `game.done_seq`/`game.hero_seq` (gd./gh. live on game, allmain.js); hangup fragment preserves C short-circuit (post-increment compare runs only when earlier conjuncts pass and done_hup is set; 0 in all runs → gate passes through); last_msg write wires the live timeout.js consumer. boulder: C-exact mask morph; `await mondied(mtmp)` (pre-imported :187) under the existing gate (file-local m_in_air clone reused untouched — clone-drift debt). No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** 2 files, +42/−15 (do.js +20/−12, end.js +22/−3). Under the 1500/15 caps. Below the ~80 density floor with the D-3258 escape clause: coverage generator yields 0 rows, do.c holds nothing more Open (only these two rows), goto_level's callee closure holds nothing more Open beyond done.
+- **Callers:**
+  - `goto_level`: C artifact.c:1928 → js/artifact.js:2246; C dig.c:791 → js/dig.js:951; C do.c:1287 (dodown) → js/do.js:3432; C do.c:2085 (deferred_goto) → js/do.js:2401; C dungeon.c:1508/1512 (next_level) → js/do.js:1411; C dungeon.c:1535/1541 (prev_level) → js/do.js:1433/1437; C dungeon.c:1962 (goto_hell) → js/do.js:3266; C potion.c:1105 → js/potion.js:1833. Signature unchanged, all wired (next/prev_level homed in do.js — pre-existing drift).
+  - `done`: signature unchanged — all ~45 JS `await done(` sites stay wired (attrib.js:492, bones.js:592, dbridge.js:462, do.js:1429+1660, dothrow.js:1779, eat.js ×9, end.js:1485 done_in_by + :1922 finish_losehp_done, exper.js:392, explode.js:797, mcastu.js:449, mhitu.js:2457+3668, polyself.js ×4, pray.js ×5, read.js ×2, teleport.js ×2, timeout.js:862 done_timeout + slime GENOCIDED re-entry, trap.js ×4, uhitm.js:4023, zap.js:4616, display.js:8475 panic path). Arm-relevant: goto_level→done (do.js:1660) and the timeout slime path now observe done_seq/last_msg.
+  - `boulder_hits_pool`: C apply.c:3903 (maybe_dunk_boulders) → js/dig.js:1045 (homed in dig.js — pre-existing drift); C do.c:185 → js/do.js:791; C hack.c:620 (moverock) → js/hack.js:1185; C zap.c:5069 (melt_ice) → js/zap.js:999. Signature unchanged, all wired.
+- **Verify:** `node scripts/verify.mjs --fn goto_level,done,boulder_hits_pool` → syntax PASS (2 changed js files) · rule2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) · VERIFY: PASS.
+  - `goto_level`: hidden note (no corpus session blocked — expected, row cited 0 blocks); reach 32/32 PASS → REACH-OK.
+  - `done`: hidden note (no corpus session blocked); smoke 24/24 PASS → REACH-OK.
+  - `boulder_hits_pool`: hidden note (no corpus session blocked); smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `goto_level`: pre-existing — binary NHFILE savelev/getlev (by-design); Gehennom amulet mysteryforce arm; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow; Punished ballfall on falling; W-tower u_on_rndspot bit 2 (per fn doc).
+  - `done`: livelog_printf LL_LIFESAVE + formatkiller (amulet arm :1095–1097, per fn doc); paniclog file write (Rule #2); fuzzer_savelife (debug-fuzz only).
+  - `boulder_hits_pool`: pushing `useupf` (JS inlines the obfree path for both); steed whobuf (JS "You push"); `burn_away_slime` before lava `d()`; `impossible("Not a boulder?")` (JS returns false silently).
+- **Ledger:** goto_level partial; done partial; boulder_hits_pool partial
+- **Next:** do not re-pop these three rows (shipped arms live; residuals are the named omissions above, each its own future row). Queue left at 5 eligible corpus-residual rows (uhitm ×2, allmain moveloop_core, zap bhit, +1); coverage generator still 0 rows.
+
 ## D-3260 — end.c savelife + container_contents whole-body ports; endmultishot export; unsortloot port (Tourist-92095 writer queued)
 
 - **Status:** shipped (2 Open corpus-residual rows: `end.c` savelife, `end.c` container_contents — both checked off and archived; no review cited, no stamp owed)

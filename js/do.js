@@ -34,6 +34,7 @@ import {
     CONTAINED_TOO, BURIED_TOO, ER_DESTROYED, WT_SPLASH_THRESHOLD, COST_DEGRD,
     TT_PIT, FIRE_RES, PIT,
     ROOM, SINK, CORR, DRAWBRIDGE_UP, TRAPDOOR, HOLE,
+    DB_FLOOR, DB_UNDER,
     IS_WATERWALL, IS_ALTAR, IS_SINK, is_pit, is_hole, u_at, Has_contents,
     Is_container, Is_waterlevel, Is_airlevel,
     In_quest, In_endgame, In_mines, In_sokoban, Is_rogue_level,
@@ -180,7 +181,7 @@ import { fruitname } from './potion.js';
 import { delete_levelfile, open_levelfile } from './files.js';
 import { strange_feeling } from './detect.js';
 import { surface } from './sit.js';
-import { use_pick_axe2, bury_objs } from './dig.js';
+import { use_pick_axe2, bury_objs, fill_pit } from './dig.js';
 import { set_move_cmd, u_rooted, nhl_callback } from './cmd.js';
 import { cmd_from_func, visctrl } from './dokeylist.js';
 import { newcham, mpickobj } from './makemon.js';
@@ -960,11 +961,11 @@ export async function flooreffects(obj, x, y, verb) {
 
 /**
  * C ref: do.c boulder_hits_pool — boulder fills/sinks in pool or lava.
- * Branch envelope: fills_up chance; ROOM morph / bury_objs; splash msgs;
- * wake_nearto; adjacent lava dmg; obfree (!pushing).
- * Named omit: DRAWBRIDGE_UP mask polish; pushing useupf; steed whobuf;
- * Fire_resistance lava dmg; burn_away_slime. Dry-land set_uinwater is
- * D-1267.
+ * Branch envelope: fills_up chance; DRAWBRIDGE_UP mask morph / ROOM morph
+ * + bury_objs; splash msgs; wake_nearto; adjacent lava dmg; obfree (!pushing).
+ * Named omit: pushing useupf; steed whobuf; burn_away_slime.
+ * Ported: DRAWBRIDGE_UP drawbridgemask floor morph (C :74–77) + mondied
+ * (C :89–91; DEADMONSTER/m_in_air gate). Dry-land set_uinwater is D-1267.
  * @returns {Promise<boolean>}
  */
 export async function boulder_hits_pool(otmp, rx, ry, pushing) {
@@ -990,9 +991,9 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
     const u = game.u || {};
     if (fills_up && lev) {
         if (ltyp === DRAWBRIDGE_UP) {
-            // drawbridgemask floor morph deferred — treat as ROOM
-            lev.typ = ROOM;
-            lev.flags = 0;
+            // C do.c:74–77 — clear the under-bits (lava), lay floor;
+            // typ/flags and recalc_block_point stay untouched in this arm.
+            lev.drawbridgemask = ((lev.drawbridgemask | 0) & ~DB_UNDER) | DB_FLOOR;
         } else {
             lev.typ = ROOM;
             lev.flags = 0;
@@ -1000,8 +1001,9 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
         }
         const mtmp = m_at(rx, ry);
         if (mtmp && !(mtmp.mhp <= 0) && !m_in_air(mtmp)) {
-            // mondied deferred — clear trapped only for thin fortress
-            mtmp.mtrapped = 0;
+            // C do.c:89–91 — DEADMONSTER (mhp<1) + !m_in_air gate, then kill
+            // (m_in_air is the file-local clone; clone-drift debt, untouched).
+            await mondied(mtmp);
         }
         const ttmp = t_at(rx, ry);
         if (ttmp) await delfloortrap(ttmp);
@@ -1510,6 +1512,8 @@ export async function getlev_catchup_monsters(elapsed) {
  * kill_genocided_monsters (D-1190) → run_timers (D-1191) →
  * vision/docrt → pickup(1).
  * Ported: `set_uinwater(0)` on leave and after getlev/mklev (D-1267).
+ * Ported: `fill_pit` / `set_ustuck(NULL)` / `u.uundetected = 0` on leave
+ * (C `:1619–1622`, in order around the D-1267 `set_uinwater`).
  * Ported: portal MAGIC_PORTAL find / missing → u_on_rndspot (D-0594).
  * Ported: quest entrance `com_pager(quest_portal*)` (D-0650).
  * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
@@ -1696,9 +1700,13 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     if (u.uball || u.Punished) await unplacebc();
     // C do.c:1618 goto_level — needed in level_tele
     reset_utrap(false);
-    // C: fill_pit / set_ustuck / u.uundetected still named.
+    // C do.c:1619–1620 — fill the departure pit, clear u.ustuck/u.uswallow.
+    fill_pit(u.ux | 0, u.uy | 0);
+    set_ustuck(null);
     // set_uinwater(0) (D-1267; C do.c:1621). Same-value is a no-op.
     await set_uinwater(0);
+    // C do.c:1622 — not hidden, even if means are available.
+    u.uundetected = 0;
     // Snapshot sight before vision_recalc(2) clears viz — getbones yn
     // needs prior IN_SIGHT to mon→memory newsym the leave-level gbuf.
     if (game.viz_array) {
