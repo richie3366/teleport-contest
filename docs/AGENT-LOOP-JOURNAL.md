@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3291 `polyself.c` dropp invent-scan guard + 11 break_armor rewirings
+
+**C locus:** - `dropp`: nethack-c/upstream/src/polyself.c:1123–1154 whole body — scan `gi.invent` for identity match, `dropx(obj)` + `break` on hit (break needed: dropx→dropy→dropz→place_object re-links nobj onto fobj). 11 call sites polyself.c:1187–1299, all in `break_armor()`.
+**JS:** js/polyself.js — :1347–1363 `dropp` + C doc; rewirings :1408/:1412 (cloak smock/clasp), :1428 (sliparm uarm), :1441 (sliparm cloak), :1451 (shirt), :1465 (horn helm), :1478/:1484/:1490 (gloves/shield/helm), :1506 (boots), :1518 (eyewear). No new module edge (dropx import pre-existed).
+**Change:** added module-local `async function dropp(obj)` (C staticfn; async because dropx is async in JS) iterating `game.invent` (hero-invent array idiom, cf. mon.js:429 m_carrying) with `===` identity + break; rewired all 11 break_armor arms to `await dropp(...)`. `drop_weapon`'s two `dropx` sites (C :1343/:1350) deliberately untouched — C calls dropx directly there with a note explaining why the guard is unneeded.
+**Verify:** - `dropp`: `verify.mjs --fn dropp` → VERIFY: PASS — syntax 1 file (js/polyself.js) · rule2 · hidden note (no corpus session blocked; row cites no `blocks N`, no `--base` re-run owed) · reach: no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7. No maintained unit-test layout in repo (sessions + verify are the harness — D-3289 precedent); no new framework per disproportionate-cost rule.
+**Named:** - `dropp`: none in-body — whole C body live.
+**Next:** 7 Open missing-arm rows stand (vamp_shift, stairway_find, nomerge_exception, whichrng, getpos_getvalids_selection, selection_force_newsyms, levltyp_to_name).
 ## 2026-10-02 — D-3290 `display.c` swallow_to_glyph whole port + see_objects update_inventory arm
 
 **C locus:** - `swallow_to_glyph`: nethack-c/upstream/src/display.c:2437–2446 whole body — `what_mon(mnum, rn2_on_display_rng) << 3`; bad-loc `impossible` + clamp to `S_sw_br`; `(m_3 | (loc - S_sw_tl)) + GLYPH_SWALLOW_OFF`. 8 call sites display.c:1360–1380, all in `swallowed()`.

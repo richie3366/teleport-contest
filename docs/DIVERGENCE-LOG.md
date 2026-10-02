@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3291 — `polyself.c` dropp invent-scan guard + 11 break_armor rewirings
+
+- **Status:** shipped (Open missing-arm `polyself.c` dropp row checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — C-fidelity residual (row carries brief-read evidence, no `blocks N`). `break_armor` dropped armor via raw `dropx`, so a piece already removed from inventory by `emergency_disrobe()` (Boots_off dunking the hero into water mid-polymorph) or hypothetically merged would take the `dropx` path with no invent-membership check; C routes all 11 break_armor drops through the `dropp` scan guard.
+- **C locus:**
+  - `dropp`: nethack-c/upstream/src/polyself.c:1123–1154 whole body — scan `gi.invent` for identity match, `dropx(obj)` + `break` on hit (break needed: dropx→dropy→dropz→place_object re-links nobj onto fobj). 11 call sites polyself.c:1187–1299, all in `break_armor()`.
+- **JS was:** js/polyself.js — no `dropp` symbol; `break_armor` doc claimed "dropx is the dropp equivalent" and all 11 arms called `await dropx(...)` directly.
+- **Fix:** added module-local `async function dropp(obj)` (C staticfn; async because dropx is async in JS) iterating `game.invent` (hero-invent array idiom, cf. mon.js:429 m_carrying) with `===` identity + break; rewired all 11 break_armor arms to `await dropp(...)`. `drop_weapon`'s two `dropx` sites (C :1343/:1350) deliberately untouched — C calls dropx directly there with a note explaining why the guard is unneeded.
+- **JS:** js/polyself.js — :1347–1363 `dropp` + C doc; rewirings :1408/:1412 (cloak smock/clasp), :1428 (sliparm uarm), :1441 (sliparm cloak), :1451 (shirt), :1465 (horn helm), :1478/:1484/:1490 (gloves/shield/helm), :1506 (boots), :1518 (eyewear). No new module edge (dropx import pre-existed).
+- **Callers:**
+  - `dropp`: all 11 C sites (polyself.c:1187/1191/1208/1218/1226/1244/1257/1262/1270/1284/1299 in `break_armor`) ↔ the 11 rewired JS sites above in JS `break_armor` (js/polyself.js:1377+). C `break_armor` itself ↔ js/polyself.js:1377 (local, pre-wired; called from polymon js/polyself.js).
+- **Verify:**
+  - `dropp`: `verify.mjs --fn dropp` → VERIFY: PASS — syntax 1 file (js/polyself.js) · rule2 · hidden note (no corpus session blocked; row cites no `blocks N`, no `--base` re-run owed) · reach: no RNG-tagged reach, fixed smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7. No maintained unit-test layout in repo (sessions + verify are the harness — D-3289 precedent); no new framework per disproportionate-cost rule.
+- **Named omissions:**
+  - `dropp`: none in-body — whole C body live.
+- **Ledger:** dropp ported
+- **Next:** 9 Open missing-arm rows stand (vamp_shift, stairway_find, nomerge_exception, whichrng, getpos_getvalids_selection, selection_force_newsyms, levltyp_to_name + this-iter refill digit, letter — brief-verified MISSING, band 8–12).
+
 ## D-3290 — `display.c` swallow_to_glyph whole port + see_objects update_inventory arm
 
 - **Status:** shipped (2 Open missing-arm `display.c` rows checked off + archived — swallow_to_glyph head + same-file see_objects companion; queue was empty, 10 hand-verified rows added this iter; no review cited, no stamp owed)

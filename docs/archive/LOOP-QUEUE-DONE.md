@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `display.c` swallow_to_glyph — C display.c:2437–2446 absent from js/ (no same-named symbol; 8 call sites display.c:1360–1380 in swallowed(); js/display.js:5480 swallow_cell inlines the hallu draw with raw u.Hallucination instead of what_mon/Hallucination()). **Addressed:** D-3290
-- [x] `display.c` see_objects — C display.c:1558–1571 update_inventory() arm absent from js/display.js:5595 see_objects (deferred as "no glyph invent UI"; live export js/invent.js:4802). **Addressed:** D-3290
+- [x] `polyself.c` dropp — C polyself.c:1123–1154 absent from js/ (no same-named symbol; 11 call sites polyself.c:1187–1299 in break_armor(); js/polyself.js break_armor calls dropx directly, invent-scan guard absent).
+
+
+- [x] `display.c` swallow_to_glyph — C display.c:2437–2446 absent from js/ (no same-named symbol; 8 call sites display.c:1360–1380 in swallowed(); js/display.js:5480 swallow_cell inlines the hallu draw with raw u.Hallucination instead of what_mon/Hallucination()). **Addressed:** D-3290 `5de0db04b`
+- [x] `display.c` see_objects — C display.c:1558–1571 update_inventory() arm absent from js/display.js:5595 see_objects (deferred as "no glyph invent UI"; live export js/invent.js:4802). **Addressed:** D-3290 `5de0db04b`
 
 
 - [x] `dungeon.c` u_on_rndspot — C dungeon.c:1614 `On_W_tower_level(&u.uz)` gate absent from js/mklev.js:u_on_rndspot (:738 `was_in_W_tower && dndest.nlx` takes the tower branch off-tower and misses nlx==0 on-tower; doc :739 names it; brief-verified @7bdcd631d; canonical On_W_tower_level live js/dungeon.js:1291) **Addressed:** D-3289 `be60a5eca`

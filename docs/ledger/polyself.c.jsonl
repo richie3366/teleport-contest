@@ -9,7 +9,7 @@
 {"fn":"polyself","c":"469-731","status":"unknown","d":["D-2063"],"at":"seed@a30a7de84"}
 {"fn":"polymon","c":"735-1071","status":"partial","js":["js/polyself.js:polymon"],"omit":"`retouch_equipment(2)` (`artifact.c:2639`, own coverage row); light-source bookkeeping (set_uasmon map note); break_armor horns/flimsy-helm/ublindf (break_armor map note); C FIXME early-returns after expels()/spoteffects() rehumanize kept as comments (no JS rehumanize signal to branch on).","d":["D-2432","D-2262","D-2007"],"at":"seed@a30a7de84"}
 {"fn":"uasmon_maxStr","c":"1077-1119","status":"unknown"}
-{"fn":"dropp","c":"1123-1154","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dropp","c":"1123-1154","status":"ported","js":["js/polyself.js:dropp"],"d":["D-3291"],"at":"2026-10-02@5de0db04b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"break_armor","c":"1157-1302","status":"unknown","d":["D-1991"],"at":"seed@a30a7de84"}
 {"fn":"drop_weapon","c":"1305-1362","status":"unknown","d":["D-1992"],"at":"seed@a30a7de84"}
 {"fn":"rehumanize","c":"1367-1418","status":"unknown","d":["D-2079"],"at":"seed@a30a7de84"}
