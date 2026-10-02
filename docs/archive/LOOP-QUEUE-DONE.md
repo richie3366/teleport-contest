@@ -5,7 +5,15 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `fountain.c` floating_above — missing arm: C fountain.c:25–30 utrap/TT_INFLOOR||TT_LAVA "trapped in the %s" + surface() arm absent from js/fountain.js:273 floating_above (default message only; brief 2026-10-02; surface js/sit.js:475 live) @d1f323f2b **Addressed:** D-3318
+
+- [x] `fountain.c` dipfountain — C :442 `set_levltyp(u.ux,u.uy,ROOM)` inlined as typ+flags+looted+counts at js/fountain.js:1269–1279 (brief 2026-10-02; live js/trap.js:881; CAN_OVERWRITE rm.h:320 passes: never LADDER/STAIRS here) + case-28 `money_cnt` sums via local clone js/fountain.js:243 while C hack.c:4513–4522 returns the first stack (live js/shk.js:4767).
+- [x] `fountain.c` dryup — C :231 `set_levltyp(x,y,ROOM)` inlined at js/fountain.js:761–766 (brief 2026-10-02; live js/trap.js:881); 7/7 C callers wired (cmd.c:921→js/polyself.js:3033 domonability gremlin arm).
+- [x] `fountain.c` breaksink — C :586 `set_levltyp(x,y,FOUNTAIN)` inlined at js/fountain.js:330–340 (brief 2026-10-02; live js/trap.js:881).
+- [x] `fountain.c` gush — C :152 `set_levltyp(x,y,POOL)` inlined at js/fountain.js:695–699 (brief 2026-10-02; live js/trap.js:881; C staticfn → module-local kept).
+- [x] `fountain.c` wash_hands — local `fingers_or_gloves` clone js/fountain.js:966 vs live js/do_wear.js:3981 (brief 2026-10-02; same predicate/shape modulo body_part latebind — rewire to the export, delete clone).
+- [x] `fountain.c` drinksink — local `a_monnam` clone js/fountain.js:293 (naive a/an over data.name; hallu/named diverge) vs live js/do_name.js:1221 `x_monnam ARTICLE_A` (brief 2026-10-02; case-3 sewer-rat arm).
+
+- [x] `fountain.c` floating_above — missing arm: C fountain.c:25–30 utrap/TT_INFLOOR||TT_LAVA "trapped in the %s" + surface() arm absent from js/fountain.js:273 floating_above (default message only; brief 2026-10-02; surface js/sit.js:475 live) @d1f323f2b **Addressed:** D-3318 `e33fbee37`
 
 
 - [x] `mon.c` mondied — missing arm: C mon.c:3258–3260 `(accessible(mx,my) || is_pool(mx,my))` corpse gate absent from js/mhitm.js:3980 mondied (self-named omit "floor tiles always attempt"; brief 2026-10-02; callees accessible js/monmove.js:840 + is_pool js/hack.js:2080 live) @d1f323f2b **Addressed:** D-3317 `1f248868c`

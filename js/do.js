@@ -2793,7 +2793,7 @@ export async function better_not_try_to_drop_that(otmp) {
 /**
  * C ref: do.c teleport_sink `:459–494` (staticfn) — teleport the sink at
  * the hero to a random ROOM square; TRUE if the sink moved (D-2527).
- * `dipsink_set_levltyp` (fountain.js) is the shared sink-count analog.
+ * `dipsink_set_levltyp` (fountain.js) is the shared sink-count alias (live set_levltyp; D-3319).
  * @returns {boolean}
  */
 function teleport_sink() {

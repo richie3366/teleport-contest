@@ -126,6 +126,10 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
+- [ ] `end.c` really_done — C-correct first-stack return absent from js/end.js:1225 (local summing clone js/end.js:458; C hack.c:4513–4522 money_cnt returns the first stack, live js/shk.js:4767; same rewire + whole-body brief-check as the shipped fountain twin).
+- [ ] `shk.c` finish_paybill — C-correct first-stack return absent from js/end.js:1331 (local summing clone js/end.js:458; C hack.c:4513–4522, live js/shk.js:4767; C shk.c:2723; same rewire + whole-body brief-check as the shipped fountain twin).
+- [ ] `monmove.c` set_apparxy — C-correct first-stack return absent from js/monmove.js:1021 (local summing clone js/monmove.js:743; C hack.c:4513–4522, live js/shk.js:4767; C monmove.c:2198; same rewire + whole-body brief-check as the shipped fountain twin).
+
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;
