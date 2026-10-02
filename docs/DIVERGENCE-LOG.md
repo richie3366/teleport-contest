@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3290 — `display.c` swallow_to_glyph whole port + see_objects update_inventory arm
+
+- **Status:** shipped (2 Open missing-arm `display.c` rows checked off + archived — swallow_to_glyph head + same-file see_objects companion; queue was empty, 10 hand-verified rows added this iter; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — C-fidelity residuals (rows carry brief-read evidence, no `blocks N`). (a) `swallow_to_glyph` had no JS symbol: `swallow_cell` inlined the hallucination draw as `if (game.u?.Hallucination) rn2_on_display_rng(NUMMONS)`, but C routes every stomach cell through `what_mon(mnum, rn2_on_display_rng)` = `Hallucination ? random_monster(rng) : mon`, where `Hallucination()` is the youprop (HHallucination/intrinsic, resistance-gated) — the raw-field inline both mis-predicated and bypassed the canonical burn order. (b) `see_objects` deferred C `:1570 update_inventory()` as "no glyph invent UI" although C calls it for all interfaces.
+- **C locus:**
+  - `swallow_to_glyph`: nethack-c/upstream/src/display.c:2437–2446 whole body — `what_mon(mnum, rn2_on_display_rng) << 3`; bad-loc `impossible` + clamp to `S_sw_br`; `(m_3 | (loc - S_sw_tl)) + GLYPH_SWALLOW_OFF`. 8 call sites display.c:1360–1380, all in `swallowed()`.
+  - `see_objects`: display.c:1558–1571, esp :1570 `update_inventory()` (floor-top `newsym` loop already live).
+- **JS was:** js/display.js:5480 `swallow_cell` — hallu inline with raw `game.u?.Hallucination`; no `swallow_to_glyph`, no `S_sw_br`. js/display.js:5595 `see_objects` — loop live, tail a deferral comment.
+- **Fix:** ported `swallow_to_glyph` whole in C order (module-local, C staticfn; `what_mon` same-file canonical; bad-loc arm keeps `l = S_sw_br` with the report as a `// C: impossible(...)` cite — impossible() is async in JS, t_warn/display_warning sync-context convention); added `S_sw_br = S_sw_tl + 7` (defsym.h:221–228 consecutive 88–95). `swallow_cell` routes all 8 stomach cells through it (part→loc via `SWALLOW_PART_LOCS`, defsym order) and unpacks the monster bits (`>> 3`) for the stomach color — C's paint-time path, since JS paints cells not integer glyphs. `see_objects` tail now calls the live `update_inventory()` (pre-existing invent.js import, no new edge).
+- **JS:** js/display.js — :682–683 `S_sw_br`; :5482–5497 `swallow_to_glyph` + `SWALLOW_PART_LOCS`; :5501–5513 `swallow_cell` rewire; :5618–5626 `see_objects` arm.
+- **Callers:**
+  - `swallow_to_glyph`: all 8 C sites (display.c:1360/1361/1364/1368/1371/1376/1377/1380 in `swallowed`) ↔ the 8 `swallow_cell` calls in JS `swallowed` (js/display.js:5557–5567), each now going through the canonical function. C `swallowed` itself ↔ js/display.js:5516, pre-wired.
+  - `see_objects`: C allmain.c:458 → js/allmain.js:1355 (pre-wired, hallu see_* triple); C potion.c:425 (in make_hallucinated) → js/potion.js:1156 (pre-wired, cites :425–427) + js/artifact.js:1110 (pre-existing make_hallucinated changed-arm split, cites :424–427 — same C function, artifact path). This iter adds no call sites, only the in-body `:1570` arm.
+- **Verify:**
+  - `swallow_to_glyph`: `verify.mjs --fn swallow_to_glyph,see_objects` → VERIFY: PASS — syntax 1 file (js/display.js) · rule2 · hidden note (no corpus session blocked; rows cite no `blocks N`, no `--base` re-run owed) · reach: no RNG-tagged reach (C draws tag at the macro/expansion site), fixed smoke spread 24/24 PASS → REACH-OK.
+  - `see_objects`: same run — hidden note · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). No maintained unit harness (no tests/ dir — D-3284 precedent); REACH + fortress are the durable checks.
+- **Named omissions:**
+  - `swallow_to_glyph`: impossible-report text stays a cite (async-only in JS; arm unreachable — all 8 sites pass constant S_sw_* locs) — sync-context convention, not a behavior gap.
+  - `see_objects`: none in-body — whole C body live.
+- **Ledger:** swallow_to_glyph ported; see_objects ported
+- **Next:** refill stands at 8 Open after this archive (dropp, vamp_shift, stairway_find, nomerge_exception, whichrng, getpos_getvalids_selection, selection_force_newsyms, levltyp_to_name — all brief-verified MISSING with live callers). Survey notes for future refills: do_run/do_rush/do_move families, cmdq_reverse, pos_to_room, dip_hands_ok, wantdoor, badspot (decl commented out), pacify_guard, fn_cmap_to_glyph, worn_wield_only have no live C callers (dead — not evidence); error4/type_to_name are `#ifdef WA_VERBOSE` (commented out at display.c:138) and glyphinfo_at `#ifdef UNBUFFERED_GLYPHINFO` (non-default per display.c:1639) — by-design, no rows; check_pos/newsym_force/sobj_at/g_at/tool_being_used/eat_ok/tin_ok/use_up_tin/randrole/You/cmdq_clear verified complete in JS (THIN/PARTIAL-by-count only).
+
 ## D-3289 — `dungeon.c` u_on_rndspot On_W_tower_level gate
 
 - **Status:** shipped (Open corpus-residual `dungeon.c` u_on_rndspot row checked off + archived; no review cited, no stamp owed)

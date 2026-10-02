@@ -117,6 +117,24 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 <!-- coverage:begin -->
 <!-- coverage:end -->
 
+## Open — missing-arm (hand-verified 2026-10-02; coverage block ungeneratable)
+
+The generated block is empty and stays empty: `rows --write` needs C ≥ 8
+code lines but every remaining unknown/absent ledger gap is ≤ 7 lines
+(all top-1000 verified 2026-10-02). Hand-written per this iteration's
+refill authorization: each row's evidence is a `brief.mjs` output read at
+enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
+Pop order: first unchecked here after Must-fix/coverage.
+
+- [ ] `polyself.c` dropp — C polyself.c:1123–1154 absent from js/ (no same-named symbol; 11 call sites polyself.c:1187–1299 in break_armor(); js/polyself.js break_armor calls dropx directly, invent-scan guard absent).
+- [ ] `monmove.c` vamp_shift — C monmove.c:2377–2394 absent from js/ (no same-named symbol; caller monmove.c:1496; callee newcham live js/makemon.js:2066).
+- [ ] `stairs.c` stairway_find — C stairs.c:50–61 absent from js/ (no same-named symbol; caller dog.c:536).
+- [ ] `mkobj.c` nomerge_exception — C mkobj.c:3278–3286 absent from js/ (no same-named symbol; caller mkobj.c:3259 nomerge gate).
+- [ ] `rnd.c` whichrng — C rnd.c:32–40 absent from js/ (no same-named symbol; caller rnd.c:47 rng-provenance index).
+- [ ] `getpos.c` getpos_getvalids_selection — C getpos.c:102–115 absent from js/ (no same-named symbol; callers getpos.c:53,56).
+- [ ] `selvar.c` selection_force_newsyms — C selvar.c:802–810 absent from js/ (no same-named symbol; caller getpos.c:62; callees selection_getpoint + newsym_force live).
+- [ ] `cmd.c` levltyp_to_name — C cmd.c:1089–1094 absent from js/ (no same-named symbol; callers mon.c:226, nhlua.c:551).
+
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;

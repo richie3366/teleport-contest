@@ -34,7 +34,7 @@
 {"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"`allmain.c:94` moveloop_preamble defer arm (`game.defer_see_monsters` is never set in JS — the `restore.c:682` setter has no JS counterpart; `newsym`-level `suppress_map_output` covers the restore hazard); `attrib.c:785` postadjabil (pre-existing deferral, `js/attrib.js:833`); `do_wear.c:546` Helme…","d":["D-2493","D-1746"],"at":"seed@a30a7de84"}
 {"fn":"mimic_light_blocking","c":"1532-1540","status":"unknown","d":["D-1587"],"at":"seed@a30a7de84"}
 {"fn":"set_mimic_blocking","c":"1548-1551","status":"unknown"}
-{"fn":"see_objects","c":"1558-1571","status":"unknown"}
+{"fn":"see_objects","c":"1558-1571","status":"ported","js":["js/display.js:see_objects"],"d":["D-3290"],"at":"2026-10-02@be60a5eca"}
 {"fn":"see_nearby_objects","c":"1576-1605","status":"unknown"}
 {"fn":"see_traps","c":"1611-1621","status":"unknown"}
 {"fn":"curs_on_u","c":"1687-1690","status":"unknown","d":["D-1976"],"at":"seed@a30a7de84"}
@@ -50,7 +50,7 @@
 {"fn":"cls","c":"2189-2202","status":"unknown"}
 {"fn":"flush_screen","c":"2208-2267","status":"ported","js":["js/display.js:flush_screen"],"d":["D-3013","D-2493","D-1986","D-1985"],"at":"2026-09-28@2af820a38","note":"stale: whole body live js/display.js flush_screen:7138 per D-2493; sole row omit is allmain.c:94 moveloop_preamble defer arm whose restore.c:682 setter has no JS counterpart (never set; see_monsters:5408 gate reads live)"}
 {"fn":"back_to_glyph","c":"2287-2427","status":"unknown"}
-{"fn":"swallow_to_glyph","c":"2437-2446","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"swallow_to_glyph","c":"2437-2446","status":"ported","js":["js/display.js:swallow_to_glyph"],"d":["D-3290"],"at":"2026-10-02@be60a5eca","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"zapdir_to_glyph","c":"2461-2470","status":"unknown"}
 {"fn":"glyph_at","c":"2478-2483","status":"unknown"}
 {"fn":"glyphinfo_at","c":"2487-2491","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
