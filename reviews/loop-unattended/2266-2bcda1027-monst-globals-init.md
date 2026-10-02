@@ -25,6 +25,8 @@ Delivers the shape it
 promises — but the ≡
 claim is false (below).
 
+**Addressed:** D-3311
+
 Inventory:
 
 - `export function

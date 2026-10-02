@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3311 `monst.c` monst_globals_init missing erinys-reset effect (review 2266 Must-fix)
+
+**C locus:** nethack-c/upstream/src/monst.c:71–76 — `memcpy(mons, mons_init, sizeof mons)`. Second live writer of C `mons[]`: mon.c:5918–5966 `adj_erinys` (mflags1, mattk[0..2], mlevel, difficulty of mons[PM_ERINYS]; callers attrib.c:1309 + restore.c:727). Review 2266 bounded the live-writer set at {role_init, adj_erinys} (zero `data->` permonst-field writes, zero direct `mons[i].field =` writes, role.c:2109 infravision fixup inside `#if 0`).
+**JS:** js/monsters.js:220–223 (one added call + doc wording); scripts/monst-globals-init.test.mjs (new focused regression test: adj_erinys(60)→init→baseline + overlay-clear arms).
+**Change:** call same-module `reset_erinys()` inside `monst_globals_init()` (restores the memcpy's erinys effect; no-op at both wired sites, which run with clean erinys) and corrected the doc comment to name both channels (pm_fixup overlay + adj_erinys baseline mutations).
+**Verify:** `node scripts/verify.mjs --fn monst_globals_init --full` → VERIFY: PASS — syntax (1 changed: js/monsters.js) · rule2 · hidden note (no corpus session blocked) · REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44. Plus: /tmp/erinys-init-probe.mjs PASS (was FAIL pre-fix) · `node --test scripts/monst-globals-init.test.mjs` 2/2 PASS.
+**Named:** none in-body — whole C body live (overlay clear + erinys reset ≡ memcpy). `game.mvitals` deliberately untouched (genocide state is NOT part of C `mons[]`, D-3308 analysis stands).
+**Next:** queue head is now `sfbase.c` sf_init (first Open missing-arm row).
 ## 2026-10-02 — Audit 2262–2268: review D-3303–D-3310 (6 ACCEPT + 1 QUALITY-RISK) + full score
 
 **Scope:** 7 js-touching SHAs since 2261 (D-3302/D-3305 docs-only, skipped): get_viz_clear, sp_lev septet, genl_player_selection+4, extcmd_initiator+run×8+freeall, monst_globals_init, wish_history_flush+add, handler_symset+arms+dispatch. Every verify re-measured per-function (incl. randrole real reach 69/69).

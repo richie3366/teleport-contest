@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3311 — `monst.c` monst_globals_init missing erinys-reset effect (review 2266 Must-fix)
+
+- **Status:** shipped (Must-fix row checked off + archived — review 2266 QUALITY-RISK Actionable 1; ships alone per Must-fix rule). 8 js/ insertions + 1 focused test — below the ~80 density bar, defended: Must-fix ships alone, and monst.c is a single-function file with 0 C callees (D-3308 precedent).
+- **Symptom:** no corpus divergence — Must-fix review row (0 blocked). C `monst_globals_init` restores ALL of `mons[]` incl. `mons[PM_ERINYS]`, but the JS namesake cleared only the `pm_fixup` overlay while `adj_erinys` mutates the baseline arrays in place.
+- **C locus:** nethack-c/upstream/src/monst.c:71–76 — `memcpy(mons, mons_init, sizeof mons)`. Second live writer of C `mons[]`: mon.c:5918–5966 `adj_erinys` (mflags1, mattk[0..2], mlevel, difficulty of mons[PM_ERINYS]; callers attrib.c:1309 + restore.c:727). Review 2266 bounded the live-writer set at {role_init, adj_erinys} (zero `data->` permonst-field writes, zero direct `mons[i].field =` writes, role.c:2109 infravision fixup inside `#if 0`).
+- **JS was:** js/monsters.js:220 cleared only `game.pm_fixup`; `adj_erinys` (:288) mutates the generated baseline arrays with a separate `reset_erinys()` (:270) that was never called here — so after `adj_erinys(60)` the JS init left erinys boosted. The doc comment's "immutable baseline" / "only divergence channel" / "sole live writers" wording was falsified in the same file. Proved by /tmp probe (adj_erinys(60)→init→compare): mflags1 and mattk[0..2] still diverged after init.
+- **Fix:** call same-module `reset_erinys()` inside `monst_globals_init()` (restores the memcpy's erinys effect; no-op at both wired sites, which run with clean erinys) and corrected the doc comment to name both channels (pm_fixup overlay + adj_erinys baseline mutations).
+- **JS:** js/monsters.js:220–223 (one added call + doc wording); scripts/monst-globals-init.test.mjs (new focused regression test: adj_erinys(60)→init→baseline + overlay-clear arms).
+- **Callers:** no caller change — both live C sites stay wired from D-3308 (jsmain.js:133, makemon.js:883); the added call is same-module (hoisted function declaration, no new import edge, no TDZ risk). C makedefs.c:306 stays by-design (build tool).
+- **Verify:** `node scripts/verify.mjs --fn monst_globals_init --full` → VERIFY: PASS — syntax (1 changed: js/monsters.js) · rule2 · hidden note (no corpus session blocked) · REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44. Plus: /tmp/erinys-init-probe.mjs PASS (was FAIL pre-fix) · `node --test scripts/monst-globals-init.test.mjs` 2/2 PASS.
+- **Named omissions:** none in-body — whole C body live (overlay clear + erinys reset ≡ memcpy). `game.mvitals` deliberately untouched (genocide state is NOT part of C `mons[]`, D-3308 analysis stands).
+- **Ledger:** monst_globals_init ported
+- **Next:** queue head is now `sfbase.c` sf_init (first Open missing-arm row).
+
 ## D-3310 — `options.c` handler_symset (do_symset wrapper + both do_handler arms + doset dispatch wired)
 
 - **Status:** shipped (1 Open missing-arm row checked off + archived — handler_symset head; no review cited, no stamp owed — review 1979 names it only as an unported-caller note in the free_glyphid_cache Callers table). 47 insertions — below the ~80 density bar, defended (D-3309 precedent): the C body is 4 code lines over a by-design callee, and options.c holds nothing more Open in queue (head is the only options.c row; callee do_symset is ledger by-design), so the head's file and callee closure hold nothing more Open.
