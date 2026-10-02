@@ -126,8 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `iactions.c` ia_addmenu — C `iactions.c:127–136` absent from js/ (no symbol; `staticfn` add_menu wrapper, zeroany+act); 69 C refs — port whole (brief 2026-10-02) @42c45189d
-- [ ] `decl.c` sa_victual — C `decl.c:1199–1203` absent from js/ (no symbol; static-analyzer no-op, `return;` UNUSED param); sole C caller eat.c:3136 — resolve by-design or port (brief 2026-10-02) @42c45189d
 - [ ] `role.c` genl_player_selection — C `role.c:2177–2185` absent from js/ (no symbol; setup-or-terminate; callees live js/player_selection.js:1323 async + js/end.js:1039) — port whole (brief 2026-10-02) @56ef5b381
 - [ ] `cmd.c` extcmd_initiator — C `cmd.c:457–460` absent from js/ (no symbol; `return gc.Cmd.extcmd_char`); 1 C caller win/tty/getline.c:310 — port whole (brief 2026-10-02) @56ef5b381
 - [ ] `cmd.c` do_run_north — C `cmd.c:1532–1536` absent from js/ (no symbol; `set_move_cmd(DIR_N,1)` + ECMD_TIME, callee live js/cmd.js:577); 15 do_run/do_rush siblings C :1468–1571 same shape — port whole (brief 2026-10-02) @56ef5b381
@@ -135,6 +133,8 @@ Pop order: first unchecked here after Must-fix/coverage.
 - [ ] `monst.c` monst_globals_init — C `monst.c:72–76` absent from js/ (no symbol; memcpy mons_init→mons); C callers allmain.c:42, makemon.c:1841 — port whole (brief 2026-10-02) @f5743f596
 - [ ] `zap.c` wish_history_flush — C `zap.c:6259–6270` absent from js/ (no symbol; body entirely `#ifdef DEBUG`, free wish_history[] + reset idx); sole C caller save.c:1136 — resolve by-design (ifdef-off) or port (brief 2026-10-02) @c50c91230
 - [ ] `options.c` handler_symset — C `options.c:6321–6328` absent from js/ (no symbol; `staticfn` do_symset wrapper + opt_need_redraw, callee symbols.c:do_symset by-design); 2 C callers options.c:3583,:4228 — port whole, callee named (brief 2026-10-02) @c50c91230
+- [ ] `sfbase.c` sf_init — C `sfbase.c:647–655` absent from js/ (no symbol; procs-table init: sfoprocs/sfiprocs invalid+historical, sfofl/sfifl exportascii); sole C caller options.c:7129 — resolve by-design (no sf procs layer in JS) or port (brief 2026-10-02) @b2e34fd56
+- [ ] `sfbase.c` sfvalue_any — C `sfbase.c:449–457` absent from js/ (no symbol; static-buf PRId64 of a_int64); C refs fwd decl :23 + `Sfvalue_any` macro :53 only — resolve by-design or port (brief 2026-10-02) @b2e34fd56
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

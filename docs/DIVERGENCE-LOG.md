@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3305 — `iactions.c` ia_addmenu + `decl.c` sa_victual (stale-complete + analyzer-no-op by-design)
+
+- **Status:** shipped (2 Open missing-arm rows checked off + archived — ia_addmenu head, sa_victual; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: head's file holds nothing more Open (`ledger.mjs file iactions.c`: 2 ported, 2 unknown measured-ok, 0 remaining gaps; `ledger.mjs file decl.c`: 3 functions, rest ported); callee closures empty (add_menu not a pinned-C function; sa_victual callee-free).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on both). `ia_addmenu` (C staticfn add_menu wrapper) absent as a JS symbol but complete as the `add` closure in JS itemactions; `sa_victual` (gcc analyzer-appeasement no-op) absent as a JS symbol with no observable behavior to port.
+- **C locus:**
+  - `ia_addmenu`: nethack-c/upstream/src/iactions.c:127–136 (C staticfn) — `any = cg.zeroany; any.a_int = act; add_menu(win, &nul_glyphinfo, &any, let, 0, ATR_NONE, NO_COLOR, txt, MENU_ITEMFLAGS_NONE)`; sole caller itemactions (:278–716, 68 sites :306–:695).
+  - `sa_victual`: nethack-c/upstream/src/decl.c:1199–1203 — `return;` (UNUSED volatile param); the :1192–1197 comment names the purpose (gcc 12.2 analyzer appeasement in bite); sole caller bite eat.c:3136.
+- **JS was:** no `ia_addmenu`/`sa_victual` symbols (sym.mjs NOT FOUND); `add_menu` itself not a pinned-C function (windows.c menu core — JS menus are arrays + painters, no win_* analogue anywhere in js/).
+- **Fix:** no `js/` change — one stale-complete + one by-design, documented here and booked via Ledger (D-3302 precedent).
+- **JS:**
+  - `ia_addmenu`: js/iactions.js:473 — `const add = (act, letch, txt) => { items.push({ act, let: letch, text: `${letch} - ${txt}` }); }`: win ≡ closed-over items array, a_int ≡ act field (read back at :894/:905 into itemactions_pushkeys), nul-glyph/ATR_NONE/NO_COLOR/no-flags ≡ plain `{ text, attr: 0 }` entries (:874); the `let - ` prefix is the tty menu rendering.
+  - `sa_victual`: no symbol (by-design) — body is `return;` with zero observable behavior; no static analyzer exists in the JS toolchain to appease, so a stub would be dead.
+- **Callers:**
+  - `ia_addmenu`: itemactions 68 C sites :306–:695 → JS itemactions js/iactions.js:485–:854 (69 `add(` lines; 67 sites 1:1 in C order, C :363 candle buf ↔ JS :532/:538 with the call duplicated per if/else arm — exactly one fires, behavior-identical).
+  - `sa_victual`: bite eat.c:3136 → js/eat.js:1588 bite (local) — no call by design (no-op).
+- **Verify:** `node scripts/verify.mjs --fn ia_addmenu,sa_victual` → syntax PASS (0 changed js files) · Rule #2 PASS · hidden note ×2 (no corpus session blocked — normal for coverage) · REACH-OK ×2 (no RNG-tagged reach; smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `ia_addmenu`: none — whole C body live in the `add` closure (add_menu fixed-default args collapse by the items-array menu idiom).
+  - `sa_victual`: the call itself — no-op by C's own comment; no JS analyzer exists.
+- **Ledger:** ia_addmenu ported js=iactions.js:itemactions; sa_victual by-design
+- **Next:** continue the missing-arm list (`role.c` genl_player_selection head).
+
 ## D-3304 — `sp_lev.c` Lua-adjacent septet (l_register_des head + 3 by-design + 2 stale-complete + sel_set_wallify port)
 
 - **Status:** shipped (1 Open missing-arm `sp_lev.c` row checked off + archived — l_register_des head; 6 same-file unqueued gaps booked directly, D-3302 precedent; no review cited, no stamp owed). 9 insertions — below the ~80 density bar, defended: head's file holds nothing more Open (all 5 absent + both PARTIAL unknown `sp_lev.c` ledger rows shipped here; the other 55 unknowns measured-ok, rest declared).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3305 `iactions.c` ia_addmenu + `decl.c` sa_victual (stale-complete + analyzer-no-op by-design)
+
+**C locus:** - `ia_addmenu`: nethack-c/upstream/src/iactions.c:127–136 (C staticfn) — `any = cg.zeroany; any.a_int = act; add_menu(win, &nul_glyphinfo, &any, let, 0, ATR_NONE, NO_COLOR, txt, MENU_ITEMFLAGS_NONE)`; sole caller itemactions (:278–716, 68 sites :306–:695).
+**JS:** - `ia_addmenu`: js/iactions.js:473 — `const add = (act, letch, txt) => { items.push({ act, let: letch, text: `${letch} - ${txt}` }); }`: win ≡ closed-over items array, a_int ≡ act field (read back at :894/:905 into itemactions_pushkeys), nul-glyph/ATR_NONE/NO_COLOR/no-flags ≡ plain `{ text, attr: 0 }` entries (:874); the `let - ` prefix is the tty menu rendering.
+**Change:** no `js/` change — one stale-complete + one by-design, documented here and booked via Ledger (D-3302 precedent).
+**Verify:** `node scripts/verify.mjs --fn ia_addmenu,sa_victual` → syntax PASS (0 changed js files) · Rule #2 PASS · hidden note ×2 (no corpus session blocked — normal for coverage) · REACH-OK ×2 (no RNG-tagged reach; smoke spread 24/24 PASS each) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+**Named:** - `ia_addmenu`: none — whole C body live in the `add` closure (add_menu fixed-default args collapse by the items-array menu idiom).
+**Next:** continue the missing-arm list (`role.c` genl_player_selection head).
 ## 2026-10-02 — D-3304 `sp_lev.c` Lua-adjacent septet (l_register_des head + 3 by-design + 2 stale-complete + sel_set_wallify port)
 
 **C locus:** - `l_register_des`: nethack-c/upstream/src/sp_lev.c:6435–6441 — `lua_newtable` + `luaL_setfuncs(nhl_functions)` + `lua_setglobal("des")`; sole caller nhlua.c:2347 (Lua-state init block).
