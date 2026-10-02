@@ -126,14 +126,15 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `do.c` goto_level — C do.c:1541–1570 Gehennom amulet mysteryforce arm (rn2 gate, assign_rnd_level, W-tower diff=0, pline, mysteryforce increment, same-level safe_teleds/next_to_u return) absent from js/do.js:goto_level (:1675 named; blocks same-level safe_teleds per D-2815 omit) @4f422de21
-- [ ] `do.c` goto_level — C do.c:1804 `u_on_rndspot((up?1:0)|(was_in_W_tower?2:0))` W-tower bit 2 absent from js/do.js:goto_level (:2112 passes `up?1:0` only; named D-1179; callee js/mklev.js:u_on_rndspot already decodes bit 2; adjacent ballfall/selftouch live — D-3261 omit text stale on ballfall) @4f422de21
 - [ ] `makemon.c` makemon — C makemon.c:1295 `place_monster(mtmp, x, y)` grid-place call absent from js/makemon.js:makemon (:3475–3482 deferred comment only; callee live js/steed.js; C+JS-read; warn: naive grid write regresses per comment — movement parity first) @675a0c998
 - [ ] `dog.c` keepdogs — C dog.c:862–863 `relmon(mtmp, &gm.mydogs)` call absent from js/dog.js:keepdogs follower arm (:522–537 inline fmon splice + unshift; doc :525–529 names take-off-map; naive await regressed 6 REACH + public RNG — needs measured delta, C+JS-read) @b7d842138
 - [ ] `dog.c` migrate_to_level — C dog.c:906 `relmon(mtmp, &gm.migrating_mons)` call absent from js/teleport.js:migrate_to_level (:2887–2894 inline fmon splice + unshift; doc :2871–2876 names take-off-map, sync caller; C+JS-read) @b7d842138
 - [ ] `priest.c` p_coaligned — C priest.c:372 `mon_aligntyp(priest)` call absent from js/priest.js:p_coaligned (:273 raw-shralign compare, no sign normalization) + same-logic duplicate js/mklev.js:28518; canonical mon_aligntyp live js/priest.js:155; brief-verified @faf4b9296
 - [ ] `pickup.c` encumber_msg — blocks 1/953 (scen-trap-Valkyrie-94041 step 80 kind=screen: C «You falter under your heavy load. Movement is very hard.» vs JS «You stagger under your heavy load. Movement is very hard.») @9cdc961f3
 - [ ] `steal.c` relobj — C steal.c:883–890 vault-guard gold arm (findgold + vanish pline + obj_extract_self/obfree) absent from js/dogmove.js:relobj (:937 doc "vault-guard gold omitted"; brief-verified; D-2407 measured relobj as obj_resists writer — sibling flooreffects gap is the parked mdrop_obj row, not this one) @9cdc961f3
+- [ ] `do.c` goto_level — C do.c:1501–1502 newlevel dlevel clamp (`dunlev(newlevel) > dunlevs_in_dungeon(newlevel)` → clamp) absent from js/do.js:goto_level (entry :1642 goes straight to tutorial/newdungeon; C+JS-read) @a6213509c
+- [ ] `do.c` goto_level — C do.c:1504–1509 endgame-entry arm (!amulet return, wizard bypass, assign earth_level) absent from js/do.js:goto_level (`if (newdungeon)` :1659 handles tutorial only; C+JS-read) @a6213509c
+- [ ] `do.c` goto_level — C do.c:1803 plain `else` arm (trap door/level_tele/In_endgame rndspot for at_stairs arrivals) absent from js/do.js:goto_level (`else if (!at_stairs)` :2154 skips u_on_rndspot when at_stairs && In_endgame; C+JS-read; left untouched as out of scope) @a6213509c
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

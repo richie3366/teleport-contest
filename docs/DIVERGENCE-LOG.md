@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3277 — `do.c` goto_level: Gehennom amulet mysteryforce arm + W-tower rndspot bit 2
+
+- **Status:** shipped (two Open corpus-residual rows `do.c` goto_level checked off — the mysteryforce row is the head, the bit-2 row its same-C-file companion; `ledger.mjs rows` = 0 globally so no further companions exist; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — C-fidelity residuals. Climbing up in Gehennom with the Amulet never triggered the mysterious-force redirect, and trap-door/level-tele arrivals never took the W-tower branch of `u_on_rndspot`.
+- **C locus:**
+  - `goto_level`: do.c:1541–1570 (Gehennom amulet mysteryforce arm) + do.c:1804 (`u_on_rndspot((up?1:0)|(was_in_W_tower?2:0))`); entry capture do.c:1492
+  - `dunlev`: dungeon.c:1325–1328 (`return lev->dlevel`)
+- **JS was:** js/do.js `goto_level` had a `// Named omission: Gehennom amulet mysteryforce arm` comment above the quest gate and passed `up?1:0` only to `u_on_rndspot` (D-1179 named omit); the doc block still listed both plus a stale `ballfall` deferral (ballfall is live since D-1179/D-1778). `dunlev` had no export — 3 local clones (dokick/fountain/trap).
+- **Fix:** ported the mysteryforce arm in C order (Inhell && up && amulet && !newdungeon && !portal && dunlev < max-3 gate; `rn2(4+mysteryforce)` kick-in; odds 3+align.type with paranoia 0 arm; `assign_rnd_level` + actual-descent recompute; W-tower diff=0 stay-inside; pline; `mysteryforce += rn2(diff+2)`; same-level `safe_teleds` + `next_to_u` return; else recompute `new_ledger` and clear at_stairs/at_ladder). `was_in_W_tower` captured at entry via live `In_W_tower`; bit 2 ORed into the :1804 call. `new_ledger` const→let. Added canonical `dunlev` export in js/dungeon.js (C home).
+- **JS:** js/do.js:1653 (`was_in_W_tower` capture), :1673–1712 (mysteryforce arm), :2157 (bit-2 call); imports extended on pre-existing do→dungeon, do→teleport, const edges (no new edge, no `--can` needed); `next_to_u` via the file's established dynamic-import pattern; js/dungeon.js:1080 (`dunlev` export); doc Deferred→Ported at js/do.js:1530–1541.
+- **Callers:**
+  - `goto_level`: all 8 C call sites already wired before this commit (no caller change): artifact.c:1928 → js/artifact.js:2247; dig.c:791 → js/dig.js:951; do.c:1287 → js/do.js:3486; do.c:2085 → js/do.js:2455; dungeon.c:1508/1512/1535/1541/1962 → js/do.js:1422/1444/1448/3320 (consolidated); potion.c:1105 → js/potion.js:1833. In-body callees all live: In_hell/on_level/assign_level (file-local), dunlev/dunlevs_in_dungeon/assign_rnd_level/On_W_tower_level/In_W_tower (dungeon.js), rn2 (rng.js), pline (display.js), safe_teleds (teleport.js), next_to_u (apply.js, dynamic).
+  - `dunlev`: do.c:1542 → js/do.js:1687 (this commit). Other 19 C call sites keep their pre-existing local clones (dokick/fountain/trap drift, own rows) — not re-pointed.
+- **Verify:**
+  - `goto_level`: hidden note (no corpus session blocked — normal for a missing-arm row); reach 33 baseline-PASS sessions reach it, 33 run, 33 PASS, 0 regressed → REACH-OK. Rows queued at 4f422de21 carry no `blocks N` count, so no `--base` re-run owed.
+  - `dunlev`: no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS → REACH-OK.
+  - Once: syntax 2 files · Rule #2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). `VERIFY: PASS`.
+- **Named omissions:**
+  - `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow). Pre-existing `else if (!at_stairs)` vs C plain `else` (endgame+at_stairs arrivals skip rndspot) left untouched — out of these rows' scope.
+  - `dunlev`: none — whole C body live.
+- **Ledger:** goto_level partial; dunlev ported js=dungeon.js:dunlev
+- **Next:** `ledger.mjs rows` regenerates the coverage block on finish; pop its head next iteration.
+
 ## D-3276 — `end.c` container_contents: pickup clone de-drift onto canonical export
 
 - **Status:** shipped (Open corpus-residual row `end.c` container_contents checked off; single-function cluster — `ledger.mjs rows` = 0 globally, so no same-file/closure companions exist; no review cited, no stamp owed)

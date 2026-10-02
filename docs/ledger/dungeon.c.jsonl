@@ -28,7 +28,7 @@
 {"fn":"fixup_level_locations","c":"1122-1182","status":"unknown","d":["D-2683"],"at":"seed@a30a7de84"}
 {"fn":"free_proto_dungeon","c":"1185-1201","status":"ported","js":["js/dungeon.js:free_proto_dungeon"],"d":["D-3001"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"init_dungeons","c":"1205-1319","status":"ported","js":["js/dungeon.js:init_dungeons"],"d":["D-2437"],"at":"seed@a30a7de84"}
-{"fn":"dunlev","c":"1325-1328","status":"unknown"}
+{"fn":"dunlev","c":"1325-1328","status":"ported","js":["js/dungeon.js:dunlev"],"d":["D-3277"],"at":"2026-10-02@a6213509c"}
 {"fn":"dunlevs_in_dungeon","c":"1332-1335","status":"unknown"}
 {"fn":"deepest_lev_reached","c":"1339-1371","status":"ported","js":["js/hacklib.js:deepest_lev_reached"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"ledger_no","c":"1376-1379","status":"unknown"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3277 `do.c` goto_level: Gehennom amulet mysteryforce arm + W-tower rndspot bit 2
+
+**C locus:** - `goto_level`: do.c:1541–1570 (Gehennom amulet mysteryforce arm) + do.c:1804 (`u_on_rndspot((up?1:0)|(was_in_W_tower?2:0))`); entry capture do.c:1492
+**JS:** js/do.js:1653 (`was_in_W_tower` capture), :1673–1712 (mysteryforce arm), :2157 (bit-2 call); imports extended on pre-existing do→dungeon, do→teleport, const edges (no new edge, no `--can` needed); `next_to_u` via the file's established dynamic-import pattern; js/dungeon.js:1080 (`dunlev` export); doc Deferred→Ported at js/do.js:1530–1541.
+**Change:** ported the mysteryforce arm in C order (Inhell && up && amulet && !newdungeon && !portal && dunlev < max-3 gate; `rn2(4+mysteryforce)` kick-in; odds 3+align.type with paranoia 0 arm; `assign_rnd_level` + actual-descent recompute; W-tower diff=0 stay-inside; pline; `mysteryforce += rn2(diff+2)`; same-level `safe_teleds` + `next_to_u` return; else recompute `new_ledger` and clear at_stairs/at_ladder). `was_in_W_tower` captured at entry via live `In_W_tower`; bit 2 ORed into the :1804 call. `new_ledger` const→let.
+**Verify:** - `goto_level`: hidden note (no corpus session blocked — normal for a missing-arm row); reach 33 baseline-PASS sessions reach it, 33 run, 33 PASS, 0 regressed → REACH-OK. Rows queued at 4f422de21 carry no `blocks N` count, so no `--base` re-run owed.
+**Named:** - `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow). Pre-existing `else if (!at_stairs)` vs C plain `else` (endgame+at_stairs arrivals skip rndspot) left untouched — out of these rows' scope.
+**Next:** `ledger.mjs rows` regenerates the coverage block on finish; pop its head next iteration.
 ## 2026-10-02 — Audit 2229–2237: review D-3268–D-3276 (9 ACCEPT) + full score
 
 **Scope:** 6796c72b6…715abdc4c (9 js/ SHAs since 2228), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.
