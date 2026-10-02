@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2229–2237: review D-3268–D-3276 (9 ACCEPT) + full score
+
+**Scope:** 6796c72b6…715abdc4c (9 js/ SHAs since 2228), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.
+**Verdicts:** 9 ACCEPT, 0 Must-fix. Notable: 2229 defsym explanation = 2nd string (sym.h + defsym.h:86–87); 2230 money_cnt first-stack (hack.c:4513), mongone isgd omit unreachable on fresh guards; 2231 reach 638/638 (D-log sampled 80), both sessions PASS; 2235 Hallu mirror draw-exact incl. randrole(TRUE) stream + EHalluc_resistance window; 2235 teleport mon_aligntyp clone `--can` SAFE now (D-1110 stale; unqueued).
+**Fortress:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `328+1.64/turn` R² 0.77); corpus full rescore 704/953 (73.9%), RNG 97.98%, screens 93.4%, 0 unrecorded, 0 losses, 0 gains; `full: true` @715abdc4c. Held-out 15/44, RNG 33.9% (+0), rank 5.
+**Ledger:** snapshot appended; 10 seeded-ported rows sampled (5 + 5 `sql`-drawn under nvm v22; v20 lacks node:sqlite): 9 stand (3 PARTIALs dense-but-complete, arm-verified), 1 fixed — mhitm_ad_acid ported→split (mhitm.js:1760, uhitm.js:2936, mhitu.js:2796). Stamped DONE:8 D-3276 (stamp was missing).
 ## 2026-10-02 — D-3276 `end.c` container_contents: pickup clone de-drift onto canonical export
 
 **C locus:** - `container_contents`: nethack-c/upstream/src/end.c:1594–1670 whole body (canonical whole-ported by D-3260; this iter deletes the drift clone and wires the last C caller).

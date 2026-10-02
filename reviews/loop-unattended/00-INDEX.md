@@ -2238,3 +2238,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2226-a2542cfc9-boulder-completion.md](./2226-a2542cfc9-boulder-completion.md) | `a2542cfc9` | D-3265 boulder_hits_pool whole-body completion | **ACCEPT** |
 | [2227-66e8734cf-check-capacity.md](./2227-66e8734cf-check-capacity.md) | `66e8734cf` | D-3266 check_capacity + 13 call sites | **ACCEPT** |
 | [2228-4f422de21-trapeffect-fire-trap.md](./2228-4f422de21-trapeffect-fire-trap.md) | `4f422de21` | D-3267 trapeffect_fire_trap whole-body completion | **ACCEPT** |
+| [2229-6796c72b6-stethoscope-defsym-wiring.md](./2229-6796c72b6-stethoscope-defsym-wiring.md) | `6796c72b6` | D-3268 stethoscope defsym + unleash_all/feel_newsym wiring | **ACCEPT** |
+| [2230-0dd9bcfeb-invault-completion.md](./2230-0dd9bcfeb-invault-completion.md) | `0dd9bcfeb` | D-3269 invault whole-body completion | **ACCEPT** |
+| [2231-2798e7602-exercise-writers.md](./2231-2798e7602-exercise-writers.md) | `2798e7602` | D-3270 exercise + 2 caller writers | **ACCEPT** |
+| [2232-675a0c998-exclam-export.md](./2232-675a0c998-exclam-export.md) | `675a0c998` | D-3271 exclam canonical export | **ACCEPT** |
+| [2233-b7d842138-mbirth-limit-export.md](./2233-b7d842138-mbirth-limit-export.md) | `b7d842138` | D-3272 mbirth_limit canonical export | **ACCEPT** |
+| [2234-faf4b9296-relmon-replmon-replshk.md](./2234-faf4b9296-relmon-replmon-replshk.md) | `faf4b9296` | D-3273 relmon + replmon arms + replshk | **ACCEPT** |
+| [2235-51548d8db-priestname-cluster.md](./2235-51548d8db-priestname-cluster.md) | `51548d8db` | D-3274 priestname + mon_aligntyp + restpriest + bogon | **ACCEPT** |
+| [2236-9cdc961f3-hmon-silvermsg-gate.md](./2236-9cdc961f3-hmon-silvermsg-gate.md) | `9cdc961f3` | D-3275 hmon_hitmon silvermsg gate | **ACCEPT** |
+| [2237-715abdc4c-container-contents-dedrift.md](./2237-715abdc4c-container-contents-dedrift.md) | `715abdc4c` | D-3276 container_contents de-drift | **ACCEPT** |

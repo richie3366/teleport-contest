@@ -1,9 +1,9 @@
 {
- "commit": "9cdc961f3",
- "at": "2026-10-02T09:41:36.628Z",
- "full": false,
- "fullCommit": "4f422de21",
- "fullAt": "2026-10-02T07:36:49.470Z",
+ "commit": "715abdc4c",
+ "at": "2026-10-02T10:19:04.253Z",
+ "full": true,
+ "fullCommit": "715abdc4c",
+ "fullAt": "2026-10-02T10:19:04.253Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -7737,7 +7737,7 @@
    "steps": 132,
    "owner": "dobuzz",
    "loc": "zap.c:4797",
-   "jsOwner": "dobuzz(zap.js:2371)",
+   "jsOwner": "dobuzz(zap.js:2374)",
    "cTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "jsTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "error": null
@@ -10746,7 +10746,7 @@
    "steps": 313,
    "owner": "peffect_polymorph",
    "loc": "potion.c:1327",
-   "jsOwner": "exercise(attrib.js:220)",
+   "jsOwner": "exercise(attrib.js:225)",
    "cTopline": "Use the command #sit to lay an egg.",
    "jsTopline": "Use the command #sit to lay an egg.",
    "error": null
@@ -11681,7 +11681,7 @@
    "steps": 204,
    "owner": "dochug",
    "loc": "monmove.c:745",
-   "jsOwner": "exercise(attrib.js:222)",
+   "jsOwner": "exercise(attrib.js:227)",
    "cTopline": "You can't lead your red dragon through that closed door.",
    "jsTopline": "Ouch! You bump into a door.",
    "error": null
@@ -12565,7 +12565,7 @@
    "steps": 189,
    "owner": "water_damage",
    "loc": "trap.c:4771",
-   "jsOwner": "exercise(attrib.js:220)",
+   "jsOwner": "exercise(attrib.js:225)",
    "cTopline": "You fall into the moat! You sink like a rock.--More--",
    "jsTopline": "Dip it into the moat? [yn] (n)",
    "error": null
@@ -13330,7 +13330,7 @@
    "steps": 112,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4945)",
+   "jsOwner": "do_attack(uhitm.js:4948)",
    "cTopline": "a dart (no travel path)",
    "jsTopline": "a brilliant blue potion",
    "error": null
@@ -13347,7 +13347,7 @@
    "steps": 87,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:222)",
+   "jsOwner": "exercise(attrib.js:227)",
    "cTopline": "some gold pieces",
    "jsTopline": "a eucalyptus leaf",
    "error": null
@@ -13364,7 +13364,7 @@
    "steps": 295,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4945)",
+   "jsOwner": "do_attack(uhitm.js:4948)",
    "cTopline": "a pair of leather gloves",
    "jsTopline": "2 candles",
    "error": null
@@ -13398,7 +13398,7 @@
    "steps": 253,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:222)",
+   "jsOwner": "exercise(attrib.js:227)",
    "cTopline": "some gold pieces",
    "jsTopline": "7 candles",
    "error": null
@@ -13432,7 +13432,7 @@
    "steps": 180,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4945)",
+   "jsOwner": "do_attack(uhitm.js:4948)",
    "cTopline": "some gold pieces",
    "jsTopline": "an oak wand (no travel path)",
    "error": null
@@ -13466,7 +13466,7 @@
    "steps": 265,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4945)",
+   "jsOwner": "do_attack(uhitm.js:4948)",
    "cTopline": "a whistle",
    "jsTopline": "a food ration",
    "error": null
@@ -13627,7 +13627,7 @@
   "scen-town-Wizard-94142": {
    "src": "corpus",
    "passed": false,
-   "rngM": 7850,
+   "rngM": 7848,
    "rngT": 9816,
    "scrM": 89,
    "scrT": 321,
@@ -14027,7 +14027,7 @@
    "steps": 159,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3201)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3205)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14044,7 +14044,7 @@
    "steps": 162,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3201)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3205)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14095,7 +14095,7 @@
    "steps": 151,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3201)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3205)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14282,7 +14282,7 @@
    "steps": 181,
    "owner": "u_calc_moveamt",
    "loc": "allmain.c:131",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3201)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3205)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14333,7 +14333,7 @@
    "steps": 145,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3201)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3205)",
    "cTopline": "",
    "jsTopline": "",
    "error": null

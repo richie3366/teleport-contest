@@ -46,7 +46,7 @@
 {"fn":"mhitm_ad_fire","c":"2521-2623","status":"partial","js":["js/mhitm.js:mhitm_ad_fire"],"omit":"`golemeffects` (C `mon.c:5680–5707`, clone `golemeffects_mm` `js/mhitm.js:2145` — iron FIRE heal live, flesh FIRE slow named per review 365); none new — whole C body live, every callee live or named above.","d":["D-2730","D-1405"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_cold","c":"2626-2681","status":"split","js":["js/mhitm.js:mhitm_ad_cold","js/uhitm.js:damageum_ad_cold","js/mhitu.js:mhitm_ad_cold_u"],"d":["D-3211","D-2718"],"at":"2026-10-01@b9de54524"}
 {"fn":"mhitm_ad_elec","c":"2684-2739","status":"ported","js":["js/mhitm.js:mhitm_ad_elec"],"d":["D-2542"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_acid","c":"2742-2786","status":"ported","js":["js/mhitm.js:mhitm_ad_acid"],"d":["D-2511"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_acid","c":"2742-2786","status":"split","js":["js/mhitm.js:mhitm_ad_acid","js/uhitm.js:damageum_adtyping","js/mhitu.js:mhitm_ad_acid_u"],"d":["D-2511"],"at":"2026-10-02@715abdc4c","note":"audit 2237: split, not ported — 3 arms (mhitm.js:1760, damageum AD_ACID row uhitm.js:2936, mhitu.js:2796); mhitm_ad_legs precedent"}
 {"fn":"mhitm_ad_sgld","c":"2790-2855","status":"ported","js":["js/mhitm.js:mhitm_ad_sgld"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mhitm_ad_tlpt","c":"2859-2955","status":"ported","js":["js/mhitm.js:mhitm_ad_tlpt"],"d":["D-2587"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_blnd","c":"2958-3012","status":"split","js":["js/mhitm.js:mhitm_ad_blnd","js/mhitu.js:mhitm_ad_blnd_u"],"d":["D-3216","D-3214","D-2540"],"at":"2026-10-01@d54d5687c"}
