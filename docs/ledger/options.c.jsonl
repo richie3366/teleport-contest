@@ -138,7 +138,7 @@
 {"fn":"handler_sortloot","c":"6167-6203","status":"ported","js":["js/options.js:handler_sortloot"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"handler_whatis_coord","c":"6206-6276","status":"ported","js":["js/options.js:handler_whatis_coord"],"d":["D-3232","D-2775"],"at":"2026-10-01@516e71ff9"}
 {"fn":"handler_whatis_filter","c":"6279-6318","status":"ported","js":["js/options.js:handler_whatis_filter"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:2949; 3 menu arms + preselect + PICK_ONE pick[1] quirk via select_menu_pick_one (whatis_coord precedent), wired via doset_optfn_do_handler :3090 + getlin :7653"}
-{"fn":"handler_symset","c":"6321-6328","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"handler_symset","c":"6321-6328","status":"ported","js":["js/options.js:handler_symset"],"d":["D-3310"],"at":"2026-10-02@886cc35b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_autopickup_exception","c":"6331-6404","status":"ported","js":["js/options.js:handler_autopickup_exception"],"d":["D-2838"],"at":"2026-10-01@e0549fe8b","note":"stale: js/options.js:6900 (whole :6330-6404; regex_error_desc omit lives in add_autopickup_exception D-3114)"}
 {"fn":"handler_menu_colors","c":"6407-6499","status":"partial","js":["js/options.js:handler_menu_colors"],"omit":"- `optfn_o_bind_keys`: none in this body or registered callers.","d":["D-3180","D-2506"],"at":"2026-09-30@d37e25ba4"}
 {"fn":"handler_msgtype","c":"6502-6570","status":"ported","js":["js/options.js:handler_msgtype"],"d":["D-2842"],"at":"2026-10-01@e45cb9654","note":"stale: js/options.js:7134 (D-2842 whole body; select_menu via pick helpers, caller doset:10974; msgtype_add sink omit lives in callee row)"}

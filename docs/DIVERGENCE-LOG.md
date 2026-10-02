@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-3310 — `options.c` handler_symset (do_symset wrapper + both do_handler arms + doset dispatch wired)
+
+- **Status:** shipped (1 Open missing-arm row checked off + archived — handler_symset head; no review cited, no stamp owed — review 1979 names it only as an unported-caller note in the free_glyphid_cache Callers table). 47 insertions — below the ~80 density bar, defended (D-3309 precedent): the C body is 4 code lines over a by-design callee, and options.c holds nothing more Open in queue (head is the only options.c row; callee do_symset is ledger by-design), so the head's file and callee closure hold nothing more Open.
+- **Symptom:** no corpus divergence — coverage row (0 blocked). `handler_symset` had no JS symbol; both live callers carried "No do_handler branch here (optfn_perminv_mode precedent)", and the doset_simple_menu dispatch forced OPTN_ERR on 'symset' behind a handler_symset named-omission comment.
+- **C locus:** nethack-c/upstream/src/options.c:6320–6328 — whole body in C order: `reslt = do_symset(optidx == opt_roguesymset)` (:6325), `go.opt_need_redraw = TRUE` (:6326), `return reslt` (:6327). Callers: options.c:3583 (optfn_roguesymset arm :3582–3584), options.c:4228 (optfn_symset arm :4223–4233, glyphid-cache wrapped). Callee: symbols.c:908–1099 do_symset (ledger by-design; all six C returns TRUE — measured `awk '/return/'` over :908–1100, function ends :1098).
+- **JS was:** no `handler_symset` symbol; no do_handler arms in either caller; doset_simple_menu 'symset' → OPTN_ERR; doset_optfn_do_handler default OPTN_OK for symset/roguesymset (value-correct, flag-unmodeled).
+- **Fix:** `export function handler_symset()` after handler_whatis_coord (C-adjacent staticfn handlers); `mark_opt_need_redraw()` for :6326; return OPTN_OK — C optn_ok = 1 = TRUE (options.c:84) and do_symset is TRUE on every path. Wired both C caller arms (plain return; glyphid fill/free wrap via the trio already imported at js/options.js:210 — no new edge) plus both doset dispatches (C :8663–8666 simple, C :8935–8938 full — both call optfn(idx, do_handler) generically). C `:4231–4232` apply_customizations is commented out in C.
+- **JS:** js/options.js:2389 export; :3570/:3605 roguesymset signature + arm; :3625/:3668–3676 symset signature + arm; :3528/:3531 doset_optfn_do_handler arms; :9345 simple-menu arm (was OPTN_ERR).
+- **Callers:** C options.c:3583 optfn_roguesymset → js/options.js:3605–3607; C options.c:4228 optfn_symset → js/options.js:3668–3676. Transitive C doset dispatches (not brief-table callers — both call the optfn, never the handler directly): doset_simple_menu :8663 → js/options.js:9345; doset :8935 → js/options.js:3528/3531.
+- **Verify:** `node scripts/verify.mjs --fn handler_symset` → VERIFY: PASS — syntax (1 changed: js/options.js) · rule2 · hidden note (no corpus session blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke spread 24/24 PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `handler_symset`: in-body `do_symset(optidx == opt_roguesymset)` — the symbols.c SYMBOLS-file menu browser is ledger by-design (no scored analogue, no js/symbols.js); its return is deterministic TRUE on all six C paths, modeled as OPTN_OK.
+- **Ledger:** handler_symset ported
+- **Next:** queue head is now `sfbase.c` sf_init (Open missing-arm).
+
 ## D-3309 — `zap.c` wish_history_flush (DEBUG-on ring clear + stale wish_history_add omit retired)
 
 - **Status:** shipped (1 Open missing-arm row checked off + archived — wish_history_flush head; review 1832 names flush only as a named omit, no stamp owed — its one actionable C-wrong was addressed by D-2880). 18 insertions — below the ~80 density bar, defended (D-3308 precedent): the row's by-design option is closed because `DEBUG` is defined in patchlevel.h:36 (same DEBUG-on treatment as the D-2873 wish_history_add port), so the deliverable is the 5-line body itself; `ledger.mjs file zap.c` shows zero remaining unknown/absent THIN/PARTIAL/MISSING after this iter (rest measured-ok or declared), so the head's file and callee closure (0 callees) hold nothing more Open.

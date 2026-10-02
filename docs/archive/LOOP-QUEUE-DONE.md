@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `zap.c` wish_history_flush — C `zap.c:6259–6270` absent from js/ (no symbol; body entirely `#ifdef DEBUG`, free wish_history[] + reset idx); sole C caller save.c:1136 — resolve by-design (ifdef-off) or port (brief 2026-10-02) @c50c91230 **Addressed:** D-3309
+- [x] `options.c` handler_symset — C `options.c:6321–6328` absent from js/ (no symbol; `staticfn` do_symset wrapper + opt_need_redraw, callee symbols.c:do_symset by-design); 2 C callers options.c:3583,:4228 — port whole, callee named (brief 2026-10-02) @c50c91230
+
+
+- [x] `zap.c` wish_history_flush — C `zap.c:6259–6270` absent from js/ (no symbol; body entirely `#ifdef DEBUG`, free wish_history[] + reset idx); sole C caller save.c:1136 — resolve by-design (ifdef-off) or port (brief 2026-10-02) @c50c91230 **Addressed:** D-3309 `886cc35b5`
 
 
 - [x] `monst.c` monst_globals_init — C `monst.c:72–76` absent from js/ (no symbol; memcpy mons_init→mons); C callers allmain.c:42, makemon.c:1841 — port whole (brief 2026-10-02) @f5743f596 **Addressed:** D-3308 `2bcda1027`
