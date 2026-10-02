@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3255 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3256 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3255.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3255 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3256.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3256 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3256: `passive_obj`: AD_RUST `erode_obj(weapon,null,ERODE_RUST,EF_GREASE)`; AD_ENCH `drain_item(weapon,TRUE) && carried && (known||ARMOR)` → `Yobjnam2 "seem Named: - `passive_obj`: none in-body — whole C body live.
 - D-3255: restart the thin body as `export async function reset_utrap(msg)` in C order (was_Lev/was_Fly snapshot via same-file `hero_Levitation`/`hero_Flying` y Named: - `reset_utrap`: zap.c:5303 (`zap_over_floor` TT_LAVA Passes_walls arm — no JS counterpart
 - D-3254: `js/display.js` only, no new module edge (same-file `glyph_is_unexplored` :885 + `glyph_is_cmap` :891; no `imports.mjs --can` needed): gate the `remem Named: - `seffect_magic_mapping`: blessed-scroll Rogue `unblock_point` stands approximated as `vi
 - D-3253: `js/uhitm.js` only, no new module edge (in-scope `get_dmg_bonus` local + `PM_SHADE`; no `imports.mjs --can` needed): floor → `dmg = (get_dmg_bonus &&  Named: - `abuse_dog`: none in-body — whole C body live.
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3244: `js/makemon.js` only — armBonus subtracts `min(max(oeroded,oeroded2), a_ac)` per hack.h ARM_BONUS + obj.h greatest_erosion (:3066–3077; macro expanded Named: - `m_initinv`: none in-body — every arm live; every C callee live (mongets/mksobj/curse/mp
 - D-3243: `js/lock.js` only — 7 pre-existing edges extended (cant_reach_floor; COST_BRKLCK/SHOP_DOOR_COST; A_WIS; y_n/ynq; unblock_point; start_corpse_timeout;  Named: - `doforce`: none in-body — door force with edged weapon is a C TODO (unimplemented in C t
 - D-3242: one-space fix at `js/mhitm.js:6185` (`` `${mhis(magr)} ${xname(otemp)}` ``, exact C `"%s%s %s"` order); new live export `mon_avoiding_this_attack` (js Named: - `mswings_verb`: none — whole body live (is_wet_towel served inline via the TOWEL-name ch
-- D-3241: extended the existing `./mondata.js` import with the live sync `mhis`/`mhe` (C you.h `:322–324`); extended the existing `./display.js` import with liv Named: - `dowaterdemon`: C `:88` `Soundeffect(se_furious_bubbling, 20)` — named, not wired (conte
 <!-- landmarks:end -->

@@ -5,11 +5,15 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `trap.c` reset_utrap — msg/Levitation/Flying restore ported + 19 TRUE awaits + delfloortrap/buried async + 4 wirings (domove_core, teleds, savelife, goto_level); zap.c:5303 queued as its own row **Addressed:** D-3255
+- [x] `uhitm.c` passive_obj — C uhitm.c:6170–6173 AD_RUST erode_obj + :6180–6186 AD_ENCH drain_item + :6193–6195 update_inventory tail absent from js/uhitm.js:passive_obj (:3142; :3180 "ERODE_RUST deferred", :3194 "drain_item deferred", no tail call) @b3c50cbeb **Addressed:** D-3256
+- [x] `uhitm.c` passive — C uhitm.c:5916–5921 M_SEEN markers (:5916/:5918) + erode_armor (:5921) + :5925–5927 AT_KICK uarmf corrode absent from js/uhitm.js:passive (:3272 case AD_ACID; :3284/:3290 "deferred") @35e5e8f94 **Addressed:** D-3256
 
 
-- [x] `weapon.c` enhance_weapon_skill — STALE: C body whole at js/weapon.js:1148 (ledger ported); s225 residual is row-0 menu-prompt centering (painter, out of scope) **Addressed:** D-3255
-- [x] `trap.c` trapeffect_landmine — STALE: C body whole at js/trap.js:5851 (ledger ported); s132 toplines unrelated to landmines, C never called at step (region-heuristic misattribution) **Addressed:** D-3255
+- [x] `trap.c` reset_utrap — msg/Levitation/Flying restore ported + 19 TRUE awaits + delfloortrap/buried async + 4 wirings (domove_core, teleds, savelife, goto_level); zap.c:5303 queued as its own row **Addressed:** D-3255 `2716a3ced`
+
+
+- [x] `weapon.c` enhance_weapon_skill — STALE: C body whole at js/weapon.js:1148 (ledger ported); s225 residual is row-0 menu-prompt centering (painter, out of scope) **Addressed:** D-3255 `2716a3ced`
+- [x] `trap.c` trapeffect_landmine — STALE: C body whole at js/trap.js:5851 (ledger ported); s132 toplines unrelated to landmines, C never called at step (region-heuristic misattribution) **Addressed:** D-3255 `2716a3ced`
 
 
 - [x] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828 **Addressed:** D-3254 `35e5e8f94`

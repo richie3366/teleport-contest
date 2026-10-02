@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3256 — `uhitm.c` passive_obj whole body (AD_RUST/AD_ENCH + tail + weapon fix) + passive whole body (kick erodes, M_SEEN, erode_armor, gaze reflect) + drop_throw caller wiring
+
+- **Status:** shipped.
+- **Symptom:** queue rows: `passive_obj` AD_RUST erode + AD_ENCH drain + `update_inventory` tail deferred; `passive` AD_ACID M_SEEN markers + `erode_armor` + AT_KICK uarmf corrode deferred. Whole-function port also closed the FIRE/RUST/CORR kick erodes, MAGM/COLD/FIRE/ELEC shieldeff+M_SEEN arms, PLYS ureflects/canseemon/Adjmonnam/change_luck/nomovemsg, a live `obj`→`weapon` bug (AD_ACID/AD_CORR passed the unresolved param, null after null-obj resolution), and the unwired mthrowu.c:189 `drop_throw` caller.
+- **C locus:**
+  - `passive_obj`: nethack-c/upstream/src/uhitm.c:6127–6195 — null-obj/mattk resolution, FIRE/ACID/RUST/CORR erode_obj, ENCH drain_item + "less effective", carried update_inventory tail.
+  - `passive`: nethack-c/upstream/src/uhitm.c:5865–6120 — AT_NONE scan, damage dice, even-if-dead FIRE/ACID/STON/RUST/CORR/MAGM/ENCH arms, live-gate PLYS/COLD/STUN/FIRE/ELEC.
+- **JS was:** js/uhitm.js:3145 thin `passive_obj` ("ERODE_RUST deferred", "drain_item deferred", no tail; AD_ACID/AD_CORR passed raw `obj`); js/uhitm.js:3219 `passive` with "erode_obj uarmf deferred" ×4, "erode_armor deferred", merged RUST/CORR, canseemon stub (`mon.mx != null`), mon_nam-for-Monnam/Adjmonnam messages, change_luck deferred, no nomovemsg writes; js/mthrowu.js:772 `drop_throw` "passive_obj deferred".
+- **Fix:** `passive_obj`: AD_RUST `erode_obj(weapon,null,ERODE_RUST,EF_GREASE)`; AD_ENCH `drain_item(weapon,TRUE) && carried && (known||ARMOR)` → `Yobjnam2 "seem less effective"` (C's in-arm break + FALLTHROUGH flattens — default only breaks); `if (carried(weapon)) update_inventory()` tail; AD_ACID/AD_CORR `obj`→`weapon`. `passive`: FIRE/ACID/RUST/CORR kick `erode_obj(uarmf,xname(uarmf),kind,EF_GREASE|EF_VERBOSE)` (RUST/CORR split into C-order cases); ACID M_SEEN_ACID see/unsee + `erode_armor(game.youmonst,ERODE_CORRODE)`; MAGM/COLD/FIRE/ELEC `shieldeff(u.ux,u.uy)` + M_SEEN set/clear in C order; PLYS live `canseemon` gate, `ureflects('%s gaze is reflected by your %s.',s_suffix(Monnam))`, Monnam/s_suffix/Adjmonnam messages, `change_luck(-1)`, gaze `game.nomovemsg=null` / cube `'You can move again.'` (nomul only clears on nval 0). `drop_throw`: m_at/u_at→youmonst + `if (mtmp && ohit) passive_obj(mtmp,obj,null)` before stackobj. 2 js/ files, ~90 ins — under caps.
+- **JS:** js/uhitm.js:3151 `passive_obj` (port), :3229 `passive` (port); import extensions only — const.js M_SEEN×5 + ERODE_RUST + EF_VERBOSE, invent `update_inventory`, zap `drain_item`, do_name `Adjmonnam`, mondata `monstseesu/monstunseesu`, eat `carried`, mhitu `ureflects` (all edges pre-exist; erode_obj keeps the file's dynamic-import convention); js/mthrowu.js:772 `drop_throw` wiring + :38 `passive_obj` on the pre-existing uhitm edge (`imports.mjs --can`: ALREADY).
+- **Callers:**
+  - `passive_obj`: dothrow.c:2226→dothrow.js:744 (pre-existing); mthrowu.c:189→mthrowu.js:795 WIRED; uhitm.c:5903→uhitm.js:3281, :5930→:3318, :5966→:3362, :5977→:3378, :6010→:3404 (RUST/CORR split this commit); uhitm.c:5530 comment, no call.
+  - `passive`: dokick.c:116/158/213/219/241/265/282→dokick.js:895/919/957/962/977/1006/1025 (pre-existing); uhitm.c:715→uhitm.js:3614, :789→:3667, :810→:3688, :5827/:5829→:4396 single merged site (DEF_DIED yields mhitb=1/maliveb=0 = C's (1,0); pre-existing).
+- **Verify:** `node scripts/verify.mjs --fn passive_obj,passive` → syntax 2 files PASS; rule2 PASS; hidden vacuous both (missing-arm rows, no corpus session blocked); REACH passive_obj 8/8 PASS, passive 80/80 PASS (spread sample) → REACH-OK; green 2/2; strict ×2; cohort 7/7. `... --fn passive --reach-all` → 248/248 PASS → REACH-OK. VERIFY: PASS both runs. No maintained unit harness in repo (sessions + verify gates are the checks; durable-test-collateral: no new framework).
+- **Named omissions:**
+  - `passive_obj`: none in-body — whole C body live.
+  - `passive`: none in-body — whole C body live (C `You("are splashed…")`/`You("are hit…")` render identical strings via pline; ENCH #H2668 TODO is a comment-only `;` in C).
+- **Ledger:** passive_obj ported; passive ported
+- **Next:** same-file uhitm.c Open rows are now exhausted (both corpus residuals shipped); resume at the coverage-block head after refill.
+
 ## D-3255 — `trap.c` reset_utrap msg/Levitation/Flying restore + 19-site TRUE await cascade + 4 caller wirings (stale: enhance_weapon_skill, trapeffect_landmine)
 
 - **Status:** shipped.

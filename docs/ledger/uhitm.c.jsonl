@@ -90,8 +90,8 @@
 {"fn":"m_is_steadfast","c":"5218-5243","status":"unknown"}
 {"fn":"mhitm_knockback","c":"5247-5420","status":"unknown","d":["D-2750","D-2347","D-2091","D-2035","D-1932","D-1921"],"at":"seed@a30a7de84"}
 {"fn":"hmonas","c":"5424-5860","status":"unknown","d":["D-1916","D-1233"],"at":"seed@a30a7de84"}
-{"fn":"passive","c":"5865-6120","status":"partial","js":["js/uhitm.js:passive"],"omit":"- `passive`: AD_ACID remainder — M_SEEN markers (:5916/:5918), erode_armor (:5921; live js/mhitm.js:2440, signature unverified), AT_KICK uarmf corrode (:5925–5927; EF_VERBOSE scope unverified); AD_PLYS gaze/cube, AD_COLD markers, AD_FIRE uarmf burn, dokick callers (all pre-existing).","d":["D-3251","D-2142","D-2052"],"at":"2026-10-02@135e9a8dd"}
-{"fn":"passive_obj","c":"6127-6195","status":"partial","js":["js/uhitm.js:passive_obj"],"omit":"- `passive`: AD_ACID remainder — M_SEEN markers (:5916/:5918), erode_armor (:5921; live js/mhitm.js:2440, signature unverified), AT_KICK uarmf corrode (:5925–5927; EF_VERBOSE scope unverified); AD_PLYS gaze/cube, AD_COLD markers, AD_FIRE uarmf burn, dokick callers (all pre-existing).","d":["D-3251"],"at":"2026-10-02@135e9a8dd"}
+{"fn":"passive","c":"5865-6120","status":"ported","js":["js/uhitm.js:passive"],"d":["D-3256","D-3251","D-2142","D-2052"],"at":"2026-10-02@2716a3ced"}
+{"fn":"passive_obj","c":"6127-6195","status":"ported","js":["js/uhitm.js:passive_obj"],"d":["D-3256","D-3251"],"at":"2026-10-02@2716a3ced"}
 {"fn":"that_is_a_mimic","c":"6201-6276","status":"unknown"}
 {"fn":"stumble_onto_mimic","c":"6282-6297","status":"ported","js":["js/uhitm.js:stumble_onto_mimic"],"d":["D-2993"],"at":"2026-09-27@e74c75d1f"}
 {"fn":"disguised_as_non_mon","c":"6300-6305","status":"unknown"}

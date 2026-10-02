@@ -35,7 +35,7 @@ import {
     should_mulch_missile, autoreturn_weapon,
 } from './weapon.js';
 import { find_mac, mondied, monkilled, shade_miss, AT_WEAP, AT_SPIT } from './mhitm.js';
-import { xkilled, can_blnd, Hate_silver } from './uhitm.js';
+import { xkilled, can_blnd, Hate_silver, passive_obj } from './uhitm.js';
 import { mswings_verb } from './mhitu.js';
 import { ammo_and_launcher, is_launcher, is_pole, mwelded } from './wield.js';
 import { acurr, acurrstr, A_CON, A_DEX, A_STR, exercise, poisoned } from './attrib.js';
@@ -766,8 +766,9 @@ export async function ucatchgem(gem, mon) {
 }
 
 /**
- * C ref: mthrowu.c drop_throw — mulch or ship_object or place+stack.
- * Named omit: flooreffects / passive_obj.
+ * C ref: mthrowu.c drop_throw :160–196 — mulch or ship_object or
+ * place+stack. flooreffects before place (D-0987); a landed hit erodes
+ * via passive_obj on the monster (or hero) under it (:183–190).
  */
 async function drop_throw(obj, ohit, x, y) {
     let broken = false;
@@ -784,10 +785,14 @@ async function drop_throw(obj, ohit, x, y) {
         const { ship_object } = await import('./dokick.js');
         broken = await ship_object(obj, x, y, false);
         if (!broken) {
-            // C: flooreffects before place (D-0987); passive_obj deferred
             const { flooreffects } = await import('./do.js');
             if (!(await flooreffects(obj, x, y, 'fall'))) {
                 place_object(obj, x, y);
+                // C :183–190 — the landing square's occupant (hero
+                // included) passively erodes a missile that hit.
+                let mtmp = m_at(x, y);
+                if (!mtmp && u_at(x, y)) mtmp = game.youmonst;
+                if (mtmp && ohit) await passive_obj(mtmp, obj, null);
                 stackobj(obj);
             }
         }
