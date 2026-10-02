@@ -126,8 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `mklev.c` pos_to_room — C `mklev.c:1677–1687` absent from js/mklev.js (no symbol; `staticfn` rooms scan via live `inside_room` js/mklev.js:32964, NULL fallthrough); 1 C caller — port whole (brief 2026-10-02) @42c45189d
-- [ ] `mklev.c` makevtele — C `mklev.c:821–824` absent from js/mklev.js (no symbol; `staticfn` `makeniche(TELEP_TRAP)`, callee local js/mklev.js:33193); sole C caller mklev.c:1333 — port whole (brief 2026-10-02) @42c45189d
 - [ ] `topten.c` discardexcess — C `topten.c:208–215` absent from js/topten.js (no symbol; `staticfn` FILE* drain-to-newline); sole C caller topten.c:246 — resolve by-design (no FILE* score stream) or port (brief 2026-10-02) @42c45189d
 - [ ] `topten.c` nsb_mung_line — C `topten.c:1471–1476` absent from js/topten.js (no symbol; space→`|` in score name/death); 2 C call sites :312–313 — port whole (brief 2026-10-02) @42c45189d
 - [ ] `topten.c` nsb_unmung_line — C `topten.c:1479–1484` absent from js/topten.js (no symbol; `|`→space); 3 C call sites :285–286,:329 — port whole (brief 2026-10-02) @42c45189d
@@ -135,6 +133,9 @@ Pop order: first unchecked here after Must-fix/coverage.
 - [ ] `sp_lev.c` l_register_des — C `sp_lev.c:6435–6441` absent from js/ (no symbol; Lua `des` table registration); sole C caller nhlua.c:2347 — resolve by-design (no Lua runtime in JS) or port (brief 2026-10-02) @42c45189d
 - [ ] `iactions.c` ia_addmenu — C `iactions.c:127–136` absent from js/ (no symbol; `staticfn` add_menu wrapper, zeroany+act); 69 C refs — port whole (brief 2026-10-02) @42c45189d
 - [ ] `decl.c` sa_victual — C `decl.c:1199–1203` absent from js/ (no symbol; static-analyzer no-op, `return;` UNUSED param); sole C caller eat.c:3136 — resolve by-design or port (brief 2026-10-02) @42c45189d
+- [ ] `role.c` genl_player_selection — C `role.c:2177–2185` absent from js/ (no symbol; setup-or-terminate; callees live js/player_selection.js:1323 async + js/end.js:1039) — port whole (brief 2026-10-02) @56ef5b381
+- [ ] `cmd.c` extcmd_initiator — C `cmd.c:457–460` absent from js/ (no symbol; `return gc.Cmd.extcmd_char`); 1 C caller win/tty/getline.c:310 — port whole (brief 2026-10-02) @56ef5b381
+- [ ] `cmd.c` do_run_north — C `cmd.c:1532–1536` absent from js/ (no symbol; `set_move_cmd(DIR_N,1)` + ECMD_TIME, callee live js/cmd.js:577); 15 do_run/do_rush siblings C :1468–1571 same shape — port whole (brief 2026-10-02) @56ef5b381
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

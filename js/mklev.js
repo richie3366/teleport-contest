@@ -28301,7 +28301,7 @@ async function makelevel_ordinary() {
                 mk_knox_portal(vx.v + vw.v, vy.v + vh.v);
                 // C: if (!noteleport && !rn2(3)) makevtele();
                 if (!g.level.flags.noteleport && !rn2(3))
-                    await makeniche(TELEP_TRAP);
+                    await makevtele();
             };
             if (check_room(vx, vw, vy, vh, true)) {
                 await fill_vault();
@@ -32421,13 +32421,20 @@ function do_room_or_subroom(croom, lowx, lowy, hix, hiy, lit, _rtype, special, i
     }
 }
 
+// C ref: mklev.c mkroom_cmp() `:60-69` — qsort comparator sorting rooms
+// left-to-right on lx; C `:215` passes it to qsort from sort_rooms().
+function mkroom_cmp(x, y) {
+    const xlx = x?.lx || 0, ylx = y?.lx || 0; // JS guard: C sorts valid structs only
+    if (xlx < ylx) return -1;
+    return (xlx > ylx) ? 1 : 0; // C: return (x->lx > y->lx)
+}
+
 // C ref: mklev.c sort_rooms()
 function sort_rooms() {
     const g = game;
     const n = g.level.nroom;
     const oldToNew = new Array(n).fill(0);
-    const liveRooms = g.level.rooms.slice(0, n)
-        .sort((a, b) => (a?.lx || 0) - (b?.lx || 0));
+    const liveRooms = g.level.rooms.slice(0, n).sort(mkroom_cmp); // C :215 qsort(..., mkroom_cmp)
     g.level.rooms = liveRooms;
     if (n < MAXNROFROOMS) g.level.rooms[n] = { hx: -1 };
     for (let i = 0; i < n; i++) {
@@ -33190,6 +33197,12 @@ function place_niche(aroom) {
     return { dy, xx, yy };
 }
 
+// C ref: mklev.c makevtele() `:821-824` — vault escape niche with a
+// teleport trap; sole C caller makelevel() `:1333`.
+async function makevtele() {
+    await makeniche(TELEP_TRAP);
+}
+
 async function makeniche(trap_type) {
     const g = game;
     let vct = 8;
@@ -33311,6 +33324,17 @@ function mkportal(x, y, todnum, todlevel) {
     ttmp.dst = { dnum: todnum | 0, dlevel: todlevel | 0 };
 }
 
+// C ref: mklev.c pos_to_room() `:1677-1687` — scan svr.rooms for the room
+// containing (x, y); NULL (0) when none. Sole C caller place_branch() `:1714`.
+function pos_to_room(x, y) {
+    const g = game;
+    for (let i = 0; i < g.level.nroom; i++) {
+        const curr = g.level.rooms[i];
+        if (curr && inside_room(curr, x, y)) return curr; // JS guard: C rooms are valid structs
+    }
+    return null; // C: return (struct mkroom *) 0
+}
+
 function place_branch(branchp, x = 0, y = 0) {
     const g = game;
     // C ref: mklev.c place_branch — early-out if none or already placed
@@ -33326,6 +33350,8 @@ function place_branch(branchp, x = 0, y = 0) {
             g.made_branch = true;
             return;
         }
+    } else {
+        pos_to_room(x, y); // C :1713-1714 — (void) pos_to_room(x, y); pure scan, result discarded
     }
 
     const on_end1 = (branchp.end1?.dnum === g.u?.uz?.dnum

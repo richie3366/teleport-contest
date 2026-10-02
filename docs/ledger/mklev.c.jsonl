@@ -1,4 +1,4 @@
-{"fn":"mkroom_cmp","c":"60-69","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"mkroom_cmp","c":"60-69","status":"ported","js":["js/mklev.js:mkroom_cmp"],"d":["D-3301"],"at":"2026-10-02@56ef5b381","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"good_rm_wall_doorpos","c":"73-102","status":"ported","js":["js/mklev.js:good_rm_wall_doorpos"],"at":"2026-09-30@990da2b8d","note":"stale: js/mklev.js:31844, whole C body (rmno hoist unobservable), 2 C callers wired (:31867,:31878)"}
 {"fn":"finddpos_shift","c":"106-141","status":"unknown"}
 {"fn":"finddpos","c":"147-205","status":"ported","js":["js/mklev.js:finddpos"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
@@ -17,7 +17,7 @@
 {"fn":"place_niche","c":"701-725","status":"unknown"}
 {"fn":"makeniche","c":"740-799","status":"unknown"}
 {"fn":"make_niches","c":"802-818","status":"unknown"}
-{"fn":"makevtele","c":"821-824","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"makevtele","c":"821-824","status":"ported","js":["js/mklev.js:makevtele"],"d":["D-3301"],"at":"2026-10-02@56ef5b381","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_level_features","c":"828-842","status":"unknown"}
 {"fn":"clear_level_structures","c":"850-927","status":"unknown"}
 {"fn":"fill_ordinary_room","c":"939-1171","status":"partial","js":["js/mklev.js:fill_ordinary_room"],"omit":"`set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-e…","d":["D-2469"],"at":"seed@a30a7de84"}
@@ -31,7 +31,7 @@
 {"fn":"mklev","c":"1577-1593","status":"unknown"}
 {"fn":"topologize","c":"1597-1656","status":"ported","js":["js/mklev.js:topologize"],"d":["D-2597"],"at":"seed@a30a7de84","note":"alt 1599-1656"}
 {"fn":"find_branch_room","c":"1660-1673","status":"ported","js":["js/mklev.js:find_branch_room"],"d":["D-3048"],"at":"2026-09-28@1aaa15680"}
-{"fn":"pos_to_room","c":"1677-1687","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"pos_to_room","c":"1677-1687","status":"ported","js":["js/mklev.js:pos_to_room"],"d":["D-3301"],"at":"2026-10-02@56ef5b381","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"place_branch","c":"1691-1747","status":"unknown"}
 {"fn":"bydoor","c":"1750-1775","status":"ported","js":["js/mklev.js:bydoor"],"at":"2026-09-28@886e83076","note":"stale: js/mklev.js:31919"}
 {"fn":"okdoor","c":"1779-1789","status":"unknown"}

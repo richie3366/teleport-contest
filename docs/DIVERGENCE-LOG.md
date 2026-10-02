@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-3301 — `mklev.c` vault/branch/sort triple (pos_to_room + makevtele + mkroom_cmp, all callers wired)
+
+- **Status:** shipped (2 Open missing-arm `mklev.c` rows checked off + archived — pos_to_room head, makevtele; mkroom_cmp ledger-absent same-file gap shipped unqueued; no review cited, no stamp owed). 32 insertions — below the ~80 density bar, defended: the head's file holds nothing more Open (exactly 3 ledger unknown/absent THIN/PARTIAL/MISSING rows in `mklev.c`, all shipped here; callee closure inside_room/makeniche measured-ok).
+- **Symptom:** three `staticfn` rooms/vault helpers absent from `js/mklev.js` (no symbols); two C caller sites carried the bodies inline or not at all.
+- **C locus:**
+  - `pos_to_room`: nethack-c/upstream/src/mklev.c:1677–1687 — rooms scan via `inside_room`, NULL fallthrough; sole caller place_branch :1714.
+  - `makevtele`: nethack-c/upstream/src/mklev.c:821–824 — `makeniche(TELEP_TRAP)`; sole caller makelevel :1333.
+  - `mkroom_cmp`: nethack-c/upstream/src/mklev.c:60–69 — qsort 3-way comparator on `lx`; caller sort_rooms :215 (`qsort(..., mkroom_cmp)`; brief refs missed it, found via tree grep).
+- **JS was:** no `pos_to_room`/`makevtele`/`mkroom_cmp` symbols; vault site inlined `await makeniche(TELEP_TRAP)` (js/mklev.js:28303); sort_rooms used an inline subtraction arrow; place_branch lacked the C `:1713-1714` else arm.
+- **Fix:** added three module-local functions in C-cite form (C staticfn idiom, D-3293 precedent); rewired all three C caller sites to the named functions.
+- **JS:**
+  - `pos_to_room`: js/mklev.js:33329 — `for i < g.level.nroom` scan returning the room or null (C NULL → null); live `inside_room` callee (js/mklev.js:32964).
+  - `makevtele`: js/mklev.js:33202 — `async` (JS `makeniche` awaits `maketrap`) wrapping `await makeniche(TELEP_TRAP)`.
+  - `mkroom_cmp`: js/mklev.js:32426 — `if (xlx < ylx) return -1; return (xlx > ylx) ? 1 : 0` (C `return (x->lx > y->lx)`).
+- **Callers:**
+  - `pos_to_room`: place_branch js/mklev.js:33354 — added the C `:1713-1714` else arm (`(void)` discard preserved; pure scan, zero behavior change).
+  - `makevtele`: makelevel vault fill js/mklev.js:28304 — `await makeniche(TELEP_TRAP)` → `await makevtele()` under the unchanged guard.
+  - `mkroom_cmp`: sort_rooms js/mklev.js:32437 — inline arrow → `.sort(mkroom_cmp)`; same total order (TimSort reads comparator sign only), same stability.
+- **Verify:** `node scripts/verify.mjs --fn pos_to_room,makevtele,mkroom_cmp` → syntax PASS · Rule #2 PASS · hidden note (no corpus session blocked — normal for coverage) ×3 · REACH-OK ×3 (smoke spread 24 PASS, 0 regressed each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file) → VERIFY: PASS.
+- **Named omissions:** none — every arm, callee (live), and C caller wired. JS-only guards (unobservable under C semantics): `curr &&` null-hole guard in pos_to_room (JS rooms arrays can be sparse — makeniche guards `!aroom`; C structs cannot), `x?.lx || 0` in mkroom_cmp (preserves the prior inline arrow's exact nullish/NaN behavior).
+- **Ledger:** pos_to_room ported; makevtele ported; mkroom_cmp ported
+- **Next:** continue the missing-arm list (`topten.c` discardexcess head).
+
 ## D-3300 — `objnam.c` obuf/name-wrapper closure (nextobuf by-design + 11 stale-complete)
 
 - **Status:** shipped (1 Open missing-arm `objnam.c` row checked off + archived — nextobuf; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: the head resolves by-design (JS returns fresh strings; the obuf pool has no JS counterpart — js/objnam.js:4069 already declares "nextobuf stays the by-design string path", and the xname_flags/doname_base ledger omits record the same D-2483 decision), and every other measured-gap `objnam.c` unknown brief-verified complete at its canonical export — evidence in ledger notes. Head's file holds nothing more Open: `ledger.mjs file objnam.c` shows zero remaining unknown/absent THIN/PARTIAL/MISSING after this iter (rest measured-ok or declared). 10-function cluster + Doname2/Ysimple_name2 booked directly (D-3167 precedent).

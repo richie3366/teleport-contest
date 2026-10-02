@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3301 `mklev.c` vault/branch/sort triple (pos_to_room + makevtele + mkroom_cmp, all callers wired)
+
+**C locus:** - `pos_to_room`: nethack-c/upstream/src/mklev.c:1677–1687 — rooms scan via `inside_room`, NULL fallthrough; sole caller place_branch :1714.
+**JS:** - `pos_to_room`: js/mklev.js:33329 — `for i < g.level.nroom` scan returning the room or null (C NULL → null); live `inside_room` callee (js/mklev.js:32964).
+**Change:** added three module-local functions in C-cite form (C staticfn idiom, D-3293 precedent); rewired all three C caller sites to the named functions.
+**Verify:** `node scripts/verify.mjs --fn pos_to_room,makevtele,mkroom_cmp` → syntax PASS · Rule #2 PASS · hidden note (no corpus session blocked — normal for coverage) ×3 · REACH-OK ×3 (smoke spread 24 PASS, 0 regressed each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file) → VERIFY: PASS.
+**Named:** none — every arm, callee (live), and C caller wired. JS-only guards (unobservable under C semantics): `curr &&` null-hole guard in pos_to_room (JS rooms arrays can be sparse — makeniche guards `!aroom`; C structs cannot), `x?.lx || 0` in mkroom_cmp (preserves the prior inline arrow's exact nullish/NaN behavior).
+**Next:** continue the missing-arm list (`topten.c` discardexcess head).
 ## 2026-10-02 — D-3300 `objnam.c` obuf/name-wrapper closure (nextobuf by-design + 11 stale-complete)
 
 **C locus:** - `nextobuf`: nethack-c/upstream/src/objnam.c:142–146 whole body (C staticfn) — `obufidx = (obufidx + 1) % NUMOBUF; return obufs[obufidx];` 17 same-file C call sites (:203–:3041).
