@@ -126,13 +126,14 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `weapon.c` enhance_weapon_skill — blocks 1/953 (scen-caster-Healer-94269, step 225, kind=screen) @2ad1aa828
-- [ ] `trap.c` trapeffect_landmine — blocks 1/953 (scen-descend-Knight-94127, step 132, kind=screen; C "You are in non-scoring explore/discovery mode.--More--" vs JS "You are lucky! Full moon tonight.") @8dee36cb3
-- [ ] `trap.c` reset_utrap — C trap.c:1048–1055 msg/Levitation/Flying restore absent from js/trap.js:reset_utrap (:3033; doc "restore msgs deferred"; 30+ JS callers need await — campaign-scale) @b3c50cbeb
 - [ ] `uhitm.c` passive_obj — C uhitm.c:6170–6173 AD_RUST erode_obj + :6180–6186 AD_ENCH drain_item + :6193–6195 update_inventory tail absent from js/uhitm.js:passive_obj (:3142; :3180 "ERODE_RUST deferred", :3194 "drain_item deferred", no tail call) @b3c50cbeb
 - [ ] `detect.c` show_map_spot — C detect.c:1410–1413 oldglyph trap/object restore (glyph_at read + show_glyph + hero_memory lev->glyph) absent from js/detect.js:show_map_spot (:938; :970 "restore deferred", no oldglyph read) @e4afe5879
 - [ ] `detect.c` do_mapping — C detect.c:1432–1442 !hero_memory||unconstrained arm (flush_screen/browse_map/map_redisplay, else reconstrain_map) absent from js/detect.js:do_mapping (:985; :1000–1003 "deferred", no reconstrain; :988 inline unconstrain skips save/clear vs live :1043) @e4afe5879
 - [ ] `read.c` seffect_magic_mapping — C read.c:2128–2129 Rogue blessed-scroll `unblock_point(x, y)` absent from js/read.js:seffect_magic_mapping (:320; :344 calls vision_recalc(1) instead + per-sdoor newsym :345 with no C counterpart) @e4afe5879
+- [ ] `zap.c` zap_over_floor — C zap.c:5300–5306 TT_LAVA Passes_walls arm (`reset_utrap(TRUE)` / `set_utrap(INFLOOR)` + "now-solid"/"cooling rock" msgs) absent from js/zap.js:zap_over_floor (:1060; no 'cooling rock'/'now-solid'/'firmly stuck' in js/zap.js) @35e5e8f94
+- [ ] `uhitm.c` passive — C uhitm.c:5916–5921 M_SEEN markers (:5916/:5918) + erode_armor (:5921) + :5925–5927 AT_KICK uarmf corrode absent from js/uhitm.js:passive (:3272 case AD_ACID; :3284/:3290 "deferred") @35e5e8f94
+- [ ] `end.c` savelife — C end.c:744–745 `if (!mon_moving) endmultishot(FALSE)` absent from js/end.js:savelife (:2069 "stays named (not live)"; no endmultishot call in file) @35e5e8f94
+- [ ] `do.c` goto_level — C do.c:1619–1620,1622 fill_pit / set_ustuck / u.uundetected absent from js/do.js:goto_level (:1699 "still named"; set_uinwater live) @35e5e8f94
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

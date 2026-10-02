@@ -5,7 +5,14 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828 **Addressed:** D-3254
+- [x] `trap.c` reset_utrap — msg/Levitation/Flying restore ported + 19 TRUE awaits + delfloortrap/buried async + 4 wirings (domove_core, teleds, savelife, goto_level); zap.c:5303 queued as its own row **Addressed:** D-3255
+
+
+- [x] `weapon.c` enhance_weapon_skill — STALE: C body whole at js/weapon.js:1148 (ledger ported); s225 residual is row-0 menu-prompt centering (painter, out of scope) **Addressed:** D-3255
+- [x] `trap.c` trapeffect_landmine — STALE: C body whole at js/trap.js:5851 (ledger ported); s132 toplines unrelated to landmines, C never called at step (region-heuristic misattribution) **Addressed:** D-3255
+
+
+- [x] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828 **Addressed:** D-3254 `35e5e8f94`
 
 
 - [x] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa **Addressed:** D-3253 `e4afe5879`

@@ -6,6 +6,7 @@ import { game } from './gstate.js';
 // C: end.c really_done ESCAPED fake-Amulet arm — carrying() is a hoisted
 // function decl in the shared SCC; call-time use only (no TDZ read).
 import { carrying, nomul } from './hack.js';
+import { reset_utrap } from './trap.js';
 import { rn2, d } from './rng.js';
 import { deepest_lev_reached, depth, strstri } from './hacklib.js';
 import {
@@ -2056,9 +2057,9 @@ async function savelife(how) {
         game.context.run = 0;
         game.context.mv = 0;
     }
+    // C end.c:739 savelife — lava untrap has no restore message
     if (u.utrap && (u.utraptype | 0) === TT_LAVA) {
-        u.utrap = 0;
-        u.utraptype = 0;
+        reset_utrap(false);
     }
     flags.botl = true;
     u.ugrave_arise = NON_PM;

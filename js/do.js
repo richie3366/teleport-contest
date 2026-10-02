@@ -845,7 +845,7 @@ export async function flooreffects(obj, x, y, verb) {
                 );
                 squished = true; // C: goto deletedwithboulder
             } else {
-                reset_utrap(true);
+                await reset_utrap(true);
             }
         }
         if (verb && !squished) {
@@ -868,7 +868,7 @@ export async function flooreffects(obj, x, y, verb) {
         // C deletedwithboulder: trap may have gone away via
         // hmon -> killed -> xkilled / mondied -> m_detach -> fill_pit.
         if ((t = t_at(x, y)) !== null) {
-            delfloortrap(t);
+            await delfloortrap(t);
             if (game.u?.utrap && u_at(x, y)) reset_utrap(false);
         }
         useupf(obj, 1);
@@ -1004,7 +1004,7 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
             mtmp.mtrapped = 0;
         }
         const ttmp = t_at(rx, ry);
-        if (ttmp) delfloortrap(ttmp);
+        if (ttmp) await delfloortrap(ttmp);
         try {
             const { bury_objs } = await import('./dig.js');
             await bury_objs(rx, ry);
@@ -1694,7 +1694,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // are not left on the departing floor (D-0915).
     // C: Punished ≡ (uball != 0)
     if (u.uball || u.Punished) await unplacebc();
-    // C: reset_utrap / fill_pit / set_ustuck / u.uundetected still named.
+    // C do.c:1618 goto_level — needed in level_tele
+    reset_utrap(false);
+    // C: fill_pit / set_ustuck / u.uundetected still named.
     // set_uinwater(0) (D-1267; C do.c:1621). Same-value is a no-op.
     await set_uinwater(0);
     // Snapshot sight before vision_recalc(2) clears viz — getbones yn

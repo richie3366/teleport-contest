@@ -1514,7 +1514,7 @@ export function uescaped_shaft(trap) {
  * C ref: trap.c delfloortrap — destroy floor-emanating trap types.
  * Clears hero utrap (unless buried ball) or mon mtrapped, then deltrap.
  */
-export function delfloortrap(ttmp) {
+export async function delfloortrap(ttmp) {
     if (!ttmp) return false;
     const ttyp = ttmp.ttyp | 0;
     if (ttyp === SQKY_BOARD || ttyp === BEAR_TRAP || ttyp === LANDMINE
@@ -1523,7 +1523,7 @@ export function delfloortrap(ttmp) {
         || ttyp === WEB || ttyp === MAGIC_TRAP || ttyp === ANTI_MAGIC) {
         if (u_at(ttmp.tx, ttmp.ty)) {
             if ((game.u?.utraptype | 0) !== TT_BURIEDBALL) {
-                reset_utrap(true);
+                await reset_utrap(true);
             }
         } else {
             const mtmp = m_at(ttmp.tx, ttmp.ty);
@@ -3028,10 +3028,21 @@ export function set_utrap(tim, typ) {
 }
 
 /**
- * C ref: trap.c reset_utrap — clear utrap; optional Lev/Fly restore msgs deferred.
+ * C ref: trap.c reset_utrap :1044–1057 — snapshot Levitation/Flying (the
+ * youprop.h macros via same-file hero_Levitation/hero_Flying, D-1070),
+ * set_utrap(0,0), then the msg arm: float_up when Levitation unblocks,
+ * You("can fly.") when Flying unblocks.
  */
-export function reset_utrap(_msg) {
+export async function reset_utrap(msg) {
+    const was_Lev = hero_Levitation();
+    const was_Fly = hero_Flying();
+
     set_utrap(0, 0);
+
+    if (msg) {
+        if (!was_Lev && hero_Levitation()) await float_up();
+        if (!was_Fly && hero_Flying()) await You('can fly.');
+    }
 }
 
 /**
@@ -3747,7 +3758,7 @@ async function trapeffect_bear_trap(mtmp, trap, trflags) {
                 `${A_Your[trap.madeby_u ? 1 : 0]} bear trap closes on ${s_suffix(mon_nam(u.usteed))} ${mbodypart(u.usteed, FOOT)}!`,
             );
             if (await thitm(0, u.usteed, null, dmg, false)) {
-                reset_utrap(true);
+                await reset_utrap(true);
             }
         } else {
             await pline(
@@ -7040,7 +7051,7 @@ export async function sink_into_lava() {
             await burn_away_slime(); /* add insult to injury? */
             await done(DISSOLVED);
             /* can only get here via life-saving; try to get away from lava */
-            reset_utrap(true);
+            await reset_utrap(true);
             /* levitation or flight have become unblocked, otherwise Tport */
             if (!hero_Levitation() && !hero_Flying())
                 await safe_teleds(TELEDS_ALLOW_DRAG | TELEDS_TELEPORT);
@@ -7172,7 +7183,7 @@ export async function openholdingtrap(mon) {
         }
         await pline(`${buf} released from ${whichSpaced}${trapdescr}.`);
         game.vision_full_recalc = 1;
-        reset_utrap(true);
+        await reset_utrap(true);
         if (game.vision_full_recalc) vision_recalc(0);
     } else {
         if (!(mon.mtrapped | 0)) return { happened: false, noticed: false };
@@ -7377,7 +7388,7 @@ export async function cnv_trap_obj(otyp, cnt, ttmp, bury_it) {
     }
     newsym(ttmp.tx, ttmp.ty);
     const u = game.u || {};
-    if (u.utrap && u_at(ttmp.tx, ttmp.ty)) reset_utrap(true);
+    if (u.utrap && u_at(ttmp.tx, ttmp.ty)) await reset_utrap(true);
     const mtmp = m_at(ttmp.tx, ttmp.ty);
     if (mtmp && mtmp.mtrapped) mtmp.mtrapped = 0;
     deltrap(ttmp);

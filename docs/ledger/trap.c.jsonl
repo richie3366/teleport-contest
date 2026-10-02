@@ -13,7 +13,7 @@
 {"fn":"mu_maybe_destroy_web","c":"972-1014","status":"unknown"}
 {"fn":"t_missile","c":"1018-1027","status":"unknown"}
 {"fn":"set_utrap","c":"1030-1042","status":"unknown"}
-{"fn":"reset_utrap","c":"1045-1057","status":"unknown"}
+{"fn":"reset_utrap","c":"1045-1057","status":"ported","js":["js/trap.js:reset_utrap"],"d":["D-3255"],"at":"2026-10-02@35e5e8f94"}
 {"fn":"floor_trigger","c":"1061-1082","status":"unknown"}
 {"fn":"check_in_air","c":"1086-1094","status":"unknown"}
 {"fn":"wearing_iron_shoes","c":"1098-1102","status":"unknown"}

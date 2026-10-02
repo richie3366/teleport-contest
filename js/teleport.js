@@ -72,7 +72,7 @@ import { uhis } from './roles.js';
 /* Canonical callees (hoisted, call-time use only — cycle-safe per imports.mjs):
  * seetrap + clamp_hole_destination (trap.js), mon_has_amulet (apply.js),
  * is_home_elemental (makemon.js). Local onscary stays (D-1110). */
-import { seetrap, clamp_hole_destination, t_at } from './trap.js';
+import { seetrap, clamp_hole_destination, t_at, reset_utrap } from './trap.js';
 import { mon_has_amulet } from './apply.js';
 import { is_home_elemental } from './makemon.js';
 /* dog.js back-edge (same SCC; hoisted function, call-time use only). */
@@ -1485,9 +1485,8 @@ export async function teleds(nux, nuy, teleds_flags) {
         }
     }
 
-    // u.utrap clear (C reset_utrap(FALSE) — messages deferred)
-    u.utrap = 0;
-    u.utraptype = 0;
+    // C teleport.c:487 teleds — escape from trap
+    reset_utrap(false);
     /* C: was_swallowed = u.uswallow; set_ustuck(Null) clears uswallow.
      * Always release grab/swallow (not unstuck — that would u_on_newpos
      * to the engulfer and placebc early). Then ux0/uy0, hideunder. */

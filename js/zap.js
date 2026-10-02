@@ -1072,7 +1072,7 @@ export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodin
         let t = t_at(x, y);
         if (t && (t.ttyp | 0) === WEB) {
             if (see_it) await Norep('A web bursts into flames!');
-            delfloortrap(t);
+            await delfloortrap(t);
             t = null;
             if (see_it) newsym(x, y);
         }

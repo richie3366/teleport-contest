@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3255 `trap.c` reset_utrap msg/Levitation/Flying restore + 19-site TRUE await cascade + 4 caller wirings (stale: enhance_weapon_skill, trapeffect_landmine)
+
+**C locus:** - `reset_utrap`: nethack-c/upstream/src/trap.c:1044–1057 — snapshot `Levitation`/`Flying`, `set_utrap(0,0)`, msg arm (`float_up`, `You("can fly.")`); 39 C call sites in 16 C files.
+**JS:** js/trap.js:3030 `reset_utrap` (port), :1517 `delfloortrap` async; js/dig.js:616 `buried_ball_to_freedom` async; imports extended js/cmd.js:148, js/teleport.js:75, new edge js/end.js:9 (`imports.mjs --can`: ALREADY × 2, SAFE).
+**Change:** restart the thin body as `export async function reset_utrap(msg)` in C order (was_Lev/was_Fly snapshot via same-file `hero_Levitation`/`hero_Flying` youprop.h-macro helpers per D-1070 → `set_utrap(0,0)` → `if (msg)` arms with `await float_up()` / `await You('can fly.')`); `await` at all 19 TRUE call sites; `delfloortrap` + `buried_ball_to_freedom` async with their 10 callers awaited (all enclosers already async — no further cascade); wire 4 missing callers (domove_core TRUE, teleds/savelife/goto_level FALSE). Mechanical awaits applied by scripted edit (3 patterns, exact 19/6/4 counts), every hunk reviewed in `git diff`. 14 js/ files, 56 ins — under caps.
+**Verify:** `node scripts/verify.mjs --fn reset_utrap` → syntax 14 files PASS; rule2 PASS; hidden vacuous (no corpus session blocked — missing-arm row); REACH smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed). VERIFY: PASS.
+**Named:** - `reset_utrap`: zap.c:5303 (`zap_over_floor` TT_LAVA Passes_walls arm — no JS counterpart arm; queued as its own Open row this commit).
+**Next:** `zap.c` zap_over_floor Open row (new); then passive_obj / show_map_spot / do_mapping / seffect_magic_mapping. Supervisor note: coverage generator emits 0 rows and `hidden-proxy queue` (85 owners) has 0 untagged — refill-by-hand cost ~2 calls/row added 1; Open stands at 5 after archive.
 ## 2026-10-02 — D-3254 `display.c` magic_map_background :250–252 memory guard (Tourist-92061 s18→rndcurse s122; seffect head verified whole)
 
 **C locus:** - `seffect_magic_mapping`: `read.c:2102–2153` whole body — verified complete in JS (no change this iter); the blocked session moves via the closure fix.

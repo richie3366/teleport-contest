@@ -3427,7 +3427,7 @@ export async function use_whip(obj) {
             if (proficient && rn2(proficient + 2)) {
                 if (!mtmp || enexto(cc, rx, ry, game.youmonst?.data)) {
                     await pline('You yank yourself out of the pit!');
-                    reset_utrap(true);
+                    await reset_utrap(true);
                     await teleds(cc.x, cc.y, TELEDS_ALLOW_DRAG);
                     game.vision_full_recalc = 1;
                 }
@@ -4267,7 +4267,7 @@ export async function use_bell(obj) {
                 unpunish();
                 res = 1;
             } else if ((u.utrap | 0) && (u.utraptype | 0) === TT_BURIEDBALL) {
-                buried_ball_to_freedom();
+                await buried_ball_to_freedom();
                 res = 1;
             }
             res += await openit();
@@ -5675,7 +5675,7 @@ export async function jump(magic) {
                 break;
             }
             /* C :2112 — hero is no longer trapped. */
-            reset_utrap(true);
+            await reset_utrap(true);
         }
         /* C :2116–2136 — same-spot arms (riding handled above). */
         if (u_at(cc.x, cc.y)) {

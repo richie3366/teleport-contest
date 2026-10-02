@@ -1263,7 +1263,7 @@ async function floorfood_eat() {
                 const c = await yn_function(qbuf, 'ynq', 'n');
                 if (c === 'y') {
                     deltrap(ttmp);
-                    if (u_in_beartrap) reset_utrap(true);
+                    if (u_in_beartrap) await reset_utrap(true);
                     const beartrap = mksobj(BEARTRAP, true, false);
                     const msg = `You only manage to ${
                         u_in_beartrap ? 'free yourself from' : 'disarm'
