@@ -415,8 +415,22 @@ export function onscary(x, y, mtmp) {
             || Inhell() || In_endgame(game.u?.uz)));
 }
 
-/** C ref: invent.c m_carrying — first matching otyp in minvent chain. */
+/**
+ * C mthrowu.c:1405–1414 m_carrying — first otyp match in the carrier's
+ * chain: the hero (`mtmp == &gy.youmonst`) walks `gi.invent`, monsters
+ * walk `minvent`. JS stores the hero inventory as an array
+ * (`game.invent`; cf. hack.js carrying), so the hero arm iterates the
+ * array while the monster arm walks the `nobj` chain. Hero identity
+ * uses the `game.youmonst || _youmonst` idiom (cf. uhitm.js
+ * m_is_steadfast); a null carrier still returns null (C NONNULLARG1).
+ */
 export function m_carrying(mon, otyp) {
+    if (mon != null && (mon === game.youmonst || mon._youmonst)) {
+        for (const o of game.invent || []) {
+            if (o && o.otyp === otyp) return o;
+        }
+        return null;
+    }
     for (let o = mon?.minvent; o; o = o.nobj) {
         if (o.otyp === otyp) return o;
     }

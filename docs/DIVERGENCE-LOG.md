@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3286 — `m_carrying` youmonst→invent branch (mthrowu.c:1409)
+
+- **Status:** shipped (Open corpus-residual `mthrowu.c` row checked off; no review cited, no stamp owed)
+- **Symptom:** `js/mon.js:m_carrying` walked `mon.minvent` for every carrier; C walks `gi.invent` when `mtmp == &gy.youmonst`. Live C hero path: `uhitm.c:5235` steadfast loadstone check ("m_carrying() is 'youmonst' aware"). JS-side latent: all 15 JS call sites pre-split the hero or pass monsters only.
+- **C locus:**
+  - `m_carrying`: mthrowu.c:1405–1414, esp :1409 `(mtmp == &gy.youmonst) ? gi.invent : mtmp->minvent`.
+- **JS was:** minvent-only `nobj` loop (`js/mon.js:419`); doc cited the wrong file (`invent.c`).
+- **Fix:** restarted the body with the hero arm first: `mon === game.youmonst || mon._youmonst` (uhitm.js:303 idiom) iterates the `game.invent` array (JS hero-invent representation, cf. hack.js carrying); monsters keep the `nobj` walk; null carrier still returns null (C NONNULLARG1). No new imports — `game` pre-imported; no new module edges.
+- **JS:**
+  - `m_carrying`: `js/mon.js:427` (doc :418).
+- **Callers:**
+  - `m_carrying`: every C call site maps to a wired JS site, all monster-only or hero-pre-split (fix latent, none changes behavior): bones.c:476 → end.js:1740; mon.c:144 → mon.js:533; mon.c:2187–2190 → mon.js:3108–3111; mon.c:3520 → uhitm.js:798; monmove.c:100–102 → monmove.js:1259 inlined monster-only walk (pre-existing exact equivalent, not rewired); mthrowu.c:1382 → mthrowu.js:370; muse.c:341–351 → muse.js:1853–1865; muse.c:638 → muse.js:2082; trap.c:100 → trap.js:4726 (hero pre-split :4714); uhitm.c:5235 → uhitm.js:328 (hero pre-split :326–327); vault.c:873 → vault.js:1036; weapon.c:618–622 → weapon.js:569–573; weapon.c:818–839 → weapon.js:841–860; invent.c:1499 + muse.c:532 comment-only, no call.
+- **Verify:**
+  - `m_carrying`: `node scripts/verify.mjs --fn m_carrying` tail: `hidden: no corpus session blocked` (coverage row, expected) + `reach: no RNG-tagged reach; smoke spread 24 PASS, 0 regressed → REACH-OK`; `green 2/2`, `strict` ×2, `cohort 7/7`, syntax + Rule #2 clean. Overall VERIFY: PASS. Branch probe `/tmp/mcarrying-probe.mjs` 9/9 (hero array / marker / monster chain / null).
+- **Named omissions:**
+  - `m_carrying`: none in-body — whole C body live.
+- **Ledger:** m_carrying ported
+- **Next:** refill attempt this iter: `rows --write` → 0 coverage rows (all sub-threshold: remaining unknown-gap fns are ≤7 C lines, e.g. pline wrappers); `hidden-proxy queue --limit 30` → 0 untagged owners (all archived/parked/ported); park writer `ready_weapon` shine arm brief-verified STALE (shipped D-2182, js/wield.js:627–634; doname_base park claim aged). No eligible rows appended — queue at 4/8, finish-iteration REFILL gate cannot pass; shipped via direct commit+push (D-3285 precedent, same structural state). Remaining Open: goto_level ×2, discard_minvent, u_on_rndspot.
+
 ## D-3285 — `makemon` remainder: ptr-arm GENOD veto + debug_mongen/isok gates + discard-minvent else + new* C order
 
 - **Status:** shipped (Open corpus-residual `makemon.c` GENOD row checked off; no review cited, no stamp owed)

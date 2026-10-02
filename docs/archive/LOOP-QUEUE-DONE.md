@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `makemon.c` makemon ptr-arm G_GENOD veto — C makemon.c:1204–1212 (`if (ptr)` monsndx + `mvflags & G_GENOD → return 0` + wizard G_EXTINCT debugpline) absent from js/makemon.js:makemon (no GENOD/G_EXTINCT in brief body; ledger omit D-3278; brief-verified @e3c036ca2) **Addressed:** D-3285
+- [x] `mthrowu.c` m_carrying youmonst→invent branch — C mthrowu.c:1409 (`(mtmp==&gy.youmonst) ? gi.invent : minvent`) absent from js/mon.js:m_carrying (:419–424 minvent-only loop; full body read in brief @e3c036ca2; no youmonst.minvent↔invent alias in js/; porter's first check: live hero caller vs latent) **Addressed:** D-3286
+
+
+- [x] `makemon.c` makemon ptr-arm G_GENOD veto — C makemon.c:1204–1212 (`if (ptr)` monsndx + `mvflags & G_GENOD → return 0` + wizard G_EXTINCT debugpline) absent from js/makemon.js:makemon (no GENOD/G_EXTINCT in brief body; ledger omit D-3278; brief-verified @e3c036ca2) **Addressed:** D-3285 `7bdcd631d`
 
 
 - [x] `steal.c` relobj — C steal.c:883–890 vault-guard gold arm (findgold + vanish pline + obj_extract_self/obfree) absent from js/dogmove.js:relobj (:937 doc "vault-guard gold omitted"; brief-verified; D-2407 measured relobj as obj_resists writer — sibling flooreffects gap is the parked mdrop_obj row, not this one) @9cdc961f3 **Addressed:** D-3284 `f52a2d2fb`.
