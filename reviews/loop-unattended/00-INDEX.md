@@ -2265,3 +2265,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2253-cb217f88d-vamp-shift-postmov.md](./2253-cb217f88d-vamp-shift-postmov.md) | `cb217f88d` | D-3292 vamp_shift whole + postmov door dance | **ACCEPT** |
 | [2254-3df1abeb4-sanity-merge-quartet.md](./2254-3df1abeb4-sanity-merge-quartet.md) | `3df1abeb4` | D-3293 sanity/merge quartet (4 fns) | **ACCEPT** |
 | [2255-6f1e33d59-whichrng-rnd-exhaustion.md](./2255-6f1e33d59-whichrng-rnd-exhaustion.md) | `6f1e33d59` | D-3294 whichrng dispatch + rnd.c exhaustion | **ACCEPT** |
+| [2256-b4812e9cd-sethilite-gather-pair.md](./2256-b4812e9cd-sethilite-gather-pair.md) | `b4812e9cd` | D-3295 sethilite gather pair + sethilite restart | **ACCEPT** |
+| [2257-b23f261b5-cmd-trio-levltyp-rush-reverse.md](./2257-b23f261b5-cmd-trio-levltyp-rush-reverse.md) | `b23f261b5` | D-3296 cmd trio: levltyp, rushwest, reverse | **ACCEPT** |
+| [2258-1896adcef-hacklib-char-trio.md](./2258-1896adcef-hacklib-char-trio.md) | `1896adcef` | D-3297 hacklib char trio + 3 rewires | **ACCEPT** |
+| [2259-42c45189d-program-state-init.md](./2259-42c45189d-program-state-init.md) | `42c45189d` | D-3298 program_state_init zero-reset + jsmain | **ACCEPT** |
+| [2260-8859c7e6d-there-clone-removal.md](./2260-8859c7e6d-there-clone-removal.md) | `8859c7e6d` | D-3299 There clone removal + rewire | **ACCEPT** |
+| [2261-3442eb4d9-mklev-vault-branch-sort.md](./2261-3442eb4d9-mklev-vault-branch-sort.md) | `3442eb4d9` | D-3301 mklev vault/branch/sort triple | **ACCEPT** |

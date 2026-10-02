@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2256–2261: review D-3295–D-3301 (6 ACCEPT, docs-only D-3300 skipped) + full score
+
+**Scope:** 6 js-touching SHAs since audit 2247–2255 (b4812e9cd, b23f261b5, 1896adcef, 42c45189d, 8859c7e6d, 3442eb4d9); 56ef5b381 (D-3300) is docs-only, out of scope.
+**Reviews:** 2256–2261 all ACCEPT, 0 Must-fix families. Every D-log verify claim re-measured (`hidden-proxy verify --base <sha>~1 --reach-all`): all 0-blocked + REACH-OK, zero REGRESSED.
+**Score:** public 44/44 (Scr 11,405, RNG 792,838, `332+1.61/turn`); corpus 705/953 PASS (RNG 98.09 %, screens 93.4 %), 0 losses / 0 gains, `full: true`; held-out 15/44 (rank 5, +0).
+**Ledger:** `summary --snapshot` appended; 5 ported rows sampled (rumor_check, fopen_config_file, age_spells, price_quote, write_ls) — all resolve, no fixes. `ledger.mjs sql` unusable on Node v20.12.2 (no node:sqlite); sampled via jsonl grep.
 ## 2026-10-02 — D-3301 `mklev.c` vault/branch/sort triple (pos_to_room + makevtele + mkroom_cmp, all callers wired)
 
 **C locus:** - `pos_to_room`: nethack-c/upstream/src/mklev.c:1677–1687 — rooms scan via `inside_room`, NULL fallthrough; sole caller place_branch :1714.
