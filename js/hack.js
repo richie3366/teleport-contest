@@ -71,7 +71,7 @@ import {
     monsterNames, pmnames,
 } from './generated/monsters_data.js';
 import { ART_STING } from './generated/artifacts_data.js';
-import { hliquid, Hallucination, y_monnam, x_monnam, type_is_pname, YMonnam } from './do_name.js';
+import { hliquid, Hallucination, y_monnam, x_monnam, type_is_pname, YMonnam, pmname, Ugender } from './do_name.js';
 import { decl_globals_init } from './decl.js';
 import { init_objects } from './o_init.js';
 import { get_level } from './dungeon.js';
@@ -1778,6 +1778,16 @@ export async function unmul(msg_override) {
     else if (game.nomovemsg == null) game.nomovemsg = 'You can move again.';
     if (game.nomovemsg != null && game.nomovemsg.length) {
         await pline(game.nomovemsg);
+        // C hack.c:4192–4194 — follow "you survived that attempt on your
+        // life" with a current-form reminder when poly'd (primarily
+        // lifesaving while turning into green slime; also poly'd +
+        // Unchanging wizard/explore Die? decline). (Ignore Hallu —
+        // pmname direct, no rndmonnam.) strncmpi 18: short strings miss.
+        const _nmm = game.nomovemsg || '';
+        if (Upolyd(game.u) && _nmm.length >= 18
+            && _nmm.slice(0, 18).toLowerCase() === 'you survived that ') {
+            await You('are %s.', an(pmname(game.u?.umonnum | 0, Ugender())));
+        }
     }
     game.nomovemsg = null;
     /* C hack.c unmul `:4197` — trap.c notes unmul clears usleep */

@@ -14,6 +14,7 @@ import {
     canspotmon, Hallucination, curs_on_u, newsym, impossible, You,
 } from './display.js';
 import { yn_function, y_n, ynq, paranoid_query } from './getline.js';
+import { livelog_printf } from './pline.js';
 import { show_text_pages, show_nhw_menu_text } from './pager.js';
 import { genl_outrip_lines } from './rip.js';
 import { Goodbye } from './roles.js';
@@ -36,7 +37,7 @@ import {
     ENL_GAMEOVERALIVE, ENL_GAMEOVERDEAD,
     Is_container, IS_GRAVE, SORTLOOT_LOOT, SORTLOOT_PACK,
     PARANOID_DIE, PARANOID_BONES, PARANOID_QUIT, TT_LAVA, Has_contents,
-    PLNMSG_OK_DONT_DIE,
+    PLNMSG_OK_DONT_DIE, LL_LIFESAVE,
     has_oname, LIFESAVED, W_AMUL, ACH_BLND, ACH_NUDE, ACH_UWIN,
     DELPHI, ROOMOFFSET, Is_oracle_level, Is_astralevel, In_endgame,
     In_quest, ismnum, has_ebones, EBONES, has_mgivenname, MGIVENNAME, BUFSZ,
@@ -2101,8 +2102,8 @@ async function savelife(how) {
  * uhp was -1 at pline flush (D-0310/D-0314).
  * Ported: done_seq catch-up (C :1050–1051), hangup Die? gate (C :1110),
  * last_msg PLNMSG_OK_DONT_DIE (C :1113; read by timeout.c:507 slime arm).
- * Named omissions: livelog_printf LL_LIFESAVE; formatkiller; paniclog
- * file write (Rule #2); fuzzer_savelife (debug-fuzz only).
+ * Named omissions: paniclog file write (Rule #2); fuzzer_savelife
+ * (debug-fuzz only).
  */
 export async function done(how) {
     const flags = game.flags || (game.flags = {});
@@ -2171,7 +2172,10 @@ export async function done(how) {
         if (how === GENOCIDED) {
             await pline('Unfortunately you are still genocided...');
         } else {
-            // livelog_printf deferred
+            // C end.c:1098–1100 — formatkiller + livelog LL_LIFESAVE
+            // "averted death" (same-file formatkiller :518; pline.js live).
+            const killbuf = formatkiller(how, false);
+            livelog_printf(LL_LIFESAVE, 'averted death (%s)', killbuf);
             survive = true;
         }
     }

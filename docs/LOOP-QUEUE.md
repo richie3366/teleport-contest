@@ -126,14 +126,14 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `allmain.c` moveloop_core — blocks 1/953 (scen-death-Tourist-92095 step 49/111 kind=screen+rng: post-lifesave turn re-loops in JS — extra movemon + 2nd once-per-turn block incl. mcalcmove/maybe_generate_rnd_mon/2nd dosounds trio, +95 draws — while C exits after u_wipe_engr rn2(82); pet (48,15)→(48,14) paints I vs C floor; savelife/done set no loop state, u_calc_moveamt clone verbatim — gap in do-while `umovement < NORMAL_SPEED` turn accounting, allmain.c:196–380) @4fbb3512e
 - [ ] `zap.c` boomhit — C zap.c:4148 boomhit :4202–4210 boomerang self-hit arm (thitu "boomerang" + endmultishot(TRUE)) absent from js/zap.js (no boomhit/boomerang in file; queued as bhit 4fbb3512e, pinned-C bhit zap.c:3827–4139 holds no such arm; endmultishot live js/dothrow.js:862) @4fbb3512e
-- [ ] `end.c` done — C end.c:1098–1100 amulet-arm formatkiller + livelog_printf(LL_LIFESAVE) "averted death" absent from js/end.js:done (:2174 "livelog_printf deferred"; formatkiller live :518, livelog_printf live js/pline.js:44) @5a869cf51
 - [ ] `do.c` boulder_hits_pool — C do.c:148–151 pushing useupf(otmp, quan) absent from js/do.js:boulder_hits_pool (:1057 inlines the obfree path for both arms; useupf live js/invent.js:4851) @5a869cf51
 - [ ] `do.c` boulder_hits_pool — C do.c:137 burn_away_slime() in the lava arm absent from js/do.js:boulder_hits_pool (:1046 molten-lava arm without it; burn_away_slime live js/timeout.js:1709) @5a869cf51
 - [ ] `hack.c` check_capacity — C hack.c:4402–4406 pline1(str)/You_cant immediate-message arms absent from js/pickup.js:check_capacity (:4716 local-only clone; :4719 fire-and-forget game._check_capacity_msg; C has 13 call sites incl apply/dothrow/eat/engrave/pickup/read/spell/teleport/trap/uhitm/zap) @6ea16ae6e
 - [ ] `trap.c` trapeffect_fire_trap — C trap.c:1746–1753 surface(mx,my) in both erupt plines + :1736 seetrap(trap) hero branch absent from js/trap.js:trapeffect_fire_trap (:4840 const surf = 'floor' // surface() deferred; hero :4829–4832 dofiretrap-only; surface live js/sit.js, seetrap live js/trap.js) @6ea16ae6e
 - [ ] `apply.c` use_stethoscope — C apply.c:430–431 M_AP_FURNITURE defsyms[mappearance].explanation absent from js/apply.js:use_stethoscope (:598–600 keeps C default 'thing'; no JS defsyms table; named omit D-2594/ledger partial; prior whole-body row DONE:1437 left this arm) @6ea16ae6e
+- [ ] `vault.c` invault — C vault.c:495–498 guard-arrival `if (gm.multi>0){nomul(0);unmul((char*)0)}` — unmul(0) absent from js/vault.js:invault (:763–765 nomul-only; unmul live async js/hack.js:1766; brief-verified) @d947745c9
+- [ ] `attrib.c` exercise — blocks 1/953 (scen-death-Tourist-92095 step 66/111 kind=rng: C rn2(19)=15@exercise(attrib.c:509) vs JS rn2(5)=4@distfleeck(monmove.js:1140) after rn2(82)=74@moveloop_core; steps 0–66 screens all match; rescore + rng-diff + show this commit — visible in `hidden-proxy queue` once this commits; owner-tagged RNG divergence, not the parked presence-only/encumbrance claim) @d947745c9
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

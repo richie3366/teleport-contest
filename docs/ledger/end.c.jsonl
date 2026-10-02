@@ -15,7 +15,7 @@
 {"fn":"done_object_cleanup","c":"851-903","status":"unknown","d":["D-2724"],"at":"seed@a30a7de84"}
 {"fn":"artifact_score","c":"907-940","status":"unknown","d":["D-1730"],"at":"seed@a30a7de84"}
 {"fn":"fuzzer_savelife","c":"945-1016","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"done","c":"1020-1126","status":"partial","js":["js/end.js:done"],"omit":"- `goto_level`: pre-existing — binary NHFILE savelev/getlev (by-design); Gehennom amulet mysteryforce arm; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow; Punished ballfall on falling; W-tower u_on_rndspot bit 2 (per fn doc).","d":["D-3261"],"at":"2026-10-02@5a869cf51"}
+{"fn":"done","c":"1020-1126","status":"partial","js":["js/end.js:done"],"omit":"- `done`: paniclog TRICKED file write (Rule #2); fuzzer_savelife (debug-fuzz only).","d":["D-3264","D-3261"],"at":"2026-10-02@d947745c9"}
 {"fn":"really_done","c":"1130-1590","status":"ported","js":["js/end.js:really_done"],"d":["D-2435","D-2283","D-2122","D-2061","D-1812"],"at":"seed@a30a7de84"}
 {"fn":"container_contents","c":"1594-1670","status":"ported","js":["js/end.js:container_contents"],"d":["D-3260"],"at":"2026-10-02@4fbb3512e","note":"whole-body port in end.js; js/pickup.js single-box clone is pre-existing drift (named D-3260)"}
 {"fn":"nh_terminate","c":"1674-1703","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: audited — exit-path only (Lua/MACOS9/VMS/dlb arms have no scored analogue); js/end.js:994 sets gameover flags"}

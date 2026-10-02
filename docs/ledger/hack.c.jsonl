@@ -77,7 +77,7 @@
 {"fn":"monster_nearby","c":"4106-4127","status":"unknown"}
 {"fn":"end_running","c":"4130-4158","status":"unknown"}
 {"fn":"nomul","c":"4161-4173","status":"unknown"}
-{"fn":"unmul","c":"4177-4208","status":"unknown"}
+{"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-3264"],"at":"2026-10-02@d947745c9"}
 {"fn":"maybe_wail","c":"4211-4243","status":"unknown"}
 {"fn":"showdamage","c":"4247-4253","status":"partial","js":["js/hack.js:showdamage"],"omit":"- `rounddiv`: none — whole body, panic live (leaf).","d":["D-3105"],"at":"2026-09-29@e32d557c0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"losehp","c":"4256-4292","status":"unknown","d":["D-2051"],"at":"seed@a30a7de84"}

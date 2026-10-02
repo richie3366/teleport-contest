@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-3264 — `hack.c` unmul lifesave-while-poly'd form reminder + `end.c` done amulet-arm livelog (Tourist-92095 writer row addressed; moveloop loop verified correct)
+
+- **Status:** shipped (2 Open corpus-residual rows: `allmain.c` moveloop_core writer row + `end.c` done amulet-arm row — both checked off and archived; no review cited, no stamp owed)
+- **Symptom:** moveloop_core row: scen-death-Tourist-92095 step 49/111 kind=screen+rng, row 15 C `···<│` vs JS `··I<│` (pet (48,15)→(48,14) moved inside JS's step-49 bucket while C's holds only the 5-draw lifesave-turn tail; row hypothesized a do-while `umovement < NORMAL_SPEED` turn-accounting gap). done row: C end.c:1098–1100 amulet-arm formatkiller + livelog_printf(LL_LIFESAVE) absent (js/end.js:2174 "livelog_printf deferred").
+- **C locus:**
+  - `moveloop_core`: allmain.c:196–380 do-while + :381 multi<0 arm — VERIFIED CORRECT, no js/ change (see Fix).
+  - `unmul`: hack.c:4186–4194 — pline(nomovemsg) :4186, then Upolyd + `!strncmpi(nomovemsg,"You survived that ",18)` → `You("are %s.", an(pmname(&mons[u.umonnum],Ugender)))` :4192–4194 (ignore Hallu).
+  - `done`: end.c:1098–1100 Lifesaved else-arm — formatkiller(killbuf,BUFSZ,how,FALSE) + livelog_printf(LL_LIFESAVE,"averted death (%s)",killbuf).
+- **JS was:**
+  - `unmul` (js/hack.js:1766): printed nomovemsg, lacked the C :4192–4194 follow-up (whole-arm gap; the C comment names this exact session: "primarily for life-saving while turning into green slime").
+  - `done` (js/end.js:2173): `// livelog_printf deferred`, survive=true (helpers live: same-file formatkiller :518, pline.js livelog_printf :44).
+- **Fix:** js/hack.js — unmul prints the follow-up after nomovemsg in C order (`Upolyd(game.u)` + 18-char case-insensitive prefix + `await You('are %s.', an(pmname(game.u?.umonnum|0, Ugender())))`); extends the pre-existing do_name.js edge (pmname, Ugender — no new module edge, no `imports.mjs --can` needed). js/end.js — Lifesaved else-arm calls live formatkiller + livelog_printf (`%s` form, C-exact); new end.js→pline.js edge (imports.mjs SAFE, call-time use) + LL_LIFESAVE on the const.js edge; fn-doc omissions retired. Diagnosis (measured): C step-49 bucket = lifesave tail only (dosounds×3/gethungry/u_wipe), C step-50 = pass 2; global RNG identical thru step 65 (first mismatch pre-existing at step 66) — both sides execute IDENTICAL passes, so the row's turn-accounting hypothesis is FALSIFIED (no umovement/wtcap gap; moveloop_core untouched). Root cause is message-timing: C's "You are a green slime." (22ch) overflows the topline (62+22+3=87 > 72) so more() pauses BEFORE printing it (pre-pass-2 capture); JS (message missing) never paused and ran pass 2 first (pet-I + bucket shift). No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** 2 files, +19/−5 (hack.js +11/−1, end.js +8/−4); new scripts/unmul-survived-poly.test.mjs (3/3; pre-fix 2/3). Under the 1500/15 caps.
+- **Callers:**
+  - `moveloop_core`: no change; multi<0 arm → unmul path (js/allmain.js:1277, pre-existing await) now message-complete.
+  - `unmul`: allmain.c:383 (multi<0 lifesave — the fix path) → js/allmain.js:1277 (pre-existing); do_wear.c:1718 → js/do_wear.js:4198; do_wear.c:2401 → js/do_wear.js:3569; eat.c:3357 → js/eat.js:520; mhitu.c:703 → js/mhitu.js:4043; minion.c:284 → js/minion.js:602; polyself.c:225 → js/polyself.js:1045; polyself.c:778 → js/polyself.js:1622; trap.c:5146 → js/trap.js:6693; vault.c:497 guard-bribe multi>0 arm — NO JS counterpart (js/vault.js:765 has the nomul(0) without unmul(0); pre-existing enclosing-path gap, out of cluster — named). Signature unchanged; new arm gated (poly'd + survived-prefix) so only the lifesave path can trigger it.
+  - `done`: signature unchanged; all pre-existing JS death-site callers unaffected (livelog arm is gamelog-array + mask-gated file no-op — no screen/RNG; Lifesaved-only).
+- **Verify:** `node scripts/verify.mjs --fn unmul,done` → syntax PASS (2 files) · rule2 PASS · hidden vacuous both (owner-attributed to savelife/exercise, not the writer names — row evidence below is the direct rescore) · REACH-OK both (smoke 24/24) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared files) · VERIFY: PASS. Row evidence: `hidden-proxy score --ids scen-death-Tourist-92095` → step 49 kind=screen owner=savelife scrM=64 → step 66 kind=rng owner=exercise (attrib.c:509 rn2(19)=15 vs distfleeck rn2(5)=4) scrM=67 with steps 0–66 all matching (rngM 8547 unchanged — message-only fix) — PASS-or-LATER-OWNER ✓ (the step-66 exercise divergence is pre-existing per the pre-fix rng-diff index-7954 mismatch, out of cluster). `node --test scripts/unmul-survived-poly.test.mjs` 3/3 (pre-fix 2/3 — reminder missing).
+  - `moveloop_core`: no js/ change — evidence is the falsification (global-RNG identity thru step 65) + the session move.
+  - `unmul`: REACH-OK (smoke 24 PASS); session moved 49→66.
+  - `done`: REACH-OK (smoke 24 PASS); cold arm (no Lifesaved session in reach/smoke).
+- **Named omissions:**
+  - `done`: paniclog TRICKED file write (Rule #2); fuzzer_savelife (debug-fuzz only).
+  - `unmul`: none in-body — whole C body live.
+  - `moveloop_core`: no change — loop verified correct (row hypothesis falsified; see Fix).
+- **Ledger:** unmul ported; done partial
+- **Next:** Tourist-92095 now blocks at step 66 on exercise (attrib.c:509 — C rn2(19)=15 vs JS distfleeck rn2(5)=4; next iteration's writer, out of cluster). Do not re-pop moveloop_core (loop correct; bucket analysis in Fix), unmul (whole), or the done amulet arm. Pre-existing caller gap (unrowed): vault.c:497 guard-bribe unmul(0) (js/vault.js:765 nomul-only) — wire with vault-path verification if a vault row opens. Ledger note: done's row previously carried goto_level's omit text (D-3261 crossing; goto_level's own row holds it correctly) — this bullet restores done's true omit.
+
 ## D-3263 — `apply.c` use_mirror whole-body completion (Medusa reflect+stone, nymph steal+rloc)
 
 - **Status:** shipped (1 Open corpus-residual missing-arm row — `apply.c` use_mirror — checked off and archived; 0 corpus blocks cited; no review cited, no stamp owed)
