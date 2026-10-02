@@ -126,14 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `topten.c` topten_print — C topten.c:165–171 absent from js/ (no same-named symbol; 12 call sites topten.c:730–1106; WIN_ERR→raw_print else putstr ATR_NONE).
-- [ ] `topten.c` topten_print_bold — C topten.c:174–180 absent from js/ (no same-named symbol; callers topten.c:1079,1104; WIN_ERR→raw_print_bold else putstr ATR_BOLD).
-- [ ] `display.c` type_to_name — C display.c:3108–3111 absent from js/ (no same-named symbol; caller display.c:3117; `type<0||>=MAX_TYPE ? "unknown" : type_names[type]`).
-- [ ] `display.c` glyphinfo_at — C display.c:2487–2491 absent from js/ (no same-named symbol; via Glyphinfo_at macro display.c:1647; callee map_glyphinfo live js/display.js:4032).
-- [ ] `dogmove.c` wantdoor — C dogmove.c:1418–1427 absent from js/ (no same-named symbol; do_clear_area callback dogmove.c:630; nearest-door distu/gx/gy update).
-- [ ] `decl.c` program_state_init — C decl.c:1074–1077 absent from js/ (no same-named symbol; caller allmain.c:35; `program_state = init_program_state`).
-- [ ] `display.c` error4 — C display.c:3114–3120 absent from js/ (no same-named symbol; callers display.c:3150,3257; pline async + type_to_name row above; set_wall_state bad_count report).
-
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;

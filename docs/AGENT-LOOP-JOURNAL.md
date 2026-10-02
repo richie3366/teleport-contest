@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3298 `decl.c` program_state_init (early_init zero-reset + jsmain wiring)
+
+**C locus:** - `program_state_init`: nethack-c/upstream/src/decl.c:1074–1077 whole body (C extern) — `program_state = init_program_state` (`{ 0 }`, decl.c:1001; every `struct sinfo` int reads 0, hack.h:776+). Sole C caller allmain.c:35 `early_init` (first call, before `decl_globals_init` :40).
+**JS:** - `program_state_init`: js/decl.js:42–55 (export :53); caller js/jsmain.js:130 (+ import :14).
+**Change:** - `program_state_init`: `export function program_state_init()` in `js/decl.js` (C file order, before `decl_globals_init`), body `game.program_state = {}` — `{}` ≡ `{ 0 }` under the falsy-default read idiom (same as `reset_instance_globals`); unconditional assign, never merge, like C. Wired as the first call after `resetGame()` in `jsmain.js start()`, same relative order as C (:35 before :40). Import extended on the existing `./decl.js` edge (no new module edge).
+**Verify:** `node scripts/verify.mjs --fn program_state_init` → VERIFY: PASS — syntax 2 files (js/decl.js, js/jsmain.js); rule2 clean; hidden 0 blocked (coverage row); reach smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed).
+**Named:** - `program_state_init`: none — whole C body live (single assignment; no merge/restore semantics — C calls it once at startup only).
+**Next:** queue EMPTY after this commit: 7 rows consumed (1 shipped, 6 retired), remainder 0, refill dry — (1) `rows --write` 0 rows; (2) hidden-proxy 79/79 owners tagged open/parked/archived; (3) no park names one concrete writer + session (full index scanned — all vague/conditional/parked/truncated); (4) no verified-absent arm (objects_globals_init live js/objects.js:69; monst_globals_init vacuous — JS mons() mints fresh, geno lives in mvitals; putstr/raw_print/raw_print_bold are winprocs macros, not functions). Next iteration has no head: brief new (4) candidates under its own refill authorization, or a human reopens phase 2 ([measure] W2/W3 rows waiting).
 ## 2026-10-02 — D-3297 `hacklib.c` char trio: digit + letter + onlyspace (canonical exports, 3 rewires)
 
 **C locus:** - `digit`: nethack-c/upstream/src/hacklib.c:62–65 whole body (C extern, hacklib.h) — `boolean ('0' <= c && c <= '9')`.

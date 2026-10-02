@@ -1,6 +1,6 @@
 {"fn":"formatkiller","c":"90-162","status":"ported","js":["js/end.js:formatkiller"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"topten_print","c":"165-171","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"topten_print_bold","c":"174-180","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"topten_print","c":"165-171","status":"ported","js":["js/topten.js:render_topten_lines"],"at":"2026-10-02@1896adcef","note":"stale: raw-panel arm inlined as emit(x,false) at all 12 C sites (js/topten.js:662,788,805,853-857,897,947,948,972,975,980,1007) -> render_topten_lines; toptenwin/putstr branch is the named omit in topten doc block"}
+{"fn":"topten_print_bold","c":"174-180","status":"ported","js":["js/topten.js:render_topten_lines"],"at":"2026-10-02@1896adcef","note":"stale: raw-panel arm inlined as emit(x,true) at both C sites (js/topten.js:787,804) -> render_topten_lines; toptenwin branch named omit (topten doc block)"}
 {"fn":"observable_depth","c":"183-204","status":"unknown"}
 {"fn":"discardexcess","c":"208-215","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"readentry","c":"220-298","status":"ported","js":["js/topten.js:readentry"],"d":["D-2648"],"at":"seed@a30a7de84"}

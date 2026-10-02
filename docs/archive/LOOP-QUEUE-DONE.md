@@ -5,8 +5,17 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `hacklib.c` digit — C hacklib.c:62–65 absent from js/ (no same-named symbol; 25 call sites botl.c/cmd.c/coloratt.c/invent.c/objnam.c/options.c/pager.c/read.c/teleport.c/topten.c; `boolean ('0'<=c && c<='9')`). **Addressed:** D-3297
-- [x] `hacklib.c` letter — C hacklib.c:69–72 absent from js/ (no same-named symbol; 11 call sites cmd.c/hacklib.c/invent.c/objnam.c/options.c/shknam.c/sounds.c; `@A-Z`+`a-z` incl `@`, excl `[`). **Addressed:** D-3297
+- [x] `topten.c` topten_print — C topten.c:165–171 absent from js/ (no same-named symbol; 12 call sites topten.c:730–1106; WIN_ERR→raw_print else putstr ATR_NONE). **Stale:** ledger ported — raw-panel arm inlined as emit(x,false) at all 12 C sites (js/topten.js outheader:662, outentry:788/805, topten:897/947/948/972/975/980/1007, wizard arm:853-857) → render_topten_lines:626; toptenwin/putstr branch is the topten doc-block named omit.
+- [x] `topten.c` topten_print_bold — C topten.c:174–180 absent from js/ (no same-named symbol; callers topten.c:1079,1104; WIN_ERR→raw_print_bold else putstr ATR_BOLD). **Stale:** ledger ported — raw-panel arm inlined as emit(x,true) at both C sites (js/topten.js outentry:787/804) → render_topten_lines:626; toptenwin branch named omit.
+- [x] `display.c` type_to_name — C display.c:3108–3111 absent from js/ (no same-named symbol; caller display.c:3117; `type<0||>=MAX_TYPE ? "unknown" : type_names[type]`). **By-design:** ledger by-design — WA_VERBOSE compiled out (display.c:138 commented); body + sole caller inside the :3091–3121 ifdef.
+- [x] `display.c` glyphinfo_at — C display.c:2487–2491 absent from js/ (no same-named symbol; via Glyphinfo_at macro display.c:1647; callee map_glyphinfo live js/display.js:4032). **By-design:** ledger by-design — UNBUFFERED_GLYPHINFO never defined; default !UNBUFFERED gbuf macro live (display.c:1637–1643, JS display.js:7007).
+- [x] `dogmove.c` wantdoor — C dogmove.c:1418–1427 absent from js/ (no same-named symbol; do_clear_area callback dogmove.c:630; nearest-door distu/gx/gy update). **Stale:** ledger ported — C body complete as the do_clear_area arrow in dog_goal (js/dogmove.js:795–802; dist2 ≡ distu macro hack.h:1531); sole site dogmove.c:630; arrow shape review-blessed (review 754).
+- [x] `decl.c` program_state_init — C decl.c:1074–1077 absent from js/ (no same-named symbol; caller allmain.c:35; `program_state = init_program_state`). **Addressed:** D-3298
+- [x] `display.c` error4 — C display.c:3114–3120 absent from js/ (no same-named symbol; callers display.c:3150,3257; pline async + type_to_name row above; set_wall_state bad_count report). **By-design:** ledger by-design — WA_VERBOSE compiled out (display.c:138 commented); body + both call sites ifdef-gated (:3145/:3256).
+
+
+- [x] `hacklib.c` digit — C hacklib.c:62–65 absent from js/ (no same-named symbol; 25 call sites botl.c/cmd.c/coloratt.c/invent.c/objnam.c/options.c/pager.c/read.c/teleport.c/topten.c; `boolean ('0'<=c && c<='9')`). **Addressed:** D-3297 `1896adcef`
+- [x] `hacklib.c` letter — C hacklib.c:69–72 absent from js/ (no same-named symbol; 11 call sites cmd.c/hacklib.c/invent.c/objnam.c/options.c/shknam.c/sounds.c; `@A-Z`+`a-z` incl `@`, excl `[`). **Addressed:** D-3297 `1896adcef`
 
 
 - [x] `cmd.c` levltyp_to_name — C cmd.c:1089–1094 absent from js/ (no same-named symbol; callers mon.c:226, nhlua.c:551). **Addressed:** D-3296 `b23f261b5`

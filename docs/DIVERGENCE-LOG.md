@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3298 — `decl.c` program_state_init (early_init zero-reset + jsmain wiring)
+
+- **Status:** shipped (1 Open missing-arm `decl.c` row checked off + archived — program_state_init; no review cited, no stamp owed). 17 insertions — below the ~80 density bar, defended: singleton cluster (no callees; no other `decl.c` row Open in queue). This iteration also retired 6 hand-written rows without `js/` (topten_print, topten_print_bold, wantdoor → ledger ported-stale, bodies complete at JS call sites; type_to_name, error4, glyphinfo_at → ledger by-design, WA_VERBOSE / UNBUFFERED_GLYPHINFO compiled out) — evidence in ledger notes + DONE archive lines.
+- **Symptom:** no corpus divergence — coverage row (0 blocked). C `program_state_init` had no JS symbol, and its sole caller `early_init`'s JS split (`jsmain.js start()`) called `decl_globals_init` + `sys_early_init` but never zero-reset `program_state` (it began `undefined`, lazily `{}` at ~20 use sites, read only through falsy-default guards).
+- **C locus:**
+  - `program_state_init`: nethack-c/upstream/src/decl.c:1074–1077 whole body (C extern) — `program_state = init_program_state` (`{ 0 }`, decl.c:1001; every `struct sinfo` int reads 0, hack.h:776+). Sole C caller allmain.c:35 `early_init` (first call, before `decl_globals_init` :40).
+- **JS was:** no `program_state_init`; `jsmain.js start()` ran `resetGame()` → `decl_globals_init()` → `sys_early_init()` with no `program_state` reset; `gstate.js resetGame` never touches `program_state`.
+- **Fix:**
+  - `program_state_init`: `export function program_state_init()` in `js/decl.js` (C file order, before `decl_globals_init`), body `game.program_state = {}` — `{}` ≡ `{ 0 }` under the falsy-default read idiom (same as `reset_instance_globals`); unconditional assign, never merge, like C. Wired as the first call after `resetGame()` in `jsmain.js start()`, same relative order as C (:35 before :40). Import extended on the existing `./decl.js` edge (no new module edge).
+- **JS:**
+  - `program_state_init`: js/decl.js:42–55 (export :53); caller js/jsmain.js:130 (+ import :14).
+- **Callers:**
+  - `program_state_init`: sole C caller allmain.c:35 `early_init` → JS `jsmain.js:130` `start()` (split-name `early_init`; `decl_globals_init`/`sys_early_init` siblings follow at :131–132).
+- **Verify:** `node scripts/verify.mjs --fn program_state_init` → VERIFY: PASS — syntax 2 files (js/decl.js, js/jsmain.js); rule2 clean; hidden 0 blocked (coverage row); reach smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file changed).
+- **Named omissions:**
+  - `program_state_init`: none — whole C body live (single assignment; no merge/restore semantics — C calls it once at startup only).
+- **Ledger:** program_state_init ported
+- **Next:** queue EMPTY after this commit: 7 rows consumed (1 shipped, 6 retired), remainder 0, refill dry — (1) `rows --write` 0 rows; (2) hidden-proxy 79/79 owners tagged open/parked/archived; (3) no park names one concrete writer + session (full index scanned — all vague/conditional/parked/truncated); (4) no verified-absent arm (objects_globals_init live js/objects.js:69; monst_globals_init vacuous — JS mons() mints fresh, geno lives in mvitals; putstr/raw_print/raw_print_bold are winprocs macros, not functions). Next iteration has no head: brief new (4) candidates under its own refill authorization, or a human reopens phase 2 ([measure] W2/W3 rows waiting).
+
 ## D-3297 — `hacklib.c` char trio: digit + letter + onlyspace (canonical exports, 3 rewires)
 
 - **Status:** shipped (2 Open missing-arm `hacklib.c` rows checked off + archived — digit, letter; onlyspace same-file companion; no review cited, no stamp owed). 49 insertions — below the ~80 density bar, defended: every other same-file ledger-Open was brief/read-verified live-in-JS or unportable-standalone (audit in Next), so the head's file holds nothing more genuinely-missing.

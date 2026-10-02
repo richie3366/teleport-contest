@@ -53,13 +53,13 @@
 {"fn":"swallow_to_glyph","c":"2437-2446","status":"ported","js":["js/display.js:swallow_to_glyph"],"d":["D-3290"],"at":"2026-10-02@be60a5eca","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"zapdir_to_glyph","c":"2461-2470","status":"unknown"}
 {"fn":"glyph_at","c":"2478-2483","status":"unknown"}
-{"fn":"glyphinfo_at","c":"2487-2491","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"glyphinfo_at","c":"2487-2491","status":"by-design","at":"2026-10-02@1896adcef","note":"UNBUFFERED_GLYPHINFO compiled out (never defined); body inside display.c:2485-2491 ifdef, default !UNBUFFERED gbuf macro live (display.c:1637-1643, JS display.js:7007)"}
 {"fn":"get_bkglyph_and_framecolor","c":"2507-2579","status":"unknown","d":["D-1973"],"at":"seed@a30a7de84"}
 {"fn":"map_glyphinfo","c":"2594-2655","status":"unknown","d":["D-1983","D-1972"],"at":"seed@a30a7de84"}
 {"fn":"cmap_to_roguecolor","c":"2699-2719","status":"ported","js":["js/display.js:cmap_to_roguecolor"],"d":["D-3052"],"at":"2026-09-28@6f36d2ab4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_glyphmap","c":"2739-3086","status":"by-design","at":"seed@a30a7de84","note":"seed: CURRENT.md Do not (fortress guard)"}
-{"fn":"type_to_name","c":"3108-3111","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"error4","c":"3114-3120","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"type_to_name","c":"3108-3111","status":"by-design","at":"2026-10-02@1896adcef","note":"WA_VERBOSE compiled out (display.c:138 commented); body inside display.c:3091-3121 ifdef, sole C caller error4 same ifdef"}
+{"fn":"error4","c":"3114-3120","status":"by-design","at":"2026-10-02@1896adcef","note":"WA_VERBOSE compiled out (display.c:138 commented); body inside 3091-3121 ifdef, both C call sites ifdef-gated (:3150 more_than_one inside :3145 ifdef, :3257 inside :3256 ifdef)"}
 {"fn":"check_pos","c":"3130-3141","status":"unknown"}
 {"fn":"more_than_one","c":"3147-3154","status":"ported","js":["js/mklev.js:more_than_one"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"set_wall","c":"3187-3204","status":"split","js":["js/mklev.js:set_wall_mode"],"d":["D-3012"],"at":"2026-09-28@7cd5d050b","note":"stale split body file-local js/mklev.js:33169"}
