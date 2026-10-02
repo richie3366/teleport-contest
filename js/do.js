@@ -14,7 +14,7 @@ import { rn2, rnd, rn1, rnz, d } from './rng.js';
 import { depth, builds_up, level_difficulty } from './hacklib.js';
 import {
     STAIRS, LADDER, ECMD_OK, ECMD_TIME, ECMD_FAIL, ECMD_CANCEL,
-    DIR_DOWN, I_SPECIAL, W_ARTI, W_ART, TOOKPLUNGE, VIBRATING_SQUARE,
+    DIR_DOWN, DIR_UP, I_SPECIAL, W_ARTI, W_ART, TOOKPLUNGE, VIBRATING_SQUARE,
     S_dnstair, S_dnladder, LEVITATION, Can_fall_thru, Is_stronghold,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_ARMOR,
     W_WEP, W_SWAPWEP, W_QUIVER, W_RINGL, W_RINGR, W_AMUL, W_TOOL,
@@ -23,9 +23,9 @@ import {
     UTOTYPE_RMPORTAL, UTOTYPE_DEFERRED,
     VISITED, LFILE_EXISTS, RANGE_LEVEL, REST_LEVELS,
     WRITING, FREEING,
-    UNENCUMBERED, KILLED_BY, DISMOUNT_FELL, NO_KILLER_PREFIX, ESCAPED,
+    UNENCUMBERED, SLT_ENCUMBER, KILLED_BY, DISMOUNT_FELL, NO_KILLER_PREFIX, ESCAPED,
     MAGIC_PORTAL, TIMEOUT, BLINDED, STONED, SLIMED, STRANGLED, SICK,
-    RLOC_NOMSG, EYE, HAND, STOMACH, FROMOUTSIDE, HMON_THROWN, NO_TRAP,
+    RLOC_NOMSG, EYE, FACE, HAND, STOMACH, FROMOUTSIDE, HMON_THROWN, NO_TRAP,
     WARN_OF_MON, TELEPAT, INFRAVISION,
     ACH_HELL, ACH_MINE, ACH_SOKO, ACH_ENDG, ACH_ASTR, ACH_BGRM,
     LL_ACHIEVE, LL_DEBUG,
@@ -3429,18 +3429,21 @@ export async function dodown() {
 }
 
 /**
- * C ref: do.c doup — '<' go up staircase (ordinary stairs path).
- *
- * Omits: rooted, stucksteed, encumbrance load gate
- * (ledger 1 escape yn live). u_stuck_cannot_go is wired (do.c:1321).
+ * C ref: do.c doup `:1298–1344` — '<' go up staircase, whole body in C order.
+ * stairway_at; set_move_cmd(DIR_UP,0); u_rooted; pit climb; missing-stair
+ * You_cant; stucksteed; u_stuck_cannot_go; near_capacity load gate; ledger-1
+ * escape yn; next_to_u pet hold; at_ladder + prev_level.
  */
 export async function doup() {
     const u = game.u;
     if (!u) return ECMD_OK;
 
-    u.dz = -1;
-    u.dx = 0;
-    u.dy = 0;
+    const stway = stairway_at(u.ux, u.uy);
+
+    set_move_cmd(DIR_UP, 0);
+
+    if (await u_rooted())
+        return ECMD_TIME;
 
     /* "up" to get out of a pit... */
     if ((u.utrap | 0) && (u.utraptype | 0) === TT_PIT) {
@@ -3448,15 +3451,22 @@ export async function doup() {
         return ECMD_TIME;
     }
 
-    const stway = stairway_at(u.ux, u.uy);
     if (!stway || !stway.up) {
-        await pline("You can't go up here.");
+        await You_cant('go up here.');
+        return ECMD_OK;
+    }
+    if (await stucksteed(true)) {
         return ECMD_OK;
     }
 
-    // C do.c:1321 — after the missing-stair return (stucksteed still omitted).
     if (await u_stuck_cannot_go('up')) return ECMD_TIME;
 
+    if (near_capacity() > SLT_ENCUMBER) {
+        /* No levitation check; inv_weight() already allows for it */
+        const ltyp = game.level?.at(u.ux, u.uy)?.typ | 0;
+        await Your(`load is too heavy to climb the ${ltyp === STAIRS ? 'stairs' : 'ladder'}.`);
+        return ECMD_TIME;
+    }
     // C do.c :1330–1335 — ledger 1: no return; 'y' climbs out (prev_level
     // escapes via goto_level ledger<=0 → done(ESCAPED)), else stay.
     if (ledger_no(u.uz) === 1) {
@@ -3643,17 +3653,17 @@ async function wipeoff() {
 }
 
 /**
- * C ref: do.c dowipe — #wipe face cream / BlindedTimeout.
- * Named omissions: body_part poly face noun.
+ * C ref: do.c dowipe `:2390–2404` — #wipe face cream / BlindedTimeout.
+ * Both arms use live body_part(FACE) (polyself.js), the poly face noun.
  * @returns {number} ECMD_TIME
  */
 export async function dowipe() {
     const u = game.u || {};
     if (u.ucreamed | 0) {
-        set_occupation(wipeoff, 'wiping off your face', 0);
+        set_occupation(wipeoff, `wiping off your ${body_part(FACE)}`, 0);
         return ECMD_TIME;
     }
-    await pline('Your face is already clean.');
+    await Your(`${body_part(FACE)} is already clean.`);
     return ECMD_TIME;
 }
 

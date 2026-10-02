@@ -130,6 +130,8 @@ coverage list is empty, or alongside a coverage row in the same C file.
 - [ ] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828
 - [ ] `weapon.c` enhance_weapon_skill — blocks 1/953 (scen-caster-Healer-94269, step 225, kind=screen) @2ad1aa828
 - [ ] `trap.c` trapeffect_landmine — blocks 1/953 (scen-descend-Knight-94127, step 132, kind=screen; C "You are in non-scoring explore/discovery mode.--More--" vs JS "You are lucky! Full moon tonight.") @8dee36cb3
+- [ ] `trap.c` reset_utrap — C trap.c:1048–1055 msg/Levitation/Flying restore absent from js/trap.js:reset_utrap (:3033; doc "restore msgs deferred"; 30+ JS callers need await — campaign-scale) @b3c50cbeb
+- [ ] `uhitm.c` passive_obj — C uhitm.c:6170–6173 AD_RUST erode_obj + :6180–6186 AD_ENCH drain_item + :6193–6195 update_inventory tail absent from js/uhitm.js:passive_obj (:3142; :3180 "ERODE_RUST deferred", :3194 "drain_item deferred", no tail call) @b3c50cbeb
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

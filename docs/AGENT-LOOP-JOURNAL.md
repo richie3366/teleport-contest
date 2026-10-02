@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3252 `do.c` doup whole-body completion (rooted/steed/load/set_move_cmd) + dowipe body_part FACE (poly noun)
+
+**C locus:** - `doup`: `do.c:1298–1344` whole body in C order — stairway_at; set_move_cmd(DIR_UP,0); u_rooted→ECMD_TIME; TT_PIT climb_pit→ECMD_TIME; missing-stair You_cant→ECMD_OK; stucksteed(TRUE)→ECMD_OK; u_stuck_cannot_go→ECMD_TIME; near_capacity>SLT_ENCUMBER Your load gate→ECMD_TIME; ledger-1 escape yn→ECMD_OK; next_to_u pet hold→ECMD_OK; at_ladder + prev_level→ECMD_TIME.
+**JS:** `js/do.js` (+27/−17), new `scripts/do-dowipe.test.mjs` (51 lines). Far under the 1500/15 caps.
+**Change:** `js/do.js` only, no new module edge — all callees pre-imported (set_move_cmd/u_rooted via cmd.js :184; stucksteed via steed.js :158; near_capacity via invent.js :126; body_part via polyself.js :140; You_cant/Your via display.js :64; climb_pit via trap.js :56; no `imports.mjs --can` needed); const import extended with DIR_UP/SLT_ENCUMBER/FACE on the existing const.js edge. doup restarted in C order (stairway_at first; live set_move_cmd/u_rooted/stucksteed/load-gate/You_cant; ledger-1/next_to_u/prev_level untouched). dowipe both arms → live `body_part(FACE)` + `Your` (C call).
+**Verify:** `node scripts/verify.mjs --fn doup,dowipe` → VERIFY: PASS — syntax 1 file; rule2; hidden notes ×2 (no corpus session blocked — coverage rows); reach smoke 24/24 REACH-OK each; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared do.js). New `scripts/do-dowipe.test.mjs` 2/2 (fungus arm failed pre-fix on hardcoded 'face', proven above; human arm guards). doup gates have no committed test (rooted/steed/load/pet/level mocks disproportionate — pinned by full 44 + REACH; skill disclosure).
+**Named:** - `doup`: none in-body — whole C body live (at_ladder `stway.isladder` fallback pre-existing, untouched).
+**Next:** (1) `reset_utrap` row (trap.c msg arm — 30+ JS callers need await, campaign-scale, left Open). (2) `passive_obj` row (uhitm.c RUST/ENCH/tail — left Open). (3) 4 stale corpus rows left Open per D-3248–D-3251 precedent (sessions diverge upstream/elsewhere; future iters 1-call skip). (4) Band falls to 6/8 after this archive (4 stale + reset_utrap + passive_obj) — structural picker exhaustion persists (coverage 0, queue 0 eligible); needs heat re-replay or phase-2 reopen (human call, D-3251 Next(3)).
 ## 2026-10-02 — D-3251 `uhitm.c` passive AD_STUN + passive_obj AD_ACID → live calls (ride s159→s171, engulf s46→PASS); 4 stale left Open
 
 **C locus:** - `passive`: `uhitm.c:6085–6088` AD_STUN — `if (!Stunned) make_stunned((long) tmp, TRUE)` (yellow mold); Stunned ≡ HStun (youprop.h:81). Rest of the body pre-ported; this iter completes the STUN case.
