@@ -1127,10 +1127,6 @@ export function dist2(x0, y0, x1, y1) {
     return dx * dx + dy * dy;
 }
 
-export function distmin(x0, y0, x1, y1) {
-    return Math.max(Math.abs(x0 - x1), Math.abs(y0 - y1));
-}
-
 /**
  * C ref: mon.c monnear — close enough to move/attack into.
  * Orthogonal (dist2==1) or same square; diagonal (dist2==2) only if

@@ -4,14 +4,14 @@
 
 import { rn2, rnd, rn1, d, rnl } from './rng.js';
 import {
-    distmin, m_at, record_mvitals_died, undead_to_corpse, monnear, seemimic,
+    m_at, record_mvitals_died, undead_to_corpse, monnear, seemimic,
     zombie_maker, zombie_form, minliquid, healmon, wake_nearto, mon_givit,
     mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE, unlink_minvent,
 } from './mon.js';
 import { game } from './gstate.js';
 import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You, Your, pline_The, You_feel, You_see, flush_screen, flush_topl_more, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
 import { cansee } from './vision.js';
-import { dist2, isok } from './hacklib.js';
+import { dist2, distmin, isok } from './hacklib.js';
 import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big, defended, monsndx, Resists_Elem } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval, possibly_unwield } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned, is_art, protects } from './artifact.js';

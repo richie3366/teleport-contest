@@ -6,7 +6,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
-import { depth as depth_of_level } from './hacklib.js';
+import { depth as depth_of_level, distmin } from './hacklib.js';
 import {
     RANDOM_CLASS,
     ARMOR_CLASS,
@@ -264,10 +264,6 @@ export const shtypes = [
         ],
     },
 ];
-
-function distmin(x0, y0, x1, y1) {
-    return Math.max(Math.abs(x0 - x1), Math.abs(y0 - y1));
-}
 
 function m_at(x, y) {
     for (const m of (game.fmon || [])) {
@@ -645,6 +641,7 @@ function stock_room_goodpos(sroom, rmno, sh, sx, sy) {
     const door = game.level?.doors?.[sh];
     if (sroom.irregular) {
         const loc = game.level.at(sx, sy);
+        // C shknam.c:700 — distmin(sx, sy, svd.doors[sh].x, svd.doors[sh].y) <= 1.
         if (!loc || loc.edge || (loc.roomno | 0) !== rmno
             || !door || distmin(sx, sy, door.x, door.y) <= 1) {
             return false;

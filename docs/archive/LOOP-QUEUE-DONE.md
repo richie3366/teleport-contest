@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `hacklib.c` distmin shknam.js clone removal — C hacklib.c:657–669 max(|dx|,|dy|) call absent from js/shknam.js (local clone :268 inlines it instead of importing the live export js/hacklib.js:19; brief this session: `!! ALSO 1 LOCAL CLONE(S)`; second export js/mon.js:1130 needs the C-locus decision); rewire its call site(s) to the C-locus export, delete clone.
+- [x] `hacklib.c` nh_snprintf — C hacklib.c:854–875 varargs `vsnprintf + nul-terminate` absent from js/ (no symbol; brief this session; refs are decls + date.c:11/mdlib.c:311 macro uses; impossible arm `#if 0`) — resolve by-design (JS strings need no snprintf) or port.
+
+
 - [x] `music.c` awakener a_monnam clone removal (re-queued D-3323: D-3322 archived its refill unshipped — both clones still present, brief-verified this session) — C do_name.c:1151–1156 `has_mgivenname ? SUPPRESS_SADDLE : 0` arm absent from js/music.js:266 (passes suppress `0` + invented `|| 'it'`) serving C music.c:124; live js/do_name.js:1221; rewire js/music.js:350 (ALREADY edge js/music.js:43), delete clone; same-file companion js/music.js:158 Amonnam twin inlines the same suppress-0 call (C Amonnam do_name.c:1158–1165 is highc(a_monnam), live js/do_name.js:1234; rewire js/music.js:632 serving C music.c:376), delete clone.
 
 

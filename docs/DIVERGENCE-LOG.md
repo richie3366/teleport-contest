@@ -1,5 +1,42 @@
 # Divergence log
 
+## D-3324 — hacklib.c distmin clone removals (shknam local + mon.js duplicate) + nh_snprintf by-design
+
+- **Status:** shipped (2 Open missing-arm rows checked off + archived in this commit — distmin head + same-C-file nh_snprintf; whole `hacklib.c` Open set now declared, 2/2). 16 insertions / 20 deletions across 10 js/ files — below the ~80 density bar, defended (D-3321/22/23 exception shape): the deliverable is rewire-to-live (deletion of wrong code is the port), both whole C bodies verified against the brief, and the head's file and callee closure hold nothing more Open (distmin has 0 C callees; coverage block regenerates 0 rows). No review cited, no stamp owed. Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); 2 missing-arm rows appended from this session's brief evidence (dist2 duplicate, shknam m_at clone) + 2 stale-complete booked via `ledger.mjs set` (is_art, visible_region_at) — queue ships at 8 (REFILL band met so finish can commit).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on both). Two `distmin` definitions at wrong loci: local clone js/shknam.js:268-then serving `stock_room_goodpos`; duplicate export js/mon.js:1130-then (C has no mon.c distmin) serving 8 importers.
+- **C locus:**
+  - `distmin`: nethack-c/upstream/src/hacklib.c:657–669 whole body: abs both deltas, return the larger — read in the brief this session.
+  - `nh_snprintf`: nethack-c/upstream/src/hacklib.c:854–875 whole body: `va_start + vsnprintf + va_end`, nul-terminate guard on `n < 0 || n >= size`; the `impossible` arm is `#if 0`'d out; only refs are the Snprintf-macro uses in date.c:11 + mdlib.c:311 (unix-port build code) — read in the brief this session.
+- **JS was:** live C-locus export js/hacklib.js:19 (C-exact, unchanged); js/shknam.js:268-then local clone (sole site :649-then ≡ shknam.c:700); js/mon.js:1130-then duplicate export with 8 importers (mhitm, dothrow, dogmove, monmove, trap, mthrowu, track, muse); no `nh_snprintf` symbol anywhere in js/.
+- **Fix:** extended the ALREADY static hacklib edges (js/shknam.js:9, js/mhitm.js:14, js/trap.js:146, js/muse.js:94) with `distmin`; added 5 new static edges (`imports.mjs --can` SAFE, no cycle: js/dothrow.js:90, js/dogmove.js:11, js/monmove.js:120, js/mthrowu.js:11, js/track.js:17); removed `distmin` from all 8 mon.js import lists; deleted the shknam clone and the mon.js export; one C-cite comment at the shknam site (js/shknam.js:644). All call-site expressions unchanged — already C-shaped. `nh_snprintf`: no `js/` — by-design (see Named omissions). The js/mon.js:1124-then `dist2` duplicate is out of scope (not in the row) and untouched. Export names/signatures unchanged. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** js/shknam.js (import :9; site :646); js/mon.js (export deleted); js/mhitm.js (:7/:14); js/dothrow.js (:89/:90); js/dogmove.js (:7/:11); js/monmove.js (:101/:120); js/trap.js (:46/:146); js/mthrowu.js (:9/:11); js/track.js (:17); js/muse.js (:26/:94).
+- **Callers:**
+  - `distmin`: shknam.c:700→js/shknam.js:646 (this iter); the 8 ex-mon.js importers' sites now resolve to the C-locus export with unchanged expressions (mhitm.c:394/429/499/523/573→js/mhitm.js:6270/6303/6386/6410/6448; dothrow.c:2051→js/dothrow.js:600; dogmove.c:700/776/1246→js/dogmove.js:1104/1169/1544; monmove.c:1347/1370/1427/1443/1893→js/monmove.js:573/593/633/647/2249; trap.c:3313→js/trap.js:2694; mthrowu.c:1315/1350/1050/1056/723/265/995/1229/19/1258→js/mthrowu.js:307/342/436/445/1302/1467/1533/1599/1626/1631; track.c:52→js/track.js:115; muse.c:1932/2022→js/muse.js:1097/1132); all other C sites already resolved to js/hacklib.js:19 or pre-existing locals, untouched — no call from a site C never calls from was added.
+  - `nh_snprintf`: sole C refs date.c:11 + mdlib.c:311 (unix-port Snprintf macro) — no scored JS counterpart exists; by-design, no caller wired.
+- **Verify:** `node scripts/verify.mjs --fn distmin,nh_snprintf` tail pasted verbatim:
+```
+PASS  syntax   10 changed js file(s): js/dogmove.js js/dothrow.js js/mhitm.js js/mon.js js/monmove.js js/mthrowu.js js/muse.js js/shknam.js js/track.js js/trap.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify distmin: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    distmin: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify nh_snprintf: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    nh_snprintf: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:**
+  - `distmin`: none in-body — whole C body live at js/hacklib.js:19.
+  - `nh_snprintf`: whole body — by-design: Snprintf-macro plumbing for unix-port date/mdlib version-string code (no scored counterpart); the only live arm is the nul-terminate guard, meaningless for JS strings; `impossible` arm compiled out (`#if 0`).
+- **Ledger:** distmin ported; nh_snprintf by-design
+- **Next:** continue the missing-arm list (`pager.c` domenucontrols head).
+
 ## D-3323 — music.c awakener a_monnam/Amonnam clone removals (re-queued — D-3322 mis-archived its refill unshipped)
 
 - **Status:** shipped (1 Open missing-arm row checked off + archived in this commit). ~5 js/ insertions / ~10 deletions + census test update — below the ~80 insertion bar, defended (D-3321/D-3322 exception shape): the deliverable is rewire-to-live (deletion of wrong code is the port), one real C-wrong fixed (suppress-0 + invented `|| 'it'`), both whole C bodies verified against the live exports, and the head's callee closure holds nothing more Open (x_monnam live; coverage block regenerates 0 rows). No review cited, no stamp owed. Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/ledger-tagged); 4 stale-complete booked via `ledger.mjs set` (sobj_at, Mgender, monstunseesu, distant_monnam); eight source-(4) rows appended from this session's brief evidence (distmin clone + 7 no-symbol MISSING: domenucontrols, early_init, nh_snprintf, get_nhcolor_from_256_index, badspot, free_eshk, free_egd) — queue ships at 8 (REFILL band met so finish can commit). Record fix: D-3322's Status says "queue ships at 1" but the music row landed in LOOP-QUEUE-DONE.md stamped `**Addressed:** D-3322` while commit cb36dc362 touched only trap.js/hack.js and both clones were still present (brief this session) — row removed from DONE, re-queued as Open, shipped here.

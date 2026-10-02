@@ -71,6 +71,6 @@
 {"fn":"mkot_trap_warn","c":"2753-2770","status":"unknown"}
 {"fn":"is_magic_key","c":"2775-2786","status":"unknown"}
 {"fn":"has_magic_key","c":"2790-2803","status":"unknown"}
-{"fn":"is_art","c":"2808-2813","status":"unknown"}
+{"fn":"is_art","c":"2808-2813","status":"ported","js":["js/artifact.js:is_art"],"at":"2026-10-02@c944311a4","note":"stale: js/artifact.js:2608"}
 {"fn":"get_artifact","c":"2821-2833","status":"unknown"}
 {"fn":"permapoisoned","c":"2837-2840","status":"unknown"}

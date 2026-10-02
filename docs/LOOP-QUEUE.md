@@ -126,14 +126,14 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `hacklib.c` distmin shknam.js clone removal — C hacklib.c:657–669 max(|dx|,|dy|) call absent from js/shknam.js (local clone :268 inlines it instead of importing the live export js/hacklib.js:19; brief this session: `!! ALSO 1 LOCAL CLONE(S)`; second export js/mon.js:1130 needs the C-locus decision); rewire its call site(s) to the C-locus export, delete clone.
 - [ ] `pager.c` domenucontrols — C pager.c:2820–2827 `create_nhwindow + show_menu_controls(cwin,FALSE) + display + destroy` absent from js/ (no symbol; brief this session; sole C ref is the decl-only :48 — dead in C; callee live js/dokeylist.js:210) — port module-local (C staticfn) or resolve by-design.
 - [ ] `allmain.c` early_init — C allmain.c:33–45 `program_state_init + decl/objects/monst/sys/runtime inits` absent from js/ (no symbol; brief this session; sole caller unixmain.c:66 port entry; callees live incl js/decl.js:97 + js/sys.js:37 + js/monsters.js:222) — port or resolve by-design.
-- [ ] `hacklib.c` nh_snprintf — C hacklib.c:854–875 varargs `vsnprintf + nul-terminate` absent from js/ (no symbol; brief this session; refs are decls + date.c:11/mdlib.c:311 macro uses; impossible arm `#if 0`) — resolve by-design (JS strings need no snprintf) or port.
 - [ ] `coloratt.c` get_nhcolor_from_256_index — C coloratt.c:1024–1031 `IndexOk → color_256_definitions[idx].value else NO_COLOR|NH_BASIC_COLOR` absent from js/ (no symbol; brief this session; 0 C refs — dead in C) — resolve by-design or port.
 - [ ] `do.c` badspot — C do.c:1400–1406 `typ!=ROOM/AIR/CORR || MON_AT` absent from js/ (no symbol; brief this session; sole C ref is the commented-out decl :25 — dead in C) — resolve by-design or port module-local (C static).
 - [ ] `shknam.c` free_eshk — C shknam.c:569–576 `free ESHK + isshk=0` absent from js/ (no symbol; brief this session; sole src ref is extern.h:2981 decl — dead in src, util/sfctool.c twin is tooling) — resolve by-design (GC) or port.
 - [ ] `vault.c` free_egd — C vault.c:35–42 `free EGD + isgd=0` absent from js/ (no symbol; brief this session; sole src ref is extern.h:3548 decl — dead in src, util/sfctool.c twin is tooling) — resolve by-design (GC) or port.
+- [ ] `hacklib.c` dist2 mon.js duplicate removal — C hacklib.c:673–678 `dx*dx+dy*dy` call absent from js/ importers (duplicate export js/mon.js:1124 instead of live js/hacklib.js:23; brief this session: 2 exports, 10 importers on the wrong-locus mon.js edge + 2 internal mon.js uses); rewire all to the C-locus export, delete duplicate.
+- [ ] `rm.h` m_at shknam.js clone removal — C rm.h:510–511 MON_AT-gated lookup call absent from js/shknam.js (local clone :268 with 2 live call sites :624/:677 instead of importing live js/mon.js:1749; C body + 188 refs in brief this session, JS read this session); rewire both sites to the live export, delete clone.
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
