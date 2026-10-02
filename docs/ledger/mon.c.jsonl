@@ -42,7 +42,7 @@
 {"fn":"copy_mextra","c":"2597-2646","status":"unknown"}
 {"fn":"dealloc_mextra","c":"2649-2673","status":"unknown"}
 {"fn":"dealloc_monst","c":"2676-2691","status":"ported","js":["js/mon.js:dealloc_monst"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/mon.js:3479; dog.c:959->dog.js:1498, mon.c:2499->mon.js:3507, mon.c:2555->mon.js:3718, zap.c:740->zap.js:2880 wired, save.c:909 named omit"}
-{"fn":"mon_leaving_level","c":"2696-2730","status":"unknown"}
+{"fn":"mon_leaving_level","c":"2696-2730","status":"ported","js":["js/mon.js:mon_leaving_level"],"d":["D-3279"],"at":"2026-10-02@3d8fe9bf9"}
 {"fn":"m_detach","c":"2734-2803","status":"ported","js":["js/mhitm.js:m_detach"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"unknown"}
 {"fn":"mlifesaver","c":"2827-2836","status":"unknown"}

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `makemon.c` makemon — C makemon.c:1295 `place_monster(mtmp, x, y)` grid-place call absent from js/makemon.js:makemon (:3475–3482 deferred comment only; callee live js/steed.js; C+JS-read; warn: naive grid write regresses per comment — movement parity first) @675a0c998 **Addressed:** D-3278
+- [x] `dog.c` keepdogs — C dog.c:862–863 `relmon(mtmp, &gm.mydogs)` call absent from js/dog.js:keepdogs follower arm (:522–537 inline fmon splice + unshift; doc :525–529 names take-off-map; naive await regressed 6 REACH + public RNG — needs measured delta, C+JS-read) @b7d842138 **Addressed:** D-3279
+
+
+- [x] `makemon.c` makemon — C makemon.c:1295 `place_monster(mtmp, x, y)` grid-place call absent from js/makemon.js:makemon (:3475–3482 deferred comment only; callee live js/steed.js; C+JS-read; warn: naive grid write regresses per comment — movement parity first) @675a0c998 **Addressed:** D-3278 `3d8fe9bf9`
 
 
 - [x] `do.c` goto_level — C do.c:1541–1570 Gehennom amulet mysteryforce arm (rn2 gate, assign_rnd_level, W-tower diff=0, pline, mysteryforce increment, same-level safe_teleds/next_to_u return) absent from js/do.js:goto_level (:1675 named; blocks same-level safe_teleds per D-2815 omit) @4f422de21 **Addressed:** D-3277 `e14cd5d30`

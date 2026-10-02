@@ -12,7 +12,7 @@
 {"fn":"mon_catchup_elapsed_time","c":"627-724","status":"ported","js":["js/dog.js:mon_catchup_elapsed_time"],"d":["D-2562"],"at":"seed@a30a7de84"}
 {"fn":"mon_leave","c":"729-763","status":"ported","js":["js/dog.js:mon_leave"],"d":["D-3115"],"at":"2026-09-29@6e3bbfbe7"}
 {"fn":"keep_mon_accessible","c":"768-785","status":"unknown"}
-{"fn":"keepdogs","c":"789-884","status":"unknown","d":["D-1789","D-1783"],"at":"seed@a30a7de84"}
+{"fn":"keepdogs","c":"789-884","status":"ported","js":["js/dog.js:keepdogs"],"d":["D-3279","D-1789","D-1783"],"at":"2026-10-02@3d8fe9bf9"}
 {"fn":"migrate_to_level","c":"887-932","status":"unknown","d":["D-1198"],"at":"seed@a30a7de84"}
 {"fn":"discard_migrations","c":"938-990","status":"unknown"}
 {"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-2760"],"at":"seed@a30a7de84"}

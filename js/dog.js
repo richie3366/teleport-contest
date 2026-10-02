@@ -439,11 +439,10 @@ export function mon_leave(mtmp) {
  * `mon_leave` (`:725–763`) is live above (minvent `no_charge` /
  * `picked_container` loop, shk `set_residency`, worm-seg count riding in
  * `wormno`).
- * Named omissions: the follower arm still splices `fmon` inline
- * instead of awaiting the live `relmon` (js/mon.js) — wiring it
- * regressed 6 REACH sessions + a public-session RNG shift, so
- * `mon_leaving_level`'s take-off-map (`remove_monster` / `seemimic` /
- * `fill_pit` / `newsym`) stays unwired here.
+ * The follower arm awaits the canonical `relmon` (js/mon.js) —
+ * `mon_leaving_level` take-off-map (`remove_monster` / `seemimic` /
+ * `fill_pit` / `newsym`), fmon unlink, mydogs prepend with the nmon
+ * link. Named omissions: none in-body — whole C body live.
  * @param {boolean} pets_only true for ascension or final escape
  */
 export async function keepdogs(pets_only = false) {
@@ -520,17 +519,11 @@ export async function keepdogs(pets_only = false) {
             }
 
             // C `:861` mon_leave (seg count rides in wormno) then
-            // `:862–863` relmon(mtmp, &gm.mydogs) — unlink from fmon,
-            // then prepend (LIFO, so the last kept arrives first).
-            // Named omissions: relmon's mon_leaving_level take-off-map
-            // (remove_monster / seemimic / fill_pit / newsym) — wiring
-            // this arm to `await relmon` regressed the fortress (6
-            // REACH sessions + a public-session RNG shift); the rewire
-            // ships as its own row once the delta is measured.
+            // `:862–863` relmon(mtmp, &gm.mydogs) — take-off-map,
+            // fmon unlink, mydogs prepend with the nmon link (LIFO,
+            // so the last kept arrives first).
             const numSegs = mon_leave(mtmp);
-            const gone = (game.fmon || []).indexOf(mtmp);
-            if (gone >= 0) game.fmon.splice(gone, 1);
-            game.mydogs.unshift(mtmp);
+            await relmon(mtmp, game.mydogs);
             mtmp.mx = 0; /* mx==0 implies migrating */
             mtmp.my = 0;
             mtmp.wormno = numSegs; /* C `:865` — seg count rides in wormno */

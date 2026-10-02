@@ -67,13 +67,13 @@ import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag, m
 import { may_dig, fill_pit } from './dig.js';
 import { newsym, pline, pline_mon, pline_The, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible, describe_level } from './display.js';
 import { online2, level_difficulty } from './hacklib.js';
-import { worm_cross, level_mon_at, remove_worm, place_wsegs, count_wsegs } from './worm.js';
+import { worm_cross, level_mon_at, remove_worm, remove_monster_xy, place_wsegs, count_wsegs } from './worm.js';
 import { On_W_tower_level, In_W_tower } from './dungeon.js';
 import { Monnam, mon_nam, hliquid, pmname, mon_pmname, Mgender, s_suffix } from './do_name.js';
 import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
 import { any_light_source, emits_light, new_light_source, del_light_source } from './light.js'; // C: mon.c movemon :1332 arm (same 99-module SCC; hoisted fn, runtime use only)
 import { fightm, mondead, mondied, grow_up, mon_to_stone, monstone } from './mhitm.js';
-import { remove_monster, place_monster } from './steed.js';
+import { place_monster } from './steed.js';
 import { engr_at, del_engr_at, sengr_at } from './engrave.js';
 import { visible_region_at, is_poisoncloud_region } from './region.js';
 import { were_change, new_were } from './were.js';
@@ -2113,6 +2113,12 @@ export async function maybe_mnexto(mtmp) {
  * keeps the stale coords valid). `m_at` is the rm.h grid read (heads
  * on fmon, segs on _level_monsters — D-1565). Async only because the
  * port's unstuck awaits docrt on swallow release.
+ * Grid removal is the flag-free `remove_monster_xy` (C rm.h:534 is a
+ * pure grid clear; C sets MON_OFFMAP only at mnearto:4051 and
+ * wizcmds:99, both explicit at the call site). The steed.js flagging
+ * variant would stick MON_OFFMAP on a live migrant (D-3279: pet
+ * arrived off-grid + flagged, m_at skipped it) — it stays for direct
+ * movement/combat callers only (D-1231).
  */
 export async function mon_leaving_level(mon) {
     const mx = mon.mx | 0, my = mon.my | 0;
@@ -2140,7 +2146,8 @@ export async function mon_leaving_level(mon) {
         if (mon.wormno) {
             remove_worm(mon);
         } else {
-            remove_monster(mx, my);
+            /* C rm.h:534 — pure grid clear, no mstate change. */
+            remove_monster_xy(mx, my);
         }
     }
     if (onmap) {
@@ -3672,10 +3679,10 @@ export async function mongone(mtmp) {
  * (fire-and-forget, execution continues). The `!mon` guard is
  * defensive (C declares NONNULLARG1; every call site passes live mtmp).
  * Canonical export (C home; promoted from the dog.js local clone).
- * Live C callers wired: dog.c:618 mon_arrive failed_arrivals
- * (js/dog.js awaits this). Named: dog.c:863 keepdogs follower arm
- * (inline; awaiting regressed 6 REACH + public RNG), dog.c:906
- * migrate_to_level (js/teleport.js inline), mon.c:2531 replmon
+ * Live C callers wired: dog.c:618 mon_arrive failed_arrivals +
+ * dog.c:863 keepdogs follower arm (js/dog.js awaits this; the take-off
+ * uses flag-free remove_monster_xy — D-3279). Named: dog.c:906
+ * migrate_to_level (js/teleport.js inline, sync), mon.c:2531 replmon
  * below (sync; inline fmon splice without the panics).
  */
 export async function relmon(mon, list) {

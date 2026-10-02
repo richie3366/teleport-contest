@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3279 — `dog.c` keepdogs relmon wiring + `mon.c` mon_leaving_level flag-free take-off
+
+- **Status:** shipped (Open corpus-residual row `dog.c` keepdogs checked off; no review cited, no stamp owed)
+- **Symptom:** queue row: C dog.c:862–863 `relmon(mtmp, &gm.mydogs)` absent from js/dog.js keepdogs follower arm (inline fmon splice + unshift, no nmon link, no take-off-map); naive `await relmon` regressed 6 REACH + public RNG (D-3273) — row demanded a measured delta. Measured: naive wiring regressed 5 REACH-smoke sessions + 3 cohort (seed0007/seed0012/seed0383). Per-arm bisect isolated `remove_monster`'s MON_OFFMAP-set: migrating pet id=52 took the flag at take-off, arrived off-grid with it stuck (arrival never re-places it — trace shows zero `place_monster` for the pet), `m_at` skipped it → missing-mon screens + later RNG-branch divergence. C rm.h:534 `remove_monster` is a pure grid clear and C sets MON_OFFMAP in exactly 2 call sites (mon.c:4051, wizcmds.c:99), so the take-off must not flag.
+- **C locus:**
+  - `keepdogs`: nethack-c/upstream/src/dog.c:789–884 whole body (this iter wires :862–863 `relmon(mtmp, &gm.mydogs)`; :864–866 mx/my/wormno/mlstmv tail kept after).
+  - `mon_leaving_level`: nethack-c/upstream/src/mon.c:2696–2732 whole body (this iter swaps the :2706–2711 removal to the flag-free variant; mtrapped/unstuck/mundetected/seemimic/fill_pit/newsym/polearm arms unchanged).
+- **JS was:** keepdogs follower arm spliced fmon inline + `mydogs.unshift` (stale nmon, no take-off-map; doc named the regression); mon_leaving_level called steed.js flagging `remove_monster`, sticking MON_OFFMAP on live migrants (and any coord-stacked fmon mon).
+- **Fix:** js/dog.js — follower arm `await relmon(mtmp, game.mydogs)` (canonical js/mon.js export, pre-existing import edge; no new module edge), doc omission retired. js/worm.js — `remove_monster_xy` (pre-existing pure grid clear) exported with a take-off-must-use-this doc. js/mon.js — mon_leaving_level calls `remove_monster_xy` (worm import edge pre-existed; steed `remove_monster` dropped — sole use was this site); relmon doc updated (dog.c:863 now wired). js/steed.js — flagging `remove_monster` kept for direct movement/combat callers (D-1231 gulpmm adaptation) with a must-not-use-from-take-off doc guard. Death path unaffected (mhp=0 set adjacent, m_at dead-skips); mnearto keeps its explicit C:4051 flag-set. Aligns with D-3278 (rm.h remove is grid-only).
+- **JS:** js/dog.js:448 (keepdogs), :526 relmon await; js/mon.js:2123 (mon_leaving_level), :2150 grid-only removal, :3682 relmon doc; js/worm.js:53 (remove_monster_xy export); js/steed.js:1225 doc guard.
+- **Callers:**
+  - `keepdogs`: C do.c:1624 → js/do.js:1745 (goto_level nofollowers gate); C end.c:1298 → js/end.js:1193 (ascension/escape pets-only); C wizcmds.c:116 → js/wizcmds.js:786 (makemap pets-only). All pre-wired; this iter changed the callee arm, not caller wiring.
+  - `mon_leaving_level`: via relmon (migration: mon_arrive-failed js/dog.js + keepdogs js/dog.js:526; orphan NULL arm unused in JS) · via m_detach js/mhitm.js:3845 (death; mhp=0 adjacent) · direct js/mon.js mnearto move_other (explicit OFFMAP follows, C:4051).
+- **Verify:** `node scripts/verify.mjs --fn keepdogs,mon_leaving_level` → VERIFY: PASS — syntax 4 files · rule2 · hidden notes (no corpus session blocked on either) · reach ×2: no RNG-tagged reach, smoke spreads 24/24 PASS each → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 + manual `frozen/ps_test_runner.mjs sessions` 44/44 PASS (speed 329+1.63/turn, R² 0.777). Naive-wiring baseline for the delta: 5 REACH-smoke + 3 cohort regressed (distfleeck/u_collide_m/obj_resists RNG sites, level_tele missing-mon screens). No maintained unit harness exists (no tests/ dir); corpus REACH + full suite are the durable checks.
+- **Named omissions:**
+  - `keepdogs`: none in-body — whole C body live.
+  - `mon_leaving_level`: none in-body — whole C body live (take-off removal now C-exact; no other arm touched).
+- **Ledger:** keepdogs ported; mon_leaving_level ported
+- **Next:** `dog.c` migrate_to_level row stays Open (sync, 13 JS call sites incl. sync mklev/mon paths — async propagation too big for this cluster); its future wiring inherits the flag-free take-off. Coverage block still empty (D-3272 generator precedent); density exception stands (~30 ins).
+
 ## D-3278 — `makemon` grid place (`makemon.c:1295`) + m_move/dog_move parity + bones/shk leak fixes
 
 - **Status:** shipped (Open corpus-residual `makemon.c` makemon row checked off; no review cited, no stamp owed)
