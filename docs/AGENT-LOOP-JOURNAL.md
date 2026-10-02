@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3312 `sfbase.c` save-proc sextet (sf_init head + sfvalue_any + 4 unqueued micro-gaps, all by-design)
+
+**C locus:** - `sf_init`: nethack-c/upstream/src/sfbase.c:647–655 — sfoprocs/sfiprocs[invalid]=zero*, [historical]=historical_*; sfoflprocs/sfiflprocs[exportascii]=zero*; sole caller initoptions_init options.c:7129.
+**JS:** - `sf_init`: no symbol (by-design) — the sfoprocs/sfiprocs/sfoflprocs/sfiflprocs tables have no JS container: JS dispatches on `fnidx === FNIDX_HISTORICAL` + structlevel/fieldlevel directly (e.g. js/files.js:1075–1085, docblock :1058–1064 citing sf_init :651/:653); materializing tables nothing reads would be dead scaffolding, and the historical_sfo_procs contents live outside sfbase.c (sfstruct.c:149).
+**Change:** none in `js/` — six by-design resolutions, documented here and booked via Ledger (D-3302/D-3304 precedent).
+**Verify:** `node scripts/verify.mjs --fn sf_init,sfvalue_any,sf_setprocs,sf_setflprocs,sfvalue_bitfield,bitfield_dump` → syntax PASS (0 changed js files) · Rule #2 PASS · hidden note ×6 (no corpus session blocked — normal for coverage) · REACH-OK ×6 (smoke spread 24/24 PASS each, no RNG-tagged reach) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+**Named:** - `sf_init`: the tables themselves — sfoprocs/sfiprocs/sfoflprocs/sfiflprocs + zero/historical contents have no JS container (installed configuration compiled into the sfo_/sfi_ dispatch arms).
+**Next:** continue the missing-arm list (`cmd.c` do_rush_northwest head + 6 siblings); `sfbase.c` norm_ptrs_* C-0 empty-hook family (73 ledger-absent) left for a family-batch decision.
 ## 2026-10-02 — D-3311 `monst.c` monst_globals_init missing erinys-reset effect (review 2266 Must-fix)
 
 **C locus:** nethack-c/upstream/src/monst.c:71–76 — `memcpy(mons, mons_init, sizeof mons)`. Second live writer of C `mons[]`: mon.c:5918–5966 `adj_erinys` (mflags1, mattk[0..2], mlevel, difficulty of mons[PM_ERINYS]; callers attrib.c:1309 + restore.c:727). Review 2266 bounded the live-writer set at {role_init, adj_erinys} (zero `data->` permonst-field writes, zero direct `mons[i].field =` writes, role.c:2109 infravision fixup inside `#if 0`).

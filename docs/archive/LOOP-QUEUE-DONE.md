@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `monst.c` monst_globals_init missing erinys-reset effect — C `monst.c:74` memcpy restores ALL of mons[] incl. mons[PM_ERINYS] written by live `adj_erinys` (mon.c:5918–5966), but js/monsters.js:monst_globals_init clears only the pm_fixup overlay (erinys mutates baseline arrays via js/monsters.js:adj_erinys, reset by reset_erinys :270 which is never called here) — call same-module reset_erinys() inside + fix sole/only/immutable wording; verify full 44/44 + adj_erinys(60)→init→baseline probe. Source: reviews/loop-unattended/2266-2bcda1027-monst-globals-init.md @2bcda1027 **Addressed:** D-3311
+- [x] `sfbase.c` sf_init — C `sfbase.c:647–655` absent from js/ (no symbol; procs-table init: sfoprocs/sfiprocs invalid+historical, sfofl/sfifl exportascii); sole C caller options.c:7129 — resolve by-design (no sf procs layer in JS) or port (brief 2026-10-02) @b2e34fd56
+- [x] `sfbase.c` sfvalue_any — C `sfbase.c:449–457` absent from js/ (no symbol; static-buf PRId64 of a_int64); C refs fwd decl :23 + `Sfvalue_any` macro :53 only — resolve by-design or port (brief 2026-10-02) @b2e34fd56
+
+
+- [x] `monst.c` monst_globals_init missing erinys-reset effect — C `monst.c:74` memcpy restores ALL of mons[] incl. mons[PM_ERINYS] written by live `adj_erinys` (mon.c:5918–5966), but js/monsters.js:monst_globals_init clears only the pm_fixup overlay (erinys mutates baseline arrays via js/monsters.js:adj_erinys, reset by reset_erinys :270 which is never called here) — call same-module reset_erinys() inside + fix sole/only/immutable wording; verify full 44/44 + adj_erinys(60)→init→baseline probe. Source: reviews/loop-unattended/2266-2bcda1027-monst-globals-init.md @2bcda1027 **Addressed:** D-3311 `bdd35be25`
 
 
 - [x] `options.c` handler_symset — C `options.c:6321–6328` absent from js/ (no symbol; `staticfn` do_symset wrapper + opt_need_redraw, callee symbols.c:do_symset by-design); 2 C callers options.c:3583,:4228 — port whole, callee named (brief 2026-10-02) @c50c91230

@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-3312 — `sfbase.c` save-proc sextet (sf_init head + sfvalue_any + 4 unqueued micro-gaps, all by-design)
+
+- **Status:** shipped (2 Open missing-arm `sfbase.c` rows checked off + archived — sf_init head, sfvalue_any; sf_setprocs/sf_setflprocs/sfvalue_bitfield/bitfield_dump same-file unqueued gaps booked directly, D-3304 precedent; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: every same-file gap with C ≥ 1 ships here (`ledger.mjs file sfbase.c`: 89 functions; the other 73 absent are C-0 empty norm_ptrs_* hooks with no portable behavior — family batch left to Next); callee closures empty (all six callee-free; sf_init's table stores have no JS container).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all six). Save-format proc-table init + setters and ASCII-export value formatters with no JS symbol.
+- **C locus:**
+  - `sf_init`: nethack-c/upstream/src/sfbase.c:647–655 — sfoprocs/sfiprocs[invalid]=zero*, [historical]=historical_*; sfoflprocs/sfiflprocs[exportascii]=zero*; sole caller initoptions_init options.c:7129.
+  - `sfvalue_any`: nethack-c/upstream/src/sfbase.c:449–457 — static-buf PRId64 of a->a_int64; refs are fwd decl :23 + Sfvalue_any macro :53/:88 only (macro never expanded — whole-tree scan: only Sfvalue_char ×2 / Sfvalue_genericptr ×2 expand, at :252/:285/:294/:325).
+  - `sf_setprocs`: nethack-c/upstream/src/sfbase.c:658–662 — sfoprocs[idx]=*sfo, sfiprocs[idx]=*sfi; 0 references in pinned C.
+  - `sf_setflprocs`: nethack-c/upstream/src/sfbase.c:664–669 — sfoflprocs[idx]=*flsfo, sfiflprocs[idx]=*flsfi; 0 references in pinned C (confirms js/files.js:1064).
+  - `sfvalue_bitfield`: nethack-c/upstream/src/sfbase.c:608–614 — static-buf %u of *a; refs are fwd decl :45 + macro :115 only (never expanded).
+  - `bitfield_dump`: nethack-c/upstream/src/sfbase.c:617–623 — identical static-buf %u body; ref is fwd decl :47 only.
+- **JS was:** no symbols for any of the six (sym.mjs NOT FOUND ×6); live sf scalar layer in js/files.js (sfo_char :1070, sfo_uchar :1096, sfo_version_info :1122 — D-2973/D-3080) with sf_init's installed configuration compiled into the dispatch arms; sole-caller initoptions_init live js/options.js:8835 already carrying the sf_init named omit (:8849 + doc :8822–8823).
+- **Fix:** none in `js/` — six by-design resolutions, documented here and booked via Ledger (D-3302/D-3304 precedent).
+- **JS:**
+  - `sf_init`: no symbol (by-design) — the sfoprocs/sfiprocs/sfoflprocs/sfiflprocs tables have no JS container: JS dispatches on `fnidx === FNIDX_HISTORICAL` + structlevel/fieldlevel directly (e.g. js/files.js:1075–1085, docblock :1058–1064 citing sf_init :651/:653); materializing tables nothing reads would be dead scaffolding, and the historical_sfo_procs contents live outside sfbase.c (sfstruct.c:149).
+  - `sfvalue_any`: no symbol (by-design) — dead in C (macro never expanded); ASCII-export debug formatter with no JS counterpart (the JS fplog arm uses only live sfvalue_char/sfvalue_uchar).
+  - `sf_setprocs`: no symbol (by-design) — uncalled in C; setter for tables with no JS container.
+  - `sf_setflprocs`: no symbol (by-design) — uncalled in C (matches files.js:1064); same.
+  - `sfvalue_bitfield`: no symbol (by-design) — dead in C (macro never expanded); same debug family.
+  - `bitfield_dump`: no symbol (by-design) — decl-only in C; same.
+- **Callers:**
+  - `sf_init`: initoptions_init options.c:7129 → js/options.js:8849 — site already a named omit by design (doc :8822–8823: NHFILE proc tables, JS saves JSON via storage.js).
+  - `sfvalue_any`: none — dead in C.
+  - `sf_setprocs`: none — 0 C references.
+  - `sf_setflprocs`: none — 0 C references.
+  - `sfvalue_bitfield`: none — dead in C.
+  - `bitfield_dump`: none — decl-only in C.
+- **Verify:** `node scripts/verify.mjs --fn sf_init,sfvalue_any,sf_setprocs,sf_setflprocs,sfvalue_bitfield,bitfield_dump` → syntax PASS (0 changed js files) · Rule #2 PASS · hidden note ×6 (no corpus session blocked — normal for coverage) · REACH-OK ×6 (smoke spread 24/24 PASS each, no RNG-tagged reach) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `sf_init`: the tables themselves — sfoprocs/sfiprocs/sfoflprocs/sfiflprocs + zero/historical contents have no JS container (installed configuration compiled into the sfo_/sfi_ dispatch arms).
+  - `sfvalue_any`: whole body — dead in C; no scored caller.
+  - `sf_setprocs`: whole body — uncalled in C; no scored caller.
+  - `sf_setflprocs`: whole body — uncalled in C; no scored caller.
+  - `sfvalue_bitfield`: whole body — dead in C; no scored caller.
+  - `bitfield_dump`: whole body — decl-only in C; no scored caller.
+- **Ledger:** sf_init by-design; sfvalue_any by-design; sf_setprocs by-design; sf_setflprocs by-design; sfvalue_bitfield by-design; bitfield_dump by-design
+- **Next:** continue the missing-arm list (`cmd.c` do_rush_northwest head + 6 siblings); `sfbase.c` norm_ptrs_* C-0 empty-hook family (73 ledger-absent) left for a family-batch decision.
+
 ## D-3311 — `monst.c` monst_globals_init missing erinys-reset effect (review 2266 Must-fix)
 
 - **Status:** shipped (Must-fix row checked off + archived — review 2266 QUALITY-RISK Actionable 1; ships alone per Must-fix rule). 8 js/ insertions + 1 focused test — below the ~80 density bar, defended: Must-fix ships alone, and monst.c is a single-function file with 0 C callees (D-3308 precedent).

@@ -126,8 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `sfbase.c` sf_init — C `sfbase.c:647–655` absent from js/ (no symbol; procs-table init: sfoprocs/sfiprocs invalid+historical, sfofl/sfifl exportascii); sole C caller options.c:7129 — resolve by-design (no sf procs layer in JS) or port (brief 2026-10-02) @b2e34fd56
-- [ ] `sfbase.c` sfvalue_any — C `sfbase.c:449–457` absent from js/ (no symbol; static-buf PRId64 of a_int64); C refs fwd decl :23 + `Sfvalue_any` macro :53 only — resolve by-design or port (brief 2026-10-02) @b2e34fd56
 - [ ] `cmd.c` do_rush_northwest — C `cmd.c:1468–1472` absent from js/ (no symbol; `set_move_cmd(DIR_NW,3)` + ECMD_TIME, callee live js/cmd.js:577); 6 do_rush siblings C :1461–1514 same shape (do_rush_west ported D-3296) — port whole (brief 2026-10-02) @4265100f0
 - [ ] `cmd.c` do_rush_north — C `cmd.c:1475–1479` absent from js/ (no symbol; `set_move_cmd(DIR_N,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
 - [ ] `cmd.c` do_rush_northeast — C `cmd.c:1482–1486` absent from js/ (no symbol; `set_move_cmd(DIR_NE,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
@@ -135,6 +133,11 @@ Pop order: first unchecked here after Must-fix/coverage.
 - [ ] `cmd.c` do_rush_southeast — C `cmd.c:1496–1500` absent from js/ (no symbol; `set_move_cmd(DIR_SE,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
 - [ ] `cmd.c` do_rush_south — C `cmd.c:1503–1507` absent from js/ (no symbol; `set_move_cmd(DIR_S,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
 - [ ] `cmd.c` do_rush_southwest — C `cmd.c:1510–1514` absent from js/ (no symbol; `set_move_cmd(DIR_SW,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [ ] `cfgfiles.c` cnf_line_GDBPATH — C `cfgfiles.c:1082–1094` absent from js/ (no symbol; C staticfn, decl-only :82 — dead in C; PANICTRACE-gated file_exists + sysopt.gdbpath free/dupstr, callees live js/cfgfiles.js:425 + js/dungeon.js:267) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [ ] `cfgfiles.c` cnf_line_GREPPATH — C `cfgfiles.c:1097–1109` absent from js/ (no symbol; C staticfn, decl-only :83 — dead in C; same shape as GDBPATH, sysopt.greppath) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [ ] `invent.c` safeq_xprname — C `invent.c:2180–2184` absent from js/ (no symbol; C staticfn xprname wrapper with safeq_xprn_ctx let/dot, decl-only :27 — dead in C; callee live js/objnam.js:3807) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [ ] `invent.c` safeq_shortxprname — C `invent.c:2188–2192` absent from js/ (no symbol; C staticfn, decl-only :28 — dead in C; xprname over ansimpleoname, callees live js/objnam.js:3807 + :3007) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [ ] `cmd.c` rnd_extcmd_idx — C `cmd.c:3601–3604` absent from js/ (no symbol; `rn2(extcmdlist_length+1)-1`, 0 refs in C — dead in C; callee live js/rng.js:111) — resolve by-design or port (same C file as do_rush head; brief 2026-10-02) @bdd35be25
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

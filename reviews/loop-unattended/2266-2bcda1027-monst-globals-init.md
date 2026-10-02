@@ -25,7 +25,7 @@ Delivers the shape it
 promises — but the ≡
 claim is false (below).
 
-**Addressed:** D-3311
+**Addressed:** D-3311 `bdd35be25`
 
 Inventory:
 
