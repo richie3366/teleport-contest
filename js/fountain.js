@@ -73,7 +73,8 @@ import {
     KILLED_BY, G_GONE, M_SEEN_FIRE,
     SQKY_BOARD, BEAR_TRAP, LANDMINE, FIRE_TRAP,
     TELEP_TRAP, LEVEL_TELEP, WEB, MAGIC_TRAP, ANTI_MAGIC,
-    is_pit, is_hole, ARTICLE_A, ARM, HEAD, HAND, FINGER,
+    TT_INFLOOR, TT_LAVA,
+    is_pit, is_hole, ARTICLE_A, ARM, HEAD, HAND, FINGER, FACE,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
     POLY_NOFLAGS, UNCHANGING,
     DISP_ALWAYS, DISP_END,
@@ -112,6 +113,7 @@ import { somegold } from './steal.js';
 import { yn_function } from './getline.js';
 import { visible_region_at, create_gas_cloud } from './region.js';
 import { fruitname } from './potion.js';
+import { surface } from './sit.js';
 
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -269,9 +271,22 @@ async function dofindgem() {
     exercise(A_WIS, true);
 }
 
-/** C ref: fountain.c floating_above — dip/drink while levitating. */
+/**
+ * C ref: fountain.c floating_above `:21–32` — dip/drink/dodown while
+ * levitating. Default "floating high above"; the `:25–30` arm (utrap &&
+ * utraptype INFLOOR/LAVA, only reachable via dodown since fountains and
+ * sinks never sit on such traps) overrides with "trapped in the %s" +
+ * surface(u.ux,u.uy). You(umsg, what) in C order.
+ */
 export async function floating_above(what) {
-    await pline(`You are floating high above the ${what}.`);
+    const u = game.u || {};
+    let umsg = 'are floating high above the %s.';
+    if (u.utrap && ((u.utraptype | 0) === TT_INFLOOR
+        || (u.utraptype | 0) === TT_LAVA)) {
+        umsg = 'are trapped in the %s.';
+        what = surface(u.ux, u.uy); /* probably redundant */
+    }
+    await You(umsg, what);
 }
 
 /** C ref: do_name.c a_monnam — ARTICLE_A (hallu deferred). */
@@ -330,7 +345,7 @@ export async function breaksink(x, y) {
  * C ref: fountain.c sink_backs_up — kick/drink mud + once-per-sink ring.
  * Branch envelope: Blind/Deaf msg; Flupp prefix when !Deaf; S_LRING gate
  * → You_see ring + mkobj_at RING_CLASS + exercise DEX/WIS.
- * Named omit: body_part(FACE) poly forms (humanoid "face").
+ * Blind+Deaf arm uses live body_part(FACE) (D-3318; was humanoid "face").
  */
 export async function sink_backs_up(x, y) {
     const u = game.u || {};
@@ -339,7 +354,7 @@ export async function sink_backs_up(x, y) {
     let buf;
     if (!Blind) buf = 'Muddy waste pops up from the drain';
     else if (!Deaf) buf = 'You hear a sloshing sound';
-    else buf = 'Something splashes you in the face';
+    else buf = `Something splashes you in the ${body_part(FACE)}`;
     await pline(`${!Deaf ? 'Flupp!  ' : ''}${buf}.`);
 
     const loc = game.level?.at(x, y);

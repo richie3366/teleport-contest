@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3318 `fountain.c` septet (floating_above utrap-arm head + sink_backs_up FACE fix + 5 stale-complete)
+
+**C locus:** - `floating_above`: nethack-c/upstream/src/fountain.c:21–32 — default umsg → `u.utrap && (utraptype INFLOOR||LAVA)` override + `surface(u.ux,u.uy)` → `You(umsg, what)`; 5 code call sites.
+**JS:** js/fountain.js `floating_above` (:281–291), `sink_backs_up` (:350, FACE line :357); scripts/floating-above.test.mjs (6 subtests: default/INFLOOR/LAVA/PIT message arms + humanoid/jelly FACE forms; pre-fix run failed the 2 trapped arms, post-fix 6/6).
+**Change:** ported the `:25–30` trapped arm in C order (default umsg → gate → override + `surface()` → `You(umsg, what)`); `sink_backs_up` Blind+Deaf arm now calls live `body_part(FACE)` (already imported). Added TT_INFLOOR/TT_LAVA to the const.js import + `surface` from sit.js (`imports.mjs --can`: same 102-module SCC, hoisted function, cycle-safe).
+**Verify:** `node scripts/verify.mjs --fn floating_above,sink_backs_up,dowatersnakes,dowaternymph,dofindgem,watchman_warn_fountain,dogushforth` → VERIFY: PASS — syntax 1 file, rule2 clean, 7× (hidden note: 0 blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK), green 2/2, strict 2/2, cohort 7/7, full skipped (no shared file changed). Focused `node --test scripts/floating-above.test.mjs`: 6/6.
+**Named:** - `floating_above`: none in-body — whole C body live.
+**Next:** remaining `fountain.c` ledger-unknowns need their own iterations: dryup/drinkfountain/dipfountain/drinksink/dipsink (large multi-arm bodies, unverified — each a future brief+verify); wash_hands (body complete but calls local `fingers_or_gloves` clone js/fountain.js:966 instead of live js/do_wear.js:3981 export — rewire or name); breaksink (set_levltyp inlined as typ+counts — prove equivalence with live js/trap.js:881 export or call it; shared file-level deferral with gush).
 ## 2026-10-02 — D-3317 `mon.c` sextet (mondied corpse-gate head + 4 stale-complete + pacify_guard split)
 
 **C locus:** - `mondied`: nethack-c/upstream/src/mon.c:3252–3263 — mondead → lifesaved return → corpse_chance(mdef,0,FALSE) && (accessible(mx,my)||is_pool(mx,my)) → make_corpse(mdef, CORPSTAT_NONE); 15 code call sites.

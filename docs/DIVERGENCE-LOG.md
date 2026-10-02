@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-3318 — `fountain.c` septet (floating_above utrap-arm head + sink_backs_up FACE fix + 5 stale-complete)
+
+- **Status:** shipped (Open missing-arm queue row checked off + archived — floating_above head; sink_backs_up ported with 1-line fix + 5 siblings booked stale-complete directly, D-3316/D-3317 precedent). ~30 insertions incl. `scripts/floating-above.test.mjs` — below the ~80 density bar, defended: the head's missing arm is 6 C lines and the verified-complete closure (7 small `fountain.c` functions, every C line read against JS this session) ships whole; the remaining `fountain.c` ledger-unknowns need their own iterations (Next). No review cited, no stamp owed. Refill hunt (this session): `rows --write` 0; hidden-proxy queue 30 shown, 0 eligible (all archived/parked/ported); ≈20 candidates examined via brief C+JS bodies — 17 stale-complete (visible_region_at, Is_special, monstunseesu, has_dnstairs, has_upstairs, Mgender, g_at, distmin, is_art, Some_Monnam, YMonnam, safe_oname, free_oname, monhealthdescr, pline_dir, setuqwep, setuswapwep) + 4 dead-in-C (badspot, dip_hands_ok, only_here, domenucontrols: sole ref is the fwd decl) → 0 writable rows, queue ships at 0 (D-3316 precedent: committed at 0; D-3317 at 1). finish's REFILL gate cannot pass honestly — hand-commit of the finish-prepared tree.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all seven). JS `floating_above` printed only the default "floating high above" message; C's dodown-only trapped arm ("trapped in the %s" + `surface()`) was absent. JS `sink_backs_up` hardcoded humanoid "face" in the Blind+Deaf arm.
+- **C locus:**
+  - `floating_above`: nethack-c/upstream/src/fountain.c:21–32 — default umsg → `u.utrap && (utraptype INFLOOR||LAVA)` override + `surface(u.ux,u.uy)` → `You(umsg, what)`; 5 code call sites.
+  - `sink_backs_up`: nethack-c/upstream/src/fountain.c:804–826 — Blind/Deaf buf arms (`body_part(FACE)` on Blind+Deaf) → "Flupp!  " pline → once-per-sink S_LRING ring arm; 2 code call sites.
+  - `dowatersnakes`: nethack-c/upstream/src/fountain.c:37–60 — rn1(5,2) → G_GONE gate → Blind/Hallucination pline vs Soundeffect+You_hear → makemon+mintrap loop; G_GONE pline_The arm.
+  - `dowaternymph`: nethack-c/upstream/src/fountain.c:93–116 — G_GONE+makemon gate → You/a_monnam vs You_hear → wake+mintrap; bubble/pops else arms.
+  - `dofindgem`: nethack-c/upstream/src/fountain.c:163–176 — You/You_feel → mksobj_at(rnd_class) → SET_FOUNTAIN_LOOTED → newsym → exercise WIS.
+  - `watchman_warn_fountain`: nethack-c/upstream/src/fountain.c:178–198 — is_watch+couldsee+mpeaceful gate → yell+verbalize vs shake/wave pline → TRUE/FALSE.
+  - `dogushforth`: nethack-c/upstream/src/fountain.c:119–131 — do_clear_area+gush → madepool gate → Your thirst / Water sprays.
+- **JS was:** `floating_above` (js/fountain.js:273) one-line default pline; `sink_backs_up` (js/fountain.js:357) hardcoded 'face' with a named omit; the other five complete under their own names (module-local staticfns except exported `dogushforth`).
+- **Fix:** ported the `:25–30` trapped arm in C order (default umsg → gate → override + `surface()` → `You(umsg, what)`); `sink_backs_up` Blind+Deaf arm now calls live `body_part(FACE)` (already imported). Added TT_INFLOOR/TT_LAVA to the const.js import + `surface` from sit.js (`imports.mjs --can`: same 102-module SCC, hoisted function, cycle-safe).
+- **JS:** js/fountain.js `floating_above` (:281–291), `sink_backs_up` (:350, FACE line :357); scripts/floating-above.test.mjs (6 subtests: default/INFLOOR/LAVA/PIT message arms + humanoid/jelly FACE forms; pre-fix run failed the 2 trapped arms, post-fix 6/6).
+- **Callers:**
+  - `floating_above`: do.c:1198 dodown levitation → js/do.js:3418 (stairs/ladder/surface ternary verbatim); potion.c:2343 dodip pool → js/potion.js:2579; fountain.c:250 drinkfountain → js/fountain.js:785; fountain.c:400 dipfountain → js/fountain.js:1211; fountain.c:601 drinksink → js/fountain.js:377. All wired, no caller changes.
+  - `sink_backs_up`: dokick.c:1236 → js/dokick.js:774; fountain.c:768 (dipsink) → js/fountain.js:1173 (dipsink). Both pre-wired; no caller changes.
+  - `dowatersnakes`/`dowaternymph`/`dofindgem`/`watchman_warn_fountain`/`dogushforth`: C staticfns called from drinkfountain/dipfountain/dryup/dogushforth bodies — all live at the C-named sites (js/fountain.js:562/630/255/204/715); no caller changes.
+- **Verify:** `node scripts/verify.mjs --fn floating_above,sink_backs_up,dowatersnakes,dowaternymph,dofindgem,watchman_warn_fountain,dogushforth` → VERIFY: PASS — syntax 1 file, rule2 clean, 7× (hidden note: 0 blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK), green 2/2, strict 2/2, cohort 7/7, full skipped (no shared file changed). Focused `node --test scripts/floating-above.test.mjs`: 6/6.
+- **Named omissions:**
+  - `floating_above`: none in-body — whole C body live.
+  - `sink_backs_up`: none in-body — whole C body live (FACE fix retires the named omit).
+  - `dowatersnakes`: `Soundeffect` ×2 — compiles to nothing in this build (sndprocs.h !SND_LIB_INTEGRATED → empty; js/sndprocs.js:43 void no-op).
+  - `dowaternymph`: `Soundeffect` ×3 — same no-op (see above).
+  - `dofindgem`: none in-body — whole C body live.
+  - `watchman_warn_fountain`: none in-body — whole C body live.
+  - `dogushforth`: none in-body — whole C body live (collect-then-await ≈ C callback order per D-0954).
+- **Ledger:** floating_above ported; sink_backs_up ported; dowatersnakes ported; dowaternymph ported; dofindgem ported; watchman_warn_fountain ported; dogushforth ported
+- **Next:** remaining `fountain.c` ledger-unknowns need their own iterations: dryup/drinkfountain/dipfountain/drinksink/dipsink (large multi-arm bodies, unverified — each a future brief+verify); wash_hands (body complete but calls local `fingers_or_gloves` clone js/fountain.js:966 instead of live js/do_wear.js:3981 export — rewire or name); breaksink (set_levltyp inlined as typ+counts — prove equivalence with live js/trap.js:881 export or call it; shared file-level deferral with gush).
+
 ## D-3317 — `mon.c` sextet (mondied corpse-gate head + 4 stale-complete + pacify_guard split)
 
 - **Status:** shipped (1 Open missing-arm `mon.c` row checked off + archived — mondied head; mgender_from_permonst/pm_to_cham/set_mon_min_mhpmax/egg_type_from_parent booked stale-complete + pacify_guard split directly, D-3316/D-3314 precedent; whole `mon.c` Open set now declared, 6/6). ~10 insertions — below the ~80 density bar, defended: the ledger rows list exactly 6 `mon.c` gaps and all ship here; nothing more Open in the file or callee closure. No review cited, no stamp owed. Refill per this iteration's authorization: rows --write 0 (unchanged); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/ported); 2 missing-arm rows hand-written with brief evidence (mondied ships here; floating_above stays Open).

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `mon.c` mondied — missing arm: C mon.c:3258–3260 `(accessible(mx,my) || is_pool(mx,my))` corpse gate absent from js/mhitm.js:3980 mondied (self-named omit "floor tiles always attempt"; brief 2026-10-02; callees accessible js/monmove.js:840 + is_pool js/hack.js:2080 live) @d1f323f2b **Addressed:** D-3317
+- [x] `fountain.c` floating_above — missing arm: C fountain.c:25–30 utrap/TT_INFLOOR||TT_LAVA "trapped in the %s" + surface() arm absent from js/fountain.js:273 floating_above (default message only; brief 2026-10-02; surface js/sit.js:475 live) @d1f323f2b **Addressed:** D-3318
+
+
+- [x] `mon.c` mondied — missing arm: C mon.c:3258–3260 `(accessible(mx,my) || is_pool(mx,my))` corpse gate absent from js/mhitm.js:3980 mondied (self-named omit "floor tiles always attempt"; brief 2026-10-02; callees accessible js/monmove.js:840 + is_pool js/hack.js:2080 live) @d1f323f2b **Addressed:** D-3317 `1f248868c`
 
 
 - [x] `alloc.c` dupstr_n — C `alloc.c:253–261` absent from js/ (no symbol; extern global.h:314, 0 call refs — dead in C; LARGEST_INT panic guard + lenout + alloc/strcpy, callee live js/alloc.js:52; sibling of the dupstr PARTIAL panic-guard gap) — resolve by-design or port (brief 2026-10-02) @9332ca054 **Addressed:** D-3316 `d1f323f2b`

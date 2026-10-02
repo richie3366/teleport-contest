@@ -126,8 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `fountain.c` floating_above — missing arm: C fountain.c:25–30 utrap/TT_INFLOOR||TT_LAVA "trapped in the %s" + surface() arm absent from js/fountain.js:273 floating_above (default message only; brief 2026-10-02; surface js/sit.js:475 live) @d1f323f2b
-
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;
