@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `trap.c` trapeffect_fire_trap — C trap.c:1746–1753 surface(mx,my) in both erupt plines + :1736 seetrap(trap) hero branch absent from js/trap.js:trapeffect_fire_trap (:4840 const surf = 'floor' // surface() deferred; hero :4829–4832 dofiretrap-only; surface live js/sit.js, seetrap live js/trap.js) @6ea16ae6e **Addressed:** D-3267
+
+
 - [x] `hack.c` check_capacity — C hack.c:4402–4406 pline1(str)/You_cant immediate-message arms absent from js/pickup.js:check_capacity (:4716 local-only clone; :4719 fire-and-forget game._check_capacity_msg; C has 13 call sites incl apply/dothrow/eat/engrave/pickup/read/spell/teleport/trap/uhitm/zap) @6ea16ae6e
 
 

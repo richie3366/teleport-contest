@@ -4820,13 +4820,16 @@ export async function ignite_items(objchn) {
 }
 
 /**
- * C ref: trap.c trapeffect_fire_trap — monster branch (hero → dofiretrap).
- * Envelope: d(2,4); resists_fire shield; else thitm / rn2(num+1) mhpmax;
- * golem alt HP; burnarmor || rn2(3) → destroy_items(AD_FIRE) + ignite + HP.
- * Named omissions: surface(); shieldeff.
+ * C ref: trap.c:1730–1822 trapeffect_fire_trap, whole body in C order.
+ * Hero: seetrap + dofiretrap. Monster: d(2,4); surface() erupt wording
+ * via pline_mon (seen) / You_see (unseen); resists_fire shieldeff;
+ * else golem alt HP + thitm / rn2(num+1) mhpmax; burnarmor || rn2(3) →
+ * destroy_items(AD_FIRE) + ignite + xtradmg; burn_floor_objects smell;
+ * melt_ice; DEADMONSTER + seetrap tail.
  */
 export async function trapeffect_fire_trap(mtmp, trap, _trflags) {
     if (is_youmonst(mtmp)) {
+        seetrap(trap); // C :1736
         await dofiretrap(null);
         return Trap_Effect_Finished;
     }
@@ -4837,12 +4840,10 @@ export async function trapeffect_fire_trap(mtmp, trap, _trflags) {
     let trapkilled = false;
     const mptr = mtmp.data;
     const orig_dmg = d(2, 4);
-    const surf = 'floor'; // surface() deferred
+    const surf = surface(mtmp.mx, mtmp.my); // C :1746–1753
 
     if (in_sight) {
-        await pline(
-            `A ${TOWER_OF_FLAME} erupts from the ${surf} under ${mon_nam(mtmp)}!`,
-        );
+        await pline_mon(mtmp, 'A %s erupts from the %s under %s!', TOWER_OF_FLAME, surf, mon_nam(mtmp));
     } else if (see_it) {
         set_msg_xy(mtmp.mx, mtmp.my);
         await You_see('a %s erupt from the %s!', TOWER_OF_FLAME, surf);
@@ -4850,6 +4851,7 @@ export async function trapeffect_fire_trap(mtmp, trap, _trflags) {
 
     if (resists_fire(mtmp)) {
         if (in_sight) {
+            await shieldeff(mtmp.mx, mtmp.my); // C :1756
             await pline(`${Monnam(mtmp)} is uninjured.`);
         }
     } else {
@@ -4902,7 +4904,7 @@ export async function trapeffect_fire_trap(mtmp, trap, _trflags) {
         if (await burn_floor_objects(tx, ty, see_it, false)
             && !see_it
             && dist2(game.u?.ux | 0, game.u?.uy | 0, tx, ty) <= 3 * 3) {
-            await pline('You smell smoke.');
+            await You('smell smoke.'); // C :1809
         }
         if (is_ice(tx, ty)) await melt_ice(tx, ty, null);
     }

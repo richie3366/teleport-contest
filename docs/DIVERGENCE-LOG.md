@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3267 — `trap.c` trapeffect_fire_trap whole-body completion (hero seetrap, surface() erupt wording, shieldeff, pline_mon; retires surface omit)
+
+- **Status:** shipped (Open corpus-residual row `trapeffect_fire_trap` checked off and archived; no review cited, no stamp owed)
+- **Symptom:** queue row: C trap.c:1746–1753 surface(mx,my) in both erupt plines + :1736 seetrap(trap) hero branch absent from js/trap.js:trapeffect_fire_trap (:4840 `const surf = 'floor'`; hero :4829–4832 dofiretrap-only). Same read found two more in-body gaps: the resists_fire arm skipped shieldeff (C :1756), and the seen erupt used pline instead of C's pline_mon (C :1743–1746, sets msg_xy).
+- **C locus:**
+  - `trapeffect_fire_trap`: nethack-c/upstream/src/trap.c:1730–1822 — :1736 hero seetrap; :1743–1753 pline_mon/You_see erupt with surface(mx,my); :1755–1758 resists_fire shieldeff + uninjured; :1759–1791 golem alt-HP + thitm / rn2(num+1) mhpmax; :1793–1807 burnarmor||rn2(3) destroy_items(AD_FIRE) + ignite + xtradmg; :1808–1812 burn_floor_objects smell + melt_ice; :1813–1819 DEADMONSTER/seetrap tail + Trap_* return.
+- **JS was:** js/trap.js:4828 — hero branch dofiretrap-only; `const surf = 'floor'`; seen erupt via template-literal pline; resists_fire arm pline-only; smell via pline('You smell smoke.'). Doc comment named the omits (`surface(); shieldeff`).
+- **Fix:** js/trap.js only, +11/−9, no new module edge (surface already imported :176 on the pre-existing trap→sit edge — `imports.mjs --can` ALREADY; pline_mon/shieldeff/You/seetrap all in-scope): hero `seetrap(trap)` before dofiretrap (C :1736); `surface(mtmp.mx, mtmp.my)` in both erupt plines (C :1746–1753); seen erupt via `pline_mon(mtmp, 'A %s erupts from the %s under %s!', …)` (C :1743); `await shieldeff(…)` in the resists_fire arm (C :1756); smell via `You('smell smoke.')` (C :1809); doc comment rewritten to the whole-body envelope. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files. Single-function cluster: trap.c ledger all measured ok, callee closure all live — the below-80 exception applies.
+- **JS:** 1 file (js/trap.js). Under the 1500/15 caps.
+- **Callers:**
+  - `trapeffect_fire_trap`: signature unchanged — trap.c:2317 trapeffect_magic_trap → js/trap.js:5254 (in trapeffect_magic_trap :5231, same-file); trap.c:2958 trapeffect_selector → js/trap.js:6076 (in trapeffect_selector :6049, same-file). Both C call sites wired; new arms are path-gated (hero fire-trap, seen-monster erupt wording, fire-resist shield, smoke smell) so only those paths can trigger them.
+- **Verify:**
+  - `trapeffect_fire_trap`: `node scripts/verify.mjs --fn trapeffect_fire_trap` → VERIFY: PASS (syntax 1 file; rule2; hidden note "no corpus session blocked at baseline" — normal for a coverage row; reach: 15 baseline-PASS sessions reach it, 15 run / 15 PASS / 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped — trap.js not a shared file).
+- **Named omissions:**
+  - `trapeffect_fire_trap`: none in-body — whole C body live (pre-existing local notes kept: dofiretrap/thitm same-file file-local targets with the brief-noted clone-drift pointer, destroy_items/burn_floor_objects/is_ice/melt_ice via dynamic zap.js import on the documented trap↔zap cycle, DEADMONSTER via mhp≤0, distu via dist2 — all pre-existing, untouched).
+- **Ledger:** trapeffect_fire_trap ported; dungeon.c:surface ported
+- **Next:** do not re-pop trapeffect_fire_trap (whole) or surface (fire-trap omit retired). Remaining Open corpus residuals live in other C files (use_stethoscope apply.c, invault vault.c, exercise attrib.c, exclam zap.c, mbirth_limit makemon.c, relmon mon.c, priestname priest.c) — each needs its own cluster; coverage block is empty (regenerates 0 rows). No maintained test harness in-repo (no tests/ dir; sessions + verify.mjs are the gates) — REACH/green/cohort above is the durable evidence.
+
 ## D-3266 — `hack.c` check_capacity whole-body port (async export in js/hack.js, 13 call sites wired, pickup.js sync clone deleted)
 
 - **Status:** shipped (Open corpus-residual row `check_capacity` checked off and archived; no review cited, no stamp owed)

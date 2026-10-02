@@ -25,7 +25,7 @@
 {"fn":"trapeffect_bear_trap","c":"1479-1560","status":"unknown"}
 {"fn":"trapeffect_slp_gas_trap","c":"1563-1592","status":"unknown"}
 {"fn":"trapeffect_rust_trap","c":"1595-1727","status":"unknown"}
-{"fn":"trapeffect_fire_trap","c":"1730-1822","status":"unknown"}
+{"fn":"trapeffect_fire_trap","c":"1730-1822","status":"ported","js":["js/trap.js:trapeffect_fire_trap"],"d":["D-3267"],"at":"2026-10-02@66e8734cf"}
 {"fn":"trapeffect_pit","c":"1825-2010","status":"unknown"}
 {"fn":"trapeffect_hole","c":"2013-2067","status":"ported","js":["js/trap.js:trapeffect_hole"],"d":["D-2624"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_telep_trap","c":"2070-2085","status":"unknown"}
