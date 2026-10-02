@@ -1,4 +1,4 @@
-{"fn":"fingers_or_gloves","c":"60-65","status":"unknown"}
+{"fn":"fingers_or_gloves","c":"60-65","status":"ported","js":["js/do_wear.js:fingers_or_gloves"],"d":["D-3321"],"at":"2026-10-02@0debd1ae2"}
 {"fn":"off_msg","c":"68-72","status":"unknown"}
 {"fn":"on_msg","c":"76-99","status":"unknown"}
 {"fn":"toggle_stealth","c":"107-140","status":"unknown"}

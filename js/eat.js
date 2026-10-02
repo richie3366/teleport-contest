@@ -139,7 +139,7 @@ import {
     wield_tool, uwepgone, uswapwepgone, uqwepgone, welded,
 } from './wield.js';
 import { pluslvl, more_experienced, newexplevel, setuhpmax } from './exper.js';
-import { toggle_displacement, setworn, Ring_gone } from './do_wear.js';
+import { toggle_displacement, setworn, Ring_gone, fingers_or_gloves } from './do_wear.js';
 import { attrcurse, surface } from './sit.js';
 import { dismount_steed } from './steed.js';
 import { unpunish } from './read.js';
@@ -2714,11 +2714,6 @@ function the_unique_pm(ptr) {
         uniq = true;
     }
     return uniq;
-}
-
-/** C ref: potion.c / youprop fingers_or_gloves — gloves vs fingers. */
-function fingers_or_gloves(_capitalize) {
-    return game.u?.uarmg ? 'gloves' : 'fingers';
 }
 
 /**

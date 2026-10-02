@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `do_wear.c` fingers_or_gloves eat.js clone removal (audit 2269–2275) — C do_wear.c:59–65 check_gloves=FALSE arm absent from js/eat.js:2720 (clone ignores the flag, returns 'gloves' when uarmg set, so C eat.c:1774 start_tin "tin slips" prints gloves vs C fingers; gauntlets + poly-finger arms absent too); rewire js/eat.js:3825/:3993 to live js/do_wear.js:3981 (ALREADY edge), delete clone.
+
+
 - [x] `end.c` really_done — C-correct first-stack return absent from js/end.js:1225 (local summing clone js/end.js:458; C hack.c:4513–4522 money_cnt returns the first stack, live js/shk.js:4767; same rewire + whole-body brief-check as the shipped fountain twin).
 - [x] `shk.c` finish_paybill — C-correct first-stack return absent from js/end.js:1331 (local summing clone js/end.js:458; C hack.c:4513–4522, live js/shk.js:4767; C shk.c:2723; same rewire + whole-body brief-check as the shipped fountain twin).
 - [x] `monmove.c` set_apparxy — C-correct first-stack return absent from js/monmove.js:1021 (local summing clone js/monmove.js:743; C hack.c:4513–4522, live js/shk.js:4767; C monmove.c:2198; same rewire + whole-body brief-check as the shipped fountain twin).
