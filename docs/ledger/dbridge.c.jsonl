@@ -1,7 +1,7 @@
 {"fn":"is_waterwall","c":"38-43","status":"unknown"}
 {"fn":"is_pool","c":"46-59","status":"unknown","d":["D-1090"],"at":"seed@a30a7de84"}
 {"fn":"is_lava","c":"62-74","status":"unknown"}
-{"fn":"is_pool_or_lava","c":"77-83","status":"unknown"}
+{"fn":"is_pool_or_lava","c":"77-83","status":"ported","js":["js/eat.js:is_pool_or_lava"],"at":"2026-10-02@e42cd0047","note":"stale: js/eat.js:1189 whole C body (is_pool||is_lava); drawbridge-under note concerns callees"}
 {"fn":"is_ice","c":"86-97","status":"unknown"}
 {"fn":"is_moat","c":"100-113","status":"unknown"}
 {"fn":"db_under_typ","c":"116-128","status":"unknown","d":["D-1103"],"at":"seed@a30a7de84"}

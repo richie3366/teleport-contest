@@ -22,7 +22,7 @@
 {"fn":"defends_when_carried","c":"687-694","status":"unknown"}
 {"fn":"protects","c":"698-709","status":"unknown"}
 {"fn":"set_artifact_intrinsic","c":"716-893","status":"split","js":["js/artifact.js:set_artifact_intrinsic","js/artifact.js:revoke_invoked_property","js/potion.js:make_hallucinated"],"omit":"- `set_artifact_intrinsic`: HALRES talk pline (`potion.c:434–436` \"Everything %s SO boring/cosmic\", Unaware/restoring-gated) — async-only, unportable into the sync body at any of the 6 C call sites.","d":["D-3223","D-2378"],"at":"2026-10-01@8f3d63508","note":"stale: sync body complete js/artifact.js:1030 (D-3223 HALRES half); C:880-885 inv_prop via split revoke_invoked_property :1194 (dropx/zap-poly envelopes); HALRES talk live in potion.js make_hallucinated async-only (6 C call sites sync)"}
-{"fn":"touch_artifact","c":"908-974","status":"unknown","d":["D-2172","D-2134","D-2010"],"at":"seed@a30a7de84"}
+{"fn":"touch_artifact","c":"908-974","status":"ported","js":["js/artifact.js:touch_artifact"],"d":["D-2172","D-2134","D-2010"],"at":"2026-10-02@e42cd0047","note":"stale: js/artifact.js:1569 whole C body (hero blast + evade + mon helper)"}
 {"fn":"arti_immune","c":"979-990","status":"ported","js":["js/artifact.js:arti_immune"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bane_applies","c":"993-1005","status":"ported","js":["js/artifact.js:bane_applies"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:1479 (D-3126; DBONUS mask + spec_applies complete, split-path callers wired)"}
 {"fn":"spec_applies","c":"1009-1060","status":"unknown"}

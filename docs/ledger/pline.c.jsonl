@@ -14,7 +14,7 @@
 {"fn":"You_buf","c":"339-348","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"free_youbuf","c":"351-356","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"You","c":"366-374","status":"unknown"}
-{"fn":"Your","c":"377-385","status":"unknown"}
+{"fn":"Your","c":"377-385","status":"ported","js":["js/display.js:Your"],"d":["D-3258"],"at":"2026-10-02@e42cd0047","note":"stale: js/display.js:7878 whole C body (YouMessage prefix + vpline); artifact.js:1945/mhitu.js:269 clones pre-existing"}
 {"fn":"You_feel","c":"388-400","status":"ported","js":["js/display.js:You_feel"],"d":["D-2968"],"at":"2026-09-27@06237de26"}
 {"fn":"You_cant","c":"403-411","status":"unknown"}
 {"fn":"pline_The","c":"414-422","status":"unknown"}

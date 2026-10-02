@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3258 `read.c` seffect_magic_mapping Rogue blessed-scroll unblock_point + `Your` stale-declare
+
+**C locus:** - `seffect_magic_mapping`: nethack-c/upstream/src/read.c:2102–2153 — blessed-scroll SDOOR sweep :2124–2131 (Is_rogue_level-gated unblock_point :2128–2129); remainder shipped D-3254/D-3249.
+**JS:** js/read.js:343–347 `seffect_magic_mapping` blessed arm; new scripts/seffect-magic-mapping.test.mjs (2/2; pre-fix 0/2, both dying in vision_recalc from read.js:344).
+**Change:** C-exact `if (Is_rogue_level(u.uz)) unblock_point(x, y);` via live js/vision.js:482 on the pre-existing vision.js edge (extended import, no new module edge, no `imports.mjs --can` needed); per-door newsym dropped; fn doc + both module-header omission lines retired. `Your`: no code — whole C body live at js/display.js:7878 (prefix + vpline; null/empty guard shared by the five wrappers stands). ~10 js/ lines + focused test — below the density floor with the escape clause: read.c holds nothing more Open (ledger file read.c: all ok/ported) and the callee closure is fully live-or-declared after `Your` (make_confused/cvt_sdoor_to_door/unblock_point measured ok; pline/rnd/do_mapping ported).
+**Verify:** `node scripts/verify.mjs --fn seffect_magic_mapping,Your` → syntax 1 file PASS; rule2 PASS; hidden vacuous both (missing-arm row, no corpus session blocked); REACH smoke 24/24 PASS both → REACH-OK; green 2/2; strict ×2; cohort 7/7. VERIFY: PASS. `node --test scripts/seffect-magic-mapping.test.mjs` 2/2 (flag-when-seen, clear-when-unseen).
+**Named:** - `seffect_magic_mapping`: none in-body — whole C body live.
+**Next:** refill recon: coverage generator 0 rows; `hidden-proxy queue --limit 30` 0 untagged; brief-verified `d`/`Monnam`/`an` all stale-declared (whole bodies live; d's DEVEL guard compiled out per patchlevel.h:33; an's impossible-diagnostic named per notice_mon precedent) — structural exhaustion continues (D-3257). Open stands at 5 after this archive; next head `zap.c` zap_over_floor.
 ## 2026-10-02 — D-3257 `detect.c` show_map_spot oldglyph trap/object restore + do_mapping whole body (browse arm, reconstrain; async + 3 awaits)
 
 **C locus:** - `show_map_spot`: nethack-c/upstream/src/detect.c:1371–1419 — cnf rn2(7) skip, seenv=SVALL, SCORR uncover, oldglyph snapshot, hero_memory background+newsym else display-only, !FURNITURE tseen-trap/engraving/oldglyph-restore (furniture > traps > objects), room_discovered.

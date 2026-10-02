@@ -23,7 +23,7 @@
 {"fn":"mon_nam","c":"1042-1046","status":"unknown"}
 {"fn":"noit_mon_nam","c":"1054-1060","status":"unknown"}
 {"fn":"some_mon_nam","c":"1065-1071","status":"unknown"}
-{"fn":"Monnam","c":"1074-1080","status":"unknown"}
+{"fn":"Monnam","c":"1074-1080","status":"ported","js":["js/do_name.js:Monnam"],"at":"2026-10-02@e42cd0047","note":"stale: js/do_name.js:1317 whole C body (highc(mon_nam))"}
 {"fn":"noit_Monnam","c":"1083-1089","status":"unknown"}
 {"fn":"Some_Monnam","c":"1092-1098","status":"unknown"}
 {"fn":"noname_monnam","c":"1102-1105","status":"unknown"}

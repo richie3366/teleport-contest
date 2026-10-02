@@ -49,7 +49,7 @@
 {"fn":"olfaction","c":"1507-1518","status":"ported","js":["js/monsters.js:olfaction"],"at":"2026-09-29@671c54bfc","note":"stale: js/monsters.js:709; callers wired do.js:2295 eat.js:1444 makemon.js:1667 wizcmds.js:1740"}
 {"fn":"cvt_adtyp_to_mseenres","c":"1522-1536","status":"unknown"}
 {"fn":"cvt_prop_to_mseenres","c":"1540-1554","status":"unknown"}
-{"fn":"monstseesu","c":"1558-1568","status":"unknown"}
+{"fn":"monstseesu","c":"1558-1568","status":"ported","js":["js/mondata.js:monstseesu"],"at":"2026-10-02@e42cd0047","note":"stale: js/mondata.js:1052 whole C body (guard + fmon loop)"}
 {"fn":"monstunseesu","c":"1572-1582","status":"unknown"}
 {"fn":"give_u_to_m_resistances","c":"1586-1598","status":"unknown"}
 {"fn":"resist_conflict","c":"1607-1613","status":"unknown"}

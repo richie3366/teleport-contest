@@ -29,7 +29,7 @@
 {"fn":"nxtobj","c":"1479-1491","status":"unknown"}
 {"fn":"carrying","c":"1495-1504","status":"unknown"}
 {"fn":"carrying_stoning_corpse","c":"1508-1516","status":"unknown"}
-{"fn":"currency","c":"1546-1554","status":"unknown"}
+{"fn":"currency","c":"1546-1554","status":"ported","js":["js/invent.js:currency"],"at":"2026-10-02@e42cd0047","note":"stale: js/invent.js:1416 whole C body (Hallu ROLL_FROM + makeplural)"}
 {"fn":"u_carried_gloves","c":"1557-1571","status":"unknown"}
 {"fn":"u_have_novel","c":"1576-1584","status":"unknown"}
 {"fn":"o_on","c":"1587-1599","status":"unknown"}

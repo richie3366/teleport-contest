@@ -36,8 +36,8 @@
 // SCR_BLANK_PAPER seffects; SCR_IDENTIFY SPE_IDENTIFY cast; menu_identify traditional
 // ggetobj; discover_artifact / learn_egg_type in fully_identify_obj;
 // SCR_DESTROY_ARMOR live (D-2640: confused erodeproof / cursed vibrate+stun /
-// blessed getobj choice / disintegrate_cursed_armor); Rogue unblock_point
-// vs vision_recalc on blessed SDOOR; can_chant is mondata.c (D-2926);
+// blessed getobj choice / disintegrate_cursed_armor);
+// can_chant is mondata.c (D-2926);
 // SPE_REMOVE_CURSE seffects
 // arm (throne fake book D-1033; #cast still deferred);
 // Teleport_control getpos;
@@ -70,8 +70,8 @@
 // seffect_fire SCR_FIRE live; SCR_BLANK_PAPER; SCR_IDENTIFY SPE_IDENTIFY cast;
 // menu_identify traditional ggetobj; discover_artifact / learn_egg_type;
 // SCR_DESTROY_ARMOR live (D-2640: confused erodeproof / cursed vibrate+stun /
-// blessed getobj choice / disintegrate_cursed_armor); Rogue unblock_point
-// vs vision_recalc on blessed SDOOR; can_chant is mondata.c (D-2926);
+// blessed getobj choice / disintegrate_cursed_armor);
+// can_chant is mondata.c (D-2926);
 // SPE_REMOVE_CURSE seffects
 // arm (throne fake book D-1033; #cast still deferred);
 // Teleport_control getpos;
@@ -135,7 +135,7 @@ import {
     EXPL_FIERY, PLNMSG_TOWER_OF_FLAME, M_SEEN_FIRE, u_at, OBJ_AT,
     something,
 } from './const.js';
-import { vision_recalc, do_clear_area, cansee } from './vision.js';
+import { vision_recalc, do_clear_area, cansee, unblock_point } from './vision.js';
 import { valid_cloud_pos, create_gas_cloud } from './region.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { bcsign, BY_COOKIE, outrumor } from './rumors.js';
@@ -308,8 +308,8 @@ export function learnscroll(scroll) {
  * C ref: read.c seffect_magic_mapping `:2102–2153`.
  * Scroll nommap: crazy-lines + Hallu modern-art else body_part(HEAD)
  * bewilderment then make_confused(HConfusion+rnd(30), FALSE).
- * Blessed scroll converts SDOOR (Rogue unblock_point named —
- * JS vision_recalc+newsym). Spell nommap: body_part(HEAD) + something
+ * Blessed scroll converts SDOOR (Rogue unblock_point live).
+ * Spell nommap: body_part(HEAD) + something
  * blocks then same make_confused. Else "A map coalesces", cursed
  * unconfused HConfusion=1 screw (JS u.Confusion for do_mapping),
  * notice_mon_off / do_mapping / notice_mon_on. Callers: seffects
@@ -341,8 +341,9 @@ async function seffect_magic_mapping(sobj) {
                     const lev = game.level?.at(x, y);
                     if (!lev || lev.typ !== SDOOR) continue;
                     cvt_sdoor_to_door(lev);
-                    if (Is_rogue_level(u.uz)) vision_recalc(1);
-                    newsym(x, y);
+                    // C read.c:2128-2129 — Rogue level only; no
+                    // vision_recalc/newsym per door (do_mapping repaints).
+                    if (Is_rogue_level(u.uz)) unblock_point(x, y);
                 }
             }
         }

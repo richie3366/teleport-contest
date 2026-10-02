@@ -32,7 +32,7 @@
 {"fn":"short_oname","c":"2009-2085","status":"unknown"}
 {"fn":"singular","c":"2091-2105","status":"ported","js":["js/objnam.js:singular"],"d":["D-2980"],"at":"2026-09-27@68cdee2bb"}
 {"fn":"just_an","c":"2109-2142","status":"unknown"}
-{"fn":"an","c":"2145-2155","status":"unknown"}
+{"fn":"an","c":"2145-2155","status":"ported","js":["js/objnam.js:an"],"at":"2026-10-02@e42cd0047","note":"stale: js/objnam.js:2390 whole C body (just_an+str; '' falsy covers C null+empty; impossible-diagnostic named per notice_mon precedent)"}
 {"fn":"An","c":"2158-2164","status":"unknown"}
 {"fn":"the","c":"2171-2231","status":"unknown","d":["D-1487","D-1357"],"at":"seed@a30a7de84"}
 {"fn":"The","c":"2234-2240","status":"unknown"}

@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `detect.c` show_map_spot — C detect.c:1410–1413 oldglyph trap/object restore (glyph_at read + show_glyph + hero_memory lev->glyph) absent from js/detect.js:show_map_spot (:938; :970 "restore deferred", no oldglyph read) @e4afe5879
-- [x] `detect.c` do_mapping — C detect.c:1432–1442 !hero_memory||unconstrained arm (flush_screen/browse_map/map_redisplay, else reconstrain_map) absent from js/detect.js:do_mapping (:985; :1000–1003 "deferred", no reconstrain; :988 inline unconstrain skips save/clear vs live :1043) @e4afe5879
+- [x] `read.c` seffect_magic_mapping — C read.c:2128–2129 Rogue blessed-scroll `unblock_point(x, y)` absent from js/read.js:seffect_magic_mapping (:320; :344 calls vision_recalc(1) instead + per-sdoor newsym :345 with no C counterpart) @e4afe5879 **Addressed:** D-3258
+
+
+- [x] `detect.c` show_map_spot — C detect.c:1410–1413 oldglyph trap/object restore (glyph_at read + show_glyph + hero_memory lev->glyph) absent from js/detect.js:show_map_spot (:938; :970 "restore deferred", no oldglyph read) @e4afe5879 **Addressed:** D-3257 `e42cd0047`
+- [x] `detect.c` do_mapping — C detect.c:1432–1442 !hero_memory||unconstrained arm (flush_screen/browse_map/map_redisplay, else reconstrain_map) absent from js/detect.js:do_mapping (:985; :1000–1003 "deferred", no reconstrain; :988 inline unconstrain skips save/clear vs live :1043) @e4afe5879 **Addressed:** D-3257 `e42cd0047`
 
 
 - [x] `uhitm.c` passive_obj — C uhitm.c:6170–6173 AD_RUST erode_obj + :6180–6186 AD_ENCH drain_item + :6193–6195 update_inventory tail absent from js/uhitm.js:passive_obj (:3142; :3180 "ERODE_RUST deferred", :3194 "drain_item deferred", no tail call) @b3c50cbeb **Addressed:** D-3256 `1fe3dcc2a`

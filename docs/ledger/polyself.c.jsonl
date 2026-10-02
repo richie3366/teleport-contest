@@ -19,7 +19,7 @@
 {"fn":"dospinweb","c":"1497-1621","status":"unknown"}
 {"fn":"dosummon","c":"1624-1639","status":"unknown"}
 {"fn":"dogaze","c":"1642-1773","status":"unknown"}
-{"fn":"dohide","c":"1777-1874","status":"unknown","d":["D-2069"],"at":"seed@a30a7de84"}
+{"fn":"dohide","c":"1777-1874","status":"ported","js":["js/polyself.js:dohide"],"d":["D-2069"],"at":"2026-10-02@e42cd0047","note":"stale: js/polyself.js:2574 whole C body, all arms in C order (D-2069)"}
 {"fn":"dopoly","c":"1877-1890","status":"unknown"}
 {"fn":"domindblast","c":"1894-1938","status":"unknown","d":["D-1901"],"at":"seed@a30a7de84"}
 {"fn":"uunstick","c":"1941-1951","status":"unknown","d":["D-2131"],"at":"seed@a30a7de84"}
