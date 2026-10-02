@@ -43,7 +43,7 @@
 {"fn":"obj_pmname","c":"1321-1359","status":"ported","js":["js/do_name.js:obj_pmname"],"d":["D-2887"],"at":"seed@a30a7de84"}
 {"fn":"bogusmon","c":"1369-1385","status":"ported","js":["js/do_name.js:bogusmon"],"at":"2026-09-29@9798beecd","note":"stale: js/do_name.js:279, callers do_name.js:308,1736 + mcastu.js:726"}
 {"fn":"rndmonnam","c":"1389-1411","status":"ported","js":["js/do_name.js:rndmonnam"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"bogon_is_pname","c":"1415-1420","status":"unknown"}
+{"fn":"bogon_is_pname","c":"1415-1420","status":"ported","js":["js/do_name.js:bogon_is_pname"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
 {"fn":"roguename","c":"1424-1439","status":"ported","js":["js/do_name.js:roguename"],"d":["D-3203","D-2088"],"at":"2026-10-01@a5f89dd93"}
 {"fn":"hcolor","c":"1461-1466","status":"unknown","d":["D-1135"],"at":"seed@a30a7de84"}
 {"fn":"rndcolor","c":"1470-1477","status":"unknown","d":["D-1147"],"at":"seed@a30a7de84"}

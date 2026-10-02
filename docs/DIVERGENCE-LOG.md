@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3274 — `priest.c` priestname + mon_aligntyp + restpriest canonical exports; `do_name.c` bogon_is_pname export
+
+- **Status:** shipped (Open corpus-residual row `priest.c` priestname checked off; no review cited, no stamp owed)
+- **Symptom:** coverage: the queue-head row named the canonical `priestname` export absent from js/priest.js (only an unexported do_name.js clone); the same held for callee `mon_aligntyp` (clones in insight.js/teleport.js + `mon_aligntyp_nam` in do_name.js), `bogon_is_pname` (local-only in do_name.js + an objnam.js duplicate) and `restpriest` (MISSING). The priestname clone also substituted `align_gname` for C's `halu_gname`, so a hallucinating hero always saw the true god with no display-RNG draw.
+- **C locus:**
+  - `priestname`: nethack-c/upstream/src/priest.c:302–367 (67 lines).
+  - `mon_aligntyp`: nethack-c/upstream/src/priest.c:280–289.
+  - `bogon_is_pname`: nethack-c/upstream/src/do_name.c:1415–1420.
+  - `restpriest`: nethack-c/upstream/src/priest.c:933–939.
+- **JS was:** js/do_name.js:929 unexported `priestname` clone (+ `:914` exported `mon_aligntyp_nam` in the wrong file); js/insight.js:1664 + js/teleport.js:358 local `mon_aligntyp` clones; js/do_name.js:292 local-only `bogon_is_pname` + js/objnam.js:1523 `bogon_is_pname_objnam` duplicate; `restpriest` absent everywhere.
+- **Fix:** canonical `export function priestname/mon_aligntyp/restpriest` in js/priest.js (C home), `export function bogon_is_pname` in js/do_name.js (C home); deleted the do_name/insight/objnam clones and rewired every caller to the canonicals. priestname keeps the clone's C order/call shape and gains the missing `halu_gname` Hallu tail as a sync mirror (same `rn2_on_display_rng` draw sequence over the pray.js table, now module-scope `HALU_GODS`); the live `halu_gname` is async-only via unreachable impossible()s, unwirable from the sync x_monnam path (`void impossible` precedent: do_name obj_pmname, trap.js, rumors.js getrumor).
+- **JS:** js/priest.js:155 `mon_aligntyp`, js/priest.js:180 `priestname`, js/priest.js:781 `restpriest`, js/do_name.js:299 `bogon_is_pname`, js/pray.js:2780 `HALU_GODS`.
+- **Callers:**
+  - `priestname`: do_name.c:898 → js/do_name.js:994 x_monnam (imports the canonical; EHalluc_resistance/minvis suppression block untouched).
+  - `mon_aligntyp`: artifact.c:933 → js/artifact.js:1549 (touch_artifact badalign); insight.c:3277 → js/insight.js:1681 (mstatusline); priest.c:364 → js/priest.js:227 (priestname tail arg, hoisted for C order); monst.h:282 is_lminion → js/teleport.js:371 (pre-existing D-1110 cycle-avoidance clone, kept — makemon→teleport edge still real); priest.c:372 p_coaligned → js/priest.js:273 keeps its pre-existing raw-shralign inline (own function, out of cluster).
+  - `bogon_is_pname`: do_name.c:955 → js/do_name.js:1040 (unchanged); priest.c:323 → js/priest.js:195 (import); rumors.c:890 → js/objnam.js:1605 (rewired from the deleted duplicate); do_name.c:1362 is a comment.
+  - `restpriest`: restore.c:449 → no JS site (binary save/restore by-design; live export for future wiring).
+- **Verify:** `node scripts/verify.mjs --fn priestname,mon_aligntyp,bogon_is_pname,restpriest` → syntax (6 files) PASS, rule2 PASS, 4× `no corpus session blocked` + smoke-spread REACH-OK (24/24 each), green 2/2, strict 2/2, cohort 7/7, VERIFY: PASS. Full `sessions`: 44/44 PASS (every per-session RNG + screen count matched). /tmp/probe-priestname.mjs 15/15: Hallu tail byte-identical to live `halu_gname` at equal display-RNG state (4 seeds), non-hallu shape, aligntyp sign table, bogon, restpriest guards. Imports: 8 `--can` edges all hoisted-fn SAFE or lazy-const (102-module SCC; no top-level TDZ reads).
+- **Named omissions:**
+  - `priestname`: none in-body — whole C body live (Hallu tail is a sync mirror of the live export over the shared table).
+  - `mon_aligntyp`: none in-body — whole C body live (callers: teleport D-1110 clone + p_coaligned inline, both pre-existing).
+  - `bogon_is_pname`: none in-body — whole C body live.
+  - `restpriest`: none in-body — whole C body live (C caller restore.c:449 binary-restore by-design).
+- **Ledger:** priestname ported; mon_aligntyp ported js=priest.js:mon_aligntyp; bogon_is_pname ported; restpriest ported
+- **Next:** priest.c now holds nothing more Open (inhistemple/forget_temple_entry/ghod_hitsu PARTIALs owned by prior D rows). If p_coaligned's raw-shralign inline ever diverges (non-canonical shralign), it earns its own row.
+
 ## D-3273 — `mon.c` relmon canonical export + replmon light/set_ustuck/replshk arms + `shk.c` replshk
 
 - **Status:** shipped (Open corpus-residual rows `mon.c` relmon + `mon.c` replmon checked off; no review cited, no stamp owed)

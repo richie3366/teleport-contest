@@ -6,8 +6,8 @@
 {"fn":"inhistemple","c":"161-171","status":"unknown"}
 {"fn":"pri_move","c":"177-216","status":"unknown"}
 {"fn":"priestini","c":"220-276","status":"unknown"}
-{"fn":"mon_aligntyp","c":"280-289","status":"unknown"}
-{"fn":"priestname","c":"302-367","status":"unknown"}
+{"fn":"mon_aligntyp","c":"280-289","status":"ported","js":["js/priest.js:mon_aligntyp"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
+{"fn":"priestname","c":"302-367","status":"ported","js":["js/priest.js:priestname"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
 {"fn":"p_coaligned","c":"370-373","status":"unknown"}
 {"fn":"has_shrine","c":"376-389","status":"unknown"}
 {"fn":"findpriest","c":"392-404","status":"unknown"}
@@ -20,4 +20,4 @@
 {"fn":"ghod_hitsu","c":"796-874","status":"partial","js":["js/priest.js:ghod_hitsu"],"omit":"C `hmon` anger_guards tail (`uhitm.c:826–827` + `:831–833`; mon.js angry_guards live, unwired on this path — pre-existing, map-named); pray.js `a_gname_at` NULL-vs-`''` no-altar return (unreachable past the has_shrine gate); popped `mhitu.c` getmattk row proved STALE same iteration (body live split…","d":["D-2474"],"at":"seed@a30a7de84"}
 {"fn":"angry_priest","c":"877-911","status":"unknown"}
 {"fn":"clearpriests","c":"919-929","status":"unknown"}
-{"fn":"restpriest","c":"933-939","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restpriest","c":"933-939","status":"ported","js":["js/priest.js:restpriest"],"d":["D-3274"],"at":"2026-10-02@faf4b9296","note":"refresh: no JS symbol (measured MISSING)"}

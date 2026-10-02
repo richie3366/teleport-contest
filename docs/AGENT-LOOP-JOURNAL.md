@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3274 `priest.c` priestname + mon_aligntyp + restpriest canonical exports; `do_name.c` bogon_is_pname export
+
+**C locus:** - `priestname`: nethack-c/upstream/src/priest.c:302–367 (67 lines).
+**JS:** js/priest.js:155 `mon_aligntyp`, js/priest.js:180 `priestname`, js/priest.js:781 `restpriest`, js/do_name.js:299 `bogon_is_pname`, js/pray.js:2780 `HALU_GODS`.
+**Change:** canonical `export function priestname/mon_aligntyp/restpriest` in js/priest.js (C home), `export function bogon_is_pname` in js/do_name.js (C home); deleted the do_name/insight/objnam clones and rewired every caller to the canonicals. priestname keeps the clone's C order/call shape and gains the missing `halu_gname` Hallu tail as a sync mirror (same `rn2_on_display_rng` draw sequence over the pray.js table, now module-scope `HALU_GODS`); the live `halu_gname` is async-only via unreachable impossible()s, unwirable from the sync x_monnam path (`void impossible` precedent: do_name obj_pmname, trap.js, rumors.js getrumor).
+**Verify:** `node scripts/verify.mjs --fn priestname,mon_aligntyp,bogon_is_pname,restpriest` → syntax (6 files) PASS, rule2 PASS, 4× `no corpus session blocked` + smoke-spread REACH-OK (24/24 each), green 2/2, strict 2/2, cohort 7/7, VERIFY: PASS. Full `sessions`: 44/44 PASS (every per-session RNG + screen count matched). /tmp/probe-priestname.mjs 15/15: Hallu tail byte-identical to live `halu_gname` at equal display-RNG state (4 seeds), non-hallu shape, aligntyp sign table, bogon, restpriest guards. Imports: 8 `--can` edges all hoisted-fn SAFE or lazy-const (102-module SCC; no top-level TDZ reads).
+**Named:** - `priestname`: none in-body — whole C body live (Hallu tail is a sync mirror of the live export over the shared table).
+**Next:** priest.c now holds nothing more Open (inhistemple/forget_temple_entry/ghod_hitsu PARTIALs owned by prior D rows). If p_coaligned's raw-shralign inline ever diverges (non-canonical shralign), it earns its own row.
 ## 2026-10-02 — D-3273 `mon.c` relmon canonical export + replmon light/set_ustuck/replshk arms + `shk.c` replshk
 
 **C locus:** - `relmon`: nethack-c/upstream/src/mon.c:2561–2594 whole body — fmon-empty panic, mon_leaving_level take-off-map, fmon unlink (head :2572–2573 / scan :2577–2581 / absent panic :2583), prepend onto target list :2588–2589 or orphan :2592. 4 call sites: dog.c:618 mon_arrive failed_arrivals, dog.c:863 keepdogs follower, dog.c:906 migrate_to_level, mon.c:2531 replmon.

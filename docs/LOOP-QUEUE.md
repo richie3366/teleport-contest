@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `priest.c` priestname — C priest.c:301–367 `priestname()` 67-line body canonical export absent from js/priest.js (C home; only clone js/do_name.js:929; caller do_name.c:898; brief-verified) @a2542cfc9
 - [ ] `uhitm.c` hmon_hitmon — C uhitm.c:1876–1877 `if (hmd.silvermsg) hmon_hitmon_msg_silver(&hmd,mon,obj)` weapon path absent from js/uhitm.js:hmon_hitmon (:2176 gates on barehand_silver_rings>0 only, so melee/ranged silvermsg never prints; callee live; D-3262 follow-up) @4f422de21
 - [ ] `end.c` container_contents — C end.c:1609 update_inventory() after cknown absent from js/pickup.js:container_contents single-box clone (:2532 sets cknown :2534 with no call; doc :2528 stale "deferred like js/end.js" — end.js has it since D-3260; D-3260 named the drift) @4f422de21
 - [ ] `do.c` goto_level — C do.c:1541–1570 Gehennom amulet mysteryforce arm (rn2 gate, assign_rnd_level, W-tower diff=0, pline, mysteryforce increment, same-level safe_teleds/next_to_u return) absent from js/do.js:goto_level (:1675 named; blocks same-level safe_teleds per D-2815 omit) @4f422de21
@@ -134,6 +133,7 @@ coverage list is empty, or alongside a coverage row in the same C file.
 - [ ] `makemon.c` makemon — C makemon.c:1295 `place_monster(mtmp, x, y)` grid-place call absent from js/makemon.js:makemon (:3475–3482 deferred comment only; callee live js/steed.js; C+JS-read; warn: naive grid write regresses per comment — movement parity first) @675a0c998
 - [ ] `dog.c` keepdogs — C dog.c:862–863 `relmon(mtmp, &gm.mydogs)` call absent from js/dog.js:keepdogs follower arm (:522–537 inline fmon splice + unshift; doc :525–529 names take-off-map; naive await regressed 6 REACH + public RNG — needs measured delta, C+JS-read) @b7d842138
 - [ ] `dog.c` migrate_to_level — C dog.c:906 `relmon(mtmp, &gm.migrating_mons)` call absent from js/teleport.js:migrate_to_level (:2887–2894 inline fmon splice + unshift; doc :2871–2876 names take-off-map, sync caller; C+JS-read) @b7d842138
+- [ ] `priest.c` p_coaligned — C priest.c:372 `mon_aligntyp(priest)` call absent from js/priest.js:p_coaligned (:273 raw-shralign compare, no sign normalization) + same-logic duplicate js/mklev.js:28518; canonical mon_aligntyp live js/priest.js:155; brief-verified @faf4b9296
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 
