@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3262 `uhitm.c` hmon_hitmon_stagger restart + weapon_melee silver flags + `m_useupall` live export
+
+**C locus:** - `hmon_hitmon_stagger`: nethack-c/upstream/src/uhitm.c:1570–1585 whole body — rnd(100) < P_SKILL(P_BARE_HANDED_COMBAT) + !bigmonst + !thick_skinned gate, canspotmon stagger pline, mhurtle_to_doom (may set already_killed), hittxt.
+**JS:** 2 files, +50/−28 (uhitm.js +38/−22, mthrowu.js +12/−6). Under the 1500/15 caps. Below the ~80 density floor with the D-3258 escape clause: coverage generator yields 0 rows, uhitm.c holds no more Open rows (only these two shipped), stagger's callee closure otherwise live (mhurtle_to_doom verified C-exact uhitm.c:1942–1958 vs js/uhitm.js:1609; stagger verified C-exact mondata.c:1395–1407 vs js/mhitm.js:1131).
+**Change:** js/uhitm.js + js/mthrowu.js; the m_useupall import extends the pre-existing uhitm.js→mthrowu.js edge (:133 `hit`, call-time use — no `imports.mjs --can` needed). stagger restarted as `async (hmd, mon, obj)` in C order (C `obj UNUSED` → `void obj`); caller builds the hmd snapshot (dmg/mdat/hittxt/already_killed) and copies back dmg/hittxt/already_killed/mdat like the sibling jousting arm. melee sets both silver flags off `ctx.material` (the hmdHit :1774 snapshot, same object do_hit dispatches). m_useupall exported (obfree is a GC no-op); m_useup else branch now calls it (C :1168); shatter arm calls it (C :1007). No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+**Verify:** `node scripts/verify.mjs --fn hmon_hitmon_stagger,hmon_hitmon_weapon_melee,m_useupall` → syntax PASS (2 changed js files) · rule2 PASS · green 2/2 · strict ×2 · cohort 7/7 · VERIFY: PASS.
+**Named:** - `hmon_hitmon_stagger`: none in-body — whole C body live.
+**Next:** do not re-pop these two rows (arms live). Natural follow-up (own row, not this cluster): hmon_hitmon :1877 weapon-silver msg_silver plumbing — needs saved_oname/cxname for the weapon path.
 ## 2026-10-02 — D-3261 `do.c` goto_level leave-arms + `end.c` done done_seq/last_msg + `do.c` boulder_hits_pool drawbridge/mondied
 
 **C locus:** - `goto_level`: nethack-c/upstream/src/do.c:1619–1622 — `fill_pit(u.ux, u.uy)`, `set_ustuck(NULL)` (clears u.ustuck + u.uswallow), `u.uundetected = 0` around the live `set_uinwater(0)` (:1621, D-1267).

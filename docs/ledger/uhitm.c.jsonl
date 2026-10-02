@@ -14,7 +14,7 @@
 {"fn":"hmon_hitmon_barehands","c":"838-882","status":"partial","js":["js/uhitm.js:hmon_hitmon_barehands"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_weapon_ranged","c":"885-917","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon_ranged"],"d":["D-3054","D-2040"],"at":"2026-09-28@a196fca24"}
 {"fn":"backstabbable","c":"921-931","status":"unknown","d":["D-1937"],"at":"seed@a30a7de84"}
-{"fn":"hmon_hitmon_weapon_melee","c":"934-1067","status":"unknown","d":["D-2152"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_weapon_melee","c":"934-1067","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon_melee"],"d":["D-3262","D-2152"],"at":"2026-10-02@a7d88d8ff"}
 {"fn":"hmon_hitmon_weapon","c":"1070-1092","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_potion","c":"1095-1116","status":"ported","js":["js/uhitm.js:hmon_hitmon_potion"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_misc_obj","c":"1119-1383","status":"partial","js":["js/uhitm.js:hmon_hitmon_misc_obj"],"omit":"`munstone` (`muse.c:2884`, treat FALSE — mhitm.js `do_stone_mon` idiom); `hmon_hitmon_msg_silver` (`:1876`, flags set, no plumbing — same as ranged arm); `get_dmg_bonus` consumers (recalc gate `:1447`, shade bump `:1817` — pre-existing named); pie/venom D-0693 fast path keeps precedence at `hmon_hi…","d":["D-2486"],"at":"seed@a30a7de84"}
@@ -22,7 +22,7 @@
 {"fn":"hmon_hitmon_dmg_recalc","c":"1436-1507","status":"unknown"}
 {"fn":"hmon_hitmon_poison","c":"1510-1538","status":"partial","js":["js/uhitm.js:hmon_hitmon_poison"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_jousting","c":"1541-1567","status":"partial","js":["js/uhitm.js:hmon_hitmon_jousting"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
-{"fn":"hmon_hitmon_stagger","c":"1570-1585","status":"unknown"}
+{"fn":"hmon_hitmon_stagger","c":"1570-1585","status":"ported","js":["js/uhitm.js:hmon_hitmon_stagger"],"d":["D-3262"],"at":"2026-10-02@a7d88d8ff"}
 {"fn":"hmon_hitmon_pet","c":"1588-1601","status":"ported","js":["js/uhitm.js:hmon_hitmon"],"d":["D-3214"],"at":"2026-10-01@2eced4253","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_splitmon","c":"1604-1634","status":"partial","js":["js/uhitm.js:hmon_hitmon_splitmon"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_msg_hit","c":"1637-1660","status":"partial","js":["js/uhitm.js:hmon_hitmon_msg_hit"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}

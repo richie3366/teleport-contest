@@ -130,7 +130,7 @@ import { p_coaligned, ghod_hitsu } from './priest.js';
 import { Soundeffect } from './sndprocs.js';
 // imports.mjs --can uhitm.js mthrowu.js hit: IN-SCC, hoisted function,
 // call-time only (no top-level read). zap.c hit, one clone.
-import { hit } from './mthrowu.js';
+import { hit, m_useupall } from './mthrowu.js';
 import { uhis } from './roles.js';
 import { se_distant_thunder, se_applause } from './generated/seffects_data.js';
 
@@ -1008,20 +1008,22 @@ export async function killed(mtmp) {
 }
 
 /**
- * C ref: uhitm.c hmon_hitmon_stagger — unarmed stun chance before damage.
- * Always burns rnd(100); stun pline + mhurtle_to_doom deferred when the
- * skill/size/hide gate would succeed and pending dmg < mhp.
+ * C ref: uhitm.c hmon_hitmon_stagger `:1570–1585` — VERY small unarmed
+ * stun chance: canspotmon stagger pline, mhurtle_to_doom (may set
+ * already_killed when the hurtle kills), then hittxt. obj is unused.
  */
-function hmon_hitmon_stagger(mon, dmg) {
-    const mdat = mon?.data;
+async function hmon_hitmon_stagger(hmd, mon, obj) {
+    void obj; /* C marks obj UNUSED */
+    /* VERY small chance of stunning opponent if unarmed. */
     if (rnd(100) < P_SKILL(P_BARE_HANDED_COMBAT)
-        && !bigmonst(mdat)
-        && !thick_skinned(mdat)) {
-        // canspotmon stagger pline + mhurtle_to_doom deferred
-        void dmg;
-        return true; // hittxt
+        && !bigmonst(hmd.mdat)
+        && !thick_skinned(hmd.mdat)) {
+        if (canspotmon(mon))
+            await pline(`${Monnam(mon)} ${makeplural(stagger(mon.data, 'stagger'))} from your powerful strike!`);
+        if (await mhurtle_to_doom(mon, hmd.dmg | 0, hmd))
+            hmd.already_killed = true;
+        hmd.hittxt = true;
     }
-    return false;
 }
 
 /**
@@ -1129,8 +1131,8 @@ async function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skil
  * flag arms. ctx carries the hmd fields this helper owns (dmg,
  * use/train_weapon_skill, hittxt, doreturn, retval, dieroll, hand_to_hand,
  * thrown, jousting, ispoisoned).
- * Named omissions: silvermsg/silverobj (weapon silver stays the
- * pre-existing omit — barehand rings print via hmon_hitmon_msg_silver).
+ * Silver (:1035–1036) sets silvermsg/silverobj like the ranged/misc
+ * arms; the :1877 msg_silver call stays hmon_hitmon's named omit.
  * lightobj is set here (C `:1038–1040`) and printed by
  * hmon_hitmon_msg_lightobj.
  */
@@ -1184,8 +1186,8 @@ async function hmon_hitmon_weapon_melee(mon, obj, ctx) {
         } else {
             await pline(`${s_suffix(Monnam(mon))} weapon${(monwep.quan | 0) === 1 ? '' : 's'} ${otense(monwep, 'shatter')}${from_your_blow}`);
         }
-        // C m_useupall: extract + free; JS has no manual free (GC).
-        const ex = extract_from_minvent(mon, monwep, true, false);
+        // C :1007 m_useupall: extract + free (JS free is GC).
+        const ex = m_useupall(mon, monwep);
         if (ex && typeof ex.then === 'function') await ex;
         if (rn2(4)) {
             await monflee(mon, d(2, 3), true, true);
@@ -1213,7 +1215,10 @@ async function hmon_hitmon_weapon_melee(mon, obj, ctx) {
     } else if (obj.oartifact) {
         ctx.dmg = ctx.dmgBox.dmg | 0;
     }
-    /* C :1035–1036 silvermsg/silverobj stays named (no weapon plumbing). */
+    // C :1035–1036 — silver weapon vs a silver-hater: both flags (the
+    // sear line itself is hmon_hitmon's :1877 msg_silver call).
+    if ((ctx.material | 0) === SILVER && mon_hates_silver(mon))
+        ctx.silvermsg = ctx.silverobj = true;
     /* C :1038–1040 — lit light-hating artifact (Sunsword / worn gold DSM). */
     if (artifact_light(obj) && obj.lamplit && mon_hates_light(mon))
         ctx.lightobj = true;
@@ -1700,7 +1705,7 @@ async function hmon_hitmon_msg_lightobj(hmd, mon, obj) {
  * shade_miss melee/applied D-1384 (`:1812–1822`); thrown/kicked are D-1383.
  * Poison, joust, barehand silver, and poiskilled are live (D-2839).
  * Pudding split is hmon_hitmon_splitmon. The hit line is
- * hmon_hitmon_msg_hit. Stagger's canspotmon pline + mhurtle stay named.
+ * hmon_hitmon_msg_hit. Stagger's canspotmon pline + mhurtle are live.
  * Non-shade get_dmg_bonus min-1 is live (D-3253). umconf hand-glow is
  * nohandglow (uhitm.c:6315).
  * Called via the hmon wrapper below (C uhitm.c:819–836).
@@ -2096,7 +2101,19 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
         already_killed = !!hmd.already_killed;
         mdat = hmd.mdat || mon.data;
     } else if (unarmed && dmg > 1 && !thrown && !obj && !Upolyd(game.u)) {
-        hittxt = hmon_hitmon_stagger(mon, dmg);
+        // C :1827–1828 — stagger may hurtle-kill (already_killed) and
+        // refresh the cached mdat; hittxt when the gate succeeds.
+        const hmd = {
+            dmg,
+            mdat,
+            hittxt,
+            already_killed: false,
+        };
+        await hmon_hitmon_stagger(hmd, mon, obj);
+        dmg = hmd.dmg | 0;
+        hittxt = !!hmd.hittxt;
+        already_killed = !!hmd.already_killed;
+        mdat = hmd.mdat || mon.data;
     } else if (!unarmed && dmg > 1 && !thrown && !Upolyd(game.u)
             && !game.u?.twoweap && game.u?.uwep) {
         maybe_knockback = true;
@@ -2154,9 +2171,8 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
     // after the hit message; dryit implies obj is still intact.
     if (dryit) await dry_a_towel(obj, -1, true);
 
-    // C :1877 — barehand silver rings use do_hit's saved_oname; weapon
-    // silvermsg/silverobj stay the pre-existing named omit (no weapon
-    // plumbing — same as the melee header).
+    // C :1877 — barehand silver rings use do_hit's saved_oname; calling
+    // msg_silver for weapon silvermsg stays named (flags now set).
     if (barehand_silver_rings > 0) {
         await hmon_hitmon_msg_silver({
             barehand_silver_rings,

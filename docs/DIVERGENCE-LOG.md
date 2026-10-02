@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3262 — `uhitm.c` hmon_hitmon_stagger restart + weapon_melee silver flags + `m_useupall` live export
+
+- **Status:** shipped (2 Open corpus-residual missing-arm rows — `uhitm.c` hmon_hitmon_stagger, `uhitm.c` hmon_hitmon_weapon_melee — both checked off and archived, plus callee-closure `m_useupall`; 0 corpus blocks cited; no review cited, no stamp owed)
+- **Symptom:** queue rows (brief-verified missing arms): stagger lacked C uhitm.c:1580–1585 canspotmon stagger pline + mhurtle_to_doom (js/uhitm.js "deferred", rnd(100) gate live); weapon_melee lacked C uhitm.c:1035–1036 silver-weapon silvermsg/silverobj (ranged/misc arms set them, melee didn't). Brief-surfaced: m_useupall (mthrowu.c:1153–1158) had no JS export (ledger absent/MISSING); both C callers inlined or absorbed it.
+- **C locus:**
+  - `hmon_hitmon_stagger`: nethack-c/upstream/src/uhitm.c:1570–1585 whole body — rnd(100) < P_SKILL(P_BARE_HANDED_COMBAT) + !bigmonst + !thick_skinned gate, canspotmon stagger pline, mhurtle_to_doom (may set already_killed), hittxt.
+  - `hmon_hitmon_weapon_melee`: nethack-c/upstream/src/uhitm.c:1035–1036 — `material == SILVER && mon_hates_silver` → silvermsg = silverobj = TRUE (rest of :933–1067 already live per brief).
+  - `m_useupall`: nethack-c/upstream/src/mthrowu.c:1153–1158 whole body — extract_from_minvent(mon, obj, TRUE, FALSE) + obfree.
+- **JS was:**
+  - `hmon_hitmon_stagger` (js/uhitm.js:1015): sync `(mon, dmg)` clone returning the hittxt bool; gate live, pline + mhurtle_to_doom "deferred"; caller assigned the bool and could never see already_killed/mdat.
+  - `hmon_hitmon_weapon_melee` (js/uhitm.js:1137): `/* C :1035–1036 silvermsg/silverobj stays named */`; shatter arm inlined extract_from_minvent.
+  - `m_useupall`: no export; m_useup (js/mthrowu.js:177) absorbed the body in its else branch, weapon_melee inlined it.
+- **Fix:** js/uhitm.js + js/mthrowu.js; the m_useupall import extends the pre-existing uhitm.js→mthrowu.js edge (:133 `hit`, call-time use — no `imports.mjs --can` needed). stagger restarted as `async (hmd, mon, obj)` in C order (C `obj UNUSED` → `void obj`); caller builds the hmd snapshot (dmg/mdat/hittxt/already_killed) and copies back dmg/hittxt/already_killed/mdat like the sibling jousting arm. melee sets both silver flags off `ctx.material` (the hmdHit :1774 snapshot, same object do_hit dispatches). m_useupall exported (obfree is a GC no-op); m_useup else branch now calls it (C :1168); shatter arm calls it (C :1007). No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** 2 files, +50/−28 (uhitm.js +38/−22, mthrowu.js +12/−6). Under the 1500/15 caps. Below the ~80 density floor with the D-3258 escape clause: coverage generator yields 0 rows, uhitm.c holds no more Open rows (only these two shipped), stagger's callee closure otherwise live (mhurtle_to_doom verified C-exact uhitm.c:1942–1958 vs js/uhitm.js:1609; stagger verified C-exact mondata.c:1395–1407 vs js/mhitm.js:1131).
+- **Callers:**
+  - `hmon_hitmon_stagger`: C uhitm.c:1828 (hmon_hitmon :1827 unarmed guard) → js/uhitm.js:2112. Signature changed sync-(mon,dmg) → async-(hmd,mon,obj); sole caller rewired.
+  - `hmon_hitmon_weapon_melee`: C uhitm.c:1088 (hmon_hitmon_do_hit) → js/uhitm.js:1832. Signature unchanged.
+  - `m_useupall`: C mthrowu.c:1168 (m_useup) → js/mthrowu.js:189; C uhitm.c:1007 (weapon_melee shatter) → js/uhitm.js:1190. New export, both C callers wired.
+- **Verify:** `node scripts/verify.mjs --fn hmon_hitmon_stagger,hmon_hitmon_weapon_melee,m_useupall` → syntax PASS (2 changed js files) · rule2 PASS · green 2/2 · strict ×2 · cohort 7/7 · VERIFY: PASS.
+  - `hmon_hitmon_stagger`: hidden note (no corpus session blocked — expected, row cited 0 blocks); reach 57/57 PASS → REACH-OK.
+  - `hmon_hitmon_weapon_melee`: hidden note (no corpus session blocked); reach 2/2 PASS → REACH-OK.
+  - `m_useupall`: hidden note (no corpus session blocked); smoke 24/24 PASS → REACH-OK.
+- **Named omissions:**
+  - `hmon_hitmon_stagger`: none in-body — whole C body live.
+  - `hmon_hitmon_weapon_melee`: hmon_hitmon :1877 msg_silver call for weapon silvermsg (flags now set; barehand-rings call live) — downstream function, own future row.
+  - `m_useupall`: none in-body — whole C body live (obfree GC no-op).
+- **Ledger:** hmon_hitmon_stagger ported; hmon_hitmon_weapon_melee ported; m_useupall ported
+- **Next:** do not re-pop these two rows (arms live). Natural follow-up (own row, not this cluster): hmon_hitmon :1877 weapon-silver msg_silver plumbing — needs saved_oname/cxname for the weapon path.
+
 ## D-3261 — `do.c` goto_level leave-arms + `end.c` done done_seq/last_msg + `do.c` boulder_hits_pool drawbridge/mondied
 
 - **Status:** shipped (3 Open corpus-residual missing-arm rows, 0 corpus blocks cited: `do.c` goto_level, `end.c` done, `do.c` boulder_hits_pool — all checked off and archived; no review cited, no stamp owed)

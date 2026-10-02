@@ -13,7 +13,7 @@
 {"fn":"spitmm","c":"1016-1077","status":"unknown"}
 {"fn":"breathwep_name","c":"1083-1089","status":"unknown"}
 {"fn":"breamm","c":"1093-1150","status":"unknown"}
-{"fn":"m_useupall","c":"1154-1158","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"m_useupall","c":"1154-1158","status":"ported","js":["js/mthrowu.js:m_useupall"],"d":["D-3262"],"at":"2026-10-02@a7d88d8ff","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"m_useup","c":"1162-1170","status":"unknown"}
 {"fn":"thrwmu","c":"1174-1264","status":"ported","js":["js/mthrowu.js:thrwmu"],"d":["D-2537"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — wrapper sets mon_moving; all C arms verified in thrwmu_body (mthrowu.js:1562)"}
 {"fn":"spitmu","c":"1268-1271","status":"unknown"}

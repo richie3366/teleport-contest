@@ -126,9 +126,7 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `uhitm.c` hmon_hitmon_stagger — C uhitm.c:1580–1585 canspotmon stagger pline + mhurtle_to_doom absent from js/uhitm.js:hmon_hitmon_stagger (:1020 "canspotmon stagger pline + mhurtle_to_doom deferred"; rnd(100) gate live) @571bbecf7
 - [ ] `apply.c` use_mirror — C apply.c:1132–1138 Medusa mon_reflects gate + stoned/killed + :1155–1166 nymph takes-it/setnotworn/freeinv/mpickobj/tele_restrict rloc absent from js/apply.js:use_mirror (:872/:888 pline-only) @571bbecf7
-- [ ] `uhitm.c` hmon_hitmon_weapon_melee — C uhitm.c:1035–1036 silver-weapon silvermsg/silverobj flags absent from js/uhitm.js:hmon_hitmon_weapon_melee (:1216 "stays named"; ranged/misc paths set them, melee doesn't) @571bbecf7
 - [ ] `allmain.c` moveloop_core — blocks 1/953 (scen-death-Tourist-92095 step 49/111 kind=screen+rng: post-lifesave turn re-loops in JS — extra movemon + 2nd once-per-turn block incl. mcalcmove/maybe_generate_rnd_mon/2nd dosounds trio, +95 draws — while C exits after u_wipe_engr rn2(82); pet (48,15)→(48,14) paints I vs C floor; savelife/done set no loop state, u_calc_moveamt clone verbatim — gap in do-while `umovement < NORMAL_SPEED` turn accounting, allmain.c:196–380) @4fbb3512e
 - [ ] `zap.c` bhit — C zap.c:4202–4210 boomerang self-hit arm (thitu "boomerang" + endmultishot(TRUE)) absent from js/zap.js (no boomerang handling in file; endmultishot now exported from js/dothrow.js:862) @4fbb3512e
 - [ ] `end.c` done — C end.c:1098–1100 amulet-arm formatkiller + livelog_printf(LL_LIFESAVE) "averted death" absent from js/end.js:done (:2174 "livelog_printf deferred"; formatkiller live :518, livelog_printf live js/pline.js:44) @5a869cf51

@@ -5,9 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `do.c` goto_level — C do.c:1619–1620,1622 fill_pit / set_ustuck / u.uundetected absent from js/do.js:goto_level (:1699 "still named"; set_uinwater live) @35e5e8f94 **Addressed:** D-3261
-- [x] `do.c` boulder_hits_pool — C do.c:74–77 DRAWBRIDGE_UP drawbridgemask floor morph + :89–91 mondied(mtmp) absent from js/do.js:boulder_hits_pool (:993 "treat as ROOM"; :1003 "clear trapped only") @571bbecf7 **Addressed:** D-3261
-- [x] `end.c` done — C end.c:1113 `iflags.last_msg = PLNMSG_OK_DONT_DIE` in the Die? arm + :1050–1051 done_seq/hero_seq absent from js/end.js:done (brief: :2174–2183 Die? arm sets no last_msg; no done_seq write in :2104–2195 body) @4fbb3512e **Addressed:** D-3261
+- [x] `uhitm.c` hmon_hitmon_stagger — C uhitm.c:1580–1585 canspotmon stagger pline + mhurtle_to_doom absent from js/uhitm.js:hmon_hitmon_stagger (:1020 "canspotmon stagger pline + mhurtle_to_doom deferred"; rnd(100) gate live) @571bbecf7 **Addressed:** D-3262
+- [x] `uhitm.c` hmon_hitmon_weapon_melee — C uhitm.c:1035–1036 silver-weapon silvermsg/silverobj flags absent from js/uhitm.js:hmon_hitmon_weapon_melee (:1216 "stays named"; ranged/misc paths set them, melee doesn't) @571bbecf7 **Addressed:** D-3262
+
+
+- [x] `do.c` goto_level — C do.c:1619–1620,1622 fill_pit / set_ustuck / u.uundetected absent from js/do.js:goto_level (:1699 "still named"; set_uinwater live) @35e5e8f94 **Addressed:** D-3261 `a7d88d8ff`
+- [x] `do.c` boulder_hits_pool — C do.c:74–77 DRAWBRIDGE_UP drawbridgemask floor morph + :89–91 mondied(mtmp) absent from js/do.js:boulder_hits_pool (:993 "treat as ROOM"; :1003 "clear trapped only") @571bbecf7 **Addressed:** D-3261 `a7d88d8ff`
+- [x] `end.c` done — C end.c:1113 `iflags.last_msg = PLNMSG_OK_DONT_DIE` in the Die? arm + :1050–1051 done_seq/hero_seq absent from js/end.js:done (brief: :2174–2183 Die? arm sets no last_msg; no done_seq write in :2104–2195 body) @4fbb3512e **Addressed:** D-3261 `a7d88d8ff`
 
 
 - [x] `end.c` savelife — C end.c:744–745 `if (!mon_moving) endmultishot(FALSE)` absent from js/end.js:savelife (:2069 "stays named (not live)"; no endmultishot call in file) @35e5e8f94 **Addressed:** D-3260 `5a869cf51`

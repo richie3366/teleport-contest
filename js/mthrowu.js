@@ -168,11 +168,17 @@ export function rnd_hallublast() {
 }
 
 /**
- * C ref: mthrowu.c m_useup `:1161–1170` + m_useupall `:1153–1158` —
- * quan>1 decrements (+weight); else extract_from_minvent(TRUE, FALSE)
- * + obfree (JS has no manual free; detached object is GC'd, like the
- * muse/zap/mhitm/uhitm locals which inline only the unlink loop and
- * skip the extrinsics update — those predate this export).
+ * C ref: mthrowu.c m_useupall `:1153–1158` — remove an entire item from
+ * a monster's inventory and destroy it. obfree is a GC no-op in JS.
+ */
+export function m_useupall(mon, obj) {
+    return extract_from_minvent(mon, obj, true, false);
+}
+
+/**
+ * C ref: mthrowu.c m_useup `:1161–1170` — quan>1 decrements (+weight);
+ * else m_useupall (extract + obfree; JS has no manual free, the
+ * detached object is GC'd).
  */
 export function m_useup(mon, obj) {
     if (!mon || !obj) return;
@@ -180,7 +186,7 @@ export function m_useup(mon, obj) {
         obj.quan = (obj.quan | 0) - 1;
         obj.owt = weight(obj);
     } else {
-        return extract_from_minvent(mon, obj, true, false);
+        return m_useupall(mon, obj);
     }
 }
 
