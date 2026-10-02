@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2247–2255: review D-3286–D-3294 (9 ACCEPT) + full score
+
+**Scope:** d8fa56ce0…6f1e33d59 (9 js/ SHAs since 2246), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.
+**Verdicts:** 9 ACCEPT, 0 Must-fix. Every D-log verify claim re-measured exact (0-blocked vacuous + smoke/reach REACH-OK per fn; zero REGRESSED). Unqueued nits: D-3294 RND ledger note cites C :62-66 for a :62-64 body; onlyspace js/topten.js:65 trims all whitespace where C keeps space/tab-only (single caller topten.c:325, names can't hold newline — predates window, survey note).
+**Fortress:** public 44/44 (Scr 11405, RNG 792838, `329+1.62/turn` R² 0.78); corpus 705/953 (74.0%), RNG 98.09%, scr 93.4%, 0 losses, 1 gain (scen-tour-Valkyrie-92040); `full: true` @6f1e33d59 fullAt 16:04:02Z. Held-out 15/44 (+0), rank 5.
+**Ledger:** snapshot appended; `ledger.mjs sql` unrunnable (node v20, no node:sqlite) — 5 ported rows sampled via jsonl+brief instead (drop, wiz_flip_level, trapeffect_dart_trap, sfi_version_info, vtense): all stand. Refill: coverage 0 rows, queue 30/30 tagged (0 eligible; scoreboard hash verified unchanged after the read-only queue call); ~20-brief hand survey converged with D-3294's Next survey (dead decl-only callbacks / representation-subsumed / live) → 0 new rows, queue stays 7 Open (below band, no filler). Ledger: known_vibrating_square_at → ported (stale, whole at js/getpos.js:740); makevtele effect inlined js/mklev.js:28302-28304 (tool needs a --js fn for ported/split — left absent, do not row).
 ## 2026-10-02 — D-3294 `rnd.c` whichrng fn-dispatch port + file exhaustion (init_random split, 3 stale)
 
 **C locus:** - `whichrng`: nethack-c/upstream/src/rnd.c:32–40 whole body (C staticfn) — `for i < SIZE(rnglist)` pointer-compare `rnglist[i].fn == fn` → index else -1; table rnd.c:26–29 `{rn2}/{rn2_on_display_rng}` (CORE=0, DISP=1). Sole C caller init_isaac64 :47.

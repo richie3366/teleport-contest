@@ -10,7 +10,7 @@
 {"fn":"gloc_filter_floodfill","c":"382-388","status":"unknown"}
 {"fn":"gloc_filter_init","c":"391-409","status":"unknown","d":["D-1941"],"at":"seed@a30a7de84"}
 {"fn":"gloc_filter_done","c":"412-419","status":"unknown"}
-{"fn":"known_vibrating_square_at","c":"422-433","status":"unknown"}
+{"fn":"known_vibrating_square_at","c":"422-433","status":"ported","js":["js/getpos.js:known_vibrating_square_at"],"at":"2026-10-02@6f1e33d59","note":"stale: whole C body live as js/getpos.js:740 local (invocation_pos gate + t_at VIBRATING_SQUARE+tseen; audit 2247-2255 refill survey)"}
 {"fn":"gather_locs_interesting","c":"438-507","status":"unknown"}
 {"fn":"gather_locs","c":"513-554","status":"ported","js":["js/getpos.js:gather_locs"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"dxdy_to_dist_descr","c":"557-589","status":"unknown"}

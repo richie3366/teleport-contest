@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-02** — full `sessions` on `7bdcd631d`
-(audit **2238–2246**, 2026-10-02T13:58:18.335Z).
+Score last measured: **2026-10-02** — full `sessions` on `6f1e33d59`
+(audit **2247–2255**, 2026-10-02T15:58:15.033Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`325+1.63/turn` (R² 0.78).
+`329+1.62/turn` (R² 0.78).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `325+1.63/turn` (R² 0.78) |
+| Speed label | `329+1.62/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5, 3rd agentic; best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 since last audit.
-**Corpus fortress (2026-10-02 14:04Z; scored 953/953 entries, 0 unrecorded):**
-**704 / 953** PASS (73.9 %), RNG 97.98 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-02T14:04:19.809Z`.
-Reviews 1225–2246 (index; no row 1618): 892 ACCEPT, 45 WITH-DEBT, 84 QUALITY-RISK (2238–2246: 9 accept/0 debt/0Q; 0 Must-fix families).
+**Corpus fortress (2026-10-02 16:04Z; scored 953/953 entries, 0 unrecorded):**
+**705 / 953** PASS (74.0 %), RNG 98.09 %, screens 93.4 %; 0 losses, 1 gain (scen-tour-Valkyrie-92040); `full: true`, `fullAt: 2026-10-02T16:04:02.864Z`.
+Reviews 1225–2255 (index; no row 1618): 901 ACCEPT, 45 WITH-DEBT, 84 QUALITY-RISK (2247–2255: 9 accept/0 debt/0Q; 0 Must-fix families).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** whichrng port + rnd.c exhaustion — `whichrng` module-local port (D-3033 left "fn-dispatch unported"); `init_random` split→initRng (options.js:8791 documented); `RND`, `rnd_on_display_rng`, `shuffle_int_array` stale→ported (same-named bodies complete).
+**Next cluster:** `getpos.c` getpos_getvalids_selection (first Open missing-arm row; C getpos.c:102–115, callers getpos.c:53,56).
 
 ## Parked (diagnose only — do not implement)
 

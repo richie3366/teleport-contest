@@ -2256,3 +2256,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2244-1b0ae0968-encumber-stagger-verbs.md](./2244-1b0ae0968-encumber-stagger-verbs.md) | `1b0ae0968` | D-3283 encumber stagger verbs + 3 callers | **ACCEPT** |
 | [2245-f52a2d2fb-goto-level-clamp-endgame-else.md](./2245-f52a2d2fb-goto-level-clamp-endgame-else.md) | `f52a2d2fb` | D-3284 goto_level clamp + endgame + else | **ACCEPT** |
 | [2246-7bdcd631d-makemon-remainder-arms.md](./2246-7bdcd631d-makemon-remainder-arms.md) | `7bdcd631d` | D-3285 makemon remainder (5 arms) | **ACCEPT** |
+| [2247-d8fa56ce0-mcarrying-youmonst-invent.md](./2247-d8fa56ce0-mcarrying-youmonst-invent.md) | `d8fa56ce0` | D-3286 m_carrying youmonst→invent branch | **ACCEPT** |
+| [2248-f49c6cdfa-goto-level-visited-portal.md](./2248-f49c6cdfa-goto-level-visited-portal.md) | `f49c6cdfa` | D-3287 goto_level VISITED + portal-missing arms | **ACCEPT** |
+| [2249-e7c3c5cda-discard-minvent-arms.md](./2249-e7c3c5cda-discard-minvent-arms.md) | `e7c3c5cda` | D-3288 discard_minvent artifact+obfree + rewirings | **ACCEPT** |
+| [2250-be60a5eca-u-on-rndspot-tower-gate.md](./2250-be60a5eca-u-on-rndspot-tower-gate.md) | `be60a5eca` | D-3289 u_on_rndspot tower gate + rect coercions | **ACCEPT** |
+| [2251-5de0db04b-swallow-glyph-see-objects.md](./2251-5de0db04b-swallow-glyph-see-objects.md) | `5de0db04b` | D-3290 swallow_to_glyph whole + see_objects arm | **ACCEPT** |
+| [2252-70dc5c4d5-dropp-break-armor.md](./2252-70dc5c4d5-dropp-break-armor.md) | `70dc5c4d5` | D-3291 dropp guard + 11 break_armor rewirings | **ACCEPT** |
+| [2253-cb217f88d-vamp-shift-postmov.md](./2253-cb217f88d-vamp-shift-postmov.md) | `cb217f88d` | D-3292 vamp_shift whole + postmov door dance | **ACCEPT** |
+| [2254-3df1abeb4-sanity-merge-quartet.md](./2254-3df1abeb4-sanity-merge-quartet.md) | `3df1abeb4` | D-3293 sanity/merge quartet (4 fns) | **ACCEPT** |
+| [2255-6f1e33d59-whichrng-rnd-exhaustion.md](./2255-6f1e33d59-whichrng-rnd-exhaustion.md) | `6f1e33d59` | D-3294 whichrng dispatch + rnd.c exhaustion | **ACCEPT** |
