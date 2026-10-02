@@ -1462,8 +1462,10 @@ function s_suffix_leash(s) {
     return `${buf}'s`;
 }
 
-/** C you.h mhis — hallu rn2 deferred (leash pull-free msg). */
-function mhis_leash(mtmp) {
+/** C you.h mhis — hallu rn2 deferred (leash pull-free msg).
+ * Exported: migrate_to_level's sync leash arm initiates the TRUE-arm
+ * message while the live m_unleash(FALSE) runs the state clear (D-3281). */
+export function mhis_leash(mtmp) {
     if (mtmp?.female) return 'her';
     return 'his';
 }

@@ -13,7 +13,7 @@
 {"fn":"mon_leave","c":"729-763","status":"ported","js":["js/dog.js:mon_leave"],"d":["D-3115"],"at":"2026-09-29@6e3bbfbe7"}
 {"fn":"keep_mon_accessible","c":"768-785","status":"unknown"}
 {"fn":"keepdogs","c":"789-884","status":"ported","js":["js/dog.js:keepdogs"],"d":["D-3279","D-1789","D-1783"],"at":"2026-10-02@3d8fe9bf9"}
-{"fn":"migrate_to_level","c":"887-932","status":"partial","js":["js/teleport.js:migrate_to_level"],"omit":"- `migrate_to_level`: `:898–901` leash arm (mtame-- + m_unleash — live export async, sync wall); `:906` relmon take-off-map + both C panics (live relmon/mon_leaving_level async, sync wall — inherits D-3279's flag-free take-off when wired).","d":["D-3280","D-1198"],"at":"2026-10-02@b15c3087f"}
+{"fn":"migrate_to_level","c":"887-932","status":"partial","js":["js/teleport.js:migrate_to_level"],"d":["D-3281","D-3280","D-1198"],"at":"2026-10-02@1d636ae22"}
 {"fn":"discard_migrations","c":"938-990","status":"unknown"}
 {"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-2760"],"at":"seed@a30a7de84"}
 {"fn":"tamedog","c":"1143-1282","status":"unknown","d":["D-1595","D-1593","D-1546","D-1532"],"at":"seed@a30a7de84"}
