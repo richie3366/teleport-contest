@@ -35,7 +35,7 @@
 {"fn":"trapeffect_magic_trap","c":"2293-2320","status":"unknown","d":["D-2258"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_anti_magic","c":"2323-2450","status":"unknown"}
 {"fn":"trapeffect_poly_trap","c":"2453-2525","status":"unknown"}
-{"fn":"trapeffect_landmine","c":"2528-2657","status":"unknown"}
+{"fn":"trapeffect_landmine","c":"2528-2657","status":"ported","js":["js/trap.js:trapeffect_landmine"],"at":"2026-10-02@135e9a8dd","note":"stale: js/trap.js:5851 body whole; C never called at s132 (stepFns empty, rnd(16) is first line); Soundeffect is empty macro"}
 {"fn":"trapeffect_rolling_boulder_trap","c":"2661-2707","status":"unknown","d":["D-1874"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_magic_portal","c":"2710-2722","status":"unknown"}
 {"fn":"trapeffect_vibrating_square","c":"2725-2764","status":"partial","js":["js/trap.js:trapeffect_vibrating_square"],"omit":"`You_see` still omits the Unaware \"You dream that you see\" prefix and the Blind \"You sense\" prefix (`js/display.js` `You_see`; this caller already requires `!Blind`, so the sense prefix cannot run).","d":["D-2882"],"at":"seed@a30a7de84"}

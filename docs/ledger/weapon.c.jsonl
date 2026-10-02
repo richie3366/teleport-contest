@@ -26,7 +26,7 @@
 {"fn":"skill_advance","c":"1198-1213","status":"unknown"}
 {"fn":"add_skills_to_menu","c":"1229-1302","status":"unknown","d":["D-2704"],"at":"seed@a30a7de84"}
 {"fn":"show_skills","c":"1306-1318","status":"ported","js":["js/weapon.js:show_skills"],"d":["D-3090"],"at":"2026-09-29@d1541778d","note":"stale: js/weapon.js:1665"}
-{"fn":"enhance_weapon_skill","c":"1329-1407","status":"unknown"}
+{"fn":"enhance_weapon_skill","c":"1329-1407","status":"ported","js":["js/weapon.js:enhance_weapon_skill"],"at":"2026-10-02@135e9a8dd","note":"stale: js/weapon.js:1148 body whole; s225 residual is menu-prompt centering (painter)"}
 {"fn":"unrestrict_weapon_skill","c":"1414-1421","status":"unknown"}
 {"fn":"use_skill","c":"1424-1434","status":"unknown","d":["D-2385"],"at":"seed@a30a7de84"}
 {"fn":"add_weapon_skill","c":"1437-1450","status":"unknown"}

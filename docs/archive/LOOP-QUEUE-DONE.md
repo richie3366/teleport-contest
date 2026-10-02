@@ -5,6 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `potion.c` make_stunned — blocks 1/953 (scen-ride-Samurai-94407, step 159, kind=screen; C "You miss it. You wobble in the saddle." vs JS "You miss it.") @012413194 **Addressed:** D-3251
+- [x] `uhitm.c` passive AD_STUN — missing arm: C :6085–6088 make_stunned deferred js/uhitm.js:3418; moved scen-ride-Samurai-94407 s159→s171 @135e9a8dd **Addressed:** D-3251
+- [x] `uhitm.c` passive_obj AD_ACID — missing arm: C :6164–6168 erode_obj deferred js/uhitm.js:3172; scen-engulf-Samurai-94392 s46→PASS @135e9a8dd **Addressed:** D-3251
+
+
 - [x] `do.c` dowipe — blocks 1/953 (scen-terrain-Valkyrie-94240, step 117, kind=screen) @2ad1aa828 (audit 2203–2211: session PASS on full rescore, healed in D-3245–D-3250 window; no writer needed) **Addressed:** audit-2203–2211
 
 

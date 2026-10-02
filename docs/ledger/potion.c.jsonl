@@ -3,7 +3,7 @@
 {"fn":"set_itimeout","c":"75-79","status":"unknown"}
 {"fn":"incr_itimeout","c":"83-86","status":"unknown"}
 {"fn":"make_confused","c":"89-104","status":"unknown"}
-{"fn":"make_stunned","c":"107-131","status":"unknown","d":["D-2203"],"at":"seed@a30a7de84"}
+{"fn":"make_stunned","c":"107-131","status":"ported","js":["js/potion.js:make_stunned"],"d":["D-2203"],"at":"2026-10-02@135e9a8dd","note":"stale: js/potion.js:928 body whole; s159 wobble path via passive per stepFns, upstream"}
 {"fn":"make_sick","c":"137-192","status":"unknown"}
 {"fn":"make_slimed","c":"195-218","status":"unknown"}
 {"fn":"make_stoned","c":"222-240","status":"unknown"}

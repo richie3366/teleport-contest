@@ -3168,8 +3168,11 @@ async function passive_obj(mon, obj, mattk) {
         }
         break;
     case AD_ACID:
+        // C uhitm.c passive_obj :6164-6168 — rn2(6) corrode of the hitting
+        // weapon, no mcan gate (unlike AD_CORR below; same erode_obj call).
         if (!rn2(6)) {
-            // erode_obj ERODE_CORRODE deferred
+            const { erode_obj } = await import('./trap.js');
+            await erode_obj(obj, null, ERODE_CORRODE, EF_GREASE);
         }
         break;
     case AD_RUST:
@@ -3413,10 +3416,9 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
                 }
             }
             break;
-        case AD_STUN:
-            if (!u.Stunned) {
-                // make_stunned(tmp, TRUE) deferred
-                u.Stunned = tmp | 0;
+        case AD_STUN: /* C uhitm.c:6085-6088 yellow mold; Stunned is HStun (youprop.h:81) */
+            if (!hero_Stunned()) {
+                await (await import('./potion.js')).make_stunned(tmp | 0, true);
             }
             break;
         case AD_FIRE:
