@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `priest.c` p_coaligned — C priest.c:372 `mon_aligntyp(priest)` call absent from js/priest.js:p_coaligned (:273 raw-shralign compare, no sign normalization) + same-logic duplicate js/mklev.js:28518; canonical mon_aligntyp live js/priest.js:155; brief-verified @faf4b9296 **Addressed:** D-3282
+- [x] `pickup.c` encumber_msg — blocks 1/953 (scen-trap-Valkyrie-94041 step 80 kind=screen: C «You falter under your heavy load. Movement is very hard.» vs JS «You stagger under your heavy load. Movement is very hard.») @9cdc961f3 **Addressed:** D-3283
+
+
+- [x] `priest.c` p_coaligned — C priest.c:372 `mon_aligntyp(priest)` call absent from js/priest.js:p_coaligned (:273 raw-shralign compare, no sign normalization) + same-logic duplicate js/mklev.js:28518; canonical mon_aligntyp live js/priest.js:155; brief-verified @faf4b9296 **Addressed:** D-3282 `7589db4a3`
 
 
 - [x] `dog.c` migrate_to_level — C dog.c:906 `relmon(mtmp, &gm.migrating_mons)` call absent from js/teleport.js:migrate_to_level (:2887–2894 inline fmon splice + unshift; doc :2871–2876 names take-off-map, sync caller; C+JS-read) @b7d842138 **Addressed:** D-3281 `e3c036ca2`

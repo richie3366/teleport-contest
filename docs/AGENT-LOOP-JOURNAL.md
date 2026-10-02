@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3283 `pickup.c` encumber_msg HVY stagger() verb + 3 caller arms (mhitm/mhitu/trap)
+
+**C locus:** - `encumber_msg`: nethack-c/upstream/src/pickup.c:1977–2020 whole body (this iter wires :1991–1992 + :2012–2013 stagger calls; all other arms already live).
+**JS:** js/invent.js:330 (import), :1170–1173 (doc), :1186/:1208 (arms); js/mhitm.js:2635; js/mhitu.js:102 (import), :3226; js/trap.js:31 (import), :8217.
+**Change:** canonical `stagger` (js/mhitm.js:1131) imported at all 4 sites — no new module edges (`imports.mjs --can`: ALREADY ×3; mhitm.js same-file), no third clone of potion.js stagger_poly. invent.js: both HVY arms → `stagger(game.youmonst?.data, 'stagger')` (data idiom per the potion.js make_stunned precedent). mhitm.js:2635 (passive AD_STUN) → `makeplural(stagger(magr.data, 'stagger'))` (C mhitm.c:1414–1415). mhitu.js:3226 (passiveum AD_STUN) → `makeplural(stagger(mtmp.data, 'stagger'))` (C mhitu.c:2579–2580; keeps pre-existing plain pline where C has pline_mon — routing, out of cluster). trap.js:8217 (chest gas) → `stagger(game.youmonst?.data, 'stagger')` (C trap.c:6481–6484). Predicates ptr?.-safe (js/monsters.js); C passes nonnull (NONNULLARG12), hero/monster data set at creation — same exposure as existing wired sites.
+**Verify:** `node scripts/verify.mjs --fn encumber_msg,stagger` → VERIFY: PASS — syntax 4 files · rule2 · hidden: verify encumber_msg PROGRESS (scen-trap-Valkyrie-94041 moved past step 80 → trapeffect_rolling_boulder_trap step 111, a later owner) · stagger note (no corpus session blocked — normal; callee, row cites no stagger blocks) · reach: no RNG-tagged reach, smoke spreads 24/24 PASS ×2 → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full skipped (no shared file changed). No maintained unit harness exists (no tests/ dir); the blocked corpus session + REACH are the durable checks (D-3282 precedent).
+**Named:** - `encumber_msg`: none in-body — whole C body live.
+**Next:** density exception stands (sub-80 insertions; `ledger.mjs rows` = 0 eligible anywhere, coverage block empty, callees live — file/closure hold nothing more Open). Refill: queue --limit 30 → 0 eligible as-is (30/30 tagged; Valkyrie-94041 now sits under archived D-1874 trapeffect_rolling_boulder_trap — region-heuristic owner, needs writer/[measure], phase 2); parked writers per the D-3282 survey archived/stale/paint-class; no new missing arm in this iter's briefs. Open stays 6 <8 → REFILL-gate path per D-3281/D-3282 precedent if finish gates.
 ## 2026-10-02 — D-3282 `priest.c` p_coaligned via mon_aligntyp + mklev priestini clone rewire
 
 **C locus:** - `p_coaligned`: nethack-c/upstream/src/priest.c:369–373 whole body (`u.ualign.type == mon_aligntyp(priest)`).

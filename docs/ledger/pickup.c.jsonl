@@ -32,7 +32,7 @@
 {"fn":"pickup_object","c":"1803-1888","status":"unknown"}
 {"fn":"pick_obj","c":"1897-1942","status":"unknown"}
 {"fn":"pickup_prinv","c":"1948-1972","status":"ported","js":["js/pickup.js:pickup_prinv"],"at":"2026-09-29@d27c7b945","note":"stale: js/pickup.js:1152 (D-0456)"}
-{"fn":"encumber_msg","c":"1978-2020","status":"unknown"}
+{"fn":"encumber_msg","c":"1978-2020","status":"ported","js":["js/invent.js:encumber_msg"],"d":["D-3283"],"at":"2026-10-02@7589db4a3"}
 {"fn":"container_at","c":"2024-2038","status":"ported","js":["js/pickup.js:container_at"],"d":["D-3122"],"at":"2026-09-29@c983587e0"}
 {"fn":"able_to_loot","c":"2041-2069","status":"ported","js":["js/pickup.js:able_to_loot"],"d":["D-3213"],"at":"2026-10-01@b0eed7df4"}
 {"fn":"mon_beside","c":"2072-2085","status":"ported","js":["js/pickup.js:mon_beside"],"d":["D-3135"],"at":"2026-09-29@f292ec32c"}

@@ -43,7 +43,7 @@
 {"fn":"big_little_match","c":"1331-1351","status":"ported","js":["js/mondata.js:big_little_match"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"raceptr","c":"1359-1364","status":"unknown"}
 {"fn":"locomotion","c":"1380-1392","status":"unknown"}
-{"fn":"stagger","c":"1395-1407","status":"unknown"}
+{"fn":"stagger","c":"1395-1407","status":"ported","js":["js/mhitm.js:stagger"],"d":["D-3283"],"at":"2026-10-02@7589db4a3"}
 {"fn":"on_fire","c":"1411-1445","status":"unknown"}
 {"fn":"msummon_environ","c":"1449-1495","status":"unknown"}
 {"fn":"olfaction","c":"1507-1518","status":"ported","js":["js/monsters.js:olfaction"],"at":"2026-09-29@671c54bfc","note":"stale: js/monsters.js:709; callers wired do.js:2295 eat.js:1444 makemon.js:1667 wizcmds.js:1740"}
