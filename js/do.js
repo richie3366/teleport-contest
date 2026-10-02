@@ -186,7 +186,7 @@ import { delete_levelfile, open_levelfile } from './files.js';
 import { strange_feeling } from './detect.js';
 import { surface } from './sit.js';
 import { use_pick_axe2, bury_objs, fill_pit } from './dig.js';
-import { set_move_cmd, u_rooted, nhl_callback } from './cmd.js';
+import { set_move_cmd, u_rooted, nhl_callback, wizardOn } from './cmd.js';
 import { cmd_from_func, visctrl } from './dokeylist.js';
 import { newcham, mpickobj } from './makemon.js';
 import { grow_up, mondied } from './mhitm.js';
@@ -1536,6 +1536,9 @@ export async function getlev_catchup_monsters(elapsed) {
  * Ported: W-tower `u_on_rndspot` bit 2 at C `:1804` (D-1179 retired;
  * rndspot itself awaits switch_terrain D-1278; stairs u_on_sstairs
  * fallback is D-1287; cmd.c makemap_prepost amulet|wiztower is D-1288).
+* Ported: entry dlevel clamp (C `:1501–1502`) + endgame-entry arm (C
+* `:1504–1509`: no-Amulet return, wizard ^V bypasses Earth redirect) +
+* plain-`else` arrival (C `:1803`: at_stairs endgame arrivals rndspot).
  * Trap-door `ballfall` was already live; D-3261 omit text corrected.
  * Deferred: binary NHFILE, quest gate seal RMPORTAL, migrating-Wizard
  * resurrect arm, Lua NHCB_LVL_LEAVE, MICRO display_nhwindow after
@@ -1655,9 +1658,20 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C do.c:1492 — captured at entry, before u.uz is reassigned.
     const was_in_W_tower = In_W_tower(u.ux | 0, u.uy | 0, u.uz);
 
+    // C do.c:1501–1502 — clamp an over-deep target (wizard ^V /
+    // level-teleport overshoot); up/dist/newdungeon above already read
+    // the unclamped level, like C's declaration inits.
+    if (dunlev(newlevel) > dunlevs_in_dungeon(newlevel))
+        newlevel.dlevel = dunlevs_in_dungeon(newlevel);
+
     // C: do.c — tutorial(TRUE/FALSE) via nhcore when crossing tutorial branch.
     if (newdungeon) {
-        if (In_tutorial(newlevel)) {
+        // C do.c:1504–1509 — 1st Endgame Level: the Amulet is required
+        // (plain return, no message); wizard ^V bypasses the Earth redirect.
+        if (In_endgame(newlevel)) {
+            if (!(u.uhave?.amulet || u.uhave_amulet)) return;
+            if (!wizardOn()) assign_level(newlevel, game.earth_level);
+        } else if (In_tutorial(newlevel)) {
             game.flags = game.flags || {};
             game.flags.in_tutorial_branch = true;
             await tutorial(true);
@@ -2151,9 +2165,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                     : 'You descend the stairs.');
             }
         }
-    } else if (!at_stairs) {
-        // C do.c:1804 — trap door / level_tele / In_endgame → u_on_rndspot
-        // with the W-tower bit 2 (callee decodes it; D-1179 retired).
+    } else { // C do.c:1803 — trap door or level_tele or In_endgame
+        // (at_stairs endgame arrivals take rndspot too — plain else, not
+        // `else if (!at_stairs)`); W-tower bit 2 (D-1179 retired).
         await u_on_rndspot((up ? 1 : 0) | (was_in_W_tower ? 2 : 0));
         if (falling) {
             // C do.c `:1805–1809` — Punished ≡ (uball != 0) (youprop.h:77)

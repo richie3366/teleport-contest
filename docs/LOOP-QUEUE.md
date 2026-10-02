@@ -126,12 +126,10 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `steal.c` relobj — C steal.c:883–890 vault-guard gold arm (findgold + vanish pline + obj_extract_self/obfree) absent from js/dogmove.js:relobj (:937 doc "vault-guard gold omitted"; brief-verified; D-2407 measured relobj as obj_resists writer — sibling flooreffects gap is the parked mdrop_obj row, not this one) @9cdc961f3
-- [ ] `do.c` goto_level — C do.c:1501–1502 newlevel dlevel clamp (`dunlev(newlevel) > dunlevs_in_dungeon(newlevel)` → clamp) absent from js/do.js:goto_level (entry :1642 goes straight to tutorial/newdungeon; C+JS-read) @a6213509c
-- [ ] `do.c` goto_level — C do.c:1504–1509 endgame-entry arm (!amulet return, wizard bypass, assign earth_level) absent from js/do.js:goto_level (`if (newdungeon)` :1659 handles tutorial only; C+JS-read) @a6213509c
-- [ ] `do.c` goto_level — C do.c:1803 plain `else` arm (trap door/level_tele/In_endgame rndspot for at_stairs arrivals) absent from js/do.js:goto_level (`else if (!at_stairs)` :2154 skips u_on_rndspot when at_stairs && In_endgame; C+JS-read; left untouched as out of scope) @a6213509c
 - [ ] `makemon.c` makemon ptr-arm G_GENOD veto — C makemon.c:1204–1212 (`if (ptr)` monsndx + `mvflags & G_GENOD → return 0` + wizard G_EXTINCT debugpline) absent from js/makemon.js:makemon (no GENOD/G_EXTINCT in brief body; ledger omit D-3278; brief-verified @e3c036ca2)
 - [ ] `mthrowu.c` m_carrying youmonst→invent branch — C mthrowu.c:1409 (`(mtmp==&gy.youmonst) ? gi.invent : minvent`) absent from js/mon.js:m_carrying (:419–424 minvent-only loop; full body read in brief @e3c036ca2; no youmonst.minvent↔invent alias in js/; porter's first check: live hero caller vs latent)
+- [ ] `do.c` goto_level — C do.c:1695–1697 discarded-level arm (VISITED check + `impossible("returning to discarded level?")` + clear) absent from js/do.js:goto_level (`if (!exists)` :1982 goes straight to mklev; C+JS-read) @1b0ae0968
+- [ ] `do.c` goto_level — C do.c:1731–1740 portal-missing distinction (qexpelled quest return vs fuzzer-gated `impossible("no corresponding portal")`) absent from js/do.js:goto_level (:2075 one rndspot for both sub-arms; C+JS-read) @1b0ae0968
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

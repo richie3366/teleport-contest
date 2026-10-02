@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3284 — `do.c` goto_level entry clamp + endgame-entry arm + plain-else arrival
+
+- **Status:** shipped (3 Open corpus-residual `do.c` goto_level rows checked off + archived — dlevel-clamp head + 2 same-C-file companions; no review cited, no stamp owed). Queue head `steal.c` relobj retired stale in the same commit (ledger split refreshed, row archived — proof in Symptom).
+- **Symptom:** no corpus divergence — C-fidelity residuals (rows carry C+JS-read evidence, no `blocks N`). js/do.js `goto_level` lacked the entry dlevel clamp (C :1501–1502), the endgame-entry arm (C :1504–1509: no-Amulet return + Earth redirect), and C's plain-`else` arrival (C :1803): `else if (!at_stairs)` skipped `u_on_rndspot` for at_stairs endgame arrivals (D-3277 left it untouched as out of scope). Stale row: C steal.c:883–890 isgd arm is live — inline at js/mhitm.js:3702–3711 inside `grddead` (C vault.c:181, the only live path); pet path isgd-free (tamedog refuses isgd dog.c:1244; dog_move needs mtame monmove.c:1772; sole C TRUE caller dogmove.c:420 → js/dogmove.js:1011); mon.c:2779 isgd-free (mondead grddead-first mon.c:3109 clears isgd on dispose; sole m_detach TRUE caller mon.c:3175; JS js/mhitm.js:3916 + :3856 mirror it).
+- **C locus:**
+  - `goto_level`: do.c:1501–1502 (dlevel clamp) + do.c:1504–1509 (endgame-entry arm) + do.c:1803 (plain-`else` arrival).
+- **JS was:** entry went straight to prev_temperature/up/dist with no clamp; `if (newdungeon)` handled tutorial only; arrival chain ended `else if (!at_stairs)` (at_stairs endgame arrivals skipped rndspot).
+- **Fix:** clamp after the entry captures (C order — up/dist/newdungeon read the unclamped level like C's declaration inits) via live `dunlev`/`dunlevs_in_dungeon`. Endgame branch first inside `if (newdungeon)`: no-Amulet plain return (no message, like C), else non-wizard `assign_level(newlevel, game.earth_level)` (potion.js:1819 precedent; no up/newdungeon recompute, like C). `wizard` ≡ flags.debug via newly-exported `wizardOn` (cmd.js — honors the JS flags.wizard/game.wizard aliases; do→cmd edge pre-exists, no `--can` needed). Arrival `else if (!at_stairs)` → plain `else` (falling sub-arm unchanged). Doc Ported lines added.
+- **JS:** js/do.js:189 (import), :1539–1541 (doc), :1661–1665 (clamp), :1669–1674 (endgame arm), :2168 (plain else); js/cmd.js:158 (`wizardOn` export).
+- **Callers:**
+  - `goto_level`: no caller change — all 8 C sites wired before this commit (D-3277: artifact.c:1928, dig.c:791, do.c:1287/2085, dungeon.c ×5, potion.c:1105). New in-body reads all live: dunlev/dunlevs_in_dungeon (dungeon.js, pre-existing edge), In_endgame (pre-existing use), assign_level (same-file), game.earth_level (dungeon init), wizardOn (cmd.js, pre-existing edge).
+- **Verify:** `node scripts/verify.mjs --fn goto_level` → VERIFY: PASS — syntax 2 files · rule2 · hidden note (no corpus session blocked; rows cite none, so no `--base` re-run) · reach 33/33 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). No maintained unit harness (no tests/ dir — D-3276/D-3283 precedent); REACH + fortress are the durable checks.
+- **Named omissions:**
+  - `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).
+- **Ledger:** goto_level partial; relobj split js=dogmove.js:relobj+mkobj.js:relobj_on_death+mhitm.js:grddead
+- **Next:** density exception stands (sub-80 insertions; `ledger.mjs rows` = 0 eligible globally, coverage block empty — file/closure hold nothing more Open). Refill: `hidden-proxy queue --limit 30` → 0 eligible as-is (30/30 tagged); appended 2 brief-verified missing-arm rows (goto_level :1695–1697 discarded-level impossible, :1731–1740 portal-missing distinction) → 4 Open (< 8 → REFILL-gate path per D-3282/D-3283 precedent if finish gates; no filler invented).
+
 ## D-3283 — `pickup.c` encumber_msg HVY stagger() verb + 3 caller arms (mhitm/mhitu/trap)
 
 - **Status:** shipped (Open corpus-residual `pickup.c` encumber_msg row checked off + archived; no review cited, no stamp owed)

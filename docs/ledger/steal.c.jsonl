@@ -13,4 +13,4 @@
 {"fn":"maybe_absorb_item","c":"772-810","status":"ported","js":["js/steal.js:maybe_absorb_item"],"d":["D-2869"],"at":"seed@a30a7de84"}
 {"fn":"mdrop_obj","c":"814-846","status":"unknown"}
 {"fn":"mdrop_special_objs","c":"852-871","status":"unknown"}
-{"fn":"relobj","c":"875-898","status":"split","js":["js/dogmove.js:relobj","js/mkobj.js:relobj_on_death","js/mhitm.js:grddead"],"d":["D-2407"],"at":"2026-10-01@2eced4253","note":"stale: pet path dogmove.js:938 (isgd arm dead in C — tamedog refuses isgd dog.c:1244, dog_move needs mtame monmove.c:1772); FALSE loop mkobj.js:3012 + caller newsym; isgd arm inline mhitm.js:3693"}
+{"fn":"relobj","c":"875-898","status":"split","js":["js/dogmove.js:relobj","js/mkobj.js:relobj_on_death","js/mhitm.js:grddead"],"d":["D-3284","D-2407"],"at":"2026-10-02@1b0ae0968","note":"stale: isgd arm live only via vault.c:181, inline mhitm.js:3702-3711; pet path isgd-free (tamedog refuses isgd dog.c:1244, dog_move needs mtame monmove.c:1772); mon.c:2779 isgd-free (mondead grddead-first mon.c:3109 clears isgd; sole m_detach TRUE caller mon.c:3175)"}

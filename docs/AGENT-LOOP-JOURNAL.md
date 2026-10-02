@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3284 `do.c` goto_level entry clamp + endgame-entry arm + plain-else arrival
+
+**C locus:** - `goto_level`: do.c:1501–1502 (dlevel clamp) + do.c:1504–1509 (endgame-entry arm) + do.c:1803 (plain-`else` arrival).
+**JS:** js/do.js:189 (import), :1539–1541 (doc), :1661–1665 (clamp), :1669–1674 (endgame arm), :2168 (plain else); js/cmd.js:158 (`wizardOn` export).
+**Change:** clamp after the entry captures (C order — up/dist/newdungeon read the unclamped level like C's declaration inits) via live `dunlev`/`dunlevs_in_dungeon`. Endgame branch first inside `if (newdungeon)`: no-Amulet plain return (no message, like C), else non-wizard `assign_level(newlevel, game.earth_level)` (potion.js:1819 precedent; no up/newdungeon recompute, like C). `wizard` ≡ flags.debug via newly-exported `wizardOn` (cmd.js — honors the JS flags.wizard/game.wizard aliases; do→cmd edge pre-exists, no `--can` needed).
+**Verify:** `node scripts/verify.mjs --fn goto_level` → VERIFY: PASS — syntax 2 files · rule2 · hidden note (no corpus session blocked; rows cite none, so no `--base` re-run) · reach 33/33 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). No maintained unit harness (no tests/ dir — D-3276/D-3283 precedent); REACH + fortress are the durable checks.
+**Named:** - `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).
+**Next:** density exception stands (sub-80 insertions; `ledger.mjs rows` = 0 eligible globally, coverage block empty — file/closure hold nothing more Open). Refill: `hidden-proxy queue --limit 30` → 0 eligible as-is (30/30 tagged); appended 2 brief-verified missing-arm rows (goto_level :1695–1697 discarded-level impossible, :1731–1740 portal-missing distinction) → 4 Open (< 8 → REFILL-gate path per D-3282/D-3283 precedent if finish gates; no filler invented).
 ## 2026-10-02 — D-3283 `pickup.c` encumber_msg HVY stagger() verb + 3 caller arms (mhitm/mhitu/trap)
 
 **C locus:** - `encumber_msg`: nethack-c/upstream/src/pickup.c:1977–2020 whole body (this iter wires :1991–1992 + :2012–2013 stagger calls; all other arms already live).
