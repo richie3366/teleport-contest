@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2269–2275: review D-3311–D-3319 (7 ACCEPT) + full score
+
+**Scope:** 7 js-touching SHAs since 2268 (D-3312/D-3314 docs-only, skipped): erinys-reset Must-fix, rush octet+idx, safeq quartet, alloc trio, mon sextet, fountain septet, fountain completion. Every verify re-measured per-function in one call each (incl. dryup 42/42, gush 24/24, mgender 90/90 real reach).
+**Finding:** all ACCEPT, no Must-fix. 2266 erinys family closed (reset call + wording verified, probe passes). Deepest checks: set_levltyp target mkmaze.c:76–121 vs trap.js:881 (incremental-counts ≡ rescan disclosed; DB_ICE/EXTRA_SANITY gaps pre-existing, unobservable at these sites); money_cnt/a_monnam/fingers re-points land on exact live exports; eat/trap/hack clone divergences found while refilling → 3 Open rows (not Must-fix: outside reviewed SHAs).
+**Score:** public 44/44 (Scr 11,405, RNG 792,838, `317+1.68/turn`); corpus 705/953, 0 losses/0 gains, `full: true`; held-out 15/44 (+0). Ledger: snapshot appended; 5 ported rows sampled via briefs, all correct (2 stale "no JS symbol" notes refreshed).
+**Next:** queue head (really_done money_cnt twin); queue 3→6 after refill hunt (coverage 0, corpus queue 30→0 eligible, spoteffects park writer shipped).
 ## 2026-10-02 — D-3319 `fountain.c` completion septet (live set_levltyp rewires + 3 clone deletions + money_cnt first-stack fix)
 
 **C locus:** - `dipfountain`: nethack-c/upstream/src/fountain.c:393–554 — Excalibur LONG_SWORD gate + wash/water_damage + rnd(30) switch; :442 `set_levltyp(u.ux,u.uy,ROOM)`; case-28 `money_cnt` (C hack.c:4513–4522 returns the FIRST coin stack).

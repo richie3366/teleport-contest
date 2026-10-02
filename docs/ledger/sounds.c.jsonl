@@ -23,7 +23,7 @@
 {"fn":"sound_matches_message","c":"1629-1639","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out (sounds.c:1539-1691 guard; no -DUSER_SOUNDS); cf js/sounds.js maybe_play_sound doc"}
 {"fn":"play_sound_for_message","c":"1642-1656","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out + zero C callers; cf js/sounds.js maybe_play_sound doc"}
 {"fn":"maybe_play_sound","c":"1659-1673","status":"ported","js":["js/sounds.js:maybe_play_sound"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
-{"fn":"release_sound_mappings","c":"1676-1690","status":"ported","js":["js/sounds.js:release_sound_mappings"],"d":["D-3072"],"at":"2026-09-29@7e25e3c42","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"release_sound_mappings","c":"1676-1690","status":"ported","js":["js/sounds.js:release_sound_mappings"],"d":["D-3072"],"at":"2026-10-02@434fcf3c6","note":"audit 2269-2275: verified live js/sounds.js:325, whole C body in C order (D-3072 stands)"}
 {"fn":"activate_chosen_soundlib","c":"1779-1795","status":"ported","js":["js/options.js:activate_chosen_soundlib"],"d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assign_soundlib","c":"1798-1805","status":"unknown"}
 {"fn":"choose_soundlib","c":"1809-1858","status":"by-design","at":"2026-09-30@a8bd0bc2e","note":"C #if 0 sounds.c:1807-1858 both trees, 0 callers; porting would add dead JS (D-3042 necrophiliac precedent; already named in D-2785)"}

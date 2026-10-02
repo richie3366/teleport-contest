@@ -2278,3 +2278,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2266-2bcda1027-monst-globals-init.md](./2266-2bcda1027-monst-globals-init.md) | `2bcda1027` | D-3308 monst_globals_init overlay reset | **QUALITY-RISK** |
 | [2267-886cc35b5-wish-history-flush.md](./2267-886cc35b5-wish-history-flush.md) | `886cc35b5` | D-3309 wish_history_flush + add omit retired | **ACCEPT** |
 | [2268-07079ea40-handler-symset.md](./2268-07079ea40-handler-symset.md) | `07079ea40` | D-3310 handler_symset + arms + dispatch | **ACCEPT** |
+| [2269-bdd35be25-monst-globals-init-erinys.md](./2269-bdd35be25-monst-globals-init-erinys.md) | `bdd35be25` | D-3311 monst_globals_init erinys-reset Must-fix | **ACCEPT** |
+| [2270-6ce8dc076-cmd-rush-octet.md](./2270-6ce8dc076-cmd-rush-octet.md) | `6ce8dc076` | D-3313 cmd rush octet + rnd_extcmd_idx | **ACCEPT** |
+| [2271-f169dcc0a-invent-safeq-quartet.md](./2271-f169dcc0a-invent-safeq-quartet.md) | `f169dcc0a` | D-3315 invent safeq quartet + worn filter | **ACCEPT** |
+| [2272-d1f323f2b-alloc-trio-dupstr.md](./2272-d1f323f2b-alloc-trio-dupstr.md) | `d1f323f2b` | D-3316 alloc trio (dupstr guard arm) | **ACCEPT** |
+| [2273-1f248868c-mon-sextet-mondied.md](./2273-1f248868c-mon-sextet-mondied.md) | `1f248868c` | D-3317 mon sextet (mondied gate) | **ACCEPT** |
+| [2274-e33fbee37-fountain-septet.md](./2274-e33fbee37-fountain-septet.md) | `e33fbee37` | D-3318 fountain septet (floating_above) | **ACCEPT** |
+| [2275-434fcf3c6-fountain-completion.md](./2275-434fcf3c6-fountain-completion.md) | `434fcf3c6` | D-3319 fountain completion (levltyp rewire) | **ACCEPT** |
