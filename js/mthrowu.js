@@ -706,11 +706,15 @@ export async function thitu(tlev, dam, objp, name) {
             await pline('It burns!');
             monstunseesu(M_SEEN_ACID);
         }
-        // C `:145–146` — done() does not return, so no A_STR exercise.
+        /* C `:150–151` — losehp may die into done(), but done()
+         * returns when life-saved (amulet; wizard/explore `Die?`
+         * decline — savelife clears the JS gameover flag, end.js);
+         * C then falls through to the A_STR exercise. Only a true
+         * death (really_done keeps gameover set) skips it. */
         losehp(dam, knm, kprefix);
         if (game.program_state?.gameover) {
             await finish_losehp_done();
-            return 1;
+            if (game.program_state?.gameover) return 1;
         }
         exercise(A_STR, false);
     }
