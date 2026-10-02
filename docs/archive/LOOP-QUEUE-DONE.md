@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `mkobj.c` discard_minvent — C mkobj.c:2532–2535 artifact arm (`if (uncreate_artifacts && otmp->oartifact) artifact_exists(...)` + obfree) absent from js/mon.js:discard_minvent (:3630–3640 loop extracts+unlinks only, flag param ignored; doc :3628 names it; brief-verified @7bdcd631d; artifact_exists/safe_oname/obfree all live sync) **Addressed:** D-3288
+- [x] `dungeon.c` u_on_rndspot — C dungeon.c:1614 `On_W_tower_level(&u.uz)` gate absent from js/mklev.js:u_on_rndspot (:738 `was_in_W_tower && dndest.nlx` takes the tower branch off-tower and misses nlx==0 on-tower; doc :739 names it; brief-verified @7bdcd631d; canonical On_W_tower_level live js/dungeon.js:1291) **Addressed:** D-3289
+
+
+- [x] `mkobj.c` discard_minvent — C mkobj.c:2532–2535 artifact arm (`if (uncreate_artifacts && otmp->oartifact) artifact_exists(...)` + obfree) absent from js/mon.js:discard_minvent (:3630–3640 loop extracts+unlinks only, flag param ignored; doc :3628 names it; brief-verified @7bdcd631d; artifact_exists/safe_oname/obfree all live sync) **Addressed:** D-3288 `e7c3c5cda`
 
 
 - [x] `do.c` goto_level — C do.c:1695–1697 discarded-level arm (VISITED check + `impossible("returning to discarded level?")` + clear) absent from js/do.js:goto_level (`if (!exists)` :1982 goes straight to mklev; C+JS-read) @1b0ae0968 **Addressed:** D-3287 `f49c6cdfa`

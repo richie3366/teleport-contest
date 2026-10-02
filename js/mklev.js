@@ -147,7 +147,7 @@ import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at, 
 import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch, get_level,
-    on_level, init_dungeons, Is_special, Invocation_lev, In_W_tower, dupstr, get_table_option, get_table_str_opt, get_table_int_opt,
+    on_level, init_dungeons, Is_special, Invocation_lev, In_W_tower, On_W_tower_level, dupstr, get_table_option, get_table_str_opt, get_table_int_opt,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
 import {
@@ -725,8 +725,8 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
  * C ref: dungeon.c u_on_rndspot — place hero via updest/dndest after
  * goto_level. After place_lregion, switch_terrain (D-1278; C :1636–1637)
  * so leftover Lev/Fly FROMOUTSIDE from solid rock unblocks. Unconditional
- * (not dest-typ gated like teleds / hurtle_step). Named: On_W_tower_level
- * gate; W-tower bit 2 at goto_level (D-1179).
+ * (not dest-typ gated like teleds / hurtle_step). W-tower bit 2 at
+ * goto_level (D-1179); On_W_tower_level gate is live below (C :1614).
  * stairs.c u_on_sstairs fallback is D-1287. cmd.c makemap_prepost
  * amulet|wiztower flags is D-1288. objnam wish is a separate caller.
  */
@@ -735,10 +735,12 @@ export async function u_on_rndspot(upflag) {
     const was_in_W_tower = !!(upflag & 2);
     const dndest = game.dndest || {};
     const updest = game.updest || {};
-    if (was_in_W_tower && dndest.nlx) {
-        // On_W_tower_level gate deferred — use exclusion region when present
+    /* C dungeon.c:1614 — stay inside the Wizard's tower when feasible;
+       the tower branch keys off the destination level, not nlx presence
+       (nlx==0 on-tower still takes it; place_lregion !lx → whole level). */
+    if (was_in_W_tower && On_W_tower_level(game.u?.uz)) {
         await place_lregion(
-            dndest.nlx, dndest.nly, dndest.nhx, dndest.nhy,
+            dndest.nlx | 0, dndest.nly | 0, dndest.nhx | 0, dndest.nhy | 0,
             0, 0, 0, 0, LR_DOWNTELE, null,
         );
     } else if (up) {

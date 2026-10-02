@@ -44,7 +44,7 @@
 {"fn":"prev_level","c":"1518-1543","status":"unknown"}
 {"fn":"earth_sense","c":"1548-1565","status":"unknown"}
 {"fn":"u_on_newpos","c":"1568-1601","status":"unknown","d":["D-2756"],"at":"seed@a30a7de84"}
-{"fn":"u_on_rndspot","c":"1605-1638","status":"unknown","d":["D-1278"],"at":"seed@a30a7de84"}
+{"fn":"u_on_rndspot","c":"1605-1638","status":"ported","js":["js/mklev.js:u_on_rndspot"],"d":["D-3289","D-1278"],"at":"2026-10-02@e7c3c5cda"}
 {"fn":"Is_botlevel","c":"1643-1646","status":"unknown"}
 {"fn":"Can_dig_down","c":"1649-1654","status":"unknown"}
 {"fn":"Can_fall_thru","c":"1662-1665","status":"unknown"}

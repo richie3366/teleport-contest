@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3289 — `dungeon.c` u_on_rndspot On_W_tower_level gate
+
+- **Status:** shipped (Open corpus-residual `dungeon.c` u_on_rndspot row checked off + archived; no review cited, no stamp owed)
+- **Symptom:** no corpus divergence — C-fidelity residual (row carries C+JS-read evidence, no `blocks N`). Off-tower arrival with stale `dndest.nlx != 0` took the W-tower exclusion region; on-tower arrival with `nlx == 0` fell through to the generic dndest region instead of the tower branch.
+- **C locus:**
+  - `u_on_rndspot`: nethack-c/upstream/src/dungeon.c:1605–1638 whole body, esp :1614 `if (was_in_W_tower && On_W_tower_level(&u.uz))` → tower exclusion-region `place_lregion` (`nlx..nhy`, zero exclusion, `LR_DOWNTELE`); :1622–1630 up arm; :1631–1635 down arm; :1636–1637 unconditional `switch_terrain`.
+- **JS was:** js/mklev.js:738 `if (was_in_W_tower && dndest.nlx)` — keyed the tower branch off exclusion-region presence; doc :739 named the deferred `On_W_tower_level` gate.
+- **Fix:** gate the tower branch on the canonical `On_W_tower_level(game.u?.uz)` (C :1614, short-circuit order kept); `| 0` the four tower-branch rect args like the sibling arms (C shorts; `place_lregion` `!lx` → whole level covers `nlx == 0` on-tower).
+- **JS:** js/mklev.js — `On_W_tower_level` added to the existing `./dungeon.js` import list (no new module edge: `imports.mjs --can` ALREADY); gate + C comment at the `u_on_rndspot` head; doc "Named: On_W_tower_level gate" retired.
+- **Callers:**
+  - `u_on_rndspot`: C cmd.c:1045 → js/wizcmds.js:878 (D-1288); C do.c:1736/1740 → js/do.js:2090/2094 (D-3287); C do.c:1804 → js/do.js:2190; C stairs.c:120 → js/mklev.js:2861 (D-1287). All pre-wired, unchanged.
+- **Verify:**
+  - `u_on_rndspot`: `verify.mjs --fn u_on_rndspot` PASS — hidden note (no corpus session blocked), reach smoke spread 24/24 → REACH-OK, green 2/2, strict ×2, cohort 7/7, full 44/44 (auto: shared file changed). /tmp gate probe: `On_W_tower_level` on-tower true / off-tower false / undefined false, mklev.js loads as plain ESM. No maintained unit-test layout in repo (sessions + verify are the harness); no new framework per disproportionate-cost rule.
+- **Named omissions:**
+  - `u_on_rndspot`: none in-body — whole C body live.
+- **Ledger:** u_on_rndspot ported
+- **Next:** queue empties after this archive and the coverage block regenerates 0 rows (filter: measured gap + C ≥ 8 code lines or dead callees; top remainder `You` pline.c:366 is 5 C lines). Refill exhausted: `hidden-proxy queue --limit 30` 0 eligible (all archived/parked); park-named `ready_weapon` shine arm already live (js/wield.js:627–634, D-2182); `get_othersym` ledger by-design (no scored analogue). Density note: single-gate fix stands alone — head's file + callee closure hold nothing more Open (callees all live: place_lregion ported, put_lregion_here/u_on_newpos/switch_terrain measured ok, On_W_tower_level live).
+
 ## D-3288 — `mkobj.c` discard_minvent artifact+obfree arms + caller rewirings
 
 - **Status:** shipped (Open corpus-residual `mkobj.c` discard_minvent row checked off + archived; no review cited, no stamp owed)

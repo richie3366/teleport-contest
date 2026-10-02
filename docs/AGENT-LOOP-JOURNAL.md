@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3289 `dungeon.c` u_on_rndspot On_W_tower_level gate
+
+**C locus:** - `u_on_rndspot`: nethack-c/upstream/src/dungeon.c:1605–1638 whole body, esp :1614 `if (was_in_W_tower && On_W_tower_level(&u.uz))` → tower exclusion-region `place_lregion` (`nlx..nhy`, zero exclusion, `LR_DOWNTELE`); :1622–1630 up arm; :1631–1635 down arm; :1636–1637 unconditional `switch_terrain`.
+**JS:** js/mklev.js — `On_W_tower_level` added to the existing `./dungeon.js` import list (no new module edge: `imports.mjs --can` ALREADY); gate + C comment at the `u_on_rndspot` head; doc "Named: On_W_tower_level gate" retired.
+**Change:** gate the tower branch on the canonical `On_W_tower_level(game.u?.uz)` (C :1614, short-circuit order kept); `| 0` the four tower-branch rect args like the sibling arms (C shorts; `place_lregion` `!lx` → whole level covers `nlx == 0` on-tower).
+**Verify:** - `u_on_rndspot`: `verify.mjs --fn u_on_rndspot` PASS — hidden note (no corpus session blocked), reach smoke spread 24/24 → REACH-OK, green 2/2, strict ×2, cohort 7/7, full 44/44 (auto: shared file changed). /tmp gate probe: `On_W_tower_level` on-tower true / off-tower false / undefined false, mklev.js loads as plain ESM. No maintained unit-test layout in repo (sessions + verify are the harness); no new framework per disproportionate-cost rule.
+**Named:** - `u_on_rndspot`: none in-body — whole C body live.
+**Next:** queue empties after this archive and the coverage block regenerates 0 rows (filter: measured gap + C ≥ 8 code lines or dead callees; top remainder `You` pline.c:366 is 5 C lines). Refill exhausted: `hidden-proxy queue --limit 30` 0 eligible (all archived/parked); park-named `ready_weapon` shine arm already live (js/wield.js:627–634, D-2182); `get_othersym` ledger by-design (no scored analogue). Density note: single-gate fix stands alone — head's file + callee closure hold nothing more Open (callees all live: place_lregion ported, put_lregion_here/u_on_newpos/switch_terrain measured ok, On_W_tower_level live).
 ## 2026-10-02 — D-3288 `mkobj.c` discard_minvent artifact+obfree arms + caller rewirings
 
 **C locus:** - `discard_minvent`: mkobj.c:2524–2536 whole body, esp :2532–2533 artifact arm + :2534 obfree.
