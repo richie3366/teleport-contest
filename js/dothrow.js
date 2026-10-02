@@ -21,6 +21,7 @@ import {
     losehp, maybe_half_phys, nomul, impact_disturbs_zombies, finish_maybe_wail,
     switch_terrain, in_rooms, stop_occupation, You_hear,
     Passes_walls_prop, check_special_room, is_pool, is_lava, is_moat,
+    check_capacity,
 } from './hack.js';
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
@@ -194,7 +195,7 @@ function notake(ptr) {
 
 /**
  * C ref: dothrow.c ok_to_throw — shared gate for #throw / #fire.
- * Named omission: check_capacity((char *)0).
+ * check_capacity((char *)0) via live js/hack.js (C `:310–311`).
  * @param {{n:number}|null} [shotlimit_p] C `int *shotlimit_p`
  * @returns {Promise<boolean>} false → ECMD_OK (no time)
  */
@@ -219,7 +220,8 @@ async function ok_to_throw(shotlimit_p) {
         mark_topline_seen();
         return false;
     }
-    // check_capacity deferred
+    // C dothrow.c:310 — check_capacity((char *)0) (live js/hack.js).
+    if (await check_capacity(null)) return false;
     return true;
 }
 

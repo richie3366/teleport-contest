@@ -24,7 +24,7 @@ import {
     TRAP_CLEARLY_IMMUNE, TRAPNUM, WEB,
     xdir, ydir, N_DIRS, xytodir, directionname,
     DIR_W, DIR_N, DIR_E, DIR_S, DIR_NW, DIR_NE, DIR_SE, DIR_SW,
-    OVERLOADED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, Is_airlevel, Is_waterlevel,
+    OVERLOADED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER, Is_airlevel, Is_waterlevel,
     Is_earthlevel, Is_medusa_level, Is_juiblex_level, Is_rogue_level,
     TELEPORT, SEE_INVIS, POISON_RES, COLD_RES, SHOCK_RES, FIRE_RES,
     SLEEP_RES, DISINT_RES, TELEPORT_CONTROL, STEALTH, FAST, INVIS,
@@ -41,7 +41,7 @@ import {
     NEUTRAL,
 } from './const.js';
 import {
-    pline, vpline, You, There, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
+    pline, vpline, You, You_cant, There, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
     set_msg_xy, feel_location, map_object, unmap_object, verbalize, curs_on_u,
     nh_delay_output, back_to_glyph, glyph_to_cmap, glyph_is_cmap, pline_dir,
     impossible, raw_printf,
@@ -198,6 +198,26 @@ export async function You_hear(line, ...the_args) {
     else
         prefix = 'You hear '; /* Deaf-aware */
     await vpline(`${prefix}${line}`, ...the_args);
+}
+
+/**
+ * C ref: hack.c check_capacity `:4399–4409` — near_capacity() >=
+ * EXT_ENCUMBER blocks with an immediate message: pline1(str) ≡
+ * pline("%s", str) (hack.h `:1026`) when str, else You_cant.
+ * C callers (13): apply/dothrow/eat×2/engrave/pickup×2/read/spell/
+ * teleport/trap/uhitm/zap — all wired to this export.
+ * @param {string|null} [str]
+ * @returns {Promise<boolean>} true when overloaded (C returns 1)
+ */
+export async function check_capacity(str) {
+    if (near_capacity() >= EXT_ENCUMBER) {
+        if (str)
+            await pline('%s', str);
+        else
+            await You_cant('do that while carrying so much stuff.');
+        return true;
+    }
+    return false;
 }
 
 /**

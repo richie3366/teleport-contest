@@ -140,7 +140,7 @@ import { valid_cloud_pos, create_gas_cloud } from './region.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { bcsign, BY_COOKIE, outrumor } from './rumors.js';
 import { dist2, mungspaces, strstri, strncmpi, upwords } from './hacklib.js';
-import { You_hear, closed_door, maybe_half_phys, is_pool } from './hack.js';
+import { You_hear, closed_door, maybe_half_phys, is_pool, check_capacity } from './hack.js';
 import { Soundeffect } from './sndprocs.js';
 import { se_maniacal_laughter, se_sad_wailing } from './generated/seffects_data.js';
 import { resist, cant_revive, Fire_resistance } from './zap.js';
@@ -2191,11 +2191,8 @@ export async function doread() {
     known = false;
     // C read.c:332 doread — function-static Braille message.
     const find_any_braille = 'feel any Braille writing.';
-    // C ref: hack.c check_capacity — near_capacity >= EXT_ENCUMBER → ECMD_OK
-    if (near_capacity() >= EXT_ENCUMBER) {
-        await pline("You can't do that while carrying so much stuff.");
-        return 0;
-    }
+    // C read.c:355 — check_capacity((char *)0) (live js/hack.js).
+    if (await check_capacity(null)) return 0;
 
     const scroll = await getobj_read();
     if (!scroll) return 0;

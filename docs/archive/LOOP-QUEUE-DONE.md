@@ -5,9 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `hack.c` check_capacity — C hack.c:4402–4406 pline1(str)/You_cant immediate-message arms absent from js/pickup.js:check_capacity (:4716 local-only clone; :4719 fire-and-forget game._check_capacity_msg; C has 13 call sites incl apply/dothrow/eat/engrave/pickup/read/spell/teleport/trap/uhitm/zap) @6ea16ae6e
+
+
 - [x] `zap.c` boomhit — C zap.c:4148 boomhit :4202–4210 boomerang self-hit arm (thitu "boomerang" + endmultishot(TRUE)) absent from js/zap.js (no boomhit/boomerang in file; queued as bhit 4fbb3512e, pinned-C bhit zap.c:3827–4139 holds no such arm; endmultishot live js/dothrow.js:862) @4fbb3512e **Addressed:** D-3265 (stale: whole body live js/dothrow.js:2116, D-1301)
-- [x] `do.c` boulder_hits_pool — C do.c:148–151 pushing useupf(otmp, quan) absent from js/do.js:boulder_hits_pool (:1057 inlines the obfree path for both arms; useupf live js/invent.js:4851) @5a869cf51 **Addressed:** D-3265
-- [x] `do.c` boulder_hits_pool — C do.c:137 burn_away_slime() in the lava arm absent from js/do.js:boulder_hits_pool (:1046 molten-lava arm without it; burn_away_slime live js/timeout.js:1709) @5a869cf51 **Addressed:** D-3265
+- [x] `do.c` boulder_hits_pool — C do.c:148–151 pushing useupf(otmp, quan) absent from js/do.js:boulder_hits_pool (:1057 inlines the obfree path for both arms; useupf live js/invent.js:4851) @5a869cf51 **Addressed:** D-3265 `a2542cfc9`
+- [x] `do.c` boulder_hits_pool — C do.c:137 burn_away_slime() in the lava arm absent from js/do.js:boulder_hits_pool (:1046 molten-lava arm without it; burn_away_slime live js/timeout.js:1709) @5a869cf51 **Addressed:** D-3265 `a2542cfc9`
 
 
 - [x] `allmain.c` moveloop_core — blocks 1/953 (scen-death-Tourist-92095 step 49/111 kind=screen+rng: post-lifesave turn re-loops in JS — extra movemon + 2nd once-per-turn block incl. mcalcmove/maybe_generate_rnd_mon/2nd dosounds trio, +95 draws — while C exits after u_wipe_engr rn2(82); pet (48,15)→(48,14) paints I vs C floor; savelife/done set no loop state, u_calc_moveamt clone verbatim — gap in do-while `umovement < NORMAL_SPEED` turn accounting, allmain.c:196–380) @4fbb3512e **Addressed:** D-3264 `c94c66b65`

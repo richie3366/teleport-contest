@@ -253,7 +253,7 @@ import { findit, cvt_sdoor_to_door, show_map_spot } from './detect.js';
 import {
     fall_asleep, losehp, maybe_half_phys, nomul, is_pool,
     is_lava, is_moat, waterbody_name, in_rooms, dissolve_bars, stop_occupation,
-    SURFACE_AT, You_hear, long_to_any, set_uinwater,
+    SURFACE_AT, You_hear, long_to_any, set_uinwater, check_capacity,
 } from './hack.js';
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
@@ -7114,7 +7114,8 @@ export async function dozap() {
         await pline("You aren't able to zap anything in your current form.");
         return 0;
     }
-    // check_capacity deferred
+    // C zap.c:2636 — check_capacity((char *)0) (live js/hack.js).
+    if (await check_capacity(null)) return 0;
     const obj = await getobj_zap();
     if (!obj) return 0;
 

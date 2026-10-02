@@ -122,7 +122,7 @@ import {
     is_pool, is_lava, waterbody_name, crawl_destination, SURFACE_AT,
     maybe_half_phys, nomul, unmul, losehp, finish_maybe_wail, stop_occupation,
     in_rooms, set_uinwater, test_move, fall_asleep, You_hear, spot_checks,
-    monst_to_any,
+    monst_to_any, check_capacity,
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds, safe_teleds, noteleport_level, dotele, unconscious } from './teleport.js';
 import { emits_light, del_light_source } from './light.js'; // mongone_statue_donor del arm (same SCC; hoisted fns, runtime use only)
@@ -7668,7 +7668,7 @@ async function disarm_shooting_trap(ttmp, otyp) {
 
 /**
  * C ref: trap.c help_monster_out `:5699–5791` — lift from pit/spiked pit.
- * check_capacity inlined (C hack.c; pickup.js clone stays).
+ * check_capacity((char *)0) via live js/hack.js (C `:5722–5723`).
  */
 async function help_monster_out(mtmp, ttmp) {
     const u = game.u || {};
@@ -7676,10 +7676,8 @@ async function help_monster_out(mtmp, ttmp) {
         await pline(`${Monnam(mtmp)} isn't trapped.`);
         return 0;
     }
-    if (near_capacity() >= EXT_ENCUMBER) {
-        await pline("You can't do that while carrying so much stuff.");
-        return 1;
-    }
+    // C trap.c:5722 — check_capacity((char *)0) (live js/hack.js).
+    if (await check_capacity(null)) return 1;
     const uprob = untrap_prob(ttmp);
     if (uprob && !helpless(mtmp)) {
         await pline(`You try to reach out your ${makeplural(body_part(ARM))}, but ${mon_nam(mtmp)} backs away skeptically.`);

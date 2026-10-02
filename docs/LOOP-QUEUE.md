@@ -126,11 +126,14 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `hack.c` check_capacity — C hack.c:4402–4406 pline1(str)/You_cant immediate-message arms absent from js/pickup.js:check_capacity (:4716 local-only clone; :4719 fire-and-forget game._check_capacity_msg; C has 13 call sites incl apply/dothrow/eat/engrave/pickup/read/spell/teleport/trap/uhitm/zap) @6ea16ae6e
 - [ ] `trap.c` trapeffect_fire_trap — C trap.c:1746–1753 surface(mx,my) in both erupt plines + :1736 seetrap(trap) hero branch absent from js/trap.js:trapeffect_fire_trap (:4840 const surf = 'floor' // surface() deferred; hero :4829–4832 dofiretrap-only; surface live js/sit.js, seetrap live js/trap.js) @6ea16ae6e
 - [ ] `apply.c` use_stethoscope — C apply.c:430–431 M_AP_FURNITURE defsyms[mappearance].explanation absent from js/apply.js:use_stethoscope (:598–600 keeps C default 'thing'; no JS defsyms table; named omit D-2594/ledger partial; prior whole-body row DONE:1437 left this arm) @6ea16ae6e
 - [ ] `vault.c` invault — C vault.c:495–498 guard-arrival `if (gm.multi>0){nomul(0);unmul((char*)0)}` — unmul(0) absent from js/vault.js:invault (:763–765 nomul-only; unmul live async js/hack.js:1766; brief-verified) @d947745c9
 - [ ] `attrib.c` exercise — blocks 1/953 (scen-death-Tourist-92095 step 66/111 kind=rng: C rn2(19)=15@exercise(attrib.c:509) vs JS rn2(5)=4@distfleeck(monmove.js:1140) after rn2(82)=74@moveloop_core; steps 0–66 screens all match; rescore + rng-diff + show this commit — visible in `hidden-proxy queue` once this commits; owner-tagged RNG divergence, not the parked presence-only/encumbrance claim) @d947745c9
+- [ ] `zap.c` exclam — C zap.c:3546–3553 `exclam(int force)` canonical export absent from js/zap.js (C home; 3 local clones js/mthrowu.js:286, js/uhitm.js:441, js/zap.js:1541; C callers in 5 files incl muse.c/spell.c with no JS clone; brief-verified) @a2542cfc9
+- [ ] `makemon.c` mbirth_limit — C makemon.c:1541–1551 `mbirth_limit(int mndx)` canonical export absent from js/makemon.js (2 local clones js/dog.js:165 + js/makemon.js:1568; C callers dog.c:117/makemon.c:961/mon.c:5298; brief-verified) @a2542cfc9
+- [ ] `mon.c` relmon — C mon.c:2559–2594 `relmon()` fmon-list surgery canonical export absent from js/mon.js (C home; only clone js/dog.js:751; callers dog.c:618/863/906; brief-verified) @a2542cfc9
+- [ ] `priest.c` priestname — C priest.c:301–367 `priestname()` 67-line body canonical export absent from js/priest.js (C home; only clone js/do_name.js:929; caller do_name.c:898; brief-verified) @a2542cfc9
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3265 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3266 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3265.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3265 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3266.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3266 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3266: new `export async function check_capacity(str)` in js/hack.js (C home file; `near_capacity` + `pline` already imported there; extended the const.js ed Named: - `check_capacity`: none in-body — whole C body live (callees all live: near_capacity js/i
 - D-3265: js/do.js only — impossible arm (`await impossible('Not a boulder?')`, C :57, then FALSE fallthrough); steed whobuf (`y_monnam(u.usteed)` + `upstart`/` Named: - `boulder_hits_pool`: none in-body — whole C body live (pre-existing local notes kept: `m
 - D-3264: js/hack.js — unmul prints the follow-up after nomovemsg in C order (`Upolyd(game.u)` + 18-char case-insensitive prefix + `await You('are %s.', an(pmna Named: - `done`: paniclog TRICKED file write (Rule #2); fuzzer_savelife (debug-fuzz only).
 - D-3263: Medusa: `await mon_reflects(mtmp, 'The gaze is reflected away by %s %s!')` early-return, then vis-gated stone pline + `game.context.stoned = true` (mh Named: `use_mirror`: full zap.c `bhit` (Open row; INVIS_BEAM mon-targeting via file-local `bhit_i
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3254: `js/display.js` only, no new module edge (same-file `glyph_is_unexplored` :885 + `glyph_is_cmap` :891; no `imports.mjs --can` needed): gate the `remem Named: - `seffect_magic_mapping`: blessed-scroll Rogue `unblock_point` stands approximated as `vi
 - D-3253: `js/uhitm.js` only, no new module edge (in-scope `get_dmg_bonus` local + `PM_SHADE`; no `imports.mjs --can` needed): floor → `dmg = (get_dmg_bonus &&  Named: - `abuse_dog`: none in-body — whole C body live.
 - D-3252: `js/do.js` only, no new module edge — all callees pre-imported (set_move_cmd/u_rooted via cmd.js :184; stucksteed via steed.js :158; near_capacity via Named: - `doup`: none in-body — whole C body live (at_ladder `stway.isladder` fallback pre-existi
-- D-3251: `js/uhitm.js` only, no new module edge — AD_STUN guard → file-local `hero_Stunned()` (:1494, the youprop.h:81 equivalent) + `await (await import('./po Named: - `passive`: AD_ACID remainder — M_SEEN markers (:5916/:5918), erode_armor (:5921; live js
 <!-- landmarks:end -->

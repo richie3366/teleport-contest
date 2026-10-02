@@ -49,7 +49,7 @@ import { vision_recalc, couldsee } from './vision.js';
 import {
     nomul, in_rooms, is_pool, is_lava, check_special_room, switch_terrain,
     invocation_message, notice_mon_off, notice_mon_on, notice_all_mons,
-    set_msg_xy, Passes_walls_prop,
+    set_msg_xy, Passes_walls_prop, check_capacity,
 } from './hack.js';
 import { remove_worm, place_worm_tail_randomly, level_mon_at } from './worm.js';
 import { makeknown, prinv, near_capacity, paint_corner_nhw_menu } from './invent.js';
@@ -2079,10 +2079,10 @@ export async function dotele(break_the_rules) {
             );
             return false;
         }
-        if (near_capacity() >= EXT_ENCUMBER) {
-            await pline(
-                'Your concentration falters from carrying so much.',
-            );
+        // C teleport.c:1126 — check_capacity(...) (live js/hack.js).
+        if (await check_capacity(
+            'Your concentration falters from carrying so much.',
+        )) {
             return true; /* C: this failure in spelleffects() also uses the move */
         }
 

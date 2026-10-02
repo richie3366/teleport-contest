@@ -80,7 +80,7 @@ import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, A_CON, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination, a_monnam, Amonnam, monverbself, l_monnam, type_is_pname, pmname, Mgender, hliquid, YMonnam, obj_pmname, hcolor, s_suffix, Ugender } from './do_name.js';
 import { monflee } from './monmove.js';
-import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms, You_hear } from './hack.js';
+import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms, You_hear, check_capacity } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { walk_path, walk_path_async, hurtle_jump, thitmonst, hurtle } from './dothrow.js';
 import { uhim, uhis, genders } from './roles.js';
@@ -2504,11 +2504,8 @@ export async function doapply() {
         await pline("You aren't able to use or apply tools in your current form.");
         return false; // ECMD_OK
     }
-    // C ref: hack.c check_capacity — near_capacity >= EXT_ENCUMBER
-    if (near_capacity() >= EXT_ENCUMBER) {
-        await pline("You can't do that while carrying so much stuff.");
-        return false; // ECMD_OK
-    }
+    // C apply.c:4223 — check_capacity((char *)0) (live js/hack.js).
+    if (await check_capacity(null)) return false; // ECMD_OK
 
     // C doapply: struct obj *obj is mutated via &obj (light_cocktail, …)
     // C apply.c:4226 getobj("use or apply", apply_ok, GETOBJ_NOFLAGS)

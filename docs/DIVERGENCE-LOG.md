@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3266 — `hack.c` check_capacity whole-body port (async export in js/hack.js, 13 call sites wired, pickup.js sync clone deleted)
+
+- **Status:** shipped (Open corpus-residual row `check_capacity` checked off and archived; no review cited, no stamp owed)
+- **Symptom:** message-channel: 9 JS call sites inlined `near_capacity() >= EXT_ENCUMBER` + their own pline instead of calling C `check_capacity`; 2 sites (dothrow `ok_to_throw`, zap `dozap`) carried `// check_capacity deferred` with no gate at all; `js/pickup.js:4716` held a sync local clone stashing the message in `game._check_capacity_msg` for callers to print (fire-and-forget; C prints immediately via pline1/You_cant).
+- **C locus:**
+  - `check_capacity`: nethack-c/upstream/src/hack.c:4399–4409 (`if (str) pline1(str); else You_cant("do that while carrying so much stuff."); return 1/0`) + pline1 macro ≡ `pline("%s", str)` (nethack-c/upstream/include/hack.h:1026).
+- **JS was:** sync clone `js/pickup.js:4716` + `game._check_capacity_msg` consumed at `:4483`, `:5336`; inline clones at apply.js doapply, eat.js floorfood_eat + doeat, engrave.js u_can_engrave, read.js doread, spell.js spelleffects_check, teleport.js dotele, trap.js help_monster_out, uhitm.js do_attack; gate absent at dothrow.js ok_to_throw, zap.js dozap.
+- **Fix:** new `export async function check_capacity(str)` in js/hack.js (C home file; `near_capacity` + `pline` already imported there; extended the const.js edge with `EXT_ENCUMBER` and the display.js edge with `You_cant` — no new module edges); all 13 C call sites rewired to `await` it in C order with C's exact strings; deleted the pickup.js clone and all `game._check_capacity_msg` uses; retired the dothrow/trap/engrave/uhitm named-omission comments.
+- **JS:** js/hack.js:212 (export) + js/apply.js, js/dothrow.js, js/eat.js, js/engrave.js, js/pickup.js, js/read.js, js/spell.js, js/teleport.js, js/trap.js, js/uhitm.js, js/zap.js (each extends its pre-existing hack.js import edge; call-time use, no TDZ risk, no `imports.mjs --can` needed).
+- **Callers:**
+  - `check_capacity`: apply.c:4223 doapply → js/apply.js:2508; dothrow.c:310 ok_to_throw → js/dothrow.js:224 (was deferred — new gate, C FALSE→false); eat.c:2831 doeat → js/eat.js:4314; eat.c:3623 floorfood beartrap → js/eat.js:1273 (`(await check_capacity(msg)) && beartrap`, C order — message prints iff overloaded); engrave.c:538 u_can_engrave → js/engrave.js:1272; pickup.c:2194 doloot_core → js/pickup.js:4482; pickup.c:3594 dotip → js/pickup.js:5315 (`!overloaded && able_to_loot`, C short-circuit); read.c:355 doread → js/read.js:2195; spell.c:1279 spelleffects_check → js/spell.js:2066 (TIME arm kept); teleport.c:1126 dotele → js/teleport.js:2083; trap.c:5722 help_monster_out → js/trap.js:7680; uhitm.c:531 do_attack → js/uhitm.js:5020 (overexertion still skipped when blocked — C `||` short-circuit); zap.c:2636 dozap → js/zap.js:7118 (was deferred — new gate).
+- **Verify:**
+  - `check_capacity`: `node scripts/verify.mjs --fn check_capacity` → VERIFY: PASS (syntax 12 files; rule2; hidden note "no corpus session blocked at baseline" — normal for a coverage row; reach: no RNG-tagged reach, fixed smoke spread 24 run / 24 PASS / 0 regressed → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+- **Named omissions:**
+  - `check_capacity`: none in-body — whole C body live (callees all live: near_capacity js/invent.js, pline + You_cant js/display.js; pline1 is a C macro).
+- **Ledger:** check_capacity ported
+- **Next:** queue remainder after archive is 4 Open rows (`trapeffect_fire_trap` head); coverage block regenerates 0 rows and `hidden-proxy queue --limit 30` reports 0 untagged owners, so the next iteration refills from parked-writer briefs (this iter: dohide stale, shipped js/polyself.js:2574; dobuzz live js/zap.js:2351, park claim is paint-ordering not a missing arm). Density note: 71 js/ insertions across 12 files — below the ~80 guide, but the unless-clause holds (hack.c holds no further Open row; callee closure near_capacity/You_cant live). No maintained test harness in-repo (no tests/ dir; sessions + verify.mjs are the gates) — REACH/full-44 run above is the durable evidence.
+
 ## D-3265 — `do.c` boulder_hits_pool whole-body completion (pushing useupf, lava burn_away_slime, steed whobuf, sfx, impossible arm; boomhit head stale)
 
 - **Status:** shipped (2 Open corpus-residual rows for `boulder_hits_pool` + stale `boomhit` head — all checked off and archived; no review cited, no stamp owed)

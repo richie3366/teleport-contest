@@ -39,7 +39,7 @@ import {
     objectNames, is_poisonable,
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck, ALIGNLIM, Fumbling } from './attrib.js';
-import { overexertion, nomul, losehp, is_pool, maybe_half_phys, noattacks } from './hack.js';
+import { overexertion, nomul, losehp, is_pool, maybe_half_phys, noattacks, check_capacity } from './hack.js';
 import { ing_suffix, upstart, highc, strstri } from './hacklib.js';
 import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, tp_sensemon, map_invisible, unmap_object, unmap_invisible, memory_glyph_is_invisible, glyph_at, glyph_is_warning, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
 import { cansee } from './vision.js';
@@ -4990,8 +4990,8 @@ export async function do_attack(mtmp) {
     }
 
     // C uhitm.c do_attack `:525–534` — Upolyd pacifist gate, then the
-    // check_capacity || overexertion short-circuit to atk_done. check_capacity
-    // is hack.c near_capacity() >= EXT_ENCUMBER printing
+    // check_capacity || overexertion short-circuit to atk_done. Live
+    // check_capacity (js/hack.js) prints
     // "You cannot fight while so heavily loaded."; when it blocks,
     // overexertion (and its gethungry RNG) must NOT run — C `||`
     // short-circuit. All three arms fall through to atk_done (forcefight
@@ -5016,8 +5016,8 @@ export async function do_attack(mtmp) {
         attack_atk_done();
         return true;
     }
-    if (near_capacity() >= EXT_ENCUMBER) {
-        await pline('You cannot fight while so heavily loaded.');
+    // C uhitm.c:531 — check_capacity("You cannot fight...") (live js/hack.js).
+    if (await check_capacity('You cannot fight while so heavily loaded.')) {
         attack_atk_done();
         return true;
     }
