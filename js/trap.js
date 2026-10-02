@@ -41,7 +41,7 @@ import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, otense,
 import {
     Amonnam, Monnam, mon_nam, x_monnam, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
-    s_suffix, obj_pmname,
+    s_suffix, obj_pmname, a_monnam,
 } from './do_name.js';
 import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, unblock_point, vision_recalc } from './vision.js';
@@ -244,15 +244,6 @@ function Role_if(pm) {
     return (game.urole?.mnum | 0) === (pm | 0);
 }
 
-function a_monnam(mtmp) {
-    if (!mtmp) return something;
-    const nm = mon_nam(mtmp);
-    if (!nm) return something;
-    const c0 = nm.charAt(0);
-    if (c0 === c0.toUpperCase() && c0 !== c0.toLowerCase()) return nm;
-    return `a ${nm}`;
-}
-
 function carried_obj(obj) {
     return (obj?.where | 0) === OBJ_INVENT
         || (game.invent || []).includes(obj);
@@ -447,7 +438,8 @@ export async function animate_statue(statue, x, y, cause, fail_reason = null) {
             `Instead of shattering, ${statuename} suddenly ${comes_to_life}!`,
         );
     } else {
-        // ANIMATE_NORMAL — set_msg_xy deferred
+        // ANIMATE_NORMAL — set_msg_xy deferred; C trap.c:848 a_monnam
+        // (live do_name.js export: ARTICLE_A + SUPPRESS_SADDLE).
         await pline(
             `You find ${canspotmon(mon) ? a_monnam(mon) : something}`
             + ' posing as a statue.',

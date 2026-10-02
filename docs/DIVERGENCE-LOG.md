@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-3322 — a_monnam trap+hack clone removals (animate_statue / moverock_core rewires)
+
+- **Status:** shipped (2 Open missing-arm rows checked off + archived in this commit). ~5 js/ insertions / ~22 deletions + `scripts/amonnam-rewire.test.mjs` (5 subtests) — below the ~80 insertion bar, defended (D-3319/D-3320/D-3321 exception shape): the deliverable is rewire-to-live (deletion of wrong code is the port), two real C-wrongs fixed (naive `a`-prefix before vowels; PM_-tag-derived names), the whole C body verified against the live export, and the head's file + callee closure hold nothing more Open (x_monnam live; coverage block regenerates 0 rows; both queued a_monnam rows ship here). No review cited (audit-2269–2275-range provenance, all ACCEPT), no stamp owed. Refill: `rows --write` 0 (unchanged, all remaining gaps ≤7 lines); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/open/ledger-tagged); no Parked line names a confirmed writer (falsifiers only, phase 2); one source-(4) row appended from this session's brief+body evidence (music.js:266 third clone) — queue ships at 1.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked). js/trap.js:247-then clone served animate_statue with naive `` `a ${mon_nam}` `` (wrong article before vowels, no SUPPRESS_SADDLE/hallu/invisible arms); js/hack.js:300-then clone served moverock_core from the internal PM_ tag (own doc deferred hallu/invisible/named-pet arms).
+- **C locus:**
+  - `a_monnam`: nethack-c/upstream/src/do_name.c:1151–1156 whole body (4 lines): `x_monnam(mtmp, ARTICLE_A, 0, has_mgivenname ? SUPPRESS_SADDLE : 0, FALSE)` — read in the brief this session.
+- **JS was:** js/trap.js:247-then `function a_monnam` (null→something, capital→bare, else `a ${mon_nam}`); js/hack.js:300-then `function a_monnam` (null→'a monster', named→bare given name, else an/a over PM_-derived lowercase).
+- **Fix:** deleted both clones; extended the ALREADY static do_name edges (js/trap.js:44, js/hack.js:74; imports.mjs ALREADY both files) with `a_monnam`; one C-cite comment per site (js/trap.js:441, js/hack.js:1043). Call-site expressions unchanged — both already C-shaped (`canspotmon ? a_monnam : something` ≡ trap.c:848; `There's … on the other side` ≡ hack.c:462). Export names/signatures unchanged. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** live js/do_name.js:1221, unchanged, verified complete against the C body (ARTICLE_A, null adjective, SUPPRESS_SADDLE-when-named, called=false over live x_monnam js/do_name.js:934). Scripts: scripts/amonnam-rewire.test.mjs (an-eel / a-rat / named-saddled behavioral + 2 census subtests; pre-change run: 3 pass / 2 census fail — authentic failure observed).
+- **Callers:**
+  - `a_monnam`: trap.c:848→js/trap.js:444 (this iter); hack.c:462→js/hack.js:1044 (this iter); music.c:124→js/music.js:350 via the remaining local clone js/music.js:266 (third clone, unqueued — see omissions); all other C sites (apply.c:1231/:2478, detect.c:2008, do_name.c:1161, dokick.c:174, dothrow.c:1029, fountain.c:72/:102/:630, hack.c:3448/:3937, insight.c:1101/:3477, mhitm.c:348, mon.c:3762, muse.c:112, music.c:124, potion.c:2826, pray.c:1749, shk.c:195, steed.c:267, timeout.c:1145, uhitm.c:6216/:6266, zap.c:1631) predate this iteration and resolve to the live export or their long-standing locals, untouched — no call from a site C never calls from was added.
+- **Verify:** `node scripts/verify.mjs --fn a_monnam` tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/hack.js js/trap.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify a_monnam: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    a_monnam: no RNG-tagged reach; fixed smoke spread (24 run, 11.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+`node --test scripts/amonnam-rewire.test.mjs`: 5 pass / 0 fail post-change.
+- **Named omissions:**
+  - `a_monnam`: none in-body — whole C body live.
+  - Caller-side pre-existing (out of row scope, not rewired): js/music.js:266 local clone serving C music.c:124 (pinned by the new census test; needs its own Open row with brief evidence).
+- **Ledger:** a_monnam ported
+- **Next:** ship the queued music.c awakener a_monnam row (third clone + Amonnam-twin companion); coverage block stays ungeneratable (all gaps ≤7 lines), hidden-proxy queue 0 eligible — refill stays source-(4)-only until a gap reopens.
+
 ## D-3321 — fingers_or_gloves eat.js clone removal (tin-slips gloves→fingers)
 
 - **Status:** shipped (1 Open missing-arm row checked off + archived in this commit). ~1 js/ insertion / ~6 deletions — below the ~80 insertion bar, defended (D-3319/D-3320 exception shape): the deliverable is rewire-to-live (deletion of wrong code is the port), one real C-wrong fixed (FALSE arm returned 'gloves' with uarmg set), the whole 5-line C body verified against the live export, and the head's file + callee closure hold nothing more Open (both callees live; coverage block regenerates 0 rows; the 2 remaining queue rows are different C files). No review cited (audit-2269–2275-range provenance, all ACCEPT), no stamp owed. Refill: `rows --write` 0 (unchanged); hidden-proxy queue 30 shown, 0 eligible (all archived/parked/open/ledger-tagged) — queue ships at 2. finish-iteration prepared the tree but its REFILL gate (2 < 8) cannot pass without unevidenced rows, so the tree was committed by hand (D-3320 precedent). No maintained unit harness in repo (no tests/ dir, no test script) — honest verification is the verify.mjs gates + the /tmp truth-table probe below, disclosed per durable-test-collateral.

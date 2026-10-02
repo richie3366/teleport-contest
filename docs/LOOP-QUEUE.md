@@ -126,9 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `trap.c` animate_statue a_monnam clone removal (audit 2269–2275) — C do_name.c:1151–1156 ARTICLE_A semantics (an/a selection, SUPPRESS_SADDLE, hallu/invisible arms) absent from js/trap.js:247 (naive `a ${mon_nam}`) serving C trap.c:847; live js/do_name.js:1221; rewire js/trap.js:452 (ALREADY edge), delete clone.
-- [ ] `hack.c` moverock_core a_monnam clone removal (audit 2269–2275) — C do_name.c:1151–1156 ARTICLE_A arms (SUPPRESS_SADDLE, hallu/invisible/named-pet; own doc defers them) absent from js/hack.js:300 serving C hack.c:462; live js/do_name.js:1221; rewire js/hack.js:1056 (ALREADY edge), delete clone (distinct arm from archived D-2739/D-1859).
-
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;

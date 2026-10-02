@@ -5,6 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `music.c` awakener a_monnam clone removal (D-3322 refill) — C do_name.c:1151–1156 `has_mgivenname ? SUPPRESS_SADDLE : 0` arm absent from js/music.js:266 (passes suppress `0` + invented `|| 'it'`) serving C music.c:124; live js/do_name.js:1221; rewire js/music.js:350 (ALREADY edge js/music.js:43), delete clone; same-file companion js/music.js:158 Amonnam twin inlines the same suppress-0 call (C Amonnam do_name.c:1158–1165 is highc(a_monnam)). **Addressed:** D-3322
+
+
+- [x] `trap.c` animate_statue a_monnam clone removal (audit 2269–2275) — C do_name.c:1151–1156 ARTICLE_A semantics (an/a selection, SUPPRESS_SADDLE, hallu/invisible arms) absent from js/trap.js:247 (naive `a ${mon_nam}`) serving C trap.c:847; live js/do_name.js:1221; rewire js/trap.js:452 (ALREADY edge), delete clone.
+- [x] `hack.c` moverock_core a_monnam clone removal (audit 2269–2275) — C do_name.c:1151–1156 ARTICLE_A arms (SUPPRESS_SADDLE, hallu/invisible/named-pet; own doc defers them) absent from js/hack.js:300 serving C hack.c:462; live js/do_name.js:1221; rewire js/hack.js:1056 (ALREADY edge), delete clone (distinct arm from archived D-2739/D-1859).
+
+
 - [x] `do_wear.c` fingers_or_gloves eat.js clone removal (audit 2269–2275) — C do_wear.c:59–65 check_gloves=FALSE arm absent from js/eat.js:2720 (clone ignores the flag, returns 'gloves' when uarmg set, so C eat.c:1774 start_tin "tin slips" prints gloves vs C fingers; gauntlets + poly-finger arms absent too); rewire js/eat.js:3825/:3993 to live js/do_wear.js:3981 (ALREADY edge), delete clone.
 
 
