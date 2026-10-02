@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `zap.c` exclam — C zap.c:3546–3553 `exclam(int force)` canonical export absent from js/zap.js (C home; 3 local clones js/mthrowu.js:286, js/uhitm.js:441, js/zap.js:1541; C callers in 5 files incl muse.c/spell.c with no JS clone; brief-verified) @a2542cfc9 **Addressed:** D-3271
+- [x] `makemon.c` mbirth_limit — C makemon.c:1541–1551 `mbirth_limit(int mndx)` canonical export absent from js/makemon.js (2 local clones js/dog.js:165 + js/makemon.js:1568; C callers dog.c:117/makemon.c:961/mon.c:5298; brief-verified) @a2542cfc9 **Addressed:** D-3272
+
+
+- [x] `zap.c` exclam — C zap.c:3546–3553 `exclam(int force)` canonical export absent from js/zap.js (C home; 3 local clones js/mthrowu.js:286, js/uhitm.js:441, js/zap.js:1541; C callers in 5 files incl muse.c/spell.c with no JS clone; brief-verified) @a2542cfc9 **Addressed:** D-3271 `675a0c998`
 
 
 - [x] `attrib.c` exercise — blocks 1/953 (scen-death-Tourist-92095 step 66/111 kind=rng: C rn2(19)=15@exercise(attrib.c:509) vs JS rn2(5)=4@distfleeck(monmove.js:1140) after rn2(82)=74@moveloop_core; steps 0–66 screens all match; rescore + rng-diff + show this commit — visible in `hidden-proxy queue` once this commits; owner-tagged RNG divergence, not the parked presence-only/encumbrance claim) @d947745c9 **Addressed:** D-3270 `2798e7602`

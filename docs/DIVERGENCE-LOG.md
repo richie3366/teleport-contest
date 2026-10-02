@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3272 — `makemon.c` mbirth_limit canonical export (clone consolidation)
+
+- **Status:** shipped (Open corpus-residual row `makemon.c mbirth_limit` checked off; no review cited, no stamp owed)
+- **Symptom:** queue row: C makemon.c:1541–1551 `mbirth_limit(int mndx)` had no canonical export in js/makemon.js (C home) — 2 same-named local clones (js/dog.js:165, js/makemon.js:1568); 3 C callers in 3 files. No corpus session blocked (pure function, no RNG).
+- **C locus:** nethack-c/upstream/src/makemon.c:1541–1551 whole body — high-priest-of-deity comment + `return (mndx == PM_NAZGUL ? 9 : mndx == PM_ERINYS ? 3 : MAXMONNO)`. 3 call sites (brief-verified): dog.c:117 pick_familiar_pm, makemon.c:961 propagate, mon.c:5298 newcham.
+- **JS was:** local `function mbirth_limit` in dog.js (if-chain on module consts) and makemon.js (if-chain on per-call `monsterNames.indexOf`); call sites wired to the file-local clone each.
+- **Fix:** js/makemon.js — local clone promoted to `export function mbirth_limit` (same if-chain, C-cited doc naming all 3 C callers). js/dog.js — clone deleted, `mbirth_limit` added to the pre-existing `./makemon.js` import edge (line 6 already imported makemon/set_malign/rndmonst_adj/newedog, so no new module edge, no `--can` needed; hoisted function decl, no TDZ); now-unused module consts PM_NAZGUL/PM_ERINYS removed (verified sole uses were the clone). Zero behavior change by construction (identical predicate order).
+- **JS:** js/makemon.js:1572 (canonical export); call sites js/dog.js:195; js/makemon.js:1593 + :2081.
+- **Callers:** C dog.c:117 → js/dog.js:195 (pick_familiar_pm figurine-dust gate); C makemon.c:961 → js/makemon.js:1593 (propagate lim); C mon.c:5298 → js/makemon.js:2081 (newcham non-cham immune gate — JS newcham lives in makemon.js, pre-existing split).
+- **Verify:** `node scripts/verify.mjs --fn mbirth_limit` → VERIFY: PASS — syntax 2 files · rule2 · hidden note (no corpus session blocked) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full 44/44 (auto: shared file changed).
+- **Named omissions:** - `mbirth_limit`: none in-body — whole C body live.
+- **Ledger:** mbirth_limit ported
+- **Next:** cluster is mbirth_limit alone — 0 C callees, no same-file Open rows, coverage block empty (density exception documented in CURRENT Next cluster). Refill: coverage generator yields 0 (`rows`/`rows --partial` empty; `rows --all` is tty/files plumbing only) so the 8–12 band gate forced a hand-written row — enqueued `makemon.c` makemon place_monster corpus row (C+JS-read evidence). Corrected stale abuse_dog "callers deferred" doc (all 5 C sites wired; verified, not a gap).
+
 ## D-3271 — `zap.c` exclam canonical export + 5-file caller sweep (clone consolidation)
 
 - **Status:** shipped (Open corpus-residual row `zap.c exclam` checked off; no review cited, no stamp owed)

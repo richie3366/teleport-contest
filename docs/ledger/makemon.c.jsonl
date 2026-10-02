@@ -14,7 +14,7 @@
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"unknown","d":["D-2264"],"at":"seed@a30a7de84"}
 {"fn":"makemon","c":"1147-1510","status":"unknown","d":["D-2421","D-2299","D-2139","D-2001"],"at":"seed@a30a7de84"}
 {"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mbirth_limit","c":"1542-1551","status":"unknown"}
+{"fn":"mbirth_limit","c":"1542-1551","status":"ported","js":["js/makemon.js:mbirth_limit"],"d":["D-3272"],"at":"2026-10-02@675a0c998"}
 {"fn":"create_critters","c":"1556-1590","status":"unknown"}
 {"fn":"uncommon","c":"1593-1603","status":"unknown"}
 {"fn":"align_shift","c":"1611-1637","status":"unknown"}

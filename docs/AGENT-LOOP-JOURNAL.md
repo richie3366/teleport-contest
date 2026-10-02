@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3272 `makemon.c` mbirth_limit canonical export (clone consolidation)
+
+**C locus:** nethack-c/upstream/src/makemon.c:1541–1551 whole body — high-priest-of-deity comment + `return (mndx == PM_NAZGUL ? 9 : mndx == PM_ERINYS ? 3 : MAXMONNO)`. 3 call sites (brief-verified): dog.c:117 pick_familiar_pm, makemon.c:961 propagate, mon.c:5298 newcham.
+**JS:** js/makemon.js:1572 (canonical export); call sites js/dog.js:195; js/makemon.js:1593 + :2081.
+**Change:** js/makemon.js — local clone promoted to `export function mbirth_limit` (same if-chain, C-cited doc naming all 3 C callers). js/dog.js — clone deleted, `mbirth_limit` added to the pre-existing `./makemon.js` import edge (line 6 already imported makemon/set_malign/rndmonst_adj/newedog, so no new module edge, no `--can` needed; hoisted function decl, no TDZ); now-unused module consts PM_NAZGUL/PM_ERINYS removed (verified sole uses were the clone). Zero behavior change by construction (identical predicate order).
+**Verify:** `node scripts/verify.mjs --fn mbirth_limit` → VERIFY: PASS — syntax 2 files · rule2 · hidden note (no corpus session blocked) · reach: no RNG-tagged reach, smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full 44/44 (auto: shared file changed).
+**Named:** - `mbirth_limit`: none in-body — whole C body live.
+**Next:** cluster is mbirth_limit alone — 0 C callees, no same-file Open rows, coverage block empty (density exception documented in CURRENT Next cluster).
 ## 2026-10-02 — D-3271 `zap.c` exclam canonical export + 5-file caller sweep (clone consolidation)
 
 **C locus:** nethack-c/upstream/src/zap.c:3546–3553 whole body — `(force < 0) ? "?" : (force <= 4) ? "." : "!"` (comments: force==0 e.g. sleep ray; large force usual with wands). 15 call sites in 5 files (brief-verified): mthrowu.c:119,121 (thitu) + :393,401 (ohitmon); muse.c:1639 (mbhitm) + :3229 (muse_unslime); spell.c:1051 (cast_chain_lightning); uhitm.c:1547 (joust) + :1647 + :1658 + :5724 (hmonas); zap.c:210 (bhitm) + :4812 + :4875 + :4936 (dobuzz/buzz). (:3559 is a comment mention in `hit`'s doc, not a call.)

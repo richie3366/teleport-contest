@@ -1563,9 +1563,13 @@ export function mgender_from_permonst(mtmp, mdat) {
 }
 
 /**
- * C ref: makemon.c mbirth_limit — Nazgul 9 / Erinys 3 / else MAXMONNO.
+ * C ref: makemon.c:1541–1551 `mbirth_limit(int mndx)` — whole body.
+ * Canonical export (C home file). High priests of a deity keep the
+ * default limit (aligned priests grow into them); Nazgul 9, Erinys 3,
+ * else MAXMONNO. C callers: dog.c:117 pick_familiar_pm, makemon.c:961
+ * propagate, mon.c:5298 newcham.
  */
-function mbirth_limit(mndx) {
+export function mbirth_limit(mndx) {
     const PM_NAZGUL = monsterNames.indexOf('PM_NAZGUL');
     const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
     if (mndx === PM_NAZGUL) return 9;

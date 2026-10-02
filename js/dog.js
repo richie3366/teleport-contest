@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
-import { makemon, set_malign, rndmonst_adj, newedog } from './makemon.js';
+import { makemon, set_malign, rndmonst_adj, newedog, mbirth_limit } from './makemon.js';
 import { deliver_obj_to_mon } from './dokick.js';
 import {
     mons, NON_PM, is_human, is_covetous, is_demon,
@@ -73,8 +73,6 @@ import { emits_light, del_light_source } from './light.js';
 const PM_LITTLE_DOG = monsterNames.indexOf('PM_LITTLE_DOG');
 const PM_KITTEN = monsterNames.indexOf('PM_KITTEN');
 const PM_PONY = monsterNames.indexOf('PM_PONY');
-const PM_NAZGUL = monsterNames.indexOf('PM_NAZGUL');
-const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
 const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
@@ -159,13 +157,6 @@ export function initedog(mtmp, everything) {
             uhis(), an(mon_pmname(mtmp)));
     }
     game.u.uconduct.pets = (game.u.uconduct.pets | 0) + 1;
-}
-
-/** C ref: makemon.c mbirth_limit — Nazgul 9 / Erinys 3 / else MAXMONNO. */
-function mbirth_limit(mndx) {
-    if (mndx === PM_NAZGUL) return 9;
-    if (mndx === PM_ERINYS) return 3;
-    return MAXMONNO;
 }
 
 /** C ref: mondata.h attacktype — any mattk slot with aatyp. */
@@ -1466,7 +1457,8 @@ export async function wary_dog(mtmp, was_dead) {
 
 /**
  * C ref: dog.c abuse_dog — reduce tameness; yelp/growl when on-map.
- * Called from hmon_hitmon_pet (and kick/zap/trap/hack callers deferred).
+ * All 5 C call sites wired: hmon_hitmon_pet (uhitm) + kick/zap/trap/hack
+ * (dokick D-1349; D-3272 corrected the stale "deferred" note).
  * redraw_worm on untame is D-1577.
  */
 export async function abuse_dog(mtmp) {
