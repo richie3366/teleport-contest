@@ -148,7 +148,7 @@ import { bury_an_obj } from './dig.js';
 import { is_pole, is_weptool } from './wield.js';
 import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg, diseasemu, doseduce, mhitm_ad_sedu_u } from './mhitu.js';
 import { sticks } from './engrave.js';
-import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
+import { mon_offmap, set_apparxy, mb_trapped, itsstuck, accessible } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_confused, make_stunned } from './potion.js';
 // imports.mjs --can mhitm.js mcastu.js touch_of_death Antimagic: SAFE
@@ -185,7 +185,7 @@ import { livelog_printf } from './pline.js';
 import { shtypes } from './shknam.js';
 import { obfree, setpaid, discard_damage_owned_by } from './shk.js';
 import { search_special } from './sounds.js';
-import { closed_door, Passes_walls_prop, test_move, u_locomotion, You_hear, doorless_door } from './hack.js';
+import { closed_door, Passes_walls_prop, test_move, u_locomotion, You_hear, doorless_door, is_pool } from './hack.js';
 import { surface } from './sit.js';
 import { emits_light, del_light_source } from './light.js';
 import { on_level } from './dungeon.js';
@@ -3974,13 +3974,15 @@ export async function mondead(mtmp) {
 }
 
 /**
- * C ref: mon.c mondied() — mondead + maybe make_corpse (no kill pline).
- * Named omission: accessible||is_pool gate (floor tiles always attempt).
+ * C ref: mon.c mondied `:3252–3263` — mondead + maybe make_corpse (no
+ * kill pline). Corpse only on accessible ground or pool (`:3258–3260`).
  */
 export async function mondied(mdef) {
     await mondead(mdef);
     if ((mdef.mhp | 0) > 0) return; /* lifesaved */
-    if (await corpse_chance(mdef)) await make_corpse(mdef);
+    if (await corpse_chance(mdef)
+        && (accessible(mdef.mx, mdef.my) || is_pool(mdef.mx, mdef.my)))
+        await make_corpse(mdef);
 }
 
 /**

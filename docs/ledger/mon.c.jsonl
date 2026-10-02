@@ -6,7 +6,7 @@
 {"fn":"zombie_form","c":"386-413","status":"unknown"}
 {"fn":"undead_to_corpse","c":"417-461","status":"ported","js":["js/mon.js:undead_to_corpse"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"genus","c":"470-531","status":"ported","js":["js/mon.js:genus"],"at":"2026-09-28@fb9c2049c","note":"stale: js/mon.js:638 whole C body in C order, callers wired js/readobjnam.js:1935,js/sounds.js:1257"}
-{"fn":"pm_to_cham","c":"535-546","status":"unknown"}
+{"fn":"pm_to_cham","c":"535-546","status":"ported","js":["js/makemon.js:pm_to_cham"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
 {"fn":"make_corpse","c":"564-941","status":"ported","js":["js/mhitm.js:make_corpse"],"d":["D-1794"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"minliquid","c":"947-957","status":"unknown"}
 {"fn":"minliquid_core","c":"961-1122","status":"unknown"}
@@ -44,7 +44,7 @@
 {"fn":"dealloc_monst","c":"2676-2691","status":"ported","js":["js/mon.js:dealloc_monst"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/mon.js:3479; dog.c:959->dog.js:1498, mon.c:2499->mon.js:3507, mon.c:2555->mon.js:3718, zap.c:740->zap.js:2880 wired, save.c:909 named omit"}
 {"fn":"mon_leaving_level","c":"2696-2730","status":"ported","js":["js/mon.js:mon_leaving_level"],"d":["D-3279"],"at":"2026-10-02@3d8fe9bf9"}
 {"fn":"m_detach","c":"2734-2803","status":"ported","js":["js/mhitm.js:m_detach"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"unknown"}
+{"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"ported","js":["js/mhitm.js:set_mon_min_mhpmax"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
 {"fn":"mlifesaver","c":"2827-2836","status":"unknown"}
 {"fn":"lifesaved_monster","c":"2839-2884","status":"unknown"}
 {"fn":"vamprises","c":"2890-2987","status":"unknown","d":["D-2273"],"at":"seed@a30a7de84"}
@@ -52,7 +52,7 @@
 {"fn":"anger_quest_guardians","c":"3072-3076","status":"unknown"}
 {"fn":"mondead","c":"3081-3177","status":"unknown","d":["D-2231","D-2147"],"at":"seed@a30a7de84"}
 {"fn":"corpse_chance","c":"3181-3249","status":"unknown"}
-{"fn":"mondied","c":"3253-3263","status":"unknown"}
+{"fn":"mondied","c":"3253-3263","status":"ported","js":["js/mhitm.js:mondied"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
 {"fn":"mongone","c":"3267-3283","status":"unknown","d":["D-2339","D-1149"],"at":"seed@a30a7de84"}
 {"fn":"monstone","c":"3287-3373","status":"ported","js":["js/mhitm.js:monstone"],"d":["D-2753","D-2742"],"at":"seed@a30a7de84"}
 {"fn":"monkilled","c":"3377-3418","status":"partial","js":["js/mhitm.js:monkilled"],"omit":"`wiz_kill` (`wizcmds.c:242–337`, call at `:326` with a null `fltxt` and `AD_PHYS`).","d":["D-2875","D-1550"],"at":"seed@a30a7de84"}
@@ -108,16 +108,16 @@
 {"fn":"wiz_force_cham_form","c":"5078-5154","status":"unknown","d":["D-2245"],"at":"seed@a30a7de84"}
 {"fn":"select_newcham_form","c":"5157-5225","status":"unknown"}
 {"fn":"accept_newcham_form","c":"5229-5252","status":"unknown"}
-{"fn":"mgender_from_permonst","c":"5256-5272","status":"unknown"}
+{"fn":"mgender_from_permonst","c":"5256-5272","status":"ported","js":["js/makemon.js:mgender_from_permonst"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
 {"fn":"newcham","c":"5278-5535","status":"ported","js":["js/makemon.js:newcham"],"d":["D-2433","D-2235","D-1914","D-1645","D-1586","D-1573"],"at":"seed@a30a7de84"}
 {"fn":"can_be_hatched","c":"5546-5565","status":"unknown"}
-{"fn":"egg_type_from_parent","c":"5569-5580","status":"unknown","d":["D-2239"],"at":"seed@a30a7de84"}
+{"fn":"egg_type_from_parent","c":"5569-5580","status":"ported","js":["js/mon.js:egg_type_from_parent"],"d":["D-3317","D-2239"],"at":"2026-10-02@d1f323f2b"}
 {"fn":"dead_species","c":"5587-5605","status":"ported","js":["js/mon.js:dead_species"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"kill_eggs","c":"5609-5635","status":"unknown","d":["D-1097"],"at":"seed@a30a7de84"}
 {"fn":"kill_genocided_monsters","c":"5639-5677","status":"unknown"}
 {"fn":"golemeffects","c":"5680-5707","status":"split","js":["js/mhitm.js:golemeffects_mm"],"d":["D-2735"],"at":"2026-09-30@3f8f47e04","note":"stale: js/mhitm.js:2366; inherited explode.c:525 caller omission D-2735"}
 {"fn":"angry_guards","c":"5711-5760","status":"unknown"}
-{"fn":"pacify_guard","c":"5763-5767","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"pacify_guard","c":"5763-5767","status":"split","js":["js/shk.js:pacify_guards"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pacify_guards","c":"5770-5773","status":"unknown"}
 {"fn":"mimic_hit_msg","c":"5776-5793","status":"ported","js":["js/zap.js:mimic_hit_msg"],"d":["D-3084"],"at":"2026-09-29@643ef6af3"}
 {"fn":"usmellmon","c":"5796-5909","status":"unknown"}

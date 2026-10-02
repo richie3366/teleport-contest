@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3317 `mon.c` sextet (mondied corpse-gate head + 4 stale-complete + pacify_guard split)
+
+**C locus:** - `mondied`: nethack-c/upstream/src/mon.c:3252–3263 — mondead → lifesaved return → corpse_chance(mdef,0,FALSE) && (accessible(mx,my)||is_pool(mx,my)) → make_corpse(mdef, CORPSTAT_NONE); 15 code call sites.
+**JS:** - `mondied`: js/mhitm.js:3980–3986 — gate added; doc now C-cites :3252–3263.
+**Change:** ported the :3258–3260 gate in C order (corpse_chance first so its rn2 draws precede the gate exactly as in C, then accessible||is_pool) over live exports (accessible js/monmove.js:840, is_pool js/hack.js:2080; imports.mjs ALREADY on both edges — names added to the existing mhitm.js imports). corpse_chance defaults (null, false) ≡ C (0, FALSE); make_corpse default ≡ CORPSTAT_NONE; lifesaved check (mhp>0 ≡ !DEADMONSTER) kept. New focused test scripts/mondied-corpse-gate.test.mjs (STONE→none, ROOM→corpse, POOL→corpse; lizard keeps corpse_chance draw-free): 2 pass/1 fail pre-fix (STONE left a corpse), 3/3 post.
+**Verify:** - `mondied`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach).
+**Named:** - `mondied`: none in-body — whole C body live (gate ported; callees live; corpse_chance/make_corpse defaults ≡ C args). C caller muse.c:1996 compiled out (#if 0).
+**Next:** floating_above row stays Open (fountain.c trapped-arm port, surface live); queue sits at 1 until coverage regenerates or the next refill authorization.
 ## 2026-10-02 — D-3316 `alloc.c` trio (dupstr_n head by-design + fmt_ptr stale-complete + dupstr guard arm)
 
 **C locus:** - `dupstr_n`: nethack-c/upstream/src/alloc.c:253–261 — inside `#if 0 /* suppress this … */` (:249–262); extern decl global.h:314; 0 call refs (brief ref scan: decl only).
