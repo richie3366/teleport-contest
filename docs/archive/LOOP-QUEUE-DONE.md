@@ -5,9 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `zap.c` zap_over_floor — C zap.c:5300–5306 TT_LAVA Passes_walls arm (`reset_utrap(TRUE)` / `set_utrap(INFLOOR)` + "now-solid"/"cooling rock" msgs) absent from js/zap.js:zap_over_floor (:1060; no 'cooling rock'/'now-solid'/'firmly stuck' in js/zap.js) @35e5e8f94 **Addressed:** D-3259
-- [x] `zap.c` zap_map — C zap.c:3730,3732 int `oldglyph = glyph_at(x, y)` compare around show_map_spot absent from js/zap.js:zap_map (:6529–6537 disp `${ch}|${kind}|${color}` string compare; misses id-only glyph swaps when flipping learn_it) @1fe3dcc2a **Addressed:** D-3259
-- [x] `zap.c` zap_map — C zap.c:3752–3754 SCORR `unblock_point(x, y)` (unconditional) absent from js/zap.js:zap_map (:6553 calls `recalc_block_point`; SDOOR arm :6543 correctly uses recalc per C :3740) @1fe3dcc2a **Addressed:** D-3259
+- [x] `end.c` savelife — C end.c:744–745 `if (!mon_moving) endmultishot(FALSE)` absent from js/end.js:savelife (:2069 "stays named (not live)"; no endmultishot call in file) @35e5e8f94 **Addressed:** D-3260
+- [x] `end.c` container_contents — C end.c:1609 update_inventory() after cknown/lknown absent from js/end.js:container_contents (:768 "update_inventory deferred") @571bbecf7 **Addressed:** D-3260
+
+
+- [x] `zap.c` zap_over_floor — C zap.c:5300–5306 TT_LAVA Passes_walls arm (`reset_utrap(TRUE)` / `set_utrap(INFLOOR)` + "now-solid"/"cooling rock" msgs) absent from js/zap.js:zap_over_floor (:1060; no 'cooling rock'/'now-solid'/'firmly stuck' in js/zap.js) @35e5e8f94 **Addressed:** D-3259 `571bbecf7`
+- [x] `zap.c` zap_map — C zap.c:3730,3732 int `oldglyph = glyph_at(x, y)` compare around show_map_spot absent from js/zap.js:zap_map (:6529–6537 disp `${ch}|${kind}|${color}` string compare; misses id-only glyph swaps when flipping learn_it) @1fe3dcc2a **Addressed:** D-3259 `571bbecf7`
+- [x] `zap.c` zap_map — C zap.c:3752–3754 SCORR `unblock_point(x, y)` (unconditional) absent from js/zap.js:zap_map (:6553 calls `recalc_block_point`; SDOOR arm :6543 correctly uses recalc per C :3740) @1fe3dcc2a **Addressed:** D-3259 `571bbecf7`
 
 
 - [x] `read.c` seffect_magic_mapping — C read.c:2128–2129 Rogue blessed-scroll `unblock_point(x, y)` absent from js/read.js:seffect_magic_mapping (:320; :344 calls vision_recalc(1) instead + per-sdoor newsym :345 with no C counterpart) @e4afe5879 **Addressed:** D-3258 `1b5b36bb7`

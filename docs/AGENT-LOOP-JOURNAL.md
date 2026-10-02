@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3260 end.c savelife + container_contents whole-body ports; endmultishot export; unsortloot port (Tourist-92095 writer queued)
+
+**C locus:** - `savelife`: end.c:704–755 whole body — givehp :707, ulevel :711–712, minuhpmax/setuhpmax :713–715, uhp/mh :716–718, uhunger :719–721, make_sick :724–726, nomovemsg/move/multi :727–736, lava reset_utrap :738–739, botl/ugrave/HUnchanging :740–742, curs_on_u :743, endmultishot gate :744–745, expels/ustuck :746–754.
+**JS:** 3 files, +85/−58 (end.js +68/−55, dothrow.js +6/−3, invent.js +11/−0). Under the 1500/15 caps.
+**Change:** js/end.js — savelife restart in C order on live imports (minuhpmax, setuhpmax, make_sick, endmultishot; TIMEOUT/SICK_ALL consts; 3 new edges, all imports.mjs --can SAFE, call-time use); container_contents +update_inventory/+unsortloot/C-exact reportempty/BoT-continue + doc. js/dothrow.js — export endmultishot (body untouched). js/invent.js — unsortloot no-op export beside sortloot. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+**Verify:** `node scripts/verify.mjs --fn savelife,container_contents,endmultishot,unsortloot` → PASS syntax (3 changed js files) · PASS rule2 · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: FAIL on hidden NO MOVEMENT only (fortress green, zero regressions).
+**Named:** - `savelife`: end.c:952 fuzzer_savelife caller (debug-fuzz only); pre-existing run/mv clear (no C counterpart, kept).
+**Next:** queued `allmain.c` moveloop_core (Tourist-92095 writer: post-lifesave umovement re-loop) + `zap.c` bhit boomerang rows; do not re-pop savelife (body complete; residual downstream). Refill shortfall noted: coverage generator 0 rows + hidden-proxy queue 0 eligible + parks 0 definitive → queue at 7 after refill (below the 8-min); later iterations add (4)-style brief-verified rows.
 ## 2026-10-02 — Audit 2212–2220: review D-3251–D-3259 (9 ACCEPT) + full score
 
 **Scope:** b3c50cbeb…571bbecf7 (9 js/ SHAs since 2211), one SHA at a time, each re-measured via `hidden-proxy verify --base <sha>~1 --reach-all`.

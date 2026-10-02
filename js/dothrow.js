@@ -853,10 +853,13 @@ function ordin(n) {
 }
 
 /**
- * C dothrow.c endmultishot — stop remaining volley (boomhit self-hit /
- * hurtle). Verbose pline only when hero is not mon_moving.
+ * C ref: dothrow.c endmultishot `:590–601` — stop remaining volley
+ * (boomhit self-hit / hurtle / lifesave). Verbose You only when hero
+ * is not mon_moving; `ms.n = ms.i` makes the current shot the last.
+ * Callers: dothrow.c:1119 → :3210, end.c:745 savelife (imports),
+ * zap.c:4209 bhit boomerang (no JS boomerang arm — named omit).
  */
-async function endmultishot(verbose) {
+export async function endmultishot(verbose) {
     const ms = game.m_shot;
     if (!ms || (ms.i | 0) >= (ms.n | 0)) return;
     if (verbose && !game.context?.mon_moving) {

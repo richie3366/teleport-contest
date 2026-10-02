@@ -4,7 +4,7 @@
 {"fn":"invletter_value","c":"391-399","status":"unknown"}
 {"fn":"sortloot_cmp","c":"403-547","status":"unknown","d":["D-2626"],"at":"seed@a30a7de84"}
 {"fn":"sortloot","c":"593-643","status":"unknown","d":["D-1589"],"at":"seed@a30a7de84","note":"alt 655-690"}
-{"fn":"unsortloot","c":"647-651","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"unsortloot","c":"647-651","status":"ported","js":["js/invent.js:unsortloot"],"d":["D-3260"],"at":"2026-10-02@4fbb3512e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assigninvlet","c":"694-732","status":"unknown"}
 {"fn":"reorder_invent","c":"739-767","status":"ported","js":["js/u_init.js:reorder_invent"],"d":["D-3125"],"at":"2026-09-29@7e46744a0"}
 {"fn":"merge_choice","c":"775-810","status":"unknown"}

@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3260 — end.c savelife + container_contents whole-body ports; endmultishot export; unsortloot port (Tourist-92095 writer queued)
+
+- **Status:** shipped (2 Open corpus-residual rows: `end.c` savelife, `end.c` container_contents — both checked off and archived; no review cited, no stamp owed)
+- **Symptom:** queue rows: savelife lacked C end.c:744–745 `!mon_moving endmultishot(FALSE)` (plus the :724–726 make_sick arm, live-import gaps, un-awaited reset_utrap); container_contents lacked C end.c:1609 update_inventory() (plus unsortloot, C-exact reportempty, Bag-of-Tricks continue). Brief-surfaced: scen-death-Tourist-92095 blocked on savelife step 49/111 (row 15 C `···<│` vs JS `··I<│`).
+- **C locus:**
+  - `savelife`: end.c:704–755 whole body — givehp :707, ulevel :711–712, minuhpmax/setuhpmax :713–715, uhp/mh :716–718, uhunger :719–721, make_sick :724–726, nomovemsg/move/multi :727–736, lava reset_utrap :738–739, botl/ugrave/HUnchanging :740–742, curs_on_u :743, endmultishot gate :744–745, expels/ustuck :746–754.
+  - `container_contents`: end.c:1594–1670 whole body — cknown/lknown+update_inventory :1605–1609, BoT continue :1611–1613, sorted menu + doname_with_price :1615–1650, cat line :1651–1654, recursion :1656–1661, reportempty :1662–1665.
+  - `endmultishot`: dothrow.c:590–601 whole body — i<n gate, verbose You when !mon_moving, n=i last-shot.
+  - `unsortloot`: invent.c:647–651 whole body — free-only, GC no-op in JS.
+- **JS was:**
+  - `savelife` (js/end.js:2031): minuhpmax/setuhpmax inlined, make_sick + endmultishot named-not-live, reset_utrap un-awaited, house pline for C You.
+  - `container_contents` (js/end.js:750): update_inventory deferred, unsortloot unported, reportempty via theArt(xname) vs C upstart(thesimpleoname), BoT arm broke where C continues.
+  - `endmultishot` (js/dothrow.js:859): complete local clone, not exported (dothrow-internal callers only).
+  - `unsortloot`: no JS symbol (measured MISSING).
+- **Fix:** js/end.js — savelife restart in C order on live imports (minuhpmax, setuhpmax, make_sick, endmultishot; TIMEOUT/SICK_ALL consts; 3 new edges, all imports.mjs --can SAFE, call-time use); container_contents +update_inventory/+unsortloot/C-exact reportempty/BoT-continue + doc. js/dothrow.js — export endmultishot (body untouched). js/invent.js — unsortloot no-op export beside sortloot. No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** 3 files, +85/−58 (end.js +68/−55, dothrow.js +6/−3, invent.js +11/−0). Under the 1500/15 caps.
+- **Callers:**
+  - `savelife`: end.c:1094 amulet lifesave → js/end.js:2163 done; end.c:1115 wizard/discover Die? → js/end.js:2180; end.c:952 fuzzer_savelife (debug-fuzz only, no JS counterpart — named).
+  - `container_contents`: end.c:639 disclose → js/end.js:853; end.c:1660 recursion → js/end.js:820; end.c:593 dump_everything (dumplog retired — named); pickup.c:3122 via js/pickup.js:2531 single-box clone (:4090; pre-existing drift, keeps the update_inventory gap — named).
+  - `endmultishot`: dothrow.c:1119 → js/dothrow.js:3213; end.c:745 → js/end.js:2084 savelife (new); zap.c:4209 bhit boomerang (no JS boomerang arm — queued as its own row this commit).
+  - `unsortloot`: end.c:1650 → js/end.js container_contents (new); invent.c:1900/2535/3368 + pickup.c:1115/1144 (free-only, GC — named).
+- **Verify:** `node scripts/verify.mjs --fn savelife,container_contents,endmultishot,unsortloot` → PASS syntax (3 changed js files) · PASS rule2 · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: FAIL on hidden NO MOVEMENT only (fortress green, zero regressions).
+  - `savelife`: hidden NO MOVEMENT — scen-death-Tourist-92095 still step 49 (measured downstream of savelife; writer queued — see Next); REACH-OK (smoke 24 PASS, 0 regressed).
+  - `container_contents`: hidden note (no corpus session blocked); REACH-OK (smoke 24 PASS).
+  - `endmultishot`: hidden note (no corpus session blocked); REACH-OK (smoke 24 PASS).
+  - `unsortloot`: hidden note (no corpus session blocked); REACH-OK (smoke 24 PASS).
+  Triage (measured, not assumed): geom-probe bisect (maps + RNG identical thru step 48; I fresh at 49) + RNG slices (JS +95 draws at step 49: extra movemon incl. 2nd dog_move pass + full 2nd once-per-turn block with mcalcmove/maybe_generate_rnd_mon/2nd dosounds-gethungry-u_wipe trio; C stops after u_wipe_engr rn2(82)) + /tmp state probe (blind hero HBlinded=0x10000000; pet (48,15)→(48,14) only in the extra pass, painting I over floor memory; umovement=16) + C reads (moveloop_core allmain.c:196–380 do-while re-loops when umovement < NORMAL_SPEED; done survive-tail sets no loop state; u_calc_moveamt clone verbatim js/allmain.js:327) ⟹ the residual is a moveloop turn-accounting re-loop downstream of savelife's return — no in-cluster fix exists (every savelife C line is live). No session touched; no force/diag.
+- **Named omissions:**
+  - `savelife`: end.c:952 fuzzer_savelife caller (debug-fuzz only); pre-existing run/mv clear (no C counterpart, kept).
+  - `container_contents`: in_dumplog arms (DUMPLOG retired D-1776 — !dumping path live); display_nhwindow(WIN_MESSAGE) after reportempty (message window live-displays); end.c:593 dumplog caller; pickup.js clone drift (keeps update_inventory gap).
+  - `endmultishot`: zap.c:4209 bhit boomerang caller (queued row this commit); dothrow.js local ordin clone (pre-existing, behavior-identical — kept, no new edge).
+  - `unsortloot`: invent.c:1900/2535/3368 + pickup.c:1115/1144 callers (free-only, GC).
+- **Ledger:** savelife ported; container_contents ported; endmultishot ported; unsortloot ported
+- **Next:** queued `allmain.c` moveloop_core (Tourist-92095 writer: post-lifesave umovement re-loop) + `zap.c` bhit boomerang rows; do not re-pop savelife (body complete; residual downstream). Refill shortfall noted: coverage generator 0 rows + hidden-proxy queue 0 eligible + parks 0 definitive → queue at 7 after refill (below the 8-min); later iterations add (4)-style brief-verified rows.
+
 ## D-3259 — `zap.c` zap_over_floor underfoot freeze arms + zap_map probing arms
 
 - **Status:** shipped.
