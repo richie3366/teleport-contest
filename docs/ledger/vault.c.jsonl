@@ -11,7 +11,7 @@
 {"fn":"vault_occupied","c":"244-252","status":"unknown"}
 {"fn":"uleftvault","c":"256-278","status":"unknown"}
 {"fn":"find_guard_dest","c":"281-314","status":"unknown"}
-{"fn":"invault","c":"317-629","status":"unknown"}
+{"fn":"invault","c":"317-629","status":"ported","js":["js/vault.js:invault"],"d":["D-3269"],"at":"2026-10-02@6796c72b6"}
 {"fn":"move_gold","c":"632-643","status":"unknown","d":["D-1946"],"at":"seed@a30a7de84"}
 {"fn":"wallify_vault","c":"646-731","status":"unknown","d":["D-2390"],"at":"seed@a30a7de84"}
 {"fn":"gd_mv_monaway","c":"734-747","status":"unknown"}

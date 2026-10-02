@@ -34228,7 +34228,7 @@ function set_crosswall(x, y) {
     return wmode;
 }
 
-function xy_set_wall_state(x, y) {
+export function xy_set_wall_state(x, y) {
     const lev = game.level?.at(x, y);
     if (!lev) return;
     let wmode;
