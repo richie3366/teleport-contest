@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-01** — full `sessions` on `ea58ae969`
-(audit **2195–2202**, 2026-10-01T20:35:37.138Z).
+Score last measured: **2026-10-02** — full `sessions` on `8dee36cb3`
+(audit **2203–2211**, 2026-10-02T00:50:39.843Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`327+1.65/turn` (R² 0.78).
+`326+1.64/turn` (R² 0.78).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, scored 2026-10-01 19:03Z; fetched 2026-10-01)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.8 %**, rngSteps 87.5 %, screens **62.5 %** |
+| **Held-out (judge, scored 2026-10-01 19:03Z; fetched 2026-10-02)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.8 %**, rngSteps 87.5 %, screens **62.5 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `327+1.65/turn` (R² 0.78) |
+| Speed label | `326+1.64/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5, 3rd agentic; best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +1 session since last audit.
-**Corpus fortress (2026-10-01 20:41Z; scored 953/953 entries, 0 unrecorded):**
-**678 / 953** PASS (71.1 %), RNG 97.25 %, screens 92.02 %; 0 PASS losses, +6 vs last audit (2 read_engr_at D-3236, 3 digactualhole D-3237, 1 wipeout_text D-3238); `full: true`, `fullAt: 2026-10-01T20:41:22.742Z`.
-Reviews 1225–2202 (index; no row 1618): 849 ACCEPT, 44 WITH-DEBT, 84 QUALITY-RISK (2195–2202: 8 accept/0 debt/0Q; 0 Must-fix families).
+every audit). Rank 5, 3rd agentic; best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 since last audit.
+**Corpus fortress (2026-10-02 00:57Z; scored 953/953 entries, 0 unrecorded):**
+**690 / 953** PASS (72.4 %), RNG 97.76 %, screens 92.49 %; 0 losses, +12 (4 incremental D-3242/46/47/48 + 8 rescore incl. 4 missum/D-3249); `full: true`, `fullAt: 2026-10-02T00:57:29.211Z`.
+Reviews 1225–2211 (index; no row 1618): 858 ACCEPT, 44 WITH-DEBT, 84 QUALITY-RISK (2203–2211: 9 accept/0 debt/0Q; 0 Must-fix families).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** dowipe → enhance → make_stunned (see D-3250 Next(2)).
+**Next cluster:** trapeffect_landmine (fresh row; abuse_dog + seffect stale-skip first).
 
 ## Parked (diagnose only — do not implement)
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `minion.c` msummon — blocks 1/953 (scen-engulf-Monk-94052, step 90, kind=screen) @2ad1aa828 **Addressed:** D-3250
+- [x] `do.c` dowipe — blocks 1/953 (scen-terrain-Valkyrie-94240, step 117, kind=screen) @2ad1aa828 (audit 2203–2211: session PASS on full rescore, healed in D-3245–D-3250 window; no writer needed) **Addressed:** audit-2203–2211
+
+
+- [x] `minion.c` msummon — blocks 1/953 (scen-engulf-Monk-94052, step 90, kind=screen) @2ad1aa828 **Addressed:** D-3250 `8dee36c`
 
 ## 2026-10-01
 

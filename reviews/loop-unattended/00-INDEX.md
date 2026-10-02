@@ -2212,3 +2212,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2200-9e990eefc-self-lookat.md](./2200-9e990eefc-self-lookat.md) | `9e990eefc` | D-3239 self_lookat steed + invis | **ACCEPT** |
 | [2201-2b9efeed4-flooreffects.md](./2201-2b9efeed4-flooreffects.md) | `2b9efeed4` | D-3240 flooreffects restart (dokick doc fix) | **ACCEPT** |
 | [2202-ea58ae969-dowaterdemon.md](./2202-ea58ae969-dowaterdemon.md) | `ea58ae969` | D-3241 dowaterdemon mhis/mhe + You | **ACCEPT** |
+| [2203-1634fa4fa-mswingsm-space.md](./2203-1634fa4fa-mswingsm-space.md) | `1634fa4fa` | D-3242 mswingsm space + mon_avoiding | **ACCEPT** |
+| [2204-f247f6b3c-lock-force-pick.md](./2204-f247f6b3c-lock-force-pick.md) | `f247f6b3c` | D-3243 lock.c force/pick 9-fn cluster | **ACCEPT** |
+| [2205-2ad1aa828-m-initinv.md](./2205-2ad1aa828-m-initinv.md) | `2ad1aa828` | D-3244 m_initinv erosion + impossible | **ACCEPT** |
+| [2206-14db57058-use-defensive.md](./2206-14db57058-use-defensive.md) | `14db57058` | D-3245 use_defensive heal channels | **ACCEPT** |
+| [2207-f0a648599-stash-lights.md](./2207-f0a648599-stash-lights.md) | `f0a648599` | D-3246 stash light re-write + donor del | **ACCEPT** |
+| [2208-37d6d3fe7-dig-axe2-maketrap.md](./2208-37d6d3fe7-dig-axe2-maketrap.md) | `37d6d3fe7` | D-3247 dig + axe2 + maketrap untrap | **ACCEPT** |
+| [2209-012413194-mdisplacem.md](./2209-012413194-mdisplacem.md) | `012413194` | D-3248 mdisplacem live exports + gate | **ACCEPT** |
+| [2210-084395223-known-hitum.md](./2210-084395223-known-hitum.md) | `084395223` | D-3249 known_hitum live missum | **ACCEPT** |
+| [2211-8dee36cb3-msummon-cluster.md](./2211-8dee36cb3-msummon-cluster.md) | `8dee36cb3` | D-3250 msummon 10-fn Amonnam cluster | **ACCEPT** |

@@ -128,9 +128,9 @@ coverage list is empty, or alongside a coverage row in the same C file.
 
 - [ ] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa
 - [ ] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828
-- [ ] `do.c` dowipe — blocks 1/953 (scen-terrain-Valkyrie-94240, step 117, kind=screen) @2ad1aa828
 - [ ] `weapon.c` enhance_weapon_skill — blocks 1/953 (scen-caster-Healer-94269, step 225, kind=screen) @2ad1aa828
 - [ ] `potion.c` make_stunned — blocks 1/953 (scen-ride-Samurai-94407, step 159, kind=screen; C "You miss it. You wobble in the saddle." vs JS "You miss it.") @012413194
+- [ ] `trap.c` trapeffect_landmine — blocks 1/953 (scen-descend-Knight-94127, step 132, kind=screen; C "You are in non-scoring explore/discovery mode.--More--" vs JS "You are lucky! Full moon tonight.") @8dee36cb3
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

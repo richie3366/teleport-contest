@@ -191,7 +191,7 @@
 {"fn":"optfn_o_autocomplete","c":"8346-8365","status":"ported","js":["js/options.js:optfn_o_autocomplete"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_o_menu_colors","c":"8368-8386","status":"ported","js":["js/options.js:optfn_o_menu_colors"],"d":["D-3180"],"at":"2026-09-30@d37e25ba4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_o_message_types","c":"8389-8411","status":"unknown"}
-{"fn":"optfn_o_status_cond","c":"8414-8442","status":"ported","js":["js/options.js:optfn_o_status_cond"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_o_status_cond","c":"8414-8442","status":"split","js":["js/options.js:optfn_o_status_cond","js/options.js:doset_compound_via_getlin","js/options.js:doset"],"d":["D-3159"],"at":"2026-10-02@8dee36cb3","note":"audit 2203-2211: do_handler arm lives at both doset dispatches (async split, doc-named)"}
 {"fn":"optfn_o_status_hilites","c":"8446-8474","status":"split","js":["js/options.js:optfn_o_status_hilites","js/options.js:optfn_o_status_hilites_handler"],"d":["D-3171"],"at":"2026-09-30@9865882fc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_option_value","c":"8481-8505","status":"unknown"}
 {"fn":"longest_option_name","c":"8508-8532","status":"ported","js":["js/options.js:longest_option_name"],"d":["D-3009"],"at":"2026-09-28@c704500d7","note":"refresh: no JS symbol (measured MISSING)"}

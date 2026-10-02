@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2203–2211: D-3242–D-3250 (9 ACCEPT) + full score
+
+**Reviews:** 9 SHAs vs pinned C, every D-log movement claim re-measured exact. No C-wrongs, no Must-fix. Doc corrections in review text: D-3244 obj.h:126–128; D-3247 dig.c:447–463; D-3248 mhis_disp also :6105.
+**Score:** public 44/44; corpus 690/953 full:true (+12, 0 losses; 4 missum sessions via D-3249); held-out 15/44 (+0). Ledger: optfn_o_status_cond →split (do_handler at both doset dispatches).
+**Queue:** dowipe archived (session PASS); +trapeffect_landmine (only untagged owner of 87). 5 Open: generator 0 rows, park writers aged out (shine shipped, m_throw/dohide DONE, enlightenment session gone), clone deltas DONE-adjacent (companion material). Next: trapeffect_landmine after stale-skips.
 ## 2026-10-02 — D-3250 `minion.c` msummon cluster: Amonnam clone→live-export (incubus name; Monk-94052 s90→s130) + 9 whole-function verifies
 
 **C locus:** - `msummon`: `minion.c:59–195` whole body in C order — Demonbane puzzlement; atyp from priest/minion/malign; dtype/cnt per summoner class (dprince/dlord/bone/ndemon/lminion/angel+elementals); G_UNIQ/G_GONE gates; census; makemon loop with angel emin+renegade, S_ANGEL transient light, canseemon Amonnam pline; cleanup; census-diff result.
