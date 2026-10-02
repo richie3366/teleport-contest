@@ -126,7 +126,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa
 - [ ] `read.c` seffect_magic_mapping — blocks 1/953 (scen-normal-Tourist-92061, step 18, kind=screen) @2ad1aa828
 - [ ] `weapon.c` enhance_weapon_skill — blocks 1/953 (scen-caster-Healer-94269, step 225, kind=screen) @2ad1aa828
 - [ ] `trap.c` trapeffect_landmine — blocks 1/953 (scen-descend-Knight-94127, step 132, kind=screen; C "You are in non-scoring explore/discovery mode.--More--" vs JS "You are lucky! Full moon tonight.") @8dee36cb3

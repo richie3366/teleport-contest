@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
-- [x] `do.c` doup — C do.c:1301 set_move_cmd + :1303–1304 u_rooted + :1318–1320 stucksteed + :1326–1331 near_capacity load gate absent from js/do.js:doup (:3437; doc "Omits: rooted, stucksteed, encumbrance load gate") @b3c50cbeb **Addressed:** D-3252
-- [x] `do.c` dowipe — C do.c:2394 + :2401 body_part(FACE) absent from js/do.js:dowipe (:3653/:3656 hardcoded 'face'; doc "Named omissions: body_part poly face noun") @b3c50cbeb **Addressed:** D-3252
+- [x] `dog.c` abuse_dog — blocks 1/953 (scen-ranged-Ranger-94128, step 62, kind=rng) @1634fa4fa **Addressed:** D-3253
+
+
+- [x] `do.c` doup — C do.c:1301 set_move_cmd + :1303–1304 u_rooted + :1318–1320 stucksteed + :1326–1331 near_capacity load gate absent from js/do.js:doup (:3437; doc "Omits: rooted, stucksteed, encumbrance load gate") @b3c50cbeb **Addressed:** D-3252 `495619f68`
+- [x] `do.c` dowipe — C do.c:2394 + :2401 body_part(FACE) absent from js/do.js:dowipe (:3653/:3656 hardcoded 'face'; doc "Named omissions: body_part poly face noun") @b3c50cbeb **Addressed:** D-3252 `495619f68`
 
 
 - [x] `potion.c` make_stunned — blocks 1/953 (scen-ride-Samurai-94407, step 159, kind=screen; C "You miss it. You wobble in the saddle." vs JS "You miss it.") @012413194 **Addressed:** D-3251 `b3c50cbeb`

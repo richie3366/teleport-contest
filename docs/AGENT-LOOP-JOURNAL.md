@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3253 `uhitm.c` hmon_hitmon :1812 get_dmg_bonus min-1 floor (ships D-1384 named omit; Ranger-94128 s62→s223)
+
+**C locus:** - `abuse_dog`: `dog.c:1362–1393` whole body — verified complete in JS (no change this iter); the blocked session moves via its caller's dmg fix.
+**JS:** `js/uhitm.js` (+8/−5). Far under the 1500/15 caps.
+**Change:** `js/uhitm.js` only, no new module edge (in-scope `get_dmg_bonus` local + `PM_SHADE`; no `imports.mjs --can` needed): floor → `dmg = (get_dmg_bonus && !mon_is_shade) ? 1 : 0` with C's :1815–1816 comment; doc :1703 → live. C's weapon path never clears the flag (all 5 clears are misc_obj :1119–1383 non-weapons) so the thrown-dagger floor is 1, matching C. Behavior change is exactly: non-shade + flag-TRUE + dmg<1: 0→1 (C's min-1-damage guarantee); all other arms (shades, flag-FALSE barehand/misc, dmg≥1) identical.
+**Verify:** `node scripts/verify.mjs --fn abuse_dog,hmon_hitmon --reach-all` → VERIFY: PASS — syntax 1 file; rule2; hidden abuse_dog PROGRESS (Ranger-94128 s62→yn_function s223, +161 steps); reach abuse_dog 122/122 REACH-OK (full reach, no sample); hmon_hitmon note (no blocked session) + smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped (uhitm.js not shared — D-3251 precedent). No committed unit test: single-expression C-line port pinned by the moved corpus session + 122-session full reach (D-3251/D-3249 precedent; pre-floor computation proven identical — same draw, same spe/flag state, same skipped recalc).
+**Named:** - `abuse_dog`: none in-body — whole C body live.
+**Next:** (1) Ranger-94128's new owner yn_function s223 (archived/tagged — not re-queued; queue 30/30 tagged). (2) hmon_hitmon completion residuals (weapon silver plumbing, stagger mhurtle — own rows when queued). (3) Picker exhaustion persists — STRUCTURAL (D-3251/D-3252): coverage generator 0 rows (finish-regen confirms), corpus queue 30/30 tagged, band falls to 5/8 after this archive (seffect/enhance/trapeffect + reset_utrap/passive_obj) — needs heat re-replay or phase-2 reopen (human call).
 ## 2026-10-02 — D-3252 `do.c` doup whole-body completion (rooted/steed/load/set_move_cmd) + dowipe body_part FACE (poly noun)
 
 **C locus:** - `doup`: `do.c:1298–1344` whole body in C order — stairway_at; set_move_cmd(DIR_UP,0); u_rooted→ECMD_TIME; TT_PIT climb_pit→ECMD_TIME; missing-stair You_cant→ECMD_OK; stucksteed(TRUE)→ECMD_OK; u_stuck_cannot_go→ECMD_TIME; near_capacity>SLT_ENCUMBER Your load gate→ECMD_TIME; ledger-1 escape yn→ECMD_OK; next_to_u pet hold→ECMD_OK; at_ladder + prev_level→ECMD_TIME.

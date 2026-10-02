@@ -1700,7 +1700,7 @@ async function hmon_hitmon_msg_lightobj(hmd, mon, obj) {
  * Poison, joust, barehand silver, and poiskilled are live (D-2839).
  * Pudding split is hmon_hitmon_splitmon. The hit line is
  * hmon_hitmon_msg_hit. Stagger's canspotmon pline + mhurtle stay named.
- * Non-shade get_dmg_bonus min-1 stays named. umconf hand-glow is
+ * Non-shade get_dmg_bonus min-1 is live (D-3253). umconf hand-glow is
  * nohandglow (uhitm.c:6315).
  * Called via the hmon wrapper below (C uhitm.c:819–836).
  */
@@ -2061,12 +2061,15 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
         poiskilled = !!hmd.poiskilled;
     }
 
-    // C uhitm.c hmon_hitmon :1812–1822 — dmg<1 shade melee/applied
-    // shade_miss(&youmonst,mon,obj,FALSE,TRUE). Thrown/kicked skip here
-    // (zap.c bhit D-1383). Non-shade get_dmg_bonus bump-to-1 named.
+    // C uhitm.c hmon_hitmon :1812–1823 — dmg<1: non-shade with
+    // get_dmg_bonus bumps to 1 (ships the D-1384 named omit);
+    // shades melee/applied get shade_miss(&youmonst,mon,obj,FALSE,TRUE),
+    // thrown/kicked skip it (zap.c bhit D-1383).
     if (dmg < 1) {
         const mon_is_shade = (mon.data?.mndx | 0) === PM_SHADE;
-        dmg = 0;
+        /* make sure that negative damage adjustment can't result
+           in inadvertently boosting the victim's hit points */ // C :1815–1816
+        dmg = (get_dmg_bonus && !mon_is_shade) ? 1 : 0; // C :1817
         if (mon_is_shade && !hittxt
             && thrown !== HMON_THROWN && thrown !== HMON_KICKED) {
             hittxt = await shade_miss(game.youmonst, mon, obj, false, true);
