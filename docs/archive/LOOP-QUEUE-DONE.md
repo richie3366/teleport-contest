@@ -5,6 +5,16 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `cmd.c` do_rush_northwest — C `cmd.c:1468–1472` absent from js/ (no symbol; `set_move_cmd(DIR_NW,3)` + ECMD_TIME, callee live js/cmd.js:577); 6 do_rush siblings C :1461–1514 same shape (do_rush_west ported D-3296) — port whole (brief 2026-10-02) @4265100f0
+- [x] `cmd.c` do_rush_north — C `cmd.c:1475–1479` absent from js/ (no symbol; `set_move_cmd(DIR_N,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [x] `cmd.c` do_rush_northeast — C `cmd.c:1482–1486` absent from js/ (no symbol; `set_move_cmd(DIR_NE,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [x] `cmd.c` do_rush_east — C `cmd.c:1489–1493` absent from js/ (no symbol; `set_move_cmd(DIR_E,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [x] `cmd.c` do_rush_southeast — C `cmd.c:1496–1500` absent from js/ (no symbol; `set_move_cmd(DIR_SE,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [x] `cmd.c` do_rush_south — C `cmd.c:1503–1507` absent from js/ (no symbol; `set_move_cmd(DIR_S,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [x] `cmd.c` do_rush_southwest — C `cmd.c:1510–1514` absent from js/ (no symbol; `set_move_cmd(DIR_SW,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
+- [x] `cmd.c` rnd_extcmd_idx — C `cmd.c:3601–3604` absent from js/ (no symbol; `rn2(extcmdlist_length+1)-1`, 0 refs in C — dead in C; callee live js/rng.js:111) — resolve by-design or port (same C file as do_rush head; brief 2026-10-02) @bdd35be25
+
+
 - [x] `sfbase.c` sf_init — C `sfbase.c:647–655` absent from js/ (no symbol; procs-table init: sfoprocs/sfiprocs invalid+historical, sfofl/sfifl exportascii); sole C caller options.c:7129 — resolve by-design (no sf procs layer in JS) or port (brief 2026-10-02) @b2e34fd56
 - [x] `sfbase.c` sfvalue_any — C `sfbase.c:449–457` absent from js/ (no symbol; static-buf PRId64 of a_int64); C refs fwd decl :23 + `Sfvalue_any` macro :53 only — resolve by-design or port (brief 2026-10-02) @b2e34fd56
 

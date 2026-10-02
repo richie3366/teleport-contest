@@ -1,5 +1,60 @@
 # Divergence log
 
+## D-3313 — `cmd.c` rush octet (do_rush_northwest head + 6 siblings + rnd_extcmd_idx, whole remaining cmd.c Open set)
+
+- **Status:** shipped (8 Open missing-arm `cmd.c` rows checked off + archived — head + 6 do_rush siblings + rnd_extcmd_idx; no review cited, no stamp owed). ~30 insertions — below the ~80 density bar, defended: the whole remaining `cmd.c` Open set ships here (callee closure set_move_cmd/rn2 already ported; nothing more Open in the file or closure).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all eight). Seven `m`-prefix rush direction functions + the extern extcmd index roller with no JS symbol (do_rush_west alone ported D-3296).
+- **C locus:**
+  - `do_rush_northwest`: nethack-c/upstream/src/cmd.c:1468–1472 — `set_move_cmd(DIR_NW, 3)` + ECMD_TIME.
+  - `do_rush_north`: nethack-c/upstream/src/cmd.c:1475–1479 — `set_move_cmd(DIR_N, 3)` + ECMD_TIME.
+  - `do_rush_northeast`: nethack-c/upstream/src/cmd.c:1482–1486 — `set_move_cmd(DIR_NE, 3)` + ECMD_TIME.
+  - `do_rush_east`: nethack-c/upstream/src/cmd.c:1489–1493 — `set_move_cmd(DIR_E, 3)` + ECMD_TIME.
+  - `do_rush_southeast`: nethack-c/upstream/src/cmd.c:1496–1500 — `set_move_cmd(DIR_SE, 3)` + ECMD_TIME.
+  - `do_rush_south`: nethack-c/upstream/src/cmd.c:1503–1507 — `set_move_cmd(DIR_S, 3)` + ECMD_TIME.
+  - `do_rush_southwest`: nethack-c/upstream/src/cmd.c:1510–1514 — `set_move_cmd(DIR_SW, 3)` + ECMD_TIME.
+  - `rnd_extcmd_idx`: nethack-c/upstream/src/cmd.c:3601–3604 (extern.h:417) — `rn2(extcmdlist_length + 1) - 1`; dead in C (0 call refs) but extern.
+- **JS was:** no symbols for any of the eight (sym.mjs NOT FOUND ×8); do_rush_west alone module-local js/cmd.js:617 (D-3296) with the sole FUNCT_TXT rush row; generated EXTCMDLIST already carried all eight rush txt rows.
+- **Fix:** ported the seven rush leaves module-local in C order (do_move_*/do_run_*/do_rush_west idiom, D-3307 precedent) + seven FUNCT_TXT identity rows in C extcmdlist order + rnd_extcmd_idx as a live export (C extern) in C file order; new focused test scripts/rnd-extcmd-idx.test.mjs.
+- **JS:**
+  - `do_rush_northwest`: js/cmd.js:618 — module-local one-liner; FUNCT_TXT row js/cmd.js:2070; family comment js/cmd.js:613–616.
+  - `do_rush_north`: js/cmd.js:619 — same idiom; FUNCT_TXT row js/cmd.js:2071.
+  - `do_rush_northeast`: js/cmd.js:620 — same idiom; FUNCT_TXT row js/cmd.js:2072.
+  - `do_rush_east`: js/cmd.js:621 — same idiom; FUNCT_TXT row js/cmd.js:2073.
+  - `do_rush_southeast`: js/cmd.js:622 — same idiom; FUNCT_TXT row js/cmd.js:2074.
+  - `do_rush_south`: js/cmd.js:623 — same idiom; FUNCT_TXT row js/cmd.js:2075.
+  - `do_rush_southwest`: js/cmd.js:624 — same idiom; FUNCT_TXT row js/cmd.js:2076.
+  - `rnd_extcmd_idx`: js/cmd.js:553 (doc :547–552) — `rn2(EXTCMDLIST.length + 1) - 1`; EXTCMDLIST.length ≡ extcmdlist_length (generated table omits the C null terminator).
+- **Callers:**
+  - `do_rush_northwest`: extcmdlist "rushnorthwest" row → generated EXTCMDLIST txt row (pre-existing js/generated/extcmdlist_data.js:153) + FUNCT_TXT identity row js/cmd.js:2070 (consumed by ext_func_tab_from_func js/cmd.js:2190); move_funcs[][MV_RUSH] → MOVE_FUNC_TXT txt column js/cmd.js:1890 (no JS function-pointer column — txt dispatch, same as the ported do_run_* family).
+  - `do_rush_north`: same two channels → FUNCT_TXT js/cmd.js:2071; move_funcs txt column as above.
+  - `do_rush_northeast`: same two channels → FUNCT_TXT js/cmd.js:2072; move_funcs txt column as above.
+  - `do_rush_east`: same two channels → FUNCT_TXT js/cmd.js:2073; move_funcs txt column as above.
+  - `do_rush_southeast`: same two channels → FUNCT_TXT js/cmd.js:2074; move_funcs txt column as above.
+  - `do_rush_south`: same two channels → FUNCT_TXT js/cmd.js:2075; move_funcs txt column as above.
+  - `do_rush_southwest`: same two channels → FUNCT_TXT js/cmd.js:2076; move_funcs txt column as above.
+  - `rnd_extcmd_idx`: none — dead in C (0 refs); live export for extern fidelity.
+- **Verify:**
+  - `do_rush_northwest`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach).
+  - `do_rush_north`: hidden note · REACH-OK (smoke 24/24).
+  - `do_rush_northeast`: hidden note · REACH-OK (smoke 24/24).
+  - `do_rush_east`: hidden note · REACH-OK (smoke 24/24).
+  - `do_rush_southeast`: hidden note · REACH-OK (smoke 24/24).
+  - `do_rush_south`: hidden note · REACH-OK (smoke 24/24).
+  - `do_rush_southwest`: hidden note · REACH-OK (smoke 24/24).
+  - `rnd_extcmd_idx`: hidden note · REACH-OK (smoke 24/24).
+  - Cluster gates: `node scripts/verify.mjs --fn <all eight>` → syntax PASS (1 changed js file: js/cmd.js) · Rule #2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Focused `node --test scripts/rnd-extcmd-idx.test.mjs` 2/2 pass; cmd-related maintained suite (bind-mousebtn, get-changed-key-binds, optfn-dec-term-cluster, parsebindings, randomkey, rebind-keys, there-cmd-menu-common) 88/88 pass.
+- **Named omissions:**
+  - `do_rush_northwest`: none in-body — whole C body live (move_funcs function-pointer column is txt dispatch in JS, pre-existing architecture shared with do_run_*).
+  - `do_rush_north`: none in-body — whole C body live (same).
+  - `do_rush_northeast`: none in-body — whole C body live (same).
+  - `do_rush_east`: none in-body — whole C body live (same).
+  - `do_rush_southeast`: none in-body — whole C body live (same).
+  - `do_rush_south`: none in-body — whole C body live (same).
+  - `do_rush_southwest`: none in-body — whole C body live (same).
+  - `rnd_extcmd_idx`: none in-body — whole C body live (no C callers to wire).
+- **Ledger:** do_rush_northwest ported; do_rush_north ported; do_rush_northeast ported; do_rush_east ported; do_rush_southeast ported; do_rush_south ported; do_rush_southwest ported; rnd_extcmd_idx ported
+- **Next:** continue the missing-arm list (`cfgfiles.c` cnf_line_GDBPATH head + GREPPATH sibling, `invent.c` safeq pair).
+
 ## D-3312 — `sfbase.c` save-proc sextet (sf_init head + sfvalue_any + 4 unqueued micro-gaps, all by-design)
 
 - **Status:** shipped (2 Open missing-arm `sfbase.c` rows checked off + archived — sf_init head, sfvalue_any; sf_setprocs/sf_setflprocs/sfvalue_bitfield/bitfield_dump same-file unqueued gaps booked directly, D-3304 precedent; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: every same-file gap with C ≥ 1 ships here (`ledger.mjs file sfbase.c`: 89 functions; the other 73 absent are C-0 empty norm_ptrs_* hooks with no portable behavior — family batch left to Next); callee closures empty (all six callee-free; sf_init's table stores have no JS container).
