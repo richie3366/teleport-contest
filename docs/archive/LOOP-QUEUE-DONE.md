@@ -5,6 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-02
 
+- [x] `cfgfiles.c` cnf_line_GDBPATH — C `cfgfiles.c:1082–1094` absent from js/ (no symbol; C staticfn, decl-only :82 — dead in C; PANICTRACE-gated file_exists + sysopt.gdbpath free/dupstr, callees live js/cfgfiles.js:425 + js/dungeon.js:267) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [x] `cfgfiles.c` cnf_line_GREPPATH — C `cfgfiles.c:1097–1109` absent from js/ (no symbol; C staticfn, decl-only :83 — dead in C; same shape as GDBPATH, sysopt.greppath) — resolve by-design or port (brief 2026-10-02) @bdd35be25
+- [x] `cfgfiles.c` cnf_line_SOUNDDIR — C `cfgfiles.c:1222–1228` absent from js/ (no symbol; USER_SOUNDS-gated C staticfn, decl-only :98 — dead in C; sounddir free + dupstr, callee live js/dungeon.js:267) — resolve by-design or port (same C file as GDBPATH head; brief 2026-10-02) @9332ca054
+- [x] `cfgfiles.c` cnf_line_SOUND — C `cfgfiles.c:1231–1235` absent from js/ (no symbol; C staticfn, decl-only :99 — dead in C; add_sound_mapping(bufp) + TRUE, callee live js/sounds.js:253) — resolve by-design or port (brief 2026-10-02) @9332ca054
+
+
 - [x] `cmd.c` do_rush_northwest — C `cmd.c:1468–1472` absent from js/ (no symbol; `set_move_cmd(DIR_NW,3)` + ECMD_TIME, callee live js/cmd.js:577); 6 do_rush siblings C :1461–1514 same shape (do_rush_west ported D-3296) — port whole (brief 2026-10-02) @4265100f0
 - [x] `cmd.c` do_rush_north — C `cmd.c:1475–1479` absent from js/ (no symbol; `set_move_cmd(DIR_N,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0
 - [x] `cmd.c` do_rush_northeast — C `cmd.c:1482–1486` absent from js/ (no symbol; `set_move_cmd(DIR_NE,3)` + ECMD_TIME, callee live js/cmd.js:577) — port whole (brief 2026-10-02) @4265100f0

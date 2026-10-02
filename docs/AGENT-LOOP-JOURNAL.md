@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — D-3314 `cfgfiles.c` dead-handler sextet (GDBPATH head + 3 queued siblings + AUTOCOMPLETE stale + DUMPLOGFILE)
+
+**C locus:** - `cnf_line_GDBPATH`: nethack-c/upstream/src/cfgfiles.c:1082–1094 — PANICTRACE-gated file_exists + config_error_add, sysopt.gdbpath free/dupstr; refs are fwd decl :82 + definition only (whole-file textual scan).
+**JS:** - `cnf_line_GDBPATH`: no symbol (by-design) — dead in C; PANICTRACE file_exists is a filesystem probe (Rule #2) and sysopt.gdbpath is a debugger path with no JS counterpart (no gdbpath symbol).
+**Change:** none in `js/` — five by-design resolutions + one stale-complete booking, documented here and booked via Ledger (D-3312/D-3302 precedent).
+**Verify:** - `cnf_line_GDBPATH`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach).
+**Named:** - `cnf_line_GDBPATH`: whole body — dead in C; no scored caller.
+**Next:** continue the missing-arm list (`invent.c` safeq pair + any_obj_ok/worn_wield_only, `alloc.c` dupstr_n).
 ## 2026-10-02 — D-3313 `cmd.c` rush octet (do_rush_northwest head + 6 siblings + rnd_extcmd_idx, whole remaining cmd.c Open set)
 
 **C locus:** - `do_rush_northwest`: nethack-c/upstream/src/cmd.c:1468–1472 — `set_move_cmd(DIR_NW, 3)` + ECMD_TIME.

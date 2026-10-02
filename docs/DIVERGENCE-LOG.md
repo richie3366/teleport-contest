@@ -1,5 +1,51 @@
 # Divergence log
 
+## D-3314 — `cfgfiles.c` dead-handler sextet (GDBPATH head + 3 queued siblings + AUTOCOMPLETE stale + DUMPLOGFILE)
+
+- **Status:** shipped (4 Open missing-arm `cfgfiles.c` rows checked off + archived — GDBPATH head, GREPPATH, SOUNDDIR, SOUND; AUTOCOMPLETE/DUMPLOGFILE same-file unqueued gaps booked directly, D-3312/D-3304 precedent; no review cited, no stamp owed). 0 insertions — below the ~80 density bar, defended: the whole `cfgfiles.c` ledger-absent set ships here (6/6 absent; the 40 `unknown` all carry live JS symbols per `ledger.mjs file cfgfiles.c`); five dead-in-C handlers need no symbol and the sixth already ships complete. Commit landed manually (finish's message format): check-hot-docs REFILL (5 live rows < band 8–12; coverage block ungeneratable, rows --write yields 0) exits 1 and aborts finish before its commit step — no refill authorization in this iteration (hand rows are Must-fix/corpus only), so refill belongs to the next one.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all six). Config-line handlers with no JS symbol (AUTOCOMPLETE excepted: module-local clone js/cfgfiles.js:689, never D-logged).
+- **C locus:**
+  - `cnf_line_GDBPATH`: nethack-c/upstream/src/cfgfiles.c:1082–1094 — PANICTRACE-gated file_exists + config_error_add, sysopt.gdbpath free/dupstr; refs are fwd decl :82 + definition only (whole-file textual scan).
+  - `cnf_line_GREPPATH`: nethack-c/upstream/src/cfgfiles.c:1097–1109 — same shape, sysopt.greppath; decl :83 + def only.
+  - `cnf_line_SOUNDDIR`: nethack-c/upstream/src/cfgfiles.c:1222–1228 (inside `#ifdef USER_SOUNDS`) — sounddir free/dupstr; decl :98 + def only.
+  - `cnf_line_SOUND`: nethack-c/upstream/src/cfgfiles.c:1231–1235 — add_sound_mapping(bufp) + TRUE; decl :99 + def only.
+  - `cnf_line_AUTOCOMPLETE`: nethack-c/upstream/src/cfgfiles.c:625–629 — parseautocomplete(bufp, TRUE) + TRUE; decl :42 + def only (dead in C too).
+  - `cnf_line_DUMPLOGFILE`: nethack-c/upstream/src/cfgfiles.c:852–862 — DUMPLOG-gated sysopt.dumplogfile free/dupstr, `#else nhUse(bufp)`; decl :64 + def only.
+  - All six: no `"GDBPATH"|"GREPPATH"|"SOUNDDIR"|"SOUND"|"AUTOCOMPLETE"` keyword literal anywhere in nethack-c/upstream/src — no dispatch row can name them (staticfn ⇒ any function-pointer table would be in-file and would show the function ref; none does).
+- **JS was:** no symbols for five (sym.mjs NOT FOUND ×5); no gdbpath/greppath/sounddir symbols; no GDBPATH/GREPPATH/SOUND/SOUNDDIR dispatch arms (keyword-literal scan of js/ empty — neither side can route such a line to a handler). AUTOCOMPLETE module-local js/cfgfiles.js:689, body-complete (`parseautocomplete(bufp, true)` + `return true`, C :626–627), with a pre-existing dispatch row js/cfgfiles.js:971.
+- **Fix:** none in `js/` — five by-design resolutions + one stale-complete booking, documented here and booked via Ledger (D-3312/D-3302 precedent).
+- **JS:**
+  - `cnf_line_GDBPATH`: no symbol (by-design) — dead in C; PANICTRACE file_exists is a filesystem probe (Rule #2) and sysopt.gdbpath is a debugger path with no JS counterpart (no gdbpath symbol).
+  - `cnf_line_GREPPATH`: no symbol (by-design) — dead in C; same (no greppath symbol).
+  - `cnf_line_SOUNDDIR`: no symbol (by-design) — dead in C; USER_SOUNDS sounddir global with no JS counterpart (no sounddir symbol).
+  - `cnf_line_SOUND`: no symbol (by-design) — dead in C; the callee add_sound_mapping itself is live (js/sounds.js:253, D-2776) for other paths, but this handler has no scored caller.
+  - `cnf_line_AUTOCOMPLETE`: js/cfgfiles.js:689 (stale-complete) — module-local body mirrors C exactly; sole C callee parseautocomplete live js/cmd.js:2593.
+  - `cnf_line_DUMPLOGFILE`: no symbol (by-design) — dead in C; DUMPLOG retired (D-1776) and dumplogfile is a filesystem path (Rule #2).
+- **Callers:**
+  - `cnf_line_GDBPATH`: none — dead in C (decl-only :82).
+  - `cnf_line_GREPPATH`: none — dead in C (decl-only :83).
+  - `cnf_line_SOUNDDIR`: none — dead in C (decl-only :98).
+  - `cnf_line_SOUND`: none — dead in C (decl-only :99).
+  - `cnf_line_AUTOCOMPLETE`: none in C (decl-only :42); JS dispatch row js/cfgfiles.js:971 pre-existing (table superset for a keyword C never matches — pre-existing, out of scope, session-unobservable).
+  - `cnf_line_DUMPLOGFILE`: none — dead in C (decl-only :64).
+- **Verify:**
+  - `cnf_line_GDBPATH`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach).
+  - `cnf_line_GREPPATH`: hidden note · REACH-OK (smoke 24/24).
+  - `cnf_line_SOUNDDIR`: hidden note · REACH-OK (smoke 24/24).
+  - `cnf_line_SOUND`: hidden note · REACH-OK (smoke 24/24).
+  - `cnf_line_AUTOCOMPLETE`: hidden note · REACH-OK (smoke 24/24).
+  - `cnf_line_DUMPLOGFILE`: hidden note · REACH-OK (smoke 24/24).
+  - Cluster gates: `node scripts/verify.mjs --fn <all six>` → syntax PASS (0 changed js files) · Rule #2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `cnf_line_GDBPATH`: whole body — dead in C; no scored caller.
+  - `cnf_line_GREPPATH`: whole body — dead in C; no scored caller.
+  - `cnf_line_SOUNDDIR`: whole body — dead in C; no scored caller.
+  - `cnf_line_SOUND`: whole body — dead in C; no scored caller.
+  - `cnf_line_AUTOCOMPLETE`: none — whole C body live in js/cfgfiles.js:689 (C has no callers to wire).
+  - `cnf_line_DUMPLOGFILE`: whole body — dead in C; no scored caller.
+- **Ledger:** cnf_line_GDBPATH by-design; cnf_line_GREPPATH by-design; cnf_line_SOUNDDIR by-design; cnf_line_SOUND by-design; cnf_line_AUTOCOMPLETE ported; cnf_line_DUMPLOGFILE by-design
+- **Next:** continue the missing-arm list (`invent.c` safeq pair + any_obj_ok/worn_wield_only, `alloc.c` dupstr_n).
+
 ## D-3313 — `cmd.c` rush octet (do_rush_northwest head + 6 siblings + rnd_extcmd_idx, whole remaining cmd.c Open set)
 
 - **Status:** shipped (8 Open missing-arm `cmd.c` rows checked off + archived — head + 6 do_rush siblings + rnd_extcmd_idx; no review cited, no stamp owed). ~30 insertions — below the ~80 density bar, defended: the whole remaining `cmd.c` Open set ships here (callee closure set_move_cmd/rn2 already ported; nothing more Open in the file or closure).

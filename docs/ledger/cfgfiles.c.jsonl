@@ -13,7 +13,7 @@
 {"fn":"cnf_line_OPTIONS","c":"603-609","status":"unknown"}
 {"fn":"cnf_line_AUTOPICKUP_EXCEPTION","c":"612-616","status":"unknown"}
 {"fn":"cnf_line_BINDINGS","c":"619-622","status":"ported","js":["js/cfgfiles.js:cnf_line_BINDINGS"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_AUTOCOMPLETE","c":"625-629","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_AUTOCOMPLETE","c":"625-629","status":"ported","js":["js/cfgfiles.js:cnf_line_AUTOCOMPLETE"],"d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MSGTYPE","c":"632-635","status":"unknown"}
 {"fn":"cnf_line_HACKDIR","c":"638-650","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_LEVELDIR","c":"653-670","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -33,7 +33,7 @@
 {"fn":"cnf_line_MSGHANDLER","c":"821-827","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_EXPLORERS","c":"830-836","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_DEBUGFILES","c":"839-849","status":"ported","js":["js/cfgfiles.js:cnf_line_DEBUGFILES"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_DUMPLOGFILE","c":"852-862","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_DUMPLOGFILE","c":"852-862","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_GENERICUSERS","c":"865-871","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_BONES_POOLS","c":"874-885","status":"ported","js":["js/cfgfiles.js:cnf_line_BONES_POOLS"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_SUPPORT","c":"888-894","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
@@ -51,8 +51,8 @@
 {"fn":"cnf_line_LIVELOG","c":"1035-1049","status":"unknown"}
 {"fn":"cnf_line_PANICTRACE_LIBC","c":"1052-1064","status":"unknown"}
 {"fn":"cnf_line_PANICTRACE_GDB","c":"1067-1079","status":"unknown"}
-{"fn":"cnf_line_GDBPATH","c":"1082-1094","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_GREPPATH","c":"1097-1109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_GDBPATH","c":"1082-1094","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_GREPPATH","c":"1097-1109","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_CRASHREPORTURL","c":"1112-1118","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_ACCESSIBILITY","c":"1121-1131","status":"unknown"}
 {"fn":"cnf_line_PORTABLE_DEVICE_PATHS","c":"1134-1150","status":"ported","js":["js/cfgfiles.js:cnf_line_PORTABLE_DEVICE_PATHS"],"d":["D-3184"],"at":"2026-09-30@a60a91a98"}
@@ -63,8 +63,8 @@
 {"fn":"cnf_line_ROGUESYMBOLS","c":"1191-1199","status":"unknown"}
 {"fn":"cnf_line_SYMBOLS","c":"1202-1211","status":"unknown"}
 {"fn":"cnf_line_WIZKIT","c":"1214-1218","status":"unknown"}
-{"fn":"cnf_line_SOUNDDIR","c":"1222-1228","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_SOUND","c":"1231-1235","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SOUNDDIR","c":"1222-1228","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SOUND","c":"1231-1235","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_QT_TILEWIDTH","c":"1239-1250","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_QT_TILEHEIGHT","c":"1253-1264","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_QT_FONTSIZE","c":"1267-1278","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
