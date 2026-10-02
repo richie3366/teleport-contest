@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `monst.c` monst_globals_init missing erinys-reset effect — C `monst.c:74` memcpy restores ALL of mons[] incl. mons[PM_ERINYS] written by live `adj_erinys` (mon.c:5918–5966), but js/monsters.js:monst_globals_init clears only the pm_fixup overlay (erinys mutates baseline arrays via js/monsters.js:adj_erinys, reset by reset_erinys :270 which is never called here) — call same-module reset_erinys() inside + fix sole/only/immutable wording; verify full 44/44 + adj_erinys(60)→init→baseline probe. Source: reviews/loop-unattended/2266-2bcda1027-monst-globals-init.md @2bcda1027
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Generated block — do not edit between the markers. Row: measured class,

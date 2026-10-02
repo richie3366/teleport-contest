@@ -2271,3 +2271,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2259-42c45189d-program-state-init.md](./2259-42c45189d-program-state-init.md) | `42c45189d` | D-3298 program_state_init zero-reset + jsmain | **ACCEPT** |
 | [2260-8859c7e6d-there-clone-removal.md](./2260-8859c7e6d-there-clone-removal.md) | `8859c7e6d` | D-3299 There clone removal + rewire | **ACCEPT** |
 | [2261-3442eb4d9-mklev-vault-branch-sort.md](./2261-3442eb4d9-mklev-vault-branch-sort.md) | `3442eb4d9` | D-3301 mklev vault/branch/sort triple | **ACCEPT** |
+| [2262-c50c91230-get-viz-clear.md](./2262-c50c91230-get-viz-clear.md) | `c50c91230` | D-3303 get_viz_clear whole-body port | **ACCEPT** |
+| [2263-b2e34fd56-sp-lev-septet.md](./2263-b2e34fd56-sp-lev-septet.md) | `b2e34fd56` | D-3304 sp_lev Lua-adjacent septet | **ACCEPT** |
+| [2264-4265100f0-genl-player-selection.md](./2264-4265100f0-genl-player-selection.md) | `4265100f0` | D-3306 genl_player_selection + 4 stale mates | **ACCEPT** |
+| [2265-9e5e83838-extcmd-initiator-run.md](./2265-9e5e83838-extcmd-initiator-run.md) | `9e5e83838` | D-3307 extcmd_initiator + run family + freeall | **ACCEPT** |
+| [2266-2bcda1027-monst-globals-init.md](./2266-2bcda1027-monst-globals-init.md) | `2bcda1027` | D-3308 monst_globals_init overlay reset | **QUALITY-RISK** |
+| [2267-886cc35b5-wish-history-flush.md](./2267-886cc35b5-wish-history-flush.md) | `886cc35b5` | D-3309 wish_history_flush + add omit retired | **ACCEPT** |
+| [2268-07079ea40-handler-symset.md](./2268-07079ea40-handler-symset.md) | `07079ea40` | D-3310 handler_symset + arms + dispatch | **ACCEPT** |

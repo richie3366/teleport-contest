@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-02 — Audit 2262–2268: review D-3303–D-3310 (6 ACCEPT + 1 QUALITY-RISK) + full score
+
+**Scope:** 7 js-touching SHAs since 2261 (D-3302/D-3305 docs-only, skipped): get_viz_clear, sp_lev septet, genl_player_selection+4, extcmd_initiator+run×8+freeall, monst_globals_init, wish_history_flush+add, handler_symset+arms+dispatch. Every verify re-measured per-function (incl. randrole real reach 69/69).
+**Finding:** 2266 QUALITY-RISK — `monst_globals_init` overlay-clear omits the memcpy's erinys-reset effect (live 2nd mons[] writer `adj_erinys` mon.c:5918–5966; JS channel is baseline-array mutation + `reset_erinys`, never called here). Latent (both sites run clean; newgame/restore already reset) → 1 Must-fix row (same-module `reset_erinys()` call + comment fix, 44/44 + probe verify). Next cluster set to it.
+**Score:** public 44/44 (Scr 11,405, RNG 792,838, `329+1.64/turn`); corpus 705/953, 0 losses/0 gains, `full: true`; held-out 15/44 (+0). Ledger: snapshot appended; seeded sample fixed 1 row (`mhitm_ad_dcay` ported→split, 3 arms verified live).
+**Next:** Must-fix ships alone.
 ## 2026-10-02 — D-3310 `options.c` handler_symset (do_symset wrapper + both do_handler arms + doset dispatch wired)
 
 **C locus:** nethack-c/upstream/src/options.c:6320–6328 — whole body in C order: `reslt = do_symset(optidx == opt_roguesymset)` (:6325), `go.opt_need_redraw = TRUE` (:6326), `return reslt` (:6327). Callers: options.c:3583 (optfn_roguesymset arm :3582–3584), options.c:4228 (optfn_symset arm :4223–4233, glyphid-cache wrapped). Callee: symbols.c:908–1099 do_symset (ledger by-design; all six C returns TRUE — measured `awk '/return/'` over :908–1100, function ends :1098).
