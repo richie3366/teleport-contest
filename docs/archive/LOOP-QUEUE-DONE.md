@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `attrib.c` poison_strdmg killer path — C attrib.c:274–278 knam/k_format (losestr + losehp killer attribution) absent from js/eat.js:1386 poison_strdmg (2-arg; raw uhp decrement, gameover without done() killer — brief 2026-10-03) @647728e87 **Addressed:** D-3379
+
+
 - [x] `apply.c` use_cream_pie COST_SPLAT bill — C apply.c:3599 costly_alteration(obj, COST_SPLAT) absent from js/apply.js:1142 use_cream_pie (deferred comment; freeinv+delobj only — brief 2026-10-03) @647728e87
 - [x] `apply.c` doapply BANANA arm — C apply.c:4400–4404 (hallu "It rings!" + turn cost) absent from js/apply.js doapply (only GETOBJ_DOWNPLAY :337, no case — brief 2026-10-03) @647728e87
 

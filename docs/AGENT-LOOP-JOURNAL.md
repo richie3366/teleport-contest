@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3379 `attrib.c` poison_strdmg killer path (4-arg restart, 4 call sites wired)
+
+**C locus:** - `poison_strdmg`: nethack-c/upstream/src/attrib.c:274–278 (losestr + losehp with the shared knam/k_format). C callers: eat.c:1932 (eatcorpse poisonous corpse/glob), eat.c:2798 (eataccessory opoisoned weapon, xname), fountain.c:307 (contaminated water, KILLED_BY), spell.c:164 (contact-poisoned spellbook).
+**JS:** - `poison_strdmg`: js/eat.js:1389 (doc :1383–1388).
+**Change:** restart as 4-arg canonical `await losestr(strloss, knam, k_format)` then `losehp(dmg, knam, k_format)` in C order; the losehp call is skipped once gameover is set (C losestr's frailty damage done(DIED)s = noreturn, so C never reaches the second call; JS losestr returns after finish_losehp_done instead). losestr joins the existing attrib edge (`imports.mjs --can` ALREADY, no new edge). All 4 sites pass C knam/k_format; the two eat.js sites adopt the neighboring acidic/cadaver-arm idiom (fatal → finish_losehp_done + return 1; else finish_maybe_wail); spell.js/fountain.js pass args only per file precedent (neither file handles _losehp_needs_done anywhere; the gameover-flag path carries death — seed0030 deaths green).
+**Verify:** - `poison_strdmg`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `poison_strdmg`: none remaining — ledger omits (knam/k_format killer params, Upolyd mh cut, losehp routing) now live. (Pre-existing, out of row scope: losestr/losehp keep their own ledger omits — rehumanize/showdamage in losehp.)
+**Next:** attrib.c holds no further Open rows; refill appends same-file poisoned/is_innate missing-arm rows (brief-verified this iteration) as future clusters. Queue 5→7 — sources exhausted (coverage 0 rows; hidden-proxy queue 0 eligible as-is; parks name no confirmed writer).
 ## 2026-10-03 — D-3378 `apply.c` use_cream_pie COST_SPLAT tail + doapply BANANA arm
 
 **C locus:** - `use_cream_pie`: nethack-c/upstream/src/apply.c:3568–3603, tail :3599–3602 (`costly_alteration(obj, COST_SPLAT)`; obj_extract_self; delobj; ECMD_OK). Sole C caller :4259 (doapply CREAM_PIE).

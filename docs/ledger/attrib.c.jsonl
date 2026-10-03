@@ -1,7 +1,7 @@
 {"fn":"adjattrib","c":"117-199","status":"partial","js":["js/attrib.js:adjattrib"],"omit":"u_init.c:933/:935 (`u_init_carry_attr_boost` STR/CON loop) — JS `js/u_init.js:1689` stub stands pending an `inv_weight` port (loop condition unported, so the calls are unreachable, not dropped); Your() renders as `pline('Your …')` (text-identical, no new file-local Your clone).","d":["D-2438"],"at":"seed@a30a7de84"}
 {"fn":"gainstr","c":"203-217","status":"ported","js":["js/attrib.js:gainstr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"losestr","c":"221-270","status":"ported","js":["js/attrib.js:losestr"],"at":"2026-10-03@bbe63333a"}
-{"fn":"poison_strdmg","c":"274-278","status":"partial","js":["js/eat.js:poison_strdmg"],"omit":"knam/k_format killer params dropped (no killer attribution, no done() death path); no Upolyd mhmax cut; raw uhp decrement instead of losehp()","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reimplements str-loss loop + hp damage inline"}
+{"fn":"poison_strdmg","c":"274-278","status":"ported","js":["js/eat.js:poison_strdmg"],"d":["D-3379"],"at":"2026-10-03@e27333c36","note":"audit 2026-10-03: reimplements str-loss loop + hp damage inline"}
 {"fn":"poisontell","c":"294-313","status":"ported","js":["js/attrib.js:poisontell"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poisoned","c":"317-408","status":"partial","js":["js/attrib.js:poisoned"],"omit":"Half_gas_damage towel halving of blast/cloud loss; G_UNIQ killer-prefix polish (name_to_mon); blast shieldeff","at":"2026-10-03@bbe63333a"}
 {"fn":"change_luck","c":"411-418","status":"ported","js":["js/attrib.js:change_luck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: LUCKMIN/MAX are -10/10 (you.h)"}

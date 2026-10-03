@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3379 — `attrib.c` poison_strdmg killer path (4-arg restart, 4 call sites wired)
+
+- **Status:** shipped (queue head missing-arm row checked off + archived; no review cited, no stamp owed). Density exception stated: whole C body + 4 call sites, ~+35/−25 js/ lines — below the ~80 bar, defended (D-3375–D-3378 single-cluster precedent): the head's file attrib.c holds nothing more Open (ledger: every attrib.c fn ported/partial; `ledger.mjs rows` 0 rows; coverage block 0 rows; no other attrib.c queue row), and both callees (losestr ported, losehp partial-live) plus KILLED_BY*/xname/finish_maybe_wail were already live.
+- **Symptom:** no corpus divergence — missing-arm row (0 blocked at baseline). All four poison paths (corpse/glob, poisoned weapon, contact-poisoned spellbook, contaminated fountain water) ran a 2-arg inline: raw uhp decrement, gameover without killer attribution or the done() death path; Upolyd mh ignored; frailty max-HP cuts skipped.
+- **C locus:**
+  - `poison_strdmg`: nethack-c/upstream/src/attrib.c:274–278 (losestr + losehp with the shared knam/k_format). C callers: eat.c:1932 (eatcorpse poisonous corpse/glob), eat.c:2798 (eataccessory opoisoned weapon, xname), fountain.c:307 (contaminated water, KILLED_BY), spell.c:164 (contact-poisoned spellbook).
+- **JS was:** js/eat.js:1386 2-arg inline reimplementation (str-loss loop + raw uhp decrement + gameover flag, no killer/done; ledger partial omit).
+- **Fix:** restart as 4-arg canonical `await losestr(strloss, knam, k_format)` then `losehp(dmg, knam, k_format)` in C order; the losehp call is skipped once gameover is set (C losestr's frailty damage done(DIED)s = noreturn, so C never reaches the second call; JS losestr returns after finish_losehp_done instead). losestr joins the existing attrib edge (`imports.mjs --can` ALREADY, no new edge). All 4 sites pass C knam/k_format; the two eat.js sites adopt the neighboring acidic/cadaver-arm idiom (fatal → finish_losehp_done + return 1; else finish_maybe_wail); spell.js/fountain.js pass args only per file precedent (neither file handles _losehp_needs_done anywhere; the gameover-flag path carries death — seed0030 deaths green).
+- **JS:**
+  - `poison_strdmg`: js/eat.js:1389 (doc :1383–1388).
+- **Callers:**
+  - `poison_strdmg`: C eat.c:1932 → js/eat.js:2546 (eatcorpse; glob-conditional killer :2547); C eat.c:2798 → js/eat.js:3297 (eataccessory; xname); C fountain.c:307 → js/fountain.js:834; C spell.c:164 → js/spell.js:695. No JS site calls from a function C never calls from (4 C sites ≡ 4 JS sites).
+- **Verify:**
+  - `poison_strdmg`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn poison_strdmg --full` → VERIFY: PASS (syntax 3 files js/eat.js js/fountain.js js/spell.js, rule2 PASS, green 2/2, strict 2/2, cohort 7/7, full 44/44).
+- **Named omissions:**
+  - `poison_strdmg`: none remaining — ledger omits (knam/k_format killer params, Upolyd mh cut, losehp routing) now live. (Pre-existing, out of row scope: losestr/losehp keep their own ledger omits — rehumanize/showdamage in losehp.)
+- **Ledger:** poison_strdmg ported
+- **Next:** attrib.c holds no further Open rows; refill appends same-file poisoned/is_innate + potion.c peffect_see_invisible missing-arm rows (brief-verified this iteration) as future clusters. Queue 5→8 — further sources exhausted (coverage 0 rows; hidden-proxy queue 0 eligible as-is; parks name no confirmed writer).
+
 ## D-3378 — `apply.c` use_cream_pie COST_SPLAT tail + doapply BANANA arm
 
 - **Status:** shipped (head missing-arm row + same-file BANANA row checked off + archived; no review cited, no stamp owed). Density exception stated: 2 whole C arms, ~15 js/ insertions — below the ~80 bar, defended (D-3375/D-3376/D-3377 single-cluster precedent): the head's file apply.c holds nothing more Open (coverage block 0 rows; only these two queue rows), and every callee (costly_alteration, obj_extract_self, splitobj, pline, Hallucination predicate) was already live.

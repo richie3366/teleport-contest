@@ -127,12 +127,14 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `attrib.c` poison_strdmg killer path — C attrib.c:274–278 knam/k_format (losestr + losehp killer attribution) absent from js/eat.js:1386 poison_strdmg (2-arg; raw uhp decrement, gameover without done() killer — brief 2026-10-03) @647728e87
 - [ ] `potion.c` dip_hands_ok — C potion.c:2231–2237 absent from js/ (no JS symbol; ledger absent; !obj Glib+can_reach_floor → GETOBJ_SUGGEST else dip_ok; live C caller potion.c:2279 getobj callback; callees can_reach_floor + dip_ok live — brief 2026-10-03) @952f7c273
 - [ ] `files.c` close_nhfile — C files.c:518–531 absent from js/ (no JS symbol; ledger unknown; structlevel fd→-1 / fpdef→null + fplog/fpdebug closes + free_nhfile; 49 C refs incl. do.c:1712 save.c:388 restore.c:899; callee free_nhfile live js/files.js:677 — brief 2026-10-03) @952f7c273
 - [ ] `dothrow.c` throwit shk pick-snatch arm — C dothrow.c:1809–1817 (mon->isshk && is_pick: snatch pline + check_shop_obj + mpickobj + throwit_return) absent from js/dothrow.js:2307 throwit (named omit comment :2568; callee mpickobj live js/makemon.js:2254 — brief 2026-10-03) @30ce39631
 - [ ] `zap.c` bhit iron-ball range limit — C zap.c:4095–4119 (THROWN_WEAPON HEAVY_IRON_BALL: boulder-hit msg + uball test_move halt + Sokoban pit stop, range=0) absent from js/zap.js:6162 bhit (named omit in doc :6156–6157 — brief 2026-10-03) @30ce39631
 - [ ] `shk.c` after_shk_move occupancy re-check — C shk.c:5005–5006 (!gameover → check_special_room(FALSE)) absent from js/shk.js:4971 after_shk_move (named omit in doc :4969; bill_p reset only; check_special_room live async js/hack.js:2977 — brief 2026-10-03) @d133940a7
+- [ ] `attrib.c` poisoned blast shieldeff + killer-polish + towel-halving arms — C attrib.c:339-340 shieldeff / :346-350 name_to_mon G_UNIQ-the() / :385+389-390 cloud + Half_gas_damage halving absent from js/attrib.js:414 poisoned (:428/:433-439/:470 defer comments — brief 2026-10-03; callees shieldeff js/display.js:4837 + name_to_mon js/mondata.js:881 + Half_gas_damage js/potion.js:2773 live) @e27333c36
+- [ ] `attrib.c` is_innate FROM_FORM arm — C attrib.c:896-898 (BLINDED&&!haseyes / BLND_RES&FROMFORM → FROM_FORM) absent from js/attrib.js:1205 is_innate (falls to FROM_NONE :1219; named omit in doc :1201-1203 — brief 2026-10-03; callee haseyes live js/monsters.js:411) @e27333c36
+- [ ] `potion.c` peffect_see_invisible reveal tail — C potion.c:871-877 (set_mimic_blocking + see_monsters + newsym + Invisible self-msg + unkn--) absent from js/potion.js:437 peffect_see_invisible (:475 defer comment, fn ends without tail — brief 2026-10-03; callees set_mimic_blocking js/vision.js:195 + see_monsters js/display.js:5663 + newsym js/display.js:5348 live) @e27333c36
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

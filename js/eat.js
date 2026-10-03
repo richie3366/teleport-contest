@@ -107,7 +107,8 @@ import {
     GETOBJ_EXCLUDE_NONINVENT, GETOBJ_NOFLAGS, GETOBJ_DOWNPLAY,
 } from './const.js';
 import {
-    adjattrib, gainstr, acurr, acurrstr, change_luck, exercise, adjalign,
+    adjattrib, gainstr, losestr, acurr, acurrstr, change_luck, exercise,
+    adjalign,
     A_STR, A_DEX, A_CHA, A_WIS, A_INT, A_CON,
 } from './attrib.js';
 import {
@@ -1380,32 +1381,14 @@ async function touchfood(otmp) {
 }
 
 /**
- * C ref: attrib.c poison_strdmg → losestr + losehp.
- * losestr rn1(4,3) only when ABASE-strloss would go below ATTRMIN.
+ * C ref: attrib.c poison_strdmg `:274–278` — whole C body, in C order:
+ * losestr then losehp with the shared killer. C losestr's frailty damage
+ * can done(DIED) (noreturn), so the losehp call is skipped once gameover
+ * is set — JS losestr returns after finish_losehp_done instead.
  */
-export async function poison_strdmg(strloss, dmg) {
-    const u = game.u || (game.u = {});
-    if (!u.acurr) u.acurr = { a: [10, 10, 10, 10, 10, 10] };
-    const amin = game.urace?.attrmin?.[A_STR] ?? 3;
-    let n = strloss | 0;
-    let ustr = (u.acurr.a[A_STR] | 0) - n;
-    let frailty = 0;
-    while (ustr < amin) {
-        ustr++;
-        n--;
-        frailty += rn1(4, 3);
-    }
-    if (frailty) {
-        u.uhp = (u.uhp | 0) - frailty;
-    }
-    if (n > 0) await adjattrib(A_STR, -n, 1);
-    u.uhp = (u.uhp | 0) - (dmg | 0);
-    if ((u.uhp | 0) < 1) {
-        u.uhp = 0;
-        if (game.program_state) game.program_state.gameover = true;
-    }
-    if (!game.flags) game.flags = {};
-    game.flags.botl = true;
+export async function poison_strdmg(strloss, dmg, knam, k_format) {
+    await losestr(strloss, knam, k_format);
+    if (!game.program_state?.gameover) losehp(dmg, knam, k_format);
 }
 
 /**
@@ -2555,10 +2538,20 @@ export async function eatcorpse(otmp) {
         const poisRes = !!(game.u?.HPoison_resistance || game.u?.EPoison_resistance
             || game.u?.Poison_resistance);
         if (!poisRes) {
-            // C: poison_strdmg(rnd(4), rnd(15), ...) — clang LTR arg eval
+            // C eat.c:1932 poison_strdmg(rnd(4), rnd(15),
+            // !glob ? "poisonous corpse" : "poisonous glob", KILLED_BY_AN)
+            // — clang LTR arg eval; canonical losestr+losehp death path.
             const strloss = rnd(4);
             const dmg = rnd(15);
-            await poison_strdmg(strloss, dmg);
+            await poison_strdmg(strloss, dmg,
+                !glob ? 'poisonous corpse' : 'poisonous glob', KILLED_BY_AN);
+            if (game._losehp_needs_done || game.program_state?.gameover) {
+                // C losehp → done(DIED) is noreturn; do not start eating.
+                const { finish_losehp_done } = await import('./end.js');
+                await finish_losehp_done();
+                return 1;
+            }
+            await finish_maybe_wail();
         } else {
             await pline('You seem unaffected by the poison.');
         }
@@ -3299,7 +3292,16 @@ async function doeat_nonfood(otmp) {
         const poisRes = !!(game.u?.HPoison_resistance || game.u?.EPoison_resistance
             || game.u?.Poison_resistance);
         if (!poisRes) {
-            await poison_strdmg(rnd(4), rnd(15));
+            // C eat.c:2798 poison_strdmg(rnd(4), rnd(15), xname(otmp),
+            // KILLED_BY_AN) — canonical losestr+losehp death path.
+            await poison_strdmg(rnd(4), rnd(15), xname(otmp), KILLED_BY_AN);
+            if (game._losehp_needs_done || game.program_state?.gameover) {
+                // C losehp → done(DIED) is noreturn; do not continue eating.
+                const { finish_losehp_done } = await import('./end.js');
+                await finish_losehp_done();
+                return 1;
+            }
+            await finish_maybe_wail();
         } else {
             await pline('You seem unaffected by the poison.');
         }
