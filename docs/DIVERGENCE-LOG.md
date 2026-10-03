@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3343 — `mkroom.c` somex dog.js clone removal (3 sites → live js/mklev.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~5 js/ insertions — below the ~80 bar, defended (D-3335 same-function precedent: somex shipped teleport.js alone, dog.js left for its own row): one whole clone rewired to the live export, and the head's C file (mkroom.c) holds no further Open rows while somex has 0 C callees, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `somex`: nethack-c/upstream/src/mkroom.c:666–669 — `rn1(croom->hx - croom->lx + 1, croom->lx)`; 11 C refs incl mkroom.c:703/718/726 (somexy arms) and sp_lev.c:6150.
+- **JS was:** live `somex` js/mklev.js:32977 (`rn1(hx-lx+1, lx)`) coexisted with clone js/dog.js:876-then (`|0`-coerced — semantically identical on int room bounds), 3 live sites in the dog-local `somexy` (:907/:922/:928-then). No static dog→mklev edge (D-3335-row clone comment cited an mklev→trap→dog cycle).
+- **Fix:** new static dog→mklev edge (`import { somex } from './mklev.js'`, js/dog.js:72; `imports.mjs --can` SAFE — same 101-module SCC, hoisted fn, verify judges TDZ — the feared cycle is the ambient SCC, not a blocker); deleted the clone (doc comment now covers the kept somey clone only); one C-cite comment per site (:905/:920/:926). Site expressions unchanged; behavior-identical rewire. Maintained test: extended scripts/somex-teleport-rewire.test.mjs (dog.js no-clone + live-import check; census now `['js/mklev.js']` — expectation change explained: the pinned dog.js clone is deliberately gone, no clones remain anywhere).
+- **JS:**
+  - `somex`: js/mklev.js:32977 (live, unchanged); import js/dog.js:72; clone deleted; rewired sites js/dog.js:905,920,926.
+- **Callers:**
+  - `somex`: C mkroom.c:703/718/726 (somexy arms) → js/dog.js:905,920,926 (dog-local somexy). Remaining 8 C refs out of cluster: served by the live export where JS ports import it; no JS somex clone remains anywhere (census test pins js/mklev.js sole definer).
+- **Verify:**
+  - `somex`: hidden note (0 blocked — normal for coverage) · REACH-OK (706 reach, 80 spread run, 80 PASS, 0 regressed) · `node --test scripts/somex-teleport-rewire.test.mjs` 5/5 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn somex` → PASS syntax (1 changed js file: js/dog.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (80 run, 80 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `somex`: none in-body — whole C body live at js/mklev.js:32977.
+- **Ledger:** somex ported js=mklev.js:somex
+- **Next:** the remaining missing-arm rows (Invocation_lev hack head + useupf/attacktype_fordmg×4/mon_aligntyp/m_in_air — different C files, next iterations).
+
 ## D-3342 — `rm.h` m_at teleport.js rewire + `dungeon.c` dunlev/dunlevs_in_dungeon clone census (last 7 clones → live exports)
 
 - **Status:** shipped (7 Open missing-arm rows checked off + archived — m_at teleport head, dunlev fountain+trap, dunlevs dokick+fountain+teleport+trap; no review cited, no stamp owed). ~20 js/ insertions across 5 files — below the ~80 bar, defended (D-3341 6-clone / D-3330 cross-file precedent): the whole remaining dunlev/dunlevs clone census rewired (none remain anywhere — both census tests pin js/dungeon.js sole definer), and the m_at macro cannot ship alone — `ledger.mjs show m_at` reports "not a pinned-C function" and finish-iteration is fail-closed on the Ledger bullet, so per D-3330/D-3328 it rides with the indexed dungeon.c pair (Ledger names dunlev + dunlevs_in_dungeon; m_at in the Unindexed bullet below). Refill: 8 missing-arm rows appended from this session's brief/search/read evidence (Invocation_lev hack, useupf zap, attacktype_fordmg apply/eat/mon/region, mon_aligntyp teleport, m_in_air port+rewire) — queue ships at 9 (coverage ungeneratable: rows --write 0 rows; the band gate needs ≥8 to commit).

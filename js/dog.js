@@ -69,6 +69,7 @@ import { mintrap } from './trap.js';
 import { m_unleash, mon_has_amulet } from './apply.js';
 import { sticks } from './engrave.js';
 import { emits_light, del_light_source } from './light.js';
+import { somex } from './mklev.js';
 
 const PM_LITTLE_DOG = monsterNames.indexOf('PM_LITTLE_DOG');
 const PM_KITTEN = monsterNames.indexOf('PM_KITTEN');
@@ -870,12 +871,9 @@ function arrive_track_clear(mtmp) {
 }
 
 /**
- * C ref: mkroom.c somex / somey — rn1(hx-lx+1, lx). Clone: mklev exports
- * these; dog cannot import mklev (mklev → trap → dog).
+ * C ref: mkroom.c somey — rn1(hy-ly+1, ly). Local clone (mklev exports
+ * it; kept: no queued row — cf. live somex import above, D-3343).
  */
-function somex(croom) {
-    return rn1((croom.hx | 0) - (croom.lx | 0) + 1, croom.lx | 0);
-}
 function somey(croom) {
     return rn1((croom.hy | 0) - (croom.ly | 0) + 1, croom.ly | 0);
 }
@@ -904,7 +902,7 @@ function somexy(croom, c) {
     if (croom.irregular) {
         const i = (croom.roomnoidx ?? -1) + ROOMOFFSET;
         while (try_cnt++ < 100) {
-            c.x = somex(croom);
+            c.x = somex(croom); // C mkroom.c:669 live js/mklev.js
             c.y = somey(croom);
             const loc = game.level?.at(c.x, c.y);
             if (loc && !loc.edge && (loc.roomno | 0) === i) return true;
@@ -919,13 +917,13 @@ function somexy(croom, c) {
     }
 
     if (!(croom.nsubrooms | 0)) {
-        c.x = somex(croom);
+        c.x = somex(croom); // C mkroom.c:669 live js/mklev.js
         c.y = somey(croom);
         return true;
     }
 
     while (try_cnt++ < 100) {
-        c.x = somex(croom);
+        c.x = somex(croom); // C mkroom.c:669 live js/mklev.js
         c.y = somey(croom);
         const loc = game.level?.at(c.x, c.y);
         if (loc && IS_WALL(loc.typ)) continue;

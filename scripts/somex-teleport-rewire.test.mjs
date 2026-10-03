@@ -3,7 +3,8 @@
 // export (js/mklev.js:32977, `rn1(hx-lx+1, lx)`). C `mkroom.c:666–669`
 // is `rn1(croom->hx - croom->lx + 1, croom->lx)`; both JS bodies are
 // that formula, so the rewire is behavior-identical at the two
-// teleport-somexy sites. The js/dog.js:876 clone stays for its own row.
+// teleport-somexy sites. D-3343 rewired the js/dog.js clone the same way
+// (3 dog-somexy sites → live export); no clones remain.
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -36,7 +37,15 @@ describe('somex clone census (teleport rewire)', () => {
             'js/teleport.js must import somex from mklev.js');
     });
 
-    it('census: only the canonical export and the dog.js row define somex', () => {
+    it('no local somex remains in dog.js; it imports the live export', () => {
+        const src = readFileSync(new URL('../js/dog.js', import.meta.url), 'utf8');
+        assert.ok(!src.match(/^function somex\(/m),
+            'local clone still defined in js/dog.js');
+        assert.ok(src.match(/\{\s*somex\s*\} from '\.\/mklev\.js'/),
+            'js/dog.js must import somex from mklev.js');
+    });
+
+    it('census: only the canonical export defines somex', () => {
         const dir = new URL('../js/', import.meta.url);
         const defs = [];
         for (const f of readdirSync(dir)) {
@@ -44,6 +53,6 @@ describe('somex clone census (teleport rewire)', () => {
             const src = readFileSync(new URL(f, dir), 'utf8');
             if (src.match(/^(export )?function somex\(/m)) defs.push(`js/${f}`);
         }
-        assert.deepEqual(defs.sort(), ['js/dog.js', 'js/mklev.js']);
+        assert.deepEqual(defs.sort(), ['js/mklev.js']);
     });
 });

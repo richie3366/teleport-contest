@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3343 `mkroom.c` somex dog.js clone removal (3 sites → live js/mklev.js export)
+
+**C locus:** - `somex`: nethack-c/upstream/src/mkroom.c:666–669 — `rn1(croom->hx - croom->lx + 1, croom->lx)`; 11 C refs incl mkroom.c:703/718/726 (somexy arms) and sp_lev.c:6150.
+**JS:** - `somex`: js/mklev.js:32977 (live, unchanged); import js/dog.js:72; clone deleted; rewired sites js/dog.js:905,920,926.
+**Change:** new static dog→mklev edge (`import { somex } from './mklev.js'`, js/dog.js:72; `imports.mjs --can` SAFE — same 101-module SCC, hoisted fn, verify judges TDZ — the feared cycle is the ambient SCC, not a blocker); deleted the clone (doc comment now covers the kept somey clone only); one C-cite comment per site (:905/:920/:926). Site expressions unchanged; behavior-identical rewire. Maintained test: extended scripts/somex-teleport-rewire.test.mjs (dog.js no-clone + live-import check; census now `['js/mklev.js']` — expectation change explained: the pinned dog.js clone is deliberately gone, no clones remain anywhere).
+**Verify:** - `somex`: hidden note (0 blocked — normal for coverage) · REACH-OK (706 reach, 80 spread run, 80 PASS, 0 regressed) · `node --test scripts/somex-teleport-rewire.test.mjs` 5/5 pass.
+**Named:** - `somex`: none in-body — whole C body live at js/mklev.js:32977.
+**Next:** the remaining missing-arm rows (Invocation_lev hack head + useupf/attacktype_fordmg×4/mon_aligntyp/m_in_air — different C files, next iterations).
 ## 2026-10-03 — D-3342 `rm.h` m_at teleport.js rewire + `dungeon.c` dunlev/dunlevs_in_dungeon clone census (last 7 clones → live exports)
 
 **C locus:** - `m_at`: nethack-c/upstream/include/rm.h:510–511 — `(MON_AT(x, y) ? svl.level.monsters[x][y] : (struct monst *) 0)` (:516 alternate one-line form); 188 C refs incl teleport.c:118/:684/:1514/:1658/:1986 + the goodpos MON_AT arm :114.
