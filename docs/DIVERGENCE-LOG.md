@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3334 — `trap.c` t_at steed.js clone removal (sole site → live js/trap.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~4 js/ insertions — below the ~80 bar, defended (D-3328/D-3333 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (trap.c) holds no further Open rows while t_at has 0 C callees, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `t_at`: nethack-c/upstream/src/trap.c:6502–6512 — gf.ftrap ntrap-chain scan, tx/ty match, null on miss; 175 C refs incl steed.c:301 (mount_steed trapped gate) and steed.c:545 (dismount_steed kn_trap gate).
+- **JS was:** live `t_at` js/trap.js:1119 (game.level?.traps scan — the live list per trap.js:1380; maketrap pushes there) coexisted with clone js/steed.js:163-then (game.ftrap ntrap-chain scan — null in fresh games since only load paths set game.ftrap, and an array-shaped ftrap after load also scanned as one node, so the clone returned null in practice), sole clone site js/steed.js:573-then (dismount_steed kn_trap arm, C steed.c:545). The mount_steed site already used the live export (:722-then).
+- **Fix:** rewired the sole clone site to the ALREADY-imported live export (`t_at as trap_t_at`, js/steed.js:60 — no new edge, no `imports.mjs` change needed); deleted the clone; one C-cite comment at the site (:566-568). Site expression unchanged; behavior delta is the live game.level.traps scan (kn_trap now fires on real known traps instead of never). Maintained test: new scripts/tat-steed-rewire.test.mjs (live-export hit/miss/null-level behavior cases pinning the delta; steed.js no-clone + live-import census; js/ t_at sole-definer census).
+- **JS:**
+  - `t_at`: js/trap.js:1119 (live, unchanged); import pre-existed js/steed.js:60; clone deleted; rewired site js/steed.js:569; mount_steed site js/steed.js:718 (already live).
+- **Callers:**
+  - `t_at`: C steed.c:545 (dismount kn_trap) → js/steed.js:569; C steed.c:301 (mount trapped gate) → js/steed.js:718. Remaining 173 C refs out of cluster: served by the live export where JS ports import it; 0 JS clones remain (census test).
+- **Verify:**
+  - `t_at`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/tat-steed-rewire.test.mjs` 5/5 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn t_at` → PASS syntax (1 changed js file: js/steed.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (smoke 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `t_at`: none in-body — whole C body live at js/trap.js:1119.
+- **Ledger:** t_at ported js=trap.js:t_at
+- **Next:** the remaining missing-arm rows (somex teleport head + ledger_no/dunlev/healup/m_useup/monflee/Amonnam×3 — different C files, next iterations).
+
 ## D-3333 — `do_name.c` Amonnam teleport.js clone removal (sole site → live js/do_name.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~3 js/ insertions — below the ~80 bar, defended (D-3328/D-3332 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (do_name.c) holds no further Open rows while Amonnam's C callee a_monnam is already live, so the cluster cannot grow.

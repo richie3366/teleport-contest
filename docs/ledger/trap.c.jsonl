@@ -102,7 +102,7 @@
 {"fn":"closeholdingtrap","c":"6210-6247","status":"unknown"}
 {"fn":"openfallingtrap","c":"6252-6289","status":"unknown"}
 {"fn":"chest_trap","c":"6294-6499","status":"unknown"}
-{"fn":"t_at","c":"6502-6512","status":"unknown"}
+{"fn":"t_at","c":"6502-6512","status":"ported","js":["js/trap.js:t_at"],"d":["D-3334"],"at":"2026-10-03@b98ade69c"}
 {"fn":"count_traps","c":"6516-6528","status":"unknown"}
 {"fn":"deltrap","c":"6531-6549","status":"ported","js":["js/trap.js:deltrap"],"d":["D-2921"],"at":"seed@a30a7de84"}
 {"fn":"conjoined_pits","c":"6552-6577","status":"unknown"}
