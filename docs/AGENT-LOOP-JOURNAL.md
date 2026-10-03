@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3380 `potion.c` dip_hands_ok + peffect_see_invisible reveal tail
+
+**C locus:** - `dip_hands_ok`: nethack-c/upstream/src/potion.c:2229–2237 (!obj + Glib + can_reach_floor(FALSE) → GETOBJ_SUGGEST, else dip_ok). Sole C caller dodip :2279 (at_here ? dip_hands_ok : dip_ok); the NULL verdict is consumed by C getobj invent.c:1832 (SUGGEST lists `- ` in the prompt, DOWNPLAY accepts unlisted) and invent.c:1792 (cmdq HANDS_SYM).
+**JS:** - `dip_hands_ok`: js/potion.js:2640 (doc :2634–2639).
+**Change:** new `dip_hands_ok(obj)` in C order (Glib()/can_reach_floor already live in-file/imported; GETOBJ_SUGGEST on the const edge); getobj_dip selects `at_here ? dip_hands_ok : dip_ok` once (C :2279), takes the NULL verdict before the loop (C invent.c:1832), and renders the C `- ` prompt prefix (`-` alone when no letters, C :1835–1836/:1905); the `-` key comment now cites C :1955–1958 (allownone under SUGGEST or DOWNPLAY alike). peffect captures `msg` at the top (C :843, before make_blinded clears Blind) and runs the tail in C order (set_mimic_blocking joins the existing vision edge — `imports.mjs --can` ALREADY; see_monsters/newsym/You pre-imported; Invis/See_invisible/Blind local; potion_unkn module let).
+**Verify:** - `dip_hands_ok`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `dip_hands_ok`: none in-body — whole C body live. (Pre-existing getobj_dip gap, out of row scope: no cmdq path, so C invent.c:1790–1794 HANDS_SYM verdict has no JS site; cmdq_pop_getobj_key takes obj_ok generically.)
+**Next:** potion.c holds no further Open rows; next cluster is the next queue row (different C file, ships as its own cluster).
 ## 2026-10-03 — D-3379 `attrib.c` poison_strdmg killer path (4-arg restart, 4 call sites wired)
 
 **C locus:** - `poison_strdmg`: nethack-c/upstream/src/attrib.c:274–278 (losestr + losehp with the shared knam/k_format). C callers: eat.c:1932 (eatcorpse poisonous corpse/glob), eat.c:2798 (eataccessory opoisoned weapon, xname), fountain.c:307 (contaminated water, KILLED_BY), spell.c:164 (contact-poisoned spellbook).

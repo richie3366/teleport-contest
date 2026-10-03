@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3380 — `potion.c` dip_hands_ok + peffect_see_invisible reveal tail
+
+- **Status:** shipped (queue head missing-arm row + same-file peffect row checked off + archived; no review cited, no stamp owed). Density exception stated: 1 whole C function + 1 whole C tail, ~+30 js/ lines — below the ~80 bar, defended (D-3375–D-3379 single-cluster precedent): the head's file potion.c holds nothing more Open (coverage block 0 rows; only these two potion.c queue rows), and every callee (Glib, can_reach_floor, dip_ok, set_mimic_blocking, see_monsters, newsym, You, Invis/See_invisible/Blind) was already live.
+- **Symptom:** no corpus divergence — missing-arm rows (0 blocked at baseline each). #dip at a pool/fountain/sink never listed `-` for slippery hands (at_here voided); a see-invisible quaff never refreshed mimics/monsters/hero cell, never printed the self-visible message, never un-unkn'd.
+- **C locus:**
+  - `dip_hands_ok`: nethack-c/upstream/src/potion.c:2229–2237 (!obj + Glib + can_reach_floor(FALSE) → GETOBJ_SUGGEST, else dip_ok). Sole C caller dodip :2279 (at_here ? dip_hands_ok : dip_ok); the NULL verdict is consumed by C getobj invent.c:1832 (SUGGEST lists `- ` in the prompt, DOWNPLAY accepts unlisted) and invent.c:1792 (cmdq HANDS_SYM).
+  - `peffect_see_invisible`: nethack-c/upstream/src/potion.c:840–878, tail :871–877 (set_mimic_blocking; see_monsters; newsym(ux,uy); msg && !Blind → You + unkn--); msg snapshot :843 (Invisible && !Blind; Invisible ≡ Invis && !See_invisible, youprop.h:199). C caller :1358 (peffects switch).
+- **JS was:** no dip_hands_ok symbol; getobj_dip js/potion.js:2383 voided at_here ("Glib hands suggest deferred"), `-` always unlisted. peffect_see_invisible js/potion.js:437 carried "// set_mimic_blocking / see_monsters / newsym deferred", no msg snapshot, fn ended without the tail (ledger partial omit).
+- **Fix:** new `dip_hands_ok(obj)` in C order (Glib()/can_reach_floor already live in-file/imported; GETOBJ_SUGGEST on the const edge); getobj_dip selects `at_here ? dip_hands_ok : dip_ok` once (C :2279), takes the NULL verdict before the loop (C invent.c:1832), and renders the C `- ` prompt prefix (`-` alone when no letters, C :1835–1836/:1905); the `-` key comment now cites C :1955–1958 (allownone under SUGGEST or DOWNPLAY alike). peffect captures `msg` at the top (C :843, before make_blinded clears Blind) and runs the tail in C order (set_mimic_blocking joins the existing vision edge — `imports.mjs --can` ALREADY; see_monsters/newsym/You pre-imported; Invis/See_invisible/Blind local; potion_unkn module let).
+- **JS:**
+  - `dip_hands_ok`: js/potion.js:2640 (doc :2634–2639).
+  - `peffect_see_invisible`: js/potion.js:439 (doc :432–438; msg :440; tail :478–484).
+- **Callers:**
+  - `dip_hands_ok`: C potion.c:2279 → js/potion.js:2536 (dodip `getobj_dip(at_here)`) → :2396 obj_ok selection / :2397 NULL verdict / :2401–2402 prompt lets / :2418 `-` key arm. No JS site calls from a function C never calls from.
+  - `peffect_see_invisible`: C potion.c:1358 → js/potion.js:2028 (dopotion POT_SEE_INVISIBLE/POT_FRUIT_JUICE arm; pre-wired, new msg/tail execute on the path). C staticfn → module-local, sole site.
+- **Verify:**
+  - `dip_hands_ok`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `peffect_see_invisible`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (1 baseline-PASS session reaches it, 1 run, 1 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn dip_hands_ok,peffect_see_invisible` → VERIFY: PASS (syntax 1 file js/potion.js, rule2 PASS, green 2/2, strict 2/2, cohort 7/7).
+- **Named omissions:**
+  - `dip_hands_ok`: none in-body — whole C body live. (Pre-existing getobj_dip gap, out of row scope: no cmdq path, so C invent.c:1790–1794 HANDS_SYM verdict has no JS site; cmdq_pop_getobj_key takes obj_ok generically.)
+  - `peffect_see_invisible`: none remaining — ledger tail omit now live.
+- **Ledger:** dip_hands_ok ported; peffect_see_invisible ported
+- **Next:** potion.c holds no further Open rows; next cluster is the next queue row (different C file, ships as its own cluster).
+
 ## D-3379 — `attrib.c` poison_strdmg killer path (4-arg restart, 4 call sites wired)
 
 - **Status:** shipped (queue head missing-arm row checked off + archived; no review cited, no stamp owed). Density exception stated: whole C body + 4 call sites, ~+35/−25 js/ lines — below the ~80 bar, defended (D-3375–D-3378 single-cluster precedent): the head's file attrib.c holds nothing more Open (ledger: every attrib.c fn ported/partial; `ledger.mjs rows` 0 rows; coverage block 0 rows; no other attrib.c queue row), and both callees (losestr ported, losehp partial-live) plus KILLED_BY*/xname/finish_maybe_wail were already live.

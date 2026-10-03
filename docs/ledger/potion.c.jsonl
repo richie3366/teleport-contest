@@ -24,7 +24,7 @@
 {"fn":"peffect_booze","c":"771-792","status":"ported","js":["js/potion.js:peffect_booze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_enlightenment","c":"795-808","status":"ported","js":["js/potion.js:peffect_enlightenment"],"d":["D-1413"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_invisibility","c":"811-838","status":"ported","js":["js/potion.js:peffect_invisibility"],"at":"2026-10-03@bbe63333a"}
-{"fn":"peffect_see_invisible","c":"841-878","status":"partial","js":["js/potion.js:peffect_see_invisible"],"omit":"tail missing: set_mimic_blocking/see_monsters/newsym + Invisible self-msg + unkn-- (C:871-877)","at":"2026-10-03@bbe63333a"}
+{"fn":"peffect_see_invisible","c":"841-878","status":"ported","js":["js/potion.js:peffect_see_invisible"],"d":["D-3380"],"at":"2026-10-03@4a4cc3e73"}
 {"fn":"peffect_paralysis","c":"881-898","status":"ported","js":["js/potion.js:peffect_paralysis"],"d":["D-2153"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_sleeping","c":"901-911","status":"ported","js":["js/potion.js:peffect_sleeping"],"d":["D-2097","D-1437"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_monster_detection","c":"914-952","status":"ported","js":["js/potion.js:peffect_monster_detection"],"at":"2026-10-03@bbe63333a"}
@@ -53,7 +53,7 @@
 {"fn":"potionbreathe","c":"1932-2118","status":"ported","js":["js/potion.js:potionbreathe"],"d":["D-1477"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mixtype","c":"2122-2209","status":"ported","js":["js/potion.js:mixtype"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dip_ok","c":"2214-2227","status":"ported","js":["js/potion.js:dip_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dip_hands_ok","c":"2231-2237","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dip_hands_ok","c":"2231-2237","status":"ported","js":["js/potion.js:dip_hands_ok"],"d":["D-3380"],"at":"2026-10-03@4a4cc3e73","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hold_potion","c":"2243-2262","status":"ported","js":["js/potion.js:hold_potion"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dodip","c":"2267-2372","status":"ported","js":["js/potion.js:dodip"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dip_into","c":"2379-2405","status":"ported","js":["js/potion.js:dip_into"],"d":["D-1500"],"at":"2026-10-03@bbe63333a"}
