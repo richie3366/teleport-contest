@@ -97,7 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `zap.c` dobuzz steed-redirect tail-skip — C zap.c:4956–4959 `goto buzzmonst` exits the u_at branch, skipping flashburn :4988–4989 + stop_occupation :4990 + nomul :4991; JS js/zap.js:2586 `buzzmonst(usteed)` falls through to the tail :2630–2634 (extra d(nd,50) RNG + flashburn + occupation stop on the steed path; stale "still named" comment :2590 to sweep). Source: reviews/loop-unattended/2317-52fc04909-dobuzz-slept-monst.md @79f8032a6
 - [ ] `mhitm.c` slept_monst unwired C callers — music.c:95 + potion.c:1806 still call local clones (js/music.js:268, js/potion.js:3745 slept_monst_pot; sticks-deferred, hand-clearing ustuck) and zap.c:486 bhitm WAN_SLEEP arm has no JS call site; canonical js/mhitm.js:1422 exact (`csym --callers` 7 refs, 3 sites unwired; Ledger says ported). Source: reviews/loop-unattended/2317-52fc04909-dobuzz-slept-monst.md @79f8032a6
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner

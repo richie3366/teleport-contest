@@ -2428,8 +2428,9 @@ export async function dobuzz(
                 mon = m_at(sx, sy); // C :4861 — re-fetch after floor effects
                 // C zap.c `buzzmonst:` (:4867) — the mon-hit core, also
                 // entered by the steed redirect (:4956–4959, which skips the
-                // fireball break + STRAT clear above the label). Returns true
-                // when the beam ends (Rider/PM_DEATH absorb).
+                // fireball break + STRAT clear above the label and the u_at
+                // flashburn/stop_occupation/nomul tail below the branch).
+                // Returns true when the beam ends (Rider/PM_DEATH absorb).
                 const buzzmonst = async (target) => {
                     game.notonhead = ((target.mx | 0) !== (game.bhitpos?.x | 0)
                         || (target.my | 0) !== (game.bhitpos?.y | 0));
@@ -2577,61 +2578,67 @@ export async function dobuzz(
                 } else if (u_at(sx, sy) && range >= 0) {
                     nomul(0);
                     // C zap.c:4956–4959 — the bolt meets the steed first
-                    // (silent reflection test); the redirect skips the
-                    // hero-hit and blind-miss arms but still runs
-                    // flashburn/stop_occupation below
+                    // (silent reflection test); `goto buzzmonst` exits the
+                    // u_at branch, skipping the flashburn/stop_occupation/
+                    // nomul tail below
                     const usteed = (game.u || {}).usteed;
                     if (usteed && !rn2(3)
                         && !(await mon_reflects(usteed, null))) {
                         if (await buzzmonst(usteed)) break;
-                    } else if (!forcemiss && zap_hit(game.u?.uac ?? 10, 0)) {
-                        range -= 2;
-                        // C zap.c:4964 pline_dir(xytodir(-dx,-dy), "%s hits you!",
-                        // The(flash_str)) (D-1216). Steed rn2(3) still named.
-                        await pline_dir(
-                            xytodir(-dx, -dy),
-                            `The ${flash_str(fltyp)} hits you!`,
-                        );
-                        if (Reflecting()) {
-                            if (!Blind()) {
-                                await ureflects(
-                                    'But %s reflects from your %s!',
-                                    'it',
-                                );
+                    } else {
+                        if (!forcemiss && zap_hit(game.u?.uac ?? 10, 0)) {
+                            range -= 2;
+                            // C zap.c:4964 pline_dir(xytodir(-dx,-dy),
+                            // "%s hits you!", The(flash_str)) (D-1216)
+                            await pline_dir(
+                                xytodir(-dx, -dy),
+                                `The ${flash_str(fltyp)} hits you!`,
+                            );
+                            if (Reflecting()) {
+                                if (!Blind()) {
+                                    await ureflects(
+                                        'But %s reflects from your %s!',
+                                        'it',
+                                    );
+                                } else {
+                                    await pline(
+                                        'For some reason you are not affected.',
+                                    );
+                                }
+                                // C zap.c:4972 — monsters remember the
+                                // reflection
+                                monstseesu(M_SEEN_REFL);
+                                dx = -dx;
+                                dy = -dy;
+                                // C zap.c:4975 — shield flash; its closing
+                                // newsym restores the beam-painted cell
+                                await shieldeff(sx, sy);
+                                gas_hit = false;
                             } else {
-                                await pline(
-                                    'For some reason you are not affected.',
-                                );
+                                await zhitu(type, nd, flash_str(fltyp), sx, sy);
+                                // C: fatal losehp never returns into dobuzz
+                                if (game.program_state?.gameover) break;
+                                // C zap.c:4981 — seen-state clears past the hit
+                                monstunseesu(M_SEEN_REFL);
                             }
-                            // C zap.c:4972 — monsters remember the reflection
-                            monstseesu(M_SEEN_REFL);
-                            dx = -dx;
-                            dy = -dy;
-                            // C zap.c:4975 — shield flash; its closing
-                            // newsym restores the beam-painted cell
-                            await shieldeff(sx, sy);
-                            gas_hit = false;
-                        } else {
-                            await zhitu(type, nd, flash_str(fltyp), sx, sy);
-                            // C: fatal losehp never returns into dobuzz
-                            if (game.program_state?.gameover) break;
-                            // C zap.c:4981 — seen-state clears past the hit
-                            monstunseesu(M_SEEN_REFL);
+                        } else if (!Blind()) {
+                            await pline(
+                                `The ${flash_str(fltyp)} whizzes by you!`,
+                            );
+                        } else if (damgtype === ZT_LIGHTNING) {
+                            // C zap.c:4985–4986 — blind miss still tingles
+                            await Your('%s tingles.', body_part(ARM));
                         }
-                    } else if (!Blind()) {
-                        await pline(`The ${flash_str(fltyp)} whizzes by you!`);
-                    } else if (damgtype === ZT_LIGHTNING) {
-                        // C zap.c:4985–4986 — blind miss still tingles
-                        await Your('%s tingles.', body_part(ARM));
+                        // C zap.c:4988–4989 — lightning blinds via flashburn
+                        // on any non-steed pass through the hero, hit or
+                        // missed or reflected
+                        if (damgtype === ZT_LIGHTNING) {
+                            await flashburn(d(nd, 50), true);
+                        }
+                        // C zap.c:4990
+                        await stop_occupation();
+                        nomul(0);
                     }
-                    // C zap.c:4988–4989 — lightning blinds via flashburn on
-                    // any pass through the hero, hit or missed or reflected
-                    if (damgtype === ZT_LIGHTNING) {
-                        await flashburn(d(nd, 50), true);
-                    }
-                    // C zap.c:4990
-                    await stop_occupation();
-                    nomul(0);
                 }
 
                 if (gas_hit) {

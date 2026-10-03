@@ -61,7 +61,7 @@
 {"fn":"disintegrate_mon","c":"4723-4756","status":"ported","js":["js/zap.js:disintegrate_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ubuzz","c":"4759-4762","status":"ported","js":["js/zap.js:ubuzz"],"at":"2026-10-03@bbe63333a"}
 {"fn":"buzz","c":"4765-4768","status":"ported","js":["js/zap.js:buzz"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dobuzz","c":"4780-5037","status":"partial","js":["js/zap.js:dobuzz"],"omit":"- `dobuzz`: AD_MAGM..ACID explode combat → explode.js (D-0973, pre-existing); flash_str nohallu args stay suppressed (C FALSE = Hallu text at :4880/:4916/:4933/:4952/:4962/:4964/:4984/:5021/:5028; message-text-only, queued next).","d":["D-3361","D-2133"],"at":"2026-10-03@9dc9139eb"}
+{"fn":"dobuzz","c":"4780-5037","status":"partial","js":["js/zap.js:dobuzz"],"d":["D-3367","D-3361","D-2133"],"at":"2026-10-03@f1f60014e"}
 {"fn":"melt_ice","c":"5040-5079","status":"ported","js":["js/zap.js:melt_ice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"start_melt_ice_timeout","c":"5088-5111","status":"ported","js":["js/zap.js:start_melt_ice_timeout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"melt_ice_away","c":"5119-5132","status":"ported","js":["js/zap.js:melt_ice_away"],"at":"2026-10-03@bbe63333a"}

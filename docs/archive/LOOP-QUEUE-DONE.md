@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `detect.c` reveal_terrain_getglyph committed probe — js/display.js:4369 `((x|0)===42 && (y|0)===15)` capture + :4563–4567 `globalThis.__probe_reveal` write (recorded session coordinate hardcoded in scored `js/`; behavior-neutral DIAG, nothing reads it; D-3363 "(reverted)" false — added by 6da1640bc, live at HEAD). Delete both blocks. Source: reviews/loop-unattended/2318-6da1640bc-def-char-is-furniture-reveal.md @79f8032a6
+- [x] `zap.c` dobuzz steed-redirect tail-skip — C zap.c:4956–4959 `goto buzzmonst` exits the u_at branch, skipping flashburn :4988–4989 + stop_occupation :4990 + nomul :4991; JS js/zap.js:2586 `buzzmonst(usteed)` falls through to the tail :2630–2634 (extra d(nd,50) RNG + flashburn + occupation stop on the steed path; stale "still named" comment :2590 to sweep). Source: reviews/loop-unattended/2317-52fc04909-dobuzz-slept-monst.md @79f8032a6
+
+
+- [x] `detect.c` reveal_terrain_getglyph committed probe — js/display.js:4369 `((x|0)===42 && (y|0)===15)` capture + :4563–4567 `globalThis.__probe_reveal` write (recorded session coordinate hardcoded in scored `js/`; behavior-neutral DIAG, nothing reads it; D-3363 "(reverted)" false — added by 6da1640bc, live at HEAD). Delete both blocks. Source: reviews/loop-unattended/2318-6da1640bc-def-char-is-furniture-reveal.md @79f8032a6 **Addressed:** D-3366 `f1f60014e`
 
 
 - [x] `symbols.c` set_symhandling missing CURS/MAC arms — js/const.js:2917 known_handling holds 4 strings, C symbols.c:376–384 holds 6 ("CURS"/"MAC" absent, so "UTF8" resolves to 3 not H_UTF8=5 while JS H_* consts are C-exact; reader options.js:12798 compares === H_UTF8; Ledger says ported but measures C 7/JS 5 PARTIAL). Add the 2 strings in C order (no JS callers — behavior-neutral). Source: reviews/loop-unattended/2319-79f8032a6-assign-graphics-siblings.md @79f8032a6 **Addressed:** D-3365 `8b1162c17`

@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3367 — `zap.c` dobuzz steed-redirect tail-skip (review 2317 C-wrong 1)
+
+- **Status:** shipped (Must-fix review 2317 C-wrong 1; checked off + archived in this commit). js/zap.js control-flow fix + 2 regression tests (scripts/dobuzz-slept-monst.test.mjs 7/7).
+- **Symptom:** review 2317 C-wrong 1: C zap.c:4956–4959 `goto buzzmonst` exits the u_at branch, skipping flashburn(d(nd,50)) :4988–4989 + stop_occupation :4990 + nomul :4991; JS ran buzzmonst(usteed) then fell through to the tail — an extra d(nd,50) RNG draw + lightning flashburn + occupation stop + multi clear on the steed path (riding + bolt through hero square + rn2(3)==0). Stale comments asserted the wrong exit ("still runs flashburn/stop_occupation below", "Steed rn2(3) still named").
+- **C locus:** nethack-c/upstream/src/zap.c:4956–4991 (steed `goto buzzmonst` + hero-hit chain + u_at tail; body read via sed — csym misses the K&R signature).
+- **JS was:** js/zap.js:2586 `buzzmonst(usteed)` inside an if/else-if chain whose tail :2630–2634 (flashburn/stop_occupation/nomul) ran unconditionally after the chain.
+- **Fix:** restructured the u_at block into if/else: the steed arm (:2584–2587) ends the branch after buzzmonst (break on Rider/PM_DEATH absorb preserved); the hero-hit/blind-miss chain + the :4988–4991 tail nest in the else (:2588–2641, reindented only — no arm text changed). Swept both stale comments; buzzmonst doc now notes the tail skip. RNG order unchanged on all non-steed paths (rn2(3) still drawn only when mounted, in C position).
+- **JS:** js/zap.js:2577–2643 u_at branch (steed arm :2584–2587; tail :2635–2640); tests scripts/dobuzz-slept-monst.test.mjs:78–147.
+- **Callers:** internal control-flow fix — no signature change, no caller rewiring. C sites (brief) all wired pre-existing: mthrowu.c:1123 → js/mthrowu.js:503; muse.c:1817 → js/muse.js:547; zap.c:4761/4767 (buzz/ubuzz) → js/zap.js:2712/:2718.
+- **Verify:** `node scripts/verify.mjs --fn dobuzz` → syntax PASS (1 file: js/zap.js) · rule2 PASS · hidden note (0 blocked, expected — Must-fix, not corpus; review notes no corpus session rides into a bolt) · reach: 40 baseline-PASS reach it, 40 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Focused test 7/7 post-fix; pre-fix replay (HEAD zap.js) fails exactly the redirect test (6/7), control passes both ways. Redirect proof: notonhead sentinel flips; tail skip: HBlinded stays 0, occupation fn intact, RNG log lacks d(6,50).
+- **Named omissions:** none new (D-3361 omits stand: AD_MAGM..ACID explode combat → explode.js; flash_str nohallu suppression).
+- **Ledger:** dobuzz partial
+- **Next:** Must-fix 2317/2 (slept_monst music/potion/bhitm callers).
+
 ## D-3366 — `detect.c` reveal-terrain committed probe deletion (review 2318 C-wrong 1)
 
 - **Status:** shipped (Must-fix review 2318; checked off + archived in this commit). js/display.js only, net −14 lines.

@@ -110,3 +110,5 @@ Actionable C-wrongs:
    exists).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3366 `f1f60014e`
