@@ -21,6 +21,7 @@ import {
     ECMD_OK, BUFSZ, VISITED, LFILE_EXISTS, REST_CURRENT_LEVEL,
     W_WEP, W_SWAPWEP, W_QUIVER, PL_NSIZ,
     WRITING, FREEING, NHF_SAVEFILE, Is_rogue_level, ROGUESET,
+    TRICKED,
 } from './const.js';
 import { objects_globals_init, objectNames } from './objects.js';
 import { savenames, restnames } from './o_init.js';
@@ -37,6 +38,7 @@ import {
 } from './dungeon.js';
 import { rest_track } from './track.js';
 import { open_levelfile, new_nhfile, store_version, FNIDX_HISTORICAL } from './files.js';
+import { done } from './end.js';
 import { rest_regions } from './region.js';
 import { restore_timers, restore_light_sources, run_timers, dobjsfree } from './mkobj.js';
 import { dmonsfree } from './mon.js';
@@ -509,6 +511,32 @@ export function savelevchn() {
         });
     }
     return out;
+}
+
+/**
+ * C ref: save.c tricked_fileremoved `:336–347` — vanished-file guard shared
+ * by savestateinlock `:377` and goto_level (do.c `:1705`).
+ * `!nhfp` (C `:339`): pline1(whynot) — pline1 renders as pline (apply.js
+ * precedent) — then pline "Probably someone removed it." (C `:341`),
+ * Strcpy svk.killer.name (C `:342`; game.killer, end.js shape) and
+ * done(TRICKED) (C `:343`; async, awaited), returning TRUE (C `:344`).
+ * Non-null handle returns FALSE (C `:346`). Callers: do.c:1705 →
+ * js/do.js goto_level stash arm (wired); save.c:377 → savestateinlock
+ * (INSURANCE-only, unported — ships with that function).
+ * @param {object|null} nhfp open_levelfile handle or null
+ * @param {string} whynot C `char *whynot` message text
+ * @returns {Promise<boolean>}
+ */
+export async function tricked_fileremoved(nhfp, whynot) {
+    if (!nhfp) {
+        await pline(String(whynot ?? '')); // C `:340` pline1(whynot)
+        await pline('Probably someone removed it.'); // C `:341`
+        if (!game.killer) game.killer = { name: '', format: 0 }; // C `:342`
+        game.killer.name = String(whynot ?? '');
+        await done(TRICKED); // C `:343`
+        return true; // C `:344`
+    }
+    return false; // C `:346`
 }
 
 /**

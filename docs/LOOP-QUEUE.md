@@ -127,12 +127,13 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `save.c` tricked_fileremoved — C save.c:336–347 absent from js/ (no JS symbol; ledger absent; !nhfp arm: pline1(whynot) + killer-name + done(TRICKED); 2 C call sites do.c:1705 + save.c:377; callees pline + done live — brief 2026-10-03) @7feedbbb2
 - [ ] `mthrowu.c` m_throw misfire + dknown arms — C mthrowu.c:619–620 (clear_dknown when thrower unseen) + :623–629 (cursed/greased rn2(7) misfire pline + dx/dy rn2(3)−1 re-roll) absent from js/mthrowu.js (no clear_dknown/misfires/slips; D-2399 shipped flight-stop/catch only — brief 2026-10-03) @647728e87
 - [ ] `artifact.c` glow_color hcolor wrap — C artifact.c:2432 `hcolor(clr2colorname)` absent from js/artifact.js:891 glow_color (returns clr2colorname directly; hcolor live js/do_name.js:347 — brief 2026-10-03) @647728e87
 - [ ] `apply.c` use_cream_pie COST_SPLAT bill — C apply.c:3599 costly_alteration(obj, COST_SPLAT) absent from js/apply.js:1142 use_cream_pie (deferred comment; freeinv+delobj only — brief 2026-10-03) @647728e87
 - [ ] `attrib.c` poison_strdmg killer path — C attrib.c:274–278 knam/k_format (losestr + losehp killer attribution) absent from js/eat.js:1386 poison_strdmg (2-arg; raw uhp decrement, gameover without done() killer — brief 2026-10-03) @647728e87
 - [ ] `apply.c` doapply BANANA arm — C apply.c:4400–4404 (hallu "It rings!" + turn cost) absent from js/apply.js doapply (only GETOBJ_DOWNPLAY :337, no case — brief 2026-10-03) @647728e87
+- [ ] `potion.c` dip_hands_ok — C potion.c:2231–2237 absent from js/ (no JS symbol; ledger absent; !obj Glib+can_reach_floor → GETOBJ_SUGGEST else dip_ok; live C caller potion.c:2279 getobj callback; callees can_reach_floor + dip_ok live — brief 2026-10-03) @952f7c273
+- [ ] `files.c` close_nhfile — C files.c:518–531 absent from js/ (no JS symbol; ledger unknown; structlevel fd→-1 / fpdef→null + fplog/fpdebug closes + free_nhfile; 49 C refs incl. do.c:1712 save.c:388 restore.c:899; callee free_nhfile live js/files.js:677 — brief 2026-10-03) @952f7c273
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

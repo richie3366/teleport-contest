@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `restore.c` rest_adjust_levelflags — C restore.c:1314–1318 absent from js/ (no JS symbol; 1-line relative_time_to_moves(&level.flags.stasis_until), C callers getlev :1117 + savelev :520–522 pair; callee live js/restore.js:133; wire caveat: lev_json.js:800 copies absolute stasis_until verbatim, literal add-back would double — brief 2026-10-03) @33bc41ba1 **Addressed:** D-3374
+- [x] `save.c` tricked_fileremoved — C save.c:336–347 absent from js/ (no JS symbol; ledger absent; !nhfp arm: pline1(whynot) + killer-name + done(TRICKED); 2 C call sites do.c:1705 + save.c:377; callees pline + done live — brief 2026-10-03) @7feedbbb2 **Addressed:** D-3375
+
+
+- [x] `restore.c` rest_adjust_levelflags — C restore.c:1314–1318 absent from js/ (no JS symbol; 1-line relative_time_to_moves(&level.flags.stasis_until), C callers getlev :1117 + savelev :520–522 pair; callee live js/restore.js:133; wire caveat: lev_json.js:800 copies absolute stasis_until verbatim, literal add-back would double — brief 2026-10-03) @33bc41ba1 **Addressed:** D-3374 `952f7c273`
 
 
 - [x] `mkobj.c` set_corpsenm — absent from js/ (no JS symbol; seed-declared ported, location unresolved); C mkobj.c:1317–1367 egg-timer/oeaten/corpsenm/timeout/weight arms, all 8 callees live (brief 2026-10-03; 23 C call sites) @9dc9139eb

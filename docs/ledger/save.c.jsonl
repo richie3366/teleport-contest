@@ -2,7 +2,7 @@
 {"fn":"dosave0","c":"74-234","status":"partial","js":["js/save.js:dosave0"],"omit":"old-save Overwrite yn prompt (silent overwrite); uid/nhuuid header","at":"2026-10-03@0887462dd","note":"D-3370 ships save_bc: swallowed loose ball/chain now on payload"}
 {"fn":"save_gamelog","c":"237-262","status":"ported","js":["js/save.js:save_gamelog"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; FREEING N/A"}
 {"fn":"savegamestate","c":"265-333","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"tricked_fileremoved","c":"337-347","status":"absent","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no JS implementation (searched tricked_fileremoved/tricked*)"}
+{"fn":"tricked_fileremoved","c":"337-347","status":"ported","js":["js/save.js:tricked_fileremoved"],"d":["D-3375"],"at":"2026-10-03@952f7c273","note":"audit 2026-10-03: no JS implementation (searched tricked_fileremoved/tricked*)"}
 {"fn":"savestateinlock","c":"351-425","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"savelev","c":"429-449","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"savelev_core","c":"452-567","status":"split","js":["js/lev_json.js:serLevel","js/save.js:dosave0"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; preamble (purge/VISITED) in dosave0; binary/FREEING N/A"}

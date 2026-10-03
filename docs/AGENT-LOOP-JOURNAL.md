@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3375 `save.c` tricked_fileremoved whole port (vanished-file guard) + goto_level wiring
+
+**C locus:** - `tricked_fileremoved`: nethack-c/upstream/src/save.c:336–347 — `!nhfp` (C `:339`): pline1(whynot) `:340` + pline "Probably someone removed it." `:341` + Strcpy svk.killer.name `:342` + done(TRICKED) `:343`, return TRUE `:344`; live handle returns FALSE `:346`. C callers: savestateinlock save.c:377 + goto_level do.c:1705.
+**JS:** - `tricked_fileremoved`: js/save.js:530; wired site js/do.js:1994–2009.
+**Change:** whole C body in C order at C-home js/save.js:530 — `export async function tricked_fileremoved(nhfp, whynot)`: pline1 renders as pline (js/apply.js:3152 precedent), killer write onto `game.killer` (end.js shape; object ensured like end.js:1118), `await done(TRICKED)` (save.js→end.js edge SAFE, `imports.mjs --can`; save.js→display.js ALREADY). Wired the do.c:1705 site in goto_level (js/do.js:1994–2009): errbuf `{ s }` holder through open_levelfile, TRUE branch renders C `:1706–1708` sys/share error() as pline + nh_terminate(EXIT_FAILURE) (earlyarg.js errorNoReturn precedent) + return — reached only in wizard mode, unreachable in JS since LFILE_EXISTS ⟹ openable. Updated the stale do.js comment + map data.md:113.
+**Verify:** - `tricked_fileremoved`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `tricked_fileremoved`: none in-body — whole C body live (pline1→pline rendering; error() belongs to the caller's :1707 site, rendered there, not to this body). C save.c:377 caller unwired (enclosing savestateinlock unported).
+**Next:** same-file `free_dungeons` is FREE_ALL_MEMORY-only (declare by-design when the ledger sweep reaches it, no port); savestateinlock wiring ships with that function.
 ## 2026-10-03 — D-3374 `restore.c`/`save.c` levelflags time pair + restlevelstate (live exports, wire-format omissions, dorecover no-ops wired)
 
 **C locus:** - `rest_adjust_levelflags`: nethack-c/upstream/src/restore.c:1314–1318 — `relative_time_to_moves(&svl.level.flags.stasis_until)` (wire holds moves-relative time; add-back after the read). C callers: getlev :1117 + savelev save.c:522.

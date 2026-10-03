@@ -110,7 +110,7 @@ lookup_novel is D-1651. putmsghistory body is D-1588.
 stash probe `LFILE_EXISTS ⟺ openable`; callers `do.c:1704` →
 `js/do.js:1727`, `save.c:201` → `js/save.js:155`). Named: platform
 (macopen/setmode/`;1`/translate); nhclose/fclose/fplog writes (Rule #2);
-`close_nhfile`; `tricked_fileremoved` arms (no pline1/error);
+`close_nhfile`; `tricked_fileremoved` live D-3375 (js/save.js; do.c:1705 wired, save.c:377 with savestateinlock);
 `save.c:376` savestateinlock (unported); `recover_savefile` (no
 SELF_RECOVER). **create_levelfile D-2555** (`files.c` `:621–670`; live
 `js/files.js` exported, C order with `:line` cites — errbuf clear,

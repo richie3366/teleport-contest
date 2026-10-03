@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3375 — `save.c` tricked_fileremoved whole port (vanished-file guard) + goto_level wiring
+
+- **Status:** shipped (queue head `tricked_fileremoved` row checked off + archived; no review cited, no stamp owed). Density exception stated: 1 whole C function, ~40 js/ insertions — below the ~80 bar, defended (D-3371/D-3374 single-cluster precedent): both callees (pline ported, done partial) already live, the same-file unknown `free_dungeons` is FREE_ALL_MEMORY-only (compiled out of the contest build), and the regenerated coverage block holds 0 rows.
+- **Symptom:** no corpus divergence — missing-arm coverage row (0 blocked at baseline).
+- **C locus:**
+  - `tricked_fileremoved`: nethack-c/upstream/src/save.c:336–347 — `!nhfp` (C `:339`): pline1(whynot) `:340` + pline "Probably someone removed it." `:341` + Strcpy svk.killer.name `:342` + done(TRICKED) `:343`, return TRUE `:344`; live handle returns FALSE `:346`. C callers: savestateinlock save.c:377 + goto_level do.c:1705.
+- **JS was:** no symbol (brief: MISSING; map D-2472 named the arms "no pline1/error"); js/do.js:1998 called open_levelfile(new_ledger, null) with a stale comment asserting the arm unreachable and JS lacking pline1/error().
+- **Fix:** whole C body in C order at C-home js/save.js:530 — `export async function tricked_fileremoved(nhfp, whynot)`: pline1 renders as pline (js/apply.js:3152 precedent), killer write onto `game.killer` (end.js shape; object ensured like end.js:1118), `await done(TRICKED)` (save.js→end.js edge SAFE, `imports.mjs --can`; save.js→display.js ALREADY). Wired the do.c:1705 site in goto_level (js/do.js:1994–2009): errbuf `{ s }` holder through open_levelfile, TRUE branch renders C `:1706–1708` sys/share error() as pline + nh_terminate(EXIT_FAILURE) (earlyarg.js errorNoReturn precedent) + return — reached only in wizard mode, unreachable in JS since LFILE_EXISTS ⟹ openable. Updated the stale do.js comment + map data.md:113. Maintained test: scripts/tricked-fileremoved.test.mjs (3/3 pass — FALSE arm silent, TRUE-arm messages via history+pending, killer write→done-clear + KILLED_BY_AN; --More-- key fed via input.js).
+- **JS:**
+  - `tricked_fileremoved`: js/save.js:530; wired site js/do.js:1994–2009.
+- **Callers:**
+  - `tricked_fileremoved`: C do.c:1705 → js/do.js:2002 (TRUE arm :2003–2009 renders error() + stops); C save.c:377 → NAMED (savestateinlock INSURANCE-only, unported — ships with that function). No JS site calls from a function C never calls from.
+- **Verify:**
+  - `tricked_fileremoved`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn tricked_fileremoved` → VERIFY: PASS (syntax 2 files: js/do.js js/save.js, rule2 PASS, green 2/2, strict 2/2, cohort 7/7, full 44/44 auto — shared file changed) · `node --test scripts/tricked-fileremoved.test.mjs` 3/3 pass.
+- **Named omissions:**
+  - `tricked_fileremoved`: none in-body — whole C body live (pline1→pline rendering; error() belongs to the caller's :1707 site, rendered there, not to this body). C save.c:377 caller unwired (enclosing savestateinlock unported).
+- **Ledger:** tricked_fileremoved ported
+- **Next:** same-file `free_dungeons` is FREE_ALL_MEMORY-only (declare by-design when the ledger sweep reaches it, no port); savestateinlock wiring ships with that function.
+
 ## D-3374 — `restore.c`/`save.c` levelflags time pair + restlevelstate (live exports, wire-format omissions, dorecover no-ops wired)
 
 - **Status:** shipped (queue head `rest_adjust_levelflags` row checked off + archived; no review cited, no stamp owed). Density exception stated: 3 whole C functions, ~60 js/ insertions — below the ~80 bar, defended (D-3371 single-function precedent, review 2326 blessing): the head's file holds only restore_menu more Open, which is excluded (SELECTSAVED save-selection menu; callees get_saved_games/free_saved_games are files.c opendir-based — Rule #2 needs VFS save-listing design; callers only in win/curses+tty+X11 mains; review-2326 "restore_menu excluded" precedent). save.c save_adjust ships as the :520–522 pair half, not a second file.
