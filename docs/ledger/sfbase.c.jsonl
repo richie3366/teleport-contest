@@ -14,10 +14,10 @@
 {"fn":"sf_init","c":"647-655","status":"by-design","d":["D-3312"],"at":"2026-10-02@bdd35be25","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sf_setprocs","c":"658-662","status":"by-design","d":["D-3312"],"at":"2026-10-02@bdd35be25","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sf_setflprocs","c":"664-669","status":"by-design","d":["D-3312"],"at":"2026-10-02@bdd35be25","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"norm_ptrs_any","c":"748-750","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"norm_ptrs_align","c":"752-754","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"norm_ptrs_arti_info","c":"757-759","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"norm_ptrs_attribs","c":"762-764","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_any","c":"748-750","status":"ported","js":["js/sfbase.js:norm_ptrs_any"],"d":["D-3399"],"at":"2026-10-03@0e2f1273f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_align","c":"752-754","status":"ported","js":["js/sfbase.js:norm_ptrs_align"],"d":["D-3399"],"at":"2026-10-03@0e2f1273f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_arti_info","c":"757-759","status":"ported","js":["js/sfbase.js:norm_ptrs_arti_info"],"d":["D-3399"],"at":"2026-10-03@0e2f1273f","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_attribs","c":"762-764","status":"ported","js":["js/sfbase.js:norm_ptrs_attribs"],"d":["D-3399"],"at":"2026-10-03@0e2f1273f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"norm_ptrs_bill_x","c":"767-769","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"norm_ptrs_branch","c":"772-774","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"norm_ptrs_bubble","c":"777-779","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

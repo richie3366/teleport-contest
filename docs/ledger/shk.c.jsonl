@@ -131,6 +131,6 @@
 {"fn":"shk_owns","c":"5885-5897","status":"ported","js":["js/shk.js:shk_owns_prefix"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: as shk_owns_prefix js/shk.js:1098, registered :1112; caller shk_your js/objnam.js:2771"}
 {"fn":"mon_owns","c":"5900-5905","status":"ported","js":["js/objnam.js:shk_your"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: split inline in shk_your js/objnam.js:2774; caller shk.c:5871"}
 {"fn":"cad","c":"5908-5941","status":"ported","js":["js/shk.js:cad"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}
-{"fn":"sasc_bug","c":"5945-5948","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sasc_bug","c":"5945-5948","status":"by-design","d":["D-3399"],"at":"2026-10-03@0e2f1273f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"globby_bill_fixup","c":"5976-6097","status":"ported","js":["js/shk.js:globby_bill_fixup"],"d":["D-2374"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_unpaid_trapobj","c":"6101-6114","status":"ported","js":["js/apply.js:use_unpaid_trapobj"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}

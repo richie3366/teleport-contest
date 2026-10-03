@@ -47,7 +47,7 @@
 {"fn":"nh_sfunconvert","c":"2079-2082","status":"ported","js":["js/files.js:nh_sfunconvert"],"d":["D-3396"],"at":"2026-10-03@2a53139d7"}
 {"fn":"make_converted_name","c":"2090-2153","status":"partial","js":["js/files.js:make_converted_name"],"omit":"`nh_getenv` NETHACKDIR/HACKDIR (Rule #2 no env, SHOPTYPE precedent); `c_eos` inlined as last-char index; `alloc`/`free` (GC); `unlink` (no fs); WIN32 `get_user_home_folder` (platform); SHORT_FILENAMES comment-only; `#else SFCTOOL` externs; `free_convert_filenames` sibling (caller `save.c:1168` free…","d":["D-2580"],"at":"seed@a30a7de84"}
 {"fn":"delete_convertedfile","c":"2157-2165","status":"ported","js":["js/files.js:delete_convertedfile"],"at":"2026-10-03@bbe63333a"}
-{"fn":"free_convert_filenames","c":"2168-2175","status":"unknown"}
+{"fn":"free_convert_filenames","c":"2168-2175","status":"ported","js":["js/files.js:free_convert_filenames"],"d":["D-3399"],"at":"2026-10-03@0e2f1273f"}
 {"fn":"contains_directory","c":"2179-2190","status":"ported","js":["js/files.js:contains_directory"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_lockname","c":"2224-2250","status":"unknown"}
 {"fn":"lock_file","c":"2255-2405","status":"unknown"}

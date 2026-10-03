@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-3399 — missing-arm block sweep: mdamagem tail, kick pit/web reveal, converter teardown, sfbase stubs (8-function cluster)
+
+- **Status:** shipped (all 8 missing-arm rows checked off + archived in this commit; operator overlay: head `sasc_bug` is by-design/docs-only, so the whole block ships with it — generated coverage block is empty and the head's file+closure holds nothing more Open).
+- **Symptom:** coverage — no corpus divergence (`hidden-proxy verify` on all eight: no session blocked). `mdamagem` shared tail returned HIT where C returns hitflags (MISS when unset, e.g. negated AD_STCK fall-through). `really_kick_object` pit/web arm skipped the `find_trap` reveal and the Hallucination 'tizzy' variant. `free_convert_filenames` + 4 `norm_ptrs_*` stubs absent from js/. `sasc_bug` is Amiga-compiler-only.
+- **C locus:**
+  - `sasc_bug`: `shk.c:5945–5948` — whole body (`op->unpaid = x`) inside `#ifdef __SASC` (opens `:5943`); 0 C refs.
+  - `mdamagem`: `mhitm.c:1070–1071` — `if (!mhm.damage) return mhm.hitflags;` (whole fn `:1016–1119`).
+  - `really_kick_object`: `dokick.c:521–529` pit/web block — `:523–524 if (!trap->tseen) find_trap(trap)`, `:525–528 You_cant` 'tizzy'/web/pit (whole fn `:508–790`).
+  - `free_convert_filenames`: `files.c:2168–2175` — whole fn (drop both names, `cvtinit = FALSE :2174`).
+  - `norm_ptrs_any`: `sfbase.c:748–750` — whole fn, empty body.
+  - `norm_ptrs_align`: `sfbase.c:752–754` — whole fn, empty body.
+  - `norm_ptrs_arti_info`: `sfbase.c:757–759` — whole fn, empty body.
+  - `norm_ptrs_attribs`: `sfbase.c:762–764` — whole fn, empty body.
+- **JS was:**
+  - `sasc_bug`: no JS symbol (brief: NOT FOUND incl. js/generated/).
+  - `mdamagem`: `js/mhitm.js:5653` — `if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;` (HIT where C returns hitflags).
+  - `really_kick_object`: `js/dokick.js:1271–1274` — `find_trap deferred` comment, web/pit only, `pline` message; `find_trap` local-only in `js/detect.js:340`.
+  - `free_convert_filenames`: no JS symbol (converter family live `js/files.js:2214–2352`, `cvtinit` absent).
+  - `norm_ptrs_*`: no JS symbol; no `js/sfbase.js`.
+- **Fix:** (a) `sasc_bug`: none — by-design (`__SASC` is the Amiga SAS/C compiler; pinned Linux/gcc build compiles out decl + body, cf. D-3398/D-3391). (b) `mdamagem`: shared tail now `if (!damage) return hitflags;` with the C citation (matches the in-function AD_POLY sibling `:4675`). (c) `really_kick_object`: pit/web arm now `if (!trap.tseen) await find_trap(trap);` + `You_cant("kick %s that's in a %s!", something, Hallucination() ? 'tizzy' : web/pit)` in C order; `find_trap` exported from detect.js (same-file callers untouched) and added to dokick's existing detect edge (`imports.mjs --can`: ALREADY imports, no new edge), `You_cant`/`Hallucination` (canonical display.js youprop reader, D-1493) into the existing display edge. (d) `free_convert_filenames`: new export in C-order slot after `delete_convertedfile`, both names nulled (JS GC, no arena) + `cvtinit = false`; new `let cvtinit` state beside the filename statics (verified write-only: zero readers in src/ + include/). (e) new `js/sfbase.js` C-home with the 4 empty exports, UNUSED params voided (doconvert_file precedent). Tests: `scripts/files-convert-teardown.test.mjs` (null guards, idempotence, rebuild-after-free) + `scripts/sfbase-norm-ptrs.test.mjs` (4 stubs callable, null-tolerant) — 5/5 node:test PASS. No new tests for the two C-staticfn locals: through-`dokick` would drive find_trap's cls/more/docrt clear path with no headless precedent in 170 tests, through-`mattackm` needs a full negated-AD_STCK staging — disproportionate; both ride `verify --fn` REACH (mdamagem 200/200, kick 1/1) + green/strict/cohort.
+- **JS:** `js/mhitm.js:5653–5655` (tail + C comment); `js/dokick.js:31` (+You_cant/Hallucination), `:117` (+find_trap), `:1271–1283` (arm); `js/detect.js:336–342` (export + caller doc); `js/files.js:2231–2234` (cvtinit), `:2312–2327` (free); new `js/sfbase.js` (38 lines, 4 exports).
+- **Callers:**
+  - `sasc_bug`: none — 0 C refs.
+  - `mdamagem`: all 4 C sites already wired (pre-existing local body): C `:731`→`:5806`, `:802`→`:6096`, `:910`→`:5973`, `:989`→`:6130`; fix is in the shared tail so every caller gets it.
+  - `really_kick_object`: sole C caller `dokick.c:500` (`kick_object`) already wired (`js/dokick.js:1245`); new callee `find_trap` now imported live (was local-only).
+  - `free_convert_filenames`: sole C caller `save.c:1168` inside `#ifdef FREE_ALL_MEMORY` nh_terminate teardown — named omit (no FREE_ALL_MEMORY teardown analogue in scored JS; `save.js:487` free_dungeons precedent).
+  - `norm_ptrs_any`/`norm_ptrs_align`/`norm_ptrs_arti_info`/`norm_ptrs_attribs`: no live callers — C refs are decl-only (`sfbase.c:672–675`) + `util/sftags.c` generator text.
+- **Verify:** `node scripts/verify.mjs --fn sasc_bug,mdamagem,really_kick_object,free_convert_filenames,norm_ptrs_any,norm_ptrs_align,norm_ptrs_arti_info,norm_ptrs_attribs` → syntax PASS (5 files) · rule2 PASS · 8× hidden note (none blocked) · REACH-OK all (mdamagem 80-sample, kick 1/1, rest 24-smoke 24/24) · green 2/2 · strict both · cohort 7/7. VERIFY: PASS. Plus `verify --fn mdamagem --reach-all` → 200/200 REACH-OK (123.9s). VERIFY: PASS. `node --test` on the 2 new files: 5/5 PASS.
+- **Named omissions:**
+  - `sasc_bug`: none — by-design: whole function absent from the scored binary (Amiga-only `#ifdef __SASC`).
+  - `mdamagem`: none remaining — ledger omit resolved.
+  - `really_kick_object`: none remaining — ledger omit resolved.
+  - `free_convert_filenames`: `save.c:1168` FREE_ALL_MEMORY caller (teardown unported; body whole → ported, nh_sfconvert precedent).
+  - `norm_ptrs_any`: none — whole C body live (empty).
+  - `norm_ptrs_align`: none — whole C body live (empty).
+  - `norm_ptrs_arti_info`: none — whole C body live (empty).
+  - `norm_ptrs_attribs`: none — whole C body live (empty).
+- **Ledger:** sasc_bug by-design; mdamagem ported; really_kick_object ported; free_convert_filenames ported; norm_ptrs_any ported; norm_ptrs_align ported; norm_ptrs_arti_info ported; norm_ptrs_attribs ported
+- **Next:** missing-arm block refilled in this commit with the next 8 `sfbase.c` norm_ptrs_* stubs (head: `norm_ptrs_bill_x`); generated coverage block still 0 rows at default C ≥ 8.
+
 ## D-3398 — mdlib.c mkstemp MSVC-only stub is by-design (compiled out)
 
 - **Status:** shipped (1 missing-arm row checked off + archived in this commit; by-design verdict, no js/ change — whole function compiled out on pinned platform).

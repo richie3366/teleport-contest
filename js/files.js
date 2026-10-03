@@ -2226,6 +2226,10 @@ const HACKDIR_PATH = '/usr/games/lib/nethackdir';
 let unconverted_filename = null;
 /** C files.c:2056 — `static char *converted_filename` (same). */
 let converted_filename = null;
+/** C files.c:2053 — `static boolean cvtinit` (game build; write-only:
+ * no reader in src/ or include/ — set FALSE only by
+ * free_convert_filenames below). */
+let cvtinit = false;
 
 /**
  * C ref: files.c contains_directory `:2179–2191` (extern via extern.h:1130;
@@ -2307,6 +2311,20 @@ export function delete_convertedfile(basefilename) {
          * in scored ESM (Rule #2; delete_levelfile precedent). */
     }
     return 0; // `:2164`
+}
+
+/**
+ * C ref: files.c free_convert_filenames `:2168–2175` — drop both
+ * converter names and reset cvtinit. C frees the arenas; JS strings
+ * need no arena, so clearing the refs is the whole port.
+ * Caller: save.c:1168 inside `#ifdef FREE_ALL_MEMORY` nh_terminate
+ * teardown — named omit (no FREE_ALL_MEMORY teardown analogue in
+ * scored JS; free_dungeons save.js:487 precedent).
+ */
+export function free_convert_filenames() {
+    if (converted_filename) converted_filename = null; // `:2170–2171`
+    if (unconverted_filename) unconverted_filename = null; // `:2172–2173`
+    cvtinit = false; // `:2174`
 }
 
 /**

@@ -126,15 +126,20 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 `brief.mjs`-at-enqueue evidence (C body + call sites + JS status), never
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
+D-3399 drained the block (generated block still 0 rows at default C ≥ 8;
+`rows --min-c-lines 1` yields only 8, of which `dumplogfreemessages` is
+DUMPLOG-retired per D-1776 and the THIN six read complete in JS) —
+refilled with the next 8 `sfbase.c` norm_ptrs_* stubs in C order (C-home
+`js/sfbase.js` established by D-3399; ~60 siblings remain absent).
 
-- [ ] `shk.c` sasc_bug — C shk.c:5945–5948 absent from js/ (no JS symbol; ledger absent C 1; `#ifdef __SASC` Amiga-compiler op->unpaid=x workaround; 0 C refs; compiled out on pinned platform → by-design verdict — brief 2026-10-03) @4ea047f25
-- [ ] `mhitm.c` mdamagem !damage tail — C mhitm.c:1070–1071 (`if (!mhm.damage) return mhm.hitflags;`) absent from js/mhitm.js:5653 mdamagem (:4605; `if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;` — returns HIT where C returns hitflags, MISS when unset e.g. negated AD_STCK; no new callee, pure return-code fix; ledger partial names this arm — brief 2026-10-03) @d428e2b04
-- [ ] `dokick.c` really_kick_object pit/web reveal+message — C dokick.c:521–529 (pit/web block: `if (!trap->tseen) find_trap(trap)` :523–524 + Hallucination 'tizzy' variant :526–528) absent from js/dokick.js:1271–1274 really_kick_object (:1261; :1272 `find_trap deferred` comment, :1273 web/pit only; callee find_trap js/detect.js:340 local async — needs export; ledger partial names this arm — brief 2026-10-03) @d428e2b04
-- [ ] `sfbase.c` norm_ptrs_any — C sfbase.c:748–750 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:672 + util/sftags.c generator refs, no live scored callers; 0 C callees — brief 2026-10-03) @34473e95a
-- [ ] `sfbase.c` norm_ptrs_align — C sfbase.c:752–754 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:673, no live callers; 0 C callees — brief 2026-10-03) @34473e95a
-- [ ] `files.c` free_convert_filenames — C files.c:2168–2175 absent from js/ (no JS symbol; ledger unknown C 5; frees converted/unconverted_filename + cvtinit=FALSE; sole C caller save.c:1168 inside live FREE_ALL_MEMORY (config.h:632); module filenames live js/files.js, cvtinit (static files.c:2053, write-only in game build) absent — new state; 0 C callees; named omit in review 1539 ACCEPT — brief 2026-10-03) @2a53139d7
-- [ ] `sfbase.c` norm_ptrs_arti_info — C sfbase.c:757–759 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:674, no live callers; 0 C callees — brief 2026-10-03) @7636db97b
-- [ ] `sfbase.c` norm_ptrs_attribs — C sfbase.c:762–764 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:675, no live callers; 0 C callees — brief 2026-10-03) @7636db97b
+- [ ] `sfbase.c` norm_ptrs_bill_x — C sfbase.c:767–769 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:676, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_branch — C sfbase.c:772–774 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:677, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_bubble — C sfbase.c:777–779 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:678, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_cemetery — C sfbase.c:782–784 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:679, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_context_info — C sfbase.c:787–789 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:680, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_achievement_tracking — C sfbase.c:792–794 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:681, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_book_info — C sfbase.c:797–799 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:683, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_dig_info — C sfbase.c:802–804 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:684, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
