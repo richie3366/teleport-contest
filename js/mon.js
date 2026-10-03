@@ -68,7 +68,7 @@ import { may_dig, fill_pit } from './dig.js';
 import { newsym, pline, pline_mon, pline_The, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible, describe_level } from './display.js';
 import { online2, level_difficulty, dist2 } from './hacklib.js';
 import { worm_cross, level_mon_at, remove_worm, remove_monster_xy, place_wsegs, count_wsegs } from './worm.js';
-import { On_W_tower_level, In_W_tower, has_ceiling } from './dungeon.js';
+import { On_W_tower_level, In_W_tower, has_ceiling, ledger_no } from './dungeon.js';
 import { Monnam, mon_nam, hliquid, pmname, mon_pmname, Mgender, s_suffix, safe_oname } from './do_name.js';
 import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
 import { any_light_source, emits_light, new_light_source, del_light_source } from './light.js'; // C: mon.c movemon :1332 arm (same 99-module SCC; hoisted fn, runtime use only)
@@ -1762,13 +1762,7 @@ export function m_at(x, y) {
     return null;
 }
 
-/** C ref: dungeon.c ledger_no — local copy (avoid mon↔do cycle). */
-function ledger_no(lev) {
-    const dnum = lev?.dnum | 0;
-    const dlevel = lev?.dlevel | 0;
-    const dun = game.dungeons?.[dnum];
-    return ((dun?.ledger_start | 0) + dlevel) | 0;
-}
+/** C dungeon.c ledger_no `:1376–1379` — imported live from dungeon.js (local clone deleted; edge extends the ALREADY static mon→dungeon import, no new cycle). */
 
 /** C ref: questpgr.c is_quest_artifact — oartifact == urole.questarti. */
 function is_quest_artifact(obj) {
@@ -1955,6 +1949,7 @@ export async function mpickgold(mtmp) {
  * dog.c losedogs/mon_arrive (failed_arrivals/relmon infra).
  */
 export async function m_into_limbo(mtmp) {
+    /* C mon.c:3836 — target_lev = ledger_no(&u.uz) via live dungeon.js export. */
     const target_lev = ledger_no(game.u?.uz);
     mtmp.mstate = (mtmp.mstate | 0) | MON_LIMBO;
     await migrate_mon(mtmp, target_lev, MIGR_APPROX_XY);
@@ -2032,6 +2027,7 @@ export async function elemental_clog(mon) {
             dlevel: (game.u?.uz?.dlevel | 0) - 1,
         };
         mon.mstate = (mon.mstate | 0) | MON_ENDGAME_MIGR;
+        /* C mon.c:3945 — target_lev = ledger_no(&dest) via live dungeon.js export. */
         await migrate_mon(mon, ledger_no(dest), MIGR_RANDOM);
     }
 }

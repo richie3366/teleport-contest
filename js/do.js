@@ -96,7 +96,7 @@ import {
     maxledgerno, ledger_to_dnum, find_hell,
     dunlev, dunlevs_in_dungeon, assign_rnd_level,
     On_W_tower_level, In_W_tower,
-    save_exclusions, load_exclusions, on_level,
+    save_exclusions, load_exclusions, on_level, ledger_no,
 } from './dungeon.js';
 import { record_achievement } from './insight.js';
 import { livelog_printf } from './pline.js';
@@ -1364,14 +1364,8 @@ export async function donull() {
     return true; // ECMD_TIME
 }
 
-function ledger_no(lev) {
-    const dnum = lev?.dnum | 0;
-    const dlevel = lev?.dlevel | 0;
-    const dun = game.dungeons?.[dnum];
-    return ((dun?.ledger_start | 0) + dlevel) | 0;
-}
-
 /* C dungeon.c on_level — imported live from dungeon.js (clone was already the unguarded |0 shape; C NONNULLARG12). */
+/* C dungeon.c ledger_no `:1376–1379` — imported live from dungeon.js (local clone deleted). */
 
 /** C ref: dungeon.h In_hell — dungeon hellish flag. */
 function In_hell(lev) {
@@ -1610,6 +1604,7 @@ export function save_currentstate() {
         // create_levelfile is not called: it sets LFILE_EXISTS and
         // rewrites game.lock, and goto_level treats that flag as a stash.
         // VFS creat cannot fail (D-2555), so the handle is non-null.
+        /* C do.c:1357 — create_levelfile(ledger_no(&u.uz)) via live dungeon.js export. */
         const lev = ledger_no(game.u?.uz);
         const nhfp = {
             structlevel: true,
@@ -1683,6 +1678,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C do.c :1517–1519 — after tutorial; ledger_no <= 0 is done(ESCAPED)
     // (noreturn). JS done() returns after really_done so stop here.
     // `let`: the mysteryforce arm below may redirect newlevel (C :1600).
+    /* C do.c:1517 — new_ledger = ledger_no(newlevel) via live dungeon.js export. */
     let new_ledger = ledger_no(newlevel);
     if (new_ledger <= 0) {
         const { done } = await import('./end.js');
@@ -1722,6 +1718,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 await next_to_u();
                 return;
             }
+            /* C do.c:1570 — mysteryforce recompute via live dungeon.js export. */
             new_ledger = ledger_no(newlevel);
             at_stairs = false;
             game.at_ladder = false;
@@ -1833,6 +1830,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     }
     // C: save_track before release/initrack (track.c) — per-level utrack.
     if (!game.level_info) game.level_info = [];
+    /* C do.c:1650 — savelev(ledger_no(&u.uz)) level tag via live dungeon.js export. */
     const old_ledger = ledger_no(u.uz);
     const trackSnap = save_track(); // clears live ring (C release_data arm)
     if (old_ledger > 0) {
@@ -3562,6 +3560,7 @@ export async function doup() {
     }
     // C do.c :1330–1335 — ledger 1: no return; 'y' climbs out (prev_level
     // escapes via goto_level ledger<=0 → done(ESCAPED)), else stay.
+    /* C do.c:1330 — ledger_no(&u.uz) == 1 via live dungeon.js export. */
     if (ledger_no(u.uz) === 1) {
         if (game.iflags?.debug_fuzzer) return ECMD_OK;
         if ((await y_n('Beware, there will be no return!  Still climb?')) !== 'y')

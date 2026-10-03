@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3341 `dungeon.c` ledger_no do+mon+muse+potion+shknam+teleport.js clone removals (last 6 clones → live js/dungeon.js export)
+
+**C locus:** - `ledger_no`: nethack-c/upstream/src/dungeon.c:1376–1379 — `(xint16)(lev->dlevel + svd.dungeons[lev->dnum].ledger_start)`; 50 C refs incl do.c:1330/1357/1388/1517/1570/1650, mon.c:3836/3945, muse.c:903/969/1062/1070/1083/1088/1099/1109/1119/1127/1137/2419, potion.c:1086, shknam.c:507, teleport.c:2094.
+**JS:** - `ledger_no`: js/dungeon.js:1097 (live, unchanged); imports extended do :100, mon :71, muse :95, potion :201, shknam :44, teleport :62; clones deleted; call sites do :1608/:1682/:1722/:1834/:3564, mon :1953/:2031, muse :2538/:2606/:2670/:2678/:2690/:2697/:2709/:2720/:2731/:2739/:2747/:3110, potion :1774/:1800, shknam :517, teleport :3092.
+**Change:** extended the six ALREADY static dungeon edges (js/do.js:100, js/mon.js:71, js/muse.js:95, js/potion.js:201, js/shknam.js:44, js/teleport.js:60-63 — `imports.mjs --can` ALREADY all six, no new edge, no new test surface) with `ledger_no`; deleted the 6 clones (a one-line C-locus pointer comment left at each deletion site); one C-cite comment per rewired site (22 above-line + 1 inline at the potion Can_rise_up-shape `&&` arm). Site expressions unchanged; behavior-identical rewires.
+**Verify:** - `ledger_no`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `ledger_no`: none in-body — whole C body live at js/dungeon.js:1097.
+**Next:** `rm.h` m_at teleport.js clone removal (next Open row; teleport→mon edge ALREADY :92, same-SCC hoisted-fn shape).
 ## 2026-10-03 — D-3340 `do_name.c` Amonnam fountain+mhitu+zap.js clone removals (last 3 clones → live js/do_name.js export)
 
 **C locus:** - `Amonnam`: nethack-c/upstream/src/do_name.c:1159–1165 — highc(a_monnam()) (NONNULLARG1); 30 C call sites incl fountain.c:184/188 (watchman yells), mhitu.c:1176 (Amonbuf hidden-under), zap.c:1212 (suddenly appears).

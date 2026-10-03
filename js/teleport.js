@@ -59,7 +59,7 @@ import { more_experienced } from './exper.js';
 import { getlin, yn_function, ynq } from './getline.js';
 import {
     get_level, find_hell, In_W_tower, On_W_tower_level, In_tutorial,
-    lev_by_name, ledger_to_dnum, ledger_to_dlev, on_level,
+    lev_by_name, ledger_to_dnum, ledger_to_dlev, on_level, ledger_no,
 } from './dungeon.js';
 import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
@@ -2836,12 +2836,7 @@ export async function teleport_pet(mtmp, force_it) {
     return true;
 }
 
-function ledger_no(lev) {
-    const dnum = lev?.dnum | 0;
-    const dlevel = lev?.dlevel | 0;
-    const dun = game.dungeons?.[dnum];
-    return ((dun?.ledger_start | 0) + dlevel) | 0;
-}
+/* C dungeon.c ledger_no `:1376–1379` — imported live from dungeon.js (local clone deleted). */
 
 /**
  * C ref: dog.c migrate_to_level `:887–932` — take mon off map onto
@@ -3093,6 +3088,7 @@ export async function mlevel_tele_trap(mtmp, trap, force_it, in_sight) {
     if (is_xport(tt) && !control_teleport(mtmp.data)) {
         mtmp.mconf = 1;
     }
+    /* C teleport.c:2094 — ledger_no(&tolevel) via live dungeon.js export. */
     migrate_to_level(mtmp, ledger_no(tolevel), migrate_typ, null);
     return Trap_Moved_Mon;
 }

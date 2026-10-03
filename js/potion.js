@@ -198,7 +198,7 @@ import { livelog_printf } from './pline.js';
 import { uhis } from './roles.js';
 import { hard_helmet } from './do_wear.js';
 import { strange_feeling } from './detect.js';
-import { In_W_tower, has_ceiling, on_level } from './dungeon.js';
+import { In_W_tower, has_ceiling, on_level, ledger_no } from './dungeon.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
@@ -1729,11 +1729,7 @@ async function peffect_acid(otmp) {
     potion_unkn++;
 }
 
-/** C dungeon.c ledger_no — dlevel + dungeons[dnum].ledger_start. */
-function ledger_no(lev) {
-    const dun = game.dungeons?.[lev?.dnum | 0];
-    return ((lev?.dlevel | 0) + (dun?.ledger_start | 0)) | 0;
-}
+/* C dungeon.c ledger_no `:1376–1379` — imported live from dungeon.js (local clone deleted). */
 
 /* C dungeon.c on_level — imported live from dungeon.js (clone was already the unguarded |0 shape). */
 
@@ -1775,7 +1771,7 @@ function Can_rise_up(x, y, lev) {
     }
     return (lev?.dlevel | 0) > 1
         || ((game.dungeons?.[lev?.dnum | 0]?.entry_lev | 0) === 1
-            && ledger_no(lev) !== 1
+            && ledger_no(lev) !== 1 /* C dungeon.c ledger_no — live dungeon.js export */
             && stway && stway.up);
 }
 
@@ -1800,6 +1796,7 @@ function assign_level(dest, src) {
 async function peffect_gain_level(otmp) {
     const u = game.u || (game.u = {});
     if (otmp.cursed) {
+        /* C potion.c:1086 — on_lvl_1 = (ledger_no(&u.uz) == 1) via live dungeon.js export. */
         const on_lvl_1 = ledger_no(u.uz) === 1;
 
         potion_unkn++;

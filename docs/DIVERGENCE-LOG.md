@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3341 — `dungeon.c` ledger_no do+mon+muse+potion+shknam+teleport.js clone removals (last 6 clones → live js/dungeon.js export)
+
+- **Status:** shipped (6 missing-arm rows checked off + archived; no review cited, no stamp owed). ~30 js/ insertions — below the ~80 bar, defended (D-3340/D-3338/D-3336 multi-clone precedent): the whole remaining ledger_no clone census rewired to the live export (D-3336 took dig/dokick; none remain), and the head's C file (dungeon.c) holds no further Open rows while the C body has zero callees, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline).
+- **C locus:**
+  - `ledger_no`: nethack-c/upstream/src/dungeon.c:1376–1379 — `(xint16)(lev->dlevel + svd.dungeons[lev->dnum].ledger_start)`; 50 C refs incl do.c:1330/1357/1388/1517/1570/1650, mon.c:3836/3945, muse.c:903/969/1062/1070/1083/1088/1099/1109/1119/1127/1137/2419, potion.c:1086, shknam.c:507, teleport.c:2094.
+- **JS was:** live `ledger_no` js/dungeon.js:1097 (D-3336; `((ledger_start|0)+(dlevel|0))|0` over `game.dungeons[lev?.dnum|0]`) coexisted with 6 clones: js/do.js:1367-then, js/mon.js:1766-then ("avoid mon↔do cycle" — but the live home is dungeon.js, already imported), js/muse.js:2181-then, js/potion.js:1733-then, js/shknam.js:268-then, js/teleport.js:2839-then. All six computed the identical |0-coerced sum; pure duplication, no semantic delta.
+- **Fix:** extended the six ALREADY static dungeon edges (js/do.js:100, js/mon.js:71, js/muse.js:95, js/potion.js:201, js/shknam.js:44, js/teleport.js:60-63 — `imports.mjs --can` ALREADY all six, no new edge, no new test surface) with `ledger_no`; deleted the 6 clones (a one-line C-locus pointer comment left at each deletion site); one C-cite comment per rewired site (22 above-line + 1 inline at the potion Can_rise_up-shape `&&` arm). Site expressions unchanged; behavior-identical rewires.
+- **JS:**
+  - `ledger_no`: js/dungeon.js:1097 (live, unchanged); imports extended do :100, mon :71, muse :95, potion :201, shknam :44, teleport :62; clones deleted; call sites do :1608/:1682/:1722/:1834/:3564, mon :1953/:2031, muse :2538/:2606/:2670/:2678/:2690/:2697/:2709/:2720/:2731/:2739/:2747/:3110, potion :1774/:1800, shknam :517, teleport :3092.
+- **Callers:**
+  - `ledger_no`: C do.c:1357 → js/do.js:1608; C do.c:1517 → js/do.js:1682; C do.c:1570 → js/do.js:1722; C do.c:1650 → js/do.js:1834; C do.c:1330 → js/do.js:3564; C mon.c:3836 → js/mon.js:1953; C mon.c:3945 → js/mon.js:2031; C muse.c:903 → js/muse.js:2538; C muse.c:969 → js/muse.js:2606; C muse.c:1062 → js/muse.js:2670; C muse.c:1070 → js/muse.js:2678; C muse.c:1083 → js/muse.js:2690; C muse.c:1088 → js/muse.js:2697; C muse.c:1099 → js/muse.js:2709; C muse.c:1109 → js/muse.js:2720; C muse.c:1119 → js/muse.js:2731; C muse.c:1127 → js/muse.js:2739; C muse.c:1137 → js/muse.js:2747; C muse.c:2419 → js/muse.js:3110; C dungeon.c ledger_no (rise-up arm) → js/potion.js:1774; C potion.c:1086 → js/potion.js:1800; C shknam.c:507 → js/shknam.js:517; C teleport.c:2094 → js/teleport.js:3092. Remaining C refs served by the live export where JS ports import it (D-3336 dig/dokick); no ledger_no clones remain anywhere (`function ledger_no` census: only js/dungeon.js:1097; `ledger_no_maz` is a different function).
+- **Verify:**
+  - `ledger_no`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+  - Cluster gates: `node scripts/verify.mjs --fn ledger_no` → PASS syntax (6 changed js files: js/do.js js/mon.js js/muse.js js/potion.js js/shknam.js js/teleport.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (smoke 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `ledger_no`: none in-body — whole C body live at js/dungeon.js:1097.
+- **Ledger:** ledger_no ported js=dungeon.js:ledger_no
+- **Next:** `rm.h` m_at teleport.js clone removal (next Open row; teleport→mon edge ALREADY :92, same-SCC hoisted-fn shape).
+
 ## D-3340 — `do_name.c` Amonnam fountain+mhitu+zap.js clone removals (last 3 clones → live js/do_name.js export)
 
 - **Status:** shipped (3 missing-arm rows checked off + archived; no review cited, no stamp owed). ~10 js/ insertions — below the ~80 bar, defended (D-3338/D-3336 multi-clone precedent): the whole remaining Amonnam clone census rewired to the live export, and the head's C file (do_name.c) holds no further Open rows while the sole C callee a_monnam is already live, so the cluster cannot grow.

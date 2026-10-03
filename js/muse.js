@@ -92,7 +92,7 @@ import { MON_WEP, dmgval, hands_obj } from './weapon.js';
 import { welded, mwelded } from './wield.js';
 import { remove_worn_item } from './steal.js';
 import { depth, distmin, dist2, strsubst, upstart } from './hacklib.js';
-import { get_level, dunlevs_in_dungeon, On_W_tower_level, on_level } from './dungeon.js';
+import { get_level, dunlevs_in_dungeon, On_W_tower_level, on_level, ledger_no } from './dungeon.js';
 import { seetrap, t_at, trapname, mintrap, ceiling, wearing_iron_shoes, maketrap, Trap_Killed_Mon } from './trap.js';
 import { stairway_at } from './mklev.js';
 import { place_monster, remove_monster } from './steed.js';
@@ -2178,12 +2178,7 @@ function Can_rise_up(_x, _y, lev) {
     return (lev?.dlevel | 0) > 1;
 }
 
-function ledger_no(lev) {
-    const dnum = lev?.dnum | 0;
-    const dlevel = lev?.dlevel | 0;
-    const dun = game.dungeons?.[dnum];
-    return ((dun?.ledger_start | 0) + dlevel) | 0;
-}
+/* C dungeon.c ledger_no `:1376–1379` — imported live from dungeon.js (local clone deleted). */
 
 /** C youprop.h See_invisible */
 function See_invisible() {
@@ -2539,6 +2534,7 @@ export async function use_defensive(mtmp) {
             } else {
                 const flev = { dnum: 0, dlevel: 0 };
                 get_level(flev, nlev);
+                /* C muse.c:903 — ledger_no(&flev) via live dungeon.js export. */
                 migrate_to_level(mtmp, ledger_no(flev), MIGR_RANDOM, null);
             }
         } else {
@@ -2606,6 +2602,7 @@ export async function use_defensive(mtmp) {
         }
         fill_pit(mx, my);
         /* C: we made sure that there is a level for mtmp to go to */
+        /* C muse.c:969 — ledger_no(&u.uz) + 1 via live dungeon.js export. */
         migrate_to_level(mtmp, ledger_no(game.u?.uz) + 1, MIGR_RANDOM, null);
         return 2;
     }
@@ -2669,6 +2666,7 @@ export async function use_defensive(mtmp) {
         place_monster(mtmp, m.trapx, m.trapy);
         if (mtmp.wormno) worm_move(mtmp);
         newsym(m.trapx, m.trapy);
+        /* C muse.c:1062 — ledger_no(&u.uz) + 1 via live dungeon.js export. */
         migrate_to_level(mtmp, ledger_no(game.u?.uz) + 1, MIGR_RANDOM, null);
         return 2;
     }
@@ -2676,6 +2674,7 @@ export async function use_defensive(mtmp) {
         await m_flee(mtmp, fleetim);
         const stway = stairway_at(mtmp.mx, mtmp.my);
         if (!stway) return 0;
+        /* C muse.c:1070 — ledger_no(&u.uz) == 1 via live dungeon.js export. */
         if (ledger_no(game.u?.uz) === 1) {
             return await mon_escape(mtmp, vismon);
         }
@@ -2687,12 +2686,14 @@ export async function use_defensive(mtmp) {
                     `As ${mon_nam(mtmp)} climbs the stairs, a mysterious force momentarily surrounds ${mhim(mtmp)}...`,
                 );
             }
+            /* C muse.c:1083 — ledger_no(&u.uz) + 1 via live dungeon.js export. */
             migrate_to_level(mtmp, ledger_no(game.u?.uz) + 1, MIGR_RANDOM, null);
         } else {
             if (vismon) {
                 await pline_mon(mtmp, `${Monnam(mtmp)} escapes upstairs!`);
             }
             migrate_to_level(
+                /* C muse.c:1088 — ledger_no(&stway->tolev) via live dungeon.js export. */
                 mtmp, ledger_no(stway.tolev), MIGR_STAIRS_DOWN, null);
         }
         return 2;
@@ -2704,6 +2705,7 @@ export async function use_defensive(mtmp) {
         if (vismon) {
             await pline_mon(mtmp, `${Monnam(mtmp)} escapes downstairs!`);
         }
+        /* C muse.c:1099 — ledger_no(&stway->tolev) via live dungeon.js export. */
         migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_STAIRS_UP, null);
         return 2;
     }
@@ -2714,6 +2716,7 @@ export async function use_defensive(mtmp) {
         if (vismon) {
             await pline_mon(mtmp, `${Monnam(mtmp)} escapes up the ladder!`);
         }
+        /* C muse.c:1109 — ledger_no(&stway->tolev) via live dungeon.js export. */
         migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_LADDER_DOWN, null);
         return 2;
     }
@@ -2724,6 +2727,7 @@ export async function use_defensive(mtmp) {
         if (vismon) {
             await pline_mon(mtmp, `${Monnam(mtmp)} escapes down the ladder!`);
         }
+        /* C muse.c:1119 — ledger_no(&stway->tolev) via live dungeon.js export. */
         migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_LADDER_UP, null);
         return 2;
     }
@@ -2731,6 +2735,7 @@ export async function use_defensive(mtmp) {
         await m_flee(mtmp, fleetim);
         const stway = stairway_at(mtmp.mx, mtmp.my);
         if (!stway) return 0;
+        /* C muse.c:1127 — ledger_no(&u.uz) == 1 via live dungeon.js export. */
         if (ledger_no(game.u?.uz) === 1) {
             return await mon_escape(mtmp, vismon);
         }
@@ -2738,6 +2743,7 @@ export async function use_defensive(mtmp) {
             await pline_mon(mtmp,
                 `${Monnam(mtmp)} escapes ${stway.up ? 'up' : 'down'}stairs!`);
         }
+        /* C muse.c:1137 — ledger_no(&stway->tolev) via live dungeon.js export. */
         migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_SSTAIRS, null);
         return 2;
     }
@@ -3100,6 +3106,7 @@ export async function use_misc(mtmp) {
                     }
                     m_useup(mtmp, otmp);
                     migrate_to_level(
+                        /* C muse.c:2419 — ledger_no(&tolevel) via live dungeon.js export. */
                         mtmp, ledger_no(tolevel), MIGR_RANDOM, null,
                     );
                     return 2;

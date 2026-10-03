@@ -31,7 +31,7 @@
 {"fn":"dunlev","c":"1325-1328","status":"ported","js":["js/dungeon.js:dunlev"],"d":["D-3336","D-3277"],"at":"2026-10-03@390bbccbf"}
 {"fn":"dunlevs_in_dungeon","c":"1332-1335","status":"unknown"}
 {"fn":"deepest_lev_reached","c":"1339-1371","status":"ported","js":["js/hacklib.js:deepest_lev_reached"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"ledger_no","c":"1376-1379","status":"ported","js":["js/dungeon.js:ledger_no"],"d":["D-3336"],"at":"2026-10-03@390bbccbf"}
+{"fn":"ledger_no","c":"1376-1379","status":"ported","js":["js/dungeon.js:ledger_no"],"d":["D-3341","D-3336"],"at":"2026-10-03@8f5758b09"}
 {"fn":"maxledgerno","c":"1392-1396","status":"unknown"}
 {"fn":"ledger_to_dnum","c":"1402-1416","status":"unknown"}
 {"fn":"ledger_to_dlev","c":"1422-1426","status":"unknown"}
