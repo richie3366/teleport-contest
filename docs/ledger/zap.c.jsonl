@@ -51,7 +51,7 @@
 {"fn":"skiprange","c":"3579-3588","status":"split","js":["js/zap.js:bhit_skiprange"],"at":"2026-10-02@e42cd0047","note":"stale: file-local bhit_skiprange js/zap.js:6001, bhit caller wired :6071"}
 {"fn":"maybe_explode_trap","c":"3594-3623","status":"ported","js":["js/zap.js:maybe_explode_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zap_map","c":"3628-3801","status":"ported","js":["js/zap.js:zap_map"],"d":["D-3259","D-1489","D-1476"],"at":"2026-10-02@1b5b36bb7"}
-{"fn":"bhit","c":"3827-4139","status":"partial","js":["js/zap.js:bhit"],"omit":"thrown iron-ball range limit: boulder-hit msg, uball test_move halt, Sokoban pit stop (C:4095-4119)","d":["D-1928","D-1604","D-1482","D-1475","D-1462","D-1393"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bhit","c":"3827-4139","status":"ported","js":["js/zap.js:bhit"],"d":["D-3382","D-1928","D-1604","D-1482","D-1475","D-1462"],"at":"2026-10-03@787f6adee"}
 {"fn":"boomhit","c":"4148-4233","status":"ported","js":["js/dothrow.js:boomhit"],"at":"2026-10-02@c94c66b65","note":"stale: js/dothrow.js:2116 (D-1301; caller dothrow.c:1604 wired js/dothrow.js:2409)"}
 {"fn":"zhitm","c":"4238-4398","status":"partial","js":["js/zap.js:zhitm"],"omit":"hero-spell spell_damage_bonus for MM/fire/cold (C:4257,4266,4284); defended() arms; resists_magm always false; death-breath armor-strip/ootmp (C:4320-36); PM_DEATH heal (C:4301-07); vampshifter death immunity (C:4308); acid erode gates (C:4379-82); knight double (C:4387-88)","d":["D-2127"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zhitu","c":"4401-4591","status":"partial","js":["js/zap.js:zhitu"],"d":["D-3074","D-2232"],"at":"2026-09-29@107847759"}

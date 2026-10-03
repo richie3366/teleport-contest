@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3382 throw-landing closure: throwit pick-snatch + landing arms, bhit iron-ball range limit
+
+**C locus:** - `throwit`: nethack-c/upstream/src/dothrow.c:1786–1794 Soundeffect splash; :1809–1817 shk pick-snatch (snatch pline + check_shop_obj + mpickobj + throwit_return); :1819–1822 !mon ship gate; :1843–1844 vision tail.
+**JS:** - `throwit`: js/dothrow.js:2307 (splash :2546–2562, Soundeffect :2558; snatch :2582–2593; ship gate :2606; vision tail :2639–2640; is_pick import :30).
+**Change:** C-order arms at both homes. throwit splash block gains Soundeffect(se_splash, 50) before the pline (dynamic sndprocs + generated/seffects_data imports; sndprocs edge is cycle-free per imports.mjs, seffects is a data leaf); :1809–1817 snatch arm between obj_no_longer_held and snuff_candle (hitmon ≡ C mon — bhit stopped at it, throwit_mon_hit missed, x/y already on it; static check_shop_obj/mpickobj/Monnam/is_pick — is_pick added to the existing objects.js edge); ship_object gated on !hitmon with && short-circuit; tail gains obj_sheds_light → game.vision_full_recalc=1 (apply.js:3437 precedent; dynamic light.js import). bhit gains the :4095–4119 block between the sink break and point_blank=false, outside the non-wand if like C (r ≡ C range; sobj_at/test_move/t_at live; TEST_MOVE/is_pit/is_hole added to existing const/hack edges; HEAVY_IRON_BALL via the file's objectNames.indexOf pattern :456 next to BOULDER; Sokoban = level.flags.sokoban_rules || game.Sokoban per trap.js:582, short-circuited before t_at like C).
+**Verify:** `node scripts/verify.mjs --fn throwit,bhit` → syntax 2 files PASS; rule2 PASS; throwit hidden note (0 blocked) + REACH 2/2 PASS → REACH-OK; bhit hidden note (0 blocked) + smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7; VERIFY: PASS.
+**Named:** - `throwit`: none remaining — all four ledger omits now live.
+**Next:** queue row 3 (`shk.c` after_shk_move occupancy re-check).
 ## 2026-10-03 — D-3381 `files.c` savefile/NHFILE family (close_nhfile head + 9, 3 close wirings)
 
 **C locus:** - `close_nhfile`: nethack-c/upstream/src/files.c:518–531 (structlevel+fd → nhclose + fd=-1; else fpdef → fclose + NULL; fplog "# closing" + fclose; fpdebug fclose; free_nhfile).

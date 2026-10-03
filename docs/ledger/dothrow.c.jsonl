@@ -23,7 +23,7 @@
 {"fn":"throwit_return","c":"1460-1465","status":"ported","js":["js/dothrow.js:throwit_return"],"at":"2026-10-03@bbe63333a"}
 {"fn":"swallowit","c":"1468-1475","status":"ported","js":["js/dothrow.js:swallowit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"throwit_mon_hit","c":"1482-1506","status":"ported","js":["js/dothrow.js:throwit_mon_hit"],"d":["D-1313"],"at":"2026-10-03@bbe63333a"}
-{"fn":"throwit","c":"1510-1849","status":"partial","js":["js/dothrow.js:throwit"],"omit":"shk is_pick snatch+mpickobj arm (:1809-1817); ship_object !mon gate (JS ships when mon set); vision_full_recalc when obj sheds light (:1843-1844); Soundeffect(se_splash,50) with Splash/Plop","d":["D-1346","D-1333","D-1316","D-1315","D-1311","D-1297"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throwit","c":"1510-1849","status":"ported","js":["js/dothrow.js:throwit"],"d":["D-3382","D-1346","D-1333","D-1316","D-1315","D-1311"],"at":"2026-10-03@787f6adee"}
 {"fn":"return_throw_to_inv","c":"1855-1909","status":"ported","js":["js/dothrow.js:return_throw_to_inv"],"d":["D-2656"],"at":"seed@a30a7de84"}
 {"fn":"omon_adj","c":"1913-1947","status":"ported","js":["js/dothrow.js:omon_adj"],"d":["D-2905"],"at":"seed@a30a7de84"}
 {"fn":"tmiss","c":"1951-1967","status":"ported","js":["js/dothrow.js:tmiss"],"d":["D-2957"],"at":"seed@a30a7de84"}

@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3382 — throw-landing closure: throwit pick-snatch + landing arms, bhit iron-ball range limit
+
+- **Status:** shipped (queue missing-arm rows 1–2 checked off + archived; no review cited, no stamp owed).
+- **Symptom:** no corpus divergence — coverage cluster (0 blocked at baseline each). A pick thrown at a shopkeeper fell through to place_object instead of being snatched; pool/lava landings skipped the splash sound; a missed monster didn't gate ship_object; a landed light source never re-lit; a thrown iron ball flew through boulders and past the hero's follow range.
+- **C locus:**
+  - `throwit`: nethack-c/upstream/src/dothrow.c:1786–1794 Soundeffect splash; :1809–1817 shk pick-snatch (snatch pline + check_shop_obj + mpickobj + throwit_return); :1819–1822 !mon ship gate; :1843–1844 vision tail.
+  - `bhit`: nethack-c/upstream/src/zap.c:4095–4119 THROWN_WEAPON HEAVY_IRON_BALL range limit (boulder-hit msg + uball test_move halt + Sokoban pit stop, range=0).
+- **JS was:** js/dothrow.js:2307 throwit ended its landing at newsym + throwit_return with four ledger omits (pick-snatch named omit doc :2568; splash without sound :2546; un-gated ship_object :2584; no vision tail); js/zap.js:6162 bhit fell from the sink break straight to point_blank=false with the iron-ball stop as named omit (doc :6155–6157).
+- **Fix:** C-order arms at both homes. throwit splash block gains Soundeffect(se_splash, 50) before the pline (dynamic sndprocs + generated/seffects_data imports; sndprocs edge is cycle-free per imports.mjs, seffects is a data leaf); :1809–1817 snatch arm between obj_no_longer_held and snuff_candle (hitmon ≡ C mon — bhit stopped at it, throwit_mon_hit missed, x/y already on it; static check_shop_obj/mpickobj/Monnam/is_pick — is_pick added to the existing objects.js edge); ship_object gated on !hitmon with && short-circuit; tail gains obj_sheds_light → game.vision_full_recalc=1 (apply.js:3437 precedent; dynamic light.js import). bhit gains the :4095–4119 block between the sink break and point_blank=false, outside the non-wand if like C (r ≡ C range; sobj_at/test_move/t_at live; TEST_MOVE/is_pit/is_hole added to existing const/hack edges; HEAVY_IRON_BALL via the file's objectNames.indexOf pattern :456 next to BOULDER; Sokoban = level.flags.sokoban_rules || game.Sokoban per trap.js:582, short-circuited before t_at like C).
+- **JS:**
+  - `throwit`: js/dothrow.js:2307 (splash :2546–2562, Soundeffect :2558; snatch :2582–2593; ship gate :2606; vision tail :2639–2640; is_pick import :30).
+  - `bhit`: js/zap.js:6165 (arm :6464–6492; HEAVY_IRON_BALL :456; test_move :257; is_pit/is_hole/TEST_MOVE :377; doc :6160).
+- **Callers:**
+  - `throwit`: C artifact.c:2029 → js/artifact.js:2335; C dothrow.c:270 → js/dothrow.js:1191; C polyself.c:1475 → js/polyself.js:2390 (no signature change; all three execute the fuller landing).
+  - `bhit`: arm guarded by weapon===THROWN_WEAPON — C dothrow.c:1674 → js/dothrow.js:2436 tether path (non-tether still inlines the fly: pre-existing named omit); C dothrow.c:2706 throw_gold → js/dothrow.js:965 (gold never matches HEAVY_IRON_BALL; arm dead there). Other C callers (apply.c:63 FLASHED_LIGHT, apply.c:1096 INVIS_BEAM, dokick.c:736 KICKED, zap.c:3448 ZAPPED_WAND) cannot reach the arm by the weapon guard.
+- **Verify:** `node scripts/verify.mjs --fn throwit,bhit` → syntax 2 files PASS; rule2 PASS; throwit hidden note (0 blocked) + REACH 2/2 PASS → REACH-OK; bhit hidden note (0 blocked) + smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7; VERIFY: PASS.
+- **Named omissions:**
+  - `throwit`: none remaining — all four ledger omits now live.
+  - `bhit`: none new — pre-existing THROWN fly-inline omit stands (throwit non-tether path).
+- **Ledger:** throwit ported; bhit ported
+- **Next:** queue row 3 (`shk.c` after_shk_move occupancy re-check).
+
 ## D-3381 — `files.c` savefile/NHFILE family (close_nhfile head + 9, 3 close wirings)
 
 - **Status:** shipped (queue head missing-arm `files.c close_nhfile` row checked off + archived; no review cited, no stamp owed).

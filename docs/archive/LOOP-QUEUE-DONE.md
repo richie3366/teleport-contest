@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `files.c` close_nhfile — C files.c:518–531 absent from js/ (no JS symbol; ledger unknown; structlevel fd→-1 / fpdef→null + fplog/fpdebug closes + free_nhfile; 49 C refs incl. do.c:1712 save.c:388 restore.c:899; callee free_nhfile live js/files.js:677 — brief 2026-10-03) @952f7c273 **Addressed:** D-3381
+- [x] `dothrow.c` throwit shk pick-snatch arm — C dothrow.c:1809–1817 (mon->isshk && is_pick: snatch pline + check_shop_obj + mpickobj + throwit_return) absent from js/dothrow.js:2307 throwit (named omit comment :2568; callee mpickobj live js/makemon.js:2254 — brief 2026-10-03) @30ce39631
+- [x] `zap.c` bhit iron-ball range limit — C zap.c:4095–4119 (THROWN_WEAPON HEAVY_IRON_BALL: boulder-hit msg + uball test_move halt + Sokoban pit stop, range=0) absent from js/zap.js:6162 bhit (named omit in doc :6156–6157 — brief 2026-10-03) @30ce39631
+
+
+- [x] `files.c` close_nhfile — C files.c:518–531 absent from js/ (no JS symbol; ledger unknown; structlevel fd→-1 / fpdef→null + fplog/fpdebug closes + free_nhfile; 49 C refs incl. do.c:1712 save.c:388 restore.c:899; callee free_nhfile live js/files.js:677 — brief 2026-10-03) @952f7c273 **Addressed:** D-3381 `787f6adee`
 
 
 - [x] `potion.c` dip_hands_ok — C potion.c:2231–2237 absent from js/ (no JS symbol; ledger absent; !obj Glib+can_reach_floor → GETOBJ_SUGGEST else dip_ok; live C caller potion.c:2279 getobj callback; callees can_reach_floor + dip_ok live — brief 2026-10-03) @952f7c273 **Addressed:** D-3380 `c4bd1edaa`

@@ -27,7 +27,7 @@ import {
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
     POTION_CLASS, SCROLL_CLASS, RING_CLASS, VENOM_CLASS, objectNames, objectNameStrs,
-    is_sword, is_axe,
+    is_sword, is_axe, is_pick,
 } from './objects.js';
 import {
     COLNO, ROWNO, IS_SOFT, LOST_THROWN, ZAP_POS, IS_DOOR, D_CLOSED, D_LOCKED,
@@ -2543,14 +2543,19 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             return;
         }
     }
-    // C: Splash/Plop before flooreffects when landing in pool/lava
+    // C dothrow.c throwit :1786–1794 — !Deaf && !Underwater pool/lava
+    // landing: Soundeffect(se_splash, 50) then Splash!/Plop! before
+    // flooreffects (sndprocs edge is cycle-free; seffects is data-leaf).
     {
         const { is_pool, is_lava } = await import('./hack.js');
         const { weight } = await import('./mkobj.js');
         const { WT_SPLASH_THRESHOLD } = await import('./const.js');
+        const { Soundeffect } = await import('./sndprocs.js');
+        const { se_splash } = await import('./generated/seffects_data.js');
         if (!Deaf() && !game.u?.Underwater
             && (is_pool(x, y)
                 || (is_lava(x, y) && !is_flammable(obj)))) {
+            Soundeffect(se_splash, 50);
             await pline(
                 (weight(obj) > WT_SPLASH_THRESHOLD) ? 'Splash!' : 'Plop!',
             );
@@ -2565,23 +2570,40 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         }
     }
     // C dothrow.c throwit :1808 — obj no longer held between flooreffects
-    // and the shk pick-snatch (named omit, is_pick/mpickobj) / snuff arm.
+    // and the shk pick-snatch / snuff arm.
     {
         const { obj_no_longer_held } = await import('./do.js');
         await obj_no_longer_held(obj);
     }
+    // C dothrow.c throwit :1809–1817 — a pick landing at a shopkeeper's
+    // square is snatched: bill it when the hero shops or it is unpaid,
+    // then mpickobj (may merge and free obj). hitmon is C mon here —
+    // bhit stopped at it and throwit_mon_hit missed (x,y already moved
+    // onto hitmon above, like C gb.bhitpos).
+    if (hitmon && hitmon.isshk && is_pick(obj)) {
+        if (cansee(x, y)) {
+            await pline(`${Monnam(hitmon)} snatches up ${the(xname(obj))}.`);
+        }
+        if (u.ushops || obj.unpaid) {
+            await check_shop_obj(obj, x, y, false);
+        }
+        mpickobj(hitmon, obj); /* may merge and free obj */
+        throwit_return(true);
+        return;
+    }
     // C dothrow.c throwit :1818 — land snuff after flooreffects (and
-    // pick-snatch, named) before ship_object. Candles / candelabrum
+    // pick-snatch) before ship_object. Candles / candelabrum
     // only, not snuff_lit. throwit_mon_hit snuffs only when mon!=NULL
     // (D-1313); miss-land never hits that helper. mthrowu :942 is D-1334.
     {
         const { snuff_candle } = await import('./apply.js');
         await snuff_candle(obj);
     }
-    // C: !mon && ship_object(obj, bhitpos, FALSE) before place
+    // C dothrow.c throwit :1819–1822 — !mon && ship_object before place
+    // (a missed monster keeps the landing local; no ship draft).
     {
         const { ship_object, container_impact_dmg } = await import('./dokick.js');
-        if (await ship_object(obj, x, y, false)) {
+        if (!hitmon && await ship_object(obj, x, y, false)) {
             throwit_return(true);
             return;
         }
@@ -2612,6 +2634,11 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
     }
     // C dothrow.c throwit: if (cansee(bhitpos)) newsym — land glyph
     if (cansee(x, y)) newsym(x, y);
+    // C dothrow.c throwit :1843–1844 — a light source landing here relights
+    {
+        const { obj_sheds_light } = await import('./light.js');
+        if (obj_sheds_light(obj)) game.vision_full_recalc = 1;
+    }
     throwit_return(false);
 }
 
