@@ -3,7 +3,7 @@
 {"fn":"losestr","c":"221-270","status":"ported","js":["js/attrib.js:losestr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poison_strdmg","c":"274-278","status":"ported","js":["js/eat.js:poison_strdmg"],"d":["D-3379"],"at":"2026-10-03@e27333c36","note":"audit 2026-10-03: reimplements str-loss loop + hp damage inline"}
 {"fn":"poisontell","c":"294-313","status":"ported","js":["js/attrib.js:poisontell"],"at":"2026-10-03@bbe63333a"}
-{"fn":"poisoned","c":"317-408","status":"partial","js":["js/attrib.js:poisoned"],"omit":"Half_gas_damage towel halving of blast/cloud loss; G_UNIQ killer-prefix polish (name_to_mon); blast shieldeff","at":"2026-10-03@bbe63333a"}
+{"fn":"poisoned","c":"317-408","status":"ported","js":["js/attrib.js:poisoned"],"d":["D-3385"],"at":"2026-10-03@bec62f3b9"}
 {"fn":"change_luck","c":"411-418","status":"ported","js":["js/attrib.js:change_luck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: LUCKMIN/MAX are -10/10 (you.h)"}
 {"fn":"stone_luck","c":"423-437","status":"ported","js":["js/attrib.js:stone_luck"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_moreluck","c":"441-451","status":"ported","js":["js/attrib.js:set_moreluck"],"at":"2026-10-03@bbe63333a"}
@@ -20,7 +20,7 @@
 {"fn":"role_abil","c":"789-815","status":"ported","js":["js/attrib.js:role_abil"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"stale: js/attrib.js:928 — switch ≡ C table+sentinel scan for all inputs (default null ≡ sentinel NULL); staticfn→local correct; both C callers wired (check_innate_abil :823→JS :1101, adjabil :1011→JS :954)"}
 {"fn":"check_innate_abil","c":"818-851","status":"ported","js":["js/attrib.js:check_innate_abil"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:1098 complete, callers js/attrib.js:1124,1126 (C :868,:870); hum_abil empty in C"}
 {"fn":"innately","c":"864-877","status":"ported","js":["js/attrib.js:innately"],"at":"2026-10-03@bbe63333a"}
-{"fn":"is_innate","c":"880-900","status":"partial","js":["js/attrib.js:is_innate"],"omit":"FROM_FORM arm: BLINDED&&!haseyes / BLND_RES&FROMFORM returns FROM_NONE instead","at":"2026-10-03@bbe63333a"}
+{"fn":"is_innate","c":"880-900","status":"ported","js":["js/attrib.js:is_innate"],"d":["D-3385"],"at":"2026-10-03@bec62f3b9"}
 {"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"d":["D-3208"],"at":"2026-10-01@8a149124b","note":"stale 2026-09-09"}
 {"fn":"adjabil","c":"1006-1074","status":"ported","js":["js/attrib.js:adjabil"],"at":"2026-10-03@bbe63333a"}
 {"fn":"newhp","c":"1080-1142","status":"ported","js":["js/attrib.js:newhp"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}

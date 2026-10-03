@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3385 — `attrib.c` poisoned blast/killer/towel arms + is_innate FROM_FORM arm
+
+- **Status:** shipped (two queue-head missing-arm rows — `attrib.c poisoned…` + `attrib.c is_innate…` — checked off + archived in this commit; no review cited, no stamp owed).
+- **Symptom:** no corpus divergence — missing-arm rows (0 blocked at baseline each). A poisoned blast on a poison-resistant hero skipped the shield pyrotechnics; a unique-monster killer never took KILLED_BY / the()-polish; blast/gas-cloud HP loss ignored the worn-towel halving; an eyeless polyself form never reported BLIND innateness via from_what.
+- **C locus:**
+  - `poisoned`: nethack-c/upstream/src/attrib.c:339-340 (blast shieldeff in the resist early-out) / :346-350 (name_to_mon G_UNIQ + the() killer-prefix polish) / :385+389-390 (gas-cloud + Half_gas_damage halving).
+  - `is_innate`: nethack-c/upstream/src/attrib.c:896-898 (BLINDED && !haseyes / BLND_RES & FROMFORM → FROM_FORM).
+- **JS was:** js/attrib.js poisoned carried three defer comments (shieldeff; killer prefix via startsWith only; towel) and rendered both resist/deadly messages via pline("The …") instead of C's pline_The. is_innate fell through to FROM_NONE after the knight-JUMPING arm.
+- **Fix:** ported all three poisoned arms in C order against live-export callees (shieldeff + pline_The join the existing display.js edge; strncmpi the hacklib.js edge; the the objnam.js edge; Half_gas_damage the potion.js edge; ismnum the const.js edge; G_UNIQ/mons/haseyes the monsters.js edge; name_to_mon mondata.js + type_is_pname do_name.js are new SAFE edges — hoisted functions per imports.mjs). Killer block keeps C short-circuit (`!strncmpi` ×3, the/an/a order) with the verbatim `[ does this need a plural check too? ]` comment (end.js:1354 done_in_by is the G_UNIQ-polish precedent); halving is Math.trunc((loss+1)/2) per the region.js:503 precedent; both "The poison…" renders switched to pline_The (identical output); added the verbatim FIXME. is_innate gains the C :896-898 disjunction returning FROM_FORM_REASON (the file's FROM_FORM=5 reason code); the HBlnd_resist read matches innately()'s H-field convention (propset_fromform writes both stores — polyself.js:657-669). Two-function cluster: same-file/closure holds nothing more Open (the queue's only other attrib.c row is the second member; every callee live) — small insertion justified.
+- **JS:**
+  - `poisoned`: js/attrib.js:418 (doc :404-411; resist arm :431-437; killer polish :439-451; cloud+halving :484-490; imports :6/:58/:60/:62/:64/:89-91).
+  - `is_innate`: js/attrib.js:1224 (doc :1218-1223; FROM_FORM arm :1239-1242).
+- **Callers:**
+  - `poisoned`: all 8 C sites already wired — C mthrowu.c:750 → js/mthrowu.js:1332; C trap.c:1281 → js/trap.js:2342; C trap.c:1939 → js/trap.js:2457; C trap.c:6420 → js/trap.js:8108; C trap.c:6431 → js/trap.js:8116; C uhitm.c:3157 → js/mhitm.js:1975; C uhitm.c:4119 → js/mhitu.js:865; C zap.c:4526 → js/zap.js:2192. No call from a site C never calls from.
+  - `is_innate`: sole C caller attrib.c:920 (from_what) → js/attrib.js:1285, already wired.
+- **Verify:**
+  - `poisoned`: hidden note (0 blocked at baseline — normal for a missing-arm row) · reach 10/10 REACH-OK.
+  - `is_innate`: hidden note (0 blocked) · reach smoke 24/24 REACH-OK.
+  - Full: `node scripts/verify.mjs --fn poisoned,is_innate` → syntax 1 file (js/attrib.js) · rule2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+- **Named omissions:**
+  - `poisoned`: none — whole C body live.
+  - `is_innate`: none — whole C body live.
+- **Ledger:** poisoned ported; is_innate ported
+- **Next:** continue popping Open — missing-arm rows in queue order (next: `invent.c` getobj_dip HANDS_SYM verdict).
+
 ## D-3384 — `after_shk_move` occupancy re-check + all three C callers wired
 
 - **Status:** shipped (queue head missing-arm `shk.c after_shk_move` row checked off + archived in this commit; no review cited, no stamp owed).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3385 `attrib.c` poisoned blast/killer/towel arms + is_innate FROM_FORM arm
+
+**C locus:** - `poisoned`: nethack-c/upstream/src/attrib.c:339-340 (blast shieldeff in the resist early-out) / :346-350 (name_to_mon G_UNIQ + the() killer-prefix polish) / :385+389-390 (gas-cloud + Half_gas_damage halving).
+**JS:** - `poisoned`: js/attrib.js:418 (doc :404-411; resist arm :431-437; killer polish :439-451; cloud+halving :484-490; imports :6/:58/:60/:62/:64/:89-91).
+**Change:** ported all three poisoned arms in C order against live-export callees (shieldeff + pline_The join the existing display.js edge; strncmpi the hacklib.js edge; the the objnam.js edge; Half_gas_damage the potion.js edge; ismnum the const.js edge; G_UNIQ/mons/haseyes the monsters.js edge; name_to_mon mondata.js + type_is_pname do_name.js are new SAFE edges — hoisted functions per imports.mjs). Killer block keeps C short-circuit (`!strncmpi` ×3, the/an/a order) with the verbatim `[ does this need a plural check too? ]` comment (end.js:1354 done_in_by is the G_UNIQ-polish precedent); halving is Math.trunc((loss+1)/2) per the region.js:503 precedent; both "The poison…" renders switched to pline_The (identical output); added the verbatim FIXME. is_innate gains the C :896-898 disjunction returning FROM_FORM_REASON (the file's FROM_FORM=5 reason code); the HBlnd_resist read matches innately()'s H-field convention (propset_fromform writes both stores — polyself.js:657-669). Two-function cluster: same-file/closure holds nothing more Open (the queue's only other attrib.c row is the second member; every callee live) — small insertion justified.
+**Verify:** - `poisoned`: hidden note (0 blocked at baseline — normal for a missing-arm row) · reach 10/10 REACH-OK.
+**Named:** - `poisoned`: none — whole C body live.
+**Next:** continue popping Open — missing-arm rows in queue order (next: `invent.c` getobj_dip HANDS_SYM verdict).
 ## 2026-10-03 — D-3384 `after_shk_move` occupancy re-check + all three C callers wired
 
 **C locus:** - `after_shk_move`: nethack-c/upstream/src/shk.c:4997–5008 — bill_p==-1000 && inhishop reset (:5001–5003) + `!program_state.gameover → check_special_room(FALSE)` (:5005–5006).
