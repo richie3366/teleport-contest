@@ -4,6 +4,7 @@
 // throw_obj u_wipe_engr(2) D-1374 (C `:138`).
 
 import { game } from './gstate.js';
+import { has_ceiling } from './dungeon.js';
 import { surface } from './sit.js';
 import {
     flush_screen, pline, newsym, mark_topline_seen,
@@ -1219,11 +1220,7 @@ function Doname2(obj) {
     return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
 }
 
-/** C dungeon.c has_ceiling — endgame non-earth has no ceiling. */
-function has_ceiling(lev) {
-    if (In_endgame(lev) && !Is_earthlevel(lev)) return false;
-    return true;
-}
+/* C dungeon.c has_ceiling — imported live from dungeon.js. */
 
 /** C youprop.h BlindedTimeout — HBlinded & TIMEOUT. */
 function BlindedTimeout() {

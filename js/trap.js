@@ -126,7 +126,7 @@ import {
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds, safe_teleds, noteleport_level, dotele, unconscious } from './teleport.js';
 import { emits_light, del_light_source } from './light.js'; // mongone_statue_donor del arm (same SCC; hoisted fns, runtime use only)
-import { get_level, on_level, at_dgn_entrance, update_lastseentyp } from './dungeon.js';
+import { get_level, on_level, at_dgn_entrance, update_lastseentyp, has_ceiling } from './dungeon.js';
 import {
     objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS, WAND_CLASS, is_blade,
@@ -1157,12 +1157,12 @@ function canseemon(mtmp) {
 }
 
 // C ref: mon.c:2130–2135 m_in_air — flyer, floater, or a clinger that is
-// mundetected under a ceiling (dungeon.c has_ceiling via has_ceiling_trap).
+// mundetected under a ceiling (live dungeon.c has_ceiling).
 function m_in_air(mtmp) {
     const ptr = mtmp?.data;
     if (!ptr) return false;
     if (is_flyer(ptr) || is_floater(ptr)) return true;
-    return !!(is_clinger(ptr) && has_ceiling_trap(game.u?.uz) && mtmp.mundetected);
+    return !!(is_clinger(ptr) && has_ceiling(game.u?.uz) && mtmp.mundetected);
 }
 
 // C ref: trap.c trapnote — "an F note" / "a C note" (+ noprefix bare name)
@@ -1796,11 +1796,7 @@ export function into_vs_onto(traptype) {
     }
 }
 
-/** C dungeon.c has_ceiling — endgame non-earth has no ceiling. */
-function has_ceiling_trap(lev) {
-    if (In_endgame(lev) && !Is_earthlevel(lev)) return false;
-    return true;
-}
+/* C dungeon.c has_ceiling — imported live from dungeon.js. */
 
 /**
  * C youprop.h Sleep_resistance / Antimagic — H||E; confer writes uprops
@@ -1879,7 +1875,7 @@ export function immune_to_trap(mon, ttype) {
             return TRAP_CLEARLY_IMMUNE;
         }
         if (pm && (is_floater(pm) || is_flyer(pm)
-            || (is_clinger(pm) && has_ceiling_trap(u.uz)))) {
+            || (is_clinger(pm) && has_ceiling(u.uz)))) {
             return TRAP_CLEARLY_IMMUNE;
         }
         if (is_you && (hero_Levitation() || hero_Flying())) {

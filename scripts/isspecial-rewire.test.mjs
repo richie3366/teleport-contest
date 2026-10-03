@@ -3,9 +3,9 @@
 // file's own on_level) are deleted for the live export (js/dungeon.js:2871).
 // C `dungeon.c:1448–1457` scans svs.sp_levchn for on_level(lev, dlevel).
 // The two call sites are C bones.c:25 (no_bones_level boneid gate) and C
-// quest.c:94 (onquest special-level gate). Each file keeps its own on_level
-// clone (still used elsewhere: end.js Is_branchlev, quest.js Is_qstart /
-// Is_qlocate / Is_nemesis / Not_firsttime) — out of cluster.
+// quest.c:94 (onquest special-level gate). At the time each file kept its
+// own on_level clone (end.js Is_branchlev, quest.js Is_qstart / Is_qlocate /
+// Is_nemesis / Not_firsttime); D-3329 deleted both for the live export.
 import { describe, it, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';

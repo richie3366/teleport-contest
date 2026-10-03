@@ -36,9 +36,9 @@
 {"fn":"ledger_to_dnum","c":"1402-1416","status":"unknown"}
 {"fn":"ledger_to_dlev","c":"1422-1426","status":"unknown"}
 {"fn":"depth","c":"1431-1434","status":"unknown"}
-{"fn":"on_level","c":"1439-1443","status":"unknown"}
+{"fn":"on_level","c":"1439-1443","status":"ported","js":["js/dungeon.js:on_level"],"d":["D-3329"],"at":"2026-10-03@af0c0367c"}
 {"fn":"Is_special","c":"1448-1457","status":"ported","js":["js/dungeon.js:Is_special"],"d":["D-3328"],"at":"2026-10-03@95d4fec09"}
-{"fn":"Is_branchlev","c":"1464-1473","status":"unknown"}
+{"fn":"Is_branchlev","c":"1464-1473","status":"ported","js":["js/dungeon.js:Is_branchlev"],"d":["D-3329"],"at":"2026-10-03@af0c0367c"}
 {"fn":"builds_up","c":"1477-1493","status":"unknown"}
 {"fn":"next_level","c":"1497-1514","status":"unknown"}
 {"fn":"prev_level","c":"1518-1543","status":"unknown"}
@@ -49,7 +49,7 @@
 {"fn":"Can_dig_down","c":"1649-1654","status":"unknown"}
 {"fn":"Can_fall_thru","c":"1662-1665","status":"unknown"}
 {"fn":"Can_rise_up","c":"1674-1687","status":"unknown"}
-{"fn":"has_ceiling","c":"1690-1698","status":"unknown"}
+{"fn":"has_ceiling","c":"1690-1698","status":"ported","js":["js/dungeon.js:has_ceiling"],"d":["D-3329"],"at":"2026-10-03@af0c0367c"}
 {"fn":"avoid_ceiling","c":"1701-1711","status":"unknown","d":["D-1961"],"at":"seed@a30a7de84"}
 {"fn":"ceiling","c":"1714-1747","status":"ported","js":["js/trap.js:ceiling"],"d":["D-2906"],"at":"seed@a30a7de84"}
 {"fn":"surface","c":"1750-1788","status":"ported","js":["js/sit.js:surface"],"d":["D-3267","D-2884"],"at":"2026-10-02@66e8734cf"}

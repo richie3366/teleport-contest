@@ -96,7 +96,7 @@ import {
     maxledgerno, ledger_to_dnum, find_hell,
     dunlev, dunlevs_in_dungeon, assign_rnd_level,
     On_W_tower_level, In_W_tower,
-    save_exclusions, load_exclusions,
+    save_exclusions, load_exclusions, on_level,
 } from './dungeon.js';
 import { record_achievement } from './insight.js';
 import { livelog_printf } from './pline.js';
@@ -1371,9 +1371,7 @@ function ledger_no(lev) {
     return ((dun?.ledger_start | 0) + dlevel) | 0;
 }
 
-function on_level(a, b) {
-    return (a?.dnum | 0) === (b?.dnum | 0) && (a?.dlevel | 0) === (b?.dlevel | 0);
-}
+/* C dungeon.c on_level — imported live from dungeon.js (clone was already the unguarded |0 shape; C NONNULLARG12). */
 
 /** C ref: dungeon.h In_hell — dungeon hellish flag. */
 function In_hell(lev) {

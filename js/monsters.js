@@ -538,7 +538,7 @@ export function is_whirly(ptr) {
     if (ptr.mlet === 'S_VORTEX') return true;
     return (ptr.mndx ?? -1) === PM_AIR_ELEMENTAL;
 }
-/** C: grounded — not flyer/floater; clingers need ceiling (always assume has). */
+/** C: grounded — not flyer/floater; clingers need ceiling (always assume has). Static edge to dungeon.js has_ceiling TDZs (monsters→dungeon→dbridge→uhitm→monsters breaks uhitm.js MZ_MEDIUM top-level read) — omission named in the D-log. */
 export function grounded(ptr) {
     if (!ptr) return true;
     if (is_flyer(ptr) || is_floater(ptr)) return false;

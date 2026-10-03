@@ -70,7 +70,7 @@ import {
 } from './attrib.js';
 import { dbon, dmgval, abon } from './weapon.js';
 import { depth, dist2 } from './hacklib.js';
-import { get_level } from './dungeon.js';
+import { get_level, on_level } from './dungeon.js';
 import { align_str, uhis } from './roles.js';
 import { count_wsegs, worm_known } from './worm.js';
 import {
@@ -1644,11 +1644,7 @@ function Levitation() {
         && !(u.BLevitation | 0));
 }
 
-function on_level(a, b) {
-    return !!a && !!b
-        && (a.dnum | 0) === (b.dnum | 0)
-        && (a.dlevel | 0) === (b.dlevel | 0);
-}
+/* C dungeon.c on_level — imported live from dungeon.js (C NONNULLARG12; digging.level is ensure_digging-initialized, u.uz set mid-game). */
 
 function assign_level(dest, src) {
     if (!dest || !src) return;

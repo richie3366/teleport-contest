@@ -80,7 +80,7 @@ import {
     list_vanquished, list_genocided, show_conduct, count_achievements,
     record_achievement,
 } from './insight.js';
-import { show_overview, In_tutorial, Is_special } from './dungeon.js';
+import { show_overview, In_tutorial, Is_special, Is_branchlev } from './dungeon.js';
 // C: end.c done2 abandon arm → do.c schedule_goto (imports.mjs --can:
 // SAFE, hoisted function decl, call-time use only).
 import { schedule_goto } from './do.js';
@@ -605,20 +605,7 @@ export async function done_object_cleanup() {
     }
 }
 
-/** C ref: dungeon.c on_level — same dnum+dlevel. */
-function on_level(a, b) {
-    return !!a && !!b
-        && (a.dnum | 0) === (b.dnum | 0)
-        && (a.dlevel | 0) === (b.dlevel | 0);
-}
-
-/** C ref: dungeon.c Is_branchlev — branch end1/end2 match. */
-function Is_branchlev(lev) {
-    for (const br of game.branches || []) {
-        if (on_level(lev, br.end1) || on_level(lev, br.end2)) return br;
-    }
-    return null;
-}
+/* C dungeon.c on_level / Is_branchlev — imported live from dungeon.js. */
 
 /**
  * C ref: bones.c no_bones_level — special/dungeon boneid, botlevel,

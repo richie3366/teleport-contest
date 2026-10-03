@@ -1804,7 +1804,8 @@ function OF_INTEREST(feat) {
 /**
  * C ref: dungeon.c on_level `:1438–1443` — same dnum/dlevel.
  * Exported so `dog.c` `keep_mon_accessible` uses the real one instead
- * of a fourteenth copy; the other 13 local clones are their own row.
+ * of a fourteenth copy; 7 local clones remain (dokick/teleport/shk/
+ * priest/getpos/vault/muse — their own rows).
  */
 export function on_level(a, b) {
     return (a?.dnum | 0) === (b?.dnum | 0)
@@ -2871,6 +2872,18 @@ function br_string2(br) {
 export function Is_special(lev) {
     for (const s of game.sp_levchn || []) {
         if (on_level(lev, s.dlevel)) return s;
+    }
+    return null;
+}
+
+/**
+ * C ref: dungeon.c Is_branchlev `:1464–1473` — first branch whose end1
+ * or end2 is lev, else null (C `:1472` return 0). Short-circuit order
+ * matches C (`:1469` end1 before end2); svb.branches is game.branches.
+ */
+export function Is_branchlev(lev) {
+    for (const br of game.branches || []) {
+        if (on_level(lev, br.end1) || on_level(lev, br.end2)) return br;
     }
     return null;
 }

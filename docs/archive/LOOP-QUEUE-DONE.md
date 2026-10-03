@@ -5,6 +5,14 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `dungeon.c` Is_branchlev — C dungeon.c:1464–1473 branches-scan loop absent from js/ (no export; brief this session; sole same-name JS is local clone js/end.js:624; 11 C call sites incl bones/mklev/mkmaze/restore; callee live js/dungeon.js:1809) — port to C locus + rewire clone.
+- [x] `dungeon.c` has_ceiling clone removal — C dungeon.c:1689–1698 endgame-non-earth gate absent from js/dothrow.js + js/mon.js + js/potion.js (local clones :1223/:3944/:642 instead of importing live js/dungeon.js:1330; brief this session: 13 code refs + decl, C-locus body read this session) — rewire clone call sites to the C-locus export, delete clones.
+- [x] `dungeon.c` on_level quest.js clone removal — C dungeon.c:1439–1443 dnum+dlevel equality absent from js/quest.js (local clone :54 with !!a&&!!b guard, 6 live call sites :62/:67/:72/:208/:475/:526 instead of importing live js/dungeon.js:1809; C body + 79 refs in brief on_level this session, clone body + sites read this session, quest→dungeon edge ALREADY this session) — rewire sites to the live export, delete clone.
+- [x] `dungeon.c` on_level dig.js clone removal — C dungeon.c:1439–1443 dnum+dlevel equality absent from js/dig.js (local clone :1647 with !!a&&!!b guard, 3 live call sites :2260/:2778/:2839 instead of importing live js/dungeon.js:1809; C body in brief on_level + clone body in brief JS BODY this session, sites read this session, imports.mjs ALREADY this session) — rewire sites to the live export, delete clone.
+- [x] `dungeon.c` on_level do.js clone removal — C dungeon.c:1439–1443 dnum+dlevel equality absent from js/do.js (local clone :1374 WITHOUT the !!a&&!!b guard — `(a?.dnum|0)===(b?.dnum|0)&&...`, 7 live call sites :1385/:1721/:1735/:1740/:2481/:2502/:3468 instead of importing live js/dungeon.js:1809; C body in brief on_level this session, clone body + sites read this session, imports.mjs ALREADY this session) — verify no site passes nullish (C is NONNULLARG12), then rewire sites to the live export, delete clone.
+- [x] `dungeon.c` on_level end.js clone removal — C dungeon.c:1439–1443 dnum+dlevel equality absent from js/end.js (local clone :609 with !!a&&!!b guard, sole live site :618 inside the Is_branchlev clone — the queued `dungeon.c` Is_branchlev row — instead of importing live js/dungeon.js:1809; C body in brief on_level this session, clone body + sites read this session, end→dungeon edge ALREADY this session) — rewire with the Is_branchlev row or retire when it deletes the clone.
+
+
 - [x] `dungeon.c` Is_special end/quest clone removal — C dungeon.c:1448–1457 sp_levchn scan call absent from js/end.js + js/quest.js (local clones :616/:61 instead of importing live js/dungeon.js:2871; brief this session: 14 C call sites, callee live js/dungeon.js:1809) — rewire clone call sites to the C-locus export, delete clones.
 
 
