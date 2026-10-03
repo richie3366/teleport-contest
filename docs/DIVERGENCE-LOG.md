@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3348 — `mon.c` m_in_air canonical export + do/teleport/trap.js rewire (12 sites → live js/mon.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (4 clone deletions + 3 import names + export + comments) — below the ~80 bar, defended (D-3341–D-3347 clone-removal precedent): one whole C body ported at C-home + 3 whole clones rewired to it; the head's C file (mon.c) holds no further Open rows and the sole C callee (has_ceiling) is live, so the cluster cannot grow. Queue ships at 8 (coverage ungeneratable; band gate ≥8 met). Refill: 1 missing-arm row appended from this session's brief/search/read evidence (unique_corpstat — live mon.js:2961 export + 4 clones, all four mon edges ALREADY). Note: iteration orders said no hand refill, but check-hot-docs REFILL exits 1 below band 8 and blocks finish's commit; the live queue header + D-3346/D-3347 precedent authorize evidence-carrying missing-arm rows. Bundled: backfilled missing `**Addressed:**` stamps on the D-3347 + 4× D-3346 DONE rows (`7c9d1a96d` / `a99f09d15` from git log).
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `m_in_air`: nethack-c/upstream/src/mon.c:2130–2136 — is_flyer || is_floater || (is_clinger && has_ceiling && mundetected). 12 C call sites: do.c:89, mon.c:1053/:1099/:2166/:2168, teleport.c:147/:161, trap.c:1441/:1530/:2608/:2683/:2743.
+- **JS was:** no live export; 4 clones: js/do.js:560-then (flyer/floater SUBSET, miscited as mondata.h), js/mon.js:2299-then (C-home but ceiling-gateless: clinger && mundetected without has_ceiling), js/teleport.js:209-then (flyer/floater SUBSET + stale mon↔teleport cycle-avoidance comment), js/trap.js:1157-then (full body, unexported duplicate).
+- **Fix:** ported the FULL C body as `export function m_in_air` at C-home js/mon.js:2300 (C order incl `has_ceiling(game.u?.uz)` from the already-imported dungeon.js live export, :71); extended the three ALREADY static mon edges (do.js:106, teleport.js:92, trap.js:46; `imports.mjs --can` ALREADY all three — no new edge, no new test surface); deleted all 4 clones (incl the do.js mondata.h miscite and the teleport cycle-avoidance comment, disproven by the ALREADY edge); do.js site comment now cites the live export (:1006–1007). Behavior deltas are C-true: do/teleport/mon sites gain the clinger+ceiling+mundetected arm (previously flyer/floater-only or ceiling-gateless); trap sites are behavior-identical (clone was already full). Maintained test: new scripts/m-in-air-rewire.test.mjs (no-clone + live-import + full-body + site-count + sole-definer census, 4/4 pass).
+- **JS:**
+  - `m_in_air`: js/mon.js:2300 (canonical export); imports do.js:106, teleport.js:92, trap.js:46; clones deleted; 12 sites resolve to the export (do.js:1005, mon.js:2898/:2937/:3076/:3078, teleport.js:485/:498, trap.js:2957/:3765/:4121/:5919/:5993).
+- **Callers:**
+  - `m_in_air`: C do.c:89 → js/do.js:1005 (drawbridge monster-kill gate); C mon.c:1053 → js/mon.js:2898 (minliquid lava arm); C mon.c:1099 → js/mon.js:2937 (minliquid water arm); C mon.c:2166/:2168 → js/mon.js:3076/:3078 (mfndpos poolok/lavaok); C teleport.c:147 → js/teleport.js:485 (goodpos pool arm); C teleport.c:161 → js/teleport.js:498 (goodpos lava arm); C trap.c:1441 → js/trap.js:4121 (squeaky board); C trap.c:1530 → js/trap.js:3765 (bear trap); C trap.c:2608 → js/trap.js:5919 (land mine); C trap.c:2683 → js/trap.js:2957 (rolling boulder); C trap.c:2743 → js/trap.js:5993 (pit). (extern.h:1783 decl.)
+- **Verify:**
+  - `m_in_air`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/m-in-air-rewire.test.mjs` 4/4 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn m_in_air` → PASS syntax (4 changed js files: js/do.js js/mon.js js/teleport.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `m_in_air`: none in-body — whole C body live at js/mon.js:2300.
+- **Ledger:** m_in_air ported
+- **Next:** the remaining missing-arm rows (Invocation_lev×2 + attacktype×4 + histemple_at + unique_corpstat — next iterations).
+
 ## D-3347 — `priest.c` mon_aligntyp teleport.js clone removal (sole site → live js/priest.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (clone deletion + 1 import + comments) — below the ~80 bar, defended (D-3341–D-3346 clone-removal precedent): one whole clone rewired to the live export; the head's C file (priest.c) holds no further Open rows and mon_aligntyp has 0 C callees, so the cluster cannot grow. Refill: 1 missing-arm row appended from this session's brief/search/read evidence (histemple_at canonical export — 3 identical clones, no live export) — queue ships at 8 (coverage ungeneratable; band gate ≥8 met).

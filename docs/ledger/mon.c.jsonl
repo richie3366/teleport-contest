@@ -30,7 +30,7 @@
 {"fn":"can_carry","c":"1990-2053","status":"ported","js":["js/monmove.js:can_carry"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"monlineu","c":"2057-2060","status":"unknown"}
 {"fn":"mon_allowflags","c":"2064-2126","status":"unknown"}
-{"fn":"m_in_air","c":"2130-2136","status":"unknown"}
+{"fn":"m_in_air","c":"2130-2136","status":"ported","js":["js/mon.js:m_in_air"],"d":["D-3348"],"at":"2026-10-03@7c9d1a96d"}
 {"fn":"mfndpos","c":"2140-2382","status":"unknown"}
 {"fn":"mm_2way_aggression","c":"2388-2420","status":"unknown"}
 {"fn":"mm_aggression","c":"2428-2447","status":"unknown"}

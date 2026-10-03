@@ -89,7 +89,7 @@ import { emits_light } from './light.js';
  * m_at rides aliased as mon_m_at (local fmon-scan clone deleted — it
  * lacked the live steed-skip arm; C rm.h:510–511 reads the MON_AT grid
  * from which the mounted steed is removed). */
-import { m_at as mon_m_at, seemimic } from './mon.js';
+import { m_at as mon_m_at, seemimic, m_in_air } from './mon.js';
 /* dig.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
 import { fill_pit } from './dig.js';
 /* mklev.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
@@ -200,16 +200,6 @@ function goodpos_onscary(x, y, mptr) {
     if (Inhell() || In_endgame(game.u?.uz)) return false;
     if ((mptr.mndx ?? -1) === PM_MINOTAUR || !haseyes(mptr)) return false;
     return !!sengr_at('Elbereth', x, y, true);
-}
-
-/**
- * C ref: mon.c m_in_air — flyer/floater; cling+ceiling mundetected deferred.
- * Local copy avoids mon.js ↔ teleport cycle.
- */
-function m_in_air(mtmp) {
-    const ptr = mtmp?.data;
-    if (!ptr) return false;
-    return !!(is_flyer(ptr) || is_floater(ptr));
 }
 
 /** C youprop.h H/E/blocked via flat + uprops[idx] (confer may not mirror E*). */

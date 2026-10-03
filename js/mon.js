@@ -2295,12 +2295,13 @@ export function mon_allowflags(mtmp) {
     return allowflags;
 }
 
-// C ref: mon.c m_in_air — flyer/floater; cling+ceiling mundetected deferred
-function m_in_air(mtmp) {
+// C ref: mon.c:2130–2136 m_in_air — flyer, floater, or a clinger that is
+// mundetected under a ceiling (has_ceiling live from dungeon.js).
+export function m_in_air(mtmp) {
     const ptr = mtmp?.data;
     if (!ptr) return false;
     if (is_flyer(ptr) || is_floater(ptr)) return true;
-    return !!(is_clinger(ptr) && mtmp.mundetected);
+    return !!(is_clinger(ptr) && has_ceiling(game.u?.uz) && mtmp.mundetected);
 }
 
 /** C ref: mondata.h cant_drown */

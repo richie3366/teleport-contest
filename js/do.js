@@ -103,7 +103,7 @@ import { livelog_printf } from './pline.js';
 import { com_pager, deliver_by_pline } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time, update_mlstmv, discard_migrations } from './dog.js';
 import { save_track, rest_track } from './track.js';
-import { m_at, mnexto, m_into_limbo, hide_monst, hideunder, restore_cham, wake_nearto, kill_genocided_monsters, ceiling_hider, dmonsfree, healmon } from './mon.js';
+import { m_at, mnexto, m_into_limbo, hide_monst, hideunder, restore_cham, wake_nearto, kill_genocided_monsters, ceiling_hider, dmonsfree, healmon, m_in_air } from './mon.js';
 import { enexto, rloc, safe_teleds } from './teleport.js';
 import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
@@ -556,10 +556,6 @@ function distu(x, y) {
     const u = game.u || {};
     return dist2(u.ux | 0, u.uy | 0, x | 0, y | 0);
 }
-/** C mondata.h m_in_air subset — flyer/floater. */
-function m_in_air(mtmp) {
-    return is_flyer(mtmp?.data) || is_floater(mtmp?.data);
-}
 /**
  * C ref: hack.c u_locomotion `:1817–1829` — Levitation, then youprop.h
  * Flying (mhitu.js export: H/E or a flying steed, unless BFlying).
@@ -1008,7 +1004,7 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
         const mtmp = m_at(rx, ry);
         if (mtmp && !(mtmp.mhp <= 0) && !m_in_air(mtmp)) {
             // C do.c:89–91 — DEADMONSTER (mhp<1) + !m_in_air gate, then kill
-            // (m_in_air is the file-local clone; clone-drift debt, untouched).
+            // (m_in_air is the live mon.js export: flyer/floater/clinger).
             await mondied(mtmp);
         }
         const ttmp = t_at(rx, ry);

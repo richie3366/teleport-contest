@@ -43,7 +43,7 @@ import {
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
     s_suffix, obj_pmname, a_monnam,
 } from './do_name.js';
-import { m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry } from './mon.js';
+import { m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry, m_in_air } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, unblock_point, vision_recalc } from './vision.js';
 import { del_engr_at, can_reach_floor } from './engrave.js';
 import {
@@ -1150,15 +1150,6 @@ function canseemon(mtmp) {
         ? worm_known(mtmp)
         : (cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp));
     return loc_seen && mon_visible(mtmp);
-}
-
-// C ref: mon.c:2130–2135 m_in_air — flyer, floater, or a clinger that is
-// mundetected under a ceiling (live dungeon.c has_ceiling).
-function m_in_air(mtmp) {
-    const ptr = mtmp?.data;
-    if (!ptr) return false;
-    if (is_flyer(ptr) || is_floater(ptr)) return true;
-    return !!(is_clinger(ptr) && has_ceiling(game.u?.uz) && mtmp.mundetected);
 }
 
 // C ref: trap.c trapnote — "an F note" / "a C note" (+ noprefix bare name)

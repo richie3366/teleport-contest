@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3348 `mon.c` m_in_air canonical export + do/teleport/trap.js rewire (12 sites → live js/mon.js export)
+
+**C locus:** - `m_in_air`: nethack-c/upstream/src/mon.c:2130–2136 — is_flyer || is_floater || (is_clinger && has_ceiling && mundetected). 12 C call sites: do.c:89, mon.c:1053/:1099/:2166/:2168, teleport.c:147/:161, trap.c:1441/:1530/:2608/:2683/:2743.
+**JS:** - `m_in_air`: js/mon.js:2300 (canonical export); imports do.js:106, teleport.js:92, trap.js:46; clones deleted; 12 sites resolve to the export (do.js:1005, mon.js:2898/:2937/:3076/:3078, teleport.js:485/:498, trap.js:2957/:3765/:4121/:5919/:5993).
+**Change:** ported the FULL C body as `export function m_in_air` at C-home js/mon.js:2300 (C order incl `has_ceiling(game.u?.uz)` from the already-imported dungeon.js live export, :71); extended the three ALREADY static mon edges (do.js:106, teleport.js:92, trap.js:46; `imports.mjs --can` ALREADY all three — no new edge, no new test surface); deleted all 4 clones (incl the do.js mondata.h miscite and the teleport cycle-avoidance comment, disproven by the ALREADY edge); do.js site comment now cites the live export (:1006–1007). Behavior deltas are C-true: do/teleport/mon sites gain the clinger+ceiling+mundetected arm (previously flyer/floater-only or ceiling-gateless); trap sites are behavior-identical (clone was already full). Maintained test: new scripts/m-in-air-rewire.test.mjs (no-clone + live-import + full-body + site-count + sole-definer census, 4/4 pass).
+**Verify:** - `m_in_air`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/m-in-air-rewire.test.mjs` 4/4 pass.
+**Named:** - `m_in_air`: none in-body — whole C body live at js/mon.js:2300.
+**Next:** the remaining missing-arm rows (Invocation_lev×2 + attacktype×4 + histemple_at — next iterations); refill authorization owed (queue at 7, coverage ungeneratable).
 ## 2026-10-03 — D-3347 `priest.c` mon_aligntyp teleport.js clone removal (sole site → live js/priest.js export)
 
 **C locus:** - `mon_aligntyp`: nethack-c/upstream/src/priest.c:280–289 — ispriest ? EPRI shralign : isminion ? EMIN min_align : data.maligntyp; A_NONE passthrough, else sign → LAWFUL/CHAOTIC/NEUTRAL. 6 C refs incl artifact.c:933, insight.c:3277, priest.c:364/:372, monst.h:282.
