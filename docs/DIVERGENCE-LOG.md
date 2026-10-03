@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3370 — `save.c` savelevchn + save_bc whole ports (special-level chain + swallowed ball/chain on save payload)
+
+- **Status:** fixed.
+- **Symptom:** coverage MISSING (both queue head rows): the save payload dropped the swallowed ball/chain (named omit in the dosave0 header — BALL/CHAIN_IN_MON case) and never persisted `sp_levchn` at all, so a save lost the special-level chain. No corpus session is blocked on either (save path has no RNG-tagged reach); public seed0013 save-then-restore passes before and after.
+- **C locus:**
+  - `savelevchn`: nethack-c/upstream/src/save.c:974–994 (count + per-node Sfo_s_level under update_file; release_data frees + nulls).
+  - `save_bc`: nethack-c/upstream/src/save.c:696–721 (chain-first-then-ball nobj prepend from gl.loosechain/looseball, snapshotted by dosave0 :166–167; FREEING setworn-null + clear; saveobjchn emits).
+- **JS was:** no symbol for either; dosave0 header named "save_bc loose ball when swallowed"; payload had no levchn/bc keys.
+- **Fix:** same-name JSON-analogue exports at C-home js/save.js (savefruitchn precedent, js/bones.js:339): `savelevchn` walks `game.sp_levchn` (dungeon.js keeps C's insertion order) emitting dlevel/proto/boneid (numeric→chr like set_bonesfile_name)/rndlevs + the five level flags C sets (dungeon.c:577–588; `next` is binary-only, array order is chain order); `save_bc` replays the C nobj prepend C-literally (both nodes OBJ_FREE, in no live chain) and returns serObjChain (ball head, chain second). dosave0 snapshots `game.gl.looseball/loosechain` (decl.h:563–564 home; BALL/CHAIN_IN_MON = uswallow + OBJ_FREE, hack.h:1412–1413) before the payload and stores both keys in C savegamestate order (:304 after invent, :315 after save_dungeon). Callees live, no clones: serObjChain (lev_json.js, saveobjchn split), setworn (do_wear.js, cited in the named FREEING arm). dosave0 ledger omit drops the save_bc clause (kept: overwrite-yn, uid/nhuuid).
+- **JS:** js/save.js:466 `export function savelevchn()`, js/save.js:508 `export function save_bc()`; wiring js/save.js:602–605 (loose snapshot), js/save.js:613 (`bc_objs`), js/save.js:655 (`sp_levchn`). No new cross-module edge (const.js names only).
+- **Callers:**
+  - `savelevchn`: C savegamestate :315 → JS dosave0 js/save.js:655; C free_dungeons :1065 is FREE_ALL_MEMORY-only with no JS analogue — named, not ported.
+  - `save_bc`: C savegamestate :304 → JS dosave0 js/save.js:613 (setup js/save.js:602–605). No other C call site (decl :24 excepted).
+- **Verify:** `node scripts/verify.mjs --fn savelevchn,save_bc` → VERIFY: PASS: syntax (js/save.js) · rule2 · hidden notes (0 blocked each — normal for coverage) · reach ×2: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7. Save-path proof: seed0013-friday13-save-then-fullmoon-restore PASS (RNG 4804/4804, screens 99/99) + strict. /tmp/savebc-levchn-probe.mjs ALL PASS (levchn shape/order/empty, bc ball-head order + C-literal nobj surgery, chain-only/empty/no-gl, JSON round-trip).
+- **Named omissions:**
+  - `savelevchn`: release_data arm (C :984, :992–993 — free each node, null head) → JSON persist never frees the live chain; free_dungeons caller (C :1065, FREE_ALL_MEMORY-only) → no JS teardown analogue; `unconnected` flag bit → dungeon-level, never set on s_level (C memset + 5 bits).
+  - `save_bc`: FREEING arms (C :707–710, :715–718 — setworn(0, W_CHAIN/W_BALL), clear loose) → JSON persist never unwears live ball/chain.
+- **Ledger:** savelevchn ported; save_bc ported
+- **Next:** restlevchn (restore.c:130–150) + restgamestate's inline bc walk (restore.c:659–669, setworn per owornmask) restore the two keys this commit writes; old saves without the keys stay valid (missing-key skips).
+
 ## D-3369 — `restore.c` reset_oattached_mids whole port + both getlev tails wired
 
 - **Status:** fixed.

@@ -17,7 +17,7 @@ import { pline, docrt, getmsghistory, putmsghistory, assign_graphics } from './d
 import { gamelog_add } from './pline.js';
 import { change_luck } from './attrib.js';
 import {
-    FULL_MOON, OBJ_INVENT, OBJ_CONTAINED, OBJ_MIGRATING,
+    FULL_MOON, OBJ_INVENT, OBJ_CONTAINED, OBJ_FREE, OBJ_MIGRATING,
     ECMD_OK, BUFSZ, VISITED, LFILE_EXISTS, REST_CURRENT_LEVEL,
     W_WEP, W_SWAPWEP, W_QUIVER, PL_NSIZ,
     WRITING, FREEING, NHF_SAVEFILE, Is_rogue_level, ROGUESET,
@@ -447,12 +447,87 @@ function restWornFromInvent(invent) {
 }
 
 /**
+ * C ref: save.c savelevchn `:974–994` — special-level chain.
+ * Walk svs.sp_levchn (JS: game.sp_levchn array, dungeon.js add_level keeps
+ * C's (dnum, dlevel) insertion order): the count under update_file (C
+ * `:979–982` Sfo_int lev_count) is the JSON array length; each node under
+ * update_file (C `:984–990` Sfo_s_level — a raw s_level struct write,
+ * dungeon.h:25–32 via sfstruct.c SFO_CBODY) emits its meaningful fields.
+ * The `next` pointer is binary-only (array order is chain order; C
+ * restlevchn appends back in order). C memset-zeroes the struct and sets
+ * only the five level bits (dungeon.c:577–588); `unconnected` is a
+ * dungeon-level bit, never set on s_level — not emitted. The release_data
+ * arm (C `:984`, `:992–993`: free each node, null the head) is named, not
+ * ported: JSON persist never frees the live chain (savefruitchn precedent,
+ * js/bones.js:339). Callers: savegamestate `:315` → dosave0 `sp_levchn`
+ * below; free_dungeons `:1065` (FREE_ALL_MEMORY-only) has no JS analogue.
+ * @returns {object[]}
+ */
+export function savelevchn() {
+    const out = [];
+    for (const tmplev of game.sp_levchn || []) {
+        if (!tmplev) continue;
+        const flags = tmplev.flags || {};
+        let boneid = tmplev.boneid;
+        if (typeof boneid === 'number') boneid = String.fromCharCode(boneid);
+        out.push({
+            dlevel: {
+                dnum: tmplev.dlevel?.dnum | 0,
+                dlevel: tmplev.dlevel?.dlevel | 0,
+            },
+            proto: String(tmplev.proto || ''),
+            boneid: String(boneid || ''),
+            rndlevs: tmplev.rndlevs | 0,
+            flags: {
+                town: !!flags.town,
+                hellish: !!flags.hellish,
+                maze_like: !!flags.maze_like,
+                rogue_like: !!flags.rogue_like,
+                align: flags.align | 0,
+            },
+        });
+    }
+    return out;
+}
+
+/**
+ * C ref: save.c save_bc `:696–721` — dangling ball & chain (the swallowed
+ * case: on floor or in invent they ride with fobj/invent instead).
+ * gl.loosechain/gl.looseball (decl.h:563–564) were snapshotted by the
+ * caller — dosave0 `:166–167`, BALL_IN_MON/CHAIN_IN_MON (`u.uswallow` +
+ * OBJ_FREE, hack.h:1412–1413) — because savelev may already have freed
+ * the floor/invent pointers. Chain first, then ball (C `:704–714`), so
+ * ball is the head; saveobjchn (JS: serObjChain, lev_json.js) emits
+ * ball, chain. The nobj surgery is C-literal (both nodes are OBJ_FREE,
+ * in no live chain). The FREEING arms (C `:707–710`, `:715–718`:
+ * setworn(0, W_CHAIN/W_BALL), clear loose) are named, not ported: JSON
+ * persist never unwears live ball/chain (savefruitchn precedent).
+ * Caller: savegamestate `:304` → dosave0 `bc_objs` below.
+ * @returns {object[]}
+ */
+export function save_bc() {
+    const gl = game.gl || {};
+    let bc_objs = null;
+    if (gl.loosechain) {
+        gl.loosechain.nobj = bc_objs; /* uchain */
+        bc_objs = gl.loosechain;
+    }
+    if (gl.looseball) {
+        gl.looseball.nobj = bc_objs;
+        bc_objs = gl.looseball;
+    }
+    return serObjChain(bc_objs);
+}
+
+/**
  * C ref: save.c dosave0 — write current game to VFS (JSON subset of savelev).
  * Named omissions: binary NHFILE format; hangup arms; overwrite yn;
- * compress; uid/nhuuid/wreserve;
- * save_bc loose ball when swallowed.
+ * compress; uid/nhuuid/wreserve.
  * mapseenchn cemetery JSON is save_dungeon/save_mapseen (D-1685);
  * current-level bonesinfo is savelev savecemetery.
+ * save_bc loose ball when swallowed + savelevchn ride the payload
+ * below; their restores are restgamestate's bc walk (restore.c:659–669)
+ * and restlevchn (restore.c:130–150) — separate functions, own rows.
  */
 export async function dosave0() {
     // C save.c:98 dosave0 — hangup/panic save fix-up: in-use item used
@@ -519,12 +594,23 @@ export async function dosave0() {
     store_version(nhfp);
     // C save.c:325 savenames(nhfp) — bases/disco/objclass/uname chunk.
     const names = savenames();
+    // C save.c:166–167 dosave0 — snapshot dangling ball/chain before
+    // savelev (which frees floor/invent pointers when FREEING), so
+    // save_bc can persist them separately. BALL_IN_MON/CHAIN_IN_MON:
+    // u.uswallow + OBJ_FREE (hack.h:1412–1413); decl.h:563–564 home.
+    if (!game.gl) game.gl = {};
+    game.gl.looseball = (u.uswallow && u.uball && u.uball.where === OBJ_FREE)
+        ? u.uball : null;
+    game.gl.loosechain = (u.uswallow && u.uchain && u.uchain.where === OBJ_FREE)
+        ? u.uchain : null;
     const payload = {
         version: 1,
         version_header: nhfp.sf || null,
         plname: game.plname,
         u: serHero(u),
         invent: serInventArray(game.invent),
+        // C save.c:304 save_bc(nhfp) — after invent, before migrating.
+        bc_objs: save_bc(),
         objects: names.objects,
         bases: names.bases,
         oclass_prob_totals: game.oclass_prob_totals
@@ -564,6 +650,9 @@ export async function dosave0() {
                 : null),
         // C save.c save_dungeon → save_mapseen + savecemetery
         mapseenchn: save_mapseenchn(),
+        // C save.c:315 savelevchn(nhfp) — after save_dungeon, before
+        // quest_status.
+        sp_levchn: savelevchn(),
         spl_book: game.spl_book
             ? JSON.parse(JSON.stringify(game.spl_book)) : null,
         spl_orderindx: game.spl_orderindx
