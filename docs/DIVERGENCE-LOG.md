@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3395 — cmd.c dummyfunction + redraw_cmd generic-bind arm
+
+- **Status:** shipped (2 missing-arm rows checked off + archived in this commit).
+- **Symptom:** coverage — no corpus divergence (`hidden-proxy verify` on both: no session blocked). (a) `dummyfunction` absent from js/ (ledger absent); (b) `redraw_cmd` hardcoded C-r/C-l so rebound redraw keys diverged (ledger partial omit).
+- **C locus:**
+  - `dummyfunction`: `cmd.c:5699–5702` — staticfn returning ECMD_CANCEL; decl-only C ref cmd.c:151, no live callers.
+  - `redraw_cmd`: `cmd.c:3911–3918` — uchar cast + cmdbind_get(uc) lookup + `bind->cmd->ef_funct == doredraw`.
+- **JS was:**
+  - `dummyfunction`: no JS symbol.
+  - `redraw_cmd`: `js/getpos.js:118` local clone `key === 0x12 || key === 0x0c`, ignoring the live bind table (plus a false comment claiming commands_init binds C-l, and a stale Named note in display.js doredraw).
+- **Fix:** (a) new exported `dummyfunction` in js/cmd.js in C order right after dosh_core (`:5681–5696`), whole 1-line body, ECMD_CANCEL already imported; (b) getpos.js redraw_cmd re-ported in C order against live cmdbind_get (added to the existing dokeylist import — no new edge): `cmdbind_get(uc)?.txt === 'redraw'` is the C ef_funct test (txt 1:1 with ef_funct per dokeylist.js; same predicate as lock.js getdir_is_redraw for the C `:4013` site); retired the stale doredraw Named note. Measured: C binds only C('r') to doredraw (cmd.c:1818–1819; no `C('l')` anywhere in cmd.c), default-map scan shows sole redraw key 18, and C-l is consumed earlier as CTRL_DIR rush in getpos (walk block → continue) — so default-bind behavior is unchanged; only rebound keys move, toward C.
+- **JS:** `js/cmd.js:1522–1530` dummyfunction (:1528); `js/getpos.js:113–128` redraw_cmd (:124) + :65 import; `js/display.js:5818–5821` doredraw comment.
+- **Callers:**
+  - `dummyfunction`: none — C has no live call sites (decl-only cmd.c:151); the export stands alone for coverage.
+  - `redraw_cmd`: C getpos.c:945 → `js/getpos.js:1509` (`redraw_cmd(key)`, numeric nhgetch code — already wired, body now faithful); C cmd.c:4013 getdir → `js/lock.js:680` via the equivalent `getdir_is_redraw` predicate (pre-existing, untouched).
+- **Verify:** `node scripts/verify.mjs --fn dummyfunction,redraw_cmd` → syntax PASS (3 files) · rule2 PASS · hidden notes (no session blocked on either) · REACH-OK both (24-smoke each, 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7 · full 44/44 (auto: shared file changed). VERIFY: PASS. (One comment line reworded after the run for C-l accuracy; `node --check` re-passed on all 3 files.)
+- **Named omissions:**
+  - `dummyfunction`: none — whole C body live (0 C callees).
+  - `redraw_cmd`: none — whole C body live; both C call sites covered (getpos direct, getdir via equivalent predicate).
+- **Ledger:** dummyfunction ported; redraw_cmd ported
+- **Next:** queue head is now `files.c` nh_sfunconvert (next Open missing-arm row).
+
 ## D-3394 — priest.c move_special shop re-entry arm + forget_temple_entry diagnostic
 
 - **Status:** shipped (2 missing-arm rows checked off + archived in this commit).

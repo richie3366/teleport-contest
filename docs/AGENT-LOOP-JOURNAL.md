@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3395 cmd.c dummyfunction + redraw_cmd generic-bind arm
+
+**C locus:** - `dummyfunction`: `cmd.c:5699–5702` — staticfn returning ECMD_CANCEL; decl-only C ref cmd.c:151, no live callers.
+**JS:** `js/cmd.js:1522–1530` dummyfunction (:1528); `js/getpos.js:113–128` redraw_cmd (:124) + :65 import; `js/display.js:5818–5821` doredraw comment.
+**Change:** (a) new exported `dummyfunction` in js/cmd.js in C order right after dosh_core (`:5681–5696`), whole 1-line body, ECMD_CANCEL already imported; (b) getpos.js redraw_cmd re-ported in C order against live cmdbind_get (added to the existing dokeylist import — no new edge): `cmdbind_get(uc)?.txt === 'redraw'` is the C ef_funct test (txt 1:1 with ef_funct per dokeylist.js; same predicate as lock.js getdir_is_redraw for the C `:4013` site); retired the stale doredraw Named note. Measured: C binds only C('r') to doredraw (cmd.c:1818–1819; no `C('l')` anywhere in cmd.c), default-map scan shows sole redraw key 18, and C-l is consumed earlier as CTRL_DIR rush in getpos (walk block → continue) — so default-bind behavior is unchanged; only rebound keys move, toward C.
+**Verify:** `node scripts/verify.mjs --fn dummyfunction,redraw_cmd` → syntax PASS (3 files) · rule2 PASS · hidden notes (no session blocked on either) · REACH-OK both (24-smoke each, 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7 · full 44/44 (auto: shared file changed). VERIFY: PASS. (One comment line reworded after the run for C-l accuracy; `node --check` re-passed on all 3 files.)
+**Named:** - `dummyfunction`: none — whole C body live (0 C callees).
+**Next:** queue head is now `files.c` nh_sfunconvert (next Open missing-arm row).
 ## 2026-10-03 — D-3394 priest.c move_special shop re-entry arm + forget_temple_entry diagnostic
 
 **C locus:** - `move_special`: `priest.c:125–126` — `if (mtmp->isshk && !in_his_shop && inhishop(mtmp)) check_special_room(FALSE);` after place_monster/newsym.

@@ -5815,9 +5815,10 @@ export async function curs_on_u() {
  * (`cmd.c:1819` `C('r')` "redraw screen", IFBURIED | GENERALCMD |
  * CMD_INSANE): docrt() then return ECMD_OK. Async: `docrt` awaits
  * (nhgetch reach), so the int C body rides one await plus the status.
- * Named: `cmd.c:1819` ext-table wiring (JS ext lookup has no redraw row)
- * + `cmd.c:3917` redraw_cmd ef_funct check (`js/getpos.js:97` keeps its
- * local C('r')/C('l') key clone).
+ * Named: `cmd.c:1819` ext-table wiring (JS ext lookup has no redraw row).
+ * `cmd.c:3917` redraw_cmd ef_funct check is live at both C call sites
+ * (js/getpos.js redraw_cmd + js/lock.js getdir_is_redraw, both via live
+ * cmdbind_get `txt === 'redraw'`).
  */
 export async function doredraw() {
     // C `:1696` docrt().
