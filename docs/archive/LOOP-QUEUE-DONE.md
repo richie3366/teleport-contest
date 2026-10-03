@@ -5,9 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `monmove.c` postmov after_shk_move MOVED|DONE guard — C monmove.c:1700–1702 inside `:1660 if (mmoved == MMOVE_MOVED || MMOVE_DONE)` absent from js/monmove.js:1878–1881 (fires on MMOVE_NOTHING entries via :2355; resets bill_p + rechecks occupancy where C holds the sentinel; fix: guard the new call only, not the pre-existing tail — brief 2339). Source: reviews/loop-unattended/2339-bec62f3b9-after-shk-move-guard.md **Addressed:** D-3392
-- [x] `invent.c` repopulate_perminvent — C invent.c:3455–3460 absent from js/ (no JS symbol; ledger absent C 2; display_pickinv(NULL,0,0,FALSE,FALSE,0) wrapper; 0 C refs; callee display_pickinv split across invent.js builders D-1559 — brief 2026-10-03) @bd0144c89 **Addressed:** D-3392
-- [x] `invent.c` only_here — C invent.c:5476–5480 absent from js/ (no JS symbol; ledger absent C 1; staticfn ox/oy vs go.only; decl-only C ref invent.c:20, no live callers; 0 C callees — brief 2026-10-03) @bd0144c89 **Addressed:** D-3392
+- [x] `display.c` fn_cmap_to_glyph — C display.c:3796–3800 absent from js/ (no JS symbol; ledger absent C 1; cmap_to_glyph(cmap) wrapper; 0 C refs — brief 2026-10-03) @bd0144c89 **Addressed:** D-3393
+- [x] `display.c` newsym flux + Underwater gates — C display.c:928–929 (_suppress_map_output early return) + :943–948 (Underwater !Is_waterlevel → pool/lava/ice + next2u gate) absent from js/display.js:5348 newsym (head :5348–5356 loc-null → uswallow, no guards; callees suppress_map_output js/display.js:5101 + Is_waterlevel js/const.js:3243 + is_ice js/zap.js:887 live, next2u/is_pool_or_lava resolve at pop-time brief; ledger partial D-1745/D-1737 — brief 2026-10-03) @41ae7cfca **Addressed:** D-3393
+
+
+- [x] `monmove.c` postmov after_shk_move MOVED|DONE guard — C monmove.c:1700–1702 inside `:1660 if (mmoved == MMOVE_MOVED || MMOVE_DONE)` absent from js/monmove.js:1878–1881 (fires on MMOVE_NOTHING entries via :2355; resets bill_p + rechecks occupancy where C holds the sentinel; fix: guard the new call only, not the pre-existing tail — brief 2339). Source: reviews/loop-unattended/2339-bec62f3b9-after-shk-move-guard.md **Addressed:** D-3392 `4ea047f25`
+- [x] `invent.c` repopulate_perminvent — C invent.c:3455–3460 absent from js/ (no JS symbol; ledger absent C 2; display_pickinv(NULL,0,0,FALSE,FALSE,0) wrapper; 0 C refs; callee display_pickinv split across invent.js builders D-1559 — brief 2026-10-03) @bd0144c89 **Addressed:** D-3392 `4ea047f25`
+- [x] `invent.c` only_here — C invent.c:5476–5480 absent from js/ (no JS symbol; ledger absent C 1; staticfn ox/oy vs go.only; decl-only C ref invent.c:20, no live callers; 0 C callees — brief 2026-10-03) @bd0144c89 **Addressed:** D-3392 `4ea047f25`
 
 
 - [x] `files.c` recover_savefile compiled-out port — C files.c:2864–3082 under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined; sole caller sys/unix/unixunix.c:216–219 inside the same ifdef) shipped live + flipped ported instead of by-design (RUNBOOK §4; Placebc/adjust_prefix/CHANGE_COLOR precedent); fix: ledger by-design + delete dead JS (recover + recover-only sfo_int/sfvalue_int, no callers) + verify incl. full — brief 2344. Source: reviews/loop-unattended/2344-d6a4a5312-recover-scope.md **Addressed:** D-3391 `6d194731e`

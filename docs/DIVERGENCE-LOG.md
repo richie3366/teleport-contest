@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3393 — display.c fn_cmap_to_glyph + newsym flux/Underwater guards
+
+- **Status:** shipped (2 missing-arm rows checked off + archived in this commit).
+- **Symptom:** coverage — no corpus divergence (`hidden-proxy verify` on both: no session blocked). (a) C `fn_cmap_to_glyph` had no JS symbol (ledger absent); (b) `newsym` lacked its two head guards (ledger partial omit).
+- **C locus:**
+  - `fn_cmap_to_glyph`: `display.c:3796–3800` — C++-compat function version of the `cmap_to_glyph` macro (Qt sources); whole body is `return cmap_to_glyph(cmap)`.
+  - `newsym`: `display.c:928–929` (`_suppress_map_output()` early return — in_mklev/saving/restoring flux) + `:943–948` (Underwater non-waterlevel return unless pool/lava/ice adjacent via `next2u`).
+- **JS was:**
+  - `fn_cmap_to_glyph`: no export, no local (sym NOT FOUND).
+  - `newsym`: `js/display.js:newsym` opened with loc-null → uswallow; no flux gate, no Underwater gate (sibling `feel_location` :5129–5133 already had both shapes in-file).
+- **Fix:** (a) new `export function fn_cmap_to_glyph` beside `cmap_to_glyph`, whole C body; (b) `newsym` gains `if (suppress_map_output()) return;` first (in-file :5101, same as `feel_location`), then after the uswallow block the Underwater gate in C order/short-circuit: `(u.uinwater|0)` (C `Underwater ≡ u.uinwater`, youprop.h:279; the live field — `set_uinwater` writers) `&& !Is_waterlevel(u.uz)` (const.js import, already in-file) `&& (!(is_pool_or_lava_disp || is_ice_disp) || !(dist2(...) <= 2))` (`next2u ≡ distu <= 2`, you.h:558; in-file `_disp` helpers + `dist2` import — no new cross-module edge, no 6th `next2u` clone since C is a macro).
+- **JS:** `js/display.js:685` (`fn_cmap_to_glyph`); `js/display.js:5360` (flux gate), `:5371–5379` (Underwater gate) inside `newsym` (:5356).
+- **Callers:**
+  - `fn_cmap_to_glyph`: 0 C refs — no callers to wire; export available at C-home.
+  - `newsym`: 452 C call sites, wired long ago (D-1745 era) to the same export — guards are internal, so all ~480 JS `newsym(` sites across 40+ files inherit them with no signature change.
+- **Verify:** `node scripts/verify.mjs --fn fn_cmap_to_glyph,newsym` → syntax PASS (1 file) · rule2 PASS · hidden note (no session blocked on either) · REACH-OK both (fixed 24-session smoke spreads, 0 regressed) · green 2/2 · strict both · cohort 7/7 · full 44/44 (auto: shared file). VERIFY: PASS.
+- **Named omissions:**
+  - `fn_cmap_to_glyph`: none — whole C body live (0 C callees besides `cmap_to_glyph`).
+  - `newsym`: none remaining of the ledger omits. By-design, out of row scope: C `:930–939` isok/panic/impossible diagnostic — guard effect live via loc-null return; `panic` has no JS symbol port-wide and `impossible()` is async (file convention is silent guard + comment, cf. wall_angle :3279–3281).
+- **Ledger:** fn_cmap_to_glyph ported; newsym ported
+- **Next:** queue head is now `priest.c` move_special shop re-entry arm; refilled +4 (brief-verified: knows_object pauper gate, mkstemp/sasc_bug by-design verdicts, forget_temple_entry diagnostic) — `rows --write` 0, `hidden-proxy queue --limit 30` 0 eligible, Parked `touch_artifact` stale (live js/artifact.js:1570), `config_error_add`/`raw_printf`/`opt_usage` brief-complete so not queued. Queue back at 8.
+
 ## D-3392 — Must-fix 2339.1 falsified (postmov :1669 predates review) + invent.c repopulate_perminvent/only_here port
 
 - **Status:** shipped (Must-fix 2339.1 falsified — checked off + archived in this commit; review `reviews/loop-unattended/2339-bec62f3b9-after-shk-move-guard.md` stamped Addressed; 2 missing-arm rows checked off + archived).

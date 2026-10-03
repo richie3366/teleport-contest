@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3393 display.c fn_cmap_to_glyph + newsym flux/Underwater guards
+
+**C locus:** - `fn_cmap_to_glyph`: `display.c:3796–3800` — C++-compat function version of the `cmap_to_glyph` macro (Qt sources); whole body is `return cmap_to_glyph(cmap)`.
+**JS:** `js/display.js:685` (`fn_cmap_to_glyph`); `js/display.js:5360` (flux gate), `:5371–5379` (Underwater gate) inside `newsym` (:5356).
+**Change:** (a) new `export function fn_cmap_to_glyph` beside `cmap_to_glyph`, whole C body; (b) `newsym` gains `if (suppress_map_output()) return;` first (in-file :5101, same as `feel_location`), then after the uswallow block the Underwater gate in C order/short-circuit: `(u.uinwater|0)` (C `Underwater ≡ u.uinwater`, youprop.h:279; the live field — `set_uinwater` writers) `&& !Is_waterlevel(u.uz)` (const.js import, already in-file) `&& (!(is_pool_or_lava_disp || is_ice_disp) || !(dist2(...) <= 2))` (`next2u ≡ distu <= 2`, you.h:558; in-file `_disp` helpers + `dist2` import — no new cross-module edge, no 6th `next2u` clone since C is a macro).
+**Verify:** `node scripts/verify.mjs --fn fn_cmap_to_glyph,newsym` → syntax PASS (1 file) · rule2 PASS · hidden note (no session blocked on either) · REACH-OK both (fixed 24-session smoke spreads, 0 regressed) · green 2/2 · strict both · cohort 7/7 · full 44/44 (auto: shared file). VERIFY: PASS.
+**Named:** - `fn_cmap_to_glyph`: none — whole C body live (0 C callees besides `cmap_to_glyph`).
+**Next:** queue head is now `priest.c` move_special shop re-entry arm; refill attempted — `rows --write` 0 rows, `hidden-proxy queue --limit 30` 0 eligible (all open/parked/archived), Parked writer spot-check (`touch_artifact`) stale (live js/artifact.js:1570) — 4 genuine rows remain, none manufactured.
 ## 2026-10-03 — D-3392 Must-fix 2339.1 falsified (postmov :1669 predates review) + invent.c repopulate_perminvent/only_here port
 
 **C locus:** - `after_shk_move` call site: nethack-c/upstream/src/monmove.c:1700–1702 inside `:1660 if (mmoved == MMOVE_MOVED || MMOVE_DONE)`.

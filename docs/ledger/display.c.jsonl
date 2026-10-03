@@ -23,7 +23,7 @@
 {"fn":"suppress_map_output","c":"715-718","status":"ported","js":["js/display.js:suppress_map_output"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feel_newsym","c":"726-732","status":"ported","js":["js/display.js:feel_newsym"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
 {"fn":"feel_location","c":"746-909","status":"partial","js":["js/display.js:feel_location"],"omit":"wintty.c:435 rescale trigger (above); non-docrt under_water/under_ground caller wiring (pre-existing D-1981 names stand); `feel_can_reach_floor` usteed P_RIDING (pre-existing name stands).","d":["D-2461","D-1749"],"at":"seed@a30a7de84"}
-{"fn":"newsym","c":"917-1099","status":"partial","js":["js/display.js:newsym"],"omit":"missing _suppress_map_output() early return (in_mklev/saving/restoring) and Underwater non-adjacent early return (is_pool_or_lava/is_ice + next2u gate)","d":["D-1745","D-1737"],"at":"2026-10-03@bbe63333a"}
+{"fn":"newsym","c":"917-1099","status":"ported","js":["js/display.js:newsym"],"d":["D-3393","D-1745","D-1737"],"at":"2026-10-03@4ea047f25"}
 {"fn":"shieldeff","c":"1110-1124","status":"ported","js":["js/display.js:shieldeff"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tether_glyph","c":"1127-1133","status":"ported","js":["js/display.js:tether_glyph"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tmp_at","c":"1174-1296","status":"ported","js":["js/display.js:tmp_at"],"at":"2026-10-03@bbe63333a"}
@@ -71,4 +71,4 @@
 {"fn":"unset_seenv","c":"3384-3393","status":"ported","js":["js/display.js:unset_seenv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"t_warn","c":"3453-3498","status":"ported","js":["js/display.js:t_warn"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"stale: js/display.js:3170"}
 {"fn":"wall_angle","c":"3513-3787","status":"ported","js":["js/display.js:wall_angle"],"d":["D-3013","D-2608"],"at":"2026-09-28@2af820a38","note":"stale: whole body live split across js/display.js wall_angle:3160+do_twall:3204+vwall:3250+hwall:3263+set_corner:3277+cross:3290+do_crwall:3338 with t_warn:3133 per D-2608; six impossible() default-arm reports cite-only (sync hot path, async-impossible convention)"}
-{"fn":"fn_cmap_to_glyph","c":"3797-3800","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"fn_cmap_to_glyph","c":"3797-3800","status":"ported","js":["js/display.js:fn_cmap_to_glyph"],"d":["D-3393"],"at":"2026-10-03@4ea047f25","note":"refresh: no JS symbol (measured MISSING)"}

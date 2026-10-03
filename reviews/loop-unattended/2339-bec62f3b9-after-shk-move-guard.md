@@ -4,7 +4,7 @@
 **Scope:** js/shk.js +18/−7 (export async, occupancy arm, 2 awaits, import), js/monmove.js +7/−2 (postmov wiring). Single-function.
 **Prior reviews closed:** none.
 
-**Addressed:** D-3392
+**Addressed:** D-3392 `4ea047f25`
 
 ## Intent vs deliverable
 
