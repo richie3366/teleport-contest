@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3366 `detect.c` reveal-terrain committed probe deletion (review 2318 C-wrong 1)
+
+**C locus:** nethack-c/upstream/src/detect.c:2166–2288 (reveal_terrain_getglyph; no C change — deletion of JS-only DIAG).
+**JS:** js/display.js:4366 reveal_terrain_getglyph (capture block gone; tail return :4553–4555).
+**Change:** deleted both blocks; restored the pre-6da1640bc direct `return reveal_terrain_cmap_hack(...)` tail (verified against `git show 6da1640bc~1:js/display.js`). Repo-wide grep: no remaining `__probe` / `__probe_reveal` in `js/` or tests — nothing read the global.
+**Verify:** `node scripts/verify.mjs --fn reveal_terrain_getglyph` → syntax PASS (1 file: js/display.js) · rule2 PASS · hidden note (0 blocked, expected — Must-fix, not corpus) · reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** none (deletion only; the reveal id arms and their D-3363 omissions stand).
+**Next:** Must-fix 2317/1 (dobuzz steed tail-skip) + 2317/2 (slept_monst callers).
 ## 2026-10-03 — D-3365 `symbols.c` set_symhandling CURS/MAC indices (dedup to C-exact KNOWN_HANDLING)
 
 **C locus:** nethack-c/upstream/src/symbols.c:657–669 (set_symhandling: H_UNK default + strcmpi scan) over known_handling[] :376–384 (UNKNOWN/IBM/DEC/CURS/MAC/UTF8 + NUL).

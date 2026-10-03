@@ -131,6 +131,6 @@ Actionable C-wrongs:
    :376–384; restores indices incl. UTF8=5; no callers →
    behavior-neutral).
 
-**Addressed:** D-3365
+**Addressed:** D-3365 `8b1162c17`
 
 Verdict: **QUALITY-RISK**

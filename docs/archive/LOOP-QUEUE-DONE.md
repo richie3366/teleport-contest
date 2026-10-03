@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `symbols.c` set_symhandling missing CURS/MAC arms — js/const.js:2917 known_handling holds 4 strings, C symbols.c:376–384 holds 6 ("CURS"/"MAC" absent, so "UTF8" resolves to 3 not H_UTF8=5 while JS H_* consts are C-exact; reader options.js:12798 compares === H_UTF8; Ledger says ported but measures C 7/JS 5 PARTIAL). Add the 2 strings in C order (no JS callers — behavior-neutral). Source: reviews/loop-unattended/2319-79f8032a6-assign-graphics-siblings.md @79f8032a6 **Addressed:** D-3365
+- [x] `detect.c` reveal_terrain_getglyph committed probe — js/display.js:4369 `((x|0)===42 && (y|0)===15)` capture + :4563–4567 `globalThis.__probe_reveal` write (recorded session coordinate hardcoded in scored `js/`; behavior-neutral DIAG, nothing reads it; D-3363 "(reverted)" false — added by 6da1640bc, live at HEAD). Delete both blocks. Source: reviews/loop-unattended/2318-6da1640bc-def-char-is-furniture-reveal.md @79f8032a6
+
+
+- [x] `symbols.c` set_symhandling missing CURS/MAC arms — js/const.js:2917 known_handling holds 4 strings, C symbols.c:376–384 holds 6 ("CURS"/"MAC" absent, so "UTF8" resolves to 3 not H_UTF8=5 while JS H_* consts are C-exact; reader options.js:12798 compares === H_UTF8; Ledger says ported but measures C 7/JS 5 PARTIAL). Add the 2 strings in C order (no JS callers — behavior-neutral). Source: reviews/loop-unattended/2319-79f8032a6-assign-graphics-siblings.md @79f8032a6 **Addressed:** D-3365 `8b1162c17`
 
 
 - [x] `symbols.c` assign_graphics — C symbols.c:224–227 + :236–239 showsyms table copy absent from js/display.js:assign_graphics (brief 2026-10-03; reset_glyphmap :249 guarded per NOTES, excluded) @9dc9139eb **Addressed:** D-3364 `79f8032a6`

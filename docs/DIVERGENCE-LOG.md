@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3366 — `detect.c` reveal-terrain committed probe deletion (review 2318 C-wrong 1)
+
+- **Status:** shipped (Must-fix review 2318; checked off + archived in this commit). js/display.js only, net −14 lines.
+- **Symptom:** review 2318 C-wrong 1: 6da1640bc (D-3363) committed a `((x|0)===42 && (y|0)===15)` capture + `globalThis.__probe_reveal` write in `reveal_terrain_getglyph` — the recorded session cell (42,15) hardcoded in scored `js/`, a global nothing reads. Behavior-neutral (record-only, no control-flow/RNG/return effect), but §6-forbidden DIAG; D-3363 "(reverted)" false.
+- **C locus:** nethack-c/upstream/src/detect.c:2166–2288 (reveal_terrain_getglyph; no C change — deletion of JS-only DIAG).
+- **JS was:** js/display.js:4369 `const __probe = ((x|0)===42 && (y|0)===15) ? {...} : null` + :4563–4567 `if (__probe) {...; globalThis.__probe_reveal = __probe; }` with the return routed through `const __ret`.
+- **Fix:** deleted both blocks; restored the pre-6da1640bc direct `return reveal_terrain_cmap_hack(...)` tail (verified against `git show 6da1640bc~1:js/display.js`). Repo-wide grep: no remaining `__probe` / `__probe_reveal` in `js/` or tests — nothing read the global.
+- **JS:** js/display.js:4366 reveal_terrain_getglyph (capture block gone; tail return :4553–4555).
+- **Callers:** unchanged — detect.js:1372 → display.js:4508 → :4515 per-cell path (D-3363) untouched; deletion is caller-neutral.
+- **Verify:** `node scripts/verify.mjs --fn reveal_terrain_getglyph` → syntax PASS (1 file: js/display.js) · rule2 PASS · hidden note (0 blocked, expected — Must-fix, not corpus) · reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:** none (deletion only; the reveal id arms and their D-3363 omissions stand).
+- **Ledger:** reveal_terrain_getglyph partial
+- **Next:** Must-fix 2317/1 (dobuzz steed tail-skip) + 2317/2 (slept_monst callers).
+
 ## D-3365 — `symbols.c` set_symhandling CURS/MAC indices (dedup to C-exact KNOWN_HANDLING)
 
 - **Status:** shipped (Must-fix review 2319; checked off + archived in this commit). js/const.js only, net −1 line.

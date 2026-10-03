@@ -4366,13 +4366,6 @@ function glyph_is_trap_at(glyph, x, y) {
 export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_subset) {
     const loc = game.level?.at(x, y);
     if (!loc) return default_glyph;
-    const __probe = ((x | 0) === 42 && (y | 0) === 15) ? {
-        seenv: loc.seenv | 0, typ: loc.typ | 0, ladder: loc.ladder | 0,
-        hero_memory: !!game.level?.flags?.hero_memory,
-        remembered_glyph: loc.remembered_glyph ? { ...loc.remembered_glyph } : null,
-        disp_before: { ch: loc.disp_ch, glyph: loc.disp_glyph },
-        lastseentyp: game.lastseentyp?.[x]?.[y] | 0,
-    } : null;
 
     const keep_traps = (which_subset & TER_TRP) !== 0;
     const keep_objs = (which_subset & TER_OBJ) !== 0;
@@ -4557,16 +4550,9 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
 
     // C: an unclassified cell keeps glyph_at — the displayed int, which is
     // GLYPH_UNEXPLORED for unseen cells (never the stone default).
-    const __ret = reveal_terrain_cmap_hack(
+    return reveal_terrain_cmap_hack(
         glyph || attach_glyph(copy_glyph(default_glyph), GLYPH_UNEXPLORED),
     );
-    if (__probe) {
-        __probe.kind = kind;
-        __probe.ret = __ret ? { ch: __ret.ch, color: __ret.color, glyph: __ret.glyph } : null;
-        __probe.levl_id = levl_glyph ? levl_glyph.glyph : null;
-        globalThis.__probe_reveal = __probe;
-    }
-    return __ret;
 }
 
 /**
