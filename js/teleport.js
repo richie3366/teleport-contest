@@ -92,6 +92,8 @@ import { emits_light } from './light.js';
 import { m_at as mon_m_at, seemimic } from './mon.js';
 /* dig.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
 import { fill_pit } from './dig.js';
+/* mklev.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
+import { somex } from './mklev.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
@@ -936,9 +938,6 @@ function occupied(x, y) {
         || IS_POOL(loc.typ));
 }
 
-function somex(croom) {
-    return rn1((croom.hx | 0) - (croom.lx | 0) + 1, croom.lx | 0);
-}
 function somey(croom) {
     return rn1((croom.hy | 0) - (croom.ly | 0) + 1, croom.ly | 0);
 }
@@ -950,11 +949,11 @@ function somey(croom) {
 function somexy(croom, c) {
     if (croom.irregular || (croom.nsubrooms | 0)) {
         // Named omission: irregular edge/roomno + subroom inside_room reject
-        c.x = somex(croom);
+        c.x = somex(croom); // C mkroom.c:666–669 live js/mklev.js export
         c.y = somey(croom);
         return true;
     }
-    c.x = somex(croom);
+    c.x = somex(croom); // C mkroom.c:666–669 live js/mklev.js export
     c.y = somey(croom);
     return true;
 }

@@ -14,7 +14,7 @@
 {"fn":"nexttodoor","c":"623-637","status":"ported","js":["js/fountain.js:nexttodoor"],"at":"2026-09-29@d27c7b945","note":"stale: js/fountain.js:641"}
 {"fn":"has_dnstairs","c":"640-650","status":"unknown"}
 {"fn":"has_upstairs","c":"653-663","status":"unknown"}
-{"fn":"somex","c":"666-669","status":"unknown","d":["D-2006"],"at":"seed@a30a7de84"}
+{"fn":"somex","c":"666-669","status":"ported","js":["js/mklev.js:somex"],"d":["D-3335","D-2006"],"at":"2026-10-03@bd3c64132"}
 {"fn":"somey","c":"672-675","status":"unknown"}
 {"fn":"inside_room","c":"678-687","status":"unknown"}
 {"fn":"somexy","c":"694-740","status":"unknown"}

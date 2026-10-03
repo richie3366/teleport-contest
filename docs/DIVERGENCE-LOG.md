@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3335 — `mkroom.c` somex teleport.js clone removal (2 sites → live js/mklev.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~6 js/ insertions — below the ~80 bar, defended (D-3328/D-3334 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (mkroom.c) holds no further Open rows while somex has 0 C callees, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `somex`: nethack-c/upstream/src/mkroom.c:666–669 — `rn1(croom->hx - croom->lx + 1, croom->lx)`; 11 C refs incl mkroom.c:703/718/726 (somexy arms) and sp_lev.c:6150.
+- **JS was:** live `somex` js/mklev.js:32977 (`rn1(hx-lx+1, lx)`) coexisted with clone js/teleport.js:939-then (`|0`-coerced — semantically identical on int room bounds), 2 live sites in the teleport-local `somexy` (:953/:957-then). No static teleport→mklev edge (dynamic-import only + D-1101 cycle comment).
+- **Fix:** new static teleport→mklev edge (`import { somex } from './mklev.js'`, js/teleport.js:95-96; `imports.mjs --can` SAFE — same 101-module SCC, hoisted fn, verify judges TDZ); deleted the clone; one C-cite comment per site (:952/:956). Site expressions unchanged; behavior-identical rewire. Maintained test: new scripts/somex-teleport-rewire.test.mjs (live-export range/degenerate cases; teleport.js no-clone + live-import census; js/ somex definer census).
+- **JS:**
+  - `somex`: js/mklev.js:32977 (live, unchanged); import js/teleport.js:95-96; clone deleted; rewired sites js/teleport.js:952,956.
+- **Callers:**
+  - `somex`: C mkroom.c:703/718/726 (somexy arms) → js/teleport.js:952,956 (teleport-local somexy). Remaining 8 C refs out of cluster: served by the live export where JS ports import it; 1 JS clone remains for its own row (js/dog.js:876, 3 sites).
+- **Verify:**
+  - `somex`: hidden note (0 blocked — normal for coverage) · REACH-OK (705 reach, 80 spread run, 80 PASS, 0 regressed) · `node --test scripts/somex-teleport-rewire.test.mjs` 4/4 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn somex` → PASS syntax (1 changed js file: js/teleport.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (80 run, 80 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `somex`: none in-body — whole C body live at js/mklev.js:32977.
+- **Ledger:** somex ported js=mklev.js:somex
+- **Next:** the remaining missing-arm rows (ledger_no dig head + dunlev/healup/m_useup/monflee/Amonnam×3 — different C files, next iterations).
+
 ## D-3334 — `trap.c` t_at steed.js clone removal (sole site → live js/trap.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~4 js/ insertions — below the ~80 bar, defended (D-3328/D-3333 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (trap.c) holds no further Open rows while t_at has 0 C callees, so the cluster cannot grow.

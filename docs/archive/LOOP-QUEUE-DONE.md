@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `mkroom.c` somex teleport.js clone removal — C mkroom.c:666–669 rn1(hx-lx+1,lx) absent from js/teleport.js (local clone :945, 2 live sites :959/:963 instead of importing live js/mklev.js:32977; C body in brief somex this session, clone body + sites read this session, no static teleport→mklev edge — dynamic-import only + D-1101 cycle comment :342, imports.mjs SAFE this session — hoisted fn, verify judges TDZ; dog.js:876 second clone with 3 sites stays for its own row) — rewire sites to the live export, delete clone.
+
+
 - [x] `trap.c` t_at steed.js clone removal — C trap.c:6502–6512 ftrap-chain scan absent from js/steed.js (local clone :163 reading game.ftrap vs live js/trap.js:1119 reading game.level?.traps, sole live site :573; C body in brief t_at this session, clone body + site read this session, steed→trap edge ALREADY :61 this session) — confirm both trap chains alias, then rewire site to the live export, delete clone.
 
 
