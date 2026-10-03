@@ -31,7 +31,7 @@ import { monsterNames } from './monsters.js';
 import { yn_function } from './getline.js';
 import { nomul } from './hack.js';
 import { deltrap } from './trap.js';
-import { remdun_mapseen, dungeon_branch } from './dungeon.js';
+import { remdun_mapseen, dungeon_branch, Is_special } from './dungeon.js';
 import { exercise, adjalign, A_WIS } from './attrib.js';
 import { fully_identify_obj, update_inventory, observe_object } from './invent.js';
 import { the, xname } from './objnam.js';
@@ -55,14 +55,6 @@ function on_level(a, b) {
     return !!a && !!b
         && (a.dnum | 0) === (b.dnum | 0)
         && (a.dlevel | 0) === (b.dlevel | 0);
-}
-
-/** C ref: dungeon.c Is_special — match in sp_levchn. */
-function Is_special(lev) {
-    for (const s of game.sp_levchn || []) {
-        if (on_level(lev, s.dlevel)) return s;
-    }
-    return null;
 }
 
 /** C ref: quest.h / dungeon.c Is_qstart */
@@ -215,6 +207,7 @@ export async function onquest() {
     // C: #define Not_firsttime (on_level(&u.uz0, &u.uz))
     if (on_level(u.uz0, u.uz)) return;
     if (!In_quest(u.uz)) return;
+    // C quest.c:94 !Is_special(&u.uz) — live dungeon.js export.
     if (!Is_special(u.uz)) return;
 
     if (Is_qstart(u.uz)) await on_start();

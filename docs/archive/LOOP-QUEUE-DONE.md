@@ -5,6 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `dungeon.c` Is_special end/quest clone removal — C dungeon.c:1448–1457 sp_levchn scan call absent from js/end.js + js/quest.js (local clones :616/:61 instead of importing live js/dungeon.js:2871; brief this session: 14 C call sites, callee live js/dungeon.js:1809) — rewire clone call sites to the C-locus export, delete clones.
+
+
+- [x] `rm.h` m_at shknam.js clone removal — C rm.h:510–511 MON_AT-gated lookup call absent from js/shknam.js (local clone :268 with 2 live call sites :624/:677 instead of importing live js/mon.js:1749; C body + 188 refs in brief this session, JS read this session); rewire both sites to the live export, delete clone.
+
+
 - [x] `do.c` badspot — C do.c:1400–1406 `typ!=ROOM/AIR/CORR || MON_AT` absent from js/ (no symbol; brief this session; sole C ref is the commented-out decl :25 — dead in C) — resolve by-design or port module-local (C static).
 - [x] `shknam.c` free_eshk — C shknam.c:569–576 `free ESHK + isshk=0` absent from js/ (no symbol; brief this session; sole src ref is extern.h:2981 decl — dead in src, util/sfctool.c twin is tooling) — resolve by-design (GC) or port.
 - [x] `vault.c` free_egd — C vault.c:35–42 `free EGD + isgd=0` absent from js/ (no symbol; brief this session; sole src ref is extern.h:3548 decl — dead in src, util/sfctool.c twin is tooling) — resolve by-design (GC) or port.

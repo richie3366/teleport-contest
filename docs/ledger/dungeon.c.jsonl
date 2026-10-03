@@ -37,7 +37,7 @@
 {"fn":"ledger_to_dlev","c":"1422-1426","status":"unknown"}
 {"fn":"depth","c":"1431-1434","status":"unknown"}
 {"fn":"on_level","c":"1439-1443","status":"unknown"}
-{"fn":"Is_special","c":"1448-1457","status":"unknown"}
+{"fn":"Is_special","c":"1448-1457","status":"ported","js":["js/dungeon.js:Is_special"],"d":["D-3328"],"at":"2026-10-03@95d4fec09"}
 {"fn":"Is_branchlev","c":"1464-1473","status":"unknown"}
 {"fn":"builds_up","c":"1477-1493","status":"unknown"}
 {"fn":"next_level","c":"1497-1514","status":"unknown"}

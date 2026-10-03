@@ -47,7 +47,7 @@ import { obj_resists } from './dogmove.js';
 import { in_town } from './hack.js';
 import { rloc } from './teleport.js';
 import { noit_mon_nam } from './do_name.js';
-import { discard_minvent } from './mon.js';
+import { discard_minvent, m_at } from './mon.js';
 
 const VEGETARIAN_CLASS = MAXOCLASSES + 1;
 const VEGGY = 3; // objclass.h
@@ -264,14 +264,6 @@ export const shtypes = [
         ],
     },
 ];
-
-function m_at(x, y) {
-    for (const m of (game.fmon || [])) {
-        if (m && m.mx === x && m.my === y) return m;
-    }
-    return null;
-}
-
 
 function ledger_no(lev) {
     const dun = game.dungeons?.[lev?.dnum | 0];
@@ -621,6 +613,8 @@ function mkshobj_at(shp, sx, sy, mkspecl) {
     }
 
     const dep = Math.abs(depth_of_level(game.u?.uz) | 0);
+    // C shknam.c:470 !MON_AT(sx, sy) — no JS MON_AT export; live m_at
+    // (mon.js) is null iff the square is unoccupied at stock time.
     if (rn2(100) < dep && !m_at(sx, sy)) {
         const ptr = mkclass('S_MIMIC', 0);
         if (ptr && makemon(ptr, sx, sy, 0)) return;

@@ -80,7 +80,7 @@ import {
     list_vanquished, list_genocided, show_conduct, count_achievements,
     record_achievement,
 } from './insight.js';
-import { show_overview, In_tutorial } from './dungeon.js';
+import { show_overview, In_tutorial, Is_special } from './dungeon.js';
 // C: end.c done2 abandon arm → do.c schedule_goto (imports.mjs --can:
 // SAFE, hoisted function decl, call-time use only).
 import { schedule_goto } from './do.js';
@@ -612,14 +612,6 @@ function on_level(a, b) {
         && (a.dlevel | 0) === (b.dlevel | 0);
 }
 
-/** C ref: dungeon.c Is_special — match in sp_levchn. */
-function Is_special(lev) {
-    for (const s of game.sp_levchn || []) {
-        if (on_level(lev, s.dlevel)) return s;
-    }
-    return null;
-}
-
 /** C ref: dungeon.c Is_branchlev — branch end1/end2 match. */
 function Is_branchlev(lev) {
     for (const br of game.branches || []) {
@@ -634,6 +626,7 @@ function Is_branchlev(lev) {
  * Named omission: save_dlevel reassignment before the checks.
  */
 export function no_bones_level(lev) {
+    // C bones.c:25 (sptr = Is_special(lev)) — live dungeon.js export.
     const sptr = Is_special(lev);
     if (sptr && !sptr.boneid) return true;
     const dun = game.dungeons?.[lev.dnum | 0];

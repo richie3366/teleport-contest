@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3328 — `rm.h` m_at shknam rewire + `dungeon.c` Is_special end/quest rewire (live-export clone removals)
+
+- **Status:** shipped (2 Open missing-arm rows checked off + archived — m_at head, Is_special; no review cited, no stamp owed). ~8 js/ insertions across 3 files — below the ~80 bar, defended (D-3327 4-file batch precedent for tiny missing-arm rows): each rewires whole clones to a live export with no body change, and the m_at row cannot ship alone — `m_at` is an rm.h macro, `ledger.mjs show` reports "not a pinned-C function", and finish-iteration is fail-closed on the Ledger bullet, so per the D-3023/D-3205 precedent the macro rides with the indexed Is_special (Ledger names Is_special only; m_at recorded in the Unindexed bullet below). Refill: 6 missing-arm rows appended from this session's brief/sym/imports/read evidence (m_at dig + uhitm clones; on_level quest + dig + do + end clones) — queue ships at 8 (coverage ungeneratable, hidden-proxy queue 0 eligible, parks need phase-2 C-measurement).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on both at baseline).
+- **C locus:**
+  - `m_at`: nethack-c/upstream/include/rm.h:510–511 — `(MON_AT(x, y) ? svl.level.monsters[x][y] : (struct monst *) 0)` (:516 carries the alternate one-line form); 188 C refs incl shknam.c:660; the mkshobj_at gate shknam.c:470 reads `!MON_AT(sx, sy)` (csym.mjs this session — JS has no MON_AT export).
+  - `Is_special`: nethack-c/upstream/src/dungeon.c:1448–1457 — sp_levchn scan for on_level(lev, dlevel); 14 C call sites + extern.h:872 decl.
+- **JS was:** live `m_at` js/mon.js:1745 (worm-seg grid read + fmon scan skipping steed/DEADMONSTER/MON_OFFMAP) coexisted with local clone js/shknam.js:268-then (fmon-only `m.mx===x && m.my===y` scan — no dead/steed/offmap/seg arms) serving 2 sites (:624/:677-then). Live `Is_special` js/dungeon.js:2871 coexisted with clones js/end.js:616-then (1 site :637-then) and js/quest.js:61-then (1 site :218-then).
+- **Fix:** m_at: extended the ALREADY static mon.js edge (js/shknam.js:50, `imports.mjs --can` ALREADY) with `m_at`; deleted the clone; one C-cite comment per site (:618 notes C shknam.c:470 `!MON_AT` + no-JS-MON_AT + null-iff-unoccupied-at-stock-time; :671 keeps its C `:658–660` cite, now resolving to live). Is_special: extended the ALREADY static dungeon.js edges (js/end.js:83, js/quest.js:34) with `Is_special`; deleted both clones; one C-cite comment per site (end.js:629 C bones.c:25; quest.js:210 C quest.c:94). All call-site expressions unchanged. Each file keeps its own on_level clone (still used elsewhere — end.js Is_branchlev, quest.js Is_qstart/Is_qlocate/Is_nemesis/Not_firsttime; out of cluster). New maintained tests scripts/mat-rewire.test.mjs (4 live-behavior + 2 census) and scripts/isspecial-rewire.test.mjs (2 live-behavior + 2 census), amonnam-rewire.test.mjs precedent.
+- **JS:**
+  - `m_at`: js/mon.js:1745 (live, unchanged); js/shknam.js:50 import extended; sites js/shknam.js:618/:671.
+  - `Is_special`: js/dungeon.js:2871 (live, unchanged); js/end.js:83 + js/quest.js:34 imports extended; sites js/end.js:630/js/quest.js:211.
+- **Callers:**
+  - `m_at`: C shknam.c:470 (mkshobj_at `!MON_AT` mimic gate — closest faithful rendering, live m_at null iff unoccupied at stock time; dead/steed/offmap cannot exist during stock_room) → js/shknam.js:618; C shknam.c:660 (shkinit squatter insurance) → js/shknam.js:671. Remaining C refs out of cluster: served by the live export where JS ports import it; the other 3 JS locals documented, not rewired (teleport.js:137 intentional steed-finding variant per its :88 comment; dig.js:224 + uhitm.js:465 queued as refill rows).
+  - `Is_special`: C bones.c:25 (no_bones_level boneid gate) → js/end.js:630; C quest.c:94 (onquest gate) → js/quest.js:211. Remaining 12 C refs out of cluster (served by the live export where JS ports import it; no other JS clones — census test pins js/dungeon.js sole definer).
+- **Verify:**
+  - `m_at`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/mat-rewire.test.mjs` 6/6 pass.
+  - `Is_special`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/isspecial-rewire.test.mjs` 4/4 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn m_at,Is_special` → PASS syntax (3 changed js files: js/end.js js/quest.js js/shknam.js) · PASS rule2 · note hidden ×2 (no corpus session blocked) · PASS reach ×2 (smoke 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `m_at`: none in-body — whole C body live at js/mon.js:1745.
+  - `Is_special`: none in-body — whole C body live at js/dungeon.js:2871.
+- **Ledger:** Is_special ported
+- **Unindexed helper ledger:** m_at rewired at js/shknam.js:618/:671 to the live js/mon.js:1745; `ledger.mjs show m_at` reports "not a pinned-C function" because its index is src/*.c (D-3023 matching_launcher / D-3205 enlght_combatinc precedent). Recorded here rather than inventing a src function row.
+- **Next:** Is_branchlev port + end rewire (head), has_ceiling 3-file rewire, the 2 refill m_at rows (dig, uhitm), the 4 refill on_level rows (quest, dig, do, end).
+
 ## D-3327 — `do.c` badspot + `shknam.c`/`vault.c` free twins (by-design) + `hacklib.c` dist2 mon.js-duplicate removal
 
 - **Status:** shipped (4 Open missing-arm rows checked off + archived — badspot head, free_eshk, free_egd, dist2; no review cited, no stamp owed). 26 insertions / 13 js files — below the ~80 density bar, defended: the dist2 row ships its whole importer closure (12 files rewired + mon.js duplicate deleted, behavior-identical bodies) and the three dead-in-C rows need no symbol; the m_at / Is_special / Is_branchlev / has_ceiling rows were edited then split back out to the next iteration by the 15-file cap (18 files together; this commit 13).
