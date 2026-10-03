@@ -26,7 +26,7 @@ import {
     m_at, m_carrying, mongone, onscary, monnear,
     wakeup, wake_nearto,
 } from './mon.js';
-import { lined_up, linedup_callback, m_throw } from './mthrowu.js';
+import { lined_up, linedup_callback, m_throw, m_useup } from './mthrowu.js'; // C mthrowu.c:1162–1170 m_useup: live import serves all 18 in-file sites (D-3338)
 import {
     is_animal, mindless, nohands, is_floater, needspick, nonliving,
     is_vampshifter, is_mercenary, monsterNames, mons, haseyes, mon_hates_silver,
@@ -1305,26 +1305,6 @@ function healmon(mtmp, amt, overheal) {
         if ((mtmp.mhp | 0) > (mtmp.mhpmax | 0)) mtmp.mhpmax = mtmp.mhp | 0;
     }
     return (mtmp.mhp | 0) - oldhp;
-}
-
-/**
- * C ref: mthrowu.c m_useup — consume one from monster invent.
- */
-function m_useup(mon, obj) {
-    if (!mon || !obj) return;
-    if ((obj.quan | 0) > 1) {
-        obj.quan = (obj.quan | 0) - 1;
-        return;
-    }
-    if (mon.minvent === obj) mon.minvent = obj.nobj;
-    else {
-        for (let p = mon.minvent; p; p = p.nobj) {
-            if (p.nobj === obj) {
-                p.nobj = obj.nobj;
-                break;
-            }
-        }
-    }
 }
 
 /**

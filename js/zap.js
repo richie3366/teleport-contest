@@ -277,7 +277,7 @@ import {
     disguised_as_mon, disguised_as_non_mon,
 } from './uhitm.js';
 import { mon_nam, Monnam, a_monnam, noit_Monnam, noname_monnam, type_is_pname, christen_monst, hliquid, Hallucination, rndmonnam, free_oname } from './do_name.js';
-import { rnd_hallublast } from './mthrowu.js';
+import { rnd_hallublast, m_useup } from './mthrowu.js';
 import { finish_losehp_done, done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap, deltrap,
@@ -1558,26 +1558,6 @@ async function hit_zap(str, mtmp, force) {
 }
 
 /**
- * C ref: mthrowu.c m_useup — consume one from monster invent.
- */
-function m_useup(mon, obj) {
-    if (!mon || !obj) return;
-    if ((obj.quan | 0) > 1) {
-        obj.quan = (obj.quan | 0) - 1;
-        return;
-    }
-    if (mon.minvent === obj) mon.minvent = obj.nobj || null;
-    else {
-        for (let p = mon.minvent; p; p = p.nobj) {
-            if (p.nobj === obj) {
-                p.nobj = obj.nobj || null;
-                break;
-            }
-        }
-    }
-}
-
-/**
  * C ref: invent.c useup — consume one from hero invent array.
  */
 function useup_invent(obj) {
@@ -1771,7 +1751,7 @@ async function maybe_destroy_item(carrier, obj, dmgtyp) {
 
         for (let i = 0; i < cnt; i++) {
             if (u_carry) useup_invent(obj);
-            else m_useup(carrier, obj);
+            else m_useup(carrier, obj); // C zap.c:5933 via live mthrowu.js import (D-3338)
         }
         if (dmg) {
             if (!u_carry) return xresist ? 0 : dmg;
@@ -3357,7 +3337,7 @@ export async function revive(corpse, by_hero) {
         delobj_core(used, true);
         break;
     case OBJ_MINVENT:
-        m_useup(used.ocarry, used);
+        m_useup(used.ocarry, used); // C zap.c:1116 via live mthrowu.js import (D-3338)
         break;
     case OBJ_CONTAINED:
         obj_extract_self(used);

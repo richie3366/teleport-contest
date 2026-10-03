@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3338 — `mthrowu.c` m_useup zap.js + muse.js clone removals (20 sites → live js/mthrowu.js export)
+
+- **Status:** shipped (2 missing-arm rows checked off + archived; no review cited, no stamp owed). ~5 js/ insertions — below the ~80 bar, defended (D-3336 batch precedent for tiny missing-arm rows): two whole clones rewired to the live export, and the head's C file holds no further Open rows (2/2 m_useup rows shipped) while both C callees (weight, m_useupall) are already live, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline each).
+- **C locus:**
+  - `m_useup`: nethack-c/upstream/src/mthrowu.c:1162–1170 — quan>1 decrement + weight() else m_useupall; 32 C refs incl muse.c ×18, zap.c ×5 (1116/4327/4333/4335/4943/5933), uhitm.c ×2, worn.c ×3, mon.c:2863.
+- **JS was:** live `m_useup` js/mthrowu.js:184 coexisted with clone js/zap.js:1563-then (manual minvent unlink, NO weight() recompute on the quan>1 arm), 2 live sites :1774/:3360-then; and clone js/muse.js:1313-then (same two gaps), 18 live sites.
+- **Fix:** extended the ALREADY static mthrowu edges (js/zap.js:280, js/muse.js:29; `imports.mjs --can` ALREADY both — no new edge, no new test surface); deleted both clones; C-cite comments (zap per-site :1754/:3340; muse import-line :29 covering the 18 identical call lines, 6 of which already carry arm cites). Behavior delta is C-faithful: quan>1 now recomputes owt via weight(); the else arm now routes through m_useupall→extract_from_minvent instead of a bare nobj unlink. Maintained test: new scripts/museup-rewire.test.mjs (live weight-recompute + null guards + zap/muse import + definer census; the recompute case fails against either deleted clone by construction).
+- **JS:**
+  - `m_useup`: js/mthrowu.js:184 (live, unchanged body); imports js/zap.js:280, js/muse.js:29; clones deleted; rewired sites js/zap.js:1754,3340 and js/muse.js:1083,1509,1731,1736,1768,2349,2377,2420,2653,2771,2782,2795,3101,3113,3121,3156,3237,3252.
+- **Callers:**
+  - `m_useup`: C zap.c:5933 (destroy carrier obj) → js/zap.js:1754; C zap.c:1116 (revive corpse OBJ_MINVENT) → js/zap.js:3340; the 18 muse.c m_useup refs (:78–:3200) → the 18 js/muse.js sites (precheck :2349/:2377/:2420 cite C :79/:108/:153; wand/weapon :1731/:1736/:1768 carry trycall/explode notes). Remaining C refs out of cluster: served by the live export where JS ports import it (worn.js:558/573/581 already import it); distinctly-named lifesaver-path helpers m_useup_mm (mhitm.js:3030) and m_useup_you (uhitm.js:3929) untouched (separate helpers, unqueued).
+- **Verify:**
+  - `m_useup`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+  - Cluster gates: `node scripts/verify.mjs --fn m_useup` → PASS syntax (2 changed js files) · PASS rule2 · note hidden · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full → VERIFY: PASS. Plus `node --test scripts/museup-rewire.test.mjs` 5/5 PASS.
+- **Named omissions:**
+  - `m_useup`: none in-body — whole C body live at js/mthrowu.js:184.
+- **Ledger:** m_useup ported
+- **Next:** remaining missing-arm rows (monflee/Amonnam×3/ledger_no×2 — different C files, next iterations).
+
 ## D-3337 — `potion.c` healup zap.js clone removal (sole site → live js/potion.js export)
 
 - **Status:** shipped (1 missing-arm row checked off + archived; no review cited, no stamp owed). ~3 js/ insertions — below the ~80 bar, defended (D-3334/D-3335 batch precedent for tiny missing-arm rows): the whole clone rewired to the live export, and the head's C file (potion.c) holds no further Open rows while all 4 C callees are already live, so the cluster cannot grow.
