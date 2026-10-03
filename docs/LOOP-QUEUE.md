@@ -97,6 +97,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `display.c` feel_location Underwater gate reads never-written field — C display.c:769–772 returns when `Underwater && !Is_waterlevel && !pool/lava && !ice` but js/display.js:5138 tests `(u.Underwater|0)`, which no code port-wide ever writes (live field is `u.uinwater`, youprop.h:279; writer `set_uinwater` js/hack.js:3453; zero assigns/bracket-writes/save-writes — review 2348); fix: flip :5138 to `(u.uinwater|0)` (D-3393 newsym :5375 idiom) + verify incl. full (shared file); do NOT expand to the ~20-site alias family. Source: reviews/loop-unattended/2348-d428e2b04-newsym-guards.md
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

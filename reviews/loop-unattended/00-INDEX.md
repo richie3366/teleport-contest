@@ -2355,3 +2355,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2343-14e98dbc1-losehp-barracks.md](./2343-14e98dbc1-losehp-barracks.md) | `14e98dbc1` | D-3388 losehp drains + BARRACKS/wake | **ACCEPT-WITH-DEBT** |
 | [2344-d6a4a5312-recover-scope.md](./2344-d6a4a5312-recover-scope.md) | `d6a4a5312` | D-3389 bones/recover quartet | **QUALITY-RISK** |
 | [2345-09c225bf5-free-ebones.md](./2345-09c225bf5-free-ebones.md) | `09c225bf5` | D-3390 free_ebones + stale flips | **ACCEPT-WITH-DEBT** |
+| [2346-6d194731e-recover-by-design.md](./2346-6d194731e-recover-by-design.md) | `6d194731e` | D-3391 recover_savefile reverted to by-design | **ACCEPT** |
+| [2347-4ea047f25-repopulate-only-here.md](./2347-4ea047f25-repopulate-only-here.md) | `4ea047f25` | D-3392 repopulate_perminvent + only_here; 2339.1 falsified | **ACCEPT-WITH-DEBT** |
+| [2348-d428e2b04-newsym-guards.md](./2348-d428e2b04-newsym-guards.md) | `d428e2b04` | D-3393 fn_cmap_to_glyph + newsym guards | **ACCEPT** |
+| [2349-34473e95a-move-special-forget.md](./2349-34473e95a-move-special-forget.md) | `34473e95a` | D-3394 move_special re-entry + forget_temple_entry diag | **ACCEPT** |
+| [2350-2a53139d7-dummyfunction-redraw.md](./2350-2a53139d7-dummyfunction-redraw.md) | `2a53139d7` | D-3395 dummyfunction + redraw_cmd generic bind | **ACCEPT-WITH-DEBT** |
+| [2351-7636db97b-nh-sfunconvert.md](./2351-7636db97b-nh-sfunconvert.md) | `7636db97b` | D-3396 nh_sfunconvert unconvert hook | **ACCEPT** |
+| [2352-c7cb2c7c0-u-init-cluster.md](./2352-c7cb2c7c0-u-init-cluster.md) | `c7cb2c7c0` | D-3397 u_init pauper gates + init gaps (6 fns) | **ACCEPT** |
+| [2353-7729a3dda-block-sweep.md](./2353-7729a3dda-block-sweep.md) | `7729a3dda` | D-3399 missing-arm block sweep (8 fns) | **ACCEPT** |

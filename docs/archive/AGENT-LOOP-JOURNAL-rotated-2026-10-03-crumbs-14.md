@@ -1,0 +1,52 @@
+# Rotated from AGENT-LOOP-JOURNAL.md (6 crumbs; live kept 10)
+
+## 2026-10-03 — Audit 2338–2345: review D-3383–D-3390 (4 ACCEPT, 2 WITH-DEBT, 2 QUALITY-RISK) + full score
+
+**Reviews:** 2338 D-3383 ACCEPT (iron-ball inline stops close 2337.1; tethered path already correct via bhit rewrite); 2339 D-3384 QUALITY-RISK (postmov wiring drops C :1660 MOVED|DONE guard → Must-fix 2339.1); 2340 D-3385 ACCEPT (poisoned/is_innate arms exact; Fixed_abil lives in adjattrib); 2341 D-3386 ACCEPT (dip cmdq/pickinv mirrors; GETOBJ_PROMPT mislabel docs-only); 2342 D-3387 ACCEPT (5-fn bones-NHFILE family whole); 2343 D-3388 WITH-DEBT (losehp drains + BARRACKS/wake exact; showdamage stale MISSING note → debt 2343.1); 2344 D-3389 QUALITY-RISK (trio exact + 5/5 compress wirings verified, but recover_savefile is #ifdef SELF_RECOVER compiled-out code shipped live → Must-fix 2344.1 reclassify by-design + delete; savebones stale compress clause → debt 2344.2); 2345 D-3390 WITH-DEBT (free_ebones exact + both stale flips verified true; MISSING note → debt 2345.1).
+**Score:** public 44/44 @09c225bf5 (Scr 11,405, RNG 792,838, `336+1.66/turn`); corpus 707/953 (74.2 %, RNG 98.11 %, screens 93.4 %, 0 lost/0 gained, `full: true` 17:17Z); held-out 15/44 +0 (judge scored 14:34Z, pre-SHAs).
+**Next:** Must-fix 2344.1 first (ships alone), then 2339.1; ledger pass now seven rows + sweep candidates.
+
+## 2026-10-03 — D-3390 `bones.c` free_ebones mextra+EBONES free+null
+
+**C locus:** - `free_ebones`: nethack-c/upstream/src/bones.c:832–839 (`if (mtmp->mextra && EBONES(mtmp))` → `free()` + null the slot).
+**JS:** js/bones.js:553 `free_ebones`, js/bones.js:13 import.
+**Change:** whole C body in C order at C-home js/bones.js:553 — `if (mtmp.mextra && EBONES(mtmp)) mtmp.mextra.ebones = 0`. `free()` is GC in JS; the `= 0` free sentinel matches `dealloc_mextra`'s established idiom (`x.ebones = 0`, js/mon.js:3454). `EBONES` joins the existing const.js import (no new edge).
+**Verify:** - `free_ebones`: `node scripts/verify.mjs --fn free_ebones` → VERIFY: PASS — syntax (js/bones.js) · Rule #2 · hidden note (no corpus session blocked; expected for a coverage row) · REACH-OK (no RNG-tagged reach; fixed 24-smoke, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7. /tmp probe: clears bag to 0, EBONES falsy after, no-mextra/no-ebones no-ops, idempotent on 0.
+**Named:** - `free_ebones`: none — whole C body live (0 C callees).
+**Next:** `invent.c` repopulate_perminvent queue row (next Open missing-arm row).
+
+## 2026-10-03 — D-3389 `files.c` bones/recover quartet: compress_bonesfile + nh_sfconvert + doconvert_file + recover_savefile
+
+**C locus:** - `compress_bonesfile`: nethack-c/upstream/src/files.c:1005–1010 (`nh_sfconvert` + `nh_compress` over `fqname(gb.bones, BONESPREFIX, 0)`).
+**JS:** js/files.js:1156 `compress_bonesfile`, js/files.js:1438 `recover_savefile`, js/files.js:1923 `sfo_int`, js/files.js:2168 `sfvalue_int`, js/files.js:2614 `doconvert_file`, js/files.js:2631 `nh_sfconvert`; js/bones.js:777/:786/:834, js/end.js:1664/:1669/:1673/:1895 wiring; js/save.js dosave0 doc names the save.c sfconvert pair.
+**Change:** whole C bodies in C order at C-home js/files.js. `compress_bonesfile` re-derives `gb.bones` via `set_bonesfile_name(game.u.uz)` (no JS global, create_bonesfile precedent — all 5 C sites run with the u.uz name) then live `nh_sfconvert` + `nh_compress`. `doconvert_file` module-local (problematic_savefile staticfn precedent), `nh_sfconvert` exported.
+**Verify:** `node scripts/verify.mjs --fn compress_bonesfile,nh_sfconvert,doconvert_file,recover_savefile` → VERIFY: PASS — syntax (4 files) · Rule #2 · hidden notes (no corpus blocks; expected for coverage rows) · 4× REACH-OK (no RNG-tagged reach — compress draws no RNG, recover compiled out; fixed 24-smoke each, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7. /tmp probes: recover FALSE with no stash (:2890) / stash-no-blob (:2918) / TRUE with blob (:2913, stash cleared); sfo_int bag + sfvalue_int + compress smoke OK.
+**Named:** - `compress_bonesfile`: none in-body — converter/compressor sinks stay by-design inside the live callees.
+**Next:** `bones.c` free_ebones queue row (next Open missing-arm row); nh_sfunconvert (C 1, files.c:2079) whenever its first caller ships.
+
+## 2026-10-03 — D-3388 `hack.c` losehp showdamage/rehumanize + check_special_room BARRACKS/wake_msg arms
+
+**C locus:** - `losehp`: nethack-c/upstream/src/hack.c:4269 (`showdamage(n)` Upolyd) + :4275–4276 (`rehumanize()` when `mh<1`) + :4280 (`showdamage(n)` normal).
+**JS:** js/hack.js:1885 `showdamage`, js/hack.js:1895 `losehp`, js/hack.js:1959 `finish_losehp_showdamage`, js/hack.js:1974 `finish_losehp_rehumanize`, js/hack.js:1990 `finish_maybe_wail`, js/hack.js:3035 `check_special_room` (BARRACKS :3111, wake :3178), js/end.js:1898 `finish_losehp_done`.
+**Change:** `losehp` stays sync (async would cascade to 124 sites): both C sites capture `{dmg, post-decrement hp}` into `_losehp_showdamage` (option-gated like the C guard); the Upolyd `mh<1` arm sets `_losehp_needs_rehumanize` with no killer/gameover/clamp (C returns to normal form, callers continue). Two convention-named finishers drain in C order first inside BOTH existing finishers (`finish_losehp_done` js/end.js:1898 + `finish_maybe_wail` js/hack.js:1990), so all 24 drain files inherit them: `finish_losehp_showdamage` replays the queue through `showdamage(dmg, hpLeft)` (new optional snapshot param; mdamageu unchanged), `finish_losehp_rehumanize` lazily imports polyself.js (no static back-edge, D-2349) and drops done/wail flags when rehumanize newly dies (C noreturn). BARRACKS uses the local `monstinroom` `||` chain over new PM_SOLDIER/SERGEANT/LIEUTENANT/CAPTAIN consts; wake loop awaits live `wake_msg(mtmp, false)` (mon.js static edge ALREADY) before clearing sleep.
+**Verify:** `node scripts/verify.mjs --fn losehp,check_special_room` → VERIFY: PASS (syntax 2 files; rule2; 2× hidden-note no-corpus-block + smoke-spread 24 PASS REACH-OK each — neither draws C-tagged RNG in a baseline-PASS session; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared files). /tmp/losehp-probe.mjs: 11/11 ok (snapshot dmg=3 hp=17; mh unclamped −5 + rehumanize flag + no gameover/killer/done; no flag when mh≥1; drain clears queue headless; empty drain no-op). No new session: the maintained check is REACH + full-44 + cohort (both triggers — showdamage option, Upolyd mh<1 — uncovered by any session; recorder-built sessions are audit-iter work).
+**Named:** - `losehp`: multi-call-before-drain coalescing (one rehumanize run; same class as existing done/wail flags). `#if 0` impossible block compiled out in C.
+**Next:** remaining Open rows are files.c compress_bonesfile + recover_savefile, bones.c free_ebones, invent.c repopulate_perminvent + only_here, display.c fn_cmap_to_glyph — next cluster head compress_bonesfile.
+
+## 2026-10-03 — D-3387 `files.c` bones-NHFILE family: rewind/set_bonestemp/create/commit/open
+
+**C locus:** - `rewind_nhfile`: nethack-c/upstream/src/files.c:533–545 (structlevel lseek vs fieldlevel rewind).
+**JS:** js/files.js:785 `rewind_nhfile`, js/files.js:979 `set_bonestemp_name` (module-local, viable_nhfile precedent), js/files.js:1015 `create_bonesfile`, js/files.js:1072 `commit_bonesfile`, js/files.js:1111 `open_bonesfile`; map docs/c-js-map/data.md bones-NHFILE entry.
+**Change:** whole C bodies in C order at C-home js/files.js, mirroring the live levelfile/savefile VFS-analogue pairs: `{ s }` holders for `char **`/`char errbuf[]`, `game.lock` store-back, fqname kept (buffnums 0/1) for the prefix/impossible arms, fd 0 success-token convention (create_savefile precedent). New bones.js edge `set_bonesfile_name` (imports.mjs SAFE, hoisted fn) + `BONES_VFS_PREFIX` (CHECK — call-time reads only; one-word export in bones.js); `vfsWriteFile` + `BONESPREFIX`/`NHF_BONESFILE` imports. `gb.bones` has no JS global — commit/open re-derive via `set_bonesfile_name`; bonesformat ≡ historical per sys.c:102 (no SYSCF).
+**Verify:** `node scripts/verify.mjs --fn rewind_nhfile,set_bonestemp_name,create_bonesfile,commit_bonesfile,open_bonesfile` → VERIFY: PASS (syntax 2 files; rule2; 5× hidden-note no-corpus-block + smoke-spread 24 PASS REACH-OK; green 2/2; strict ×2; cohort 7/7). /tmp/bones-smoke.mjs: create→commit→open pipeline (temp stage, move, final probe), open-miss→null, storage-less create→null+`Cannot create bones "….bn", id D0.1 (errno 2).`, silent non-wizard commit-miss, both rewind arms — ALL SMOKE OK.
+**Named:** - `rewind_nhfile`: stdio rewind(fpdef) (Rule #2); lseek structural no-op (fd token positionless).
+**Next:** remaining Open rows are the 2 hack.c missing-arm rows (losehp showdamage/rehumanize; check_special_room BARRACKS/wake_msg) — different C file, next cluster head.
+
+## 2026-10-03 — D-3386 `getobj` cmdq HANDS_SYM + `?`/`*` pickinv arms in getobj_dip
+
+**C locus:** - `getobj` (cmdq): nethack-c/upstream/src/invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj; miss → cmdq_clear + NULL :1813–1815).
+**JS:** - `getobj`: js/potion.js:2401 getobj_dip (doc :2392–2400; cmdq :2406–2407; ?/* arm :2437–2466; raw-lets helper :325–334; export for test).
+**Change:** both arms ported into getobj_dip as mirrors of the live sibling. Cmdq check sits after the obj_ok selection like the sibling (C order; shared verdict helper carries the HANDS_SYM + letter-scan + clear-on-miss shape). `?`/`*` arm mirrors the sibling with word 'dip', allownone true (SUGGEST and DOWNPLAY both set it per C :1833–1849), promptHasHands=handsListed (C `*buf=='-'` ⟺ SUGGEST), GETOBJ_NOFLAGS → no count; pickinv post-checks mirror the sibling (gold → 'You cannot dip gold.' C :2008; EXCLUDE → silly_thing text C :2080–2083).
+**Verify:** `node scripts/verify.mjs --fn getobj` → syntax 1 file (js/potion.js) · rule2 · hidden note (0 blocked) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Focused scripts/getobj-dip.test.mjs 4/4 (canned `-` → hands with no prompt; canned miss → null + cleared; `*` → menu-then-loop key consumption; `?` → middle-letter select over raw lets) — all 4 failed pre-fix for authentic reasons (prompt-despite-canned ×2, unconsumed key, null-instead-of-pick).
+**Named:** - `getobj` (cmdq): CMDQ_INT count prefix (C :1798–1811) — shared-helper gap, pre-existing (serves getobj_dip_ok too); dip is GETOBJ_NOFLAGS so C would clear + NULL on a canned INT while JS falls through to the prompt. Out of row scope.
+**Next:** queue head moves to the `files.c` rewind_nhfile row.
