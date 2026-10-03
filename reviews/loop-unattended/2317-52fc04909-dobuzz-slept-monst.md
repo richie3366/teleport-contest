@@ -121,3 +121,5 @@ Actionable C-wrongs:
    WAN_SLEEP arm; edge checks).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3367
