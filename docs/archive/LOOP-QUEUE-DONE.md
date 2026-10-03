@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `u_init.c` knows_object pauper gate — C u_init.c:578–579 (if (u.uroleplay.pauper && !override_pauper) return) absent from js/u_init.js:1277 knows_object (param named _override_pauper, ignored; unconditionally discover_object so paupers wrongly discover role/race items; callee discover_object js/invent.js:4734 live; 39 C call sites incl. :715/:924 TRUE overrides; ledger partial names this arm — brief 2026-10-03) @4ea047f25
+
+
 - [x] `files.c` nh_sfunconvert — C files.c:2079–2082 absent from js/ (no JS symbol; ledger unknown C 1; doconvert_file(filename,0,TRUE) unconvert hook; 0 C refs; callee doconvert_file module-local live same-file js/files.js (same-file call, not a clone) — brief 2026-10-03) @14e98dbc1
 
 

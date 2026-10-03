@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3397 u_init.c pauper gates + init gaps (6-function cluster)
+
+**C locus:** - `knows_object`: `u_init.c:575–581` — `:577 if (u.uroleplay.pauper && !override_pauper) return`; 38 live call sites incl. `:715`/`:924` TRUE overrides.
+**JS:** `js/u_init.js` — imports `:37` (wield +set_twoweap), `:45` (A_CHAOTIC), `:89–90` (botl/vault); `knows_object :1283–1290` (gate `:1285–1287`); `knows_class :1296–1299` (gate); `ini_inv_adjust_obj :829` (opoisoned `:841–844`, marker `:853–859`); `ini_inv_use_obj` shield `:1362–1367`; `u_init_misc :1955` (female `:1959–1962`, moved `:1968–1972`, blind `:2012–2015`, rank `:2022–2024`); `u_init_inventory_attrs` gold `:2053–2054`.
+**Change:** single-file cluster in js/u_init.js (+48/−8), each arm in C order with C citations: pauper gates in both knows_ functions (param renamed to `override_pauper`); misc female/moved/mortality/grave-arise/blind/max_rank arms; adjust opoisoned clear (`A_CHAOTIC` into the const edge) + trotyp-keyed marker ink (same `typeof` idiom as ini_inv `:1467`); shield bimanual gate + `set_twoweap(false)` (`:1268`, academic but C-explicit); attrs `umoney0 += hidden_gold(true)`. Imports: `set_twoweap` into the existing wield edge; new botl (`max_rank_sz`) + vault (`hidden_gold`) edges — both `imports.mjs --can` SAFE (hoisted fn decls). Caught by cohort mid-iteration: bare `flags.female = initgend` wrote numeric 0 for males, which allmain's strict `!== false` misread as female (6 cohort welcomes flipped); coerced to `!!initgend` per C's boolean assignment — cohort + full re-green.
+**Verify:** `node scripts/verify.mjs --fn knows_object,knows_class,u_init_misc,ini_inv_adjust_obj,ini_inv_use_obj,u_init_inventory_attrs` → hidden notes ×6 (no session blocked on any) · REACH-OK ×6 (u_init_misc 80/707 spread PASS; ini_inv_adjust_obj 80/115 spread PASS; other four 24-smoke 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7 · full 44/44 forced (init file). VERIFY: PASS. (Repo has no maintained unit harness — no tests/ dir; the fortress gates are the verification.)
+**Named:** - `knows_object`: none — whole C body live (sole callee `discover_object` live).
+**Next:** queue head is now `mdlib.c` mkstemp (MSVC-only → by-design verdict row).
 ## 2026-10-03 — D-3396 files.c nh_sfunconvert unconvert hook
 
 **C locus:** - `nh_sfunconvert`: `files.c:2079–2082` — `(void) doconvert_file(filename, 0, TRUE);`, game-build `#ifndef SFCTOOL` hook; 0 C call sites in pinned C.

@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-3397 — u_init.c pauper gates + init gaps (6-function cluster)
+
+- **Status:** shipped (1 missing-arm row checked off + archived in this commit; 5 same-file ledger partials folded in, no queue rows).
+- **Symptom:** coverage — no corpus divergence (`hidden-proxy verify` on all six: no session blocked). Head row: `knows_object` ignored its pauper flag so paupers wrongly discovered role/race items. Same-file partials carried sibling one-arm gaps (knows_class pauper gate; misc gender/moved/blind/rank; adjust poison/marker; use_obj shield; attrs sack gold).
+- **C locus:**
+  - `knows_object`: `u_init.c:575–581` — `:577 if (u.uroleplay.pauper && !override_pauper) return`; 38 live call sites incl. `:715`/`:924` TRUE overrides.
+  - `knows_class`: `u_init.c:586–629` — `:591 if (u.uroleplay.pauper) return`; 11 call sites; walk already live.
+  - `u_init_misc`: `u_init.c:944–1036` — missing `:949 flags.female`, `:987–989 umoved/umortality/ugrave_arise`, `:1027–1028 blind HBlinded`, `:1033 max_rank_sz()`.
+  - `ini_inv_adjust_obj`: `u_init.c:1208–1250` — missing `:1225 opoisoned` clear for non-chaotics, `:1235 trop->trotyp` marker ink (was keyed on post-substitution otyp).
+  - `ini_inv_use_obj`: `u_init.c:1254–1298` — missing `:1263 !(uwep && bimanual(uwep))` shield gate, `:1268 set_twoweap(FALSE)`.
+  - `u_init_inventory_attrs`: `u_init.c:1373–1393` — missing `:1388 umoney0 += hidden_gold(TRUE)`.
+- **JS was:**
+  - `knows_object`: `js/u_init.js:1277` — param `_override_pauper` ignored, unconditional discover.
+  - `knows_class`: `:1286` — no pauper gate (rogue DAGGER walk + role-gated bases walk already live, audit-verified).
+  - `u_init_misc`: `:1941` — none of the four arms.
+  - `ini_inv_adjust_obj`: `:826` — no opoisoned clear; marker keyed on `objectNames[obj.otyp]`.
+  - `ini_inv_use_obj`: `:1339` — shield arm `is_shield && !uarms` only, gap named in a comment.
+  - `u_init_inventory_attrs`: `:1998` — no hidden_gold line.
+- **Fix:** single-file cluster in js/u_init.js (+48/−8), each arm in C order with C citations: pauper gates in both knows_ functions (param renamed to `override_pauper`); misc female/moved/mortality/grave-arise/blind/max_rank arms; adjust opoisoned clear (`A_CHAOTIC` into the const edge) + trotyp-keyed marker ink (same `typeof` idiom as ini_inv `:1467`); shield bimanual gate + `set_twoweap(false)` (`:1268`, academic but C-explicit); attrs `umoney0 += hidden_gold(true)`. Imports: `set_twoweap` into the existing wield edge; new botl (`max_rank_sz`) + vault (`hidden_gold`) edges — both `imports.mjs --can` SAFE (hoisted fn decls). Caught by cohort mid-iteration: bare `flags.female = initgend` wrote numeric 0 for males, which allmain's strict `!== false` misread as female (6 cohort welcomes flipped); coerced to `!!initgend` per C's boolean assignment — cohort + full re-green.
+- **JS:** `js/u_init.js` — imports `:37` (wield +set_twoweap), `:45` (A_CHAOTIC), `:89–90` (botl/vault); `knows_object :1283–1290` (gate `:1285–1287`); `knows_class :1296–1299` (gate); `ini_inv_adjust_obj :829` (opoisoned `:841–844`, marker `:853–859`); `ini_inv_use_obj` shield `:1362–1367`; `u_init_misc :1955` (female `:1959–1962`, moved `:1968–1972`, blind `:2012–2015`, rank `:2022–2024`); `u_init_inventory_attrs` gold `:2053–2054`.
+- **Callers:**
+  - `knows_object`: all 38 live C sites wired — C `:627` loop → `:1309` (rogue arm) + `:1347` (bases arm); role/race singles C `:660–661`/`:733`/`:715`/`:752`/`:684`/`:706` → `:1562–1563`/`:1613`/`:1636`/`:1666`/`:1679`/`:1717`; elf `:816–826` → `:1759–1769`; dwarf `:831–837` → `:1774–1780`; orc `:848–858` → `:1789–1799`; pauper_reinit `:924` → `:2117`. Both TRUE overrides (`:1636`, `:2117`) pass true.
+  - `knows_class`: all 11 C sites wired — excludes-polearms pairs → `:1576–1577`/`:1690–1691`; all-weapons pairs → `:1646–1647`/`:1660–1661` (Knight HJumping arm at `:1646`); rogue `:736` → `:1614`; ranger `:726` → `:1701`; monk armor `:704` → `:1716`.
+  - `u_init_misc`: C allmain.c:794 → `js/allmain.js:853` (pre-existing wire).
+  - `ini_inv_adjust_obj`: C `:1353` (ini_inv) → `:1524`.
+  - `ini_inv_use_obj`: C `:1402` (skills_discoveries) → `:2123`.
+  - `u_init_inventory_attrs`: C allmain.c:816/821 → `js/allmain.js:885` + `:898` reroll loop.
+- **Verify:** `node scripts/verify.mjs --fn knows_object,knows_class,u_init_misc,ini_inv_adjust_obj,ini_inv_use_obj,u_init_inventory_attrs` → hidden notes ×6 (no session blocked on any) · REACH-OK ×6 (u_init_misc 80/707 spread PASS; ini_inv_adjust_obj 80/115 spread PASS; other four 24-smoke 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7 · full 44/44 forced (init file). VERIFY: PASS. (Repo has no maintained unit harness — no tests/ dir; the fortress gates are the verification.)
+- **Named omissions:**
+  - `knows_object`: none — whole C body live (sole callee `discover_object` live).
+  - `knows_class`: none — gate + audit-verified walk (rogue DAGGER_SKILL_OTYPS 5/5 P_DAGGER; bases walk matches).
+  - `u_init_misc`: none behavioral — memset/tmpuroleplay subsumed by fresh-object init (JS path never wipes); `init_uhunger` inlined for the uhunger/uhs arms (audit-accepted; botl/atemp arms unobservable at init).
+  - `ini_inv_adjust_obj`: none — whole C body live (`trquan` local; rn2/rne/weight live).
+  - `ini_inv_use_obj`: none — whole C body live (all 7 callees live).
+  - `u_init_inventory_attrs`: none — whole C body live (useupall loop as invent reset, audit-accepted).
+- **Ledger:** knows_object ported; knows_class ported; u_init_misc ported; ini_inv_adjust_obj ported; ini_inv_use_obj ported; u_init_inventory_attrs ported
+- **Next:** queue head is now `mdlib.c` mkstemp (MSVC-only → by-design verdict row).
+
 ## D-3396 — files.c nh_sfunconvert unconvert hook
 
 - **Status:** shipped (1 missing-arm row checked off + archived in this commit).
