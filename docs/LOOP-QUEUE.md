@@ -127,8 +127,6 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `invent.c` getobj cmdq HANDS_SYM verdict in getobj_dip — C invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj) absent from js/potion.js:2394 getobj_dip (no cmdq path; sibling getobj_dip_ok :2654 consults cmdq_pop_getobj_key :2454 — read 2026-10-03) @4a4cc3e73
-- [ ] `invent.c` getobj ?/* pickinv in getobj_dip — C invent.c:1963–1992 (`?`/`*` → display_pickinv + handsbuf + ESC Never_mind) absent from js/potion.js:2424 getobj_dip `?`/`*` arm (plines 'Never mind.' + null; sibling getobj_dip_ok :2687 has the full arm — read 2026-10-03) @4a4cc3e73
 - [ ] `files.c` rewind_nhfile — C files.c:534–545 absent from js/ (no JS symbol; ledger unknown; structlevel lseek(fd,0,0) vs fieldlevel rewind(fpdef); 4 C refs, sole in-game caller restore.c:891 dorecover unported; 0 C callees — brief 2026-10-03) @c4bd1edaa
 - [ ] `files.c` commit_bonesfile — C files.c:915–937 absent from js/ (no JS symbol; ledger unknown; set_bonesfile_name + fqname×2 + set_bonestemp_name + rename + wizard pline; sole in-game caller bones.c:623 savebones; callees set_bonesfile_name js/bones.js:375 + fqname live, set_bonestemp_name missing, pline async — brief 2026-10-03) @c4bd1edaa
 - [ ] `hack.c` losehp showdamage ×2 + rehumanize arms — C hack.c:4269–4280 (Upolyd/normal showdamage(n) + mh<1 rehumanize) absent from js/hack.js:1881 losehp (sync; doc :1864/:1871–1872 defers both, mh<1 sets gameover :1896–1904; callees showdamage js/hack.js:1874 + rehumanize js/polyself.js:1224 live async — brief 2026-10-03) @787f6ade

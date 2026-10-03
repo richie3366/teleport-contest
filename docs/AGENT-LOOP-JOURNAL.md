@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3386 `getobj` cmdq HANDS_SYM + `?`/`*` pickinv arms in getobj_dip
+
+**C locus:** - `getobj` (cmdq): nethack-c/upstream/src/invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj; miss → cmdq_clear + NULL :1813–1815).
+**JS:** - `getobj`: js/potion.js:2401 getobj_dip (doc :2392–2400; cmdq :2406–2407; ?/* arm :2437–2466; raw-lets helper :325–334; export for test).
+**Change:** both arms ported into getobj_dip as mirrors of the live sibling. Cmdq check sits after the obj_ok selection like the sibling (C order; shared verdict helper carries the HANDS_SYM + letter-scan + clear-on-miss shape). `?`/`*` arm mirrors the sibling with word 'dip', allownone true (SUGGEST and DOWNPLAY both set it per C :1833–1849), promptHasHands=handsListed (C `*buf=='-'` ⟺ SUGGEST), GETOBJ_NOFLAGS → no count; pickinv post-checks mirror the sibling (gold → 'You cannot dip gold.' C :2008; EXCLUDE → silly_thing text C :2080–2083).
+**Verify:** `node scripts/verify.mjs --fn getobj` → syntax 1 file (js/potion.js) · rule2 · hidden note (0 blocked) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Focused scripts/getobj-dip.test.mjs 4/4 (canned `-` → hands with no prompt; canned miss → null + cleared; `*` → menu-then-loop key consumption; `?` → middle-letter select over raw lets) — all 4 failed pre-fix for authentic reasons (prompt-despite-canned ×2, unconsumed key, null-instead-of-pick).
+**Named:** - `getobj` (cmdq): CMDQ_INT count prefix (C :1798–1811) — shared-helper gap, pre-existing (serves getobj_dip_ok too); dip is GETOBJ_NOFLAGS so C would clear + NULL on a canned INT while JS falls through to the prompt. Out of row scope.
+**Next:** queue head moves to the `files.c` rewind_nhfile row.
 ## 2026-10-03 — D-3385 `attrib.c` poisoned blast/killer/towel arms + is_innate FROM_FORM arm
 
 **C locus:** - `poisoned`: nethack-c/upstream/src/attrib.c:339-340 (blast shieldeff in the resist early-out) / :346-350 (name_to_mon G_UNIQ + the() killer-prefix polish) / :385+389-390 (gas-cloud + Half_gas_damage halving).

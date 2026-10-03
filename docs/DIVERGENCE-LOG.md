@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3386 — `getobj` cmdq HANDS_SYM + `?`/`*` pickinv arms in getobj_dip
+
+- **Status:** shipped (two queue-head missing-arm rows — `invent.c` getobj cmdq HANDS_SYM verdict in getobj_dip + `invent.c` getobj ?/* pickinv in getobj_dip — checked off + archived in this commit; no review cited, no stamp owed).
+- **Symptom:** no corpus divergence — missing-arm rows (0 blocked at baseline each). #dip's getobj clone never consulted the canned command queue (a queued `-` or letter fell through to the interactive prompt) and answered `?`/`*` with an instant 'Never mind.' + null instead of the pickinv menu.
+- **C locus:**
+  - `getobj` (cmdq): nethack-c/upstream/src/invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj; miss → cmdq_clear + NULL :1813–1815).
+  - `getobj` (?/*): nethack-c/upstream/src/invent.c:1963–1992 (display_pickinv over uncompacted `lets` + handsbuf; ESC → verbose Never_mind + NULL; HANDS_SYM → &hands_obj).
+- **JS was:** js/potion.js:2394 getobj_dip had no cmdq path (sibling getobj_dip_ok :2654 consults cmdq_pop_getobj_key :2454) and its `?`/`*` arm plined 'Never mind.' + null (:2424; sibling :2687 has the full arm).
+- **Fix:** both arms ported into getobj_dip as mirrors of the live sibling. Cmdq check sits after the obj_ok selection like the sibling (C order; shared verdict helper carries the HANDS_SYM + letter-scan + clear-on-miss shape). `?`/`*` arm mirrors the sibling with word 'dip', allownone true (SUGGEST and DOWNPLAY both set it per C :1833–1849), promptHasHands=handsListed (C `*buf=='-'` ⟺ SUGGEST), GETOBJ_NOFLAGS → no count; pickinv post-checks mirror the sibling (gold → 'You cannot dip gold.' C :2008; EXCLUDE → silly_thing text C :2080–2083). New dippable_lets_raw supplies the uncompacted SUGGEST lets C passes as `lets` (compactify applies to the prompt `buf` only); dippable_lets is now its compact wrapper (single caller, behavior-identical). Dynamic invent.js import mirrors the sibling — no new edge. Exported getobj_dip for the test seam. Two-row cluster: same-file/closure holds nothing more Open (both invent.c Open rows ship; every callee live) — small insertion justified.
+- **JS:**
+  - `getobj`: js/potion.js:2401 getobj_dip (doc :2392–2400; cmdq :2406–2407; ?/* arm :2437–2466; raw-lets helper :325–334; export for test).
+- **Callers:**
+  - `getobj`: C potion.c:2279 (dodip "dip" site) → js/potion.js:2575 dodip → getobj_dip (both arms now live). All other C getobj callers unchanged — served by live js/invent.js getobj and the untouched clones; this iteration wires arms only into the dip clone. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn getobj` → syntax 1 file (js/potion.js) · rule2 · hidden note (0 blocked) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Focused scripts/getobj-dip.test.mjs 4/4 (canned `-` → hands with no prompt; canned miss → null + cleared; `*` → menu-then-loop key consumption; `?` → middle-letter select over raw lets) — all 4 failed pre-fix for authentic reasons (prompt-despite-canned ×2, unconsumed key, null-instead-of-pick).
+- **Named omissions:**
+  - `getobj` (cmdq): CMDQ_INT count prefix (C :1798–1811) — shared-helper gap, pre-existing (serves getobj_dip_ok too); dip is GETOBJ_NOFLAGS so C would clear + NULL on a canned INT while JS falls through to the prompt. Out of row scope.
+  - `getobj` (?/*): C :1967 `?`-with-empty-lets → altlets fallback not passed (mirrors sibling; shared helper derives xtra from rawLets, so the hands-only empty menu corner stays unported). in_doagain/force_invmenu/oneloop stay pre-existing clone gaps shared with the sibling. Out of row scope.
+- **Ledger:** getobj ported
+- **Next:** queue head moves to the `files.c` rewind_nhfile row.
+
 ## D-3385 — `attrib.c` poisoned blast/killer/towel arms + is_innate FROM_FORM arm
 
 - **Status:** shipped (two queue-head missing-arm rows — `attrib.c poisoned…` + `attrib.c is_innate…` — checked off + archived in this commit; no review cited, no stamp owed).

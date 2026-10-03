@@ -41,7 +41,7 @@
 {"fn":"mime_action","c":"1678-1706","status":"ported","js":["js/invent.js:mime_action"],"d":["D-1579"],"at":"2026-10-03@bbe63333a"}
 {"fn":"any_obj_ok","c":"1710-1715","status":"split","js":["js/do.js:drop_obj_ok","js/apply.js:any_obj_ok_stone"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"getobj_hands_txt","c":"1719-1736","status":"ported","js":["js/invent.js:getobj_hands_txt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-2353","D-2123","D-1927","D-1834","D-1804","D-1568"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — orchestrator; arms in getobj_from_cmdq/filter_prompt/take_count/display_pickinv/finish_pick helpers (D-1568..D-2353)"}
+{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-3386","D-2353","D-2123","D-1927","D-1834","D-1804"],"at":"2026-10-03@51eafd91c","note":"refresh: audited — orchestrator; arms in getobj_from_cmdq/filter_prompt/take_count/display_pickinv/finish_pick helpers (D-1568..D-2353)"}
 {"fn":"silly_thing","c":"2094-2131","status":"ported","js":["js/invent.js:silly_thing"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"ckvalidcat","c":"2136-2140","status":"ported","js":["js/invent.js:ckvalidcat"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ckunpaid","c":"2143-2146","status":"ported","js":["js/invent.js:ckunpaid"],"at":"2026-10-03@bbe63333a"}

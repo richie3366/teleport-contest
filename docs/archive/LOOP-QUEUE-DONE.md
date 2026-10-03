@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `invent.c` getobj cmdq HANDS_SYM verdict in getobj_dip — C invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj) absent from js/potion.js:2394 getobj_dip (no cmdq path; sibling getobj_dip_ok :2654 consults cmdq_pop_getobj_key :2454 — read 2026-10-03) @4a4cc3e73
+- [x] `invent.c` getobj ?/* pickinv in getobj_dip — C invent.c:1963–1992 (`?`/`*` → display_pickinv + handsbuf + ESC Never_mind) absent from js/potion.js:2424 getobj_dip `?`/`*` arm (plines 'Never mind.' + null; sibling getobj_dip_ok :2687 has the full arm — read 2026-10-03) @4a4cc3e73
+
+
 - [x] `attrib.c` poisoned blast shieldeff + killer-polish + towel-halving arms — C attrib.c:339-340 shieldeff / :346-350 name_to_mon G_UNIQ-the() / :385+389-390 cloud + Half_gas_damage halving absent from js/attrib.js:414 poisoned (:428/:433-439/:470 defer comments — brief 2026-10-03; callees shieldeff js/display.js:4837 + name_to_mon js/mondata.js:881 + Half_gas_damage js/potion.js:2773 live) @e27333c36
 - [x] `attrib.c` is_innate FROM_FORM arm — C attrib.c:896-898 (BLINDED&&!haseyes / BLND_RES&FROMFORM → FROM_FORM) absent from js/attrib.js:1205 is_innate (falls to FROM_NONE :1219; named omit in doc :1201-1203 — brief 2026-10-03; callee haseyes live js/monsters.js:411) @e27333c36
 
