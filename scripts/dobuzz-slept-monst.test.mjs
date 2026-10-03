@@ -1,13 +1,15 @@
 // `mhitm.c` slept_monst canonical export (C mhitm.c:1249–1257) + dobuzz
-// :4946 wiring. The export replaces the same-file slept_slee_mm clone
-// (sticks was a named omission, ustuck cleared by hand); music.js and
-// potion.js clones remain, queued next.
+// :4946 wiring. The export replaced the same-file slept_slee_mm clone
+// (sticks was a named omission, ustuck cleared by hand); D-3368 rewired
+// the music.js/potion.js clones to it and added the bhitm WAN_SLEEP arm
+// (C zap.c:480–489).
 import { describe, it, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { game, resetGame } from '../js/gstate.js';
 import { slept_monst } from '../js/mhitm.js';
 import { initRng, enableRngLog, getRngLog } from '../js/rng.js';
-import { dobuzz } from '../js/zap.js';
+import { dobuzz, bhitm } from '../js/zap.js';
+import { objectNames, WAND_CLASS } from '../js/objects.js';
 import { ROOM } from '../js/const.js';
 import { mons, monsterNames } from '../js/monsters.js';
 import { reset_display_messages } from '../js/display.js';
@@ -139,5 +141,67 @@ describe('dobuzz steed redirect skips the u_at tail (zap.c:4956-4991)', () => {
         assert.ok((game.u.HBlinded | 0) > 0);
         assert.equal(game.occupation, null);
         assert.ok(getRngLog().some((e) => e.includes('d(6,50)')));
+    });
+});
+
+// `zap.c` bhitm WAN_SLEEP arm (C zap.c:480–489, broken wand): wake stays
+// TRUE, reveal_invis, sleep_monst(mtmp, d(1+spe,12), WAND_CLASS) then
+// slept_monst on success, !Blind learns. Review 2317 C-wrong 2: the arm
+// had no JS call site.
+const WAN_SLEEP = objectNames.indexOf('WAN_SLEEP');
+
+function setupBhitmSleep(seed, mr = 0) {
+    resetGame();
+    reset_display_messages();
+    resetInputState();
+    initRng(seed);
+    enableRngLog();
+    for (let i = 0; i < 20; ++i) pushKey(' ');
+    const mon = {
+        mx: 5, my: 5, mhp: 10, mhpmax: 10, mcanmove: 1, msleeping: 0,
+        mfrozen: 0, meating: 0, mpeaceful: 0, mtame: 0, m_ap_type: 0,
+        data: { mlet: 'S_ORC', mresists: 0, mr }, mextrinsics: 0,
+        mintrinsics: 0, minvent: null,
+    };
+    game.u = { ux: 5, uy: 5, ustuck: mon, uswallow: 0 };
+    game.youmonst = { data: { name: 'human' } };
+    game.level = {
+        at: () => ({ typ: ROOM, doormask: 0, roomno: 0, flags: 0, lit: 1 }),
+        flags: {}, traps: [], rooms: [],
+    };
+    game.fmon = [mon];
+    game.objects = [];
+    game.invent = [];
+    game.moves = 1000;
+    game.flags = {};
+    game.iflags = { window_inited: true };
+    return mon;
+}
+
+describe('bhitm WAN_SLEEP arm (zap.c:480-489)', () => {
+    it('sleep lands: frozen, grip released, wand learned', { timeout: 15000 }, async () => {
+        const mon = setupBhitmSleep(1);
+        const otmp = { otyp: WAN_SLEEP, oclass: WAND_CLASS, spe: 0 };
+        const ret = await bhitm(mon, otmp);
+        assert.equal(ret, 0);
+        assert.equal(mon.mcanmove, 0);
+        assert.ok((mon.mfrozen | 0) > 0);
+        assert.equal(game.u.ustuck, null);
+        assert.equal(otmp.dknown, 1);
+        // C order: d(1+spe,12) drawn before resist's rn2.
+        const log = getRngLog();
+        assert.ok(log[0].startsWith('d(1,12)='));
+        assert.ok(log[1].startsWith('rn2(111)='));
+    });
+
+    it('resisted: shield, no sleep, grip kept, wand still learned (control)', { timeout: 15000 }, async () => {
+        const mon = setupBhitmSleep(1, 127);
+        const otmp = { otyp: WAN_SLEEP, oclass: WAND_CLASS, spe: 0 };
+        const ret = await bhitm(mon, otmp);
+        assert.equal(ret, 0);
+        assert.equal(mon.mcanmove, 1);
+        assert.equal(mon.mfrozen | 0, 0);
+        assert.equal(game.u.ustuck, mon);
+        assert.equal(otmp.dknown, 1);
     });
 });

@@ -1,6 +1,6 @@
 {"fn":"zaptype","c":"89-96","status":"ported","js":["js/zap.js:zaptype"],"at":"2026-10-03@bbe63333a"}
 {"fn":"learnwand","c":"123-151","status":"ported","js":["js/zap.js:learnwand"],"d":["D-2904"],"at":"seed@a30a7de84"}
-{"fn":"bhitm","c":"160-573","status":"partial","js":["js/zap.js:bhitm"],"omit":"WAN_SLEEP arm missing (reveal+sleep_monst+slept_monst+learn, C:480-489); WAN_NOTHING wake=FALSE (C:545-547); SPE_KNOCK ret=1 beam-stop (C:403); knight dbldam on striking/force (C:205-207)","d":["D-1436","D-1426","D-1425","D-1424","D-1423","D-1422"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bhitm","c":"160-573","status":"partial","js":["js/zap.js:bhitm"],"d":["D-3368","D-1436","D-1426","D-1425","D-1424","D-1423"],"at":"2026-10-03@3164b76c4"}
 {"fn":"release_hold","c":"578-609","status":"ported","js":["js/zap.js:release_hold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"probe_objchain","c":"612-623","status":"ported","js":["js/zap.js:probe_objchain"],"at":"2026-10-03@bbe63333a"}
 {"fn":"probe_monster","c":"626-640","status":"ported","js":["js/zap.js:probe_monster"],"at":"2026-10-03@bbe63333a"}

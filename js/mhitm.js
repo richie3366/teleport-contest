@@ -1414,10 +1414,10 @@ async function sleep_slee_mm(mon, amt) {
 /**
  * C ref: mhitm.c slept_monst `:1249–1257` — a grabber that just went
  * helpless (monst.h:251 msleeping || !mcanmove) releases the hero unless
- * sticky youmonst keeps hold or the hero is swallowed. C callers:
- * music.c:95 + potion.c:1806 (JS clones remain, queued next),
- * uhitm.c:3490/3519 (wired below), zap.c:486 (JS bhitm lacks the WAN_SLEEP
- * arm — no call site), zap.c:4946 dobuzz (wired zap.js).
+ * sticky youmonst keeps hold or the hero is swallowed. C callers, all
+ * wired (D-3368): music.c:95 put_monsters_to_sleep, potion.c:1806
+ * potionhit POT_SLEEPING, uhitm.c:3490/3519 mhitm_ad_slee,
+ * zap.c:486 bhitm WAN_SLEEP, zap.c:4946 dobuzz.
  */
 export async function slept_monst(mon) {
     if (!mon) return;

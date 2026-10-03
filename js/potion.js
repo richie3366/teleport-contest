@@ -193,6 +193,7 @@ import { which_armor, mon_set_minvis } from './worn.js';
 import { polyself, body_part } from './polyself.js';
 import { permapoisoned } from './artifact.js';
 import { poly_obj, obj_unpolyable, Cold_resistance } from './zap.js';
+import { slept_monst } from './mhitm.js';
 import { obj_resists } from './dogmove.js';
 import { livelog_printf } from './pline.js';
 import { uhis } from './roles.js';
@@ -3741,16 +3742,6 @@ function sleep_monst_pot(mon, amt, how) {
     return 0;
 }
 
-/** C mhitm.c slept_monst :1250–1257. sticks(youmonst) named. */
-async function slept_monst_pot(mon) {
-    const u = game.u || {};
-    if ((mon?.msleeping || !mon?.mcanmove) && mon === u.ustuck && !u.uswallow) {
-        await pline(`${Monnam(mon)}'s grip relaxes.`);
-        u.ustuck = null;
-        if (game.youmonst) game.youmonst.ustuck = null;
-    }
-}
-
 /** C mhitm.c paralyze_monst — clamp 127; clear meating + STRAT_WAITFORU. */
 function paralyze_monst_pot(mon, amt) {
     if ((amt | 0) > 127) amt = 127;
@@ -3998,9 +3989,10 @@ export async function potionhit(mon, obj, how) {
             break;
         }
         case POT_SLEEPING:
+            // slept_monst is the canonical mhitm.js import (D-3368).
             if (sleep_monst_pot(mon, rnd(12), POTION_CLASS)) {
                 await pline(`${Monnam(mon)} falls asleep.`);
-                await slept_monst_pot(mon);
+                await slept_monst(mon);
             }
             break;
         case POT_PARALYSIS:

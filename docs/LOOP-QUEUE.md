@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `mhitm.c` slept_monst unwired C callers — music.c:95 + potion.c:1806 still call local clones (js/music.js:268, js/potion.js:3745 slept_monst_pot; sticks-deferred, hand-clearing ustuck) and zap.c:486 bhitm WAN_SLEEP arm has no JS call site; canonical js/mhitm.js:1422 exact (`csym --callers` 7 refs, 3 sites unwired; Ledger says ported). Source: reviews/loop-unattended/2317-52fc04909-dobuzz-slept-monst.md @79f8032a6
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

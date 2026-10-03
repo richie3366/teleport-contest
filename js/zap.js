@@ -562,6 +562,7 @@ const MAGIC_COOKIE = 1000; // zap.c local #define
 const AD_MAGM = 1; // C ref: monattk.h AD_MAGM (magic missiles)
 const AD_COLD = 3;
 const AD_FIRE = 2;
+const AD_SLEE = 4; // C ref: monattk.h AD_SLEE (sleep; bhitm WAN_SLEEP gate)
 const AD_DISN = 5; // C ref: monattk.h AD_DISN (disintegration)
 const AD_ELEC = 6;
 const AD_ACID = 8; // C ref: monattk.h AD_ACID (acid damage)
@@ -4464,6 +4465,34 @@ export async function bhitm(mtmp, otmp) {
         } else {
             await resist(mtmp, otmp.oclass, (healamt / 2) | 0, TELL);
         }
+        break;
+    }
+    case WAN_SLEEP: {
+        // C zap.c bhitm :480–489 — (broken wand). wake stays TRUE:
+        // wakeup() doesn't rouse temporary sleep; the concealed-mimic
+        // reveal rides inside sleep_monst. how=WAND_CLASS: d(1+spe,12)
+        // drawn first (call args), mimic reveal unless already
+        // asleep/paralyzed, then resists_sleep || defended(AD_SLEE) ||
+        // resist(WAND_CLASS) → shieldeff, else the mfrozen/msleeping
+        // tail (sleep_monst_zap, zhitm ZT_SLEEP precedent); slept_monst
+        // on success; !Blind learns.
+        reveal_invis = true;
+        const sleepAmt = d(1 + (otmp.spe | 0), 12);
+        if (!mtmp.msleeping && !(mtmp.mfrozen | 0)
+            && mtmp.data?.mlet === 'S_MIMIC'
+            && (M_AP_TYPE(mtmp) === M_AP_FURNITURE
+                || M_AP_TYPE(mtmp) === M_AP_OBJECT)) {
+            seemimic(mtmp);
+        }
+        let fellAsleep = false;
+        if (resists_sleep_slee(mtmp) || defended(mtmp, AD_SLEE)
+            || (await resist(mtmp, WAND_CLASS, 0, NOTELL))) {
+            await shieldeff(mtmp.mx, mtmp.my);
+        } else {
+            fellAsleep = !!sleep_monst_zap(mtmp, sleepAmt);
+        }
+        if (fellAsleep) await slept_monst(mtmp);
+        if (!Blind_props()) learn_it = true;
         break;
     }
     default:

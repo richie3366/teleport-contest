@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3368 `mhitm.c` slept_monst unwired C callers (review 2317 C-wrong 2)
+
+**C locus:** - `music`: nethack-c/upstream/src/music.c:84–98 (put_monsters_to_sleep; :95 slept_monst after sleep_monst + msleeping=1).
+**JS:** js/music.js:62,273; js/potion.js:196,3995; js/zap.js:565,4470–4497; js/mhitm.js:1414–1421 doc; tests scripts/dobuzz-slept-monst.test.mjs:146–211.
+**Change:** deleted both clones; js/music.js:62 + js/potion.js:196 import the canonical export (`imports.mjs --can` SAFE — hoisted function declaration; zap→mhitm ALREADY). New bhitm WAN_SLEEP arm (js/zap.js:4470–4497) in C order: reveal_invis; d(1+spe,12) drawn first (call args); mimic reveal unless asleep/paralyzed; resists_sleep_slee || defended(AD_SLEE; new :565 const = 4) || resist(WAND_CLASS) → shieldeff, else sleep_monst_zap tail (zhitm ZT_SLEEP precedent); slept_monst on success; Blind_props-gated learn. Updated the mhitm.js:1414–1421 caller doc (all 5 C sites wired).
+**Verify:** `node scripts/verify.mjs --fn slept_monst,bhitm` → syntax PASS (4 files) · rule2 PASS · hidden notes (0 blocked each, expected — Must-fix, not corpus) · reach slept_monst: no RNG-tagged reach, smoke 24/24 → REACH-OK · reach bhitm: 2 reach, 2 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Test file 9/9 (2 new arm tests: sleep-lands asserts d(1,12)-before-rn2(111) order + release + learn; mr=127 control asserts shield/no-sleep/grip-kept/learn). Direct `import()` of music/potion/zap/mhitm loads clean (new static edges).
+**Named:** none new. Sleep uses the zhitm-precedent inline (no canonical sleep_monst export; sleep_monst_zap meating=0 vs C finish_meating is pre-existing house style, not introduced here); music/potion sleep_monst_* clones untouched (row named only the slept_monst clones).
+**Next:** Open — coverage head (generated block).
 ## 2026-10-03 — D-3367 `zap.c` dobuzz steed-redirect tail-skip (review 2317 C-wrong 1)
 
 **C locus:** nethack-c/upstream/src/zap.c:4956–4991 (steed `goto buzzmonst` + hero-hit chain + u_at tail; body read via sed — csym misses the K&R signature).

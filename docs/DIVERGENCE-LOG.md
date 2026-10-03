@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3368 — `mhitm.c` slept_monst unwired C callers (review 2317 C-wrong 2)
+
+- **Status:** shipped (Must-fix review 2317 C-wrong 2; checked off + archived in this commit). 2 clone deletions + bhitm WAN_SLEEP arm + 2 regression tests (scripts/dobuzz-slept-monst.test.mjs 9/9).
+- **Symptom:** review 2317 C-wrong 2: canonical async `slept_monst` (js/mhitm.js:1422, D-3361) exact, but 3 of 5 C call sites dangling while Ledger said ported — music.c:95 + potion.c:1806 called local clones that dropped the `sticks(youmonst.data)` arm (a sticky-held hero was wrongly released) and hand-cleared `ustuck` instead of `unstuck()` (js/music.js:268, js/potion.js:3745 `slept_monst_pot`); zap.c:486 had no JS call site at all (bhitm lacked the WAN_SLEEP arm).
+- **C locus:**
+  - `music`: nethack-c/upstream/src/music.c:84–98 (put_monsters_to_sleep; :95 slept_monst after sleep_monst + msleeping=1).
+  - `potion`: nethack-c/upstream/src/potion.c:1802–1808 (potionhit POT_SLEEPING; :1806 slept_monst after "falls asleep").
+  - `bhitm`: nethack-c/upstream/src/zap.c:480–489 (bhitm WAN_SLEEP: wake stays TRUE, reveal_invis, sleep_monst(d(1+spe,12), WAND_CLASS) → slept_monst, !Blind learns) + mhitm.c:1222–1246 (sleep_monst gate order).
+- **JS was:** js/music.js:268 + js/potion.js:3745 local clones (no sticks check, `pline` + hand-clear of u.ustuck/youmonst.ustuck); js/zap.js bhitm switch ran SPE_HEALING → default with no WAN_SLEEP arm.
+- **Fix:** deleted both clones; js/music.js:62 + js/potion.js:196 import the canonical export (`imports.mjs --can` SAFE — hoisted function declaration; zap→mhitm ALREADY). New bhitm WAN_SLEEP arm (js/zap.js:4470–4497) in C order: reveal_invis; d(1+spe,12) drawn first (call args); mimic reveal unless asleep/paralyzed; resists_sleep_slee || defended(AD_SLEE; new :565 const = 4) || resist(WAND_CLASS) → shieldeff, else sleep_monst_zap tail (zhitm ZT_SLEEP precedent); slept_monst on success; Blind_props-gated learn. Updated the mhitm.js:1414–1421 caller doc (all 5 C sites wired).
+- **JS:** js/music.js:62,273; js/potion.js:196,3995; js/zap.js:565,4470–4497; js/mhitm.js:1414–1421 doc; tests scripts/dobuzz-slept-monst.test.mjs:146–211.
+- **Callers:**
+  - `music`: C music.c:95 → js/music.js:273 put_monsters_to_sleep (same call text, now the import).
+  - `potion`: C potion.c:1806 → js/potion.js:3995 potionhit POT_SLEEPING (`slept_monst_pot` → `slept_monst`).
+  - `bhitm`: C zap.c:486 → js/zap.js:4494 (new arm). Pre-wired sites stand: uhitm.c:3490/3519 → mhitm_ad_slee, zap.c:4946 → dobuzz (both D-3361).
+- **Verify:** `node scripts/verify.mjs --fn slept_monst,bhitm` → syntax PASS (4 files) · rule2 PASS · hidden notes (0 blocked each, expected — Must-fix, not corpus) · reach slept_monst: no RNG-tagged reach, smoke 24/24 → REACH-OK · reach bhitm: 2 reach, 2 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Test file 9/9 (2 new arm tests: sleep-lands asserts d(1,12)-before-rn2(111) order + release + learn; mr=127 control asserts shield/no-sleep/grip-kept/learn). Direct `import()` of music/potion/zap/mhitm loads clean (new static edges).
+- **Named omissions:** none new. Sleep uses the zhitm-precedent inline (no canonical sleep_monst export; sleep_monst_zap meating=0 vs C finish_meating is pre-existing house style, not introduced here); music/potion sleep_monst_* clones untouched (row named only the slept_monst clones). Retired-but-unedited ledger texts (show clips at 160 chars, sql unavailable here): bhitm omit's "WAN_SLEEP arm missing" clause + unstuck omit's "three local clones" clause — both closed by this D.
+- **Ledger:** slept_monst ported; bhitm partial
+- **Next:** Open — coverage head (generated block).
+
 ## D-3367 — `zap.c` dobuzz steed-redirect tail-skip (review 2317 C-wrong 1)
 
 - **Status:** shipped (Must-fix review 2317 C-wrong 1; checked off + archived in this commit). js/zap.js control-flow fix + 2 regression tests (scripts/dobuzz-slept-monst.test.mjs 7/7).
