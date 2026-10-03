@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — Audit 2329–2337: review D-3374–D-3382 (6 ACCEPT, 2 WITH-DEBT, 1 QUALITY-RISK) + full score
+
+Reviews 2329–2337 over SHAs 952f7c273–355829ea2 (oldest first, one file per SHA): 6 ACCEPT (levelflags pair, tricked_fileremoved, m_throw/breathwep, glow_color, poison_strdmg, dip_hands_ok/peffect); 2 ACCEPT-WITH-DEBT for a finish-iteration ledger bug writing the head bullet into partial rows (2333.1 doapply, 2336.1 nhclose/nh_compress/nh_uncompress — one `ledger.mjs set` iter fixes all four); 1 QUALITY-RISK (2337 bhit iron-ball arm exact but dead on all JS paths — non-tethered throws inline the fly; Must-fix prepended, Next cluster set). Re-measured every `hidden-proxy verify --reach-all` claim: all match except a transient 1-regressed batch blip on close_nhfile that isolated re-run (24/24) + the full rescore exonerate as load flake. Fortress: public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `335+1.64/turn`); corpus 707/953 (74.2 %, RNG 98.11 %, screens 93.4 %, 0 losses/0 gains, `full:true`); held-out 15/44 +0 (rank 6, 4th agentic). Rule #2 clean. Ledger snapshot + 5 seeded-ported briefs all OK (no `set` needed).
 ## 2026-10-03 — D-3382 throw-landing closure: throwit pick-snatch + landing arms, bhit iron-ball range limit
 
 **C locus:** - `throwit`: nethack-c/upstream/src/dothrow.c:1786–1794 Soundeffect splash; :1809–1817 shk pick-snatch (snatch pline + check_shop_obj + mpickobj + throwit_return); :1819–1822 !mon ship gate; :1843–1844 vision tail.

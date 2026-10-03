@@ -1,9 +1,9 @@
 {
- "commit": "787f6adee",
- "at": "2026-10-03T14:31:49.830Z",
- "full": false,
- "fullCommit": "647728e87",
- "fullAt": "2026-10-03T12:53:03.850Z",
+ "commit": "355829ea2",
+ "at": "2026-10-03T15:04:23.174Z",
+ "full": true,
+ "fullCommit": "355829ea2",
+ "fullAt": "2026-10-03T15:04:23.174Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -7737,7 +7737,7 @@
    "steps": 132,
    "owner": "rnd_hallublast",
    "loc": "mthrowu.c:54",
-   "jsOwner": "zap_hit(zap.js:1429)",
+   "jsOwner": "zap_hit(zap.js:1432)",
    "cTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "jsTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "error": null
@@ -8893,7 +8893,7 @@
    "steps": 206,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "rottenfood(eat.js:2457)",
+   "jsOwner": "rottenfood(eat.js:2440)",
    "cTopline": "You resume your meal. You hear the footsteps of a guard on patrol.--More--",
    "jsTopline": "Blecch! Rotten food! You finish eating the food ration.",
    "error": null

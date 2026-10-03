@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] bhit iron-ball stops unreachable — C zap.c:4095–4119 (boulder-hit msg + chained-uball test_move halt + Sokoban pit/hole stop, THROWN_WEAPON guard) live only in js/zap.js:6469 bhit, but C dothrow.c:1674 non-tethered throws inline the fly at js/dothrow.js:2444–2482 with no stops, and bhit's only THROWN_WEAPON JS caller is throw_gold (gold otyp, guard dead) — port the three stops into the inline loop in C order (or route non-tether through bhit); ride-along: splash cites `:1786–1794` → `:1793–1801`; do not reflip ledger until a thrown ball observably stops. Source: reviews/loop-unattended/2337-355829ea2-throwit-bhit-landing.md @355829ea2
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Generated block — do not edit between the markers. Row: measured class,

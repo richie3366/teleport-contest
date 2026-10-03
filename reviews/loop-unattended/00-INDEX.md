@@ -2338,3 +2338,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2326-7feedbbb2-restlevchn-port.md](./2326-7feedbbb2-restlevchn-port.md) | `7feedbbb2` | D-3371 restlevchn whole port | **ACCEPT** |
 | [2327-348c0ffa4-choose-classes-menu.md](./2327-348c0ffa4-choose-classes-menu.md) | `348c0ffa4` | D-3372 choose_classes_menu whole port | **ACCEPT** |
 | [2328-647728e87-highc-ssuffix-clone-removal.md](./2328-647728e87-highc-ssuffix-clone-removal.md) | `647728e87` | D-3373 highc/s_suffix ×4 removal + set_corpsenm stale | **ACCEPT** |
+| [2329-952f7c273-levelflags-time-pair-restlevelstate.md](./2329-952f7c273-levelflags-time-pair-restlevelstate.md) | `952f7c273` | D-3374 levelflags time pair + restlevelstate | **ACCEPT** |
+| [2330-30ce39631-tricked-fileremoved-goto-level.md](./2330-30ce39631-tricked-fileremoved-goto-level.md) | `30ce39631` | D-3375 tricked_fileremoved whole port + goto_level | **ACCEPT** |
+| [2331-d133940a7-m-throw-breathwep-arms.md](./2331-d133940a7-m-throw-breathwep-arms.md) | `d133940a7` | D-3376 m_throw + breathwep_name arms | **ACCEPT** |
+| [2332-649b09c00-glow-color-hcolor-wrap.md](./2332-649b09c00-glow-color-hcolor-wrap.md) | `649b09c00` | D-3377 glow_color hcolor wrap | **ACCEPT** |
+| [2333-e27333c36-cream-pie-banana.md](./2333-e27333c36-cream-pie-banana.md) | `e27333c36` | D-3378 use_cream_pie tail + BANANA arm | **ACCEPT-WITH-DEBT** |
+| [2334-4a4cc3e73-poison-strdmg-killer-path.md](./2334-4a4cc3e73-poison-strdmg-killer-path.md) | `4a4cc3e73` | D-3379 poison_strdmg killer path | **ACCEPT** |
+| [2335-c4bd1edaa-dip-hands-peffect-tail.md](./2335-c4bd1edaa-dip-hands-peffect-tail.md) | `c4bd1edaa` | D-3380 dip_hands_ok + peffect tail | **ACCEPT** |
+| [2336-787f6adee-files-savefile-family.md](./2336-787f6adee-files-savefile-family.md) | `787f6adee` | D-3381 files.c savefile/NHFILE family | **ACCEPT-WITH-DEBT** |
+| [2337-355829ea2-throwit-bhit-landing.md](./2337-355829ea2-throwit-bhit-landing.md) | `355829ea2` | D-3382 throwit landing + bhit iron-ball arm | **QUALITY-RISK** |
