@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3359 — `mondata.c` attacktype 2-clone removal (mhitu/uhitm `attacktype_aatyp` → live export)
+
+- **Status:** shipped (2 missing-arm rows checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions — below the ~80 bar, defended (D-3350–D-3358 clone-removal precedent): 7 call sites rewired, 2 whole clones deleted; the head's C file (mondata.c) held exactly these 2 Open rows, both shipped. Refill: none by hand (queue holds 8: highc botl, upstart_pot potion, s_suffix ×6). Bundled: none (D-3358 DONE rows carry no Addressed stamp — none owed, no review cited; verified this session).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline).
+- **C locus:**
+  - `attacktype`: nethack-c/upstream/src/mondata.c:54–57 — `attacktype_fordmg(ptr, atyp, AD_ANY) ? TRUE : FALSE`. 46 C refs (brief this session); rewired here: mondata.c:657/:658 (sticks WRAP/HUGS), mon.c:3463/:3464 (caught ENGL/HUGS), mon.c:3189 (corpse_chance mswallower ENGL), mhitm.c:1464/:1465 (xdrainenergym MAGC/BREA).
+- **JS was:** live export js/mondata.js:81 coexisted with 2 rename-clones — js/mhitu.js:1122-then (`attacktype_aatyp` some-scan over mattk, 4 sites), js/uhitm.js:623-then (`attacktype_aatyp` `!!fordmg(-1)` 1-liner, 3 sites).
+- **Fix:** extended the two ALREADY static →mondata edges (`attacktype` added to the mondata.js imports js/mhitu.js:86, js/uhitm.js:114; `imports.mjs --can` ALREADY ×2 — no new edge, no new test surface); deleted both clones (live-export markers left).
+- **JS:**
+  - `attacktype`: js/mondata.js:81 (live, canonical, untouched); rewired sites js/mhitu.js:1124/:1125 (sticks), js/mhitu.js:1612/:1613 (caught), js/uhitm.js:633 (corpse_chance), js/uhitm.js:3938/:3939 (xdrainenergym); pre-existing live sites per D-3350/D-3352/D-3355/D-3357.
+- **Callers:**
+  - `attacktype`: C mondata.c:657/:658 → js/mhitu.js:1124/:1125; C mon.c:3463/:3464 → js/mhitu.js:1612/:1613; C mon.c:3189 → js/uhitm.js:633; C mhitm.c:1464/:1465 → js/uhitm.js:3938/:3939. No JS site calls from a function C never calls from (rewire only — topology unchanged). Behavior notes: mhitu some-scan ≡ live (same aatyp predicate, boolean); uhitm `!!fordmg(-1)` identical to the live body — verify judges.
+- **Verify:**
+  - `attacktype`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn attacktype` → VERIFY: PASS (syntax 2 files, rule2 PASS, green 2/2, strict 2/2, cohort 7/7, full skipped — no shared file changed).
+- **Named omissions:**
+  - `attacktype`: none in-body — whole C body live at js/mondata.js:81.
+- **Ledger:** attacktype ported js=mondata.js:attacktype
+- **Next:** 8 rows: highc botl, upstart_pot potion, s_suffix ×6 (mthrowu/minion/explode/shk/questpgr/potion-pot).
+
 ## D-3358 — `hacklib.c` upstart 6-clone removal (trap/pickup/apply/do_name/monmove/readobjnam → live export)
 
 - **Status:** shipped (6 missing-arm rows checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions — below the ~80 bar, defended (D-3350–D-3357 clone-removal precedent): 26 call sites rewired, 6 whole clones deleted; the head's C file (hacklib.c) held exactly these 6 Open rows, all shipped. Refill: 8 missing-arm rows appended from this session's brief/sym/read evidence (highc botl, upstart_pot potion, s_suffix ×6 mthrowu/minion/explode/shk/questpgr/potion-pot; all edges ALREADY except questpgr→do_name NEW with a same-shape `--can` verdict) — queue 8→2→10, REFILL band kept (D-3355–D-3357 precedent: generated block stays empty, hand rows carry brief evidence). Bundled: none (D-3357 DONE rows carry no Addressed stamp — none owed, no review cited; verified this session).

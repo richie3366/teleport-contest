@@ -82,7 +82,7 @@ import {
 import { xkilled, killed, Hate_silver, dynamic_multi_reason, attacktype_fordmg, can_blnd } from './uhitm.js';
 import {
     m_seenres, cvt_adtyp_to_mseenres, monstseesu, monstunseesu, m_canseeu,
-    mhis, on_fire, defended, get_atkdam_type, dmgtype_fromattack,
+    mhis, on_fire, defended, get_atkdam_type, dmgtype_fromattack, attacktype,
 } from './mondata.js';
 import { which_armor, find_mac } from './worn.js';
 import {
@@ -1117,16 +1117,12 @@ function flaming(ptr) {
 
 /**
  * C ref: mondata.c sticks — AD_STCK, non-engulf AD_WRAP, or AT_HUGS.
- * Local clone (C AT_HUGS=7 / AT_ENGL=11). Do not import monmove.js sticks.
+ * Do not import monmove.js sticks. attacktype via ./mondata.js live export.
  */
-function attacktype_aatyp(ptr, aatyp) {
-    const at = aatyp | 0;
-    return !!(ptr?.mattk || []).some((a) => (a.aatyp | 0) === at);
-}
 function sticks(ptr) {
     return dmgtype(ptr, AD_STCK)
-        || (dmgtype(ptr, AD_WRAP) && !attacktype_aatyp(ptr, AT_ENGL))
-        || attacktype_aatyp(ptr, AT_HUGS);
+        || (dmgtype(ptr, AD_WRAP) && !attacktype(ptr, AT_ENGL))
+        || attacktype(ptr, AT_HUGS);
 }
 
 /* cloak_simple_name: canonical export from ./do_wear.js (objnam.c:5491–5509);
@@ -1613,8 +1609,8 @@ export async function unstuck(mtmp) {
     }
     if (!(mtmp.mspec_used | 0)
         && (dmgtype(ptr, AD_STCK)
-            || attacktype_aatyp(ptr, AT_ENGL)
-            || attacktype_aatyp(ptr, AT_HUGS))) {
+            || attacktype(ptr, AT_ENGL)
+            || attacktype(ptr, AT_HUGS))) {
         mtmp.mspec_used = rnd(2);
     }
 }

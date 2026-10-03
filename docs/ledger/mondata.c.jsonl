@@ -1,6 +1,6 @@
 {"fn":"set_mon_data","c":"13-38","status":"unknown"}
 {"fn":"attacktype_fordmg","c":"42-50","status":"ported","js":["js/uhitm.js:attacktype_fordmg"],"d":["D-3346"],"at":"2026-10-03@cd0939656"}
-{"fn":"attacktype","c":"54-57","status":"ported","js":["js/mondata.js:attacktype"],"d":["D-3357","D-3355","D-3352","D-3350"],"at":"2026-10-03@b28f5f884","note":"D-3350 live export; engrave/makemon/muse/polyself/trap clones queued"}
+{"fn":"attacktype","c":"54-57","status":"ported","js":["js/mondata.js:attacktype"],"d":["D-3359","D-3357","D-3355","D-3352","D-3350"],"at":"2026-10-03@6e103bb56","note":"D-3350 live export; engrave/makemon/muse/polyself/trap clones queued"}
 {"fn":"noattacks","c":"61-76","status":"unknown"}
 {"fn":"poly_when_stoned","c":"80-86","status":"unknown"}
 {"fn":"defended","c":"91-124","status":"unknown"}

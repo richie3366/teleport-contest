@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3359 `mondata.c` attacktype 2-clone removal (mhitu/uhitm `attacktype_aatyp` → live export)
+
+**C locus:** - `attacktype`: nethack-c/upstream/src/mondata.c:54–57 — `attacktype_fordmg(ptr, atyp, AD_ANY) ? TRUE : FALSE`. 46 C refs (brief this session); rewired here: mondata.c:657/:658 (sticks WRAP/HUGS), mon.c:3463/:3464 (caught ENGL/HUGS), mon.c:3189 (corpse_chance mswallower ENGL), mhitm.c:1464/:1465 (xdrainenergym MAGC/BREA).
+**JS:** - `attacktype`: js/mondata.js:81 (live, canonical, untouched); rewired sites js/mhitu.js:1124/:1125 (sticks), js/mhitu.js:1612/:1613 (caught), js/uhitm.js:633 (corpse_chance), js/uhitm.js:3938/:3939 (xdrainenergym); pre-existing live sites per D-3350/D-3352/D-3355/D-3357.
+**Change:** extended the two ALREADY static →mondata edges (`attacktype` added to the mondata.js imports js/mhitu.js:86, js/uhitm.js:114; `imports.mjs --can` ALREADY ×2 — no new edge, no new test surface); deleted both clones (live-export markers left).
+**Verify:** - `attacktype`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `attacktype`: none in-body — whole C body live at js/mondata.js:81.
+**Next:** 8 rows: highc botl, upstart_pot potion, s_suffix ×6 (mthrowu/minion/explode/shk/questpgr/potion-pot).
 ## 2026-10-03 — D-3358 `hacklib.c` upstart 6-clone removal (trap/pickup/apply/do_name/monmove/readobjnam → live export)
 
 **C locus:** - `upstart`: nethack-c/upstream/src/hacklib.c:113–119 — `if (s) *s = highc(*s); return s;`. 78 C refs (brief this session); rewired here: trap.c:834 (animate_statue), trap.c:1909 (steed-pit), pickup.c:405 (dfeature), pickup.c:3979/:4049 (thesimpleoname locked/empty), apply.c:1160 (mhe-takes-it), apply.c:650/:662/:678 (shift/appear/disappear), do_name.c:166/:182/:185/:191 (naming-refusal), do_name.c:267/:278 (no-names), do_name.c:1575/:1576/:1579 (orc-name), monmove.c:1286 (web-spin), objnam.c:3684 (ice-descr), objnam.c:3815/:3819 (door-terrain); JS-context sites: trap yname, pickup ysimple_name/theArt-locked, monmove door-ooze.
