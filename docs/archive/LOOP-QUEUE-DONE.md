@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] bhit iron-ball stops unreachable — C zap.c:4095–4119 (boulder-hit msg + chained-uball test_move halt + Sokoban pit/hole stop, THROWN_WEAPON guard) live only in js/zap.js:6469 bhit, but C dothrow.c:1674 non-tethered throws inline the fly at js/dothrow.js:2444–2482 with no stops, and bhit's only THROWN_WEAPON JS caller is throw_gold (gold otyp, guard dead) — port the three stops into the inline loop in C order (or route non-tether through bhit); ride-along: splash cites `:1786–1794` → `:1793–1801`; do not reflip ledger until a thrown ball observably stops. Source: reviews/loop-unattended/2337-355829ea2-throwit-bhit-landing.md @355829ea2 **Addressed:** D-3383
+
+
 - [x] `dothrow.c` throwit shk pick-snatch arm — C dothrow.c:1809–1817 (mon->isshk && is_pick: snatch pline + check_shop_obj + mpickobj + throwit_return) absent from js/dothrow.js:2307 throwit (named omit comment :2568; callee mpickobj live js/makemon.js:2254 — brief 2026-10-03) @30ce39631
 - [x] `zap.c` bhit iron-ball range limit — C zap.c:4095–4119 (THROWN_WEAPON HEAVY_IRON_BALL: boulder-hit msg + uball test_move halt + Sokoban pit stop, range=0) absent from js/zap.js:6162 bhit (named omit in doc :6156–6157 — brief 2026-10-03) @30ce39631
 

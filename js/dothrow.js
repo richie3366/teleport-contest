@@ -22,7 +22,7 @@ import {
     losehp, maybe_half_phys, nomul, impact_disturbs_zombies, finish_maybe_wail,
     switch_terrain, in_rooms, stop_occupation, You_hear,
     Passes_walls_prop, check_special_room, is_pool, is_lava, is_moat,
-    check_capacity,
+    check_capacity, test_move,
 } from './hack.js';
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
@@ -58,6 +58,7 @@ import {
     GETOBJ_ALLOWCNT,
     WT_TOOMUCH_DIAGONAL,
     MAGIC_PORTAL, VIBRATING_SQUARE, FIRE_TRAP, NO_TRAP_FLAGS, is_pit, is_hole,
+    TEST_MOVE,
 } from './const.js';
 import { obj_resists, dogfood } from './dogmove.js';
 import {
@@ -85,7 +86,7 @@ import {
 } from './generated/monsters_data.js';
 import {
     xname, killer_xname, singular, an, An, the, The, vtense, doname, thesimpleoname,
-    makeplural, otense, mshot_xname, corpse_xname,
+    makeplural, otense, mshot_xname, corpse_xname, distant_name,
 } from './objnam.js';
 import { m_at, wakeup, seemimic, wake_nearto, monnear, m_respond, setmangry, bad_rock, may_passwall } from './mon.js';
 import { distmin } from './hacklib.js';
@@ -2478,6 +2479,37 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             hitmon = mon;
             break;
         }
+        // C zap.c bhit :4095–4119 — limit range of a thrown ball so the
+        // hero won't make an invalid move. The non-tethered THROWN_WEAPON
+        // path inlines bhit here, so the stops live here too, in C order
+        // after the monster stop (js/zap.js:6469 holds the bhit-home copy).
+        // A boulder stops it with a message; a chained uball jerks to a
+        // halt when the hero can't follow (test_move from the previous
+        // square) or over a Sokoban pit/hole. range is C range.
+        if (range > 0 && obj && (obj.otyp | 0) === HEAVY_IRON_BALL) {
+            const bobj = sobj_at(BOULDER, x, y);
+            if (bobj) {
+                if (cansee(x, y)) {
+                    await pline(`${The(distant_name(obj, xname))} hits ${an(xname(bobj))}.`);
+                }
+                range = 0;
+            } else if (obj === u.uball) {
+                if (!await test_move(x - dx, y - dy, dx, dy, TEST_MOVE)) {
+                    /* nb: it didn't hit anything directly */
+                    if (cansee(x, y)) {
+                        await pline(`${The(distant_name(obj, xname))} jerks to an abrupt halt.`);
+                    }
+                    range = 0;
+                } else if (game.level?.flags?.sokoban_rules || game.Sokoban) {
+                    // C: Sokoban = level.flags.sokoban_rules (trap.js:582)
+                    const t = t_at(x, y);
+                    if (t && (is_pit(t.ttyp) || is_hole(t.ttyp))) {
+                        /* hero falls into the trap, so ball stops */
+                        range = 0;
+                    }
+                }
+            }
+        }
     }
     }
     // C throwit :1680–1682 — after bhit so ux,uy are correct
@@ -2543,7 +2575,7 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             return;
         }
     }
-    // C dothrow.c throwit :1786–1794 — !Deaf && !Underwater pool/lava
+    // C dothrow.c throwit :1793–1801 — !Deaf && !Underwater pool/lava
     // landing: Soundeffect(se_splash, 50) then Splash!/Plop! before
     // flooreffects (sndprocs edge is cycle-free; seffects is data-leaf).
     {

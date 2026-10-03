@@ -1,11 +1,29 @@
 # Divergence log
 
+## D-3383 — bhit iron-ball stops wired into throwit inline fly (review 2337 C-wrong 1)
+
+- **Status:** shipped (Must-fix review 2337 C-wrong 1; queue row checked off + archived in this commit; review stamped **Addressed:** D-3383).
+- **Symptom:** review 2337 QUALITY-RISK: D-3382's bhit `:4095–4119` arm code-exact but dead on every JS path — C dothrow.c:1674 non-tethered throws route through bhit with THROWN_WEAPON, while JS inlines the fly at js/dothrow.js:2444 with no boulder/uball/Sokoban stops, and bhit's only THROWN_WEAPON JS caller is throw_gold (gold otyp, guard always false). A thrown iron ball still flew through boulders and past the hero's follow range.
+- **C locus:**
+  - `throwit`: nethack-c/upstream/src/dothrow.c:1674 non-tethered THROWN_WEAPON site (inlined in JS) + nethack-c/upstream/src/zap.c:4095–4119 iron-ball range limit (boulder-hit msg + chained-uball test_move halt + Sokoban pit/hole stop) mirrored into the inline loop in C order.
+- **JS was:** js/dothrow.js:2445 inline fly advanced x/y, cleared point_blank, and stopped only on monsters — no HEAVY_IRON_BALL checks; the `:4095–4119` logic lived only in js/zap.js:6469 bhit, unreachable from any thrown ball.
+- **Fix:** ported the three stops into the inline fly in C order after the monster stop. A monster hit still breaks first (C's goto bhit_done skips the stops the same way). Guard is `range > 0 && otyp == HEAVY_IRON_BALL` (the loop is the non-tethered THROWN_WEAPON path only; `range` is post-decrement ≡ C range, same as bhit's `r > 0`): sobj_at(BOULDER) → cansee pline `"%s hits %s."` (The(distant_name(obj, xname))/an(xname), verbatim) → range=0; else obj==u.uball → !test_move(prev, dir, TEST_MOVE) → jerks-halt pline → range=0, else Sokoban (level.flags.sokoban_rules || game.Sokoban, trap.js:582 idiom, short-circuited before t_at like C) pit/hole → range=0 silent. Callees are the live exports (sobj_at/The/an/xname/cansee/t_at/is_pit/is_hole already imported; distant_name/test_move/TEST_MOVE added to ALREADY edges per imports.mjs, no new edge). Ride-along: splash cites `:1786–1794` → `:1793–1801` in js/dothrow.js:2578 and the D-3382 C-locus line.
+- **JS:**
+  - `throwit`: js/dothrow.js:2308 (stops :2482–2510 — comment :2482–2488, boulder :2490–2495, uball :2496–2503, Sokoban :2504–2509; distant_name import :87, test_move :25, TEST_MOVE :61).
+- **Callers:**
+  - `throwit`: C dothrow.c:1674 non-tethered site → js/dothrow.js:2445 inline fly (stops now inline, landing shared past :2497); artifact.c:2029/dothrow.c:270/polyself.c:1475 unchanged. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn throwit,bhit` → syntax 1 file (js/dothrow.js) · rule2 · throwit 0 blocked + reach 2/2 REACH-OK · bhit 0 blocked + smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. (REACH cannot prove the arm fires — no corpus throw exercises it — but the arm is a line-mirror of the review-verified-exact bhit copy with live callees.)
+- **Named omissions:**
+  - `throwit`: none in this arm — all three stops live. (Pre-existing inline-fly gaps vs bhit — WEB/shade/mimic-object per the js/zap.js:6158 doc — out of scope, unchanged.)
+- **Ledger:** throwit ported; bhit ported
+- **Next:** none from this fix; queue head moves to Open missing-arm rows.
+
 ## D-3382 — throw-landing closure: throwit pick-snatch + landing arms, bhit iron-ball range limit
 
 - **Status:** shipped (queue missing-arm rows 1–2 checked off + archived; no review cited, no stamp owed).
 - **Symptom:** no corpus divergence — coverage cluster (0 blocked at baseline each). A pick thrown at a shopkeeper fell through to place_object instead of being snatched; pool/lava landings skipped the splash sound; a missed monster didn't gate ship_object; a landed light source never re-lit; a thrown iron ball flew through boulders and past the hero's follow range.
 - **C locus:**
-  - `throwit`: nethack-c/upstream/src/dothrow.c:1786–1794 Soundeffect splash; :1809–1817 shk pick-snatch (snatch pline + check_shop_obj + mpickobj + throwit_return); :1819–1822 !mon ship gate; :1843–1844 vision tail.
+  - `throwit`: nethack-c/upstream/src/dothrow.c:1793–1801 Soundeffect splash; :1809–1817 shk pick-snatch (snatch pline + check_shop_obj + mpickobj + throwit_return); :1819–1822 !mon ship gate; :1843–1844 vision tail.
   - `bhit`: nethack-c/upstream/src/zap.c:4095–4119 THROWN_WEAPON HEAVY_IRON_BALL range limit (boulder-hit msg + uball test_move halt + Sokoban pit stop, range=0).
 - **JS was:** js/dothrow.js:2307 throwit ended its landing at newsym + throwit_return with four ledger omits (pick-snatch named omit doc :2568; splash without sound :2546; un-gated ship_object :2584; no vision tail); js/zap.js:6162 bhit fell from the sink break straight to point_blank=false with the iron-ball stop as named omit (doc :6155–6157).
 - **Fix:** C-order arms at both homes. throwit splash block gains Soundeffect(se_splash, 50) before the pline (dynamic sndprocs + generated/seffects_data imports; sndprocs edge is cycle-free per imports.mjs, seffects is a data leaf); :1809–1817 snatch arm between obj_no_longer_held and snuff_candle (hitmon ≡ C mon — bhit stopped at it, throwit_mon_hit missed, x/y already on it; static check_shop_obj/mpickobj/Monnam/is_pick — is_pick added to the existing objects.js edge); ship_object gated on !hitmon with && short-circuit; tail gains obj_sheds_light → game.vision_full_recalc=1 (apply.js:3437 precedent; dynamic light.js import). bhit gains the :4095–4119 block between the sink break and point_blank=false, outside the non-wand if like C (r ≡ C range; sobj_at/test_move/t_at live; TEST_MOVE/is_pit/is_hole added to existing const/hack edges; HEAVY_IRON_BALL via the file's objectNames.indexOf pattern :456 next to BOULDER; Sokoban = level.flags.sokoban_rules || game.Sokoban per trap.js:582, short-circuited before t_at like C).

@@ -91,3 +91,5 @@ smoke bhit: no RNG-tagged reach; fixed smoke spread (24 run, 11.1s): 24 PASS, 0 
 1. **bhit iron-ball stops unreachable on all paths (unwired C caller dothrow.c:1674 non-tethered case).** C zap.c:4095–4119 fires for THROWN_WEAPON (non-tethered) balls; JS routes non-tethered throws through the inline fly (js/dothrow.js:2444–2482), which has no boulder/uball/Sokoban stops, while bhit's only THROWN_WEAPON caller is throw_gold (gold otyp — guard always false). Fix in one iter (small reading): port the three stops (boulder-hit msg + r=0; chained-uball test_move halt; Sokoban pit/hole stop) into the inline loop in C order, reusing the live zap.js arm's callees; or route non-tether through bhit if its THROWN gaps are closable in the same iter. Ride-along: correct the splash cites (`:1786–1794` → `:1793–1801`) in the D-3382 D-log + js/dothrow.js:2546 comment. Do NOT reflip the ledger until a thrown ball observably stops. Source: reviews/loop-unattended/2337-355829ea2-… (Must-fix — prepended).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3383
