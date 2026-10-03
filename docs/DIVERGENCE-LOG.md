@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3356 — `hacklib.c` upstart mthrowu.js + read.js clone removal (2 sites → live js/hacklib.js export)
+
+- **Status:** shipped (2 head missing-arm rows checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions — below the ~80 bar, defended (D-3341–D-3355 clone-removal precedent): 2 whole call sites rewired, 2 whole clones deleted; the head's C file (hacklib.c) held exactly these 2 Open rows, both shipped. Refill: 2 missing-arm rows appended from this session's brief/sym/read evidence (`hacklib.c` upstart trap.js + pickup.js — live hacklib.js:497 export + clones :226/:291, both edges ALREADY; no prior row names upstart+trap/pickup) — queue 8→6→8, REFILL band kept (D-3353–D-3355 precedent: generated block stays empty, hand rows carry brief evidence). Bundled: backfilled missing `**Addressed:** D-3355` stamps on all 6 D-3355 DONE rows (`18773ed32` from git log).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline).
+- **C locus:**
+  - `upstart`: nethack-c/upstream/src/hacklib.c:113–119 — `if (s) *s = highc(*s); return s;`. 78 C refs (brief this session); 2 rewired here: mthrowu.c:113 (thitu wide-miss `upstart(onmbuf)`), read.c:2783 (genocide `upstart(nam)`).
+- **JS was:** live export js/hacklib.js:497 (null/'' guard, String()+highc; pre-campaign keep-theirs doc) coexisted with clone js/mthrowu.js:287-then (`if (!str)`+toUpperCase, 1 site :657-then thitu wide-miss) and clone js/read.js:2558-then (undocumented, same shape, 1 site :2720-then genocide-nonexistent).
+- **Fix:** extended the two ALREADY static →hacklib edges (`upstart` added to the hacklib.js imports js/mthrowu.js:11, js/read.js:142; `imports.mjs --can` ALREADY both — no new edge, no new test surface); deleted both clones (live-export markers left); refreshed the stale hacklib.js:492 canon doc (pre-campaign keep-theirs → campaign note naming the 6 remaining clones). Maintained test: new scripts/upstart-rewire.test.mjs (no-clone + live-import + 2 site-calls + 7-definer census, 4/4 pass).
+- **JS:**
+  - `upstart`: js/hacklib.js:497 (live, canonical, untouched); rewired sites js/mthrowu.js:653 (thitu wide-miss), js/read.js:2717 (genocide-nonexistent); pre-existing live sites js/makemon.js:1785/:2097 (import :9).
+- **Callers:**
+  - `upstart`: C mthrowu.c:113 (thitu wide-miss) → js/mthrowu.js:653; C read.c:2783 (genocide-nonexistent) → js/read.js:2717. No JS site calls from a function C never calls from (rewire only — topology unchanged). Behavior notes: live = String()+highc (ASCII a-z only ≡ C `('a' <= c && c <= 'z')`) replaces the clones' locale-Unicode toUpperCase (differs only for non-ASCII initials, which onm/nam never carry) and the clones' falsy-passthrough (live String()s non-strings; no site passes those) — verify judges.
+- **Verify:**
+  - `upstart`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/upstart-rewire.test.mjs` 4/4 pass.
+  - `node scripts/verify.mjs --fn upstart` → VERIFY: PASS (syntax 3 files, rule2 PASS, green 2/2, strict 2/2, cohort 7/7).
+- **Named omissions:**
+  - `upstart`: none in-body — whole C body live at js/hacklib.js:497. Out of cluster, queued: trap.js + pickup.js clones (refill rows this commit); remaining clones apply/do_name/monmove/readobjnam unqueued.
+- **Ledger:** upstart ported js=hacklib.js:upstart
+- **Next:** 6 mondata rows (dmgtype mhitm/mhitu/monmove/zap + attacktype_mm + dmgtype_fromattack canonical), then the 2 upstart refill rows (trap/pickup).
+
 ## D-3355 — `mondata.c` attacktype 4-clone removal + dmgtype 2-clone removal (makemon/muse/polyself/trap/engrave/eat → live exports)
 
 - **Status:** shipped (6 missing-arm rows checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions — below the ~80 bar, defended (D-3341–D-3354 clone-removal precedent): 20 attacktype + 5 dmgtype call sites rewired, 6 whole clones deleted; the head's C file (mondata.c) held exactly these 6 Open rows, all shipped. Refill: 6 missing-arm rows appended from this session's brief/sym/read evidence (dmgtype mhitm/mhitu/monmove, dmgtype_zap zap, attacktype_mm mhitm, dmgtype_fromattack canonical; all 5 rewire edges ALREADY) — queue 8→2→8, REFILL band kept (D-3353/D-3354 precedent: generated block stays empty, hand rows carry brief evidence). Bundled: none (all DONE Addressed stamps already carry hashes).

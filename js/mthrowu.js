@@ -8,7 +8,7 @@ import { rn2, rnd } from './rng.js';
 import {
     m_at, m_carrying, seemimic, setmangry, wake_nearto,
 } from './mon.js';
-import { distmin, dist2 } from './hacklib.js';
+import { distmin, dist2, upstart } from './hacklib.js';
 import {
     COLNO, ROWNO, BOLT_LIM, MON_POLE_DIST, PET_MISSILE_RANGE2, IS_OBSTRUCTED, IS_DOOR,
     D_CLOSED, D_LOCKED, IRONBARS, IS_SINK,
@@ -283,11 +283,7 @@ function canseemon(mtmp) {
     return loc_seen && mon_visible(mtmp);
 }
 
-/** C ref: hacklib.c upstart — capitalize first letter in place. */
-function upstart(str) {
-    if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
+/* C hacklib.c upstart — live export from './hacklib.js' (clone removed D-3356). */
 
 function Role_if(pm) {
     return game.urole?.mnum === pm;
