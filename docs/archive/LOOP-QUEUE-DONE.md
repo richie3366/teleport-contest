@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `mdlib.c` mkstemp — C mdlib.c:375–385 absent from js/ (no JS symbol; ledger absent C 7; `#ifdef _MSC_VER` MSVC-only temp-file open; sole live caller util/makedefs.c:492 build tool, decl-only mdlib.c:71; compiled out on pinned platform → by-design verdict — brief 2026-10-03) @4ea047f25
+
+
 - [x] `u_init.c` knows_object pauper gate — C u_init.c:578–579 (if (u.uroleplay.pauper && !override_pauper) return) absent from js/u_init.js:1277 knows_object (param named _override_pauper, ignored; unconditionally discover_object so paupers wrongly discover role/race items; callee discover_object js/invent.js:4734 live; 39 C call sites incl. :715/:924 TRUE overrides; ledger partial names this arm — brief 2026-10-03) @4ea047f25
 
 

@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3398 — mdlib.c mkstemp MSVC-only stub is by-design (compiled out)
+
+- **Status:** shipped (1 missing-arm row checked off + archived in this commit; by-design verdict, no js/ change — whole function compiled out on pinned platform).
+- **Symptom:** coverage — no corpus divergence (`hidden-proxy verify`: no session blocked). `mkstemp` absent from js/ (ledger absent C 7).
+- **C locus:**
+  - `mkstemp`: `mdlib.c:375–385` — whole body (`_mktemp_s` + `_open(_O_RDWR|_O_BINARY|_O_TEMPORARY|_O_CREAT)`) inside `#ifndef HAS_NO_MKSTEMP` + `#ifdef _MSC_VER` (`:372–373`, closes `:386–387`); decl `mdlib.c:69–73` under the same guards.
+- **JS was:**
+  - `mkstemp`: no JS symbol (brief: NOT FOUND incl. js/generated/).
+- **Fix:** none — by-design. `_MSC_VER` is defined only by the Microsoft compiler, so the pinned Linux/gcc build compiles neither the decl nor the body. Sole pinned-C caller is the `util/makedefs.c:492` build tool (outside the scored game), and libc supplies `mkstemp` on the pinned platform, so no VFS analogue is needed. No dead JS to delete (unlike D-3391's SELF_RECOVER revert).
+- **JS:** none (no js/ file touched).
+- **Callers:**
+  - `mkstemp`: none scored — C refs are decl-only `mdlib.c:71` (guarded out) + build-tool `util/makedefs.c:492`; 0 call sites in the scored game binary.
+- **Verify:** `node scripts/verify.mjs --fn mkstemp` → syntax PASS (0 files) · rule2 PASS · hidden note (no session blocked) · REACH-OK (no RNG-tagged reach; 24-smoke 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7. VERIFY: PASS.
+- **Named omissions:**
+  - `mkstemp`: none — by-design: the whole function is absent from the scored binary (MSVC-only `#ifdef _MSC_VER`, cf. D-3391 SELF_RECOVER).
+- **Ledger:** mkstemp by-design
+- **Next:** queue head is now `shk.c` sasc_bug (Amiga-only → by-design verdict row).
+
 ## D-3397 — u_init.c pauper gates + init gaps (6-function cluster)
 
 - **Status:** shipped (1 missing-arm row checked off + archived in this commit; 5 same-file ledger partials folded in, no queue rows).

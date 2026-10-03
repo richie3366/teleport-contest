@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3398 mdlib.c mkstemp MSVC-only stub is by-design (compiled out)
+
+**C locus:** - `mkstemp`: `mdlib.c:375–385` — whole body (`_mktemp_s` + `_open(_O_RDWR|_O_BINARY|_O_TEMPORARY|_O_CREAT)`) inside `#ifndef HAS_NO_MKSTEMP` + `#ifdef _MSC_VER` (`:372–373`, closes `:386–387`); decl `mdlib.c:69–73` under the same guards.
+**JS:** none (no js/ file touched).
+**Change:** none — by-design. `_MSC_VER` is defined only by the Microsoft compiler, so the pinned Linux/gcc build compiles neither the decl nor the body. Sole pinned-C caller is the `util/makedefs.c:492` build tool (outside the scored game), and libc supplies `mkstemp` on the pinned platform, so no VFS analogue is needed.
+**Verify:** `node scripts/verify.mjs --fn mkstemp` → syntax PASS (0 files) · rule2 PASS · hidden note (no session blocked) · REACH-OK (no RNG-tagged reach; 24-smoke 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7. VERIFY: PASS.
+**Named:** - `mkstemp`: none — by-design: the whole function is absent from the scored binary (MSVC-only `#ifdef _MSC_VER`, cf. D-3391 SELF_RECOVER).
+**Next:** queue head is now `shk.c` sasc_bug (Amiga-only → by-design verdict row).
 ## 2026-10-03 — D-3397 u_init.c pauper gates + init gaps (6-function cluster)
 
 **C locus:** - `knows_object`: `u_init.c:575–581` — `:577 if (u.uroleplay.pauper && !override_pauper) return`; 38 live call sites incl. `:715`/`:924` TRUE overrides.

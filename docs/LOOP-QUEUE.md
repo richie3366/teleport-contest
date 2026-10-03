@@ -127,7 +127,6 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `mdlib.c` mkstemp — C mdlib.c:375–385 absent from js/ (no JS symbol; ledger absent C 7; `#ifdef _MSC_VER` MSVC-only temp-file open; sole live caller util/makedefs.c:492 build tool, decl-only mdlib.c:71; compiled out on pinned platform → by-design verdict — brief 2026-10-03) @4ea047f25
 - [ ] `shk.c` sasc_bug — C shk.c:5945–5948 absent from js/ (no JS symbol; ledger absent C 1; `#ifdef __SASC` Amiga-compiler op->unpaid=x workaround; 0 C refs; compiled out on pinned platform → by-design verdict — brief 2026-10-03) @4ea047f25
 - [ ] `mhitm.c` mdamagem !damage tail — C mhitm.c:1070–1071 (`if (!mhm.damage) return mhm.hitflags;`) absent from js/mhitm.js:5653 mdamagem (:4605; `if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;` — returns HIT where C returns hitflags, MISS when unset e.g. negated AD_STCK; no new callee, pure return-code fix; ledger partial names this arm — brief 2026-10-03) @d428e2b04
 - [ ] `dokick.c` really_kick_object pit/web reveal+message — C dokick.c:521–529 (pit/web block: `if (!trap->tseen) find_trap(trap)` :523–524 + Hallucination 'tizzy' variant :526–528) absent from js/dokick.js:1271–1274 really_kick_object (:1261; :1272 `find_trap deferred` comment, :1273 web/pit only; callee find_trap js/detect.js:340 local async — needs export; ledger partial names this arm — brief 2026-10-03) @d428e2b04
