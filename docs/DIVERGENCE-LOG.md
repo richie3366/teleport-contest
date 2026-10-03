@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3396 — files.c nh_sfunconvert unconvert hook
+
+- **Status:** shipped (1 missing-arm row checked off + archived in this commit).
+- **Symptom:** coverage — no corpus divergence (`hidden-proxy verify`: no session blocked). `nh_sfunconvert` absent from js/ (ledger unknown).
+- **C locus:**
+  - `nh_sfunconvert`: `files.c:2079–2082` — `(void) doconvert_file(filename, 0, TRUE);`, game-build `#ifndef SFCTOOL` hook; 0 C call sites in pinned C.
+- **JS was:**
+  - `nh_sfunconvert`: no JS symbol (callee `doconvert_file` module-local live `js/files.js:2323`, D-3389).
+- **Fix:** new exported `nh_sfunconvert` in js/files.js in C order right after `nh_sfconvert` (`:2344–2352`), whole 1-line body `doconvert_file(filename, 0, true)` mirroring the sibling convert hook; retired the "(unported — ships with that function)" clause in the doconvert_file doc. Same-file call, no new import or clone.
+- **JS:** `js/files.js:2344–2352` nh_sfunconvert (:2350); `:2316–2317` doconvert_file doc touch-up.
+- **Callers:**
+  - `nh_sfunconvert`: none — C has no call sites (brief: 0 references); the export stands alone for coverage, like the reviewed ships-with note in 2344 §3.
+- **Verify:** `node scripts/verify.mjs --fn nh_sfunconvert` → syntax PASS (1 file) · rule2 PASS · hidden note (no session blocked) · REACH-OK (no RNG-tagged reach; 24-smoke 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7. VERIFY: PASS.
+- **Named omissions:**
+  - `nh_sfunconvert`: none — whole C body live (sole C callee `doconvert_file` live same-file).
+- **Ledger:** nh_sfunconvert ported
+- **Next:** queue head is now `u_init.c` knows_object pauper gate (next Open missing-arm row).
+
 ## D-3395 — cmd.c dummyfunction + redraw_cmd generic-bind arm
 
 - **Status:** shipped (2 missing-arm rows checked off + archived in this commit).

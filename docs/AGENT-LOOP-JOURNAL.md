@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3396 files.c nh_sfunconvert unconvert hook
+
+**C locus:** - `nh_sfunconvert`: `files.c:2079–2082` — `(void) doconvert_file(filename, 0, TRUE);`, game-build `#ifndef SFCTOOL` hook; 0 C call sites in pinned C.
+**JS:** `js/files.js:2344–2352` nh_sfunconvert (:2350); `:2316–2317` doconvert_file doc touch-up.
+**Change:** new exported `nh_sfunconvert` in js/files.js in C order right after `nh_sfconvert` (`:2344–2352`), whole 1-line body `doconvert_file(filename, 0, true)` mirroring the sibling convert hook; retired the "(unported — ships with that function)" clause in the doconvert_file doc. Same-file call, no new import or clone.
+**Verify:** `node scripts/verify.mjs --fn nh_sfunconvert` → syntax PASS (1 file) · rule2 PASS · hidden note (no session blocked) · REACH-OK (no RNG-tagged reach; 24-smoke 24 PASS, 0 regressed) · green 2/2 · strict both · cohort 7/7. VERIFY: PASS.
+**Named:** - `nh_sfunconvert`: none — whole C body live (sole C callee `doconvert_file` live same-file).
+**Next:** queue head is now `u_init.c` knows_object pauper gate (next Open missing-arm row).
 ## 2026-10-03 — D-3395 cmd.c dummyfunction + redraw_cmd generic-bind arm
 
 **C locus:** - `dummyfunction`: `cmd.c:5699–5702` — staticfn returning ECMD_CANCEL; decl-only C ref cmd.c:151, no live callers.

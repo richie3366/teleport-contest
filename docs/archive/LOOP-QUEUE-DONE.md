@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `cmd.c` dummyfunction — C cmd.c:5699–5702 absent from js/ (no JS symbol; ledger absent C 1; staticfn returning ECMD_CANCEL; decl-only C ref cmd.c:151, no live callers; 0 C callees — brief 2026-10-03) @14e98dbc1 **Addressed:** D-3395
-- [x] `cmd.c` redraw_cmd generic-bind arm — C cmd.c:3911–3918 (cmdbind_get(uc)->ef_funct==doredraw lookup) absent from js/getpos.js:118 redraw_cmd (hardcodes C-r/C-l so rebound redraw keys diverge; callee cmdbind_get js/dokeylist.js:386 live; C callers cmd.c:4013 getdir + getpos.c:945; ledger partial names this arm — brief 2026-10-03) @d6a4a5312 **Addressed:** D-3395
+- [x] `files.c` nh_sfunconvert — C files.c:2079–2082 absent from js/ (no JS symbol; ledger unknown C 1; doconvert_file(filename,0,TRUE) unconvert hook; 0 C refs; callee doconvert_file module-local live same-file js/files.js (same-file call, not a clone) — brief 2026-10-03) @14e98dbc1
+
+
+- [x] `cmd.c` dummyfunction — C cmd.c:5699–5702 absent from js/ (no JS symbol; ledger absent C 1; staticfn returning ECMD_CANCEL; decl-only C ref cmd.c:151, no live callers; 0 C callees — brief 2026-10-03) @14e98dbc1 **Addressed:** D-3395 `2a53139d7`
+- [x] `cmd.c` redraw_cmd generic-bind arm — C cmd.c:3911–3918 (cmdbind_get(uc)->ef_funct==doredraw lookup) absent from js/getpos.js:118 redraw_cmd (hardcodes C-r/C-l so rebound redraw keys diverge; callee cmdbind_get js/dokeylist.js:386 live; C callers cmd.c:4013 getdir + getpos.c:945; ledger partial names this arm — brief 2026-10-03) @d6a4a5312 **Addressed:** D-3395 `2a53139d7`
 
 
 - [x] `priest.c` move_special shop re-entry arm — C priest.c:125–126 (isshk && !in_his_shop && inhishop → check_special_room(FALSE)) absent from js/shk.js:4495 move_special (post-move block :4512–4517 m_at/u_at + newsym + return 1, no shop check; callee check_special_room js/hack.js:3035 live async; ledger partial names this arm — brief 2026-10-03) @41ae7cfca

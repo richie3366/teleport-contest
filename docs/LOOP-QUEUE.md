@@ -127,7 +127,6 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `files.c` nh_sfunconvert — C files.c:2079–2082 absent from js/ (no JS symbol; ledger unknown C 1; doconvert_file(filename,0,TRUE) unconvert hook; 0 C refs; callee doconvert_file module-local live same-file js/files.js (same-file call, not a clone) — brief 2026-10-03) @14e98dbc1
 - [ ] `u_init.c` knows_object pauper gate — C u_init.c:578–579 (if (u.uroleplay.pauper && !override_pauper) return) absent from js/u_init.js:1277 knows_object (param named _override_pauper, ignored; unconditionally discover_object so paupers wrongly discover role/race items; callee discover_object js/invent.js:4734 live; 39 C call sites incl. :715/:924 TRUE overrides; ledger partial names this arm — brief 2026-10-03) @4ea047f25
 - [ ] `mdlib.c` mkstemp — C mdlib.c:375–385 absent from js/ (no JS symbol; ledger absent C 7; `#ifdef _MSC_VER` MSVC-only temp-file open; sole live caller util/makedefs.c:492 build tool, decl-only mdlib.c:71; compiled out on pinned platform → by-design verdict — brief 2026-10-03) @4ea047f25
 - [ ] `shk.c` sasc_bug — C shk.c:5945–5948 absent from js/ (no JS symbol; ledger absent C 1; `#ifdef __SASC` Amiga-compiler op->unpaid=x workaround; 0 C refs; compiled out on pinned platform → by-design verdict — brief 2026-10-03) @4ea047f25
@@ -135,6 +134,7 @@ Must-fix/coverage.
 - [ ] `dokick.c` really_kick_object pit/web reveal+message — C dokick.c:521–529 (pit/web block: `if (!trap->tseen) find_trap(trap)` :523–524 + Hallucination 'tizzy' variant :526–528) absent from js/dokick.js:1271–1274 really_kick_object (:1261; :1272 `find_trap deferred` comment, :1273 web/pit only; callee find_trap js/detect.js:340 local async — needs export; ledger partial names this arm — brief 2026-10-03) @d428e2b04
 - [ ] `sfbase.c` norm_ptrs_any — C sfbase.c:748–750 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:672 + util/sftags.c generator refs, no live scored callers; 0 C callees — brief 2026-10-03) @34473e95a
 - [ ] `sfbase.c` norm_ptrs_align — C sfbase.c:752–754 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:673, no live callers; 0 C callees — brief 2026-10-03) @34473e95a
+- [ ] `files.c` free_convert_filenames — C files.c:2168–2175 absent from js/ (no JS symbol; ledger unknown C 5; frees converted/unconverted_filename + cvtinit=FALSE; sole C caller save.c:1168 inside live FREE_ALL_MEMORY (config.h:632); module filenames live js/files.js, cvtinit (static files.c:2053, write-only in game build) absent — new state; 0 C callees; named omit in review 1539 ACCEPT — brief 2026-10-03) @2a53139d7
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

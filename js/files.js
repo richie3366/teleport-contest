@@ -2314,7 +2314,7 @@ export function delete_convertedfile(basefilename) {
  * problematic_savefile precedent) — the game-build external-converter
  * hook is an nhUse stub returning 1 (no converter runs in-game).
  * Callers: files.c:2073 nh_sfconvert (below); files.c:2081
- * nh_sfunconvert (unported — ships with that function).
+ * nh_sfunconvert (below).
  * @param {string} filename
  * @param {number} sfstatus
  * @param {boolean} unconvert
@@ -2339,6 +2339,16 @@ function doconvert_file(filename, sfstatus, unconvert) {
  */
 export function nh_sfconvert(filename) {
     doconvert_file(filename, 0, false); // `:2073`
+}
+
+/**
+ * C ref: files.c nh_sfunconvert `:2079–2082` — unconvert file if it
+ * exists, via doconvert_file(filename, 0, TRUE). Game-build
+ * (`#ifndef SFCTOOL`) hook; 0 C call sites in pinned C.
+ * @param {string} filename
+ */
+export function nh_sfunconvert(filename) {
+    doconvert_file(filename, 0, true); // `:2081`
 }
 
 /**
