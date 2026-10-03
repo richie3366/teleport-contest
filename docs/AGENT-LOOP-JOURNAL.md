@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3347 `priest.c` mon_aligntyp teleport.js clone removal (sole site → live js/priest.js export)
+
+**C locus:** - `mon_aligntyp`: nethack-c/upstream/src/priest.c:280–289 — ispriest ? EPRI shralign : isminion ? EMIN min_align : data.maligntyp; A_NONE passthrough, else sign → LAWFUL/CHAOTIC/NEUTRAL. 6 C refs incl artifact.c:933, insight.c:3277, priest.c:364/:372, monst.h:282.
+**JS:** - `mon_aligntyp`: js/priest.js:150 (live, doc-only touch); import js/teleport.js:98; clone deleted; rewired site js/teleport.js:343.
+**Change:** new static teleport→priest edge (`import { mon_aligntyp } from './priest.js'`, js/teleport.js:98; `imports.mjs --can` SAFE — hoisted fn, same 101-module SCC, verify judges TDZ); deleted the clone; site js/teleport.js:343 now resolves to the live export with a C-cite comment (:340–341 monst.h:282 + priest.c:280–289). Removed the now-unused EMIN from the const.js import (:19; EPRI stays — :387/:397/:1039). Retired the stale clone notes (priest.js:142–143 now names teleport.js among the replaced clones).
+**Verify:** - `mon_aligntyp`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/mon-aligntyp-rewire.test.mjs` 3/3 pass.
+**Named:** - `mon_aligntyp`: none in-body — whole C body live at js/priest.js:150.
+**Next:** the remaining missing-arm rows (m_in_air/Invocation_lev×2 + attacktype refill×4 — next iterations).
 ## 2026-10-03 — Audit 2294–2302: review D-3338–D-3346 (9 ACCEPT) + full score
 
 9 clone-removal SHAs (m_useup, monflee, Amonnam, ledger_no, m_at+dunlevs, somex, Invocation_lev, useupf, attacktype_fordmg): every C body re-read, every `--can` re-checked, every verify re-run (somex full reach 706/706). Message nits only ("8 sites" actually 6 in D-3346, pre-existing `await` in D-3339). No Must-fix. Public 44/44 (`350+1.70/turn`); corpus 706/953, 0 lost/0 gained, `full: true`; held-out 15/44, +0. Ledger snapshot appended; 5 ported rows sampled OK (find_friends local is correct — C staticfn). Audit debt: `ledger.mjs sql` unrunnable here (Node v20 lacks `node:sqlite`) — sampled via jsonl+shuf instead.

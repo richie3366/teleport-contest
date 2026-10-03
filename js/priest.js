@@ -139,8 +139,8 @@ export function reset_hostility(roamer) {
  * C ref: priest.c mon_aligntyp `:280–289` — ispriest ? EPRI shralign
  * : isminion ? EMIN min_align : data.maligntyp; A_NONE passthrough,
  * else sign → LAWFUL/CHAOTIC/NEUTRAL. Canonical export (C home):
- * replaces the insight.js and do_name.js (mon_aligntyp_nam) clones;
- * teleport.js keeps its D-1110 cycle-avoidance clone. C callers:
+ * replaces the insight.js, do_name.js (mon_aligntyp_nam) and
+ * teleport.js (ex D-1110 cycle-avoidance) clones. C callers:
  * artifact.c:933 (artifact.js touch_artifact), insight.c:3277
  * (insight.js mstatusline), priest.c:364 (priestname, below),
  * priest.c:372 (p_coaligned, below),

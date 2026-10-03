@@ -16,7 +16,7 @@ import {
     is_xport,
     ROOM, CORR, ICE, VAULT, SHOPBASE, ANY_SHOP, TEMPLE,
     A_NONE, A_LAWFUL, A_CHAOTIC, A_NEUTRAL, AM_SHRINE, Amask2align,
-    ESHK, EPRI, EMIN, DISPLACED,
+    ESHK, EPRI, DISPLACED,
     LAVAPOOL, LAVAWALL, IS_FURNITURE, TELEDS_TELEPORT, TELEDS_ALLOW_DRAG,
     M_AP_NOTHING, M_AP_MONSTER, M_AP_TYPE,
     UTOTYPE_NONE, UTOTYPE_ATSTAIRS, UTOTYPE_PORTAL, TIMEOUT,
@@ -94,6 +94,8 @@ import { m_at as mon_m_at, seemimic } from './mon.js';
 import { fill_pit } from './dig.js';
 /* mklev.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
 import { somex } from './mklev.js';
+/* priest.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
+import { mon_aligntyp } from './priest.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
@@ -335,22 +337,8 @@ export function is_exclusion_zone(type, x, y) {
     return false;
 }
 
-/**
- * C ref: priest.c mon_aligntyp — ispriest EPRI / isminion EMIN / data.
- * Local clone avoids priest.js → makemon.js → teleport cycle (D-1110).
- */
-function mon_aligntyp(mon) {
-    let algn;
-    if (mon?.ispriest) algn = EPRI(mon)?.shralign ?? mon?.data?.maligntyp ?? 0;
-    else if (mon?.isminion) algn = EMIN(mon)?.min_align ?? mon?.data?.maligntyp ?? 0;
-    else algn = mon?.data?.maligntyp ?? 0;
-    if (algn === A_NONE) return A_NONE;
-    if (algn > 0) return A_LAWFUL;
-    if (algn < 0) return A_CHAOTIC;
-    return A_NEUTRAL;
-}
-
-/** C monst.h is_lminion — is_minion(data) && mon_aligntyp == A_LAWFUL. */
+/** C monst.h is_lminion — is_minion(data) && mon_aligntyp == A_LAWFUL.
+ * mon_aligntyp is the live priest.js export (C home priest.c:280–289). */
 export function is_lminion(mon) {
     return is_minion(mon?.data) && mon_aligntyp(mon) === A_LAWFUL;
 }

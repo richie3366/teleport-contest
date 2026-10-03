@@ -6,7 +6,7 @@
 {"fn":"inhistemple","c":"161-171","status":"unknown"}
 {"fn":"pri_move","c":"177-216","status":"unknown"}
 {"fn":"priestini","c":"220-276","status":"unknown"}
-{"fn":"mon_aligntyp","c":"280-289","status":"ported","js":["js/priest.js:mon_aligntyp"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
+{"fn":"mon_aligntyp","c":"280-289","status":"ported","js":["js/priest.js:mon_aligntyp"],"d":["D-3347","D-3274"],"at":"2026-10-03@80eda6ff6"}
 {"fn":"priestname","c":"302-367","status":"ported","js":["js/priest.js:priestname"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
 {"fn":"p_coaligned","c":"370-373","status":"ported","js":["js/priest.js:p_coaligned"],"d":["D-3282"],"at":"2026-10-02@7589db4a3"}
 {"fn":"has_shrine","c":"376-389","status":"unknown"}

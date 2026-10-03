@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3347 — `priest.c` mon_aligntyp teleport.js clone removal (sole site → live js/priest.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (clone deletion + 1 import + comments) — below the ~80 bar, defended (D-3341–D-3346 clone-removal precedent): one whole clone rewired to the live export; the head's C file (priest.c) holds no further Open rows and mon_aligntyp has 0 C callees, so the cluster cannot grow. Refill: 1 missing-arm row appended from this session's brief/search/read evidence (histemple_at canonical export — 3 identical clones, no live export) — queue ships at 8 (coverage ungeneratable; band gate ≥8 met).
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `mon_aligntyp`: nethack-c/upstream/src/priest.c:280–289 — ispriest ? EPRI shralign : isminion ? EMIN min_align : data.maligntyp; A_NONE passthrough, else sign → LAWFUL/CHAOTIC/NEUTRAL. 6 C refs incl artifact.c:933, insight.c:3277, priest.c:364/:372, monst.h:282.
+- **JS was:** live `mon_aligntyp` js/priest.js:150 (whole C body + `?? 0` guards; D-3274) coexisted with subset clone js/teleport.js:342-then (EPRI/EMIN-missing fallback to `mon?.data?.maligntyp` vs the live `?? 0`), sole live site js/teleport.js:355-then (exported is_lminion, C monst.h:282). Static teleport→priest edge absent (D-1110 cycle-avoidance comment).
+- **Fix:** new static teleport→priest edge (`import { mon_aligntyp } from './priest.js'`, js/teleport.js:98; `imports.mjs --can` SAFE — hoisted fn, same 101-module SCC, verify judges TDZ); deleted the clone; site js/teleport.js:343 now resolves to the live export with a C-cite comment (:340–341 monst.h:282 + priest.c:280–289). Removed the now-unused EMIN from the const.js import (:19; EPRI stays — :387/:397/:1039). Retired the stale clone notes (priest.js:142–143 now names teleport.js among the replaced clones). Behavior delta is C-true: C derefs EPRI/EMIN directly (non-null when the flag is set), so the clone's maligntyp-fallback arm was invented; the live `?? 0` guards match the documented live semantics. Maintained test: new scripts/mon-aligntyp-rewire.test.mjs (no-clone + live-import + site-call + sole-definer census, 3/3 pass).
+- **JS:**
+  - `mon_aligntyp`: js/priest.js:150 (live, doc-only touch); import js/teleport.js:98; clone deleted; rewired site js/teleport.js:343.
+- **Callers:**
+  - `mon_aligntyp`: C monst.h:282 (is_lminion) → js/teleport.js:343 (this rewire). Pre-existing live wirings untouched: artifact.c:933 → js/artifact.js:1549 (import :120); insight.c:3277 → js/insight.js:1681 (import :97); priest.c:364 (priestname) → js/priest.js:222; priest.c:372 (p_coaligned) → js/priest.js:278. (extern.h:2584 decl.)
+- **Verify:**
+  - `mon_aligntyp`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/mon-aligntyp-rewire.test.mjs` 3/3 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn mon_aligntyp` → PASS syntax (2 changed js files: js/priest.js js/teleport.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS; plus forced full `sessions` 44/44 (teleport.js hub).
+- **Named omissions:**
+  - `mon_aligntyp`: none in-body — whole C body live at js/priest.js:150.
+- **Ledger:** mon_aligntyp ported
+- **Next:** the remaining missing-arm rows (m_in_air/Invocation_lev×2 + attacktype refill×4 — next iterations).
+
 ## D-3346 — `mondata.c` attacktype_fordmg 4-clone removal (apply/eat/mon/region → live js/uhitm.js export)
 
 - **Status:** shipped (4 head missing-arm rows checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (4 clone deletions + 4 import names + C-cite comments) — below the ~80 bar, defended (D-3341–D-3345 clone-removal precedent): four whole clones rewired to the live export; the head's C file (mondata.c) holds no further Open rows and attacktype_fordmg has 0 C callees, so the cluster cannot grow. Refill: 4 missing-arm rows appended from this session's brief/search/read evidence (attacktype artifact+dog+wizard+eat — 9 clones, no live export; first row ports it at C-home js/mondata.js) — queue ships at 8 (coverage ungeneratable; band gate ≥8 met).
