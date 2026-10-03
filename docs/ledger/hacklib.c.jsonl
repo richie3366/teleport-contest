@@ -4,7 +4,7 @@
 {"fn":"lowc","c":"83-86","status":"unknown"}
 {"fn":"lcase","c":"90-98","status":"unknown"}
 {"fn":"ucase","c":"102-110","status":"unknown"}
-{"fn":"upstart","c":"114-119","status":"ported","js":["js/hacklib.js:upstart"],"d":["D-3356"],"at":"2026-10-03@c2a0e178a"}
+{"fn":"upstart","c":"114-119","status":"ported","js":["js/hacklib.js:upstart"],"d":["D-3358","D-3356"],"at":"2026-10-03@1a4880b6b"}
 {"fn":"upwords","c":"123-138","status":"ported","js":["js/hacklib.js:upwords"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mungspaces","c":"142-160","status":"ported","js":["js/hacklib.js:mungspaces"],"d":["D-2967"],"at":"2026-09-27@b43d2c68f"}
 {"fn":"trimspaces","c":"164-176","status":"unknown"}

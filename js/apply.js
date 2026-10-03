@@ -143,7 +143,7 @@ import { polymon, mbodypart, body_part } from './polyself.js';
 import { unpunish } from './read.js';
 import { findit, openit, cvt_sdoor_to_door } from './detect.js';
 import { surface } from './sit.js';
-import { level_difficulty, isqrt, dist2 } from './hacklib.js';
+import { level_difficulty, isqrt, dist2, upstart } from './hacklib.js';
 import { mon_adjust_speed } from './muse.js';
 import { paralyze_monst } from './mhitm.js';
 
@@ -1824,11 +1824,7 @@ function Yobjnam2_apply(obj, verb) {
     return `Your ${nam} ${v}`;
 }
 
-/** C hacklib.c upstart. */
-function upstart(str) {
-    if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
+/* C hacklib.c upstart — live export from './hacklib.js' (clone removed D-3358). */
 
 /** C apply.c HowMany for magic_whistled cumulative pline. */
 function HowMany(n) {

@@ -143,7 +143,7 @@ import {
 import { tamedog, wary_dog, abuse_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
-import { level_difficulty, depth, distmin, dist2, ordin, strsubst } from './hacklib.js';
+import { level_difficulty, depth, distmin, dist2, ordin, strsubst, upstart } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu, defended, resists_magm, attacktype } from './mondata.js';
 import { get_obj_location, burn_away_slime } from './timeout.js';
@@ -222,11 +222,7 @@ const KICKING_BOOTS = objectNames.indexOf('KICKING_BOOTS');
 const IRON_SHOES = objectNames.indexOf('IRON_SHOES');
 const something = 'something';
 
-/** C ref: hacklib.c upstart — capitalize first letter. */
-function upstart(str) {
-    if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
+/* C hacklib.c upstart — live export from './hacklib.js' (clone removed D-3358). */
 
 
 /** C ref: objnam.c / shk.c shk_your thin — carried → "your ", else "the ". */

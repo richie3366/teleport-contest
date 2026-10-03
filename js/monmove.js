@@ -116,7 +116,7 @@ import {
     onscary,
     hideunder as hideunderHero,
 } from './mon.js';
-import { distmin, dist2 } from './hacklib.js';
+import { distmin, dist2, upstart } from './hacklib.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -280,12 +280,7 @@ function findgold(argchain) {
     return chain || null;
 }
 
-/** C hack.h upstart — highc first character (YMonnam / web mbuf). */
-function upstart(str) {
-    const s = String(str ?? '');
-    if (!s) return s;
-    return s.charAt(0).toUpperCase() + s.slice(1);
-}
+/* C hacklib.c upstart — live export from './hacklib.js' (clone removed D-3358). */
 
 /**
  * C ref: monmove.c leppie_avoidance — leprechaun flees if richer than hero.
