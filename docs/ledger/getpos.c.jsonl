@@ -1,22 +1,22 @@
-{"fn":"getpos_sethilite","c":"41-64","status":"unknown"}
+{"fn":"getpos_sethilite","c":"41-64","status":"ported","js":["js/getpos.js:getpos_sethilite"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full old/new valids gather and frame-color logic"}
 {"fn":"getpos_toggle_hilite_state","c":"72-91","status":"ported","js":["js/getpos.js:getpos_toggle_hilite_state"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"mapxy_valid","c":"94-99","status":"unknown"}
+{"fn":"mapxy_valid","c":"94-99","status":"ported","js":["js/getpos.js:mapxy_valid"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"getpos_getvalids_selection","c":"102-115","status":"ported","js":["js/getpos.js:getpos_getvalids_selection"],"d":["D-3295"],"at":"2026-10-02@e6a9a85cf","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"getpos_help_keyxhelp","c":"137-161","status":"unknown"}
+{"fn":"getpos_help_keyxhelp","c":"137-161","status":"ported","js":["js/getpos.js:getpos_help_keyxhelp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: same text logic; putstr adapted to lines array"}
 {"fn":"getpos_help","c":"167-307","status":"ported","js":["js/getpos.js:getpos_help"],"d":["D-1880"],"at":"2026-10-01@6e06fa8e7","note":"D-1880 tail shipped (whatis multi-pick, valid/hilite, goto semantics); cmd_from_func custom binds now live (getpos.js:1140); caller getpos.c:949 wired"}
 {"fn":"cmp_coord_distu","c":"312-329","status":"ported","js":["js/getpos.js:cmp_coord_distu"],"at":"2026-10-01@c1c0d92f4","note":"stale: js/getpos.js:685"}
 {"fn":"gloc_filter_classify_glyph","c":"341-361","status":"ported","js":["js/getpos.js:gloc_filter_classify_glyph"],"at":"2026-09-30@deff666da","note":"stale: js/getpos.js:776 whole body + caller :797-798"}
 {"fn":"gloc_filter_floodfill_matcharea","c":"364-379","status":"ported","js":["js/getpos.js:gloc_filter_floodfill_matcharea"],"at":"2026-10-01@c1c0d92f4","note":"stale: js/getpos.js:792"}
-{"fn":"gloc_filter_floodfill","c":"382-388","status":"unknown"}
-{"fn":"gloc_filter_init","c":"391-409","status":"unknown","d":["D-1941"],"at":"seed@a30a7de84"}
-{"fn":"gloc_filter_done","c":"412-419","status":"unknown"}
+{"fn":"gloc_filter_floodfill","c":"382-388","status":"ported","js":["js/getpos.js:gloc_filter_floodfill"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: matches selvar floodfill: unconditional seed, 4-neighbour matcharea"}
+{"fn":"gloc_filter_init","c":"391-409","status":"ported","js":["js/getpos.js:gloc_filter_init"],"d":["D-1941"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact incl doorway seed arm"}
+{"fn":"gloc_filter_done","c":"412-419","status":"ported","js":["js/getpos.js:gloc_filter_done"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact release"}
 {"fn":"known_vibrating_square_at","c":"422-433","status":"ported","js":["js/getpos.js:known_vibrating_square_at"],"at":"2026-10-02@6f1e33d59","note":"stale: whole C body live as js/getpos.js:740 local (invocation_pos gate + t_at VIBRATING_SQUARE+tseen; audit 2247-2255 refill survey)"}
-{"fn":"gather_locs_interesting","c":"438-507","status":"unknown"}
+{"fn":"gather_locs_interesting","c":"438-507","status":"ported","js":["js/getpos.js:gather_locs_interesting"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all gloc arms via display-layer equivalents; boring-cmap set matches"}
 {"fn":"gather_locs","c":"513-554","status":"ported","js":["js/getpos.js:gather_locs"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"dxdy_to_dist_descr","c":"557-589","status":"unknown"}
+{"fn":"dxdy_to_dist_descr","c":"557-589","status":"ported","js":["js/display.js:dxdy_to_dist_descr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact incl 9999 clamp and dirnames"}
 {"fn":"coord_desc","c":"595-635","status":"ported","js":["js/display.js:coord_desc"],"d":["D-2811"],"at":"2026-10-01@250701173","note":"stale: js/display.js:7725 body whole per D-2811 fixed; omit names auto_describe_text, another fn"}
 {"fn":"auto_describe","c":"640-662","status":"ported","js":["js/getpos.js:auto_describe"],"d":["D-2966"],"at":"2026-09-27@c12d7df2f"}
 {"fn":"getpos_menu","c":"665-725","status":"ported","js":["js/getpos.js:getpos_menu"],"d":["D-2534"],"at":"2026-10-01@3d715b8cd","note":"stale: js/getpos.js:999 complete per D-2534, callers wired js/cmd.js:4819 + js/getpos.js:1592"}
-{"fn":"truncate_to_map","c":"729-748","status":"unknown"}
-{"fn":"getpos_refresh","c":"753-766","status":"unknown"}
-{"fn":"getpos","c":"771-1167","status":"unknown","d":["D-2242","D-2205","D-1845"],"at":"seed@a30a7de84"}
+{"fn":"truncate_to_map","c":"729-748","status":"ported","js":["js/getpos.js:truncate_to_map"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: identical math; returns {x,y} instead of pointer mutation"}
+{"fn":"getpos_refresh","c":"753-766","status":"ported","js":["js/getpos.js:getpos_refresh"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
+{"fn":"getpos","c":"771-1167","status":"partial","js":["js/getpos.js:getpos"],"omit":"entry/per-loop cmdq_pop DIR/KEY paths; mouse-click pick; do_run/do_rush prefix; ESC ccp (-1,-1) not (-10,-10)","d":["D-2242","D-2205","D-1845"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full loop: moves, toggles, cycles, menus, feature scan, exits"}

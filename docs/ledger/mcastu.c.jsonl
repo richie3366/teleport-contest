@@ -1,26 +1,26 @@
-{"fn":"cursetxt","c":"63-85","status":"unknown","d":["D-2137"],"at":"seed@a30a7de84"}
+{"fn":"cursetxt","c":"63-85","status":"ported","js":["js/mcastu.js:cursetxt"],"d":["D-2137"],"at":"2026-10-03@bbe63333a"}
 {"fn":"choose_monster_spell","c":"89-123","status":"ported","js":["js/mcastu.js:choose_monster_spell"],"d":["D-2253"],"at":"2026-10-01@cdbc41097","note":"stale: js/mcastu.js:300 file-local line-for-line C (D-2253); staticfn shape correct"}
-{"fn":"castmu","c":"130-305","status":"unknown","d":["D-2140","D-1825"],"at":"seed@a30a7de84"}
-{"fn":"m_cure_self","c":"308-318","status":"unknown"}
-{"fn":"touch_of_death","c":"323-354","status":"unknown"}
-{"fn":"death_inflicted_by","c":"358-382","status":"unknown"}
-{"fn":"mcast_death_touch","c":"389-408","status":"unknown"}
-{"fn":"mcast_clone_wiz","c":"411-418","status":"unknown"}
-{"fn":"mcast_summon_mons","c":"421-447","status":"unknown"}
-{"fn":"mcast_destroy_armor","c":"450-463","status":"unknown"}
-{"fn":"mcast_weaken_you","c":"466-487","status":"unknown"}
-{"fn":"mcast_disappear","c":"490-501","status":"unknown","d":["D-2185"],"at":"seed@a30a7de84"}
-{"fn":"mcast_stun_you","c":"504-520","status":"unknown"}
-{"fn":"mcast_geyser","c":"523-537","status":"unknown"}
-{"fn":"mcast_fire_pillar","c":"540-563","status":"unknown"}
-{"fn":"mcast_lightning","c":"566-598","status":"unknown"}
-{"fn":"mcast_psi_bolt","c":"601-621","status":"unknown"}
-{"fn":"mcast_open_wounds","c":"624-642","status":"unknown"}
+{"fn":"castmu","c":"130-305","status":"ported","js":["js/mcastu.js:castmu"],"d":["D-2140","D-1825"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mis-aim waterwall wording deferred (thin-air text); debug impossible()s omitted"}
+{"fn":"m_cure_self","c":"308-318","status":"ported","js":["js/mcastu.js:m_cure_self"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: healmon(d(3,6),0) inlined as direct mhp add"}
+{"fn":"touch_of_death","c":"323-354","status":"ported","js":["js/mcastu.js:touch_of_death"],"at":"2026-10-03@bbe63333a"}
+{"fn":"death_inflicted_by","c":"358-382","status":"ported","js":["js/mcastu.js:death_inflicted_by"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_death_touch","c":"389-408","status":"ported","js":["js/mcastu.js:mcast_death_touch"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_clone_wiz","c":"411-418","status":"ported","js":["js/mcastu.js:mcast_clone_wiz"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_summon_mons","c":"421-447","status":"ported","js":["js/mcastu.js:mcast_summon_mons"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice omitted (voice-render polish)"}
+{"fn":"mcast_destroy_armor","c":"450-463","status":"ported","js":["js/mcastu.js:mcast_destroy_armor"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_weaken_you","c":"466-487","status":"ported","js":["js/mcastu.js:mcast_weaken_you"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_disappear","c":"490-501","status":"ported","js":["js/mcastu.js:mcast_disappear"],"d":["D-2185"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_stun_you","c":"504-520","status":"ported","js":["js/mcastu.js:mcast_stun_you"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_geyser","c":"523-537","status":"ported","js":["js/mcastu.js:mcast_geyser"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_fire_pillar","c":"540-563","status":"ported","js":["js/mcastu.js:mcast_fire_pillar"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_lightning","c":"566-598","status":"ported","js":["js/mcastu.js:mcast_lightning"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_psi_bolt","c":"601-621","status":"ported","js":["js/mcastu.js:mcast_psi_bolt"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_open_wounds","c":"624-642","status":"ported","js":["js/mcastu.js:mcast_open_wounds"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_insects","c":"645-726","status":"partial","js":["js/mcastu.js:mcast_insects"],"omit":"File-level `Deaf()` (`js/mcastu.js:146`) still ORs sticky `u.Deaf` for the other spells.","d":["D-2835","D-2828"],"at":"seed@a30a7de84"}
-{"fn":"mcast_blind_you","c":"729-743","status":"unknown","d":["D-1534"],"at":"seed@a30a7de84"}
-{"fn":"mcast_paralyze","c":"746-768","status":"unknown"}
-{"fn":"mcast_confuse_you","c":"771-790","status":"unknown"}
+{"fn":"mcast_blind_you","c":"729-743","status":"ported","js":["js/mcastu.js:mcast_blind_you"],"d":["D-1534"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_paralyze","c":"746-768","status":"ported","js":["js/mcastu.js:mcast_paralyze"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_confuse_you","c":"771-790","status":"ported","js":["js/mcastu.js:mcast_confuse_you"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_spell","c":"801-897","status":"ported","js":["js/mcastu.js:mcast_spell"],"d":["D-2614"],"at":"seed@a30a7de84"}
-{"fn":"is_undirected_spell","c":"900-905","status":"unknown"}
+{"fn":"is_undirected_spell","c":"900-905","status":"ported","js":["js/mcastu.js:is_undirected_spell"],"at":"2026-10-03@bbe63333a"}
 {"fn":"spell_would_be_useless","c":"909-985","status":"ported","js":["js/mcastu.js:spell_would_be_useless"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"buzzmu","c":"989-1012","status":"unknown"}
+{"fn":"buzzmu","c":"989-1012","status":"ported","js":["js/mcastu.js:buzzmu"],"at":"2026-10-03@bbe63333a"}

@@ -1,13 +1,13 @@
-{"fn":"awaken_scare","c":"45-60","status":"unknown"}
-{"fn":"awaken_monsters","c":"67-78","status":"unknown"}
-{"fn":"put_monsters_to_sleep","c":"85-98","status":"unknown"}
-{"fn":"charm_snakes","c":"105-132","status":"unknown","d":["D-2357"],"at":"seed@a30a7de84"}
-{"fn":"calm_nymphs","c":"139-158","status":"unknown"}
-{"fn":"awaken_soldiers","c":"162-192","status":"unknown"}
-{"fn":"charm_monsters","c":"196-217","status":"unknown"}
-{"fn":"do_pit","c":"221-338","status":"unknown"}
-{"fn":"do_earthquake","c":"344-475","status":"unknown","d":["D-2315"],"at":"seed@a30a7de84"}
+{"fn":"awaken_scare","c":"45-60","status":"ported","js":["js/music.js:awaken_scare"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl waitmask clear and scary/monflee arm"}
+{"fn":"awaken_monsters","c":"67-78","status":"ported","js":["js/music.js:awaken_monsters"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full loop with distance/3 scary threshold"}
+{"fn":"put_monsters_to_sleep","c":"85-98","status":"ported","js":["js/music.js:put_monsters_to_sleep"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl d(10,10) sleep_monst and slept_monst"}
+{"fn":"charm_snakes","c":"105-132","status":"ported","js":["js/music.js:charm_snakes"],"d":["D-2357"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl messages and peaceful/strategy updates"}
+{"fn":"calm_nymphs","c":"139-158","status":"ported","js":["js/music.js:calm_nymphs"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full"}
+{"fn":"awaken_soldiers","c":"162-192","status":"ported","js":["js/music.js:awaken_soldiers"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full; null bugler = player arm matches C youmonst check via callers"}
+{"fn":"charm_monsters","c":"196-217","status":"ported","js":["js/music.js:charm_monsters"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl uswallow distance 0 and isshk tamedog arm"}
+{"fn":"do_pit","c":"221-338","status":"ported","js":["js/music.js:do_pit"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all branches; boulder flooreffects inlined as deltrap+delobj (pit-fill equivalent)"}
+{"fn":"do_earthquake","c":"344-475","status":"ported","js":["js/music.js:do_earthquake"],"d":["D-2315"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all terrain cases incl sanctum skip, shop damage, mimic/ceiling arms"}
 {"fn":"generic_lvl_desc","c":"478-492","status":"ported","js":["js/music.js:generic_lvl_desc"],"d":["D-3164"],"at":"2026-09-30@e611ec47f"}
-{"fn":"do_improvisation","c":"503-730","status":"unknown"}
-{"fn":"improvised_notes","c":"733-753","status":"unknown"}
-{"fn":"do_play_instrument","c":"759-899","status":"unknown","d":["D-2046"],"at":"seed@a30a7de84"}
+{"fn":"do_improvisation","c":"503-730","status":"ported","js":["js/music.js:do_improvisation"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all instrument arms, mundane demotion, mode messages"}
+{"fn":"improvised_notes","c":"733-753","status":"ported","js":["js/music.js:improvised_notes"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full Unchanging/jingle/same-flag logic"}
+{"fn":"do_play_instrument","c":"759-899","status":"ported","js":["js/music.js:do_play_instrument"],"d":["D-2046"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl passtune, H->B normalize, drawbridge search, tumbler/gear hints"}

@@ -1,76 +1,76 @@
-{"fn":"do_blinding_ray","c":"61-76","status":"unknown"}
-{"fn":"use_camera","c":"79-109","status":"unknown"}
-{"fn":"use_towel","c":"112-194","status":"unknown"}
-{"fn":"its_dead","c":"198-309","status":"unknown"}
+{"fn":"do_blinding_ray","c":"61-76","status":"ported","js":["js/apply.js:do_blinding_ray"],"at":"2026-10-03@bbe63333a"}
+{"fn":"use_camera","c":"79-109","status":"partial","js":["js/apply.js:use_camera"],"omit":"Underwater warranty block (C:81-84): JS reads never-maintained u.Underwater (live state is u.uinwater), so the arm never fires; camera consumes a charge and fires underwater instead of ECMD_OK.","at":"2026-10-03@bbe63333a"}
+{"fn":"use_towel","c":"112-194","status":"partial","js":["js/apply.js:use_towel"],"omit":"gulp_blnd_check() re-blind gate in the ucreamed arm (C:180-183): creamed wipe while swallowed by an AD_BLND engulfer always unblinds (set 1 + make 0) instead of gulpmu re-blinding and skipping the unblind.","at":"2026-10-03@bbe63333a"}
+{"fn":"its_dead","c":"198-309","status":"ported","js":["js/apply.js:its_dead"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_stethoscope","c":"318-470","status":"ported","js":["js/apply.js:use_stethoscope"],"d":["D-3268","D-2594"],"at":"2026-10-02@883b4cc92"}
-{"fn":"use_whistle","c":"476-492","status":"unknown"}
-{"fn":"use_magic_whistle","c":"495-514","status":"unknown"}
-{"fn":"magic_whistled","c":"518-687","status":"unknown"}
-{"fn":"um_dist","c":"692-695","status":"unknown"}
-{"fn":"number_leashed","c":"698-707","status":"unknown"}
-{"fn":"o_unleash","c":"711-722","status":"unknown"}
-{"fn":"m_unleash","c":"726-742","status":"unknown"}
+{"fn":"use_whistle","c":"476-492","status":"partial","js":["js/apply.js:use_whistle"],"omit":"Underwater bubbles arm (C:481-482): u.Underwater is never maintained (live: u.uinwater), so the arm never fires; underwater blows run wake_nearby + cursed vault_summon_gd instead of bubbling.","at":"2026-10-03@bbe63333a"}
+{"fn":"use_magic_whistle","c":"495-514","status":"partial","js":["js/apply.js:use_magic_whistle"],"omit":"Underwater message adjectives (C:499-512): u.Underwater never maintained (live: u.uinwater), so 'very ' and 'strange, high-pitched' never render underwater; whistle still functions.","at":"2026-10-03@bbe63333a"}
+{"fn":"magic_whistled","c":"518-687","status":"ported","js":["js/apply.js:magic_whistled"],"at":"2026-10-03@bbe63333a"}
+{"fn":"um_dist","c":"692-695","status":"ported","js":["js/apply.js:um_dist"],"at":"2026-10-03@bbe63333a"}
+{"fn":"number_leashed","c":"698-707","status":"ported","js":["js/apply.js:number_leashed"],"at":"2026-10-03@bbe63333a"}
+{"fn":"o_unleash","c":"711-722","status":"ported","js":["js/apply.js:o_unleash"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_unleash","c":"726-742","status":"ported","js":["js/apply.js:m_unleash"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mhis_leash lacks neuter 'its'/hallu arms; message corner only"}
 {"fn":"unleash_all","c":"746-756","status":"ported","js":["js/apply.js:unleash_all"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
-{"fn":"leashable","c":"761-766","status":"unknown"}
-{"fn":"use_leash","c":"769-818","status":"unknown"}
-{"fn":"use_leash_core","c":"821-876","status":"unknown"}
-{"fn":"get_mleash","c":"880-888","status":"unknown"}
-{"fn":"mleashed_next2u","c":"891-914","status":"unknown"}
-{"fn":"next_to_u","c":"919-928","status":"unknown"}
-{"fn":"check_leash","c":"931-992","status":"unknown"}
-{"fn":"beautiful","c":"997-1013","status":"unknown"}
+{"fn":"leashable","c":"761-766","status":"ported","js":["js/apply.js:leashable"],"at":"2026-10-03@bbe63333a"}
+{"fn":"use_leash","c":"769-818","status":"ported","js":["js/apply.js:use_leash"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mon_nam vs noit_mon_nam on swallowed path ('it' vs 'the X' corner)"}
+{"fn":"use_leash_core","c":"821-876","status":"ported","js":["js/apply.js:use_leash_core"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cursed arm assigns bknown directly vs set_bknown (display flag only)"}
+{"fn":"get_mleash","c":"880-888","status":"ported","js":["js/apply.js:get_mleash"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mleashed_next2u","c":"891-914","status":"ported","js":["js/apply.js:mleashed_next2u"],"at":"2026-10-03@bbe63333a"}
+{"fn":"next_to_u","c":"919-928","status":"ported","js":["js/apply.js:next_to_u"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inlined get_iter_mons skips dead but not offmap; migrating mons leave fmon and no call site runs mid-migration"}
+{"fn":"check_leash","c":"931-992","status":"ported","js":["js/apply.js:check_leash"],"at":"2026-10-03@bbe63333a"}
+{"fn":"beautiful","c":"997-1013","status":"ported","js":["js/apply.js:beautiful"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_mirror","c":"1018-1199","status":"ported","js":["js/apply.js:use_mirror"],"d":["D-3263"],"at":"2026-10-02@6ea16ae6e"}
 {"fn":"use_bell","c":"1202-1316","status":"ported","js":["js/apply.js:use_bell"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"use_candelabrum","c":"1319-1384","status":"ported","js":["js/apply.js:use_candelabrum"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"use_candle","c":"1387-1468","status":"ported","js":["js/apply.js:use_candle"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"snuff_candle","c":"1472-1491","status":"unknown"}
-{"fn":"snuff_lit","c":"1497-1514","status":"unknown"}
-{"fn":"splash_lit","c":"1518-1572","status":"unknown","d":["D-2289","D-1337"],"at":"seed@a30a7de84"}
-{"fn":"catch_lit","c":"1577-1624","status":"unknown"}
-{"fn":"use_lamp","c":"1628-1700","status":"unknown","d":["D-2355","D-2157"],"at":"seed@a30a7de84"}
-{"fn":"light_cocktail","c":"1703-1765","status":"unknown"}
-{"fn":"rub_ok","c":"1770-1781","status":"unknown"}
-{"fn":"dorub","c":"1785-1843","status":"unknown","d":["D-2333"],"at":"seed@a30a7de84"}
-{"fn":"dojump","c":"1847-1851","status":"unknown"}
-{"fn":"check_jump","c":"1862-1890","status":"unknown"}
-{"fn":"is_valid_jump_pos","c":"1893-1956","status":"unknown"}
-{"fn":"get_valid_jump_position","c":"1959-1964","status":"unknown"}
-{"fn":"display_jump_positions","c":"1967-1985","status":"unknown"}
+{"fn":"snuff_candle","c":"1472-1491","status":"ported","js":["js/apply.js:snuff_candle"],"at":"2026-10-03@bbe63333a"}
+{"fn":"snuff_lit","c":"1497-1514","status":"ported","js":["js/apply.js:snuff_lit"],"at":"2026-10-03@bbe63333a"}
+{"fn":"splash_lit","c":"1518-1572","status":"ported","js":["js/apply.js:splash_lit"],"d":["D-2289","D-1337"],"at":"2026-10-03@bbe63333a"}
+{"fn":"catch_lit","c":"1577-1624","status":"partial","js":["js/apply.js:catch_lit"],"omit":"Yname2(obj) naming in the ignite pline (C:1601-1604): non-invent objs print bare capitalized xname ('Lamp catches light!' vs C 'The lamp catches light!'); floor+cansee set_msg_xy(x,y) cursor (C:1600) also omitted.","at":"2026-10-03@bbe63333a"}
+{"fn":"use_lamp","c":"1628-1700","status":"partial","js":["js/apply.js:use_lamp"],"omit":"Underwater block (C:1650-1655): Underwater_hero() reads never-maintained u.Underwater (live: u.uinwater), so the arm never fires; lamps/candles light underwater instead of refusing.","d":["D-2355","D-2157"],"at":"2026-10-03@bbe63333a"}
+{"fn":"light_cocktail","c":"1703-1765","status":"partial","js":["js/apply.js:light_cocktail"],"omit":"Underwater block (C:1724-1727): Underwater_hero() reads never-maintained u.Underwater (live: u.uinwater), so the arm never fires; oil flasks light underwater instead of 'not enough oxygen'.","at":"2026-10-03@bbe63333a"}
+{"fn":"rub_ok","c":"1770-1781","status":"ported","js":["js/apply.js:rub_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dorub","c":"1785-1843","status":"ported","js":["js/apply.js:dorub"],"d":["D-2333"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dojump","c":"1847-1851","status":"ported","js":["js/apply.js:dojump"],"at":"2026-10-03@bbe63333a"}
+{"fn":"check_jump","c":"1862-1890","status":"ported","js":["js/apply.js:check_jump"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_valid_jump_pos","c":"1893-1956","status":"ported","js":["js/apply.js:is_valid_jump_pos"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_valid_jump_position","c":"1959-1964","status":"ported","js":["js/apply.js:get_valid_jump_position"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: via exact sync mirror of the showmsg=FALSE path"}
+{"fn":"display_jump_positions","c":"1967-1985","status":"ported","js":["js/apply.js:display_jump_positions"],"at":"2026-10-03@bbe63333a"}
 {"fn":"jump","c":"1988-2164","status":"ported","js":["js/apply.js:jump"],"d":["D-2740"],"at":"seed@a30a7de84"}
-{"fn":"tinnable","c":"2167-2174","status":"unknown"}
+{"fn":"tinnable","c":"2167-2174","status":"ported","js":["js/eat.js:tinnable"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_tinning_kit","c":"2177-2256","status":"ported","js":["js/apply.js:use_tinning_kit"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
-{"fn":"use_unicorn_horn","c":"2259-2392","status":"unknown"}
+{"fn":"use_unicorn_horn","c":"2259-2392","status":"ported","js":["js/apply.js:use_unicorn_horn"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fig_transform","c":"2398-2508","status":"ported","js":["js/apply.js:fig_transform"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"figurine_location_checks","c":"2511-2541","status":"unknown"}
+{"fn":"figurine_location_checks","c":"2511-2541","status":"ported","js":["js/apply.js:figurine_location_checks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_figurine","c":"2544-2581","status":"ported","js":["js/apply.js:use_figurine"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"grease_ok","c":"2585-2601","status":"ported","js":["js/apply.js:grease_ok"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
-{"fn":"use_grease","c":"2604-2654","status":"unknown","d":["D-2349","D-1656"],"at":"seed@a30a7de84"}
-{"fn":"touchstone_ok","c":"2658-2675","status":"unknown"}
+{"fn":"use_grease","c":"2604-2654","status":"ported","js":["js/apply.js:use_grease"],"d":["D-2349","D-1656"],"at":"2026-10-03@bbe63333a"}
+{"fn":"touchstone_ok","c":"2658-2675","status":"ported","js":["js/apply.js:touchstone_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_stone","c":"2680-2810","status":"ported","js":["js/apply.js:use_stone"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
-{"fn":"reset_trapset","c":"2813-2817","status":"unknown"}
+{"fn":"reset_trapset","c":"2813-2817","status":"ported","js":["js/apply.js:reset_trapset"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_trap","c":"2821-2912","status":"ported","js":["js/apply.js:use_trap"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
-{"fn":"set_trap","c":"2916-2952","status":"unknown"}
+{"fn":"set_trap","c":"2916-2952","status":"ported","js":["js/apply.js:set_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_whip","c":"2955-3271","status":"ported","js":["js/apply.js:use_whip"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
 {"fn":"find_poleable_mon","c":"3284-3318","status":"ported","js":["js/apply.js:find_poleable_mon"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"get_valid_polearm_position","c":"3321-3331","status":"ported","js":["js/apply.js:get_valid_polearm_position"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
-{"fn":"display_polearm_positions","c":"3334-3353","status":"unknown"}
+{"fn":"display_polearm_positions","c":"3334-3353","status":"ported","js":["js/apply.js:display_polearm_positions"],"at":"2026-10-03@bbe63333a"}
 {"fn":"calc_pole_range","c":"3371-3386","status":"ported","js":["js/apply.js:calc_pole_range"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"could_pole_mon","c":"3391-3412","status":"ported","js":["js/apply.js:could_pole_mon"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
-{"fn":"snickersnee_used_dist_attk","c":"3416-3422","status":"unknown"}
+{"fn":"snickersnee_used_dist_attk","c":"3416-3422","status":"ported","js":["js/apply.js:snickersnee_used_dist_attk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_pole","c":"3426-3563","status":"ported","js":["js/apply.js:use_pole"],"d":["D-2059"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"use_cream_pie","c":"3568-3603","status":"unknown"}
+{"fn":"use_cream_pie","c":"3568-3603","status":"partial","js":["js/apply.js:use_cream_pie"],"omit":"costly_alteration(obj, COST_SPLAT) tail (C:3599-3602, author-deferred): unpaid pie applied in a shop is never billed, no shk verbalize, no bill_dummy_object; JS does freeinv+delobj only.","at":"2026-10-03@bbe63333a"}
 {"fn":"jelly_ok","c":"3607-3613","status":"ported","js":["js/apply.js:jelly_ok"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
-{"fn":"use_royal_jelly","c":"3616-3683","status":"unknown","d":["D-2331"],"at":"seed@a30a7de84"}
+{"fn":"use_royal_jelly","c":"3616-3683","status":"ported","js":["js/apply.js:use_royal_jelly"],"d":["D-2331"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: *optr=null writeback unobservable (both callers return immediately)"}
 {"fn":"grapple_range","c":"3686-3698","status":"ported","js":["js/apply.js:grapple_range"],"at":"2026-09-30@990da2b8d","note":"stale: js/apply.js:3900, both C callers wired (:3908, :3961)"}
-{"fn":"can_grapple_location","c":"3701-3704","status":"unknown"}
-{"fn":"display_grapple_positions","c":"3707-3726","status":"unknown"}
-{"fn":"use_grapple","c":"3729-3873","status":"unknown","d":["D-2213"],"at":"seed@a30a7de84"}
+{"fn":"can_grapple_location","c":"3701-3704","status":"ported","js":["js/apply.js:can_grapple_location"],"at":"2026-10-03@bbe63333a"}
+{"fn":"display_grapple_positions","c":"3707-3726","status":"ported","js":["js/apply.js:display_grapple_positions"],"at":"2026-10-03@bbe63333a"}
+{"fn":"use_grapple","c":"3729-3873","status":"ported","js":["js/apply.js:use_grapple"],"d":["D-2213"],"at":"2026-10-03@bbe63333a"}
 {"fn":"discard_broken_wand","c":"3876-3885","status":"ported","js":["js/apply.js:discard_broken_wand"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
-{"fn":"broken_wand_explode","c":"3888-3893","status":"unknown"}
-{"fn":"maybe_dunk_boulders","c":"3897-3905","status":"unknown"}
-{"fn":"do_break_wand","c":"3909-4146","status":"unknown","d":["D-2346"],"at":"seed@a30a7de84"}
-{"fn":"apply_ok","c":"4151-4210","status":"unknown"}
-{"fn":"doapply","c":"4214-4425","status":"unknown"}
-{"fn":"unfixable_trouble_count","c":"4431-4470","status":"unknown"}
+{"fn":"broken_wand_explode","c":"3888-3893","status":"ported","js":["js/apply.js:broken_wand_explode"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_dunk_boulders","c":"3897-3905","status":"ported","js":["js/dig.js:maybe_dunk_boulders"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_break_wand","c":"3909-4146","status":"ported","js":["js/apply.js:do_break_wand"],"d":["D-2346"],"at":"2026-10-03@bbe63333a"}
+{"fn":"apply_ok","c":"4151-4210","status":"ported","js":["js/apply.js:apply_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doapply","c":"4214-4425","status":"partial","js":["js/apply.js:doapply"],"omit":"case BANANA (C:4402-4407): hallucinated apply prints 'It rings! ... But no-one answers.' and costs a turn; JS has no banana arm and falls through to sorry/no-time.","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: boolean return is the adapted caller interface (cmd.js tookTime); arti tail wired at all artifact-eligible arms"}
+{"fn":"unfixable_trouble_count","c":"4431-4470","status":"ported","js":["js/apply.js:unfixable_trouble_count"],"at":"2026-10-03@bbe63333a"}
 {"fn":"flip_through_book","c":"4473-4524","status":"ported","js":["js/apply.js:flip_through_book"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"flip_coin","c":"4527-4556","status":"ported","js":["js/apply.js:flip_coin"],"at":"seed@a30a7de84","note":"stale (grouped)"}

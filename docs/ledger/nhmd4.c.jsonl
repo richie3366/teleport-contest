@@ -1,4 +1,4 @@
-{"fn":"nhmd4_body","c":"83-180","status":"unknown","d":["D-2688"],"at":"seed@a30a7de84"}
-{"fn":"nhmd4_init","c":"183-193","status":"unknown"}
-{"fn":"nhmd4_update","c":"196-232","status":"unknown"}
-{"fn":"nhmd4_final","c":"235-287","status":"unknown"}
+{"fn":"nhmd4_body","c":"83-180","status":"ported","js":["js/nhmd4.js:nhmd4_body"],"d":["D-2688"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 48 STEPs, constants, shifts, ptr return all match"}
+{"fn":"nhmd4_init","c":"183-193","status":"ported","js":["js/nhmd4.js:nhmd4_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: extra buffer zeroing unobservable"}
+{"fn":"nhmd4_update","c":"196-232","status":"ported","js":["js/nhmd4.js:nhmd4_update"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: counter/buffer/block logic matches"}
+{"fn":"nhmd4_final","c":"235-287","status":"ported","js":["js/nhmd4.js:nhmd4_final"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: padding, length words, digest out, ctx wipe match"}

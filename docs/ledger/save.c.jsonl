@@ -1,26 +1,26 @@
-{"fn":"dosave","c":"43-70","status":"unknown"}
-{"fn":"dosave0","c":"74-234","status":"unknown"}
-{"fn":"save_gamelog","c":"237-262","status":"unknown"}
+{"fn":"dosave","c":"43-70","status":"ported","js":["js/save.js:dosave"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dosave0","c":"74-234","status":"partial","js":["js/save.js:dosave0"],"omit":"old-save Overwrite yn prompt (silent overwrite); swallowed loose ball/chain (save_bc); uid/nhuuid header","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON save otherwise complete incl other-ledger loop"}
+{"fn":"save_gamelog","c":"237-262","status":"ported","js":["js/save.js:save_gamelog"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; FREEING N/A"}
 {"fn":"savegamestate","c":"265-333","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"tricked_fileremoved","c":"337-347","status":"unknown"}
+{"fn":"tricked_fileremoved","c":"337-347","status":"absent","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no JS implementation (searched tricked_fileremoved/tricked*)"}
 {"fn":"savestateinlock","c":"351-425","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"savelev","c":"429-449","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"savelev_core","c":"452-567","status":"unknown"}
+{"fn":"savelev_core","c":"452-567","status":"split","js":["js/lev_json.js:serLevel","js/save.js:dosave0"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; preamble (purge/VISITED) in dosave0; binary/FREEING N/A"}
 {"fn":"save_adjust_levelflags","c":"570-574","status":"unknown"}
-{"fn":"savelevl","c":"577-587","status":"unknown"}
-{"fn":"save_bubbles","c":"591-613","status":"unknown"}
-{"fn":"savecemetery","c":"617-637","status":"unknown"}
-{"fn":"savedamage","c":"640-662","status":"unknown"}
-{"fn":"save_stairs","c":"665-691","status":"unknown"}
-{"fn":"save_bc","c":"696-721","status":"unknown"}
-{"fn":"saveobj","c":"726-757","status":"unknown"}
-{"fn":"saveobjchn","c":"762-823","status":"unknown"}
-{"fn":"savemon","c":"826-881","status":"unknown"}
-{"fn":"savemonchn","c":"884-916","status":"unknown"}
-{"fn":"savetrapchn","c":"920-943","status":"unknown"}
-{"fn":"savefruitchn","c":"951-971","status":"unknown"}
-{"fn":"savelevchn","c":"974-994","status":"unknown"}
-{"fn":"store_plname_in_file","c":"999-1027","status":"unknown"}
-{"fn":"save_msghistory","c":"1030-1056","status":"unknown"}
+{"fn":"savelevl","c":"577-587","status":"split","js":["js/lev_json.js:serLocations"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue via serLevel"}
+{"fn":"save_bubbles","c":"591-613","status":"split","js":["js/lev_json.js:serWaterlevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; bbubbly marker implicit (null vs object)"}
+{"fn":"savecemetery","c":"617-637","status":"ported","js":["js/dungeon.js:savecemetery"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; FREEING N/A"}
+{"fn":"savedamage","c":"640-662","status":"split","js":["js/lev_json.js:serDamage"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue via serLevel"}
+{"fn":"save_stairs","c":"665-691","status":"split","js":["js/lev_json.js:serLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: stairs stored absolute inline (C relative dance adapted); FREEING N/A"}
+{"fn":"save_bc","c":"696-721","status":"absent","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no JS implementation; named omission in js/save.js dosave0 header (swallowed loose ball/chain)"}
+{"fn":"saveobj","c":"726-757","status":"split","js":["js/lev_json.js:serObj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue incl oextra (oname/omonst/omailcmd/omid)"}
+{"fn":"saveobjchn","c":"762-823","status":"split","js":["js/lev_json.js:serObjChain","js/save.js:serContext"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: chain via serObjChain; victual/tin/spbook o_id stamping via serContext"}
+{"fn":"savemon","c":"826-881","status":"split","js":["js/lev_json.js:serMon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue incl mextra + edog"}
+{"fn":"savemonchn","c":"884-916","status":"split","js":["js/lev_json.js:serMonList","js/save.js:dosave0"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: chain via serMonList (forget_temple_entry inside); usteed/ustuck m_id stamping in dosave0"}
+{"fn":"savetrapchn","c":"920-943","status":"split","js":["js/lev_json.js:serTraps"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; dst stored absolute (C relative dance adapted)"}
+{"fn":"savefruitchn","c":"951-971","status":"ported","js":["js/bones.js:savefruitchn"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fid>=0 walk; terminator/FREEING N/A"}
+{"fn":"savelevchn","c":"974-994","status":"absent","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no JS implementation; no sp_levchn/s_level chain state (searched sp_levchn/levchn/boneid)"}
+{"fn":"store_plname_in_file","c":"999-1027","status":"partial","js":["js/save.js:dosave0"],"omit":"role/race/gender/align suffix + playmode slot dropped; raw plname only (js/save.js dosave0 payload.plname)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: (js fixed by applier: no same-named fn)"}
+{"fn":"save_msghistory","c":"1030-1056","status":"ported","js":["js/save.js:save_msghistory"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue"}
 {"fn":"free_dungeons","c":"1060-1071","status":"unknown"}
 {"fn":"freedynamicdata","c":"1077-1189","status":"by-design","at":"seed@a30a7de84","note":"seed: save-freeing (CURRENT.md Do not)"}

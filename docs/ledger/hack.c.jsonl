@@ -2,94 +2,94 @@
 {"fn":"long_to_any","c":"81-86","status":"ported","js":["js/hack.js:long_to_any"],"d":["D-3105"],"at":"2026-09-29@e32d557c0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"monst_to_any","c":"89-94","status":"ported","js":["js/hack.js:monst_to_any"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
 {"fn":"obj_to_any","c":"97-102","status":"ported","js":["js/hack.js:obj_to_any"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
-{"fn":"revive_nasty","c":"105-137","status":"unknown"}
-{"fn":"could_move_onto_boulder","c":"145-163","status":"unknown"}
-{"fn":"dopush","c":"166-244","status":"unknown"}
+{"fn":"revive_nasty","c":"105-137","status":"ported","js":["js/hack.js:revive_nasty"],"at":"2026-10-03@bbe63333a"}
+{"fn":"could_move_onto_boulder","c":"145-163","status":"ported","js":["js/hack.js:could_move_onto_boulder"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dopush","c":"166-244","status":"ported","js":["js/hack.js:dopush"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cannot_push_msg","c":"247-259","status":"ported","js":["js/hack.js:cannot_push_msg"],"d":["D-3044"],"at":"2026-09-28@b689d8429","note":"stale: js/hack.js:234, body whole, both C callers wired js/hack.js:997,1138"}
-{"fn":"cannot_push","c":"262-312","status":"unknown","d":["D-1239"],"at":"seed@a30a7de84"}
+{"fn":"cannot_push","c":"262-312","status":"ported","js":["js/hack.js:cannot_push"],"d":["D-1239"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rock_disappear_msg","c":"315-324","status":"ported","js":["js/hack.js:rock_disappear_msg"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
 {"fn":"moverock_done","c":"327-333","status":"ported","js":["js/hack.js:moverock_done"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
-{"fn":"moverock","c":"336-345","status":"unknown","d":["D-1294"],"at":"seed@a30a7de84"}
+{"fn":"moverock","c":"336-345","status":"ported","js":["js/hack.js:moverock"],"d":["D-1294"],"at":"2026-10-03@bbe63333a"}
 {"fn":"moverock_core","c":"348-638","status":"partial","js":["js/hack.js:moverock_core"],"omit":"unmap_object trap/engr arms in dopush (remembered-glyph clear stands in); squeezeablylightinvent pack-weight arm lives in could_move_onto_boulder, not here; u.Levitation field + Is_airlevel topology flag (pre-existing renderings, untouched); launch_obj's own omissions stay with D-2318.","d":["D-2739","D-1859"],"at":"seed@a30a7de84"}
-{"fn":"still_chewing","c":"647-822","status":"unknown"}
-{"fn":"movobj","c":"825-833","status":"unknown"}
-{"fn":"dosinkfall","c":"836-919","status":"unknown"}
-{"fn":"may_dig","c":"923-929","status":"unknown"}
-{"fn":"may_passwall","c":"932-936","status":"unknown"}
-{"fn":"bad_rock","c":"939-946","status":"unknown"}
-{"fn":"cant_squeeze_thru","c":"953-979","status":"unknown"}
+{"fn":"still_chewing","c":"647-822","status":"partial","js":["js/hack.js:still_chewing"],"omit":"omits first-chew livelog_printf(LL_CONDUCT, ate...chewing through...) though livelog_printf is live in js/pline.js","at":"2026-10-03@bbe63333a"}
+{"fn":"movobj","c":"825-833","status":"ported","js":["js/hack.js:movobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dosinkfall","c":"836-919","status":"ported","js":["js/hack.js:dosinkfall"],"at":"2026-10-03@bbe63333a"}
+{"fn":"may_dig","c":"923-929","status":"ported","js":["js/dig.js:may_dig"],"at":"2026-10-03@bbe63333a"}
+{"fn":"may_passwall","c":"932-936","status":"ported","js":["js/mon.js:may_passwall"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bad_rock","c":"939-946","status":"ported","js":["js/mon.js:bad_rock"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cant_squeeze_thru","c":"953-979","status":"partial","js":["js/mon.js:cant_squeeze_thru"],"omit":"bigmonst exemption omits can_fog(mon) arm, so a big hero in mist form is wrongly blocked (returns 1)","at":"2026-10-03@bbe63333a"}
 {"fn":"invocation_pos","c":"982-986","status":"ported","js":["js/hack.js:invocation_pos"],"d":["D-3353"],"at":"2026-10-03@85e8a632f"}
 {"fn":"test_move","c":"991-1255","status":"partial","js":["js/hack.js:test_move"],"omit":"block_door (shk.c:5791 — stub-false js/cmd.js:1176, no shop ESHK wire-up); block_entry (shk.c:5826 — no JS impl); ECMD_OK + canned-kick fake (JS doopen_indir returns bool; cmdq_peek cmd.js-local); defsyms[].explanation prose (tree/wall/solid-stone heuristic); autodig flag (no JS option).","d":["D-2439","D-1800"],"at":"seed@a30a7de84"}
 {"fn":"findtravelpath","c":"1266-1523","status":"split","js":["js/cmd.js:findtravelpath_bfs","js/cmd.js:findtravelpath_travel","js/cmd.js:findtravelpath_guess","js/cmd.js:travelmap_ensure"],"d":["D-3198","D-2382","D-1971","D-1897"],"at":"2026-10-01@c1022f867"}
-{"fn":"is_valid_travelpt","c":"1526-1544","status":"unknown"}
+{"fn":"is_valid_travelpt","c":"1526-1544","status":"partial","js":["js/cmd.js:is_valid_travelpt"],"omit":"unseen-target gate uses typ===STONE instead of C glyph S_stone+!seenv, so unexplored non-stone squares reach pathfind instead of returning FALSE","at":"2026-10-03@bbe63333a"}
 {"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-2029"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"u_rooted","c":"1694-1705","status":"unknown"}
-{"fn":"notice_mon","c":"1708-1732","status":"unknown"}
+{"fn":"u_rooted","c":"1694-1705","status":"partial","js":["js/cmd.js:u_rooted"],"omit":"rooted message tests Levitation only, omitting Is_airlevel/Is_waterlevel arms (says to the ground where C says in place)","at":"2026-10-03@bbe63333a"}
+{"fn":"notice_mon","c":"1708-1732","status":"ported","js":["js/hack.js:notice_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"notice_mons_cmp","c":"1735-1741","status":"ported","js":["js/hack.js:notice_mons_cmp"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
 {"fn":"notice_all_mons","c":"1744-1783","status":"partial","js":["js/hack.js:notice_all_mons"],"omit":"blocked: CURRENT.md Do not (fortress guard; newgame arm live D-1200)","at":"seed@a30a7de84"}
-{"fn":"impact_disturbs_zombies","c":"1787-1794","status":"unknown","d":["D-1229"],"at":"seed@a30a7de84"}
-{"fn":"disturb_buried_zombies","c":"1798-1813","status":"unknown","d":["D-1214"],"at":"seed@a30a7de84"}
-{"fn":"u_locomotion","c":"1817-1829","status":"unknown"}
-{"fn":"u_simple_floortyp","c":"1833-1848","status":"unknown"}
-{"fn":"handle_tip","c":"1852-1881","status":"unknown","d":["D-2386"],"at":"seed@a30a7de84"}
-{"fn":"swim_move_danger","c":"1885-1921","status":"unknown"}
-{"fn":"domove_bump_mon","c":"1925-1948","status":"unknown","d":["D-2170"],"at":"seed@a30a7de84"}
-{"fn":"domove_attackmon_at","c":"1955-1992","status":"unknown"}
-{"fn":"domove_fight_ironbars","c":"1996-2017","status":"unknown"}
+{"fn":"impact_disturbs_zombies","c":"1787-1794","status":"ported","js":["js/hack.js:impact_disturbs_zombies"],"d":["D-1229"],"at":"2026-10-03@bbe63333a"}
+{"fn":"disturb_buried_zombies","c":"1798-1813","status":"ported","js":["js/hack.js:disturb_buried_zombies"],"d":["D-1214"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_locomotion","c":"1817-1829","status":"partial","js":["js/hack.js:u_locomotion"],"omit":"no capitalize-on-uppercase-def (Float/Fly) and no locomotion(youmonst.data,def) poly fallback (crawl/swim/slither); returns def word always","at":"2026-10-03@bbe63333a"}
+{"fn":"u_simple_floortyp","c":"1833-1848","status":"partial","js":["js/hack.js:u_simple_floortyp"],"omit":"u_in_air omits !grounded(youmonst.data), so poly clinger/floater forms over pool/lava misread as POOL/LAVAPOOL instead of ROOM","at":"2026-10-03@bbe63333a"}
+{"fn":"handle_tip","c":"1852-1881","status":"ported","js":["js/hack.js:handle_tip"],"d":["D-2386"],"at":"2026-10-03@bbe63333a"}
+{"fn":"swim_move_danger","c":"1885-1921","status":"partial","js":["js/hack.js:swim_move_danger"],"omit":"omits !Known_wwalking/!Known_lwalking gates, so known-safe water/lava walking is wrongly blocked with the avoid message","at":"2026-10-03@bbe63333a"}
+{"fn":"domove_bump_mon","c":"1925-1948","status":"ported","js":["js/cmd.js:domove_bump_mon"],"d":["D-2170"],"at":"2026-10-03@bbe63333a"}
+{"fn":"domove_attackmon_at","c":"1955-1992","status":"ported","js":["js/cmd.js:domove_attackmon_at"],"at":"2026-10-03@bbe63333a"}
+{"fn":"domove_fight_ironbars","c":"1996-2017","status":"ported","js":["js/hack.js:domove_fight_ironbars"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domove_fight_web","c":"2021-2094","status":"ported","js":["js/hack.js:domove_fight_web"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"domove_swap_with_pet","c":"2098-2225","status":"partial","js":["js/hack.js:domove_swap_with_pet"],"omit":"C `:2147` `assert(trap != NULL)` — implied by `mtrapped` (cleared `:2116–2118` when `!trap`); no JS assert export, comment only.","d":["D-2510"],"at":"seed@a30a7de84"}
 {"fn":"domove_fight_empty","c":"2229-2338","status":"ported","js":["js/cmd.js:domove_fight_empty"],"d":["D-2826","D-2825"],"at":"seed@a30a7de84"}
-{"fn":"air_turbulence","c":"2342-2361","status":"unknown"}
-{"fn":"water_turbulence","c":"2365-2393","status":"unknown"}
-{"fn":"slippery_ice_fumbling","c":"2396-2415","status":"unknown"}
-{"fn":"u_maybe_impaired","c":"2418-2421","status":"unknown"}
-{"fn":"impaired_movement","c":"2425-2441","status":"unknown"}
-{"fn":"avoid_moving_on_trap","c":"2444-2460","status":"unknown"}
-{"fn":"avoid_moving_on_liquid","c":"2463-2490","status":"unknown"}
-{"fn":"avoid_running_into_trap_or_liquid","c":"2495-2509","status":"unknown"}
+{"fn":"air_turbulence","c":"2342-2361","status":"ported","js":["js/hack.js:air_turbulence"],"at":"2026-10-03@bbe63333a"}
+{"fn":"water_turbulence","c":"2365-2393","status":"ported","js":["js/hack.js:water_turbulence"],"at":"2026-10-03@bbe63333a"}
+{"fn":"slippery_ice_fumbling","c":"2396-2415","status":"ported","js":["js/hack.js:slippery_ice_fumbling"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_maybe_impaired","c":"2418-2421","status":"ported","js":["js/hack.js:u_maybe_impaired"],"at":"2026-10-03@bbe63333a"}
+{"fn":"impaired_movement","c":"2425-2441","status":"ported","js":["js/hack.js:impaired_movement"],"at":"2026-10-03@bbe63333a"}
+{"fn":"avoid_moving_on_trap","c":"2444-2460","status":"ported","js":["js/hack.js:avoid_moving_on_trap"],"at":"2026-10-03@bbe63333a"}
+{"fn":"avoid_moving_on_liquid","c":"2463-2490","status":"partial","js":["js/hack.js:avoid_moving_on_liquid"],"omit":"safe-traverse arm omits Known_lwalking/(is_pool&&Known_wwalking), so known lava/water walking wrongly stops at the edge","at":"2026-10-03@bbe63333a"}
+{"fn":"avoid_running_into_trap_or_liquid","c":"2495-2509","status":"ported","js":["js/hack.js:avoid_running_into_trap_or_liquid"],"at":"2026-10-03@bbe63333a"}
 {"fn":"avoid_trap_andor_region","c":"2515-2582","status":"partial","js":["js/hack.js:avoid_trap_andor_region"],"omit":"``u_locomotion`` capitalize path + ``locomotion(youmonst.data, def)`` poly fallback (C ``:1817–1829``); ``do.js:549`` / ``teleport.js:1962`` u_locomotion clones kept (other files, own future rows — no clone #4 added here).","d":["D-2638"],"at":"seed@a30a7de84"}
-{"fn":"move_out_of_bounds","c":"2586-2612","status":"unknown"}
-{"fn":"carrying_too_much","c":"2616-2634","status":"unknown"}
-{"fn":"escape_from_sticky_mon","c":"2639-2692","status":"unknown","d":["D-2158"],"at":"seed@a30a7de84"}
-{"fn":"domove","c":"2695-2709","status":"unknown","d":["D-1150"],"at":"seed@a30a7de84"}
+{"fn":"move_out_of_bounds","c":"2586-2612","status":"ported","js":["js/hack.js:move_out_of_bounds"],"at":"2026-10-03@bbe63333a"}
+{"fn":"carrying_too_much","c":"2616-2634","status":"ported","js":["js/hack.js:carrying_too_much"],"at":"2026-10-03@bbe63333a"}
+{"fn":"escape_from_sticky_mon","c":"2639-2692","status":"ported","js":["js/hack.js:escape_from_sticky_mon"],"d":["D-2158"],"at":"2026-10-03@bbe63333a"}
+{"fn":"domove","c":"2695-2709","status":"ported","js":["js/cmd.js:domove"],"d":["D-1150"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JS merges domove_core (276 lines); wrapper arms (succeeded gate, smudge+bubble, attempting+kickedloc reset) all live"}
 {"fn":"domove_core","c":"2712-2991","status":"partial","js":["js/cmd.js:domove"],"omit":"displaceu middle-skip (C skips ironbars/test_move/swim when displaceu; JS runs the middle then swaps — converges next turn); travel block (handled upstream in `continue_run`, `findtravelpath_travel/guess` + travel1=0, same order vs the carrying check); final CLIPPING (wintty cliparound singleton, D…","d":["D-2453"],"at":"2026-09-27@d2d72caa6","note":"refresh: body lives in domove (cmd.js:5469); omit unchanged (D-2453)"}
-{"fn":"runmode_delay_output","c":"2996-3017","status":"unknown"}
-{"fn":"maybe_smudge_engr","c":"3020-3031","status":"unknown"}
-{"fn":"overexert_hp","c":"3035-3047","status":"unknown"}
-{"fn":"overexertion","c":"3051-3061","status":"unknown"}
-{"fn":"invocation_message","c":"3064-3085","status":"unknown"}
+{"fn":"runmode_delay_output","c":"2996-3017","status":"ported","js":["js/hack.js:runmode_delay_output"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_smudge_engr","c":"3020-3031","status":"ported","js":["js/engrave.js:maybe_smudge_engr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"overexert_hp","c":"3035-3047","status":"ported","js":["js/hack.js:overexert_hp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"overexertion","c":"3051-3061","status":"ported","js":["js/hack.js:overexertion"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invocation_message","c":"3064-3085","status":"ported","js":["js/hack.js:invocation_message"],"at":"2026-10-03@bbe63333a"}
 {"fn":"classify_terrain","c":"3090-3172","status":"ported","js":["js/hack.js:classify_terrain"],"d":["D-1151"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"switch_terrain","c":"3178-3217","status":"unknown","d":["D-1259"],"at":"seed@a30a7de84"}
-{"fn":"set_uinwater","c":"3221-3227","status":"unknown","d":["D-1267"],"at":"seed@a30a7de84"}
-{"fn":"pooleffects","c":"3233-3309","status":"unknown","d":["D-2240"],"at":"seed@a30a7de84"}
-{"fn":"spoteffects","c":"3312-3462","status":"unknown","d":["D-2111","D-1799","D-1268"],"at":"seed@a30a7de84"}
-{"fn":"monstinroom","c":"3466-3478","status":"unknown"}
-{"fn":"furniture_present","c":"3482-3495","status":"unknown"}
+{"fn":"switch_terrain","c":"3178-3217","status":"ported","js":["js/hack.js:switch_terrain"],"d":["D-1259"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_uinwater","c":"3221-3227","status":"ported","js":["js/hack.js:set_uinwater"],"d":["D-1267"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pooleffects","c":"3233-3309","status":"ported","js":["js/pickup.js:pooleffects"],"d":["D-2240"],"at":"2026-10-03@bbe63333a"}
+{"fn":"spoteffects","c":"3312-3462","status":"ported","js":["js/pickup.js:spoteffects"],"d":["D-2111","D-1799","D-1268"],"at":"2026-10-03@bbe63333a"}
+{"fn":"monstinroom","c":"3466-3478","status":"ported","js":["js/hack.js:monstinroom"],"at":"2026-10-03@bbe63333a"}
+{"fn":"furniture_present","c":"3482-3495","status":"ported","js":["js/hack.js:furniture_present"],"at":"2026-10-03@bbe63333a"}
 {"fn":"in_rooms","c":"3498-3560","status":"ported","js":["js/hack.js:in_rooms"],"d":["D-2974"],"at":"2026-09-27@8a0963412","note":"stale: js/hack.js:1859"}
-{"fn":"in_town","c":"3564-3585","status":"unknown"}
-{"fn":"move_update","c":"3588-3622","status":"unknown"}
-{"fn":"check_special_room","c":"3626-3780","status":"unknown"}
-{"fn":"pickup_checks","c":"3788-3872","status":"unknown","d":["D-1838"],"at":"seed@a30a7de84"}
-{"fn":"dopickup","c":"3876-3892","status":"unknown"}
+{"fn":"in_town","c":"3564-3585","status":"ported","js":["js/hack.js:in_town"],"at":"2026-10-03@bbe63333a"}
+{"fn":"move_update","c":"3588-3622","status":"ported","js":["js/hack.js:move_update"],"at":"2026-10-03@bbe63333a"}
+{"fn":"check_special_room","c":"3626-3780","status":"partial","js":["js/hack.js:check_special_room"],"omit":"BARRACKS always military (missing monstinroom soldier/sergeant/lieutenant/captain abandoned arm); room-entry wake clears sleep but omits wake_msg text (live in js/mon.js)","at":"2026-10-03@bbe63333a"}
+{"fn":"pickup_checks","c":"3788-3872","status":"partial","js":["js/pickup.js:pickup_checks"],"omit":"reach-fail message uses fixed floor instead of surface(ux,uy) terrain name (live js/sit.js:surface); HOLE/TRAPDOOR overrides live","d":["D-1838"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dopickup","c":"3876-3892","status":"ported","js":["js/pickup.js:dopickup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lookaround","c":"3898-4059","status":"ported","js":["js/cmd.js:lookaround"],"d":["D-2759"],"at":"seed@a30a7de84"}
 {"fn":"doorless_door","c":"4063-4074","status":"ported","js":["js/hack.js:doorless_door"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}
-{"fn":"crawl_destination","c":"4079-4101","status":"unknown"}
-{"fn":"monster_nearby","c":"4106-4127","status":"unknown"}
-{"fn":"end_running","c":"4130-4158","status":"unknown"}
-{"fn":"nomul","c":"4161-4173","status":"unknown"}
+{"fn":"crawl_destination","c":"4079-4101","status":"partial","js":["js/hack.js:crawl_destination"],"omit":"diagonal omits NODIAG veto, Passes_walls allow, and bad_rock-flank cant_squeeze_thru veto (grid-bug/squeeze wrongly allowed; phazer still doorway-gated)","at":"2026-10-03@bbe63333a"}
+{"fn":"monster_nearby","c":"4106-4127","status":"ported","js":["js/hack.js:monster_nearby"],"at":"2026-10-03@bbe63333a"}
+{"fn":"end_running","c":"4130-4158","status":"ported","js":["js/hack.js:end_running"],"at":"2026-10-03@bbe63333a"}
+{"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-3264"],"at":"2026-10-02@d947745c9"}
-{"fn":"maybe_wail","c":"4211-4243","status":"unknown"}
+{"fn":"maybe_wail","c":"4211-4243","status":"ported","js":["js/hack.js:maybe_wail"],"at":"2026-10-03@bbe63333a"}
 {"fn":"showdamage","c":"4247-4253","status":"partial","js":["js/hack.js:showdamage"],"omit":"- `rounddiv`: none — whole body, panic live (leaf).","d":["D-3105"],"at":"2026-09-29@e32d557c0","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"losehp","c":"4256-4292","status":"unknown","d":["D-2051"],"at":"seed@a30a7de84"}
+{"fn":"losehp","c":"4256-4292","status":"partial","js":["js/hack.js:losehp"],"omit":"poly mh<1 sets gameover directly instead of rehumanize() (return to normal form); also omits showdamage(n)","d":["D-2051"],"at":"2026-10-03@bbe63333a"}
 {"fn":"weight_cap","c":"4295-4346","status":"ported","js":["js/invent.js:weight_cap"],"d":["D-2819"],"at":"seed@a30a7de84"}
 {"fn":"inv_weight","c":"4351-4365","status":"ported","js":["js/invent.js:inv_weight"],"d":["D-2827"],"at":"seed@a30a7de84"}
-{"fn":"calc_capacity","c":"4372-4382","status":"unknown"}
-{"fn":"near_capacity","c":"4385-4388","status":"unknown"}
-{"fn":"max_capacity","c":"4391-4396","status":"unknown"}
+{"fn":"calc_capacity","c":"4372-4382","status":"ported","js":["js/invent.js:calc_capacity"],"at":"2026-10-03@bbe63333a"}
+{"fn":"near_capacity","c":"4385-4388","status":"ported","js":["js/invent.js:near_capacity"],"at":"2026-10-03@bbe63333a"}
+{"fn":"max_capacity","c":"4391-4396","status":"ported","js":["js/invent.js:max_capacity"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_capacity","c":"4399-4409","status":"ported","js":["js/hack.js:check_capacity"],"d":["D-3266"],"at":"2026-10-02@a2542cfc9"}
 {"fn":"dump_weights","c":"4421-4483","status":"split","js":["js/hack.js:dump_weights","js/hack.js:dump_weights_lines"],"omit":"- `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).","d":["D-3062"],"at":"2026-10-01@1633dc128","note":"stale: whole C body live across dump_weights + dump_weights_lines (D-3062); freedynamicdata/earlyarg-caller omits stand"}
 {"fn":"cmp_weights","c":"4486-4493","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"inv_cnt","c":"4496-4507","status":"unknown"}
+{"fn":"inv_cnt","c":"4496-4507","status":"ported","js":["js/steal.js:inv_cnt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"money_cnt","c":"4514-4522","status":"ported","js":["js/shk.js:money_cnt"],"d":["D-3332"],"at":"2026-10-03@50d9779cf"}
 {"fn":"spot_checks","c":"4525-4547","status":"ported","js":["js/hack.js:spot_checks"],"d":["D-3062"],"at":"2026-09-28@fb9c2049c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rounddiv","c":"4551-4572","status":"ported","js":["js/hack.js:rounddiv"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}

@@ -1,7 +1,7 @@
-{"fn":"doprev_message","c":"164-168","status":"unknown"}
-{"fn":"timed_occupation","c":"172-178","status":"unknown"}
-{"fn":"reset_occupations","c":"195-200","status":"unknown"}
-{"fn":"set_occupation","c":"206-216","status":"unknown"}
+{"fn":"doprev_message","c":"164-168","status":"ported","js":["js/cmd.js:doprev_message"],"at":"2026-10-03@bbe63333a"}
+{"fn":"timed_occupation","c":"172-178","status":"ported","js":["js/engrave.js:timed_occupation"],"at":"2026-10-03@bbe63333a"}
+{"fn":"reset_occupations","c":"195-200","status":"ported","js":["js/do.js:reset_occupations"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reset_trapset via late import (apply.js cycle)"}
+{"fn":"set_occupation","c":"206-216","status":"ported","js":["js/engrave.js:set_occupation"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cmdq_print","c":"220-249","status":"ported","js":["js/cmd.js:cmdq_print"],"d":["D-3086"],"at":"2026-09-29@590ebd616","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdq_add_ec","c":"254-270","status":"ported","js":["js/cmd.js:cmdq_add_ec"],"d":["D-2977","D-2976"],"at":"2026-09-27@25beec7af"}
 {"fn":"cmdq_add_key","c":"274-290","status":"ported","js":["js/invent.js:cmdq_add_key"],"d":["D-2976"],"at":"2026-09-27@b3da2ae0e"}
@@ -12,36 +12,36 @@
 {"fn":"cmdq_reverse","c":"373-384","status":"ported","js":["js/cmd.js:cmdq_reverse"],"d":["D-3296"],"at":"2026-10-02@b4812e9cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdq_copy","c":"387-404","status":"ported","js":["js/cmd.js:cmdq_copy"],"at":"2026-09-30@990da2b8d","note":"stale: js/cmd.js:391, slice = prepend+reverse; sole caller do_repeat (:4780) guards peek so []-vs-NULL unreachable"}
 {"fn":"cmdq_pop","c":"410-420","status":"ported","js":["js/cmd.js:cmdq_pop"],"at":"2026-10-02@42c45189d","note":"stale: js/cmd.js:391"}
-{"fn":"cmdq_peek","c":"424-427","status":"unknown"}
+{"fn":"cmdq_peek","c":"424-427","status":"ported","js":["js/cmd.js:cmdq_peek"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cmdq_clear","c":"431-442","status":"ported","js":["js/cmd.js:cmdq_clear"],"at":"2026-10-02@42c45189d","note":"stale: js/cmd.js:310"}
-{"fn":"pgetchar","c":"445-453","status":"unknown"}
+{"fn":"pgetchar","c":"445-453","status":"ported","js":["js/cmd.js:pgetchar"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fuzzer arm + nhgetch; (char) cast moot in JS"}
 {"fn":"extcmd_initiator","c":"457-460","status":"ported","js":["js/cmd.js:extcmd_initiator"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"can_do_extcmd","c":"463-489","status":"ported","js":["js/cmd.js:can_do_extcmd"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"2026-10-01@2eced4253","note":"stale: js/cmd.js:762 — whole C body live incl NHCB_CMD_BEFORE via nh_callback_run; Lua-stack mechanics by-design (nhl_pcall_handle)"}
-{"fn":"doextcmd","c":"493-520","status":"unknown"}
+{"fn":"doextcmd","c":"493-520","status":"ported","js":["js/getline.js:doextcmd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doc_extcmd_flagstr","c":"524-557","status":"ported","js":["js/cmd.js:doc_extcmd_flagstr"],"at":"2026-09-30@850d390ba","note":"stale: js/cmd.js:848 (both arms + both doextlist sites :1296/:1306 wired)"}
-{"fn":"doextlist","c":"562-734","status":"unknown","d":["D-1625"],"at":"seed@a30a7de84"}
+{"fn":"doextlist","c":"562-734","status":"ported","js":["js/cmd.js:doextlist"],"d":["D-1625"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 4 pick arms, search, headings, ESC"}
 {"fn":"extcmd_via_menu","c":"752-882","status":"ported","js":["js/getline.js:extcmd_via_menu"],"d":["D-2871","D-2863"],"at":"seed@a30a7de84"}
-{"fn":"domonability","c":"890-949","status":"unknown"}
+{"fn":"domonability","c":"890-949","status":"partial","js":["js/polyself.js:domonability"],"omit":"usteed breath arm (:940-942 pet_ranged_attk + ECMD_TIME); JS falls through to reflexive/normal tail","at":"2026-10-03@bbe63333a"}
 {"fn":"enter_explore_mode","c":"952-983","status":"partial","js":["js/cmd.js:enter_explore_mode"],"omit":"`get_unix_pw` (`unixmain.c:731–760`) returns null: scored ESM has no passwd database.","d":["D-2845"],"at":"seed@a30a7de84"}
-{"fn":"makemap_prepost","c":"986-1067","status":"unknown","d":["D-2295"],"at":"seed@a30a7de84"}
+{"fn":"makemap_prepost","c":"986-1067","status":"partial","js":["js/wizcmds.js:makemap_prepost"],"omit":"pre-arm skips mine/soko achievement revoke (:1000-1008), digging memset (:1016-1019), polearm.hitmon reset (:1022), savelev freeing nhfile (:1035-1038)","d":["D-2295"],"at":"2026-10-03@bbe63333a"}
 {"fn":"levltyp_to_name","c":"1089-1094","status":"ported","js":["js/cmd.js:levltyp_to_name"],"d":["D-3296"],"at":"2026-10-02@b4812e9cd","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"doterrain","c":"1098-1191","status":"unknown"}
-{"fn":"u_have_seen_whole_selection","c":"1195-1209","status":"unknown"}
-{"fn":"u_have_seen_bounds_selection","c":"1213-1242","status":"unknown"}
-{"fn":"u_can_see_whole_selection","c":"1246-1259","status":"unknown"}
-{"fn":"dolookaround_floodfill_findroom","c":"1263-1272","status":"unknown"}
-{"fn":"lookaround_known_room","c":"1276-1306","status":"unknown"}
-{"fn":"dolookaround","c":"1310-1369","status":"unknown","d":["D-1217"],"at":"seed@a30a7de84"}
-{"fn":"dotoggleoption","c":"1376-1384","status":"unknown","d":["D-2698"],"at":"seed@a30a7de84"}
+{"fn":"doterrain","c":"1098-1191","status":"ported","js":["js/detect.js:doterrain"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 6 cases incl wiz arms"}
+{"fn":"u_have_seen_whole_selection","c":"1195-1209","status":"ported","js":["js/cmd.js:u_have_seen_whole_selection"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_have_seen_bounds_selection","c":"1213-1242","status":"ported","js":["js/cmd.js:u_have_seen_bounds_selection"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_can_see_whole_selection","c":"1246-1259","status":"ported","js":["js/cmd.js:u_can_see_whole_selection"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dolookaround_floodfill_findroom","c":"1263-1272","status":"ported","js":["js/cmd.js:dolookaround_floodfill_findroom"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lookaround_known_room","c":"1276-1306","status":"ported","js":["js/cmd.js:lookaround_known_room"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 3 message arms incl u.urooms[0] quirk"}
+{"fn":"dolookaround","c":"1310-1369","status":"ported","js":["js/cmd.js:dolookaround"],"d":["D-1217"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dotoggleoption","c":"1376-1384","status":"ported","js":["js/cmd.js:dotoggleoption"],"d":["D-2698"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_move_cmd","c":"1387-1400","status":"ported","js":["js/cmd.js:set_move_cmd"],"at":"2026-10-01@f0a648599","note":"stale: js/cmd.js:558"}
-{"fn":"do_move_west","c":"1404-1408","status":"unknown"}
-{"fn":"do_move_northwest","c":"1411-1415","status":"unknown"}
-{"fn":"do_move_north","c":"1418-1422","status":"unknown"}
-{"fn":"do_move_northeast","c":"1425-1429","status":"unknown"}
-{"fn":"do_move_east","c":"1432-1436","status":"unknown"}
-{"fn":"do_move_southeast","c":"1439-1443","status":"unknown"}
-{"fn":"do_move_south","c":"1446-1450","status":"unknown"}
-{"fn":"do_move_southwest","c":"1453-1457","status":"unknown"}
+{"fn":"do_move_west","c":"1404-1408","status":"ported","js":["js/cmd.js:do_move_west"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_move_northwest","c":"1411-1415","status":"ported","js":["js/cmd.js:do_move_northwest"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_move_north","c":"1418-1422","status":"ported","js":["js/cmd.js:do_move_north"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_move_northeast","c":"1425-1429","status":"ported","js":["js/cmd.js:do_move_northeast"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_move_east","c":"1432-1436","status":"ported","js":["js/cmd.js:do_move_east"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_move_southeast","c":"1439-1443","status":"ported","js":["js/cmd.js:do_move_southeast"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_move_south","c":"1446-1450","status":"ported","js":["js/cmd.js:do_move_south"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_move_southwest","c":"1453-1457","status":"ported","js":["js/cmd.js:do_move_southwest"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_rush_west","c":"1461-1465","status":"ported","js":["js/cmd.js:do_rush_west"],"d":["D-3296"],"at":"2026-10-02@b4812e9cd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_rush_northwest","c":"1468-1472","status":"ported","js":["js/cmd.js:do_rush_northwest"],"d":["D-3313"],"at":"2026-10-02@9332ca054","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_rush_north","c":"1475-1479","status":"ported","js":["js/cmd.js:do_rush_north"],"d":["D-3313"],"at":"2026-10-02@9332ca054","note":"refresh: no JS symbol (measured MISSING)"}
@@ -58,37 +58,37 @@
 {"fn":"do_run_southeast","c":"1553-1557","status":"ported","js":["js/cmd.js:do_run_southeast"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_run_south","c":"1560-1564","status":"ported","js":["js/cmd.js:do_run_south"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_run_southwest","c":"1567-1571","status":"ported","js":["js/cmd.js:do_run_southwest"],"d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"do_reqmenu","c":"1575-1586","status":"unknown"}
-{"fn":"do_rush","c":"1590-1602","status":"unknown"}
-{"fn":"do_run","c":"1606-1618","status":"unknown"}
-{"fn":"do_fight","c":"1622-1634","status":"unknown"}
-{"fn":"do_repeat","c":"1638-1660","status":"unknown"}
+{"fn":"do_reqmenu","c":"1575-1586","status":"ported","js":["js/cmd.js:do_reqmenu"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_rush","c":"1590-1602","status":"ported","js":["js/cmd.js:do_rush"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_run","c":"1606-1618","status":"ported","js":["js/cmd.js:do_run"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_fight","c":"1622-1634","status":"ported","js":["js/cmd.js:do_fight"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_repeat","c":"1638-1660","status":"ported","js":["js/cmd.js:do_repeat"],"at":"2026-10-03@bbe63333a"}
 {"fn":"extcmds_getentry","c":"2101-2106","status":"ported","js":["js/getline.js:extcmds_getentry"],"d":["D-3149"],"at":"2026-09-30@8e8a996ab","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdbind_get","c":"2110-2123","status":"ported","js":["js/dokeylist.js:cmdbind_get"],"at":"2026-09-27@45ea89017","note":"stale: js/dokeylist.js:306"}
-{"fn":"cmdbind_add","c":"2126-2155","status":"unknown"}
+{"fn":"cmdbind_add","c":"2126-2155","status":"ported","js":["js/cmd.js:cmdbind_add"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: slots+overlay shape; all C arms"}
 {"fn":"cmdbind_remove","c":"2158-2177","status":"ported","js":["js/cmd.js:cmdbind_remove"],"at":"2026-09-30@8e8a996ab","note":"stale: js/cmd.js:1645, whole C body (slots/order/overlay unlink + param clear); 4 C callers wired (:2133×2 paths, :2670, :3413, :3456)"}
 {"fn":"cmdbind_freeall","c":"2180-2191","status":"by-design","d":["D-3307"],"at":"2026-10-02@4265100f0","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cmdbind_swapkeys","c":"2195-2204","status":"unknown"}
-{"fn":"count_bind_keys","c":"2208-2231","status":"unknown"}
+{"fn":"cmdbind_swapkeys","c":"2195-2204","status":"ported","js":["js/cmd.js:cmdbind_swapkeys"],"at":"2026-10-03@bbe63333a"}
+{"fn":"count_bind_keys","c":"2208-2231","status":"ported","js":["js/cmd.js:count_bind_keys"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_changed_key_binds","c":"2235-2287","status":"ported","js":["js/cmd.js:get_changed_key_binds"],"d":["D-3222","D-2550"],"at":"2026-10-01@bd7787f89"}
 {"fn":"handler_rebind_keys_add","c":"2291-2405","status":"ported","js":["js/cmd.js:handler_rebind_keys_add"],"d":["D-3233"],"at":"2026-10-01@e5887aa2a","note":"stale: js/cmd.js:2122"}
 {"fn":"handler_rebind_keys","c":"2408-2446","status":"partial","js":["js/cmd.js:handler_rebind_keys"],"omit":"blocked: remainder unportable — C key-0+param NULL-deref crash path (bind_key :2700–2707 segfaults; JS stays total; key 0 returns at _add :2307).","d":["D-3233","D-2762"],"at":"2026-10-01@e5887aa2a"}
 {"fn":"handler_change_autocompletions","c":"2449-2515","status":"ported","js":["js/cmd.js:handler_change_autocompletions"],"d":["D-3079"],"at":"2026-09-29@260932ce5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"extcmds_match","c":"2523-2558","status":"ported","js":["js/getline.js:extcmds_match"],"d":["D-3149"],"at":"2026-09-30@8e8a996ab"}
-{"fn":"key2extcmddesc","c":"2561-2621","status":"unknown","d":["D-2702"],"at":"seed@a30a7de84"}
+{"fn":"key2extcmddesc","c":"2561-2621","status":"ported","js":["js/pager.js:key2extcmddesc"],"d":["D-2702"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: move probes, digit arm, misc_keys, reqmenu rewrite, ## strip"}
 {"fn":"bind_mousebtn","c":"2624-2659","status":"ported","js":["js/cmd.js:bind_mousebtn"],"d":["D-3086"],"at":"2026-09-29@590ebd616","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bind_key","c":"2662-2728","status":"ported","js":["js/cmd.js:bind_key"],"at":"2026-09-30@6c8474344","note":"stale: js/cmd.js:1614"}
 {"fn":"bind_key_fn","c":"2732-2746","status":"ported","js":["js/cmd.js:bind_key_fn"],"at":"2026-09-30@e3edb2ef9","note":"stale: complete at js/cmd.js:2071 (loop + both INTERNALCMD/funct continues + cmdbind_add + both returns); 4 C callers wired at js/cmd.js:2272-2277"}
-{"fn":"commands_init","c":"2750-2782","status":"unknown"}
+{"fn":"commands_init","c":"2750-2782","status":"ported","js":["js/cmd.js:commands_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: bind list exact; #if 0 space-wait noted"}
 {"fn":"keylist_func_has_key","c":"2785-2799","status":"ported","js":["js/dokeylist.js:keylist_func_has_key"],"at":"2026-09-30@850d390ba","note":"stale: js/dokeylist.js:712 (exact loop + both sites :777/:867 wired)"}
 {"fn":"keylist_putcmds","c":"2802-2863","status":"partial","js":["js/dokeylist.js:keylist_putcmds"],"omit":"`parsebindings` still strips `(param)`, so an rc BIND= does not fill `_bindParam`.","d":["D-2863"],"at":"seed@a30a7de84"}
 {"fn":"dokeylist","c":"2867-3013","status":"split","js":["js/dokeylist.js:dokeylist_lines","js/pager.js:show_text_pages"],"d":["D-3028"],"at":"2026-09-28@759e72748"}
 {"fn":"ext_func_tab_from_func","c":"3016-3025","status":"ported","js":["js/cmd.js:ext_func_tab_from_func"],"d":["D-2978","D-2977"],"at":"2026-09-27@516c184a8"}
-{"fn":"cmd_from_dir","c":"3029-3032","status":"unknown"}
+{"fn":"cmd_from_dir","c":"3029-3032","status":"ported","js":["js/dokeylist.js:cmd_from_dir"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: txt-table adaptation; OOB returns 0"}
 {"fn":"cmd_from_func","c":"3036-3066","status":"partial","js":["js/dokeylist.js:cmd_from_func"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"seed@a30a7de84"}
-{"fn":"cmd_from_ecname","c":"3071-3089","status":"unknown"}
+{"fn":"cmd_from_ecname","c":"3071-3089","status":"ported","js":["js/dokeylist.js:cmd_from_ecname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ecname_from_fn","c":"3092-3102","status":"ported","js":["js/dokeylist.js:ecname_from_fn"],"d":["D-3089"],"at":"2026-09-29@aeb41ef5f","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cmdname_from_func","c":"3106-3155","status":"unknown"}
+{"fn":"cmdname_from_func","c":"3106-3155","status":"ported","js":["js/dokeylist.js:cmdname_from_func"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: shortest-unambiguous logic; debugpline2 no-op"}
 {"fn":"bind_specialkey","c":"3194-3205","status":"ported","js":["js/cmd.js:bind_specialkey"],"d":["D-3151"],"at":"2026-09-30@5fd602958","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spkey_name","c":"3208-3220","status":"ported","js":["js/dokeylist.js:spkey_name"],"d":["D-3028"],"at":"2026-09-28@759e72748","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"key2txt","c":"3225-3240","status":"ported","js":["js/dokeylist.js:key2txt"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2"}
@@ -97,53 +97,53 @@
 {"fn":"count_autocompletions","c":"3312-3322","status":"ported","js":["js/cmd.js:count_autocompletions"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lock_mouse_buttons","c":"3326-3340","status":"ported","js":["js/cmd.js:lock_mouse_buttons"],"d":["D-3006"],"at":"2026-09-28@92e07989a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_commands","c":"3344-3476","status":"partial","js":["js/cmd.js:reset_commands"],"omit":"`bind_mousebtn` (`cmd.c:2624`, called from `commands_init` `:2752–2753`); `click_to_cmd` still reads `game.Cmd.mousebtn` and stays inert.","d":["D-2861"],"at":"seed@a30a7de84"}
-{"fn":"update_rest_on_space","c":"3483-3503","status":"unknown"}
-{"fn":"accept_menu_prefix","c":"3509-3512","status":"unknown"}
+{"fn":"update_rest_on_space","c":"3483-3503","status":"ported","js":["js/cmd.js:update_rest_on_space"],"at":"2026-10-03@bbe63333a"}
+{"fn":"accept_menu_prefix","c":"3509-3512","status":"ported","js":["js/getline.js:accept_menu_prefix"],"at":"2026-10-03@bbe63333a"}
 {"fn":"randomkey","c":"3517-3578","status":"partial","js":["js/cmd.js:randomkey"],"omit":"`readchar_core` fuzzer arm (`cmd.c:5218`); `wintty.c:4068` tty fuzzer arm.","d":["D-2480"],"at":"seed@a30a7de84"}
-{"fn":"random_response","c":"3581-3598","status":"unknown"}
+{"fn":"random_response","c":"3581-3598","status":"ported","js":["js/cmd.js:random_response"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rnd_extcmd_idx","c":"3601-3604","status":"ported","js":["js/cmd.js:rnd_extcmd_idx"],"d":["D-3313"],"at":"2026-10-02@9332ca054","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"reset_cmd_vars","c":"3607-3624","status":"unknown"}
-{"fn":"rhack","c":"3627-3843","status":"unknown","d":["D-2306"],"at":"seed@a30a7de84"}
-{"fn":"xytodir","c":"3847-3855","status":"unknown"}
-{"fn":"dirtocoord","c":"3859-3865","status":"unknown"}
-{"fn":"movecmd","c":"3869-3898","status":"unknown"}
-{"fn":"dxdy_moveok","c":"3902-3907","status":"unknown"}
-{"fn":"redraw_cmd","c":"3911-3918","status":"unknown"}
+{"fn":"reset_cmd_vars","c":"3607-3624","status":"ported","js":["js/cmd.js:reset_cmd_vars"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rhack","c":"3627-3843","status":"partial","js":["js/cmd.js:rhack"],"omit":"default-key path skips can_do_extcmd (:3689: buried/Lua-NHCB/fuzzer/wizard gates); m-prefix reject pline (:3708-11) silent; movement arm skips grid-bug dxdy_moveok (:3778-84); prefix-accept uses hardcoded key lists not CMD_gGF/CMD_M_PREFIX flags","d":["D-2306"],"at":"2026-10-03@bbe63333a"}
+{"fn":"xytodir","c":"3847-3855","status":"ported","js":["js/const.js:xytodir"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dirtocoord","c":"3859-3865","status":"ported","js":["js/const.js:dirtocoord"],"at":"2026-10-03@bbe63333a"}
+{"fn":"movecmd","c":"3869-3898","status":"ported","js":["js/dokeylist.js:movecmd"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: txt-match adaptation of fnc==move_funcs"}
+{"fn":"dxdy_moveok","c":"3902-3907","status":"ported","js":["js/lock.js:dxdy_moveok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"redraw_cmd","c":"3911-3918","status":"partial","js":["js/getpos.js:redraw_cmd"],"omit":"generic cmdbind_get(uc)->ef_funct==doredraw lookup; JS hardcodes C-r/C-l so rebound redraw keys diverge","at":"2026-10-03@bbe63333a"}
 {"fn":"get_adjacent_loc","c":"3931-3953","status":"ported","js":["js/lock.js:get_adjacent_loc"],"d":["D-3086"],"at":"2026-09-29@590ebd616"}
 {"fn":"getdir","c":"3958-4119","status":"ported","js":["js/lock.js:getdir"],"d":["D-2434","D-2117","D-1806","D-1729","D-1721"],"at":"2026-10-01@92ffa7863","note":"stale: js/lock.js:653 getdir + :586 getdir_read_dirsym cover C cmd.c:3958-4119 whole (cmdq/fuzzer/redraw/SELF/mouse/movecmd/help/strange/dxdy/confdir); *readchar_queue term has no JS counterpart (empty in sessions); 6 blocked sessions are missing caller doidtrap (^ dispatch, no JS symbol), not this…"}
 {"fn":"show_direction_keys","c":"4122-4165","status":"ported","js":["js/dokeylist.js:show_direction_keys"],"d":["D-2970"],"at":"2026-09-27@a5772c318"}
 {"fn":"help_dir","c":"4171-4296","status":"ported","js":["js/lock.js:help_dir"],"d":["D-2495"],"at":"seed@a30a7de84"}
-{"fn":"confdir","c":"4300-4310","status":"unknown"}
-{"fn":"directionname","c":"4313-4323","status":"unknown"}
-{"fn":"isok","c":"4326-4330","status":"unknown"}
-{"fn":"doherecmdmenu","c":"4334-4339","status":"unknown"}
+{"fn":"confdir","c":"4300-4310","status":"ported","js":["js/hack.js:confdir"],"at":"2026-10-03@bbe63333a"}
+{"fn":"directionname","c":"4313-4323","status":"ported","js":["js/const.js:directionname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"isok","c":"4326-4330","status":"ported","js":["js/hacklib.js:isok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doherecmdmenu","c":"4334-4339","status":"ported","js":["js/cmd.js:doherecmdmenu"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dotherecmdmenu","c":"4343-4375","status":"ported","js":["js/cmd.js:dotherecmdmenu"],"d":["D-3165"],"at":"2026-09-30@e3edb2ef9","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mcmd_addmenu","c":"4421-4431","status":"unknown"}
+{"fn":"mcmd_addmenu","c":"4421-4431","status":"ported","js":["js/cmd.js:mcmd_addmenu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: winid/glyph/attr/color folded; picker reads act/text"}
 {"fn":"there_cmd_menu_self","c":"4435-4520","status":"ported","js":["js/cmd.js:there_cmd_menu_self"],"d":["D-2891"],"at":"seed@a30a7de84"}
 {"fn":"there_cmd_menu_next2u","c":"4524-4621","status":"ported","js":["js/cmd.js:there_cmd_menu_next2u"],"d":["D-3144","D-2266"],"at":"2026-09-30@990da2b8d"}
 {"fn":"there_cmd_menu_far","c":"4624-4636","status":"ported","js":["js/cmd.js:there_cmd_menu_far"],"d":["D-3144"],"at":"2026-09-30@990da2b8d","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"there_cmd_menu_common","c":"4639-4654","status":"unknown","d":["D-2706"],"at":"seed@a30a7de84"}
+{"fn":"there_cmd_menu_common","c":"4639-4654","status":"ported","js":["js/cmd.js:there_cmd_menu_common"],"d":["D-2706"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: returns items array; caller adds length to K"}
 {"fn":"act_on_act","c":"4658-4838","status":"partial","js":["js/cmd.js:act_on_act"],"omit":"``doidtrap`` (``pager.c:2336`` — MCMD_LOOK_TRAP arm queues a lazy import from its 1:1 home, resolves when it lands); ``auto_describe`` (``getpos.c:640`` — same treatment inside doclicklook); C ``:4880``/``:4892`` caller paths (next2u/far builders, own rows); ``there_cmd_menu_far`` is a sibling, not…","d":["D-2620"],"at":"seed@a30a7de84"}
 {"fn":"there_cmd_menu","c":"4843-4896","status":"ported","js":["js/cmd.js:there_cmd_menu"],"d":["D-3144"],"at":"2026-09-30@990da2b8d"}
-{"fn":"here_cmd_menu","c":"4899-4903","status":"unknown"}
-{"fn":"click_to_cmd","c":"4906-4913","status":"unknown"}
-{"fn":"domouseaction","c":"4916-5006","status":"unknown","d":["D-2698"],"at":"seed@a30a7de84"}
-{"fn":"get_count","c":"5010-5090","status":"unknown","d":["D-1613"],"at":"seed@a30a7de84"}
+{"fn":"here_cmd_menu","c":"4899-4903","status":"ported","js":["js/cmd.js:here_cmd_menu"],"at":"2026-10-03@bbe63333a"}
+{"fn":"click_to_cmd","c":"4906-4913","status":"ported","js":["js/cmd.js:click_to_cmd"],"at":"2026-10-03@bbe63333a"}
+{"fn":"domouseaction","c":"4916-5006","status":"ported","js":["js/cmd.js:domouseaction"],"d":["D-2698"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full body all arms incl sloppy-click"}
+{"fn":"get_count","c":"5010-5090","status":"ported","js":["js/cmd.js:get_count"],"d":["D-1613"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ESC hardcoded 27 vs gc.Cmd.spkeys[NHKF_ESC]; branches exact"}
 {"fn":"parse","c":"5096-5151","status":"ported","js":["js/cmd.js:parse"],"d":["D-2972"],"at":"2026-09-27@45ea89017"}
-{"fn":"hangup","c":"5159-5180","status":"unknown"}
+{"fn":"hangup","c":"5159-5180","status":"ported","js":["js/cmd.js:hangup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: nhwindows_hangup omitted (no JS windowport/signals)"}
 {"fn":"end_of_input","c":"5183-5209","status":"ported","js":["js/cmd.js:end_of_input"],"d":["D-2927"],"at":"seed@a30a7de84"}
 {"fn":"readchar_core","c":"5213-5272","status":"partial","js":["js/cmd.js:readchar_core"],"omit":"``nhwindows_hangup`` (windowport teardown — no JS windows layer, same class as end_of_input's omits); ``bind_mousebtn`` (cmd.c:2624 — no JS port, click queue arm inert); ``parse``/``get_count``/``getpos``/``getdir`` are ALTMETA-comment context only, not calls.","d":["D-2625"],"at":"seed@a30a7de84"}
-{"fn":"readchar","c":"5276-5284","status":"unknown"}
-{"fn":"readchar_poskey","c":"5288-5295","status":"unknown"}
-{"fn":"dotravel","c":"5299-5344","status":"unknown"}
-{"fn":"dotravel_target","c":"5348-5377","status":"unknown"}
-{"fn":"doclicklook","c":"5381-5390","status":"unknown"}
-{"fn":"yn_menuable_resp","c":"5394-5399","status":"unknown"}
-{"fn":"yn_func_menu_opt","c":"5402-5413","status":"unknown"}
+{"fn":"readchar","c":"5276-5284","status":"ported","js":["js/cmd.js:readchar"],"at":"2026-10-03@bbe63333a"}
+{"fn":"readchar_poskey","c":"5288-5295","status":"ported","js":["js/cmd.js:readchar_poskey"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dotravel","c":"5299-5344","status":"ported","js":["js/cmd.js:dotravel"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dotravel_target","c":"5348-5377","status":"ported","js":["js/cmd.js:dotravel_target"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: flag setup exact; travel step via findtravelpath+domove"}
+{"fn":"doclicklook","c":"5381-5390","status":"ported","js":["js/cmd.js:doclicklook"],"at":"2026-10-03@bbe63333a"}
+{"fn":"yn_menuable_resp","c":"5394-5399","status":"ported","js":["js/getline.js:yn_menuable_resp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pointer-identity semantics kept"}
+{"fn":"yn_func_menu_opt","c":"5402-5413","status":"ported","js":["js/getline.js:yn_func_menu_opt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yn_function_menu","c":"5419-5463","status":"ported","js":["js/getline.js:yn_function_menu"],"d":["D-1728"],"at":"2026-10-01@250701173","note":"stale: js/getline.js:1879 body whole, caller :1997 wired, select_menu by-design per D-1728"}
 {"fn":"yn_function","c":"5471-5583","status":"ported","js":["js/getline.js:yn_function"],"d":["D-2165","D-1805"],"at":"seed@a30a7de84","note":"stale 2026-09-18"}
-{"fn":"paranoid_ynq","c":"5588-5650","status":"unknown"}
-{"fn":"paranoid_query","c":"5655-5658","status":"unknown"}
+{"fn":"paranoid_ynq","c":"5588-5650","status":"ported","js":["js/getline.js:paranoid_ynq"],"at":"2026-10-03@bbe63333a"}
+{"fn":"paranoid_query","c":"5655-5658","status":"ported","js":["js/getline.js:paranoid_query"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dosuspend_core","c":"5662-5678","status":"partial","js":["js/cmd.js:dosuspend_core"],"omit":"- `dosuspend_core`: `dosuspend()` (`cmd.c:5672`, `sys/share/ioctl.c:161`, SIGTSTP suspend) unportable under Rule #2; the suspend arm keeps C order with the call named in place.","d":["D-3149"],"at":"2026-09-30@8e8a996ab","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dosh_core","c":"5682-5696","status":"partial","js":["js/cmd.js:dosh_core"],"omit":"dosh() (cmd.c:5691, port subshell spawn) unportable under Rule #2.","d":["D-3149"],"at":"2026-09-30@40d1154a3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dummyfunction","c":"5699-5702","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

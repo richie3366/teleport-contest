@@ -2,54 +2,54 @@
 {"fn":"nextobuf","c":"142-146","status":"by-design","d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"obuf pool unneeded: JS returns fresh strings; releaseobuf doc js/objnam.js:4069"}
 {"fn":"releaseobuf","c":"150-160","status":"ported","js":["js/objnam.js:releaseobuf"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete no-op js/objnam.js:4071 (no obuf pool to rewind)"}
 {"fn":"maybereleaseobuf","c":"167-198","status":"partial","js":["js/objnam.js:maybereleaseobuf"],"omit":"An empty skill class `mkobj`s `RANDOM_CLASS`; with `init_objects` bases filled, `P_POLEARMS` has 12 weapons and `P_HAMMER` has `WAR_HAMMER` only, so that arm does not run.","d":["D-2851"],"at":"seed@a30a7de84"}
-{"fn":"obj_typename","c":"201-293","status":"unknown"}
-{"fn":"simple_typename","c":"298-308","status":"unknown"}
-{"fn":"safe_typename","c":"312-330","status":"unknown"}
+{"fn":"obj_typename","c":"201-293","status":"ported","js":["js/objnam.js:obj_typename"],"at":"2026-10-03@bbe63333a"}
+{"fn":"simple_typename","c":"298-308","status":"ported","js":["js/objnam.js:simple_typename"],"at":"2026-10-03@bbe63333a"}
+{"fn":"safe_typename","c":"312-330","status":"ported","js":["js/objnam.js:safe_typename"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_is_pname","c":"333-342","status":"ported","js":["js/objnam.js:obj_is_pname"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2764 (gate+not_fully_identified)"}
 {"fn":"distant_name","c":"347-409","status":"ported","js":["js/objnam.js:distant_name"],"d":["D-2745"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"fruitname","c":"414-427","status":"ported","js":["js/potion.js:fruitname"],"d":["D-3128"],"at":"2026-09-29@d3ab32283"}
-{"fn":"fruit_from_indx","c":"431-439","status":"unknown","d":["D-1511"],"at":"seed@a30a7de84"}
+{"fn":"fruit_from_indx","c":"431-439","status":"ported","js":["js/objnam.js:fruit_from_indx"],"d":["D-1511"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fruit_from_name","c":"443-519","status":"ported","js":["js/objnam.js:fruit_from_name"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
-{"fn":"reorder_fruit","c":"523-554","status":"unknown","d":["D-1522"],"at":"seed@a30a7de84"}
-{"fn":"xcalled","c":"558-572","status":"unknown"}
-{"fn":"xname","c":"575-578","status":"unknown"}
+{"fn":"reorder_fruit","c":"523-554","status":"ported","js":["js/objnam.js:reorder_fruit"],"d":["D-1522"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() diagnostics omitted on corrupt fid; sort+return exact"}
+{"fn":"xcalled","c":"558-572","status":"ported","js":["js/objnam.js:xcalled"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C panic on pfxlen>bufsiz unreachable; truncation exact"}
+{"fn":"xname","c":"575-578","status":"ported","js":["js/objnam.js:xname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"xname_flags","c":"581-1029","status":"split","js":["js/objnam.js:xname_flags","js/objnam.js:pretty_base"],"omit":"nextobuf/PREFIX/ConcUpdate/Concat truncation + eos overflow paniclog (by-design JS strings); glorkum default + SLIME_MOLD-bad-fruit `impossible()` (async in JS); `armor_simple_name` for called (still `dn`); xname article arms; `hawaiian_design`/doread.","d":["D-2483","D-2070","D-1802"],"at":"2026-10-01@5b559b238","note":"stale: whole C body complete split — switch in pretty_base :687 (one arm per C case), gameover suffix :667, SINGULAR caller cxname_singular :1365 wired; omits stay buffer/impossible per D-2483/D-3064"}
 {"fn":"minimal_xname","c":"1038-1086","status":"ported","js":["js/objnam.js:minimal_xname"],"d":["D-3128","D-1872"],"at":"2026-09-29@d3ab32283"}
-{"fn":"mshot_xname","c":"1090-1102","status":"unknown","d":["D-1931"],"at":"seed@a30a7de84"}
-{"fn":"the_unique_obj","c":"1106-1117","status":"unknown"}
-{"fn":"the_unique_pm","c":"1121-1140","status":"unknown"}
+{"fn":"mshot_xname","c":"1090-1102","status":"ported","js":["js/objnam.js:mshot_xname"],"d":["D-1931"],"at":"2026-10-03@bbe63333a"}
+{"fn":"the_unique_obj","c":"1106-1117","status":"ported","js":["js/objnam.js:the_unique_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"the_unique_pm","c":"1121-1140","status":"ported","js":["js/eat.js:the_unique_pm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"add_erosion_words","c":"1143-1191","status":"ported","js":["js/objnam.js:add_erosion_words"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"erosion_matters","c":"1195-1215","status":"ported","js":["js/mkobj.js:erosion_matters"],"d":["D-2932"],"at":"seed@a30a7de84"}
 {"fn":"doname_base","c":"1223-1751","status":"partial","js":["js/objnam.js:doname_base"],"omit":"obuf/xnamep/eos/Concat/strprepend/releaseobuf/sitoa + `doname_full`/paniclog overflow (D-2483 by-design strings); leash-arm impossible() (async pline — leashmon still cleared per C); C distant_name Eyes-of-Overworld blind comment (mechanism `!Blind && !distantname` ported both sides); C `doname_vag…","d":["D-2497","D-1521"],"at":"seed@a30a7de84"}
-{"fn":"doname","c":"1754-1757","status":"unknown","d":["D-1322","D-1321","D-1320","D-1319","D-1318","D-1317"],"at":"seed@a30a7de84"}
-{"fn":"doname_with_price","c":"1761-1764","status":"unknown"}
-{"fn":"doname_vague_quan","c":"1768-1783","status":"unknown"}
-{"fn":"not_fully_identified","c":"1787-1819","status":"unknown"}
+{"fn":"doname","c":"1754-1757","status":"ported","js":["js/objnam.js:doname"],"d":["D-1322","D-1321","D-1320","D-1319","D-1318","D-1317"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doname_with_price","c":"1761-1764","status":"ported","js":["js/shk.js:doname_with_price"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: price arms verified vs C doname_base with_price chain; no double-append"}
+{"fn":"doname_vague_quan","c":"1768-1783","status":"ported","js":["js/objnam.js:doname_vague_quan"],"at":"2026-10-03@bbe63333a"}
+{"fn":"not_fully_identified","c":"1787-1819","status":"ported","js":["js/invent.js:not_fully_identified"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: MAIL_STRUCTURES defined; SCR_MAIL arm matches"}
 {"fn":"corpse_xname","c":"1824-1920","status":"partial","js":["js/objnam.js:corpse_xname"],"omit":"`releaseobuf`/`nextobuf`/`eos` buffer machinery (by-design strings); `obj_pmname` impossible-log + `two-legged glorkum-seeker` fallback (unreachable for CORPSE, map keeps it); dothrow.c:142 bare-hand throw arm (pre-existing D-1346 named omit, `js/dothrow.js:917`); eat.c:1913 eatcorpse `rotted` make…","d":["D-2491"],"at":"seed@a30a7de84"}
-{"fn":"cxname","c":"1924-1929","status":"unknown"}
-{"fn":"cxname_singular","c":"1933-1938","status":"unknown"}
-{"fn":"killer_xname","c":"1942-2005","status":"unknown"}
-{"fn":"short_oname","c":"2009-2085","status":"unknown"}
+{"fn":"cxname","c":"1924-1929","status":"ported","js":["js/objnam.js:cxname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cxname_singular","c":"1933-1938","status":"ported","js":["js/objnam.js:cxname_singular"],"at":"2026-10-03@bbe63333a"}
+{"fn":"killer_xname","c":"1942-2005","status":"ported","js":["js/objnam.js:killer_xname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"short_oname","c":"2009-2085","status":"ported","js":["js/objnam.js:short_oname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"singular","c":"2091-2105","status":"ported","js":["js/objnam.js:singular"],"d":["D-2980"],"at":"2026-09-27@68cdee2bb"}
-{"fn":"just_an","c":"2109-2142","status":"unknown"}
+{"fn":"just_an","c":"2109-2142","status":"ported","js":["js/objnam.js:just_an"],"at":"2026-10-03@bbe63333a"}
 {"fn":"an","c":"2145-2155","status":"ported","js":["js/objnam.js:an"],"at":"2026-10-02@e42cd0047","note":"stale: js/objnam.js:2390 whole C body (just_an+str; '' falsy covers C null+empty; impossible-diagnostic named per notice_mon precedent)"}
 {"fn":"An","c":"2158-2164","status":"ported","js":["js/objnam.js:An"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2395 (an+highc)"}
-{"fn":"the","c":"2171-2231","status":"unknown","d":["D-1487","D-1357"],"at":"seed@a30a7de84"}
+{"fn":"the","c":"2171-2231","status":"ported","js":["js/objnam.js:the"],"d":["D-1487","D-1357"],"at":"2026-10-03@bbe63333a"}
 {"fn":"The","c":"2234-2240","status":"ported","js":["js/objnam.js:The"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:1825 (the+highc)"}
 {"fn":"aobjnam","c":"2244-2258","status":"ported","js":["js/objnam.js:aobjnam"],"d":["D-2969"],"at":"2026-09-27@f02368fbc","note":"stale: js/objnam.js:2816"}
 {"fn":"yobjnam","c":"2262-2276","status":"ported","js":["js/objnam.js:yobjnam"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2885 (aobjnam+shk_your gate)"}
 {"fn":"Yobjnam2","c":"2280-2286","status":"ported","js":["js/objnam.js:Yobjnam2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2895 (upstart(yobjnam))"}
-{"fn":"Tobjnam","c":"2290-2299","status":"unknown"}
+{"fn":"Tobjnam","c":"2290-2299","status":"ported","js":["js/wield.js:Tobjnam"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: complete port at js/objnam.js:Tobjnam; mapped clone lacks only Eyes-of-Overworld is_plural arm (unreachable: wield callers pass shining uwep)"}
 {"fn":"Doname2","c":"2303-2309","status":"ported","js":["js/objnam.js:Doname2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2872 (upstart(doname))"}
-{"fn":"paydoname","c":"2313-2355","status":"unknown","d":["D-2667"],"at":"seed@a30a7de84"}
+{"fn":"paydoname","c":"2313-2355","status":"ported","js":["js/objnam.js:paydoname"],"d":["D-2667"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yname","c":"2359-2374","status":"ported","js":["js/objnam.js:yname"],"d":["D-2958"],"at":"seed@a30a7de84"}
 {"fn":"Yname2","c":"2378-2384","status":"ported","js":["js/objnam.js:Yname2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2863 (upstart(yname))"}
-{"fn":"ysimple_name","c":"2391-2398","status":"unknown"}
+{"fn":"ysimple_name","c":"2391-2398","status":"partial","js":["js/pickup.js:ysimple_name"],"omit":"C minimal_xname forces singular; JS simpleonames pluralizes stacks; clone lacks shk_your corpse-pname/unique/shop ownership arms","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fuller port at js/objnam.js:ysimple_name still plural-aware"}
 {"fn":"Ysimple_name2","c":"2402-2408","status":"ported","js":["js/objnam.js:Ysimple_name2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:3047 (upstart(ysimple_name))"}
-{"fn":"simpleonames","c":"2428-2442","status":"unknown"}
+{"fn":"simpleonames","c":"2428-2442","status":"partial","js":["js/objnam.js:simpleonames"],"omit":"minimal_xname oc_uname suppression; JS pretty_base leaks 'called <uname>' for user-named types","at":"2026-10-03@bbe63333a"}
 {"fn":"ansimpleoname","c":"2446-2470","status":"ported","js":["js/objnam.js:ansimpleoname"],"d":["D-2932"],"at":"seed@a30a7de84"}
 {"fn":"thesimpleoname","c":"2474-2483","status":"ported","js":["js/objnam.js:thesimpleoname"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:3029 (the(simpleonames()))"}
-{"fn":"actualoname","c":"2490-2498","status":"unknown"}
+{"fn":"actualoname","c":"2490-2498","status":"partial","js":["js/objnam.js:actualoname"],"omit":"minimal_xname bareobj: JS xname spread leaks oname 'named', corpsenm detail, erosion/enchantment/known state","at":"2026-10-03@bbe63333a"}
 {"fn":"bare_artifactname","c":"2502-2515","status":"ported","js":["js/artifact.js:bare_artifactname"],"d":["D-3030"],"at":"2026-09-28@1fdd56bcc"}
 {"fn":"otense","c":"2531-2546","status":"ported","js":["js/objnam.js:otense"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"vtense","c":"2563-2653","status":"ported","js":["js/objnam.js:vtense"],"d":["D-2525"],"at":"seed@a30a7de84"}
@@ -61,27 +61,27 @@
 {"fn":"badman","c":"3194-3239","status":"ported","js":["js/objnam.js:badman"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"wishymatch","c":"3243-3338","status":"ported","js":["js/readobjnam.js:wishymatch"],"d":["D-3015","D-2103","D-2013"],"at":"2026-09-28@32055fa52"}
 {"fn":"rnd_otyp_by_wpnskill","c":"3432-3452","status":"partial","js":["js/readobjnam.js:rnd_otyp_by_wpnskill"],"omit":"An empty skill class `mkobj`s `RANDOM_CLASS`; with `init_objects` bases filled, `P_POLEARMS` has 12 weapons and `P_HAMMER` has `WAR_HAMMER` only, so that arm does not run.","d":["D-2851"],"at":"seed@a30a7de84"}
-{"fn":"rnd_otyp_by_namedesc","c":"3455-3529","status":"unknown","d":["D-2084"],"at":"seed@a30a7de84"}
-{"fn":"shiny_obj","c":"3532-3535","status":"unknown"}
-{"fn":"set_wallprop_from_str","c":"3539-3550","status":"unknown"}
+{"fn":"rnd_otyp_by_namedesc","c":"3455-3529","status":"partial","js":["js/readobjnam.js:rnd_otyp_by_namedesc"],"omit":"oc_uname user-called-name wishymatch arm","d":["D-2084"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shiny_obj","c":"3532-3535","status":"ported","js":["js/mklev.js:shiny_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_wallprop_from_str","c":"3539-3550","status":"ported","js":["js/readobjnam.js:set_wallprop_from_str"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wizterrainwish","c":"3554-3916","status":"ported","js":["js/readobjnam.js:wizterrainwish"],"d":["D-3197","D-1304","D-1290","D-1289"],"at":"2026-10-01@2ab288d08"}
 {"fn":"dbterrainmesg","c":"3920-3926","status":"ported","js":["js/readobjnam.js:dbterrainmesg"],"d":["D-3197"],"at":"2026-10-01@2ab288d08","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"readobjnam_init","c":"3933-3961","status":"ported","js":["js/readobjnam.js:readobjnam_init"],"d":["D-2912"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam_preparse","c":"3966-4175","status":"partial","js":["js/readobjnam.js:readobjnam_preparse"],"omit":"readobjnam-body applications of the newly parsed fields (future readobjnam/postparse rows, same pattern as the tin-D-2084 split): `erodeproof`/`eroded`/`eroded2` (today zeroed at the oeroded tail), `isgreased`, `unlabeled`, `isdiluted`, `very`, `gsize` (glob weight override), `islit` (pre-existing …","d":["D-2545"],"at":"seed@a30a7de84"}
-{"fn":"readobjnam_parse_charges","c":"4178-4237","status":"unknown"}
+{"fn":"readobjnam_parse_charges","c":"4178-4237","status":"ported","js":["js/readobjnam.js:readobjnam_parse_charges"],"at":"2026-10-03@bbe63333a"}
 {"fn":"readobjnam_postparse1","c":"4240-4663","status":"ported","js":["js/readobjnam.js:readobjnam_postparse1"],"d":["D-3196","D-3195","D-2137","D-1886"],"at":"2026-10-01@5b559b238"}
 {"fn":"readobjnam_postparse2","c":"4666-4724","status":"partial","js":["js/readobjnam.js:readobjnam_postparse2"],"omit":"postparse3 `case 6` retry re-entry (above); single-char class code (C postparse1 `return 4`, pre-existing gap — postparse2 no-ops on 1-char bp); `paperback`/`unlabeled`/`holy-water`/`orange`/`versus-poison` typ arms (pre-existing inline gaps — postparse2 no-ops on those strings, baseline flow kept).","d":["D-2568"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam_postparse3","c":"4727-4899","status":"partial","js":["js/readobjnam.js:readobjnam_postparse3"],"omit":"postparse1 remainder stays deferred (grey-spell `grey spell`→`gray spell` fix `:4468–4469`, wider typfnd remaps — D-2021/D-2568 map lines, not this row); `d.un` NULL path draws nothing (C `:3463` NULL/empty guard mirrored).","d":["D-2600"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam","c":"4910-5400","status":"split","js":["js/readobjnam.js:readobjnam","js/readobjnam.js:readobjnam_any","js/readobjnam.js:readobjnam_finish","js/readobjnam.js:readobjnam_wish"],"omit":"- `readobjnam`: wizard-interactive y_n(\"Override glob weight limit?\") override (async y_n; sync chain clamps as on 'n' — normal + wizkit wishes exact); vanish pline for SYNC callers only (files wizkit, mklev escape items — the async wish path now emits it); C zap.c:6366 (needs makewish's MAXWISHTRY…","d":["D-3197","D-3196","D-3195","D-2111","D-2089","D-2055"],"at":"2026-10-01@c1022f867","note":"stale: whole C body complete across readobjnam+any+finish+wish (D-3197, review 2157 ACCEPT); kept omits: glob y_n override (async), sync-caller vanish pline"}
-{"fn":"rnd_class","c":"5403-5419","status":"unknown"}
+{"fn":"rnd_class","c":"5403-5419","status":"ported","js":["js/mkobj.js:rnd_class"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: last<first returns first vs C STRANGE_OBJECT; unreachable at all call sites"}
 {"fn":"Japanese_item_name","c":"5422-5432","status":"ported","js":["js/objnam.js:Japanese_item_name"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:3876 (Map lookup = table walk)"}
 {"fn":"armor_simple_name","c":"5435-5468","status":"ported","js":["js/do_wear.js:armor_simple_name"],"d":["D-3064"],"at":"2026-09-28@2f39bdcea"}
-{"fn":"suit_simple_name","c":"5471-5489","status":"unknown","d":["D-1905"],"at":"seed@a30a7de84"}
+{"fn":"suit_simple_name","c":"5471-5489","status":"ported","js":["js/do_wear.js:suit_simple_name"],"d":["D-1905"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cloak_simple_name","c":"5492-5509","status":"ported","js":["js/do_wear.js:cloak_simple_name"],"d":["D-3044"],"at":"2026-09-28@b689d8429"}
 {"fn":"helm_simple_name","c":"5513-5528","status":"ported","js":["js/do_wear.js:helm_simple_name"],"d":["D-2939"],"at":"seed@a30a7de84"}
-{"fn":"gloves_simple_name","c":"5532-5547","status":"unknown"}
-{"fn":"boots_simple_name","c":"5551-5566","status":"unknown"}
-{"fn":"shield_simple_name","c":"5570-5596","status":"unknown"}
+{"fn":"gloves_simple_name","c":"5532-5547","status":"ported","js":["js/objnam.js:gloves_simple_name"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reads objectDescrs[otyp] not [oc_descr_idx]; inert: no glove descr contains 'gauntlets'"}
+{"fn":"boots_simple_name","c":"5551-5566","status":"ported","js":["js/do_wear.js:boots_simple_name"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shield_simple_name","c":"5570-5596","status":"ported","js":["js/do_wear.js:shield_simple_name"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C #if 0 heavy/light arm compiled out"}
 {"fn":"shirt_simple_name","c":"5600-5603","status":"ported","js":["js/do_wear.js:shirt_simple_name"],"d":["D-3064"],"at":"2026-09-28@2f39bdcea","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mimic_obj_name","c":"5606-5615","status":"unknown"}
+{"fn":"mimic_obj_name","c":"5606-5615","status":"ported","js":["js/objnam.js:mimic_obj_name"],"at":"2026-10-03@bbe63333a"}
 {"fn":"safe_qbuf","c":"5624-5698","status":"ported","js":["js/objnam.js:safe_qbuf"],"d":["D-2743"],"at":"seed@a30a7de84"}

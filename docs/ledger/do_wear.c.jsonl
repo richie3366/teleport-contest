@@ -1,79 +1,79 @@
 {"fn":"fingers_or_gloves","c":"60-65","status":"ported","js":["js/do_wear.js:fingers_or_gloves"],"d":["D-3321"],"at":"2026-10-02@0debd1ae2"}
-{"fn":"off_msg","c":"68-72","status":"unknown"}
-{"fn":"on_msg","c":"76-99","status":"unknown"}
-{"fn":"toggle_stealth","c":"107-140","status":"unknown"}
+{"fn":"off_msg","c":"68-72","status":"ported","js":["js/do_wear.js:off_msg"],"at":"2026-10-03@bbe63333a"}
+{"fn":"on_msg","c":"76-99","status":"ported","js":["js/do_wear.js:on_msg"],"at":"2026-10-03@bbe63333a"}
+{"fn":"toggle_stealth","c":"107-140","status":"ported","js":["js/do_wear.js:toggle_stealth"],"at":"2026-10-03@bbe63333a"}
 {"fn":"toggle_displacement","c":"148-178","status":"ported","js":["js/do_wear.js:toggle_displacement"],"d":["D-2897"],"at":"seed@a30a7de84"}
 {"fn":"Boots_on","c":"187-259","status":"ported","js":["js/do_wear.js:Boots_on"],"d":["D-2809","D-2803"],"at":"seed@a30a7de84"}
-{"fn":"Boots_off","c":"262-323","status":"unknown","d":["D-2746"],"at":"seed@a30a7de84"}
-{"fn":"Cloak_on","c":"326-380","status":"unknown","d":["D-2267"],"at":"seed@a30a7de84"}
+{"fn":"Boots_off","c":"262-323","status":"ported","js":["js/do_wear.js:Boots_off"],"d":["D-2746"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Cloak_on","c":"326-380","status":"ported","js":["js/do_wear.js:Cloak_on"],"d":["D-2267"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Cloak_off","c":"383-431","status":"ported","js":["js/do_wear.js:Cloak_off"],"d":["D-2803"],"at":"seed@a30a7de84"}
-{"fn":"Helmet_on","c":"434-515","status":"unknown"}
+{"fn":"Helmet_on","c":"434-515","status":"partial","js":["js/do_wear.js:Helmet_on"],"omit":"HELM_OF_OPPOSITE_ALIGNMENT arm missing: uchangealign() alignment flip + fallthrough glow/curse skipped (uchangealign unported); wear takes known-tail only","at":"2026-10-03@bbe63333a"}
 {"fn":"Helmet_off","c":"518-564","status":"ported","js":["js/do_wear.js:Helmet_off"],"d":["D-2554"],"at":"seed@a30a7de84"}
 {"fn":"hard_helmet","c":"568-573","status":"ported","js":["js/do_wear.js:hard_helmet"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:254"}
-{"fn":"Gloves_on","c":"576-603","status":"unknown"}
-{"fn":"wielding_corpse","c":"608-643","status":"unknown"}
+{"fn":"Gloves_on","c":"576-603","status":"ported","js":["js/do_wear.js:Gloves_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wielding_corpse","c":"608-643","status":"ported","js":["js/do_wear.js:wielding_corpse"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Gloves_off","c":"646-702","status":"ported","js":["js/do_wear.js:Gloves_off"],"d":["D-3215","D-2397"],"at":"2026-10-01@f9a10fead"}
 {"fn":"Shield_on","c":"705-730","status":"ported","js":["js/do_wear.js:Shield_on"],"d":["D-2925"],"at":"seed@a30a7de84"}
 {"fn":"Shield_off","c":"733-756","status":"ported","js":["js/do_wear.js:Shield_off"],"d":["D-2930"],"at":"seed@a30a7de84"}
 {"fn":"Shirt_on","c":"759-775","status":"ported","js":["js/do_wear.js:Shirt_on"],"d":["D-2948"],"at":"seed@a30a7de84"}
 {"fn":"Shirt_off","c":"778-794","status":"ported","js":["js/do_wear.js:Shirt_off"],"d":["D-2960"],"at":"seed@a30a7de84"}
-{"fn":"dragon_armor_handling","c":"798-884","status":"unknown","d":["D-2395"],"at":"seed@a30a7de84"}
-{"fn":"Armor_on","c":"887-906","status":"unknown"}
-{"fn":"Armor_off","c":"909-930","status":"unknown"}
-{"fn":"Armor_gone","c":"939-960","status":"unknown","d":["D-1942"],"at":"seed@a30a7de84"}
+{"fn":"dragon_armor_handling","c":"798-884","status":"ported","js":["js/do_wear.js:dragon_armor_handling"],"d":["D-2395"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Armor_on","c":"887-906","status":"ported","js":["js/do_wear.js:Armor_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Armor_off","c":"909-930","status":"ported","js":["js/do_wear.js:Armor_off"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Armor_gone","c":"939-960","status":"ported","js":["js/do_wear.js:Armor_gone"],"d":["D-1942"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Amulet_on","c":"963-1087","status":"partial","js":["js/do_wear.js:Amulet_on"],"omit":"`livelog_newform` (log-only, no live helper — map); `Flying_dw` uprops gap (reads u.* mirrors only; the new arm uses `amulet_flight_now` instead — pre-existing, untouched); `Amulet_off` breathing/strangle/flying arms (that function's own named omits, untouched); no committed unit test (skill disclo…","d":["D-2505"],"at":"seed@a30a7de84"}
-{"fn":"Amulet_off","c":"1090-1189","status":"unknown"}
+{"fn":"Amulet_off","c":"1090-1189","status":"ported","js":["js/do_wear.js:Amulet_off"],"at":"2026-10-03@bbe63333a"}
 {"fn":"learnring","c":"1193-1220","status":"ported","js":["js/do_wear.js:learnring"],"d":["D-2930"],"at":"seed@a30a7de84"}
-{"fn":"adjust_attrib","c":"1223-1239","status":"unknown"}
-{"fn":"Ring_on","c":"1242-1344","status":"unknown"}
-{"fn":"Ring_off_or_gone","c":"1347-1446","status":"unknown"}
-{"fn":"Ring_off","c":"1449-1452","status":"unknown"}
-{"fn":"Ring_gone","c":"1455-1458","status":"unknown"}
-{"fn":"Blindf_on","c":"1461-1492","status":"unknown"}
-{"fn":"Blindf_off","c":"1495-1534","status":"unknown","d":["D-2050"],"at":"seed@a30a7de84"}
-{"fn":"set_wear","c":"1539-1569","status":"unknown"}
+{"fn":"adjust_attrib","c":"1223-1239","status":"ported","js":["js/do_wear.js:adjust_attrib"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Ring_on","c":"1242-1344","status":"ported","js":["js/do_wear.js:Ring_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Ring_off_or_gone","c":"1347-1446","status":"ported","js":["js/do_wear.js:Ring_off_or_gone"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Ring_off","c":"1449-1452","status":"ported","js":["js/do_wear.js:Ring_off"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Ring_gone","c":"1455-1458","status":"ported","js":["js/do_wear.js:Ring_gone"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Blindf_on","c":"1461-1492","status":"ported","js":["js/do_wear.js:Blindf_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Blindf_off","c":"1495-1534","status":"ported","js":["js/do_wear.js:Blindf_off"],"d":["D-2050"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_wear","c":"1539-1569","status":"ported","js":["js/do_wear.js:set_wear"],"at":"2026-10-03@bbe63333a"}
 {"fn":"donning","c":"1574-1597","status":"ported","js":["js/do_wear.js:donning"],"d":["D-3040"],"at":"2026-09-28@4e6edc522","note":"stale: js/do_wear.js:3930"}
 {"fn":"doffing","c":"1603-1640","status":"ported","js":["js/do_wear.js:doffing"],"at":"2026-09-29@11ac109be","note":"stale: js/do_wear.js:3920"}
-{"fn":"cancel_doff","c":"1645-1659","status":"unknown","d":["D-1766"],"at":"seed@a30a7de84"}
-{"fn":"cancel_don","c":"1664-1684","status":"unknown"}
+{"fn":"cancel_doff","c":"1645-1659","status":"ported","js":["js/do_wear.js:cancel_doff"],"d":["D-1766"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cancel_don","c":"1664-1684","status":"ported","js":["js/do_wear.js:cancel_don"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stop_donning","c":"1688-1727","status":"ported","js":["js/do_wear.js:stop_donning"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"count_worn_stuff","c":"1733-1766","status":"unknown"}
-{"fn":"armor_or_accessory_off","c":"1771-1829","status":"unknown"}
+{"fn":"count_worn_stuff","c":"1733-1766","status":"ported","js":["js/do_wear.js:count_worn_stuff"],"at":"2026-10-03@bbe63333a"}
+{"fn":"armor_or_accessory_off","c":"1771-1829","status":"partial","js":["js/do_wear.js:armor_or_accessory_off"],"omit":"W_ARMOR path skips select_off() gating (welded-weapon/cursed-cover/beartrap-infloor/glove checks, better_not_take_that_off) and uskin embedded branch; armor only curse-checked via armoroff()","at":"2026-10-03@bbe63333a"}
 {"fn":"dotakeoff","c":"1833-1855","status":"ported","js":["js/do_wear.js:dotakeoff"],"d":["D-3140"],"at":"2026-09-30@e5816afe0"}
-{"fn":"ia_dotakeoff","c":"1862-1870","status":"unknown","d":["D-1934"],"at":"seed@a30a7de84"}
-{"fn":"doremring","c":"1874-1889","status":"unknown"}
+{"fn":"ia_dotakeoff","c":"1862-1870","status":"ported","js":["js/do_wear.js:ia_dotakeoff"],"d":["D-1934"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doremring","c":"1874-1889","status":"ported","js":["js/do_wear.js:doremring"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cursed","c":"1893-1917","status":"ported","js":["js/do_wear.js:cursed"],"d":["D-2920"],"at":"seed@a30a7de84"}
 {"fn":"armoroff","c":"1920-2008","status":"ported","js":["js/do_wear.js:armoroff"],"d":["D-3215","D-2077"],"at":"2026-10-01@f9a10fead"}
-{"fn":"already_wearing","c":"2011-2014","status":"unknown"}
+{"fn":"already_wearing","c":"2011-2014","status":"ported","js":["js/do_wear.js:already_wearing"],"at":"2026-10-03@bbe63333a"}
 {"fn":"already_wearing2","c":"2017-2020","status":"ported","js":["js/do_wear.js:already_wearing2"],"d":["D-3201"],"at":"2026-10-01@6e06fa8e7","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"canwearobj","c":"2030-2206","status":"unknown"}
+{"fn":"canwearobj","c":"2030-2206","status":"ported","js":["js/do_wear.js:canwearobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"accessory_or_armor_on","c":"2209-2428","status":"ported","js":["js/do_wear.js:accessory_or_armor_on"],"d":["D-3201","D-2192"],"at":"2026-10-01@6e06fa8e7"}
-{"fn":"dowear","c":"2432-2450","status":"unknown"}
-{"fn":"doputon","c":"2454-2469","status":"unknown"}
+{"fn":"dowear","c":"2432-2450","status":"ported","js":["js/do_wear.js:dowear"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doputon","c":"2454-2469","status":"ported","js":["js/do_wear.js:doputon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_ac","c":"2473-2525","status":"ported","js":["js/u_init.js:find_ac"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
-{"fn":"glibr","c":"2528-2627","status":"unknown","d":["D-1875"],"at":"seed@a30a7de84"}
+{"fn":"glibr","c":"2528-2627","status":"ported","js":["js/do_wear.js:glibr"],"d":["D-1875"],"at":"2026-10-03@bbe63333a"}
 {"fn":"some_armor","c":"2630-2653","status":"ported","js":["js/do_wear.js:some_armor"],"d":["D-2909"],"at":"seed@a30a7de84"}
-{"fn":"stuck_ring","c":"2657-2683","status":"unknown"}
-{"fn":"unchanger","c":"2687-2692","status":"unknown"}
-{"fn":"select_off","c":"2696-2821","status":"unknown"}
-{"fn":"do_takeoff","c":"2824-2896","status":"unknown"}
-{"fn":"take_off","c":"2900-2987","status":"unknown","d":["D-1619"],"at":"seed@a30a7de84"}
+{"fn":"stuck_ring","c":"2657-2683","status":"ported","js":["js/do_wear.js:stuck_ring"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: missing impossible() diagnostic on neither-left-nor-right path; behavior same"}
+{"fn":"unchanger","c":"2687-2692","status":"ported","js":["js/do_wear.js:unchanger"],"at":"2026-10-03@bbe63333a"}
+{"fn":"select_off","c":"2696-2821","status":"ported","js":["js/do_wear.js:select_off"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_takeoff","c":"2824-2896","status":"ported","js":["js/do_wear.js:do_takeoff"],"at":"2026-10-03@bbe63333a"}
+{"fn":"take_off","c":"2900-2987","status":"ported","js":["js/do_wear.js:take_off"],"d":["D-1619"],"at":"2026-10-03@bbe63333a"}
 {"fn":"better_not_take_that_off","c":"2990-3010","status":"ported","js":["js/do_wear.js:better_not_take_that_off"],"d":["D-2389"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:2311"}
-{"fn":"reset_remarm","c":"3014-3018","status":"unknown"}
-{"fn":"doddoremarm","c":"3022-3057","status":"unknown"}
-{"fn":"remarm_swapwep","c":"3062-3087","status":"unknown"}
-{"fn":"menu_remarm","c":"3090-3138","status":"unknown","d":["D-1866","D-1630"],"at":"seed@a30a7de84"}
+{"fn":"reset_remarm","c":"3014-3018","status":"ported","js":["js/do_wear.js:reset_remarm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doddoremarm","c":"3022-3057","status":"ported","js":["js/do_wear.js:doddoremarm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"remarm_swapwep","c":"3062-3087","status":"ported","js":["js/do_wear.js:remarm_swapwep"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menu_remarm","c":"3090-3138","status":"ported","js":["js/do_wear.js:menu_remarm"],"d":["D-1866","D-1630"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wornarm_destroyed","c":"3144-3182","status":"ported","js":["js/do_wear.js:wornarm_destroyed"],"d":["D-3140"],"at":"2026-09-30@e5816afe0"}
-{"fn":"maybe_destroy_armor","c":"3189-3197","status":"unknown"}
-{"fn":"disintegrate_arm","c":"3201-3256","status":"unknown"}
+{"fn":"maybe_destroy_armor","c":"3189-3197","status":"ported","js":["js/do_wear.js:maybe_destroy_armor"],"at":"2026-10-03@bbe63333a"}
+{"fn":"disintegrate_arm","c":"3201-3256","status":"ported","js":["js/do_wear.js:disintegrate_arm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_erode_type","c":"3260-3273","status":"ported","js":["js/do_wear.js:obj_erode_type"],"at":"2026-09-30@fa5a786a1","note":"stale: js/do_wear.js:3488"}
-{"fn":"destroy_arm","c":"3278-3316","status":"unknown","d":["D-2721"],"at":"seed@a30a7de84"}
-{"fn":"adj_abon","c":"3319-3336","status":"unknown"}
+{"fn":"destroy_arm","c":"3278-3316","status":"ported","js":["js/do_wear.js:destroy_arm"],"d":["D-2721"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adj_abon","c":"3319-3336","status":"ported","js":["js/do_wear.js:adj_abon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"inaccessible_equipment","c":"3342-3400","status":"ported","js":["js/apply.js:inaccessible_equipment"],"d":["D-2632"],"at":"2026-10-01@250701173","note":"stale: body whole js/apply.js:2225+2245, sites wired (:2321,:2990 do_wear,:2751/53 potion) or parked D-2632/getobj-simplification"}
 {"fn":"equip_ok","c":"3404-3447","status":"ported","js":["js/do_wear.js:equip_ok"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"puton_ok","c":"3451-3454","status":"unknown"}
-{"fn":"remove_ok","c":"3458-3461","status":"unknown"}
-{"fn":"wear_ok","c":"3465-3468","status":"unknown"}
-{"fn":"takeoff_ok","c":"3472-3475","status":"unknown"}
+{"fn":"puton_ok","c":"3451-3454","status":"ported","js":["js/do_wear.js:puton_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"remove_ok","c":"3458-3461","status":"ported","js":["js/do_wear.js:remove_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wear_ok","c":"3465-3468","status":"ported","js":["js/do_wear.js:wear_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"takeoff_ok","c":"3472-3475","status":"ported","js":["js/do_wear.js:takeoff_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"any_worn_armor_ok","c":"3480-3485","status":"ported","js":["js/do_wear.js:any_worn_armor_ok"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:3006"}
-{"fn":"count_worn_armor","c":"3489-3502","status":"unknown"}
+{"fn":"count_worn_armor","c":"3489-3502","status":"ported","js":["js/do_wear.js:count_worn_armor"],"at":"2026-10-03@bbe63333a"}

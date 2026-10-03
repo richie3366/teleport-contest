@@ -1,17 +1,17 @@
 {"fn":"stairway_add","c":"8-24","status":"ported","js":["js/mklev.js:stairway_add"],"d":["D-3035"],"at":"2026-09-28@953aea809"}
-{"fn":"stairway_free_all","c":"27-37","status":"unknown"}
-{"fn":"stairway_at","c":"40-47","status":"unknown"}
+{"fn":"stairway_free_all","c":"27-37","status":"ported","js":["js/do.js:stairway_free_all"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: game.stairs=null; GC subsumes C per-node free"}
+{"fn":"stairway_at","c":"40-47","status":"ported","js":["js/mklev.js:stairway_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stairway_find","c":"50-61","status":"split","js":["js/dog.js:arrive_stairway_find"],"at":"2026-10-02@cb217f88d","note":"stale: whole C body lives as arrive_stairway_find js/dog.js:812, wired at only C caller dog.c:536 MIGR_SSTAIRS js/dog.js:1051 (mklev import would cycle mklev->trap->dog)"}
-{"fn":"stairway_find_from","c":"64-76","status":"unknown"}
-{"fn":"stairway_find_dir","c":"79-86","status":"unknown"}
-{"fn":"stairway_find_type_dir","c":"89-96","status":"unknown"}
-{"fn":"stairway_find_special_dir","c":"99-109","status":"unknown"}
-{"fn":"u_on_sstairs","c":"113-121","status":"unknown","d":["D-1287"],"at":"seed@a30a7de84"}
-{"fn":"u_on_upstairs","c":"125-133","status":"unknown"}
-{"fn":"u_on_dnstairs","c":"137-145","status":"unknown"}
+{"fn":"stairway_find_from","c":"64-76","status":"ported","js":["js/mklev.js:stairway_find_from"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stairway_find_dir","c":"79-86","status":"ported","js":["js/mklev.js:stairway_find_dir"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stairway_find_type_dir","c":"89-96","status":"ported","js":["js/mklev.js:stairway_find_type_dir"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stairway_find_special_dir","c":"99-109","status":"ported","js":["js/mklev.js:stairway_find_special_dir"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_on_sstairs","c":"113-121","status":"ported","js":["js/mklev.js:u_on_sstairs"],"d":["D-1287"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_on_upstairs","c":"125-133","status":"ported","js":["js/mklev.js:u_on_upstairs"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_on_dnstairs","c":"137-145","status":"ported","js":["js/mklev.js:u_on_dnstairs"],"at":"2026-10-03@bbe63333a"}
 {"fn":"On_stairs","c":"148-151","status":"ported","js":["js/hack.js:On_stairs"],"d":["D-3354"],"at":"2026-10-03@217726648"}
-{"fn":"On_ladder","c":"154-159","status":"unknown","d":["D-1950"],"at":"seed@a30a7de84"}
-{"fn":"On_stairs_up","c":"162-167","status":"unknown"}
-{"fn":"On_stairs_dn","c":"170-175","status":"unknown"}
-{"fn":"known_branch_stairs","c":"180-183","status":"unknown"}
-{"fn":"stairs_description","c":"187-235","status":"unknown","d":["D-2204"],"at":"seed@a30a7de84"}
+{"fn":"On_ladder","c":"154-159","status":"ported","js":["js/mklev.js:On_ladder"],"d":["D-1950"],"at":"2026-10-03@bbe63333a"}
+{"fn":"On_stairs_up","c":"162-167","status":"ported","js":["js/mklev.js:On_stairs_up"],"at":"2026-10-03@bbe63333a"}
+{"fn":"On_stairs_dn","c":"170-175","status":"ported","js":["js/mklev.js:On_stairs_dn"],"at":"2026-10-03@bbe63333a"}
+{"fn":"known_branch_stairs","c":"180-183","status":"ported","js":["js/mklev.js:known_branch_stairs"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stairs_description","c":"187-235","status":"partial","js":["js/mklev.js:stairs_description"],"omit":"amulet-carrying Dlvl1-up branch: on_level(tolev, earth/air/fire/water_level) -> 'to the Elemental Planes' vs 'to the end game'; JS always emits end game","d":["D-2204"],"at":"2026-10-03@bbe63333a"}

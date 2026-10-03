@@ -1,34 +1,34 @@
 {"fn":"set_uasmon","c":"38-127","status":"partial","js":["js/polyself.js:set_uasmon"],"omit":"`status_initialize` (`botl.c:1682`) is not called: `STATUS_HILITES` is on, and contest tty `wincap2` is 0 so `VIA_WINDOWPORT()` is false.","d":["D-2832"],"at":"seed@a30a7de84"}
-{"fn":"float_vs_flight","c":"131-154","status":"unknown","d":["D-2199"],"at":"seed@a30a7de84"}
-{"fn":"steed_vs_stealth","c":"158-164","status":"unknown"}
-{"fn":"check_strangling","c":"168-194","status":"unknown"}
+{"fn":"float_vs_flight","c":"131-154","status":"ported","js":["js/polyself.js:float_vs_flight"],"d":["D-2199"],"at":"2026-10-03@bbe63333a"}
+{"fn":"steed_vs_stealth","c":"158-164","status":"ported","js":["js/steed.js:steed_vs_stealth"],"at":"2026-10-03@bbe63333a"}
+{"fn":"check_strangling","c":"168-194","status":"ported","js":["js/polyself.js:check_strangling"],"at":"2026-10-03@bbe63333a"}
 {"fn":"polyman","c":"200-268","status":"ported","js":["js/polyself.js:polyman"],"d":["D-2546"],"at":"seed@a30a7de84"}
 {"fn":"change_sex","c":"273-303","status":"ported","js":["js/polyself.js:change_sex"],"d":["D-2642"],"at":"seed@a30a7de84"}
 {"fn":"livelog_newform","c":"307-333","status":"partial","js":["js/polyself.js:livelog_newform"],"omit":"The comment above the C body (\"other logging instead of newman()\") is a TODO, not a call.","d":["D-2903"],"at":"seed@a30a7de84"}
 {"fn":"newman","c":"336-466","status":"partial","js":["js/polyself.js:newman"],"omit":"retouch_equipment(2) (`:464` — not in js/**, own coverage row, rehumanize precedent); livelog_newform (`:307` non-static C fn, own row) on the no-level-change arm.","d":["D-2738","D-2168"],"at":"seed@a30a7de84"}
-{"fn":"polyself","c":"469-731","status":"unknown","d":["D-2063"],"at":"seed@a30a7de84"}
+{"fn":"polyself","c":"469-731","status":"ported","js":["js/polyself.js:polyself"],"d":["D-2063"],"at":"2026-10-03@bbe63333a"}
 {"fn":"polymon","c":"735-1071","status":"partial","js":["js/polyself.js:polymon"],"omit":"`retouch_equipment(2)` (`artifact.c:2639`, own coverage row); light-source bookkeeping (set_uasmon map note); break_armor horns/flimsy-helm/ublindf (break_armor map note); C FIXME early-returns after expels()/spoteffects() rehumanize kept as comments (no JS rehumanize signal to branch on).","d":["D-2432","D-2262","D-2007"],"at":"seed@a30a7de84"}
-{"fn":"uasmon_maxStr","c":"1077-1119","status":"unknown"}
+{"fn":"uasmon_maxStr","c":"1077-1119","status":"ported","js":["js/polyself.js:uasmon_maxStr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dropp","c":"1123-1154","status":"ported","js":["js/polyself.js:dropp"],"d":["D-3291"],"at":"2026-10-02@5de0db04b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"break_armor","c":"1157-1302","status":"unknown","d":["D-1991"],"at":"seed@a30a7de84"}
-{"fn":"drop_weapon","c":"1305-1362","status":"unknown","d":["D-1992"],"at":"seed@a30a7de84"}
-{"fn":"rehumanize","c":"1367-1418","status":"unknown","d":["D-2079"],"at":"seed@a30a7de84"}
-{"fn":"dobreathe","c":"1421-1447","status":"unknown"}
-{"fn":"dospit","c":"1450-1478","status":"unknown"}
-{"fn":"doremove","c":"1481-1494","status":"unknown"}
-{"fn":"dospinweb","c":"1497-1621","status":"unknown"}
-{"fn":"dosummon","c":"1624-1639","status":"unknown"}
-{"fn":"dogaze","c":"1642-1773","status":"unknown"}
+{"fn":"break_armor","c":"1157-1302","status":"partial","js":["js/polyself.js:break_armor"],"omit":"donning/cancel_don arms at all armor-removal sites (uarm breakarm+sliparm, gloves, shield, helm, boots) and the flimsy-helm !donning condition; JS never cancels a mid-don occupation","d":["D-1991"],"at":"2026-10-03@bbe63333a"}
+{"fn":"drop_weapon","c":"1305-1362","status":"ported","js":["js/polyself.js:drop_weapon"],"d":["D-1992"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rehumanize","c":"1367-1418","status":"ported","js":["js/polyself.js:rehumanize"],"d":["D-2079"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dobreathe","c":"1421-1447","status":"ported","js":["js/polyself.js:dobreathe"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dospit","c":"1450-1478","status":"ported","js":["js/polyself.js:dospit"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doremove","c":"1481-1494","status":"ported","js":["js/polyself.js:doremove"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dospinweb","c":"1497-1621","status":"ported","js":["js/polyself.js:dospinweb"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dosummon","c":"1624-1639","status":"ported","js":["js/polyself.js:dosummon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dogaze","c":"1642-1773","status":"ported","js":["js/polyself.js:dogaze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dohide","c":"1777-1874","status":"ported","js":["js/polyself.js:dohide"],"d":["D-2069"],"at":"2026-10-02@e42cd0047","note":"stale: js/polyself.js:2574 whole C body, all arms in C order (D-2069)"}
-{"fn":"dopoly","c":"1877-1890","status":"unknown"}
-{"fn":"domindblast","c":"1894-1938","status":"unknown","d":["D-1901"],"at":"seed@a30a7de84"}
-{"fn":"uunstick","c":"1941-1951","status":"unknown","d":["D-2131"],"at":"seed@a30a7de84"}
-{"fn":"skinback","c":"1954-1969","status":"unknown"}
+{"fn":"dopoly","c":"1877-1890","status":"ported","js":["js/polyself.js:dopoly"],"at":"2026-10-03@bbe63333a"}
+{"fn":"domindblast","c":"1894-1938","status":"ported","js":["js/polyself.js:domindblast"],"d":["D-1901"],"at":"2026-10-03@bbe63333a"}
+{"fn":"uunstick","c":"1941-1951","status":"ported","js":["js/polyself.js:uunstick"],"d":["D-2131"],"at":"2026-10-03@bbe63333a"}
+{"fn":"skinback","c":"1954-1969","status":"ported","js":["js/polyself.js:skinback"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mbodypart","c":"1972-2140","status":"ported","js":["js/polyself.js:mbodypart"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
-{"fn":"body_part","c":"2143-2146","status":"unknown","d":["D-1508"],"at":"seed@a30a7de84"}
-{"fn":"poly_gender","c":"2149-2157","status":"unknown"}
+{"fn":"body_part","c":"2143-2146","status":"ported","js":["js/polyself.js:body_part"],"d":["D-1508"],"at":"2026-10-03@bbe63333a"}
+{"fn":"poly_gender","c":"2149-2157","status":"ported","js":["js/polyself.js:poly_gender"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ugolemeffects","c":"2160-2188","status":"partial","js":["js/mhitu.js:ugolemeffects"],"omit":"`shieldeff` and `monstseesu` on the zap resist arms (`zap.c:2739–2741`, `:2757–2759`, `:2778–2780`, `:4424–4426`, `:4443–4445`, `:4513–4515`) and on `passive` (`uhitm.c:6069–6071`, `:6092–6094`, `:6105–6107`) stay as they were.","d":["D-2895"],"at":"seed@a30a7de84"}
-{"fn":"armor_to_dragon","c":"2191-2232","status":"unknown"}
-{"fn":"polysense","c":"2236-2261","status":"unknown"}
-{"fn":"ugenocided","c":"2265-2269","status":"unknown"}
-{"fn":"udeadinside","c":"2273-2284","status":"unknown"}
+{"fn":"armor_to_dragon","c":"2191-2232","status":"ported","js":["js/polyself.js:armor_to_dragon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"polysense","c":"2236-2261","status":"ported","js":["js/polyself.js:polysense"],"at":"2026-10-03@bbe63333a"}
+{"fn":"ugenocided","c":"2265-2269","status":"ported","js":["js/polyself.js:ugenocided"],"at":"2026-10-03@bbe63333a"}
+{"fn":"udeadinside","c":"2273-2284","status":"ported","js":["js/read.js:udeadinside"],"at":"2026-10-03@bbe63333a"}

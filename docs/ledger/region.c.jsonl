@@ -1,39 +1,39 @@
-{"fn":"inside_rect","c":"54-57","status":"unknown","d":["D-1962"],"at":"seed@a30a7de84"}
-{"fn":"inside_region","c":"63-73","status":"unknown"}
+{"fn":"inside_rect","c":"54-57","status":"ported","js":["js/region.js:inside_rect"],"d":["D-1962"],"at":"2026-10-03@bbe63333a"}
+{"fn":"inside_region","c":"63-73","status":"ported","js":["js/region.js:inside_region"],"at":"2026-10-03@bbe63333a"}
 {"fn":"create_region","c":"79-127","status":"ported","js":["js/region.js:create_region"],"d":["D-3234","D-2297"],"at":"2026-10-01@6f6236385"}
 {"fn":"add_rect_to_reg","c":"133-155","status":"ported","js":["js/region.js:add_rect_to_reg"],"at":"2026-09-29@1a4567167","note":"stale: js/region.js:262 (D-2297 shipped; alloc/memcpy/free = push under GC, 4-field NhRect copy + 4 bbox arms in C order)"}
 {"fn":"add_mon_to_reg","c":"161-186","status":"ported","js":["js/region.js:add_mon_to_reg"],"d":["D-2953"],"at":"seed@a30a7de84"}
-{"fn":"remove_mon_from_reg","c":"192-202","status":"unknown"}
-{"fn":"mon_in_region","c":"210-218","status":"unknown"}
+{"fn":"remove_mon_from_reg","c":"192-202","status":"ported","js":["js/region.js:remove_mon_from_reg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
+{"fn":"mon_in_region","c":"210-218","status":"ported","js":["js/region.js:mon_in_region"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
 {"fn":"clone_region","c":"227-254","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"free_region","c":"263-276","status":"ported","js":["js/region.js:free_region"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_region","c":"284-338","status":"ported","js":["js/region.js:add_region"],"d":["D-1576"],"at":"2026-10-01@e45cb9654","note":"stale: js/region.js:578 (D-1576 whole body; alloc-grow folded to push/GC, #if0 worm arm out, bbox recomputed from rects, caller make_gas_cloud:630; :1028 caller #if0)"}
-{"fn":"remove_region","c":"344-386","status":"unknown"}
+{"fn":"remove_region","c":"344-386","status":"ported","js":["js/region.js:remove_region"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local; splice vs C swap-remove is equivalent list removal"}
 {"fn":"clear_regions","c":"394-405","status":"ported","js":["js/region.js:clear_regions"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4"}
-{"fn":"run_regions","c":"414-474","status":"unknown","d":["D-1169"],"at":"seed@a30a7de84"}
-{"fn":"in_out_region","c":"480-527","status":"unknown","d":["D-1143"],"at":"seed@a30a7de84"}
-{"fn":"m_in_out_region","c":"533-576","status":"unknown"}
-{"fn":"update_player_regions","c":"582-592","status":"unknown"}
-{"fn":"update_monster_region","c":"598-611","status":"unknown"}
+{"fn":"run_regions","c":"414-474","status":"ported","js":["js/region.js:run_regions"],"d":["D-1169"],"at":"2026-10-03@bbe63333a"}
+{"fn":"in_out_region","c":"480-527","status":"ported","js":["js/region.js:in_out_region"],"d":["D-1143"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_in_out_region","c":"533-576","status":"ported","js":["js/region.js:m_in_out_region"],"at":"2026-10-03@bbe63333a"}
+{"fn":"update_player_regions","c":"582-592","status":"ported","js":["js/region.js:update_player_regions"],"at":"2026-10-03@bbe63333a"}
+{"fn":"update_monster_region","c":"598-611","status":"ported","js":["js/region.js:update_monster_region"],"at":"2026-10-03@bbe63333a"}
 {"fn":"replace_mon_regions","c":"622-632","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"remove_mon_from_regions","c":"638-645","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"reg_damg","c":"651-656","status":"unknown"}
-{"fn":"any_visible_region","c":"660-670","status":"unknown"}
+{"fn":"reg_damg","c":"651-656","status":"ported","js":["js/region.js:reg_damg"],"at":"2026-10-03@bbe63333a"}
+{"fn":"any_visible_region","c":"660-670","status":"ported","js":["js/region.js:any_visible_region"],"at":"2026-10-03@bbe63333a"}
 {"fn":"visible_region_summary","c":"674-711","status":"ported","js":["js/region.js:visible_region_summary"],"d":["D-3108"],"at":"2026-09-29@ebd112f3b","note":"stale: js/region.js:149 complete per review 488, caller wiz_timeout_queue wired"}
 {"fn":"visible_region_at","c":"718-729","status":"ported","js":["js/region.js:visible_region_at"],"at":"2026-10-02@c944311a4","note":"stale: js/region.js:98"}
-{"fn":"show_region","c":"732-735","status":"unknown"}
+{"fn":"show_region","c":"732-735","status":"ported","js":["js/region.js:show_region"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: glyph-int adapted to S_poisoncloud/S_cloud tag + color cell"}
 {"fn":"save_regions","c":"741-795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rest_regions","c":"799-892","status":"ported","js":["js/region.js:rest_regions"],"d":["D-2639"],"at":"2026-10-01@e0549fe8b","note":"stale: js/region.js:767 (whole :798-892 in stash arch; omits architectural: NHFILE format, Sfi_any passthrough, cmap glyph tag)"}
-{"fn":"region_stats","c":"899-922","status":"unknown"}
-{"fn":"reset_region_mids","c":"928-943","status":"unknown"}
+{"fn":"region_stats","c":"899-922","status":"ported","js":["js/wizcmds.js:region_stats"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to tot-accumulator idiom; body complete"}
+{"fn":"reset_region_mids","c":"928-943","status":"ported","js":["js/region.js:reset_region_mids"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
 {"fn":"create_msg_region","c":"955-973","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"enter_force_field","c":"983-1000","status":"by-design","d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"#if 0: proto :32-39, def :945-1032 not-yet-used; cf D-3121"}
 {"fn":"create_force_field","c":"1003-1030","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"expire_gas_cloud","c":"1046-1087","status":"unknown","d":["D-1155"],"at":"seed@a30a7de84"}
-{"fn":"inside_gas_cloud","c":"1091-1165","status":"unknown","d":["D-1146"],"at":"seed@a30a7de84"}
+{"fn":"expire_gas_cloud","c":"1046-1087","status":"ported","js":["js/region.js:expire_gas_cloud"],"d":["D-1155"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
+{"fn":"inside_gas_cloud","c":"1091-1165","status":"ported","js":["js/region.js:inside_gas_cloud"],"d":["D-1146"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
 {"fn":"is_hero_inside_gas_cloud","c":"1168-1177","status":"ported","js":["js/region.js:is_hero_inside_gas_cloud"],"d":["D-3234"],"at":"2026-10-01@6f6236385"}
 {"fn":"make_gas_cloud","c":"1182-1205","status":"ported","js":["js/region.js:make_gas_cloud"],"d":["D-3234","D-1137"],"at":"2026-10-01@6f6236385"}
 {"fn":"create_gas_cloud","c":"1213-1309","status":"ported","js":["js/region.js:create_gas_cloud"],"d":["D-3234"],"at":"2026-10-01@6f6236385"}
 {"fn":"create_gas_cloud_selection","c":"1313-1336","status":"ported","js":["js/region.js:create_gas_cloud_selection"],"d":["D-3234","D-1158"],"at":"2026-10-01@6f6236385"}
-{"fn":"region_danger","c":"1341-1363","status":"unknown","d":["D-2383"],"at":"seed@a30a7de84"}
-{"fn":"region_safety","c":"1368-1405","status":"unknown"}
+{"fn":"region_danger","c":"1341-1363","status":"ported","js":["js/region.js:region_danger"],"d":["D-2383"],"at":"2026-10-03@bbe63333a"}
+{"fn":"region_safety","c":"1368-1405","status":"ported","js":["js/region.js:region_safety"],"at":"2026-10-03@bbe63333a"}

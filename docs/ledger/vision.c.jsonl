@@ -3,14 +3,14 @@
 {"fn":"does_block","c":"153-202","status":"ported","js":["js/vision.js:does_block"],"d":["D-2883"],"at":"seed@a30a7de84"}
 {"fn":"vision_reset","c":"211-265","status":"ported","js":["js/vision.js:vision_reset"],"d":["D-2883"],"at":"seed@a30a7de84"}
 {"fn":"get_unused_cs","c":"274-299","status":"partial","js":["js/vision.js:get_unused_cs"],"omit":"The header comment's \"light routine\" is not a call in this tree; `do_light_sources` receives the buffer `vision_recalc` already obtained.","d":["D-2850"],"at":"seed@a30a7de84"}
-{"fn":"rogue_vision","c":"314-364","status":"unknown"}
+{"fn":"rogue_vision","c":"314-364","status":"ported","js":["js/vision.js:rogue_vision"],"at":"2026-10-03@bbe63333a"}
 {"fn":"new_angle","c":"414-451","status":"ported","js":["js/vision.js:new_angle"],"d":["D-1955"],"at":"2026-10-01@3d715b8cd","note":"stale: js/vision.js:54 identity is the live C macro vision.c:461; staticfn :413-451 compiled out (EXTEND_SPINE commented :366)"}
 {"fn":"vision_recalc","c":"512-857","status":"ported","js":["js/vision.js:vision_recalc"],"d":["D-1571"],"at":"seed@a30a7de84","note":"seed: full C-order port (former BY_DESIGN)"}
 {"fn":"block_point","c":"865-891","status":"ported","js":["js/vision.js:block_point"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"unblock_point","c":"899-907","status":"unknown","d":["D-1574"],"at":"seed@a30a7de84"}
-{"fn":"recalc_block_point","c":"911-917","status":"unknown"}
-{"fn":"dig_point","c":"967-1048","status":"unknown"}
-{"fn":"fill_point","c":"1051-1128","status":"unknown"}
+{"fn":"unblock_point","c":"899-907","status":"ported","js":["js/vision.js:unblock_point"],"d":["D-1574"],"at":"2026-10-03@bbe63333a"}
+{"fn":"recalc_block_point","c":"911-917","status":"ported","js":["js/vision.js:recalc_block_point"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dig_point","c":"967-1048","status":"ported","js":["js/vision.js:dig_point"],"at":"2026-10-03@bbe63333a"}
+{"fn":"fill_point","c":"1051-1128","status":"ported","js":["js/vision.js:fill_point"],"at":"2026-10-03@bbe63333a"}
 {"fn":"_q1_path","c":"1419-1460","status":"split","js":["js/vision.js:q1_path"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body == q1_path local js/vision.js, wired in clear_path"}
 {"fn":"_q4_path","c":"1466-1507","status":"split","js":["js/vision.js:q4_path"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body == q4_path local js/vision.js, wired in clear_path"}
 {"fn":"_q2_path","c":"1513-1554","status":"split","js":["js/vision.js:q2_path"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body == q2_path local js/vision.js, wired in clear_path"}
@@ -20,5 +20,5 @@
 {"fn":"right_side","c":"1666-1851","status":"ported","js":["js/vision.js:right_side"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"left_side","c":"1858-1985","status":"ported","js":["js/vision.js:left_side"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"view_from","c":"2002-2091","status":"partial","js":["js/vision.js:view_from"],"omit":"`right_side` `left == lim_max` (`vision.c:1769–1775`, `js/vision.js:577`) still calls `mark_visible_range` (set_min and set_max) where C is `set_cs` + `set_max` only.","d":["D-2820"],"at":"seed@a30a7de84"}
-{"fn":"do_clear_area","c":"2107-2148","status":"unknown","d":["D-1785"],"at":"seed@a30a7de84"}
-{"fn":"howmonseen","c":"2152-2186","status":"unknown","d":["D-1562"],"at":"seed@a30a7de84"}
+{"fn":"do_clear_area","c":"2107-2148","status":"ported","js":["js/vision.js:do_clear_area"],"d":["D-1785"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: illegal-range panic→silent return (port convention)"}
+{"fn":"howmonseen","c":"2152-2186","status":"ported","js":["js/vision.js:howmonseen"],"d":["D-1562"],"at":"2026-10-03@bbe63333a"}

@@ -1,34 +1,34 @@
-{"fn":"random_engraving","c":"51-63","status":"unknown"}
+{"fn":"random_engraving","c":"51-63","status":"ported","js":["js/engrave.js:random_engraving"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C out-params adapted to {text,pristine} return; logic exact"}
 {"fn":"wipeout_text","c":"120-183","status":"ported","js":["js/engrave.js:wipeout_text"],"d":["D-3238"],"at":"2026-10-01@0148914f2"}
-{"fn":"can_reach_floor","c":"187-214","status":"unknown","d":["D-1085","D-1083","D-1082","D-1071","D-1070"],"at":"seed@a30a7de84"}
-{"fn":"cant_reach_floor","c":"218-228","status":"unknown"}
+{"fn":"can_reach_floor","c":"187-214","status":"ported","js":["js/engrave.js:can_reach_floor"],"d":["D-1085","D-1083","D-1082","D-1071","D-1070"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cant_reach_floor","c":"218-228","status":"ported","js":["js/engrave.js:cant_reach_floor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"engr_at","c":"231-241","status":"ported","js":["js/engrave.js:engr_at"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
-{"fn":"sengr_at","c":"251-261","status":"unknown"}
-{"fn":"u_wipe_engr","c":"264-268","status":"unknown"}
-{"fn":"wipe_engr_at","c":"271-290","status":"unknown"}
+{"fn":"sengr_at","c":"251-261","status":"ported","js":["js/teleport.js:sengr_at"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_wipe_engr","c":"264-268","status":"ported","js":["js/engrave.js:u_wipe_engr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wipe_engr_at","c":"271-290","status":"ported","js":["js/engrave.js:wipe_engr_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"engr_can_be_felt","c":"297-315","status":"ported","js":["js/display.js:engr_can_be_felt"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — switch exact (ENGRAVE/HEADSTONE/BURN); null guard is C-UB-only"}
 {"fn":"read_engr_at","c":"318-405","status":"ported","js":["js/engrave.js:read_engr_at"],"d":["D-3236"],"at":"2026-10-01@a308a919b"}
 {"fn":"make_engr_at","c":"408-457","status":"partial","js":["js/engrave.js:make_engr_at"],"omit":"newengr/engr_text_space arena (by design — JS strings need no arena; sizes kept on the record); `return ep` JS extension noted above.","d":["D-2567"],"at":"seed@a30a7de84"}
 {"fn":"del_engr_at","c":"461-467","status":"ported","js":["js/engrave.js:del_engr_at"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
-{"fn":"freehand","c":"473-477","status":"unknown"}
-{"fn":"stylus_ok","c":"481-499","status":"unknown"}
+{"fn":"freehand","c":"473-477","status":"ported","js":["js/pickup.js:freehand"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: oc_big without oclass gate is unreachable-different (welded uwep with oc_big is weapon/tool)"}
+{"fn":"stylus_ok","c":"481-499","status":"ported","js":["js/engrave.js:stylus_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"u_can_engrave","c":"503-541","status":"ported","js":["js/engrave.js:u_can_engrave"],"d":["D-2994"],"at":"2026-09-27@e61bdd324"}
 {"fn":"doengrave_ctx_init","c":"545-579","status":"ported","js":["js/engrave.js:doengrave_ctx_init"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
 {"fn":"doengrave_sfx_item_WAN","c":"583-738","status":"ported","js":["js/engrave.js:doengrave_sfx_item_WAN"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"doengrave_sfx_item","c":"742-892","status":"unknown"}
-{"fn":"doengrave_ctx_verb","c":"896-925","status":"unknown"}
-{"fn":"doengrave","c":"956-1263","status":"unknown","d":["D-2176","D-2073","D-1689"],"at":"seed@a30a7de84"}
-{"fn":"engrave","c":"1267-1493","status":"unknown","d":["D-2014"],"at":"seed@a30a7de84"}
-{"fn":"sanitize_engravings","c":"1498-1505","status":"unknown"}
+{"fn":"doengrave_sfx_item","c":"742-892","status":"partial","js":["js/engrave.js:doengrave_sfx_item"],"omit":"TOOL/ublindf arm sets de.ret=0 (ECMD_OK) not ECMD_FAIL; ILLOBJ arm plines instead of impossible()","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all oclass arms live; only return-code/diagnostic deviations"}
+{"fn":"doengrave_ctx_verb","c":"896-925","status":"ported","js":["js/engrave.js:doengrave_ctx_verb"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doengrave","c":"956-1263","status":"partial","js":["js/engrave.js:doengrave"],"omit":"jello swallowed arm; altar arm incl altar_wrath; post-sfx IS_GRAVE type fixup (HEADSTONE else DUST+dengr/teleengr/buf reset); literate livelog_printf; u_can_engrave/getobj arms return 0 not ECMD_FAIL/ECMD_CANCEL","d":["D-2176","D-2073","D-1689"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: sfx/add-to/prompt/mixup/occupation arms live; named arms below absent"}
+{"fn":"engrave","c":"1267-1493","status":"ported","js":["js/engrave.js:engrave"],"d":["D-2014"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: suffix-model nextc/endc verified equivalent incl truncate print"}
+{"fn":"sanitize_engravings","c":"1498-1505","status":"ported","js":["js/engrave.js:sanitize_engravings"],"at":"2026-10-03@bbe63333a"}
 {"fn":"forget_engravings","c":"1509-1521","status":"ported","js":["js/engrave.js:forget_engravings"],"d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"engraving_sanity_check","c":"1524-1548","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"save_engravings","c":"1551-1580","status":"partial","js":["js/engrave.js:save_engravings"],"omit":"- `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).","d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rest_engravings","c":"1584-1619","status":"partial","js":["js/engrave.js:rest_engravings"],"omit":"- `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).","d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"engr_stats","c":"1626-1640","status":"unknown"}
+{"fn":"engr_stats","c":"1626-1640","status":"ported","js":["js/wizcmds.js:engr_stats"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to tot-accumulator idiom; body complete"}
 {"fn":"del_engr","c":"1645-1663","status":"ported","js":["js/engrave.js:del_engr"],"d":["D-3027"],"at":"2026-09-28@34c78a6ac"}
-{"fn":"rloc_engr","c":"1667-1681","status":"unknown"}
-{"fn":"make_grave","c":"1687-1703","status":"unknown"}
+{"fn":"rloc_engr","c":"1667-1681","status":"ported","js":["js/engrave.js:rloc_engr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"make_grave","c":"1687-1703","status":"ported","js":["js/engrave.js:make_grave"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: set_levltyp reduces to typ=GRAVE here (ROOM/GRAVE pre-checked, no ice/SDOOR path)"}
 {"fn":"disturb_grave","c":"1707-1721","status":"ported","js":["js/engrave.js:disturb_grave"],"d":["D-3129"],"at":"2026-09-29@3606b8f8d"}
 {"fn":"see_engraving","c":"1724-1727","status":"ported","js":["js/engrave.js:see_engraving"],"d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"feel_engraving","c":"1732-1741","status":"ported","js":["js/engrave.js:feel_engraving"],"d":["D-3005"],"at":"2026-09-28@da3cb9a9f","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"blengr","c":"1765-1768","status":"unknown"}
+{"fn":"blengr","c":"1765-1768","status":"ported","js":["js/engrave.js:blengr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: 9-row byte table verified identical"}

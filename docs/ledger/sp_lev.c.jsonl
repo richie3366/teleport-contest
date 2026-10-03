@@ -1,65 +1,65 @@
-{"fn":"reset_xystart_size","c":"206-212","status":"unknown"}
+{"fn":"reset_xystart_size","c":"206-212","status":"ported","js":["js/mklev.js:reset_xystart_size"],"at":"2026-10-03@bbe63333a"}
 {"fn":"match_maptyps","c":"217-224","status":"ported","js":["js/mklev.js:match_maptyps"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
 {"fn":"mapfrag_fromstr","c":"227-253","status":"partial","js":["js/mklev.js:mapfrag_fromstr"],"omit":"`#wizfliplevel` (`wizcmds.c:412–434`) and `nhl_flip_level` (`nhlua.c:1509–1517`) are what pass `extras` true; neither is wired, so this body runs only when a caller sets that flag.","d":["D-2889"],"at":"seed@a30a7de84"}
 {"fn":"mapfrag_free","c":"256-263","status":"by-design","at":"2026-09-30@e47a5e02a","note":"GC no-op: free(data)+free+NULL (C sp_lev.c:256); named in lspo_replace_terrain/map_themeroom docs"}
-{"fn":"mapfrag_get","c":"266-272","status":"unknown"}
+{"fn":"mapfrag_get","c":"266-272","status":"ported","js":["js/mklev.js:mapfrag_get"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mapfrag_canmatch","c":"275-278","status":"split","js":["js/mklev.js:mapfrag_error"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: C :275-279 inline js/mklev.js:1918, sole C caller :287"}
 {"fn":"mapfrag_error","c":"281-295","status":"ported","js":["js/mklev.js:mapfrag_error"],"at":"2026-09-30@e47a5e02a","note":"stale: js/mklev.js:1725; null/odd/center arms + exact msgs present, canmatch/TYP_CANNOT_MATCH match C :203/:275-279, caller :5080 wired :1781, nhlsel l_selection_match Lua-only"}
-{"fn":"mapfrag_match","c":"298-312","status":"unknown"}
-{"fn":"solidify_map","c":"315-323","status":"unknown"}
-{"fn":"map_cleanup","c":"328-356","status":"unknown","d":["D-2334"],"at":"seed@a30a7de84"}
-{"fn":"lvlfill_maze_grid","c":"359-371","status":"unknown"}
-{"fn":"lvlfill_solid","c":"374-388","status":"unknown"}
-{"fn":"lvlfill_swamp","c":"391-425","status":"unknown"}
+{"fn":"mapfrag_match","c":"298-312","status":"ported","js":["js/mklev.js:mapfrag_match"],"at":"2026-10-03@bbe63333a"}
+{"fn":"solidify_map","c":"315-323","status":"ported","js":["js/mklev.js:solidify_map"],"at":"2026-10-03@bbe63333a"}
+{"fn":"map_cleanup","c":"328-356","status":"ported","js":["js/mklev.js:map_cleanup"],"d":["D-2334"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lvlfill_maze_grid","c":"359-371","status":"ported","js":["js/mklev.js:lvlfill_maze_grid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lvlfill_solid","c":"374-388","status":"ported","js":["js/mklev.js:lvlfill_solid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lvlfill_swamp","c":"391-425","status":"ported","js":["js/mklev.js:lvlfill_swamp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"flip_dbridge_horizontal","c":"428-439","status":"ported","js":["js/mklev.js:flip_dbridge_horizontal"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/mklev.js:19286 exact C :428-439, callers :19669-19670"}
 {"fn":"flip_dbridge_vertical","c":"442-453","status":"ported","js":["js/mklev.js:flip_dbridge_vertical"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/mklev.js:19297 exact C :442-453, callers :19651-19652"}
 {"fn":"flip_visuals","c":"458-495","status":"ported","js":["js/mklev.js:flip_visuals"],"d":["D-2898","D-2889"],"at":"seed@a30a7de84"}
-{"fn":"flip_encoded_dir_bits","c":"499-514","status":"unknown"}
+{"fn":"flip_encoded_dir_bits","c":"499-514","status":"ported","js":["js/mklev.js:flip_encoded_dir_bits"],"at":"2026-10-03@bbe63333a"}
 {"fn":"flip_level","c":"533-922","status":"partial","js":["js/mklev.js:flip_level"],"omit":"ball/chain unplace (:566-585, unplacebc :582) + re-place (:909-910, placebc :910) — async in JS (ball.js), flip_level stays sync; C leaves SpLev_Map unflipped (by design, pre-existing); nh.flip_level Lua caller (nhlua.c:1517) unwired","d":["D-3131","D-2336"],"at":"2026-09-30@4399b92c1"}
 {"fn":"flip_vault_guard","c":"926-958","status":"ported","js":["js/mklev.js:flip_vault_guard"],"d":["D-2913"],"at":"seed@a30a7de84"}
 {"fn":"flip_level_rnd","c":"967-982","status":"ported","js":["js/mklev.js:flip_level_rnd"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"sel_set_wall_property","c":"986-995","status":"unknown"}
-{"fn":"set_wall_property","c":"1001-1013","status":"unknown"}
-{"fn":"remove_boundary_syms","c":"1016-1038","status":"unknown"}
-{"fn":"set_door_orientation","c":"1042-1085","status":"unknown"}
-{"fn":"shared_with_room","c":"1089-1106","status":"unknown"}
-{"fn":"maybe_add_door","c":"1110-1118","status":"unknown"}
-{"fn":"link_doors_rooms","c":"1122-1142","status":"unknown"}
-{"fn":"rnddoor","c":"1148-1153","status":"unknown"}
+{"fn":"sel_set_wall_property","c":"986-995","status":"ported","js":["js/mklev.js:sel_set_wall_property"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_wall_property","c":"1001-1013","status":"ported","js":["js/mklev.js:set_wall_property"],"at":"2026-10-03@bbe63333a"}
+{"fn":"remove_boundary_syms","c":"1016-1038","status":"ported","js":["js/mklev.js:remove_boundary_syms"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_door_orientation","c":"1042-1085","status":"ported","js":["js/mklev.js:set_door_orientation"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shared_with_room","c":"1089-1106","status":"ported","js":["js/mklev.js:shared_with_room"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_add_door","c":"1110-1118","status":"ported","js":["js/mklev.js:maybe_add_door"],"at":"2026-10-03@bbe63333a"}
+{"fn":"link_doors_rooms","c":"1122-1142","status":"ported","js":["js/mklev.js:link_doors_rooms"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rnddoor","c":"1148-1153","status":"ported","js":["js/mklev.js:rnddoor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rndtrap","c":"1159-1188","status":"split","js":["js/mklev.js:splev_rndtrap"],"at":"2026-09-30@4399b92c1","note":"audit 2087-2095: seed row pointed at create_maze (no rndtrap logic there); true home splev_rndtrap, whole body + both call sites"}
 {"fn":"get_location","c":"1202-1269","status":"split","js":["js/mklev.js:get_location","js/mklev.js:get_location_random","js/mklev.js:get_location_in_room"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1"}
 {"fn":"set_ok_location_func","c":"1274-1277","status":"ported","js":["js/mklev.js:set_ok_location_func"],"d":["D-3229"],"at":"2026-10-01@1633dc128","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_ok_location","c":"1280-1308","status":"ported","js":["js/mklev.js:is_ok_location"],"d":["D-3229","D-2368"],"at":"2026-10-01@1633dc128"}
 {"fn":"pm_good_location","c":"1311-1314","status":"ported","js":["js/mklev.js:pm_good_location"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_unpacked_coord","c":"1317-1334","status":"ported","js":["js/mklev.js:get_unpacked_coord"],"d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"get_location_coord","c":"1337-1353","status":"unknown"}
+{"fn":"get_location_coord","c":"1337-1353","status":"ported","js":["js/mklev.js:get_location_coord"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_room_loc","c":"1360-1378","status":"ported","js":["js/mklev.js:get_room_loc"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f"}
-{"fn":"get_free_room_loc","c":"1385-1404","status":"unknown"}
+{"fn":"get_free_room_loc","c":"1385-1404","status":"ported","js":["js/mklev.js:get_free_room_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_room","c":"1407-1479","status":"ported","js":["js/mklev.js:check_room"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
-{"fn":"create_room","c":"1486-1661","status":"unknown"}
+{"fn":"create_room","c":"1486-1661","status":"ported","js":["js/mklev.js:create_room"],"at":"2026-10-03@bbe63333a"}
 {"fn":"create_subroom","c":"1668-1707","status":"ported","js":["js/mklev.js:create_subroom"],"at":"2026-09-28@1483a276d","note":"stale: js/mklev.js:23085 (every C arm live; PARTIAL was line-count heuristic)"}
-{"fn":"create_door","c":"1714-1806","status":"unknown"}
-{"fn":"create_trap","c":"1812-1846","status":"unknown"}
+{"fn":"create_door","c":"1714-1806","status":"ported","js":["js/mklev.js:create_door"],"at":"2026-10-03@bbe63333a"}
+{"fn":"create_trap","c":"1812-1846","status":"ported","js":["js/mklev.js:create_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"noncoalignment","c":"1852-1860","status":"ported","js":["js/mklev.js:noncoalignment"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/mklev.js:21761 exact port, C :1915 caller wired :21777"}
-{"fn":"m_bad_boulder_spot","c":"1864-1881","status":"unknown"}
-{"fn":"pm_to_humidity","c":"1884-1899","status":"unknown"}
+{"fn":"m_bad_boulder_spot","c":"1864-1881","status":"ported","js":["js/mklev.js:m_bad_boulder_spot"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pm_to_humidity","c":"1884-1899","status":"ported","js":["js/mklev.js:pm_to_humidity"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sp_amask_to_amask","c":"1908-1922","status":"ported","js":["js/mklev.js:sp_amask_to_amask"],"at":"2026-09-30@db34c42bb","note":"stale: js/mklev.js:21552 (D-1553, all four C arms)"}
 {"fn":"create_monster","c":"1925-2187","status":"split","js":["js/mklev.js:splev_create_monster","js/mklev.js:l_create_monster"],"d":["D-3221","D-1531"],"at":"2026-10-01@b938e081b"}
-{"fn":"create_object","c":"2193-2440","status":"unknown","d":["D-2726","D-1533"],"at":"seed@a30a7de84"}
+{"fn":"create_object","c":"2193-2440","status":"ported","js":["js/mklev.js:create_object"],"d":["D-2726","D-1533"],"at":"2026-10-03@bbe63333a"}
 {"fn":"create_altar","c":"2446-2486","status":"split","js":["js/mklev.js:splev_create_altar"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as splev_create_altar mklev.js:22444, review 1604 ACCEPT"}
-{"fn":"search_door","c":"2492-2540","status":"unknown"}
+{"fn":"search_door","c":"2492-2540","status":"ported","js":["js/mklev.js:search_door"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dig_corridor","c":"2549-2663","status":"ported","js":["js/mklev.js:dig_corridor"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"create_corridor","c":"2671-2725","status":"unknown","d":["D-2668"],"at":"seed@a30a7de84"}
+{"fn":"create_corridor","c":"2671-2725","status":"ported","js":["js/mklev.js:create_corridor"],"d":["D-2668"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fill_special_room","c":"2731-2804","status":"ported","js":["js/mklev.js:fill_special_room"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"build_room","c":"2807-2833","status":"ported","js":["js/mklev.js:build_room"],"d":["D-3185","D-1836"],"at":"2026-10-01@03eae3466"}
-{"fn":"light_region","c":"2839-2862","status":"unknown"}
-{"fn":"wallify_map","c":"2865-2891","status":"unknown"}
-{"fn":"maze1xy","c":"2900-2916","status":"unknown"}
-{"fn":"fill_empty_maze","c":"2926-2979","status":"unknown"}
-{"fn":"splev_initlev","c":"2982-3018","status":"unknown","d":["D-2256"],"at":"seed@a30a7de84"}
+{"fn":"light_region","c":"2839-2862","status":"ported","js":["js/mklev.js:light_region"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wallify_map","c":"2865-2891","status":"ported","js":["js/mklev.js:wallify_map"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maze1xy","c":"2900-2916","status":"ported","js":["js/mklev.js:maze1xy"],"at":"2026-10-03@bbe63333a"}
+{"fn":"fill_empty_maze","c":"2926-2979","status":"ported","js":["js/mklev.js:fill_empty_maze"],"at":"2026-10-03@bbe63333a"}
+{"fn":"splev_initlev","c":"2982-3018","status":"ported","js":["js/mklev.js:splev_initlev"],"d":["D-2256"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sp_code_jmpaddr","c":"3022-3025","status":"by-design","d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spo_end_moninvent","c":"3031-3036","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-3235","D-2342"],"at":"2026-10-01@6c82dd6e1","note":"stale: C :3031-3036 inline at l_create_monster :23290-23296 (set/inventFn/m_dowear/clear) + 5 baked loaders :6590/7526/8021/8643/12368; D-2342"}
-{"fn":"spo_pop_container","c":"3040-3046","status":"unknown"}
+{"fn":"spo_pop_container","c":"3040-3046","status":"ported","js":["js/mklev.js:spo_pop_container"],"at":"2026-10-03@bbe63333a"}
 {"fn":"l_push_wid_hei_table","c":"3050-3055","status":"ported","js":["js/mklev.js:l_push_wid_hei_table"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"l_push_mkroom_table","c":"3059-3070","status":"ported","js":["js/mklev.js:l_push_mkroom_table"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_message","c":"3076-3109","status":"ported","js":["js/mklev.js:lspo_message"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
@@ -70,19 +70,19 @@
 {"fn":"get_table_xy_or_coord","c":"3188-3204","status":"partial","js":["js/mklev.js:get_table_xy_or_coord"],"omit":"- `get_table_xy_or_coord`: no missing helper arm.","d":["D-3190","D-3185"],"at":"2026-10-01@447ada6e3"}
 {"fn":"lspo_monster","c":"3214-3400","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as l_create_monster + helpers mklev.js:22134-22353, review 1604 ACCEPT"}
 {"fn":"get_table_int_or_random","c":"3407-3437","status":"ported","js":["js/mklev.js:get_table_int_or_random"],"d":["D-2881"],"at":"2026-10-01@1633dc128","note":"stale: whole C body live js/mklev.js:22842 (D-2881, review 1840 ACCEPT); both C callers wired :22871/:22881; lua_pop omit stands (no stack in unpacked loader)"}
-{"fn":"get_table_buc","c":"3442-3452","status":"unknown"}
+{"fn":"get_table_buc","c":"3442-3452","status":"ported","js":["js/mklev.js:get_table_buc"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: invalid buc defaults to 0; C luaL_checkoption would raise (invalid des data only)"}
 {"fn":"get_table_objclass","c":"3455-3464","status":"split","js":["js/mklev.js:get_table_objclass_field"],"at":"2026-09-30@042bdf039","note":"stale: js/mklev.js:22187; C :3653 wired at :22364, :3542 value-flow at :22366; nhlobj.c:366 caller (l_obj_new_readobjnam) has no JS analogue"}
 {"fn":"find_objtype","c":"3468-3536","status":"ported","js":["js/mklev.js:find_objtype"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"get_table_objtype","c":"3539-3547","status":"split","js":["js/mklev.js:lspo_object_normalize_table"],"at":"2026-09-30@042bdf039","note":"stale: C :3539-3547 complete inline js/mklev.js:22364-22371; C :3652 via l_create_object:22398; nhlobj.c:365 caller has no JS analogue"}
 {"fn":"lspo_object","c":"3557-3755","status":"split","js":["js/mklev.js:create_object","js/mklev.js:lspo_object_from_string","js/mklev.js:lspo_object_normalize_table","js/mklev.js:lspo_object_montype_mndx","js/mklev.js:lspo_object_apply_montype"],"d":["D-1723"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across create_object + from_string/normalize_table/montype helpers (D-1723; cf. lspo_monster precedent)"}
 {"fn":"lspo_level_flags","c":"3759-3831","status":"ported","js":["js/mklev.js:lspo_level_flags"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
 {"fn":"lspo_level_init","c":"3837-3875","status":"ported","js":["js/mklev.js:lspo_level_init"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
-{"fn":"lspo_engraving","c":"3881-3936","status":"unknown"}
+{"fn":"lspo_engraving","c":"3881-3936","status":"ported","js":["js/mklev.js:lspo_engraving"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lspo_mineralize","c":"3939-3955","status":"ported","js":["js/mklev.js:lspo_mineralize"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_mkroom_name","c":"3991-4001","status":"ported","js":["js/mklev.js:get_mkroom_name"],"d":["D-3032"],"at":"2026-09-28@581088132","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3193","D-3032"],"at":"2026-10-01@24e6bea47","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_room","c":"4028-4116","status":"ported","js":["js/mklev.js:lspo_room"],"d":["D-3193","D-3185"],"at":"2026-10-01@24e6bea47","note":"review 2145: live get_table_roomtype_opt bypasses optional string/function validation and diagnostic waits; coordinate lua_Integer rounding bypasses mixed-position rejection"}
-{"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
+{"fn":"spo_endroom","c":"4119-4134","status":"ported","js":["js/mklev.js:spo_endroom"],"at":"2026-10-03@bbe63333a"}
 {"fn":"good_stair_loc","c":"4139-4144","status":"ported","js":["js/mklev.js:good_stair_loc"],"d":["D-3229"],"at":"2026-10-01@1633dc128"}
 {"fn":"l_create_stairway","c":"4147-4213","status":"ported","js":["js/mklev.js:l_create_stairway"],"d":["D-3139"],"at":"2026-09-30@042bdf039"}
 {"fn":"lspo_stair","c":"4223-4226","status":"ported","js":["js/mklev.js:lspo_stair"],"d":["D-3139"],"at":"2026-10-03@18773ed32","note":"audit 2303-2311: live js/mklev.js:23418 verified (l_create_stairway+return 0); stale no-symbol note retired"}
@@ -92,53 +92,53 @@
 {"fn":"get_table_traptype_opt","c":"4350-4364","status":"split","js":["js/mklev.js:lspo_traptype_opt"],"d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"stale: lspo_traptype_opt; caller lspo_trap :1403"}
 {"fn":"get_trapname_bytype","c":"4367-4376","status":"by-design","d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_traptype_byname","c":"4379-4388","status":"split","js":["js/mklev.js:lspo_traptype_byname"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/mklev.js:1486 exact strcmpi loop + NO_TRAP; 3 C-matching sites :1570/1573/1580"}
-{"fn":"lspo_trap","c":"4397-4470","status":"unknown"}
-{"fn":"lspo_gold","c":"4480-4522","status":"unknown"}
+{"fn":"lspo_trap","c":"4397-4470","status":"ported","js":["js/mklev.js:lspo_trap"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lspo_gold","c":"4480-4522","status":"ported","js":["js/mklev.js:lspo_gold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lspo_corridor","c":"4529-4554","status":"ported","js":["js/mklev.js:lspo_corridor"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_random_corridors","c":"4558-4574","status":"ported","js":["js/mklev.js:lspo_random_corridors"],"d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"random_wdir","c":"4578-4582","status":"unknown"}
-{"fn":"floodfillchk_match_under","c":"4587-4590","status":"unknown"}
-{"fn":"set_floodfillchk_match_under","c":"4593-4597","status":"unknown"}
-{"fn":"floodfillchk_match_accessible","c":"4600-4605","status":"unknown"}
-{"fn":"sel_set_ter","c":"4609-4630","status":"unknown"}
-{"fn":"sel_set_feature","c":"4633-4644","status":"unknown"}
+{"fn":"random_wdir","c":"4578-4582","status":"ported","js":["js/mklev.js:random_wdir"],"at":"2026-10-03@bbe63333a"}
+{"fn":"floodfillchk_match_under","c":"4587-4590","status":"ported","js":["js/mklev.js:floodfillchk_match_under"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_floodfillchk_match_under","c":"4593-4597","status":"ported","js":["js/mklev.js:set_floodfillchk_match_under"],"at":"2026-10-03@bbe63333a"}
+{"fn":"floodfillchk_match_accessible","c":"4600-4605","status":"ported","js":["js/mklev.js:floodfillchk_match_accessible"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sel_set_ter","c":"4609-4630","status":"ported","js":["js/mklev.js:sel_set_ter"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sel_set_feature","c":"4633-4644","status":"ported","js":["js/mklev.js:sel_set_feature"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sel_set_door","c":"4647-4662","status":"ported","js":["js/mklev.js:sel_set_door"],"d":["D-3007"],"at":"2026-09-28@12641c043"}
 {"fn":"lspo_door","c":"4671-4734","status":"ported","js":["js/mklev.js:lspo_door"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"l_table_getset_feature_flag","c":"4739-4755","status":"unknown"}
+{"fn":"l_table_getset_feature_flag","c":"4739-4755","status":"ported","js":["js/mklev.js:l_table_getset_feature_flag"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cvt_to_abscoord","c":"4772-4788","status":"partial","js":["js/mklev.js:cvt_to_abscoord"],"omit":"- `nhl_abs_coord`: no missing branch.","d":["D-3174","D-3168"],"at":"2026-09-30@b5e29a0ee","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cvt_to_relcoord","c":"4793-4802","status":"by-design","d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"nhl_abs_coord","c":"4811-4836","status":"ported","js":["js/mklev.js:nhl_abs_coord"],"d":["D-3174","D-3168"],"at":"2026-09-30@b5e29a0ee","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_feature","c":"4844-4923","status":"unknown","d":["D-2712"],"at":"seed@a30a7de84"}
+{"fn":"lspo_feature","c":"4844-4923","status":"ported","js":["js/mklev.js:lspo_feature"],"d":["D-2712"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lspo_gas_cloud","c":"4929-4965","status":"ported","js":["js/mklev.js:lspo_gas_cloud"],"d":["D-3190","D-3185"],"at":"2026-10-01@447ada6e3","note":"review 2145: Number(tx) before signed-16 narrowing loses full-width Lua integer low bits in array coord; exact coordinate transport Must-fix"}
 {"fn":"lspo_terrain","c":"4978-5038","status":"ported","js":["js/mklev.js:lspo_terrain"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_replace_terrain","c":"5051-5143","status":"unknown","d":["D-1856"],"at":"seed@a30a7de84"}
-{"fn":"generate_way_out_method","c":"5146-5214","status":"unknown"}
-{"fn":"ensure_way_out","c":"5217-5255","status":"unknown","d":["D-2101"],"at":"seed@a30a7de84"}
+{"fn":"lspo_replace_terrain","c":"5051-5143","status":"ported","js":["js/mklev.js:lspo_replace_terrain"],"d":["D-1856"],"at":"2026-10-03@bbe63333a"}
+{"fn":"generate_way_out_method","c":"5146-5214","status":"ported","js":["js/mklev.js:generate_way_out_method"],"at":"2026-10-03@bbe63333a"}
+{"fn":"ensure_way_out","c":"5217-5255","status":"ported","js":["js/mklev.js:ensure_way_out"],"d":["D-2101"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_table_intarray_entry","c":"5260-5279","status":"split","js":["js/mklev.js:get_table_intarray_entry_unpacked"],"d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"stale: get_table_intarray_entry_unpacked (D-2668)"}
 {"fn":"get_table_region","c":"5282-5316","status":"split","js":["js/mklev.js:get_table_region_unpacked"],"d":["D-2668"],"at":"2026-09-29@d27c7b945","note":"stale: get_table_region_unpacked (D-2668)"}
 {"fn":"get_coord","c":"5319-5366","status":"partial","js":["js/mklev.js:get_coord"],"omit":"- `get_table_xy_or_coord`: no missing helper arm.","d":["D-3190","D-2862"],"at":"2026-10-01@447ada6e3"}
-{"fn":"levregion_add","c":"5371-5402","status":"unknown"}
+{"fn":"levregion_add","c":"5371-5402","status":"ported","js":["js/mklev.js:levregion_add"],"at":"2026-10-03@bbe63333a"}
 {"fn":"l_get_lregion","c":"5410-5436","status":"ported","js":["js/mklev.js:l_get_lregion"],"d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"stale: inlined in l_teleport_region/l_levregion (D-2668)"}
 {"fn":"lspo_teleport_region","c":"5443-5460","status":"split","js":["js/mklev.js:l_teleport_region"],"d":["D-3175","D-3166"],"at":"2026-09-30@adc5a35c2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_levregion","c":"5472-5494","status":"split","js":["js/mklev.js:l_levregion"],"d":["D-3175","D-3166"],"at":"2026-09-30@adc5a35c2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_exclusion","c":"5498-5532","status":"ported","js":["js/mklev.js:lspo_exclusion"],"d":["D-3235","D-1109"],"at":"2026-10-01@6c82dd6e1"}
-{"fn":"sel_set_lit","c":"5535-5540","status":"unknown"}
-{"fn":"add_doors_to_room","c":"5544-5555","status":"unknown"}
+{"fn":"sel_set_lit","c":"5535-5540","status":"ported","js":["js/mklev.js:sel_set_lit"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_doors_to_room","c":"5544-5555","status":"partial","js":["js/mklev.js:add_doors_to_room"],"omit":"calls add_door directly, skipping C maybe_add_door gate (:1112-1115: hx>=0, inside_room/roomno/shared_with_room); bbox doors failing the gate (irregular/subroom overlap, corner tiles) are added","at":"2026-10-03@bbe63333a"}
 {"fn":"get_table_coords_or_region","c":"5561-5577","status":"split","js":["js/mklev.js:lspo_region","js/mklev.js:lspo_wall_property"],"at":"2026-09-29@cd4bc2a21","note":"stale: inlined at both C callers, review 1672 verified"}
 {"fn":"lspo_region","c":"5584-5715","status":"ported","js":["js/mklev.js:lspo_region"],"d":["D-3193"],"at":"2026-10-01@24e6bea47"}
 {"fn":"lspo_drawbridge","c":"5720-5763","status":"ported","js":["js/mklev.js:lspo_drawbridge"],"at":"2026-09-30@990da2b8d","note":"stale: js/mklev.js:1226, whole C body in C order (micro-gap: :1234 raw throw vs live nhl_error)"}
 {"fn":"lspo_mazewalk","c":"5769-5869","status":"ported","js":["js/mklev.js:lspo_mazewalk"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"lspo_wall_property","c":"5876-5908","status":"unknown"}
+{"fn":"lspo_wall_property","c":"5876-5908","status":"ported","js":["js/mklev.js:lspo_wall_property"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_wallprop_in_selection","c":"5911-5932","status":"ported","js":["js/mklev.js:set_wallprop_in_selection"],"at":"2026-09-30@db34c42bb","note":"stale: js/mklev.js:5063 (D-2701 whole body; l_selection_check by-design, sel explicit)"}
 {"fn":"lspo_non_diggable","c":"5937-5941","status":"ported","js":["js/mklev.js:lspo_non_diggable"],"d":["D-3304"],"at":"2026-10-02@c50c91230"}
 {"fn":"lspo_non_passwall","c":"5946-5950","status":"ported","js":["js/mklev.js:lspo_non_passwall"],"d":["D-3304"],"at":"2026-10-02@c50c91230"}
 {"fn":"sel_set_wallify","c":"5955-5958","status":"ported","js":["js/mklev.js:sel_set_wallify"],"d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_wallify","c":"5965-5989","status":"ported","js":["js/mklev.js:lspo_wallify"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_reset_level","c":"5993-6010","status":"by-design","at":"seed@a30a7de84","note":"seed: CURRENT.md Do not (lua reset)"}
-{"fn":"lspo_finalize_level","c":"6014-6064","status":"unknown"}
+{"fn":"lspo_finalize_level","c":"6014-6064","status":"ported","js":["js/mklev.js:lspo_finalize_level"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lspo_map","c":"6075-6319","status":"ported","js":["js/mklev.js:lspo_map"],"at":"2026-09-30@042bdf039","note":"stale: whole body live js/mklev.js:1982 (D-2737, every C arm with cites); Lua-stack remainder by-design"}
 {"fn":"update_croom","c":"6324-6333","status":"ported","js":["js/mklev.js:update_croom"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/mklev.js:3076 exact C :6324-6333"}
 {"fn":"sp_level_coder_init","c":"6336-6376","status":"ported","js":["js/mklev.js:sp_level_coder_init"],"d":["D-2643"],"at":"seed@a30a7de84"}
 {"fn":"l_register_des","c":"6435-6441","status":"by-design","d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"create_des_coder","c":"6444-6448","status":"unknown"}
+{"fn":"create_des_coder","c":"6444-6448","status":"ported","js":["js/mklev.js:create_des_coder"],"at":"2026-10-03@bbe63333a"}
 {"fn":"load_special","c":"6454-6502","status":"split","js":["js/mklev.js:load_special","js/mklev.js:load_special_proto"],"d":["D-3007"],"at":"2026-09-28@12641c043"}

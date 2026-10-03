@@ -1,21 +1,21 @@
-{"fn":"ballrelease","c":"23-39","status":"unknown"}
-{"fn":"ballfall","c":"43-67","status":"unknown","d":["D-1778"],"at":"seed@a30a7de84"}
+{"fn":"ballrelease","c":"23-39","status":"ported","js":["js/ball.js:ballrelease"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl triple unwield and encumber_msg"}
+{"fn":"ballfall","c":"43-67","status":"ported","js":["js/ball.js:ballfall"],"d":["D-1778"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl helmet arms"}
 {"fn":"placebc_core","c":"120-144","status":"partial","js":["js/ball.js:placebc_core"],"omit":"`Placebc` / `Lift_covet_and_placebc` (`ball.c:259–346`) stay out because `BREADCRUMBS` is not defined.","d":["D-2840"],"at":"seed@a30a7de84"}
 {"fn":"unplacebc_core","c":"147-177","status":"ported","js":["js/ball.js:unplacebc_core"],"d":["D-2857"],"at":"seed@a30a7de84"}
 {"fn":"check_restriction","c":"180-189","status":"ported","js":["js/ball.js:check_restriction"],"at":"2026-09-30@232081f95","note":"stale: js/ball.js:509"}
 {"fn":"placebc","c":"193-209","status":"ported","js":["js/ball.js:placebc"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"unplacebc","c":"212-219","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}
-{"fn":"unplacebc_and_covet_placebc","c":"222-233","status":"unknown"}
+{"fn":"unplacebc","c":"212-219","status":"ported","js":["js/ball.js:unplacebc"],"d":["D-1777"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact restriction guard"}
+{"fn":"unplacebc_and_covet_placebc","c":"222-233","status":"ported","js":["js/ball.js:unplacebc_and_covet_placebc"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"lift_covet_and_placebc","c":"236-254","status":"ported","js":["js/ball.js:lift_covet_and_placebc"],"at":"2026-09-29@671c54bfc","note":"stale: js/ball.js:544; callers wired end.js:567 mklev.js:18157"}
 {"fn":"Placebc","c":"259-284","status":"by-design","at":"2026-09-30@e79d836f7","note":"stale: compiled out — #else BREADCRUMBS arm (ball.c:256–347); config.h:644 leaves BREADCRUMBS undefined; live path is lowercase placebc (js/ball.js:435)"}
 {"fn":"Unplacebc","c":"287-303","status":"by-design","d":["D-3179"],"at":"2026-09-30@94d7337ef","note":"Audit 2139: compiled out by #else BREADCRUMBS ball.c:256–347; config.h:644 leaves BREADCRUMBS undefined. Optional JS export is not scored C coverage."}
 {"fn":"Unplacebc_and_covet_placebc","c":"306-324","status":"by-design","at":"2026-09-30@92b27a5b5","note":"compiled out: #else BREADCRUMBS ball.c:256-347, config.h:644 leaves it undefined; live lowercase ported js/ball.js:524"}
 {"fn":"Lift_covet_and_placebc","c":"327-346","status":"by-design","d":["D-3179"],"at":"2026-09-30@94d7337ef","note":"Audit 2139: compiled out by #else BREADCRUMBS ball.c:256–347; config.h:644 leaves BREADCRUMBS undefined. Optional JS export is not scored C coverage."}
-{"fn":"bc_order","c":"354-371","status":"unknown"}
-{"fn":"set_bc","c":"380-424","status":"unknown"}
-{"fn":"move_bc","c":"437-556","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}
-{"fn":"drag_ball","c":"560-870","status":"unknown"}
-{"fn":"drop_ball","c":"882-961","status":"unknown","d":["D-2329"],"at":"seed@a30a7de84"}
-{"fn":"litter","c":"965-983","status":"unknown"}
-{"fn":"drag_down","c":"986-1031","status":"unknown"}
+{"fn":"bc_order","c":"354-371","status":"ported","js":["js/ball.js:bc_order"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full order walk; can't-happen impossible returns DIFFER silently"}
+{"fn":"set_bc","c":"380-424","status":"ported","js":["js/ball.js:set_bc"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full glyph pickup/restore sequence"}
+{"fn":"move_bc","c":"437-556","status":"ported","js":["js/ball.js:move_bc"],"d":["D-1777"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full blind and sighted arms"}
+{"fn":"drag_ball","c":"560-870","status":"partial","js":["js/ball.js:drag_ball"],"omit":"jerk-back abort omits spoteffects(TRUE) (caller-deferred; domove/teleport/hurtle callers skip it)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full chain/ball geometry, jerk combat, teleport case; trap.js caller runs deferred spoteffects"}
+{"fn":"drop_ball","c":"882-961","status":"ported","js":["js/ball.js:drop_ball"],"d":["D-2329"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full trap-pullout and reposition arms"}
+{"fn":"litter","c":"965-983","status":"partial","js":["js/ball.js:litter"],"omit":"hitfloor effects (hero_breaks/ship_object/doaltarobj/dropy); JS place_object+newsym only","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: loop/message/unwear match; drop step simplified"}
+{"fn":"drag_down","c":"986-1031","status":"ported","js":["js/ball.js:drag_down"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full forward/back arms"}
 {"fn":"bc_sanity_check","c":"1034-1102","status":"partial","js":["js/ball.js:bc_sanity_check"],"omit":"`sanity_check` siblings obj/timer/mon/light/trap/engraving/`levl_sanity_check` (unported writers, own rows); `check_wornmask_slots`; `dobjsfree`/`clear_bypasses`/`resume_wish` (all pre-existing D-1664 names, map keeps them).","d":["D-2489"],"at":"seed@a30a7de84"}

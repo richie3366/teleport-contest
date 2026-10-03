@@ -1,28 +1,28 @@
-{"fn":"is_waterwall","c":"38-43","status":"unknown"}
-{"fn":"is_pool","c":"46-59","status":"unknown","d":["D-1090"],"at":"seed@a30a7de84"}
-{"fn":"is_lava","c":"62-74","status":"unknown"}
+{"fn":"is_waterwall","c":"38-43","status":"ported","js":["js/dbridge.js:is_waterwall"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_pool","c":"46-59","status":"ported","js":["js/hack.js:is_pool"],"d":["D-1090"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_lava","c":"62-74","status":"ported","js":["js/hack.js:is_lava"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_pool_or_lava","c":"77-83","status":"ported","js":["js/eat.js:is_pool_or_lava"],"at":"2026-10-02@e42cd0047","note":"stale: js/eat.js:1189 whole C body (is_pool||is_lava); drawbridge-under note concerns callees"}
-{"fn":"is_ice","c":"86-97","status":"unknown"}
-{"fn":"is_moat","c":"100-113","status":"unknown"}
-{"fn":"db_under_typ","c":"116-128","status":"unknown","d":["D-1103"],"at":"seed@a30a7de84"}
-{"fn":"is_drawbridge_wall","c":"137-162","status":"unknown"}
-{"fn":"is_db_wall","c":"170-173","status":"unknown"}
+{"fn":"is_ice","c":"86-97","status":"ported","js":["js/dig.js:is_ice"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local (not exported) but fully implemented"}
+{"fn":"is_moat","c":"100-113","status":"ported","js":["js/hack.js:is_moat"],"at":"2026-10-03@bbe63333a"}
+{"fn":"db_under_typ","c":"116-128","status":"ported","js":["js/hack.js:db_under_typ"],"d":["D-1103"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_drawbridge_wall","c":"137-162","status":"ported","js":["js/dbridge.js:is_drawbridge_wall"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_db_wall","c":"170-173","status":"ported","js":["js/dbridge.js:is_db_wall"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_drawbridge","c":"180-205","status":"ported","js":["js/dbridge.js:find_drawbridge"],"at":"2026-09-28@70c901367","note":"stale: js/dbridge.js:160, body whole + all 11 C call sites wired in js (dig×2,dokick,trap,zap×3,detect,music,muse,dbridge:616)"}
 {"fn":"get_wall_for_db","c":"211-227","status":"ported","js":["js/dbridge.js:get_wall_for_db"],"at":"2026-09-29@2c9129a4b","note":"stale: js/dbridge.js:180"}
-{"fn":"create_drawbridge","c":"235-283","status":"unknown","d":["D-2708"],"at":"seed@a30a7de84"}
+{"fn":"create_drawbridge","c":"235-283","status":"ported","js":["js/mklev.js:create_drawbridge"],"d":["D-2708"],"at":"2026-10-03@bbe63333a"}
 {"fn":"e_at","c":"286-301","status":"ported","js":["js/dbridge.js:e_at"],"d":["D-3232","D-1943"],"at":"2026-10-01@516e71ff9","note":"stale: js/dbridge.js:212 whole body, do_entity wires all 6 sites :626-637; debugpline1/wait_synch compiled out without DEBUG/D_DEBUG"}
-{"fn":"m_to_e","c":"304-318","status":"unknown"}
-{"fn":"u_to_e","c":"321-327","status":"unknown"}
-{"fn":"set_entity","c":"330-338","status":"unknown"}
-{"fn":"e_nam","c":"351-354","status":"unknown"}
+{"fn":"m_to_e","c":"304-318","status":"ported","js":["js/dbridge.js:m_to_e"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_to_e","c":"321-327","status":"ported","js":["js/dbridge.js:u_to_e"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_entity","c":"330-338","status":"ported","js":["js/dbridge.js:set_entity"],"at":"2026-10-03@bbe63333a"}
+{"fn":"e_nam","c":"351-354","status":"ported","js":["js/dbridge.js:e_nam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"E_phrase","c":"361-374","status":"ported","js":["js/dbridge.js:E_phrase"],"at":"2026-09-28@70c901367","note":"stale: js/dbridge.js:300, body whole + 8 live pline sites wired (debugpline sites debug-only)"}
-{"fn":"e_survives_at","c":"380-399","status":"unknown"}
+{"fn":"e_survives_at","c":"380-399","status":"ported","js":["js/dbridge.js:e_survives_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"e_died","c":"402-480","status":"ported","js":["js/dbridge.js:e_died"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"automiss","c":"486-490","status":"unknown"}
+{"fn":"automiss","c":"486-490","status":"ported","js":["js/dbridge.js:automiss"],"at":"2026-10-03@bbe63333a"}
 {"fn":"e_missed","c":"496-525","status":"ported","js":["js/dbridge.js:e_missed"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"e_jumps","c":"531-551","status":"ported","js":["js/dbridge.js:e_jumps"],"at":"2026-09-27@fa5382192","note":"stale: js/dbridge.js:535"}
-{"fn":"do_entity","c":"554-759","status":"unknown","d":["D-1967"],"at":"seed@a30a7de84"}
-{"fn":"nokiller","c":"763-769","status":"unknown"}
-{"fn":"close_drawbridge","c":"775-834","status":"unknown"}
-{"fn":"open_drawbridge","c":"840-882","status":"unknown","d":["D-2316"],"at":"seed@a30a7de84"}
-{"fn":"destroy_drawbridge","c":"888-1019","status":"unknown"}
+{"fn":"do_entity","c":"554-759","status":"ported","js":["js/dbridge.js:do_entity"],"d":["D-1967"],"at":"2026-10-03@bbe63333a"}
+{"fn":"nokiller","c":"763-769","status":"ported","js":["js/dbridge.js:nokiller"],"at":"2026-10-03@bbe63333a"}
+{"fn":"close_drawbridge","c":"775-834","status":"partial","js":["js/dbridge.js:close_drawbridge"],"omit":"entity crush/jump/relocation missing: set_entity+do_entity for span and portcullis squares (incl worm-tail re-set) left as deferred comment","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: terrain/sound/revive/obj/trap/engr/vision/nokiller all live; only entity pass deferred"}
+{"fn":"open_drawbridge","c":"840-882","status":"partial","js":["js/dbridge.js:open_drawbridge"],"omit":"entity crush/jump/relocation missing: set_entity+do_entity for span and portcullis squares (incl worm-tail re-set) left as deferred comment","d":["D-2316"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: terrain/sound/revive/obj/trap/engr/vision/stronghold/nokiller all live; only entity pass deferred"}
+{"fn":"destroy_drawbridge","c":"888-1019","status":"ported","js":["js/dbridge.js:destroy_drawbridge"],"at":"2026-10-03@bbe63333a"}

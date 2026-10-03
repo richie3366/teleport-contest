@@ -1,6 +1,6 @@
-{"fn":"initrack","c":"15-19","status":"unknown"}
-{"fn":"settrack","c":"24-37","status":"unknown"}
-{"fn":"gettrack","c":"42-58","status":"unknown"}
-{"fn":"hastrack","c":"63-72","status":"unknown"}
+{"fn":"initrack","c":"15-19","status":"ported","js":["js/track.js:initrack"],"at":"2026-10-03@bbe63333a"}
+{"fn":"settrack","c":"24-37","status":"ported","js":["js/track.js:settrack"],"at":"2026-10-03@bbe63333a"}
+{"fn":"gettrack","c":"42-58","status":"ported","js":["js/track.js:gettrack"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hastrack","c":"63-72","status":"ported","js":["js/track.js:hastrack"],"at":"2026-10-03@bbe63333a"}
 {"fn":"save_track","c":"76-89","status":"ported","js":["js/track.js:save_track"],"at":"2026-09-29@f789bb94f","note":"stale: js/track.js:59, write arm=peek_track snapshot, release arm=initrack, callers do.js:1714 + bones.js:459 (D-0367 design)"}
-{"fn":"rest_track","c":"93-105","status":"unknown"}
+{"fn":"rest_track","c":"93-105","status":"ported","js":["js/track.js:rest_track"],"at":"2026-10-03@bbe63333a"}

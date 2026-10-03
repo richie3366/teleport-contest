@@ -1,10 +1,10 @@
-{"fn":"newemin","c":"17-26","status":"unknown"}
-{"fn":"free_emin","c":"29-36","status":"unknown"}
+{"fn":"newemin","c":"17-26","status":"ported","js":["js/makemon.js:newemin"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: extra return harmless"}
+{"fn":"free_emin","c":"29-36","status":"ported","js":["js/dog.js:free_emin"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: free-to-null GC adaptation; measured PARTIAL is size-only"}
 {"fn":"monster_census","c":"40-55","status":"ported","js":["js/minion.js:monster_census"],"at":"2026-09-29@773e13c9a","note":"stale: js/minion.js:107"}
 {"fn":"msummon","c":"59-195","status":"ported","js":["js/minion.js:msummon"],"d":["D-3250"],"at":"2026-10-02@084395223"}
 {"fn":"summon_minion","c":"198-257","status":"ported","js":["js/minion.js:summon_minion"],"d":["D-3250"],"at":"2026-10-02@084395223"}
 {"fn":"demon_talk","c":"263-358","status":"ported","js":["js/minion.js:demon_talk"],"d":["D-3250"],"at":"2026-10-02@084395223"}
-{"fn":"bribe","c":"361-388","status":"unknown"}
+{"fn":"bribe","c":"361-388","status":"ported","js":["js/minion.js:bribe"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: offer arms, money2mon, botl match"}
 {"fn":"dprince","c":"391-402","status":"ported","js":["js/minion.js:dprince"],"d":["D-3250"],"at":"2026-10-02@084395223"}
 {"fn":"dlord","c":"405-416","status":"ported","js":["js/minion.js:dlord"],"d":["D-3250"],"at":"2026-10-02@084395223"}
 {"fn":"llord","c":"420-426","status":"ported","js":["js/minion.js:llord"],"d":["D-3250"],"at":"2026-10-02@084395223"}

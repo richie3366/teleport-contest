@@ -1,15 +1,15 @@
-{"fn":"rider_cant_reach","c":"17-20","status":"unknown"}
-{"fn":"can_saddle","c":"26-33","status":"unknown"}
+{"fn":"rider_cant_reach","c":"17-20","status":"ported","js":["js/steed.js:rider_cant_reach"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact message"}
+{"fn":"can_saddle","c":"26-33","status":"ported","js":["js/steed.js:can_saddle"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact predicate incl centaur/humanoid arm"}
 {"fn":"use_saddle","c":"36-139","status":"ported","js":["js/steed.js:use_saddle"],"d":["D-2999","D-2328"],"at":"2026-09-27@6231a7084"}
-{"fn":"put_saddle_on_mon","c":"142-163","status":"unknown"}
-{"fn":"can_ride","c":"169-174","status":"unknown"}
-{"fn":"doride","c":"178-193","status":"unknown","d":["D-2000"],"at":"seed@a30a7de84"}
+{"fn":"put_saddle_on_mon","c":"142-163","status":"ported","js":["js/steed.js:put_saddle_on_mon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full; defensive impossible/panic arms return silently"}
+{"fn":"can_ride","c":"169-174","status":"ported","js":["js/steed.js:can_ride"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact predicate"}
+{"fn":"doride","c":"178-193","status":"ported","js":["js/steed.js:doride"],"d":["D-2000"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl wizard force arm and return codes"}
 {"fn":"mount_steed","c":"197-383","status":"ported","js":["js/steed.js:mount_steed"],"d":["D-2817","D-2813"],"at":"seed@a30a7de84"}
-{"fn":"exercise_steed","c":"387-398","status":"unknown","d":["D-1949"],"at":"seed@a30a7de84"}
-{"fn":"kick_steed","c":"402-450","status":"unknown"}
-{"fn":"landing_spot","c":"460-572","status":"unknown","d":["D-1640"],"at":"seed@a30a7de84"}
+{"fn":"exercise_steed","c":"387-398","status":"ported","js":["js/steed.js:exercise_steed"],"d":["D-1949"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact 100-turn counter"}
+{"fn":"kick_steed","c":"402-450","status":"ported","js":["js/steed.js:kick_steed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full helpless/tame/gallop arms"}
+{"fn":"landing_spot","c":"460-572","status":"ported","js":["js/steed.js:landing_spot"],"d":["D-1640"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full 3-pass search incl KNOCKED ordering and enexto fallback"}
 {"fn":"dismount_steed","c":"576-822","status":"ported","js":["js/steed.js:dismount_steed"],"d":["D-1915","D-1627"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"maybewakesteed","c":"827-848","status":"unknown"}
+{"fn":"maybewakesteed","c":"827-848","status":"ported","js":["js/steed.js:maybewakesteed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full frozen-halving and wake message"}
 {"fn":"poly_steed","c":"852-873","status":"ported","js":["js/steed.js:poly_steed"],"d":["D-2243"],"at":"2026-10-01@5139f3d2e","note":"stale: js/steed.js:1086 (D-2243 shipped body + newcham wiring; re-queued on line-count)"}
-{"fn":"stucksteed","c":"878-895","status":"unknown"}
-{"fn":"place_monster","c":"898-932","status":"unknown"}
+{"fn":"stucksteed","c":"878-895","status":"ported","js":["js/steed.js:stucksteed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
+{"fn":"place_monster","c":"898-932","status":"ported","js":["js/steed.js:place_monster"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full; overlap impossible skips stale mx/my-only entries"}

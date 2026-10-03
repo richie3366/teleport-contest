@@ -10,11 +10,11 @@
 {"fn":"pick_lock","c":"358-656","status":"partial","js":["js/lock.js:pick_lock"],"omit":"(1) `maybe_absorb_item` (`steal.c:772`, no JS port — D-2002-carried); (2) `!IS_DOOR` DID_NOTHING half (`:579–586`, own Open row this commit — historically always-LEARNED, fortress-green).","d":["D-2755","D-2744","D-2286","D-2167","D-2002"],"at":"seed@a30a7de84"}
 {"fn":"u_have_forceable_weapon","c":"660-670","status":"ported","js":["js/lock.js:u_have_forceable_weapon"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
 {"fn":"doforce","c":"676-756","status":"ported","js":["js/lock.js:doforce"],"d":["D-3243"],"at":"2026-10-01@1634fa4fa"}
-{"fn":"stumble_on_door_mimic","c":"759-769","status":"unknown"}
-{"fn":"doopen","c":"773-776","status":"unknown"}
-{"fn":"doopen_indir","c":"780-923","status":"unknown"}
+{"fn":"stumble_on_door_mimic","c":"759-769","status":"ported","js":["js/lock.js:stumble_on_door_mimic"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doopen","c":"773-776","status":"ported","js":["js/lock.js:doopen"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doopen_indir","c":"780-923","status":"partial","js":["js/lock.js:doopen_indir"],"omit":"TT_PIT reach gate (You_cant reach over the pit); AUTOUNLOCK_KICK canned-kick arm (ynq+cmdq); !D_CLOSED/verysmall arms return OK not res (lose Confusion/Stunned TIME); trapped shop-door SHOP_DOOR_COST add_damage","at":"2026-10-03@bbe63333a"}
 {"fn":"obstructed","c":"926-953","status":"ported","js":["js/lock.js:obstructed"],"d":["D-2935"],"at":"seed@a30a7de84"}
-{"fn":"doclose","c":"957-1051","status":"unknown"}
-{"fn":"boxlock","c":"1056-1098","status":"unknown"}
-{"fn":"doorlock","c":"1103-1273","status":"unknown"}
+{"fn":"doclose","c":"957-1051","status":"partial","js":["js/lock.js:doclose"],"omit":"portcullis/drawbridge branch (is_db_wall/DRAWBRIDGE_UP already-closed and portcullis/DRAWBRIDGE_DOWN no-obvious-way messages; JS prints no-door-there)","at":"2026-10-03@bbe63333a"}
+{"fn":"boxlock","c":"1056-1098","status":"ported","js":["js/lock.js:boxlock"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doorlock","c":"1103-1273","status":"ported","js":["js/lock.js:doorlock"],"at":"2026-10-03@bbe63333a"}
 {"fn":"chest_shatter_msg","c":"1276-1318","status":"ported","js":["js/lock.js:chest_shatter_msg"],"d":["D-3243","D-2676"],"at":"2026-10-01@1634fa4fa"}

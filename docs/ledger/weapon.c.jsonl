@@ -1,40 +1,40 @@
-{"fn":"give_may_advance_msg","c":"76-84","status":"unknown","d":["D-1963"],"at":"seed@a30a7de84"}
-{"fn":"weapon_descr","c":"90-142","status":"unknown"}
-{"fn":"hitval","c":"149-187","status":"unknown","d":["D-1929"],"at":"seed@a30a7de84"}
-{"fn":"dmgval","c":"216-356","status":"unknown","d":["D-1793","D-1354"],"at":"seed@a30a7de84"}
-{"fn":"special_dmgval","c":"361-431","status":"unknown","d":["D-1254"],"at":"seed@a30a7de84"}
-{"fn":"silver_sears","c":"436-466","status":"unknown"}
-{"fn":"oselect","c":"476-496","status":"unknown"}
-{"fn":"autoreturn_weapon","c":"520-529","status":"unknown","d":["D-2391"],"at":"seed@a30a7de84"}
+{"fn":"give_may_advance_msg","c":"76-84","status":"ported","js":["js/weapon.js:give_may_advance_msg"],"d":["D-1963"],"at":"2026-10-03@bbe63333a"}
+{"fn":"weapon_descr","c":"90-142","status":"ported","js":["js/invent.js:weapon_descr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hitval","c":"149-187","status":"ported","js":["js/weapon.js:hitval"],"d":["D-1929"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dmgval","c":"216-356","status":"ported","js":["js/weapon.js:dmgval"],"d":["D-1793","D-1354"],"at":"2026-10-03@bbe63333a"}
+{"fn":"special_dmgval","c":"361-431","status":"ported","js":["js/weapon.js:special_dmgval"],"d":["D-1254"],"at":"2026-10-03@bbe63333a"}
+{"fn":"silver_sears","c":"436-466","status":"ported","js":["js/weapon.js:silver_sears"],"at":"2026-10-03@bbe63333a"}
+{"fn":"oselect","c":"476-496","status":"partial","js":["js/weapon.js:oselect"],"omit":"can_touch_safely(mtmp,otmp) refusal gate (mon.c:1957-1974); js/monmove.js:230 stub stays always-safe so the call site is unwired","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: otyp + corpse/egg arms live"}
+{"fn":"autoreturn_weapon","c":"520-529","status":"ported","js":["js/weapon.js:autoreturn_weapon"],"d":["D-2391"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: single live arwep row (AKLYS); PARTIAL measured is size noise"}
 {"fn":"select_rwep","c":"533-676","status":"partial","js":["js/weapon.js:select_rwep"],"omit":"`can_touch_safely` inside `oselect` (`mon.c:1957–1974`; `js/monmove.js:230` stub stays always-safe — select_hwep precedent, map-named).","d":["D-2563"],"at":"seed@a30a7de84"}
-{"fn":"monmightthrowwep","c":"680-688","status":"unknown"}
-{"fn":"select_hwep","c":"705-741","status":"unknown","d":["D-1930"],"at":"seed@a30a7de84"}
+{"fn":"monmightthrowwep","c":"680-688","status":"ported","js":["js/weapon.js:monmightthrowwep"],"at":"2026-10-03@bbe63333a"}
+{"fn":"select_hwep","c":"705-741","status":"partial","js":["js/weapon.js:select_hwep"],"omit":"inherited oselect gap: can_touch_safely gate unwired (mon.c:1957-74; monmove.js:230 stub always-safe); same cause as declared select_rwep partial","d":["D-1930"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: own body (artifact/giant/balrog/hwep walk) complete"}
 {"fn":"possibly_unwield","c":"747-795","status":"ported","js":["js/weapon.js:possibly_unwield"],"d":["D-2745"],"at":"2026-10-01@b0eed7df4","note":"stale: js/weapon.js:143 whole C body + drop helper :166, all 6 C call sites wired (apply:3493, mhitm:6272+1533, makemon/newcham:1978, uhitm:2689, were:167); declared omit names get_obj_location which is not a callee"}
 {"fn":"mon_wield_item","c":"801-934","status":"ported","js":["js/weapon.js:mon_wield_item"],"d":["D-2460"],"at":"seed@a30a7de84"}
-{"fn":"mwepgone","c":"938-946","status":"unknown"}
+{"fn":"mwepgone","c":"938-946","status":"ported","js":["js/weapon.js:mwepgone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"abon","c":"950-989","status":"ported","js":["js/weapon.js:abon"],"d":["D-3090"],"at":"2026-09-29@d1541778d"}
 {"fn":"dbon","c":"993-1016","status":"ported","js":["js/weapon.js:dbon"],"at":"2026-09-29@29685b8e4","note":"stale: js/weapon.js:1327"}
-{"fn":"finish_towel_change","c":"1020-1034","status":"unknown"}
-{"fn":"wet_a_towel","c":"1038-1063","status":"unknown"}
-{"fn":"dry_a_towel","c":"1067-1088","status":"unknown"}
+{"fn":"finish_towel_change","c":"1020-1034","status":"ported","js":["js/weapon.js:finish_towel_change"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: update_inventory redraw deferred only"}
+{"fn":"wet_a_towel","c":"1038-1063","status":"ported","js":["js/weapon.js:wet_a_towel"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dry_a_towel","c":"1067-1088","status":"ported","js":["js/weapon.js:dry_a_towel"],"at":"2026-10-03@bbe63333a"}
 {"fn":"skill_level_name","c":"1092-1122","status":"ported","js":["js/weapon.js:skill_level_name"],"at":"2026-09-29@29685b8e4","note":"stale: js/weapon.js:1260 (+dup js/invent.js:5164)"}
-{"fn":"skill_name","c":"1125-1128","status":"unknown"}
-{"fn":"slots_required","c":"1132-1152","status":"unknown"}
-{"fn":"can_advance","c":"1156-1169","status":"unknown"}
-{"fn":"could_advance","c":"1173-1182","status":"unknown"}
-{"fn":"peaked_skill","c":"1187-1195","status":"unknown"}
-{"fn":"skill_advance","c":"1198-1213","status":"unknown"}
-{"fn":"add_skills_to_menu","c":"1229-1302","status":"unknown","d":["D-2704"],"at":"seed@a30a7de84"}
+{"fn":"skill_name","c":"1125-1128","status":"ported","js":["js/invent.js:skill_name"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: P_NAME expansion"}
+{"fn":"slots_required","c":"1132-1152","status":"ported","js":["js/weapon.js:slots_required"],"at":"2026-10-03@bbe63333a"}
+{"fn":"can_advance","c":"1156-1169","status":"ported","js":["js/weapon.js:can_advance"],"at":"2026-10-03@bbe63333a"}
+{"fn":"could_advance","c":"1173-1182","status":"ported","js":["js/weapon.js:could_advance"],"at":"2026-10-03@bbe63333a"}
+{"fn":"peaked_skill","c":"1187-1195","status":"ported","js":["js/weapon.js:peaked_skill"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: PARTIAL measured is size noise; exact"}
+{"fn":"skill_advance","c":"1198-1213","status":"ported","js":["js/weapon.js:skill_advance"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_skills_to_menu","c":"1229-1302","status":"ported","js":["js/weapon.js:add_skills_to_menu"],"d":["D-2704"],"at":"2026-10-03@bbe63333a"}
 {"fn":"show_skills","c":"1306-1318","status":"ported","js":["js/weapon.js:show_skills"],"d":["D-3090"],"at":"2026-09-29@d1541778d","note":"stale: js/weapon.js:1665"}
 {"fn":"enhance_weapon_skill","c":"1329-1407","status":"ported","js":["js/weapon.js:enhance_weapon_skill"],"at":"2026-10-02@135e9a8dd","note":"stale: js/weapon.js:1148 body whole; s225 residual is menu-prompt centering (painter)"}
-{"fn":"unrestrict_weapon_skill","c":"1414-1421","status":"unknown"}
-{"fn":"use_skill","c":"1424-1434","status":"unknown","d":["D-2385"],"at":"seed@a30a7de84"}
-{"fn":"add_weapon_skill","c":"1437-1450","status":"unknown"}
+{"fn":"unrestrict_weapon_skill","c":"1414-1421","status":"ported","js":["js/weapon.js:unrestrict_weapon_skill"],"at":"2026-10-03@bbe63333a"}
+{"fn":"use_skill","c":"1424-1434","status":"ported","js":["js/weapon.js:use_skill"],"d":["D-2385"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_weapon_skill","c":"1437-1450","status":"ported","js":["js/weapon.js:add_weapon_skill"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lose_weapon_skill","c":"1453-1473","status":"ported","js":["js/weapon.js:lose_weapon_skill"],"d":["D-3090"],"at":"2026-09-29@d1541778d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"drain_weapon_skill","c":"1476-1514","status":"ported","js":["js/weapon.js:drain_weapon_skill"],"d":["D-3102"],"at":"2026-09-29@920907eb7"}
-{"fn":"weapon_type","c":"1517-1529","status":"unknown"}
-{"fn":"uwep_skill_type","c":"1532-1537","status":"unknown"}
-{"fn":"weapon_hit_bonus","c":"1545-1636","status":"unknown"}
-{"fn":"weapon_dam_bonus","c":"1644-1729","status":"unknown"}
-{"fn":"skill_init","c":"1738-1811","status":"unknown"}
-{"fn":"setmnotwielded","c":"1814-1828","status":"unknown"}
+{"fn":"weapon_type","c":"1517-1529","status":"ported","js":["js/invent.js:weapon_type"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: duplicate full impl also at js/weapon.js:1333"}
+{"fn":"uwep_skill_type","c":"1532-1537","status":"ported","js":["js/weapon.js:uwep_skill_type"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: PARTIAL measured is size noise; exact"}
+{"fn":"weapon_hit_bonus","c":"1545-1636","status":"ported","js":["js/weapon.js:weapon_hit_bonus"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() diagnostics folded into defaults only"}
+{"fn":"weapon_dam_bonus","c":"1644-1729","status":"ported","js":["js/weapon.js:weapon_dam_bonus"],"at":"2026-10-03@bbe63333a"}
+{"fn":"skill_init","c":"1738-1811","status":"ported","js":["js/weapon.js:skill_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() diagnostic in curr>max arm omitted only"}
+{"fn":"setmnotwielded","c":"1814-1828","status":"ported","js":["js/weapon.js:setmnotwielded"],"at":"2026-10-03@bbe63333a"}

@@ -7,7 +7,7 @@
 {"fn":"dofindgem","c":"165-176","status":"ported","js":["js/fountain.js:dofindgem"],"d":["D-3318"],"at":"2026-10-02@1f248868c"}
 {"fn":"watchman_warn_fountain","c":"179-198","status":"ported","js":["js/fountain.js:watchman_warn_fountain"],"d":["D-3318","D-1105"],"at":"2026-10-02@1f248868c"}
 {"fn":"dryup","c":"201-239","status":"ported","js":["js/fountain.js:dryup"],"d":["D-3319","D-1106","D-1104","D-1096"],"at":"2026-10-02@e33fbee37"}
-{"fn":"drinkfountain","c":"243-390","status":"unknown","d":["D-1359","D-1126","D-1116"],"at":"seed@a30a7de84"}
+{"fn":"drinkfountain","c":"243-390","status":"partial","js":["js/fountain.js:drinkfountain"],"omit":"case-29 scare inlines monflee(mtmp,0,FALSE,FALSE) but omits release_hero(ustuck) and the vrock spore cloud (create_gas_cloud)","d":["D-1359","D-1126","D-1116"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JS monflee exists but is not called here; poison killer-arg loss is the callee's row"}
 {"fn":"dipfountain","c":"394-554","status":"ported","js":["js/fountain.js:dipfountain"],"d":["D-3319","D-2287","D-1134","D-1115","D-1114","D-1107"],"at":"2026-10-02@e33fbee37"}
 {"fn":"wash_hands","c":"558-577","status":"ported","js":["js/fountain.js:wash_hands"],"d":["D-3319","D-1108"],"at":"2026-10-02@e33fbee37"}
 {"fn":"breaksink","c":"581-591","status":"ported","js":["js/fountain.js:breaksink"],"d":["D-3319"],"at":"2026-10-02@e33fbee37"}

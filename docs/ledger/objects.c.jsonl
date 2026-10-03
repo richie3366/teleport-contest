@@ -1,1 +1,1 @@
-{"fn":"objects_globals_init","c":"32-36","status":"unknown"}
+{"fn":"objects_globals_init","c":"32-36","status":"ported","js":["js/objects.js:objects_globals_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fresh generated table rebuild; caller wired"}

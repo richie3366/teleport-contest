@@ -1,31 +1,31 @@
-{"fn":"hitmsg","c":"29-81","status":"unknown","d":["D-1894","D-1261"],"at":"seed@a30a7de84"}
-{"fn":"missmu","c":"85-100","status":"unknown","d":["D-1286"],"at":"seed@a30a7de84"}
+{"fn":"hitmsg","c":"29-81","status":"ported","js":["js/mhitu.js:hitmsg"],"d":["D-1894","D-1261"],"at":"2026-10-03@bbe63333a"}
+{"fn":"missmu","c":"85-100","status":"ported","js":["js/mhitu.js:missmu"],"d":["D-1286"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mswings_verb","c":"105-126","status":"ported","js":["js/mhitu.js:mswings_verb"],"d":["D-3242"],"at":"2026-10-01@f572fe77c"}
-{"fn":"mswings","c":"130-141","status":"unknown","d":["D-1305"],"at":"seed@a30a7de84"}
-{"fn":"mpoisons_subj","c":"145-159","status":"unknown"}
-{"fn":"u_slow_down","c":"163-171","status":"unknown"}
-{"fn":"wildmiss","c":"176-261","status":"unknown","d":["D-2067","D-1291"],"at":"seed@a30a7de84"}
-{"fn":"expels","c":"264-306","status":"unknown"}
+{"fn":"mswings","c":"130-141","status":"ported","js":["js/mhitu.js:mswings"],"d":["D-1305"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mpoisons_subj","c":"145-159","status":"split","js":["js/mhitu.js:mpoisons_subj","js/mhitm.js:mpoisons_subj_mm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: youmonst->uwep arm lives in the mhitm.js clone serving hero-attacker sites; mhitu.js copy serves monster-attacker sites"}
+{"fn":"u_slow_down","c":"163-171","status":"ported","js":["js/mhitu.js:u_slow_down"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wildmiss","c":"176-261","status":"ported","js":["js/mhitu.js:wildmiss"],"d":["D-2067","D-1291"],"at":"2026-10-03@bbe63333a"}
+{"fn":"expels","c":"264-306","status":"ported","js":["js/mhitu.js:expels"],"at":"2026-10-03@bbe63333a"}
 {"fn":"getmattk","c":"310-444","status":"partial","js":["js/mhitm.js:get_mattk"],"omit":"SEDUCE=0 SSEX substitution (c_sa_no[] / lone SSEX→DRLI; c_sa_no not in js/)","at":"2026-09-27@d2d72caa6","note":"refresh: lives as get_mattk (mhitm.js:448), all other arms verified; SEDUCE arm named (was wrongly seeded ported)"}
-{"fn":"calc_mattacku_vars","c":"448-463","status":"unknown"}
-{"fn":"mtrapped_in_pit","c":"467-479","status":"unknown"}
-{"fn":"mattacku","c":"491-952","status":"unknown","d":["D-2130","D-1795"],"at":"seed@a30a7de84"}
-{"fn":"summonmu","c":"956-1030","status":"unknown","d":["D-1844"],"at":"seed@a30a7de84"}
-{"fn":"diseasemu","c":"1033-1043","status":"unknown","d":["D-2151"],"at":"seed@a30a7de84"}
-{"fn":"u_slip_free","c":"1047-1085","status":"unknown","d":["D-1331"],"at":"seed@a30a7de84"}
+{"fn":"calc_mattacku_vars","c":"448-463","status":"ported","js":["js/mhitu.js:calc_mattacku_vars"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mtrapped_in_pit","c":"467-479","status":"ported","js":["js/mon.js:mtrapped_in_pit"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mattacku","c":"491-952","status":"ported","js":["js/mhitu.js:mattacku"],"d":["D-2130","D-1795"],"at":"2026-10-03@bbe63333a"}
+{"fn":"summonmu","c":"956-1030","status":"ported","js":["js/mhitu.js:summonmu"],"d":["D-1844"],"at":"2026-10-03@bbe63333a"}
+{"fn":"diseasemu","c":"1033-1043","status":"ported","js":["js/mhitu.js:diseasemu"],"d":["D-2151"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_slip_free","c":"1047-1085","status":"ported","js":["js/mhitu.js:u_slip_free"],"d":["D-1331"],"at":"2026-10-03@bbe63333a"}
 {"fn":"magic_negation","c":"1089-1137","status":"ported","js":["js/mhitm.js:magic_negation"],"d":["D-2658"],"at":"seed@a30a7de84"}
 {"fn":"hitmu","c":"1144-1267","status":"ported","js":["js/mhitu.js:hitmu"],"d":["D-2247","D-1921"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
-{"fn":"gulp_blnd_check","c":"1273-1285","status":"unknown"}
+{"fn":"gulp_blnd_check","c":"1273-1285","status":"ported","js":["js/mhitu.js:gulp_blnd_check"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gulpmu","c":"1289-1587","status":"ported","js":["js/mhitu.js:gulpmu"],"d":["D-2462","D-2387","D-2161"],"at":"seed@a30a7de84"}
-{"fn":"explmu","c":"1591-1664","status":"unknown","d":["D-1326"],"at":"seed@a30a7de84"}
-{"fn":"gazemu","c":"1668-1898","status":"unknown","d":["D-2132","D-1328"],"at":"seed@a30a7de84"}
-{"fn":"mdamageu","c":"1902-1927","status":"unknown"}
-{"fn":"could_seduce","c":"1934-1981","status":"unknown"}
-{"fn":"doseduce","c":"1985-2305","status":"unknown","d":["D-1758","D-1750"],"at":"seed@a30a7de84"}
+{"fn":"explmu","c":"1591-1664","status":"ported","js":["js/mhitu.js:explmu"],"d":["D-1326"],"at":"2026-10-03@bbe63333a"}
+{"fn":"gazemu","c":"1668-1898","status":"ported","js":["js/mhitu.js:gazemu"],"d":["D-2132","D-1328"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mdamageu","c":"1902-1927","status":"ported","js":["js/mhitu.js:mdamageu"],"at":"2026-10-03@bbe63333a"}
+{"fn":"could_seduce","c":"1934-1981","status":"ported","js":["js/mhitm.js:could_seduce"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doseduce","c":"1985-2305","status":"ported","js":["js/mhitu.js:doseduce"],"d":["D-1758","D-1750"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mayberem","c":"2309-2352","status":"ported","js":["js/mhitu.js:mayberem"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"assess_dmg","c":"2355-2365","status":"unknown"}
+{"fn":"assess_dmg","c":"2355-2365","status":"ported","js":["js/mhitu.js:assess_dmg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ranged_attk_assessed","c":"2374-2387","status":"by-design","at":"2026-10-01@f572fe77c","note":"#if 0 in C mhitu.c:2367-2388; live equivalent ranged_attk_available (js/monmove.js)"}
 {"fn":"mon_avoiding_this_attack","c":"2393-2405","status":"ported","js":["js/mhitu.js:mon_avoiding_this_attack"],"d":["D-3242"],"at":"2026-10-01@f572fe77c","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"ranged_attk_available","c":"2413-2425","status":"unknown"}
-{"fn":"passiveum","c":"2435-2613","status":"unknown"}
-{"fn":"cloneu","c":"2616-2638","status":"unknown"}
+{"fn":"ranged_attk_available","c":"2413-2425","status":"ported","js":["js/monmove.js:ranged_attk_available"],"at":"2026-10-03@bbe63333a"}
+{"fn":"passiveum","c":"2435-2613","status":"partial","js":["js/mhitu.js:passiveum"],"omit":"AD_ACID erode_armor/acid_damage; AD_STON attk_protection+poly_when_stoned (JS stones any non-resistant attacker); AD_ENCH drain_item; AT_BOOM rehumanize","at":"2026-10-03@bbe63333a"}
+{"fn":"cloneu","c":"2616-2638","status":"ported","js":["js/sit.js:cloneu"],"at":"2026-10-03@bbe63333a"}

@@ -1,76 +1,76 @@
-{"fn":"hack_artifacts","c":"87-107","status":"unknown"}
-{"fn":"init_artifacts","c":"111-116","status":"unknown","d":["D-1201"],"at":"seed@a30a7de84"}
+{"fn":"hack_artifacts","c":"87-107","status":"ported","js":["js/artifact.js:hack_artifacts"],"at":"2026-10-03@bbe63333a"}
+{"fn":"init_artifacts","c":"111-116","status":"ported","js":["js/artifact.js:init_artifacts"],"d":["D-1201"],"at":"2026-10-03@bbe63333a"}
 {"fn":"save_artifacts","c":"119-128","status":"split","js":["js/save.js:dosave0"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"restore_artifacts","c":"133-146","status":"ported","js":["js/artifact.js:restore_artifacts"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e"}
-{"fn":"artiname","c":"151-156","status":"unknown"}
-{"fn":"mk_artifact","c":"172-309","status":"unknown","d":["D-2337"],"at":"seed@a30a7de84"}
-{"fn":"dispose_of_orig_obj","c":"312-319","status":"unknown"}
-{"fn":"artifact_name","c":"329-353","status":"unknown"}
-{"fn":"exist_artifact","c":"356-366","status":"unknown"}
-{"fn":"artifact_exists","c":"371-405","status":"unknown"}
-{"fn":"found_artifact","c":"409-417","status":"unknown"}
-{"fn":"find_artifact","c":"422-459","status":"unknown"}
-{"fn":"nartifact_exist","c":"462-471","status":"unknown"}
+{"fn":"artiname","c":"151-156","status":"ported","js":["js/artifact.js:artiname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mk_artifact","c":"172-309","status":"ported","js":["js/artifact.js:mk_artifact"],"d":["D-2337"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dispose_of_orig_obj","c":"312-319","status":"ported","js":["js/artifact.js:dispose_of_orig_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"artifact_name","c":"329-353","status":"ported","js":["js/artifact.js:artifact_name"],"at":"2026-10-03@bbe63333a"}
+{"fn":"exist_artifact","c":"356-366","status":"ported","js":["js/artifact.js:exist_artifact"],"at":"2026-10-03@bbe63333a"}
+{"fn":"artifact_exists","c":"371-405","status":"ported","js":["js/artifact.js:artifact_exists"],"at":"2026-10-03@bbe63333a"}
+{"fn":"found_artifact","c":"409-417","status":"ported","js":["js/artifact.js:found_artifact"],"at":"2026-10-03@bbe63333a"}
+{"fn":"find_artifact","c":"422-459","status":"ported","js":["js/artifact.js:find_artifact"],"at":"2026-10-03@bbe63333a"}
+{"fn":"nartifact_exist","c":"462-471","status":"ported","js":["js/artifact.js:nartifact_exist"],"at":"2026-10-03@bbe63333a"}
 {"fn":"artifact_origin","c":"478-513","status":"ported","js":["js/artifact.js:artifact_origin"],"d":["D-3053"],"at":"2026-09-28@bfd58ba4c"}
-{"fn":"spec_ability","c":"516-522","status":"unknown","d":["D-1936"],"at":"seed@a30a7de84"}
-{"fn":"confers_luck","c":"526-533","status":"unknown"}
-{"fn":"arti_reflects","c":"537-550","status":"unknown","d":["D-1342"],"at":"seed@a30a7de84"}
-{"fn":"shade_glare","c":"555-571","status":"unknown"}
-{"fn":"restrict_name","c":"575-623","status":"unknown"}
-{"fn":"attacks","c":"626-633","status":"unknown"}
-{"fn":"defends","c":"636-683","status":"unknown"}
-{"fn":"defends_when_carried","c":"687-694","status":"unknown"}
-{"fn":"protects","c":"698-709","status":"unknown"}
+{"fn":"spec_ability","c":"516-522","status":"ported","js":["js/artifact.js:spec_ability"],"d":["D-1936"],"at":"2026-10-03@bbe63333a"}
+{"fn":"confers_luck","c":"526-533","status":"ported","js":["js/artifact.js:confers_luck"],"at":"2026-10-03@bbe63333a"}
+{"fn":"arti_reflects","c":"537-550","status":"ported","js":["js/artifact.js:arti_reflects"],"d":["D-1342"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shade_glare","c":"555-571","status":"ported","js":["js/artifact.js:shade_glare"],"at":"2026-10-03@bbe63333a"}
+{"fn":"restrict_name","c":"575-623","status":"ported","js":["js/artifact.js:restrict_name"],"at":"2026-10-03@bbe63333a"}
+{"fn":"attacks","c":"626-633","status":"ported","js":["js/artifact.js:attacks"],"at":"2026-10-03@bbe63333a"}
+{"fn":"defends","c":"636-683","status":"ported","js":["js/artifact.js:defends"],"at":"2026-10-03@bbe63333a"}
+{"fn":"defends_when_carried","c":"687-694","status":"ported","js":["js/artifact.js:defends_when_carried"],"at":"2026-10-03@bbe63333a"}
+{"fn":"protects","c":"698-709","status":"ported","js":["js/artifact.js:protects"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_artifact_intrinsic","c":"716-893","status":"split","js":["js/artifact.js:set_artifact_intrinsic","js/artifact.js:revoke_invoked_property","js/potion.js:make_hallucinated"],"omit":"- `set_artifact_intrinsic`: HALRES talk pline (`potion.c:434–436` \"Everything %s SO boring/cosmic\", Unaware/restoring-gated) — async-only, unportable into the sync body at any of the 6 C call sites.","d":["D-3223","D-2378"],"at":"2026-10-01@8f3d63508","note":"stale: sync body complete js/artifact.js:1030 (D-3223 HALRES half); C:880-885 inv_prop via split revoke_invoked_property :1194 (dropx/zap-poly envelopes); HALRES talk live in potion.js make_hallucinated async-only (6 C call sites sync)"}
 {"fn":"touch_artifact","c":"908-974","status":"ported","js":["js/artifact.js:touch_artifact"],"d":["D-2172","D-2134","D-2010"],"at":"2026-10-02@e42cd0047","note":"stale: js/artifact.js:1569 whole C body (hero blast + evade + mon helper)"}
 {"fn":"arti_immune","c":"979-990","status":"ported","js":["js/artifact.js:arti_immune"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bane_applies","c":"993-1005","status":"ported","js":["js/artifact.js:bane_applies"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:1479 (D-3126; DBONUS mask + spec_applies complete, split-path callers wired)"}
-{"fn":"spec_applies","c":"1009-1060","status":"unknown"}
-{"fn":"spec_m2","c":"1065-1072","status":"unknown"}
-{"fn":"spec_abon","c":"1076-1087","status":"unknown"}
-{"fn":"spec_dbon","c":"1091-1109","status":"unknown","d":["D-2292"],"at":"seed@a30a7de84"}
-{"fn":"discover_artifact","c":"1113-1127","status":"unknown"}
-{"fn":"undiscovered_artifact","c":"1131-1143","status":"unknown"}
-{"fn":"disp_artifact_discoveries","c":"1147-1173","status":"unknown"}
-{"fn":"dump_artifact_info","c":"1177-1209","status":"unknown"}
+{"fn":"spec_applies","c":"1009-1060","status":"ported","js":["js/artifact.js:spec_applies"],"at":"2026-10-03@bbe63333a"}
+{"fn":"spec_m2","c":"1065-1072","status":"ported","js":["js/artifact.js:spec_m2"],"at":"2026-10-03@bbe63333a"}
+{"fn":"spec_abon","c":"1076-1087","status":"ported","js":["js/artifact.js:spec_abon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"spec_dbon","c":"1091-1109","status":"ported","js":["js/artifact.js:spec_dbon"],"d":["D-2292"],"at":"2026-10-03@bbe63333a"}
+{"fn":"discover_artifact","c":"1113-1127","status":"ported","js":["js/artifact.js:discover_artifact"],"at":"2026-10-03@bbe63333a"}
+{"fn":"undiscovered_artifact","c":"1131-1143","status":"ported","js":["js/artifact.js:undiscovered_artifact"],"at":"2026-10-03@bbe63333a"}
+{"fn":"disp_artifact_discoveries","c":"1147-1173","status":"ported","js":["js/artifact.js:disp_artifact_discoveries"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dump_artifact_info","c":"1177-1209","status":"ported","js":["js/artifact.js:dump_artifact_info"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Mb_hit","c":"1249-1434","status":"partial","js":["js/artifact.js:Mb_hit"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771","D-2146"],"at":"seed@a30a7de84"}
-{"fn":"artifact_hit","c":"1447-1721","status":"unknown","d":["D-2144","D-1873"],"at":"seed@a30a7de84"}
-{"fn":"invoke_ok","c":"1727-1745","status":"unknown"}
+{"fn":"artifact_hit","c":"1447-1721","status":"ported","js":["js/artifact.js:artifact_hit"],"d":["D-2144","D-1873"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_ok","c":"1727-1745","status":"ported","js":["js/artifact.js:invoke_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doinvoke","c":"1749-1759","status":"ported","js":["js/artifact.js:doinvoke"],"d":["D-3223","D-1502","D-1488"],"at":"2026-10-01@5139f3d2e"}
-{"fn":"nothing_special","c":"1762-1766","status":"unknown"}
+{"fn":"nothing_special","c":"1762-1766","status":"ported","js":["js/artifact.js:nothing_special"],"at":"2026-10-03@bbe63333a"}
 {"fn":"invoke_taming","c":"1769-1777","status":"ported","js":["js/artifact.js:invoke_taming"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e"}
-{"fn":"invoke_healing","c":"1780-1815","status":"unknown","d":["D-1494"],"at":"seed@a30a7de84"}
-{"fn":"invoke_energy_boost","c":"1818-1835","status":"unknown"}
-{"fn":"invoke_untrap","c":"1838-1845","status":"unknown","d":["D-1495"],"at":"seed@a30a7de84"}
-{"fn":"invoke_charge_obj","c":"1848-1864","status":"unknown"}
+{"fn":"invoke_healing","c":"1780-1815","status":"ported","js":["js/artifact.js:invoke_healing"],"d":["D-1494"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_energy_boost","c":"1818-1835","status":"ported","js":["js/artifact.js:invoke_energy_boost"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_untrap","c":"1838-1845","status":"ported","js":["js/artifact.js:invoke_untrap"],"d":["D-1495"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_charge_obj","c":"1848-1864","status":"ported","js":["js/artifact.js:invoke_charge_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"invoke_create_portal","c":"1867-1931","status":"ported","js":["js/artifact.js:invoke_create_portal"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2","note":"stale: whole C body live as file-local js/artifact.js:2024 (D-2664, review 1623 ACCEPT); all arms + sole C caller wired (:2248)"}
-{"fn":"invoke_create_ammo","c":"1934-1960","status":"unknown"}
-{"fn":"invoke_banish","c":"1963-2019","status":"unknown"}
-{"fn":"invoke_fling_poison","c":"2022-2037","status":"unknown"}
-{"fn":"invoke_storm_spell","c":"2040-2051","status":"unknown"}
-{"fn":"invoke_blinding_ray","c":"2054-2086","status":"unknown","d":["D-1377"],"at":"seed@a30a7de84"}
-{"fn":"arti_invoke_cost_pw","c":"2091-2102","status":"unknown"}
-{"fn":"arti_invoke_cost","c":"2106-2128","status":"unknown"}
+{"fn":"invoke_create_ammo","c":"1934-1960","status":"ported","js":["js/artifact.js:invoke_create_ammo"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_banish","c":"1963-2019","status":"ported","js":["js/artifact.js:invoke_banish"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_fling_poison","c":"2022-2037","status":"ported","js":["js/artifact.js:invoke_fling_poison"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_storm_spell","c":"2040-2051","status":"ported","js":["js/artifact.js:invoke_storm_spell"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invoke_blinding_ray","c":"2054-2086","status":"ported","js":["js/artifact.js:invoke_blinding_ray"],"d":["D-1377"],"at":"2026-10-03@bbe63333a"}
+{"fn":"arti_invoke_cost_pw","c":"2091-2102","status":"ported","js":["js/artifact.js:arti_invoke_cost_pw"],"at":"2026-10-03@bbe63333a"}
+{"fn":"arti_invoke_cost","c":"2106-2128","status":"ported","js":["js/artifact.js:arti_invoke_cost"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_invoke","c":"2131-2232","status":"partial","js":["js/artifact.js:arti_invoke"],"omit":"`retouch_equipment` callers stay at the old comments: `attrib.c:1360` (`js/attrib.js:825`), `eat.c:1325` (`js/eat.js:2019`), `polyself.c:463` (`js/polyself.js:1070`), `polyself.c:1021` (`js/polyself.js:1739`), `polyself.c:1415` (`js/polyself.js:1126`), `uhitm.c:4285` (`js/mhitu.js:2853`).","d":["D-2805","D-2371"],"at":"seed@a30a7de84"}
 {"fn":"finesse_ahriman","c":"2236-2260","status":"ported","js":["js/artifact.js:finesse_ahriman"],"d":["D-3041"],"at":"2026-09-28@79ab7d2dc","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"artifact_light","c":"2264-2275","status":"unknown"}
+{"fn":"artifact_light","c":"2264-2275","status":"ported","js":["js/timeout.js:artifact_light"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_speak","c":"2279-2296","status":"ported","js":["js/artifact.js:arti_speak"],"d":["D-3018"],"at":"2026-09-28@0cb4128d8","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"artifact_has_invprop","c":"2299-2305","status":"unknown"}
+{"fn":"artifact_has_invprop","c":"2299-2305","status":"ported","js":["js/artifact.js:artifact_has_invprop"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_cost","c":"2309-2317","status":"ported","js":["js/artifact.js:arti_cost"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"abil_to_adtyp","c":"2320-2341","status":"ported","js":["js/artifact.js:abil_to_adtyp"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"abil_to_spfx","c":"2344-2370","status":"ported","js":["js/artifact.js:abil_to_spfx"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:3256 (D-3126; all 12 rows complete, caller wired)"}
 {"fn":"what_gives","c":"2376-2424","status":"ported","js":["js/artifact.js:what_gives"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a"}
-{"fn":"glow_color","c":"2427-2433","status":"unknown"}
-{"fn":"glow_strength","c":"2442-2448","status":"unknown"}
-{"fn":"glow_verb","c":"2451-2462","status":"unknown"}
+{"fn":"glow_color","c":"2427-2433","status":"partial","js":["js/artifact.js:glow_color"],"omit":"missing hcolor() wrap (do_name.c:1461): C randomizes the color name when Hallucination; JS always returns the true clr2colorname","at":"2026-10-03@bbe63333a"}
+{"fn":"glow_strength","c":"2442-2448","status":"ported","js":["js/artifact.js:glow_strength"],"at":"2026-10-03@bbe63333a"}
+{"fn":"glow_verb","c":"2451-2462","status":"ported","js":["js/artifact.js:glow_verb"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Sting_effects","c":"2466-2502","status":"ported","js":["js/artifact.js:Sting_effects"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"retouch_object","c":"2508-2591","status":"ported","js":["js/artifact.js:retouch_object"],"d":["D-2473"],"at":"seed@a30a7de84"}
-{"fn":"untouchable","c":"2598-2636","status":"unknown"}
+{"fn":"untouchable","c":"2598-2636","status":"ported","js":["js/artifact.js:untouchable"],"at":"2026-10-03@bbe63333a"}
 {"fn":"retouch_equipment","c":"2640-2705","status":"ported","js":["js/artifact.js:retouch_equipment"],"d":["D-2816"],"at":"seed@a30a7de84"}
 {"fn":"count_surround_traps","c":"2708-2749","status":"ported","js":["js/artifact.js:count_surround_traps"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"mkot_trap_warn","c":"2753-2770","status":"unknown"}
-{"fn":"is_magic_key","c":"2775-2786","status":"unknown"}
-{"fn":"has_magic_key","c":"2790-2803","status":"unknown"}
+{"fn":"mkot_trap_warn","c":"2753-2770","status":"ported","js":["js/artifact.js:mkot_trap_warn"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_magic_key","c":"2775-2786","status":"ported","js":["js/artifact.js:is_magic_key"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: null mon treated as hero; C assumes non-rogue — unreachable, all C/JS callers pass non-null"}
+{"fn":"has_magic_key","c":"2790-2803","status":"ported","js":["js/artifact.js:has_magic_key"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_art","c":"2808-2813","status":"ported","js":["js/artifact.js:is_art"],"at":"2026-10-02@c944311a4","note":"stale: js/artifact.js:2608"}
-{"fn":"get_artifact","c":"2821-2833","status":"unknown"}
-{"fn":"permapoisoned","c":"2837-2840","status":"unknown"}
+{"fn":"get_artifact","c":"2821-2833","status":"ported","js":["js/artifact.js:get_artifact"],"at":"2026-10-03@bbe63333a"}
+{"fn":"permapoisoned","c":"2837-2840","status":"ported","js":["js/artifact.js:permapoisoned"],"at":"2026-10-03@bbe63333a"}

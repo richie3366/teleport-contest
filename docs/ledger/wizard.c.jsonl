@@ -1,21 +1,21 @@
-{"fn":"amulet","c":"61-103","status":"unknown"}
-{"fn":"mon_has_amulet","c":"106-114","status":"unknown"}
-{"fn":"mon_has_special","c":"117-129","status":"unknown"}
-{"fn":"which_arti","c":"142-157","status":"unknown"}
-{"fn":"mon_has_arti","c":"165-177","status":"unknown"}
-{"fn":"other_mon_has_arti","c":"184-195","status":"unknown"}
-{"fn":"on_ground","c":"202-213","status":"unknown"}
-{"fn":"you_have","c":"216-233","status":"unknown"}
-{"fn":"target_on","c":"236-267","status":"unknown"}
-{"fn":"strategy","c":"270-327","status":"unknown"}
-{"fn":"choose_stairs","c":"332-364","status":"unknown"}
-{"fn":"tactics","c":"369-468","status":"unknown","d":["D-2030"],"at":"seed@a30a7de84"}
-{"fn":"has_aggravatables","c":"474-491","status":"unknown"}
-{"fn":"aggravate","c":"494-511","status":"unknown"}
-{"fn":"clonewiz","c":"517-534","status":"unknown","d":["D-1900"],"at":"seed@a30a7de84"}
-{"fn":"pick_nasty","c":"538-581","status":"unknown","d":["D-2027"],"at":"seed@a30a7de84"}
-{"fn":"nasty","c":"591-711","status":"unknown"}
-{"fn":"resurrect","c":"715-780","status":"unknown"}
-{"fn":"intervene","c":"785-810","status":"unknown","d":["D-2237"],"at":"seed@a30a7de84"}
-{"fn":"wizdeadorgone","c":"815-822","status":"unknown"}
-{"fn":"cuss","c":"846-883","status":"unknown"}
+{"fn":"amulet","c":"61-103","status":"ported","js":["js/wizard.js:amulet"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_has_amulet","c":"106-114","status":"ported","js":["js/apply.js:mon_has_amulet"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_has_special","c":"117-129","status":"ported","js":["js/muse.js:mon_has_special"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: any_quest_artifact inlined per obj.h macro"}
+{"fn":"which_arti","c":"142-157","status":"ported","js":["js/wizard.js:which_arti"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_has_arti","c":"165-177","status":"ported","js":["js/wizard.js:mon_has_arti"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: any_quest_artifact inlined per obj.h macro"}
+{"fn":"other_mon_has_arti","c":"184-195","status":"ported","js":["js/wizard.js:other_mon_has_arti"],"at":"2026-10-03@bbe63333a"}
+{"fn":"on_ground","c":"202-213","status":"ported","js":["js/wizard.js:on_ground"],"at":"2026-10-03@bbe63333a"}
+{"fn":"you_have","c":"216-233","status":"ported","js":["js/wizard.js:you_have"],"at":"2026-10-03@bbe63333a"}
+{"fn":"target_on","c":"236-267","status":"ported","js":["js/wizard.js:target_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"strategy","c":"270-327","status":"ported","js":["js/wizard.js:strategy"],"at":"2026-10-03@bbe63333a"}
+{"fn":"choose_stairs","c":"332-364","status":"ported","js":["js/wizard.js:choose_stairs"],"at":"2026-10-03@bbe63333a"}
+{"fn":"tactics","c":"369-468","status":"ported","js":["js/wizard.js:tactics"],"d":["D-2030"],"at":"2026-10-03@bbe63333a"}
+{"fn":"has_aggravatables","c":"474-491","status":"ported","js":["js/wizard.js:has_aggravatables"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: helpless inlined per monst.h macro"}
+{"fn":"aggravate","c":"494-511","status":"ported","js":["js/wizard.js:aggravate"],"at":"2026-10-03@bbe63333a"}
+{"fn":"clonewiz","c":"517-534","status":"ported","js":["js/wizard.js:clonewiz"],"d":["D-1900"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pick_nasty","c":"538-581","status":"partial","js":["js/makemon.js:pick_nasty"],"omit":"rogue-level uppercase re-ROLL (Is_rogue_level && monsym not A-Z)","d":["D-2027"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: NASTIES table + geno/difcap/hell/juvenile arms match"}
+{"fn":"nasty","c":"591-711","status":"ported","js":["js/wizard.js:nasty"],"at":"2026-10-03@bbe63333a"}
+{"fn":"resurrect","c":"715-780","status":"ported","js":["js/wizard.js:resurrect"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice omitted (voice-render polish)"}
+{"fn":"intervene","c":"785-810","status":"ported","js":["js/wizard.js:intervene"],"d":["D-2237"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wizdeadorgone","c":"815-822","status":"ported","js":["js/wizard.js:wizdeadorgone"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cuss","c":"846-883","status":"ported","js":["js/wizard.js:cuss"],"at":"2026-10-03@bbe63333a"}

@@ -1,34 +1,34 @@
 {"fn":"adjattrib","c":"117-199","status":"partial","js":["js/attrib.js:adjattrib"],"omit":"u_init.c:933/:935 (`u_init_carry_attr_boost` STR/CON loop) — JS `js/u_init.js:1689` stub stands pending an `inv_weight` port (loop condition unported, so the calls are unreachable, not dropped); Your() renders as `pline('Your …')` (text-identical, no new file-local Your clone).","d":["D-2438"],"at":"seed@a30a7de84"}
-{"fn":"gainstr","c":"203-217","status":"unknown"}
-{"fn":"losestr","c":"221-270","status":"unknown"}
-{"fn":"poison_strdmg","c":"274-278","status":"unknown"}
-{"fn":"poisontell","c":"294-313","status":"unknown"}
-{"fn":"poisoned","c":"317-408","status":"unknown"}
-{"fn":"change_luck","c":"411-418","status":"unknown"}
-{"fn":"stone_luck","c":"423-437","status":"unknown"}
-{"fn":"set_moreluck","c":"441-451","status":"unknown"}
+{"fn":"gainstr","c":"203-217","status":"ported","js":["js/attrib.js:gainstr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"losestr","c":"221-270","status":"ported","js":["js/attrib.js:losestr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"poison_strdmg","c":"274-278","status":"partial","js":["js/eat.js:poison_strdmg"],"omit":"knam/k_format killer params dropped (no killer attribution, no done() death path); no Upolyd mhmax cut; raw uhp decrement instead of losehp()","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reimplements str-loss loop + hp damage inline"}
+{"fn":"poisontell","c":"294-313","status":"ported","js":["js/attrib.js:poisontell"],"at":"2026-10-03@bbe63333a"}
+{"fn":"poisoned","c":"317-408","status":"partial","js":["js/attrib.js:poisoned"],"omit":"Half_gas_damage towel halving of blast/cloud loss; G_UNIQ killer-prefix polish (name_to_mon); blast shieldeff","at":"2026-10-03@bbe63333a"}
+{"fn":"change_luck","c":"411-418","status":"ported","js":["js/attrib.js:change_luck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: LUCKMIN/MAX are -10/10 (you.h)"}
+{"fn":"stone_luck","c":"423-437","status":"ported","js":["js/attrib.js:stone_luck"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_moreluck","c":"441-451","status":"ported","js":["js/attrib.js:set_moreluck"],"at":"2026-10-03@bbe63333a"}
 {"fn":"restore_attrib","c":"455-484","status":"ported","js":["js/attrib.js:restore_attrib"],"d":["D-3141"],"at":"2026-09-30@b20fdf92d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"exercise","c":"489-518","status":"partial","js":["js/attrib.js:exercise"],"omit":"- `exercise`: :491 + :510–514 debugpline (D_DEBUG-only, D-2586 precedent); :516–517 encumber_msg() tail for STR/CON — message-only, no RNG; async pline cannot run in this sync 297-site fan-out (redist_attr precedent: caller-side job).","d":["D-3270","D-2169","D-2023","D-1994","D-1993"],"at":"2026-10-02@0dd9bcfeb"}
-{"fn":"exerper","c":"521-584","status":"unknown"}
-{"fn":"exerchk","c":"598-677","status":"unknown"}
-{"fn":"rnd_attr","c":"682-692","status":"unknown"}
-{"fn":"init_attr_role_redist","c":"699-719","status":"unknown"}
-{"fn":"init_attr","c":"723-737","status":"unknown"}
+{"fn":"exerper","c":"521-584","status":"ported","js":["js/allmain.js:exerper"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Clairvoyant gate reads any H bit vs C INTRINSIC|TIMEOUT mask; equivalent in practice"}
+{"fn":"exerchk","c":"598-677","status":"ported","js":["js/allmain.js:exerchk"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rnd_attr","c":"682-692","status":"ported","js":["js/attrib.js:rnd_attr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"init_attr_role_redist","c":"699-719","status":"ported","js":["js/attrib.js:init_attr_role_redist"],"at":"2026-10-03@bbe63333a"}
+{"fn":"init_attr","c":"723-737","status":"ported","js":["js/attrib.js:init_attr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"redist_attr","c":"740-760","status":"ported","js":["js/attrib.js:redist_attr"],"d":["D-2954"],"at":"seed@a30a7de84"}
 {"fn":"vary_init_attr","c":"764-776","status":"ported","js":["js/attrib.js:vary_init_attr"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:640 complete, caller js/u_init.js:2025 (C u_init.c:1391)"}
 {"fn":"postadjabil","c":"780-786","status":"ported","js":["js/attrib.js:postadjabil"],"d":["D-3141"],"at":"2026-09-30@b20fdf92d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"role_abil","c":"789-815","status":"ported","js":["js/attrib.js:role_abil"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"stale: js/attrib.js:928 — switch ≡ C table+sentinel scan for all inputs (default null ≡ sentinel NULL); staticfn→local correct; both C callers wired (check_innate_abil :823→JS :1101, adjabil :1011→JS :954)"}
 {"fn":"check_innate_abil","c":"818-851","status":"ported","js":["js/attrib.js:check_innate_abil"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:1098 complete, callers js/attrib.js:1124,1126 (C :868,:870); hum_abil empty in C"}
-{"fn":"innately","c":"864-877","status":"unknown"}
-{"fn":"is_innate","c":"880-900","status":"unknown"}
+{"fn":"innately","c":"864-877","status":"ported","js":["js/attrib.js:innately"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_innate","c":"880-900","status":"partial","js":["js/attrib.js:is_innate"],"omit":"FROM_FORM arm: BLINDED&&!haseyes / BLND_RES&FROMFORM returns FROM_NONE instead","at":"2026-10-03@bbe63333a"}
 {"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"d":["D-3208"],"at":"2026-10-01@8a149124b","note":"stale 2026-09-09"}
-{"fn":"adjabil","c":"1006-1074","status":"unknown"}
+{"fn":"adjabil","c":"1006-1074","status":"ported","js":["js/attrib.js:adjabil"],"at":"2026-10-03@bbe63333a"}
 {"fn":"newhp","c":"1080-1142","status":"ported","js":["js/attrib.js:newhp"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
-{"fn":"minuhpmax","c":"1147-1152","status":"unknown"}
-{"fn":"setuhpmax","c":"1157-1176","status":"unknown"}
-{"fn":"adjuhploss","c":"1182-1194","status":"unknown"}
-{"fn":"acurr","c":"1200-1241","status":"unknown"}
+{"fn":"minuhpmax","c":"1147-1152","status":"ported","js":["js/attrib.js:minuhpmax"],"at":"2026-10-03@bbe63333a"}
+{"fn":"setuhpmax","c":"1157-1176","status":"ported","js":["js/exper.js:setuhpmax"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adjuhploss","c":"1182-1194","status":"ported","js":["js/attrib.js:adjuhploss"],"at":"2026-10-03@bbe63333a"}
+{"fn":"acurr","c":"1200-1241","status":"ported","js":["js/attrib.js:acurr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"acurrstr","c":"1245-1262","status":"ported","js":["js/attrib.js:acurrstr"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"extremeattr","c":"1268-1293","status":"unknown"}
-{"fn":"adjalign","c":"1298-1316","status":"unknown"}
-{"fn":"uchangealign","c":"1320-1362","status":"unknown"}
+{"fn":"extremeattr","c":"1268-1293","status":"ported","js":["js/attrib.js:extremeattr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adjalign","c":"1298-1316","status":"ported","js":["js/attrib.js:adjalign"],"at":"2026-10-03@bbe63333a"}
+{"fn":"uchangealign","c":"1320-1362","status":"ported","js":["js/attrib.js:uchangealign"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: retouch_equipment tail live"}

@@ -1,22 +1,22 @@
-{"fn":"dodrop","c":"29-43","status":"unknown"}
+{"fn":"dodrop","c":"29-43","status":"partial","js":["js/do.js:dodrop"],"omit":"omits reset_occupations() when drop result nonzero (C do.c:39-40); only doddrop calls it in JS","at":"2026-10-03@bbe63333a"}
 {"fn":"boulder_hits_pool","c":"50-155","status":"ported","js":["js/do.js:boulder_hits_pool"],"d":["D-3265","D-3261"],"at":"2026-10-02@c94c66b65"}
 {"fn":"flooreffects","c":"162-359","status":"ported","js":["js/do.js:flooreffects"],"d":["D-3240"],"at":"2026-10-01@9e990eefc"}
-{"fn":"doaltarobj","c":"363-390","status":"unknown"}
-{"fn":"trycall","c":"395-399","status":"unknown"}
-{"fn":"polymorph_sink","c":"404-455","status":"unknown"}
-{"fn":"teleport_sink","c":"460-494","status":"unknown"}
+{"fn":"doaltarobj","c":"363-390","status":"partial","js":["js/do.js:doaltarobj"],"omit":"omits livelog_printf(LL_CONDUCT, eschewed atheism...) on first altar drop (C do.c:370-373); gnostic++ present, livelog live in pline.js","at":"2026-10-03@bbe63333a"}
+{"fn":"trycall","c":"395-399","status":"ported","js":["js/do_name.js:trycall"],"at":"2026-10-03@bbe63333a"}
+{"fn":"polymorph_sink","c":"404-455","status":"ported","js":["js/fountain.js:polymorph_sink"],"at":"2026-10-03@bbe63333a"}
+{"fn":"teleport_sink","c":"460-494","status":"ported","js":["js/do.js:teleport_sink"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dosinkring","c":"498-661","status":"ported","js":["js/do.js:dosinkring"],"d":["D-2527"],"at":"seed@a30a7de84"}
 {"fn":"canletgo","c":"665-711","status":"partial","js":["js/do.js:canletgo"],"omit":"`ball.js` silent clone omits loadstone/leash gates + corpsenm/`set_bknown` state (avoids do.js cycle; its `ball.c:973` otmp is ball/chain, word=\"\" so no messages); `muse.js` silent clone omits corpsenm reset + `set_bknown` inventory-update side effect (direct `bknown = 1`; word=\"\" so no messages); …","d":["D-2523"],"at":"seed@a30a7de84"}
 {"fn":"drop","c":"714-780","status":"ported","js":["js/do.js:drop"],"d":["D-3041"],"at":"2026-09-28@79ab7d2dc"}
-{"fn":"dropx","c":"786-796","status":"unknown"}
-{"fn":"dropy","c":"800-803","status":"unknown"}
-{"fn":"dropz","c":"807-843","status":"unknown"}
+{"fn":"dropx","c":"786-796","status":"ported","js":["js/do.js:dropx"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dropy","c":"800-803","status":"ported","js":["js/do.js:dropy"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dropz","c":"807-843","status":"partial","js":["js/do.js:dropz"],"omit":"omits Blind&&Levitation map_object(obj,0) after stackobj (C do.c:838-839); file lists it as named omit","at":"2026-10-03@bbe63333a"}
 {"fn":"engulfer_digests_food","c":"849-888","status":"ported","js":["js/do.js:engulfer_digests_food"],"d":["D-2868"],"at":"seed@a30a7de84"}
 {"fn":"obj_no_longer_held","c":"893-920","status":"ported","js":["js/do.js:obj_no_longer_held"],"d":["D-2393"],"at":"2026-10-01@cdbc41097","note":"stale: js/do.js:711 canonical body complete (D-2393/D-2398/D-2734); sync-core caller arms live in owners"}
-{"fn":"doddrop","c":"924-944","status":"unknown"}
+{"fn":"doddrop","c":"924-944","status":"ported","js":["js/do.js:doddrop"],"at":"2026-10-03@bbe63333a"}
 {"fn":"better_not_try_to_drop_that","c":"947-962","status":"ported","js":["js/do.js:better_not_try_to_drop_that"],"d":["D-1960"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/do.js:2640 complete, caller wired js/do.js:2892, review 930 ACCEPT"}
-{"fn":"menudrop_split","c":"964-977","status":"unknown"}
-{"fn":"menu_drop","c":"981-1107","status":"unknown"}
+{"fn":"menudrop_split","c":"964-977","status":"ported","js":["js/do.js:menudrop_split"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menu_drop","c":"981-1107","status":"ported","js":["js/do.js:menu_drop"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: named omits are callee-side (query_objlist display, drop corpse guard), unit branches complete"}
 {"fn":"u_stuck_cannot_go","c":"1110-1127","status":"ported","js":["js/do.js:u_stuck_cannot_go"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"dodown","c":"1131-1294","status":"partial","js":["js/do.js:dodown"],"omit":"`doup` still omits `set_move_cmd(DIR_UP)`, `u_rooted`, `stucksteed`, and `near_capacity() > SLT_ENCUMBER` (`do.c:1302–1328`).","d":["D-2793"],"at":"seed@a30a7de84"}
 {"fn":"doup","c":"1298-1344","status":"ported","js":["js/do.js:doup"],"d":["D-3252","D-2016"],"at":"2026-10-02@b3c50cbeb"}
@@ -26,20 +26,20 @@
 {"fn":"u_collide_m","c":"1412-1445","status":"ported","js":["js/do.js:u_collide_m"],"d":["D-2902"],"at":"seed@a30a7de84"}
 {"fn":"familiar_level_msg","c":"1448-1476","status":"ported","js":["js/do.js:familiar_level_msg"],"at":"2026-09-27@988c639a6","note":"stale: js/do.js:1018"}
 {"fn":"goto_level","c":"1479-1998","status":"partial","js":["js/do.js:goto_level"],"omit":"- `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).","d":["D-3287","D-3284","D-3277","D-3261","D-1194","D-1191"],"at":"2026-10-02@d8fa56ce0"}
-{"fn":"hellish_smoke_mesg","c":"2003-2012","status":"unknown"}
-{"fn":"temperature_change_msg","c":"2016-2028","status":"unknown"}
-{"fn":"maybe_lvltport_feedback","c":"2032-2040","status":"unknown"}
-{"fn":"final_level","c":"2043-2053","status":"unknown"}
-{"fn":"schedule_goto","c":"2057-2071","status":"unknown"}
-{"fn":"deferred_goto","c":"2075-2104","status":"unknown"}
-{"fn":"revive_corpse","c":"2111-2246","status":"unknown","d":["D-1234","D-1222","D-1220","D-1212"],"at":"seed@a30a7de84"}
-{"fn":"revive_mon","c":"2251-2295","status":"unknown"}
-{"fn":"zombify_mon","c":"2299-2315","status":"unknown"}
-{"fn":"danger_uprops","c":"2319-2322","status":"unknown"}
-{"fn":"cmd_safety_prevention","c":"2325-2346","status":"unknown","d":["D-2011"],"at":"seed@a30a7de84"}
-{"fn":"donull","c":"2351-2358","status":"unknown"}
-{"fn":"wipeoff","c":"2361-2386","status":"unknown"}
+{"fn":"hellish_smoke_mesg","c":"2003-2012","status":"ported","js":["js/do.js:hellish_smoke_mesg"],"at":"2026-10-03@bbe63333a"}
+{"fn":"temperature_change_msg","c":"2016-2028","status":"ported","js":["js/do.js:temperature_change_msg"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_lvltport_feedback","c":"2032-2040","status":"ported","js":["js/artifact.js:maybe_lvltport_feedback"],"at":"2026-10-03@bbe63333a"}
+{"fn":"final_level","c":"2043-2053","status":"ported","js":["js/do.js:final_level"],"at":"2026-10-03@bbe63333a"}
+{"fn":"schedule_goto","c":"2057-2071","status":"ported","js":["js/do.js:schedule_goto"],"at":"2026-10-03@bbe63333a"}
+{"fn":"deferred_goto","c":"2075-2104","status":"ported","js":["js/do.js:deferred_goto"],"at":"2026-10-03@bbe63333a"}
+{"fn":"revive_corpse","c":"2111-2246","status":"ported","js":["js/do.js:revive_corpse"],"d":["D-1234","D-1222","D-1220","D-1212"],"at":"2026-10-03@bbe63333a"}
+{"fn":"revive_mon","c":"2251-2295","status":"ported","js":["js/timeout.js:revive_mon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"zombify_mon","c":"2299-2315","status":"ported","js":["js/timeout.js:zombify_mon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"danger_uprops","c":"2319-2322","status":"ported","js":["js/do.js:danger_uprops"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cmd_safety_prevention","c":"2325-2346","status":"ported","js":["js/do.js:cmd_safety_prevention"],"d":["D-2011"],"at":"2026-10-03@bbe63333a"}
+{"fn":"donull","c":"2351-2358","status":"ported","js":["js/do.js:donull"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wipeoff","c":"2361-2386","status":"ported","js":["js/do.js:wipeoff"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dowipe","c":"2390-2404","status":"ported","js":["js/do.js:dowipe"],"d":["D-3252"],"at":"2026-10-02@b3c50cbeb"}
-{"fn":"legs_in_no_shape","c":"2408-2423","status":"unknown","d":["D-2198"],"at":"seed@a30a7de84"}
-{"fn":"set_wounded_legs","c":"2426-2446","status":"unknown"}
-{"fn":"heal_legs","c":"2449-2486","status":"unknown","d":["D-2198"],"at":"seed@a30a7de84"}
+{"fn":"legs_in_no_shape","c":"2408-2423","status":"ported","js":["js/trap.js:legs_in_no_shape"],"d":["D-2198"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_wounded_legs","c":"2426-2446","status":"ported","js":["js/trap.js:set_wounded_legs"],"at":"2026-10-03@bbe63333a"}
+{"fn":"heal_legs","c":"2449-2486","status":"ported","js":["js/trap.js:heal_legs"],"d":["D-2198"],"at":"2026-10-03@bbe63333a"}

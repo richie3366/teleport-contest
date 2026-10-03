@@ -1,42 +1,42 @@
-{"fn":"is_home_elemental","c":"33-50","status":"unknown"}
-{"fn":"wrong_elem_type","c":"56-75","status":"unknown"}
+{"fn":"is_home_elemental","c":"33-50","status":"ported","js":["js/makemon.js:is_home_elemental"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wrong_elem_type","c":"56-75","status":"ported","js":["js/makemon.js:wrong_elem_type"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_initgrp","c":"79-145","status":"ported","js":["js/makemon.js:m_initgrp"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
 {"fn":"m_initthrow","c":"148-158","status":"ported","js":["js/makemon.js:m_initthrow"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
 {"fn":"m_initweap","c":"161-572","status":"ported","js":["js/makemon.js:m_initweap"],"d":["D-1094","D-1088"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"mkmonmoney","c":"576-586","status":"unknown"}
+{"fn":"mkmonmoney","c":"576-586","status":"ported","js":["js/makemon.js:mkmonmoney"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_initinv","c":"589-833","status":"ported","js":["js/makemon.js:m_initinv"],"d":["D-3244"],"at":"2026-10-01@f247f6b3c"}
-{"fn":"clone_mon","c":"837-944","status":"unknown","d":["D-1565"],"at":"seed@a30a7de84"}
-{"fn":"propagate","c":"958-982","status":"unknown"}
-{"fn":"monhp_per_lvl","c":"986-1007","status":"unknown","d":["D-2719"],"at":"seed@a30a7de84"}
-{"fn":"newmonhp","c":"1012-1054","status":"unknown","d":["D-2163","D-2017"],"at":"seed@a30a7de84"}
+{"fn":"clone_mon","c":"837-944","status":"ported","js":["js/makemon.js:clone_mon"],"d":["D-1565"],"at":"2026-10-03@bbe63333a"}
+{"fn":"propagate","c":"958-982","status":"ported","js":["js/makemon.js:propagate"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debugpline arms (DEBUG-only) not ported"}
+{"fn":"monhp_per_lvl","c":"986-1007","status":"ported","js":["js/makemon.js:monhp_per_lvl"],"d":["D-2719"],"at":"2026-10-03@bbe63333a"}
+{"fn":"newmonhp","c":"1012-1054","status":"ported","js":["js/makemon.js:newmonhp"],"d":["D-2163","D-2017"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JS takes ptr instead of mndx; logic identical"}
 {"fn":"init_mextra","c":"1059-1063","status":"ported","js":["js/restore.js:init_mextra"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"newmextra","c":"1066-1073","status":"partial","js":["js/restore.js:newmextra"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
-{"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"unknown","d":["D-2264"],"at":"seed@a30a7de84"}
+{"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"ported","js":["js/makemon.js:makemon_rnd_goodpos"],"d":["D-2264"],"at":"2026-10-03@bbe63333a"}
 {"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `makemon`: wizard G_EXTINCT debugpline1 (:1210–1212) + random-arm `debugpline0(\"Warning: no monster.\")` (D_DEBUG-only, D-2586/D-3270 precedent); `m_dowear` un-awaited async (D-1648 shape); S_BAT `mon_adjust_speed` inline (async in JS).","d":["D-3285","D-3278","D-2421","D-2299","D-2139","D-2001"],"at":"2026-10-02@f52a2d2fb"}
 {"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbirth_limit","c":"1542-1551","status":"ported","js":["js/makemon.js:mbirth_limit"],"d":["D-3272"],"at":"2026-10-02@675a0c998"}
-{"fn":"create_critters","c":"1556-1590","status":"unknown"}
-{"fn":"uncommon","c":"1593-1603","status":"unknown"}
-{"fn":"align_shift","c":"1611-1637","status":"unknown"}
+{"fn":"create_critters","c":"1556-1590","status":"ported","js":["js/makemon.js:create_critters"],"at":"2026-10-03@bbe63333a"}
+{"fn":"uncommon","c":"1593-1603","status":"ported","js":["js/makemon.js:uncommon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"align_shift","c":"1611-1637","status":"ported","js":["js/makemon.js:align_shift"],"at":"2026-10-03@bbe63333a"}
 {"fn":"temperature_shift","c":"1641-1648","status":"ported","js":["js/makemon.js:temperature_shift"],"d":["D-3103"],"at":"2026-09-29@73f4a382f"}
-{"fn":"rndmonst","c":"1652-1655","status":"unknown"}
+{"fn":"rndmonst","c":"1652-1655","status":"ported","js":["js/makemon.js:rndmonst"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rndmonst_adj","c":"1659-1732","status":"ported","js":["js/makemon.js:rndmonst_adj"],"d":["D-2823","D-1566"],"at":"seed@a30a7de84"}
-{"fn":"mk_gen_ok","c":"1736-1752","status":"unknown"}
+{"fn":"mk_gen_ok","c":"1736-1752","status":"ported","js":["js/makemon.js:mk_gen_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cmp_init_mongen_order","c":"1760-1777","status":"ported","js":["js/makemon.js:cmp_init_mongen_order"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"check_mongen_order","c":"1783-1802","status":"by-design","d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"init_mongen_order","c":"1807-1828","status":"unknown"}
+{"fn":"init_mongen_order","c":"1807-1828","status":"ported","js":["js/makemon.js:init_mongen_order"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: check_mongen_order is devel-only debug"}
 {"fn":"dump_mongen","c":"1835-1866","status":"ported","js":["js/makemon.js:dump_mongen"],"d":["D-3103"],"at":"2026-10-01@b4ca336ef","note":"stale: js/makemon.js:879 (D-3103 whole body; raw_print sinks unclosable — vraw_printf :577/D-3086 precedent; monst_globals_init memcpy no-op; freedynamicdata by-design; dump_enums stale precedent)"}
-{"fn":"mkclass","c":"1873-1876","status":"unknown"}
-{"fn":"mkclass_aligned","c":"1880-1974","status":"unknown"}
-{"fn":"mkclass_poly","c":"1983-2012","status":"unknown"}
-{"fn":"adj_lev","c":"2016-2046","status":"unknown"}
+{"fn":"mkclass","c":"1873-1876","status":"ported","js":["js/makemon.js:mkclass"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mkclass_aligned","c":"1880-1974","status":"ported","js":["js/makemon.js:mkclass_aligned"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mkclass_poly","c":"1983-2012","status":"ported","js":["js/makemon.js:mkclass_poly"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adj_lev","c":"2016-2046","status":"ported","js":["js/makemon.js:adj_lev"],"at":"2026-10-03@bbe63333a"}
 {"fn":"grow_up","c":"2051-2178","status":"ported","js":["js/mhitm.js:grow_up"],"d":["D-1920"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
-{"fn":"mongets","c":"2181-2230","status":"unknown","d":["D-1607"],"at":"seed@a30a7de84"}
-{"fn":"golemhp","c":"2233-2261","status":"unknown"}
+{"fn":"mongets","c":"2181-2230","status":"ported","js":["js/makemon.js:mongets"],"d":["D-1607"],"at":"2026-10-03@bbe63333a"}
+{"fn":"golemhp","c":"2233-2261","status":"ported","js":["js/makemon.js:golemhp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peace_minded","c":"2268-2308","status":"ported","js":["js/makemon.js:peace_minded"],"d":["D-1079"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
-{"fn":"set_malign","c":"2321-2366","status":"unknown"}
-{"fn":"newmcorpsenm","c":"2370-2375","status":"unknown"}
-{"fn":"freemcorpsenm","c":"2379-2383","status":"unknown"}
-{"fn":"set_mimic_sym","c":"2393-2550","status":"unknown","d":["D-1564","D-1557","D-1556","D-1543","D-1536","D-1525"],"at":"seed@a30a7de84"}
-{"fn":"bagotricks","c":"2554-2601","status":"unknown","d":["D-2354"],"at":"seed@a30a7de84"}
+{"fn":"set_malign","c":"2321-2366","status":"ported","js":["js/makemon.js:set_malign"],"at":"2026-10-03@bbe63333a"}
+{"fn":"newmcorpsenm","c":"2370-2375","status":"ported","js":["js/makemon.js:newmcorpsenm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"freemcorpsenm","c":"2379-2383","status":"ported","js":["js/makemon.js:freemcorpsenm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_mimic_sym","c":"2393-2550","status":"ported","js":["js/makemon.js:set_mimic_sym"],"d":["D-1564","D-1557","D-1556","D-1543","D-1536","D-1525"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bagotricks","c":"2554-2601","status":"ported","js":["js/apply.js:bagotricks"],"d":["D-2354"],"at":"2026-10-03@bbe63333a"}
 {"fn":"summon_furies","c":"2605-2612","status":"ported","js":["js/makemon.js:summon_furies"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}

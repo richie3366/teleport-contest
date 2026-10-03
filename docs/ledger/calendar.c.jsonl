@@ -1,11 +1,11 @@
-{"fn":"getnow","c":"32-38","status":"unknown"}
-{"fn":"getlt","c":"41-46","status":"unknown","d":["D-1989"],"at":"seed@a30a7de84"}
-{"fn":"getyear","c":"49-52","status":"unknown","d":["D-1742"],"at":"seed@a30a7de84"}
+{"fn":"getnow","c":"32-38","status":"ported","js":["js/calendar.js:getnow"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Epoch seconds + fixed-datetime support; C time() semantics covered."}
+{"fn":"getlt","c":"41-46","status":"ported","js":["js/calendar.js:getlt"],"d":["D-1989"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: localtime(getnow()) via NY-localtime adaptation."}
+{"fn":"getyear","c":"49-52","status":"ported","js":["js/calendar.js:getyear"],"d":["D-1742"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact 1900+tm_year, no +2000 fallback like C."}
 {"fn":"yyyymmdd","c":"56-77","status":"ported","js":["js/calendar.js:yyyymmdd"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is factored (C arms live in lt_for_date/yyyy_from_tm)"}
 {"fn":"hhmmss","c":"80-92","status":"ported","js":["js/calendar.js:hhmmss"],"d":["D-1725"],"at":"2026-10-01@e45cb9654","note":"stale: js/calendar.js:335 (D-1725 whole body via lt_for_date; callers paniclog/dump_fmtstr by-design filesystem)"}
 {"fn":"yyyymmddhhmmss","c":"95-117","status":"ported","js":["js/calendar.js:yyyymmddhhmmss"],"at":"2026-09-29@ffb380a5c","note":"stale: js/calendar.js:346"}
 {"fn":"time_from_yyyymmddhhmmss","c":"120-175","status":"ported","js":["js/calendar.js:time_from_yyyymmddhhmmss"],"d":["D-2893"],"at":"seed@a30a7de84"}
-{"fn":"phase_of_the_moon","c":"191-203","status":"unknown"}
-{"fn":"friday_13th","c":"206-212","status":"unknown"}
-{"fn":"night","c":"215-220","status":"unknown"}
-{"fn":"midnight","c":"223-226","status":"unknown"}
+{"fn":"phase_of_the_moon","c":"191-203","status":"ported","js":["js/calendar.js:phase_of_the_moon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact epact/goldn/rounding formula."}
+{"fn":"friday_13th","c":"206-212","status":"ported","js":["js/calendar.js:friday_13th"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact wday==5 && mday==13."}
+{"fn":"night","c":"215-220","status":"ported","js":["js/calendar.js:night"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hour<6||hour>21."}
+{"fn":"midnight","c":"223-226","status":"ported","js":["js/calendar.js:midnight"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hour==0."}

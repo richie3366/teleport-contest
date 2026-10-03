@@ -1,5 +1,5 @@
-{"fn":"tty_getlin","c":"36-40","status":"unknown"}
-{"fn":"hooked_tty_getlin","c":"43-227","status":"unknown","d":["D-1639"],"at":"seed@a30a7de84"}
-{"fn":"xwaitforspace","c":"230-257","status":"unknown"}
-{"fn":"ext_cmd_getlin_hook","c":"272-285","status":"unknown"}
-{"fn":"tty_get_ext_cmd","c":"292-326","status":"unknown"}
+{"fn":"tty_getlin","c":"36-40","status":"split","js":["js/getline.js:getlin"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: 3-line wrapper (suppress_history=FALSE + hooked call) ported as js/getline.js:getlin"}
+{"fn":"hooked_tty_getlin","c":"43-227","status":"split","js":["js/getline.js:getlin","js/getline.js:get_ext_cmd","js/getline.js:hooked_getlin_begin","js/getline.js:hooked_getlin_end","js/getline.js:hooked_getlin_apply_intr","js/getline.js:hooked_getlin_handle_esc","js/getline.js:hooked_getlin_ctrl_p","js/getline.js:hooked_getlin_edit_key","js/getline.js:hooked_getlin_restore_prompt","js/display.js:hooked_getlin_epilogue"],"d":["D-1639"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: input loop split across getlin/get_ext_cmd drivers plus shared hooked_getlin_* helpers and display.js epilogue"}
+{"fn":"xwaitforspace","c":"230-257","status":"split","js":["js/display.js:more_wait_keys","js/display.js:getret","js/pager.js:text_page_wait"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no single unit; inlined at the 3 call sites (more/dmore/getret instances)"}
+{"fn":"ext_cmd_getlin_hook","c":"272-285","status":"split","js":["js/getline.js:extCmdAutocomplete"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: unique-prefix expansion ported as extCmdAutocomplete, wired in get_ext_cmd"}
+{"fn":"tty_get_ext_cmd","c":"292-326","status":"split","js":["js/getline.js:get_ext_cmd"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full body ported as get_ext_cmd (extmenu arm, hook loop, mungspaces+match)"}

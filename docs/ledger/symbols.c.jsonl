@@ -7,10 +7,10 @@
 {"fn":"init_rogue_symbols","c":"187-214","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"assign_graphics","c":"217-250","status":"ported","js":["js/display.js:assign_graphics"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
 {"fn":"switch_symbols","c":"253-292","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"update_ov_primary_symset","c":"295-298","status":"unknown"}
-{"fn":"update_ov_rogue_symset","c":"301-304","status":"unknown"}
-{"fn":"update_primary_symset","c":"307-310","status":"unknown"}
-{"fn":"update_rogue_symset","c":"313-316","status":"unknown"}
+{"fn":"update_ov_primary_symset","c":"295-298","status":"ported","js":["js/display.js:update_ov_primary_symset"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to (idx,val); same indexed store with bounds check"}
+{"fn":"update_ov_rogue_symset","c":"301-304","status":"ported","js":["js/display.js:update_ov_rogue_symset"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to (idx,val); same indexed store with bounds check"}
+{"fn":"update_primary_symset","c":"307-310","status":"partial","js":["js/const.js:update_primary_symset"],"omit":"indexed store gp.primary_syms[symp->idx]=val; JS overwrites whole scalar, ignores symp/idx","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: autotranslation lost array model per const.js comment; no callers"}
+{"fn":"update_rogue_symset","c":"313-316","status":"partial","js":["js/const.js:update_rogue_symset"],"omit":"indexed store gr.rogue_syms[symp->idx]=val; JS overwrites whole scalar, ignores symp/idx","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: autotranslation lost array model per const.js comment; no callers"}
 {"fn":"clear_symsetentry","c":"319-349","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"symset_is_compatible","c":"353-367","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"proc_symset_line","c":"431-434","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

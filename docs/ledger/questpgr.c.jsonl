@@ -1,21 +1,21 @@
 {"fn":"quest_info","c":"31-46","status":"ported","js":["js/questpgr.js:quest_info"],"d":["D-2963"],"at":"2026-09-27@a6c00e025"}
-{"fn":"ldrname","c":"50-57","status":"unknown"}
-{"fn":"intermed","c":"61-64","status":"unknown"}
-{"fn":"is_quest_artifact","c":"67-70","status":"unknown"}
+{"fn":"ldrname","c":"50-57","status":"ported","js":["js/questpgr.js:ldrname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"intermed","c":"61-64","status":"ported","js":["js/questpgr.js:intermed"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_quest_artifact","c":"67-70","status":"ported","js":["js/detect.js:is_quest_artifact"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_qarti","c":"73-84","status":"ported","js":["js/quest.js:find_qarti"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"find_quest_artifact","c":"89-120","status":"ported","js":["js/quest.js:find_quest_artifact"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
-{"fn":"neminame","c":"124-131","status":"unknown"}
-{"fn":"guardname","c":"134-139","status":"unknown"}
-{"fn":"homebase","c":"142-145","status":"unknown"}
-{"fn":"stinky_nemesis","c":"150-194","status":"unknown","d":["D-2270"],"at":"seed@a30a7de84"}
-{"fn":"qtext_pronoun","c":"199-233","status":"unknown"}
-{"fn":"convert_arg","c":"236-325","status":"unknown","d":["D-1649"],"at":"seed@a30a7de84"}
+{"fn":"neminame","c":"124-131","status":"ported","js":["js/questpgr.js:neminame"],"at":"2026-10-03@bbe63333a"}
+{"fn":"guardname","c":"134-139","status":"ported","js":["js/questpgr.js:guardname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"homebase","c":"142-145","status":"ported","js":["js/questpgr.js:homebase"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stinky_nemesis","c":"150-194","status":"ported","js":["js/questpgr.js:stinky_nemesis"],"d":["D-2270"],"at":"2026-10-03@bbe63333a"}
+{"fn":"qtext_pronoun","c":"199-233","status":"ported","js":["js/questpgr.js:qtext_pronoun"],"at":"2026-10-03@bbe63333a"}
+{"fn":"convert_arg","c":"236-325","status":"ported","js":["js/questpgr.js:convert_arg"],"d":["D-1649"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Role_switch verified = urole.mnum; all 24 arms match"}
 {"fn":"convert_line","c":"328-420","status":"ported","js":["js/questpgr.js:convert_line"],"d":["D-1634"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"deliver_by_pline","c":"423-436","status":"ported","js":["js/questpgr.js:deliver_by_pline"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"deliver_by_window","c":"439-456","status":"ported","js":["js/questpgr.js:deliver_by_window"],"d":["D-2946"],"at":"seed@a30a7de84"}
 {"fn":"skip_pager","c":"459-465","status":"ported","js":["js/questpgr.js:skip_pager"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"com_pager_core","c":"468-621","status":"ported","js":["js/questpgr.js:com_pager_core"],"d":["D-3204","D-2731","D-1622"],"at":"2026-10-01@55cdefbf9","note":"stale: js/questpgr.js:1120 — whole C body shipped (D-2731/D-1622) + D-3204 guardtalk data closure; miss-arm impossible() intentionally silent (a JS miss also covers unported role bodies where C shows text, never impossible())"}
-{"fn":"com_pager","c":"624-627","status":"unknown"}
-{"fn":"qt_pager","c":"630-634","status":"unknown","d":["D-1662"],"at":"seed@a30a7de84"}
-{"fn":"qt_montype","c":"637-651","status":"unknown"}
-{"fn":"deliver_splev_message","c":"655-664","status":"unknown"}
+{"fn":"com_pager","c":"624-627","status":"ported","js":["js/questpgr.js:com_pager"],"at":"2026-10-03@bbe63333a"}
+{"fn":"qt_pager","c":"630-634","status":"ported","js":["js/questpgr.js:qt_pager"],"d":["D-1662"],"at":"2026-10-03@bbe63333a"}
+{"fn":"qt_montype","c":"637-651","status":"ported","js":["js/makemon.js:qt_montype"],"at":"2026-10-03@bbe63333a"}
+{"fn":"deliver_splev_message","c":"655-664","status":"ported","js":["js/do.js:deliver_splev_message"],"at":"2026-10-03@bbe63333a"}

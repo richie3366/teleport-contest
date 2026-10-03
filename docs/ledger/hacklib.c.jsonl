@@ -1,48 +1,48 @@
 {"fn":"digit","c":"62-65","status":"ported","js":["js/hacklib.js:digit"],"d":["D-3297"],"at":"2026-10-02@b23f261b5"}
 {"fn":"letter","c":"69-72","status":"ported","js":["js/hacklib.js:letter"],"d":["D-3297"],"at":"2026-10-02@b23f261b5"}
 {"fn":"highc","c":"76-79","status":"ported","js":["js/hacklib.js:highc"],"d":["D-3360"],"at":"2026-10-03@c9aee826b"}
-{"fn":"lowc","c":"83-86","status":"unknown"}
-{"fn":"lcase","c":"90-98","status":"unknown"}
-{"fn":"ucase","c":"102-110","status":"unknown"}
+{"fn":"lowc","c":"83-86","status":"ported","js":["js/hacklib.js:lowc"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lcase","c":"90-98","status":"ported","js":["js/hacklib.js:lcase"],"at":"2026-10-03@bbe63333a"}
+{"fn":"ucase","c":"102-110","status":"ported","js":["js/hacklib.js:ucase"],"at":"2026-10-03@bbe63333a"}
 {"fn":"upstart","c":"114-119","status":"ported","js":["js/hacklib.js:upstart"],"d":["D-3360","D-3358","D-3356"],"at":"2026-10-03@c9aee826b"}
 {"fn":"upwords","c":"123-138","status":"ported","js":["js/hacklib.js:upwords"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mungspaces","c":"142-160","status":"ported","js":["js/hacklib.js:mungspaces"],"d":["D-2967"],"at":"2026-09-27@b43d2c68f"}
-{"fn":"trimspaces","c":"164-176","status":"unknown"}
-{"fn":"strip_newline","c":"180-190","status":"unknown"}
-{"fn":"eos","c":"194-199","status":"unknown"}
+{"fn":"trimspaces","c":"164-176","status":"ported","js":["js/hacklib.js:trimspaces"],"at":"2026-10-03@bbe63333a"}
+{"fn":"strip_newline","c":"180-190","status":"ported","js":["js/pager.js:strip_newline"],"at":"2026-10-03@bbe63333a"}
+{"fn":"eos","c":"194-199","status":"ported","js":["js/hacklib.js:eos"],"at":"2026-10-03@bbe63333a"}
 {"fn":"c_eos","c":"203-208","status":"ported","js":["js/hacklib.js:c_eos"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"str_start_is","c":"213-237","status":"unknown"}
-{"fn":"str_end_is","c":"241-248","status":"unknown"}
-{"fn":"str_lines_maxlen","c":"252-272","status":"unknown"}
-{"fn":"strkitten","c":"276-283","status":"unknown"}
-{"fn":"copynchars","c":"287-297","status":"unknown"}
+{"fn":"str_start_is","c":"213-237","status":"ported","js":["js/hacklib.js:str_start_is"],"at":"2026-10-03@bbe63333a"}
+{"fn":"str_end_is","c":"241-248","status":"ported","js":["js/hacklib.js:str_end_is"],"at":"2026-10-03@bbe63333a"}
+{"fn":"str_lines_maxlen","c":"252-272","status":"ported","js":["js/hacklib.js:str_lines_maxlen"],"at":"2026-10-03@bbe63333a"}
+{"fn":"strkitten","c":"276-283","status":"ported","js":["js/hacklib.js:strkitten"],"at":"2026-10-03@bbe63333a"}
+{"fn":"copynchars","c":"287-297","status":"ported","js":["js/hacklib.js:copynchars"],"at":"2026-10-03@bbe63333a"}
 {"fn":"chrcasecpy","c":"301-317","status":"ported","js":["js/hacklib.js:chrcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b"}
 {"fn":"strcasecpy","c":"323-341","status":"ported","js":["js/hacklib.js:strcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"s_suffix","c":"345-359","status":"split","js":["js/do_name.js:s_suffix","js/eat.js:s_suffix_eat","js/mhitm.js:s_suffix_mm","js/dothrow.js:s_suffix_throw_gold","js/zap.js:s_suffix_zap","js/objnam.js:s_suffix_objnam","js/apply.js:s_suffix_apply","js/apply.js:s_suffix_fig","js/timeout.js:s_suffix_hatch","js/weapon.js:s_suffix_towel","js/apply.js:s_suffix_leash","js/mhitu.js:s_suffix_poison","js/invent.js:s_suffix_inv","js/mhitu.js:s_suffix_hitmsg"],"d":["D-3360","D-3217","D-3210","D-3200","D-2268"],"at":"2026-10-03@c9aee826b"}
-{"fn":"ing_suffix","c":"363-396","status":"unknown"}
-{"fn":"xcrypt","c":"400-415","status":"unknown"}
+{"fn":"ing_suffix","c":"363-396","status":"ported","js":["js/hacklib.js:ing_suffix"],"at":"2026-10-03@bbe63333a"}
+{"fn":"xcrypt","c":"400-415","status":"ported","js":["js/rumors.js:xcrypt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"onlyspace","c":"419-425","status":"ported","js":["js/hacklib.js:onlyspace"],"d":["D-3297"],"at":"2026-10-02@b23f261b5"}
 {"fn":"tabexpand","c":"429-464","status":"ported","js":["js/hacklib.js:tabexpand"],"d":["D-3024"],"at":"2026-09-28@73b53df4b"}
 {"fn":"visctrl","c":"469-493","status":"ported","js":["js/dokeylist.js:visctrl"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"stripchars","c":"499-517","status":"unknown"}
-{"fn":"stripdigits","c":"521-531","status":"unknown"}
-{"fn":"strsubst","c":"536-551","status":"unknown"}
-{"fn":"strNsubst","c":"557-597","status":"unknown"}
-{"fn":"findword","c":"601-621","status":"unknown"}
-{"fn":"ordin","c":"625-631","status":"unknown"}
+{"fn":"stripchars","c":"499-517","status":"ported","js":["js/hacklib.js:stripchars"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stripdigits","c":"521-531","status":"ported","js":["js/hacklib.js:stripdigits"],"at":"2026-10-03@bbe63333a"}
+{"fn":"strsubst","c":"536-551","status":"ported","js":["js/hacklib.js:strsubst"],"at":"2026-10-03@bbe63333a"}
+{"fn":"strNsubst","c":"557-597","status":"ported","js":["js/hacklib.js:strNsubst"],"at":"2026-10-03@bbe63333a"}
+{"fn":"findword","c":"601-621","status":"ported","js":["js/hacklib.js:findword"],"at":"2026-10-03@bbe63333a"}
+{"fn":"ordin","c":"625-631","status":"ported","js":["js/hacklib.js:ordin"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sitoa","c":"638-644","status":"ported","js":["js/hacklib.js:sitoa"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"sgn","c":"650-653","status":"unknown"}
+{"fn":"sgn","c":"650-653","status":"ported","js":["js/artifact.js:sgn"],"at":"2026-10-03@bbe63333a"}
 {"fn":"distmin","c":"657-669","status":"ported","js":["js/hacklib.js:distmin"],"d":["D-3324"],"at":"2026-10-02@c944311a4"}
 {"fn":"dist2","c":"673-678","status":"ported","js":["js/hacklib.js:dist2"],"d":["D-3327"],"at":"2026-10-03@0e60ede85"}
 {"fn":"isqrt","c":"682-700","status":"ported","js":["js/hacklib.js:isqrt"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
-{"fn":"online2","c":"704-711","status":"unknown"}
+{"fn":"online2","c":"704-711","status":"ported","js":["js/hacklib.js:online2"],"at":"2026-10-03@bbe63333a"}
 {"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"The `strncmpi` compare loop is complete, but call sites in `artifact.c`, `attrib.c`, `botl.c`, `cmd.c`, `coloratt.c`, `do.c`, `do_name.c`, `dungeon.c`, `earlyarg.c`, `eat.c`, `files.c` tribute tags, `hack.c`, `invent.c`, `mon.c` gasp, `mondata.c`, `mthrowu.c`, `nhlua.c`, `objnam.c` outside the `rea…","d":["D-2967"],"at":"2026-09-27@b43d2c68f"}
 {"fn":"strstri","c":"740-779","status":"partial","js":["js/hacklib.js:strstri"],"omit":"`apply.c:1412` (the attach prompt at `js/apply.js:4813` is built without the ` to\\033` strip).","d":["D-2877"],"at":"seed@a30a7de84"}
-{"fn":"fuzzymatch","c":"785-808","status":"unknown"}
-{"fn":"swapbits","c":"832-837","status":"unknown"}
+{"fn":"fuzzymatch","c":"785-808","status":"ported","js":["js/hacklib.js:fuzzymatch"],"at":"2026-10-03@bbe63333a"}
+{"fn":"swapbits","c":"832-837","status":"ported","js":["js/hacklib.js:swapbits"],"at":"2026-10-03@bbe63333a"}
 {"fn":"nh_snprintf","c":"854-875","status":"by-design","d":["D-3324"],"at":"2026-10-02@c944311a4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"unicodeval_to_utf8str","c":"882-919","status":"partial","js":["js/hacklib.js:unicodeval_to_utf8str"],"omit":"`to_custom_symset_entry_callback` (`glyphs.c:52–104`, call at `:70`) plus `unicode_val` (`utf8map.c:18–34`) and `add_custom_urep_entry` (`utf8map.c:148–207`) stay the unported customization writer (`ENHANCED_SYMBOLS` is on).","d":["D-2892"],"at":"seed@a30a7de84"}
 {"fn":"case_insensitive_comp","c":"922-937","status":"ported","js":["js/date.js:case_insensitive_comp"],"at":"2026-09-30@779a41942","note":"stale: js/date.js:31 (local, wired at :118 for date.c:90; mdlib.c window-port + makedefs-util callers have no JS path)"}
 {"fn":"copy_bytes","c":"946-961","status":"by-design","d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"Rule #2: raw-fd read/write copy; scored callers all in recover_savefile binary path (files.c:3011/3021/3040, review 1431 no-counterpart); util/recover.c callers are build tools"}
 {"fn":"datamodel","c":"982-997","status":"ported","js":["js/version.js:datamodel"],"at":"2026-09-30@042bdf039","note":"stale: js/version.js:306; version.c:784 wired at js/files.js:1549, mdlib.c:699 at js/version.js:543"}
-{"fn":"what_datamodel_is_this","c":"1000-1013","status":"unknown"}
+{"fn":"what_datamodel_is_this","c":"1000-1013","status":"ported","js":["js/version.js:what_datamodel_is_this"],"at":"2026-10-03@bbe63333a"}

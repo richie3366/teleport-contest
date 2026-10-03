@@ -1,6 +1,6 @@
-{"fn":"roguejoin","c":"21-42","status":"unknown"}
-{"fn":"roguecorr","c":"45-135","status":"unknown"}
-{"fn":"miniwalk","c":"139-190","status":"unknown"}
+{"fn":"roguejoin","c":"21-42","status":"ported","js":["js/extralev.js:roguejoin"],"at":"2026-10-03@bbe63333a"}
+{"fn":"roguecorr","c":"45-135","status":"ported","js":["js/extralev.js:roguecorr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"miniwalk","c":"139-190","status":"ported","js":["js/extralev.js:miniwalk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"makeroguerooms","c":"193-275","status":"ported","js":["js/extralev.js:makeroguerooms"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
-{"fn":"corr","c":"278-285","status":"unknown"}
-{"fn":"makerogueghost","c":"288-353","status":"unknown"}
+{"fn":"corr","c":"278-285","status":"ported","js":["js/extralev.js:corr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"makerogueghost","c":"288-353","status":"ported","js":["js/extralev.js:makerogueghost"],"at":"2026-10-03@bbe63333a"}

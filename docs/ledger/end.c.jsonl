@@ -7,24 +7,24 @@
 {"fn":"should_query_disclose_option","c":"476-515","status":"ported","js":["js/end.js:should_query_disclose_option"],"d":["D-3132"],"at":"2026-09-29@b90b1a381"}
 {"fn":"dump_plines","c":"519-537","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"dump_everything","c":"542-616","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"disclose","c":"619-700","status":"unknown","d":["D-2105","D-2039","D-2015"],"at":"seed@a30a7de84"}
+{"fn":"disclose","c":"619-700","status":"partial","js":["js/end.js:disclose"],"omit":"possessions query says 'died' when how==QUIT; C says 'quit' (C:627-628)","d":["D-2105","D-2039","D-2015"],"at":"2026-10-03@bbe63333a"}
 {"fn":"savelife","c":"704-756","status":"ported","js":["js/end.js:savelife"],"d":["D-3260","D-2181","D-2172"],"at":"2026-10-02@4fbb3512e"}
-{"fn":"get_valuables","c":"763-791","status":"unknown","d":["D-1741"],"at":"seed@a30a7de84"}
+{"fn":"get_valuables","c":"763-791","status":"ported","js":["js/end.js:get_valuables"],"d":["D-1741"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sort_valuables","c":"798-818","status":"ported","js":["js/end.js:sort_valuables"],"d":["D-3132"],"at":"2026-09-29@b90b1a381","note":"stale: js/end.js:243"}
 {"fn":"odds_and_ends","c":"830-846","status":"by-design","at":"2026-09-30@7cc43ecc2","note":"#if 0 uncompiled in C (end.c:820-847; was 3.6.0/3.6.1 only)"}
-{"fn":"done_object_cleanup","c":"851-903","status":"unknown","d":["D-2724"],"at":"seed@a30a7de84"}
-{"fn":"artifact_score","c":"907-940","status":"unknown","d":["D-1730"],"at":"seed@a30a7de84"}
+{"fn":"done_object_cleanup","c":"851-903","status":"ported","js":["js/end.js:done_object_cleanup"],"d":["D-2724"],"at":"2026-10-03@bbe63333a"}
+{"fn":"artifact_score","c":"907-940","status":"ported","js":["js/end.js:artifact_score"],"d":["D-1730"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fuzzer_savelife","c":"945-1016","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"done","c":"1020-1126","status":"partial","js":["js/end.js:done"],"omit":"- `done`: paniclog TRICKED file write (Rule #2); fuzzer_savelife (debug-fuzz only).","d":["D-3264","D-3261"],"at":"2026-10-02@d947745c9"}
 {"fn":"really_done","c":"1130-1590","status":"ported","js":["js/end.js:really_done"],"d":["D-3320","D-2435","D-2283","D-2122","D-2061","D-1812"],"at":"2026-10-02@d0ba4ea2a"}
 {"fn":"container_contents","c":"1594-1670","status":"ported","js":["js/end.js:container_contents"],"d":["D-3276","D-3260"],"at":"2026-10-02@9cdc961f3","note":"whole-body port in end.js; js/pickup.js single-box clone is pre-existing drift (named D-3260)"}
 {"fn":"nh_terminate","c":"1674-1703","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: audited — exit-path only (Lua/MACOS9/VMS/dlb arms have no scored analogue); js/end.js:994 sets gameover flags"}
-{"fn":"delayed_killer","c":"1707-1723","status":"unknown"}
-{"fn":"find_delayed_killer","c":"1726-1735","status":"unknown"}
+{"fn":"delayed_killer","c":"1707-1723","status":"ported","js":["js/end.js:delayed_killer"],"at":"2026-10-03@bbe63333a"}
+{"fn":"find_delayed_killer","c":"1726-1735","status":"ported","js":["js/end.js:find_delayed_killer"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dealloc_killer","c":"1738-1757","status":"ported","js":["js/end.js:dealloc_killer"],"d":["D-2936"],"at":"seed@a30a7de84"}
 {"fn":"save_killers","c":"1760-1776","status":"ported","js":["js/end.js:save_killers"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"restore_killers","c":"1780-1790","status":"ported","js":["js/end.js:restore_killers"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wordcount","c":"1793-1806","status":"unknown"}
-{"fn":"bel_copy1","c":"1809-1820","status":"unknown"}
+{"fn":"wordcount","c":"1793-1806","status":"ported","js":["js/end.js:wordcount"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bel_copy1","c":"1809-1820","status":"ported","js":["js/end.js:bel_copy1"],"at":"2026-10-03@bbe63333a"}
 {"fn":"build_english_list","c":"1823-1859","status":"split","js":["js/end.js:build_english_list","js/end.js:english_list_parts","js/end.js:build_english_list_config"],"omit":"- `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value (CR/VT/FF); empty and '*' guards and the returned empty formatted list are exact.","d":["D-3184","D-2629"],"at":"2026-10-01@8f3d63508","note":"stale: async wrapper :2352 + sync core english_list_parts :2368 (C switch in order) + sync build_english_list_config :2364; wordcount/bel_copy1/isEndSpace C-exact; cfgfiles.c:806 via config formatter (D-3184), unixmain.c:659 platform"}
 {"fn":"NH_abort","c":"1896-1945","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime"}

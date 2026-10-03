@@ -1,15 +1,15 @@
-{"fn":"tty_doprev_message","c":"20-119","status":"unknown"}
-{"fn":"redotoplin","c":"122-141","status":"unknown"}
-{"fn":"show_topl","c":"145-166","status":"unknown"}
-{"fn":"remember_topl","c":"170-191","status":"unknown"}
-{"fn":"addtopl","c":"194-202","status":"unknown"}
-{"fn":"more","c":"205-248","status":"unknown"}
-{"fn":"update_topl","c":"251-302","status":"unknown"}
+{"fn":"tty_doprev_message","c":"20-119","status":"ported","js":["js/display.js:tty_doprev_message"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 4 modes (s/f/c/r) with exact ring loops via helpers"}
+{"fn":"redotoplin","c":"122-141","status":"ported","js":["js/display.js:redotoplin"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: show str + NEED_MORE + conditional more(); terminal cursor ops adapted to virtual-screen paint"}
+{"fn":"show_topl","c":"145-166","status":"ported","js":["js/display.js:show_topl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: STOP/NOSTOP gate, one-shot clear, cury clear, hard-wrap cursor, NEED_MORE/NON_EMPTY"}
+{"fn":"remember_topl","c":"170-191","status":"ported","js":["js/display.js:remember_topl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: LOCKHISTORY/empty guard, ring store, checkpoint arm"}
+{"fn":"addtopl","c":"194-202","status":"ported","js":["js/display.js:addtopl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: append + NEED_MORE + paint"}
+{"fn":"more","c":"205-248","status":"partial","js":["js/display.js:more"],"omit":"missing `if (iflags.debug_fuzzer) return` skip (flag live in JS, honored elsewhere)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inmore guard, --More-- placement, xwaitforspace+ESC-STOP+dismiss via more_wait_keys"}
+{"fn":"update_topl","c":"251-302","status":"partial","js":["js/display.js:update_topl"],"omit":"missing cury==0 gate on same-line append and cury>1 docorner reset arm; no TBUFSZ truncation; tail more() drops otoplin!=SPECIAL check","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: append arm, NEED_MORE->more chaining, word wrap, notdied arm, redotoplin tail"}
 {"fn":"topl_putsym","c":"305-344","status":"unknown"}
 {"fn":"putsyms","c":"347-351","status":"unknown"}
 {"fn":"removetopl","c":"354-359","status":"unknown"}
-{"fn":"tty_yn_function","c":"365-551","status":"unknown","d":["D-1631","D-1623","D-1612"],"at":"seed@a30a7de84"}
-{"fn":"msghistory_snapshot","c":"559-601","status":"unknown"}
-{"fn":"free_msghistory_snapshot","c":"605-624","status":"unknown"}
-{"fn":"tty_getmsghistory","c":"637-657","status":"unknown"}
-{"fn":"tty_putmsghistory","c":"677-726","status":"unknown"}
+{"fn":"tty_yn_function","c":"365-551","status":"partial","js":["js/getline.js:tty_yn_function"],"omit":"entry more() gate drops WIN_NOSTOP exception (C mores when STOP+NOSTOP); entry clears WIN_STOP but not one-shot WIN_NOSTOP","d":["D-1631","D-1623","D-1612"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: prompt/ESC-hidden/preserve-case/ctrl-P both modes/doprev/number collect w/ overflow+erase/clean_up all match"}
+{"fn":"msghistory_snapshot","c":"559-601","status":"ported","js":["js/display.js:msghistory_snapshot"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: remember_topl + lock + ring copy + purge arms; WIN_ERR paranoia N/A (win always exists)"}
+{"fn":"free_msghistory_snapshot","c":"605-624","status":"ported","js":["js/display.js:free_msghistory_snapshot"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: null drop (GC) + unlock when !purged"}
+{"fn":"tty_getmsghistory","c":"637-657","status":"split","js":["js/display.js:getmsghistory"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: whole body under renamed export; static nxtidx -> module var"}
+{"fn":"tty_putmsghistory","c":"677-726","status":"split","js":["js/display.js:putmsghistory"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: whole body under renamed export incl purge/restore/replay arms"}

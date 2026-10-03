@@ -1,46 +1,46 @@
-{"fn":"is_swallow_sym","c":"68-76","status":"unknown"}
+{"fn":"is_swallow_sym","c":"68-76","status":"ported","js":["js/pager.js:is_swallow_sym"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: hardcoded Primary/DEC sets; full showsyms table deferred (named in code)"}
 {"fn":"append_str","c":"82-104","status":"ported","js":["js/pager.js:append_str"],"d":["D-3106"],"at":"2026-09-29@30647ba3c"}
 {"fn":"self_lookat","c":"108-133","status":"ported","js":["js/pager.js:self_lookat"],"d":["D-3239"],"at":"2026-10-01@25100632c"}
-{"fn":"monhealthdescr","c":"138-163","status":"unknown"}
-{"fn":"trap_description","c":"167-181","status":"unknown","d":["D-1779"],"at":"seed@a30a7de84"}
-{"fn":"mhidden_description","c":"186-280","status":"unknown","d":["D-1554"],"at":"seed@a30a7de84"}
-{"fn":"object_from_map","c":"284-377","status":"unknown"}
+{"fn":"monhealthdescr","c":"138-163","status":"ported","js":["js/pager.js:monhealthdescr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C body #if 0-disabled, always empty; JS returns ''"}
+{"fn":"trap_description","c":"167-181","status":"ported","js":["js/pager.js:trap_description"],"d":["D-1779"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mhidden_description","c":"186-280","status":"partial","js":["js/pager.js:mhidden_description"],"omit":"surface(x,y) name for non-ceiling hiders (JS always 'floor')","d":["D-1554"],"at":"2026-10-03@bbe63333a"}
+{"fn":"object_from_map","c":"284-377","status":"partial","js":["js/pager.js:object_from_map"],"omit":"CORPSE/STATUE corpsenm from body/statue glyphs (:346-350); cmap-glyph otyp fallback (CHEST/LARGE_BOX for trapped chest|door, :292-296)","at":"2026-10-03@bbe63333a"}
 {"fn":"look_at_object","c":"380-419","status":"ported","js":["js/pager.js:look_at_object"],"d":["D-2974"],"at":"2026-09-27@8a0963412"}
 {"fn":"look_at_monster","c":"422-555","status":"ported","js":["js/pager.js:look_at_monster"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"waterbody_name","c":"561-611","status":"ported","js":["js/hack.js:waterbody_name"],"d":["D-2761"],"at":"seed@a30a7de84"}
-{"fn":"ice_descr","c":"614-650","status":"unknown"}
+{"fn":"ice_descr","c":"614-650","status":"ported","js":["js/trap.js:ice_descr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lookat","c":"657-802","status":"ported","js":["js/pager.js:lookat"],"d":["D-1848","D-1843","D-1787"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"ia_checkfile","c":"807-815","status":"unknown"}
+{"fn":"ia_checkfile","c":"807-815","status":"ported","js":["js/pager.js:ia_checkfile"],"at":"2026-10-03@bbe63333a"}
 {"fn":"checkfile","c":"830-1129","status":"split","js":["js/pager.js:checkfile","js/pager.js:checkfile_dbase_str","js/pager.js:checkfile_split_names","js/pager.js:lookup_data_base_entry"],"d":["D-3198","D-2451","D-2443","D-2098"],"at":"2026-10-01@c1022f867"}
 {"fn":"do_screen_description","c":"1247-1627","status":"partial","js":["js/pager.js:do_screen_description"],"omit":"rogue_syms table (Primary used on rogue levels); non-boulder `go.ov_*_syms` slots (boulder arm live); `program_state.gameover` in hallucinate gate; `gw.warnsyms[]` (def_warnsyms defaults); getpos_menu (unimplemented); do_supplemental_info (own row; pm fill stays live in forSupplement); local char-b…","d":["D-2449","D-2447","D-1854"],"at":"seed@a30a7de84"}
-{"fn":"add_quoted_engraving","c":"1631-1667","status":"unknown"}
+{"fn":"add_quoted_engraving","c":"1631-1667","status":"ported","js":["js/pager.js:add_quoted_engraving"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_look","c":"1673-1963","status":"ported","js":["js/pager.js:do_look"],"d":["D-2468","D-1877"],"at":"seed@a30a7de84"}
-{"fn":"look_region_nearby","c":"1966-1974","status":"unknown"}
+{"fn":"look_region_nearby","c":"1966-1974","status":"ported","js":["js/pager.js:look_region_nearby"],"at":"2026-10-03@bbe63333a"}
 {"fn":"look_all","c":"1979-2074","status":"partial","js":["js/pager.js:look_all"],"omit":"compass-full coord text (local `coord_desc` `(here)` deferral, pre-existing — header split and MAP/SCREEN paths are C-exact); `self_lookat` steed/`y_monnam` arm (pre-existing deferral, untouched); `look_at_object` TREE dangling/stuck suffix (pre-existing named, untouched); C `strkitten`/`eos`/`encg…","d":["D-2508"],"at":"seed@a30a7de84"}
-{"fn":"look_traps","c":"2078-2139","status":"unknown","d":["D-2298"],"at":"seed@a30a7de84"}
+{"fn":"look_traps","c":"2078-2139","status":"ported","js":["js/pager.js:look_traps"],"d":["D-2298"],"at":"2026-10-03@bbe63333a"}
 {"fn":"look_engrs","c":"2144-2228","status":"partial","js":["js/pager.js:look_engrs"],"omit":"compass-full coord text (local `coord_desc` `(here)` deferral, pre-existing — same as `look_all` D-2508); `eos` as a named function (inline `+=`/slice, no JS export exists); NHW_TEXT window primitives (covered by the `show_text_pages` idiom).","d":["D-2521"],"at":"seed@a30a7de84"}
 {"fn":"do_supplemental_info","c":"2253-2316","status":"ported","js":["js/pager.js:do_supplemental_info"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"dowhatis","c":"2322-2325","status":"unknown"}
-{"fn":"doquickwhatis","c":"2329-2332","status":"unknown"}
+{"fn":"dowhatis","c":"2322-2325","status":"ported","js":["js/pager.js:dowhatis"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doquickwhatis","c":"2329-2332","status":"ported","js":["js/pager.js:doquickwhatis"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doidtrap","c":"2336-2389","status":"ported","js":["js/pager.js:doidtrap"],"d":["D-3219","D-2298"],"at":"2026-10-01@3d715b8cd"}
 {"fn":"whatdoes_help","c":"2421-2445","status":"ported","js":["js/pager.js:whatdoes_help"],"d":["D-2929"],"at":"seed@a30a7de84"}
 {"fn":"whatdoes_cond","c":"2458-2573","status":"by-design","d":["D-2989"],"at":"2026-09-27@080c16023","note":"compiled out: body+prototype+sole caller inside C #if 0 pager.c:2447-2574; no-JS is C-faithful (review 1592)"}
 {"fn":"dowhatdoes_core","c":"2577-2655","status":"ported","js":["js/pager.js:dowhatdoes_core"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
-{"fn":"dowhatdoes","c":"2659-2715","status":"unknown","d":["D-1855"],"at":"seed@a30a7de84"}
+{"fn":"dowhatdoes","c":"2659-2715","status":"partial","js":["js/pager.js:dowhatdoes"],"omit":"ALTMETA arms: '(For ESC, type it twice.)' tip suffix and ESC second-read with meta-bit (q|0200)","d":["D-1855"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: UNIX introff/intron signal calls N/A in browser"}
 {"fn":"docontact","c":"2718-2745","status":"ported","js":["js/pager.js:docontact"],"d":["D-3059"],"at":"2026-09-28@a00f0a534","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"dispfile_help","c":"2748-2751","status":"unknown"}
-{"fn":"dispfile_shelp","c":"2754-2757","status":"unknown"}
-{"fn":"dispfile_optionfile","c":"2760-2763","status":"unknown"}
-{"fn":"dispfile_optmenu","c":"2766-2769","status":"unknown"}
-{"fn":"dispfile_license","c":"2772-2775","status":"unknown"}
-{"fn":"dispfile_debughelp","c":"2778-2781","status":"unknown"}
-{"fn":"dispfile_usagehelp","c":"2784-2787","status":"unknown"}
-{"fn":"hmenu_doextversion","c":"2790-2793","status":"unknown"}
-{"fn":"hmenu_dohistory","c":"2796-2799","status":"unknown"}
-{"fn":"hmenu_dowhatis","c":"2802-2805","status":"unknown"}
-{"fn":"hmenu_dowhatdoes","c":"2808-2811","status":"unknown"}
-{"fn":"hmenu_doextlist","c":"2814-2817","status":"unknown"}
+{"fn":"dispfile_help","c":"2748-2751","status":"ported","js":["js/pager.js:dispfile_help"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dispfile_shelp","c":"2754-2757","status":"ported","js":["js/pager.js:dispfile_shelp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dispfile_optionfile","c":"2760-2763","status":"ported","js":["js/pager.js:dispfile_optionfile"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dispfile_optmenu","c":"2766-2769","status":"ported","js":["js/pager.js:dispfile_optmenu"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dispfile_license","c":"2772-2775","status":"ported","js":["js/pager.js:dispfile_license"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dispfile_debughelp","c":"2778-2781","status":"ported","js":["js/pager.js:dispfile_debughelp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dispfile_usagehelp","c":"2784-2787","status":"ported","js":["js/pager.js:dispfile_usagehelp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hmenu_doextversion","c":"2790-2793","status":"ported","js":["js/pager.js:hmenu_doextversion"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hmenu_dohistory","c":"2796-2799","status":"ported","js":["js/pager.js:hmenu_dohistory"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hmenu_dowhatis","c":"2802-2805","status":"ported","js":["js/pager.js:hmenu_dowhatis"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hmenu_dowhatdoes","c":"2808-2811","status":"ported","js":["js/pager.js:hmenu_dowhatdoes"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hmenu_doextlist","c":"2814-2817","status":"ported","js":["js/pager.js:hmenu_doextlist"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domenucontrols","c":"2820-2827","status":"split","js":["js/dokeylist.js:domenucontrols_lines","js/pager.js:dohelp"],"at":"2026-10-02@ba7109db3","note":"stale: split-live domenucontrols_lines + dohelp ?l site (rev 1487 ACCEPT)"}
-{"fn":"dohelp","c":"2860-2899","status":"unknown"}
+{"fn":"dohelp","c":"2860-2899","status":"partial","js":["js/pager.js:dohelp"],"omit":"sysopt.hideusage gate hiding the usagehelp item","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: PORT_HELP item compiled out for unix (N/A)"}
 {"fn":"setopt_cmd","c":"2908-2957","status":"ported","js":["js/pager.js:setopt_cmd"],"d":["D-2837"],"at":"seed@a30a7de84"}
-{"fn":"dohistory","c":"2961-2965","status":"unknown"}
+{"fn":"dohistory","c":"2961-2965","status":"ported","js":["js/pager.js:dohistory"],"at":"2026-10-03@bbe63333a"}

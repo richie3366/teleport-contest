@@ -1,7 +1,7 @@
-{"fn":"l_nhcore_init","c":"140-156","status":"unknown"}
+{"fn":"l_nhcore_init","c":"140-156","status":"ported","js":["js/mklev.js:l_nhcore_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: sets avail flags, luacore and variables state; Lua sandbox/nhcore.lua load has no JS analogue"}
 {"fn":"l_nhcore_done","c":"159-166","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"l_nhcore_call","c":"169-194","status":"unknown"}
-{"fn":"nhl_error","c":"199-218","status":"unknown"}
+{"fn":"l_nhcore_call","c":"169-194","status":"ported","js":["js/do.js:l_nhcore_call"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: dispatches the 3 calls stock nhcore.lua defines; other 4 commented out there so C also disables them"}
+{"fn":"nhl_error","c":"199-218","status":"ported","js":["js/mklev.js:nhl_error"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: throw with message is the function purpose; Lua stack line/src decoration unavailable without Lua"}
 {"fn":"lcheck_param_table","c":"225-236","status":"partial","js":["js/mklev.js:lcheck_param_table"],"omit":"- `lspo_teleport_region`: none in its body/loader bindings.","d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"seed: no scored analogue (file)"}
 {"fn":"get_table_mapchr","c":"241-253","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"get_table_mapchr_opt","c":"256-271","status":"ported","js":["js/mklev.js:get_table_mapchr_opt"],"d":["D-3185"],"at":"2026-10-01@03eae3466","note":"seed: no scored analogue (file)"}
@@ -11,7 +11,7 @@
 {"fn":"nhl_add_table_entry_str","c":"311-316","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_add_table_entry_bool","c":"318-323","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_add_table_entry_region","c":"326-336","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"splev_chr2typ","c":"382-390","status":"unknown"}
+{"fn":"splev_chr2typ","c":"382-390","status":"ported","js":["js/mklev.js:splev_chr2typ"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact table lookup incl INVALID_TYPE default; dup C dashes unreachable (first match wins)"}
 {"fn":"check_mapchr","c":"393-398","status":"partial","js":["js/mklev.js:check_mapchr"],"omit":"- `get_table_xy_or_coord` / `check_mapchr` / `get_table_int_opt`: inherited callers still omit stair table parsing (sp_lev.c:4164), shared mandatory-mapchar parsing (nhlua.c:247), and exact integer checks in noncluster splev_opt_int/dungeon readers.","d":["D-3185"],"at":"2026-10-01@03eae3466","note":"seed: no scored analogue (file)"}
 {"fn":"splev_typ2chr","c":"401-409","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_gettrap","c":"416-467","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
@@ -38,7 +38,7 @@
 {"fn":"nhl_get_debug_themerm_name","c":"993-1011","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"get_table_int","c":"1017-1025","status":"ported","js":["js/dungeon.js:get_table_int"],"d":["D-3101"],"at":"2026-09-29@e028921a0"}
 {"fn":"get_table_int_opt","c":"1029-1039","status":"partial","js":["js/dungeon.js:get_table_int_opt"],"omit":"- `get_table_xy_or_coord` / `check_mapchr` / `get_table_int_opt`: inherited callers still omit stair table parsing (sp_lev.c:4164), shared mandatory-mapchar parsing (nhlua.c:247), and exact integer checks in noncluster splev_opt_int/dungeon readers.","d":["D-3185","D-3175","D-3101"],"at":"2026-10-01@03eae3466"}
-{"fn":"get_table_str","c":"1042-1050","status":"unknown"}
+{"fn":"get_table_str","c":"1042-1050","status":"ported","js":["js/dungeon.js:get_table_str"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: matches luaL_checkstring: string or finite number ok, else throws"}
 {"fn":"get_table_str_opt","c":"1055-1076","status":"partial","js":["js/dungeon.js:get_table_str_opt"],"omit":"- `lspo_teleport_region`: none in its body/loader bindings.","d":["D-3175"],"at":"2026-09-30@adc5a35c2"}
 {"fn":"get_table_boolean","c":"1079-1104","status":"ported","js":["js/mklev.js:get_table_boolean"],"d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"seed: no scored analogue (file)"}
 {"fn":"get_table_boolean_opt","c":"1107-1118","status":"partial","js":["js/mklev.js:get_table_boolean_opt"],"omit":"- `lspo_teleport_region`: none in its body/loader bindings.","d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"seed: no scored analogue (file)"}
@@ -48,9 +48,9 @@
 {"fn":"nhl_int_to_pm_name","c":"1173-1187","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_int_to_obj_name","c":"1192-1212","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_variable","c":"1221-1293","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"get_nh_lua_variables","c":"1297-1316","status":"unknown"}
-{"fn":"save_luadata","c":"1328-1341","status":"unknown"}
-{"fn":"restore_luadata","c":"1345-1363","status":"unknown","d":["D-1636"],"at":"seed@a30a7de84"}
+{"fn":"get_nh_lua_variables","c":"1297-1316","status":"ported","js":["js/save.js:get_nh_lua_variables"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: throw-if-uninit (panic), pcall-equivalent try/catch returning null on failure"}
+{"fn":"save_luadata","c":"1328-1341","status":"ported","js":["js/save.js:save_luadata"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: returns vars string defaulting to empty; file framing adapted to caller persistence"}
+{"fn":"restore_luadata","c":"1345-1363","status":"ported","js":["js/save.js:restore_luadata"],"d":["D-1636"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inits luacore if needed, type-checks payload, loads via nhl_loadstring_luadata"}
 {"fn":"nhl_stairways","c":"1369-1394","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_test","c":"1400-1419","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_pushkey","c":"1424-1438","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
@@ -62,10 +62,10 @@
 {"fn":"nhl_timer_stop_at","c":"1587-1607","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_timer_start_at","c":"1612-1638","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_get_cmd_key","c":"1644-1657","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"nhl_callback","c":"1664-1706","status":"unknown"}
-{"fn":"nhl_gamestate","c":"1722-1802","status":"unknown"}
-{"fn":"free_tutorial","c":"1809-1833","status":"unknown"}
-{"fn":"tutorial","c":"1837-1846","status":"unknown"}
+{"fn":"nhl_callback","c":"1664-1706","status":"ported","js":["js/cmd.js:nhl_callback"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: name lookup, counts +/- with impossible guard, set/rm recorded; luacore panic guard dead (called from Lua)"}
+{"fn":"nhl_gamestate","c":"1722-1802","status":"partial","js":["js/do.js:nhl_gamestate","js/do.js:tutorial_enter_gamestate","js/do.js:tutorial_leave_gamestate"],"omit":"update_inventory() display refresh after save/restore arms","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: save/restore arms fully in tutorial_enter/leave_gamestate helpers"}
+{"fn":"free_tutorial","c":"1809-1833","status":"ported","js":["js/do.js:free_tutorial"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: clears wornmask flags and releases ubak/disco/mvitals/invent stash (GC for memory)"}
+{"fn":"tutorial","c":"1837-1846","status":"ported","js":["js/do.js:tutorial"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact: nhcore call then disable both calls after leaving"}
 {"fn":"init_nhc_data","c":"1924-1937","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_push_anything","c":"1940-1959","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_meta_u_index","c":"1964-2028","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

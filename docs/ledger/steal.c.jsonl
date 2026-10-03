@@ -1,16 +1,16 @@
-{"fn":"somegold","c":"14-34","status":"unknown"}
-{"fn":"findgold","c":"45-52","status":"unknown"}
+{"fn":"somegold","c":"14-34","status":"ported","js":["js/steal.js:somegold"],"at":"2026-10-03@bbe63333a"}
+{"fn":"findgold","c":"45-52","status":"ported","js":["js/monmove.js:findgold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stealgold","c":"58-116","status":"ported","js":["js/steal.js:stealgold"],"at":"2026-10-01@37d6d3fe7","note":"stale: js/steal.js:125"}
-{"fn":"thiefdead","c":"120-128","status":"unknown","d":["D-2271"],"at":"seed@a30a7de84"}
-{"fn":"unresponsive","c":"133-142","status":"unknown"}
-{"fn":"unstolenarm","c":"147-161","status":"unknown"}
-{"fn":"stealarm","c":"165-208","status":"unknown"}
+{"fn":"thiefdead","c":"120-128","status":"ported","js":["js/mhitm.js:thiefdead"],"d":["D-2271"],"at":"2026-10-03@bbe63333a"}
+{"fn":"unresponsive","c":"133-142","status":"ported","js":["js/steal.js:unresponsive"],"at":"2026-10-03@bbe63333a"}
+{"fn":"unstolenarm","c":"147-161","status":"ported","js":["js/steal.js:unstolenarm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stealarm","c":"165-208","status":"ported","js":["js/steal.js:stealarm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"remove_worn_item","c":"213-290","status":"partial","js":["js/steal.js:remove_worn_item"],"omit":"`shk.c:173` `money2mon` stays synchronous at `js/shk.js:4533`, so quivered gold still skips `remove_worn_item`.","d":["D-2812","D-1086"],"at":"seed@a30a7de84"}
 {"fn":"worn_item_removal","c":"294-334","status":"ported","js":["js/steal.js:worn_item_removal"],"d":["D-2928"],"at":"seed@a30a7de84"}
 {"fn":"steal","c":"343-614","status":"partial","js":["js/steal.js:steal"],"omit":"C `assert(uball)` debug no-op; o_id-null guard on the stealoid compare (JS-artifact safety; real o_ids start at 1 via next_ident).","d":["D-2748"],"at":"seed@a30a7de84"}
 {"fn":"mpickobj","c":"618-685","status":"ported","js":["js/makemon.js:mpickobj"],"d":["D-2496"],"at":"seed@a30a7de84"}
-{"fn":"stealamulet","c":"689-767","status":"unknown","d":["D-1945"],"at":"seed@a30a7de84"}
+{"fn":"stealamulet","c":"689-767","status":"ported","js":["js/steal.js:stealamulet"],"d":["D-1945"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_absorb_item","c":"772-810","status":"ported","js":["js/steal.js:maybe_absorb_item"],"d":["D-2869"],"at":"seed@a30a7de84"}
-{"fn":"mdrop_obj","c":"814-846","status":"unknown"}
-{"fn":"mdrop_special_objs","c":"852-871","status":"unknown"}
+{"fn":"mdrop_obj","c":"814-846","status":"ported","js":["js/mon.js:mdrop_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mdrop_special_objs","c":"852-871","status":"ported","js":["js/mon.js:mdrop_special_objs"],"at":"2026-10-03@bbe63333a"}
 {"fn":"relobj","c":"875-898","status":"split","js":["js/dogmove.js:relobj","js/mkobj.js:relobj_on_death","js/mhitm.js:grddead"],"d":["D-3284","D-2407"],"at":"2026-10-02@1b0ae0968","note":"stale: isgd arm live only via vault.c:181, inline mhitm.js:3702-3711; pet path isgd-free (tamedog refuses isgd dog.c:1244, dog_move needs mtame monmove.c:1772); mon.c:2779 isgd-free (mondead grddead-first mon.c:3109 clears isgd; sole m_detach TRUE caller mon.c:3175)"}

@@ -1,28 +1,28 @@
-{"fn":"rnd_hallublast","c":"52-55","status":"unknown"}
-{"fn":"m_has_launcher_and_ammo","c":"58-70","status":"unknown"}
+{"fn":"rnd_hallublast","c":"52-55","status":"ported","js":["js/mthrowu.js:rnd_hallublast"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ROLL_FROM = HALLUBLASTS[rn2(len)], full table ported"}
+{"fn":"m_has_launcher_and_ammo","c":"58-70","status":"ported","js":["js/mthrowu.js:m_has_launcher_and_ammo"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wielded-launcher + minvent ammo scan matches C exactly"}
 {"fn":"thitu","c":"75-155","status":"ported","js":["js/mthrowu.js:thitu"],"d":["D-2796"],"at":"seed@a30a7de84"}
-{"fn":"drop_throw","c":"162-196","status":"unknown"}
+{"fn":"drop_throw","c":"162-196","status":"ported","js":["js/mthrowu.js:drop_throw"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mulch/ship/place+passive arms live; down_gate gate folded into ship_object (MIGR_NOWHERE=-1)"}
 {"fn":"monmulti","c":"201-258","status":"ported","js":["js/weapon.js:monmulti"],"d":["D-3023"],"at":"2026-09-28@0bb1eb02e"}
-{"fn":"monshoot","c":"262-314","status":"unknown","d":["D-2037"],"at":"seed@a30a7de84"}
+{"fn":"monshoot","c":"262-314","status":"ported","js":["js/mthrowu.js:monshoot"],"d":["D-2037"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: m_shot envelope + multishot loop + dead-cancel matches C"}
 {"fn":"ohitmon","c":"321-502","status":"ported","js":["js/mthrowu.js:ohitmon"],"d":["D-2507"],"at":"seed@a30a7de84"}
-{"fn":"ucatchgem","c":"506-529","status":"unknown","d":["D-1947"],"at":"seed@a30a7de84"}
-{"fn":"u_catch_thrown_obj","c":"533-550","status":"unknown"}
-{"fn":"m_throw","c":"572-845","status":"unknown","d":["D-2399"],"at":"seed@a30a7de84"}
-{"fn":"return_from_mtoss","c":"850-965","status":"unknown"}
-{"fn":"thrwmm","c":"969-1012","status":"unknown"}
-{"fn":"spitmm","c":"1016-1077","status":"unknown"}
-{"fn":"breathwep_name","c":"1083-1089","status":"unknown"}
-{"fn":"breamm","c":"1093-1150","status":"unknown"}
+{"fn":"ucatchgem","c":"506-529","status":"ported","js":["js/mthrowu.js:ucatchgem"],"d":["D-1947"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: unicorn glass-drop vs gift arms live"}
+{"fn":"u_catch_thrown_obj","c":"533-550","status":"ported","js":["js/mthrowu.js:u_catch_thrown_obj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: catch-chance formula + hold_another_object live"}
+{"fn":"m_throw","c":"572-845","status":"partial","js":["js/mthrowu.js:m_throw"],"omit":"missing cursed/greased misfire pline (Monnam misfires / Tobjnam slips as mon throws, C:623-629) and clear_dknown when thrower unseen (C:619-620)","d":["D-2399"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: flight loop, hero arms, tethered return live; only msg/dknown gaps"}
+{"fn":"return_from_mtoss","c":"850-965","status":"ported","js":["js/mthrowu.js:return_from_mtoss"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: return flight, catch/damage/land arms incl. do_not_annoy live"}
+{"fn":"thrwmm","c":"969-1012","status":"ported","js":["js/mthrowu.js:thrwmm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: weapon select, lined_up, flee gate, monshoot wiring live"}
+{"fn":"spitmm","c":"1016-1077","status":"ported","js":["js/mthrowu.js:spitmm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mcan rattle, venom select, m_throw, pet hunger live"}
+{"fn":"breathwep_name","c":"1083-1089","status":"partial","js":["js/mthrowu.js:breathwep_name"],"omit":"missing Hallucination arm returning rnd_hallublast (C:1085-1086); always returns breathwep[]","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: plain breathwep[] lookup live"}
+{"fn":"breamm","c":"1093-1150","status":"ported","js":["js/mthrowu.js:breamm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cough, m_seenres skip, dobuzz, mspec_used, pet hunger live"}
 {"fn":"m_useupall","c":"1154-1158","status":"ported","js":["js/mthrowu.js:m_useupall"],"d":["D-3262"],"at":"2026-10-02@a7d88d8ff","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"m_useup","c":"1162-1170","status":"ported","js":["js/mthrowu.js:m_useup"],"d":["D-3338"],"at":"2026-10-03@a701d2827"}
 {"fn":"thrwmu","c":"1174-1264","status":"ported","js":["js/mthrowu.js:thrwmu"],"d":["D-2537"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — wrapper sets mon_moving; all C arms verified in thrwmu_body (mthrowu.js:1562)"}
-{"fn":"spitmu","c":"1268-1271","status":"unknown"}
-{"fn":"breamu","c":"1275-1278","status":"unknown"}
-{"fn":"blocking_terrain","c":"1282-1288","status":"unknown"}
-{"fn":"linedup_callback","c":"1295-1327","status":"unknown"}
-{"fn":"linedup","c":"1330-1373","status":"unknown","d":["D-1863"],"at":"seed@a30a7de84"}
-{"fn":"m_lined_up","c":"1376-1393","status":"unknown","d":["D-2257"],"at":"seed@a30a7de84"}
-{"fn":"lined_up","c":"1398-1401","status":"unknown"}
+{"fn":"spitmu","c":"1268-1271","status":"ported","js":["js/mthrowu.js:spitmu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: one-line spitmm vs hero wrapper"}
+{"fn":"breamu","c":"1275-1278","status":"ported","js":["js/mthrowu.js:breamu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: one-line breamm vs hero wrapper"}
+{"fn":"blocking_terrain","c":"1282-1288","status":"ported","js":["js/mthrowu.js:blocking_terrain"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: isok/wall/door/waterwall/lavawall gate matches"}
+{"fn":"linedup_callback","c":"1295-1327","status":"ported","js":["js/mthrowu.js:linedup_callback"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: tbx/tby set, line walk, fnc/blocked returns match"}
+{"fn":"linedup","c":"1330-1373","status":"ported","js":["js/mthrowu.js:linedup"],"d":["D-1863"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: couldsee/clear_path + boulderhandling 0/1/2 walk live"}
+{"fn":"m_lined_up","c":"1376-1393","status":"ported","js":["js/mthrowu.js:m_lined_up"],"d":["D-2257"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mux/muy hero target, concealment gate, boulder modes live"}
+{"fn":"lined_up","c":"1398-1401","status":"ported","js":["js/mthrowu.js:lined_up"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: one-line m_lined_up vs hero wrapper"}
 {"fn":"m_carrying","c":"1405-1414","status":"ported","js":["js/mon.js:m_carrying"],"d":["D-3286"],"at":"2026-10-02@d8fa56ce0"}
-{"fn":"hit_bars","c":"1417-1495","status":"unknown"}
-{"fn":"hits_bars","c":"1499-1559","status":"unknown","d":["D-2358"],"at":"seed@a30a7de84"}
+{"fn":"hit_bars","c":"1417-1495","status":"ported","js":["js/mthrowu.js:hit_bars"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: break/dissolve, barsounds, war-hammer break, wake live"}
+{"fn":"hits_bars","c":"1499-1559","status":"ported","js":["js/mthrowu.js:hits_bars"],"d":["D-2358"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: per-class pass-through table + hit_bars wiring matches"}

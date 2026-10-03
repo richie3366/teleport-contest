@@ -1,14 +1,14 @@
-{"fn":"init_map","c":"24-34","status":"unknown"}
-{"fn":"init_fill","c":"37-52","status":"unknown"}
-{"fn":"get_map","c":"55-60","status":"unknown"}
-{"fn":"pass_one","c":"68-96","status":"unknown"}
+{"fn":"init_map","c":"24-34","status":"ported","js":["js/mkmap.js:init_map"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact blanket fill"}
+{"fn":"init_fill","c":"37-52","status":"ported","js":["js/mkmap.js:init_fill"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact RNG scatter with retry-on-occupied"}
+{"fn":"get_map","c":"55-60","status":"ported","js":["js/mkmap.js:get_map"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact bounds/background"}
+{"fn":"pass_one","c":"68-96","status":"ported","js":["js/mkmap.js:pass_one"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact in-place CA step"}
 {"fn":"pass_two","c":"101-121","status":"ported","js":["js/mkmap.js:pass_two"],"at":"2026-09-30@deff666da","note":"stale: js/mkmap.js:98 whole body + caller :357; review 872 ACCEPT"}
 {"fn":"pass_three","c":"124-144","status":"ported","js":["js/mkmap.js:pass_three"],"at":"2026-09-30@deff666da","note":"stale: js/mkmap.js:117 whole body + caller :361; review 872 ACCEPT"}
-{"fn":"flood_fill_rm","c":"153-242","status":"unknown"}
-{"fn":"join_map_cleanup","c":"246-255","status":"unknown"}
-{"fn":"join_map","c":"258-328","status":"unknown","d":["D-1910"],"at":"seed@a30a7de84"}
-{"fn":"finish_map","c":"331-363","status":"unknown","d":["D-1911"],"at":"seed@a30a7de84"}
-{"fn":"remove_rooms","c":"379-401","status":"unknown"}
-{"fn":"remove_room","c":"412-436","status":"unknown"}
-{"fn":"litstate_rnd","c":"443-448","status":"unknown"}
-{"fn":"mkmap","c":"451-486","status":"unknown","d":["D-1908"],"at":"seed@a30a7de84"}
+{"fn":"flood_fill_rm","c":"153-242","status":"ported","js":["js/mklev.js:flood_fill_rm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full; per-cell n_loc_filled carried by mkmap_flood_fill_rm, sole consumer join_map uses it"}
+{"fn":"join_map_cleanup","c":"246-255","status":"ported","js":["js/mkmap.js:join_map_cleanup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl room list reset"}
+{"fn":"join_map","c":"258-328","status":"ported","js":["js/mkmap.js:join_map"],"d":["D-1910"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl tiny-hole erase, somexy fallback, overlap advance, no sort_rooms"}
+{"fn":"finish_map","c":"331-363","status":"ported","js":["js/mkmap.js:finish_map"],"d":["D-1911"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full wallify/lit/lava-ice order"}
+{"fn":"remove_rooms","c":"379-401","status":"ported","js":["js/mkmap.js:remove_rooms"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl partial-overlap impossible arm"}
+{"fn":"remove_room","c":"412-436","status":"ported","js":["js/mkmap.js:remove_room"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full swap/roomno rewrite/tombstone"}
+{"fn":"litstate_rnd","c":"443-448","status":"ported","js":["js/mklev.js:litstate_rnd"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact depth-gated negative arm and passthrough"}
+{"fn":"mkmap","c":"451-486","status":"ported","js":["js/mkmap.js:mkmap"],"d":["D-1908"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full driver incl pass counts and cavernous stamp"}

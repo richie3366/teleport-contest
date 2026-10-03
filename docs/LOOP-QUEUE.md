@@ -120,16 +120,20 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
+- [ ] `restore.c` reset_oattached_mids — coverage MISSING (C 13 code L `restore.c:1510–1530` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @bbe63333a
+- [ ] `save.c` savelevchn — coverage MISSING (C 14 code L `save.c:974–994` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @bbe63333a
+- [ ] `save.c` save_bc — coverage MISSING (C 14 code L `save.c:696–721` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @bbe63333a
 <!-- coverage:end -->
 
-## Open — missing-arm (hand-verified 2026-10-02; coverage block ungeneratable)
+## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)
 
-The generated block is empty and stays empty: `rows --write` needs C ≥ 8
-code lines but every remaining unknown/absent ledger gap is ≤ 7 lines
-(all top-1000 verified 2026-10-02). Hand-written per this iteration's
-refill authorization: each row's evidence is a `brief.mjs` output read at
-enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
-Pop order: first unchecked here after Must-fix/coverage.
+The generated block held 0 rows on 2026-10-02 (every remaining gap ≤ 7
+lines); the 2026-10-03 ledger audit declared 4 absent functions at C
+13–14 lines, so the block carries 3 rows again (`tricked_fileremoved` at
+C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
+`brief.mjs`-at-enqueue evidence (C body + call sites + JS status), never
+a map/debt/TOP30 line. Pop order: first unchecked here after
+Must-fix/coverage.
 
 - [ ] `windows.c` choose_classes_menu — C windows.c:1665–1675 category=0 (monclass) arm + generic prompt/way params absent from js/options.js:5557 local (autopickup-only reimplementation; C extern unexported; brief 2026-10-03) @9dc9139eb
 - [ ] `mkobj.c` set_corpsenm — absent from js/ (no JS symbol; seed-declared ported, location unresolved); C mkobj.c:1317–1367 egg-timer/oeaten/corpsenm/timeout/weight arms, all 8 callees live (brief 2026-10-03; 23 C call sites) @9dc9139eb
@@ -147,7 +151,7 @@ committed scoreboard; if the row was queued at an older SHA pass
 `--base <sha>`). During the breadth phase these pop only when the
 coverage list is empty, or alongside a coverage row in the same C file.
 
-- [ ] `mthrowu.c` rnd_hallublast — blocks 1/953 (scen-impaired-Rogue-94110 step 89 kind=rng: C `rn2(96)=60` in rnd_hallublast vs JS `rn2(20)=16` from zap_hit) @9dc9139eb
+- [ ] `mthrowu.c` breathwep_name — blocks 1/953 (scen-impaired-Rogue-94110 step 89 kind=rng: C `rn2(96)=60` via the Hallucination arm vs JS `rn2(20)=16` from zap_hit; C mthrowu.c:1085–1086 absent from js/mthrowu.js:383 breathwep_name, Hallucination arm deferred; rnd_hallublast itself ledger-ported 2026-10-03, ex-row @9dc9139eb) @bbe63333a
 
 ## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 

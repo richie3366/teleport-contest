@@ -1,18 +1,18 @@
 {"fn":"init_shop_selection","c":"360-374","status":"by-design","at":"2026-09-30@a60a91a98","note":"shknam.c:356–375 is #if 0; no compiled body or callers. Validator also includes zero-item sentinel."}
-{"fn":"veggy_item","c":"380-405","status":"unknown"}
-{"fn":"shkveg","c":"408-439","status":"unknown"}
-{"fn":"mkveggy_at","c":"443-450","status":"unknown"}
-{"fn":"mkshobj_at","c":"454-483","status":"unknown"}
-{"fn":"nameshk","c":"487-554","status":"unknown"}
-{"fn":"neweshk","c":"557-566","status":"unknown"}
+{"fn":"veggy_item","c":"380-405","status":"ported","js":["js/shknam.js:veggy_item"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shkveg","c":"408-439","status":"ported","js":["js/shknam.js:shkveg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: drops two unreachable-for-valid-input panics (maxprob<1, probtype); fallback returns base"}
+{"fn":"mkveggy_at","c":"443-450","status":"ported","js":["js/shknam.js:mkveggy_at"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mkshobj_at","c":"454-483","status":"ported","js":["js/shknam.js:mkshobj_at"],"at":"2026-10-03@bbe63333a"}
+{"fn":"nameshk","c":"487-554","status":"ported","js":["js/shknam.js:nameshk"],"at":"2026-10-03@bbe63333a"}
+{"fn":"neweshk","c":"557-566","status":"ported","js":["js/makemon.js:neweshk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_eshk","c":"569-576","status":"by-design","d":["D-3327"],"at":"2026-10-03@0e60ede85","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"good_shopdoor","c":"582-624","status":"unknown"}
-{"fn":"shkinit","c":"628-692","status":"unknown","d":["D-2570","D-2418"],"at":"seed@a30a7de84"}
-{"fn":"stock_room_goodpos","c":"695-714","status":"unknown"}
-{"fn":"stock_room","c":"718-801","status":"unknown"}
-{"fn":"saleable","c":"805-824","status":"unknown"}
-{"fn":"get_shop_item","c":"829-839","status":"unknown"}
-{"fn":"Shknam","c":"843-850","status":"unknown"}
+{"fn":"good_shopdoor","c":"582-624","status":"ported","js":["js/shknam.js:good_shopdoor"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shkinit","c":"628-692","status":"ported","js":["js/shknam.js:shkinit"],"d":["D-2570","D-2418"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: #ifdef DEBUG block compiled out in C production build; same -1 return"}
+{"fn":"stock_room_goodpos","c":"695-714","status":"ported","js":["js/shknam.js:stock_room_goodpos"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stock_room","c":"718-801","status":"ported","js":["js/shknam.js:stock_room"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Orcus mongone inlined as detach-lite; equivalent on fresh keeper (no timers/lights)"}
+{"fn":"saleable","c":"805-824","status":"ported","js":["js/shknam.js:saleable"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_shop_item","c":"829-839","status":"ported","js":["js/shknam.js:get_shop_item"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Shknam","c":"843-850","status":"ported","js":["js/shknam.js:Shknam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shkname","c":"856-897","status":"ported","js":["js/shknam.js:shkname"],"d":["D-2727"],"at":"2026-10-01@6e06fa8e7","note":"stale: js/shknam.js:460 whole body present (D-2727); :866 impossible unreachable-for-valid-input (sync fn, fallthrough stands); zap.c:5549 omit is a caller arm"}
-{"fn":"shkname_is_pname","c":"900-905","status":"unknown"}
+{"fn":"shkname_is_pname","c":"900-905","status":"ported","js":["js/shknam.js:shkname_is_pname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_izchak","c":"908-924","status":"ported","js":["js/shknam.js:is_izchak"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"stale: js/shknam.js:509 — all 5 C arms exact (hallu/isshk/in_town/prefix-skip/strcmp); both C callers wired (shk.c:3112→JS shk.js:2814, :5594→JS :6389); review 777 no C-wrong"}

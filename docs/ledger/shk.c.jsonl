@@ -1,136 +1,136 @@
-{"fn":"money2mon","c":"157-178","status":"unknown"}
+{"fn":"money2mon","c":"157-178","status":"partial","js":["js/shk.js:money2mon"],"omit":"quiver arm: C remove_worn_item(ygold,FALSE) when quan==amount&&owornmask; JS splices invent without unwearing (stale quiver); impossible() diagnostics dropped","at":"2026-10-03@bbe63333a"}
 {"fn":"money2u","c":"186-212","status":"partial","js":["js/shk.js:money2u"],"omit":"`zap.c:1967` `poly_obj` shop-bill arm stays the named omit on `js/zap.js` `poly_obj` (no `shop_keeper` call).","d":["D-2901"],"at":"seed@a30a7de84"}
-{"fn":"next_shkp","c":"215-231","status":"unknown"}
-{"fn":"shkgone","c":"235-269","status":"unknown","d":["D-2272"],"at":"seed@a30a7de84"}
-{"fn":"set_residency","c":"272-277","status":"unknown"}
+{"fn":"next_shkp","c":"215-231","status":"ported","js":["js/shk.js:next_shkp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shkgone","c":"235-269","status":"ported","js":["js/mhitm.js:shkgone"],"d":["D-2272"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_residency","c":"272-277","status":"ported","js":["js/shk.js:set_residency"],"at":"2026-10-03@bbe63333a"}
 {"fn":"replshk","c":"280-286","status":"ported","js":["js/shk.js:replshk"],"d":["D-3273"],"at":"2026-10-02@b7d842138","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"restshk","c":"290-305","status":"ported","js":["js/shk.js:restshk"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"clear_unpaid_obj","c":"309-315","status":"unknown"}
-{"fn":"clear_unpaid","c":"319-325","status":"unknown"}
-{"fn":"clear_no_charge_obj","c":"329-373","status":"unknown"}
-{"fn":"clear_no_charge","c":"377-385","status":"unknown"}
-{"fn":"clear_no_charge_pets","c":"389-396","status":"unknown"}
-{"fn":"setpaid","c":"400-434","status":"unknown"}
-{"fn":"addupbill","c":"496-507","status":"unknown"}
+{"fn":"clear_unpaid_obj","c":"309-315","status":"ported","js":["js/shk.js:clear_unpaid_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"clear_unpaid","c":"319-325","status":"ported","js":["js/shk.js:clear_unpaid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"clear_no_charge_obj","c":"329-373","status":"partial","js":["js/shk.js:clear_no_charge_obj"],"omit":"OBJ_BURIED arm: C resolves buried coords via get_obj_location and keeps no_charge in an inhabited rival shop; JS clears buried unconditionally","at":"2026-10-03@bbe63333a"}
+{"fn":"clear_no_charge","c":"377-385","status":"ported","js":["js/shk.js:clear_no_charge"],"at":"2026-10-03@bbe63333a"}
+{"fn":"clear_no_charge_pets","c":"389-396","status":"ported","js":["js/shk.js:clear_no_charge_pets"],"at":"2026-10-03@bbe63333a"}
+{"fn":"setpaid","c":"400-434","status":"ported","js":["js/shk.js:setpaid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"addupbill","c":"496-507","status":"ported","js":["js/shk.js:addupbill"],"at":"2026-10-03@bbe63333a"}
 {"fn":"call_kops","c":"510-564","status":"ported","js":["js/shk.js:call_kops"],"at":"2026-09-27@a5d26e462","note":"stale: complete at js/shk.js:390, both C callers wired (:352,:531)"}
-{"fn":"inside_shop","c":"568-576","status":"unknown"}
-{"fn":"u_left_shop","c":"579-625","status":"unknown"}
-{"fn":"credit_report","c":"628-661","status":"unknown","d":["D-2282"],"at":"seed@a30a7de84"}
+{"fn":"inside_shop","c":"568-576","status":"ported","js":["js/shk.js:inside_shop"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_left_shop","c":"579-625","status":"ported","js":["js/shk.js:u_left_shop"],"at":"2026-10-03@bbe63333a"}
+{"fn":"credit_report","c":"628-661","status":"ported","js":["js/shk.js:credit_report"],"d":["D-2282"],"at":"2026-10-03@bbe63333a"}
 {"fn":"remote_burglary","c":"665-682","status":"ported","js":["js/shk.js:remote_burglary"],"d":["D-1717"],"at":"2026-10-01@b4ca336ef","note":"stale: js/shk.js:561 whole C body live (D-1717), sole C caller pickup.c:1939 wired at js/pickup.js:1164 with fakeshop footnote"}
-{"fn":"rob_shop","c":"687-719","status":"unknown"}
-{"fn":"deserted_shop","c":"723-747","status":"unknown"}
-{"fn":"u_entered_shop","c":"751-917","status":"unknown","d":["D-2218","D-1080"],"at":"seed@a30a7de84"}
+{"fn":"rob_shop","c":"687-719","status":"ported","js":["js/shk.js:rob_shop"],"at":"2026-10-03@bbe63333a"}
+{"fn":"deserted_shop","c":"723-747","status":"ported","js":["js/shk.js:deserted_shop"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_entered_shop","c":"751-917","status":"ported","js":["js/shk.js:u_entered_shop"],"d":["D-2218","D-1080"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_pick","c":"921-947","status":"ported","js":["js/shk.js:pick_pick"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:823; caller js/pickup.js:2619"}
-{"fn":"same_price","c":"955-981","status":"unknown"}
-{"fn":"shop_debt","c":"990-999","status":"unknown"}
-{"fn":"shopper_financial_report","c":"1003-1035","status":"unknown","d":["D-1740"],"at":"seed@a30a7de84"}
-{"fn":"inhishop","c":"1039-1048","status":"unknown"}
+{"fn":"same_price","c":"955-981","status":"ported","js":["js/shk.js:same_price"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shop_debt","c":"990-999","status":"ported","js":["js/shk.js:shop_debt"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shopper_financial_report","c":"1003-1035","status":"ported","js":["js/shk.js:shopper_financial_report"],"d":["D-1740"],"at":"2026-10-03@bbe63333a"}
+{"fn":"inhishop","c":"1039-1048","status":"ported","js":["js/teleport.js:inhishop"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shop_keeper","c":"1052-1080","status":"partial","js":["js/shk.js:shop_keeper"],"omit":"`zap.c:1967` `poly_obj` shop-bill arm stays the named omit on `js/zap.js` `poly_obj` (no `shop_keeper` call).","d":["D-2901"],"at":"seed@a30a7de84"}
-{"fn":"find_objowner","c":"1084-1115","status":"unknown"}
-{"fn":"tended_shop","c":"1118-1123","status":"unknown"}
-{"fn":"noisy_shop","c":"1126-1133","status":"unknown"}
+{"fn":"find_objowner","c":"1084-1115","status":"ported","js":["js/shk.js:find_objowner"],"at":"2026-10-03@bbe63333a"}
+{"fn":"tended_shop","c":"1118-1123","status":"ported","js":["js/sounds.js:tended_shop"],"at":"2026-10-03@bbe63333a"}
+{"fn":"noisy_shop","c":"1126-1133","status":"ported","js":["js/sounds.js:noisy_shop"],"at":"2026-10-03@bbe63333a"}
 {"fn":"onbill","c":"1136-1155","status":"ported","js":["js/shk.js:onbill"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}
-{"fn":"onshopbill","c":"1160-1163","status":"unknown"}
-{"fn":"is_unpaid","c":"1167-1171","status":"unknown"}
-{"fn":"delete_contents","c":"1175-1183","status":"unknown"}
-{"fn":"obfree","c":"1187-1275","status":"unknown"}
+{"fn":"onshopbill","c":"1160-1163","status":"ported","js":["js/shk.js:onshopbill"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_unpaid","c":"1167-1171","status":"ported","js":["js/shk.js:is_unpaid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"delete_contents","c":"1175-1183","status":"ported","js":["js/shk.js:delete_contents"],"at":"2026-10-03@bbe63333a"}
+{"fn":"obfree","c":"1187-1275","status":"ported","js":["js/shk.js:obfree"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_credit","c":"1278-1294","status":"ported","js":["js/shk.js:check_credit"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
 {"fn":"pay","c":"1297-1313","status":"ported","js":["js/shk.js:pay"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
-{"fn":"home_shk","c":"1317-1328","status":"unknown"}
-{"fn":"angry_shk_exists","c":"1331-1340","status":"unknown"}
+{"fn":"home_shk","c":"1317-1328","status":"partial","js":["js/shk.js:home_shk"],"omit":"C mnearto(shkp,x,y,TRUE,RLOC_NOMSG) near-placement incl. occupant displacement; JS sets exact mx/my+newsym (can stack on occupant)","at":"2026-10-03@bbe63333a"}
+{"fn":"angry_shk_exists","c":"1331-1340","status":"ported","js":["js/shk.js:angry_shk_exists"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pacify_shk","c":"1344-1358","status":"ported","js":["js/shk.js:pacify_shk"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}
-{"fn":"rile_shk","c":"1362-1377","status":"unknown"}
+{"fn":"rile_shk","c":"1362-1377","status":"ported","js":["js/shk.js:rile_shk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rouse_shk","c":"1381-1392","status":"ported","js":["js/shk.js:rouse_shk"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}
-{"fn":"make_happy_shk","c":"1395-1436","status":"unknown","d":["D-1540"],"at":"seed@a30a7de84"}
-{"fn":"make_happy_shoppers","c":"1440-1446","status":"unknown"}
-{"fn":"hot_pursuit","c":"1449-1463","status":"unknown"}
-{"fn":"make_angry_shk","c":"1470-1489","status":"unknown"}
-{"fn":"sortbill_cmp","c":"1499-1518","status":"unknown"}
-{"fn":"cheapest_item","c":"1522-1539","status":"unknown","d":["D-1688"],"at":"seed@a30a7de84"}
-{"fn":"make_itemized_bill","c":"1545-1663","status":"unknown"}
-{"fn":"menu_pick_pay_items","c":"1668-1739","status":"unknown"}
-{"fn":"dopay","c":"1743-2035","status":"unknown","d":["D-1716","D-1704"],"at":"seed@a30a7de84"}
-{"fn":"pay_billed_items","c":"2045-2167","status":"unknown","d":["D-1715"],"at":"seed@a30a7de84"}
-{"fn":"update_bill","c":"2171-2211","status":"unknown"}
-{"fn":"dopayobj","c":"2220-2302","status":"unknown"}
-{"fn":"buy_container","c":"2309-2411","status":"unknown","d":["D-1702"],"at":"seed@a30a7de84"}
+{"fn":"make_happy_shk","c":"1395-1436","status":"ported","js":["js/shk.js:make_happy_shk"],"d":["D-1540"],"at":"2026-10-03@bbe63333a"}
+{"fn":"make_happy_shoppers","c":"1440-1446","status":"ported","js":["js/shk.js:make_happy_shoppers"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hot_pursuit","c":"1449-1463","status":"ported","js":["js/shk.js:hot_pursuit"],"at":"2026-10-03@bbe63333a"}
+{"fn":"make_angry_shk","c":"1470-1489","status":"ported","js":["js/shk.js:make_angry_shk"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sortbill_cmp","c":"1499-1518","status":"ported","js":["js/shk.js:sortbill_cmp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cheapest_item","c":"1522-1539","status":"ported","js":["js/shk.js:cheapest_item"],"d":["D-1688"],"at":"2026-10-03@bbe63333a"}
+{"fn":"make_itemized_bill","c":"1545-1663","status":"ported","js":["js/shk.js:make_itemized_bill"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menu_pick_pay_items","c":"1668-1739","status":"ported","js":["js/shk.js:menu_pick_pay_items"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dopay","c":"1743-2035","status":"ported","js":["js/shk.js:dopay"],"d":["D-1716","D-1704"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pay_billed_items","c":"2045-2167","status":"ported","js":["js/shk.js:pay_billed_items"],"d":["D-1715"],"at":"2026-10-03@bbe63333a"}
+{"fn":"update_bill","c":"2171-2211","status":"ported","js":["js/shk.js:update_bill"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dopayobj","c":"2220-2302","status":"ported","js":["js/shk.js:dopayobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"buy_container","c":"2309-2411","status":"ported","js":["js/shk.js:buy_container"],"d":["D-1702"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reject_purchase","c":"2419-2451","status":"ported","js":["js/shk.js:reject_purchase"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
-{"fn":"insufficient_funds","c":"2455-2481","status":"unknown"}
-{"fn":"paybill","c":"2485-2570","status":"unknown"}
-{"fn":"inherits","c":"2577-2679","status":"unknown"}
-{"fn":"set_repo_loc","c":"2682-2718","status":"unknown"}
+{"fn":"insufficient_funds","c":"2455-2481","status":"ported","js":["js/shk.js:insufficient_funds"],"at":"2026-10-03@bbe63333a"}
+{"fn":"paybill","c":"2485-2570","status":"ported","js":["js/shk.js:paybill"],"at":"2026-10-03@bbe63333a"}
+{"fn":"inherits","c":"2577-2679","status":"ported","js":["js/shk.js:inherits"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_repo_loc","c":"2682-2718","status":"ported","js":["js/shk.js:set_repo_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"finish_paybill","c":"2723-2755","status":"ported","js":["js/end.js:finish_paybill"],"d":["D-3320"],"at":"2026-10-02@d0ba4ea2a"}
 {"fn":"bp_to_obj","c":"2759-2769","status":"ported","js":["js/shk.js:bp_to_obj"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:5293; 6 callers wired (doinvbill x2, make_itemized_bill, buy_container x2, pay_billed_items)"}
-{"fn":"find_oid","c":"2777-2804","status":"unknown"}
-{"fn":"get_cost_of_shop_item","c":"2809-2843","status":"unknown"}
-{"fn":"get_pricing_units","c":"2846-2859","status":"unknown"}
-{"fn":"oid_price_adjustment","c":"2864-2873","status":"unknown"}
-{"fn":"get_cost","c":"2877-2988","status":"unknown","d":["D-1718"],"at":"seed@a30a7de84"}
-{"fn":"contained_cost","c":"2995-3042","status":"unknown"}
-{"fn":"contained_gold","c":"3046-3061","status":"unknown"}
+{"fn":"find_oid","c":"2777-2804","status":"ported","js":["js/shk.js:find_oid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_cost_of_shop_item","c":"2809-2843","status":"partial","js":["js/shk.js:get_cost_of_shop_item"],"omit":"Has_contents(obj)&&!freespot arm: C adds contained_cost(obj,shkp,0,FALSE,TRUE); JS returns base cost only (comment: deferred)","at":"2026-10-03@bbe63333a"}
+{"fn":"get_pricing_units","c":"2846-2859","status":"ported","js":["js/shk.js:get_pricing_units"],"at":"2026-10-03@bbe63333a"}
+{"fn":"oid_price_adjustment","c":"2864-2873","status":"ported","js":["js/shk.js:oid_price_adjustment"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_cost","c":"2877-2988","status":"ported","js":["js/shk.js:get_cost"],"d":["D-1718"],"at":"2026-10-03@bbe63333a"}
+{"fn":"contained_cost","c":"2995-3042","status":"ported","js":["js/shk.js:contained_cost"],"at":"2026-10-03@bbe63333a"}
+{"fn":"contained_gold","c":"3046-3061","status":"ported","js":["js/shk.js:contained_gold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dropped_container","c":"3064-3082","status":"ported","js":["js/shk.js:dropped_container"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:2782; 7 callers wired (sellobj arms, T/F pattern matches C)"}
 {"fn":"picked_container","c":"3085-3100","status":"ported","js":["js/shk.js:picked_container"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:3184; callers wired (dokick, billable, addtobill, addinv js/u_init.js:1055); mon_leave arm is mon_leave named omit"}
 {"fn":"special_stock","c":"3103-3144","status":"partial","js":["js/shk.js:special_stock"],"omit":"The remark at `shk.c:3124–3125` (hero already carrying enough candles) is a comment, not an arm.","d":["D-2867"],"at":"seed@a30a7de84"}
-{"fn":"set_cost","c":"3148-3193","status":"unknown"}
-{"fn":"gem_learned","c":"3198-3231","status":"unknown"}
-{"fn":"alter_cost","c":"3237-3256","status":"unknown"}
-{"fn":"unpaid_cost","c":"3260-3305","status":"unknown","d":["D-2711"],"at":"seed@a30a7de84"}
-{"fn":"add_one_tobill","c":"3309-3363","status":"unknown"}
-{"fn":"add_to_billobjs","c":"3366-3383","status":"unknown"}
+{"fn":"set_cost","c":"3148-3193","status":"ported","js":["js/shk.js:set_cost"],"at":"2026-10-03@bbe63333a"}
+{"fn":"gem_learned","c":"3198-3231","status":"ported","js":["js/shk.js:gem_learned"],"at":"2026-10-03@bbe63333a"}
+{"fn":"alter_cost","c":"3237-3256","status":"partial","js":["js/shk.js:alter_cost"],"omit":"missing update_inventory() refresh after bp->price raise (stale bill-price display)","at":"2026-10-03@bbe63333a"}
+{"fn":"unpaid_cost","c":"3260-3305","status":"ported","js":["js/shk.js:unpaid_cost"],"d":["D-2711"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_one_tobill","c":"3309-3363","status":"ported","js":["js/shk.js:add_one_tobill"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_to_billobjs","c":"3366-3383","status":"ported","js":["js/shk.js:add_to_billobjs"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bill_box_content","c":"3387-3407","status":"ported","js":["js/shk.js:bill_box_content"],"d":["D-3232","D-1705"],"at":"2026-10-01@516e71ff9","note":"stale: js/shk.js:4223 whole body (D-1705), addtobill wires :4303 + self-recurse :4228"}
-{"fn":"shk_names_obj","c":"3413-3445","status":"unknown","d":["D-1703"],"at":"seed@a30a7de84"}
-{"fn":"billable","c":"3451-3487","status":"unknown"}
-{"fn":"addtobill","c":"3490-3599","status":"unknown"}
+{"fn":"shk_names_obj","c":"3413-3445","status":"ported","js":["js/shk.js:shk_names_obj"],"d":["D-1703"],"at":"2026-10-03@bbe63333a"}
+{"fn":"billable","c":"3451-3487","status":"ported","js":["js/shk.js:billable"],"at":"2026-10-03@bbe63333a"}
+{"fn":"addtobill","c":"3490-3599","status":"ported","js":["js/shk.js:addtobill"],"at":"2026-10-03@bbe63333a"}
 {"fn":"append_honorific","c":"3602-3620","status":"ported","js":["js/shk.js:append_honorific"],"d":["D-2938"],"at":"seed@a30a7de84"}
-{"fn":"splitbill","c":"3623-3658","status":"unknown","d":["D-2278"],"at":"seed@a30a7de84"}
-{"fn":"sub_one_frombill","c":"3661-3690","status":"unknown"}
+{"fn":"splitbill","c":"3623-3658","status":"ported","js":["js/shk.js:splitbill"],"d":["D-2278"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sub_one_frombill","c":"3661-3690","status":"ported","js":["js/shk.js:sub_one_frombill"],"at":"2026-10-03@bbe63333a"}
 {"fn":"subfrombill","c":"3694-3710","status":"ported","js":["js/shk.js:subfrombill"],"at":"2026-09-28@73b53df4b","note":"stale: js/shk.js:1250"}
-{"fn":"stolen_container","c":"3713-3751","status":"unknown"}
-{"fn":"stolen_value","c":"3754-3872","status":"unknown"}
-{"fn":"donate_gold","c":"3877-3910","status":"unknown"}
-{"fn":"sellobj_state","c":"3913-3924","status":"unknown"}
-{"fn":"sellobj","c":"3927-4194","status":"unknown"}
-{"fn":"doinvbill","c":"4197-4271","status":"unknown"}
-{"fn":"corpsenm_price_adj","c":"4275-4316","status":"unknown"}
-{"fn":"getprice","c":"4319-4358","status":"unknown"}
+{"fn":"stolen_container","c":"3713-3751","status":"ported","js":["js/shk.js:stolen_container"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stolen_value","c":"3754-3872","status":"ported","js":["js/shk.js:stolen_value"],"at":"2026-10-03@bbe63333a"}
+{"fn":"donate_gold","c":"3877-3910","status":"ported","js":["js/shk.js:donate_gold"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sellobj_state","c":"3913-3924","status":"ported","js":["js/shk.js:sellobj_state"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sellobj","c":"3927-4194","status":"ported","js":["js/shk.js:sellobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doinvbill","c":"4197-4271","status":"ported","js":["js/shk.js:doinvbill"],"at":"2026-10-03@bbe63333a"}
+{"fn":"corpsenm_price_adj","c":"4275-4316","status":"ported","js":["js/shk.js:corpsenm_price_adj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"getprice","c":"4319-4358","status":"partial","js":["js/shk.js:getprice"],"omit":"TOOL_CLASS candle arm: C halves tmp when Is_candle&&age<20*oc_cost; JS breaks without halving (comment: deferred)","at":"2026-10-03@bbe63333a"}
 {"fn":"shkcatch","c":"4362-4396","status":"partial","js":["js/shk.js:shkcatch"],"omit":"The remark at `shk.c:3124–3125` (hero already carrying enough candles) is a comment, not an arm.","d":["D-2867"],"at":"seed@a30a7de84"}
-{"fn":"add_damage","c":"4399-4437","status":"unknown"}
-{"fn":"shk_impaired","c":"4441-4448","status":"unknown"}
+{"fn":"add_damage","c":"4399-4437","status":"ported","js":["js/shk.js:add_damage"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shk_impaired","c":"4441-4448","status":"ported","js":["js/shk.js:shk_impaired"],"at":"2026-10-03@bbe63333a"}
 {"fn":"repairable_damage","c":"4452-4487","status":"ported","js":["js/shk.js:repairable_damage"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:1443; callers js/shk.js:1610,:1751"}
-{"fn":"find_damage","c":"4491-4506","status":"unknown"}
+{"fn":"find_damage","c":"4491-4506","status":"ported","js":["js/shk.js:find_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"discard_damage_struct","c":"4509-4526","status":"ported","js":["js/shk.js:discard_damage_struct"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:1469; callers js/shk.js:1735,:1786"}
-{"fn":"discard_damage_owned_by","c":"4530-4552","status":"unknown"}
+{"fn":"discard_damage_owned_by","c":"4530-4552","status":"ported","js":["js/shk.js:discard_damage_owned_by"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shk_fixes_damage","c":"4556-4577","status":"ported","js":["js/shk.js:shk_fixes_damage"],"d":["D-2591"],"at":"seed@a30a7de84"}
-{"fn":"litter_getpos","c":"4591-4615","status":"unknown"}
+{"fn":"litter_getpos","c":"4591-4615","status":"ported","js":["js/shk.js:litter_getpos"],"at":"2026-10-03@bbe63333a"}
 {"fn":"litter_scatter","c":"4622-4709","status":"ported","js":["js/shk.js:litter_scatter"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"litter_newsyms","c":"4712-4719","status":"unknown"}
-{"fn":"repair_damage","c":"4732-4845","status":"unknown"}
-{"fn":"fix_shop_damage","c":"4850-4874","status":"unknown"}
+{"fn":"litter_newsyms","c":"4712-4719","status":"ported","js":["js/shk.js:litter_newsyms"],"at":"2026-10-03@bbe63333a"}
+{"fn":"repair_damage","c":"4732-4845","status":"ported","js":["js/shk.js:repair_damage"],"at":"2026-10-03@bbe63333a"}
+{"fn":"fix_shop_damage","c":"4850-4874","status":"ported","js":["js/shk.js:fix_shop_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shk_move","c":"4880-4993","status":"partial","js":["js/shk.js:shk_move"],"omit":"`shk_fixes_damage` (`shk.c:4556`, damage-list subsystem — map turns.md shk_move section + file header); `after_shk_move` `check_special_room(FALSE)` occupancy arm (map-named, file header).","d":["D-2560"],"at":"seed@a30a7de84"}
-{"fn":"after_shk_move","c":"4997-5008","status":"unknown"}
+{"fn":"after_shk_move","c":"4997-5008","status":"partial","js":["js/shk.js:after_shk_move"],"omit":"missing if(!gameover) check_special_room(FALSE) occupancy re-check after bill_p reset","at":"2026-10-03@bbe63333a"}
 {"fn":"is_fshk","c":"5012-5015","status":"ported","js":["js/shk.js:is_fshk"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"shopdig","c":"5019-5110","status":"unknown","d":["D-2308"],"at":"seed@a30a7de84"}
-{"fn":"makekops","c":"5113-5135","status":"unknown"}
-{"fn":"getcad","c":"5138-5171","status":"unknown"}
-{"fn":"pay_for_damage","c":"5174-5346","status":"unknown"}
-{"fn":"costly_spot","c":"5350-5363","status":"unknown"}
-{"fn":"costly_adjacent","c":"5369-5381","status":"unknown"}
+{"fn":"shopdig","c":"5019-5110","status":"ported","js":["js/shk.js:shopdig"],"d":["D-2308"],"at":"2026-10-03@bbe63333a"}
+{"fn":"makekops","c":"5113-5135","status":"ported","js":["js/shk.js:makekops"],"at":"2026-10-03@bbe63333a"}
+{"fn":"getcad","c":"5138-5171","status":"ported","js":["js/shk.js:getcad"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pay_for_damage","c":"5174-5346","status":"ported","js":["js/shk.js:pay_for_damage"],"at":"2026-10-03@bbe63333a"}
+{"fn":"costly_spot","c":"5350-5363","status":"ported","js":["js/shk.js:costly_spot"],"at":"2026-10-03@bbe63333a"}
+{"fn":"costly_adjacent","c":"5369-5381","status":"ported","js":["js/shk.js:costly_adjacent"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shop_object","c":"5386-5402","status":"ported","js":["js/shk.js:shop_object"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: js/shk.js:986; caller js/sounds.js:1815"}
 {"fn":"price_quote","c":"5406-5465","status":"ported","js":["js/shk.js:price_quote"],"d":["D-2987"],"at":"2026-09-27@c3bae97ba","note":"stale: js/shk.js:1014"}
-{"fn":"shk_embellish","c":"5468-5503","status":"unknown"}
-{"fn":"shk_chat","c":"5521-5601","status":"unknown"}
-{"fn":"kops_gone","c":"5606-5624","status":"unknown"}
+{"fn":"shk_embellish","c":"5468-5503","status":"ported","js":["js/shk.js:shk_embellish"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shk_chat","c":"5521-5601","status":"ported","js":["js/shk.js:shk_chat"],"at":"2026-10-03@bbe63333a"}
+{"fn":"kops_gone","c":"5606-5624","status":"ported","js":["js/shk.js:kops_gone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cost_per_charge","c":"5627-5678","status":"ported","js":["js/shk.js:cost_per_charge"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"check_unpaid_usage","c":"5688-5733","status":"unknown"}
-{"fn":"check_unpaid","c":"5739-5742","status":"unknown"}
-{"fn":"costly_gold","c":"5745-5786","status":"unknown"}
-{"fn":"block_door","c":"5791-5821","status":"unknown"}
+{"fn":"check_unpaid_usage","c":"5688-5733","status":"ported","js":["js/shk.js:check_unpaid_usage"],"at":"2026-10-03@bbe63333a"}
+{"fn":"check_unpaid","c":"5739-5742","status":"ported","js":["js/shk.js:check_unpaid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"costly_gold","c":"5745-5786","status":"ported","js":["js/shk.js:costly_gold"],"at":"2026-10-03@bbe63333a"}
+{"fn":"block_door","c":"5791-5821","status":"ported","js":["js/shk.js:block_door"],"at":"2026-10-03@bbe63333a"}
 {"fn":"block_entry","c":"5826-5858","status":"partial","js":["js/shk.js:block_entry"],"omit":"`block_door` (`shk.c:5791`) stays the stub-false in `test_move` and `domove`.","d":["D-2854"],"at":"seed@a30a7de84"}
-{"fn":"shk_your","c":"5862-5874","status":"unknown"}
-{"fn":"Shk_Your","c":"5877-5882","status":"unknown"}
+{"fn":"shk_your","c":"5862-5874","status":"ported","js":["js/objnam.js:shk_your"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Shk_Your","c":"5877-5882","status":"ported","js":["js/timeout.js:Shk_Your"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shk_owns","c":"5885-5897","status":"ported","js":["js/shk.js:shk_owns_prefix"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: as shk_owns_prefix js/shk.js:1098, registered :1112; caller shk_your js/objnam.js:2771"}
 {"fn":"mon_owns","c":"5900-5905","status":"ported","js":["js/objnam.js:shk_your"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: split inline in shk_your js/objnam.js:2774; caller shk.c:5871"}
 {"fn":"cad","c":"5908-5941","status":"ported","js":["js/shk.js:cad"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}
 {"fn":"sasc_bug","c":"5945-5948","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"globby_bill_fixup","c":"5976-6097","status":"unknown","d":["D-2374"],"at":"seed@a30a7de84"}
+{"fn":"globby_bill_fixup","c":"5976-6097","status":"ported","js":["js/shk.js:globby_bill_fixup"],"d":["D-2374"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_unpaid_trapobj","c":"6101-6114","status":"ported","js":["js/apply.js:use_unpaid_trapobj"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}

@@ -1,9 +1,9 @@
-{"fn":"strbuf_init","c":"9-13","status":"unknown"}
+{"fn":"strbuf_init","c":"9-13","status":"ported","js":["js/options.js:strbuf_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"strbuf_append","c":"17-24","status":"ported","js":["js/options.js:strbuf_append"],"d":["D-3222"],"at":"2026-10-01@bd7787f89"}
 {"fn":"strbuf_reserve","c":"28-45","status":"ported","js":["js/options.js:strbuf_reserve"],"at":"2026-09-30@6c8474344","note":"stale: js/options.js:9311"}
 {"fn":"strbuf_empty","c":"49-54","status":"ported","js":["js/options.js:strbuf_empty"],"at":"2026-09-30@4bcfa8a7a","note":"stale: js/options.js:11046 (conditional free replaced by GC)"}
 {"fn":"strbuf_nl_to_crlf","c":"58-77","status":"ported","js":["js/options.js:strbuf_nl_to_crlf"],"d":["D-3178"],"at":"2026-09-30@4bcfa8a7a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"Strlen_","c":"82-98","status":"partial","js":["js/options.js:Strlen_"],"omit":"- `strbuf_nl_to_crlf`: none in its whole body or caller closure.","d":["D-3178"],"at":"2026-09-30@4bcfa8a7a","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"pmatch_internal","c":"105-141","status":"unknown"}
-{"fn":"pmatch","c":"145-148","status":"unknown","d":["D-1954"],"at":"seed@a30a7de84"}
-{"fn":"pmatchi","c":"152-155","status":"unknown"}
+{"fn":"pmatch_internal","c":"105-141","status":"ported","js":["js/cmd.js:pmatch_internal"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: sk(fuzzy-skip) param dropped; no C caller passes non-null sk, live path fully ported"}
+{"fn":"pmatch","c":"145-148","status":"ported","js":["js/cmd.js:pmatch"],"d":["D-1954"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
+{"fn":"pmatchi","c":"152-155","status":"ported","js":["js/cmd.js:pmatchi"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}

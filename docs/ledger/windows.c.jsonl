@@ -43,9 +43,9 @@
 {"fn":"hup_void_fdecl_winid_ulong","c":"856-861","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"hup_void_fdecl_constchar_p","c":"865-868","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"hup_ctrl_nhwindow","c":"872-878","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"genl_status_init","c":"893-906","status":"unknown"}
-{"fn":"genl_status_finish","c":"909-919","status":"unknown"}
-{"fn":"genl_status_enablefield","c":"922-931","status":"unknown"}
+{"fn":"genl_status_init","c":"893-906","status":"ported","js":["js/botl.js:genl_status_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: window create/display→sentinel id (no window sys)"}
+{"fn":"genl_status_finish","c":"909-919","status":"ported","js":["js/botl.js:genl_status_finish"],"at":"2026-10-03@bbe63333a"}
+{"fn":"genl_status_enablefield","c":"922-931","status":"ported","js":["js/botl.js:genl_status_enablefield"],"at":"2026-10-03@bbe63333a"}
 {"fn":"genl_status_update","c":"937-1115","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"dump_fmtstr","c":"1126-1240","status":"by-design","at":"seed@a30a7de84","note":"seed: filesystem (CURRENT.md Do not)"}
 {"fn":"dump_open_log","c":"1244-1264","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
@@ -63,17 +63,17 @@
 {"fn":"has_color","c":"1397-1407","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"glyph2ttychar","c":"1410-1416","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"glyph2symidx","c":"1419-1425","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"encglyph","c":"1428-1434","status":"unknown"}
+{"fn":"encglyph","c":"1428-1434","status":"ported","js":["js/botl.js:encglyph"],"at":"2026-10-03@bbe63333a"}
 {"fn":"decode_glyph","c":"1439-1463","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"decode_mixed","c":"1466-1512","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"genl_putmixed","c":"1528-1534","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"genl_display_file","c":"1539-1555","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"menuitem_invert_test","c":"1562-1589","status":"unknown"}
+{"fn":"menuitem_invert_test","c":"1562-1589","status":"ported","js":["js/options.js:menuitem_invert_test"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mixed_to_glyphinfo","c":"1600-1618","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"choose_classes_menu","c":"1644-1761","status":"unknown"}
+{"fn":"choose_classes_menu","c":"1644-1761","status":"partial","js":["js/options.js:choose_classes_menu"],"omit":"category 0 (monclass) menu incl. its accelerators; PICK_ONE way=0 mode (JS is category-1 PICK_ANY only, C:1753-1838)","at":"2026-10-03@bbe63333a"}
 {"fn":"adjust_menu_promptstyle","c":"1769-1777","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"add_menu_heading","c":"1816-1828","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"add_menu_str","c":"1832-1838","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"get_menu_coloring","c":"1841-1853","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"select_menu","c":"1856-1865","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"getlin","c":"1868-1902","status":"unknown"}
+{"fn":"getlin","c":"1868-1902","status":"partial","js":["js/getline.js:getlin"],"omit":"cmdq_pop CMDQ_KEY preload loop + pline echo + early return (C:1875-1895)","at":"2026-10-03@bbe63333a"}

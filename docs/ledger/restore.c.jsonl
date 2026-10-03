@@ -1,32 +1,32 @@
-{"fn":"find_lev_obj","c":"71-107","status":"unknown"}
-{"fn":"inven_inuse","c":"113-125","status":"unknown"}
+{"fn":"find_lev_obj","c":"71-107","status":"partial","js":["js/save.js:rebuildObjectsAt","js/do.js:rebuildObjectsAt","js/bones.js:rebuildObjectsAt"],"omit":"setworn re-wear of floor ball/chain (W_BALL|W_CHAIN) when u.uz.dlevel","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: grid rebuild covered by the rebuildObjectsAt trio"}
+{"fn":"inven_inuse","c":"113-125","status":"ported","js":["js/save.js:inven_inuse"],"at":"2026-10-03@bbe63333a"}
 {"fn":"restlevchn","c":"130-150","status":"unknown"}
-{"fn":"restdamage","c":"153-179","status":"unknown"}
-{"fn":"restobj","c":"183-228","status":"unknown"}
-{"fn":"restobjchn","c":"231-303","status":"unknown"}
+{"fn":"restdamage","c":"153-179","status":"partial","js":["js/lev_json.js:deserDamage"],"omit":"ghostly when += moves-omoves shift (:172-174)","at":"2026-10-03@bbe63333a"}
+{"fn":"restobj","c":"183-228","status":"split","js":["js/lev_json.js:deserObjChain"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: binary Sfi_obj+oextra gates vacuous; blob copy + restmon(omonst)"}
+{"fn":"restobjchn","c":"231-303","status":"partial","js":["js/lev_json.js:deserObjChain","js/bones.js:remapObjChainIds"],"omit":"ghostly age shift (age+=moves-omoves unless frozen/relative, :266-267); bypass reset to 0 (:281-282)","at":"2026-10-03@bbe63333a"}
 {"fn":"restmon","c":"307-373","status":"partial","js":["js/restore.js:restmon"],"omit":"binary NHFILE `Sfi_*` reads (JSON blob presence + copy is the wire analogue — Rule #2, `lev_json` dst-absolute precedent); `relative_time_to_moves` pair skipped inside `restmon` (absolute wire, documented above — the live export exists for time logic); `restmon_edog`/`savemon_edog` stay live in `ma…","d":["D-2514"],"at":"seed@a30a7de84"}
-{"fn":"restmonchn","c":"376-465","status":"unknown"}
-{"fn":"loadfruitchn","c":"468-484","status":"unknown"}
-{"fn":"freefruitchn","c":"487-496","status":"unknown"}
-{"fn":"ghostfruit","c":"500-512","status":"unknown","d":["D-1541"],"at":"seed@a30a7de84"}
+{"fn":"restmonchn","c":"376-465","status":"partial","js":["js/lev_json.js:deserMonList","js/lev_json.js:deserMon","js/bones.js:remapMonChainIds"],"omit":"mw re-alias from minvent W_WEP incl MON_NOWEP/impossible arm (:432-444); ispriest restpriest(mtmp,ghostly) arm (:448-449; defined js/priest.js, never called)","at":"2026-10-03@bbe63333a"}
+{"fn":"loadfruitchn","c":"468-484","status":"ported","js":["js/bones.js:loadfruitchn"],"at":"2026-10-03@bbe63333a"}
+{"fn":"freefruitchn","c":"487-496","status":"split","js":["js/bones.js:getlev_bones","js/save.js:loadFruitchn"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: GC drop: game.oldfruit=null (bones) and ffruit head replace (save)"}
+{"fn":"ghostfruit","c":"500-512","status":"ported","js":["js/bones.js:ghostfruit"],"d":["D-1541"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: miss arm returns silently (C impossible debug-log skipped)"}
 {"fn":"restgamestate","c":"525-736","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"restlevelstate","c":"742-749","status":"unknown"}
 {"fn":"restlevelfile","c":"755-771","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"dorecover","c":"789-951","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"rest_stairs","c":"955-985","status":"unknown"}
-{"fn":"restcemetery","c":"988-1017","status":"unknown"}
-{"fn":"rest_levl","c":"1021-1030","status":"unknown"}
-{"fn":"trickery","c":"1035-1042","status":"unknown"}
+{"fn":"rest_stairs","c":"955-985","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: stairs blob passthrough + install assign; relative-to-absolute conversion vacuous (JSON absolute); u_traversed in blob"}
+{"fn":"restcemetery","c":"988-1017","status":"ported","js":["js/dungeon.js:restcemetery"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: CONVERTING/UNCONVERTING free arm omitted (no JSON conversion mode)"}
+{"fn":"rest_levl","c":"1021-1030","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: locations overlay in deserLevel"}
+{"fn":"trickery","c":"1035-1042","status":"ported","js":["js/bones.js:trickery"],"at":"2026-10-03@bbe63333a"}
 {"fn":"getlev","c":"1046-1311","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"rest_adjust_levelflags","c":"1314-1318","status":"unknown"}
-{"fn":"moves_to_relative_time","c":"1320-1325","status":"unknown"}
-{"fn":"relative_time_to_moves","c":"1328-1333","status":"unknown"}
-{"fn":"get_plname_from_file","c":"1338-1362","status":"unknown"}
-{"fn":"rest_bubbles","c":"1369-1384","status":"unknown"}
-{"fn":"restore_gamelog","c":"1390-1409","status":"unknown","d":["D-1628"],"at":"seed@a30a7de84"}
-{"fn":"restore_msghistory","c":"1415-1441","status":"unknown","d":["D-1614"],"at":"seed@a30a7de84"}
-{"fn":"clear_id_mapping","c":"1447-1456","status":"unknown"}
-{"fn":"add_id_mapping","c":"1460-1476","status":"unknown"}
-{"fn":"lookup_id_mapping","c":"1484-1507","status":"unknown"}
-{"fn":"reset_oattached_mids","c":"1510-1530","status":"unknown"}
+{"fn":"moves_to_relative_time","c":"1320-1325","status":"ported","js":["js/restore.js:moves_to_relative_time"],"at":"2026-10-03@bbe63333a"}
+{"fn":"relative_time_to_moves","c":"1328-1333","status":"ported","js":["js/restore.js:relative_time_to_moves"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_plname_from_file","c":"1338-1362","status":"split","js":["js/save.js:try_restore_save"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON plname field read; binary size/char/playmode-slot parse vacuous"}
+{"fn":"rest_bubbles","c":"1369-1384","status":"split","js":["js/lev_json.js:deserLevel","js/save.js:try_restore_save","js/do.js:goto_level"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: waterlevel blob + restore_waterlevel on install at both sites"}
+{"fn":"restore_gamelog","c":"1390-1409","status":"ported","js":["js/save.js:restore_gamelog"],"d":["D-1628"],"at":"2026-10-03@bbe63333a"}
+{"fn":"restore_msghistory","c":"1415-1441","status":"ported","js":["js/save.js:restore_msghistory"],"d":["D-1614"],"at":"2026-10-03@bbe63333a"}
+{"fn":"clear_id_mapping","c":"1447-1456","status":"split","js":["js/bones.js:clear_bones_ids"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_id_mapping","c":"1460-1476","status":"split","js":["js/bones.js:record_bones_id"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lookup_id_mapping","c":"1484-1507","status":"split","js":["js/bones.js:lookup_bones_id"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: live: consumed by region.js reset_region_mids and light.js"}
+{"fn":"reset_oattached_mids","c":"1510-1530","status":"absent","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no JS implementation; ghostly omonst m_id zeroing and omid remap absent (searched omid/omonst/bones/getlev paths)"}
 {"fn":"restore_menu","c":"1536-1618","status":"unknown"}

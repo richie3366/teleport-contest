@@ -1,14 +1,14 @@
-{"fn":"md_ignored_features","c":"236-242","status":"unknown"}
+{"fn":"md_ignored_features","c":"236-242","status":"ported","js":["js/date.js:md_ignored_features"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: (1<<19)|SFCTOOL_BIT."}
 {"fn":"make_version","c":"248-295","status":"ported","js":["js/version.js:make_version"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mdlib_version_string","c":"300-308","status":"unknown"}
+{"fn":"mdlib_version_string","c":"300-308","status":"ported","js":["js/version.js:mdlib_version_string"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Live arms exact; EDITLEVEL suffix compiled out (RELEASED)."}
 {"fn":"version_id_string","c":"316-344","status":"ported","js":["js/version.js:version_id_string"],"d":["D-3123","D-1881"],"at":"2026-09-29@ee5dff112","note":"stale: js/version.js:69; caller js/date.js:populate_nomakedefs"}
 {"fn":"bannerc_string","c":"349-370","status":"ported","js":["js/date.js:bannerc_string"],"at":"2026-09-29@29685b8e4","note":"stale: js/date.js:60"}
 {"fn":"mkstemp","c":"375-385","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"build_savebones_compat_string","c":"393-415","status":"ported","js":["js/version.js:build_savebones_compat_string"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/version.js:364 (C staticfn, local); callers :534 + :674"}
 {"fn":"count_and_validate_winopts","c":"602-623","status":"ported","js":["js/version.js:count_and_validate_winopts"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/version.js:436 (C staticfn, local); caller :550"}
-{"fn":"count_and_validate_soundlibopts","c":"627-637","status":"unknown"}
-{"fn":"opt_out_words","c":"641-666","status":"unknown"}
+{"fn":"count_and_validate_soundlibopts","c":"627-637","status":"ported","js":["js/version.js:count_and_validate_soundlibopts"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact fencepost mark-valid + count loop."}
+{"fn":"opt_out_words","c":"641-666","status":"ported","js":["js/version.js:opt_out_words"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Full fold/wrap incl space/empty-word/trailing semantics; #if0 arm compiled out."}
 {"fn":"build_options","c":"669-830","status":"ported","js":["js/version.js:build_options"],"d":["D-2535"],"at":"2026-10-01@e45cb9654","note":"stale: js/version.js:525 (D-2535 whole body; WIN32/USER_SOUNDS compiled out, eos folded, caller runtime_info_init:678)"}
-{"fn":"runtime_info_init","c":"835-846","status":"unknown"}
-{"fn":"do_runtime_info","c":"849-861","status":"unknown"}
-{"fn":"release_runtime_info","c":"864-872","status":"unknown"}
+{"fn":"runtime_info_init","c":"835-846","status":"ported","js":["js/version.js:runtime_info_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: One-shot: compat string, make_version, populate hook, idxopttext, build_options."}
+{"fn":"do_runtime_info","c":"849-861","status":"ported","js":["js/version.js:do_runtime_info"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact lazy-init + MAXOPT-bounded cursor serve (holder-adapted out-param)."}
+{"fn":"release_runtime_info","c":"864-872","status":"ported","js":["js/version.js:release_runtime_info"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: drain opttext, reset flag, free hook."}

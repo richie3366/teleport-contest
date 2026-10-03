@@ -1,25 +1,25 @@
 {"fn":"formatkiller","c":"90-162","status":"ported","js":["js/end.js:formatkiller"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"topten_print","c":"165-171","status":"ported","js":["js/topten.js:render_topten_lines"],"at":"2026-10-02@1896adcef","note":"stale: raw-panel arm inlined as emit(x,false) at all 12 C sites (js/topten.js:662,788,805,853-857,897,947,948,972,975,980,1007) -> render_topten_lines; toptenwin/putstr branch is the named omit in topten doc block"}
 {"fn":"topten_print_bold","c":"174-180","status":"ported","js":["js/topten.js:render_topten_lines"],"at":"2026-10-02@1896adcef","note":"stale: raw-panel arm inlined as emit(x,true) at both C sites (js/topten.js:787,804) -> render_topten_lines; toptenwin branch named omit (topten doc block)"}
-{"fn":"observable_depth","c":"183-204","status":"unknown"}
+{"fn":"observable_depth","c":"183-204","status":"ported","js":["js/topten.js:observable_depth"],"at":"2026-10-03@bbe63333a"}
 {"fn":"discardexcess","c":"208-215","status":"by-design","d":["D-3302"],"at":"2026-10-02@f5743f596","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"readentry","c":"220-298","status":"ported","js":["js/topten.js:readentry"],"d":["D-2648"],"at":"seed@a30a7de84"}
 {"fn":"writeentry","c":"301-332","status":"by-design","at":"seed@a30a7de84","note":"seed: record file infra"}
 {"fn":"writexlentry","c":"340-391","status":"ported","js":["js/topten.js:writexlentry"],"d":["D-2650"],"at":"seed@a30a7de84"}
-{"fn":"encodexlogflags","c":"394-408","status":"unknown"}
+{"fn":"encodexlogflags","c":"394-408","status":"ported","js":["js/topten.js:encodexlogflags"],"at":"2026-10-03@bbe63333a"}
 {"fn":"encodeconduct","c":"411-452","status":"ported","js":["js/topten.js:encodeconduct"],"at":"2026-09-30@6c8474344","note":"stale: js/topten.js:214"}
-{"fn":"encodeachieve","c":"455-476","status":"unknown"}
+{"fn":"encodeachieve","c":"455-476","status":"ported","js":["js/topten.js:encodeachieve"],"at":"2026-10-03@bbe63333a"}
 {"fn":"add_achieveX","c":"480-488","status":"ported","js":["js/topten.js:add_achieveX"],"d":["D-3302"],"at":"2026-10-02@f5743f596"}
 {"fn":"encode_extended_achievements","c":"491-581","status":"ported","js":["js/topten.js:encode_extended_achievements"],"d":["D-2650"],"at":"seed@a30a7de84"}
-{"fn":"encode_extended_conducts","c":"584-610","status":"unknown"}
+{"fn":"encode_extended_conducts","c":"584-610","status":"ported","js":["js/topten.js:encode_extended_conducts"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_ttlist","c":"615-625","status":"by-design","d":["D-3302"],"at":"2026-10-02@f5743f596","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"topten","c":"628-926","status":"ported","js":["js/topten.js:topten"],"d":["D-2585"],"at":"seed@a30a7de84"}
 {"fn":"outheader","c":"929-940","status":"ported","js":["js/topten.js:outheader"],"at":"2026-09-30@6c8474344","note":"stale: js/topten.js:659"}
-{"fn":"outentry","c":"946-1107","status":"unknown","d":["D-2394"],"at":"seed@a30a7de84"}
-{"fn":"score_wanted","c":"1112-1185","status":"unknown"}
+{"fn":"outentry","c":"946-1107","status":"ported","js":["js/topten.js:outentry"],"d":["D-2394"],"at":"2026-10-03@bbe63333a"}
+{"fn":"score_wanted","c":"1112-1185","status":"ported","js":["js/topten.js:score_wanted"],"at":"2026-10-03@bbe63333a"}
 {"fn":"prscore","c":"1194-1353","status":"ported","js":["js/topten.js:prscore"],"d":["D-2475"],"at":"seed@a30a7de84"}
-{"fn":"classmon","c":"1356-1375","status":"unknown"}
-{"fn":"get_rnd_toptenentry","c":"1381-1414","status":"unknown"}
+{"fn":"classmon","c":"1356-1375","status":"ported","js":["js/topten.js:classmon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_rnd_toptenentry","c":"1381-1414","status":"ported","js":["js/topten.js:get_rnd_toptenentry"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tt_oname","c":"1422-1441","status":"ported","js":["js/topten.js:tt_oname"],"at":"2026-09-30@6c8474344","note":"stale: js/topten.js:593"}
 {"fn":"nsb_mung_line","c":"1471-1476","status":"by-design","d":["D-3302"],"at":"2026-10-02@f5743f596","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"nsb_unmung_line","c":"1479-1484","status":"by-design","d":["D-3302"],"at":"2026-10-02@f5743f596","note":"refresh: no JS symbol (measured MISSING)"}

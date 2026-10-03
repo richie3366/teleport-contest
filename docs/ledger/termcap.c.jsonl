@@ -20,7 +20,7 @@
 {"fn":"dimbeg","c":"729-734","status":"unknown"}
 {"fn":"m_end","c":"737-741","status":"unknown"}
 {"fn":"backsp","c":"745-748","status":"unknown"}
-{"fn":"tty_nhbell","c":"751-757","status":"unknown"}
+{"fn":"tty_nhbell","c":"751-757","status":"partial","js":["js/display.js:tty_nhbell"],"omit":"audible BEL output (putchar \\u0007 + fflush); silent-gate branch kept","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: bell deliberately unwritable in port; gate + callers wired"}
 {"fn":"graph_on","c":"761-765","status":"unknown"}
 {"fn":"graph_off","c":"768-772","status":"unknown"}
 {"fn":"tty_delay_output","c":"791-835","status":"unknown"}

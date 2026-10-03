@@ -1,35 +1,35 @@
-{"fn":"validrole","c":"713-716","status":"unknown"}
+{"fn":"validrole","c":"713-716","status":"ported","js":["js/roles.js:validrole"],"at":"2026-10-03@bbe63333a"}
 {"fn":"randrole","c":"719-728","status":"ported","js":["js/roles.js:randrole"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
-{"fn":"randrole_filtered","c":"731-744","status":"unknown"}
-{"fn":"str2role","c":"747-775","status":"unknown"}
+{"fn":"randrole_filtered","c":"731-744","status":"ported","js":["js/roles.js:randrole_filtered"],"at":"2026-10-03@bbe63333a"}
+{"fn":"str2role","c":"747-775","status":"ported","js":["js/roles.js:str2role"],"at":"2026-10-03@bbe63333a"}
 {"fn":"validrace","c":"778-784","status":"ported","js":["js/player_selection.js:validrace"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
 {"fn":"randrace","c":"787-810","status":"ported","js":["js/roles.js:randrace"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"str2race","c":"813-841","status":"unknown"}
-{"fn":"validgend","c":"844-850","status":"unknown"}
-{"fn":"randgend","c":"853-877","status":"unknown"}
-{"fn":"str2gend","c":"880-904","status":"unknown"}
-{"fn":"validalign","c":"907-913","status":"unknown"}
-{"fn":"randalign","c":"916-940","status":"unknown"}
-{"fn":"str2align","c":"943-967","status":"unknown"}
-{"fn":"ok_role","c":"971-1009","status":"unknown"}
+{"fn":"str2race","c":"813-841","status":"ported","js":["js/roles.js:str2race"],"at":"2026-10-03@bbe63333a"}
+{"fn":"validgend","c":"844-850","status":"ported","js":["js/player_selection.js:validgend"],"at":"2026-10-03@bbe63333a"}
+{"fn":"randgend","c":"853-877","status":"ported","js":["js/roles.js:randgend"],"at":"2026-10-03@bbe63333a"}
+{"fn":"str2gend","c":"880-904","status":"ported","js":["js/roles.js:str2gend"],"at":"2026-10-03@bbe63333a"}
+{"fn":"validalign","c":"907-913","status":"ported","js":["js/player_selection.js:validalign"],"at":"2026-10-03@bbe63333a"}
+{"fn":"randalign","c":"916-940","status":"ported","js":["js/roles.js:randalign"],"at":"2026-10-03@bbe63333a"}
+{"fn":"str2align","c":"943-967","status":"ported","js":["js/roles.js:str2align"],"at":"2026-10-03@bbe63333a"}
+{"fn":"ok_role","c":"971-1009","status":"ported","js":["js/player_selection.js:ok_role"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_role","c":"1015-1033","status":"ported","js":["js/player_selection.js:pick_role"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:576"}
-{"fn":"ok_race","c":"1037-1075","status":"unknown"}
+{"fn":"ok_race","c":"1037-1075","status":"ported","js":["js/player_selection.js:ok_race"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_race","c":"1081-1102","status":"ported","js":["js/player_selection.js:pick_race"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:590"}
-{"fn":"ok_gend","c":"1107-1139","status":"unknown"}
+{"fn":"ok_gend","c":"1107-1139","status":"ported","js":["js/player_selection.js:ok_gend"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_gend","c":"1146-1167","status":"ported","js":["js/player_selection.js:pick_gend"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:606"}
-{"fn":"ok_align","c":"1172-1204","status":"unknown"}
+{"fn":"ok_align","c":"1172-1204","status":"ported","js":["js/player_selection.js:ok_align"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_align","c":"1211-1232","status":"ported","js":["js/player_selection.js:pick_align"],"at":"2026-09-29@d27c7b945","note":"stale: js/player_selection.js:622"}
-{"fn":"rigid_role_checks","c":"1235-1281","status":"unknown","d":["D-2681"],"at":"seed@a30a7de84"}
-{"fn":"setrolefilter","c":"1284-1300","status":"unknown"}
+{"fn":"rigid_role_checks","c":"1235-1281","status":"ported","js":["js/player_selection.js:rigid_role_checks"],"d":["D-2681"],"at":"2026-10-03@bbe63333a"}
+{"fn":"setrolefilter","c":"1284-1300","status":"ported","js":["js/player_selection.js:setrolefilter"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gotrolefilter","c":"1303-1313","status":"ported","js":["js/player_selection.js:gotrolefilter"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
-{"fn":"rolefilterstring","c":"1318-1355","status":"unknown"}
+{"fn":"rolefilterstring","c":"1318-1355","status":"ported","js":["js/player_selection.js:rolefilterstring"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clearrolefilter","c":"1358-1381","status":"ported","js":["js/player_selection.js:clearrolefilter"],"at":"2026-09-29@7e46744a0","note":"stale: js/player_selection.js:80"}
-{"fn":"promptsep","c":"1384-1396","status":"unknown"}
+{"fn":"promptsep","c":"1384-1396","status":"ported","js":["js/player_selection.js:promptsep"],"at":"2026-10-03@bbe63333a"}
 {"fn":"role_gendercount","c":"1399-1412","status":"ported","js":["js/roles.js:role_gendercount"],"at":"2026-09-30@3f8f47e04","note":"stale: js/roles.js:1055"}
-{"fn":"race_alignmentcount","c":"1415-1428","status":"unknown"}
+{"fn":"race_alignmentcount","c":"1415-1428","status":"ported","js":["js/roles.js:race_alignmentcount"],"at":"2026-10-03@bbe63333a"}
 {"fn":"root_plselection_prompt","c":"1431-1580","status":"ported","js":["js/player_selection.js:root_plselection_prompt"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: js/player_selection.js:734 complete arm-by-arm, caller wired at :861, review 874 ACCEPT"}
-{"fn":"build_plselection_prompt","c":"1583-1656","status":"unknown"}
-{"fn":"plnamesuffix","c":"1665-1721","status":"unknown"}
+{"fn":"build_plselection_prompt","c":"1583-1656","status":"ported","js":["js/player_selection.js:build_plselection_prompt"],"at":"2026-10-03@bbe63333a"}
+{"fn":"plnamesuffix","c":"1665-1721","status":"ported","js":["js/roles.js:plnamesuffix"],"at":"2026-10-03@bbe63333a"}
 {"fn":"role_selection_prolog","c":"1726-1812","status":"ported","js":["js/player_selection.js:role_selection_prolog"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"stale: js/player_selection.js:993 (D-2672 whole-body port, review 1631 ACCEPT, no C-wrong)"}
 {"fn":"role_menu_extra","c":"1816-1960","status":"split","js":["js/player_selection.js:menu_extra_lines"],"omit":"``add_menu``/``add_menu_str`` (no JS export) — architectural mapping to menu_pick line objects, same protocol as setup_*menu entries (map-named here); ``cg.zeroany``/``nul_glyphinfo``/ATR_NONE/NO_COLOR plumbing subsumed by that protocol; ``'* * Random'`` vs ``'* - Random'`` preselect text kept (pre…","d":["D-2633"],"at":"2026-10-01@0fcd10790","note":"stale: D-2633+D-2636 whole body as menu_extra_lines; 24 C sites wired via :1271/:1281"}
 {"fn":"role_init","c":"1980-2117","status":"partial","js":["js/roles.js:role_init"],"omit":"restore-path re-derivation (above); `iflags.defer_plname`/`sysopt.genericusers` arms ported but unset in JS (unixmain-owned); `options.c:3609` pl_character writer (OPTIONS name back-compat; JS sets pl_character only via role_init copy-back).","d":["D-2481"],"at":"seed@a30a7de84"}
@@ -38,10 +38,10 @@
 {"fn":"character_race","c":"2163-2171","status":"ported","js":["js/polyself.js:character_race"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1"}
 {"fn":"genl_player_selection","c":"2177-2185","status":"ported","js":["js/player_selection.js:genl_player_selection"],"d":["D-3306"],"at":"2026-10-02@7dfa2aad1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"genl_player_setup","c":"2206-2725","status":"partial","js":["js/player_selection.js:genl_player_setup"],"omit":"`role.c:2179` passes screen height 0; the JS caller is the tty one.","d":["D-2833"],"at":"seed@a30a7de84","note":"alt 3017-3020"}
-{"fn":"reset_role_filtering","c":"2728-2770","status":"unknown"}
-{"fn":"maybe_skip_seps","c":"2777-2802","status":"unknown"}
+{"fn":"reset_role_filtering","c":"2728-2770","status":"ported","js":["js/player_selection.js:reset_role_filtering"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_skip_seps","c":"2777-2802","status":"ported","js":["js/player_selection.js:maybe_skip_seps"],"at":"2026-10-03@bbe63333a"}
 {"fn":"plsel_startmenu","c":"2806-2845","status":"partial","js":["js/player_selection.js:plsel_startmenu"],"omit":"`create_nhwindow(NHW_MENU)`, the `WIN_ERR` panic, and `start_menu(MENU_BEHAVE_STANDARD)` have no winid in the corner menu; the returned lines are that window.","d":["D-2890"],"at":"seed@a30a7de84"}
-{"fn":"setup_rolemenu","c":"2854-2902","status":"unknown","d":["D-1912"],"at":"seed@a30a7de84"}
+{"fn":"setup_rolemenu","c":"2854-2902","status":"ported","js":["js/player_selection.js:setup_rolemenu"],"d":["D-1912"],"at":"2026-10-03@bbe63333a"}
 {"fn":"setup_racemenu","c":"2905-2940","status":"ported","js":["js/player_selection.js:setup_racemenu"],"at":"2026-09-30@5fd602958","note":"stale: js/player_selection.js:503 (D-1912 rolemenu-precedent entry-builder; TRUE :1459 FALSE :184)"}
 {"fn":"setup_gendmenu","c":"2943-2976","status":"ported","js":["js/player_selection.js:setup_gendmenu"],"at":"2026-09-30@5fd602958","note":"stale: js/player_selection.js:529 (same precedent; TRUE :1536 FALSE :195)"}
 {"fn":"setup_algnmenu","c":"2979-3012","status":"ported","js":["js/player_selection.js:setup_algnmenu"],"at":"2026-09-30@5fd602958","note":"stale: js/player_selection.js:555 (same precedent; TRUE :1614 FALSE :206)"}

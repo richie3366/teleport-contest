@@ -1,21 +1,21 @@
-{"fn":"newedog","c":"23-32","status":"unknown"}
-{"fn":"free_edog","c":"35-42","status":"unknown","d":["D-1629"],"at":"seed@a30a7de84"}
-{"fn":"initedog","c":"45-88","status":"unknown","d":["D-1610"],"at":"seed@a30a7de84"}
-{"fn":"pet_type","c":"91-101","status":"unknown"}
-{"fn":"pick_familiar_pm","c":"104-135","status":"unknown"}
-{"fn":"make_familiar","c":"138-215","status":"unknown"}
-{"fn":"makedog","c":"219-284","status":"unknown","d":["D-2108"],"at":"seed@a30a7de84"}
+{"fn":"newedog","c":"23-32","status":"ported","js":["js/makemon.js:newedog"],"at":"2026-10-03@bbe63333a"}
+{"fn":"free_edog","c":"35-42","status":"ported","js":["js/dog.js:free_edog"],"d":["D-1629"],"at":"2026-10-03@bbe63333a"}
+{"fn":"initedog","c":"45-88","status":"ported","js":["js/dog.js:initedog"],"d":["D-1610"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pet_type","c":"91-101","status":"ported","js":["js/dog.js:pet_type"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pick_familiar_pm","c":"104-135","status":"ported","js":["js/dog.js:pick_familiar_pm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"make_familiar","c":"138-215","status":"ported","js":["js/dog.js:make_familiar"],"at":"2026-10-03@bbe63333a"}
+{"fn":"makedog","c":"219-284","status":"ported","js":["js/dog.js:makedog"],"d":["D-2108"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: drops else-impossible (startingpet_mid nonzero); unreachable, makedog runs once per game"}
 {"fn":"set_mon_lastmove","c":"287-290","status":"ported","js":["js/dog.js:set_mon_lastmove"],"d":["D-3280"],"at":"2026-10-02@b15c3087f","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"update_mlstmv","c":"295-298","status":"unknown","d":["D-1709"],"at":"seed@a30a7de84"}
-{"fn":"losedogs","c":"304-416","status":"unknown","d":["D-2722"],"at":"seed@a30a7de84"}
+{"fn":"update_mlstmv","c":"295-298","status":"ported","js":["js/dog.js:update_mlstmv"],"d":["D-1709"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C iter_mons verified fmon-only with same skips"}
+{"fn":"losedogs","c":"304-416","status":"ported","js":["js/dog.js:losedogs"],"d":["D-2722"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_arrive","c":"420-623","status":"ported","js":["js/dog.js:mon_arrive"],"d":["D-3194","D-2459","D-1505","D-1199"],"at":"2026-10-01@92ffa7863"}
 {"fn":"mon_catchup_elapsed_time","c":"627-724","status":"ported","js":["js/dog.js:mon_catchup_elapsed_time"],"d":["D-2562"],"at":"seed@a30a7de84"}
 {"fn":"mon_leave","c":"729-763","status":"ported","js":["js/dog.js:mon_leave"],"d":["D-3115"],"at":"2026-09-29@6e3bbfbe7"}
-{"fn":"keep_mon_accessible","c":"768-785","status":"unknown"}
+{"fn":"keep_mon_accessible","c":"768-785","status":"ported","js":["js/dog.js:keep_mon_accessible"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: drops mon->mextra gate; shk/priest/gd without mextra impossible (allocators set it, free_* clears flag)"}
 {"fn":"keepdogs","c":"789-884","status":"ported","js":["js/dog.js:keepdogs"],"d":["D-3279","D-1789","D-1783"],"at":"2026-10-02@3d8fe9bf9"}
 {"fn":"migrate_to_level","c":"887-932","status":"partial","js":["js/teleport.js:migrate_to_level"],"d":["D-3281","D-3280","D-1198"],"at":"2026-10-02@1d636ae22"}
-{"fn":"discard_migrations","c":"938-990","status":"unknown"}
+{"fn":"discard_migrations","c":"938-990","status":"partial","js":["js/dog.js:discard_migrations"],"omit":"object arm drops obfree(otmp,NULL): obj timers unstopped, LS_OBJECT light undeleted, contents not explicitly freed (unlink only)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: monster arm complete incl del_light_source/dealloc_monst"}
 {"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-2760"],"at":"seed@a30a7de84"}
-{"fn":"tamedog","c":"1143-1282","status":"unknown","d":["D-1595","D-1593","D-1546","D-1532"],"at":"seed@a30a7de84"}
-{"fn":"wary_dog","c":"1292-1359","status":"unknown"}
+{"fn":"tamedog","c":"1143-1282","status":"ported","js":["js/dog.js:tamedog"],"d":["D-1595","D-1593","D-1546","D-1532"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: M3_WANTSARTI value verified 0x0010"}
+{"fn":"wary_dog","c":"1292-1359","status":"partial","js":["js/dog.js:wary_dog"],"omit":"finish_meating(mtmp) inlined as meating=0, dropping mimic-appearance reset (m_ap_type->M_AP_NOTHING + newsym); live finish_meating already imported","at":"2026-10-03@bbe63333a"}
 {"fn":"abuse_dog","c":"1362-1393","status":"ported","js":["js/dog.js:abuse_dog"],"d":["D-3249"],"at":"2026-10-01@012413194","note":"stale: js/dog.js:1472 body whole; 5/5 C callers wired (dokick.js:846, hack.js:1463, trap.js:7508, uhitm.js:2127, zap.js:4286)"}

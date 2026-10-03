@@ -9,77 +9,77 @@
 {"fn":"free_omailcmd","c":"167-173","status":"ported","js":["js/mkobj.js:free_omailcmd"],"d":["D-3130"],"at":"2026-09-29@74bd8ea11"}
 {"fn":"may_generate_eroded","c":"177-192","status":"ported","js":["js/mkobj.js:may_generate_eroded"],"at":"2026-09-30@442754b32","note":"stale: js/mkobj.js:899, whole C body + caller mkobj_erosions wired at :908"}
 {"fn":"mkobj_erosions","c":"196-222","status":"ported","js":["js/mkobj.js:mkobj_erosions"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"mkobj_at","c":"227-234","status":"unknown"}
-{"fn":"mksobj_at","c":"238-248","status":"unknown"}
-{"fn":"mksobj_migr_to_species","c":"253-265","status":"unknown"}
-{"fn":"mkobj","c":"270-301","status":"unknown"}
-{"fn":"mkbox_cnts","c":"304-384","status":"unknown"}
-{"fn":"rndmonnum","c":"388-391","status":"unknown"}
-{"fn":"rndmonnum_adj","c":"395-414","status":"unknown"}
+{"fn":"mkobj_at","c":"227-234","status":"ported","js":["js/mkobj.js:mkobj_at"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mksobj_at","c":"238-248","status":"ported","js":["js/mkobj.js:mksobj_at"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mksobj_migr_to_species","c":"253-265","status":"ported","js":["js/mkobj.js:mksobj_migr_to_species"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mkobj","c":"270-301","status":"ported","js":["js/mkobj.js:mkobj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: drops C:295-298 corrupt-table guard (impossible + i=bases fallback); unreachable with valid prob tables"}
+{"fn":"mkbox_cnts","c":"304-384","status":"ported","js":["js/mkobj.js:mkbox_cnts"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rndmonnum","c":"388-391","status":"ported","js":["js/makemon.js:rndmonnum"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rndmonnum_adj","c":"395-414","status":"ported","js":["js/makemon.js:rndmonnum_adj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"copy_oextra","c":"417-448","status":"ported","js":["js/mkobj.js:copy_oextra"],"d":["D-3130","D-2275"],"at":"2026-09-29@74bd8ea11"}
-{"fn":"splitobj","c":"457-503","status":"unknown"}
-{"fn":"next_ident","c":"509-531","status":"unknown","d":["D-2228","D-2202","D-2111","D-2022"],"at":"seed@a30a7de84"}
+{"fn":"splitobj","c":"457-503","status":"ported","js":["js/mkobj.js:splitobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"next_ident","c":"509-531","status":"ported","js":["js/makemon.js:next_ident"],"d":["D-2228","D-2202","D-2111","D-2022"],"at":"2026-10-03@bbe63333a"}
 {"fn":"nextoid","c":"536-551","status":"ported","js":["js/mkobj.js:nextoid"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"unsplitobj","c":"556-622","status":"unknown"}
-{"fn":"clear_splitobjs","c":"626-629","status":"unknown"}
-{"fn":"replace_object","c":"641-679","status":"unknown"}
-{"fn":"unknwn_contnr_contents","c":"684-695","status":"unknown"}
-{"fn":"bill_dummy_object","c":"712-741","status":"unknown"}
-{"fn":"costly_alteration","c":"752-826","status":"unknown"}
-{"fn":"clear_dknown","c":"835-848","status":"unknown"}
-{"fn":"unknow_object","c":"854-865","status":"unknown"}
-{"fn":"mksobj_init","c":"869-1175","status":"unknown","d":["D-2265"],"at":"seed@a30a7de84"}
+{"fn":"unsplitobj","c":"556-622","status":"ported","js":["js/mkobj.js:unsplitobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"clear_splitobjs","c":"626-629","status":"ported","js":["js/mkobj.js:clear_splitobjs"],"at":"2026-10-03@bbe63333a"}
+{"fn":"replace_object","c":"641-679","status":"ported","js":["js/mkobj.js:replace_object"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: MINVENT/CONTAINED splice arms degrade to FREE; unreachable, sole caller poly_obj passes only INVENT/FLOOR"}
+{"fn":"unknwn_contnr_contents","c":"684-695","status":"ported","js":["js/mkobj.js:unknwn_contnr_contents"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bill_dummy_object","c":"712-741","status":"ported","js":["js/shk.js:bill_dummy_object"],"at":"2026-10-03@bbe63333a"}
+{"fn":"costly_alteration","c":"752-826","status":"ported","js":["js/shk.js:costly_alteration"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: INVENT arm assigns bknown directly (set_bknown display flag only, callers refresh); SetVoice no-op; impossible diagnostic dropped"}
+{"fn":"clear_dknown","c":"835-848","status":"partial","js":["js/mkobj.js:clear_dknown"],"omit":"Is_pudding(obj)->dknown=1 arm (C:846-847) after the oc_merge force-0; unknow_object on an existing glob (steal/muse paths) leaves dknown=0 not 1, blocking glob merge. mksobj_init covers creation only.","at":"2026-10-03@bbe63333a"}
+{"fn":"unknow_object","c":"854-865","status":"ported","js":["js/mkobj.js:unknow_object"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mksobj_init","c":"869-1175","status":"ported","js":["js/mkobj.js:mksobj_init"],"d":["D-2265"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: default panic arm silent-breaks (unreachable, oclass always valid); WAND recharged=0 redundant under zero-init"}
 {"fn":"mksobj","c":"1179-1259","status":"ported","js":["js/mkobj.js:mksobj"],"d":["D-2965"],"at":"2026-09-27@8b4ddcb7c"}
-{"fn":"stone_object_type","c":"1264-1271","status":"unknown"}
-{"fn":"stone_furniture_type","c":"1276-1295","status":"unknown"}
+{"fn":"stone_object_type","c":"1264-1271","status":"ported","js":["js/zap.js:stone_object_type"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stone_furniture_type","c":"1276-1295","status":"ported","js":["js/zap.js:stone_furniture_type"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_corpsenm","c":"1318-1367","status":"ported","d":["D-2818"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
-{"fn":"rider_revival_time","c":"1371-1382","status":"unknown"}
-{"fn":"start_corpse_timeout","c":"1389-1432","status":"unknown","d":["D-2145"],"at":"seed@a30a7de84"}
-{"fn":"item_on_ice","c":"1443-1469","status":"unknown"}
+{"fn":"rider_revival_time","c":"1371-1382","status":"ported","js":["js/mkobj.js:rider_revival_time"],"at":"2026-10-03@bbe63333a"}
+{"fn":"start_corpse_timeout","c":"1389-1432","status":"ported","js":["js/mkobj.js:start_corpse_timeout"],"d":["D-2145"],"at":"2026-10-03@bbe63333a"}
+{"fn":"item_on_ice","c":"1443-1469","status":"ported","js":["js/mkobj.js:item_on_ice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"start_glob_timeout","c":"1473-1491","status":"ported","js":["js/mkobj.js:start_glob_timeout"],"d":["D-2852"],"at":"seed@a30a7de84"}
-{"fn":"shrink_glob","c":"1500-1669","status":"unknown","d":["D-2376"],"at":"seed@a30a7de84"}
-{"fn":"shrinking_glob_gone","c":"1673-1701","status":"unknown"}
-{"fn":"maybe_adjust_light","c":"1704-1736","status":"unknown","d":["D-2244"],"at":"seed@a30a7de84"}
+{"fn":"shrink_glob","c":"1500-1669","status":"ported","js":["js/mkobj.js:shrink_glob"],"d":["D-2376"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shrinking_glob_gone","c":"1673-1701","status":"ported","js":["js/mkobj.js:shrinking_glob_gone"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_adjust_light","c":"1704-1736","status":"ported","js":["js/mkobj.js:maybe_adjust_light"],"d":["D-2244"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bless","c":"1745-1764","status":"ported","js":["js/mkobj.js:bless"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f"}
 {"fn":"unbless","c":"1767-1780","status":"ported","js":["js/mkobj.js:unbless"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f"}
 {"fn":"curse","c":"1783-1819","status":"partial","js":["js/mkobj.js:curse"],"omit":"`bless` and `unbless` still omit the `COIN_CLASS` return and the bag-of-holding `weight` write (`js/mkobj.js` `bless` `:641`, `unbless` `:662`).","d":["D-2885"],"at":"seed@a30a7de84"}
-{"fn":"uncurse","c":"1822-1838","status":"unknown"}
+{"fn":"uncurse","c":"1822-1838","status":"ported","js":["js/mkobj.js:uncurse"],"at":"2026-10-03@bbe63333a"}
 {"fn":"blessorcurse","c":"1841-1854","status":"ported","js":["js/mkobj.js:blessorcurse"],"d":["D-2989"],"at":"2026-09-27@080c16023","note":"stale: js/mkobj.js:716 — exact C body incl. RNG order, callees live"}
-{"fn":"bcsign","c":"1857-1860","status":"unknown"}
-{"fn":"set_bknown","c":"1864-1873","status":"unknown"}
+{"fn":"bcsign","c":"1857-1860","status":"ported","js":["js/rumors.js:bcsign"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_bknown","c":"1864-1873","status":"ported","js":["js/mkobj.js:set_bknown"],"at":"2026-10-03@bbe63333a"}
 {"fn":"weight","c":"1888-1976","status":"ported","js":["js/mkobj.js:weight"],"d":["D-2578"],"at":"seed@a30a7de84"}
-{"fn":"rnd_treefruit_at","c":"1984-1987","status":"unknown"}
+{"fn":"rnd_treefruit_at","c":"1984-1987","status":"ported","js":["js/dig.js:rnd_treefruit_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_treefruit","c":"1991-1999","status":"ported","js":["js/mkobj.js:is_treefruit"],"d":["D-2974"],"at":"2026-09-27@8a0963412"}
-{"fn":"mkgold","c":"2003-2020","status":"unknown"}
-{"fn":"fixup_oil","c":"2025-2048","status":"unknown"}
+{"fn":"mkgold","c":"2003-2020","status":"ported","js":["js/mkobj.js:mkgold"],"at":"2026-10-03@bbe63333a"}
+{"fn":"fixup_oil","c":"2025-2048","status":"ported","js":["js/mkobj.js:fixup_oil"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mkcorpstat","c":"2067-2118","status":"partial","js":["js/mkobj.js:mkcorpstat"],"omit":"`rloco` at `mkobj.c:2082` (`x == 0 && y == 0`) stays uncalled.","d":["D-2795"],"at":"seed@a30a7de84"}
-{"fn":"corpse_revive_type","c":"2129-2140","status":"unknown"}
-{"fn":"obj_attach_mid","c":"2147-2154","status":"unknown"}
-{"fn":"save_mtraits","c":"2157-2195","status":"unknown"}
-{"fn":"get_mtraits","c":"2201-2222","status":"unknown"}
+{"fn":"corpse_revive_type","c":"2129-2140","status":"ported","js":["js/mkobj.js:corpse_revive_type"],"at":"2026-10-03@bbe63333a"}
+{"fn":"obj_attach_mid","c":"2147-2154","status":"ported","js":["js/mkobj.js:obj_attach_mid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"save_mtraits","c":"2157-2195","status":"ported","js":["js/mkobj.js:save_mtraits"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_mtraits","c":"2201-2222","status":"ported","js":["js/mkobj.js:get_mtraits"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_tt_object","c":"2227-2248","status":"ported","js":["js/mkobj.js:mk_tt_object"],"d":["D-2915"],"at":"seed@a30a7de84"}
 {"fn":"mk_named_object","c":"2253-2267","status":"ported","js":["js/end.js:mk_named_object"],"d":["D-3293"],"at":"2026-10-02@cb217f88d"}
 {"fn":"is_flammable","c":"2270-2286","status":"ported","js":["js/mkobj.js:is_flammable"],"d":["D-2955"],"at":"seed@a30a7de84"}
 {"fn":"is_rottable","c":"2289-2296","status":"ported","js":["js/mkobj.js:is_rottable"],"d":["D-3293"],"at":"2026-10-02@cb217f88d"}
 {"fn":"place_object","c":"2305-2366","status":"ported","js":["js/mkobj.js:place_object"],"d":["D-2734","D-2732"],"at":"seed@a30a7de84"}
-{"fn":"recreate_pile_at","c":"2371-2389","status":"unknown"}
+{"fn":"recreate_pile_at","c":"2371-2389","status":"ported","js":["js/mkobj.js:recreate_pile_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_ice_effects","c":"2397-2413","status":"ported","js":["js/mkobj.js:obj_ice_effects"],"at":"2026-09-28@fb9c2049c","note":"stale: js/mkobj.js:3563 whole C body in C order; 5/6 C sites wired (mkmaze.c:103 open)"}
 {"fn":"peek_at_iced_corpse_age","c":"2423-2437","status":"ported","js":["js/mkobj.js:peek_at_iced_corpse_age"],"at":"2026-09-29@b43d7bb86","note":"stale: js/mkobj.js:3583 (body complete; only gap is debug-only debugpline3/1, no JS counterpart)"}
 {"fn":"obj_timer_checks","c":"2440-2503","status":"ported","js":["js/mkobj.js:obj_timer_checks"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"remove_object","c":"2508-2521","status":"partial","js":["js/mkobj.js:remove_object"],"omit":"recreate_pile_at body (own row); splev monster-invent/saddle arm (map-named); moverock standalone relink (subsumed, proof above — no observable delta).","d":["D-2607"],"at":"seed@a30a7de84"}
 {"fn":"discard_minvent","c":"2525-2536","status":"ported","js":["js/mon.js:discard_minvent"],"d":["D-3288"],"at":"2026-10-02@f49c6cdfa"}
-{"fn":"obj_extract_self","c":"2557-2592","status":"unknown"}
-{"fn":"extract_nobj","c":"2596-2614","status":"unknown"}
-{"fn":"extract_nexthere","c":"2623-2640","status":"unknown"}
-{"fn":"add_to_minv","c":"2648-2665","status":"unknown"}
-{"fn":"add_to_container","c":"2676-2695","status":"unknown"}
-{"fn":"add_to_migration","c":"2698-2717","status":"unknown"}
-{"fn":"add_to_buried","c":"2720-2728","status":"unknown"}
-{"fn":"container_weight","c":"2733-2738","status":"unknown"}
-{"fn":"dealloc_obj","c":"2745-2811","status":"unknown"}
-{"fn":"dealloc_obj_real","c":"2815-2827","status":"unknown"}
-{"fn":"dobjsfree","c":"2831-2843","status":"unknown"}
-{"fn":"hornoplenty","c":"2847-2936","status":"unknown","d":["D-2156"],"at":"seed@a30a7de84"}
+{"fn":"obj_extract_self","c":"2557-2592","status":"ported","js":["js/mkobj.js:obj_extract_self"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: INVENT arm skips freeinv_core/update_inventory by design (freeinv wrappers at C-freeinv sites); direct delobj-of-uhave-item unreachable (obj_resists + poly handles explicitly)"}
+{"fn":"extract_nobj","c":"2596-2614","status":"ported","js":["js/mkobj.js:extract_nobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"extract_nexthere","c":"2623-2640","status":"ported","js":["js/mkobj.js:extract_nexthere"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_to_minv","c":"2648-2665","status":"ported","js":["js/mkobj.js:add_to_minv"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_to_container","c":"2676-2695","status":"partial","js":["js/mkobj.js:add_to_container"],"omit":"obj_no_longer_held(obj) arm when container not in invent/minvent (C:2682-2683, author-named omit); wield/worn references on obj never cleared when boxing into a floor container.","at":"2026-10-03@bbe63333a"}
+{"fn":"add_to_migration","c":"2698-2717","status":"ported","js":["js/mkobj.js:add_to_migration"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_to_buried","c":"2720-2728","status":"ported","js":["js/mkobj.js:add_to_buried"],"at":"2026-10-03@bbe63333a"}
+{"fn":"container_weight","c":"2733-2738","status":"ported","js":["js/mkobj.js:container_weight"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dealloc_obj","c":"2745-2811","status":"ported","js":["js/mkobj.js:dealloc_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dealloc_obj_real","c":"2815-2827","status":"ported","js":["js/mkobj.js:dealloc_obj_real"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dobjsfree","c":"2831-2843","status":"ported","js":["js/mkobj.js:dobjsfree"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hornoplenty","c":"2847-2936","status":"ported","js":["js/mkobj.js:hornoplenty"],"d":["D-2156"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: two update_inventory display calls dropped; all state/messages exact"}
 {"fn":"obj_sanity_check","c":"2949-3028","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"objlist_sanity","c":"3032-3129","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"shop_obj_sanity","c":"3134-3200","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
@@ -88,12 +88,12 @@
 {"fn":"nomerge_exception","c":"3278-3286","status":"ported","js":["js/mkobj.js:nomerge_exception"],"d":["D-3293"],"at":"2026-10-02@cb217f88d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"where_name","c":"3296-3309","status":"ported","js":["js/mkobj.js:where_name"],"at":"2026-09-30@042bdf039","note":"stale: js/mkobj.js:1919 (D-2520); insane_object :3333/:3336 wired at :1964/:1967; objlist_sanity :3112/:3116 unported per js/mkobj.js:1984"}
 {"fn":"insane_object","c":"3314-3339","status":"partial","js":["js/mkobj.js:insane_object"],"omit":"the 7 unported C caller functions (`obj_sanity_check`, `objlist_sanity`, `shop_obj_sanity`, `mon_obj_sanity`, `insane_obj_bits`, `check_contained`, `sanity_check_worn` — none exists in `js/`; their insane_object call sites wire up when each ships); `fmt_ptr` exported home (`alloc.c` has no `js/allo…","d":["D-2520"],"at":"seed@a30a7de84"}
-{"fn":"init_dummyobj","c":"3347-3370","status":"unknown"}
+{"fn":"init_dummyobj","c":"3347-3370","status":"ported","js":["js/mkobj.js:init_dummyobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_contained","c":"3374-3416","status":"partial","js":["js/mkobj.js:check_contained"],"omit":"``objlist_sanity`` (mkobj.c:3032) + ``mon_obj_sanity`` (mkobj.c:3204) caller wiring (unported, own rows); ``copynchars`` export (inline port of the one call site; topten clone untouched); ``panic`` (no JS abort — loud throw); ``eos``/``Strcpy`` (string ops, no helper).","d":["D-2654"],"at":"seed@a30a7de84"}
 {"fn":"check_glob","c":"3420-3443","status":"ported","js":["js/mkobj.js:check_glob"],"at":"2026-09-29@d3ab32283","note":"stale: js/mkobj.js:2034 whole C body (:1522/:3399 wired; :3122/:3225 callers objlist_sanity/mon_obj_sanity unported)"}
 {"fn":"sanity_check_worn","c":"3447-3637","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"obj_nexto","c":"3643-3650","status":"ported","js":["js/mkobj.js:obj_nexto"],"d":["D-3293"],"at":"2026-10-02@cb217f88d"}
 {"fn":"obj_nexto_xy","c":"3661-3695","status":"ported","js":["js/mkobj.js:obj_nexto_xy"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"obj_absorb","c":"3702-3754","status":"unknown"}
+{"fn":"obj_absorb","c":"3702-3754","status":"ported","js":["js/mkobj.js:obj_absorb"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: dealloc_obj(otmp2) replaced by detach+GC (its thrown/kicked/tin/split clears unreachable for meld victims); misuse arm returns otmp1 vs NULL unreachable"}
 {"fn":"obj_meld","c":"3768-3814","status":"ported","js":["js/mkobj.js:obj_meld"],"d":["D-2622"],"at":"seed@a30a7de84"}
-{"fn":"pudding_merge_message","c":"3818-3849","status":"unknown"}
+{"fn":"pudding_merge_message","c":"3818-3849","status":"ported","js":["js/mkobj.js:pudding_merge_message"],"at":"2026-10-03@bbe63333a"}

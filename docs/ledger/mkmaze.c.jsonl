@@ -1,44 +1,44 @@
 {"fn":"iswall","c":"45-55","status":"ported","js":["js/mklev.js:iswall"],"d":["D-3034"],"at":"2026-09-28@34c47b267","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"iswall_or_stone","c":"59-66","status":"ported","js":["js/mklev.js:iswall_or_stone"],"d":["D-3034"],"at":"2026-09-28@34c47b267","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"is_solid","c":"70-73","status":"unknown"}
-{"fn":"set_levltyp","c":"77-121","status":"unknown"}
+{"fn":"is_solid","c":"70-73","status":"ported","js":["js/mklev.js:is_solid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_levltyp","c":"77-121","status":"partial","js":["js/trap.js:set_levltyp"],"omit":"omits SDOOR->AIR arboreal_sdoor=1 early-return (C mkmaze.c:83-87); was_ice is oldtyp==ICE only, missing DRAWBRIDGE_UP+DB_ICE is_ice arm","at":"2026-10-03@bbe63333a"}
 {"fn":"set_levltyp_lit","c":"125-145","status":"partial","js":["js/trap.js:set_levltyp_lit"],"omit":"Boolean `false` passed to `sel_set_ter` is still `SET_LIT_NOCHANGE`.","d":["D-2870"],"at":"seed@a30a7de84"}
 {"fn":"extend_spine","c":"166-194","status":"ported","js":["js/mklev.js:extend_spine"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/mklev.js:32341, body complete + 4 callers wired :32397-32400"}
-{"fn":"wall_cleanup","c":"198-225","status":"unknown"}
+{"fn":"wall_cleanup","c":"198-225","status":"ported","js":["js/mklev.js:wall_cleanup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: bounds panic not ported (defensive only); loop complete"}
 {"fn":"fix_wall_spines","c":"229-287","status":"ported","js":["js/mklev.js:fix_wall_spines"],"d":["D-3034"],"at":"2026-09-28@34c47b267"}
-{"fn":"wallification","c":"290-294","status":"unknown"}
+{"fn":"wallification","c":"290-294","status":"ported","js":["js/mklev.js:wallification"],"at":"2026-10-03@bbe63333a"}
 {"fn":"okay","c":"297-305","status":"split","js":["js/mklev.js:maze_okay"],"d":["D-3034"],"at":"2026-09-28@34c47b267","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"maze0xy","c":"309-314","status":"unknown"}
-{"fn":"is_exclusion_zone","c":"317-332","status":"unknown"}
-{"fn":"bad_location","c":"341-351","status":"unknown"}
+{"fn":"maze0xy","c":"309-314","status":"ported","js":["js/mklev.js:maze0xy"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_exclusion_zone","c":"317-332","status":"ported","js":["js/mklev.js:is_exclusion_zone"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bad_location","c":"341-351","status":"ported","js":["js/mklev.js:bad_location"],"at":"2026-10-03@bbe63333a"}
 {"fn":"place_lregion","c":"356-410","status":"ported","js":["js/mklev.js:place_lregion"],"d":["D-2836","D-2831"],"at":"seed@a30a7de84"}
-{"fn":"put_lregion_here","c":"413-469","status":"unknown","d":["D-2836"],"at":"seed@a30a7de84"}
-{"fn":"baalz_fixup","c":"475-566","status":"unknown"}
+{"fn":"put_lregion_here","c":"413-469","status":"ported","js":["js/mklev.js:put_lregion_here"],"d":["D-2836"],"at":"2026-10-03@bbe63333a"}
+{"fn":"baalz_fixup","c":"475-566","status":"ported","js":["js/mklev.js:baalz_fixup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fixup_special","c":"570-704","status":"partial","js":["js/mklev.js:fixup_special"],"omit":"The branch fallback still requires `!game.made_branch`.","d":["D-2841"],"at":"seed@a30a7de84"}
 {"fn":"check_ransacked","c":"707-711","status":"split","js":["js/mklev.js:makemaz"],"d":["D-3034"],"at":"2026-09-28@34c47b267","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"migrate_orc","c":"717-745","status":"unknown","d":["D-2419"],"at":"seed@a30a7de84"}
-{"fn":"shiny_orc_stuff","c":"748-777","status":"unknown"}
-{"fn":"migr_booty_item","c":"780-796","status":"unknown"}
+{"fn":"migrate_orc","c":"717-745","status":"ported","js":["js/mklev.js:migrate_orc"],"d":["D-2419"],"at":"2026-10-03@bbe63333a"}
+{"fn":"shiny_orc_stuff","c":"748-777","status":"ported","js":["js/mklev.js:shiny_orc_stuff"],"at":"2026-10-03@bbe63333a"}
+{"fn":"migr_booty_item","c":"780-796","status":"ported","js":["js/mklev.js:migr_booty_item"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stolen_booty","c":"799-889","status":"partial","js":["js/mklev.js:stolen_booty"],"omit":"pick `:1069–1072` debugpline2 (D_DEBUG-only, above); `stairway_find_dir` file-local clone (`js/mklev.js:393` vs C `stairs.c` single function — pre-existing drift, untouched); `makemaz(\"\")` create_maze Invocation_lev caller note retired (makemaz whole-body shipped D-2492).","d":["D-2586"],"at":"seed@a30a7de84"}
-{"fn":"maze_inbounds","c":"894-901","status":"unknown"}
-{"fn":"maze_remove_deadends","c":"904-944","status":"unknown"}
-{"fn":"create_maze","c":"950-1039","status":"unknown"}
+{"fn":"maze_inbounds","c":"894-901","status":"ported","js":["js/mklev.js:maze_inbounds"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maze_remove_deadends","c":"904-944","status":"ported","js":["js/mklev.js:maze_remove_deadends"],"at":"2026-10-03@bbe63333a"}
+{"fn":"create_maze","c":"950-1039","status":"ported","js":["js/mklev.js:create_maze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_vibrasquare_location","c":"1042-1093","status":"partial","js":["js/mklev.js:pick_vibrasquare_location"],"omit":"pick `:1069–1072` debugpline2 (D_DEBUG-only, above); `stairway_find_dir` file-local clone (`js/mklev.js:393` vs C `stairs.c` single function — pre-existing drift, untouched); `makemaz(\"\")` create_maze Invocation_lev caller note retired (makemaz whole-body shipped D-2492).","d":["D-2586"],"at":"seed@a30a7de84"}
-{"fn":"populate_maze","c":"1097-1124","status":"unknown","d":["D-2304"],"at":"seed@a30a7de84"}
+{"fn":"populate_maze","c":"1097-1124","status":"ported","js":["js/mklev.js:populate_maze"],"d":["D-2304"],"at":"2026-10-03@bbe63333a"}
 {"fn":"makemaz","c":"1127-1223","status":"split","js":["js/mklev.js:makemaz","js/mklev.js:makemaz_maze_fallback"],"omit":"SPLEVTYPE `getenv` endpoint (wizard-debug only; no environment in scored ESM, Rule #2); `Is_branchlev` (no live export — same-file local, only `end.js:575` clone elsewhere); `load_special` file IO (bare-stem `load_special_proto` dispatch); `In_hell` (no live export — inline hellish-flag read matchi…","d":["D-2492","D-1906","D-1895","D-1891","D-1890","D-1888"],"at":"2026-10-01@6e06fa8e7","note":"stale-split: whole C body present across makemaz + makemaz_maze_fallback (D-2492); 5 C call sites wired in makelevel; omits kept: SPLEVTYPE getenv Rule#2, Is_branchlev same-file local (C-exact branch scan)"}
 {"fn":"walkfrom","c":"1232-1275","status":"ported","js":["js/mklev.js:walkfrom"],"d":["D-2216"],"at":"seed@a30a7de84","note":"alt 1279-1310; stale 2026-09-20"}
-{"fn":"mazexy","c":"1316-1350","status":"unknown","d":["D-1952"],"at":"seed@a30a7de84"}
+{"fn":"mazexy","c":"1316-1350","status":"ported","js":["js/mklev.js:mazexy"],"d":["D-1952"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_level_extends","c":"1353-1427","status":"ported","js":["js/mklev.js:get_level_extends"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"bound_digging","c":"1441-1461","status":"unknown"}
+{"fn":"bound_digging","c":"1441-1461","status":"ported","js":["js/mklev.js:bound_digging"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mkportal","c":"1464-1479","status":"ported","js":["js/mklev.js:mkportal"],"at":"2026-09-29@29685b8e4","note":"stale: js/mklev.js:32363"}
-{"fn":"fumaroles","c":"1484-1514","status":"unknown"}
+{"fn":"fumaroles","c":"1484-1514","status":"ported","js":["js/mklev.js:fumaroles"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JS level.flags.fumaroles gate matches C caller gating (do.c/allmain.c)"}
 {"fn":"movebubbles","c":"1539-1685","status":"ported","js":["js/mklev.js:movebubbles"],"d":["D-2501"],"at":"2026-10-01@6e06fa8e7","note":"stale: js/mklev.js:18281 whole body present (D-2501); panic arm uses impossible house stand-in for the NORETURN exit path (end.c:394, untracked by ledger); BREADCRUMBS variants compiled out (config.h:644); callers wired allmain.js:1264 do.js:2090"}
-{"fn":"water_friction","c":"1689-1720","status":"unknown"}
-{"fn":"save_waterlevel","c":"1723-1745","status":"unknown"}
-{"fn":"restore_waterlevel","c":"1750-1798","status":"unknown"}
-{"fn":"set_wportal","c":"1802-1809","status":"unknown"}
+{"fn":"water_friction","c":"1689-1720","status":"ported","js":["js/hack.js:water_friction"],"at":"2026-10-03@bbe63333a"}
+{"fn":"save_waterlevel","c":"1723-1745","status":"ported","js":["js/mklev.js:save_waterlevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue of Sfo arms; release_data/unsetup handled by caller per file doc"}
+{"fn":"restore_waterlevel","c":"1750-1798","status":"ported","js":["js/mklev.js:restore_waterlevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: only omit is n==0 impossible diagnostic + something_worth_saving flag"}
+{"fn":"set_wportal","c":"1802-1809","status":"ported","js":["js/mklev.js:set_wportal"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: only omit is impossible() diagnostic"}
 {"fn":"setup_waterlevel","c":"1812-1857","status":"ported","js":["js/mklev.js:setup_waterlevel"],"d":["D-2831"],"at":"seed@a30a7de84"}
-{"fn":"unsetup_waterlevel","c":"1860-1870","status":"unknown"}
+{"fn":"unsetup_waterlevel","c":"1860-1870","status":"ported","js":["js/mklev.js:unsetup_waterlevel"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_bubble","c":"1873-1925","status":"partial","js":["js/mklev.js:mk_bubble"],"omit":"ini-path `unblock_point`/`block_point` paint arms stay named (D-2171 map note — no session evidence); `mv_bubble` non-ini drift/deposit arms stay in `movebubbles`/`mv_bubble_move` (D-2171); `collect_coords` not re-ported (live, parked SYMPTOM); `get_location`/`mkclass_aligned` presence-only parks u…","d":["D-2427"],"at":"seed@a30a7de84"}
-{"fn":"maybe_adjust_hero_bubble","c":"1929-1941","status":"unknown","d":["D-1968"],"at":"seed@a30a7de84"}
-{"fn":"mv_bubble","c":"1952-2107","status":"unknown","d":["D-2184"],"at":"seed@a30a7de84"}
+{"fn":"maybe_adjust_hero_bubble","c":"1929-1941","status":"ported","js":["js/mklev.js:maybe_adjust_hero_bubble"],"d":["D-1968"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mv_bubble","c":"1952-2107","status":"ported","js":["js/mklev.js:mv_bubble"],"d":["D-2184"],"at":"2026-10-03@bbe63333a"}

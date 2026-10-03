@@ -1,4 +1,4 @@
 {"fn":"cost","c":"14-57","status":"ported","js":["js/write.js:cost"],"d":["D-3155"],"at":"2026-09-30@779a41942"}
-{"fn":"write_ok","c":"61-70","status":"unknown"}
-{"fn":"dowrite","c":"74-385","status":"unknown","d":["D-1735"],"at":"seed@a30a7de84"}
+{"fn":"write_ok","c":"61-70","status":"ported","js":["js/write.js:write_ok"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
+{"fn":"dowrite","c":"74-385","status":"partial","js":["js/write.js:dowrite"],"omit":"check_unpaid(pen) shop charge deferred; known_spell() fresh/stale arms dead (hardcoded Unknown); update_inventory() after pen-charge changes omitted","d":["D-1735"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: also literate livelog deferred; message polish differs cosmetically"}
 {"fn":"new_book_description","c":"395-418","status":"ported","js":["js/write.js:new_book_description"],"at":"2026-09-30@990da2b8d","note":"stale: js/write.js:225, whole C body, caller wired (:466)"}

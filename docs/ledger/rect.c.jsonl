@@ -1,10 +1,10 @@
-{"fn":"init_rect","c":"29-42","status":"unknown"}
-{"fn":"free_rect","c":"45-51","status":"unknown"}
+{"fn":"init_rect","c":"29-42","status":"ported","js":["js/rect.js:init_rect"],"at":"2026-10-03@bbe63333a"}
+{"fn":"free_rect","c":"45-51","status":"ported","js":["js/rect.js:free_rect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_rect_ind","c":"60-75","status":"ported","js":["js/rect.js:get_rect_ind"],"at":"2026-09-30@990da2b8d","note":"stale: js/rect.js:36, exact C port, caller wired (:99)"}
 {"fn":"get_rect","c":"82-97","status":"ported","js":["js/rect.js:get_rect"],"at":"2026-09-29@671c54bfc","note":"stale: js/rect.js:49; callers wired rect.js:112 mklev.js:31400"}
-{"fn":"rnd_rect","c":"104-107","status":"unknown"}
-{"fn":"intersect","c":"116-130","status":"unknown"}
-{"fn":"rect_bounds","c":"134-140","status":"unknown"}
-{"fn":"remove_rect","c":"147-154","status":"unknown"}
-{"fn":"add_rect","c":"161-172","status":"unknown"}
-{"fn":"split_rects","c":"182-217","status":"unknown"}
+{"fn":"rnd_rect","c":"104-107","status":"ported","js":["js/rect.js:rnd_rect"],"at":"2026-10-03@bbe63333a"}
+{"fn":"intersect","c":"116-130","status":"ported","js":["js/rect.js:intersect"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rect_bounds","c":"134-140","status":"ported","js":["js/rect.js:rect_bounds"],"at":"2026-10-03@bbe63333a"}
+{"fn":"remove_rect","c":"147-154","status":"ported","js":["js/rect.js:remove_rect"],"at":"2026-10-03@bbe63333a"}
+{"fn":"add_rect","c":"161-172","status":"ported","js":["js/rect.js:add_rect"],"at":"2026-10-03@bbe63333a"}
+{"fn":"split_rects","c":"182-217","status":"ported","js":["js/rect.js:split_rects"],"at":"2026-10-03@bbe63333a"}

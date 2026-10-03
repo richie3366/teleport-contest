@@ -3,23 +3,23 @@
 {"fn":"bail","c":"344-350","status":"unknown"}
 {"fn":"winch_handler","c":"361-387","status":"unknown"}
 {"fn":"resize_tty","c":"392-467","status":"unknown"}
-{"fn":"newclipping","c":"471-486","status":"unknown"}
-{"fn":"new_status_window","c":"491-507","status":"unknown"}
+{"fn":"newclipping","c":"471-486","status":"ported","js":["js/display.js:newclipping"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Full CLIPPING arms: small screen setclipped+cliparound when x, else unclip and zero offsets."}
+{"fn":"new_status_window","c":"491-507","status":"ported","js":["js/botl.js:new_status_window"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Destroy/init/reassess ported; tty screen clears folded (terminal I/O, botlx via status_initialize)."}
 {"fn":"tty_init_nhwindows","c":"511-593","status":"unknown"}
 {"fn":"tty_preference_update","c":"596-631","status":"unknown"}
 {"fn":"tty_player_selection","c":"634-641","status":"unknown"}
-{"fn":"tty_askname","c":"651-755","status":"unknown"}
+{"fn":"tty_askname","c":"651-755","status":"partial","js":["js/askname.js:tty_askname"],"omit":"SELECTSAVED restore_menu arm (quit/return paths); EOF->ESC; control/high-bit chars skipped not mapped to _","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Prompt loop, 10-try bail->throw, backspace, unix filter, PL_NSIZ cap, renameallowed ported."}
 {"fn":"tty_get_nh_event","c":"758-761","status":"unknown"}
-{"fn":"getret","c":"764-781","status":"unknown"}
+{"fn":"getret","c":"764-781","status":"ported","js":["js/display.js:getret"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Prompt + xwaitforspace loop ported; raw_printed reset moot (no such JS state); standout terminal."}
 {"fn":"tty_suspend_nhwindows","c":"784-790","status":"unknown"}
 {"fn":"tty_resume_nhwindows","c":"793-799","status":"unknown"}
 {"fn":"tty_get_color_string","c":"803-806","status":"unknown"}
-{"fn":"tty_exit_nhwindows","c":"810-845","status":"unknown"}
+{"fn":"tty_exit_nhwindows","c":"810-845","status":"ported","js":["js/cmd.js:tty_exit_nhwindows"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: free_pickinv_cache, WIN_* sentinels, window_inited=0 ported; suspend/term teardown unportable, no wins[] to null."}
 {"fn":"tty_create_nhwindow","c":"850-961","status":"unknown"}
 {"fn":"erase_menu_or_text","c":"966-984","status":"unknown"}
 {"fn":"free_window_info","c":"987-1031","status":"unknown"}
 {"fn":"tty_clear_nhwindow","c":"1034-1110","status":"unknown"}
-{"fn":"toggle_menu_curr","c":"1114-1151","status":"unknown"}
+{"fn":"toggle_menu_curr","c":"1114-1151","status":"ported","js":["js/invent.js:toggle_menu_curr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Selected/count transitions exact in all arms; set_item_state screen paints unportable."}
 {"fn":"dmore","c":"1154-1172","status":"unknown"}
 {"fn":"set_item_state","c":"1177-1194","status":"unknown"}
 {"fn":"set_all_on_page","c":"1198-1214","status":"unknown"}
@@ -35,50 +35,50 @@
 {"fn":"erase_tty_screen","c":"2036-2055","status":"unknown"}
 {"fn":"tty_curs","c":"2058-2158","status":"unknown"}
 {"fn":"tty_putsym","c":"2162-2192","status":"unknown"}
-{"fn":"compress_str","c":"2196-2223","status":"unknown"}
+{"fn":"compress_str","c":"2196-2223","status":"ported","js":["js/pager.js:compress_str"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: gate, leading-drop, run-collapse, newline->space, trailing-trim, BUFSZ cap."}
 {"fn":"tty_putstr","c":"2226-2422","status":"unknown","d":["D-2952"],"at":"seed@a30a7de84"}
 {"fn":"tty_display_file","c":"2425-2516","status":"unknown"}
 {"fn":"tty_start_menu","c":"2519-2551","status":"unknown"}
 {"fn":"reverse","c":"2627-2638","status":"unknown"}
 {"fn":"tty_end_menu","c":"2649-2772","status":"unknown"}
 {"fn":"tty_select_menu","c":"2775-2815","status":"unknown"}
-{"fn":"tty_message_menu","c":"2819-2847","status":"unknown"}
+{"fn":"tty_message_menu","c":"2819-2847","status":"split","js":["js/display.js:message_menu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Whole unit adapted: PICK_NONE pline; dismiss_more/morc/more flow; return logic; clear+WIN_CANCELLED folded into more/pline."}
 {"fn":"tty_ctrl_nhwindow","c":"2850-2911","status":"unknown"}
-{"fn":"ttyinv_create_window","c":"2916-2999","status":"unknown"}
+{"fn":"ttyinv_create_window","c":"2916-2999","status":"ported","js":["js/invent.js:ttyinv_create_window"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Fail path (destroy/plines/wait_synch) + borders/cells/init exact; C compiled out (no TTY_PERM_INVENT) but faithfully ported."}
 {"fn":"ttyinv_remove_data","c":"3003-3046","status":"unknown"}
-{"fn":"ttyinv_add_menu","c":"3049-3116","status":"unknown"}
-{"fn":"selector_to_slot","c":"3120-3179","status":"unknown"}
-{"fn":"slot_to_invlet","c":"3182-3203","status":"unknown"}
-{"fn":"ttyinv_inuse_fulllines","c":"3211-3217","status":"unknown"}
-{"fn":"ttyinv_inuse_twosides","c":"3221-3233","status":"unknown"}
-{"fn":"ttyinv_end_menu","c":"3237-3260","status":"unknown"}
-{"fn":"ttyinv_render","c":"3264-3371","status":"unknown"}
-{"fn":"ttyinv_populate_slot","c":"3376-3426","status":"unknown"}
-{"fn":"tty_refresh_inventory","c":"3429-3476","status":"unknown"}
-{"fn":"tty_invent_box_glyph_init","c":"3479-3552","status":"unknown"}
-{"fn":"assesstty","c":"3558-3599","status":"unknown"}
+{"fn":"ttyinv_add_menu","c":"3049-3116","status":"ported","js":["js/invent.js:ttyinv_add_menu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Slot/ignore/twosides-expand/article-strip/invbuf/populate exact; C compiled out but faithfully ported."}
+{"fn":"selector_to_slot","c":"3120-3179","status":"ported","js":["js/invent.js:selector_to_slot"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact incl inuse/gold/#/letter arms; out-param adapted to {slot,ignore} return."}
+{"fn":"slot_to_invlet","c":"3182-3203","status":"ported","js":["js/invent.js:slot_to_invlet"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact 0/53/default mapping."}
+{"fn":"ttyinv_inuse_fulllines","c":"3211-3217","status":"ported","js":["js/invent.js:ttyinv_inuse_fulllines"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact 2-line body."}
+{"fn":"ttyinv_inuse_twosides","c":"3221-3233","status":"ported","js":["js/invent.js:ttyinv_inuse_twosides"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact border + box init + middle-boundary refresh loop."}
+{"fn":"ttyinv_end_menu","c":"3237-3260","status":"ported","js":["js/invent.js:ttyinv_end_menu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: guards, render, shrink->sync_perminvent (tty_update_inventory(0))."}
+{"fn":"ttyinv_render","c":"3264-3371","status":"partial","js":["js/invent.js:ttyinv_render"],"omit":"glyph-reset force_redraw arm (gg.glyph_reset_timestamp repaint-all check)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Slot limits/fill/clear-unused/side-switch/paint/tracker-reset ported; render via tty_refresh_inventory per row."}
+{"fn":"ttyinv_populate_slot","c":"3376-3426","status":"ported","js":["js/invent.js:ttyinv_populate_slot"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Bounds/inuse guards, cell fill, color offset, refresh flags exact; panic->impossible+return."}
+{"fn":"tty_refresh_inventory","c":"3429-3476","status":"ported","js":["js/invent.js:tty_refresh_inventory"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Guards/clamp/row paint/refresh-clear ported; glyph/char arms folded (cells carry ttychar); color/end-glyphout terminal state folded."}
+{"fn":"tty_invent_box_glyph_init","c":"3479-3552","status":"ported","js":["js/invent.js:tty_invent_box_glyph_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Border layout (corners/tees/walls), glyph->text transitions, refresh flags exact; ASCII box chars stand in for wall-glyph cells."}
+{"fn":"assesstty","c":"3558-3599","status":"ported","js":["js/invent.js:assesstty"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact incl too-early zeros arm and SMALL_INUSE_WINDOW minrow 10."}
 {"fn":"tty_update_inventory","c":"3606-3614","status":"unknown"}
 {"fn":"tty_mark_synch","c":"3617-3621","status":"unknown"}
-{"fn":"tty_wait_synch","c":"3624-3647","status":"unknown"}
-{"fn":"docorner","c":"3650-3721","status":"unknown"}
+{"fn":"tty_wait_synch","c":"3624-3647","status":"ported","js":["js/display.js:tty_wait_synch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: getret/rawprint + map/inmore/inread arms ported; fflush/HUPSKIP unportable."}
+{"fn":"docorner","c":"3650-3721","status":"partial","js":["js/display.js:docorner"],"omit":"ystart_between_menu_pages!=0 arm still blanks rows (C skips cl_end, refresh-only)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cl_end loop, CLIPPING row_refresh, status bot() tail ported; RESIZABLE/PERMINV arms N/A."}
 {"fn":"end_glyphout","c":"3724-3737","status":"unknown"}
 {"fn":"g_putch","c":"3740-3790","status":"unknown"}
 {"fn":"g_pututf8","c":"3795-3803","status":"unknown"}
-{"fn":"setclipped","c":"3809-3815","status":"unknown"}
-{"fn":"tty_cliparound","c":"3818-3842","status":"unknown"}
+{"fn":"setclipped","c":"3809-3815","status":"ported","js":["js/display.js:setclipped"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: clipping on, origin pan, extents at screen size minus statuslines."}
+{"fn":"tty_cliparound","c":"3818-3842","status":"ported","js":["js/display.js:tty_cliparound"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hysteresis both axes + redraw_map on origin move."}
 {"fn":"tty_print_glyph","c":"3855-3977","status":"unknown"}
 {"fn":"term_start_bgcolor","c":"3982-3985","status":"unknown"}
 {"fn":"term_curs_set","c":"3987-3990","status":"unknown"}
 {"fn":"tty_change_color","c":"3995-3998","status":"unknown"}
 {"fn":"tty_raw_print","c":"4004-4018","status":"unknown"}
 {"fn":"tty_raw_print_bold","c":"4021-4042","status":"unknown"}
-{"fn":"tty_nhgetch","c":"4045-4112","status":"unknown"}
-{"fn":"tty_nh_poskey","c":"4122-4149","status":"unknown","note":"alt 4124-4149"}
+{"fn":"tty_nhgetch","c":"4045-4112","status":"split","js":["js/input.js:nhgetch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: WIN_STOP clear, key read, NEED_MORE->NON_EMPTY ported; resize/fuzzer/termcap/NUL-EOF-map unportable or dead."}
+{"fn":"tty_nh_poskey","c":"4122-4149","status":"split","js":["js/input.js:nhgetch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Live body is trivial tty_nhgetch wrapper (WIN32CON mouse arm compiled out); callers use nhgetch."}
 {"fn":"win_tty_init","c":"4152-4157","status":"unknown"}
 {"fn":"tty_update_positionbar","c":"4161-4166","status":"unknown"}
 {"fn":"tty_putmixed","c":"4170-4195","status":"unknown"}
-{"fn":"tty_status_init","c":"4336-4361","status":"unknown"}
-{"fn":"tty_status_enablefield","c":"4364-4371","status":"unknown"}
+{"fn":"tty_status_init","c":"4336-4361","status":"ported","js":["js/botl.js:tty_status_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Fieldorder select, NOW/BEFORE field init, condition/hpbar zero, genl_status_init exact."}
+{"fn":"tty_status_enablefield","c":"4364-4371","status":"ported","js":["js/botl.js:tty_status_enablefield"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact forward to genl_status_enablefield."}
 {"fn":"tty_status_update","c":"4454-4579","status":"unknown"}
 {"fn":"make_things_fit","c":"4584-4638","status":"unknown"}
 {"fn":"check_fields","c":"4647-4743","status":"unknown"}

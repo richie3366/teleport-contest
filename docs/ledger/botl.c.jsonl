@@ -1,70 +1,70 @@
 {"fn":"get_strength_str","c":"21-37","status":"ported","js":["js/attrib.js:get_strength_str"],"at":"2026-09-28@fb9c2049c","note":"stale: js/attrib.js:185 whole C body, callers wired js/botl.js:2473,js/invent.js:2862,js/display.js:6009"}
-{"fn":"check_gold_symbol","c":"40-45","status":"unknown"}
-{"fn":"do_statusline1","c":"48-98","status":"unknown","d":["D-2162","D-2057","D-1892","D-1842"],"at":"seed@a30a7de84"}
-{"fn":"do_statusline2","c":"101-250","status":"unknown","d":["D-2148","D-2024","D-1990"],"at":"seed@a30a7de84"}
+{"fn":"check_gold_symbol","c":"40-45","status":"ported","js":["js/display.js:check_gold_symbol"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_statusline1","c":"48-98","status":"partial","js":["js/display.js:do_statusline1"],"omit":"pad target fixed col 31 (CSI CUF when gap>4), not gm.mrank_sz+15; mrank_sz unused","d":["D-2162","D-2057","D-1892","D-1842"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_statusline2","c":"101-250","status":"partial","js":["js/display.js:_statusLine2"],"omit":"vers always '' (flags.showvers/status_version); cond order is tty field order not C emission order; gold/AC %-2 pads; no MAXCO panic; no in_dumplog '$' arm","d":["D-2148","D-2024","D-1990"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: implemented as js/display.js:_statusLine2 (export status_line_2) (js fixed by applier: no same-named fn)"}
 {"fn":"bot","c":"253-271","status":"ported","js":["js/display.js:bot"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
-{"fn":"timebot","c":"275-294","status":"unknown"}
-{"fn":"xlev_to_rank","c":"298-311","status":"unknown"}
-{"fn":"rank_to_xlev","c":"315-329","status":"unknown"}
-{"fn":"rank_of","c":"332-358","status":"unknown"}
-{"fn":"rank","c":"361-364","status":"unknown"}
-{"fn":"title_to_mon","c":"367-399","status":"unknown"}
-{"fn":"max_rank_sz","c":"402-415","status":"unknown"}
+{"fn":"timebot","c":"275-294","status":"partial","js":["js/display.js:timebot"],"omit":"no !suppress_map_output() gate; time_botl cleared only when flags.time off (C clears unconditionally; windowport path leaks the flag)","at":"2026-10-03@bbe63333a"}
+{"fn":"xlev_to_rank","c":"298-311","status":"ported","js":["js/roles.js:xlev_to_rank"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rank_to_xlev","c":"315-329","status":"ported","js":["js/roles.js:rank_to_xlev"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rank_of","c":"332-358","status":"ported","js":["js/roles.js:rank_of"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rank","c":"361-364","status":"ported","js":["js/botl.js:rank"],"at":"2026-10-03@bbe63333a"}
+{"fn":"title_to_mon","c":"367-399","status":"ported","js":["js/botl.js:title_to_mon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"max_rank_sz","c":"402-415","status":"ported","js":["js/botl.js:max_rank_sz"],"at":"2026-10-03@bbe63333a"}
 {"fn":"botl_score","c":"419-436","status":"ported","js":["js/botl.js:botl_score"],"d":["D-2984"],"at":"2026-09-27@8b946a308"}
-{"fn":"describe_level","c":"441-476","status":"unknown"}
-{"fn":"weapon_status","c":"481-555","status":"unknown"}
-{"fn":"armor_status","c":"559-615","status":"unknown"}
+{"fn":"describe_level","c":"441-476","status":"ported","js":["js/display.js:describe_level"],"at":"2026-10-03@bbe63333a"}
+{"fn":"weapon_status","c":"481-555","status":"ported","js":["js/botl.js:weapon_status"],"at":"2026-10-03@bbe63333a"}
+{"fn":"armor_status","c":"559-615","status":"ported","js":["js/botl.js:armor_status"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bot_via_windowport","c":"962-1279","status":"ported","js":["js/botl.js:bot_via_windowport"],"d":["D-2515"],"at":"seed@a30a7de84"}
 {"fn":"stat_update_time","c":"1285-1299","status":"ported","js":["js/botl.js:stat_update_time"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"condopt","c":"1303-1329","status":"ported","js":["js/botl.js:condopt"],"d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cond_cmp","c":"1333-1342","status":"unknown"}
-{"fn":"menualpha_cmp","c":"1346-1351","status":"unknown"}
+{"fn":"cond_cmp","c":"1333-1342","status":"ported","js":["js/botl.js:cond_cmp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menualpha_cmp","c":"1346-1351","status":"ported","js":["js/botl.js:menualpha_cmp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"parse_cond_option","c":"1354-1371","status":"ported","js":["js/botl.js:parse_cond_option"],"d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cond_menu","c":"1376-1454","status":"ported","js":["js/botl.js:cond_menu"],"d":["D-2635"],"at":"seed@a30a7de84"}
-{"fn":"opt_next_cond","c":"1460-1490","status":"unknown"}
-{"fn":"eval_notify_windowport_field","c":"1493-1618","status":"unknown"}
+{"fn":"opt_next_cond","c":"1460-1490","status":"ported","js":["js/botl.js:opt_next_cond"],"at":"2026-10-03@bbe63333a"}
+{"fn":"eval_notify_windowport_field","c":"1493-1618","status":"ported","js":["js/botl.js:eval_notify_windowport_field"],"at":"2026-10-03@bbe63333a"}
 {"fn":"evaluate_and_notify_windowport","c":"1621-1680","status":"partial","js":["js/botl.js:evaluate_and_notify_windowport"],"omit":"`status_update` windowport dispatch (`winprocs.h:186`); `get_hilite :2364` + `hilite_reset_needed :2257` (STATUS_HILITES machinery; loud forwarders, never silent); `svc.context.rndencode` + `gs.showsyms` gold-hack state (undefined-safe; caches start undefined so the arm pins off until that state po…","d":["D-2498"],"at":"seed@a30a7de84"}
 {"fn":"status_initialize","c":"1683-1720","status":"partial","js":["js/botl.js:status_initialize"],"omit":"`display_nhwindow(WIN_STATUS, FALSE)` in `genl_status_init` (`windows.c:905`).","d":["D-2858"],"at":"seed@a30a7de84"}
 {"fn":"status_finish","c":"1723-1756","status":"ported","js":["js/botl.js:status_finish"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"init_blstats","c":"1759-1788","status":"unknown"}
-{"fn":"compare_blstats","c":"1809-1883","status":"unknown"}
+{"fn":"init_blstats","c":"1759-1788","status":"ported","js":["js/botl.js:init_blstats"],"at":"2026-10-03@bbe63333a"}
+{"fn":"compare_blstats","c":"1809-1883","status":"ported","js":["js/botl.js:compare_blstats"],"at":"2026-10-03@bbe63333a"}
 {"fn":"anything_to_s","c":"1886-1926","status":"ported","js":["js/botl.js:anything_to_s"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"s_to_anything","c":"1930-1972","status":"unknown"}
-{"fn":"percentage","c":"1977-2047","status":"unknown"}
-{"fn":"exp_percentage","c":"2052-2085","status":"unknown"}
+{"fn":"s_to_anything","c":"1930-1972","status":"ported","js":["js/botl.js:s_to_anything"],"at":"2026-10-03@bbe63333a"}
+{"fn":"percentage","c":"1977-2047","status":"ported","js":["js/botl.js:percentage"],"at":"2026-10-03@bbe63333a"}
+{"fn":"exp_percentage","c":"2052-2085","status":"ported","js":["js/botl.js:exp_percentage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"exp_percent_changing","c":"2090-2125","status":"partial","js":["js/botl.js:exp_percent_changing"],"omit":"A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored.","d":["D-2847"],"at":"seed@a30a7de84"}
 {"fn":"stat_cap_indx","c":"2131-2141","status":"ported","js":["js/botl.js:stat_cap_indx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"stat_hunger_indx","c":"2146-2156","status":"ported","js":["js/botl.js:stat_hunger_indx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bl_idx_to_fldname","c":"2160-2165","status":"ported","js":["js/botl.js:bl_idx_to_fldname"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"repad_with_dashes","c":"2170-2178","status":"ported","js":["js/botl.js:repad_with_dashes"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"fldname_to_bl_indx","c":"2221-2254","status":"unknown"}
+{"fn":"fldname_to_bl_indx","c":"2221-2254","status":"ported","js":["js/botl.js:fldname_to_bl_indx"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hilite_reset_needed","c":"2257-2275","status":"ported","js":["js/botl.js:hilite_reset_needed"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
 {"fn":"status_eval_next_unhilite","c":"2279-2317","status":"ported","js":["js/botl.js:status_eval_next_unhilite"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
-{"fn":"reset_status_hilites","c":"2321-2331","status":"unknown"}
-{"fn":"noneoftheabove","c":"2336-2344","status":"unknown"}
+{"fn":"reset_status_hilites","c":"2321-2331","status":"ported","js":["js/botl.js:reset_status_hilites"],"at":"2026-10-03@bbe63333a"}
+{"fn":"noneoftheabove","c":"2336-2344","status":"ported","js":["js/botl.js:noneoftheabove"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_hilite","c":"2364-2570","status":"partial","js":["js/botl.js:get_hilite"],"omit":"``exp_percent_changing`` caller (``botl.c:2117``); ``hilite_reset_needed``/``status_update`` stays named (windowport registry); rule-node producers (threshold chains are null until the status-hilite option parser lands — gate reads false, returns null + NO_COLOR).","d":["D-2619"],"at":"seed@a30a7de84"}
 {"fn":"split_clridx","c":"2576-2582","status":"ported","js":["js/botl.js:split_clridx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
-{"fn":"parse_status_hl1","c":"2593-2648","status":"unknown"}
+{"fn":"parse_status_hl1","c":"2593-2648","status":"ported","js":["js/botl.js:parse_status_hl1"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_ltgt_percentnumber","c":"2652-2669","status":"ported","js":["js/botl.js:is_ltgt_percentnumber"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body js/botl.js:1719, wired at C caller :2921 -> js/botl.js:1882"}
-{"fn":"has_ltgt_percentnumber","c":"2673-2683","status":"unknown"}
+{"fn":"has_ltgt_percentnumber","c":"2673-2683","status":"ported","js":["js/botl.js:has_ltgt_percentnumber"],"at":"2026-10-03@bbe63333a"}
 {"fn":"splitsubfields","c":"2688-2727","status":"ported","js":["js/botl.js:splitsubfields"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b"}
-{"fn":"is_fld_arrayvalues","c":"2730-2744","status":"unknown"}
+{"fn":"is_fld_arrayvalues","c":"2730-2744","status":"ported","js":["js/botl.js:is_fld_arrayvalues"],"at":"2026-10-03@bbe63333a"}
 {"fn":"query_arrayvalue","c":"2747-2781","status":"ported","js":["js/botl.js:query_arrayvalue"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"status_hilite_add_threshold","c":"2784-2811","status":"unknown"}
+{"fn":"status_hilite_add_threshold","c":"2784-2811","status":"ported","js":["js/botl.js:status_hilite_add_threshold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"parse_status_hl2","c":"2814-3106","status":"ported","js":["js/botl.js:parse_status_hl2"],"d":["D-2649"],"at":"seed@a30a7de84"}
 {"fn":"query_conditions","c":"3109-3138","status":"ported","js":["js/botl.js:query_conditions"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"conditionbitmask2str","c":"3141-3168","status":"unknown"}
-{"fn":"match_str2conditionbitmask","c":"3171-3206","status":"unknown"}
-{"fn":"str2conditionbitmask","c":"3209-3230","status":"unknown"}
+{"fn":"conditionbitmask2str","c":"3141-3168","status":"ported","js":["js/botl.js:conditionbitmask2str"],"at":"2026-10-03@bbe63333a"}
+{"fn":"match_str2conditionbitmask","c":"3171-3206","status":"ported","js":["js/botl.js:match_str2conditionbitmask"],"at":"2026-10-03@bbe63333a"}
+{"fn":"str2conditionbitmask","c":"3209-3230","status":"ported","js":["js/botl.js:str2conditionbitmask"],"at":"2026-10-03@bbe63333a"}
 {"fn":"parse_condition","c":"3233-3348","status":"ported","js":["js/botl.js:parse_condition"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"clear_status_hilites","c":"3351-3366","status":"ported","js":["js/botl.js:clear_status_hilites"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hlattr2attrname","c":"3369-3401","status":"ported","js":["js/botl.js:hlattr2attrname"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/botl.js:2732 local staticfn clone; :3558->2852, :3662->2935 wired, :4272 in named-omission status_hilite_menu_add"}
-{"fn":"status_hilite_linestr_add","c":"3417-3445","status":"unknown"}
+{"fn":"status_hilite_linestr_add","c":"3417-3445","status":"ported","js":["js/botl.js:status_hilite_linestr_add"],"at":"2026-10-03@bbe63333a"}
 {"fn":"status_hilite_linestr_done","c":"3448-3459","status":"ported","js":["js/botl.js:status_hilite_linestr_done"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
 {"fn":"status_hilite_linestr_countfield","c":"3462-3473","status":"ported","js":["js/botl.js:status_hilite_linestr_countfield"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
 {"fn":"count_status_hilites","c":"3477-3485","status":"ported","js":["js/botl.js:count_status_hilites"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"status_hilite_linestr_gather_conditions","c":"3488-3567","status":"ported","js":["js/botl.js:status_hilite_linestr_gather_conditions"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
-{"fn":"status_hilite_linestr_gather","c":"3570-3586","status":"unknown"}
+{"fn":"status_hilite_linestr_gather","c":"3570-3586","status":"ported","js":["js/botl.js:status_hilite_linestr_gather"],"at":"2026-10-03@bbe63333a"}
 {"fn":"status_hilite2str","c":"3590-3669","status":"ported","js":["js/botl.js:status_hilite2str"],"d":["D-3230","D-3137"],"at":"2026-10-01@b4ca336ef"}
 {"fn":"status_hilite_menu_choose_field","c":"3672-3704","status":"ported","js":["js/botl.js:status_hilite_menu_choose_field"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"status_hilite_menu_choose_behavior","c":"3707-3808","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}

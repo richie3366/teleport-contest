@@ -1,22 +1,22 @@
-{"fn":"kickdmg","c":"34-123","status":"unknown","d":["D-1332"],"at":"seed@a30a7de84"}
-{"fn":"maybe_kick_monster","c":"126-143","status":"unknown"}
-{"fn":"kick_monster","c":"146-288","status":"unknown","d":["D-2042"],"at":"seed@a30a7de84"}
-{"fn":"ghitm","c":"295-407","status":"unknown","d":["D-2106"],"at":"seed@a30a7de84"}
-{"fn":"container_impact_dmg","c":"412-485","status":"unknown"}
-{"fn":"kick_object","c":"489-504","status":"unknown"}
-{"fn":"really_kick_object","c":"508-790","status":"unknown"}
+{"fn":"kickdmg","c":"34-123","status":"ported","js":["js/dokick.js:kickdmg"],"d":["D-1332"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: dmg formula, shade, caitiff, pet abuse, martial knockback, passive live"}
+{"fn":"maybe_kick_monster","c":"126-143","status":"ported","js":["js/dokick.js:maybe_kick_monster"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: bhitpos + forcefight + attack_checks/overexertion abort live"}
+{"fn":"kick_monster","c":"146-288","status":"ported","js":["js/dokick.js:kick_monster"],"d":["D-2042"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: levitate miss, reveal, poly AT_KICK loop, encumbrance, evade, kickdmg live"}
+{"fn":"ghitm","c":"295-407","status":"ported","js":["js/dokick.js:ghitm"],"d":["D-2106"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wakeup/immobile/catch arms + shk/priest/guard/mercenary branches live"}
+{"fn":"container_impact_dmg","c":"412-485","status":"ported","js":["js/dokick.js:container_impact_dmg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: glass/egg break, luck, shop billing, reweight live"}
+{"fn":"kick_object","c":"489-504","status":"ported","js":["js/dokick.js:kick_object"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: kickedobj set, killer_xname, really_kick, clear live"}
+{"fn":"really_kick_object","c":"508-790","status":"partial","js":["js/dokick.js:really_kick_object"],"omit":"pit/web arm omits find_trap reveal (C:523-524) and Hallucination 'tizzy' message variant (C:526-528)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: range/box/bhit/shop/billing/place arms live; only trap-reveal gap"}
 {"fn":"kickstr","c":"794-831","status":"ported","js":["js/dokick.js:kickstr"],"d":["D-3232","D-1343"],"at":"2026-10-01@516e71ff9","note":"stale: js/dokick.js:297 whole body (D-1343), kick_ouch wires :356"}
-{"fn":"watchman_thief_arrest","c":"834-843","status":"unknown"}
-{"fn":"watchman_door_damage","c":"846-861","status":"unknown"}
-{"fn":"kick_dumb","c":"864-878","status":"unknown"}
-{"fn":"kick_ouch","c":"881-906","status":"unknown","d":["D-1370","D-1361"],"at":"seed@a30a7de84"}
-{"fn":"kick_door","c":"910-970","status":"unknown","d":["D-2320"],"at":"seed@a30a7de84"}
-{"fn":"kick_nondoor","c":"974-1253","status":"unknown"}
-{"fn":"dokick","c":"1257-1470","status":"unknown"}
-{"fn":"drop_to","c":"1473-1507","status":"unknown"}
-{"fn":"impact_drop","c":"1511-1632","status":"unknown"}
-{"fn":"ship_object","c":"1639-1766","status":"unknown","d":["D-2318"],"at":"seed@a30a7de84"}
-{"fn":"obj_delivery","c":"1769-1851","status":"unknown","d":["D-1363"],"at":"seed@a30a7de84"}
-{"fn":"deliver_obj_to_mon","c":"1854-1906","status":"unknown","d":["D-1193"],"at":"seed@a30a7de84"}
-{"fn":"otransit_msg","c":"1909-1939","status":"unknown"}
-{"fn":"down_gate","c":"1943-1969","status":"unknown"}
+{"fn":"watchman_thief_arrest","c":"834-843","status":"ported","js":["js/dokick.js:watchman_thief_arrest"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: peaceful watch sees hero -> yell + angry_guards exact"}
+{"fn":"watchman_door_damage","c":"846-861","status":"ported","js":["js/dokick.js:watchman_door_damage"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: D_WARNED warn-then-arrest live"}
+{"fn":"kick_dumb","c":"864-878","status":"ported","js":["js/dokick.js:kick_dumb"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: empty-space/strain + air recoil live"}
+{"fn":"kick_ouch","c":"881-906","status":"ported","js":["js/dokick.js:kick_ouch"],"d":["D-1370","D-1361"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: drawbridge remap, wake, wounded legs, losehp, hurtle live"}
+{"fn":"kick_door","c":"910-970","status":"ported","js":["js/dokick.js:kick_door"],"d":["D-2320"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: open-door dumb, levitate ouch, bust/shatter/crash, shop+watch live"}
+{"fn":"kick_nondoor","c":"974-1253","status":"ported","js":["js/dokick.js:kick_nondoor"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SDOOR/SCORR/throne/altar/fountain/grave/tree/sink/stairs arms live"}
+{"fn":"dokick","c":"1257-1470","status":"ported","js":["js/dokick.js:dokick"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no_kick chain, swallow/pit/brace, monster+recoil, pool, object, door live"}
+{"fn":"drop_to","c":"1473-1507","status":"ported","js":["js/dokick.js:drop_to"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: MIGR_* dest fill incl. stronghold/endgame fallthrough live"}
+{"fn":"impact_drop","c":"1511-1632","status":"ported","js":["js/dokick.js:impact_drop"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: down_gate/drop_to, boulder skips, migration, messages, shop chase live"}
+{"fn":"ship_object","c":"1639-1766","status":"ported","js":["js/dokick.js:ship_object"],"d":["D-2318"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: nodrop, boulder plug, otransit, billing, breaktest, migration live"}
+{"fn":"obj_delivery","c":"1769-1851","status":"ported","js":["js/dokick.js:obj_delivery"],"d":["D-1363"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: level filter, species skip, XOR gate, stairs/hero/random place live"}
+{"fn":"deliver_obj_to_mon","c":"1854-1906","status":"ported","js":["js/dokick.js:deliver_obj_to_mon"],"d":["D-1193"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: DF_RANDOM/DF_ALL/maxobj, species match, orc christen live"}
+{"fn":"otransit_msg","c":"1909-1939","status":"ported","js":["js/dokick.js:otransit_msg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: corpse xname, impact/chain suffix, fall message live"}
+{"fn":"down_gate","c":"1943-1969","status":"ported","js":["js/dokick.js:down_gate"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: quest gate, stairs/ladder, seen hole/trapdoor, gate_str live"}

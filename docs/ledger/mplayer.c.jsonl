@@ -1,6 +1,6 @@
-{"fn":"dev_name","c":"44-69","status":"unknown"}
+{"fn":"dev_name","c":"44-69","status":"ported","js":["js/mplayer.js:dev_name"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: strncmp-prefix loop matches"}
 {"fn":"get_mplname","c":"72-92","status":"ported","js":["js/mplayer.js:get_mplname"],"at":"2026-09-28@759e72748","note":"stale: js/mplayer.js:131 complete in C order, caller wired js/mplayer.js:182"}
 {"fn":"mk_mplayer_armor","c":"95-115","status":"ported","js":["js/mplayer.js:mk_mplayer_armor"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"mk_mplayer","c":"118-317","status":"unknown"}
-{"fn":"create_mplayers","c":"327-353","status":"unknown","d":["D-1596"],"at":"seed@a30a7de84"}
-{"fn":"mplayer_talk","c":"356-377","status":"unknown","d":["D-1606"],"at":"seed@a30a7de84"}
+{"fn":"mk_mplayer","c":"118-317","status":"ported","js":["js/mplayer.js:mk_mplayer"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full switch/gear/special arms; is_spear expansion verified identical"}
+{"fn":"create_mplayers","c":"327-353","status":"ported","js":["js/mplayer.js:create_mplayers"],"d":["D-1596"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: roll/class/location/tryct loop matches"}
+{"fn":"mplayer_talk","c":"356-377","status":"ported","js":["js/mplayer.js:mplayer_talk"],"d":["D-1606"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice dropped is empty no-op in this build (no SND_LIB)"}

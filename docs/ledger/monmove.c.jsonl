@@ -1,51 +1,51 @@
-{"fn":"msg_mon_movement","c":"33-48","status":"unknown"}
-{"fn":"mb_trapped","c":"54-74","status":"unknown","d":["D-2277"],"at":"seed@a30a7de84"}
-{"fn":"mon_track_add","c":"78-86","status":"unknown"}
-{"fn":"mon_track_clear","c":"89-92","status":"unknown"}
-{"fn":"monhaskey","c":"96-103","status":"unknown"}
-{"fn":"mon_yells","c":"106-129","status":"unknown","d":["D-1248"],"at":"seed@a30a7de84"}
-{"fn":"m_can_break_boulder","c":"133-139","status":"unknown"}
-{"fn":"m_break_boulder","c":"143-173","status":"unknown"}
-{"fn":"watch_on_duty","c":"176-200","status":"unknown"}
-{"fn":"dochugw","c":"204-238","status":"unknown"}
-{"fn":"onscary","c":"241-303","status":"unknown"}
+{"fn":"msg_mon_movement","c":"33-48","status":"ported","js":["js/monmove.js:msg_mon_movement"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mb_trapped","c":"54-74","status":"ported","js":["js/monmove.js:mb_trapped"],"d":["D-2277"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_track_add","c":"78-86","status":"ported","js":["js/monmove.js:mon_track_add"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_track_clear","c":"89-92","status":"ported","js":["js/monmove.js:mon_track_clear"],"at":"2026-10-03@bbe63333a"}
+{"fn":"monhaskey","c":"96-103","status":"ported","js":["js/monmove.js:monhaskey"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: m_carrying inlined as minvent walk"}
+{"fn":"mon_yells","c":"106-129","status":"ported","js":["js/monmove.js:mon_yells"],"d":["D-1248"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice empty in this build like C without SND_LIB"}
+{"fn":"m_can_break_boulder","c":"133-139","status":"ported","js":["js/monmove.js:m_can_break_boulder"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_break_boulder","c":"143-173","status":"ported","js":["js/monmove.js:m_break_boulder"],"at":"2026-10-03@bbe63333a"}
+{"fn":"watch_on_duty","c":"176-200","status":"ported","js":["js/monmove.js:watch_on_duty"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dochugw","c":"204-238","status":"ported","js":["js/monmove.js:dochugw"],"at":"2026-10-03@bbe63333a"}
+{"fn":"onscary","c":"241-303","status":"ported","js":["js/mon.js:onscary"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all arms incl lminion/unique/shop-priest/Elbereth; teleport.js holds a separate local copy"}
 {"fn":"mon_regen","c":"307-320","status":"ported","js":["js/mon.js:mon_regen"],"d":["D-3170"],"at":"2026-09-30@1b5d1374c"}
 {"fn":"disturb","c":"327-358","status":"ported","js":["js/monmove.js:disturb"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"release_hero","c":"362-372","status":"unknown"}
+{"fn":"release_hero","c":"362-372","status":"ported","js":["js/monmove.js:release_hero"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_pmmonst","c":"375-388","status":"ported","js":["js/monmove.js:find_pmmonst"],"at":"2026-09-29@590ebd616","note":"stale: js/monmove.js:2325"}
-{"fn":"bee_eat_jelly","c":"394-420","status":"unknown","d":["D-1246"],"at":"seed@a30a7de84"}
-{"fn":"gelcube_digests","c":"424-445","status":"unknown","d":["D-1257"],"at":"seed@a30a7de84"}
+{"fn":"bee_eat_jelly","c":"394-420","status":"ported","js":["js/monmove.js:bee_eat_jelly"],"d":["D-1246"],"at":"2026-10-03@bbe63333a"}
+{"fn":"gelcube_digests","c":"424-445","status":"ported","js":["js/monmove.js:gelcube_digests"],"d":["D-1257"],"at":"2026-10-03@bbe63333a"}
 {"fn":"monflee","c":"462-530","status":"ported","js":["js/monmove.js:monflee"],"d":["D-3339","D-2189"],"at":"2026-10-03@a173e9bb9"}
-{"fn":"distfleeck","c":"533-567","status":"unknown"}
-{"fn":"m_arrival","c":"574-579","status":"unknown"}
-{"fn":"mind_blast","c":"583-645","status":"unknown","d":["D-1238"],"at":"seed@a30a7de84"}
-{"fn":"m_everyturn_effect","c":"650-663","status":"unknown"}
-{"fn":"m_postmove_effect","c":"672-683","status":"unknown"}
+{"fn":"distfleeck","c":"533-567","status":"partial","js":["js/monmove.js:distfleeck"],"omit":"sawscary/onscary :559, flees_light+bravegremlin and sanctuary arms :560-562, monflee call :564; scared always 0","at":"2026-10-03@bbe63333a"}
+{"fn":"m_arrival","c":"574-579","status":"ported","js":["js/monmove.js:m_arrival"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mind_blast","c":"583-645","status":"ported","js":["js/monmove.js:mind_blast"],"d":["D-1238"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_everyturn_effect","c":"650-663","status":"ported","js":["js/monmove.js:m_everyturn_effect"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_postmove_effect","c":"672-683","status":"ported","js":["js/monmove.js:m_postmove_effect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dochug","c":"690-989","status":"ported","js":["js/monmove.js:dochug"],"d":["D-2430","D-2090","D-1798"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"mon_would_take_item","c":"999-1032","status":"unknown"}
-{"fn":"mon_would_consume_item","c":"1036-1050","status":"unknown","d":["D-2365"],"at":"seed@a30a7de84"}
-{"fn":"itsstuck","c":"1053-1060","status":"unknown"}
-{"fn":"should_displace","c":"1070-1103","status":"unknown"}
-{"fn":"m_digweapon_check","c":"1108-1135","status":"unknown"}
-{"fn":"leppie_avoidance","c":"1139-1150","status":"unknown"}
-{"fn":"leppie_stash","c":"1154-1171","status":"unknown"}
-{"fn":"m_balks_at_approaching","c":"1181-1224","status":"unknown","d":["D-2685"],"at":"seed@a30a7de84"}
-{"fn":"holds_up_web","c":"1227-1239","status":"unknown"}
-{"fn":"count_webbing_walls","c":"1244-1248","status":"unknown"}
-{"fn":"soko_allow_web","c":"1252-1265","status":"unknown"}
-{"fn":"maybe_spin_web","c":"1269-1293","status":"unknown"}
-{"fn":"m_avoid_kicked_loc","c":"1297-1308","status":"unknown"}
-{"fn":"m_avoid_soko_push_loc","c":"1313-1323","status":"unknown"}
-{"fn":"m_search_items","c":"1330-1450","status":"unknown","d":["D-2047"],"at":"seed@a30a7de84"}
-{"fn":"m_move","c":"1715-2075","status":"unknown","d":["D-2410","D-1868"],"at":"seed@a30a7de84"}
+{"fn":"mon_would_take_item","c":"999-1032","status":"partial","js":["js/monmove.js:mon_would_take_item"],"omit":"uball/uchain exclusion :1003 and gelcube touch_petrifies corpse exclusion :1028 missing","at":"2026-10-03@bbe63333a"}
+{"fn":"mon_would_consume_item","c":"1036-1050","status":"ported","js":["js/monmove.js:mon_would_consume_item"],"d":["D-2365"],"at":"2026-10-03@bbe63333a"}
+{"fn":"itsstuck","c":"1053-1060","status":"ported","js":["js/monmove.js:itsstuck"],"at":"2026-10-03@bbe63333a"}
+{"fn":"should_displace","c":"1070-1103","status":"ported","js":["js/monmove.js:should_displace"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_digweapon_check","c":"1108-1135","status":"ported","js":["js/monmove.js:m_digweapon_check"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C :1122 !is_pick||!is_axe quirk preserved"}
+{"fn":"leppie_avoidance","c":"1139-1150","status":"ported","js":["js/monmove.js:leppie_avoidance"],"at":"2026-10-03@bbe63333a"}
+{"fn":"leppie_stash","c":"1154-1171","status":"ported","js":["js/monmove.js:leppie_stash"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mdrop_obj subset; omitted shop/saddle arms unreachable for unworn gold on ROOM"}
+{"fn":"m_balks_at_approaching","c":"1181-1224","status":"ported","js":["js/monmove.js:m_balks_at_approaching"],"d":["D-2685"],"at":"2026-10-03@bbe63333a"}
+{"fn":"holds_up_web","c":"1227-1239","status":"ported","js":["js/monmove.js:holds_up_web"],"at":"2026-10-03@bbe63333a"}
+{"fn":"count_webbing_walls","c":"1244-1248","status":"ported","js":["js/monmove.js:count_webbing_walls"],"at":"2026-10-03@bbe63333a"}
+{"fn":"soko_allow_web","c":"1252-1265","status":"ported","js":["js/monmove.js:soko_allow_web"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_spin_web","c":"1269-1293","status":"partial","js":["js/monmove.js:maybe_spin_web"],"omit":"shop add_damage :1289-1290 missing","at":"2026-10-03@bbe63333a"}
+{"fn":"m_avoid_kicked_loc","c":"1297-1308","status":"ported","js":["js/mon.js:m_avoid_kicked_loc"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_avoid_soko_push_loc","c":"1313-1323","status":"ported","js":["js/mon.js:m_avoid_soko_push_loc"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_search_items","c":"1330-1450","status":"ported","js":["js/monmove.js:m_search_items"],"d":["D-2047"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_move","c":"1715-2075","status":"partial","js":["js/monmove.js:m_move"],"omit":"is_covetous intruder-attack branch :1778-1803, is_rider in can_unlock :1766, wormno goto not_special :1769 missing; unicorn rloc drops RLOC_MSG :2064","d":["D-2410","D-1868"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_move_aggress","c":"2088-2117","status":"ported","js":["js/monmove.js:m_move_aggress"],"d":["D-2900"],"at":"seed@a30a7de84"}
 {"fn":"can_hide_under_obj","c":"2121-2167","status":"ported","js":["js/monmove.js:can_hide_under_obj"],"d":["D-2340"],"at":"2026-10-01@e45cb9654","note":"stale: js/monmove.js:1336"}
-{"fn":"dissolve_bars","c":"2170-2178","status":"unknown"}
-{"fn":"closed_door","c":"2181-2185","status":"unknown"}
-{"fn":"accessible","c":"2188-2194","status":"unknown"}
+{"fn":"dissolve_bars","c":"2170-2178","status":"ported","js":["js/hack.js:dissolve_bars"],"at":"2026-10-03@bbe63333a"}
+{"fn":"closed_door","c":"2181-2185","status":"ported","js":["js/dokick.js:closed_door"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: complete; twin copies in monmove/mon/hack.js"}
+{"fn":"accessible","c":"2188-2194","status":"partial","js":["js/teleport.js:accessible"],"omit":"uses loc.typ not SURFACE_AT(x,y): drawbridge under-terrain :2191; complete twin at js/monmove.js:accessible","at":"2026-10-03@bbe63333a"}
 {"fn":"set_apparxy","c":"2198-2266","status":"ported","js":["js/monmove.js:set_apparxy"],"d":["D-3320","D-1999"],"at":"2026-10-02@d0ba4ea2a"}
 {"fn":"undesirable_disp","c":"2277-2312","status":"ported","js":["js/monmove.js:undesirable_disp"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"stuff_prevents_passage","c":"2319-2353","status":"ported","js":["js/monmove.js:stuff_prevents_passage"],"d":["D-2933"],"at":"seed@a30a7de84"}
-{"fn":"can_ooze","c":"2356-2361","status":"unknown"}
+{"fn":"can_ooze","c":"2356-2361","status":"ported","js":["js/monmove.js:can_ooze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_fog","c":"2365-2371","status":"ported","js":["js/monmove.js:can_fog"],"d":["D-2942","D-2428"],"at":"seed@a30a7de84"}
 {"fn":"vamp_shift","c":"2377-2394","status":"ported","js":["js/monmove.js:vamp_shift"],"d":["D-3292"],"at":"2026-10-02@70dc5c4d5","note":"refresh: no JS symbol (measured MISSING)"}

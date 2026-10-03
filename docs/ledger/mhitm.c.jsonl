@@ -1,22 +1,22 @@
-{"fn":"noises","c":"27-38","status":"unknown"}
+{"fn":"noises","c":"27-38","status":"ported","js":["js/mhitm.js:noises"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: farq/noisetime gate + explosion/noises + distance"}
 {"fn":"pre_mm_attack","c":"41-72","status":"ported","js":["js/mhitm.js:pre_mm_attack"],"d":["D-2856"],"at":"seed@a30a7de84"}
-{"fn":"missmm","c":"76-91","status":"unknown"}
+{"fn":"missmm","c":"76-91","status":"ported","js":["js/mhitm.js:missmm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pre_mm_attack + misses/friendly + noises"}
 {"fn":"fightm","c":"106-172","status":"ported","js":["js/mhitm.js:fightm"],"d":["D-2613"],"at":"seed@a30a7de84"}
 {"fn":"mdisplacem","c":"179-267","status":"ported","js":["js/mhitm.js:mdisplacem"],"d":["D-3248","D-1174"],"at":"2026-10-01@37d6d3fe7"}
-{"fn":"mattackm","c":"293-592","status":"unknown","d":["D-1919"],"at":"seed@a30a7de84"}
+{"fn":"mattackm","c":"293-592","status":"partial","js":["js/mhitm.js:mattackm"],"omit":"i>0 target check uses m_at(mdef.mx,my) not m_at(bhitpos) (C:379; matters for long worms); mundetected notice drops Unaware-dream and HIDE_UNDER/last_hider arms","d":["D-1919"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: AC diff, vis, all aatyp arms, pudding split, passivemm/early-return tail match"}
 {"fn":"failed_grab","c":"597-640","status":"ported","js":["js/mhitm.js:failed_grab"],"d":["D-2598"],"at":"seed@a30a7de84"}
-{"fn":"hitmm","c":"644-732","status":"unknown","d":["D-1351","D-1341"],"at":"seed@a30a7de84"}
-{"fn":"gazemm","c":"736-803","status":"unknown","d":["D-1338"],"at":"seed@a30a7de84"}
+{"fn":"hitmm","c":"644-732","status":"ported","js":["js/mhitm.js:hitmm"],"d":["D-1351","D-1341"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: weaponhit/silverhit, compat/shade, all verbs incl TENT+HUGS fallthrough, silver sear"}
+{"fn":"gazemm","c":"736-803","status":"ported","js":["js/mhitm.js:gazemm"],"d":["D-1338"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: archon/altmesg, mimic reveal, MISS condition, Medusa double-reflect, archon blnd+stun"}
 {"fn":"engulf_target","c":"807-845","status":"ported","js":["js/mhitm.js:engulf_target"],"d":["D-2911"],"at":"seed@a30a7de84"}
-{"fn":"gulpmm","c":"849-967","status":"unknown","d":["D-1244","D-1243","D-1242","D-1231"],"at":"seed@a30a7de84"}
-{"fn":"explmm","c":"970-1010","status":"unknown","d":["D-1339"],"at":"seed@a30a7de84"}
-{"fn":"mdamagem","c":"1016-1119","status":"unknown","d":["D-2754","D-1396","D-1385","D-1352"],"at":"seed@a30a7de84"}
-{"fn":"mon_poly","c":"1122-1207","status":"unknown"}
-{"fn":"paralyze_monst","c":"1210-1219","status":"unknown"}
-{"fn":"sleep_monst","c":"1223-1246","status":"unknown","d":["D-2363"],"at":"seed@a30a7de84"}
+{"fn":"gulpmm","c":"849-967","status":"ported","js":["js/mhitm.js:gulpmm"],"d":["D-1244","D-1243","D-1242","D-1231"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: engulf_target gate, snuff, vampshifter expel, grid swap, mswallower, 4 outcome arms"}
+{"fn":"explmm","c":"970-1010","status":"ported","js":["js/mhitm.js:explmm"],"d":["D-1339"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cancel gate, explode/noises, FIRE/COLD/ELEC vs mdamagem, mondead+lifesave+leash+tame"}
+{"fn":"mdamagem","c":"1016-1119","status":"partial","js":["js/mhitm.js:mdamagem"],"omit":"shared tail returns HIT instead of hitflags when !damage (negated AD_STCK: C returns MISS)","d":["D-2754","D-1396","D-1385","D-1352"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: petrify head, per-adtyp dispatch, knockback, monkilled/zombify/eat helpers match"}
+{"fn":"mon_poly","c":"1122-1207","status":"partial","js":["js/mhitm.js:mon_poly"],"omit":"Antimagic and resists_magm arms drop shieldeff/shieldeff_mon (deferred); vis widened beyond gv.vis","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: lycanthropy arms, shock/newcham/tele/nothing + mspec tail match"}
+{"fn":"paralyze_monst","c":"1210-1219","status":"ported","js":["js/mhitm.js:paralyze_monst"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: 127 cap + mcanmove/mfrozen/meating/strategy"}
+{"fn":"sleep_monst","c":"1223-1246","status":"partial","js":["js/trap.js:sleep_monst"],"omit":"drops how>=0 S_MIMIC seemimic reveal and resist(mon,how,0,NOTELL) arms; finish_meating subset skips mimic-appearance reset","d":["D-2363"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: resists/defended/shieldeff + mcanmove/mfrozen/msleeping + returns match"}
 {"fn":"slept_monst","c":"1250-1257","status":"ported","js":["js/mhitm.js:slept_monst"],"d":["D-3361"],"at":"2026-10-03@9dc9139eb"}
-{"fn":"rustm","c":"1260-1280","status":"unknown"}
+{"fn":"rustm","c":"1260-1280","status":"ported","js":["js/mhitm.js:rustm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: CORR/RUST/FIRE(-vortex,chance 6) + erode_obj GREASE|VERBOSE"}
 {"fn":"mswingsm","c":"1283-1297","status":"ported","js":["js/mhitm.js:mswingsm"],"d":["D-3242"],"at":"2026-10-01@f572fe77c"}
-{"fn":"passivemm","c":"1304-1457","status":"unknown","d":["D-1241"],"at":"seed@a30a7de84"}
-{"fn":"xdrainenergym","c":"1461-1470","status":"unknown"}
-{"fn":"attk_protection","c":"1475-1512","status":"unknown"}
+{"fn":"passivemm","c":"1304-1457","status":"partial","js":["js/mhitm.js:passivemm"],"omit":"AD_ENCH inline drain_item drops defends(AD_DRLI) check (Excalibur/Stormbringer/Aesculapius should be immune)","d":["D-1241"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: passive scan/dice, ACID, PLYS/COLD/STUN/FIRE/ELEC, rn2(3), assess_dmg match"}
+{"fn":"xdrainenergym","c":"1461-1470","status":"ported","js":["js/uhitm.js:xdrainenergym"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mspec<20 + MAGC/BREA gate + d(2,2) + lethargic"}
+{"fn":"attk_protection","c":"1475-1512","status":"ported","js":["js/mhitm.js:attk_protection"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact mask map incl ~0L no-touch"}

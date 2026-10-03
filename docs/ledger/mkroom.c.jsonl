@@ -1,30 +1,30 @@
-{"fn":"isbig","c":"42-48","status":"unknown"}
-{"fn":"do_mkroom","c":"52-92","status":"unknown"}
+{"fn":"isbig","c":"42-48","status":"ported","js":["js/mklev.js:isbig"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: area>20 exact"}
+{"fn":"do_mkroom","c":"52-92","status":"ported","js":["js/mklev.js:do_mkroom"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full dispatch incl. SWAMP/TEMPLE; default impossible() diagnostic only"}
 {"fn":"mkshop","c":"95-216","status":"ported","js":["js/mklev.js:mkshop"],"d":["D-3206","D-2569"],"at":"2026-10-01@9cc52a0d2"}
-{"fn":"pick_room","c":"220-241","status":"unknown"}
-{"fn":"mkzoo","c":"244-254","status":"unknown"}
-{"fn":"mk_zoo_thronemon","c":"257-273","status":"unknown"}
-{"fn":"fill_zoo","c":"276-452","status":"unknown","d":["D-1860"],"at":"seed@a30a7de84"}
-{"fn":"mkundead","c":"456-475","status":"unknown"}
-{"fn":"morguemon","c":"478-499","status":"unknown"}
-{"fn":"antholemon","c":"502-527","status":"unknown"}
-{"fn":"mkswamp","c":"530-574","status":"unknown","d":["D-1869"],"at":"seed@a30a7de84"}
+{"fn":"pick_room","c":"220-241","status":"ported","js":["js/mklev.js:pick_room"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rn2 walk, wrap, strict/stairs gates, doorct accept match"}
+{"fn":"mkzoo","c":"244-254","status":"ported","js":["js/mklev.js:mkzoo"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pick_room + rtype + needfill live"}
+{"fn":"mk_zoo_thronemon","c":"257-273","status":"ported","js":["js/mklev.js:mk_zoo_thronemon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ruler pick, sleep/hostile/malign, mace live"}
+{"fn":"fill_zoo","c":"276-452","status":"ported","js":["js/mklev.js:fill_zoo"],"d":["D-1860"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all room-type arms, gold decay, chest, flags match C"}
+{"fn":"mkundead","c":"456-475","status":"ported","js":["js/apply.js:mkundead"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: count, morguemon, enexto, revive-or-makemon, graveyard live"}
+{"fn":"morguemon","c":"478-499","status":"ported","js":["js/mklev.js:morguemon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: demon/vampire/ghost/wraith/zombie branches live"}
+{"fn":"antholemon","c":"502-527","status":"ported","js":["js/mklev.js:antholemon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ubirthday+difficulty trio + genocide retry live"}
+{"fn":"mkswamp","c":"530-574","status":"ported","js":["js/mklev.js:mkswamp"],"d":["D-1869"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: 5 tries, POOL checkerboard, eel/fungus, eelct scope live"}
 {"fn":"shrine_pos","c":"577-595","status":"ported","js":["js/mklev.js:shrine_pos"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"mktemple","c":"598-620","status":"unknown"}
+{"fn":"mktemple","c":"598-620","status":"ported","js":["js/mklev.js:mktemple"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pick_room strict, altar+align, priestini, shrine bit live"}
 {"fn":"nexttodoor","c":"623-637","status":"ported","js":["js/fountain.js:nexttodoor"],"at":"2026-09-29@d27c7b945","note":"stale: js/fountain.js:641"}
-{"fn":"has_dnstairs","c":"640-650","status":"unknown"}
-{"fn":"has_upstairs","c":"653-663","status":"unknown"}
+{"fn":"has_dnstairs","c":"640-650","status":"ported","js":["js/mklev.js:has_dnstairs"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: stairs walk !up + inside_room exact"}
+{"fn":"has_upstairs","c":"653-663","status":"ported","js":["js/mklev.js:has_upstairs"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: stairs walk up + inside_room exact"}
 {"fn":"somex","c":"666-669","status":"ported","js":["js/mklev.js:somex"],"d":["D-3343","D-3335","D-2006"],"at":"2026-10-03@2bd7e5e76"}
-{"fn":"somey","c":"672-675","status":"unknown"}
-{"fn":"inside_room","c":"678-687","status":"unknown"}
-{"fn":"somexy","c":"694-740","status":"unknown"}
-{"fn":"somexyspace","c":"744-756","status":"unknown"}
-{"fn":"search_special","c":"765-780","status":"unknown"}
+{"fn":"somey","c":"672-675","status":"ported","js":["js/dog.js:somey"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rn1(hy-ly+1,ly) exact"}
+{"fn":"inside_room","c":"678-687","status":"ported","js":["js/dog.js:inside_room"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: irregular edge/roomno else bbox+-1 exact"}
+{"fn":"somexy","c":"694-740","status":"ported","js":["js/dog.js:somexy"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: irregular 100+exhaustive, nsubrooms fast path, wall/subroom reject live"}
+{"fn":"somexyspace","c":"744-756","status":"ported","js":["js/mklev.js:somexyspace"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: somexy+isok+!occupied+ROOM/CORR/ICE loop exact"}
+{"fn":"search_special","c":"765-780","status":"ported","js":["js/sounds.js:search_special"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rooms+subrooms walk, ANY_TYPE/ANY_SHOP arms, hx<0 sentinel live"}
 {"fn":"courtmon","c":"783-805","status":"ported","js":["js/mklev.js:courtmon"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"squadmon","c":"817-837","status":"unknown"}
+{"fn":"squadmon","c":"817-837","status":"ported","js":["js/mklev.js:squadmon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: prob table + ROLL_FROM fallback + G_GONE gate live"}
 {"fn":"save_room","c":"844-857","status":"ported","js":["js/mkroom.js:save_room"],"d":["D-3016"],"at":"2026-09-28@9f89fd978","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"save_rooms","c":"863-871","status":"ported","js":["js/mkroom.js:save_rooms"],"d":["D-3016"],"at":"2026-09-28@9f89fd978","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rest_room","c":"875-886","status":"ported","js":["js/mkroom.js:rest_room"],"d":["D-3016"],"at":"2026-09-28@9f89fd978","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rest_rooms","c":"893-906","status":"ported","js":["js/mkroom.js:rest_rooms"],"d":["D-3016"],"at":"2026-09-28@9f89fd978","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cmap_to_type","c":"912-1030","status":"unknown"}
-{"fn":"invalid_shop_shape","c":"1050-1096","status":"unknown"}
+{"fn":"cmap_to_type","c":"912-1030","status":"ported","js":["js/dungeon.js:cmap_to_type"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full S_* switch incl. STONE catchall matches"}
+{"fn":"invalid_shop_shape","c":"1050-1096","status":"ported","js":["js/mklev.js:invalid_shop_shape"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: door-adjacent scan + single-escape check live"}

@@ -1,26 +1,26 @@
 {"fn":"to_custom_symset_entry_callback","c":"53-104","status":"ported","js":["js/glyphs.js:to_custom_symset_entry_callback"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"glyphrep_to_custom_map_entries","c":"112-181","status":"ported","js":["js/glyphs.js:glyphrep_to_custom_map_entries"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"fix_glyphname","c":"184-197","status":"unknown"}
+{"fn":"fix_glyphname","c":"184-197","status":"ported","js":["js/glyphs.js:fix_glyphname"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: identical char mapping (new string vs in-place)"}
 {"fn":"glyph_to_cmap","c":"200-231","status":"ported","js":["js/display.js:glyph_to_cmap"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"glyph_find_core","c":"234-283","status":"unknown"}
-{"fn":"fill_glyphid_cache","c":"303-321","status":"unknown"}
+{"fn":"glyph_find_core","c":"234-283","status":"ported","js":["js/glyphs.js:glyph_find_core"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl all findtype arms and end_find break"}
+{"fn":"fill_glyphid_cache","c":"303-321","status":"ported","js":["js/glyphs.js:fill_glyphid_cache"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full init/parse/free-on-fail"}
 {"fn":"init_glyph_cache","c":"334-352","status":"ported","js":["js/glyphs.js:init_glyph_cache"],"at":"2026-09-30@2b25db15c","note":"stale: js/glyphs.js:170"}
 {"fn":"free_glyphid_cache","c":"355-369","status":"ported","js":["js/glyphs.js:free_glyphid_cache"],"d":["D-3019"],"at":"2026-09-28@20875982e"}
-{"fn":"add_glyph_to_cache","c":"372-392","status":"unknown"}
-{"fn":"find_glyph_in_cache","c":"395-415","status":"unknown"}
-{"fn":"find_glyphid_in_cache_by_glyphnum","c":"418-432","status":"unknown"}
-{"fn":"glyph_hash","c":"435-449","status":"unknown"}
-{"fn":"glyphid_cache_status","c":"452-455","status":"unknown"}
+{"fn":"add_glyph_to_cache","c":"372-392","status":"ported","js":["js/glyphs.js:add_glyph_to_cache"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact double-hash insert, panic->throw"}
+{"fn":"find_glyph_in_cache","c":"395-415","status":"ported","js":["js/glyphs.js:find_glyph_in_cache"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact double-hash lookup"}
+{"fn":"find_glyphid_in_cache_by_glyphnum","c":"418-432","status":"ported","js":["js/glyphs.js:find_glyphid_in_cache_by_glyphnum"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact linear scan"}
+{"fn":"glyph_hash","c":"435-449","status":"ported","js":["js/glyphs.js:glyph_hash"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact rotl1/xor uint32 hash with lowercasing"}
+{"fn":"glyphid_cache_status","c":"452-455","status":"ported","js":["js/glyphs.js:glyphid_cache_status"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact null check"}
 {"fn":"match_glyph","c":"458-467","status":"ported","js":["js/glyphs.js:match_glyph"],"d":["D-3138"],"at":"2026-09-30@1edc89993","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"glyphrep","c":"470-481","status":"ported","js":["js/glyphs.js:glyphrep"],"d":["D-3138"],"at":"2026-09-30@1edc89993","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_custom_nhcolor_entry","c":"484-528","status":"partial","js":["js/glyphs.js:add_custom_nhcolor_entry"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771"],"at":"seed@a30a7de84"}
 {"fn":"apply_customizations","c":"531-574","status":"ported","js":["js/glyphs.js:apply_customizations"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"maybe_shuffle_customizations","c":"581-587","status":"unknown"}
+{"fn":"maybe_shuffle_customizations","c":"581-587","status":"ported","js":["js/glyphs.js:maybe_shuffle_customizations"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact pending-flag gate"}
 {"fn":"shuffle_customizations","c":"591-642","status":"ported","js":["js/glyphs.js:shuffle_customizations"],"d":["D-2934"],"at":"seed@a30a7de84","note":"alt 646-732"}
-{"fn":"find_matching_customization","c":"736-748","status":"unknown"}
+{"fn":"find_matching_customization","c":"736-748","status":"ported","js":["js/glyphs.js:find_matching_customization"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact custtype/name match"}
 {"fn":"purge_all_custom_entries","c":"751-758","status":"partial","js":["js/glyphs.js:purge_all_custom_entries"],"omit":"freedynamicdata (save.c:1090 caller — save-freeing infra, NOTES guard, never ported); clear_symsetentry (symbols.c:347 caller — symset teardown, own coverage row when emitted); add_custom_symbols/add_custom_ureps writers (payload arms live-guarded, shapes land with those rows).","d":["D-2780"],"at":"seed@a30a7de84"}
-{"fn":"purge_custom_entries","c":"761-794","status":"unknown"}
-{"fn":"dump_all_glyphids","c":"797-805","status":"unknown"}
+{"fn":"purge_custom_entries","c":"761-794","status":"ported","js":["js/glyphs.js:purge_custom_entries"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full per-type field reset; GC instead of free"}
+{"fn":"dump_all_glyphids","c":"797-805","status":"ported","js":["js/glyphs.js:dump_all_glyphids"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: same find_struct setup; FILE* adapted to writeLine callback"}
 {"fn":"wizcustom_glyphids","c":"808-821","status":"partial","js":["js/glyphs.js:wizcustom_glyphids"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771"],"at":"seed@a30a7de84"}
 {"fn":"parse_id","c":"824-1162","status":"partial","js":["js/glyphs.js:parse_id"],"omit":"`find_struct` callback/color/unicode consumers — `glyphrep_to_custom_map_entries`, `glyphrep`, `match_glyph`, `to_custom_symset_entry_callback`, `find_glyphid_in_cache_by_glyphnum`, `wizcustom_glyphids`, `shuffle_customizations`, `apply_customizations`, `add_custom_nhcolor_entry` (options/symbols c…","d":["D-2487"],"at":"seed@a30a7de84"}
 {"fn":"clear_all_glyphmap_colors","c":"1167-1176","status":"ported","js":["js/glyphs.js:clear_all_glyphmap_colors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}

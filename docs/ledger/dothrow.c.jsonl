@@ -1,39 +1,39 @@
-{"fn":"multishot_class_bonus","c":"39-83","status":"unknown"}
-{"fn":"throw_obj","c":"87-293","status":"unknown"}
-{"fn":"ok_to_throw","c":"297-313","status":"unknown"}
-{"fn":"throw_ok","c":"317-348","status":"unknown"}
-{"fn":"dothrow","c":"352-376","status":"unknown"}
-{"fn":"autoquiver","c":"381-442","status":"unknown"}
+{"fn":"multishot_class_bonus","c":"39-83","status":"ported","js":["js/weapon.js:multishot_class_bonus"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throw_obj","c":"87-293","status":"ported","js":["js/dothrow.js:throw_obj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: getdir prompt lives in callers (same one prompt)"}
+{"fn":"ok_to_throw","c":"297-313","status":"ported","js":["js/dothrow.js:ok_to_throw"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throw_ok","c":"317-348","status":"ported","js":["js/dothrow.js:throw_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dothrow","c":"352-376","status":"ported","js":["js/dothrow.js:dothrow"],"at":"2026-10-03@bbe63333a"}
+{"fn":"autoquiver","c":"381-442","status":"ported","js":["js/dothrow.js:autoquiver"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_launcher","c":"447-465","status":"ported","js":["js/dothrow.js:find_launcher"],"at":"2026-09-30@e611ec47f","note":"stale: js/dothrow.js:2675"}
-{"fn":"dofire","c":"469-586","status":"unknown","d":["D-2056","D-1851"],"at":"seed@a30a7de84"}
+{"fn":"dofire","c":"469-586","status":"ported","js":["js/dothrow.js:dofire"],"d":["D-2056","D-1851"],"at":"2026-10-03@bbe63333a"}
 {"fn":"endmultishot","c":"590-601","status":"ported","js":["js/dothrow.js:endmultishot"],"d":["D-3260"],"at":"2026-10-02@4fbb3512e"}
-{"fn":"hitfloor","c":"606-647","status":"unknown"}
+{"fn":"hitfloor","c":"606-647","status":"ported","js":["js/dothrow.js:hitfloor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"walk_path","c":"656-735","status":"ported","js":["js/dothrow.js:walk_path"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"hurtle_jump","c":"742-752","status":"unknown"}
+{"fn":"hurtle_jump","c":"742-752","status":"ported","js":["js/dothrow.js:hurtle_jump"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hurtle_step","c":"773-972","status":"ported","js":["js/dothrow.js:hurtle_step"],"d":["D-3218","D-2188","D-1277","D-1165"],"at":"2026-10-01@cdbc41097"}
-{"fn":"will_hurtle","c":"977-989","status":"unknown"}
-{"fn":"mhurtle_step","c":"992-1068","status":"unknown","d":["D-1176"],"at":"seed@a30a7de84"}
-{"fn":"hurtle","c":"1078-1126","status":"unknown"}
-{"fn":"mhurtle","c":"1130-1178","status":"unknown"}
-{"fn":"check_shop_obj","c":"1181-1214","status":"unknown"}
-{"fn":"harmless_missile","c":"1220-1248","status":"unknown"}
-{"fn":"toss_up","c":"1256-1426","status":"unknown","d":["D-1274"],"at":"seed@a30a7de84"}
-{"fn":"throwing_weapon","c":"1430-1438","status":"unknown"}
-{"fn":"sho_obj_return_to_u","c":"1442-1457","status":"unknown","d":["D-1303"],"at":"seed@a30a7de84"}
-{"fn":"throwit_return","c":"1460-1465","status":"unknown"}
-{"fn":"swallowit","c":"1468-1475","status":"unknown"}
-{"fn":"throwit_mon_hit","c":"1482-1506","status":"unknown","d":["D-1313"],"at":"seed@a30a7de84"}
-{"fn":"throwit","c":"1510-1849","status":"unknown","d":["D-1346","D-1333","D-1316","D-1315","D-1311","D-1297"],"at":"seed@a30a7de84"}
+{"fn":"will_hurtle","c":"977-989","status":"ported","js":["js/dothrow.js:will_hurtle"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mhurtle_step","c":"992-1068","status":"ported","js":["js/dothrow.js:mhurtle_step"],"d":["D-1176"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hurtle","c":"1078-1126","status":"ported","js":["js/dothrow.js:hurtle"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mhurtle","c":"1130-1178","status":"partial","js":["js/dothrow.js:mhurtle"],"omit":"NODIAG grid-bug diagonal gate (:1154-1155); minliquid else-arm after path when no trap (:1174-1175)","at":"2026-10-03@bbe63333a"}
+{"fn":"check_shop_obj","c":"1181-1214","status":"ported","js":["js/shk.js:check_shop_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"harmless_missile","c":"1220-1248","status":"ported","js":["js/dothrow.js:harmless_missile"],"at":"2026-10-03@bbe63333a"}
+{"fn":"toss_up","c":"1256-1426","status":"ported","js":["js/dothrow.js:toss_up"],"d":["D-1274"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throwing_weapon","c":"1430-1438","status":"ported","js":["js/dothrow.js:throwing_weapon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sho_obj_return_to_u","c":"1442-1457","status":"ported","js":["js/dothrow.js:sho_obj_return_to_u"],"d":["D-1303"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throwit_return","c":"1460-1465","status":"ported","js":["js/dothrow.js:throwit_return"],"at":"2026-10-03@bbe63333a"}
+{"fn":"swallowit","c":"1468-1475","status":"ported","js":["js/dothrow.js:swallowit"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throwit_mon_hit","c":"1482-1506","status":"ported","js":["js/dothrow.js:throwit_mon_hit"],"d":["D-1313"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throwit","c":"1510-1849","status":"partial","js":["js/dothrow.js:throwit"],"omit":"shk is_pick snatch+mpickobj arm (:1809-1817); ship_object !mon gate (JS ships when mon set); vision_full_recalc when obj sheds light (:1843-1844); Soundeffect(se_splash,50) with Splash/Plop","d":["D-1346","D-1333","D-1316","D-1315","D-1311","D-1297"],"at":"2026-10-03@bbe63333a"}
 {"fn":"return_throw_to_inv","c":"1855-1909","status":"ported","js":["js/dothrow.js:return_throw_to_inv"],"d":["D-2656"],"at":"seed@a30a7de84"}
 {"fn":"omon_adj","c":"1913-1947","status":"ported","js":["js/dothrow.js:omon_adj"],"d":["D-2905"],"at":"seed@a30a7de84"}
 {"fn":"tmiss","c":"1951-1967","status":"ported","js":["js/dothrow.js:tmiss"],"d":["D-2957"],"at":"seed@a30a7de84"}
 {"fn":"should_mulch_missile","c":"1976-2002","status":"ported","js":["js/weapon.js:should_mulch_missile"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"thitmonst","c":"2011-2304","status":"partial","js":["js/dothrow.js:thitmonst"],"omit":"`tmiss` still calls local `miss_missile` rather than `zap.c` `miss` (`is_plural` wording).","d":["D-2804","D-1324","D-1312"],"at":"seed@a30a7de84"}
 {"fn":"gem_accept","c":"2309-2382","status":"ported","js":["js/dothrow.js:gem_accept"],"d":["D-2517"],"at":"seed@a30a7de84"}
-{"fn":"hero_breaks","c":"2417-2436","status":"unknown"}
-{"fn":"breaks","c":"2444-2454","status":"unknown"}
+{"fn":"hero_breaks","c":"2417-2436","status":"ported","js":["js/dothrow.js:hero_breaks"],"at":"2026-10-03@bbe63333a"}
+{"fn":"breaks","c":"2444-2454","status":"ported","js":["js/dothrow.js:breaks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"release_camera_demon","c":"2457-2470","status":"ported","js":["js/dothrow.js:release_camera_demon"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/dothrow.js:1377"}
 {"fn":"breakobj","c":"2480-2574","status":"partial","js":["js/dothrow.js:breakobj"],"omit":"caller `fracture_rock` billable arm (`zap.c:5552` → `js/dig.js:1801` stays sync; `breakobj` is async — cascade deferred to its own row).","d":["D-2531"],"at":"seed@a30a7de84"}
-{"fn":"breaktest","c":"2582-2609","status":"unknown"}
-{"fn":"breakmsg","c":"2612-2653","status":"unknown"}
-{"fn":"throw_gold","c":"2656-2731","status":"unknown","d":["D-1302"],"at":"seed@a30a7de84"}
+{"fn":"breaktest","c":"2582-2609","status":"ported","js":["js/dothrow.js:breaktest"],"at":"2026-10-03@bbe63333a"}
+{"fn":"breakmsg","c":"2612-2653","status":"ported","js":["js/dothrow.js:breakmsg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C impossible debug-log for odd non-wand skipped; fallthrough behavior ported"}
+{"fn":"throw_gold","c":"2656-2731","status":"partial","js":["js/dothrow.js:throw_gold"],"omit":"unsplitobj merge-back for stack-split gold thrown at self (:2665-2667)","d":["D-1302"],"at":"2026-10-03@bbe63333a"}

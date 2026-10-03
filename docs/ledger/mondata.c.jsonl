@@ -1,59 +1,59 @@
-{"fn":"set_mon_data","c":"13-38","status":"unknown"}
+{"fn":"set_mon_data","c":"13-38","status":"ported","js":["js/mondata.js:set_mon_data"],"at":"2026-10-03@bbe63333a"}
 {"fn":"attacktype_fordmg","c":"42-50","status":"ported","js":["js/uhitm.js:attacktype_fordmg"],"d":["D-3346"],"at":"2026-10-03@cd0939656"}
 {"fn":"attacktype","c":"54-57","status":"ported","js":["js/mondata.js:attacktype"],"d":["D-3359","D-3357","D-3355","D-3352","D-3350"],"at":"2026-10-03@6e103bb56","note":"D-3350 live export; engrave/makemon/muse/polyself/trap clones queued"}
-{"fn":"noattacks","c":"61-76","status":"unknown"}
-{"fn":"poly_when_stoned","c":"80-86","status":"unknown"}
-{"fn":"defended","c":"91-124","status":"unknown"}
-{"fn":"Resists_Elem","c":"129-197","status":"unknown"}
-{"fn":"resists_drli","c":"201-211","status":"unknown"}
-{"fn":"resists_magm","c":"215-244","status":"unknown"}
-{"fn":"resists_blnd","c":"248-272","status":"unknown"}
-{"fn":"resists_blnd_by_arti","c":"278-298","status":"unknown"}
+{"fn":"noattacks","c":"61-76","status":"ported","js":["js/hack.js:noattacks"],"at":"2026-10-03@bbe63333a"}
+{"fn":"poly_when_stoned","c":"80-86","status":"ported","js":["js/monsters.js:poly_when_stoned"],"at":"2026-10-03@bbe63333a"}
+{"fn":"defended","c":"91-124","status":"ported","js":["js/mondata.js:defended"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Resists_Elem","c":"129-197","status":"ported","js":["js/mondata.js:Resists_Elem"],"at":"2026-10-03@bbe63333a"}
+{"fn":"resists_drli","c":"201-211","status":"ported","js":["js/zap.js:resists_drli"],"at":"2026-10-03@bbe63333a"}
+{"fn":"resists_magm","c":"215-244","status":"ported","js":["js/mondata.js:resists_magm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"resists_blnd","c":"248-272","status":"ported","js":["js/mondata.js:resists_blnd"],"at":"2026-10-03@bbe63333a"}
+{"fn":"resists_blnd_by_arti","c":"278-298","status":"ported","js":["js/mondata.js:resists_blnd_by_arti"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C #if 0 Eyes arm compiled out"}
 {"fn":"can_blnd","c":"305-398","status":"ported","js":["js/uhitm.js:can_blnd"],"d":["D-2604"],"at":"seed@a30a7de84"}
 {"fn":"ranged_attk","c":"402-410","status":"ported","js":["js/mondata.js:ranged_attk"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mstrength","c":"428-497","status":"unknown"}
-{"fn":"mstrength_ranged_attk","c":"501-512","status":"unknown"}
-{"fn":"mon_hates_silver","c":"517-520","status":"unknown"}
-{"fn":"hates_silver","c":"524-529","status":"unknown"}
-{"fn":"mon_hates_blessings","c":"533-536","status":"unknown"}
-{"fn":"hates_blessings","c":"540-543","status":"unknown"}
-{"fn":"mon_hates_light","c":"547-550","status":"unknown"}
-{"fn":"passes_bars","c":"554-563","status":"unknown"}
-{"fn":"can_blow","c":"567-576","status":"unknown"}
-{"fn":"can_chant","c":"580-587","status":"unknown"}
-{"fn":"can_be_strangled","c":"591-619","status":"unknown"}
+{"fn":"mstrength","c":"428-497","status":"ported","js":["js/mondata.js:mstrength"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mstrength_ranged_attk","c":"501-512","status":"ported","js":["js/mondata.js:mstrength_ranged_attk"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_hates_silver","c":"517-520","status":"ported","js":["js/monsters.js:mon_hates_silver"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hates_silver","c":"524-529","status":"ported","js":["js/monsters.js:hates_silver"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_hates_blessings","c":"533-536","status":"ported","js":["js/monsters.js:mon_hates_blessings"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hates_blessings","c":"540-543","status":"ported","js":["js/monsters.js:hates_blessings"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_hates_light","c":"547-550","status":"ported","js":["js/monsters.js:mon_hates_light"],"at":"2026-10-03@bbe63333a"}
+{"fn":"passes_bars","c":"554-563","status":"ported","js":["js/monsters.js:passes_bars"],"at":"2026-10-03@bbe63333a"}
+{"fn":"can_blow","c":"567-576","status":"ported","js":["js/mondata.js:can_blow"],"at":"2026-10-03@bbe63333a"}
+{"fn":"can_chant","c":"580-587","status":"ported","js":["js/spell.js:can_chant"],"at":"2026-10-03@bbe63333a"}
+{"fn":"can_be_strangled","c":"591-619","status":"ported","js":["js/uhitm.js:can_be_strangled"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_track","c":"623-628","status":"ported","js":["js/monsters.js:can_track"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146"}
-{"fn":"sliparm","c":"632-636","status":"unknown"}
-{"fn":"breakarm","c":"640-650","status":"unknown"}
-{"fn":"sticks","c":"654-659","status":"unknown"}
-{"fn":"cantvomit","c":"663-674","status":"unknown"}
+{"fn":"sliparm","c":"632-636","status":"ported","js":["js/polyself.js:sliparm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"breakarm","c":"640-650","status":"ported","js":["js/worn.js:breakarm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sticks","c":"654-659","status":"ported","js":["js/uhitm.js:sticks"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cantvomit","c":"663-674","status":"ported","js":["js/mondata.js:cantvomit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"num_horns","c":"678-695","status":"ported","js":["js/worn.js:num_horns"],"at":"2026-09-28@000445a8b","note":"stale: js/worn.js:207 — switch on mndx returns 2/1/0 for the same 8 monster cases as C mondata.c:678-695"}
 {"fn":"dmgtype_fromattack","c":"700-708","status":"ported","js":["js/mondata.js:dmgtype_fromattack"],"d":["D-3357"],"at":"2026-10-03@b28f5f884"}
 {"fn":"dmgtype","c":"712-715","status":"ported","js":["js/monsters.js:dmgtype"],"d":["D-3357","D-3355"],"at":"2026-10-03@b28f5f884","note":"live export monsters.js:565; engrave/eat clones removed, mhitm/mhitu/monmove clones queued"}
 {"fn":"max_passive_dmg","c":"720-767","status":"ported","js":["js/mhitm.js:max_passive_dmg"],"d":["D-3118","D-3110"],"at":"2026-09-29@138a5a96f"}
 {"fn":"same_race","c":"771-871","status":"ported","js":["js/mondata.js:same_race"],"d":["D-2655"],"at":"seed@a30a7de84"}
-{"fn":"name_to_mon","c":"883-886","status":"unknown"}
+{"fn":"name_to_mon","c":"883-886","status":"ported","js":["js/mondata.js:name_to_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"name_to_monplus","c":"893-1085","status":"ported","js":["js/mondata.js:name_to_monplus"],"d":["D-2577"],"at":"seed@a30a7de84"}
 {"fn":"name_to_monclass","c":"1090-1176","status":"ported","js":["js/mondata.js:name_to_monclass"],"d":["D-2045"],"at":"2026-10-01@8f3d63508","note":"stale: js/mondata.js:911 complete (single-char via canonical DEF_CHAR_TO_MLET :840, falsematch/truematch/explain/name_to_mon arms in C order); 4 C callers wired (makemon.js:1440 wiz_force_cham_form, polyself.js:2089, read.js:2497, read.js:2880)"}
 {"fn":"gender","c":"1180-1185","status":"ported","js":["js/mhitm.js:gender"],"at":"2026-09-29@ad1aa7146","note":"stale: js/mhitm.js:2104 — is_neuter/female identical; mhitu.c pair wired mhitm.js:2148,2158, uhitm.c:2208 inlined uhitm.js:2609"}
-{"fn":"pronoun_gender","c":"1191-1207","status":"unknown"}
+{"fn":"pronoun_gender","c":"1191-1207","status":"ported","js":["js/mondata.js:pronoun_gender"],"at":"2026-10-03@bbe63333a"}
 {"fn":"levl_follower","c":"1211-1226","status":"ported","js":["js/dog.js:levl_follower"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146"}
 {"fn":"little_to_big","c":"1303-1313","status":"ported","js":["js/mondata.js:little_to_big"],"at":"2026-09-29@ad1aa7146","note":"stale: js/mondata.js:510 — loop identical to C grownups scan; callers wired apply.js:3397 mhitm.js:4030 mon.js:825 timeout.js:2311 mondata.js:636"}
 {"fn":"big_to_little","c":"1316-1326","status":"ported","js":["js/mondata.js:big_to_little"],"at":"2026-09-29@ad1aa7146","note":"stale: js/mondata.js:518 — loop identical to C grownups scan; callers wired apply.js:3398 mon.js:856 mondata.js:632 timeout.js:2340 makemon.js:1201"}
 {"fn":"big_little_match","c":"1331-1351","status":"ported","js":["js/mondata.js:big_little_match"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"raceptr","c":"1359-1364","status":"unknown"}
-{"fn":"locomotion","c":"1380-1392","status":"unknown"}
+{"fn":"raceptr","c":"1359-1364","status":"ported","js":["js/mondata.js:raceptr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"locomotion","c":"1380-1392","status":"ported","js":["js/monmove.js:locomotion"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: flys/flyl idx0-1 identical; non-alpha def edge unreachable"}
 {"fn":"stagger","c":"1395-1407","status":"ported","js":["js/mhitm.js:stagger"],"d":["D-3283"],"at":"2026-10-02@7589db4a3"}
-{"fn":"on_fire","c":"1411-1445","status":"unknown"}
-{"fn":"msummon_environ","c":"1449-1495","status":"unknown"}
+{"fn":"on_fire","c":"1411-1445","status":"ported","js":["js/mondata.js:on_fire"],"at":"2026-10-03@bbe63333a"}
+{"fn":"msummon_environ","c":"1449-1495","status":"ported","js":["js/minion.js:msummon_environ"],"at":"2026-10-03@bbe63333a"}
 {"fn":"olfaction","c":"1507-1518","status":"ported","js":["js/monsters.js:olfaction"],"at":"2026-09-29@671c54bfc","note":"stale: js/monsters.js:709; callers wired do.js:2295 eat.js:1444 makemon.js:1667 wizcmds.js:1740"}
-{"fn":"cvt_adtyp_to_mseenres","c":"1522-1536","status":"unknown"}
-{"fn":"cvt_prop_to_mseenres","c":"1540-1554","status":"unknown"}
+{"fn":"cvt_adtyp_to_mseenres","c":"1522-1536","status":"ported","js":["js/mondata.js:cvt_adtyp_to_mseenres"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cvt_prop_to_mseenres","c":"1540-1554","status":"ported","js":["js/mondata.js:cvt_prop_to_mseenres"],"at":"2026-10-03@bbe63333a"}
 {"fn":"monstseesu","c":"1558-1568","status":"ported","js":["js/mondata.js:monstseesu"],"at":"2026-10-02@e42cd0047","note":"stale: js/mondata.js:1052 whole C body (guard + fmon loop)"}
 {"fn":"monstunseesu","c":"1572-1582","status":"ported","js":["js/mondata.js:monstunseesu"],"at":"2026-10-02@cb36dc362","note":"stale: js/mondata.js:1071 whole C body (M_SEEN_NOTHING/uswallow gate + fmon m_clearseenres loop)"}
-{"fn":"give_u_to_m_resistances","c":"1586-1598","status":"unknown"}
-{"fn":"resist_conflict","c":"1607-1613","status":"unknown"}
+{"fn":"give_u_to_m_resistances","c":"1586-1598","status":"ported","js":["js/end.js:give_u_to_m_resistances"],"at":"2026-10-03@bbe63333a"}
+{"fn":"resist_conflict","c":"1607-1613","status":"ported","js":["js/mondata.js:resist_conflict"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_knows_traps","c":"1617-1625","status":"ported","js":["js/monsters.js:mon_knows_traps"],"at":"2026-09-29@ad1aa7146","note":"stale: js/monsters.js:565 — ALL_TRAPS/NO_TRAP/bit arms identical (TRAPNUM=26, 1<< exact); callers wired mon.js:3304 monmove.js:557,882 muse.js:726,2129,2143 trap.js:6150"}
-{"fn":"mon_learns_traps","c":"1629-1637","status":"unknown"}
-{"fn":"mons_see_trap","c":"1641-1657","status":"unknown"}
-{"fn":"get_atkdam_type","c":"1660-1669","status":"unknown"}
+{"fn":"mon_learns_traps","c":"1629-1637","status":"ported","js":["js/monsters.js:mon_learns_traps"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mons_see_trap","c":"1641-1657","status":"ported","js":["js/trap.js:mons_see_trap"],"at":"2026-10-03@bbe63333a"}
+{"fn":"get_atkdam_type","c":"1660-1669","status":"ported","js":["js/mondata.js:get_atkdam_type"],"at":"2026-10-03@bbe63333a"}

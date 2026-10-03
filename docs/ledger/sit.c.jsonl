@@ -1,6 +1,6 @@
-{"fn":"take_gold","c":"14-33","status":"unknown"}
-{"fn":"throne_sit_effect","c":"39-234","status":"unknown","d":["D-1084"],"at":"seed@a30a7de84"}
-{"fn":"lay_an_egg","c":"358-396","status":"unknown"}
-{"fn":"dosit","c":"400-565","status":"unknown","d":["D-1075","D-1074","D-1073","D-1072","D-1069","D-1068"],"at":"seed@a30a7de84"}
+{"fn":"take_gold","c":"14-33","status":"ported","js":["js/sit.js:take_gold"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throne_sit_effect","c":"39-234","status":"ported","js":["js/sit.js:throne_sit_effect"],"d":["D-1084"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lay_an_egg","c":"358-396","status":"ported","js":["js/sit.js:lay_an_egg"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dosit","c":"400-565","status":"ported","js":["js/sit.js:dosit"],"d":["D-1075","D-1074","D-1073","D-1072","D-1069","D-1068"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rndcurse","c":"569-638","status":"ported","js":["js/sit.js:rndcurse"],"d":["D-1089","D-1087"],"at":"seed@a30a7de84","note":"stale 2026-09-08"}
-{"fn":"attrcurse","c":"644-762","status":"unknown"}
+{"fn":"attrcurse","c":"644-762","status":"ported","js":["js/sit.js:attrcurse"],"at":"2026-10-03@bbe63333a"}

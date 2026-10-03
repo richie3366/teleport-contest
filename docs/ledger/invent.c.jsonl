@@ -1,118 +1,118 @@
-{"fn":"inuse_classify","c":"70-144","status":"unknown","d":["D-2121","D-1850"],"at":"seed@a30a7de84"}
+{"fn":"inuse_classify","c":"70-144","status":"ported","js":["js/invent.js:inuse_classify"],"d":["D-2121","D-1850"],"at":"2026-10-03@bbe63333a"}
 {"fn":"loot_classify","c":"149-305","status":"partial","js":["js/invent.js:loot_classify"],"omit":"``o_init.c:587`` sortloot_descr ('s' discosort path — review 921 ACCEPT-WITH-DEBT row); sortloot_cmp BUCX/grease/erosion/erodeproof/enchant tail (``:503–541``); sortloot_cmp LOOT-name arms stay as-is.","d":["D-2616"],"at":"seed@a30a7de84"}
 {"fn":"loot_xname","c":"309-387","status":"partial","js":["js/invent.js:loot_xname"],"omit":"sortloot_cmp body (own queued Open row — BUCX/grease/erosion tail, strcmpi shape, dupstr/maybereleaseobuf buffer idiom all live in that caller, not here); ``hack.h:836`` sortloot_item.str field (plain JS ``sli.str``, already wired in sortloot).","d":["D-2621"],"at":"seed@a30a7de84"}
-{"fn":"invletter_value","c":"391-399","status":"unknown"}
-{"fn":"sortloot_cmp","c":"403-547","status":"unknown","d":["D-2626"],"at":"seed@a30a7de84"}
-{"fn":"sortloot","c":"593-643","status":"unknown","d":["D-1589"],"at":"seed@a30a7de84","note":"alt 655-690"}
+{"fn":"invletter_value","c":"391-399","status":"ported","js":["js/invent.js:invletter_value"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sortloot_cmp","c":"403-547","status":"ported","js":["js/invent.js:sortloot_cmp"],"d":["D-2626"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sortloot","c":"593-643","status":"ported","js":["js/invent.js:sortloot"],"d":["D-1589"],"at":"2026-10-03@bbe63333a","note":"alt 655-690"}
 {"fn":"unsortloot","c":"647-651","status":"ported","js":["js/invent.js:unsortloot"],"d":["D-3260"],"at":"2026-10-02@4fbb3512e","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"assigninvlet","c":"694-732","status":"unknown"}
+{"fn":"assigninvlet","c":"694-732","status":"ported","js":["js/u_init.js:assigninvlet"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reorder_invent","c":"739-767","status":"ported","js":["js/u_init.js:reorder_invent"],"d":["D-3125"],"at":"2026-09-29@7e46744a0"}
-{"fn":"merge_choice","c":"775-810","status":"unknown"}
+{"fn":"merge_choice","c":"775-810","status":"ported","js":["js/files.js:merge_choice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"merged","c":"814-948","status":"ported","js":["js/mkobj.js:merged"],"d":["D-2533"],"at":"seed@a30a7de84"}
-{"fn":"addinv_core1","c":"960-1005","status":"unknown"}
-{"fn":"addinv_core2","c":"1025-1049","status":"unknown"}
+{"fn":"addinv_core1","c":"960-1005","status":"ported","js":["js/u_init.js:addinv_core1"],"at":"2026-10-03@bbe63333a"}
+{"fn":"addinv_core2","c":"1025-1049","status":"partial","js":["js/u_init.js:addinv_core2"],"omit":"confers_luck(obj) arm: set_moreluck() luck recompute missing on luckstone pickup (attrib.js exports it; mkobj call sites wired)","at":"2026-10-03@bbe63333a"}
 {"fn":"addinv_core0","c":"1056-1148","status":"partial","js":["js/u_init.js:addinv_core0"],"omit":"`addinv_core2` still omits `set_moreluck`.","d":["D-2806","D-2048"],"at":"seed@a30a7de84"}
-{"fn":"addinv","c":"1152-1155","status":"unknown"}
-{"fn":"addinv_before","c":"1160-1165","status":"unknown"}
-{"fn":"addinv_nomerge","c":"1169-1178","status":"unknown"}
-{"fn":"carry_obj_effects","c":"1187-1196","status":"unknown"}
-{"fn":"hold_another_object","c":"1208-1306","status":"unknown","d":["D-1272"],"at":"seed@a30a7de84"}
-{"fn":"useupall","c":"1312-1317","status":"unknown","d":["D-1727"],"at":"seed@a30a7de84"}
-{"fn":"useup","c":"1321-1333","status":"unknown"}
-{"fn":"consume_obj_charge","c":"1337-1346","status":"unknown"}
+{"fn":"addinv","c":"1152-1155","status":"ported","js":["js/u_init.js:addinv"],"at":"2026-10-03@bbe63333a"}
+{"fn":"addinv_before","c":"1160-1165","status":"ported","js":["js/u_init.js:addinv_before"],"at":"2026-10-03@bbe63333a"}
+{"fn":"addinv_nomerge","c":"1169-1178","status":"ported","js":["js/u_init.js:addinv_nomerge"],"at":"2026-10-03@bbe63333a"}
+{"fn":"carry_obj_effects","c":"1187-1196","status":"ported","js":["js/mkobj.js:carry_obj_effects"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hold_another_object","c":"1208-1306","status":"ported","js":["js/invent.js:hold_another_object"],"d":["D-1272"],"at":"2026-10-03@bbe63333a"}
+{"fn":"useupall","c":"1312-1317","status":"ported","js":["js/invent.js:useupall"],"d":["D-1727"],"at":"2026-10-03@bbe63333a"}
+{"fn":"useup","c":"1321-1333","status":"split","js":["js/invent.js:useup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mapped js/detect.js:useup is a partial local clone (no update_inventory; quan==1 splices without useupall); whole C body at js/invent.js:useup"}
+{"fn":"consume_obj_charge","c":"1337-1346","status":"ported","js":["js/invent.js:consume_obj_charge"],"at":"2026-10-03@bbe63333a"}
 {"fn":"freeinv_core","c":"1356-1399","status":"ported","js":["js/invent.js:freeinv_core"],"d":["D-2588"],"at":"seed@a30a7de84"}
-{"fn":"freeinv","c":"1403-1409","status":"unknown"}
-{"fn":"delallobj","c":"1413-1426","status":"unknown"}
-{"fn":"delobj","c":"1430-1433","status":"unknown"}
-{"fn":"delobj_core","c":"1438-1462","status":"unknown"}
+{"fn":"freeinv","c":"1403-1409","status":"ported","js":["js/invent.js:freeinv"],"at":"2026-10-03@bbe63333a"}
+{"fn":"delallobj","c":"1413-1426","status":"ported","js":["js/dbridge.js:delallobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"delobj","c":"1430-1433","status":"ported","js":["js/mkobj.js:delobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"delobj_core","c":"1438-1462","status":"ported","js":["js/mkobj.js:delobj_core"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sobj_at","c":"1466-1475","status":"ported","js":["js/mkobj.js:sobj_at"],"d":["D-2285","D-2281"],"at":"2026-10-02@cb36dc362","note":"stale: js/mkobj.js:3321 whole C body (nexthere walk, otyp match, null)"}
-{"fn":"nxtobj","c":"1479-1491","status":"unknown"}
-{"fn":"carrying","c":"1495-1504","status":"unknown"}
-{"fn":"carrying_stoning_corpse","c":"1508-1516","status":"unknown"}
+{"fn":"nxtobj","c":"1479-1491","status":"ported","js":["js/mkobj.js:nxtobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"carrying","c":"1495-1504","status":"ported","js":["js/dog.js:carrying"],"at":"2026-10-03@bbe63333a"}
+{"fn":"carrying_stoning_corpse","c":"1508-1516","status":"ported","js":["js/do_wear.js:carrying_stoning_corpse"],"at":"2026-10-03@bbe63333a"}
 {"fn":"currency","c":"1546-1554","status":"ported","js":["js/invent.js:currency"],"at":"2026-10-02@e42cd0047","note":"stale: js/invent.js:1416 whole C body (Hallu ROLL_FROM + makeplural)"}
-{"fn":"u_carried_gloves","c":"1557-1571","status":"unknown"}
-{"fn":"u_have_novel","c":"1576-1584","status":"unknown"}
-{"fn":"o_on","c":"1587-1599","status":"unknown"}
-{"fn":"obj_here","c":"1602-1610","status":"unknown"}
+{"fn":"u_carried_gloves","c":"1557-1571","status":"ported","js":["js/invent.js:u_carried_gloves"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_have_novel","c":"1576-1584","status":"ported","js":["js/invent.js:u_have_novel"],"at":"2026-10-03@bbe63333a"}
+{"fn":"o_on","c":"1587-1599","status":"ported","js":["js/invent.js:o_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"obj_here","c":"1602-1610","status":"ported","js":["js/eat.js:obj_here"],"at":"2026-10-03@bbe63333a"}
 {"fn":"g_at","c":"1613-1623","status":"ported","js":["js/mkobj.js:g_at"],"at":"2026-10-02@ba7109db3","note":"stale: js/mkobj.js:4084"}
 {"fn":"compactify","c":"1627-1660","status":"split","js":["js/invent.js:compactify_invlets"],"d":["D-3011"],"at":"2026-09-28@bdfaca7a2","note":"stale: full C body as compactify_invlets (:8427); both C callers wired (getobj promptBuf :8925, doorganize_core :9532)"}
-{"fn":"splittable","c":"1664-1668","status":"unknown"}
-{"fn":"taking_off","c":"1672-1675","status":"unknown"}
-{"fn":"mime_action","c":"1678-1706","status":"unknown","d":["D-1579"],"at":"seed@a30a7de84"}
+{"fn":"splittable","c":"1664-1668","status":"ported","js":["js/invent.js:splittable"],"at":"2026-10-03@bbe63333a"}
+{"fn":"taking_off","c":"1672-1675","status":"ported","js":["js/invent.js:taking_off"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mime_action","c":"1678-1706","status":"ported","js":["js/invent.js:mime_action"],"d":["D-1579"],"at":"2026-10-03@bbe63333a"}
 {"fn":"any_obj_ok","c":"1710-1715","status":"split","js":["js/do.js:drop_obj_ok","js/apply.js:any_obj_ok_stone"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"getobj_hands_txt","c":"1719-1736","status":"unknown"}
+{"fn":"getobj_hands_txt","c":"1719-1736","status":"ported","js":["js/invent.js:getobj_hands_txt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-2353","D-2123","D-1927","D-1834","D-1804","D-1568"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — orchestrator; arms in getobj_from_cmdq/filter_prompt/take_count/display_pickinv/finish_pick helpers (D-1568..D-2353)"}
 {"fn":"silly_thing","c":"2094-2131","status":"ported","js":["js/invent.js:silly_thing"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"ckvalidcat","c":"2136-2140","status":"unknown"}
-{"fn":"ckunpaid","c":"2143-2146","status":"unknown"}
-{"fn":"wearing_armor","c":"2149-2153","status":"unknown"}
-{"fn":"is_worn","c":"2156-2161","status":"unknown"}
-{"fn":"is_inuse","c":"2167-2170","status":"unknown"}
+{"fn":"ckvalidcat","c":"2136-2140","status":"ported","js":["js/invent.js:ckvalidcat"],"at":"2026-10-03@bbe63333a"}
+{"fn":"ckunpaid","c":"2143-2146","status":"ported","js":["js/invent.js:ckunpaid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wearing_armor","c":"2149-2153","status":"ported","js":["js/do_wear.js:wearing_armor"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_worn","c":"2156-2161","status":"ported","js":["js/invent.js:is_worn"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_inuse","c":"2167-2170","status":"ported","js":["js/invent.js:is_inuse"],"at":"2026-10-03@bbe63333a"}
 {"fn":"safeq_xprname","c":"2180-2184","status":"ported","js":["js/pickup.js:safeq_xprname"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"safeq_shortxprname","c":"2188-2192","status":"ported","js":["js/pickup.js:safeq_shortxprname"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"ggetobj","c":"2202-2369","status":"unknown","d":["D-1635"],"at":"seed@a30a7de84"}
-{"fn":"askchain","c":"2377-2541","status":"unknown"}
-{"fn":"reroll_menu","c":"2552-2616","status":"unknown"}
-{"fn":"set_cknown_lknown","c":"2624-2633","status":"unknown"}
-{"fn":"fully_identify_obj","c":"2637-2647","status":"unknown"}
-{"fn":"identify","c":"2651-2656","status":"unknown"}
-{"fn":"menu_identify","c":"2660-2695","status":"unknown"}
-{"fn":"count_unidentified","c":"2698-2707","status":"unknown"}
-{"fn":"identify_pack","c":"2711-2745","status":"unknown"}
-{"fn":"learn_unseen_invent","c":"2750-2775","status":"unknown"}
+{"fn":"ggetobj","c":"2202-2369","status":"ported","js":["js/invent.js:ggetobj"],"d":["D-1635"],"at":"2026-10-03@bbe63333a"}
+{"fn":"askchain","c":"2377-2541","status":"ported","js":["js/pickup.js:askchain"],"at":"2026-10-03@bbe63333a"}
+{"fn":"reroll_menu","c":"2552-2616","status":"ported","js":["js/invent.js:reroll_menu"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_cknown_lknown","c":"2624-2633","status":"ported","js":["js/end.js:set_cknown_lknown"],"at":"2026-10-03@bbe63333a"}
+{"fn":"fully_identify_obj","c":"2637-2647","status":"ported","js":["js/invent.js:fully_identify_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"identify","c":"2651-2656","status":"ported","js":["js/invent.js:identify"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menu_identify","c":"2660-2695","status":"ported","js":["js/invent.js:menu_identify"],"at":"2026-10-03@bbe63333a"}
+{"fn":"count_unidentified","c":"2698-2707","status":"ported","js":["js/invent.js:count_unidentified"],"at":"2026-10-03@bbe63333a"}
+{"fn":"identify_pack","c":"2711-2745","status":"ported","js":["js/invent.js:identify_pack"],"at":"2026-10-03@bbe63333a"}
+{"fn":"learn_unseen_invent","c":"2750-2775","status":"ported","js":["js/invent.js:learn_unseen_invent"],"at":"2026-10-03@bbe63333a"}
 {"fn":"update_inventory","c":"2782-2810","status":"ported","js":["js/invent.js:update_inventory"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"doperminv","c":"2814-2857","status":"unknown"}
-{"fn":"obj_to_let","c":"2861-2868","status":"unknown"}
+{"fn":"doperminv","c":"2814-2857","status":"ported","js":["js/invent.js:doperminv"],"at":"2026-10-03@bbe63333a"}
+{"fn":"obj_to_let","c":"2861-2868","status":"ported","js":["js/invent.js:obj_to_let"],"at":"2026-10-03@bbe63333a"}
 {"fn":"prinv","c":"2875-2890","status":"ported","js":["js/invent.js:prinv"],"d":["D-3191","D-3186","D-2207"],"at":"2026-10-01@537a19189"}
-{"fn":"xprname","c":"2895-2954","status":"unknown"}
+{"fn":"xprname","c":"2895-2954","status":"ported","js":["js/objnam.js:xprname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dispinv_with_action","c":"2964-3002","status":"ported","js":["js/iactions.js:dispinv_with_action"],"d":["D-3191","D-3186"],"at":"2026-10-01@537a19189"}
-{"fn":"ddoinv","c":"3006-3009","status":"unknown"}
-{"fn":"find_unpaid","c":"3021-3041","status":"unknown"}
-{"fn":"free_pickinv_cache","c":"3044-3050","status":"unknown"}
+{"fn":"ddoinv","c":"3006-3009","status":"ported","js":["js/invent.js:ddoinv"],"at":"2026-10-03@bbe63333a"}
+{"fn":"find_unpaid","c":"3021-3041","status":"ported","js":["js/invent.js:find_unpaid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"free_pickinv_cache","c":"3044-3050","status":"ported","js":["js/invent.js:free_pickinv_cache"],"at":"2026-10-03@bbe63333a"}
 {"fn":"display_pickinv","c":"3057-3418","status":"split","js":["js/invent.js:display_pickinv_reply","js/invent.js:display_pickinv_wizid","js/invent.js:invent_lines","js/invent.js:pickinv_build_inuse","js/invent.js:pickinv_build_perm","js/invent.js:build_wizid_pickinv_items","js/invent.js:pickinv_item_gacc"],"d":["D-1559"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across reply/wizid/lines/builders (D-1559/D-1589/D-1590)"}
-{"fn":"display_inventory","c":"3428-3453","status":"unknown"}
+{"fn":"display_inventory","c":"3428-3453","status":"ported","js":["js/invent.js:display_inventory"],"at":"2026-10-03@bbe63333a"}
 {"fn":"repopulate_perminvent","c":"3456-3460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"display_used_invlets","c":"3467-3519","status":"unknown","d":["D-1591"],"at":"seed@a30a7de84"}
-{"fn":"count_unpaid","c":"3526-3538","status":"unknown"}
-{"fn":"count_buc","c":"3548-3575","status":"unknown"}
-{"fn":"tally_BUCX","c":"3580-3616","status":"unknown"}
-{"fn":"dounpaid","c":"3654-3789","status":"unknown","d":["D-1663"],"at":"seed@a30a7de84"}
+{"fn":"display_used_invlets","c":"3467-3519","status":"ported","js":["js/invent.js:display_used_invlets"],"d":["D-1591"],"at":"2026-10-03@bbe63333a"}
+{"fn":"count_unpaid","c":"3526-3538","status":"ported","js":["js/invent.js:count_unpaid"],"at":"2026-10-03@bbe63333a"}
+{"fn":"count_buc","c":"3548-3575","status":"ported","js":["js/pickup.js:count_buc"],"at":"2026-10-03@bbe63333a"}
+{"fn":"tally_BUCX","c":"3580-3616","status":"ported","js":["js/invent.js:tally_BUCX"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dounpaid","c":"3654-3789","status":"ported","js":["js/invent.js:dounpaid"],"d":["D-1663"],"at":"2026-10-03@bbe63333a"}
 {"fn":"this_type_only","c":"3793-3823","status":"ported","js":["js/invent.js:this_type_only"],"at":"2026-09-29@7e46744a0","note":"stale: js/invent.js:1650"}
-{"fn":"dotypeinv","c":"3827-4032","status":"unknown"}
-{"fn":"dfeature_at","c":"4037-4099","status":"unknown","d":["D-2674"],"at":"seed@a30a7de84"}
-{"fn":"look_here","c":"4104-4315","status":"unknown","d":["D-2193"],"at":"seed@a30a7de84"}
-{"fn":"dolook","c":"4319-4331","status":"unknown","d":["D-2110","D-1882"],"at":"seed@a30a7de84"}
-{"fn":"will_feel_cockatrice","c":"4334-4340","status":"unknown"}
+{"fn":"dotypeinv","c":"3827-4032","status":"ported","js":["js/invent.js:dotypeinv"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dfeature_at","c":"4037-4099","status":"ported","js":["js/invent.js:dfeature_at"],"d":["D-2674"],"at":"2026-10-03@bbe63333a"}
+{"fn":"look_here","c":"4104-4315","status":"partial","js":["js/invent.js:look_here"],"omit":"swallowed engulfer-stomach arm (:4122-4161, Contents+display_minventory); lava/pool early-return (is_lava/(is_pool&&!Underwater)); ICE Blind force_decor arm; last_msg PLNMSG_ONE_ITEM_HERE","d":["D-2193"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dolook","c":"4319-4331","status":"ported","js":["js/invent.js:dolook"],"d":["D-2110","D-1882"],"at":"2026-10-03@bbe63333a"}
+{"fn":"will_feel_cockatrice","c":"4334-4340","status":"ported","js":["js/invent.js:will_feel_cockatrice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feel_cockatrice","c":"4343-4361","status":"ported","js":["js/invent.js:feel_cockatrice"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"stackobj","c":"4366-4375","status":"unknown"}
-{"fn":"mergable","c":"4379-4499","status":"unknown"}
-{"fn":"doprgold","c":"4503-4546","status":"unknown","d":["D-1731"],"at":"seed@a30a7de84"}
+{"fn":"stackobj","c":"4366-4375","status":"ported","js":["js/mkobj.js:stackobj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mergable","c":"4379-4499","status":"partial","js":["js/mkobj.js:mergable"],"omit":"JS-only owornmask gate rejects worn combine-stack, blocking C's #adjust wielded-stack merge and merged() slot-fixup path (:878-913)","at":"2026-10-03@bbe63333a"}
+{"fn":"doprgold","c":"4503-4546","status":"ported","js":["js/invent.js:doprgold"],"d":["D-1731"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doprwep","c":"4550-4574","status":"ported","js":["js/invent.js:doprwep"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
-{"fn":"noarmor","c":"4578-4597","status":"unknown","d":["D-1668"],"at":"seed@a30a7de84"}
+{"fn":"noarmor","c":"4578-4597","status":"ported","js":["js/invent.js:noarmor"],"d":["D-1668"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doprarm","c":"4601-4638","status":"ported","js":["js/invent.js:doprarm"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"doprring","c":"4642-4675","status":"ported","js":["js/invent.js:doprring"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"dopramulet","c":"4679-4694","status":"ported","js":["js/invent.js:dopramulet"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
-{"fn":"tool_being_used","c":"4698-4711","status":"unknown"}
+{"fn":"tool_being_used","c":"4698-4711","status":"ported","js":["js/invent.js:tool_being_used"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doprtool","c":"4715-4735","status":"ported","js":["js/invent.js:doprtool"],"d":["D-3191","D-3186"],"at":"2026-10-01@537a19189"}
 {"fn":"doprinuse","c":"4740-4757","status":"ported","js":["js/invent.js:doprinuse"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"useupf","c":"4763-4783","status":"partial","js":["js/invent.js:useupf"],"omit":"- `useupf`: shop-bill arms (C :4774–4779 `!mon_moving && costly_spot` addtobill vs stolen_value, both async) — pre-existing live omit, kept.","d":["D-3345"],"at":"2026-10-03@459a611e1"}
 {"fn":"let_to_name","c":"4800-4839","status":"partial","js":["js/invent.js:let_to_name"],"omit":"`save.c` `freedynamicdata` (`:1085`) does not call `free_invbuf` (save-freeing teardown is unported).","d":["D-2886"],"at":"seed@a30a7de84"}
-{"fn":"free_invbuf","c":"4845-4850","status":"unknown"}
-{"fn":"reassign","c":"4855-4884","status":"unknown"}
-{"fn":"check_invent_gold","c":"4889-4913","status":"unknown","d":["D-1641"],"at":"seed@a30a7de84"}
-{"fn":"adjust_ok","c":"4917-4923","status":"unknown"}
-{"fn":"adjust_gold_ok","c":"4927-4933","status":"unknown"}
-{"fn":"doorganize","c":"4981-5004","status":"unknown"}
-{"fn":"adjust_split","c":"5008-5065","status":"unknown","d":["D-1621"],"at":"seed@a30a7de84"}
+{"fn":"free_invbuf","c":"4845-4850","status":"ported","js":["js/invent.js:free_invbuf"],"at":"2026-10-03@bbe63333a"}
+{"fn":"reassign","c":"4855-4884","status":"ported","js":["js/invent.js:reassign"],"at":"2026-10-03@bbe63333a"}
+{"fn":"check_invent_gold","c":"4889-4913","status":"ported","js":["js/invent.js:check_invent_gold"],"d":["D-1641"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adjust_ok","c":"4917-4923","status":"ported","js":["js/invent.js:adjust_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adjust_gold_ok","c":"4927-4933","status":"ported","js":["js/invent.js:adjust_gold_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doorganize","c":"4981-5004","status":"ported","js":["js/invent.js:doorganize"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adjust_split","c":"5008-5065","status":"ported","js":["js/invent.js:adjust_split"],"d":["D-1621"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doorganize_core","c":"5068-5286","status":"ported","js":["js/invent.js:doorganize_core"],"d":["D-2618"],"at":"seed@a30a7de84"}
 {"fn":"invdisp_nothing","c":"5290-5305","status":"split","js":["js/invent.js:display_minventory","js/invent.js:display_cinventory"],"at":"2026-09-28@2f39bdcea","note":"stale: C menu sequence (hdr, '', txt, PICK_NONE) already inline at both C callers via select_menu_pick_none (js/invent.js:4387,4578)"}
 {"fn":"worn_wield_only","c":"5309-5325","status":"partial","js":["js/invent.js:worn_wield_only"],"omit":"- `safeq_xprname`: none in-body — whole C body live (ctx + callback + caller wired).","d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"display_minventory","c":"5341-5386","status":"unknown"}
-{"fn":"cinv_doname","c":"5391-5419","status":"unknown"}
+{"fn":"display_minventory","c":"5341-5386","status":"partial","js":["js/invent.js:display_minventory"],"omit":"INCLUDE_HERO arm (engulfed hero invent rows when do_all && engulfing_u); PICK_ONE/ANY selection return (always returns null)","at":"2026-10-03@bbe63333a"}
+{"fn":"cinv_doname","c":"5391-5419","status":"ported","js":["js/invent.js:cinv_doname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cinv_ansimpleoname","c":"5423-5441","status":"ported","js":["js/invent.js:cinv_ansimpleoname"],"d":["D-3147"],"at":"2026-09-30@1300fdc94","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_cinventory","c":"5446-5473","status":"ported","js":["js/invent.js:display_cinventory"],"d":["D-3147"],"at":"2026-09-30@1300fdc94"}
 {"fn":"only_here","c":"5477-5480","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"display_binventory","c":"5489-5546","status":"unknown"}
-{"fn":"prepare_perminvent","c":"5549-5562","status":"unknown"}
-{"fn":"sync_perminvent","c":"5565-5658","status":"unknown"}
-{"fn":"perm_invent_toggled","c":"5661-5677","status":"unknown"}
+{"fn":"display_binventory","c":"5489-5546","status":"ported","js":["js/invent.js:display_binventory"],"at":"2026-10-03@bbe63333a"}
+{"fn":"prepare_perminvent","c":"5549-5562","status":"ported","js":["js/invent.js:prepare_perminvent"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sync_perminvent","c":"5565-5658","status":"ported","js":["js/invent.js:sync_perminvent"],"at":"2026-10-03@bbe63333a"}
+{"fn":"perm_invent_toggled","c":"5661-5677","status":"ported","js":["js/invent.js:perm_invent_toggled"],"at":"2026-10-03@bbe63333a"}
