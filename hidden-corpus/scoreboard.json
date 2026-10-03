@@ -1,6 +1,6 @@
 {
- "commit": "9dc9139eb",
- "at": "2026-10-03T06:26:23.627Z",
+ "commit": "52fc04909",
+ "at": "2026-10-03T06:50:15.550Z",
  "full": false,
  "fullCommit": "18773ed32",
  "fullAt": "2026-10-03T05:14:14.727Z",
@@ -8612,8 +8612,19 @@
   "scen-longrun-Archeologist-94094": {
    "src": "corpus",
    "passed": false,
-   "loc": null,
-   "error": "worker: "
+   "rngM": 133076,
+   "rngT": 136433,
+   "scrM": 287,
+   "scrT": 291,
+   "kind": "rng",
+   "step": 287,
+   "steps": 291,
+   "owner": "distfleeck",
+   "loc": "monmove.c:538",
+   "jsOwner": "(no JS draw; last matched was moveloop_core)",
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
   },
   "scen-longrun-Archeologist-94294": {
    "src": "corpus",

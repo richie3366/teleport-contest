@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `js` js-throw — blocks 1/953 (scen-longrun-Archeologist-94094, step undefined): corpus worker/js-throw owner per `hidden-proxy.mjs queue --limit 200` (run `hidden-proxy verify js-throw` + brief the throwing call; forfeits every later screen, Constitution §10.14) @9dc9139eb
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
@@ -131,7 +129,7 @@ Pop order: first unchecked here after Must-fix/coverage.
 - [ ] `drawing.c` def_char_is_furniture — blocks 1/953 (scen-terrain-Tourist-94120 step 97/121 kind=screen: C «branch staircase up» vs JS «unexplored area»); C drawing.c:119–142 full defsyms scan deferred at js/detect.js:313 local (brief 2026-10-03). Source: reviews/loop-unattended/1028-61843507-terrain-browse-describe.md @9dc9139eb
 - [ ] `symbols.c` assign_graphics — C symbols.c:224–227 + :236–239 showsyms table copy absent from js/display.js:assign_graphics (brief 2026-10-03; reset_glyphmap :249 guarded per NOTES, excluded) @9dc9139eb
 - [ ] `windows.c` choose_classes_menu — C windows.c:1665–1675 category=0 (monclass) arm + generic prompt/way params absent from js/options.js:5557 local (autopickup-only reimplementation; C extern unexported; brief 2026-10-03) @9dc9139eb
-- [ ] `mkobj.c` set_corpsenm — no JS symbol (seed-declared ported, location unresolved); C mkobj.c:1317–1367 egg-timer/oeaten/corpsenm/timeout/weight arms, all 8 callees live (brief 2026-10-03; 23 C call sites) @9dc9139eb
+- [ ] `mkobj.c` set_corpsenm — absent from js/ (no JS symbol; seed-declared ported, location unresolved); C mkobj.c:1317–1367 egg-timer/oeaten/corpsenm/timeout/weight arms, all 8 callees live (brief 2026-10-03; 23 C call sites) @9dc9139eb
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

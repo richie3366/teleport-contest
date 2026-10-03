@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `js` js-throw — blocks 1/953 (scen-longrun-Archeologist-94094, step undefined): corpus worker/js-throw owner per `hidden-proxy.mjs queue --limit 200` (run `hidden-proxy verify js-throw` + brief the throwing call; forfeits every later screen, Constitution §10.14) @9dc9139eb **Addressed:** D-3362
+
+
 - [x] `zap.c` dobuzz — C zap.c:4804–4821 uswallow, :4874–4884 mon_reflects, :4887–4911 Rider/PM_DEATH, :4934–4941 otmp-else, :4956–4959 steed absent from js/zap.js:dobuzz (brief 2026-10-03; hdmgtype/invis/mines/bhitpos micro-arms same commit) @9dc9139eb
 - [x] `mhitm.c` slept_monst — no JS export (3 local clones: js/music.js:268, js/mhitm.js:1381 slept_slee_mm, js/potion.js:3730); C mhitm.c:1249–1257 + dobuzz :4946 caller unwired (brief 2026-10-03) @9dc9139eb
 
