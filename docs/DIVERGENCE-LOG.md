@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3372 — `windows.c` choose_classes_menu whole port (generic prompt/category/way + monclass arm, exported)
+
+- **Status:** fixed.
+- **Symptom:** missing-arm row — js/options.js:5557 held a local autopickup-only reimplementation (category=1 PICK_ANY, 3-arg signature, unexported); C's category=0 monclass arm, generic prompt/way params, panic guards, and the C extern were absent.
+- **C locus:** nethack-c/upstream/src/windows.c:1644–1761 (`choose_classes_menu`; sole C caller options.c:3360, the pickup_types doset menu arm; decl extern.h:3823).
+- **JS was:** local `async function choose_classes_menu(prompt, priorSelect, classList = DEFAULT_PICKUP_CLASS_SYMS)` — category-1 rows only (a–o letter accelerators, local OC_EXPLAIN), All-classes row + autopickup notes unconditional, 'A' checked before items, no null guard, no panics, no export.
+- **Fix:** restart as `export async function choose_classes_menu(prompt, category, way, classList, classSelect)` — whole C body in C order at js/options.js:5543 (sole caller's file; menuitem_invert_test windows.c precedent also lives here): null guard (:1660–1661, buffer-untouched projection), category-0 arm via live DEF_CHAR_TO_MLET + mlet_class_explain (def_char_to_monclass/IndexOk analogue, accelerator = class char), category-1 arm via live def_char_to_objclass + def_oc_syms[idx].explain (local OC_EXPLAIN deleted — values identical), default-arm + both invalid-class panics → throw with the C message (throw ≡ panic, dungeon.js:548), way-gated preselect, a–z/A–Z advance with the 'Z' post-add break, All-classes row gated on category==1 && next<='z' with the autopickup notes gated on `prompt === 'Autopickup what?'` (C !strcmp), 'A'-before-items reordered to C tty order (class rows first — identical while ≤ 26 classes), PICK_ONE arm (accelerator finishes with that one pick; Enter returns preselect; Esc returns classSelect unchanged = C n==-1/eos). C's (int ret, out-buffer) pair projects onto the returned string (sole caller discards ret via `(void)`). mondata import extended (edge ALREADY); dead DEFAULT_PICKUP_CLASS_SYMS removed; caller js/options.js:5749 rewired to (prompt, 1, true, ocl, prior).
+- **JS:** js/options.js:5543 `export async function choose_classes_menu`; caller js/options.js:5749.
+- **Callers:** C options.c:3360 → JS handler_pickup_types js/options.js:5749. No other C call site (extern.h decl excepted).
+- **Verify:** `node scripts/verify.mjs --fn choose_classes_menu` → VERIFY: PASS: syntax (js/options.js) · rule2 · hidden note (0 blocked — normal for coverage) · reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed).
+- **Named omissions:** select_menu/add_menu/add_menu_str/create_nhwindow/start_menu/end_menu/destroy_nhwindow — seed by-design (no scored window system); the paint_corner_nhw_menu key loop is the pre-existing tty analogue, behavior-identical for the sole caller (space still ignored, same rows/morestr). Single-function cluster (file holds nothing more Open: 72 windows.c rows by-design, rest ported/partial-declared; coverage block empty).
+- **Ledger:** choose_classes_menu ported
+- **Next:** coverage block continues (missing-arm rows: mkobj.c set_corpsenm, hacklib.c clone removals, rest_adjust_levelflags).
+
 ## D-3371 — `restore.c` restlevchn whole port (special-level chain restore, savelevchn mirror)
 
 - **Status:** fixed.

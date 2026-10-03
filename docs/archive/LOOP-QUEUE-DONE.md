@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `windows.c` choose_classes_menu — C windows.c:1665–1675 category=0 (monclass) arm + generic prompt/way params absent from js/options.js:5557 local (autopickup-only reimplementation; C extern unexported; brief 2026-10-03) @9dc9139eb **Addressed:** D-3372
+
+
 - [x] `mhitm.c` slept_monst unwired C callers — music.c:95 + potion.c:1806 still call local clones (js/music.js:268, js/potion.js:3745 slept_monst_pot; sticks-deferred, hand-clearing ustuck) and zap.c:486 bhitm WAN_SLEEP arm has no JS call site; canonical js/mhitm.js:1422 exact (`csym --callers` 7 refs, 3 sites unwired; Ledger says ported). Source: reviews/loop-unattended/2317-52fc04909-dobuzz-slept-monst.md @79f8032a6 **Addressed:** D-3368 `794aa26a5`
 
 
