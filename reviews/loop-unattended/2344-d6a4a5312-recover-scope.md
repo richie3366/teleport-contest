@@ -4,6 +4,8 @@
 **Scope:** js/files.js +363/−7, js/bones.js +13/−4, js/end.js +16/−5, js/save.js +3/−1. Cluster commit — per-function blocks below.
 **Prior reviews closed:** none.
 
+**Addressed:** D-3391
+
 ## Intent vs deliverable
 
 Promise: whole C bodies for 4 MISSING files.c functions, compress wired at all 5 bones sites. Delivered for three of them; the fourth — recover_savefile, ~140 of the ~363 insertions — is `#ifdef SELF_RECOVER` code compiled OUT of the contest binary, ported live and flipped to ported instead of marked by-design (see Actionable 1). The trio is exact; the quartet's verdict is its worst member.

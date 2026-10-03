@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `files.c` recover_savefile compiled-out port — C files.c:2864–3082 under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined; sole caller sys/unix/unixunix.c:216–219 inside the same ifdef) shipped live + flipped ported instead of by-design (RUNBOOK §4; Placebc/adjust_prefix/CHANGE_COLOR precedent); fix: ledger by-design + delete dead JS (recover + recover-only sfo_int/sfvalue_int, no callers) + verify incl. full — brief 2344. Source: reviews/loop-unattended/2344-d6a4a5312-recover-scope.md
+- [x] `files.c` recover_savefile compiled-out port — C files.c:2864–3082 under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined; sole caller sys/unix/unixunix.c:216–219 inside the same ifdef) shipped live + flipped ported instead of by-design (RUNBOOK §4; Placebc/adjust_prefix/CHANGE_COLOR precedent); fix: ledger by-design + delete dead JS (recover + recover-only sfo_int/sfvalue_int, no callers) + verify incl. full — brief 2344. Source: reviews/loop-unattended/2344-d6a4a5312-recover-scope.md **Addressed:** D-3391
 
 
 - [x] `bones.c` free_ebones — C bones.c:832–839 absent from js/ (no JS symbol; ledger absent C 3; mextra+EBONES free+null; decl-only C ref extern.h:260, no live callers; sfctool.c:1050 dup body is the tool; 0 C callees — brief 2026-10-03) @bd0144c89
