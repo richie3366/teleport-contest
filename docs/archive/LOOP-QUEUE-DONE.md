@@ -5,8 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `display.c` fn_cmap_to_glyph — C display.c:3796–3800 absent from js/ (no JS symbol; ledger absent C 1; cmap_to_glyph(cmap) wrapper; 0 C refs — brief 2026-10-03) @bd0144c89 **Addressed:** D-3393
-- [x] `display.c` newsym flux + Underwater gates — C display.c:928–929 (_suppress_map_output early return) + :943–948 (Underwater !Is_waterlevel → pool/lava/ice + next2u gate) absent from js/display.js:5348 newsym (head :5348–5356 loc-null → uswallow, no guards; callees suppress_map_output js/display.js:5101 + Is_waterlevel js/const.js:3243 + is_ice js/zap.js:887 live, next2u/is_pool_or_lava resolve at pop-time brief; ledger partial D-1745/D-1737 — brief 2026-10-03) @41ae7cfca **Addressed:** D-3393
+- [x] `priest.c` move_special shop re-entry arm — C priest.c:125–126 (isshk && !in_his_shop && inhishop → check_special_room(FALSE)) absent from js/shk.js:4495 move_special (post-move block :4512–4517 m_at/u_at + newsym + return 1, no shop check; callee check_special_room js/hack.js:3035 live async; ledger partial names this arm — brief 2026-10-03) @41ae7cfca
+- [x] `priest.c` forget_temple_entry impossible diagnostic — C priest.c:550 (impossible("attempting to manipulate shrine data for non-priest?")) absent from js/priest.js:62 forget_temple_entry (:64 bare `if (!epri_p) return`, timer zeroing live; impossible js/display.js:8717 is async, this fn sync — sync-context verdict or call-site wiring; ledger partial names this arm; C callers mkobj.c:2160 + save.c:894 — brief 2026-10-03) @4ea047f25
+
+
+- [x] `display.c` fn_cmap_to_glyph — C display.c:3796–3800 absent from js/ (no JS symbol; ledger absent C 1; cmap_to_glyph(cmap) wrapper; 0 C refs — brief 2026-10-03) @bd0144c89 **Addressed:** D-3393 `d428e2b04`
+- [x] `display.c` newsym flux + Underwater gates — C display.c:928–929 (_suppress_map_output early return) + :943–948 (Underwater !Is_waterlevel → pool/lava/ice + next2u gate) absent from js/display.js:5348 newsym (head :5348–5356 loc-null → uswallow, no guards; callees suppress_map_output js/display.js:5101 + Is_waterlevel js/const.js:3243 + is_ice js/zap.js:887 live, next2u/is_pool_or_lava resolve at pop-time brief; ledger partial D-1745/D-1737 — brief 2026-10-03) @41ae7cfca **Addressed:** D-3393 `d428e2b04`
 
 
 - [x] `monmove.c` postmov after_shk_move MOVED|DONE guard — C monmove.c:1700–1702 inside `:1660 if (mmoved == MMOVE_MOVED || MMOVE_DONE)` absent from js/monmove.js:1878–1881 (fires on MMOVE_NOTHING entries via :2355; resets bill_p + rechecks occupancy where C holds the sentinel; fix: guard the new call only, not the pre-existing tail — brief 2339). Source: reviews/loop-unattended/2339-bec62f3b9-after-shk-move-guard.md **Addressed:** D-3392 `4ea047f25`

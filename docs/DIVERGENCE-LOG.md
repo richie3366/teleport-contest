@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3394 — priest.c move_special shop re-entry arm + forget_temple_entry diagnostic
+
+- **Status:** shipped (2 missing-arm rows checked off + archived in this commit).
+- **Symptom:** coverage — no corpus divergence (`hidden-proxy verify` on both: no session blocked). (a) `move_special` lacked the post-move shk shop re-entry arm (ledger partial omit); (b) `forget_temple_entry` lacked the non-priest `impossible` diagnostic (ledger partial omit).
+- **C locus:**
+  - `move_special`: `priest.c:125–126` — `if (mtmp->isshk && !in_his_shop && inhishop(mtmp)) check_special_room(FALSE);` after place_monster/newsym.
+  - `forget_temple_entry`: `priest.c:550` — `impossible("attempting to manipulate shrine data for non-priest?")` in the `!epri_p` arm.
+- **JS was:**
+  - `move_special`: `js/shk.js:4432` post-move block set mx/my + newsym + `return 1`, no shop check.
+  - `forget_temple_entry`: `js/priest.js:62` bare `if (!epri_p) return`, timer zeroing live.
+- **Fix:** (a) C-order arm after newsym: `if (mtmp.isshk && !in_his_shop && inhishop(mtmp)) await check_special_room(false);` — both callees live with no new edge (inhishop in-file :833, check_special_room in the existing hack.js import :52; mx/my already hold the new square so inhishop reads post-move position like C); (b) disorder arm gains `void impossible('attempting to manipulate shrine data for non-priest?');` with the exact C string — `void` keeps the sync signature (in-file precedent :255/:259); unreachable by construction (both C callers mkobj.c:2159/save.c:893 and all JS sites guard with ispriest). New `scripts/move-special-shop-reentry.test.mjs` (4 headless cases).
+- **JS:** `js/shk.js:4520–4521` inside `move_special` (:4432); `js/priest.js:64–71` inside `forget_temple_entry` (:62); `scripts/move-special-shop-reentry.test.mjs`.
+- **Callers:**
+  - `move_special`: both C call sites already wired to the same export — `js/shk.js:4646` shk_move (`shk.c:4987`, awaited) and `js/shk.js:4715` pri_move (`priest.c:215`, async return-through); the arm is internal, no signature change.
+  - `forget_temple_entry`: `save.c:894` → `js/do.js:1814` savemonchn and serMon `js/lev_json.js:158`, both ispriest-guarded like C; `mkobj.c:2160` → `js/mkobj.js:4372` save_mtraits inlines the guarded zeroing (pre-existing inline, behaviorally identical on the reachable path — left as is; rewiring would add a mkobj→priest edge for an unreachable-path message).
+- **Verify:** `node --test scripts/move-special-shop-reentry.test.mjs` → 4/4 PASS (re-entry refreshes occupancy / in_his_shop control untouched / timers zeroed / non-priest clean return). `node scripts/verify.mjs --fn move_special,forget_temple_entry` → syntax PASS (2 files) · rule2 PASS · hidden notes (no session blocked on either) · REACH-OK both (move_special 42 reached, 42 PASS; forget_temple_entry 24-smoke, 24 PASS; 0 regressed) · green 2/2 · strict both · cohort 7/7. VERIFY: PASS.
+- **Named omissions:**
+  - `move_special`: none remaining — ledger omit resolved; all 15 C callees live (pline/Monnam/distant_name/obj_extract_self/mpickobj serve the `#if 0` dead pickup block only).
+  - `forget_temple_entry`: none — whole C body live (0 C callees besides `impossible`).
+- **Ledger:** move_special ported; forget_temple_entry ported
+- **Next:** queue head is now `cmd.c` dummyfunction (next Open missing-arm row).
+
 ## D-3393 — display.c fn_cmap_to_glyph + newsym flux/Underwater guards
 
 - **Status:** shipped (2 missing-arm rows checked off + archived in this commit).

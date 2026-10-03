@@ -4514,6 +4514,11 @@ export async function move_special(mtmp, in_his_shop, appr, uondoor, avoid,
         mtmp.mx = nix;
         mtmp.my = niy;
         newsym(nix, niy);
+        /* C priest.c:125–126 — shk stepping back into his shop re-runs the
+         * shop bookkeeping (inhishop in-file; check_special_room already
+         * imported from hack.js; mx/my already hold the new square). */
+        if (mtmp.isshk && !in_his_shop && inhishop(mtmp))
+            await check_special_room(false);
         return 1;
     }
     return 0;
