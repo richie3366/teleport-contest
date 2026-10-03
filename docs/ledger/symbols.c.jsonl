@@ -15,7 +15,7 @@
 {"fn":"symset_is_compatible","c":"353-367","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"proc_symset_line","c":"431-434","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"parse_sym_line","c":"438-654","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"set_symhandling","c":"657-669","status":"ported","js":["js/const.js:set_symhandling"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
+{"fn":"set_symhandling","c":"657-669","status":"ported","js":["js/const.js:set_symhandling"],"d":["D-3365","D-3364"],"at":"2026-10-03@ace5efd57"}
 {"fn":"load_symset","c":"673-690","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"free_symsets","c":"693-701","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"savedsym_free","c":"712-723","status":"ported","js":["js/options.js:savedsym_free"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}

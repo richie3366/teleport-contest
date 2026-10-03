@@ -34,7 +34,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3364 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3365 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -42,13 +42,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3364.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3364 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3365.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3365 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3365: deleted the stale duplicate; `set_symhandling` iterates KNOWN_HANDLING (identical null-terminated scan + case-insensitive compare). Named: parse_sym_line (sole C caller; unported — ships via its own coverage row when eligible).
 - D-3364: js/display.js — new showsyms_defaults(set): P from generated DEFSYMS (+ rogue +/% overrides, C :196–198), O from local DEF_OC_SYM (+ rogue armor/amule Named: - `assign_graphics`: :249 reset_glyphmap(gm_symchange) → by-design (fortress guard; queue 
 - D-3363: measured H1 (same cell, wrong glyph): prefix replay shows cursor [41,16] both sides at step 97; the single lookat call is (42,15) with NO_GLYPH; temp  Named: - `def_char_is_furniture`: none in-body — whole C body live at js/drawing.js:20.
 - D-3362: 8-way parallel `xargs -P 8` worker stress: 8/8 complete, byte-identical attribution (distfleeck@287, error null) — the kill does not reproduce at HEAD Named: none (no port).
@@ -63,5 +64,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3353: extended the two ALREADY static →hack edges (`invocation_pos` added to the hack.js imports js/mklev.js:166, js/apply.js:83; `imports.mjs --can` ALREAD Named: - `invocation_pos`: none in-body — whole C body live at js/hack.js:3434.
 - D-3352: - `unique_corpstat`: extended the four ALREADY static →mon edges (`unique_corpstat` added to the mon.js imports js/trap.js:46, js/teleport.js:92, js/z Named: - `unique_corpstat`: none in-body — whole C body live at js/mon.js:2961.
 - D-3351: exported the canonical body at C-home js/priest.js:88 (whole C body in C order, unchanged); extended the ALREADY static teleport→priest edge (`histemp Named: - `histemple_at`: none in-body — whole C body live at js/priest.js:88.
-- D-3350: ported `export function attacktype` at C-home js/mondata.js:79 (whole 1-line C body in C order + file-local `AD_ANY = -1`, monattk.h:41 — no js/ expor Named: - `attacktype`: none in-body — whole C body live at js/mondata.js:79.
 <!-- landmarks:end -->

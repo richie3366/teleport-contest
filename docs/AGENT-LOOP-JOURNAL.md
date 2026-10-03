@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3365 `symbols.c` set_symhandling CURS/MAC indices (dedup to C-exact KNOWN_HANDLING)
+
+**C locus:** nethack-c/upstream/src/symbols.c:657–669 (set_symhandling: H_UNK default + strcmpi scan) over known_handling[] :376–384 (UNKNOWN/IBM/DEC/CURS/MAC/UTF8 + NUL).
+**JS:** js/const.js:2918 set_symhandling (+ C-citing comment :2916–2917).
+**Change:** deleted the stale duplicate; `set_symhandling` iterates KNOWN_HANDLING (identical null-terminated scan + case-insensitive compare). Probe: UNKNOWN 0, IBM 1, DEC 2, CURS 3, MAC 4, UTF8 5, utf8 5, bogus→H_UNK 0.
+**Verify:** `node scripts/verify.mjs --fn set_symhandling` → syntax PASS (1 file: js/const.js) · rule2 PASS · hidden note (0 blocked, expected) · reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** parse_sym_line (sole C caller; unported — ships via its own coverage row when eligible).
+**Next:** Must-fix 2318 (reveal-terrain probe deletion in js/display.js).
 ## 2026-10-03 — Audit 2312–2319: review D-3356–D-3364 (5 ACCEPT, 3 QUALITY-RISK) + full score
 
 **Reviews:** 8 js/ SHAs audited against pinned C (D-3362 docs-only skipped): upstart mthrowu+read (identical), dmgtype_fromattack canonical + 5 (AT_ANY arm restored, latent), upstart ×6 (identical), attacktype_aatyp ×2 (identical), highc/upstart/s_suffix ×8 (identical + 1 safe new edge), dobuzz completion + slept_monst (QUALITY-RISK: steed redirect falls through to flashburn/stop_occupation/nomul — C goto exits the branch; slept music/potion/bhitm callers unwired), def_char_is_furniture + reveal arms (QUALITY-RISK: committed (42,15) __probe DIAG falsely called "reverted"), assign_graphics + 8 siblings (QUALITY-RISK: set_symhandling stale declare drops CURS/MAC, UTF8 misnumbered). Every verify re-run: dobuzz PROGRESS (Rogue-94110 → rnd_hallublast same step), Tourist-94120 PASS, 0 REGRESSED anywhere. 4 Must-fix queued (probe, steed, slept callers, symhandling). Pattern noted: "queued next" promises evaporate (no rows written); commit-message Verify truncation continues.

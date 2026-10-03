@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3365 — `symbols.c` set_symhandling CURS/MAC indices (dedup to C-exact KNOWN_HANDLING)
+
+- **Status:** shipped (Must-fix review 2319; checked off + archived in this commit). js/const.js only, net −1 line.
+- **Symptom:** review 2319 C-wrong 1: `set_symhandling` iterated a stale 4-string local table, so "CURS"/"MAC" never matched and "UTF8" resolved to 3 instead of H_UTF8=5 (JS H_* consts are C-exact; options.js parsesymbols compares `=== H_UTF8`).
+- **C locus:** nethack-c/upstream/src/symbols.c:657–669 (set_symhandling: H_UNK default + strcmpi scan) over known_handling[] :376–384 (UNKNOWN/IBM/DEC/CURS/MAC/UTF8 + NUL).
+- **JS was:** js/const.js:2917 local `known_handling` held 4 strings (CURS/MAC absent) while js/const.js:2890 KNOWN_HANDLING already held the C-exact 6-string table (live, used by js/wizcmds.js:2375).
+- **Fix:** deleted the stale duplicate; `set_symhandling` iterates KNOWN_HANDLING (identical null-terminated scan + case-insensitive compare). Probe: UNKNOWN 0, IBM 1, DEC 2, CURS 3, MAC 4, UTF8 5, utf8 5, bogus→H_UNK 0.
+- **JS:** js/const.js:2918 set_symhandling (+ C-citing comment :2916–2917).
+- **Callers:** C symbols.c:590 (parse_sym_line case 2, guarded by gc.chosen_symset_start) → parse_sym_line unported in JS (named omission; cf. js/glyphs.js:250,731 map notes). No JS callers — behavior-neutral, as queued.
+- **Verify:** `node scripts/verify.mjs --fn set_symhandling` → syntax PASS (1 file: js/const.js) · rule2 PASS · hidden note (0 blocked, expected) · reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+- **Named omissions:** parse_sym_line (sole C caller; unported — ships via its own coverage row when eligible).
+- **Ledger:** set_symhandling ported
+- **Next:** Must-fix 2318 (reveal-terrain probe deletion in js/display.js).
+
 ## D-3364 — `symbols.c` assign_graphics showsyms copy + restore.c:906 wiring + showsyms-reader fixes; 8 symbols.c siblings declared (7 stale, parsesymbols split)
 
 - **Status:** shipped (missing-arm row; checked off + archived in this commit). js/ +98/-24 across 6 files: display.js showsyms copy + default carriers; detect.js +SYM_OFF_X ×2; botl.js gold slot; save.js restore wiring; options.js/wizcmds.js comment updates.
