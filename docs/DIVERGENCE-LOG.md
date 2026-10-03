@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3339 — `monmove.c` monflee music.js clone removal (sole site → live js/monmove.js export)
+
+- **Status:** shipped (1 missing-arm row checked off + archived; no review cited, no stamp owed). ~3 js/ insertions — below the ~80 bar, defended (D-3337/D-3338 batch precedent for tiny missing-arm rows): the whole clone rewired to the live export, and the head's C file (monmove.c) holds no further Open rows while all 11 C callees are already live, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `monflee`: nethack-c/upstream/src/monmove.c:462–530 — DEADMONSTER exit + release_hero on ustuck + mfleetim accumulate (fleetime==1 bump, 127 cap) + new-flight fleemsg (immobile flinch / flees_light gremlin lsrc+verbalize / turns to flee) + Vrock mspec_used gas cloud + mflee=1 + always mon_track_clear; 30 C refs incl music.c:59.
+- **JS was:** live async `monflee` js/monmove.js:1109 coexisted with async clone js/music.js:187-then (mflee/mfleetim bookkeeping + a bare "turns to flee" pline, dropping live's release_hero/immobile-flinch/flees_light/Vrock arms), sole live site js/music.js:227-then (awaken_scare scary arm).
+- **Fix:** new static music→monmove edge (`import { monflee } from './monmove.js'`, js/music.js:46; `imports.mjs --can` SAFE — hoisted fn, verify judges TDZ); deleted the clone; rewired the sole site with `await` + one C-cite comment (:198-199). Behavior delta is C-faithful: scared monsters now release a stuck hero, immobile monsters flinch, gremlins react to artifact light, and Vrocks emit their gas cloud. Maintained test: new scripts/monflee-rewire.test.mjs (live Vrock mspec_used 75..99 + null guard + music import + definer census; the Vrock case fails against the deleted clone by construction).
+- **JS:**
+  - `monflee`: js/monmove.js:1109 (live, unchanged body); import js/music.js:46; clone deleted; rewired site js/music.js:199.
+- **Callers:**
+  - `monflee`: C music.c:59 (awaken_scare scary arm) → js/music.js:199. Remaining C refs out of cluster: served by the live export where JS ports import it; distinctly-scoped callers in other files keep their own wiring (unqueued).
+- **Verify:**
+  - `monflee`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+  - Cluster gates: `node scripts/verify.mjs --fn monflee` → PASS syntax (1 changed js file) · PASS rule2 · note hidden · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full → VERIFY: PASS. Plus `node --test scripts/monflee-rewire.test.mjs` 4/4 PASS.
+- **Named omissions:**
+  - `monflee`: none in-body — whole C body live at js/monmove.js:1109.
+- **Ledger:** monflee ported
+- **Next:** remaining missing-arm rows (Amonnam×3/ledger_no×4 — different C files, next iterations).
+
 ## D-3338 — `mthrowu.c` m_useup zap.js + muse.js clone removals (20 sites → live js/mthrowu.js export)
 
 - **Status:** shipped (2 missing-arm rows checked off + archived; no review cited, no stamp owed). ~5 js/ insertions — below the ~80 bar, defended (D-3336 batch precedent for tiny missing-arm rows): two whole clones rewired to the live export, and the head's C file holds no further Open rows (2/2 m_useup rows shipped) while both C callees (weight, m_useupall) are already live, so the cluster cannot grow.

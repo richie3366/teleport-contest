@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3339 `monmove.c` monflee music.js clone removal (sole site → live js/monmove.js export)
+
+**C locus:** - `monflee`: nethack-c/upstream/src/monmove.c:462–530 — DEADMONSTER exit + release_hero on ustuck + mfleetim accumulate (fleetime==1 bump, 127 cap) + new-flight fleemsg (immobile flinch / flees_light gremlin lsrc+verbalize / turns to flee) + Vrock mspec_used gas cloud + mflee=1 + always mon_track_clear; 30 C refs incl music.c:59.
+**JS:** - `monflee`: js/monmove.js:1109 (live, unchanged body); import js/music.js:46; clone deleted; rewired site js/music.js:199.
+**Change:** new static music→monmove edge (`import { monflee } from './monmove.js'`, js/music.js:46; `imports.mjs --can` SAFE — hoisted fn, verify judges TDZ); deleted the clone; rewired the sole site with `await` + one C-cite comment (:198-199). Behavior delta is C-faithful: scared monsters now release a stuck hero, immobile monsters flinch, gremlins react to artifact light, and Vrocks emit their gas cloud. Maintained test: new scripts/monflee-rewire.test.mjs (live Vrock mspec_used 75..99 + null guard + music import + definer census; the Vrock case fails against the deleted clone by construction).
+**Verify:** - `monflee`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+**Named:** - `monflee`: none in-body — whole C body live at js/monmove.js:1109.
+**Next:** remaining missing-arm rows (Amonnam×3/ledger_no×4 — different C files, next iterations).
 ## 2026-10-03 — D-3338 `mthrowu.c` m_useup zap.js + muse.js clone removals (20 sites → live js/mthrowu.js export)
 
 **C locus:** - `m_useup`: nethack-c/upstream/src/mthrowu.c:1162–1170 — quan>1 decrement + weight() else m_useupall; 32 C refs incl muse.c ×18, zap.c ×5 (1116/4327/4333/4335/4943/5933), uhitm.c ×2, worn.c ×3, mon.c:2863.

@@ -43,6 +43,7 @@ import { dist2, mungspaces } from './hacklib.js';
 import { Monnam, mon_nam, x_monnam, a_monnam, Amonnam } from './do_name.js';
 import { cansee, recalc_block_point, unblock_point } from './vision.js';
 import { m_at, wakeup, seemimic, onscary } from './mon.js';
+import { monflee } from './monmove.js';
 import { maketrap, t_at, set_utrap, reset_utrap, deltrap, selftouch, mselftouch } from './trap.js';
 import {
     fillholetyp, liquid_flow,
@@ -181,36 +182,6 @@ function mdistu(mtmp) {
 }
 
 /**
- * C ref: monmove.c monflee(fleetime=0, first=FALSE, fleemsg) — set mflee;
- * flees_light rn2(10)/verbalize and Vrock gas deferred.
- */
-async function monflee(mtmp, fleetime, first, fleemsg) {
-    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
-    if (!first || !mtmp.mflee) {
-        if (!fleetime) mtmp.mfleetim = 0;
-        else if (!mtmp.mflee || mtmp.mfleetim) {
-            fleetime += mtmp.mfleetim | 0;
-            if (fleetime === 1) fleetime++;
-            mtmp.mfleetim = Math.min(fleetime, 127);
-        }
-        if (!mtmp.mflee && fleemsg) {
-            const ap = mtmp.m_ap_type | 0;
-            if (canseemon(mtmp) && ap !== M_AP_FURNITURE && ap !== M_AP_OBJECT) {
-                // flees_light / immobile flinch deferred
-                await pline(`${Monnam(mtmp)} turns to flee.`);
-            }
-        }
-        mtmp.mflee = 1;
-    }
-    // C: monflee always mon_track_clear — local music copy
-    if (mtmp.mtrack) {
-        for (let j = 0; j < mtmp.mtrack.length; j++) {
-            mtmp.mtrack[j] = { x: 0, y: 0 };
-        }
-    }
-}
-
-/**
  * C ref: music.c awaken_scare — wake; scary → resist(TOOL) then onscary/flee.
  */
 async function awaken_scare(mtmp, scary) {
@@ -224,6 +195,7 @@ async function awaken_scare(mtmp, scary) {
         && !mindless(mtmp.data)
         && !resist(mtmp, TOOL_CLASS, 0, NOTELL)
         && onscary(0, 0, mtmp)) {
+        // C music.c:59 monflee(mtmp, 0, FALSE, TRUE) — live js/monmove.js export
         await monflee(mtmp, 0, false, true);
     }
 }

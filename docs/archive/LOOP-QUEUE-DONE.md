@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `monmove.c` monflee music.js clone removal — C monmove.c:462–530 mflee + fleemsg + Vrock + track-clear absent from js/music.js (local async clone :187 dropping live's flees_light/immobile-flinch/Vrock/release_hero/mon_track_clear arms, sole live site :227 instead of importing live js/monmove.js:1109; C body in brief monflee this session, clone body + site read this session, no static music→monmove edge, imports.mjs SAFE this session — hoisted fn, verify judges TDZ) — rewire site to the live export, delete clone.
+
+
 - [x] `mthrowu.c` m_useup zap.js clone removal — C mthrowu.c:1162–1170 quan>1 decrement+weight else m_useupall absent from js/zap.js (local clone :1563 with manual minvent unlink and NO weight() recompute on the quan>1 arm, 2 live sites :1774/:3390 instead of importing live js/mthrowu.js:184; C body in brief m_useup this session, clone body + sites read this session, zap→mthrowu edge ALREADY :280 this session; muse.js:1313 second clone with 9 sites stays for its own row) — rewire sites to the live export, delete clone.
 - [x] `mthrowu.c` m_useup muse.js clone removal — C mthrowu.c:1162–1170 quan>1 decrement+weight else m_useupall absent from js/muse.js (local clone :1313 with NO weight() recompute on the quan>1 arm and manual minvent unlink instead of m_useupall on the else arm, 18 live sites :1083/:1529/:1751/:1756/:1788/:2369/:2397/:2440/:2673/:2791/:2802/:2815/:3121/:3133/:3141/:3176/:3257/:3272 instead of importing live js/mthrowu.js:184; C body in brief m_useup this session, clone body + sites read this session, muse→mthrowu edge ALREADY :29 this session) — rewire sites to the live export, delete clone.
 

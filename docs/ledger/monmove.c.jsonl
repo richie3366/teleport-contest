@@ -15,7 +15,7 @@
 {"fn":"find_pmmonst","c":"375-388","status":"ported","js":["js/monmove.js:find_pmmonst"],"at":"2026-09-29@590ebd616","note":"stale: js/monmove.js:2325"}
 {"fn":"bee_eat_jelly","c":"394-420","status":"unknown","d":["D-1246"],"at":"seed@a30a7de84"}
 {"fn":"gelcube_digests","c":"424-445","status":"unknown","d":["D-1257"],"at":"seed@a30a7de84"}
-{"fn":"monflee","c":"462-530","status":"unknown","d":["D-2189"],"at":"seed@a30a7de84"}
+{"fn":"monflee","c":"462-530","status":"ported","js":["js/monmove.js:monflee"],"d":["D-3339","D-2189"],"at":"2026-10-03@a173e9bb9"}
 {"fn":"distfleeck","c":"533-567","status":"unknown"}
 {"fn":"m_arrival","c":"574-579","status":"unknown"}
 {"fn":"mind_blast","c":"583-645","status":"unknown","d":["D-1238"],"at":"seed@a30a7de84"}
