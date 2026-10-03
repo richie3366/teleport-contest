@@ -70,7 +70,7 @@ import { rest_worm } from './worm.js';
 import { rest_rooms } from './mkroom.js';
 import { adj_erinys, reset_erinys } from './monsters.js';
 import { set_uasmon } from './polyself.js';
-import { reset_oattached_mids } from './restore.js';
+import { reset_oattached_mids, restlevchn } from './restore.js';
 
 const SAVE_VFS_PREFIX = 'save/';
 // C ref: fnamesiz.h UNIX arm — SAVEX `save/99999.e` (sizeof 12),
@@ -955,6 +955,10 @@ export async function try_restore_save() {
     if (payload.dungeon_topology) {
         game.dungeon_topology = payload.dungeon_topology;
     }
+    // C restore.c restgamestate `:703` restlevchn(nhfp) — after
+    // restore_dungeon, before quest_status `:706`. Ungated like C: a
+    // missing key (pre-chain saves) restores an empty chain.
+    restlevchn(payload.sp_levchn);
     if (payload.tune != null) game.tune = payload.tune;
     if (payload.inv_pos) {
         if (!game.svi) game.svi = {};

@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `restore.c` restlevchn — coverage MISSING (C 14 code L `restore.c:130–150` / JS no symbol; hops —, callers 1, RNG 0, msg 0) @0887462dd
 <!-- coverage:end -->
 
 ## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)
@@ -134,6 +133,7 @@ Must-fix/coverage.
 - [ ] `hacklib.c` s_suffix eat.js clone removal — C hacklib.c:344–359 4-arm possessive absent from js/eat.js as an import (local clone :3370 s_suffix_eat body-identical to live, body read this session; 4 sites instead of the live export js/do_name.js:418 read this session; C body via csym s_suffix this session; eat→do_name edge ALREADY) — rewire sites to the live export, delete clone. @79f8032a6
 - [ ] `hacklib.c` s_suffix zap.js clone removal — C hacklib.c:344–359 4-arm possessive absent from js/zap.js as an import (local clone :2793 s_suffix_zap body-identical to live, body read this session; 3 sites instead of the live export js/do_name.js:418; C body via csym s_suffix this session; zap→do_name edge ALREADY) — rewire sites to the live export, delete clone. @79f8032a6
 - [ ] `hacklib.c` s_suffix mhitm.js clone removal — C hacklib.c:344–359 4-arm possessive absent from js/mhitm.js as an import (local clone :5808 s_suffix_mm body-identical to live, body read this session; 16 sites instead of the live export js/do_name.js:418; C body via csym s_suffix this session; mhitm→do_name edge ALREADY) — rewire sites to the live export, delete clone. @79f8032a6
+- [ ] `restore.c` rest_adjust_levelflags — C restore.c:1314–1318 absent from js/ (no JS symbol; 1-line relative_time_to_moves(&level.flags.stasis_until), C callers getlev :1117 + savelev :520–522 pair; callee live js/restore.js:133; wire caveat: lev_json.js:800 copies absolute stasis_until verbatim, literal add-back would double — brief 2026-10-03) @33bc41ba1
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

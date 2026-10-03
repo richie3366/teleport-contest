@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3371 — `restore.c` restlevchn whole port (special-level chain restore, savelevchn mirror)
+
+- **Status:** fixed.
+- **Symptom:** coverage row — no JS symbol; saves persisted `sp_levchn` (D-3370) but `try_restore_save` never installed it, so a restored game kept the fresh-boot (undefined) chain instead of C's rebuilt `svs.sp_levchn` (find_level / Is_special / no_bones_level / dungeon overview all read it).
+- **C locus:** nethack-c/upstream/src/restore.c:130–150 (`restlevchn`; sole C caller restgamestate :703, after restore_dungeon :702, before quest_status :706).
+- **JS was:** no symbol; `try_restore_save` installed dungeons/branches/topology but dropped `payload.sp_levchn` on the floor (save.js:530 named this restore as its own row).
+- **Fix:** whole C body in C order at C-home js/restore.js:256 — unconditional reset (`game.sp_levchn = []`), JSON array length as the `Sfi_int lev_count`, per-node rebuild in wire order (dlevel/proto/boneid/rndlevs/d_flags in dungeon.h:25–32 order), `next: null` + push for the tail-append + `tmplev->next = 0` (array order is chain order — dungeon.js add_level/dumpit precedent). `alloc(sizeof(s_level))` is a GC object literal (alloc.js renders raw Uint8Array bytes and has no struct call sites). boneid converts back to the live numeric shape (wire 1-char string / '' ⇔ init_level boneschar number, dungeon.js:693); `unconnected` never set on s_level (savelevchn precedent) — not read. No new import edge (save→restore ALREADY, `imports.mjs --can`).
+- **JS:** js/restore.js:256 `export function restlevchn(blobs)`; wired js/save.js:960 (`restlevchn(payload.sp_levchn)` after dungeon_topology, before quest_status — C :702–703→:706 order; ungated like C, missing key ⇔ empty chain); import extended js/save.js:73. Tests scripts/restlevchn.test.mjs.
+- **Callers:** C restgamestate :703 → JS try_restore_save js/save.js:960. No other C call site (decl :15 excepted).
+- **Verify:** `node scripts/verify.mjs --fn restlevchn` → VERIFY: PASS: syntax (2 files: restore/save) · rule2 · hidden note (0 blocked — normal for coverage) · reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7. scripts/restlevchn.test.mjs 3/3 (savelevchn round-trip incl. numeric boneid + order, ''→0/numeric passthrough, unconditional reset on missing key). seed0013 save-then-restore session direct: PASS RNG 4804/4804 + screens 99/99.
+- **Named omissions:** `alloc` — GC object literal, not the alloc.js byte buffer (no struct call sites exist). Single-function cluster (density exception: `rows 200` holds no other restore.c row; remaining ledger-open same-file fns are the empty-body restlevelstate stub, the 1-line rest_adjust_levelflags — wire-wrong on JSON, lev_json.js:800 copies absolute stasis_until verbatim — and queue-excluded tty-menu restore_menu with 4 missing callees; callee alloc ported).
+- **Ledger:** restlevchn ported
+- **Next:** coverage block continues (block now empty — refill generates the next row).
+
 ## D-3370 — `save.c` savelevchn + save_bc whole ports (special-level chain + swallowed ball/chain on save payload)
 
 - **Status:** fixed.

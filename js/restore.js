@@ -252,3 +252,54 @@ export function reset_oattached_mids(ghostly) {
         }
     }
 }
+
+/**
+ * C ref: restore.c restlevchn `:130–150` (staticfn → exported: sole C
+ * caller restgamestate `:703`, after restore_dungeon, before quest_status
+ * `:706` — JS caller: save.js try_restore_save after dungeon_topology).
+ * Whole body in C order. C reads an int count (`Sfi_int lev_count`) then
+ * per-node raw structs (`Sfi_s_level` — SFO_CBODY wire, dungeon.h:25–32
+ * field order: dlevel, proto[15], boneid, rndlevs, d_flags); the JSON
+ * analogue takes savelevchn's array (js/save.js:466 — length is the
+ * count, each entry the struct fields) and rebuilds live nodes.
+ * `alloc(sizeof(s_level))` is a GC object literal (alloc.js renders raw
+ * bytes and has no struct call sites); the tail-append + `tmplev->next =
+ * 0` is `next: null` + push (array order is chain order — dungeon.js
+ * add_level/dumpit precedent). `unconnected` is a dungeon-level bit,
+ * never set on s_level (savelevchn precedent) — not read.
+ * @param {object[]} blobs savelevchn entries (missing ⇔ empty chain)
+ */
+export function restlevchn(blobs) {
+    game.sp_levchn = []; // C `:136` svs.sp_levchn = 0
+    // C `:137` Sfi_int lev_count — the JSON array length is the count
+    const list = Array.isArray(blobs) ? blobs : [];
+    for (let i = 0; i < list.length; i++) { // C `:138` for (; cnt > 0; cnt--)
+        const src = list[i] || {};
+        // C `char boneid` (dungeon.h:29): the wire holds savelevchn's
+        // 1-char string ('' ⇔ 0); the live shape is numeric (init_level
+        // copies boneschar, dungeon.js:693), so convert back.
+        let boneid = src.boneid;
+        if (typeof boneid === 'number') boneid |= 0;
+        else boneid = boneid ? String(boneid).charCodeAt(0) : 0;
+        // C `:139` alloc(sizeof(s_level)) + `:140` Sfi_s_level field read
+        const tmplev = {
+            dlevel: {
+                dnum: src.dlevel?.dnum | 0,
+                dlevel: src.dlevel?.dlevel | 0,
+            },
+            proto: String(src.proto || ''),
+            boneid,
+            rndlevs: src.rndlevs | 0,
+            flags: {
+                town: !!src.flags?.town,
+                hellish: !!src.flags?.hellish,
+                maze_like: !!src.flags?.maze_like,
+                rogue_like: !!src.flags?.rogue_like,
+                align: src.flags?.align | 0,
+            },
+            next: null, // C `:148` tmplev->next = 0
+        };
+        // C `:142–147` append at tail (reset head ⇔ push in wire order)
+        game.sp_levchn.push(tmplev);
+    }
+}
