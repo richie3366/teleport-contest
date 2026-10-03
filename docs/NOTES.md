@@ -30,7 +30,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3388 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3389 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -38,13 +38,14 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3388.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3388 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3389.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3389 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3389: whole C bodies in C order at C-home js/files.js. Named: - `compress_bonesfile`: none in-body — converter/compressor sinks stay by-design inside th
 - D-3388: `losehp` stays sync (async would cascade to 124 sites): both C sites capture `{dmg, post-decrement hp}` into `_losehp_showdamage` (option-gated like t Named: - `losehp`: multi-call-before-drain coalescing (one rehumanize run; same class as existing
 - D-3387: whole C bodies in C order at C-home js/files.js, mirroring the live levelfile/savefile VFS-analogue pairs: `{ s }` holders for `char **`/`char errbuf[ Named: - `rewind_nhfile`: stdio rewind(fpdef) (Rule #2); lseek structural no-op (fd token positio
 - D-3386: both arms ported into getobj_dip as mirrors of the live sibling. Named: - `getobj` (cmdq): CMDQ_INT count prefix (C :1798–1811) — shared-helper gap, pre-existing 
@@ -59,5 +60,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3377: `return hcolor(clr2colorname(colornum))` in glow_color (hcolor already imported js/artifact.js:119 — no import change); doname_glow_color wraps the sa Named: - `glow_color`: none remaining — ledger partial omit (missing hcolor wrap) now live at bot
 - D-3376: m_throw: `if (!canseemon(mon)) clear_dknown(singleobj)` after owornmask=0 (C `:619–620`; mkobj import extended, edge ALREADY); misfire block now rende Named: - `m_throw`: none remaining — ledger D-2399 omits (misfire pline, clear_dknown) now live.
 - D-3375: whole C body in C order at C-home js/save.js:530 — `export async function tricked_fileremoved(nhfp, whynot)`: pline1 renders as pline (js/apply.js:315 Named: - `tricked_fileremoved`: none in-body — whole C body live (pline1→pline rendering; error()
-- D-3374: live same-name exports with whole C bodies in C order — `rest_adjust_levelflags` js/restore.js:153 (callee relative_time_to_moves on `game.level && ga Named: - `rest_adjust_levelflags`: none in-body — whole C body live.
 <!-- landmarks:end -->

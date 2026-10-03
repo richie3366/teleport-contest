@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3389 — `files.c` bones/recover quartet: compress_bonesfile + nh_sfconvert + doconvert_file + recover_savefile
+
+- **Status:** shipped (head missing-arm row + same-file companion row checked off + archived in this commit; no review cited, no stamp owed).
+- **Symptom:** coverage — C `files.c:1005–1010` (`compress_bonesfile`), `:2071–2075` (`nh_sfconvert`), `:2061–2068` (`doconvert_file`), `:2864–3082` (`recover_savefile`) absent from `js/` (no JS symbols; ledgers unknown C 2/1/4/140).
+- **C locus:**
+  - `compress_bonesfile`: nethack-c/upstream/src/files.c:1005–1010 (`nh_sfconvert` + `nh_compress` over `fqname(gb.bones, BONESPREFIX, 0)`).
+  - `nh_sfconvert`: nethack-c/upstream/src/files.c:2071–2075 (`doconvert_file(filename, 0, FALSE)`).
+  - `doconvert_file`: nethack-c/upstream/src/files.c:2061–2068 (staticfn nhUse stub, returns 1).
+  - `recover_savefile`: nethack-c/upstream/src/files.c:2864–3082 (`#ifdef SELF_RECOVER` — compiled out, unixconf.h:126; level-0 open, short-file arm, header reads, savefile create + level copies, erase loop, cleanup label).
+- **JS was:** none of the four existed; js/end.js savebones named compress "on all three return paths (VFS has no post compression)" and js/bones.js getbones named "close_nhfile and compress_bonesfile have nothing to do on the VFS"; five files.js docs named recover_savefile unported (create_savefile, delete_savefile, close_nhfile, open_levelfile, get_critical_size_count).
+- **Fix:** whole C bodies in C order at C-home js/files.js. `compress_bonesfile` re-derives `gb.bones` via `set_bonesfile_name(game.u.uz)` (no JS global, create_bonesfile precedent — all 5 C sites run with the u.uz name) then live `nh_sfconvert` + `nh_compress`. `doconvert_file` module-local (problematic_savefile staticfn precedent), `nh_sfconvert` exported. `recover_savefile`: live VFS-analogue skeleton — open/create/close/delete/store_version/set_*_name/fqname/raw_printf live, `access(F_OK)` the open_savefile VFS-read probe, erase-loop `unlink` the inlined stash clear (C calls unlink, not delete_levelfile); `filesz` 0 and every content read 0 bytes (fds are positionless tokens, rewind_nhfile precedent), `savewrite_failure` null exactly like C so the three `goto cleanup` checks never fire. Helper `sfo_int` (sfbase.c `SF_A(int)` :119–133, macro-generated, not pinned-C) + `sfvalue_int` (`:558–563` `%d`) join the sfo family for the `:3001` Sfo site.
+- **JS:** js/files.js:1156 `compress_bonesfile`, js/files.js:1438 `recover_savefile`, js/files.js:1923 `sfo_int`, js/files.js:2168 `sfvalue_int`, js/files.js:2614 `doconvert_file`, js/files.js:2631 `nh_sfconvert`; js/bones.js:777/:786/:834, js/end.js:1664/:1669/:1673/:1895 wiring; js/save.js dosave0 doc names the save.c sfconvert pair.
+- **Callers:**
+  - `compress_bonesfile`: bones.c:430 → js/end.js:1664/:1669/:1673 (one C site covers all three JS early returns); bones.c:624 → js/end.js:1895; bones.c:673/:688/:741 → js/bones.js:777/:786/:834.
+  - `nh_sfconvert`: files.c:1008 → js/files.js:1156 (in-cluster); save.c:119 HUP overwrite-yn arm + save.c:224 tail pair with nh_compress → named (save.js dosave0 doc — pair ships with the named compress arm).
+  - `doconvert_file`: files.c:2073 → js/files.js:2631 (in-cluster); files.c:2081 nh_sfunconvert → named (unported, ships with that function).
+  - `recover_savefile`: unixunix.c:219 → named (unscored unix platform main; function compiled out of the contest build).
+- **Verify:** `node scripts/verify.mjs --fn compress_bonesfile,nh_sfconvert,doconvert_file,recover_savefile` → VERIFY: PASS — syntax (4 files) · Rule #2 · hidden notes (no corpus blocks; expected for coverage rows) · 4× REACH-OK (no RNG-tagged reach — compress draws no RNG, recover compiled out; fixed 24-smoke each, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7. /tmp probes: recover FALSE with no stash (:2890) / stash-no-blob (:2918) / TRUE with blob (:2913, stash cleared); sfo_int bag + sfvalue_int + compress smoke OK.
+- **Named omissions:**
+  - `compress_bonesfile`: none in-body — converter/compressor sinks stay by-design inside the live callees.
+  - `nh_sfconvert`: save.c:119/:224 (above).
+  - `doconvert_file`: none — whole C stub live.
+  - `recover_savefile`: `lseek`/`read`/`write` byte content (Rule #2, no byte stream under VFS); `bufoff`/`bufon`/`copy_bytes` (by-design fd buffering/copy); none besides — every arm present in C order.
+- **Ledger:** compress_bonesfile ported; nh_sfconvert ported; doconvert_file ported; recover_savefile ported
+- **Next:** `bones.c` free_ebones queue row (next Open missing-arm row); nh_sfunconvert (C 1, files.c:2079) whenever its first caller ships.
+
 ## D-3388 — `hack.c` losehp showdamage/rehumanize + check_special_room BARRACKS/wake_msg arms
 
 - **Status:** shipped (two queue-head missing-arm rows checked off + archived in this commit; no review cited, no stamp owed).

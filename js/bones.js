@@ -34,7 +34,7 @@ import { no_bones_level, done } from './end.js';
 import { sanitize_engravings, rest_engravings } from './engrave.js';
 import { rest_worm } from './worm.js';
 import { rest_rooms } from './mkroom.js';
-import { delete_convertedfile } from './files.js';
+import { delete_convertedfile, compress_bonesfile } from './files.js';
 import { mons, monsterNames, SPECIAL_PM } from './monsters.js';
 import { cant_revive } from './zap.js';
 import { rest_regions } from './region.js';
@@ -702,9 +702,11 @@ function getlev_bones(payload) {
 /**
  * C ref: bones.c getbones `:629–756`. Rule #2 analogue of the NHFILE:
  * open_bonesfile → frozen-VFS read; validate() → JSON parse + payload
- * version; Sfi_char bonesid → payload.bonesid; close_nhfile and
- * compress_bonesfile have nothing to do on the VFS. Wizard debugpline
- * ("Abandoning bones", "Removing defunct monster") is debug-file only.
+ * version; Sfi_char bonesid → payload.bonesid; close_nhfile has nothing
+ * to do on the VFS (no handle). compress_bonesfile is live at the
+ * three C sites (`:673` Get bones, `:688` bonesid-length, `:741`
+ * Unlink bones). Wizard debugpline ("Abandoning bones", "Removing
+ * defunct monster") is debug-file only.
  * @returns {Promise<number>} ok — mklev returns when nonzero
  */
 export async function getbones() {
@@ -772,6 +774,7 @@ export async function getbones() {
             ok = 1;
             if (wizard) {
                 if ((await yn_function('Get bones?', 'yn', 'n')) === 'n') {
+                    compress_bonesfile(); // C `:673` (close above named: no handle)
                     ps.reading_bonesfile = 0;
                     return 0;
                 }
@@ -780,6 +783,7 @@ export async function getbones() {
             // (40) → abandon without reading the level.
             const oldbonesid = String(payload.bonesid ?? '');
             if (oldbonesid.length + 1 > 40) {
+                compress_bonesfile(); // C `:688` (close above named: no handle)
                 /* ToDo: maybe unlink these problematic bones? */
                 ps.reading_bonesfile = 0;
                 return 0;
@@ -827,6 +831,7 @@ export async function getbones() {
 
         if (wizard) {
             if ((await yn_function('Unlink bones?', 'yn', 'n')) === 'n') {
+                compress_bonesfile(); // C `:741`
                 return ok;
             }
         }
