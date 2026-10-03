@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3336 `dungeon.c` ledger_no + dunlev clone removals (dig.js/dokick.js → live exports)
+
+**C locus:** - `ledger_no`: nethack-c/upstream/src/dungeon.c:1376–1379 — `(xint16)(lev->dlevel + svd.dungeons[lev->dnum].ledger_start)`; 50 C refs incl dig.c:823.
+**JS:** - `ledger_no`: js/dungeon.js:1097 (live, unchanged); import js/dig.js:73; clone deleted; rewired site js/dig.js:996.
+**Change:** extended the ALREADY static dungeon edges (js/dig.js:73, js/dokick.js:36; `imports.mjs --can` ALREADY both — no new edge, no new test surface); deleted both clones; one C-cite comment per site (:995, :592). Site expressions unchanged; behavior-identical rewires.
+**Verify:** - `ledger_no`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+**Named:** - `ledger_no`: none in-body — whole C body live at js/dungeon.js:1097.
+**Next:** remaining missing-arm rows (healup/m_useup/monflee/Amonnam×3 + further ledger_no/dunlev clone rows — different files, next iterations).
 ## 2026-10-03 — D-3335 `mkroom.c` somex teleport.js clone removal (2 sites → live js/mklev.js export)
 
 **C locus:** - `somex`: nethack-c/upstream/src/mkroom.c:666–669 — `rn1(croom->hx - croom->lx + 1, croom->lx)`; 11 C refs incl mkroom.c:703/718/726 (somexy arms) and sp_lev.c:6150.

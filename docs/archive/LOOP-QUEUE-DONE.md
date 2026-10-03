@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `dungeon.c` ledger_no dig.js clone removal — C dungeon.c:1376–1379 dlevel+ledger_start absent from js/dig.js (local clone :306, sole live site :1004 instead of importing live js/dungeon.js:1097; C body in brief ledger_no this session, clone body + site read this session, dig→dungeon edge ALREADY :73 this session; 6 further clones — do/mon/muse/potion/shknam/teleport — stay for their own rows) — rewire site to the live export, delete clone.
+- [x] `dungeon.c` dunlev dokick.js clone removal — C dungeon.c:1325–1328 dlevel read absent from js/dokick.js (local clone :185 byte-identical to live js/dungeon.js:1089, sole live site :595 instead of importing it; C body in brief dunlev this session, clone body + site read this session, dokick→dungeon edge ALREADY :36 this session) — rewire site to the live export, delete clone.
+
+
 - [x] `mkroom.c` somex teleport.js clone removal — C mkroom.c:666–669 rn1(hx-lx+1,lx) absent from js/teleport.js (local clone :945, 2 live sites :959/:963 instead of importing live js/mklev.js:32977; C body in brief somex this session, clone body + sites read this session, no static teleport→mklev edge — dynamic-import only + D-1101 cycle comment :342, imports.mjs SAFE this session — hoisted fn, verify judges TDZ; dog.js:876 second clone with 3 sites stays for its own row) — rewire sites to the live export, delete clone.
 
 

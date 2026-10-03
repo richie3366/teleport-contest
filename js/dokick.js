@@ -33,7 +33,7 @@ import {
 import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js';
 // C ref: dungeon.c on_level `:1438–1443` — canonical dnum+dlevel equality
 // (hoisted fn, cycle-safe per imports.mjs --can dokick.js dungeon.js).
-import { on_level } from './dungeon.js';
+import { dunlev, on_level } from './dungeon.js';
 import { getdir, breakchestlock } from './lock.js';
 import { yn_function } from './getline.js';
 import { kick_steed } from './steed.js';
@@ -181,10 +181,7 @@ function Luck() {
     return (u.uluck || 0) + (u.moreluck || 0);
 }
 
-/** C dungeon.c dunlev / dunlevs_in_dungeon */
-function dunlev(lev) {
-    return lev?.dlevel ?? 1;
-}
+/** C dungeon.c dunlevs_in_dungeon (sibling dunlev now live-imported from dungeon.js) */
 function dunlevs_in_dungeon(lev) {
     return game.dungeons?.[lev?.dnum]?.num_dunlevs ?? 1;
 }
@@ -592,6 +589,7 @@ async function kick_nondoor(x, y, avrg_attrib) {
             return true;
         }
         if (!rn2(4)) {
+            /* C dokick.c:1054 — dunlev live from dungeon.js. */
             if (dunlev(u.uz) < dunlevs_in_dungeon(u.uz)) {
                 await fall_through(false, 0);
                 return true;

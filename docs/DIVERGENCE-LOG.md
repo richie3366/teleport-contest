@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3336 — `dungeon.c` ledger_no + dunlev clone removals (dig.js/dokick.js → live exports)
+
+- **Status:** shipped (2 missing-arm rows checked off + archived; no review cited, no stamp owed). ~6 js/ insertions — below the ~80 bar, defended (D-3328/D-3335 batch precedent for tiny missing-arm rows): two whole clones rewired to live exports, and the head's C file (dungeon.c) holds no further Open rows (2/2 shipped) while both fns have 0 C callees, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline each).
+- **C locus:**
+  - `ledger_no`: nethack-c/upstream/src/dungeon.c:1376–1379 — `(xint16)(lev->dlevel + svd.dungeons[lev->dnum].ledger_start)`; 50 C refs incl dig.c:823.
+  - `dunlev`: nethack-c/upstream/src/dungeon.c:1325–1328 — `lev->dlevel`; 20 C refs incl dokick.c:1054.
+- **JS was:** live `ledger_no` js/dungeon.js:1097 coexisted with clone js/dig.js:306-then (stale "avoid dig↔do cycle" rationale — the dungeon edge already existed), sole live site js/dig.js:1004-then. Live `dunlev` js/dungeon.js:1089 (byte-identical to the clone) coexisted with clone js/dokick.js:185-then, live site js/dokick.js:595-then (shared with the dunlevs_in_dungeon clone).
+- **Fix:** extended the ALREADY static dungeon edges (js/dig.js:73, js/dokick.js:36; `imports.mjs --can` ALREADY both — no new edge, no new test surface); deleted both clones; one C-cite comment per site (:995, :592). Site expressions unchanged; behavior-identical rewires.
+- **JS:**
+  - `ledger_no`: js/dungeon.js:1097 (live, unchanged); import js/dig.js:73; clone deleted; rewired site js/dig.js:996.
+  - `dunlev`: js/dungeon.js:1089 (live, unchanged); import js/dokick.js:36; clone deleted; rewired site js/dokick.js:593.
+- **Callers:**
+  - `ledger_no`: C dig.c:823 (migrate_to_level shopkeeper arm) → js/dig.js:996. Remaining C refs out of cluster: served by the live export where JS ports import it; 6 JS clones remain for their own rows (do/mon/muse/potion/shknam/teleport per queue row).
+  - `dunlev`: C dokick.c:1054 (fall-through gate) → js/dokick.js:593. Remaining C refs out of cluster: served by the live export; 2 JS clones remain for their own rows (fountain.js:982, trap.js:636).
+- **Verify:**
+  - `ledger_no`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+  - `dunlev`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+  - Cluster gates: `node scripts/verify.mjs --fn ledger_no,dunlev` → PASS syntax (2 changed js files) · PASS rule2 · note hidden ×2 · PASS reach ×2 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full → VERIFY: PASS.
+- **Named omissions:**
+  - `ledger_no`: none in-body — whole C body live at js/dungeon.js:1097.
+  - `dunlev`: none in-body — whole C body live at js/dungeon.js:1089. Sibling `dunlevs_in_dungeon` js/dokick.js:184 clone untouched (ledger-unknown, no Open row; shares site :593).
+- **Ledger:** ledger_no ported js=dungeon.js:ledger_no; dunlev ported
+- **Next:** remaining missing-arm rows (healup/m_useup/monflee/Amonnam×3 + further ledger_no/dunlev clone rows — different files, next iterations).
+
 ## D-3335 — `mkroom.c` somex teleport.js clone removal (2 sites → live js/mklev.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~6 js/ insertions — below the ~80 bar, defended (D-3328/D-3334 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (mkroom.c) holds no further Open rows while somex has 0 C callees, so the cluster cannot grow.
