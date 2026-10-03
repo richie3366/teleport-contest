@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `hack.c` losehp showdamage ×2 + rehumanize arms — C hack.c:4269–4280 (Upolyd/normal showdamage(n) + mh<1 rehumanize) absent from js/hack.js:1881 losehp (sync; doc :1864/:1871–1872 defers both, mh<1 sets gameover :1896–1904; callees showdamage js/hack.js:1874 + rehumanize js/polyself.js:1224 live async — brief 2026-10-03) @787f6ade
+- [x] `hack.c` check_special_room BARRACKS-abandoned + wake_msg arms — C hack.c:3702–3710 (monstinroom SOLDIER/SERGEANT/LIEUTENANT/CAPTAIN → military else abandoned) / :3773 wake_msg(mtmp,FALSE) absent from js/hack.js:3053 check_special_room (always-military :3054–3055 + sleep-clear-only :3113–3116 defer comments — brief 2026-10-03; callees monstinroom local js/hack.js:2948 + wake_msg js/mon.js:1616 live) @2d0bcb97
+
+
 - [x] `files.c` rewind_nhfile — C files.c:534–545 absent from js/ (no JS symbol; ledger unknown; structlevel lseek(fd,0,0) vs fieldlevel rewind(fpdef); 4 C refs, sole in-game caller restore.c:891 dorecover unported; 0 C callees — brief 2026-10-03) @c4bd1edaa
 - [x] `files.c` commit_bonesfile — C files.c:915–937 absent from js/ (no JS symbol; ledger unknown; set_bonesfile_name + fqname×2 + set_bonestemp_name + rename + wizard pline; sole in-game caller bones.c:623 savebones; callees set_bonesfile_name js/bones.js:375 + fqname live, set_bonestemp_name missing, pline async — brief 2026-10-03) @c4bd1edaa
 - [x] `files.c` set_bonestemp_name — C files.c:818–830 absent from js/ (no JS symbol; ledger unknown C 7; staticfn gl.lock “.bn” suffix; callers files.c:845 create_bonesfile + :922 commit_bonesfile; callee eos live js/hacklib.js:275 — brief 2026-10-03) @bec62f3b9

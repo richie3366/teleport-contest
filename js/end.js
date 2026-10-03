@@ -5,7 +5,7 @@
 import { game } from './gstate.js';
 // C: end.c really_done ESCAPED fake-Amulet arm — carrying() is a hoisted
 // function decl in the shared SCC; call-time use only (no TDZ read).
-import { carrying, nomul } from './hack.js';
+import { carrying, nomul, finish_losehp_showdamage, finish_losehp_rehumanize } from './hack.js';
 import { reset_utrap } from './trap.js';
 import { rn2, d } from './rng.js';
 import { deepest_lev_reached, depth, strstri, upstart } from './hacklib.js';
@@ -1896,6 +1896,11 @@ async function savebones(how, when, corpse) {
  * Call after losehp when `_losehp_needs_done` is set (C noreturn).
  */
 export async function finish_losehp_done() {
+    // C hack.c losehp: showdamage (`:4269`/:4280) precedes the branch
+    // action, and the Upolyd `:4276` rehumanize arm precedes any later
+    // branch — drain both first (no-ops when unset).
+    await finish_losehp_showdamage();
+    await finish_losehp_rehumanize();
     if (!game._losehp_needs_done) return;
     game._losehp_needs_done = false;
     await pline('You die...');

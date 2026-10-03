@@ -68,7 +68,7 @@
 {"fn":"in_rooms","c":"3498-3560","status":"ported","js":["js/hack.js:in_rooms"],"d":["D-2974"],"at":"2026-09-27@8a0963412","note":"stale: js/hack.js:1859"}
 {"fn":"in_town","c":"3564-3585","status":"ported","js":["js/hack.js:in_town"],"at":"2026-10-03@bbe63333a"}
 {"fn":"move_update","c":"3588-3622","status":"ported","js":["js/hack.js:move_update"],"at":"2026-10-03@bbe63333a"}
-{"fn":"check_special_room","c":"3626-3780","status":"partial","js":["js/hack.js:check_special_room"],"omit":"BARRACKS always military (missing monstinroom soldier/sergeant/lieutenant/captain abandoned arm); room-entry wake clears sleep but omits wake_msg text (live in js/mon.js)","at":"2026-10-03@bbe63333a"}
+{"fn":"check_special_room","c":"3626-3780","status":"ported","js":["js/hack.js:check_special_room"],"d":["D-3388"],"at":"2026-10-03@41ae7cfca"}
 {"fn":"pickup_checks","c":"3788-3872","status":"partial","js":["js/pickup.js:pickup_checks"],"omit":"reach-fail message uses fixed floor instead of surface(ux,uy) terrain name (live js/sit.js:surface); HOLE/TRAPDOOR overrides live","d":["D-1838"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dopickup","c":"3876-3892","status":"ported","js":["js/pickup.js:dopickup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lookaround","c":"3898-4059","status":"ported","js":["js/cmd.js:lookaround"],"d":["D-2759"],"at":"seed@a30a7de84"}
@@ -79,8 +79,8 @@
 {"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-3264"],"at":"2026-10-02@d947745c9"}
 {"fn":"maybe_wail","c":"4211-4243","status":"ported","js":["js/hack.js:maybe_wail"],"at":"2026-10-03@bbe63333a"}
-{"fn":"showdamage","c":"4247-4253","status":"partial","js":["js/hack.js:showdamage"],"omit":"- `rounddiv`: none — whole body, panic live (leaf).","d":["D-3105"],"at":"2026-09-29@e32d557c0","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"losehp","c":"4256-4292","status":"partial","js":["js/hack.js:losehp"],"omit":"poly mh<1 sets gameover directly instead of rehumanize() (return to normal form); also omits showdamage(n)","d":["D-2051"],"at":"2026-10-03@bbe63333a"}
+{"fn":"showdamage","c":"4247-4253","status":"ported","js":["js/hack.js:showdamage"],"d":["D-3388","D-3105"],"at":"2026-10-03@41ae7cfca","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"losehp","c":"4256-4292","status":"ported","js":["js/hack.js:losehp"],"d":["D-3388","D-2051"],"at":"2026-10-03@41ae7cfca"}
 {"fn":"weight_cap","c":"4295-4346","status":"ported","js":["js/invent.js:weight_cap"],"d":["D-2819"],"at":"seed@a30a7de84"}
 {"fn":"inv_weight","c":"4351-4365","status":"ported","js":["js/invent.js:inv_weight"],"d":["D-2827"],"at":"seed@a30a7de84"}
 {"fn":"calc_capacity","c":"4372-4382","status":"ported","js":["js/invent.js:calc_capacity"],"at":"2026-10-03@bbe63333a"}

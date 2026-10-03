@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-3388 — `hack.c` losehp showdamage/rehumanize + check_special_room BARRACKS/wake_msg arms
+
+- **Status:** shipped (two queue-head missing-arm rows checked off + archived in this commit; no review cited, no stamp owed).
+- **Symptom:** coverage — C `hack.c:4269–4280` (`showdamage(n)` ×2 + Upolyd `mh<1` rehumanize) and C `hack.c:3702–3710` (BARRACKS monstinroom military/abandoned) + `:3773` (`wake_msg`) absent from `js/`.
+- **C locus:**
+  - `losehp`: nethack-c/upstream/src/hack.c:4269 (`showdamage(n)` Upolyd) + :4275–4276 (`rehumanize()` when `mh<1`) + :4280 (`showdamage(n)` normal).
+  - `check_special_room`: nethack-c/upstream/src/hack.c:3702–3710 (BARRACKS soldier `||` → military else abandoned) + :3773 (`wake_msg(mtmp, FALSE)` before sleep clear).
+- **JS was:** `losehp` (js/hack.js:1881) never called `showdamage` (doc deferred it, D-3105) and treated Upolyd `mh<1` as fatal (mh clamp + gameover + `_losehp_needs_done` + killer); `check_special_room` (js/hack.js:2977) always printed military + cleared sleep without `wake_msg` (both named in its doc).
+- **Fix:** `losehp` stays sync (async would cascade to 124 sites): both C sites capture `{dmg, post-decrement hp}` into `_losehp_showdamage` (option-gated like the C guard); the Upolyd `mh<1` arm sets `_losehp_needs_rehumanize` with no killer/gameover/clamp (C returns to normal form, callers continue). Two convention-named finishers drain in C order first inside BOTH existing finishers (`finish_losehp_done` js/end.js:1898 + `finish_maybe_wail` js/hack.js:1990), so all 24 drain files inherit them: `finish_losehp_showdamage` replays the queue through `showdamage(dmg, hpLeft)` (new optional snapshot param; mdamageu unchanged), `finish_losehp_rehumanize` lazily imports polyself.js (no static back-edge, D-2349) and drops done/wail flags when rehumanize newly dies (C noreturn). BARRACKS uses the local `monstinroom` `||` chain over new PM_SOLDIER/SERGEANT/LIEUTENANT/CAPTAIN consts; wake loop awaits live `wake_msg(mtmp, false)` (mon.js static edge ALREADY) before clearing sleep.
+- **JS:** js/hack.js:1885 `showdamage`, js/hack.js:1895 `losehp`, js/hack.js:1959 `finish_losehp_showdamage`, js/hack.js:1974 `finish_losehp_rehumanize`, js/hack.js:1990 `finish_maybe_wail`, js/hack.js:3035 `check_special_room` (BARRACKS :3111, wake :3178), js/end.js:1898 `finish_losehp_done`.
+- **Callers:**
+  - `losehp`: change is inside `losehp` + the 2 finishers — all 124 JS `losehp(` sites in 30 files execute the new arms with no per-site edit (C's 30 caller files map 1:1; C mon.c:3216 gas-spore arm → js/uhitm.js:649 pre-existing split; explode.c:192/read.c:2330,2451/zap.c:2609/hack.h:1232 are comments). Async drain piggybacks the existing network: 67 `await finish_*` sites in 24 files drain the new arms in C order; dokick/spell/detect/music/uhitm/fountain propagate flags exactly as they do done/wail today (outer frames drain).
+  - `check_special_room`: change is inside the function (no signature change) — all 9 JS call sites inherit: jsmain.js:245 (C allmain.c:810), wizcmds.js:849/891 (C cmd.c:1025/1062 level-change flow, pre-existing split), do.js:1756/2381 (C do.c:1615/1976), dothrow.js:3186 (C dothrow.c:921), pickup.js:2317/2403 (C hack.c:3287/3352 spoteffects home, pre-existing split), shk.js:4978 (C shk.c:5006), teleport.js:766 (C teleport.c:1693). Pre-existing gaps, untouched: C priest.c:126 + restore.c:949 have no JS counterpart.
+- **Verify:** `node scripts/verify.mjs --fn losehp,check_special_room` → VERIFY: PASS (syntax 2 files; rule2; 2× hidden-note no-corpus-block + smoke-spread 24 PASS REACH-OK each — neither draws C-tagged RNG in a baseline-PASS session; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared files). /tmp/losehp-probe.mjs: 11/11 ok (snapshot dmg=3 hp=17; mh unclamped −5 + rehumanize flag + no gameover/killer/done; no flag when mh≥1; drain clears queue headless; empty drain no-op). No new session: the maintained check is REACH + full-44 + cohort (both triggers — showdamage option, Upolyd mh<1 — uncovered by any session; recorder-built sessions are audit-iter work).
+- **Named omissions:**
+  - `losehp`: multi-call-before-drain coalescing (one rehumanize run; same class as existing done/wail flags). `#if 0` impossible block compiled out in C.
+  - `check_special_room`: none — whole C body live.
+  - `showdamage`: none — whole C body live (`hpLeft` is an additive snapshot param).
+- **Ledger:** losehp ported; check_special_room ported; showdamage ported
+- **Next:** remaining Open rows are files.c compress_bonesfile + recover_savefile, bones.c free_ebones, invent.c repopulate_perminvent + only_here, display.c fn_cmap_to_glyph — next cluster head compress_bonesfile.
+
 ## D-3387 — `files.c` bones-NHFILE family: rewind/set_bonestemp/create/commit/open
 
 - **Status:** shipped (five queue-head missing-arm rows — all `files.c` Open rows — checked off + archived in this commit; no review cited, no stamp owed).
