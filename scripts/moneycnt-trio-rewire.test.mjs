@@ -43,6 +43,14 @@ describe('live money_cnt first-stack on the trio call shape (hack.c:4513-4522)',
         assert.equal(money_cnt([]), 0);
         assert.equal(money_cnt(null), 0);
     });
+
+    // D-3332: the deleted sit.js clone (`otmp.oclass === COIN_CLASS`,
+    // no null-elem guard) threw on a holey invent; the live export
+    // skips null elems and folds oclass with |0.
+    it('null elem + string-typed oclass still resolve (deleted sit clone threw)', { timeout: 5000 }, () => {
+        const invent = [null, { oclass: String(COIN_CLASS), quan: 7 }];
+        assert.equal(money_cnt(invent), 7);
+    });
 });
 
 // Live-site smoke: monmove.js set_apparxy (exported, so directly
@@ -91,5 +99,12 @@ describe('trio modules import with the live money_cnt edge', () => {
         const monmove = await import('../js/monmove.js');
         assert.equal(typeof monmove.set_apparxy, 'function');
         assert.equal(typeof end.nh_terminate, 'function');
+    });
+
+    // D-3332: sit.js joins via a NEW static shk edge (imports.mjs
+    // SAFE, in-SCC hoisted-fn shape) — no TDZ/cycle break.
+    it('sit.js imports cleanly with the new shk edge', { timeout: 30000 }, async () => {
+        const sit = await import('../js/sit.js');
+        assert.equal(typeof sit.dosit, 'function');
     });
 });

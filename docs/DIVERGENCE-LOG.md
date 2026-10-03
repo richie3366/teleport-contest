@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3332 — `hack.c` money_cnt sit.js clone removal (sole site → live js/shk.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived — last money_cnt clone; no review cited, no stamp owed). ~8 js/ insertions — below the ~80 bar, defended (D-3328/D-3331 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (hack.c) holds no further Open rows while money_cnt has 0 C callees, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `money_cnt`: nethack-c/upstream/src/hack.c:4514–4522 — first-COIN_CLASS-quan walk down the nobj chain, 0L on miss; 43 C refs incl sit.c:445 (dosit dragon meager-hoard gate).
+- **JS was:** live `money_cnt` js/shk.js:4762 (null-arg guard, array arm with null-elem guard + |0 folding, nobj-chain arm) coexisted with clone js/sit.js:1084-then (array-only walk, strict `===` oclass, no null-elem guard — throws on a holey invent; stale "end/shk cycles" comment), sole live site js/sit.js:1216 (`money_cnt(game.invent)` in the dosit dragon meager gate).
+- **Fix:** new static sit→shk edge (`import { money_cnt } from './shk.js'`, js/sit.js:137; `imports.mjs --can` SAFE — hoisted fn, in-SCC shape, verify judges TDZ); deleted the clone + its stale comment; one C-cite comment per site (import :135-136 + site :1211-1214). Site expression unchanged; behavior delta is the live null-elem guard + |0 folding (clone threw on null elems, missed non-number oclass). Maintained test: extended scripts/moneycnt-trio-rewire.test.mjs (null-elem/string-oclass unit case pinning the delta; sit.js import smoke for the new edge).
+- **JS:**
+  - `money_cnt`: js/shk.js:4762 (live, unchanged); import added js/sit.js:137; clone deleted; sole site js/sit.js:1216.
+- **Callers:**
+  - `money_cnt`: C sit.c:445 (dosit meager-hoard gate) → js/sit.js:1216. Remaining 42 C refs out of cluster: served by the live export where JS ports import it (D-3320 trio); 0 JS clones remain (`sym.mjs` sole-definer check via the extended census test).
+- **Verify:**
+  - `money_cnt`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/moneycnt-trio-rewire.test.mjs` 8/8 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn money_cnt` → PASS syntax (1 changed js file: js/sit.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (smoke 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `money_cnt`: none in-body — whole C body live at js/shk.js:4762.
+- **Ledger:** money_cnt ported js=shk.js:money_cnt
+- **Next:** the remaining missing-arm rows (Amonnam teleport.js head + t_at/somex/ledger_no/dunlev/healup/m_useup/monflee — different C files, next iterations).
+
 ## D-3331 — `dungeon.c` on_level ×6 clone removals (teleport/shk/priest/getpos/vault/muse → live export)
 
 - **Status:** shipped (6 Open missing-arm rows checked off + archived — every remaining on_level clone; no review cited, no stamp owed). ~22 js/ insertions across 7 files — below the ~80 bar, defended (D-3328/D-3329/D-3330 batch precedent for tiny missing-arm rows): each rewires a whole clone to a live export with no body change, and this is the whole closure of the head's C file (all 6 remaining dungeon.c rows ship. Refill: 7 missing-arm rows appended from this session's brief/sym/imports/read evidence (t_at steed, somex teleport, ledger_no dig, dunlev dokick, healup zap, m_useup zap, monflee music) — queue ships at 9 (coverage ungeneratable: rows --write 0 rows).
