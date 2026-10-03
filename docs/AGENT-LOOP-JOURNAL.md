@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3330 `rm.h` m_at uhitm+dig rewires + `dungeon.c` on_level dokick rewire (live-export clone removals)
+
+**C locus:** - `m_at`: nethack-c/upstream/include/rm.h:510–511 — `(MON_AT(x, y) ? svl.level.monsters[x][y] : (struct monst *) 0)` (:516 alternate one-line form); 188 C refs incl uhitm.c:699/:799/:5459/:5539 and dig.c:63/:647/:876/:1202.
+**JS:** - `m_at`: js/mon.js:1745 (live, unchanged); js/uhitm.js:92 import extended + clone deleted; js/dig.js:100 import added + clone deleted; sites js/uhitm.js:3612/:3692/:4213/:4260/:5099, js/dig.js:748/:787/:1723/:2686.
+**Change:** m_at uhitm: extended the ALREADY static mon.js edge (js/uhitm.js:93) with `m_at`; deleted the clone; one C-cite comment per site (:3611 C :699 cleave sweep; :3687 C :799 second swing; :4212 C :5459 bhitpos range; :4259 C :5539 worm-cut; mon_at wrapper delegates with an rm.h cite). m_at dig: added a new static mon.js edge (js/dig.js:100, `imports.mjs --can` SAFE — hoisted fn, voiding the stale cycle comment); deleted the clone; one C-cite comment per site (:747 C :876 minliquid; :786 C :647 madeby entry; :1722 C :63 rockit; :2685 C :1202 do_attack). on_level dokick: added a new static dungeon.js edge (js/dokick.js:36, `imports.mjs --can` SAFE — in-SCC hoisted-name shape, verify judges TDZ); deleted the clone; site cite :1793 (C dokick.c:1950 down_gate quest gate). All call-site expressions unchanged. js/dungeon.js:1807 comment updated (6 clones remain). Maintained tests: extended scripts/mat-rewire.test.mjs (uhitm/dig census, teleport-only remainder) and scripts/isbranchlev-rewire.test.mjs (dokick added to the on_level rewired list).
+**Verify:** - `m_at`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/mat-rewire.test.mjs` 8/8 pass.
+**Named:** - `m_at`: none in-body — whole C body live at js/mon.js:1745.
+**Next:** the 6 remaining on_level rows (teleport/shk/priest/getpos/vault/muse clones).
 ## 2026-10-03 — D-3329 `dungeon.c` Is_branchlev C-locus port + has_ceiling/on_level clone rewires
 
 **C locus:** - `Is_branchlev`: nethack-c/upstream/src/dungeon.c:1464–1473 — first branch with on_level(lev, end1/end2), else 0; 11 C call sites (bones ×2, mklev ×3, mkmaze ×4, restore ×1) + extern.h:873 decl (NONNULLARG1).

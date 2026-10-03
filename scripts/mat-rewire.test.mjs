@@ -1,10 +1,12 @@
-// `rm.h` m_at shknam.js clone removal: the js/shknam.js:268 local clone
-// (fmon scan with no dead/steed/offmap/worm-seg arms) is deleted for the
-// live export (js/mon.js:1745). C `rm.h:510-511` is a MON_AT-gated lookup:
-// monsters[x][y] when occupied, NULL otherwise. The two shknam call sites
-// are C shknam.c:470 (!MON_AT mimic gate in mkshobj_at; JS has no MON_AT
-// export, live m_at null iff unoccupied at stock time) and C shknam.c:660
-// (shkinit squatter insurance, direct m_at call).
+// `rm.h` m_at clone removals (D-3328 shknam.js, D-3330 uhitm.js + dig.js):
+// the local clones (fmon scans with no dead/steed/offmap/worm-seg arms)
+// are deleted for the live export (js/mon.js:1745). C `rm.h:510-511` is
+// a MON_AT-gated lookup: monsters[x][y] when occupied, NULL otherwise.
+// The two shknam call sites are C shknam.c:470 (!MON_AT mimic gate in
+// mkshobj_at; JS has no MON_AT export, live m_at null iff unoccupied at
+// stock time) and C shknam.c:660 (shkinit squatter insurance, direct
+// m_at call). The five uhitm sites are C uhitm.c:699/:799/:5459/:5539 +
+// the mon_at wrapper; the four dig sites are C dig.c:63/:647/:876/:1202.
 import { describe, it, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -49,14 +51,16 @@ describe('live m_at MON_AT-gated lookup (rm.h:510-511)', () => {
     });
 });
 
-describe('m_at clone census (shknam rewire)', () => {
-    it('no local m_at remains in shknam.js; it imports the live export', () => {
-        const src = readFileSync(new URL('../js/shknam.js', import.meta.url), 'utf8');
-        assert.ok(!src.match(/^function m_at\(/m),
-            'local clone still defined in js/shknam.js');
-        assert.ok(src.match(/import \{[^}]*m_at[^}]*\} from '\.\/mon\.js'/),
-            'js/shknam.js must import m_at from mon.js');
-    });
+describe('m_at clone census (shknam/uhitm/dig rewires)', () => {
+    for (const f of ['shknam.js', 'uhitm.js', 'dig.js']) {
+        it(`no local m_at remains in ${f}; it imports the live export`, () => {
+            const src = readFileSync(new URL(`../js/${f}`, import.meta.url), 'utf8');
+            assert.ok(!src.match(/^function m_at\(/m),
+                `local clone still defined in js/${f}`);
+            assert.ok(src.match(/import \{[^}]*m_at[^}]*\} from '\.\/mon\.js'/),
+                `js/${f} must import m_at from mon.js`);
+        });
+    }
 
     it('census: remaining m_at defs are the canonical export + out-of-scope locals', () => {
         const dir = new URL('../js/', import.meta.url);
@@ -66,9 +70,8 @@ describe('m_at clone census (shknam rewire)', () => {
             const src = readFileSync(new URL(f, dir), 'utf8');
             if (src.match(/^(export )?function m_at\(/m)) defs.push(`js/${f}`);
         }
-        // dig/teleport/uhitm clones stay: dig.js documents a mon cycle;
-        // the other two are separate Open rows, not this rewire.
-        assert.deepEqual(defs.sort(),
-            ['js/dig.js', 'js/mon.js', 'js/teleport.js', 'js/uhitm.js']);
+        // teleport.js keeps its intentional steed-finding local variant
+        // (D-3328; no queue row); shknam/uhitm/dig are rewired to mon.js.
+        assert.deepEqual(defs.sort(), ['js/mon.js', 'js/teleport.js']);
     });
 });

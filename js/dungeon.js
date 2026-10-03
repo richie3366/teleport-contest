@@ -1804,8 +1804,8 @@ function OF_INTEREST(feat) {
 /**
  * C ref: dungeon.c on_level `:1438–1443` — same dnum/dlevel.
  * Exported so `dog.c` `keep_mon_accessible` uses the real one instead
- * of a fourteenth copy; 7 local clones remain (dokick/teleport/shk/
- * priest/getpos/vault/muse — their own rows).
+ * of a fourteenth copy; 6 local clones remain (teleport/shk/
+ * priest/getpos/vault/muse — their own rows; dokick rewired D-3330).
  */
 export function on_level(a, b) {
     return (a?.dnum | 0) === (b?.dnum | 0)

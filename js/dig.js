@@ -95,6 +95,9 @@ import { breakobj } from './dothrow.js';
 // (KABOOM/hear, wake_nearto 49, mstun, rnd(15), mondied/lifesave,
 // mon_learns_traps TRAPPED_DOOR); hoisted fn, cycle-safe per imports.mjs.
 import { mb_trapped, maybe_unhide_at } from './monmove.js';
+// C ref: rm.h m_at `:510–511` — canonical grid lookup (hoisted fn,
+// cycle-safe per imports.mjs --can dig.js mon.js).
+import { m_at } from './mon.js';
 // C ref: pray.c altarmask_at `:2489–2504` — dig_check reads the mimic-aware
 // mask like C (static; hoisted fn, cycle-safe per imports.mjs).
 import { altarmask_at } from './pray.js';
@@ -220,16 +223,9 @@ function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);
 }
 
-/** Local m_at — avoid dig.js ↔ mon.js cycle (mon imports may_dig). */
-function m_at(x, y) {
-    for (const m of game.fmon || []) {
-        if (m && (m.mx | 0) === (x | 0) && (m.my | 0) === (y | 0)
-            && (m.mhp | 0) > 0) {
-            return m;
-        }
-    }
-    return null;
-}
+/* rm.h m_at now imported from mon.js (live export) — fmon-only clone
+   deleted (D-3330). The old `:223 ↔ mon.js cycle` worry is void: m_at is a
+   hoisted fn, cycle-safe per imports.mjs --can dig.js mon.js. */
 
 /** C: cmap_to_glyph(S_digbeam) — defsym '*' CLR_WHITE. */
 function digbeam_glyph() {
@@ -748,6 +744,7 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
         const { pooleffects } = await import('./pickup.js');
         await pooleffects(false);
     } else {
+        // C dig.c:876 — minliquid arm reads m_at(x, y) (live mon.js import).
         const mon = m_at(x, y);
         if (mon) {
             const { minliquid } = await import('./mon.js');
@@ -786,6 +783,7 @@ export async function digactualhole(x, y, madeby, ttyp) {
     const atHero = u_at(x, y);
     /* C: wont_fall = Levitation || Flying (youprop.h macros). */
     let wont_fall = !!(Levitation() || Flying());
+    // C dig.c:647 — entry read `mtmp = m_at(x, y)` (may be madeby).
     const mtmp0 = m_at(x, y);
 
     if (atHero && u.utrap) {
@@ -1721,6 +1719,7 @@ async function mkcavepos(x, y, dist, waslit, rockit) {
     if (rockit) {
         if (IS_OBSTRUCTED(lev.typ)) return;
         if (t_at(x, y)) return; /* don't cover the portal */
+        // C dig.c:63 — rockit arm: m_at + !passes_walls → rloc NOMSG.
         const mtmp = m_at(x, y);
         if (mtmp && !passes_walls(mtmp.data)) {
             const { rloc } = await import('./teleport.js');
@@ -2683,6 +2682,7 @@ export async function use_pick_axe2(obj) {
             return ECMD_TIME;
         }
         const lev = game.level?.at(rx, ry);
+        // C dig.c:1202 — MON_AT(rx, ry) && do_attack(m_at(rx, ry)).
         const mon = m_at(rx, ry);
         if (mon) {
             const { do_attack } = await import('./uhitm.js');

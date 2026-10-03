@@ -2,7 +2,8 @@
 // end.js Is_branchlev+on_level clones and mklev.js is_branchlev() deleted for
 // the live export (js/dungeon.js); dothrow/mon/potion/trap has_ceiling clones
 // (+ trap has_ceiling_trap) and quest/dig/do/potion/end on_level clones
-// rewired to the live dungeon.js exports. C: dungeon.c:1464–1473
+// rewired to the live dungeon.js exports (D-3330 adds dokick.js).
+// C: dungeon.c:1464–1473
 // (branches scan, end1-before-end2), :1689–1698 (endgame non-earth has no
 // ceiling), :1439–1443 (dnum+dlevel equality, NONNULLARG12).
 import { describe, it, beforeEach } from 'node:test';
@@ -73,7 +74,7 @@ describe('Is_branchlev/has_ceiling/on_level clone census', () => {
             assert.ok(src.match(/import \{[^}]*has_ceiling[^}]*\} from '\.\/dungeon\.js'/),
                 `js/${f} must import has_ceiling from dungeon.js`);
         }
-        for (const f of ['quest.js', 'dig.js', 'do.js', 'potion.js']) {
+        for (const f of ['quest.js', 'dig.js', 'do.js', 'potion.js', 'dokick.js']) {
             const src = readFileSync(new URL(`../js/${f}`, import.meta.url), 'utf8');
             assert.ok(!src.match(/^function on_level\(/m),
                 `local clone still defined in js/${f}`);
