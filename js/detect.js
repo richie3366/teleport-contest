@@ -125,6 +125,7 @@ import {
 } from './const.js';
 import { room_discovered } from './dungeon.js';
 import { spec_ability, SPFX_SEARCH } from './artifact.js';
+import { def_char_is_furniture } from './drawing.js';
 
 const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 
@@ -303,17 +304,6 @@ function is_quest_artifact(obj) {
  */
 function def_char_to_monclass_mlet(ch) {
     return DEF_MONSYM_TO_MLET[ch] || null;
-}
-
-/**
- * C ref: drawing.c def_char_is_furniture — ASCII furniture block.
- * Full defsyms explanation scan deferred; matches standard furniture chars.
- * @returns {number} >=0 if furniture, else -1
- */
-function def_char_is_furniture(ch) {
-    // C defsyms contiguous furniture: stairs…fountain (`<>_{|\`)
-    if ('<>_{|\\'.includes(ch)) return 1;
-    return -1;
 }
 
 const LENSES = objectNames.indexOf('LENSES');

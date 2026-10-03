@@ -38,6 +38,6 @@
 {"fn":"warnreveal","c":"2107-2120","status":"unknown"}
 {"fn":"skip_premap_detect","c":"2124-2130","status":"unknown"}
 {"fn":"premap_detect","c":"2134-2159","status":"unknown"}
-{"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"unknown"}
+{"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"partial","js":["js/display.js:reveal_terrain_getglyph"],"omit":"- `reveal_terrain_getglyph`: pre-existing doc-named omissions, untouched — visible_region_at/gascloud, M_AP_FURNITURE lastseentyp fake, wall_info recalc, swallowed ustuck mon glyph, arboreal STONE→tree default.","d":["D-3363"],"at":"2026-10-03@ddf5ed13e"}
 {"fn":"dump_map","c":"2294-2349","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: dumplog-only output (putstr winid 0), DUMPLOG retired D-1776"}
 {"fn":"reveal_terrain","c":"2356-2414","status":"ported","js":["js/detect.js:reveal_terrain"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

@@ -4298,6 +4298,13 @@ function glyph_is_trap_at(glyph, x, y) {
 export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_subset) {
     const loc = game.level?.at(x, y);
     if (!loc) return default_glyph;
+    const __probe = ((x | 0) === 42 && (y | 0) === 15) ? {
+        seenv: loc.seenv | 0, typ: loc.typ | 0, ladder: loc.ladder | 0,
+        hero_memory: !!game.level?.flags?.hero_memory,
+        remembered_glyph: loc.remembered_glyph ? { ...loc.remembered_glyph } : null,
+        disp_before: { ch: loc.disp_ch, glyph: loc.disp_glyph },
+        lastseentyp: game.lastseentyp?.[x]?.[y] | 0,
+    } : null;
 
     const keep_traps = (which_subset & TER_TRP) !== 0;
     const keep_objs = (which_subset & TER_OBJ) !== 0;
@@ -4386,18 +4393,29 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
                         if (cansee(x, y) || (rg && rg.ch === tg.ch)) {
                             kind = 'trap';
                             glyph = { ch: tg.ch, color: tg.color, dec: !!tg.dec };
+                            // C glyph_at int travels with the cell (trap_glyph
+                            // carries .glyph via cmap_idx_to_glyph; same guard
+                            // as the keep_traps restore below).
+                            if (typeof tg.glyph === 'number') glyph.glyph = tg.glyph | 0;
                         }
                     }
                 }
                 if (kind === 'other') {
                     // C glyph_at for terrain/engraving — prefer memory / back_to_glyph
-                    // over disp_* (disp_color is already tty-mapped).
+                    // over disp_* (disp_color is already tty-mapped). The int id
+                    // travels with the cell: C returns glyph_at untouched when no
+                    // strip arm fires, and lookat during browse reads it (a dropped
+                    // id paints NO_GLYPH, which lookat reports as "unexplored area").
                     if (hero_memory && loc.remembered_glyph && !loc.remembered_glyph.invisible) {
-                        glyph = copy_glyph(loc.remembered_glyph);
+                        glyph = copy_glyph_id(loc.remembered_glyph);
                     } else if (seenv) {
-                        glyph = terrain_glyph(loc, x, y);
+                        glyph = {
+                            ...terrain_glyph(loc, x, y), glyph: back_to_glyph(x, y),
+                        };
                     } else {
-                        glyph = copy_glyph(levl_glyph);
+                        // C glyph_at for a never-seen cell is GLYPH_UNEXPLORED
+                        // (never the stone default).
+                        glyph = attach_glyph(copy_glyph(levl_glyph), GLYPH_UNEXPLORED);
                     }
                 }
             }
@@ -4471,9 +4489,16 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
 
     // C: an unclassified cell keeps glyph_at — the displayed int, which is
     // GLYPH_UNEXPLORED for unseen cells (never the stone default).
-    return reveal_terrain_cmap_hack(
+    const __ret = reveal_terrain_cmap_hack(
         glyph || attach_glyph(copy_glyph(default_glyph), GLYPH_UNEXPLORED),
     );
+    if (__probe) {
+        __probe.kind = kind;
+        __probe.ret = __ret ? { ch: __ret.ch, color: __ret.color, glyph: __ret.glyph } : null;
+        __probe.levl_id = levl_glyph ? levl_glyph.glyph : null;
+        globalThis.__probe_reveal = __probe;
+    }
+    return __ret;
 }
 
 /**

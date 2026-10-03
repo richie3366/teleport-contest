@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-3363 — `drawing.c` def_char_is_furniture whole port (generated defsyms + new js/drawing.js) + `detect.c` reveal_terrain_getglyph id arms (scen-terrain-Tourist-94120 → PASS)
+
+- **Status:** shipped (missing-arm row + its corpus session; row checked off + archived in this commit). js/ +~210 (new js/drawing.js + js/generated/defsyms_data.js; detect.js clone → live import; 4 one-line reveal arms) + scripts/extract-defsyms.py + 2 maintained tests (6/6). Bundled stale: def_char_to_objclass → ported (ledger set this session, js/objects.js:109 sync).
+- **Symptom:** queue row (queued @9dc9139eb): `drawing.c` def_char_is_furniture blocks 1/953 (scen-terrain-Tourist-94120 step 97/121 kind=screen: C «branch staircase up» vs JS «unexplored area»); brief showed the C drawing.c:119–142 full defsyms scan deferred at a js/detect.js:313 local. Source review 1028 is ACCEPT with no Actionable C-wrongs (same owner, earlier misattribution precedent) — no stamp owed.
+- **C locus:**
+  - `def_char_is_furniture`: nethack-c/upstream/src/drawing.c:119–142 — scan `i < MAXPCHARS`; `furniture` flips at the first explanation with 5-char "stair" prefix (defsym.h S_upstair = 25, "staircase up"; verified nothing in 0–24 matches); from there return the first `sym == (uchar) ch`, breaking past S_fountain = 37 ("fountain"); else -1. Sole C caller detect.c:1342 (`>= 0` → furniture_detect, crystal ball).
+  - `reveal_terrain_getglyph`: nethack-c/upstream/src/detect.c:2166–2288 (staticfn) — `glyph` starts as glyph_at(x, y) (gbuf = memory for unseen cells); strip arms re-derive ints; the returned int is gbuf state that lookat (pager.c, via glyph_at) reads during browse. Callers: :2323 dump_map (DUMPLOG, retired D-1776, no JS) and :2381 the reveal_terrain show loop.
+- **JS was:**
+  - `def_char_is_furniture` js/detect.js:313 local clone — char-set approximation (`'<>_{|\\'` → 1/-1): same `>= 0` outcome at its one call site, but no defsyms scan and wrong indices (C returns 25–37).
+  - `reveal_terrain_getglyph` js/display.js:4298 — D-2058 threaded ids on the swallowed/mon-strip/full/strip arms, but the unclassified `kind === 'other'` arms dropped the glyph_at int: remembered-terrain `copy_glyph` (:4396), trap rebuild (:4388), seenv `terrain_glyph` (:4398), unseen default (:4400) → show_glyph_cell stores NO_GLYPH → lookat reports "unexplored area".
+- **Fix:** measured H1 (same cell, wrong glyph): prefix replay shows cursor [41,16] both sides at step 97; the single lookat call is (42,15) with NO_GLYPH; temp reveal capture (reverted) shows remembered_glyph 4002 = S_brupstair dropped at :4396 (kind 'other', seenv 255, hero_memory). (a) New checked-in extractor scripts/extract-defsyms.py → js/generated/defsyms_data.js (105 dense PCHAR entries [sym, name, explanation], PCHAR2 desc-arg rule as in C, deterministic md5-stable); (b) new C-home js/drawing.js:20 `export function def_char_is_furniture` (whole C body in C order, sibling-style input normalization); js/detect.js:313 clone deleted, :128 live import, :2710 site untouched (`imports.mjs --can` ALREADY, leaf module, no cycle); (c) the 4 reveal arms carry the int: trap `tg.glyph` (:4399, same guard as the keep_traps restore), memory `copy_glyph_id` (:4410), seenv `back_to_glyph` (:4413, same shape as the strip block), unseen GLYPH_UNEXPLORED (:4418, per the function's own tail comment + C glyph_at for never-seen cells; also fixes GLOC_INTERESTING over-inclusion of unexplored cells, which C excludes via `glyph_is_unexplored`).
+- **JS:**
+  - `def_char_is_furniture`: js/drawing.js:20 (+ js/generated/defsyms_data.js via scripts/extract-defsyms.py).
+  - `reveal_terrain_getglyph`: js/display.js:4399 (trap id), :4410 (memory id), :4413 (seenv id), :4418 (unexplored id); show loop :4515 unchanged.
+- **Callers:**
+  - `def_char_is_furniture`: C detect.c:1342 → js/detect.js:2710 (crystal-ball chain; oclass/mlet/boulder/`^` siblings untouched). No other C or JS callers.
+  - `reveal_terrain_getglyph`: C detect.c:2381 → js/detect.js:1372 reveal_terrain → js/display.js:4508 reveal_terrain_show_map → :4515 per-cell call (only JS caller); C :2323 dump_map has no JS (DUMPLOG retired). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn def_char_is_furniture,reveal_terrain_getglyph` → VERIFY: PASS:
+  - `def_char_is_furniture`: hidden PROGRESS (scen-terrain-Tourist-94120: PASS — RNG was already 2971/2971, the single screen now matches); REACH-OK (no RNG-tagged reach; smoke 24/24).
+  - `reveal_terrain_getglyph`: hidden none blocked at baseline (expected — owner attribution sits on the literal-match function); REACH-OK (smoke 24/24).
+  - syntax PASS (4 js files) · rule2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared display.js). scripts/def-char-is-furniture.test.mjs 3/3 + scripts/reveal-terrain-getglyph-id.test.mjs 3/3 (memory/unseen/seenv arms; C-pinned indices 25–37 + table anchors).
+- **Named omissions:**
+  - `def_char_is_furniture`: none in-body — whole C body live at js/drawing.js:20.
+  - `reveal_terrain_getglyph`: pre-existing doc-named omissions, untouched — visible_region_at/gascloud, M_AP_FURNITURE lastseentyp fake, wall_info recalc, swallowed ustuck mon glyph, arboreal STONE→tree default.
+- **Ledger:** def_char_is_furniture ported; reveal_terrain_getglyph partial
+- **Next:** ship the next missing-arm row (`symbols.c` assign_graphics showsyms copy). Refill this session: generator 0 rows (still ungeneratable) + `hidden-proxy queue --limit 30` 0 eligible (all open/parked/archived — same as D-3362) + 2 refill briefs (m_throw live C 174/JS 199 ok D-2399; savelife ledger-ported C 35/JS 35 D-3260) → no hand rows appended, do-not-invent-filler precedent holds; queue drains 5→4.
+
 ## D-3362 — Must-fix `js` js-throw phantom: scen-longrun-Archeologist-94094 `worker: ` row was a harness SIGKILL artifact, no JS throw; rescored to distfleeck@287
 
 - **Status:** shipped (Must-fix row checked off + archived; no js/ change — measured no-bug with corrected attribution).

@@ -1,3 +1,3 @@
-{"fn":"def_char_to_objclass","c":"91-99","status":"unknown"}
+{"fn":"def_char_to_objclass","c":"91-99","status":"ported","js":["js/objects.js:def_char_to_objclass"],"at":"2026-10-03@ddf5ed13e","note":"stale: js/objects.js:109 sync, whole C body + def_oc_syms table"}
 {"fn":"def_char_to_monclass","c":"108-116","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"def_char_is_furniture","c":"120-142","status":"unknown","d":["D-2058"],"at":"seed@a30a7de84"}
+{"fn":"def_char_is_furniture","c":"120-142","status":"ported","js":["js/drawing.js:def_char_is_furniture"],"d":["D-3363","D-2058"],"at":"2026-10-03@ddf5ed13e"}

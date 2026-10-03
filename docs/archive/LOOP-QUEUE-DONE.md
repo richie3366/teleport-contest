@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `js` js-throw — blocks 1/953 (scen-longrun-Archeologist-94094, step undefined): corpus worker/js-throw owner per `hidden-proxy.mjs queue --limit 200` (run `hidden-proxy verify js-throw` + brief the throwing call; forfeits every later screen, Constitution §10.14) @9dc9139eb **Addressed:** D-3362
+- [x] `drawing.c` def_char_is_furniture — blocks 1/953 (scen-terrain-Tourist-94120 step 97/121 kind=screen: C «branch staircase up» vs JS «unexplored area»); C drawing.c:119–142 full defsyms scan deferred at js/detect.js:313 local (brief 2026-10-03). Source: reviews/loop-unattended/1028-61843507-terrain-browse-describe.md @9dc9139eb **Addressed:** D-3363
+
+
+- [x] `js` js-throw — blocks 1/953 (scen-longrun-Archeologist-94094, step undefined): corpus worker/js-throw owner per `hidden-proxy.mjs queue --limit 200` (run `hidden-proxy verify js-throw` + brief the throwing call; forfeits every later screen, Constitution §10.14) @9dc9139eb **Addressed:** D-3362 `ddf5ed1`
 
 
 - [x] `zap.c` dobuzz — C zap.c:4804–4821 uswallow, :4874–4884 mon_reflects, :4887–4911 Rider/PM_DEATH, :4934–4941 otmp-else, :4956–4959 steed absent from js/zap.js:dobuzz (brief 2026-10-03; hdmgtype/invis/mines/bhitpos micro-arms same commit) @9dc9139eb
