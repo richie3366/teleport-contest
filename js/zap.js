@@ -259,7 +259,7 @@ import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_ACID, M1_SEE_INVIS, is_undead, is_were, is_vampshifter, monsterNames, mons,
     G_UNIQ, G_NOCORPSE, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
-    hides_under, is_golem, is_mplayer, vegetarian, carnivorous, NUMMONS,
+    hides_under, is_golem, is_mplayer, vegetarian, carnivorous, NUMMONS, dmgtype,
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched, cant_drown, minliquid, dealloc_monst, unique_corpstat } from './mon.js';
 import { find_mac, monkilled, mlifesaver, shade_miss, resists_sleep_slee, resists_blnd_mm, erode_armor } from './mhitm.js';
@@ -2899,15 +2899,7 @@ const AD_SEDU = 22;
 const AD_SSEX = 35;
 const PM_GHOST = monsterNames.indexOf('PM_GHOST');
 
-/** C ref: mondata.h dmgtype — any mattk slot matches adtyp. */
-function dmgtype_zap(ptr, adtyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return false;
-    for (let i = 0; i < NATTK; i++) {
-        if ((slots[i]?.adtyp | 0) === adtyp) return true;
-    }
-    return false;
-}
+/* C mondata.c dmgtype — live export from './monsters.js' (dmgtype_zap clone removed D-3357). */
 
 /** C: SYSOPT_SEDUCE — runtime seduce option (default on when unset). */
 function SYSOPT_SEDUCE_zap() {
@@ -2984,8 +2976,8 @@ export async function montraits(obj, cc, adjacentok) {
     mtmp2.msleeping = 0;
     mtmp2.mfrozen = 0;
     mtmp2.mcanmove = 1;
-    if (!dmgtype_zap(mtmp2.data, AD_SEDU)
-        && (!SYSOPT_SEDUCE_zap() || !dmgtype_zap(mtmp2.data, AD_SSEX))) {
+    if (!dmgtype(mtmp2.data, AD_SEDU)
+        && (!SYSOPT_SEDUCE_zap() || !dmgtype(mtmp2.data, AD_SSEX))) {
         mtmp2.mcan = 0;
     }
     mtmp2.mcansee = 1;

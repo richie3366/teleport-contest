@@ -11,7 +11,7 @@ import {
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
     grounded, telepathic, mons, metallivorous, humanoid, is_neuter, G_UNIQ,
     corpse_eater, is_demon, touch_petrifies, acidic, mon_hates_silver,
-    resists_ston, is_rider,
+    resists_ston, is_rider, dmgtype,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
@@ -1396,15 +1396,7 @@ export function locomotion(ptr, def) {
     return def;
 }
 
-/** C ref: mondata.c dmgtype — any mattk slot matches adtyp (AT_ANY). */
-function dmgtype(ptr, adtyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return false;
-    for (const a of slots) {
-        if ((a.adtyp | 0) === (adtyp | 0)) return true;
-    }
-    return false;
-}
+/* C mondata.c dmgtype — live export from './monsters.js' (clone removed D-3357). */
 
 /**
  * C monmove.c msg_mon_movement 32–48 — a11y.mon_movement dest pline_xy

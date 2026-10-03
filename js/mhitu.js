@@ -66,7 +66,7 @@ import {
     hides_under, is_flyer, thick_skinned, nolimbs, touch_petrifies,
     poly_when_stoned, has_head, slithy, amphibious, breathless, is_swimmer,
     is_hider, likes_gold, mons, noncorporeal,
-    MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
+    MR_FIRE, MR_COLD, MR_ELEC, MR_ACID, dmgtype,
 } from './monsters.js';
 import { done_in_by, done, finish_losehp_done, delayed_killer } from './end.js';
 import { make_blinded, reset_occupations } from './do.js';
@@ -82,7 +82,7 @@ import {
 import { xkilled, killed, Hate_silver, dynamic_multi_reason, attacktype_fordmg, can_blnd } from './uhitm.js';
 import {
     m_seenres, cvt_adtyp_to_mseenres, monstseesu, monstunseesu, m_canseeu,
-    mhis, on_fire, defended, get_atkdam_type,
+    mhis, on_fire, defended, get_atkdam_type, dmgtype_fromattack,
 } from './mondata.js';
 import { which_armor, find_mac } from './worn.js';
 import {
@@ -651,19 +651,7 @@ function Unaware() {
     return !!(u.usleep || u.Unaware);
 }
 
-/**
- * C ref: mondata.c dmgtype_fromattack — mattk slot matches adtyp+aatyp.
- */
-function dmgtype_fromattack(ptr, adtyp, aatyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return false;
-    const ad = adtyp | 0;
-    const at = aatyp | 0;
-    for (const a of slots) {
-        if ((a.adtyp | 0) === ad && (a.aatyp | 0) === at) return true;
-    }
-    return false;
-}
+/* C mondata.c dmgtype_fromattack — live export from './mondata.js' (clone removed D-3357). */
 
 /**
  * C ref: mondata.c resists_blnd youmonst arm :248–272.
@@ -1092,17 +1080,7 @@ function s_suffix_poison(s) {
     return `${buf}'s`;
 }
 
-/**
- * C ref: mondata.h dmgtype — any mattk slot matches adtyp.
- */
-function dmgtype(ptr, adtyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return false;
-    for (const a of slots) {
-        if ((a.adtyp | 0) === (adtyp | 0)) return true;
-    }
-    return false;
-}
+/* C mondata.c dmgtype — live export from './monsters.js' (clone removed D-3357). */
 
 
 /**

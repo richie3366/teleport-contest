@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3357 `mondata.c` dmgtype_fromattack canonical export + dmgtype/attacktype 5-clone removal (mhitm/mhitu/monmove/zap → live exports)
+
+**C locus:** - `dmgtype`: nethack-c/upstream/src/mondata.c:712–715 — `dmgtype_fromattack(ptr, dtyp, AT_ANY) ? TRUE : FALSE`. 35 C refs (brief this session): eat.c:1303, hack.c:1026/:1027, insight.c:1112, mhitm.c:1267/:1269/:1271, mhitu.c:1639/:1963/:1964, mon.c:556/:2228/:2229/:3462, mondata.c:223/:224/:559/:656/:657, monmove.c:1629, muse.c:1435, polyself.c:82/:84/:88, potion.c:1762/:1764, steal.c:186, uhitm.c:239/:4642/:4646/:6286, zap.c:802/:803 (+ obj.h:324 polyfood).
+**JS:** - `dmgtype`: js/monsters.js:565 (live, canonical, untouched); rewired sites js/mhitm.js:571/:574/:1850/:1852/:1854/:2155/:2156/:2847/:2848/:3086, js/mhitu.js:1127/:1128/:1615/:2112/:3825, js/monmove.js:1809, js/zap.js:2979/:2980; pre-existing live sites per D-3355.
+**Change:** extended the 7 ALREADY static edges (`dmgtype` added to the monsters.js imports js/mhitm.js:120, js/mhitu.js:70, js/monmove.js:15, js/zap.js:263; `attacktype` + `dmgtype_fromattack` added to the mondata.js import js/mhitm.js:15; `dmgtype_fromattack` added to the mondata.js imports js/mhitu.js:86, js/polyself.js:40 — no new edge; graph shrinks: mhitm `dmgtype_fromattack` export deleted, mondata.js:44/polyself.js:22 mhitm names dropped); ported canonical `export function dmgtype_fromattack` at js/mondata.js:93 (whole C :700–708 body in C order + file-local `AT_ANY = -1`, monattk.h:11; boolean shape — every C call site uses boolean context; restores the clones' dropped AT_ANY arm); deleted all 7 clones (live-export markers left); refreshed the mondata.js attacktype canon doc (+mhitm). Maintained test: extended scripts/attacktype-dmgtype-rewire.test.mjs (no-clone + live-import + 14 new site-calls + fromattack/rename census, 8/8 pass).
+**Verify:** - `dmgtype`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `dmgtype`: none in-body — whole C body live at js/monsters.js:565.
+**Next:** 2 upstart rows (trap/pickup); then generated coverage refill.
 ## 2026-10-03 — D-3356 `hacklib.c` upstart mthrowu.js + read.js clone removal (2 sites → live js/hacklib.js export)
 
 **C locus:** - `upstart`: nethack-c/upstream/src/hacklib.c:113–119 — `if (s) *s = highc(*s); return s;`. 78 C refs (brief this session); 2 rewired here: mthrowu.c:113 (thitu wide-miss `upstart(onmbuf)`), read.c:2783 (genocide `upstart(nam)`).
