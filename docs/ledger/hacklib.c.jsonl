@@ -1,6 +1,6 @@
 {"fn":"digit","c":"62-65","status":"ported","js":["js/hacklib.js:digit"],"d":["D-3297"],"at":"2026-10-02@b23f261b5"}
 {"fn":"letter","c":"69-72","status":"ported","js":["js/hacklib.js:letter"],"d":["D-3297"],"at":"2026-10-02@b23f261b5"}
-{"fn":"highc","c":"76-79","status":"ported","js":["js/hacklib.js:highc"],"d":["D-3360"],"at":"2026-10-03@c9aee826b"}
+{"fn":"highc","c":"76-79","status":"ported","js":["js/hacklib.js:highc"],"d":["D-3373","D-3360"],"at":"2026-10-03@348c0ffa4"}
 {"fn":"lowc","c":"83-86","status":"ported","js":["js/hacklib.js:lowc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lcase","c":"90-98","status":"ported","js":["js/hacklib.js:lcase"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ucase","c":"102-110","status":"ported","js":["js/hacklib.js:ucase"],"at":"2026-10-03@bbe63333a"}
@@ -18,7 +18,7 @@
 {"fn":"copynchars","c":"287-297","status":"ported","js":["js/hacklib.js:copynchars"],"at":"2026-10-03@bbe63333a"}
 {"fn":"chrcasecpy","c":"301-317","status":"ported","js":["js/hacklib.js:chrcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b"}
 {"fn":"strcasecpy","c":"323-341","status":"ported","js":["js/hacklib.js:strcasecpy"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"s_suffix","c":"345-359","status":"split","js":["js/do_name.js:s_suffix","js/eat.js:s_suffix_eat","js/mhitm.js:s_suffix_mm","js/dothrow.js:s_suffix_throw_gold","js/zap.js:s_suffix_zap","js/objnam.js:s_suffix_objnam","js/apply.js:s_suffix_apply","js/apply.js:s_suffix_fig","js/timeout.js:s_suffix_hatch","js/weapon.js:s_suffix_towel","js/apply.js:s_suffix_leash","js/mhitu.js:s_suffix_poison","js/invent.js:s_suffix_inv","js/mhitu.js:s_suffix_hitmsg"],"d":["D-3360","D-3217","D-3210","D-3200","D-2268"],"at":"2026-10-03@c9aee826b"}
+{"fn":"s_suffix","c":"345-359","status":"split","js":["js/do_name.js:s_suffix","js/dothrow.js:s_suffix_throw_gold","js/objnam.js:s_suffix_objnam","js/apply.js:s_suffix_apply","js/apply.js:s_suffix_fig","js/timeout.js:s_suffix_hatch","js/weapon.js:s_suffix_towel","js/apply.js:s_suffix_leash","js/mhitu.js:s_suffix_poison","js/invent.js:s_suffix_inv","js/mhitu.js:s_suffix_hitmsg"],"d":["D-3373","D-3360","D-3217","D-3210","D-3200","D-2268"],"at":"2026-10-03@348c0ffa4"}
 {"fn":"ing_suffix","c":"363-396","status":"ported","js":["js/hacklib.js:ing_suffix"],"at":"2026-10-03@bbe63333a"}
 {"fn":"xcrypt","c":"400-415","status":"ported","js":["js/rumors.js:xcrypt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"onlyspace","c":"419-425","status":"ported","js":["js/hacklib.js:onlyspace"],"d":["D-3297"],"at":"2026-10-02@b23f261b5"}

@@ -1,7 +1,8 @@
 // Must-fix pins for reviews 2160 (D-3210) + 2170 second wave, minus the
 // D-3360 removals (5 same-named clones + potion `s_suffix_pot` rewired to
-// the live export): every remaining s_suffix clone in js/ must equal the
-// canonical export arm-for-arm.
+// the live export) and the D-3373 removals (`s_suffix_eat`, `s_suffix_mm`,
+// `s_suffix_zap` rewired): every remaining s_suffix clone in js/ must equal
+// the canonical export arm-for-arm.
 // C `hacklib.c:344–359` is lowercase-'s'-only with case-insensitive
 // it/you arms; two sweeps in a row missed homes because they enumerated
 // queued names instead of the definition census, so the census itself is
@@ -15,10 +16,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { s_suffix } from '../js/do_name.js';
 
 const CLONES = [
-    ['js/eat.js', 's_suffix_eat'],
-    ['js/mhitm.js', 's_suffix_mm'],
     ['js/dothrow.js', 's_suffix_throw_gold'],
-    ['js/zap.js', 's_suffix_zap'],
     ['js/objnam.js', 's_suffix_objnam'],
     ['js/apply.js', 's_suffix_apply'],
     ['js/apply.js', 's_suffix_fig'],

@@ -32,7 +32,7 @@
 {"fn":"mksobj","c":"1179-1259","status":"ported","js":["js/mkobj.js:mksobj"],"d":["D-2965"],"at":"2026-09-27@8b4ddcb7c"}
 {"fn":"stone_object_type","c":"1264-1271","status":"ported","js":["js/zap.js:stone_object_type"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stone_furniture_type","c":"1276-1295","status":"ported","js":["js/zap.js:stone_furniture_type"],"at":"2026-10-03@bbe63333a"}
-{"fn":"set_corpsenm","c":"1318-1367","status":"ported","d":["D-2818"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
+{"fn":"set_corpsenm","c":"1318-1367","status":"ported","js":["js/mkobj.js:set_corpsenm"],"d":["D-2818"],"at":"2026-10-03@348c0ffa4","note":"stale: complete port js/mkobj.js:2297 + wired callers; sym index missed the indented export (fixed D-3373)"}
 {"fn":"rider_revival_time","c":"1371-1382","status":"ported","js":["js/mkobj.js:rider_revival_time"],"at":"2026-10-03@bbe63333a"}
 {"fn":"start_corpse_timeout","c":"1389-1432","status":"ported","js":["js/mkobj.js:start_corpse_timeout"],"d":["D-2145"],"at":"2026-10-03@bbe63333a"}
 {"fn":"item_on_ice","c":"1443-1469","status":"ported","js":["js/mkobj.js:item_on_ice"],"at":"2026-10-03@bbe63333a"}

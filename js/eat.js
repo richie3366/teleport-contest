@@ -124,7 +124,7 @@ import {
 } from './potion.js';
 import { addinv_nomerge } from './u_init.js';
 import { dropy, dropx, make_blinded, BlindedTimeout, revive_corpse, donull } from './do.js';
-import { type_is_pname, rndmonnam, pmname, Ugender, mon_nam, Monnam } from './do_name.js';
+import { type_is_pname, rndmonnam, pmname, Ugender, mon_nam, Monnam, s_suffix } from './do_name.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import { hands_obj } from './weapon.js';
 import {
@@ -3366,16 +3366,7 @@ export async function Finish_digestion() {
     return 0;
 }
 
-/** C ref: hacklib.c s_suffix — it→its, you→your, *s→*', else *'s. */
-function s_suffix_eat(s) {
-    const buf = String(s ?? '');
-    const low = buf.toLowerCase();
-    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
-    if (low === 'you') return `${buf}r`;
-    /* C `*(eos(buf)-1) == 's'` — lowercase 's' only. */
-    if (buf.endsWith('s')) return `${buf}'`;
-    return `${buf}'s`;
-}
+/* s_suffix is the live js/do_name.js export (D-3373 removed the s_suffix_eat clone). */
 
 function add_brain_dmg(dmg_p, xtra) {
     if (!dmg_p) return;
@@ -3408,16 +3399,16 @@ export async function eat_brains(magr, mdef, visflag, dmg_p) {
         if (visflag) {
             const whose = (mdef === youmonst)
                 ? 'Your'
-                : s_suffix_eat(Monnam(mdef));
+                : s_suffix(Monnam(mdef));
             await pline(`${whose} brain is unharmed.`);
         }
         return M_ATTK_MISS;
     } else if (magr === youmonst) {
-        await pline(`You eat ${s_suffix_eat(mon_nam(mdef))} brain!`);
+        await pline(`You eat ${s_suffix(mon_nam(mdef))} brain!`);
     } else if (mdef === youmonst) {
         await pline('Your brain is eaten!');
     } else if (visflag && canspotmon(mdef)) {
-        await pline(`${s_suffix_eat(Monnam(mdef))} brain is eaten!`);
+        await pline(`${s_suffix(Monnam(mdef))} brain is eaten!`);
     }
 
     if (flesh_petrifies(pd)) {
@@ -3524,7 +3515,7 @@ export async function eat_brains(magr, mdef, visflag, dmg_p) {
             give_nutrit = true;
             if ((dmg_p?.damage | 0) >= (mdef.mhp | 0)
                 && visflag && canspotmon(mdef)) {
-                await pline(`${s_suffix_eat(Monnam(mdef))} last thought fades away...`);
+                await pline(`${s_suffix(Monnam(mdef))} last thought fades away...`);
             }
         }
     }

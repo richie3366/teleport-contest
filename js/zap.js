@@ -2795,18 +2795,7 @@ export function learnwand(obj) {
     }
 }
 
-/**
- * C ref: hacklib.c s_suffix — possessive for saddle drop msg.
- */
-function s_suffix_zap(s) {
-    const buf = String(s ?? '');
-    const low = buf.toLowerCase();
-    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
-    if (low === 'you') return `${buf}r`;
-    /* C `*(eos(buf)-1) == 's'` — lowercase 's' only. */
-    if (buf.endsWith('s')) return `${buf}'`;
-    return `${buf}'s`;
-}
+/* s_suffix is the live js/do_name.js export (D-3373 removed the s_suffix_zap clone). */
 
 /**
  * C dungeon.c surface :1750–1787 — swallow named (zap_updown is
@@ -3777,7 +3766,7 @@ export async function cancel_monst(
             || (mdef.data?.mndx | 0) === PM_CLAY_GOLEM) {
             if (canseemon(mdef)) {
                 await pline(
-                    `Some writing vanishes from ${s_suffix_zap(mon_nam(mdef))} head!`,
+                    `Some writing vanishes from ${s_suffix(mon_nam(mdef))} head!`,
                 );
             }
             if (allow_cancel_kill) {
@@ -3906,7 +3895,7 @@ export async function probe_monster(mtmp) {
     if (mtmp.minvent) {
         probe_objchain(mtmp.minvent);
         // C display_minventory NULL title → s_suffix(noit_Monnam)+" possessions:"
-        const title = `${s_suffix_zap(noit_Monnam(mtmp))} possessions:`;
+        const title = `${s_suffix(noit_Monnam(mtmp))} possessions:`;
         await display_minventory(
             mtmp, MINV_ALL | MINV_NOLET | PICK_NONE, title,
         );
@@ -4390,7 +4379,7 @@ export async function bhitm(mtmp, otmp) {
             } else {
                 const saddle = which_armor(mtmp, W_SADDLE);
                 if (saddle) {
-                    let buf = `${s_suffix_zap(Monnam(mtmp))} ${
+                    let buf = `${s_suffix(Monnam(mtmp))} ${
                         distant_name(saddle, xname)}`;
                     const mx = mtmp.mx | 0;
                     const my = mtmp.my | 0;

@@ -5,7 +5,14 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `windows.c` choose_classes_menu — C windows.c:1665–1675 category=0 (monclass) arm + generic prompt/way params absent from js/options.js:5557 local (autopickup-only reimplementation; C extern unexported; brief 2026-10-03) @9dc9139eb **Addressed:** D-3372
+- [x] `mkobj.c` set_corpsenm — absent from js/ (no JS symbol; seed-declared ported, location unresolved); C mkobj.c:1317–1367 egg-timer/oeaten/corpsenm/timeout/weight arms, all 8 callees live (brief 2026-10-03; 23 C call sites) @9dc9139eb
+- [x] `hacklib.c` highc dokeylist clone removal — C hacklib.c:75–79 ASCII highc absent from js/dokeylist.js as an import (local clone :51 const-arrow numeric-code variant takes/returns char codes, body read this session; 1 site :340 binds numeric key codes instead of the live char export js/hacklib.js:455 read this session; C body in brief highc this session; dokeylist→hacklib edge ALREADY :43) — rewire + adapt site to char domain or declare distinct. @79f8032a6
+- [x] `hacklib.c` s_suffix eat.js clone removal — C hacklib.c:344–359 4-arm possessive absent from js/eat.js as an import (local clone :3370 s_suffix_eat body-identical to live, body read this session; 4 sites instead of the live export js/do_name.js:418 read this session; C body via csym s_suffix this session; eat→do_name edge ALREADY) — rewire sites to the live export, delete clone. @79f8032a6
+- [x] `hacklib.c` s_suffix zap.js clone removal — C hacklib.c:344–359 4-arm possessive absent from js/zap.js as an import (local clone :2793 s_suffix_zap body-identical to live, body read this session; 3 sites instead of the live export js/do_name.js:418; C body via csym s_suffix this session; zap→do_name edge ALREADY) — rewire sites to the live export, delete clone. @79f8032a6
+- [x] `hacklib.c` s_suffix mhitm.js clone removal — C hacklib.c:344–359 4-arm possessive absent from js/mhitm.js as an import (local clone :5808 s_suffix_mm body-identical to live, body read this session; 16 sites instead of the live export js/do_name.js:418; C body via csym s_suffix this session; mhitm→do_name edge ALREADY) — rewire sites to the live export, delete clone. @79f8032a6
+
+
+- [x] `windows.c` choose_classes_menu — C windows.c:1665–1675 category=0 (monclass) arm + generic prompt/way params absent from js/options.js:5557 local (autopickup-only reimplementation; C extern unexported; brief 2026-10-03) @9dc9139eb **Addressed:** D-3372 `348c0ffa4`
 
 
 - [x] `mhitm.c` slept_monst unwired C callers — music.c:95 + potion.c:1806 still call local clones (js/music.js:268, js/potion.js:3745 slept_monst_pot; sticks-deferred, hand-clearing ustuck) and zap.c:486 bhitm WAN_SLEEP arm has no JS call site; canonical js/mhitm.js:1422 exact (`csym --callers` 7 refs, 3 sites unwired; Ledger says ported). Source: reviews/loop-unattended/2317-52fc04909-dobuzz-slept-monst.md @79f8032a6 **Addressed:** D-3368 `794aa26a5`

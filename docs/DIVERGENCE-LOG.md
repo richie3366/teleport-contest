@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3373 — `hacklib.c` highc/s_suffix 4-clone removal (dokeylist/eat/zap/mhitm → live exports) + set_corpsenm stale pop
+
+- **Status:** shipped (4 missing-arm rows + 1 stale row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions — below the ~80 bar, defended (D-3350–D-3360 clone-removal precedent): 24 call sites rewired, 4 whole clones deleted; the head's C file (hacklib.c) held exactly these 4 Open rows, all shipped. Bundled: set_corpsenm stale pop (complete port + wired callers; whitespace-only de-indent so the sym index resolves the export) + DONE-tail hash check.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline).
+- **C locus:**
+  - `highc`: nethack-c/upstream/src/hacklib.c:75–79 — `('a' <= c && c <= 'z') ? (c & ~040) : c`. 66 C refs (brief this session); rewired here: cmd.c:3445 (MV_RUN `di = highc(di)`).
+  - `s_suffix`: nethack-c/upstream/src/hacklib.c:344–359 — it→its, you→your, trailing-`s`→`'`, else `'s`. 164 C refs (brief this session); rewired here: eat.c:622/:625/:630/:744 (brain arms), zap.c:3203 (writing vanishes) + minventory title + saddle-drop, mhitm.c helmet/radiance/poison/shield..scales/acid/gaze/whose/tentacles/grab/futile.
+- **JS was:** live exports js/hacklib.js:455 (`highc`), js/do_name.js:418 (`s_suffix`) coexisted with 4 clones — js/dokeylist.js:51-then (const-arrow numeric-code variant, 1 site), js/eat.js:3370-then (`s_suffix_eat`, 4 sites), js/zap.js:2801-then (`s_suffix_zap`, 3 sites), js/mhitm.js:5808-then (`s_suffix_mm`, 16 sites; all three s_suffix clones arm-identical to live).
+- **Fix:** extended the two ALREADY static edges (`highc` → js/dokeylist.js:43 hacklib import; `s_suffix` → js/eat.js:127 do_name import — zap/mhitm already imported `s_suffix`, no import change; `imports.mjs --can` ALREADY ×4 this session, no new edge); dokeylist site adapted with `.charCodeAt(0)` back to the binds table's numeric-code domain (C cmd.c:3445 binds the char; JS indexes `binds[key & 0xff]`); deleted all 4 clones (live-export markers left). Maintained test: scripts/s_suffix_clones.test.mjs CLONES 13→10 (header notes D-3373; 12/12 pass). set_corpsenm: de-indented the js/mkobj.js:2289–2352 block (whitespace-only) so sym.mjs resolves the export; ledger note updated direct (`stale: complete port + wired callers`).
+- **JS:**
+  - `highc`: js/hacklib.js:455 (live, canonical, untouched); rewired site js/dokeylist.js:338.
+  - `s_suffix`: js/do_name.js:418 (live, canonical, untouched); rewired sites js/eat.js:3402/:3407/:3411/:3518, js/zap.js:3769/:3898/:4382, js/mhitm.js:758(×2)/:852/:1909/:2395/:2399/:2404/:2410/:2415/:2532/:2572/:2579/:5709/:5757/:5784/:5787/:6345.
+- **Callers:**
+  - `highc`: C cmd.c:3445 → js/dokeylist.js:338. Clone numeric-code ≡ live charCode range + charCodeAt on the all-lowercase sdir call domain — verify judges.
+  - `s_suffix`: C eat.c:622/:625/:630/:744 → js/eat.js:3402/:3407/:3411/:3518; C zap.c:3203 → js/zap.js:3769, minventory title → :3898, saddle-drop → :4382; mhitm helmet → :758, radiance → :852, poisoned → :1909, shield..scales → :2395/:2399/:2404/:2410/:2415, acid-splash → :2532, gaze → :2572/:2579, whose → :5709, tentacles → :5757, grab-names → :5784/:5787, futile → :6345. All three deleted bodies arm-identical to live — pure rewire. No JS site calls from a function C never calls from (rewire only — topology unchanged).
+- **Verify:**
+  - `highc`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `s_suffix`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/s_suffix_clones.test.mjs` 12/12 pass.
+  - `node scripts/verify.mjs --fn highc,s_suffix` → VERIFY: PASS (syntax 5 files, rule2 PASS, green 2/2, strict 2/2, cohort 7/7, full skipped — no shared file changed).
+- **Named omissions:**
+  - `highc`: none in-body — whole C body live at js/hacklib.js:455. Campaign complete — no highc-shaped definer remains outside the live export (census this session).
+  - `s_suffix`: none in-body — whole C body live at js/do_name.js:418. 10 `s_suffix_*` suffixed clones remain as ledger split homes (throw_gold/objnam/apply/fig/hatch/towel/leash/poison/inv/hitmsg — verified present this session, unqueued, out of cluster).
+- **Ledger:** highc ported js=hacklib.js:highc; s_suffix split js=js/do_name.js:s_suffix+js/dothrow.js:s_suffix_throw_gold+js/objnam.js:s_suffix_objnam+js/apply.js:s_suffix_apply+js/apply.js:s_suffix_fig+js/timeout.js:s_suffix_hatch+js/weapon.js:s_suffix_towel+js/apply.js:s_suffix_leash+js/mhitu.js:s_suffix_poison+js/invent.js:s_suffix_inv+js/mhitu.js:s_suffix_hitmsg
+- **Next:** queue drains toward 0 (5 missing-arm rows shipped; generated block still ungeneratable — refill needs authorization). Expect refill rows for the remaining 10 `s_suffix_*` suffixed-clone removals (each with its edge check).
+
 ## D-3372 — `windows.c` choose_classes_menu whole port (generic prompt/category/way + monclass arm, exported)
 
 - **Status:** fixed.
