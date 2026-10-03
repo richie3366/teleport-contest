@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `files.c` compress_bonesfile — C files.c:1005–1010 absent from js/ (no JS symbol; ledger unknown C 2; nh_sfconvert + nh_compress over fqname(gb.bones); 5 C refs bones.c:430/:624/:673/:688/:741 savebones/getbones; callees fqname + nh_compress live, C :1008 nh_sfconvert unresolved by brief — pop-time brief resolves — brief 2026-10-03) @bd0144c89 **Addressed:** D-3389
-- [x] `files.c` recover_savefile — C files.c:2864–3082 absent from js/ (no JS symbol; ledger unknown C 140; self-recover scan; sole caller sys/unix/unixunix.c:219 platform; callees open_levelfile/raw_printf/set_savefile_name/fqname/close+create+delete_savefile/store_version/set_levelfile_name live, bufoff/copy_bytes/bufon by-design — brief 2026-10-03) @bd0144c89 **Addressed:** D-3389
+- [x] `bones.c` free_ebones — C bones.c:832–839 absent from js/ (no JS symbol; ledger absent C 3; mextra+EBONES free+null; decl-only C ref extern.h:260, no live callers; sfctool.c:1050 dup body is the tool; 0 C callees — brief 2026-10-03) @bd0144c89
+
+
+- [x] `files.c` compress_bonesfile — C files.c:1005–1010 absent from js/ (no JS symbol; ledger unknown C 2; nh_sfconvert + nh_compress over fqname(gb.bones); 5 C refs bones.c:430/:624/:673/:688/:741 savebones/getbones; callees fqname + nh_compress live, C :1008 nh_sfconvert unresolved by brief — pop-time brief resolves — brief 2026-10-03) @bd0144c89 **Addressed:** D-3389 `d6a4a5312`
+- [x] `files.c` recover_savefile — C files.c:2864–3082 absent from js/ (no JS symbol; ledger unknown C 140; self-recover scan; sole caller sys/unix/unixunix.c:219 platform; callees open_levelfile/raw_printf/set_savefile_name/fqname/close+create+delete_savefile/store_version/set_levelfile_name live, bufoff/copy_bytes/bufon by-design — brief 2026-10-03) @bd0144c89 **Addressed:** D-3389 `d6a4a5312`
 
 
 - [x] `hack.c` losehp showdamage ×2 + rehumanize arms — C hack.c:4269–4280 (Upolyd/normal showdamage(n) + mh<1 rehumanize) absent from js/hack.js:1881 losehp (sync; doc :1864/:1871–1872 defers both, mh<1 sets gameover :1896–1904; callees showdamage js/hack.js:1874 + rehumanize js/polyself.js:1224 live async — brief 2026-10-03) @787f6ade

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3390 `bones.c` free_ebones mextra+EBONES free+null
+
+**C locus:** - `free_ebones`: nethack-c/upstream/src/bones.c:832–839 (`if (mtmp->mextra && EBONES(mtmp))` → `free()` + null the slot).
+**JS:** js/bones.js:553 `free_ebones`, js/bones.js:13 import.
+**Change:** whole C body in C order at C-home js/bones.js:553 — `if (mtmp.mextra && EBONES(mtmp)) mtmp.mextra.ebones = 0`. `free()` is GC in JS; the `= 0` free sentinel matches `dealloc_mextra`'s established idiom (`x.ebones = 0`, js/mon.js:3454). `EBONES` joins the existing const.js import (no new edge).
+**Verify:** - `free_ebones`: `node scripts/verify.mjs --fn free_ebones` → VERIFY: PASS — syntax (js/bones.js) · Rule #2 · hidden note (no corpus session blocked; expected for a coverage row) · REACH-OK (no RNG-tagged reach; fixed 24-smoke, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7. /tmp probe: clears bag to 0, EBONES falsy after, no-mextra/no-ebones no-ops, idempotent on 0.
+**Named:** - `free_ebones`: none — whole C body live (0 C callees).
+**Next:** `invent.c` repopulate_perminvent queue row (next Open missing-arm row).
 ## 2026-10-03 — D-3389 `files.c` bones/recover quartet: compress_bonesfile + nh_sfconvert + doconvert_file + recover_savefile
 
 **C locus:** - `compress_bonesfile`: nethack-c/upstream/src/files.c:1005–1010 (`nh_sfconvert` + `nh_compress` over `fqname(gb.bones, BONESPREFIX, 0)`).

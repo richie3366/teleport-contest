@@ -88,7 +88,7 @@
 {"fn":"max_capacity","c":"4391-4396","status":"ported","js":["js/invent.js:max_capacity"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_capacity","c":"4399-4409","status":"ported","js":["js/hack.js:check_capacity"],"d":["D-3266"],"at":"2026-10-02@a2542cfc9"}
 {"fn":"dump_weights","c":"4421-4483","status":"split","js":["js/hack.js:dump_weights","js/hack.js:dump_weights_lines"],"omit":"- `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).","d":["D-3062"],"at":"2026-10-01@1633dc128","note":"stale: whole C body live across dump_weights + dump_weights_lines (D-3062); freedynamicdata/earlyarg-caller omits stand"}
-{"fn":"cmp_weights","c":"4486-4493","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cmp_weights","c":"4486-4493","status":"ported","js":["js/hack.js:cmp_weights"],"at":"2026-10-03@d6a4a5312","note":"stale: js/hack.js:4012 (D-3062)"}
 {"fn":"inv_cnt","c":"4496-4507","status":"ported","js":["js/steal.js:inv_cnt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"money_cnt","c":"4514-4522","status":"ported","js":["js/shk.js:money_cnt"],"d":["D-3332"],"at":"2026-10-03@50d9779cf"}
 {"fn":"spot_checks","c":"4525-4547","status":"ported","js":["js/hack.js:spot_checks"],"d":["D-3062"],"at":"2026-09-28@fb9c2049c","note":"refresh: no JS symbol (measured MISSING)"}

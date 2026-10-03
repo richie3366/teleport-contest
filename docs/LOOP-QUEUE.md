@@ -127,7 +127,6 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `bones.c` free_ebones — C bones.c:832–839 absent from js/ (no JS symbol; ledger absent C 3; mextra+EBONES free+null; decl-only C ref extern.h:260, no live callers; sfctool.c:1050 dup body is the tool; 0 C callees — brief 2026-10-03) @bd0144c89
 - [ ] `invent.c` repopulate_perminvent — C invent.c:3455–3460 absent from js/ (no JS symbol; ledger absent C 2; display_pickinv(NULL,0,0,FALSE,FALSE,0) wrapper; 0 C refs; callee display_pickinv split across invent.js builders D-1559 — brief 2026-10-03) @bd0144c89
 - [ ] `invent.c` only_here — C invent.c:5476–5480 absent from js/ (no JS symbol; ledger absent C 1; staticfn ox/oy vs go.only; decl-only C ref invent.c:20, no live callers; 0 C callees — brief 2026-10-03) @bd0144c89
 - [ ] `display.c` fn_cmap_to_glyph — C display.c:3796–3800 absent from js/ (no JS symbol; ledger absent C 1; cmap_to_glyph(cmap) wrapper; 0 C refs — brief 2026-10-03) @bd0144c89
@@ -135,6 +134,7 @@ Must-fix/coverage.
 - [ ] `display.c` newsym flux + Underwater gates — C display.c:928–929 (_suppress_map_output early return) + :943–948 (Underwater !Is_waterlevel → pool/lava/ice + next2u gate) absent from js/display.js:5348 newsym (head :5348–5356 loc-null → uswallow, no guards; callees suppress_map_output js/display.js:5101 + Is_waterlevel js/const.js:3243 + is_ice js/zap.js:887 live, next2u/is_pool_or_lava resolve at pop-time brief; ledger partial D-1745/D-1737 — brief 2026-10-03) @41ae7cfca
 - [ ] `cmd.c` dummyfunction — C cmd.c:5699–5702 absent from js/ (no JS symbol; ledger absent C 1; staticfn returning ECMD_CANCEL; decl-only C ref cmd.c:151, no live callers; 0 C callees — brief 2026-10-03) @14e98dbc1
 - [ ] `files.c` nh_sfunconvert — C files.c:2079–2082 absent from js/ (no JS symbol; ledger unknown C 1; doconvert_file(filename,0,TRUE) unconvert hook; 0 C refs; callee doconvert_file module-local live same-file js/files.js (same-file call, not a clone) — brief 2026-10-03) @14e98dbc1
+- [ ] `cmd.c` redraw_cmd generic-bind arm — C cmd.c:3911–3918 (cmdbind_get(uc)->ef_funct==doredraw lookup) absent from js/getpos.js:118 redraw_cmd (hardcodes C-r/C-l so rebound redraw keys diverge; callee cmdbind_get js/dokeylist.js:386 live; C callers cmd.c:4013 getdir + getpos.c:945; ledger partial names this arm — brief 2026-10-03) @d6a4a5312
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

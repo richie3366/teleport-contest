@@ -13,4 +13,4 @@
 {"fn":"set_ghostly_objlist","c":"784-790","status":"ported","js":["js/bones.js:set_ghostly_objlist"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact plus array arm"}
 {"fn":"fix_ghostly_obj","c":"796-815","status":"ported","js":["js/bones.js:fix_ghostly_obj"],"d":["D-2918"],"at":"seed@a30a7de84"}
 {"fn":"newebones","c":"818-829","status":"ported","js":["js/restore.js:newebones"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact mextra/ebones alloc with zeroed fields and parentmid"}
-{"fn":"free_ebones","c":"833-839","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_ebones","c":"833-839","status":"ported","js":["js/bones.js:free_ebones"],"d":["D-3390"],"at":"2026-10-03@d6a4a5312","note":"refresh: no JS symbol (measured MISSING)"}

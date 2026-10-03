@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3390 — `bones.c` free_ebones mextra+EBONES free+null
+
+- **Status:** shipped (queue-head missing-arm row checked off + archived in this commit; no review cited, no stamp owed).
+- **Symptom:** coverage — C `bones.c:832–839` (`free_ebones`) absent from `js/` (no JS symbol; ledger absent C 3).
+- **C locus:**
+  - `free_ebones`: nethack-c/upstream/src/bones.c:832–839 (`if (mtmp->mextra && EBONES(mtmp))` → `free()` + null the slot).
+- **JS was:** no `free_ebones` anywhere in `js/`; the `EBONES(mtmp)` reader lived in js/const.js:3166 and `dealloc_mextra` (js/mon.js:3444) cleared `x.ebones = 0` on full teardown, but the standalone release had no export.
+- **Fix:** whole C body in C order at C-home js/bones.js:553 — `if (mtmp.mextra && EBONES(mtmp)) mtmp.mextra.ebones = 0`. `free()` is GC in JS; the `= 0` free sentinel matches `dealloc_mextra`'s established idiom (`x.ebones = 0`, js/mon.js:3454). `EBONES` joins the existing const.js import (no new edge).
+- **JS:** js/bones.js:553 `free_ebones`, js/bones.js:13 import.
+- **Callers:**
+  - `free_ebones`: none — decl-only C ref (extern.h:260), no live callers; sfctool.c:1050 dup body is the standalone tool, not the game.
+- **Verify:**
+  - `free_ebones`: `node scripts/verify.mjs --fn free_ebones` → VERIFY: PASS — syntax (js/bones.js) · Rule #2 · hidden note (no corpus session blocked; expected for a coverage row) · REACH-OK (no RNG-tagged reach; fixed 24-smoke, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7. /tmp probe: clears bag to 0, EBONES falsy after, no-mextra/no-ebones no-ops, idempotent on 0.
+- **Named omissions:**
+  - `free_ebones`: none — whole C body live (0 C callees).
+- **Ledger:** free_ebones ported
+- **Next:** `invent.c` repopulate_perminvent queue row (next Open missing-arm row).
+
 ## D-3389 — `files.c` bones/recover quartet: compress_bonesfile + nh_sfconvert + doconvert_file + recover_savefile
 
 - **Status:** shipped (head missing-arm row + same-file companion row checked off + archived in this commit; no review cited, no stamp owed).

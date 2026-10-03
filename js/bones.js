@@ -10,7 +10,7 @@ import { peace_minded, set_malign, propagate } from './makemon.js';
 import {
     OBJ_FLOOR, OBJ_CONTAINED, SHOPBASE, ROOMOFFSET, ONAME_BONES,
     DEFUNCT_MONSTER, NON_PM, TRICKED, LOST_NONE, has_oname, has_omonst,
-    has_mgivenname, ismnum, RIGHT_HANDED,
+    has_mgivenname, ismnum, RIGHT_HANDED, EBONES,
 } from './const.js';
 import { FOOD_CLASS } from './objects.js';
 import { save_track, rest_track } from './track.js';
@@ -541,6 +541,19 @@ export function lookup_bones_id(oldId) {
 }
 export function clear_bones_ids() {
     bonesIdMap.clear();
+}
+
+/**
+ * C ref: bones.c free_ebones `:832–839` — release the ghost's ebones bag
+ * and null the slot. `free()` is GC in JS; the `= 0` free sentinel matches
+ * `dealloc_mextra` (mon.js), which clears `x.ebones` the same way.
+ * C has no live callers (decl-only extern.h:260); the sfctool.c:1050 dup
+ * body is the standalone tool, not the game.
+ */
+export function free_ebones(mtmp) {
+    if (mtmp.mextra && EBONES(mtmp)) {
+        mtmp.mextra.ebones = 0;
+    }
 }
 
 /**
