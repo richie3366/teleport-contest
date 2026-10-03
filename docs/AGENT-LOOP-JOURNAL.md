@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3342 `rm.h` m_at teleport.js rewire + `dungeon.c` dunlev/dunlevs_in_dungeon clone census (last 7 clones → live exports)
+
+**C locus:** - `m_at`: nethack-c/upstream/include/rm.h:510–511 — `(MON_AT(x, y) ? svl.level.monsters[x][y] : (struct monst *) 0)` (:516 alternate one-line form); 188 C refs incl teleport.c:118/:684/:1514/:1658/:1986 + the goodpos MON_AT arm :114.
+**JS:** - `m_at`: js/mon.js:1745 (live, unchanged); js/teleport.js:92 alias reused, clone deleted; sites :478/:487/:588/:761/:1150/:1371/:2718 (:2894/:2898 pre-existing mon_m_at uses).
+**Change:** m_at: rewired the 7 sites to the ALREADY-imported alias (js/teleport.js:92 `m_at as mon_m_at` — no import change, no new edge); deleted the clone; one C-cite comment per site (goodpos ×2 rm.h cites; :588 C :684; :761/:1150 keep their C :1658 cites; :1371 C :1986; :2718 C :1514); import-block comment rewritten (clone-keeping rationale retired); rloc_to zeroing comment reworded to the canonical reader. Behavior delta is the live steed-skip arm (C removes the mounted steed from the grid, so C m_at never returns it): MONPOS/collect_coords/rloc/teledest reads at the hero square no longer see the steed — C-true at all 7 sites, 44/44 unchanged. dunlev/dunlevs: extended the ALREADY static dungeon edges (trap :129, dokick :36, teleport :60-63) and added the new SAFE edge to fountain.js (:121, `imports.mjs --can` SAFE both names — hoisted fns, in-SCC shape, verify judges TDZ); deleted all 6 clones (one-line C-locus pointer left at each deletion site); one C-cite comment per site; dungeon.js:1085 canonical comment updated (census rewired). All dunlev/dunlevs site expressions unchanged (clone bodies identical to live).
+**Verify:** - `m_at`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke 24/24 PASS, no RNG-tagged reach) · mat-rewire 9/9 pass.
+**Named:** - `m_at`: none in-body — whole C body live at js/mon.js:1745.
+**Next:** `mkroom.c` somex dog.js clone removal (last Open row; dog→mklev edge ABSENT with a documented cycle — needs imports.mjs TDZ analysis like D-3335).
 ## 2026-10-03 — D-3341 `dungeon.c` ledger_no do+mon+muse+potion+shknam+teleport.js clone removals (last 6 clones → live js/dungeon.js export)
 
 **C locus:** - `ledger_no`: nethack-c/upstream/src/dungeon.c:1376–1379 — `(xint16)(lev->dlevel + svd.dungeons[lev->dnum].ledger_start)`; 50 C refs incl do.c:1330/1357/1388/1517/1570/1650, mon.c:3836/3945, muse.c:903/969/1062/1070/1083/1088/1099/1109/1119/1127/1137/2419, potion.c:1086, shknam.c:507, teleport.c:2094.

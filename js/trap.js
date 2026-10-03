@@ -126,7 +126,7 @@ import {
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds, safe_teleds, noteleport_level, dotele, unconscious } from './teleport.js';
 import { emits_light, del_light_source } from './light.js'; // mongone_statue_donor del arm (same SCC; hoisted fns, runtime use only)
-import { get_level, on_level, at_dgn_entrance, update_lastseentyp, has_ceiling } from './dungeon.js';
+import { get_level, on_level, at_dgn_entrance, update_lastseentyp, has_ceiling, dunlev, dunlevs_in_dungeon } from './dungeon.js';
 import {
     objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS, WAND_CLASS, is_blade,
@@ -632,13 +632,7 @@ export function m_harmless_trap(mtmp, ttmp) {
     }
 }
 
-// C ref: dungeon.c dunlev / dunlevs_in_dungeon / In_hell
-function dunlev(lev) {
-    return lev?.dlevel ?? 1;
-}
-function dunlevs_in_dungeon(lev) {
-    return game.dungeons?.[lev?.dnum]?.num_dunlevs ?? 1;
-}
+// C ref: dungeon.c dunlev_reached / In_hell (dunlev + dunlevs_in_dungeon now live-imported from dungeon.js)
 function dunlev_reached(lev) {
     return game.dungeons?.[lev?.dnum]?.dunlev_ureached ?? 0;
 }
@@ -648,6 +642,7 @@ function In_hell(lev) {
 
 // C ref: trap.c dng_bottom — quest locate / Gehennom invocation cutoffs
 function dng_bottom(lev) {
+    // C trap.c:420 bottom via live dunlevs_in_dungeon.
     let bottom = dunlevs_in_dungeon(lev);
     if (In_quest(lev)) {
         const qlocate_depth = game.qlocate_level?.dlevel;
@@ -672,6 +667,7 @@ export function hole_destination(dst) {
     const uz = game.u?.uz ?? { dnum: 0, dlevel: 1 };
     const bottom = dng_bottom(uz);
     dst.dnum = uz.dnum;
+    // C trap.c:447 hole_destination dst dlevel via live dunlev.
     dst.dlevel = dunlev(uz);
     while (dst.dlevel < bottom) {
         dst.dlevel++;
@@ -4213,6 +4209,7 @@ export async function fall_through(td, ftflags = 0) {
     // C: Blind && Levitation && !Sokoban → return early
     if (Blind && Levitation && !Sokoban) return;
 
+    // C trap.c:618 fall_through newlevel (+1 below C's ++ line) via live dunlev.
     const newlevel = dunlev(u.uz) + 1;
     const loc = game.level?.at(ux, uy);
 

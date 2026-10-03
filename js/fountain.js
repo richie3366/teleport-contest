@@ -117,6 +117,8 @@ import { fruitname } from './potion.js';
 import { surface } from './sit.js';
 import { money_cnt } from './shk.js';
 import { fingers_or_gloves } from './do_wear.js';
+/* dungeon.js (same SCC; hoisted functions, call-time use only — imports.mjs SAFE). */
+import { dunlev, dunlevs_in_dungeon } from './dungeon.js';
 
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -973,13 +975,7 @@ function Inhell() {
     return (game.u?.uz?.dnum | 0) === GEHENNOM;
 }
 
-/** C dungeon.c dunlev / dunlevs_in_dungeon — dipfountain case 29 gold. */
-function dunlev(lev) {
-    return lev?.dlevel ?? 1;
-}
-function dunlevs_in_dungeon(lev) {
-    return game.dungeons?.[lev?.dnum]?.num_dunlevs ?? 1;
-}
+/** C dungeon.c dunlev / dunlevs_in_dungeon — imported live from dungeon.js (local clones deleted; dipfountain case-29 gold). */
 
 /**
  * Thin alias over the live mkmaze.c set_levltyp export (D-3319):
@@ -1324,6 +1320,7 @@ export async function dipfountain(obj) {
         // glistening pline but still places gold.
         if (FOUNTAIN_IS_LOOTED(u.ux, u.uy)) break;
         SET_FOUNTAIN_LOOTED(u.ux, u.uy);
+        // C fountain.c:538 — live dunlevs_in_dungeon/dunlev from dungeon.js.
         mkgold(
             rnd((dunlevs_in_dungeon(u.uz) - dunlev(u.uz) + 1) * 2) + 5,
             u.ux, u.uy,

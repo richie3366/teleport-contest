@@ -1,12 +1,15 @@
-// `rm.h` m_at clone removals (D-3328 shknam.js, D-3330 uhitm.js + dig.js):
-// the local clones (fmon scans with no dead/steed/offmap/worm-seg arms)
-// are deleted for the live export (js/mon.js:1745). C `rm.h:510-511` is
-// a MON_AT-gated lookup: monsters[x][y] when occupied, NULL otherwise.
-// The two shknam call sites are C shknam.c:470 (!MON_AT mimic gate in
-// mkshobj_at; JS has no MON_AT export, live m_at null iff unoccupied at
-// stock time) and C shknam.c:660 (shkinit squatter insurance, direct
-// m_at call). The five uhitm sites are C uhitm.c:699/:799/:5459/:5539 +
+// `rm.h` m_at clone removals (D-3328 shknam.js, D-3330 uhitm.js + dig.js,
+// D-3342 teleport.js): the local clones (fmon scans with no dead/steed/
+// offmap/worm-seg arms) are deleted for the live export (js/mon.js:1745).
+// C `rm.h:510-511` is a MON_AT-gated lookup: monsters[x][y] when occupied,
+// NULL otherwise. The two shknam call sites are C shknam.c:470 (!MON_AT
+// mimic gate in mkshobj_at; JS has no MON_AT export, live m_at null iff
+// unoccupied at stock time) and C shknam.c:660 (shkinit squatter insurance,
+// direct m_at call). The five uhitm sites are C uhitm.c:699/:799/:5459/:5539 +
 // the mon_at wrapper; the four dig sites are C dig.c:63/:647/:876/:1202.
+// The seven teleport sites ride the mon_m_at alias: goodpos ×2, C :684
+// collect_coords skip_mons, C :1658 rloc_to + rloc_to_core same-cell,
+// C :1986 mtele_trap teledest, C :1514 tele_trap teledest.
 import { describe, it, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -51,7 +54,7 @@ describe('live m_at MON_AT-gated lookup (rm.h:510-511)', () => {
     });
 });
 
-describe('m_at clone census (shknam/uhitm/dig rewires)', () => {
+describe('m_at clone census (shknam/uhitm/dig/teleport rewires)', () => {
     for (const f of ['shknam.js', 'uhitm.js', 'dig.js']) {
         it(`no local m_at remains in ${f}; it imports the live export`, () => {
             const src = readFileSync(new URL(`../js/${f}`, import.meta.url), 'utf8');
@@ -62,7 +65,18 @@ describe('m_at clone census (shknam/uhitm/dig rewires)', () => {
         });
     }
 
-    it('census: remaining m_at defs are the canonical export + out-of-scope locals', () => {
+    it('no local m_at remains in teleport.js; it imports the live export aliased', () => {
+        const src = readFileSync(new URL('../js/teleport.js', import.meta.url), 'utf8');
+        assert.ok(!src.match(/^function m_at\(/m),
+            'local clone still defined in js/teleport.js');
+        assert.ok(src.match(/import \{[^}]*m_at as mon_m_at[^}]*\} from '\.\/mon\.js'/),
+            'js/teleport.js must import m_at as mon_m_at from mon.js');
+        const code = src.replace(/\/\/.*$/gm, '');
+        assert.ok(!code.match(/[^_a-zA-Z]m_at\(/),
+            'bare m_at( call remains in js/teleport.js');
+    });
+
+    it('census: the canonical export is the only m_at def', () => {
         const dir = new URL('../js/', import.meta.url);
         const defs = [];
         for (const f of readdirSync(dir)) {
@@ -70,8 +84,8 @@ describe('m_at clone census (shknam/uhitm/dig rewires)', () => {
             const src = readFileSync(new URL(f, dir), 'utf8');
             if (src.match(/^(export )?function m_at\(/m)) defs.push(`js/${f}`);
         }
-        // teleport.js keeps its intentional steed-finding local variant
-        // (D-3328; no queue row); shknam/uhitm/dig are rewired to mon.js.
-        assert.deepEqual(defs.sort(), ['js/mon.js', 'js/teleport.js']);
+        // The last local (teleport.js steed-finding variant) is rewired
+        // (D-3342); shknam/uhitm/dig/teleport all use js/mon.js:1745.
+        assert.deepEqual(defs.sort(), ['js/mon.js']);
     });
 });
