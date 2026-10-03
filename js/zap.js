@@ -276,7 +276,7 @@ import {
     killed, xkilled, flash_hits_mon, m_is_steadfast, that_is_a_mimic,
     disguised_as_mon, disguised_as_non_mon,
 } from './uhitm.js';
-import { mon_nam, Monnam, a_monnam, noit_Monnam, noname_monnam, type_is_pname, christen_monst, hliquid, Hallucination, rndmonnam, free_oname } from './do_name.js';
+import { mon_nam, Monnam, a_monnam, noit_Monnam, noname_monnam, type_is_pname, christen_monst, hliquid, Hallucination, rndmonnam, free_oname, Amonnam } from './do_name.js';
 import { rnd_hallublast, m_useup } from './mthrowu.js';
 import { finish_losehp_done, done } from './end.js';
 import {
@@ -804,12 +804,6 @@ function incr_itimeout_HInvis(incr) {
     const next = (cur & ~TIMEOUT) | itimeout((cur & TIMEOUT) + (incr | 0));
     u.HInvis = next;
     u.uprops[INVIS].intrinsic = next;
-}
-
-/** C ref: do_name.c Amonnam — highc(a_monnam). */
-function Amonnam(mtmp) {
-    const s = mon_nam(mtmp) || 'it';
-    return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 /** C ref: youprop.h Deaf */
@@ -3411,6 +3405,7 @@ export async function unturn_dead(mon) {
                     `${owner}${corpse} suddenly ${verb}${as2}!`,
                 );
             } else if (canseemon(mtmp2)) {
+                // C zap.c:1212 — Amonnam(mtmp2) suddenly appears (live do_name export).
                 await pline(`${Amonnam(mtmp2)} suddenly appears!`);
             }
         } else {

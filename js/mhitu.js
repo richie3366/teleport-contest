@@ -10,7 +10,7 @@ import {
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
     M_ATTK_DEF_DIED,
     Upolyd, DIED, P_WHIP, NON_PM, XKILL_NOMSG, NEW_MOON,
-    DISPLACED, CONFLICT, INVIS, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, FAST, ARTICLE_A,
+    DISPLACED, CONFLICT, INVIS, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, FAST,
     LEFT_SIDE, RIGHT_SIDE, LEFT_RING, RIGHT_RING, LEG, HAND, HAIR,
     POOL, DROWNING, KILLED_BY_AN,
     MAGICAL_BREATHING, SWIMMING, Is_medusa_level, Is_waterlevel, is_pit,
@@ -36,8 +36,8 @@ import {
 } from './display.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import {
-    Adjmonnam, Monnam, mon_nam, pmname, hliquid, x_monnam, Hallucination,
-    noit_mon_nam, noit_Monnam, s_suffix, Ugender, m_monnam, Some_Monnam, Mgender,
+    Adjmonnam, Monnam, mon_nam, pmname, hliquid, Hallucination,
+    noit_mon_nam, noit_Monnam, s_suffix, Ugender, m_monnam, Some_Monnam, Mgender, Amonnam,
 } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval, drain_weapon_skill } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned, is_art, defends, retouch_equipment } from './artifact.js';
@@ -3257,12 +3257,6 @@ async function passiveum(olduasmon, mtmp, mattk) {
     return assess_dmg(mtmp, tmp);
 }
 
-/** C ref: do_name.c Amonnam — highc(a_monnam). */
-function Amonnam(mtmp) {
-    const s = x_monnam(mtmp, ARTICLE_A, null, 0, false);
-    return s ? s.charAt(0).toUpperCase() + s.slice(1) : 'It';
-}
-
 /**
  * C ref: mhitu.c hitmu `:1144–1267` — base d() + midnight undead extra +
  * adtyping + knockback + AC + Half/Mitre + permdmg hpmax cut + mdamageu
@@ -3300,6 +3294,7 @@ async function hitmu(mtmp, mattk) {
                 } else {
                     what = doname(obj);
                 }
+                // C mhitu.c:1176 Strcpy(Amonbuf, Amonnam) (live do_name export).
                 let Amonbuf = Amonnam(mtmp);
                 // C: if (!strcmp(Amonbuf, "It")) → Something
                 if (Amonbuf === 'It') Amonbuf = 'Something';

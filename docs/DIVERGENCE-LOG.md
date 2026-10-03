@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3340 — `do_name.c` Amonnam fountain+mhitu+zap.js clone removals (last 3 clones → live js/do_name.js export)
+
+- **Status:** shipped (3 missing-arm rows checked off + archived; no review cited, no stamp owed). ~10 js/ insertions — below the ~80 bar, defended (D-3338/D-3336 multi-clone precedent): the whole remaining Amonnam clone census rewired to the live export, and the head's C file (do_name.c) holds no further Open rows while the sole C callee a_monnam is already live, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline).
+- **C locus:**
+  - `Amonnam`: nethack-c/upstream/src/do_name.c:1159–1165 — highc(a_monnam()) (NONNULLARG1); 30 C call sites incl fountain.c:184/188 (watchman yells), mhitu.c:1176 (Amonbuf hidden-under), zap.c:1212 (suddenly appears).
+- **JS was:** live `Amonnam` js/do_name.js:1234 (highc_name(a_monnam()) with the SUPPRESS_SADDLE-when-named arm) coexisted with 3 clones: js/fountain.js:197-then (x_monnam flags-0 call + invented 'A monster' empty fallback), js/mhitu.js:3261-then (x_monnam flags-0 call + 'It' fallback), js/zap.js:810-then (mon_nam-based highc — ARTICLE_THE semantics, not ARTICLE_A). All three dropped the saddle-suppression arm for named monsters.
+- **Fix:** extended the three ALREADY static do_name edges (js/fountain.js:102-105, js/mhitu.js:38-41, js/zap.js:279 — edges proven by the read import blocks, no new module edge) with `Amonnam`; deleted the 3 clones; removed the now-unused `x_monnam` (fountain :103, mhitu :39 — clone was sole user) and `ARTICLE_A` (fountain const :78, mhitu const :13 — clone was sole user) imports; zap `mon_nam` import kept (14 uses); one C-cite comment per site. Behavior deltas are the live arms: zap mon_nam(THE)→a_monnam(A) article fix + saddle suppression; mhitu 'It' empty arm identical to live `highc_name` (js/do_name.js:793) so the `=== 'It'` → Something check is preserved; fountain 'A monster'→'It' empty fallback unreachable for real monsters (x_monnam always names — same shape as D-3333 teleport). Maintained test: extended scripts/amonnam-rewire.test.mjs (no-clone + live-import checks for the 3 files; Amonnam census test — only the canonical export defines it).
+- **JS:**
+  - `Amonnam`: js/do_name.js:1234 (live, unchanged); imports extended fountain :102-105, mhitu :38-41, zap :279; clones deleted; sites fountain :209/:214, mhitu :3298, zap :3409.
+- **Callers:**
+  - `Amonnam`: C fountain.c:184 → js/fountain.js:209; C fountain.c:188 → js/fountain.js:214; C mhitu.c:1176 → js/mhitu.js:3298; C zap.c:1212 → js/zap.js:3409. Remaining C refs served by the live export where JS ports import it (D-3250 msummon, D-3323 music, D-3333 teleport); no Amonnam clones remain anywhere (census test pins it).
+- **Verify:**
+  - `Amonnam`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/amonnam-rewire.test.mjs` 10/10 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn Amonnam` → PASS syntax (3 changed js files: js/fountain.js js/mhitu.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (smoke 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `Amonnam`: none in-body — whole C body live at js/do_name.js:1234.
+- **Ledger:** Amonnam ported js=do_name.js:Amonnam
+- **Next:** the remaining missing-arm rows (ledger_no do/mon/muse/potion/shknam/teleport — dungeon.c, next iterations).
+
 ## D-3339 — `monmove.c` monflee music.js clone removal (sole site → live js/monmove.js export)
 
 - **Status:** shipped (1 missing-arm row checked off + archived; no review cited, no stamp owed). ~3 js/ insertions — below the ~80 bar, defended (D-3337/D-3338 batch precedent for tiny missing-arm rows): the whole clone rewired to the live export, and the head's C file (monmove.c) holds no further Open rows while all 11 C callees are already live, so the cluster cannot grow.

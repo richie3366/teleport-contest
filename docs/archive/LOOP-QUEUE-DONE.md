@@ -5,6 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `do_name.c` Amonnam fountain.js clone removal — C do_name.c:1159–1165 highc(a_monnam) absent from js/fountain.js (local clone :197 x_monnam flags-0 call dropping the live SUPPRESS_SADDLE-when-named arm, 2 live sites :214/:219 yells arm instead of importing live js/do_name.js:1234; C body in brief Amonnam this session, clone body + sites read this session, fountain→do_name edge ALREADY :102 this session) — rewire sites to the live export, delete clone.
+- [x] `do_name.c` Amonnam mhitu.js clone removal — C do_name.c:1159–1165 highc(a_monnam) absent from js/mhitu.js (local clone :3261 x_monnam flags-0 call dropping the live SUPPRESS_SADDLE-when-named arm, sole live site :3303 Amonbuf instead of importing live js/do_name.js:1234; C body in brief Amonnam this session, clone body + site read this session, mhitu→do_name edge ALREADY :38 this session) — rewire site to the live export, delete clone.
+- [x] `do_name.c` Amonnam zap.js clone removal — C do_name.c:1159–1165 highc(a_monnam) absent from js/zap.js (local clone :810 mon_nam-based highc with ARTICLE_THE semantics instead of ARTICLE_A, dropping the live SUPPRESS_SADDLE-when-named arm, sole live site :3464 suddenly-appears instead of importing live js/do_name.js:1234; C body in brief Amonnam this session, clone body + site read this session, zap→do_name edge ALREADY :279 this session) — rewire site to the live export, delete clone.
+
+
 - [x] `monmove.c` monflee music.js clone removal — C monmove.c:462–530 mflee + fleemsg + Vrock + track-clear absent from js/music.js (local async clone :187 dropping live's flees_light/immobile-flinch/Vrock/release_hero/mon_track_clear arms, sole live site :227 instead of importing live js/monmove.js:1109; C body in brief monflee this session, clone body + site read this session, no static music→monmove edge, imports.mjs SAFE this session — hoisted fn, verify judges TDZ) — rewire site to the live export, delete clone.
 
 

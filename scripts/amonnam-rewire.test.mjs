@@ -95,4 +95,26 @@ describe('a_monnam clone census (trap/hack/music rewires)', () => {
         }));
         assert.equal(s, 'Silver');
     });
+
+    it('no local Amonnam remains in fountain.js, mhitu.js or zap.js (D-3340 rewires)', () => {
+        for (const f of ['fountain.js', 'mhitu.js', 'zap.js']) {
+            const src = readFileSync(new URL(`../js/${f}`, import.meta.url), 'utf8');
+            assert.ok(!src.match(/^function Amonnam\(/m),
+                `local clone still defined in js/${f}`);
+            assert.ok(src.match(/import \{[^}]*Amonnam[^}]*\} from '\.\/do_name\.js'/),
+                `js/${f} must import Amonnam from do_name.js`);
+        }
+    });
+
+    it('census: only the canonical export defines Amonnam', () => {
+        const dir = new URL('../js/', import.meta.url);
+        const defs = [];
+        for (const f of readdirSync(dir)) {
+            if (!f.endsWith('.js')) continue;
+            const src = readFileSync(new URL(f, dir), 'utf8');
+            if (src.match(/^(export )?function Amonnam\(/m)) defs.push(`js/${f}`);
+        }
+        // D-3340 rewired the last three clones (fountain/mhitu/zap).
+        assert.deepEqual(defs.sort(), ['js/do_name.js']);
+    });
 });
