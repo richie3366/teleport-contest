@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — Audit 2276-2284: review D-3320-D-3328 (9 ACCEPT) + full score
+
+**Scope:** 9 JS-touching SHAs since audit 2269–2275 (money_cnt trio, fingers_or_gloves, a_monnam ×2, distmin, early_init, nhcolor, by-design trio + dist2, m_at + Is_special) — each re-measured per-function vs pinned C with hidden-proxy verify --reach-all.
+**Verify:** all D-log tails reproduced verbatim (vacuous 0-block + REACH-OK, 0 regressed); Rule #2 clean; no Must-fix, no queue change.
+**Fortress:** public 44/44 (Scr 11,405, RNG 792,838); corpus 705/953 (0 losses/0 gains, full:true); held-out 15/44 (+0).
+**Ledger:** snapshot + early_init stale-note refresh; 5/5 sampled seeded-ported rows correct (ceiling PARTIAL is density, 10/10 arms live).
 ## 2026-10-03 — D-3328 `rm.h` m_at shknam rewire + `dungeon.c` Is_special end/quest rewire (live-export clone removals)
 
 **C locus:** - `m_at`: nethack-c/upstream/include/rm.h:510–511 — `(MON_AT(x, y) ? svl.level.monsters[x][y] : (struct monst *) 0)` (:516 carries the alternate one-line form); 188 C refs incl shknam.c:660; the mkshobj_at gate shknam.c:470 reads `!MON_AT(sx, sy)` (csym.mjs this session — JS has no MON_AT export).

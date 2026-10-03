@@ -2285,3 +2285,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2273-1f248868c-mon-sextet-mondied.md](./2273-1f248868c-mon-sextet-mondied.md) | `1f248868c` | D-3317 mon sextet (mondied gate) | **ACCEPT** |
 | [2274-e33fbee37-fountain-septet.md](./2274-e33fbee37-fountain-septet.md) | `e33fbee37` | D-3318 fountain septet (floating_above) | **ACCEPT** |
 | [2275-434fcf3c6-fountain-completion.md](./2275-434fcf3c6-fountain-completion.md) | `434fcf3c6` | D-3319 fountain completion (levltyp rewire) | **ACCEPT** |
+| [2276-0debd1ae2-moneycnt-first-stack-trio.md](./2276-0debd1ae2-moneycnt-first-stack-trio.md) | `0debd1ae2` | D-3320 money_cnt first-stack trio + impossible | **ACCEPT** |
+| [2277-266f347ca-fingers-or-gloves-clone.md](./2277-266f347ca-fingers-or-gloves-clone.md) | `266f347ca` | D-3321 fingers_or_gloves eat.js clone removal | **ACCEPT** |
+| [2278-cb36dc362-amonnam-trap-hack.md](./2278-cb36dc362-amonnam-trap-hack.md) | `cb36dc362` | D-3322 a_monnam trap+hack clone removals | **ACCEPT** |
+| [2279-c944311a4-music-amonnam-twins.md](./2279-c944311a4-music-amonnam-twins.md) | `c944311a4` | D-3323 music a_monnam/Amonnam twins | **ACCEPT** |
+| [2280-ba7109db3-distmin-consolidation.md](./2280-ba7109db3-distmin-consolidation.md) | `ba7109db3` | D-3324 distmin consolidation + nh_snprintf | **ACCEPT** |
+| [2281-925c8355a-early-init-port.md](./2281-925c8355a-early-init-port.md) | `925c8355a` | D-3325 early_init whole-body port + jsmain | **ACCEPT** |
+| [2282-0e60ede85-nhcolor-256-index.md](./2282-0e60ede85-nhcolor-256-index.md) | `0e60ede85` | D-3326 get_nhcolor_from_256_index + stale trio | **ACCEPT** |
+| [2283-95d4fec09-bydesign-trio-dist2.md](./2283-95d4fec09-bydesign-trio-dist2.md) | `95d4fec09` | D-3327 by-design trio + dist2 removal | **ACCEPT** |
+| [2284-caaacb9fc-mat-isspecial-rewires.md](./2284-caaacb9fc-mat-isspecial-rewires.md) | `caaacb9fc` | D-3328 m_at + Is_special rewires | **ACCEPT** |
