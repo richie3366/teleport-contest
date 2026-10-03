@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3331 `dungeon.c` on_level ×6 clone removals (teleport/shk/priest/getpos/vault/muse → live export)
+
+**C locus:** - `on_level`: nethack-c/upstream/src/dungeon.c:1439–1443 — dnum+dlevel equality (NONNULLARG12); 79 C refs incl shk.c:274/:1044/:1410/:2523/:2560, teleport.c:1419/:1460, priest.c:157/:926, pager.c:1605, vault.c:58/:901, muse.c:2410.
+**JS:** - `on_level`: js/dungeon.js:1810 (live, unchanged); imports extended js/teleport.js:62, js/shk.js:128, js/muse.js:95; imports added js/priest.js:39, js/getpos.js:64, js/vault.js:41; clones deleted; sites js/teleport.js:395/:412/:2602/:2648, js/shk.js:343/:2051/:4689/:5199/:5233, js/priest.js:93/:769, js/getpos.js:564, js/vault.js:173/:1088, js/muse.js:3112.
+**Change:** extended the ALREADY static dungeon edges (js/teleport.js:62, js/shk.js:128, js/muse.js:95) with `on_level`; added new static edges (js/priest.js:39, js/getpos.js:64, js/vault.js:41 — `imports.mjs --can` SAFE all three, in-SCC hoisted-name shape, verify judges TDZ); deleted all 6 clones; one C-cite comment per site (15). Nullish audit for the 4 `!!`-guarded clones: live folds a missing arg like a zeroed d_level, so results differ from the clone only on a nullish arg — unreachable-at-difference here (shoplevel/shrlevel/gdlevel guarded or mon-typed; u.uz mid-game-set; a nullish side folds to {0,0} which no real level equals since dlevel ≥ 1; D-3329 same-shape audit precedent). getpos/muse clones were already the identical unguarded shape (zero behavior change). All call-site expressions unchanged.
+**Verify:** - `on_level`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/isbranchlev-rewire.test.mjs` 6/6 pass.
+**Named:** - `on_level`: none in-body — whole C body live at js/dungeon.js:1810.
+**Next:** the 2 remaining missing-arm rows (money_cnt sit.js + Amonnam teleport.js — different C files, next iteration).
 ## 2026-10-03 — D-3330 `rm.h` m_at uhitm+dig rewires + `dungeon.c` on_level dokick rewire (live-export clone removals)
 
 **C locus:** - `m_at`: nethack-c/upstream/include/rm.h:510–511 — `(MON_AT(x, y) ? svl.level.monsters[x][y] : (struct monst *) 0)` (:516 alternate one-line form); 188 C refs incl uhitm.c:699/:799/:5459/:5539 and dig.c:63/:647/:876/:1202.

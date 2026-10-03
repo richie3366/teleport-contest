@@ -2,7 +2,8 @@
 // end.js Is_branchlev+on_level clones and mklev.js is_branchlev() deleted for
 // the live export (js/dungeon.js); dothrow/mon/potion/trap has_ceiling clones
 // (+ trap has_ceiling_trap) and quest/dig/do/potion/end on_level clones
-// rewired to the live dungeon.js exports (D-3330 adds dokick.js).
+// rewired to the live dungeon.js exports (D-3330 adds dokick.js; D-3331
+// adds teleport/shk/priest/getpos/vault/muse — 0 on_level clones remain).
 // C: dungeon.c:1464–1473
 // (branches scan, end1-before-end2), :1689–1698 (endgame non-earth has no
 // ceiling), :1439–1443 (dnum+dlevel equality, NONNULLARG12).
@@ -74,7 +75,8 @@ describe('Is_branchlev/has_ceiling/on_level clone census', () => {
             assert.ok(src.match(/import \{[^}]*has_ceiling[^}]*\} from '\.\/dungeon\.js'/),
                 `js/${f} must import has_ceiling from dungeon.js`);
         }
-        for (const f of ['quest.js', 'dig.js', 'do.js', 'potion.js', 'dokick.js']) {
+        for (const f of ['quest.js', 'dig.js', 'do.js', 'potion.js', 'dokick.js',
+            'teleport.js', 'shk.js', 'priest.js', 'getpos.js', 'vault.js', 'muse.js']) {
             const src = readFileSync(new URL(`../js/${f}`, import.meta.url), 'utf8');
             assert.ok(!src.match(/^function on_level\(/m),
                 `local clone still defined in js/${f}`);
@@ -88,19 +90,19 @@ describe('Is_branchlev/has_ceiling/on_level clone census', () => {
             'local on_level clone still defined in js/end.js');
     });
 
-    it('census: dungeon.js is the sole definer of Is_branchlev/has_ceiling', () => {
+    it('census: dungeon.js is the sole definer of Is_branchlev/has_ceiling/on_level', () => {
         const dir = new URL('../js/', import.meta.url);
         const defs = [];
         for (const f of readdirSync(dir)) {
             if (!f.endsWith('.js')) continue;
             const src = readFileSync(new URL(f, dir), 'utf8');
-            for (const m of src.matchAll(/^(export )?function (Is_branchlev|has_ceiling)\(/gm)) {
+            for (const m of src.matchAll(/^(export )?function (Is_branchlev|has_ceiling|on_level)\(/gm)) {
                 defs.push(`js/${f}:${m[2]}`);
             }
             assert.ok(!src.match(/^function (is_branchlev|has_ceiling_trap)\(/m),
                 `renamed clone still defined in js/${f}`);
         }
         assert.deepEqual(defs.sort(),
-            ['js/dungeon.js:Is_branchlev', 'js/dungeon.js:has_ceiling']);
+            ['js/dungeon.js:Is_branchlev', 'js/dungeon.js:has_ceiling', 'js/dungeon.js:on_level']);
     });
 });
