@@ -28,7 +28,7 @@ import {
     HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, VIBRATING_SQUARE, RLOC_MSG, RLOC_NOMSG, RLOC_ERR, NO_TRAP_FLAGS,
     FORCETRAP, VIASITTING,
-    BOLT_LIM, STRAT_APPEARMSG, ARTICLE_A, engulfing_u,
+    BOLT_LIM, STRAT_APPEARMSG, engulfing_u,
     MON_FLOOR, MON_OFFMAP, Upolyd,
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
     MAGICAL_BREATHING, I_SPECIAL, ECMD_TIME,
@@ -63,7 +63,7 @@ import {
 } from './dungeon.js';
 import { depth, distmin } from './hacklib.js';
 import { addinv } from './u_init.js';
-import { mon_nam, Monnam, x_monnam, noit_mon_nam, Hallucination } from './do_name.js';
+import { mon_nam, Monnam, Amonnam, noit_mon_nam, Hallucination } from './do_name.js';
 import { placebc, unplacebc, drag_ball, move_bc } from './ball.js';
 import { acurr, A_STR, A_WIS, exercise } from './attrib.js';
 import { in_out_region, update_player_regions, update_monster_region } from './region.js';
@@ -96,12 +96,6 @@ const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
 const PM_WIZARD = monsterNames.indexOf('PM_WIZARD');
-
-/** C ref: do_name.c Amonnam — highc(a_monnam). */
-function Amonnam(mtmp) {
-    const s = x_monnam(mtmp, ARTICLE_A, null, 0, false);
-    return s ? s.charAt(0).toUpperCase() + s.slice(1) : 'A monster';
-}
 
 /** Squared distance from hero to (x,y). C ref: you.h distu. */
 function distu_xy(x, y) {
@@ -1137,6 +1131,7 @@ async function rloc_post_move_msg(mtmp, x, y, state) {
         // C youprop.h Blind — poly brown mold is blind (D-0928 #1128).
         const Blind = !!(((u.HBlinded | 0) || (u.EBlinded | 0) || u.Blind || u.ublind)
             && !(u.BBlinded | 0));
+        // C teleport.c:1722 — appearmsg ? Amonnam : Monnam (live do_name.js export; SUPPRESS_SADDLE-when-named).
         const who = appearmsg ? Amonnam(mtmp) : Monnam(mtmp);
         const sud = appearmsg ? 'suddenly ' : '';
         const verb = Blind ? 'arrives' : 'appears';

@@ -10,7 +10,7 @@ import { describe, it, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { game, resetGame } from '../js/gstate.js';
-import { a_monnam } from '../js/do_name.js';
+import { a_monnam, Amonnam } from '../js/do_name.js';
 import { W_SADDLE } from '../js/const.js';
 import { initRng } from '../js/rng.js';
 
@@ -75,5 +75,24 @@ describe('a_monnam clone census (trap/hack/music rewires)', () => {
             'local clone still defined in js/music.js');
         assert.ok(src.match(/import \{[^}]*Amonnam[^}]*\} from '\.\/do_name\.js'/),
             'js/music.js must import Amonnam from do_name.js');
+    });
+
+    it('no local Amonnam remains in teleport.js (D-3333 rewire)', () => {
+        const src = readFileSync(new URL('../js/teleport.js', import.meta.url), 'utf8');
+        assert.ok(!src.match(/^function Amonnam\(/m),
+            'local clone still defined in js/teleport.js');
+        assert.ok(src.match(/import \{[^}]*Amonnam[^}]*\} from '\.\/do_name\.js'/),
+            'js/teleport.js must import Amonnam from do_name.js');
+    });
+
+    it('live Amonnam highcases + suppresses saddle when named (teleport clone dropped both)', { timeout: 5000 }, () => {
+        resetGame();
+        initRng(3333);
+        assert.equal(Amonnam(spotted('eel')), 'An eel');
+        const s = Amonnam(spotted('pony', {
+            mextra: { mgivenname: 'Silver' },
+            misc_worn_check: W_SADDLE,
+        }));
+        assert.equal(s, 'Silver');
     });
 });

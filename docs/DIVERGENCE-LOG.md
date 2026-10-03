@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3333 — `do_name.c` Amonnam teleport.js clone removal (sole site → live js/do_name.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~3 js/ insertions — below the ~80 bar, defended (D-3328/D-3332 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (do_name.c) holds no further Open rows while Amonnam's C callee a_monnam is already live, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `Amonnam`: nethack-c/upstream/src/do_name.c:1159–1165 — highc(a_monnam()) (NONNULLARG1); 30 C call sites incl teleport.c:1722 (appearmsg ? Amonnam : Monnam).
+- **JS was:** live `Amonnam` js/do_name.js:1234 (highc_name(a_monnam()) with the SUPPRESS_SADDLE-when-named arm) coexisted with clone js/teleport.js:101-then (x_monnam flags-0 call — dropped the saddle-suppression arm for named monsters — plus an invented 'A monster' empty fallback), sole live site js/teleport.js:1140-then (rloc post-move appear arm).
+- **Fix:** extended the ALREADY static do_name edge (js/teleport.js:66; `imports.mjs --can` ALREADY) with `Amonnam`; deleted the clone; removed the now-unused `x_monnam` (do_name edge) and `ARTICLE_A` (const edge :31) imports (clone was their sole user); one C-cite comment at the site (:1134). Site expression unchanged; behavior delta is the live SUPPRESS_SADDLE-when-named arm (named+saddled mon now names without saddle text). Maintained test: extended scripts/amonnam-rewire.test.mjs (teleport.js no-clone + live-import census; live-Amonnam 'An eel'/'Silver' behavior case pinning the delta).
+- **JS:**
+  - `Amonnam`: js/do_name.js:1234 (live, unchanged); import extended js/teleport.js:66; clone deleted; sole site js/teleport.js:1135.
+- **Callers:**
+  - `Amonnam`: C teleport.c:1722 (rloc appear arm) → js/teleport.js:1135. Remaining 29 C refs out of cluster: served by the live export where JS ports import it (D-3250 msummon, D-3323 music); 3 JS clones remain in other files for their own rows (fountain.js, mhitu.js, zap.js — brief census).
+- **Verify:**
+  - `Amonnam`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach) · `node --test scripts/amonnam-rewire.test.mjs` 8/8 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn Amonnam` → PASS syntax (1 changed js file: js/teleport.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (smoke 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `Amonnam`: none in-body — whole C body live at js/do_name.js:1234.
+- **Ledger:** Amonnam ported js=do_name.js:Amonnam
+- **Next:** the remaining missing-arm rows (t_at steed head + somex/ledger_no/dunlev/healup/m_useup/monflee — different C files, next iterations).
+
 ## D-3332 — `hack.c` money_cnt sit.js clone removal (sole site → live js/shk.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived — last money_cnt clone; no review cited, no stamp owed). ~8 js/ insertions — below the ~80 bar, defended (D-3328/D-3331 batch precedent for tiny missing-arm rows): one whole clone rewired to the live export, and the head's C file (hack.c) holds no further Open rows while money_cnt has 0 C callees, so the cluster cannot grow.

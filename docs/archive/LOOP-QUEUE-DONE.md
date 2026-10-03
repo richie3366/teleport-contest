@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `hack.c` money_cnt sit.js clone removal — C hack.c:4514–4522 first-COIN_CLASS-quan walk absent from js/sit.js (local clone :1084 array-only walk with no null-elem guard, no |0 folding, no nobj-chain arm, sole live site :1225 `money_cnt(game.invent)` instead of importing live js/shk.js:4767; C body in brief money_cnt this session, clone body + site read this session, imports.mjs SAFE this session despite the stale "end/shk cycles" comment — a cycle alone is not a blocker) — rewire site to the live export, delete clone. **Addressed:** D-3332
+- [x] `do_name.c` Amonnam teleport.js clone removal — C do_name.c:1159–1165 highc(a_monnam) absent from js/teleport.js (local clone :101 x_monnam flags-0 call dropping the live SUPPRESS_SADDLE-when-named arm, sole live site :1145 instead of importing live js/do_name.js:1234; C body in brief Amonnam this session, clone body + site read this session, teleport→do_name edge ALREADY :66 this session) — rewire site to the live export, delete clone.
+
+
+- [x] `hack.c` money_cnt sit.js clone removal — C hack.c:4514–4522 first-COIN_CLASS-quan walk absent from js/sit.js (local clone :1084 array-only walk with no null-elem guard, no |0 folding, no nobj-chain arm, sole live site :1225 `money_cnt(game.invent)` instead of importing live js/shk.js:4767; C body in brief money_cnt this session, clone body + site read this session, imports.mjs SAFE this session despite the stale "end/shk cycles" comment — a cycle alone is not a blocker) — rewire site to the live export, delete clone. **Addressed:** D-3332 `08e30b12c`
 
 
 - [x] `dungeon.c` on_level teleport.js clone removal — C dungeon.c:1439–1443 dnum+dlevel equality absent from js/teleport.js (local clone :359 with !!a&&!!b guard, 4 live sites :401/:417/:2606/:2651 instead of importing live js/dungeon.js:1810; C body in brief on_level this session, clone body + sites read this session, teleport→dungeon edge ALREADY :63 this session) — rewire sites to the live export, delete clone.

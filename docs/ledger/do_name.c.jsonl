@@ -32,7 +32,7 @@
 {"fn":"YMonnam","c":"1133-1139","status":"unknown"}
 {"fn":"Adjmonnam","c":"1142-1149","status":"unknown"}
 {"fn":"a_monnam","c":"1152-1156","status":"ported","js":["js/do_name.js:a_monnam"],"d":["D-3323","D-3322"],"at":"2026-10-02@cb36dc362","note":"trap+hack clones deleted, rewired to live export; music.js:266 third clone remains (queued next)"}
-{"fn":"Amonnam","c":"1159-1165","status":"ported","js":["js/do_name.js:Amonnam"],"d":["D-3323","D-3250"],"at":"2026-10-02@cb36dc362"}
+{"fn":"Amonnam","c":"1159-1165","status":"ported","js":["js/do_name.js:Amonnam"],"d":["D-3333","D-3323","D-3250"],"at":"2026-10-03@08e30b12c"}
 {"fn":"distant_monnam","c":"1170-1186","status":"ported","js":["js/do_name.js:distant_monnam"],"d":["D-1673"],"at":"2026-10-02@cb36dc362","note":"stale: js/do_name.js:885 whole C body (astral conceal + x_monnam else, D-1673)"}
 {"fn":"mon_nam_too","c":"1191-1216","status":"ported","js":["js/do_name.js:mon_nam_too"],"d":["D-3203","D-1790"],"at":"2026-10-01@a5f89dd93","note":"stale: js/do_name.js:1225, all C arms + callers wired"}
 {"fn":"monverbself","c":"1221-1249","status":"unknown"}
