@@ -107,6 +107,7 @@ import { explode } from './explode.js';
 import {
     flash_hits_mon, xkilled, attack_checks, check_caitiff,
     force_attack, stumble_onto_mimic, killed, defsym_explanation,
+    attacktype_fordmg,
 } from './uhitm.js';
 import { digests, set_ustuck, Flying, mon_reflects } from './mhitu.js';
 import { growl, yelp, whimper, mon_msound } from './sounds.js';
@@ -4553,23 +4554,6 @@ const AT_ENGL_UNI = 11;
 const AD_BLND_UNI = 11;
 
 /**
- * C ref: mondata.c attacktype_fordmg — first mattk with aatyp and adtyp
- * (AD_ANY==-1 wildcard). Local copy to avoid makemon/mhitu import cycles.
- */
-function attacktype_fordmg(ptr, atyp, dtyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return null;
-    for (let i = 0; i < slots.length; i++) {
-        const a = slots[i];
-        if ((a?.aatyp | 0) === atyp
-            && (dtyp === -1 || (a?.adtyp | 0) === dtyp)) {
-            return a;
-        }
-    }
-    return null;
-}
-
-/**
  * C youprop.h TimedTrouble — timeout-only intrinsic (no I_SPECIAL/extrinsic
  * high bits): ((P) && !((P) & ~TIMEOUT)) ? (P & TIMEOUT) : 0.
  */
@@ -4682,6 +4666,7 @@ export async function use_unicorn_horn(obj) {
     if (TimedTrouble(u.Sick)) trouble_list.push(SICK);
     if (TimedTrouble(u.HBlinded) > (u.ucreamed | 0)
         && !(u.uswallow
+            // C apply.c:2316 — engulfer AT_ENGL/AD_BLND keeps TimedTrouble blind.
             && attacktype_fordmg(u.ustuck?.data, AT_ENGL_UNI, AD_BLND_UNI))) {
         trouble_list.push(BLINDED);
     }

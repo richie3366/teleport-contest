@@ -104,6 +104,8 @@ import { unpunish } from './read.js';
 import { explode } from './explode.js';
 import { flooreffects } from './do.js';
 import { surface } from './sit.js';
+/* uhitm.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
+import { attacktype_fordmg } from './uhitm.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
@@ -293,23 +295,6 @@ function immune_poisongas(ptr) {
     return n === PM_HEZROU || n === PM_VROCK;
 }
 
-/**
- * C ref: mondata.c attacktype_fordmg — first mattk with aatyp+adtyp.
- * Local clone (eat.js / region.js); cycle if imported from those.
- */
-function attacktype_fordmg(ptr, atyp, dtyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return null;
-    for (let i = 0; i < slots.length; i++) {
-        const a = slots[i];
-        if ((a?.aatyp | 0) === atyp
-            && (dtyp === -1 || (a?.adtyp | 0) === dtyp)) {
-            return a;
-        }
-    }
-    return null;
-}
-
 /** C youprop.h Poison_resistance — H || E || uprops (JS split storage). */
 function Poison_resistance() {
     const u = game.u || {};
@@ -348,6 +333,7 @@ export function m_poisongas_ok(mtmp) {
     if ((ptr?.mlet === 'S_EEL' || Is_waterlevel(u.uz)) && is_pool(px, py)) {
         return M_POISONGAS_OK;
     }
+    // C mon.c:350–351 — breathers of gas/rays ignore poisonclouds.
     if (attacktype_fordmg(ptr, AT_BREA, AD_DRST)
         || attacktype_fordmg(ptr, AT_BREA, AD_RBRE)) {
         return M_POISONGAS_OK;

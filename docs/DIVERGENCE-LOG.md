@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3346 — `mondata.c` attacktype_fordmg 4-clone removal (apply/eat/mon/region → live js/uhitm.js export)
+
+- **Status:** shipped (4 head missing-arm rows checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (4 clone deletions + 4 import names + C-cite comments) — below the ~80 bar, defended (D-3341–D-3345 clone-removal precedent): four whole clones rewired to the live export; the head's C file (mondata.c) holds no further Open rows and attacktype_fordmg has 0 C callees, so the cluster cannot grow. Refill: 4 missing-arm rows appended from this session's brief/search/read evidence (attacktype artifact+dog+wizard+eat — 9 clones, no live export; first row ports it at C-home js/mondata.js) — queue ships at 8 (coverage ungeneratable; band gate ≥8 met).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline).
+- **C locus:**
+  - `attacktype_fordmg`: nethack-c/upstream/src/mondata.c:42–50 — mattk[0..NATTK) scan, first slot with aatyp==atyp && (dtyp==AD_ANY || adtyp==dtyp), else NULL. 14 C refs incl apply.c:2316, eat.c:2519/:3767, mon.c:350–351, mhitu.c:277/:1278.
+- **JS was:** live `attacktype_fordmg` js/uhitm.js:609 (whole C body + `|0` param folding; D-1265) coexisted with 4 clones lacking the folding: js/apply.js:4559-then (sole site :4685-then unicorn-horn engulf-blind), js/eat.js:394-then (3 sites :387-then attacktype wrapper, :872-then vomit-acid, :2170-then fpostfx carrot), js/mon.js:300-then (2 sites :351–352-then m_poisongas_ok breath arms), js/region.js:320-then (2 sites :356–357-then local m_poisongas_ok clone). Static apply→uhitm edge already present (:110); eat/mon/region→uhitm absent.
+- **Fix:** extended the ALREADY static edge (apply.js:110; `imports.mjs --can` ALREADY) and added 3 new static edges (eat.js:155, mon.js:108, region.js:61; `imports.mjs --can` SAFE all three — hoisted fn, same SCC, verify judges TDZ); deleted all 4 clones; 8 sites now resolve to the live export with one C-cite comment each (apply :4669, eat :857/:2156 + wrapper doc :384, mon :336, region :342). Behavior-identical rewire: all sites pass int params so the live `|0` folding is a no-op. Maintained test: new scripts/attacktype-fordmg-rewire.test.mjs (no-clone + live-import + site-call + sole-definer census, 3/3 pass).
+- **JS:**
+  - `attacktype_fordmg`: js/uhitm.js:609 (live, unchanged); imports apply.js:110, eat.js:155, mon.js:108, region.js:61; clones deleted; rewired sites apply.js:4670, eat.js:389/:858/:2157, mon.js:337–338, region.js:344–345.
+- **Callers:**
+  - `attacktype_fordmg`: C apply.c:2316 → js/apply.js:4670; C eat.c:2519 → js/eat.js:2157; C eat.c:3767 (vomit) → js/eat.js:858; C mon.c:350–351 → js/mon.js:337–338 (+ region.js local m_poisongas_ok clone :344–345); C mondata.c:56 (attacktype) → js/eat.js:389 wrapper (attacktype's other 8 clones out of cluster — 4 refill rows queued). Pre-existing live wirings untouched: hack.c:2326 → js/cmd.js:3867/3934; mhitu.c:1278 → js/mhitu.js:1769; muse.c:3055 → js/muse.js:1622; polyself.c:1439/1457 → js/polyself.js:2363/2383; dokick.js:934 + weapon.js:156 (fordmg-direct, no same-call C ref). Pre-existing gaps, out of cluster: mhitu.c:277 (expels) → inline `.find` js/mhitu.js:1660 (equivalent, not rewired); pray.c:263 → named omit js/pray.js:552/:613.
+- **Verify:**
+  - `attacktype_fordmg`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/attacktype-fordmg-rewire.test.mjs` 3/3 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn attacktype_fordmg` → PASS syntax (4 changed js files: js/apply.js js/eat.js js/mon.js js/region.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS; plus forced full `sessions` 44/44 (mon/apply/eat shared).
+- **Named omissions:**
+  - `attacktype_fordmg`: none in-body — whole C body live at js/uhitm.js:609.
+- **Ledger:** attacktype_fordmg ported
+- **Next:** the remaining missing-arm rows (mon_aligntyp/m_in_air/Invocation_lev×2 + attacktype refill×4 — next iterations).
+
 ## D-3345 — `invent.c` useupf zap.js clone removal (sole site → live js/invent.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (clone deletion + 1 import name + comments) — below the ~80 bar, defended (D-3344/D-3343 clone-removal precedent): one whole clone rewired to the live export; the head's C file (invent.c) holds no further Open rows and all 7 C callees are live, so the cluster cannot grow. Queue ships at 8 (coverage ungeneratable; band gate ≥8 met, no refill).
