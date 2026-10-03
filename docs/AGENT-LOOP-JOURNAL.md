@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — Audit 2320–2328: review D-3365–D-3373 (9 ACCEPT, 0 Must-fix) + full score
+
+**Scope:** 9 JS-touching SHAs since 79f8032a6 (skipped ace5efd57 ledger-only + 3164b76c4 stamp-only). 3 Must-fix closures verified exact (2319→D-3365 CURS/MAC, 2318→D-3366 probe deletion, 2317→D-3367 steed tail-skip + D-3368 slept callers/bhitm arm); 6 coverage ports confirmed branch-by-branch (D-3369 reset_oattached_mids, D-3370 savelevchn/save_bc, D-3371 restlevchn, D-3372 choose_classes_menu, D-3373 clone ×4 + set_corpsenm stale).
+**Verify:** every D-log number re-measured via `hidden-proxy verify --base <sha>~1 --reach-all` — all match (incl. dobuzz 40/40, bhitm 2/2 REACH-OK). Public 44/44 (RNG 792838, Scr 11405, `337+1.63`). Corpus full rescore 707/953, 0 unrecorded, 0 lost/0 gained, `full: true` 12:53Z. Held-out 15/44 (+0). Ledger snapshot + 5 seeded-ported briefs all correct (readobjnam_init, parse_status_hl2, create_polymon, end_burn, optfn_sortloot).
+**Refill:** coverage generator 0 rows; queue/100 0 eligible; parks aged (u_catch shipped, use_towel gulp unreachable per park, mcast writers unproven). Queued 5 brief-verified missing-arm rows → 8 Open: m_throw misfire/dknown, glow_color hcolor, use_cream_pie COST_SPLAT, poison_strdmg killer, doapply BANANA.
+**Next:** pop rest_adjust_levelflags (wire caveat stands) or tricked_fileremoved.
 ## 2026-10-03 — D-3373 `hacklib.c` highc/s_suffix 4-clone removal (dokeylist/eat/zap/mhitm → live exports) + set_corpsenm stale pop
 
 **C locus:** - `highc`: nethack-c/upstream/src/hacklib.c:75–79 — `('a' <= c && c <= 'z') ? (c & ~040) : c`. 66 C refs (brief this session); rewired here: cmd.c:3445 (MV_RUN `di = highc(di)`).

@@ -2329,3 +2329,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2317-52fc04909-dobuzz-slept-monst.md](./2317-52fc04909-dobuzz-slept-monst.md) | `52fc04909` | D-3361 dobuzz completion + slept_monst | **QUALITY-RISK** |
 | [2318-6da1640bc-def-char-is-furniture-reveal.md](./2318-6da1640bc-def-char-is-furniture-reveal.md) | `6da1640bc` | D-3363 def_char_is_furniture + reveal arms | **QUALITY-RISK** |
 | [2319-79f8032a6-assign-graphics-siblings.md](./2319-79f8032a6-assign-graphics-siblings.md) | `79f8032a6` | D-3364 assign_graphics + 8 siblings | **QUALITY-RISK** |
+| [2320-8b1162c17-set-symhandling-curs-mac.md](./2320-8b1162c17-set-symhandling-curs-mac.md) | `8b1162c17` | D-3365 set_symhandling CURS/MAC dedup | **ACCEPT** |
+| [2321-f1f60014e-reveal-terrain-probe-deletion.md](./2321-f1f60014e-reveal-terrain-probe-deletion.md) | `f1f60014e` | D-3366 reveal-terrain probe deletion | **ACCEPT** |
+| [2322-2c22a94c3-dobuzz-steed-tail-skip.md](./2322-2c22a94c3-dobuzz-steed-tail-skip.md) | `2c22a94c3` | D-3367 dobuzz steed-redirect tail-skip | **ACCEPT** |
+| [2323-794aa26a5-slept-monst-callers-bhitm.md](./2323-794aa26a5-slept-monst-callers-bhitm.md) | `794aa26a5` | D-3368 slept_monst callers + bhitm WAN_SLEEP | **ACCEPT** |
+| [2324-0887462dd-reset-oattached-mids.md](./2324-0887462dd-reset-oattached-mids.md) | `0887462dd` | D-3369 reset_oattached_mids whole port | **ACCEPT** |
+| [2325-33bc41ba1-savelevchn-save-bc.md](./2325-33bc41ba1-savelevchn-save-bc.md) | `33bc41ba1` | D-3370 savelevchn + save_bc whole ports | **ACCEPT** |
+| [2326-7feedbbb2-restlevchn-port.md](./2326-7feedbbb2-restlevchn-port.md) | `7feedbbb2` | D-3371 restlevchn whole port | **ACCEPT** |
+| [2327-348c0ffa4-choose-classes-menu.md](./2327-348c0ffa4-choose-classes-menu.md) | `348c0ffa4` | D-3372 choose_classes_menu whole port | **ACCEPT** |
+| [2328-647728e87-highc-ssuffix-clone-removal.md](./2328-647728e87-highc-ssuffix-clone-removal.md) | `647728e87` | D-3373 highc/s_suffix ×4 removal + set_corpsenm stale | **ACCEPT** |
