@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `mthrowu.c` m_throw misfire + dknown arms — C mthrowu.c:619–620 (clear_dknown when thrower unseen) + :623–629 (cursed/greased rn2(7) misfire pline + dx/dy rn2(3)−1 re-roll) absent from js/mthrowu.js (no clear_dknown/misfires/slips; D-2399 shipped flight-stop/catch only — brief 2026-10-03) @647728e87 **Addressed:** D-3376
-- [x] `mthrowu.c` breathwep_name — blocks 1/953 (scen-impaired-Rogue-94110 step 89 kind=rng: C `rn2(96)=60` via the Hallucination arm vs JS `rn2(20)=16` from zap_hit; C mthrowu.c:1085–1086 absent from js/mthrowu.js:383 breathwep_name, Hallucination arm deferred; rnd_hallublast itself ledger-ported 2026-10-03, ex-row @9dc9139eb) @bbe63333a **Addressed:** D-3376
+- [x] `artifact.c` glow_color hcolor wrap — C artifact.c:2432 `hcolor(clr2colorname)` absent from js/artifact.js:891 glow_color (returns clr2colorname directly; hcolor live js/do_name.js:347 — brief 2026-10-03) @647728e87 **Addressed:** D-3377
+
+
+- [x] `mthrowu.c` m_throw misfire + dknown arms — C mthrowu.c:619–620 (clear_dknown when thrower unseen) + :623–629 (cursed/greased rn2(7) misfire pline + dx/dy rn2(3)−1 re-roll) absent from js/mthrowu.js (no clear_dknown/misfires/slips; D-2399 shipped flight-stop/catch only — brief 2026-10-03) @647728e87 **Addressed:** D-3376 `d133940a7`
+- [x] `mthrowu.c` breathwep_name — blocks 1/953 (scen-impaired-Rogue-94110 step 89 kind=rng: C `rn2(96)=60` via the Hallucination arm vs JS `rn2(20)=16` from zap_hit; C mthrowu.c:1085–1086 absent from js/mthrowu.js:383 breathwep_name, Hallucination arm deferred; rnd_hallublast itself ledger-ported 2026-10-03, ex-row @9dc9139eb) @bbe63333a **Addressed:** D-3376 `d133940a7`
 
 
 - [x] `save.c` tricked_fileremoved — C save.c:336–347 absent from js/ (no JS symbol; ledger absent; !nhfp arm: pline1(whynot) + killer-name + done(TRICKED); 2 C call sites do.c:1705 + save.c:377; callees pline + done live — brief 2026-10-03) @7feedbbb2 **Addressed:** D-3375 `30ce39631`

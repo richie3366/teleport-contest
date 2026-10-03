@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3377 — `artifact.c` glow_color hcolor wrap (both C call sites)
+
+- **Status:** shipped (queue head missing-arm row checked off + archived; no review cited, no stamp owed). Density exception stated: whole C body at both call sites, ~8 js/ insertions — below the ~80 bar, defended (D-3375/D-3376 single-cluster precedent): the head's file artifact.c holds nothing more Open (coverage block 0 rows; `ledger.mjs rows` 0 rows; no other artifact.c queue row), and both callees (clr2colorname ported, hcolor split-live js/do_name.js:347) were already live.
+- **Symptom:** no corpus divergence — missing-arm row (0 blocked at baseline). C artifact.c:2432 returns `hcolor(clr2colorname)`; JS returned clr2colorname directly (Hallu identity instead of the display-rng hcolors[] word).
+- **C locus:**
+  - `glow_color`: nethack-c/upstream/src/artifact.c:2427–2433 (artilist[arti].acolor → clr2colorname → hcolor). C callers: artifact.c:2491 (Sting_effects) + objnam.c:1605 (doname W_WEP warn_obj glow). C hcolor: do_name.c:1460–1466 ((Hallucination || !pref) → display-rng hcolors[] else pref — JS do_name.js:347 matches exactly).
+- **JS was:** js/artifact.js:890 glow_color returned clr2colorname(colornum) directly ("Hallu hcolor display-rng named omit (identity)"); js/objnam.js:2697 doname_glow_color inline clone carried the same omit (objnam cannot import the artifact module).
+- **Fix:** `return hcolor(clr2colorname(colornum))` in glow_color (hcolor already imported js/artifact.js:119 — no import change); doname_glow_color wraps the same canonical import (name added to the existing do_name edge js/objnam.js:64; `imports.mjs --can` ALREADY ×2, hoisted function, no new edge, no TDZ — no fifth hcolor clone). Non-Hallu is identity, so only Hallu Sting/doname-glow paths change (display stream, positionally untagged). Stale omit comments retired at both sites.
+- **JS:**
+  - `glow_color`: js/artifact.js:891 (doc :885–890; inline twin js/objnam.js:2697).
+- **Callers:**
+  - `glow_color`: C artifact.c:2491 → js/artifact.js:962 (Sting_effects pline; calls glow_color, auto-wired); C objnam.c:1605 → js/objnam.js:3675 (doname W_WEP glow via doname_glow_color :2697, now hcolor-wrapped). No JS site calls from a function C never calls from.
+- **Verify:**
+  - `glow_color`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn glow_color` → VERIFY: PASS (syntax 2 files js/artifact.js js/objnam.js, rule2 PASS, green 2/2, strict 2/2, cohort 7/7 incl. hallu seed0383).
+- **Named omissions:**
+  - `glow_color`: none remaining — ledger partial omit (missing hcolor wrap) now live at both call sites.
+- **Ledger:** glow_color ported
+- **Next:** artifact.c holds no further Open rows; no follow-up (next queue row is a different C file, ships as its own cluster).
+
 ## D-3376 — `mthrowu.c` m_throw misfire pline + dknown arms, breathwep_name Hallucination arm
 
 - **Status:** shipped (queue head m_throw missing-arm row + same-file breathwep_name residual row checked off + archived; no review cited, no stamp owed). Density exception stated: 2 whole C arms, ~25 js/ insertions — below the ~80 bar, defended (D-3375/D-3374 single-cluster precedent): the head's file mthrowu.c holds nothing more Open (coverage block 0 rows; only these two rows), and every callee (clear_dknown, is_ammo, Monnam, mon_nam, Tobjnam, rnd_hallublast) was already live.

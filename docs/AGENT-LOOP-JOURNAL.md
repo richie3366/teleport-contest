@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3377 `artifact.c` glow_color hcolor wrap (both C call sites)
+
+**C locus:** - `glow_color`: nethack-c/upstream/src/artifact.c:2427–2433 (artilist[arti].acolor → clr2colorname → hcolor). C callers: artifact.c:2491 (Sting_effects) + objnam.c:1605 (doname W_WEP warn_obj glow). C hcolor: do_name.c:1460–1466 ((Hallucination || !pref) → display-rng hcolors[] else pref — JS do_name.js:347 matches exactly).
+**JS:** - `glow_color`: js/artifact.js:891 (doc :885–890; inline twin js/objnam.js:2697).
+**Change:** `return hcolor(clr2colorname(colornum))` in glow_color (hcolor already imported js/artifact.js:119 — no import change); doname_glow_color wraps the same canonical import (name added to the existing do_name edge js/objnam.js:64; `imports.mjs --can` ALREADY ×2, hoisted function, no new edge, no TDZ — no fifth hcolor clone). Non-Hallu is identity, so only Hallu Sting/doname-glow paths change (display stream, positionally untagged). Stale omit comments retired at both sites.
+**Verify:** - `glow_color`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `glow_color`: none remaining — ledger partial omit (missing hcolor wrap) now live at both call sites.
+**Next:** artifact.c holds no further Open rows; no follow-up (next queue row is a different C file, ships as its own cluster).
 ## 2026-10-03 — D-3376 `mthrowu.c` m_throw misfire pline + dknown arms, breathwep_name Hallucination arm
 
 **C locus:** - `m_throw`: nethack-c/upstream/src/mthrowu.c:619–620 (`!canseemon(mon)` → clear_dknown(singleobj)) + :622–631 (cursed/greased rn2(7) misfire: canseemon+verbose pline — is_ammo "misfires" else Tobjnam "slips as ... throws it" — then dx/dy rn2(3)-1 re-roll, (0,0) drops at launch). C callers: mthrowu.c:300 + :1055 + muse.c:2020.

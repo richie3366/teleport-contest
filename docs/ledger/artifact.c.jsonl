@@ -60,7 +60,7 @@
 {"fn":"abil_to_adtyp","c":"2320-2341","status":"ported","js":["js/artifact.js:abil_to_adtyp"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"abil_to_spfx","c":"2344-2370","status":"ported","js":["js/artifact.js:abil_to_spfx"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:3256 (D-3126; all 12 rows complete, caller wired)"}
 {"fn":"what_gives","c":"2376-2424","status":"ported","js":["js/artifact.js:what_gives"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a"}
-{"fn":"glow_color","c":"2427-2433","status":"partial","js":["js/artifact.js:glow_color"],"omit":"missing hcolor() wrap (do_name.c:1461): C randomizes the color name when Hallucination; JS always returns the true clr2colorname","at":"2026-10-03@bbe63333a"}
+{"fn":"glow_color","c":"2427-2433","status":"ported","js":["js/artifact.js:glow_color"],"d":["D-3377"],"at":"2026-10-03@d133940a7"}
 {"fn":"glow_strength","c":"2442-2448","status":"ported","js":["js/artifact.js:glow_strength"],"at":"2026-10-03@bbe63333a"}
 {"fn":"glow_verb","c":"2451-2462","status":"ported","js":["js/artifact.js:glow_verb"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Sting_effects","c":"2466-2502","status":"ported","js":["js/artifact.js:Sting_effects"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}

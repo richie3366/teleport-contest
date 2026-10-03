@@ -127,7 +127,6 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `artifact.c` glow_color hcolor wrap — C artifact.c:2432 `hcolor(clr2colorname)` absent from js/artifact.js:891 glow_color (returns clr2colorname directly; hcolor live js/do_name.js:347 — brief 2026-10-03) @647728e87
 - [ ] `apply.c` use_cream_pie COST_SPLAT bill — C apply.c:3599 costly_alteration(obj, COST_SPLAT) absent from js/apply.js:1142 use_cream_pie (deferred comment; freeinv+delobj only — brief 2026-10-03) @647728e87
 - [ ] `attrib.c` poison_strdmg killer path — C attrib.c:274–278 knam/k_format (losestr + losehp killer attribution) absent from js/eat.js:1386 poison_strdmg (2-arg; raw uhp decrement, gameover without done() killer — brief 2026-10-03) @647728e87
 - [ ] `apply.c` doapply BANANA arm — C apply.c:4400–4404 (hallu "It rings!" + turn cost) absent from js/apply.js doapply (only GETOBJ_DOWNPLAY :337, no case — brief 2026-10-03) @647728e87
@@ -135,6 +134,7 @@ Must-fix/coverage.
 - [ ] `files.c` close_nhfile — C files.c:518–531 absent from js/ (no JS symbol; ledger unknown; structlevel fd→-1 / fpdef→null + fplog/fpdebug closes + free_nhfile; 49 C refs incl. do.c:1712 save.c:388 restore.c:899; callee free_nhfile live js/files.js:677 — brief 2026-10-03) @952f7c273
 - [ ] `dothrow.c` throwit shk pick-snatch arm — C dothrow.c:1809–1817 (mon->isshk && is_pick: snatch pline + check_shop_obj + mpickobj + throwit_return) absent from js/dothrow.js:2307 throwit (named omit comment :2568; callee mpickobj live js/makemon.js:2254 — brief 2026-10-03) @30ce39631
 - [ ] `zap.c` bhit iron-ball range limit — C zap.c:4095–4119 (THROWN_WEAPON HEAVY_IRON_BALL: boulder-hit msg + uball test_move halt + Sokoban pit stop, range=0) absent from js/zap.js:6162 bhit (named omit in doc :6156–6157 — brief 2026-10-03) @30ce39631
+- [ ] `shk.c` after_shk_move occupancy re-check — C shk.c:5005–5006 (!gameover → check_special_room(FALSE)) absent from js/shk.js:4971 after_shk_move (named omit in doc :4969; bill_p reset only; check_special_room live async js/hack.js:2977 — brief 2026-10-03) @d133940a7
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
