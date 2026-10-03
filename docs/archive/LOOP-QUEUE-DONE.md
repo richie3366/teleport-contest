@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `display.c` feel_location Underwater gate reads never-written field — C display.c:769–772 returns when `Underwater && !Is_waterlevel && !pool/lava && !ice` but js/display.js:5138 tests `(u.Underwater|0)`, which no code port-wide ever writes (live field is `u.uinwater`, youprop.h:279; writer `set_uinwater` js/hack.js:3453; zero assigns/bracket-writes/save-writes — review 2348); fix: flip :5138 to `(u.uinwater|0)` (D-3393 newsym :5375 idiom) + verify incl. full (shared file); do NOT expand to the ~20-site alias family. Source: reviews/loop-unattended/2348-d428e2b04-newsym-guards.md **Addressed:** D-3400
+
+
 - [x] `shk.c` sasc_bug — C shk.c:5945–5948 absent from js/ (no JS symbol; ledger absent C 1; `#ifdef __SASC` Amiga-compiler op->unpaid=x workaround; 0 C refs; compiled out on pinned platform → by-design verdict — brief 2026-10-03) @4ea047f25
 - [x] `mhitm.c` mdamagem !damage tail — C mhitm.c:1070–1071 (`if (!mhm.damage) return mhm.hitflags;`) absent from js/mhitm.js:5653 mdamagem (:4605; `if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;` — returns HIT where C returns hitflags, MISS when unset e.g. negated AD_STCK; no new callee, pure return-code fix; ledger partial names this arm — brief 2026-10-03) @d428e2b04
 - [x] `dokick.c` really_kick_object pit/web reveal+message — C dokick.c:521–529 (pit/web block: `if (!trap->tseen) find_trap(trap)` :523–524 + Hallucination 'tizzy' variant :526–528) absent from js/dokick.js:1271–1274 really_kick_object (:1261; :1272 `find_trap deferred` comment, :1273 web/pit only; callee find_trap js/detect.js:340 local async — needs export; ledger partial names this arm — brief 2026-10-03) @d428e2b04

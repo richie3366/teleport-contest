@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3400 — `display.c` feel_location Underwater gate reads live u.uinwater
+
+- **Status:** shipped (Must-fix 2348.1 checked off + archived in this commit; review `reviews/loop-unattended/2348-d428e2b04-newsym-guards.md` stamped Addressed).
+- **Symptom:** C-wrong — C `display.c:769–772` returns when `Underwater && !Is_waterlevel && !pool/lava && !ice` (Blind + underwater + off-waterlevel + non-pool square), but JS gated on `(u.Underwater|0)`, a field no code port-wide ever writes — the gate never fired, so blind underwater feel leaked into `set_seenv` + map where C returns.
+- **C locus:**
+  - `feel_location`: nethack-c/upstream/src/display.c:769–772 (`Underwater && !Is_waterlevel(&u.uz) && !is_pool_or_lava && !is_ice` → return); `Underwater ≡ u.uinwater` (youprop.h:279).
+- **JS was:** js/display.js:5138 `if ((u.Underwater | 0) && !Is_waterlevel(u.uz) …` — dead predicate: zero `Underwater =` assigns, zero bracket writes, zero `Underwater:` inits port-wide in js/ (only reads at ~35 sites + 2 comments); the live field is `u.uinwater`, written by `set_uinwater` (js/hack.js:3453).
+- **Fix:** one-line flip to `(u.uinwater | 0)` + field-citing comment (youprop.h:279; never-written note) — the D-3393 newsym :5375 idiom. New focused test `scripts/feel-location-underwater.test.mjs` (3 subtests: uinwater fires / dead alias ignored / neither proceeds); pre-fix 2 failed (seenv 255 where C returns; seenv 0 where C proceeds), post-fix 3 pass. Scoped to this line — the ~20-site `u.Underwater` alias family is untouched per the queue row.
+- **JS:** js/display.js +4/−2 (gate line + comment); scripts/feel-location-underwater.test.mjs new (+58).
+- **Callers:**
+  - `feel_location`: no caller changes — the predicate fix rides all previously wired JS sites: js/detect.js:489,499 (C detect.c:2041,2049) · js/dokick.js:272,333,487 (C dokick.c:870,891,961) · js/hack.js:311,475,533,590,805,806,961,988,996,1025,1045 (C hack.c boulder-push/vision sites) · js/lock.js:1144,1399 (C lock.c:583,1001) · js/display.js:5297 feel_newsym wrapper (C display.c:729) + :5398 (C display.c:1042).
+- **Verify:** `node scripts/verify.mjs --fn feel_location` → VERIFY: PASS — syntax (js/display.js) · Rule #2 · hidden note (no corpus session blocked at baseline) · REACH-OK (no RNG-tagged reach; fixed 24-smoke, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). Focused `node --test scripts/feel-location-underwater.test.mjs`: 3 pass.
+- **Named omissions:**
+  - `feel_location`: none new — pre-existing `feel_can_reach_floor` usteed P_RIDING/ustuck/ceiling-hider omit (doc :5092) stands, untouched.
+- **Ledger:** feel_location ported
+- **Next:** batch picker (`ledger.mjs batch --write`) — Must-fix queue is empty after this commit.
+
 ## D-3399 — missing-arm block sweep: mdamagem tail, kick pit/web reveal, converter teardown, sfbase stubs (8-function cluster)
 
 - **Status:** shipped (all 8 missing-arm rows checked off + archived in this commit; operator overlay: head `sasc_bug` is by-design/docs-only, so the whole block ships with it — generated coverage block is empty and the head's file+closure holds nothing more Open).

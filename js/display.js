@@ -5134,8 +5134,10 @@ export function feel_location(x, y) {
     if (memory_glyph_is_invisible(loc) && mon_at_display(x, y)) return;
 
     const u = game.u || {};
-    // C `:769–772` — Underwater: only pool/lava/ice (waterlevel exempt)
-    if ((u.Underwater | 0) && !Is_waterlevel(u.uz)
+    // C `:769–772` — Underwater (u.uinwater, youprop.h:279): only
+    // pool/lava/ice (waterlevel exempt). u.Underwater is never written
+    // port-wide — the live field is u.uinwater (set_uinwater).
+    if ((u.uinwater | 0) && !Is_waterlevel(u.uz)
         && !is_pool_or_lava_disp(x, y) && !is_ice_disp(x, y)) {
         return;
     }

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3400 `display.c` feel_location Underwater gate reads live u.uinwater
+
+**C locus:** - `feel_location`: nethack-c/upstream/src/display.c:769–772 (`Underwater && !Is_waterlevel(&u.uz) && !is_pool_or_lava && !is_ice` → return); `Underwater ≡ u.uinwater` (youprop.h:279).
+**JS:** js/display.js +4/−2 (gate line + comment); scripts/feel-location-underwater.test.mjs new (+58).
+**Change:** one-line flip to `(u.uinwater | 0)` + field-citing comment (youprop.h:279; never-written note) — the D-3393 newsym :5375 idiom. New focused test `scripts/feel-location-underwater.test.mjs` (3 subtests: uinwater fires / dead alias ignored / neither proceeds); pre-fix 2 failed (seenv 255 where C returns; seenv 0 where C proceeds), post-fix 3 pass. Scoped to this line — the ~20-site `u.Underwater` alias family is untouched per the queue row.
+**Verify:** `node scripts/verify.mjs --fn feel_location` → VERIFY: PASS — syntax (js/display.js) · Rule #2 · hidden note (no corpus session blocked at baseline) · REACH-OK (no RNG-tagged reach; fixed 24-smoke, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file). Focused `node --test scripts/feel-location-underwater.test.mjs`: 3 pass.
+**Named:** - `feel_location`: none new — pre-existing `feel_can_reach_floor` usteed P_RIDING/ustuck/ceiling-hider omit (doc :5092) stands, untouched.
+**Next:** batch picker (`ledger.mjs batch --write`) — Must-fix queue is empty after this commit.
 ## 2026-10-03 — Audit 2346–2353: review D-3391–D-3399 (6 ACCEPT, 2 WITH-DEBT, 0 QUALITY-RISK) + full score
 
 **Scope:** 8 js/ SHAs oldest-first (D-3398 docs-only, no review). Re-measured every D-log corpus claim with `verify --reach-all`: mdamagem 200/200, u_init_misc 707/707, adjust 115/115, move_special 42/42, kick 1/1, rest 24-smoke — 0 regressed anywhere.

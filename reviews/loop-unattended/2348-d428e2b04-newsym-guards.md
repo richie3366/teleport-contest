@@ -4,6 +4,8 @@
 **Scope:** js/display.js +24/−0 (1 export, 2 guards in hot `newsym`). Two functions, one C file.
 **Prior reviews closed:** none (touches 2339 only to fill the D-3392 hash ✓).
 
+**Addressed:** D-3400
+
 ## Intent vs deliverable
 
 Promise: (a) new `fn_cmap_to_glyph` export, whole body; (b) `newsym` gains the flux gate first, then the Underwater gate after uswallow in C order. Delivered exactly; no other `newsym` lines touched despite ~480 call sites inheriting the guards. No drift.
