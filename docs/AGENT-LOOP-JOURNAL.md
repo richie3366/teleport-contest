@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3381 `files.c` savefile/NHFILE family (close_nhfile head + 9, 3 close wirings)
+
+**C locus:** - `close_nhfile`: nethack-c/upstream/src/files.c:518–531 (structlevel+fd → nhclose + fd=-1; else fpdef → fclose + NULL; fplog "# closing" + fclose; fpdebug fclose; free_nhfile).
+**JS:** - `close_nhfile`: js/files.js:706 (doc :684–705).
+**Change:** whole C bodies in C order at C-home js/files.js. Rule #2 analogues (levelfile open/create + init_nhfile precedent): creat arm → VFS ensure-always-succeeds with fd success token 0 (dosave0 convention); open arm → vfsReadFile probe (miss ≡ ENOENT → fd -1 → viable NULL); unlink → vfsDeleteFile; nhclose/fclose/fprintf sinks named omits with live resets; docompress_file arms named (by-design sink, live gate). restore_saved_game is async (validate awaited in C order); set_savefile_name via live save.js export (imports.mjs: same 101-module SCC, hoisted binding — cycle-safe). Three close wirings, each behavior-neutral (nothing reads the handle after): do.js:2056, save.js:249 (handle captured), save.js:751.
+**Verify:** - `close_nhfile`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `close_nhfile`: nhclose/fclose/fplog-fprintf sinks (Rule #2; resets live). Callers: bones.c savebones/getbones (VFS splits, no NHFILE); unported dorecover/restlevelfile/savestateinlock/recover_savefile/plname_from_file/check_panic_save; INSURANCE save_currentstate inline record (do.js:1619 doc); FREE_ALL_MEMORY free_dungeons; freedynamicdata (no JS counterpart); makemap_prepost freeing arm (wizcmds.js:823 doc); goto_level leave path (mode consts, no handle); do.c:1389 file write+close (do.js:1619 doc).
+**Next:** files.c savefile family complete; remaining files.c Open ships as own clusters — bonesfile quartet (set_bonestemp_name/commit/open/create_bonesfile), rewind_nhfile (lseek/rewind have no VFS analogue; sole caller restore.c:891 dorecover unported), lock/record/recover/reveal campaign functions.
 ## 2026-10-03 — D-3380 `potion.c` dip_hands_ok + peffect_see_invisible reveal tail
 
 **C locus:** - `dip_hands_ok`: nethack-c/upstream/src/potion.c:2229–2237 (!obj + Glib + can_reach_floor(FALSE) → GETOBJ_SUGGEST, else dip_ok). Sole C caller dodip :2279 (at_here ? dip_hands_ok : dip_ok); the NULL verdict is consumed by C getobj invent.c:1832 (SUGGEST lists `- ` in the prompt, DOWNPLAY accepts unlisted) and invent.c:1792 (cmdq HANDS_SYM).

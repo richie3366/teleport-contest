@@ -183,7 +183,7 @@ import { obj_resists } from './dogmove.js';
 import { Soundeffect, se_scratching, se_alarm, se_drain_noises, se_ring_in_drain, se_boulder_drop, se_crashing_boulder, se_item_tumble_downwards } from './sndprocs.js';
 import { polymorph_sink, dipsink_set_levltyp, floating_above } from './fountain.js';
 import { fruitname } from './potion.js';
-import { delete_levelfile, open_levelfile } from './files.js';
+import { delete_levelfile, open_levelfile, close_nhfile } from './files.js';
 import { tricked_fileremoved } from './save.js';
 import { nh_terminate } from './end.js';
 import { strange_feeling } from './detect.js';
@@ -2053,6 +2053,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             || game.level?.flags?.sokoban);
         getlev_place_monsters();
         await getlev_catchup_monsters(elapsed);
+        close_nhfile(nhfp); // C do.c:1712 — after getlev (`:1713` oinit has no counterpart on this path — pre-existing)
     }
 
     await set_uinwater(0); /* C do.c:1716 — after getlev/mklev, before vision_reset */

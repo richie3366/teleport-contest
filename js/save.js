@@ -37,7 +37,7 @@ import {
     load_exclusions,
 } from './dungeon.js';
 import { rest_track } from './track.js';
-import { open_levelfile, new_nhfile, store_version, FNIDX_HISTORICAL } from './files.js';
+import { open_levelfile, new_nhfile, store_version, FNIDX_HISTORICAL, close_nhfile } from './files.js';
 import { done } from './end.js';
 import { rest_regions } from './region.js';
 import { restore_timers, restore_light_sources, run_timers, dobjsfree } from './mkobj.js';
@@ -244,8 +244,9 @@ function serOtherLevels(currentLedger) {
            non-null here); getlev/savelev read the stash below. The !onhfp
            HUP/tricked arm (pline1/delete_savefile/done-TRICKED) is named
            in c-js-map/data.md — no HUP signals or pline1 in JS. */
-        open_levelfile(ltmp, null);
+        const onhfp = open_levelfile(ltmp, null);
         levels[String(ltmp)] = serLevel(info);
+        close_nhfile(onhfp); // C save.c:211 — after getlev (non-null here per the gate above)
     }
     return levels;
 }
@@ -747,6 +748,7 @@ export async function dosave0() {
         luadata: save_luadata(),
     };
 
+    close_nhfile(nhfp); // C save.c:216 — handle drained after the level writes
     return vfsWriteFile(vfsPath(path), JSON.stringify(payload));
 }
 

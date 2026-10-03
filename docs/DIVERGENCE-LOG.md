@@ -1,5 +1,71 @@
 # Divergence log
 
+## D-3381 — `files.c` savefile/NHFILE family (close_nhfile head + 9, 3 close wirings)
+
+- **Status:** shipped (queue head missing-arm `files.c close_nhfile` row checked off + archived; no review cited, no stamp owed).
+- **Symptom:** no corpus divergence — coverage cluster (0 blocked at baseline each). C's savefile open/create/close/delete/restore path and the NHFILE close/freeing primitives had no JS symbols; three live NHFILE sites never drained their handles.
+- **C locus:**
+  - `close_nhfile`: nethack-c/upstream/src/files.c:518–531 (structlevel+fd → nhclose + fd=-1; else fpdef → fclose + NULL; fplog "# closing" + fclose; fpdebug fclose; free_nhfile).
+  - `nhclose`: nethack-c/upstream/src/files.c:583–594 (fd>=0 → close_check ? bclose : close; retval).
+  - `create_savefile`: nethack-c/upstream/src/files.c:1159–1213 (fqname + new + WRITING/historical fields; MICRO/WIN32 open vs MACOS9 maccreat vs UNIX creat inside the do_historical arm; VMS chown; viable).
+  - `open_savefile`: nethack-c/upstream/src/files.c:1217–1255 (same fields with READING + forced do_historical; the open arm sits OUTSIDE the if; viable).
+  - `delete_savefile`: nethack-c/upstream/src/files.c:1259–1266 (unlink + delete_convertedfile, return 0).
+  - `restore_saved_game`: nethack-c/upstream/src/files.c:1270–1287 (set_savefile_name + fqname + nh_uncompress + open + validate gate → close + problematic).
+  - `get_freeing_nhfile`: nethack-c/upstream/src/files.c:1299–1308 (new handle, mode FREEING).
+  - `nh_compress`: nethack-c/upstream/src/files.c:1787–1792 (COMPRESS-gated docompress_file(FALSE); COMPRESS defined, config.h:390).
+  - `nh_uncompress`: nethack-c/upstream/src/files.c:1796–1801 (COMPRESS-gated docompress_file(TRUE)).
+  - `problematic_savefile`: nethack-c/upstream/src/files.c:2015–2046, sf2msg :1998–2011 (staticfn; UPTODATE break, six datamodel cases fall through to the MISMATCH/OUTDATED/CRITICAL/default arm; sf2msg scan + raw_printf; always NULL).
+- **JS was:** no symbol for any of the ten; js/do.js:2001 goto_level stash arm, js/save.js:247 serOtherLevels probe and js/save.js:633 dosave0 inline handle never closed (C do.c:1712, save.c:211, save.c:216).
+- **Fix:** whole C bodies in C order at C-home js/files.js. Rule #2 analogues (levelfile open/create + init_nhfile precedent): creat arm → VFS ensure-always-succeeds with fd success token 0 (dosave0 convention); open arm → vfsReadFile probe (miss ≡ ENOENT → fd -1 → viable NULL); unlink → vfsDeleteFile; nhclose/fclose/fprintf sinks named omits with live resets; docompress_file arms named (by-design sink, live gate). restore_saved_game is async (validate awaited in C order); set_savefile_name via live save.js export (imports.mjs: same 101-module SCC, hoisted binding — cycle-safe). Three close wirings, each behavior-neutral (nothing reads the handle after): do.js:2056, save.js:249 (handle captured), save.js:751.
+- **JS:**
+  - `close_nhfile`: js/files.js:706 (doc :684–705).
+  - `nhclose`: js/files.js:779 (doc :768–778).
+  - `create_savefile`: js/files.js:958 (doc :941–957).
+  - `open_savefile`: js/files.js:1007 (doc :990–1006).
+  - `delete_savefile`: js/files.js:1046 (doc :1036–1045).
+  - `nh_compress`: js/files.js:1061 (doc :1053–1060).
+  - `nh_uncompress`: js/files.js:1072 (doc :1064–1071).
+  - `problematic_savefile`: js/files.js:1110 (module-local; doc :1101–1109; SF2MSG :1079–1099).
+  - `get_freeing_nhfile`: js/files.js:1150 (doc :1141–1149).
+  - `restore_saved_game`: js/files.js:1169 (doc :1159–1168).
+- **Callers:**
+  - `close_nhfile`: C do.c:1712 → js/do.js:2056 (goto_level stash arm, after getlev_catchup_monsters; `:1713` oinit absent on this path — pre-existing); C save.c:211 → js/save.js:249 (serOtherLevels, handle now captured); C save.c:216 → js/save.js:751 (dosave0 tail); C files.c:1282 → js/files.js restore_saved_game (in-cluster). No JS site calls from a function C never calls from.
+  - `nhclose`: C files.c:521 → js/files.js:706 close_nhfile (named-omit sink, in-cluster). Other C sites (files.c:466/:2441/:2706/:2708/:2745/:2774/:2778, sfstruct.c:584) live in unported file/record/lock paths — ship with those functions.
+  - `create_savefile`: C save.c:128 → dosave0 keeps its inline handle (save.js:628 doc, fd 0 — same token); C files.c:2975 recover_savefile unported.
+  - `open_savefile`: C files.c:1280 → restore_saved_game (in-cluster); C save.c:113 dosave0 HUP arm (hangup arms named, save.js:573 doc); C files.c:1378 plname_from_file unported.
+  - `delete_savefile`: C save.c:131/:205 (HUP arms named), restore.c:819/:904 + files.c recover sites + sfstruct.c:585 (unported), unixmain.c:269 (not scored).
+  - `restore_saved_game`: no scored caller (unixmain.c:243 only).
+  - `get_freeing_nhfile`: C cmd.c:1036 (freeing arm named, wizcmds.js:823 doc), restore.c:813 (dorecover unported), save.c:1063 (FREE_ALL_MEMORY gate), save.c:1079 (freedynamicdata, no JS counterpart).
+  - `nh_compress`: C files.c:1009/:1389 + save.c:120/:225 + unixmain.c:272 (bones/panic/HUP/unixmain paths — named with those functions).
+  - `nh_uncompress`: C files.c:950 (open_bonesfile unported) / :1279 (restore_saved_game, in-cluster) / :1377 (plname_from_file unported) + save.c:112 (HUP arm named).
+  - `problematic_savefile`: C files.c:1283 → restore_saved_game (in-cluster, sole site).
+- **Verify:**
+  - `close_nhfile`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `nhclose`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `create_savefile`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `open_savefile`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `delete_savefile`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `restore_saved_game`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `get_freeing_nhfile`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `nh_compress`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `nh_uncompress`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `problematic_savefile`: hidden note (0 blocked) · REACH-OK (smoke 24/24).
+  - `node scripts/verify.mjs --fn close_nhfile,nhclose,create_savefile,open_savefile,delete_savefile,restore_saved_game,get_freeing_nhfile,nh_compress,nh_uncompress,problematic_savefile` → VERIFY: PASS (syntax 3 files js/do.js js/files.js js/save.js, rule2 PASS, green 2/2, strict 2/2, cohort 7/7, full 44/44 auto on shared-file change).
+  - Direct /tmp probe (mock VFS): create viable fd 0 → close drains fd/fpdef/log arms → open miss null / hit viable READING → delete removes → freeing mode → restore miss null → PROBE-OK.
+- **Named omissions:**
+  - `close_nhfile`: nhclose/fclose/fplog-fprintf sinks (Rule #2; resets live). Callers: bones.c savebones/getbones (VFS splits, no NHFILE); unported dorecover/restlevelfile/savestateinlock/recover_savefile/plname_from_file/check_panic_save; INSURANCE save_currentstate inline record (do.js:1619 doc); FREE_ALL_MEMORY free_dungeons; freedynamicdata (no JS counterpart); makemap_prepost freeing arm (wizcmds.js:823 doc); goto_level leave path (mode consts, no handle); do.c:1389 file write+close (do.js:1619 doc).
+  - `nhclose`: close_check/bclose (by-design, sfstruct registry) + POSIX close (no VFS counterpart); fd>=0 gate + retval live.
+  - `create_savefile`: platform creat/setmode/chown arms + FCMASK/errno (no POSIX creat under VFS); SAVEFILE_DEBUGGING fplog (compiled out).
+  - `open_savefile`: platform macopen/open/setmode arms; SAVEFILE_DEBUGGING fplog (compiled out).
+  - `delete_savefile`: none in-body — whole C body live (unlink→VFS). sfctool.c:667 tool stub named, not ported.
+  - `restore_saved_game`: none in-body — whole C body live.
+  - `get_freeing_nhfile`: none in-body — whole C body live.
+  - `nh_compress`: docompress_file(FALSE) sink by-design (Rule #2); gate live.
+  - `nh_uncompress`: docompress_file(TRUE) sink by-design (Rule #2); gate live.
+  - `problematic_savefile`: none in-body — whole C body live (SF2MSG table + switch + scan).
+- **Ledger:** close_nhfile ported; nhclose partial; create_savefile ported; open_savefile ported; delete_savefile ported; restore_saved_game ported; get_freeing_nhfile ported; nh_compress partial; nh_uncompress partial; problematic_savefile ported
+- **Next:** files.c savefile family complete; remaining files.c Open ships as own clusters — bonesfile quartet (set_bonestemp_name/commit/open/create_bonesfile), rewind_nhfile (lseek/rewind have no VFS analogue; sole caller restore.c:891 dorecover unported), lock/record/recover/reveal campaign functions.
+
 ## D-3380 — `potion.c` dip_hands_ok + peffect_see_invisible reveal tail
 
 - **Status:** shipped (queue head missing-arm row + same-file peffect row checked off + archived; no review cited, no stamp owed). Density exception stated: 1 whole C function + 1 whole C tail, ~+30 js/ lines — below the ~80 bar, defended (D-3375–D-3379 single-cluster precedent): the head's file potion.c holds nothing more Open (coverage block 0 rows; only these two potion.c queue rows), and every callee (Glib, can_reach_floor, dip_ok, set_mimic_blocking, see_monsters, newsym, You, Invis/See_invisible/Blind) was already live.

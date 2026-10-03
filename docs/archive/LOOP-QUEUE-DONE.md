@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `potion.c` dip_hands_ok — C potion.c:2231–2237 absent from js/ (no JS symbol; ledger absent; !obj Glib+can_reach_floor → GETOBJ_SUGGEST else dip_ok; live C caller potion.c:2279 getobj callback; callees can_reach_floor + dip_ok live — brief 2026-10-03) @952f7c273 **Addressed:** D-3380
-- [x] `potion.c` peffect_see_invisible reveal tail — C potion.c:871-877 (set_mimic_blocking + see_monsters + newsym + Invisible self-msg + unkn--) absent from js/potion.js:437 peffect_see_invisible (:475 defer comment, fn ends without tail — brief 2026-10-03; callees set_mimic_blocking js/vision.js:195 + see_monsters js/display.js:5663 + newsym js/display.js:5348 live) @e27333c36 **Addressed:** D-3380
+- [x] `files.c` close_nhfile — C files.c:518–531 absent from js/ (no JS symbol; ledger unknown; structlevel fd→-1 / fpdef→null + fplog/fpdebug closes + free_nhfile; 49 C refs incl. do.c:1712 save.c:388 restore.c:899; callee free_nhfile live js/files.js:677 — brief 2026-10-03) @952f7c273 **Addressed:** D-3381
+
+
+- [x] `potion.c` dip_hands_ok — C potion.c:2231–2237 absent from js/ (no JS symbol; ledger absent; !obj Glib+can_reach_floor → GETOBJ_SUGGEST else dip_ok; live C caller potion.c:2279 getobj callback; callees can_reach_floor + dip_ok live — brief 2026-10-03) @952f7c273 **Addressed:** D-3380 `c4bd1edaa`
+- [x] `potion.c` peffect_see_invisible reveal tail — C potion.c:871-877 (set_mimic_blocking + see_monsters + newsym + Invisible self-msg + unkn--) absent from js/potion.js:437 peffect_see_invisible (:475 defer comment, fn ends without tail — brief 2026-10-03; callees set_mimic_blocking js/vision.js:195 + see_monsters js/display.js:5663 + newsym js/display.js:5348 live) @e27333c36 **Addressed:** D-3380 `c4bd1edaa`
 
 
 - [x] `attrib.c` poison_strdmg killer path — C attrib.c:274–278 knam/k_format (losestr + losehp killer attribution) absent from js/eat.js:1386 poison_strdmg (2-arg; raw uhp decrement, gameover without done() killer — brief 2026-10-03) @647728e87 **Addressed:** D-3379 `4a4cc3e73`
