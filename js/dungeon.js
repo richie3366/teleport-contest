@@ -2385,7 +2385,7 @@ function Sokoban() {
 
 /**
  * C dungeon.c Invocation_lev `:2016–2021` — In_hell && deepest-1.
- * Canonical export (apply.js still has its own `Invocation_lev_apply`; mklev.js has `Invocation_lev_mk`).
+ * Canonical export (clones rewired: hack.js D-3344, mklev.js + apply.js D-3349).
  * @param {{ dnum?: number, dlevel?: number }|null|undefined} lev
  * @returns {boolean}
  */

@@ -130,6 +130,7 @@ import { makemon, mkclass, mpickobj } from './makemon.js';
 import { make_familiar } from './dog.js';
 import { addinv, addinv_nomerge } from './u_init.js';
 import { stairway_at, morguemon } from './mklev.js';
+import { Invocation_lev } from './dungeon.js';
 import {
     make_glib, Glib, make_sick, make_confused, make_stunned, make_vomiting,
     make_hallucinated, make_deaf, djinni_from_bottle,
@@ -4143,18 +4144,9 @@ function carrying_apply(otyp) {
     return null;
 }
 
-/** C dungeon.c Invocation_lev — In_hell && dlevel == num_dunlevs-1. */
-function Invocation_lev_apply(lev) {
-    const uz = lev || game.u?.uz;
-    if (!uz) return false;
-    const dun = game.dungeons?.[uz.dnum | 0];
-    if (!dun?.flags?.hellish) return false;
-    return (uz.dlevel | 0) === ((dun.num_dunlevs | 0) - 1);
-}
-
 /** C hack.c invocation_pos — Invocation_lev && (x,y)==inv_pos. */
 function invocation_pos_apply(x, y) {
-    if (!Invocation_lev_apply()) return false;
+    if (!Invocation_lev(game.u?.uz)) return false;
     const ip = game.inv_pos || game.svi?.inv_pos;
     if (!ip) return false;
     return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);

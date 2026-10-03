@@ -20834,18 +20834,6 @@ function maze_y_max() {
     return game.y_maze_max != null ? (game.y_maze_max | 0) : Y_MAZE_MAX;
 }
 
-/**
- * C dungeon.c Invocation_lev — In_hell && dlevel == num_dunlevs-1.
- * Local clone (hack.js / apply.js still have theirs; shared dungeon.c
- * export named).
- */
-function Invocation_lev_mk(lev) {
-    if (!lev) return false;
-    const dun = game.dungeons?.[lev.dnum | 0];
-    if (!dun?.flags?.hellish) return false;
-    return (lev.dlevel | 0) === ((dun.num_dunlevs | 0) - 1);
-}
-
 /** C decl.c svi.inv_pos — always a coord, never missing. */
 function svi_inv_pos() {
     if (!game.svi) game.svi = {};
@@ -20858,7 +20846,7 @@ function svi_inv_pos() {
  * occupied uses this; unset {0,0} matches C (not a legal maze cell).
  */
 function invocation_pos_mk(x, y) {
-    if (!Invocation_lev_mk(game.u?.uz)) return false;
+    if (!Invocation_lev(game.u?.uz)) return false;
     const ip = svi_inv_pos();
     return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
 }
@@ -27480,7 +27468,7 @@ async function load_hellfill() {
     splev_create_stair(true);
     // hellfill.lua:437 — u.invocation_level → des.trap("vibrating square")
     // else des.stair("down"). C create_trap VS = pick_vibrasquare + maketrap.
-    if (Invocation_lev_mk(g.u?.uz))
+    if (Invocation_lev(g.u?.uz))
         splev_create_trap(VIBRATING_SQUARE);
     else
         splev_create_stair(false);

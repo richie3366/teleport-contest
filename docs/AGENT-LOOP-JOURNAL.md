@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3349 `dungeon.c` Invocation_lev mklev.js + apply.js clone removal (3 sites → live js/dungeon.js export)
+
+**C locus:** - `Invocation_lev`: nethack-c/upstream/src/dungeon.c:2017–2021 — In_hell && dlevel == num_dunlevs-1. 10 C refs: dungeon.c:1653/:2399/:3225, hack.c:984, mkmaze.c:1200/:1211, nhlua.c:2021, wizcmds.c:795, zap.c:3788.
+**JS:** - `Invocation_lev`: js/dungeon.js:2392 (live, doc-only touch); imports mklev.js:150 (pre-existing), apply.js:133 (new); clones deleted; rewired sites mklev.js:20849/:27471, apply.js:4149.
+**Change:** rewired the 2 mklev sites to the ALREADY-imported live export (no import change — :150; same-module live uses :3235/:3245); new static apply→dungeon edge (`import { Invocation_lev } from './dungeon.js'`, js/apply.js:133; `imports.mjs --can` SAFE — hoisted fn, same 101-module SCC, verify judges TDZ); site js/apply.js:4149 now calls `Invocation_lev(game.u?.uz)` (behavior-identical: the clone's no-arg default resolved the same value); deleted both clones; retired the stale clone notes (dungeon.js:2388 now names hack.js D-3344 + mklev/apply D-3349). Maintained test: new scripts/invocation-lev-rewire.test.mjs (no-clone + live-import + 3 site-calls + sole-definer census, 4/4 pass).
+**Verify:** - `Invocation_lev`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/invocation-lev-rewire.test.mjs` 4/4 pass.
+**Named:** - `Invocation_lev`: none in-body — whole C body live at js/dungeon.js:2392.
+**Next:** the remaining missing-arm rows (attacktype×4 + histemple_at + unique_corpstat + invocation_pos + On_stairs — next iterations).
 ## 2026-10-03 — D-3348 `mon.c` m_in_air canonical export + do/teleport/trap.js rewire (12 sites → live js/mon.js export)
 
 **C locus:** - `m_in_air`: nethack-c/upstream/src/mon.c:2130–2136 — is_flyer || is_floater || (is_clinger && has_ceiling && mundetected). 12 C call sites: do.c:89, mon.c:1053/:1099/:2166/:2168, teleport.c:147/:161, trap.c:1441/:1530/:2608/:2683/:2743.
