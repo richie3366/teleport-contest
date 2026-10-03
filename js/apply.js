@@ -80,7 +80,7 @@ import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, A_CON, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination, a_monnam, Amonnam, monverbself, l_monnam, type_is_pname, pmname, Mgender, hliquid, YMonnam, obj_pmname, hcolor, s_suffix, Ugender } from './do_name.js';
 import { monflee } from './monmove.js';
-import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms, You_hear, check_capacity } from './hack.js';
+import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms, You_hear, check_capacity, invocation_pos } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { walk_path, walk_path_async, hurtle_jump, thitmonst, hurtle } from './dothrow.js';
 import { uhim, uhis, genders } from './roles.js';
@@ -130,7 +130,6 @@ import { makemon, mkclass, mpickobj } from './makemon.js';
 import { make_familiar } from './dog.js';
 import { addinv, addinv_nomerge } from './u_init.js';
 import { stairway_at, morguemon } from './mklev.js';
-import { Invocation_lev } from './dungeon.js';
 import {
     make_glib, Glib, make_sick, make_confused, make_stunned, make_vomiting,
     make_hallucinated, make_deaf, djinni_from_bottle,
@@ -4144,14 +4143,6 @@ function carrying_apply(otyp) {
     return null;
 }
 
-/** C hack.c invocation_pos — Invocation_lev && (x,y)==inv_pos. */
-function invocation_pos_apply(x, y) {
-    if (!Invocation_lev(game.u?.uz)) return false;
-    const ip = game.inv_pos || game.svi?.inv_pos;
-    if (!ip) return false;
-    return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
-}
-
 /** C stairs.c On_stairs — stairway_at != NULL. */
 function On_stairs_apply(x, y) {
     return !!stairway_at(x, y);
@@ -4201,7 +4192,7 @@ export async function use_bell(obj) {
     const ordinary = obj.otyp !== BELL_OF_OPENING || !(obj.spe | 0);
     const u = game.u || {};
     const invoking = obj.otyp === BELL_OF_OPENING
-        && invocation_pos_apply(u.ux, u.uy)
+        && invocation_pos(u.ux, u.uy)
         && !On_stairs_apply(u.ux, u.uy);
 
     Hero_playnotes_bell(obj.otyp, 'C', 100);
@@ -4780,7 +4771,7 @@ export async function use_candelabrum(obj) {
             `${The(xname(obj))}'s ${s} burn${Blind() ? '.' : ' brightly!'}`,
         );
     }
-    if (!invocation_pos_apply(u.ux | 0, u.uy | 0)
+    if (!invocation_pos(u.ux | 0, u.uy | 0)
         || On_stairs_apply(u.ux | 0, u.uy | 0)) {
         await pline(
             `The ${s} ${vtense(s, 'are')} being rapidly consumed!`,

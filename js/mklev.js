@@ -163,7 +163,7 @@ import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
 import { block_point, unblock_point, does_block, recalc_block_point, vision_recalc, vision_reset } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
-import { monst_to_any, is_pool, is_lava, in_rooms } from './hack.js';
+import { monst_to_any, is_pool, is_lava, in_rooms, invocation_pos } from './hack.js';
 import { begin_burn, end_burn } from './timeout.js';
 import { o_unleash } from './apply.js';
 import { is_ice } from './zap.js';
@@ -20842,16 +20842,6 @@ function svi_inv_pos() {
 }
 
 /**
- * C hack.c invocation_pos — Invocation_lev && (x,y)==svi.inv_pos.
- * occupied uses this; unset {0,0} matches C (not a legal maze cell).
- */
-function invocation_pos_mk(x, y) {
-    if (!Invocation_lev(game.u?.uz)) return false;
-    const ip = svi_inv_pos();
-    return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
-}
-
-/**
  * C mkmaze.c pick_vibrasquare_location `:1042–1093` — choose svi.inv_pos
  * away from upstairs (same row/col/diagonal / distmin<=11), on SPACE_POS,
  * !occupied. No-upstairs short-circuit keeps the first rn1 pair.
@@ -33032,7 +33022,7 @@ export function occupied(x, y) {
         || IS_FURNITURE(loc.typ)
         || loc.typ === LAVAPOOL || loc.typ === LAVAWALL
         || IS_POOL(loc.typ)
-        || invocation_pos_mk(x, y));
+        || invocation_pos(x, y));
 }
 
 function somexyspace(croom, c) {

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3353 `hack.c` invocation_pos mklev.js + apply.js clone removal (3 sites → live js/hack.js export)
+
+**C locus:** - `invocation_pos`: nethack-c/upstream/src/hack.c:982–986 — `Invocation_lev(&u.uz) && x == svi.inv_pos.x && y == svi.inv_pos.y`. 8 C refs, 7 call sites: apply.c:1209 (use_bell invoking), apply.c:1361 (candelabrum burn gate), artifact.c:2516 (retouch_object), getpos.c:427, hack.c:3067 (invocation_message), mklev.c:1810 (occupied) + mkmaze.c:1073 comment-only inv_pos init.
+**JS:** - `invocation_pos`: js/hack.js:3434 (live, canonical, untouched); rewired sites js/mklev.js:33025 (occupied), js/apply.js:4195 (use_bell), js/apply.js:4774 (use_candelabrum); pre-existing live sites js/spell.js:791, js/getpos.js:748, js/hack.js:3580, js/artifact.js:1666.
+**Change:** extended the two ALREADY static →hack edges (`invocation_pos` added to the hack.js imports js/mklev.js:166, js/apply.js:83; `imports.mjs --can` ALREADY both — no new edge, no new test surface); deleted both clones; dropped the now-unused apply→dungeon edge (js/apply.js:133-then — served only the deleted clone body per D-3349; mklev keeps :150 for makemaz/hellfill). Maintained test: evolved scripts/invocation-lev-rewire.test.mjs → scripts/invocation-pos-rewire.test.mjs (no-clone + live-import + 3 site-calls + dropped-edge + sole-definer census, 5/5 pass).
+**Verify:** - `invocation_pos`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/invocation-pos-rewire.test.mjs` 5/5 pass.
+**Named:** - `invocation_pos`: none in-body — whole C body live at js/hack.js:3434. Out of scope: the adjacent On_stairs_apply clone (js/apply.js:4147) stays queued as its own row (`stairs.c` On_stairs dogmove+apply).
+**Next:** next missing-arm row (`stairs.c` On_stairs dogmove/apply clone removal).
 ## 2026-10-03 — D-3352 `mondata.h` unique_corpstat 4-clone removal + `mondata.c` attacktype engrave.js clone removal
 
 **C locus:** - `unique_corpstat`: nethack-c/upstream/include/mondata.h:174 — `#define unique_corpstat(ptr) (((ptr)->geno & G_UNIQ) != 0)`. 17 C references; 7 rewired here: trap.c:795/:802 (animate_statue), teleport.c:59 (goodpos_onscary), monmove.c:260 (onscary), read.c:3126 (cant_revive), zap.c:1097 (revive), music.c:51 (awaken_scare).
