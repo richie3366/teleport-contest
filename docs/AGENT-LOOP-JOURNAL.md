@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — Audit 2303–2311: review D-3347–D-3355 (9 ACCEPT) + full score
+
+**Reviews:** 9 clone-removal SHAs audited against pinned C, one file per SHA: mon_aligntyp (invented maligntyp fallback removed), m_in_air (ceiling gate + clinger arm restored), Invocation_lev (identical), attacktype canonical port (exact) + 4, histemple_at (identical), unique_corpstat ×4 + attacktype engrave (identical), invocation_pos (unset corner documented, unobservable), On_stairs (dogmove heuristic → literal C), attacktype ×4 + dmgtype ×2 (identical). Every verify re-run, no REGRESSED sessions, no Must-fix. Pattern noted (not queued, not C-wrongs): later SHAs break earlier SHAs' exact-regex/census maintained tests (2303/2304/2306/2309); commit messages truncate multi-function Verify/Named bullets (D-log complete).
+**Cadence:** public 44/44 (322+1.66/turn); corpus 706/953, 0 lost/0 gained, full:true @2026-10-03T05:14:14Z; held-out 15/44 (+0). Ledger snapshot + 5 ported rows sampled (lspo_stair stale note fixed). Backfilled D-3354 DONE stamp (D-3355 missed it).
 ## 2026-10-03 — D-3355 `mondata.c` attacktype 4-clone removal + dmgtype 2-clone removal (makemon/muse/polyself/trap/engrave/eat → live exports)
 
 **C locus:** - `attacktype`: nethack-c/upstream/src/mondata.c:54–57 — `attacktype_fordmg(ptr, atyp, AD_ANY) ? TRUE : FALSE`. 46 C refs (brief this session): artifact.c:1342, cmd.c:904/:908, dog.c:210/:1277, dogmove.c:466, dokick.c:183, eat.c:1311, engrave.c:197, hack.c:2247, mhitm.c:1464/:1465, mon.c:2855/:2856/:3189/:3463/:3464/:5413, mondata.c:657/:658, monmove.c:842/:947, muse.c:1228/:1528/:2040/:2200/:2207/:2659/:2723/:2746, polyself.c:1039/:1043/:2083, steal.c:647, trap.c:2407/:2408/:2873/:2874, uhitm.c:5281/:5282, weapon.c:761, wizard.c:650/:674 (+ mondata.h:87 is_armed / :122 can_breathe macros).

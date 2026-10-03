@@ -2312,3 +2312,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2300-459a611e1-invocation-lev-hack-removal.md](./2300-459a611e1-invocation-lev-hack-removal.md) | `459a611e1` | D-3344 Invocation_lev hack.js clone removal | **ACCEPT** |
 | [2301-cd0939656-useupf-zap-clone-removal.md](./2301-cd0939656-useupf-zap-clone-removal.md) | `cd0939656` | D-3345 useupf zap.js clone removal | **ACCEPT** |
 | [2302-a99f09d15-attacktype-fordmg-quad-removal.md](./2302-a99f09d15-attacktype-fordmg-quad-removal.md) | `a99f09d15` | D-3346 attacktype_fordmg 4-clone removal | **ACCEPT** |
+| [2303-7c9d1a96d-mon-aligntyp-teleport-clone-removal.md](./2303-7c9d1a96d-mon-aligntyp-teleport-clone-removal.md) | `7c9d1a96d` | D-3347 mon_aligntyp teleport.js clone removal | **ACCEPT** |
+| [2304-3d3580f61-m-in-air-canonical-export-rewire.md](./2304-3d3580f61-m-in-air-canonical-export-rewire.md) | `3d3580f61` | D-3348 m_in_air canonical export + rewire | **ACCEPT** |
+| [2305-d0e3ce01b-invocation-lev-mklev-apply-removal.md](./2305-d0e3ce01b-invocation-lev-mklev-apply-removal.md) | `d0e3ce01b` | D-3349 Invocation_lev mklev+apply removal | **ACCEPT** |
+| [2306-350dcff17-attacktype-live-export-port.md](./2306-350dcff17-attacktype-live-export-port.md) | `350dcff17` | D-3350 attacktype live-export port | **ACCEPT** |
+| [2307-c7c586e3c-histemple-at-canonical-export.md](./2307-c7c586e3c-histemple-at-canonical-export.md) | `c7c586e3c` | D-3351 histemple_at canonical export | **ACCEPT** |
+| [2308-85e8a632f-unique-corpstat-attacktype-engrave.md](./2308-85e8a632f-unique-corpstat-attacktype-engrave.md) | `85e8a632f` | D-3352 unique_corpstat ×4 + attacktype engrave | **ACCEPT** |
+| [2309-217726648-invocation-pos-mklev-apply.md](./2309-217726648-invocation-pos-mklev-apply.md) | `217726648` | D-3353 invocation_pos mklev+apply removal | **ACCEPT** |
+| [2310-191ed4aea-on-stairs-dogmove-apply.md](./2310-191ed4aea-on-stairs-dogmove-apply.md) | `191ed4aea` | D-3354 On_stairs dogmove+apply removal | **ACCEPT** |
+| [2311-18773ed32-attacktype-dmgtype-six-clone-removal.md](./2311-18773ed32-attacktype-dmgtype-six-clone-removal.md) | `18773ed32` | D-3355 attacktype ×4 + dmgtype ×2 removal | **ACCEPT** |

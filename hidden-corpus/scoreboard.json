@@ -1,9 +1,9 @@
 {
- "commit": "191ed4aea",
- "at": "2026-10-03T04:54:26.886Z",
- "full": false,
- "fullCommit": "a99f09d15",
- "fullAt": "2026-10-03T03:41:57.610Z",
+ "commit": "18773ed32",
+ "at": "2026-10-03T05:14:14.727Z",
+ "full": true,
+ "fullCommit": "18773ed32",
+ "fullAt": "2026-10-03T05:14:14.727Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -4456,7 +4456,7 @@
    "steps": 96,
    "owner": "dog_goal",
    "loc": "dogmove.c:554",
-   "jsOwner": "obj_resists(dogmove.js:187)",
+   "jsOwner": "obj_resists(dogmove.js:173)",
    "cTopline": "Your movements are only slowed slightly by your load.--More--",
    "jsTopline": "Your movements are only slowed slightly by your load.",
    "error": null
@@ -6309,7 +6309,7 @@
    "steps": 42,
    "owner": "dog_move",
    "loc": "dogmove.c:1255",
-   "jsOwner": "obj_resists(dogmove.js:187)",
+   "jsOwner": "obj_resists(dogmove.js:173)",
    "cTopline": "You are freezing to death!",
    "jsTopline": "You are freezing to death!",
    "error": null
@@ -8612,19 +8612,8 @@
   "scen-longrun-Archeologist-94094": {
    "src": "corpus",
    "passed": false,
-   "rngM": 133076,
-   "rngT": 136433,
-   "scrM": 287,
-   "scrT": 291,
-   "kind": "rng",
-   "step": 287,
-   "steps": 291,
-   "owner": "distfleeck",
-   "loc": "monmove.c:538",
-   "jsOwner": "(no JS draw; last matched was moveloop_core)",
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
+   "loc": null,
+   "error": "worker: "
   },
   "scen-longrun-Archeologist-94294": {
    "src": "corpus",
@@ -8893,7 +8882,7 @@
    "steps": 206,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "rottenfood(eat.js:2470)",
+   "jsOwner": "rottenfood(eat.js:2457)",
    "cTopline": "You resume your meal. You hear the footsteps of a guard on patrol.--More--",
    "jsTopline": "Blecch! Rotten food! You finish eating the food ration.",
    "error": null
@@ -9896,7 +9885,7 @@
    "steps": 78,
    "owner": "obj_resists",
    "loc": "zap.c:1469",
-   "jsOwner": "dog_move(dogmove.js:1556)",
+   "jsOwner": "dog_move(dogmove.js:1542)",
    "cTopline": "Hachi misses the lichen.",
    "jsTopline": "Hachi misses the lichen.",
    "error": null
@@ -10814,7 +10803,7 @@
    "steps": 263,
    "owner": "dog_goal",
    "loc": "dogmove.c:554",
-   "jsOwner": "obj_resists(dogmove.js:187)",
+   "jsOwner": "obj_resists(dogmove.js:173)",
    "cTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "jsTopline": "\"Did you see Lash LaRue in 'Song of Old Wyoming' the other night?\"",
    "error": null
@@ -11715,7 +11704,7 @@
    "steps": 162,
    "owner": "dog_move",
    "loc": "dogmove.c:1255",
-   "jsOwner": "dog_move(dogmove.js:1558)",
+   "jsOwner": "dog_move(dogmove.js:1544)",
    "cTopline": "That door is closed.",
    "jsTopline": "staircase down",
    "error": null
@@ -13143,7 +13132,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "score_targ(dogmove.js:1215)",
+   "jsOwner": "score_targ(dogmove.js:1201)",
    "cTopline": "You hear a chugging sound.",
    "jsTopline": "You hear a chugging sound.",
    "error": null
@@ -13194,7 +13183,7 @@
    "steps": 167,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "goodpos(teleport.js:508)",
+   "jsOwner": "goodpos(teleport.js:473)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null
@@ -13755,7 +13744,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "obj_resists(dogmove.js:187)",
+   "jsOwner": "obj_resists(dogmove.js:173)",
    "cTopline": "The little dog doesn't seem to move!",
    "jsTopline": "Really step onto that sleeping gas trap? [yn] (n)",
    "error": null
@@ -13959,7 +13948,7 @@
    "steps": 34,
    "owner": "dog_move",
    "loc": "dogmove.c:1257",
-   "jsOwner": "dog_move(dogmove.js:1556)",
+   "jsOwner": "dog_move(dogmove.js:1542)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14027,7 +14016,7 @@
    "steps": 159,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3206)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3198)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14044,7 +14033,7 @@
    "steps": 162,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3206)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3198)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14095,7 +14084,7 @@
    "steps": 151,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3206)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3198)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14282,7 +14271,7 @@
    "steps": 181,
    "owner": "u_calc_moveamt",
    "loc": "allmain.c:131",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3206)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3198)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -14333,7 +14322,7 @@
    "steps": 145,
    "owner": "gethungry",
    "loc": "eat.c:3191",
-   "jsOwner": "makemon_rnd_goodpos(makemon.js:3206)",
+   "jsOwner": "makemon_rnd_goodpos(makemon.js:3198)",
    "cTopline": "",
    "jsTopline": "",
    "error": null

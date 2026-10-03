@@ -85,7 +85,7 @@
 {"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
 {"fn":"good_stair_loc","c":"4139-4144","status":"ported","js":["js/mklev.js:good_stair_loc"],"d":["D-3229"],"at":"2026-10-01@1633dc128"}
 {"fn":"l_create_stairway","c":"4147-4213","status":"ported","js":["js/mklev.js:l_create_stairway"],"d":["D-3139"],"at":"2026-09-30@042bdf039"}
-{"fn":"lspo_stair","c":"4223-4226","status":"ported","js":["js/mklev.js:lspo_stair"],"d":["D-3139"],"at":"2026-09-30@042bdf039","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_stair","c":"4223-4226","status":"ported","js":["js/mklev.js:lspo_stair"],"d":["D-3139"],"at":"2026-10-03@18773ed32","note":"audit 2303-2311: live js/mklev.js:23418 verified (l_create_stairway+return 0); stale no-symbol note retired"}
 {"fn":"lspo_ladder","c":"4232-4235","status":"ported","js":["js/mklev.js:lspo_ladder"],"d":["D-3139"],"at":"2026-09-30@042bdf039","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_grave","c":"4243-4278","status":"ported","js":["js/mklev.js:lspo_grave"],"d":["D-3139"],"at":"2026-09-30@042bdf039","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_altar","c":"4283-4318","status":"ported","js":["js/mklev.js:lspo_altar"],"d":["D-3139"],"at":"2026-09-30@042bdf039","note":"refresh: no JS symbol (measured MISSING)"}

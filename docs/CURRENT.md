@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-03** — full `sessions` on `a99f09d15`
-(audit **2294–2302**, 2026-10-03T03:35:34.332Z).
+Score last measured: **2026-10-03** — full `sessions` on `18773ed32`
+(audit **2303–2311**, 2026-10-03T05:08:33.195Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`350+1.70/turn` (R² 0.78).
+`322+1.66/turn` (R² 0.80).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `350+1.70/turn` (R² 0.78) |
+| Speed label | `322+1.66/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5, 3rd agentic; best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 since last audit.
-**Corpus fortress (2026-10-03 03:41Z; scored 953/953 entries, 0 unrecorded):**
-**706 / 953** PASS (74.1 %), RNG 98.11 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-03T03:41:57.610Z`.
-Reviews 1225–2302 (index; no row 1618): 947 ACCEPT, 45 WITH-DEBT, 85 QUALITY-RISK (2294–2302: 9 accept/0 debt/0Q; 2266 erinys family closed by D-3311, verified in 2269).
+**Corpus fortress (2026-10-03 05:14Z; scored 953/953 entries, 0 unrecorded):**
+**706 / 953** PASS (74.1 %), RNG 98.11 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-03T05:14:14.727Z`.
+Reviews 1225–2311 (index; no row 1618): 956 ACCEPT, 45 WITH-DEBT, 85 QUALITY-RISK (2303–2311: 9 accept/0 debt/0Q; 2266 erinys family closed by D-3311, verified in 2269).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** `mondata.c` attacktype 4-clone removal (makemon/muse/polyself/trap → live js/mondata.js:79) + dmgtype 2-clone removal (engrave/eat → live js/monsters.js:565) — 6 queued missing-arm rows, all 6 edges ALREADY; call sites keep the same names, clones replaced by live-export markers.
+**Next cluster:** `hacklib.c` upstart mthrowu.js + read.js clone removals (→ live js/hacklib.js:497, both edges ALREADY), then the 6 mondata refill rows (dmgtype mhitm/mhitu/monmove/zap + attacktype_mm + dmgtype_fromattack canonical).
 
 ## Parked (diagnose only — do not implement)
 
