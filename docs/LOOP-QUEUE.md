@@ -115,7 +115,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 `rows --write` keeps that order while they stay eligible.
 
 <!-- coverage:begin -->
-- [ ] `restore.c` reset_oattached_mids — coverage MISSING (C 13 code L `restore.c:1510–1530` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @bbe63333a
 - [ ] `save.c` savelevchn — coverage MISSING (C 14 code L `save.c:974–994` / JS no symbol; hops 4, callers 2, RNG 0, msg 0) @bbe63333a
 - [ ] `save.c` save_bc — coverage MISSING (C 14 code L `save.c:696–721` / JS no symbol; hops 4, callers 1, RNG 0, msg 0) @bbe63333a
 <!-- coverage:end -->

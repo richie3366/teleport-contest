@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3369 — `restore.c` reset_oattached_mids whole port + both getlev tails wired
+
+- **Status:** fixed.
+- **Symptom:** coverage row — no JS symbol for the restore-time ghostly oattached-mid resetter; bones loads never zeroed omonst m_id/peace (pet's owner died) nor remapped omids through the getlev id map. Reviews 657/659 list it as a named omit (both ACCEPT-WITH-DEBT, no Actionable item for it — no stamp owed). JSON Sy restore is ghostly-FALSE so behavior there is unchanged by construction.
+- **C locus:** nethack-c/upstream/src/restore.c:1510–1530 (`reset_oattached_mids`; sole C caller getlev :1301, after relink_timers / relink_light_sources, before clear_id_mapping :1304).
+- **JS was:** no symbol; getlev_bones ran remap + rest_regions (the other id-map consumer) + clear without the :1301 step; Sy restore had no :1301 call.
+- **Fix:** whole C body in C order at C-home js/restore.js:237 — fobj chain walk, ghostly-gated omonst arm (`m_id = 0`, `mpeaceful = mtame = 0`), ghostly-gated omid arm (oldid → lookup → assign, else free_omid). Every callee live, no clone: has_omonst/OMONST/has_omid/OMID (const.js), lookup_bones_id (bones.js ledger-split shape — boolean+out-param collapsed to id-or-null, region.js reset_region_mids precedent), free_omid (mkobj.js); OMID assign ⇔ oextra.omid (shk.js:4228 precedent; has_omid guarantees oextra). serObj/deserObjChain persist oextra wholesale (lev_json.js:101/127), so both arms are live on bones loads. New edges restore→bones, restore→mkobj, bones→restore, save→restore all `imports.mjs --can` SAFE/ALREADY (hoisted function declarations, same SCC).
+- **JS:** js/restore.js:237 `export function reset_oattached_mids(ghostly)`; wired js/bones.js:695 (`reset_oattached_mids(true)` after rest_track, before clear_bones_ids — C :1301→:1304 order, map populated by remapMonChainIds) and js/save.js:1007 (`reset_oattached_mids(false)` right after relink_light_sources — faithful no-op walk, both arms gated; game.fobj installed before both tails: bones.js:666, save.js:925).
+- **Callers:** C getlev :1301 → JS getlev_bones js/bones.js:695 (ghostly) + Sy restore js/save.js:1007 (non-ghostly). No other C call site (decl :32 excepted).
+- **Verify:** `node scripts/verify.mjs --fn reset_oattached_mids` → VERIFY: PASS: syntax (3 files: bones/restore/save) · rule2 · hidden note (0 blocked — normal for coverage) · reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7. New scripts/reset-oattached-mids.test.mjs 4/4 pass (omonst zeroing, omid remap/free, non-ghostly no-op, null chain). /tmp/reset-oattached-probe.mjs PROBE PASS (kept).
+- **Named omissions:** none in-body — whole C body live. Single-function cluster (density exception: restore.c holds no other Open row — coverage block + missing-arm checked this session; callee lookup_id_mapping ledger-split, live via lookup_bones_id).
+- **Ledger:** reset_oattached_mids ported
+- **Next:** coverage block continues (save.c savelevchn, save_bc).
+
 ## D-3368 — `mhitm.c` slept_monst unwired C callers (review 2317 C-wrong 2)
 
 - **Status:** shipped (Must-fix review 2317 C-wrong 2; checked off + archived in this commit). 2 clone deletions + bhitm WAN_SLEEP arm + 2 regression tests (scripts/dobuzz-slept-monst.test.mjs 9/9).

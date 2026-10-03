@@ -28,5 +28,5 @@
 {"fn":"clear_id_mapping","c":"1447-1456","status":"split","js":["js/bones.js:clear_bones_ids"],"at":"2026-10-03@bbe63333a"}
 {"fn":"add_id_mapping","c":"1460-1476","status":"split","js":["js/bones.js:record_bones_id"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lookup_id_mapping","c":"1484-1507","status":"split","js":["js/bones.js:lookup_bones_id"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: live: consumed by region.js reset_region_mids and light.js"}
-{"fn":"reset_oattached_mids","c":"1510-1530","status":"absent","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: no JS implementation; ghostly omonst m_id zeroing and omid remap absent (searched omid/omonst/bones/getlev paths)"}
+{"fn":"reset_oattached_mids","c":"1510-1530","status":"ported","js":["js/restore.js:reset_oattached_mids"],"d":["D-3369"],"at":"2026-10-03@794aa26a5","note":"audit 2026-10-03: no JS implementation; ghostly omonst m_id zeroing and omid remap absent (searched omid/omonst/bones/getlev paths)"}
 {"fn":"restore_menu","c":"1536-1618","status":"unknown"}

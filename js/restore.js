@@ -20,6 +20,10 @@ import {
     EMIN,
     EDOG,
     EBONES,
+    has_omonst,
+    OMONST,
+    has_omid,
+    OMID,
 } from './const.js';
 import {
     newegd,
@@ -28,6 +32,8 @@ import {
     newemin,
     newedog,
 } from './makemon.js';
+import { lookup_bones_id } from './bones.js';
+import { free_omid } from './mkobj.js';
 
 /**
  * C ref: makemon.c init_mextra `:1059–1063` (staticfn → file-local;
@@ -214,4 +220,35 @@ export function restmon(mtmp) {
     // else: keep NON_PM from newmextra (C file always carries the word;
     // absent key = pre-port JSON without the chunk)
     return mtmp;
+}
+
+/**
+ * C ref: restore.c reset_oattached_mids `:1510–1530` (staticfn → exported:
+ * both getlev tails call it — bones.js getlev_bones ghostly, save.js Sy
+ * restore non-ghostly). Whole body in C order. Sole C caller getlev
+ * `:1301`, after relink_timers / relink_light_sources, before
+ * clear_id_mapping `:1304`. Walks the floor chain (game.fobj — installed
+ * before both tails run); both arms are ghostly-gated, so the Sy call is
+ * a faithful no-op walk. lookup_id_mapping `:1484–1507` ⇔ bones.js
+ * lookup_bones_id (ledger-split shape: boolean+out-param collapsed to
+ * id-or-null — region.js reset_region_mids precedent); OMID assign ⇔
+ * oextra.omid (shk.js:4228 precedent; has_omid guarantees oextra).
+ */
+export function reset_oattached_mids(ghostly) {
+    for (let otmp = game.fobj; otmp; otmp = otmp.nobj) {
+        if (ghostly && has_omonst(otmp)) {
+            const mtmp = OMONST(otmp);
+
+            mtmp.m_id = 0;
+            mtmp.mpeaceful = mtmp.mtame = 0; /* pet's owner died! */
+        }
+        if (ghostly && has_omid(otmp)) {
+            const oldid = OMID(otmp);
+            const nid = lookup_bones_id(oldid);
+            if (nid != null)
+                otmp.oextra.omid = nid;
+            else
+                free_omid(otmp);
+        }
+    }
 }

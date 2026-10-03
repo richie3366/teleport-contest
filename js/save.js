@@ -70,6 +70,7 @@ import { rest_worm } from './worm.js';
 import { rest_rooms } from './mkroom.js';
 import { adj_erinys, reset_erinys } from './monsters.js';
 import { set_uasmon } from './polyself.js';
+import { reset_oattached_mids } from './restore.js';
 
 const SAVE_VFS_PREFIX = 'save/';
 // C ref: fnamesiz.h UNIX arm — SAVEX `save/99999.e` (sizeof 12),
@@ -999,6 +1000,11 @@ export async function try_restore_save() {
     // which never installs lights — named omission); level entries arrive
     // already linked by relinkLevelTimersLights, so flag-gated skip.
     relink_light_sources(false);
+    // C restore.c getlev `:1301` reset_oattached_mids(ghostly) in C order,
+    // right after relink. Never ghostly here, so a no-op walk of
+    // game.fobj (both C arms are ghostly-gated); wired to keep the
+    // getlev tail complete.
+    reset_oattached_mids(false);
 
     // C restore.c restgamestate `:720–722` after restnames:
     // restore_msghistory, restore_gamelog, restore_luadata.
