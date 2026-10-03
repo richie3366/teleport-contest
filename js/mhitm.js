@@ -1412,17 +1412,22 @@ async function sleep_slee_mm(mon, amt) {
 }
 
 /**
- * C ref: mhitm.c slept_monst — sleeping grabber releases (uhitm.c caller).
- * Named omission: sticks(youmonst.data) engulfer keeps hold (treated as release).
+ * C ref: mhitm.c slept_monst `:1249–1257` — a grabber that just went
+ * helpless (monst.h:251 msleeping || !mcanmove) releases the hero unless
+ * sticky youmonst keeps hold or the hero is swallowed. C callers:
+ * music.c:95 + potion.c:1806 (JS clones remain, queued next),
+ * uhitm.c:3490/3519 (wired below), zap.c:486 (JS bhitm lacks the WAN_SLEEP
+ * arm — no call site), zap.c:4946 dobuzz (wired zap.js).
  */
-async function slept_slee_mm(mon) {
-    const u = game.u || {};
+export async function slept_monst(mon) {
     if (!mon) return;
+    const u = game.u || {};
     const helpless = !!(mon.msleeping || !mon.mcanmove);
-    if (helpless && mon === u.ustuck && !u.uswallow) {
+    if (helpless && mon === u.ustuck
+        && !(game.youmonst?.data && sticks(game.youmonst.data))
+        && !u.uswallow) {
         await pline_mon(mon, `${s_suffix(Monnam(mon))} grip relaxes.`);
-        u.ustuck = null;
-        if (game.youmonst) game.youmonst.ustuck = null;
+        await unstuck(mon);
     }
 }
 
@@ -1445,7 +1450,7 @@ export async function mhitm_ad_slee(magr, mattk, mdef, mhm) {
             if (!Blind_slee()) {
                 await pline(`${Monnam(mdef)} is put to sleep by you!`);
             }
-            await slept_slee_mm(mdef);
+            await slept_monst(mdef);
         }
         return;
     }
@@ -1457,7 +1462,7 @@ export async function mhitm_ad_slee(magr, mattk, mdef, mhm) {
             await pline(`${Monnam(mdef)} is put to sleep by ${mon_nam(magr)}.`);
         }
         mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
-        await slept_slee_mm(mdef);
+        await slept_monst(mdef);
     }
 }
 

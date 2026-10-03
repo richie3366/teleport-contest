@@ -61,7 +61,7 @@
 {"fn":"disintegrate_mon","c":"4723-4756","status":"unknown"}
 {"fn":"ubuzz","c":"4759-4762","status":"unknown"}
 {"fn":"buzz","c":"4765-4768","status":"unknown"}
-{"fn":"dobuzz","c":"4780-5037","status":"unknown","d":["D-2133"],"at":"seed@a30a7de84"}
+{"fn":"dobuzz","c":"4780-5037","status":"partial","js":["js/zap.js:dobuzz"],"omit":"- `dobuzz`: AD_MAGM..ACID explode combat → explode.js (D-0973, pre-existing); flash_str nohallu args stay suppressed (C FALSE = Hallu text at :4880/:4916/:4933/:4952/:4962/:4964/:4984/:5021/:5028; message-text-only, queued next).","d":["D-3361","D-2133"],"at":"2026-10-03@9dc9139eb"}
 {"fn":"melt_ice","c":"5040-5079","status":"unknown"}
 {"fn":"start_melt_ice_timeout","c":"5088-5111","status":"unknown"}
 {"fn":"melt_ice_away","c":"5119-5132","status":"unknown"}

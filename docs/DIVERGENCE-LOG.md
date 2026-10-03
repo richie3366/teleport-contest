@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-3361 — `zap.c` dobuzz completion (uswallow/reflect/Rider/Death/otmp/steed/mines/bhitpos) + `mhitm.c` slept_monst canonical export
+
+- **Status:** shipped (2 missing-arm rows checked off + archived; queue refilled to 4 with brief evidence, def_char_is_furniture + assign_graphics remain). js/ +225/−73 (js/zap.js, js/mhitm.js) + scripts/dobuzz-slept-monst.test.mjs (5/5).
+- **Symptom:** no baseline corpus block for either function — coverage completion. dobuzz's own doc named the defers (mon_reflects/map_invisible/Hallu/steed); slept_monst had no JS export (3 local clones, all sticks-deferred, all hand-clearing ustuck).
+- **C locus:**
+  - `dobuzz`: nethack-c/upstream/src/zap.c:4788–5037 (brief/csym extractor misses the K&R signature; body read via sed this session) — hdmgtype :4799, uswallow :4804–4821, invis :4843–4847, mon_reflects :4874–4884, Rider :4887–4905, PM_DEATH :4906–4911, otmp-else :4934–4941, slept :4942–4943, steed :4956–4959, mines bchance :5014–5016, bhitpos :4819/:5035.
+  - `slept_monst`: nethack-c/upstream/src/mhitm.c:1249–1257 (helpless = monst.h:251 msleeping || !mcanmove).
+- **JS was:**
+  - `dobuzz` js/zap.js:2318 — beam loop + hit/miss/death/hero-reflect/bounce/fireball live; the 11 arms above missing or deferred.
+  - `slept_monst` — no export; locals js/music.js:268, js/mhitm.js:1418 slept_slee_mm, js/potion.js:3745 slept_monst_pot.
+- **Fix:** ported the dobuzz arms in C order behind a per-iteration `buzzmonst` closure for the C :4867 label (the steed :4956 goto shares it, skipping fireball-break + STRAT clear as in C); canonical `export async function slept_monst` at C-home js/mhitm.js with live sticks + unstuck; same-file clone deleted, its 2 call sites rewired; 6 same-edge import additions in zap.js (display/monsters/mhitm/do_name/mhitu/const — no new module edge).
+- **JS:**
+  - `dobuzz` js/zap.js:2325 (buzzmonst :2433; mon :2575; steed :2586; bhitpos :2700).
+  - `slept_monst` js/mhitm.js:1422.
+- **Callers:**
+  - `dobuzz` — mthrowu.c:1123 → js/mthrowu.js:503; muse.c:1817 → js/muse.js:547; zap.c:4761 → js/zap.js:2711 (ubuzz); zap.c:4767 → js/zap.js:2705 (buzz). All pre-existing, untouched.
+  - `slept_monst` — music.c:95 → js/music.js:286 (local clone; queued next); potion.c:1806 → js/potion.js:4003 (local clone; queued next); uhitm.c:3490/3519 → js/mhitm.js:1453/:1465 (canonical); zap.c:486 → none (JS bhitm lacks the WAN_SLEEP arm — caller-side gap); zap.c:4946 → js/zap.js:2433 buzzmonst, both post-hit branches.
+- **Verify:** `node scripts/verify.mjs --fn dobuzz,slept_monst` → VERIFY: PASS:
+  - `dobuzz`: hidden PROGRESS (scen-impaired-Rogue-94110 re-attributed at same step 89 → rnd_hallublast, 0 worse); REACH-OK (40/40 baseline-PASS reach sessions pass).
+  - `slept_monst`: hidden none blocked (expected); REACH-OK (smoke 24/24).
+  - syntax PASS (2 files) · rule2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file). scripts/dobuzz-slept-monst.test.mjs 5/5, fails pre-change (missing export).
+- **Named omissions:**
+  - `dobuzz`: AD_MAGM..ACID explode combat → explode.js (D-0973, pre-existing); flash_str nohallu args stay suppressed (C FALSE = Hallu text at :4880/:4916/:4933/:4952/:4962/:4964/:4984/:5021/:5028; message-text-only, queued next).
+  - `slept_monst`: music.js:268 + potion.js:3745 clone-callers unrewired (queued next); zap.c:486 bhitm WAN_SLEEP arm absent (caller-side gap).
+- **Ledger:** dobuzz partial; slept_monst ported js=mhitm.js:slept_monst
+- **Next:** ship def_char_is_furniture (corpus scen-terrain-Tourist-94120 + review 1028) + assign_graphics showsyms. Refill audit this session (11 briefs): heat-150 holds no unported game logic ≥ 8 C lines — tiny gaps stale-complete (readchar/xytodir/newsym_force/match_sym/savedsym_add/savedsym_strbuf verified, stale-declare owed), MISSINGs dead/by-design (mkstemp/dummyfunction/sasc_bug/fn_cmap_to_glyph/only_here/free_ebones/dip_hands_ok/repopulate_perminvent; dumplogfreemessages retired D-1776); topl.c/wintty/files/save/restore/termcap/getline tails are wrong-layer or by-design (more() brief: tty_curs/standout/home/cl_end/xwaitforspace unportable).
+
 ## D-3360 — `hacklib.c` highc/upstart/s_suffix 8-clone removal (botl/potion/mthrowu/minion/explode/shk/questpgr → live exports)
 
 - **Status:** shipped (8 missing-arm rows checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions — below the ~80 bar, defended (D-3350–D-3359 clone-removal precedent): 22 call sites rewired, 8 whole clones deleted; the head's C file (hacklib.c) held exactly these 8 Open rows, all shipped. Refill: none by hand (prompt §Refill; queue drains to 0 — generated block stays ungeneratable, hand rows need authorization). Bundled: none (DONE-tail Addressed lines all carry short hashes — verified this session, nothing owed).

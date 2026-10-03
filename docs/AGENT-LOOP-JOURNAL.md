@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3361 `zap.c` dobuzz completion (uswallow/reflect/Rider/Death/otmp/steed/mines/bhitpos) + `mhitm.c` slept_monst canonical export
+
+**C locus:** - `dobuzz`: nethack-c/upstream/src/zap.c:4788–5037 (brief/csym extractor misses the K&R signature; body read via sed this session) — hdmgtype :4799, uswallow :4804–4821, invis :4843–4847, mon_reflects :4874–4884, Rider :4887–4905, PM_DEATH :4906–4911, otmp-else :4934–4941, slept :4942–4943, steed :4956–4959, mines bchance :5014–5016, bhitpos :4819/:5035.
+**JS:** - `dobuzz` js/zap.js:2325 (buzzmonst :2433; mon :2575; steed :2586; bhitpos :2700).
+**Change:** ported the dobuzz arms in C order behind a per-iteration `buzzmonst` closure for the C :4867 label (the steed :4956 goto shares it, skipping fireball-break + STRAT clear as in C); canonical `export async function slept_monst` at C-home js/mhitm.js with live sticks + unstuck; same-file clone deleted, its 2 call sites rewired; 6 same-edge import additions in zap.js (display/monsters/mhitm/do_name/mhitu/const — no new module edge).
+**Verify:** `node scripts/verify.mjs --fn dobuzz,slept_monst` → VERIFY: PASS:
+**Named:** - `dobuzz`: AD_MAGM..ACID explode combat → explode.js (D-0973, pre-existing); flash_str nohallu args stay suppressed (C FALSE = Hallu text at :4880/:4916/:4933/:4952/:4962/:4964/:4984/:5021/:5028; message-text-only, queued next).
+**Next:** ship def_char_is_furniture (corpus scen-terrain-Tourist-94120 + review 1028) + assign_graphics showsyms. Refill audit this session (11 briefs): heat-150 holds no unported game logic ≥ 8 C lines — tiny gaps stale-complete (readchar/xytodir/newsym_force/match_sym/savedsym_add/savedsym_strbuf verified, stale-declare owed), MISSINGs dead/by-design (mkstemp/dummyfunction/sasc_bug/fn_cmap_to_glyph/only_here/free_ebones/dip_hands_ok/repopulate_perminvent; dumplogfreemessages retired D-1776); topl.c/wintty/files/save/restore/termcap/getline tails are wrong-layer or by-design (more() brief: tty_curs/standout/home/cl_end/xwaitforspace unportable).
 ## 2026-10-03 — D-3360 `hacklib.c` highc/upstart/s_suffix 8-clone removal (botl/potion/mthrowu/minion/explode/shk/questpgr → live exports)
 
 **C locus:** - `highc`: nethack-c/upstream/src/hacklib.c:75–79 — `('a' <= c && c <= 'z') ? (c & ~040) : c`. 66 C refs (brief this session); rewired here: botl.c:548 (weapon-desc cap), botl.c:990 (name cap), botl.c:1005 (poly-title cap).
