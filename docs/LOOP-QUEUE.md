@@ -13,8 +13,12 @@ Stale lines live in `docs/archive/LOOP-QUEUE-REFILLS.md` /
 
 Held-out read **11/44, RNG 26.6 %, screens 50.0 %** on 2026-09-17 while the
 local corpus read 91.7 %: the corpus stopped predicting the judge. Until a
-human closes the phase, **Open — coverage** rows are the work: one whole C
-function per iteration (every arm, callee, caller; 200–800 lines).
+human closes the phase, the ledger is the work. **Since 2026-10-03 a port
+iteration is one batch**: `node scripts/ledger.mjs batch --write` — the
+whole remaining gap (open · partial · recheck) of the top C file(s), 40–100
+whole functions; finish reconciles the D-entry `Ledger:` / `Left open:`
+bullets against that manifest. The rows below are Must-fix (pop first,
+ships alone) and fallbacks for when the batch picker finds no gap.
 
 - **The block is generated** by `node scripts/ledger.mjs rows --write`
   (`finish-iteration.mjs` and `check-hot-docs.mjs --fix` run it): measured

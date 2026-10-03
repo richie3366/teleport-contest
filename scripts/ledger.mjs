@@ -9,6 +9,9 @@
  *   node scripts/ledger.mjs file <file.c>                # every function of one C file
  *   node scripts/ledger.mjs rows [N] [--min-c-lines 12] [--partial] [--all] [--write]
  *                                                        # coverage queue rows (--write: LOOP-QUEUE block)
+ *   node scripts/ledger.mjs batch [file.c…] [--max 100] [--write]
+ *                                                        # one iteration's batch: whole gap of the top C file(s)
+ *                                                        # (--write: .cache/batch.json, reconciled by finish)
  *   node scripts/ledger.mjs set <fn> <status> [--js a.js:sym,b.js:sym] [--omit "…"]
  *                               [--d D-NNNN] [--note "…"] [--no-queue]
  *   node scripts/ledger.mjs summary [--by-file] [--top N] [--snapshot]
@@ -19,6 +22,8 @@
  *   node scripts/ledger.mjs seed [--dry-run]             # one-shot history import
  *
  * Statuses: unknown absent scaffold partial ported parity split by-design frozen.
+ * Ledger bullet / set also take `audited` (live row re-read whole vs C:
+ * status kept, note stamped, batches skip it).
  * Stale queue row: `set <fn> ported --note "stale: <where the body lives>"`.
  * An iteration's handoff is the D-entry `- **Ledger:**` bullet, applied by
  * finish-iteration.mjs through applySets() below.
@@ -160,12 +165,19 @@ export async function applySets(entries, { at, dryRun = false } = {}) {
   const jsSet = new Set(L.jsDefs.map((d) => `${d.file}:${d.name}`));
   const errors = [];
   const staged = [];
-  for (const e of entries) {
-    const r = resolveKey(e.spec, keys);
+  for (const e0 of entries) {
+    const r = resolveKey(e0.spec, keys);
     if (r.error) { errors.push(r.error); continue; }
-    if (!STATUSES.includes(e.status)) { errors.push(`${e.spec}: unknown status "${e.status}" (${STATUSES.join(' ')})`); continue; }
     const m = L.byKey.get(r.key);
     const prev = L.ledger.get(r.key) || { file: m.file, fn: m.fn };
+    let e = e0;
+    /* `audited`: a batch re-read the live body against C and found it whole;
+       the status stays, the note records the audit so batches skip it. */
+    if (e.status === 'audited') {
+      if (!LIVE_STATUSES.has(prev.status)) { errors.push(`${e.spec}: audited needs a live status (is ${prev.status || 'unknown'}) — declare ported/partial instead`); continue; }
+      e = { ...e, status: prev.status, omit: e.omit || prev.omit || '', note: e.note ?? `audited ${(e.d || [])[0] || today()}: ${prev.status === 'partial' ? 'remaining omit cannot ship' : 'whole vs C'}` };
+    }
+    if (!STATUSES.includes(e.status)) { errors.push(`${e.spec}: unknown status "${e.status}" (${STATUSES.join(' ')} | audited)`); continue; }
     let js = e.js && e.js.length ? e.js : null;
     if (js) {
       const bad = js.filter((j) => !jsSet.has(j));
@@ -310,6 +322,75 @@ export async function writeQueueBlock({ n = QUEUE_TARGET, minC = DEFAULT_MIN_C, 
   return { changed, count: rows.length };
 }
 
+/* ---------------- batch (2026-10-03) ---------------- */
+/**
+ * One port iteration = one batch: the whole remaining gap of the C file
+ * with the highest summed reach × loudness, then the next files, until the
+ * batch holds BATCH_MIN functions or BATCH_GAP_LINES estimated C lines of
+ * work, never more than BATCH_MAX functions. A function is in the gap when
+ *   open    — unknown/absent/scaffold and not measured ok,
+ *   partial — declared partial (omit not `blocked:`, never audited: an
+ *             `audited` partial names only omissions that cannot ship),
+ *   recheck — ported/split but measured THIN/PARTIAL, never audited or
+ *             stale-retired (finish `audited`, `stale:` notes).
+ * Parked functions, win/tty, no-analogue and binary-save files are skipped
+ * unless their file is named on the command line.
+ */
+export const BATCH_MAX = 100;
+const BATCH_MIN = 40;
+const BATCH_GAP_LINES = 1500;
+export const BATCH_PATH = join(CACHE_DIR, 'batch.json');
+
+function gapKind(r, l) {
+  const s = l ? l.status : 'unknown';
+  if (OPEN_STATUSES.has(s)) return r.cover === 'ok' ? 'recheck' : 'open';
+  if (s === 'partial') return String(l.omit || '').startsWith('blocked:') || /^audited/.test(String(l.note || '')) ? null : 'partial';
+  if ((s === 'ported' || s === 'split') && (r.cover === 'THIN' || r.cover === 'PARTIAL')) {
+    return /^(audited|stale)/.test(String(l.note || '')) ? null : 'recheck';
+  }
+  return null;
+}
+const gapLines = (r, kind) => (kind === 'open' ? r.cCode : kind === 'partial' ? Math.ceil(r.cCode * 0.4) : Math.max(0, r.cCode - r.jsCode));
+
+export async function pickBatch({ files = [], max = BATCH_MAX } = {}) {
+  const L = await load();
+  const text = existsSync(QUEUE_PATH) ? readFileSync(QUEUE_PATH, 'utf8') : '';
+  const { parked } = queueKnowledge(text);
+  const named = new Set(files);
+  const byFile = new Map();
+  for (const r of L.rows) {
+    if (parked.has(r.fn)) continue;
+    if (!named.size && (TTY_FILES.has(r.file) || SKIP_FILES.has(r.file) || QUEUE_SKIP_FILES.has(r.file))) continue;
+    if (named.size && !named.has(r.file)) continue;
+    const kind = gapKind(r, L.ledger.get(r.key));
+    if (!kind) continue;
+    const e = byFile.get(r.file) || { file: r.file, score: 0, lines: 0, fns: [] };
+    e.score += r.score; e.lines += gapLines(r, kind);
+    e.fns.push({ key: r.key, file: r.file, fn: r.fn, kind, c: `${r.start}-${r.end}`, cCode: r.cCode, jsCode: r.jsCode,
+      cover: r.cover, status: (L.ledger.get(r.key) || {}).status || 'unknown', omit: (L.ledger.get(r.key) || {}).omit || '' });
+    byFile.set(r.file, e);
+  }
+  const order = named.size ? files.map((f) => byFile.get(f)).filter(Boolean)
+    : [...byFile.values()].sort((a, b) => b.score - a.score || b.fns.length - a.fns.length);
+  const out = [];
+  let lines = 0;
+  for (const e of order) {
+    if (out.length >= max) break;
+    if (!named.size && out.length >= BATCH_MIN && lines >= BATCH_GAP_LINES) break;
+    for (const f of e.fns.sort((a, b) => parseInt(a.c, 10) - parseInt(b.c, 10))) {
+      if (out.length >= max) break;
+      out.push(f); lines += gapLines({ cCode: f.cCode, jsCode: f.jsCode }, f.kind);
+    }
+  }
+  return { at: new Date().toISOString(), head: head(), files: [...new Set(out.map((f) => f.file))], gapLines: lines, fns: out };
+}
+
+/** The batch manifest finish-iteration reconciles against, or null. */
+export function readBatch() {
+  if (!existsSync(BATCH_PATH)) return null;
+  try { return JSON.parse(readFileSync(BATCH_PATH, 'utf8')); } catch { return null; }
+}
+
 /* ---------------- check ---------------- */
 export async function runCheck({ verbose = false } = {}) {
   const L = await load();
@@ -392,7 +473,7 @@ async function main(argv) {
   const rest = argv.slice(1);
   const pos = [];
   for (let i = 0; i < rest.length; i++) {
-    if (rest[i].startsWith('--')) { if (['--js', '--omit', '--d', '--note', '--min-c-lines', '--top'].includes(rest[i])) i++; continue; }
+    if (rest[i].startsWith('--')) { if (['--js', '--omit', '--d', '--note', '--min-c-lines', '--top', '--max'].includes(rest[i])) i++; continue; }
     pos.push(rest[i]);
   }
   switch (cmd) {
@@ -440,6 +521,23 @@ async function main(argv) {
       const rows = await eligibleRows({ n, minC, partial: flag(rest, '--partial'), all: flag(rest, '--all') });
       for (const x of rows) console.log(x.line);
       console.error(`${rows.length} row(s); status unknown/absent/scaffold${flag(rest, '--partial') ? ' + partial' : ''}, measured gap, C ≥ ${minC} code lines or dead callees.`);
+      return 0;
+    }
+    case 'batch': {
+      const max = parseInt(opt(rest, '--max', String(BATCH_MAX)), 10);
+      const b = await pickBatch({ files: pos, max });
+      if (!b.fns.length) { console.log(`batch: no gap left${pos.length ? ` in ${pos.join(' ')}` : ''} (open/partial/recheck)`); return 1; }
+      const n = (k) => b.fns.filter((f) => f.kind === k).length;
+      console.log(`batch @${b.head}: ${b.fns.length} function(s) in ${b.files.join(', ')} — open ${n('open')} · partial ${n('partial')} · recheck ${n('recheck')} · ~${b.gapLines} C lines of gap`);
+      for (const f of b.fns) {
+        const om = f.omit ? `  omit: ${f.omit.slice(0, 120)}` : '';
+        console.log(`  ${f.kind.padEnd(7)} ${`${f.file}:${f.fn}`.padEnd(40)} C ${f.c.padEnd(11)} C ${f.cCode}/JS ${f.jsCode} ${f.cover.padEnd(7)} ${f.status}${om}`);
+      }
+      if (flag(rest, '--write')) {
+        writeFileSync(BATCH_PATH, JSON.stringify(b, null, 1) + '\n');
+        console.log(`\nmanifest: ${relative(ROOT, BATCH_PATH)} — finish-iteration requires each function in the D-entry \`Ledger:\` bullet (ported | partial | split | by-design | audited) or in \`Left open:\` with a reason.`);
+      }
+      console.log(`verify: node scripts/verify.mjs --fn ${b.fns.map((f) => f.fn).join(',')}`);
       return 0;
     }
     case 'set': {
@@ -557,7 +655,10 @@ async function main(argv) {
       return seed({ dryRun: flag(rest, '--dry-run'), load, head });
     }
     default:
-      console.log(readFileSync(new URL(import.meta.url), 'utf8').split('\n').slice(2, 25).map((l) => l.replace(/^ \*\/?\s?/, '')).join('\n'));
+      {
+        const src = readFileSync(new URL(import.meta.url), 'utf8').split('\n');
+        console.log(src.slice(2, src.indexOf(' */')).map((l) => l.replace(/^ \*\/?\s?/, '')).join('\n'));
+      }
       return cmd ? 2 : 0;
   }
 }

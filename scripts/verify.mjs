@@ -2,10 +2,12 @@
 /**
  * verify.mjs — every verification a port iteration owes, in ONE call.
  *
- *   node scripts/verify.mjs [--fn <C function>[,<C function>…]] [--base <git-rev>] [--full] [--no-cohort]
+ *   node scripts/verify.mjs [--fn <C function>[,<C function>…]] [--base <git-rev>] [--full] [--no-cohort] [--batch] [--jobs N]
  *
  * A comma list (one cluster iteration) runs hidden + reach once per
- * function and every other gate once.
+ * function and every other gate once. More than 10 functions (or --batch)
+ * runs hidden per function and ONE reach sweep of every baseline-PASS
+ * corpus session (`hidden-proxy sweep`), attributed per function.
  *
  * Runs, in order, and prints one line each:
  *   1. syntax    node --check on every js/ file changed in the tree
@@ -66,9 +68,11 @@ line('rule2', bad.length === 0, bad.length ? `${bad.length} banned line(s)` : 'n
       --base <rev>), so a second verify in one iteration re-runs the same
       sessions. A vacuous verify (nothing blocked) prints `note`, never PASS. */
 const base = val('base', null);
+const batch = flag('batch') || fns.length > 10;
 const extra = [];
 for (const k of ['reach-max']) if (val(k, null)) extra.push(`--${k}`, val(k, null));
 for (const k of ['reach-all', 'no-reach']) if (flag(k)) extra.push(`--${k}`);
+if (batch && !extra.includes('--no-reach')) extra.push('--no-reach');
 for (const fn of fns) {
     const r = sh(process.execPath, ['scripts/hidden-proxy.mjs', 'verify', fn, ...(base ? ['--base', base] : []), ...extra]);
     const lines = r.out.trim().split('\n');
@@ -92,6 +96,19 @@ for (const fn of fns) {
 }
 if (!fns.length) {
     console.log('skip  hidden   (no --fn; pass the C function you ported to check the corpus sessions blocked on it + the reach regression)');
+}
+/* Batch REACH: one replay of every baseline-PASS corpus session, attributed
+   per function (hidden-proxy sweep), instead of one spread per function. */
+if (batch && fns.length && !flag('no-reach')) {
+    const r = sh(process.execPath, ['scripts/hidden-proxy.mjs', 'sweep', fns.join(','), ...(base ? ['--base', base] : []),
+        ...(val('jobs', null) ? ['--jobs', val('jobs', null)] : [])]);
+    const lines = r.out.trim().split('\n');
+    for (const l of lines.filter((x) => /^reach \S+: /.test(x))) {
+        console.log(`${/REACH-OK/.test(l) ? 'PASS' : 'FAIL'}  reach    ${l.replace(/^reach /, '')}`);
+    }
+    const sum = lines.find((l) => /^sweep \d+ fn/.test(l)) || 'sweep: no summary line';
+    line('sweep', /REACH-OK/.test(sum) && r.code === 0, sum, lines.filter((l) => /REGRESSED|^sweep: /.test(l)).join('\n'));
+    if (!/REACH-OK/.test(sum)) console.log('      → corpus sessions that matched C before this batch no longer do: fix the port (never the session), re-run verify.');
 }
 
 /* First divergence of every failing public session, in this same call, so

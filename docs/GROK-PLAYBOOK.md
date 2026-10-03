@@ -67,11 +67,11 @@ not a work picker. Held-out (`node scripts/leaderboard.mjs`) is the score.
 
 | Do | Do not |
 |----|--------|
-| Pop the first coverage row; `brief.mjs <fn>` in one call; read the **whole** C body + every caller | Port the arm a session happens to hit and call the function done |
-| Port **each C function of the cluster** entirely, in C order: every arm, every callee live or named in the map, every C caller wired (brief callers table) | Leave a `// TODO` stub inside a live arm, or a local clone of an existing export (`sym.mjs` first) |
-| Grow the cluster from the head: its Open callees, then Open rows of the **same C file** (≤ 10 functions, ≤ 800 lines) | Pad the cluster with an unrelated file, or keep a function you could only port one arm of |
+| No Must-fix → `ledger.mjs batch --write` (one call: the batch manifest); `brief.mjs <fn>` per function; read the **whole** C body + every caller | Port the arm a session happens to hit and call the function done |
+| Port **each C function of the batch** entirely, in C order: every arm, every callee live or named in the map, every C caller wired (brief callers table) | Leave a `// TODO` stub inside a live arm, or a local clone of an existing export (`sym.mjs` first) |
+| Work the manifest in C order, one C file at a time; a function you cannot port whole → `Left open:` with its blocker; a body already whole → `audited` | Hand-pick from the manifest, pad it with another file, or keep a function you could only port one arm of |
 | Prefer **restart**: delete the thin JS body, re-port from C, keep the export name/signature | Stack a third shim on a thin function |
-| Ship same-C-file Open rows in the same cluster (a Must-fix ships alone) | Open a second unrelated C file |
+| Ship the whole manifest in one commit (a Must-fix ships alone) | Open a C file the manifest does not name |
 | **Stale row** (brief: body complete under this or split names) → `ledger.mjs set <fn> ported --note "stale: …"`, next row, **same iteration** | Spend an iteration proving a shipped function shipped |
 | `verify.mjs --fn <fn>` must end **REACH-OK** (+ green, strict, cohort, full when shared) | Ship a corpus PASS→FAIL as a "named omission"; touch a session or a seed to make it pass |
 | A JS **throw** / worker **hang** anywhere is Must-fix (forfeits every later screen) | Leave a `ReferenceError` / `ETIMEDOUT` behind |
@@ -88,21 +88,20 @@ journal). Prefer **fewer, denser** iterations.
 
 | Too small (waste) | Right size | Too big (quality risk) |
 |-------------------|------------|------------------------|
-| One deferred `if` or one `switch` arm; one 20-line leaf when its file has more Open rows | **One cluster**: up to 10 whole C functions of one C file or one caller/callee closure (e.g. `dogaze` + its `polyself.c` siblings, the `alloc.c` nhalloc family) | Half of `mon.c`; two unrelated subsystems; >10 functions |
-| Docs-only then code next iter | Code + map + verify in one handoff | Multiple independent hypotheses |
+| A ten-function cluster; one deferred `if`; a manifest half left open without blockers | **One batch**: the `ledger.mjs batch` manifest — the whole remaining gap of the top C file(s), 40–100 functions | Functions outside the manifest; >100 functions; multiple independent hypotheses |
+| Docs-only then code next iter | Code + ledger + verify in one handoff | Re-deriving the batch by hand |
 
-**Rule (2026-09-28):** one cluster per iteration — the head row plus its
-Open callees, then Open rows of the **same C file**, each function whole
-(every C callee live, a C-matched clone, or a named omit in this commit;
-no stub in a live arm). Target **200–800 lines** of C-faithful JS for the
-cluster; supervisor caps **1500 insertions / 15 files** (over → the
-iteration is undone: split at a C function boundary). Below ~80
-insertions on a non-Must-fix port is a failed density handoff unless the
-head's file and callee closure hold nothing more that is Open. Ten
-functions is a ceiling, not a target. Per function: one `verify.mjs --fn`
-REACH line (`--fn a,b,c` runs them in one call), one `Ledger:` entry, one
-sub-bullet in C locus / Callers / Verify / Named omissions. Must-fix stays
-one item, alone.
+**Rule (2026-10-03, human decision — 10× the 2026-09-28 cluster):** one
+batch per iteration, the `ledger.mjs batch --write` manifest. Gap kinds:
+**open** (port the C body), **partial** (port the named omissions),
+**recheck** (`ported`, measured thin: complete it, or `audited` if whole).
+C order, one C file at a time, each function whole (no stub in a live
+arm). Unfinishable → `Left open:` with its blocker; over a third left open
+is a failed handoff. Caps **15000 ins / 80 files** (over → undone; re-pick
+one file). Per function one `Ledger:` entry and one Verify line (> 10
+functions: one REACH sweep of the corpus). `finish-iteration` fails closed
+on a manifest function in neither bullet, or a new JS body under an
+undeclared open/partial C name. Must-fix stays one item, alone.
 
 **Campaigns.** A C function too big for one iteration (`really_done`,
 `getobj`) is a `[campaign k/n]` row series: each step ships `js/`, keeps

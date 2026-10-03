@@ -295,16 +295,26 @@ clearly marked temporary and scheduled for deletion.
     enqueue (evidence class `coverage`, §10.15). Rows are never pasted by
     hand. Each audit appends `ledger.mjs summary --snapshot` to
     `docs/ledger/SNAPSHOTS.tsv` — the coverage half of the phase falsifier.
-    An iteration ports **one cluster**: up to 10 whole C functions of one
-    C file or one caller/callee closure (human decision 2026-09-28: the
-    one-function rule had shrunk iterations to a median of ~50 lines
-    against the 200–800 target). Each function of the cluster is whole —
-    every arm, every callee live or named, every C caller wired — never
-    one arm of it; a function that cannot be ported whole drops out of
-    the cluster and stays Open. The cluster totals 200–800 lines of
-    C-faithful JS; each function gets its own `verify.mjs --fn` REACH
-    line, `Ledger:` entry and audit fidelity block. Must-fix ships
-    alone. §10.13's deferral of map singletons is suspended
+    An iteration ports **one batch** (human decision 2026-10-03, ten
+    times the 2026-09-28 cluster of ≤ 10 functions / 200–800 lines,
+    whose iterations had settled at a median of ~3 functions / ~50
+    lines while the generated coverage block ran dry): the manifest
+    `node scripts/ledger.mjs batch --write` prints — the whole remaining
+    gap (open, `partial`, and `ported` rows measured thin) of the C file
+    with the highest reach × loudness, then the next files, **40–100
+    functions**. Each function of the batch is whole — every arm, every
+    callee live or named, every C caller wired — never one arm of it; a
+    function that cannot be ported whole goes to the D-entry `Left
+    open:` bullet with its blocker and stays in the gap. A re-read
+    `ported`/`partial` body that is already whole (or whose remaining
+    omissions cannot ship) is declared `audited`. `finish-iteration`
+    fails closed unless every manifest function is in `Ledger:` or
+    `Left open:`, and unless every JS body the diff adds under a
+    pinned-C name is declared. Each function gets its own `verify.mjs
+    --fn` line (a list over 10 runs one REACH sweep of every
+    baseline-PASS corpus session, attributed per function) and its own
+    `Ledger:` entry; audits review a sample (review prompt). Must-fix
+    ships alone. §10.13's deferral of map singletons is suspended
     for the phase; §10.14 (throws are Must-fix) and §10.15–16 stand. The
     public 44 **and** the corpus PASS set are the regression fortress:
     `verify.mjs --fn` re-runs the corpus sessions that execute the function

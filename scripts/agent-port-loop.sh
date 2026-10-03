@@ -538,9 +538,10 @@ if (( TOKEN_BUDGET > 0 )) && [[ "$USE_MUSE" != "1" && "$USE_CODEX" != "1" ]] && 
   OUTPUT_FORMAT="stream-json"
   JSONL_LOGS=1
 fi
-# 2026-09-18 breadth phase: whole-function ports (200–800 js/ lines) need
-# more wall time and a higher density cap than one-arm peels did.
-ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-5400}"
+# 2026-10-03 batch rule: one iteration ports a 40–100-function batch
+# (`ledger.mjs batch`), ten times the 2026-09-28 cluster — more wall time
+# and a 10× density cap.
+ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-14400}"
 GIT_FETCH_TIMEOUT_SEC="${GIT_FETCH_TIMEOUT_SEC:-30}"
 LOOP_PROGRESS_INTERVAL_SEC="${LOOP_PROGRESS_INTERVAL_SEC:-30}"
 LOOP_PROGRESS="${LOOP_PROGRESS:-1}"
@@ -548,8 +549,8 @@ LOOP_PROGRESS="${LOOP_PROGRESS:-1}"
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
 SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
 LOOP_CADENCE_EVERY="${LOOP_CADENCE_EVERY:-10}"
-LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-1500}"
-LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-15}"
+LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-15000}"
+LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-80}"
 # Audit/cadence: the committed hidden-corpus/scoreboard.json must end on a
 # full rescore made during that iteration; otherwise the supervisor records
 # the missing corpus sessions and rescores it itself (2026-09-28).
@@ -1269,9 +1270,9 @@ arm_density_heal_prompt() {
     echo "<!-- overlay-for: port -->"
     echo "Iteration **#${iter}** shipped +${ins} js/ insertions across ${files}"
     echo "files (caps ${LOOP_MAX_JS_INSERTIONS} / ${LOOP_MAX_JS_FILES}); the supervisor undid it"
-    echo "(forward revert when pushed). The queue row is live again: split the"
-    echo "cluster at a C function boundary — ship the verified core (fewer"
-    echo "functions of the cluster, 200–800 lines); the rest stay Open rows."
+    echo "(forward revert when pushed). Its functions are back in the gap: pick"
+    echo "a smaller batch at a C file boundary — \`node scripts/ledger.mjs batch"
+    echo "<file.c> --write\` (one file of the undone manifest) — and ship that."
   } >"$NEXT_ITER_PROMPT"
   echo "$(date -Iseconds) note: density-heal overlay armed for next iteration" \
     | tee -a "$MASTER_LOG"
@@ -1368,6 +1369,13 @@ mustfix_open_count() {
     p && /^- \[ \]/ { n++ }
     END { print n+0 }
   ' "$QUEUE_FILE"
+}
+
+# First line of the batch manifest (`batch @sha: N function(s) in …`), or
+# empty when the ledger holds no gap outside the skipped files.
+batch_summary() {
+  [[ -f "$ROOT/scripts/ledger.mjs" ]] || return 0
+  { (cd "$ROOT" && node scripts/ledger.mjs batch 2>/dev/null) || true; } | awk 'NR==1 && /^batch @/ { print }' || true
 }
 
 queue_first_cluster() {
@@ -1900,12 +1908,11 @@ while true; do
         ;;
       *)
         prompt_body="$(cat "$PROMPT_FILE")"
-        prompt_body+=$'\n\n## This iteration cluster\n'
+        prompt_body+=$'\n\n## This iteration batch\n'
         prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any\n'
-        prompt_body+=$'(it ships alone), else the first Open item as the **cluster head**; grow\n'
-        prompt_body+=$'the cluster from Open rows of the same C file / callee closure (up to 10\n'
-        prompt_body+=$'functions, 200–800 js/ lines — prompt "One bounded unit"). Copy the\n'
-        prompt_body+=$'cluster into `docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
+        prompt_body+=$'(it ships alone), else run `node scripts/ledger.mjs batch --write` and port\n'
+        prompt_body+=$'that whole manifest (40–100 functions — prompt "One bounded unit"); one\n'
+        prompt_body+=$'line (files + count) in `docs/CURRENT.md` Next cluster before coding. If a Must-fix cites a review, read\n'
         prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'
         prompt_body+=$'Mark the queue line `- [x]` and run `node scripts/archive-loop-queue-done.mjs`\n'
         prompt_body+=$'in this same commit (live queue stays unchecked-only). Do not predict this\n'
@@ -1913,8 +1920,17 @@ while true; do
         prompt_body+=$'(review or LOOP-QUEUE-DONE.md) is missing its short hash, fill it in this\n'
         prompt_body+=$'same commit from `git log` (bundled with this fix).\n'
         cluster_line="$(queue_first_cluster)"
-        if [[ -n "$cluster_line" ]]; then
-          prompt_body+=$'\n**Queue head:** '
+        batch_line="$(batch_summary)"
+        if (( $(mustfix_open_count) > 0 )) && [[ -n "$cluster_line" ]]; then
+          prompt_body+=$'\n**Queue head (Must-fix, ships alone):** '
+          prompt_body+="$cluster_line"
+          prompt_body+=$'\n'
+        elif [[ -n "$batch_line" ]]; then
+          prompt_body+=$'\n**Batch:** '
+          prompt_body+="$batch_line"
+          prompt_body+=$'\n'
+        elif [[ -n "$cluster_line" ]]; then
+          prompt_body+=$'\n**Queue head (batch picker found no gap):** '
           prompt_body+="$cluster_line"
           prompt_body+=$'\n'
         else
@@ -1939,6 +1955,11 @@ while true; do
   fi
 
   open_now="$(queue_open_count)"
+  # Batch rule (2026-10-03): the ledger is the work source; a hand refill
+  # is only asked for when the batch picker finds no gap at all.
+  if [[ "$mode" == "port" && -n "$(batch_summary)" ]]; then
+    open_now="$LOOP_QUEUE_MIN"
+  fi
   if [[ "$resume_unfinished" != "1" ]] && (( open_now < LOOP_QUEUE_MIN )); then
     echo "$(date -Iseconds) === queue refill required (open=${open_now} min=${LOOP_QUEUE_MIN} target=${LOOP_QUEUE_TARGET}) ===" \
       | tee -a "$MASTER_LOG"

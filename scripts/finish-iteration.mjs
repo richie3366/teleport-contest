@@ -32,10 +32,12 @@
  * one), and it pushes origin HEAD.
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, readdirSync, renameSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { applySets, parseLedgerBullet, writeQueueBlock, summaryLine, runCheck } from './ledger.mjs';
+import {
+  applySets, parseLedgerBullet, writeQueueBlock, summaryLine, runCheck, load, readBatch, BATCH_PATH, head as ledgerHead,
+} from './ledger.mjs';
 import { firstSentence, namesNoOmission } from './lib/ledger-seed.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -99,10 +101,20 @@ const bullet = (name) => {
   return x ? x[1].replace(/\s*\n\s*/g, ' ').trim() : '';
 };
 const S = { status: bullet('Status'), symptom: bullet('Symptom'), c: bullet('C locus'), fix: bullet('Fix'),
-  js: bullet('JS'), verify: bullet('Verify'), named: bullet('Named omissions'), ledger: bullet('Ledger'), next: bullet('Next') };
+  js: bullet('JS'), verify: bullet('Verify'), named: bullet('Named omissions'), ledger: bullet('Ledger'),
+  leftOpen: bullet('Left open'), next: bullet('Next') };
 const first = (t, n = 1) => t.split(/(?<=[.!?])\s+(?=[A-Z`*])/).slice(0, n).join(' ');
 const statusWord = /parked|deferred/i.test(S.status) ? 'parked' : /open|todo/i.test(S.status) ? 'open' : 'fixed';
 console.log(`finish ${id} — ${title}`);
+
+/* The batch manifest counts only when it was picked on this HEAD (this
+   iteration); an older one is a crashed iteration's leftover. */
+const batch = (() => {
+  const b = readBatch();
+  if (!b) return null;
+  if (b.head !== ledgerHead()) { console.log(`  batch manifest @${b.head} is not this HEAD (${ledgerHead()}) — ignored`); return null; }
+  return b;
+})();
 
 /* ---------- 1b. ledger rows from the `Ledger:` bullet (fail-closed, before any stamp) ---------- */
 {
@@ -128,10 +140,58 @@ console.log(`finish ${id} — ${title}`);
       return own ? own.replace(/^`[^`]+`:?\s*/, '') : S.named;
     };
     const omitFor = (spec) => { const t = namedFor(spec); return namesNoOmission(t) ? '' : firstSentence(t); };
-    const entries = parsed.map((e) => ({ ...e, d: [id], omit: e.status === 'partial' ? omitFor(e.spec) : '' }));
+    const entries = parsed.map((e) => ({ ...e, d: [id], omit: e.status === 'partial' ? omitFor(e.spec) : e.status === 'audited' ? undefined : '' }));
+    if (jsChanged || batch) await reconcile(parsed);
     const res = await applySets(entries, { dryRun: DRY });
     if (res.errors.length) { for (const e of res.errors) console.error(`ledger: ${e}`); process.exit(1); }
     console.log(`  ledger: ${res.rows.map((r) => `${r.file}:${r.fn} ${r.status}`).join(', ')}${DRY ? ' (dry-run)' : ''}`);
+    const L = await load();
+    const thin = res.rows.filter((r) => r.status === 'ported' && ['THIN', 'PARTIAL'].includes(L.byKey.get(`${r.file}:${r.fn}`)?.cover));
+    if (thin.length) console.log(`  ledger warn: declared ported but measured thin/partial — confirm whole vs C or declare partial: ${thin.map((r) => r.fn).join(', ')}`);
+  }
+}
+
+/* ---------- 1c. ledger reconciliation (2026-10-03 batch rule, fail-closed) ----------
+   (a) every function of this iteration's batch manifest (`ledger.mjs batch
+   --write`) is declared in the Ledger bullet or listed in `Left open:`;
+   (b) every JS function this diff ADDS under a pinned-C name is declared
+   (an open/partial row left undeclared is a silent port; a second body of
+   an already-ported function is a clone). */
+async function reconcile(parsed) {
+  const declared = new Set(parsed.map((e) => e.spec.split(':').pop()));
+  const left = new Set([...S.leftOpen.matchAll(/`([A-Za-z_]\w*)`/g)].map((x) => x[1]));
+  const fails = [];
+  if (batch) {
+    const missing = batch.fns.filter((f) => !declared.has(f.fn) && !left.has(f.fn)).map((f) => f.fn);
+    if (missing.length) fails.push(`batch manifest (${batch.fns.length} fn @${batch.head}): ${missing.length} function(s) neither in \`Ledger:\` nor in \`Left open:\` — ${missing.join(', ')}`);
+    else console.log(`  batch manifest: ${batch.fns.length} fn — ${batch.fns.length - left.size} declared, ${left.size} left open`);
+  }
+  const diff = gitOut(['diff', '-U0', 'HEAD', '--', 'js/']).split('\n');
+  const untracked = gitOut(['ls-files', '--others', '--exclude-standard', 'js/']).split('\n').filter((f) => f.endsWith('.js'));
+  for (const f of untracked) for (const l of read(f).split('\n')) diff.push(`+${l}`);
+  const defRx = /^([+-])\s*(?:export\s+)?(?:async\s+)?(?:function\s*\*?\s*([A-Za-z_$][\w$]*)\s*\(|(?:const|let)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?(?:function\b|\([^)]*\)\s*=>))/;
+  const added = new Set(), removed = new Set();
+  for (const l of diff) {
+    if (l.startsWith('+++') || l.startsWith('---')) continue;
+    const x = defRx.exec(l);
+    if (x) (x[1] === '+' ? added : removed).add(x[2] || x[3]);
+  }
+  const L = await load();
+  const byName = new Map();
+  for (const k of L.byKey.keys()) { const fn = k.split(':').pop(); byName.set(fn, [...(byName.get(fn) || []), k]); }
+  const silent = [], clones = [];
+  for (const name of added) {
+    if (removed.has(name) || declared.has(name) || !byName.has(name)) continue;
+    const rows = byName.get(name).map((k) => L.ledger.get(k) || { status: 'unknown' });
+    if (rows.some((r) => ['ported', 'parity', 'split', 'by-design', 'frozen'].includes(r.status))) clones.push(name);
+    else silent.push(name);
+  }
+  if (silent.length) fails.push(`js/ adds a body for open/partial pinned-C function(s) the Ledger bullet does not declare — ${silent.join(', ')}`);
+  if (clones.length) console.log(`  ledger warn: js/ adds a second body for already-declared function(s) — clone? import the live export (sym.mjs): ${clones.join(', ')}`);
+  if (fails.length) {
+    for (const f of fails) console.error(`ledger reconcile FAIL: ${f}`);
+    console.error('Fix the D-entry `- **Ledger:**` bullet (fn ported|partial|split|by-design|audited) or `- **Left open:** `fn` — reason; …`, then re-run.');
+    process.exit(1);
   }
 }
 
@@ -310,6 +370,7 @@ if (flag('commit') && !DRY) {
   const r = spawnSync('git', ['commit', '-q', '-F', '-'], { cwd: root, input: msg, stdio: ['pipe', 'inherit', 'inherit'] });
   if (r.status) process.exit(r.status);
   console.log(git(['log', '--oneline', '-1']));
+  if (batch && existsSync(BATCH_PATH)) renameSync(BATCH_PATH, BATCH_PATH.replace(/\.json$/, `.${id}.json`));
   const p = spawnSync('git', ['push', 'origin', 'HEAD'], { cwd: root, stdio: 'inherit' });
   if (p.status) process.exit(p.status);
 }

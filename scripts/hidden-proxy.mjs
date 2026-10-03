@@ -39,6 +39,11 @@
  *       A comma list verifies each function in turn (one cluster
  *       iteration, or one review re-measure of a multi-function SHA);
  *       exit 1 if any of them regressed.
+ *   node scripts/hidden-proxy.mjs sweep <fn>[,<fn>…] [--base <git-rev>] [--jobs 8]
+ *       batch REACH: re-run EVERY baseline-PASS corpus session once and
+ *       attribute each PASS→FAIL to the listed functions its C RNG log
+ *       executes; one `reach <fn>:` line per function (verify.mjs uses it
+ *       for a --fn list longer than 10).
  *   node scripts/hidden-proxy.mjs show <sessionId>
  *   node scripts/hidden-proxy.mjs status
  *
@@ -558,6 +563,55 @@ async function cmdVerify(fn) {
     return exitCode;
 }
 
+/* Batch REACH (2026-10-03, Constitution §10.17 batch rule): a batch of up
+   to 100 functions re-runs every baseline-PASS corpus session ONCE instead
+   of a per-function spread (100 × 80 replays). Each regressed session is
+   attributed to the batch functions its C RNG log executes; a function
+   whose reach set holds no regression gets its own REACH-OK line. */
+async function cmdSweep(fnsCsv) {
+    const fns = String(fnsCsv || '').split(',').filter(Boolean);
+    if (!fns.length) { console.error('usage: sweep <fn>[,<fn>…] [--base <git-rev>] [--jobs N]'); process.exit(2); }
+    const baseRev = val('base', 'HEAD');
+    const base = baselineRows(baseRev);
+    const prev = loadScores();
+    const baseRows = base ? base.rows : prev.rows;
+    if (!base) console.log(`sweep: no committed scoreboard at ${baseRev}; using the working scores as baseline`);
+    const jobs = Number(val('jobs', 8));
+    const pass = Object.keys(baseRows).filter((id) => baseRows[id]?.passed).sort();
+    const entries = corpusEntries().filter((e) => pass.includes(e.id) && existsSync(e.session));
+    const t0 = Date.now();
+    const res = await pool(entries, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
+    const bad = [];
+    for (const r of res) {
+        prev.rows[r.id] = r;
+        if (!r.passed) bad.push(r);
+    }
+    const secs = ((Date.now() - t0) / 1000).toFixed(1);
+    const blame = new Map(fns.map((f) => [f, []]));
+    const unattributed = [];
+    for (const r of bad) {
+        const e = entries.find((x) => x.id === r.id);
+        let text = '';
+        try { text = readFileSync(e.session, 'utf8'); } catch { /* recording vanished */ }
+        const hit = fns.filter((f) => text.includes(`@ ${f}(`));
+        for (const f of hit) blame.get(f).push(r.id);
+        if (!hit.length) unattributed.push(r.id);
+        const rd = r.rowDiff;
+        const where = rd ? ` row ${rd.row} C«${(rd.c || '').slice(0, 50)}» J«${(rd.js || '').slice(0, 50)}»`
+            : r.kind === 'rng' ? ` C«${r.cEntry}» J«${r.jsEntry}»` : r.error ? ` throw: ${String(r.error).slice(0, 90)}` : '';
+        console.log(`  ${r.id}: REGRESSED — ${r.kind || 'error'}@${r.step}/${r.steps} owner=${r.owner || 'js-throw'}${where}${hit.length ? ` (executes ${hit.slice(0, 6).join(', ')}${hit.length > 6 ? ', …' : ''})` : ''}`);
+    }
+    for (const f of fns) {
+        const ids = blame.get(f);
+        console.log(`reach ${f}: batch sweep (${res.length} baseline-PASS run) — ${ids.length ? `${ids.length} regressed (${ids.slice(0, 4).join(', ')}) → REACH-REGRESSION` : '0 regressed → REACH-OK'}`);
+    }
+    if (unattributed.length) console.log(`sweep: ${unattributed.length} regression(s) execute no batch function (a callee/caller edit broke them): ${unattributed.slice(0, 6).join(', ')} → REACH-REGRESSION`);
+    console.log(`sweep ${fns.length} fn(s): ${res.length} baseline-PASS session(s) re-run in ${secs}s, ${bad.length} regressed → ${bad.length ? 'REACH-REGRESSION' : 'REACH-OK'}`);
+    writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows: prev.rows });
+    writeScoreboard(prev.rows);
+    return bad.length ? 1 : 0;
+}
+
 function cmdShow(id) {
     const r = loadScores().rows[id];
     if (!r) { console.error('unknown session id'); process.exit(1); }
@@ -585,6 +639,7 @@ function cmdShow(id) {
         if (code) process.exit(code);
         break;
     }
+    case 'sweep': { const code = await cmdSweep(rest[0]); if (code) process.exit(code); break; }
     case 'show': cmdShow(rest[0]); break;
     case 'status': cmdStatus(); break;
     default:

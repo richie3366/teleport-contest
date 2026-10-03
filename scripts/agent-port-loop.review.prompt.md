@@ -32,10 +32,22 @@ Do **not** `git commit` after each SHA.
 ## Method (mandatory, each JS-touching commit)
 
 This is an audit against **pinned C**, not against the commit message.
-A **cluster** commit (several C functions, Constitution §10.17) gets the
-whole Method **per function**: one Inventory block and one C ↔ JS
-fidelity block per function, each with its own verdict line in the
-Density section; the SHA verdict is the worst of them. Do not sample.
+A **batch** commit (40–100 C functions, Constitution §10.17, 2026-10-03)
+is reviewed on a **fixed sample**, never on the subject's choice: the
+Inventory lists every function of its `Ledger:` bullet (one line each:
+status, JS `file:line`, C range); the full Method and one C ↔ JS fidelity
+block go to (a) the functions of its D-entry whose C body draws RNG or
+prints, up to 12, hottest first (`node scripts/ledger.mjs sql "select
+fn, rng, out from fn where d like '%D-NNNN%' and (rng > 0 or out > 0)
+order by score desc limit 12"`); (b) 4 more drawn by `ledger.mjs sql
+"select fn from fn where d like '%D-NNNN%' order by random() limit 4"`;
+(c) 3 of its `audited` declarations (body
+really whole vs C?); (d) every `Left open:` item's blocker (true?). Each
+sampled function gets its own verdict line in the Density section; the
+SHA verdict is the worst of them. A wrong `audited` or `ported` in the
+sample is a C-wrong (Must-fix naming the function) **and** triggers a
+second sample of 8 from the same SHA. A commit of ≤ 10 functions still
+gets the whole Method per function.
 
 1. `git show --stat HASH` and the `js/` hunks. Quote what the subject
    **promises**. List what the diff **actually** adds (functions, helpers).
@@ -68,23 +80,27 @@ Density section; the SHA verdict is the worst of them. Do not sample.
    read is.
 5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
-6. Density §2b — **breadth phase (Constitution §10.17):** every function
-   of the cluster is a **whole** C function. Compare each C body's
+6. Density §2b — **breadth phase (Constitution §10.17):** every sampled
+   function is a **whole** C function. Compare each C body's
    arms/cases with the JS: an arm-only port sold as the function, an
    unwired C caller, or a callee left as a silent stub is QUALITY-RISK
    with a Must-fix row naming the function and its missing arms. A
-   cluster that is not one C file / callee closure, has more than 10
-   functions, or bundles a Must-fix item is QUALITY-RISK too. Each
-   function needs its own `Ledger:` entry and its own Verify lines. Verification: the D-log Verify
+   batch that is not the `ledger.mjs batch` manifest of its HEAD (files
+   or functions the picker did not name), has more than 100 functions,
+   leaves more than a third in `Left open:`, or bundles a Must-fix item
+   is QUALITY-RISK too. Each function needs its own `Ledger:` entry and
+   its own Verify line. Verification: the D-log Verify
    bullet must show `hidden-proxy verify <fn>` → PROGRESS/PASS (or the
-   vacuous note) **and** `REACH-OK`; then green + **relevant** cohort.
+   vacuous note) **and** `REACH-OK` (a batch: the `sweep` line); then
+   green + **relevant** cohort.
    NO MOVEMENT presented as a named omission is QUALITY-RISK.
    **Re-measure the corpus claim yourself:** run
    `node scripts/hidden-proxy.mjs verify <fn>[,<fn>…] --base HASH~1 --reach-all`
-   (every function the SHA ports, in one call: the sessions blocked at the
-   parent commit plus every baseline-PASS session that executes each
-   function, re-run on this SHA's code) and cite both summary lines per
-   function. Any `REGRESSED` session is a C-wrong the port
+   on the **sampled** functions of a batch (every function of a ≤ 10-function
+   SHA), in one call: the sessions blocked at the parent commit plus every
+   baseline-PASS session that executes each function, re-run on this
+   SHA's code; cite both summary lines per function. The audit's final
+   full rescore covers the rest of the corpus. Any `REGRESSED` session is a C-wrong the port
    introduced → QUALITY-RISK + Must-fix row naming session and owner. A bullet that says "PASS hidden" or "no corpus
    session is blocked" while the queue row cited N blocks is a vacuous
    check (a verify earlier in that iteration rewrote the baseline); if
