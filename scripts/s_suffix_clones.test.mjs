@@ -1,5 +1,7 @@
-// Must-fix pins for reviews 2160 (D-3210) + 2170 second wave: every
-// s_suffix clone in js/ must equal the canonical export arm-for-arm.
+// Must-fix pins for reviews 2160 (D-3210) + 2170 second wave, minus the
+// D-3360 removals (5 same-named clones + potion `s_suffix_pot` rewired to
+// the live export): every remaining s_suffix clone in js/ must equal the
+// canonical export arm-for-arm.
 // C `hacklib.c:344–359` is lowercase-'s'-only with case-insensitive
 // it/you arms; two sweeps in a row missed homes because they enumerated
 // queued names instead of the definition census, so the census itself is
@@ -16,7 +18,6 @@ const CLONES = [
     ['js/eat.js', 's_suffix_eat'],
     ['js/mhitm.js', 's_suffix_mm'],
     ['js/dothrow.js', 's_suffix_throw_gold'],
-    ['js/potion.js', 's_suffix_pot'],
     ['js/zap.js', 's_suffix_zap'],
     ['js/objnam.js', 's_suffix_objnam'],
     ['js/apply.js', 's_suffix_apply'],
@@ -27,11 +28,6 @@ const CLONES = [
     ['js/mhitu.js', 's_suffix_poison'],
     ['js/invent.js', 's_suffix_inv'],
     ['js/mhitu.js', 's_suffix_hitmsg'],
-    ['js/explode.js', 's_suffix'],
-    ['js/minion.js', 's_suffix'],
-    ['js/mthrowu.js', 's_suffix'],
-    ['js/questpgr.js', 's_suffix'],
-    ['js/shk.js', 's_suffix'],
 ];
 
 function loadClone(file, name) {

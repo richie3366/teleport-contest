@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3360 `hacklib.c` highc/upstart/s_suffix 8-clone removal (botl/potion/mthrowu/minion/explode/shk/questpgr → live exports)
+
+**C locus:** - `highc`: nethack-c/upstream/src/hacklib.c:75–79 — `('a' <= c && c <= 'z') ? (c & ~040) : c`. 66 C refs (brief this session); rewired here: botl.c:548 (weapon-desc cap), botl.c:990 (name cap), botl.c:1005 (poly-title cap).
+**JS:** - `highc`: js/hacklib.js:455 (live, canonical, untouched); rewired sites js/botl.js:2452 (weapon-desc), :2563 (name-cap), :2575 (title-cap).
+**Change:** extended the six ALREADY static edges (`highc` → js/botl.js:92 hacklib import; `upstart` → js/potion.js:177 hacklib import; `s_suffix` → js/potion.js:181, js/mthrowu.js:50 alongside the `s_suffix_ucatch` alias, js/minion.js:9, js/explode.js:47, js/shk.js:78 do_name imports — no new edge) + one NEW static edge (`import { s_suffix } from './do_name.js'` js/questpgr.js:29; `imports.mjs --can` SAFE this session — hoisted fn, same 1866-edge shape); renamed the 4 potion `_pot` sites to the live names; deleted all 8 clones (live-export markers left). Maintained tests: scripts/upstart-rewire.test.mjs rewritten to 9-clone-complete (potion import+marker+site asserts, census drops the pin, 4/4 pass) + scripts/s_suffix_clones.test.mjs CLONES 19→13 (6 removed entries, 15/15 pass).
+**Verify:** - `highc`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `highc`: none in-body — whole C body live at js/hacklib.js:455. Out of cluster, unqueued: js/dokeylist.js:51 const-arrow clone (1 site :340; expect refill row).
+**Next:** queue drains to 0 (all 8 missing-arm rows shipped; generated block still ungeneratable — refill needs authorization). Expect refill rows: dokeylist.js highc arrow-clone + the 13 `s_suffix_*` suffixed-clone removals (each with its edge check).
 ## 2026-10-03 — D-3359 `mondata.c` attacktype 2-clone removal (mhitu/uhitm `attacktype_aatyp` → live export)
 
 **C locus:** - `attacktype`: nethack-c/upstream/src/mondata.c:54–57 — `attacktype_fordmg(ptr, atyp, AD_ANY) ? TRUE : FALSE`. 46 C refs (brief this session); rewired here: mondata.c:657/:658 (sticks WRAP/HUGS), mon.c:3463/:3464 (caught ENGL/HUGS), mon.c:3189 (corpse_chance mswallower ENGL), mhitm.c:1464/:1465 (xdrainenergym MAGC/BREA).

@@ -47,7 +47,7 @@ import {
     pline, pline_The, pline_mon, You, mon_visible, see_with_infrared, tmp_at, obj_glyph,
     nh_delay_output, newsym, canspotmon, impossible, set_msg_xy,
 } from './display.js';
-import { Monnam, mon_nam, s_suffix as s_suffix_ucatch, some_mon_nam, hliquid } from './do_name.js';
+import { Monnam, mon_nam, s_suffix, s_suffix as s_suffix_ucatch, some_mon_nam, hliquid } from './do_name.js';
 import {
     nohands, mons, pmnames, throws_rocks, MZ_TINY, nonliving,
     is_unicorn, touch_petrifies, bigmonst, is_elf, poly_when_stoned,
@@ -191,16 +191,7 @@ export function m_useup(mon, obj) {
     }
 }
 
-/** C ref: hacklib.c s_suffix `:345–359` — local for cancelled-spit dry rattle. */
-function s_suffix(s) {
-    const buf = String(s ?? '');
-    const low = buf.toLowerCase();
-    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
-    if (low === 'you') return `${buf}r`;
-    /* C checks trailing 's' only — no z/x/ch/sh arm. */
-    if (buf.endsWith('s')) return `${buf}'`;
-    return `${buf}'s`;
-}
+/* C hacklib.c s_suffix — live export from './do_name.js' (clone removed D-3360). */
 
 /** C objnam.c Tobjnam — The(xname) + otense (return_from_mtoss plines). */
 function The_mtoss(str) {

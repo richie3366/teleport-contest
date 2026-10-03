@@ -75,7 +75,7 @@ import {
     hero_conflict, resist_conflict, m_canseeu,
     noit_mhe, noit_mhim, noit_mhis,
 } from './mondata.js';
-import { mon_nam, x_monnam, y_monnam, Monnam, a_monnam } from './do_name.js';
+import { mon_nam, x_monnam, y_monnam, Monnam, a_monnam, s_suffix } from './do_name.js';
 import {
     COIN_CLASS, FOOD_CLASS, WAND_CLASS, POTION_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, SPBOOK_CLASS,
@@ -240,16 +240,7 @@ export function is_fshk(mtmp) {
     return !!(mtmp?.isshk && ESHK(mtmp)?.following);
 }
 
-/** C ref: hacklib.c s_suffix `:345–359` — it→its, you→your, *s→*', else *'s. */
-function s_suffix(s) {
-    const buf = String(s ?? '');
-    const low = buf.toLowerCase();
-    if (low === 'it') return `${buf}s`; /* C strcmpi — case-insensitive */
-    if (low === 'you') return `${buf}r`;
-    /* C `*(eos(buf)-1) == 's'` — lowercase 's' only. */
-    if (buf.endsWith('s')) return `${buf}'`;
-    return `${buf}'s`;
-}
+/* C hacklib.c s_suffix — live export from './do_name.js' (clone removed D-3360). */
 
 /** C ref: shk.c pacify_shk `:1344–1358` — peaceful + optional surcharge undo. */
 function pacify_shk(shkp, clear_surcharge) {

@@ -1,11 +1,11 @@
-// `hacklib.c` upstart 8-clone removal (mthrowu/read D-3356 + trap/pickup/
-// apply/do_name/monmove/readobjnam D-3358 → live js/hacklib.js export,
-// C `:113–119` highc-first-char). Every edge already existed statically —
-// each file's hacklib.js import only gains the name, the same-named local
-// toUpperCase clone is replaced by a live-export marker, and the call
-// sites keep their name (now resolving to the live export). The one
-// remaining upstart-shaped definer (potion.js `upstart_pot`) ships as a
-// queued rename-clone row.
+// `hacklib.c` upstart 9-clone removal complete (mthrowu/read D-3356 +
+// trap/pickup/apply/do_name/monmove/readobjnam D-3358 + potion
+// `upstart_pot` D-3360 → live js/hacklib.js export, C `:113–119`
+// highc-first-char). Every edge already existed statically — each file's
+// hacklib.js import only gains the name, the local toUpperCase clone is
+// replaced by a live-export marker, and the call sites keep their name
+// (now resolving to the live export); potion's rename-clone site is
+// renamed to the live name.
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -15,13 +15,17 @@ const REWIRED = ['mthrowu.js', 'read.js', 'trap.js', 'pickup.js', 'apply.js',
     'do_name.js', 'monmove.js', 'readobjnam.js'];
 
 describe('upstart clone census (8-file rewire complete)', () => {
-    it('no same-named clones remain in the 8 rewired files', () => {
+    it('no same-named clones remain in the 8 rewired files (potion rename-clone gone too)', () => {
         for (const f of REWIRED) {
             assert.ok(!js(f).match(/^function upstart\(/m),
                 `local upstart clone still defined in js/${f}`);
             assert.ok(js(f).match(/live export from '\.\/hacklib\.js' \(clone removed/),
                 `live-export marker missing in js/${f}`);
         }
+        assert.ok(!js('potion.js').match(/^function upstart_pot\(/m),
+            'local upstart_pot clone still defined in js/potion.js');
+        assert.ok(js('potion.js').match(/live export from '\.\/hacklib\.js' \(clone removed/),
+            'live-export marker missing in js/potion.js');
     });
 
     it('the 8 files import the live export (edges already existed)', () => {
@@ -41,6 +45,8 @@ describe('upstart clone census (8-file rewire complete)', () => {
             'js/monmove.js must import upstart from hacklib.js');
         assert.ok(js('readobjnam.js').match(/copynchars, upstart \} from '\.\/hacklib\.js';/),
             'js/readobjnam.js must import upstart from hacklib.js');
+        assert.ok(js('potion.js').match(/depth, strstri, dist2, upstart \} from '\.\/hacklib\.js';/),
+            'js/potion.js must import upstart from hacklib.js');
     });
 
     it('call sites still call by name (now the live export)', () => {
@@ -94,9 +100,11 @@ describe('upstart clone census (8-file rewire complete)', () => {
             'door-terrain call missing in js/readobjnam.js (C objnam.c:3815)');
         assert.ok(js('readobjnam.js').match(/upstart\(dbuf\)\} requires door/),
             'door-terrain call missing in js/readobjnam.js (C objnam.c:3819)');
+        assert.ok(js('potion.js').match(/const buf = upstart\(s_suffix\(mnam\)\);/),
+            'saddle-dip call missing in js/potion.js (C potion.c:1713)');
     });
 
-    it('census: canonical definer live; only the queued potion rename-clone remains', () => {
+    it('census: canonical definer live; no rename-clone remains', () => {
         const dir = new URL('../js/', import.meta.url);
         const defs = [];
         const variants = [];
@@ -110,6 +118,6 @@ describe('upstart clone census (8-file rewire complete)', () => {
         }
         assert.deepEqual(defs.sort(), ['js/hacklib.js']);
         assert.deepEqual(variants.sort(),
-            ['js/hacklib.js:export function upstart(', 'js/potion.js:function upstart_pot(']);
+            ['js/hacklib.js:export function upstart(']);
     });
 });
