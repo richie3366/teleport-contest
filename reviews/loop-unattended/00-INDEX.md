@@ -2294,3 +2294,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2282-0e60ede85-nhcolor-256-index.md](./2282-0e60ede85-nhcolor-256-index.md) | `0e60ede85` | D-3326 get_nhcolor_from_256_index + stale trio | **ACCEPT** |
 | [2283-95d4fec09-bydesign-trio-dist2.md](./2283-95d4fec09-bydesign-trio-dist2.md) | `95d4fec09` | D-3327 by-design trio + dist2 removal | **ACCEPT** |
 | [2284-caaacb9fc-mat-isspecial-rewires.md](./2284-caaacb9fc-mat-isspecial-rewires.md) | `caaacb9fc` | D-3328 m_at + Is_special rewires | **ACCEPT** |
+| [2285-0c6d9c1a5-is-branchlev-has-ceiling-on-level.md](./2285-0c6d9c1a5-is-branchlev-has-ceiling-on-level.md) | `0c6d9c1a5` | D-3329 Is_branchlev port + has_ceiling/on_level rewires | **ACCEPT** |
+| [2286-5f8e9743f-mat-on-level-dokick-rewires.md](./2286-5f8e9743f-mat-on-level-dokick-rewires.md) | `5f8e9743f` | D-3330 m_at uhitm/dig + on_level dokick rewires | **ACCEPT** |
+| [2287-50d9779cf-on-level-six-clone-removals.md](./2287-50d9779cf-on-level-six-clone-removals.md) | `50d9779cf` | D-3331 on_level x6 clone removals | **ACCEPT** |
+| [2288-08e30b12c-money-cnt-sit-clone-removal.md](./2288-08e30b12c-money-cnt-sit-clone-removal.md) | `08e30b12c` | D-3332 money_cnt sit.js clone removal | **ACCEPT** |
+| [2289-b98ade69c-amonnam-teleport-clone-removal.md](./2289-b98ade69c-amonnam-teleport-clone-removal.md) | `b98ade69c` | D-3333 Amonnam teleport.js clone removal | **ACCEPT** |
+| [2290-bd3c64132-t-at-steed-clone-removal.md](./2290-bd3c64132-t-at-steed-clone-removal.md) | `bd3c64132` | D-3334 t_at steed.js clone removal | **ACCEPT** |
+| [2291-390bbccbf-somex-teleport-clone-removal.md](./2291-390bbccbf-somex-teleport-clone-removal.md) | `390bbccbf` | D-3335 somex teleport.js clone removal | **ACCEPT** |
+| [2292-6552e164f-ledger-no-dunlev-clone-removals.md](./2292-6552e164f-ledger-no-dunlev-clone-removals.md) | `6552e164f` | D-3336 ledger_no + dunlev clone removals | **ACCEPT** |
+| [2293-99f3bd24a-healup-zap-clone-removal.md](./2293-99f3bd24a-healup-zap-clone-removal.md) | `99f3bd24a` | D-3337 healup zap.js clone removal | **ACCEPT** |

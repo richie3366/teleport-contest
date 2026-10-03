@@ -1,9 +1,9 @@
 {
- "commit": "6552e164f",
- "at": "2026-10-03T01:41:03.575Z",
- "full": false,
- "fullCommit": "caaacb9fc",
- "fullAt": "2026-10-03T00:35:01.726Z",
+ "commit": "99f3bd24a",
+ "at": "2026-10-03T02:05:19.837Z",
+ "full": true,
+ "fullCommit": "99f3bd24a",
+ "fullAt": "2026-10-03T02:05:19.837Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -6249,7 +6249,7 @@
   "scen-engulf-Monk-94052": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3167,
+   "rngM": 3137,
    "rngT": 3174,
    "scrM": 130,
    "scrT": 152,
@@ -11535,19 +11535,19 @@
   },
   "scen-ride-Knight-94403": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 7952,
+   "passed": true,
+   "rngM": 9685,
    "rngT": 9685,
-   "scrM": 203,
+   "scrM": 223,
    "scrT": 223,
-   "kind": "screen",
-   "step": 203,
+   "kind": null,
+   "step": null,
    "steps": 223,
-   "owner": "dismount_steed",
-   "loc": "steed.c:645",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You've been through the dungeon on a warhorse with no name.--More--",
-   "jsTopline": "You've been through the dungeon on a warhorse with no name.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-ride-Knight-94404": {
@@ -13194,7 +13194,7 @@
    "steps": 167,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "goodpos(teleport.js:531)",
+   "jsOwner": "goodpos(teleport.js:522)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null
@@ -13330,7 +13330,7 @@
    "steps": 112,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4946)",
    "cTopline": "a dart (no travel path)",
    "jsTopline": "a brilliant blue potion",
    "error": null
@@ -13364,7 +13364,7 @@
    "steps": 295,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4946)",
    "cTopline": "a pair of leather gloves",
    "jsTopline": "2 candles",
    "error": null
@@ -13432,7 +13432,7 @@
    "steps": 180,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4946)",
    "cTopline": "some gold pieces",
    "jsTopline": "an oak wand (no travel path)",
    "error": null
@@ -13466,7 +13466,7 @@
    "steps": 265,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4946)",
    "cTopline": "a whistle",
    "jsTopline": "a food ration",
    "error": null

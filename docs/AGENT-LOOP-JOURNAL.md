@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — Audit 2285–2293: review D-3329–D-3337 (9 ACCEPT) + full score
+
+**Reviews:** 2285 Is_branchlev/has_ceiling/on_level, 2286 m_at/on_level-dokick, 2287 on_level×6, 2288 money_cnt, 2289 Amonnam, 2290 t_at, 2291 somex (reach 705/705), 2292 ledger_no/dunlev, 2293 healup — all ACCEPT, 0 Must-fix. Strongest evidence: somex full-reach 705/705 PASS; t_at/healup/m_at/Amonnam rewires each fixed a genuine C-wrong (dead-list reads, bare Blinded/Sick writes, flags-0 saddle text).
+**Score:** public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405); corpus 706/953 (+1 scen-ride-Knight-94403, 0 losses), RNG 98.11 %, screens 93.4 %, full:true; held-out 15/44 (+0).
+**Next:** Open missing-arm head (`m_useup` zap.js clone removal).
 ## 2026-10-03 — D-3337 `potion.c` healup zap.js clone removal (sole site → live js/potion.js export)
 
 **C locus:** - `healup`: nethack-c/upstream/src/potion.c:1428–1458 — nhp HP add (polyd/nonpolyd arms) + cureblind (ucreamed=0, make_blinded(0,TRUE), make_deaf(0,TRUE)) + curesick (make_vomiting(0,TRUE), make_sick(0,NULL,TRUE,SICK_ALL)); 10 C refs incl zap.c:2911.

@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-03** — full `sessions` on `caaacb9fc`
-(audit **2276–2284**, 2026-10-03T00:29:21.150Z).
+Score last measured: **2026-10-03** — full `sessions` on `99f3bd24a`
+(audit **2285–2293**, 2026-10-03T01:59:10.756Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`338+1.61/turn` (R² 0.78).
+`331+1.62/turn` (R² 0.78).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, scored 2026-10-02 19:10Z; fetched 2026-10-02)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.9 %**, rngSteps 87.5 %, screens **62.5 %** |
+| **Held-out (judge, scored 2026-10-03 01:21Z; fetched 2026-10-03)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.9 %**, rngSteps 87.5 %, screens **62.5 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `338+1.61/turn` (R² 0.78) |
+| Speed label | `331+1.62/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5, 3rd agentic; best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 since last audit.
-**Corpus fortress (2026-10-03 00:35Z; scored 953/953 entries, 0 unrecorded):**
-**705 / 953** PASS (74.0 %), RNG 98.09 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-03T00:35:01.726Z`.
-Reviews 1225–2284 (index; no row 1618): 929 ACCEPT, 45 WITH-DEBT, 85 QUALITY-RISK (2276–2284: 9 accept/0 debt/0Q; 2266 erinys family closed by D-3311, verified in 2269).
+**Corpus fortress (2026-10-03 02:05Z; scored 953/953 entries, 0 unrecorded):**
+**706 / 953** PASS (74.1 %), RNG 98.11 %, screens 93.4 %; 0 losses, 1 gain (scen-ride-Knight-94403); `full: true`, `fullAt: 2026-10-03T02:05:19.837Z`.
+Reviews 1225–2293 (index; no row 1618): 938 ACCEPT, 45 WITH-DEBT, 85 QUALITY-RISK (2285–2293: 9 accept/0 debt/0Q; 2266 erinys family closed by D-3311, verified in 2269).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
