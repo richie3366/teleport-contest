@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3354 `stairs.c` On_stairs dogmove.js + apply.js clone removal (3 sites → live js/hack.js export)
+
+**C locus:** - `On_stairs`: nethack-c/upstream/src/stairs.c:148–151 — `stairway_at(x, y) != NULL`. 13 C refs, all call sites: apply.c:1210 (use_bell invoking), apply.c:1361 (use_candelabrum burn gate), apply.c:2843 (use_trap what-chain), artifact.c:2516 (retouch_object), dig.c:211 (dig_check), dig.c:1586/:1588 (zap_dig u.dz arm), dig.c:1824 (supporting-stairs arm), dogmove.c:583 (dog-apport), dungeon.c:1778 (surface), hack.c:3067 (invocation_message), polyself.c:1606, spell.c:241 (deadbook).
+**JS:** - `On_stairs`: js/hack.js:3409 (live, canonical, untouched); rewired sites js/dogmove.js:731 (dog-apport), js/apply.js:4191 (use_bell), js/apply.js:4770 (use_candelabrum); pre-existing live sites js/dig.js:1263/:1377/:1378, js/spell.js:791, js/sit.js:506, js/polyself.js:2965, js/hack.js:3580, js/artifact.js:1667; pre-existing direct-stairway_at arms js/dig.js:345 (dig_check), js/apply.js:5098 (use_trap).
+**Change:** extended the two ALREADY static →hack edges (`On_stairs` added to the hack.js imports js/dogmove.js:63, js/apply.js:83; `imports.mjs --can` ALREADY both — no new edge, no new test surface); deleted both clones; dropped the now-unused dogmove→const STAIRS edge (js/dogmove.js:33-then — served only the deleted clone body; apply keeps stairway_at :132 for the use_trap arm). Maintained test: new scripts/on-stairs-rewire.test.mjs (no-clone + live-import + 3 site-calls + dropped-edge + sole-definer census, 5/5 pass).
+**Verify:** - `On_stairs`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/on-stairs-rewire.test.mjs` 5/5 pass.
+**Named:** - `On_stairs`: none in-body — whole C body live at js/hack.js:3409.
+**Next:** next missing-arm row (`mondata.c` attacktype makemon.js clone removal).
 ## 2026-10-03 — D-3353 `hack.c` invocation_pos mklev.js + apply.js clone removal (3 sites → live js/hack.js export)
 
 **C locus:** - `invocation_pos`: nethack-c/upstream/src/hack.c:982–986 — `Invocation_lev(&u.uz) && x == svi.inv_pos.x && y == svi.inv_pos.y`. 8 C refs, 7 call sites: apply.c:1209 (use_bell invoking), apply.c:1361 (candelabrum burn gate), artifact.c:2516 (retouch_object), getpos.c:427, hack.c:3067 (invocation_message), mklev.c:1810 (occupied) + mkmaze.c:1073 comment-only inv_pos init.

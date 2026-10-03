@@ -80,7 +80,7 @@ import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, A_CON, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination, a_monnam, Amonnam, monverbself, l_monnam, type_is_pname, pmname, Mgender, hliquid, YMonnam, obj_pmname, hcolor, s_suffix, Ugender } from './do_name.js';
 import { monflee } from './monmove.js';
-import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms, You_hear, check_capacity, invocation_pos } from './hack.js';
+import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms, You_hear, check_capacity, invocation_pos, On_stairs } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { walk_path, walk_path_async, hurtle_jump, thitmonst, hurtle } from './dothrow.js';
 import { uhim, uhis, genders } from './roles.js';
@@ -4143,11 +4143,6 @@ function carrying_apply(otyp) {
     return null;
 }
 
-/** C stairs.c On_stairs — stairway_at != NULL. */
-function On_stairs_apply(x, y) {
-    return !!stairway_at(x, y);
-}
-
 /** C music.c Hero_playnotes — tty/sound deferred (no RNG). */
 function Hero_playnotes_bell(_instr, _notes, _vol) {}
 
@@ -4193,7 +4188,7 @@ export async function use_bell(obj) {
     const u = game.u || {};
     const invoking = obj.otyp === BELL_OF_OPENING
         && invocation_pos(u.ux, u.uy)
-        && !On_stairs_apply(u.ux, u.uy);
+        && !On_stairs(u.ux, u.uy);
 
     Hero_playnotes_bell(obj.otyp, 'C', 100);
     await pline(`You ring ${the(xname(obj))}.`);
@@ -4772,7 +4767,7 @@ export async function use_candelabrum(obj) {
         );
     }
     if (!invocation_pos(u.ux | 0, u.uy | 0)
-        || On_stairs_apply(u.ux | 0, u.uy | 0)) {
+        || On_stairs(u.ux | 0, u.uy | 0)) {
         await pline(
             `The ${s} ${vtense(s, 'are')} being rapidly consumed!`,
         );
