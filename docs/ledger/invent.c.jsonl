@@ -95,7 +95,7 @@
 {"fn":"tool_being_used","c":"4698-4711","status":"unknown"}
 {"fn":"doprtool","c":"4715-4735","status":"ported","js":["js/invent.js:doprtool"],"d":["D-3191","D-3186"],"at":"2026-10-01@537a19189"}
 {"fn":"doprinuse","c":"4740-4757","status":"ported","js":["js/invent.js:doprinuse"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
-{"fn":"useupf","c":"4763-4783","status":"unknown"}
+{"fn":"useupf","c":"4763-4783","status":"partial","js":["js/invent.js:useupf"],"omit":"- `useupf`: shop-bill arms (C :4774–4779 `!mon_moving && costly_spot` addtobill vs stolen_value, both async) — pre-existing live omit, kept.","d":["D-3345"],"at":"2026-10-03@459a611e1"}
 {"fn":"let_to_name","c":"4800-4839","status":"partial","js":["js/invent.js:let_to_name"],"omit":"`save.c` `freedynamicdata` (`:1085`) does not call `free_invbuf` (save-freeing teardown is unported).","d":["D-2886"],"at":"seed@a30a7de84"}
 {"fn":"free_invbuf","c":"4845-4850","status":"unknown"}
 {"fn":"reassign","c":"4855-4884","status":"unknown"}

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `invent.c` useupf zap.js clone removal — C invent.c:4763–4783 floor-pile consume absent from js/zap.js (local clone :879 subset without the at_u/hideunder arms, sole live site :941 burn_floor_objects delquan instead of importing live js/invent.js:4869; C body in brief useupf this session, clone body + site read this session; zap→invent edge ALREADY :240; live keeps the shop-bill named omit) — rewire site to the live export, delete clone. **Addressed:** D-3345
+
+
 - [x] `dungeon.c` Invocation_lev hack.js clone removal — C dungeon.c:2017–2021 In_hell+deepest-1 absent from js/hack.js (local clone :3397 identical body, sole live site :3447 invocation_pos instead of importing live js/dungeon.js:2392; C body in brief Invocation_lev this session, clone body + site + live body read this session; hack→dungeon edge ALREADY :77) — rewire site to the live export, delete clone.
 
 

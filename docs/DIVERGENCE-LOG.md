@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3345 — `invent.c` useupf zap.js clone removal (sole site → live js/invent.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (clone deletion + 1 import name + comments) — below the ~80 bar, defended (D-3344/D-3343 clone-removal precedent): one whole clone rewired to the live export; the head's C file (invent.c) holds no further Open rows and all 7 C callees are live, so the cluster cannot grow. Queue ships at 8 (coverage ungeneratable; band gate ≥8 met, no refill).
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `useupf`: nethack-c/upstream/src/invent.c:4763–4783 — snapshot at_u; splitobj when quan > numused (burn_floor_objects re-calls on the remainder); !mon_moving && costly_spot shop addtobill vs stolen_value; delobj; at_u && uundetected && hides_under → hideunder. 24 C refs incl zap.c:4636 (burn_floor_objects).
+- **JS was:** live `useupf` js/invent.js:4869 (at_u snapshot, split/delobj, hideunder arm; shop-bill arms named) coexisted with subset clone js/zap.js:879-then (split+delobj only — no at_u/hideunder, `(quan||1)` vs C `quan`, `splitobj||obj` fallback), sole live site js/zap.js:941-then (burn_floor_objects u_caused arm). Static zap→invent edge already present (:240).
+- **Fix:** extended the ALREADY static edge (`useupf` added to the invent.js import, js/zap.js:238; `imports.mjs --can` ALREADY — no new edge, no new test surface); deleted the clone (one-line pointer at :876); site js/zap.js:931 now resolves to the live export with C-cite comment (:930 zap.c:4636). Refreshed the live doc comment (js/invent.js:4861 — zap-clone mention retired; shop-bill named omit kept). Behavior delta is C-true: the hideunder arm (C :4781–4783) now runs when fire burns the pile under a hiding hero; `(quan||1)`→`(quan|0)` and the dropped `||obj` fallback match C exactly. Maintained test: new scripts/useupf-rewire.test.mjs (no-clone + live-import + site-call + sole-definer census, 3/3 pass).
+- **JS:**
+  - `useupf`: js/invent.js:4869 (live, doc-only touch); import js/zap.js:238; clone deleted; rewired site js/zap.js:931.
+- **Callers:**
+  - `useupf`: C zap.c:4636 (burn_floor_objects u_caused) → js/zap.js:931. Other 18 C calls out of cluster, served by the live export where ported: apply.c:2250 → js/apply.js:2440; do.c:149 → js/do.js:1067; do.c:266 → js/do.js:877; eat.c ×7 → js/eat.js (7 sites); hack.c:560 → js/hack.js:1123; pickup.c:2688 → js/pickup.js:3297; pickup.c:3799 → js/pickup.js:5106; pray.c ×3 → js/pray.js (3 sites); pre-existing full-quan delobj inlines (no clone there): pickup.c:1858 scare-dust → js/pickup.js:1599, sit.c:461 pie → js/sit.js:1233. (zap.c:1111/4634 + invent.c:4769 + pickup.c:2680 comments; extern.h:1373 decl.)
+- **Verify:**
+  - `useupf`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/useupf-rewire.test.mjs` 3/3 pass.
+  - Cluster gates: `node scripts/verify.mjs --fn useupf` → PASS syntax (2 changed js files: js/invent.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `useupf`: shop-bill arms (C :4774–4779 `!mon_moving && costly_spot` addtobill vs stolen_value, both async) — pre-existing live omit, kept.
+- **Ledger:** useupf partial
+- **Next:** the remaining missing-arm rows (attacktype_fordmg×4/mon_aligntyp/m_in_air/Invocation_lev×2 — next iterations).
+
 ## D-3344 — `dungeon.c` Invocation_lev hack.js clone removal (sole site → live js/dungeon.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (clone deletion + 1 import name) — below the ~80 bar, defended (D-3343/D-3341 clone-removal precedent): one whole clone rewired to the live export, and the head's C file (dungeon.c) held no further Open rows at pop while Invocation_lev has 0 C callees, so the cluster cannot grow. Refill: 2 missing-arm rows appended from this session's search/read evidence (Invocation_lev mklev + apply — the renamed clones the live doc comment names) — queue ships at 9 (coverage ungeneratable: rows --write 0 rows; the band gate needs ≥8 to commit).

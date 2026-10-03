@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3345 `invent.c` useupf zap.js clone removal (sole site → live js/invent.js export)
+
+**C locus:** - `useupf`: nethack-c/upstream/src/invent.c:4763–4783 — snapshot at_u; splitobj when quan > numused (burn_floor_objects re-calls on the remainder); !mon_moving && costly_spot shop addtobill vs stolen_value; delobj; at_u && uundetected && hides_under → hideunder. 24 C refs incl zap.c:4636 (burn_floor_objects).
+**JS:** - `useupf`: js/invent.js:4869 (live, doc-only touch); import js/zap.js:238; clone deleted; rewired site js/zap.js:931.
+**Change:** extended the ALREADY static edge (`useupf` added to the invent.js import, js/zap.js:238; `imports.mjs --can` ALREADY — no new edge, no new test surface); deleted the clone (one-line pointer at :876); site js/zap.js:931 now resolves to the live export with C-cite comment (:930 zap.c:4636). Refreshed the live doc comment (js/invent.js:4861 — zap-clone mention retired; shop-bill named omit kept). Behavior delta is C-true: the hideunder arm (C :4781–4783) now runs when fire burns the pile under a hiding hero; `(quan||1)`→`(quan|0)` and the dropped `||obj` fallback match C exactly.
+**Verify:** - `useupf`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/useupf-rewire.test.mjs` 3/3 pass.
+**Named:** - `useupf`: shop-bill arms (C :4774–4779 `!mon_moving && costly_spot` addtobill vs stolen_value, both async) — pre-existing live omit, kept.
+**Next:** the remaining missing-arm rows (attacktype_fordmg×4/mon_aligntyp/m_in_air/Invocation_lev×2 — next iterations).
 ## 2026-10-03 — D-3344 `dungeon.c` Invocation_lev hack.js clone removal (sole site → live js/dungeon.js export)
 
 **C locus:** - `Invocation_lev`: nethack-c/upstream/src/dungeon.c:2017–2021 — `In_hell(lev) && lev->dlevel == num_dunlevs - 1`; 10 C refs incl hack.c:984 (the invocation_pos guard).

@@ -235,7 +235,7 @@ import { select_menu_pick_one } from './options.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
     observe_object, display_minventory, display_binventory, display_cinventory,
-    update_inventory, set_cknown_lknown, getobj, useupall, useup,
+    update_inventory, set_cknown_lknown, getobj, useupall, useup, useupf,
     inventory_resistance_check,
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
@@ -873,18 +873,7 @@ export function flash_str(fltyp, nohallu = true) {
     return names[zaptype(fltyp)] || 'ray';
 }
 
-/**
- * C ref: invent.c useupf — consume numused from floor pile (shop bill deferred).
- */
-function useupf(obj, numused) {
-    if (!obj) return;
-    let victim = obj;
-    const n = numused | 0;
-    if ((obj.quan || 1) > n) {
-        victim = splitobj(obj, n) || obj;
-    }
-    delobj(victim);
-}
+// useupf: live js/invent.js export (C invent.c:4763–4783); local clone removed.
 
 // C ref: pline.c You/Your — single definition lives in display.js
 // (D-2471; prefix-on-format then vpline with the same args). The local
@@ -938,6 +927,7 @@ export async function burn_floor_objects(x, y, give_feedback, u_caused) {
                     obj.quan = saveQuan;
                 }
                 if (u_caused) {
+                    // C zap.c:4636 useupf(obj, delquan) — live invent.js export
                     useupf(obj, delquan);
                 } else if (delquan < scrquan) {
                     obj.quan = scrquan - delquan;
