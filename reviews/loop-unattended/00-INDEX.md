@@ -2303,3 +2303,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2291-390bbccbf-somex-teleport-clone-removal.md](./2291-390bbccbf-somex-teleport-clone-removal.md) | `390bbccbf` | D-3335 somex teleport.js clone removal | **ACCEPT** |
 | [2292-6552e164f-ledger-no-dunlev-clone-removals.md](./2292-6552e164f-ledger-no-dunlev-clone-removals.md) | `6552e164f` | D-3336 ledger_no + dunlev clone removals | **ACCEPT** |
 | [2293-99f3bd24a-healup-zap-clone-removal.md](./2293-99f3bd24a-healup-zap-clone-removal.md) | `99f3bd24a` | D-3337 healup zap.js clone removal | **ACCEPT** |
+| [2294-a173e9bb9-museup-zap-muse-rewires.md](./2294-a173e9bb9-museup-zap-muse-rewires.md) | `a173e9bb9` | D-3338 m_useup zap+muse clone removals | **ACCEPT** |
+| [2295-8d8cf1c8a-monflee-music-clone-removal.md](./2295-8d8cf1c8a-monflee-music-clone-removal.md) | `8d8cf1c8a` | D-3339 monflee music.js clone removal | **ACCEPT** |
+| [2296-8f5758b09-amonnam-triple-clone-removal.md](./2296-8f5758b09-amonnam-triple-clone-removal.md) | `8f5758b09` | D-3340 Amonnam fountain+mhitu+zap removals | **ACCEPT** |
+| [2297-c41f1ae08-ledger-no-six-clone-removals.md](./2297-c41f1ae08-ledger-no-six-clone-removals.md) | `c41f1ae08` | D-3341 ledger_no six-file clone removals | **ACCEPT** |
+| [2298-2bd7e5e76-mat-dunlev-census.md](./2298-2bd7e5e76-mat-dunlev-census.md) | `2bd7e5e76` | D-3342 m_at teleport rewire + dunlev census | **ACCEPT** |
+| [2299-dfc2974da-somex-dog-clone-removal.md](./2299-dfc2974da-somex-dog-clone-removal.md) | `dfc2974da` | D-3343 somex dog.js clone removal | **ACCEPT** |
+| [2300-459a611e1-invocation-lev-hack-removal.md](./2300-459a611e1-invocation-lev-hack-removal.md) | `459a611e1` | D-3344 Invocation_lev hack.js clone removal | **ACCEPT** |
+| [2301-cd0939656-useupf-zap-clone-removal.md](./2301-cd0939656-useupf-zap-clone-removal.md) | `cd0939656` | D-3345 useupf zap.js clone removal | **ACCEPT** |
+| [2302-a99f09d15-attacktype-fordmg-quad-removal.md](./2302-a99f09d15-attacktype-fordmg-quad-removal.md) | `a99f09d15` | D-3346 attacktype_fordmg 4-clone removal | **ACCEPT** |

@@ -1,9 +1,9 @@
 {
- "commit": "cd0939656",
- "at": "2026-10-03T03:13:49.291Z",
- "full": false,
- "fullCommit": "99f3bd24a",
- "fullAt": "2026-10-03T02:05:19.837Z",
+ "commit": "a99f09d15",
+ "at": "2026-10-03T03:41:57.610Z",
+ "full": true,
+ "fullCommit": "a99f09d15",
+ "fullAt": "2026-10-03T03:41:57.610Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -5935,7 +5935,7 @@
    "steps": 253,
    "owner": "distfleeck",
    "loc": "monmove.c:564",
-   "jsOwner": "mattacku(mhitu.js:4235)",
+   "jsOwner": "mattacku(mhitu.js:4230)",
    "cTopline": "The gnome lord turns to flee. The saddled pony misses the gnome lord.--More--",
    "jsTopline": "The gnome lord hits! You stop searching.",
    "error": null
@@ -7737,7 +7737,7 @@
    "steps": 132,
    "owner": "dobuzz",
    "loc": "zap.c:4797",
-   "jsOwner": "dobuzz(zap.js:2374)",
+   "jsOwner": "dobuzz(zap.js:2338)",
    "cTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "jsTopline": "You kill the poor human mummy! You hear the studio audience applaud!--More--",
    "error": null
@@ -8893,7 +8893,7 @@
    "steps": 206,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "rottenfood(eat.js:2483)",
+   "jsOwner": "rottenfood(eat.js:2470)",
    "cTopline": "You resume your meal. You hear the footsteps of a guard on patrol.--More--",
    "jsTopline": "Blecch! Rotten food! You finish eating the food ration.",
    "error": null
@@ -13194,7 +13194,7 @@
    "steps": 167,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "goodpos(teleport.js:522)",
+   "jsOwner": "goodpos(teleport.js:508)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null
@@ -13279,7 +13279,7 @@
    "steps": 137,
    "owner": "summonmu",
    "loc": "mhitu.c:968",
-   "jsOwner": "summonmu(mhitu.js:3397)",
+   "jsOwner": "summonmu(mhitu.js:3392)",
    "cTopline": "The marilith hits! The marilith hits again! The marilith hits!--More--",
    "jsTopline": "The marilith hits! The marilith hits again! The marilith hits!--More--",
    "error": null

@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — Audit 2294–2302: review D-3338–D-3346 (9 ACCEPT) + full score
+
+9 clone-removal SHAs (m_useup, monflee, Amonnam, ledger_no, m_at+dunlevs, somex, Invocation_lev, useupf, attacktype_fordmg): every C body re-read, every `--can` re-checked, every verify re-run (somex full reach 706/706). Message nits only ("8 sites" actually 6 in D-3346, pre-existing `await` in D-3339). No Must-fix. Public 44/44 (`350+1.70/turn`); corpus 706/953, 0 lost/0 gained, `full: true`; held-out 15/44, +0. Ledger snapshot appended; 5 ported rows sampled OK (find_friends local is correct — C staticfn). Audit debt: `ledger.mjs sql` unrunnable here (Node v20 lacks `node:sqlite`) — sampled via jsonl+shuf instead.
 ## 2026-10-03 — D-3346 `mondata.c` attacktype_fordmg 4-clone removal (apply/eat/mon/region → live js/uhitm.js export)
 
 **C locus:** - `attacktype_fordmg`: nethack-c/upstream/src/mondata.c:42–50 — mattk[0..NATTK) scan, first slot with aatyp==atyp && (dtyp==AD_ANY || adtyp==dtyp), else NULL. 14 C refs incl apply.c:2316, eat.c:2519/:3767, mon.c:350–351, mhitu.c:277/:1278.
