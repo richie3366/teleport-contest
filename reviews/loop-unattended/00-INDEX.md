@@ -2321,3 +2321,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2309-217726648-invocation-pos-mklev-apply.md](./2309-217726648-invocation-pos-mklev-apply.md) | `217726648` | D-3353 invocation_pos mklev+apply removal | **ACCEPT** |
 | [2310-191ed4aea-on-stairs-dogmove-apply.md](./2310-191ed4aea-on-stairs-dogmove-apply.md) | `191ed4aea` | D-3354 On_stairs dogmove+apply removal | **ACCEPT** |
 | [2311-18773ed32-attacktype-dmgtype-six-clone-removal.md](./2311-18773ed32-attacktype-dmgtype-six-clone-removal.md) | `18773ed32` | D-3355 attacktype ×4 + dmgtype ×2 removal | **ACCEPT** |
+| [2312-b28f5f884-upstart-mthrowu-read-removal.md](./2312-b28f5f884-upstart-mthrowu-read-removal.md) | `b28f5f884` | D-3356 upstart mthrowu+read removal | **ACCEPT** |
+| [2313-1a4880b6b-dmgtype-fromattack-canonical.md](./2313-1a4880b6b-dmgtype-fromattack-canonical.md) | `1a4880b6b` | D-3357 dmgtype_fromattack canonical + 5 removals | **ACCEPT** |
+| [2314-6e103bb56-upstart-six-clone-removal.md](./2314-6e103bb56-upstart-six-clone-removal.md) | `6e103bb56` | D-3358 upstart ×6 removal | **ACCEPT** |
+| [2315-c9aee826b-attacktype-two-clone-removal.md](./2315-c9aee826b-attacktype-two-clone-removal.md) | `c9aee826b` | D-3359 attacktype_aatyp ×2 removal | **ACCEPT** |
+| [2316-9dc9139eb-highc-upstart-ssuffix-removal.md](./2316-9dc9139eb-highc-upstart-ssuffix-removal.md) | `9dc9139eb` | D-3360 highc/upstart/s_suffix ×8 removal | **ACCEPT** |
+| [2317-52fc04909-dobuzz-slept-monst.md](./2317-52fc04909-dobuzz-slept-monst.md) | `52fc04909` | D-3361 dobuzz completion + slept_monst | **QUALITY-RISK** |
+| [2318-6da1640bc-def-char-is-furniture-reveal.md](./2318-6da1640bc-def-char-is-furniture-reveal.md) | `6da1640bc` | D-3363 def_char_is_furniture + reveal arms | **QUALITY-RISK** |
+| [2319-79f8032a6-assign-graphics-siblings.md](./2319-79f8032a6-assign-graphics-siblings.md) | `79f8032a6` | D-3364 assign_graphics + 8 siblings | **QUALITY-RISK** |

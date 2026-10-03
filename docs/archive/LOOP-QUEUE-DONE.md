@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `symbols.c` assign_graphics — C symbols.c:224–227 + :236–239 showsyms table copy absent from js/display.js:assign_graphics (brief 2026-10-03; reset_glyphmap :249 guarded per NOTES, excluded) @9dc9139eb **Addressed:** D-3364
+- [x] `symbols.c` assign_graphics — C symbols.c:224–227 + :236–239 showsyms table copy absent from js/display.js:assign_graphics (brief 2026-10-03; reset_glyphmap :249 guarded per NOTES, excluded) @9dc9139eb **Addressed:** D-3364 `79f8032a6`
 
 
 - [x] `drawing.c` def_char_is_furniture — blocks 1/953 (scen-terrain-Tourist-94120 step 97/121 kind=screen: C «branch staircase up» vs JS «unexplored area»); C drawing.c:119–142 full defsyms scan deferred at js/detect.js:313 local (brief 2026-10-03). Source: reviews/loop-unattended/1028-61843507-terrain-browse-describe.md @9dc9139eb **Addressed:** D-3363 `6da1640bc`

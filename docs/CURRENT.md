@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-03** — full `sessions` on `18773ed32`
-(audit **2303–2311**, 2026-10-03T05:08:33.195Z).
+Score last measured: **2026-10-03** — full `sessions` on `79f8032a6`
+(audit **2312–2319**, 2026-10-03T08:20:52.288Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`322+1.66/turn` (R² 0.80).
+`336+1.61/turn` (R² 0.78).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, scored 2026-10-03 01:21Z; fetched 2026-10-03)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.9 %**, rngSteps 87.5 %, screens **62.5 %** |
+| **Held-out (judge, scored 2026-10-03 07:16Z; fetched 2026-10-03)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.9 %**, rngSteps 87.5 %, screens **62.5 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `322+1.66/turn` (R² 0.80) |
+| Speed label | `336+1.61/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5, 3rd agentic; best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 since last audit.
-**Corpus fortress (2026-10-03 05:14Z; scored 953/953 entries, 0 unrecorded):**
-**706 / 953** PASS (74.1 %), RNG 98.11 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-03T05:14:14.727Z`.
-Reviews 1225–2311 (index; no row 1618): 956 ACCEPT, 45 WITH-DEBT, 85 QUALITY-RISK (2303–2311: 9 accept/0 debt/0Q; 2266 erinys family closed by D-3311, verified in 2269).
+**Corpus fortress (2026-10-03 08:26Z; scored 953/953 entries, 0 unrecorded):**
+**707 / 953** PASS (74.2 %), RNG 98.11 %, screens 93.4 %; 0 losses, +1 gain (D-3363 Tourist-94120); `full: true`, `fullAt: 2026-10-03T08:26:38.955Z`.
+Reviews 1225–2319 (index; no row 1618): 961 ACCEPT, 45 WITH-DEBT, 88 QUALITY-RISK (2312–2319: 5 accept/0 debt/3Q → 4 Must-fix queued; 2266 erinys family closed by D-3311, verified in 2269).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster (D-3364):** symbols.c assign_graphics showsyms copy + save/detect/botl wiring; 8 siblings declared (7 stale, parsesymbols split).
+**Next cluster (Must-fix 2319):** symbols.c set_symhandling CURS/MAC arms — add the 2 strings to js/const.js:2917 known_handling in C order (:376–384; restores UTF8=5); then Must-fix 2318 (reveal probe deletion) + 2317/1 (dobuzz steed tail-skip) + 2317/2 (slept_monst callers).
 
 ## Parked (diagnose only — do not implement)
 
