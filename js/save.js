@@ -70,7 +70,12 @@ import { rest_worm } from './worm.js';
 import { rest_rooms } from './mkroom.js';
 import { adj_erinys, reset_erinys } from './monsters.js';
 import { set_uasmon } from './polyself.js';
-import { reset_oattached_mids, restlevchn } from './restore.js';
+import {
+    reset_oattached_mids,
+    restlevchn,
+    moves_to_relative_time,
+    restlevelstate,
+} from './restore.js';
 
 const SAVE_VFS_PREFIX = 'save/';
 // C ref: fnamesiz.h UNIX arm — SAVEX `save/99999.e` (sizeof 12),
@@ -444,6 +449,22 @@ function restWornFromInvent(invent) {
         if (!game.gu) game.gu = {};
         game.gu.unweapon = true;
     }
+}
+
+/**
+ * C ref: save.c save_adjust_levelflags `:570–574` (staticfn → exported:
+ * sole C caller savelev `:520`, paired with rest_adjust_levelflags `:522`
+ * around the Sfo_levelflags write).
+ * C: moves_to_relative_time(&svl.level.flags.stasis_until) — relativize
+ * before the write so the wire holds moves-relative time. Whole 1-line
+ * body, live below. The C call site is a named wire-format omission, not
+ * wired: lev_json.js serLevel `:800` spreads lvl.flags verbatim (absolute
+ * stasis_until), so there is no relativize step and no `:522` post-write
+ * restore (rest_adjust_levelflags js/restore.js named pair; review 364
+ * "Named difference of save format", review 2326).
+ */
+export function save_adjust_levelflags() {
+    moves_to_relative_time(game.level && game.level.flags, 'stasis_until'); // C `:573`
 }
 
 /**
@@ -1002,6 +1023,10 @@ export async function try_restore_save() {
         game.migrating_mons = deserMonList(payload.migrating_mons);
     }
 
+    // C restore.c dorecover `:827` restlevelstate() — after restgamestate
+    // + init_oclass_probs, before the restlevelfile loop. Empty body in C
+    // (`:744–748`); wired to keep the dorecover sequence complete.
+    restlevelstate();
     // C restore.c restlevelfile others then getlev current. JSON hydrates
     // others into level_info without tearing down the live map (no FREEING).
     // Missing `levels` = old save, current-only (seed0013).
@@ -1038,6 +1063,11 @@ export async function try_restore_save() {
     // load_mapseen (dungeon.c :251–262 / :2752). After branches.
     restore_mapseenchn(payload);
     rebuildObjectsAt(info.fobj);
+    // C restore.c dorecover `:900` restlevelstate() — after the final
+    // getlev of the current level, before something_worth_saving (`:901`)
+    // and the Rogue-graphics arm below (`:905`). Empty body in C
+    // (`:744–748`); wired to keep the dorecover sequence complete.
+    restlevelstate();
     // C restore.c restgamestate `:905–906` — a Rogue-level save restores
     // Rogue graphics (before the `:910+` ball&chain walk below).
     if (Is_rogue_level(game.u?.uz)) assign_graphics(ROGUESET);

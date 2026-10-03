@@ -127,7 +127,6 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `restore.c` rest_adjust_levelflags — C restore.c:1314–1318 absent from js/ (no JS symbol; 1-line relative_time_to_moves(&level.flags.stasis_until), C callers getlev :1117 + savelev :520–522 pair; callee live js/restore.js:133; wire caveat: lev_json.js:800 copies absolute stasis_until verbatim, literal add-back would double — brief 2026-10-03) @33bc41ba1
 - [ ] `save.c` tricked_fileremoved — C save.c:336–347 absent from js/ (no JS symbol; ledger absent; !nhfp arm: pline1(whynot) + killer-name + done(TRICKED); 2 C call sites do.c:1705 + save.c:377; callees pline + done live — brief 2026-10-03) @7feedbbb2
 - [ ] `mthrowu.c` m_throw misfire + dknown arms — C mthrowu.c:619–620 (clear_dknown when thrower unseen) + :623–629 (cursed/greased rn2(7) misfire pline + dx/dy rn2(3)−1 re-roll) absent from js/mthrowu.js (no clear_dknown/misfires/slips; D-2399 shipped flight-stop/catch only — brief 2026-10-03) @647728e87
 - [ ] `artifact.c` glow_color hcolor wrap — C artifact.c:2432 `hcolor(clr2colorname)` absent from js/artifact.js:891 glow_color (returns clr2colorname directly; hcolor live js/do_name.js:347 — brief 2026-10-03) @647728e87

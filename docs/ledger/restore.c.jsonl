@@ -10,7 +10,7 @@
 {"fn":"freefruitchn","c":"487-496","status":"split","js":["js/bones.js:getlev_bones","js/save.js:loadFruitchn"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: GC drop: game.oldfruit=null (bones) and ffruit head replace (save)"}
 {"fn":"ghostfruit","c":"500-512","status":"ported","js":["js/bones.js:ghostfruit"],"d":["D-1541"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: miss arm returns silently (C impossible debug-log skipped)"}
 {"fn":"restgamestate","c":"525-736","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"restlevelstate","c":"742-749","status":"unknown"}
+{"fn":"restlevelstate","c":"742-749","status":"ported","js":["js/restore.js:restlevelstate"],"d":["D-3374"],"at":"2026-10-03@5046334ff"}
 {"fn":"restlevelfile","c":"755-771","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"dorecover","c":"789-951","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"rest_stairs","c":"955-985","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: stairs blob passthrough + install assign; relative-to-absolute conversion vacuous (JSON absolute); u_traversed in blob"}
@@ -18,7 +18,7 @@
 {"fn":"rest_levl","c":"1021-1030","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: locations overlay in deserLevel"}
 {"fn":"trickery","c":"1035-1042","status":"ported","js":["js/bones.js:trickery"],"at":"2026-10-03@bbe63333a"}
 {"fn":"getlev","c":"1046-1311","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"rest_adjust_levelflags","c":"1314-1318","status":"unknown"}
+{"fn":"rest_adjust_levelflags","c":"1314-1318","status":"ported","js":["js/restore.js:rest_adjust_levelflags"],"d":["D-3374"],"at":"2026-10-03@5046334ff"}
 {"fn":"moves_to_relative_time","c":"1320-1325","status":"ported","js":["js/restore.js:moves_to_relative_time"],"at":"2026-10-03@bbe63333a"}
 {"fn":"relative_time_to_moves","c":"1328-1333","status":"ported","js":["js/restore.js:relative_time_to_moves"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_plname_from_file","c":"1338-1362","status":"split","js":["js/save.js:try_restore_save"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON plname field read; binary size/char/playmode-slot parse vacuous"}

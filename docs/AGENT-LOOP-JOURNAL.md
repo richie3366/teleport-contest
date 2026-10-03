@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3374 `restore.c`/`save.c` levelflags time pair + restlevelstate (live exports, wire-format omissions, dorecover no-ops wired)
+
+**C locus:** - `rest_adjust_levelflags`: nethack-c/upstream/src/restore.c:1314–1318 — `relative_time_to_moves(&svl.level.flags.stasis_until)` (wire holds moves-relative time; add-back after the read). C callers: getlev :1117 + savelev save.c:522.
+**JS:** - `rest_adjust_levelflags`: js/restore.js:153.
+**Change:** live same-name exports with whole C bodies in C order — `rest_adjust_levelflags` js/restore.js:153 (callee relative_time_to_moves on `game.level && game.level.flags`, C `:1317`), `save_adjust_levelflags` js/save.js:466 (callee moves_to_relative_time, C `:573`; save.js→restore.js edge ALREADY, `imports.mjs --can` ×2), `restlevelstate` js/restore.js:333 (empty body per C `:744–748`). Wired both restlevelstate sites in try_restore_save: :1029 (C dorecover :827, before restoreOtherLedgers) + :1070 (C :900, after current install, before the :905 Rogue arm). Maintained test: scripts/adjust-levelflags.test.mjs (7/7 pass — relativize/add-back values, :520–522 round-trip, missing-level guards, restlevelstate no-op).
+**Verify:** - `rest_adjust_levelflags`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `rest_adjust_levelflags`: none in-body — whole C body live. Both C call sites unwired by wire format (JSON absolute; restmon `:355–356` edog precedent js/restore.js:197–200; review 364 "Named difference of save format"; review 2326 "wire-wrong with the lev_json.js:800 mechanism").
+**Next:** missing-arm rows continue (tricked_fileremoved, m_throw arms, glow_color, use_cream_pie, poison_strdmg, doapply BANANA); restore_menu stays Open pending VFS save-listing design.
 ## 2026-10-03 — Audit 2320–2328: review D-3365–D-3373 (9 ACCEPT, 0 Must-fix) + full score
 
 **Scope:** 9 JS-touching SHAs since 79f8032a6 (skipped ace5efd57 ledger-only + 3164b76c4 stamp-only). 3 Must-fix closures verified exact (2319→D-3365 CURS/MAC, 2318→D-3366 probe deletion, 2317→D-3367 steed tail-skip + D-3368 slept callers/bhitm arm); 6 coverage ports confirmed branch-by-branch (D-3369 reset_oattached_mids, D-3370 savelevchn/save_bc, D-3371 restlevchn, D-3372 choose_classes_menu, D-3373 clone ×4 + set_corpsenm stale).

@@ -6,7 +6,7 @@
 {"fn":"savestateinlock","c":"351-425","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"savelev","c":"429-449","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"savelev_core","c":"452-567","status":"split","js":["js/lev_json.js:serLevel","js/save.js:dosave0"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; preamble (purge/VISITED) in dosave0; binary/FREEING N/A"}
-{"fn":"save_adjust_levelflags","c":"570-574","status":"unknown"}
+{"fn":"save_adjust_levelflags","c":"570-574","status":"ported","js":["js/save.js:save_adjust_levelflags"],"d":["D-3374"],"at":"2026-10-03@5046334ff"}
 {"fn":"savelevl","c":"577-587","status":"split","js":["js/lev_json.js:serLocations"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue via serLevel"}
 {"fn":"save_bubbles","c":"591-613","status":"split","js":["js/lev_json.js:serWaterlevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; bbubbly marker implicit (null vs object)"}
 {"fn":"savecemetery","c":"617-637","status":"ported","js":["js/dungeon.js:savecemetery"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; FREEING N/A"}

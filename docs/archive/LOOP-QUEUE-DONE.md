@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `restore.c` rest_adjust_levelflags — C restore.c:1314–1318 absent from js/ (no JS symbol; 1-line relative_time_to_moves(&level.flags.stasis_until), C callers getlev :1117 + savelev :520–522 pair; callee live js/restore.js:133; wire caveat: lev_json.js:800 copies absolute stasis_until verbatim, literal add-back would double — brief 2026-10-03) @33bc41ba1 **Addressed:** D-3374
+
+
 - [x] `mkobj.c` set_corpsenm — absent from js/ (no JS symbol; seed-declared ported, location unresolved); C mkobj.c:1317–1367 egg-timer/oeaten/corpsenm/timeout/weight arms, all 8 callees live (brief 2026-10-03; 23 C call sites) @9dc9139eb
 - [x] `hacklib.c` highc dokeylist clone removal — C hacklib.c:75–79 ASCII highc absent from js/dokeylist.js as an import (local clone :51 const-arrow numeric-code variant takes/returns char codes, body read this session; 1 site :340 binds numeric key codes instead of the live char export js/hacklib.js:455 read this session; C body in brief highc this session; dokeylist→hacklib edge ALREADY :43) — rewire + adapt site to char domain or declare distinct. @79f8032a6
 - [x] `hacklib.c` s_suffix eat.js clone removal — C hacklib.c:344–359 4-arm possessive absent from js/eat.js as an import (local clone :3370 s_suffix_eat body-identical to live, body read this session; 4 sites instead of the live export js/do_name.js:418 read this session; C body via csym s_suffix this session; eat→do_name edge ALREADY) — rewire sites to the live export, delete clone. @79f8032a6

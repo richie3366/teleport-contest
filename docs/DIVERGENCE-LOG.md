@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3374 — `restore.c`/`save.c` levelflags time pair + restlevelstate (live exports, wire-format omissions, dorecover no-ops wired)
+
+- **Status:** shipped (queue head `rest_adjust_levelflags` row checked off + archived; no review cited, no stamp owed). Density exception stated: 3 whole C functions, ~60 js/ insertions — below the ~80 bar, defended (D-3371 single-function precedent, review 2326 blessing): the head's file holds only restore_menu more Open, which is excluded (SELECTSAVED save-selection menu; callees get_saved_games/free_saved_games are files.c opendir-based — Rule #2 needs VFS save-listing design; callers only in win/curses+tty+X11 mains; review-2326 "restore_menu excluded" precedent). save.c save_adjust ships as the :520–522 pair half, not a second file.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `rest_adjust_levelflags`: nethack-c/upstream/src/restore.c:1314–1318 — `relative_time_to_moves(&svl.level.flags.stasis_until)` (wire holds moves-relative time; add-back after the read). C callers: getlev :1117 + savelev save.c:522.
+  - `save_adjust_levelflags`: nethack-c/upstream/src/save.c:570–574 — `moves_to_relative_time(&svl.level.flags.stasis_until)` (relativize before the write). Sole C caller savelev :520, paired with rest_adjust :522 around Sfo_levelflags.
+  - `restlevelstate`: nethack-c/upstream/src/restore.c:742–749 — intentionally empty (`:744–747` note + `:748` bare return; steed/engulfer restore moved to getlev). Both C callers dorecover :827 + :900.
+- **JS was:** no symbols for any of the three (brief: MISSING ×3); converters moves_to_relative_time / relative_time_to_moves live-but-unwired at js/restore.js:119/:133 (ledger-ported); JSON codec stores absolute stasis_until (lev_json.js serLevel :800 spread verbatim, deserLevel :859 copy-back).
+- **Fix:** live same-name exports with whole C bodies in C order — `rest_adjust_levelflags` js/restore.js:153 (callee relative_time_to_moves on `game.level && game.level.flags`, C `:1317`), `save_adjust_levelflags` js/save.js:466 (callee moves_to_relative_time, C `:573`; save.js→restore.js edge ALREADY, `imports.mjs --can` ×2), `restlevelstate` js/restore.js:333 (empty body per C `:744–748`). Wired both restlevelstate sites in try_restore_save: :1029 (C dorecover :827, before restoreOtherLedgers) + :1070 (C :900, after current install, before the :905 Rogue arm). Maintained test: scripts/adjust-levelflags.test.mjs (7/7 pass — relativize/add-back values, :520–522 round-trip, missing-level guards, restlevelstate no-op).
+- **JS:**
+  - `rest_adjust_levelflags`: js/restore.js:153.
+  - `save_adjust_levelflags`: js/save.js:466.
+  - `restlevelstate`: js/restore.js:333; wired sites js/save.js:1029 + :1070.
+- **Callers:**
+  - `rest_adjust_levelflags`: C getlev :1117 → NAMED (deserLevel js/lev_json.js:859 installs absolute level_flags; literal add-back would double — queue-row caveat); C savelev :522 → NAMED (serLevel js/lev_json.js:800 never relativizes, so no post-write restore step exists).
+  - `save_adjust_levelflags`: C savelev :520 → NAMED (same absolute wire — no relativize step on ser).
+  - `restlevelstate`: C dorecover :827 → js/save.js:1029; C dorecover :900 → js/save.js:1070. No JS site calls from a function C never calls from.
+- **Verify:**
+  - `rest_adjust_levelflags`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `save_adjust_levelflags`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `restlevelstate`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn rest_adjust_levelflags,save_adjust_levelflags,restlevelstate` → VERIFY: PASS (syntax 2 files, rule2 PASS, green 2/2, strict 2/2, cohort 7/7, full skipped — no shared file changed) · seed0013 save-restore pair 2/2 PASS (RNG 4804/4804 + 4838/4838) · `node --test scripts/adjust-levelflags.test.mjs` 7/7 pass.
+- **Named omissions:**
+  - `rest_adjust_levelflags`: none in-body — whole C body live. Both C call sites unwired by wire format (JSON absolute; restmon `:355–356` edog precedent js/restore.js:197–200; review 364 "Named difference of save format"; review 2326 "wire-wrong with the lev_json.js:800 mechanism").
+  - `save_adjust_levelflags`: none in-body — whole C body live. Sole C call site unwired by the same absolute wire (no ser relativize step).
+  - `restlevelstate`: none in-body (empty in C) — both C callers wired.
+- **Ledger:** rest_adjust_levelflags ported; save_adjust_levelflags ported; restlevelstate ported
+- **Next:** missing-arm rows continue (tricked_fileremoved, m_throw arms, glow_color, use_cream_pie, poison_strdmg, doapply BANANA); restore_menu stays Open pending VFS save-listing design.
+
 ## D-3373 — `hacklib.c` highc/s_suffix 4-clone removal (dokeylist/eat/zap/mhitm → live exports) + set_corpsenm stale pop
 
 - **Status:** shipped (4 missing-arm rows + 1 stale row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions — below the ~80 bar, defended (D-3350–D-3360 clone-removal precedent): 24 call sites rewired, 4 whole clones deleted; the head's C file (hacklib.c) held exactly these 4 Open rows, all shipped. Bundled: set_corpsenm stale pop (complete port + wired callers; whitespace-only de-indent so the sym index resolves the export) + DONE-tail hash check.
