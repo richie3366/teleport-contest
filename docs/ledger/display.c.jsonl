@@ -1,9 +1,9 @@
 {"fn":"tp_sensemon","c":"166-169","status":"ported","js":["js/display.js:tp_sensemon"],"at":"2026-10-03@bbe63333a"}
-{"fn":"sensemon","c":"173-176","status":"partial","js":["js/display.js:sensemon"],"omit":"missing Underwater clause (!Underwater || (mdistu<=2 && is_pool(mx,my))) gating Detect_monsters/telepathy/warning sensing","at":"2026-10-03@bbe63333a"}
+{"fn":"sensemon","c":"173-176","status":"ported","js":["js/display.js:sensemon"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"mon_warning","c":"180-183","status":"ported","js":["js/display.js:mon_warning"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_visible","c":"187-190","status":"ported","js":["js/display.js:mon_visible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"see_with_infrared","c":"194-197","status":"ported","js":["js/display.js:see_with_infrared"],"at":"2026-10-03@bbe63333a"}
-{"fn":"canseemon","c":"201-204","status":"partial","js":["js/dig.js:canseemon"],"omit":"drops see_with_infrared() alternative to cansee() and See_invisible allowance for minvis (mon_visible); requires cansee && !minvis","at":"2026-10-03@bbe63333a"}
+{"fn":"canseemon","c":"201-204","status":"ported","js":["js/dig.js:canseemon"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"knowninvisible","c":"208-211","status":"ported","js":["js/zap.js:knowninvisible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_safemon","c":"215-218","status":"ported","js":["js/uhitm.js:is_safemon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"magic_map_background","c":"233-258","status":"ported","js":["js/display.js:magic_map_background"],"d":["D-3254"],"at":"2026-10-02@e4afe5879"}
@@ -21,7 +21,7 @@
 {"fn":"warning_of","c":"654-663","status":"ported","js":["js/display.js:warning_of"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_overrides_region","c":"668-700","status":"ported","js":["js/display.js:mon_overrides_region"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"suppress_map_output","c":"715-718","status":"ported","js":["js/display.js:suppress_map_output"],"at":"2026-10-03@bbe63333a"}
-{"fn":"feel_newsym","c":"726-732","status":"ported","js":["js/display.js:feel_newsym"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
+{"fn":"feel_newsym","c":"726-732","status":"ported","js":["js/display.js:feel_newsym"],"d":["D-3401","D-3268"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"feel_location","c":"746-909","status":"ported","js":["js/display.js:feel_location"],"d":["D-3400","D-2461","D-1749"],"at":"2026-10-03@c26191db6"}
 {"fn":"newsym","c":"917-1099","status":"ported","js":["js/display.js:newsym"],"d":["D-3393","D-1745","D-1737"],"at":"2026-10-03@4ea047f25"}
 {"fn":"shieldeff","c":"1110-1124","status":"ported","js":["js/display.js:shieldeff"],"at":"2026-10-03@bbe63333a"}
@@ -31,7 +31,7 @@
 {"fn":"swallowed","c":"1332-1386","status":"ported","js":["js/display.js:swallowed"],"at":"2026-10-03@bbe63333a"}
 {"fn":"under_water","c":"1395-1437","status":"ported","js":["js/display.js:under_water"],"d":["D-1981"],"at":"2026-10-03@bbe63333a"}
 {"fn":"under_ground","c":"1445-1467","status":"ported","js":["js/display.js:under_ground"],"at":"2026-10-03@bbe63333a"}
-{"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"`allmain.c:94` moveloop_preamble defer arm (`game.defer_see_monsters` is never set in JS — the `restore.c:682` setter has no JS counterpart; `newsym`-level `suppress_map_output` covers the restore hazard); `attrib.c:785` postadjabil (pre-existing deferral, `js/attrib.js:833`); `do_wear.c:546` Helme…","d":["D-2493","D-1746"],"at":"seed@a30a7de84"}
+{"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2493","D-1746"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"mimic_light_blocking","c":"1532-1540","status":"ported","js":["js/vision.js:mimic_light_blocking"],"d":["D-1587"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_mimic_blocking","c":"1548-1551","status":"ported","js":["js/vision.js:set_mimic_blocking"],"at":"2026-10-03@bbe63333a"}
 {"fn":"see_objects","c":"1558-1571","status":"ported","js":["js/display.js:see_objects"],"d":["D-3290"],"at":"2026-10-02@be60a5eca"}
@@ -40,11 +40,11 @@
 {"fn":"curs_on_u","c":"1687-1690","status":"ported","js":["js/display.js:curs_on_u"],"d":["D-1976"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doredraw","c":"1694-1698","status":"ported","js":["js/display.js:doredraw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"docrt","c":"1702-1705","status":"ported","js":["js/display.js:docrt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"docrt_flags","c":"1709-1773","status":"partial","js":["js/display.js:docrt_flags"],"omit":"wintty.c:435 rescale trigger (above); non-docrt under_water/under_ground caller wiring (pre-existing D-1981 names stand); `feel_can_reach_floor` usteed P_RIDING (pre-existing name stands).","d":["D-2461"],"at":"seed@a30a7de84"}
+{"fn":"docrt_flags","c":"1709-1773","status":"partial","js":["js/display.js:docrt_flags"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2461"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"redraw_map","c":"1778-1812","status":"ported","js":["js/display.js:redraw_map"],"d":["D-1974"],"at":"2026-10-01@250701173","note":"stale: js/display.js:6983 body whole, both callers wired (:5829,:7115), on_level imported"}
 {"fn":"reglyph_darkroom","c":"1818-1854","status":"ported","js":["js/display.js:reglyph_darkroom"],"d":["D-1975"],"at":"2026-10-03@bbe63333a"}
-{"fn":"newsym_force","c":"1863-1871","status":"ported","js":["js/display.js:newsym_force"],"at":"2026-10-03@bbe63333a"}
-{"fn":"show_glyph","c":"1877-2072","status":"split","js":["js/display.js:show_glyph_cell","js/display.js:show_glyph_change_wanted","js/display.js:emit_show_glyph_change"],"d":["D-3013","D-1767","D-1221"],"at":"2026-09-28@2af820a38","note":"audit 1937-1945: sym NOT FOUND; seed marked ported with js location unresolved. D-1767 and D-1221 live in show_glyph_cell, not show_glyph."}
+{"fn":"newsym_force","c":"1863-1871","status":"ported","js":["js/display.js:newsym_force"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
+{"fn":"show_glyph","c":"1877-2072","status":"split","js":["js/display.js:show_glyph_cell","js/display.js:map_glyphinfo","js/display.js:show_memory_glyph","js/display.js:flush_screen"],"d":["D-3401","D-3013","D-1767","D-1221"],"at":"2026-10-03@1ae9cc180","note":"audit 1937-1945: sym NOT FOUND; seed marked ported with js location unresolved. D-1767 and D-1221 live in show_glyph_cell, not show_glyph."}
 {"fn":"clear_glyph_buffer","c":"2107-2142","status":"ported","js":["js/display.js:clear_glyph_buffer"],"d":["D-1986"],"at":"2026-10-01@e45cb9654","note":"stale: js/display.js:7380 (D-0389/D-1986 gbuf->disp_* adaptation; spans + gnew; callers allmain.js:252 + cls:7419)"}
 {"fn":"row_refresh","c":"2147-2186","status":"ported","js":["js/display.js:row_refresh"],"d":["D-1964"],"at":"2026-10-01@e0549fe8b","note":"stale: js/display.js:6940 (shipped whole D-1964: export + docorner rewire + probe; force=false reduction + omits named there)"}
 {"fn":"cls","c":"2189-2202","status":"ported","js":["js/display.js:cls"],"at":"2026-10-03@bbe63333a"}
@@ -60,13 +60,13 @@
 {"fn":"reset_glyphmap","c":"2739-3086","status":"by-design","at":"seed@a30a7de84","note":"seed: CURRENT.md Do not (fortress guard)"}
 {"fn":"type_to_name","c":"3108-3111","status":"by-design","at":"2026-10-02@1896adcef","note":"WA_VERBOSE compiled out (display.c:138 commented); body inside display.c:3091-3121 ifdef, sole C caller error4 same ifdef"}
 {"fn":"error4","c":"3114-3120","status":"by-design","at":"2026-10-02@1896adcef","note":"WA_VERBOSE compiled out (display.c:138 commented); body inside 3091-3121 ifdef, both C call sites ifdef-gated (:3150 more_than_one inside :3145 ifdef, :3257 inside :3256 ifdef)"}
-{"fn":"check_pos","c":"3130-3141","status":"ported","js":["js/mklev.js:check_pos"],"at":"2026-10-03@bbe63333a"}
+{"fn":"check_pos","c":"3130-3141","status":"ported","js":["js/mklev.js:check_pos"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"more_than_one","c":"3147-3154","status":"ported","js":["js/mklev.js:more_than_one"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"set_wall","c":"3187-3204","status":"split","js":["js/mklev.js:set_wall_mode"],"d":["D-3012"],"at":"2026-09-28@7cd5d050b","note":"stale split body file-local js/mklev.js:33169"}
 {"fn":"set_corn","c":"3208-3236","status":"ported","js":["js/mklev.js:set_corn"],"at":"2026-09-27@988c639a6","note":"stale: js/mklev.js:32951"}
 {"fn":"set_crosswall","c":"3240-3271","status":"ported","js":["js/mklev.js:set_crosswall"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"xy_set_wall_state","c":"3276-3326","status":"ported","js":["js/mklev.js:xy_set_wall_state"],"at":"2026-10-03@bbe63333a"}
-{"fn":"set_wall_state","c":"3330-3354","status":"ported","js":["js/mklev.js:set_wall_state"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — compiled arms complete (WA_VERBOSE is debug-only); callee xy_set_wall_state live mklev.js:33001"}
+{"fn":"set_wall_state","c":"3330-3354","status":"ported","js":["js/mklev.js:set_wall_state"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"set_seenv","c":"3369-3377","status":"ported","js":["js/display.js:set_seenv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unset_seenv","c":"3384-3393","status":"ported","js":["js/display.js:unset_seenv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"t_warn","c":"3453-3498","status":"ported","js":["js/display.js:t_warn"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"stale: js/display.js:3170"}

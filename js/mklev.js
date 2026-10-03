@@ -28189,9 +28189,7 @@ async function makelevel() {
     const fill = dun?.fill_lvl || '';
     // C ref: mklev.c:1267-1289 — Is_special / proto / fill_lvl / In_quest
     // before ordinary. Medusa rn2(5) only in hell/medusa else-if.
-    const slev = (g.sp_levchn || []).find(s =>
-        (s.dlevel?.dnum | 0) === (g.u?.uz?.dnum | 0)
-        && (s.dlevel?.dlevel | 0) === (g.u?.uz?.dlevel | 0));
+    const slev = Is_special(g.u?.uz);
     if (slev && !Is_rogue_level(g.u?.uz)) {
         await makemaz(slev.proto);
     } else if (dun?.proto) {
@@ -29792,10 +29790,7 @@ function percent(threshold) {
 // C ref: dungeon.c induced_align — Is_special then dungeon then rn2(3)
 function induced_align(pct) {
     const uz = game.u?.uz;
-    const slev = (game.sp_levchn || []).find(s =>
-        s?.dlevel
-        && (s.dlevel.dnum | 0) === (uz?.dnum | 0)
-        && (s.dlevel.dlevel | 0) === (uz?.dlevel | 0));
+    const slev = Is_special(uz);
     if (slev?.flags?.align) {
         if (rn2(100) < pct) return slev.flags.align;
     }
@@ -34025,16 +34020,10 @@ export function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_che
         return;
     mineralize_kelp(kelp_pool, kelp_moat);
     // C ref: mklev.c mineralize — hell / V_tower / rogue / arboreal / most
-    // specials skip rock deposits after kelp. Is_special is on_level walk
-    // of sp_levchn (dungeon.c); dlevel 0 must still match.
+    // specials skip rock deposits after kelp. Live Is_special export
+    // (on_level walk of sp_levchn, dungeon.c); dlevel 0 still matches.
     const uz = game.u?.uz;
-    let slev = null;
-    for (const s of game.sp_levchn || []) {
-        if (on_level(uz, s.dlevel)) {
-            slev = s;
-            break;
-        }
-    }
+    const slev = Is_special(uz);
     const inHell = !!(game.dungeons?.[uz?.dnum]?.flags?.hellish);
     if (!skip_lvl_checks
         && (inHell || In_V_tower(uz) || Is_rogue_level(uz)

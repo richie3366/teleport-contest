@@ -12,6 +12,8 @@ import { bot_via_windowport, SCORE_ON_BOTL, botl_score, stat_update_time } from 
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { objects_at, sobj_at } from './mkobj.js';
+import { mdistu } from './mon.js'; // sensemon (same SCC; hoisted fn, runtime use only — imports.mjs SAFE)
+import { is_pool } from './hack.js'; // sensemon (same SCC; hoisted fn, runtime use only — imports.mjs SAFE)
 import {
     mcolors, mons, pmnames, infravision, infravisible, mindless, NUMMONS,
     is_flyer,
@@ -924,6 +926,12 @@ export function glyph_is_piletop_generic_obj(glyph) {
         && g < GLYPH_OBJ_PILETOP_OFF + NUM_OBJECTS;
 }
 
+/** C display.h glyph_is_generic_object `:844–846` — normal or piletop generic. */
+export function glyph_is_generic_object(glyph) {
+    return glyph_is_normal_generic_obj(glyph)
+        || glyph_is_piletop_generic_obj(glyph);
+}
+
 /** C display.h glyph_is_body — BODY + BODY_PILETOP. */
 export function glyph_is_body(glyph) {
     const g = glyph_id(glyph);
@@ -1222,13 +1230,18 @@ export function tp_sensemon(mon) {
 }
 
 /**
- * C ref: display.h _sensemon — Detect_monsters / telepathy / MATCH_WARN.
- * Named omission: Underwater pool adjacency gate.
+ * C ref: display.h _sensemon `:55–59` — uswallow/ustuck, Underwater pool
+ * adjacency (mdistu <= 2 && is_pool), Detect_monsters / telepathy /
+ * MATCH_WARN_OF_MON. Underwater = u.uinwater (youprop.h:279).
  */
 export function sensemon(mon) {
     if (!mon) return false;
     const u = game.u || {};
     if (u.uswallow && mon !== u.ustuck) return false;
+    // C `:57` — underwater, only adjacent pool monsters are sensed.
+    if ((u.uinwater | 0) && !(mdistu(mon) <= 2 && is_pool(mon.mx, mon.my))) {
+        return false;
+    }
     if (Detect_monsters()) {
         return true;
     }
@@ -2331,8 +2344,11 @@ export function see_nearby_objects() {
             if (!obj || obj.dknown) continue;
             if (!cansee(ix, iy) || distu(ix, iy) > neardist) continue;
             observe_object(obj);
-            // C: operate on remembered glyph; if generic → newsym_force
-            newsym(ix, iy);
+            /* operate on remembered glyph rather than current one */
+            const mem = game.level?.at(ix, iy)?.remembered_glyph;
+            if (glyph_is_generic_object(mem?.glyph)) {
+                newsym_force(ix, iy);
+            }
         }
     }
 }
@@ -2603,6 +2619,19 @@ export function dumplogmsg(line) {
         _saved_plines[indx] = text;
     }
     _saved_pline_index = (indx + 1) % DUMPLOG_MSG_COUNT;
+}
+
+/**
+ * C pline.c dumplogfreemessages `:51–60` — called during save (the
+ * dumplog ring isn't saved/restored); end-of-game releases the ring
+ * while writing the final dump log. Each C free() ⇔ null release (GC).
+ * Sole C caller save.c:1164 freedynamicdata (unported teardown — named).
+ */
+export function dumplogfreemessages() {
+    for (let i = 0; i < DUMPLOG_MSG_COUNT; i++) {
+        if (_saved_plines[i]) _saved_plines[i] = null;
+    }
+    _saved_pline_index = 0;
 }
 
 /**
@@ -8320,15 +8349,14 @@ function vpline_truncate(line, ln) {
  * You_cant / pline_The / There / verbalize below, plus the file-idiom
  * prefixed `pline("You ...")` sites (hack.js/lock.js idiom) which now
  * flow through here via pline().
- * Named omissions (no live JS export — see D-log): `panic` on
- * `ln > BIGBUFSZ-1` (fatal exit, never hit; longest corpus topline is
- * far shorter — JS keeps the truncated line); `raw_print`/`raw_printf`
- * (pre-window/recursive terminal path — sets last_msg UNKNOWN and
- * returns after dumplog, no scored window surface); `alloc` (prefixed
- * accessiblemsg tmp — JS strings, GC); `maybe_play_sound` (USER_SOUNDS
- * compiled out of the contest C — D-1807). `putmesg` is the file-local
- * below (C staticfn); its one caller is this function via
- * `pline_after_consume`.
+ * Named omissions: `raw_print` (pre-window/recursive terminal path —
+ * C prints then sets last_msg UNKNOWN and jumps to pline_done; JS has
+ * no scored pre-window surface, so it sets UNKNOWN and returns after
+ * dumplog); `alloc` (prefixed accessiblemsg tmp — JS strings, GC);
+ * `maybe_play_sound` (USER_SOUNDS compiled out of the contest C).
+ * `ln > BIGBUFSZ-1` throws (C panic stand-in; never hit).
+ * `putmesg` is the file-local below (C staticfn); its one caller is
+ * this function via `pline_after_consume`.
  */
 export async function vpline(fmt, ...args) {
     // C `:160–163` — always snapshot+reset a11y.msg_loc first (D-1207),
@@ -8344,9 +8372,11 @@ export async function vpline(fmt, ...args) {
     // C `:192–212` — printf arms (helper above).
     const { text, ln } = vpline_expand(line, args);
     line = text;
-    // C `:213–214` — `ln > BIGBUFSZ-1` panics. Named omit (no JS panic
-    // export; fatal, never reached in scored runs) — execution continues
-    // to the BUFSZ truncation below instead of aborting.
+    // C `:213–214` — `ln > BIGBUFSZ-1` panics (fatal exit in C;
+    // throw is the JS panic stand-in; never reached in scored runs).
+    if (ln > BIGBUFSZ - 1) {
+        throw new Error(`pline attempting to print ${ln} characters!`);
+    }
     // C `:216–231` — modest overflow truncates preserving the last 3.
     line = vpline_truncate(line, ln);
     // C DUMPLOG_CORE `:233–239` — dumplogmsg before putmesg when

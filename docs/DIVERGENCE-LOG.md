@@ -1,5 +1,91 @@
 # Divergence log
 
+## D-3401 — batch @1ae9cc180: vision/mon/pline/invent/display/dog/dungeon remainder (94 fns, 0 left open)
+
+- **Status:** shipped.
+- **Symptom:** breadth-phase coverage batch: 94 whole C functions (open 1 · partial 43 · recheck 50, ~1523 C lines of gap) across vision.c (4), mon.c (22), pline.c (11), invent.c (20), display.c (9), dog.c (6), dungeon.c (22).
+- **C locus:**
+  - `vision_recalc`: vision.c — vision_inited gate, Underwater pool 3x3, col-0 newsym guard.
+  - `view_from`: vision.c:1769–1775 right_side check (2) — vis_func else set_cs + set_max only.
+  - `meatbox`: mon.c — mndx fix.
+  - `replmon`: mon.c — relmon sync mirror (fire-and-forget impossible).
+  - `corpse_chance`: mon.c:3191–3196 — Vlad/lich crumble-to-dust.
+  - `mongone`: mon.c — m_detach(FALSE) + grddead gate.
+  - `xkilled`: mon.c — direct unstuck removed (holder release rides mondead→m_detach).
+  - `setmangry`: mon.c — sengr_at strict.
+  - `wake_nearby`: mon.c — local clones deleted, live mon.js export.
+  - `wake_nearto`: mon.c — local clones deleted, live mon.js export.
+  - `iter_mons`: mon.c — final_level, fprefx, mcalcdistress, rescham, doturn wired.
+  - `hideunder`: mon.c:4731 — youmonst arm + last-hide record (last_msg + last_hider).
+  - `vpline`: pline.c — BIGBUFSZ throw.
+  - `dumplogfreemessages`: pline.c:51–60 — free saved_plines ring + reset index (open row).
+  - `reorder_invent`: invent.c:5266/5275 — clone deleted, u_init.js export.
+  - `addinv_core2`: invent.c:2766 — set_moreluck luck recompute on luckstone pickup.
+  - `look_here`: invent.c:4122–4161 — swallowed engulfer-stomach, lava/pool early-return, ICE Blind force_decor, last_msg.
+  - `mergable`: invent.c — JS-only worn gate lifted; merged :878–913 slot-fixup live.
+  - `useupf`: invent.c:4774–4779 — async + shop billing (addtobill vs stolen_value).
+  - `display_minventory`: invent.c — PICK_ONE/ANY selection via query_objlist.
+  - `sensemon`: display.c — Underwater clause (mdistu≤2 + is_pool).
+  - `canseemon`: display.c — see_with_infrared alternative + See_invisible allowance.
+  - `discard_migrations`: dog.c:981–989 — obfree(otmp, NULL) object arm.
+  - `wary_dog`: dog.c:1296 — full finish_meating (mimic-appearance reset).
+  - `ledger_to_dnum`: dungeon.c:1401–1416 — out-of-range panic.
+  - `Is_special`: dungeon.c:1447–1457 — mklev ×3 + hack clone rewired to live export.
+  - `Can_dig_down`: dungeon.c:1649–1654 — !Invocation_lev conjunct.
+  - `print_dungeon`: dungeon.c:2434–2462 — Invocation/portal debug lines.
+  - `recbranch_mapseen`: dungeon.c:2468–2474 — overwrite-after-impossible + unseen-level impossible.
+  - `recalc_mapseen`: dungeon.c:3142–3143 — temple findpriest/inhistemple.
+  - `shop_string`: dungeon.c:3440–3455 — live shtypes annotation preference.
+- **JS was:** thin/partial bodies: missing conjuncts (sensemon Underwater, Can_dig_down Invocation, ledger panic), dropped arms (obfree, finish_meating, shop billing, PICK return, debug lines), local clones shadowing live exports (wake_nearby/nearto, reorder_invent, Is_special ×4, write getobj), one open row (dumplogfreemessages).
+- **Fix:** ported each manifest function whole in C order: every guarded arm, every callee imported live or named, every C caller wired to the live export (clones deleted, never duplicated). Prefer-restart for thin bodies; signatures kept.
+- **JS:** js/apply.js, js/const.js, js/dbridge.js, js/dig.js, js/display.js, js/do.js, js/dog.js, js/dungeon.js, js/eat.js, js/explode.js, js/fountain.js, js/hack.js, js/invent.js, js/lock.js, js/mhitm.js, js/mklev.js, js/mkobj.js, js/mon.js, js/monmove.js, js/pickup.js, js/pray.js, js/shk.js, js/shknam.js, js/sounds.js, js/timeout.js, js/trap.js, js/u_init.js, js/uhitm.js, js/vault.js, js/vision.js, js/write.js, js/zap.js.
+- **Callers:**
+  - `vision_recalc`: allmain.js:891/1043/1399/1462/1471 (+ pre-existing sites) unchanged.
+  - `view_from`: vision.js:889/1105/1166 internal recursion unchanged.
+  - `meatbox`: mon.js:2386 (Has_contents).
+  - `replmon`: zap.js:3137.
+  - `corpse_chance`: mhitm.js:3971/4250, uhitm.js:868/4057.
+  - `mongone`: bones.js:828, end.js:1628, fountain.js:522, mail.js:454, makemon.js:3792, mhitu.js:2672, minion.js:433/668 (+ pre-existing).
+  - `xkilled`: apply.js:1638, dbridge.js:469/475, explode.js:659/670, mhitm.js:650/951 (+ pre-existing).
+  - `setmangry`: dokick.js:910/1131, dothrow.js:3137, explode.js:679, mon.js:1648/2987, mthrowu.js:996.
+  - `wake_nearby`: apply.js:1853/1968/4280, dig.js:863/2110/2137/2297/2524 (+ lock/timeout/trap/dbridge/explode/sounds rewires).
+  - `wake_nearto`: apply.js:3892/3899, artifact.js:3076, cmd.js:3946, dbridge.js:895, detect.js:804, do.js:1045, dog.js:567 (+ pre-existing).
+  - `iter_mons`: do.js:1569, eat.js:1470 (+ final_level, fprefx, mcalcdistress, rescham, doturn).
+  - `hideunder`: do.js:1481, explode.js:1070, hack.js:1340, invent.js:4967, makemon.js:1851, mkobj.js:1808 (+ monmove async variant, hideunderHero).
+  - `vpline`: display.js:7959/7986/7997/8036/8040/8044/8048/8052 (pline family).
+  - `dumplogfreemessages`: save.c:1164 freedynamicdata unported — named.
+  - `reorder_invent`: invent.js:10772/10779, u_init.js:1147.
+  - `addinv_core2`: invent.js:3381, u_init.js:1092, zap.js:5478.
+  - `look_here`: invent.js:9249, pickup.js:851/892/1105/1702.
+  - `mergable`: files.js:99, invent.js:10630/10741, mkobj.js:3214/3353, pickup.js:1228, zap.js:5066.
+  - `useupf`: apply.js:2430, do.js:876/1066, eat.js:1419/2282/2516/2599/2801 (+ pre-existing).
+  - `display_minventory`: invent.js:9047, zap.js:3902.
+  - `sensemon`: apply.js:3544/3565/3784/3822/5194, cmd.js:6057 (+ pre-existing).
+  - `canseemon`: apply.js:840/1533/4451/5193, dbridge.js:272 (+ pre-existing).
+  - `discard_migrations`: do.js:1907 (do.c:1663).
+  - `wary_dog`: mhitm.js:3566 (mon.c:2871 lifesave), trap.js:353, zap.js:3361.
+  - `ledger_to_dnum`: do.js:1897, teleport.js:2906 (dog.c:909), dungeon.js:1157/1264/1268/3275.
+  - `Is_special`: end.js:617, mklev.js:28192/29793/34029 rewired, dungeon.js:3073, makemon.js:505, mklev.js:2843/3163, quest.js:206, shknam.js:509/769, wizcmds.js:1069, hack.js:3681 rewired; files.c:801 → bones.js:372 set_bonesfile_name own named omit.
+  - `Can_dig_down`: apply.js:1378, const.js:3274 (Can_fall_thru), dig.js:368/791, mklev.js:21375, muse.js:2557.
+  - `print_dungeon`: teleport.js:2311 (amulet grant live at :2316–2328), wizcmds.js:684.
+  - `recbranch_mapseen`: do.js:1919 (do.c:1673).
+  - `recalc_mapseen`: detect.js:1419, do.js:1754, dungeon.js:2096/2622/3265.
+  - `shop_string`: dungeon.js:2828 (dungeon.c:3601).
+- **Verify:** full batch `verify.mjs --fn <94 fns>` exit 0, 94/94 REACH-OK (708 baseline-PASS sweep, 0 regressed); per-file checkpoints (display/dog/dungeon full, mon/pline/invent subsets) REACH-OK. Gates: `PASS syntax 32 changed js files` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS green 2/2` · `PASS strict seed8000 + seed0900` · `PASS cohort 7/7` (checkpoints) · `PASS full 44/44 (auto: shared file changed)` · `VERIFY: PASS`.
+- **Named omissions:**
+  - `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).
+  - `xkilled`: mhitm_ad_rust (:2294) + mhitm_ad_fire (:2547) uhitm arms, wiz_kill (wizcmds.c:315) — own coverage rows.
+  - `setmangry`: quest.c:479 quest_chat pissed_off (js/quest.js:432 deferral), vault.c:514–523 Croesus dialogue (mongone_guard path).
+  - `mergable`: zapyourself owornmask skip.
+  - `useupf`: in_container pickup billing interplay.
+  - `wary_dog`: pline_mon SetVoice (voice-render polish).
+  - `recalc_mapseen`: DRAWBRIDGE_UP lastseentyp (D-1711), display_monster M_AP_FURNITURE lastseentyp (count_feat row).
+  - `dumplogfreemessages`: sole C caller save.c:1164 freedynamicdata unported (teardown).
+  - Standing (unchanged bodies): `sanity_check_single_mon` panic→throw + #if 0 arms omitted like C + mon_sanity_check callers unported; `dmonsfree`/`iter_mons_safe`/`let_to_name` freedynamicdata teardown unported; `monkilled` wiz_kill; `unstuck` slept_monst triple-clone debt; `see_monsters` restore.c:682 defer setter absent; `docrt_flags` show_glyph/show_memory_glyph divergence + D-1981 + feel_can_reach_floor P_RIDING names; `migrate_to_level` mon.c:2703 unstuck (relmon mirror); `level_difficulty` nhlua.c:961 Lua push by-design.
+- **Ledger:** vision_recalc ported; view_from ported; get_unused_cs audited; view_init audited; meatbox ported; replmon partial; corpse_chance ported; mongone ported; xkilled partial; setmangry partial; wake_nearby ported; wake_nearto ported; iter_mons ported; hideunder ported; pm_to_cham audited; movemon_singlemon audited; set_mon_min_mhpmax audited; mon_animal_list audited; mgender_from_permonst audited; newcham audited; egg_type_from_parent audited; sanity_check_single_mon partial; dmonsfree partial; monkilled partial; unstuck partial; iter_mons_safe partial; vpline ported; dumplogfreemessages ported; pline_dir audited; pline_xy audited; You_feel audited; There audited; You_see audited; verbalize audited; raw_printf audited; impossible audited; execplinehandler audited; reorder_invent ported; addinv_core2 ported; look_here ported; display_minventory ported; mergable partial; useupf partial; loot_classify partial; loot_xname partial; let_to_name partial; unsortloot audited; addinv_core0 audited; getobj audited; is_worn audited; safeq_xprname audited; prinv audited; doprarm audited; tool_being_used audited; free_invbuf audited; adjust_ok audited; adjust_gold_ok audited; sensemon ported; canseemon ported; feel_newsym audited; newsym_force audited; check_pos audited; set_wall_state audited; see_monsters partial; docrt_flags partial; show_glyph split js=display.js:show_glyph_cell+display.js:map_glyphinfo+display.js:show_memory_glyph+display.js:flush_screen; mon_arrive split js=dog.js:mon_arrive+dog.js:mon_arrive_with_you+dog.js:mon_arrive_after_you; mon_catchup_elapsed_time audited; mon_leave audited; migrate_to_level partial; discard_migrations ported; wary_dog partial; ledger_to_dnum ported; Is_special ported; Can_dig_down ported; print_dungeon ported; recbranch_mapseen ported; shop_string ported; dumpit audited; dname_to_dnum audited; correct_branch_type audited; insert_branch audited; pick_level audited; init_dungeon_branches audited; init_dungeons audited; Is_branchlev audited; has_ceiling audited; avoid_ceiling audited; ceiling audited; free_exclusions audited; rm_mapseen audited; remdun_mapseen audited; level_difficulty partial; recalc_mapseen partial.
+- **Left open:** none.
+- **Next:** next `ledger.mjs batch` manifest.
+
 ## D-3400 — `display.c` feel_location Underwater gate reads live u.uinwater
 
 - **Status:** shipped (Must-fix 2348.1 checked off + archived in this commit; review `reviews/loop-unattended/2348-d428e2b04-newsym-guards.md` stamped Addressed).

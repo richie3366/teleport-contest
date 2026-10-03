@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3401 batch @1ae9cc180: vision/mon/pline/invent/display/dog/dungeon remainder (94 fns, 0 left open)
+
+**C locus:** - `vision_recalc`: vision.c — vision_inited gate, Underwater pool 3x3, col-0 newsym guard.
+**JS:** js/apply.js, js/const.js, js/dbridge.js, js/dig.js, js/display.js, js/do.js, js/dog.js, js/dungeon.js, js/eat.js, js/explode.js, js/fountain.js, js/hack.js, js/invent.js, js/lock.js, js/mhitm.js, js/mklev.js, js/mkobj.js, js/mon.js, js/monmove.js, js/pickup.js, js/pray.js, js/shk.js, js/shknam.js, js/sounds.js, js/timeout.js, js/trap.js, js/u_init.js, js/uhitm.js, js/vault.js, js/vision.js, js/write.js, js/zap.js.
+**Change:** ported each manifest function whole in C order: every guarded arm, every callee imported live or named, every C caller wired to the live export (clones deleted, never duplicated). Prefer-restart for thin bodies; signatures kept.
+**Verify:** full batch `verify.mjs --fn <94 fns>` exit 0, 94/94 REACH-OK (708 baseline-PASS sweep, 0 regressed); per-file checkpoints (display/dog/dungeon full, mon/pline/invent subsets) REACH-OK. Gates: `PASS syntax 32 changed js files` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS green 2/2` · `PASS strict seed8000 + seed0900` · `PASS cohort 7/7` (checkpoints) · `PASS full 44/44 (auto: shared file changed)` · `VERIFY: PASS`.
+**Named:** - `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).
+**Next:** next `ledger.mjs batch` manifest.
 ## 2026-10-03 — D-3400 `display.c` feel_location Underwater gate reads live u.uinwater
 
 **C locus:** - `feel_location`: nethack-c/upstream/src/display.c:769–772 (`Underwater && !Is_waterlevel(&u.uz) && !is_pool_or_lava && !is_ice` → return); `Underwater ≡ u.uinwater` (youprop.h:279).

@@ -4,7 +4,7 @@
 **Scope:** js/display.js +24/−0 (1 export, 2 guards in hot `newsym`). Two functions, one C file.
 **Prior reviews closed:** none (touches 2339 only to fill the D-3392 hash ✓).
 
-**Addressed:** D-3400
+**Addressed:** D-3400 `1ae9cc180`
 
 ## Intent vs deliverable
 

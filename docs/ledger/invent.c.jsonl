@@ -1,17 +1,17 @@
 {"fn":"inuse_classify","c":"70-144","status":"ported","js":["js/invent.js:inuse_classify"],"d":["D-2121","D-1850"],"at":"2026-10-03@bbe63333a"}
-{"fn":"loot_classify","c":"149-305","status":"partial","js":["js/invent.js:loot_classify"],"omit":"``o_init.c:587`` sortloot_descr ('s' discosort path — review 921 ACCEPT-WITH-DEBT row); sortloot_cmp BUCX/grease/erosion/erodeproof/enchant tail (``:503–541``); sortloot_cmp LOOT-name arms stay as-is.","d":["D-2616"],"at":"seed@a30a7de84"}
-{"fn":"loot_xname","c":"309-387","status":"partial","js":["js/invent.js:loot_xname"],"omit":"sortloot_cmp body (own queued Open row — BUCX/grease/erosion tail, strcmpi shape, dupstr/maybereleaseobuf buffer idiom all live in that caller, not here); ``hack.h:836`` sortloot_item.str field (plain JS ``sli.str``, already wired in sortloot).","d":["D-2621"],"at":"seed@a30a7de84"}
+{"fn":"loot_classify","c":"149-305","status":"partial","js":["js/invent.js:loot_classify"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2616"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"loot_xname","c":"309-387","status":"partial","js":["js/invent.js:loot_xname"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2621"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"invletter_value","c":"391-399","status":"ported","js":["js/invent.js:invletter_value"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sortloot_cmp","c":"403-547","status":"ported","js":["js/invent.js:sortloot_cmp"],"d":["D-2626"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sortloot","c":"593-643","status":"ported","js":["js/invent.js:sortloot"],"d":["D-1589"],"at":"2026-10-03@bbe63333a","note":"alt 655-690"}
-{"fn":"unsortloot","c":"647-651","status":"ported","js":["js/invent.js:unsortloot"],"d":["D-3260"],"at":"2026-10-02@4fbb3512e","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"unsortloot","c":"647-651","status":"ported","js":["js/invent.js:unsortloot"],"d":["D-3401","D-3260"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"assigninvlet","c":"694-732","status":"ported","js":["js/u_init.js:assigninvlet"],"at":"2026-10-03@bbe63333a"}
-{"fn":"reorder_invent","c":"739-767","status":"ported","js":["js/u_init.js:reorder_invent"],"d":["D-3125"],"at":"2026-09-29@7e46744a0"}
+{"fn":"reorder_invent","c":"739-767","status":"ported","js":["js/u_init.js:reorder_invent"],"d":["D-3401","D-3125"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"merge_choice","c":"775-810","status":"ported","js":["js/files.js:merge_choice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"merged","c":"814-948","status":"ported","js":["js/mkobj.js:merged"],"d":["D-2533"],"at":"seed@a30a7de84"}
 {"fn":"addinv_core1","c":"960-1005","status":"ported","js":["js/u_init.js:addinv_core1"],"at":"2026-10-03@bbe63333a"}
-{"fn":"addinv_core2","c":"1025-1049","status":"partial","js":["js/u_init.js:addinv_core2"],"omit":"confers_luck(obj) arm: set_moreluck() luck recompute missing on luckstone pickup (attrib.js exports it; mkobj call sites wired)","at":"2026-10-03@bbe63333a"}
-{"fn":"addinv_core0","c":"1056-1148","status":"partial","js":["js/u_init.js:addinv_core0"],"omit":"`addinv_core2` still omits `set_moreluck`.","d":["D-2806","D-2048"],"at":"seed@a30a7de84"}
+{"fn":"addinv_core2","c":"1025-1049","status":"ported","js":["js/u_init.js:addinv_core2"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"addinv_core0","c":"1056-1148","status":"partial","js":["js/u_init.js:addinv_core0"],"omit":"`addinv_core2` still omits `set_moreluck`.","d":["D-3401","D-2806","D-2048"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: remaining omit cannot ship"}
 {"fn":"addinv","c":"1152-1155","status":"ported","js":["js/u_init.js:addinv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"addinv_before","c":"1160-1165","status":"ported","js":["js/u_init.js:addinv_before"],"at":"2026-10-03@bbe63333a"}
 {"fn":"addinv_nomerge","c":"1169-1178","status":"ported","js":["js/u_init.js:addinv_nomerge"],"at":"2026-10-03@bbe63333a"}
@@ -41,14 +41,14 @@
 {"fn":"mime_action","c":"1678-1706","status":"ported","js":["js/invent.js:mime_action"],"d":["D-1579"],"at":"2026-10-03@bbe63333a"}
 {"fn":"any_obj_ok","c":"1710-1715","status":"split","js":["js/do.js:drop_obj_ok","js/apply.js:any_obj_ok_stone"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"getobj_hands_txt","c":"1719-1736","status":"ported","js":["js/invent.js:getobj_hands_txt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-3386","D-2353","D-2123","D-1927","D-1834","D-1804"],"at":"2026-10-03@51eafd91c","note":"refresh: audited — orchestrator; arms in getobj_from_cmdq/filter_prompt/take_count/display_pickinv/finish_pick helpers (D-1568..D-2353)"}
+{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-3401","D-3386","D-2353","D-2123","D-1927","D-1834"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"silly_thing","c":"2094-2131","status":"ported","js":["js/invent.js:silly_thing"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"ckvalidcat","c":"2136-2140","status":"ported","js":["js/invent.js:ckvalidcat"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ckunpaid","c":"2143-2146","status":"ported","js":["js/invent.js:ckunpaid"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wearing_armor","c":"2149-2153","status":"ported","js":["js/do_wear.js:wearing_armor"],"at":"2026-10-03@bbe63333a"}
-{"fn":"is_worn","c":"2156-2161","status":"ported","js":["js/invent.js:is_worn"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_worn","c":"2156-2161","status":"ported","js":["js/invent.js:is_worn"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"is_inuse","c":"2167-2170","status":"ported","js":["js/invent.js:is_inuse"],"at":"2026-10-03@bbe63333a"}
-{"fn":"safeq_xprname","c":"2180-2184","status":"ported","js":["js/pickup.js:safeq_xprname"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"safeq_xprname","c":"2180-2184","status":"ported","js":["js/pickup.js:safeq_xprname"],"d":["D-3401","D-3315"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"safeq_shortxprname","c":"2188-2192","status":"ported","js":["js/pickup.js:safeq_shortxprname"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"ggetobj","c":"2202-2369","status":"ported","js":["js/invent.js:ggetobj"],"d":["D-1635"],"at":"2026-10-03@bbe63333a"}
 {"fn":"askchain","c":"2377-2541","status":"ported","js":["js/pickup.js:askchain"],"at":"2026-10-03@bbe63333a"}
@@ -63,7 +63,7 @@
 {"fn":"update_inventory","c":"2782-2810","status":"ported","js":["js/invent.js:update_inventory"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"doperminv","c":"2814-2857","status":"ported","js":["js/invent.js:doperminv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_to_let","c":"2861-2868","status":"ported","js":["js/invent.js:obj_to_let"],"at":"2026-10-03@bbe63333a"}
-{"fn":"prinv","c":"2875-2890","status":"ported","js":["js/invent.js:prinv"],"d":["D-3191","D-3186","D-2207"],"at":"2026-10-01@537a19189"}
+{"fn":"prinv","c":"2875-2890","status":"ported","js":["js/invent.js:prinv"],"d":["D-3401","D-3191","D-3186","D-2207"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"xprname","c":"2895-2954","status":"ported","js":["js/objnam.js:xprname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dispinv_with_action","c":"2964-3002","status":"ported","js":["js/iactions.js:dispinv_with_action"],"d":["D-3191","D-3186"],"at":"2026-10-01@537a19189"}
 {"fn":"ddoinv","c":"3006-3009","status":"ported","js":["js/invent.js:ddoinv"],"at":"2026-10-03@bbe63333a"}
@@ -80,34 +80,34 @@
 {"fn":"this_type_only","c":"3793-3823","status":"ported","js":["js/invent.js:this_type_only"],"at":"2026-09-29@7e46744a0","note":"stale: js/invent.js:1650"}
 {"fn":"dotypeinv","c":"3827-4032","status":"ported","js":["js/invent.js:dotypeinv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dfeature_at","c":"4037-4099","status":"ported","js":["js/invent.js:dfeature_at"],"d":["D-2674"],"at":"2026-10-03@bbe63333a"}
-{"fn":"look_here","c":"4104-4315","status":"partial","js":["js/invent.js:look_here"],"omit":"swallowed engulfer-stomach arm (:4122-4161, Contents+display_minventory); lava/pool early-return (is_lava/(is_pool&&!Underwater)); ICE Blind force_decor arm; last_msg PLNMSG_ONE_ITEM_HERE","d":["D-2193"],"at":"2026-10-03@bbe63333a"}
+{"fn":"look_here","c":"4104-4315","status":"ported","js":["js/invent.js:look_here"],"d":["D-3401","D-2193"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"dolook","c":"4319-4331","status":"ported","js":["js/invent.js:dolook"],"d":["D-2110","D-1882"],"at":"2026-10-03@bbe63333a"}
 {"fn":"will_feel_cockatrice","c":"4334-4340","status":"ported","js":["js/invent.js:will_feel_cockatrice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feel_cockatrice","c":"4343-4361","status":"ported","js":["js/invent.js:feel_cockatrice"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"stackobj","c":"4366-4375","status":"ported","js":["js/mkobj.js:stackobj"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mergable","c":"4379-4499","status":"partial","js":["js/mkobj.js:mergable"],"omit":"JS-only owornmask gate rejects worn combine-stack, blocking C's #adjust wielded-stack merge and merged() slot-fixup path (:878-913)","at":"2026-10-03@bbe63333a"}
+{"fn":"mergable","c":"4379-4499","status":"partial","js":["js/mkobj.js:mergable"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"doprgold","c":"4503-4546","status":"ported","js":["js/invent.js:doprgold"],"d":["D-1731"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doprwep","c":"4550-4574","status":"ported","js":["js/invent.js:doprwep"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"noarmor","c":"4578-4597","status":"ported","js":["js/invent.js:noarmor"],"d":["D-1668"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doprarm","c":"4601-4638","status":"ported","js":["js/invent.js:doprarm"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
+{"fn":"doprarm","c":"4601-4638","status":"ported","js":["js/invent.js:doprarm"],"d":["D-3401","D-3186"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"doprring","c":"4642-4675","status":"ported","js":["js/invent.js:doprring"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"dopramulet","c":"4679-4694","status":"ported","js":["js/invent.js:dopramulet"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
-{"fn":"tool_being_used","c":"4698-4711","status":"ported","js":["js/invent.js:tool_being_used"],"at":"2026-10-03@bbe63333a"}
+{"fn":"tool_being_used","c":"4698-4711","status":"ported","js":["js/invent.js:tool_being_used"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"doprtool","c":"4715-4735","status":"ported","js":["js/invent.js:doprtool"],"d":["D-3191","D-3186"],"at":"2026-10-01@537a19189"}
 {"fn":"doprinuse","c":"4740-4757","status":"ported","js":["js/invent.js:doprinuse"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
-{"fn":"useupf","c":"4763-4783","status":"partial","js":["js/invent.js:useupf"],"omit":"- `useupf`: shop-bill arms (C :4774–4779 `!mon_moving && costly_spot` addtobill vs stolen_value, both async) — pre-existing live omit, kept.","d":["D-3345"],"at":"2026-10-03@459a611e1"}
-{"fn":"let_to_name","c":"4800-4839","status":"partial","js":["js/invent.js:let_to_name"],"omit":"`save.c` `freedynamicdata` (`:1085`) does not call `free_invbuf` (save-freeing teardown is unported).","d":["D-2886"],"at":"seed@a30a7de84"}
-{"fn":"free_invbuf","c":"4845-4850","status":"ported","js":["js/invent.js:free_invbuf"],"at":"2026-10-03@bbe63333a"}
+{"fn":"useupf","c":"4763-4783","status":"partial","js":["js/invent.js:useupf"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-3345"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"let_to_name","c":"4800-4839","status":"partial","js":["js/invent.js:let_to_name"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2886"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"free_invbuf","c":"4845-4850","status":"ported","js":["js/invent.js:free_invbuf"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"reassign","c":"4855-4884","status":"ported","js":["js/invent.js:reassign"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_invent_gold","c":"4889-4913","status":"ported","js":["js/invent.js:check_invent_gold"],"d":["D-1641"],"at":"2026-10-03@bbe63333a"}
-{"fn":"adjust_ok","c":"4917-4923","status":"ported","js":["js/invent.js:adjust_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"adjust_gold_ok","c":"4927-4933","status":"ported","js":["js/invent.js:adjust_gold_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"adjust_ok","c":"4917-4923","status":"ported","js":["js/invent.js:adjust_ok"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
+{"fn":"adjust_gold_ok","c":"4927-4933","status":"ported","js":["js/invent.js:adjust_gold_ok"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"doorganize","c":"4981-5004","status":"ported","js":["js/invent.js:doorganize"],"at":"2026-10-03@bbe63333a"}
 {"fn":"adjust_split","c":"5008-5065","status":"ported","js":["js/invent.js:adjust_split"],"d":["D-1621"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doorganize_core","c":"5068-5286","status":"ported","js":["js/invent.js:doorganize_core"],"d":["D-2618"],"at":"seed@a30a7de84"}
 {"fn":"invdisp_nothing","c":"5290-5305","status":"split","js":["js/invent.js:display_minventory","js/invent.js:display_cinventory"],"at":"2026-09-28@2f39bdcea","note":"stale: C menu sequence (hdr, '', txt, PICK_NONE) already inline at both C callers via select_menu_pick_none (js/invent.js:4387,4578)"}
 {"fn":"worn_wield_only","c":"5309-5325","status":"ported","js":["js/invent.js:worn_wield_only"],"d":["D-3315"],"at":"2026-10-03@d6a4a5312","note":"stale: js/invent.js:4395 (D-3315; #else compiled out, omit is safeq paste-error)"}
-{"fn":"display_minventory","c":"5341-5386","status":"partial","js":["js/invent.js:display_minventory"],"omit":"INCLUDE_HERO arm (engulfed hero invent rows when do_all && engulfing_u); PICK_ONE/ANY selection return (always returns null)","at":"2026-10-03@bbe63333a"}
+{"fn":"display_minventory","c":"5341-5386","status":"ported","js":["js/invent.js:display_minventory"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"cinv_doname","c":"5391-5419","status":"ported","js":["js/invent.js:cinv_doname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cinv_ansimpleoname","c":"5423-5441","status":"ported","js":["js/invent.js:cinv_ansimpleoname"],"d":["D-3147"],"at":"2026-09-30@1300fdc94","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_cinventory","c":"5446-5473","status":"ported","js":["js/invent.js:display_cinventory"],"d":["D-3147"],"at":"2026-09-30@1300fdc94"}

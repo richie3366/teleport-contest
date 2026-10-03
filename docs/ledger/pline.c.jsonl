@@ -1,13 +1,13 @@
 {"fn":"dumplogmsg","c":"22-46","status":"by-design","at":"seed@a30a7de84","note":"seed: DUMPLOG retired (D-1776)"}
-{"fn":"dumplogfreemessages","c":"52-60","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dumplogfreemessages","c":"52-60","status":"ported","js":["js/display.js:dumplogfreemessages"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"putmesg","c":"65-80","status":"ported","js":["js/display.js:putmesg"],"d":["D-2944"],"at":"seed@a30a7de84"}
 {"fn":"set_msg_dir","c":"84-89","status":"ported","js":["js/display.js:set_msg_dir"],"d":["D-1216"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_msg_xy","c":"93-97","status":"ported","js":["js/display.js:set_msg_xy"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pline","c":"104-111","status":"ported","js":["js/display.js:pline"],"at":"2026-10-01@2c5d70e9a","note":"stale: js/display.js:8143"}
-{"fn":"pline_dir","c":"114-123","status":"ported","js":["js/display.js:pline_dir"],"at":"2026-10-03@bbe63333a"}
-{"fn":"pline_xy","c":"126-135","status":"ported","js":["js/display.js:pline_xy"],"d":["D-1215"],"at":"2026-10-03@bbe63333a"}
+{"fn":"pline_dir","c":"114-123","status":"ported","js":["js/display.js:pline_dir"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
+{"fn":"pline_xy","c":"126-135","status":"ported","js":["js/display.js:pline_xy"],"d":["D-3401","D-1215"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"pline_mon","c":"138-150","status":"ported","js":["js/display.js:pline_mon"],"d":["D-2981"],"at":"2026-09-27@de27c57ac","note":"stale: js/display.js:7655"}
-{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-2471","D-1807","D-1207"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — orchestrator + vpline_consume/expand/truncate + pline_after_consume (D-1207/D-1807/D-2471)"}
+{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-3401","D-2471","D-1807","D-1207"],"at":"2026-10-03@1ae9cc180","note":"refresh: audited — orchestrator + vpline_consume/expand/truncate + pline_after_consume (D-1207/D-1807/D-2471)"}
 {"fn":"custompline","c":"299-308","status":"ported","js":["js/display.js:custompline"],"at":"2026-10-03@bbe63333a"}
 {"fn":"urgent_pline","c":"315-324","status":"ported","js":["js/display.js:urgent_pline"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Norep","c":"327-336","status":"ported","js":["js/display.js:Norep"],"at":"2026-10-03@bbe63333a"}
@@ -15,17 +15,17 @@
 {"fn":"free_youbuf","c":"351-356","status":"by-design","at":"2026-10-02@42c45189d","note":"free() of You_buf; unneeded in JS"}
 {"fn":"You","c":"366-374","status":"ported","js":["js/display.js:You"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7899"}
 {"fn":"Your","c":"377-385","status":"ported","js":["js/display.js:Your"],"d":["D-3258"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7903"}
-{"fn":"You_feel","c":"388-400","status":"ported","js":["js/display.js:You_feel"],"d":["D-2968"],"at":"2026-09-27@06237de26"}
+{"fn":"You_feel","c":"388-400","status":"ported","js":["js/display.js:You_feel"],"d":["D-3401","D-2968"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"You_cant","c":"403-411","status":"ported","js":["js/display.js:You_cant"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7907"}
 {"fn":"pline_The","c":"414-422","status":"ported","js":["js/display.js:pline_The"],"at":"2026-10-02@42c45189d","note":"stale: js/display.js:7911"}
-{"fn":"There","c":"425-433","status":"ported","js":["js/display.js:There"],"d":["D-3299"],"at":"2026-10-02@42c45189d"}
+{"fn":"There","c":"425-433","status":"ported","js":["js/display.js:There"],"d":["D-3401","D-3299"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"You_hear","c":"436-452","status":"ported","js":["js/hack.js:You_hear"],"d":["D-2941"],"at":"seed@a30a7de84"}
-{"fn":"You_see","c":"455-469","status":"ported","js":["js/display.js:You_see"],"d":["D-2981"],"at":"2026-09-27@de27c57ac"}
-{"fn":"verbalize","c":"476-490","status":"partial","js":["js/display.js:verbalize"],"omit":"`mail.c:342,373,418,434` (`md_rush` — no JS counterpart); `eat.c:2588` (inside `fpostfx`, its own Open coverage row); `nhlua.c:655` (lua binding, no JS lua); C `verbalize(\"\")` would print `\"\"` but JS keeps the file's empty no-op guard (no caller passes empty).","d":["D-2464"],"at":"seed@a30a7de84"}
+{"fn":"You_see","c":"455-469","status":"ported","js":["js/display.js:You_see"],"d":["D-3401","D-2981"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
+{"fn":"verbalize","c":"476-490","status":"partial","js":["js/display.js:verbalize"],"omit":"`mail.c:342,373,418,434` (`md_rush` — no JS counterpart); `eat.c:2588` (inside `fpostfx`, its own Open coverage row); `nhlua.c:655` (lua binding, no JS lua); C `verbalize(\"\")` would print `\"\"` but JS keeps the file's empty no-op guard (no caller passes empty).","d":["D-3401","D-2464"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: remaining omit cannot ship"}
 {"fn":"gamelog_add","c":"495-511","status":"ported","js":["js/pline.js:gamelog_add"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/pline.js:12"}
 {"fn":"livelog_printf","c":"514-526","status":"ported","js":["js/pline.js:livelog_printf"],"d":["D-2968"],"at":"2026-09-27@06237de26","note":"alt 538-542"}
-{"fn":"raw_printf","c":"549-558","status":"partial","js":["js/display.js:raw_printf"],"omit":"the caller remainder above + `raw_print` sink + `vpline_expand` width/precision strip (hits only unported `%*s` debug tables) + `ge.early_raw_messages` consumers (unported pauses).","d":["D-2573"],"at":"seed@a30a7de84"}
+{"fn":"raw_printf","c":"549-558","status":"partial","js":["js/display.js:raw_printf"],"omit":"the caller remainder above + `raw_print` sink + `vpline_expand` width/precision strip (hits only unported `%*s` debug tables) + `ge.early_raw_messages` consumers (unported pauses).","d":["D-3401","D-2573"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: remaining omit cannot ship"}
 {"fn":"vraw_printf","c":"563-581","status":"ported","js":["js/display.js:vraw_printf"],"d":["D-3108"],"at":"2026-09-29@ebd112f3b","note":"stale: js/display.js:8171 file-local complete per review 1532 ACCEPT, caller raw_printf wired"}
-{"fn":"impossible","c":"584-634","status":"partial","js":["js/display.js:impossible","js/display.js:vpline_expand"],"omit":"- `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog and report.c submit_web_report already have by-design ledger rows.","d":["D-3188"],"at":"2026-10-01@d946e150c","note":"refresh: reclassed by-design→partial — on-screen behavior is scored (703 call sites); omits per js/display.js:8327"}
-{"fn":"execplinehandler","c":"641-686","status":"ported","js":["js/display.js:execplinehandler"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — early-return + latch FALSE exact for scored config (no msghandler; fork/spawn unreachable under Rule #2)"}
+{"fn":"impossible","c":"584-634","status":"partial","js":["js/display.js:impossible"],"omit":"- `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog and report.c submit_web_report already have by-design ledger rows.","d":["D-3401","D-3188"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: remaining omit cannot ship"}
+{"fn":"execplinehandler","c":"641-686","status":"ported","js":["js/display.js:execplinehandler"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"nhassert_failed","c":"690-717","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime/debug path (former SKIP_FN)"}

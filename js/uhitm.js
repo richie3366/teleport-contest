@@ -159,6 +159,7 @@ const FIGURINE = objectNames.indexOf('FIGURINE');
 const CORPSE = objectNames.indexOf('CORPSE');
 const BOULDER = objectNames.indexOf('BOULDER');
 const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
+const PM_VLAD_THE_IMPALER = monsterNames.indexOf('PM_VLAD_THE_IMPALER');
 const PM_ORACLE = monsterNames.indexOf('PM_ORACLE');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 // C monflag.h — quest msound ranks (makemon.js:701–702 keeps the same values)
@@ -624,7 +625,7 @@ export function attacktype_fordmg(ptr, atyp, dtyp) {
 /**
  * C ref: mon.c corpse_chance — AT_BOOM then always-TRUE arms then !rn2(tmp).
  * magr + was_swallowed: contained boom inside an engulfer (gulpum D-1264).
- * Named omissions: Vlad/lich dust; gulpmu you-as-mdef boom.
+ * Vlad/lich dust live (C :3191–3196). Named: gulpmu you-as-mdef boom.
  */
 async function corpse_chance(mon, magr = null, was_swallowed = false) {
     const mdat = mon.data;
@@ -633,6 +634,13 @@ async function corpse_chance(mon, magr = null, was_swallowed = false) {
         && attacktype(game.mswallower.data, AT_ENGL)) {
         magr = game.mswallower;
         was_swallowed = true;
+    }
+    // C mon.c:3191–3196 — Vlad/liches crumble to dust, never a corpse.
+    if ((mdat.mndx ?? -1) === PM_VLAD_THE_IMPALER || mdat.mlet === 'S_LICH') {
+        if (cansee(mon.mx, mon.my) && !was_swallowed) {
+            await pline_mon(mon, `${s_suffix(Monnam(mon))} body crumbles into dust.`);
+        }
+        return false;
     }
     // Gas spores always explode upon death
     const slots = mdat.mattk;
@@ -732,9 +740,8 @@ async function xkilled_treasure_drop(mtmp, mdat, x, y, nomsg) {
  * corpse_chance → make_corpse, wasinside museum + spoteffects, newsym,
  * cleanup (murder/peaceful/unicorn luck), experience, quest/priest/tame/
  * peaceful adjalign arms, malign. C `#if 0` HARDFOUGHT livelog stays out.
- * Named omissions: wiz_kill (`wizcmds.c:315`, unported) — own coverage
- * row. (mhitm_ad_fire uhitm `:2529–2560` and mhitm_ad_rust uhitm `:2294`
- * are live via damageum_adtyping AD_FIRE / AD_RUST.)
+ * Callers mhitm_ad_rust/fire live in mhitm.js (C uhitm.c homes);
+ * wiz_kill wired (wizcmds.js).
  */
 export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     // C `:3485–3498` — flag unpack; sad_feeling saved and always cleared
@@ -818,15 +825,11 @@ export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         await mondead(mtmp);
     }
     game.disintegested = false; /* reset */
-    // C mon.c mon_leaving_level :2702-2703 via m_detach/mondead — death
-    // releases a holder before xkilled's lifesave check, on every dead path
-    // including lifesaved; never on the monstone path (:3286–3373 has no
-    // unstuck call). JS mondead covers only relobj/unmap/newsym, so wire
-    // unstuck here. Dynamic import: uhitm<->mhitu cycle idiom; call-time use.
-    if (!was_stoned) {
-        mtmp.mtrapped = 0;
-        await (await import('./mhitu.js')).unstuck(mtmp);
-    }
+    // C: holder release rides inside mondead → m_detach →
+    // mon_leaving_level :2702–2703 (live) — including mtrapped = 0.
+    // No direct call here: C mondead returns lifesaved/vamprises
+    // before m_detach, so a saved holder keeps its grip; a direct
+    // call would wrongly release on the lifesaved path.
     // C `:3553–3562` — lifesaved: stoned reset + unseen "Maybe not..."
     if ((mtmp.mhp | 0) >= 1) {
         if (game.context) game.context.stoned = false;

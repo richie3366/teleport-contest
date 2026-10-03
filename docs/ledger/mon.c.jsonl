@@ -1,21 +1,21 @@
 {"fn":"pet_sanity_check","c":"57-70","status":"ported","js":["js/mon.js:pet_sanity_check"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
-{"fn":"sanity_check_single_mon","c":"73-255","status":"partial","js":["js/mon.js:sanity_check_single_mon"],"omit":"`panic` (own unported row; throw used); `levltyp_to_name` + all three `#if 0` arms (dead-mon fmon/guard `:107–112`, mimic inaccessible-location `:222–236`, leash `distu>90` `:306–313`) — omitted exactly like C; C callers `mon_sanity_check` fmon/migr sites (unported owner, wire later).","d":["D-2479"],"at":"seed@a30a7de84"}
+{"fn":"sanity_check_single_mon","c":"73-255","status":"partial","js":["js/mon.js:sanity_check_single_mon"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2479"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"mon_sanity_check","c":"258-324","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"m_poisongas_ok","c":"330-358","status":"ported","js":["js/mon.js:m_poisongas_ok"],"d":["D-1159"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all guard arms match"}
 {"fn":"zombie_maker","c":"362-380","status":"ported","js":["js/mon.js:zombie_maker"],"d":["D-1210"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mcan/zombie/lich arms match"}
 {"fn":"zombie_form","c":"386-413","status":"ported","js":["js/mon.js:zombie_form"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full switch incl. humanoid fallthrough match"}
 {"fn":"undead_to_corpse","c":"417-461","status":"ported","js":["js/mon.js:undead_to_corpse"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"genus","c":"470-531","status":"ported","js":["js/mon.js:genus"],"at":"2026-09-28@fb9c2049c","note":"stale: js/mon.js:638 whole C body in C order, callers wired js/readobjnam.js:1935,js/sounds.js:1257"}
-{"fn":"pm_to_cham","c":"535-546","status":"ported","js":["js/makemon.js:pm_to_cham"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
+{"fn":"pm_to_cham","c":"535-546","status":"ported","js":["js/makemon.js:pm_to_cham"],"d":["D-3401","D-3317"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"make_corpse","c":"564-941","status":"ported","js":["js/mhitm.js:make_corpse"],"d":["D-1794"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"minliquid","c":"947-957","status":"ported","js":["js/mon.js:minliquid"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: try/finally preserves always-clear"}
 {"fn":"minliquid_core","c":"961-1122","status":"ported","js":["js/mon.js:minliquid_core"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: steed/gremlin/golem/lava/pool/eel arms match"}
 {"fn":"mcalcmove","c":"1126-1168","status":"ported","js":["js/mon.js:mcalcmove"],"d":["D-3000"],"at":"2026-09-28@9600a44be"}
 {"fn":"mcalcdistress","c":"1174-1177","status":"ported","js":["js/mon.js:mcalcdistress"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: dead-guard lives in callee; fmon holds no migrating mons"}
 {"fn":"m_calcdistress","c":"1180-1209","status":"ported","js":["js/mon.js:m_calcdistress"],"d":["D-3012"],"at":"2026-09-28@7cd5d050b","note":"stale: complete at js/mon.js:1088, caller mcalcdistress js/mon.js:1106"}
-{"fn":"movemon_singlemon","c":"1214-1322","status":"ported","js":["js/mon.js:movemon_singlemon"],"d":["D-3012"],"at":"2026-09-28@7cd5d050b"}
+{"fn":"movemon_singlemon","c":"1214-1322","status":"ported","js":["js/mon.js:movemon_singlemon"],"d":["D-3401","D-3012"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"movemon","c":"1326-1350","status":"ported","js":["js/mon.js:movemon"],"d":["D-3021"],"at":"2026-09-28@9dc8a2506"}
-{"fn":"meatbox","c":"1354-1382","status":"partial","js":["js/mon.js:meatbox"],"omit":"gel-cube engulf arm dead: mon.data===mons(GELATINOUS_CUBE) never true since mons() builds a fresh object; cubes always spill instead of engulfing","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: should compare mndx"}
+{"fn":"meatbox","c":"1354-1382","status":"ported","js":["js/mon.js:meatbox"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: should compare mndx"}
 {"fn":"m_consume_obj","c":"1392-1453","status":"ported","js":["js/mon.js:m_consume_obj"],"d":["D-2499"],"at":"seed@a30a7de84"}
 {"fn":"meatmetal","c":"1463-1529","status":"ported","js":["js/mon.js:meatmetal"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rustproof-spit and eat arms match"}
 {"fn":"meatobj","c":"1533-1649","status":"ported","js":["js/mon.js:meatobj"],"d":["D-1284"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rider/untouchable/engulf/devour arms match; mstoning_meat verified identical to mstoning"}
@@ -36,30 +36,30 @@
 {"fn":"mm_aggression","c":"2428-2447","status":"ported","js":["js/mon.js:mm_aggression"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pet/worm arms match"}
 {"fn":"mm_displacement","c":"2451-2472","status":"ported","js":["js/mon.js:mm_displacement"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: barge/size/worm gates match"}
 {"fn":"monnear","c":"2476-2483","status":"ported","js":["js/mon.js:monnear"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: NODIAG diagonal arm matches"}
-{"fn":"dmonsfree","c":"2487-2511","status":"partial","js":["js/mon.js:dmonsfree"],"omit":"`save.c:1106` `freedynamicdata` (`FREE_ALL_MEMORY` is on in `config.h:632`; the function is still the save-freeing guard, not ported).","d":["D-2824"],"at":"seed@a30a7de84"}
-{"fn":"replmon","c":"2515-2556","status":"partial","js":["js/mon.js:replmon"],"omit":"- `relmon`: none in-body — whole C body live.","d":["D-3273"],"at":"2026-10-02@b7d842138"}
+{"fn":"dmonsfree","c":"2487-2511","status":"partial","js":["js/mon.js:dmonsfree"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2824"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"replmon","c":"2515-2556","status":"partial","js":["js/mon.js:replmon"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-3273"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"relmon","c":"2561-2594","status":"ported","js":["js/mon.js:relmon"],"d":["D-3273","D-3049"],"at":"2026-10-02@b7d842138"}
 {"fn":"copy_mextra","c":"2597-2646","status":"ported","js":["js/mon.js:copy_mextra"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 7 substructs + mcorpsenm; ogoal deep-copied like C value copy"}
 {"fn":"dealloc_mextra","c":"2649-2673","status":"ported","js":["js/mon.js:dealloc_mextra"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: free-to-null incl. alias mirrors"}
 {"fn":"dealloc_monst","c":"2676-2691","status":"ported","js":["js/mon.js:dealloc_monst"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/mon.js:3479; dog.c:959->dog.js:1498, mon.c:2499->mon.js:3507, mon.c:2555->mon.js:3718, zap.c:740->zap.js:2880 wired, save.c:909 named omit"}
 {"fn":"mon_leaving_level","c":"2696-2730","status":"ported","js":["js/mon.js:mon_leaving_level"],"d":["D-3279"],"at":"2026-10-02@3d8fe9bf9"}
 {"fn":"m_detach","c":"2734-2803","status":"ported","js":["js/mhitm.js:m_detach"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"ported","js":["js/mhitm.js:set_mon_min_mhpmax"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
+{"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"ported","js":["js/mhitm.js:set_mon_min_mhpmax"],"d":["D-3401","D-3317"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"mlifesaver","c":"2827-2836","status":"ported","js":["js/mhitm.js:mlifesaver"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"lifesaved_monster","c":"2839-2884","status":"ported","js":["js/mhitm.js:lifesaved_monster"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: message/useup/genod arms match"}
 {"fn":"vamprises","c":"2890-2987","status":"ported","js":["js/mhitm.js:vamprises"],"d":["D-2273"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: revert/door/trap arms match"}
 {"fn":"logdeadmon","c":"2997-3068","status":"ported","js":["js/mhitm.js:logdeadmon"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"anger_quest_guardians","c":"3072-3076","status":"ported","js":["js/mon.js:anger_quest_guardians"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"mondead","c":"3081-3177","status":"ported","js":["js/mhitm.js:mondead"],"d":["D-2231","D-2147"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: lifesave/vamp/kop/leader/mail arms match"}
-{"fn":"corpse_chance","c":"3181-3249","status":"partial","js":["js/mhitm.js:corpse_chance"],"omit":"Vlad/lich crumble-to-dust arm missing from both clones; mapped mhitm clone also omits youmonst stomach-explosion arm (lives only in the uhitm.js clone)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: js mapping copied exactly; see note for second clone"}
+{"fn":"corpse_chance","c":"3181-3249","status":"ported","js":["js/mhitm.js:corpse_chance"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: js mapping copied exactly; see note for second clone"}
 {"fn":"mondied","c":"3253-3263","status":"ported","js":["js/mhitm.js:mondied"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
-{"fn":"mongone","c":"3267-3283","status":"partial","js":["js/mon.js:mongone"],"omit":"never calls m_detach(FALSE): missing isgd/grddead gate, m_unleash, del_light_source, wizdeadorgone, thiefdead, shkgone, wormgone, MON_DETACH/purge, dismount_steed (plain usteed=null)","d":["D-2339","D-1149"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: also splices fmon immediately vs C deferred dmonsfree"}
+{"fn":"mongone","c":"3267-3283","status":"ported","js":["js/mon.js:mongone"],"d":["D-3401","D-2339","D-1149"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: also splices fmon immediately vs C deferred dmonsfree"}
 {"fn":"monstone","c":"3287-3373","status":"ported","js":["js/mhitm.js:monstone"],"d":["D-2753","D-2742"],"at":"seed@a30a7de84"}
-{"fn":"monkilled","c":"3377-3418","status":"partial","js":["js/mhitm.js:monkilled"],"omit":"`wiz_kill` (`wizcmds.c:242–337`, call at `:326` with a null `fltxt` and `AD_PHYS`).","d":["D-2875","D-1550"],"at":"seed@a30a7de84"}
+{"fn":"monkilled","c":"3377-3418","status":"partial","js":["js/mhitm.js:monkilled"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2875","D-1550"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"set_ustuck","c":"3421-3435","status":"ported","js":["js/mhitu.js:set_ustuck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug-gated impossible arm omitted (sanity/fuzzer only)"}
-{"fn":"unstuck","c":"3438-3467","status":"partial","js":["js/mhitu.js:unstuck"],"omit":"`mhitm.c:1255` `slept_monst` is still three local clones that clear `ustuck` (`js/mhitm.js:1381` `slept_slee_mm`, `js/music.js:328`, `js/potion.js:3730`).","d":["D-2808","D-2191","D-2093"],"at":"seed@a30a7de84"}
+{"fn":"unstuck","c":"3438-3467","status":"partial","js":["js/mhitu.js:unstuck"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2808","D-2191","D-2093"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"killed","c":"3470-3473","status":"ported","js":["js/uhitm.js:killed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
-{"fn":"xkilled","c":"3477-3740","status":"partial","js":["js/uhitm.js:xkilled"],"omit":"`mhitm_ad_rust` (C:2294) + `mhitm_ad_fire` (C:2547) uhitm arms — enclosing C functions unported (no `rust`/`smell burning` in `js/`); `wiz_kill` (`wizcmds.c:315`, no JS counterpart) — own coverage rows.","d":["D-2444","D-1796"],"at":"seed@a30a7de84"}
+{"fn":"xkilled","c":"3477-3740","status":"partial","js":["js/uhitm.js:xkilled"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2444","D-1796"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"mon_to_stone","c":"3748-3763","status":"ported","js":["js/mhitm.js:mon_to_stone"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: is_golem identical to mlet check; else-arm impossible dropped (contract diagnostic)"}
 {"fn":"vamp_stone","c":"3766-3830","status":"ported","js":["js/mhitm.js:vamp_stone"],"d":["D-2611"],"at":"seed@a30a7de84"}
 {"fn":"m_into_limbo","c":"3834-3840","status":"ported","js":["js/mon.js:m_into_limbo"],"d":["D-2236"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
@@ -75,17 +75,17 @@
 {"fn":"m_respond","c":"4122-4131","status":"ported","js":["js/mon.js:m_respond"],"d":["D-1314"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: shrieker/medusa/erinys arms match"}
 {"fn":"qst_guardians_respond","c":"4135-4159","status":"ported","js":["js/mon.js:qst_guardians_respond"],"at":"2026-09-29@d0fb9f36b","note":"stale: js/mon.js:1396"}
 {"fn":"peacefuls_respond","c":"4163-4257","status":"ported","js":["js/mon.js:peacefuls_respond"],"d":["D-1772"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: watch/gasp/flee/anger/same-mlet arms match"}
-{"fn":"setmangry","c":"4265-4318","status":"partial","js":["js/mon.js:setmangry"],"omit":"`quest.c:479` `quest_chat` pissed_off → `setmangry` (pre-existing deferral, `js/quest.js:432` comment); vault greeting Croesus-alive `waves goodbye` / `Sorry to have disturbed you` dialogue (`vault.c:514–523`, JS leaves via `mongone_guard`); `sengr_at` has no live ESM export (teleport.js:175 module…","d":["D-2494"],"at":"seed@a30a7de84"}
+{"fn":"setmangry","c":"4265-4318","status":"partial","js":["js/mon.js:setmangry"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2494"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"wake_msg","c":"4322-4329","status":"ported","js":["js/mon.js:wake_msg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"wakeup","c":"4333-4363","status":"ported","js":["js/mon.js:wakeup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mimic/forcefight/growl/angry arms match"}
-{"fn":"wake_nearby","c":"4367-4370","status":"partial","js":["js/lock.js:wake_nearby"],"omit":"inlines a subset of wake_nearto_core: drops wake_msg, petcall whistletime/track arm, disturb_buried_zombies, and dead-mon skip","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: void _petcall"}
+{"fn":"wake_nearby","c":"4367-4370","status":"ported","js":["js/mon.js:wake_nearby"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: void _petcall"}
 {"fn":"wake_nearto_core","c":"4374-4399","status":"ported","js":["js/mon.js:wake_nearto_core"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wake/strategy/petcall/buried-zombie arms match"}
-{"fn":"wake_nearto","c":"4402-4405","status":"partial","js":["js/explode.js:wake_nearto"],"omit":"inlines a subset of wake_nearto_core(FALSE): drops wake_msg and disturb_buried_zombies, no dead-mon skip","at":"2026-10-03@bbe63333a"}
+{"fn":"wake_nearto","c":"4402-4405","status":"ported","js":["js/mon.js:wake_nearto"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"seemimic","c":"4409-4427","status":"ported","js":["js/mon.js:seemimic"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: lightblocker/mcorpsenm/newsym match"}
 {"fn":"normal_shape","c":"4431-4462","status":"ported","js":["js/mon.js:normal_shape"],"d":["D-3181","D-3176","D-1594"],"at":"2026-09-30@baba5ed90"}
 {"fn":"alloc_itermonarr","c":"4471-4490","status":"ported","js":["js/mon.js:alloc_itermonarr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: count/size/free logic matches"}
-{"fn":"iter_mons_safe","c":"4500-4522","status":"partial","js":["js/mon.js:iter_mons_safe"],"omit":"`save.c:1108` `alloc_itermonarr(0)` stays inside unported `freedynamicdata` (`FREE_ALL_MEMORY`).","d":["D-2843"],"at":"seed@a30a7de84"}
-{"fn":"iter_mons","c":"4527-4538","status":"ported","js":["js/mon.js:iter_mons"],"d":["D-3209"],"at":"2026-10-01@c70774a6c"}
+{"fn":"iter_mons_safe","c":"4500-4522","status":"partial","js":["js/mon.js:iter_mons_safe"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2843"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"iter_mons","c":"4527-4538","status":"ported","js":["js/mon.js:iter_mons"],"d":["D-3401","D-3209"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"get_iter_mons","c":"4544-4556","status":"ported","js":["js/monmove.js:get_iter_mons"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mutation-safe iteration semantics preserved"}
 {"fn":"get_iter_mons_xy","c":"4562-4576","status":"ported","js":["js/monmove.js:get_iter_mons_xy"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"healmon","c":"4596-4614","status":"ported","js":["js/mon.js:healmon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: youmonst arm dropped; unreachable (all 21 C callers pass monsters)"}
@@ -95,9 +95,9 @@
 {"fn":"restore_cham","c":"4649-4658","status":"ported","js":["js/mon.js:restore_cham"],"d":["D-1637"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: protection/mcan/cham arms match"}
 {"fn":"restrap","c":"4662-4693","status":"ported","js":["js/mon.js:restrap"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: gate logic restructured equivalently"}
 {"fn":"maybe_unhide_at","c":"4698-4720","status":"ported","js":["js/monmove.js:maybe_unhide_at"],"d":["D-2923"],"at":"seed@a30a7de84"}
-{"fn":"hideunder","c":"4726-4802","status":"partial","js":["js/monmove.js:hideunder"],"omit":"drops youmonst arm (u.uundetected never re-evaluated despite 4 hero call sites); omits last_msg=PLNMSG_HIDE_UNDER and last_hider writes","at":"2026-10-03@bbe63333a"}
+{"fn":"hideunder","c":"4726-4802","status":"ported","js":["js/monmove.js:hideunder"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"hide_monst","c":"4806-4826","status":"ported","js":["js/mon.js:hide_monst"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: viz-override/restrap/hideunder sequence matches"}
-{"fn":"mon_animal_list","c":"4829-4852","status":"ported","js":["js/makemon.js:mon_animal_list"],"d":["D-2956"],"at":"seed@a30a7de84"}
+{"fn":"mon_animal_list","c":"4829-4852","status":"ported","js":["js/makemon.js:mon_animal_list"],"d":["D-3401","D-2956"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"pick_animal","c":"4855-4869","status":"ported","js":["js/makemon.js:pick_animal"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/makemon.js:1206; mon.c:5190->makemon.js:1420 wired"}
 {"fn":"decide_to_shapeshift","c":"4872-4938","status":"ported","js":["js/mon.js:decide_to_shapeshift"],"d":["D-2254"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cham/vamp/fog/door arms match; mndx compare correct for fresh mons()"}
 {"fn":"pickvampshape","c":"4941-4979","status":"ported","js":["js/makemon.js:pickvampshape"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Vlad/leader/vampire fallthrough + genod/already-shifted gates match"}
@@ -108,10 +108,10 @@
 {"fn":"wiz_force_cham_form","c":"5078-5154","status":"ported","js":["js/makemon.js:wiz_force_cham_form"],"d":["D-2245"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: EDIT_GETLIN off in build so nhUse arm is compiled path; retry/validvamp tail match"}
 {"fn":"select_newcham_form","c":"5157-5225","status":"ported","js":["js/makemon.js:select_newcham_form"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all cham arms + verbatim random loop; wizard path returns Promise (async adaptation)"}
 {"fn":"accept_newcham_form","c":"5229-5252","status":"ported","js":["js/makemon.js:accept_newcham_form"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: genod/placeholder/mplayer/shapeshifter/polyok arms match"}
-{"fn":"mgender_from_permonst","c":"5256-5272","status":"ported","js":["js/makemon.js:mgender_from_permonst"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
-{"fn":"newcham","c":"5278-5535","status":"ported","js":["js/makemon.js:newcham"],"d":["D-2433","D-2235","D-1914","D-1645","D-1586","D-1573"],"at":"seed@a30a7de84"}
+{"fn":"mgender_from_permonst","c":"5256-5272","status":"ported","js":["js/makemon.js:mgender_from_permonst"],"d":["D-3401","D-3317"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
+{"fn":"newcham","c":"5278-5535","status":"ported","js":["js/makemon.js:newcham"],"d":["D-3401","D-2433","D-2235","D-1914","D-1645","D-1586"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"can_be_hatched","c":"5546-5565","status":"ported","js":["js/mon.js:can_be_hatched"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: BREEDER_EGG verified as !rn2(77)"}
-{"fn":"egg_type_from_parent","c":"5569-5580","status":"ported","js":["js/mon.js:egg_type_from_parent"],"d":["D-3317","D-2239"],"at":"2026-10-02@d1f323f2b"}
+{"fn":"egg_type_from_parent","c":"5569-5580","status":"ported","js":["js/mon.js:egg_type_from_parent"],"d":["D-3401","D-3317","D-2239"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"dead_species","c":"5587-5605","status":"ported","js":["js/mon.js:dead_species"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"kill_eggs","c":"5609-5635","status":"ported","js":["js/mon.js:kill_eggs"],"d":["D-1097"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: per-object helper matches incl. contents recursion; #if 0 correctly omitted"}
 {"fn":"kill_genocided_monsters","c":"5639-5677","status":"ported","js":["js/mon.js:kill_genocided_monsters"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cham/newcham + all 5 egg-list passes; minvent eggs killed pre-drop equals C kill set"}
