@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — Audit 2338–2345: review D-3383–D-3390 (4 ACCEPT, 2 WITH-DEBT, 2 QUALITY-RISK) + full score
+
+**Reviews:** 2338 D-3383 ACCEPT (iron-ball inline stops close 2337.1; tethered path already correct via bhit rewrite); 2339 D-3384 QUALITY-RISK (postmov wiring drops C :1660 MOVED|DONE guard → Must-fix 2339.1); 2340 D-3385 ACCEPT (poisoned/is_innate arms exact; Fixed_abil lives in adjattrib); 2341 D-3386 ACCEPT (dip cmdq/pickinv mirrors; GETOBJ_PROMPT mislabel docs-only); 2342 D-3387 ACCEPT (5-fn bones-NHFILE family whole); 2343 D-3388 WITH-DEBT (losehp drains + BARRACKS/wake exact; showdamage stale MISSING note → debt 2343.1); 2344 D-3389 QUALITY-RISK (trio exact + 5/5 compress wirings verified, but recover_savefile is #ifdef SELF_RECOVER compiled-out code shipped live → Must-fix 2344.1 reclassify by-design + delete; savebones stale compress clause → debt 2344.2); 2345 D-3390 WITH-DEBT (free_ebones exact + both stale flips verified true; MISSING note → debt 2345.1).
+**Score:** public 44/44 @09c225bf5 (Scr 11,405, RNG 792,838, `336+1.66/turn`); corpus 707/953 (74.2 %, RNG 98.11 %, screens 93.4 %, 0 lost/0 gained, `full: true` 17:17Z); held-out 15/44 +0 (judge scored 14:34Z, pre-SHAs).
+**Next:** Must-fix 2344.1 first (ships alone), then 2339.1; ledger pass now seven rows + sweep candidates.
 ## 2026-10-03 — D-3390 `bones.c` free_ebones mextra+EBONES free+null
 
 **C locus:** - `free_ebones`: nethack-c/upstream/src/bones.c:832–839 (`if (mtmp->mextra && EBONES(mtmp))` → `free()` + null the slot).

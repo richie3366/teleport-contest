@@ -22,29 +22,29 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-03** — full `sessions` on `355829ea2`
-(audit **2329–2337**, 2026-10-03T14:58:41.411Z).
+Score last measured: **2026-10-03** — full `sessions` on `09c225bf5`
+(audit **2338–2345**, 2026-10-03T17:11:31.069Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`335+1.64/turn` (R² 0.76).
+`336+1.66/turn` (R² 0.78).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, scored 2026-10-03 14:34Z; fetched 2026-10-03)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.9 %**, rngSteps 87.5 %, screens **62.5 %** |
+| **Held-out (judge, scored 2026-10-03 14:34Z; fetched 2026-10-03 17:12Z)** | **15 / 44**, 7,044 / 11,265 pts, RNG **33.9 %**, rngSteps 87.5 %, screens **62.5 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `335+1.64/turn` (R² 0.76) |
+| Speed label | `336+1.66/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 6, 4th agentic (lockwo passes on pts with 13/44); best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 since last audit.
-**Corpus fortress (2026-10-03 15:04Z; scored 953/953 entries, 0 unrecorded):**
-**707 / 953** PASS (74.2 %), RNG 98.11 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-03T15:04:23.174Z`.
-Reviews 1225–2337 (index; no row 1618): 976 ACCEPT, 47 WITH-DEBT, 89 QUALITY-RISK (2329–2337: 6 accept/2 debt/1Q → 1 Must-fix: 2337.1 bhit iron-ball reachability; 2317 C-wrongs closed by D-3367/D-3368, 2318 by D-3366, 2319 by D-3365).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued); 2333 doapply omit paste-error + 2336 nhclose/nh_compress/nh_uncompress omit paste-errors (finish-iteration head-bullet bug — one `ledger.mjs set` iter fixes all four with 2337.1's touch).
+every audit). Rank 6, 4th agentic (lockwo passes on pts with 13/44); best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 since last audit (judge scored 14:34Z, before the 8 audited SHAs).
+**Corpus fortress (2026-10-03 17:17Z; scored 953/953 entries, 0 unrecorded):**
+**707 / 953** PASS (74.2 %), RNG 98.11 %, screens 93.4 %; 0 losses, 0 gains; `full: true`, `fullAt: 2026-10-03T17:17:15.219Z`.
+Reviews 1225–2345 (index; no row 1618): 980 ACCEPT, 49 WITH-DEBT, 91 QUALITY-RISK (2338–2345: 4 accept/2 debt/2Q → 2 Must-fix: 2344.1 recover by-design + 2339.1 postmov guard; 2337.1 closed by D-3383).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued); 2333 doapply omit paste-error + 2336 nhclose/nh_compress/nh_uncompress omit paste-errors + 2343.1 showdamage stale MISSING note + 2344.2 savebones stale compress clause + 2345.1 free_ebones stale MISSING note (finish-iteration recording bug — one `ledger.mjs set` iter fixes all seven; sweep candidates spot_checks/cinv_ansimpleoname notes + dump_weights omit).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
 --jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
@@ -138,7 +138,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** `bones.c` free_ebones — C :832–839 (head row; mextra+EBONES free+null; decl-only C ref extern.h:260, no live callers; 0 C callees). Only Open-status row in bones.c ledger; callee closure empty — single-fn ship under the density exception. 1 fn, js/bones.js.
+**Next cluster:** Must-fix 2344.1 — `files.c` recover_savefile compiled-out port (ledger by-design + delete dead JS + verify incl. full). Must-fix ships alone.
 
 ## Parked (diagnose only — do not implement)
 

@@ -2347,3 +2347,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2335-c4bd1edaa-dip-hands-peffect-tail.md](./2335-c4bd1edaa-dip-hands-peffect-tail.md) | `c4bd1edaa` | D-3380 dip_hands_ok + peffect tail | **ACCEPT** |
 | [2336-787f6adee-files-savefile-family.md](./2336-787f6adee-files-savefile-family.md) | `787f6adee` | D-3381 files.c savefile/NHFILE family | **ACCEPT-WITH-DEBT** |
 | [2337-355829ea2-throwit-bhit-landing.md](./2337-355829ea2-throwit-bhit-landing.md) | `355829ea2` | D-3382 throwit landing + bhit iron-ball arm | **QUALITY-RISK** |
+| [2338-2d0bcb973-iron-ball-inline-stops.md](./2338-2d0bcb973-iron-ball-inline-stops.md) | `2d0bcb973` | D-3383 bhit iron-ball stops into inline fly | **ACCEPT** |
+| [2339-bec62f3b9-after-shk-move-guard.md](./2339-bec62f3b9-after-shk-move-guard.md) | `bec62f3b9` | D-3384 after_shk_move occupancy + callers | **QUALITY-RISK** |
+| [2340-51eafd91c-poisoned-is-innate.md](./2340-51eafd91c-poisoned-is-innate.md) | `51eafd91c` | D-3385 poisoned arms + is_innate FROM_FORM | **ACCEPT** |
+| [2341-bd0144c89-getobj-dip-arms.md](./2341-bd0144c89-getobj-dip-arms.md) | `bd0144c89` | D-3386 getobj cmdq + pickinv in dip clone | **ACCEPT** |
+| [2342-41ae7cfca-bones-nhfile-family.md](./2342-41ae7cfca-bones-nhfile-family.md) | `41ae7cfca` | D-3387 bones-NHFILE family (5 fns) | **ACCEPT** |
+| [2343-14e98dbc1-losehp-barracks.md](./2343-14e98dbc1-losehp-barracks.md) | `14e98dbc1` | D-3388 losehp drains + BARRACKS/wake | **ACCEPT-WITH-DEBT** |
+| [2344-d6a4a5312-recover-scope.md](./2344-d6a4a5312-recover-scope.md) | `d6a4a5312` | D-3389 bones/recover quartet | **QUALITY-RISK** |
+| [2345-09c225bf5-free-ebones.md](./2345-09c225bf5-free-ebones.md) | `09c225bf5` | D-3390 free_ebones + stale flips | **ACCEPT-WITH-DEBT** |
