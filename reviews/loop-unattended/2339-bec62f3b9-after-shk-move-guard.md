@@ -4,6 +4,8 @@
 **Scope:** js/shk.js +18/−7 (export async, occupancy arm, 2 awaits, import), js/monmove.js +7/−2 (postmov wiring). Single-function.
 **Prior reviews closed:** none.
 
+**Addressed:** D-3392
+
 ## Intent vs deliverable
 
 Promise: the bill_p==-1000 re-entry arm gains its C-order `!gameover → check_special_room(FALSE)` re-check, and all three C callers are wired (2 in-file awaits + monmove postmov). Delivered, except the postmov wiring drops C's outer guard (see Actionable 1). Body, import, and both in-file call sites match C.

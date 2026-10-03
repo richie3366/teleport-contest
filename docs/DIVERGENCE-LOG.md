@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3392 — Must-fix 2339.1 falsified (postmov :1669 predates review) + invent.c repopulate_perminvent/only_here port
+
+- **Status:** shipped (Must-fix 2339.1 falsified — checked off + archived in this commit; review `reviews/loop-unattended/2339-bec62f3b9-after-shk-move-guard.md` stamped Addressed; 2 missing-arm rows checked off + archived).
+- **Symptom:** (a) review 2339 Actionable 1 claimed the postmov after_shk_move call (D-3384) drops C's `:1660` MOVED|DONE guard and fires on MMOVE_NOTHING entries — disproven, the guard is already live; (b) coverage — C `invent.c:3455–3460` (`repopulate_perminvent`) and `invent.c:5476–5480` (`only_here`) absent from `js/` (no JS symbols; ledger absent).
+- **C locus:**
+  - `after_shk_move` call site: nethack-c/upstream/src/monmove.c:1700–1702 inside `:1660 if (mmoved == MMOVE_MOVED || MMOVE_DONE)`.
+  - `repopulate_perminvent`: nethack-c/upstream/src/invent.c:3455–3460 — `(void) display_pickinv(NULL, 0, 0, FALSE, FALSE, 0)`; `:3084` usextra=FALSE, `:3094` dispatch on (wizid || WIN_INVEN==WIN_ERR), `:3102–3106` cached-win vs `:3108–3113` PERMINV branches.
+  - `only_here`: nethack-c/upstream/src/invent.c:5476–5480 — `obj->ox == go.only.x && obj->oy == go.only.y` (`go` = instance_globals_o, `only` decl.h:721); callback use at `:5541` inside `display_binventory` (the brief's "no live callers" missed the function-pointer use).
+- **JS was:** (a) postmov entry js/monmove.js:1669 `if (mmoved !== MMOVE_MOVED && mmoved !== MMOVE_DONE) return mmoved` — present since bca17f51b8 (2026-07-13) and at reviewed SHA bec62f3b9 — already restricts the whole tail incl. the D-3384 call to MOVED|DONE; `:2355` NOTHING entries return at `:1669`. (b) no `repopulate_perminvent`/`only_here` in `js/`; `display_binventory` pre-filtered buried inline with a named `go.only coord filter` omit.
+- **Fix:** (a) none — falsified with git evidence (a redundant call-site guard drafted mid-iteration was reverted; it would be constant-true). (b) `repopulate_perminvent` export with the `:3094` dispatch against live splits (cached branch mirrors `display_inventory`'s post-cmdq sequence — no cmdq_pop since C calls display_pickinv directly; PERMINV branch via local `pickinv_build_perm` + the sync_perminvent gi epilogue); `only_here` local (C staticfn, cf. `worn_wield_only`); `display_binventory` buried section restructured to exact C shape (count loop `:5527–5533`, `if (n)` set/filter/reset `:5536–5543`) — omit line deleted; new `scripts/repopulate-only-here.test.mjs` (5 headless cases).
+- **JS:** js/invent.js:4377 `repopulate_perminvent`, js/invent.js:4564 `only_here`, js/invent.js:4575 `display_binventory` (buried C-shape restructure); scripts/repopulate-only-here.test.mjs.
+- **Callers:**
+  - `after_shk_move` (postmov site): no change — already fires exactly on MOVED|DONE entries via `:1669` (entry guarantee; the `:1859` mpickstuff flip is guard-neutral); the other two C call sites (shk.c:4990, shk.c:1327) were wired by D-3384, untouched.
+  - `repopulate_perminvent`: none — 0 C refs; async (menu branch awaits display), no callers to update.
+  - `only_here`: js/invent.js:4575 `display_binventory` (C `:5541`) now filters through it with the go.only set/reset (`game.only`; undefined ≡ C zero-init).
+- **Verify:** `node --test scripts/repopulate-only-here.test.mjs` → 5/5 PASS ×3 runs (binventory n==0 gate + n==2/reset/one-prompt, repopulate PERMINV/gi-epilogue + cached + wizid dispatch). `node scripts/verify.mjs --fn repopulate_perminvent,only_here --full` → VERIFY: PASS — syntax (js/invent.js) · Rule #2 · hidden notes (no corpus session blocked; expected for coverage rows) · REACH-OK ×2 (no RNG-tagged reach; fixed 24-smoke each, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44.
+- **Named omissions:**
+  - `repopulate_perminvent`: none — DUMPLOG in_dumplog (`:3089–3093`) is compiled out (D-1776), not an omission; TTY_PERM_INVENT `:3095–3097` holds a commented-out line only.
+  - `only_here`: none — whole C body live (0 C callees); sole callback site wired.
+- **Ledger:** repopulate_perminvent ported; only_here ported
+- **Next:** `display.c` fn_cmap_to_glyph queue row (next Open missing-arm row).
+
 ## D-3391 — `files.c` recover_savefile compiled-out port reverted to by-design
 
 - **Status:** shipped (Must-fix 2344.1 checked off + archived in this commit; review `reviews/loop-unattended/2344-d6a4a5312-recover-scope.md` stamped Addressed).

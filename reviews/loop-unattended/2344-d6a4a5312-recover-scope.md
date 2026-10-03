@@ -4,7 +4,7 @@
 **Scope:** js/files.js +363/−7, js/bones.js +13/−4, js/end.js +16/−5, js/save.js +3/−1. Cluster commit — per-function blocks below.
 **Prior reviews closed:** none.
 
-**Addressed:** D-3391
+**Addressed:** D-3391 `6d194731e`
 
 ## Intent vs deliverable
 

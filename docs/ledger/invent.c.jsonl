@@ -71,7 +71,7 @@
 {"fn":"free_pickinv_cache","c":"3044-3050","status":"ported","js":["js/invent.js:free_pickinv_cache"],"at":"2026-10-03@bbe63333a"}
 {"fn":"display_pickinv","c":"3057-3418","status":"split","js":["js/invent.js:display_pickinv_reply","js/invent.js:display_pickinv_wizid","js/invent.js:invent_lines","js/invent.js:pickinv_build_inuse","js/invent.js:pickinv_build_perm","js/invent.js:build_wizid_pickinv_items","js/invent.js:pickinv_item_gacc"],"d":["D-1559"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across reply/wizid/lines/builders (D-1559/D-1589/D-1590)"}
 {"fn":"display_inventory","c":"3428-3453","status":"ported","js":["js/invent.js:display_inventory"],"at":"2026-10-03@bbe63333a"}
-{"fn":"repopulate_perminvent","c":"3456-3460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"repopulate_perminvent","c":"3456-3460","status":"ported","js":["js/invent.js:repopulate_perminvent"],"d":["D-3392"],"at":"2026-10-03@d74b875e9","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_used_invlets","c":"3467-3519","status":"ported","js":["js/invent.js:display_used_invlets"],"d":["D-1591"],"at":"2026-10-03@bbe63333a"}
 {"fn":"count_unpaid","c":"3526-3538","status":"ported","js":["js/invent.js:count_unpaid"],"at":"2026-10-03@bbe63333a"}
 {"fn":"count_buc","c":"3548-3575","status":"ported","js":["js/pickup.js:count_buc"],"at":"2026-10-03@bbe63333a"}
@@ -111,7 +111,7 @@
 {"fn":"cinv_doname","c":"5391-5419","status":"ported","js":["js/invent.js:cinv_doname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cinv_ansimpleoname","c":"5423-5441","status":"ported","js":["js/invent.js:cinv_ansimpleoname"],"d":["D-3147"],"at":"2026-09-30@1300fdc94","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_cinventory","c":"5446-5473","status":"ported","js":["js/invent.js:display_cinventory"],"d":["D-3147"],"at":"2026-09-30@1300fdc94"}
-{"fn":"only_here","c":"5477-5480","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"only_here","c":"5477-5480","status":"ported","js":["js/invent.js:only_here"],"d":["D-3392"],"at":"2026-10-03@d74b875e9","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_binventory","c":"5489-5546","status":"ported","js":["js/invent.js:display_binventory"],"at":"2026-10-03@bbe63333a"}
 {"fn":"prepare_perminvent","c":"5549-5562","status":"ported","js":["js/invent.js:prepare_perminvent"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sync_perminvent","c":"5565-5658","status":"ported","js":["js/invent.js:sync_perminvent"],"at":"2026-10-03@bbe63333a"}

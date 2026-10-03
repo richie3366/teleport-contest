@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3392 Must-fix 2339.1 falsified (postmov :1669 predates review) + invent.c repopulate_perminvent/only_here port
+
+**C locus:** - `after_shk_move` call site: nethack-c/upstream/src/monmove.c:1700–1702 inside `:1660 if (mmoved == MMOVE_MOVED || MMOVE_DONE)`.
+**JS:** js/invent.js:4377 `repopulate_perminvent`, js/invent.js:4564 `only_here`, js/invent.js:4575 `display_binventory` (buried C-shape restructure); scripts/repopulate-only-here.test.mjs.
+**Change:** (a) none — falsified with git evidence (a redundant call-site guard drafted mid-iteration was reverted; it would be constant-true). (b) `repopulate_perminvent` export with the `:3094` dispatch against live splits (cached branch mirrors `display_inventory`'s post-cmdq sequence — no cmdq_pop since C calls display_pickinv directly; PERMINV branch via local `pickinv_build_perm` + the sync_perminvent gi epilogue); `only_here` local (C staticfn, cf. `worn_wield_only`); `display_binventory` buried section restructured to exact C shape (count loop `:5527–5533`, `if (n)` set/filter/reset `:5536–5543`) — omit line deleted; new `scripts/repopulate-only-here.test.mjs` (5 headless cases).
+**Verify:** `node --test scripts/repopulate-only-here.test.mjs` → 5/5 PASS ×3 runs (binventory n==0 gate + n==2/reset/one-prompt, repopulate PERMINV/gi-epilogue + cached + wizid dispatch). `node scripts/verify.mjs --fn repopulate_perminvent,only_here --full` → VERIFY: PASS — syntax (js/invent.js) · Rule #2 · hidden notes (no corpus session blocked; expected for coverage rows) · REACH-OK ×2 (no RNG-tagged reach; fixed 24-smoke each, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44.
+**Named:** - `repopulate_perminvent`: none — DUMPLOG in_dumplog (`:3089–3093`) is compiled out (D-1776), not an omission; TTY_PERM_INVENT `:3095–3097` holds a commented-out line only.
+**Next:** `display.c` fn_cmap_to_glyph queue row (next Open missing-arm row).
 ## 2026-10-03 — D-3391 `files.c` recover_savefile compiled-out port reverted to by-design
 
 **C locus:** - `recover_savefile`: nethack-c/upstream/src/files.c:2864–3082 under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined); sole C caller sys/unix/unixunix.c:216–219 inside the same ifdef — compiled out of the contest binary and the recorder.
