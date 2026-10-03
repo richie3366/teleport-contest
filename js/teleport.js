@@ -95,7 +95,7 @@ import { fill_pit } from './dig.js';
 /* mklev.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
 import { somex } from './mklev.js';
 /* priest.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
-import { mon_aligntyp } from './priest.js';
+import { mon_aligntyp, histemple_at } from './priest.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
@@ -357,19 +357,10 @@ function inhishop(shkp) {
 }
 
 /**
- * C ref: priest.c histemple_at / has_shrine / inhistemple.
+ * C ref: priest.c has_shrine / inhistemple.
  * Local clones — priest.js → makemon.js → teleport cycle.
+ * (histemple_at rewired to the canonical js/priest.js export.)
  */
-function histemple_at(priest, x, y) {
-    if (!priest || !priest.ispriest) return false;
-    const epri = EPRI(priest);
-    if (!epri) return false;
-    const rooms = in_rooms(x, y, TEMPLE);
-    if (!rooms || (rooms.charCodeAt(0) | 0) !== (epri.shroom | 0)) return false;
-    // C priest.c:157 histemple_at — live on_level (js/dungeon.js).
-    return on_level(epri.shrlevel, game.u?.uz);
-}
-
 function has_shrine(pri) {
     if (!pri || !pri.ispriest) return false;
     const epri = EPRI(pri);

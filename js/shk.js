@@ -51,6 +51,8 @@ import { rn2, rn1, rnd } from './rng.js';
 import { dist2, highc, online2, upstart, depth, strncmpi } from './hacklib.js';
 import { choose_stairs } from './wizard.js';
 import { in_rooms, stop_occupation, You_hear } from './hack.js';
+/* priest.js (same 101-module SCC; hoisted function, call-time use only — imports.mjs IN-SCC, verify judges TDZ). */
+import { histemple_at } from './priest.js';
 import {
     ESHK, has_eshk, has_mgivenname, MGIVENNAME, EPRI, BEFORE, NOW, IS_ROOM, IS_DOOR, IS_WALL, ZAP_POS, NOTONL, ALLOW_ROCK, u_at, isok,
     ROOMOFFSET, SHOPBASE, ACH_SHOP, SVALL, ROWNO, COLNO,
@@ -4675,18 +4677,6 @@ function Displaced() {
     if (u.uprops?.[DISPLACED]?.extrinsic) return true;
     const cloak = u.uarmc;
     return !!(cloak && cloak.otyp === CLOAK_OF_DISPLACEMENT);
-}
-
-/**
- * C ref: priest.c histemple_at — priest on shrine level inside temple room.
- */
-function histemple_at(priest, x, y) {
-    if (!priest || !priest.ispriest) return false;
-    const epri = EPRI(priest);
-    if (!epri) return false;
-    const rooms = in_rooms(x, y, TEMPLE);
-    if (!rooms || (rooms.charCodeAt(0) | 0) !== (epri.shroom | 0)) return false;
-    return on_level(epri.shrlevel, game.u?.uz);
 }
 
 /**

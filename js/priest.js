@@ -81,9 +81,11 @@ export function temple_occupied(array) {
 }
 
 /**
- * C ref: priest.c histemple_at — priest on shrine level inside temple room.
+ * C ref: priest.c histemple_at `:153–158` — priest on shrine level inside
+ * temple room. Canonical export (C home): shk.js pri_move and teleport.js
+ * inhistemple are rewired here; their identical clones deleted.
  */
-function histemple_at(priest, x, y) {
+export function histemple_at(priest, x, y) {
     if (!priest || !priest.ispriest) return false;
     const epri = EPRI(priest);
     if (!epri) return false;

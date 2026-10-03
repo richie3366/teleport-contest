@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3351 — `priest.c` histemple_at canonical export + shk/teleport rewire
+
+- **Status:** shipped (1 head missing-arm row checked off + archived; no review cited, no stamp owed). Below the ~80 bar, defended (D-3341–D-3350 clone-removal precedent): one whole C function exported at C-home plus 2 whole clones rewired to it — the cluster cannot grow (priest.c holds no other Open row; both C callees already live). Bundled: backfilled missing `**Addressed:** D-3350` hashes on all 4 D-3350 DONE rows (`350dcff17` from git log).
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `histemple_at`: nethack-c/upstream/src/priest.c:153–158 — `priest && ispriest && shroom == *in_rooms(x,y,TEMPLE) && on_level(shrlevel, u.uz)`. 3 C callers: :167 inhistemple, :186 pri_move, :400 findpriest.
+- **JS was:** no live export — 3 identical local clones: js/priest.js:86-then (C-home, 2 sites :112/:293-then), js/shk.js:4683-then (1 site :4701-then pri_move), js/teleport.js:363-then (1 site :387-then inhistemple clone). Bodies behavior-identical (priest/epri guards, in_rooms charCode compare, live on_level).
+- **Fix:** exported the canonical body at C-home js/priest.js:88 (whole C body in C order, unchanged); extended the ALREADY static teleport→priest edge (`histemple_at` added to the js/teleport.js:98 import; `imports.mjs --can` ALREADY); new static shk→priest edge (js/shk.js:55; `imports.mjs --can` IN-SCC pre-export, ALREADY post-edit — hoisted fn, same 101-module SCC, call-time use only, verify judges TDZ); deleted both out-of-home clones (shk :4680–4690-then, teleport :359–371-then).
+- **JS:**
+  - `histemple_at`: js/priest.js:88 (live, canonical); import edges js/shk.js:55, js/teleport.js:98; rewired sites js/shk.js:4691, js/teleport.js:378; same-module sites js/priest.js:114/:295.
+- **Callers:**
+  - `histemple_at`: C priest.c:167 (inhistemple) → js/priest.js:114; C priest.c:186 (pri_move) → js/shk.js:4691 (JS pri_move lives in shk.js); C priest.c:400 (findpriest) → js/priest.js:295. JS-only: js/teleport.js:378 (teleport's local inhistemple clone, called by onscary — mirrors the C monmove.c onscary → inhistemple chain).
+- **Verify:**
+  - `histemple_at`: `node scripts/verify.mjs --fn histemple_at` → VERIFY: PASS — syntax 3 files (priest/shk/teleport), rule2 PASS, hidden note (0 blocked at baseline), reach: no RNG-tagged reach; fixed smoke spread 24 run → 24 PASS, 0 regressed → REACH-OK; green 2/2, strict ×2, cohort 7/7.
+- **Named omissions:**
+  - `histemple_at`: none in-body — whole C body live at js/priest.js:88. Out of scope: teleport's has_shrine/inhistemple clones stay local (own future rows, if queued).
+- **Ledger:** histemple_at ported
+- **Next:** next missing-arm row (`mondata.h` unique_corpstat rewire).
+
 ## D-3350 — `mondata.c` attacktype live-export port + 4-clone removal (artifact/dog/wizard/eat → live js/mondata.js export)
 
 - **Status:** shipped (4 head missing-arm rows checked off + archived; no review cited, no stamp owed). Below the ~80 bar, defended (D-3341–D-3349 clone-removal precedent): one whole C function ported at C-home plus 4 whole clones rewired to it — the cluster grew to every Open row of the head's C file (mondata.c held exactly these 4), and attacktype's 1 C callee was already live, so it cannot grow further. Refill: 5 missing-arm rows appended from this session's brief/grep/read evidence (attacktype engrave+makemon+muse+polyself+trap — the remaining clones, all bodies + sites + edges read) — queue ships at 9 (coverage ungeneratable; band gate ≥8 met). Bundled: backfilled missing `**Addressed:** D-3349` hashes on both D-3349 DONE rows (`d0e3ce01b` from git log).
