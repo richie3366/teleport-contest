@@ -168,13 +168,13 @@ import {
 import { rider_cant_reach } from './steed.js';
 import { PM_HUMAN, PM_HEALER, PM_LICHEN } from './generated/monsters_data.js';
 import { makemon, set_malign } from './makemon.js';
-import { mongone, wakeup, healmon, wake_nearto, dist2, m_at, seemimic } from './mon.js';
+import { mongone, wakeup, healmon, wake_nearto, m_at, seemimic } from './mon.js';
 import { tamedog } from './dog.js';
 import { can_reach_floor } from './engrave.js';
 import { surface } from './sit.js';
 import { bcsign } from './rumors.js';
 import { more_experienced, pluslvl, rndexp } from './exper.js';
-import { depth, strstri } from './hacklib.js';
+import { depth, strstri, dist2 } from './hacklib.js';
 import {
     trycall, docall, hliquid, a_monnam, Monnam, hcolor, x_monnam, mon_nam,
     Hallucination, rndmonnam,

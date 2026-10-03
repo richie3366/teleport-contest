@@ -23,7 +23,7 @@ import {
     distant_name, vtense, Yname2, simpleonames,
 } from './objnam.js';
 import {
-    dist2, m_at, m_carrying, mongone, onscary, monnear,
+    m_at, m_carrying, mongone, onscary, monnear,
     wakeup, wake_nearto,
 } from './mon.js';
 import { lined_up, linedup_callback, m_throw } from './mthrowu.js';
@@ -91,7 +91,7 @@ import {
 import { MON_WEP, dmgval, hands_obj } from './weapon.js';
 import { welded, mwelded } from './wield.js';
 import { remove_worn_item } from './steal.js';
-import { depth, distmin, strsubst, upstart } from './hacklib.js';
+import { depth, distmin, dist2, strsubst, upstart } from './hacklib.js';
 import { get_level, dunlevs_in_dungeon, On_W_tower_level } from './dungeon.js';
 import { seetrap, t_at, trapname, mintrap, ceiling, wearing_iron_shoes, maketrap, Trap_Killed_Mon } from './trap.js';
 import { stairway_at } from './mklev.js';

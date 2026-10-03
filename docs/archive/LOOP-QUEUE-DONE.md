@@ -3,9 +3,16 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-03
+
+- [x] `do.c` badspot — C do.c:1400–1406 `typ!=ROOM/AIR/CORR || MON_AT` absent from js/ (no symbol; brief this session; sole C ref is the commented-out decl :25 — dead in C) — resolve by-design or port module-local (C static).
+- [x] `shknam.c` free_eshk — C shknam.c:569–576 `free ESHK + isshk=0` absent from js/ (no symbol; brief this session; sole src ref is extern.h:2981 decl — dead in src, util/sfctool.c twin is tooling) — resolve by-design (GC) or port.
+- [x] `vault.c` free_egd — C vault.c:35–42 `free EGD + isgd=0` absent from js/ (no symbol; brief this session; sole src ref is extern.h:3548 decl — dead in src, util/sfctool.c twin is tooling) — resolve by-design (GC) or port.
+- [x] `hacklib.c` dist2 mon.js duplicate removal — C hacklib.c:673–678 `dx*dx+dy*dy` call absent from js/ importers (duplicate export js/mon.js:1124 instead of live js/hacklib.js:23; brief this session: 2 exports, 10 importers on the wrong-locus mon.js edge + 2 internal mon.js uses); rewire all to the C-locus export, delete duplicate.
+
 ## 2026-10-02
 
-- [x] `coloratt.c` get_nhcolor_from_256_index — C coloratt.c:1024–1031 `IndexOk → color_256_definitions[idx].value else NO_COLOR|NH_BASIC_COLOR` absent from js/ (no symbol; brief this session; 0 C refs — dead in C) — resolve by-design or port. **Addressed:** D-3326
+- [x] `coloratt.c` get_nhcolor_from_256_index — C coloratt.c:1024–1031 `IndexOk → color_256_definitions[idx].value else NO_COLOR|NH_BASIC_COLOR` absent from js/ (no symbol; brief this session; 0 C refs — dead in C) — resolve by-design or port. **Addressed:** D-3326 `0e60ede85`
 
 
 - [x] `pager.c` domenucontrols — C pager.c:2820–2827 `create_nhwindow + show_menu_controls(cwin,FALSE) + display + destroy` absent from js/ (no symbol; brief this session; sole C ref is the decl-only :48 — dead in C; callee live js/dokeylist.js:210) — port module-local (C staticfn) or resolve by-design.

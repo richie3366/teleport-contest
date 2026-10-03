@@ -33,7 +33,7 @@
 {"fn":"sitoa","c":"638-644","status":"ported","js":["js/hacklib.js:sitoa"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sgn","c":"650-653","status":"unknown"}
 {"fn":"distmin","c":"657-669","status":"ported","js":["js/hacklib.js:distmin"],"d":["D-3324"],"at":"2026-10-02@c944311a4"}
-{"fn":"dist2","c":"673-678","status":"unknown"}
+{"fn":"dist2","c":"673-678","status":"ported","js":["js/hacklib.js:dist2"],"d":["D-3327"],"at":"2026-10-03@0e60ede85"}
 {"fn":"isqrt","c":"682-700","status":"ported","js":["js/hacklib.js:isqrt"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"online2","c":"704-711","status":"unknown"}
 {"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"The `strncmpi` compare loop is complete, but call sites in `artifact.c`, `attrib.c`, `botl.c`, `cmd.c`, `coloratt.c`, `do.c`, `do_name.c`, `dungeon.c`, `earlyarg.c`, `eat.c`, `files.c` tribute tags, `hack.c`, `invent.c`, `mon.c` gasp, `mondata.c`, `mthrowu.c`, `nhlua.c`, `objnam.c` outside the `rea…","d":["D-2967"],"at":"2026-09-27@b43d2c68f"}

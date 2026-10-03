@@ -58,7 +58,7 @@ const PICK_AXE_OTYP = objectNames.indexOf('PICK_AXE');
 const PM_DISPLACER_BEAST = monsterNames.indexOf('PM_DISPLACER_BEAST');
 const DWARVISH_MATTOCK_OTYP = objectNames.indexOf('DWARVISH_MATTOCK');
 const AT_EXPL = 13; // monattk.h — fight_empty Upolyd explode
-import { dist2, bad_rock, cant_squeeze_thru, wake_nearto, minliquid, m_at } from './mon.js';
+import { bad_rock, cant_squeeze_thru, wake_nearto, minliquid, m_at } from './mon.js';
 import { is_hider, hides_under, tunnels, needspick, monsterNames } from './monsters.js';
 import { vision_recalc, couldsee, cansee } from './vision.js';
 import {
@@ -91,7 +91,7 @@ import { rehumanize, body_part, domonability } from './polyself.js';
 import { Levitation, Flying } from './mhitu.js';
 import { doopen, doopen_indir, doclose, doforce, getdir } from './lock.js';
 import { doextcmd, getlin, mungspaces, extcmd_run_by_txt, paranoid_query } from './getline.js';
-import { strstri, strsubst, upstart, trimspaces } from './hacklib.js';
+import { strstri, strsubst, upstart, trimspaces, dist2 } from './hacklib.js';
 import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, doddoremarm, dowear, doputon, doremring, remarm_swapwep, ia_dotakeoff } from './do_wear.js';
 import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';

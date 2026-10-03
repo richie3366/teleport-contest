@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3327 — `do.c` badspot + `shknam.c`/`vault.c` free twins (by-design) + `hacklib.c` dist2 mon.js-duplicate removal
+
+- **Status:** shipped (4 Open missing-arm rows checked off + archived — badspot head, free_eshk, free_egd, dist2; no review cited, no stamp owed). 26 insertions / 13 js files — below the ~80 density bar, defended: the dist2 row ships its whole importer closure (12 files rewired + mon.js duplicate deleted, behavior-identical bodies) and the three dead-in-C rows need no symbol; the m_at / Is_special / Is_branchlev / has_ceiling rows were edited then split back out to the next iteration by the 15-file cap (18 files together; this commit 13).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked on all four).
+- **C locus:**
+  - `badspot`: nethack-c/upstream/src/do.c:1399–1406 — `static boolean`, `(typ!=ROOM && typ!=AIR && typ!=CORR) || MON_AT`; the sole repo ref is the commented-out fwd decl do.c:25 (dead in C).
+  - `free_eshk`: nethack-c/upstream/src/shknam.c:568–576 — `free ESHK(mtmp)` + null + `isshk=0`; sole src ref is the extern.h:2981 decl (dead in src; util/sfctool.c:987 twin is save-tool tooling, not the scored game).
+  - `free_egd`: nethack-c/upstream/src/vault.c:34–42 — `free EGD(mtmp)` + null + `isgd=0`; sole src ref is the extern.h:3548 decl (dead in src; util/sfctool.c:947 twin is tooling).
+  - `dist2`: nethack-c/upstream/src/hacklib.c:672–678 — `dx*dx+dy*dy`; 81 C refs.
+- **JS was:** no `badspot`/`free_eshk`/`free_egd` symbol (sym.mjs NOT FOUND ×3). `dist2` had two exports: the C-locus js/hacklib.js:23 and a duplicate js/mon.js:1124; 12 files imported the mon.js edge (eat/potion/trap/cmd/steal/do/apply/uhitm/mthrowu/monmove/dogmove/muse) plus mon.js's own internal uses.
+- **Fix:** three by-design resolutions (no `js/`, D-3312/D-3314 precedent) + dist2 rewire: all 12 mon.js-edge importers moved to their existing hacklib.js edge, mon.js imports `dist2` from hacklib.js (:69), the duplicate export deleted (tombstone comment :1124). Bodies behavior-identical (`(x1-x2)²+(y1-y2)²`, symmetric args).
+- **JS:**
+  - `badspot`: no symbol (by-design) — C static with no live caller; nothing to port.
+  - `free_eshk`: no symbol (by-design) — GC owns the memory; the `isshk=0` flag write has no scored caller.
+  - `free_egd`: no symbol (by-design) — GC owns the memory; the `isgd=0` flag write has no scored caller.
+  - `dist2`: js/hacklib.js:23 (live, unchanged); mon.js duplicate deleted; rewired edges js/eat.js:151, js/potion.js:177, js/trap.js:146, js/cmd.js:94, js/steal.js:79, js/do.js:14, js/apply.js:145, js/uhitm.js:43, js/mthrowu.js:11, js/monmove.js:119, js/dogmove.js:11, js/muse.js:94, js/mon.js:69 (all pre-existing static edges, extended — no new edge, no `imports.mjs --can` owed).
+- **Callers:**
+  - `badspot`: none — dead in C (commented decl only).
+  - `free_eshk`: none in src (decl-only extern.h:2981).
+  - `free_egd`: none in src (decl-only extern.h:3548).
+  - `dist2`: every C caller serves through the behavior-identical C-locus export; all 13 JS importer sites rewired (12 files above + mon.js internals :189/:1132/:1140/:1174/:1584/:2263/:3411 via the new import).
+- **Verify:**
+  - `badspot`: hidden note (0 blocked — normal for coverage) · REACH-OK (smoke spread 24/24 PASS, no RNG-tagged reach).
+  - `free_eshk`: hidden note · REACH-OK (smoke 24/24).
+  - `free_egd`: hidden note · REACH-OK (smoke 24/24).
+  - `dist2`: hidden note · REACH-OK (smoke 24/24; pure function, no RNG-tagged reach).
+  - Cluster gates: `node scripts/verify.mjs --fn badspot,free_eshk,free_egd,dist2` → syntax PASS (13 changed js files) · Rule #2 PASS · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `badspot`: whole body — dead in C; no scored caller.
+  - `free_eshk`: whole body — dead in src (tooling twin only); no scored caller.
+  - `free_egd`: whole body — dead in src (tooling twin only); no scored caller.
+  - `dist2`: none in-body — whole C body live at js/hacklib.js:23.
+- **Ledger:** badspot by-design; free_eshk by-design; free_egd by-design; dist2 ported
+- **Next:** the 4 split-out missing-arm rows (`rm.h` m_at shknam rewire, `dungeon.c` Is_special end/quest rewire, `dungeon.c` Is_branchlev port + end rewire, `dungeon.c` has_ceiling 3-file rewire) — briefed + edge-checked this session (dothrow→dungeon SAFE), 7 files.
+
 ## D-3326 — `coloratt.c` get_nhcolor_from_256_index live-export port + 3 same-file stale-complete bookings
 
 - **Status:** shipped (Open missing-arm head ported + 3 same-file stale-complete bookings via Ledger, D-3314 precedent). ~18 js/ insertions — below the ~80 bar, defended (D-3325 exception shape): the head is a 4-line dead-in-C leaf (whole C body + zero-caller table now a live export), the trio brief-verifies body-complete with every C caller wired (6/6 code sites), and the head's file holds nothing more Open (18 ported, 3 partials keep UB/sink/compiled-out omits, 3 by-design CHANGE_COLOR-compiled-out; `rows --write` regenerates 0). Refill: 1 missing-arm row appended from this session's brief evidence (`dungeon.c` has_ceiling clones) — queue ships at 8.

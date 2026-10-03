@@ -98,7 +98,6 @@ import { SetVoice } from './sndprocs.js';
 import { rn1, rn2, rnd, d } from './rng.js';
 import { game } from './gstate.js';
 import {
-    dist2,
     monnear,
     mon_allowflags,
     mfndpos,
@@ -117,7 +116,7 @@ import {
     onscary,
     hideunder as hideunderHero,
 } from './mon.js';
-import { distmin } from './hacklib.js';
+import { distmin, dist2 } from './hacklib.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');

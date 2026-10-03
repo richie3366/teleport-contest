@@ -40,7 +40,7 @@ import {
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck, ALIGNLIM, Fumbling } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool, maybe_half_phys, noattacks, check_capacity } from './hack.js';
-import { ing_suffix, upstart, highc, strstri } from './hacklib.js';
+import { ing_suffix, upstart, highc, strstri, dist2 } from './hacklib.js';
 import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, tp_sensemon, map_invisible, unmap_object, unmap_invisible, memory_glyph_is_invisible, glyph_at, glyph_is_warning, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
 import { cansee } from './vision.js';
 import {
@@ -86,7 +86,7 @@ import {
     weight, obj_stop_timers, objects_at, splitobj,
 } from './mkobj.js';
 import {
-    monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2,
+    monnear, record_mvitals_died, seemimic, wakeup, setmangry,
     m_next2u, wake_nearto, m_carrying, healmon, zombie_maker, zombie_form,
     mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE, unique_corpstat,
     iter_mons, anger_quest_guardians, NODIAG, angry_guards,

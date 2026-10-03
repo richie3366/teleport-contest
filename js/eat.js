@@ -75,7 +75,7 @@ import {
 import { same_race, cantvomit, defended } from './mondata.js';
 import { were_beastie, set_ulycn, you_unwere } from './were.js';
 import { monflee } from './monmove.js';
-import { dist2, rescham } from './mon.js';
+import { rescham } from './mon.js';
 import { set_occupation, can_reach_floor } from './engrave.js';
 import {
     OBJ_FREE, OBJ_INVENT,
@@ -148,7 +148,7 @@ import { set_mimic_blocking } from './vision.js';
 import {
     PM_KNIGHT, PM_WIZARD, PM_ELF, PM_VALKYRIE,
 } from './generated/monsters_data.js';
-import { str_start_is } from './hacklib.js';
+import { str_start_is, dist2 } from './hacklib.js';
 import { retouch_object, touch_artifact, retouch_equipment } from './artifact.js';
 import { remove_worn_item } from './steal.js';
 

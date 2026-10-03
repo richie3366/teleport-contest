@@ -5,7 +5,7 @@
 {"fn":"mkshobj_at","c":"454-483","status":"unknown"}
 {"fn":"nameshk","c":"487-554","status":"unknown"}
 {"fn":"neweshk","c":"557-566","status":"unknown"}
-{"fn":"free_eshk","c":"569-576","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_eshk","c":"569-576","status":"by-design","d":["D-3327"],"at":"2026-10-03@0e60ede85","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"good_shopdoor","c":"582-624","status":"unknown"}
 {"fn":"shkinit","c":"628-692","status":"unknown","d":["D-2570","D-2418"],"at":"seed@a30a7de84"}
 {"fn":"stock_room_goodpos","c":"695-714","status":"unknown"}

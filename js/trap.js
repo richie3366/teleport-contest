@@ -43,7 +43,7 @@ import {
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
     s_suffix, obj_pmname, a_monnam,
 } from './do_name.js';
-import { dist2, m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry } from './mon.js';
+import { m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, unblock_point, vision_recalc } from './vision.js';
 import { del_engr_at, can_reach_floor } from './engrave.js';
 import {
@@ -143,7 +143,7 @@ import {
 import { tamedog, wary_dog, abuse_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
-import { level_difficulty, depth, distmin, ordin, strsubst } from './hacklib.js';
+import { level_difficulty, depth, distmin, dist2, ordin, strsubst } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu, defended, resists_magm } from './mondata.js';
 import { get_obj_location, burn_away_slime } from './timeout.js';

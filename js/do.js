@@ -11,7 +11,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rnz, d } from './rng.js';
-import { depth, builds_up, level_difficulty, upstart } from './hacklib.js';
+import { depth, builds_up, level_difficulty, upstart, dist2 } from './hacklib.js';
 import {
     STAIRS, LADDER, ECMD_OK, ECMD_TIME, ECMD_FAIL, ECMD_CANCEL,
     DIR_DOWN, DIR_UP, I_SPECIAL, W_ARTI, W_ART, TOOKPLUNGE, VIBRATING_SQUARE,
@@ -103,7 +103,7 @@ import { livelog_printf } from './pline.js';
 import { com_pager, deliver_by_pline } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time, update_mlstmv, discard_migrations } from './dog.js';
 import { save_track, rest_track } from './track.js';
-import { m_at, mnexto, m_into_limbo, hide_monst, hideunder, restore_cham, wake_nearto, dist2, kill_genocided_monsters, ceiling_hider, dmonsfree, healmon } from './mon.js';
+import { m_at, mnexto, m_into_limbo, hide_monst, hideunder, restore_cham, wake_nearto, kill_genocided_monsters, ceiling_hider, dmonsfree, healmon } from './mon.js';
 import { enexto, rloc, safe_teleds } from './teleport.js';
 import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
