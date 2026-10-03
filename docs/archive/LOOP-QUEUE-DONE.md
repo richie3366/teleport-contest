@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `potion.c` healup zap.js clone removal — C potion.c:1428–1458 heal + blind/sick cure absent from js/zap.js (local sync clone :2620 writing u.Blinded/u.Sick directly, dropping live's make_blinded/make_deaf/make_vomiting/make_sick arms, sole live site :4575 SPE_HEALING instead of importing live async js/potion.js:2231; C body in brief healup this session, clone body + site read this session, zap→potion edge ALREADY :290 this session) — rewire site to the live export with await, delete clone.
+
+
 - [x] `dungeon.c` ledger_no dig.js clone removal — C dungeon.c:1376–1379 dlevel+ledger_start absent from js/dig.js (local clone :306, sole live site :1004 instead of importing live js/dungeon.js:1097; C body in brief ledger_no this session, clone body + site read this session, dig→dungeon edge ALREADY :73 this session; 6 further clones — do/mon/muse/potion/shknam/teleport — stay for their own rows) — rewire site to the live export, delete clone.
 - [x] `dungeon.c` dunlev dokick.js clone removal — C dungeon.c:1325–1328 dlevel read absent from js/dokick.js (local clone :185 byte-identical to live js/dungeon.js:1089, sole live site :595 instead of importing it; C body in brief dunlev this session, clone body + site read this session, dokick→dungeon edge ALREADY :36 this session) — rewire site to the live export, delete clone.
 

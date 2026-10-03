@@ -287,7 +287,7 @@ import {
     activate_statue_trap,
     acid_damage, ceiling,
 } from './trap.js';
-import { potionbreathe, make_stunned, speed_up } from './potion.js';
+import { potionbreathe, make_stunned, speed_up, healup } from './potion.js';
 import { carried, fix_petrification, cant_finish_meal } from './eat.js';
 import { spoteffects } from './pickup.js';
 import { burn_away_slime, get_obj_location } from './timeout.js';
@@ -2613,36 +2613,6 @@ function The_name(str) {
     return `The ${str}`;
 }
 
-/**
- * C ref: potion.c healup — add HP; optional sick/blind cure.
- * Kept here for zapyourself without potion.js → weapon.js cycle via spell.
- */
-function healup(nhp, nxtra, curesick, cureblind) {
-    const u = game.u;
-    if (!u) return;
-    if (nhp) {
-        if (u.Upolyd) {
-            u.mh = (u.mh ?? 0) + nhp;
-            if (u.mh > (u.mhmax ?? 0)) {
-                u.mhmax = (u.mhmax ?? 0) + nxtra;
-                u.mh = u.mhmax;
-            }
-        } else {
-            u.uhp = (u.uhp ?? 0) + nhp;
-            if (u.uhp > (u.uhpmax ?? 0)) {
-                u.uhpmax = (u.uhpmax ?? 0) + nxtra;
-                u.uhp = u.uhpmax;
-                if ((u.uhppeak ?? 0) < u.uhpmax) u.uhppeak = u.uhpmax;
-            }
-        }
-    }
-    if (cureblind) {
-        u.ucreamed = 0;
-        u.Blinded = 0;
-    }
-    if (curesick) u.Sick = 0;
-}
-
 const MAXWISHTRY = 5;
 const WAN_SECRET_DOOR_DETECTION =
     objectNames.indexOf('WAN_SECRET_DOOR_DETECTION');
@@ -4572,7 +4542,8 @@ export async function zapyourself(obj, ordinary) {
     case SPE_HEALING:
     case SPE_EXTRA_HEALING:
         learn_it = true;
-        healup(
+        /* C zap.c :2911 — live potion.c healup (blessed/extra cures blind). */
+        await healup(
             d(6, obj.otyp === SPE_EXTRA_HEALING ? 8 : 4),
             0,
             false,

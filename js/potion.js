@@ -2225,8 +2225,8 @@ export async function djinni_from_bottle(obj) {
  * cureblind → make_blinded(0,TRUE) (learn_unseen_invent via toggle)
  * then make_deaf(0,TRUE) (D-1399; SPE_CURE_BLINDNESS).
  * curesick → make_vomiting(0,TRUE) + make_sick(0,NULL,TRUE,SICK_ALL)
- * (D-1398; SPE_CURE_SICKNESS). zap.js keeps a local copy for SPE_HEALING
- * zapyourself (avoids import cycle).
+ * (D-1398; SPE_CURE_SICKNESS). zap.js zapyourself imports this live export
+ * (clone removed; zap→potion edge already static).
  */
 export async function healup(nhp, nxtra, curesick, cureblind) {
     const u = game.u;

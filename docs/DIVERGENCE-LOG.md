@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3337 — `potion.c` healup zap.js clone removal (sole site → live js/potion.js export)
+
+- **Status:** shipped (1 missing-arm row checked off + archived; no review cited, no stamp owed). ~3 js/ insertions — below the ~80 bar, defended (D-3334/D-3335 batch precedent for tiny missing-arm rows): the whole clone rewired to the live export, and the head's C file (potion.c) holds no further Open rows while all 4 C callees are already live, so the cluster cannot grow.
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `healup`: nethack-c/upstream/src/potion.c:1428–1458 — nhp HP add (polyd/nonpolyd arms) + cureblind (ucreamed=0, make_blinded(0,TRUE), make_deaf(0,TRUE)) + curesick (make_vomiting(0,TRUE), make_sick(0,NULL,TRUE,SICK_ALL)); 10 C refs incl zap.c:2911.
+- **JS was:** live async `healup` js/potion.js:2231 coexisted with sync clone js/zap.js:2620-then (direct `u.Blinded=0`/`u.Sick=0` writes, dropping live's make_blinded/make_deaf/make_vomiting/make_sick arms), sole live site js/zap.js:4575-then (zapyourself SPE_HEALING/SPE_EXTRA_HEALING).
+- **Fix:** extended the ALREADY static potion edge (js/zap.js:290; `imports.mjs --can` ALREADY — no new edge, no new test surface); deleted the clone; rewired the sole site with `await` + one C-cite comment (:4545). Updated the stale "zap.js keeps a local copy" note on the live export (js/potion.js:2228). Behavior delta is C-faithful: blessed/extra now cures via make_blinded/make_deaf instead of a bare Blinded write.
+- **JS:**
+  - `healup`: js/potion.js:2231 (live, unchanged body); import js/zap.js:290; clone deleted; rewired site js/zap.js:4546.
+- **Callers:**
+  - `healup`: C zap.c:2911 (zapyourself SPE_HEALING) → js/zap.js:4546. Remaining C refs out of cluster: served by the live export where JS ports import it (potion.c peffect arms, spell.c cure arms, artifact.c, mon.c per D-1398/D-1399/D-1411).
+- **Verify:**
+  - `healup`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+  - Cluster gates: `node scripts/verify.mjs --fn healup` → PASS syntax (2 changed js files) · PASS rule2 · note hidden · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full → VERIFY: PASS.
+- **Named omissions:**
+  - `healup`: none in-body — whole C body live at js/potion.js:2231.
+- **Ledger:** healup ported
+- **Next:** remaining missing-arm rows (m_useup/monflee/Amonnam×3/ledger_no×2 — different C files, next iterations).
+
 ## D-3336 — `dungeon.c` ledger_no + dunlev clone removals (dig.js/dokick.js → live exports)
 
 - **Status:** shipped (2 missing-arm rows checked off + archived; no review cited, no stamp owed). ~6 js/ insertions — below the ~80 bar, defended (D-3328/D-3335 batch precedent for tiny missing-arm rows): two whole clones rewired to live exports, and the head's C file (dungeon.c) holds no further Open rows (2/2 shipped) while both fns have 0 C callees, so the cluster cannot grow.

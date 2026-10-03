@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3337 `potion.c` healup zap.js clone removal (sole site → live js/potion.js export)
+
+**C locus:** - `healup`: nethack-c/upstream/src/potion.c:1428–1458 — nhp HP add (polyd/nonpolyd arms) + cureblind (ucreamed=0, make_blinded(0,TRUE), make_deaf(0,TRUE)) + curesick (make_vomiting(0,TRUE), make_sick(0,NULL,TRUE,SICK_ALL)); 10 C refs incl zap.c:2911.
+**JS:** - `healup`: js/potion.js:2231 (live, unchanged body); import js/zap.js:290; clone deleted; rewired site js/zap.js:4546.
+**Change:** extended the ALREADY static potion edge (js/zap.js:290; `imports.mjs --can` ALREADY — no new edge, no new test surface); deleted the clone; rewired the sole site with `await` + one C-cite comment (:4545). Updated the stale "zap.js keeps a local copy" note on the live export (js/potion.js:2228). Behavior delta is C-faithful: blessed/extra now cures via make_blinded/make_deaf instead of a bare Blinded write.
+**Verify:** - `healup`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; smoke 24 run, 24 PASS, 0 regressed).
+**Named:** - `healup`: none in-body — whole C body live at js/potion.js:2231.
+**Next:** remaining missing-arm rows (m_useup/monflee/Amonnam×3/ledger_no×2 — different C files, next iterations).
 ## 2026-10-03 — D-3336 `dungeon.c` ledger_no + dunlev clone removals (dig.js/dokick.js → live exports)
 
 **C locus:** - `ledger_no`: nethack-c/upstream/src/dungeon.c:1376–1379 — `(xint16)(lev->dlevel + svd.dungeons[lev->dnum].ledger_start)`; 50 C refs incl dig.c:823.
