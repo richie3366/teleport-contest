@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3350 `mondata.c` attacktype live-export port + 4-clone removal (artifact/dog/wizard/eat → live js/mondata.js export)
+
+**C locus:** - `attacktype`: nethack-c/upstream/src/mondata.c:54–57 — `attacktype_fordmg(ptr, atyp, AD_ANY) ? TRUE : FALSE` (AD_ANY −1, monattk.h:41). 46 C refs incl artifact.c:1342, dog.c:210/:1277, wizard.c:650/:674, eat.c:1311.
+**JS:** - `attacktype`: js/mondata.js:79 (live, new); import js/mondata.js:53; dependents artifact.js:147, dog.js:58, wizard.js:44, eat.js:75; clones deleted; rewired sites artifact.js:2920, dog.js:267/:702, wizard.js:110/:148, eat.js:2103.
+**Change:** ported `export function attacktype` at C-home js/mondata.js:79 (whole 1-line C body in C order + file-local `AD_ANY = -1`, monattk.h:41 — no js/ exporter exists); new static mondata→uhitm edge (js/mondata.js:53; `imports.mjs --can` SAFE — hoisted fn, uhitm already imports mondata, runtime-only calls) and new static wizard→mondata edge (js/wizard.js:44; hoisted export, both sites read it only inside nasty() bodies, no top-level reads — verify judges TDZ); extended the 3 ALREADY static edges (artifact.js:147, dog.js:58, eat.js:75; `imports.mjs --can` ALREADY); deleted all 4 clones; 6 sites now resolve to the live export with one C-cite comment each (artifact.js:2920, dog.js:267/:702, wizard.js:110/:148, eat.js:2103). Behavior-identical rewire: the live path is the fordmg scan with the dtyp=-1 wildcard always true, i.e. `(aatyp|0)===(atyp|0)` over mattk — identical to the artifact clone and the eat wrapper; the dog/wizard raw-`===` clones differ only on non-int inputs, impossible at these sites (const AT_* args, int mattk).
+**Verify:** - `attacktype`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed) · `node --test scripts/attacktype-rewire.test.mjs` 3/3 pass.
+**Named:** - `attacktype`: none in-body — whole C body live at js/mondata.js:79.
+**Next:** the 5 attacktype refill rows + histemple_at/unique_corpstat/invocation_pos/On_stairs (next iterations).
 ## 2026-10-03 — D-3349 `dungeon.c` Invocation_lev mklev.js + apply.js clone removal (3 sites → live js/dungeon.js export)
 
 **C locus:** - `Invocation_lev`: nethack-c/upstream/src/dungeon.c:2017–2021 — In_hell && dlevel == num_dunlevs-1. 10 C refs: dungeon.c:1653/:2399/:3225, hack.c:984, mkmaze.c:1200/:1211, nhlua.c:2021, wizcmds.c:795, zap.c:3788.

@@ -47,6 +47,10 @@ import {
 } from './mhitm.js';
 import { title_to_mon } from './botl.js';
 import { resists_drli } from './zap.js';
+// C mondata.c attacktype — hoisted fn, cycle-safe (`imports.mjs --can
+// mondata.js uhitm.js attacktype_fordmg`: SAFE; uhitm.js already imports
+// mondata.js, runtime-only calls, no top-level reads either way).
+import { attacktype_fordmg } from './uhitm.js';
 
 const RIN_CONFLICT = objectNames.indexOf('RIN_CONFLICT');
 /** C objects.c ALCHEMY_SMOCK — worn cloak, poison and acid. */
@@ -61,6 +65,19 @@ const MS_BUZZ = 10;
  */
 export function is_silent(ptr) {
     return (ptr?.msound | 0) === MS_SILENT;
+}
+
+/** C monattk.h:41 AD_ANY — fake damage; attacktype_fordmg wildcard. */
+const AD_ANY = -1;
+
+/**
+ * C ref: mondata.c attacktype `:54–57` — attacktype_fordmg(ptr, atyp,
+ * AD_ANY) ? TRUE : FALSE. Canonical home of the C function
+ * (artifact/dog/eat/wizard.js clones removed; engrave/makemon/muse/
+ * polyself/trap.js clones out of cluster).
+ */
+export function attacktype(ptr, atyp) {
+    return attacktype_fordmg(ptr, atyp, AD_ANY) ? true : false;
 }
 
 /* C ref: monattk.h AD_* used by cvt_adtyp_to_mseenres / get_atkdam_type */

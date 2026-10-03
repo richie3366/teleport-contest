@@ -72,7 +72,7 @@ import {
     MR_FIRE, MR_COLD, MR_SLEEP, MR_DISINT, MR_ELEC, MR_POISON, MR_ACID, MR_STONE,
     M1_SEE_INVIS, M2_SHAPESHIFTER, is_were,
 } from './monsters.js';
-import { same_race, cantvomit, defended } from './mondata.js';
+import { same_race, cantvomit, defended, attacktype } from './mondata.js';
 import { were_beastie, set_ulycn, you_unwere } from './were.js';
 import { monflee } from './monmove.js';
 import { rescham } from './mon.js';
@@ -381,13 +381,7 @@ const AT_MAGC = 255;
 const AT_BREA = 12;
 const AD_ACID = 8;
 
-/**
- * C ref: mondata.h attacktype — true if any mattk slot has aatyp.
- * attacktype_fordmg is the live uhitm.js export (mondata.c:42–50).
- */
-function attacktype(ptr, aatyp) {
-    return !!attacktype_fordmg(ptr, aatyp, -1);
-}
+/* C mondata.c attacktype — live mondata.js export (local wrapper removed). */
 
 /** C ref: mondata.h dmgtype — true if any mattk slot has adtyp. */
 function dmgtype(ptr, adtyp) {
@@ -2105,6 +2099,7 @@ async function cpostfx(pm) {
                 0,
             );
         }
+        // C eat.c:1311 — attacktype(ptr, AT_MAGC) || pm == PM_NEWT
         if (attacktype(ptr, AT_MAGC) || (pm | 0) === PM_NEWT) {
             await eye_of_newt_buzz();
         }

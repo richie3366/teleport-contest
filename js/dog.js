@@ -55,7 +55,7 @@ import { redraw_worm, count_wsegs, wormgone, get_wormno, initworm } from './worm
 import { set_residency, make_happy_shoppers, is_fshk, picked_container } from './shk.js';
 import { Is_qstart } from './quest.js';
 import { builds_up } from './hacklib.js';
-import { hero_conflict } from './mondata.js';
+import { hero_conflict, attacktype } from './mondata.js';
 import { cansee } from './vision.js';
 import { night } from './calendar.js';
 import { Tobjnam, the, xname, an } from './objnam.js';
@@ -160,15 +160,7 @@ export function initedog(mtmp, everything) {
     game.u.uconduct.pets = (game.u.uconduct.pets | 0) + 1;
 }
 
-/** C ref: mondata.h attacktype — any mattk slot with aatyp. */
-function attacktype(ptr, aatyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return false;
-    for (let i = 0; i < slots.length; i++) {
-        if (slots[i]?.aatyp === aatyp) return true;
-    }
-    return false;
-}
+/* C mondata.c attacktype — live mondata.js export (local clone removed). */
 
 /** C ref: minion.c free_emin — drop emin and isminion. */
 function free_emin(mtmp) {
@@ -271,6 +263,7 @@ export async function make_familiar(otmp, x, y, quietly) {
     set_malign(mtmp);
     newsym(mtmp.mx, mtmp.my);
 
+    // C dog.c:210 — mtame && attacktype(mtmp->data, AT_WEAP)
     if (mtmp.mtame && attacktype(mtmp.data, AT_WEAP)) {
         mtmp.weapon_check = NEED_HTH_WEAPON;
         await mon_wield_item(mtmp);
@@ -705,6 +698,7 @@ export async function tamedog(mtmp, obj, givemsg = true) {
     newsym(mtmp.mx, mtmp.my);
     // C :1275–1276 — redraw_worm after head newsym (D-1577)
     if (mtmp.wormno) redraw_worm(mtmp);
+    // C dog.c:1277 — attacktype(mtmp->data, AT_WEAP)
     if (attacktype(mtmp.data, AT_WEAP)) {
         mtmp.weapon_check = NEED_HTH_WEAPON;
         await mon_wield_item(mtmp);
