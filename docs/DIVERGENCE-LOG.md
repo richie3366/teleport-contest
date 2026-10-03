@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3376 — `mthrowu.c` m_throw misfire pline + dknown arms, breathwep_name Hallucination arm
+
+- **Status:** shipped (queue head m_throw missing-arm row + same-file breathwep_name residual row checked off + archived; no review cited, no stamp owed). Density exception stated: 2 whole C arms, ~25 js/ insertions — below the ~80 bar, defended (D-3375/D-3374 single-cluster precedent): the head's file mthrowu.c holds nothing more Open (coverage block 0 rows; only these two rows), and every callee (clear_dknown, is_ammo, Monnam, mon_nam, Tobjnam, rnd_hallublast) was already live.
+- **Symptom:** m_throw: no corpus divergence — missing-arm row (0 blocked at baseline). breathwep_name: residual cited 1 block (scen-impaired-Rogue-94110 step 89 kind=rng, C rn2(96) Hallucination arm vs JS rn2(20)) at queue SHA bbe63333a; hidden-proxy reports 0 blocked at HEAD and at --base bbe63333a (owner moved) — REACH-OK is the corpus evidence.
+- **C locus:**
+  - `m_throw`: nethack-c/upstream/src/mthrowu.c:619–620 (`!canseemon(mon)` → clear_dknown(singleobj)) + :622–631 (cursed/greased rn2(7) misfire: canseemon+verbose pline — is_ammo "misfires" else Tobjnam "slips as ... throws it" — then dx/dy rn2(3)-1 re-roll, (0,0) drops at launch). C callers: mthrowu.c:300 + :1055 + muse.c:2020.
+  - `breathwep_name`: nethack-c/upstream/src/mthrowu.c:1083–1089 (staticfn; Hallucination → rnd_hallublast(), else breathwep[BZ_OFS_AD(typ)]). Sole C caller :1121.
+- **JS was:** m_throw js/mthrowu.js:1150 had the re-roll but no misfire pline ("cursed slip rn2(7) deferred unless cursed") and no clear_dknown (D-2399 shipped flight-stop/catch only). breathwep_name js/mthrowu.js:383 returned breathwep[] unconditionally ("Hallucination path deferred").
+- **Fix:** m_throw: `if (!canseemon(mon)) clear_dknown(singleobj)` after owornmask=0 (C `:619–620`; mkobj import extended, edge ALREADY); misfire block now renders the verbose canseemon pline before the re-roll (C `:622–631`; in-file canseemon/Tobjnam clones, Monnam+mon_nam already imported, is_ammo added to the wield import, edge ALREADY; RNG order unchanged — rn2(7) gate then plines then rn2(3)×2). breathwep_name: `if (game.u?.Hallucination) return rnd_hallublast()` (in-file export js/mthrowu.js:167; game.u?.Hallucination idiom per :1405), plain row kept with its index guard.
+- **JS:**
+  - `m_throw`: js/mthrowu.js:1153 (arms :1173–1190; doc :1146–1150).
+  - `breathwep_name`: js/mthrowu.js:383.
+- **Callers:**
+  - `m_throw`: C mthrowu.c:300 → js/mthrowu.js:1495 (monshoot multishot loop); C mthrowu.c:1055 → js/mthrowu.js:431 (spitmm venom throw); C muse.c:2020 → js/muse.js:1125 (use_offensive) — all three pre-wired; new arms execute on every path. No JS site calls from a function C never calls from.
+  - `breathwep_name`: C :1121 → js/mthrowu.js:498 (breammu pline; sole JS caller).
+- **Verify:**
+  - `m_throw`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (45 baseline-PASS sessions reach it, 45 run, 45 PASS, 0 regressed).
+  - `breathwep_name`: hidden note (0 blocked at HEAD and at --base bbe63333a) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn m_throw,breathwep_name` → VERIFY: PASS (syntax 1 file js/mthrowu.js, rule2 PASS, green 2/2, strict 2/2, cohort 7/7).
+- **Named omissions:**
+  - `m_throw`: none remaining — ledger D-2399 omits (misfire pline, clear_dknown) now live.
+  - `breathwep_name`: none — whole C body live (index-guard `|| 'strange breath'` is JS-side, no C path).
+- **Ledger:** m_throw ported; breathwep_name ported
+- **Next:** mthrowu.c holds no further Open rows; no follow-up.
+
 ## D-3375 — `save.c` tricked_fileremoved whole port (vanished-file guard) + goto_level wiring
 
 - **Status:** shipped (queue head `tricked_fileremoved` row checked off + archived; no review cited, no stamp owed). Density exception stated: 1 whole C function, ~40 js/ insertions — below the ~80 bar, defended (D-3371/D-3374 single-cluster precedent): both callees (pline ported, done partial) already live, the same-file unknown `free_dungeons` is FREE_ALL_MEMORY-only (compiled out of the contest build), and the regenerated coverage block holds 0 rows.

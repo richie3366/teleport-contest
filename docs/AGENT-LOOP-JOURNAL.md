@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3376 `mthrowu.c` m_throw misfire pline + dknown arms, breathwep_name Hallucination arm
+
+**C locus:** - `m_throw`: nethack-c/upstream/src/mthrowu.c:619–620 (`!canseemon(mon)` → clear_dknown(singleobj)) + :622–631 (cursed/greased rn2(7) misfire: canseemon+verbose pline — is_ammo "misfires" else Tobjnam "slips as ... throws it" — then dx/dy rn2(3)-1 re-roll, (0,0) drops at launch). C callers: mthrowu.c:300 + :1055 + muse.c:2020.
+**JS:** - `m_throw`: js/mthrowu.js:1153 (arms :1173–1190; doc :1146–1150).
+**Change:** m_throw: `if (!canseemon(mon)) clear_dknown(singleobj)` after owornmask=0 (C `:619–620`; mkobj import extended, edge ALREADY); misfire block now renders the verbose canseemon pline before the re-roll (C `:622–631`; in-file canseemon/Tobjnam clones, Monnam+mon_nam already imported, is_ammo added to the wield import, edge ALREADY; RNG order unchanged — rn2(7) gate then plines then rn2(3)×2). breathwep_name: `if (game.u?.Hallucination) return rnd_hallublast()` (in-file export js/mthrowu.js:167; game.u?.Hallucination idiom per :1405), plain row kept with its index guard.
+**Verify:** - `m_throw`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (45 baseline-PASS sessions reach it, 45 run, 45 PASS, 0 regressed).
+**Named:** - `m_throw`: none remaining — ledger D-2399 omits (misfire pline, clear_dknown) now live.
+**Next:** mthrowu.c holds no further Open rows; no follow-up.
 ## 2026-10-03 — D-3375 `save.c` tricked_fileremoved whole port (vanished-file guard) + goto_level wiring
 
 **C locus:** - `tricked_fileremoved`: nethack-c/upstream/src/save.c:336–347 — `!nhfp` (C `:339`): pline1(whynot) `:340` + pline "Probably someone removed it." `:341` + Strcpy svk.killer.name `:342` + done(TRICKED) `:343`, return TRUE `:344`; live handle returns FALSE `:346`. C callers: savestateinlock save.c:377 + goto_level do.c:1705.
