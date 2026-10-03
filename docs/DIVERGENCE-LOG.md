@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3384 — `after_shk_move` occupancy re-check + all three C callers wired
+
+- **Status:** shipped (queue head missing-arm `shk.c after_shk_move` row checked off + archived in this commit; no review cited, no stamp owed).
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline). When a shopkeeper re-entered its shop after leaving (bill_p==-1000 sentinel from u_left_shop :776), JS reset bill_p but never re-checked the hero's shop occupancy, and the monmove.c postmov caller was unwired (`// after_shk_move deferred`).
+- **C locus:**
+  - `after_shk_move`: nethack-c/upstream/src/shk.c:4997–5008 — bill_p==-1000 && inhishop reset (:5001–5003) + `!program_state.gameover → check_special_room(FALSE)` (:5005–5006).
+- **JS was:** js/shk.js:4971 local sync after_shk_move did the bill_p reset only (occupancy named omit in doc :4969); in-file callers at :4651 (shk_move) and :5001 (home_shk) called it sync; monmove postmov deferred it (:1878).
+- **Fix:** made after_shk_move `export async`, added the gameover-guarded `await check_special_room(false)` in C order after the reset (gameover via `game.program_state?.gameover` per the monmove.js:2746 / hack.js:2151 idiom; FALSE → false; check_special_room added to the existing static hack.js edge — ALREADY per imports.mjs, and hack.js's shk import is lazy so no new cycle). Awaited both in-file callers; exported for monmove. Single-function cluster: same-file/closure holds nothing more Open (ledger top is ≤7-line stubs; only other shk.c gap is 1-line sasc_bug).
+- **JS:**
+  - `after_shk_move`: js/shk.js:4971 (arm + export; check_special_room import :53; shk_move caller :4650; home_shk caller :5005; stale header line removed).
+- **Callers:**
+  - `after_shk_move`: C shk.c:4990 (shk_move `z > 0`) → js/shk.js:4650 awaited; C shk.c:1327 (home_shk tail) → js/shk.js:5005 awaited; C monmove.c:1700–1702 (`if (mtmp->isshk)`) → js/monmove.js:1879–1881 `if (mtmp.isshk) await` (import :90). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn after_shk_move` → syntax 2 files (js/monmove.js js/shk.js) · rule2 · hidden note (0 blocked) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `after_shk_move`: none — whole C body live; all 3 C callers wired.
+- **Ledger:** after_shk_move ported
+- **Next:** queue head moves to the `attrib.c poisoned` arms row.
+
 ## D-3383 — bhit iron-ball stops wired into throwit inline fly (review 2337 C-wrong 1)
 
 - **Status:** shipped (Must-fix review 2337 C-wrong 1; queue row checked off + archived in this commit; review stamped **Addressed:** D-3383).

@@ -92,4 +92,4 @@ smoke bhit: no RNG-tagged reach; fixed smoke spread (24 run, 11.1s): 24 PASS, 0 
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3383
+**Addressed:** D-3383 `2d0bcb9`

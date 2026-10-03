@@ -107,7 +107,7 @@
 {"fn":"repair_damage","c":"4732-4845","status":"ported","js":["js/shk.js:repair_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fix_shop_damage","c":"4850-4874","status":"ported","js":["js/shk.js:fix_shop_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shk_move","c":"4880-4993","status":"partial","js":["js/shk.js:shk_move"],"omit":"`shk_fixes_damage` (`shk.c:4556`, damage-list subsystem — map turns.md shk_move section + file header); `after_shk_move` `check_special_room(FALSE)` occupancy arm (map-named, file header).","d":["D-2560"],"at":"seed@a30a7de84"}
-{"fn":"after_shk_move","c":"4997-5008","status":"partial","js":["js/shk.js:after_shk_move"],"omit":"missing if(!gameover) check_special_room(FALSE) occupancy re-check after bill_p reset","at":"2026-10-03@bbe63333a"}
+{"fn":"after_shk_move","c":"4997-5008","status":"ported","js":["js/shk.js:after_shk_move"],"d":["D-3384"],"at":"2026-10-03@2d0bcb973"}
 {"fn":"is_fshk","c":"5012-5015","status":"ported","js":["js/shk.js:is_fshk"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shopdig","c":"5019-5110","status":"ported","js":["js/shk.js:shopdig"],"d":["D-2308"],"at":"2026-10-03@bbe63333a"}
 {"fn":"makekops","c":"5113-5135","status":"ported","js":["js/shk.js:makekops"],"at":"2026-10-03@bbe63333a"}

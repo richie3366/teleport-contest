@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] bhit iron-ball stops unreachable — C zap.c:4095–4119 (boulder-hit msg + chained-uball test_move halt + Sokoban pit/hole stop, THROWN_WEAPON guard) live only in js/zap.js:6469 bhit, but C dothrow.c:1674 non-tethered throws inline the fly at js/dothrow.js:2444–2482 with no stops, and bhit's only THROWN_WEAPON JS caller is throw_gold (gold otyp, guard dead) — port the three stops into the inline loop in C order (or route non-tether through bhit); ride-along: splash cites `:1786–1794` → `:1793–1801`; do not reflip ledger until a thrown ball observably stops. Source: reviews/loop-unattended/2337-355829ea2-throwit-bhit-landing.md @355829ea2 **Addressed:** D-3383
+- [x] `shk.c` after_shk_move occupancy re-check — C shk.c:5005–5006 (!gameover → check_special_room(FALSE)) absent from js/shk.js:4971 after_shk_move (named omit in doc :4969; bill_p reset only; check_special_room live async js/hack.js:2977 — brief 2026-10-03) @d133940a7 **Addressed:** D-3384
+
+
+- [x] bhit iron-ball stops unreachable — C zap.c:4095–4119 (boulder-hit msg + chained-uball test_move halt + Sokoban pit/hole stop, THROWN_WEAPON guard) live only in js/zap.js:6469 bhit, but C dothrow.c:1674 non-tethered throws inline the fly at js/dothrow.js:2444–2482 with no stops, and bhit's only THROWN_WEAPON JS caller is throw_gold (gold otyp, guard dead) — port the three stops into the inline loop in C order (or route non-tether through bhit); ride-along: splash cites `:1786–1794` → `:1793–1801`; do not reflip ledger until a thrown ball observably stops. Source: reviews/loop-unattended/2337-355829ea2-throwit-bhit-landing.md @355829ea2 **Addressed:** D-3383 `2d0bcb973`
 
 
 - [x] `dothrow.c` throwit shk pick-snatch arm — C dothrow.c:1809–1817 (mon->isshk && is_pick: snatch pline + check_shop_obj + mpickobj + throwit_return) absent from js/dothrow.js:2307 throwit (named omit comment :2568; callee mpickobj live js/makemon.js:2254 — brief 2026-10-03) @30ce39631

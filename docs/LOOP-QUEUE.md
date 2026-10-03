@@ -127,7 +127,6 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
 
-- [ ] `shk.c` after_shk_move occupancy re-check — C shk.c:5005–5006 (!gameover → check_special_room(FALSE)) absent from js/shk.js:4971 after_shk_move (named omit in doc :4969; bill_p reset only; check_special_room live async js/hack.js:2977 — brief 2026-10-03) @d133940a7
 - [ ] `attrib.c` poisoned blast shieldeff + killer-polish + towel-halving arms — C attrib.c:339-340 shieldeff / :346-350 name_to_mon G_UNIQ-the() / :385+389-390 cloud + Half_gas_damage halving absent from js/attrib.js:414 poisoned (:428/:433-439/:470 defer comments — brief 2026-10-03; callees shieldeff js/display.js:4837 + name_to_mon js/mondata.js:881 + Half_gas_damage js/potion.js:2773 live) @e27333c36
 - [ ] `attrib.c` is_innate FROM_FORM arm — C attrib.c:896-898 (BLINDED&&!haseyes / BLND_RES&FROMFORM → FROM_FORM) absent from js/attrib.js:1205 is_innate (falls to FROM_NONE :1219; named omit in doc :1201-1203 — brief 2026-10-03; callee haseyes live js/monsters.js:411) @e27333c36
 - [ ] `invent.c` getobj cmdq HANDS_SYM verdict in getobj_dip — C invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj) absent from js/potion.js:2394 getobj_dip (no cmdq path; sibling getobj_dip_ok :2654 consults cmdq_pop_getobj_key :2454 — read 2026-10-03) @4a4cc3e73
@@ -135,6 +134,7 @@ Must-fix/coverage.
 - [ ] `files.c` rewind_nhfile — C files.c:534–545 absent from js/ (no JS symbol; ledger unknown; structlevel lseek(fd,0,0) vs fieldlevel rewind(fpdef); 4 C refs, sole in-game caller restore.c:891 dorecover unported; 0 C callees — brief 2026-10-03) @c4bd1edaa
 - [ ] `files.c` commit_bonesfile — C files.c:915–937 absent from js/ (no JS symbol; ledger unknown; set_bonesfile_name + fqname×2 + set_bonestemp_name + rename + wizard pline; sole in-game caller bones.c:623 savebones; callees set_bonesfile_name js/bones.js:375 + fqname live, set_bonestemp_name missing, pline async — brief 2026-10-03) @c4bd1edaa
 - [ ] `hack.c` losehp showdamage ×2 + rehumanize arms — C hack.c:4269–4280 (Upolyd/normal showdamage(n) + mh<1 rehumanize) absent from js/hack.js:1881 losehp (sync; doc :1864/:1871–1872 defers both, mh<1 sets gameover :1896–1904; callees showdamage js/hack.js:1874 + rehumanize js/polyself.js:1224 live async — brief 2026-10-03) @787f6ade
+- [ ] `hack.c` check_special_room BARRACKS-abandoned + wake_msg arms — C hack.c:3702–3710 (monstinroom SOLDIER/SERGEANT/LIEUTENANT/CAPTAIN → military else abandoned) / :3773 wake_msg(mtmp,FALSE) absent from js/hack.js:3053 check_special_room (always-military :3054–3055 + sleep-clear-only :3113–3116 defer comments — brief 2026-10-03; callees monstinroom local js/hack.js:2948 + wake_msg js/mon.js:1616 live) @2d0bcb97
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

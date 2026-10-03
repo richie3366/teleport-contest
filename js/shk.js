@@ -30,7 +30,6 @@
 // remaining SetVoice pick_pick / kops / pay-bill;
 // mongone full;
 // mnearto full (door yank uses enexto/rloc; home_shk still coord set);
-// after_shk_move occupancy check_special_room (bill_p==-1000 producer);
 // losedogs make_happy_shoppers; paygd; M1_NOHEAD has_head;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998);
@@ -50,7 +49,7 @@ import { game } from './gstate.js';
 import { rn2, rn1, rnd } from './rng.js';
 import { dist2, highc, online2, upstart, depth, strncmpi } from './hacklib.js';
 import { choose_stairs } from './wizard.js';
-import { in_rooms, stop_occupation, You_hear } from './hack.js';
+import { in_rooms, stop_occupation, You_hear, check_special_room } from './hack.js';
 /* priest.js (same 101-module SCC; hoisted function, call-time use only — imports.mjs IN-SCC, verify judges TDZ). */
 import { histemple_at } from './priest.js';
 import {
@@ -4648,7 +4647,7 @@ export async function shk_move(shkp) {
         shkp, inhishop(shkp), appr, uondoor, avoid, omx, omy, gtx, gty,
     );
     if (z > 0) // :4989
-        after_shk_move(shkp); // :4990 file-local; check_special_room stays map-named
+        await after_shk_move(shkp); // :4990
     return z; // :4992
 }
 
@@ -4965,13 +4964,18 @@ async function rouse_shk(shkp, verbosely) {
 }
 
 /**
- * C ref: shk.c after_shk_move — bill_p==-1000 re-entry reset.
- * Occupancy check_special_room named omit (sentinel producer still unnamed).
+ * C ref: shk.c after_shk_move `:4997–5008` — bill_p==-1000 re-entry reset
+ * plus the occupancy re-check (sentinel producer: u_left_shop `:776`,
+ * js/shk.js u_entered_shop poison arm).
  */
-function after_shk_move(shkp) {
+export async function after_shk_move(shkp) {
     const eshkp = ESHK(shkp);
     if (eshkp?.bill_p === -1000 && inhishop(shkp)) {
+        /* reset bill_p, need to re-calc player's occupancy too */
         eshkp.bill_p = eshkp.bill || [];
+        /* only re-check occupancy if game hasn't just ended */
+        if (!game.program_state?.gameover) // C `:5005–5006`
+            await check_special_room(false);
     }
 }
 
@@ -4998,7 +5002,7 @@ async function home_shk(shkp, killkops) {
         await kops_gone(true);
         pacify_guards();
     }
-    after_shk_move(shkp);
+    await after_shk_move(shkp); // C `:1327`
 }
 
 /** C ref: shk.c costly_adjacent — edge or free spot. */

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3384 `after_shk_move` occupancy re-check + all three C callers wired
+
+**C locus:** - `after_shk_move`: nethack-c/upstream/src/shk.c:4997–5008 — bill_p==-1000 && inhishop reset (:5001–5003) + `!program_state.gameover → check_special_room(FALSE)` (:5005–5006).
+**JS:** - `after_shk_move`: js/shk.js:4971 (arm + export; check_special_room import :53; shk_move caller :4650; home_shk caller :5005; stale header line removed).
+**Change:** made after_shk_move `export async`, added the gameover-guarded `await check_special_room(false)` in C order after the reset (gameover via `game.program_state?.gameover` per the monmove.js:2746 / hack.js:2151 idiom; FALSE → false; check_special_room added to the existing static hack.js edge — ALREADY per imports.mjs, and hack.js's shk import is lazy so no new cycle). Awaited both in-file callers; exported for monmove. Single-function cluster: same-file/closure holds nothing more Open (ledger top is ≤7-line stubs; only other shk.c gap is 1-line sasc_bug).
+**Verify:** `node scripts/verify.mjs --fn after_shk_move` → syntax 2 files (js/monmove.js js/shk.js) · rule2 · hidden note (0 blocked) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** - `after_shk_move`: none — whole C body live; all 3 C callers wired.
+**Next:** queue head moves to the `attrib.c poisoned` arms row.
 ## 2026-10-03 — D-3383 bhit iron-ball stops wired into throwit inline fly (review 2337 C-wrong 1)
 
 **C locus:** - `throwit`: nethack-c/upstream/src/dothrow.c:1674 non-tethered THROWN_WEAPON site (inlined in JS) + nethack-c/upstream/src/zap.c:4095–4119 iron-ball range limit (boulder-hit msg + chained-uball test_move halt + Sokoban pit/hole stop) mirrored into the inline loop in C order.
