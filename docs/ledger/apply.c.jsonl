@@ -58,7 +58,7 @@
 {"fn":"could_pole_mon","c":"3391-3412","status":"ported","js":["js/apply.js:could_pole_mon"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"snickersnee_used_dist_attk","c":"3416-3422","status":"ported","js":["js/apply.js:snickersnee_used_dist_attk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_pole","c":"3426-3563","status":"ported","js":["js/apply.js:use_pole"],"d":["D-2059"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"use_cream_pie","c":"3568-3603","status":"partial","js":["js/apply.js:use_cream_pie"],"omit":"costly_alteration(obj, COST_SPLAT) tail (C:3599-3602, author-deferred): unpaid pie applied in a shop is never billed, no shk verbalize, no bill_dummy_object; JS does freeinv+delobj only.","at":"2026-10-03@bbe63333a"}
+{"fn":"use_cream_pie","c":"3568-3603","status":"ported","js":["js/apply.js:use_cream_pie"],"d":["D-3378"],"at":"2026-10-03@649b09c00"}
 {"fn":"jelly_ok","c":"3607-3613","status":"ported","js":["js/apply.js:jelly_ok"],"d":["D-3268"],"at":"2026-10-02@883b4cc92"}
 {"fn":"use_royal_jelly","c":"3616-3683","status":"ported","js":["js/apply.js:use_royal_jelly"],"d":["D-2331"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: *optr=null writeback unobservable (both callers return immediately)"}
 {"fn":"grapple_range","c":"3686-3698","status":"ported","js":["js/apply.js:grapple_range"],"at":"2026-09-30@990da2b8d","note":"stale: js/apply.js:3900, both C callers wired (:3908, :3961)"}
@@ -70,7 +70,7 @@
 {"fn":"maybe_dunk_boulders","c":"3897-3905","status":"ported","js":["js/dig.js:maybe_dunk_boulders"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_break_wand","c":"3909-4146","status":"ported","js":["js/apply.js:do_break_wand"],"d":["D-2346"],"at":"2026-10-03@bbe63333a"}
 {"fn":"apply_ok","c":"4151-4210","status":"ported","js":["js/apply.js:apply_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doapply","c":"4214-4425","status":"partial","js":["js/apply.js:doapply"],"omit":"case BANANA (C:4402-4407): hallucinated apply prints 'It rings! ... But no-one answers.' and costs a turn; JS has no banana arm and falls through to sorry/no-time.","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: boolean return is the adapted caller interface (cmd.js tookTime); arti tail wired at all artifact-eligible arms"}
+{"fn":"doapply","c":"4214-4425","status":"partial","js":["js/apply.js:doapply"],"omit":"- `use_cream_pie`: none remaining — ledger omit (COST_SPLAT tail) now live.","d":["D-3378"],"at":"2026-10-03@649b09c00","note":"audit 2026-10-03: boolean return is the adapted caller interface (cmd.js tookTime); arti tail wired at all artifact-eligible arms"}
 {"fn":"unfixable_trouble_count","c":"4431-4470","status":"ported","js":["js/apply.js:unfixable_trouble_count"],"at":"2026-10-03@bbe63333a"}
 {"fn":"flip_through_book","c":"4473-4524","status":"ported","js":["js/apply.js:flip_through_book"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"flip_coin","c":"4527-4556","status":"ported","js":["js/apply.js:flip_coin"],"at":"seed@a30a7de84","note":"stale (grouped)"}

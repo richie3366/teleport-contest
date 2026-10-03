@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
-- [x] `artifact.c` glow_color hcolor wrap — C artifact.c:2432 `hcolor(clr2colorname)` absent from js/artifact.js:891 glow_color (returns clr2colorname directly; hcolor live js/do_name.js:347 — brief 2026-10-03) @647728e87 **Addressed:** D-3377
+- [x] `apply.c` use_cream_pie COST_SPLAT bill — C apply.c:3599 costly_alteration(obj, COST_SPLAT) absent from js/apply.js:1142 use_cream_pie (deferred comment; freeinv+delobj only — brief 2026-10-03) @647728e87
+- [x] `apply.c` doapply BANANA arm — C apply.c:4400–4404 (hallu "It rings!" + turn cost) absent from js/apply.js doapply (only GETOBJ_DOWNPLAY :337, no case — brief 2026-10-03) @647728e87
+
+
+- [x] `artifact.c` glow_color hcolor wrap — C artifact.c:2432 `hcolor(clr2colorname)` absent from js/artifact.js:891 glow_color (returns clr2colorname directly; hcolor live js/do_name.js:347 — brief 2026-10-03) @647728e87 **Addressed:** D-3377 `649b09c00`
 
 
 - [x] `mthrowu.c` m_throw misfire + dknown arms — C mthrowu.c:619–620 (clear_dknown when thrower unseen) + :623–629 (cursed/greased rn2(7) misfire pline + dx/dy rn2(3)−1 re-roll) absent from js/mthrowu.js (no clear_dknown/misfires/slips; D-2399 shipped flight-stop/catch only — brief 2026-10-03) @647728e87 **Addressed:** D-3376 `d133940a7`

@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3378 — `apply.c` use_cream_pie COST_SPLAT tail + doapply BANANA arm
+
+- **Status:** shipped (head missing-arm row + same-file BANANA row checked off + archived; no review cited, no stamp owed). Density exception stated: 2 whole C arms, ~15 js/ insertions — below the ~80 bar, defended (D-3375/D-3376/D-3377 single-cluster precedent): the head's file apply.c holds nothing more Open (coverage block 0 rows; only these two queue rows), and every callee (costly_alteration, obj_extract_self, splitobj, pline, Hallucination predicate) was already live.
+- **Symptom:** no corpus divergence — missing-arm rows (0 blocked at baseline each). Unpaid shop pie applied: never billed, no shk verbalize, no bill_dummy_object. Hallucinated banana apply: fell to Sorry/ECMD_FAIL instead of "It rings!" + turn cost.
+- **C locus:**
+  - `use_cream_pie`: nethack-c/upstream/src/apply.c:3568–3603, tail :3599–3602 (`costly_alteration(obj, COST_SPLAT)`; obj_extract_self; delobj; ECMD_OK). Sole C caller :4259 (doapply CREAM_PIE).
+  - `doapply`: nethack-c/upstream/src/apply.c:4400–4406 (case BANANA: Hallucination → pline + break; else FALLTHROUGH to default → Sorry + ECMD_FAIL for non-pole/pick/axe).
+- **JS was:** use_cream_pie js/apply.js:1092 carried "// costly_alteration(COST_SPLAT) deferred" + local freeinv_pie clone (ledger partial omit). doapply had no BANANA arm (only GETOBJ_DOWNPLAY :337), so hallu banana fell to the Sorry default.
+- **Fix:** tail now `await costly_alteration(pie, COST_SPLAT)` in C order after setnotworn (C :3598 comment cited verbatim; import pre-existing js/apply.js:102; COST_SPLAT=12 joins the const edge :34, ALTERATION_VERBS[12]='splatter' js/shk.js:1338); local freeinv_pie deleted, canonical obj_extract_self (pre-imported :74) in C position — INVENT arm + tail ≡ the clone (splice + nobj/nexthere null + where=FREE) plus C's pickup_prev=0; delobj/return unchanged. Non-unpaid invent pie: costly_alteration returns before any message/RNG (js/shk.js:2464-2465), so the common path is behavior-identical. BANANA arm js/apply.js:2789-2793: hallu → exact C string + ECMD_TIME; else falls through the if-chain default (is_pole/is_pick/is_axe all false for food → Sorry + ECMD_FAIL), matching C's FALLTHROUGH. Hallu predicate `game.u?.Hallucination` matches the sibling BANANA downplay :337 and the use_cream_pie facial :1105.
+- **JS:**
+  - `use_cream_pie`: js/apply.js:1084 (doc :1078–1083; tail :1133–1137).
+  - `doapply`: BANANA arm js/apply.js:2789–2793 (in-body; def unchanged).
+- **Callers:**
+  - `use_cream_pie`: C apply.c:4259 → js/apply.js:2592 (doapply CREAM_PIE arm; pre-wired, new tail executes on the path). C staticfn → module-local, sole site. No JS site calls from a function C never calls from.
+  - `doapply`: C cmd.c dispatch → js/cmd.js:5116 (`case 'a'`) + :5686 canned re-apply; both pre-wired, unchanged by the in-body arm.
+- **Verify:**
+  - `use_cream_pie`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `doapply`: hidden note (0 blocked at baseline — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn use_cream_pie,doapply` → VERIFY: PASS (syntax 1 file js/apply.js, rule2 PASS, green 2/2, strict 2/2, cohort 7/7).
+- **Named omissions:**
+  - `use_cream_pie`: none remaining — ledger omit (COST_SPLAT tail) now live. (Pre-existing, out of row scope: can_blnd_cream_self subset, review debt 1563; splitobj-null stack edge in doc note.)
+  - `doapply`: BANANA omit retired; other doapply arms unverified this iteration (ledger stays partial).
+- **Ledger:** use_cream_pie ported; doapply partial
+- **Next:** apply.c holds no further Open rows; no follow-up (next queue row is a different C file, ships as its own cluster).
+
 ## D-3377 — `artifact.c` glow_color hcolor wrap (both C call sites)
 
 - **Status:** shipped (queue head missing-arm row checked off + archived; no review cited, no stamp owed). Density exception stated: whole C body at both call sites, ~8 js/ insertions — below the ~80 bar, defended (D-3375/D-3376 single-cluster precedent): the head's file artifact.c holds nothing more Open (coverage block 0 rows; `ledger.mjs rows` 0 rows; no other artifact.c queue row), and both callees (clr2colorname ported, hcolor split-live js/do_name.js:347) were already live.
