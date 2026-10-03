@@ -1,11 +1,11 @@
 {"fn":"init_symbols","c":"85-92","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"init_showsyms","c":"95-109","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"init_ov_rogue_symbols","c":"113-119","status":"unknown"}
-{"fn":"init_ov_primary_symbols","c":"122-128","status":"unknown"}
+{"fn":"init_ov_rogue_symbols","c":"113-119","status":"ported","js":["js/display.js:init_ov_rogue_symbols"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
+{"fn":"init_ov_primary_symbols","c":"122-128","status":"ported","js":["js/display.js:init_ov_primary_symbols"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
 {"fn":"get_othersym","c":"131-163","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"init_primary_symbols","c":"167-183","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"init_rogue_symbols","c":"187-214","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"assign_graphics","c":"217-250","status":"unknown"}
+{"fn":"assign_graphics","c":"217-250","status":"ported","js":["js/display.js:assign_graphics"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
 {"fn":"switch_symbols","c":"253-292","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"update_ov_primary_symset","c":"295-298","status":"unknown"}
 {"fn":"update_ov_rogue_symset","c":"301-304","status":"unknown"}
@@ -15,13 +15,13 @@
 {"fn":"symset_is_compatible","c":"353-367","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"proc_symset_line","c":"431-434","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"parse_sym_line","c":"438-654","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"set_symhandling","c":"657-669","status":"unknown"}
+{"fn":"set_symhandling","c":"657-669","status":"ported","js":["js/const.js:set_symhandling"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
 {"fn":"load_symset","c":"673-690","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"free_symsets","c":"693-701","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"savedsym_free","c":"712-723","status":"unknown"}
+{"fn":"savedsym_free","c":"712-723","status":"ported","js":["js/options.js:savedsym_free"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
 {"fn":"savedsym_find","c":"726-736","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"savedsym_add","c":"739-754","status":"unknown"}
-{"fn":"savedsym_strbuf","c":"757-769","status":"unknown"}
-{"fn":"parsesymbols","c":"773-849","status":"unknown","d":["D-2551"],"at":"seed@a30a7de84"}
-{"fn":"match_sym","c":"852-901","status":"unknown"}
+{"fn":"savedsym_add","c":"739-754","status":"ported","js":["js/options.js:savedsym_add"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
+{"fn":"savedsym_strbuf","c":"757-769","status":"ported","js":["js/options.js:savedsym_strbuf"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
+{"fn":"parsesymbols","c":"773-849","status":"split","js":["js/options.js:parsesymbols","js/options.js:parsesymbolsSeg"],"d":["D-3364","D-2551"],"at":"2026-10-03@6da1640bc"}
+{"fn":"match_sym","c":"852-901","status":"ported","js":["js/options.js:match_sym"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
 {"fn":"do_symset","c":"909-1099","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

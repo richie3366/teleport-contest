@@ -68,7 +68,7 @@ import {
     pet_to_glyph, detected_mon_to_glyph, mon_to_glyph, monsym, glyph_tty_attr,
     flash_glyph_at, invisible_glyph_cell, memory_glyph_is_invisible,
     cmap_idx_to_glyph, cmap_to_glyph, trap_to_glyph, back_to_glyph,
-    glyph_is_cmap, glyph_is_unexplored, NO_GLYPH,
+    glyph_is_cmap, glyph_is_unexplored, NO_GLYPH, SYM_OFF_X,
 } from './display.js';
 import {
     vision_recalc, couldsee, recalc_block_point, unblock_point, cansee,
@@ -2058,7 +2058,7 @@ export async function object_detect(detector, oclass) {
      * show both possibilities. Buried boulders are excluded below.
      */
     const sym = class_ ? def_oc_syms[class_]?.sym : 0;
-    if (sym && sym === game.gs?.showsyms?.[SYM_BOULDER]) boulder = ROCK_CLASS;
+    if (sym && sym === game.gs?.showsyms?.[SYM_BOULDER + SYM_OFF_X]) boulder = ROCK_CLASS; // C `:629`
 
     let stuff;
     if (Hallucination()
@@ -2705,7 +2705,7 @@ export async function use_crystal_ball(obj) {
 
         const oclass = def_char_to_objclass(ch);
         const mlet = def_char_to_monclass_mlet(ch);
-        const boulderSym = game.gs?.showsyms?.[SYM_BOULDER];
+        const boulderSym = game.gs?.showsyms?.[SYM_BOULDER + SYM_OFF_X]; // C `:1348–1349`
 
         if (def_char_is_furniture(ch) >= 0) {
             ret = await furniture_detect();

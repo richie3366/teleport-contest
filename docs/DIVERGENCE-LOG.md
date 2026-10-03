@@ -1,5 +1,48 @@
 # Divergence log
 
+## D-3364 — `symbols.c` assign_graphics showsyms copy + restore.c:906 wiring + showsyms-reader fixes; 8 symbols.c siblings declared (7 stale, parsesymbols split)
+
+- **Status:** shipped (missing-arm row; checked off + archived in this commit). js/ +98/-24 across 6 files: display.js showsyms copy + default carriers; detect.js +SYM_OFF_X ×2; botl.js gold slot; save.js restore wiring; options.js/wizcmds.js comment updates.
+- **Symptom:** queue row (queued @9dc9139eb): C symbols.c:224–227 + :236–239 showsyms table copy absent from js/display.js:assign_graphics — Rogue↔Primary transitions set currentgraphics/goldsym but never filled game.gs.showsyms, while detect.js/botl.js/wizcmds.js/options.js already read that table (two detect.js reads used the wrong slot, masked while the table was null).
+- **C locus:**
+  - `assign_graphics`: nethack-c/upstream/src/symbols.c:217–250 — ROGUESET :224–227 (ov_rogue ? ov : gr.rogue), PRIMARYSET/default :236–239 (ov_primary ? ov : gp.primary), MSDOS/TILES arms compiled out, reset_glyphmap :249 (by-design). Defaults per init_primary_symbols :167–183 + init_rogue_symbols :187–214 (both by-design; values sourced from live carriers and verified against C headers — see Verify).
+  - `init_ov_rogue_symbols`: symbols.c:113–119 — zero go.ov_rogue_syms (whole body live).
+  - `init_ov_primary_symbols`: symbols.c:122–128 — zero go.ov_primary_syms (whole body live).
+  - `set_symhandling`: symbols.c:657–669 — H_UNK default + known_handling strcmpi scan (whole body live).
+  - `savedsym_free`: symbols.c:712–723 — free saved_symbols chain (GC equivalent live).
+  - `savedsym_add`: symbols.c:739–754 — staticfn upsert, prepend new nodes (live local; savedsym_find :726–737 inlined, by-design).
+  - `savedsym_strbuf`: symbols.c:757–769 — [ROGUE]SYMBOLS=name:val per node (whole body live).
+  - `match_sym`: symbols.c:852–901 — G_ reject, :/= cut, loadsyms + alternates resolve (whole body live; `len>=strlen`+strncmpi ≡ len===name exact hit).
+  - `parsesymbols`: symbols.c:773–849 — comma/colon scan, recursion, match_sym/G_ arms, UTF8/sym_val arms, savedsym_add (whole body live, split across export + parsesymbolsSeg).
+- **JS was:** assign_graphics set game.currentgraphics + symset/nocolor + _goldsym only; detect.js read showsyms[SYM_BOULDER] (slot 2 = S_hwall) where C reads +SYM_OFF_X; botl.js read showsyms[0] (S_stone) where C reads the gold slot; save.js try_restore_save had no restore.c:906 call.
+- **Fix:** js/display.js — new showsyms_defaults(set): P from generated DEFSYMS (+ rogue +/% overrides, C :196–198), O from local DEF_OC_SYM (+ rogue armor/amulet/food/gold overrides per drawing.c def_r_oc_syms :72–82), M from the defsym.h MONSYM(1..60) letter row ([0] placeholder), W from live def_warnsyms.ch, X from the get_othersym :146–160 switch values (' ',' ','`','I',0,0); assign_graphics copies ov[i] ? ov[i] : default into game.gs.showsyms (C :224–239). SYM_OFF_O/M/W defined next to SYM_OFF_X (O exported for botl). detect.js: both boulder reads gain + SYM_OFF_X (C detect.c:629/:1348–1349). botl.js: goldsym reads COIN_CLASS + SYM_OFF_O (C :1579). save.js: `if (Is_rogue_level(game.u?.uz)) assign_graphics(ROGUESET)` after level install (C restore.c:905–906, before the :910+ ball&chain walk). All touched import edges pre-existed except the generated-defsyms leaf (precedent: the monsters_data import two lines above); no imports.mjs --can needed.
+- **JS:** js/display.js:3157 assign_graphics (+ showsyms_defaults :3126, DEF_MONSYM_CH/DEF_X_SYM :3104–3118, SYM_OFF_O :4020); js/detect.js:2061/:2708; js/botl.js:1006; js/save.js:947.
+- **Callers** (brief's 7 C refs):
+  - `assign_graphics`: do.c:1667 → js/do.js:1913 (gated re-copy, idempotent); options.c:1945 → js/options.js:7968; options.c:3566 → js/options.js:3585; restore.c:906 → js/save.js:947 (wired this iter); symbols.c:1092/1094 → named omit (inside by-design do_symset); symbols.c:59 comment, not a call.
+  - `init_ov_rogue_symbols`: options.c:7197 + init_symbols :88 → live export, no new caller (by-design init path).
+  - `init_ov_primary_symbols`: same init path → live export, no new caller.
+  - `set_symhandling`: symbols.c:590 (inside by-design parse_sym_line) → live export, caller unported (named).
+  - `savedsym_free`: save.c:1088 → live export, caller unwired (named).
+  - `savedsym_add`: symbols.c:847 (parsesymbols) → live local, wired at js/options.js:12810.
+  - `savedsym_strbuf`: options.c:9735 → live export; caller-side all_options_strbuf arms pre-existing (D-2544).
+  - `match_sym`: symbols.c:483 (by-design parse_sym_line, named) + symbols.c:823 → wired at js/options.js:12790.
+  - `parsesymbols`: cfgfiles.c:1193/1204, options.c:663, self :806 → live export; cfg/options callers pre-existing, recursion at js/options.js:12771.
+- **Verify:**
+  - `assign_graphics`: `verify.mjs --fn` → hidden note (no corpus session blocked — coverage row) + REACH-OK (smoke spread 24/24) · syntax · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. C-oracle probes (/tmp/showsyms-smoke.mjs, /tmp/showsyms-ccheck.mjs): 196 slots incl. rogue +/% stairs/doors, O overrides, ov-wins, primary↔rogue round-trip; M60 + RO18 + PO18 byte-equal to defsym.h/drawing.c parses through the live code path (DEF_INVISIBLE='I' preprocessor-measured from the MONSYM(35) enum; coin = OBJCLASS2 row).
+  - `init_ov_rogue_symbols` … `parsesymbols`: same verify run → hidden note + REACH-OK each (8× smoke spread 24/24), no js/ touched (stale/split declares).
+- **Named omissions:**
+  - `assign_graphics`: :249 reset_glyphmap(gm_symchange) → by-design (fortress guard; queue row excludes it); X-range read-through of live get_othersym → by-design (init-time switch values ported as data, function + options.c:1219/7343 callers stay out); symbols.c:1092/1094 caller (by-design do_symset); const gp/gr stay null (init_* by-design — defaults sourced from live carriers).
+  - `init_ov_rogue_symbols`: none in-body — whole C body live at js/display.js:4050.
+  - `init_ov_primary_symbols`: none in-body — whole C body live at js/display.js:4046.
+  - `set_symhandling`: none in-body — whole C body live at js/const.js:2919.
+  - `savedsym_free`: none in-body — whole C body live at js/options.js:12724.
+  - `savedsym_add`: none in-body — whole C body live at js/options.js:12734 (local, C staticfn).
+  - `savedsym_strbuf`: none in-body — whole C body live at js/options.js:12527.
+  - `match_sym`: none in-body — whole C body live at js/options.js:12682.
+  - `parsesymbols`: none in-body — whole C body live split at js/options.js:12825 + js/options.js:12750.
+- **Ledger:** assign_graphics ported; init_ov_rogue_symbols ported; init_ov_primary_symbols ported; set_symhandling ported; savedsym_free ported; savedsym_add ported; savedsym_strbuf ported; match_sym ported; parsesymbols split js=options.js:parsesymbols+options.js:parsesymbolsSeg
+- **Next:** coverage block regenerates via finish (rows --write); symbols.c unknown remainder is update_ov_primary_symset/update_ov_rogue_symset/update_primary_symset/update_rogue_symset (all C1 ok) + by-design inits.
+
 ## D-3363 — `drawing.c` def_char_is_furniture whole port (generated defsyms + new js/drawing.js) + `detect.c` reveal_terrain_getglyph id arms (scen-terrain-Tourist-94120 → PASS)
 
 - **Status:** shipped (missing-arm row + its corpus session; row checked off + archived in this commit). js/ +~210 (new js/drawing.js + js/generated/defsyms_data.js; detect.js clone → live import; 4 one-line reveal arms) + scripts/extract-defsyms.py + 2 maintained tests (6/6). Bundled stale: def_char_to_objclass → ported (ledger set this session, js/objects.js:109 sync).

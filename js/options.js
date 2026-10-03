@@ -8983,8 +8983,9 @@ export function initoptions() {
  * C options.c initoptions_finish `:7323–7384` — post-config pass.
  * Sole live C caller is initoptions `:7114` (options.c:1216 cites it
  * in a comment); wired there. Named omits: the `:7343–7347` boulder
- * showsyms write (get_othersym by-design; showsyms has no JS home) and
- * `:7349` reset_glyphmap(gm_optionchange) (by-design, CURRENT.md
+ * showsyms write (get_othersym by-design; the table itself is live at
+ * game.gs.showsyms via display.js assign_graphics) and `:7349`
+ * reset_glyphmap(gm_optionchange) (by-design, CURRENT.md
  * Do-not fortress guard).
  */
 export function initoptions_finish() {

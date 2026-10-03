@@ -126,7 +126,6 @@ refill authorization: each row's evidence is a `brief.mjs` output read at
 enqueue (C body + call sites + JS status), never a map/debt/TOP30 line.
 Pop order: first unchecked here after Must-fix/coverage.
 
-- [ ] `symbols.c` assign_graphics — C symbols.c:224–227 + :236–239 showsyms table copy absent from js/display.js:assign_graphics (brief 2026-10-03; reset_glyphmap :249 guarded per NOTES, excluded) @9dc9139eb
 - [ ] `windows.c` choose_classes_menu — C windows.c:1665–1675 category=0 (monclass) arm + generic prompt/way params absent from js/options.js:5557 local (autopickup-only reimplementation; C extern unexported; brief 2026-10-03) @9dc9139eb
 - [ ] `mkobj.c` set_corpsenm — absent from js/ (no JS symbol; seed-declared ported, location unresolved); C mkobj.c:1317–1367 egg-timer/oeaten/corpsenm/timeout/weight arms, all 8 callees live (brief 2026-10-03; 23 C call sites) @9dc9139eb
 

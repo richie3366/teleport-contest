@@ -13,14 +13,14 @@ import { getnow, time_from_yyyymmddhhmmss, yyyymmddhhmmss } from './calendar.js'
 import { timet_delta } from './allmain.js';
 import { vfsReadFile, vfsWriteFile, vfsDeleteFile } from './storage.js';
 import { yn_function } from './getline.js';
-import { pline, docrt, getmsghistory, putmsghistory } from './display.js';
+import { pline, docrt, getmsghistory, putmsghistory, assign_graphics } from './display.js';
 import { gamelog_add } from './pline.js';
 import { change_luck } from './attrib.js';
 import {
     FULL_MOON, OBJ_INVENT, OBJ_CONTAINED, OBJ_MIGRATING,
     ECMD_OK, BUFSZ, VISITED, LFILE_EXISTS, REST_CURRENT_LEVEL,
     W_WEP, W_SWAPWEP, W_QUIVER, PL_NSIZ,
-    WRITING, FREEING, NHF_SAVEFILE,
+    WRITING, FREEING, NHF_SAVEFILE, Is_rogue_level, ROGUESET,
 } from './const.js';
 import { objects_globals_init, objectNames } from './objects.js';
 import { savenames, restnames } from './o_init.js';
@@ -944,6 +944,9 @@ export async function try_restore_save() {
     // load_mapseen (dungeon.c :251–262 / :2752). After branches.
     restore_mapseenchn(payload);
     rebuildObjectsAt(info.fobj);
+    // C restore.c restgamestate `:905–906` — a Rogue-level save restores
+    // Rogue graphics (before the `:910+` ball&chain walk below).
+    if (Is_rogue_level(game.u?.uz)) assign_graphics(ROGUESET);
 
     // C restgamestate `:687–699` after invent.
     restWornFromInvent(invent);
