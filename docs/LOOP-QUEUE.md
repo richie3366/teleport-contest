@@ -97,7 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `files.c` recover_savefile compiled-out port — C files.c:2864–3082 under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined; sole caller sys/unix/unixunix.c:216–219 inside the same ifdef) shipped live + flipped ported instead of by-design (RUNBOOK §4; Placebc/adjust_prefix/CHANGE_COLOR precedent); fix: ledger by-design + delete dead JS (recover + recover-only sfo_int/sfvalue_int, no callers) + verify incl. full — brief 2344. Source: reviews/loop-unattended/2344-d6a4a5312-recover-scope.md
 - [ ] `monmove.c` postmov after_shk_move MOVED|DONE guard — C monmove.c:1700–1702 inside `:1660 if (mmoved == MMOVE_MOVED || MMOVE_DONE)` absent from js/monmove.js:1878–1881 (fires on MMOVE_NOTHING entries via :2355; resets bill_p + rechecks occupancy where C holds the sentinel; fix: guard the new call only, not the pre-existing tail — brief 2339). Source: reviews/loop-unattended/2339-bec62f3b9-after-shk-move-guard.md
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner

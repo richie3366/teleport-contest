@@ -61,7 +61,7 @@
 {"fn":"check_recordfile","c":"2689-2791","status":"unknown"}
 {"fn":"paniclog","c":"2801-2833","status":"by-design","at":"seed@a30a7de84","note":"seed: filesystem (CURRENT.md Do not)"}
 {"fn":"testinglog","c":"2836-2854","status":"unknown"}
-{"fn":"recover_savefile","c":"2865-3082","status":"ported","js":["js/files.js:recover_savefile"],"d":["D-3389"],"at":"2026-10-03@14e98dbc1"}
+{"fn":"recover_savefile","c":"2865-3082","status":"by-design","d":["D-3391","D-3389"],"at":"2026-10-03@30e2f33ce","note":"compiled out: files.c:2858 #ifdef SELF_RECOVER, unixconf.h:126 leaves it undefined; sole caller sys/unix/unixunix.c:216-219 inside same ifdef; JS deleted (review 2344)"}
 {"fn":"do_deferred_showpaths","c":"3090-3114","status":"partial","js":["js/files.js:do_deferred_showpaths"],"d":["D-3117"],"at":"2026-09-29@c21da30e8"}
 {"fn":"debugcore","c":"3126-3166","status":"ported","js":["js/files.js:debugcore"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reveal_paths","c":"3175-3413","status":"unknown"}

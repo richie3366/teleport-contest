@@ -29,7 +29,7 @@ import { PM_CLERIC, NUMMONS } from './generated/monsters_data.js';
 import { NUM_OBJECTS } from './generated/objects_data.js';
 import { NROFARTIFACTS } from './generated/artifacts_data.js';
 import {
-    BUFSZ, PL_NSIZ_PLUS, MIGR_NOBREAK, MIGR_NOSCATTER, MIGR_WITH_HERO, WIZKIT_MAX,
+    BUFSZ, MIGR_NOBREAK, MIGR_NOSCATTER, MIGR_WITH_HERO, WIZKIT_MAX,
     LFILE_EXISTS, NHF_LEVELFILE, NHF_SAVEFILE, NHF_BONESFILE, READING, WRITING, FREEING,
     COUNTING, LEVELPREFIX, SAVEPREFIX, BONESPREFIX,
     PREFIX_COUNT, FQN_MAX_FILENAME, SF_UPTODATE, SF_OUTDATED,
@@ -701,7 +701,8 @@ export function free_nhfile(nhfp) {
  * dosave0 tail; files.c:1282 → restore_saved_game below (in-cluster).
  * Named: bones.c savebones/getbones (VFS splits, no NHFILE), unported
  * dorecover/restlevelfile/savestateinlock/
- * plname_from_file/check_panic_save (recover_savefile is live below),
+ * plname_from_file/check_panic_save (recover_savefile is compiled out —
+ * by-design, SELF_RECOVER undefined in unixconf.h:126),
  * INSURANCE save_currentstate (inline
  * record, do.js:1619 doc), FREE_ALL_MEMORY free_dungeons, unix-only
  * freedynamicdata (no JS counterpart), makemap_prepost freeing arm
@@ -845,7 +846,7 @@ export function set_levelfile_name(file, lev) {
  * `delete_levelfile` above — nothing else deletes). The handle keeps
  * C's field values in C order; `fd` carries the level number as an
  * opaque success token (C callers only lseek/copy it in the
- * `recover_savefile` path — live below, those arms named there).
+ * compiled-out `recover_savefile` path — by-design, never scored).
  * `errbuf` is the C `char errbuf[]`: a `{ s }` holder or null
  * (`read_tribute` nowin_buf convention; files.c:3035 passes NULL).
  * @param {number} lev
@@ -1182,7 +1183,7 @@ export function compress_bonesfile() {
  * (platform; no POSIX creat under VFS); VMS chown (platform);
  * SAVEFILE_DEBUGGING fplog (compiled out, savefile.h:8).
  * dosave0 (save.c:128) keeps its inline handle (save.js:628 doc, fd 0 —
- * same token); files.c:2975 recover_savefile is live below.
+ * same token); files.c:2975 recover_savefile is compiled out (by-design).
  * @returns {object|null}
  */
 export function create_savefile() {
@@ -1269,7 +1270,7 @@ export function open_savefile() {
  * (util/sfctool.c:667 carries a tool-build stub of the same name —
  * not the game, named not ported.)
  * Callers: save.c:131/:205 dosave0 (HUP arms named, save.js:573 doc),
- * files.c recover_savefile (live below); restore.c:819/:904 dorecover,
+ * files.c recover_savefile (compiled out — by-design); restore.c:819/:904 dorecover,
  * sfstruct.c:585 (both unported — ship with those functions),
  * unixmain.c:269 (not scored).
  * @returns {number}
@@ -1411,258 +1412,6 @@ export async function restore_saved_game() {
         }
     }
     return nhfp; // `:1286`
-}
-
-/**
- * C ref: files.c recover_savefile `:2864–3082` (`#ifdef SELF_RECOVER`,
- * files.c:2858 — compiled out: unixconf.h:126 leaves SELF_RECOVER
- * undefined, so the contest binary and the recorder never execute it;
- * sole C caller sys/unix/unixunix.c:219 is unscored platform code).
- * Whole body in C order: processed init, level-0 open, short-file arm,
- * header reads, in_self_recover + savefile create + current-level open,
- * store_version, plname Sfo pair, level copies, erase loop, cleanup.
- * Rule #2 analogues: open/create/close/delete/store_version/
- * set_*_name/fqname/raw_printf are the live exports; `access(F_OK)` is
- * the open_savefile VFS-read probe; the erase-loop `unlink` drops the
- * level stash slot (delete_levelfile precedent, inlined — C calls
- * unlink here, not delete_levelfile). Named omits: `lseek`/`read`/
- * `write` byte content (fds are level/save tokens — positionless, no
- * byte stream under VFS, rewind_nhfile precedent), so `filesz` is 0 and
- * every content read yields 0 bytes: the short-file arm always applies
- * and the header-error arms fire past it; `bufoff`/`bufon` +
- * `copy_bytes` (by-design fd buffering/copy); `savewrite_failure` stays
- * null exactly like C (assigned 0, never otherwise), so the three
- * `goto cleanup` checks never fire and the label tail runs live.
- * @returns {boolean}
- */
-export function recover_savefile() {
-    let savelev = 0; // `:2868`
-    let pltmpsiz = 0; // `:2869`
-    const cscount = get_critical_size_count(); // `:2869`
-    /* C `:2870` xint8 levc — bound at its `:3038` use. */
-    /* hpid/savename/indicator/version_data feed only their `:2918–2944`
-       reads (named omits below) — no bindings. */
-    const processed = new Array(256).fill(0); // `:2872` + `:2878–2879`
-    const errbuf = { s: '' }; // `:2873` char errbuf[BUFSZ] ({ s } holder)
-    let file_cscount = 0; // `:2873` (read at `:2939`, gated at `:2941`)
-    let tmpplbuf = ''; // `:2874` (read at `:2948`, Sfo at `:3006`)
-    let savewrite_failure = null; // `:2875` (const char *) 0
-    let lnhfp = null; // `:2867` (assigned at `:2982` + `:3035`)
-
-    /* C `:2881–2887` level-0 layout comment — kept at the open. */
-    const gnhfp = open_levelfile(0, errbuf); // `:2889`
-    if (!gnhfp) { // `:2890`
-        raw_printf('%s\n', errbuf.s); // `:2891`
-        return false; // `:2892`
-    }
-    /* C `:2894` filesz = lseek(fd, 0, SEEK_END) — named omit: fd is a
-       level token (open_levelfile), no byte stream; size reads 0. */
-    const filesz = 0;
-    /* C `:2895` (void) lseek(fd, 0, SEEK_SET) — structural no-op
-       (rewind_nhfile precedent: tokens are positionless). */
-    /* C `:2896–2901` sizeof sum: int(4) + int(4) + SAVESIZE(53) +
-       char(1) + char(1) + version_info 3 LP64 longs(24) + int(4)
-       (SAVESIZE = 32 + 12 + 1 + 8, fnamesiz.h UNIX; sfo_version_info
-       24-byte precedent). */
-    if (filesz < (4 + 4 + 53 + 1 + 1 + 24 + 4)) { // `:2896`
-        /* C `:2904–2907` partial-recover .0 comment. */
-        set_savefile_name(1); // `:2908` C TRUE (restore_saved_game precedent)
-        const fq_save = fqname(game.SAVEF, SAVEPREFIX, 0); // `:2909`
-        if (vfsReadFile(fq_save) != null) { // `:2910` access(F_OK) == 0
-            close_nhfile(gnhfp); // `:2911`
-            delete_levelfile(0); // `:2912`
-            return true; // `:2913`
-        } else {
-            /* C `:2914–2916` savefile doesn't exist, so fall through */
-        }
-    }
-    /* C `:2918` read(fd, &hpid, 4) — named omit (no byte stream);
-       0 bytes, so the `!=` arm below always fires. */
-    const hpid_n = 0;
-    if (hpid_n !== 4) { // `:2918` != sizeof hpid
-        raw_printf('\n%s\n%s\n', // `:2919–2922`
-            'Checkpoint data incompletely written or subsequently clobbered.',
-            'Recovery impossible.');
-        close_nhfile(gnhfp); // `:2923`
-        return false; // `:2924`
-    }
-    /* C `:2926` read(fd, &savelev, 4) — named omit; 0 bytes. */
-    const savelev_n = 0;
-    if (savelev_n !== 4) { // `:2926–2927` != sizeof(savelev)
-        raw_printf('\n%s %s %s\n', // `:2928–2931`
-            'Checkpointing was not in effect for',
-            game.lock ?? '',
-            '-- recovery impossible.');
-        close_nhfile(gnhfp); // `:2932`
-        return false; // `:2933`
-    }
-    /* C `:2935–2948` header reads — named omits (no byte stream);
-       0 bytes each, so the first disjunct below always fires. */
-    const savename_n = 0; // `:2935` read(fd, savename, SAVESIZE)
-    const indicator_n = 0; // `:2937` read(fd, &indicator, 1)
-    const file_cscount_n = 0; // `:2939` read(fd, &file_cscount, 1)
-    const cscbuf_n = 0; // `:2942` read(fd, &cscbuf, file_cscount) (CSCBUF untouched)
-    const version_n = 0; // `:2944` read(fd, &version_data, 24)
-    const pltmpsiz_n = 0; // `:2946` read(fd, &pltmpsiz, 4)
-    const tmpplbuf_n = 0; // `:2948` read(fd, tmpplbuf, pltmpsiz)
-    if ((savename_n !== 53) // `:2935–2936` != sizeof savename
-        || (indicator_n !== 1) // `:2937–2938` != sizeof indicator
-        || (file_cscount_n !== 1) // `:2939–2940` != sizeof file_cscount
-        || (file_cscount <= cscount // `:2941`
-            && cscbuf_n !== file_cscount) // `:2942–2943` != file_cscount
-        || (version_n !== 24) // `:2944–2945` != sizeof version_data
-        || (pltmpsiz_n !== 4) // `:2946–2947` != sizeof pltmpsiz
-        || (pltmpsiz > PL_NSIZ_PLUS) // `:2947`
-        || (tmpplbuf_n !== pltmpsiz)) { // `:2948–2949` != pltmpsiz
-        raw_printf('\nError reading %s -- can\'t recover.\n', // `:2950`
-            game.lock ?? '');
-        close_nhfile(gnhfp); // `:2951`
-        return false; // `:2952`
-    }
-
-    /* C `:2955–2965` save-file layout comment. */
-    /* C `:2967–2972` in_self_recover flag comment. */
-    const ps = game.program_state || (game.program_state = {});
-    ps.in_self_recover = true; // `:2973`
-    set_savefile_name(1); // `:2974` C TRUE
-    const snhfp = create_savefile(); // `:2975`
-    if (!snhfp) { // `:2976`
-        raw_printf('\nCannot recover savefile %s.\n', game.SAVEF ?? ''); // `:2977`
-        close_nhfile(gnhfp); // `:2978`
-        return false; // `:2979`
-    }
-
-    lnhfp = open_levelfile(savelev, errbuf); // `:2982`
-    if (!lnhfp) { // `:2983`
-        raw_printf('\n%s\n', errbuf.s); // `:2984`
-        close_nhfile(gnhfp); // `:2985`
-        close_nhfile(snhfp); // `:2986`
-        delete_savefile(); // `:2987`
-        return false; // `:2988`
-    }
-
-    store_version(snhfp); // `:2991`
-
-    /* C `:2993–2994` if (savewrite_failure) goto cleanup — never fires:
-       savewrite_failure is null (C assigns 0, never otherwise). */
-    if (savewrite_failure) { /* goto cleanup — unreachable */
-    }
-
-    if (snhfp.structlevel) { // `:2996`
-        /* C `:2997` bufoff(snhfp->fd) — by-design (sfstruct.c buffering). */
-    }
-
-    /* C `:2999–3000` big-endian TODO — comment only. */
-    sfo_int(snhfp, pltmpsiz, 'plname-size'); // `:3001` Sfo_int
-    savewrite_failure = null; // `:3002`
-    /* C `:3003–3004` goto cleanup — never fires (above). */
-    if (savewrite_failure) { /* goto cleanup — unreachable */
-    }
-
-    sfo_char(snhfp, tmpplbuf, 'plname', pltmpsiz); // `:3006` Sfo_char
-    savewrite_failure = null; // `:3007`
-    /* C `:3008–3009` goto cleanup — never fires (above). */
-    if (savewrite_failure) { /* goto cleanup — unreachable */
-    }
-
-    /* C `:3011` copy_bytes — by-design (Rule #2 raw-fd copy); with no
-       byte stream the copy cannot succeed. */
-    const copy_cur_ok = false;
-    if (!copy_cur_ok) { // `:3011` !copy_bytes(lnhfp->fd, snhfp->fd)
-        close_nhfile(gnhfp); // `:3012`
-        close_nhfile(snhfp); // `:3013`
-        close_nhfile(lnhfp); // `:3014`
-        delete_savefile(); // `:3015`
-        return false; // `:3016`
-    }
-    close_nhfile(lnhfp); // `:3018`
-    processed[savelev] = 1; // `:3019`
-
-    /* C `:3021` copy_bytes — by-design (above); cannot succeed. */
-    const copy_game_ok = false;
-    if (!copy_game_ok) { // `:3021` !copy_bytes(gnhfp->fd, snhfp->fd)
-        close_nhfile(gnhfp); // `:3022`
-        close_nhfile(snhfp); // `:3023`
-        delete_savefile(); // `:3024`
-        return false; // `:3025`
-    }
-    close_nhfile(gnhfp); // `:3027`
-    processed[0] = 1; // `:3028`
-
-    for (let lev = 1; lev < 256; lev++) { // `:3030`
-        /* C `:3031–3033` xint8 level-number comment. */
-        if (lev !== savelev) { // `:3034`
-            lnhfp = open_levelfile(lev, null); // `:3035` (char *) 0
-            if (lnhfp) { // `:3036`
-                /* C `:3037` any or all of these may not exist */
-                const levc = ((lev << 24) >> 24); // `:3038` (xint8) lev
-                /* C `:3039` (void) write(snhfp->fd, &levc, 1) — named
-                   omit (no byte stream); levc computed live above. */
-                void levc;
-                /* C `:3040` copy_bytes — by-design (above). */
-                const copy_ok = false;
-                if (!copy_ok) { // `:3040`
-                    close_nhfile(lnhfp); // `:3041`
-                    close_nhfile(snhfp); // `:3042`
-                    delete_savefile(); // `:3043`
-                    return false; // `:3044`
-                }
-                close_nhfile(lnhfp); // `:3046`
-                processed[lev] = 1; // `:3047`
-            }
-        }
-    }
-    if (snhfp.structlevel) { // `:3051`
-        /* C `:3052` bufon(snhfp->fd) — by-design (sfstruct.c buffering). */
-    }
-    close_nhfile(snhfp); // `:3053`
-    /* C `:3054–3057` successful-savefile comment. */
-    for (let lev = 0; lev < 256; lev++) { // `:3058`
-        if (processed[lev]) { // `:3059`
-            /* C `:3062` set_levelfile_name(gl.lock, lev) mutates gl.lock;
-               JS stores the return (open_levelfile precedent). */
-            game.lock = set_levelfile_name(game.lock ?? '', lev); // `:3062`
-            const fq_lock = fqname(game.lock, LEVELPREFIX, 3); // `:3063`
-            void fq_lock;
-            /* C `:3064` (void) unlink(fq_lock) — VFS analogue: drop the
-               level stash slot (delete_levelfile precedent, inlined: C
-               calls unlink here, not delete_levelfile). */
-            const info = game.level_info?.[lev];
-            if (info) {
-                info.flags = (info.flags | 0) & ~LFILE_EXISTS;
-                info.level = null;
-                info.fmon = null;
-                info.fobj = null;
-                info.ftrap = null;
-                info.stairs = null;
-                info.head_engr = null;
-                info.track = null;
-                info.regions = null;
-                info.exclusion_zones = null;
-                info.lastseentyp = null;
-                info.timers = null;
-                info.lights = null;
-                info.billobjs = null;
-                info.damagelist = null;
-                info.updest = null;
-                info.dndest = null;
-            }
-        }
-    }
-    /* C `:3067` cleanup: — the three gotos never fire
-       (savewrite_failure stays null), so control falls through. */
-    if (savewrite_failure) { // `:3068`
-        raw_printf('\nError writing %s; recovery failed (%s).\n', // `:3069–3070`
-            game.SAVEF ?? '', savewrite_failure);
-        close_nhfile(gnhfp); // `:3071`
-        close_nhfile(snhfp); // `:3072`
-        close_nhfile(lnhfp); // `:3073`
-        ps.in_self_recover = false; // `:3074`
-        delete_savefile(); // `:3075`
-        return false; // `:3076`
-    }
-    /* C `:3078–3080` — in_self_recover stays set for the caller. */
-    return true; // `:3081`
 }
 
 // ---------------------------------------------------------------------------
@@ -1909,36 +1658,6 @@ export function sfo_uchar(nhfp, d_uchar, myname) {
 }
 
 /**
- * C ref: sfbase.c `SF_A(int)` `:119–133` `sfo_int` (macro-generated via
- * sfmacros.h `SF_A(int)` — not a pinned-C function; helper of the sfo
- * family). Same dispatch as `sfo_char` above: fplog arm (`:122–123`,
- * `sizeof(int)` 4 — LP64 `int`, CRITICAL_SIZES row), structlevel
- * `sfoprocs[fnidx]` (`:124–125`; historical stores the int in the sf
- * bag, sfo_version_info precedent), fieldlevel fplog save/fiddle/
- * restore around the null proc (`:126–132`, sf_init leaves zero).
- * @param {object} nhfp
- * @param {number} d_int
- * @param {string} myname
- */
-export function sfo_int(nhfp, d_int, myname) {
-    const v = d_int | 0;
-    if (nhfp.fplog) { // `:122`
-        sf_log(nhfp, myname, 4, 1, sfvalue_int(v)); // `:122–123`
-    }
-    if (nhfp.structlevel) { // `:124`
-        if ((nhfp.fnidx | 0) === FNIDX_HISTORICAL) { // `:125`
-            sfBag(nhfp)[myname] = v;
-        }
-        /* other fnidx: sfoprocs slot is zerosfoprocs — no writer. */
-    } else { // `:126`
-        const saveFplog = nhfp.fplog; // `:127`
-        nhfp.fplog = null; // `:129`
-        /* C `:130` (*sfoflprocs[fnidx].fn_x.sf_int) — null proc. */
-        nhfp.fplog = saveFplog; // `:131`
-    }
-}
-
-/**
  * C ref: sfbase.c sfo_version_info `:330–346`. Historical stores the
  * three `unsigned long` fields (`global.h:348–352`). Fieldlevel
  * `exportascii_sfo_version_info` is an empty `SFO_BODY` (`sfexpasc.c:79`)
@@ -2160,16 +1879,6 @@ export function sfvalue_uchar(a) {
 }
 
 /**
- * C ref: sfbase.c sfvalue_int `:558–563` — `%d` of the dereferenced int.
- * The C pointer flattens to the value (sfvalue_uchar precedent).
- * @param {number} a
- * @returns {string}
- */
-export function sfvalue_int(a) {
-    return String(a | 0); // `:561`
-}
-
-/**
  * First-10-bytes LE image of the JS `version_info` record for the
  * `complex_dump` log arms (`sfo_version_info :335`, `sfi_version_info
  * :370`): incarnation u64 LE, then the low 2 bytes of feature_set. JS
@@ -2233,8 +1942,8 @@ export function store_critical_bytes(nhfp) {
  * to the table's readers (store/compare above/below), like the rest of
  * the version.c save-validation family in this module. Sole in-tree C
  * caller files.c:2869 `recover_savefile` is compiled out (`SELF_RECOVER`
- * commented out in unixconf.h:126); the JS `recover_savefile` port
- * below calls this live export.
+ * commented out in unixconf.h:126), so no JS caller exists; kept live
+ * as a scored version.c export for future callers.
  * @returns {number}
  */
 export function get_critical_size_count() {

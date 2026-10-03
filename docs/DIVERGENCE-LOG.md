@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3391 — `files.c` recover_savefile compiled-out port reverted to by-design
+
+- **Status:** shipped (Must-fix 2344.1 checked off + archived in this commit; review `reviews/loop-unattended/2344-d6a4a5312-recover-scope.md` stamped Addressed).
+- **Symptom:** scope/classification C-wrong — C `files.c:2864–3082` (`recover_savefile`) sits under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined) with its sole caller inside the same ifdef (sys/unix/unixunix.c:216–219): absent from the contest binary, hence by-design per RUNBOOK §4 (Placebc/adjust_prefix/CHANGE_COLOR precedent). D-3389 shipped it live (~140 JS lines) + flipped the ledger to ported.
+- **C locus:**
+  - `recover_savefile`: nethack-c/upstream/src/files.c:2864–3082 under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined); sole C caller sys/unix/unixunix.c:216–219 inside the same ifdef — compiled out of the contest binary and the recorder.
+- **JS was:** live export `recover_savefile` (js/files.js:1438, doc :1416) + recover-only helpers `sfo_int` (js/files.js:1923, sfbase.c `SF_A(int)` :119–133) + `sfvalue_int` (js/files.js:2168, sfbase.c :558–563 — both macro-generated, not pinned-C); ledger `ported` (D-3389); five files.js docs said "live below" (close/open/create/delete/get_critical_size_count); `PL_NSIZ_PLUS` imported only for the `:2947` gate.
+- **Fix:** deleted the dead JS — `recover_savefile` doc+body, `sfo_int` doc+body, `sfvalue_int` doc+body (git retains the text); ledger → by-design. The five stale docs now say compiled-out/by-design. Removed the now-unused `PL_NSIZ_PLUS` import (const.js export stays — js/dungeon.js:2175 uses it); `vfsReadFile`/`LFILE_EXISTS` stay (live users elsewhere). `get_critical_size_count` stays a live scored version.c export (kept-live note, no callers). `create_savefile`'s `in_self_recover` read is live scored C (:1168), untouched.
+- **JS:** js/files.js only — 8 insertions (doc lines), 299 deletions.
+- **Callers:**
+  - `recover_savefile`: none in JS — `sym` sweep over `js/**` shows zero call sites (only the deleted def + doc mentions); C sole caller unixunix.c:219 is unscored unix platform main inside the same `#ifdef` — both compiled out, nothing to wire.
+- **Verify:** `node scripts/verify.mjs --fn recover_savefile --full` → VERIFY: PASS — syntax (js/files.js) · Rule #2 · hidden note (no corpus session blocked; vacuous by construction — compiled-out code has no reach) · REACH-OK (no RNG-tagged reach; fixed 24-smoke, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44.
+- **Named omissions:**
+  - `recover_savefile`: none — by-design: the whole function is absent from the scored binary (no scored analogue, RUNBOOK §4).
+- **Ledger:** recover_savefile by-design
+- **Next:** Must-fix 2339.1 (`monmove.c` postmov after_shk_move MOVED|DONE guard).
+
 ## D-3390 — `bones.c` free_ebones mextra+EBONES free+null
 
 - **Status:** shipped (queue-head missing-arm row checked off + archived in this commit; no review cited, no stamp owed).

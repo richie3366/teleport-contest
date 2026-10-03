@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3391 `files.c` recover_savefile compiled-out port reverted to by-design
+
+**C locus:** - `recover_savefile`: nethack-c/upstream/src/files.c:2864–3082 under `#ifdef SELF_RECOVER` (files.c:2858; unixconf.h:126 leaves it undefined); sole C caller sys/unix/unixunix.c:216–219 inside the same ifdef — compiled out of the contest binary and the recorder.
+**JS:** js/files.js only — 8 insertions (doc lines), 299 deletions.
+**Change:** deleted the dead JS — `recover_savefile` doc+body, `sfo_int` doc+body, `sfvalue_int` doc+body (git retains the text); ledger → by-design. The five stale docs now say compiled-out/by-design. Removed the now-unused `PL_NSIZ_PLUS` import (const.js export stays — js/dungeon.js:2175 uses it); `vfsReadFile`/`LFILE_EXISTS` stay (live users elsewhere).
+**Verify:** `node scripts/verify.mjs --fn recover_savefile --full` → VERIFY: PASS — syntax (js/files.js) · Rule #2 · hidden note (no corpus session blocked; vacuous by construction — compiled-out code has no reach) · REACH-OK (no RNG-tagged reach; fixed 24-smoke, 24 PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44.
+**Named:** - `recover_savefile`: none — by-design: the whole function is absent from the scored binary (no scored analogue, RUNBOOK §4).
+**Next:** Must-fix 2339.1 (`monmove.c` postmov after_shk_move MOVED|DONE guard).
 ## 2026-10-03 — Audit 2338–2345: review D-3383–D-3390 (4 ACCEPT, 2 WITH-DEBT, 2 QUALITY-RISK) + full score
 
 **Reviews:** 2338 D-3383 ACCEPT (iron-ball inline stops close 2337.1; tethered path already correct via bhit rewrite); 2339 D-3384 QUALITY-RISK (postmov wiring drops C :1660 MOVED|DONE guard → Must-fix 2339.1); 2340 D-3385 ACCEPT (poisoned/is_innate arms exact; Fixed_abil lives in adjattrib); 2341 D-3386 ACCEPT (dip cmdq/pickinv mirrors; GETOBJ_PROMPT mislabel docs-only); 2342 D-3387 ACCEPT (5-fn bones-NHFILE family whole); 2343 D-3388 WITH-DEBT (losehp drains + BARRACKS/wake exact; showdamage stale MISSING note → debt 2343.1); 2344 D-3389 QUALITY-RISK (trio exact + 5/5 compress wirings verified, but recover_savefile is #ifdef SELF_RECOVER compiled-out code shipped live → Must-fix 2344.1 reclassify by-design + delete; savebones stale compress clause → debt 2344.2); 2345 D-3390 WITH-DEBT (free_ebones exact + both stale flips verified true; MISSING note → debt 2345.1).
