@@ -79,7 +79,7 @@ import { makemon } from './makemon.js';
 import { monsterNames } from './generated/monsters_data.js';
 import {
     mons, is_hider, is_clinger, is_flyer, is_demon, is_vampire, MZ_HUGE,
-    is_animal, is_whirly, nohands, verysmall,
+    is_animal, is_whirly, nohands, verysmall, dmgtype,
 } from './monsters.js';
 import {
     yname, doname, Yname2, Yobjnam2, Tobjnam, otense, The, xname,
@@ -555,15 +555,7 @@ const AD_STCK = 19;
 const AD_WRAP = 28;
 
 
-/** C ref: mondata.c dmgtype — any mattk slot with adtyp. */
-function dmgtype(ptr, adtyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return false;
-    for (let i = 0; i < slots.length; i++) {
-        if (slots[i]?.adtyp === adtyp) return true;
-    }
-    return false;
-}
+/* C mondata.c dmgtype — live monsters.js export (local clone removed). */
 
 /**
  * C ref: mondata.c sticks — AD_STCK, non-engulf AD_WRAP, or AT_HUGS.

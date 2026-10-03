@@ -50,6 +50,7 @@ import { find_drawbridge, is_drawbridge_wall } from './dbridge.js';
 import { finish_losehp_done } from './end.js';
 import {
     m_seenres, monstseesu, monstunseesu, same_race, mhe, mhim, can_blow,
+    attacktype,
 } from './mondata.js';
 import { bcsign } from './rumors.js';
 import { enexto, migrate_to_level, tele_restrict, rloc,
@@ -335,13 +336,7 @@ function canseemon(mtmp) {
     return loc_seen && mon_visible(mtmp);
 }
 
-function attacktype(ptr, aatyp) {
-    const mattk = ptr?.mattk || [];
-    for (let i = 0; i < mattk.length; i++) {
-        if (mattk[i]?.aatyp === aatyp) return true;
-    }
-    return false;
-}
+/* C mondata.c attacktype — live mondata.js export (local clone removed). */
 
 /**
  * C ref: muse.c searches_for_item `:2706-2792` — intelligent non-animals

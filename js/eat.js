@@ -70,7 +70,7 @@ import {
     is_clinger, breathless, is_flyer,
     PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames, G_UNIQ,
     MR_FIRE, MR_COLD, MR_SLEEP, MR_DISINT, MR_ELEC, MR_POISON, MR_ACID, MR_STONE,
-    M1_SEE_INVIS, M2_SHAPESHIFTER, is_were,
+    M1_SEE_INVIS, M2_SHAPESHIFTER, is_were, dmgtype,
 } from './monsters.js';
 import { same_race, cantvomit, defended, attacktype } from './mondata.js';
 import { were_beastie, set_ulycn, you_unwere } from './were.js';
@@ -383,15 +383,7 @@ const AD_ACID = 8;
 
 /* C mondata.c attacktype — live mondata.js export (local wrapper removed). */
 
-/** C ref: mondata.h dmgtype — true if any mattk slot has adtyp. */
-function dmgtype(ptr, adtyp) {
-    const slots = ptr?.mattk;
-    if (!slots) return false;
-    for (let i = 0; i < slots.length; i++) {
-        if (slots[i]?.adtyp === adtyp) return true;
-    }
-    return false;
-}
+/* C mondata.c dmgtype — live monsters.js export (local clone removed). */
 
 /** C monattk.h AD_POLY — genetic-engineer tin/corpse for Popeye(SLIMED). */
 const AD_POLY = 43;

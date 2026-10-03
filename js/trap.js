@@ -145,7 +145,7 @@ import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
 import { level_difficulty, depth, distmin, dist2, ordin, strsubst } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
-import { monstseesu, monstunseesu, defended, resists_magm } from './mondata.js';
+import { monstseesu, monstunseesu, defended, resists_magm, attacktype } from './mondata.js';
 import { get_obj_location, burn_away_slime } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage, sellobj, costly_alteration, obfree } from './shk.js';
 import { unpunish, seffects } from './read.js';
@@ -5567,17 +5567,7 @@ export async function blow_up_landmine(trap) {
     spot_checks(x, y, old_typ); // C `:3218`
 }
 
-/**
- * C ref: monattk.h attacktype — any mattk slot with this aatyp.
- * File-local like muse.js/polyself.js/eat.js (no shared exporter).
- */
-function attacktype(ptr, aatyp) {
-    const mattk = ptr?.mattk || [];
-    for (let i = 0; i < mattk.length; i++) {
-        if ((mattk[i]?.aatyp | 0) === (aatyp | 0)) return true;
-    }
-    return false;
-}
+/* C mondata.c attacktype — live mondata.js export (local clone removed). */
 
 /**
  * C ref: trap.c trapeffect_anti_magic `:2322–2450` — hero + monster.

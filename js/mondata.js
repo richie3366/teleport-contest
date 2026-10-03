@@ -73,8 +73,8 @@ const AD_ANY = -1;
 /**
  * C ref: mondata.c attacktype `:54–57` — attacktype_fordmg(ptr, atyp,
  * AD_ANY) ? TRUE : FALSE. Canonical home of the C function
- * (artifact/dog/eat/wizard/engrave.js clones removed; makemon/muse/
- * polyself/trap.js clones out of cluster).
+ * (artifact/dog/eat/wizard/engrave/makemon/muse/polyself/trap.js
+ * clones removed).
  */
 export function attacktype(ptr, atyp) {
     return attacktype_fordmg(ptr, atyp, AD_ANY) ? true : false;
