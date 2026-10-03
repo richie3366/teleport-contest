@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3344 `dungeon.c` Invocation_lev hack.js clone removal (sole site → live js/dungeon.js export)
+
+**C locus:** - `Invocation_lev`: nethack-c/upstream/src/dungeon.c:2017–2021 — `In_hell(lev) && lev->dlevel == num_dunlevs - 1`; 10 C refs incl hack.c:984 (the invocation_pos guard).
+**JS:** - `Invocation_lev`: js/dungeon.js:2392 (live, unchanged); import js/hack.js:77; clone deleted; rewired site js/hack.js:3436.
+**Change:** extended the ALREADY static edge (`import { get_level, Invocation_lev } from './dungeon.js'`, js/hack.js:77; `imports.mjs --can` ALREADY — no new edge, no new test surface); deleted the clone; site js/hack.js:3436 now resolves to the live export (expression unchanged; behavior-identical rewire). Refreshed the live doc comment (js/dungeon.js:2388 — hack.js gone; apply.js `Invocation_lev_apply` + mklev.js `Invocation_lev_mk` renamed clones remain, out of cluster).
+**Verify:** - `Invocation_lev`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+**Named:** - `Invocation_lev`: none in-body — whole C body live at js/dungeon.js:2392.
+**Next:** the remaining missing-arm rows (useupf zap head + attacktype_fordmg×4/mon_aligntyp/m_in_air — different C files, next iterations).
 ## 2026-10-03 — D-3343 `mkroom.c` somex dog.js clone removal (3 sites → live js/mklev.js export)
 
 **C locus:** - `somex`: nethack-c/upstream/src/mkroom.c:666–669 — `rn1(croom->hx - croom->lx + 1, croom->lx)`; 11 C refs incl mkroom.c:703/718/726 (somexy arms) and sp_lev.c:6150.

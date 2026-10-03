@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `dungeon.c` Invocation_lev hack.js clone removal — C dungeon.c:2017–2021 In_hell+deepest-1 absent from js/hack.js (local clone :3397 identical body, sole live site :3447 invocation_pos instead of importing live js/dungeon.js:2392; C body in brief Invocation_lev this session, clone body + site + live body read this session; hack→dungeon edge ALREADY :77) — rewire site to the live export, delete clone.
+
+
 - [x] `mkroom.c` somex dog.js clone removal — C mkroom.c:666–669 rn1(hx-lx+1,lx) absent from js/dog.js (local clone :876, 3 live sites :907/:922/:928 instead of importing live js/mklev.js:32977; C body in brief somex this session, clone body + sites read this session; dog→mklev edge ABSENT — clone comment :873-875 documents mklev→trap→dog cycle, needs imports.mjs cycle/TDZ analysis like D-3335 before rewiring) — rewire sites to the live export if TDZ-safe, else late-bind, delete clone.
 
 

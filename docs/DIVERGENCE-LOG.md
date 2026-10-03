@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3344 — `dungeon.c` Invocation_lev hack.js clone removal (sole site → live js/dungeon.js export)
+
+- **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). Net-negative js/ insertions (clone deletion + 1 import name) — below the ~80 bar, defended (D-3343/D-3341 clone-removal precedent): one whole clone rewired to the live export, and the head's C file (dungeon.c) held no further Open rows at pop while Invocation_lev has 0 C callees, so the cluster cannot grow. Refill: 2 missing-arm rows appended from this session's search/read evidence (Invocation_lev mklev + apply — the renamed clones the live doc comment names) — queue ships at 9 (coverage ungeneratable: rows --write 0 rows; the band gate needs ≥8 to commit).
+- **Symptom:** no corpus divergence — coverage row (0 blocked at baseline).
+- **C locus:**
+  - `Invocation_lev`: nethack-c/upstream/src/dungeon.c:2017–2021 — `In_hell(lev) && lev->dlevel == num_dunlevs - 1`; 10 C refs incl hack.c:984 (the invocation_pos guard).
+- **JS was:** live `Invocation_lev` js/dungeon.js:2392 coexisted with an identical-body local clone js/hack.js:3397-then, sole live site js/hack.js:3447-then (`invocation_pos`). Static hack→dungeon edge already present (:77 `get_level`).
+- **Fix:** extended the ALREADY static edge (`import { get_level, Invocation_lev } from './dungeon.js'`, js/hack.js:77; `imports.mjs --can` ALREADY — no new edge, no new test surface); deleted the clone; site js/hack.js:3436 now resolves to the live export (expression unchanged; behavior-identical rewire). Refreshed the live doc comment (js/dungeon.js:2388 — hack.js gone; apply.js `Invocation_lev_apply` + mklev.js `Invocation_lev_mk` renamed clones remain, out of cluster).
+- **JS:**
+  - `Invocation_lev`: js/dungeon.js:2392 (live, unchanged); import js/hack.js:77; clone deleted; rewired site js/hack.js:3436.
+- **Callers:**
+  - `Invocation_lev`: C hack.c:984 (invocation_pos guard) → js/hack.js:3436. Other 9 C refs out of cluster: dungeon.c:1653/:2399/:3225, mkmaze.c:1200/:1211 (live import js/mklev.js:150), nhlua.c:2021, wizcmds.c:795 (dynamic import js/wizcmds.js:1031), zap.c:3788 (live import js/zap.js:266), extern.h:911 decl.
+- **Verify:**
+  - `Invocation_lev`: hidden note (0 blocked — normal for coverage) · REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed).
+  - Cluster gates: `node scripts/verify.mjs --fn Invocation_lev` → PASS syntax (2 changed js files) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:**
+  - `Invocation_lev`: none in-body — whole C body live at js/dungeon.js:2392.
+- **Ledger:** Invocation_lev ported
+- **Next:** the remaining missing-arm rows (useupf zap head + attacktype_fordmg×4/mon_aligntyp/m_in_air + Invocation_lev mklev/apply refill — next iterations).
+
 ## D-3343 — `mkroom.c` somex dog.js clone removal (3 sites → live js/mklev.js export)
 
 - **Status:** shipped (head missing-arm row checked off + archived; no review cited, no stamp owed). ~5 js/ insertions — below the ~80 bar, defended (D-3335 same-function precedent: somex shipped teleport.js alone, dog.js left for its own row): one whole clone rewired to the live export, and the head's C file (mkroom.c) holds no further Open rows while somex has 0 C callees, so the cluster cannot grow.
