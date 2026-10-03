@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3387 — `files.c` bones-NHFILE family: rewind/set_bonestemp/create/commit/open
+
+- **Status:** shipped (five queue-head missing-arm rows — all `files.c` Open rows — checked off + archived in this commit; no review cited, no stamp owed).
+- **Symptom:** coverage — 5 `files.c` NHFILE functions MISSING from `js/` (no JS symbol, ledger unknown).
+- **C locus:**
+  - `rewind_nhfile`: nethack-c/upstream/src/files.c:533–545 (structlevel lseek vs fieldlevel rewind).
+  - `set_bonestemp_name`: nethack-c/upstream/src/files.c:817–830 (staticfn; `gl.lock` → `.bn` temp name).
+  - `create_bonesfile`: nethack-c/upstream/src/files.c:832–911 (bonesid + tempname + NHF_BONESFILE creat).
+  - `commit_bonesfile`: nethack-c/upstream/src/files.c:914–937 (temp→final rename + wizard pline).
+  - `open_bonesfile`: nethack-c/upstream/src/files.c:939–990 (nh_uncompress + NHF_BONESFILE open).
+- **JS was:** none of the five existed in `js/` (sym.mjs NOT FOUND; `set_bonesfile_name` lived in js/bones.js:375, `fqname`/`new_nhfile`/`viable_nhfile`(module-local)/`nh_uncompress` live in js/files.js).
+- **Fix:** whole C bodies in C order at C-home js/files.js, mirroring the live levelfile/savefile VFS-analogue pairs: `{ s }` holders for `char **`/`char errbuf[]`, `game.lock` store-back, fqname kept (buffnums 0/1) for the prefix/impossible arms, fd 0 success-token convention (create_savefile precedent). New bones.js edge `set_bonesfile_name` (imports.mjs SAFE, hoisted fn) + `BONES_VFS_PREFIX` (CHECK — call-time reads only; one-word export in bones.js); `vfsWriteFile` + `BONESPREFIX`/`NHF_BONESFILE` imports. `gb.bones` has no JS global — commit/open re-derive via `set_bonesfile_name`; bonesformat ≡ historical per sys.c:102 (no SYSCF). `eos` inlined via lastIndexOf (set_levelfile_name precedent). commit is async (wizard pline → nhgetch).
+- **JS:** js/files.js:785 `rewind_nhfile`, js/files.js:979 `set_bonestemp_name` (module-local, viable_nhfile precedent), js/files.js:1015 `create_bonesfile`, js/files.js:1072 `commit_bonesfile`, js/files.js:1111 `open_bonesfile`; map docs/c-js-map/data.md bones-NHFILE entry.
+- **Callers:**
+  - `rewind_nhfile`: restore.c:891 dorecover (unported — ships with it); sfctool.c:373/:389 unscored tool.
+  - `set_bonestemp_name`: files.c:845 create_bonesfile → js/files.js:1024 wired; files.c:922 commit_bonesfile → js/files.js:1080 wired.
+  - `create_bonesfile`: bones.c:600 savebones → js/end.js:1645 savebones VFS split, unwired (doc names creat arms).
+  - `commit_bonesfile`: bones.c:623 savebones → same VFS split, unwired (doc: "VFS write is atomic").
+  - `open_bonesfile`: bones.c:417/:652 getbones → js/bones.js:710 getbones VFS split, unwired (reads blob directly).
+- **Verify:** `node scripts/verify.mjs --fn rewind_nhfile,set_bonestemp_name,create_bonesfile,commit_bonesfile,open_bonesfile` → VERIFY: PASS (syntax 2 files; rule2; 5× hidden-note no-corpus-block + smoke-spread 24 PASS REACH-OK; green 2/2; strict ×2; cohort 7/7). /tmp/bones-smoke.mjs: create→commit→open pipeline (temp stage, move, final probe), open-miss→null, storage-less create→null+`Cannot create bones "….bn", id D0.1 (errno 2).`, silent non-wizard commit-miss, both rewind arms — ALL SMOKE OK.
+- **Named omissions:**
+  - `rewind_nhfile`: stdio rewind(fpdef) (Rule #2); lseek structural no-op (fd token positionless).
+  - `set_bonestemp_name`: VMS `;1` (platform).
+  - `create_bonesfile`: MICRO/WIN32 O_TRUNC open, MACOS9 maccreat, MSDOS/WIN32 setmode, FCMASK/POSIX errno (message uses ENOENT), VMS chmod (platform); SAVEFILE_DEBUGGING fpdebug (compiled out).
+  - `commit_bonesfile`: SYSV link/unlink (compiled out — contest takes rename).
+  - `open_bonesfile`: WIN32 _sopen_s + DEBUG impossible, MACOS9 macopen, MSDOS/WIN32 setmode (platform/compiled out); SAVEFILE_DEBUGGING fpdebug (compiled out).
+- **Ledger:** rewind_nhfile ported; set_bonestemp_name ported; create_bonesfile ported; commit_bonesfile ported; open_bonesfile ported
+- **Next:** remaining Open rows are the 2 hack.c missing-arm rows (losehp showdamage/rehumanize; check_special_room BARRACKS/wake_msg) — different C file, next cluster head.
+
 ## D-3386 — `getobj` cmdq HANDS_SYM + `?`/`*` pickinv arms in getobj_dip
 
 - **Status:** shipped (two queue-head missing-arm rows — `invent.c` getobj cmdq HANDS_SYM verdict in getobj_dip + `invent.c` getobj ?/* pickinv in getobj_dip — checked off + archived in this commit; no review cited, no stamp owed).

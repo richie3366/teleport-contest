@@ -5,6 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-03
 
+- [x] `files.c` rewind_nhfile — C files.c:534–545 absent from js/ (no JS symbol; ledger unknown; structlevel lseek(fd,0,0) vs fieldlevel rewind(fpdef); 4 C refs, sole in-game caller restore.c:891 dorecover unported; 0 C callees — brief 2026-10-03) @c4bd1edaa
+- [x] `files.c` commit_bonesfile — C files.c:915–937 absent from js/ (no JS symbol; ledger unknown; set_bonesfile_name + fqname×2 + set_bonestemp_name + rename + wizard pline; sole in-game caller bones.c:623 savebones; callees set_bonesfile_name js/bones.js:375 + fqname live, set_bonestemp_name missing, pline async — brief 2026-10-03) @c4bd1edaa
+- [x] `files.c` set_bonestemp_name — C files.c:818–830 absent from js/ (no JS symbol; ledger unknown C 7; staticfn gl.lock “.bn” suffix; callers files.c:845 create_bonesfile + :922 commit_bonesfile; callee eos live js/hacklib.js:275 — brief 2026-10-03) @bec62f3b9
+- [x] `files.c` create_bonesfile — C files.c:833–911 absent from js/ (no JS symbol; ledger unknown C 43; bonesid + tempname + NHF_BONESFILE creat; sole in-game caller bones.c:600 savebones; callees set_bonesfile_name js/bones.js:375 + fqname/new_nhfile live, set_bonestemp_name missing, viable_nhfile local clone js/files.js:735 — brief 2026-10-03) @bec62f3b9
+- [x] `files.c` open_bonesfile — C files.c:940–990 absent from js/ (no JS symbol; ledger unknown C 31; nh_uncompress + NHF_BONESFILE open; callers bones.c:417 getbones + :652; callees set_bonesfile_name js/bones.js:375 + fqname/nh_uncompress/new_nhfile live, viable_nhfile local clone js/files.js:735 — brief 2026-10-03) @bec62f3b9
+
+
 - [x] `invent.c` getobj cmdq HANDS_SYM verdict in getobj_dip — C invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj) absent from js/potion.js:2394 getobj_dip (no cmdq path; sibling getobj_dip_ok :2654 consults cmdq_pop_getobj_key :2454 — read 2026-10-03) @4a4cc3e73
 - [x] `invent.c` getobj ?/* pickinv in getobj_dip — C invent.c:1963–1992 (`?`/`*` → display_pickinv + handsbuf + ESC Never_mind) absent from js/potion.js:2424 getobj_dip `?`/`*` arm (plines 'Never mind.' + null; sibling getobj_dip_ok :2687 has the full arm — read 2026-10-03) @4a4cc3e73
 

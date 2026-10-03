@@ -6,6 +6,9 @@
 // fqname / init_nhfile / new_nhfile / free_nhfile / set_levelfile_name /
 // open_levelfile / create_levelfile (JSON analogue; VFS stash probe,
 // no POSIX open/creat).
+// rewind_nhfile / set_bonestemp_name / create_bonesfile /
+// commit_bonesfile / open_bonesfile (VFS analogues; no POSIX
+// lseek/creat/rename/open).
 // make_converted_name / contains_directory / delete_convertedfile
 // (external-conversion names; unlink named omit, Rule #2).
 // Callers: allmain.c newgame after u_init_skills_discoveries (D-1192);
@@ -14,7 +17,7 @@
 // embedded (extract-tribute.py), not dlb disk.
 
 import { game } from './gstate.js';
-import { vfsReadFile, vfsDeleteFile } from './storage.js';
+import { vfsReadFile, vfsWriteFile, vfsDeleteFile } from './storage.js';
 import { readobjnam, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import { addinv } from './u_init.js';
 import { add_to_migration, mergable } from './mkobj.js';
@@ -27,8 +30,8 @@ import { NUM_OBJECTS } from './generated/objects_data.js';
 import { NROFARTIFACTS } from './generated/artifacts_data.js';
 import {
     BUFSZ, MIGR_NOBREAK, MIGR_NOSCATTER, MIGR_WITH_HERO, WIZKIT_MAX,
-    LFILE_EXISTS, NHF_LEVELFILE, NHF_SAVEFILE, READING, WRITING, FREEING,
-    COUNTING, LEVELPREFIX, SAVEPREFIX,
+    LFILE_EXISTS, NHF_LEVELFILE, NHF_SAVEFILE, NHF_BONESFILE, READING, WRITING, FREEING,
+    COUNTING, LEVELPREFIX, SAVEPREFIX, BONESPREFIX,
     PREFIX_COUNT, FQN_MAX_FILENAME, SF_UPTODATE, SF_OUTDATED,
     SF_CRITICAL_BYTE_COUNT_MISMATCH, SF_DM_IL32LLP64_ON_ILP32LL64,
     SF_DM_I32LP64_ON_ILP32LL64, SF_DM_ILP32LL64_ON_I32LP64,
@@ -51,6 +54,7 @@ import { pmatch } from './cmd.js';
 import { wish_history_add } from './zap.js';
 import { after_opt_showpaths } from './earlyarg.js'; // C do_deferred_showpaths `:3101` (imports.mjs SAFE: hoisted fn)
 import { set_savefile_name } from './save.js'; // C restore_saved_game `:1276` (imports.mjs: same 101-module SCC, hoisted binding — cycle-safe)
+import { set_bonesfile_name, BONES_VFS_PREFIX } from './bones.js'; // C create/commit/open_bonesfile (imports.mjs: fn SAFE hoisted; const CHECK — read inside bodies only, never at top level)
 
 const INVLET_BASIC = 52;
 const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
@@ -767,6 +771,27 @@ function viable_nhfile(nhfp) {
 }
 
 /**
+ * C ref: files.c rewind_nhfile `:533–545` — rewind the handle to the
+ * start of the file: structlevel lseeks fd to 0 (BSD `:538` vs off_t
+ * `:540` spellings), else stdio rewind(fpdef) (`:543`).
+ * Rule #2 analogues (open_levelfile fd-token precedent): fds are opaque
+ * success tokens, positionless, so the lseek arm is structural (no
+ * offset exists to reset); fpdef is always null (no stdio), so the
+ * rewind arm is a named omit.
+ * Sole in-game caller restore.c:891 dorecover is unported (ships with
+ * it); sfctool.c:373/:389 are the unscored tool, not the game.
+ * @param {object} nhfp
+ */
+export function rewind_nhfile(nhfp) {
+    if (nhfp.structlevel) { // `:536`
+        /* C `:537–541` BSD/!BSD lseek(nhfp->fd, 0, 0) — no-op: fd is an
+           opaque success token (open_levelfile precedent), positionless. */
+    } else { // `:542`
+        /* C `:543` rewind(nhfp->fpdef) — named omit: no stdio in JS. */
+    }
+}
+
+/**
  * C ref: files.c nhclose `:583–594` — close a structlevel fd through the
  * buffered registry (close_check → bclose) else POSIX close. The fd >= 0
  * gate and retval are live; both sinks are named: close_check/bclose are
@@ -927,6 +952,192 @@ export function create_levelfile(lev, errbuf) {
         /* C `:663–667` MSDOS/WIN32 setmode(fd, O_BINARY) — named omit (platform). */
     }
     return viable_nhfile(nhfp); /* C `:668–669` */
+}
+
+// ---------------------------------------------------------------------------
+// C ref: files.c bones NHFILE family — set_bonestemp_name `:817–830`
+// (staticfn → module-local), create_bonesfile `:832–911`,
+// commit_bonesfile `:914–937`, open_bonesfile `:939–990`.
+// VFS analogues (Rule #2, no POSIX creat/rename/open): the levelfile
+// open/create pair above is the precedent — fd carries an opaque success
+// token, VFS miss ≡ C ENOENT → NULL (fopen_wizkit_file precedent). The
+// temp blob staged by create is moved to the final key by commit. The
+// in-game callers (savebones js/end.js, getbones js/bones.js) are VFS
+// splits that never take the NHFILE path — unwired, named in each doc.
+// ---------------------------------------------------------------------------
+
+/**
+ * C ref: files.c set_bonestemp_name `:817–830` (staticfn → module-local,
+ * viable_nhfile precedent) — rewrite `gl.lock` in place as the bones
+ * temp name: strip any suffix at the last '.', append ".bn". JS strings
+ * are immutable, so the rewritten name is returned and the caller stores
+ * it back (`game.lock`, the `gl.lock` analogue — set_levelfile_name
+ * precedent, whose lastIndexOf shape this mirrors, `eos` inlined).
+ * Named omit: VMS `;1` (platform).
+ * @returns {string}
+ */
+function set_bonestemp_name() {
+    let base = String(game.lock ?? '');
+    const dot = base.lastIndexOf('.'); // C `:822` strrchr(gl.lock, '.')
+    if (dot < 0) {
+        /* C `:823–824` eos(gl.lock) — append at the end; slice below skipped. */
+    } else {
+        base = base.slice(0, dot);
+    }
+    /* C VMS Strcat(tf, ";1") — named omit (platform). */
+    return `${base}.bn`; // C `:825` Sprintf(tf, ".bn")
+}
+
+/**
+ * C ref: files.c create_bonesfile `:832–911` — create the bones temp file
+ * for writing into an NHFILE handle, or NULL with `errbuf` set.
+ * VFS analogue (Contest Rule #2 — no POSIX creat): the temp blob is
+ * staged at `bones/<fqname of the .bn lock name>` (BONES_VFS_PREFIX home
+ * is bones.js — the final-name home); commit_bonesfile below moves it to
+ * the final key. Handle fields in C order; fd carries the savefile
+ * success token 0 (create_savefile precedent — C callers only
+ * store_version/savelev/close it in the VFS-split savebones path, named
+ * in js/end.js:1638–1643).
+ * `bonesidOut`/`errbuf` are the C `char **`/`char errbuf[]`: `{ s }`
+ * holders or null (open_levelfile errbuf convention; the C caller passes
+ * `whynot`, and C still guards `if (errbuf)`).
+ * `gb.bones` has no JS global (set_bonesfile_name returns the filename
+ * instead of writing it); commit/open re-derive it from the same call.
+ * Named omits: MICRO/WIN32 O_TRUNC open, MACOS9 maccreat, MSDOS/WIN32
+ * setmode, FCMASK mode bits + POSIX errno (platform; the message uses
+ * ENOENT like create_levelfile); VMS chmod (platform); SAVEFILE_DEBUGGING
+ * fpdebug (compiled out).
+ * @param {object} lev
+ * @param {{ s: string }|null} [bonesidOut]
+ * @param {{ s: string }|null} [errbuf]
+ * @returns {object|null}
+ */
+export function create_bonesfile(lev, bonesidOut, errbuf) {
+    let failed = 0; // `:837`
+    if (errbuf) errbuf.s = ''; // `:842–843` *errbuf = '\0'
+    const { bonesid } = set_bonesfile_name(lev); // `:844` *bonesid = ... (gb.bones: no JS global, see doc)
+    if (bonesidOut) bonesidOut.s = bonesid;
+    game.lock = set_bonestemp_name(); // `:845` file = set_bonestemp_name()
+    const file = fqname(game.lock, BONESPREFIX, 0); // `:846`
+    let nhfp = new_nhfile(); // `:848`
+    if (nhfp) {
+        nhfp.ftype = NHF_BONESFILE; // `:850`
+        nhfp.mode = WRITING; // `:851`
+        nhfp.structlevel = true; // `:852`
+        nhfp.fieldlevel = false; // `:853`
+        nhfp.addinfo = true; // `:854`
+        nhfp.style.deflt = true; // `:855`
+        nhfp.style.binary = true; // `:856`
+        nhfp.fnidx = FNIDX_HISTORICAL; // `:857` historical
+        nhfp.fd = -1; // `:858`
+        nhfp.fpdef = null; // `:859`
+        if (nhfp.fpdef) { // `:860` — always false; fpdef just nulled
+            /* C `:861–863` SAVEFILE_DEBUGGING fpdebug — compiled out. */
+        } else {
+            failed = 0; // C `:864–866` stale errno; no errno under VFS
+        }
+        if (nhfp.structlevel) { // `:867`
+            /* C `:868–885` MICRO/WIN32 open(O_TRUNC) vs MACOS9 maccreat vs
+               UNIX creat(file, FCMASK) — Rule #2 VFS analogue: stage the
+               empty temp blob (commit's move stages final later; VFS creat
+               fails only without storage). */
+            const staged = vfsWriteFile(BONES_VFS_PREFIX + file, '');
+            nhfp.fd = staged ? 0 : -1;
+            if (nhfp.fd < 0) // `:886`
+                failed = ENOENT; // C `:887` errno; no POSIX errno under VFS
+            /* C `:888–891` MSDOS/WIN32 setmode(fd, O_BINARY) — platform. */
+        }
+        if (failed && errbuf) // `:893` failure explanation
+            errbuf.s = `Cannot create bones "${game.lock}", id ${bonesid} (errno ${failed}).`; // `:894–895`
+    }
+    /* C `:897–907` VMS chmod — platform (compiled out). */
+    nhfp = viable_nhfile(nhfp); // `:909`
+    return nhfp; // `:910`
+}
+
+/**
+ * C ref: files.c commit_bonesfile `:914–937` — move the completed bones
+ * temp file to its proper name; wizard-only pline on rename failure.
+ * VFS analogue (Rule #2 — no POSIX rename): read the temp blob staged by
+ * create_bonesfile, write it to the final key, delete the temp key (ret
+ * 0 iff the temp blob existed and the final write landed). fqname
+ * buffnums 0/1 kept in C order for the prefix/impossible arms. Async:
+ * the wizard pline can reach nhgetch (Constitution §2.6).
+ * Sole in-game caller bones.c:623 savebones is a VFS split (js/end.js
+ * savebones doc: "VFS write is atomic") — unwired, ships if savebones
+ * ever takes the NHFILE path.
+ * Named omits: SYSV link/unlink (compiled out — contest takes rename).
+ * @param {object} lev
+ */
+export async function commit_bonesfile(lev) {
+    const { filename } = set_bonesfile_name(lev); // C `:920` (void) — gb.bones: no JS global, re-derived
+    const fq_bones = fqname(filename, BONESPREFIX, 0); // `:921`
+    game.lock = set_bonestemp_name(); // `:922` tempname = set_bonestemp_name()
+    const tempname = fqname(game.lock, BONESPREFIX, 1); // `:923`
+    /* C `:925–931` SYSV link/unlink — compiled out (contest takes rename). */
+    let ret; // `:918`
+    /* C `:933` rename(tempname, fq_bones) — VFS move analogue. */
+    const raw = vfsReadFile(BONES_VFS_PREFIX + tempname);
+    if (raw == null || !vfsWriteFile(BONES_VFS_PREFIX + fq_bones, raw)) {
+        ret = -1;
+    } else {
+        vfsDeleteFile(BONES_VFS_PREFIX + tempname);
+        ret = 0;
+    }
+    if (wizard_mode() && ret !== 0) // `:935` wizard && ret != 0
+        await pline("couldn't rename %s to %s.", tempname, fq_bones); // `:936`
+}
+
+/**
+ * C ref: files.c open_bonesfile `:939–990` — open the bones file for
+ * reading into an NHFILE handle, or NULL via viable_nhfile.
+ * VFS analogue (Rule #2 — no POSIX open): the final blob staged by
+ * commit_bonesfile above, probed like open_levelfile's stash slot (VFS
+ * miss ≡ C ENOENT → NULL, fopen_wizkit_file precedent). Handle fields in
+ * C order; fd carries the savefile success token 0.
+ * `sysopt.bonesformat[0]` is sys.c:102 `historical` at startup and SYSCF
+ * has no JS analogue (fqname precedent), so style.binary is
+ * (historical != exportascii) ≡ true and fnidx ≡ FNIDX_HISTORICAL.
+ * In-game callers bones.c:417/:652 getbones are a VFS split (js/bones.js
+ * getbones reads the blob directly) — unwired, ships if getbones ever
+ * takes the NHFILE path.
+ * Named omits: WIN32 _sopen_s + DEBUG impossible (platform/compiled
+ * out), MACOS9 macopen, MSDOS/WIN32 setmode (platform);
+ * SAVEFILE_DEBUGGING fpdebug (compiled out).
+ * @param {object} lev
+ * @param {{ s: string }|null} [bonesidOut]
+ * @returns {object|null}
+ */
+export function open_bonesfile(lev, bonesidOut) {
+    const { filename, bonesid } = set_bonesfile_name(lev); // `:948` *bonesid = ... (gb.bones: no JS global)
+    if (bonesidOut) bonesidOut.s = bonesid;
+    const fq_bones = fqname(filename, BONESPREFIX, 0); // `:949`
+    nh_uncompress(fq_bones); // `:950` no effect if nonexistent
+    let nhfp = new_nhfile(); // `:952`
+    if (nhfp) {
+        /* C `:954–957` WIN32+DEBUG impossible(fd odd) — compiled out. */
+        nhfp.structlevel = true; // `:958`
+        nhfp.fieldlevel = false; // `:959`
+        nhfp.ftype = NHF_BONESFILE; // `:960`
+        nhfp.mode = READING; // `:961`
+        nhfp.addinfo = true; // `:962`
+        nhfp.style.deflt = true; // `:963`
+        nhfp.style.binary = true; // C `:964` (historical != exportascii) — sys.c:102, no SYSCF
+        nhfp.fnidx = FNIDX_HISTORICAL; // C `:965` sysopt.bonesformat[0] ≡ historical
+        nhfp.fd = -1; // `:966`
+        nhfp.fpdef = null; // `:967`
+        if (nhfp.fpdef) { // `:968` — always false; fpdef just nulled
+            /* C `:969–971` SAVEFILE_DEBUGGING fpdebug — compiled out. */
+        }
+        if (nhfp.structlevel) { // `:973`
+            /* C `:974–981` MACOS9 macopen / WIN32 _sopen_s / POSIX
+               open(fq_bones, O_RDONLY|O_BINARY) — Rule #2 VFS probe. */
+            nhfp.fd = vfsReadFile(BONES_VFS_PREFIX + fq_bones) == null ? -1 : 0;
+            /* C `:982–985` MSDOS/WIN32 setmode(fd, O_BINARY) — platform. */
+        }
+    }
+    nhfp = viable_nhfile(nhfp); // `:988`
+    return nhfp; // `:989`
 }
 
 // ---------------------------------------------------------------------------

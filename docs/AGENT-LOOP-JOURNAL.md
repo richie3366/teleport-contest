@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-03 — D-3387 `files.c` bones-NHFILE family: rewind/set_bonestemp/create/commit/open
+
+**C locus:** - `rewind_nhfile`: nethack-c/upstream/src/files.c:533–545 (structlevel lseek vs fieldlevel rewind).
+**JS:** js/files.js:785 `rewind_nhfile`, js/files.js:979 `set_bonestemp_name` (module-local, viable_nhfile precedent), js/files.js:1015 `create_bonesfile`, js/files.js:1072 `commit_bonesfile`, js/files.js:1111 `open_bonesfile`; map docs/c-js-map/data.md bones-NHFILE entry.
+**Change:** whole C bodies in C order at C-home js/files.js, mirroring the live levelfile/savefile VFS-analogue pairs: `{ s }` holders for `char **`/`char errbuf[]`, `game.lock` store-back, fqname kept (buffnums 0/1) for the prefix/impossible arms, fd 0 success-token convention (create_savefile precedent). New bones.js edge `set_bonesfile_name` (imports.mjs SAFE, hoisted fn) + `BONES_VFS_PREFIX` (CHECK — call-time reads only; one-word export in bones.js); `vfsWriteFile` + `BONESPREFIX`/`NHF_BONESFILE` imports. `gb.bones` has no JS global — commit/open re-derive via `set_bonesfile_name`; bonesformat ≡ historical per sys.c:102 (no SYSCF).
+**Verify:** `node scripts/verify.mjs --fn rewind_nhfile,set_bonestemp_name,create_bonesfile,commit_bonesfile,open_bonesfile` → VERIFY: PASS (syntax 2 files; rule2; 5× hidden-note no-corpus-block + smoke-spread 24 PASS REACH-OK; green 2/2; strict ×2; cohort 7/7). /tmp/bones-smoke.mjs: create→commit→open pipeline (temp stage, move, final probe), open-miss→null, storage-less create→null+`Cannot create bones "….bn", id D0.1 (errno 2).`, silent non-wizard commit-miss, both rewind arms — ALL SMOKE OK.
+**Named:** - `rewind_nhfile`: stdio rewind(fpdef) (Rule #2); lseek structural no-op (fd token positionless).
+**Next:** remaining Open rows are the 2 hack.c missing-arm rows (losehp showdamage/rehumanize; check_special_room BARRACKS/wake_msg) — different C file, next cluster head.
 ## 2026-10-03 — D-3386 `getobj` cmdq HANDS_SYM + `?`/`*` pickinv arms in getobj_dip
 
 **C locus:** - `getobj` (cmdq): nethack-c/upstream/src/invent.c:1790–1794 (CMDQ_KEY HANDS_SYM → obj_ok(NULL) SUGGEST/DOWNPLAY → &hands_obj; miss → cmdq_clear + NULL :1813–1815).

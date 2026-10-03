@@ -123,7 +123,25 @@ wired (wrappers unported — a call from a non-C site would be C-wrong):
 `restore.c:760` restlevelfile → `js/save.js:822` dorecover path;
 `save.c:390` savestateinlock → `js/save.js:456` dosave0 synthesize.
 Named: platform creat/setmode, FCMASK/errno, failure arm, bufon/savelev/
-close tails (wrapper rows). **set_savefile_name D-2538**
+close tails (wrapper rows). **bones NHFILE D-3387** (`files.c`
+`set_bonestemp_name` `:817–830` module-local + `create_bonesfile`
+`:832–911` + `commit_bonesfile` `:914–937` async + `open_bonesfile`
+`:939–990` + `rewind_nhfile` `:533–545`; live `js/files.js` in C order
+with `:line` cites — errbuf clear, bonesid `{ s }` holder, `game.lock`
+store-back, fqname kept (buffnums 0/1), WRITING/READING structlevel
+handles, fd 0 success token; VFS temp stage → move → probe pipeline;
+`gb.bones` has no JS global — commit/open re-derive via live
+`set_bonesfile_name` (bones.js import, imports.mjs fn SAFE / const
+CHECK call-time-only); bonesformat ≡ historical per sys.c:102, no
+SYSCF). Callers named, none wired (VFS splits / unported — a call from
+a non-C site would be C-wrong): `bones.c:600` savebones-create →
+`js/end.js:1645` savebones (doc names creat arms); `bones.c:623`
+savebones-commit → same ("VFS write is atomic"); `bones.c:417`/:652
+getbones-open → `js/bones.js:710` getbones (reads blob directly);
+`restore.c:891` dorecover-rewind (unported). Named: platform
+creat/open/rename/lseek/setmode/`;1`/SYSV-link/VMS-chmod, FCMASK/errno
+(message uses ENOENT), SAVEFILE_DEBUGGING fpdebug, WIN32+DEBUG
+impossible, stdio rewind(fpdef). **set_savefile_name D-2538**
 (`files.c:1020–1123`; live `js/save.js` UNIX arm in C order — regoffset 5,
 spot 2, suffix-only `regularize` (`unixunix.c:297` ported file-local),
 SAVESIZE 53 guards, extension/indicator/postappend live no-ops;

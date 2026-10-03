@@ -8,7 +8,7 @@
 {"fn":"new_nhfile","c":"496-503","status":"ported","js":["js/files.js:new_nhfile"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_nhfile","c":"509-515","status":"ported","js":["js/files.js:free_nhfile"],"at":"2026-10-03@bbe63333a"}
 {"fn":"close_nhfile","c":"518-531","status":"ported","js":["js/files.js:close_nhfile"],"d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
-{"fn":"rewind_nhfile","c":"534-545","status":"unknown"}
+{"fn":"rewind_nhfile","c":"534-545","status":"ported","js":["js/files.js:rewind_nhfile"],"d":["D-3387"],"at":"2026-10-03@bd0144c89"}
 {"fn":"viable_nhfile","c":"549-579","status":"ported","js":["js/files.js:viable_nhfile"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local in JS; all gates live"}
 {"fn":"nhclose","c":"583-594","status":"partial","js":["js/files.js:nhclose"],"omit":"- `close_nhfile`: nhclose/fclose/fplog-fprintf sinks (Rule #2; resets live).","d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
 {"fn":"set_levelfile_name","c":"606-618","status":"ported","js":["js/files.js:set_levelfile_name"],"at":"2026-10-03@bbe63333a"}
@@ -18,10 +18,10 @@
 {"fn":"clearlocks","c":"733-750","status":"ported","js":["js/files.js:clearlocks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"strcmp_wrap","c":"755-758","status":"unknown"}
 {"fn":"set_bonesfile_name","c":"769-809","status":"partial","js":["js/bones.js:set_bonesfile_name"],"omit":"SYSCF bones_pools digit (:788-795); In_quest filecode (:799-800, always '0'); Is_special boneid letter (:801-802, always .dlevel)","at":"2026-10-03@bbe63333a"}
-{"fn":"set_bonestemp_name","c":"818-830","status":"unknown"}
-{"fn":"create_bonesfile","c":"833-911","status":"unknown"}
-{"fn":"commit_bonesfile","c":"915-937","status":"unknown"}
-{"fn":"open_bonesfile","c":"940-990","status":"unknown"}
+{"fn":"set_bonestemp_name","c":"818-830","status":"ported","js":["js/files.js:set_bonestemp_name"],"d":["D-3387"],"at":"2026-10-03@bd0144c89"}
+{"fn":"create_bonesfile","c":"833-911","status":"ported","js":["js/files.js:create_bonesfile"],"d":["D-3387"],"at":"2026-10-03@bd0144c89"}
+{"fn":"commit_bonesfile","c":"915-937","status":"ported","js":["js/files.js:commit_bonesfile"],"d":["D-3387"],"at":"2026-10-03@bd0144c89"}
+{"fn":"open_bonesfile","c":"940-990","status":"ported","js":["js/files.js:open_bonesfile"],"d":["D-3387"],"at":"2026-10-03@bd0144c89"}
 {"fn":"delete_bonesfile","c":"993-1001","status":"ported","js":["js/bones.js:delete_bonesfile"],"at":"2026-10-03@bbe63333a"}
 {"fn":"compress_bonesfile","c":"1006-1010","status":"unknown"}
 {"fn":"set_savefile_name","c":"1020-1123","status":"partial","js":["js/save.js:set_savefile_name"],"omit":"`getuid()` uid digits (`:1055` — Rule #2, no POSIX identity in dual-runtime ESM; single-user VFS keeps `save/<plname>`); `fname_encode` (WIN32-only, never cloned); VMS/WIN32/MSDOS/MICRO/AMIGA arms; SYSV 14-char truncation inside `regularize`; RELEASED `impossible`; `check_panic_save`/`recover_savef…","d":["D-2538"],"at":"seed@a30a7de84"}

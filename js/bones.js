@@ -42,7 +42,7 @@ import { load_exclusions } from './dungeon.js';
 import { place_monster } from './steed.js';
 import { reset_oattached_mids } from './restore.js';
 
-const BONES_VFS_PREFIX = 'bones/';
+export const BONES_VFS_PREFIX = 'bones/';
 const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
 const STATUE = objectNames.indexOf('STATUE');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
