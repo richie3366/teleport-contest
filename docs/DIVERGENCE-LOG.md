@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3352 — `mondata.h` unique_corpstat 4-clone removal + `mondata.c` attacktype engrave.js clone removal
+
+- **Status:** shipped (2 missing-arm rows checked off + archived: the unique_corpstat head + the attacktype engrave row; no review cited, no stamp owed). Growth note: the head is a header macro with no callees and mondata.h holds no other Open row — and a macro-only cluster cannot ship: finish-iteration's fail-closed ledger step requires every Ledger spec to resolve to a pinned-C function, and no `unique_corpstat` key exists in any form (`ledger.mjs show` bare + `mondata.h:`-qualified + a byKey dump all verified this session; resolveKey only matches `.c` files). The engrave attacktype row is the same mondata-module predicate family, adjacent in the queue, and its spec resolves (D-3096 precedent: macro work rides with a real-function cluster — only `attacktype` appears in the Ledger bullet). Below the ~80 bar, defended (D-3341–D-3351 clone-removal precedent): 10 whole call sites rewired, 5 whole clones deleted. Bundled: backfilled missing `**Addressed:** D-3351` hash on the D-3351 DONE row (`c7c586e3c` from git log).
+- **Symptom:** no corpus divergence — coverage rows (0 blocked at baseline on both).
+- **C locus:**
+  - `unique_corpstat`: nethack-c/upstream/include/mondata.h:174 — `#define unique_corpstat(ptr) (((ptr)->geno & G_UNIQ) != 0)`. 17 C references; 7 rewired here: trap.c:795/:802 (animate_statue), teleport.c:59 (goodpos_onscary), monmove.c:260 (onscary), read.c:3126 (cant_revive), zap.c:1097 (revive), music.c:51 (awaken_scare).
+  - `attacktype`: nethack-c/upstream/src/mondata.c:54–57 — `attacktype_fordmg(ptr, atyp, AD_ANY) ? TRUE : FALSE`. 46 C references; 3 rewired here: mondata.c:657–658 (sticks), engrave.c:197 (can_reach_floor).
+- **JS was:**
+  - `unique_corpstat`: live export js/mon.js:2961 (3 live sites :374/:3011×2, untouched) + 4 file-local clones: js/trap.js:232-then, js/teleport.js:155-then, js/zap.js:2898-then (all byte-identical to live), js/music.js:174-then (`?? 0` shape — differs from `| 0` only for non-numeric geno, never occurs).
+  - `attacktype`: live export js/mondata.js:79 (callee attacktype_fordmg live js/uhitm.js:609) + engrave-local clone js/engrave.js:559-then (raw `===` mattk scan without `|0` folding; 3 sites). The other 4 clones (makemon/muse/polyself/trap) stay queued as their own rows.
+- **Fix:**
+  - `unique_corpstat`: extended the four ALREADY static →mon edges (`unique_corpstat` added to the mon.js imports js/trap.js:46, js/teleport.js:92, js/zap.js:264, js/music.js:45; `imports.mjs --can` ALREADY all four — no new edge, no new test surface); deleted the 4 clones; dropped now-unused G_UNIQ from the monsters.js imports of teleport.js (:41) and music.js (:39) — trap.js (3 direct uses) and zap.js (:5097) still use G_UNIQ, imports kept.
+  - `attacktype`: new static engrave→mondata edge (`import { attacktype } from './mondata.js'`, js/engrave.js:97; `imports.mjs --can` SAFE — hoisted fn, same shape as the 1866 edges already in js/; the clone's cycle-avoidance comment cited monmove, disproven for mondata); deleted the clone; mondata.js:76–77 cluster comment updated (engrave joins the removed list).
+- **JS:**
+  - `unique_corpstat`: js/mon.js:2961 (live, canonical); rewired sites js/trap.js:385/:392, js/teleport.js:189/:394, js/zap.js:3029/:3304, js/music.js:187; pre-existing same-module sites js/mon.js:374/:3011×2.
+  - `attacktype`: js/mondata.js:79 (live, canonical); rewired sites js/engrave.js:576/:577/:594; pre-existing D-3350 sites unchanged.
+- **Callers:**
+  - `unique_corpstat`: C trap.c:795/:802 (animate_statue) → js/trap.js:385/:392; C teleport.c:59 (goodpos_onscary) → js/teleport.js:189; C monmove.c:260 (onscary) → js/teleport.js:394 (teleport's local onscary copy, D-1110) + js/mon.js:374 (live onscary); C read.c:3126 (cant_revive) → js/zap.js:3029; C zap.c:1097 (revive) → js/zap.js:3304; C music.c:51 (awaken_scare) → js/music.js:187; C mon.c:2416 (mm aggression gate) → js/mon.js:3011×2 (pre-existing). No JS site calls from a function C never calls from.
+  - `attacktype`: C mondata.c:657–658 (sticks) → js/engrave.js:576/:577 (JS sticks, engrave-local per D-1072); C engrave.c:197 (can_reach_floor) → js/engrave.js:594. No JS site calls from a function C never calls from. Behavior note: the live fordmg scan with the AD_ANY wildcard always true ≡ the clone's adtyp-blind `===` scan for int aatyp/aaatyp (AT_HUGS/AT_ENGL) — verify judges.
+- **Verify:**
+  - `unique_corpstat`: hidden note (0 blocked at baseline) · REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+  - `attacktype`: hidden note (0 blocked at baseline) · REACH-OK (no RNG-tagged reach; smoke spread 24 run, 24 PASS, 0 regressed).
+  - `node scripts/verify.mjs --fn unique_corpstat,attacktype` → VERIFY: PASS (syntax 6 files, rule2 PASS, green 2/2, strict 2/2, cohort 7/7).
+- **Named omissions:**
+  - `unique_corpstat`: none in-body — whole C body live at js/mon.js:2961. Untouched, out of scope: trap.js reward_untrap inline `((ptr?.geno|0) & G_UNIQ)` (pre-existing named omit, trap.js:7049 comment) and the trap.js:1169/:3497 + zap.js:5097 direct-G_UNIQ inlines — not clone sites, no behavior change.
+  - `attacktype`: none in-body — whole C body live at js/mondata.js:79. The makemon/muse/polyself/trap.js clones stay queued as their own rows.
+- **Ledger:** attacktype ported
+- **Next:** next missing-arm row (`hack.c` invocation_pos mklev/apply clone removal).
+
 ## D-3351 — `priest.c` histemple_at canonical export + shk/teleport rewire
 
 - **Status:** shipped (1 head missing-arm row checked off + archived; no review cited, no stamp owed). Below the ~80 bar, defended (D-3341–D-3350 clone-removal precedent): one whole C function exported at C-home plus 2 whole clones rewired to it — the cluster cannot grow (priest.c holds no other Open row; both C callees already live). Bundled: backfilled missing `**Addressed:** D-3350` hashes on all 4 D-3350 DONE rows (`350dcff17` from git log).

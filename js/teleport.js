@@ -38,7 +38,7 @@ import { objectNames, SPBOOK_CLASS } from './objects.js';
 import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
     amphibious, monsterNames, mons, passes_walls, is_dlord, is_dprince,
-    is_rider, control_teleport, can_teleport, haseyes, G_UNIQ,
+    is_rider, control_teleport, can_teleport, haseyes,
     is_minion, is_vampshifter, is_covetous,
 } from './monsters.js';
 import {
@@ -89,7 +89,7 @@ import { emits_light } from './light.js';
  * m_at rides aliased as mon_m_at (local fmon-scan clone deleted — it
  * lacked the live steed-skip arm; C rm.h:510–511 reads the MON_AT grid
  * from which the mounted steed is removed). */
-import { m_at as mon_m_at, seemimic, m_in_air } from './mon.js';
+import { m_at as mon_m_at, seemimic, m_in_air, unique_corpstat } from './mon.js';
 /* dig.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
 import { fill_pit } from './dig.js';
 /* mklev.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
@@ -151,10 +151,6 @@ function accessible(x, y) {
     return ACCESSIBLE(loc.typ) && !closed_door(x, y);
 }
 
-/** C ref: mondata.h unique_corpstat — G_UNIQ. Local (trap.js cycle). */
-function unique_corpstat(ptr) {
-    return !!((ptr?.geno | 0) & G_UNIQ);
-}
 
 /**
  * C ref: engrave.c engr_at / sengr_at.

@@ -36,13 +36,13 @@ import {
 import { A_WIS, A_DEX, acurr, exercise, Fumbling } from './attrib.js';
 import { cxname, an, xname, The, the, otense, thesimpleoname, yname } from './objnam.js';
 import {
-    mindless, G_UNIQ, is_flyer, is_clinger, humanoid, is_hider, nolimbs,
+    mindless, is_flyer, is_clinger, humanoid, is_hider, nolimbs,
     M1_SLITHY, is_mercenary, MR_SLEEP, is_mplayer,
 } from './monsters.js';
 import { dist2, mungspaces } from './hacklib.js';
 import { Monnam, mon_nam, x_monnam, a_monnam, Amonnam } from './do_name.js';
 import { cansee, recalc_block_point, unblock_point } from './vision.js';
-import { m_at, wakeup, seemimic, onscary } from './mon.js';
+import { m_at, wakeup, seemimic, onscary, unique_corpstat } from './mon.js';
 import { monflee } from './monmove.js';
 import { maketrap, t_at, set_utrap, reset_utrap, deltrap, selftouch, mselftouch } from './trap.js';
 import {
@@ -170,10 +170,6 @@ function resist(mtmp, oclass, _damage, _tell) {
     return rn2(100 + alev - dlev) < mr;
 }
 
-/** C ref: music.c unique_corpstat gate via G_UNIQ (long-worm-tail polish deferred). */
-function unique_corpstat(ptr) {
-    return !!((ptr?.geno ?? 0) & G_UNIQ);
-}
 
 /** C ref: monmove.c / muse.c mdistu — squared distance to hero. */
 function mdistu(mtmp) {

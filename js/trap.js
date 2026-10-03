@@ -43,7 +43,7 @@ import {
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
     s_suffix, obj_pmname, a_monnam,
 } from './do_name.js';
-import { m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry, m_in_air } from './mon.js';
+import { m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry, m_in_air, unique_corpstat } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, unblock_point, vision_recalc } from './vision.js';
 import { del_engr_at, can_reach_floor } from './engrave.js';
 import {
@@ -228,10 +228,6 @@ function upstart(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-/** C ref: mondata.h unique_corpstat — G_UNIQ. */
-function unique_corpstat(ptr) {
-    return !!((ptr?.geno | 0) & G_UNIQ);
-}
 
 /** C ref: objnam.c / shk.c shk_your thin — carried → "your ", else "the ". */
 function shk_your_statue(statue) {
