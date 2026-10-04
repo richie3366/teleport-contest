@@ -2,14 +2,14 @@
 {"fn":"new_mgivenname","c":"31-47","status":"ported","js":["js/restore.js:new_mgivenname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_mgivenname","c":"51-57","status":"ported","js":["js/do_name.js:free_mgivenname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"new_oname","c":"61-77","status":"ported","js":["js/do_name.js:new_oname"],"at":"2026-10-03@bbe63333a"}
-{"fn":"free_oname","c":"81-87","status":"ported","js":["js/do_name.js:free_oname"],"at":"2026-10-03@bbe63333a"}
-{"fn":"safe_oname","c":"95-100","status":"ported","js":["js/do_name.js:safe_oname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"free_oname","c":"81-87","status":"ported","js":["js/do_name.js:free_oname"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
+{"fn":"safe_oname","c":"95-100","status":"ported","js":["js/do_name.js:safe_oname"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"name_from_player","c":"105-128","status":"ported","js":["js/do_name.js:name_from_player"],"d":["D-3133"],"at":"2026-09-29@e3690fe26","note":"stale: js/do_name.js:199, all 3 C callers wired (:223/:582/:1818)"}
 {"fn":"christen_monst","c":"133-152","status":"ported","js":["js/do_name.js:christen_monst"],"d":["D-2916"],"at":"seed@a30a7de84"}
 {"fn":"alreadynamed","c":"158-195","status":"ported","js":["js/do_name.js:alreadynamed"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_mgivenname","c":"199-282","status":"ported","js":["js/do_name.js:do_mgivenname"],"d":["D-1638"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_oname","c":"290-369","status":"ported","js":["js/do_name.js:do_oname"],"d":["D-1670"],"at":"2026-10-03@bbe63333a"}
-{"fn":"oname","c":"372-426","status":"partial","js":["js/do_name.js:oname"],"omit":"untwoweapon You(can_no_longer_twoweap) message dropped when obj==uswapwep&&u.twoweap (set_twoweap+update_inventory inlined; sync fn can't await pline)","d":["D-1680"],"at":"2026-10-03@bbe63333a"}
+{"fn":"oname","c":"372-426","status":"partial","js":["js/do_name.js:oname"],"omit":"- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).","d":["D-3403","D-1680"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"objtyp_is_callable","c":"429-463","status":"ported","js":["js/do_name.js:objtyp_is_callable"],"at":"2026-09-29@d27c7b945","note":"stale: js/do_name.js:149 (D-1555)"}
 {"fn":"name_ok","c":"467-476","status":"ported","js":["js/do_name.js:name_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"call_ok","c":"480-495","status":"ported","js":["js/do_name.js:call_ok"],"at":"2026-10-03@bbe63333a"}
@@ -17,22 +17,22 @@
 {"fn":"docall_xname","c":"605-633","status":"ported","js":["js/do_name.js:docall_xname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"docall","c":"636-676","status":"ported","js":["js/do_name.js:docall"],"d":["D-1672"],"at":"2026-10-03@bbe63333a"}
 {"fn":"namefloorobj","c":"679-757","status":"ported","js":["js/do_name.js:namefloorobj"],"d":["D-1555"],"at":"2026-10-03@bbe63333a"}
-{"fn":"rndghostname","c":"772-776","status":"ported","js":["js/makemon.js:rndghostname"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rndghostname","c":"772-776","status":"ported","js":["js/makemon.js:rndghostname"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"x_monnam","c":"827-1032","status":"ported","js":["js/do_name.js:x_monnam"],"d":["D-2092","D-2038","D-1803"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"l_monnam","c":"1035-1039","status":"ported","js":["js/do_name.js:l_monnam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_nam","c":"1042-1046","status":"ported","js":["js/do_name.js:mon_nam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"noit_mon_nam","c":"1054-1060","status":"ported","js":["js/do_name.js:noit_mon_nam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"some_mon_nam","c":"1065-1071","status":"ported","js":["js/do_name.js:some_mon_nam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Monnam","c":"1074-1080","status":"ported","js":["js/do_name.js:Monnam"],"at":"2026-10-02@e42cd0047","note":"stale: js/do_name.js:1317 whole C body (highc(mon_nam))"}
-{"fn":"noit_Monnam","c":"1083-1089","status":"ported","js":["js/do_name.js:noit_Monnam"],"at":"2026-10-03@bbe63333a"}
+{"fn":"noit_Monnam","c":"1083-1089","status":"ported","js":["js/do_name.js:noit_Monnam"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"Some_Monnam","c":"1092-1098","status":"ported","js":["js/do_name.js:Some_Monnam"],"at":"2026-10-02@ba7109db3","note":"stale: js/do_name.js:1262"}
 {"fn":"noname_monnam","c":"1102-1105","status":"ported","js":["js/do_name.js:noname_monnam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_monnam","c":"1110-1113","status":"ported","js":["js/do_name.js:m_monnam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"y_monnam","c":"1117-1129","status":"ported","js":["js/do_name.js:y_monnam"],"at":"2026-10-03@bbe63333a"}
-{"fn":"YMonnam","c":"1133-1139","status":"ported","js":["js/do_name.js:YMonnam"],"at":"2026-10-03@bbe63333a"}
+{"fn":"YMonnam","c":"1133-1139","status":"ported","js":["js/do_name.js:YMonnam"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"Adjmonnam","c":"1142-1149","status":"ported","js":["js/do_name.js:Adjmonnam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"a_monnam","c":"1152-1156","status":"ported","js":["js/do_name.js:a_monnam"],"d":["D-3323","D-3322"],"at":"2026-10-02@cb36dc362","note":"trap+hack clones deleted, rewired to live export; music.js:266 third clone remains (queued next)"}
-{"fn":"Amonnam","c":"1159-1165","status":"ported","js":["js/do_name.js:Amonnam"],"d":["D-3340","D-3333","D-3323","D-3250"],"at":"2026-10-03@8d8cf1c8a"}
+{"fn":"Amonnam","c":"1159-1165","status":"ported","js":["js/do_name.js:Amonnam"],"d":["D-3403","D-3340","D-3333","D-3323","D-3250"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"distant_monnam","c":"1170-1186","status":"ported","js":["js/do_name.js:distant_monnam"],"d":["D-1673"],"at":"2026-10-02@cb36dc362","note":"stale: js/do_name.js:885 whole C body (astral conceal + x_monnam else, D-1673)"}
 {"fn":"mon_nam_too","c":"1191-1216","status":"ported","js":["js/do_name.js:mon_nam_too"],"d":["D-3203","D-1790"],"at":"2026-10-01@a5f89dd93","note":"stale: js/do_name.js:1225, all C arms + callers wired"}
 {"fn":"monverbself","c":"1221-1249","status":"ported","js":["js/do_name.js:monverbself"],"at":"2026-10-03@bbe63333a"}
@@ -43,7 +43,7 @@
 {"fn":"obj_pmname","c":"1321-1359","status":"ported","js":["js/do_name.js:obj_pmname"],"d":["D-2887"],"at":"seed@a30a7de84"}
 {"fn":"bogusmon","c":"1369-1385","status":"ported","js":["js/do_name.js:bogusmon"],"at":"2026-09-29@9798beecd","note":"stale: js/do_name.js:279, callers do_name.js:308,1736 + mcastu.js:726"}
 {"fn":"rndmonnam","c":"1389-1411","status":"ported","js":["js/do_name.js:rndmonnam"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"bogon_is_pname","c":"1415-1420","status":"ported","js":["js/do_name.js:bogon_is_pname"],"d":["D-3274"],"at":"2026-10-02@faf4b9296"}
+{"fn":"bogon_is_pname","c":"1415-1420","status":"ported","js":["js/do_name.js:bogon_is_pname"],"d":["D-3403","D-3274"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"roguename","c":"1424-1439","status":"ported","js":["js/do_name.js:roguename"],"d":["D-3203","D-2088"],"at":"2026-10-01@a5f89dd93"}
 {"fn":"hcolor","c":"1461-1466","status":"split","js":["js/do_name.js:hcolor"],"d":["D-1135"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ledger maps to js/detect.js:hcolor potion-palette clone (hallu deferred, wrong table); true C do_name.c hcolor port is js/do_name.js:hcolor (74-entry table, display rng)"}
 {"fn":"rndcolor","c":"1470-1477","status":"ported","js":["js/do_name.js:rndcolor"],"d":["D-1147"],"at":"2026-10-03@bbe63333a"}

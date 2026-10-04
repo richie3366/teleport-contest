@@ -1,5 +1,57 @@
 # Divergence log
 
+## D-3403 — batch @7a3ae7a92: display/end/objnam/do_name/getpos/rumors/options/mthrowu remainder (100 fns, 0 left open)
+
+- **Status:** shipped.
+- **Symptom:** breadth-phase coverage batch: 100 whole C functions (open 0 · partial 45 · recheck 55, ~1506 C lines of gap) across display.c (1), end.c (1), objnam.c (16), do_name.c (8), getpos.c (5), rumors.c (6), options.c (59), mthrowu.c (4). Live divergences closed: autounlock menu paint (prompt inverse + blank row + `*` preselect marks — 2 corpus sessions moved past), ysimple_name/simpleonames/actualoname minimal_xname rewires (pickup 'bag' clones + pray inline retired), eatcorpse tainted-make_sick arm, m_useupall obfree dispose, getpos cmdq/G-g-prefix/mouse/ESC arms, parseoptions + perminv + illegal_menu_cmd_key error sinks, doset getlin/'?'-help/rerun arms, rnd_otyp_by_namedesc oc_uname arm. Two ledger omits were paste errors (maybereleaseobuf, roguesymset) and one misplaced (menu_colors) — dropped with the port.
+- **C locus:**
+  - `ysimple_name`: objnam.c:2390–2398 — used pluralizing simpleonames; C uses singular minimal_xname.
+  - `simpleonames`: objnam.c:2428–2442 — pretty_base inline leaked oc_uname/oname/state; C calls minimal_xname.
+  - `actualoname`: objnam.c:2488–2498 — xname-spread inline leaked live state; C is override_ID + minimal_xname.
+  - `rnd_otyp_by_namedesc`: objnam.c:3485–3532 — missing oc_uname arm + empty-name guard.
+  - `corpse_xname`: objnam.c — body whole; missing caller arm eat.c:1904–1917 (eatcorpse tainted).
+  - `maybereleaseobuf`: objnam.c — no code change; ledger omit was a paste error (rnd_otyp_by_wpnskill text).
+  - `rnd_otyp_by_wpnskill`: objnam.c — no code change; body whole, empty-class arm dead (both classes non-empty).
+  - `readobjnam_preparse/postparse2/postparse3`: objnam.c — no code change; omits stale (postparse1 ported, case-6 retry live).
+  - `getpos`: getpos.c:814–910 — entry/per-loop cmdq DIR/KEY arms, do_run/do_rush prefix, mouse pick, ESC ccp -10.
+  - `getpos_help`: getpos.c — doc-only; retired stale "Named: cmd_from_func custom binds" (live).
+  - `getrumor`: rumors.c:176–178 — called impossible() instead of couldnt_open_file().
+  - `m_useupall`: mthrowu.c:1153–1158 — missing obfree dispose (contents/billing/leash).
+  - `thrwmu`: mthrowu.c — removed redundant rogue gate (lives in mhitu.c:884 caller).
+  - `parseoptions`: options.c — 5 config_error_add sites wired (sink live).
+  - `optfn_perminv_mode`: options.c:3068–3099 — bad_negation + 2 config_error_add arms.
+  - `handler_autounlock`: options.c:5648 — prompt inverse + blank row; shared pick_any `*`/`+` marks.
+  - `handler_menu_objsyms/sortloot/whatis_coord/menu_colors/versinfo`: options.c — same prompt idiom.
+  - `illegal_menu_cmd_key`: options.c:8044–8053 — both config_error_add arms.
+  - `doset`: options.c — non-handler getlin arms, symset/roguesymset routing, '?' help + rerun, preference_update calls, opt_phase.
+  - `optfn_roguesymset`, `handler_menu_colors`: options.c — no code change; ledger omits were paste errors.
+  - `pfxfn_cond_`, 17× `optfn_*` (alignment/message/status/disclose/fruit/gender/menustyle/paranoid/pickup_burden/race/role/sortdiscoveries/sortvanquished/whatis_filter/windowborders): options.c — no code change; sink omits stale (all sinks live), bodies whole.
+- **JS was:** ysimple_name pluralized stacks and pickup prompted with invented 'bag' names; simpleonames/actualoname leaked user-named/eroded/enchanted state; eatcorpse never sickened on tainted corpses; m_useupall never disposed; getpos ignored queued dirs/keys, G/g prefixes, mouse picks, and cancelled with -1; parseoptions/perminv/menu-key errors were silent; doset dropped non-handler compounds and ignored '?'; option menus missed the end_menu prompt style + blank row and painted preselects '+'.
+- **Fix:** ysimple_name/simpleonames/actualoname call the live minimal_xname export (override_ID for actualoname); pickup's 4 clones retired to the existing objnam aliases; pray's xname inline rewired to actualoname; eatcorpse tainted arm ported (maybe_cannibal + Sick_resistance + rn1 sick_time + make_sick rotted); m_useupall calls obfree; getpos ports the 4 omit arms (cmdq consume, G/g prefix + quitchars gate, mouse pick, NHKF_ESC -10); parseoptions/perminv/illegal_menu_cmd_key call the live config_error_add/bad_negation; doset routes non-handler compounds via getlin, symset/roguesymset via handler_symset, pages OPTMENUHELP on '?' with rerun; 6 option menus gain the inverse prompt + blank row; pick_any paints `*` preselect vs `+` runtime-toggle (page changes reset). doset/longest wc2 gates attempted then reverted: the runtime wincap2 is deliberately minimal vs C tty's bits, so the arms mis-skip rows C shows (Samurai-94071 use_darkgray) — named, needs a per-bit consumer audit.
+- **JS:** js/objnam.js, js/pickup.js, js/pray.js, js/readobjnam.js, js/eat.js, js/getpos.js, js/rumors.js, js/mthrowu.js, js/options.js, js/pager.js (display_file export). Docs touched: CURRENT.md Next cluster.
+- **Callers:**
+  - `ysimple_name/simpleonames`: pickup.c:1824→pickup.js:1568, :2463→:4418, :3979→:4874, :4049→:4964 (aliases); attrib/uhitm via existing objnam imports.
+  - `actualoname`: read.c:1374→read.js:1310 (live); pray.c:878→pray.js:1754 (inline retired, export called).
+  - `corpse_xname`: eat.c:1913→eat.js:2525 (new); dothrow.c:142→dothrow.js:1071 (live); obj_pmname arm in do_name.js callee.
+  - `rnd_otyp_by_namedesc/wpnskill`, `readobjnam_*`: readobjnam wish callers unchanged.
+  - `getpos`: 20 JS call sites unchanged (ESC -10 verified: do_name.js:543/:1648, pager.js:2807, wizcmds.js:548).
+  - `m_useupall`: m_useup + throw callers unchanged; obfree import added (imports.mjs SAFE).
+  - `thrwmu`: sole caller mhitu.js:4194 (gate kept there).
+  - `parseoptions/perminv/illegal_menu_cmd_key`: dispatch/caller sites unchanged; sinks now emit.
+  - 6× `handler_*`: doset_optfn_do_handler routing unchanged; menu raw fixed.
+  - `doset`: O/mO entry unchanged; doset_optfn_do_handler += symset/roguesymset; display_file imported from pager.js (imports.mjs SAFE).
+- **Verify:** `verify.mjs --fn <100-fn line>` → VERIFY: PASS (sweep 100 fns: 711 baseline-PASS re-run in 281.3s, 0 regressed → REACH-OK; green 2/2; strict tourist-starter + explore-actions; cohort 7/7; full 44/44 auto on shared-file change). All 100 `hidden verify` lines read "no corpus session blocked on it at baseline" → REACH-OK is the corpus evidence. Per-file checkpoints: display/end/objnam REACH-OK; do_name REACH-OK; getpos/rumors/mthrowu REACH-OK (hidden-proxy probes of 4 getpos-owner sessions UNCHANGED — first divergence is piletop ` vs ?? at pile-top cells, display debt #1446, not getpos; no session blocked on getpos itself); options checkpoint green after reverting the doset/longest wc2 gates (scen-options-Samurai-94071 use_darkgray regression, 78/78 PASS after revert); hidden-proxy probes of autounlock-owner sessions moved past handler_autounlock to later owners (PROGRESS).
+- **Named omissions:**
+  - `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).
+  - `getpos`: CLIPPING cliparound ×2 + gg.getposx/getposy async-resize model (wintty-only readers; no-op at contest size).
+  - `can_set_perm_invent`: check_tty_wincap (windows.c:231; dead-TRUE in contest, needs win_choices model).
+  - `parseoptions`: switch_symbols (by-design seed); optfn_boolean + boolean-row dispatch (out of manifest).
+  - `shared_menu_optfn`: parsebindings :7658–7662 menu-command arm (travels with future BINDINGS row).
+  - `doset`: PREFIXES section (fqn_prefix values unset in JS); wc2_supported skips (minimal-wincap2 model gap); optfn_boolean perm_invent gate (caller-side).
+- **Ledger:** show_glyph audited; really_done audited; maybereleaseobuf ported; fruitname audited; corpse_xname ported; ysimple_name ported; simpleonames ported; actualoname ported; vtense audited; singplur_lookup partial; rnd_otyp_by_wpnskill ported; rnd_otyp_by_namedesc ported; readobjnam_preparse ported; readobjnam_postparse2 ported; readobjnam_postparse3 ported; armor_simple_name audited; cloak_simple_name audited; safe_qbuf audited; free_oname audited; safe_oname audited; oname partial; rndghostname audited; noit_Monnam audited; YMonnam audited; Amonnam audited; bogon_is_pname audited; mapxy_valid audited; getpos_getvalids_selection audited; getpos_help audited; gloc_filter_done audited; getpos partial; unpadline audited; getrumor ported; get_rnd_text audited; outoracle audited; init_CapMons audited; free_CapMons audited; parseoptions partial; optfn_alignment ported; optfn_align_message ported; optfn_align_status ported; optfn_altkeyhandling audited; optfn_DECgraphics audited; optfn_disclose ported; optfn_fruit ported; optfn_gender ported; shared_menu_optfn partial; optfn_menustyle ported; optfn_paranoid_confirmation ported; optfn_perminv_mode ported; optfn_pickup_burden ported; optfn_pickup_types audited; optfn_race ported; optfn_roguesymset ported; optfn_role ported; optfn_sortdiscoveries ported; optfn_sortvanquished ported; optfn_whatis_filter ported; optfn_windowborders ported; pfxfn_cond_ ported; can_set_perm_invent partial; handler_autounlock ported; handler_menu_objsyms ported; handler_sortloot ported; handler_whatis_coord ported; handler_symset audited; handler_menu_colors ported; handler_versinfo ported; string_for_opt audited; bad_negation audited; complain_about_duplicate audited; nmcpy audited; txt2key audited; initoptions audited; initoptions_init audited; initoptions_finish audited; msgtype2name audited; msgtype_count audited; test_regex_pattern audited; illegal_menu_cmd_key ported; oc_to_str audited; get_menu_cmd_key audited; map_menu_cmd audited; longest_option_name audited; doset partial; count_apes audited; free_autopickup_exceptions audited; all_options_apes audited; is_wc_option audited; is_wc2_option audited; wc2_supported audited; wc_set_font_name audited; options_free_window_colors audited; enhance_menu_text audited; heed_all_options audited; disregard_all_options audited; m_has_launcher_and_ammo audited; breathwep_name audited; m_useupall ported; thrwmu audited.
+- **Left open:** none.
+- **Next:** per-bit wincap2 consumer audit (unblocks doset/longest wc2 gates + use_darkgray-class rows); handler_disclose + handler_menu_headings (autounlock sessions' new owners); getpos's 4 symptom-owner sessions need their map-glyph writers (display/level state, not getpos); tty_procs_wincap omits WC_PERM_INVENT (C-wrong but possibly load-bearing — do not touch without a perm_invent plan).
+
 ## D-3402 — batch @e77f3975a: display/rnd/potion/end/pager/pline/cmd/uhitm remainder (100 fns, 0 left open)
 
 - **Status:** shipped.

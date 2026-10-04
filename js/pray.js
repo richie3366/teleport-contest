@@ -82,7 +82,7 @@ import { attrcurse, rndcurse } from './sit.js';
 import {
     An, an, xname, makeplural, vtense, corpse_xname,
     ansimpleoname, simpleonames, otense, Yobjnam2, yname,
-    gloves_simple_name,
+    gloves_simple_name, actualoname,
 } from './objnam.js';
 import {
     objectNames, POT_WATER, POTION_CLASS, WEAPON_CLASS, SPBOOK_CLASS,
@@ -1751,16 +1751,11 @@ export async function gcrownu() {
         // get book type before dropping (don't think that could destroy
         // the book because we need to be on an altar in order to become
         // crowned, but be paranoid about it)
-        // C: Strcpy(bbuf, actualoname(obj)) — objnam.c:2490 override_ID +
-        // minimal_xname; xname under override_ID is the live equivalent.
-        if (!game.iflags) game.iflags = {};
-        const savedID = game.iflags.override_ID | 0;
-        game.iflags.override_ID = 1;
-        try {
-            bbuf = xname(obj);
-        } finally {
-            game.iflags.override_ID = savedID;
-        }
+        // C pray.c:878 Strcpy(bbuf, actualoname(obj)) — the export carries
+        // objnam.c:2490 override_ID + minimal_xname (D-3403 retires the
+        // xname-under-override_ID inline, which leaked live-object state
+        // C's bareobj suppresses).
+        bbuf = actualoname(obj);
         bless(obj);
         obj.bknown = 1; // ok to skip set_bknown()
         observe_object(obj);

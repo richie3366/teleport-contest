@@ -709,8 +709,9 @@ export async function show_nhw_menu_text(lines, opts = {}) {
 
 /**
  * C ref: files.c / windows.c display_file — page a dat text file.
+ * Exported for options.c doset '?' help (D-3403).
  */
-async function display_file(fname, _warn) {
+export async function display_file(fname, _warn) {
     const raw = readDat(fname);
     if (!raw) {
         await pline(`Cannot open '${fname}' file!`);

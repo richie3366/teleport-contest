@@ -162,16 +162,9 @@ const moderateloadpfx = 'You have trouble';
 const nearloadpfx = 'You have much trouble';
 const overloadpfx = 'You have extreme difficulty';
 
-/** C-ish simpleonames — sack family → "bag". */
-function simpleonames(obj) {
-    const n = objectNames[obj?.otyp];
-    if (n === 'SACK' || n === 'OILSKIN_SACK' || n === 'BAG_OF_HOLDING'
-        || n === 'BAG_OF_TRICKS') {
-        return 'bag';
-    }
-    return cxname(obj);
-}
-
+// D-3403: the sack→"bag" simpleonames clone is retired — C
+// minimal_xname has no such alias (objnam.c "bag" hits are wish-range
+// o_ranges); call sites use the objnam.js exports (aliases above).
 const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
 const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
@@ -211,26 +204,9 @@ export const st_petrifies = 0x4;
 const st_resists = 0x8;
 export const st_all = st_gloves | st_corpse | st_petrifies | st_resists;
 
-/** C ref: objnam.c thesimpleoname — "the" + simpleonames. */
-function thesimpleoname(obj) {
-    return `the ${simpleonames(obj)}`;
-}
-
-/**
- * C ref: objnam.c ysimple_name — shk_your + minimal_xname.
- * Named omissions: full minimal_xname / shopkeeper ownership.
- */
-function ysimple_name(obj) {
-    const carried = obj?.where === OBJ_INVENT
-        || (game.invent || []).includes(obj);
-    return `${carried ? 'your' : 'the'} ${simpleonames(obj)}`;
-}
-
-/** C ref: objnam.c Ysimple_name2 — capitalized ysimple_name. */
-function Ysimple_name2(obj) {
-    return upstart(ysimple_name(obj));
-}
-
+// D-3403: thesimpleoname/ysimple_name/Ysimple_name2 clones retired —
+// call sites use the objnam.js exports (thesimpleoname_objnam etc.),
+// which carry the full shk_your + minimal_xname arms.
 /** C obj.h SchroedingersBox — LARGE_BOX with spe==1. */
 export function SchroedingersBox(obj) {
     return !!obj && (obj.otyp | 0) === LARGE_BOX && (obj.spe | 0) === 1;
@@ -1565,7 +1541,7 @@ export async function pickup_object(obj, count, telekinesis) {
     if (obj === game.u?.uchain) return 0;
     if ((obj.where | 0) === OBJ_MINVENT && (obj.owornmask | 0)
         && engulfing_u(obj.ocarry)) {
-        await pline(`You can't pick ${ysimple_name(obj)} up.`);
+        await pline(`You can't pick ${ysimple_name_objnam(obj)} up.`);
         return 0;
     }
     if (obj.oartifact && !(await touch_artifact(obj, youmonst))) return 0;
@@ -4415,7 +4391,7 @@ export async function loot_mon(mtmp, passed_info, prev_loot) {
                 if (ex && typeof ex.then === 'function') await ex;
                 if (game.flags?.verbose !== false) {
                     await pline(
-                        `You take ${thesimpleoname(otmp)} off of ${mon_nam(mtmp)}.`,
+                        `You take ${thesimpleoname_objnam(otmp)} off of ${mon_nam(mtmp)}.`,
                     );
                 }
                 await hold_another_object(
@@ -4871,7 +4847,7 @@ async function tipcontainer_checks(box, targetbox, allowempty) {
     }
     // C `:3978-3980`.
     if (box.olocked) {
-        await pline(`${upstart(thesimpleoname(box))} is locked.`);
+        await pline(`${upstart(thesimpleoname_objnam(box))} is locked.`);
         return TIPCHECK_LOCKED;
     }
     // C `:3982-3992` — not reaching inside but still handling it: the trap
@@ -4961,7 +4937,7 @@ async function tipcontainer_checks(box, targetbox, allowempty) {
     // C `:4047-4051`.
     if (!allowempty && !Has_contents(box)) {
         box.cknown = 1;
-        await pline(`${upstart(thesimpleoname(box))} is empty.`);
+        await pline(`${upstart(thesimpleoname_objnam(box))} is empty.`);
         return TIPCHECK_EMPTY;
     }
     return TIPCHECK_OK;

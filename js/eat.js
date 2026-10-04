@@ -102,7 +102,7 @@ import {
     CHOKING, STARVING, STARVED, A_LAWFUL, STRANGLED, PARANOID_EATING,
     POISONING, LL_CONDUCT,
     DEAF,
-    CXN_SINGULAR, CXN_PFX_THE,
+    CXN_NORMAL, CXN_SINGULAR, CXN_PFX_THE,
     GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_EXCLUDE_SELECTABLE,
     GETOBJ_EXCLUDE_NONINVENT, GETOBJ_NOFLAGS, GETOBJ_DOWNPLAY,
 } from './const.js';
@@ -2505,13 +2505,33 @@ export async function eatcorpse(otmp) {
     }
 
     if (!glob && !stoneable && !slimeable && rotted > 5) {
-        // tainted path — Sick_resistance / make_sick deferred; use up
+        // C `:1890` — maybe_cannibal(mnum, FALSE): penalty without
+        // message; the return feeds the ", you cannibal" suffix (D-3403).
+        const cannibal = await maybe_cannibal(mnum, false);
+        /* tp++; -- early return makes this unnecessary */
         await pline(
             `Ulch - that ${
                 ptr?.mlet === 'S_FUNGUS' ? 'fungoid vegetation'
                     : vegetarian(ptr) ? 'protoplasm' : 'meat'
-            } was tainted!`,
+            } was tainted${cannibal ? ', you cannibal' : ''}!`,
         );
+        // C `:1904–1917` — Sick_resistance shrug, else rn1(10,10)
+        // sick_time (never an improvement over current Sick) + make_sick
+        // on the "rotted <corpse>" name + the too-long-ago pline.
+        const Sick_resistance = !!((game.u?.Sick_resistance
+            || game.u?.HSick_resistance || game.u?.ESick_resistance)
+            || (game.youmonst ? defended(game.youmonst, AD_DISE) : false));
+        if (Sick_resistance) {
+            await pline("It doesn't seem at all sickening, though...");
+        } else {
+            let sick_time = rn1(10, 10);
+            const Sick = game.u?.Sick | 0;
+            /* make sure new ill doesn't result in improvement */
+            if (Sick && sick_time > Sick) sick_time = Sick > 1 ? Sick - 1 : 1;
+            await make_sick(sick_time,
+                corpse_xname(otmp, 'rotted', CXN_NORMAL), true, SICK_VOMITABLE);
+            await pline('(It must have died too long ago to be safe to eat.)');
+        }
         if (carried(otmp)) useup(otmp);
         else await useupf(otmp, 1);
         return 2;

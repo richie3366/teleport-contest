@@ -1,5 +1,5 @@
 {"fn":"rnd_hallublast","c":"52-55","status":"ported","js":["js/mthrowu.js:rnd_hallublast"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ROLL_FROM = HALLUBLASTS[rn2(len)], full table ported"}
-{"fn":"m_has_launcher_and_ammo","c":"58-70","status":"ported","js":["js/mthrowu.js:m_has_launcher_and_ammo"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wielded-launcher + minvent ammo scan matches C exactly"}
+{"fn":"m_has_launcher_and_ammo","c":"58-70","status":"ported","js":["js/mthrowu.js:m_has_launcher_and_ammo"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"thitu","c":"75-155","status":"ported","js":["js/mthrowu.js:thitu"],"d":["D-2796"],"at":"seed@a30a7de84"}
 {"fn":"drop_throw","c":"162-196","status":"ported","js":["js/mthrowu.js:drop_throw"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mulch/ship/place+passive arms live; down_gate gate folded into ship_object (MIGR_NOWHERE=-1)"}
 {"fn":"monmulti","c":"201-258","status":"ported","js":["js/weapon.js:monmulti"],"d":["D-3023"],"at":"2026-09-28@0bb1eb02e"}
@@ -11,11 +11,11 @@
 {"fn":"return_from_mtoss","c":"850-965","status":"ported","js":["js/mthrowu.js:return_from_mtoss"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: return flight, catch/damage/land arms incl. do_not_annoy live"}
 {"fn":"thrwmm","c":"969-1012","status":"ported","js":["js/mthrowu.js:thrwmm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: weapon select, lined_up, flee gate, monshoot wiring live"}
 {"fn":"spitmm","c":"1016-1077","status":"ported","js":["js/mthrowu.js:spitmm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mcan rattle, venom select, m_throw, pet hunger live"}
-{"fn":"breathwep_name","c":"1083-1089","status":"ported","js":["js/mthrowu.js:breathwep_name"],"d":["D-3376"],"at":"2026-10-03@30ce39631","note":"audit 2026-10-03: plain breathwep[] lookup live"}
+{"fn":"breathwep_name","c":"1083-1089","status":"ported","js":["js/mthrowu.js:breathwep_name"],"d":["D-3403","D-3376"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"breamm","c":"1093-1150","status":"ported","js":["js/mthrowu.js:breamm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cough, m_seenres skip, dobuzz, mspec_used, pet hunger live"}
-{"fn":"m_useupall","c":"1154-1158","status":"ported","js":["js/mthrowu.js:m_useupall"],"d":["D-3262"],"at":"2026-10-02@a7d88d8ff","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"m_useupall","c":"1154-1158","status":"ported","js":["js/mthrowu.js:m_useupall"],"d":["D-3403","D-3262"],"at":"2026-10-04@7a3ae7a92","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"m_useup","c":"1162-1170","status":"ported","js":["js/mthrowu.js:m_useup"],"d":["D-3338"],"at":"2026-10-03@a701d2827"}
-{"fn":"thrwmu","c":"1174-1264","status":"ported","js":["js/mthrowu.js:thrwmu"],"d":["D-2537"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — wrapper sets mon_moving; all C arms verified in thrwmu_body (mthrowu.js:1562)"}
+{"fn":"thrwmu","c":"1174-1264","status":"ported","js":["js/mthrowu.js:thrwmu"],"d":["D-3403","D-2537"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"spitmu","c":"1268-1271","status":"ported","js":["js/mthrowu.js:spitmu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: one-line spitmm vs hero wrapper"}
 {"fn":"breamu","c":"1275-1278","status":"ported","js":["js/mthrowu.js:breamu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: one-line breamm vs hero wrapper"}
 {"fn":"blocking_terrain","c":"1282-1288","status":"ported","js":["js/mthrowu.js:blocking_terrain"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: isok/wall/door/waterwall/lavawall gate matches"}

@@ -1,15 +1,15 @@
-{"fn":"unpadline","c":"67-80","status":"ported","js":["js/rumors.js:unpadline"],"at":"2026-10-03@bbe63333a"}
+{"fn":"unpadline","c":"67-80","status":"ported","js":["js/rumors.js:unpadline"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"init_rumors","c":"85-107","status":"split","js":["js/rumors.js:getrumor","js/rumors.js:rumor_check"],"at":"2026-09-28@34c78a6ac","note":"stale: header parse at build time (extract-rumors.py); lazy init in getrumor + rumor_check"}
-{"fn":"getrumor","c":"117-191","status":"partial","js":["js/rumors.js:getrumor"],"omit":"`dlb_fopen`/`dlb_fclose` handles (Rule #2 embed D-0477 — buffers always present); `init_rumors` header parse (ran at build time in `extract-rumors.py`; starts/ends subsumed by the TRUE/FALSE split); `couldnt_open_file` something_worth_saving suppression (unreachable under embed; the `impossible` + …","d":["D-2513"],"at":"seed@a30a7de84"}
+{"fn":"getrumor","c":"117-191","status":"ported","js":["js/rumors.js:getrumor"],"d":["D-3403","D-2513"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"rumor_check","c":"196-302","status":"ported","js":["js/rumors.js:rumor_check"],"d":["D-2556"],"at":"2026-10-01@cdbc41097","note":"stale: js/rumors.js:382 whole body live (D-2556, review 1515 ACCEPT); dlb arms by-design embed"}
-{"fn":"get_rnd_text","c":"499-526","status":"ported","js":["js/rumors.js:get_rnd_text"],"d":["D-2962"],"at":"2026-09-27@988c639a6"}
+{"fn":"get_rnd_text","c":"499-526","status":"ported","js":["js/rumors.js:get_rnd_text"],"d":["D-3403","D-2962"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"outrumor","c":"529-574","status":"ported","js":["js/rumors.js:outrumor"],"at":"2026-09-27@988c639a6","note":"stale: js/rumors.js:233"}
 {"fn":"init_oracles","c":"577-595","status":"ported","js":["js/rumors.js:init_oracles"],"at":"2026-09-29@671c54bfc","note":"stale: js/rumors.js:449 (embed port, caller wired :481, review 1562 ACCEPT)"}
 {"fn":"save_oracles","c":"598-619","status":"ported","js":["js/rumors.js:save_oracles"],"at":"2026-09-29@29685b8e4","note":"stale: js/rumors.js:530 (JSON-analogue save arm live; NHFILE/free arm architectural omit per in-code doc)"}
 {"fn":"restore_oracles","c":"623-636","status":"ported","js":["js/rumors.js:restore_oracles"],"at":"2026-10-03@bbe63333a"}
-{"fn":"outoracle","c":"640-693","status":"ported","js":["js/rumors.js:outoracle"],"d":["D-2603"],"at":"seed@a30a7de84"}
+{"fn":"outoracle","c":"640-693","status":"ported","js":["js/rumors.js:outoracle"],"d":["D-3403","D-2603"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"doconsult","c":"696-767","status":"ported","js":["js/rumors.js:doconsult"],"at":"2026-10-03@bbe63333a"}
 {"fn":"couldnt_open_file","c":"770-782","status":"ported","js":["js/rumors.js:couldnt_open_file"],"at":"2026-10-03@bbe63333a"}
 {"fn":"CapitalMon","c":"791-822","status":"ported","js":["js/objnam.js:CapitalMon"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/objnam.js:1603; objnam.c:2187->objnam.js:1761 wired, hack.c:4440 in unported debug dump_weights"}
-{"fn":"init_CapMons","c":"829-935","status":"ported","js":["js/objnam.js:init_CapMons"],"d":["D-2543"],"at":"seed@a30a7de84"}
-{"fn":"free_CapMons","c":"939-953","status":"ported","js":["js/objnam.js:free_CapMons"],"at":"2026-10-03@bbe63333a"}
+{"fn":"init_CapMons","c":"829-935","status":"ported","js":["js/objnam.js:init_CapMons"],"d":["D-3403","D-2543"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
+{"fn":"free_CapMons","c":"939-953","status":"ported","js":["js/objnam.js:free_CapMons"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
