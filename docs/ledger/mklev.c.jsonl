@@ -20,7 +20,7 @@
 {"fn":"makevtele","c":"821-824","status":"ported","js":["js/mklev.js:makevtele"],"d":["D-3301"],"at":"2026-10-02@56ef5b381","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_level_features","c":"828-842","status":"ported","js":["js/mklev.js:count_level_features"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clear_level_structures","c":"850-927","status":"ported","js":["js/mklev.js:clear_level_structures"],"at":"2026-10-03@bbe63333a"}
-{"fn":"fill_ordinary_room","c":"939-1171","status":"partial","js":["js/mklev.js:fill_ordinary_room"],"omit":"`set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-e…","d":["D-3407","D-2469"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"fill_ordinary_room","c":"939-1171","status":"ported","js":["js/mklev.js:fill_ordinary_room"],"d":["D-3411","D-3407","D-2469"],"at":"2026-10-04@c7fcf5bd7","note":"stale recount omit dropped: live via trap.js set_levltyp count_level_features :884 (review 2361)"}
 {"fn":"themerooms_post_level_generate","c":"1174-1194","status":"partial","js":["js/mklev.js:themerooms_post_level_generate"],"omit":"`iflags.in_lua` (no reader).","d":["D-3407","D-2866"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"chk_okdoor","c":"1198-1219","status":"ported","js":["js/mklev.js:chk_okdoor"],"d":["D-2931"],"at":"seed@a30a7de84"}
 {"fn":"mklev_sanity_check","c":"1223-1247","status":"ported","js":["js/mklev.js:mklev_sanity_check"],"at":"2026-10-03@bbe63333a"}
@@ -50,7 +50,7 @@
 {"fn":"mksink","c":"2317-2329","status":"ported","js":["js/mklev.js:mksink"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"mkaltar","c":"2332-2350","status":"ported","js":["js/mklev.js:mkaltar"],"d":["D-2937"],"at":"seed@a30a7de84"}
 {"fn":"mkgrave","c":"2353-2397","status":"ported","js":["js/mklev.js:mkgrave"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
-{"fn":"mkinvokearea","c":"2410-2497","status":"partial","js":["js/mklev.js:mkinvokearea"],"omit":"`display_nhwindow(WIN_MESSAGE, TRUE)` (no JS export; pline flushes); C `deadbook` caller (deferred, not live — no wire possible this commit).","d":["D-3407","D-2467"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"mkinvokearea","c":"2410-2497","status":"ported","js":["js/mklev.js:mkinvokearea"],"d":["D-3411","D-3407","D-2467"],"at":"2026-10-04@c7fcf5bd7","note":"stale omits dropped: deadbook caller live js/spell.js:842; WIN_MESSAGE flush = pline no-op (review 2361)"}
 {"fn":"mkinvpos","c":"2503-2598","status":"ported","js":["js/mklev.js:mkinvpos"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mkinvk_check_wall","c":"2603-2613","status":"ported","js":["js/mklev.js:mkinvk_check_wall"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_knox_portal","c":"2624-2659","status":"ported","js":["js/mklev.js:mk_knox_portal"],"at":"2026-10-03@bbe63333a"}

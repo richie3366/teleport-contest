@@ -1,4 +1,4 @@
-{"fn":"setuwep","c":"100-135","status":"partial","js":["js/wield.js:setuwep"],"omit":"`hmon_hitmon_potion` (`uhitm.c:1094–1116`, call at `:1103`).","d":["D-3407","D-2876"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"setuwep","c":"100-135","status":"ported","js":["js/wield.js:setuwep"],"d":["D-3411","D-3407","D-2876"],"at":"2026-10-04@c7fcf5bd7","note":"stale :1103 omit dropped: hmon_hitmon_potion live js/uhitm.js:1839 (review 2361)"}
 {"fn":"cant_wield_corpse","c":"138-153","status":"ported","js":["js/wield.js:cant_wield_corpse"],"d":["D-2922"],"at":"seed@a30a7de84"}
 {"fn":"empty_handed","c":"158-166","status":"ported","js":["js/wield.js:empty_handed"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ready_weapon","c":"169-273","status":"ported","js":["js/wield.js:ready_weapon"],"d":["D-2182"],"at":"2026-10-03@bbe63333a"}

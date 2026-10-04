@@ -51,7 +51,7 @@
 {"fn":"invoke_blinding_ray","c":"2054-2086","status":"ported","js":["js/artifact.js:invoke_blinding_ray"],"d":["D-1377"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_invoke_cost_pw","c":"2091-2102","status":"ported","js":["js/artifact.js:arti_invoke_cost_pw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_invoke_cost","c":"2106-2128","status":"ported","js":["js/artifact.js:arti_invoke_cost"],"at":"2026-10-03@bbe63333a"}
-{"fn":"arti_invoke","c":"2131-2232","status":"partial","js":["js/artifact.js:arti_invoke"],"omit":"`retouch_equipment` callers stay at the old comments: `attrib.c:1360` (`js/attrib.js:825`), `eat.c:1325` (`js/eat.js:2019`), `polyself.c:463` (`js/polyself.js:1070`), `polyself.c:1021` (`js/polyself.js:1739`), `polyself.c:1415` (`js/polyself.js:1126`), `uhitm.c:4285` (`js/mhitu.js:2853`).","d":["D-3407","D-2805","D-2371"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"arti_invoke","c":"2131-2232","status":"ported","js":["js/artifact.js:arti_invoke"],"d":["D-3411","D-3407","D-2805","D-2371"],"at":"2026-10-04@c7fcf5bd7","note":"stale retouch-caller omit dropped: all 6 sites live js/eat.js:2109 js/attrib.js:907 js/polyself.js:1212/:1268/:1902 js/mhitu.js:2750 (review 2361)"}
 {"fn":"finesse_ahriman","c":"2236-2260","status":"ported","js":["js/artifact.js:finesse_ahriman"],"d":["D-3041"],"at":"2026-09-28@79ab7d2dc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_light","c":"2264-2275","status":"ported","js":["js/timeout.js:artifact_light"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_speak","c":"2279-2296","status":"ported","js":["js/artifact.js:arti_speak"],"d":["D-3018"],"at":"2026-09-28@0cb4128d8","note":"refresh: no JS symbol (measured MISSING)"}

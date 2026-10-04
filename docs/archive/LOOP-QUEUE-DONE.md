@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] D-3407 false ledger certifications (14 rows stamped "cannot ship"/"whole vs C" for shipped code) — drop stale omits + flip to ported: 7 replmon-unstuck rows (sanity_check_single_mon, dmonsfree, monkilled, unstuck, xkilled, setmangry, iter_mons_safe), setuwep (:1103 live uhitm.js:1840), start_timer (wish-corpse live readobjnam.js:2366), mkinvokearea (deadbook live spell.js:842), arti_invoke (6 retouch callers live), fill_ordinary_room (recount live), record_achievement (drop ACH_INVK sub-omit only), restore_timers (→ partial + ghostly bones omit); re-verify the 14. Source: reviews/loop-unattended/2361-c075fb861-batch-d3407-timeout-read.md
+
+
 - [x] D-3408 ledger remainder homes (4 rows) — m_initgrp → partial + group-member-Norep omit (sync, unawaitable); makemon omit += m_dowear fire-and-forget + dog starting-pet + group-msg pointer; newmextra → ported (body whole); wiz_show_nhuuid omit := nhuuid-value text (replace wiz_telekinesis paste error); re-verify the 4. Source: reviews/loop-unattended/2362-952e46e04-batch-d3408-zap-makemon.md
 
 

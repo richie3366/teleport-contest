@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3411 — Must-fix review 2361: D-3407 false ledger certifications (14 rows)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** review 2361 QUALITY-RISK on D-3407: the code is C-exact throughout, but 14 ledger rows mis-certify it — 13 rows stamped "audited D-3407: remaining omit cannot ship" carry omits for already-shipped code (D-3407's prose retired them but never updated the omit fields), and `restore_timers` claims "whole vs C" while its own code doc names the unshipped ghostly-bones adjust.
+- **C locus:** row homes only (no C re-read; bodies verified whole by review 2361): mon.c `sanity_check_single_mon`/`dmonsfree`/`monkilled`/`unstuck`/`xkilled`/`setmangry`/`iter_mons_safe` (shared replmon-unstuck note), wield.c `setuwep` :1094–1116, timeout.c `start_timer` + `restore_timers` :2706–2728, mklev.c `mkinvokearea` + `fill_ordinary_room`, artifact.c `arti_invoke`, insight.c `record_achievement`.
+- **JS was:** 13 rows partial with stale omit text (7× replmon-unstuck; setuwep :1103; start_timer wish-corpse; mkinvokearea deadbook + display flush; arti_invoke retouch callers; fill_ordinary_room recount; record_achievement ACH_INVK sub-omit); `restore_timers` ported with no omit.
+- **Fix:** `ledger.mjs set` ×14 (verified each claim first: `replmon` js/mon.js:3714 is async over live `relmon` with the :2703 unstuck inside `mon_leaving_level` js/mon.js:2105/:2124; `hmon_hitmon_potion` calls `setuwep(null)` at js/uhitm.js:1839 with the C :1102–1103 cite; wish-corpse `start_timer(rn1(5,10),…)` live at js/readobjnam.js:2366; `deadbook` calls `mkinvokearea()` at js/spell.js:842 inside the arti1_primed ritual :797–845 ending in `record_achievement(ACH_INVK)` :845; all 6 `retouch_equipment` sites live — js/eat.js:2109, js/attrib.js:907, js/polyself.js:1212/:1268/:1902, js/mhitu.js:2750; recount live via trap.js `set_levltyp` `count_level_features()` :884; `restore_timers` JS js/mkobj.js:1260 lacks the ghostly `timeout += adjust` per its own doc :1255 vs C :2722–2723).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger rows only).
+- **Verify:** `node scripts/verify.mjs --fn sanity_check_single_mon,dmonsfree,monkilled,unstuck,xkilled,setmangry,iter_mons_safe,setuwep,start_timer,mkinvokearea,arti_invoke,fill_ordinary_room,record_achievement,restore_timers` → PASS syntax (0 changed js); PASS rule2; hidden verify: no corpus session blocked on any of the 14 (coverage-row notes, expected); REACH-OK ×14 (batch sweep: 733 baseline-PASS re-run in 257.1s, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `sanity_check_single_mon`, `dmonsfree`, `monkilled`, `unstuck`, `xkilled`, `setmangry`, `iter_mons_safe`: none — whole (shared replmon-unstuck note retired; live via relmon→mon_leaving_level).
+  - `setuwep`: none — whole (:1103 caller live).
+  - `start_timer`: none — whole (wish-corpse caller live with the rn1 draw).
+  - `mkinvokearea`: none — whole (deadbook caller live; WIN_MESSAGE flush is a pline no-op).
+  - `arti_invoke`: none — whole (all 6 retouch callers live).
+  - `fill_ordinary_room`: none — whole (recount live in set_levltyp).
+  - `record_achievement`: SoundAchievement runtime dispatch (compile-time no-op in this build); `really_done` ascension-split logging (pre-existing, D-2435 row owns it).
+  - `restore_timers`: ghostly bones `timeout += adjust` (timeout.c:2722–2723) deferred — needs the bones caller.
+- **Ledger:** sanity_check_single_mon ported; dmonsfree ported; monkilled ported; unstuck ported; xkilled ported; setmangry ported; iter_mons_safe ported; setuwep ported; start_timer ported; mkinvokearea ported; arti_invoke ported; fill_ordinary_room ported; record_achievement partial; restore_timers partial
+- **Left open:** none.
+- **Next:** next Must-fix (eat.js the_unique_pm divergent clone, review 2359).
+
 ## D-3410 — Open head: impossible audit + m_initgrp group-member appear drain
 - **Status:** shipped.
 - **Symptom:** Open-head coverage rows (operator override this iteration: real `js/` work; Must-fix deferred): `pline.c impossible` PARTIAL (C 33/JS 22, Rule #2 omits) and `makemon.c m_initgrp` PARTIAL (mid-game group-member appear-Noreps unemitted — sync m_initgrp cannot await makemon_appear_msg). No corpus session blocked on either (coverage rows; `hidden-proxy verify` notes, expected).

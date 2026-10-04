@@ -180,6 +180,6 @@ ride pre-existing ported rows, disclosed).
    :2722-2723 deferred" per its own code doc; arm needs the
    bones caller). Fix (one iter, ledger-only + verify): drop the
    stale omits, flip fully-empty rows to ported, correct the two
-   partial rows, re-run `hidden-proxy verify` on the 14.
+   partial rows, re-run `hidden-proxy verify` on the 14. **Addressed:** D-3411
 
 Verdict: **QUALITY-RISK**

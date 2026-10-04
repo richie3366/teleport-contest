@@ -1,5 +1,5 @@
 {"fn":"pet_sanity_check","c":"57-70","status":"ported","js":["js/mon.js:pet_sanity_check"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
-{"fn":"sanity_check_single_mon","c":"73-255","status":"partial","js":["js/mon.js:sanity_check_single_mon"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3407","D-3401","D-2479"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"sanity_check_single_mon","c":"73-255","status":"ported","js":["js/mon.js:sanity_check_single_mon"],"d":["D-3411","D-3407","D-3401","D-2479"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"mon_sanity_check","c":"258-324","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"m_poisongas_ok","c":"330-358","status":"ported","js":["js/mon.js:m_poisongas_ok"],"d":["D-1159"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all guard arms match"}
 {"fn":"zombie_maker","c":"362-380","status":"ported","js":["js/mon.js:zombie_maker"],"d":["D-1210"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mcan/zombie/lich arms match"}
@@ -36,7 +36,7 @@
 {"fn":"mm_aggression","c":"2428-2447","status":"ported","js":["js/mon.js:mm_aggression"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pet/worm arms match"}
 {"fn":"mm_displacement","c":"2451-2472","status":"ported","js":["js/mon.js:mm_displacement"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: barge/size/worm gates match"}
 {"fn":"monnear","c":"2476-2483","status":"ported","js":["js/mon.js:monnear"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: NODIAG diagonal arm matches"}
-{"fn":"dmonsfree","c":"2487-2511","status":"partial","js":["js/mon.js:dmonsfree"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3407","D-3401","D-2824"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"dmonsfree","c":"2487-2511","status":"ported","js":["js/mon.js:dmonsfree"],"d":["D-3411","D-3407","D-3401","D-2824"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"replmon","c":"2515-2556","status":"ported","js":["js/mon.js:replmon"],"d":["D-3407","D-3401","D-3273"],"at":"2026-10-04@e3dc5ab18"}
 {"fn":"relmon","c":"2561-2594","status":"ported","js":["js/mon.js:relmon"],"d":["D-3273","D-3049"],"at":"2026-10-02@b7d842138"}
 {"fn":"copy_mextra","c":"2597-2646","status":"ported","js":["js/mon.js:copy_mextra"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 7 substructs + mcorpsenm; ogoal deep-copied like C value copy"}
@@ -55,11 +55,11 @@
 {"fn":"mondied","c":"3253-3263","status":"ported","js":["js/mhitm.js:mondied"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
 {"fn":"mongone","c":"3267-3283","status":"ported","js":["js/mon.js:mongone"],"d":["D-3401","D-2339","D-1149"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: also splices fmon immediately vs C deferred dmonsfree"}
 {"fn":"monstone","c":"3287-3373","status":"ported","js":["js/mhitm.js:monstone"],"d":["D-2753","D-2742"],"at":"seed@a30a7de84"}
-{"fn":"monkilled","c":"3377-3418","status":"partial","js":["js/mhitm.js:monkilled"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3407","D-3401","D-2875","D-1550"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"monkilled","c":"3377-3418","status":"ported","js":["js/mhitm.js:monkilled"],"d":["D-3411","D-3407","D-3401","D-2875","D-1550"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"set_ustuck","c":"3421-3435","status":"ported","js":["js/mhitu.js:set_ustuck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug-gated impossible arm omitted (sanity/fuzzer only)"}
-{"fn":"unstuck","c":"3438-3467","status":"partial","js":["js/mhitu.js:unstuck"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3407","D-3401","D-2808","D-2191","D-2093"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"unstuck","c":"3438-3467","status":"ported","js":["js/mhitu.js:unstuck"],"d":["D-3411","D-3407","D-3401","D-2808","D-2191","D-2093"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"killed","c":"3470-3473","status":"ported","js":["js/uhitm.js:killed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
-{"fn":"xkilled","c":"3477-3740","status":"partial","js":["js/uhitm.js:xkilled"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3407","D-3401","D-2444","D-1796"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"xkilled","c":"3477-3740","status":"ported","js":["js/uhitm.js:xkilled"],"d":["D-3411","D-3407","D-3401","D-2444","D-1796"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"mon_to_stone","c":"3748-3763","status":"ported","js":["js/mhitm.js:mon_to_stone"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: is_golem identical to mlet check; else-arm impossible dropped (contract diagnostic)"}
 {"fn":"vamp_stone","c":"3766-3830","status":"ported","js":["js/mhitm.js:vamp_stone"],"d":["D-2611"],"at":"seed@a30a7de84"}
 {"fn":"m_into_limbo","c":"3834-3840","status":"ported","js":["js/mon.js:m_into_limbo"],"d":["D-2236"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
@@ -75,7 +75,7 @@
 {"fn":"m_respond","c":"4122-4131","status":"ported","js":["js/mon.js:m_respond"],"d":["D-1314"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: shrieker/medusa/erinys arms match"}
 {"fn":"qst_guardians_respond","c":"4135-4159","status":"ported","js":["js/mon.js:qst_guardians_respond"],"at":"2026-09-29@d0fb9f36b","note":"stale: js/mon.js:1396"}
 {"fn":"peacefuls_respond","c":"4163-4257","status":"ported","js":["js/mon.js:peacefuls_respond"],"d":["D-1772"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: watch/gasp/flee/anger/same-mlet arms match"}
-{"fn":"setmangry","c":"4265-4318","status":"partial","js":["js/mon.js:setmangry"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3407","D-3401","D-2494"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"setmangry","c":"4265-4318","status":"ported","js":["js/mon.js:setmangry"],"d":["D-3411","D-3407","D-3401","D-2494"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"wake_msg","c":"4322-4329","status":"ported","js":["js/mon.js:wake_msg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"wakeup","c":"4333-4363","status":"ported","js":["js/mon.js:wakeup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mimic/forcefight/growl/angry arms match"}
 {"fn":"wake_nearby","c":"4367-4370","status":"ported","js":["js/mon.js:wake_nearby"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: void _petcall"}
@@ -84,7 +84,7 @@
 {"fn":"seemimic","c":"4409-4427","status":"ported","js":["js/mon.js:seemimic"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: lightblocker/mcorpsenm/newsym match"}
 {"fn":"normal_shape","c":"4431-4462","status":"ported","js":["js/mon.js:normal_shape"],"d":["D-3181","D-3176","D-1594"],"at":"2026-09-30@baba5ed90"}
 {"fn":"alloc_itermonarr","c":"4471-4490","status":"ported","js":["js/mon.js:alloc_itermonarr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: count/size/free logic matches"}
-{"fn":"iter_mons_safe","c":"4500-4522","status":"partial","js":["js/mon.js:iter_mons_safe"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3407","D-3401","D-2843"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"iter_mons_safe","c":"4500-4522","status":"ported","js":["js/mon.js:iter_mons_safe"],"d":["D-3411","D-3407","D-3401","D-2843"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"iter_mons","c":"4527-4538","status":"ported","js":["js/mon.js:iter_mons"],"d":["D-3407","D-3401","D-3209"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"get_iter_mons","c":"4544-4556","status":"ported","js":["js/monmove.js:get_iter_mons"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mutation-safe iteration semantics preserved"}
 {"fn":"get_iter_mons_xy","c":"4562-4576","status":"ported","js":["js/monmove.js:get_iter_mons_xy"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}

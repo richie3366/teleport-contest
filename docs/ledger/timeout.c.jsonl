@@ -31,7 +31,7 @@
 {"fn":"wiz_timeout_queue","c":"2041-2127","status":"split","js":["js/timeout.js:wiz_timeout_queue","js/timeout.js:wiz_timeout_queue_lines"],"at":"2026-09-28@6f36d2ab4","note":"stale: body complete split across wiz_timeout_queue+lines+print_queue+kind_name (D-1527)"}
 {"fn":"timer_sanity_check","c":"2130-2215","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"run_timers","c":"2222-2241","status":"ported","js":["js/mkobj.js:run_timers"],"at":"2026-10-03@bbe63333a"}
-{"fn":"start_timer","c":"2247-2292","status":"partial","js":["js/mkobj.js:start_timer"],"omit":"`objnam.c:5223` wish-corpse `ZOMBIFY_MON` timer still deferred at `js/readobjnam.js:1678` (would draw `rn1`).","d":["D-3407","D-2794"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"start_timer","c":"2247-2292","status":"ported","js":["js/mkobj.js:start_timer"],"d":["D-3411","D-3407","D-2794"],"at":"2026-10-04@c7fcf5bd7","note":"stale wish-corpse omit dropped: caller live js/readobjnam.js:2366 with rn1 draw (review 2361)"}
 {"fn":"stop_timer","c":"2299-2318","status":"ported","js":["js/mkobj.js:stop_timer"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peek_timer","c":"2324-2333","status":"ported","js":["js/mkobj.js:peek_timer"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_move_timers","c":"2339-2353","status":"ported","js":["js/mkobj.js:obj_move_timers"],"d":["D-2280"],"at":"2026-10-03@bbe63333a"}
@@ -49,6 +49,6 @@
 {"fn":"timer_is_local","c":"2603-2618","status":"ported","js":["js/mkobj.js:timer_is_local"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
 {"fn":"maybe_write_timer","c":"2627-2651","status":"ported","js":["js/mkobj.js:maybe_write_timer"],"d":["D-3055"],"at":"2026-09-28@d30e99009","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"save_timers","c":"2668-2699","status":"ported","js":["js/mkobj.js:save_timers"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
-{"fn":"restore_timers","c":"2707-2728","status":"ported","js":["js/mkobj.js:restore_timers"],"d":["D-3407","D-3055"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
+{"fn":"restore_timers","c":"2707-2728","status":"partial","js":["js/mkobj.js:restore_timers"],"omit":"- `sanity_check_single_mon`, `dmonsfree`, `monkilled`, `unstuck`, `xkilled`, `setmangry`, `iter_mons_safe`: none — whole (shared replmon-unstuck note retired; live via relmon→mon_leaving_level).","d":["D-3411","D-3407","D-3055"],"at":"2026-10-04@c7fcf5bd7","note":"was falsely ported: ghostly arm named-unshipped in its own code doc (review 2361)"}
 {"fn":"timer_stats","c":"2735-2745","status":"ported","js":["js/wizcmds.js:timer_stats"],"at":"2026-10-03@bbe63333a"}
 {"fn":"relink_timers","c":"2751-2774","status":"by-design","at":"seed@a30a7de84","note":"seed: save/restore file infra"}

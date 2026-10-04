@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3411 Must-fix review 2361: D-3407 false ledger certifications (14 rows)
+
+**C locus:** row homes only (no C re-read; bodies verified whole by review 2361): mon.c `sanity_check_single_mon`/`dmonsfree`/`monkilled`/`unstuck`/`xkilled`/`setmangry`/`iter_mons_safe` (shared replmon-unstuck note), wield.c `setuwep` :1094–1116, timeout.c `start_timer` + `restore_timers` :2706–2728, mklev.c `mkinvokearea` + `fill_ordinary_room`, artifact.c `arti_invoke`, insight.c `record_achievement`.
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** `ledger.mjs set` ×14 (verified each claim first: `replmon` js/mon.js:3714 is async over live `relmon` with the :2703 unstuck inside `mon_leaving_level` js/mon.js:2105/:2124; `hmon_hitmon_potion` calls `setuwep(null)` at js/uhitm.js:1839 with the C :1102–1103 cite; wish-corpse `start_timer(rn1(5,10),…)` live at js/readobjnam.js:2366; `deadbook` calls `mkinvokearea()` at js/spell.js:842 inside the arti1_primed ritual :797–845 ending in `record_achievement(ACH_INVK)` :845; all 6 `retouch_equipment` sites live — js/eat.js:2109, js/attrib.js:907, js/polyself.js:1212/:1268/:1902, js/mhitu.js:2750; recount live via trap.js `set_levltyp` `count_level_features()` :884; `restore_timers` JS js/mkobj.js:1260 lacks the ghostly `timeout += adjust` per its own doc :1255 vs C :2722–2723).
+**Verify:** `node scripts/verify.mjs --fn sanity_check_single_mon,dmonsfree,monkilled,unstuck,xkilled,setmangry,iter_mons_safe,setuwep,start_timer,mkinvokearea,arti_invoke,fill_ordinary_room,record_achievement,restore_timers` → PASS syntax (0 changed js); PASS rule2; hidden verify: no corpus session blocked on any of the 14 (coverage-row notes, expected); REACH-OK ×14 (batch sweep: 733 baseline-PASS re-run in 257.1s, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `sanity_check_single_mon`, `dmonsfree`, `monkilled`, `unstuck`, `xkilled`, `setmangry`, `iter_mons_safe`: none — whole (shared replmon-unstuck note retired; live via relmon→mon_leaving_level).
+**Next:** next Must-fix (eat.js the_unique_pm divergent clone, review 2359).
 ## 2026-10-04 — D-3410 Open head: impossible audit + m_initgrp group-member appear drain
 
 **C locus:** - `m_initgrp`: makemon.c:79–145 — cnt=rnd(n) + low-level tuning, peace_minded skip, enexto_gpflags + nested makemon(mmflags|MM_NOGRP), mpeaceful/mavenge/set_malign; each nested makemon runs :1476–1500 appear-Norep + :1502–1504 occupation check, members before the primary's own. (HPUX `#if` blocks :87–120 compiled out — contest gcc never defines them.)
