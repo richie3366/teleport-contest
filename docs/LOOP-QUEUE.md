@@ -107,7 +107,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `display.h` canseemon divergent clones — C display.h:117–120 `_canseemon` is `(worm?worm_known:(cansee||see_with_infrared))&&mon_visible` but js/dig.js:207 + js/monmove.js:1326 drop the infravision arm and use `!minvis` instead of mon_visible (no See_invisible/undetected), both CALLED (dig.js ×5:833/887/982/1131/1138; monmove :1112); js/monmove.js:1337 `canspotmon` drops the sensemon arm (C: canseemon||sensemon), called at :1601; live js/display.js:1097 + :1408 verified whole — fix: delete all 5 canseemon locals (dig/monmove/mthrowu:271/muse:331/trap:1132, last 3 exact dupes) + monmove canspotmon → import live exports; `ledger.mjs set canseemon ported --js js/display.js:canseemon` (D-3401 row wrongly points at the dig.js clone) + verify incl. full (shared files). Source: reviews/loop-unattended/2355-e77f3975a-batch-d3401-vision-dungeon.md
 - [ ] `mons()` identity-compare family always-constant — `mons()` allocates a fresh object per call (measured: `mons(10)!==mons(10)`), so every pure `===/!== mons(PM_X)` is dead: js/dog.js:748 mon_arrive long-worm arm never fires (C dog.c:437–443 get_wormno/initworm lost on migration) + js/eat.js:2744,2745,2748 + js/trap.js:343 (C trap.c:753 pointer compare) + js/zap.js:3563,5276,5313 + js/wizard.js:158,159,429 — fix: mndx compare per site (meatbox/newcham idiom), each verified vs its C pointer-compare locus; leave or trim the dead arms at the 4 already-safe mndx-fallback sites (potion.js:3783, zap.js:3828/4480, priest.js:505) + verify incl. full (shared files). Source: reviews/loop-unattended/2355-e77f3975a-batch-d3401-vision-dungeon.md
 
 ## Open — coverage (breadth phase — pop first after Must-fix)
@@ -158,12 +157,16 @@ below) to hold the 8-row band.
 D-3423 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
 +1 with batch-preview `find_misc` partial (nomore continue brief-verified
 below) to hold the 8-row band.
+D-3424 (Must-fix; band 7 < 8 blocks finish) refilled +1 with
+batch-preview `use_misc` partial (INVIS canspotmon gate brief-verified
+below) to hold the 8-row band.
 
 - [ ] `do_wear.c` Helmet_on — C do_wear.c:465–472 HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign flip + fallthrough glow/curse) absent from js/do_wear.js:Helmet_on (:1307–1386: :1353–1355 deferred comment, uchangealign unported; brief-read 2026-10-04) @ca5a16a92
 - [ ] `worn.c` setnotworn — C worn.c:182 update_inventory() absent from js/do.js:setnotworn (:516–556: tail :550–555 carries tux_penalty/botl/recalc, no update_inventory; doc :513 names it; brief-read 2026-10-04) @ca5a16a92
 - [ ] `trap.c` maketrap — C trap.c:482 LEVEL_TELEP && single_level_branch (Knox) refuse gate absent from js/trap.js:maketrap (:955–1097: :983 named omission; brief-read 2026-10-04) @ca5a16a92
 - [ ] `trap.c` chest_trap — C trap.c:6361–6362 inside_shop(ux,uy) insider gate absent from js/trap.js:chest_trap (:7970–8161: :8009–8013 ushops/rooms-only insider, no inside_shop call; brief-read 2026-10-04) @ca5a16a92
 - [ ] `muse.c` find_misc — C muse.c:2151 nomore(x) (`if (has_misc == x) continue`, skips rest of obj) absent from js/muse.js:find_misc (:2222–2346: doc :2219–2220 names per-check `!==` instead of continue — later viable objs override earlier priority vs C first-arm-priority; brief-read 2026-10-04) @6e056005c
+- [ ] `muse.c` use_misc — C muse.c:2453 `if (canspotmon(mtmp))` transparency gate absent from js/muse.js:use_misc (:3160–3187 INVIS arm tests `canseemon(mtmp)` at :3171, misrouting telepathy/sensemon-sensed monsters to the cannot-see + map_invisible branch; brief-read 2026-10-04) @011b251ee
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

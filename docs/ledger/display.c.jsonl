@@ -3,7 +3,7 @@
 {"fn":"mon_warning","c":"180-183","status":"ported","js":["js/display.js:mon_warning"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_visible","c":"187-190","status":"ported","js":["js/display.js:mon_visible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"see_with_infrared","c":"194-197","status":"ported","js":["js/display.js:see_with_infrared"],"at":"2026-10-03@bbe63333a"}
-{"fn":"canseemon","c":"201-204","status":"ported","js":["js/dig.js:canseemon"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"canseemon","c":"201-204","status":"ported","js":["js/display.js:canseemon"],"d":["D-3424","D-3401"],"at":"2026-10-04@011b251ee","note":"audited: whole vs C; clones retired"}
 {"fn":"knowninvisible","c":"208-211","status":"ported","js":["js/zap.js:knowninvisible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_safemon","c":"215-218","status":"ported","js":["js/uhitm.js:is_safemon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"magic_map_background","c":"233-258","status":"ported","js":["js/display.js:magic_map_background"],"d":["D-3254"],"at":"2026-10-02@e4afe5879"}

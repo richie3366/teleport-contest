@@ -321,5 +321,6 @@ QUALITY-RISK.
    canspotmon → import live exports; `ledger.mjs set canseemon ported
    --js js/display.js:canseemon --note "audited: whole vs C; clones
    retired"`. One iter (wake_nearby-deletion pattern + verify).
+   **Addressed:** D-3424
 
 Verdict: **QUALITY-RISK**

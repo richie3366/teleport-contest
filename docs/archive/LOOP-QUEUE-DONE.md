@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] `display.h` canseemon divergent clones — C display.h:117–120 `_canseemon` is `(worm?worm_known:(cansee||see_with_infrared))&&mon_visible` but js/dig.js:207 + js/monmove.js:1326 drop the infravision arm and use `!minvis` instead of mon_visible (no See_invisible/undetected), both CALLED (dig.js ×5:833/887/982/1131/1138; monmove :1112); js/monmove.js:1337 `canspotmon` drops the sensemon arm (C: canseemon||sensemon), called at :1601; live js/display.js:1097 + :1408 verified whole — fix: delete all 5 canseemon locals (dig/monmove/mthrowu:271/muse:331/trap:1132, last 3 exact dupes) + monmove canspotmon → import live exports; `ledger.mjs set canseemon ported --js js/display.js:canseemon` (D-3401 row wrongly points at the dig.js clone) + verify incl. full (shared files). Source: reviews/loop-unattended/2355-e77f3975a-batch-d3401-vision-dungeon.md
+
+
 - [x] D-3410 ledger remainder homes missing (2362.1 still open after two iters) — makemon + wiz_show_nhuuid rows carry `- \`m_initgrp\`: none — whole.` instead of their D-3410 Named remainders: makemon m_dowear fire-and-forget (makemon.c:1445, js/makemon.js:3761 un-awaited) + starting-pet in_mklev observable-match (dog.js makedog awaits no appear msg); wiz_show_nhuuid svn.nhuuid value itself unported (js/wizcmds.js:2275-2278 doc); refresh m_initgrp's stale D-3409 note on the now-ported row — fix: direct `ledger.mjs set` ×3 (verify each sub-omit still unshipped first, NOT via finish-iteration — D-3409/D-3410 both stamped one clause across rows) + `hidden-proxy verify` on the 3 rows. Source: reviews/loop-unattended/2363-c7fcf5bd7-m-initgrp-drain.md
 
 

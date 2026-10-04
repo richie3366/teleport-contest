@@ -1113,7 +1113,7 @@ export async function monflee(mtmp, fleetime, first, fleemsg) {
             mtmp.mfleetim = Math.min(fleetime, 127);
         }
         if (!mtmp.mflee && fleemsg
-            && canseemon(mtmp)
+            && display_canseemon(mtmp)
             && M_AP_TYPE(mtmp) !== M_AP_FURNITURE
             && M_AP_TYPE(mtmp) !== M_AP_OBJECT) {
             if (!mtmp.mcanmove || !(mtmp.data?.mmove | 0)) {
@@ -1322,25 +1322,9 @@ function unblock_door(here, mtmp, what, didseeit) {
     return didseeit || cansee(mtmp.mx, mtmp.my);
 }
 
-/**
- * C ref: display.h canseemon / canspotmon stubs for door feedback.
- * infrared/invis deferred — lit cansee + !minvis stand-in; worm_known
- * when wormno (D-1548).
- */
-function canseemon(mtmp) {
-    if (!mtmp) return false;
-    if (mtmp.wormno) {
-        if (!worm_known(mtmp)) return false;
-        return !mtmp.minvis;
-    }
-    if (!mtmp.mx) return false;
-    if (!cansee(mtmp.mx, mtmp.my)) return false;
-    return !mtmp.minvis;
-}
-
-function canspotmon(mtmp) {
-    return canseemon(mtmp);
-}
+/* C display.h canseemon / canspotmon — live display.js exports, imported
+ * above as display_canseemon / display_canspotmon (divergent local stubs
+ * removed D-3424: no infrared/sensemon/See_invisible/mundetected arms). */
 
 /** C ref: monst.h helpless — msleeping || !mcanmove */
 function helpless_mon(mtmp) {
@@ -1603,7 +1587,7 @@ async function maybe_spin_web(mtmp) {
         if (trap) {
             mtmp.mspec_used = d(4, 4); // 4..16
             if (cansee(mtmp.mx, mtmp.my)) {
-                const mbuf = canspotmon(mtmp) ? y_monnam(mtmp) : 'something';
+                const mbuf = display_canspotmon(mtmp) ? y_monnam(mtmp) : 'something';
                 await pline_mon(mtmp, `${upstart(mbuf)} spins a web.`);
                 trap.tseen = 1;
             }
@@ -1740,7 +1724,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
 
         if ((dm & (D_LOCKED | D_CLOSED)) !== 0
             && ((ptr?.mflags1 ?? 0) & M1_AMORPHOUS)) {
-            if (verbose && canseemon(mtmp)) {
+            if (verbose && display_canseemon(mtmp)) {
                 // C: YMonnam + fog-cloud or S_LIGHT → "flows" else "oozes"
                 const flows = (ptr?.mndx === PM_FOG_CLOUD
                     || ptr?.mlet === 'S_LIGHT');
@@ -1756,7 +1740,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
             if (btrapped) {
                 if (await mb_trapped(mtmp, canseeit)) return MMOVE_DIED;
             } else if (verbose) {
-                if (canseeit && canspotmon(mtmp)) {
+                if (canseeit && display_canspotmon(mtmp)) {
                     await pline_mon(mtmp, `${Monnam(mtmp)} unlocks and opens a door.`);
                 } else if (canseeit) {
                     await You_see('a door unlock and open.');
@@ -1771,7 +1755,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
             if (btrapped) {
                 if (await mb_trapped(mtmp, canseeit)) return MMOVE_DIED;
             } else if (verbose) {
-                if (canseeit && canspotmon(mtmp)) {
+                if (canseeit && display_canspotmon(mtmp)) {
                     await pline_mon(mtmp, `${Monnam(mtmp)} opens a door.`);
                 } else if (canseeit) {
                     await You_see('a door open.');
@@ -1789,7 +1773,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
             if (btrapped) {
                 if (await mb_trapped(mtmp, canseeit)) return MMOVE_DIED;
             } else if (verbose) {
-                if (canseeit && canspotmon(mtmp)) {
+                if (canseeit && display_canspotmon(mtmp)) {
                     await pline_mon(mtmp, `${Monnam(mtmp)} smashes down a door.`);
                 } else if (canseeit) {
                     await You_see('a door crash open.');
@@ -2138,7 +2122,7 @@ export async function m_move(mtmp, after) {
 
     // C ref: monmove.c m_move `:1756–1757` — pre-move visibility flags,
     // threaded to postmov for the vamp_shift door dance (D-3292).
-    const seenflgs = (canseemon(mtmp) ? 1 : 0) | (canspotmon(mtmp) ? 2 : 0);
+    const seenflgs = (display_canseemon(mtmp) ? 1 : 0) | (display_canspotmon(mtmp) ? 2 : 0);
 
     // C: set_apparxy before mtame / covetous / shk|gd|priest specials
     set_apparxy(mtmp);
@@ -2171,7 +2155,7 @@ export async function m_move(mtmp, after) {
     // departs ("I'm late!") via mongone, never the normal AI path.
     // MAIL_STRUCTURES is unconditionally #defined (global.h:430).
     if ((ptr?.mndx ?? -1) === PM_MAIL_DAEMON) {
-        if (!hero_Deaf() && canseemon(mtmp)) {
+        if (!hero_Deaf() && display_canseemon(mtmp)) {
             SetVoice(mtmp, 0, 80, 0);
             await verbalize("I'm late!");
         }
@@ -2516,7 +2500,7 @@ export async function gelcube_digests(mtmp) {
 export async function mind_blast(mtmp) {
     const u = game.u || (game.u = {});
 
-    // C: canseemon → pline_mon concentrates (display.h, not the local stub)
+    // C: canseemon → pline_mon concentrates (display.h live export)
     if (display_canseemon(mtmp)) {
         await pline_mon(mtmp, `${Monnam(mtmp)} concentrates.`);
     }
@@ -2902,10 +2886,10 @@ export async function dochug(mtmp) {
 
 /**
  * C ref: monmove.c dochugw — move mon; stop occupation if newly spotted threat.
- * Visibility is display.h canspotmon (display.js live macro), not the
- * door-feedback stub below (D-2102: the stub drops infrared, so an
- * infravision-seen bat at 3 squares read as unseen and stopped the search
- * before its bite). rloc_to_core calls this with chug FALSE
+ * Visibility is display.h canspotmon (display.js live export; the former
+ * door-feedback stub dropped infrared — D-2102: an infravision-seen bat
+ * at 3 squares read as unseen and stopped the search before its bite).
+ * rloc_to_core calls this with chug FALSE
  * (teleport.c:1762, D-1170): no dochug, only the threat check. mcanmove
  * + !onscary(u.ux,u.uy) gate live via the mon.js export. makemon
  * occupation still named.

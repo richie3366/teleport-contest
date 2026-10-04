@@ -10,7 +10,7 @@ import { cansee, couldsee, unblock_point, recalc_block_point } from './vision.js
 import {
     pline, mon_visible, see_with_infrared, pline_mon, verbalize,
     map_invisible, newsym, sensemon, flash_glyph_at, mon_to_glyph,
-    canspotmon, impossible, cls, docrt, display_self, You_feel, Norep,
+    canspotmon, canseemon, impossible, cls, docrt, display_self, You_feel, Norep,
     more, show_glyph_cell, shieldeff,
 } from './display.js';
 import { worm_known, worm_move } from './worm.js';
@@ -332,13 +332,7 @@ function sgn(n) {
     return n < 0 ? -1 : n > 0 ? 1 : 0;
 }
 
-function canseemon(mtmp) {
-    if (!mtmp) return false;
-    const loc_seen = mtmp.wormno
-        ? worm_known(mtmp)
-        : (cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp));
-    return loc_seen && mon_visible(mtmp);
-}
+/* C display.h _canseemon — live display.js export (exact local dupe removed D-3424). */
 
 /* C mondata.c attacktype — live mondata.js export (local clone removed). */
 

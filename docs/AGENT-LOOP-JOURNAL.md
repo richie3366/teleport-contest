@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3424 Must-fix review 2355: canseemon divergent clones → live display.js exports (5 files)
+
+**C locus:** include/display.h:117–120 `_canseemon` = (wormno ? worm_known : (cansee || see_with_infrared)) && mon_visible; :93–99 `_mon_visible` = (!minvis || See_invisible) && !mundetected (the `#else` branch — `#if 0` above); :129 `canspotmon` = canseemon || sensemon; display.c:201–204 `canseemon` wrapper.
+**JS:** js/display.js:1097 `canseemon`, :1408 `canspotmon` (unchanged live exports); js/dig.js import :25, js/monmove.js import :82–84, js/mthrowu.js import :48, js/muse.js import :13, js/trap.js import :37.
+**Change:** deleted all 6 locals (pointer comments left); dig/mthrowu/muse/trap added `canseemon` to the existing display.js import (no new module edge — all 5 files already import from display.js; exports are hoisted, calls are runtime-only, no TDZ); monmove renamed 8 call-site lines to the already-imported `display_canseemon`/`display_canspotmon` aliases + refreshed 2 stub comments (mind_blast :2503, dochugw :2889); direct `ledger.mjs set canseemon ported --js js/display.js:canseemon --note "audited: whole vs C; clones retired"` (review-prescribed verbatim).
+**Verify:** `node scripts/verify.mjs --fn canseemon` → PASS syntax (5 changed files) · rule2 · hidden note (no corpus session blocked) · reach REACH-OK (no RNG tags; smoke 24/24) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared files). Tail: `PASS  syntax   5 changed js file(s): js/dig.js js/monmove.js js/mthrowu.js js/muse.js js/trap.js` / `PASS  rule2` / `note  hidden   verify canseemon: no corpus session blocked on it at baseline` / `PASS  reach    canseemon: no RNG-tagged reach; fixed smoke spread (24 run, 11.6s): 24 PASS, 0 regressed → REACH-OK` / `PASS  green 2/2` / `PASS  strict ×2` / `PASS  cohort 7/7` / `PASS  full 44/44 (auto: shared file changed)` / `VERIFY: PASS`. (Repo has no tests/ harness — the fortress gates above are the maintained verification.)
+**Named:** none — live bodies whole vs C (worm/infrared/See_invisible/mundetected/sensemon arms all live).
+**Next:** second Must-fix row (`mons()` identity-compare family) ships alone next; then the batch picker.
 ## 2026-10-04 — D-3423 Must-fix review 2363: D-3410 ledger remainder homes (3 rows restored)
 
 **C locus:** row homes only (no C re-read; bodies verified whole by review 2363): makemon.c `makemon` :1147–1510 (:1445 m_dowear), `m_initgrp` :79–145 (drain shipped D-3410); wizcmds.c `wiz_show_nhuuid` :1782–1786.

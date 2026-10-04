@@ -45,7 +45,7 @@ import { losehp, nomul, maybe_half_phys, dissolve_bars, is_pool, is_lava, stop_o
 import { finish_losehp_done } from './end.js';
 import {
     pline, pline_The, pline_mon, You, mon_visible, see_with_infrared, tmp_at, obj_glyph,
-    nh_delay_output, newsym, canspotmon, impossible, set_msg_xy,
+    nh_delay_output, newsym, canspotmon, canseemon, impossible, set_msg_xy,
 } from './display.js';
 import { Monnam, mon_nam, s_suffix, s_suffix as s_suffix_ucatch, some_mon_nam, hliquid } from './do_name.js';
 import {
@@ -265,16 +265,7 @@ function blocking_terrain(x, y) {
     return false;
 }
 
-/**
- * C ref: display.h _canseemon — wormno ? worm_known : cansee||infrared.
- */
-function canseemon(mtmp) {
-    if (!mtmp) return false;
-    const loc_seen = mtmp.wormno
-        ? worm_known(mtmp)
-        : (cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp));
-    return loc_seen && mon_visible(mtmp);
-}
+/* C display.h _canseemon — live display.js export (exact local dupe removed D-3424). */
 
 /* C hacklib.c upstart — live export from './hacklib.js' (clone removed D-3356). */
 

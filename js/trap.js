@@ -34,7 +34,7 @@ import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
     bot,
     You_feel, unmap_object, glyph_is_invisible, tmp_at, nh_delay_output,
-    obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible, under_water,
+    obj_glyph, flush_topl_more, feel_newsym, canspotmon, canseemon, map_invisible, under_water,
     set_msg_xy, shieldeff, Hallucination, Norep, impossible, You, You_see,
 } from './display.js';
 import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, otense, simpleonames, ansimpleoname, safe_qbuf, gloves_simple_name, aobjnam, Yname2, Yobjnam2 } from './objnam.js';
@@ -1128,14 +1128,7 @@ function t_missile(otyp, trap) {
     return otmp;
 }
 
-// C ref: display.h _canseemon — wormno ? worm_known : cansee||infrared.
-function canseemon(mtmp) {
-    if (!mtmp) return false;
-    const loc_seen = mtmp.wormno
-        ? worm_known(mtmp)
-        : (cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp));
-    return loc_seen && mon_visible(mtmp);
-}
+/* C display.h _canseemon — live display.js export (exact local dupe removed D-3424). */
 
 // C ref: trap.c trapnote — "an F note" / "a C note" (+ noprefix bare name)
 const TN_NAMES = [
