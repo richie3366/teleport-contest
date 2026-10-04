@@ -101,6 +101,9 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] D-3426 ledger truth: direct `ledger.mjs set` ×3 restoring the D-3426 Named omit texts on makemon (m_dowear fire-and-forget + starting-pet in_mklev observable-match), maketrap (TELEP_TRAP fixed-dest launchplace arm trap.c:566-574), mk_trap_statue (mongone donor cleanup stands in as local mongone_statue_donor) — all three rows currently carry doset's wc2_supported paste; re-verify each sub-omit still unshipped (D-3419 protocol), no JS change. Source: reviews/loop-unattended/2372-54eac58c5-batch-d3426.md (Must-fix 1).
+- [ ] launch_obj extras contradict C: (a) drop `|| IS_OBSTRUCTED(typ)` from the wall-stop (trap.js:2909; C trap.c:3556 stops at STWALL/TREE only — boulders roll through SDOOR/SCORR); (b) drop the tail `stackobj` (C :3568-72 has none; boulders never stack). Verify: gates + `hidden-proxy verify launch_obj --reach-all` + a targeted boulder-vs-secret-door test. Source: reviews/loop-unattended/2372-54eac58c5-batch-d3426.md (Must-fix 2).
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

@@ -2376,3 +2376,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2364-db0087095-the-unique-pm-rewire.md](./2364-db0087095-the-unique-pm-rewire.md) | `db0087095` | D-3412 the_unique_pm clone → live export (1 fn) | **ACCEPT** |
 | [2365-3a47d2089-uinwater-flip.md](./2365-3a47d2089-uinwater-flip.md) | `3a47d2089` | D-3414 u.Underwater → u.uinwater 12-site flip (10 fns) | **ACCEPT** |
 | [2366-b127042af-batch-d3416.md](./2366-b127042af-batch-d3416.md) | `b127042af` | D-3416 batch cfgfiles→dogmove (100 fns) | **QUALITY-RISK** |
+| [2367-c72677cb1-strncmpi-wiring.md](./2367-c72677cb1-strncmpi-wiring.md) | `c72677cb1` | D-3418 strncmpi wiring (35 sites) + sfbase stubs (8 fns) | **ACCEPT** |
+| [2368-fbefad9ee-find-offensive-mbhitm.md](./2368-fbefad9ee-find-offensive-mbhitm.md) | `fbefad9ee` | D-3420 find_offensive + mbhitm arms; topl_putsym split (4 fns) | **ACCEPT** |
+| [2369-6e056005c-mbhit-cpostfx.md](./2369-6e056005c-mbhit-cpostfx.md) | `6e056005c` | D-3422 mbhit arms + cpostfx omit retired + sfbase stubs (4 fns) | **ACCEPT** |
+| [2370-c4d4e5278-canseemon-clones.md](./2370-c4d4e5278-canseemon-clones.md) | `c4d4e5278` | D-3424 canseemon clones → live exports (Must-fix 2355.2) | **ACCEPT** |
+| [2371-a0cbe29a6-mons-mndx.md](./2371-a0cbe29a6-mons-mndx.md) | `a0cbe29a6` | D-3425 mons() identity → mndx flips (Must-fix 2355.1, 9 fns) | **ACCEPT** |
+| [2372-54eac58c5-batch-d3426.md](./2372-54eac58c5-batch-d3426.md) | `54eac58c5` | D-3426 batch (95 fns) + launch_obj wall-stop + doset paste | **QUALITY-RISK** |
