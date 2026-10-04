@@ -70,7 +70,7 @@
 {"fn":"do_stone_u","c":"3924-3942","status":"ported","js":["js/mhitu.js:do_stone_u"],"d":["D-3402"],"at":"2026-10-04@e77f3975a"}
 {"fn":"do_stone_mon","c":"3945-3978","status":"ported","js":["js/mhitm.js:do_stone_mon"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mhitm_ad_phys","c":"3981-4200","status":"split","js":["js/uhitm.js:damageum_ad_phys","js/mhitu.js:mhitm_ad_phys_u","js/mhitm.js:mhitm_ad_phys"],"d":["D-1864","D-1447","D-1442","D-1415","D-1403","D-1402"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_phys, mhitu phys_u, mhitm phys; D-1402..D-1864)"}
-{"fn":"mhitm_ad_ston","c":"4203-4262","status":"ported","js":["js/mhitm.js:mhitm_ad_ston"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"refresh: all other arms verified in base + ston_u; was wrongly seeded ported"}
+{"fn":"mhitm_ad_ston","c":"4203-4262","status":"split","js":["js/mhitm.js:mhitm_ad_ston","js/mhitu.js:mhitm_ad_ston_u"],"d":["D-3407","D-3406"],"at":"2026-10-04@e3dc5ab18","note":"refresh: all other arms verified in base + ston_u; was wrongly seeded ported"}
 {"fn":"mhitm_ad_were","c":"4265-4293","status":"split","js":["js/mhitm.js:mhitm_ad_were","js/uhitm.js:damageum_adtyping","js/mhitu.js:mhitm_ad_were_u"],"d":["D-3214","D-2049"],"at":"2026-10-01@2eced4253"}
 {"fn":"mhitm_ad_heal","c":"4296-4385","status":"split","js":["js/mhitm.js:mhitm_ad_heal","js/mhitu.js:mhitm_ad_heal_u"],"d":["D-2511"],"at":"2026-09-27@d2d72caa6","note":"refresh: nurse arm verified in mhitm_ad_heal_u (D-2511); uhitm/mhitm delegate to phys"}
 {"fn":"mhitm_ad_stun","c":"4388-4422","status":"split","js":["js/mhitm.js:mhitm_ad_stun","js/uhitm.js:damageum_ad_stun","js/mhitu.js:mhitm_ad_stun_u"],"d":["D-3211","D-2075"],"at":"2026-10-01@b9de54524"}

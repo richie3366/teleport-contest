@@ -9,34 +9,34 @@
 {"fn":"growl_sound","c":"351-398","status":"ported","js":["js/sounds.js:growl_sound"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"growl","c":"402-423","status":"ported","js":["js/sounds.js:growl"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yelp","c":"427-475","status":"ported","js":["js/sounds.js:yelp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Soundeffect omitted but no-op without SND_LIB like contest C"}
-{"fn":"whimper","c":"479-515","status":"partial","js":["js/sounds.js:whimper"],"omit":"verb map wrong: C MS_MEW/MS_GROWL->whimper, MS_BARK->whine; JS MS_MEW/MS_BARK->whimper, MS_ROAR->whine (C has no MS_ROAR arm); Soundeffect(se,50) omitted","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: plumbing (pline/nomul/wake) live; only verb selection wrong"}
+{"fn":"whimper","c":"479-515","status":"ported","js":["js/sounds.js:whimper"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: plumbing (pline/nomul/wake) live; only verb selection wrong"}
 {"fn":"beg","c":"519-542","status":"ported","js":["js/sounds.js:beg"],"d":["D-1763"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_gasp","c":"546-610","status":"ported","js":["js/sounds.js:maybe_gasp"],"d":["D-1762"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cry_sound","c":"617-655","status":"ported","js":["js/sounds.js:cry_sound"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
-{"fn":"mon_is_gecko","c":"659-674","status":"ported","js":["js/sounds.js:mon_is_gecko"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
+{"fn":"cry_sound","c":"617-655","status":"ported","js":["js/sounds.js:cry_sound"],"d":["D-3407","D-3109"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
+{"fn":"mon_is_gecko","c":"659-674","status":"ported","js":["js/sounds.js:mon_is_gecko"],"d":["D-3407","D-3109"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"domonnoise","c":"679-1242","status":"ported","js":["js/sounds.js:domonnoise"],"d":["D-1980","D-1979","D-1978","D-1977","D-1969","D-1808"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"dotalk","c":"1248-1254","status":"ported","js":["js/sounds.js:dotalk"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
-{"fn":"dochat","c":"1257-1409","status":"partial","js":["js/sounds.js:dochat"],"omit":"wall/statue arms narrow Deaf to u.Deaf (drops HDeaf/EDeaf/uroleplay) and Blind to u.Blind/u.ublind (drops (HBlinded|EBlinded)&&!BBlinded macro)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all arms/messages/return codes present; only predicate narrowing in wall/statue arms"}
+{"fn":"dotalk","c":"1248-1254","status":"ported","js":["js/sounds.js:dotalk"],"d":["D-3407","D-3109"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
+{"fn":"dochat","c":"1257-1409","status":"ported","js":["js/sounds.js:dochat"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: all arms/messages/return codes present; only predicate narrowing in wall/statue arms"}
 {"fn":"responsive_mon_at","c":"1413-1423","status":"ported","js":["js/sounds.js:responsive_mon_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tiphat","c":"1427-1537","status":"ported","js":["js/sounds.js:tiphat"],"d":["D-2522"],"at":"seed@a30a7de84"}
-{"fn":"add_sound_mapping","c":"1556-1626","status":"ported","js":["js/sounds.js:add_sound_mapping"],"d":["D-3114","D-2776"],"at":"2026-09-29@405ed7298"}
+{"fn":"add_sound_mapping","c":"1556-1626","status":"ported","js":["js/sounds.js:add_sound_mapping"],"d":["D-3407","D-3114","D-2776"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"sound_matches_message","c":"1629-1639","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out (sounds.c:1539-1691 guard; no -DUSER_SOUNDS); cf js/sounds.js maybe_play_sound doc"}
 {"fn":"play_sound_for_message","c":"1642-1656","status":"by-design","d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"USER_SOUNDS compiled out + zero C callers; cf js/sounds.js maybe_play_sound doc"}
-{"fn":"maybe_play_sound","c":"1659-1673","status":"ported","js":["js/sounds.js:maybe_play_sound"],"d":["D-3109"],"at":"2026-09-29@671c54bfc"}
-{"fn":"release_sound_mappings","c":"1676-1690","status":"ported","js":["js/sounds.js:release_sound_mappings"],"d":["D-3072"],"at":"2026-10-02@434fcf3c6","note":"audit 2269-2275: verified live js/sounds.js:325, whole C body in C order (D-3072 stands)"}
+{"fn":"maybe_play_sound","c":"1659-1673","status":"ported","js":["js/sounds.js:maybe_play_sound"],"d":["D-3407","D-3109"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
+{"fn":"release_sound_mappings","c":"1676-1690","status":"ported","js":["js/sounds.js:release_sound_mappings"],"d":["D-3407","D-3072"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"activate_chosen_soundlib","c":"1779-1795","status":"ported","js":["js/options.js:activate_chosen_soundlib"],"d":["D-3109"],"at":"2026-09-29@671c54bfc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assign_soundlib","c":"1798-1805","status":"ported","js":["js/options.js:assign_soundlib"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C panic rendered as throw"}
 {"fn":"choose_soundlib","c":"1809-1858","status":"by-design","at":"2026-09-30@a8bd0bc2e","note":"C #if 0 sounds.c:1807-1858 both trees, 0 callers; porting would add dead JS (D-3042 necrophiliac precedent; already named in D-2785)"}
 {"fn":"get_soundlib_name","c":"1864-1880","status":"ported","js":["js/options.js:get_soundlib_name"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C dest-param adapted to string return; copy loop exact"}
 {"fn":"soundlib_id_from_opt","c":"1883-1895","status":"ported","js":["js/options.js:soundlib_id_from_opt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"nosound_init_nhsound","c":"1917-1919","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nosound_exit_nhsound","c":"1922-1924","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nosound_achievement","c":"1927-1929","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nosound_soundeffect","c":"1932-1934","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nosound_hero_playnotes","c":"1937-1939","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nosound_play_usersound","c":"1942-1944","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nosound_ambience","c":"1947-1950","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nosound_verbal","c":"1953-1956","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_init_nhsound","c":"1917-1919","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_exit_nhsound","c":"1922-1924","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_achievement","c":"1927-1929","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_soundeffect","c":"1932-1934","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_hero_playnotes","c":"1937-1939","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_play_usersound","c":"1942-1944","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_ambience","c":"1947-1950","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_verbal","c":"1953-1956","status":"by-design","d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"initialize_semap_basenames","c":"1981-1992","status":"ported","js":["js/sounds.js:initialize_semap_basenames"],"d":["D-3150"],"at":"2026-09-30@442754b32","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_sound_effect_filename","c":"1995-2080","status":"ported","js":["js/sounds.js:get_sound_effect_filename"],"d":["D-3150"],"at":"2026-09-30@442754b32","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"base_soundname_to_filename","c":"2084-2152","status":"ported","js":["js/sounds.js:base_soundname_to_filename"],"d":["D-2776"],"at":"seed@a30a7de84"}

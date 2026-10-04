@@ -1,13 +1,13 @@
-{"fn":"setuwep","c":"100-135","status":"partial","js":["js/wield.js:setuwep"],"omit":"`hmon_hitmon_potion` (`uhitm.c:1094–1116`, call at `:1103`).","d":["D-2876"],"at":"seed@a30a7de84"}
+{"fn":"setuwep","c":"100-135","status":"partial","js":["js/wield.js:setuwep"],"omit":"`hmon_hitmon_potion` (`uhitm.c:1094–1116`, call at `:1103`).","d":["D-3407","D-2876"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"cant_wield_corpse","c":"138-153","status":"ported","js":["js/wield.js:cant_wield_corpse"],"d":["D-2922"],"at":"seed@a30a7de84"}
 {"fn":"empty_handed","c":"158-166","status":"ported","js":["js/wield.js:empty_handed"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ready_weapon","c":"169-273","status":"ported","js":["js/wield.js:ready_weapon"],"d":["D-2182"],"at":"2026-10-03@bbe63333a"}
-{"fn":"setuqwep","c":"276-282","status":"ported","js":["js/wield.js:setuqwep"],"at":"2026-10-03@bbe63333a"}
-{"fn":"setuswapwep","c":"285-289","status":"ported","js":["js/wield.js:setuswapwep"],"at":"2026-10-03@bbe63333a"}
+{"fn":"setuqwep","c":"276-282","status":"ported","js":["js/wield.js:setuqwep"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
+{"fn":"setuswapwep","c":"285-289","status":"ported","js":["js/wield.js:setuswapwep"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"ready_ok","c":"294-327","status":"ported","js":["js/wield.js:ready_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"wield_ok","c":"331-343","status":"ported","js":["js/wield.js:wield_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"wield_ok","c":"331-343","status":"ported","js":["js/wield.js:wield_ok"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"finish_splitting","c":"346-351","status":"ported","js":["js/wield.js:finish_splitting"],"d":["D-1560"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dowield","c":"355-457","status":"partial","js":["js/wield.js:dowield"],"omit":"cantwield gate (Don't be ridiculous! ECMD_FAIL for nohands/verysmall forms); JS marks it deferred and no caller enforces it","d":["D-2099"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dowield","c":"355-457","status":"ported","js":["js/wield.js:dowield"],"d":["D-3407","D-2099"],"at":"2026-10-04@e3dc5ab18"}
 {"fn":"doswapweapon","c":"461-501","status":"ported","js":["js/wield.js:doswapweapon"],"d":["D-2675"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dowieldquiver","c":"505-508","status":"ported","js":["js/wield.js:dowieldquiver"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doquiver_core","c":"512-679","status":"ported","js":["js/wield.js:doquiver_core"],"d":["D-2044"],"at":"2026-10-03@bbe63333a"}
@@ -23,4 +23,4 @@
 {"fn":"chwepon","c":"918-1048","status":"ported","js":["js/wield.js:chwepon"],"d":["D-2168","D-2112"],"at":"2026-10-03@bbe63333a"}
 {"fn":"welded","c":"1051-1058","status":"ported","js":["js/wield.js:welded"],"at":"2026-10-03@bbe63333a"}
 {"fn":"weldmsg","c":"1061-1074","status":"ported","js":["js/wield.js:weldmsg"],"d":["D-2221"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mwelded","c":"1078-1084","status":"ported","js":["js/wield.js:mwelded"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mwelded","c":"1078-1084","status":"ported","js":["js/wield.js:mwelded"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18"}

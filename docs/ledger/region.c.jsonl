@@ -6,10 +6,10 @@
 {"fn":"remove_mon_from_reg","c":"192-202","status":"ported","js":["js/region.js:remove_mon_from_reg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
 {"fn":"mon_in_region","c":"210-218","status":"ported","js":["js/region.js:mon_in_region"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
 {"fn":"clone_region","c":"227-254","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"free_region","c":"263-276","status":"ported","js":["js/region.js:free_region"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_region","c":"263-276","status":"ported","js":["js/region.js:free_region"],"d":["D-3407","D-2998"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"add_region","c":"284-338","status":"ported","js":["js/region.js:add_region"],"d":["D-1576"],"at":"2026-10-01@e45cb9654","note":"stale: js/region.js:578 (D-1576 whole body; alloc-grow folded to push/GC, #if0 worm arm out, bbox recomputed from rects, caller make_gas_cloud:630; :1028 caller #if0)"}
 {"fn":"remove_region","c":"344-386","status":"ported","js":["js/region.js:remove_region"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local; splice vs C swap-remove is equivalent list removal"}
-{"fn":"clear_regions","c":"394-405","status":"ported","js":["js/region.js:clear_regions"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4"}
+{"fn":"clear_regions","c":"394-405","status":"ported","js":["js/region.js:clear_regions"],"d":["D-3407","D-2998"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"run_regions","c":"414-474","status":"ported","js":["js/region.js:run_regions"],"d":["D-1169"],"at":"2026-10-03@bbe63333a"}
 {"fn":"in_out_region","c":"480-527","status":"ported","js":["js/region.js:in_out_region"],"d":["D-1143"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_in_out_region","c":"533-576","status":"ported","js":["js/region.js:m_in_out_region"],"at":"2026-10-03@bbe63333a"}
@@ -31,9 +31,9 @@
 {"fn":"create_force_field","c":"1003-1030","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"expire_gas_cloud","c":"1046-1087","status":"ported","js":["js/region.js:expire_gas_cloud"],"d":["D-1155"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
 {"fn":"inside_gas_cloud","c":"1091-1165","status":"ported","js":["js/region.js:inside_gas_cloud"],"d":["D-1146"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
-{"fn":"is_hero_inside_gas_cloud","c":"1168-1177","status":"ported","js":["js/region.js:is_hero_inside_gas_cloud"],"d":["D-3234"],"at":"2026-10-01@6f6236385"}
+{"fn":"is_hero_inside_gas_cloud","c":"1168-1177","status":"ported","js":["js/region.js:is_hero_inside_gas_cloud"],"d":["D-3407","D-3234"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"make_gas_cloud","c":"1182-1205","status":"ported","js":["js/region.js:make_gas_cloud"],"d":["D-3234","D-1137"],"at":"2026-10-01@6f6236385"}
 {"fn":"create_gas_cloud","c":"1213-1309","status":"ported","js":["js/region.js:create_gas_cloud"],"d":["D-3234"],"at":"2026-10-01@6f6236385"}
-{"fn":"create_gas_cloud_selection","c":"1313-1336","status":"ported","js":["js/region.js:create_gas_cloud_selection"],"d":["D-3234","D-1158"],"at":"2026-10-01@6f6236385"}
+{"fn":"create_gas_cloud_selection","c":"1313-1336","status":"ported","js":["js/region.js:create_gas_cloud_selection"],"d":["D-3407","D-3234","D-1158"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"region_danger","c":"1341-1363","status":"ported","js":["js/region.js:region_danger"],"d":["D-2383"],"at":"2026-10-03@bbe63333a"}
 {"fn":"region_safety","c":"1368-1405","status":"ported","js":["js/region.js:region_safety"],"at":"2026-10-03@bbe63333a"}

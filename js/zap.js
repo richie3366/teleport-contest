@@ -3135,7 +3135,7 @@ export async function montraits(obj, cc, adjacentok) {
         if (src && dst) Object.assign(dst, src);
         mtmp.isshk = 1;
     }
-    replmon(mtmp, mtmp2);
+    await replmon(mtmp, mtmp2);
     newsym(mtmp2.mx | 0, mtmp2.my | 0);
     await restore_cham(mtmp2);
     return mtmp2;

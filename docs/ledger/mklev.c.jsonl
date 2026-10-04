@@ -1,4 +1,4 @@
-{"fn":"mkroom_cmp","c":"60-69","status":"ported","js":["js/mklev.js:mkroom_cmp"],"d":["D-3301"],"at":"2026-10-02@56ef5b381","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"mkroom_cmp","c":"60-69","status":"ported","js":["js/mklev.js:mkroom_cmp"],"d":["D-3407","D-3301"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"good_rm_wall_doorpos","c":"73-102","status":"ported","js":["js/mklev.js:good_rm_wall_doorpos"],"at":"2026-09-30@990da2b8d","note":"stale: js/mklev.js:31844, whole C body (rmno hoist unobservable), 2 C callers wired (:31867,:31878)"}
 {"fn":"finddpos_shift","c":"106-141","status":"ported","js":["js/mklev.js:finddpos_shift"],"at":"2026-10-03@bbe63333a"}
 {"fn":"finddpos","c":"147-205","status":"ported","js":["js/mklev.js:finddpos"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
@@ -7,7 +7,7 @@
 {"fn":"add_room","c":"304-319","status":"ported","js":["js/mklev.js:add_room"],"at":"2026-10-03@bbe63333a"}
 {"fn":"add_subroom","c":"322-342","status":"ported","js":["js/mklev.js:add_subroom"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_luathemes","c":"345-364","status":"ported","js":["js/mklev.js:free_luathemes"],"d":["D-3004"],"at":"2026-09-28@bff5e68ae","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"makerooms","c":"367-436","status":"partial","js":["js/mklev.js:makerooms"],"omit":"lua runtime (`nhl_init`/`nhl_loadlua`/`nhl_done`/`nhl_pcall_handle`/`lua_getglobal` — rooms compiled in, no lua by architecture); `create_des_coder` (its SpLev_Map memset already runs in `reset_xystart_size`); `iflags.in_lua` (error-message flag, no JS counterpart); THEMERM/THEMERMFILL debug room/f…","d":["D-2519"],"at":"seed@a30a7de84"}
+{"fn":"makerooms","c":"367-436","status":"partial","js":["js/mklev.js:makerooms"],"omit":"lua runtime (`nhl_init`/`nhl_loadlua`/`nhl_done`/`nhl_pcall_handle`/`lua_getglobal` — rooms compiled in, no lua by architecture); `create_des_coder` (its SpLev_Map memset already runs in `reset_xystart_size`); `iflags.in_lua` (error-message flag, no JS counterpart); THEMERM/THEMERMFILL debug room/f…","d":["D-3407","D-2519"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"join","c":"439-518","status":"ported","js":["js/mklev.js:join"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"makecorridors","c":"522-552","status":"ported","js":["js/mklev.js:makecorridors"],"at":"2026-10-03@bbe63333a"}
 {"fn":"alloc_doors","c":"556-571","status":"ported","js":["js/mklev.js:alloc_doors"],"at":"2026-09-29@d27c7b945","note":"stale: js/mklev.js:31911 (D-2559)"}
@@ -20,8 +20,8 @@
 {"fn":"makevtele","c":"821-824","status":"ported","js":["js/mklev.js:makevtele"],"d":["D-3301"],"at":"2026-10-02@56ef5b381","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_level_features","c":"828-842","status":"ported","js":["js/mklev.js:count_level_features"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clear_level_structures","c":"850-927","status":"ported","js":["js/mklev.js:clear_level_structures"],"at":"2026-10-03@bbe63333a"}
-{"fn":"fill_ordinary_room","c":"939-1171","status":"partial","js":["js/mklev.js:fill_ordinary_room"],"omit":"`set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-e…","d":["D-2469"],"at":"seed@a30a7de84"}
-{"fn":"themerooms_post_level_generate","c":"1174-1194","status":"partial","js":["js/mklev.js:themerooms_post_level_generate"],"omit":"`iflags.in_lua` (no reader).","d":["D-2866"],"at":"seed@a30a7de84"}
+{"fn":"fill_ordinary_room","c":"939-1171","status":"partial","js":["js/mklev.js:fill_ordinary_room"],"omit":"`set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-e…","d":["D-3407","D-2469"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"themerooms_post_level_generate","c":"1174-1194","status":"partial","js":["js/mklev.js:themerooms_post_level_generate"],"omit":"`iflags.in_lua` (no reader).","d":["D-3407","D-2866"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"chk_okdoor","c":"1198-1219","status":"ported","js":["js/mklev.js:chk_okdoor"],"d":["D-2931"],"at":"seed@a30a7de84"}
 {"fn":"mklev_sanity_check","c":"1223-1247","status":"ported","js":["js/mklev.js:mklev_sanity_check"],"at":"2026-10-03@bbe63333a"}
 {"fn":"makelevel","c":"1251-1428","status":"split","js":["js/mklev.js:makelevel","js/mklev.js:makelevel_ordinary"],"at":"seed@a30a7de84","note":"seed: makelevel + makelevel_ordinary (former BY_DESIGN)"}
@@ -29,17 +29,17 @@
 {"fn":"mineralize","c":"1449-1541","status":"ported","js":["js/mklev.js:mineralize"],"d":["D-1849"],"at":"2026-10-03@bbe63333a"}
 {"fn":"level_finalize_topology","c":"1544-1574","status":"ported","js":["js/mklev.js:level_finalize_topology"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"mklev","c":"1577-1593","status":"ported","js":["js/mklev.js:mklev"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reseed_random(rn2/rn2_on_display_rng) calls omitted (JS single-RNG arch); all control flow ported"}
-{"fn":"topologize","c":"1597-1656","status":"ported","js":["js/mklev.js:topologize"],"d":["D-2597"],"at":"seed@a30a7de84","note":"alt 1599-1656"}
+{"fn":"topologize","c":"1597-1656","status":"ported","js":["js/mklev.js:topologize"],"d":["D-3407","D-2597"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"find_branch_room","c":"1660-1673","status":"ported","js":["js/mklev.js:find_branch_room"],"d":["D-3048"],"at":"2026-09-28@1aaa15680"}
-{"fn":"pos_to_room","c":"1677-1687","status":"ported","js":["js/mklev.js:pos_to_room"],"d":["D-3301"],"at":"2026-10-02@56ef5b381","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"pos_to_room","c":"1677-1687","status":"ported","js":["js/mklev.js:pos_to_room"],"d":["D-3407","D-3301"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"place_branch","c":"1691-1747","status":"ported","js":["js/mklev.js:place_branch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug_fuzzer ucamefrom portal arm deferred (named in code); all game behavior ported"}
 {"fn":"bydoor","c":"1750-1775","status":"ported","js":["js/mklev.js:bydoor"],"at":"2026-09-28@886e83076","note":"stale: js/mklev.js:31919"}
 {"fn":"okdoor","c":"1779-1789","status":"ported","js":["js/mklev.js:okdoor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_sdoor","c":"1793-1796","status":"ported","js":["js/mklev.js:maybe_sdoor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dodoor","c":"1800-1803","status":"ported","js":["js/mklev.js:dodoor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"occupied","c":"1806-1811","status":"ported","js":["js/mklev.js:occupied"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mktrap_victim","c":"1815-1934","status":"ported","js":["js/mklev.js:mktrap_victim"],"d":["D-3228","D-1519"],"at":"2026-10-01@0fcd10790"}
-{"fn":"traptype_rnd","c":"1938-1998","status":"ported","js":["js/mklev.js:traptype_rnd"],"d":["D-2716"],"at":"seed@a30a7de84"}
+{"fn":"mktrap_victim","c":"1815-1934","status":"ported","js":["js/mklev.js:mktrap_victim"],"d":["D-3407","D-3228","D-1519"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
+{"fn":"traptype_rnd","c":"1938-1998","status":"ported","js":["js/mklev.js:traptype_rnd"],"d":["D-3407","D-2716"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"traptype_roguelvl","c":"2002-2030","status":"ported","js":["js/mklev.js:traptype_roguelvl"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mkstairs","c":"2159-2197","status":"ported","js":["js/mklev.js:mkstairs"],"d":["D-2931"],"at":"seed@a30a7de84"}
 {"fn":"generate_stairs_room_good","c":"2201-2215","status":"ported","js":["js/mklev.js:generate_stairs_room_good"],"at":"2026-10-03@bbe63333a"}
@@ -47,10 +47,10 @@
 {"fn":"generate_stairs","c":"2250-2282","status":"ported","js":["js/mklev.js:generate_stairs"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mkfount","c":"2285-2300","status":"ported","js":["js/mklev.js:mkfount"],"d":["D-2950"],"at":"seed@a30a7de84"}
 {"fn":"find_okay_roompos","c":"2303-2314","status":"ported","js":["js/mklev.js:find_okay_roompos"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mksink","c":"2317-2329","status":"ported","js":["js/mklev.js:mksink"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mksink","c":"2317-2329","status":"ported","js":["js/mklev.js:mksink"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"mkaltar","c":"2332-2350","status":"ported","js":["js/mklev.js:mkaltar"],"d":["D-2937"],"at":"seed@a30a7de84"}
 {"fn":"mkgrave","c":"2353-2397","status":"ported","js":["js/mklev.js:mkgrave"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
-{"fn":"mkinvokearea","c":"2410-2497","status":"partial","js":["js/mklev.js:mkinvokearea"],"omit":"`display_nhwindow(WIN_MESSAGE, TRUE)` (no JS export; pline flushes); C `deadbook` caller (deferred, not live — no wire possible this commit).","d":["D-2467"],"at":"seed@a30a7de84"}
+{"fn":"mkinvokearea","c":"2410-2497","status":"partial","js":["js/mklev.js:mkinvokearea"],"omit":"`display_nhwindow(WIN_MESSAGE, TRUE)` (no JS export; pline flushes); C `deadbook` caller (deferred, not live — no wire possible this commit).","d":["D-3407","D-2467"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"mkinvpos","c":"2503-2598","status":"ported","js":["js/mklev.js:mkinvpos"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mkinvk_check_wall","c":"2603-2613","status":"ported","js":["js/mklev.js:mkinvk_check_wall"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_knox_portal","c":"2624-2659","status":"ported","js":["js/mklev.js:mk_knox_portal"],"at":"2026-10-03@bbe63333a"}

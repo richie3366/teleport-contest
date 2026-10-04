@@ -2,9 +2,9 @@
 {"fn":"learnscroll","c":"70-76","status":"ported","js":["js/read.js:learnscroll"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cap_spe","c":"80-86","status":"ported","js":["js/read.js:cap_spe"],"at":"2026-10-03@bbe63333a"}
 {"fn":"erode_obj_text","c":"89-97","status":"ported","js":["js/objnam.js:erode_obj_text"],"at":"2026-10-03@bbe63333a"}
-{"fn":"tshirt_text","c":"100-187","status":"ported","js":["js/objnam.js:tshirt_text"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is the string table (shirt_msgs objnam.js:426 verified); o_id % SIZE + erode_obj_text exact"}
+{"fn":"tshirt_text","c":"100-187","status":"ported","js":["js/objnam.js:tshirt_text"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"hawaiian_motif","c":"190-221","status":"ported","js":["js/objnam.js:hawaiian_motif"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"stale: js/objnam.js:588 table+hash C-exact, objnam caller wired"}
-{"fn":"hawaiian_design","c":"224-251","status":"ported","js":["js/objnam.js:hawaiian_design"],"d":["D-3124"],"at":"2026-09-29@cd4bc2a21","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"hawaiian_design","c":"224-251","status":"ported","js":["js/objnam.js:hawaiian_design"],"d":["D-3407","D-3124"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"apron_text","c":"254-281","status":"ported","js":["js/objnam.js:apron_text"],"at":"2026-09-28@2f39bdcea","note":"stale: js/objnam.js:597 whole C body; apron_msgs table js/objnam.js:520-531 matches C order exactly"}
 {"fn":"candy_wrapper_text","c":"296-300","status":"ported","js":["js/objnam.js:candy_wrapper_text"],"at":"2026-10-03@bbe63333a"}
 {"fn":"assign_candy_wrapper","c":"304-311","status":"ported","js":["js/mkobj.js:assign_candy_wrapper"],"at":"2026-09-29@cd4bc2a21","note":"stale: js/mkobj.js:2363 whole body, caller wired :2447"}
@@ -15,20 +15,20 @@
 {"fn":"p_glow2","c":"673-677","status":"ported","js":["js/read.js:p_glow2"],"at":"2026-10-03@bbe63333a"}
 {"fn":"p_glow3","c":"680-685","status":"ported","js":["js/read.js:p_glow3"],"at":"2026-10-03@bbe63333a"}
 {"fn":"charge_ok","c":"689-724","status":"ported","js":["js/read.js:charge_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"recharge","c":"729-1008","status":"partial","js":["js/read.js:recharge"],"omit":"local `useup` clone (`js/read.js`, used by other read fns) and `Yname2_read` (`wand_explode`) stay — pre-existing drift owned by other functions' ports; `explode_losehp` kept for the ring-explode `losehp` (file idiom: `Maybe_Half_Phys` + wail/done lifecycle, same as `wand_explode`).","d":["D-2500"],"at":"seed@a30a7de84"}
-{"fn":"forget","c":"1020-1040","status":"ported","js":["js/read.js:forget"],"d":["D-3102"],"at":"2026-09-29@920907eb7"}
+{"fn":"recharge","c":"729-1008","status":"partial","js":["js/read.js:recharge"],"omit":"local `useup` clone (`js/read.js`, used by other read fns) and `Yname2_read` (`wand_explode`) stay — pre-existing drift owned by other functions' ports; `explode_losehp` kept for the ring-explode `losehp` (file idiom: `Maybe_Half_Phys` + wail/done lifecycle, same as `wand_explode`).","d":["D-3407","D-2500"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
+{"fn":"forget","c":"1020-1040","status":"ported","js":["js/read.js:forget"],"d":["D-3407","D-3102"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"maybe_tame","c":"1044-1063","status":"ported","js":["js/read.js:maybe_tame"],"at":"2026-10-03@bbe63333a"}
 {"fn":"valid_cloud_pos","c":"1069-1074","status":"ported","js":["js/region.js:valid_cloud_pos"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_center_cloud","c":"1080-1085","status":"ported","js":["js/read.js:can_center_cloud"],"at":"2026-10-03@bbe63333a"}
 {"fn":"display_stinking_cloud_positions","c":"1088-1112","status":"ported","js":["js/read.js:display_stinking_cloud_positions"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_enchant_armor","c":"1115-1290","status":"ported","js":["js/read.js:seffect_enchant_armor"],"at":"2026-09-27@45ea89017","note":"stale: js/read.js:1524"}
 {"fn":"disintegrate_cursed_armor","c":"1294-1321","status":"ported","js":["js/read.js:disintegrate_cursed_armor"],"at":"2026-09-29@80c81d0a0","note":"stale: js/read.js:1202"}
-{"fn":"seffect_destroy_armor","c":"1324-1396","status":"partial","js":["js/read.js:seffect_destroy_armor"],"omit":"file-local ``strange_feeling_scroll`` stays (pre-existing clone of live detect.js strange_feeling, also used at ``:1496`` — own future row); ``some_armor`` monster/``which_armor`` path stays hero-only (do_wear envelope); actualoname bareobj subset (corpsenm/known/owt/AMULET, SLIME_MOLD spe, distant…","d":["D-2640","D-2416"],"at":"seed@a30a7de84"}
+{"fn":"seffect_destroy_armor","c":"1324-1396","status":"partial","js":["js/read.js:seffect_destroy_armor"],"omit":"file-local ``strange_feeling_scroll`` stays (pre-existing clone of live detect.js strange_feeling, also used at ``:1496`` — own future row); ``some_armor`` monster/``which_armor`` path stays hero-only (do_wear envelope); actualoname bareobj subset (corpsenm/known/owt/AMULET, SLIME_MOLD spe, distant…","d":["D-3407","D-2640","D-2416"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"seffect_confuse_monster","c":"1399-1451","status":"ported","js":["js/read.js:seffect_confuse_monster"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_scare_monster","c":"1454-1486","status":"ported","js":["js/read.js:seffect_scare_monster"],"at":"2026-10-03@bbe63333a"}
-{"fn":"seffect_remove_curse","c":"1489-1605","status":"partial","js":["js/read.js:seffect_remove_curse"],"omit":"tail: unpunish when Punished, buried_ball_to_freedom+clasp pline when TT_BURIEDBALL, update_inventory; shop POT_WATER costly_alteration/alter_cost; saddle amber-glow pline","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: invent loop + steed saddle uncurse present; tail + shop billing deferred"}
+{"fn":"seffect_remove_curse","c":"1489-1605","status":"ported","js":["js/read.js:seffect_remove_curse"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: invent loop + steed saddle uncurse present; tail + shop billing deferred"}
 {"fn":"seffect_create_monster","c":"1608-1624","status":"ported","js":["js/read.js:seffect_create_monster"],"at":"2026-10-03@bbe63333a"}
-{"fn":"seffect_enchant_weapon","c":"1627-1676","status":"partial","js":["js/read.js:seffect_enchant_weapon"],"omit":"confused proof-strip costly_alteration(COST_DEGRD) shop billing; confused non-Blind message uses fixed color words instead of hcolor()","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: confused proof/repair + chwepon + cap_spe present"}
+{"fn":"seffect_enchant_weapon","c":"1627-1676","status":"ported","js":["js/read.js:seffect_enchant_weapon"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: confused proof/repair + chwepon + cap_spe present"}
 {"fn":"seffect_taming","c":"1679-1719","status":"ported","js":["js/read.js:seffect_taming"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_genocide","c":"1722-1738","status":"ported","js":["js/read.js:seffect_genocide"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_light","c":"1741-1785","status":"ported","js":["js/read.js:seffect_light"],"d":["D-2592"],"at":"seed@a30a7de84"}
@@ -47,12 +47,12 @@
 {"fn":"seffect_mail","c":"2157-2188","status":"ported","js":["js/read.js:seffect_mail"],"d":["D-3043"],"at":"2026-09-28@eb54a70f8","note":"stale: js/read.js:1885 all arms + readmail default, seffects caller wired"}
 {"fn":"seffects","c":"2194-2291","status":"ported","js":["js/read.js:seffects"],"d":["D-1098"],"at":"2026-10-03@bbe63333a"}
 {"fn":"drop_boulder_on_player","c":"2294-2338","status":"ported","js":["js/muse.js:drop_boulder_on_player"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: duplicate impl also at js/read.js:1674"}
-{"fn":"drop_boulder_on_monster","c":"2341-2410","status":"partial","js":["js/muse.js:drop_boulder_on_monster"],"omit":"unseen-engulfer You_hear arm (something hit <mon> <stomach> over your <head>)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fuller copy at js/read.js:1709 has the arm"}
+{"fn":"drop_boulder_on_monster","c":"2341-2410","status":"ported","js":["js/muse.js:drop_boulder_on_monster"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: fuller copy at js/read.js:1709 has the arm"}
 {"fn":"wand_explode","c":"2414-2457","status":"ported","js":["js/read.js:wand_explode"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/read.js:811"}
 {"fn":"set_lit","c":"2471-2488","status":"ported","js":["js/read.js:set_lit"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: hates_light is C-exact gremlin check"}
 {"fn":"litroom","c":"2491-2635","status":"ported","js":["js/read.js:litroom"],"d":["D-2263"],"at":"2026-10-03@bbe63333a"}
-{"fn":"do_class_genocide","c":"2638-2820","status":"partial","js":["js/read.js:do_class_genocide"],"omit":"vampshifted POLY_REVERT arm (Upolyd && vampshifted && (i==umonnum||i==cham))","d":["D-2150"],"at":"2026-10-03@bbe63333a"}
-{"fn":"do_genocide","c":"2826-3016","status":"partial","js":["js/read.js:do_genocide"],"omit":"Hallucination hero/role-name buf arm; vampshifted POLY_REVERT; delayed_killer(POLYMORPH)+udeadinside (hardcoded 'dead inside'); update_inventory","at":"2026-10-03@bbe63333a"}
+{"fn":"do_class_genocide","c":"2638-2820","status":"ported","js":["js/read.js:do_class_genocide"],"d":["D-3407","D-2150"],"at":"2026-10-04@e3dc5ab18"}
+{"fn":"do_genocide","c":"2826-3016","status":"ported","js":["js/read.js:do_genocide"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18"}
 {"fn":"punish","c":"3019-3062","status":"ported","js":["js/read.js:punish"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unpunish","c":"3066-3077","status":"ported","js":["js/read.js:unpunish"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_stinking_cloud","c":"3082-3105","status":"ported","js":["js/read.js:do_stinking_cloud"],"at":"2026-10-03@bbe63333a"}

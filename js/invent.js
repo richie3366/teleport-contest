@@ -8583,6 +8583,7 @@ export async function doattributes(enl_mode = null) {
     clear_overlay();
     await docrt();
     await flush_screen(1);
+    return ECMD_OK; // C insight.c:2018
 }
 
 /**

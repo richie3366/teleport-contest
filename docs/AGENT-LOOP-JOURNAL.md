@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3407 batch @e3dc5ab18: uhitm/mklev/sounds/role/insight/artifact/wield/region/mon/read/timeout remainder (85 fns, 0 left open)
+
+**C locus:** - `whimper`: sounds.c:479–515 — verb map (MS_BARK→whine, MS_GROWL→whimper), Soundeffect(se,50), unconditional wake_nearto.
+**JS:** - `whimper`: [sounds.js](/home/debian/dev/teleport-contest/js/sounds.js:1265) — corrected map + se_canine_whine/se_squeal (seffects import) + unconditional wake_nearto.
+**Change:** ported every named arm in C order (details per function under JS/Callers); replmon is now async over live relmon with zap.js:3138 awaited; role_init runs at the restore.c:596 position with pantheon saved/restored; earth/fire scrolls drain finish_maybe_wail + finish_losehp_done (C noreturn order) and doread skips post-read identify/useup when gameover; monmove imports live mwelded (clone deleted); pray.js exports stuck_in_wall for the PASSES_WALLS arm (1-word plumbing, no pray.c port).
+**Verify:** `node scripts/verify.mjs --fn <all 85 manifest fns>` — hidden: role_init PROGRESS (4 moved past: 94186→welcome, 94067/94140→yn_function, 94125→trapeffect_landmine), xkilled PROGRESS (scen-sokoban-Ranger-94223 PASS 132/132), rest no-block notes; sweep 85 fn(s): 714 baseline-PASS re-run in 250.6s, 0 regressed → REACH-OK; syntax 11 files; rule2 clean; green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44; VERIFY: PASS (exit 0). Per-file checkpoints (sounds/insight/wield/region+mon/read/timeout) all ended VERIFY: PASS after triage; mon checkpoint first failed xkilled NO MOVEMENT (traced to the silent earth-death, fixed, session now passes); batch sweep first failed role_init NO MOVEMENT (restore burn missing, fixed, all 4 moved past).
+**Named:** none — every manifest omit either shipped above or was judged unshippable (recorded in Symptom); no partial remains.
+**Next:** muse.js boulder clones (drop_boulder_on_player/monster locals) still lack the losehp finisher drain — retire to the read.js exports or drain in place (muse.c rows own it); launch-nameless restore corner (C prompts via plnamesuffix, JS uses the save name — no corpus session covers it).
 ## 2026-10-04 — D-3406 batch @44ce1ba38: sp_lev/pickup/mkobj/uhitm/detect/teleport/selvar/alloc/mkmaze/mcastu/shk remainder (100 fns, 0 left open)
 
 **C locus:** - `add_doors_to_room`: sp_lev.c:5551 — called raw add_door, skipping maybe_add_door's hx>=0/inside/roomno gate.

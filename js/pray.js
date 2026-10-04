@@ -438,8 +438,9 @@ function blocked_boulder(dx, dy) {
 
 /**
  * C ref: pray.c stuck_in_wall — all 8 neighbors obstructed / boulder-blocked.
+ * Exported for timeout.c nh_timeout PASSES_WALLS expiry (same live body).
  */
-function stuck_in_wall() {
+export function stuck_in_wall() {
     const u = game.u || {};
     if (Passes_walls()) return false;
     let count = 0;

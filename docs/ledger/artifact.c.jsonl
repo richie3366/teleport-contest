@@ -1,7 +1,7 @@
 {"fn":"hack_artifacts","c":"87-107","status":"ported","js":["js/artifact.js:hack_artifacts"],"at":"2026-10-03@bbe63333a"}
 {"fn":"init_artifacts","c":"111-116","status":"ported","js":["js/artifact.js:init_artifacts"],"d":["D-1201"],"at":"2026-10-03@bbe63333a"}
 {"fn":"save_artifacts","c":"119-128","status":"split","js":["js/save.js:dosave0"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"restore_artifacts","c":"133-146","status":"ported","js":["js/artifact.js:restore_artifacts"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e"}
+{"fn":"restore_artifacts","c":"133-146","status":"ported","js":["js/artifact.js:restore_artifacts"],"d":["D-3407","D-3223"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"artiname","c":"151-156","status":"ported","js":["js/artifact.js:artiname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_artifact","c":"172-309","status":"ported","js":["js/artifact.js:mk_artifact"],"d":["D-2337"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dispose_of_orig_obj","c":"312-319","status":"ported","js":["js/artifact.js:dispose_of_orig_obj"],"at":"2026-10-03@bbe63333a"}
@@ -11,7 +11,7 @@
 {"fn":"found_artifact","c":"409-417","status":"ported","js":["js/artifact.js:found_artifact"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_artifact","c":"422-459","status":"ported","js":["js/artifact.js:find_artifact"],"at":"2026-10-03@bbe63333a"}
 {"fn":"nartifact_exist","c":"462-471","status":"ported","js":["js/artifact.js:nartifact_exist"],"at":"2026-10-03@bbe63333a"}
-{"fn":"artifact_origin","c":"478-513","status":"ported","js":["js/artifact.js:artifact_origin"],"d":["D-3053"],"at":"2026-09-28@bfd58ba4c"}
+{"fn":"artifact_origin","c":"478-513","status":"ported","js":["js/artifact.js:artifact_origin"],"d":["D-3407","D-3053"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"spec_ability","c":"516-522","status":"ported","js":["js/artifact.js:spec_ability"],"d":["D-1936"],"at":"2026-10-03@bbe63333a"}
 {"fn":"confers_luck","c":"526-533","status":"ported","js":["js/artifact.js:confers_luck"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_reflects","c":"537-550","status":"ported","js":["js/artifact.js:arti_reflects"],"d":["D-1342"],"at":"2026-10-03@bbe63333a"}
@@ -33,12 +33,12 @@
 {"fn":"undiscovered_artifact","c":"1131-1143","status":"ported","js":["js/artifact.js:undiscovered_artifact"],"at":"2026-10-03@bbe63333a"}
 {"fn":"disp_artifact_discoveries","c":"1147-1173","status":"ported","js":["js/artifact.js:disp_artifact_discoveries"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dump_artifact_info","c":"1177-1209","status":"ported","js":["js/artifact.js:dump_artifact_info"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Mb_hit","c":"1249-1434","status":"partial","js":["js/artifact.js:Mb_hit"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-2771","D-2146"],"at":"seed@a30a7de84"}
+{"fn":"Mb_hit","c":"1249-1434","status":"partial","js":["js/artifact.js:Mb_hit"],"omit":"`wizcustom_callback` (`wizcmds.c:1987–2028`, own coverage row — reads the deferred glyphmap[]/reset_glyphmap table; call-site comment at the `:818` arm, polyself.js:1070/attrib.js:825 precedent); sole C callers unported (map-kept); `sym_customizations` saveload unported (transient, no scored reach).","d":["D-3407","D-2771","D-2146"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"artifact_hit","c":"1447-1721","status":"ported","js":["js/artifact.js:artifact_hit"],"d":["D-2144","D-1873"],"at":"2026-10-03@bbe63333a"}
 {"fn":"invoke_ok","c":"1727-1745","status":"ported","js":["js/artifact.js:invoke_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doinvoke","c":"1749-1759","status":"ported","js":["js/artifact.js:doinvoke"],"d":["D-3223","D-1502","D-1488"],"at":"2026-10-01@5139f3d2e"}
+{"fn":"doinvoke","c":"1749-1759","status":"ported","js":["js/artifact.js:doinvoke"],"d":["D-3407","D-3223","D-1502","D-1488"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"nothing_special","c":"1762-1766","status":"ported","js":["js/artifact.js:nothing_special"],"at":"2026-10-03@bbe63333a"}
-{"fn":"invoke_taming","c":"1769-1777","status":"ported","js":["js/artifact.js:invoke_taming"],"d":["D-3223"],"at":"2026-10-01@5139f3d2e"}
+{"fn":"invoke_taming","c":"1769-1777","status":"ported","js":["js/artifact.js:invoke_taming"],"d":["D-3407","D-3223"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"invoke_healing","c":"1780-1815","status":"ported","js":["js/artifact.js:invoke_healing"],"d":["D-1494"],"at":"2026-10-03@bbe63333a"}
 {"fn":"invoke_energy_boost","c":"1818-1835","status":"ported","js":["js/artifact.js:invoke_energy_boost"],"at":"2026-10-03@bbe63333a"}
 {"fn":"invoke_untrap","c":"1838-1845","status":"ported","js":["js/artifact.js:invoke_untrap"],"d":["D-1495"],"at":"2026-10-03@bbe63333a"}
@@ -51,18 +51,18 @@
 {"fn":"invoke_blinding_ray","c":"2054-2086","status":"ported","js":["js/artifact.js:invoke_blinding_ray"],"d":["D-1377"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_invoke_cost_pw","c":"2091-2102","status":"ported","js":["js/artifact.js:arti_invoke_cost_pw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_invoke_cost","c":"2106-2128","status":"ported","js":["js/artifact.js:arti_invoke_cost"],"at":"2026-10-03@bbe63333a"}
-{"fn":"arti_invoke","c":"2131-2232","status":"partial","js":["js/artifact.js:arti_invoke"],"omit":"`retouch_equipment` callers stay at the old comments: `attrib.c:1360` (`js/attrib.js:825`), `eat.c:1325` (`js/eat.js:2019`), `polyself.c:463` (`js/polyself.js:1070`), `polyself.c:1021` (`js/polyself.js:1739`), `polyself.c:1415` (`js/polyself.js:1126`), `uhitm.c:4285` (`js/mhitu.js:2853`).","d":["D-2805","D-2371"],"at":"seed@a30a7de84"}
+{"fn":"arti_invoke","c":"2131-2232","status":"partial","js":["js/artifact.js:arti_invoke"],"omit":"`retouch_equipment` callers stay at the old comments: `attrib.c:1360` (`js/attrib.js:825`), `eat.c:1325` (`js/eat.js:2019`), `polyself.c:463` (`js/polyself.js:1070`), `polyself.c:1021` (`js/polyself.js:1739`), `polyself.c:1415` (`js/polyself.js:1126`), `uhitm.c:4285` (`js/mhitu.js:2853`).","d":["D-3407","D-2805","D-2371"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: remaining omit cannot ship"}
 {"fn":"finesse_ahriman","c":"2236-2260","status":"ported","js":["js/artifact.js:finesse_ahriman"],"d":["D-3041"],"at":"2026-09-28@79ab7d2dc","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_light","c":"2264-2275","status":"ported","js":["js/timeout.js:artifact_light"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_speak","c":"2279-2296","status":"ported","js":["js/artifact.js:arti_speak"],"d":["D-3018"],"at":"2026-09-28@0cb4128d8","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_has_invprop","c":"2299-2305","status":"ported","js":["js/artifact.js:artifact_has_invprop"],"at":"2026-10-03@bbe63333a"}
 {"fn":"arti_cost","c":"2309-2317","status":"ported","js":["js/artifact.js:arti_cost"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"abil_to_adtyp","c":"2320-2341","status":"ported","js":["js/artifact.js:abil_to_adtyp"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"abil_to_adtyp","c":"2320-2341","status":"ported","js":["js/artifact.js:abil_to_adtyp"],"d":["D-3407","D-3126"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"abil_to_spfx","c":"2344-2370","status":"ported","js":["js/artifact.js:abil_to_spfx"],"at":"2026-09-29@be48bbe4a","note":"stale: js/artifact.js:3256 (D-3126; all 12 rows complete, caller wired)"}
 {"fn":"what_gives","c":"2376-2424","status":"ported","js":["js/artifact.js:what_gives"],"d":["D-3126"],"at":"2026-09-29@be48bbe4a"}
 {"fn":"glow_color","c":"2427-2433","status":"ported","js":["js/artifact.js:glow_color"],"d":["D-3377"],"at":"2026-10-03@d133940a7"}
 {"fn":"glow_strength","c":"2442-2448","status":"ported","js":["js/artifact.js:glow_strength"],"at":"2026-10-03@bbe63333a"}
-{"fn":"glow_verb","c":"2451-2462","status":"ported","js":["js/artifact.js:glow_verb"],"at":"2026-10-03@bbe63333a"}
+{"fn":"glow_verb","c":"2451-2462","status":"ported","js":["js/artifact.js:glow_verb"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"Sting_effects","c":"2466-2502","status":"ported","js":["js/artifact.js:Sting_effects"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"retouch_object","c":"2508-2591","status":"ported","js":["js/artifact.js:retouch_object"],"d":["D-2473"],"at":"seed@a30a7de84"}
 {"fn":"untouchable","c":"2598-2636","status":"ported","js":["js/artifact.js:untouchable"],"at":"2026-10-03@bbe63333a"}
