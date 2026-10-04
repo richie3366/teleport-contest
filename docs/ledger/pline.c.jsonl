@@ -1,5 +1,5 @@
 {"fn":"dumplogmsg","c":"22-46","status":"by-design","at":"seed@a30a7de84","note":"seed: DUMPLOG retired (D-1776)"}
-{"fn":"dumplogfreemessages","c":"52-60","status":"ported","js":["js/display.js:dumplogfreemessages"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dumplogfreemessages","c":"52-60","status":"ported","js":["js/display.js:dumplogfreemessages"],"d":["D-3402","D-3401"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"putmesg","c":"65-80","status":"ported","js":["js/display.js:putmesg"],"d":["D-2944"],"at":"seed@a30a7de84"}
 {"fn":"set_msg_dir","c":"84-89","status":"ported","js":["js/display.js:set_msg_dir"],"d":["D-1216"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_msg_xy","c":"93-97","status":"ported","js":["js/display.js:set_msg_xy"],"at":"2026-10-03@bbe63333a"}
@@ -7,7 +7,7 @@
 {"fn":"pline_dir","c":"114-123","status":"ported","js":["js/display.js:pline_dir"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"pline_xy","c":"126-135","status":"ported","js":["js/display.js:pline_xy"],"d":["D-3401","D-1215"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"pline_mon","c":"138-150","status":"ported","js":["js/display.js:pline_mon"],"d":["D-2981"],"at":"2026-09-27@de27c57ac","note":"stale: js/display.js:7655"}
-{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-3401","D-2471","D-1807","D-1207"],"at":"2026-10-03@1ae9cc180","note":"refresh: audited — orchestrator + vpline_consume/expand/truncate + pline_after_consume (D-1207/D-1807/D-2471)"}
+{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-3402","D-3401","D-2471","D-1807","D-1207"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"custompline","c":"299-308","status":"ported","js":["js/display.js:custompline"],"at":"2026-10-03@bbe63333a"}
 {"fn":"urgent_pline","c":"315-324","status":"ported","js":["js/display.js:urgent_pline"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Norep","c":"327-336","status":"ported","js":["js/display.js:Norep"],"at":"2026-10-03@bbe63333a"}

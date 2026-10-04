@@ -3003,6 +3003,10 @@ export function clear_nhwindow_message() {
         }
         return;
     }
+    // C tty_clear_nhwindow NHW_MESSAGE — `if (cw->cury) docorner(1,
+    // cury+1, 0)`: a wrapped message owned grid row 1, so hand it back
+    // to map row 0 (same resync as more()-end above).
+    const wrapped = (game._pending_message || '').includes('\n');
     _toplines = '';
     _toplin = TOPLINE_EMPTY;
     game._pending_message = '';
@@ -3010,6 +3014,7 @@ export function clear_nhwindow_message() {
         _msg_cw.curx = 0;
         _msg_cw.cury = 0;
     }
+    if (wrapped) resync_map_row0();
 }
 
 // ── ANSI color codes ──
@@ -4305,10 +4310,11 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     // fountain are both '{'), so the id is part of the change test below.
     const newGlyphId = typeof glyph === 'number' ? glyph | 0
         : (ch === 'I' && !decgfx) ? GLYPH_INVISIBLE : NO_GLYPH;
-    // C `:2031–2056` — gnew + span only when the buffered glyphinfo
-    // actually differs (glyph id, ttychar, gm color/flags/tile, or
-    // use_background_glyph, which stays shut on tty — D-1984); an
-    // unchanged rewrite stays out of the dirty span. JS compares the
+    // C `:2031–2056` — gnew + span when the buffered glyphinfo
+    // actually differs (glyph id, ttychar, gm color/flags/tile), or
+    // unconditionally under iflags.use_background_glyph (FALSE on tty —
+    // D-1984 — but read live like redraw_map `:2515–2516`); an unchanged
+    // rewrite otherwise stays out of the dirty span. JS compares the
     // resolved tty fields (the same ch/color/dec set
     // show_glyph_change_wanted uses, plus attr and the glyph id), so
     // only the dirty-marking is gated.
@@ -4316,7 +4322,8 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
         || oldCh !== ch
         || oldColor !== tty_map_color(color)
         || oldDec !== !!decgfx
-        || oldAttr !== (attr | 0);
+        || oldAttr !== (attr | 0)
+        || !!game.iflags?.use_background_glyph;
     loc.disp_glyph = newGlyphId;
     if (glyphStored) {
         loc.gnew = 1;
@@ -5644,7 +5651,10 @@ function swallow_cell(x, y, part, swallowerMnum) {
         ? (mcolors[mnum] ?? CLR_GREEN)
         : CLR_GREEN;
     const g = swallow_sym(part);
-    show_glyph_cell(x, y, g.ch, color, g.dec);
+    // C swallowed `:1360–1380` — the stomach cell goes through
+    // swallow_to_glyph and show_glyph stores the integer id, so glyph_at
+    // below reads the swallow glyph back (do_screen_description sym).
+    show_glyph_cell(x, y, g.ch, color, g.dec, 0, glyph);
 }
 
 export function swallowed(first = 0) {
@@ -6845,6 +6855,28 @@ let _overlay_resync = false;
 // A change of owner leaves chars outside dirty spans, so row 0 resyncs.
 let _prevMsgOwnsRow1 = false;
 
+/**
+ * C docorner(1, cury+1, 0) row-1 half (topl.c more()-end `:236–240`,
+ * tty_clear_nhwindow NHW_MESSAGE): when a wrapped message unwraps, grid
+ * row 1 (screen row shared with map row 0) is repainted from the map.
+ * Row 0's full-span repaint erases message residue, like C's row_refresh.
+ * gnew clears like _buildScreenOutput's rowFull arm (grid now current).
+ */
+function resync_map_row0() {
+    const display = game?.nhDisplay;
+    if (!display?.grid) return;
+    for (let x = 1; x <= COLNO - 1; x++) {
+        const loc = game.level?.at(x, 0);
+        if (!loc) continue;
+        if (loc.disp_ch == null || loc.disp_ch === '') {
+            display.setCell(x - 1, 1, ' ', NO_COLOR, 0);
+        } else {
+            _paint_gbuf_cell(x, 0, x - 1, 1);
+        }
+        loc.gnew = 0;
+    }
+}
+
 /** Paint message rows only; leave map/status cells untouched. */
 function _paintToplineOnly() {
     const display = game?.nhDisplay;
@@ -6853,15 +6885,16 @@ function _paintToplineOnly() {
     const msg = game._pending_message || '';
     const msgLines = msg.split('\n');
     // Row 0 is always the message window; only touch row 1 when --More-- wraps.
+    // C putsyms + cl_end clears to end of line on BOTH rows (redotoplin,
+    // more): a wrapped line1 blanks row 1's remainder (map cells there
+    // are overwritten, repainted by docorner on unwrap — resync_map_row0).
     for (let c = 0; c < cols; c++) display.setCell(c, 0, ' ', NO_COLOR, 0);
     for (let r = 0; r < msgLines.length && r < 2; r++) {
         const line = msgLines[r];
         for (let c = 0; c < Math.min(line.length, cols); c++)
             display.setCell(c, r, line[c], NO_COLOR, 0);
-        if (r === 0) {
-            for (let c = line.length; c < cols; c++)
-                display.setCell(c, 0, ' ', NO_COLOR, 0);
-        }
+        for (let c = line.length; c < cols; c++)
+            display.setCell(c, r, ' ', NO_COLOR, 0);
     }
     if (msg.endsWith('--More--') && !msg.includes('\n')) {
         display.setCursor?.(msg.length, 0);
@@ -6895,8 +6928,15 @@ function _paintToplineOnlyOverOverlay() {
  * C mid-goto_level: gbuf still holds prior map while level is detached;
  * refresh message + status only (do not clearScreen blank the map).
  */
-function _paintToplineAndStatus() {
-    _paintToplineOnly();
+/**
+ * C botl.c bot `:264–267` — curs(WIN_STATUS) + putstr/putmixed paint the
+ * status window DIRECTLY (immediate terminal paint, not deferred to the
+ * next flush_screen). JS: paint grid rows 22–23 from the committed cache
+ * right here, so a bot() with no following flush still shows (a stale
+ * grid status otherwise survives to the next capture — the more() wait
+ * paints topline-only per C and must not be relied on for freshness).
+ */
+function paint_status_grid() {
     const display = game?.nhDisplay;
     // C bot() returns before putstr when gb.bot_disabled.
     if (!display?.grid || !display.setCell || _statusSuppressed || _bot_disabled) return;
@@ -6912,6 +6952,11 @@ function _paintToplineAndStatus() {
         display.setCell(c, 22, line1[c], NO_COLOR, 0);
     for (let c = 0; c < Math.min(s2.length, cols); c++)
         display.setCell(c, 23, s2[c], NO_COLOR, 0);
+}
+
+function _paintToplineAndStatus() {
+    _paintToplineOnly();
+    paint_status_grid();
 }
 
 /**
@@ -7622,8 +7667,11 @@ export async function bot() {
             // curs(WIN_STATUS, 1, 1); putmixed(do_statusline2()).
             // putstr returns unless the window is WIN_MESSAGE, so the
             // status window is this cache. do_statusline2 is _statusLine2.
+            // C paints the status window directly (immediate), so commit
+            // then paint the grid rows right away (paint_status_grid).
             _statusSuppressed = false;
             _commitStatusLines();
+            paint_status_grid();
         }
     }
     // C :270
@@ -7674,10 +7722,16 @@ export async function more() {
     try {
         await more_wait_keys();
     } finally {
+        // C topl.c more()-end `:236–240` — `if (toplin && cw->cury)`
+        // docorner(1, cury+1, 0): a wrapped message owned grid row 1, so
+        // hand it back to map row 0 (else residue leaks into the next
+        // capture; '\n' is the wrap detector — msgOwnsRow1 semantics).
+        const wrapped = (game._pending_message || '').includes('\n');
         _tty_inmore = 0;
         _toplines = '';
         _toplin = TOPLINE_EMPTY;
         game._pending_message = '';
+        if (wrapped) resync_map_row0();
     }
 }
 
@@ -7708,10 +7762,14 @@ async function more_wait_keys() {
     } else {
         game._pending_message = base + '--More--';
     }
-    // C more() does not flush_screen; when map flush is postponed
-    // (goto_level), only paint topline so the stale map remains.
-    if (_delay_flushing) _paintToplineOnly();
-    else _buildScreenOutput();
+    // C topl.c more() `:204–248` — curs + putsyms(--More--) + xwaitforspace:
+    // the wait paints the topline only, never the map or status. The grid
+    // keeps stale cells (e.g. a pet glyph painted pre-blindness) until the
+    // next real flush_screen, exactly like C's unflushed gbuf (a deferred
+    // more() after make_blinded's toggle must still show the pre-toggle
+    // map at the wait boundary). Unconditional: C more() never flushes,
+    // delayed or not (the _delay_flushing arm was the only faithful one).
+    _paintToplineOnly();
     const disp = game?.nhDisplay;
     if (disp) {
         const msg = game._pending_message || '';

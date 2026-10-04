@@ -2411,6 +2411,25 @@ export function lspo_map(a, contentsFn) {
 
 
 /**
+ * C ref: sp_lev.c lspo_reset_level `:5993–6011` — des reset in C order.
+ * fromDes ≡ C `L` non-null; the coder block (`:5998–6004`) runs only for
+ * non-null L (Lua des-coder state — no JS analogue; the NULL form from
+ * wiz_load_splua skips it in C too). makemap_prepost(TRUE) discards the
+ * current level before the des load.
+ */
+export async function lspo_reset_level(fromDes = true) {
+    const u = game.u || {};
+    const wtower = In_W_tower(u.ux | 0, u.uy | 0, u.uz); // C `:5995`
+    if (!game.iflags) game.iflags = {};
+    game.iflags.lua_testing = true; // C `:5997`
+    await makemap_prepost(true, wtower); // C `:6005`
+    game.in_mklev = true; // C `:6006` gi.in_mklev
+    oinit(); // C `:6007` level-dependent obj probabilities
+    clear_level_structures(); // C `:6008`
+    return 0; // C `:6009`
+}
+
+/**
  * C ref: sp_lev.c lspo_finalize_level `:6014–6064` — des finalize in C
  * order. fromDes ≡ C `L` non-null (des interpreter context); false is the
  * C NULL form (wizard-debug wiz_load_splua, js/wizcmds.js).
@@ -22218,13 +22237,13 @@ function get_location_coord(humidity, croom, rx, ry) {
 
 /* C ref: dungeon.h Is_mineend_level `:136` — Lcheck(x, &mineend_level);
  * const.js Is_medusa_level idiom (dnum + dlevel match). */
-function Is_mineend_level(uz) {
+export function Is_mineend_level(uz) {
     const m = game.mineend_level;
     return !!m && ((uz?.dnum | 0) === (m.dnum | 0) && (uz?.dlevel | 0) === (m.dlevel | 0));
 }
 
 /* C ref: dungeon.h Is_sokoend_level `:137` — Lcheck(x, &sokoend_level). */
-function Is_sokoend_level(uz) {
+export function Is_sokoend_level(uz) {
     const m = game.sokoend_level;
     return !!m && ((uz?.dnum | 0) === (m.dnum | 0) && (uz?.dlevel | 0) === (m.dlevel | 0));
 }

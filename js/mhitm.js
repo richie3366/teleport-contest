@@ -1685,8 +1685,8 @@ export async function mhitm_ad_tlpt(magr, mattk, mdef, mhm) {
  * attempt, then newcham to green slime (NC_SHOW_MSG when vis&&canseemon),
  * WAITFORU cleared, hitflags HIT; attacker/defender deaths OR into
  * hitflags; leftover dice zeroed.
- * Named omissions: uhitm you-as-agr (You() turn-to-slime + newcham);
- * mhitu you-as-def (hitmsg + flaming/Unchanging/Slimed/make_slimed envelope).
+ * Split: uhitm you-as-agr is damageum_ad_slim (uhitm.js); mhitu
+ * you-as-def is mhitm_ad_slim_u (mhitu.js).
  */
 export async function mhitm_ad_slim(magr, mattk, mdef, mhm) {
     void mattk;
