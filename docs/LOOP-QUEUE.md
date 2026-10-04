@@ -129,7 +129,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 
 <!-- coverage:begin -->
 - [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 22 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog) @1ae9cc180
-- [ ] `makemon.c` m_initgrp — coverage PARTIAL (C 28 code L `makemon.c:79–145` / JS 13 code L in js/makemon.js; hops —, callers 0, RNG 1, msg 1; declared partial: - `m_initgrp`: mid-game group-member appear-Noreps unemitted (sync m_initgrp cannot await makemon_appear_msg; cascade through makemon/mklev ) @57c7462c4
 <!-- coverage:end -->
 
 ## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)

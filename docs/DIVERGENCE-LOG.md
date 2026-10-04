@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3410 — Open head: impossible audit + m_initgrp group-member appear drain
+- **Status:** shipped.
+- **Symptom:** Open-head coverage rows (operator override this iteration: real `js/` work; Must-fix deferred): `pline.c impossible` PARTIAL (C 33/JS 22, Rule #2 omits) and `makemon.c m_initgrp` PARTIAL (mid-game group-member appear-Noreps unemitted — sync m_initgrp cannot await makemon_appear_msg). No corpus session blocked on either (coverage rows; `hidden-proxy verify` notes, expected).
+- **C locus:**
+  - `m_initgrp`: makemon.c:79–145 — cnt=rnd(n) + low-level tuning, peace_minded skip, enexto_gpflags + nested makemon(mmflags|MM_NOGRP), mpeaceful/mavenge/set_malign; each nested makemon runs :1476–1500 appear-Norep + :1502–1504 occupation check, members before the primary's own. (HPUX `#if` blocks :87–120 compiled out — contest gcc never defines them.)
+- **JS was:** js/makemon.js:3260 m_initgrp created members via sync makemon but emitted nothing for them — makemon_appear_msg was only ever awaited by callers for the primary, so members got no appear-Norep and no dochugw threat check.
+- **Fix:** Group-member appear drain via primary-tagged queue (js/makemon.js:3270/:3844). The m_initgrp push records each created member with inherited flags when !in_mklev (C emits nothing in level gen); makemon_appear_msg drains the primary's contiguous run members-first in creation order (stale older entries dropped, later owners' kept, no-match leaves the queue), then the primary's own message — C order, no signature change, no makemon/mklev cascade. Ledger: retired the shared m_initgrp clause on 3 rows (it sat identically on m_initgrp, makemon, wiz_show_nhuuid — the latter two D-3409 paste-overs); makemon keeps its verified remainder (m_dowear F&F :3761, starting-pet); sanity_check clause dropped (paste-error: no sanity_check call in makemon.c); wiz_show_nhuuid corrected to its nhuuid clause.
+- **JS:** js/makemon.js only, two hunks: queue + push (:3270/:3290) + drain prologue in makemon_appear_msg (:3844–3859). impossible unchanged (audited whole).
+- **Callers:**
+  - `m_initgrp`: sole C callers makemon.c:1432/1435/1437 (via m_initsgrp/m_initlgrp macros) → JS js/makemon.js:3746/3748/3749, still sync, unchanged. Drain rides the 21 existing makemon_appear_msg await sites (D-3408) — no caller edits.
+- **Verify:** `node scripts/verify.mjs --fn m_initgrp,impossible` → PASS syntax (1 changed js: makemon.js); PASS rule2; hidden: no session blocked on either (expected coverage notes); REACH-OK m_initgrp (80/80 of 167-reach spread, 70.1s) + impossible (24/24 fixed smoke, no RNG reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; PASS full 44/44 (shared file); VERIFY: PASS.
+- **Named omissions:**
+  - `m_initgrp`: none — whole.
+  - `makemon`: m_dowear fire-and-forget (makemon.c:1445; sync level gen) + starting-pet in_mklev observable-match (dog.js makedog awaits no appear msg; D-3408).
+  - `wiz_show_nhuuid`: svn.nhuuid value itself unported (platform get_nhuuid; JS prints game.svn?.nhuuid ?? '').
+- **Ledger:** impossible audited; m_initgrp ported; makemon partial; wiz_show_nhuuid partial
+- **Left open:** none.
+- **Next:** next Must-fix (D-3407 14-row false ledger certifications, review 2361).
+
 ## D-3409 — Must-fix review 2362 item 1: D-3408 ledger remainder homes (4 rows)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2362 QUALITY-RISK on D-3408: the code is C-exact throughout, but 4 ledger rows mis-certify it — `m_initgrp` claimed "whole vs C" while the D-3408 message named its group-member-message remainder; `makemon`'s omit listed only sanity callees while the message named 3 more remainders (m_dowear fire-and-forget, dog starting-pet, group messages); `newmextra` sat partial with a vacuous "cannot ship" note though the body is whole; `wiz_show_nhuuid` re-certified a `wiz_telekinesis` paste-error omit instead of its true nhuuid-value omit.

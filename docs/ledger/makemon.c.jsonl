@@ -1,6 +1,6 @@
 {"fn":"is_home_elemental","c":"33-50","status":"ported","js":["js/makemon.js:is_home_elemental"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wrong_elem_type","c":"56-75","status":"ported","js":["js/makemon.js:wrong_elem_type"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_initgrp","c":"79-145","status":"partial","js":["js/makemon.js:m_initgrp"],"omit":"- `m_initgrp`: mid-game group-member appear-Noreps unemitted (sync m_initgrp cannot await makemon_appear_msg; cascade through makemon/mklev out of scope).","d":["D-3409","D-3408","D-3103"],"at":"2026-10-04@57c7462c4","note":"D-3409: D-3408 message-named remainder given a row home (was ported 'whole vs C')"}
+{"fn":"m_initgrp","c":"79-145","status":"ported","js":["js/makemon.js:m_initgrp"],"d":["D-3410","D-3409","D-3408","D-3103"],"at":"2026-10-04@3116cbe41","note":"D-3409: D-3408 message-named remainder given a row home (was ported 'whole vs C')"}
 {"fn":"m_initthrow","c":"148-158","status":"ported","js":["js/makemon.js:m_initthrow"],"d":["D-3408","D-3103"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"m_initweap","c":"161-572","status":"ported","js":["js/makemon.js:m_initweap"],"d":["D-1094","D-1088"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"mkmonmoney","c":"576-586","status":"ported","js":["js/makemon.js:mkmonmoney"],"at":"2026-10-03@bbe63333a"}
@@ -12,7 +12,7 @@
 {"fn":"init_mextra","c":"1059-1063","status":"ported","js":["js/restore.js:init_mextra"],"d":["D-3408","D-3103"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"newmextra","c":"1066-1073","status":"ported","js":["js/restore.js:newmextra"],"d":["D-3409","D-3408","D-3103"],"at":"2026-10-04@57c7462c4","note":"D-3409: body whole (alloc + init_mextra + return, js/restore.js:52); vacuous D-3408 partial retired"}
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"ported","js":["js/makemon.js:makemon_rnd_goodpos"],"d":["D-2264"],"at":"2026-10-03@bbe63333a"}
-{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `m_initgrp`: mid-game group-member appear-Noreps unemitted (sync m_initgrp cannot await makemon_appear_msg; cascade through makemon/mklev out of scope).","d":["D-3409","D-3408","D-3285","D-3278","D-2421","D-2299"],"at":"2026-10-04@57c7462c4","note":"D-3409: D-3408 message-named remainders given row homes (review 2362 item 1)"}
+{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `m_initgrp`: none — whole.","d":["D-3410","D-3409","D-3408","D-3285","D-3278","D-2421"],"at":"2026-10-04@3116cbe41","note":"D-3410: group-message clause retired (drain shipped); sanity_check clause dropped (paste-error: no sanity_check call in makemon.c); m_dowear re-verified js/makemon.js:3761"}
 {"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbirth_limit","c":"1542-1551","status":"ported","js":["js/makemon.js:mbirth_limit"],"d":["D-3272"],"at":"2026-10-02@675a0c998"}
 {"fn":"create_critters","c":"1556-1590","status":"ported","js":["js/makemon.js:create_critters"],"at":"2026-10-03@bbe63333a"}

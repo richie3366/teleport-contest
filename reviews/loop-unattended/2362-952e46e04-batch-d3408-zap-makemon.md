@@ -162,6 +162,6 @@ Batch conformance: exactly 100 rows, manifest == picker
    := "svn.nhuuid value itself unported (platform startup; JS
    reports nhuuid-missing)" replacing the wiz_telekinesis paste
    error. Fix (one iter, ledger-only + verify): `ledger.mjs set` ×4,
-   re-run `hidden-proxy verify` on the 4. **Addressed:** D-3409
+   re-run `hidden-proxy verify` on the 4. **Addressed:** D-3409 `3116cbe41`
 
 Verdict: **QUALITY-RISK**
