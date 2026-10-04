@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-3427 — Must-fix review 2372: D-3426 ledger remainder homes (3 rows restored)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** review 2372 QUALITY-RISK Actionable 1: D-3426's finish stamped doset's `- \`doset\`: wc2_supported skips …` omit into the makemon + maketrap + mk_trap_statue rows, so the D-3426 Named remainders have no row home — makemon's m_dowear fire-and-forget + starting-pet observable-match, maketrap's TELEP_TRAP fixed-dest launchplace arm (trap.c:566–574), mk_trap_statue's mongone donor cleanup. Tenth finish-stamping iter (D-3415/D-3417/D-3419/D-3421/D-3423 class); truth recovered from the D-3426 Named bullet (2358 precedent), each sub-omit re-verified still unshipped by this iter and by the review.
+- **C locus:** row homes only (no C re-read; bodies verified whole by review 2372): makemon.c `makemon` :1147–1510 (:1445 m_dowear); trap.c `maketrap` :456–588 (:566–574 TELEP_TRAP fixed-dest), `mk_trap_statue` :390–414 (mongone donor).
+- **JS was:** makemon + maketrap + mk_trap_statue rows `partial` carrying doset's wc2_supported text.
+- **Fix:** direct `ledger.mjs set` ×3 (NOT via finish-iteration), each sub-omit re-verified still unshipped first (m_dowear `m_dowear(mtmp, true)` un-awaited at js/makemon.js:3761 under the sync-gen comment; starting-pet — js/dog.js:275 makedog is async, in_mklev observable-match unshipped; maketrap — Named-omissions comment js/trap.js:952–955, launchplace never set at TELEP_TRAP creation; mk_trap_statue — local mongone_statue_donor js/trap.js:268 stands in, full donor cleanup unshipped). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3415/D-3417/D-3423 class, D-3419/D-3421/D-3423 precedent) — the direct sets are the row writers, finish runs docs-only for the ledger.
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger rows only).
+- **Verify:** `node scripts/verify.mjs --fn makemon,maketrap,mk_trap_statue` → PASS syntax (0 changed js); PASS rule2; 3× hidden note (no corpus session blocked — normal; row cited none); 3× REACH-OK (makemon 80/80 of 732-reach spread; maketrap 24/24 fixed smoke, no RNG-tagged reach; mk_trap_statue 24/24 fixed smoke, no RNG-tagged reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `makemon`: m_dowear fire-and-forget at js/makemon.js:3761 (sync level gen cannot await); starting-pet in_mklev observable-match (dog.js makedog async boundary).
+  - `maketrap`: TELEP_TRAP fixed-dest launchplace arm (trap.c:566–574) — launchplace is never set at TELEP_TRAP creation (themerms sets teledest via caller); gx.xstart mapping would need parse scoping.
+  - `mk_trap_statue`: full mongone donor cleanup (worm-segment/timer/shop arms) — mongone is async, mk_trap_statue runs in sync level gen; fmon/light subset stands in as local mongone_statue_donor.
+- **Left open:** none.
+- **Next:** next Must-fix (launch_obj wall-stop + stackobj, review 2372.2).
+
 ## D-3426 — breadth batch @0d801c73f: 95 fns over 28 C files (31 ported, 4 partial, 20 split, 40 audited)
 
 - **Status:** FIXED (batch).

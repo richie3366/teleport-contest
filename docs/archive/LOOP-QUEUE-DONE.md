@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] D-3426 ledger truth: direct `ledger.mjs set` ×3 restoring the D-3426 Named omit texts on makemon (m_dowear fire-and-forget + starting-pet in_mklev observable-match), maketrap (TELEP_TRAP fixed-dest launchplace arm trap.c:566-574), mk_trap_statue (mongone donor cleanup stands in as local mongone_statue_donor) — all three rows currently carry doset's wc2_supported paste; re-verify each sub-omit still unshipped (D-3419 protocol), no JS change. Source: reviews/loop-unattended/2372-54eac58c5-batch-d3426.md (Must-fix 1).
+
+
 - [x] `mons()` identity-compare family always-constant — `mons()` allocates a fresh object per call (measured: `mons(10)!==mons(10)`), so every pure `===/!== mons(PM_X)` is dead: js/dog.js:748 mon_arrive long-worm arm never fires (C dog.c:437–443 get_wormno/initworm lost on migration) + js/eat.js:2744,2745,2748 + js/trap.js:343 (C trap.c:753 pointer compare) + js/zap.js:3563,5276,5313 + js/wizard.js:158,159,429 — fix: mndx compare per site (meatbox/newcham idiom), each verified vs its C pointer-compare locus; leave or trim the dead arms at the 4 already-safe mndx-fallback sites (potion.js:3783, zap.js:3828/4480, priest.js:505) + verify incl. full (shared files). Source: reviews/loop-unattended/2355-e77f3975a-batch-d3401-vision-dungeon.md
 
 
