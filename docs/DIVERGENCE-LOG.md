@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3415 — Must-fix review 2358: D-3404 pasted-omit ledger corruption (3 rows restored)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** review 2358 C-wrong 2: D-3404's finish wrote moverock_core's omit text into the `test_move`, `domove_swap_with_pet` and `domove_core` ledger rows (all three carried `- \`moverock_core\`: unmap_object …`), hiding each function's true named omissions from the batch picker.
+- **C locus:** row homes only (bodies verified whole by review 2358; each sub-omit re-verified still unshipped here against live `js/`): hack.c `test_move` :991–1255; hack.c `domove_swap_with_pet` :2098–2225 (`:2147` assert); hack.c `domove_core` :2712–2991.
+- **JS was:** rows `partial` with moverock_core's text; true omits survived only in the D-3404 D-log Named omissions bullet + pre-rows at 198b7a2a7~1 (= e2943671c).
+- **Fix:** `ledger.mjs set` ×3 to the D-3404 Named omissions text (verified each sub-omit first: test_move ECMD_OK/cmdq — lock.js:868 doopen_indir returns bool, cmdq_peek cmd.js:399-local, hack.js:552–553 comment; defsyms prose — hack.js has no DEFSYMS import, stand-in heuristic; autodig — no JS option sets the flag, reads only; block_door/block_entry confirmed stale — live shk.js:885/:928 exports called at hack.js:581/:590/:646; swap :2147 — mtrapped cleared hack.js:1401–1405, NULL-implication comment-only :1431–1432, no assert in file; domove_core — middle-skip named cmd.js:6331, travel upstream in continue_run :4456/:4473, CLIPPING untouched since D-3404 per -S probe) + domove_core note refresh (body now cmd.js:6205; records the repair).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger rows only).
+- **Verify:** `node scripts/verify.mjs --fn test_move,domove_swap_with_pet,domove_core` → PASS syntax (0 changed js); PASS rule2; 3× hidden note (no corpus session blocked — normal; row cited none); 3× REACH-OK (no RNG-tagged reach; fixed smoke 24/24 each); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS. Mislabel sweep: all 100 D-3404 rows re-scanned, every non-empty omit names its own fn (monster_detect legitimately ported by D-3406, reveal_terrain_getglyph own-name omit by D-3406).
+- **Named omissions:**
+  - `test_move`: ECMD_OK + canned-kick fake (JS doopen_indir returns bool, not ECMD codes; cmdq_peek is cmd.js-local); defsyms[].explanation prose (tree/wall/solid-stone heuristic, no live defsyms table); autodig flag (no JS option; arm live on game.flags.autodig).
+  - `domove_swap_with_pet`: C `:2147` `assert(trap != NULL)` — implied by `mtrapped` (cleared `:2116–2118` when `!trap`); no JS assert export, comment only.
+  - `domove_core`: displaceu middle-skip (C skips ironbars/test_move/swim when displaceu; JS runs the middle then swaps — converges next turn); travel block (handled upstream in `continue_run`, `findtravelpath_travel/guess` + travel1=0, same order vs the carrying check); final CLIPPING (wintty cliparound singleton, D-2453).
+- **Ledger:** test_move partial; domove_swap_with_pet partial; domove_core partial
+- **Left open:** none.
+- **Next:** next Must-fix (D-3402 declaration repair, review 2356).
+
 ## D-3414 — Must-fix review 2358: u.Underwater never-written alias family → live u.uinwater (12 sites)
 - **Status:** shipped.
 - **Symptom:** review 2358 C-wrong 1 (pre-existing, 2348.1's deferred brief): C `Underwater` ≡ `u.uinwater` (youprop.h:279) but 12 read sites tested `u.Underwater`, which zero code port-wide ever writes — every such gate was dead-false: swim pool-danger arms ran where C returns FALSE, set_apparxy never displaced, m_canseeu never failed on water, litroom no_op missed, look/describe/pickup/mirror water arms dead.

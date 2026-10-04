@@ -161,7 +161,7 @@ ACCEPT-WITH-DEBT.
    js/pickup.js:1062,1086,1965, js/apply.js:819 (+ display.js fixed in
    D-3400). Fix in one iter: flip each to `(u.uinwater|0)` (D-3400
    idiom) after verifying its C locus says Underwater + verify incl.
-   full (shared files). **Addressed:** D-3414
+   full (shared files). **Addressed:** D-3414 (3a47d2089)
 2. D-3404 pasted-omit ledger corruption — `test_move`,
    `domove_swap_with_pet`, `domove_core` rows carry moverock_core's
    omit text instead of their own (pre-rows + D-log C-locus hold
@@ -170,6 +170,6 @@ ACCEPT-WITH-DEBT.
    displaceu/travel/CLIPPING). Fix in one iter: `ledger.mjs set` each
    row to its true omit (verify each sub-omit still unshipped) +
    re-run `hidden-proxy verify` on the three + confirm no other
-   D-3404 row mislabels.
+   D-3404 row mislabels. **Addressed:** D-3415
 
 Verdict: **ACCEPT-WITH-DEBT**

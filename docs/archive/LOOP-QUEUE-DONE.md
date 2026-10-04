@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] D-3404 pasted-omit ledger corruption — `test_move`, `domove_swap_with_pet`, `domove_core` rows carry moverock_core's omit text instead of their own (pre-rows at 198b7a2a7~1 + D-3404 D-log C-locus hold truth): `ledger.mjs set` each row to its true omit, verifying each sub-omit still unshipped (test_move minus stale block_door/block_entry) + re-run `hidden-proxy verify` on the three + confirm no other D-3404 row mislabels. Source: reviews/loop-unattended/2358-198b7a2a7-batch-d3404-hack-sfbase.md
+
+
 - [x] `u.Underwater` never-written alias family (2348.1's deferred brief) — C `Underwater` ≡ `u.uinwater` (youprop.h:279) but 12 read sites test `u.Underwater`, which zero code port-wide ever writes: js/hack.js:2320 swim_move_danger entry guard + js/monmove.js:1017,1452 + js/mondata.js:1090 + js/read.js:436 + js/pager.js:1410,2099,2146 + js/pickup.js:1062,1086,1965 + js/apply.js:819 — fix: flip each to `(u.uinwater|0)` (D-3400 idiom) after verifying its C locus says Underwater + verify incl. full (shared files). Source: reviews/loop-unattended/2358-198b7a2a7-batch-d3404-hack-sfbase.md
 
 
