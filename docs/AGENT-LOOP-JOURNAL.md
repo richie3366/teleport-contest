@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3413 Must-fix review 2359: switch_symbols ledger reconciliation (by-design → partial)
+
+**C locus:** row home only (body verified exact by review 2359; callers re-verified here): symbols.c `switch_symbols` :253–292 (TRUE :257–260 showsyms loop + :261–287 graphics-mode callbacks; FALSE :288–291 `init_primary_symbols` :167–183 + `init_showsyms` :95–109); `clear_symsetentry` :319–349.
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** `ledger.mjs set switch_symbols partial --js js/display.js:switch_symbols` + omit map + D-tag (verified each claim first: TRUE-arm loop exact vs :257–260; FALSE arm = defaults + handling/nocolor reset vs init_primary_symbols→clear_symsetentry :182/:319–349 + init_showsyms :95–109; cnf wiring js/cfgfiles.js:742 (C :1205) + :752 (C :1194); options.c callers named in options.js — :664 (:12492), :1419 (:8068), :1943 (:8020), :4197 (:3664), :7212 FALSE + :7228/:7241/:7256 (:8975–8976); :1370 optfn_cursesgraphics CURSES_GRAPHICS compiled out (report.js:201 precedent); load_symset:682 + do_symset:1088 NOT FOUND in js, both ledger by-design; init_primary_symbols/init_showsyms/clear_symsetentry NOT FOUND; unixmain.c:365/:403 platform main).
+**Verify:** `node scripts/verify.mjs --fn switch_symbols` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `switch_symbols`: TRUE-arm graphics-mode callbacks (:261–287) null in contest tty; FALSE-arm clear_symsetentry tail: desc free + restriction bits + purge_custom_entries + glyphmap clear (:326–348); callers options.c:664/:1419/:1943/:4197/:7212/:7228/:7241/:7256 + load_symset:682 + do_symset:1088 unported (named in JS); :1370 CURSES_GRAPHICS compiled out; unixmain platform.
+**Next:** next Must-fix (u.Underwater never-written alias family, review 2358).
 ## 2026-10-04 — D-3412 Must-fix review 2359: eat.js the_unique_pm divergent clone → live objnam export
 
 **C locus:** - `the_unique_pm`: objnam.c:1120–1140 — G_UNIQ "the Name" article gate; type_is_pname → FALSE; High Priest / long worm tail → FALSE; Wizard of Yendor → TRUE.

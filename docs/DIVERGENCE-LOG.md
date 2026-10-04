@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-3413 — Must-fix review 2359: switch_symbols ledger reconciliation (by-design → partial)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** review 2359 QUALITY-RISK C-wrong 2: D-3405 shipped `switch_symbols` live (js/display.js:3256 export, wired in both cnf handlers, cfgfiles.c:1194/:1205) with no ledger touch — row still `by-design` "seed: no scored analogue (file)", now false on both counts.
+- **C locus:** row home only (body verified exact by review 2359; callers re-verified here): symbols.c `switch_symbols` :253–292 (TRUE :257–260 showsyms loop + :261–287 graphics-mode callbacks; FALSE :288–291 `init_primary_symbols` :167–183 + `init_showsyms` :95–109); `clear_symsetentry` :319–349.
+- **JS was:** row `by-design` with the seed note; live body at js/display.js:3256 since D-3405.
+- **Fix:** `ledger.mjs set switch_symbols partial --js js/display.js:switch_symbols` + omit map + D-tag (verified each claim first: TRUE-arm loop exact vs :257–260; FALSE arm = defaults + handling/nocolor reset vs init_primary_symbols→clear_symsetentry :182/:319–349 + init_showsyms :95–109; cnf wiring js/cfgfiles.js:742 (C :1205) + :752 (C :1194); options.c callers named in options.js — :664 (:12492), :1419 (:8068), :1943 (:8020), :4197 (:3664), :7212 FALSE + :7228/:7241/:7256 (:8975–8976); :1370 optfn_cursesgraphics CURSES_GRAPHICS compiled out (report.js:201 precedent); load_symset:682 + do_symset:1088 NOT FOUND in js, both ledger by-design; init_primary_symbols/init_showsyms/clear_symsetentry NOT FOUND; unixmain.c:365/:403 platform main).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger row only); both C cfgfiles callers already wired (js/cfgfiles.js:742/:752).
+- **Verify:** `node scripts/verify.mjs --fn switch_symbols` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `switch_symbols`: TRUE-arm graphics-mode callbacks (:261–287) null in contest tty; FALSE-arm clear_symsetentry tail: desc free + restriction bits + purge_custom_entries + glyphmap clear (:326–348); callers options.c:664/:1419/:1943/:4197/:7212/:7228/:7241/:7256 + load_symset:682 + do_symset:1088 unported (named in JS); :1370 CURSES_GRAPHICS compiled out; unixmain platform.
+- **Ledger:** switch_symbols partial
+- **Left open:** none.
+- **Next:** next Must-fix (u.Underwater never-written alias family, review 2358).
+
 ## D-3412 — Must-fix review 2359: eat.js the_unique_pm divergent clone → live objnam export
 - **Status:** shipped.
 - **Symptom:** review 2359 QUALITY-RISK C-wrong 1: js/eat.js:2741 carried a local `the_unique_pm` clone of the live js/objnam.js:2784 export whose three `ptr === mons(PM_*)` exception arms are always-false (`mons()` builds a fresh object per call, monsters.js:227). Observable: High Priest corpse taste line prints "The …" where C prints "This …" (eatcorpse :2000–2004); tin which=2 at eat.js:3833 rides the same clone.

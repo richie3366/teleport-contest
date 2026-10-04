@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] `switch_symbols` ledger reconciliation (D-3405 shipped it live with no row touch) — row still `by-design` "seed: no scored analogue (file)" but display.js exports it, wired in both cnf handlers (C cfgfiles.c:1194/:1205): `ledger.mjs set switch_symbols partial --js js/display.js:switch_symbols` + omit map (FALSE-arm options.c callers unported; clear_symsetentry desc/purge/glyphmap + restriction-bits tail; graphics-mode callbacks null) + verify. Source: reviews/loop-unattended/2359-44ce1ba38-batch-d3405-eat-engrave.md
+
+
 - [x] eat.js:2741 `the_unique_pm` divergent clone — delete + import live objnam.js:2784 (C objnam.c:1120-1140): clone's `ptr === mons(PM_*)` arms are always-false (`mons()` fresh object per call, monsters.js:227) vs canonical mndx compares; eat.js already imports objnam.js (no new edge); fixes High Priest corpse "The…"/"This…" taste line + tin which=2 (eat.js:2697/3833); subsumes the eat.js:2744/2745/2748 sites in the mons-identity row below + verify. Source: reviews/loop-unattended/2359-44ce1ba38-batch-d3405-eat-engrave.md
 
 

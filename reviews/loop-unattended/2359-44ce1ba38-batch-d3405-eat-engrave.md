@@ -169,13 +169,13 @@ already-ported fns (use_candle: row ported/seeded, untouched by diff ✓).
    corpse taste line prints "The …" where C prints "This …"
    (eatcorpse :2000-2004 arm); second call site eat.js:3833 (tin
    which=2). Fix (one iter): delete the clone, extend the existing
-   objnam.js import (ALREADY-imported, no new edge). **Addressed:** D-3412
+   objnam.js import (ALREADY-imported, no new edge). **Addressed:** D-3412 `db0087095`
 2. `switch_symbols` shipped live (display.js export + wired in both cnf
    handlers, cfgfiles.c:1194/:1205) with NO ledger update: row still
    `{"status":"by-design","note":"seed: no scored analogue (file)"}` —
    now false on both counts. Fix (one iter): row → partial with omit
    map (FALSE-arm options.c callers unported; clear_symsetentry
    desc/purge/glyphmap + restriction-bits tail; graphics-mode callbacks
-   null in contest tty), js ref + D-tag.
+   null in contest tty), js ref + D-tag. **Addressed:** D-3413
 
 Verdict: **QUALITY-RISK**
