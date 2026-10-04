@@ -47,7 +47,7 @@ import {
     stop_occupation, maybe_half_phys,
 } from './hack.js';
 import { doorlock } from './lock.js';
-import { find_drawbridge, is_drawbridge_wall } from './dbridge.js';
+import { find_drawbridge, is_drawbridge_wall, destroy_drawbridge } from './dbridge.js';
 import { finish_losehp_done } from './end.js';
 import {
     m_seenres, monstseesu, monstunseesu, same_race, mhe, mhim, can_blow,
@@ -936,7 +936,8 @@ async function fhito_loc(obj, tx, ty, fhito) {
  * callee lock.c doorlock already live D-1462/D-1475/D-1482). zap_oseen
  * makeknown (not hero bhit learnwand / !Deaf). Shop D_BROKEN
  * add_damage(0) (not SHOP_DOOR_COST / pay_for_damage).
- * Named omissions: destroy_drawbridge; map_invisible.
+ * No omissions — whole (D-3422): STRIKING destroy_drawbridge + unseen-mon
+ * map_invisible shipped above.
  */
 async function mbhit(mon, range, obj) {
     const bhitpos = game._bhitpos || (game._bhitpos = { x: 0, y: 0 });
@@ -965,6 +966,8 @@ async function mbhit(mon, range, obj) {
         } else {
             const mtmp = m_at(x, y);
             if (mtmp) {
+                // C `:1764–1765` — unseen monster on a visible spot paints I.
+                if (cansee(x, y) && !canspotmon(mtmp)) map_invisible(x, y);
                 await mbhitm(mtmp, obj, false);
                 r -= 3;
             }
@@ -974,12 +977,13 @@ async function mbhit(mon, range, obj) {
         const loc = game.level?.at?.(x, y);
         const ltyp = loc?.typ;
         /* C muse.c mbhit :1776–1803 — STRIKING find_drawbridge then
-         * else-if IS_DOOR||SDOOR doorlock. destroy_drawbridge named. */
+         * destroy, else-if IS_DOOR||SDOOR doorlock. */
         const dbxy = { x, y };
         if (otyp === WAN_STRIKING
             && ltyp !== DRAWBRIDGE_UP
             && find_drawbridge(dbxy)) {
-            /* destroy_drawbridge(dbxy.x, dbxy.y) deferred. */
+            // C `:1783` — may kill mon; mon/obj stay accessible for fhitm/fhito.
+            await destroy_drawbridge(dbxy.x, dbxy.y);
         } else if (IS_DOOR(ltyp) || ltyp === SDOOR) {
             switch (otyp) {
             /* C :1787–1788 — monsters don't use opening/locking magic

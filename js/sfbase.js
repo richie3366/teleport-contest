@@ -566,6 +566,22 @@ export function norm_ptrs_version_info(d_version_info) {
 }
 
 /**
+ * C ref: sfbase.c norm_ptrs_vlaunchinfo `:1097–1099` — empty no-op body.
+ * @param {*} d_vlaunchinfo C `union vlaunchinfo *d_vlaunchinfo UNUSED`
+ */
+export function norm_ptrs_vlaunchinfo(d_vlaunchinfo) {
+    void d_vlaunchinfo; // C UNUSED
+}
+
+/**
+ * C ref: sfbase.c norm_ptrs_vptrs `:1102–1104` — empty no-op body.
+ * @param {*} d_vptrs C `union vptrs *d_vptrs UNUSED`
+ */
+export function norm_ptrs_vptrs(d_vptrs) {
+    void d_vptrs; // C UNUSED
+}
+
+/**
  * C ref: sfbase.c norm_ptrs_you `:1107–1109` — empty no-op body.
  * @param {*} d_you C `struct you *d_you UNUSED`
  */

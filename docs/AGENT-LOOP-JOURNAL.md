@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3422 Open head: mbhit arms whole + cpostfx omit retired + 2 sfbase stubs
+
+**C locus:** - `mbhit`: muse.c:1734–1812 — :1764–1765 unseen-monster map_invisible + :1776–1784 STRIKING find_drawbridge→destroy_drawbridge.
+**JS:** - `mbhit`: js/muse.js:50 (import), :968–969 (map_invisible arm), :985–986 (destroy arm), :933–942 doc.
+**Change:** - `mbhit`: added `if (cansee(x, y) && !canspotmon(mtmp)) map_invisible(x, y);` before the fhitm call (all three already imported); added `await destroy_drawbridge(dbxy.x, dbxy.y);` in the STRIKING arm (zap.js:6754/6944 precedent; dbridge edge already static — extended the line-50 import, no new edge).
+**Verify:** `node scripts/verify.mjs --fn norm_ptrs_vlaunchinfo,norm_ptrs_vptrs,mbhit,cpostfx` → PASS syntax (3 changed js files) · PASS rule2 · hidden note ×4 (no corpus session blocked at baseline) · PASS reach ×4 (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict (seed8000 + seed0900) · PASS cohort 7/7 · VERIFY: PASS; plus full `frozen/ps_test_runner.mjs sessions` 44/44 (2026-10-04T18:33Z, speed 335+1.67/turn). No maintained unit harness exists in-repo (session replays are the test layout), so no new test file — the verify + full gates above are the durable coverage.
+**Named:** none — all four whole (`cpostfx`'s WIN_MAP flush is the shipped house more() idiom, not an approx).
+**Next:** Must-fix head (D-3410 ledger-remainder row) + refilled missing-arm rows (Helmet_on, setnotworn, maketrap, chest_trap).
 ## 2026-10-04 — D-3421 Must-fix review 2366: D-3416 ledger truth (11 rows restored, 3 flips)
 
 **C locus:** row homes only (C re-read for arm-equivalence proofs only): apply.c `use_camera` :79–109 ≡ js/apply.js:1018–1052 (uw/charge/cursed/swallow/dz/self/ray + ECMD codes; sole nit is review 2366's message-only swallow s_suffix, triaged unqueued); monmove.c `mon_would_take_item` :999–1032 ≡ js/monmove.js:423–462 (C `is_unicorn` ≡ mlet-only: all 3 S_UNICORN mons carry M2_JEWELS, monsters.h:1010–1032; ki-rin is S_ANGEL); glyphs.c `wizcustom_glyphids` :807–821 ≡ js/glyphs.js:1292–1301; zap.c `zapyourself` :2920–2928 ≡ js/zap.js:4863–4873; uhitm.c `flash_hits_mon` :6341+ mimic/gremlin arms ≡ js/uhitm.js:4667–4684/:4700–4705; fill/dump C callers are exactly the 5 D-2487 named (options.c:4227/:7155, symbols.c:1073, wizcmds.c:1949, earlyarg.c:808); C never assigns `custtype = custom_symbols` (grep over src/).

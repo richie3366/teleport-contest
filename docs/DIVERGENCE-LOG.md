@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3422 — Open head: mbhit arms whole + cpostfx omit retired + 2 sfbase stubs
+- **Status:** shipped.
+- **Symptom:** Open missing-arm head ×4 with real `js/` work (operator override this iteration — supervisor flagged #4304 a failed port; Must-fix deferred, D-3410 precedent). Coverage gaps, not corpus divergences: no corpus session blocked on any of the 4 at baseline.
+- **C locus:**
+  - `mbhit`: muse.c:1734–1812 — :1764–1765 unseen-monster map_invisible + :1776–1784 STRIKING find_drawbridge→destroy_drawbridge.
+  - `cpostfx`: eat.c:1129–1328 — mimic :1222–1224 curs_on_u + display_nhwindow(WIN_MAP, TRUE).
+  - `norm_ptrs_vlaunchinfo`: sfbase.c:1097–1099 `{ }` stub (0 callees).
+  - `norm_ptrs_vptrs`: sfbase.c:1102–1104 `{ }` stub (0 callees).
+- **JS was:**
+  - `mbhit` (js/muse.js:941 local): STRIKING arm held only a `deferred` comment; monster-hit arm never painted I for unseen mons (zero map_invisible calls).
+  - `cpostfx` (js/eat.js:1897 local): curs_on_u + more() with the WIN_MAP flush carried as a ledger omit ("more() approx").
+  - Both sfbase stubs: no JS symbol (ledger absent/MISSING).
+- **Fix:**
+  - `mbhit`: shipped both arms (map_invisible + destroy_drawbridge). Added `if (cansee(x, y) && !canspotmon(mtmp)) map_invisible(x, y);` before the fhitm call (all three already imported); added `await destroy_drawbridge(dbxy.x, dbxy.y);` in the STRIKING arm (zap.js:6754/6944 precedent; dbridge edge already static — extended the line-50 import, no new edge).
+  - `cpostfx`: no behavior change — proved the omit already shipped: C wintty.c tty_display_nhwindow NHW_MAP+blocking is end_glyphout (covered by curs_on_u's flush_screen) + force topline --More--, i.e. exactly the house `more()` idiom (detect.js:372/dogmove.js:1801); retired the omit in the doc + inline comment.
+  - sfbase: two exported no-op stubs in C order between version_info and you, house `void d_x; // C UNUSED` pattern.
+- **JS:**
+  - `mbhit`: js/muse.js:50 (import), :968–969 (map_invisible arm), :985–986 (destroy arm), :933–942 doc.
+  - `cpostfx`: js/eat.js:1889–1898 doc, :1998–2001 inline comment (comment-only).
+  - stubs: js/sfbase.js:568–587.
+- **Callers:**
+  - `mbhit`: C muse.c:864/978/1884 → JS js/muse.js:1083/:2529/:2641, all `await mbhit(mtmp, rn1(8, 6), otmp)` (fhitm/fhito fixed as locals mbhitm/bhito per the JS signature; pre-wired, unchanged).
+  - `cpostfx`: C eat.c:563/:1613/:3964 → JS js/eat.js:2292/:3849/:3449 (pre-wired, unchanged).
+  - stubs: no executable C callers (declarations only, sfbase.c:743–744); new exports, no JS callers yet.
+- **Verify:** `node scripts/verify.mjs --fn norm_ptrs_vlaunchinfo,norm_ptrs_vptrs,mbhit,cpostfx` → PASS syntax (3 changed js files) · PASS rule2 · hidden note ×4 (no corpus session blocked at baseline) · PASS reach ×4 (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict (seed8000 + seed0900) · PASS cohort 7/7 · VERIFY: PASS; plus full `frozen/ps_test_runner.mjs sessions` 44/44 (2026-10-04T18:33Z, speed 335+1.67/turn). No maintained unit harness exists in-repo (session replays are the test layout), so no new test file — the verify + full gates above are the durable coverage.
+- **Named omissions:** none — all four whole (`cpostfx`'s WIN_MAP flush is the shipped house more() idiom, not an approx).
+- **Ledger:** norm_ptrs_vlaunchinfo ported; norm_ptrs_vptrs ported; mbhit ported; cpostfx ported
+- **Left open:** none.
+- **Next:** Must-fix head (D-3410 ledger-remainder row) + refilled missing-arm rows (Helmet_on, setnotworn, maketrap, chest_trap).
+
 ## D-3421 — Must-fix review 2366: D-3416 ledger truth (11 rows restored, 3 flips)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2366 C-wrong 1: D-3416's finish stamped `- \`stairs_description\`: none.` into 8 partial rows' omit fields (commit b127042af — 9th iter of the finish-iteration first-line class: D-3403/D-3404/D-3408/D-3409/D-3410/D-3415/D-3416/D-3417 + D-3419's repair of D-3415's misfire), and 3 ported report rows carry stale "measured MISSING" notes over live exports. Verification-first (row-mandated, D-3411/D-3415 shape) falsified part of the restore source itself: D-3416's fresh Named remainders for use_camera/mon_would_take_item were stale at birth (both callees already whole), and the glyphs pre-rows' wizcustom/caller/consumer clauses shipped in D-29xx–D-31xx — so 3 rows flip to ported (dog_move D-3416 precedent, review-accepted) instead of carrying known-false text.

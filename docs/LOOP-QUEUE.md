@@ -153,11 +153,15 @@ partial (both omits brief-verified below).
 D-3421 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
 +1 with batch-preview `cpostfx` partial (WIN_MAP flush brief-verified
 below) to hold the 8-row band.
+D-3422 shipped all 4 (2 sfbase stubs ported whole; `mbhit` both arms;
+`cpostfx` omit retired as the house more() idiom); band 4 < 8 blocks
+finish — refilled +4 with batch-preview partials (each omit brief-verified
+below) to hold the 8-row band.
 
-- [ ] `sfbase.c` norm_ptrs_vlaunchinfo — C sfbase.c:1097–1099 `{ }` stub absent from js/ (no JS symbol; ledger absent C 0/JS 0 MISSING; 0 callees; brief-read 2026-10-04) @3043e75f2
-- [ ] `sfbase.c` norm_ptrs_vptrs — C sfbase.c:1102–1104 `{ }` stub absent from js/ (no JS symbol; ledger absent C 0/JS 0 MISSING; 0 callees; brief-read 2026-10-04) @3043e75f2
-- [ ] `muse.c` mbhit — C muse.c:1780 STRIKING find_drawbridge arm + unseen-monster map_invisible absent from js/muse.js:mbhit (:941–1009: destroy_drawbridge only in :982 `deferred` comment; zero map_invisible calls; ledger omit; full body brief-read 2026-10-04) @3043e75f2
-- [ ] `eat.c` cpostfx — C eat.c:1224 display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (:1222) absent from js/eat.js:cpostfx (:1997–1999: curs_on_u + more() approx, no WIN_MAP flush; ledger omit D-3405; full body brief-read 2026-10-04) @fbefad9ee
+- [ ] `do_wear.c` Helmet_on — C do_wear.c:465–472 HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign flip + fallthrough glow/curse) absent from js/do_wear.js:Helmet_on (:1307–1386: :1353–1355 deferred comment, uchangealign unported; brief-read 2026-10-04) @ca5a16a92
+- [ ] `worn.c` setnotworn — C worn.c:182 update_inventory() absent from js/do.js:setnotworn (:516–556: tail :550–555 carries tux_penalty/botl/recalc, no update_inventory; doc :513 names it; brief-read 2026-10-04) @ca5a16a92
+- [ ] `trap.c` maketrap — C trap.c:482 LEVEL_TELEP && single_level_branch (Knox) refuse gate absent from js/trap.js:maketrap (:955–1097: :983 named omission; brief-read 2026-10-04) @ca5a16a92
+- [ ] `trap.c` chest_trap — C trap.c:6361–6362 inside_shop(ux,uy) insider gate absent from js/trap.js:chest_trap (:7970–8161: :8009–8013 ushops/rooms-only insider, no inside_shop call; brief-read 2026-10-04) @ca5a16a92
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

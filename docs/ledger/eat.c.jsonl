@@ -27,7 +27,7 @@
 {"fn":"temp_givit","c":"992-997","status":"ported","js":["js/eat.js:temp_givit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"givit","c":"1003-1100","status":"ported","js":["js/eat.js:givit"],"d":["D-2214"],"at":"2026-10-03@bbe63333a"}
 {"fn":"eye_of_newt_buzz","c":"1103-1123","status":"ported","js":["js/eat.js:eye_of_newt_buzz"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cpostfx","c":"1129-1328","status":"partial","js":["js/eat.js:cpostfx"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"cpostfx","c":"1129-1328","status":"ported","js":["js/eat.js:cpostfx"],"d":["D-3422","D-3405"],"at":"2026-10-04@ca5a16a92"}
 {"fn":"corpse_intrinsic","c":"1339-1373","status":"ported","js":["js/eat.js:corpse_intrinsic"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"violated_vegetarian","c":"1376-1384","status":"ported","js":["js/eat.js:violated_vegetarian"],"at":"2026-10-03@bbe63333a"}
 {"fn":"costly_tin","c":"1389-1402","status":"ported","js":["js/eat.js:costly_tin"],"at":"2026-10-03@bbe63333a"}

@@ -20,7 +20,7 @@
 {"fn":"find_offensive","c":"1421-1594","status":"ported","js":["js/muse.js:find_offensive"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
 {"fn":"mbhitm","c":"1597-1703","status":"ported","js":["js/muse.js:mbhitm"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
 {"fn":"fhito_loc","c":"1707-1726","status":"ported","js":["js/muse.js:fhito_loc"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"mbhit","c":"1734-1812","status":"partial","js":["js/muse.js:mbhit"],"omit":"WAN_STRIKING find_drawbridge arm never calls destroy_drawbridge; no map_invisible on unseen monster hit","d":["D-1484"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mbhit","c":"1734-1812","status":"ported","js":["js/muse.js:mbhit"],"d":["D-3422","D-1484"],"at":"2026-10-04@ca5a16a92"}
 {"fn":"buzz_force_miss","c":"1815-1818","status":"ported","js":["js/muse.js:buzz_force_miss"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_offensive","c":"1824-2032","status":"ported","js":["js/muse.js:use_offensive"],"d":["D-1810"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"rnd_offensive_item","c":"2035-2081","status":"ported","js":["js/makemon.js:rnd_offensive_item"],"d":["D-2983"],"at":"2026-09-27@529e9bfc5"}
