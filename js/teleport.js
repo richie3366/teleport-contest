@@ -49,7 +49,7 @@ import { vision_recalc, couldsee } from './vision.js';
 import {
     nomul, in_rooms, is_pool, is_lava, check_special_room, switch_terrain,
     invocation_message, notice_mon_off, notice_mon_on, notice_all_mons,
-    set_msg_xy, Passes_walls_prop, check_capacity,
+    set_msg_xy, Passes_walls_prop, check_capacity, u_locomotion,
 } from './hack.js';
 import { remove_worm, place_worm_tail_randomly, level_mon_at, remove_monster_xy } from './worm.js';
 import { makeknown, prinv, near_capacity, paint_corner_nhw_menu } from './invent.js';
@@ -1921,15 +1921,8 @@ export async function rloco(obj) {
     return true;
 }
 
-/**
- * C ref: hack.c u_locomotion — Levitation/Flying verbs.
- * Named omit: poly locomotion(youmonst.data, def).
- */
-function u_locomotion(defWord) {
-    if (Levitation()) return 'float';
-    if (Flying()) return 'fly';
-    return defWord;
-}
+/* C hack.c u_locomotion — local clone retired; teleport.c:1066/1547 call
+ * the live hack.js export (same import block above). */
 
 /**
  * C ref: teleport.c dotele — #teleport / ^T body.

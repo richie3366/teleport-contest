@@ -147,7 +147,7 @@ import {
     DEC_TO_UNICODE, ATR_NONE, ATR_INVERSE, ATR_BOLD, ATR_UNDERLINE,
 } from './terminal.js';
 import { update_lastseentyp, In_tutorial, cmap_to_type, ensure_lastseentyp, on_level } from './dungeon.js';
-import { stairway_at, known_branch_stairs } from './mklev.js';
+import { stairway_at, known_branch_stairs, xy_set_wall_state } from './mklev.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
 } from './attrib.js';
@@ -4402,10 +4402,9 @@ function glyph_is_trap_at(glyph, x, y) {
  * C ref: detect.c reveal_terrain_getglyph
  * Branch envelope: hero_memory / seenv; strip mon/obj/trap/invisible per
  * TER_* bits; lastseentyp vs typ → back_to_glyph; litcorr→corr hack.
- * Named omissions: visible_region_at / gascloud; keep_traps trap_to_glyph
- * restore when stripping objs; M_AP_FURNITURE lastseentyp fake; swallowed
- * ustuck mon glyph; TER_FULL seenv temp already covered;
- * arboreal default.
+ * Named omissions: visible_region_at / gascloud (incl. the `!seenv` +
+ * region GLYPH_UNEXPLORED arm and the keep_traps region-glyph restore);
+ * arboreal default cell (the id arm is live).
  */
 export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_subset) {
     const loc = game.level?.at(x, y);
@@ -4462,6 +4461,12 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
 
     if (swallowed) {
         glyph = copy_glyph_id(levl_glyph);
+        // C `:2213–2215` — keep_mons + swallowed hero cell: the engulfer
+        // itself (mon_to_glyph defaults to rn2_on_display_rng like C).
+        const uu = game.u || {};
+        if (keep_mons && uu.ux === x && uu.uy === y && uu.ustuck) {
+            glyph = mon_to_glyph(uu.ustuck);
+        }
     } else {
         const u = game.u || {};
         if (u.ux === x && u.uy === y && canspotself()) {
@@ -4580,14 +4585,31 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
                     ...terrain_glyph(loc, x, y), glyph: back_to_glyph(x, y),
                 };
             } else {
-                // C: temp typ = lastseentyp; back_to_glyph; restore
-                // wall_info recalc deferred
-                const saveTyp = loc.typ;
-                loc.typ = last;
-                glyph = {
-                    ...terrain_glyph(loc, x, y), glyph: back_to_glyph(x, y),
-                };
-                loc.typ = saveTyp;
+                // C `:2262–2266` — a mimic here posing as furniture shows
+                // its mappearance, not a faked back_to_glyph.
+                const mim = mon_at_display(x, y);
+                if (mim && M_AP_TYPE(mim) === M_AP_FURNITURE) {
+                    const ap = mim.mappearance | 0;
+                    glyph = {
+                        ...cmap_idx_to_tty(ap), glyph: cmap_to_glyph(ap),
+                    };
+                } else {
+                    // C `:2267–2284` — temp typ = lastseentyp (with the
+                    // wall_info recalc so wall_angle can't impossible on a
+                    // stale doormask); back_to_glyph; restore the spot.
+                    const saveTyp = loc.typ;
+                    const saveWallInfo = loc.wall_info;
+                    loc.typ = last;
+                    if (IS_WALL(last) || last === SDOOR) {
+                        xy_set_wall_state(x, y);
+                    }
+                    glyph = {
+                        ...terrain_glyph(loc, x, y),
+                        glyph: back_to_glyph(x, y),
+                    };
+                    loc.typ = saveTyp;
+                    loc.wall_info = saveWallInfo;
+                }
             }
         }
     }

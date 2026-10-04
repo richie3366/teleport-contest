@@ -2072,9 +2072,8 @@ export async function pickup(what) {
 /**
  * C ref: hack.c pickup_checks `:3788–3872` — preflight for #pickup / `,`.
  * 1 = cannot pickup, time taken; 0 = cannot, no time; -1 = normal pickup;
- * -2 = loot the engulfer.
- * Named: dungeon.c `surface` (reach-fail default "floor"; HOLE/TRAPDOOR
- * override live).
+ * -2 = loot the engulfer. Reach-fail names surface(ux,uy) (`:3862`) with
+ * the HOLE/TRAPDOOR overrides (`:3864–3868`).
  */
 async function pickup_checks() {
     const u = game.u;
@@ -2170,10 +2169,10 @@ async function pickup_checks() {
         } else if (Blind()) {
             await pline('You cannot reach anything here.');
         } else {
-            let surf = 'floor';
+            let surf = surface(u.ux, u.uy); // C `:3862`
             if (traphere) {
-                if ((traphere.ttyp | 0) === HOLE) surf = 'edge of the hole';
-                else if ((traphere.ttyp | 0) === TRAPDOOR) surf = 'trap door';
+                if ((traphere.ttyp | 0) === HOLE) surf = 'edge of the hole'; // C `:3865`
+                else if ((traphere.ttyp | 0) === TRAPDOOR) surf = 'trap door'; // C `:3867`
             }
             await pline(`You cannot reach the ${surf}.`);
         }

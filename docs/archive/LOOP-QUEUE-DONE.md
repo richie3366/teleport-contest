@@ -3,6 +3,19 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-04
+
+
+
+- [x] `sfbase.c` norm_ptrs_bill_x — C sfbase.c:767–769 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:676, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [x] `sfbase.c` norm_ptrs_branch — C sfbase.c:772–774 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:677, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [x] `sfbase.c` norm_ptrs_bubble — C sfbase.c:777–779 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:678, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [x] `sfbase.c` norm_ptrs_cemetery — C sfbase.c:782–784 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:679, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [x] `sfbase.c` norm_ptrs_context_info — C sfbase.c:787–789 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:680, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [x] `sfbase.c` norm_ptrs_achievement_tracking — C sfbase.c:792–794 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:681, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [x] `sfbase.c` norm_ptrs_book_info — C sfbase.c:797–799 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:683, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [x] `sfbase.c` norm_ptrs_dig_info — C sfbase.c:802–804 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:684, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+
 ## 2026-10-03
 
 - [x] `display.c` feel_location Underwater gate reads never-written field — C display.c:769–772 returns when `Underwater && !Is_waterlevel && !pool/lava && !ice` but js/display.js:5138 tests `(u.Underwater|0)`, which no code port-wide ever writes (live field is `u.uinwater`, youprop.h:279; writer `set_uinwater` js/hack.js:3453; zero assigns/bracket-writes/save-writes — review 2348); fix: flip :5138 to `(u.uinwater|0)` (D-3393 newsym :5375 idiom) + verify incl. full (shared file); do NOT expand to the ~20-site alias family. Source: reviews/loop-unattended/2348-d428e2b04-newsym-guards.md **Addressed:** D-3400 `1ae9cc180`

@@ -136,15 +136,19 @@ D-3399 drained the block (generated block still 0 rows at default C ≥ 8;
 DUMPLOG-retired per D-1776 and the THIN six read complete in JS) —
 refilled with the next 8 `sfbase.c` norm_ptrs_* stubs in C order (C-home
 `js/sfbase.js` established by D-3399; ~60 siblings remain absent).
+D-3404 shipped those 8 plus 56 more stubs; the generated block holds 1
+row at default C ≥ 8 (only non-excluded MISSING left: `topl_putsym`) —
+refilled with the last 3 absent `sfbase.c` stubs, `topl_putsym`, and 3
+`hacklib.c` partials the next batch preview still lists (THIN rechecks
+excluded: the six read complete in JS per the D-3403 note).
 
-- [ ] `sfbase.c` norm_ptrs_bill_x — C sfbase.c:767–769 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:676, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
-- [ ] `sfbase.c` norm_ptrs_branch — C sfbase.c:772–774 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:677, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
-- [ ] `sfbase.c` norm_ptrs_bubble — C sfbase.c:777–779 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:678, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
-- [ ] `sfbase.c` norm_ptrs_cemetery — C sfbase.c:782–784 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:679, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
-- [ ] `sfbase.c` norm_ptrs_context_info — C sfbase.c:787–789 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:680, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
-- [ ] `sfbase.c` norm_ptrs_achievement_tracking — C sfbase.c:792–794 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:681, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
-- [ ] `sfbase.c` norm_ptrs_book_info — C sfbase.c:797–799 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:683, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
-- [ ] `sfbase.c` norm_ptrs_dig_info — C sfbase.c:802–804 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:684, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
+- [ ] `sfbase.c` norm_ptrs_u_roleplay — C sfbase.c:1087–1089 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
+- [ ] `sfbase.c` norm_ptrs_version_info — C sfbase.c:1092–1094 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
+- [ ] `sfbase.c` norm_ptrs_you — C sfbase.c:1107–1109 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
+- [ ] `topl.c` topl_putsym — C topl.c:305–344 absent from js/ (no JS symbol, comment refs only, js-grep 2026-10-04; ledger unknown C 28/JS 0 MISSING; callers 2 — rows --all 2026-10-04) @e2943671c
+- [ ] `hacklib.c` strncmpi — partial js/hacklib.js:strncmpi (D-2967): call-site wiring arms in artifact.c, attrib.c, botl.c, cmd.c, coloratt.c, do.c, do_name.c, dungeon.c, … absent from js/ (full list in ledger omit; batch-preview 2026-10-04) @e2943671c
+- [ ] `hacklib.c` strstri — partial js/hacklib.js:strstri (D-2877): C apply.c:1412 attach-prompt `\033`-strip arm absent from js/apply.js:4813 (batch-preview 2026-10-04) @e2943671c
+- [ ] `hacklib.c` unicodeval_to_utf8str — partial js/hacklib.js:unicodeval_to_utf8str (D-2892): C glyphs.c:52–104 + utf8map.c:18–34,148–207 callee arms absent from js/ (full omit in ledger; batch-preview 2026-10-04) @e2943671c
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
