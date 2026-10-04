@@ -7,7 +7,7 @@
 {"fn":"maketrap","c":"456-588","status":"partial","js":["js/trap.js:maketrap"],"omit":"LEVEL_TELEP&&single_level_branch refuse gate (C:482); TELEP_TRAP fixed-dest launchplace arm (C:566-574)","d":["D-1300","D-1296","D-1280"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clamp_hole_destination","c":"593-599","status":"ported","js":["js/trap.js:clamp_hole_destination"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fall_through","c":"602-696","status":"ported","js":["js/trap.js:fall_through"],"at":"2026-10-03@bbe63333a"}
-{"fn":"animate_statue","c":"726-900","status":"partial","js":["js/trap.js:animate_statue"],"omit":"- `animate_statue`: shop/monster ownership prefix (shk_your Manlobbi's/mon's) reduced to the/your (C:825,840)","d":["D-3425"],"at":"2026-10-04@c4d4e5278","note":"audit 2026-10-03: also a11y-only: set_msg_xy skipped"}
+{"fn":"animate_statue","c":"726-900","status":"partial","js":["js/trap.js:animate_statue"],"omit":"shop/monster ownership prefix (shk_your Manlobbi's/mon's) reduced to the/your (C:825,840)","d":["D-3425"],"at":"2026-10-04@a0cbe29a6","note":"audit 2026-10-03: also a11y-only: set_msg_xy skipped"}
 {"fn":"activate_statue_trap","c":"908-936","status":"ported","js":["js/trap.js:activate_statue_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"keep_saddle_with_steedcorpse","c":"939-967","status":"ported","js":["js/trap.js:keep_saddle_with_steedcorpse"],"d":["D-3076"],"at":"2026-09-29@3a3d73a50","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mu_maybe_destroy_web","c":"972-1014","status":"ported","js":["js/trap.js:mu_maybe_destroy_web"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pline vs pline_mon: text identical, msg_loc only"}
