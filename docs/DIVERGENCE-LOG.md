@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3409 — Must-fix review 2362 item 1: D-3408 ledger remainder homes (4 rows)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** review 2362 QUALITY-RISK on D-3408: the code is C-exact throughout, but 4 ledger rows mis-certify it — `m_initgrp` claimed "whole vs C" while the D-3408 message named its group-member-message remainder; `makemon`'s omit listed only sanity callees while the message named 3 more remainders (m_dowear fire-and-forget, dog starting-pet, group messages); `newmextra` sat partial with a vacuous "cannot ship" note though the body is whole; `wiz_show_nhuuid` re-certified a `wiz_telekinesis` paste-error omit instead of its true nhuuid-value omit.
+- **C locus:** row homes only (no C re-read; bodies verified whole by review 2362): makemon.c `m_initgrp` :79–145, `makemon` :1147–1510, `newmextra` :1065–1073; wizcmds.c `wiz_show_nhuuid` :1782–1786.
+- **JS was:** `m_initgrp` ported "audited D-3408: whole vs C" (no omit); `makemon` partial with only the sanity_check omit; `newmextra` partial with empty omit + "remaining omit cannot ship"; `wiz_show_nhuuid` partial with the wiz_telekinesis paste-error omit.
+- **Fix:** `ledger.mjs set` ×4 (verified each claim first: `m_initgrp` js/makemon.js:3260 emits no group-member Noreps and is sync; `m_dowear(mtmp, true)` fire-and-forget at js/makemon.js:3744 under a sync-gen comment; `newmextra` js/restore.js:52 is alloc + init_mextra + return with the C-staticfn callee local beside it; `wiz_show_nhuuid` js/wizcmds.js:2280 doc already names the svn.nhuuid-value omission).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger rows only).
+- **Verify:** `node scripts/verify.mjs --fn m_initgrp,makemon,newmextra,wiz_show_nhuuid` → PASS syntax (0 changed js); PASS rule2; hidden verify: no corpus session blocked on any of the 4 (coverage-row notes, expected); REACH-OK ×4 (m_initgrp 80/80 of 167-reach spread; makemon 80/80 of 730-reach spread; newmextra + wiz_show_nhuuid 24/24 fixed smoke each, no RNG-tagged reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `m_initgrp`: mid-game group-member appear-Noreps unemitted (sync m_initgrp cannot await makemon_appear_msg; cascade through makemon/mklev out of scope).
+  - `makemon`: m_dowear called fire-and-forget (makemon.c:1445; sync level gen, no await); starting-pet in_mklev observable-match (dog.js); group-member appear messages live in the m_initgrp row (sanity_check omit kept).
+  - `newmextra`: none — body whole.
+  - `wiz_show_nhuuid`: svn.nhuuid value itself unported (platform startup; JS reports nhuuid-missing).
+- **Ledger:** m_initgrp partial; makemon partial; newmextra ported; wiz_show_nhuuid partial
+- **Left open:** none.
+- **Next:** next Must-fix (D-3407 14-row false ledger certifications, review 2361).
+
 ## D-3408 — batch @c075fb861: cfgfiles/topten/weapon/zap/dothrow/coloratt/dungeon/calendar/wizcmds/makemon/mdlib/shk remainder (100 fns, 0 left open)
 
 - **Status:** shipped.

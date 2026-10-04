@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3409 Must-fix review 2362 item 1: D-3408 ledger remainder homes (4 rows)
+
+**C locus:** row homes only (no C re-read; bodies verified whole by review 2362): makemon.c `m_initgrp` :79–145, `makemon` :1147–1510, `newmextra` :1065–1073; wizcmds.c `wiz_show_nhuuid` :1782–1786.
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** `ledger.mjs set` ×4 (verified each claim first: `m_initgrp` js/makemon.js:3260 emits no group-member Noreps and is sync; `m_dowear(mtmp, true)` fire-and-forget at js/makemon.js:3744 under a sync-gen comment; `newmextra` js/restore.js:52 is alloc + init_mextra + return with the C-staticfn callee local beside it; `wiz_show_nhuuid` js/wizcmds.js:2280 doc already names the svn.nhuuid-value omission).
+**Verify:** `node scripts/verify.mjs --fn m_initgrp,makemon,newmextra,wiz_show_nhuuid` → PASS syntax (0 changed js); PASS rule2; hidden verify: no corpus session blocked on any of the 4 (coverage-row notes, expected); REACH-OK ×4 (m_initgrp 80/80 of 167-reach spread; makemon 80/80 of 730-reach spread; newmextra + wiz_show_nhuuid 24/24 fixed smoke each, no RNG-tagged reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `m_initgrp`: mid-game group-member appear-Noreps unemitted (sync m_initgrp cannot await makemon_appear_msg; cascade through makemon/mklev out of scope).
+**Next:** next Must-fix (D-3407 14-row false ledger certifications, review 2361).
 ## 2026-10-04 — audit 2354–2362 @952e46e04: review D-3400..D-3408 (9 SHAs) + full rescore
 
 **Reviews:** 2354 ACCEPT (D-3400 feel_location) · 2355 QUALITY-RISK (D-3401 canseemon-clone + mons-identity Must-fix) · 2356 QUALITY-RISK (D-3402 101-row overage + declaration repair) · 2357 ACCEPT (D-3403) · 2358 ACCEPT-WITH-DEBT (D-3404 u.Underwater + pasted-omit Must-fix) · 2359 QUALITY-RISK (D-3405 the_unique_pm divergent clone + switch_symbols ledger) · 2360 ACCEPT (D-3406) · 2361 QUALITY-RISK (D-3407 14 false "cannot ship" certs) · 2362 QUALITY-RISK (D-3408 4 remainder-home rows). 9 Must-fix lines prepended; Next cluster = D-3408 4-row homes.

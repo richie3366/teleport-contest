@@ -107,7 +107,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] D-3408 ledger remainder homes (4 rows) — m_initgrp → partial + group-member-Norep omit (sync, unawaitable); makemon omit += m_dowear fire-and-forget + dog starting-pet + group-msg pointer; newmextra → ported (body whole); wiz_show_nhuuid omit := nhuuid-value text (replace wiz_telekinesis paste error); re-verify the 4. Source: reviews/loop-unattended/2362-952e46e04-batch-d3408-zap-makemon.md
 - [ ] D-3407 false ledger certifications (14 rows stamped "cannot ship"/"whole vs C" for shipped code) — drop stale omits + flip to ported: 7 replmon-unstuck rows (sanity_check_single_mon, dmonsfree, monkilled, unstuck, xkilled, setmangry, iter_mons_safe), setuwep (:1103 live uhitm.js:1840), start_timer (wish-corpse live readobjnam.js:2366), mkinvokearea (deadbook live spell.js:842), arti_invoke (6 retouch callers live), fill_ordinary_room (recount live), record_achievement (drop ACH_INVK sub-omit only), restore_timers (→ partial + ghostly bones omit); re-verify the 14. Source: reviews/loop-unattended/2361-c075fb861-batch-d3407-timeout-read.md
 - [ ] eat.js:2741 `the_unique_pm` divergent clone — delete + import live objnam.js:2784 (C objnam.c:1120-1140): clone's `ptr === mons(PM_*)` arms are always-false (`mons()` fresh object per call, monsters.js:227) vs canonical mndx compares; eat.js already imports objnam.js (no new edge); fixes High Priest corpse "The…"/"This…" taste line + tin which=2 (eat.js:2697/3833); subsumes the eat.js:2744/2745/2748 sites in the mons-identity row below + verify. Source: reviews/loop-unattended/2359-44ce1ba38-batch-d3405-eat-engrave.md
 - [ ] `switch_symbols` ledger reconciliation (D-3405 shipped it live with no row touch) — row still `by-design` "seed: no scored analogue (file)" but display.js exports it, wired in both cnf handlers (C cfgfiles.c:1194/:1205): `ledger.mjs set switch_symbols partial --js js/display.js:switch_symbols` + omit map (FALSE-arm options.c callers unported; clear_symsetentry desc/purge/glyphmap + restriction-bits tail; graphics-mode callbacks null) + verify. Source: reviews/loop-unattended/2359-44ce1ba38-batch-d3405-eat-engrave.md
@@ -130,6 +129,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 
 <!-- coverage:begin -->
 - [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 22 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog) @1ae9cc180
+- [ ] `makemon.c` m_initgrp — coverage PARTIAL (C 28 code L `makemon.c:79–145` / JS 13 code L in js/makemon.js; hops —, callers 0, RNG 1, msg 1; declared partial: - `m_initgrp`: mid-game group-member appear-Noreps unemitted (sync m_initgrp cannot await makemon_appear_msg; cascade through makemon/mklev ) @57c7462c4
 <!-- coverage:end -->
 
 ## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)

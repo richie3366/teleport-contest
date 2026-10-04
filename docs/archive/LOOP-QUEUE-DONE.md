@@ -5,6 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] D-3408 ledger remainder homes (4 rows) — m_initgrp → partial + group-member-Norep omit (sync, unawaitable); makemon omit += m_dowear fire-and-forget + dog starting-pet + group-msg pointer; newmextra → ported (body whole); wiz_show_nhuuid omit := nhuuid-value text (replace wiz_telekinesis paste error); re-verify the 4. Source: reviews/loop-unattended/2362-952e46e04-batch-d3408-zap-makemon.md
 
 
 - [x] `sfbase.c` norm_ptrs_bill_x — C sfbase.c:767–769 absent from js/ (no JS symbol; ledger absent C 0; empty no-op stub body; decl-only C ref sfbase.c:676, no live callers; 0 C callees — brief 2026-10-03) @0e2f1273f
