@@ -1,9 +1,9 @@
 {
- "commit": "b127042af",
- "at": "2026-10-04T16:07:03.484Z",
- "full": false,
- "fullCommit": "952e46e04",
- "fullAt": "2026-10-04T12:43:15.194Z",
+ "commit": "b3cc7b581",
+ "at": "2026-10-04T17:07:18.245Z",
+ "full": true,
+ "fullCommit": "b3cc7b581",
+ "fullAt": "2026-10-04T17:07:18.245Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -5391,7 +5391,7 @@
    "steps": 113,
    "owner": "m_move",
    "loc": "monmove.c:1963",
-   "jsOwner": "m_move(monmove.js:2319)",
+   "jsOwner": "m_move(monmove.js:2325)",
    "cTopline": "A boulder blocks your path.",
    "jsTopline": "staircase down",
    "error": null
@@ -5935,7 +5935,7 @@
    "steps": 253,
    "owner": "distfleeck",
    "loc": "monmove.c:564",
-   "jsOwner": "mattacku(mhitu.js:4215)",
+   "jsOwner": "mattacku(mhitu.js:4216)",
    "cTopline": "The gnome lord turns to flee. The saddled pony misses the gnome lord.--More--",
    "jsTopline": "The gnome lord hits! You stop searching.",
    "error": null
@@ -9938,9 +9938,9 @@
   "scen-options-Tourist-94351": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3844,
+   "rngM": 3952,
    "rngT": 3952,
-   "scrM": 71,
+   "scrM": 85,
    "scrT": 216,
    "kind": "screen",
    "step": 14,
@@ -11936,7 +11936,7 @@
    "steps": 97,
    "owner": "m_move",
    "loc": "monmove.c:2064",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -12106,7 +12106,7 @@
    "steps": 208,
    "owner": "m_move",
    "loc": "monmove.c:2064",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "The wall glows then fades. You hear a door open.",
    "jsTopline": "The wall glows then fades. You hear a door open.",
    "error": null
@@ -12582,7 +12582,7 @@
    "steps": 222,
    "owner": "water_damage",
    "loc": "trap.c:4771",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "You fall into the moat! You sink like a rock.--More--",
    "jsTopline": "Dip a blessed +0 leather armor (being worn) into the moat? [yn] (n)",
    "error": null
@@ -12820,7 +12820,7 @@
    "steps": 158,
    "owner": "water_damage",
    "loc": "trap.c:4771",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "You fall into the moat! You sink like a rock.--More--",
    "jsTopline": "Dip an uncursed +1 ring of protection into the moat? [yn] (n)",
    "error": null
@@ -12956,7 +12956,7 @@
    "steps": 150,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "m_move(monmove.js:2319)",
+   "jsOwner": "m_move(monmove.js:2325)",
    "cTopline": "You hear a masticating sound. You hear a masticating sound.",
    "jsTopline": "You hear a masticating sound. You hear a masticating sound.",
    "error": null
@@ -13194,7 +13194,7 @@
    "steps": 167,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "goodpos(teleport.js:473)",
+   "jsOwner": "goodpos(teleport.js:467)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null
@@ -13279,7 +13279,7 @@
    "steps": 137,
    "owner": "summonmu",
    "loc": "mhitu.c:968",
-   "jsOwner": "summonmu(mhitu.js:3377)",
+   "jsOwner": "summonmu(mhitu.js:3378)",
    "cTopline": "The marilith hits! The marilith hits again! The marilith hits!--More--",
    "jsTopline": "The marilith hits! The marilith hits again! The marilith hits!--More--",
    "error": null
@@ -13381,7 +13381,7 @@
    "steps": 97,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "some gold pieces",
    "jsTopline": "7 candles",
    "error": null
@@ -13449,7 +13449,7 @@
    "steps": 210,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "some gold pieces",
    "jsTopline": "a lamp",
    "error": null
@@ -13483,7 +13483,7 @@
    "steps": 205,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "some gold pieces",
    "jsTopline": "a whistle",
    "error": null
@@ -13500,7 +13500,7 @@
    "steps": 227,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "some gold pieces",
    "jsTopline": "a food ration",
    "error": null
@@ -13551,7 +13551,7 @@
    "steps": 228,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "some gold pieces",
    "jsTopline": "a large box",
    "error": null
@@ -13585,7 +13585,7 @@
    "steps": 162,
    "owner": "distfleeck",
    "loc": "monmove.c:538",
-   "jsOwner": "choose_monster_spell(mcastu.js:312)",
+   "jsOwner": "choose_monster_spell(mcastu.js:313)",
    "cTopline": "You hear a door open. That door is closed.",
    "jsTopline": "You hear a door open.",
    "error": null
@@ -13619,7 +13619,7 @@
    "steps": 92,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "an arrow",
    "jsTopline": "2 candles",
    "error": null
@@ -13636,7 +13636,7 @@
    "steps": 321,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:1154)",
+   "jsOwner": "distfleeck(monmove.js:1158)",
    "cTopline": "a potion (no travel path)",
    "jsTopline": "an ebony wand (no travel path)",
    "error": null
@@ -13653,7 +13653,7 @@
    "steps": 211,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "u_maybe_impaired(hack.js:2604)",
+   "jsOwner": "u_maybe_impaired(hack.js:2600)",
    "cTopline": "some gold pieces",
    "jsTopline": "a food ration",
    "error": null

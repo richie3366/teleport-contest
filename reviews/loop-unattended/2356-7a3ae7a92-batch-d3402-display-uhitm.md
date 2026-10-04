@@ -226,6 +226,6 @@ sampled = wrong `ported` ×2 → QUALITY-RISK.
    whole vs C"` (really_done's twin defect already healed by D-3403;
    misc_obj's pasted omit already healed by D-3406 — confirm both in
    the fix); audit the remaining 101 D-3402 rows for present accurate
-   notes. One iter (ledger-only + verify). **Addressed:** D-3417
+   notes. One iter (ledger-only + verify). **Addressed:** D-3417 `428fab59b`
 
 Verdict: **QUALITY-RISK**

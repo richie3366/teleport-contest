@@ -2372,3 +2372,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2360-e3dc5ab18-batch-d3406-sp-lev-maze.md](./2360-e3dc5ab18-batch-d3406-sp-lev-maze.md) | `e3dc5ab18` | D-3406 batch sp_lev/pickup/mkobj/uhitm/detect/teleport/selvar/alloc/mkmaze/mcastu/shk (100 fns) | **ACCEPT** |
 | [2361-c075fb861-batch-d3407-timeout-read.md](./2361-c075fb861-batch-d3407-timeout-read.md) | `c075fb861` | D-3407 batch uhitm/mklev/sounds/role/insight/artifact/wield/region/mon/read/timeout (85 fns) | **QUALITY-RISK** |
 | [2362-952e46e04-batch-d3408-zap-makemon.md](./2362-952e46e04-batch-d3408-zap-makemon.md) | `952e46e04` | D-3408 batch cfgfiles/topten/weapon/zap/dothrow/coloratt/dungeon/calendar/wizcmds/makemon/mdlib/shk (100 fns) | **QUALITY-RISK** |
+| [2363-c7fcf5bd7-m-initgrp-drain.md](./2363-c7fcf5bd7-m-initgrp-drain.md) | `c7fcf5bd7` | D-3410 impossible audit + m_initgrp appear drain (2 fns) | **QUALITY-RISK** |
+| [2364-db0087095-the-unique-pm-rewire.md](./2364-db0087095-the-unique-pm-rewire.md) | `db0087095` | D-3412 the_unique_pm clone → live export (1 fn) | **ACCEPT** |
+| [2365-3a47d2089-uinwater-flip.md](./2365-3a47d2089-uinwater-flip.md) | `3a47d2089` | D-3414 u.Underwater → u.uinwater 12-site flip (10 fns) | **ACCEPT** |
+| [2366-b127042af-batch-d3416.md](./2366-b127042af-batch-d3416.md) | `b127042af` | D-3416 batch cfgfiles→dogmove (100 fns) | **QUALITY-RISK** |

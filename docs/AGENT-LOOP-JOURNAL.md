@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — audit 2363–2366 @b3cc7b581: review D-3410/D-3412/D-3414/D-3416 (2A/2Q, 3 Must-fix) + full rescore 733/953
+
+**Scope:** 4 js-touching SHAs since audit 2354–2362 (docs-only D-3409/D-3411/D-3413/D-3415/D-3417 + b3cc7b581 unreviewed per scope, except the D-3417-crumb-flagged D-3415 misfire, verified). 2363 c7fcf5bd7 D-3410 m_initgrp drain QRISK (code C-exact incl. RNG-safe deferral; makemon/wiz rows carry m_initgrp's whole-claim instead of their remainders — 2362.1 still open); 2364 db0087095 D-3412 the_unique_pm rewire ACCEPT (clone gone, 8/8 test); 2365 3a47d2089 D-3414 uinwater flip ACCEPT (12/12 C loci say Underwater; disclosed Caveman-94327 NO-MOVEMENT pre-existing); 2366 b127042af D-3416 batch QRISK (code all-whole: MANIFEST-EXACT 100/100, 19-sample + full 29-flip audit incl. dog_move/quickmimic stale-omit holds; 8 partial rows stairs-pasted + 3 stale MISSING notes).
+**Finding:** finish-iteration stamps one Named line across rows — 8th iter (D-3403 singplur, D-3404, D-3408, D-3409, D-3410, D-3415, D-3416, D-3417→b3cc7b581 healed); finish-routed repairs failed 4 of 4 (D-3409/D-3410/D-3415/D-3417) while direct-set D-3411 holds — repairs must use direct `ledger.mjs set`. Must-fix ×3 prepended (D-3415 misfire head, D-3416 truth, D-3410 homes); 2355 canseemon+mons still live below.
+**Score:** public 44/44 (RNG 792838/792838, Scr 11405/11405, `341+1.61/turn` R² 0.77); corpus 733/953 (76.9 %, RNG 98.39 %, scr 94.0 %), 0 loses 0 gains, `full: true` 17:07Z; held-out 15/44 (7042 pts, judge 14:49Z post-D-3415). Seeded `ported` spot-check 5/5 hold (add_mon_to_reg walked whole; m_detach/bot_via_windowport/findit/endgamelevelname live). b3cc7b581 docrt_flags repair verified (both rows own-name now).
+**Next:** queue head D-3415 repair misfire (swap+core `ledger.mjs set` ×2).
 ## 2026-10-04 — D-3417 Must-fix review 2356: D-3402 declaration repair (splitmon note + 2 pasted omits restored)
 
 **C locus:** row homes only (no C re-read; splitmon body verified whole by review 2356, mndx pudding idiom): uhitm.c `hmon_hitmon_splitmon` :1604–1634; display.c `see_monsters` :1487–1529, `docrt_flags` :1709–1773 (bodies unchanged this iter).
