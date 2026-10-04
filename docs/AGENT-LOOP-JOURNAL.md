@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3428 Must-fix review 2372: launch_obj wall-stop + tail stackobj extras (2 deletions)
+
+**C locus:** - `launch_obj`: trap.c:3556 `} else if (IS_STWALL(typ) || IS_TREE(typ)) {` (wall-stop); trap.c:3568–3572 rest tail (`otrapped = 0; place_object; newsym; return 1` — no stackobj). C `IS_STWALL` is `(typ) <= DBWALL` (rm.h:118), exactly the port's predicate, so dropping the disjunct is an exact match; the boulder-on-boulder `:3517` `IS_OBSTRUCTED` (bmsg choice) is genuine C and stays.
+**JS:** - `launch_obj`: js/trap.js:2613 — wall-stop :2909, rest tail :2924–2931; new maintained test scripts/launch-obj-wallstop.test.mjs (4 cases).
+**Change:** two deletions in js/trap.js `launch_obj`: dropped `|| IS_OBSTRUCTED(typ)` from the wall-stop (:2909) and the tail `stackobj(singleobj)` (:2927); doc envelope updated (`obstructed/tree/door` → STWALL/tree-only + never-stacked, with C cites). No new imports (stackobj still used ×8 elsewhere in trap.js; IS_OBSTRUCTED still used at :2860 for the C-faithful bmsg arm), no signature changes.
+**Verify:** `node --test scripts/launch-obj-wallstop.test.mjs` 4/4 post-fix (pre-fix: SDOOR ✗ rest (12,10), SCORR ✗, STWALL ✓ rest (12,10), rock-merge ✗ q2 — the exact bug signature); `node scripts/verify.mjs --fn launch_obj --reach-all` → PASS syntax (1 changed file) · PASS rule2 · hidden note (no corpus session blocked at baseline — normal; review-cited, not corpus-cited) · PASS reach (no RNG-tagged reach; fixed smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS; forced full `verify.mjs --full` 44/44 (shared-file detector said no shared file; trap.js centrality warranted the full run).
+**Named:** - `launch_obj`: none — whole vs C :3260–3575 after the two deletions (the boulder-on-boulder `IS_OBSTRUCTED` at js/trap.js:2860 is C :3517, kept).
+**Next:** Open missing-arm head; then the batch picker.
 ## 2026-10-04 — D-3427 Must-fix review 2372: D-3426 ledger remainder homes (3 rows restored)
 
 **C locus:** row homes only (no C re-read; bodies verified whole by review 2372): makemon.c `makemon` :1147–1510 (:1445 m_dowear); trap.c `maketrap` :456–588 (:566–574 TELEP_TRAP fixed-dest), `mk_trap_statue` :390–414 (mongone donor).

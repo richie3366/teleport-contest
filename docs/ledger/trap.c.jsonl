@@ -49,7 +49,7 @@
 {"fn":"launch_drop_spot","c":"3222-3233","status":"ported","js":["js/trap.js:launch_drop_spot"],"at":"2026-10-03@bbe63333a"}
 {"fn":"launch_in_progress","c":"3236-3241","status":"ported","js":["js/trap.js:launch_in_progress"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:2606, caller js/end.js:1086"}
 {"fn":"force_launch_placement","c":"3244-3250","status":"ported","js":["js/trap.js:force_launch_placement"],"at":"2026-10-03@bbe63333a"}
-{"fn":"launch_obj","c":"3260-3575","status":"ported","js":["js/trap.js:launch_obj"],"d":["D-3426","D-2330"],"at":"2026-10-04@0d801c73f"}
+{"fn":"launch_obj","c":"3260-3575","status":"ported","js":["js/trap.js:launch_obj"],"d":["D-3428","D-3426","D-2330"],"at":"2026-10-04@e5a696ba4"}
 {"fn":"seetrap","c":"3578-3584","status":"ported","js":["js/trap.js:seetrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feeltrap","c":"3588-3594","status":"ported","js":["js/trap.js:feeltrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_random_launch_coord","c":"3599-3656","status":"ported","js":["js/trap.js:find_random_launch_coord"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: launchplace early path dead in both (no launchfrom in levels)"}

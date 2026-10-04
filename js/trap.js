@@ -2596,7 +2596,8 @@ export function force_launch_placement() {
  * Envelope: find otyp (BOULDER also tries otherside); extract/split;
  * DISP_FLASH tmp_at + nh_delay_output while cansee (D-0890); ROLL path
  * with hero dmgval+thitu and mon ohitmon/throws_rocks snatch; stop on
- * obstructed/tree/door; IRONBARS hits_bars (D-0990); place at rest.
+ * STWALL/tree only (rolls through SDOOR/SCORR `:3556`); IRONBARS
+ * hits_bars (D-0990); place at rest, never stacked (`:3568–3572`).
  * Mid-roll TELEP_TRAP / LEVEL_TELEP: cansee pline_xy else !Deaf You_hear,
  * then rloco or add_to_migration (D-1237). Mid-roll LANDMINE rn2(10)>2
  * KAABLAMM / fracture_rock / scatter + PIT/SPIKED_PIT/HOLE/TRAPDOOR
@@ -2906,7 +2907,7 @@ export async function launch_obj(otyp, x1, y1, x2, y2, style) {
                         }
                         break;
                     }
-                } else if (IS_STWALL(typ) || IS_TREE(typ) || IS_OBSTRUCTED(typ)) {
+                } else if (IS_STWALL(typ) || IS_TREE(typ)) {
                     xRest = x;
                     yRest = y; /* object stops here */
                     // C trap.c:3558–3561 — Thump (Deaf-gated) + wake (not).
@@ -2924,7 +2925,6 @@ export async function launch_obj(otyp, x1, y1, x2, y2, style) {
     if (!used_up) {
         singleobj.otrapped = 0;
         place_object(singleobj, xRest, yRest);
-        stackobj(singleobj);
         newsym(xRest, yRest);
         return 1;
     }

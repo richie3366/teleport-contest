@@ -101,8 +101,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] launch_obj extras contradict C: (a) drop `|| IS_OBSTRUCTED(typ)` from the wall-stop (trap.js:2909; C trap.c:3556 stops at STWALL/TREE only — boulders roll through SDOOR/SCORR); (b) drop the tail `stackobj` (C :3568-72 has none; boulders never stack). Verify: gates + `hidden-proxy verify launch_obj --reach-all` + a targeted boulder-vs-secret-door test. Source: reviews/loop-unattended/2372-54eac58c5-batch-d3426.md (Must-fix 2).
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

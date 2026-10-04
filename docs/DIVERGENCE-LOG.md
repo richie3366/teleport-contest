@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3428 — Must-fix review 2372: launch_obj wall-stop + tail stackobj extras (2 deletions)
+- **Status:** shipped.
+- **Symptom:** review 2372 QUALITY-RISK Actionable 2: `launch_obj`'s `ported` certified two face-contradictions of C — (a) the lookahead wall-stop fired on `IS_STWALL || IS_TREE || IS_OBSTRUCTED` where C trap.c:3556 stops at STWALL/TREE only, so JS stopped boulders at SDOOR/SCORR (typ 14/15 < POOL) where C rolls through (rest position + Thump!/wake diverge); (b) the rest tail called `stackobj` where C :3568–3572 places + newsyms without stacking.
+- **C locus:**
+  - `launch_obj`: trap.c:3556 `} else if (IS_STWALL(typ) || IS_TREE(typ)) {` (wall-stop); trap.c:3568–3572 rest tail (`otrapped = 0; place_object; newsym; return 1` — no stackobj). C `IS_STWALL` is `(typ) <= DBWALL` (rm.h:118), exactly the port's predicate, so dropping the disjunct is an exact match; the boulder-on-boulder `:3517` `IS_OBSTRUCTED` (bmsg choice) is genuine C and stays.
+- **JS was:** js/trap.js:2909 `} else if (IS_STWALL(typ) || IS_TREE(typ) || IS_OBSTRUCTED(typ)) {` stopped boulders at SDOOR/SCORR (measured pre-fix: boulder (10,10)→(14,10) with SDOOR at (13,10) rested at (12,10)); js/trap.js:2927 tail `stackobj(singleobj)` merged the rest pile (measured pre-fix: launched rock onto a rock-occupied square merged to one q2 rock; C rocks merge, ROCK BITS mrg=1, while boulders never do, oc_merge=0).
+- **Fix:** dropped wall-stop `|| IS_OBSTRUCTED(typ)` + tail `stackobj` in `launch_obj`. Deletions at js/trap.js:2909 (C :3556 STWALL/tree-only — boulders roll through SDOOR/SCORR) and :2927 (C :3568–3572 rest without stacking); doc envelope updated with C cites. No new imports (stackobj still used ×8 elsewhere in trap.js; IS_OBSTRUCTED still used at :2860 for the C-faithful bmsg arm), no signature changes.
+- **JS:**
+  - `launch_obj`: js/trap.js:2613 — wall-stop :2909, rest tail :2924–2931; new maintained test scripts/launch-obj-wallstop.test.mjs (4 cases).
+- **Callers:** no call wiring changed (body-internal fix); all 3 C call sites pre-wired same-name — C hack.c:612 → js/hack.js:1193 (`launch_obj(BOULDER, sx, sy, tox, toy, ROLL | LAUNCH_KNOWN)`); C trap.c:2672 → js/trap.js:2950; C trap.c:2695 → js/trap.js:2971 (both in `trapeffect_rolling_boulder_trap`).
+- **Verify:** `node --test scripts/launch-obj-wallstop.test.mjs` 4/4 post-fix (pre-fix: SDOOR ✗ rest (12,10), SCORR ✗, STWALL ✓ rest (12,10), rock-merge ✗ q2 — the exact bug signature); `node scripts/verify.mjs --fn launch_obj --reach-all` → PASS syntax (1 changed file) · PASS rule2 · hidden note (no corpus session blocked at baseline — normal; review-cited, not corpus-cited) · PASS reach (no RNG-tagged reach; fixed smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS; forced full `verify.mjs --full` 44/44 (shared-file detector said no shared file; trap.js centrality warranted the full run).
+- **Named omissions:**
+  - `launch_obj`: none — whole (C :3517 bmsg `IS_OBSTRUCTED` kept).
+- **Ledger:** launch_obj ported
+- **Left open:** none.
+- **Next:** Open missing-arm head; then the batch picker.
+
 ## D-3427 — Must-fix review 2372: D-3426 ledger remainder homes (3 rows restored)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2372 QUALITY-RISK Actionable 1: D-3426's finish stamped doset's `- \`doset\`: wc2_supported skips …` omit into the makemon + maketrap + mk_trap_statue rows, so the D-3426 Named remainders have no row home — makemon's m_dowear fire-and-forget + starting-pet observable-match, maketrap's TELEP_TRAP fixed-dest launchplace arm (trap.c:566–574), mk_trap_statue's mongone donor cleanup. Tenth finish-stamping iter (D-3415/D-3417/D-3419/D-3421/D-3423 class); truth recovered from the D-3426 Named bullet (2358 precedent), each sub-omit re-verified still unshipped by this iter and by the review.
