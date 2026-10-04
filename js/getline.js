@@ -1211,6 +1211,11 @@ const EXT_CMDS = [
         run: async () => (await import('./invent.js')).dodiscovered(),
     },
     {
+        // C cmd.c:1752 knownclass → doclassdisco (o_init.c:891).
+        name: 'knownclass', wiz: false, autocomplete: false,
+        run: async () => (await import('./o_init.js')).doclassdisco(),
+    },
+    {
         name: 'look', wiz: false, autocomplete: false,
         run: async () => (await import('./invent.js')).dolook(),
     },
@@ -1221,6 +1226,11 @@ const EXT_CMDS = [
     {
         name: 'options', wiz: false, autocomplete: false,
         run: async () => (await import('./options.js')).doset_simple(),
+    },
+    {
+        // C cmd.c:1783 optionsfull → doset (options.c:8758).
+        name: 'optionsfull', wiz: false, autocomplete: false,
+        run: async () => (await import('./options.js')).doset(),
     },
     {
         name: 'pickup', wiz: false, autocomplete: false,

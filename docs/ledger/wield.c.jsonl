@@ -23,4 +23,4 @@
 {"fn":"chwepon","c":"918-1048","status":"ported","js":["js/wield.js:chwepon"],"d":["D-2168","D-2112"],"at":"2026-10-03@bbe63333a"}
 {"fn":"welded","c":"1051-1058","status":"ported","js":["js/wield.js:welded"],"at":"2026-10-03@bbe63333a"}
 {"fn":"weldmsg","c":"1061-1074","status":"ported","js":["js/wield.js:weldmsg"],"d":["D-2221"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mwelded","c":"1078-1084","status":"ported","js":["js/wield.js:mwelded"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18"}
+{"fn":"mwelded","c":"1078-1084","status":"ported","js":["js/wield.js:mwelded"],"d":["D-3416","D-3407"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}

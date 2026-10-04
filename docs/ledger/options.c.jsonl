@@ -1,5 +1,5 @@
 {"fn":"ask_do_tutorial","c":"430-479","status":"ported","js":["js/allmain.js:ask_do_tutorial"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rc basename hardcoded '.nethackrc'; menu loop exact"}
-{"fn":"parseoptions","c":"489-691","status":"partial","js":["js/options.js:parseoptions"],"omit":"- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).","d":["D-3403","D-2561"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"parseoptions","c":"489-691","status":"ported","js":["js/options.js:parseoptions"],"d":["D-3416","D-3403","D-2561"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"check_misc_menu_command","c":"694-707","status":"ported","js":["js/options.js:check_misc_menu_command"],"at":"2026-10-03@bbe63333a"}
 {"fn":"opt2roleopt","c":"715-730","status":"ported","js":["js/options.js:opt2roleopt"],"at":"2026-09-30@990da2b8d","note":"stale: js/options.js:6964, exact C port, 3 C callers wired (:6983,:7008,:7033)"}
 {"fn":"getoptstr","c":"734-754","status":"ported","js":["js/options.js:getoptstr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: panic->throw"}
@@ -42,7 +42,7 @@
 {"fn":"optfn_horsename","c":"1897-1903","status":"ported","js":["js/options.js:optfn_horsename"],"at":"2026-10-03@bbe63333a"}
 {"fn":"optfn_IBMgraphics","c":"1906-1960","status":"partial","js":["js/options.js:optfn_IBMgraphics"],"omit":"blocked: remainder unportable — read_sym_file arm needs SYMBOLS file IO (Rule #2) and clear_symsetentry/switch_symbols are by-design seeds; D-3159 partial stands (D-3160).","d":["D-3159"],"at":"2026-09-30@deff666da","note":"stale-row retired: portable body complete at js/options.js:7013"}
 {"fn":"optfn_map_mode","c":"1963-2047","status":"ported","js":["js/options.js:optfn_map_mode"],"d":["D-3157"],"at":"2026-09-30@e47a5e02a","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"shared_menu_optfn","c":"2052-2074","status":"partial","js":["js/options.js:shared_menu_optfn"],"omit":"- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).","d":["D-3403","D-2651"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"shared_menu_optfn","c":"2052-2074","status":"ported","js":["js/options.js:shared_menu_optfn"],"d":["D-3416","D-3403","D-2651"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"optfn_menu_deselect_all","c":"2077-2082","status":"ported","js":["js/options.js:optfn_menu_deselect_all"],"at":"2026-10-03@bbe63333a"}
 {"fn":"optfn_menu_deselect_page","c":"2085-2090","status":"ported","js":["js/options.js:optfn_menu_deselect_page"],"at":"2026-10-03@bbe63333a"}
 {"fn":"optfn_menu_first_page","c":"2093-2098","status":"ported","js":["js/options.js:optfn_menu_first_page"],"at":"2026-10-03@bbe63333a"}
@@ -119,14 +119,14 @@
 {"fn":"pfxfn_IBM_","c":"5169-5183","status":"by-design","at":"2026-09-30@d37e25ba4","note":"uncompiled: options.c:5167 requires MICRO && !AMIGA; contest unix target"}
 {"fn":"optfn_boolean","c":"5192-5449","status":"ported","js":["js/options.js:optfn_boolean"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spcfn_misc_menu_cmd","c":"5452-5475","status":"ported","js":["js/options.js:spcfn_misc_menu_cmd"],"at":"2026-10-03@bbe63333a"}
-{"fn":"can_set_perm_invent","c":"5488-5527","status":"partial","js":["js/options.js:can_set_perm_invent"],"omit":"- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).","d":["D-3403"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"can_set_perm_invent","c":"5488-5527","status":"ported","js":["js/options.js:can_set_perm_invent"],"d":["D-3416","D-3403"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"check_perm_invent_again","c":"5532-5540","status":"by-design","at":"2026-09-30@d37e25ba4","note":"uncompiled: options.c:5530–5542 #ifdef TTY_PERM_INVENT; config.h:612 leaves undefined"}
 {"fn":"handler_menustyle","c":"5544-5583","status":"ported","js":["js/options.js:handler_menustyle"],"at":"2026-10-03@bbe63333a"}
 {"fn":"handler_align_misc","c":"5586-5621","status":"ported","js":["js/options.js:handler_align_misc"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:2420 (R1781 ACCEPT)"}
 {"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-3403","D-2992"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"handler_disclose","c":"5675-5777","status":"ported","js":["js/options.js:handler_disclose"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:399 (D-2788, R1747 ACCEPT)"}
 {"fn":"handler_menu_headings","c":"5780-5792","status":"ported","js":["js/options.js:handler_menu_headings"],"d":["D-3047"],"at":"2026-09-28@d81780b83","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"handler_menu_objsyms","c":"5795-5829","status":"ported","js":["js/options.js:handler_menu_objsyms"],"d":["D-3403","D-3232","D-2774"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"handler_menu_objsyms","c":"5795-5829","status":"ported","js":["js/options.js:handler_menu_objsyms"],"d":["D-3416","D-3403","D-3232","D-2774"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"handler_msg_window","c":"5832-5890","status":"ported","js":["js/options.js:handler_msg_window"],"at":"2026-09-29@e028921a0","note":"stale: js/options.js:1547 body complete per review 1724, doset caller wired js/options.js:2923 (D-2773)"}
 {"fn":"handler_number_pad","c":"5893-5950","status":"ported","js":["js/options.js:handler_number_pad"],"d":["D-2778"],"at":"seed@a30a7de84"}
 {"fn":"handler_paranoid_confirmation","c":"5953-6008","status":"ported","js":["js/options.js:handler_paranoid_confirmation"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: incl swim m-prefix substitution + PICK_ANY reset"}
@@ -135,14 +135,14 @@
 {"fn":"handler_pickup_types","c":"6114-6121","status":"ported","js":["js/options.js:handler_pickup_types"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inlines parseoptions->optfn prompt logic; parseoptions stays sync"}
 {"fn":"handler_runmode","c":"6124-6149","status":"ported","js":["js/options.js:handler_runmode"],"d":["D-3159"],"at":"2026-09-30@850d390ba"}
 {"fn":"handler_petattr","c":"6152-6164","status":"ported","js":["js/options.js:handler_petattr"],"at":"2026-10-03@bbe63333a"}
-{"fn":"handler_sortloot","c":"6167-6203","status":"ported","js":["js/options.js:handler_sortloot"],"d":["D-3403","D-3121"],"at":"2026-10-04@7a3ae7a92"}
-{"fn":"handler_whatis_coord","c":"6206-6276","status":"ported","js":["js/options.js:handler_whatis_coord"],"d":["D-3403","D-3232","D-2775"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"handler_sortloot","c":"6167-6203","status":"ported","js":["js/options.js:handler_sortloot"],"d":["D-3416","D-3403","D-3121"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
+{"fn":"handler_whatis_coord","c":"6206-6276","status":"ported","js":["js/options.js:handler_whatis_coord"],"d":["D-3416","D-3403","D-3232","D-2775"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"handler_whatis_filter","c":"6279-6318","status":"ported","js":["js/options.js:handler_whatis_filter"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:2949; 3 menu arms + preselect + PICK_ONE pick[1] quirk via select_menu_pick_one (whatis_coord precedent), wired via doset_optfn_do_handler :3090 + getlin :7653"}
 {"fn":"handler_symset","c":"6321-6328","status":"ported","js":["js/options.js:handler_symset"],"d":["D-3403","D-3310"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"handler_autopickup_exception","c":"6331-6404","status":"ported","js":["js/options.js:handler_autopickup_exception"],"d":["D-2838"],"at":"2026-10-01@e0549fe8b","note":"stale: js/options.js:6900 (whole :6330-6404; regex_error_desc omit lives in add_autopickup_exception D-3114)"}
 {"fn":"handler_menu_colors","c":"6407-6499","status":"ported","js":["js/options.js:handler_menu_colors"],"d":["D-3403","D-3180","D-2506"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"handler_msgtype","c":"6502-6570","status":"ported","js":["js/options.js:handler_msgtype"],"d":["D-2842"],"at":"2026-10-01@e45cb9654","note":"stale: js/options.js:7134 (D-2842 whole body; select_menu via pick helpers, caller doset:10974; msgtype_add sink omit lives in callee row)"}
-{"fn":"handler_versinfo","c":"6573-6617","status":"ported","js":["js/options.js:handler_versinfo"],"d":["D-3403","D-3151"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"handler_versinfo","c":"6573-6617","status":"ported","js":["js/options.js:handler_versinfo"],"d":["D-3416","D-3403","D-3151"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"handler_windowborders","c":"6620-6654","status":"ported","js":["js/options.js:handler_windowborders"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:3032; 5 text arms + a+i/0+i selectors + a_int+1 present, wired via doset_optfn_do_handler :3094 + getlin :7656"}
 {"fn":"string_for_opt","c":"6665-6680","status":"ported","js":["js/options.js:string_for_opt"],"d":["D-3403","D-3121"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"string_for_env_opt","c":"6683-6690","status":"ported","js":["js/options.js:string_for_env_opt"],"at":"2026-10-03@bbe63333a"}
@@ -198,7 +198,7 @@
 {"fn":"doset_simple_menu","c":"8536-8702","status":"ported","js":["js/options.js:doset_simple_menu"],"d":["D-3009"],"at":"2026-10-01@e0549fe8b","note":"stale: js/options.js:9651 local (whole :8535-8702 via helpers; omits external: do_symset file-IO, parseoptions-bool stand-in)"}
 {"fn":"doset_simple","c":"8707-8735","status":"ported","js":["js/options.js:doset_simple"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: go.opt_phase=play_opt (:8719) omitted; moot in-game (no roleopt saves via doset paths)"}
 {"fn":"term_for_boolean","c":"8738-8752","status":"ported","js":["js/options.js:term_for_boolean"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"doset","c":"8758-8975","status":"partial","js":["js/options.js:doset"],"omit":"- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).","d":["D-3403","D-2773"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"doset","c":"8758-8975","status":"partial","js":["js/options.js:doset"],"omit":"- `stairs_description`: none.","d":["D-3416","D-3403","D-2773"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"reset_needed_visuals","c":"8980-9014","status":"ported","js":["js/options.js:reset_needed_visuals"],"d":["D-3069"],"at":"2026-09-28@774d64d58"}
 {"fn":"doset_add_menu","c":"9018-9065","status":"split","js":["js/options.js:doset_add_menu","js/options.js:doset_compopt_get_val","js/options.js:doset"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
 {"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}

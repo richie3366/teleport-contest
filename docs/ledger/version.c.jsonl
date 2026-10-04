@@ -3,17 +3,17 @@
 {"fn":"status_version","c":"89-152","status":"ported","js":["js/botl.js:status_version"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: VERS_GAME_NAME undefined so nh_basename arm is the compiled path; branch/num/indent arms match"}
 {"fn":"doversion","c":"156-165","status":"ported","js":["js/pager.js:doversion"],"at":"2026-09-29@b43d7bb86","note":"stale: js/pager.js:2975 (async adaptation, both arms live)"}
 {"fn":"doextversion","c":"169-277","status":"ported","js":["js/pager.js:doextversion"],"d":["D-2558"],"at":"2026-10-01@250701173","note":"stale: js/pager.js:2988 — live body whole, both C callers wired (:3060,:3276), dlb arms dead (OPTIONS_AT_RUNTIME forced :13-15) + by-design, release_runtime_info not in body (exists js/version.js:708)"}
-{"fn":"early_version_info","c":"280-312","status":"ported","js":["js/earlyarg.js:early_version_info"],"d":["D-2986"],"at":"2026-09-27@9b244f090"}
+{"fn":"early_version_info","c":"280-312","status":"ported","js":["js/earlyarg.js:early_version_info"],"d":["D-3416","D-2986"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"insert_rtoption","c":"339-353","status":"ported","js":["js/pager.js:insert_rtoption"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: buf-adapted return, caller wired; posixregex value verified"}
 {"fn":"comp_times","c":"357-362","status":"by-design","d":["D-3112"],"at":"2026-09-29@b43d7bb86","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"check_version","c":"374-423","status":"ported","js":["js/files.js:check_version"],"d":["D-2539"],"at":"seed@a30a7de84"}
 {"fn":"get_feature_notice_ver","c":"431-461","status":"ported","js":["js/version.js:get_feature_notice_ver"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"get_current_feature_ver","c":"464-467","status":"ported","js":["js/version.js:get_current_feature_ver"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"copyright_banner_line","c":"471-490","status":"ported","js":["js/files.js:copyright_banner_line"],"d":["D-3112"],"at":"2026-09-29@b43d7bb86","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"copyright_banner_line","c":"471-490","status":"ported","js":["js/files.js:copyright_banner_line"],"d":["D-3416","D-3112"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"dump_version_info","c":"494-510","status":"ported","js":["js/earlyarg.js:dump_version_info"],"d":["D-3112"],"at":"2026-09-29@b43d7bb86","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"store_version","c":"512-537","status":"ported","js":["js/files.js:store_version"],"d":["D-2973"],"at":"2026-09-27@b170be897"}
+{"fn":"store_version","c":"512-537","status":"ported","js":["js/files.js:store_version"],"d":["D-3416","D-2973"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"get_critical_size_count","c":"669-672","status":"ported","js":["js/files.js:get_critical_size_count"],"d":["D-3112"],"at":"2026-09-29@b43d7bb86","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"store_critical_bytes","c":"676-694","status":"ported","js":["js/files.js:store_critical_bytes"],"d":["D-2973"],"at":"2026-09-27@1c7c62258"}
 {"fn":"uptodate","c":"713-746","status":"ported","js":["js/files.js:uptodate"],"d":["D-2539"],"at":"seed@a30a7de84"}
-{"fn":"compare_critical_bytes","c":"763-823","status":"partial","js":["js/files.js:compare_critical_bytes"],"omit":"Sfi_char/Sfi_uchar nhfp feed missing: file_csc_count hardcoded 0, cscbuf never filled from savefile; compare runs on zeroed CSCBUF","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: datamodel classification arms live"}
+{"fn":"compare_critical_bytes","c":"763-823","status":"partial","js":["js/files.js:compare_critical_bytes"],"omit":"Sfi_char/Sfi_uchar nhfp feed missing: file_csc_count hardcoded 0, cscbuf never filled from savefile; compare runs on zeroed CSCBUF","d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: remaining omit cannot ship"}
 {"fn":"validate","c":"840-856","status":"ported","js":["js/files.js:validate"],"d":["D-3037"],"at":"2026-09-28@66bbd0418","note":"stale: js/files.js:1370"}

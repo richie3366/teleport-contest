@@ -1,3 +1,3 @@
 {"fn":"program_state_init","c":"1074-1077","status":"ported","js":["js/decl.js:program_state_init"],"d":["D-3298"],"at":"2026-10-02@1896adcef","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"decl_globals_init","c":"1080-1187","status":"ported","js":["js/decl.js:decl_globals_init"],"d":["D-3037"],"at":"2026-09-28@66bbd0418","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"decl_globals_init","c":"1080-1187","status":"ported","js":["js/decl.js:decl_globals_init"],"d":["D-3416","D-3037"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"sa_victual","c":"1199-1203","status":"by-design","d":["D-3305"],"at":"2026-10-02@b2e34fd56","note":"refresh: no JS symbol (measured MISSING)"}

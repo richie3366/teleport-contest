@@ -184,7 +184,7 @@ import { rnd } from './rng.js';
 import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst, strkitten, fuzzymatch, trimspaces, strncmpi } from './hacklib.js';
 import { name_to_mon, DEF_CHAR_TO_MLET, mlet_class_explain } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, You_cant, docrt, bot, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X, reglyph_darkroom, raw_printf, init_ov_primary_symbols, init_ov_rogue_symbols, assign_graphics } from './display.js';
+import { flush_screen, pline, You_cant, docrt, bot, check_gold_symbol, switch_symbols, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X, reglyph_darkroom, raw_printf, init_ov_primary_symbols, init_ov_rogue_symbols, assign_graphics } from './display.js';
 import { get_feature_notice_ver, get_current_feature_ver } from './version.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none, DEF_INV_ORDER } from './invent.js';
 import {
@@ -4567,30 +4567,29 @@ const OPT_GLYPH_RESET = new Set([
 ]);
 
 /**
- * C options.c can_set_perm_invent `:5487–5527`.
- * InvOptOn from const.js (D-1666; C `:5507–5508`).
- * Named omissions: check_tty_wincap body; optfn_boolean perm_invent
- * gate; check_perm_invent_again pending retry.
+ * C options.c can_set_perm_invent `:5487–5527` (staticfn) — contest-compiled
+ * shape (TTY_PERM_INVENT undefined, config.h:612): the `:5499–5503`
+ * check_tty_wincap escape and the `:5511–5522` toggled/WIN_INVEN restore
+ * block are compiled out (`:5524` nhUse's old_perminv_mode), so a wincap
+ * without the bit returns FALSE. Contest tty_procs.wincap lacks the bit
+ * (wintty.c tty_procs, same ifdef), hence FALSE here; the mode arm below
+ * runs only if a wincap ever carries it. InvOptOn from const.js (D-1666).
+ * Callers: optfn_boolean `:5266` (wired below), handler_perminv_mode
+ * `:6065` (wired), check_perm_invent_again `:5536` (#ifdef'd out),
+ * initoptions `#if 0` `:7398` (compiled out).
  * @param {object} [iflags]
  * @param {boolean} [optInitial]
  * @returns {boolean}
  */
 function can_set_perm_invent(iflags, optInitial) {
     const bag = perminv_iflags(iflags);
-    const old_perminv_mode = bag.perminv_mode | 0;
+    void optInitial; // C `:5512` — inside the compiled-out TTY block
     const wincap = game.windowprocs?.wincap | 0;
-    if (!(wincap & WC_PERM_INVENT) && !windowport_tty()) return false;
+    if (!(wincap & WC_PERM_INVENT)) return false; // C `:5496–5504`
 
-    if ((bag.perminv_mode | 0) === InvOptNone) bag.perminv_mode = InvOptOn;
+    if ((bag.perminv_mode | 0) === InvOptNone) bag.perminv_mode = InvOptOn; // C `:5507–5508`
 
-    if (windowport_tty() && !optInitial) {
-        perm_invent_toggled(false);
-        if ((game.WIN_INVEN ?? WIN_ERR) === WIN_ERR) {
-            bag.perminv_mode = old_perminv_mode;
-            return false;
-        }
-    }
-    return true;
+    return true; // C `:5525`
 }
 
 /**
@@ -10294,10 +10293,9 @@ function format_doset_opt_line(name, value, indent = '') {
  * is the `:9060–9064` tail (indent `"    "` ⟺ a_int 0 ⟺ indexoffset 0,
  * Sprintf fmt, add_menu SKIPINVERT → row object). The `:9045–9058`
  * invalid-idx else arm (PREFIXES_IN_USE fqn_prefix loop `:9050–9054`,
- * "unknown" default `:9055–9057`) follows doset's named PREFIXES omission
- * — no JS caller passes an invalid row. Callers: `:8875` (Compounds),
- * `:8892` (Other settings), `:8901` (Variable playground locations —
- * named omission with the section, doset docblock).
+ * "unknown" default `:9055–9057`) is compiled out with doset's PREFIXES
+ * section (hack.h:1055 ifdef) — no JS caller passes an invalid row.
+ * Callers: `:8875` (Compounds), `:8892` (Other settings).
  */
 function doset_add_menu(name, value, indexoffset, extra = {}) {
     const indent = indexoffset === 0 ? '    ' : '';
@@ -10868,9 +10866,9 @@ function doset_bool_term(name) {
  * '?' help + rerun, bool toggles, handler + getlin compounds, othr rows
  * (D-3403 ports the getlin arms, help/rerun, preference_update calls).
  * CompOpt perminv_mode is in C allopt order; doset skips it when
- * !wc_supported (contest tty !TTY_PERM_INVENT). Named omissions:
- * PREFIXES section (fqn_prefix values unset in JS — game.gf has no
- * writer); wc2_supported skips (minimal-wincap2 model gap — see
+ * !wc_supported (contest tty !TTY_PERM_INVENT). `:8897–8902` PREFIXES
+ * section compiled out (hack.h:1055 ifdef).
+ * Named omissions: wc2_supported skips (minimal-wincap2 model gap — see
  * doset_skip_unsupported); optfn_boolean perm_invent can_set gate
  * (caller-side). reset_needed_visuals subset is D-1701 (no reset_glyphmap).
  */
@@ -11047,7 +11045,10 @@ export async function doset() {
             // indexoffset is nonzero — optlist.h NHOPTO rows are selectable).
             raw.push(doset_add_menu(t.name, t.get_val ? t.get_val() : t.val, 1, { kind: 'othr' }));
         }
-    
+        // C `:8897–8902` PREFIXES_IN_USE section (Variable playground
+        // locations) is compiled out (hack.h:1055 — needs
+        // NOCWD_ASSUMPTIONS or VAR_PLAYGROUND, both undefined).
+
         if (!game.go) game.go = {};
         game.go.opt_need_redraw = false;
         game.go.opt_need_glyph_reset = false;
@@ -12489,8 +12490,8 @@ export function parseoptions(opts, tinitial, tfromFile) {
 
     if (!gotMatch) { // C `:662–663`
         if (opts.startsWith('S_') && parsesymbols(opts, PRIMARYSET)) { // C `:663`
-            // Named omission (map): switch_symbols(TRUE) application.
-            check_gold_symbol(); // C `:664`
+            switch_symbols(true); // C `:664` (TRUE arm live, display.js)
+            check_gold_symbol(); // C `:665`
             optresult = OPTN_OK; // C `:666`
         }
     }

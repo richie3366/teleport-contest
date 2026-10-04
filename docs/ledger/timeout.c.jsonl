@@ -49,6 +49,6 @@
 {"fn":"timer_is_local","c":"2603-2618","status":"ported","js":["js/mkobj.js:timer_is_local"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
 {"fn":"maybe_write_timer","c":"2627-2651","status":"ported","js":["js/mkobj.js:maybe_write_timer"],"d":["D-3055"],"at":"2026-09-28@d30e99009","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"save_timers","c":"2668-2699","status":"ported","js":["js/mkobj.js:save_timers"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
-{"fn":"restore_timers","c":"2707-2728","status":"partial","js":["js/mkobj.js:restore_timers"],"omit":"- `sanity_check_single_mon`, `dmonsfree`, `monkilled`, `unstuck`, `xkilled`, `setmangry`, `iter_mons_safe`: none — whole (shared replmon-unstuck note retired; live via relmon→mon_leaving_level).","d":["D-3411","D-3407","D-3055"],"at":"2026-10-04@c7fcf5bd7","note":"was falsely ported: ghostly arm named-unshipped in its own code doc (review 2361)"}
+{"fn":"restore_timers","c":"2707-2728","status":"ported","js":["js/mkobj.js:restore_timers"],"d":["D-3416","D-3411","D-3407","D-3055"],"at":"2026-10-04@a1eee6cb2","note":"was falsely ported: ghostly arm named-unshipped in its own code doc (review 2361)"}
 {"fn":"timer_stats","c":"2735-2745","status":"ported","js":["js/wizcmds.js:timer_stats"],"at":"2026-10-03@bbe63333a"}
 {"fn":"relink_timers","c":"2751-2774","status":"by-design","at":"seed@a30a7de84","note":"seed: save/restore file infra"}

@@ -1,5 +1,82 @@
 # Divergence log
 
+## D-3416 — batch 100 fns / 22 files cfgfiles→dogmove (breadth port, operator overlay)
+- **Status:** shipped.
+- **Symptom:** breadth-phase batch manifest (2026-10-03 picker, gap 1338L): the whole remaining open/partial/recheck gap of cfgfiles→dogmove, 100 C functions. dog_move carried 3 held-out blocks at baseline. Operator overlay (iter #4297 failed, no js/ diff): ship the Open-head batch with real js/ port work; Must-fix D-3402 declaration repair deferred (docs-only, ships alone another iter).
+- **C locus:**
+  - `stairs_description`: stairs.c:186–235 — Dlvl1-up amulet planes arm :227–231.
+  - `singplur_lookup`: objnam.c:2719–2724 — as_is[] collective half (makesingular).
+  - `ysimple_name`: objnam.c — write.c:112–114 braille caller (upstart ysimple_name).
+  - `parseoptions`: options.c:662–666 — S_ switch_symbols(TRUE) arm :664.
+  - `can_set_perm_invent`: options.c:5487–5527 — contest-compiled shape (TTY_PERM_INVENT undefined, config.h:612).
+  - `doset`: options.c:8897–8902 — PREFIXES section compiled out (hack.h:1055 ifdef).
+  - `mon_would_take_item`: monmove.c:1003/:1028 — uball/uchain exclusion + gelcube petrify-corpse exclusion.
+  - `maybe_spin_web`: monmove.c:1289–1290 — shop add_damage.
+  - `doclassdisco`: o_init.c:917/:1095–1096 — discosort 's' lootsort + cmd.c:1752 knownclass caller wiring.
+  - `close_drawbridge`: dbridge.c:788/:809–813 — Underwater≡uinwater + set_entity/do_entity crush.
+  - `open_drawbridge`: dbridge.c:858–862 — set_entity/do_entity crush.
+  - `NH_panictrace_libc`: report.c:487–510 — by-design FALSE (backtrace(3) has no dual-runtime analogue).
+  - `NH_panictrace_gdb`: report.c:531–558 — by-design FALSE (popen/gdb has none either).
+  - `do_light_sources`: light.c OBJ_MINVENT arm (zap.c:669–674) — migrating-carrier mx locality.
+  - `Shk_Your`: shk.c:5877–5882 — new live export (highc shk_your).
+  - `use_camera`: apply.c:81 — Underwater warranty arm ≡ u.uinwater (D-3400 idiom).
+  - `use_towel`: apply.c:180–183 — gulp_blnd_check swallow re-blind.
+  - `catch_lit`: apply.c:1600–1604 — set_msg_xy + Yname2/otense ignite pline.
+  - `learn`: spell.c:363–366/:398/:451/:459–460 — lenses delay++, impossible, faded update_inventory, check_unpaid.
+  - `restore_timers`: timeout.c:2722–2723 — ghostly/adjust bones params (retires "falsely ported" note).
+  - `intemple`: priest.c:430–432/:452 — Is_sanctum + youprop Deaf (u.Deaf flat unwritten).
+  - `dog_move`: dogmove.c:1281–1284 — mhis leash-break (live mondata.js export).
+  - `use_lamp`: apply.c:1644/:1683 — live Shk_Your; use_lamp/light_cocktail/use_whistle/use_magic_whistle Underwater omits retire via Underwater_hero≡uinwater fix.
+- **JS was:** thin bodies with named-unshipped arms (stairs planes string; singplur as_is fallthrough "haggi"; parseoptions S_ no-op; can_set_perm_invent wincap/TTY shape wrong; mon_would_take_item no uball/gelcube; maybe_spin_web no add_damage; doclassdisco lootsort forced off + knownclass unwired; drawbridges no entity crush; do_light_sources SHOW at (0,0) for migrating carriers; no Shk_Your export — 4 file-local clones; catch_lit inline name/terse clones + no set_msg_xy; learn no lenses/impossible/update_inventory/check_unpaid; restore_timers no ghostly/adjust; intemple Is_sanctum-deferred + flat Deaf; dog_move inline her/his; Underwater_hero read never-written u.Underwater); local clones of accessible/is_waterwall/inhistemple/Yname2/otense/mhis.
+- **Fix:** ported each named arm in C order (cites in code); retired 5 clones to live exports (accessible_apply/steed accessible_cell/end spotOk→monmove accessible; is_waterwall_at→dbridge is_waterwall; teleport inhistemple→priest live; Shk_Your_apply/_snuff/timeout-local→shk Shk_Your; Yname2_snuff/otense_snuff→objnam live; dog_move her/his→mondata mhis); Underwater_hero≡uinwater (D-3400 idiom) retires 4 whistle/lamp/cocktail omits; can_set_perm_invent rewritten to contest-compiled shape (wincap gate FALSE, TTY block compiled out); doset PREFIXES proven compiled out (added then reverted after seed0007 botl regression — hack.h:1055 ifdef); report by-design notes corrected (defines hold on contest Linux/unix, arms unreachable under Rule #2); knownclass/optionsfull extcmd rows wired (cmd.js dispatch + getline.js EXT_CMDS); sortloot_descr exported (invent.js); focused makesingular test +5 asserts.
+- **JS:** js/mklev.js:stairs_description (~:523 planes arm); js/objnam.js:makesingular (~:1958 as_is); js/write.js:dowrite (~:189 Ysimple_name2); js/options.js:parseoptions (~:12493 switch_symbols), can_set_perm_invent (~:4580 rewrite), doset_add_menu/doset (~:10296/:11048 PREFIXES notes); js/monmove.js:mon_would_take_item (~:430/:456), maybe_spin_web (~:1610); js/o_init.js:doclassdisco (~:727/:875); js/dbridge.js:close_drawbridge (~:724/:747), open_drawbridge (~:809); js/report.js (~:158/:179 notes); js/light.js:do_light_sources (~:682); js/shk.js:Shk_Your (~:1145); js/apply.js use_camera (~:1019), use_towel (~:2098), catch_lit (~:5851), Underwater_hero (~:1811), clone removals; js/spell.js:learn (~:951/:993/:1033/:1046); js/mkobj.js:restore_timers (~:1265); js/priest.js:intemple (~:505/:527); js/dogmove.js:dog_move (~:1570 mhis); wiring: js/cmd.js (knownclass dispatch + '`' key), js/getline.js (EXT_CMDS knownclass/optionsfull), js/invent.js (sortloot_descr export), js/display.js (switch_symbols caller note), js/end.js/js/steed.js/js/hack.js (accessible), js/hack.js/js/mcastu.js/js/mhitu.js (is_waterwall + mcastu waterwall wording), js/teleport.js (inhistemple), js/timeout.js/js/wield.js/js/pickup.js (Shk_Your).
+- **Callers:**
+  - `stairs_description`: unchanged callers (string arm only).
+  - `singplur_lookup`: makesingular (objnam.js:1955) — covered by focused test 10/10.
+  - `ysimple_name`: write.c:112–114 wired (js/write.js:189 braille arm).
+  - `parseoptions`: S_ arm wired (js/options.js:12493); display.js:switch_symbols caller note updated.
+  - `can_set_perm_invent`: optfn_boolean :5266 + handler_perminv_mode :6065 wired (in-file); check_perm_invent_again :5536 #ifdef'd out, initoptions :7398 #if 0 — compiled out.
+  - `doset`: optionsfull extcmd wired (js/getline.js EXT_CMDS + cmd.c:1783).
+  - `mon_would_take_item`: unchanged callers (predicate arms only).
+  - `maybe_spin_web`: in-file postmov caller (monmove.js).
+  - `doclassdisco`: cmd.c:1752 '`' + #knownclass wired (js/cmd.js:dispatch/key + js/getline.js EXT_CMDS); callee sortloot_descr live (js/invent.js export).
+  - `close_drawbridge`/`open_drawbridge`: unchanged callers; callees set_entity/do_entity/occupants live (dbridge.js).
+  - `NH_panictrace_libc`/`NH_panictrace_gdb`: end.c NH_abort callers by-design unported (C runtime) — exported unwired (named).
+  - `do_light_sources`: unchanged callers (locality arm only).
+  - `Shk_Your`: apply.c:1484 (snuff_candle :5709) + :1644/:1683 (use_lamp), pickup.c:4041 (box), timeout.c:1430 (burn-out), wield.c:436/:602 (quiver/uwep) — all wired to live shk.js export.
+  - `use_camera`/`use_towel`/`catch_lit`: doapply dispatch (in-file) + fire-damage callers (unchanged); callee gulp_blnd_check live (mhitu.js).
+  - `learn`: spbook occupation (in-file); callee check_unpaid live (shk.js import).
+  - `restore_timers`: deserTimerList callers (unchanged; ghostly/adjust default off, no JS caller passes true).
+  - `intemple`: check_special_room caller (unchanged).
+  - `dog_move`: monmove callers (unchanged); callee mhis live (mondata.js).
+  - `use_lamp`: doapply dispatch (in-file); Shk_Your arms wired live.
+- **Verify:** `node scripts/verify.mjs --fn <100 manifest fns>` → PASS syntax (31 changed js); PASS rule2 (no fs/DIAG/seed gates); hidden: 99× no-block note + FAIL dog_move NO MOVEMENT (3 pre-existing baseline blocks, 0 worse — scen-engulf-Priest-94192 step 17, scen-ride-Samurai-94419 step 126, scen-trap-Valkyrie-94361 step 21; triaged: divergent goal/appr inputs computed in dog_goal fobj loop + follow branch — trap C-found-DOGFOOD/JS-none, ride C-no-goal/JS-APPORT, engulf C-j0/JS-jpos — cause outside dog_move scoring body, needs C state measurement); 100× REACH-OK (733 baseline-PASS sweep, 0 regressed, 257.6s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; PASS full 44/44 (auto: shared files changed); VERIFY: FAIL (sole cause dog_move NO MOVEMENT). Focused: `node --test scripts/fruitname-minimal-xname.test.mjs` 10/10.
+- **Named omissions:**
+  - `stairs_description`: none.
+  - `singplur_lookup`: none (as_is collective shipped; SPECIAL_SUBJS pre-existing).
+  - `ysimple_name`: none.
+  - `parseoptions`: none (paste omit dropped — body verified whole).
+  - `can_set_perm_invent`: none (compiled-out arms named in doc).
+  - `doset`: wc2_supported skips (minimal-wincap2 model gap); optfn_boolean perm_invent gate (caller-side); reset_needed_visuals subset D-1701.
+  - `mon_would_take_item`: FOOD searches_for_item corpse/tin/egg arms (callee row).
+  - `maybe_spin_web`: none.
+  - `doclassdisco`: none.
+  - `close_drawbridge`/`open_drawbridge`: none.
+  - `NH_panictrace_libc`/`NH_panictrace_gdb`: backtrace(3)/popen arms unreachable by-design (Rule #2).
+  - `do_light_sources`: none.
+  - `Shk_Your`: none.
+  - `use_camera`: full zapyourself CAMERA + flash_hits_mon mimic/gremlin polish (callee rows).
+  - `use_towel`: none.
+  - `catch_lit`: none.
+  - `learn`: none.
+  - `restore_timers`: none (ghostly ⇔ getlev_bones path never restores timers — defaults document).
+  - `intemple`: SetVoice pitch (voice-macro no-op).
+  - `dog_move`: none in body; 3 held-out blocks triaged to dog_goal/dogfood/can_reach inputs (see Verify; Next).
+  - `use_lamp`: none.
+- **Ledger:** cnf_line_HACKDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_LEVELDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_SAVEDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_BONESDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_DATADIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_SCOREDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_LOCKDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_CONFIGDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_TROUBLEDIR split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_SHELLERS split js=js/cfgfiles.js:cnf_store_str; cnf_line_MSGHANDLER split js=js/cfgfiles.js:cnf_store_str; cnf_line_EXPLORERS split js=js/cfgfiles.js:cnf_store_str; cnf_line_GENERICUSERS split js=js/cfgfiles.js:cnf_store_str; cnf_line_SUPPORT split js=js/cfgfiles.js:cnf_store_str; cnf_line_RECOVER split js=js/cfgfiles.js:cnf_store_str; cnf_line_CRASHREPORTURL split js=js/cfgfiles.js:cnf_store_str; cnf_line_QT_TILEWIDTH split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_QT_TILEHEIGHT split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_QT_FONTSIZE split js=js/cfgfiles.js:cnf_line_nhUse; cnf_line_QT_COMPACT split js=js/cfgfiles.js:cnf_line_nhUse; stairway_free_all audited; stairs_description ported; ysimple_name ported; singplur_lookup ported; early_version_info audited; copyright_banner_line audited; store_version audited; compare_critical_bytes audited; free_glyphid_cache audited; match_glyph audited; add_custom_nhcolor_entry partial; purge_all_custom_entries partial; wizcustom_glyphids partial; parse_id partial; newmail ported; read_simplemail audited; parseoptions ported; shared_menu_optfn ported; can_set_perm_invent ported; handler_menu_objsyms audited; handler_sortloot audited; handler_whatis_coord audited; handler_versinfo audited; doset partial; mon_would_take_item partial; maybe_spin_web ported; accessible ported; stuff_prevents_passage audited; savenames audited; discovered_cmp audited; disco_fmt_uniq audited; oclass_to_name audited; doclassdisco ported; is_waterwall audited; close_drawbridge ported; open_drawbridge ported; sys_early_init audited; sysopt_release audited; sysopt_seduce_set audited; crashreport_bidshow ported; dobugreport ported; NH_panictrace_libc audited; NH_panictrace_gdb audited; panictrace_handler ported; del_light_source audited; do_light_sources ported; relink_light_sources audited; obj_is_burning audited; wiz_light_sources audited; shk_move ported; block_entry ported; Shk_Your ported; use_camera partial; use_towel ported; use_whistle ported; use_magic_whistle ported; unleash_all audited; catch_lit ported; use_lamp ported; light_cocktail ported; grease_ok audited; jelly_ok audited; discard_broken_wand audited; doapply ported; learn ported; age_spells audited; spelltypemnemonic audited; spell_idx audited; save_worm audited; random_dir audited; restore_timers ported; mwelded audited; inhistemple audited; intemple partial; ghod_hitsu ported; decl_globals_init audited; cursed_object_at audited; dog_nutrition audited; dog_move ported; quickmimic ported
+- **Left open:** none.
+- **Next:** (1) dog_move 3 held-out blocks: measure C goal-chain state (dog_goal fobj loop gtyp evolution + dogfood/can_reach_location per-obj at the divergence move; recorder state dump or GDB) — trap needs C-found-DOGFOOD source, ride needs C-APPORT-suppression source, engulf needs C-mfndpos/j source; do not add seed/step/RNG-index logic. (2) Glyphs partials: unported C callers + sym_customizations saveload (no scored reach). (3) doset wc2_supported/D-1701 reset_needed_visuals. (4) Must-fix D-3402 declaration repair still queue head (deferred per operator overlay).
+
 ## D-3415 — Must-fix review 2358: D-3404 pasted-omit ledger corruption (3 rows restored)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2358 C-wrong 2: D-3404's finish wrote moverock_core's omit text into the `test_move`, `domove_swap_with_pet` and `domove_core` ledger rows (all three carried `- \`moverock_core\`: unmap_object …`), hiding each function's true named omissions from the batch picker.

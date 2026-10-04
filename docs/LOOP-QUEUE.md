@@ -124,7 +124,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 
 <!-- coverage:begin -->
 - [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 22 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog) @1ae9cc180
-- [ ] `timeout.c` restore_timers — coverage THIN (C 12 code L `timeout.c:2707–2728` / JS 5 code L in js/mkobj.js; hops 3, callers 2, RNG 0, msg 0; declared partial: ghostly bones timeout += adjust (timeout.c:2722-2723) deferred - needs the bones caller; per code doc js/mkobj.js:1255) @c7fcf5bd7
 <!-- coverage:end -->
 
 ## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)

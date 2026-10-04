@@ -1,5 +1,5 @@
 {"fn":"stairway_add","c":"8-24","status":"ported","js":["js/mklev.js:stairway_add"],"d":["D-3035"],"at":"2026-09-28@953aea809"}
-{"fn":"stairway_free_all","c":"27-37","status":"ported","js":["js/do.js:stairway_free_all"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: game.stairs=null; GC subsumes C per-node free"}
+{"fn":"stairway_free_all","c":"27-37","status":"ported","js":["js/do.js:stairway_free_all"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"stairway_at","c":"40-47","status":"ported","js":["js/mklev.js:stairway_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stairway_find","c":"50-61","status":"split","js":["js/dog.js:arrive_stairway_find"],"at":"2026-10-02@cb217f88d","note":"stale: whole C body lives as arrive_stairway_find js/dog.js:812, wired at only C caller dog.c:536 MIGR_SSTAIRS js/dog.js:1051 (mklev import would cycle mklev->trap->dog)"}
 {"fn":"stairway_find_from","c":"64-76","status":"ported","js":["js/mklev.js:stairway_find_from"],"at":"2026-10-03@bbe63333a"}
@@ -14,4 +14,4 @@
 {"fn":"On_stairs_up","c":"162-167","status":"ported","js":["js/mklev.js:On_stairs_up"],"at":"2026-10-03@bbe63333a"}
 {"fn":"On_stairs_dn","c":"170-175","status":"ported","js":["js/mklev.js:On_stairs_dn"],"at":"2026-10-03@bbe63333a"}
 {"fn":"known_branch_stairs","c":"180-183","status":"ported","js":["js/mklev.js:known_branch_stairs"],"at":"2026-10-03@bbe63333a"}
-{"fn":"stairs_description","c":"187-235","status":"partial","js":["js/mklev.js:stairs_description"],"omit":"amulet-carrying Dlvl1-up branch: on_level(tolev, earth/air/fire/water_level) -> 'to the Elemental Planes' vs 'to the end game'; JS always emits end game","d":["D-2204"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stairs_description","c":"187-235","status":"ported","js":["js/mklev.js:stairs_description"],"d":["D-3416","D-2204"],"at":"2026-10-04@a1eee6cb2"}

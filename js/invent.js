@@ -4996,11 +4996,12 @@ export async function consume_obj_charge(obj, maybe_unpaid) {
  * NON_PM so statue/figurine details stay suppressed, slime-mold spe =
  * current_fruit); loot_classify fills the Loot record (observe_object
  * runs inside it when !Blind, as in C `:171`) and the "%02d%02d%1d "
- * key is what disco_output_sorted strips on print.
+ * key is what disco_output_sorted strips on print. Exported: doclassdisco
+ * (o_init.js) keys the same way (C `:1095–1096`).
  * @param {number} otyp object type index
  * @returns {string} 6-char sort key (orderclass/subclass/disco + space)
  */
-function sortloot_descr(otyp) {
+export function sortloot_descr(otyp) {
     const oc = game.objects?.[otyp | 0] || {};
     // C `:572–581` — cg.zeroobj + otyp/oclass/dknown/known/corpsenm/spe.
     const o = {

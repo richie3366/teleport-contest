@@ -8,21 +8,21 @@
 {"fn":"shuffle_all","c":"322-347","status":"ported","js":["js/o_init.js:shuffle_all"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: class + subtype shuffle dispatch live"}
 {"fn":"objdescr_is","c":"352-365","status":"ported","js":["js/apply.js:objdescr_is"],"d":["D-3038"],"at":"2026-09-28@d4eca01f7"}
 {"fn":"oinit","c":"369-372","status":"ported","js":["js/mklev.js:oinit"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: setgemprobs(&u.uz) one-liner"}
-{"fn":"savenames","c":"375-407","status":"ported","js":["js/o_init.js:savenames"],"d":["D-3022"],"at":"2026-09-28@5affd05cd","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"savenames","c":"375-407","status":"ported","js":["js/o_init.js:savenames"],"d":["D-3416","D-3022"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"restnames","c":"411-437","status":"ported","js":["js/o_init.js:restnames"],"d":["D-3022"],"at":"2026-09-28@a7a0f55e5","note":"audit 1990-1998: export live js/o_init.js:390 with per-arm cites (D-3022); prior 'measured MISSING' refresh note stale"}
 {"fn":"observe_object","c":"442-451","status":"ported","js":["js/invent.js:observe_object"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: FIRST_OBJECT + Hallucination gate, dknown + discover live"}
 {"fn":"discover_object","c":"454-494","status":"ported","js":["js/invent.js:discover_object"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: disco slot fill, encountered/known, gem_learned+inventory live"}
 {"fn":"undiscover_object","c":"498-523","status":"ported","js":["js/o_init.js:undiscover_object"],"d":["D-1691"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: disco shift-out + gem_learned live"}
 {"fn":"interesting_to_discover","c":"526-540","status":"ported","js":["js/o_init.js:interesting_to_discover"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: samurai + uname/(known|encountered)+descr live"}
-{"fn":"discovered_cmp","c":"553-564","status":"ported","js":["js/o_init.js:discovered_cmp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: case-insensitive compare past 2-char mark live"}
+{"fn":"discovered_cmp","c":"553-564","status":"ported","js":["js/o_init.js:discovered_cmp"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"sortloot_descr","c":"567-591","status":"ported","js":["js/invent.js:sortloot_descr"],"at":"2026-09-30@e47a5e02a","note":"stale: js/invent.js:4884 local (C staticfn); zeroobj/dknown/known/corpsenm/slime-spe + loot_classify + %02d key all present, caller dodiscovered wired :4987, doclassdisco caller missing in JS"}
 {"fn":"choose_disco_sort","c":"611-657","status":"ported","js":["js/o_init.js:choose_disco_sort"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: sort menu + mode-2 note + discosort set live"}
 {"fn":"disco_typename","c":"661-689","status":"ported","js":["js/objnam.js:disco_typename"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: samurai [actualn] insert incl. harp arm live"}
 {"fn":"disco_append_typename","c":"694-721","status":"ported","js":["js/o_init.js:disco_append_typename"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: truncate-keep-paren + price quote live"}
-{"fn":"disco_fmt_uniq","c":"725-737","status":"ported","js":["js/o_init.js:disco_fmt_uniq"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: known-name/descr + spellbook suffix exact"}
+{"fn":"disco_fmt_uniq","c":"725-737","status":"ported","js":["js/o_init.js:disco_fmt_uniq"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"disco_output_sorted","c":"741-760","status":"ported","js":["js/o_init.js:disco_output_sorted"],"at":"2026-09-29@671c54bfc","note":"stale: js/o_init.js:631; callers wired invent.js:4930,4957; review 1641 ACCEPT"}
 {"fn":"dodiscovered","c":"764-873","status":"ported","js":["js/invent.js:dodiscovered"],"d":["D-2682"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: relic/artifact pseudo-classes, o/c/a/s sorts, flush logic live"}
-{"fn":"oclass_to_name","c":"877-885","status":"ported","js":["js/o_init.js:oclass_to_name"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: lowercase let_to_name exact"}
-{"fn":"doclassdisco","c":"891-1127","status":"partial","js":["js/o_init.js:doclassdisco"],"omit":"discosort 's' sortloot order forced off (lootsort=false; C:917,:1095-1119 sortloot_descr keys + loot sort missing)","d":["D-1951"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: class pick + per-class list live; only sortloot mode deferred"}
+{"fn":"oclass_to_name","c":"877-885","status":"ported","js":["js/o_init.js:oclass_to_name"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
+{"fn":"doclassdisco","c":"891-1127","status":"ported","js":["js/o_init.js:doclassdisco"],"d":["D-3416","D-1951"],"at":"2026-10-04@a1eee6cb2","note":"audit 2026-10-03: class pick + per-class list live; only sortloot mode deferred"}
 {"fn":"rename_disco","c":"1131-1206","status":"ported","js":["js/o_init.js:rename_disco"],"d":["D-1647"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: callable discoveries menu + docall dummy live"}
 {"fn":"get_sortdisco","c":"1210-1220","status":"ported","js":["js/o_init.js:get_sortdisco"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: discosort normalize + char/descr select live"}

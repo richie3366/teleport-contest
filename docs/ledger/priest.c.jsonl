@@ -3,7 +3,7 @@
 {"fn":"move_special","c":"42-139","status":"ported","js":["js/shk.js:move_special"],"d":["D-3394"],"at":"2026-10-03@d428e2b04","note":"audit 2026-10-03: pick/attack/move/return codes exact; only post-move shop check missing"}
 {"fn":"temple_occupied","c":"142-150","status":"ported","js":["js/priest.js:temple_occupied"],"at":"2026-10-03@bbe63333a"}
 {"fn":"histemple_at","c":"153-158","status":"ported","js":["js/priest.js:histemple_at"],"d":["D-3351"],"at":"2026-10-03@350dcff17"}
-{"fn":"inhistemple","c":"161-171","status":"ported","js":["js/priest.js:inhistemple"],"at":"2026-10-03@bbe63333a"}
+{"fn":"inhistemple","c":"161-171","status":"ported","js":["js/priest.js:inhistemple"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"pri_move","c":"177-216","status":"ported","js":["js/shk.js:pri_move"],"at":"2026-10-03@bbe63333a"}
 {"fn":"priestini","c":"220-276","status":"ported","js":["js/mklev.js:priestini"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: DIR_CLAMP wrap verified equivalent"}
 {"fn":"mon_aligntyp","c":"280-289","status":"ported","js":["js/priest.js:mon_aligntyp"],"d":["D-3347","D-3274"],"at":"2026-10-03@80eda6ff6"}
@@ -11,13 +11,13 @@
 {"fn":"p_coaligned","c":"370-373","status":"ported","js":["js/priest.js:p_coaligned"],"d":["D-3282"],"at":"2026-10-02@7589db4a3"}
 {"fn":"has_shrine","c":"376-389","status":"ported","js":["js/teleport.js:has_shrine"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: local clone; priest.js keeps an identical canonical copy"}
 {"fn":"findpriest","c":"392-404","status":"ported","js":["js/priest.js:findpriest"],"at":"2026-10-03@bbe63333a"}
-{"fn":"intemple","c":"410-538","status":"partial","js":["js/priest.js:intemple"],"omit":"sanctum test drops Is_sanctum (Moloch Sanctum msg/anger only under In_endgame); Deaf narrows to u.Deaf|u.HDeaf (drops EDeaf/uroleplay)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: tended/untended arms complete incl mapseen_temple; only sanctum/Deaf narrowing"}
+{"fn":"intemple","c":"410-538","status":"partial","js":["js/priest.js:intemple"],"omit":"- `stairs_description`: none.","d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audit 2026-10-03: tended/untended arms complete incl mapseen_temple; only sanctum/Deaf narrowing"}
 {"fn":"forget_temple_entry","c":"545-555","status":"ported","js":["js/priest.js:forget_temple_entry"],"d":["D-3394"],"at":"2026-10-03@d428e2b04","note":"audit 2026-10-03: timer zeroing live; only the disorder-path diagnostic missing"}
 {"fn":"priest_talk","c":"558-721","status":"ported","js":["js/priest.js:priest_talk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_roamer","c":"724-752","status":"ported","js":["js/mklev.js:mk_roamer"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reset_hostility","c":"755-768","status":"ported","js":["js/priest.js:reset_hostility"],"at":"2026-10-03@bbe63333a"}
 {"fn":"in_your_sanctuary","c":"771-792","status":"ported","js":["js/priest.js:in_your_sanctuary"],"at":"2026-10-03@bbe63333a"}
-{"fn":"ghod_hitsu","c":"796-874","status":"partial","js":["js/priest.js:ghod_hitsu"],"omit":"C `hmon` anger_guards tail (`uhitm.c:826–827` + `:831–833`; mon.js angry_guards live, unwired on this path — pre-existing, map-named); pray.js `a_gname_at` NULL-vs-`''` no-altar return (unreachable past the has_shrine gate); popped `mhitu.c` getmattk row proved STALE same iteration (body live split…","d":["D-2474"],"at":"seed@a30a7de84"}
+{"fn":"ghod_hitsu","c":"796-874","status":"ported","js":["js/priest.js:ghod_hitsu"],"d":["D-3416","D-2474"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"angry_priest","c":"877-911","status":"ported","js":["js/priest.js:angry_priest"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clearpriests","c":"919-929","status":"ported","js":["js/priest.js:clearpriests"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: list snapshot for mongone splice is correct adaptation"}
 {"fn":"restpriest","c":"933-939","status":"ported","js":["js/priest.js:restpriest"],"d":["D-3274"],"at":"2026-10-02@faf4b9296","note":"refresh: no JS symbol (measured MISSING)"}

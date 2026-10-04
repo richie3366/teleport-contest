@@ -3,8 +3,8 @@
 {"fn":"md_start","c":"149-239","status":"ported","js":["js/mail.js:md_start"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: blind/stairwell/retry-scan arms match"}
 {"fn":"md_stop","c":"248-274","status":"ported","js":["js/mail.js:md_stop"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: MON_AT reads as m_at per port precedent"}
 {"fn":"md_rush","c":"288-394","status":"ported","js":["js/mail.js:md_rush"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rush loop, disgust arm, final placement match"}
-{"fn":"newmail","c":"399-456","status":"partial","js":["js/mail.js:newmail"],"omit":"`ckmailstatus` mustgetmail/stat/broadcast variants (mailbox `stat()` is Rule #2 filesystem; no broadcast queue in scored JS); `m_next2u`/`MON_AT`/`distu` read as `distu > 2`/`m_at`/local (C-macro, mklev :18897 precedent); `display_nhwindow(WIN_MESSAGE, FALSE)` as `flush_topl_more` (readmail precede…","d":["D-2478"],"at":"seed@a30a7de84"}
+{"fn":"newmail","c":"399-456","status":"ported","js":["js/mail.js:newmail"],"d":["D-3416","D-2478"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"ckmailstatus","c":"461-479","status":"ported","js":["js/mail.js:ckmailstatus"],"d":["D-2917"],"at":"seed@a30a7de84","note":"alt 550-584 744-760"}
 {"fn":"readmail","c":"487-541","status":"ported","js":["js/mail.js:readmail"],"d":["D-1958"],"at":"2026-10-01@cdbc41097","note":"stale: js/mail.js:288 ports the compiled-in UNIX variant (mail.c:704-735; D-1958); 487-variant is !UNIX&&!VMS, 763-variant VMS"}
-{"fn":"read_simplemail","c":"589-680","status":"ported","js":["js/mail.js:read_simplemail"],"d":["D-2599"],"at":"seed@a30a7de84"}
+{"fn":"read_simplemail","c":"589-680","status":"ported","js":["js/mail.js:read_simplemail"],"d":["D-3416","D-2599"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"ck_server_admin_msg","c":"685-700","status":"by-design","at":"2026-09-30@03eae3466","note":"stale: js/mail.js:575; SERVER_ADMIN_MSG undefined in pinned unixconf.h:212, compiled C body empty"}

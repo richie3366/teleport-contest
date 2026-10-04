@@ -497,9 +497,8 @@ export function known_branch_stairs(sway) {
 }
 
 /**
- * C ref: stairs.c stairs_description — ordinary / Dlvl1-up / known-branch.
- * Deferred: Elemental Planes destination string when amulet + on_level planes
- * (C uses "to the Elemental Planes" vs generic "to the end game").
+ * C ref: stairs.c stairs_description `:186–235` — ordinary / Dlvl1-up /
+ * known-branch, whole in C order.
  */
 export function stairs_description(sway, stcase = true) {
     if (!sway) return '';
@@ -524,7 +523,13 @@ export function stairs_description(sway, stcase = true) {
         const haveAmulet = !!(game.u?.uhave?.amulet);
         if (!haveAmulet)
             return `${stairs} ${updown} out of the dungeon`;
-        return `branch ${stairs} ${updown} to the end game`;
+        // C `:227–231`: amulet + Dlvl1-up — planes-destination stairs say
+        // "to the Elemental Planes", otherwise "to the end game".
+        const toPlanes = on_level(tolev, game.earth_level)
+            || on_level(tolev, game.air_level)
+            || on_level(tolev, game.fire_level)
+            || on_level(tolev, game.water_level);
+        return `branch ${stairs} ${updown} ${toPlanes ? 'to the Elemental Planes' : 'to the end game'}`;
     }
     const dname = (game.dungeons?.[sway.tolev.dnum]?.dname || 'elsewhere')
         .replace(/^The /, 'the ');

@@ -123,4 +123,12 @@ describe("makesingular shipped arms", () => {
   it("balactheria -> balactherium", () => {
     assert.equal(makesingular("balactheria"), "balactherium");
   });
+
+  it("as_is collective half keeps (singplur_lookup :2719-2724)", () => {
+    assert.equal(makesingular("haggis"), "haggis");
+    assert.equal(makesingular("Haggis"), "Haggis");
+    assert.equal(makesingular("Bordeaux"), "Bordeaux");
+    assert.equal(makesingular("Nazgul"), "Nazgul");
+    assert.equal(makesingular("dogs"), "dog");
+  });
 });

@@ -106,7 +106,7 @@
 {"fn":"litter_newsyms","c":"4712-4719","status":"ported","js":["js/shk.js:litter_newsyms"],"at":"2026-10-03@bbe63333a"}
 {"fn":"repair_damage","c":"4732-4845","status":"ported","js":["js/shk.js:repair_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fix_shop_damage","c":"4850-4874","status":"ported","js":["js/shk.js:fix_shop_damage"],"at":"2026-10-03@bbe63333a"}
-{"fn":"shk_move","c":"4880-4993","status":"partial","js":["js/shk.js:shk_move"],"omit":"`shk_fixes_damage` (`shk.c:4556`, damage-list subsystem — map turns.md shk_move section + file header); `after_shk_move` `check_special_room(FALSE)` occupancy arm (map-named, file header).","d":["D-2560"],"at":"seed@a30a7de84"}
+{"fn":"shk_move","c":"4880-4993","status":"ported","js":["js/shk.js:shk_move"],"d":["D-3416","D-2560"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"after_shk_move","c":"4997-5008","status":"ported","js":["js/shk.js:after_shk_move"],"d":["D-3384"],"at":"2026-10-03@2d0bcb973"}
 {"fn":"is_fshk","c":"5012-5015","status":"ported","js":["js/shk.js:is_fshk"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shopdig","c":"5019-5110","status":"ported","js":["js/shk.js:shopdig"],"d":["D-2308"],"at":"2026-10-03@bbe63333a"}
@@ -125,9 +125,9 @@
 {"fn":"check_unpaid","c":"5739-5742","status":"ported","js":["js/shk.js:check_unpaid"],"at":"2026-10-03@bbe63333a"}
 {"fn":"costly_gold","c":"5745-5786","status":"ported","js":["js/shk.js:costly_gold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"block_door","c":"5791-5821","status":"ported","js":["js/shk.js:block_door"],"at":"2026-10-03@bbe63333a"}
-{"fn":"block_entry","c":"5826-5858","status":"partial","js":["js/shk.js:block_entry"],"omit":"`block_door` (`shk.c:5791`) stays the stub-false in `test_move` and `domove`.","d":["D-2854"],"at":"seed@a30a7de84"}
+{"fn":"block_entry","c":"5826-5858","status":"ported","js":["js/shk.js:block_entry"],"d":["D-3416","D-2854"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"shk_your","c":"5862-5874","status":"ported","js":["js/objnam.js:shk_your"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Shk_Your","c":"5877-5882","status":"ported","js":["js/timeout.js:Shk_Your"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Shk_Your","c":"5877-5882","status":"ported","js":["js/shk.js:Shk_Your"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"shk_owns","c":"5885-5897","status":"ported","js":["js/shk.js:shk_owns_prefix"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: as shk_owns_prefix js/shk.js:1098, registered :1112; caller shk_your js/objnam.js:2771"}
 {"fn":"mon_owns","c":"5900-5905","status":"ported","js":["js/objnam.js:shk_your"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: split inline in shk_your js/objnam.js:2774; caller shk.c:5871"}
 {"fn":"cad","c":"5908-5941","status":"ported","js":["js/shk.js:cad"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}

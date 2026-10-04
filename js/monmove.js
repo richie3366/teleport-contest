@@ -87,7 +87,7 @@ import { dog_move, finish_meating, cursed_object_at, dogfood, could_reach_item }
 import { worm_move, worm_nomove, see_wsegs, worm_known, wormhitu } from './worm.js';
 import {
     shk_move, gd_move, pri_move, costly_spot, inhishop, bill_dummy_object,
-    money_cnt, after_shk_move,
+    money_cnt, after_shk_move, add_damage,
 } from './shk.js';
 import { cuss, tactics } from './wizard.js';
 import { Protection_from_shape_changers } from './were.js';
@@ -417,13 +417,13 @@ export function can_carry(mtmp, otmp) {
 }
 
 /**
- * C ref: monmove.c mon_would_take_item
- * Named omissions: uball/uchain; unicorn GEMSTONE material gate partial
- * (mlet check only); FOOD searches_for_item corpse/tin/egg arms.
+ * C ref: monmove.c mon_would_take_item `:999–1032` in C order.
+ * Named omissions: FOOD searches_for_item corpse/tin/egg arms (callee row).
  */
 export function mon_would_take_item(mtmp, otmp) {
     const ptr = mtmp.data;
     const pctload = Math.trunc((curr_mon_load(mtmp) * 100) / max_mon_load(mtmp));
+    if (otmp === game.u?.uball || otmp === game.u?.uchain) return false; // C `:1003`
     if (mtmp.mtame && otmp.cursed) return false;
     // C: is_unicorn && oc_material != GEMSTONE
     if (ptr?.mlet === 'S_UNICORN') {
@@ -453,7 +453,9 @@ export function mon_would_take_item(mtmp, otmp) {
         return true;
     }
     if ((ptr?.mndx ?? -1) === PM_GELATINOUS_CUBE
-        && otmp.oclass !== ROCK_CLASS && otmp.oclass !== BALL_CLASS) {
+        && otmp.oclass !== ROCK_CLASS && otmp.oclass !== BALL_CLASS
+        && !(otmp.otyp === CORPSE // C `:1028` petrifying-corpse exclusion
+            && touch_petrifies(mons(otmp.corpsenm)))) {
         return true;
     }
     return false;
@@ -1581,9 +1583,9 @@ function soko_allow_web(mon) {
 }
 
 /**
- * C ref: monmove.c maybe_spin_web — webmaker postmov chance rn2(1000)<prob.
- * C always pline_mon even for "Something" (canspotmon ? y_monnam : something).
- * Named omissions: shop add_damage.
+ * C ref: monmove.c maybe_spin_web `:1269–1293` — webmaker postmov chance
+ * rn2(1000)<prob. C always pline_mon even for "Something" (canspotmon ?
+ * y_monnam : something).
  */
 async function maybe_spin_web(mtmp) {
     if (!webmaker(mtmp?.data)
@@ -1605,7 +1607,8 @@ async function maybe_spin_web(mtmp) {
                 await pline_mon(mtmp, `${upstart(mbuf)} spins a web.`);
                 trap.tseen = 1;
             }
-            // shop add_damage deferred
+            if (in_rooms(mtmp.mx, mtmp.my, SHOPBASE)) // C `:1289`
+                add_damage(mtmp.mx, mtmp.my, 0); // C `:1290` 0L
         }
     }
 }

@@ -4,16 +4,16 @@
 {"fn":"deadbook_pacify_undead","c":"211-226","status":"ported","js":["js/spell.js:deadbook_pacify_undead"],"at":"2026-10-03@bbe63333a"}
 {"fn":"deadbook","c":"231-339","status":"ported","js":["js/spell.js:deadbook"],"d":["D-2557"],"at":"seed@a30a7de84"}
 {"fn":"book_cursed","c":"343-351","status":"ported","js":["js/spell.js:book_cursed"],"at":"2026-10-03@bbe63333a"}
-{"fn":"learn","c":"356-463","status":"partial","js":["js/spell.js:learn"],"omit":"lenses LENSES rn2(2) delay++ faster read; check_unpaid(book) shop charge; faded-to-blank update_inventory","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: delay/confused/relearn/faded/cursed_book arms live"}
+{"fn":"learn","c":"356-463","status":"ported","js":["js/spell.js:learn"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audit 2026-10-03: delay/confused/relearn/faded/cursed_book arms live"}
 {"fn":"study_book","c":"468-641","status":"ported","js":["js/spell.js:study_book"],"d":["D-2053"],"at":"2026-10-03@bbe63333a"}
 {"fn":"book_disappears","c":"646-652","status":"ported","js":["js/shk.js:book_disappears"],"at":"2026-10-03@bbe63333a"}
 {"fn":"book_substitution","c":"658-665","status":"ported","js":["js/spell.js:book_substitution"],"d":["D-3148"],"at":"2026-09-30@5f75ba02c","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"age_spells","c":"669-682","status":"ported","js":["js/spell.js:age_spells"],"d":["D-3148"],"at":"2026-09-30@5f75ba02c"}
+{"fn":"age_spells","c":"669-682","status":"ported","js":["js/spell.js:age_spells"],"d":["D-3416","D-3148"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"rejectcasting","c":"687-708","status":"ported","js":["js/spell.js:rejectcasting"],"d":["D-2926"],"at":"seed@a30a7de84"}
 {"fn":"getspell","c":"715-783","status":"ported","js":["js/spell.js:getspell"],"d":["D-2758"],"at":"seed@a30a7de84"}
 {"fn":"dowizcast","c":"787-815","status":"ported","js":["js/spell.js:dowizcast"],"d":["D-3148"],"at":"2026-09-30@5f75ba02c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"docast","c":"820-829","status":"ported","js":["js/spell.js:docast"],"at":"2026-10-03@bbe63333a"}
-{"fn":"spelltypemnemonic","c":"832-853","status":"ported","js":["js/spell.js:spelltypemnemonic"],"d":["D-3148"],"at":"2026-09-30@5f75ba02c"}
+{"fn":"spelltypemnemonic","c":"832-853","status":"ported","js":["js/spell.js:spelltypemnemonic"],"d":["D-3416","D-3148"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"spell_skilltype","c":"856-859","status":"ported","js":["js/spell.js:spell_skilltype"],"at":"2026-10-03@bbe63333a"}
 {"fn":"skill_based_spellbook_id","c":"864-906","status":"ported","js":["js/spell.js:skill_based_spellbook_id"],"at":"2026-10-03@bbe63333a"}
 {"fn":"propagate_chain_lightning","c":"952-1000","status":"ported","js":["js/spell.js:propagate_chain_lightning"],"at":"2026-10-03@bbe63333a"}
@@ -38,6 +38,6 @@
 {"fn":"spellretention","c":"2295-2336","status":"ported","js":["js/spell.js:spellretention"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"initialspell","c":"2340-2359","status":"ported","js":["js/spell.js:initialspell"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() diagnostics silent only"}
 {"fn":"known_spell","c":"2363-2375","status":"ported","js":["js/spell.js:known_spell"],"at":"2026-10-03@bbe63333a"}
-{"fn":"spell_idx","c":"2379-2387","status":"ported","js":["js/spell.js:spell_idx"],"d":["D-3148"],"at":"2026-09-30@5f75ba02c"}
+{"fn":"spell_idx","c":"2379-2387","status":"ported","js":["js/spell.js:spell_idx"],"d":["D-3416","D-3148"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"force_learn_spell","c":"2391-2413","status":"ported","js":["js/spell.js:force_learn_spell"],"at":"2026-10-03@bbe63333a"}
 {"fn":"num_spells","c":"2417-2425","status":"ported","js":["js/spell.js:num_spells"],"at":"2026-10-03@bbe63333a"}

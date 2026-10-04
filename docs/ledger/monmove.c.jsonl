@@ -22,7 +22,7 @@
 {"fn":"m_everyturn_effect","c":"650-663","status":"ported","js":["js/monmove.js:m_everyturn_effect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_postmove_effect","c":"672-683","status":"ported","js":["js/monmove.js:m_postmove_effect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dochug","c":"690-989","status":"ported","js":["js/monmove.js:dochug"],"d":["D-2430","D-2090","D-1798"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"mon_would_take_item","c":"999-1032","status":"partial","js":["js/monmove.js:mon_would_take_item"],"omit":"uball/uchain exclusion :1003 and gelcube touch_petrifies corpse exclusion :1028 missing","at":"2026-10-03@bbe63333a"}
+{"fn":"mon_would_take_item","c":"999-1032","status":"partial","js":["js/monmove.js:mon_would_take_item"],"omit":"- `stairs_description`: none.","d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"mon_would_consume_item","c":"1036-1050","status":"ported","js":["js/monmove.js:mon_would_consume_item"],"d":["D-2365"],"at":"2026-10-03@bbe63333a"}
 {"fn":"itsstuck","c":"1053-1060","status":"ported","js":["js/monmove.js:itsstuck"],"at":"2026-10-03@bbe63333a"}
 {"fn":"should_displace","c":"1070-1103","status":"ported","js":["js/monmove.js:should_displace"],"at":"2026-10-03@bbe63333a"}
@@ -33,7 +33,7 @@
 {"fn":"holds_up_web","c":"1227-1239","status":"ported","js":["js/monmove.js:holds_up_web"],"at":"2026-10-03@bbe63333a"}
 {"fn":"count_webbing_walls","c":"1244-1248","status":"ported","js":["js/monmove.js:count_webbing_walls"],"at":"2026-10-03@bbe63333a"}
 {"fn":"soko_allow_web","c":"1252-1265","status":"ported","js":["js/monmove.js:soko_allow_web"],"at":"2026-10-03@bbe63333a"}
-{"fn":"maybe_spin_web","c":"1269-1293","status":"partial","js":["js/monmove.js:maybe_spin_web"],"omit":"shop add_damage :1289-1290 missing","at":"2026-10-03@bbe63333a"}
+{"fn":"maybe_spin_web","c":"1269-1293","status":"ported","js":["js/monmove.js:maybe_spin_web"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"m_avoid_kicked_loc","c":"1297-1308","status":"ported","js":["js/mon.js:m_avoid_kicked_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_avoid_soko_push_loc","c":"1313-1323","status":"ported","js":["js/mon.js:m_avoid_soko_push_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_search_items","c":"1330-1450","status":"ported","js":["js/monmove.js:m_search_items"],"d":["D-2047"],"at":"2026-10-03@bbe63333a"}
@@ -42,10 +42,10 @@
 {"fn":"can_hide_under_obj","c":"2121-2167","status":"ported","js":["js/monmove.js:can_hide_under_obj"],"d":["D-2340"],"at":"2026-10-01@e45cb9654","note":"stale: js/monmove.js:1336"}
 {"fn":"dissolve_bars","c":"2170-2178","status":"ported","js":["js/hack.js:dissolve_bars"],"at":"2026-10-03@bbe63333a"}
 {"fn":"closed_door","c":"2181-2185","status":"ported","js":["js/dokick.js:closed_door"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: complete; twin copies in monmove/mon/hack.js"}
-{"fn":"accessible","c":"2188-2194","status":"partial","js":["js/teleport.js:accessible"],"omit":"uses loc.typ not SURFACE_AT(x,y): drawbridge under-terrain :2191; complete twin at js/monmove.js:accessible","at":"2026-10-03@bbe63333a"}
+{"fn":"accessible","c":"2188-2194","status":"ported","js":["js/teleport.js:accessible"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"set_apparxy","c":"2198-2266","status":"ported","js":["js/monmove.js:set_apparxy"],"d":["D-3414","D-3320","D-1999"],"at":"2026-10-04@3b3655fac"}
 {"fn":"undesirable_disp","c":"2277-2312","status":"ported","js":["js/monmove.js:undesirable_disp"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"stuff_prevents_passage","c":"2319-2353","status":"ported","js":["js/monmove.js:stuff_prevents_passage"],"d":["D-2933"],"at":"seed@a30a7de84"}
+{"fn":"stuff_prevents_passage","c":"2319-2353","status":"ported","js":["js/monmove.js:stuff_prevents_passage"],"d":["D-3416","D-2933"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"can_ooze","c":"2356-2361","status":"ported","js":["js/monmove.js:can_ooze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_fog","c":"2365-2371","status":"ported","js":["js/monmove.js:can_fog"],"d":["D-2942","D-2428"],"at":"seed@a30a7de84"}
 {"fn":"vamp_shift","c":"2377-2394","status":"ported","js":["js/monmove.js:vamp_shift"],"d":["D-3292"],"at":"2026-10-02@70dc5c4d5","note":"refresh: no JS symbol (measured MISSING)"}

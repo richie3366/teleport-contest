@@ -1,8 +1,8 @@
 {"fn":"new_light_source","c":"62-65","status":"ported","js":["js/light.js:new_light_source"],"at":"2026-10-03@bbe63333a"}
 {"fn":"new_light_core","c":"69-94","status":"ported","js":["js/light.js:new_light_core"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: illegal-range arm returns null like C; drops the unreachable-in-practice impossible diagnostic"}
-{"fn":"del_light_source","c":"99-138","status":"partial","js":["js/light.js:del_light_source"],"omit":"LSF_NEEDS_FIXUP producers (save/restore path relinks at load instead); replmon light swap + made_change bookkeeping (pre-existing map names above).","d":["D-2583","D-2574"],"at":"seed@a30a7de84"}
+{"fn":"del_light_source","c":"99-138","status":"partial","js":["js/light.js:del_light_source"],"omit":"LSF_NEEDS_FIXUP producers (save/restore path relinks at load instead); replmon light swap + made_change bookkeeping (pre-existing map names above).","d":["D-3416","D-2583","D-2574"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: remaining omit cannot ship"}
 {"fn":"delete_ls","c":"142-165","status":"ported","js":["js/light.js:delete_ls"],"at":"2026-09-29@d27c7b945","note":"stale: js/light.js:96 (D-2574)"}
-{"fn":"do_light_sources","c":"169-250","status":"partial","js":["js/light.js:do_light_sources"],"omit":"OBJ_MINVENT arm omits ocarry->mx locality check: migrating carrier (mx==0) sets SHOW at (0,0) and paints corner TEMP_LIT; C get_obj_location returns FALSE","d":["D-2302"],"at":"2026-10-03@bbe63333a"}
+{"fn":"do_light_sources","c":"169-250","status":"ported","js":["js/light.js:do_light_sources"],"d":["D-3416","D-2302"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"show_transient_light","c":"257-324","status":"ported","js":["js/light.js:show_transient_light"],"at":"2026-10-03@bbe63333a"}
 {"fn":"transient_light_cleanup","c":"330-357","status":"ported","js":["js/light.js:transient_light_cleanup"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"discard_flashes","c":"361-370","status":"ported","js":["js/light.js:discard_flashes"],"at":"2026-10-03@bbe63333a"}
@@ -11,7 +11,7 @@
 {"fn":"save_light_sources","c":"421-471","status":"split","js":["js/mkobj.js:save_light_sources","js/lev_json.js:snapshotGlobalLights","js/lev_json.js:snapshotLocalLights"],"d":["D-3225","D-3224","D-1708"],"at":"2026-10-01@17380c7c9"}
 {"fn":"restore_light_sources","c":"479-493","status":"ported","js":["js/mkobj.js:restore_light_sources"],"at":"2026-09-29@d3ab32283","note":"stale: js/mkobj.js:1316 (JSON-adapted; push matches C post-restore traversal under mirrored live order)"}
 {"fn":"light_stats","c":"501-511","status":"ported","js":["js/wizcmds.js:light_stats"],"at":"2026-10-03@bbe63333a"}
-{"fn":"relink_light_sources","c":"517-563","status":"partial","js":["js/light.js:relink_light_sources"],"omit":"C ``lookup_id_mapping`` as its own row (restore.c:1484; bucket/list state = bones id map; ghostly obj-id recording unported — the arm resolves through ``lookup_bones_id`` like region.js reset_region_mids); ``find_mid`` FM_MIGRATE/FM_MYDOGS arms (pre-existing named omit in mon.js — flag passed for f…","d":["D-2644"],"at":"seed@a30a7de84"}
+{"fn":"relink_light_sources","c":"517-563","status":"partial","js":["js/light.js:relink_light_sources"],"omit":"C ``lookup_id_mapping`` as its own row (restore.c:1484; bucket/list state = bones id map; ghostly obj-id recording unported — the arm resolves through ``lookup_bones_id`` like region.js reset_region_mids); ``find_mid`` FM_MIGRATE/FM_MYDOGS arms (pre-existing named omit in mon.js — flag passed for f…","d":["D-3416","D-2644"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: remaining omit cannot ship"}
 {"fn":"maybe_write_ls","c":"571-603","status":"ported","js":["js/light.js:maybe_write_ls"],"d":["D-3060"],"at":"2026-09-28@1de43a4f5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"light_sources_sanity_check","c":"606-630","status":"ported","js":["js/light.js:light_sources_sanity_check"],"at":"2026-10-03@bbe63333a"}
 {"fn":"write_ls","c":"634-702","status":"ported","js":["js/light.js:write_ls"],"d":["D-3246","D-2666"],"at":"2026-10-01@14db57058"}
@@ -19,11 +19,11 @@
 {"fn":"any_light_source","c":"719-722","status":"ported","js":["js/light.js:any_light_source"],"d":["D-3021"],"at":"2026-09-28@9dc8a2506","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"snuff_light_source","c":"729-759","status":"ported","js":["js/light.js:snuff_light_source"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_sheds_light","c":"763-767","status":"ported","js":["js/light.js:obj_sheds_light"],"at":"2026-10-03@bbe63333a"}
-{"fn":"obj_is_burning","c":"771-775","status":"ported","js":["js/light.js:obj_is_burning"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: callees ignitable/artifact_light live in timeout.js"}
+{"fn":"obj_is_burning","c":"771-775","status":"ported","js":["js/light.js:obj_is_burning"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"obj_split_light_source","c":"779-803","status":"ported","js":["js/timeout.js:obj_split_light_source"],"d":["D-2279"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_merge_light_sources","c":"808-822","status":"ported","js":["js/timeout.js:obj_merge_light_sources"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_adjust_light_radius","c":"826-838","status":"ported","js":["js/light.js:obj_adjust_light_radius"],"d":["D-1956"],"at":"2026-10-03@bbe63333a"}
 {"fn":"candle_light_range","c":"843-877","status":"ported","js":["js/timeout.js:candle_light_range"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"arti_light_radius","c":"881-911","status":"ported","js":["js/timeout.js:arti_light_radius"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"arti_light_description","c":"916-931","status":"ported","js":["js/objnam.js:arti_light_description"],"d":["D-2125"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inlines arti_light_radius exactly; doname_artifact_light equiv to artifact_light"}
-{"fn":"wiz_light_sources","c":"935-975","status":"ported","js":["js/light.js:wiz_light_sources"],"d":["D-3060"],"at":"2026-09-28@1de43a4f5","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_light_sources","c":"935-975","status":"ported","js":["js/light.js:wiz_light_sources"],"d":["D-3416","D-3060"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}

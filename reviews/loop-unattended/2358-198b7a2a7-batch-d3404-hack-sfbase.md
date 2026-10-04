@@ -170,6 +170,6 @@ ACCEPT-WITH-DEBT.
    displaceu/travel/CLIPPING). Fix in one iter: `ledger.mjs set` each
    row to its true omit (verify each sub-omit still unshipped) +
    re-run `hidden-proxy verify` on the three + confirm no other
-   D-3404 row mislabels. **Addressed:** D-3415
+   D-3404 row mislabels. **Addressed:** D-3415 `a1eee6cb2`
 
 Verdict: **ACCEPT-WITH-DEBT**

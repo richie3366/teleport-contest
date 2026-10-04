@@ -99,7 +99,7 @@ import { SetVoice, Soundeffect } from './sndprocs.js';
 import { set_ustuck, Conflict, Levitation, Flying } from './mhitu.js';
 import { sticks } from './engrave.js';
 import { revive_corpse, l_nhcore_call, flooreffects, boulder_hits_pool } from './do.js';
-import { is_db_wall } from './dbridge.js';
+import { is_db_wall, is_waterwall } from './dbridge.js';
 import { doopen_indir } from './lock.js';
 import { use_pick_axe2, buried_ball, buried_ball_to_punishment, bury_objs, fill_pit } from './dig.js';
 import { is_ice, resists_cold, Cold_resistance } from './zap.js';
@@ -2118,12 +2118,7 @@ function move_update(newlev) {
 
 // --- swim / liquid move danger (hack.c swim_move_danger) -----------------
 
-/** C ref: dbridge.c is_waterwall — drawbridge under deferred. */
-function is_waterwall_at(x, y) {
-    if (!isok(x, y)) return false;
-    const loc = game.level?.at(x, y);
-    return !!(loc && IS_WATERWALL(loc.typ));
-}
+
 
 /**
  * C ref: dbridge.c is_pool — POOL/MOAT/WATER, or is_moat (DRAWBRIDGE_UP
@@ -2263,7 +2258,7 @@ function u_simple_floortyp(x, y) {
     const u = game.u || {};
     const uInAir = !!(u.Levitation || u.Flying // C `:1835`
         || !grounded(game.youmonst?.data));
-    if (is_waterwall_at(x, y)) return WATER;
+    if (is_waterwall(x, y)) return WATER; // C `:1837` (live dbridge.js export)
     const loc = game.level?.at(x, y);
     if (loc?.typ === LAVAWALL) return LAVAWALL;
     if (!uInAir) {
@@ -4110,7 +4105,7 @@ export function dump_weights_lines() {
  * (display.js vraw_printf omit).
  */
 export function dump_weights() {
-    decl_globals_init(); // C `:4431`
+    decl_globals_init(); // C `:4429`
     init_objects(); // C `:4432`
     for (const line of dump_weights_lines()) { // C `:4470–4479`
         // C `:4470–4477` raw_printf / `:4478–4479` raw_print — `%s`
