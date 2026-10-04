@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — audit 2354–2362 @952e46e04: review D-3400..D-3408 (9 SHAs) + full rescore
+
+**Reviews:** 2354 ACCEPT (D-3400 feel_location) · 2355 QUALITY-RISK (D-3401 canseemon-clone + mons-identity Must-fix) · 2356 QUALITY-RISK (D-3402 101-row overage + declaration repair) · 2357 ACCEPT (D-3403) · 2358 ACCEPT-WITH-DEBT (D-3404 u.Underwater + pasted-omit Must-fix) · 2359 QUALITY-RISK (D-3405 the_unique_pm divergent clone + switch_symbols ledger) · 2360 ACCEPT (D-3406) · 2361 QUALITY-RISK (D-3407 14 false "cannot ship" certs) · 2362 QUALITY-RISK (D-3408 4 remainder-home rows). 9 Must-fix lines prepended; Next cluster = D-3408 4-row homes.
+**Score:** sessions 44/44 (Scr 11405/11405, RNG 792838/792838, 336+1.67/turn); corpus full rescore 733/953 PASS (0 losses, +2: 94093, 94410), RNG 98.39 %, screens 93.9 %, full:true @12:43Z; held-out 15/44 (judge 09:00Z, pre-D-3408).
+**Next:** next port iter pops the D-3408 Must-fix (ledger-only 4-row fix + verify).
 ## 2026-10-04 — D-3408 batch @c075fb861: cfgfiles/topten/weapon/zap/dothrow/coloratt/dungeon/calendar/wizcmds/makemon/mdlib/shk remainder (100 fns, 0 left open)
 
 **C locus:** - `oselect`: weapon.c:490–491 — can_touch_safely(mtmp,otmp) refusal gate (mon.c:1957–74, live monmove.js export).

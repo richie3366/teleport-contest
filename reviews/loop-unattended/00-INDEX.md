@@ -2363,3 +2363,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2351-7636db97b-nh-sfunconvert.md](./2351-7636db97b-nh-sfunconvert.md) | `7636db97b` | D-3396 nh_sfunconvert unconvert hook | **ACCEPT** |
 | [2352-c7cb2c7c0-u-init-cluster.md](./2352-c7cb2c7c0-u-init-cluster.md) | `c7cb2c7c0` | D-3397 u_init pauper gates + init gaps (6 fns) | **ACCEPT** |
 | [2353-7729a3dda-block-sweep.md](./2353-7729a3dda-block-sweep.md) | `7729a3dda` | D-3399 missing-arm block sweep (8 fns) | **ACCEPT** |
+| [2354-1ae9cc180-feel-location-uinwater.md](./2354-1ae9cc180-feel-location-uinwater.md) | `1ae9cc180` | D-3400 feel_location uinwater gate | **ACCEPT** |
+| [2355-e77f3975a-batch-d3401-vision-dungeon.md](./2355-e77f3975a-batch-d3401-vision-dungeon.md) | `e77f3975a` | D-3401 batch vision/mon/pline/invent/display/dog/dungeon (94 fns) | **QUALITY-RISK** |
+| [2356-7a3ae7a92-batch-d3402-display-uhitm.md](./2356-7a3ae7a92-batch-d3402-display-uhitm.md) | `7a3ae7a92` | D-3402 batch display/rnd/potion/end/pager/pline/cmd/uhitm (101 fns) | **QUALITY-RISK** |
+| [2357-e2943671c-batch-d3403-options-getpos.md](./2357-e2943671c-batch-d3403-options-getpos.md) | `e2943671c` | D-3403 batch display/end/objnam/do_name/getpos/rumors/options/mthrowu (100 fns) | **ACCEPT** |
+| [2358-198b7a2a7-batch-d3404-hack-sfbase.md](./2358-198b7a2a7-batch-d3404-hack-sfbase.md) | `198b7a2a7` | D-3404 batch hack/mkroom/detect/sfbase (100 fns) | **ACCEPT-WITH-DEBT** |
+| [2359-44ce1ba38-batch-d3405-eat-engrave.md](./2359-44ce1ba38-batch-d3405-eat-engrave.md) | `44ce1ba38` | D-3405 batch hacklib/eat/botl/engrave/mondata/cfgfiles (100 fns) | **QUALITY-RISK** |
+| [2360-e3dc5ab18-batch-d3406-sp-lev-maze.md](./2360-e3dc5ab18-batch-d3406-sp-lev-maze.md) | `e3dc5ab18` | D-3406 batch sp_lev/pickup/mkobj/uhitm/detect/teleport/selvar/alloc/mkmaze/mcastu/shk (100 fns) | **ACCEPT** |
+| [2361-c075fb861-batch-d3407-timeout-read.md](./2361-c075fb861-batch-d3407-timeout-read.md) | `c075fb861` | D-3407 batch uhitm/mklev/sounds/role/insight/artifact/wield/region/mon/read/timeout (85 fns) | **QUALITY-RISK** |
+| [2362-952e46e04-batch-d3408-zap-makemon.md](./2362-952e46e04-batch-d3408-zap-makemon.md) | `952e46e04` | D-3408 batch cfgfiles/topten/weapon/zap/dothrow/coloratt/dungeon/calendar/wizcmds/makemon/mdlib/shk (100 fns) | **QUALITY-RISK** |
