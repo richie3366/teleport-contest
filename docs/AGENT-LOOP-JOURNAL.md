@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3417 Must-fix review 2356: D-3402 declaration repair (splitmon note + 2 pasted omits restored)
+
+**C locus:** row homes only (no C re-read; splitmon body verified whole by review 2356, mndx pudding idiom): uhitm.c `hmon_hitmon_splitmon` :1604–1634; display.c `see_monsters` :1487–1529, `docrt_flags` :1709–1773 (bodies unchanged this iter).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** `ledger.mjs set` ×3: splitmon `ported --note "audited D-3402: whole vs C"` (prescribed verbatim); see_monsters/docrt_flags `partial` restored to the D-3401 Named omissions text, each sub-omit re-verified still unshipped (no restore defer setter — `defer` over js/restore.js+js/display.js shows only unrelated deferral comments; P_RIDING still a live named omission at js/display.js:5198/:5231, D-3400 left it standing) + note refresh recording the repair. Heals confirmed: really_done note `audited D-3403: whole vs C`; misc_obj/msg_lightobj/first_weapon_hit/drst/stck/deth `ported` + slim split + lspo `ported` per the D-3406 Ledger bullet. Mislabel sweep: all 101 D-3402 rows dumped — every non-empty omit names its own fn/file except the two repaired (split rows carry js= homes; ported-with-diff rows note-less per convention).
+**Verify:** `node scripts/verify.mjs --fn hmon_hitmon_splitmon,see_monsters,docrt_flags` → PASS syntax (0 changed js); PASS rule2; 3× hidden note (no corpus session blocked — normal; row cited none); 3× REACH-OK (no RNG-tagged reach; fixed smoke 24/24 each); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `see_monsters`: restore.c:682 defer setter absent.
+**Next:** next Must-fix (canseemon divergent clones, review 2355). Note for a future review iter (out of this row's scope, not fixed here): D-3415's own repair misfired — `domove_swap_with_pet` + `domove_core` rows carry test_move's omit text (commit a1eee6cb2); true texts in the D-3415 Named omissions bullet.
 ## 2026-10-04 — D-3416 batch 100 fns / 22 files cfgfiles→dogmove (breadth port, operator overlay)
 
 **C locus:** - `stairs_description`: stairs.c:186–235 — Dlvl1-up amulet planes arm :227–231.

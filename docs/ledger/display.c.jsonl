@@ -31,7 +31,7 @@
 {"fn":"swallowed","c":"1332-1386","status":"ported","js":["js/display.js:swallowed"],"at":"2026-10-03@bbe63333a"}
 {"fn":"under_water","c":"1395-1437","status":"ported","js":["js/display.js:under_water"],"d":["D-1981"],"at":"2026-10-03@bbe63333a"}
 {"fn":"under_ground","c":"1445-1467","status":"ported","js":["js/display.js:under_ground"],"at":"2026-10-03@bbe63333a"}
-{"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3402","D-3401","D-2493","D-1746"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
+{"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"- `see_monsters`: restore.c:682 defer setter absent.","d":["D-3417","D-3402","D-3401","D-2493","D-1746"],"at":"2026-10-04@b127042af","note":"audited D-3402: remaining omit cannot ship; D-3417: replmon paste replaced with D-3401 text"}
 {"fn":"mimic_light_blocking","c":"1532-1540","status":"ported","js":["js/vision.js:mimic_light_blocking"],"d":["D-1587"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_mimic_blocking","c":"1548-1551","status":"ported","js":["js/vision.js:set_mimic_blocking"],"at":"2026-10-03@bbe63333a"}
 {"fn":"see_objects","c":"1558-1571","status":"ported","js":["js/display.js:see_objects"],"d":["D-3290"],"at":"2026-10-02@be60a5eca"}
@@ -40,7 +40,7 @@
 {"fn":"curs_on_u","c":"1687-1690","status":"ported","js":["js/display.js:curs_on_u"],"d":["D-1976"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doredraw","c":"1694-1698","status":"ported","js":["js/display.js:doredraw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"docrt","c":"1702-1705","status":"ported","js":["js/display.js:docrt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"docrt_flags","c":"1709-1773","status":"partial","js":["js/display.js:docrt_flags"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3402","D-3401","D-2461"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
+{"fn":"docrt_flags","c":"1709-1773","status":"partial","js":["js/display.js:docrt_flags"],"omit":"- `see_monsters`: restore.c:682 defer setter absent.","d":["D-3417","D-3402","D-3401","D-2461"],"at":"2026-10-04@b127042af","note":"audited D-3402: remaining omit cannot ship; D-3417: replmon paste replaced with D-3401 text"}
 {"fn":"redraw_map","c":"1778-1812","status":"ported","js":["js/display.js:redraw_map"],"d":["D-1974"],"at":"2026-10-01@250701173","note":"stale: js/display.js:6983 body whole, both callers wired (:5829,:7115), on_level imported"}
 {"fn":"reglyph_darkroom","c":"1818-1854","status":"ported","js":["js/display.js:reglyph_darkroom"],"d":["D-1975"],"at":"2026-10-03@bbe63333a"}
 {"fn":"newsym_force","c":"1863-1871","status":"ported","js":["js/display.js:newsym_force"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}

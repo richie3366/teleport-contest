@@ -24,7 +24,7 @@
 {"fn":"hmon_hitmon_jousting","c":"1541-1567","status":"partial","js":["js/uhitm.js:hmon_hitmon_jousting"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-3402","D-2839"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
 {"fn":"hmon_hitmon_stagger","c":"1570-1585","status":"ported","js":["js/uhitm.js:hmon_hitmon_stagger"],"d":["D-3262"],"at":"2026-10-02@a7d88d8ff"}
 {"fn":"hmon_hitmon_pet","c":"1588-1601","status":"ported","js":["js/uhitm.js:hmon_hitmon"],"d":["D-3214"],"at":"2026-10-01@2eced4253","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"hmon_hitmon_splitmon","c":"1604-1634","status":"ported","js":["js/uhitm.js:hmon_hitmon_splitmon"],"d":["D-3402","D-2872"],"at":"2026-10-04@e77f3975a"}
+{"fn":"hmon_hitmon_splitmon","c":"1604-1634","status":"ported","js":["js/uhitm.js:hmon_hitmon_splitmon"],"d":["D-3417","D-3402","D-2872"],"at":"2026-10-04@b127042af","note":"audited D-3402: whole vs C"}
 {"fn":"hmon_hitmon_msg_hit","c":"1637-1660","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_hit"],"d":["D-3402","D-2872"],"at":"2026-10-04@e77f3975a"}
 {"fn":"hmon_hitmon_msg_silver","c":"1663-1699","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_silver"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hmon_hitmon_msg_lightobj","c":"1702-1730","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_lightobj"],"d":["D-3406","D-3402","D-2865"],"at":"2026-10-04@44ce1ba38"}

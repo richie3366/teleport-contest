@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] D-3402 declaration repair — `hmon_hitmon_splitmon` declared `ported` with no diff and no retired omit (body verified whole in review 2356; twin defect really_done already healed by D-3403, misc_obj pasted omit already healed by D-3406 — confirm both): `ledger.mjs set hmon_hitmon_splitmon ported --note "audited D-3402: whole vs C"` + audit the remaining 101 D-3402 rows for present accurate notes + verify. Source: reviews/loop-unattended/2356-7a3ae7a92-batch-d3402-display-uhitm.md **Addressed:** D-3417
+
+
 - [x] D-3404 pasted-omit ledger corruption — `test_move`, `domove_swap_with_pet`, `domove_core` rows carry moverock_core's omit text instead of their own (pre-rows at 198b7a2a7~1 + D-3404 D-log C-locus hold truth): `ledger.mjs set` each row to its true omit, verifying each sub-omit still unshipped (test_move minus stale block_door/block_entry) + re-run `hidden-proxy verify` on the three + confirm no other D-3404 row mislabels. Source: reviews/loop-unattended/2358-198b7a2a7-batch-d3404-hack-sfbase.md
 
 
