@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-3419 — Must-fix: D-3415 repair misfire (domove_swap_with_pet + domove_core rows restored)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** D-3415's own repair misfired (flagged by the D-3417 journal crumb, verified by audit 2363–2366): `domove_swap_with_pet` + `domove_core` rows carry test_move's omit text — commit a1eee6cb2 stamped test_move's single Named line into all 3 rows — so review 2358 item 2's `**Addressed:** D-3415` stamp holds for only 1 of the 3 rows. The finish-iteration stamping class (8 iters: D-3403/D-3404/D-3408/D-3409/D-3410/D-3415/D-3416/D-3417; mechanism per review 2366 + b3cc7b581 — `bullet()` captures only the first Named line, every partial row inherits it).
+- **C locus:** row homes only (no C re-read; bodies verified whole by review 2358): hack.c `domove_swap_with_pet` :2098–2225 (:2147 assert), `domove_core` :2712–2991 (displaceu/travel/CLIPPING).
+- **JS was:** both rows `partial` carrying `- \`test_move\`: ECMD_OK + canned-kick fake …` (test_move's own text, correct on its row only); domove_core's note falsely claimed "D-3415 restored true omit" over a stale cmd.js:6205 home.
+- **Fix:** `ledger.mjs set` ×2 to the D-3404 Named omissions text, each sub-omit re-verified still unshipped first (swap :2147 — mtrapped cleared js/hack.js:1401–1405, NULL-implication comment-only :1431–1432, zero `assert(` in js/hack.js; core middle-skip — named comment js/cmd.js:6339, `displaceu` read only at :6340 (ironbars/web/empty) and :6603 (swap) so the :6349–6603 middle runs unguarded; travel — upstream `continue_run` js/cmd.js:4455–4476 with findtravelpath_travel/guess + travel1=0; CLIPPING — no cliparound in js/cmd.js, `-S` probe untouched since D-2453) + domove_core note refresh (home now cmd.js:6213, verified; false D-3415 claim struck). Core text (323 chars) exceeds OMIT_MAX 300 — stored tool-clipped at `wintty clipar…` (same clip D-3415's set produced; full text verbatim in Named below + D-3404). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen `bullet()` first-line bug would stamp the first Named line into both rows again (the D-3415/D-3417/b3cc7b581 class — verified in script before writing) — the direct sets are the row writers, finish runs docs-only for the ledger.
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger rows only).
+- **Verify:** `node scripts/verify.mjs --fn domove_swap_with_pet,domove_core` → PASS syntax (0 changed js); PASS rule2; 2× hidden note (no corpus session blocked — normal; row cited none); 2× REACH-OK (no RNG-tagged reach; fixed smoke 24/24 each); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `domove_swap_with_pet`: C `:2147` `assert(trap != NULL)` — implied by `mtrapped` (cleared `:2116–2118` when `!trap`); no JS assert export, comment only.
+  - `domove_core`: displaceu middle-skip (C skips ironbars/test_move/swim when displaceu; JS runs the middle then swaps — converges next turn); travel block (handled upstream in `continue_run`, `findtravelpath_travel/guess` + travel1=0, same order vs the carrying check); final CLIPPING (wintty cliparound singleton, D-2453).
+- **Left open:** none.
+- **Next:** next Must-fix (D-3416 ledger truth, review 2366 Actionable 1 — same direct-set shape, 11 rows; 2363 m_initgrp homes after).
+
 ## D-3418 — Open head batch: strncmpi call-site wiring (35 sites) + sfbase stubs; 3 audits, topl_putsym left open
 
 - **Status:** fixed (Open batch, operator override #4299: real `js/` work; Must-fix head deferred). 8 queue functions: 4 ported (35 strncmpi sites + 3 stubs), 3 audited, 1 left open. No corpus session blocked on any of the 8.

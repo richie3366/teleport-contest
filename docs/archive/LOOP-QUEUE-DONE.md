@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] D-3415 repair misfire (flagged by D-3417 crumb, verified this iter) — domove_swap_with_pet + domove_core rows carry test_move's omit text (a1eee6cb2 stamped test_move's single Named line into all 3 rows; 2358.2's Addressed stamp is false); true texts in D-3404 Named bullet (swap: C :2147 assert-implied-by-mtrapped, no JS assert export; core: displaceu middle-skip + upstream travel + CLIPPING) — fix: direct `ledger.mjs set` ×2 to those texts (verify each sub-omit still unshipped first, NOT via finish-iteration) + `hidden-proxy verify` on the 2 rows. Source: reviews/loop-unattended/2366-b127042af-batch-d3416.md (mechanism) + D-3417 journal crumb **Addressed:** D-3419
+
+
 - [x] `sfbase.c` norm_ptrs_u_roleplay — C sfbase.c:1087–1089 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
 - [x] `sfbase.c` norm_ptrs_version_info — C sfbase.c:1092–1094 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
 - [x] `sfbase.c` norm_ptrs_you — C sfbase.c:1107–1109 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
