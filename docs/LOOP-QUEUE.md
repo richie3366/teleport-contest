@@ -149,13 +149,9 @@ refilled with the last 3 absent `sfbase.c` stubs, `topl_putsym`, and 3
 `hacklib.c` partials the next batch preview still lists (THIN rechecks
 excluded: the six read complete in JS per the D-3403 note).
 
-- [ ] `sfbase.c` norm_ptrs_u_roleplay — C sfbase.c:1087–1089 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
-- [ ] `sfbase.c` norm_ptrs_version_info — C sfbase.c:1092–1094 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
-- [ ] `sfbase.c` norm_ptrs_you — C sfbase.c:1107–1109 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
 - [ ] `topl.c` topl_putsym — C topl.c:305–344 absent from js/ (no JS symbol, comment refs only, js-grep 2026-10-04; ledger unknown C 28/JS 0 MISSING; callers 2 — rows --all 2026-10-04) @e2943671c
-- [ ] `hacklib.c` strncmpi — partial js/hacklib.js:strncmpi (D-2967): call-site wiring arms in artifact.c, attrib.c, botl.c, cmd.c, coloratt.c, do.c, do_name.c, dungeon.c, … absent from js/ (full list in ledger omit; batch-preview 2026-10-04) @e2943671c
-- [ ] `hacklib.c` strstri — partial js/hacklib.js:strstri (D-2877): C apply.c:1412 attach-prompt `\033`-strip arm absent from js/apply.js:4813 (batch-preview 2026-10-04) @e2943671c
-- [ ] `hacklib.c` unicodeval_to_utf8str — partial js/hacklib.js:unicodeval_to_utf8str (D-2892): C glyphs.c:52–104 + utf8map.c:18–34,148–207 callee arms absent from js/ (full omit in ledger; batch-preview 2026-10-04) @e2943671c
+- [ ] `muse.c` find_offensive — partial js/muse.js:find_offensive: C muse.c:1431–1437 early returns (`in_your_sanctuary` + AD_HEAL-vs-naked-hero) absent from js/muse.js:645 (`deferred → treat as open` comment; full body brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
+- [ ] `muse.c` mbhitm — C muse.c:1597–1703 arms (WAN_CANCELLATION/SPE_CANCELLATION + seemimic + shieldeff + mon-target resists_magm/find_mac/hit-miss plines) absent from js/muse.js:785 local clone (named in :781–782 doc; brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

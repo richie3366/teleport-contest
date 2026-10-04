@@ -36,12 +36,12 @@
 {"fn":"dist2","c":"673-678","status":"ported","js":["js/hacklib.js:dist2"],"d":["D-3405","D-3327"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"isqrt","c":"682-700","status":"ported","js":["js/hacklib.js:isqrt"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"online2","c":"704-711","status":"ported","js":["js/hacklib.js:online2"],"at":"2026-10-03@bbe63333a"}
-{"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405","D-2967"],"at":"2026-10-04@198b7a2a7"}
-{"fn":"strstri","c":"740-779","status":"ported","js":["js/hacklib.js:strstri"],"d":["D-3405","D-2877"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"- `strncmpi`: compare loop whole (D-2967); this batch wired artifact/do/do_name/dungeon/trap/cmd/coloratt/symbols/botl/version/sp_lev/questpgr/mthrowu/wizcmds/mon/invent/hack/role/worn/files/options/shk sites above (35 C sites + 2 delegated clones); still local: mondata.c:1026/1047/1057–1063 `start…","d":["D-3418","D-3405","D-2967"],"at":"2026-10-04@89ee696e3"}
+{"fn":"strstri","c":"740-779","status":"ported","js":["js/hacklib.js:strstri"],"d":["D-3418","D-3405","D-2877"],"at":"2026-10-04@89ee696e3","note":"audited D-3418: whole vs C"}
 {"fn":"fuzzymatch","c":"785-808","status":"ported","js":["js/hacklib.js:fuzzymatch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"swapbits","c":"832-837","status":"ported","js":["js/hacklib.js:swapbits"],"at":"2026-10-03@bbe63333a"}
 {"fn":"nh_snprintf","c":"854-875","status":"by-design","d":["D-3324"],"at":"2026-10-02@c944311a4","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"unicodeval_to_utf8str","c":"882-919","status":"partial","js":["js/hacklib.js:unicodeval_to_utf8str"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405","D-2892"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"unicodeval_to_utf8str","c":"882-919","status":"ported","js":["js/hacklib.js:unicodeval_to_utf8str"],"d":["D-3418","D-3405","D-2892"],"at":"2026-10-04@89ee696e3"}
 {"fn":"case_insensitive_comp","c":"922-937","status":"ported","js":["js/date.js:case_insensitive_comp"],"at":"2026-09-30@779a41942","note":"stale: js/date.js:31 (local, wired at :118 for date.c:90; mdlib.c window-port + makedefs-util callers have no JS path)"}
 {"fn":"copy_bytes","c":"946-961","status":"by-design","d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"Rule #2: raw-fd read/write copy; scored callers all in recover_savefile binary path (files.c:3011/3021/3040, review 1431 no-counterpart); util/recover.c callers are build tools"}
 {"fn":"datamodel","c":"982-997","status":"ported","js":["js/version.js:datamodel"],"at":"2026-09-30@042bdf039","note":"stale: js/version.js:306; version.c:784 wired at js/files.js:1549, mdlib.c:699 at js/version.js:543"}

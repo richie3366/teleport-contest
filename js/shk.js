@@ -693,7 +693,7 @@ export async function u_entered_shop(enterstring) {
     const plname = game.plname || '';
     const cust = eshkp.customer || '';
     if ((!eshkp.visitct || cust)
-        && cust.toLowerCase() !== plname.toLowerCase().slice(0, 32)) {
+        && strncmpi(cust, plname, PL_NSIZ) !== 0) { // C shk.c:788
         eshkp.visitct = 0;
         eshkp.following = 0;
         eshkp.customer = plname.slice(0, 32);

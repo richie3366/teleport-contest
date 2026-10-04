@@ -6704,7 +6704,7 @@ export async function query_color(prompt, dflt_color) {
  */
 export async function query_attr(prompt, dflt_attr) {
     const dflt = dflt_attr | 0;
-    const allow_many = !!prompt && str_start_is(String(prompt), 'Choose', true);
+    const allow_many = !!prompt && strncmpi(String(prompt), 'Choose', 6) === 0; // C coloratt.c:402
     const raw = [
         { text: prompt ? String(prompt) : 'Pick an attribute', selectable: false },
     ];
@@ -12155,14 +12155,9 @@ function isOptSpace(ch) {
  * symbol is introduced (insight/vault/write keep their local clones). Only
  * the zero/nonzero distinction is observed, like C's `!strncmpi(...)`. */
 function optStrncasecmp(a, b, n) {
-    for (let k = 0; k < n; k++) {
-        const ca = k < a.length ? a[k] : '\0';
-        const cb = k < b.length ? b[k] : '\0';
-        const la = lowc(ca), lb = lowc(cb);
-        if (la !== lb) return la < lb ? -1 : 1;
-        if (ca === '\0') return 0;
-    }
-    return 0;
+    // Live hacklib export (C hacklib.c:717–734); the 16 call sites below
+    // are C options.c strncmpi arms. Same 0/-1/1 order, lowc fold.
+    return strncmpi(a, b, n);
 }
 
 /* C options.c `length_without_val` `:6739–6758` (staticfn) — length of the
@@ -12768,22 +12763,6 @@ const SYM_ALTERNATES = [
     ['S_explode8', 'S_expl_bc'], ['S_explode9', 'S_expl_br'],
 ];
 
-/* C strncmpi on NUL-terminated strings, ASCII-only fold like C tolower.
- * match_sym calls it with len = cut position; len past the name compares
- * buf chars against the name's NUL, so a match needs len === name length
- * plus a case-insensitive prefix hit (the `len >= strlen` + strncmpi pair
- * at `:885`/`:890`). */
-function symNameCiEq(a, b) {
-    if (a.length !== b.length) return false;
-    for (let i = 0; i < a.length; i++) {
-        let ca = a.charCodeAt(i), cb = b.charCodeAt(i);
-        if (ca >= 65 && ca <= 90) ca |= 0x20;
-        if (cb >= 65 && cb <= 90) cb |= 0x20;
-        if (ca !== cb) return false;
-    }
-    return true;
-}
-
 /**
  * C ref: symbols.c match_sym `:852–901` — resolve a config symbol name to
  * its loadsyms row. G_ lines never match (`:871–873`); a trailing space
@@ -12811,13 +12790,13 @@ export function match_sym(buf) {
     // in LOADSYMS, per the generated header).
     for (let i = 0; i < LOADSYMS.length && LOADSYMS[i][0]; i++) {
         const name = LOADSYMS[i][2];
-        if (len === name.length && symNameCiEq(buf.slice(0, len), name)) {
+        if (len >= name.length && strncmpi(buf, name, len) === 0) { // C symbols.c:885
             return { range: LOADSYMS[i][0], idx: LOADSYMS[i][1], name };
         }
     }
     // C `:889–899` alternates, then exact strcmp on the canonical name.
     for (const [altnm, nm] of SYM_ALTERNATES) {
-        if (len === altnm.length && symNameCiEq(buf.slice(0, len), altnm)) {
+        if (len >= altnm.length && strncmpi(buf, altnm, len) === 0) { // C symbols.c:891
             for (let i = 0; i < LOADSYMS.length && LOADSYMS[i][0]; i++) {
                 if (nm === LOADSYMS[i][2]) {
                     return {

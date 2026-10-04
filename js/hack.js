@@ -62,7 +62,7 @@ import { xname, the, The, Tobjnam, otense, makeplural, an, just_an, simple_typen
 import { A_STR, A_CON, A_DEX, acurr, acurrstr, exercise, Fumbling, adjalign } from './attrib.js';
 import { objdescr_is } from './apply.js';
 import { rn2, rnd, rn1 } from './rng.js';
-import { ing_suffix, upstart, dist2, depth } from './hacklib.js';
+import { ing_suffix, upstart, dist2, depth, strncmpi } from './hacklib.js';
 import { visible_region_at, reg_damg } from './region.js';
 import { midnight } from './calendar.js';
 import {
@@ -1802,8 +1802,7 @@ export async function unmul(msg_override) {
         // Unchanging wizard/explore Die? decline). (Ignore Hallu —
         // pmname direct, no rndmonnam.) strncmpi 18: short strings miss.
         const _nmm = game.nomovemsg || '';
-        if (Upolyd(game.u) && _nmm.length >= 18
-            && _nmm.slice(0, 18).toLowerCase() === 'you survived that ') {
+        if (Upolyd(game.u) && strncmpi(_nmm, 'You survived that ', 18) === 0) {
             await You('are %s.', an(pmname(game.u?.umonnum | 0, Ugender())));
         }
     }

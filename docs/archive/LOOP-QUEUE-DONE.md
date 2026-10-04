@@ -5,7 +5,15 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
-- [x] D-3402 declaration repair — `hmon_hitmon_splitmon` declared `ported` with no diff and no retired omit (body verified whole in review 2356; twin defect really_done already healed by D-3403, misc_obj pasted omit already healed by D-3406 — confirm both): `ledger.mjs set hmon_hitmon_splitmon ported --note "audited D-3402: whole vs C"` + audit the remaining 101 D-3402 rows for present accurate notes + verify. Source: reviews/loop-unattended/2356-7a3ae7a92-batch-d3402-display-uhitm.md **Addressed:** D-3417
+- [x] `sfbase.c` norm_ptrs_u_roleplay — C sfbase.c:1087–1089 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
+- [x] `sfbase.c` norm_ptrs_version_info — C sfbase.c:1092–1094 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
+- [x] `sfbase.c` norm_ptrs_you — C sfbase.c:1107–1109 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c
+- [x] `hacklib.c` strncmpi — partial js/hacklib.js:strncmpi (D-2967): call-site wiring arms in artifact.c, attrib.c, botl.c, cmd.c, coloratt.c, do.c, do_name.c, dungeon.c, … absent from js/ (full list in ledger omit; batch-preview 2026-10-04) @e2943671c
+- [x] `hacklib.c` strstri — partial js/hacklib.js:strstri (D-2877): C apply.c:1412 attach-prompt `\033`-strip arm absent from js/apply.js:4813 (batch-preview 2026-10-04) @e2943671c
+- [x] `hacklib.c` unicodeval_to_utf8str — partial js/hacklib.js:unicodeval_to_utf8str (D-2892): C glyphs.c:52–104 + utf8map.c:18–34,148–207 callee arms absent from js/ (full omit in ledger; batch-preview 2026-10-04) @e2943671c
+
+
+- [x] D-3402 declaration repair — `hmon_hitmon_splitmon` declared `ported` with no diff and no retired omit (body verified whole in review 2356; twin defect really_done already healed by D-3403, misc_obj pasted omit already healed by D-3406 — confirm both): `ledger.mjs set hmon_hitmon_splitmon ported --note "audited D-3402: whole vs C"` + audit the remaining 101 D-3402 rows for present accurate notes + verify. Source: reviews/loop-unattended/2356-7a3ae7a92-batch-d3402-display-uhitm.md **Addressed:** D-3417 `428fab59b`
 
 
 - [x] D-3404 pasted-omit ledger corruption — `test_move`, `domove_swap_with_pet`, `domove_core` rows carry moverock_core's omit text instead of their own (pre-rows at 198b7a2a7~1 + D-3404 D-log C-locus hold truth): `ledger.mjs set` each row to its true omit, verifying each sub-omit still unshipped (test_move minus stale block_door/block_entry) + re-run `hidden-proxy verify` on the three + confirm no other D-3404 row mislabels. Source: reviews/loop-unattended/2358-198b7a2a7-batch-d3404-hack-sfbase.md

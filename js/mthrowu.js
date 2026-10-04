@@ -8,7 +8,7 @@ import { rn2, rnd } from './rng.js';
 import {
     m_at, m_carrying, seemimic, setmangry, wake_nearto,
 } from './mon.js';
-import { distmin, dist2, upstart } from './hacklib.js';
+import { distmin, dist2, upstart, strncmpi } from './hacklib.js';
 import {
     COLNO, ROWNO, BOLT_LIM, MON_POLE_DIST, PET_MISSILE_RANGE2, IS_OBSTRUCTED, IS_DOOR,
     D_CLOSED, D_LOCKED, IRONBARS, IS_SINK,
@@ -550,20 +550,13 @@ export async function breamu(mtmp, mattk) {
 
 /**
  * C hacklib.c strncmpi for thitu's article test (`mthrowu.c:92–94`).
- * Not a fourth file-level strncmpi clone: three literal prefixes only.
- * A short string misses (C hits NUL against the next literal char).
+ * Live export: a short string misses (C hits NUL against the next
+ * literal char; strncmpi returns -1 there).
  */
 function thitu_ci_prefix(s, lit) {
     const n = lit.length;
-    if (typeof s !== 'string' || s.length < n) return false;
-    for (let i = 0; i < n; i++) {
-        let a = s.charCodeAt(i);
-        let b = lit.charCodeAt(i);
-        if (a >= 65 && a <= 90) a |= 32;
-        if (b >= 65 && b <= 90) b |= 32;
-        if (a !== b) return false;
-    }
-    return true;
+    if (typeof s !== 'string') return false;
+    return strncmpi(s, lit, n) === 0;
 }
 
 /**

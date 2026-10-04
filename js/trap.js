@@ -144,7 +144,7 @@ import {
 import { tamedog, wary_dog, abuse_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
-import { level_difficulty, depth, distmin, dist2, ordin, strsubst, upstart } from './hacklib.js';
+import { level_difficulty, depth, distmin, dist2, ordin, strsubst, upstart, strncmpi } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu, defended, resists_magm, attacktype } from './mondata.js';
 import { get_obj_location, burn_away_slime } from './timeout.js';
@@ -4462,7 +4462,7 @@ export async function erode_obj(otmp, ostr, type, ef_flags) {
 
     if (!ostr) ostr = cxname(otmp);
     /* C: 'visobj' messages insert "the"; probably ought to switch to the() */
-    if (visobj && !(uvictim || vismon) && ostr.slice(0, 4).toLowerCase() === 'the ') {
+    if (visobj && !(uvictim || vismon) && strncmpi(ostr, 'the ', 4) === 0) { // C trap.c:243
         ostr = ostr.slice(4);
     }
 

@@ -82,8 +82,8 @@
 {"fn":"norm_ptrs_u_event","c":"1072-1074","status":"ported","js":["js/sfbase.js:norm_ptrs_u_event"],"d":["D-3404"],"at":"2026-10-04@e2943671c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"norm_ptrs_u_have","c":"1077-1079","status":"ported","js":["js/sfbase.js:norm_ptrs_u_have"],"d":["D-3404"],"at":"2026-10-04@e2943671c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"norm_ptrs_u_realtime","c":"1082-1084","status":"ported","js":["js/sfbase.js:norm_ptrs_u_realtime"],"d":["D-3404"],"at":"2026-10-04@e2943671c","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"norm_ptrs_u_roleplay","c":"1087-1089","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"norm_ptrs_version_info","c":"1092-1094","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_u_roleplay","c":"1087-1089","status":"ported","js":["js/sfbase.js:norm_ptrs_u_roleplay"],"d":["D-3418"],"at":"2026-10-04@89ee696e3","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_version_info","c":"1092-1094","status":"ported","js":["js/sfbase.js:norm_ptrs_version_info"],"d":["D-3418"],"at":"2026-10-04@89ee696e3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"norm_ptrs_vlaunchinfo","c":"1097-1099","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"norm_ptrs_vptrs","c":"1102-1104","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"norm_ptrs_you","c":"1107-1109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_you","c":"1107-1109","status":"ported","js":["js/sfbase.js:norm_ptrs_you"],"d":["D-3418"],"at":"2026-10-04@89ee696e3","note":"refresh: no JS symbol (measured MISSING)"}

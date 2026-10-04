@@ -11,7 +11,7 @@ import { GameMap } from './game.js';
 import { rn2, rnd, rn1, rnz } from './rng.js';
 import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri, upstart, swapbits, stripdigits, str_lines_maxlen } from './hacklib.js';
+import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri, upstart, swapbits, stripdigits, str_lines_maxlen, strncmpi } from './hacklib.js';
 import { getbones, sanitize_name } from './bones.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
@@ -22811,7 +22811,7 @@ function find_objtype(s, oclass) {
             ['wand of ', WAND_CLASS],
         ];
         for (const [p, cls] of prefixes) {
-            if (name.slice(0, p.length).toLowerCase() === p.toLowerCase()) {
+            if (strncmpi(name, p, p.length) === 0) { // C sp_lev.c:3498
                 classv = cls;
                 name = name.slice(p.length);
                 break;

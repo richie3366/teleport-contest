@@ -10,7 +10,7 @@
 // D-1639.
 
 import { game } from './gstate.js';
-import { mungspaces } from './hacklib.js';
+import { mungspaces, strncmpi } from './hacklib.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, mark_topline_prompt, clear_win_stop,
@@ -1386,7 +1386,7 @@ export function extcmds_match(findstr, ecmflags) {
             out.push(i);
         } else if (exactmatch) {
             if (e.txt.toLowerCase() === needle) out.push(i);
-        } else if (e.txt.toLowerCase().startsWith(needle)) {
+        } else if (strncmpi(findstr, e.txt, String(findstr).length) === 0) { // C cmd.c:2548, fslen
             out.push(i);
         }
     }

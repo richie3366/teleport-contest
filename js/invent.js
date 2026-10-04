@@ -249,7 +249,7 @@ import {
     from_what, stone_luck, set_moreluck,
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
-import { ing_suffix, strstri, strsubst, ordin, highc, lcase } from './hacklib.js';
+import { ing_suffix, strstri, strsubst, ordin, highc, lcase, strncmpi } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
 import { map_menu_cmd, select_menu_pick_any, select_menu_pick_one, hide_unhide_msgtypes, set_option_mod_status, SET_GAMEVIEW } from './options.js';
 import { rn2 } from './rng.js';
@@ -8712,9 +8712,9 @@ async function noarmor(report_uskin) {
         return;
     }
     // C: strcpy(buf, simpleonames(uskin)); then strncmpi "set of " +
-    // strstri " dragon " in-place (p[1]=p[8]). Do not add strncmpi #4.
+    // strstri " dragon " in-place (p[1]=p[8]).
     let uskinname = simpleonames(uskin);
-    if (uskinname.slice(0, 7).toLowerCase() === 'set of ') {
+    if (strncmpi(uskinname, 'set of ', 7) === 0) { // C invent.c:4588
         uskinname = uskinname.slice(7);
     }
     const p = strstri(uskinname, ' dragon ');
