@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3406 batch @44ce1ba38: sp_lev/pickup/mkobj/uhitm/detect/teleport/selvar/alloc/mkmaze/mcastu/shk remainder (100 fns, 0 left open)
+
+**C locus:** - `add_doors_to_room`: sp_lev.c:5551 — called raw add_door, skipping maybe_add_door's hx>=0/inside/roomno gate.
+**JS:** - `add_doors_to_room`: [mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:18971) — maybe_add_door(x, y, croom).
+**Change:** ported every named arm in C order (details per function under JS/Callers); retired the stale omits; moved fmt_ptr to alloc.js with its 3 users re-imported; wired all inline typ writers to set_levltyp; reverted the fixup_special guard removal after it regressed the fortress (two-call pattern proven, comment records it).
+**Verify:** `node scripts/verify.mjs --fn <all 100 manifest fns>` — PASS sweep 100 fn(s): 714 baseline-PASS re-run in 252.1s, 0 regressed → REACH-OK; green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44; VERIFY: PASS (exit 0). Per-file checkpoints (sp_lev/pickup/mkobj/uhitm/detect/teleport/selvar/alloc/mkmaze/mcastu/shk) all ended VERIFY: PASS. Mid-batch triage: mkmaze checkpoint failed 2 sessions (fixup_special guard removal re-firing place_lregion on pre-walked lregions — reverted with rationale) and one rule2 self-hit (seed name in the new comment — removed); re-ran green.
+**Named:** - `reveal_terrain_getglyph`: visible_region_at/gascloud arms (`reg && glyph_is_gascloud`, `!seenv`+region GLYPH_UNEXPLORED, keep_traps region-glyph restore) + arboreal default cell — display-model work, rare edge.
+**Next:** display_minventory PICK_NONE INCLUDE_HERO analog (invent.js:4421 note); files.js merge_choice shop-arm parity check vs merge_choice_invent; fixup two-call restructure (drop the made_branch guard properly); dead splev_build_room helper (mklev.js:24062, no callers); l_push_wid_hei_table :2406 cite drift (:6318 vs :6309).
 ## 2026-10-04 — D-3405 batch @198b7a2a7: hacklib/eat/botl/engrave/mondata/cfgfiles remainder (100 fns, 0 left open)
 
 **C locus:** - `strstri`: apply.c:1412 — use_candle attach prompt runs safe_qbuf(obj) + `Strcpy(q, " to ")` truncation + safe_qbuf(otmp); JS built the prompt from a single template.

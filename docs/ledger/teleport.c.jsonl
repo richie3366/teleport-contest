@@ -1,20 +1,20 @@
-{"fn":"m_blocks_teleporting","c":"21-26","status":"ported","js":["js/teleport.js:m_blocks_teleporting"],"d":["D-3070"],"at":"2026-09-28@3bee10e1d"}
-{"fn":"noteleport_level","c":"30-47","status":"ported","js":["js/teleport.js:noteleport_level"],"d":["D-2940"],"at":"seed@a30a7de84"}
+{"fn":"m_blocks_teleporting","c":"21-26","status":"ported","js":["js/teleport.js:m_blocks_teleporting"],"d":["D-3406","D-3070"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"noteleport_level","c":"30-47","status":"ported","js":["js/teleport.js:noteleport_level"],"d":["D-3406","D-2940"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"goodpos_onscary","c":"53-76","status":"ported","js":["js/teleport.js:goodpos_onscary"],"d":["D-1102"],"at":"2026-10-03@bbe63333a"}
 {"fn":"goodpos","c":"86-185","status":"ported","js":["js/teleport.js:goodpos"],"d":["D-2171","D-2096","D-1110","D-1101","D-1100","D-1099"],"at":"2026-10-03@bbe63333a"}
 {"fn":"enexto","c":"196-203","status":"ported","js":["js/teleport.js:enexto"],"at":"2026-10-03@bbe63333a"}
 {"fn":"enexto_gpflags","c":"206-214","status":"ported","js":["js/teleport.js:enexto_gpflags"],"at":"2026-10-03@bbe63333a"}
-{"fn":"enexto_core","c":"219-276","status":"ported","js":["js/teleport.js:enexto_core"],"d":["D-3070"],"at":"2026-09-28@3bee10e1d","note":"alt 281-376"}
-{"fn":"tele_jump_ok","c":"386-417","status":"ported","js":["js/teleport.js:tele_jump_ok"],"d":["D-3070"],"at":"2026-09-28@3bee10e1d"}
+{"fn":"enexto_core","c":"219-276","status":"ported","js":["js/teleport.js:enexto_core"],"d":["D-3406","D-3070"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"tele_jump_ok","c":"386-417","status":"ported","js":["js/teleport.js:tele_jump_ok"],"d":["D-3406","D-3070"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"teleok","c":"420-445","status":"ported","js":["js/teleport.js:teleok"],"d":["D-1119","D-1111"],"at":"2026-10-03@bbe63333a"}
 {"fn":"teleds","c":"448-573","status":"ported","js":["js/teleport.js:teleds"],"d":["D-1142","D-1141","D-1140","D-1139","D-1132","D-1131"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: named omits are callee-side (fill_pit thin, vision callers); unit body complete"}
-{"fn":"safe_teleds","c":"717-770","status":"partial","js":["js/teleport.js:safe_teleds"],"omit":"`do.c:1566` stays inside the deferred Gehennom amulet mysteryforce arm (`js/do.js:1544`), so same-level `safe_teleds` + `next_to_u` is not reached.","d":["D-2815"],"at":"seed@a30a7de84"}
+{"fn":"safe_teleds","c":"717-770","status":"ported","js":["js/teleport.js:safe_teleds"],"d":["D-3406","D-2815"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"vault_tele","c":"773-783","status":"ported","js":["js/teleport.js:vault_tele"],"d":["D-1153"],"at":"2026-10-03@bbe63333a"}
-{"fn":"teleport_pet","c":"786-810","status":"partial","js":["js/teleport.js:teleport_pet"],"omit":"omits Your(leash goes slack.) before m_unleash(mtmp,FALSE) (C teleport.c:803); JS m_unleash with feedback=false prints nothing","at":"2026-10-03@bbe63333a"}
+{"fn":"teleport_pet","c":"786-810","status":"ported","js":["js/teleport.js:teleport_pet"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"tele_to_rnd_pet","c":"814-838","status":"ported","js":["js/teleport.js:tele_to_rnd_pet"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: only omit is impossible() diagnostic on noteleport arm"}
 {"fn":"tele","c":"842-845","status":"ported","js":["js/teleport.js:tele"],"d":["D-1133"],"at":"2026-10-03@bbe63333a"}
 {"fn":"scrolltele","c":"849-915","status":"ported","js":["js/teleport.js:scrolltele"],"d":["D-1206","D-1205","D-1197","D-1184"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dotelecmd","c":"919-1031","status":"ported","js":["js/teleport.js:dotelecmd"],"d":["D-3070","D-1209"],"at":"2026-09-28@3bee10e1d"}
+{"fn":"dotelecmd","c":"919-1031","status":"ported","js":["js/teleport.js:dotelecmd"],"d":["D-3406","D-3070","D-1209"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"dotele","c":"1034-1162","status":"ported","js":["js/teleport.js:dotele"],"d":["D-1208"],"at":"2026-10-03@bbe63333a"}
 {"fn":"level_tele","c":"1165-1441","status":"ported","js":["js/teleport.js:level_tele"],"d":["D-2136","D-2054","D-1846"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug_fuzzer arms (test harness) not ported; suicide Nowhere branch complete incl done/rematerialize"}
 {"fn":"domagicportal","c":"1444-1489","status":"ported","js":["js/teleport.js:domagicportal"],"at":"2026-10-03@bbe63333a"}
@@ -31,6 +31,6 @@
 {"fn":"tele_restrict","c":"1950-1959","status":"ported","js":["js/teleport.js:tele_restrict"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mtele_trap","c":"1962-2002","status":"ported","js":["js/teleport.js:mtele_trap"],"d":["D-3021"],"at":"2026-09-28@9dc8a2506","note":"stale 2026-09-20"}
 {"fn":"mlevel_tele_trap","c":"2006-2098","status":"ported","js":["js/teleport.js:mlevel_tele_trap"],"d":["D-1112"],"at":"2026-10-03@bbe63333a"}
-{"fn":"rloco","c":"2102-2187","status":"partial","js":["js/teleport.js:rloco"],"omit":"`mkobj.c:2081` `mkcorpstat` x==0&&y==0 `rloco` — JS `mkcorpstat` is sync with 5+ transitive sync callers (end.js `mk_named_object`, mhitm `make_corpse`); async cascade is its own row.","d":["D-2463"],"at":"seed@a30a7de84"}
+{"fn":"rloco","c":"2102-2187","status":"ported","js":["js/teleport.js:rloco"],"d":["D-3406","D-2463"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"random_teleport_level","c":"2191-2258","status":"ported","js":["js/teleport.js:random_teleport_level"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"u_teleport_mon","c":"2263-2292","status":"ported","js":["js/teleport.js:u_teleport_mon"],"at":"2026-10-03@bbe63333a"}

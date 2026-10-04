@@ -11,9 +11,9 @@
 {"fn":"check_map_spot","c":"262-309","status":"ported","js":["js/detect.js:check_map_spot"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clear_stale_map","c":"318-331","status":"ported","js":["js/detect.js:clear_stale_map"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gold_detect","c":"335-475","status":"ported","js":["js/detect.js:gold_detect"],"d":["D-1773"],"at":"2026-10-03@bbe63333a"}
-{"fn":"food_detect","c":"479-594","status":"ported","js":["js/detect.js:food_detect"],"d":["D-3404","D-1781"],"at":"2026-10-04@e2943671c","note":"refresh: audited — full C-order body js/detect.js:1691 (JS=0 is a coverage-indexer artifact)"}
+{"fn":"food_detect","c":"479-594","status":"ported","js":["js/detect.js:food_detect"],"d":["D-3406","D-3404","D-1781"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"object_detect","c":"603-789","status":"ported","js":["js/detect.js:object_detect"],"d":["D-1782"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: display_nhwindow absence arm is a flush; illegal-class impossible silent"}
-{"fn":"monster_detect","c":"798-862","status":"partial","js":["js/detect.js:monster_detect"],"omit":"- `moverock_core`: unmap_object trap/engr arms in dopush (remembered-glyph clear stands in); squeezeablylightinvent pack-weight arm lives in could_move_onto_boulder, not here; launch_obj's own omissions stay with D-2318.","d":["D-3404","D-2081"],"at":"2026-10-04@e2943671c","note":"audit 2026-10-03: scan/map/sense/browse arms live"}
+{"fn":"monster_detect","c":"798-862","status":"ported","js":["js/detect.js:monster_detect"],"d":["D-3406","D-3404","D-2081"],"at":"2026-10-04@44ce1ba38","note":"audit 2026-10-03: scan/map/sense/browse arms live"}
 {"fn":"sense_trap","c":"865-897","status":"ported","js":["js/detect.js:sense_trap"],"d":["D-1753"],"at":"2026-10-03@bbe63333a"}
 {"fn":"detect_obj_traps","c":"907-953","status":"ported","js":["js/detect.js:detect_obj_traps"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ft-arm flash_glyph_at/foundone visual-only calls omitted; counts live"}
 {"fn":"display_trap_map","c":"956-1003","status":"ported","js":["js/detect.js:display_trap_map"],"at":"2026-10-03@bbe63333a"}
@@ -38,6 +38,6 @@
 {"fn":"warnreveal","c":"2107-2120","status":"ported","js":["js/detect.js:warnreveal"],"at":"2026-10-03@bbe63333a"}
 {"fn":"skip_premap_detect","c":"2124-2130","status":"ported","js":["js/detect.js:skip_premap_detect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"premap_detect","c":"2134-2159","status":"ported","js":["js/detect.js:premap_detect"],"at":"2026-10-03@bbe63333a"}
-{"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"partial","js":["js/display.js:reveal_terrain_getglyph"],"omit":"- `moverock_core`: unmap_object trap/engr arms in dopush (remembered-glyph clear stands in); squeezeablylightinvent pack-weight arm lives in could_move_onto_boulder, not here; launch_obj's own omissions stay with D-2318.","d":["D-3404","D-3366","D-3363"],"at":"2026-10-04@e2943671c"}
+{"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"partial","js":["js/display.js:reveal_terrain_getglyph"],"omit":"- `reveal_terrain_getglyph`: visible_region_at/gascloud arms (`reg && glyph_is_gascloud`, `!seenv`+region GLYPH_UNEXPLORED, keep_traps region-glyph restore) + arboreal default cell — display-model work, rare edge.","d":["D-3406","D-3404","D-3366","D-3363"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"dump_map","c":"2294-2349","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: dumplog-only output (putstr winid 0), DUMPLOG retired D-1776"}
 {"fn":"reveal_terrain","c":"2356-2414","status":"ported","js":["js/detect.js:reveal_terrain"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

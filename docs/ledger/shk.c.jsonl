@@ -1,5 +1,5 @@
-{"fn":"money2mon","c":"157-178","status":"partial","js":["js/shk.js:money2mon"],"omit":"quiver arm: C remove_worn_item(ygold,FALSE) when quan==amount&&owornmask; JS splices invent without unwearing (stale quiver); impossible() diagnostics dropped","at":"2026-10-03@bbe63333a"}
-{"fn":"money2u","c":"186-212","status":"partial","js":["js/shk.js:money2u"],"omit":"`zap.c:1967` `poly_obj` shop-bill arm stays the named omit on `js/zap.js` `poly_obj` (no `shop_keeper` call).","d":["D-2901"],"at":"seed@a30a7de84"}
+{"fn":"money2mon","c":"157-178","status":"ported","js":["js/shk.js:money2mon"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
+{"fn":"money2u","c":"186-212","status":"ported","js":["js/shk.js:money2u"],"d":["D-3406","D-2901"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"next_shkp","c":"215-231","status":"ported","js":["js/shk.js:next_shkp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shkgone","c":"235-269","status":"ported","js":["js/mhitm.js:shkgone"],"d":["D-2272"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_residency","c":"272-277","status":"ported","js":["js/shk.js:set_residency"],"at":"2026-10-03@bbe63333a"}
@@ -7,9 +7,9 @@
 {"fn":"restshk","c":"290-305","status":"ported","js":["js/shk.js:restshk"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"clear_unpaid_obj","c":"309-315","status":"ported","js":["js/shk.js:clear_unpaid_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clear_unpaid","c":"319-325","status":"ported","js":["js/shk.js:clear_unpaid"],"at":"2026-10-03@bbe63333a"}
-{"fn":"clear_no_charge_obj","c":"329-373","status":"partial","js":["js/shk.js:clear_no_charge_obj"],"omit":"OBJ_BURIED arm: C resolves buried coords via get_obj_location and keeps no_charge in an inhabited rival shop; JS clears buried unconditionally","at":"2026-10-03@bbe63333a"}
-{"fn":"clear_no_charge","c":"377-385","status":"ported","js":["js/shk.js:clear_no_charge"],"at":"2026-10-03@bbe63333a"}
-{"fn":"clear_no_charge_pets","c":"389-396","status":"ported","js":["js/shk.js:clear_no_charge_pets"],"at":"2026-10-03@bbe63333a"}
+{"fn":"clear_no_charge_obj","c":"329-373","status":"ported","js":["js/shk.js:clear_no_charge_obj"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
+{"fn":"clear_no_charge","c":"377-385","status":"ported","js":["js/shk.js:clear_no_charge"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"clear_no_charge_pets","c":"389-396","status":"ported","js":["js/shk.js:clear_no_charge_pets"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"setpaid","c":"400-434","status":"ported","js":["js/shk.js:setpaid"],"at":"2026-10-03@bbe63333a"}
 {"fn":"addupbill","c":"496-507","status":"ported","js":["js/shk.js:addupbill"],"at":"2026-10-03@bbe63333a"}
 {"fn":"call_kops","c":"510-564","status":"ported","js":["js/shk.js:call_kops"],"at":"2026-09-27@a5d26e462","note":"stale: complete at js/shk.js:390, both C callers wired (:352,:531)"}
@@ -25,7 +25,7 @@
 {"fn":"shop_debt","c":"990-999","status":"ported","js":["js/shk.js:shop_debt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shopper_financial_report","c":"1003-1035","status":"ported","js":["js/shk.js:shopper_financial_report"],"d":["D-1740"],"at":"2026-10-03@bbe63333a"}
 {"fn":"inhishop","c":"1039-1048","status":"ported","js":["js/teleport.js:inhishop"],"at":"2026-10-03@bbe63333a"}
-{"fn":"shop_keeper","c":"1052-1080","status":"partial","js":["js/shk.js:shop_keeper"],"omit":"`zap.c:1967` `poly_obj` shop-bill arm stays the named omit on `js/zap.js` `poly_obj` (no `shop_keeper` call).","d":["D-2901"],"at":"seed@a30a7de84"}
+{"fn":"shop_keeper","c":"1052-1080","status":"ported","js":["js/shk.js:shop_keeper"],"d":["D-3406","D-2901"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"find_objowner","c":"1084-1115","status":"ported","js":["js/shk.js:find_objowner"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tended_shop","c":"1118-1123","status":"ported","js":["js/sounds.js:tended_shop"],"at":"2026-10-03@bbe63333a"}
 {"fn":"noisy_shop","c":"1126-1133","status":"ported","js":["js/sounds.js:noisy_shop"],"at":"2026-10-03@bbe63333a"}
@@ -35,8 +35,8 @@
 {"fn":"delete_contents","c":"1175-1183","status":"ported","js":["js/shk.js:delete_contents"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obfree","c":"1187-1275","status":"ported","js":["js/shk.js:obfree"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_credit","c":"1278-1294","status":"ported","js":["js/shk.js:check_credit"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
-{"fn":"pay","c":"1297-1313","status":"ported","js":["js/shk.js:pay"],"d":["D-3051"],"at":"2026-09-28@e96a1ef43"}
-{"fn":"home_shk","c":"1317-1328","status":"partial","js":["js/shk.js:home_shk"],"omit":"C mnearto(shkp,x,y,TRUE,RLOC_NOMSG) near-placement incl. occupant displacement; JS sets exact mx/my+newsym (can stack on occupant)","at":"2026-10-03@bbe63333a"}
+{"fn":"pay","c":"1297-1313","status":"ported","js":["js/shk.js:pay"],"d":["D-3406","D-3051"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"home_shk","c":"1317-1328","status":"ported","js":["js/shk.js:home_shk"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"angry_shk_exists","c":"1331-1340","status":"ported","js":["js/shk.js:angry_shk_exists"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pacify_shk","c":"1344-1358","status":"ported","js":["js/shk.js:pacify_shk"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}
 {"fn":"rile_shk","c":"1362-1377","status":"ported","js":["js/shk.js:rile_shk"],"at":"2026-10-03@bbe63333a"}
@@ -46,7 +46,7 @@
 {"fn":"hot_pursuit","c":"1449-1463","status":"ported","js":["js/shk.js:hot_pursuit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_angry_shk","c":"1470-1489","status":"ported","js":["js/shk.js:make_angry_shk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sortbill_cmp","c":"1499-1518","status":"ported","js":["js/shk.js:sortbill_cmp"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cheapest_item","c":"1522-1539","status":"ported","js":["js/shk.js:cheapest_item"],"d":["D-1688"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cheapest_item","c":"1522-1539","status":"ported","js":["js/shk.js:cheapest_item"],"d":["D-3406","D-1688"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"make_itemized_bill","c":"1545-1663","status":"ported","js":["js/shk.js:make_itemized_bill"],"at":"2026-10-03@bbe63333a"}
 {"fn":"menu_pick_pay_items","c":"1668-1739","status":"ported","js":["js/shk.js:menu_pick_pay_items"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dopay","c":"1743-2035","status":"ported","js":["js/shk.js:dopay"],"d":["D-1716","D-1704"],"at":"2026-10-03@bbe63333a"}

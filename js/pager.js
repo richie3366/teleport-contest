@@ -382,7 +382,7 @@ function youmonst_for_hidden() {
  * (D-1554, `:122–126`) + Punished ", chained to %s" (`:127–129`) + utrap
  * ", <trap_predicament>" (`:130–131`).
  */
-function self_lookat() {
+export function self_lookat() {
     const u = game.u || {};
     // C: race only when !Upolyd; Sprintf(race, "%s ", urace.adj)
     let race = '';

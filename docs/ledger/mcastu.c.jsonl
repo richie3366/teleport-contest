@@ -16,11 +16,11 @@
 {"fn":"mcast_lightning","c":"566-598","status":"ported","js":["js/mcastu.js:mcast_lightning"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_psi_bolt","c":"601-621","status":"ported","js":["js/mcastu.js:mcast_psi_bolt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_open_wounds","c":"624-642","status":"ported","js":["js/mcastu.js:mcast_open_wounds"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mcast_insects","c":"645-726","status":"partial","js":["js/mcastu.js:mcast_insects"],"omit":"File-level `Deaf()` (`js/mcastu.js:146`) still ORs sticky `u.Deaf` for the other spells.","d":["D-2835","D-2828"],"at":"seed@a30a7de84"}
+{"fn":"mcast_insects","c":"645-726","status":"ported","js":["js/mcastu.js:mcast_insects"],"d":["D-3406","D-2835","D-2828"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mcast_blind_you","c":"729-743","status":"ported","js":["js/mcastu.js:mcast_blind_you"],"d":["D-1534"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_paralyze","c":"746-768","status":"ported","js":["js/mcastu.js:mcast_paralyze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_confuse_you","c":"771-790","status":"ported","js":["js/mcastu.js:mcast_confuse_you"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mcast_spell","c":"801-897","status":"ported","js":["js/mcastu.js:mcast_spell"],"d":["D-2614"],"at":"seed@a30a7de84"}
-{"fn":"is_undirected_spell","c":"900-905","status":"ported","js":["js/mcastu.js:is_undirected_spell"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mcast_spell","c":"801-897","status":"ported","js":["js/mcastu.js:mcast_spell"],"d":["D-3406","D-2614"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"is_undirected_spell","c":"900-905","status":"ported","js":["js/mcastu.js:is_undirected_spell"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"spell_would_be_useless","c":"909-985","status":"ported","js":["js/mcastu.js:spell_would_be_useless"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"buzzmu","c":"989-1012","status":"ported","js":["js/mcastu.js:buzzmu"],"at":"2026-10-03@bbe63333a"}

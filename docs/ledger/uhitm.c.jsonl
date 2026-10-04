@@ -17,7 +17,7 @@
 {"fn":"hmon_hitmon_weapon_melee","c":"934-1067","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon_melee"],"d":["D-3262","D-2152"],"at":"2026-10-02@a7d88d8ff"}
 {"fn":"hmon_hitmon_weapon","c":"1070-1092","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_potion","c":"1095-1116","status":"ported","js":["js/uhitm.js:hmon_hitmon_potion"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"hmon_hitmon_misc_obj","c":"1119-1383","status":"partial","js":["js/uhitm.js:hmon_hitmon_misc_obj"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2486"],"at":"2026-10-04@e77f3975a"}
+{"fn":"hmon_hitmon_misc_obj","c":"1119-1383","status":"ported","js":["js/uhitm.js:hmon_hitmon_misc_obj"],"d":["D-3406","D-3402","D-2486"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"hmon_hitmon_do_hit","c":"1387-1433","status":"ported","js":["js/uhitm.js:hmon_hitmon_do_hit"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_dmg_recalc","c":"1436-1507","status":"ported","js":["js/uhitm.js:hmon_hitmon_dmg_recalc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hmon_hitmon_poison","c":"1510-1538","status":"partial","js":["js/uhitm.js:hmon_hitmon_poison"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-3402","D-2839"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
@@ -27,10 +27,10 @@
 {"fn":"hmon_hitmon_splitmon","c":"1604-1634","status":"ported","js":["js/uhitm.js:hmon_hitmon_splitmon"],"d":["D-3402","D-2872"],"at":"2026-10-04@e77f3975a"}
 {"fn":"hmon_hitmon_msg_hit","c":"1637-1660","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_hit"],"d":["D-3402","D-2872"],"at":"2026-10-04@e77f3975a"}
 {"fn":"hmon_hitmon_msg_silver","c":"1663-1699","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_silver"],"at":"2026-10-03@bbe63333a"}
-{"fn":"hmon_hitmon_msg_lightobj","c":"1702-1730","status":"partial","js":["js/uhitm.js:hmon_hitmon_msg_lightobj"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2865"],"at":"2026-10-04@e77f3975a"}
+{"fn":"hmon_hitmon_msg_lightobj","c":"1702-1730","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_lightobj"],"d":["D-3406","D-3402","D-2865"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"hmon_hitmon","c":"1754-1935","status":"ported","js":["js/uhitm.js:hmon_hitmon"],"d":["D-3275","D-3253","D-1907","D-1232"],"at":"2026-10-02@51548d8db"}
 {"fn":"mhurtle_to_doom","c":"1942-1958","status":"ported","js":["js/uhitm.js:mhurtle_to_doom"],"at":"2026-10-03@bbe63333a"}
-{"fn":"first_weapon_hit","c":"1963-1989","status":"partial","js":["js/uhitm.js:first_weapon_hit"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2865"],"at":"2026-10-04@e77f3975a"}
+{"fn":"first_weapon_hit","c":"1963-1989","status":"ported","js":["js/uhitm.js:first_weapon_hit"],"d":["D-3406","D-3402","D-2865"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"shade_aware","c":"1992-2011","status":"ported","js":["js/mhitm.js:shade_aware"],"at":"2026-09-30@990da2b8d","note":"stale: js/mhitm.js:5677, whole C body, 2 C callers wired (uhitm.js:1894, mhitm.js:5710)"}
 {"fn":"shade_miss","c":"2016-2051","status":"ported","js":["js/mhitm.js:shade_miss"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_slips_free","c":"2056-2093","status":"ported","js":["js/uhitm.js:m_slips_free"],"d":["D-1348"],"at":"2026-10-03@bbe63333a"}
@@ -52,25 +52,25 @@
 {"fn":"mhitm_ad_blnd","c":"2958-3012","status":"split","js":["js/mhitm.js:mhitm_ad_blnd","js/mhitu.js:mhitm_ad_blnd_u"],"d":["D-3216","D-3214","D-2540"],"at":"2026-10-01@d54d5687c"}
 {"fn":"mhitm_ad_curs","c":"3015-3096","status":"split","js":["js/mhitm.js:mhitm_ad_curs","js/mhitu.js:mhitm_ad_curs_u","js/uhitm.js:damageum_ad_curs"],"d":["D-2260","D-2259"],"at":"2026-10-01@ea58ae969","note":"audit 2195-2202 sample: mhitm+mhitu+uhitm arms live in three homes; row said ported (measured THIN C59/JS25)"}
 {"fn":"mhitm_really_poison","c":"3104-3119","status":"ported","js":["js/mhitm.js:mhitm_really_poison"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mhitm_ad_drst","c":"3122-3165","status":"partial","js":["js/mhitm.js:mhitm_ad_drst"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2797"],"at":"2026-10-04@e77f3975a"}
+{"fn":"mhitm_ad_drst","c":"3122-3165","status":"ported","js":["js/mhitm.js:mhitm_ad_drst"],"d":["D-3406","D-3402","D-2797"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mhitm_ad_drin","c":"3168-3303","status":"split","js":["js/uhitm.js:mhitm_ad_drin","js/mhitm.js:mhitm_ad_drin","js/mhitu.js:mhitm_ad_drin_u"],"d":["D-3402","D-1307"],"at":"2026-10-04@e77f3975a","note":"audit 2114-2122: uhitm hero-mon arm + mhitm mon-mon arm (D-1329); was ported@uhitm only"}
-{"fn":"mhitm_ad_stck","c":"3306-3334","status":"partial","js":["js/mhitm.js:mhitm_ad_stck"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2855"],"at":"2026-10-04@e77f3975a"}
+{"fn":"mhitm_ad_stck","c":"3306-3334","status":"ported","js":["js/mhitm.js:mhitm_ad_stck"],"d":["D-3406","D-3402","D-2855"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mhitm_ad_wrap","c":"3337-3428","status":"ported","js":["js/uhitm.js:mhitm_ad_wrap"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mhitm_ad_plys","c":"3431-3476","status":"split","js":["js/mhitm.js:mhitm_ad_plys","js/mhitu.js:mhitm_ad_plys_u","js/uhitm.js:damageum_ad_plys"],"d":["D-2128"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_plys, mhitu plys_u, mhitm base; D-2128)"}
 {"fn":"mhitm_ad_slee","c":"3479-3522","status":"split","js":["js/mhitm.js:mhitm_ad_slee","js/mhitu.js:mhitm_ad_slee_u"],"d":["D-3211","D-1857"],"at":"2026-10-01@b9de54524"}
-{"fn":"mhitm_ad_slim","c":"3526-3600","status":"split","js":["js/mhitm.js:mhitm_ad_slim","js/mhitu.js:mhitm_ad_slim_u"],"d":["D-3402","D-2539"],"at":"2026-10-04@e77f3975a"}
+{"fn":"mhitm_ad_slim","c":"3526-3600","status":"split","js":["js/mhitm.js:mhitm_ad_slim"],"d":["D-3406","D-3402","D-2539"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"mhitm_ad_ench","c":"3603-3649","status":"split","js":["js/mhitu.js:mhitm_ad_ench_u"],"at":"2026-09-27@d2d72caa6","note":"refresh: mhitu arm in mhitm_ad_ench_u (uhitm/mhitm are C no-ops)"}
 {"fn":"mhitm_ad_slow","c":"3652-3687","status":"split","js":["js/mhitm.js:mhitm_ad_slow","js/uhitm.js:damageum_ad_slow","js/mhitu.js:mhitm_ad_slow_u"],"d":["D-3214","D-2392"],"at":"2026-10-01@2eced4253"}
 {"fn":"mhitm_ad_conf","c":"3690-3726","status":"partial","js":["js/mhitm.js:mhitm_ad_conf"],"omit":"`gazemu`'s AD_CONF case (`js/mhitu.js:3694`) is the hero-gaze attack, not a caller of `mhitm_ad_conf`.","d":["D-3402","D-2894"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
 {"fn":"mhitm_ad_poly","c":"3729-3774","status":"split","js":["js/mhitm.js:mhitm_ad_poly","js/mhitu.js:mhitm_ad_poly_u"],"d":["D-3402","D-2657"],"at":"2026-10-04@e77f3975a"}
 {"fn":"mhitm_ad_famn","c":"3777-3805","status":"split","js":["js/mhitm.js:mhitm_ad_famn","js/mhitu.js:mhitm_ad_famn_u"],"d":["D-2033"],"at":"2026-10-01@c47034f0d","note":"audit 2149: uhitm.c:3776-3805 represented by mon-mon body plus mhitu helper at mhitu.js:2595; unreachable hero FAMN entry routes the same mon-mon arm"}
 {"fn":"mhitm_ad_pest","c":"3808-3834","status":"ported","js":["js/mhitm.js:mhitm_ad_pest"],"d":["D-2872"],"at":"2026-10-01@e0549fe8b","note":"stale: js/mhitm.js:4504 (whole :3807-3834: uhitm-goto + mhitu pline/diseasemu + mhitm AD_DISE redispatch; 3 JS call sites wired)"}
-{"fn":"mhitm_ad_deth","c":"3837-3894","status":"partial","js":["js/mhitm.js:mhitm_ad_deth"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2865"],"at":"2026-10-04@e77f3975a"}
+{"fn":"mhitm_ad_deth","c":"3837-3894","status":"ported","js":["js/mhitm.js:mhitm_ad_deth"],"d":["D-3406","D-3402","D-2865"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mhitm_ad_halu","c":"3897-3921","status":"ported","js":["js/mhitm.js:mhitm_ad_halu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mhitm arm live; uhitm zero arm in damageum_adtyping; sole caller mon-vs-mon"}
 {"fn":"do_stone_u","c":"3924-3942","status":"ported","js":["js/mhitu.js:do_stone_u"],"d":["D-3402"],"at":"2026-10-04@e77f3975a"}
-{"fn":"do_stone_mon","c":"3945-3978","status":"partial","js":["js/mhitm.js:do_stone_mon"],"omit":"munstone(mdef,FALSE)→post_stone pre-check arm (acid-death/lifesaver path)","at":"2026-10-03@bbe63333a"}
+{"fn":"do_stone_mon","c":"3945-3978","status":"ported","js":["js/mhitm.js:do_stone_mon"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mhitm_ad_phys","c":"3981-4200","status":"split","js":["js/uhitm.js:damageum_ad_phys","js/mhitu.js:mhitm_ad_phys_u","js/mhitm.js:mhitm_ad_phys"],"d":["D-1864","D-1447","D-1442","D-1415","D-1403","D-1402"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_phys, mhitu phys_u, mhitm phys; D-1402..D-1864)"}
-{"fn":"mhitm_ad_ston","c":"4203-4262","status":"partial","js":["js/mhitm.js:mhitm_ad_ston","js/mhitu.js:mhitm_ad_ston_u"],"omit":"Hallu-arm Soundeffect(se_cockatrice_hiss, 50); the constant is not in js/","at":"2026-09-27@d2d72caa6","note":"refresh: all other arms verified in base + ston_u; was wrongly seeded ported"}
+{"fn":"mhitm_ad_ston","c":"4203-4262","status":"ported","js":["js/mhitm.js:mhitm_ad_ston"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"refresh: all other arms verified in base + ston_u; was wrongly seeded ported"}
 {"fn":"mhitm_ad_were","c":"4265-4293","status":"split","js":["js/mhitm.js:mhitm_ad_were","js/uhitm.js:damageum_adtyping","js/mhitu.js:mhitm_ad_were_u"],"d":["D-3214","D-2049"],"at":"2026-10-01@2eced4253"}
 {"fn":"mhitm_ad_heal","c":"4296-4385","status":"split","js":["js/mhitm.js:mhitm_ad_heal","js/mhitu.js:mhitm_ad_heal_u"],"d":["D-2511"],"at":"2026-09-27@d2d72caa6","note":"refresh: nurse arm verified in mhitm_ad_heal_u (D-2511); uhitm/mhitm delegate to phys"}
 {"fn":"mhitm_ad_stun","c":"4388-4422","status":"split","js":["js/mhitm.js:mhitm_ad_stun","js/uhitm.js:damageum_ad_stun","js/mhitu.js:mhitm_ad_stun_u"],"d":["D-3211","D-2075"],"at":"2026-10-01@b9de54524"}
@@ -94,8 +94,8 @@
 {"fn":"passive_obj","c":"6127-6195","status":"ported","js":["js/uhitm.js:passive_obj"],"d":["D-3256","D-3251"],"at":"2026-10-02@2716a3ced"}
 {"fn":"that_is_a_mimic","c":"6201-6276","status":"partial","js":["js/uhitm.js:that_is_a_mimic"],"omit":"M_AP_OBJECT with trapped-chest glyph keeps 'That <cmap> actually is' fmt; JS always uses object-name arm","at":"2026-10-03@bbe63333a"}
 {"fn":"stumble_onto_mimic","c":"6282-6297","status":"ported","js":["js/uhitm.js:stumble_onto_mimic"],"d":["D-2993"],"at":"2026-09-27@e74c75d1f"}
-{"fn":"disguised_as_non_mon","c":"6300-6305","status":"ported","js":["js/uhitm.js:disguised_as_non_mon"],"at":"2026-10-03@bbe63333a"}
+{"fn":"disguised_as_non_mon","c":"6300-6305","status":"ported","js":["js/uhitm.js:disguised_as_non_mon"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"disguised_as_mon","c":"6308-6312","status":"ported","js":["js/uhitm.js:disguised_as_mon"],"at":"2026-10-03@bbe63333a"}
-{"fn":"nohandglow","c":"6315-6337","status":"ported","js":["js/uhitm.js:nohandglow"],"d":["D-3220","D-2855"],"at":"2026-10-01@250701173"}
-{"fn":"flash_hits_mon","c":"6341-6422","status":"partial","js":["js/uhitm.js:flash_hits_mon"],"omit":"resists_blnd_by_arti(mtmp)→shieldeff(mx,my) visual in blind-resist arm","at":"2026-10-03@bbe63333a"}
+{"fn":"nohandglow","c":"6315-6337","status":"ported","js":["js/uhitm.js:nohandglow"],"d":["D-3406","D-3220","D-2855"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"flash_hits_mon","c":"6341-6422","status":"ported","js":["js/uhitm.js:flash_hits_mon"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"light_hits_gremlin","c":"6425-6445","status":"ported","js":["js/uhitm.js:light_hits_gremlin"],"at":"2026-10-03@bbe63333a"}

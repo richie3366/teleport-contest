@@ -1252,8 +1252,8 @@ export function map_monst(mtmp, showtail) {
  * browse_map(TER_DETECT|TER_MON) when !blessed-otmp; map_redisplay.
  * Empty + otmp → strange_feeling (D-1418; hallu heebie jeebies else
  * threatened). Crystal-ball / fountain pass null and skip that.
- * Named omissions: blessed persistent display_nhwindow (no JS
- * display_nhwindow export; blessed browses like one-shot).
+ * Blessed persistent detection shows the map via the house
+ * display_nhwindow(WIN_MAP, TRUE) → more() idiom (mfind0 precedent).
  * map_monst pet/detected/monsym is D-1765.
  * detect_wsegs is D-1545 (map_monst TRUE). Long-worm identity is
  * D-1549 (mnum/mndx, not mons() ptr).
@@ -1289,7 +1289,6 @@ export async function monster_detect(otmp, mclass) {
     // C `:826` — lift underwater/buried/swallow for the display (the
     // return feeds the blessed branch `:847`; map_redisplay reconstrains).
     const unconstrained = unconstrain_map();
-    void unconstrained; // named-omission arm `:847` (see below)
     let woken = false; // C `:823`
 
     for (const mtmp of game.fmon || []) {
@@ -1324,11 +1323,16 @@ export async function monster_detect(otmp, mclass) {
     if (woken) await pline('Monsters sense the presence of you.'); // C `:844–845`
 
     // C `:847–855` — blessed && !unconstrained shows the persistent map
-    // via display_nhwindow(WIN_MAP, TRUE) instead of browsing; no JS export,
-    // so the one-shot browse below stands in for both arms (named omission).
-    u.EDetect_monsters = (u.EDetect_monsters | 0) | I_SPECIAL;
-    await browse_map(TER_DETECT | TER_MON, 'monster of interest');
-    u.EDetect_monsters = (u.EDetect_monsters | 0) & ~I_SPECIAL;
+    // via display_nhwindow(WIN_MAP, TRUE) (house more() idiom) instead of
+    // the one-shot browse.
+    if (otmp && otmp.blessed && !unconstrained) {
+        /* persistent detection — just show updated map */
+        await more();
+    } else {
+        u.EDetect_monsters = (u.EDetect_monsters | 0) | I_SPECIAL;
+        await browse_map(TER_DETECT | TER_MON, 'monster of interest');
+        u.EDetect_monsters = (u.EDetect_monsters | 0) & ~I_SPECIAL;
+    }
 
     await map_redisplay();
     return 0;

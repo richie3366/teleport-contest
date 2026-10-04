@@ -43,7 +43,7 @@ import {
 } from './monsters.js';
 import {
     newsym, pline, pline_mon, You_feel, see_monsters, canseemon, canspotmon, sensemon,
-    shieldeff, docrt, impossible, flush_screen, verbalize, flush_topl_more,
+    shieldeff, docrt, impossible, flush_screen, verbalize, flush_topl_more, Your,
 } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
 import {
@@ -1821,8 +1821,8 @@ export async function u_teleport_mon(mtmp, give_feedback) {
  * flooreffects("fall"); shop bill/stolen_value; place + newsym pair.
  * Dynamic do.js/shk.js imports: both already import this file (cycle-safe
  * per rloc_maybe_minvent_shop_bill). Callers: dokick scatter, zap bhito,
- * trap launch_obj, mon mdrop_special_objs (all await); mkcorpstat + hack
- * hurtle_step stay named omits (sync chain / no live JS counterpart).
+ * trap launch_obj, mon mdrop_special_objs, hack hurtle_step (all await);
+ * mkcorpstat stays a named omit (sync chain cannot await).
  * @returns {Promise<boolean>} true if placed elsewhere
  */
 export async function rloco(obj) {
@@ -2761,25 +2761,29 @@ export async function level_tele_trap(trap, trflags) {
 }
 
 /**
- * C ref: teleport.c teleport_pet — steed/cursed-leash gate before migrate.
+ * C ref: teleport.c teleport_pet `:786–810` — steed/cursed-leash gate
+ * before migrate. The no-leash arm impossibles then falls into the
+ * release label (`:795–797` → `:804–806`); the uncursed arm says the
+ * leash goes slack (`:803`) before unleashing.
  */
 export async function teleport_pet(mtmp, force_it) {
     if (!mtmp) return false;
-    if (mtmp === game.u?.usteed) return false;
-    if (mtmp.mleashed) {
+    if (mtmp === game.u?.usteed) return false; // C :790–791
+    if (mtmp.mleashed) { // C :793
         const { get_mleash, m_unleash } = await import('./apply.js');
         const otmp = get_mleash(mtmp);
-        if (!otmp) {
-            // C: impossible — treat as free
-            mtmp.mleashed = 0;
+        if (!otmp) { // C :795–797 (goto release_it)
+            await impossible(`${Monnam(mtmp)} is leashed, without a leash.`);
+            await m_unleash(mtmp, false);
             return true;
         }
-        if (otmp.cursed && !force_it) {
+        if (otmp.cursed && !force_it) { // C :799–801
             const { yelp } = await import('./sounds.js');
             await yelp(mtmp);
             return false;
         }
-        await m_unleash(mtmp, false);
+        await Your('leash goes slack.'); // C :803
+        await m_unleash(mtmp, false); // C :805–806
     }
     return true;
 }

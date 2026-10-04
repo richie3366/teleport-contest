@@ -1,5 +1,86 @@
 # Divergence log
 
+## D-3406 — batch @44ce1ba38: sp_lev/pickup/mkobj/uhitm/detect/teleport/selvar/alloc/mkmaze/mcastu/shk remainder (100 fns, 0 left open)
+
+- **Status:** shipped.
+- **Symptom:** breadth-phase coverage batch: 100 whole C functions (open 0 · partial 43 · recheck 57, ~1147 C lines of gap) across sp_lev.c (23), pickup.c (8), mkobj.c (14), uhitm.c (12), detect.c (3), teleport.c (8), selvar.c (6), alloc.c (5), mkmaze.c (9), mcastu.c (3), shk.c (9). Live divergences closed: add_doors_to_room skipping the maybe_add_door gate, lspo_reset_level's coder reset, query_objlist's INCLUDE_HERO fake-hero row + engulfer-minvent worn rejects, merge_choice's shop no_charge/inhishop arms, clear_dknown's pudding arm, do_stone_mon's munstone pre-check, mhitm_ad_ston's Hallu Soundeffect, flash_hits_mon's artifact shieldeff, monster_detect's blessed persistent arm, teleport_pet's leash messages, selection_from_mkroom's coder fallback, set_levltyp's arboreal/is_ice/recount + 8 caller wirings (incl. C's mksink/mkfount double-count, reproduced), mk_bubble's n-clamp impossible, mcastu Deaf's sticky-or, money2mon's quiver/impossible arms, clear_no_charge_obj's contained/buried flags quirk (C passes 6: buried resolves, contained clears — JS had it backwards), poly_obj's shop-anger bill, home_shk's mnearto yank. fmt_ptr moved to its C home js/alloc.js. One removal reverted: fixup_special's !made_branch guard is load-bearing for the des two-call pattern (pre-walked lregions), not trimmable. Stale omits retired: 8 uhitm + 2 detect moverock/look paste-errors, mapfrag_fromstr/curse/safe_teleds/stolen_booty flipside omits, get_table_xy_or_coord/cvt_to_abscoord/get_coord "no missing arm" rows, remove_object's recreate/splev items, rloco's hurtle note, lspo_reset_level's coder claim, display_minventory's inert-flag note, mkfount's incremental note.
+- **C locus:**
+  - `add_doors_to_room`: sp_lev.c:5551 — called raw add_door, skipping maybe_add_door's hx>=0/inside/roomno gate.
+  - `lspo_reset_level`: sp_lev.c:5998–6004 — coder Free + create_des_coder block skipped as "no JS analogue".
+  - `query_objlist`: pickup.c:1039–1067 (engulfer/engulfer_minvent + AUTOSELECT clears), :1146–1164 (fake-hero row), :1178–1188 (self/worn rejects).
+  - `lift_object` (via `merge_choice_invent`): invent.c:787–808 — shop no_charge clear + inhishop reject + save/restore.
+  - `clear_dknown`: mkobj.c:845–847 — Is_pudding dknown=1 after the merge force-0 (unknow_object on live globs).
+  - `do_stone_mon`: uhitm.c:3953–3954 — munstone(mdef, FALSE) pre-check gotos post_stone.
+  - `mhitm_ad_ston` (via `mhitm_ad_ston_u`): uhitm.c:4221 — Hallu Soundeffect(se_cockatrice_hiss, 50).
+  - `flash_hits_mon`: uhitm.c:6405–6406 — resists_blnd_by_arti shieldeff in the useeit arm.
+  - `monster_detect`: detect.c:847–855 — blessed && !unconstrained shows the persistent map instead of browsing.
+  - `teleport_pet`: teleport.c:795–806 — no-leash impossible + release fallthrough, "leash goes slack".
+  - `selection_from_mkroom`: selvar.c:783–799 — missing coder fallback; hand-built shape lacked wid/hei/dirty.
+  - `set_levltyp`: mkmaze.c:82–87 (SDOOR→AIR arboreal), :90–91 (is_ice incl. iced drawbridge), :106–108 (count_level_features rescan); 8 callers inlined analogs.
+  - `mk_bubble`: mkmaze.c:1895–1898 — n-clamp impossible (MAX_BMASK panic dead: tables top at 4).
+  - `mcast_insects` (via file `Deaf`): youprop.h:125 — sticky u.Deaf OR'd into the macro (nothing writes it).
+  - `money2mon`: shk.c:160–167 (impossibles), :171–172 (remove_worn_item quiver arm for whole-stack gold).
+  - `clear_no_charge_obj`: shk.c:354–362 — buried must resolve, contained must clear (flags quirk, above).
+  - `shop_keeper` (via `poly_obj`): zap.c:1965–1986 — shop-anger bill arm (sole unwired caller).
+  - `home_shk`: shk.c:1320–1327 — coord set instead of mnearto(RLOC_NOMSG).
+  - `lspo_teleport_region`/`lspo_levregion`/`lspo_non_diggable`/`lspo_non_passwall`: sp_lev.c:5459/:5493/:5941/:5950 — missing `return 0`.
+  - `fmt_ptr`: alloc.c:125–135 — lived in mkobj.js; moved to its C home.
+- **JS was:** bodies complete except the arms above; ~15 ledger omits were paste-errors or already-shipped claims; fmt_ptr sat outside its C file; 8 set_levltyp callers + poly_obj + make_grave/do_pit/create_door/niche/branch/sink wrote typ inline.
+- **Fix:** ported every named arm in C order (details per function under JS/Callers); retired the stale omits; moved fmt_ptr to alloc.js with its 3 users re-imported; wired all inline typ writers to set_levltyp; reverted the fixup_special guard removal after it regressed the fortress (two-call pattern proven, comment records it).
+- **JS:**
+  - `add_doors_to_room`: [mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:18971) — maybe_add_door(x, y, croom).
+  - `lspo_reset_level`: [mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:2424) — coder null + create_des_coder under fromDes.
+  - `query_objlist`: [pickup.js](/home/debian/dev/teleport-contest/js/pickup.js:777) — engulfer/engulfer_minvent/AUTOSELECT; fake-hero row; async finish_picks rejects; self_lookat exported ([pager.js](/home/debian/dev/teleport-contest/js/pager.js:385)); display_minventory docs narrowed ([invent.js](/home/debian/dev/teleport-contest/js/invent.js:4421)).
+  - `lift_object`: [pickup.js](/home/debian/dev/teleport-contest/js/pickup.js:1248) — merge_choice_invent carries invent.c:787–808 (inside_shop/inhishop imports).
+  - `clear_dknown`: [mkobj.js](/home/debian/dev/teleport-contest/js/mkobj.js:2736) — Is_pudding arm.
+  - `do_stone_mon`: [mhitm.js](/home/debian/dev/teleport-contest/js/mhitm.js:1793) — munstone pre-check + shared post_stone tail.
+  - `mhitm_ad_ston`: [mhitu.js](/home/debian/dev/teleport-contest/js/mhitu.js:2215) — Soundeffect(se_cockatrice_hiss, 50) (seffects import).
+  - `flash_hits_mon`: [uhitm.js](/home/debian/dev/teleport-contest/js/uhitm.js:4718) — resists_blnd_by_arti shieldeff (mondata import).
+  - `monster_detect`: [detect.js](/home/debian/dev/teleport-contest/js/detect.js:1325) — blessed arm via house more() idiom.
+  - `teleport_pet`: [teleport.js](/home/debian/dev/teleport-contest/js/teleport.js:2769) — impossible + release + slack (Your import).
+  - `selection_from_mkroom`: [mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:29830) — restarted via selection_new + coder fallback + selection_setpoint.
+  - `set_levltyp`: [trap.js](/home/debian/dev/teleport-contest/js/trap.js:855) — arboreal/is_ice/recount (mklev import); callers wired: make_grave ([engrave.js](/home/debian/dev/teleport-contest/js/engrave.js:449)), mksink ([mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:33797)), makeniche ([mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:33250)), place_branch ([mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:33371)), do_pit ([music.js](/home/debian/dev/teleport-contest/js/music.js:456)), create_door ([mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:24031)); mkfount doc updated.
+  - `mk_bubble`: [mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:18249) — clamp impossible (fire-and-forget).
+  - `mcast_insects`: [mcastu.js](/home/debian/dev/teleport-contest/js/mcastu.js:146) — Deaf() matches the macro (uprops, no sticky).
+  - `money2mon`: [shk.js](/home/debian/dev/teleport-contest/js/shk.js:4776) — impossibles + quiver unwear (wield import).
+  - `clear_no_charge_obj`: [shk.js](/home/debian/dev/teleport-contest/js/shk.js:1847) — where gate + live get_obj_location with C's flags.
+  - `shop_keeper`: [zap.js](/home/debian/dev/teleport-contest/js/zap.js:5525) — poly_obj shop-anger bill (shk/shknam imports; contained_cost exported [shk.js](/home/debian/dev/teleport-contest/js/shk.js:2756)).
+  - `home_shk`: [shk.js](/home/debian/dev/teleport-contest/js/shk.js:5002) — mnearto(RLOC_NOMSG).
+  - `lspo_teleport_region`/`lspo_levregion`/`lspo_non_diggable`/`lspo_non_passwall`: return 0 ([mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:1040)).
+  - `fmt_ptr`: [alloc.js](/home/debian/dev/teleport-contest/js/alloc.js:96); users re-imported (mkobj/light/worn; botl doc).
+  - `fixup_special`: guard kept + two-call rationale ([mklev.js](/home/debian/dev/teleport-contest/js/mklev.js:2787)); `load_special`/`rloco` stale doc lines fixed; `remove_object` map line retired ([data.md](/home/debian/dev/teleport-contest/docs/c-js-map/data.md:421)).
+- **Callers:**
+  - `add_doors_to_room`: :4100→lspo_room :1889, :5554→recursion, :5710→add_room paths (all mklev.js).
+  - `lspo_reset_level`: wizcmds.c:388→wizcmds.js:493 (NULL form); des.reset_level binding unreached (no .lua calls it).
+  - `query_objlist`: sole INCLUDE_HERO caller display_minventory (invent.js:4466) now gets live rows on PICK_ONE/ANY.
+  - `lift_object`: :1869→:1635, :2748→:2635 (pickup.js).
+  - `clear_dknown`: :856→unknow_object, mon.c:932→mhitm.js:3319, mthrowu.c:620→mthrowu.js:1179.
+  - `do_stone_mon`: :4258→:1846, :4147→:2061 (mhitm.js).
+  - `mhitm_ad_ston`: mhitm :4837, uhitm :2947, mhitu split :2957.
+  - `flash_hits_mon`: apply.c:69→do_blinding_ray, zap.c:475→:4334, zap.c:4005→:6351, zap.c:4008 note→bhit_flashed_light.
+  - `monster_detect`: potion.c:948→potion.js:1386, detect.c:1347→detect.js:2735, fountain.c:353→fountain.js:872.
+  - `teleport_pet`: dig.c:809→dig.js:970, :1971→:1328, :2016→:2959.
+  - `selection_from_mkroom`: nhlsel.c:444→10 des-loader sites (mklev.js).
+  - `set_levltyp`: all 24 C sites wired (do×6 via dipsink wrapper, fountain×4, mklev×6, trap×3+lit, music, engrave, sp_lev×2).
+  - `mk_bubble`: :1856→:18228 (setup_waterlevel loop).
+  - `money2mon`: all 10 C sites (mhitu/minion/rumors/shk×7 incl. :2751→end.js:1310).
+  - `clear_no_charge_obj`: :381→clear_no_charge; chains :334/:395/:421/:422/:1461 all wired.
+  - `shop_keeper`: all 63 C sites incl. zap.c:1967→poly_obj (this batch).
+  - `home_shk`: :1411→:2039, :2671→:5077, :5319→:2248 (shk.js).
+  - `fmt_ptr`: mkobj sanity sites + light.js×3 + worn.js×2 re-imported.
+  - `remove_object`: all 14 C sites (direct + via obj_extract_self floor route).
+  - `curse`/`noteleport_level`/`is_rottable`/`get_coord`/`get_table_xy_or_coord`/`cvt_to_abscoord`/`copy_oextra`/`mapfrag_fromstr`/`is_ok_location`/`get_room_loc`/`l_push_wid_hei_table`/`get_mkroom_name`/`get_table_roomtype_opt`/`l_create_stairway`/`food_detect`/`stash_ok`/`count_justpicked`/`count_categories`/`mon_beside`/`mhitm_ad_drst`/`mhitm_ad_stck`/`mhitm_ad_deth`/`mhitm_ad_slim` (split)/`disguised_as_non_mon`/`nohandglow`/`enexto_core`/`tele_jump_ok`/`safe_teleds`/`dotelecmd`/`rloco`/`selection_new`/`selection_getpoint`/`sel_flood_havepoint`/`selection_iterate`/`selection_force_newsyms`/`iswall`/`fix_wall_spines`/`walkfrom`/`mcast_spell`/`is_undirected_spell`/`clear_no_charge`/`clear_no_charge_pets`/`pay`/`cheapest_item`/`newoextra`/`dealloc_oextra`/`newomonst`/`free_omonst`/`mkcorpstat`/`mk_named_object`/`iswall`/`first_weapon_hit`/`hmon_hitmon_misc_obj`/`hmon_hitmon_msg_lightobj`/`lspo_room`/`lspo_altar`/`lspo_random_corridors`/`lspo_message`/`load_special`: every C call site verified wired (direct, split-name, or exact local equivalent); unported owners (nhl_get_xy_params, 11 Lua-API cvt callers, 6 sanity callers, restore.c:195/207/224, bones/zap/do revive sites) named — their sites wire on ship.
+- **Verify:** `node scripts/verify.mjs --fn <all 100 manifest fns>` — PASS sweep 100 fn(s): 714 baseline-PASS re-run in 252.1s, 0 regressed → REACH-OK; green 2/2; strict seed8000 + seed0900; cohort 7/7; full 44/44; VERIFY: PASS (exit 0). Per-file checkpoints (sp_lev/pickup/mkobj/uhitm/detect/teleport/selvar/alloc/mkmaze/mcastu/shk) all ended VERIFY: PASS. Mid-batch triage: mkmaze checkpoint failed 2 sessions (fixup_special guard removal re-firing place_lregion on pre-walked lregions — reverted with rationale) and one rule2 self-hit (seed name in the new comment — removed); re-ran green.
+- **Named omissions:**
+  - `reveal_terrain_getglyph`: visible_region_at/gascloud arms (`reg && glyph_is_gascloud`, `!seenv`+region GLYPH_UNEXPLORED, keep_traps region-glyph restore) + arboreal default cell — display-model work, rare edge.
+  - `flip_level` (audited, partial kept): ball/chain unplace (:566–585) + re-place (:909–910) need async unplacebc/placebc in a sync fn; SpLev_Map unflipped by design; nh.flip_level Lua caller unwired.
+  - `add_to_container` (audited, partial kept): obj_no_longer_held arm (:2682–2683) is async-only; fn sync with 19 callers incl. level-gen.
+  - `mkcorpstat` (audited, partial kept): rloco arm (:2081–2082, x==0&&y==0) needs the async rloco cascade; no caller passes 0,0.
+  - `fixup_special` (audited, partial kept): !made_branch guard load-bearing for the des two-call pattern (removal regressed: fallback re-fires on pre-walked lregions); restructure is its own row.
+- **Ledger:** match_maptyps audited; mapfrag_fromstr ported; flip_level audited; is_ok_location audited; get_room_loc audited; l_push_wid_hei_table audited; lspo_message audited; get_table_xy_or_coord ported; get_mkroom_name audited; get_table_roomtype_opt audited; lspo_room audited; l_create_stairway audited; lspo_altar audited; lspo_random_corridors audited; cvt_to_abscoord ported; get_coord ported; lspo_teleport_region audited; lspo_levregion audited; add_doors_to_room ported; lspo_non_diggable audited; lspo_non_passwall audited; lspo_reset_level ported; load_special audited; n_or_more audited; count_justpicked audited; query_objlist ported; count_categories audited; lift_object ported; mon_beside audited; doloot_core audited; stash_ok audited; newoextra audited; dealloc_oextra audited; newomonst audited; free_omonst audited; copy_oextra audited; clear_dknown ported; curse ported; mkcorpstat audited; mk_named_object audited; is_rottable audited; remove_object ported; add_to_container audited; insane_object ported; check_contained ported; hmon_hitmon_misc_obj ported; hmon_hitmon_msg_lightobj ported; first_weapon_hit ported; mhitm_ad_drst ported; mhitm_ad_stck ported; mhitm_ad_slim audited; mhitm_ad_deth ported; do_stone_mon ported; mhitm_ad_ston ported; disguised_as_non_mon audited; nohandglow audited; flash_hits_mon ported; food_detect audited; monster_detect ported; reveal_terrain_getglyph partial; m_blocks_teleporting audited; noteleport_level audited; enexto_core audited; tele_jump_ok audited; safe_teleds ported; teleport_pet ported; dotelecmd audited; rloco ported; selection_new audited; selection_getpoint audited; sel_flood_havepoint audited; selection_iterate audited; selection_from_mkroom ported; selection_force_newsyms audited; fmt_ptr audited; heapmon_init audited; nhalloc audited; nhrealloc audited; nhfree audited; iswall audited; set_levltyp ported; set_levltyp_lit ported; fix_wall_spines audited; fixup_special audited; stolen_booty ported; pick_vibrasquare_location ported; walkfrom audited; mk_bubble ported; mcast_insects ported; mcast_spell audited; is_undirected_spell audited; money2mon ported; money2u ported; clear_no_charge_obj ported; clear_no_charge audited; clear_no_charge_pets audited; shop_keeper ported; pay audited; home_shk ported; cheapest_item audited
+- **Left open:** none.
+- **Next:** display_minventory PICK_NONE INCLUDE_HERO analog (invent.js:4421 note); files.js merge_choice shop-arm parity check vs merge_choice_invent; fixup two-call restructure (drop the made_branch guard properly); dead splev_build_room helper (mklev.js:24062, no callers); l_push_wid_hei_table :2406 cite drift (:6318 vs :6309).
+
 ## D-3405 — batch @198b7a2a7: hacklib/eat/botl/engrave/mondata/cfgfiles remainder (100 fns, 0 left open)
 
 - **Status:** shipped.

@@ -31,7 +31,7 @@ import {
 import {
     flush_screen, pline, newsym, newsym_force, docrt, bot, flush_topl_more, canseemon,
     canspotmon, Hallucination, clear_nhwindow_message, Norep, impossible,
-    sensemon, You, There, urgent_pline, pline_The, verbalize,
+    sensemon, You, There, urgent_pline, pline_The, verbalize, You_cant,
 } from './display.js';
 import { addinv } from './u_init.js';
 import {
@@ -62,7 +62,8 @@ import {
     BUCX_TYPES,
     UNPAID_TYPES, WORN_TYPES, ALL_TYPES, BILLED_TYPES, CHOOSE_ALL, JUSTPICKED,
     BY_NEXTHERE, USE_INVLET, INVORDER_SORT, SIGNAL_NOMENU, SIGNAL_ESCAPE,
-    AUTOSELECT_SINGLE, FEEL_COCKATRICE, INCLUDE_VENOM,
+    AUTOSELECT_SINGLE, FEEL_COCKATRICE, INCLUDE_VENOM, INCLUDE_HERO,
+    CONTAINED_SYM,
     MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
     MENU_ITEMFLAGS_NONE, MENU_ITEMFLAGS_SKIPINVERT, PICK_NONE, PICK_ONE,
     PICK_ANY, PARANOID_CONFIRM, PARANOID_AUTOALL,
@@ -108,7 +109,7 @@ import { ATR_INVERSE } from './terminal.js';
 import {
     addtobill, costly_spot, check_unpaid_usage, doname_with_price,
     remote_burglary, shop_keeper, subfrombill, stolen_value, obfree, sellobj, sellobj_state,
-    money_cnt, pick_pick,
+    money_cnt, pick_pick, inside_shop, inhishop,
 } from './shk.js';
 import {
     nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
@@ -119,7 +120,7 @@ import {
 import { welded, weldmsg, setuwep, setuswapwep, setuqwep } from './wield.js';
 import { yn_function, getlin, paranoid_ynq } from './getline.js';
 import { highc, dist2, upstart } from './hacklib.js';
-import { show_nhw_menu_text } from './pager.js';
+import { show_nhw_menu_text, self_lookat } from './pager.js';
 import { cansee } from './vision.js';
 import { touch_artifact, youmonst } from './artifact.js';
 import { exercise, A_WIS } from './attrib.js';
@@ -767,14 +768,17 @@ export async function query_category(qstr, olist, qflags, how) {
  * menu_remarm live flags: SIGNAL_NOMENU | USE_INVLET | INVORDER_SORT,
  * PICK_ANY, allow is_worn / is_worn_by_type, invent Array.
  * this_title / PICK_ONE / INCLUDE_VENOM pack (dotypeinv D-1687).
- * Named omit: INCLUDE_HERO fake-you; obj_to_glyph display RNG;
- * count-prefix. Floor pickup keeps the
- * existing query_objlist_pickup clone (D-0365/D-0405/D-1599).
+ * Named omit: obj_to_glyph/mon_to_glyph display RNG (glyph rows carry
+ * ocsym/selectors only); count-prefix. INCLUDE_HERO fake-hero row +
+ * engulfer-minvent worn rejects live (sole caller: display_minventory).
+ * Floor pickup keeps the existing query_objlist_pickup clone
+ * (D-0365/D-0405/D-1599).
  *
  * @returns {Promise<{ n: number, pick_list: { obj: object, count: number }[] }>}
  */
 export async function query_objlist(qstr, olist, qflags, how, allow) {
-    if (!olist || (Array.isArray(olist) && !olist.length)) {
+    const engulfer = (qflags & INCLUDE_HERO) !== 0; // C :1039
+    if ((!olist || (Array.isArray(olist) && !olist.length)) && !engulfer) { // C :1046–1048
         return { n: 0, pick_list: [] };
     }
 
@@ -786,6 +790,20 @@ export async function query_objlist(qstr, olist, qflags, how, allow) {
             n++;
         }
     });
+    /* C :1056–1059 — the hero row rides the engulfer's minvent list. */
+    const head = Array.isArray(olist) ? olist[0] : olist;
+    const engulfer_minvent = !!head && ((head.where | 0) === OBJ_MINVENT)
+        && engulfing_u(head.ocarry);
+    if (engulfer_minvent && n === 1 && ((head.owornmask | 0) !== 0)) { // C :1060–1062
+        qflags &= ~AUTOSELECT_SINGLE;
+    }
+    /* Per-call fake-hero item (C :1034 stack object; identity-compared). */
+    const fake_hero_object = engulfer ? { quan: 1, _fake_hero: true } : null;
+    if (engulfer) { // C :1063–1067
+        ++n;
+        /* don't autoselect swallowed hero if it's the only choice */
+        qflags &= ~AUTOSELECT_SINGLE;
+    }
 
     if (n === 0) {
         return {
@@ -891,6 +909,24 @@ export async function query_objlist(qstr, olist, qflags, how, allow) {
         }
     }
 
+    if (engulfer) { // C :1146–1164
+        if (sorted && n > 1) { // C :1150–1154
+            items.push({
+                selectable: false,
+                text: `${digests(game.u?.ustuck?.data) ? 'Swallowed' : 'Engulfed'} Creatures`,
+                attr: ATR_INVERSE,
+            });
+        }
+        items.push({ // C :1155–1163 (fake invlet, no group accelerator)
+            selectable: true,
+            selector: CONTAINED_SYM,
+            gselector: '',
+            obj: fake_hero_object,
+            text: an(self_lookat()),
+            itemflags: MENU_ITEMFLAGS_NONE,
+        });
+    }
+
     const raw = [];
     /* C query_objlist: add_menu_str(gt.this_title) without heading attr. */
     if (game.this_title) {
@@ -902,11 +938,20 @@ export async function query_objlist(qstr, olist, qflags, how, allow) {
     }
     raw.push(...items);
 
-    const finish_picks = (pickedItems) => {
+    const finish_picks = async (pickedItems) => {
         const pick_list = [];
         for (const it of pickedItems) {
             const curr = it.obj;
             if (!curr) continue;
+            if (curr === fake_hero_object) { // C :1178–1184
+                /* fake item is only in look-here (PICK_NONE) menus */
+                await You_cant('pick yourself up!');
+                continue;
+            }
+            if (engulfer_minvent && ((curr.owornmask | 0) !== 0)) { // C :1185–1188
+                await You_cant('pick %s up.', ysimple_name_objnam(curr));
+                continue;
+            }
             let count = it.count;
             if (count == null || count === -1 || count > (curr.quan || 1)) {
                 count = curr.quan || 1;
@@ -1195,15 +1240,27 @@ function Stone_resistance_hero() {
 }
 
 /**
- * C ref: invent.c merge_choice — first mergable invent slot.
- * Named omit: shop no_charge / inhishop unpaid reject.
+ * C ref: invent.c merge_choice `:775–810` — first mergable invent slot
+ * (objlist ≡ gi.invent here; the null-invent arm is the `|| []`).
+ * A shop-floor item merges by its carried attributes: no_charge cleared
+ * across the scan, billable-but-unpaid rejected outright (`:788–800`).
  */
 export function merge_choice_invent(obj) {
-    if (!obj || (obj.otyp | 0) === SCR_SCARE_MONSTER) return null;
-    for (const otmp of game.invent || []) {
-        if (mergable(otmp, obj)) return otmp;
+    if (!obj || (obj.otyp | 0) === SCR_SCARE_MONSTER) return null; // C :780–783
+    const save_nocharge = obj.no_charge | 0; // C :787
+    let shkp = null; // C :788–789 (objlist == invent here)
+    if (((obj.where | 0) === OBJ_FLOOR))
+        shkp = shop_keeper(inside_shop(obj.ox, obj.oy));
+    if (shkp) {
+        if (obj.no_charge) obj.no_charge = 0; // C :790–791
+        else if (inhishop(shkp)) return null; // C :799–800 (no_charge already 0)
     }
-    return null;
+    let hit = null;
+    for (const otmp of game.invent || []) { // C :802–807
+        if (mergable(otmp, obj)) { hit = otmp; break; }
+    }
+    obj.no_charge = save_nocharge; // C :808
+    return hit;
 }
 
 /**
@@ -1439,8 +1496,8 @@ async function carry_count(obj, container, count, telekinesis, wts) {
  * telekinesis silent refuse else ynq Continue? (`lifting`/`removing`);
  * scare-scroll spe clear on floor refuse.
  * Sokoban boulder uses body_part(HAND) (latebound; polyself→do→pickup cycle).
- * Named omit: shop no_charge merge_choice (merge_choice_invent doc).
- * carry_count + delta_cwt whole body live (D-2617).
+ * merge_choice_invent carries the whole invent.c body incl. the shop
+ * no_charge/inhishop arms; carry_count + delta_cwt whole body live (D-2617).
  * Callers: pickup_object `:1869` (container NULL); out_container `:2748`.
  */
 async function lift_object(obj, container, cntRef, telekinesis) {

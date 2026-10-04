@@ -1,10 +1,10 @@
-{"fn":"selection_new","c":"15-30","status":"ported","js":["js/mklev.js:selection_new"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — Set-backed empty state == C memset(map,1) (C stores c+1, so 1==unselected); bounds shape exact"}
+{"fn":"selection_new","c":"15-30","status":"ported","js":["js/mklev.js:selection_new"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"selection_free","c":"33-44","status":"ported","js":["js/mklev.js:selection_free"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: GC-adapted: clears pts, resets empty bounds shape both arms"}
 {"fn":"selection_clear","c":"48-62","status":"ported","js":["js/mklev.js:selection_clear"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fill-all vs empty bounds + dirty=FALSE"}
 {"fn":"selection_clone","c":"65-73","status":"ported","js":["js/mklev.js:selection_clone"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: struct copy + map dup"}
 {"fn":"selection_getbounds","c":"77-95","status":"ported","js":["js/mklev.js:selection_getbounds"],"d":["D-3099"],"at":"2026-09-29@b6b281b0a"}
 {"fn":"selection_recalc_bounds","c":"99-165","status":"ported","js":["js/mklev.js:selection_recalc_bounds"],"d":["D-2696"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: dirty gate + 4 scans in C order"}
-{"fn":"selection_getpoint","c":"168-178","status":"ported","js":["js/mklev.js:selection_getpoint"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
+{"fn":"selection_getpoint","c":"168-178","status":"ported","js":["js/mklev.js:selection_getpoint"],"d":["D-3406","D-3116"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"selection_setpoint","c":"181-208","status":"ported","js":["js/mklev.js:selection_setpoint"],"d":["D-3116"],"at":"2026-09-29@1a4567167"}
 {"fn":"selection_not","c":"211-221","status":"ported","js":["js/mklev.js:selection_not"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pure clone+negate; C sole caller (l_selection_not) clones first so observable behavior matches"}
 {"fn":"selection_filter_percent","c":"224-245","status":"ported","js":["js/mklev.js:selection_filter_percent"],"d":["D-1840"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: bounds scan + rn2(100)<pct into fresh sel"}
@@ -12,15 +12,15 @@
 {"fn":"selection_rndcoord","c":"284-318","status":"ported","js":["js/mklev.js:selection_rndcoord"],"d":["D-2095"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: count + rn2 + rescan + removeit; null return == C 0/x=y=-1"}
 {"fn":"selection_do_grow","c":"321-367","status":"ported","js":["js/mklev.js:selection_do_grow"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: W_RANDOM + all 8 dir-mask arms + OR-back"}
 {"fn":"set_selection_floodfillchk","c":"372-375","status":"ported","js":["js/mklev.js:set_selection_floodfillchk"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
-{"fn":"sel_flood_havepoint","c":"379-392","status":"ported","js":["js/mklev.js:sel_flood_havepoint"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact live-stack scan"}
+{"fn":"sel_flood_havepoint","c":"379-392","status":"ported","js":["js/mklev.js:sel_flood_havepoint"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"selection_floodfill","c":"395-452","status":"ported","js":["js/mklev.js:selection_floodfill"],"d":["D-2665"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: null-func guard, seed push, pop/set/8-dir in C macro order, panic->throw"}
 {"fn":"selection_do_ellipse","c":"456-538","status":"ported","js":["js/mklev.js:selection_do_ellipse"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: McIlroy outline+filled arms, C long arithmetic mirrored"}
 {"fn":"line_dist_coord","c":"542-566","status":"ported","js":["js/mklev.js:line_dist_coord"],"at":"2026-09-30@746254c61","note":"stale: js/mklev.js:30384 (D-2684 shipped whole body + all 6 selection_do_gradient sites)"}
 {"fn":"selection_do_gradient","c":"570-622","status":"ported","js":["js/mklev.js:selection_do_gradient"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: swap/dofs floor, radial+square, impossible fallthrough, short-circuit rn2"}
 {"fn":"selection_do_line","c":"626-680","status":"ported","js":["js/mklev.js:selection_do_line"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Bresenham x/y-major arms exact"}
 {"fn":"selection_do_randline","c":"683-723","status":"ported","js":["js/mklev.js:selection_do_randline"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rec guard, rough clamp, midpoint displace, recurse, set x2y2"}
-{"fn":"selection_iterate","c":"726-743","status":"ported","js":["js/mklev.js:selection_iterate"],"d":["D-3156"],"at":"2026-09-30@8a2b677db"}
+{"fn":"selection_iterate","c":"726-743","status":"ported","js":["js/mklev.js:selection_iterate"],"d":["D-3406","D-3156"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"selection_is_irregular","c":"747-760","status":"split","js":["js/cmd.js:look_sel_is_irregular"],"at":"2026-09-29@671c54bfc","note":"stale: js/cmd.js:3882; sole caller selection_size_description wired; review 179"}
 {"fn":"selection_size_description","c":"764-778","status":"split","js":["js/cmd.js:look_sel_size_description"],"at":"2026-09-29@671c54bfc","note":"stale: js/cmd.js:3894; callers wired cmd.js:3924,3927; review 179 Match"}
-{"fn":"selection_from_mkroom","c":"781-799","status":"partial","js":["js/mklev.js:selection_from_mkroom"],"omit":"missing !croom fallback to gc.coder->croom; returns empty selection instead","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: roomno/edge-gated scan matches; null-room arm differs"}
-{"fn":"selection_force_newsyms","c":"802-810","status":"ported","js":["js/mklev.js:selection_force_newsyms"],"d":["D-3295"],"at":"2026-10-02@e6a9a85cf","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"selection_from_mkroom","c":"781-799","status":"ported","js":["js/mklev.js:selection_from_mkroom"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audit 2026-10-03: roomno/edge-gated scan matches; null-room arm differs"}
+{"fn":"selection_force_newsyms","c":"802-810","status":"ported","js":["js/mklev.js:selection_force_newsyms"],"d":["D-3406","D-3295"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}

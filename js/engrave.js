@@ -74,7 +74,7 @@ import {
     WAND_BACKFIRE_CHANCE, FINGERTIP, HAND, DRAWBRIDGE_DOWN,
 } from './const.js';
 import { nomul, is_lava, is_pool, SURFACE_AT, check_capacity } from './hack.js';
-import { t_at, uteetering_at_seen_pit, uescaped_shaft, ceiling } from './trap.js';
+import { t_at, uteetering_at_seen_pit, uescaped_shaft, ceiling, set_levltyp } from './trap.js';
 import { goodpos } from './teleport.js';
 import { makemon } from './makemon.js';
 import { monsterNames } from './generated/monsters_data.js';
@@ -440,13 +440,12 @@ export function random_engraving() {
  * C ref: engrave.c make_grave — place GRAVE + HEADSTONE engraving.
  * Branch envelope: ROOM/GRAVE + !trap; null str → get_rnd_text(EPITAPHFILE);
  * fixed str (e.g. "Saved by the bell!") skips the epitaph draw.
- * Named omission: full set_levltyp side effects beyond typ=GRAVE.
  */
 export function make_grave(x, y, str) {
     const loc = game.level?.at(x, y);
     if (!loc) return;
     if ((loc.typ !== ROOM && loc.typ !== GRAVE) || t_at(x, y)) return;
-    loc.typ = GRAVE;
+    if (!set_levltyp(x, y, GRAVE)) return; // C :1695
     del_engr(engr_at(x, y));
     let text = str;
     if (text == null) { // C make_grave `if (!str)` — NULL only; "" engraves empty
