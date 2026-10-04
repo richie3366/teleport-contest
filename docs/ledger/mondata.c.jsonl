@@ -22,22 +22,22 @@
 {"fn":"can_blow","c":"567-576","status":"ported","js":["js/mondata.js:can_blow"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_chant","c":"580-587","status":"ported","js":["js/spell.js:can_chant"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_be_strangled","c":"591-619","status":"ported","js":["js/uhitm.js:can_be_strangled"],"at":"2026-10-03@bbe63333a"}
-{"fn":"can_track","c":"623-628","status":"ported","js":["js/monsters.js:can_track"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146"}
-{"fn":"sliparm","c":"632-636","status":"ported","js":["js/polyself.js:sliparm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"can_track","c":"623-628","status":"ported","js":["js/monsters.js:can_track"],"d":["D-3405","D-3110"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"sliparm","c":"632-636","status":"split","js":["js/polyself.js:sliparm","js/worn.js:sliparm"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"breakarm","c":"640-650","status":"ported","js":["js/worn.js:breakarm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sticks","c":"654-659","status":"ported","js":["js/uhitm.js:sticks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cantvomit","c":"663-674","status":"ported","js":["js/mondata.js:cantvomit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"num_horns","c":"678-695","status":"ported","js":["js/worn.js:num_horns"],"at":"2026-09-28@000445a8b","note":"stale: js/worn.js:207 — switch on mndx returns 2/1/0 for the same 8 monster cases as C mondata.c:678-695"}
 {"fn":"dmgtype_fromattack","c":"700-708","status":"ported","js":["js/mondata.js:dmgtype_fromattack"],"d":["D-3357"],"at":"2026-10-03@b28f5f884"}
 {"fn":"dmgtype","c":"712-715","status":"ported","js":["js/monsters.js:dmgtype"],"d":["D-3357","D-3355"],"at":"2026-10-03@b28f5f884","note":"live export monsters.js:565; engrave/eat clones removed, mhitm/mhitu/monmove clones queued"}
-{"fn":"max_passive_dmg","c":"720-767","status":"ported","js":["js/mhitm.js:max_passive_dmg"],"d":["D-3118","D-3110"],"at":"2026-09-29@138a5a96f"}
-{"fn":"same_race","c":"771-871","status":"ported","js":["js/mondata.js:same_race"],"d":["D-2655"],"at":"seed@a30a7de84"}
+{"fn":"max_passive_dmg","c":"720-767","status":"ported","js":["js/mhitm.js:max_passive_dmg"],"d":["D-3405","D-3118","D-3110"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"same_race","c":"771-871","status":"ported","js":["js/mondata.js:same_race"],"d":["D-3405","D-2655"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"name_to_mon","c":"883-886","status":"ported","js":["js/mondata.js:name_to_mon"],"at":"2026-10-03@bbe63333a"}
-{"fn":"name_to_monplus","c":"893-1085","status":"ported","js":["js/mondata.js:name_to_monplus"],"d":["D-2577"],"at":"seed@a30a7de84"}
+{"fn":"name_to_monplus","c":"893-1085","status":"ported","js":["js/mondata.js:name_to_monplus"],"d":["D-3405","D-2577"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"name_to_monclass","c":"1090-1176","status":"ported","js":["js/mondata.js:name_to_monclass"],"d":["D-2045"],"at":"2026-10-01@8f3d63508","note":"stale: js/mondata.js:911 complete (single-char via canonical DEF_CHAR_TO_MLET :840, falsematch/truematch/explain/name_to_mon arms in C order); 4 C callers wired (makemon.js:1440 wiz_force_cham_form, polyself.js:2089, read.js:2497, read.js:2880)"}
 {"fn":"gender","c":"1180-1185","status":"ported","js":["js/mhitm.js:gender"],"at":"2026-09-29@ad1aa7146","note":"stale: js/mhitm.js:2104 — is_neuter/female identical; mhitu.c pair wired mhitm.js:2148,2158, uhitm.c:2208 inlined uhitm.js:2609"}
 {"fn":"pronoun_gender","c":"1191-1207","status":"ported","js":["js/mondata.js:pronoun_gender"],"at":"2026-10-03@bbe63333a"}
-{"fn":"levl_follower","c":"1211-1226","status":"ported","js":["js/dog.js:levl_follower"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146"}
+{"fn":"levl_follower","c":"1211-1226","status":"ported","js":["js/dog.js:levl_follower"],"d":["D-3405","D-3110"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"little_to_big","c":"1303-1313","status":"ported","js":["js/mondata.js:little_to_big"],"at":"2026-09-29@ad1aa7146","note":"stale: js/mondata.js:510 — loop identical to C grownups scan; callers wired apply.js:3397 mhitm.js:4030 mon.js:825 timeout.js:2311 mondata.js:636"}
 {"fn":"big_to_little","c":"1316-1326","status":"ported","js":["js/mondata.js:big_to_little"],"at":"2026-09-29@ad1aa7146","note":"stale: js/mondata.js:518 — loop identical to C grownups scan; callers wired apply.js:3398 mon.js:856 mondata.js:632 timeout.js:2340 makemon.js:1201"}
 {"fn":"big_little_match","c":"1331-1351","status":"ported","js":["js/mondata.js:big_little_match"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

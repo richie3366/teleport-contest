@@ -1,43 +1,43 @@
 {"fn":"get_configfile","c":"143-146","status":"ported","js":["js/options.js:get_configfile"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: trivial accessor; contest default init is env adaptation"}
 {"fn":"get_default_configfile","c":"149-152","status":"ported","js":["js/options.js:get_default_configfile"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_write_config_file","c":"169-210","status":"ported","js":["js/cfgfiles.js:do_write_config_file"],"d":["D-2553"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: VFS write for fopen/fwrite; atomic so partial-write arm unrepresentable"}
-{"fn":"set_configfile_name","c":"216-220","status":"ported","js":["js/options.js:set_configfile_name"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: store complete; BUFSZ strncpy truncation not mirrored (reachable only via >1K paths)"}
+{"fn":"set_configfile_name","c":"216-220","status":"ported","js":["js/options.js:set_configfile_name"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audit 2026-10-03: store complete; BUFSZ strncpy truncation not mirrored (reachable only via >1K paths)"}
 {"fn":"fopen_config_file","c":"223-372","status":"ported","js":["js/cfgfiles.js:fopen_config_file"],"d":["D-3117"],"at":"2026-09-29@c983587e0","note":"stale: complete in js/cfgfiles.js:385 (D-3117); VMS/MICRO/WIN32 arms compiled out, errno-gated :269-273/:356-369 VFS-unreachable per D-3117"}
 {"fn":"get_uchars","c":"381-437","status":"ported","js":["js/cfgfiles.js:get_uchars"],"d":["D-3232","D-3082","D-3081"],"at":"2026-10-01@516e71ff9","note":"stale: js/cfgfiles.js:598 whole body + callers :722,:735; wait_synch :433 windowed-input boundary stays named in doc comment (D-3082)"}
 {"fn":"adjust_prefix","c":"441-459","status":"by-design","at":"2026-09-29@10017887d","note":"NOCWD_ASSUMPTIONS-only (cfgfiles.c:439-459 ifdef; unix build leaves it undefined — only windconf/pcconf/amiconf define it); unix callers compile to nhUse+TRUE, wired as cnf_line_nhUse js/cfgfiles.js:513"}
 {"fn":"choose_random_part","c":"464-504","status":"ported","js":["js/cfgfiles.js:choose_random_part"],"at":"2026-09-29@d27c7b945","note":"stale: js/cfgfiles.js:423"}
-{"fn":"free_config_sections","c":"507-517","status":"ported","js":["js/cfgfiles.js:free_config_sections"],"at":"2026-10-03@bbe63333a"}
+{"fn":"free_config_sections","c":"507-517","status":"ported","js":["js/cfgfiles.js:free_config_sections"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"is_config_section","c":"523-549","status":"ported","js":["js/cfgfiles.js:is_config_section"],"at":"2026-10-03@bbe63333a"}
 {"fn":"handle_config_section","c":"552-582","status":"ported","js":["js/cfgfiles.js:handle_config_section"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debugpline D_DEBUG-only omitted"}
-{"fn":"find_optparam","c":"588-598","status":"ported","js":["js/cfgfiles.js:find_optparam"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: index-based (JS strings immutable)"}
+{"fn":"find_optparam","c":"588-598","status":"ported","js":["js/cfgfiles.js:find_optparam"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"cnf_line_OPTIONS","c":"603-609","status":"ported","js":["js/cfgfiles.js:cnf_line_OPTIONS"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_AUTOPICKUP_EXCEPTION","c":"612-616","status":"ported","js":["js/cfgfiles.js:cnf_line_AUTOPICKUP_EXCEPTION"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_BINDINGS","c":"619-622","status":"ported","js":["js/cfgfiles.js:cnf_line_BINDINGS"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_AUTOCOMPLETE","c":"625-629","status":"ported","js":["js/cfgfiles.js:cnf_line_AUTOCOMPLETE"],"d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MSGTYPE","c":"632-635","status":"ported","js":["js/cfgfiles.js:cnf_line_MSGTYPE"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cnf_line_HACKDIR","c":"638-650","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_LEVELDIR","c":"653-670","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_SAVEDIR","c":"673-692","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_BONESDIR","c":"695-703","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_DATADIR","c":"706-714","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_SCOREDIR","c":"717-725","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_LOCKDIR","c":"728-736","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_CONFIGDIR","c":"739-747","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_TROUBLEDIR","c":"750-758","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_HACKDIR","c":"638-650","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_LEVELDIR","c":"653-670","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SAVEDIR","c":"673-692","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_BONESDIR","c":"695-703","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_DATADIR","c":"706-714","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SCOREDIR","c":"717-725","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_LOCKDIR","c":"728-736","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CONFIGDIR","c":"739-747","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_TROUBLEDIR","c":"750-758","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_NAME","c":"761-765","status":"ported","js":["js/cfgfiles.js:cnf_line_NAME"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_ROLE","c":"768-775","status":"ported","js":["js/cfgfiles.js:cnf_line_ROLE"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_dogname","c":"778-782","status":"ported","js":["js/cfgfiles.js:cnf_line_dogname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_catname","c":"785-789","status":"ported","js":["js/cfgfiles.js:cnf_line_catname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_WIZARDS","c":"795-809","status":"ported","js":["js/cfgfiles.js:cnf_line_WIZARDS"],"d":["D-3184"],"at":"2026-10-01@03eae3466","note":"stale: js/cfgfiles.js:664 whole handler; shared formatter diagnostic remains named in build_english_list D-3184"}
-{"fn":"cnf_line_SHELLERS","c":"812-818","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_MSGHANDLER","c":"821-827","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_EXPLORERS","c":"830-836","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_DEBUGFILES","c":"839-849","status":"ported","js":["js/cfgfiles.js:cnf_line_DEBUGFILES"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SHELLERS","c":"812-818","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_MSGHANDLER","c":"821-827","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_EXPLORERS","c":"830-836","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_DEBUGFILES","c":"839-849","status":"ported","js":["js/cfgfiles.js:cnf_line_DEBUGFILES"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"cnf_line_DUMPLOGFILE","c":"852-862","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_GENERICUSERS","c":"865-871","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_GENERICUSERS","c":"865-871","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_BONES_POOLS","c":"874-885","status":"ported","js":["js/cfgfiles.js:cnf_line_BONES_POOLS"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_SUPPORT","c":"888-894","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_RECOVER","c":"897-903","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SUPPORT","c":"888-894","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_RECOVER","c":"897-903","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_CHECK_SAVE_UID","c":"906-912","status":"ported","js":["js/cfgfiles.js:cnf_line_CHECK_SAVE_UID"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_CHECK_PLNAME","c":"915-921","status":"ported","js":["js/cfgfiles.js:cnf_line_CHECK_PLNAME"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_SEDUCE","c":"924-943","status":"ported","js":["js/cfgfiles.js:cnf_line_SEDUCE"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
@@ -49,44 +49,44 @@
 {"fn":"cnf_line_POINTSMIN","c":"1008-1018","status":"ported","js":["js/cfgfiles.js:cnf_line_POINTSMIN"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_MAX_STATUENAME_RANK","c":"1021-1032","status":"ported","js":["js/cfgfiles.js:cnf_line_MAX_STATUENAME_RANK"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_LIVELOG","c":"1035-1049","status":"ported","js":["js/cfgfiles.js:cnf_line_LIVELOG"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: strtol base-0 incl octal/hex reproduced"}
-{"fn":"cnf_line_PANICTRACE_LIBC","c":"1052-1064","status":"ported","js":["js/cfgfiles.js:cnf_line_PANICTRACE_LIBC"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: raw atoi matches non-PANICTRACE compiled arm"}
-{"fn":"cnf_line_PANICTRACE_GDB","c":"1067-1079","status":"ported","js":["js/cfgfiles.js:cnf_line_PANICTRACE_GDB"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: raw atoi matches non-PANICTRACE compiled arm"}
+{"fn":"cnf_line_PANICTRACE_LIBC","c":"1052-1064","status":"ported","js":["js/cfgfiles.js:cnf_line_PANICTRACE_LIBC"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audit 2026-10-03: raw atoi matches non-PANICTRACE compiled arm"}
+{"fn":"cnf_line_PANICTRACE_GDB","c":"1067-1079","status":"ported","js":["js/cfgfiles.js:cnf_line_PANICTRACE_GDB"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audit 2026-10-03: raw atoi matches non-PANICTRACE compiled arm"}
 {"fn":"cnf_line_GDBPATH","c":"1082-1094","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_GREPPATH","c":"1097-1109","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_CRASHREPORTURL","c":"1112-1118","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CRASHREPORTURL","c":"1112-1118","status":"split","js":["js/cfgfiles.js:cnf_store_str"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_ACCESSIBILITY","c":"1121-1131","status":"ported","js":["js/cfgfiles.js:cnf_line_ACCESSIBILITY"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cnf_line_PORTABLE_DEVICE_PATHS","c":"1134-1150","status":"ported","js":["js/cfgfiles.js:cnf_line_PORTABLE_DEVICE_PATHS"],"d":["D-3184"],"at":"2026-09-30@a60a91a98"}
+{"fn":"cnf_line_PORTABLE_DEVICE_PATHS","c":"1134-1150","status":"ported","js":["js/cfgfiles.js:cnf_line_PORTABLE_DEVICE_PATHS"],"d":["D-3405","D-3184"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"cnf_line_BOULDER","c":"1156-1161","status":"ported","js":["js/cfgfiles.js:cnf_line_BOULDER"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MENUCOLOR","c":"1164-1167","status":"ported","js":["js/cfgfiles.js:cnf_line_MENUCOLOR"],"d":["D-3231"],"at":"2026-10-01@5bdc19f37"}
-{"fn":"cnf_line_HILITE_STATUS","c":"1170-1178","status":"ported","js":["js/cfgfiles.js:cnf_line_HILITE_STATUS"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: delegates to live botl.js parse_status_hl1 (STATUS_HILITES on)"}
+{"fn":"cnf_line_HILITE_STATUS","c":"1170-1178","status":"ported","js":["js/cfgfiles.js:cnf_line_HILITE_STATUS"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"cnf_line_WARNINGS","c":"1181-1188","status":"ported","js":["js/cfgfiles.js:cnf_line_WARNINGS"],"d":["D-3081"],"at":"2026-09-29@10017887d","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_ROGUESYMBOLS","c":"1191-1199","status":"partial","js":["js/cfgfiles.js:cnf_line_ROGUESYMBOLS"],"omit":"switch_symbols(TRUE) apply (:1194) has no JS home; parsesymbols gate + error only","at":"2026-10-03@bbe63333a"}
-{"fn":"cnf_line_SYMBOLS","c":"1202-1211","status":"partial","js":["js/cfgfiles.js:cnf_line_SYMBOLS"],"omit":"switch_symbols(TRUE) apply (:1205) has no JS home; parsesymbols gate + unmatched-gated error only","at":"2026-10-03@bbe63333a"}
+{"fn":"cnf_line_ROGUESYMBOLS","c":"1191-1199","status":"ported","js":["js/cfgfiles.js:cnf_line_ROGUESYMBOLS"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"cnf_line_SYMBOLS","c":"1202-1211","status":"ported","js":["js/cfgfiles.js:cnf_line_SYMBOLS"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"cnf_line_WIZKIT","c":"1214-1218","status":"ported","js":["js/cfgfiles.js:cnf_line_WIZKIT"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_line_SOUNDDIR","c":"1222-1228","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_SOUND","c":"1231-1235","status":"by-design","d":["D-3314"],"at":"2026-10-02@6ce8dc076","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_QT_TILEWIDTH","c":"1239-1250","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_QT_TILEHEIGHT","c":"1253-1264","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_QT_FONTSIZE","c":"1267-1278","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"cnf_line_QT_COMPACT","c":"1281-1291","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_TILEWIDTH","c":"1239-1250","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_TILEHEIGHT","c":"1253-1264","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_FONTSIZE","c":"1267-1278","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_COMPACT","c":"1281-1291","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"parse_config_line","c":"1389-1439","status":"ported","js":["js/cfgfiles.js:parse_config_line"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_read_file","c":"1443-1446","status":"ported","js":["js/sounds.js:can_read_file"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: const false is env-correct: no fs under Rule #2 and VFS holds no sound assets"}
 {"fn":"config_error_init","c":"1470-1490","status":"ported","js":["js/cfgfiles.js:config_error_init"],"at":"2026-10-03@bbe63333a"}
 {"fn":"config_error_nextline","c":"1493-1512","status":"ported","js":["js/cfgfiles.js:config_error_nextline"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/cfgfiles.js:237, body complete + caller wired :781"}
-{"fn":"l_get_config_errors","c":"1516-1539","status":"ported","js":["js/cfgfiles.js:l_get_config_errors"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"config_erradd","c":"1544-1589","status":"partial","js":["js/cfgfiles.js:config_erradd"],"omit":"- `config_erradd`: wait_synch `:1562` (windowed input boundary — parser stays sync, parseoptions precedent); l_get_config_errors drain (lua-stack sink, lua-callable via nhlua.c:1887; no JS Lua state — mklev.js themerooms precedent — and nothing sets iflags.in_lua today).","d":["D-3098"],"at":"2026-09-29@92b27f0c4"}
-{"fn":"config_error_done","c":"1592-1621","status":"partial","js":["js/cfgfiles.js:config_error_done"],"omit":"wait_synch :1615 after error summary (windowed input boundary; parser stays sync, config_erradd precedent)","at":"2026-10-03@bbe63333a"}
+{"fn":"l_get_config_errors","c":"1516-1539","status":"ported","js":["js/cfgfiles.js:l_get_config_errors"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"config_erradd","c":"1544-1589","status":"partial","js":["js/cfgfiles.js:config_erradd"],"omit":"- `config_erradd`: wait_synch `:1562` (windowed input boundary — parser stays sync, parseoptions precedent); l_get_config_errors drain (lua-stack sink, lua-callable via nhlua.c:1887; no JS Lua state — mklev.js themerooms precedent — and nothing sets iflags.in_lua today).","d":["D-3405","D-3098"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"config_error_done","c":"1592-1621","status":"partial","js":["js/cfgfiles.js:config_error_done"],"omit":"wait_synch :1615 after error summary (windowed input boundary; parser stays sync, config_erradd precedent)","d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
 {"fn":"read_config_file","c":"1624-1647","status":"ported","js":["js/cfgfiles.js:read_config_file"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_parser_init","c":"1662-1673","status":"ported","js":["js/cfgfiles.js:cnf_parser_init"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cnf_parser_done","c":"1677-1684","status":"ported","js":["js/cfgfiles.js:cnf_parser_done"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cnf_parser_done","c":"1677-1684","status":"ported","js":["js/cfgfiles.js:cnf_parser_done"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"parse_conf_buf","c":"1693-1807","status":"ported","js":["js/cfgfiles.js:parse_conf_buf"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: continuation/CHOOSE/section dispatch traced vs C incl --ep edge arms"}
-{"fn":"parse_conf_str","c":"1810-1837","status":"partial","js":["js/cfgfiles.js:parse_conf_str"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-2787"],"at":"seed@a30a7de84"}
+{"fn":"parse_conf_str","c":"1810-1837","status":"partial","js":["js/cfgfiles.js:parse_conf_str"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-3405","D-2787"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
 {"fn":"parse_conf_file","c":"1844-1860","status":"ported","js":["js/cfgfiles.js:parse_conf_file"],"d":["D-3098"],"at":"2026-09-29@92b27f0c4","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"config_error_add","c":"1865-1872","status":"partial","js":["js/cfgfiles.js:config_error_add"],"d":["D-3173"],"at":"2026-09-30@1b3985d44"}
-{"fn":"vconfig_error_add","c":"1875-1890","status":"ported","js":["js/cfgfiles.js:vconfig_error_add"],"d":["D-3173","D-3134"],"at":"2026-09-30@1b3985d44","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"config_error_add","c":"1865-1872","status":"partial","js":["js/cfgfiles.js:config_error_add"],"d":["D-3405","D-3173"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"vconfig_error_add","c":"1875-1890","status":"ported","js":["js/cfgfiles.js:vconfig_error_add"],"d":["D-3405","D-3173","D-3134"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"rcfile","c":"1894-1957","status":"ported","js":["js/cfgfiles.js:rcfile"],"at":"2026-10-03@bbe63333a"}
-{"fn":"rcfile_interface_options","c":"1960-1976","status":"partial","js":["js/cfgfiles.js:rcfile_interface_options"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-2787"],"at":"seed@a30a7de84"}
-{"fn":"heed_all_config_statements","c":"1979-1986","status":"ported","js":["js/cfgfiles.js:heed_all_config_statements"],"at":"2026-10-03@bbe63333a"}
+{"fn":"rcfile_interface_options","c":"1960-1976","status":"partial","js":["js/cfgfiles.js:rcfile_interface_options"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-3405","D-2787"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"heed_all_config_statements","c":"1979-1986","status":"ported","js":["js/cfgfiles.js:heed_all_config_statements"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"disregard_all_config_statements","c":"1988-1995","status":"ported","js":["js/cfgfiles.js:disregard_all_config_statements"],"at":"2026-10-03@bbe63333a"}
 {"fn":"heed_this_config_statement","c":"1997-2001","status":"ported","js":["js/cfgfiles.js:heed_this_config_statement"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"disregard_this_config_statement","c":"2003-2007","status":"ported","js":["js/cfgfiles.js:disregard_this_config_statement"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}

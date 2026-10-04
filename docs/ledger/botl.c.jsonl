@@ -3,7 +3,7 @@
 {"fn":"do_statusline1","c":"48-98","status":"partial","js":["js/display.js:do_statusline1"],"omit":"pad target fixed col 31 (CSI CUF when gap>4), not gm.mrank_sz+15; mrank_sz unused","d":["D-2162","D-2057","D-1892","D-1842"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_statusline2","c":"101-250","status":"partial","js":["js/display.js:_statusLine2"],"omit":"vers always '' (flags.showvers/status_version); cond order is tty field order not C emission order; gold/AC %-2 pads; no MAXCO panic; no in_dumplog '$' arm","d":["D-2148","D-2024","D-1990"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: implemented as js/display.js:_statusLine2 (export status_line_2) (js fixed by applier: no same-named fn)"}
 {"fn":"bot","c":"253-271","status":"ported","js":["js/display.js:bot"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
-{"fn":"timebot","c":"275-294","status":"partial","js":["js/display.js:timebot"],"omit":"no !suppress_map_output() gate; time_botl cleared only when flags.time off (C clears unconditionally; windowport path leaks the flag)","at":"2026-10-03@bbe63333a"}
+{"fn":"timebot","c":"275-294","status":"ported","js":["js/display.js:timebot"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"xlev_to_rank","c":"298-311","status":"ported","js":["js/roles.js:xlev_to_rank"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rank_to_xlev","c":"315-329","status":"ported","js":["js/roles.js:rank_to_xlev"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rank_of","c":"332-358","status":"ported","js":["js/roles.js:rank_of"],"at":"2026-10-03@bbe63333a"}
@@ -18,41 +18,41 @@
 {"fn":"stat_update_time","c":"1285-1299","status":"ported","js":["js/botl.js:stat_update_time"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"condopt","c":"1303-1329","status":"ported","js":["js/botl.js:condopt"],"d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cond_cmp","c":"1333-1342","status":"ported","js":["js/botl.js:cond_cmp"],"at":"2026-10-03@bbe63333a"}
-{"fn":"menualpha_cmp","c":"1346-1351","status":"ported","js":["js/botl.js:menualpha_cmp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menualpha_cmp","c":"1346-1351","status":"ported","js":["js/botl.js:menualpha_cmp"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"parse_cond_option","c":"1354-1371","status":"ported","js":["js/botl.js:parse_cond_option"],"d":["D-3094"],"at":"2026-09-29@22c393674","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cond_menu","c":"1376-1454","status":"ported","js":["js/botl.js:cond_menu"],"d":["D-2635"],"at":"seed@a30a7de84"}
 {"fn":"opt_next_cond","c":"1460-1490","status":"ported","js":["js/botl.js:opt_next_cond"],"at":"2026-10-03@bbe63333a"}
 {"fn":"eval_notify_windowport_field","c":"1493-1618","status":"ported","js":["js/botl.js:eval_notify_windowport_field"],"at":"2026-10-03@bbe63333a"}
-{"fn":"evaluate_and_notify_windowport","c":"1621-1680","status":"partial","js":["js/botl.js:evaluate_and_notify_windowport"],"omit":"`status_update` windowport dispatch (`winprocs.h:186`); `get_hilite :2364` + `hilite_reset_needed :2257` (STATUS_HILITES machinery; loud forwarders, never silent); `svc.context.rndencode` + `gs.showsyms` gold-hack state (undefined-safe; caches start undefined so the arm pins off until that state po…","d":["D-2498"],"at":"seed@a30a7de84"}
-{"fn":"status_initialize","c":"1683-1720","status":"partial","js":["js/botl.js:status_initialize"],"omit":"`display_nhwindow(WIN_STATUS, FALSE)` in `genl_status_init` (`windows.c:905`).","d":["D-2858"],"at":"seed@a30a7de84"}
-{"fn":"status_finish","c":"1723-1756","status":"ported","js":["js/botl.js:status_finish"],"d":["D-3036"],"at":"2026-09-28@c01f2bf81","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"evaluate_and_notify_windowport","c":"1621-1680","status":"partial","js":["js/botl.js:evaluate_and_notify_windowport"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405","D-2498"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"status_initialize","c":"1683-1720","status":"partial","js":["js/botl.js:status_initialize"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405","D-2858"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"status_finish","c":"1723-1756","status":"ported","js":["js/botl.js:status_finish"],"d":["D-3405","D-3036"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"init_blstats","c":"1759-1788","status":"ported","js":["js/botl.js:init_blstats"],"at":"2026-10-03@bbe63333a"}
 {"fn":"compare_blstats","c":"1809-1883","status":"ported","js":["js/botl.js:compare_blstats"],"at":"2026-10-03@bbe63333a"}
 {"fn":"anything_to_s","c":"1886-1926","status":"ported","js":["js/botl.js:anything_to_s"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"s_to_anything","c":"1930-1972","status":"ported","js":["js/botl.js:s_to_anything"],"at":"2026-10-03@bbe63333a"}
 {"fn":"percentage","c":"1977-2047","status":"ported","js":["js/botl.js:percentage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"exp_percentage","c":"2052-2085","status":"ported","js":["js/botl.js:exp_percentage"],"at":"2026-10-03@bbe63333a"}
-{"fn":"exp_percent_changing","c":"2090-2125","status":"partial","js":["js/botl.js:exp_percent_changing"],"omit":"A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored.","d":["D-2847"],"at":"seed@a30a7de84"}
-{"fn":"stat_cap_indx","c":"2131-2141","status":"ported","js":["js/botl.js:stat_cap_indx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"stat_hunger_indx","c":"2146-2156","status":"ported","js":["js/botl.js:stat_hunger_indx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"exp_percent_changing","c":"2090-2125","status":"partial","js":["js/botl.js:exp_percent_changing"],"omit":"A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored.","d":["D-3405","D-2847"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"stat_cap_indx","c":"2131-2141","status":"ported","js":["js/botl.js:stat_cap_indx"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"stat_hunger_indx","c":"2146-2156","status":"ported","js":["js/botl.js:stat_hunger_indx"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"bl_idx_to_fldname","c":"2160-2165","status":"ported","js":["js/botl.js:bl_idx_to_fldname"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"repad_with_dashes","c":"2170-2178","status":"ported","js":["js/botl.js:repad_with_dashes"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"fldname_to_bl_indx","c":"2221-2254","status":"ported","js":["js/botl.js:fldname_to_bl_indx"],"at":"2026-10-03@bbe63333a"}
-{"fn":"hilite_reset_needed","c":"2257-2275","status":"ported","js":["js/botl.js:hilite_reset_needed"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
+{"fn":"hilite_reset_needed","c":"2257-2275","status":"ported","js":["js/botl.js:hilite_reset_needed"],"d":["D-3405","D-2964"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"status_eval_next_unhilite","c":"2279-2317","status":"ported","js":["js/botl.js:status_eval_next_unhilite"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
 {"fn":"reset_status_hilites","c":"2321-2331","status":"ported","js":["js/botl.js:reset_status_hilites"],"at":"2026-10-03@bbe63333a"}
 {"fn":"noneoftheabove","c":"2336-2344","status":"ported","js":["js/botl.js:noneoftheabove"],"at":"2026-10-03@bbe63333a"}
-{"fn":"get_hilite","c":"2364-2570","status":"partial","js":["js/botl.js:get_hilite"],"omit":"``exp_percent_changing`` caller (``botl.c:2117``); ``hilite_reset_needed``/``status_update`` stays named (windowport registry); rule-node producers (threshold chains are null until the status-hilite option parser lands — gate reads false, returns null + NO_COLOR).","d":["D-2619"],"at":"seed@a30a7de84"}
-{"fn":"split_clridx","c":"2576-2582","status":"ported","js":["js/botl.js:split_clridx"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
+{"fn":"get_hilite","c":"2364-2570","status":"partial","js":["js/botl.js:get_hilite"],"omit":"``exp_percent_changing`` caller (``botl.c:2117``); ``hilite_reset_needed``/``status_update`` stays named (windowport registry); rule-node producers (threshold chains are null until the status-hilite option parser lands — gate reads false, returns null + NO_COLOR).","d":["D-3405","D-2619"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"split_clridx","c":"2576-2582","status":"ported","js":["js/botl.js:split_clridx"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"parse_status_hl1","c":"2593-2648","status":"ported","js":["js/botl.js:parse_status_hl1"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_ltgt_percentnumber","c":"2652-2669","status":"ported","js":["js/botl.js:is_ltgt_percentnumber"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body js/botl.js:1719, wired at C caller :2921 -> js/botl.js:1882"}
-{"fn":"has_ltgt_percentnumber","c":"2673-2683","status":"ported","js":["js/botl.js:has_ltgt_percentnumber"],"at":"2026-10-03@bbe63333a"}
-{"fn":"splitsubfields","c":"2688-2727","status":"ported","js":["js/botl.js:splitsubfields"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b"}
-{"fn":"is_fld_arrayvalues","c":"2730-2744","status":"ported","js":["js/botl.js:is_fld_arrayvalues"],"at":"2026-10-03@bbe63333a"}
-{"fn":"query_arrayvalue","c":"2747-2781","status":"ported","js":["js/botl.js:query_arrayvalue"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"has_ltgt_percentnumber","c":"2673-2683","status":"ported","js":["js/botl.js:has_ltgt_percentnumber"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"splitsubfields","c":"2688-2727","status":"ported","js":["js/botl.js:splitsubfields"],"d":["D-3405","D-3119"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"is_fld_arrayvalues","c":"2730-2744","status":"ported","js":["js/botl.js:is_fld_arrayvalues"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"query_arrayvalue","c":"2747-2781","status":"ported","js":["js/botl.js:query_arrayvalue"],"d":["D-3405","D-3119"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"status_hilite_add_threshold","c":"2784-2811","status":"ported","js":["js/botl.js:status_hilite_add_threshold"],"at":"2026-10-03@bbe63333a"}
-{"fn":"parse_status_hl2","c":"2814-3106","status":"ported","js":["js/botl.js:parse_status_hl2"],"d":["D-2649"],"at":"seed@a30a7de84"}
-{"fn":"query_conditions","c":"3109-3138","status":"ported","js":["js/botl.js:query_conditions"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"parse_status_hl2","c":"2814-3106","status":"ported","js":["js/botl.js:parse_status_hl2"],"d":["D-3405","D-2649"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"query_conditions","c":"3109-3138","status":"ported","js":["js/botl.js:query_conditions"],"d":["D-3405","D-3119"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"conditionbitmask2str","c":"3141-3168","status":"ported","js":["js/botl.js:conditionbitmask2str"],"at":"2026-10-03@bbe63333a"}
 {"fn":"match_str2conditionbitmask","c":"3171-3206","status":"ported","js":["js/botl.js:match_str2conditionbitmask"],"at":"2026-10-03@bbe63333a"}
 {"fn":"str2conditionbitmask","c":"3209-3230","status":"ported","js":["js/botl.js:str2conditionbitmask"],"at":"2026-10-03@bbe63333a"}
@@ -60,18 +60,18 @@
 {"fn":"clear_status_hilites","c":"3351-3366","status":"ported","js":["js/botl.js:clear_status_hilites"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hlattr2attrname","c":"3369-3401","status":"ported","js":["js/botl.js:hlattr2attrname"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/botl.js:2732 local staticfn clone; :3558->2852, :3662->2935 wired, :4272 in named-omission status_hilite_menu_add"}
 {"fn":"status_hilite_linestr_add","c":"3417-3445","status":"ported","js":["js/botl.js:status_hilite_linestr_add"],"at":"2026-10-03@bbe63333a"}
-{"fn":"status_hilite_linestr_done","c":"3448-3459","status":"ported","js":["js/botl.js:status_hilite_linestr_done"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
-{"fn":"status_hilite_linestr_countfield","c":"3462-3473","status":"ported","js":["js/botl.js:status_hilite_linestr_countfield"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5"}
+{"fn":"status_hilite_linestr_done","c":"3448-3459","status":"ported","js":["js/botl.js:status_hilite_linestr_done"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"status_hilite_linestr_countfield","c":"3462-3473","status":"ported","js":["js/botl.js:status_hilite_linestr_countfield"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"count_status_hilites","c":"3477-3485","status":"ported","js":["js/botl.js:count_status_hilites"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"status_hilite_linestr_gather_conditions","c":"3488-3567","status":"ported","js":["js/botl.js:status_hilite_linestr_gather_conditions"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
 {"fn":"status_hilite_linestr_gather","c":"3570-3586","status":"ported","js":["js/botl.js:status_hilite_linestr_gather"],"at":"2026-10-03@bbe63333a"}
-{"fn":"status_hilite2str","c":"3590-3669","status":"ported","js":["js/botl.js:status_hilite2str"],"d":["D-3230","D-3137"],"at":"2026-10-01@b4ca336ef"}
-{"fn":"status_hilite_menu_choose_field","c":"3672-3704","status":"ported","js":["js/botl.js:status_hilite_menu_choose_field"],"d":["D-3119"],"at":"2026-09-29@2c9129a4b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"status_hilite2str","c":"3590-3669","status":"ported","js":["js/botl.js:status_hilite2str"],"d":["D-3405","D-3230","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"status_hilite_menu_choose_field","c":"3672-3704","status":"ported","js":["js/botl.js:status_hilite_menu_choose_field"],"d":["D-3405","D-3119"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"status_hilite_menu_choose_behavior","c":"3707-3808","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"status_hilite_menu_choose_updownboth","c":"3811-3887","status":"ported","js":["js/botl.js:status_hilite_menu_choose_updownboth"],"d":["D-3230","D-2757"],"at":"2026-10-01@b4ca336ef"}
+{"fn":"status_hilite_menu_choose_updownboth","c":"3811-3887","status":"ported","js":["js/botl.js:status_hilite_menu_choose_updownboth"],"d":["D-3405","D-3230","D-2757"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"status_hilite_menu_add","c":"3890-4302","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"status_hilite_remove","c":"4305-4354","status":"partial","js":["js/botl.js:status_hilite_remove"],"omit":"`status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes the FALSE return), the `while (add)` arm (`:4446`), and `reset_status_hilites` at `:4300`.","d":["D-2757"],"at":"seed@a30a7de84"}
+{"fn":"status_hilite_remove","c":"4305-4354","status":"partial","js":["js/botl.js:status_hilite_remove"],"omit":"`status_hilite_menu_add` (`botl.c:3889–4302`) — both `choose_updownboth` call sites, the empty-field early call (`:4370`, this site takes the FALSE return), the `while (add)` arm (`:4446`), and `reset_status_hilites` at `:4300`.","d":["D-3405","D-2757"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
 {"fn":"status_hilite_menu_fld","c":"4357-4453","status":"ported","js":["js/botl.js:status_hilite_menu_fld"],"at":"2026-09-30@442754b32","note":"stale: js/botl.js:3459, whole C body; only gap is by-design status_hilite_menu_add (named in body)"}
 {"fn":"status_hilites_viewall","c":"4456-4474","status":"ported","js":["js/botl.js:status_hilites_viewall"],"at":"2026-09-29@c21da30e8","note":"stale: js/botl.js:3346 (complete body + wired caller :3405)"}
-{"fn":"all_options_statushilites","c":"4477-4495","status":"ported","js":["js/options.js:all_options_statushilites"],"d":["D-3230","D-2552"],"at":"2026-10-01@b4ca336ef"}
-{"fn":"status_hilite_menu","c":"4498-4578","status":"ported","js":["js/botl.js:status_hilite_menu"],"d":["D-3230","D-2757"],"at":"2026-10-01@b4ca336ef"}
+{"fn":"all_options_statushilites","c":"4477-4495","status":"ported","js":["js/options.js:all_options_statushilites"],"d":["D-3405","D-3230","D-2552"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"status_hilite_menu","c":"4498-4578","status":"ported","js":["js/botl.js:status_hilite_menu"],"d":["D-3405","D-3230","D-2757"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}

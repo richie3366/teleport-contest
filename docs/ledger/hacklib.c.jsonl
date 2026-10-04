@@ -30,18 +30,18 @@
 {"fn":"strNsubst","c":"557-597","status":"ported","js":["js/hacklib.js:strNsubst"],"at":"2026-10-03@bbe63333a"}
 {"fn":"findword","c":"601-621","status":"ported","js":["js/hacklib.js:findword"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ordin","c":"625-631","status":"ported","js":["js/hacklib.js:ordin"],"at":"2026-10-03@bbe63333a"}
-{"fn":"sitoa","c":"638-644","status":"ported","js":["js/hacklib.js:sitoa"],"d":["D-3024"],"at":"2026-09-28@73b53df4b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sitoa","c":"638-644","status":"ported","js":["js/hacklib.js:sitoa"],"d":["D-3405","D-3024"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"sgn","c":"650-653","status":"ported","js":["js/artifact.js:sgn"],"at":"2026-10-03@bbe63333a"}
-{"fn":"distmin","c":"657-669","status":"ported","js":["js/hacklib.js:distmin"],"d":["D-3324"],"at":"2026-10-02@c944311a4"}
-{"fn":"dist2","c":"673-678","status":"ported","js":["js/hacklib.js:dist2"],"d":["D-3327"],"at":"2026-10-03@0e60ede85"}
+{"fn":"distmin","c":"657-669","status":"ported","js":["js/hacklib.js:distmin"],"d":["D-3405","D-3324"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"dist2","c":"673-678","status":"ported","js":["js/hacklib.js:dist2"],"d":["D-3405","D-3327"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"isqrt","c":"682-700","status":"ported","js":["js/hacklib.js:isqrt"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"online2","c":"704-711","status":"ported","js":["js/hacklib.js:online2"],"at":"2026-10-03@bbe63333a"}
-{"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"The `strncmpi` compare loop is complete, but call sites in `artifact.c`, `attrib.c`, `botl.c`, `cmd.c`, `coloratt.c`, `do.c`, `do_name.c`, `dungeon.c`, `earlyarg.c`, `eat.c`, `files.c` tribute tags, `hack.c`, `invent.c`, `mon.c` gasp, `mondata.c`, `mthrowu.c`, `nhlua.c`, `objnam.c` outside the `rea…","d":["D-2967"],"at":"2026-09-27@b43d2c68f"}
-{"fn":"strstri","c":"740-779","status":"partial","js":["js/hacklib.js:strstri"],"omit":"`apply.c:1412` (the attach prompt at `js/apply.js:4813` is built without the ` to\\033` strip).","d":["D-2877"],"at":"seed@a30a7de84"}
+{"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405","D-2967"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"strstri","c":"740-779","status":"ported","js":["js/hacklib.js:strstri"],"d":["D-3405","D-2877"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"fuzzymatch","c":"785-808","status":"ported","js":["js/hacklib.js:fuzzymatch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"swapbits","c":"832-837","status":"ported","js":["js/hacklib.js:swapbits"],"at":"2026-10-03@bbe63333a"}
 {"fn":"nh_snprintf","c":"854-875","status":"by-design","d":["D-3324"],"at":"2026-10-02@c944311a4","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"unicodeval_to_utf8str","c":"882-919","status":"partial","js":["js/hacklib.js:unicodeval_to_utf8str"],"omit":"`to_custom_symset_entry_callback` (`glyphs.c:52–104`, call at `:70`) plus `unicode_val` (`utf8map.c:18–34`) and `add_custom_urep_entry` (`utf8map.c:148–207`) stay the unported customization writer (`ENHANCED_SYMBOLS` is on).","d":["D-2892"],"at":"seed@a30a7de84"}
+{"fn":"unicodeval_to_utf8str","c":"882-919","status":"partial","js":["js/hacklib.js:unicodeval_to_utf8str"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405","D-2892"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"case_insensitive_comp","c":"922-937","status":"ported","js":["js/date.js:case_insensitive_comp"],"at":"2026-09-30@779a41942","note":"stale: js/date.js:31 (local, wired at :118 for date.c:90; mdlib.c window-port + makedefs-util callers have no JS path)"}
 {"fn":"copy_bytes","c":"946-961","status":"by-design","d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"Rule #2: raw-fd read/write copy; scored callers all in recover_savefile binary path (files.c:3011/3021/3040, review 1431 no-counterpart); util/recover.c callers are build tools"}
 {"fn":"datamodel","c":"982-997","status":"ported","js":["js/version.js:datamodel"],"at":"2026-09-30@042bdf039","note":"stale: js/version.js:306; version.c:784 wired at js/files.js:1549, mdlib.c:699 at js/version.js:543"}

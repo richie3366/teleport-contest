@@ -5952,10 +5952,12 @@ export async function rhack(key) {
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'E') {
         // C ref: engrave.c doengrave / #engrave
-        // ECMD_OK setup; occupation consumes the following turn
-        const tookTime = await doengrave();
-        game.context.move = tookTime ? 1 : 0;
-        if (tookTime) game.kickedloc = { x: 0, y: 0 };
+        // ECMD bitmask like the `#` path: only the TIME bit takes the
+        // turn (FAIL/CANCEL don't — C takes no turn on "can't write",
+        // scen-special-Barbarian-94037 step 102).
+        const engrRes = await doengrave();
+        game.context.move = (engrRes & ECMD_TIME) ? 1 : 0;
+        if (engrRes & ECMD_TIME) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 't') {
         // C ref: dothrow.c dothrow
         const tookTime = await dothrow();

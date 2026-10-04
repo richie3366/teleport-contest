@@ -1,14 +1,14 @@
 {"fn":"is_edible","c":"91-121","status":"ported","js":["js/eat.js:is_edible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"init_uhunger","c":"126-135","status":"ported","js":["js/eat.js:init_uhunger"],"at":"2026-10-03@bbe63333a"}
 {"fn":"eatmdone","c":"163-177","status":"ported","js":["js/eat.js:eatmdone"],"at":"2026-10-03@bbe63333a"}
-{"fn":"eatmupdate","c":"181-213","status":"partial","js":["js/eat.js:eatmupdate"],"omit":"`alloc` and `free` are the string reseat; there is no C heap in `js/`.","d":["D-2896"],"at":"seed@a30a7de84"}
+{"fn":"eatmupdate","c":"181-213","status":"partial","js":["js/eat.js:eatmupdate"],"omit":"`alloc` and `free` are the string reseat; there is no C heap in `js/`.","d":["D-3405","D-2896"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
 {"fn":"food_xname","c":"217-235","status":"ported","js":["js/eat.js:food_xname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"choke","c":"245-288","status":"ported","js":["js/eat.js:choke"],"d":["D-1344"],"at":"2026-10-03@bbe63333a"}
-{"fn":"recalc_wt","c":"292-305","status":"ported","js":["js/eat.js:recalc_wt"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
-{"fn":"reset_eat","c":"309-319","status":"ported","js":["js/eat.js:reset_eat"],"at":"2026-10-03@bbe63333a"}
+{"fn":"recalc_wt","c":"292-305","status":"ported","js":["js/eat.js:recalc_wt"],"d":["D-3405","D-3078"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"reset_eat","c":"309-319","status":"ported","js":["js/eat.js:reset_eat"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"obj_nutrition","c":"325-332","status":"ported","js":["js/eat.js:obj_nutrition"],"at":"2026-10-03@bbe63333a"}
 {"fn":"adj_victual_nutrition","c":"338-356","status":"ported","js":["js/eat.js:adj_victual_nutrition"],"at":"2026-10-03@bbe63333a"}
-{"fn":"touchfood","c":"360-388","status":"partial","js":["js/eat.js:touchfood"],"omit":"costly_alteration(otmp,COST_BITE) (:371); sellobj_state DONTSELL/NORMAL around invent-full dropy (:378/:380)","at":"2026-10-03@bbe63333a"}
+{"fn":"touchfood","c":"360-388","status":"ported","js":["js/eat.js:touchfood"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"food_disappears","c":"396-403","status":"ported","js":["js/shk.js:food_disappears"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local in shk.js (obfree callee)"}
 {"fn":"food_substitution","c":"409-419","status":"ported","js":["js/eat.js:food_substitution"],"d":["D-3078"],"at":"2026-09-29@01a639d1b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_reset_eat","c":"422-447","status":"ported","js":["js/eat.js:do_reset_eat"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
@@ -22,12 +22,12 @@
 {"fn":"maybe_cannibal","c":"758-788","status":"ported","js":["js/eat.js:maybe_cannibal"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cprefx","c":"791-864","status":"ported","js":["js/eat.js:cprefx"],"d":["D-1081"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"fix_petrification","c":"867-877","status":"ported","js":["js/eat.js:fix_petrification"],"at":"2026-10-03@bbe63333a"}
-{"fn":"intrinsic_possible","c":"890-954","status":"ported","js":["js/eat.js:intrinsic_possible"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — all 11 cases + default live; DEBUG ifdebugresist correctly compiled out"}
+{"fn":"intrinsic_possible","c":"890-954","status":"ported","js":["js/eat.js:intrinsic_possible"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"should_givit","c":"961-989","status":"ported","js":["js/eat.js:should_givit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"temp_givit","c":"992-997","status":"ported","js":["js/eat.js:temp_givit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"givit","c":"1003-1100","status":"ported","js":["js/eat.js:givit"],"d":["D-2214"],"at":"2026-10-03@bbe63333a"}
 {"fn":"eye_of_newt_buzz","c":"1103-1123","status":"ported","js":["js/eat.js:eye_of_newt_buzz"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cpostfx","c":"1129-1328","status":"partial","js":["js/eat.js:cpostfx"],"omit":"mimic-arm first-polyself livelog (:1199-1202)","at":"2026-10-03@bbe63333a"}
+{"fn":"cpostfx","c":"1129-1328","status":"partial","js":["js/eat.js:cpostfx"],"omit":"- `cpostfx`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).","d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"corpse_intrinsic","c":"1339-1373","status":"ported","js":["js/eat.js:corpse_intrinsic"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"violated_vegetarian","c":"1376-1384","status":"ported","js":["js/eat.js:violated_vegetarian"],"at":"2026-10-03@bbe63333a"}
 {"fn":"costly_tin","c":"1389-1402","status":"ported","js":["js/eat.js:costly_tin"],"at":"2026-10-03@bbe63333a"}
@@ -35,13 +35,13 @@
 {"fn":"tin_details","c":"1428-1458","status":"ported","js":["js/objnam.js:tin_details"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local; C omndx===obj.corpsenm, display-mode variety"}
 {"fn":"set_tin_variety","c":"1461-1486","status":"ported","js":["js/eat.js:set_tin_variety"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tin_variety","c":"1489-1512","status":"ported","js":["js/eat.js:tin_variety"],"at":"2026-10-03@bbe63333a"}
-{"fn":"use_up_tin","c":"1516-1525","status":"ported","js":["js/eat.js:use_up_tin"],"at":"2026-10-03@bbe63333a"}
-{"fn":"consume_tin","c":"1528-1699","status":"partial","js":["js/eat.js:consume_tin"],"omit":"spinach-arm first-food livelog (:1670-1671)","at":"2026-10-03@bbe63333a"}
+{"fn":"use_up_tin","c":"1516-1525","status":"ported","js":["js/eat.js:use_up_tin"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"consume_tin","c":"1528-1699","status":"ported","js":["js/eat.js:consume_tin"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"opentin","c":"1703-1719","status":"ported","js":["js/eat.js:opentin"],"at":"2026-10-03@bbe63333a"}
 {"fn":"start_tin","c":"1723-1797","status":"ported","js":["js/eat.js:start_tin"],"d":["D-2187"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Hear_again","c":"1801-1809","status":"ported","js":["js/eat.js:Hear_again"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rottenfood","c":"1813-1851","status":"ported","js":["js/eat.js:rottenfood"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: spins/foodword message text simplified; all state effects live"}
-{"fn":"eatcorpse","c":"1855-2018","status":"partial","js":["js/eat.js:eatcorpse"],"omit":"tainted-path make_sick+Sick_resistance arm (:1904-1917); stoneable forced false (:1866-1867); slimeable drops !Slimed/!Unchanging/!slimeproof (:1861-1862); conduct livelogs (:1870-1883)","d":["D-1774"],"at":"2026-10-03@bbe63333a"}
+{"fn":"eatcorpse","c":"1855-2018","status":"ported","js":["js/eat.js:eatcorpse"],"d":["D-3405","D-1774"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"start_eating","c":"2022-2074","status":"ported","js":["js/eat.js:start_eating"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
 {"fn":"eating_glob","c":"2078-2081","status":"ported","js":["js/eat.js:eating_glob"],"at":"2026-10-03@bbe63333a"}
 {"fn":"garlic_breath","c":"2085-2089","status":"ported","js":["js/eat.js:garlic_breath"],"at":"2026-10-03@bbe63333a"}
@@ -54,9 +54,9 @@
 {"fn":"fpostfx","c":"2510-2600","status":"ported","js":["js/eat.js:fpostfx"],"at":"2026-10-03@bbe63333a"}
 {"fn":"leather_cover","c":"2609-2618","status":"by-design","at":"2026-09-29@01a639d1b","note":"#if 0 not used (eat.c:2601): uncompiled; intended for poly spellbook-eating"}
 {"fn":"edibility_prompts","c":"2627-2731","status":"ported","js":["js/eat.js:edibility_prompts"],"d":["D-2690"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doeat_nonfood","c":"2734-2813","status":"partial","js":["js/eat.js:doeat_nonfood"],"at":"2026-10-01@07cfb4831","note":"MAIL arm absent: C eat.c:2757-2761 SCR_MAIL basenutrit=0+nodelicious (MAIL_STRUCTURES live); JS gives oc_nutrition 5 (audit 2185-2194 sample)"}
-{"fn":"doeat","c":"2817-3084","status":"partial","js":["js/eat.js:doeat"],"omit":"resume arm for otmp==victual.piece (:2923-2951: canchoke clear, resume/last-bite message, start_eating); dknown trycall (:2915-2916); conduct livelogs (:2962-2966,:3000-3022)","d":["D-2361"],"at":"2026-10-03@bbe63333a"}
-{"fn":"tinopen_ok","c":"3088-3094","status":"ported","js":["js/eat.js:tinopen_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doeat_nonfood","c":"2734-2813","status":"ported","js":["js/eat.js:doeat_nonfood"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"MAIL arm absent: C eat.c:2757-2761 SCR_MAIL basenutrit=0+nodelicious (MAIL_STRUCTURES live); JS gives oc_nutrition 5 (audit 2185-2194 sample)"}
+{"fn":"doeat","c":"2817-3084","status":"ported","js":["js/eat.js:doeat"],"d":["D-3405","D-2361"],"at":"2026-10-04@198b7a2a7"}
+{"fn":"tinopen_ok","c":"3088-3094","status":"ported","js":["js/eat.js:tinopen_ok"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"use_tin_opener","c":"3098-3127","status":"ported","js":["js/eat.js:use_tin_opener"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bite","c":"3133-3159","status":"ported","js":["js/eat.js:bite"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gethungry","c":"3163-3277","status":"ported","js":["js/eat.js:gethungry"],"d":["D-2118"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug_hunger unwired in JS (no live flag field); all diet/accessory arms live"}
@@ -66,10 +66,10 @@
 {"fn":"is_fainted","c":"3347-3350","status":"ported","js":["js/eat.js:is_fainted"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reset_faint","c":"3354-3358","status":"ported","js":["js/eat.js:reset_faint"],"at":"2026-10-03@bbe63333a"}
 {"fn":"newuhs","c":"3362-3513","status":"ported","js":["js/eat.js:newuhs"],"d":["D-1791"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"eat_ok","c":"3517-3534","status":"ported","js":["js/eat.js:eat_ok"],"at":"2026-10-03@bbe63333a"}
+{"fn":"eat_ok","c":"3517-3534","status":"ported","js":["js/eat.js:eat_ok"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"offer_ok","c":"3539-3557","status":"ported","js":["js/eat.js:offer_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"tin_ok","c":"3561-3573","status":"ported","js":["js/eat.js:tin_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"floorfood","c":"3579-3731","status":"ported","js":["js/eat.js:floorfood"],"d":["D-2605"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — dispatcher; all C arms verified in floorfood_eat/sacrifice/tin (bear trap, bars, gold, floor loop, skipfloor)"}
+{"fn":"tin_ok","c":"3561-3573","status":"ported","js":["js/eat.js:tin_ok"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
+{"fn":"floorfood","c":"3579-3731","status":"ported","js":["js/eat.js:floorfood"],"d":["D-3405","D-2605"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"vomit","c":"3736-3785","status":"ported","js":["js/eat.js:vomit"],"d":["D-1127"],"at":"2026-10-03@bbe63333a"}
 {"fn":"eaten_stat","c":"3788-3804","status":"ported","js":["js/mkobj.js:eaten_stat"],"at":"2026-10-03@bbe63333a"}
 {"fn":"consume_oeaten","c":"3808-3872","status":"ported","js":["js/eat.js:consume_oeaten"],"d":["D-2631"],"at":"seed@a30a7de84"}

@@ -62,6 +62,7 @@ import {
     Is_rogue_level,
     PRIMARYSET,
     ROGUESET,
+    H_UNK,
     DISP_BEAM, DISP_ALL, DISP_TETHER, DISP_FLASH, DISP_ALWAYS,
     DISP_CHANGE, DISP_END, DISP_FREEMEM, BACKTRACK,
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING,
@@ -3223,6 +3224,41 @@ export function assign_graphics(whichset) {
         sh = game.gs.showsyms = new Array(SYM_MAX).fill(0);
     }
     for (let i = 0; i < SYM_MAX; i++) sh[i] = ov[i] ? ov[i] : def[i];
+}
+
+/**
+ * C ref: symbols.c switch_symbols `:253–292` — refresh showsyms from the
+ * primary set (SYMBOLS/ROGUESYMBOLS apply). TRUE (`:257–260`): showsyms[i]
+ * = ov_primary ? ov : primary — the assign_graphics PRIMARYSET arm, same
+ * stores; the `:261–287` PC9800/TERMLIB/CURSES/WIN32/UTF8 graphics-mode
+ * callbacks are null in contest tty (no JS callbacks exist). FALSE
+ * (`:288–291`): init_primary_symbols + init_showsyms = defaults (the gp
+ * carrier stays null by design; showsyms_defaults PRIMARYSET is what
+ * those inits write) + the PRIMARYSET entry handling/nocolor reset.
+ * Named omission: clear_symsetentry desc/purge/glyphmap (`:289` tail —
+ * no JS home). No reset_glyphmap call in C (assign_graphics-only,
+ * by-design unported). C callers: cfgfiles.c:1194/:1205 (wired);
+ * options.c:664/:1370/:1419/:1943/:4197 + symbols.c:682/:1088 (unported
+ * sites, named).
+ */
+export function switch_symbols(nondefault) {
+    if (!game.gs) game.gs = {};
+    const def = showsyms_defaults(PRIMARYSET);
+    let sh = game.gs.showsyms;
+    if (!Array.isArray(sh) || sh.length !== SYM_MAX) {
+        sh = game.gs.showsyms = new Array(SYM_MAX).fill(0);
+    }
+    if (nondefault) { // C `:257–260`
+        const ov = ov_primary_table();
+        for (let i = 0; i < SYM_MAX; i++) sh[i] = ov[i] ? ov[i] : def[i];
+    } else { // C `:288–291` — defaults + entry handling/nocolor reset
+        const se = game.gs.symset?.[PRIMARYSET];
+        if (se) {
+            se.handling = H_UNK;
+            se.nocolor = 0;
+        }
+        for (let i = 0; i < SYM_MAX; i++) sh[i] = def[i];
+    }
 }
 
 /**
@@ -7712,15 +7748,17 @@ export async function bot() {
 /**
  * C ref: botl.c timebot — status update when only svm.moves changed.
  * VIA_WINDOWPORT → stat_update_time(); tty path → full bot().
- * Named omissions: hangup done_hup in suppress_map_output.
+ * time_botl clears unconditionally (both JS stores mirror C disp).
  */
 export async function timebot() {
     // C botl.c `:277–278` — gb.bot_disabled returns before time update.
     if (_bot_disabled) return;
     const flags = game.flags || {};
     const iflags = game.iflags || {};
-    // C: status_updates defaults TRUE; treat undefined as enabled
-    if (flags.time && iflags.status_updates !== false) {
+    // C `:285` — status_updates defaults TRUE (undefined reads
+    // enabled); suppress_map_output covers restoring/hangup.
+    if (flags.time && iflags.status_updates !== false
+        && !suppress_map_output()) {
         // C botl.h:213 VIA_WINDOWPORT() (bot() :7406-7408 precedent).
         const wincap2 = game.windowprocs?.wincap2 | 0;
         if ((wincap2 & (WC2_HILITE_STATUS | WC2_FLUSH_STATUS)) !== 0) {
@@ -7728,9 +7766,10 @@ export async function timebot() {
         } else {
             await bot(); // C :288-290 old status display updates everything
         }
-    } else if (game.flags) {
-        game.flags.time_botl = false;
     }
+    // C `:293` — disp.time_botl clears unconditionally, on every path.
+    if (game.flags) game.flags.time_botl = false;
+    if (game.disp) game.disp.time_botl = false;
 }
 
 // C ref: getline.c xwaitforspace("\033 ") — only ESC/space/return dismiss

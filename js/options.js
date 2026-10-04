@@ -765,7 +765,9 @@ export function get_default_configfile() {
 }
 
 export function set_configfile_name(fname) {
-    configfile = String(fname || CONTEST_RECORDER_CONFIGFILE);
+    // C `:216–217` — strncpy(configfile[BUFSZ], fname, BUFSZ-1) + NUL.
+    configfile = String(fname || CONTEST_RECORDER_CONFIGFILE)
+        .slice(0, BUFSZ - 1);
 }
 
 /**
