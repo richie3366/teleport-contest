@@ -1,5 +1,77 @@
 # Divergence log
 
+## D-3426 — breadth batch @0d801c73f: 95 fns over 28 C files (31 ported, 4 partial, 20 split, 40 audited)
+
+- **Status:** FIXED (batch).
+- **Symptom:** ledger gap of 95 functions (open 0 · partial 42 · recheck 53, ~1562 C lines): named omissions in find_misc/use_misc (muse), argcheck (earlyarg), Helmet_on/armor_or_accessory_off (do_wear), pick_nasty (wizard), m_dowear_type/setnotworn (worn), dowrite (write), and 16 trapeffects; 20 cfgfiles sysconf splits + 53 thin rechecks to confirm whole.
+- **C locus:**
+  - `find_misc`: muse.c:2095–2245 (nomore `:2151`)
+  - `use_misc`: muse.c:2383–2626 (INVIS `:2453`, whip `:2549–2606`)
+  - `argcheck`: earlyarg.c:450–560 (ARG_DUMPWEIGHTS `:538–540`)
+  - `Helmet_on`: do_wear.c:434–515 (alignment `:465–472`)
+  - `armor_or_accessory_off`: do_wear.c:1771–1829 (uskin `:1794`, select_off `:1799–1805`)
+  - `pick_nasty`: wizard.c:538–581 (rogue re-ROLL `:547–549`)
+  - `m_dowear_type`: worn.c:799–1002 (cloak `:848–851`)
+  - `setnotworn`: worn.c:150–184 (update_inventory `:182`)
+  - `dowrite`: write.c:74–385 (check_unpaid `:250`, spe `:266`, inv `:262/:283`, literate `:245`)
+  - `maketrap`: trap.c:456–588 (Knox `:482`)
+  - `animate_statue`: trap.c:726–900 (shk_your `:825/:840`, msg_xy `:848`)
+  - `trapeffect_arrow_trap`: trap.c:1190–1248 (gone `:1229–1232`, seetrap `:1239`, obfree `:1216`)
+  - `trapeffect_rocktrap`: trap.c:1324–1400 (HEAD `:1346`, Yname2 `:1359`)
+  - `trapeffect_bear_trap`: trap.c:1479–1560 (Yname2 `:1518`)
+  - `trapeffect_pit`: trap.c:1825–2010 (locomotion `:1879`, worm `:1975`, pun `:1993–1995`)
+  - `trapeffect_rolling_boulder_trap`: trap.c:2661–2707 (in_sight `:2684–2686`)
+  - `launch_obj`: trap.c:3260–3575 (dig `:3307–3311`, unseen `:3323–3329`, curs_on_u `:3345`)
+  - `fill_pit`: trap.c:4010–4020 (flooreffects `:4018`)
+  - `float_down`: trap.c:4024–4179 (punished `:4073–4084`, ustuck `:4088–4094`, selftouch `:4134`)
+  - `climb_pit`: trap.c:4183–4230 (locomotion `:4205`)
+  - `could_untrap`: trap.c:5258–5284 (sticks `:5266`, hands `:5269`, surface `:5273`)
+  - `openholdingtrap`: trap.c:6101–6205 (defsyms `:6143–6145`)
+  - `chest_trap`: trap.c:6294–6499 (insider `:6361–6362`)
+  - `dotrap` (drive-by): trap.c:2996–3060 (step-over verb)
+  - `thitu` (drive-by): mthrowu.c:75–155 (losehp `:150` rehumanizes inline; A_STR exercise `:151`)
+  - `doidtrap` (drive-by): pager.c:2336–2390 (gf.ftrap walk `:2361–2388`)
+- **JS was:** per-check `!==` nomore + canseemon INVIS + literal hand/floor (muse); ARG_DUMPWEIGHTS without the dump call; helm-of-opposite-alignment falling to the known tail; armor path skipping select_off + missing uskin; no rogue re-ROLL; invis-cloak skip ignoring See_invisible; setnotworn without update_inventory; dowrite without check_unpaid/known_spell/inventory/livelog; LEVEL_TELEP creatable on Knox; statue prefixes via thin local; arrow without gone-msg/seetrap-gate/Soundeffect/obfree; hardcoded head/helmet/boots; wormno-id worm check + default locomotion + missing pit pun; canseemon rolling in_sight; launch without dig-clear/unseen-hear/curs_on_u; sync thin fill_pit; float_down without punished-drag/ustuck-msgs + wrong selftouch prefix; default climb verb; generic busy-hands + floor literal; hallu-aware holding descr; doorway blasts billed insider; thitu exercised A_STR after a rehumanizing losehp (C skips the exercise); doidtrap walked only the null ftrap chain (blind to live level.traps).
+- **Fix:** C-exact `continue` nomores (first guarded arm wins; bag rn2(5) no longer burnt on skipped objs); canspotmon INVIS; urgent_pline wraps; surface() yank; body_part(HAND); dump_weights() call; helm alignment arm with uchangealign + uarmh re-read + fallthrough; uskin embedded branch + select_off gating hoisted above the armor dispatch; rogue monsym_isupper re-ROLL; cloak `!See_invisible` via the file's u-mirror idiom; update_inventory() in setnotworn; check_unpaid + known_spell (fresh/stale consts) + 2× update_inventory + first-write livelog in dowrite; Knox single_level_branch gate; live shk_your ×3 + NORMAL set_msg_xy (retired shk_your_statue); arrow gone pline_mon + in_sight seetrap + se_loud_click + obfree; body_part(HEAD) + Yname2 rock/bear/pit (C singular "protects"); count_wsegs worm bridge; live u_locomotion in pit/climb/dotrap (retired u_locomotion_pit); pit-viper pun; canspotmon rolling; launch dig-clear + hallu bowling / rumbling-nearby-or-distant + curs_on_u; fill_pit async over flooreffects 'settle' (hero rnd(15) squish, msgs, bury) with 20 awaits + 1 sync-site inline degenerate; punished ball-drag relocate; ustuck release msgs via sticks+set_ustuck; selftouch 'As you fall, you'; could_untrap sticks let-go + poly hands + surface(); literal web/pit/bear-trap descr; inside_shop insider gate. Retired Yname2_pit (≡ Yname2). Drive-bys (hidden-proxy): thitu drains finish_maybe_wail() after both losehp sites so a reverting hero skips the Upolyd-gated A_STR rn2(2) like C (scen-trap-Valkyrie-94041 PASS); doidtrap walks the union of the gf-shaped store and level.traps, deduped (scen-trap-Wizard-94001 moved 58→reveal_terrain@135).
+- **JS:**
+  - `find_misc`: js/muse.js:2219 — nomore continues ×5
+  - `use_misc`: js/muse.js:3115 — canspotmon/urgent_pline/surface/body_part
+  - `argcheck`: js/earlyarg.js:623 — dump_weights call (new hack.js edge, SAFE)
+  - `Helmet_on`: js/do_wear.js:1307 — alignment arm
+  - `armor_or_accessory_off`: js/do_wear.js:2152 — uskin + select_off gating
+  - `pick_nasty`: js/makemon.js:1196 — rogue re-ROLL
+  - `m_dowear_type`: js/worn.js:893 — See_invisible cloak arm
+  - `setnotworn`: js/do.js:516 — update_inventory call
+  - `dowrite`: js/write.js:166 — check_unpaid/known_spell/inv/livelog (new spell.js + pline.js edges)
+  - `maketrap`: js/trap.js:923 — Knox gate
+  - `animate_statue`: js/trap.js:322 — shk_your + set_msg_xy
+  - `trapeffect_arrow_trap`: js/trap.js:2489 — gone-msg/gating/sound/obfree
+  - `trapeffect_rocktrap`: js/trap.js:4015 — body_part/Yname2
+  - `trapeffect_bear_trap`: js/trap.js:3702 — Yname2 protects
+  - `trapeffect_pit`: js/trap.js:2200 — locomotion/worm/pun/Yname2
+  - `trapeffect_rolling_boulder_trap`: js/trap.js:2940 — canspotmon
+  - `launch_obj`: js/trap.js:2613 — dig-clear/unseen-hear/curs_on_u
+  - `fill_pit`: js/dig.js:1009 — async flooreffects settle
+  - `float_down`: js/trap.js:3327 — punished-drag/ustuck-msgs/selftouch
+  - `climb_pit`: js/trap.js:2144 — locomotion + fill_pit awaits
+  - `could_untrap`: js/trap.js:7270 — sticks/hands/surface (new engrave.js + mhitu.js edges, function-only cycles)
+  - `openholdingtrap`: js/trap.js:7084 — defsyms literals
+  - `chest_trap`: js/trap.js:8017 — inside_shop gate
+  - `dotrap`: js/trap.js:1950 — step-over u_locomotion (drive-by, same retired helper)
+  - `thitu`: js/mthrowu.js:667 — finish_maybe_wail drains ×2 (drive-by, hidden Valkyrie PASS)
+  - `doidtrap`: js/pager.js:2910 — union trap walk (drive-by, hidden Wizard moved 58→135)
+- **Callers:** all edited functions keep export name + signature (callers stay wired) except `fill_pit` (now async): awaited at js/apply.js:1385,1885, js/ball.js:1048, js/do.js:1754,3951, js/hack.js:1099, js/mon.js:2144, js/muse.js:2608,2632, js/teleport.js:1492, js/trap.js:2155,2167,2176,3239,5569,5895,5949,6110,7696, js/zap.js:6179; sync degenerate inlined at js/teleport.js:2872 (migrate_to_level). Retired-local callers rewired: shk_your_statue ×3 → shk_your; u_locomotion_pit ×3 (pit, climb, dotrap) → u_locomotion; Yname2_pit ×1 → Yname2.
+- **Verify:** batch verify 95 fns: hidden rolling 1 PASS (Valkyrie-94041) + 1 moved past (Wizard-94001 → reveal_terrain@135) → PROGRESS; sweep 733 baseline-PASS re-run 278.3s, 0 regressed → REACH-OK; green 2/2; strict 2/2; cohort 7/7; full 44/44 (auto: shared file changed). VERIFY: PASS.
+- **Named omissions:**
+  - `doset`: wc2_supported skips (minimal-wincap2 model gap); optfn_boolean perm_invent gate (caller-side); reset_needed_visuals subset (D-1701 owns). Stand.
+  - `makemon`: m_dowear fire-and-forget at js/makemon.js:3761 (sync level gen cannot await); starting-pet in_mklev observable-match (dog.js makedog async boundary). Stand.
+  - `maketrap`: TELEP_TRAP fixed-dest launchplace arm (trap.c:566–574) — launchplace is never set at TELEP_TRAP creation (themerms sets teledest via caller); gx.xstart mapping would need parse scoping. Stands.
+  - `mk_trap_statue`: full mongone donor cleanup (worm-segment/timer/shop arms) — mongone is async, mk_trap_statue runs in sync level gen; fmon/light subset stands.
+  - `fill_pit` @ js/teleport.js:2872: sync migrate_to_level inlines the extract/deltrap/delobj core; victim msgs/damage there stay deferred (level-gen reachable, cannot await).
+- **Ledger:** cnf_line_HACKDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_LEVELDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_SAVEDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_BONESDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_DATADIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_SCOREDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_LOCKDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_CONFIGDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_TROUBLEDIR split js=cfgfiles.js:cnf_line_nhUse; cnf_line_SHELLERS split js=cfgfiles.js:cnf_store_str; cnf_line_MSGHANDLER split js=cfgfiles.js:cnf_store_str; cnf_line_EXPLORERS split js=cfgfiles.js:cnf_store_str; cnf_line_GENERICUSERS split js=cfgfiles.js:cnf_store_str; cnf_line_SUPPORT split js=cfgfiles.js:cnf_store_str; cnf_line_RECOVER split js=cfgfiles.js:cnf_store_str; cnf_line_CRASHREPORTURL split js=cfgfiles.js:cnf_store_str; cnf_line_QT_TILEWIDTH split js=cfgfiles.js:cnf_line_nhUse; cnf_line_QT_TILEHEIGHT split js=cfgfiles.js:cnf_line_nhUse; cnf_line_QT_FONTSIZE split js=cfgfiles.js:cnf_line_nhUse; cnf_line_QT_COMPACT split js=cfgfiles.js:cnf_line_nhUse; ysimple_name audited; Shk_Your audited; reset_eat audited; free_emin audited; lminion audited; newuexp audited; more_experienced ported; m_next2m audited; find_misc ported; use_misc ported; set_map_u audited; free_all_glyphmap_u audited; opt_usage audited; after_opt_showpaths audited; scores_only audited; argcheck ported; u_init_carry_attr_boost audited; trquan audited; restore_timers audited; loot_classify ported; loot_xname ported; reorder_invent audited; mergable ported; useupf ported; let_to_name ported; goodfruit audited; savebones audited; free_ebones audited; skip_pager audited; can_set_perm_invent audited; doset partial; crashreport_bidshow audited; dobugreport audited; panictrace_handler audited; free_nomakedefs audited; hastrack audited; Helmet_on ported; Amulet_on ported; armor_or_accessory_off ported; wornarm_destroyed audited; awaken_monsters audited; generic_lvl_desc audited; other_mon_has_arti audited; pick_nasty ported; free_rect audited; m_initgrp audited; makemon partial; add_custom_nhcolor_entry audited; purge_all_custom_entries audited; parse_id audited; setnotworn ported; m_dowear_type ported; nxt_unbypassed_loot audited; extract_from_minvent audited; cost audited; dowrite ported; adjattrib ported; postadjabil audited; mk_trap_statue partial; maketrap partial; animate_statue ported; trapeffect_arrow_trap ported; trapeffect_rocktrap ported; trapeffect_bear_trap ported; trapeffect_pit ported; trapeffect_rolling_boulder_trap ported; trapeffect_vibrating_square ported; launch_obj ported; fill_pit ported; float_down ported; climb_pit ported; could_untrap ported; openholdingtrap ported; chest_trap ported; maybe_finish_sokoban audited
+- **Left open:** none.
+- **Next:** batch picker refills from the ledger. Follow-up candidates (not rows): launch_obj next-cell `IS_OBSTRUCTED` stop predicate is broader than C's STWALL||TREE (boulder may stop before door cells C rolls through and crashes — needs C-side measurement); invent five's shared replmon omit was a finish-iteration paste error (retired here; same bug class as D-3421's seven); queue missing-arm rows for find_misc/use_misc/Helmet_on/setnotworn/maketrap-Knox/chest_trap/pick_nasty are shipped by this batch (next iter stale-checks them); doidtrap's dead chain-walk has siblings (display/do/dogmove/dungeon/end ftrap walks) — same union fix if a session blocks on them.
+
 ## D-3425 — Must-fix review 2355: mons() identity-compare family → mndx (5 files)
 - **Status:** shipped.
 - **Symptom:** review 2355 QUALITY-RISK item 1: `mons()` allocates a fresh object per call (measured: `mons(10)!==mons(10)` via /tmp/mons-probe.mjs, old arm false / new arm true on a long-worm mtmp), so every pure `===/!== mons(PM_X)` is dead — js/dog.js mon_arrive long-worm arm never fires (C dog.c:437–443 get_wormno/initworm lost on migration), js/trap.js:343 + js/zap.js:5276/5313 `golem_xform` always-true, js/zap.js:3563 `different_type` always-true, js/wizard.js:158–159 difcap arm dead + :429 Wizard check always-true.

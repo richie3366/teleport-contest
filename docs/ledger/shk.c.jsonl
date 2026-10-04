@@ -127,7 +127,7 @@
 {"fn":"block_door","c":"5791-5821","status":"ported","js":["js/shk.js:block_door"],"at":"2026-10-03@bbe63333a"}
 {"fn":"block_entry","c":"5826-5858","status":"ported","js":["js/shk.js:block_entry"],"d":["D-3416","D-2854"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"shk_your","c":"5862-5874","status":"ported","js":["js/objnam.js:shk_your"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Shk_Your","c":"5877-5882","status":"ported","js":["js/shk.js:Shk_Your"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
+{"fn":"Shk_Your","c":"5877-5882","status":"ported","js":["js/shk.js:Shk_Your"],"d":["D-3426","D-3416"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"shk_owns","c":"5885-5897","status":"ported","js":["js/shk.js:shk_owns_prefix"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: as shk_owns_prefix js/shk.js:1098, registered :1112; caller shk_your js/objnam.js:2771"}
 {"fn":"mon_owns","c":"5900-5905","status":"ported","js":["js/objnam.js:shk_your"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"stale: split inline in shk_your js/objnam.js:2774; caller shk.c:5871"}
 {"fn":"cad","c":"5908-5941","status":"ported","js":["js/shk.js:cad"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1"}

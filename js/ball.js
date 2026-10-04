@@ -1045,7 +1045,7 @@ export async function drop_ball(x, y) {
             }
             }
             await reset_utrap(true);
-            fill_pit(u.ux | 0, u.uy | 0);
+            await fill_pit(u.ux | 0, u.uy | 0);
         }
 
         u.ux0 = u.ux | 0;

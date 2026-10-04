@@ -6176,7 +6176,7 @@ export async function bhitpile(wand, fhito, tx, ty, zz) {
     }
     /* C :2495–2497 — pile might have been destroyed or dispersed. */
     if (hidingunder) await maybe_unhide_at(tx, ty);
-    fill_pit(tx, ty); // C `:2499`
+    await fill_pit(tx, ty); // C `:2499`
     return hitanything;
 }
 

@@ -1,5 +1,5 @@
 {"fn":"init_rect","c":"29-42","status":"ported","js":["js/rect.js:init_rect"],"at":"2026-10-03@bbe63333a"}
-{"fn":"free_rect","c":"45-51","status":"ported","js":["js/rect.js:free_rect"],"at":"2026-10-03@bbe63333a"}
+{"fn":"free_rect","c":"45-51","status":"ported","js":["js/rect.js:free_rect"],"d":["D-3426"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"get_rect_ind","c":"60-75","status":"ported","js":["js/rect.js:get_rect_ind"],"at":"2026-09-30@990da2b8d","note":"stale: js/rect.js:36, exact C port, caller wired (:99)"}
 {"fn":"get_rect","c":"82-97","status":"ported","js":["js/rect.js:get_rect"],"at":"2026-09-29@671c54bfc","note":"stale: js/rect.js:49; callers wired rect.js:112 mklev.js:31400"}
 {"fn":"rnd_rect","c":"104-107","status":"ported","js":["js/rect.js:rnd_rect"],"at":"2026-10-03@bbe63333a"}

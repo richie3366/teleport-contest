@@ -7,7 +7,7 @@
 {"fn":"Boots_off","c":"262-323","status":"ported","js":["js/do_wear.js:Boots_off"],"d":["D-2746"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Cloak_on","c":"326-380","status":"ported","js":["js/do_wear.js:Cloak_on"],"d":["D-2267"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Cloak_off","c":"383-431","status":"ported","js":["js/do_wear.js:Cloak_off"],"d":["D-2803"],"at":"seed@a30a7de84"}
-{"fn":"Helmet_on","c":"434-515","status":"partial","js":["js/do_wear.js:Helmet_on"],"omit":"HELM_OF_OPPOSITE_ALIGNMENT arm missing: uchangealign() alignment flip + fallthrough glow/curse skipped (uchangealign unported); wear takes known-tail only","at":"2026-10-03@bbe63333a"}
+{"fn":"Helmet_on","c":"434-515","status":"ported","js":["js/do_wear.js:Helmet_on"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"Helmet_off","c":"518-564","status":"ported","js":["js/do_wear.js:Helmet_off"],"d":["D-2554"],"at":"seed@a30a7de84"}
 {"fn":"hard_helmet","c":"568-573","status":"ported","js":["js/do_wear.js:hard_helmet"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:254"}
 {"fn":"Gloves_on","c":"576-603","status":"ported","js":["js/do_wear.js:Gloves_on"],"at":"2026-10-03@bbe63333a"}
@@ -21,7 +21,7 @@
 {"fn":"Armor_on","c":"887-906","status":"ported","js":["js/do_wear.js:Armor_on"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Armor_off","c":"909-930","status":"ported","js":["js/do_wear.js:Armor_off"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Armor_gone","c":"939-960","status":"ported","js":["js/do_wear.js:Armor_gone"],"d":["D-1942"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Amulet_on","c":"963-1087","status":"partial","js":["js/do_wear.js:Amulet_on"],"omit":"`livelog_newform` (log-only, no live helper — map); `Flying_dw` uprops gap (reads u.* mirrors only; the new arm uses `amulet_flight_now` instead — pre-existing, untouched); `Amulet_off` breathing/strangle/flying arms (that function's own named omits, untouched); no committed unit test (skill disclo…","d":["D-2505"],"at":"seed@a30a7de84"}
+{"fn":"Amulet_on","c":"963-1087","status":"ported","js":["js/do_wear.js:Amulet_on"],"d":["D-3426","D-2505"],"at":"2026-10-04@0d801c73f"}
 {"fn":"Amulet_off","c":"1090-1189","status":"ported","js":["js/do_wear.js:Amulet_off"],"at":"2026-10-03@bbe63333a"}
 {"fn":"learnring","c":"1193-1220","status":"ported","js":["js/do_wear.js:learnring"],"d":["D-2930"],"at":"seed@a30a7de84"}
 {"fn":"adjust_attrib","c":"1223-1239","status":"ported","js":["js/do_wear.js:adjust_attrib"],"at":"2026-10-03@bbe63333a"}
@@ -38,7 +38,7 @@
 {"fn":"cancel_don","c":"1664-1684","status":"ported","js":["js/do_wear.js:cancel_don"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stop_donning","c":"1688-1727","status":"ported","js":["js/do_wear.js:stop_donning"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"count_worn_stuff","c":"1733-1766","status":"ported","js":["js/do_wear.js:count_worn_stuff"],"at":"2026-10-03@bbe63333a"}
-{"fn":"armor_or_accessory_off","c":"1771-1829","status":"partial","js":["js/do_wear.js:armor_or_accessory_off"],"omit":"W_ARMOR path skips select_off() gating (welded-weapon/cursed-cover/beartrap-infloor/glove checks, better_not_take_that_off) and uskin embedded branch; armor only curse-checked via armoroff()","at":"2026-10-03@bbe63333a"}
+{"fn":"armor_or_accessory_off","c":"1771-1829","status":"ported","js":["js/do_wear.js:armor_or_accessory_off"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"dotakeoff","c":"1833-1855","status":"ported","js":["js/do_wear.js:dotakeoff"],"d":["D-3140"],"at":"2026-09-30@e5816afe0"}
 {"fn":"ia_dotakeoff","c":"1862-1870","status":"ported","js":["js/do_wear.js:ia_dotakeoff"],"d":["D-1934"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doremring","c":"1874-1889","status":"ported","js":["js/do_wear.js:doremring"],"at":"2026-10-03@bbe63333a"}
@@ -63,7 +63,7 @@
 {"fn":"doddoremarm","c":"3022-3057","status":"ported","js":["js/do_wear.js:doddoremarm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"remarm_swapwep","c":"3062-3087","status":"ported","js":["js/do_wear.js:remarm_swapwep"],"at":"2026-10-03@bbe63333a"}
 {"fn":"menu_remarm","c":"3090-3138","status":"ported","js":["js/do_wear.js:menu_remarm"],"d":["D-1866","D-1630"],"at":"2026-10-03@bbe63333a"}
-{"fn":"wornarm_destroyed","c":"3144-3182","status":"ported","js":["js/do_wear.js:wornarm_destroyed"],"d":["D-3140"],"at":"2026-09-30@e5816afe0"}
+{"fn":"wornarm_destroyed","c":"3144-3182","status":"ported","js":["js/do_wear.js:wornarm_destroyed"],"d":["D-3426","D-3140"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"maybe_destroy_armor","c":"3189-3197","status":"ported","js":["js/do_wear.js:maybe_destroy_armor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"disintegrate_arm","c":"3201-3256","status":"ported","js":["js/do_wear.js:disintegrate_arm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_erode_type","c":"3260-3273","status":"ported","js":["js/do_wear.js:obj_erode_type"],"at":"2026-09-30@fa5a786a1","note":"stale: js/do_wear.js:3488"}

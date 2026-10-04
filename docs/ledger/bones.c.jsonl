@@ -1,5 +1,5 @@
 {"fn":"no_bones_level","c":"18-34","status":"ported","js":["js/end.js:no_bones_level"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all level/dungeon arms; save_dlevel substitution is dead (never assigned, decl.h:854)"}
-{"fn":"goodfruit","c":"42-48","status":"ported","js":["js/bones.js:goodfruit"],"d":["D-1523"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
+{"fn":"goodfruit","c":"42-48","status":"ported","js":["js/bones.js:goodfruit"],"d":["D-3426","D-1523"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"resetobjs","c":"51-193","status":"ported","js":["js/bones.js:resetobjs"],"d":["D-2606"],"at":"seed@a30a7de84"}
 {"fn":"sanitize_name","c":"198-220","status":"ported","js":["js/bones.js:sanitize_name"],"d":["D-2918"],"at":"seed@a30a7de84"}
 {"fn":"give_to_nearby_mon","c":"226-255","status":"ported","js":["js/end.js:give_to_nearby_mon"],"d":["D-2034"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full reservoir selection; adds RNG-free stackobj on floor path"}
@@ -7,10 +7,10 @@
 {"fn":"fixuporacle","c":"308-352","status":"ported","js":["js/end.js:fixuporacle"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full delphi search/relocate/restore"}
 {"fn":"can_make_bones","c":"356-385","status":"ported","js":["js/end.js:can_make_bones"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl portal/depth/discover arms"}
 {"fn":"remove_mon_from_bones","c":"390-399","status":"ported","js":["js/end.js:remove_mon_from_bones"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl is_Vlad cham arm and oracle fixup"}
-{"fn":"savebones","c":"403-625","status":"partial","js":["js/end.js:savebones"],"omit":"- `savebones`: close_nhfile on the probe hit (no VFS handle); compress_bonesfile on all three return paths (VFS has no post compression); create_bonesfile creat/errno/VMS arms (VFS creat cannot fail, so neither can the wizard pline1(whynot); paniclog is by-design); commit_bonesfile temp→final renam…","d":["D-3202","D-2068"],"at":"2026-10-01@1a900fb27"}
+{"fn":"savebones","c":"403-625","status":"partial","js":["js/end.js:savebones"],"omit":"- `savebones`: close_nhfile on the probe hit (no VFS handle); compress_bonesfile on all three return paths (VFS has no post compression); create_bonesfile creat/errno/VMS arms (VFS creat cannot fail, so neither can the wizard pline1(whynot); paniclog is by-design); commit_bonesfile temp→final renam…","d":["D-3426","D-3202","D-2068"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: remaining omit cannot ship"}
 {"fn":"getbones","c":"630-756","status":"ported","js":["js/bones.js:getbones"],"d":["D-2255"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full flow adapted to VFS/JSON: validate, bonesid, getlev, defunct loop, unlink"}
 {"fn":"bones_include_name","c":"762-780","status":"ported","js":["js/bones.js:bones_include_name"],"at":"2026-09-28@9e3e6255b","note":"stale: js/bones.js:482, caller wired js/do.js:1866"}
 {"fn":"set_ghostly_objlist","c":"784-790","status":"ported","js":["js/bones.js:set_ghostly_objlist"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact plus array arm"}
 {"fn":"fix_ghostly_obj","c":"796-815","status":"ported","js":["js/bones.js:fix_ghostly_obj"],"d":["D-2918"],"at":"seed@a30a7de84"}
 {"fn":"newebones","c":"818-829","status":"ported","js":["js/restore.js:newebones"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact mextra/ebones alloc with zeroed fields and parentmid"}
-{"fn":"free_ebones","c":"833-839","status":"ported","js":["js/bones.js:free_ebones"],"d":["D-3390"],"at":"2026-10-03@d6a4a5312","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_ebones","c":"833-839","status":"ported","js":["js/bones.js:free_ebones"],"d":["D-3426","D-3390"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}

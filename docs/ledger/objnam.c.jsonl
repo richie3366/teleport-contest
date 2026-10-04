@@ -44,7 +44,7 @@
 {"fn":"paydoname","c":"2313-2355","status":"ported","js":["js/objnam.js:paydoname"],"d":["D-2667"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yname","c":"2359-2374","status":"ported","js":["js/objnam.js:yname"],"d":["D-2958"],"at":"seed@a30a7de84"}
 {"fn":"Yname2","c":"2378-2384","status":"ported","js":["js/objnam.js:Yname2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2863 (upstart(yname))"}
-{"fn":"ysimple_name","c":"2391-2398","status":"ported","js":["js/objnam.js:ysimple_name"],"d":["D-3416","D-3403"],"at":"2026-10-04@a1eee6cb2","note":"audit 2026-10-03: fuller port at js/objnam.js:ysimple_name still plural-aware"}
+{"fn":"ysimple_name","c":"2391-2398","status":"ported","js":["js/objnam.js:ysimple_name"],"d":["D-3426","D-3416","D-3403"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"Ysimple_name2","c":"2402-2408","status":"ported","js":["js/objnam.js:Ysimple_name2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:3047 (upstart(ysimple_name))"}
 {"fn":"simpleonames","c":"2428-2442","status":"ported","js":["js/objnam.js:simpleonames"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"ansimpleoname","c":"2446-2470","status":"ported","js":["js/objnam.js:ansimpleoname"],"d":["D-2932"],"at":"seed@a30a7de84"}

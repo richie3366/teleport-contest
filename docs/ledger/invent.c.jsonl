@@ -1,12 +1,12 @@
 {"fn":"inuse_classify","c":"70-144","status":"ported","js":["js/invent.js:inuse_classify"],"d":["D-2121","D-1850"],"at":"2026-10-03@bbe63333a"}
-{"fn":"loot_classify","c":"149-305","status":"partial","js":["js/invent.js:loot_classify"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2616"],"at":"2026-10-03@1ae9cc180"}
-{"fn":"loot_xname","c":"309-387","status":"partial","js":["js/invent.js:loot_xname"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2621"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"loot_classify","c":"149-305","status":"ported","js":["js/invent.js:loot_classify"],"d":["D-3426","D-3401","D-2616"],"at":"2026-10-04@0d801c73f"}
+{"fn":"loot_xname","c":"309-387","status":"ported","js":["js/invent.js:loot_xname"],"d":["D-3426","D-3401","D-2621"],"at":"2026-10-04@0d801c73f"}
 {"fn":"invletter_value","c":"391-399","status":"ported","js":["js/invent.js:invletter_value"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sortloot_cmp","c":"403-547","status":"ported","js":["js/invent.js:sortloot_cmp"],"d":["D-2626"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sortloot","c":"593-643","status":"ported","js":["js/invent.js:sortloot"],"d":["D-1589"],"at":"2026-10-03@bbe63333a","note":"alt 655-690"}
 {"fn":"unsortloot","c":"647-651","status":"ported","js":["js/invent.js:unsortloot"],"d":["D-3401","D-3260"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"assigninvlet","c":"694-732","status":"ported","js":["js/u_init.js:assigninvlet"],"at":"2026-10-03@bbe63333a"}
-{"fn":"reorder_invent","c":"739-767","status":"ported","js":["js/u_init.js:reorder_invent"],"d":["D-3401","D-3125"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"reorder_invent","c":"739-767","status":"ported","js":["js/u_init.js:reorder_invent"],"d":["D-3426","D-3401","D-3125"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"merge_choice","c":"775-810","status":"ported","js":["js/files.js:merge_choice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"merged","c":"814-948","status":"ported","js":["js/mkobj.js:merged"],"d":["D-2533"],"at":"seed@a30a7de84"}
 {"fn":"addinv_core1","c":"960-1005","status":"ported","js":["js/u_init.js:addinv_core1"],"at":"2026-10-03@bbe63333a"}
@@ -85,7 +85,7 @@
 {"fn":"will_feel_cockatrice","c":"4334-4340","status":"ported","js":["js/invent.js:will_feel_cockatrice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feel_cockatrice","c":"4343-4361","status":"ported","js":["js/invent.js:feel_cockatrice"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"stackobj","c":"4366-4375","status":"ported","js":["js/mkobj.js:stackobj"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mergable","c":"4379-4499","status":"partial","js":["js/mkobj.js:mergable"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"mergable","c":"4379-4499","status":"ported","js":["js/mkobj.js:mergable"],"d":["D-3426","D-3401"],"at":"2026-10-04@0d801c73f"}
 {"fn":"doprgold","c":"4503-4546","status":"ported","js":["js/invent.js:doprgold"],"d":["D-1731"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doprwep","c":"4550-4574","status":"ported","js":["js/invent.js:doprwep"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"noarmor","c":"4578-4597","status":"ported","js":["js/invent.js:noarmor"],"d":["D-1668"],"at":"2026-10-03@bbe63333a"}
@@ -95,8 +95,8 @@
 {"fn":"tool_being_used","c":"4698-4711","status":"ported","js":["js/invent.js:tool_being_used"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"doprtool","c":"4715-4735","status":"ported","js":["js/invent.js:doprtool"],"d":["D-3191","D-3186"],"at":"2026-10-01@537a19189"}
 {"fn":"doprinuse","c":"4740-4757","status":"ported","js":["js/invent.js:doprinuse"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
-{"fn":"useupf","c":"4763-4783","status":"partial","js":["js/invent.js:useupf"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-3345"],"at":"2026-10-03@1ae9cc180"}
-{"fn":"let_to_name","c":"4800-4839","status":"partial","js":["js/invent.js:let_to_name"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3401","D-2886"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"useupf","c":"4763-4783","status":"ported","js":["js/invent.js:useupf"],"d":["D-3426","D-3401","D-3345"],"at":"2026-10-04@0d801c73f"}
+{"fn":"let_to_name","c":"4800-4839","status":"ported","js":["js/invent.js:let_to_name"],"d":["D-3426","D-3401","D-2886"],"at":"2026-10-04@0d801c73f"}
 {"fn":"free_invbuf","c":"4845-4850","status":"ported","js":["js/invent.js:free_invbuf"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"reassign","c":"4855-4884","status":"ported","js":["js/invent.js:reassign"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_invent_gold","c":"4889-4913","status":"ported","js":["js/invent.js:check_invent_gold"],"d":["D-1641"],"at":"2026-10-03@bbe63333a"}

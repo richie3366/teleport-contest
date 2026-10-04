@@ -1096,7 +1096,7 @@ async function moverock_core(sx, sy) {
                         );
                         await blow_up_landmine(ttmp);
                         /* if the boulder remains, it should fill the pit */
-                        fill_pit(u.ux, u.uy);
+                        await fill_pit(u.ux, u.uy);
                         if (cansee(rx, ry))
                             newsym(rx, ry);
                         return sobj_at(BOULDER, sx, sy) ? -1 : 0;

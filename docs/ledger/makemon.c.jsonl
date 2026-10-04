@@ -1,6 +1,6 @@
 {"fn":"is_home_elemental","c":"33-50","status":"ported","js":["js/makemon.js:is_home_elemental"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wrong_elem_type","c":"56-75","status":"ported","js":["js/makemon.js:wrong_elem_type"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_initgrp","c":"79-145","status":"ported","js":["js/makemon.js:m_initgrp"],"d":["D-3423","D-3410","D-3409","D-3408","D-3103"],"at":"2026-10-04@6e056005c","note":"D-3423: stale D-3409 remainder note retired (drain shipped D-3410; body whole vs C, review 2362/2363)"}
+{"fn":"m_initgrp","c":"79-145","status":"ported","js":["js/makemon.js:m_initgrp"],"d":["D-3426","D-3423","D-3410","D-3409","D-3408","D-3103"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"m_initthrow","c":"148-158","status":"ported","js":["js/makemon.js:m_initthrow"],"d":["D-3408","D-3103"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"m_initweap","c":"161-572","status":"ported","js":["js/makemon.js:m_initweap"],"d":["D-1094","D-1088"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"mkmonmoney","c":"576-586","status":"ported","js":["js/makemon.js:mkmonmoney"],"at":"2026-10-03@bbe63333a"}
@@ -12,7 +12,7 @@
 {"fn":"init_mextra","c":"1059-1063","status":"ported","js":["js/restore.js:init_mextra"],"d":["D-3408","D-3103"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"newmextra","c":"1066-1073","status":"ported","js":["js/restore.js:newmextra"],"d":["D-3409","D-3408","D-3103"],"at":"2026-10-04@57c7462c4","note":"D-3409: body whole (alloc + init_mextra + return, js/restore.js:52); vacuous D-3408 partial retired"}
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"ported","js":["js/makemon.js:makemon_rnd_goodpos"],"d":["D-2264"],"at":"2026-10-03@bbe63333a"}
-{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `makemon`: m_dowear fire-and-forget (makemon.c:1445; sync level gen, js/makemon.js:3761) + starting-pet in_mklev observable-match (dog.js makedog awaits no appear msg; D-3408).","d":["D-3423","D-3410","D-3409","D-3408","D-3285","D-3278"],"at":"2026-10-04@6e056005c","note":"D-3423: D-3410 m_initgrp paste-over replaced with the D-3410 Named remainder (review 2363.1)"}
+{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `doset`: wc2_supported skips (minimal-wincap2 model gap); optfn_boolean perm_invent gate (caller-side); reset_needed_visuals subset (D-1701 owns).","d":["D-3426","D-3423","D-3410","D-3409","D-3408","D-3285"],"at":"2026-10-04@0d801c73f","note":"D-3423: D-3410 m_initgrp paste-over replaced with the D-3410 Named remainder (review 2363.1)"}
 {"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbirth_limit","c":"1542-1551","status":"ported","js":["js/makemon.js:mbirth_limit"],"d":["D-3272"],"at":"2026-10-02@675a0c998"}
 {"fn":"create_critters","c":"1556-1590","status":"ported","js":["js/makemon.js:create_critters"],"at":"2026-10-03@bbe63333a"}

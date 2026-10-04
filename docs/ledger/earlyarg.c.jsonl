@@ -3,10 +3,10 @@
 {"fn":"consume_two_args","c":"166-176","status":"ported","js":["js/earlyarg.js:consume_two_args"],"d":["D-3104"],"at":"2026-09-29@5b7eef822","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"early_options","c":"180-361","status":"ported","js":["js/earlyarg.js:early_options"],"d":["D-3104"],"at":"2026-09-29@5b7eef822","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"opt_terminate","c":"366-373","status":"ported","js":["js/earlyarg.js:opt_terminate"],"d":["D-3104"],"at":"2026-09-29@5b7eef822","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"opt_usage","c":"376-387","status":"partial","js":["js/earlyarg.js:opt_usage"],"omit":"- `lopt`: none — every callee live (config_erradd core, eos).","d":["D-3104"],"at":"2026-09-29@5b7eef822","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"after_opt_showpaths","c":"391-400","status":"ported","js":["js/earlyarg.js:after_opt_showpaths"],"d":["D-3104"],"at":"2026-09-29@5b7eef822","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"scores_only","c":"406-441","status":"ported","js":["js/earlyarg.js:scores_only"],"d":["D-3104"],"at":"2026-09-29@5b7eef822"}
-{"fn":"argcheck","c":"450-560","status":"partial","js":["js/earlyarg.js:argcheck"],"omit":"`dump_version_info` (`version.c:494`), `dump_enums` (`earlyarg.c:705`), `dump_glyphids` (`earlyarg.c:806`), `dump_mongen` (`makemon.c:1835`), `dump_weights` (`hack.c:4421`), and `crashreport_bidshow` (`report.c:189`) stay unported; those arms still return 2.","d":["D-2986"],"at":"2026-09-27@9b244f090"}
+{"fn":"opt_usage","c":"376-387","status":"partial","js":["js/earlyarg.js:opt_usage"],"omit":"- `lopt`: none — every callee live (config_erradd core, eos).","d":["D-3426","D-3104"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: remaining omit cannot ship"}
+{"fn":"after_opt_showpaths","c":"391-400","status":"ported","js":["js/earlyarg.js:after_opt_showpaths"],"d":["D-3426","D-3104"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
+{"fn":"scores_only","c":"406-441","status":"ported","js":["js/earlyarg.js:scores_only"],"d":["D-3426","D-3104"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
+{"fn":"argcheck","c":"450-560","status":"ported","js":["js/earlyarg.js:argcheck"],"d":["D-3426","D-2986"],"at":"2026-10-04@0d801c73f"}
 {"fn":"debug_fields","c":"576-621","status":"ported","js":["js/earlyarg.js:debug_fields"],"d":["D-2986"],"at":"2026-09-27@9b244f090"}
 {"fn":"dump_enums","c":"706-801","status":"ported","js":["js/earlyarg.js:dump_enums"],"d":["D-3088"],"at":"2026-09-29@aeb41ef5f","note":"stale: js/earlyarg.js:387 (D-3088 whole body, byte-exact; raw_print sink unclosable — vraw_printf :577 precedent)"}
 {"fn":"dump_glyphids","c":"806-809","status":"ported","js":["js/earlyarg.js:dump_glyphids"],"d":["D-3104"],"at":"2026-09-29@5b7eef822","note":"refresh: no JS symbol (measured MISSING)"}

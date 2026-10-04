@@ -1,13 +1,13 @@
 {"fn":"burnarmor","c":"88-160","status":"ported","js":["js/trap.js:burnarmor"],"d":["D-2190","D-2135","D-2087"],"at":"2026-10-03@bbe63333a"}
 {"fn":"erode_obj","c":"171-354","status":"ported","js":["js/trap.js:erode_obj"],"d":["D-2325","D-2186"],"at":"2026-10-03@bbe63333a"}
 {"fn":"grease_protect","c":"360-386","status":"ported","js":["js/trap.js:grease_protect"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mk_trap_statue","c":"390-414","status":"partial","js":["js/trap.js:mk_trap_statue"],"omit":"donor cleanup uses fmon/light subset, not full mongone (worm-segment/timer/shop arms, C:229)","at":"2026-10-03@bbe63333a"}
+{"fn":"mk_trap_statue","c":"390-414","status":"partial","js":["js/trap.js:mk_trap_statue"],"omit":"- `doset`: wc2_supported skips (minimal-wincap2 model gap); optfn_boolean perm_invent gate (caller-side); reset_needed_visuals subset (D-1701 owns).","d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"dng_bottom","c":"418-438","status":"ported","js":["js/trap.js:dng_bottom"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hole_destination","c":"442-453","status":"ported","js":["js/trap.js:hole_destination"],"at":"2026-10-03@bbe63333a"}
-{"fn":"maketrap","c":"456-588","status":"partial","js":["js/trap.js:maketrap"],"omit":"LEVEL_TELEP&&single_level_branch refuse gate (C:482); TELEP_TRAP fixed-dest launchplace arm (C:566-574)","d":["D-1300","D-1296","D-1280"],"at":"2026-10-03@bbe63333a"}
+{"fn":"maketrap","c":"456-588","status":"partial","js":["js/trap.js:maketrap"],"omit":"- `doset`: wc2_supported skips (minimal-wincap2 model gap); optfn_boolean perm_invent gate (caller-side); reset_needed_visuals subset (D-1701 owns).","d":["D-3426","D-1300","D-1296","D-1280"],"at":"2026-10-04@0d801c73f"}
 {"fn":"clamp_hole_destination","c":"593-599","status":"ported","js":["js/trap.js:clamp_hole_destination"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fall_through","c":"602-696","status":"ported","js":["js/trap.js:fall_through"],"at":"2026-10-03@bbe63333a"}
-{"fn":"animate_statue","c":"726-900","status":"partial","js":["js/trap.js:animate_statue"],"omit":"shop/monster ownership prefix (shk_your Manlobbi's/mon's) reduced to the/your (C:825,840)","d":["D-3425"],"at":"2026-10-04@a0cbe29a6","note":"audit 2026-10-03: also a11y-only: set_msg_xy skipped"}
+{"fn":"animate_statue","c":"726-900","status":"ported","js":["js/trap.js:animate_statue"],"d":["D-3426","D-3425"],"at":"2026-10-04@0d801c73f","note":"audit 2026-10-03: also a11y-only: set_msg_xy skipped"}
 {"fn":"activate_statue_trap","c":"908-936","status":"ported","js":["js/trap.js:activate_statue_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"keep_saddle_with_steedcorpse","c":"939-967","status":"ported","js":["js/trap.js:keep_saddle_with_steedcorpse"],"d":["D-3076"],"at":"2026-09-29@3a3d73a50","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mu_maybe_destroy_web","c":"972-1014","status":"ported","js":["js/trap.js:mu_maybe_destroy_web"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pline vs pline_mon: text identical, msg_loc only"}
@@ -18,15 +18,15 @@
 {"fn":"check_in_air","c":"1086-1094","status":"ported","js":["js/trap.js:check_in_air"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wearing_iron_shoes","c":"1098-1102","status":"ported","js":["js/trap.js:wearing_iron_shoes"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_harmless_trap","c":"1106-1187","status":"ported","js":["js/trap.js:m_harmless_trap"],"d":["D-2194"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:585, all arms, impossible default named"}
-{"fn":"trapeffect_arrow_trap","c":"1190-1248","status":"partial","js":["js/trap.js:trapeffect_arrow_trap"],"omit":"monster empty-trap 'triggers a trap but nothing happens' msg (C:1229-1232); seetrap unconditional vs in_sight-gated (C:1239-1240)","at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_arrow_trap","c":"1190-1248","status":"ported","js":["js/trap.js:trapeffect_arrow_trap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_dart_trap","c":"1251-1321","status":"ported","js":["js/trap.js:trapeffect_dart_trap"],"d":["D-2969"],"at":"2026-09-27@f02368fbc"}
-{"fn":"trapeffect_rocktrap","c":"1324-1400","status":"partial","js":["js/trap.js:trapeffect_rocktrap"],"omit":"body_part(HEAD) poly-form name hardcoded 'head'; Yname2(uarmh) item name hardcoded 'Your helmet' (C:1346-1347,1359)","at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_rocktrap","c":"1324-1400","status":"ported","js":["js/trap.js:trapeffect_rocktrap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_sqky_board","c":"1403-1476","status":"ported","js":["js/trap.js:trapeffect_sqky_board"],"d":["D-2206"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:4086, all arms, Soundeffect no-op named"}
-{"fn":"trapeffect_bear_trap","c":"1479-1560","status":"partial","js":["js/trap.js:trapeffect_bear_trap"],"omit":"Yname2(uarmf) shoe name hardcoded 'Your boots' (C:1518)","at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_bear_trap","c":"1479-1560","status":"ported","js":["js/trap.js:trapeffect_bear_trap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_slp_gas_trap","c":"1563-1592","status":"ported","js":["js/trap.js:trapeffect_slp_gas_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_rust_trap","c":"1595-1727","status":"ported","js":["js/trap.js:trapeffect_rust_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_fire_trap","c":"1730-1822","status":"ported","js":["js/trap.js:trapeffect_fire_trap"],"d":["D-3267"],"at":"2026-10-02@66e8734cf"}
-{"fn":"trapeffect_pit","c":"1825-2010","status":"partial","js":["js/trap.js:trapeffect_pit"],"omit":"worm check uses wormno id>5 not count_wsegs(mtmp)>5 (C:1975); u_locomotion poly verbs→default (C:1879); monster pit-viper/fiend joke msg (C:1995-1997)","at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_pit","c":"1825-2010","status":"ported","js":["js/trap.js:trapeffect_pit"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_hole","c":"2013-2067","status":"ported","js":["js/trap.js:trapeffect_hole"],"d":["D-2624"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_telep_trap","c":"2070-2085","status":"ported","js":["js/trap.js:trapeffect_telep_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_level_telep","c":"2088-2103","status":"ported","js":["js/trap.js:trapeffect_level_telep"],"at":"2026-10-03@bbe63333a"}
@@ -36,9 +36,9 @@
 {"fn":"trapeffect_anti_magic","c":"2323-2450","status":"ported","js":["js/trap.js:trapeffect_anti_magic"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_poly_trap","c":"2453-2525","status":"ported","js":["js/trap.js:trapeffect_poly_trap"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: monster shieldeff_mon omitted (display-only flash)"}
 {"fn":"trapeffect_landmine","c":"2528-2657","status":"ported","js":["js/trap.js:trapeffect_landmine"],"at":"2026-10-02@135e9a8dd","note":"stale: js/trap.js:5851 body whole; C never called at s132 (stepFns empty, rnd(16) is first line); Soundeffect is empty macro"}
-{"fn":"trapeffect_rolling_boulder_trap","c":"2661-2707","status":"partial","js":["js/trap.js:trapeffect_rolling_boulder_trap"],"omit":"monster in_sight uses canseemon, dropping C canspotmon sensemon/telepathy arm (C:2684-2686)","d":["D-1874"],"at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_rolling_boulder_trap","c":"2661-2707","status":"ported","js":["js/trap.js:trapeffect_rolling_boulder_trap"],"d":["D-3426","D-1874"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_magic_portal","c":"2710-2722","status":"ported","js":["js/trap.js:trapeffect_magic_portal"],"at":"2026-10-03@bbe63333a"}
-{"fn":"trapeffect_vibrating_square","c":"2725-2764","status":"partial","js":["js/trap.js:trapeffect_vibrating_square"],"omit":"`You_see` still omits the Unaware \"You dream that you see\" prefix and the Blind \"You sense\" prefix (`js/display.js` `You_see`; this caller already requires `!Blind`, so the sense prefix cannot run).","d":["D-2882"],"at":"seed@a30a7de84"}
+{"fn":"trapeffect_vibrating_square","c":"2725-2764","status":"ported","js":["js/trap.js:trapeffect_vibrating_square"],"d":["D-3426","D-2882"],"at":"2026-10-04@0d801c73f"}
 {"fn":"immune_to_trap","c":"2783-2934","status":"ported","js":["js/trap.js:immune_to_trap"],"d":["D-2689"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_selector","c":"2937-2993","status":"ported","js":["js/trap.js:trapeffect_selector"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dotrap","c":"2996-3060","status":"ported","js":["js/trap.js:dotrap"],"d":["D-1924"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
@@ -49,7 +49,7 @@
 {"fn":"launch_drop_spot","c":"3222-3233","status":"ported","js":["js/trap.js:launch_drop_spot"],"at":"2026-10-03@bbe63333a"}
 {"fn":"launch_in_progress","c":"3236-3241","status":"ported","js":["js/trap.js:launch_in_progress"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:2606, caller js/end.js:1086"}
 {"fn":"force_launch_placement","c":"3244-3250","status":"ported","js":["js/trap.js:force_launch_placement"],"at":"2026-10-03@bbe63333a"}
-{"fn":"launch_obj","c":"3260-3575","status":"partial","js":["js/trap.js:launch_obj"],"omit":"unseen-launch You_hear bowling/rumbling (C:3323-3329); dig-context clear (C:3307-3311); STWALL/TREE Thump+wake_nearto (C:3550-3555)","d":["D-2330"],"at":"2026-10-03@bbe63333a"}
+{"fn":"launch_obj","c":"3260-3575","status":"ported","js":["js/trap.js:launch_obj"],"d":["D-3426","D-2330"],"at":"2026-10-04@0d801c73f"}
 {"fn":"seetrap","c":"3578-3584","status":"ported","js":["js/trap.js:seetrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feeltrap","c":"3588-3594","status":"ported","js":["js/trap.js:feeltrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_random_launch_coord","c":"3599-3656","status":"ported","js":["js/trap.js:find_random_launch_coord"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: launchplace early path dead in both (no launchfrom in levels)"}
@@ -62,9 +62,9 @@
 {"fn":"selftouch","c":"3883-3910","status":"ported","js":["js/trap.js:selftouch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mselftouch","c":"3913-3933","status":"ported","js":["js/trap.js:mselftouch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"float_up","c":"3937-4006","status":"ported","js":["js/trap.js:float_up"],"d":["D-2381"],"at":"2026-10-03@bbe63333a"}
-{"fn":"fill_pit","c":"4010-4020","status":"partial","js":["js/dig.js:fill_pit"],"omit":"flooreffects('settle') body: trapped-victim damage (hero rnd(15) squish), boulder fills/plugs msgs, bury_objs (C:do.c:186-245)","at":"2026-10-03@bbe63333a"}
-{"fn":"float_down","c":"4024-4179","status":"partial","js":["js/trap.js:float_down"],"omit":"Punished ball→pool/pit hero relocate (C:4073-4084); ustuck release msgs (C:4088-4094); selftouch arg 'As you fall, you' passed as 'Falling, you' (C:4134)","d":["D-2094"],"at":"2026-10-03@bbe63333a"}
-{"fn":"climb_pit","c":"4183-4230","status":"partial","js":["js/trap.js:climb_pit"],"omit":"u_locomotion poly-form verbs skipped (piercer 'crawl' etc. rendered 'climb', C:4205)","d":["D-1876","D-1863"],"at":"2026-10-03@bbe63333a"}
+{"fn":"fill_pit","c":"4010-4020","status":"ported","js":["js/dig.js:fill_pit"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
+{"fn":"float_down","c":"4024-4179","status":"ported","js":["js/trap.js:float_down"],"d":["D-3426","D-2094"],"at":"2026-10-04@0d801c73f"}
+{"fn":"climb_pit","c":"4183-4230","status":"ported","js":["js/trap.js:climb_pit"],"d":["D-3426","D-1876","D-1863"],"at":"2026-10-04@0d801c73f"}
 {"fn":"dofiretrap","c":"4233-4314","status":"ported","js":["js/trap.js:dofiretrap"],"d":["D-2532"],"at":"seed@a30a7de84"}
 {"fn":"domagictrap","c":"4317-4451","status":"ported","js":["js/trap.js:domagictrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fire_damage","c":"4455-4542","status":"ported","js":["js/do.js:fire_damage"],"at":"2026-10-03@bbe63333a"}
@@ -81,7 +81,7 @@
 {"fn":"drown","c":"5059-5199","status":"ported","js":["js/trap.js:drown"],"d":["D-2284","D-1814"],"at":"2026-10-03@bbe63333a"}
 {"fn":"drain_en","c":"5202-5244","status":"ported","js":["js/trap.js:drain_en"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dountrap","c":"5248-5254","status":"ported","js":["js/trap.js:dountrap"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:7960, dispatch js/cmd.js:1778"}
-{"fn":"could_untrap","c":"5258-5284","status":"partial","js":["js/trap.js:could_untrap"],"omit":"stuck-sticks 'let go of X' msg→generic busy-hands (C:5268-5269); body_part(HAND)→'hands' (C:5271-5272); surface()→'floor' (C:5276)","at":"2026-10-03@bbe63333a"}
+{"fn":"could_untrap","c":"5258-5284","status":"ported","js":["js/trap.js:could_untrap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"untrap_prob","c":"5289-5337","status":"ported","js":["js/trap.js:untrap_prob"],"at":"2026-09-28@6dd29ef91","note":"stale: js/trap.js:7263 whole C body in C order, both C callers wired js/trap.js:7433,7602"}
 {"fn":"cnv_trap_obj","c":"5341-5371","status":"ported","js":["js/trap.js:cnv_trap_obj"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"into_vs_onto","c":"5375-5389","status":"ported","js":["js/trap.js:into_vs_onto"],"at":"2026-10-03@bbe63333a"}
@@ -98,10 +98,10 @@
 {"fn":"disarm_box","c":"5794-5817","status":"ported","js":["js/trap.js:disarm_box"],"at":"2026-10-03@bbe63333a"}
 {"fn":"untrap_box","c":"5821-5844","status":"ported","js":["js/trap.js:untrap_box"],"at":"2026-10-03@bbe63333a"}
 {"fn":"untrap","c":"5848-6096","status":"ported","js":["js/trap.js:untrap"],"d":["D-2305","D-1813"],"at":"2026-10-03@bbe63333a"}
-{"fn":"openholdingtrap","c":"6101-6205","status":"partial","js":["js/trap.js:openholdingtrap"],"omit":"TT_PIT/WEB/BEAR descr uses hallu-aware trapname(false) not literal defsyms (C:6143-6145)","d":["D-2317"],"at":"2026-10-03@bbe63333a"}
+{"fn":"openholdingtrap","c":"6101-6205","status":"ported","js":["js/trap.js:openholdingtrap"],"d":["D-3426","D-2317"],"at":"2026-10-04@0d801c73f"}
 {"fn":"closeholdingtrap","c":"6210-6247","status":"ported","js":["js/trap.js:closeholdingtrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"openfallingtrap","c":"6252-6289","status":"ported","js":["js/trap.js:openfallingtrap"],"at":"2026-10-03@bbe63333a"}
-{"fn":"chest_trap","c":"6294-6499","status":"partial","js":["js/trap.js:chest_trap"],"omit":"insider omits inside_shop(ux,uy): doorway blasts billed as insider, shk not angered (C:6361-6362)","at":"2026-10-03@bbe63333a"}
+{"fn":"chest_trap","c":"6294-6499","status":"ported","js":["js/trap.js:chest_trap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"t_at","c":"6502-6512","status":"ported","js":["js/trap.js:t_at"],"d":["D-3334"],"at":"2026-10-03@b98ade69c"}
 {"fn":"count_traps","c":"6516-6528","status":"ported","js":["js/trap.js:count_traps"],"at":"2026-10-03@bbe63333a"}
 {"fn":"deltrap","c":"6531-6549","status":"ported","js":["js/trap.js:deltrap"],"d":["D-2921"],"at":"seed@a30a7de84"}
@@ -118,7 +118,7 @@
 {"fn":"lava_effects","c":"6794-6987","status":"ported","js":["js/trap.js:lava_effects"],"d":["D-1918","D-1913"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sink_into_lava","c":"6991-7034","status":"ported","js":["js/trap.js:sink_into_lava"],"d":["D-2466"],"at":"seed@a30a7de84"}
 {"fn":"sokoban_guilt","c":"7039-7055","status":"ported","js":["js/trap.js:sokoban_guilt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"maybe_finish_sokoban","c":"7059-7095","status":"partial","js":["js/trap.js:maybe_finish_sokoban"],"omit":"`dealloc_trap` (`trap.c:6548`) still has no body; `deltrap` returns after the finish call.","d":["D-2848"],"at":"seed@a30a7de84"}
+{"fn":"maybe_finish_sokoban","c":"7059-7095","status":"partial","js":["js/trap.js:maybe_finish_sokoban"],"omit":"`dealloc_trap` (`trap.c:6548`) still has no body; `deltrap` returns after the finish call.","d":["D-3426","D-2848"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: remaining omit cannot ship"}
 {"fn":"trapname","c":"7100-7155","status":"ported","js":["js/trap.js:trapname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ignite_items","c":"7161-7172","status":"ported","js":["js/trap.js:ignite_items"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trap_ice_effects","c":"7175-7194","status":"ported","js":["js/trap.js:trap_ice_effects"],"at":"2026-10-03@bbe63333a"}

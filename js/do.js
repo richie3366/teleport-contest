@@ -129,6 +129,7 @@ import { revive } from './zap.js';
 import {
     near_capacity, learn_unseen_invent, encumber_msg,
     freeinv_core, getobj, ggetobj, useup, useupall, useupf,
+    update_inventory,
 } from './invent.js';
 import { can_reach_floor, set_occupation, engr_at, sticks, save_engravings, rest_engravings, unskip_engravings_for_save } from './engrave.js';
 import { rest_rooms } from './mkroom.js';
@@ -507,10 +508,9 @@ function Doname2(obj) {
 }
 // C pline.c There :425–433 — canonical export imported from display.js (D-3299; local clone removed).
 /**
- * C worn.c setnotworn — pointer-walk worn[]; does not call setworn.
+ * C worn.c setnotworn `:150–184` — pointer-walk worn[]; does not call setworn.
  * Clears oc_oprop extrinsic only for slots that currently point at obj.
  * Leaves owornmask bits when obj is not in the slot (tutorial restore flag).
- * Named omit: update_inventory.
  * Exported for shopdig snatch (D-1016); tutorial stash/restore (D-1015/D-1020).
  */
 export function setnotworn(obj) {
@@ -552,6 +552,7 @@ export function setnotworn(obj) {
         || (game.flags?.armorstatus && (unworn & W_ARMOR) !== 0)) {
         if (game.disp) game.disp.botl = true;
     }
+    update_inventory(); // C `:182`
     recalc_telepat_range();
 }
 /** C hack.h distu — squared distance from hero. */
@@ -1131,8 +1132,9 @@ function tutorial_enter_gamestate() {
         inv.shift();
         // C freeinv sets where = OBJ_FREE before the object sits on
         // gmst_invent. addinv_nomerge on the way out panics otherwise.
-        // freeinv_core / update_inventory stay the existing omit: setnotworn
-        // already cleared the worn slot, and the array was shifted by hand.
+        // freeinv_core stays the existing omit (where is set by hand below).
+        // update_inventory rides inside setnotworn now (C `:182`); it
+        // no-ops outside the moveloop, so stash/restore are unaffected.
         otmp.where = OBJ_FREE;
         otmp.owornmask = wornmask;
         stash.unshift(otmp); // C prepends gmst_invent
@@ -1750,7 +1752,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C do.c:1618 goto_level — needed in level_tele
     reset_utrap(false);
     // C do.c:1619–1620 — fill the departure pit, clear u.ustuck/u.uswallow.
-    fill_pit(u.ux | 0, u.uy | 0);
+    await fill_pit(u.ux | 0, u.uy | 0);
     set_ustuck(null);
     // set_uinwater(0) (D-1267; C do.c:1621). Same-value is a no-op.
     await set_uinwater(0);
@@ -3947,7 +3949,7 @@ export async function revive_corpse(corpse) {
                 await You_hear('scratching noises.');
             }
             const { fill_pit } = await import('./dig.js');
-            fill_pit(mx, my);
+            await fill_pit(mx, my);
             break;
         }
         // FALLTHROUGH — C do.c:2236–2240 !is_zomb → impossible

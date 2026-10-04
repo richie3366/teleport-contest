@@ -1,6 +1,6 @@
 {"fn":"unicode_val","c":"18-34","status":"ported","js":["js/options.js:unicode_val"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"set_map_u","c":"37-56","status":"ported","js":["js/options.js:set_map_u"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"free_all_glyphmap_u","c":"59-80","status":"ported","js":["js/glyphs.js:free_all_glyphmap_u"],"d":["D-3065"],"at":"2026-09-28@709b8aea7","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_map_u","c":"37-56","status":"ported","js":["js/options.js:set_map_u"],"d":["D-3426","D-3002"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
+{"fn":"free_all_glyphmap_u","c":"59-80","status":"ported","js":["js/glyphs.js:free_all_glyphmap_u"],"d":["D-3426","D-3065"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"mixed_to_utf8","c":"86-145","status":"by-design","at":"2026-09-29@29685b8e4","note":"terminal-layer: sole C caller tty_putmixed wintty.c:4185 (frozen terminal); siblings decode_glyph/decode_mixed seed by-design; JS bypasses via pre-resolved chars (pager.js:2296, display.js:6139)"}
 {"fn":"add_custom_urep_entry","c":"148-207","status":"ported","js":["js/glyphs.js:add_custom_urep_entry"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_customsymbols","c":"211-217","status":"ported","js":["js/glyphs.js:reset_customsymbols"],"d":["D-3065"],"at":"2026-09-28@709b8aea7","note":"refresh: no JS symbol (measured MISSING)"}

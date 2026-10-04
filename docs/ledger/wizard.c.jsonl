@@ -3,7 +3,7 @@
 {"fn":"mon_has_special","c":"117-129","status":"ported","js":["js/muse.js:mon_has_special"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: any_quest_artifact inlined per obj.h macro"}
 {"fn":"which_arti","c":"142-157","status":"ported","js":["js/wizard.js:which_arti"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_has_arti","c":"165-177","status":"ported","js":["js/wizard.js:mon_has_arti"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: any_quest_artifact inlined per obj.h macro"}
-{"fn":"other_mon_has_arti","c":"184-195","status":"ported","js":["js/wizard.js:other_mon_has_arti"],"at":"2026-10-03@bbe63333a"}
+{"fn":"other_mon_has_arti","c":"184-195","status":"ported","js":["js/wizard.js:other_mon_has_arti"],"d":["D-3426"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"on_ground","c":"202-213","status":"ported","js":["js/wizard.js:on_ground"],"at":"2026-10-03@bbe63333a"}
 {"fn":"you_have","c":"216-233","status":"ported","js":["js/wizard.js:you_have"],"at":"2026-10-03@bbe63333a"}
 {"fn":"target_on","c":"236-267","status":"ported","js":["js/wizard.js:target_on"],"at":"2026-10-03@bbe63333a"}
@@ -13,7 +13,7 @@
 {"fn":"has_aggravatables","c":"474-491","status":"ported","js":["js/wizard.js:has_aggravatables"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: helpless inlined per monst.h macro"}
 {"fn":"aggravate","c":"494-511","status":"ported","js":["js/wizard.js:aggravate"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clonewiz","c":"517-534","status":"ported","js":["js/wizard.js:clonewiz"],"d":["D-1900"],"at":"2026-10-03@bbe63333a"}
-{"fn":"pick_nasty","c":"538-581","status":"partial","js":["js/makemon.js:pick_nasty"],"omit":"rogue-level uppercase re-ROLL (Is_rogue_level && monsym not A-Z)","d":["D-2027"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: NASTIES table + geno/difcap/hell/juvenile arms match"}
+{"fn":"pick_nasty","c":"538-581","status":"ported","js":["js/makemon.js:pick_nasty"],"d":["D-3426","D-2027"],"at":"2026-10-04@0d801c73f","note":"audit 2026-10-03: NASTIES table + geno/difcap/hell/juvenile arms match"}
 {"fn":"nasty","c":"591-711","status":"ported","js":["js/wizard.js:nasty"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"resurrect","c":"715-780","status":"ported","js":["js/wizard.js:resurrect"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice omitted (voice-render polish)"}
 {"fn":"intervene","c":"785-810","status":"ported","js":["js/wizard.js:intervene"],"d":["D-2237"],"at":"2026-10-03@bbe63333a"}

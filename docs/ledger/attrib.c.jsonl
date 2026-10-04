@@ -1,4 +1,4 @@
-{"fn":"adjattrib","c":"117-199","status":"partial","js":["js/attrib.js:adjattrib"],"omit":"u_init.c:933/:935 (`u_init_carry_attr_boost` STR/CON loop) — JS `js/u_init.js:1689` stub stands pending an `inv_weight` port (loop condition unported, so the calls are unreachable, not dropped); Your() renders as `pline('Your …')` (text-identical, no new file-local Your clone).","d":["D-2438"],"at":"seed@a30a7de84"}
+{"fn":"adjattrib","c":"117-199","status":"ported","js":["js/attrib.js:adjattrib"],"d":["D-3426","D-2438"],"at":"2026-10-04@0d801c73f"}
 {"fn":"gainstr","c":"203-217","status":"ported","js":["js/attrib.js:gainstr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"losestr","c":"221-270","status":"ported","js":["js/attrib.js:losestr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poison_strdmg","c":"274-278","status":"ported","js":["js/eat.js:poison_strdmg"],"d":["D-3379"],"at":"2026-10-03@e27333c36","note":"audit 2026-10-03: reimplements str-loss loop + hp damage inline"}
@@ -16,7 +16,7 @@
 {"fn":"init_attr","c":"723-737","status":"ported","js":["js/attrib.js:init_attr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"redist_attr","c":"740-760","status":"ported","js":["js/attrib.js:redist_attr"],"d":["D-2954"],"at":"seed@a30a7de84"}
 {"fn":"vary_init_attr","c":"764-776","status":"ported","js":["js/attrib.js:vary_init_attr"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:640 complete, caller js/u_init.js:2025 (C u_init.c:1391)"}
-{"fn":"postadjabil","c":"780-786","status":"ported","js":["js/attrib.js:postadjabil"],"d":["D-3141"],"at":"2026-09-30@b20fdf92d","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"postadjabil","c":"780-786","status":"ported","js":["js/attrib.js:postadjabil"],"d":["D-3426","D-3141"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"role_abil","c":"789-815","status":"ported","js":["js/attrib.js:role_abil"],"d":["D-3134"],"at":"2026-09-29@463ffffc2","note":"stale: js/attrib.js:928 — switch ≡ C table+sentinel scan for all inputs (default null ≡ sentinel NULL); staticfn→local correct; both C callers wired (check_innate_abil :823→JS :1101, adjabil :1011→JS :954)"}
 {"fn":"check_innate_abil","c":"818-851","status":"ported","js":["js/attrib.js:check_innate_abil"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:1098 complete, callers js/attrib.js:1124,1126 (C :868,:870); hum_abil empty in C"}
 {"fn":"innately","c":"864-877","status":"ported","js":["js/attrib.js:innately"],"at":"2026-10-03@bbe63333a"}

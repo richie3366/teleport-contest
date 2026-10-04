@@ -6,7 +6,7 @@
 {"fn":"m_use_healing","c":"337-357","status":"ported","js":["js/muse.js:m_use_healing"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_sees_sleepy_soldier","c":"361-381","status":"ported","js":["js/muse.js:m_sees_sleepy_soldier"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_tele","c":"384-413","status":"ported","js":["js/muse.js:m_tele"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_next2m","c":"420-436","status":"ported","js":["js/muse.js:m_next2m"],"d":["D-2995"],"at":"2026-09-27@a5d26e462","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"m_next2m","c":"420-436","status":"ported","js":["js/muse.js:m_next2m"],"d":["D-3426","D-2995"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"find_defensive","c":"441-750","status":"ported","js":["js/muse.js:find_defensive"],"d":["D-1988"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reveal_trap","c":"757-767","status":"ported","js":["js/muse.js:reveal_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_escape","c":"780-789","status":"ported","js":["js/muse.js:mon_escape"],"at":"2026-10-03@bbe63333a"}
@@ -24,10 +24,10 @@
 {"fn":"buzz_force_miss","c":"1815-1818","status":"ported","js":["js/muse.js:buzz_force_miss"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_offensive","c":"1824-2032","status":"ported","js":["js/muse.js:use_offensive"],"d":["D-1810"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"rnd_offensive_item","c":"2035-2081","status":"ported","js":["js/makemon.js:rnd_offensive_item"],"d":["D-2983"],"at":"2026-09-27@529e9bfc5"}
-{"fn":"find_misc","c":"2095-2245","status":"partial","js":["js/muse.js:find_misc"],"omit":"whip/invis/speed nomore arms use per-check !== not continue: later viable objs override earlier priority (C: first arm-priority wins)","at":"2026-10-03@bbe63333a"}
+{"fn":"find_misc","c":"2095-2245","status":"ported","js":["js/muse.js:find_misc"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"muse_newcham_mon","c":"2250-2261","status":"ported","js":["js/muse.js:muse_newcham_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mloot_container","c":"2264-2378","status":"ported","js":["js/muse.js:mloot_container"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"use_misc","c":"2383-2626","status":"partial","js":["js/muse.js:use_misc"],"omit":"INVIS arm tests canseemon not canspotmon (telepathy/sensemon misroutes message+map_invisible); BULLWHIP hand literal 'hand' not body_part(HAND); yank target literal 'floor' not surface(ux,uy)","d":["D-2211","D-2072","D-1811"],"at":"2026-10-03@bbe63333a"}
+{"fn":"use_misc","c":"2383-2626","status":"ported","js":["js/muse.js:use_misc"],"d":["D-3426","D-2211","D-2072","D-1811"],"at":"2026-10-04@0d801c73f"}
 {"fn":"you_aggravate","c":"2631-2651","status":"ported","js":["js/muse.js:you_aggravate"],"d":["D-2178"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rnd_misc_item","c":"2654-2686","status":"ported","js":["js/makemon.js:rnd_misc_item"],"d":["D-2086"],"at":"2026-10-03@bbe63333a"}
 {"fn":"necrophiliac","c":"2691-2702","status":"by-design","d":["D-3042"],"at":"2026-09-28@725011334","note":"C muse.c:2688-2703 inside #if 0 (both trees); sole reference is a comment at :1309; never compiled, no JS port"}

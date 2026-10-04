@@ -1,8 +1,8 @@
-{"fn":"newuexp","c":"14-23","status":"ported","js":["js/exper.js:newuexp"],"at":"2026-10-03@bbe63333a"}
+{"fn":"newuexp","c":"14-23","status":"ported","js":["js/exper.js:newuexp"],"d":["D-3426"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"enermod","c":"26-41","status":"ported","js":["js/exper.js:enermod"],"at":"2026-10-03@bbe63333a"}
 {"fn":"newpw","c":"45-81","status":"ported","js":["js/exper.js:newpw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"experience","c":"85-166","status":"ported","js":["js/exper.js:experience"],"d":["D-2641"],"at":"seed@a30a7de84"}
-{"fn":"more_experienced","c":"169-203","status":"partial","js":["js/exper.js:more_experienced"],"omit":"`SCORE_ON_BOTL` / `flags.showscore` (`exper.c:194–197`) is not compiled.","d":["D-2878"],"at":"seed@a30a7de84"}
+{"fn":"more_experienced","c":"169-203","status":"ported","js":["js/exper.js:more_experienced"],"d":["D-3426","D-2878"],"at":"2026-10-04@0d801c73f"}
 {"fn":"losexp","c":"207-291","status":"ported","js":["js/exper.js:losexp"],"d":["D-2526"],"at":"seed@a30a7de84"}
 {"fn":"newexplevel","c":"300-304","status":"ported","js":["js/exper.js:newexplevel"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pluslvl","c":"307-372","status":"ported","js":["js/exper.js:pluslvl"],"at":"2026-10-03@bbe63333a"}
