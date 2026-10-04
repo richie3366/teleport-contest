@@ -17,8 +17,8 @@
 {"fn":"hero_behind_chokepoint","c":"1344-1367","status":"ported","js":["js/muse.js:hero_behind_chokepoint"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_has_friends","c":"1371-1391","status":"ported","js":["js/muse.js:mon_has_friends"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_likes_objpile_at","c":"1395-1415","status":"ported","js":["js/muse.js:mon_likes_objpile_at"],"at":"2026-09-29@d27c7b945","note":"stale: js/muse.js:597"}
-{"fn":"find_offensive","c":"1421-1594","status":"partial","js":["js/muse.js:find_offensive"],"omit":"missing in_your_sanctuary early return; missing AD_HEAL-vs-naked-hero early return (both deferred as open)","at":"2026-10-03@bbe63333a"}
-{"fn":"mbhitm","c":"1597-1703","status":"partial","js":["js/muse.js:mbhitm"],"omit":"WAN_STRIKING vs monster: no resists_magm/shieldeff/Boing arm, find_mac flat 10, no hit/miss plines, no resist() damage; WAN/SPE_CANCELLATION arm absent; no seemimic; no stop_occupation on hero hit","at":"2026-10-03@bbe63333a"}
+{"fn":"find_offensive","c":"1421-1594","status":"ported","js":["js/muse.js:find_offensive"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
+{"fn":"mbhitm","c":"1597-1703","status":"ported","js":["js/muse.js:mbhitm"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
 {"fn":"fhito_loc","c":"1707-1726","status":"ported","js":["js/muse.js:fhito_loc"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbhit","c":"1734-1812","status":"partial","js":["js/muse.js:mbhit"],"omit":"WAN_STRIKING find_drawbridge arm never calls destroy_drawbridge; no map_invisible on unseen monster hit","d":["D-1484"],"at":"2026-10-03@bbe63333a"}
 {"fn":"buzz_force_miss","c":"1815-1818","status":"ported","js":["js/muse.js:buzz_force_miss"],"at":"2026-10-03@bbe63333a"}

@@ -147,10 +147,14 @@ row at default C ≥ 8 (only non-excluded MISSING left: `topl_putsym`) —
 refilled with the last 3 absent `sfbase.c` stubs, `topl_putsym`, and 3
 `hacklib.c` partials the next batch preview still lists (THIN rechecks
 excluded: the six read complete in JS per the D-3403 note).
+D-3420 drained `topl_putsym` (split) + `find_offensive`/`mbhitm` (ported
+whole); generated block still 1 row (rest excluded: tty/files/save) —
+refilled with the last 2 absent `sfbase.c` stubs + same-file `mbhit`
+partial (both omits brief-verified below).
 
-- [ ] `topl.c` topl_putsym — C topl.c:305–344 absent from js/ (no JS symbol, comment refs only, js-grep 2026-10-04; ledger unknown C 28/JS 0 MISSING; callers 2 — rows --all 2026-10-04) @e2943671c
-- [ ] `muse.c` find_offensive — partial js/muse.js:find_offensive: C muse.c:1431–1437 early returns (`in_your_sanctuary` + AD_HEAL-vs-naked-hero) absent from js/muse.js:645 (`deferred → treat as open` comment; full body brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
-- [ ] `muse.c` mbhitm — C muse.c:1597–1703 arms (WAN_CANCELLATION/SPE_CANCELLATION + seemimic + shieldeff + mon-target resists_magm/find_mac/hit-miss plines) absent from js/muse.js:785 local clone (named in :781–782 doc; brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
+- [ ] `sfbase.c` norm_ptrs_vlaunchinfo — C sfbase.c:1097–1099 `{ }` stub absent from js/ (no JS symbol; ledger absent C 0/JS 0 MISSING; 0 callees; brief-read 2026-10-04) @3043e75f2
+- [ ] `sfbase.c` norm_ptrs_vptrs — C sfbase.c:1102–1104 `{ }` stub absent from js/ (no JS symbol; ledger absent C 0/JS 0 MISSING; 0 callees; brief-read 2026-10-04) @3043e75f2
+- [ ] `muse.c` mbhit — C muse.c:1780 STRIKING find_drawbridge arm + unseen-monster map_invisible absent from js/muse.js:mbhit (:941–1009: destroy_drawbridge only in :982 `deferred` comment; zero map_invisible calls; ledger omit; full body brief-read 2026-10-04) @3043e75f2
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

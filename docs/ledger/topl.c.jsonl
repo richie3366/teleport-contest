@@ -5,7 +5,7 @@
 {"fn":"addtopl","c":"194-202","status":"ported","js":["js/display.js:addtopl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: append + NEED_MORE + paint"}
 {"fn":"more","c":"205-248","status":"partial","js":["js/display.js:more"],"omit":"missing `if (iflags.debug_fuzzer) return` skip (flag live in JS, honored elsewhere)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inmore guard, --More-- placement, xwaitforspace+ESC-STOP+dismiss via more_wait_keys"}
 {"fn":"update_topl","c":"251-302","status":"partial","js":["js/display.js:update_topl"],"omit":"missing cury==0 gate on same-line append and cury>1 docorner reset arm; no TBUFSZ truncation; tail more() drops otoplin!=SPECIAL check","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: append arm, NEED_MORE->more chaining, word wrap, notdied arm, redotoplin tail"}
-{"fn":"topl_putsym","c":"305-344","status":"unknown"}
+{"fn":"topl_putsym","c":"305-344","status":"split","js":["js/display.js:show_topl","js/getline.js:topl_wrap_echo","js/getline.js:yn_collect_number"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
 {"fn":"putsyms","c":"347-351","status":"unknown"}
 {"fn":"removetopl","c":"354-359","status":"unknown"}
 {"fn":"tty_yn_function","c":"365-551","status":"partial","js":["js/getline.js:tty_yn_function"],"omit":"entry more() gate drops WIN_NOSTOP exception (C mores when STOP+NOSTOP); entry clears WIN_STOP but not one-shot WIN_NOSTOP","d":["D-1631","D-1623","D-1612"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: prompt/ESC-hidden/preserve-case/ctrl-P both modes/doprev/number collect w/ overflow+erase/clean_up all match"}

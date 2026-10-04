@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
-- [x] D-3415 repair misfire (flagged by D-3417 crumb, verified this iter) — domove_swap_with_pet + domove_core rows carry test_move's omit text (a1eee6cb2 stamped test_move's single Named line into all 3 rows; 2358.2's Addressed stamp is false); true texts in D-3404 Named bullet (swap: C :2147 assert-implied-by-mtrapped, no JS assert export; core: displaceu middle-skip + upstream travel + CLIPPING) — fix: direct `ledger.mjs set` ×2 to those texts (verify each sub-omit still unshipped first, NOT via finish-iteration) + `hidden-proxy verify` on the 2 rows. Source: reviews/loop-unattended/2366-b127042af-batch-d3416.md (mechanism) + D-3417 journal crumb **Addressed:** D-3419
+- [x] `topl.c` topl_putsym — C topl.c:305–344 absent from js/ (no JS symbol, comment refs only, js-grep 2026-10-04; ledger unknown C 28/JS 0 MISSING; callers 2 — rows --all 2026-10-04) @e2943671c
+- [x] `muse.c` find_offensive — partial js/muse.js:find_offensive: C muse.c:1431–1437 early returns (`in_your_sanctuary` + AD_HEAL-vs-naked-hero) absent from js/muse.js:645 (`deferred → treat as open` comment; full body brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
+- [x] `muse.c` mbhitm — C muse.c:1597–1703 arms (WAN_CANCELLATION/SPE_CANCELLATION + seemimic + shieldeff + mon-target resists_magm/find_mac/hit-miss plines) absent from js/muse.js:785 local clone (named in :781–782 doc; brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
+
+
+- [x] D-3415 repair misfire (flagged by D-3417 crumb, verified this iter) — domove_swap_with_pet + domove_core rows carry test_move's omit text (a1eee6cb2 stamped test_move's single Named line into all 3 rows; 2358.2's Addressed stamp is false); true texts in D-3404 Named bullet (swap: C :2147 assert-implied-by-mtrapped, no JS assert export; core: displaceu middle-skip + upstream travel + CLIPPING) — fix: direct `ledger.mjs set` ×2 to those texts (verify each sub-omit still unshipped first, NOT via finish-iteration) + `hidden-proxy verify` on the 2 rows. Source: reviews/loop-unattended/2366-b127042af-batch-d3416.md (mechanism) + D-3417 journal crumb **Addressed:** D-3419 `3043e75f2`
 
 
 - [x] `sfbase.c` norm_ptrs_u_roleplay — C sfbase.c:1087–1089 absent from js/ (no JS symbol, js-grep 2026-10-04; ledger absent C 0; `{ }` stub; 64 siblings ported 2026-10-04) @e2943671c

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3420 Open head: muse.c find_offensive + mbhitm arms whole; topl_putsym split; impossible audit
+
+**C locus:** - `find_offensive`: muse.c:1431–1437 (sanctuary + AD_HEAL naked-hero early returns; rest of :1421–1594 already live).
+**JS:** js/muse.js:637 (find_offensive arms :649–654), :793 (mbhitm), imports :10–:121, consts :153–:154/:204.
+**Change:** ported every named arm in C order with live-export imports (no new generated tables): `in_your_sanctuary` (new priest.js edge — hoisted fn, IN-SCC cycle-safe per `imports.mjs --can`), `dmgtype` + local `AD_HEAL = 27` (monattk.h:69); `seemimic`, `shieldeff` ×2 + `Soundeffect(se_boing, 40)` ×2, `await stop_occupation()`, `resists_magm`/`find_mac`/`hit`/`resist(oclass,TELL)`/`miss` chain, `cancel_monst(mdef, otmp, false, true, false)` with `game.youmonst` substituted when hits_you (sole caller passes null mtmp for the hero, so C's `mtmp == &youmonst` test cannot run in-JS); local `WAN_CANCELLATION`/`SPE_CANCELLATION` via `objectNames.indexOf` (423/402). `topl_putsym` needs no body: every arm is whole under split names (see Ledger) — default CO-1 wrap + curx/cury in `topl_wrap_echo` (getline.js:48) and the `show_topl` char loop (display.js:8681), `\n` arm likewise, `\b` arm as yn-number echo-slice + repaint (getline.js:2212; removetopl is the only `\b` driver), `cl_end` as paint blanking, `putchar` as grid paint (Rule #2), WIN32CON arms compiled out, null-window panic N/A (`ensure_message_win` always creates — sibling precedent).
+**Verify:** `node scripts/verify.mjs --fn find_offensive,mbhitm,topl_putsym,impossible` → PASS syntax (1 changed: js/muse.js); PASS rule2; 4× hidden note (no corpus session blocked — normal; rows cited none); REACH-OK ×4 (mbhitm: 14 reaching sessions 14 PASS; others fixed smoke 24/24); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** none — both partials' declared omits shipped whole; topl_putsym/impossible carry no shippable remainder (split sites / Rule #2).
+**Next:** Must-fix head (D-3416 ledger truth, 11 rows) still deferred by operator override; then D-3410 m_initgrp homes.
 ## 2026-10-04 — D-3419 Must-fix: D-3415 repair misfire (domove_swap_with_pet + domove_core rows restored)
 
 **C locus:** row homes only (no C re-read; bodies verified whole by review 2358): hack.c `domove_swap_with_pet` :2098–2225 (:2147 assert), `domove_core` :2712–2991 (displaceu/travel/CLIPPING).
