@@ -1,6 +1,6 @@
 {"fn":"zaptype","c":"89-96","status":"ported","js":["js/zap.js:zaptype"],"at":"2026-10-03@bbe63333a"}
 {"fn":"learnwand","c":"123-151","status":"ported","js":["js/zap.js:learnwand"],"d":["D-2904"],"at":"seed@a30a7de84"}
-{"fn":"bhitm","c":"160-573","status":"ported","js":["js/zap.js:bhitm"],"d":["D-3408","D-3368","D-1436","D-1426","D-1425","D-1424"],"at":"2026-10-04@c075fb861"}
+{"fn":"bhitm","c":"160-573","status":"ported","js":["js/zap.js:bhitm"],"d":["D-3425","D-3408","D-3368","D-1436","D-1426","D-1425"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"release_hold","c":"578-609","status":"ported","js":["js/zap.js:release_hold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"probe_objchain","c":"612-623","status":"ported","js":["js/zap.js:probe_objchain"],"at":"2026-10-03@bbe63333a"}
 {"fn":"probe_monster","c":"626-640","status":"ported","js":["js/zap.js:probe_monster"],"at":"2026-10-03@bbe63333a"}
@@ -11,7 +11,7 @@
 {"fn":"zombie_can_dig","c":"863-875","status":"ported","js":["js/zap.js:zombie_can_dig"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"revive","c":"884-1140","status":"ported","js":["js/zap.js:revive"],"at":"2026-10-03@bbe63333a"}
 {"fn":"revive_egg","c":"1143-1152","status":"ported","js":["js/zap.js:revive_egg"],"at":"2026-10-03@bbe63333a"}
-{"fn":"unturn_dead","c":"1156-1222","status":"ported","js":["js/zap.js:unturn_dead"],"at":"2026-10-03@bbe63333a"}
+{"fn":"unturn_dead","c":"1156-1222","status":"ported","js":["js/zap.js:unturn_dead"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"unturn_you","c":"1225-1235","status":"ported","js":["js/zap.js:unturn_you"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cancel_item","c":"1239-1362","status":"ported","js":["js/zap.js:cancel_item"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"blank_novel","c":"1367-1376","status":"ported","js":["js/zap.js:blank_novel"],"at":"2026-10-03@bbe63333a"}
@@ -23,7 +23,7 @@
 {"fn":"do_osshock","c":"1637-1674","status":"ported","js":["js/zap.js:do_osshock"],"d":["D-3212","D-2879"],"at":"2026-10-01@1eadda2ce","note":"stale: js/zap.js:do_osshock top-level hoist, wired at bhito"}
 {"fn":"obj_unpolyable","c":"1678-1683","status":"ported","js":["js/zap.js:obj_unpolyable"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poly_obj","c":"1702-1989","status":"partial","js":["js/zap.js:poly_obj"],"omit":"sokoban_guilt on boulder (C:1710); leash leashmon transfer/unleash (C:1816-25); spellbook spestudied degrade (C:1871-80); gem mineral→ROCK backfire (C:1883-90); shop-anger bill (C:1965-86)","d":["D-1510"],"at":"2026-10-03@bbe63333a"}
-{"fn":"stone_to_flesh_obj","c":"1993-2112","status":"ported","js":["js/zap.js:stone_to_flesh_obj"],"at":"2026-10-03@bbe63333a"}
+{"fn":"stone_to_flesh_obj","c":"1993-2112","status":"ported","js":["js/zap.js:stone_to_flesh_obj"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"bhito","c":"2119-2424","status":"ported","js":["js/zap.js:bhito"],"d":["D-3408","D-2807","D-1483","D-1481","D-1467","D-1453"],"at":"2026-10-04@c075fb861"}
 {"fn":"bhitpile","c":"2428-2506","status":"ported","js":["js/zap.js:bhitpile"],"d":["D-3408","D-2879"],"at":"2026-10-04@c075fb861"}
 {"fn":"zappable","c":"2514-2522","status":"ported","js":["js/zap.js:zappable"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wrest-last-charge You() message deferred"}
@@ -38,7 +38,7 @@
 {"fn":"lightdamage","c":"3026-3056","status":"ported","js":["js/zap.js:lightdamage"],"d":["D-1366"],"at":"2026-10-03@bbe63333a"}
 {"fn":"flashburn","c":"3060-3080","status":"ported","js":["js/zap.js:flashburn"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"zap_steed","c":"3087-3141","status":"ported","js":["js/zap.js:zap_steed"],"d":["D-1480","D-1479","D-1478","D-1474","D-1473","D-1471"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cancel_monst","c":"3150-3215","status":"ported","js":["js/zap.js:cancel_monst"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"cancel_monst","c":"3150-3215","status":"ported","js":["js/zap.js:cancel_monst"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278","note":"stale 2026-09-15"}
 {"fn":"zap_updown","c":"3219-3411","status":"ported","js":["js/zap.js:zap_updown"],"d":["D-1485","D-1466","D-1465","D-1456","D-1454","D-1444"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zapsetup","c":"3415-3418","status":"ported","js":["js/zap.js:zapsetup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zapwrapup","c":"3421-3427","status":"ported","js":["js/zap.js:zapwrapup"],"at":"2026-10-03@bbe63333a"}

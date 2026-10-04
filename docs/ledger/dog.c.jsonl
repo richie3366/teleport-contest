@@ -8,7 +8,7 @@
 {"fn":"set_mon_lastmove","c":"287-290","status":"ported","js":["js/dog.js:set_mon_lastmove"],"d":["D-3280"],"at":"2026-10-02@b15c3087f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"update_mlstmv","c":"295-298","status":"ported","js":["js/dog.js:update_mlstmv"],"d":["D-1709"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C iter_mons verified fmon-only with same skips"}
 {"fn":"losedogs","c":"304-416","status":"ported","js":["js/dog.js:losedogs"],"d":["D-2722"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mon_arrive","c":"420-623","status":"split","js":["js/dog.js:mon_arrive","js/dog.js:mon_arrive_with_you","js/dog.js:mon_arrive_after_you"],"d":["D-3401","D-3194","D-2459","D-1505","D-1199"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"mon_arrive","c":"420-623","status":"split","js":["js/dog.js:mon_arrive","js/dog.js:mon_arrive_with_you","js/dog.js:mon_arrive_after_you"],"d":["D-3425","D-3401","D-3194","D-2459","D-1505","D-1199"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"mon_catchup_elapsed_time","c":"627-724","status":"ported","js":["js/dog.js:mon_catchup_elapsed_time"],"d":["D-3401","D-2562"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"mon_leave","c":"729-763","status":"ported","js":["js/dog.js:mon_leave"],"d":["D-3401","D-3115"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"keep_mon_accessible","c":"768-785","status":"ported","js":["js/dog.js:keep_mon_accessible"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: drops mon->mextra gate; shk/priest/gd without mextra impossible (allocators set it, free_* clears flag)"}

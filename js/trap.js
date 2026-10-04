@@ -340,7 +340,8 @@ export async function animate_statue(statue, x, y, cause, fail_reason = null) {
         if (mnum !== PM_DOPPELGANGER) mptr = mons(mnum);
         use_saved_traits = false;
     } else if (is_golem(mptr) && cause === ANIMATE_SPELL) {
-        golem_xform = mptr !== mons(PM_FLESH_GOLEM);
+        // C trap.c:752 — mndx; mons() allocs fresh per call.
+        golem_xform = (mptr?.mndx ?? -1) !== PM_FLESH_GOLEM;
         mnum = PM_FLESH_GOLEM;
         mptr = mons(PM_FLESH_GOLEM);
         use_saved_traits = has_omonst(statue) && !golem_xform;

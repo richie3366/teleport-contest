@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3425 Must-fix review 2355: mons() identity-compare family → mndx (5 files)
+
+**C locus:** - `mon_arrive`: dog.c:437 `mtmp->data == &mons[PM_LONG_WORM]` → get_wormno/initworm (:437–443).
+**JS:** - `mon_arrive`: js/dog.js:750 (in `mon_arrive_link`).
+**Change:** one-line mndx flip per dead site — `(x?.mndx ?? -1) ===/!== PM_X` (house `?? -1` idiom, already pervasive in trap.js; null-safe: null data behaves exactly as the old null-vs-object compare) with a C-line cite; trimmed the 3 dead OR arms (zap clay-golem + pest sites also normalized `(x|0)` → `(x ?? -1)`, behavior-identical since PM indices are nonzero). No new imports, no signature changes.
+**Verify:** `node scripts/verify.mjs --fn mon_arrive,animate_statue,unturn_dead,stone_to_flesh_obj,nasty,strategy` → PASS syntax (5 changed files) · PASS rule2 · hidden note ×6 (no corpus session blocked at baseline — normal; review-cited, not corpus-cited) · PASS reach ×6 (mon_arrive 80/80 of 165-reach spread, nasty 14/14, other 4 fixed smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (detector: no shared file) so ran full `frozen/ps_test_runner.mjs sessions` 44/44 (2026-10-04T19:04Z, speed 330+1.71/turn) per the queue row. VERIFY: PASS. (Repo has no tests/ harness — the verify + full gates above are the durable coverage; /tmp/mons-probe.mjs holds the pre-fix reproduction.)
+**Named:** - `animate_statue`: shop/monster ownership prefix (shk_your Manlobbi's/mon's) reduced to the/your (C:825,840)
+**Next:** Open missing-arm head (`do_wear` Helmet_on); then the batch picker.
 ## 2026-10-04 — D-3424 Must-fix review 2355: canseemon divergent clones → live display.js exports (5 files)
 
 **C locus:** include/display.h:117–120 `_canseemon` = (wormno ? worm_known : (cansee || see_with_infrared)) && mon_visible; :93–99 `_mon_visible` = (!minvis || See_invisible) && !mundetected (the `#else` branch — `#if 0` above); :129 `canspotmon` = canseemon || sensemon; display.c:201–204 `canseemon` wrapper.

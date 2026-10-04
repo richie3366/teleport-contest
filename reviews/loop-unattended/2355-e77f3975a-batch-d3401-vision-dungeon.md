@@ -309,6 +309,7 @@ QUALITY-RISK.
    locus; leave the 4 already-safe mndx-fallback sites
    (potion.js:3783, zap.js:3828/4480, priest.js:505) or drop the dead
    arm. One iter (10 one-line flips + verify incl. full: shared files).
+   **Addressed:** D-3425
 2. `canseemon` divergent clones + wrong declaration — D-3401 declares
    `canseemon ported` → js/dig.js:207 with no diff; dig.js:207 and
    js/monmove.js:1326 diverge from C display.h:117-120 (no
@@ -321,6 +322,6 @@ QUALITY-RISK.
    canspotmon → import live exports; `ledger.mjs set canseemon ported
    --js js/display.js:canseemon --note "audited: whole vs C; clones
    retired"`. One iter (wake_nearby-deletion pattern + verify).
-   **Addressed:** D-3424
+   **Addressed:** D-3424 `c4d4e5278`
 
 Verdict: **QUALITY-RISK**

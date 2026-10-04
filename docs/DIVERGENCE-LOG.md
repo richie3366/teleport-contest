@@ -1,5 +1,46 @@
 # Divergence log
 
+## D-3425 — Must-fix review 2355: mons() identity-compare family → mndx (5 files)
+- **Status:** shipped.
+- **Symptom:** review 2355 QUALITY-RISK item 1: `mons()` allocates a fresh object per call (measured: `mons(10)!==mons(10)` via /tmp/mons-probe.mjs, old arm false / new arm true on a long-worm mtmp), so every pure `===/!== mons(PM_X)` is dead — js/dog.js mon_arrive long-worm arm never fires (C dog.c:437–443 get_wormno/initworm lost on migration), js/trap.js:343 + js/zap.js:5276/5313 `golem_xform` always-true, js/zap.js:3563 `different_type` always-true, js/wizard.js:158–159 difcap arm dead + :429 Wizard check always-true.
+- **C locus:**
+  - `mon_arrive`: dog.c:437 `mtmp->data == &mons[PM_LONG_WORM]` → get_wormno/initworm (:437–443).
+  - `animate_statue`: trap.c:752 `golem_xform = (mptr != &mons[PM_FLESH_GOLEM])`.
+  - `unturn_dead`: zap.c:1195 `different_type = (mtmp2->data != &mons[corpsenm])`.
+  - `stone_to_flesh_obj`: zap.c:2020 `golem_xform = (ptr != &mons[PM_FLESH_GOLEM])` + :2055 `is_golem(ptr) && ptr != &mons[PM_FLESH_GOLEM]` newcham gate.
+  - `nasty`: wizard.c:687–688 arch-lich/Archon difcap compares.
+  - `strategy`: wizard.c:288 `mtmp->data != &mons[PM_WIZARD_OF_YENDOR]`.
+  - `cancel_monst`: zap.c:3201 clay-golem compare (mndx fallback already live; dead identity arm trimmed).
+  - `bhitm`: zap.c:438 Pestilence compare (mndx fallback already live; dead identity arm trimmed).
+  - `potionhit`: potion.c:1743/:1760 Pestilence compares (mndx fallback already live in `is_pestilence_pot`; dead identity arm trimmed).
+- **JS was:** 7 pure identity sites (always-false `===`, always-true `!==`) + 3 sites with a live mndx arm OR-ed with a dead identity arm; the review's eat.js ×3 + priest.js:505 sites are already mndx-only at HEAD (eat via `the_unique_pm`, priest via `(priest.mnum|0)`), needing no touch. `grep -n "=== mons(\|!== mons("` now returns zero hits repo-wide (loose `== mons(` variants never existed).
+- **Fix:** one-line mndx flip per dead site — `(x?.mndx ?? -1) ===/!== PM_X` (house `?? -1` idiom, already pervasive in trap.js; null-safe: null data behaves exactly as the old null-vs-object compare) with a C-line cite; trimmed the 3 dead OR arms (zap clay-golem + pest sites also normalized `(x|0)` → `(x ?? -1)`, behavior-identical since PM indices are nonzero). No new imports, no signature changes.
+- **JS:**
+  - `mon_arrive`: js/dog.js:750 (in `mon_arrive_link`).
+  - `animate_statue`: js/trap.js:344.
+  - `unturn_dead`: js/zap.js:3564.
+  - `stone_to_flesh_obj`: js/zap.js:5278 + :5316.
+  - `nasty`: js/wizard.js:159–160.
+  - `strategy`: js/wizard.js:431.
+  - `cancel_monst`: js/zap.js:3830 (trim).
+  - `bhitm`: js/zap.js:4481 (trim).
+  - `potionhit`: js/potion.js:3784 (trim in `is_pestilence_pot`).
+- **Callers:** expression-level fix — no call wiring changed; each C pointer-compare locus above maps to its JS site in the same-named function (all pre-wired, verified by the unchanged caller sets). Zero `=== mons(`/`!== mons(` remain anywhere in `js/`.
+- **Verify:** `node scripts/verify.mjs --fn mon_arrive,animate_statue,unturn_dead,stone_to_flesh_obj,nasty,strategy` → PASS syntax (5 changed files) · PASS rule2 · hidden note ×6 (no corpus session blocked at baseline — normal; review-cited, not corpus-cited) · PASS reach ×6 (mon_arrive 80/80 of 165-reach spread, nasty 14/14, other 4 fixed smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (detector: no shared file) so ran full `frozen/ps_test_runner.mjs sessions` 44/44 (2026-10-04T19:04Z, speed 330+1.71/turn) per the queue row. VERIFY: PASS. (Repo has no tests/ harness — the verify + full gates above are the durable coverage; /tmp/mons-probe.mjs holds the pre-fix reproduction.)
+- **Named omissions:**
+  - `animate_statue`: shop/monster ownership prefix (shk_your Manlobbi's/mon's) reduced to the/your (C:825,840)
+  - `mon_arrive`: none — split parts whole; the worm arm was the only gap.
+  - `unturn_dead`: none — whole.
+  - `stone_to_flesh_obj`: none — whole.
+  - `nasty`: none — whole.
+  - `strategy`: none — whole.
+  - `cancel_monst`: none — whole.
+  - `bhitm`: none — whole.
+  - `potionhit`: none — whole.
+- **Ledger:** mon_arrive split js=js/dog.js:mon_arrive+js/dog.js:mon_arrive_with_you+js/dog.js:mon_arrive_after_you; animate_statue partial; unturn_dead ported; stone_to_flesh_obj ported; nasty ported; strategy ported; cancel_monst ported; bhitm ported; potionhit ported
+- **Left open:** none.
+- **Next:** Open missing-arm head (`do_wear` Helmet_on); then the batch picker.
+
 ## D-3424 — Must-fix review 2355: canseemon divergent clones → live display.js exports (5 files)
 - **Status:** shipped.
 - **Symptom:** review 2355 QUALITY-RISK item 2: D-3401 declared `canseemon ported` → js/dig.js:207 with no diff, while js/dig.js:207 + js/monmove.js:1330 diverge from C (no see_with_infrared arm, `!minvis` instead of mon_visible's See_invisible + !mundetected) and js/monmove.js:1341 `canspotmon` drops the sensemon arm — all CALLED (dig ×5, monmove door feedback + seenflgs + mail daemon).
