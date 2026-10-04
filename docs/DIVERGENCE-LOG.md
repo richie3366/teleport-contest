@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3412 — Must-fix review 2359: eat.js the_unique_pm divergent clone → live objnam export
+- **Status:** shipped.
+- **Symptom:** review 2359 QUALITY-RISK C-wrong 1: js/eat.js:2741 carried a local `the_unique_pm` clone of the live js/objnam.js:2784 export whose three `ptr === mons(PM_*)` exception arms are always-false (`mons()` builds a fresh object per call, monsters.js:227). Observable: High Priest corpse taste line prints "The …" where C prints "This …" (eatcorpse :2000–2004); tin which=2 at eat.js:3833 rides the same clone.
+- **C locus:**
+  - `the_unique_pm`: objnam.c:1120–1140 — G_UNIQ "the Name" article gate; type_is_pname → FALSE; High Priest / long worm tail → FALSE; Wizard of Yendor → TRUE.
+- **JS was:** eat.js:2741 local clone with dead identity-compare arms (High Priest / worm tail wrongly unique); ledger row `ported` pointing at js/eat.js:the_unique_pm.
+- **Fix:** deleted the clone; extended the existing objnam.js import (ALREADY-imported per `imports.mjs --can eat.js objnam.js the_unique_pm`, no new edge) with `the_unique_pm`; removed the now-unused PM_HIGH_CLERIC/PM_LONG_WORM_TAIL/PM_WIZARD_OF_YENDOR consts and the G_UNIQ monsters import; re-pointed the :2000–2004 comment at the live import. New scripts/the-unique-pm-rewire.test.mjs (amonnam-rewire idiom: 6 behavior + 2 census tests): 2 census subtests failed before the fix (clone present, no import), 8/8 pass after.
+- **JS:** js/eat.js (import :63 + deletion, net −20); canonical body unchanged at js/objnam.js:2784 (mndx compares).
+- **Callers:**
+  - `the_unique_pm`: both eat.js sites now call the live export — eatcorpse taste line js/eat.js:2694 (C eat.c:2004) and consume_tin which=2 js/eat.js:3813 (C eat.c:1573 tin-name arm). Other C callers (end.c:245, mcastu.c:374/:377, objnam.c:811/:1854/:1862, polyself.c:609, rumors.c:854, shk.c:5869) already use the live export (objnam.js:729/:1290/:1296/:1572/:2819) or are unchanged — no new wiring claimed beyond the two eat.js sites.
+- **Verify:** `node scripts/verify.mjs --fn the_unique_pm` → PASS syntax (1 changed js file: js/eat.js); PASS rule2; hidden note (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS. Focused: `node --test scripts/the-unique-pm-rewire.test.mjs` 8/8 pass (High Priest/worm-tail false, Wizard/Oracle true, Death/grid-bug false; eat.js census + canonical-only census).
+- **Named omissions:**
+  - `the_unique_pm`: none — whole (canonical export verified: mndx compares for all three exceptions; type_is_pname via the M2_PNAME local).
+- **Ledger:** the_unique_pm ported
+- **Left open:** none.
+- **Next:** next Must-fix (switch_symbols ledger reconciliation, review 2359).
+
 ## D-3411 — Must-fix review 2361: D-3407 false ledger certifications (14 rows)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2361 QUALITY-RISK on D-3407: the code is C-exact throughout, but 14 ledger rows mis-certify it — 13 rows stamped "audited D-3407: remaining omit cannot ship" carry omits for already-shipped code (D-3407's prose retired them but never updated the omit fields), and `restore_timers` claims "whole vs C" while its own code doc names the unshipped ghostly-bones adjust.

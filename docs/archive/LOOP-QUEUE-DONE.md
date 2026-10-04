@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] eat.js:2741 `the_unique_pm` divergent clone — delete + import live objnam.js:2784 (C objnam.c:1120-1140): clone's `ptr === mons(PM_*)` arms are always-false (`mons()` fresh object per call, monsters.js:227) vs canonical mndx compares; eat.js already imports objnam.js (no new edge); fixes High Priest corpse "The…"/"This…" taste line + tin which=2 (eat.js:2697/3833); subsumes the eat.js:2744/2745/2748 sites in the mons-identity row below + verify. Source: reviews/loop-unattended/2359-44ce1ba38-batch-d3405-eat-engrave.md
+
+
 - [x] D-3407 false ledger certifications (14 rows stamped "cannot ship"/"whole vs C" for shipped code) — drop stale omits + flip to ported: 7 replmon-unstuck rows (sanity_check_single_mon, dmonsfree, monkilled, unstuck, xkilled, setmangry, iter_mons_safe), setuwep (:1103 live uhitm.js:1840), start_timer (wish-corpse live readobjnam.js:2366), mkinvokearea (deadbook live spell.js:842), arti_invoke (6 retouch callers live), fill_ordinary_room (recount live), record_achievement (drop ACH_INVK sub-omit only), restore_timers (→ partial + ghostly bones omit); re-verify the 14. Source: reviews/loop-unattended/2361-c075fb861-batch-d3407-timeout-read.md
 
 

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3412 Must-fix review 2359: eat.js the_unique_pm divergent clone → live objnam export
+
+**C locus:** - `the_unique_pm`: objnam.c:1120–1140 — G_UNIQ "the Name" article gate; type_is_pname → FALSE; High Priest / long worm tail → FALSE; Wizard of Yendor → TRUE.
+**JS:** js/eat.js (import :63 + deletion, net −20); canonical body unchanged at js/objnam.js:2784 (mndx compares).
+**Change:** deleted the clone; extended the existing objnam.js import (ALREADY-imported per `imports.mjs --can eat.js objnam.js the_unique_pm`, no new edge) with `the_unique_pm`; removed the now-unused PM_HIGH_CLERIC/PM_LONG_WORM_TAIL/PM_WIZARD_OF_YENDOR consts and the G_UNIQ monsters import; re-pointed the :2000–2004 comment at the live import. New scripts/the-unique-pm-rewire.test.mjs (amonnam-rewire idiom: 6 behavior + 2 census tests): 2 census subtests failed before the fix (clone present, no import), 8/8 pass after.
+**Verify:** `node scripts/verify.mjs --fn the_unique_pm` → PASS syntax (1 changed js file: js/eat.js); PASS rule2; hidden note (no corpus session blocked — normal for a coverage row); REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS. Focused: `node --test scripts/the-unique-pm-rewire.test.mjs` 8/8 pass (High Priest/worm-tail false, Wizard/Oracle true, Death/grid-bug false; eat.js census + canonical-only census).
+**Named:** - `the_unique_pm`: none — whole (canonical export verified: mndx compares for all three exceptions; type_is_pname via the M2_PNAME local).
+**Next:** next Must-fix (switch_symbols ledger reconciliation, review 2359).
 ## 2026-10-04 — D-3411 Must-fix review 2361: D-3407 false ledger certifications (14 rows)
 
 **C locus:** row homes only (no C re-read; bodies verified whole by review 2361): mon.c `sanity_check_single_mon`/`dmonsfree`/`monkilled`/`unstuck`/`xkilled`/`setmangry`/`iter_mons_safe` (shared replmon-unstuck note), wield.c `setuwep` :1094–1116, timeout.c `start_timer` + `restore_timers` :2706–2728, mklev.c `mkinvokearea` + `fill_ordinary_room`, artifact.c `arti_invoke`, insight.c `record_achievement`.

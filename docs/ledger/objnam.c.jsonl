@@ -17,7 +17,7 @@
 {"fn":"minimal_xname","c":"1038-1086","status":"ported","js":["js/objnam.js:minimal_xname"],"d":["D-3128","D-1872"],"at":"2026-09-29@d3ab32283"}
 {"fn":"mshot_xname","c":"1090-1102","status":"ported","js":["js/objnam.js:mshot_xname"],"d":["D-1931"],"at":"2026-10-03@bbe63333a"}
 {"fn":"the_unique_obj","c":"1106-1117","status":"ported","js":["js/objnam.js:the_unique_obj"],"at":"2026-10-03@bbe63333a"}
-{"fn":"the_unique_pm","c":"1121-1140","status":"ported","js":["js/eat.js:the_unique_pm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"the_unique_pm","c":"1121-1140","status":"ported","js":["js/objnam.js:the_unique_pm"],"d":["D-3412"],"at":"2026-10-04@6dac15066"}
 {"fn":"add_erosion_words","c":"1143-1191","status":"ported","js":["js/objnam.js:add_erosion_words"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"erosion_matters","c":"1195-1215","status":"ported","js":["js/mkobj.js:erosion_matters"],"d":["D-2932"],"at":"seed@a30a7de84"}
 {"fn":"doname_base","c":"1223-1751","status":"partial","js":["js/objnam.js:doname_base"],"omit":"obuf/xnamep/eos/Concat/strprepend/releaseobuf/sitoa + `doname_full`/paniclog overflow (D-2483 by-design strings); leash-arm impossible() (async pline — leashmon still cleared per C); C distant_name Eyes-of-Overworld blind comment (mechanism `!Blind && !distantname` ported both sides); C `doname_vag…","d":["D-2497","D-1521"],"at":"seed@a30a7de84"}
