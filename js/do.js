@@ -28,7 +28,7 @@ import {
     RLOC_NOMSG, TELEDS_NO_FLAGS, EYE, FACE, HAND, STOMACH, FROMOUTSIDE, HMON_THROWN, NO_TRAP,
     WARN_OF_MON, TELEPAT, INFRAVISION,
     ACH_HELL, ACH_MINE, ACH_SOKO, ACH_ENDG, ACH_ASTR, ACH_BGRM,
-    LL_ACHIEVE, LL_DEBUG,
+    LL_ACHIEVE, LL_DEBUG, LL_CONDUCT,
     OBJ_FREE, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED, OBJ_BURIED,
     CXN_SINGULAR,
     CONTAINED_TOO, BURIED_TOO, ER_DESTROYED, WT_SPLASH_THRESHOLD, COST_DEGRD,
@@ -64,7 +64,7 @@ import {
 } from './objects.js';
 import {
     pline, Norep, You, Your, You_cant, pline_The, There, You_see, docrt,
-    flush_screen, flush_topl_more, newsym, glyph_to_cmap, map_background,
+    flush_screen, flush_topl_more, newsym, glyph_to_cmap, map_background, map_object,
     assign_graphics, check_gold_symbol,
     You_feel, canseemon, canspotmon, impossible, describe_level,
     see_monsters,
@@ -724,15 +724,24 @@ export async function obj_no_longer_held(obj) {
 }
 
 /**
- * C ref: do.c doaltarobj — drop/land feedback + bknown on altar.
- * Named omit: livelog_printf conduct.
+ * C ref: do.c doaltarobj `:363–390` — drop/land feedback + bknown on altar.
+ * C `:370–373`: `!gnostic++` — the post-increment always runs; the conduct
+ * livelog fires only when the old value was 0.
  */
 export async function doaltarobj(obj) {
     if (!obj || Blind()) return;
     if ((obj.oclass | 0) !== COIN_CLASS) {
         if (!game.context?.mon_moving) {
             const uc = game.u?.uconduct;
-            if (uc && !(uc.gnostic | 0)) uc.gnostic = (uc.gnostic | 0) + 1;
+            if (uc) {
+                const wasGnostic = uc.gnostic | 0; // C `:370` old value
+                uc.gnostic = wasGnostic + 1; // C `:370` ++ always runs
+                if (!wasGnostic) { // C `:370–373`
+                    livelog_printf(LL_CONDUCT,
+                        'eschewed atheism, by dropping %s on an altar',
+                        doname(obj));
+                }
+            }
         }
     } else {
         obj.blessed = obj.cursed = 0;
@@ -2634,7 +2643,7 @@ function freeinv_drop(obj) {
  * break_armor armor-drop More packs load before gloves).
  * Punished uball → drop_ball (C do.c:834, D-2329); else shop sell (D-0994).
  * Swallow: unpaid theft, then engulfer_digests_food or mpickobj (do.c:816–825).
- * Named omissions: Blind+Levitation map_object.
+ * Blind+Levitation map_object after stackobj (do.c:838–839).
  * hitfloor dropz(TRUE) is D-1263.
  */
 export async function dropz(obj, with_impact) {
@@ -2680,6 +2689,7 @@ export async function dropz(obj, with_impact) {
         await sellobj(obj, u.ux | 0, u.uy | 0);
     }
     stackobj(obj);
+    if (Blind() && Levitation()) map_object(obj, 0); // C `:838–839`
     newsym(u.ux, u.uy);
     // C dropz → encumber_msg() after place (capacity may cross on poly form)
     await encumber_msg();
@@ -3116,8 +3126,11 @@ function drop_obj_ok(obj) {
 }
 
 /**
- * C ref: do.c dodrop — getobj then drop; shop sellobj_state around drop.
- * #droptype is doddrop (D-1635). reset_occupations is that path.
+ * C ref: do.c dodrop `:29–43` — getobj then drop; shop sellobj_state
+ * around drop; `if (result) reset_occupations()` (`:39–40`; drop returns
+ * ECMD_TIME/ECMD_FAIL, both nonzero, so it always runs — including the
+ * cancel path, where C drop(NULL) is ECMD_FAIL).
+ * #droptype is doddrop (D-1635).
  *
  * Branch envelope: ordinary floor drop of invent item including uwep;
  * cancel / missing letter / worn armor reject. Deferred: sinks,
@@ -3134,15 +3147,22 @@ export async function dodrop() {
         const obj = await getobj('drop', drop_obj_ok, GETOBJ_PROMPT | GETOBJ_ALLOWCNT);
         if (!obj) {
             sellobj_state(SELL_NORMAL);
+            await reset_occupations(); // C `:39–40` (drop(NULL) is ECMD_FAIL)
             return ECMD_CANCEL;
         }
         const result = await drop(obj);
         sellobj_state(SELL_NORMAL);
+        if (result) await reset_occupations(); // C `:39–40`
         return result;
     }
     const obj = await getobj('drop', drop_obj_ok, GETOBJ_PROMPT | GETOBJ_ALLOWCNT);
-    if (!obj) return ECMD_CANCEL;
-    return drop(obj);
+    if (!obj) {
+        await reset_occupations(); // C `:39–40`
+        return ECMD_CANCEL;
+    }
+    const result = await drop(obj);
+    if (result) await reset_occupations(); // C `:39–40`
+    return result;
 }
 
 /**

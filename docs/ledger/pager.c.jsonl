@@ -16,9 +16,9 @@
 {"fn":"add_quoted_engraving","c":"1631-1667","status":"ported","js":["js/pager.js:add_quoted_engraving"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_look","c":"1673-1963","status":"ported","js":["js/pager.js:do_look"],"d":["D-3402","D-2468","D-1877"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"look_region_nearby","c":"1966-1974","status":"ported","js":["js/pager.js:look_region_nearby"],"at":"2026-10-03@bbe63333a"}
-{"fn":"look_all","c":"1979-2074","status":"partial","js":["js/pager.js:look_all"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2508"],"at":"2026-10-04@e77f3975a"}
+{"fn":"look_all","c":"1979-2074","status":"partial","js":["js/pager.js:look_all"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3429","D-3402","D-2508"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
 {"fn":"look_traps","c":"2078-2139","status":"ported","js":["js/pager.js:look_traps"],"d":["D-2298"],"at":"2026-10-03@bbe63333a"}
-{"fn":"look_engrs","c":"2144-2228","status":"partial","js":["js/pager.js:look_engrs"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3402","D-2521"],"at":"2026-10-04@e77f3975a"}
+{"fn":"look_engrs","c":"2144-2228","status":"partial","js":["js/pager.js:look_engrs"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3429","D-3402","D-2521"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
 {"fn":"do_supplemental_info","c":"2253-2316","status":"ported","js":["js/pager.js:do_supplemental_info"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"dowhatis","c":"2322-2325","status":"ported","js":["js/pager.js:dowhatis"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doquickwhatis","c":"2329-2332","status":"ported","js":["js/pager.js:doquickwhatis"],"at":"2026-10-03@bbe63333a"}

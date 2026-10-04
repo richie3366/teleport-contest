@@ -1,24 +1,24 @@
 {"fn":"newegd","c":"23-32","status":"ported","js":["js/makemon.js:newegd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_egd","c":"35-42","status":"by-design","d":["D-3327"],"at":"2026-10-03@0e60ede85","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"clear_fcorr","c":"48-116","status":"partial","js":["js/vault.js:clear_fcorr"],"omit":"Punished/uball block arm; tail plines (corridor disappears / encased in rock) + stopprint silently","at":"2026-10-03@bbe63333a"}
+{"fn":"clear_fcorr","c":"48-116","status":"ported","js":["js/vault.js:clear_fcorr"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"blackout","c":"123-141","status":"ported","js":["js/vault.js:blackout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"restfakecorr","c":"144-151","status":"ported","js":["js/vault.js:restfakecorr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: uses mongone_guard subset for full mongone"}
-{"fn":"parkguard","c":"155-171","status":"partial","js":["js/vault.js:parkguard"],"omit":"polearm.hitmon clear; remove_monster/place_monster grid arms (mx,my set directly)","at":"2026-10-03@bbe63333a"}
+{"fn":"parkguard","c":"155-171","status":"ported","js":["js/vault.js:parkguard"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"grddead","c":"175-189","status":"ported","js":["js/mhitm.js:grddead"],"at":"2026-10-03@bbe63333a"}
 {"fn":"in_fcorridor","c":"192-201","status":"ported","js":["js/vault.js:in_fcorridor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"findgd","c":"204-234","status":"ported","js":["js/vault.js:findgd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"vault_summon_gd","c":"237-241","status":"ported","js":["js/vault.js:vault_summon_gd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"vault_occupied","c":"244-252","status":"ported","js":["js/vault.js:vault_occupied"],"at":"2026-10-03@bbe63333a"}
 {"fn":"uleftvault","c":"256-278","status":"ported","js":["js/vault.js:uleftvault"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() debug-only omitted"}
-{"fn":"find_guard_dest","c":"281-314","status":"partial","js":["js/vault.js:find_guard_dest"],"omit":"no-corridor tail: impossible + tele() (returns false only)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: goto-incr_radius ring abandon emulated exactly"}
+{"fn":"find_guard_dest","c":"281-314","status":"ported","js":["js/vault.js:find_guard_dest"],"d":["D-3429"],"at":"2026-10-04@77a859fd3","note":"audit 2026-10-03: goto-incr_radius ring abandon emulated exactly"}
 {"fn":"invault","c":"317-629","status":"ported","js":["js/vault.js:invault"],"d":["D-3269"],"at":"2026-10-02@6796c72b6"}
 {"fn":"move_gold","c":"632-643","status":"ported","js":["js/vault.js:move_gold"],"d":["D-1946"],"at":"2026-10-03@bbe63333a"}
-{"fn":"wallify_vault","c":"646-731","status":"partial","js":["js/vault.js:wallify_vault"],"omit":"xy_set_wall_state(x,y) after wall restore (WA_MASK bits unset)","d":["D-2390"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: live export exists in js/mklev.js (used by invault) but not called here"}
+{"fn":"wallify_vault","c":"646-731","status":"ported","js":["js/vault.js:wallify_vault"],"d":["D-3429","D-2390"],"at":"2026-10-04@77a859fd3","note":"audit 2026-10-03: live export exists in js/mklev.js (used by invault) but not called here"}
 {"fn":"gd_mv_monaway","c":"734-747","status":"ported","js":["js/vault.js:gd_mv_monaway"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gd_pick_corridor_gold","c":"752-831","status":"ported","js":["js/vault.js:gd_pick_corridor_gold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gd_move_cleanup","c":"836-866","status":"ported","js":["js/vault.js:gd_move_cleanup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gd_letknow","c":"869-882","status":"ported","js":["js/vault.js:gd_letknow"],"at":"2026-10-03@bbe63333a"}
-{"fn":"gd_move","c":"888-1201","status":"partial","js":["js/vault.js:gd_move"],"omit":"debugpline1 wizard log; defensive `!isok`/`!crm` early-0 in the dig loop (C in-bounds by construction); clear_fcorr Punished/uball arm (pre-existing).","d":["D-2448"],"at":"seed@a30a7de84"}
+{"fn":"gd_move","c":"888-1201","status":"partial","js":["js/vault.js:gd_move"],"omit":"debugpline1 wizard log; defensive `!isok`/`!crm` early-0 in the dig loop (C in-bounds by construction); clear_fcorr Punished/uball arm (pre-existing).","d":["D-3429","D-2448"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
 {"fn":"paygd","c":"1205-1247","status":"ported","js":["js/vault.js:paygd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hidden_gold","c":"1257-1268","status":"ported","js":["js/vault.js:hidden_gold"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: local contained_gold clone matches shk.c"}
 {"fn":"gd_sound","c":"1272-1275","status":"ported","js":["js/sounds.js:gd_sound"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}

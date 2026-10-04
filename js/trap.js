@@ -29,6 +29,7 @@ import {
     obj_ice_effects, spot_stop_timers, stop_timer, spot_time_left,
 } from './mkobj.js';
 import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, monkilled, AT_MAGC, AT_BREA, stagger } from './mhitm.js';
+import { finish_meating } from './dogmove.js';
 import { scatter } from './explode.js';
 import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
@@ -4402,18 +4403,19 @@ function helpless(mtmp) {
  * how=-1, so C still checks resists_sleep/defended + shieldeff).
  * C order: resists_sleep || defended(AD_SLEE) || (how>=0 && resist)
  * → shieldeff + return 0; defended() is RNG-free, shieldeff display-only.
- * Named omissions: how>=0 seemimic/resist (music path live D-2357);
- * full finish_meating mimic AP reset (inline meating=0 only).
+ * Trap callers pass how=-1, so the how>=0 seemimic/resist arms never run
+ * here (music/potion/zap splits carry them); finish_meating is live.
  */
 async function sleep_monst(mon, amt, how) {
     if (!mon) return 0;
-    // how >= 0 mimic reveal / resist(how) deferred (music path live D-2357)
+    // how >= 0 mimic reveal / resist(how) never run: trap callers pass -1
+    // (how>=0 paths live in music/potion/zap splits).
     if (resists_sleep(mon) || defended(mon, AD_SLEE)) {
         await shieldeff(mon.mx, mon.my);
         return 0;
     }
     if (mon.mcanmove) {
-        mon.meating = 0; // finish_meating subset
+        finish_meating(mon); // C `:1236` — incl. mimic-AP reset
         amt = (amt | 0) + (mon.mfrozen | 0);
         if (amt > 0) {
             mon.mcanmove = 0;

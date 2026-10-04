@@ -28,6 +28,7 @@ import { makedog } from './dog.js';
 import { makemon, makemon_appear_msg, reset_align_shift_cache } from './makemon.js';
 import {
     mcalcmove, mcalcdistress, movemon, NORMAL_SPEED, see_nearby_monsters,
+    m_at, mnexto,
 } from './mon.js';
 import { LOW_PM, NUMMONS, mons, G_NOCORPSE, PM_WIZARD, PM_MONK, reset_erinys, breathless, monst_globals_init } from './monsters.js';
 import { program_state_init, decl_globals_init } from './decl.js';
@@ -44,8 +45,10 @@ import { nhgetch } from './input.js';
 import {
     unmul, nomul, monster_nearby, stop_occupation, overexert_hp, is_pool,
     notice_mon_off, notice_mon_on, notice_all_mons, runmode_delay_output,
+    check_special_room,
 } from './hack.js';
-import { reset_justpicked } from './pickup.js';
+import { reset_justpicked, pickup } from './pickup.js';
+import { fix_shop_damage } from './shk.js';
 import { set_wear, glibr } from './do_wear.js';
 import { clear_bypasses } from './worn.js';
 import { gethungry, reset_eat } from './eat.js';
@@ -84,6 +87,7 @@ import {
     WIN_ERR, MENU_BEHAVE_STANDARD, MENU_BEHAVE_PERMINV,
     WC2_HILITE_STATUS, WC2_FLUSH_STATUS,
     COLNO, S_upstair, S_brdnladder,
+    RLOC_NOMSG, fuzzer_impossible_panic,
 } from './const.js';
 
 // C ref: allmain.c static mvl_change — delayed polyself(1) / you_were(2).
@@ -297,7 +301,7 @@ export async function moveloop_preamble(resuming) {
         // C: set_wear(NULL) — Helmet_on fedora luck, Blindf_on, etc.
         await set_wear(null);
         reset_justpicked(game.invent);
-        // C: (void) pickup(1) — autopickup at initial location deferred
+        await pickup(1); // C `:76` — autopickup at initial location
         game.context.seer_turn = rnd(30);
         game.u.umovement = NORMAL_SPEED;
         // C decl.c: hero_seq starts as 1<<3; moveloop resets on moves++
@@ -306,12 +310,21 @@ export async function moveloop_preamble(resuming) {
     } else {
         // C restore.c: hero_seq = moves << 3 (not saved)
         game.hero_seq = ((game.moves || 1) | 0) << 3;
-        // C allmain.c:87 — subset of pickup() on restore; fix_shop_damage
-        // stays deferred (shop.c, outside this cluster).
+        // C allmain.c:87–88 — subset of pickup() on restore, then shop repair.
         await read_engr_at(game.u?.ux, game.u?.uy);
+        await fix_shop_damage(); // C `:88`
     }
+    // C `:84` disp.botlx = TRUE (STATUS_HILITES); bot() reads flags.botlx.
+    if (!game.disp) game.disp = {};
+    game.disp.botlx = true;
+    game.flags.botlx = true;
     // C: encumber_msg() — sync go.oldcap (auto-pickup / starting load)
     await encumber_msg();
+    // C `:90–93` — deferred see_monsters catch-up.
+    if (game.defer_see_monsters) {
+        game.defer_see_monsters = false;
+        see_monsters();
+    }
     // C allmain.c:97 — u_init leaves uz0.dlevel at 0 (u_init.c:984).
     // Until this copy, on_level(uz, uz0) is false on the starting
     // level, so u_on_newpos takes the level-change arm every move.
@@ -320,6 +333,11 @@ export async function moveloop_preamble(resuming) {
         game.u.uz0.dlevel = game.u.uz?.dlevel | 0;
     }
     game.context.move = 0;
+    // C `:100–103` — finish "--debug:fuzzer" command-line processing.
+    if (game.iflags?.fuzzerpending) {
+        game.iflags.debug_fuzzer = fuzzer_impossible_panic;
+        game.iflags.fuzzerpending = false;
+    }
     // C: program_state.in_moveloop = 1 — gates adjattrib STR/CON encumber_msg
     if (!game.program_state) game.program_state = {};
     game.program_state.in_moveloop = 1;
@@ -794,6 +812,12 @@ export async function newgame() {
     // welcome. Default mon_notices Off (optlist spot_monsters).
     notice_mon_off();
 
+    // C `:772` disp.botlx = TRUE; bot() reads flags.botlx.
+    if (!g.disp) g.disp = {};
+    g.disp.botlx = true;
+    g.flags = g.flags || {};
+    g.flags.botlx = true;
+
     // C: moves starts 0 until u_init_role; reset align_shift statics
     g.moves = 0;
     reset_align_shift_cache();
@@ -880,6 +904,13 @@ export async function newgame() {
 
     // C ref: allmain.c newgame() — u_on_upstairs before makedog
     await u_on_upstairs();
+    // C `:806` — special-room arrival checks (rogue level, etc.).
+    await check_special_room(false);
+    // C `:808–809` — a monster on the hero's starting spot is moved off.
+    {
+        const heroSpot = m_at(g.u?.ux | 0, g.u?.uy | 0); // MON_AT
+        if (heroSpot) await mnexto(heroSpot, RLOC_NOMSG);
+    }
     // C ref: allmain.c → makedog() (skipped when preferred_pet === 'n')
     await makedog();
 

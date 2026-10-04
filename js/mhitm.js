@@ -139,7 +139,7 @@ import { stairway_find_type_dir } from './mklev.js';
 import { polyself } from './polyself.js';
 import { you_were, you_unwere, were_change } from './were.js';
 import { night } from './calendar.js';
-import { resists_drli, shieldeff_mon } from './zap.js';
+import { resists_drli, shieldeff_mon, drain_item } from './zap.js';
 import { poisoned, A_STR, A_DEX, A_CON } from './attrib.js';
 import { rloc, tele_restrict, tele, goodpos, u_teleport_mon, enexto, rloc_to } from './teleport.js';
 import { m_unleash } from './apply.js';
@@ -599,7 +599,7 @@ function is_youmonst(m) {
  * resists_magm/resist/system-shock/newcham/tele follow-up (D-1006).
  * Await `newcham(..., NO_NC_FLAGS)` so mleashed unleash / Elbereth
  * flee finish before the vis pline / tele (D-1648; C `:1174` is
- * sync int). Named omissions: shieldeff / shieldeff_mon flash;
+ * sync int). shieldeff / shieldeff_mon flashes live (`:1129`, `:1152`).
  * ANTIMAGIC gear scan in resists_magm (TELL resist shield live via shieldeff_mon).
  * @returns {Promise<number>} remaining damage (0 when shape-change applied)
  */
@@ -609,7 +609,7 @@ export async function mon_poly(magr, mdef, dmg) {
     if (isyou) {
         const u = game.u || {};
         if (Antimagic(u)) {
-            // shieldeff(u.ux, u.uy) deferred
+            await shieldeff(u.ux | 0, u.uy | 0); // C `:1128–1129`
         } else if (Unchanging(u)) {
             // just take a little damage
         } else if ((u.ulycn | 0) === NON_PM) {
@@ -631,7 +631,8 @@ export async function mon_poly(magr, mdef, dmg) {
             || is_youmonst(magr)
             || (canspotmon(mdef) && cansee(mdef.mx | 0, mdef.my | 0));
         if (resists_magm(mdef)) {
-            // shieldeff_mon deferred
+            // C `:1150–1152` — gv.vis gate is the widened house vis.
+            if (vis) await shieldeff_mon(mdef);
         } else if (resist_poly(mdef, TELL)) {
             /* C zap.c:6143-6144 — TELL shield lives inside resist(). */
             await shieldeff_mon(mdef);
@@ -1399,7 +1400,7 @@ async function sleep_slee_mm(mon, amt) {
         return 0;
     }
     if (mon.mcanmove) {
-        mon.meating = 0;
+        finish_meating(mon); // C `:1236` — incl. mimic-AP reset
         amt = (amt | 0) + (mon.mfrozen | 0);
         if (amt > 0) {
             mon.mcanmove = 0;
@@ -2554,10 +2555,10 @@ async function passivemm(magr, mdef, mhitb, mdead, mwep) {
         skip_live = true;
         break;
     case AD_ENCH:
-        if (mhitb && !mdef.mcan && mwep && (mwep.spe | 0) > 0) {
-            /* C drain_item(mwep, FALSE): defends(AD_DRLI) named; then
-             * obj_resists(10,90) then spe--. Ring/helm ABON named. */
-            if (rn2(100) >= (mwep.oartifact ? 90 : 10)) mwep.spe--;
+        // C `:1350–1354` — disenchanter: live drain_item (defends(AD_DRLI)
+        // immunity + obj_resists + ring ABON inside). No message.
+        if (mhitb && !mdef.mcan && mwep) {
+            await drain_item(mwep, false);
         }
         break;
     default:

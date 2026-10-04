@@ -1,16 +1,16 @@
-{"fn":"dodrop","c":"29-43","status":"partial","js":["js/do.js:dodrop"],"omit":"omits reset_occupations() when drop result nonzero (C do.c:39-40); only doddrop calls it in JS","at":"2026-10-03@bbe63333a"}
+{"fn":"dodrop","c":"29-43","status":"ported","js":["js/do.js:dodrop"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"boulder_hits_pool","c":"50-155","status":"ported","js":["js/do.js:boulder_hits_pool"],"d":["D-3265","D-3261"],"at":"2026-10-02@c94c66b65"}
 {"fn":"flooreffects","c":"162-359","status":"ported","js":["js/do.js:flooreffects"],"d":["D-3240"],"at":"2026-10-01@9e990eefc"}
-{"fn":"doaltarobj","c":"363-390","status":"partial","js":["js/do.js:doaltarobj"],"omit":"omits livelog_printf(LL_CONDUCT, eschewed atheism...) on first altar drop (C do.c:370-373); gnostic++ present, livelog live in pline.js","at":"2026-10-03@bbe63333a"}
+{"fn":"doaltarobj","c":"363-390","status":"ported","js":["js/do.js:doaltarobj"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"trycall","c":"395-399","status":"ported","js":["js/do_name.js:trycall"],"at":"2026-10-03@bbe63333a"}
 {"fn":"polymorph_sink","c":"404-455","status":"ported","js":["js/fountain.js:polymorph_sink"],"at":"2026-10-03@bbe63333a"}
 {"fn":"teleport_sink","c":"460-494","status":"ported","js":["js/do.js:teleport_sink"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dosinkring","c":"498-661","status":"ported","js":["js/do.js:dosinkring"],"d":["D-2527"],"at":"seed@a30a7de84"}
-{"fn":"canletgo","c":"665-711","status":"partial","js":["js/do.js:canletgo"],"omit":"`ball.js` silent clone omits loadstone/leash gates + corpsenm/`set_bknown` state (avoids do.js cycle; its `ball.c:973` otmp is ball/chain, word=\"\" so no messages); `muse.js` silent clone omits corpsenm reset + `set_bknown` inventory-update side effect (direct `bknown = 1`; word=\"\" so no messages); …","d":["D-2523"],"at":"seed@a30a7de84"}
+{"fn":"canletgo","c":"665-711","status":"ported","js":["js/do.js:canletgo"],"d":["D-3429","D-2523"],"at":"2026-10-04@77a859fd3"}
 {"fn":"drop","c":"714-780","status":"ported","js":["js/do.js:drop"],"d":["D-3041"],"at":"2026-09-28@79ab7d2dc"}
 {"fn":"dropx","c":"786-796","status":"ported","js":["js/do.js:dropx"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dropy","c":"800-803","status":"ported","js":["js/do.js:dropy"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dropz","c":"807-843","status":"partial","js":["js/do.js:dropz"],"omit":"omits Blind&&Levitation map_object(obj,0) after stackobj (C do.c:838-839); file lists it as named omit","at":"2026-10-03@bbe63333a"}
+{"fn":"dropz","c":"807-843","status":"ported","js":["js/do.js:dropz"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"engulfer_digests_food","c":"849-888","status":"ported","js":["js/do.js:engulfer_digests_food"],"d":["D-2868"],"at":"seed@a30a7de84"}
 {"fn":"obj_no_longer_held","c":"893-920","status":"ported","js":["js/do.js:obj_no_longer_held"],"d":["D-2393"],"at":"2026-10-01@cdbc41097","note":"stale: js/do.js:711 canonical body complete (D-2393/D-2398/D-2734); sync-core caller arms live in owners"}
 {"fn":"doddrop","c":"924-944","status":"ported","js":["js/do.js:doddrop"],"at":"2026-10-03@bbe63333a"}
@@ -21,11 +21,11 @@
 {"fn":"dodown","c":"1131-1294","status":"partial","js":["js/do.js:dodown"],"omit":"`doup` still omits `set_move_cmd(DIR_UP)`, `u_rooted`, `stucksteed`, and `near_capacity() > SLT_ENCUMBER` (`do.c:1302–1328`).","d":["D-2793"],"at":"seed@a30a7de84"}
 {"fn":"doup","c":"1298-1344","status":"ported","js":["js/do.js:doup"],"d":["D-3252","D-2016"],"at":"2026-10-02@b3c50cbeb"}
 {"fn":"currentlevel_rewrite","c":"1348-1371","status":"by-design","at":"seed@a30a7de84","note":"seed: save file infra"}
-{"fn":"save_currentstate","c":"1375-1395","status":"partial","js":["js/do.js:save_currentstate"],"omit":"`currentlevel_rewrite` (`do.c:1347`), `bufon` (`sfstruct.c:414`), `savelev` (`save.c`), and `close_nhfile` (`files.c:517`) stay the by-design NHFILE omit, and `savestateinlock`'s file body (`save.c:369–421`) stays with them.","d":["D-2987"],"at":"2026-09-27@c3bae97ba"}
+{"fn":"save_currentstate","c":"1375-1395","status":"partial","js":["js/do.js:save_currentstate"],"omit":"`currentlevel_rewrite` (`do.c:1347`), `bufon` (`sfstruct.c:414`), `savelev` (`save.c`), and `close_nhfile` (`files.c:517`) stay the by-design NHFILE omit, and `savestateinlock`'s file body (`save.c:369–421`) stays with them.","d":["D-3429","D-2987"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
 {"fn":"badspot","c":"1400-1406","status":"by-design","d":["D-3327"],"at":"2026-10-03@0e60ede85","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"u_collide_m","c":"1412-1445","status":"ported","js":["js/do.js:u_collide_m"],"d":["D-2902"],"at":"seed@a30a7de84"}
 {"fn":"familiar_level_msg","c":"1448-1476","status":"ported","js":["js/do.js:familiar_level_msg"],"at":"2026-09-27@988c639a6","note":"stale: js/do.js:1018"}
-{"fn":"goto_level","c":"1479-1998","status":"partial","js":["js/do.js:goto_level"],"omit":"- `goto_level`: none new — remaining Deferred arms from the doc block stay (binary NHFILE savelev/getlev by-design; quest RMPORTAL seal; migrating-Wizard resurrect; Lua NHCB_LVL_LEAVE; MICRO Valley display_nhwindow).","d":["D-3287","D-3284","D-3277","D-3261","D-1194","D-1191"],"at":"2026-10-02@d8fa56ce0"}
+{"fn":"goto_level","c":"1479-1998","status":"partial","js":["js/do.js:goto_level"],"omit":"- `dodrop`: none — whole.","d":["D-3429","D-3287","D-3284","D-3277","D-3261","D-1194"],"at":"2026-10-04@77a859fd3"}
 {"fn":"hellish_smoke_mesg","c":"2003-2012","status":"ported","js":["js/do.js:hellish_smoke_mesg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"temperature_change_msg","c":"2016-2028","status":"ported","js":["js/do.js:temperature_change_msg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_lvltport_feedback","c":"2032-2040","status":"ported","js":["js/artifact.js:maybe_lvltport_feedback"],"at":"2026-10-03@bbe63333a"}

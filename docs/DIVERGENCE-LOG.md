@@ -1,5 +1,73 @@
 # Divergence log
 
+## D-3429 — breadth batch @77a859fd3: 65 fns over 13 C files (20 ported, 1 split, 7 partial, 37 audited)
+- **Status:** shipped (batch).
+- **Symptom:** ledger gap of 65 functions (open 0 · partial 45 · recheck 20, ~1519 C lines) in cfgfiles/do/allmain/polyself/vault/ball/hack/pray/lock/mhitm/botl/dog/pager: named omissions in dodrop/doaltarobj/dropz (do), moveloop_preamble/newgame (allmain), clear_fcorr/parkguard/find_guard_dest/wallify_vault (vault), drag_ball/litter + canletgo-silent clone (ball), dopush unmap (hack), all four pray fns, doopen_indir/doclose (lock), mon_poly/passivemm/sleep_monst splits (mhitm); 20 cfgfiles sysconf splits + thin rechecks to confirm whole.
+- **C locus:**
+  - `dodrop`: do.c:29–43 (`if (result) reset_occupations()` `:39–40`; drop returns ECMD_TIME/ECMD_FAIL only, both nonzero, so it always runs — incl. cancel, where drop(NULL) is ECMD_FAIL).
+  - `doaltarobj`: do.c:363–390 (`!gnostic++` `:370–373` — post-increment always runs; conduct livelog iff old value 0).
+  - `canletgo`: do.c:665–711 (word="" keeps loadstone corpsenm-reset + set_bknown + FALSE `:687–702` and leash FALSE `:703–708`; only plines are word-gated).
+  - `dropz`: do.c:807–843 (Blind+Levitation map_object after stackobj `:838–839`).
+  - `moveloop_preamble`: allmain.c:48–111 (pickup(1) `:76`; botlx `:84`; fix_shop_damage `:88`; defer_see_monsters `:90–93`; fuzzerpending `:100–103`).
+  - `newgame`: allmain.c:766–850 (botlx `:772`; get_nhuuid `:779` empty — NHUUID undefined; check_special_room `:806`; MON_AT mnexto `:808–809`; NEWS `:800–802`).
+  - `clear_fcorr`: vault.c:48–116 (Punished/uball block `:74–79`; stopprint silently `:53–54`; corridor/encased tail `:104–112`).
+  - `parkguard`: vault.c:155–171 (polearm.hitmon clear `:159–160`; remove_monster+newsym `:161–164`; place_monster 0,0 `:165–166`; og follows `:170–171`).
+  - `find_guard_dest`: vault.c:281–314 (no-corridor impossible+tele `:311–313`).
+  - `wallify_vault`: vault.c:646–731 (xy_set_wall_state `:706` after wall_info=0).
+  - `drag_ball`: ball.c:560–870 (jerk-back spoteffects(TRUE) `:823`; domove/teleds/hurtle callers all skip post-abort spoteffects, so no double).
+  - `litter`: ball.c:965–983 (setnotworn + freeinv + hitfloor(otmp, FALSE) `:981`).
+  - `moverock_core`: hack.c:348–638 via dopush hack.c:166–244 (invisible-dest unmap_object `:206–207`).
+  - `in_trouble`: pray.c:198–284 (swallowed TROUBLE_BLIND `|| !attacktype_fordmg(ustuck,AT_ENGL,AD_BLND)` `:261–264`).
+  - `pleased`: pray.c:1071–1381 (moves>100000 ublesscnt clamp `:1371–1378`).
+  - `water_prayer`: pray.c:1387–1412 (altar glow pline `:1404–1410`).
+  - `can_pray`: pray.c:2124–2173 (is_demon repugnance `:2131`; is_undead p_type -1 `:2164`).
+  - `doopen_indir`: lock.c:780–923 (TT_PIT reach `:815–818`; res returns `:890/:894`; AUTOUNLOCK_KICK canned dokick `:878–884` with res reset to OK; trapped shop-door add_damage `:908–911`; set_msg_xy `:872/:900/:918`).
+  - `doclose`: lock.c:957–1051 (portcullis/drawbridge/nodoor `:999–1010`).
+  - `mon_poly`: mhitm.c:1122–1207 (you-Antimagic shieldeff `:1128–1129`; resists_magm shieldeff_mon under vis `:1150–1152`).
+  - `passivemm`: mhitm.c:1304–1457 (AD_ENCH live drain_item(mwep, FALSE) `:1350–1354` — defends(AD_DRLI) inside zap.c drain_item).
+  - `sleep_monst`: mhitm.c:1223–1246 (how>=0 mimic reveal `:1226–1230`; resist gate + shieldeff `:1232–1234`; finish_meating `:1236`) across 5 splits.
+- **JS was:** dodrop never reset occupations; doaltarobj set gnostic 0→1 without the livelog; ball.js canletgo_silent passed cursed loadstones + leashed items (word="" treated as no gates); dropz skipped the Blind+Levi map; preamble skipped pickup(1)/botlx/fix_shop_damage/defer_see_monsters/fuzzer; newgame skipped botlx/check_special_room/hero-spot clear; clear_fcorr skipped the uball block + both tail plines; parkguard poked mx/my directly; find_guard_dest returned false silently; wallify skipped WA_MASK bits; drag_ball aborted without spoteffects; litter placed at feet; dopush nulled the remembered glyph; in_trouble treated swallowed-blind as not-blind; pleased lacked the 100k slowdown; water_prayer never glowed; can_pray's is_demon/is_undead were false-stubs; doopen_indir skipped pit-reach/KICK/res-returns/shop-damage/msg_xy; doclose printed no-door-there for bridges; mon_poly skipped both shields; passivemm inlined a defends-less drain; sleep splits inlined meating=0 and zap/potion skipped defended/shield (+zap skipped mimic reveal).
+- **Fix:** wired the live exports at each site in C order (imports extended, no new module edges except hoisted cycle-safe fix_shop_damage/dokick/Punished/finish_meating×2 — imports.mjs SAFE/ALREADY each): dodrop reset_occupations on all paths; doaltarobj always-increment + LL_CONDUCT livelog; canletgo_silent loadstone/leash arms; dropz map_object; preamble pickup(1)/botlx/fix_shop_damage/defer_see_monsters/fuzzer; newgame botlx/check_special_room/MON_AT-mnexto; clear_fcorr uball block + silenced tail; parkguard hitmon + remove/place + og; find_guard_dest async impossible+tele (2 callers awaited); wallify xy_set_wall_state; drag_ball spoteffects; litter hitfloor; dopush glyph_is_invisible+unmap_object; in_trouble fordmg arm; pleased 100k clamp; water_prayer async glow (4 callers awaited); can_pray mon_is_demon/mon_is_undead (stubs deleted); doopen_indir pit-reach + res returns + canned KICK (res reset to OK per C) + shop add_damage + 3 msg_xy; doclose bridge arms; mon_poly both shields; passivemm live drain_item; sleep_monst finish_meating in all 5 splits + zap full gate (mimic/defended/shield) + potion defended/shield (now async). New maintained test scripts/vault-parkguard.test.mjs (3 cases).
+- **JS:**
+  - `dodrop`/`doaltarobj`/`dropz`: js/do.js:3128/:726/:2640 — resets :3150–3164, livelog :740, map :2692.
+  - `canletgo`: js/ball.js:91 (silent clone whole) + js/do.js:2559 (already whole).
+  - `moveloop_preamble`/`newgame`: js/allmain.js:265/:789 — pickup :304, shop :315, defer :326, fuzzer :338, botlx :317/:816, special :908, clear :910.
+  - `clear_fcorr`/`parkguard`/`find_guard_dest`/`wallify_vault`: js/vault.js:153/:238/:565/:289 — uball :180, tail :226, park :251, no-corr :599, xy :381.
+  - `drag_ball`/`litter`: js/ball.js:717/:166 — spot :945, hitfloor :213.
+  - `moverock_core`: js/hack.js:766 dopush unmap :795.
+  - `in_trouble`/`pleased`/`water_prayer`/`can_pray`: js/pray.js:555/:1399/:881/:918 — fordmg :619, clamp :1646, glow :895, demon :933/:983.
+  - `doopen_indir`/`doclose`: js/lock.js:868/:1096 — pit :901, kick :975, res :986/:992, damage :1006, msg_xy :958/:1000/:1021, bridge :1166.
+  - `mon_poly`/`passivemm`: js/mhitm.js:606/:2515 — shields :612/:635, drain :2561, slee meating :1396.
+  - `sleep_monst`: splits js/trap.js:4409 + js/music.js:237 + js/potion.js:3796 + js/zap.js:1491 (+z-gate :1961, bhitm :4523 whole) + js/mhitm.js:1396.
+- **Callers:** body-internal arms; no call-graph changes except two async-ifications, all sites updated: find_guard_dest (file-local) — C vault.c callers invault + gd_move stuck-retry → js/vault.js:653 + :1408 awaited; water_prayer (file-local) — C pray.c prayer p_type arms → js/pray.js:1966/:1973/:1977/:1989 awaited; sleep_monst_pot — C potion.c:1804 → js/potion.js:4070 awaited. All other C callers pre-wired same-name (verified at edit: drag_ball domove js/cmd.js:6553 + teleds js/teleport.js:1470 + hurtle js/dothrow.js:3172 all mirror C's no-post-abort-spoteffects; parkguard EGD follows place_monster).
+- **Verify:** first batch verify FAILed all-green on a pray.js import throw (AT_ENGL/AD_BLND are per-file locals house-wide, not const.js exports — fixed with local `= 11` monattk.h consts); re-run `node scripts/verify.mjs --fn <65 fns>` → PASS syntax (13 changed js files) · PASS rule2 · 65× hidden note (no corpus session blocked — normal; coverage batch) · batch sweep 735 baseline-PASS re-run in 256.6s, 0 regressed → REACH-OK (per-function lines all REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. `node --test scripts/vault-parkguard.test.mjs` 3/3 (hitmon clear, grid park + og, parked no-op).
+- **Named omissions:**
+  - `dodrop`: none — whole.
+  - `doaltarobj`: none — whole.
+  - `canletgo`: none — whole (do.js body + ball.js silent clone).
+  - `dropz`: none — whole.
+  - `moveloop_preamble`: none — whole.
+  - `newgame`: reset_glyphmap(gm_newgame) (display-subsystem port, own row); NEWS display_file(iflags.news) (no embedded news dat; default off, never fires in contest); get_nhuuid retired — NHUUID undefined, body empty.
+  - `clear_fcorr`: none — whole.
+  - `parkguard`: none — whole.
+  - `find_guard_dest`: none — whole.
+  - `wallify_vault`: none — whole (second xy site vault.c:617 lives in another fn's row).
+  - `drag_ball`: none — whole.
+  - `litter`: none — whole (setnotworn-subset + freeinv_ball + hitfloor).
+  - `moverock_core`: squeezeablylightinvent pack-weight arm lives in could_move_onto_boulder (by design); launch_obj omits stay on its row.
+  - `in_trouble`: none — whole.
+  - `pleased`: none — whole (SetVoice is C-compiled-out without SND_LIB).
+  - `water_prayer`: none — whole.
+  - `can_pray`: none — whole.
+  - `doopen_indir`: none — whole (bool-for-ECMD return shape is the documented house convention).
+  - `doclose`: none — whole.
+  - `mon_poly`: none — whole (gv.vis gate is the widened house vis, documented).
+  - `passivemm`: none — whole.
+  - `sleep_monst`: resist_potion local MR roll stands in for resist() on the potion path (potion's own approximation); all 5 splits otherwise whole.
+- **Ledger:** cnf_line_HACKDIR audited; cnf_line_LEVELDIR audited; cnf_line_SAVEDIR audited; cnf_line_BONESDIR audited; cnf_line_DATADIR audited; cnf_line_SCOREDIR audited; cnf_line_LOCKDIR audited; cnf_line_CONFIGDIR audited; cnf_line_TROUBLEDIR audited; cnf_line_SHELLERS audited; cnf_line_MSGHANDLER audited; cnf_line_EXPLORERS audited; cnf_line_GENERICUSERS audited; cnf_line_SUPPORT audited; cnf_line_RECOVER audited; cnf_line_CRASHREPORTURL audited; cnf_line_QT_TILEWIDTH audited; cnf_line_QT_TILEHEIGHT audited; cnf_line_QT_FONTSIZE audited; cnf_line_QT_COMPACT audited; dodrop ported; doaltarobj ported; canletgo ported; dropz ported; save_currentstate audited; goto_level partial; moveloop_preamble ported; moveloop_core partial; moveloop partial; newgame partial; do_positionbar audited; set_uasmon audited; livelog_newform audited; newman audited; polymon audited; ugolemeffects audited; clear_fcorr ported; parkguard ported; find_guard_dest ported; wallify_vault ported; gd_move audited; placebc_core audited; drag_ball ported; litter ported; bc_sanity_check partial; moverock_core ported; test_move partial; domove_swap_with_pet audited; domove_core partial; in_trouble ported; pleased ported; water_prayer ported; can_pray ported; pick_lock audited; doopen_indir ported; doclose ported; mon_poly ported; sleep_monst split js=trap.js:sleep_monst+music.js:sleep_monst_music+potion.js:sleep_monst_pot+zap.js:sleep_monst_zap+mhitm.js:sleep_slee_mm; passivemm ported; evaluate_and_notify_windowport audited; status_initialize audited; migrate_to_level audited; wary_dog audited; look_all audited; look_engrs audited
+- **Left open:** none.
+- **Next:** next batch (`ledger.mjs batch --write`).
+
 ## D-3428 — Must-fix review 2372: launch_obj wall-stop + tail stackobj extras (2 deletions)
 - **Status:** shipped.
 - **Symptom:** review 2372 QUALITY-RISK Actionable 2: `launch_obj`'s `ported` certified two face-contradictions of C — (a) the lookahead wall-stop fired on `IS_STWALL || IS_TREE || IS_OBSTRUCTED` where C trap.c:3556 stops at STWALL/TREE only, so JS stopped boulders at SDOOR/SCORR (typ 14/15 < POOL) where C rolls through (rest position + Thump!/wake diverge); (b) the rest tail called `stackobj` where C :3568–3572 places + newsyms without stacking.
