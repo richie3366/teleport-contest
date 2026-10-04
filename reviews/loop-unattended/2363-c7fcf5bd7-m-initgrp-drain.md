@@ -110,6 +110,6 @@ ledger remainder homes (message-named remainders missing from the map,
    now-ported row. Fix in one iter: direct `ledger.mjs set` ×3 (NOT via
    finish-iteration — two iters prove it stamps one clause across rows;
    verify each sub-omit still unshipped first) + `hidden-proxy verify`
-   on the 3 rows. Source: reviews/loop-unattended/2363-c7fcf5bd7-m-initgrp-drain.md
+   on the 3 rows. Source: reviews/loop-unattended/2363-c7fcf5bd7-m-initgrp-drain.md **Addressed:** D-3423
 
 Verdict: **QUALITY-RISK**

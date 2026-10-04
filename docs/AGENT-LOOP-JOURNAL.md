@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3423 Must-fix review 2363: D-3410 ledger remainder homes (3 rows restored)
+
+**C locus:** row homes only (no C re-read; bodies verified whole by review 2363): makemon.c `makemon` :1147–1510 (:1445 m_dowear), `m_initgrp` :79–145 (drain shipped D-3410); wizcmds.c `wiz_show_nhuuid` :1782–1786.
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** direct `ledger.mjs set` ×3 (NOT via finish-iteration), each sub-omit re-verified still unshipped first (m_dowear `m_dowear(mtmp, true)` un-awaited at js/makemon.js:3761 under the sync-gen comment; starting-pet — js/dog.js:275 makedog awaits only see_monster_closeup :315, no appear msg; nhuuid — doc js/wizcmds.js:2273–2276 + `game.svn?.nhuuid ?? ''` :2279). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3415/D-3417/b3cc7b581 class, D-3419/D-3421 precedent) — the direct sets are the row writers, finish runs docs-only for the ledger.
+**Verify:** `node scripts/verify.mjs --fn m_initgrp,makemon,wiz_show_nhuuid` → PASS syntax (0 changed js); PASS rule2; 3× hidden note (no corpus session blocked — normal; row cited none); 3× REACH-OK (m_initgrp 80/80 of 167-reach spread; makemon 80/80 of 730-reach spread; wiz_show_nhuuid 24/24 fixed smoke, no RNG-tagged reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `makemon`: m_dowear fire-and-forget (makemon.c:1445; sync level gen, js/makemon.js:3761) + starting-pet in_mklev observable-match (dog.js makedog awaits no appear msg; D-3408).
+**Next:** next Must-fix (canseemon divergent clones, review 2355).
 ## 2026-10-04 — D-3422 Open head: mbhit arms whole + cpostfx omit retired + 2 sfbase stubs
 
 **C locus:** - `mbhit`: muse.c:1734–1812 — :1764–1765 unseen-monster map_invisible + :1776–1784 STRIKING find_drawbridge→destroy_drawbridge.

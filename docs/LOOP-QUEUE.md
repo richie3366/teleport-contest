@@ -101,8 +101,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] D-3410 ledger remainder homes missing (2362.1 still open after two iters) — makemon + wiz_show_nhuuid rows carry `- \`m_initgrp\`: none — whole.` instead of their D-3410 Named remainders: makemon m_dowear fire-and-forget (makemon.c:1445, js/makemon.js:3761 un-awaited) + starting-pet in_mklev observable-match (dog.js makedog awaits no appear msg); wiz_show_nhuuid svn.nhuuid value itself unported (js/wizcmds.js:2275-2278 doc); refresh m_initgrp's stale D-3409 note on the now-ported row — fix: direct `ledger.mjs set` ×3 (verify each sub-omit still unshipped first, NOT via finish-iteration — D-3409/D-3410 both stamped one clause across rows) + `hidden-proxy verify` on the 3 rows. Source: reviews/loop-unattended/2363-c7fcf5bd7-m-initgrp-drain.md
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
@@ -157,11 +155,15 @@ D-3422 shipped all 4 (2 sfbase stubs ported whole; `mbhit` both arms;
 `cpostfx` omit retired as the house more() idiom); band 4 < 8 blocks
 finish — refilled +4 with batch-preview partials (each omit brief-verified
 below) to hold the 8-row band.
+D-3423 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
++1 with batch-preview `find_misc` partial (nomore continue brief-verified
+below) to hold the 8-row band.
 
 - [ ] `do_wear.c` Helmet_on — C do_wear.c:465–472 HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign flip + fallthrough glow/curse) absent from js/do_wear.js:Helmet_on (:1307–1386: :1353–1355 deferred comment, uchangealign unported; brief-read 2026-10-04) @ca5a16a92
 - [ ] `worn.c` setnotworn — C worn.c:182 update_inventory() absent from js/do.js:setnotworn (:516–556: tail :550–555 carries tux_penalty/botl/recalc, no update_inventory; doc :513 names it; brief-read 2026-10-04) @ca5a16a92
 - [ ] `trap.c` maketrap — C trap.c:482 LEVEL_TELEP && single_level_branch (Knox) refuse gate absent from js/trap.js:maketrap (:955–1097: :983 named omission; brief-read 2026-10-04) @ca5a16a92
 - [ ] `trap.c` chest_trap — C trap.c:6361–6362 inside_shop(ux,uy) insider gate absent from js/trap.js:chest_trap (:7970–8161: :8009–8013 ushops/rooms-only insider, no inside_shop call; brief-read 2026-10-04) @ca5a16a92
+- [ ] `muse.c` find_misc — C muse.c:2151 nomore(x) (`if (has_misc == x) continue`, skips rest of obj) absent from js/muse.js:find_misc (:2222–2346: doc :2219–2220 names per-check `!==` instead of continue — later viable objs override earlier priority vs C first-arm-priority; brief-read 2026-10-04) @6e056005c
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
