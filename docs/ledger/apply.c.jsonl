@@ -1,5 +1,5 @@
 {"fn":"do_blinding_ray","c":"61-76","status":"ported","js":["js/apply.js:do_blinding_ray"],"at":"2026-10-03@bbe63333a"}
-{"fn":"use_camera","c":"79-109","status":"partial","js":["js/apply.js:use_camera"],"omit":"- `stairs_description`: none.","d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
+{"fn":"use_camera","c":"79-109","status":"ported","js":["js/apply.js:use_camera"],"d":["D-3421","D-3416"],"at":"2026-10-04@fbefad9ee","note":"audited D-3421: whole vs C (zapyourself CAMERA zap.js:4863 + flash mimic/gremlin uhitm.js:4667/:4700 live; 2366 swallow-msg nit unqueued)"}
 {"fn":"use_towel","c":"112-194","status":"ported","js":["js/apply.js:use_towel"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"its_dead","c":"198-309","status":"ported","js":["js/apply.js:its_dead"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_stethoscope","c":"318-470","status":"ported","js":["js/apply.js:use_stethoscope"],"d":["D-3268","D-2594"],"at":"2026-10-02@883b4cc92"}

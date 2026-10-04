@@ -101,7 +101,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] D-3416 ledger truth (8 omit-pastes + 3 stale notes; statuses correct) — use_camera/doset/mon_would_take_item/intemple rows carry `- \`stairs_description\`: none.` instead of D-3416 Named text (camera zapyourself-CAMERA + flash mimic/gremlin polish; doset wc2_supported + optfn perm_invent gate + D-1701; mon_would FOOD corpse/tin/egg callee arms; intemple SetVoice pitch); add_custom_nhcolor_entry/purge_all_custom_entries/wizcustom_glyphids/parse_id rows carry the same paste over live pre-row omits (recoverable ONLY from git pre-rows: wizcustom_callback/callers/saveload; freedynamicdata/clear_symsetentry/writers; find_struct consumers); dobugreport/crashreport_bidshow/panictrace_handler notes falsely claim "measured MISSING" (exports exist) — fix: direct `ledger.mjs set` ×11 (verify each sub-omit still unshipped first, NOT via finish-iteration — seven iters prove it stamps one Named line across rows) + `hidden-proxy verify` on the touched rows. Source: reviews/loop-unattended/2366-b127042af-batch-d3416.md
 - [ ] D-3410 ledger remainder homes missing (2362.1 still open after two iters) — makemon + wiz_show_nhuuid rows carry `- \`m_initgrp\`: none — whole.` instead of their D-3410 Named remainders: makemon m_dowear fire-and-forget (makemon.c:1445, js/makemon.js:3761 un-awaited) + starting-pet in_mklev observable-match (dog.js makedog awaits no appear msg); wiz_show_nhuuid svn.nhuuid value itself unported (js/wizcmds.js:2275-2278 doc); refresh m_initgrp's stale D-3409 note on the now-ported row — fix: direct `ledger.mjs set` ×3 (verify each sub-omit still unshipped first, NOT via finish-iteration — D-3409/D-3410 both stamped one clause across rows) + `hidden-proxy verify` on the 3 rows. Source: reviews/loop-unattended/2363-c7fcf5bd7-m-initgrp-drain.md
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner
@@ -151,10 +150,14 @@ D-3420 drained `topl_putsym` (split) + `find_offensive`/`mbhitm` (ported
 whole); generated block still 1 row (rest excluded: tty/files/save) —
 refilled with the last 2 absent `sfbase.c` stubs + same-file `mbhit`
 partial (both omits brief-verified below).
+D-3421 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
++1 with batch-preview `cpostfx` partial (WIN_MAP flush brief-verified
+below) to hold the 8-row band.
 
 - [ ] `sfbase.c` norm_ptrs_vlaunchinfo — C sfbase.c:1097–1099 `{ }` stub absent from js/ (no JS symbol; ledger absent C 0/JS 0 MISSING; 0 callees; brief-read 2026-10-04) @3043e75f2
 - [ ] `sfbase.c` norm_ptrs_vptrs — C sfbase.c:1102–1104 `{ }` stub absent from js/ (no JS symbol; ledger absent C 0/JS 0 MISSING; 0 callees; brief-read 2026-10-04) @3043e75f2
 - [ ] `muse.c` mbhit — C muse.c:1780 STRIKING find_drawbridge arm + unseen-monster map_invisible absent from js/muse.js:mbhit (:941–1009: destroy_drawbridge only in :982 `deferred` comment; zero map_invisible calls; ledger omit; full body brief-read 2026-10-04) @3043e75f2
+- [ ] `eat.c` cpostfx — C eat.c:1224 display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (:1222) absent from js/eat.js:cpostfx (:1997–1999: curs_on_u + more() approx, no WIN_MAP flush; ledger omit D-3405; full body brief-read 2026-10-04) @fbefad9ee
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

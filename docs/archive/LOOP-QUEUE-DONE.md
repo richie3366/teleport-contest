@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] D-3416 ledger truth (8 omit-pastes + 3 stale notes; statuses correct) — use_camera/doset/mon_would_take_item/intemple rows carry `- \`stairs_description\`: none.` instead of D-3416 Named text (camera zapyourself-CAMERA + flash mimic/gremlin polish; doset wc2_supported + optfn perm_invent gate + D-1701; mon_would FOOD corpse/tin/egg callee arms; intemple SetVoice pitch); add_custom_nhcolor_entry/purge_all_custom_entries/wizcustom_glyphids/parse_id rows carry the same paste over live pre-row omits (recoverable ONLY from git pre-rows: wizcustom_callback/callers/saveload; freedynamicdata/clear_symsetentry/writers; find_struct consumers); dobugreport/crashreport_bidshow/panictrace_handler notes falsely claim "measured MISSING" (exports exist) — fix: direct `ledger.mjs set` ×11 (verify each sub-omit still unshipped first, NOT via finish-iteration — seven iters prove it stamps one Named line across rows) + `hidden-proxy verify` on the touched rows. Source: reviews/loop-unattended/2366-b127042af-batch-d3416.md
+
+
 - [x] `topl.c` topl_putsym — C topl.c:305–344 absent from js/ (no JS symbol, comment refs only, js-grep 2026-10-04; ledger unknown C 28/JS 0 MISSING; callers 2 — rows --all 2026-10-04) @e2943671c
 - [x] `muse.c` find_offensive — partial js/muse.js:find_offensive: C muse.c:1431–1437 early returns (`in_your_sanctuary` + AD_HEAL-vs-naked-hero) absent from js/muse.js:645 (`deferred → treat as open` comment; full body brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
 - [x] `muse.c` mbhitm — C muse.c:1597–1703 arms (WAN_CANCELLATION/SPE_CANCELLATION + seemimic + shieldeff + mon-target resists_magm/find_mac/hit-miss plines) absent from js/muse.js:785 local clone (named in :781–782 doc; brief-read 2026-10-04; ledger omit; batch-preview 2026-10-04) @89ee696e3
