@@ -1,42 +1,42 @@
 {"fn":"zaptype","c":"89-96","status":"ported","js":["js/zap.js:zaptype"],"at":"2026-10-03@bbe63333a"}
 {"fn":"learnwand","c":"123-151","status":"ported","js":["js/zap.js:learnwand"],"d":["D-2904"],"at":"seed@a30a7de84"}
-{"fn":"bhitm","c":"160-573","status":"partial","js":["js/zap.js:bhitm"],"d":["D-3368","D-1436","D-1426","D-1425","D-1424","D-1423"],"at":"2026-10-03@3164b76c4"}
+{"fn":"bhitm","c":"160-573","status":"ported","js":["js/zap.js:bhitm"],"d":["D-3408","D-3368","D-1436","D-1426","D-1425","D-1424"],"at":"2026-10-04@c075fb861"}
 {"fn":"release_hold","c":"578-609","status":"ported","js":["js/zap.js:release_hold"],"at":"2026-10-03@bbe63333a"}
 {"fn":"probe_objchain","c":"612-623","status":"ported","js":["js/zap.js:probe_objchain"],"at":"2026-10-03@bbe63333a"}
 {"fn":"probe_monster","c":"626-640","status":"ported","js":["js/zap.js:probe_monster"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_obj_location","c":"654-689","status":"ported","js":["js/timeout.js:get_obj_location"],"d":["D-2977"],"at":"2026-09-27@25beec7af","note":"stale: js/timeout.js:1637"}
-{"fn":"get_mon_location","c":"692-709","status":"ported","js":["js/timeout.js:get_mon_location"],"d":["D-2996"],"at":"2026-09-27@806473d71","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_mon_location","c":"692-709","status":"ported","js":["js/timeout.js:get_mon_location"],"d":["D-3408","D-2996"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"montraits","c":"713-827","status":"ported","js":["js/zap.js:montraits"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_container_location","c":"841-859","status":"ported","js":["js/zap.js:get_container_location"],"at":"2026-10-03@bbe63333a"}
-{"fn":"zombie_can_dig","c":"863-875","status":"ported","js":["js/zap.js:zombie_can_dig"],"d":["D-3074"],"at":"2026-09-29@107847759"}
+{"fn":"zombie_can_dig","c":"863-875","status":"ported","js":["js/zap.js:zombie_can_dig"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"revive","c":"884-1140","status":"ported","js":["js/zap.js:revive"],"at":"2026-10-03@bbe63333a"}
 {"fn":"revive_egg","c":"1143-1152","status":"ported","js":["js/zap.js:revive_egg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unturn_dead","c":"1156-1222","status":"ported","js":["js/zap.js:unturn_dead"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unturn_you","c":"1225-1235","status":"ported","js":["js/zap.js:unturn_you"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cancel_item","c":"1239-1362","status":"partial","js":["js/zap.js:cancel_item"],"omit":"troll-corpse REVIVE_MON→ROT_CORPSE timer swap (C:1348-1357)","at":"2026-10-03@bbe63333a"}
+{"fn":"cancel_item","c":"1239-1362","status":"ported","js":["js/zap.js:cancel_item"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"blank_novel","c":"1367-1376","status":"ported","js":["js/zap.js:blank_novel"],"at":"2026-10-03@bbe63333a"}
 {"fn":"drain_item","c":"1382-1455","status":"ported","js":["js/zap.js:drain_item"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_resists","c":"1458-1473","status":"ported","js":["js/dogmove.js:obj_resists"],"at":"2026-10-03@bbe63333a"}
-{"fn":"obj_shudders","c":"1476-1497","status":"ported","js":["js/zap.js:obj_shudders"],"d":["D-3074"],"at":"2026-09-29@107847759"}
+{"fn":"obj_shudders","c":"1476-1497","status":"ported","js":["js/zap.js:obj_shudders"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"polyuse","c":"1505-1539","status":"ported","js":["js/zap.js:polyuse"],"d":["D-1939"],"at":"2026-10-03@bbe63333a"}
 {"fn":"create_polymon","c":"1546-1633","status":"ported","js":["js/zap.js:create_polymon"],"d":["D-2571"],"at":"seed@a30a7de84"}
 {"fn":"do_osshock","c":"1637-1674","status":"ported","js":["js/zap.js:do_osshock"],"d":["D-3212","D-2879"],"at":"2026-10-01@1eadda2ce","note":"stale: js/zap.js:do_osshock top-level hoist, wired at bhito"}
 {"fn":"obj_unpolyable","c":"1678-1683","status":"ported","js":["js/zap.js:obj_unpolyable"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poly_obj","c":"1702-1989","status":"partial","js":["js/zap.js:poly_obj"],"omit":"sokoban_guilt on boulder (C:1710); leash leashmon transfer/unleash (C:1816-25); spellbook spestudied degrade (C:1871-80); gem mineral→ROCK backfire (C:1883-90); shop-anger bill (C:1965-86)","d":["D-1510"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stone_to_flesh_obj","c":"1993-2112","status":"ported","js":["js/zap.js:stone_to_flesh_obj"],"at":"2026-10-03@bbe63333a"}
-{"fn":"bhito","c":"2119-2424","status":"partial","js":["js/zap.js:bhito"],"omit":"`debugpline1` \"pulsate\" (`zap.c:2168`) has no JS function; the stray bypass bit is still cleared.","d":["D-2807","D-1483","D-1481","D-1467","D-1453","D-1445"],"at":"seed@a30a7de84"}
-{"fn":"bhitpile","c":"2428-2506","status":"partial","js":["js/zap.js:bhitpile"],"omit":"`fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`).","d":["D-2879"],"at":"seed@a30a7de84"}
+{"fn":"bhito","c":"2119-2424","status":"ported","js":["js/zap.js:bhito"],"d":["D-3408","D-2807","D-1483","D-1481","D-1467","D-1453"],"at":"2026-10-04@c075fb861"}
+{"fn":"bhitpile","c":"2428-2506","status":"ported","js":["js/zap.js:bhitpile"],"d":["D-3408","D-2879"],"at":"2026-10-04@c075fb861"}
 {"fn":"zappable","c":"2514-2522","status":"ported","js":["js/zap.js:zappable"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wrest-last-charge You() message deferred"}
 {"fn":"do_enlightenment_effect","c":"2525-2532","status":"ported","js":["js/zap.js:do_enlightenment_effect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zapnodir","c":"2539-2602","status":"ported","js":["js/zap.js:zapnodir"],"d":["D-1427","D-1412","D-1404","D-1395","D-1380","D-1379"],"at":"2026-10-03@bbe63333a"}
 {"fn":"backfire","c":"2605-2614","status":"ported","js":["js/zap.js:backfire"],"d":["D-1416"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zap_ok","c":"2618-2623","status":"ported","js":["js/zap.js:zap_ok"],"at":"2026-10-02@1b5b36bb7","note":"stale: js/zap.js:2648 whole C body (WAND_CLASS SUGGEST else EXCLUDE) + cmd getdir caller wired"}
-{"fn":"dozap","c":"2627-2683","status":"partial","js":["js/zap.js:dozap"],"omit":"check_unpaid shop bill (C:2642); spe<0 turns-to-dust useupall (C:2677-79); update_inventory (C:2680-81)","at":"2026-10-03@bbe63333a"}
+{"fn":"dozap","c":"2627-2683","status":"ported","js":["js/zap.js:dozap"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"boxlock_invent","c":"2687-2702","status":"ported","js":["js/lock.js:boxlock_invent"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"zapyourself","c":"2705-3013","status":"ported","js":["js/zap.js:zapyourself"],"d":["D-2065","D-1446","D-1435","D-1434","D-1433","D-1410"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ubreatheu","c":"3017-3022","status":"ported","js":["js/zap.js:ubreatheu"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lightdamage","c":"3026-3056","status":"ported","js":["js/zap.js:lightdamage"],"d":["D-1366"],"at":"2026-10-03@bbe63333a"}
-{"fn":"flashburn","c":"3060-3080","status":"partial","js":["js/zap.js:flashburn"],"omit":"artifact blind-resist shieldeff + TRUE return when !via_lightning (C:3075-3078)","at":"2026-10-03@bbe63333a"}
+{"fn":"flashburn","c":"3060-3080","status":"ported","js":["js/zap.js:flashburn"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"zap_steed","c":"3087-3141","status":"ported","js":["js/zap.js:zap_steed"],"d":["D-1480","D-1479","D-1478","D-1474","D-1473","D-1471"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cancel_monst","c":"3150-3215","status":"ported","js":["js/zap.js:cancel_monst"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"zap_updown","c":"3219-3411","status":"ported","js":["js/zap.js:zap_updown"],"d":["D-1485","D-1466","D-1465","D-1456","D-1454","D-1444"],"at":"2026-10-03@bbe63333a"}
@@ -53,32 +53,32 @@
 {"fn":"zap_map","c":"3628-3801","status":"ported","js":["js/zap.js:zap_map"],"d":["D-3259","D-1489","D-1476"],"at":"2026-10-02@1b5b36bb7"}
 {"fn":"bhit","c":"3827-4139","status":"ported","js":["js/zap.js:bhit"],"d":["D-3383","D-3382","D-1928","D-1604","D-1482","D-1475"],"at":"2026-10-03@9e424f7bd"}
 {"fn":"boomhit","c":"4148-4233","status":"ported","js":["js/dothrow.js:boomhit"],"at":"2026-10-02@c94c66b65","note":"stale: js/dothrow.js:2116 (D-1301; caller dothrow.c:1604 wired js/dothrow.js:2409)"}
-{"fn":"zhitm","c":"4238-4398","status":"partial","js":["js/zap.js:zhitm"],"omit":"hero-spell spell_damage_bonus for MM/fire/cold (C:4257,4266,4284); defended() arms; resists_magm always false; death-breath armor-strip/ootmp (C:4320-36); PM_DEATH heal (C:4301-07); vampshifter death immunity (C:4308); acid erode gates (C:4379-82); knight double (C:4387-88)","d":["D-2127"],"at":"2026-10-03@bbe63333a"}
-{"fn":"zhitu","c":"4401-4591","status":"partial","js":["js/zap.js:zhitu"],"d":["D-3074","D-2232"],"at":"2026-09-29@107847759"}
+{"fn":"zhitm","c":"4238-4398","status":"ported","js":["js/zap.js:zhitm"],"d":["D-3408","D-2127"],"at":"2026-10-04@c075fb861"}
+{"fn":"zhitu","c":"4401-4591","status":"ported","js":["js/zap.js:zhitu"],"d":["D-3408","D-3074","D-2232"],"at":"2026-10-04@c075fb861"}
 {"fn":"burn_floor_objects","c":"4598-4656","status":"ported","js":["js/zap.js:burn_floor_objects"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bounce_dir","c":"4664-4701","status":"ported","js":["js/zap.js:bounce_dir"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zap_hit","c":"4705-4720","status":"ported","js":["js/zap.js:zap_hit"],"d":["D-2107"],"at":"2026-10-03@bbe63333a"}
 {"fn":"disintegrate_mon","c":"4723-4756","status":"ported","js":["js/zap.js:disintegrate_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ubuzz","c":"4759-4762","status":"ported","js":["js/zap.js:ubuzz"],"at":"2026-10-03@bbe63333a"}
 {"fn":"buzz","c":"4765-4768","status":"ported","js":["js/zap.js:buzz"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dobuzz","c":"4780-5037","status":"partial","js":["js/zap.js:dobuzz"],"d":["D-3367","D-3361","D-2133"],"at":"2026-10-03@f1f60014e"}
+{"fn":"dobuzz","c":"4780-5037","status":"ported","js":["js/zap.js:dobuzz"],"d":["D-3408","D-3367","D-3361","D-2133"],"at":"2026-10-04@c075fb861"}
 {"fn":"melt_ice","c":"5040-5079","status":"ported","js":["js/zap.js:melt_ice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"start_melt_ice_timeout","c":"5088-5111","status":"ported","js":["js/zap.js:start_melt_ice_timeout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"melt_ice_away","c":"5119-5132","status":"ported","js":["js/zap.js:melt_ice_away"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_spell_hits_spot","c":"5501-5533","status":"ported","js":["js/zap.js:mon_spell_hits_spot"],"at":"2026-10-03@bbe63333a"}
-{"fn":"fracture_rock","c":"5537-5578","status":"partial","js":["js/dig.js:fracture_rock"],"omit":"`poly_obj` shop-anger bill (`zap.c:1965–1986`) stays named at `js/zap.js:5255`.","d":["D-2798"],"at":"seed@a30a7de84"}
+{"fn":"fracture_rock","c":"5537-5578","status":"ported","js":["js/dig.js:fracture_rock"],"d":["D-3408","D-2798"],"at":"2026-10-04@c075fb861"}
 {"fn":"break_statue","c":"5582-5605","status":"ported","js":["js/dig.js:break_statue"],"d":["D-2360"],"at":"2026-10-03@bbe63333a"}
 {"fn":"destroyable","c":"5613-5650","status":"ported","js":["js/zap.js:destroyable"],"at":"2026-10-03@bbe63333a"}
-{"fn":"adtyp_to_prop","c":"5654-5671","status":"ported","js":["js/invent.js:adtyp_to_prop"],"d":["D-3074"],"at":"2026-09-29@107847759"}
+{"fn":"adtyp_to_prop","c":"5654-5671","status":"ported","js":["js/invent.js:adtyp_to_prop"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"u_adtyp_resistance_obj","c":"5676-5698","status":"ported","js":["js/invent.js:u_adtyp_resistance_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"inventory_resistance_check","c":"5710-5718","status":"ported","js":["js/invent.js:inventory_resistance_check"],"at":"2026-10-03@bbe63333a"}
-{"fn":"item_what","c":"5722-5763","status":"ported","js":["js/invent.js:item_what"],"d":["D-3074"],"at":"2026-09-29@107847759"}
-{"fn":"maybe_destroy_item","c":"5798-5954","status":"partial","js":["js/zap.js:maybe_destroy_item"],"omit":"inventory_resistance_check early-out (C:5816); monster Fire_resistance xresist forced false (C:5826-28); Book-of-Dead glow pline (C:5831-35); glob killer string (C:5945-46); potionbreathe breathless/haseyes gate (C:5914-16)","d":["D-2164","D-1368"],"at":"2026-10-03@bbe63333a"}
+{"fn":"item_what","c":"5722-5763","status":"ported","js":["js/invent.js:item_what"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
+{"fn":"maybe_destroy_item","c":"5798-5954","status":"ported","js":["js/zap.js:maybe_destroy_item"],"d":["D-3408","D-2164","D-1368"],"at":"2026-10-04@c075fb861"}
 {"fn":"destroy_items","c":"5965-6097","status":"ported","js":["js/zap.js:destroy_items"],"d":["D-2454"],"at":"seed@a30a7de84"}
 {"fn":"resist","c":"6100-6158","status":"split","js":["js/zap.js:resist","js/explode.js:resist","js/music.js:resist","js/pray.js:resist","js/mhitm.js:resist_poly"],"d":["D-3212","D-2366","D-2116"],"at":"2026-10-01@1eadda2ce"}
 {"fn":"wishcmdassist","c":"6165-6219","status":"ported","js":["js/zap.js:wishcmdassist"],"d":["D-2484"],"at":"2026-10-01@6e06fa8e7","note":"stale: js/zap.js:7240 whole C body present (D-2484); declared omits are siblings/caller not callees (wish_history_add/menu zap.c:6227/6275, MAXWISHTRY retry loop in makewish); caller wired zap.js:7391"}
 {"fn":"wish_history_add","c":"6227-6255","status":"ported","js":["js/zap.js:wish_history_add"],"d":["D-3309","D-2873"],"at":"2026-10-02@2bcda1027"}
 {"fn":"wish_history_flush","c":"6259-6270","status":"ported","js":["js/zap.js:wish_history_flush"],"d":["D-3309"],"at":"2026-10-02@2bcda1027","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wish_history_menu","c":"6275-6309","status":"ported","js":["js/zap.js:wish_history_menu"],"d":["D-3057","D-3056"],"at":"2026-09-28@1483a276d"}
-{"fn":"makewish","c":"6314-6422","status":"partial","js":["js/zap.js:makewish"],"omit":"no retry loop on failed readobjnam (C:6363-64 goto retry, MAXWISHTRY); no fallback random readobjnam(NULL) (C:6366); term_gone/resume_wish (C:6339-43)","at":"2026-10-03@bbe63333a"}
+{"fn":"makewish","c":"6314-6422","status":"ported","js":["js/zap.js:makewish"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"flash_str","c":"6429-6445","status":"ported","js":["js/zap.js:flash_str"],"at":"2026-10-03@bbe63333a"}

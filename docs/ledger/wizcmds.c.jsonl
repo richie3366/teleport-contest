@@ -1,23 +1,23 @@
-{"fn":"wiz_wish","c":"32-44","status":"partial","js":["js/wizcmds.js:wiz_wish"],"omit":"drops trailing encumber_msg(); else-arm text generic (C \"Unavailable command 'wizwish'.\")","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reachable via ungated ^W key path in js/cmd.js"}
+{"fn":"wiz_wish","c":"32-44","status":"ported","js":["js/wizcmds.js:wiz_wish"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: reachable via ungated ^W key path in js/cmd.js"}
 {"fn":"wiz_identify","c":"50-66","status":"ported","js":["js/wizcmds.js:wiz_identify"],"at":"2026-10-03@bbe63333a"}
 {"fn":"makemap_unmakemon","c":"73-105","status":"ported","js":["js/wizcmds.js:makemap_unmakemon"],"d":["D-3107"],"at":"2026-09-29@cb3b01855","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"makemap_remove_mons","c":"110-150","status":"ported","js":["js/wizcmds.js:makemap_remove_mons"],"d":["D-3107"],"at":"2026-09-29@cb3b01855","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_makemap","c":"156-171","status":"partial","js":["js/wizcmds.js:wiz_makemap"],"omit":"else-arm text generic (C \"Unavailable command 'wizmakemap'.\")","at":"2026-10-03@bbe63333a"}
-{"fn":"wiz_map","c":"176-199","status":"partial","js":["js/wizcmds.js:wiz_map"],"omit":"drops notice_mon_off/on around mapping; else-arm text generic (C \"Unavailable command 'wizmap'.\")","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reachable via ungated ^F key path in js/cmd.js"}
-{"fn":"wiz_genesis","c":"203-214","status":"partial","js":["js/wizcmds.js:wiz_genesis"],"omit":"else-arm text generic (C \"Unavailable command 'wizgenesis'.\")","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reachable via ungated ^G key path in js/cmd.js"}
+{"fn":"wiz_makemap","c":"156-171","status":"ported","js":["js/wizcmds.js:wiz_makemap"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
+{"fn":"wiz_map","c":"176-199","status":"ported","js":["js/wizcmds.js:wiz_map"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: reachable via ungated ^F key path in js/cmd.js"}
+{"fn":"wiz_genesis","c":"203-214","status":"ported","js":["js/wizcmds.js:wiz_genesis"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: reachable via ungated ^G key path in js/cmd.js"}
 {"fn":"wiz_where","c":"218-225","status":"ported","js":["js/wizcmds.js:wiz_where"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wiz_detect","c":"229-236","status":"ported","js":["js/wizcmds.js:wiz_detect"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_kill","c":"243-347","status":"ported","js":["js/wizcmds.js:wiz_kill"],"d":["D-3091","D-3089"],"at":"2026-09-29@615518801","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_load_lua","c":"353-372","status":"ported","js":["js/wizcmds.js:wiz_load_lua"],"d":["D-3142"],"at":"2026-09-30@990da2b8d","note":"stale: js/wizcmds.js:460 via D-3142, whole body; sole gap load_lua by-design file IO"}
-{"fn":"wiz_load_splua","c":"376-395","status":"partial","js":["js/wizcmds.js:wiz_load_splua"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_level_tele","c":"399-406","status":"partial","js":["js/wizcmds.js:wiz_level_tele"],"omit":"else-arm text generic (C \"Unavailable command 'wizlevelport'.\")","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: reachable via ungated ^V key path in js/cmd.js"}
+{"fn":"wiz_load_splua","c":"376-395","status":"ported","js":["js/wizcmds.js:wiz_load_splua"],"d":["D-3408","D-3142"],"at":"2026-10-04@c075fb861","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_level_tele","c":"399-406","status":"ported","js":["js/wizcmds.js:wiz_level_tele"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: reachable via ungated ^V key path in js/cmd.js"}
 {"fn":"wiz_flip_level","c":"412-442","status":"ported","js":["js/wizcmds.js:wiz_flip_level"],"d":["D-3131"],"at":"2026-09-29@f789bb94f","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_level_change","c":"446-488","status":"partial","js":["js/wizcmds.js:wiz_level_change"],"omit":"leading-'+' input ('+5'): C sscanf %d accepts, JS /^-?\\d+$/ rejects with Never_mind","at":"2026-10-03@bbe63333a"}
+{"fn":"wiz_level_change","c":"446-488","status":"ported","js":["js/wizcmds.js:wiz_level_change"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"wiz_telekinesis","c":"494-528","status":"ported","js":["js/wizcmds.js:wiz_telekinesis"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_panic","c":"534-545","status":"ported","js":["js/wizcmds.js:wiz_panic"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_fuzzer","c":"549-564","status":"ported","js":["js/wizcmds.js:wiz_fuzzer"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_polyself","c":"568-572","status":"partial","js":["js/polyself.js:wiz_polyself"],"omit":"in-function wizard gate added (absent in C body) with generic text (C dispatcher: \"Unavailable command 'polyself'.\")","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: js/wizcmds.js:wiz_polyself is a thin re-export wrapper over this impl"}
-{"fn":"wiz_show_seenv","c":"576-617","status":"partial","js":["js/wizcmds.js:wiz_show_seenv"],"omit":"`:1603` display_nhwindow(win, FALSE) → blocking pager stands in for tty print-and-continue (Terminal has no scrollback vehicle; house NHW_TEXT idiom); generated `extcmdlist_data.js` \"migratemons\" desc keeps the #else string while DEBUG-live C registers \"show migrating monsters and migrate N random …","d":["D-2779"],"at":"seed@a30a7de84"}
+{"fn":"wiz_polyself","c":"568-572","status":"ported","js":["js/polyself.js:wiz_polyself"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: js/wizcmds.js:wiz_polyself is a thin re-export wrapper over this impl"}
+{"fn":"wiz_show_seenv","c":"576-617","status":"ported","js":["js/wizcmds.js:wiz_show_seenv"],"d":["D-3408","D-2779"],"at":"2026-10-04@c075fb861"}
 {"fn":"wiz_show_vision","c":"621-653","status":"ported","js":["js/wizcmds.js:wiz_show_vision"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_show_wmodes","c":"657-689","status":"ported","js":["js/wizcmds.js:wiz_show_wmodes"],"d":["D-3100"],"at":"2026-09-29@9798beecd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_map_levltyp","c":"693-835","status":"ported","js":["js/wizcmds.js:wiz_map_levltyp"],"d":["D-2516"],"at":"2026-10-01@2eced4253","note":"stale: js/wizcmds.js:1026 — whole C body live incl dsc chain + branch else; Sprintf/Strcat/eos via inline appends, strncmpi via inline /^the /i strip (omit outdated: eos/strncmpi exports now exist)"}
@@ -28,21 +28,21 @@
 {"fn":"size_obj","c":"1117-1132","status":"ported","js":["js/wizcmds.js:size_obj"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
 {"fn":"count_obj","c":"1135-1151","status":"ported","js":["js/wizcmds.js:count_obj"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
 {"fn":"obj_chain","c":"1156-1174","status":"ported","js":["js/wizcmds.js:obj_chain"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
-{"fn":"mon_invent_chain","c":"1177-1196","status":"ported","js":["js/wizcmds.js:mon_invent_chain"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
+{"fn":"mon_invent_chain","c":"1177-1196","status":"ported","js":["js/wizcmds.js:mon_invent_chain"],"d":["D-3408","D-2975"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"contained_stats","c":"1199-1225","status":"ported","js":["js/wizcmds.js:contained_stats"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
-{"fn":"size_monst","c":"1228-1254","status":"ported","js":["js/wizcmds.js:size_monst"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
+{"fn":"size_monst","c":"1228-1254","status":"ported","js":["js/wizcmds.js:size_monst"],"d":["D-3408","D-2975"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"mon_chain","c":"1257-1281","status":"ported","js":["js/wizcmds.js:mon_chain"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
 {"fn":"misc_stats","c":"1284-1399","status":"ported","js":["js/wizcmds.js:misc_stats"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
 {"fn":"you_sanity_check","c":"1402-1441","status":"ported","js":["js/wizcmds.js:you_sanity_check"],"at":"2026-10-03@bbe63333a"}
 {"fn":"levl_sanity_check","c":"1444-1457","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
-{"fn":"sanity_check","c":"1460-1481","status":"partial","js":["js/wizcmds.js:sanity_check"],"omit":"drops obj/timer/mon/trap/engraving/levl sanity calls (only you/light/bc run); those callees absent in JS","d":["D-1664"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sanity_check","c":"1460-1481","status":"partial","js":["js/wizcmds.js:sanity_check"],"omit":"- `sanity_check`: obj/timer/mon/trap/engraving/levl sanity callees absent in JS (non-manifest; cannot port here).","d":["D-3408","D-1664"],"at":"2026-10-04@c075fb861"}
 {"fn":"migrsort_cmp","c":"1485-1501","status":"ported","js":["js/wizcmds.js:migrsort_cmp"],"d":["D-3187"],"at":"2026-10-01@c1c0d92f4"}
 {"fn":"list_migrating_mons","c":"1506-1610","status":"ported","js":["js/wizcmds.js:list_migrating_mons"],"d":["D-3187"],"at":"2026-10-01@c1c0d92f4"}
-{"fn":"wiz_show_stats","c":"1616-1697","status":"ported","js":["js/wizcmds.js:wiz_show_stats"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
-{"fn":"wiz_display_macros","c":"1705-1778","status":"ported","js":["js/wizcmds.js:wiz_display_macros"],"d":["D-3020"],"at":"2026-09-28@5a77080f1","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"wiz_show_nhuuid","c":"1782-1786","status":"partial","js":["js/wizcmds.js:wiz_show_nhuuid"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_show_stats","c":"1616-1697","status":"ported","js":["js/wizcmds.js:wiz_show_stats"],"d":["D-3408","D-2975"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
+{"fn":"wiz_display_macros","c":"1705-1778","status":"ported","js":["js/wizcmds.js:wiz_display_macros"],"d":["D-3408","D-3020"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
+{"fn":"wiz_show_nhuuid","c":"1782-1786","status":"partial","js":["js/wizcmds.js:wiz_show_nhuuid"],"omit":"- `wiz_telekinesis`: none — whole body, every callee live.","d":["D-3408","D-3142"],"at":"2026-10-04@c075fb861","note":"audited D-3408: remaining omit cannot ship"}
 {"fn":"wiz_mon_diff","c":"1790-1828","status":"ported","js":["js/wizcmds.js:wiz_mon_diff"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_objprobs","c":"1832-1868","status":"ported","js":["js/wizcmds.js:wiz_objprobs"],"d":["D-3100"],"at":"2026-09-29@9798beecd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_migrate_mons","c":"1873-1930","status":"ported","js":["js/wizcmds.js:wiz_migrate_mons"],"d":["D-3187","D-2779"],"at":"2026-10-01@c1c0d92f4"}
-{"fn":"wiz_custom","c":"1934-1984","status":"ported","js":["js/wizcmds.js:wiz_custom"],"d":["D-3091","D-3089"],"at":"2026-09-29@615518801","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_custom","c":"1934-1984","status":"ported","js":["js/wizcmds.js:wiz_custom"],"d":["D-3408","D-3091","D-3089"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"wizcustom_callback","c":"1987-2027","status":"ported","js":["js/wizcmds.js:wizcustom_callback"],"d":["D-3029"],"at":"2026-09-28@72bf1dec2","note":"refresh: no JS symbol (measured MISSING)"}

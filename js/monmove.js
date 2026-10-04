@@ -341,7 +341,7 @@ export function max_mon_load(mtmp) {
  * sync monster decision shared with async touch_artifact). Returns whether
  * the monster may safely handle the object.
  */
-function can_touch_safely(mtmp, otmp) {
+export function can_touch_safely(mtmp, otmp) {
     if (!otmp) return false;
     const otyp = otmp.otyp | 0;
     const mdat = mtmp?.data;

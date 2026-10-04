@@ -1,7 +1,7 @@
 {"fn":"getnow","c":"32-38","status":"ported","js":["js/calendar.js:getnow"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Epoch seconds + fixed-datetime support; C time() semantics covered."}
-{"fn":"getlt","c":"41-46","status":"ported","js":["js/calendar.js:getlt"],"d":["D-1989"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: localtime(getnow()) via NY-localtime adaptation."}
+{"fn":"getlt","c":"41-46","status":"ported","js":["js/calendar.js:getlt"],"d":["D-3408","D-1989"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"getyear","c":"49-52","status":"ported","js":["js/calendar.js:getyear"],"d":["D-1742"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact 1900+tm_year, no +2000 fallback like C."}
-{"fn":"yyyymmdd","c":"56-77","status":"ported","js":["js/calendar.js:yyyymmdd"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is factored (C arms live in lt_for_date/yyyy_from_tm)"}
+{"fn":"yyyymmdd","c":"56-77","status":"ported","js":["js/calendar.js:yyyymmdd"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"hhmmss","c":"80-92","status":"ported","js":["js/calendar.js:hhmmss"],"d":["D-1725"],"at":"2026-10-01@e45cb9654","note":"stale: js/calendar.js:335 (D-1725 whole body via lt_for_date; callers paniclog/dump_fmtstr by-design filesystem)"}
 {"fn":"yyyymmddhhmmss","c":"95-117","status":"ported","js":["js/calendar.js:yyyymmddhhmmss"],"at":"2026-09-29@ffb380a5c","note":"stale: js/calendar.js:346"}
 {"fn":"time_from_yyyymmddhhmmss","c":"120-175","status":"ported","js":["js/calendar.js:time_from_yyyymmddhhmmss"],"d":["D-2893"],"at":"seed@a30a7de84"}

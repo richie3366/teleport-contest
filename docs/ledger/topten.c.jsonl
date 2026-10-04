@@ -9,11 +9,11 @@
 {"fn":"encodexlogflags","c":"394-408","status":"ported","js":["js/topten.js:encodexlogflags"],"at":"2026-10-03@bbe63333a"}
 {"fn":"encodeconduct","c":"411-452","status":"ported","js":["js/topten.js:encodeconduct"],"at":"2026-09-30@6c8474344","note":"stale: js/topten.js:214"}
 {"fn":"encodeachieve","c":"455-476","status":"ported","js":["js/topten.js:encodeachieve"],"at":"2026-10-03@bbe63333a"}
-{"fn":"add_achieveX","c":"480-488","status":"ported","js":["js/topten.js:add_achieveX"],"d":["D-3302"],"at":"2026-10-02@f5743f596"}
+{"fn":"add_achieveX","c":"480-488","status":"ported","js":["js/topten.js:add_achieveX"],"d":["D-3408","D-3302"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"encode_extended_achievements","c":"491-581","status":"ported","js":["js/topten.js:encode_extended_achievements"],"d":["D-2650"],"at":"seed@a30a7de84"}
 {"fn":"encode_extended_conducts","c":"584-610","status":"ported","js":["js/topten.js:encode_extended_conducts"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_ttlist","c":"615-625","status":"by-design","d":["D-3302"],"at":"2026-10-02@f5743f596","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"topten","c":"628-926","status":"ported","js":["js/topten.js:topten"],"d":["D-2585"],"at":"seed@a30a7de84"}
+{"fn":"topten","c":"628-926","status":"ported","js":["js/topten.js:topten"],"d":["D-3408","D-2585"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"outheader","c":"929-940","status":"ported","js":["js/topten.js:outheader"],"at":"2026-09-30@6c8474344","note":"stale: js/topten.js:659"}
 {"fn":"outentry","c":"946-1107","status":"ported","js":["js/topten.js:outentry"],"d":["D-2394"],"at":"2026-10-03@bbe63333a"}
 {"fn":"score_wanted","c":"1112-1185","status":"ported","js":["js/topten.js:score_wanted"],"at":"2026-10-03@bbe63333a"}

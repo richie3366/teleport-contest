@@ -1,13 +1,13 @@
 {"fn":"colortable_to_int32","c":"237-246","status":"ported","js":["js/options.js:colortable_to_int32"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"color_attr_to_str","c":"249-257","status":"ported","js":["js/options.js:color_attr_to_str"],"d":["D-3157"],"at":"2026-09-30@e47a5e02a","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"color_attr_parse_str","c":"261-301","status":"partial","js":["js/options.js:color_attr_parse_str"],"omit":"callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `\"\"` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers si…","d":["D-2777"],"at":"seed@a30a7de84"}
-{"fn":"query_color_attr","c":"304-317","status":"ported","js":["js/options.js:query_color_attr"],"d":["D-3047"],"at":"2026-09-28@d81780b83","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"color_attr_to_str","c":"249-257","status":"ported","js":["js/options.js:color_attr_to_str"],"d":["D-3408","D-3157"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
+{"fn":"color_attr_parse_str","c":"261-301","status":"ported","js":["js/options.js:color_attr_parse_str"],"d":["D-3408","D-2777"],"at":"2026-10-04@c075fb861"}
+{"fn":"query_color_attr","c":"304-317","status":"ported","js":["js/options.js:query_color_attr"],"d":["D-3408","D-3047"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"attr2attrname","c":"320-328","status":"ported","js":["js/options.js:attr2attrname"],"d":["D-3326"],"at":"2026-10-02@925c8355a"}
-{"fn":"clr2colorname","c":"338-346","status":"ported","js":["js/artifact.js:clr2colorname"],"d":["D-3231"],"at":"2026-10-01@5bdc19f37"}
+{"fn":"clr2colorname","c":"338-346","status":"ported","js":["js/artifact.js:clr2colorname"],"d":["D-3408","D-3231"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"match_str2clr","c":"349-371","status":"ported","js":["js/botl.js:match_str2clr"],"d":["D-3231"],"at":"2026-10-01@5bdc19f37"}
 {"fn":"match_str2attr","c":"374-389","status":"ported","js":["js/botl.js:match_str2attr"],"d":["D-3231"],"at":"2026-10-01@5bdc19f37"}
-{"fn":"query_attr","c":"396-472","status":"ported","js":["js/options.js:query_attr"],"d":["D-3071"],"at":"2026-09-29@9e3e6255b"}
-{"fn":"query_color","c":"475-518","status":"ported","js":["js/options.js:query_color"],"d":["D-3073","D-3071"],"at":"2026-09-29@b96407f84"}
+{"fn":"query_attr","c":"396-472","status":"ported","js":["js/options.js:query_attr"],"d":["D-3408","D-3071"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
+{"fn":"query_color","c":"475-518","status":"ported","js":["js/options.js:query_color"],"d":["D-3408","D-3073","D-3071"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"basic_menu_colors","c":"530-580","status":"ported","js":["js/options.js:basic_menu_colors"],"d":["D-2789"],"at":"seed@a30a7de84"}
 {"fn":"add_menu_coloring_parsed","c":"585-613","status":"ported","js":["js/options.js:add_menu_coloring_parsed"],"d":["D-3114","D-3071"],"at":"2026-09-29@405ed7298"}
 {"fn":"add_menu_coloring","c":"617-660","status":"ported","js":["js/options.js:add_menu_coloring"],"d":["D-3231","D-2763"],"at":"2026-10-01@5bdc19f37"}
@@ -20,9 +20,9 @@
 {"fn":"rgbstr_to_int32","c":"813-865","status":"ported","js":["js/options.js:rgbstr_to_int32"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"set_map_customcolor","c":"868-883","status":"ported","js":["js/options.js:set_map_customcolor"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"color_distance","c":"979-994","status":"ported","js":["js/options.js:color_distance"],"d":["D-3326"],"at":"2026-10-02@925c8355a"}
-{"fn":"closest_color","c":"997-1021","status":"partial","js":["js/options.js:closest_color"],"omit":"callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `\"\"` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers si…","d":["D-2777"],"at":"seed@a30a7de84"}
+{"fn":"closest_color","c":"997-1021","status":"ported","js":["js/options.js:closest_color"],"d":["D-3408","D-2777"],"at":"2026-10-04@c075fb861"}
 {"fn":"get_nhcolor_from_256_index","c":"1024-1031","status":"ported","js":["js/options.js:get_nhcolor_from_256_index"],"d":["D-3326"],"at":"2026-10-02@925c8355a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_alt_palette","c":"1036-1045","status":"by-design","at":"2026-09-29@75eb7fe42","note":"uncompiled: coloratt.c:1033-1166 inside #ifdef CHANGE_COLOR (only amiconf.h defines it)"}
 {"fn":"alternative_palette","c":"1048-1095","status":"by-design","at":"2026-09-29@9e3e6255b","note":"CHANGE_COLOR compiled out: windconf.h:29 commented (Amiga-only); fn inside coloratt.c:1033-1166 ifdef, sole caller optfn_palette inside options.c:2694-2814 ifdef"}
 {"fn":"change_palette","c":"1098-1108","status":"by-design","at":"2026-10-01@5bdc19f37","note":"CHANGE_COLOR compiled out (windconf.h:29); both C call sites ifdef-gated (allmain.c:712-717, options.c:8988-8990), JS sites name it (allmain.js:196, options.js:10666)"}
-{"fn":"alt_color_spec","c":"1111-1165","status":"partial","js":["js/options.js:alt_color_spec"],"omit":"callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `\"\"` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers si…","d":["D-2777"],"at":"seed@a30a7de84"}
+{"fn":"alt_color_spec","c":"1111-1165","status":"ported","js":["js/options.js:alt_color_spec"],"d":["D-3408","D-2777"],"at":"2026-10-04@c075fb861"}

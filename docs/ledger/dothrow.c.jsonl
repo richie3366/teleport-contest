@@ -14,7 +14,7 @@
 {"fn":"will_hurtle","c":"977-989","status":"ported","js":["js/dothrow.js:will_hurtle"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mhurtle_step","c":"992-1068","status":"ported","js":["js/dothrow.js:mhurtle_step"],"d":["D-1176"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hurtle","c":"1078-1126","status":"ported","js":["js/dothrow.js:hurtle"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mhurtle","c":"1130-1178","status":"partial","js":["js/dothrow.js:mhurtle"],"omit":"NODIAG grid-bug diagonal gate (:1154-1155); minliquid else-arm after path when no trap (:1174-1175)","at":"2026-10-03@bbe63333a"}
+{"fn":"mhurtle","c":"1130-1178","status":"ported","js":["js/dothrow.js:mhurtle"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"check_shop_obj","c":"1181-1214","status":"ported","js":["js/shk.js:check_shop_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"harmless_missile","c":"1220-1248","status":"ported","js":["js/dothrow.js:harmless_missile"],"at":"2026-10-03@bbe63333a"}
 {"fn":"toss_up","c":"1256-1426","status":"ported","js":["js/dothrow.js:toss_up"],"d":["D-1274"],"at":"2026-10-03@bbe63333a"}
@@ -25,15 +25,15 @@
 {"fn":"throwit_mon_hit","c":"1482-1506","status":"ported","js":["js/dothrow.js:throwit_mon_hit"],"d":["D-1313"],"at":"2026-10-03@bbe63333a"}
 {"fn":"throwit","c":"1510-1849","status":"ported","js":["js/dothrow.js:throwit"],"d":["D-3383","D-3382","D-1346","D-1333","D-1316","D-1315"],"at":"2026-10-03@9e424f7bd"}
 {"fn":"return_throw_to_inv","c":"1855-1909","status":"ported","js":["js/dothrow.js:return_throw_to_inv"],"d":["D-2656"],"at":"seed@a30a7de84"}
-{"fn":"omon_adj","c":"1913-1947","status":"ported","js":["js/dothrow.js:omon_adj"],"d":["D-2905"],"at":"seed@a30a7de84"}
+{"fn":"omon_adj","c":"1913-1947","status":"ported","js":["js/dothrow.js:omon_adj"],"d":["D-3408","D-2905"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"tmiss","c":"1951-1967","status":"ported","js":["js/dothrow.js:tmiss"],"d":["D-2957"],"at":"seed@a30a7de84"}
 {"fn":"should_mulch_missile","c":"1976-2002","status":"ported","js":["js/weapon.js:should_mulch_missile"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"thitmonst","c":"2011-2304","status":"partial","js":["js/dothrow.js:thitmonst"],"omit":"`tmiss` still calls local `miss_missile` rather than `zap.c` `miss` (`is_plural` wording).","d":["D-2804","D-1324","D-1312"],"at":"seed@a30a7de84"}
+{"fn":"thitmonst","c":"2011-2304","status":"ported","js":["js/dothrow.js:thitmonst"],"d":["D-3408","D-2804","D-1324","D-1312"],"at":"2026-10-04@c075fb861"}
 {"fn":"gem_accept","c":"2309-2382","status":"ported","js":["js/dothrow.js:gem_accept"],"d":["D-2517"],"at":"seed@a30a7de84"}
 {"fn":"hero_breaks","c":"2417-2436","status":"ported","js":["js/dothrow.js:hero_breaks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"breaks","c":"2444-2454","status":"ported","js":["js/dothrow.js:breaks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"release_camera_demon","c":"2457-2470","status":"ported","js":["js/dothrow.js:release_camera_demon"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/dothrow.js:1377"}
-{"fn":"breakobj","c":"2480-2574","status":"partial","js":["js/dothrow.js:breakobj"],"omit":"caller `fracture_rock` billable arm (`zap.c:5552` → `js/dig.js:1801` stays sync; `breakobj` is async — cascade deferred to its own row).","d":["D-2531"],"at":"seed@a30a7de84"}
+{"fn":"breakobj","c":"2480-2574","status":"ported","js":["js/dothrow.js:breakobj"],"d":["D-3408","D-2531"],"at":"2026-10-04@c075fb861"}
 {"fn":"breaktest","c":"2582-2609","status":"ported","js":["js/dothrow.js:breaktest"],"at":"2026-10-03@bbe63333a"}
 {"fn":"breakmsg","c":"2612-2653","status":"ported","js":["js/dothrow.js:breakmsg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C impossible debug-log for odd non-wand skipped; fallthrough behavior ported"}
-{"fn":"throw_gold","c":"2656-2731","status":"partial","js":["js/dothrow.js:throw_gold"],"omit":"unsplitobj merge-back for stack-split gold thrown at self (:2665-2667)","d":["D-1302"],"at":"2026-10-03@bbe63333a"}
+{"fn":"throw_gold","c":"2656-2731","status":"ported","js":["js/dothrow.js:throw_gold"],"d":["D-3408","D-1302"],"at":"2026-10-04@c075fb861"}

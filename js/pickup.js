@@ -126,7 +126,7 @@ import { touch_artifact, youmonst } from './artifact.js';
 import { exercise, A_WIS } from './attrib.js';
 import { inv_cnt, remove_worn_item } from './steal.js';
 import { trycall, Monnam, christen_monst, oname, rndmonnam, Amonnam, a_monnam, x_monnam, mon_nam, s_suffix, hliquid } from './do_name.js';
-import { makemon, set_malign } from './makemon.js';
+import { makemon, makemon_appear_msg, set_malign } from './makemon.js';
 import { courtmon } from './mklev.js';
 import { fix_ghostly_obj } from './bones.js';
 import { more_experienced, newexplevel } from './exper.js';
@@ -4696,6 +4696,8 @@ async function reverse_loot() {
             }
         } else if ((lev?.looted | 0) !== T_LOOTED
             && (mon = makemon(courtmon(), x, y, NO_MM_FLAGS))) {
+            // C: the appear Norep is inside makemon (:1476–1500).
+            await makemon_appear_msg(mon, mon.mx | 0, mon.my | 0, NO_MM_FLAGS);
             // C `:2421–2428` — exchequer accepts the contribution
             freeinv(goldob);
             add_to_minv(mon, goldob);
