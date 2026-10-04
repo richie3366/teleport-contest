@@ -1059,7 +1059,8 @@ export async function describe_decor() {
     const doorhere = !!(dfeature && (dfeature === 'open door'
         || dfeature === 'doorway'));
     const waterhere = !!(dfeature && dfeature === 'pool of water');
-    if (doorhere || u.Underwater
+    // C `:384` — doorhere || Underwater (≡ u.uinwater, youprop.h:279).
+    if (doorhere || (u.uinwater | 0)
         || (ltyp === ICE && IS_POOL(iflags.prev_decor))) {
         dfeature = null;
     }
@@ -1083,7 +1084,7 @@ export async function describe_decor() {
         } else {
             await pline(outbuf);
         }
-    } else if (!u.Underwater) {
+    } else if (!(u.uinwater | 0)) { // C `:411` — !Underwater
         if (IS_POOL(iflags.prev_decor)
             || IS_LAVA(iflags.prev_decor)
             || iflags.prev_decor === ICE) {
@@ -1962,7 +1963,7 @@ export async function pickup(what) {
              * is_lava, D-1077/D-1090), not the IS_POOL/IS_LAVA macro range:
              * MOAT/WATER/is_moat count as pool, DRAWBRIDGE_UP only over
              * moat (pool) or lava. */
-            const poolish = is_pool(u.ux, u.uy) && !u.Underwater;
+            const poolish = is_pool(u.ux, u.uy) && !(u.uinwater | 0);
             const lavaish = is_lava(u.ux, u.uy);
             if (game.context?.nopick || !objects_at(u.ux, u.uy)
                 || poolish || lavaish) {

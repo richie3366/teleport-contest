@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-04
 
+- [x] `u.Underwater` never-written alias family (2348.1's deferred brief) — C `Underwater` ≡ `u.uinwater` (youprop.h:279) but 12 read sites test `u.Underwater`, which zero code port-wide ever writes: js/hack.js:2320 swim_move_danger entry guard + js/monmove.js:1017,1452 + js/mondata.js:1090 + js/read.js:436 + js/pager.js:1410,2099,2146 + js/pickup.js:1062,1086,1965 + js/apply.js:819 — fix: flip each to `(u.uinwater|0)` (D-3400 idiom) after verifying its C locus says Underwater + verify incl. full (shared files). Source: reviews/loop-unattended/2358-198b7a2a7-batch-d3404-hack-sfbase.md
+
+
 - [x] `switch_symbols` ledger reconciliation (D-3405 shipped it live with no row touch) — row still `by-design` "seed: no scored analogue (file)" but display.js exports it, wired in both cnf handlers (C cfgfiles.c:1194/:1205): `ledger.mjs set switch_symbols partial --js js/display.js:switch_symbols` + omit map (FALSE-arm options.c callers unported; clear_symsetentry desc/purge/glyphmap + restriction-bits tail; graphics-mode callbacks null) + verify. Source: reviews/loop-unattended/2359-44ce1ba38-batch-d3405-eat-engrave.md
 
 

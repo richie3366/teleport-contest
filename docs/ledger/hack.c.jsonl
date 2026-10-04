@@ -32,7 +32,7 @@
 {"fn":"u_locomotion","c":"1817-1829","status":"ported","js":["js/hack.js:u_locomotion"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"u_simple_floortyp","c":"1833-1848","status":"ported","js":["js/hack.js:u_simple_floortyp"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"handle_tip","c":"1852-1881","status":"ported","js":["js/hack.js:handle_tip"],"d":["D-2386"],"at":"2026-10-03@bbe63333a"}
-{"fn":"swim_move_danger","c":"1885-1921","status":"ported","js":["js/hack.js:swim_move_danger"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
+{"fn":"swim_move_danger","c":"1885-1921","status":"ported","js":["js/hack.js:swim_move_danger"],"d":["D-3414","D-3404"],"at":"2026-10-04@3b3655fac"}
 {"fn":"domove_bump_mon","c":"1925-1948","status":"ported","js":["js/cmd.js:domove_bump_mon"],"d":["D-2170"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domove_attackmon_at","c":"1955-1992","status":"ported","js":["js/cmd.js:domove_attackmon_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domove_fight_ironbars","c":"1996-2017","status":"ported","js":["js/hack.js:domove_fight_ironbars"],"at":"2026-10-03@bbe63333a"}

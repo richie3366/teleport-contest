@@ -6,7 +6,7 @@
 {"fn":"rider_corpse_revival","c":"303-313","status":"ported","js":["js/pickup.js:rider_corpse_revival"],"at":"2026-10-03@bbe63333a"}
 {"fn":"force_decor","c":"317-334","status":"ported","js":["js/pickup.js:force_decor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"deferred_decor","c":"337-348","status":"ported","js":["js/pickup.js:deferred_decor"],"at":"2026-10-03@bbe63333a"}
-{"fn":"describe_decor","c":"353-426","status":"ported","js":["js/pickup.js:describe_decor"],"d":["D-1835"],"at":"2026-10-03@bbe63333a"}
+{"fn":"describe_decor","c":"353-426","status":"ported","js":["js/pickup.js:describe_decor"],"d":["D-3414","D-1835"],"at":"2026-10-04@3b3655fac"}
 {"fn":"check_here","c":"430-456","status":"ported","js":["js/pickup.js:check_here"],"at":"2026-10-03@bbe63333a"}
 {"fn":"n_or_more","c":"460-465","status":"ported","js":["js/pickup.js:n_or_more"],"d":["D-3406","D-3135"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"menu_class_present","c":"469-472","status":"ported","js":["js/pickup.js:menu_class_present"],"at":"2026-10-03@bbe63333a"}

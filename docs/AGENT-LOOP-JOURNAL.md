@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-04 — D-3414 Must-fix review 2358: u.Underwater never-written alias family → live u.uinwater (12 sites)
+
+**C locus:** - `swim_move_danger`: hack.c:1890 — `Underwater && (is_pool || IS_WATERWALL)` entry guard.
+**JS:** js/hack.js:2321, js/monmove.js:1019/:1455, js/mondata.js:1091, js/read.js:437, js/pager.js:1410/:2100/:2147, js/pickup.js:1063/:1087/:1966, js/apply.js:820 (7 files, expression flips + one-line C cites); scripts/underwater-alias.test.mjs (new).
+**Change:** flipped each site to `(u.uinwater | 0)` (D-3400 idiom) with a C-line cite after verifying its C locus says Underwater — all 12 do (loci above). No signature or call-graph change; `| 0` keeps the `{}`-default safe. `pickup` + `m_canseeu` stay out of the Ledger bullet: a split re-tag would wipe the row's select_menu omit (finish writes omit '' for split) and the vision.h macro is untracked by the ledger ("not a pinned-C function") — both documented here instead.
+**Verify:** `node scripts/verify.mjs --fn swim_move_danger,set_apparxy,hideunder,litroom,do_screen_description,lookat,describe_decor,pickup,use_mirror,m_canseeu` → PASS syntax (7 changed js files); PASS rule2; hidden: 9 notes (no corpus session blocked — normal; row cited none) + do_screen_description 1 unchanged / 0 worse (scen-descend-Caveman-94327 step 43, pre-existing travel-path-suffix block, disjoint from the submerged gate, identical at baseline); REACH-OK ×10 (set_apparxy 70-session reach 70/70; rest 24-smoke 24/24, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; PASS full 44/44 (auto: shared files changed); VERIFY: FAIL on hidden no-movement only (the pre-existing unrelated block above). Focused: `node --test scripts/underwater-alias.test.mjs` 4/4 pass (2 failed pre-fix).
+**Named:** - `swim_move_danger`, `set_apparxy`, `hideunder`, `m_canseeu`, `litroom`, `do_screen_description`, `lookat`, `describe_decor`, `pickup`, `use_mirror`: none — each touched gate now reads the live field; no other arm changed.
+**Next:** next Must-fix (D-3404 pasted-omit ledger corruption, review 2358 item 2); remainder of the alias family (`game.u?.Underwater` reads in dothrow/mthrowu/zap/music/do/steed/makemon/sounds/mon/invent/dbridge/display, `Underwater_hero`, sit/lock locals) for a follow-up row.
 ## 2026-10-04 — D-3413 Must-fix review 2359: switch_symbols ledger reconciliation (by-design → partial)
 
 **C locus:** row home only (body verified exact by review 2359; callers re-verified here): symbols.c `switch_symbols` :253–292 (TRUE :257–260 showsyms loop + :261–287 graphics-mode callbacks; FALSE :288–291 `init_primary_symbols` :167–183 + `init_showsyms` :95–109); `clear_symsetentry` :319–349.

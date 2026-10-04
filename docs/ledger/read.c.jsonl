@@ -50,7 +50,7 @@
 {"fn":"drop_boulder_on_monster","c":"2341-2410","status":"ported","js":["js/muse.js:drop_boulder_on_monster"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: fuller copy at js/read.js:1709 has the arm"}
 {"fn":"wand_explode","c":"2414-2457","status":"ported","js":["js/read.js:wand_explode"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/read.js:811"}
 {"fn":"set_lit","c":"2471-2488","status":"ported","js":["js/read.js:set_lit"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: hates_light is C-exact gremlin check"}
-{"fn":"litroom","c":"2491-2635","status":"ported","js":["js/read.js:litroom"],"d":["D-2263"],"at":"2026-10-03@bbe63333a"}
+{"fn":"litroom","c":"2491-2635","status":"ported","js":["js/read.js:litroom"],"d":["D-3414","D-2263"],"at":"2026-10-04@3b3655fac"}
 {"fn":"do_class_genocide","c":"2638-2820","status":"ported","js":["js/read.js:do_class_genocide"],"d":["D-3407","D-2150"],"at":"2026-10-04@e3dc5ab18"}
 {"fn":"do_genocide","c":"2826-3016","status":"ported","js":["js/read.js:do_genocide"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18"}
 {"fn":"punish","c":"3019-3062","status":"ported","js":["js/read.js:punish"],"at":"2026-10-03@bbe63333a"}

@@ -43,7 +43,7 @@
 {"fn":"dissolve_bars","c":"2170-2178","status":"ported","js":["js/hack.js:dissolve_bars"],"at":"2026-10-03@bbe63333a"}
 {"fn":"closed_door","c":"2181-2185","status":"ported","js":["js/dokick.js:closed_door"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: complete; twin copies in monmove/mon/hack.js"}
 {"fn":"accessible","c":"2188-2194","status":"partial","js":["js/teleport.js:accessible"],"omit":"uses loc.typ not SURFACE_AT(x,y): drawbridge under-terrain :2191; complete twin at js/monmove.js:accessible","at":"2026-10-03@bbe63333a"}
-{"fn":"set_apparxy","c":"2198-2266","status":"ported","js":["js/monmove.js:set_apparxy"],"d":["D-3320","D-1999"],"at":"2026-10-02@d0ba4ea2a"}
+{"fn":"set_apparxy","c":"2198-2266","status":"ported","js":["js/monmove.js:set_apparxy"],"d":["D-3414","D-3320","D-1999"],"at":"2026-10-04@3b3655fac"}
 {"fn":"undesirable_disp","c":"2277-2312","status":"ported","js":["js/monmove.js:undesirable_disp"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"stuff_prevents_passage","c":"2319-2353","status":"ported","js":["js/monmove.js:stuff_prevents_passage"],"d":["D-2933"],"at":"seed@a30a7de84"}
 {"fn":"can_ooze","c":"2356-2361","status":"ported","js":["js/monmove.js:can_ooze"],"at":"2026-10-03@bbe63333a"}

@@ -19,7 +19,7 @@
 {"fn":"next_to_u","c":"919-928","status":"ported","js":["js/apply.js:next_to_u"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inlined get_iter_mons skips dead but not offmap; migrating mons leave fmon and no call site runs mid-migration"}
 {"fn":"check_leash","c":"931-992","status":"ported","js":["js/apply.js:check_leash"],"at":"2026-10-03@bbe63333a"}
 {"fn":"beautiful","c":"997-1013","status":"ported","js":["js/apply.js:beautiful"],"at":"2026-10-03@bbe63333a"}
-{"fn":"use_mirror","c":"1018-1199","status":"ported","js":["js/apply.js:use_mirror"],"d":["D-3263"],"at":"2026-10-02@6ea16ae6e"}
+{"fn":"use_mirror","c":"1018-1199","status":"ported","js":["js/apply.js:use_mirror"],"d":["D-3414","D-3263"],"at":"2026-10-04@3b3655fac"}
 {"fn":"use_bell","c":"1202-1316","status":"ported","js":["js/apply.js:use_bell"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"use_candelabrum","c":"1319-1384","status":"ported","js":["js/apply.js:use_candelabrum"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"use_candle","c":"1387-1468","status":"ported","js":["js/apply.js:use_candle"],"at":"seed@a30a7de84","note":"stale (grouped)"}

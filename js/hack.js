@@ -2317,7 +2317,8 @@ export async function swim_move_danger(x, y) {
     const liquidWall = IS_WATERWALL(newtyp) || newtyp === LAVAWALL;
     const loc = game.level?.at(x, y);
 
-    if (u.Underwater && (is_pool(x, y) || IS_WATERWALL(newtyp))) return false;
+    // C `:1890` — Underwater ≡ u.uinwater (youprop.h:279).
+    if ((u.uinwater | 0) && (is_pool(x, y) || IS_WATERWALL(newtyp))) return false;
 
     if (newtyp !== u_simple_floortyp(u.ux, u.uy)
         && !u.Stunned && !u.Confusion && loc?.seenv

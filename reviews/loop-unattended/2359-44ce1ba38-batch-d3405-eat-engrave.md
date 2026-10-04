@@ -176,6 +176,6 @@ already-ported fns (use_candle: row ported/seeded, untouched by diff ✓).
    now false on both counts. Fix (one iter): row → partial with omit
    map (FALSE-arm options.c callers unported; clear_symsetentry
    desc/purge/glyphmap + restriction-bits tail; graphics-mode callbacks
-   null in contest tty), js ref + D-tag. **Addressed:** D-3413
+   null in contest tty), js ref + D-tag. **Addressed:** D-3413 `3b3655fac`
 
 Verdict: **QUALITY-RISK**

@@ -816,7 +816,8 @@ async function use_mirror(obj) {
         }
         return ECMD_TIME;
     }
-    if (u.Underwater) {
+    // C `:1083` — Underwater mirror arm (≡ u.uinwater, youprop.h:279).
+    if ((u.uinwater | 0) !== 0) {
         if (useeit) {
             await pline(u.Hallucination
                 ? 'You give the fish a chance to fix their makeup.'

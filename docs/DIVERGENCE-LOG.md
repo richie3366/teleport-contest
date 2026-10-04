@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-3414 — Must-fix review 2358: u.Underwater never-written alias family → live u.uinwater (12 sites)
+- **Status:** shipped.
+- **Symptom:** review 2358 C-wrong 1 (pre-existing, 2348.1's deferred brief): C `Underwater` ≡ `u.uinwater` (youprop.h:279) but 12 read sites tested `u.Underwater`, which zero code port-wide ever writes — every such gate was dead-false: swim pool-danger arms ran where C returns FALSE, set_apparxy never displaced, m_canseeu never failed on water, litroom no_op missed, look/describe/pickup/mirror water arms dead.
+- **C locus:**
+  - `swim_move_danger`: hack.c:1890 — `Underwater && (is_pool || IS_WATERWALL)` entry guard.
+  - `set_apparxy`: monmove.c:2220 — `if (Underwater) displ = 1`.
+  - `hideunder`: mon.c:4746–4747 — eel `undetected` `(!Underwater || !couldsee)`.
+  - `m_canseeu`: vision.h:50–53 — `(!Invis || perceives) && !Underwater && couldsee`.
+  - `litroom`: read.c:2498 — `no_op = uswallow || Underwater || waterlevel`.
+  - `do_screen_description`: pager.c:1260 — `submerged = Underwater && !waterlevel`.
+  - `lookat`: pager.c:731 + :783 — unexplored/stone `Underwater && !waterlevel` arms.
+  - `describe_decor`: pickup.c:384 + :411 — `doorhere || Underwater` / `!Underwater`.
+  - `pickup`: pickup.c:703 — `is_pool && !Underwater` autopickup gate.
+  - `use_mirror`: apply.c:1083 — `if (Underwater)` murky-water arm.
+- **JS was:** 12 × `u.Underwater` reads (hack.js:2320, monmove.js:1017/:1452, mondata.js:1090, read.js:436, pager.js:1410/:2099/:2146, pickup.js:1062/:1086/:1965, apply.js:819), all dead — no `Underwater =` / `Underwater:` / bracket write in js/ (re-verified this iteration).
+- **Fix:** flipped each site to `(u.uinwater | 0)` (D-3400 idiom) with a C-line cite after verifying its C locus says Underwater — all 12 do (loci above). No signature or call-graph change; `| 0` keeps the `{}`-default safe. `pickup` + `m_canseeu` stay out of the Ledger bullet: a split re-tag would wipe the row's select_menu omit (finish writes omit '' for split) and the vision.h macro is untracked by the ledger ("not a pinned-C function") — both documented here instead. New scripts/underwater-alias.test.mjs (feel-location idiom, 4 subtests on m_canseeu: live fires / dead alias ignored / neither+viz / neither−viz): pre-fix 2 fail, post-fix 4/4 pass.
+- **JS:** js/hack.js:2321, js/monmove.js:1019/:1455, js/mondata.js:1091, js/read.js:437, js/pager.js:1410/:2100/:2147, js/pickup.js:1063/:1087/:1966, js/apply.js:820 (7 files, expression flips + one-line C cites); scripts/underwater-alias.test.mjs (new).
+- **Callers:**
+  - `swim_move_danger`: js/hack.js:2321 entry guard now live (callers unchanged).
+  - `set_apparxy`: js/monmove.js:1019 displ gate now live.
+  - `hideunder`: js/monmove.js:1455 eel `(!Underwater || !couldsee)` now live.
+  - `m_canseeu`: js/mondata.js:1091 `!Underwater` gate now live.
+  - `litroom`: js/read.js:437 no_op gate now live.
+  - `do_screen_description`: js/pager.js:1410 submerged gate now live.
+  - `lookat`: js/pager.js:2100/:2147 water arms now live.
+  - `describe_decor`: js/pickup.js:1063/:1087 gates now live.
+  - `pickup`: js/pickup.js:1966 poolish gate now live.
+  - `use_mirror`: js/apply.js:820 murky-water arm now live.
+- **Verify:** `node scripts/verify.mjs --fn swim_move_danger,set_apparxy,hideunder,litroom,do_screen_description,lookat,describe_decor,pickup,use_mirror,m_canseeu` → PASS syntax (7 changed js files); PASS rule2; hidden: 9 notes (no corpus session blocked — normal; row cited none) + do_screen_description 1 unchanged / 0 worse (scen-descend-Caveman-94327 step 43, pre-existing travel-path-suffix block, disjoint from the submerged gate, identical at baseline); REACH-OK ×10 (set_apparxy 70-session reach 70/70; rest 24-smoke 24/24, 0 regressed); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; PASS full 44/44 (auto: shared files changed); VERIFY: FAIL on hidden no-movement only (the pre-existing unrelated block above). Focused: `node --test scripts/underwater-alias.test.mjs` 4/4 pass (2 failed pre-fix).
+- **Named omissions:**
+  - `swim_move_danger`, `set_apparxy`, `hideunder`, `m_canseeu`, `litroom`, `do_screen_description`, `lookat`, `describe_decor`, `pickup`, `use_mirror`: none — each touched gate now reads the live field; no other arm changed.
+- **Ledger:** swim_move_danger ported; set_apparxy ported; hideunder ported; litroom ported; do_screen_description ported; lookat ported; describe_decor ported; use_mirror ported
+- **Left open:** none.
+- **Next:** next Must-fix (D-3404 pasted-omit ledger corruption, review 2358 item 2); remainder of the alias family (`game.u?.Underwater` reads in dothrow/mthrowu/zap/music/do/steed/makemon/sounds/mon/invent/dbridge/display, `Underwater_hero`, sit/lock locals) for a follow-up row.
+
 ## D-3413 — Must-fix review 2359: switch_symbols ledger reconciliation (by-design → partial)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2359 QUALITY-RISK C-wrong 2: D-3405 shipped `switch_symbols` live (js/display.js:3256 export, wired in both cnf handlers, cfgfiles.c:1194/:1205) with no ledger touch — row still `by-design` "seed: no scored analogue (file)", now false on both counts.
