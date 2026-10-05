@@ -22787,12 +22787,20 @@ export function get_table_xy_or_coord(o) {
 }
 
 /**
- * C ref: sp_lev.c get_table_objclass — 1-char "class" else -1.
+ * C ref: sp_lev.c get_table_objclass :3455–3464 and get_table_monclass
+ * :3131–3140 (identical bodies, same "class" field + NULL default) —
+ * 1-char "class" else -1.
  */
 function get_table_objclass_field(o) {
-    const s = o.class;
-    if (s == null) return -1;
-    if (typeof s === 'string' && s.length === 1) return s.charCodeAt(0);
+    // C :3457/:3133 get_table_str_opt(L, "class", NULL): nil → NULL,
+    // string kept, function pcalled + optstring conversion, direct
+    // non-string throws like nhl_error. o is a non-null object at both
+    // callers (spreads at the table gates), so lua_field(o,'class') is
+    // o.class and the nil/string/function/else classifications are
+    // identical to C's.
+    const s = get_table_str_opt(o, 'class', null);
+    // C :3460/:3136 — strlen(s)==1 keeps the char, anything else is -1.
+    if (s != null && s.length === 1) return s.charCodeAt(0);
     return -1;
 }
 

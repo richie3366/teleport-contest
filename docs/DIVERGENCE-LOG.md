@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3476 — Open head: impossible audit + objclass/monclass class→get_table_str_opt rewire (sp_lev.c:3457/:3133 raw-field gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4364 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3467/D-3469/D-3471/D-3473 precedent). Batch picker finds no gap (`batch`: no gap left — remaining open/partial/recheck is audited-whole or excluded tty/files/save); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: the shared get_table_objclass_field raw-read its "class" field where C get_table_str_opt pcalls functions and throws on direct non-strings (D-3473 omit named :3457/:3133 "inline adapters with inherited gaps").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `get_table_str_opt@class`: sp_lev.c:3457 field read (NULL default) inside get_table_objclass :3455–3464 + sp_lev.c:3133 inside get_table_monclass :3131–3140 (identical bodies), via nhlua.c:1055–1076 (string/nil optstring, function pcall + lua_number2str, nhl_error throw, dupstr/NULL return). Downstream: strlen==1 gate :3460/:3136. Wrapper callers: :3542 (get_table_objtype oclass), :3653 (lspo_object class), :3358 (lspo_monster class); nhlobj.c:366 (obj.new wish path, no JS analogue).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `mklev.js:22792` get_table_objclass_field raw `o.class` read (function values and direct numbers/booleans/tables silently fell to -1 — C pcalls functions and nhl_errors direct non-strings).
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Adapter restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change): `const s = get_table_str_opt(o, 'class', null)` (C :3457/:3133) then C's strlen==1 gate (multi-char/empty → -1 preserved); lua_field/lua_type equivalences verified (both callers pass non-null spreads — :23002/:23289 — so `lua_field` is `o.class`; nil/string/function/else classifications identical); behavior delta is exactly the C conversion (nil→-1 and strings through the 1-char gate unchanged; functions pcalled with optstring conversion; direct non-strings throw like nhl_error instead of silently returning -1). Single-read structure stands (C reads class twice at :3542/:3653 with id first; JS reads once for both uses — unobservable for data tables, no Lua function fields in scored paths). New scripts/lspo-objclass-field.test.mjs (helper conversion + wiring asserts).
+- **JS:** js/mklev.js (:22792–22804 adapter restart, raw read deleted). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_str_opt@class`: C sp_lev.c:3457 + :3133 → js/mklev.js:22792 (shared adapter); wrapper users :3542/:3653/:3358 → :22971/:22976/:23231 (positions unchanged); nhlobj.c:366 obj.new — no JS analogue (wish path out of scope).
+- **Verify:** `verify.mjs --fn impossible,get_table_str_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-objclass-field 6/6 (wiring assert authenticates the change on the HEAD file: helper call + strlen gate present, raw read gone); VERIFY: PASS.
+- **Named omissions:**
+  - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+  - `get_table_str_opt`: body whole (zero-arg JS callback stands in for by-design nhl_pcall_handle; integral JS values represent Lua integers); 12 direct C callers not rewired to the shared helper: dungeon.c:1008,1009,1016,1017; nhlua.c:1412; questpgr.c:524,543,549; sp_lev.c:3169,3541,3637,3673 (3133+3457 wired D-3476; 3295 wired D-3471; 3326 wired D-3473; 4262 wired D-3467; 4352 wired D-3469; remaining sites keep inline adapters with inherited gaps).
+- **Ledger:** impossible audited; get_table_str_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). Bundled: none (no bare `**Addressed:**` hashes in reviews/ or LOOP-QUEUE-DONE.md).
+
 ## D-3475 — Must-fix: files.c do_deferred_showpaths 1-row ledger repair (D-3117 Named had no row home — restore)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: do_deferred_showpaths row `partial` carried NO omit text and no audit note (D-3117 only), so the D-3117 Named remainder (reveal_paths + 3 by-design cleanups) had no row home. The queue row guessed restore-narrowed naming reveal_paths + by-design tails; re-verification: RESTORE (D-3117 Named text re-verified sub-claim by sub-claim — reveal_paths still has no scored port, and the row is its only home).
