@@ -2399,3 +2399,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2387-1dd2365ef-zap-engrave-worn-switches.md](./2387-1dd2365ef-zap-engrave-worn-switches.md) | `1dd2365ef` | D-3449 zap/engrave resists + bypass/which_armor switches | **ACCEPT** |
 | [2388-261838d2e-impossible-which-armor-x4.md](./2388-261838d2e-impossible-which-armor-x4.md) | `261838d2e` | D-3451 impossible audit + which_armor ×4 | **ACCEPT** |
 | [2389-c107c3e18-wincap2-moveloop-audits.md](./2389-c107c3e18-wincap2-moveloop-audits.md) | `c107c3e18` | D-3453 TTY_WINCAP2 + moveloop + strncmpi/Strlen_ audits | **ACCEPT** |
+| [2390-f482d6954-wincap2-wire-audits.md](./2390-f482d6954-wincap2-wire-audits.md) | `f482d6954` | D-3455 wincap2 wire + newgame/record/genl audits (newgame pauper arm) | **QUALITY-RISK** |
+| [2391-c0717c51e-batch-in-mklev-opt-phase.md](./2391-c0717c51e-batch-in-mklev-opt-phase.md) | `c0717c51e` | D-3457 savebones/doset_simple fixes + bc retire + 5 audits | **ACCEPT** |
+| [2392-e947eb150-regen-hp-rehumanize.md](./2392-e947eb150-regen-hp-rehumanize.md) | `e947eb150` | D-3459 regen_hp rehumanize arm → ported | **ACCEPT** |
+| [2393-8a3621ea4-exercise-migrate-dodown.md](./2393-8a3621ea4-exercise-migrate-dodown.md) | `8a3621ea4` | D-3461 exercise/migrate wires + dodown/doup/impossible audits | **ACCEPT** |

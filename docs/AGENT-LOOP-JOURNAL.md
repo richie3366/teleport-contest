@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — audit 2390–2393 @d7a589080: review D-3455/D-3457/D-3459/D-3461 (3A/0D/1Q, 1 Must-fix) + full rescore 741/953
+
+**Reviews:** 2390 f482d6954 D-3455 QUALITY-RISK (newgame `audited` omits the shippable :832 pauper_legacy dispatch — Must-fix queued); 2391 c0717c51e D-3457 ACCEPT (8 fns, savebones/doset_simple fixes + bc retire + 5 audits all branch-confirmed); 2392 e947eb150 D-3459 ACCEPT (regen_hp whole, 365/365 reach-all); 2393 8a3621ea4 D-3461 ACCEPT (exercise/migrate floats RNG-safe + disclosed; dodown/doup/impossible whole; debugpline "compiled out" slogan corrected to runtime-dead).
+**Fortress:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `337+1.69/turn`); corpus 741/953 (0 losses, 0 gains; `full: true`); held-out 16/44 unchanged (judge 07:36Z).
+**Next:** Must-fix newgame pauper_legacy dispatch (review 2390) heads the queue.
+
 ## 2026-10-05 — D-3462 Must-fix: options.c free_autopickup_exceptions 1-row ledger repair (optfn_o_bind_keys paste retired, caller by-design)
 
 **C locus:** row home only (no C re-read; body brief-read this iter): options.c `free_autopickup_exceptions` :9372–9382 (while-head loop, pattern free, regex_free, head advance, node free; sole C caller save.c:1155 freedynamicdata).

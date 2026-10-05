@@ -1,9 +1,9 @@
 {
- "commit": "8a3621ea4",
- "at": "2026-10-05T12:32:13.738Z",
- "full": false,
- "fullCommit": "c107c3e18",
- "fullAt": "2026-10-05T10:35:21.767Z",
+ "commit": "d7a589080",
+ "at": "2026-10-05T13:08:32.392Z",
+ "full": true,
+ "fullCommit": "d7a589080",
+ "fullAt": "2026-10-05T13:08:32.392Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -10746,7 +10746,7 @@
    "steps": 313,
    "owner": "peffect_polymorph",
    "loc": "potion.c:1327",
-   "jsOwner": "exercise(attrib.js:228)",
+   "jsOwner": "exercise(attrib.js:235)",
    "cTopline": "Use the command #sit to lay an egg.",
    "jsTopline": "Use the command #sit to lay an egg.",
    "error": null
@@ -11681,7 +11681,7 @@
    "steps": 204,
    "owner": "dochug",
    "loc": "monmove.c:745",
-   "jsOwner": "exercise(attrib.js:230)",
+   "jsOwner": "exercise(attrib.js:237)",
    "cTopline": "You can't lead your red dragon through that closed door.",
    "jsTopline": "Ouch! You bump into a door.",
    "error": null
@@ -13194,7 +13194,7 @@
    "steps": 167,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "goodpos(teleport.js:467)",
+   "jsOwner": "goodpos(teleport.js:469)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null
@@ -13347,7 +13347,7 @@
    "steps": 87,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:230)",
+   "jsOwner": "exercise(attrib.js:237)",
    "cTopline": "some gold pieces",
    "jsTopline": "a eucalyptus leaf",
    "error": null
@@ -13398,7 +13398,7 @@
    "steps": 253,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "exercise(attrib.js:230)",
+   "jsOwner": "exercise(attrib.js:237)",
    "cTopline": "some gold pieces",
    "jsTopline": "7 candles",
    "error": null
