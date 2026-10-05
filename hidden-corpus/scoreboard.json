@@ -1,9 +1,9 @@
 {
- "commit": "3483b7469",
- "at": "2026-10-05T07:58:52.270Z",
- "full": false,
- "fullCommit": "b03a3b270",
- "fullAt": "2026-10-05T05:36:03.121Z",
+ "commit": "17ca45766",
+ "at": "2026-10-05T08:26:57.489Z",
+ "full": true,
+ "fullCommit": "17ca45766",
+ "fullAt": "2026-10-05T08:26:57.489Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -5935,7 +5935,7 @@
    "steps": 253,
    "owner": "distfleeck",
    "loc": "monmove.c:564",
-   "jsOwner": "mattacku(mhitu.js:4216)",
+   "jsOwner": "mattacku(mhitu.js:4202)",
    "cTopline": "The gnome lord turns to flee. The saddled pony misses the gnome lord.--More--",
    "jsTopline": "The gnome lord hits! You stop searching.",
    "error": null
@@ -13279,7 +13279,7 @@
    "steps": 137,
    "owner": "summonmu",
    "loc": "mhitu.c:968",
-   "jsOwner": "summonmu(mhitu.js:3378)",
+   "jsOwner": "summonmu(mhitu.js:3358)",
    "cTopline": "The marilith hits! The marilith hits again! The marilith hits!--More--",
    "jsTopline": "The marilith hits! The marilith hits again! The marilith hits!--More--",
    "error": null
@@ -13330,7 +13330,7 @@
    "steps": 112,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4958)",
    "cTopline": "a dart (no travel path)",
    "jsTopline": "a brilliant blue potion",
    "error": null
@@ -13364,7 +13364,7 @@
    "steps": 295,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4958)",
    "cTopline": "a pair of leather gloves",
    "jsTopline": "2 candles",
    "error": null
@@ -13432,7 +13432,7 @@
    "steps": 180,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4958)",
    "cTopline": "some gold pieces",
    "jsTopline": "an oak wand (no travel path)",
    "error": null
@@ -13466,7 +13466,7 @@
    "steps": 265,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "do_attack(uhitm.js:4948)",
+   "jsOwner": "do_attack(uhitm.js:4958)",
    "cTopline": "a whistle",
    "jsTopline": "a food ration",
    "error": null

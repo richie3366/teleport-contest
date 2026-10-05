@@ -2390,3 +2390,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2378-5e7cd2e00-batch-d3433.md](./2378-5e7cd2e00-batch-d3433.md) | `5e7cd2e00` | D-3433 batch (2 fns) — multi-replay + getpos bindings | **ACCEPT-WITH-DEBT** |
 | [2379-c62203c66-batch-d3434.md](./2379-c62203c66-batch-d3434.md) | `c62203c66` | D-3434 batch (2 fns) — mv-replay + cmdq hoist, getpos paste | **QUALITY-RISK** |
 | [2380-b03a3b270-moveloop-core-ported.md](./2380-b03a3b270-moveloop-core-ported.md) | `b03a3b270` | D-3435 moveloop_core MAP-redisplay + ported flip | **ACCEPT** |
+| [2381-12c181c41-litter-setnotworn-shieldeff.md](./2381-12c181c41-litter-setnotworn-shieldeff.md) | `12c181c41` | D-3437 litter live setnotworn + chest_trap shieldeff + 7 audits | **ACCEPT** |
+| [2382-e8a52e4a1-four-arm-fixes.md](./2382-e8a52e4a1-four-arm-fixes.md) | `e8a52e4a1` | D-3439 doopen_indir + toss_up + dokick + more (4 arms, triage verified) | **ACCEPT** |
+| [2383-a2d03b360-use-camera-carry-docorner-pie.md](./2383-a2d03b360-use-camera-carry-docorner-pie.md) | `a2d03b360` | D-3441 use_camera + carry_count + docorner + use_cream_pie (4 arms) | **ACCEPT** |
+| [2384-3483b7469-four-fn-open-head.md](./2384-3483b7469-four-fn-open-head.md) | `3483b7469` | D-3443 mhitm_ad_blnd + disclose + mattackm + mimic (paste covered) | **ACCEPT-WITH-DEBT** |

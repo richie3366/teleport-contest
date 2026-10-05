@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — audit 2381–2384 @17ca45766: review D-3437/D-3439/D-3441/D-3443 (3A/1D, 0 Must-fix) + full rescore 741/953
+
+**Scope:** 4 js-touching SHAs since 2380 (5 ledger-only iters skipped per method). 2381 D-3437 litter→live setnotworn + chest_trap shieldeff ACCEPT (C ball.c:964–983/worn.c:149–184/trap.c:6443–6457 verified; 3/7 audited sampled incl. pick_nasty + Helmet_on staticfn; litter 23/24 flake not reproduced). 2382 D-3439 4 arms ACCEPT (toss_up NO-MOVEMENT triage proved from the recipe: no `t` key in 286 moves, arm cannot execute). 2383 D-3441 4 arms ACCEPT (docorner paging gate inert — sole caller passes 0, disclosed, C :1523 caller belongs to MISSING process_menu_window). 2384 D-3443 WITH-DEBT: code exact all four (10/10 mattackm call sites stamp bhitpos incl. 2 monmove sites the D-log undercounted; all 5 NO-MOVEMENT triages verified: disclose identical toplines, mattackm = named R1 last_hider arm verbatim, mimic = makemon :1486–1499 appear locus) but mattackm ledger row carries mhitm_ad_blnd's Named paste — repair already queued (Must-fix #3, restore text verified GO), not re-queued per 2377 precedent.
+**Score:** public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `332+1.68/turn` R² 0.787); corpus 741/953, RNG 98.53 %, screens 94.2 %, 0 losses / 0 gains, `full: true` 08:26:57Z; held-out 16/44 (+1, judge 07:36Z post-D-3443), rank 6.
+**Notes:** `ledger.mjs sql` unusable on Node v20.12.2 (no node:sqlite) — 5-row seeded sample done via grep+shuf on `at:seed@` (placebc/learnring/engulfer_explosion_msg/use_bell/encode_extended_achievements, all correct, no `set` needed). `SNAPSHOTS.tsv` appended. mattackm code comment "Unaware absent" stale (Unaware() live) — cosmetic, noted for the repair iter.
+**Next:** Must-fix head (files/bones/hack 8-row repair).
 ## 2026-10-05 — D-3444 Must-fix: opt_usage row restored (lopt paste retired)
 
 **C locus:** row home only (no C re-read; body verified whole by D-3104 + this iter's brief): earlyarg.c `opt_usage` :376–387 (chdir `:378–381`, dlb `:383`, genl `:385`, terminate `:386`).
