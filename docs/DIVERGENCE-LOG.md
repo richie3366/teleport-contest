@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3460 — Must-fix: options.c map_menu_cmd 1-row ledger repair (optfn_o_bind_keys paste retired, no restoration text)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** queue-head Must-fix: map_menu_cmd row `partial` carried optfn_o_bind_keys's `- \`optfn_o_bind_keys\`: none in this body or registered callers.` whole-claim — D-3180 finish first-line stamping (paste created partial+paste from absent in D-3180's own finish commit `94d7337ef`, verified via `git show` by this iter; D-3403 re-certified "remaining omit cannot ship" on the paste).
+- **C locus:** row home only (no C re-read; body brief-read this iter): options.c `map_menu_cmd` :8111–8121 (strchr lookup + mapped_menu_op index; sole C caller wintty.c:1561).
+- **JS was:** row `partial` carrying another fn's none-claim + stale re-cert note; JS body unchanged since D-3180 (NUL-aware indexOf port js/options.js:13192–13203, number/string dual return).
+- **Fix:** retire via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Restore-or-retire re-verified at repair (D-3427 protocol): (a) paste names another fn — optfn_o_bind_keys's Named whole-claim verbatim from the D-3180 entry ("Named: - \`optfn_o_bind_keys\`: none in this body or registered callers. ..."), and that row is ported (D-3180); (b) no restoration text exists — pre-paste row was absent ("refresh: no JS symbol (measured MISSING)", no omit); (c) body still whole — this iter's brief reads all 5 C lines live in C order (strchr+NUL :8113, found-guard :8115, idx+op :8116–8118, return :8120), wired at 3 live JS call sites (js/options.js:9640/:9997 explicit-selector-preserving menu readers, js/invent.js:3234). Deliberately NO `- **Ledger:**` bullet (D-3427/D-3448/D-3450/D-3452/D-3454/D-3456/D-3458 precedent — finish's first-line stamping caused this class).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger row only); JS menu-reader call sites re-verified this iter (js/options.js:9640/:9997, js/invent.js:3234).
+- **Verify:** `node scripts/verify.mjs --fn map_menu_cmd` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; row cited none); REACH-OK (no RNG-tagged reach; smoke 24/24, 11.9s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `map_menu_cmd`: none — whole (D-3180 port; D-3180 paste retired; no pre-paste omit to restore).
+- **Left open:** none.
+- **Next:** next Must-fix (options.c free_autopickup_exceptions 1-row repair). Band refill (ship-time): popping the head dropped the band to 7 < 8, which blocks finish; self-filed +1 Must-fix with quoted evidence (nhlua.c lcheck_param_table 1-row repair: same lspo_teleport_region paste as the queued get_table_str_opt head, flipped by-design→partial+paste in the same D-3175 commit 3f8f47e04 per `git show`, d=D-3175; JS local reads whole js/mklev.js:983–988, C 5 lines — likely retire-stale or restore-by-design, D-3175 Named truth unverified at enqueue; restore-or-retire re-verified at repair) to hold the band (D-3442/D-3444/D-3450/D-3452/D-3454/D-3456/D-3458 precedent; get_table_str_opt row named this sibling "own rows at repair"). No review cited by the popped row — no stamp owed. Bundled: D-3459 archive-row hash `e947eb150` backfilled (no review stamp gaps).
+
 ## D-3459 — Open head: regen_hp Upolyd mh<1 rehumanize arm wired (was empty if-branch)
 - **Status:** shipped.
 - **Symptom:** operator override (supervisor flagged #4345 a failed port; the 3 Must-fix heads are docs-only ledger repairs; Must-fix deferred, still queued; D-3447/D-3449/D-3451/D-3453/D-3455/D-3457 precedent). Real C-vs-JS gap: regen_hp's Upolyd mh<1 arm was an empty if-branch ("rehumanize deferred") while C allmain.c:632–634 calls rehumanize().
