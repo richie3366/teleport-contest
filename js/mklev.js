@@ -2030,8 +2030,9 @@ export function lspo_terrain(a, b, c) {
  * "Erroneous map char"); totyp >= MAX_TYPE returns 0 (C `:5068–5069`).
  * fromterrain defaults INVALID_TYPE, which selects the mapfragment arm
  * (C `:5071–5082`: mapfragment required there, mapfrag_error throws).
- * chance/lit/x1..y2 default 100/NOCHANGE/-1 (C nhlua.c:1029
- * get_table_int_opt ≡ splev_opt_int). All--1 reads the "region" array
+ * chance/lit/x1..y2 default 100/NOCHANGE/-1 (C nhlua.c:1028–1039
+ * get_table_int_opt via the live dungeon.js helper). All--1 reads the
+ * "region" array
  * (C `:5092–5095` get_table_region optional-TRUE ≡
  * get_table_region_unpacked null-keeps--1s); still-all--1 reads the
  * "selection" field (C `:5097–5101`, shape-checked like
@@ -2068,12 +2069,15 @@ export function lspo_replace_terrain(opts) {
         const err = mapfrag_error(mf); // C :5080
         if (err !== null) throw new Error(`lspo_replace_terrain: ${err}`); // C :5081 nhl_error
     }
-    const chance = splev_opt_int(o.chance, 100); // C :5085
-    const tolit = splev_opt_int(o.lit, SET_LIT_NOCHANGE); // C :5086
-    let x1 = splev_opt_int(o.x1, -1); // C :5087-5090
-    let y1 = splev_opt_int(o.y1, -1);
-    let x2 = splev_opt_int(o.x2, -1);
-    let y2 = splev_opt_int(o.y2, -1);
+    // C :5086–5091 get_table_int_opt reads: nil → default, else
+    // checkinteger (fractions and non-numerics throw like C argerror;
+    // o is a non-null object here, so nil ⟺ absent on both sides).
+    const chance = get_table_int_opt(o, 'chance', 100); // C :5086
+    const tolit = get_table_int_opt(o, 'lit', SET_LIT_NOCHANGE); // C :5087
+    let x1 = get_table_int_opt(o, 'x1', -1); // C :5088-5091
+    let y1 = get_table_int_opt(o, 'y1', -1);
+    let x2 = get_table_int_opt(o, 'x2', -1);
+    let y2 = get_table_int_opt(o, 'y2', -1);
     if (x1 === -1 && y1 === -1 && x2 === -1 && y2 === -1) { // C :5092
         const reg = get_table_region_unpacked(o, 'region', true); // C :5093 optional-TRUE
         if (reg) { x1 = reg[0]; y1 = reg[1]; x2 = reg[2]; y2 = reg[3]; }

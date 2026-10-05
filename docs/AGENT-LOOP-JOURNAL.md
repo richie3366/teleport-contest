@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3504 Open head: impossible audit + lspo_replace_terrain 6-field→get_table_int_opt rewire (sp_lev.c:5086–5091 |0-gap)
+
+**C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+**JS:** js/mklev.js (:2075–2080 calls + cites; doc equivalence corrected). 1 changed js file.
+**Change:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Six sites restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change), in place (already C order :5086→:5091); stale per-line cites corrected against pinned C; doc equivalence line corrected to the live helper; lua_field/lua_type equivalences verified (o is `opts ?? {}` + object check, always a non-null object, so lua_field is o[name] and nil ⟺ == null on both sides; defvals 100/-2/-1, `|0` no-op). Behavior delta is exactly the C conversion (integers unchanged incl. negatives; absent stays default; integral floats and numeric strings convert; fractions throw like argerror instead of truncating; direct non-numerics throw instead of 0/1 garbage; beyond-int32 truncates via asIntN(32) like the (int) cast, same as the old `|0`).
+**Verify:** `verify.mjs --fn impossible,get_table_int_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-replace-int + 9 prior int files 61/61; pre-change stash check: new test fails 1/6, passes post-change (6/6); VERIFY: PASS.
+**Named:** - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+**Next:** Must-fix heads stay queued (deferred per override). No review cited by the popped row — no stamp owed. Bundled: LOOP-QUEUE-DONE.md D-3503 hash backfill (`72181a256`).
 ## 2026-10-05 — D-3503 Must-fix: pager.c look_engrs 1-row ledger repair (batch paste fully stale, D-2521 remainder expired)
 
 **C locus:** row home only (body verified whole by D-2521 + the D-3429 audit, re-read this iter via brief): pager.c `look_engrs` :2144–2228 (staticfn); callers :1878 (`e` nearby) / :1881 (`E` level) in `dowhatis`.
