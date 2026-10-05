@@ -721,29 +721,6 @@ export function Flying() {
 }
 
 /**
- * C ref: mondata.c can_blnd — mhitu AD_BLND subset (AT_CLAW raven).
- * Named omissions: cream-pie/venom obj arms; Blindfolded ublindf; visor;
- * raven-vs-raven; resists_blnd light aatyps; mon_perma_blind.
- */
-function can_blnd_u(magr, aatyp) {
-    const you = game.youmonst;
-    if (!haseyes(you?.data)) return false;
-    if (aatyp === AT_CLAW) {
-        // C: ublindf (incl. lenses) protects
-        if (game.u?.ublindf) return false;
-        return true;
-    }
-    if (aatyp === AT_WEAP || aatyp === AT_SPIT || aatyp === AT_NONE) {
-        return false; // needs obj — deferred
-    }
-    // AT_TUCH/STNG: cancelled blocks
-    if ((aatyp === AT_TUCH || aatyp === AT_STNG) && (magr?.mcan | 0)) {
-        return false;
-    }
-    return true;
-}
-
-/**
  * C ref: uhitm.c mhitm_ad_blnd mhitu branch (mdef == youmonst) `:2976–2985`.
  * "%s blinds you!" then make_blinded(BlindedTimeout+damage); damage→0.
  * C `:2982–2983` Eyes of the Overworld: still !Blind after make_blinded →
@@ -752,7 +729,10 @@ function can_blnd_u(magr, aatyp) {
  * (detect/dothrow/eat/engrave/mcastu/mhitu×3). uhitm/mhitm arms in mhitm.js.
  */
 async function mhitm_ad_blnd_u(mtmp, mattk, mhm) {
-    if (can_blnd_u(mtmp, mattk.aatyp | 0)) {
+    // C uhitm.c:2980 — whole live can_blnd (uhitm.js), mdef == youmonst
+    // (file-local can_blnd_u subset deleted: it dropped the light-attack
+    // mcan/resists_blnd, ENGL, CLAW-visor, raven and perma-blind arms).
+    if (can_blnd(mtmp, game.youmonst, mattk.aatyp | 0, null)) {
         if (!Blind()) {
             await pline(`${Monnam(mtmp)} blinds you!`);
         }
@@ -3901,7 +3881,13 @@ export async function mattacku(mtmp) {
             if ((i & M_ATTK_DEF_DIED) !== 0 || !u.usteed || !m_next2u(mtmp)) {
                 return 0;
             }
-            // Steed retaliation — bhitpos/notonhead omitted (no worm steed)
+            // C mhitu.c:545 — stamp bhitpos/notonhead for the steed's
+            // return attack (mattackm :379 reads bhitpos, not mdef's
+            // square; stale hero pos would skip every i>0 attack).
+            if (!game.bhitpos) game.bhitpos = {};
+            game.bhitpos.x = mtmp.mx;
+            game.bhitpos.y = mtmp.my;
+            game.notonhead = false;
             i = await mattackm(u.usteed, mtmp);
             return (i & M_ATTK_DEF_DIED) !== 0 ? 1 : 0;
         }

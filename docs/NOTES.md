@@ -29,20 +29,21 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3442 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3443 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3442.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3442 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3443.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3443 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3443: - `mhitm_ad_blnd`: live whole can_blnd (js/uhitm.js:359; mondata.c :305–398 verified arm-by-arm incl. visor tail :422–441) at both sites; deleted both Named: - `mhitm_ad_blnd`: none — whole (uhitm/mhitm/mhitu arms all gate on live can_blnd; resists
 - D-3442: direct `ledger.mjs set` ×3 (NOT via finish-iteration), each sub-omit re-verified first (moveloop — JS moveloop calls neither (js/allmain.js:1602–1611) Named: - `moveloop`: drops moveloop_preamble(resuming) + !resuming maybe_do_tutorial() calls (hoi
 - D-3441: - `use_camera`: s_suffix(mon_nam)+mbodypart(STOMACH) (:815 reflect precedent; all four names already imported). Named: - `use_camera`: none — whole (zapyourself CAMERA + flash_hits_mon callee rows pre-existing
 - D-3440: direct `ledger.mjs set` ×6 (NOT via finish-iteration), each sub-omit re-verified first (newgame — reset_glyphmap + get_nhuuid absent from js/, no news Named: - `newgame`: reset_glyphmap(gm_newgame) (display-subsystem port, own row); NEWS display_fi
@@ -57,5 +58,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3431: per-function ports in C order (see C locus), all against live exports: cmdq_peek (newly exported from cmd.js) + ext_func_tab_from_func + dokick + CQ_C Named: - `test_move`: none — whole.
 - D-3430: 28 partials vs live exports (see C locus). Named: - `moveloop_core`: post-rhack cliparound (CLIPPING viewport pan, display-model, own row);
 - D-3429: wired the live exports at each site in C order (imports extended, no new module edges except hoisted cycle-safe fix_shop_damage/dokick/Punished/finish Named: - `dodrop`: none — whole.
-- D-3428: dropped wall-stop `|| IS_OBSTRUCTED(typ)` + tail `stackobj` in `launch_obj`. Named: - `launch_obj`: none — whole (C :3517 bmsg `IS_OBSTRUCTED` kept).
 <!-- landmarks:end -->

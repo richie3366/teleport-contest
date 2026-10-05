@@ -41,7 +41,7 @@ import {
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck, ALIGNLIM, Fumbling } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool, maybe_half_phys, noattacks, check_capacity, in_rooms, end_running } from './hack.js';
 import { ing_suffix, upstart, highc, strstri, dist2 } from './hacklib.js';
-import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, tp_sensemon, map_invisible, unmap_object, unmap_invisible, memory_glyph_is_invisible, glyph_at, glyph_is_warning, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
+import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, tp_sensemon, map_invisible, unmap_object, unmap_invisible, memory_glyph_is_invisible, glyph_at, glyph_is_cmap, glyph_to_cmap, glyph_is_warning, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
@@ -4516,9 +4516,10 @@ const STRANGE_OBJECT_THAT = objectNames.indexOf('STRANGE_OBJECT');
 /**
  * C ref: uhitm.c that_is_a_mimic `:6201–6276`.
  * Fake object names via pager object_from_map (not local mksobj).
- * JS has no integer glyph_at; M_AP_TYPE is the cmap/object/monster
- * discriminator. Named: hallu glyphs; trapped-chest cmap on object
- * mimics (needs glyph_is_cmap); Eyes is_plural; Blind_telepat hallu.
+ * M_AP_TYPE is the cmap/object/monster discriminator; the shown
+ * disp_glyph is read only for the M_AP_OBJECT trapped-chest cmap
+ * disjunct (`:6228–6230`). Named: hallu glyphs; Eyes is_plural;
+ * Blind_telepat hallu.
  */
 export async function that_is_a_mimic(mtmp, mimic_flags) {
     const generic = 'a monster';
@@ -4539,29 +4540,38 @@ export async function that_is_a_mimic(mtmp, mimic_flags) {
         const y = mtmp.my | 0;
         if (ap === M_AP_FURNITURE) {
             // C: glyph_is_cmap && (M_AP_FURNITURE || trapped-chest object).
-            // JS: furniture mappearance is the cmap id (D-1543 S_*).
-            // Trapped-chest cmap on M_AP_OBJECT named (needs glyph_is_cmap).
+            // JS: furniture mappearance is the cmap id (D-1543 S_*); the
+            // trapped-chest object disjunct is in the M_AP_OBJECT arm.
             const expl = defsym_explanation(mtmp.mappearance | 0);
             fmtbuf = `That ${expl} actually is %s!`;
         } else if (ap === M_AP_OBJECT) {
-            let fakeobj = false;
-            let otmp = null;
-            await pager_bind();
-            if (_object_from_map) {
-                const got = _object_from_map(mtmp.mappearance | 0, x, y);
-                fakeobj = !!got?.fakeobj;
-                otmp = got?.otmp || null;
-            }
-            // C uhitm.c:6234 — simpleonames alone (it pluralizes for
-            // quan != 1 itself); no makeplural wrapper.
-            const otmp_name = (otmp && (otmp.otyp | 0) !== STRANGE_OBJECT_THAT)
-                ? simpleonames(otmp)
-                : 'strange object';
-            const those = (otmp && is_plural_that(otmp)) ? 'Those' : 'That';
-            const are = otmp ? otense(otmp, 'are') : 'is';
-            fmtbuf = `${those} ${otmp_name} ${are} %s!`;
-            if (fakeobj && otmp) {
-                otmp.where = OBJ_FREE;
+            // C uhitm.c:6222–6230 — a shown trapped-chest cmap (seen chest
+            // trap under the mimic) takes the furniture wording even for
+            // object mimics: "That trapped chest actually is %s!".
+            const shown = glyph_at(x, y);
+            if (glyph_is_cmap(shown)
+                && glyph_to_cmap(shown) === S_TRAPPED_CHEST) {
+                fmtbuf = `That ${defsym_explanation(S_TRAPPED_CHEST)} actually is %s!`;
+            } else {
+                let fakeobj = false;
+                let otmp = null;
+                await pager_bind();
+                if (_object_from_map) {
+                    const got = _object_from_map(mtmp.mappearance | 0, x, y);
+                    fakeobj = !!got?.fakeobj;
+                    otmp = got?.otmp || null;
+                }
+                // C uhitm.c:6234 — simpleonames alone (it pluralizes for
+                // quan != 1 itself); no makeplural wrapper.
+                const otmp_name = (otmp && (otmp.otyp | 0) !== STRANGE_OBJECT_THAT)
+                    ? simpleonames(otmp)
+                    : 'strange object';
+                const those = (otmp && is_plural_that(otmp)) ? 'Those' : 'That';
+                const are = otmp ? otense(otmp, 'are') : 'is';
+                fmtbuf = `${those} ${otmp_name} ${are} %s!`;
+                if (fakeobj && otmp) {
+                    otmp.where = OBJ_FREE;
+                }
             }
         } else if (ap === M_AP_MONSTER) {
             const mndx = mtmp.mappearance | 0;

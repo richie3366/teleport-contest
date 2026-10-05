@@ -49,7 +49,7 @@
 {"fn":"mhitm_ad_acid","c":"2742-2786","status":"split","js":["js/mhitm.js:mhitm_ad_acid","js/uhitm.js:damageum_adtyping","js/mhitu.js:mhitm_ad_acid_u"],"d":["D-2511"],"at":"2026-10-02@715abdc4c","note":"audit 2237: split, not ported — 3 arms (mhitm.js:1760, damageum AD_ACID row uhitm.js:2936, mhitu.js:2796); mhitm_ad_legs precedent"}
 {"fn":"mhitm_ad_sgld","c":"2790-2855","status":"ported","js":["js/mhitm.js:mhitm_ad_sgld"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mhitm_ad_tlpt","c":"2859-2955","status":"split","js":["js/mhitm.js:mhitm_ad_tlpt","js/mhitu.js:mhitm_ad_tlpt_u"],"d":["D-3402","D-2587"],"at":"2026-10-04@e77f3975a"}
-{"fn":"mhitm_ad_blnd","c":"2958-3012","status":"split","js":["js/mhitm.js:mhitm_ad_blnd","js/mhitu.js:mhitm_ad_blnd_u"],"d":["D-3216","D-3214","D-2540"],"at":"2026-10-01@d54d5687c"}
+{"fn":"mhitm_ad_blnd","c":"2958-3012","status":"split","js":["js/mhitm.js:mhitm_ad_blnd","js/mhitu.js:mhitm_ad_blnd_u"],"d":["D-3443","D-3216","D-3214","D-2540"],"at":"2026-10-05@5448d96ed"}
 {"fn":"mhitm_ad_curs","c":"3015-3096","status":"split","js":["js/mhitm.js:mhitm_ad_curs","js/mhitu.js:mhitm_ad_curs_u","js/uhitm.js:damageum_ad_curs"],"d":["D-2260","D-2259"],"at":"2026-10-01@ea58ae969","note":"audit 2195-2202 sample: mhitm+mhitu+uhitm arms live in three homes; row said ported (measured THIN C59/JS25)"}
 {"fn":"mhitm_really_poison","c":"3104-3119","status":"ported","js":["js/mhitm.js:mhitm_really_poison"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mhitm_ad_drst","c":"3122-3165","status":"ported","js":["js/mhitm.js:mhitm_ad_drst"],"d":["D-3406","D-3402","D-2797"],"at":"2026-10-04@44ce1ba38"}
@@ -92,7 +92,7 @@
 {"fn":"hmonas","c":"5424-5860","status":"ported","js":["js/uhitm.js:hmonas"],"d":["D-1916","D-1233"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all aatyp arms+passive+knockback+passivedone verified; gv.vis global by-design per-arm checks"}
 {"fn":"passive","c":"5865-6120","status":"ported","js":["js/uhitm.js:passive"],"d":["D-3256","D-3251","D-2142","D-2052"],"at":"2026-10-02@2716a3ced"}
 {"fn":"passive_obj","c":"6127-6195","status":"ported","js":["js/uhitm.js:passive_obj"],"d":["D-3256","D-3251"],"at":"2026-10-02@2716a3ced"}
-{"fn":"that_is_a_mimic","c":"6201-6276","status":"partial","js":["js/uhitm.js:that_is_a_mimic"],"omit":"M_AP_OBJECT with trapped-chest glyph keeps 'That <cmap> actually is' fmt; JS always uses object-name arm","at":"2026-10-03@bbe63333a"}
+{"fn":"that_is_a_mimic","c":"6201-6276","status":"ported","js":["js/uhitm.js:that_is_a_mimic"],"d":["D-3443"],"at":"2026-10-05@5448d96ed"}
 {"fn":"stumble_onto_mimic","c":"6282-6297","status":"ported","js":["js/uhitm.js:stumble_onto_mimic"],"d":["D-2993"],"at":"2026-09-27@e74c75d1f"}
 {"fn":"disguised_as_non_mon","c":"6300-6305","status":"ported","js":["js/uhitm.js:disguised_as_non_mon"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"disguised_as_mon","c":"6308-6312","status":"ported","js":["js/uhitm.js:disguised_as_mon"],"at":"2026-10-03@bbe63333a"}

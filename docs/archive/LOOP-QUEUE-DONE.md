@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
-- [x] D-3429 3-row repair: direct `ledger.mjs set` ×3, no JS (D-3427 protocol) — moveloop/bc_sanity_check ← pre-D-3429 texts (quoted in review); wary_dog ← retire stale line (body whole). Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md. **Addressed:** D-3442
+- [x] `uhitm.c` mhitm_ad_blnd — C :2967/:2980/:2988 can_blnd(magr,mdef,aatyp,NULL) ×3 arms absent from js/mhitm.js:878 + js/mhitu.js:755 (file-local subsets can_blnd_mm :836 — drops perma-blind :320–321 + raven :327–328, WEAP/SPIT/NONE+null TRUE vs C FALSE :343–354, resists_blnd_mm vs resists_blnd; :857 "live does not cover" claim stale — live covers :331–339 — + can_blnd_u :728 — drops light-attack mcan/resists_blnd, ENGL, CLAW-visor; uhitm arm live :864; live can_blnd js/uhitm.js:359; declared split; brief-read 2026-10-05) @9e1efbc82
+- [x] `end.c` disclose — C end.c:629–630 (how==QUIT)?"quit":"died" possessions query absent from js/end.js:814–815 (hardcoded 'died'; how param live :809; QUIT-const threading only; message-only; brief-read 2026-10-05) @9e1efbc82
+- [x] `mhitm.c` mattackm — C mhitm.c:379 m_at(bhitpos) i>0 target check absent from js/mhitm.js:6273 (m_at(mdef.mx,mdef.my); matters for long worms; DEADMONSTER disjuncts live :6274; game.bhitpos live :6537 — verify set on this path; brief-read 2026-10-05) @9e1efbc82
+- [x] `uhitm.c` that_is_a_mimic — C :6228–6230 M_AP_OBJECT+S_trapped_chest "That <cmap> actually is" disjunct absent from js/uhitm.js:4546 (always object-name arm; furniture arm live :4540–4545; code-named :4543 "needs glyph_is_cmap"; S_TRAPPED_CHEST const :4506; message-only; brief-read 2026-10-05) @9e1efbc82
+
+
+- [x] D-3429 3-row repair: direct `ledger.mjs set` ×3, no JS (D-3427 protocol) — moveloop/bc_sanity_check ← pre-D-3429 texts (quoted in review); wary_dog ← retire stale line (body whole). Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md. **Addressed:** D-3442 `5448d96ed`
 
 
 - [x] `apply.c` use_camera — C apply.c:97–98 s_suffix(mon_nam)+mbodypart(STOMACH) absent from js/apply.js:1036 (hardcoded `'s stomach`; s_suffix_apply live same-file; mbodypart ported; message-only; brief-read 2026-10-05) @18077a1c0

@@ -830,21 +830,6 @@ export function resists_blnd_mm(mon) {
 }
 
 /**
- * C ref: mondata.c can_blnd AT_GAZE/EXPL/BOOM/MAGC/BREA :331–339.
- * Named omit: mon_perma_blind; raven-vs-raven; visor/cream/engl you arms.
- */
-function can_blnd_mm(magr, mdef, aatyp) {
-    if (!haseyes(mdef?.data)) return false;
-    const at = aatyp | 0;
-    if (at === AT_EXPL || at === AT_BOOM || at === AT_GAZE
-        || at === AT_MAGC || at === AT_BREA) {
-        if (magr && (magr.mcan | 0)) return false;
-        return !resists_blnd_mm(mdef);
-    }
-    return true;
-}
-
-/**
  * C ref: uhitm.c mhitm_ad_blnd `:2958–3012` — uhitm (you→mon, `:2964–2975`)
  * and mhitm (mon→mon, `:2986–3011`) arms in C order. uhitm: can_blnd gate,
  * !Blind "%s is blinded.", mcansee=0, damage += mblinded clamped to 127
@@ -854,9 +839,10 @@ function can_blnd_mm(magr, mdef, aatyp) {
  * gazemm Archon extra passes mhm=null; mdamagem leftover zeros dice.
  * mhitu (mon→you, `:2976–2985`) arm lives in mhitu.js mhitm_ad_blnd_u
  * (D-0926; Eyes-of-the-Overworld vision_clears named there).
- * The mhitm arm keeps the file-local light-attack gate (magr mcan +
- * resists_blnd_mm) that the live can_blnd export does not cover
- * (mondata.c `:331–339`); the uhitm arm uses live can_blnd.
+ * All three arms gate on the live whole can_blnd export (uhitm.js;
+ * mondata.c `:305–398`: perma-blind, raven-vs-raven, light-attack
+ * mcan+resists_blnd, WEAP/SPIT/NONE+null FALSE, ENGL, CLAW visor,
+ * TUCH/STNG mcan); the file-local can_blnd_mm subset is deleted.
  */
 export async function mhitm_ad_blnd(magr, mattk, mdef, mhm) {
     if (is_youmonst(magr)) {
@@ -875,7 +861,7 @@ export async function mhitm_ad_blnd(magr, mattk, mdef, mhm) {
     }
     if (is_youmonst(mdef)) return; /* C `:2976–2985` mhitu: mhitu.js mhitm_ad_blnd_u */
     /* C `:2986–3011` mhitm */
-    if (can_blnd_mm(magr, mdef, mattk?.aatyp)) {
+    if (can_blnd(magr, mdef, mattk?.aatyp | 0, null)) {
         if (_mm_vis && (mdef.mcansee | 0) && canspotmon(mdef)) {
             let buf = `${Monnam(mdef)} is blinded`;
             if ((mdef.data?.mndx | 0) === PM_ARCHON && canseemon(mdef)) {
@@ -6270,7 +6256,12 @@ export async function mattackm(magr, mdef) {
 
     for (let i = 0; i < NATTK; i++) {
         res[i] = M_ATTK_MISS;
-        if (i > 0 && (m_at(mdef.mx, mdef.my) !== mdef
+        // C mhitm.c:379 — target check reads the beam/last-hit position
+        // the caller stamped (fightm :141/:162, dogmove :921/:944/:1149/
+        // :1163, mhitu :459/:545), not mdef's square (long worms).
+        const bhitx = game.bhitpos?.x | 0;
+        const bhity = game.bhitpos?.y | 0;
+        if (i > 0 && (m_at(bhitx, bhity) !== mdef
             || deadmonster(magr) || deadmonster(mdef))) {
             continue;
         }

@@ -811,8 +811,9 @@ async function disclose(how, taken) {
 
     const invent = game.invent || [];
     if (invent.length && !stop()) {
+        // C end.c:629–630 — (how == QUIT) ? "quit" : "died".
         const qbuf = taken
-            ? 'Do you want to see what you had when you died?'
+            ? `Do you want to see what you had when you ${(how === QUIT) ? 'quit' : 'died'}?`
             : 'Do you want your possessions identified?';
         const { ask, defquery } = await should_query_disclose_option('i');
         const c = ask

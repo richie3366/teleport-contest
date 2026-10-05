@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3443 — Open head: mhitm_ad_blnd live can_blnd + disclose quit/died + mattackm bhitpos + mimic trapped-chest
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4327 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3441 precedent). Real work ×4: (a) mhitm_ad_blnd mhitm/mhitu arms gated on file-local can_blnd subsets missing the perma-blind, raven-vs-raven, WEAP/SPIT/NONE+null-FALSE, ENGL, CLAW-visor and light-attack arms; (b) disclose possessions query hardcoded 'died' for how==QUIT; (c) mattackm i>0 target check read mdef's square instead of the caller-stamped bhitpos (long worms), and the steed-retaliation caller never stamped bhitpos at all; (d) that_is_a_mimic dropped the M_AP_OBJECT + shown-S_trapped_chest "That <cmap> actually is" disjunct. Hidden NO MOVEMENT ×5 triaged, cause outside the cited arm each (D-3439 precedent): disclose ×3 diverge at later conduct/overview steps with identical toplines (map-row display diffs; Priest-92179 parked SYMPTOM per NOTES); mattackm ×1 is the named last_hider omission (C :345-346 vs :348 — refill row R1); mimic ×1 is printed by C makemon :1491-1499 via mhidden_description, attributed via the "strange object" substring (misattributed owner).
+- **C locus:**
+  - `mhitm_ad_blnd`: uhitm.c:2967/:2980/:2988 can_blnd(magr,mdef,aatyp,NULL) gates → mondata.c:305–398 (whole live can_blnd).
+  - `disclose`: end.c:629–630 (how==QUIT)?"quit":"died" possessions query.
+  - `mattackm`: mhitm.c:379 m_at(bhitpos) i>0 target check; caller stamps fightm :141/:162, dogmove :921/:944/:1149/:1163, mhitu :459/:545.
+  - `that_is_a_mimic`: uhitm.c:6228–6230 M_AP_OBJECT && sym==S_trapped_chest disjunct.
+- **JS was:**
+  - `mhitm_ad_blnd` (js/mhitm.js:878): can_blnd_mm subset (:836–845: light aatyps only, WEAP/SPIT/NONE+null TRUE vs C FALSE, resists_blnd_mm vs resists_blnd); mhitu arm (js/mhitu.js:755): can_blnd_u subset (:728–744: no light-attack mcan/resists_blnd, ENGL, CLAW-visor, raven, perma-blind); ":857 live does not cover" claim stale (live covers :331–339).
+  - `disclose` (js/end.js:815): hardcoded '…when you died?' (ledger omit verbatim).
+  - `mattackm` (js/mhitm.js:6273): m_at(mdef.mx,mdef.my) (ledger omit verbatim); steed retaliation (js/mhitu.js:3904) "bhitpos/notonhead omitted (no worm steed)" — stale bhitpos=(u.ux,u.uy) would skip every i>0 attack (m_at→null≠mdef; steed offmap while mounted).
+  - `that_is_a_mimic` (js/uhitm.js:4546): M_AP_OBJECT arm always took the object-name path (":4543 needs glyph_is_cmap" code-named).
+- **Fix:**
+  - `mhitm_ad_blnd`: live whole can_blnd (js/uhitm.js:359; mondata.c :305–398 verified arm-by-arm incl. visor tail :422–441) at both sites; deleted both 14/17-line subsets (litter D-3437 precedent); mhitm.js:159 + mhitu.js:85 uhitm edges ALREADY, no new import.
+  - `disclose`: `(how === QUIT) ? 'quit' : 'died'` (QUIT already imported :28).
+  - `mattackm`: m_at(bhitx,bhity) from game.bhitpos (?. fallback 0 ≡ C zero-init); all 8 JS call sites verified stamping (dogmove :1256/:1270/:1449/:1464, mhitm fightm :6529/:6547, mhitu targeting :340); added the missing C :545 stamp at the steed retaliation (js/mhitu.js:3884–3890).
+  - `that_is_a_mimic`: glyph_at + live glyph_is_cmap/glyph_to_cmap (display.js edge ALREADY :44, names added) — shown S_trapped_chest (PCHAR 73 ≡ defsym.h:182) takes the furniture wording; else the object arm unchanged.
+- **JS:** js/mhitm.js (:847–864 blnd doc+call, subset deleted, :6257–6266 bhitpos read); js/mhitu.js (:731–735 blnd_u call, subset deleted, :3884–3890 steed stamp); js/end.js (:814–817 quit/died); js/uhitm.js (:44 imports, :4516–4522 doc, :4547–4555 trapped-chest disjunct).
+- **Callers:**
+  - `mhitm_ad_blnd`: C mhitm.c:792 (gazemm) → js/mhitm.js:6128 (null mhm); C uhitm.c:4802 (mhitm_adtyping) → js/uhitm.js:2941; mhitu split arm dispatched js/mhitu.js:2935; mdamagem AD_BLND dispatch js/mhitm.js:4793 pre-existing, same gate.
+  - `disclose`: C end.c:1280 → js/end.js:1155 (how,taken threaded); pre-wired, arm internal.
+  - `mattackm`: 8 C sites → 8 JS sites, each bhitpos-stamped (dogmove.c:923/:946/:1151/:1165 → js/dogmove.js:1260/:1273/:1453/:1468; mhitm.c:143/:164 → js/mhitm.js:6532/:6550; mhitu.c:537/:547 → js/mhitu.js:3879/:3891).
+  - `that_is_a_mimic`: C uhitm.c:6284 → js/uhitm.js:4757; C zap.c:373/:385/:515 → js/zap.js:4312/:4414/:4356; pre-wired, arm internal.
+- **Verify:** `verify.mjs --fn mhitm_ad_blnd,disclose,mattackm,that_is_a_mimic` → PASS syntax (4 js) · PASS rule2 · mhitm_ad_blnd hidden note (none blocked) + REACH-OK (smoke 24/24) · disclose NO MOVEMENT ×3 (triaged per Symptom; sessions pass the possessions arm identically) + REACH-OK (smoke 24/24) · mattackm NO MOVEMENT ×1 (named last_hider arm, refill R1) + REACH-OK (80/80 spread) · mimic NO MOVEMENT ×1 (misattributed makemon owner) + REACH-OK (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: FAIL on hidden NO MOVEMENT only (disclosed, cause outside the arm — D-3439 precedent). Post: `verify.mjs --fn mattackm --reach-all --full` → REACH-OK 229/229 · PASS full 44/44 · same single NO MOVEMENT.
+- **Named omissions:**
+  - `mhitm_ad_blnd`: none — whole (uhitm/mhitm/mhitu arms all gate on live can_blnd; resists_blnd_mm users + gulpmu_can_blnd are separate subset rows R2/R3, not this arm's).
+  - `disclose`: none — whole (quit/died was the sole ledger omit).
+  - `mattackm`: mundetected notice drops Unaware-dream and HIDE_UNDER/last_hider arms (C mhitm.c:332–349; JS js/mhitm.js:6233 keeps the generic Suddenly arm only; Unaware() live so the dream arm is portable; gl.last_hider writer mon.c:4796 unported; blocks scen-quest-Archeologist-94276 s246 — refill R1).
+  - `that_is_a_mimic`: none — whole (trapped-chest disjunct shipped; remaining doc notes pre-existing, never ledger omits: C :6201–6276 has no hallu arm).
+- **Ledger:** mhitm_ad_blnd split js=mhitm.js:mhitm_ad_blnd+mhitu.js:mhitm_ad_blnd_u; disclose ported; mattackm partial; that_is_a_mimic ported
+- **Left open:** none.
+- **Next:** Must-fix head (opt_usage ledger repair); 4 refills hold the band (mattackm-notice, resists_blnd_mm, gulpmu_can_blnd, resists_blnd_mon).
+
 ## D-3442 — Must-fix review 2374: D-3429 3-row repair (true omits restored)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2374 QUALITY-RISK Actionable 2: D-3429's finish pasted dodrop's `- \`dodrop\`: none — whole.` omit into all 7 partial rows (11th stamping iter); 2 still stand (moveloop, bc_sanity_check — moveloop_core/test_move resolved by completion; newgame/goto_level/domove_core carry later pastes, named in their reviews) + wary_dog re-certified D-3401's replmon/unstuck word-salad — 3 rows whose standing omits have no row home. Truth recovered from git (`adae017b4~1` ledger rows), each sub-omit re-verified still-true by this iter and by the review, with two refinements: bc's text drops light_sources_sanity_check + check_wornmask_slots/dobjsfree/clear_bypasses (all live ported exports — the review's "still-true" missed these, all predate D-3429) and resume_wish (not a pinned-C function); wary_dog's true omit is none → ported.

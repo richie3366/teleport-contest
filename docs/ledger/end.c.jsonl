@@ -7,7 +7,7 @@
 {"fn":"should_query_disclose_option","c":"476-515","status":"ported","js":["js/end.js:should_query_disclose_option"],"d":["D-3132"],"at":"2026-09-29@b90b1a381"}
 {"fn":"dump_plines","c":"519-537","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"dump_everything","c":"542-616","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"disclose","c":"619-700","status":"partial","js":["js/end.js:disclose"],"omit":"possessions query says 'died' when how==QUIT; C says 'quit' (C:627-628)","d":["D-2105","D-2039","D-2015"],"at":"2026-10-03@bbe63333a"}
+{"fn":"disclose","c":"619-700","status":"ported","js":["js/end.js:disclose"],"d":["D-3443","D-2105","D-2039","D-2015"],"at":"2026-10-05@5448d96ed"}
 {"fn":"savelife","c":"704-756","status":"ported","js":["js/end.js:savelife"],"d":["D-3260","D-2181","D-2172"],"at":"2026-10-02@4fbb3512e"}
 {"fn":"get_valuables","c":"763-791","status":"ported","js":["js/end.js:get_valuables"],"d":["D-1741"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sort_valuables","c":"798-818","status":"ported","js":["js/end.js:sort_valuables"],"d":["D-3132"],"at":"2026-09-29@b90b1a381","note":"stale: js/end.js:243"}
