@@ -23170,7 +23170,12 @@ function lspo_monster_from_string(paramstr, arg2, arg3) {
 function lspo_monster_normalize_table(tmp, inventFn) {
     tmp.peaceful = lspo_bool_opt(tmp.peaceful, BOOL_RANDOM);
     tmp.asleep = lspo_bool_opt(tmp.asleep, BOOL_RANDOM);
-    if (tmp.name == null) tmp.name = null;
+    // C :3295 get_table_str_opt(L, "name", NULL): nil → NULL, string kept,
+    // function pcalled + optstring conversion, direct non-string throws
+    // like nhl_error. tmp is a non-null object here (spread at the caller's
+    // table gate), so lua_field(tmp,'name') is tmp.name and the
+    // nil/string/function/else classifications are identical to C's.
+    tmp.name = get_table_str_opt(tmp, 'name', null);
     tmp.sp_amask = get_table_align_unpacked(tmp.align);
     tmp.female = lspo_bool_opt(tmp.female, BOOL_RANDOM);
     tmp.invis = lspo_bool_opt(tmp.invis, 0);

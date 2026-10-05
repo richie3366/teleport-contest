@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3471 Open head: impossible audit + lspo_monster name→get_table_str_opt rewire (sp_lev.c:3295 passthrough gap)
+
+**C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+**JS:** js/mklev.js (:23173–23178 call + comment; 1-line adapter deleted). 1 changed js file.
+**Change:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Name site restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change): `tmp.name = get_table_str_opt(tmp, 'name', null)` (C :3295); lua_field/lua_type equivalences verified (`tmp` is a non-null spread at the table gate :23267–23273, so `lua_field` is `tmp.name`; nil/string/function/else classifications identical); behavior delta is exactly the C conversion (nil→null and strings unchanged; functions pcalled with optstring conversion; direct non-strings throw like nhl_error instead of reaching christen). New scripts/lspo-monster-name.test.mjs (helper conversion + wiring asserts).
+**Verify:** `verify.mjs --fn impossible,get_table_str_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-monster-name 6/6 (wiring assert authenticates the change on the HEAD file: passthrough gone, helper call present); VERIFY: PASS.
+**Named:** - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+**Next:** Must-fix heads stay queued (deferred per override). Bundled: none (no bare `**Addressed:**` hashes in reviews/ or LOOP-QUEUE-DONE.md).
 ## 2026-10-05 — D-3470 Must-fix: nhlua.c get_table_boolean_opt 1-row ledger repair (lspo_teleport_region paste retired, D-3175 caller omit restored narrowed)
 
 **C locus:** row home only (no C re-read; body brief-read this iter): nhlua.c `get_table_boolean_opt` :1107–1118 (nil → defval; else get_table_boolean :1079–1104: string → raw checkoption index, boolean → 1/0, number must be 0/1 else nhl_error throw; 51 direct C sites + extern decl).
