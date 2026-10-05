@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3451 — Open head: impossible audit + which_armor ×4 switches (→ live worn.js:472)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4336 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3437/D-3449 precedent). Coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work ×4: (a) weapon which_armor_magr dup'd the youmonst slot table without _youmonst identity and swallowed bad flags silently; (b) steed which_armor_saddle threw on null mon; (c) mklev which_armor_local carried a stale "avoid mklev↔trap cycle" comment (live is worn.js, edge exists); (d) trap which_armor lacked the youmonst slot-table arm for all 19 users.
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; paniclog :598 + CRASHREPORT :621–631 Rule #2).
+  - `which_armor@magr`: worn.c:1006–1036; users weapon.c:378–391 special_dmgval.
+  - `which_armor@saddle`: worn.c:1006–1036; users steed.c:144 saddle check + :600 dismount saddle.
+  - `which_armor@mklev`: worn.c:1006–1036; user priest.c priestini robe.
+  - `which_armor@trap`: worn.c:1006–1036; users trap.c 19 sites (mselftouch gloves, iron-shoes, water ×8, erode ×7, polymorph ×2).
+- **JS was:**
+  - `display.js:8969` impossible (complete; Rule #2 omits doc'd).
+  - `weapon.js:661` which_armor_magr (7-flag slot dup, silent null on bad flag, no _youmonst; monster path already delegated), users :689/:691/:693/:700/:703.
+  - `steed.js:213` which_armor_saddle (bare minvent scan, null-throw), users :245/:877.
+  - `mklev.js:28541` which_armor_local (null-safe scan; stale cycle comment), user :28606.
+  - `trap.js:3851` which_armor (null-guarded scan, monster-correct), 19 users :1187–:5780.
+- **Fix:** impossible re-audited (no JS change — vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). All 4 clones deleted (house pointer comments), users switched to the live whole which_armor (js/worn.js:472, audited whole D-3449): weapon/steed used their EXISTING worn edges (no import change); mklev + trap extended their existing worn imports (imports.mjs --can: mklev ALREADY statically imports worn — no new edge); trap's 19 users rewire by import untouched (hero guarded out at ternary sites :1204/:4724+/:5599; water/polymorph sites sit on post-hero-return monster paths; mselftouch :1187 monsters-only). scripts/worn-rewire.test.mjs census drained (KNOWN_REMAINING_* emptied) + 4-file import assert added.
+- **JS:** js/weapon.js (:657 pointer, :672/:674/:676/:683/:686 users); js/steed.js (:212 pointer, :239/:871 users); js/mklev.js (:173 import, :28537 pointer, :28597 user); js/trap.js (:163 import, :3848 pointer; 19 users unchanged).
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `which_armor@magr`: C weapon.c:378–391 → js/weapon.js:672/:674/:676/:683/:686.
+  - `which_armor@saddle`: C steed.c:144 → js/steed.js:239; C steed.c:600 → js/steed.js:871.
+  - `which_armor@mklev`: C priest.c priestini → js/mklev.js:28597.
+  - `which_armor@trap`: C trap.c mselftouch → js/trap.js:1187; wearing_iron_shoes → :1204; water ×8 → :3942/:3953/:3961/:3973/:3974/:3989/:3992/:3994; erode ×7 → :4724/:4738/:4745/:4750/:4757/:4765/:4772; anti-magic → :5599; polymorph → :5771.
+- **Verify:** `verify.mjs --fn impossible,which_armor --full` → PASS syntax (4 js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44; `node --test` rewire suites 7/7 (worn 4 + resists-blnd 3); VERIFY: PASS.
+- **Named omissions:** none — all four switches whole (live export's null guard + _youmonst identity + impossible() default are C's arms; impossible's paniclog/CRASHREPORT stay Rule #2 per the standing row).
+- **Ledger:** impossible audited; which_armor audited
+- **Left open:** none.
+- **Next:** Must-fix head stays queued (deferred per override). 4 refills hold the band (doset wc2 skip, moveloop hoist, strncmpi wish-parser omit, Strlen_ caller rewire — each brief-read this iter).
+
 ## D-3450 — Must-fix: mattackm 1-row repair retires stale (paste cleared + arms ported by D-3445)
 - **Status:** shipped (ledger-only; no `js/` change — retire-stale, no `ledger.mjs set` written).
 - **Symptom:** queue Must-fix head: D-3443's finish stamped mhitm_ad_blnd's `- \`mhitm_ad_blnd\`: none — whole …` Named line into the mattackm row (status partial + pasted omit at 3483b7469, verified via `git show` by this iter). D-3445 superseded the repair before it was popped: it ported the mundetected notice arms (Unaware-dream + HIDE_UNDER/last_hider) into js/mhitm.js:6228–6243 and its finish cleared the pasted omit (row ported, no omit at bb85bd866, d=D-3445) — D-3445 Next named this exact outcome ("retires stale at repair").

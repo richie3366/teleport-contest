@@ -170,7 +170,7 @@ import { is_ice } from './zap.js';
 import { artifact_exists } from './artifact.js';
 import { nexttodoor } from './fountain.js';
 import { ndemon } from './minion.js';
-import { m_dowear } from './worn.js'; // C: sp_lev.c spo_end_moninvent → m_dowear(TRUE); creation path runs sync-through (no await), same as makemon.js
+import { m_dowear, which_armor } from './worn.js'; // C: sp_lev.c spo_end_moninvent → m_dowear(TRUE); creation path runs sync-through (no await), same as makemon.js
 import { readobjnam, rnd_otyp_by_namedesc } from './readobjnam.js';
 // C mkmap.c envelope lives in ./mkmap.js; splev_initlev MINES awaits it.
 // Cycle-safe: mkmap only calls back into mklev function declarations.
@@ -28534,16 +28534,7 @@ function shrine_pos(roomno) {
     return { x, y };
 }
 
-/**
- * C ref: worn.c which_armor — first minvent obj with owornmask bit.
- * Local copy to avoid mklev↔trap cycle.
- */
-function which_armor_local(mtmp, mask) {
-    for (let otmp = mtmp?.minvent; otmp; otmp = otmp.nobj) {
-        if ((otmp.owornmask | 0) & (mask | 0)) return otmp;
-    }
-    return null;
-}
+/* which_armor_local — deleted: live worn.js which_armor (C worn.c:1006–1036; mklev→worn edge exists, no cycle). */
 
 /* p_coaligned: canonical import from ./priest.js (C priest.c:270, below). */
 
@@ -28603,7 +28594,7 @@ function priestini(lvl, sroom, sx, sy, sanctum) {
         mpickobj(priest, mkobj(SPBOOK_no_NOVEL, false));
     }
     if (rn2(2)) {
-        const otmp = which_armor_local(priest, W_ARMC);
+        const otmp = which_armor(priest, W_ARMC);
         if (otmp) {
             if (p_coaligned(priest)) uncurse(otmp);
             else curse(otmp);

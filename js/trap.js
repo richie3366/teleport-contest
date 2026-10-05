@@ -160,7 +160,7 @@ import { make_blinded, dropx, setnotworn } from './do.js';
 import { Soundeffect } from './sndprocs.js';
 import { se_loud_crash, se_roar, se_soft_click, se_loud_click, se_someone_bowling, se_rumbling } from './generated/seffects_data.js';
 import { mon_adjust_speed } from './muse.js';
-import { m_dowear, extract_from_minvent, update_mon_extrinsics } from './worn.js';
+import { m_dowear, extract_from_minvent, update_mon_extrinsics, which_armor } from './worn.js';
 import { m_unleash, number_leashed, unleash_all, check_leash, mon_has_amulet } from './apply.js';
 import { hard_helmet, helm_simple_name, cloak_simple_name, suit_simple_name } from './do_wear.js';
 import { unplacebc, placebc, ballfall, drag_ball, move_bc } from './ball.js';
@@ -3845,16 +3845,7 @@ function bimanual(obj) {
     return !!(game.objects?.[obj.otyp]?.oc_big);
 }
 
-/**
- * C ref: worn.c which_armor — first minvent obj with owornmask bit.
- */
-function which_armor(mtmp, mask) {
-    if (!mtmp) return null;
-    for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
-        if ((otmp.owornmask || 0) & mask) return otmp;
-    }
-    return null;
-}
+/* which_armor — deleted local clone (null-guarded nobj scan, monster-correct): live worn.js export (C worn.c:1006–1036; 19 users rewire by import). */
 
 /**
  * C ref: apply.c splash_lit — live apply.js (D-1337). Dynamic import:

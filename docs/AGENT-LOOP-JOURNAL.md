@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3451 Open head: impossible audit + which_armor ×4 switches (→ live worn.js:472)
+
+**C locus:** - `impossible`: pline.c:584–634 (audit only; paniclog :598 + CRASHREPORT :621–631 Rule #2).
+**JS:** js/weapon.js (:657 pointer, :672/:674/:676/:683/:686 users); js/steed.js (:212 pointer, :239/:871 users); js/mklev.js (:173 import, :28537 pointer, :28597 user); js/trap.js (:163 import, :3848 pointer; 19 users unchanged).
+**Change:** impossible re-audited (no JS change — vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). All 4 clones deleted (house pointer comments), users switched to the live whole which_armor (js/worn.js:472, audited whole D-3449): weapon/steed used their EXISTING worn edges (no import change); mklev + trap extended their existing worn imports (imports.mjs --can: mklev ALREADY statically imports worn — no new edge); trap's 19 users rewire by import untouched (hero guarded out at ternary sites :1204/:4724+/:5599; water/polymorph sites sit on post-hero-return monster paths; mselftouch :1187 monsters-only). scripts/worn-rewire.test.mjs census drained (KNOWN_REMAINING_* emptied) + 4-file import assert added.
+**Verify:** `verify.mjs --fn impossible,which_armor --full` → PASS syntax (4 js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44; `node --test` rewire suites 7/7 (worn 4 + resists-blnd 3); VERIFY: PASS.
+**Named:** none — all four switches whole (live export's null guard + _youmonst identity + impossible() default are C's arms; impossible's paniclog/CRASHREPORT stay Rule #2 per the standing row).
+**Next:** Must-fix head stays queued (deferred per override). 4 refills hold the band (doset wc2 skip, moveloop hoist, strncmpi wish-parser omit, Strlen_ caller rewire — each brief-read this iter).
 ## 2026-10-05 — D-3450 Must-fix: mattackm 1-row repair retires stale (paste cleared + arms ported by D-3445)
 
 **C locus:** row home only (no C re-read; body verified whole by D-3443/D-3445 + this iter's brief): mhitm.c `mattackm` :293–592 (mundetected notice :327–352).

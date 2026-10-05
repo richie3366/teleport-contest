@@ -654,24 +654,7 @@ const HWEP_NAMES = [
 
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 
-/**
- * C ref: worn.c which_armor youmonst switch — hero uses u.uarm* slots.
- * Monster path is worn.js which_armor (minvent owornmask).
- */
-function which_armor_magr(magr, flag) {
-    if (magr === game.youmonst) {
-        const u = game.u || {};
-        if (flag === W_ARM) return u.uarm || null;
-        if (flag === W_ARMC) return u.uarmc || null;
-        if (flag === W_ARMH) return u.uarmh || null;
-        if (flag === W_ARMS) return u.uarms || null;
-        if (flag === W_ARMG) return u.uarmg || null;
-        if (flag === W_ARMF) return u.uarmf || null;
-        if (flag === W_ARMU) return u.uarmu || null;
-        return null;
-    }
-    return which_armor(magr, flag);
-}
+/* which_armor_magr — deleted: live worn.js which_armor (C worn.c:1006–1036 youmonst slot table + impossible() default; _youmonst identity). */
 
 /**
  * C ref: weapon.c special_dmgval — blessed and/or silver bonus for
@@ -686,21 +669,21 @@ export function special_dmgval(magr, mdef, armask, silverhit_p) {
     let bonus = 0;
     let obj = null;
     if (armask & (W_ARMC | W_ARM | W_ARMU)) {
-        if ((armask & W_ARMC) && (obj = which_armor_magr(magr, W_ARMC))) {
+        if ((armask & W_ARMC) && (obj = which_armor(magr, W_ARMC))) {
             armask = W_ARMC;
-        } else if ((armask & W_ARM) && (obj = which_armor_magr(magr, W_ARM))) {
+        } else if ((armask & W_ARM) && (obj = which_armor(magr, W_ARM))) {
             armask = W_ARM;
-        } else if ((armask & W_ARMU) && (obj = which_armor_magr(magr, W_ARMU))) {
+        } else if ((armask & W_ARMU) && (obj = which_armor(magr, W_ARMU))) {
             armask = W_ARMU;
         } else {
             armask = 0;
             obj = null;
         }
     } else if (armask & (W_ARMG | W_RINGL | W_RINGR)) {
-        obj = which_armor_magr(magr, W_ARMG);
+        obj = which_armor(magr, W_ARMG);
         armask = obj ? W_ARMG : 0;
     } else {
-        obj = which_armor_magr(magr, armask);
+        obj = which_armor(magr, armask);
     }
 
     if (obj) {

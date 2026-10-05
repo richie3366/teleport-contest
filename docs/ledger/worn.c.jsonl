@@ -13,7 +13,7 @@
 {"fn":"find_mac","c":"717-736","status":"ported","js":["js/worn.js:find_mac"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: guard amulet -2 + ARM_BONUS + AC_MAX cap"}
 {"fn":"m_dowear","c":"757-796","status":"ported","js":["js/worn.js:m_dowear"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all guards + 8 type calls in C order + RACE_EXCEPTION"}
 {"fn":"m_dowear_type","c":"799-1002","status":"ported","js":["js/worn.js:m_dowear_type"],"d":["D-3426","D-2227","D-2215"],"at":"2026-10-04@0d801c73f","note":"audit 2026-10-03: best-pick incl amulet goto, messages/delays/extrinsics/light/visibility match"}
-{"fn":"which_armor","c":"1006-1036","status":"ported","js":["js/worn.js:which_armor"],"d":["D-3449","D-2977"],"at":"2026-10-05@fc8f3902b","note":"audited D-3449: whole vs C"}
+{"fn":"which_armor","c":"1006-1036","status":"ported","js":["js/worn.js:which_armor"],"d":["D-3451","D-3449","D-2977"],"at":"2026-10-05@af9ca02d9","note":"audited D-3451: whole vs C"}
 {"fn":"m_lose_armor","c":"1040-1051","status":"ported","js":["js/worn.js:m_lose_armor"],"d":["D-3189"],"at":"2026-10-01@e7e3d96a5"}
 {"fn":"clear_bypass","c":"1055-1064","status":"ported","js":["js/worn.js:clear_bypass"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: chain clear + contents recursion + Array invent"}
 {"fn":"clear_bypasses","c":"1070-1116","status":"ported","js":["js/worn.js:clear_bypasses"],"d":["D-3153"],"at":"2026-09-30@a610d9a06","note":"stale 2026-09-20"}

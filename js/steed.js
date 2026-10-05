@@ -209,13 +209,7 @@ export function can_ride(mtmp) {
     return true;
 }
 
-/** C ref: worn.c which_armor(W_SADDLE) — scan minvent owornmask. */
-function which_armor_saddle(mtmp) {
-    for (let o = mtmp.minvent; o; o = o.nobj) {
-        if ((o.owornmask || 0) & W_SADDLE) return o;
-    }
-    return null;
-}
+/* which_armor_saddle — deleted: live worn.js which_armor (C worn.c:1006–1036; null-mon guard + youmonst slot table). */
 
 /**
  * C ref: identify.c fully_identify_obj — known flags only (no RNG).
@@ -242,7 +236,7 @@ function fully_identify_obj(obj) {
  * for ordinary saddle).
  */
 export function put_saddle_on_mon(saddle, mtmp) {
-    if (!can_saddle(mtmp) || which_armor_saddle(mtmp)) {
+    if (!can_saddle(mtmp) || which_armor(mtmp, W_SADDLE)) {
         return;
     }
     if (!saddle) {
@@ -874,7 +868,7 @@ export async function dismount_steed(reason) {
         || u.Wounded_legs);
     // C `:583`: saved before teleds() clears u.utrap; mintrap()s the steed.
     const save_utrap = u.utrap | 0;
-    const otmp = which_armor_saddle(mtmp);
+    const otmp = which_armor(mtmp, W_SADDLE);
 
     // C `:593–598`: usteed=0 then Flying/Levitation/u_locomotion("fall").
     // Restore before the switch. Poly locomotion() deferred.
