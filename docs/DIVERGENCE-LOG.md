@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3450 — Must-fix: mattackm 1-row repair retires stale (paste cleared + arms ported by D-3445)
+- **Status:** shipped (ledger-only; no `js/` change — retire-stale, no `ledger.mjs set` written).
+- **Symptom:** queue Must-fix head: D-3443's finish stamped mhitm_ad_blnd's `- \`mhitm_ad_blnd\`: none — whole …` Named line into the mattackm row (status partial + pasted omit at 3483b7469, verified via `git show` by this iter). D-3445 superseded the repair before it was popped: it ported the mundetected notice arms (Unaware-dream + HIDE_UNDER/last_hider) into js/mhitm.js:6228–6243 and its finish cleared the pasted omit (row ported, no omit at bb85bd866, d=D-3445) — D-3445 Next named this exact outcome ("retires stale at repair").
+- **C locus:** row home only (no C re-read; body verified whole by D-3443/D-3445 + this iter's brief): mhitm.c `mattackm` :293–592 (mundetected notice :327–352).
+- **JS was:** row already true — ported, no omit, accurate audit note; notice arms live js/mhitm.js:6223–6243.
+- **Fix:** restore-or-retire re-verified at repair (D-3427 protocol) → retire: (a) paste gone — current raw row carries no omit field (`ledger.mjs show mattackm` prints status ported + note only); `git show 3483b7469` has the paste, `git show bb85bd866` has none; (b) restoration text stale — D-3443 Named mattackm line claims the dream + HIDE_UNDER/last_hider arms absent ("generic Suddenly arm only"), but this iter's brief reads the full Unaware/HIDE_UNDER/last_hider/generic chain live at js/mhitm.js:6223–6243; (c) cited block resolved — scen-quest-Archeologist-94276 moved 246→259 under D-3445 (new owner mlevel_tele_trap), and this iter's brief reports none blocked on mattackm. No `ledger.mjs set`: a redundant set would only churn `at`/d on an already-true row. Deliberately NO `- **Ledger:**` bullet (D-3427/D-3436/D-3438/D-3440/D-3442/D-3444 precedent).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger row only).
+- **Verify:** `node scripts/verify.mjs --fn mattackm` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; the row's cited block moved under D-3445); REACH-OK (80/80 spread of 229); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `mattackm`: none — whole (notice arms live js/mhitm.js:6223–6243; pasted mhitm_ad_blnd omit cleared by D-3445's finish bb85bd866; D-3443 restoration text stale).
+- **Left open:** none.
+- **Next:** next Must-fix (parseautocomplete 1-row repair). Band refill (ship-time): popping the head dropped the band to 7 < 8, which blocks finish; `rows --write` still yields 1 (pline impossible) — self-filed +1 Must-fix with quoted evidence (pickup.c use_container 1-row repair: D-3199 finish pasted pickup's Named line, present since 057174e0c; restore D-3199 Named use_container text, still-stands unverified at enqueue) to hold the band (D-3442/D-3444 precedent).
+
 ## D-3449 — Open head: zap/engrave resists_blnd + bypass_obj/which_armor switches (→ live exports)
 - **Status:** shipped.
 - **Symptom:** operator override (supervisor flagged #4334 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3445/D-3447 precedent). Real work ×4: (a) zap flashburn gated on the Blind/Unaware-only resists_blnd_you subset — expl/gaze + by_arti + catchall arms absent vs C mondata.c:247–272; (b) engrave doblind flash gated on an inline `!(Blind()||u.Unaware)` — same arms absent vs C engrave.c:1248; (c) zap bypass_obj clone adds a dead null guard vs C worn.c:1118–1123 (NONNULLARG1); (d) sit which_armor clone iterates minvent array-style vs C worn.c:1006–1036 nobj-chain scan + youmonst slot table.

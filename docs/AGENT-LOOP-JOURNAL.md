@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3450 Must-fix: mattackm 1-row repair retires stale (paste cleared + arms ported by D-3445)
+
+**C locus:** row home only (no C re-read; body verified whole by D-3443/D-3445 + this iter's brief): mhitm.c `mattackm` :293–592 (mundetected notice :327–352).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** restore-or-retire re-verified at repair (D-3427 protocol) → retire: (a) paste gone — current raw row carries no omit field (`ledger.mjs show mattackm` prints status ported + note only); `git show 3483b7469` has the paste, `git show bb85bd866` has none; (b) restoration text stale — D-3443 Named mattackm line claims the dream + HIDE_UNDER/last_hider arms absent ("generic Suddenly arm only"), but this iter's brief reads the full Unaware/HIDE_UNDER/last_hider/generic chain live at js/mhitm.js:6223–6243; (c) cited block resolved — scen-quest-Archeologist-94276 moved 246→259 under D-3445 (new owner mlevel_tele_trap), and this iter's brief reports none blocked on mattackm. No `ledger.mjs set`: a redundant set would only churn `at`/d on an already-true row. Deliberately NO `- **Ledger:**` bullet (D-3427/D-3436/D-3438/D-3440/D-3442/D-3444 precedent).
+**Verify:** `node scripts/verify.mjs --fn mattackm` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; the row's cited block moved under D-3445); REACH-OK (80/80 spread of 229); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `mattackm`: none — whole (notice arms live js/mhitm.js:6223–6243; pasted mhitm_ad_blnd omit cleared by D-3445's finish bb85bd866; D-3443 restoration text stale).
+**Next:** next Must-fix (parseautocomplete 1-row repair). Band refill (ship-time): popping the head dropped the band to 7 < 8, which blocks finish; `rows --write` still yields 1 (pline impossible) — self-filed +1 Must-fix with quoted evidence (pickup.c use_container 1-row repair: D-3199 finish pasted pickup's Named line, present since 057174e0c; restore D-3199 Named use_container text, still-stands unverified at enqueue) to hold the band (D-3442/D-3444 precedent).
 ## 2026-10-05 — D-3449 Open head: zap/engrave resists_blnd + bypass_obj/which_armor switches (→ live exports)
 
 **C locus:** - `resists_blnd@zap`: zap.c:3062 flashburn gate (`resists_blnd(&gy.youmonst)`); :3075–3078 arti shieldeff already live-separate.
