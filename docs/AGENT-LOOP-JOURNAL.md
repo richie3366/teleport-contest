@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — audit 2394–2398 @21b213581: review D-3463/D-3465/D-3467/D-3469/D-3471 (4A/1D/0Q, 0 Must-fix) + full rescore 741/953
+
+**Reviews:** 2394 0c517b253 D-3463 ACCEPT (closes 2390.1: pauper_legacy dispatch + implies-nudist + bridge all C-exact, 6/6 reader families live); 2395 df8520aa2 D-3465 ACCEPT (wizkit NULL arm + init/done frame in C order; tty_yn NOSTOP proved one-shot-dead); 2396 3eafb17b2 D-3467 ACCEPT (grave text rewire, fn-number delta exactly C's; impossible verified whole here); 2397 fbfdad852 D-3469 ACCEPT-WITH-DEBT (traptype rewire + 5 audits exact; get_table_str_opt ledger paste — repair already queued row 7, covered not re-queued); 2398 21b213581 D-3471 ACCEPT (monster name rewire; no new ledger defect).
+**Fortress:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `336+1.67/turn`); corpus 741/953 (0 losses, 0 gains; `full: true`); held-out 16/44 unchanged (judge 07:36Z). Seeded sample 5/5 rows correct (ndemon, find_objtype, glyph_to_cmap, growl_sound, u_stuck_cannot_go); `ledger.mjs sql` unrunnable here (Node 20, no node:sqlite) — sampled via jsonl grep.
+**Next:** Must-fix ×7 heads stay queued (deferred per operator overlay); no new Must-fix from this audit.
+
 ## 2026-10-05 — D-3471 Open head: impossible audit + lspo_monster name→get_table_str_opt rewire (sp_lev.c:3295 passthrough gap)
 
 **C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).

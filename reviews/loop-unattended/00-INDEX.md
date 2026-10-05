@@ -2403,3 +2403,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2391-c0717c51e-batch-in-mklev-opt-phase.md](./2391-c0717c51e-batch-in-mklev-opt-phase.md) | `c0717c51e` | D-3457 savebones/doset_simple fixes + bc retire + 5 audits | **ACCEPT** |
 | [2392-e947eb150-regen-hp-rehumanize.md](./2392-e947eb150-regen-hp-rehumanize.md) | `e947eb150` | D-3459 regen_hp rehumanize arm → ported | **ACCEPT** |
 | [2393-8a3621ea4-exercise-migrate-dodown.md](./2393-8a3621ea4-exercise-migrate-dodown.md) | `8a3621ea4` | D-3461 exercise/migrate wires + dodown/doup/impossible audits | **ACCEPT** |
+| [2394-0c517b253-newgame-pauper-dispatch.md](./2394-0c517b253-newgame-pauper-dispatch.md) | `0c517b253` | D-3463 newgame pauper_legacy dispatch + propagation (Must-fix 2390.1) | **ACCEPT** |
+| [2395-df8520aa2-wizkit-config-error-wire.md](./2395-df8520aa2-wizkit-config-error-wire.md) | `df8520aa2` | D-3465 wizkit config_error wire + tty_yn audit | **ACCEPT** |
+| [2396-3eafb17b2-lspo-grave-text-rewire.md](./2396-3eafb17b2-lspo-grave-text-rewire.md) | `3eafb17b2` | D-3467 lspo_grave text→helper rewire + impossible | **ACCEPT** |
+| [2397-fbfdad852-traptype-rewire-audits.md](./2397-fbfdad852-traptype-rewire-audits.md) | `fbfdad852` | D-3469 traptype rewire + 5 audits (paste covered) | **ACCEPT-WITH-DEBT** |
+| [2398-21b213581-lspo-monster-name-rewire.md](./2398-21b213581-lspo-monster-name-rewire.md) | `21b213581` | D-3471 lspo_monster name→helper rewire + impossible | **ACCEPT** |
