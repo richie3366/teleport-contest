@@ -43,6 +43,7 @@ import {
     NHKF_GETPOS_INTERESTING_NEXT, NHKF_GETPOS_INTERESTING_PREV,
     NHKF_GETPOS_VALID_NEXT, NHKF_GETPOS_VALID_PREV,
     NHKF_GETPOS_MOVESKIP, NHKF_GETPOS_MENU, NHKF_GETPOS_LIMITVIEW,
+    NHKF_GETPOS_HELP,
     S_stone, S_trwall, S_ndoor, S_vodoor, S_hcdoor, S_room, S_darkroom,
     S_corr, S_litcorr, S_engroom, S_engrcorr, S_arrow_trap,
     S_upstair, S_fountain,
@@ -316,14 +317,25 @@ function is_cmap_lava(i) {
 }
 
 /**
- * C ref: getpos.c matching[] build — defsyms[].sym / showsyms[] for
- * feature cmaps (walls/room/corr/door/ndoor skipped). k==0 → unknown
- * direction. Named: full gs.showsyms[] table (DEC extras below).
+ * C ref: getpos.c:1052–1061 matching[] build — defsyms[].sym /
+ * gs.showsyms[] for feature cmaps (walls/room/corr/door/ndoor
+ * skipped). k==0 → unknown direction. showsyms is the live
+ * game.gs.showsyms P range (direct sidx like C; entries are the
+ * single-char carriers assign_graphics wrote, else the defsyms
+ * fallback — identical to C's init-fed table at default config).
  */
 function build_feature_matching(ch) {
     const matching = new Uint8Array(MAXPCHARS);
     let k = 0;
-    const engroom = DEFSYMS_CH[S_engroom];
+    // C :1053/:1059–1060 — gs.showsyms[sidx] live (P range, direct sidx).
+    const showsyms = game.gs?.showsyms;
+    const showch = (i) => {
+        const v = showsyms?.[i];
+        if (typeof v === 'string') return v;
+        if (typeof v === 'number' && v > 0) return String.fromCharCode(v & 0xff);
+        return DEFSYMS_CH[i];
+    };
+    const engroom = showch(S_engroom);
     for (let sidx = 0; sidx < MAXPCHARS; sidx++) {
         if (is_cmap_wall(sidx) || is_cmap_room(sidx)
             || is_cmap_corr(sidx) || is_cmap_door(sidx)
@@ -331,6 +343,7 @@ function build_feature_matching(ch) {
             continue;
         }
         if (ch === DEFSYMS_CH[sidx]
+            || ch === showch(sidx)
             || (ch === '^' && is_cmap_trap(sidx))
             || (ch === engroom && is_cmap_engraving(sidx))) {
             matching[sidx] = ++k;
@@ -1097,6 +1110,8 @@ const GETPOS_SPKEY_DEFAULT = {
     [NHKF_GETPOS_MOVESKIP]: '*'.charCodeAt(0),
     [NHKF_GETPOS_MENU]: '!'.charCodeAt(0),
     [NHKF_GETPOS_LIMITVIEW]: '"'.charCodeAt(0),
+    // C cmd.c:3187 spkeys_binds default for the :844 verbose prompt + :945 arm.
+    [NHKF_GETPOS_HELP]: '?'.charCodeAt(0),
 };
 
 /** C ref: getpos.c gloc_descr[][4] — index 2 used when !getloc_usemenu. */
@@ -1376,7 +1391,8 @@ export async function getpos(ccp, force, goal, describeAt) {
     const gidx = Array(NUM_GLOCS).fill(0);
 
     if (g.flags.verbose !== false) {
-        await pline("(For instructions type a '?')");
+        // C :844–845 — the live help-key binding, not a hardcoded '?'.
+        await pline(`(For instructions type a '${visctrl(getpos_spkey(NHKF_GETPOS_HELP))}')`);
         msg_given = true;
     }
 
@@ -1602,10 +1618,11 @@ export async function getpos(ccp, force, goal, describeAt) {
             return 0; // C: result = 0 (not -1)
         }
 
-        // C: NHKF_GETPOS_HELP || redraw_cmd(c) → help?; getpos_refresh;
-        // curs; show_goal_msg (falls to nxtc — no unknown-direction).
-        if (ch === '?' || redraw_cmd(key)) {
-            if (ch === '?') {
+        // C :945–949 — NHKF_GETPOS_HELP || redraw_cmd(c) → help?;
+        // getpos_refresh; curs; show_goal_msg (falls to nxtc — no
+        // unknown-direction). Live binding like C, not a hardcoded '?'.
+        if (key === getpos_spkey(NHKF_GETPOS_HELP) || redraw_cmd(key)) {
+            if (key === getpos_spkey(NHKF_GETPOS_HELP)) {
                 await getpos_help(!!force, goal || 'desired location');
             }
             await getpos_refresh();

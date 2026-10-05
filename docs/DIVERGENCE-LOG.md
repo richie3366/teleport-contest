@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3433 — breadth batch @0a9a22f73: moveloop_core multi-replay + getpos live bindings
+- **Status:** shipped (batch).
+- **Symptom:** ledger gap of 2 partials (open 0 · recheck 0, ~209 C lines) in allmain/getpos; both rows' omit fields carry moveloop_core's text (finish-iteration paste-error, same class as D-3431/D-3432) — true omits recovered from D-3432 Named omissions before porting.
+- **C locus:**
+  - `moveloop_core`: allmain.c:514–531 multi>0 !mv arm (`--multi; rhack(cmd_key)`); removed the dead search_repeat_active() branch (C has no such arm).
+  - `getpos`: getpos.c:844–845 verbose prompt + :945/:948 help arm (live NHKF_GETPOS_HELP binding); :1052–1061 matching[] `gs.showsyms[sidx]` disjunct + showsyms engroom.
+- **JS was:** a count on any non-occupation command (walk/eat/pickup/…) executed once and the surviving multi was silently discarded by the next parse (C replays the stored key); the search_repeat branch was dead (`_repeat_search` never true); getpos hardcoded '?' in 3 places and never matched customized/rogue showsyms in the feature scan (doc-named omit).
+- **Fix:** multi>0 !run replay + getpos live bindings + replay test. C order lookaround+delay+clear-check+`--multi`+rhack(cmd_key) (lookaround exported, ALREADY edge, no TDZ); walk-counts replay like C's mv arm (mv nuance named); getpos help binding live (HELP default '?') + showsyms disjunct; test 3/3, pre-fix 1/3.
+- **JS:** js/allmain.js (replay arm + import), js/cmd.js (lookaround export + doc), js/getpos.js (HELP default/import/3 sites + showsyms disjunct) — 54 insertions, 3 js files; scripts/moveloop-multireplay.test.mjs (new, 61 lines).
+- **Callers:**
+  - `moveloop_core`: arms internal, signature untouched; C callers unchanged (allmain.c:595 moveloop; nhlua.c:1452 Lua binding has no JS counterpart, named per D-3430).
+  - `getpos`: arms internal, signature untouched; C callers in 13 files unchanged (prior-batch wiring).
+- **Verify:**
+  - batch `node scripts/verify.mjs --fn moveloop_core,getpos`: `PASS syntax 3 changed js file(s)` · `PASS rule2` · moveloop_core `no corpus session blocked` + reach 80/80 sample → REACH-OK · getpos `0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (scen-tour-Healer-92093 still getpos s87 — toplines byte-identical both sides, row-12 C "`#" vs JS "??" is the D-3431 memory writer, RNG 32478/32478, cause outside the manifest) + smoke 24/24 → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44`.
+  - hot-fn `node scripts/verify.mjs --fn moveloop_core --reach-all`: 724/724 PASS, 0 regressed → REACH-OK · green/strict/cohort/full PASS · VERIFY: PASS.
+  - focused `node --test scripts/moveloop-multireplay.test.mjs` 3/3 (pre-fix stash probe: 1/3 — "5h"/"9h" stopped after 1 step).
+- **Named omissions:**
+  - `moveloop_core`: run/tport MAP redisplay every 7th multi/moves (house run-flush model — JS flush_screen(1) every tick subsumes C's periodic WIN_MAP repaint; no failing session demands it); walk-count mv=1 (cmd.c:3786, non-manifest file — counted walks replay via !mv with mv=0: same steps, see_monsters-refresh delta only under Hallu/telepat/Warning/region); replay cmdq preemption (C rhack honors cmdq_pop before cmd_key, JS rhack(key≠0) skips the queue — order swap only if a counted command returns ECMD_TIME with canned entries still queued; no live case found).
+  - `getpos`: gg.getposx/getposy stores (:848–849, :1144, :1160 exit zeroing) — sole C readers win/tty/wintty.c:421–424 async-resize; no JS resize path (fixed display; cannot ship).
+- **Ledger:** moveloop_core partial; getpos partial.
+- **Left open:** none.
+- **Next:** next batch (`ledger.mjs batch --write`).
 ## D-3432 — breadth batch @801b58f13: 4 partials (2 partial, 2 audited)
 - **Status:** shipped (batch).
 - **Symptom:** ledger gap of 4 partials (open 0 · recheck 0, ~401 C lines) in allmain/do/getpos/hack; every row's omit field carries the same finish-iteration paste-error text (test_move's, D-3431), so true omits were recovered from D-3431 Named omissions before porting.

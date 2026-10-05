@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3433 breadth batch @0a9a22f73: moveloop_core multi-replay + getpos live bindings
+
+**C locus:** - `moveloop_core`: allmain.c:514–531 multi>0 !mv arm (`--multi; rhack(cmd_key)`); removed the dead search_repeat_active() branch (C has no such arm).
+**JS:** js/allmain.js (replay arm + import), js/cmd.js (lookaround export + doc), js/getpos.js (HELP default/import/3 sites + showsyms disjunct) — 54 insertions, 3 js files; scripts/moveloop-multireplay.test.mjs (new, 61 lines).
+**Change:** moveloop dispatches multi>0 !run to lookaround + delay + clear-check + `--multi` + rhack(cmd_key) in C order (lookaround newly exported from cmd.js — imports.mjs ALREADY, hoisted async fn, no TDZ; run/occupation/ckmail arms untouched); walk-counts now replay with the same steps as C's mv arm (mv nuance named). getpos reads the live help binding (HELP default '?' per cmd.c:3187) and the live game.gs.showsyms P range with defsyms fallback. Added scripts/moveloop-multireplay.test.mjs (3/3 post-fix; 1/3 pre-fix — counted walks moved once).
+**Verify:** - batch `node scripts/verify.mjs --fn moveloop_core,getpos`: `PASS syntax 3 changed js file(s)` · `PASS rule2` · moveloop_core `no corpus session blocked` + reach 80/80 sample → REACH-OK · getpos `0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (scen-tour-Healer-92093 still getpos s87 — toplines byte-identical both sides, row-12 C "`#" vs JS "??" is the D-3431 memory writer, RNG 32478/32478, cause outside the manifest) + smoke 24/24 → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44`.
+**Named:** - `moveloop_core`: run/tport MAP redisplay every 7th multi/moves (house run-flush model — JS flush_screen(1) every tick subsumes C's periodic WIN_MAP repaint; no failing session demands it); walk-count mv=1 (cmd.c:3786, non-manifest file — counted walks replay via !mv with mv=0: same steps, see_monsters-refresh delta only under Hallu/telepat/Warning/region); replay cmdq preemption (C rhack honors cmdq_pop before cmd_key, JS rhack(key≠0) skips the queue — order swap only if a counted command returns ECMD_TIME with canned entries still queued; no live case found).
+**Next:** next batch (`ledger.mjs batch --write`).
 ## 2026-10-05 — D-3432 breadth batch @801b58f13: 4 partials (2 partial, 2 audited)
 
 **C locus:** - `moveloop_core`: allmain.c:543–547 post-rhack cliparound (CLIPPING compiled in, config.h:538); wired the live display.js cliparound after the post-rhack vision_recalc (js/allmain.js:1535).

@@ -3964,9 +3964,10 @@ export async function domove_fight_empty(x, y) {
  * `stop:` is C `nomul(0)` (live hack.js export, already imported); bcorr is
  * a flag (C goto into the CORR arm skips the terrain else-chain).
  * Async only because the C message arms (You/pline_xy/pline_The) and the
- * trap/liquid helpers reach --More-- (sole caller continue_run awaits).
+ * trap/liquid helpers reach --More-- (callers continue_run + moveloop_core
+ * multi>0 !mv replay arm await; exported for the latter, D-3433).
  */
-async function lookaround() {
+export async function lookaround() {
     const ctx = game.context;
     const u = game.u;
     // C `:3907–3911` — grid bugs (NODIAG ≡ umonnum==PM_GRID_BUG,

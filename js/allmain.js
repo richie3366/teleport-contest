@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { rnd, rn2, rn1 } from './rng.js';
 import { mklev, l_nhcore_init, u_on_upstairs, fumaroles, movebubbles } from './mklev.js';
 import { dobjsfree, clear_splitobjs } from './mkobj.js';
-import { rhack, continue_run, run_active, continue_search, search_repeat_active, dolookaround, end_of_input, enter_explore_mode, nh_callback_run, NHCB_NAME } from './cmd.js';
+import { rhack, continue_run, run_active, lookaround, dolookaround, end_of_input, enter_explore_mode, nh_callback_run, NHCB_NAME } from './cmd.js';
 import {
     docrt, cls, bot, timebot, curs_on_u, flush_screen, pline, Norep,
     flush_topl_more, see_monsters, You, install_tty_wincap2,
@@ -1510,12 +1510,33 @@ export async function moveloop_core() {
         // multi-turn inactivity continues without nhgetch
     } else if (run_active()) {
         await continue_run();
-    } else if (search_repeat_active()) {
-        await continue_search();
+    } else if ((g.multi || 0) > 0) {
+        // C allmain.c:514–531 — multi > 0 without run: a counted command
+        // returned ECMD_TIME with no f_text occupation (s/. set occupations
+        // via cmd.c:3728; only those two carry f_text). lookaround() may
+        // clear multi (stop instead of repeating); else --multi and re-run
+        // the stored command key. The :529 nhassert(command_count != 0) is
+        // a release no-op; cmd_key persists from parse (sole writer
+        // js/cmd.js parse), and a 0 key falls back to the parse path.
+        // Named: walk-count mv=1 (cmd.c:3786, non-manifest file) — counted
+        // walks replay here with mv=0 (same steps; C skips the per-step
+        // see_monsters refresh via mv=1, JS runs it under Hallu/telepat/
+        // Warning/region). The old search_repeat_active() branch was dead
+        // (game._repeat_search has no `= true` in js/**; Ns runs as a
+        // dosearch occupation) and C has no such arm.
+        await lookaround();
+        await runmode_delay_output();
+        if (!((g.multi || 0) > 0)) {
+            // C :517–521 — lookaround cleared multi: no move this tick.
+            g.context.move = 0;
+            return;
+        }
+        g.multi--;
+        await rhack(g.cmd_key | 0);
     } else {
         // C allmain.c:532–536 — multi == 0, #ifdef MAIL: ckmailstatus()
         // then rhack(0). The multi > 0 arm calls rhack(cmd_key) with no
-        // mail check; run/search stay on the branches above.
+        // mail check; run stays on the branch above.
         if ((g.multi || 0) === 0) await ckmailstatus();
         await rhack(0);
     }
