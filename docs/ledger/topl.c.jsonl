@@ -3,7 +3,7 @@
 {"fn":"show_topl","c":"145-166","status":"ported","js":["js/display.js:show_topl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: STOP/NOSTOP gate, one-shot clear, cury clear, hard-wrap cursor, NEED_MORE/NON_EMPTY"}
 {"fn":"remember_topl","c":"170-191","status":"ported","js":["js/display.js:remember_topl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: LOCKHISTORY/empty guard, ring store, checkpoint arm"}
 {"fn":"addtopl","c":"194-202","status":"ported","js":["js/display.js:addtopl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: append + NEED_MORE + paint"}
-{"fn":"more","c":"205-248","status":"partial","js":["js/display.js:more"],"omit":"missing `if (iflags.debug_fuzzer) return` skip (flag live in JS, honored elsewhere)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: inmore guard, --More-- placement, xwaitforspace+ESC-STOP+dismiss via more_wait_keys"}
+{"fn":"more","c":"205-248","status":"ported","js":["js/display.js:more"],"d":["D-3439"],"at":"2026-10-05@18077a1c0","note":"audit 2026-10-03: inmore guard, --More-- placement, xwaitforspace+ESC-STOP+dismiss via more_wait_keys"}
 {"fn":"update_topl","c":"251-302","status":"partial","js":["js/display.js:update_topl"],"omit":"missing cury==0 gate on same-line append and cury>1 docorner reset arm; no TBUFSZ truncation; tail more() drops otoplin!=SPECIAL check","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: append arm, NEED_MORE->more chaining, word wrap, notdied arm, redotoplin tail"}
 {"fn":"topl_putsym","c":"305-344","status":"split","js":["js/display.js:show_topl","js/getline.js:topl_wrap_echo","js/getline.js:yn_collect_number"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
 {"fn":"putsyms","c":"347-351","status":"unknown"}

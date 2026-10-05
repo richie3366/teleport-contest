@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3439 Open head: doopen_indir glyph-learn + toss_up live can_blnd + dokick !oldmem restore + more fuzzer skip
+
+**C locus:** - `doopen_indir`: lock.c:832–840 (oldglyph snapshot + update_mapseen_for + newsym + glyph/lastseentyp compare → ECMD_TIME).
+**JS:** js/lock.js (:915–925); js/dothrow.js (:76,:104 imports, :1643–1648 call, subset deleted); js/dokick.js (:1676–1691 snapshot, :1730–1750 restore); js/display.js (:7871–7877).
+**Change:** - `doopen_indir`: cellGlyph snapshot/compare around mapseen+newsym (pick_lock :1421 precedent; cellGlyph hoisted fn, null-safe).
+**Verify:** `verify.mjs --fn doopen_indir,toss_up,dokick,more` → PASS syntax (4 js) · PASS rule2 · doopen_indir REACH-OK (77/77 reach) · toss_up NO MOVEMENT (scen-impaired-Knight-94330 still s98 — misattributed per Symptom triage; /tmp probe only, session untouched) + REACH-OK (smoke 24/24) · dokick REACH-OK (smoke 24/24) · more REACH-OK (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: FAIL on hidden NO MOVEMENT only (disclosed, cause outside the arm).
+**Named:** none — all four arms whole (deferred glyphmap id→char table is display.js show_glyph_cell's standing note, not this arm's).
+**Next:** Must-fix head (D-3430 6-row repair); 4 refills hold the band (use_camera, carry_count, docorner, use_cream_pie).
 ## 2026-10-05 — D-3438 Must-fix review 2376: D-3431 domove_core/goto_level rows restored
 
 **C locus:** row homes only (no C re-read; bodies verified whole by D-3431/D-3432/reviews 2376–2377): hack.c `domove_core` :2712–2991 (:2726–2730 travel head, :2934 u_on_newpos); do.c `goto_level` :1479–1998 (:1838 reset_glyphmap, :1865 MICRO Valley, :2088–2094 RMPORTAL seal in callee deferred_goto).

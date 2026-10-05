@@ -169,11 +169,15 @@ D-3437 (Open head + litter fix; band 4 < 8 blocks finish) refilled +4
 with brief-verified missing arms (doopen_indir glyph, toss_up can_blnd,
 dokick oldmem, more fuzzer — each C + JS read at enqueue) to hold the
 8-row band.
+D-3439 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
+with brief-verified missing arms (use_camera s_suffix, carry_count
+invent predicate, docorner ystart paging, use_cream_pie can_blnd —
+each C + JS read at enqueue) to hold the 8-row band.
 
-- [ ] `lock.c` doopen_indir — C lock.c:832–840 door->glyph learned half (oldglyph snapshot + newsym + glyph-compare → ECMD_TIME) absent from js/lock.js:doopen_indir (:919–923: lastseentyp half only; pick_lock :1421 cellGlyph precedent; brief-read 2026-10-05) @52e6ce3d0
-- [ ] `dothrow.c` toss_up — C dothrow.c:1297 live can_blnd AT_WEAP call; mondata.c:327–328 raven-self + :344–351 EBlinded(pie)/ublindf/ucreamed/visor(venom) gates absent from js/dothrow.js:can_blnd_toss_self subset (:1298–1304, caller :1655–1659; live can_blnd js/uhitm.js:359 covers all; brief-read 2026-10-05) @52e6ce3d0
-- [ ] `dokick.c` dokick — C dokick.c:1417–1418 unconditional show_glyph(x,y,oldglyph) restore absent from js/dokick.js:1725 in the !oldmem case (`&& oldmem` gate; review 1682 §1; display-only corner; brief-read 2026-10-05) @52e6ce3d0
-- [ ] `topl.c` more — C win/tty/topl.c:209–210 `if (iflags.debug_fuzzer) return` skip absent from js/display.js:more (:7871–7873: doc names it, only inmore guard live; flag live in JS; fuzzer-only; brief-read 2026-10-05) @52e6ce3d0
+- [ ] `apply.c` use_camera — C apply.c:97–98 s_suffix(mon_nam)+mbodypart(STOMACH) absent from js/apply.js:1036 (hardcoded `'s stomach`; s_suffix_apply live same-file; mbodypart ported; message-only; brief-read 2026-10-05) @18077a1c0
+- [ ] `pickup.c` carry_count — C pickup.c:1687 `gi.invent||umoney` NULL arm absent from js/pickup.js:1476 (`game.invent||umoney` — empty array truthy; message-only; brief-read 2026-10-05) @18077a1c0
+- [ ] `wintty.c` docorner — C wintty.c:3686 cl_end skip + :3716 botlx gate when ystart_between_menu_pages!=0 absent from js/display.js:7619–7634 (unconditional blank + bot; refresh-only paging arm; brief-read 2026-10-05) @18077a1c0
+- [ ] `apply.c` use_cream_pie — C apply.c:3584 live can_blnd(NULL,you,AT_WEAP,pie) absent from js/apply.js:1117 (can_blnd_cream_self subset :1070–1077 adds non-C ublindf gate — C pie checks EBlinded only :344–346; live can_blnd js/uhitm.js:359; toss-subset twin; brief-read 2026-10-05) @18077a1c0
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

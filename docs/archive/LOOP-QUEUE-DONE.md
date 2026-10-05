@@ -7,7 +7,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 
 
-- [x] D-3431 `domove_core`/`goto_level` rows: direct `ledger.mjs set` ×2, no JS (D-3427 protocol) — restore D-3431 Named texts reconciled with D-3432 extensions (review 2377 verifies; details in review). Source: reviews/loop-unattended/2376-801b58f13-batch-d3431.md. **Addressed:** D-3438
+- [x] `lock.c` doopen_indir — C lock.c:832–840 door->glyph learned half (oldglyph snapshot + newsym + glyph-compare → ECMD_TIME) absent from js/lock.js:doopen_indir (:919–923: lastseentyp half only; pick_lock :1421 cellGlyph precedent; brief-read 2026-10-05) @52e6ce3d0
+- [x] `dothrow.c` toss_up — C dothrow.c:1297 live can_blnd AT_WEAP call; mondata.c:327–328 raven-self + :344–351 EBlinded(pie)/ublindf/ucreamed/visor(venom) gates absent from js/dothrow.js:can_blnd_toss_self subset (:1298–1304, caller :1655–1659; live can_blnd js/uhitm.js:359 covers all; brief-read 2026-10-05) @52e6ce3d0
+- [x] `dokick.c` dokick — C dokick.c:1417–1418 unconditional show_glyph(x,y,oldglyph) restore absent from js/dokick.js:1725 in the !oldmem case (`&& oldmem` gate; review 1682 §1; display-only corner; brief-read 2026-10-05) @52e6ce3d0
+- [x] `topl.c` more — C win/tty/topl.c:209–210 `if (iflags.debug_fuzzer) return` skip absent from js/display.js:more (:7871–7873: doc names it, only inmore guard live; flag live in JS; fuzzer-only; brief-read 2026-10-05) @52e6ce3d0
+
+
+- [x] D-3431 `domove_core`/`goto_level` rows: direct `ledger.mjs set` ×2, no JS (D-3427 protocol) — restore D-3431 Named texts reconciled with D-3432 extensions (review 2377 verifies; details in review). Source: reviews/loop-unattended/2376-801b58f13-batch-d3431.md. **Addressed:** D-3438 `18077a1c0`
 
 
 - [x] `ball.c` litter setnotworn bypass: js/ball.js:litter inlines a slot-nulling subset (drops twoweap/extrinsic/artifact/botl effects) — replace with the live `setnotworn` import from do.js (ALREADY edge; sync). Verify: gates + `verify litter` + wielded-artifact case. Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md. **Addressed:** D-3437 `12c181c41`

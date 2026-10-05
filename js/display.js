@@ -7869,7 +7869,9 @@ export async function timebot() {
 // capture boundary, matching C session steps with 0 RNG at --More--.
 // C more() does not call flush_screen/bot — only message; paint cached botl.
 export async function more() {
-    // C topl.c more() — debug_fuzzer skip named; inmore recursion guard.
+    // C topl.c:209–210 — the fuzzer never blocks on --More--.
+    if (game.iflags?.debug_fuzzer) return;
+    // C topl.c more() — inmore recursion guard.
     if (_tty_inmore) return;
     _tty_inmore++;
     try {

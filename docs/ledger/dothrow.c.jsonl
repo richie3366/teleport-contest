@@ -17,7 +17,7 @@
 {"fn":"mhurtle","c":"1130-1178","status":"ported","js":["js/dothrow.js:mhurtle"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"check_shop_obj","c":"1181-1214","status":"ported","js":["js/shk.js:check_shop_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"harmless_missile","c":"1220-1248","status":"ported","js":["js/dothrow.js:harmless_missile"],"at":"2026-10-03@bbe63333a"}
-{"fn":"toss_up","c":"1256-1426","status":"ported","js":["js/dothrow.js:toss_up"],"d":["D-1274"],"at":"2026-10-03@bbe63333a"}
+{"fn":"toss_up","c":"1256-1426","status":"ported","js":["js/dothrow.js:toss_up"],"d":["D-3439","D-1274"],"at":"2026-10-05@18077a1c0"}
 {"fn":"throwing_weapon","c":"1430-1438","status":"ported","js":["js/dothrow.js:throwing_weapon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sho_obj_return_to_u","c":"1442-1457","status":"ported","js":["js/dothrow.js:sho_obj_return_to_u"],"d":["D-1303"],"at":"2026-10-03@bbe63333a"}
 {"fn":"throwit_return","c":"1460-1465","status":"ported","js":["js/dothrow.js:throwit_return"],"at":"2026-10-03@bbe63333a"}

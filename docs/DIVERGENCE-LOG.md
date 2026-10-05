@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-3439 — Open head: doopen_indir glyph-learn + toss_up live can_blnd + dokick !oldmem restore + more fuzzer skip
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4323 a failed port; Must-fix head is docs-only ledger repair; batch manifest empty — D-3437 precedent; Must-fix deferred, still queued). Real work ×4: (a) doopen_indir dropped C's glyph-learned half (ECMD_TIME when newsym changes the glyph); (b) toss_up blindinc used the can_blnd_toss_self subset (no raven/EBlinded/ublindf/ucreamed/visor gates); (c) dokick skipped C's unconditional show_glyph restore on squares with no hero-memory record (review 1682 §1); (d) more missed the debug_fuzzer early return. toss_up has 1 baseline-blocked session (scen-impaired-Knight-94330 s98/287 kind=screen) — triaged misattributed owner: no cream-pie/venom/rnd(25) anywhere in 287 steps, step-98 C log is monster-melee draws (exercise/distfleeck/dochug/obj_resists/dog_goal/mattackm) with hero key space; NO MOVEMENT disclosed, cause outside the arm (D-3434 getpos precedent).
+- **C locus:**
+  - `doopen_indir`: lock.c:832–840 (oldglyph snapshot + update_mapseen_for + newsym + glyph/lastseentyp compare → ECMD_TIME).
+  - `toss_up`: dothrow.c:1297 blindinc predicate — can_blnd(&youmonst, &youmonst, AT_WEAP, obj) incl. mondata.c:327–328 raven-self + :344–351 EBlinded(pie)/ublindf+ucreamed(venom)+visor gates.
+  - `dokick`: dokick.c:1417–1418 unconditional show_glyph(x,y,oldglyph) in the DEADMONSTER/invisible arm.
+  - `more`: win/tty/topl.c:209–210 if (iflags.debug_fuzzer) return.
+- **JS was:**
+  - `doopen_indir` (js/lock.js:919–923): lastseentyp half only; comment claimed cells don't model door->glyph.
+  - `toss_up` (js/dothrow.js:1655): can_blnd_toss_self subset (:1298–1304: haseyes + pie/venom otyp + uswallow only).
+  - `dokick` (js/dokick.js:1725): `&& oldmem` gate skipped the restore on never-memorized squares.
+  - `more` (js/display.js:7871–7873): doc named the skip; only the inmore guard live.
+- **Fix:**
+  - `doopen_indir`: cellGlyph snapshot/compare around mapseen+newsym (pick_lock :1421 precedent; cellGlyph hoisted fn, null-safe).
+  - `toss_up`: live can_blnd(game.youmonst, game.youmonst, AT_WEAP, obj) (uhitm.js:359; dothrow→uhitm and dothrow→mhitm edges ALREADY); deleted the 12-line subset (debt 1563 toss half; cream twin queued as refill).
+  - `dokick`: dropped `&& oldmem`; !oldmem repaints the pre-kick tty paint snapshot (olddisp; never-painted → blank over the id; glyphmap id→char table still deferred per show_glyph_cell).
+  - `more`: `if (game.iflags?.debug_fuzzer) return;` before inmore (mail.js:290 idiom).
+- **JS:** js/lock.js (:915–925); js/dothrow.js (:76,:104 imports, :1643–1648 call, subset deleted); js/dokick.js (:1676–1691 snapshot, :1730–1750 restore); js/display.js (:7871–7877).
+- **Callers:**
+  - `doopen_indir`: C lock.c:775 doopen → js/lock.js:857; C hack.c:1099 test_move → js/hack.js:549 (+ js/cmd.js:6405 autoopen); all pre-wired, arm internal.
+  - `toss_up`: C dothrow.c:1589 throwit → js/dothrow.js:2398; pre-wired, arm internal.
+  - `dokick`: C cmd.c:37 extern → js/cmd.js:2009 ext table + :5127 Ctrl-D + :5777 dispatch; pre-wired, arm internal.
+  - `more`: C fan-in (files.c:1766, getline.c:54, topl.c:140/274/392, wintty.c:1875/2835) → the one JS --More-- wait (js/display.js:2849/:7775 + pager/getline sites); entry guard, all inherit.
+- **Verify:** `verify.mjs --fn doopen_indir,toss_up,dokick,more` → PASS syntax (4 js) · PASS rule2 · doopen_indir REACH-OK (77/77 reach) · toss_up NO MOVEMENT (scen-impaired-Knight-94330 still s98 — misattributed per Symptom triage; /tmp probe only, session untouched) + REACH-OK (smoke 24/24) · dokick REACH-OK (smoke 24/24) · more REACH-OK (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: FAIL on hidden NO MOVEMENT only (disclosed, cause outside the arm).
+- **Named omissions:** none — all four arms whole (deferred glyphmap id→char table is display.js show_glyph_cell's standing note, not this arm's).
+- **Ledger:** doopen_indir ported; toss_up ported; dokick ported; more ported
+- **Left open:** none.
+- **Next:** Must-fix head (D-3430 6-row repair); 4 refills hold the band (use_camera, carry_count, docorner, use_cream_pie).
+
 ## D-3438 — Must-fix review 2376: D-3431 domove_core/goto_level rows restored
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2376 QUALITY-RISK Actionable 1: D-3431's finish pasted test_move's `- \`test_move\`: none — whole.` omit into 4 partial rows; 2 still stand (domove_core, goto_level — D-3432 kept the paste + "audited D-3432" re-cert note), so their standing omits have no row home. 13th stamping iter at write; truth recovered from the D-3431 Named bullet reconciled with D-3432's Named extensions (review 2377 verifies every extension line — repair GO, RMPORTAL drops as shipped-live), each sub-omit re-verified by this iter and by the review.
