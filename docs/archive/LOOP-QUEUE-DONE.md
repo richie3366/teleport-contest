@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] files.c do_deferred_showpaths 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — do_deferred_showpaths partial with NO omit text and no audit note (quoted from `ledger.mjs show do_deferred_showpaths` 2026-10-05, d=D-3117); JS body read at enqueue (js/files.js:2438, C 9 code lines, :3092 flag clear + :3101 after_opt_showpaths live, :3093 reveal_paths + :3096–3098 freedynamicdata/dlb_cleanup/l_nhcore_done as in-code named omits — likely restore-narrowed naming reveal_paths + by-design tails, D-3117 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the get_table_str_opt head dropped the band to 4, finish fails closed below 8).
+
+
 - [x] end.c build_english_list 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — build_english_list ← cnf_line_WIZARDS paste ("- `cnf_line_WIZARDS`: end.c:1836 impossible in build_english_list_config only for a nonempty all-isspace value", quoted from `ledger.mjs show build_english_list` 2026-10-05, d=D-3184,D-2629; landed 03eae3466 per `git log -S'cnf_line_WIZARDS'`; row split with a "stale:" note claiming the JS homes); JS body reads whole at enqueue (js/end.js:2377 async wrapper + english_list_parts core + build_english_list_config, C 36 lines, case-0 impossible arm live — likely retire-stale or restore re-headlined, D-3184 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger paste scan + brief 2026-10-05; popping the get_table_str_opt head dropped the band to 4, finish fails closed below 8).
 
 
