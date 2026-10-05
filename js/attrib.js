@@ -5,6 +5,8 @@
 import { game } from './gstate.js';
 import { strstri, strncmpi } from './hacklib.js';
 import { rn2, rnd, d, rn1 } from './rng.js';
+/* invent.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
+import { encumber_msg } from './invent.js';
 import {
     FROMEXPER,
     FROMRACE,
@@ -209,11 +211,16 @@ export function get_strength_str() {
 }
 
 /* C ref: attrib.c exercise `:489–518` — INT/CHA + poly guards, then
- * |AEXE| < AVAL (`:486`, 50) gates `(rn2(19) > ACURR) : -rn2(2)`.
- * Named omissions: debugpline0/3 (`:491`, `:510–514`, D_DEBUG-only);
- * the `:516–517` encumber_msg() tail for STR/CON (message-only, no RNG;
- * async pline cannot run in this sync 297-site fan-out — same shape as
- * the redist_attr note below: a caller-side flush if ever observed). */
+ * |AEXE| < AVAL (`:486`, 50) gates `(rn2(19) > ACURR) : -rn2(2)`, then
+ * the `:516–517` encumber_msg() tail for STR/CON once moves > 0.
+ * encumber_msg is async-only (pline can reach --More--) and this fan-out
+ * is sync (~297 sites, incl. level-gen), so the call floats: state
+ * (newcap compare, botl, oldcap commit) settles synchronously inside the
+ * call — oldcap commits before the first await (invent.js) — and only
+ * the message delivery floats. No RNG floats: the message builds
+ * synchronously and only pline delivery awaits.
+ * Named omissions: debugpline0/3 (`:491`, `:510–514`, `#ifdef DEBUG`
+ * compiled out — D-2586 precedent). */
 export function exercise(i, inc_or_dec) {
     if (i === A_INT || i === A_CHA) return;
     const u = game.u;
@@ -229,6 +236,10 @@ export function exercise(i, inc_or_dec) {
         } else {
             u.aexe.a[i] = ax - rn2(2);
         }
+    }
+    // C `:516–517` — STR/CON re-sync encumbrance feedback once play begins.
+    if (((game.moves ?? 0) > 0) && (i === A_STR || i === A_CON)) {
+        void encumber_msg();
     }
 }
 

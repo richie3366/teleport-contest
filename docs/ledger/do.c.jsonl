@@ -18,8 +18,8 @@
 {"fn":"menudrop_split","c":"964-977","status":"ported","js":["js/do.js:menudrop_split"],"at":"2026-10-03@bbe63333a"}
 {"fn":"menu_drop","c":"981-1107","status":"ported","js":["js/do.js:menu_drop"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: named omits are callee-side (query_objlist display, drop corpse guard), unit branches complete"}
 {"fn":"u_stuck_cannot_go","c":"1110-1127","status":"ported","js":["js/do.js:u_stuck_cannot_go"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"dodown","c":"1131-1294","status":"partial","js":["js/do.js:dodown"],"omit":"`doup` still omits `set_move_cmd(DIR_UP)`, `u_rooted`, `stucksteed`, and `near_capacity() > SLT_ENCUMBER` (`do.c:1302–1328`).","d":["D-2793"],"at":"seed@a30a7de84"}
-{"fn":"doup","c":"1298-1344","status":"ported","js":["js/do.js:doup"],"d":["D-3252","D-2016"],"at":"2026-10-02@b3c50cbeb"}
+{"fn":"dodown","c":"1131-1294","status":"ported","js":["js/do.js:dodown"],"d":["D-3461","D-2793"],"at":"2026-10-05@34d46fdf2"}
+{"fn":"doup","c":"1298-1344","status":"ported","js":["js/do.js:doup"],"d":["D-3461","D-3252","D-2016"],"at":"2026-10-05@34d46fdf2","note":"audited D-3461: whole vs C"}
 {"fn":"currentlevel_rewrite","c":"1348-1371","status":"by-design","at":"seed@a30a7de84","note":"seed: save file infra"}
 {"fn":"save_currentstate","c":"1375-1395","status":"partial","js":["js/do.js:save_currentstate"],"omit":"`currentlevel_rewrite` (`do.c:1347`), `bufon` (`sfstruct.c:414`), `savelev` (`save.c`), and `close_nhfile` (`files.c:517`) stay the by-design NHFILE omit, and `savestateinlock`'s file body (`save.c:369–421`) stays with them.","d":["D-3429","D-2987"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
 {"fn":"badspot","c":"1400-1406","status":"by-design","d":["D-3327"],"at":"2026-10-03@0e60ede85","note":"refresh: no JS symbol (measured MISSING)"}

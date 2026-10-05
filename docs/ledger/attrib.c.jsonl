@@ -8,7 +8,7 @@
 {"fn":"stone_luck","c":"423-437","status":"ported","js":["js/attrib.js:stone_luck"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_moreluck","c":"441-451","status":"ported","js":["js/attrib.js:set_moreluck"],"at":"2026-10-03@bbe63333a"}
 {"fn":"restore_attrib","c":"455-484","status":"ported","js":["js/attrib.js:restore_attrib"],"d":["D-3141"],"at":"2026-09-30@b20fdf92d","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"exercise","c":"489-518","status":"partial","js":["js/attrib.js:exercise"],"omit":"- `exercise`: :491 + :510–514 debugpline (D_DEBUG-only, D-2586 precedent); :516–517 encumber_msg() tail for STR/CON — message-only, no RNG; async pline cannot run in this sync 297-site fan-out (redist_attr precedent: caller-side job).","d":["D-3270","D-2169","D-2023","D-1994","D-1993"],"at":"2026-10-02@0dd9bcfeb"}
+{"fn":"exercise","c":"489-518","status":"ported","js":["js/attrib.js:exercise"],"d":["D-3461","D-3270","D-2169","D-2023","D-1994","D-1993"],"at":"2026-10-05@34d46fdf2"}
 {"fn":"exerper","c":"521-584","status":"ported","js":["js/allmain.js:exerper"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Clairvoyant gate reads any H bit vs C INTRINSIC|TIMEOUT mask; equivalent in practice"}
 {"fn":"exerchk","c":"598-677","status":"ported","js":["js/allmain.js:exerchk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rnd_attr","c":"682-692","status":"ported","js":["js/attrib.js:rnd_attr"],"at":"2026-10-03@bbe63333a"}

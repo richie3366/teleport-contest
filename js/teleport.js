@@ -96,6 +96,8 @@ import { fill_pit } from './dig.js';
 import { somex } from './mklev.js';
 /* priest.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
 import { mon_aligntyp, histemple_at, inhistemple } from './priest.js';
+/* mhitu.js (same SCC; hoisted function, call-time use only — imports.mjs SAFE). */
+import { unstuck } from './mhitu.js';
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
@@ -2803,9 +2805,13 @@ export async function teleport_pet(mtmp, force_it) {
  * are the canonical dungeon.js exports (local clones retired).
  * Whole mon_leave live (D-2296 worm arm + no_charge loop + residency
  * clear).
- * Named omissions: mon.c:2703 unstuck (async-only: awaits docrt on
- * swallow release; no static mon↔mhitu edge — D-3280). The C `#if 0`
- * :2711–2713 mx/my zeroing stays out (C keeps stale coords valid).
+ * Named omissions: mon.c:2703 unstuck floats when the hero is stuck
+ * to the migrant (guarded void live call — the common guard-false case
+ * is an exact sync no-op; the rare release runs swallowed placebc/docrt
+ * + mspec_used rnd(2) late; the sync level-gen path cannot await —
+ * overrides D-3429's "cannot ship", which predates the guarded-void
+ * idiom). The C `#if 0` :2711–2713 mx/my zeroing stays out (C keeps
+ * stale coords valid).
  */
 export function migrate_to_level(mtmp, tolev, xyloc, cc) {
     if (!mtmp) return;
@@ -2843,13 +2849,24 @@ export function migrate_to_level(mtmp, tolev, xyloc, cc) {
         void impossible('relmon: no fmon available.');
     }
     // C :2569 → mon_leaving_level :2696–2732 sync core (:2703 unstuck
-    // named — async-only).
+    // wired below as a guarded live call).
     // C :2698–2699 — on this level's grid (canonical m_at is the
     // rm.h grid read: seg map + the fmon coord scan; steed/dead/
     // OFFMAP skips match C's empty cell — D-1565/D-1231).
     const onmap = isok(mx, my) && mon_m_at(mx, my) === mtmp;
     /* to prevent an infinite relobj-flooreffects-hmon-killed loop */
     mtmp.mtrapped = 0;
+    /* C :2703 unstuck(mon) — guarded live call (static edge, imports.mjs
+     * SAFE; the D-3280 "no static edge" note is mon↔mhitu, not this one).
+     * The guard (u.ustuck === mtmp) is usually false — migrants are
+     * pets/fellows/level-gen arrivals — so the common case stays an exact
+     * sync no-op. When the hero IS stuck to the migrant, the release
+     * floats (swallowed placebc/docrt + mspec_used rnd(2) run late on
+     * microtask) instead of leaving u.ustuck aimed at a migrating mon;
+     * that float is the remaining omission below. */
+    if ((game.u?.ustuck) === mtmp) {
+        void unstuck(mtmp);
+    }
     /* vault guard might be at <0,0> */
     if (onmap || mon_m_at(0, 0) === mtmp) {
         if (mtmp.wormno) {

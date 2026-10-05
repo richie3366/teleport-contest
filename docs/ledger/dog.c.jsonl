@@ -13,7 +13,7 @@
 {"fn":"mon_leave","c":"729-763","status":"ported","js":["js/dog.js:mon_leave"],"d":["D-3401","D-3115"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"keep_mon_accessible","c":"768-785","status":"ported","js":["js/dog.js:keep_mon_accessible"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: drops mon->mextra gate; shk/priest/gd without mextra impossible (allocators set it, free_* clears flag)"}
 {"fn":"keepdogs","c":"789-884","status":"ported","js":["js/dog.js:keepdogs"],"d":["D-3279","D-1789","D-1783"],"at":"2026-10-02@3d8fe9bf9"}
-{"fn":"migrate_to_level","c":"887-932","status":"partial","js":["js/teleport.js:migrate_to_level"],"omit":"- `replmon`: mon.c:2703 unstuck (async-only: awaits docrt on swallow release).","d":["D-3429","D-3401","D-3281","D-3280","D-1198"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
+{"fn":"migrate_to_level","c":"887-932","status":"partial","js":["js/teleport.js:migrate_to_level"],"d":["D-3461","D-3429","D-3401","D-3281","D-3280","D-1198"],"at":"2026-10-05@34d46fdf2","note":"audited D-3429: remaining omit cannot ship"}
 {"fn":"discard_migrations","c":"938-990","status":"ported","js":["js/dog.js:discard_migrations"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: monster arm complete incl del_light_source/dealloc_monst"}
 {"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-2760"],"at":"seed@a30a7de84"}
 {"fn":"tamedog","c":"1143-1282","status":"ported","js":["js/dog.js:tamedog"],"d":["D-1595","D-1593","D-1546","D-1532"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: M3_WANTSARTI value verified 0x0010"}

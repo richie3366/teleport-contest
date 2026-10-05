@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-3461 — Open head ×3: exercise encumber_msg tail + migrate_to_level unstuck guard wired; dodown misfile retired; impossible audit
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4347 a failed port; the 4 Must-fix heads are docs-only ledger repairs; `ledger.mjs batch` prints no gap; Must-fix deferred, still queued; D-3439/D-3451 precedent). Real C-vs-JS gaps: (a) exercise dropped C's :516–517 encumber_msg() tail for STR/CON while moves > 0; (b) migrate_to_level's relmon sync mirror dropped mon.c:2703 unstuck(mon) — u.ustuck left aimed at a migrating mon; (c) dodown's ledger omit misfiles doup's arms (doup body wholeness unverified at enqueue). Hidden NO MOVEMENT ×1 triaged, cause outside the cited arm (D-3439/D-3441 precedent): exercise's scen-terrain-Monk-94160 s97 RNG block (C rn2(19)=3 @exercise:509 vs J rn2(12)=10 @mcalcmove:990 — path divergence before the message-only tail, which draws nothing on this prefix; open D-3270 owns exercise caller writers).
+- **C locus:**
+  - `exercise`: attrib.c:489–518 (INT/CHA :492–493; poly :496–497; AEXE :499–515 incl. rn2(19)/-rn2(2) :509; tail :516–517). ~297 call sites (sync fan-out).
+  - `migrate_to_level`: dog.c:887–932 (leash :898–901; mon_leave :904; relmon :906 → mon.c:2561–2594 incl. mon_leaving_level :2696–2732 with unstuck :2703; dest encode :908–926; light :928–931). C call sites: dog.c:875, dig.c:823, mkmaze.c:744, mon.c:3860, muse.c ×10, shk.c:1425, teleport.c:2094, wizcmds.c:1923.
+  - `dodown`/`doup`: do.c:1131–1294 / :1298–1344 (omit names doup's set_move_cmd(DIR_UP)/u_rooted/stucksteed/near_capacity :1302–1328).
+  - `impossible`: pline.c:584–634 (re-audit; Rule #2 omits :598 paniclog + :621–631 CRASHREPORT stand).
+  - `encumber_msg`: pickup.c:1977–2020 (oldcap commit :2019).
+- **JS was:** js/attrib.js exercise ended at the AEXE arm (tail named unshippable: "async pline cannot run in this sync fan-out"); js/teleport.js migrate_to_level mirror lacked unstuck (named async-only, audited D-3429 "cannot ship"); dodown partial on doup's omit (doup ported D-3252, wholeness unverified); encumber_msg committed game.oldcap after its awaits (float-unsafe: two floats would double-print a crossing).
+- **Fix:** exercise tail now `void encumber_msg()` under the C gate (moves>0 + STR/CON; static invent.js import, imports.mjs SAFE — hoisted fn, call-time use, same 101-module SCC); encumber_msg commits game.oldcap before its first await (state settles synchronously, only delivery floats; awaited callers unaffected — no game code runs mid-await except other floats, for which fresh oldcap is C-faithful); migrate_to_level mirror now calls the live `unstuck` under `u.ustuck === mtmp` (static mhitu.js import, imports.mjs SAFE; D-3280's no-static-edge note is mon↔mhitu, not teleport↔mhitu) — common guard-false case is an exact sync no-op, rare release floats instead of corrupting; dodown/doup/impossible bodies re-read whole this iter (doup carries all four named arms in C order :3568–3592 → retire; impossible's vsnprintf chop/fuzzer panic/URGENT/sanity early-return/disorder/report/support arms all live).
+- **JS:** js/attrib.js (:8–9 import, :213–223 doc, :240–243 tail); js/invent.js (:1180–1188 commit hoist + comment, trailing commit deleted); js/teleport.js (:99–100 import, :2847–2848 + :2857–2869 wire, :2808–2814 doc). 3 changed js files.
+- **Callers:**
+  - `exercise`: sync signature preserved — all ~297 call sites unchanged (tail is callee-side only).
+  - `encumber_msg`: new floated caller js/attrib.js:242 (exercise tail); 30+ awaited sites unaffected (verified by REACH + full).
+  - `migrate_to_level`: no caller wiring changed (sync signature preserved); new guarded callee call js/teleport.js:2868 (live unstuck).
+  - `dodown`/`doup`/`impossible`: no call wiring changed (audits + ledger retire).
+- **Verify:** `verify.mjs --fn exercise,migrate_to_level,dodown,encumber_msg` → PASS syntax (3 js) · PASS rule2 · exercise hidden NO MOVEMENT ×1 (scen-terrain-Monk-94160 still s97 — triaged per Symptom; toplines identical) + REACH-OK (677/677 --reach-all, 284.7s) · migrate_to_level/dodown/encumber_msg hidden notes (none blocked — normal; rows cited none) + REACH-OK (smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (forced --full: shared invent.js change); VERIFY: FAIL on hidden NO MOVEMENT only (disclosed, cause outside the arm, zero regressions — D-3439/D-3441 precedent).
+- **Named omissions:**
+  - `exercise`: none — whole (debugpline0/3 :491 + :510–514 are `#ifdef DEBUG` compiled out — D-2586 precedent).
+  - `encumber_msg`: none — whole (oldcap commit reordered before first await; message/switch/botl arms untouched).
+  - `migrate_to_level`: mon.c:2703 unstuck floats when the hero is stuck to the migrant (guarded void live call; common guard-false case is an exact sync no-op; rare release runs swallowed placebc/docrt + mspec_used rnd(2) late) — sync level-gen path cannot await.
+  - `dodown`: none — whole (misfiled doup omit retired; doup carries set_move_cmd(DIR_UP)/u_rooted/stucksteed/near_capacity in C order).
+  - `doup`: none — whole (re-read this iter).
+  - `impossible`: none beyond the standing Rule #2 omits (:598 paniclog + :621–631 CRASHREPORT prompt/raw_print/network submission — re-affirmed cannot-ship).
+- **Ledger:** exercise ported; encumber_msg ported; migrate_to_level partial; dodown ported; doup audited; impossible audited
+- **Left open:** none.
+- **Next:** refill R1–R3 (wizkit config_error pair, tty_yn entry gate) queued below; exercise s97 RNG block owned by open D-3270 (caller writers — needs C state measurement, not this row's tail); Must-fix heads stay queued (deferred per override).
+
 ## D-3460 — Must-fix: options.c map_menu_cmd 1-row ledger repair (optfn_o_bind_keys paste retired, no restoration text)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: map_menu_cmd row `partial` carried optfn_o_bind_keys's `- \`optfn_o_bind_keys\`: none in this body or registered callers.` whole-claim — D-3180 finish first-line stamping (paste created partial+paste from absent in D-3180's own finish commit `94d7337ef`, verified via `git show` by this iter; D-3403 re-certified "remaining omit cannot ship" on the paste).

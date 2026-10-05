@@ -1177,6 +1177,15 @@ export function max_capacity() {
 export async function encumber_msg() {
     const newcap = near_capacity();
     const oldcap = game.oldcap | 0;
+    /* C pickup.c:2019 commits go.oldcap after the plines; nothing can
+     * interleave in C's blocking pline. JS pline awaits (can reach
+     * --More--), and sync callers float this call (attrib.c exercise
+     * :516–517 tail), so the commit runs here: state (compare, botl,
+     * oldcap) settles synchronously inside the call and only the message
+     * delivery floats. Awaited callers observe no difference — no game
+     * code runs mid-await except other floats, for which fresh oldcap
+     * (no duplicate crossing message) is the C-faithful read. */
+    game.oldcap = newcap;
     if (oldcap < newcap) {
         switch (newcap) {
         case SLT_ENCUMBER:
@@ -1216,7 +1225,6 @@ export async function encumber_msg() {
         if (game.flags) game.flags.botl = true;
         if (game.disp) game.disp.botl = true;
     }
-    game.oldcap = newcap;
 }
 
 /**
