@@ -2,7 +2,7 @@
 {"fn":"l_nhcore_done","c":"159-166","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"l_nhcore_call","c":"169-194","status":"ported","js":["js/do.js:l_nhcore_call"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: dispatches the 3 calls stock nhcore.lua defines; other 4 commented out there so C also disables them"}
 {"fn":"nhl_error","c":"199-218","status":"ported","js":["js/mklev.js:nhl_error"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: throw with message is the function purpose; Lua stack line/src decoration unavailable without Lua"}
-{"fn":"lcheck_param_table","c":"225-236","status":"partial","js":["js/mklev.js:lcheck_param_table"],"omit":"- `lspo_teleport_region`: none in its body/loader bindings.","d":["D-3175"],"at":"2026-09-30@adc5a35c2","note":"seed: no scored analogue (file)"}
+{"fn":"lcheck_param_table","c":"225-236","status":"ported","js":["js/mklev.js:lcheck_param_table"],"d":["D-3468","D-3175"],"at":"2026-10-05@3eafb17b2","note":"row retired D-3468: D-3175 finish pasted lspo_teleport_region Named whole-claim (partial+paste from by-design seed); body whole since D-3175, 25/27 C sites wired-or-equivalent, 2 callers in by-design subsystems (own rows)"}
 {"fn":"get_table_mapchr","c":"241-253","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"get_table_mapchr_opt","c":"256-271","status":"ported","js":["js/mklev.js:get_table_mapchr_opt"],"d":["D-3185"],"at":"2026-10-01@03eae3466","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_get_timertype","c":"274-288","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

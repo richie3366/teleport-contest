@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3468 Must-fix: nhlua.c lcheck_param_table 1-row ledger repair (lspo_teleport_region paste retired, D-3175 caller list fully wired — retire)
+
+**C locus:** row home only (no C re-read; body brief-read this iter): nhlua.c `lcheck_param_table` :225–236 (argc<1 → empty table; discard extras via settop; checktype table; 27 direct C sites + extern decl).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** retire via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Restore-or-retire re-verified at repair (D-3427 protocol): (a) paste names another fn — lspo_teleport_region's Named whole-claim verbatim from the D-3175 entry, and that row is split-live, audited whole D-3406 (re-verified via `ledger.mjs show` this iter); (b) D-3175 Named restoration text ("body complete; other direct callers remain existing per-binding guards, not this shared helper: [23 sites]") re-verified site-by-site this iter — all 23 sp_lev.c sites now call the shared helper (4 direct: :3850→:20767, :4035→:1856, :4943→:1119, :5511→:1077) or a cited inline unpacked equivalent (table-or-empty + fixed arity; :3902/:4258/:4299 also keep the object check), and the 2 non-sp_lev sites live in by-design subsystems (l_selection_gradient + nhl_debug_flags, seed-no-analogue own rows, no JS caller exists) — zero shippable remainder; (c) body still whole — this iter's brief reads all 5 C lines live in C order, and full-js grep confirms the 6 direct call sites with no other-file users. Deliberately NO `- **Ledger:**` bullet (D-3427/D-3448/D-3450/D-3452/D-3454/D-3456/D-3458/D-3460/D-3462/D-3464/D-3466 precedent — finish's first-line stamping caused this class).
+**Verify:** `node scripts/verify.mjs --fn lcheck_param_table` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; row cited none); REACH-OK (no RNG-tagged reach; smoke 24/24, 12.1s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `lcheck_param_table`: none — whole (D-3175 port; D-3175 paste retired; 25/27 C sites wired-or-equivalent, 2 in by-design subsystems whose rows carry the fact).
+**Next:** next Must-fix (nhlua.c get_table_boolean_opt 1-row repair).
 ## 2026-10-05 — D-3467 Open head: impossible audit + lspo_grave text→get_table_str_opt rewire (sp_lev.c:4262 fn-number gap)
 
 **C locus:** - `impossible`: pline.c:584–634 (audit only; paniclog :598 + CRASHREPORT :621–631 Rule #2).

@@ -5,6 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+
+
+- [x] nhlua.c lcheck_param_table 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — lcheck_param_table ← lspo_teleport_region paste ("- `lspo_teleport_region`: none in its body/loader bindings.", quoted from `ledger.mjs show lcheck_param_table` 2026-10-05, d=D-3175; flipped by-design→partial+paste in D-3175's own finish per `git show 3f8f47e04 -- docs/ledger/nhlua.c.jsonl`); JS local reads whole at enqueue (js/mklev.js:983–988, C 5 lines, empty-table default + extras-discard + nhl_error type check — likely retire-stale or restore-by-design, pre-paste note "seed: no scored analogue (file)", D-3175 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger paste scan + brief/read 2026-10-05; get_table_str_opt head named this sibling "own rows at repair"; popping the map_menu_cmd head dropped the band to 7, finish fails closed at 7).
+
+
 - [x] nhlua.c get_table_str_opt 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — get_table_str_opt ← lspo_teleport_region paste ("- `lspo_teleport_region`: none in its body/loader bindings.", quoted from `ledger.mjs show get_table_str_opt` 2026-10-05, d=D-3175; created partial+paste from unknown in D-3175's own finish per `git show 3f8f47e04 -- docs/ledger/nhlua.c.jsonl`); JS body reads whole at enqueue (js/dungeon.js:388, C 16 lines, 4-arm dispatch in C order: string/nil optstring, function pcall + lua_number2str, nhl_error throw, dupstr/NULL return — likely retire-stale, no pre-paste restoration text per hunk, D-3175 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Siblings lcheck_param_table/get_table_boolean_opt carry the identical paste per scan (own rows at repair). Source: port-iter band refill (ledger paste scan + brief 2026-10-05; shipping the regen_hp head drops the band to 7, finish fails closed at 7).
 
 
