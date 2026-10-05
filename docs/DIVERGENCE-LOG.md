@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3498 — Open head: impossible audit + lspo_mineralize gem/gold/kelp×2→get_table_int_opt rewire (sp_lev.c:3947–3950 splev_opt_int gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4388 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3496/D-3494/D-3492 precedent). Batch picker finds no gap (`batch`: no gap left); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_mineralize read its 4 int fields through `splev_opt_int` where C get_table_int_opt runs checkinteger (D-3496 omit named lvlinit :3947-50 "permissive `|0`/splev_opt_int").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `get_table_int_opt@lvlinit`: sp_lev.c:3947/:3948/:3949/:3950 field reads (-1 defaults) inside lspo_mineralize :3938–3955, via nhlua.c:1028–1039 (ret=defval, getfield, nil-check, checkinteger, pop, return).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `mklev.js:19176–19179` four `splev_opt_int` adapters — fractions truncated silently (C argerrors), direct non-numeric non-nil values flowed as 0/1 garbage (C argerrors), integral floats converted without the int64-range gate; statement positions already in C read order (per-line cites stale by one).
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Four sites restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change), in place (already C order :3947→:3948→:3949→:3950); stale +1 per-line cites corrected against pinned C; lua_field/lua_type equivalences verified (t is the caller's `o ?? {}`, so lua_field is t[name] and a non-object o reads nil on both sides; nil/non-nil classifications identical; defval -1, `|0` no-op). Behavior delta is exactly the C conversion (integers unchanged incl. negatives; absent stays -1; integral floats and numeric strings convert; fractions throw like argerror instead of truncating; direct non-numerics throw instead of 0/1 garbage; beyond-int32 truncates via asIntN(32) like the (int) cast, same as the old `|0`). New scripts/lspo-mineralize-int.test.mjs (helper conversion + wiring + C-order asserts).
+- **JS:** js/mklev.js (:19180–19183 calls + doc cites; raw adapters deleted). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_int_opt@lvlinit`: C sp_lev.c:3947 → js/mklev.js:19180; :3948 → :19181; :3949 → :19182; :3950 → :19183; lspo_mineralize :19177 exported for the unported des dispatch (no scored analogue until the Lua VM). Entry-source audit (zero in-tree table sources — no in-tree behavior change): no `mineralize` dispatch string in js/; sole mineralize in-tree callers pass literals (level_finalize_topology :34394 all -1s; tut-1 mklev path).
+- **Verify:** `verify.mjs --fn impossible,get_table_int_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-mineralize-int + lspo-object-int + lspo-object-name + lspo-object-id + lspo-objclass-field + lspo-monster-int + dungeon-dungeons-int 42/42; pre-change wiring check: new test fails 1/6, passes post-change (6/6); VERIFY: PASS.
+- **Named omissions:**
+  - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+  - `get_table_int_opt`: body whole; 15 sites keep permissive `|0`/splev_opt_int vs C checkinteger: gold :4502, door :4717, terrain :5001, replace :5086-91, region :5565-68/:5600/:5605. Wired 28 (24 per D-3496 + lvlinit :3947–3950 this iter); padding :5489 exact-unpacked equivalent; nhlsel :886-87/:893 owned by by-design l_selection_gradient.
+- **Ledger:** impossible audited; get_table_int_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). No review cited by the popped row — no stamp owed. Bundled: LOOP-QUEUE-DONE.md D-3497 hash backfill (`01da244dc`).
+
 ## D-3497 — Must-fix: files.c do_deferred_showpaths 1-row ledger repair (D-3475 clip re-restored compacted under the 300 cap)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: do_deferred_showpaths row `partial` carried D-3475's restore clipped mid-word ("…UNIX build take…", 300/300, d=D-3475,D-3117) — D-3475's own direct set exceeded the clipOmit cap (full D-3475 Named text is 358 chars → stored 300), losing the after_opt_showpaths :3101 tail cite + the D-3117 pointer. The queue row guessed restore-compacted; re-verification: RESTORE-compacted (D-3475 Named text re-verified sub-claim by sub-claim — reveal_paths still has no scored port, and the row is its only home).

@@ -19161,23 +19161,27 @@ export function lspo_wallify(o) {
 }
 
 /**
- * C ref: sp_lev.c lspo_mineralize `:3939–3955` — des.mineralize entry in C
- * order: create_des_coder (`:3944`), -1-defaulted prob reads (`:3946–3951`,
- * splev_opt_int ≡ get_table_int_opt), then the live mineralize
- * (`:3953`). -1 keeps mineralize's default behavior (C's own comment).
- * mineralize itself is untouched (phase-2 park — callee only).
+ * C ref: sp_lev.c lspo_mineralize `:3938–3955` — des.mineralize entry in C
+ * order: create_des_coder (`:3943`), -1-defaulted prob reads (`:3947–3950`,
+ * get_table_int_opt), then the live mineralize (`:3952`). -1 keeps
+ * mineralize's default behavior (C's own comment `:3946`). The four reads
+ * go through the shared js/dungeon.js helper on the EXISTING mklev→dungeon
+ * edge (no import change): t is the caller's `o ?? {}`, so lua_field is
+ * t[name] and nil/non-nil classifications match C (a non-object o reads
+ * nil on both sides). mineralize itself is untouched (phase-2 park —
+ * callee only).
  * Named omissions: lcheck_param_table (by-design nhlua); des dispatch
  * (nhl_functions[] — no scored analogue until the Lua VM, Constitution
  * §7); exported for that caller.
  */
 export function lspo_mineralize(o) {
-    create_des_coder(); // C :3944
-    const t = o ?? {}; // C :3946 lcheck_param_table
-    const gem_prob = splev_opt_int(t.gem_prob, -1); // C :3948
-    const gold_prob = splev_opt_int(t.gold_prob, -1); // C :3949
-    const kelp_moat = splev_opt_int(t.kelp_moat, -1); // C :3950
-    const kelp_pool = splev_opt_int(t.kelp_pool, -1); // C :3951
-    mineralize(kelp_pool, kelp_moat, gold_prob, gem_prob, true); // C :3953
+    create_des_coder(); // C :3943
+    const t = o ?? {}; // C :3945 lcheck_param_table
+    const gem_prob = get_table_int_opt(t, 'gem_prob', -1); // C :3947
+    const gold_prob = get_table_int_opt(t, 'gold_prob', -1); // C :3948
+    const kelp_moat = get_table_int_opt(t, 'kelp_moat', -1); // C :3949
+    const kelp_pool = get_table_int_opt(t, 'kelp_pool', -1); // C :3950
+    mineralize(kelp_pool, kelp_moat, gold_prob, gem_prob, true); // C :3952
     return 0; // C :3954
 }
 
