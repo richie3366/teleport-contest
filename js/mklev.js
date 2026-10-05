@@ -22974,12 +22974,20 @@ function lspo_object_normalize_table(tmp) {
     if (tmp.lit == null) tmp.lit = 0;
     if (tmp.corpsenm == null) tmp.corpsenm = NON_PM;
 
+    // C get_table_objtype :3541–3542 — "id" is read before "class"
+    // (function fields pcall in that order).
+    const rawId = tmp.id;
+    const preResolved = typeof rawId === 'number' && Number.isInteger(rawId);
+    // C :3541 get_table_str_opt(L, "id", NULL): nil → NULL, string kept,
+    // function pcalled + optstring conversion, direct non-string throws
+    // like nhl_error. tmp is a non-null spread at the caller's table gate,
+    // so lua_field is tmp.id and the nil/string/function/else
+    // classifications are identical to C's. JS-only: an integer id is a
+    // pre-resolved otyp from hand-rolled callers (audited this iter: otyp
+    // constants only — a Lua number nhl_errors in C).
+    const idStr = preResolved ? null : get_table_str_opt(tmp, 'id', null);
     const classChar = get_table_objclass_field(tmp);
-    if (typeof tmp.id === 'string') {
-        tmp.id = find_objtype(tmp.id, classChar);
-    } else if (tmp.id == null) {
-        tmp.id = STRANGE_OBJECT;
-    }
+    tmp.id = preResolved ? rawId : find_objtype(idStr, classChar);
     // C: tmpobj.class = get_table_objclass after get_table_objtype
     tmp.class = classChar;
 
