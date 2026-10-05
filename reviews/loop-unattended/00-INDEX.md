@@ -2382,3 +2382,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2370-c4d4e5278-canseemon-clones.md](./2370-c4d4e5278-canseemon-clones.md) | `c4d4e5278` | D-3424 canseemon clones → live exports (Must-fix 2355.2) | **ACCEPT** |
 | [2371-a0cbe29a6-mons-mndx.md](./2371-a0cbe29a6-mons-mndx.md) | `a0cbe29a6` | D-3425 mons() identity → mndx flips (Must-fix 2355.1, 9 fns) | **ACCEPT** |
 | [2372-54eac58c5-batch-d3426.md](./2372-54eac58c5-batch-d3426.md) | `54eac58c5` | D-3426 batch (95 fns) + launch_obj wall-stop + doset paste | **QUALITY-RISK** |
+| [2373-77a859fd3-launch-obj-wallstop.md](./2373-77a859fd3-launch-obj-wallstop.md) | `77a859fd3` | D-3428 launch_obj wall-stop + stackobj deletions (Must-fix 2372.2) | **ACCEPT** |
+| [2374-adae017b4-batch-d3429.md](./2374-adae017b4-batch-d3429.md) | `adae017b4` | D-3429 batch (65 fns) — litter subset + 7-row dodrop paste | **QUALITY-RISK** |
+| [2375-9ec606a36-batch-d3430.md](./2375-9ec606a36-batch-d3430.md) | `9ec606a36` | D-3430 batch (28 fns) — code exact, 11-row moveloop_core paste | **QUALITY-RISK** |
+| [2376-801b58f13-batch-d3431.md](./2376-801b58f13-batch-d3431.md) | `801b58f13` | D-3431 batch (11 fns) — code exact, 4-row test_move paste | **QUALITY-RISK** |
+| [2377-0a9a22f73-batch-d3432.md](./2377-0a9a22f73-batch-d3432.md) | `0a9a22f73` | D-3432 batch (4 fns) — cliparound ×3, rows covered elsewhere | **ACCEPT-WITH-DEBT** |
+| [2378-5e7cd2e00-batch-d3433.md](./2378-5e7cd2e00-batch-d3433.md) | `5e7cd2e00` | D-3433 batch (2 fns) — multi-replay + getpos bindings | **ACCEPT-WITH-DEBT** |
+| [2379-c62203c66-batch-d3434.md](./2379-c62203c66-batch-d3434.md) | `c62203c66` | D-3434 batch (2 fns) — mv-replay + cmdq hoist, getpos paste | **QUALITY-RISK** |
+| [2380-b03a3b270-moveloop-core-ported.md](./2380-b03a3b270-moveloop-core-ported.md) | `b03a3b270` | D-3435 moveloop_core MAP-redisplay + ported flip | **ACCEPT** |

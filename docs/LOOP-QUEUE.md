@@ -90,6 +90,12 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
+- [ ] D-3434 `getpos` row: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — restore getposx/y + muse/restore clean-room text (re-verified, quoted in review). Source: reviews/loop-unattended/2379-c62203c66-batch-d3434.md.
+- [ ] D-3431 `domove_core`/`goto_level` rows: direct `ledger.mjs set` ×2, no JS (D-3427 protocol) — restore D-3431 Named texts reconciled with D-3432 extensions (review 2377 verifies; details in review). Source: reviews/loop-unattended/2376-801b58f13-batch-d3431.md.
+- [ ] D-3430 6-row repair: direct `ledger.mjs set` ×6, no JS (D-3427 protocol) — newgame/strncmpi/doset/Strlen_ ← D-3430 Named; sanity_check minus retired clause (by-design per review 2376); record_achievement ← SoundAchievement clause only. Source: reviews/loop-unattended/2375-9ec606a36-batch-d3430.md.
+- [ ] `ball.c` litter setnotworn bypass: js/ball.js:litter inlines a slot-nulling subset (drops twoweap/extrinsic/artifact/botl effects) — replace with the live `setnotworn` import from do.js (ALREADY edge; sync). Verify: gates + `verify litter` + wielded-artifact case. Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md.
+- [ ] D-3429 3-row repair: direct `ledger.mjs set` ×3, no JS (D-3427 protocol) — moveloop/bc_sanity_check ← pre-D-3429 texts (quoted in review); wary_dog ← retire stale line (body whole). Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md.
+
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: stamp the cited review
 `**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then
