@@ -222,9 +222,6 @@ shipped row's fn token, re-fileable next iter) to hold the 8-row band.
 D-3457 (batch ×7 shipped: 2 fidelity fixes + bc retire + 5 audits; band 4 < 8 blocks finish) refilled +4 with brief-verified missing arms (regen_hp rehumanize arm, exercise encumber_msg tail, dodown misfiled omit, migrate_to_level unstuck — C bodies + JS sites read at enqueue; two tails verify-at-ship noted in rows) to hold the 8-row band.
 
 D-3461 (Open head ×3 shipped + impossible audit; band 5 < 8 blocks finish) refilled +3 with brief-verified missing arms (wizkit config_error pair files.c:2577/2592/2597, tty_yn entry STOP+NOSTOP gate — each C + JS read at enqueue) to hold the 8-row band.
-- [ ] `files.c` proc_wizkit_line Bad-wizkit message — C files.c:2577–2579 config_error_add("Bad wizkit item: ...") + FALSE return absent from js/files.js:181 proc_wizkit_line (returns false bare; named :170–171; callee live js/cfgfiles.js; %.60s width cap) — ship iter wires (brief-read 2026-10-05) @34d46fdf2
-- [ ] `files.c` read_wizkit config_error scaffolding — C files.c:2592 config_error_init(TRUE,"WIZKIT",FALSE) + :2597 config_error_done() absent from js/files.js:194 read_wizkit (named :192; both live js/cfgfiles.js; same-file pair with proc_wizkit_line row) — ship iter wires (brief-read 2026-10-05) @34d46fdf2
-- [ ] `topl.c` tty_yn_function entry More-gate — C topl.c:387–391 mores unless STOP-without-NOSTOP + clears both flags; STOP+NOSTOP exception absent from js/getline.js:2069 tty_yn_function (flush_topl_more display.js:8063 skips more() on any _win_stop; clear_win_stop :8070 clears STOP only, NOSTOP one-shot model) — ship iter wires or scopes the divergence (brief-read 2026-10-05) @34d46fdf2
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

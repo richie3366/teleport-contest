@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3465 Open R1–R3: wizkit config_error wire (files.c pair) + tty_yn entry-gate audit
+
+**C locus:** - `proc_wizkit_line`: files.c:2562–2581 (NULL arm :2574–2579; no_wish is (struct obj *)0 so C returns NULL for nothing/nil/none per objnam.c:4922–4924 and for no-match).
+**JS:** js/files.js:59 import; :187–191 NULL arm; :207–221 read_wizkit frame. tty_yn unchanged (js/getline.js:2069–2073 already C-exact).
+**Change:** wired the live cfgfiles.js exports in C order (imports.mjs SAFE ×3, hoisted fns, call-time use): the NULL arm calls config_error_add with the C-verbatim format string + the post-readobjnam buffer (parsed.wishbuf per D-2880 — mungspaces at objnam.c:4919 runs before the nothing-check at :4922 — line as fallback); read_wizkit wraps the loop in config_error_init(true,'WIZKIT',false)/config_error_done() keeping the C wishing order. tty_yn: audited — WIN_NOSTOP is one-shot inside tty_putstr (sole C setter wintty.c:2282, unconditionally cleared wintty.c:2300 before break; no other setter in src/include/win/tty), so it is always clear at yn entry and the C gate reduces exactly to JS flush_topl_more + clear_win_stop; wiring the exception would be dead code (row permitted wire-or-scope).
+**Verify:** `node scripts/verify.mjs --fn proc_wizkit_line,read_wizkit,tty_yn_function` → PASS syntax (1 changed: js/files.js); PASS rule2; hidden notes ×3 (no corpus session blocked — normal, rows cited none); REACH-OK ×3 (no RNG reach; smoke 24/24 each, ~12s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS. Probes (/tmp/wizkit-probe.mjs, kept): bad→false, nothing→false, done count 2, wishing 1→0, ready restored; in_lua drain text byte-exact `Bad wizkit item: "zzz bad line one"` + %.60s cap at exactly 60 chars.
+**Named:** - `proc_wizkit_line`: none — whole.
+**Next:** Must-fix ×4 (nhlua ×3 + initoptions ledger repairs, D-3427 protocol, no js/) + coverage `impossible` (Rule #2-blocked); `ledger.mjs batch` reads no gap and rows --min-c-lines 1 top-5 are exhausted (D-3447/D-3455 verified whole), so the next port iter has no verified Open row with js/ work — supervisor-level phase signal; no hand refill (prompt: hand-written rows are Must-fix only).
 ## 2026-10-05 — D-3464 Must-fix: options.c options_free_window_colors 1-row ledger repair (optfn_o_bind_keys paste retired, caller by-design)
 
 **C locus:** row home only (no C re-read; body brief-read this iter): options.c `options_free_window_colors` :10116–10127 (fg/bg null loop :10120–10124, flag reset :10126; sole C caller save.c:1176 freedynamicdata).

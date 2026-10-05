@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3465 — Open R1–R3: wizkit config_error wire (files.c pair) + tty_yn entry-gate audit
+- **Status:** shipped (js/files.js +2 arms live; tty_yn no-change audit with C one-shot proof).
+- **Symptom:** Open missing-arm R1–R3 (brief-verified 2026-10-05): proc_wizkit_line returned FALSE bare on unparseable lines (C files.c:2577–2579 config_error_add "Bad wizkit item" never fired); read_wizkit ran the WIZKIT parse outside any config_error_init/done frame (C :2592/:2597), so errors bypassed the WIZKIT error session; tty_yn entry gate suspected of dropping the WIN_NOSTOP exception (C topl.c:390–393).
+- **C locus:**
+  - `proc_wizkit_line`: files.c:2562–2581 (NULL arm :2574–2579; no_wish is (struct obj *)0 so C returns NULL for nothing/nil/none per objnam.c:4922–4924 and for no-match).
+  - `read_wizkit`: files.c:2584–2601 (wishing=1 :2591, init :2592, parse :2594, fclose :2595, done :2597, wishing=0 :2598).
+- **JS was:** js/files.js:173 proc_wizkit_line `return false` bare (omit named in doc); js/files.js:194 read_wizkit set wishing around a bare parse loop (omit named in doc).
+- **Fix:** wired the live cfgfiles.js exports in C order (imports.mjs SAFE ×3, hoisted fns, call-time use): the NULL arm calls config_error_add with the C-verbatim format string + the post-readobjnam buffer (parsed.wishbuf per D-2880 — mungspaces at objnam.c:4919 runs before the nothing-check at :4922 — line as fallback); read_wizkit wraps the loop in config_error_init(true,'WIZKIT',false)/config_error_done() keeping the C wishing order. tty_yn: audited — WIN_NOSTOP is one-shot inside tty_putstr (sole C setter wintty.c:2282, unconditionally cleared wintty.c:2300 before break; no other setter in src/include/win/tty), so it is always clear at yn entry and the C gate reduces exactly to JS flush_topl_more + clear_win_stop; wiring the exception would be dead code (row permitted wire-or-scope).
+- **JS:** js/files.js:59 import; :187–191 NULL arm; :207–221 read_wizkit frame. tty_yn unchanged (js/getline.js:2069–2073 already C-exact).
+- **Callers:**
+  - `proc_wizkit_line`: sole C caller is the parse_conf_file callback (files.c:2594) → JS read_wizkit loop js/files.js:218.
+  - `read_wizkit`: C allmain.c:827 newgame → JS js/allmain.js:960 (wizard-gated, before obj_delivery).
+- **Verify:** `node scripts/verify.mjs --fn proc_wizkit_line,read_wizkit,tty_yn_function` → PASS syntax (1 changed: js/files.js); PASS rule2; hidden notes ×3 (no corpus session blocked — normal, rows cited none); REACH-OK ×3 (no RNG reach; smoke 24/24 each, ~12s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS. Probes (/tmp/wizkit-probe.mjs, kept): bad→false, nothing→false, done count 2, wishing 1→0, ready restored; in_lua drain text byte-exact `Bad wizkit item: "zzz bad line one"` + %.60s cap at exactly 60 chars.
+- **Named omissions:**
+  - `proc_wizkit_line`: none — whole.
+  - `read_wizkit`: none in-body — whole (fclose folds into the one VFS read; parse_wizkit_text CHOOSE/sections/line-too-long/nextline subset stays named on the helper, unchanged).
+- **Ledger:** proc_wizkit_line ported; read_wizkit ported; tty_yn_function audited
+- **Left open:** none.
+- **Next:** Must-fix ×4 (nhlua ×3 + initoptions ledger repairs, D-3427 protocol, no js/) + coverage `impossible` (Rule #2-blocked); `ledger.mjs batch` reads no gap and rows --min-c-lines 1 top-5 are exhausted (D-3447/D-3455 verified whole), so the next port iter has no verified Open row with js/ work — supervisor-level phase signal; no hand refill (prompt: hand-written rows are Must-fix only).
+
 ## D-3464 — Must-fix: options.c options_free_window_colors 1-row ledger repair (optfn_o_bind_keys paste retired, caller by-design)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: options_free_window_colors row `partial` carried optfn_o_bind_keys's `- `optfn_o_bind_keys`: none in this body or registered callers.` whole-claim — D-3180 finish first-line stamping (paste created partial+paste from absent in D-3180's own finish commit `94d7337ef`, verified via `git show` by this iter; D-3403 re-certified "remaining omit cannot ship" on the paste). Third and last of the D-3180 commit's paste trio (map_menu_cmd D-3460, free_autopickup_exceptions D-3462).

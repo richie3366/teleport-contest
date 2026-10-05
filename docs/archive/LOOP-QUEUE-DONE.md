@@ -5,6 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] `files.c` proc_wizkit_line Bad-wizkit message — C files.c:2577–2579 config_error_add("Bad wizkit item: ...") + FALSE return absent from js/files.js:181 proc_wizkit_line (returns false bare; named :170–171; callee live js/cfgfiles.js; %.60s width cap) — ship iter wires (brief-read 2026-10-05) @34d46fdf2
+- [x] `files.c` read_wizkit config_error scaffolding — C files.c:2592 config_error_init(TRUE,"WIZKIT",FALSE) + :2597 config_error_done() absent from js/files.js:194 read_wizkit (named :192; both live js/cfgfiles.js; same-file pair with proc_wizkit_line row) — ship iter wires (brief-read 2026-10-05) @34d46fdf2
+- [x] `topl.c` tty_yn_function entry More-gate — C topl.c:387–391 mores unless STOP-without-NOSTOP + clears both flags; STOP+NOSTOP exception absent from js/getline.js:2069 tty_yn_function (flush_topl_more display.js:8063 skips more() on any _win_stop; clear_win_stop :8070 clears STOP only, NOSTOP one-shot model) — ship iter wires or scopes the divergence (brief-read 2026-10-05) @34d46fdf2
+
+
 - [x] options.c options_free_window_colors 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — options_free_window_colors ← optfn_o_bind_keys paste ("- `optfn_o_bind_keys`: none in this body or registered callers.", quoted from `ledger.mjs show options_free_window_colors` 2026-10-05, d=D-3403,D-3180; landed in D-3180's commit 94d7337ef per `git log -S'options_free_window_colors' -- docs/ledger/options.c.jsonl`, same commit as the map_menu_cmd/free_autopickup_exceptions pastes, D-3403 re-certified "remaining omit cannot ship"); JS body reads whole at enqueue (js/options.js:13229, C 7 lines, fg/bg null loop + flag reset, doc names save.c:1176 freedynamicdata absent caller per D-3180 — likely retire-stale or restore-narrowed, D-3180 Named truth + caller status unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger paste scan + sym/read 2026-10-05; popping the oc_to_str head dropped the band to 7, finish fails closed at 7).
 
 

@@ -54,8 +54,8 @@
 {"fn":"unlock_file","c":"2416-2456","status":"unknown"}
 {"fn":"fopen_wizkit_file","c":"2465-2533","status":"ported","js":["js/files.js:fopen_wizkit_file"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local in JS; env/access/HOME arms Rule #2"}
 {"fn":"wizkit_addinv","c":"2537-2559","status":"ported","js":["js/files.js:wizkit_addinv"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local in JS"}
-{"fn":"proc_wizkit_line","c":"2562-2581","status":"partial","js":["js/files.js:proc_wizkit_line"],"omit":"`config_error_add` (`files.c:2577`) on a bad wizkit line.","d":["D-2880"],"at":"seed@a30a7de84"}
-{"fn":"read_wizkit","c":"2584-2601","status":"partial","js":["js/files.js:read_wizkit"],"omit":"config_error_init(TRUE,'WIZKIT')/config_error_done scaffolding (:2592/:2597; live in js/cfgfiles.js)","at":"2026-10-03@bbe63333a"}
+{"fn":"proc_wizkit_line","c":"2562-2581","status":"ported","js":["js/files.js:proc_wizkit_line"],"d":["D-3465","D-2880"],"at":"2026-10-05@ef3f2aa84"}
+{"fn":"read_wizkit","c":"2584-2601","status":"ported","js":["js/files.js:read_wizkit"],"d":["D-3465"],"at":"2026-10-05@ef3f2aa84"}
 {"fn":"fopen_sym_file","c":"2611-2624","status":"unknown"}
 {"fn":"read_sym_file","c":"2631-2674","status":"unknown"}
 {"fn":"check_recordfile","c":"2689-2791","status":"unknown"}

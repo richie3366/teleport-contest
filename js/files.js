@@ -56,6 +56,7 @@ import { wish_history_add } from './zap.js';
 import { after_opt_showpaths } from './earlyarg.js'; // C do_deferred_showpaths `:3101` (imports.mjs SAFE: hoisted fn)
 import { set_savefile_name } from './save.js'; // C restore_saved_game `:1276` (imports.mjs: same 101-module SCC, hoisted binding — cycle-safe)
 import { set_bonesfile_name, BONES_VFS_PREFIX } from './bones.js'; // C create/commit/open_bonesfile (imports.mjs: fn SAFE hoisted; const CHECK — read inside bodies only, never at top level)
+import { config_error_add, config_error_init, config_error_done } from './cfgfiles.js'; // C proc_wizkit_line :2577 + read_wizkit :2592/:2597 (imports.mjs SAFE ×3: hoisted fns, call-time use)
 
 const INVLET_BASIC = 52;
 const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
@@ -166,9 +167,9 @@ async function wizkit_addinv(obj) {
 }
 
 /**
- * C ref: files.c proc_wizkit_line — readobjnam; hands_obj skip; else
- * wish_history_add then wizkit_addinv. Named omit: config_error_add
- * "Bad wizkit item".
+ * C ref: files.c proc_wizkit_line `:2562–2581` — readobjnam; hands_obj
+ * skip; else wish_history_add then wizkit_addinv; NULL arm reports
+ * config_error_add "Bad wizkit item" and returns FALSE.
  */
 export async function proc_wizkit_line(buf) {
     let line = String(buf ?? '');
@@ -178,7 +179,16 @@ export async function proc_wizkit_line(buf) {
     // wish_history_add records that buffer, not the text before the parse.
     const parsed = {};
     const otmp = readobjnam(line, null, parsed);
-    if (!otmp || otmp === NOTHING_OBJ || otmp._nothing_obj) return false;
+    // C `:2574–2579` else arm — no_wish is (struct obj *)0 here, so C
+    // returns NULL both for "nothing"/"nil"/"none" (objnam.c:4924) and
+    // for no-match; all three JS disjuncts take this arm. The reported
+    // buffer is post-readobjnam (mungspaces runs before the
+    // nothing-check), i.e. parsed.wishbuf (D-2880), line as fallback.
+    if (!otmp || otmp === NOTHING_OBJ || otmp._nothing_obj) {
+        config_error_add('Bad wizkit item: "%.60s"',
+            parsed.wishbuf != null ? parsed.wishbuf : line);
+        return false;
+    }
     if (!is_hands_obj(otmp)) {
         wish_history_add(parsed.wishbuf != null ? parsed.wishbuf : line);
         await wizkit_addinv(otmp);
@@ -187,9 +197,12 @@ export async function proc_wizkit_line(buf) {
 }
 
 /**
- * C ref: files.c read_wizkit — wizard && fopen then
- * program_state.wizkit_wishing around parse_conf_file(proc_wizkit_line).
- * Named omit: config_error_init/done.
+ * C ref: files.c read_wizkit `:2584–2601` — wizard && fopen then
+ * program_state.wizkit_wishing around
+ * config_error_init(TRUE,"WIZKIT",FALSE) +
+ * parse_conf_file(proc_wizkit_line) + config_error_done().
+ * (fclose folds into the one VFS read; per-line
+ * config_error_nextline stays named on parse_wizkit_text.)
  */
 export async function read_wizkit() {
     if (!wizard_mode()) return;
@@ -197,11 +210,13 @@ export async function read_wizkit() {
     if (text == null) return;
     if (!game.program_state) game.program_state = {};
     game.program_state.wizkit_wishing = 1;
+    config_error_init(true, 'WIZKIT', false); // C `:2592`
     const lines = [];
     parse_wizkit_text(text, (line) => {
         lines.push(line);
     });
     for (const line of lines) await proc_wizkit_line(line);
+    config_error_done(); // C `:2597` — return discarded, C order
     game.program_state.wizkit_wishing = 0;
 }
 
