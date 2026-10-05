@@ -5,6 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] `zap.c` resists_blnd_you — C zap.c:3062 flashburn resists_blnd(you) expl/gaze + by_arti + catchall arms absent from js/zap.js:4607 subset (Blind_props||Unaware only, doc-named omits; :4669 arti shieldeff already live-separate per C :3075); user :4660; live whole resists_blnd js/mondata.js:453, zap→mondata edge ALREADY (:389) — switch + delete (brief-read 2026-10-05) @7d9b2864f
+- [x] `engrave.c` resists_blnd inline — C engrave.c:1248 doblind flash resists_blnd(you) expl/gaze + by_arti + catchall arms absent from js/engrave.js:1780 inline `!(Blind()||u.Unaware)` gate; live whole js/mondata.js:453, engrave→mondata edge ALREADY (:101) — switch + delete (brief-read 2026-10-05) @7d9b2864f
+- [x] `worn.c` bypass_obj — C worn.c:1118–1123 null-guard-free bypass mark absent from js/zap.js:3060 clone (adds dead `if (!obj)` guard); users :4230 (polyspot nobj loop) + :5334 (cobj loop), both non-null by loop; live whole js/worn.js:714, zap→worn edge ALREADY (:318) — switch + delete (brief-read 2026-10-05) @7d9b2864f
+- [x] `worn.c` which_armor — C worn.c:1006–1036 nobj-chain scan (+ youmonst slot table) absent from js/sit.js:214 clone (iterates `mtmp?.minvent || []` array-style); user :327 (C sit.c:624 usteed saddle); live whole js/worn.js:472 — switch + delete, NEW sit→worn edge (imports.mjs --can at ship; brief-read 2026-10-05) @7d9b2864f
+
+
 - [x] botl.c status pair 2-row repair: direct `ledger.mjs set` ×2, no JS (D-3427 protocol) — status_initialize/evaluate_and_notify_windowport ← cpostfx paste (`- \`cpostfx\`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).`, quoted from `ledger.mjs show` 2026-10-05; landed D-3405 100-fn batch finish per `git log -S'cpostfx' -- docs/ledger/botl.c.jsonl`, D-3429 re-certified "audited D-3429: remaining omit cannot ship"; substance retired D-3422 as the house more() idiom per the D-3422 queue-header note); restore-or-retire re-verified at repair, restoration text unverified at enqueue. Source: port-iter band refill (full-row paste scan 2026-10-05; popping the D-3429 head dropped the band to 7, finish fails closed at 7).
 
 

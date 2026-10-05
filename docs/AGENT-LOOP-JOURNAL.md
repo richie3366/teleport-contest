@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3449 Open head: zap/engrave resists_blnd + bypass_obj/which_armor switches (→ live exports)
+
+**C locus:** - `resists_blnd@zap`: zap.c:3062 flashburn gate (`resists_blnd(&gy.youmonst)`); :3075–3078 arti shieldeff already live-separate.
+**JS:** js/zap.js (:318 import, :3057 pointer, :4594 pointer, :4645 user); js/engrave.js (:101 import, :1780 gate); js/sit.js (:135 import, :215 pointer, :323 user); js/worn.js (:712 doc); js/mondata.js (:449 doc).
+**Change:** all 4 users switched to the live whole exports (resists_blnd js/mondata.js:453, audited whole D-3445/D-3447; bypass_obj js/worn.js:714; which_armor js/worn.js:472); 3 clones deleted (house pointer comments, mhitu D-3447 precedent), engrave inline gate switched in place; resists_blnd added to existing mondata edges (zap ALREADY :389; engrave extended :101), bypass_obj added to existing worn edge (zap :318), which_armor on a NEW sit→worn edge (imports.mjs --can SAFE — hoisted fn; sit top-level reads only objectNames/monsterNames); worn.js + mondata.js canonical docs updated (zap "still has a local clone" / "keeps its own queued row" notes retired); scripts/resists-blnd-rewire.test.mjs census updated (KNOWN_REMAINING_YOU emptied, zap/engrave asserts added) + new scripts/worn-rewire.test.mjs (census + import asserts, trap/weapon/steed/mklev known-remaining list).
+**Verify:** `verify.mjs --fn resists_blnd,bypass_obj,which_armor --full` → PASS syntax (5 js) · PASS rule2 · 3× hidden note (none blocked — normal; rows cited none) · 3× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44; `node --test` rewire suites 6/6 (resists-blnd 3 + worn 3); VERIFY: PASS.
+**Named:** none — all four switches whole (trap/weapon/steed/mklev which_armor clones keep their own queued refill rows).
+**Next:** Must-fix head stays queued (deferred per override). 4 refills hold the band (weapon/steed/mklev/trap which_armor → live worn.js:472).
 ## 2026-10-05 — D-3448 Must-fix: botl.c status pair 2-row ledger repair (cpostfx paste retired)
 
 **C locus:** row homes only (no C re-read; bodies verified whole by the D-3405 audit + this iter's briefs): botl.c `status_initialize` :1683–1720 (genl_status_init windows.c:905 display arm), `evaluate_and_notify_windowport` :1621–1680 (BL_RESET/BL_FLUSH dispatch :1671–1676).

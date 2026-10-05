@@ -709,7 +709,7 @@ export function check_gear_next_turn(mon) {
 
 /**
  * C ref: worn.c bypass_obj `:1118–1123` — mark so this-turn pile zaps skip.
- * Caller: weapon.c possibly_unwield polyspot. zap.js still has a local clone.
+ * Caller: weapon.c possibly_unwield polyspot; zap.js polyspot/cobj loops (clone switched D-3449).
  */
 export function bypass_obj(obj) {
     obj.bypass = 1;

@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3449 — Open head: zap/engrave resists_blnd + bypass_obj/which_armor switches (→ live exports)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4334 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3445/D-3447 precedent). Real work ×4: (a) zap flashburn gated on the Blind/Unaware-only resists_blnd_you subset — expl/gaze + by_arti + catchall arms absent vs C mondata.c:247–272; (b) engrave doblind flash gated on an inline `!(Blind()||u.Unaware)` — same arms absent vs C engrave.c:1248; (c) zap bypass_obj clone adds a dead null guard vs C worn.c:1118–1123 (NONNULLARG1); (d) sit which_armor clone iterates minvent array-style vs C worn.c:1006–1036 nobj-chain scan + youmonst slot table.
+- **C locus:**
+  - `resists_blnd@zap`: zap.c:3062 flashburn gate (`resists_blnd(&gy.youmonst)`); :3075–3078 arti shieldeff already live-separate.
+  - `resists_blnd@engrave`: engrave.c:1248 doblind gate.
+  - `bypass_obj@zap`: worn.c:1118–1123; users zap.c:285 polyspot + :2065 stone-to-flesh.
+  - `which_armor@sit`: worn.c:1006–1036; user sit.c:624 usteed saddle.
+- **JS was:**
+  - `zap.js:4607` resists_blnd_you (Blind_props||Unaware; doc-named expl/gaze + arti omits), user :4660 flashburn.
+  - `engrave.js:1780` inline `!(Blind()||u.Unaware)` gate.
+  - `zap.js:3060` bypass_obj clone (dead `if (!obj)` guard), users :4230/:5334 (both non-null by loop).
+  - `sit.js:214` which_armor clone (`for...of minvent||[]`), user :327.
+- **Fix:** all 4 users switched to the live whole exports (resists_blnd js/mondata.js:453, audited whole D-3445/D-3447; bypass_obj js/worn.js:714; which_armor js/worn.js:472); 3 clones deleted (house pointer comments, mhitu D-3447 precedent), engrave inline gate switched in place; resists_blnd added to existing mondata edges (zap ALREADY :389; engrave extended :101), bypass_obj added to existing worn edge (zap :318), which_armor on a NEW sit→worn edge (imports.mjs --can SAFE — hoisted fn; sit top-level reads only objectNames/monsterNames); worn.js + mondata.js canonical docs updated (zap "still has a local clone" / "keeps its own queued row" notes retired); scripts/resists-blnd-rewire.test.mjs census updated (KNOWN_REMAINING_YOU emptied, zap/engrave asserts added) + new scripts/worn-rewire.test.mjs (census + import asserts, trap/weapon/steed/mklev known-remaining list).
+- **JS:** js/zap.js (:318 import, :3057 pointer, :4594 pointer, :4645 user); js/engrave.js (:101 import, :1780 gate); js/sit.js (:135 import, :215 pointer, :323 user); js/worn.js (:712 doc); js/mondata.js (:449 doc).
+- **Callers:**
+  - `resists_blnd@zap`: C zap.c:3062 → js/zap.js:4645.
+  - `resists_blnd@engrave`: C engrave.c:1248 → js/engrave.js:1780.
+  - `bypass_obj@zap`: C zap.c:285 → js/zap.js:4222; C zap.c:2065 → js/zap.js:5319.
+  - `which_armor@sit`: C sit.c:624 → js/sit.js:323.
+- **Verify:** `verify.mjs --fn resists_blnd,bypass_obj,which_armor --full` → PASS syntax (5 js) · PASS rule2 · 3× hidden note (none blocked — normal; rows cited none) · 3× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44; `node --test` rewire suites 6/6 (resists-blnd 3 + worn 3); VERIFY: PASS.
+- **Named omissions:** none — all four switches whole (trap/weapon/steed/mklev which_armor clones keep their own queued refill rows).
+- **Ledger:** resists_blnd audited; bypass_obj audited; which_armor audited
+- **Left open:** none.
+- **Next:** Must-fix head stays queued (deferred per override). 4 refills hold the band (weapon/steed/mklev/trap which_armor → live worn.js:472).
+
 ## D-3448 — Must-fix: botl.c status pair 2-row ledger repair (cpostfx paste retired)
 
 - **Status:** shipped (ledger-only; no `js/` change).

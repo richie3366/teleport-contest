@@ -98,7 +98,7 @@ import { mon_nam } from './do_name.js';
 import { altar_wrath } from './pray.js';
 import { livelog_printf } from './pline.js';
 /* mondata.js (hoisted function, call-time use only — imports.mjs SAFE). */
-import { attacktype } from './mondata.js';
+import { attacktype, resists_blnd } from './mondata.js';
 
 const PM_GHOUL = monsterNames.indexOf('PM_GHOUL');
 
@@ -1777,7 +1777,7 @@ export async function doengrave() {
     set_occupation(engrave, 'engraving');
 
     if (de.post_engr_text) await pline(de.post_engr_text);
-    if (de.doblind && !(Blind() || u.Unaware)) {
+    if (de.doblind && !resists_blnd(game.youmonst)) { // C engrave.c:1248 — live mondata export
         await pline('You are blinded by the flash!');
         // do.js already imports engrave; load make_blinded lazily (TDZ).
         const { make_blinded } = await import('./do.js');

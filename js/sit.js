@@ -131,6 +131,8 @@ import { losehp, finish_maybe_wail, is_pool, is_lava, On_stairs, db_under_typ } 
 import { burn_away_slime } from './timeout.js';
 import { hliquid, christen_monst, mon_nam, Monnam, s_suffix } from './do_name.js';
 import { mhis } from './mondata.js';
+/* worn.js which_armor (hoisted function, call-time use only — imports.mjs SAFE). */
+import { which_armor } from './worn.js';
 import { digests, enfolds } from './mhitu.js';
 // C ref: hack.c money_cnt `:4513–4522` — first COIN_CLASS quan, not a sum.
 // imports.mjs SAFE (hoisted fn; cycle alone is not a blocker).
@@ -210,13 +212,7 @@ function u_wield_art(art) {
     return !!(uwep && (uwep.oartifact | 0) === (art | 0));
 }
 
-/** C ref: worn.c which_armor — first minvent obj with owornmask bit. */
-function which_armor(mtmp, mask) {
-    for (const o of mtmp?.minvent || []) {
-        if ((o.owornmask || 0) & mask) return o;
-    }
-    return null;
-}
+/* which_armor: live js/worn.js export — local minvent-array clone deleted (D-3449). */
 
 /** C ref: potion.c hcolor — Hallucination synonym deferred. */
 function hcolor(colorword) {

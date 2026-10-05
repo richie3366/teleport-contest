@@ -315,7 +315,7 @@ import { bare_artifactname, defends, defends_when_carried, artifact_origin, revo
 import {
     Ring_gone, Ring_off, Ring_on, setworn, set_wear, hard_helmet, disintegrate_arm,
 } from './do_wear.js';
-import { which_armor, mon_set_minvis, check_gear_next_turn, wearslot, wearmask_to_obj, extract_from_minvent, bypass_objlist, nxt_unbypassed_obj } from './worn.js';
+import { bypass_obj, which_armor, mon_set_minvis, check_gear_next_turn, wearslot, wearmask_to_obj, extract_from_minvent, bypass_objlist, nxt_unbypassed_obj } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
 import { setuwep, setuswapwep, setuqwep, set_twoweap } from './wield.js';
@@ -3054,15 +3054,7 @@ export async function zapnodir(obj) {
     }
 }
 
-/**
- * C ref: worn.c bypass_obj — mark obj so pile zaps skip it this turn.
- */
-function bypass_obj(obj) {
-    if (!obj) return;
-    obj.bypass = 1;
-    if (!game.context) game.context = {};
-    game.context.bypasses = true;
-}
+/* bypass_obj: live js/worn.js export — local null-guarded clone deleted (D-3449). */
 
 /** C ref: obj.h is_weptool — TOOL with oc_skill != P_NONE. */
 function is_weptool(obj) {
@@ -4599,14 +4591,7 @@ function Blind_props() {
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 
-/**
- * C ref: mondata.c resists_blnd youmonst :248–272 — Blind / Unaware.
- * Named omit: expl/gaze AD_BLND (yellow light / Archon);
- * resists_blnd_by_arti (Sunsword).
- */
-function resists_blnd_you() {
-    return Blind_props() || Unaware();
-}
+/* resists_blnd_you subset deleted — flashburn now calls live resists_blnd (D-3449). */
 
 /**
  * C ref: zap.c lightdamage :3024–3056 — light damages hero in gremlin form.
@@ -4657,7 +4642,7 @@ export async function lightdamage(obj, ordinary, amt) {
  * @returns {Promise<boolean>} TRUE if an observable flash occurred
  */
 export async function flashburn(duration, via_lightning) {
-    if (!resists_blnd_you()) {
+    if (!resists_blnd(game.youmonst)) { // C zap.c:3062 — live mondata export
         await You('are blinded by the flash!');
         const { make_blinded } = await import('./do.js');
         await make_blinded(duration | 0, false);
