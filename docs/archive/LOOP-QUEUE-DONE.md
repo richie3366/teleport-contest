@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] engrave.c rest_engravings 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — rest_engravings ← shared-head paste ("- `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).", quoted from `ledger.mjs show rest_engravings` 2026-10-05, d=D-3405,D-3005; same head on sibling save_engravings per ledger scan); JS body reads whole at enqueue (js/engrave.js:271–310, doc :256–270, C 35 lines :1584–1619 in order: head clear :1590, prepend :1597–1599, blank-strip :1610–1613, engr_time :1617; Sfi_* ⇔ record copy per §1.6; sole C caller restore.c:1174 — likely restore-narrowed or retire-stale/by-design, D-3405 Named truth + caller status unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger paste scan + brief 2026-10-05; popping the migrate_to_level head dropped the band to 7, finish fails closed below 8). **Addressed:** D-3495
+
+
 - [x] cfgfiles.c rcfile_interface_options 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — rcfile_interface_options ← misplaced-clause paste ("`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).", quoted from `ledger.mjs show rcfile_interface_options` 2026-10-05, d=D-3405,D-2787; same head as the queued parse_conf_str row, which names this sibling; note also reads "audited D-3405: remaining omit cannot ship"); JS body reads whole at enqueue (js/cfgfiles.js:1360–1377, C 14/JS 14, all :1962–1975 arms in order, 0 C call sites — likely retire-stale or restore-narrowed, D-3405 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger paste scan + brief 2026-10-05; popping the bad_negation head dropped the band to 7, finish fails closed below 8).
 
 
