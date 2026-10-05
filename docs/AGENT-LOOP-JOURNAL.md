@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3441 Open head: use_camera swallowed wording + carry_count empty-invent arm + docorner paging gates + use_cream_pie live can_blnd
+
+**C locus:** - `use_camera`: apply.c:97–98 s_suffix(mon_nam(u.ustuck)) + mbodypart(ustuck, STOMACH).
+**JS:** js/apply.js (:107–111,:148 imports, :1036–1037 camera, :1108–1109 pie call, subset deleted); js/pickup.js (:1476); js/display.js (:7599–7607 doc, :7622–7628 loop gate, :7639–7643 tail).
+**Change:** - `use_camera`: s_suffix(mon_nam)+mbodypart(STOMACH) (:815 reflect precedent; all four names already imported).
+**Verify:** `verify.mjs --fn use_camera,carry_count,docorner,use_cream_pie` → PASS syntax (3 js) · PASS rule2 · 4× hidden note (no corpus session blocked — normal; rows cited none) · REACH-OK ×4 (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared display.js) · VERIFY: PASS.
+**Named:** - `use_camera`: none — whole (zapyourself CAMERA + flash_hits_mon callee rows pre-existing, not this arm's).
+**Next:** Must-fix head (D-3429 3-row repair, review 2374); 4 refills hold the band (mhitm_ad_blnd, disclose, mattackm, that_is_a_mimic).
 ## 2026-10-05 — D-3440 Must-fix review 2375: D-3430 6-row repair (true omits restored)
 
 **C locus:** row homes only (no C re-read; bodies verified whole by review 2375): allmain.c `newgame` :766–850; hacklib.c `strncmpi` :717–734; options.c `doset` :8758–8975; strutil.c `Strlen_` :82–98; wizcmds.c `sanity_check` :1460–1481; insight.c `record_achievement` :2407–2472.

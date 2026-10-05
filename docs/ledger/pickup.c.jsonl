@@ -27,7 +27,7 @@
 {"fn":"query_category","c":"1226-1508","status":"ported","js":["js/pickup.js:query_category"],"d":["D-2647"],"at":"seed@a30a7de84"}
 {"fn":"count_categories","c":"1511-1536","status":"ported","js":["js/pickup.js:count_categories"],"d":["D-3406","D-3135"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"delta_cwt","c":"1544-1566","status":"ported","js":["js/pickup.js:delta_cwt"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C panic surfaces as throw"}
-{"fn":"carry_count","c":"1570-1701","status":"ported","js":["js/pickup.js:carry_count"],"d":["D-2617"],"at":"seed@a30a7de84"}
+{"fn":"carry_count","c":"1570-1701","status":"ported","js":["js/pickup.js:carry_count"],"d":["D-3441","D-2617"],"at":"2026-10-05@9e1efbc82"}
 {"fn":"lift_object","c":"1705-1795","status":"ported","js":["js/pickup.js:lift_object"],"d":["D-3406","D-2595"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"pickup_object","c":"1803-1888","status":"ported","js":["js/pickup.js:pickup_object"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_obj","c":"1897-1942","status":"ported","js":["js/pickup.js:pick_obj"],"at":"2026-10-03@bbe63333a"}

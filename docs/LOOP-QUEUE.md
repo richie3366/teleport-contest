@@ -173,11 +173,17 @@ D-3439 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
 with brief-verified missing arms (use_camera s_suffix, carry_count
 invent predicate, docorner ystart paging, use_cream_pie can_blnd —
 each C + JS read at enqueue) to hold the 8-row band.
+D-3441 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
+with brief-verified missing arms (mhitm_ad_blnd can_blnd subsets,
+disclose quit/died, mattackm bhitpos, that_is_a_mimic trapped-chest —
+each C + JS read at enqueue; drinkfountain case-29 + trapeffect_pit
+wormno + 3 possessive sites verified already-whole, no rows) to hold
+the 8-row band.
 
-- [ ] `apply.c` use_camera — C apply.c:97–98 s_suffix(mon_nam)+mbodypart(STOMACH) absent from js/apply.js:1036 (hardcoded `'s stomach`; s_suffix_apply live same-file; mbodypart ported; message-only; brief-read 2026-10-05) @18077a1c0
-- [ ] `pickup.c` carry_count — C pickup.c:1687 `gi.invent||umoney` NULL arm absent from js/pickup.js:1476 (`game.invent||umoney` — empty array truthy; message-only; brief-read 2026-10-05) @18077a1c0
-- [ ] `wintty.c` docorner — C wintty.c:3686 cl_end skip + :3716 botlx gate when ystart_between_menu_pages!=0 absent from js/display.js:7619–7634 (unconditional blank + bot; refresh-only paging arm; brief-read 2026-10-05) @18077a1c0
-- [ ] `apply.c` use_cream_pie — C apply.c:3584 live can_blnd(NULL,you,AT_WEAP,pie) absent from js/apply.js:1117 (can_blnd_cream_self subset :1070–1077 adds non-C ublindf gate — C pie checks EBlinded only :344–346; live can_blnd js/uhitm.js:359; toss-subset twin; brief-read 2026-10-05) @18077a1c0
+- [ ] `uhitm.c` mhitm_ad_blnd — C :2967/:2980/:2988 can_blnd(magr,mdef,aatyp,NULL) ×3 arms absent from js/mhitm.js:878 + js/mhitu.js:755 (file-local subsets can_blnd_mm :836 — drops perma-blind :320–321 + raven :327–328, WEAP/SPIT/NONE+null TRUE vs C FALSE :343–354, resists_blnd_mm vs resists_blnd; :857 "live does not cover" claim stale — live covers :331–339 — + can_blnd_u :728 — drops light-attack mcan/resists_blnd, ENGL, CLAW-visor; uhitm arm live :864; live can_blnd js/uhitm.js:359; declared split; brief-read 2026-10-05) @9e1efbc82
+- [ ] `end.c` disclose — C end.c:629–630 (how==QUIT)?"quit":"died" possessions query absent from js/end.js:814–815 (hardcoded 'died'; how param live :809; QUIT-const threading only; message-only; brief-read 2026-10-05) @9e1efbc82
+- [ ] `mhitm.c` mattackm — C mhitm.c:379 m_at(bhitpos) i>0 target check absent from js/mhitm.js:6273 (m_at(mdef.mx,mdef.my); matters for long worms; DEADMONSTER disjuncts live :6274; game.bhitpos live :6537 — verify set on this path; brief-read 2026-10-05) @9e1efbc82
+- [ ] `uhitm.c` that_is_a_mimic — C :6228–6230 M_AP_OBJECT+S_trapped_chest "That <cmap> actually is" disjunct absent from js/uhitm.js:4546 (always object-name arm; furniture arm live :4540–4545; code-named :4543 "needs glyph_is_cmap"; S_TRAPPED_CHEST const :4506; message-only; brief-read 2026-10-05) @9e1efbc82
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

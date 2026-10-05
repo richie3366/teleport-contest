@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
-- [x] D-3430 6-row repair: direct `ledger.mjs set` ×6, no JS (D-3427 protocol) — newgame/strncmpi/doset/Strlen_ ← D-3430 Named; sanity_check minus retired clause (by-design per review 2376); record_achievement ← SoundAchievement clause only. Source: reviews/loop-unattended/2375-9ec606a36-batch-d3430.md. **Addressed:** D-3440
+- [x] `apply.c` use_camera — C apply.c:97–98 s_suffix(mon_nam)+mbodypart(STOMACH) absent from js/apply.js:1036 (hardcoded `'s stomach`; s_suffix_apply live same-file; mbodypart ported; message-only; brief-read 2026-10-05) @18077a1c0
+- [x] `pickup.c` carry_count — C pickup.c:1687 `gi.invent||umoney` NULL arm absent from js/pickup.js:1476 (`game.invent||umoney` — empty array truthy; message-only; brief-read 2026-10-05) @18077a1c0
+- [x] `wintty.c` docorner — C wintty.c:3686 cl_end skip + :3716 botlx gate when ystart_between_menu_pages!=0 absent from js/display.js:7619–7634 (unconditional blank + bot; refresh-only paging arm; brief-read 2026-10-05) @18077a1c0
+- [x] `apply.c` use_cream_pie — C apply.c:3584 live can_blnd(NULL,you,AT_WEAP,pie) absent from js/apply.js:1117 (can_blnd_cream_self subset :1070–1077 adds non-C ublindf gate — C pie checks EBlinded only :344–346; live can_blnd js/uhitm.js:359; toss-subset twin; brief-read 2026-10-05) @18077a1c0
+
+
+- [x] D-3430 6-row repair: direct `ledger.mjs set` ×6, no JS (D-3427 protocol) — newgame/strncmpi/doset/Strlen_ ← D-3430 Named; sanity_check minus retired clause (by-design per review 2376); record_achievement ← SoundAchievement clause only. Source: reviews/loop-unattended/2375-9ec606a36-batch-d3430.md. **Addressed:** D-3440 `9e1efbc82`
 
 
 - [x] `lock.c` doopen_indir — C lock.c:832–840 door->glyph learned half (oldglyph snapshot + newsym + glyph-compare → ECMD_TIME) absent from js/lock.js:doopen_indir (:919–923: lastseentyp half only; pick_lock :1421 cellGlyph precedent; brief-read 2026-10-05) @52e6ce3d0

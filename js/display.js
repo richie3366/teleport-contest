@@ -7600,7 +7600,9 @@ export function reglyph_darkroom() {
  * C wintty.c docorner `:3650–3720` — cl_end from xmin, row_refresh the
  * map, then bot() when ymax reaches WIN_STATUS. bot() returns immediately
  * when gb.bot_disabled, so leftover WIN_STATUS left of xmin stays.
- * Named: TTY_PERM_INVENT; ystart_between_menu_pages paging repair (D-1832).
+ * `:3686` + `:3716`: ystart_between_menu_pages!=0 is refresh-only (no
+ * cl_end blank, no botlx/bot tail — D-3441).
+ * Named: TTY_PERM_INVENT; process_menu_window row_startoffset caller (C :1523).
  * @param {number} xmin
  * @param {number} ymax exclusive, C `cw->maxrow + 1`
  * @param {number} [ystart]
@@ -7616,9 +7618,13 @@ export async function docorner(xmin, ymax, ystart = 0) {
     const x0 = Math.max(0, (xmin | 0) - 1);
     const y0 = Math.max(0, ystart | 0);
     const y1 = Math.max(y0, ymax | 0);
+    // C `:3686` — between menu pages: refresh-only, skip cl_end
+    const paging = (ystart | 0) !== 0;
     for (let y = y0; y < y1; y++) {
-        for (let c = x0; c < cols; c++)
-            display.setCell(c, y, ' ', NO_COLOR, 0);
+        if (!paging) {
+            for (let c = x0; c < cols; c++)
+                display.setCell(c, y, ' ', NO_COLOR, 0);
+        }
         // C `:3696` y < offy || y + clipy > ROWNO → skip board (tty
         // tty_display_nhwindow; JS offy 1; clipy 0 at 80x24, so y > ROWNO).
         if (y < 1 || y + clipy > ROWNO) continue;
@@ -7630,8 +7636,8 @@ export async function docorner(xmin, ymax, ystart = 0) {
         // cl_end blank — visually identical, no redundant setCell.
         row_refresh(x0 + 1 + clipx, COLNO - 1, y - 1 + clipy);
     }
-    // C: ymax >= wins[WIN_STATUS]->offy → disp.botlx = TRUE; bot();
-    if (y1 >= 22) {
+    // C `:3716`: ymax >= wins[WIN_STATUS]->offy && !ystart → botlx; bot()
+    if (y1 >= 22 && !paging) {
         if (game.flags) game.flags.botlx = true;
         await bot();
     }

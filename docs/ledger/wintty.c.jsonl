@@ -60,7 +60,7 @@
 {"fn":"tty_update_inventory","c":"3606-3614","status":"unknown"}
 {"fn":"tty_mark_synch","c":"3617-3621","status":"unknown"}
 {"fn":"tty_wait_synch","c":"3624-3647","status":"ported","js":["js/display.js:tty_wait_synch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: getret/rawprint + map/inmore/inread arms ported; fflush/HUPSKIP unportable."}
-{"fn":"docorner","c":"3650-3721","status":"partial","js":["js/display.js:docorner"],"omit":"ystart_between_menu_pages!=0 arm still blanks rows (C skips cl_end, refresh-only)","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: cl_end loop, CLIPPING row_refresh, status bot() tail ported; RESIZABLE/PERMINV arms N/A."}
+{"fn":"docorner","c":"3650-3721","status":"ported","js":["js/display.js:docorner"],"d":["D-3441"],"at":"2026-10-05@9e1efbc82","note":"audit 2026-10-03: cl_end loop, CLIPPING row_refresh, status bot() tail ported; RESIZABLE/PERMINV arms N/A."}
 {"fn":"end_glyphout","c":"3724-3737","status":"unknown"}
 {"fn":"g_putch","c":"3740-3790","status":"unknown"}
 {"fn":"g_pututf8","c":"3795-3803","status":"unknown"}

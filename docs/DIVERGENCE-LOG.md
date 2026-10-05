@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3441 — Open head: use_camera swallowed wording + carry_count empty-invent arm + docorner paging gates + use_cream_pie live can_blnd
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4325 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3439 precedent). Real work ×4: (a) use_camera hardcoded "'s stomach" for the swallowed picture; (b) carry_count took the "you cannot … any more" arm on an empty pack ([] truthy); (c) docorner blanked rows + botlx/bot on the between-menu-pages refresh path C keeps refresh-only; (d) use_cream_pie gated blindinc on the can_blnd_cream_self subset with a non-C ublindf gate. No corpus session blocked on any (coverage rows; hidden notes normal).
+- **C locus:**
+  - `use_camera`: apply.c:97–98 s_suffix(mon_nam(u.ustuck)) + mbodypart(ustuck, STOMACH).
+  - `carry_count`: pickup.c:1687 `gi.invent || umoney` NULL arm.
+  - `docorner`: wintty.c:3686 cl_end skip + :3716 botlx/bot gate when ystart_between_menu_pages!=0.
+  - `use_cream_pie`: apply.c:3584 can_blnd(NULL, &youmonst, AT_WEAP, pie) incl. mondata.c:344–346 EBlinded-only pie gate.
+- **JS was:**
+  - `use_camera` (js/apply.js:1036): `${mon_nam(u.ustuck)}'s stomach` hardcoded (D-3421 "whole" overclaimed — the arm was a subset).
+  - `carry_count` (js/pickup.js:1476): `game.invent || umoney` — empty array truthy (debt 1576 class).
+  - `docorner` (js/display.js:7619–7634): unconditional blank loop + `if (y1 >= 22)` botlx/bot (ledger omit verbatim).
+  - `use_cream_pie` (js/apply.js:1117): can_blnd_cream_self subset (:1070–1077: haseyes + ublindf/EBlinded gate; ublindf non-C for pie).
+- **Fix:**
+  - `use_camera`: s_suffix(mon_nam)+mbodypart(STOMACH) (:815 reflect precedent; all four names already imported).
+  - `carry_count`: `(game.invent?.length || umoney)` (CURRENT debts 1576 prescription).
+  - `docorner`: `paging` const gates the cl_end blank (:7624) and the botlx/bot tail (:7640).
+  - `use_cream_pie`: live can_blnd(null, game.youmonst, AT_WEAP, pie) (uhitm.js:359; apply→uhitm + apply→mhitm edges ALREADY, names added to existing import blocks); deleted the 8-line subset (toss_up D-3439 precedent).
+- **JS:** js/apply.js (:107–111,:148 imports, :1036–1037 camera, :1108–1109 pie call, subset deleted); js/pickup.js (:1476); js/display.js (:7599–7607 doc, :7622–7628 loop gate, :7639–7643 tail).
+- **Callers:**
+  - `use_camera`: C apply.c:4353 doapply → js/apply.js:2558; pre-wired, arm internal.
+  - `carry_count`: C pickup.c:1736 → js/pickup.js:1529; C pickup.c:1839 → js/pickup.js:1616; both pre-wired, arm internal.
+  - `docorner`: live JS call js/invent.js:3110 (ystart 0, behavior unchanged); C paging caller wintty.c:1523 (process_menu_window row_startoffset) has no JS counterpart — belongs to unported process_menu_window (C 288, MISSING), not this body.
+  - `use_cream_pie`: C apply.c:4259 doapply → js/apply.js:2598; pre-wired, arm internal.
+- **Verify:** `verify.mjs --fn use_camera,carry_count,docorner,use_cream_pie` → PASS syntax (3 js) · PASS rule2 · 4× hidden note (no corpus session blocked — normal; rows cited none) · REACH-OK ×4 (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared display.js) · VERIFY: PASS.
+- **Named omissions:**
+  - `use_camera`: none — whole (zapyourself CAMERA + flash_hits_mon callee rows pre-existing, not this arm's).
+  - `carry_count`: none — whole.
+  - `docorner`: none in-body — whole (paging gates ported; TTY_PERM_INVENT/RESIZABLE code-doc names pre-existing, ledger omit retired; C :1523 caller is process_menu_window's row).
+  - `use_cream_pie`: none — whole (split-splice doc line standing since D-0711, not this arm's).
+- **Ledger:** use_camera ported; carry_count ported; docorner ported; use_cream_pie ported
+- **Left open:** none.
+- **Next:** Must-fix head (D-3429 3-row repair, review 2374); 4 refills hold the band (mhitm_ad_blnd, disclose, mattackm, that_is_a_mimic).
+
 ## D-3440 — Must-fix review 2375: D-3430 6-row repair (true omits restored)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2375 QUALITY-RISK Actionable 1: D-3430's finish pasted moveloop_core's Named line into all 11 partial rows (12th stamping iter); 5 still stand (newgame, strncmpi, doset, Strlen_, sanity_check) + record_achievement re-certified D-3411's 7-fn replmon-unstuck paste — 6 rows whose standing omits have no row home. (moveloop_core/test_move/maketrap resolved by completion; goto_level/domove_core/getpos carry later pastes, named in their reviews; moveloop/bc_sanity_check covered by queued 2374.2.) Truth recovered from the D-3430 Named bullet (sanity_check refined by review 2376's note: D-3431's doc text, not D-3430's), each sub-omit re-verified still-true by this iter and by the review.
