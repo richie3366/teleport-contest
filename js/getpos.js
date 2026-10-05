@@ -19,7 +19,7 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
-    flush_screen, flush_screen_getpos_dirty, pline, You, coord_desc, custompline,
+    flush_screen, flush_screen_getpos_dirty, cliparound, pline, You, coord_desc, custompline,
     docrt, docrt_flags, docrtRefresh,
     terrain_glyph,
     look_shown_at, glyph_is_invisible,
@@ -1384,6 +1384,10 @@ export async function getpos(ccp, force, goal, describeAt) {
     // C getpos: curs(cx,cy); flush_screen(0) before the read loop.
     // flush_screen(0) reprints dirty (getvalid) cells and leaves the
     // tty cursor on the last glyph — not on the hero (D-0928 #1137).
+    // C getpos.c:848–853 — CLIPPING (config.h:538, compiled in):
+    // cliparound(cx, cy) with the pre-loop curs+flush. No-op at the
+    // contest fixed size (clipping never set — no resize path).
+    await cliparound(cx, cy);
     if (disp?.setCursor) disp.setCursor(cx - 1, cy + 1);
     flush_screen_getpos_dirty();
     // First read uses the pre-loop dirty flush; later iterations need a
@@ -1408,6 +1412,10 @@ export async function getpos(ccp, force, goal, describeAt) {
     // exitgetpos (`:1155`) restores them in the finally below.
     lock_mouse_buttons(true);
     for (;;) {
+        // C getpos.c:1144–1148 (nxtc) — cliparound(cx, cy) with the
+        // pass's curs+flush, shifted to the loop top with the house
+        // flush shift (need_full_flush); one call per pass like C.
+        await cliparound(cx, cy);
         // C getpos: show_goal_msg / auto_describe then curs then readchar.
         if (show_goal_msg) {
             await pline(`Move cursor to ${goal || 'desired location'}:`);

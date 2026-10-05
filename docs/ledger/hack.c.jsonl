@@ -52,7 +52,7 @@
 {"fn":"carrying_too_much","c":"2616-2634","status":"ported","js":["js/hack.js:carrying_too_much"],"at":"2026-10-03@bbe63333a"}
 {"fn":"escape_from_sticky_mon","c":"2639-2692","status":"ported","js":["js/hack.js:escape_from_sticky_mon"],"d":["D-2158"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domove","c":"2695-2709","status":"ported","js":["js/cmd.js:domove"],"d":["D-1150"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JS merges domove_core (276 lines); wrapper arms (succeeded gate, smudge+bubble, attempting+kickedloc reset) all live"}
-{"fn":"domove_core","c":"2712-2991","status":"partial","js":["js/cmd.js:domove"],"omit":"- `test_move`: none — whole.","d":["D-3431","D-3430","D-3429","D-3419","D-3415","D-3404"],"at":"2026-10-05@9ec606a36","note":"refresh: body lives in domove (cmd.js:6213); D-3419: test_move paste replaced with D-3404 text (D-3415 note was false)"}
+{"fn":"domove_core","c":"2712-2991","status":"partial","js":["js/cmd.js:domove"],"omit":"- `test_move`: none — whole.","d":["D-3432","D-3431","D-3430","D-3429","D-3419","D-3415"],"at":"2026-10-05@801b58f13","note":"audited D-3432: remaining omit cannot ship"}
 {"fn":"runmode_delay_output","c":"2996-3017","status":"ported","js":["js/hack.js:runmode_delay_output"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_smudge_engr","c":"3020-3031","status":"ported","js":["js/engrave.js:maybe_smudge_engr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"overexert_hp","c":"3035-3047","status":"ported","js":["js/hack.js:overexert_hp"],"at":"2026-10-03@bbe63333a"}

@@ -11,7 +11,7 @@ import {
     flush_topl_more, see_monsters, You, install_tty_wincap2,
     see_objects, see_traps, swallowed, Hallucination, Warn_of_mon,
     clear_glyph_buffer, glyph_to_cmap, urgent_pline,
-    under_water, under_ground,
+    under_water, under_ground, cliparound,
 } from './display.js';
 import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { initrack, settrack } from './track.js';
@@ -1528,6 +1528,11 @@ export async function moveloop_core() {
         vision_recalc(0);
         g.vision_full_recalc = 0;
     }
+    // C allmain.c:543–547 — CLIPPING (config.h:538, compiled in):
+    // cliparound(u.ux, u.uy) after rhack() + vision_recalc so the map
+    // redraws once with correct vision data, not twice. No-op at the
+    // contest fixed size (clipping never set — no resize path).
+    await cliparound(g.u.ux | 0, g.u.uy | 0);
     // Message cleared at start of next rhack so pline() survives until the
     // following nhgetch capture (C keeps topline until next command).
 

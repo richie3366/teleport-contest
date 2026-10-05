@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3432 — breadth batch @801b58f13: 4 partials (2 partial, 2 audited)
+- **Status:** shipped (batch).
+- **Symptom:** ledger gap of 4 partials (open 0 · recheck 0, ~401 C lines) in allmain/do/getpos/hack; every row's omit field carries the same finish-iteration paste-error text (test_move's, D-3431), so true omits were recovered from D-3431 Named omissions before porting.
+- **C locus:**
+  - `moveloop_core`: allmain.c:543–547 post-rhack cliparound (CLIPPING compiled in, config.h:538); wired the live display.js cliparound after the post-rhack vision_recalc (js/allmain.js:1535).
+  - `getpos`: getpos.c:851 pre-loop + :1146 nxtc cliparound; wired both (js/getpos.js:1390 pre-loop; :1418 loop top — nxtc shifted with the house flush shift, one call per pass like C).
+  - `domove_core`, `goto_level`: no JS change; standing omits re-verified against live code (see Named omissions).
+- **JS was:** cliparound live in display.js but its allmain/getpos core call sites unwired (doc-named); domove/goto_level bodies already whole vs C modulo carried omits.
+- **Fix:** wired the live cliparound export at 3 sites (imports.mjs ALREADY ×2 — both files already import display.js, no new edge; hoisted async fn, no TDZ); display.js doc Wired/Named updated (muse.c:2637, restore.c:629 remain, non-manifest). No-op at contest fixed size (clipping never set: setclipped/newclipping have no JS callers, no resize path). domove/goto_level re-verified whole: domove :2934 u_on_newpos/CLIPPING live at js/cmd.js:6670 (u_on_newpos itself calls cliparound, js/mklev.js:572), travel head lives upstream in continue_run (js/cmd.js:4458–4476); goto_level vision_recalc(2)/u_locomotion/u_collide_m live (js/do.js:1807/:2141/:2246), RMPORTAL seal live in callee deferred_goto (:2512), MICRO compiled out, NHFILE by-design, reset_glyphmap do-not-touch.
+- **JS:** js/allmain.js (import + post-rhack call), js/getpos.js (import + 2 calls), js/display.js (doc) — ~22 insertions, 3 js files.
+- **Callers:**
+  - `moveloop_core`: arms internal, signature untouched; C callers unchanged (prior-batch wiring: allmain.c:595 moveloop; nhlua.c:1452 Lua binding has no JS counterpart, named per D-3430).
+  - `getpos`: arms internal, signature untouched; C callers in 13 files unchanged (prior-batch wiring).
+  - `domove_core`, `goto_level`: no JS change; callers unchanged (prior-batch wiring).
+- **Verify:**
+  - batch `node scripts/verify.mjs --fn moveloop_core,goto_level,getpos,domove_core`: `PASS syntax 3 changed js file(s)` · `PASS rule2` · moveloop_core `no corpus session blocked` + reach 80/80 sample → REACH-OK · goto_level `no corpus session blocked` + reach 35/35 → REACH-OK · getpos `0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (scen-tour-Healer-92093 still getpos s87 — pre-existing at baseline, memory writer per D-3431, future work; cause outside the manifest) + smoke 24/24 → REACH-OK · domove_core `no corpus session blocked` + smoke 24/24 → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44`.
+  - hot-fn `node scripts/verify.mjs --fn moveloop_core --reach-all`: 724/724 PASS, 0 regressed → REACH-OK · green/strict/cohort/full PASS · VERIFY: PASS.
+- **Named omissions:**
+  - `moveloop_core`: run/tport MAP redisplay every 7th multi/moves (house run-flush model); multi>0 non-run lookaround + --multi + rhack(cmd_key) (house multi model).
+  - `getpos`: gg.getposx/getposy stores (:848–849, :1144, :1160 exit zeroing) — sole readers are win/tty/wintty.c:421–424 async-resize; no JS resize path (fixed display).
+  - `domove_core`: travel head (:2726–2730) lives upstream in continue_run (findtravelpath_travel/guess + travel1=0, js/cmd.js:4458–4476); final u_on_newpos/CLIPPING live at js/cmd.js:6670.
+  - `goto_level`: binary NHFILE savelev/getlev (by-design VFS analogue); quest gate seal RMPORTAL live in callee deferred_goto (js/do.js:2512, do.c:2088–2094); MICRO Valley display_nhwindow (compiled out — MICRO Amiga/PC-only, absent from unixconf/config); reset_glyphmap (:1838, no JS glyphmap model, CURRENT do-not); js/do.js doc-envelope Deferred lines for vision_recalc/u_locomotion/u_collide_m stale (all live: :1807/:2141/:2246).
+- **Ledger:** moveloop_core partial; getpos partial; domove_core audited; goto_level audited.
+- **Left open:** none.
+- **Next:** next batch (`ledger.mjs batch --write`).
 ## D-3431 — breadth batch @9ec606a36: 11 partials (2 ported, 4 partial, 5 audited)
 - **Status:** shipped (batch).
 - **Symptom:** ledger gap of 11 partials (open 0 · recheck 0, ~613 C lines) in allmain/hack/do/getpos/hacklib/options/strutil/trap/wizcmds; every row's omit field carries the same finish-iteration paste-error text (moveloop_core's), so true omits were recovered from D-3430 Named omissions before porting.
