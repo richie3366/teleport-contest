@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3502 — Open head: impossible audit + lspo_door pos→get_table_int_opt rewire (sp_lev.c:4717 |0-gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4393 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3500/D-3498/D-3496/D-3494 precedent). Batch picker finds no gap (`batch`: no gap left); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_door read its pos field through `splev_opt_int` where C get_table_int_opt runs checkinteger (D-3500 omit named door :4717 "permissive `|0`/splev_opt_int").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `get_table_int_opt@door`: sp_lev.c:4717 field read (-1 default) inside lspo_door :4671–4734 wall form :4704–4721 (secret :4715, mask :4716, pos :4717, wall :4718), via nhlua.c:1028–1039 (ret=defval, getfield, nil-check, checkinteger, pop, return).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `mklev.js:19121` `splev_opt_int(o?.pos, -1)` adapter — fractions truncated silently (C argerrors), direct non-numeric non-nil values flowed as 0/1 garbage (C argerrors), integral floats converted without the int64-range gate.
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Site restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change), in place (already C order :4715/:4716/:4717/:4718); lua_field/lua_type equivalences verified (o is `a ?? {}` in the table form and null in the 3-arg form; lua_field(null) is undefined ⟺ nil, so the 3-arg default read is preserved; defval -1, `|0` no-op). Behavior delta is exactly the C conversion (integers unchanged incl. negatives; absent stays -1; integral floats and numeric strings convert; fractions throw like argerror instead of truncating; direct non-numerics throw instead of 0/1 garbage; beyond-int32 truncates via asIntN(32) like the (int) cast, same as the old `|0`). New scripts/lspo-door-int.test.mjs (helper conversion + null-table + wiring + C-order asserts).
+- **JS:** js/mklev.js (:19124 call + cites). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_int_opt@door`: C sp_lev.c:4717 → js/mklev.js:19124; sole wall-arm reader inside exported lspo_door :19094 (unported des dispatch, no scored analogue until the Lua VM). Entry-source audit (zero in-tree callers — no in-tree behavior change): lspo_door has no call sites in js/ (definition + doc/comment mentions only). `splev_room_door` (:24144) takes an already-unpacked JS number, not a table field — not a C :4717 site, left alone.
+- **Verify:** `verify.mjs --fn impossible,get_table_int_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-door-int + lspo-gold-int + lspo-mineralize-int + lspo-object-int + lspo-object-name + lspo-object-id + lspo-objclass-field + lspo-monster-int + dungeon-dungeons-int 55/55; pre-change stash check: new test fails 1/7, passes post-change (7/7); VERIFY: PASS.
+- **Named omissions:**
+  - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+  - `get_table_int_opt`: body whole; 13 sites keep permissive `|0`/splev_opt_int vs C checkinteger: terrain :5001, replace :5086-91, region :5565-68/:5600/:5605. Wired 30 (29 per D-3500 + door :4717 this iter); padding :5489 exact-unpacked equivalent; nhlsel :886-87/:893 owned by by-design l_selection_gradient.
+- **Ledger:** impossible audited; get_table_int_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). No review cited by the popped row — no stamp owed. Bundled: LOOP-QUEUE-DONE.md D-3501 hash backfill (`991b933a5`).
+
 ## D-3501 — Must-fix: pager.c look_all 1-row ledger repair (batch paste fully stale, D-2508 remainder expired)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: look_all row `partial` carried the D-3402 batch paste ("``look_all``/``look_engrs``: prior partial omissions (unchanged this batch).", d=D-3429,D-3402,D-2508) with note "audited D-3429: remaining omit cannot ship"; same head on pair-sibling look_engrs (separately queued next). The queue row guessed retire-stale or restore-narrowed; re-verification: RETIRE to ported (zero shippable remainder — body whole, all 4 callers wired, D-2508's true remainder expired clause-by-clause).

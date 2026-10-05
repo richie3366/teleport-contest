@@ -19118,7 +19118,10 @@ export function lspo_door(a, b, c) {
         const tmpd = {
             secret: (typ === D_SECRET) ? 1 : 0, // C :4715
             mask: msk, // C :4716 (unresolved — create_door rolls -1 itself)
-            pos: splev_opt_int(o?.pos, -1), // C :4717 (3-arg form reads defaults, like C's field read)
+            // C :4717 get_table_int_opt(L, "pos", -1): nil → -1, else
+            // checkinteger (fractions and non-numerics throw like C
+            // argerror; the 3-arg form's null table reads the default).
+            pos: get_table_int_opt(o, 'pos', -1),
             wall: walldirs2i[splev_opt_index(o?.wall, 'all', walldirs)], // C :4718
         };
         create_door(tmpd, game.gc?.coder?.croom ?? null); // C :4720
