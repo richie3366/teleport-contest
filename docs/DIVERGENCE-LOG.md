@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-3467 — Open head: impossible audit + lspo_grave text→get_table_str_opt rewire (sp_lev.c:4262 fn-number gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4354 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3437/D-3449/D-3451/D-3461 precedent). Coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_grave table-form text adapter threw on function-produced numbers where C luaL_optstring converts via lua_number2str (D-3466 omit named 4262's inline adapter "with inherited gaps").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; paniclog :598 + CRASHREPORT :621–631 Rule #2).
+  - `get_table_str_opt@grave`: sp_lev.c:4262 text read (NULL default) via nhlua.c:1055–1076 (function arm :1064–1066 pcall + optstring number conversion).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `mklev.js:23505` inline grave adapter (nil/string/function shape; function-produced numbers threw `get_table_str_opt: no string`).
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Grave adapter deleted, site calls the live whole helper (js/dungeon.js:388, body-whole D-3175/D-3466) on the EXISTING mklev→dungeon edge (:150, no import change); lua_field/lua_type equivalences verified (`a` is a non-null object at :23499, so `lua_field` is `a.text`; nil/string/function/else classifications identical); behavior delta is exactly the C conversion (fn-number → %.14g string; dupstr folds into GC strings). New scripts/lspo-grave-text.test.mjs (helper conversion + wiring asserts).
+- **JS:** js/mklev.js (:23505–23509 call + comment; 9-line adapter deleted).
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_str_opt@grave`: C sp_lev.c:4262 → js/mklev.js:23509.
+- **Verify:** `verify.mjs --fn impossible,get_table_str_opt --full` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44; `node --test` lspo-grave-text 5/5 (wiring assert authenticates the change on the HEAD file: 2 adapter throws/0 helper calls → 0/1); VERIFY: PASS.
+- **Named omissions:**
+  - `get_table_str_opt`: body whole (zero-arg JS callback for by-design nhl_pcall_handle); 17 C callers not rewired to the helper — dungeon.c:1008,1009,1016,1017; nhlua.c:1412; questpgr.c:524,543,549; sp_lev.c:3133,3169,3295,3326,3457,3541,3637,3673,4352 (4262 wired D-3467; full list D-3466).
+- **Ledger:** impossible audited; get_table_str_opt partial
+- **Left open:** none.
+- **Next:** Must-fix head stays queued (deferred per override). Pre-existing stale rewire censuses fail at HEAD (attacktype/useupf/upstart/fountain/m-in-air/mon-aligntyp/invocation-pos/dmgtype — each verified stale-test, product C-faithful; test-only hygiene, unqueued).
+
 ## D-3466 — Must-fix: nhlua.c get_table_str_opt 1-row ledger repair (lspo_teleport_region paste retired, D-3175 caller omit restored narrowed)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: get_table_str_opt row `partial` carried lspo_teleport_region's `- \`lspo_teleport_region\`: none in its body/loader bindings.` whole-claim — D-3175's own finish created the row partial+paste from unknown (landed `3f8f47e04`, verified via `git show` by this iter; lspo_teleport_region itself split-live, audited whole D-3406). The queue row guessed retire-stale; re-verification falsified that: D-3175's Named names genuine unwired-caller omissions (truth recovered from the D-entry, D-3427/2358 precedent).

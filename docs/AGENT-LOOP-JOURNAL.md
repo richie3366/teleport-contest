@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3467 Open head: impossible audit + lspo_grave text→get_table_str_opt rewire (sp_lev.c:4262 fn-number gap)
+
+**C locus:** - `impossible`: pline.c:584–634 (audit only; paniclog :598 + CRASHREPORT :621–631 Rule #2).
+**JS:** js/mklev.js (:23505–23509 call + comment; 9-line adapter deleted).
+**Change:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Grave adapter deleted, site calls the live whole helper (js/dungeon.js:388, body-whole D-3175/D-3466) on the EXISTING mklev→dungeon edge (:150, no import change); lua_field/lua_type equivalences verified (`a` is a non-null object at :23499, so `lua_field` is `a.text`; nil/string/function/else classifications identical); behavior delta is exactly the C conversion (fn-number → %.14g string; dupstr folds into GC strings). New scripts/lspo-grave-text.test.mjs (helper conversion + wiring asserts).
+**Verify:** `verify.mjs --fn impossible,get_table_str_opt --full` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44; `node --test` lspo-grave-text 5/5 (wiring assert authenticates the change on the HEAD file: 2 adapter throws/0 helper calls → 0/1); VERIFY: PASS.
+**Named:** - `get_table_str_opt`: body whole (zero-arg JS callback for by-design nhl_pcall_handle); 17 C callers not rewired to the helper — dungeon.c:1008,1009,1016,1017; nhlua.c:1412; questpgr.c:524,543,549; sp_lev.c:3133,3169,3295,3326,3457,3541,3637,3673,4352 (4262 wired D-3467; full list D-3466).
+**Next:** Must-fix head stays queued (deferred per override). Pre-existing stale rewire censuses fail at HEAD (attacktype/useupf/upstart/fountain/m-in-air/mon-aligntyp/invocation-pos/dmgtype — each verified stale-test, product C-faithful; test-only hygiene, unqueued).
 ## 2026-10-05 — D-3466 Must-fix: nhlua.c get_table_str_opt 1-row ledger repair (lspo_teleport_region paste retired, D-3175 caller omit restored narrowed)
 
 **C locus:** row home only (no C re-read; body brief-read this iter): nhlua.c `get_table_str_opt` :1055–1076 (string/nil optstring, function pcall + lua_number2str, nhl_error throw, dupstr/NULL return; 24 direct C sites + extern decl).

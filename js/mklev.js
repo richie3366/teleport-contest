@@ -23502,15 +23502,11 @@ export function lspo_grave(a, b, c, croom = null) {
         const xy = get_table_xy_or_coord(a); // C :4259
         ax = xy.x;
         ay = xy.y;
-        const v = a.text; // C :4261 get_table_str_opt(L, "text", NULL)
-        if (v == null) txt = null;
-        else if (typeof v === 'string') txt = v;
-        else if (typeof v === 'function') { // C nhlua.c:1064-1066 pcall
-            const produced = v();
-            if (produced == null) txt = null;
-            else if (typeof produced === 'string') txt = produced;
-            else throw new Error('get_table_str_opt: no string');
-        } else throw new Error('get_table_str_opt: no string');
+        // C :4261 get_table_str_opt(L, "text", NULL) — the shared
+        // dungeon.js helper (nil → NULL, string kept, function pcalled
+        // incl. fn-number lua_number2str conversion; dupstr folds into
+        // GC strings). The inline adapter threw on fn-numbers.
+        txt = get_table_str_opt(a, 'text', null);
     }
     const pos = get_location_coord(DRY, room, ax, ay); // C :4263-4268 scoord pack + get_location_coord
     const x = pos.x, y = pos.y;
