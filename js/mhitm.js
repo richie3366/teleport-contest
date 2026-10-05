@@ -12,7 +12,7 @@ import { game } from './gstate.js';
 import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You, Your, pline_The, You_feel, You_see, flush_screen, flush_topl_more, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
 import { cansee } from './vision.js';
 import { dist2, distmin, isok } from './hacklib.js';
-import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big, defended, monsndx, Resists_Elem, attacktype, dmgtype_fromattack } from './mondata.js';
+import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big, defended, monsndx, Resists_Elem, attacktype, dmgtype_fromattack, resists_blnd } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval, possibly_unwield } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned, is_art, protects } from './artifact.js';
 import { find_mac, which_armor, bypass_obj, is_flimsy, extract_from_minvent } from './worn.js';
@@ -131,7 +131,7 @@ import { flooreffects } from './do.js';
 import { end_burn } from './timeout.js';
 import { obj_resists, finish_meating } from './dogmove.js';
 import { munslime, mon_adjust_speed, munstone } from './muse.js';
-import { Monnam, mon_nam, mon_nam_too, Adjmonnam, Amonnam, oname, pmname, x_monnam, hliquid, YMonnam, s_suffix, Mgender, free_mgivenname, a_monnam, y_monnam, some_mon_nam, minimal_monnam, noit_mon_nam } from './do_name.js';
+import { Monnam, mon_nam, mon_nam_too, Adjmonnam, Amonnam, oname, pmname, x_monnam, hliquid, YMonnam, s_suffix, Mgender, free_mgivenname, a_monnam, y_monnam, some_mon_nam, minimal_monnam, noit_mon_nam, noname_monnam } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames, doname } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { makemon, makemon_appear_msg, newcham, pm_to_cham, is_home_elemental, clone_mon } from './makemon.js';
@@ -151,6 +151,7 @@ import { sticks } from './engrave.js';
 import { mon_offmap, set_apparxy, mb_trapped, itsstuck, accessible } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_confused, make_stunned } from './potion.js';
+import { Unaware } from './eat.js';
 // imports.mjs --can mhitm.js mcastu.js touch_of_death Antimagic: SAFE
 // (hoisted functions; same 98-module SCC). Aliased because this file's
 // local Antimagic is the flat H||E clone; mcastu's also reads uprops
@@ -192,6 +193,7 @@ import { on_level } from './dungeon.js';
 import { clear_fcorr, parkguard } from './vault.js';
 import {
     ARTICLE_THE,
+    PLNMSG_HIDE_UNDER,
     AUGMENT_IT,
     EXACT_NAME,
     MON_ENDGAME_FREE,
@@ -814,20 +816,7 @@ function deadmonster(m) {
 /* C mondata.c dmgtype — live export from './monsters.js' (clone removed D-3357). */
 /* C mondata.c dmgtype_fromattack — live export from './mondata.js' (clone removed D-3357). */
 
-/**
- * C ref: mondata.c resists_blnd monster arm :248–272.
- * Named omit: resists_blnd_by_arti (Sunsword); youmonst Blind/Unaware.
- */
-export function resists_blnd_mm(mon) {
-    if (!mon) return true;
-    const ptr = mon.data;
-    if ((mon.mblinded | 0) || !(mon.mcansee | 0) || !haseyes(ptr)
-        || (mon.msleeping | 0)) {
-        return true;
-    }
-    return dmgtype_fromattack(ptr, AD_BLND, AT_EXPL)
-        || dmgtype_fromattack(ptr, AD_BLND, AT_GAZE);
-}
+/* C mondata.c resists_blnd — live export from './mondata.js' (subset removed). */
 
 /**
  * C ref: uhitm.c mhitm_ad_blnd `:2958–3012` — uhitm (you→mon, `:2964–2975`)
@@ -6057,7 +6046,7 @@ async function gulpmm(magr, mdef, mattk) {
  * C ref: mhitm.c gazemm :736–803 — monster gazes at another monster.
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
- * Named omit: mon_perma_blind; resists_blnd_by_arti.
+ * Named omit: mon_perma_blind (live resists_blnd covers the arti arm).
  * mdamagem AD_STON leftover is D-1352; AD_CONF leftover is D-1385;
  * AD_STUN leftover is D-1396; AD_FIRE leftover is D-1405.
  * arti_reflects(MON_WEP) is D-1342.
@@ -6085,7 +6074,7 @@ export async function gazemm(magr, mdef, mattk) {
     }
 
     if ((magr.mcan | 0) || !(mdef.mcansee | 0)
-        || (archon ? resists_blnd_mm(mdef) : !(magr.mcansee | 0))
+        || (archon ? resists_blnd(mdef) : !(magr.mcansee | 0))
         || (magr.minvis && !perceives(mdef.data)) || (mdef.msleeping | 0)) {
         if (_mm_vis && canspotmon(mdef)) {
             await pline('but nothing happens.');
@@ -6226,15 +6215,30 @@ export async function mattackm(magr, mdef) {
     }
 
     // C ref: mhitm.c mattackm `:327–352` — an attacked mundetected monster
-    // becomes un-hidden (newsym) and is noticed when seen but not sensed.
-    // Named omits: Unaware "dream of %s" arm (Unaware state absent in js/);
-    // HIDE_UNDER / last_hider arms (`iflags.last_msg`, `gl.last_hider`
-    // absent in js/) — the generic notice arm below covers the message.
+    // becomes un-hidden (newsym) and is noticed when seen but not sensed:
+    // Unaware dreams of it (plural unless G_UNIQ); else the just-hidden
+    // mon emerges, the last hider is noticed, else the generic notice.
+    // iflags.last_msg + game.last_hider are the C hideunder record
+    // (mon.js; C mon.c:4795–4796, gl zero-init).
     if (mdef.mundetected) {
         mdef.mundetected = 0;
         newsym(mdef.mx, mdef.my);
         if (canseemon(mdef) && !sensemon(mdef)) {
-            await pline(`Suddenly, you notice ${a_monnam(mdef)}.`);
+            if (Unaware()) {
+                const justone = (((mdef.data?.geno | 0) & G_UNIQ) !== 0);
+                let montype = noname_monnam(
+                    mdef, justone ? ARTICLE_THE : ARTICLE_NONE,
+                );
+                if (!justone) montype = makeplural(montype);
+                await You('dream of %s.', montype);
+            } else if ((game.iflags?.last_msg | 0) === PLNMSG_HIDE_UNDER
+                && (mdef.m_id | 0) === (game.last_hider | 0)) {
+                await pline_mon(mdef, '%s emerges from hiding.', Monnam(mdef));
+            } else if ((mdef.m_id | 0) === (game.last_hider | 0)) {
+                await You('notice %s.', mon_nam(mdef));
+            } else {
+                await pline(`Suddenly, you notice ${a_monnam(mdef)}.`);
+            }
         }
     }
 

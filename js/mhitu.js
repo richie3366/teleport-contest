@@ -1638,77 +1638,9 @@ export async function expels(mtmp, mdat, message) {
     await spoteffects(true);
 }
 
-/**
- * C ref: mondata.c can_blnd `:305–398` AT_ENGL arm (mdef == youmonst, obj NULL)
- * for gulpmu, in C switch order: haseyes + raven-vs-raven; WEAP/SPIT/NONE
- * with NULL obj cannot blind; EXPL/BOOM/GAZE/MAGC/BREA need !mcan +
- * !resists_blnd; ENGL needs !(Blindfolded||Unaware||ucreamed) (C youprop.h:96
- * Blindfolded ≡ EBlinded); CLAW needs !ublindf + visor tail; TUCH/STNG need
- * !mcan. Visor tail `:388–396` runs only when check_visor was set (VENOM obj
- * or CLAW), so AT_ENGL never scans — C leaves check_visor FALSE there.
- */
-function gulpmu_can_blnd(mtmp, mattk) {
-    const you = game.youmonst;
-    if (!haseyes(you?.data)) return false;
-    const raven = mons(monsterNames.indexOf('PM_RAVEN'));
-    if (raven && mtmp?.data === raven && you?.data === raven) return false;
-    let check_visor = false;
-    switch (mattk?.aatyp | 0) {
-    case AT_EXPL:
-    case AT_BOOM:
-    case AT_GAZE:
-    case AT_MAGC:
-    case AT_BREA:
-        if (mtmp?.mcan) return false;
-        return !resists_blnd_you();
-    case AT_WEAP:
-    case AT_SPIT:
-    case AT_NONE:
-        return false;
-    case AT_ENGL: {
-        const u = game.u || {};
-        if ((u.EBlinded | 0) || Unaware() || (u.ucreamed | 0)) return false;
-        return true;
-    }
-    case AT_CLAW:
-        if (game.u?.ublindf) return false;
-        check_visor = true;
-        break;
-    case AT_TUCH:
-    case AT_STNG:
-        if (mtmp?.mcan) return false;
-        break;
-    default:
-        break;
-    }
-    // C mondata.c:388-396 — worn visored-helmet tail (owornmask & W_ARMH +
-    // objdescr_is "visored helmet" over hero invent). Only reached when
-    // check_visor was set, so the gulpmu AT_ENGL path is unaffected.
-    if (check_visor && visored_helmet_worn()) return false;
-    return true;
-}
-
-/**
- * C ref: mondata.c can_blnd `:389–394` visor scan — hero invent entries with
- * owornmask & W_ARMH whose appearance is "visored helmet".
- */
-function visored_helmet_worn() {
-    const u = game.u || {};
-    const inv = game.invent;
-    const seen = new Set();
-    const scan = (o) => {
-        if (!o || seen.has(o)) return false;
-        seen.add(o);
-        return (((o.owornmask | 0) & W_ARMH) !== 0) && objdescr_is(o, 'visored helmet');
-    };
-    if (Array.isArray(inv)) {
-        for (const o of inv) if (scan(o)) return true;
-    } else {
-        for (let o = inv; o; o = o.nobj) if (scan(o)) return true;
-    }
-    if (u.uarmh && !seen.has(u.uarmh)) return scan(u.uarmh);
-    return false;
-}
+/* C mondata.c can_blnd — live export from './uhitm.js' (gulpmu_can_blnd +
+ * visored_helmet_worn clones removed; live carries the ENGL
+ * Blindfolded/Unaware/ucreamed gate and the visor tail). */
 
 /**
  * C ref: mhitu.c gulp_blnd_check `:1273–1285` — swallowed AD_BLND re-gulp.
@@ -1752,15 +1684,14 @@ function Slow_digestion() {
  * swallowed(1), snuff_lit invent, ustuck re-check, Punished ball limbo,
  * uswldtim--, AD_DGST (Slow_digestion, total-digest Half_physical x2) /
  * PHYS (fog-cloud flaming/Breathless/amphibious + tmp=0 gate) / ACID
- * (Hallu slime, M_SEEN_ACID seesu/unseesu) / BLND (gulpmu_can_blnd +
+ * (Hallu slime, M_SEEN_ACID seesu/unseesu) / BLND (live can_blnd +
  * make_blinded/vision_clears/HBlinded incr) / ELEC·COLD·FIRE (mcan+rn2(2),
  * shieldeff, seesu/unseesu, ugolemeffects, burn_away_slime) / DISE / DREN
  * (rn2(4) drain_en) / default, physical AC/rnd/Maybe_Half_Phys, mdamageu
  * under mswallower, petrify-regurgitate + timer/size expel (verbose
  * Slow_digestion taste) arms.
- * Kept C-order local: gulpmu_can_blnd (the live uhitm.js can_blnd lacks the
- * ENGL Blindfolded/Unaware/ucreamed gate — its named omission — so the
- * local stays the complete mondata.c `:305–398` port for this path);
+ * BLND gates on the live whole uhitm.js can_blnd (ENGL
+ * Blindfolded/Unaware/ucreamed gate + visor tail verified there);
  * display_nhwindow(WIN_MESSAGE) stays flush_topl_more + Hallu vision_off
  * (D-0852 #996). Named omissions: none new in this body.
  */
@@ -1948,7 +1879,7 @@ async function gulpmu(mtmp, mattk) {
         // C mhitu.c gulpmu `:1471–1484` — engulf blinding in exact C order:
         // can_blnd gate, then (!Blind ? maybe "can't see" + make_blinded +
         // vision_clears : incr HBlinded), then tmp = 0.
-        if (gulpmu_can_blnd(mtmp, mattk)) {
+        if (can_blnd(mtmp, game.youmonst, mattk.aatyp | 0, null)) {
             if (!Blind()) {
                 // C youprop.h Blinded ≡ HBlinded && !BBlinded
                 const was_blinded = !!((u.HBlinded | 0) && !(u.BBlinded | 0));

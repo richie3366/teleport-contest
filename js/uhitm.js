@@ -3856,7 +3856,7 @@ export async function explum(mdef, mattk) {
 
     switch (ad) {
     case AD_BLND:
-        if (mdef && !resists_blnd_mon(mdef)) {
+        if (mdef && !resists_blnd(mdef)) {
             await pline(`${Monnam(mdef)} is blinded by your flash of light!`);
             mdef.mblinded = Math.min((mdef.mblinded | 0) + tmp, 127);
             mdef.mcansee = 0;
@@ -4608,16 +4608,7 @@ export async function that_is_a_mimic(mtmp, mimic_flags) {
     if (reveal_it) seemimic(mtmp);
 }
 
-/**
- * C ref: mondata.c resists_blnd — mon already-blind / noeyes / sleeping;
- * AD_BLND expl/gaze and artifact arms deferred.
- */
-function resists_blnd_mon(mtmp) {
-    if (!mtmp) return true;
-    if (!haseyes(mtmp.data)) return true;
-    if (!mtmp.mcansee || (mtmp.mblinded | 0) || mtmp.msleeping) return true;
-    return false;
-}
+/* C mondata.c resists_blnd — live export from './mondata.js' (subset removed). */
 
 /**
  * C ref: uhitm.c light_hits_gremlin — light damage + cry + wake_nearto.
@@ -4700,7 +4691,7 @@ export async function flash_hits_mon(mtmp, otmp) {
             res = 1;
         }
     } else if (mtmp.data?.mlet !== 'S_LIGHT') {
-        if (!resists_blnd_mon(mtmp)) {
+        if (!resists_blnd(mtmp)) {
             const tmp = dist2(otmp?.ox | 0, otmp?.oy | 0, mx, my);
             if (useeit) {
                 await pline(`${Monnam(mtmp)} is blinded by the flash!`);

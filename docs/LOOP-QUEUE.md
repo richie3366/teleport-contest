@@ -185,11 +185,18 @@ resists_blnd_mm Sunsword, gulpmu_can_blnd stale clone,
 resists_blnd_mon — each C + JS read at enqueue; mhidden_description
 appear-message verified behaviorally divergent, not an absent arm —
 no row) to hold the 8-row band.
+D-3445 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
+with brief-verified clone-drift rows (mhitu/detect/trap/muse
+resists_blnd subsets → live mondata.js:451 export — each C + JS read
+at enqueue; music.js a_monnam verified already-live (:43 import,
+:294/:296 users — ledger note stale, no row); zap.js:4607
+resists_blnd_you (C zap.c:3062, user :4660) held as unverified
+backup) to hold the 8-row band.
 
-- [ ] `mhitm.c` mattackm — C :334–346 Unaware-dream + HIDE_UNDER/last_hider notice arms absent from js/mhitm.js:6233 (generic Suddenly arm only; 'Unaware absent' claim stale — Unaware() live; gl.last_hider absent from js/, writer mon.c:4796; iflags.last_msg live js/end.js:2192; blocks scen-quest-Archeologist-94276 s246: C "You notice" vs J "Suddenly, you notice"; brief-read 2026-10-05) @5448d96ed
-- [ ] `mondata.c` resists_blnd_mm — C mondata.c:262–263 resists_blnd_by_arti Sunsword arm absent from js/mhitm.js:821 (subset; doc-named :819); users js/mhitm.js:6088 (archon gaze) + js/zap.js:2043 (lightning blind, monst* only); live whole resists_blnd js/mondata.js:451 — switch + delete (litter D-3437 precedent; brief-read 2026-10-05) @5448d96ed
-- [ ] `mondata.c` gulpmu_can_blnd — C mondata.c:262–269 by_arti + Blnd_resist-catchall arms absent from js/mhitu.js:1650 light path (via resists_blnd_you :663); file-local can_blnd clone, :1761 "live lacks ENGL gate" claim stale (live js/uhitm.js:399–406 has it); live is a C-faithful superset (visor scan equivalent) — switch + delete (brief-read 2026-10-05) @5448d96ed
-- [ ] `mondata.c` resists_blnd_mon — C mondata.c:258–263 dmgtype EXPL/GAZE + by_arti arms absent from js/uhitm.js:4615 (subset; doc-named :4612); users js/uhitm.js:3859 (explum AD_BLND) + :4703 (flash loop), monst* only; live whole resists_blnd js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @5448d96ed
+- [ ] `mhitu.c` resists_blnd_you — C mhitu.c:1624/:1794 resists_blnd(you) by_arti + catchall arms absent from js/mhitu.js:663 subset (doc-named by_arti omit); users :3602 (hitmu gaze) + :3722 (explmu not_affected); live whole resists_blnd js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
+- [ ] `detect.c` resists_blnd — C detect.c:1230 resists_blnd(you) dmgtype + by_arti arms absent from js/detect.js:289 clone (Blind/Unaware only, ignores arg); user :2603 (blind case 3); live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
+- [ ] `trap.c` resists_blnd — C trap.c:4328 resists_blnd(you) haseyes + dmgtype + by_arti arms absent from js/trap.js:4967 clone (hero gate + partial mon arm); user :5109 (domagictrap flash); live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
+- [ ] `muse.c` resists_blnd_you — C muse.c:1568/:1947 resists_blnd(you) EXPL/GAZE + by_arti arms absent from js/muse.js:504 subset (Blind||Unaware only, doc-named omits); users :773 + :1134; live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

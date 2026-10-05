@@ -266,7 +266,7 @@ import {
     breathless, haseyes,
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched, cant_drown, minliquid, dealloc_monst, unique_corpstat } from './mon.js';
-import { find_mac, monkilled, mlifesaver, shade_miss, resists_sleep_slee, resists_blnd_mm, erode_armor, slept_monst } from './mhitm.js';
+import { find_mac, monkilled, mlifesaver, shade_miss, resists_sleep_slee, erode_armor, slept_monst } from './mhitm.js';
 import { update_mapseen_for, Invocation_lev } from './dungeon.js';
 import {
     find_drawbridge, open_drawbridge, close_drawbridge, is_db_wall,
@@ -386,7 +386,7 @@ import {
     LL_WISH, LL_CONDUCT, LL_ARTIFACT, ONAME_WISH, ONAME_KNOW_ARTI,
     FM_FMON, REVIVE_MON, ROT_CORPSE, TIMER_OBJECT, thats_enough_tries,
 } from './const.js';
-import { monstseesu, monstunseesu, defended, Resists_Elem, resists_blnd_by_arti, resists_magm } from './mondata.js';
+import { monstseesu, monstunseesu, defended, Resists_Elem, resists_blnd, resists_blnd_by_arti, resists_magm } from './mondata.js';
 import { spell_skilltype } from './spell.js';
 import { P_SKILL, MON_WEP } from './weapon.js';
 
@@ -2038,9 +2038,9 @@ export async function zhitm(mon, type, nd, ootmp) {
         }
         // C zap.c:4352-4362 — sufficiently powerful lightning blinds monsters.
         // Drawn before the rn2(3) destroy gate, so rnd(50) comes first.
-        // resists_blnd monster arm (import-the-export; youmonst arm
-        // unreachable — every zhitm caller passes a monst*, never youmonst).
-        if (!resists_blnd_mm(mon)
+        // Live resists_blnd (youmonst arm unreachable — every zhitm
+        // caller passes a monst*, never youmonst).
+        if (!resists_blnd(mon)
             && !((type | 0) > 0 && engulfing_u(mon))
             && (nd | 0) > 2) {
             const blind_dur = rnd(50);

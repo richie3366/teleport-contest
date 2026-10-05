@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-3445 — Open head: mattackm notice arms + resists_blnd/can_blnd subset deletions
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4329 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3443 precedent). Real work ×4: (a) mattackm mundetected notice kept only the generic Suddenly arm — Unaware-dream + HIDE_UNDER/last_hider arms absent (blocks scen-quest-Archeologist-94276 s246: C "You notice the garter snake" vs J "Suddenly, you notice a garter snake"); (b) resists_blnd_mm subset lacked the by_arti Sunsword arm (2 users); (c) gulpmu_can_blnd file-local can_blnd clone (":1761 live lacks ENGL gate" claim stale — live verified arm-by-arm by D-3443); (d) resists_blnd_mon subset lacked the EXPL/GAZE + by_arti arms (2 users).
+- **C locus:**
+  - `matattackm`: mhitm.c:334–346 mundetected notice (Unaware youprop.h:399; hideunder record mon.c:4795–4796).
+  - `resists_blnd_mm`: mondata.c:262–263 by_arti arm of resists_blnd :247–272 (subset name, not a C fn).
+  - `gulpmu_can_blnd`: mondata.c:305–398 can_blnd, gulpmu shape magr=mtmp/mdef=you/obj=NULL (subset name, not a C fn); caller mhitu.c:1471–1484.
+  - `resists_blnd_mon`: mondata.c:258–263 EXPL/GAZE + by_arti arms of resists_blnd (subset name, not a C fn).
+- **JS was:**
+  - `matattackm` (js/mhitm.js:6233): generic Suddenly arm only; "Unaware state absent" + "iflags.last_msg, gl.last_hider absent" claims both stale (Unaware() live eat.js:502; last_msg live; last_hider live as game.last_hider mon.js:4011 under C's exact condition).
+  - `resists_blnd_mm` (js/mhitm.js:821): 10-line subset, doc-named by_arti omit.
+  - `gulpmu_can_blnd` (js/mhitu.js:1650): 40-line can_blnd clone + visored_helmet_worn helper; light path via resists_blnd_you (:663, keeps its 2 other users :3602/:3722).
+  - `resists_blnd_mon` (js/uhitm.js:4615): 6-line subset, doc-named EXPL/GAZE + arti omits.
+- **Fix:**
+  - `matattackm`: Unaware dream arm (G_UNIQ justone ? ARTICLE_THE : ARTICLE_NONE via live noname_monnam + makeplural) + HIDE_UNDER emerges (pline_mon) / last_hider notice (You) / generic else-chain in C order; new eat.js Unaware edge (imports.mjs: same 101-SCC, hoisted fn, cycle-safe); ARTICLE_NONE/PLNMSG_HIDE_UNDER/noname_monnam/resists_blnd added to existing const/do_name/mondata edges.
+  - `resists_blnd_mm`: both users switched to live whole resists_blnd (js/mondata.js:451), subset deleted (litter D-3437 precedent); zap.js drops the mhitm edge for the mondata one (already imported).
+  - `gulpmu_can_blnd`: gulpmu BLND gates on live whole can_blnd(mtmp, youmonst, aatyp, null) (js/uhitm.js:359; uhitm edge ALREADY mhitu.js:85; gulp_blnd_check :1727 + mhitm_ad_blnd_u :735 same-shape precedents), clone + visored helper deleted, stale doc claims rewritten.
+  - `resists_blnd_mon`: both users switched to live resists_blnd (mondata edge ALREADY uhitm.js:116), subset deleted.
+- **JS:** js/mhitm.js (:15/:134/:154/:194 imports, :819 subset stub, :6077 gazemm, :6228–6243 notice arms); js/zap.js (:269/:389 imports, :2043 zhitm); js/mhitu.js (:1641 stub, :1687 doc, :1882 gulpmu); js/uhitm.js (:3859 explum, :4611 stub, :4694 flash loop); js/mondata.js (:446 doc).
+- **Callers:**
+  - `matattackm`: arm internal (all 20 C refs pre-wired per D-3443); C mhitm.c:343/:345 ↔ js/mhitm.js:6234–6239.
+  - `resists_blnd_mm`: C mhitm.c:759 (gazemm archon) → js/mhitm.js:6077; C zap.c:4352 (zhitm lightning) → js/zap.js:2043.
+  - `gulpmu_can_blnd`: C mhitu.c:1473 (gulpmu AD_BLND) → js/mhitu.js:1882.
+  - `resists_blnd_mon`: C uhitm.c:4897 (explum AD_BLND) → js/uhitm.js:3859; C uhitm.c:6384 (flash loop) → js/uhitm.js:4694.
+- **Verify:** `verify.mjs --fn mattackm,resists_blnd_mm,gulpmu_can_blnd,resists_blnd_mon` → PASS syntax (5 js) · PASS rule2 · mattackm hidden PROGRESS (scen-quest-Archeologist-94276 moved 246→259, new owner mlevel_tele_trap) + REACH-OK (80/80 spread of 229) · 3× hidden note (none blocked — normal; rows cited none) + REACH-OK (smoke 24/24 each) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `matattackm`: none — whole (notice arms were the sole ledger omit).
+  - `resists_blnd`: none — whole (live export; mm/mon subsets deleted this iter; resists_blnd_you/detect/trap/muse clones are separate queued rows, not this arm's).
+  - `can_blnd`: none — whole (live export; gulpmu clone deleted this iter).
+- **Ledger:** mattackm ported; resists_blnd audited; can_blnd audited
+- **Left open:** none.
+- **Next:** Must-fix head stays queued (deferred per override; note: the mhitm.c mattackm 1-row repair substance is superseded — this iter ported the arms and cleared the pasted omit, so that row retires stale at repair). 4 refills hold the band (mhitu/detect/trap/muse resists_blnd clones → live export).
+
 ## D-3444 — Must-fix: opt_usage row restored (lopt paste retired)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue Must-fix head: opt_usage row `partial` carrying lopt's `- \`lopt\`: none — every callee live (config_erradd core, eos).` omit — D-3104 finish first-line stamping (paste present since `e32d557c0`, 2026-09-29, per `git show`; D-3426 Ledger said `opt_usage audited` with no D-3426 Named line for it, so finish kept the paste and stamped the "audited D-3426: remaining omit cannot ship" re-cert note). Same class as the D-3429–D-3434 stamping run (D-3427/D-3436/D-3438/D-3440/D-3442 repairs), but older. Truth recovered from the D-3104 Named bullet, each sub-omit re-verified still unshipped by this iter.
