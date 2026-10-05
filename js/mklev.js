@@ -1377,11 +1377,11 @@ export function lspo_mazewalk(a, b, c) {
 export function lspo_gold(a, b, c) {
     let amount, x, y;
     const argc = arguments.length;
-    if (argc === 3) { // C :4489-4492
+    if (argc === 3) { // C :4490-4493
         amount = a | 0;
         x = b | 0;
         y = c | 0;
-    } else if (argc === 2 && b !== null && typeof b === 'object') { // C :4493-4496
+    } else if (argc === 2 && b !== null && typeof b === 'object') { // C :4494-4498
         amount = a | 0;
         // C :4486 gldx/gldy are unset until get_coord writes them. A nil
         // leaves the -1 seed (this arm only runs for a table).
@@ -1389,20 +1389,22 @@ export function lspo_gold(a, b, c) {
         get_coord(b, gld); // C :4496 get_coord(L, 2, &gldx, &gldy)
         x = gld.x;
         y = gld.y;
-    } else if (argc === 0 || (argc === 1 && a !== null && typeof a === 'object')) { // C :4497-4501
+    } else if (argc === 0 || (argc === 1 && a !== null && typeof a === 'object')) { // C :4499-4500
         create_des_coder();
-        const o = a ?? {}; // C lcheck_param_table
-        amount = splev_opt_int(o.amount, -1); // C :4499
-        const xy = get_table_xy_or_coord(o); // C :4500
+        const o = a ?? {}; // C :4500 lcheck_param_table
+        // C :4502 get_table_int_opt(L, "amount", -1): nil → -1, else
+        // checkinteger (fractions and non-numerics throw like C argerror).
+        amount = get_table_int_opt(o, 'amount', -1);
+        const xy = get_table_xy_or_coord(o); // C :4503
         x = xy.x;
         y = xy.y;
     } else {
-        throw new Error('lspo_gold: Wrong parameters'); // C :4503-4506 nhl_error
+        throw new Error('lspo_gold: Wrong parameters'); // C :4505-4508 nhl_error
     }
-    const coder = game.gc?.coder ?? null; // C :4520 gc.coder->croom (table form created it above)
-    const pos = get_location_coord(DRY, coder?.croom ?? null, x, y); // C :4520 (RANDOM when x=y=-1)
-    if (amount < 0) amount = rnd(200); // C :4521-4522
-    mkgold(amount, pos.x, pos.y); // C :4523
+    const coder = game.gc?.coder ?? null; // C :4516 gc.coder->croom (table form created it above)
+    const pos = get_location_coord(DRY, coder?.croom ?? null, x, y); // C :4516 (RANDOM when x=y=-1)
+    if (amount < 0) amount = rnd(200); // C :4517-4518
+    mkgold(amount, pos.x, pos.y); // C :4519
     return 0;
 }
 
