@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-3490 — Batch oname: untwoweapon You() via async-caller gates (do_oname + dipfountain) + impossible Open-head audit
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4379 a failed port; Must-fix ×7 deferred, still queued; D-3476…D-3488 precedent). Batch manifest @694457c2a: 1 fn (do_name.c oname partial — D-3489's narrowed remainder: the :403–404 untwoweapon You(can_no_longer_twoweap) dropped by the sync inline); coverage head pline.c impossible re-audited whole modulo the standing Rule #2 omits.
+- **C locus:**
+  - `oname`: do_name.c:371–426 (whole body re-read; gap was :403–404 `if (obj == uswapwep) untwoweapon()` → wield.c:905–914 You + set_twoweap(FALSE) + update_inventory()).
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+- **JS was:**
+  - `do_name.js:1316` oname inlined `if (obj === u.uswapwep && u.twoweap) { set_twoweap(false); update_inventory(); }` — state exact, You() dropped (sync fn cannot await pline; D-1680 Named, D-3489 narrow restore). wield.js:40 message string unexported.
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+- **Fix:** oname stays sync (18 C callers incl. sync level-gen/mkobj/mon — async cascade rejected); the two async callers that can pass the wielded secondary snapshot twoweap before oname() and emit the shared string after when the flip proves the arm fired (house idiom: wield.js:1008/:1128 dowield-quiver gate). do_oname (C prints nothing between the arm and do_oname's return, :367–368) and dipfountain (message before discover_artifact, C :431→:433) — both land at exactly C's point in the topline stream. Caller census (all 18 C sites): only these two can pass uswapwep — mk_artifact (artifact.c:281) otmp is fresh mksobj/NULL+align (callers mkobj.c fresh ×3, mplayer.c mon, pray.c:1798 NULL); pray.c:907/929/955 obj=uwep (:894); wish/split/novel/mail/pickup/topten/mk_named_object/makemon/mkobj/mon/mhitm/sp_lev pass fresh/split/mon/level-def objects (Callers table). wield.js exports can_no_longer_twoweap (name-add on the existing do_name→wield edge; new fountain→wield edge lazy-read inside dipfountain — imports.mjs --can: same 101-module SCC, no top-level read). New scripts/oname-untwoweapon.test.mjs (flip/no-flip behavioral ×3 + shared-string drift guard + C-order wiring asserts ×2).
+- **JS:** js/do_name.js (:25 import; do_oname :258–268 gate; oname doc :1324); js/fountain.js (:54 import; dipfountain :1178–1189 gate); js/wield.js (:43 export). 3 changed js files.
+- **Callers:**
+  - `oname`: do_name.c:367 → do_name.js:260 (gate :258–268, this iter); fountain.c:431 → fountain.js:1179 (gate :1178–1189, this iter); artifact.c:281 → artifact.js:1355; invent.c:844 → mkobj.js:3241; mail.c:427 → mail.js:435; makemon.c:341 → makemon.js:2785; mkobj.c:425 → mkobj.js:4344; mkobj.c:1248 → mkobj.js:2843; mkobj.c:2265 → end.js:1472 (mk_named_object); mon.c:921 → mhitm.js:3323; mon.c:3346 → mhitm.js:3507; objnam.c:5360 → readobjnam.js:2495; pickup.c:2885 → pickup.js:3472; pray.c:907/929/955 → pray.js:1801/1825/1849; sp_lev.c:2267 → mklev.js:5440/5749/7913/8513/8678/9057/22349 (7 level-def sites); topten.c:1438 → topten.js:600. All pre-existing wirings unchanged; only the two uswapwep-capable callers grew gates.
+  - `impossible`: n/a — audit only, no wiring changed.
+- **Verify:** `verify.mjs --fn oname,impossible` → PASS syntax (3 changed: do_name/fountain/wield) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (auto: none shared) + manual full 44/44; `node --test` oname-untwoweapon 5/5; VERIFY: PASS.
+- **Named omissions:**
+  - `oname`: none — whole (D-3489 narrow remainder shipped; untwoweapon state inline + You() at both uswapwep-capable async callers).
+- **Ledger:** oname ported; impossible audited
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override).
+
 ## D-3489 — Must-fix: do_name.c oname 1-row ledger repair (pair paste → D-1680 narrow restore)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: oname row `partial` carried the D-3403 pair paste ("- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch)."), kept by the D-3430 audit. Row history traced commit-by-commit via `git show`: pre-D-3403 the row held D-1680's narrow text (untwoweapon message); D-3403 (`e2943671c`) overwrote it with the shared paste; D-3430 (`9ec606a36`) kept the paste + "remaining omit cannot ship". The queue row guessed restore-narrowed; re-verification: RESTORE the D-1680 narrow text (remainder real and still unshipped, async-boundary, D-3427 makemon precedent).
