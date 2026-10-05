@@ -943,16 +943,23 @@ function init_dungeon_set_depth(pd, dngidx) {
 // C ref: dungeon.c init_dungeon_dungeons() — returns false if chance skip.
 function init_dungeon_dungeons(entry, pd, dngidx) {
     const dgn_name = entry.name;
+    // C :1008/:1009 get_table_str_opt(..., emptystr): nil → "", string kept,
+    // function pcalled + optstring conversion, direct non-string throws
+    // like nhl_error. entry is a non-null object at the caller's table gate
+    // (:1687–1689), so lua_field is entry[name] and the
+    // nil/string/function/else classifications are identical to C's. Read
+    // here (after name :1007, before base :1010) to keep C's pcall order.
+    const dgn_bonetag = get_table_str_opt(entry, 'bonetag', emptystr);
+    const dgn_protoname = get_table_str_opt(entry, 'protofile', emptystr);
     const dgn_base = entry.base;
     const dgn_range = entry.range ?? 0;
     const dgn_align = get_dgn_align(entry);
     const dgn_entry = entry.entry ?? 0;
     const dgn_chance = entry.chance ?? 100;
     const dgn_flags = get_dgn_flags(entry);
-    const dgn_fill = entry.lvlfill || '';
-    const dgn_themerms = entry.themerooms || '';
-    const dgn_protoname = entry.protofile || '';
-    const dgn_bonetag = entry.bonetag || '';
+    // C :1016/:1017, same conversion; read after flags :1015 per C order.
+    const dgn_fill = get_table_str_opt(entry, 'lvlfill', emptystr);
+    const dgn_themerms = get_table_str_opt(entry, 'themerooms', emptystr);
 
     // C: if (!wizard && dgn_chance && (dgn_chance <= rn2(100)))
     if (!(game.flags?.debug) && dgn_chance && (dgn_chance <= rn2(100))) {
