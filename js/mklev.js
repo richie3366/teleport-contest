@@ -1986,7 +1986,7 @@ export function lspo_terrain(a, b, c) {
             throw new Error('lspo_terrain: Erroneous map char');
         tmpterrain.ter = check_mapchr(o.typ); // C nhlua.c:393-397 check_mapchr
         if (tmpterrain.ter === INVALID_TYPE) throw new Error('lspo_terrain: Erroneous map char'); // C nhlua.c:247-248
-        tmpterrain.tlit = splev_opt_int(o.lit, SET_LIT_NOCHANGE); // C :5001
+        tmpterrain.tlit = get_table_int_opt(o, 'lit', SET_LIT_NOCHANGE); // C :5001 (int) luaL_checkinteger
     } else if (argc === 2 && a !== null && typeof a === 'object' // C :5002-5003 LUA_TTABLE
                && !(a.pts instanceof Set) && typeof b === 'string') { // (a selection is LUA_TUSERDATA, not TABLE)
         tmpterrain.ter = check_mapchr(b); // C :5005
