@@ -5,7 +5,7 @@
 **Prior reviews closed:** none.
 
 **Addressed:** D-3391 `6d194731e`
-**Addressed:** D-3446
+**Addressed:** D-3446 `7d9b2864f`
 
 ## Intent vs deliverable
 

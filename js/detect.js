@@ -85,6 +85,7 @@ import {
 import { engr_at } from './engrave.js';
 import { cmd_safety_prevention, make_blinded } from './do.js';
 import { m_at, seemimic, wake_nearto } from './mon.js';
+import { resists_blnd } from './mondata.js';
 import { find_drawbridge, open_drawbridge } from './dbridge.js';
 import { expels, digests } from './mhitu.js';
 import { is_hider, hides_under } from './monsters.js';
@@ -285,13 +286,7 @@ function hcolor(colorword) {
     return colors[rn2(colors.length)];
 }
 
-/** C mondata.c resists_blnd — Blind/Unaware early true. */
-function resists_blnd(_mon) {
-    const u = game.u || {};
-    if (Blind()) return true;
-    if (u.Unaware) return true;
-    return false;
-}
+/* C mondata.c resists_blnd — live export from './mondata.js' (clone removed). */
 
 /** C questpgr.c is_quest_artifact */
 function is_quest_artifact(obj) {
@@ -2600,7 +2595,7 @@ export async function use_crystal_ball(obj) {
             }
             break;
         case 3:
-            if (!resists_blnd(game.youmonst || { _youmonst: true })) {
+            if (!resists_blnd(game.youmonst)) {
                 await pline(`${Tobjnam(otmp, 'damage')} your vision!`);
                 await make_blinded(BlindedTimeout() + impair, false);
                 if (!Blind()) await pline('Your vision quickly clears.');

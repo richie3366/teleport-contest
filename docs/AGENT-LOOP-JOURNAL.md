@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3447 Open head: 4-file resists_blnd subset deletion (mhitu/muse/detect/trap → live export)
+
+**C locus:** - `resists_blnd@mhitu`: mhitu.c:1624 explmu not_affected + :1794 hitmu gaze — `resists_blnd(&gy.youmonst)`.
+**JS:** js/mhitu.js (:89 import, :660 stub, :3594/:3714 users); js/muse.js (:55 import, :499 stub, :766/:1127 users); js/detect.js (:88 import, :289 stub, :2598 user); js/trap.js (:152 import, :4966 stub, :5105 user); js/mondata.js (:446 doc).
+**Change:** all 6 users switched to live whole `resists_blnd(game.youmonst)` (js/mondata.js:453, audited whole D-3445); 4 subsets deleted (one-line live-export stubs, mhitm/uhitm D-3445 precedent); resists_blnd added to existing mondata edges (mhitu/muse/trap ALREADY; detect new edge, imports.mjs SAFE — hoisted fn); detect/trap `|| {_youmonst:true}` fallbacks dropped (live export keys on `=== game.youmonst`; bare arg matches C exactly, undefined included); mondata.js canonical doc updated; new scripts/resists-blnd-rewire.test.mjs (attacktype-rewire precedent).
+**Verify:** `verify.mjs --fn resists_blnd` → PASS syntax (5 js) · PASS rule2 · hidden note (none blocked — normal; rows cited none) · REACH-OK (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed); `node --test scripts/resists-blnd-rewire.test.mjs` 3/3; VERIFY: PASS.
+**Named:** none — all four switches whole (zap.js:4607 resists_blnd_you subset keeps its own queued refill row).
+**Next:** Must-fix head stays queued (deferred per override). 4 refills hold the band (zap/engrave resists_blnd → live mondata export; zap bypass_obj + sit which_armor → live worn exports).
 ## 2026-10-05 — D-3446 Must-fix: files/bones/hack 8-row ledger repair (reviews 2336/2343/2344/2345)
 
 **C locus:** row homes only (no C re-read; bodies verified whole by the four reviews + this iter's briefs/sym): files.c `nhclose` :583–594, `nh_compress` :1787–1792, `nh_uncompress` :1796–1801; hack.c `showdamage` :4247–4253, `spot_checks` :4525–4547, `dump_weights` :4421–4483; invent.c `cinv_ansimpleoname` :5422–5441 (staticfn); bones.c `savebones` :403–625.

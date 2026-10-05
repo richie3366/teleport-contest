@@ -443,10 +443,11 @@ export function resists_blnd_by_arti(mon) {
  * exclusions via dmgtype AD_BLND AT_EXPL/AT_GAZE; `:262–263` Sunsword
  * via resists_blnd_by_arti; `:265–269` hero Blnd_resist catchall with
  * the upstream impossible() (data inconsistency, kept: it is C output).
- * Canonical port; the file-local subsets in mhitu.js
- * (resists_blnd_you), detect.js and trap.js predate it (drift, named
- * in the map). The mhitm.js (resists_blnd_mm) and uhitm.js
- * (resists_blnd_mon) subsets were switched to this export and deleted.
+ * Canonical port. The mhitm.js (resists_blnd_mm) and uhitm.js
+ * (resists_blnd_mon) subsets were switched to this export and deleted
+ * (D-3445), as were the mhitu.js / muse.js (resists_blnd_you) subsets
+ * and the detect.js / trap.js clones (D-3447); the zap.js
+ * resists_blnd_you subset keeps its own queued row (unverified backup).
  * Caller: can_blnd light-attack arm (uhitm.js).
  */
 export function resists_blnd(mon) {

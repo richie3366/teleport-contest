@@ -192,11 +192,20 @@ at enqueue; music.js a_monnam verified already-live (:43 import,
 :294/:296 users — ledger note stale, no row); zap.js:4607
 resists_blnd_you (C zap.c:3062, user :4660) held as unverified
 backup) to hold the 8-row band.
+D-3447 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
+with brief-verified switch rows (zap/engrave resists_blnd → live
+mondata export; zap bypass_obj + sit which_armor → live worn exports
+— each C + JS read at enqueue; raw_printf/config_error_add/
+purge_all_custom_entries/tin_variety_txt/livelog_newform/
+retouch_equipment/can_blnd callers all verified already-whole, doset
+wc2 arm a mis-skipping model gap, newman omit stale — no rows;
+trap.js:3851 which_armor chain-scan held as backup: behaviorally
+complete for its monster-only users) to hold the 8-row band.
 
-- [ ] `mhitu.c` resists_blnd_you — C mhitu.c:1624/:1794 resists_blnd(you) by_arti + catchall arms absent from js/mhitu.js:663 subset (doc-named by_arti omit); users :3602 (hitmu gaze) + :3722 (explmu not_affected); live whole resists_blnd js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
-- [ ] `detect.c` resists_blnd — C detect.c:1230 resists_blnd(you) dmgtype + by_arti arms absent from js/detect.js:289 clone (Blind/Unaware only, ignores arg); user :2603 (blind case 3); live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
-- [ ] `trap.c` resists_blnd — C trap.c:4328 resists_blnd(you) haseyes + dmgtype + by_arti arms absent from js/trap.js:4967 clone (hero gate + partial mon arm); user :5109 (domagictrap flash); live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
-- [ ] `muse.c` resists_blnd_you — C muse.c:1568/:1947 resists_blnd(you) EXPL/GAZE + by_arti arms absent from js/muse.js:504 subset (Blind||Unaware only, doc-named omits); users :773 + :1134; live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
+- [ ] `zap.c` resists_blnd_you — C zap.c:3062 flashburn resists_blnd(you) expl/gaze + by_arti + catchall arms absent from js/zap.js:4607 subset (Blind_props||Unaware only, doc-named omits; :4669 arti shieldeff already live-separate per C :3075); user :4660; live whole resists_blnd js/mondata.js:453, zap→mondata edge ALREADY (:389) — switch + delete (brief-read 2026-10-05) @7d9b2864f
+- [ ] `engrave.c` resists_blnd inline — C engrave.c:1248 doblind flash resists_blnd(you) expl/gaze + by_arti + catchall arms absent from js/engrave.js:1780 inline `!(Blind()||u.Unaware)` gate; live whole js/mondata.js:453, engrave→mondata edge ALREADY (:101) — switch + delete (brief-read 2026-10-05) @7d9b2864f
+- [ ] `worn.c` bypass_obj — C worn.c:1118–1123 null-guard-free bypass mark absent from js/zap.js:3060 clone (adds dead `if (!obj)` guard); users :4230 (polyspot nobj loop) + :5334 (cobj loop), both non-null by loop; live whole js/worn.js:714, zap→worn edge ALREADY (:318) — switch + delete (brief-read 2026-10-05) @7d9b2864f
+- [ ] `worn.c` which_armor — C worn.c:1006–1036 nobj-chain scan (+ youmonst slot table) absent from js/sit.js:214 clone (iterates `mtmp?.minvent || []` array-style); user :327 (C sit.c:624 usteed saddle); live whole js/worn.js:472 — switch + delete, NEW sit→worn edge (imports.mjs --can at ship; brief-read 2026-10-05) @7d9b2864f
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

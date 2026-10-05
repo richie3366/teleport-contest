@@ -149,7 +149,7 @@ import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
 import { level_difficulty, depth, distmin, dist2, ordin, strsubst, upstart, strncmpi } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
-import { monstseesu, monstunseesu, defended, resists_magm, attacktype } from './mondata.js';
+import { monstseesu, monstunseesu, defended, resists_magm, attacktype, resists_blnd } from './mondata.js';
 import { get_obj_location, burn_away_slime } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage, sellobj, costly_alteration, obfree, inside_shop } from './shk.js';
 import { unpunish, seffects } from './read.js';
@@ -4963,11 +4963,7 @@ function incr_itimeout_prop(key, incr) {
     const cur = u[key] | 0;
     set_itimeout_prop(key, (cur & TIMEOUT) + (incr | 0));
 }
-/** C mondata.c resists_blnd — hero Blind/Unaware gate; arti/expl deferred. */
-function resists_blnd(mon) {
-    if (is_youmonst(mon)) return Blind() || Unaware();
-    return !!(mon?.mblinded || !mon?.mcansee || mon?.msleeping);
-}
+/* C mondata.c resists_blnd — live export from './mondata.js' (clone removed). */
 /** C ref: potion.c self_invis_message — stalker corpse / invis potion. */
 export async function self_invis_message() {
     const prefix = Hallucination()
@@ -5106,7 +5102,7 @@ async function domagictrap() {
 
     if (fate < 10) {
         let cnt = rnd(4);
-        if (!resists_blnd(game.youmonst || { _youmonst: true })) {
+        if (!resists_blnd(game.youmonst)) {
             await pline('You are momentarily blinded by a flash of light!');
             await make_blinded(rn1(5, 10), false);
             if (!Blind()) await pline(`Your ${VISION_CLEARS}`);

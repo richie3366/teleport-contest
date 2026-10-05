@@ -51,7 +51,7 @@ import { find_drawbridge, is_drawbridge_wall, destroy_drawbridge } from './dbrid
 import { finish_losehp_done } from './end.js';
 import {
     m_seenres, monstseesu, monstunseesu, same_race, mhe, mhim, can_blow,
-    attacktype, resists_magm,
+    attacktype, resists_magm, resists_blnd,
 } from './mondata.js';
 import { bcsign } from './rumors.js';
 import { enexto, migrate_to_level, tele_restrict, rloc,
@@ -496,14 +496,7 @@ function Unaware() {
     return !!(u.usleep || u.Unaware);
 }
 
-/**
- * C ref: mondata.c resists_blnd youmonst :248–272 — Blind / Unaware.
- * Named omit: expl/gaze AD_BLND (yellow light / Archon);
- * resists_blnd_by_arti (Sunsword).
- */
-function resists_blnd_you() {
-    return Blind() || Unaware();
-}
+/* C mondata.c resists_blnd — live export from './mondata.js' (subset removed). */
 
 /**
  * C ref: mondata.h hates_light — youmonst.data == gremlin.
@@ -770,7 +763,7 @@ export function find_offensive(mtmp) {
         }
         if (m.has_offense === MUSE_CAMERA) continue;
         if (obj.otyp === EXPENSIVE_CAMERA
-            && ((!Blind() && !resists_blnd_you()) || hates_light_you())
+            && ((!Blind() && !resists_blnd(game.youmonst)) || hates_light_you())
             && dist2(mtmp.mx, mtmp.my, mux, muy) <= 2
             && (obj.spe | 0) > 0 && !rn2(6)) {
             m.offensive = obj;
@@ -1131,7 +1124,7 @@ export async function use_offensive(mtmp) {
             );
         }
         game.m_using = true;
-        if (!Blind() && !resists_blnd_you()) {
+        if (!Blind() && !resists_blnd(game.youmonst)) {
             await pline('You are blinded by the flash of light!');
             await make_blinded(BlindedTimeout() + rnd(1 + 50), false);
         }

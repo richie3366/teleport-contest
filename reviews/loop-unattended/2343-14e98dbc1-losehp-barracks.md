@@ -3,7 +3,7 @@
 **SHA:** `14e98dbc1` — "`hack.c` losehp showdamage/rehumanize + check_special_room BARRACKS/wake_msg arms (D-3388)."
 **Scope:** js/hack.js +105/−37 (captures, 2 finishers, showdamage param, BARRACKS, wake_msg), js/end.js +7/−1 (drains). 2 functions + 1 helper — per-function blocks below.
 **Prior reviews closed:** none.
-**Addressed:** D-3446
+**Addressed:** D-3446 `7d9b2864f`
 
 ## Intent vs deliverable
 

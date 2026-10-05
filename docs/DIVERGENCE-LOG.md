@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3447 — Open head: 4-file resists_blnd subset deletion (mhitu/muse/detect/trap → live export)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4332 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3445 precedent). Real work ×4: mhitu/muse `resists_blnd_you` subsets + detect/trap `resists_blnd` clones gate only on Blind/Unaware (mhitu adds dmgtype EXPL/GAZE; trap adds a partial mon arm) — by_arti Sunsword + Blnd_resist catchall (+ expl/gaze/haseyes) arms absent vs C mondata.c:247–272.
+- **C locus:**
+  - `resists_blnd@mhitu`: mhitu.c:1624 explmu not_affected + :1794 hitmu gaze — `resists_blnd(&gy.youmonst)`.
+  - `resists_blnd@muse`: muse.c:1568 MUSE_CAMERA pick + :1947 MUSE_CAMERA use.
+  - `resists_blnd@detect`: detect.c:1230 throne-blind case 3.
+  - `resists_blnd@trap`: trap.c:4328 domagictrap flash.
+- **JS was:**
+  - `mhitu.js:663` resists_blnd_you (Blind/Unaware + dmgtype EXPL/GAZE; doc-named arti omit), users :3602/:3722.
+  - `muse.js:504` resists_blnd_you (Blind||Unaware; doc-named expl/gaze + arti omits), users :773/:1134.
+  - `detect.js:289` resists_blnd clone (ignores arg), user :2603.
+  - `trap.js:4967` resists_blnd clone (hero gate + partial mon arm), user :5109.
+- **Fix:** all 6 users switched to live whole `resists_blnd(game.youmonst)` (js/mondata.js:453, audited whole D-3445); 4 subsets deleted (one-line live-export stubs, mhitm/uhitm D-3445 precedent); resists_blnd added to existing mondata edges (mhitu/muse/trap ALREADY; detect new edge, imports.mjs SAFE — hoisted fn); detect/trap `|| {_youmonst:true}` fallbacks dropped (live export keys on `=== game.youmonst`; bare arg matches C exactly, undefined included); mondata.js canonical doc updated; new scripts/resists-blnd-rewire.test.mjs (attacktype-rewire precedent).
+- **JS:** js/mhitu.js (:89 import, :660 stub, :3594/:3714 users); js/muse.js (:55 import, :499 stub, :766/:1127 users); js/detect.js (:88 import, :289 stub, :2598 user); js/trap.js (:152 import, :4966 stub, :5105 user); js/mondata.js (:446 doc).
+- **Callers:**
+  - `resists_blnd@mhitu`: C mhitu.c:1624 → js/mhitu.js:3714; C :1794 → js/mhitu.js:3594.
+  - `resists_blnd@muse`: C muse.c:1568 → js/muse.js:766; C :1947 → js/muse.js:1127.
+  - `resists_blnd@detect`: C detect.c:1230 → js/detect.js:2598.
+  - `resists_blnd@trap`: C trap.c:4328 → js/trap.js:5105.
+- **Verify:** `verify.mjs --fn resists_blnd` → PASS syntax (5 js) · PASS rule2 · hidden note (none blocked — normal; rows cited none) · REACH-OK (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed); `node --test scripts/resists-blnd-rewire.test.mjs` 3/3; VERIFY: PASS.
+- **Named omissions:** none — all four switches whole (zap.js:4607 resists_blnd_you subset keeps its own queued refill row).
+- **Ledger:** resists_blnd audited
+- **Left open:** none.
+- **Next:** Must-fix head stays queued (deferred per override). 4 refills hold the band (zap/engrave resists_blnd → live mondata export; zap bypass_obj + sit which_armor → live worn exports).
+
 ## D-3446 — Must-fix: files/bones/hack 8-row ledger repair (reviews 2336/2343/2344/2345)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue Must-fix head: 3 files.c rows carrying close_nhfile's bullet (review 2336.1, D-3381 finish-stamping, still pasted at enqueue) + 3 ported rows with self-contradictory `refresh: no JS symbol (measured MISSING)` notes (2343.1 showdamage; 2345.1 sweep spot_checks/cinv_ansimpleoname) + savebones stale compress clause (2344.2, wired D-3389) + dump_weights split row carrying spot_checks' bullet (2345.1 sweep). doapply (2333.1) + free_ebones (2345.1) excluded — resolved D-3416/D-3426, verified at enqueue (doapply ported "audit 2026-10-03…", free_ebones ported "audited D-3426: whole vs C").

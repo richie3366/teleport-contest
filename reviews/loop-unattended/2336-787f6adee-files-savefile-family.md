@@ -3,7 +3,7 @@
 **SHA:** `787f6adee` — "`files.c` savefile/NHFILE family (close_nhfile head + 9, 3 close wirings) (D-3381)."
 **Scope:** js/files.js +319/−7, js/do.js +2/−1, js/save.js +4/−2. Cluster commit — per-function Inventory + fidelity below. No clone deleted; sym sweep pasted in §Inventory.
 **Prior reviews closed:** none.
-**Addressed:** D-3446
+**Addressed:** D-3446 `7d9b2864f`
 
 ## Intent vs deliverable
 

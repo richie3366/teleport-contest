@@ -86,6 +86,7 @@ import { xkilled, killed, Hate_silver, dynamic_multi_reason, attacktype_fordmg, 
 import {
     m_seenres, cvt_adtyp_to_mseenres, monstseesu, monstunseesu, m_canseeu,
     mhis, on_fire, defended, get_atkdam_type, dmgtype_fromattack, attacktype,
+    resists_blnd,
 } from './mondata.js';
 import { which_armor, find_mac } from './worn.js';
 import {
@@ -656,16 +657,7 @@ function Unaware() {
 
 /* C mondata.c dmgtype_fromattack — live export from './mondata.js' (clone removed D-3357). */
 
-/**
- * C ref: mondata.c resists_blnd youmonst arm :248–272.
- * Named omit: resists_blnd_by_arti (Sunsword).
- */
-function resists_blnd_you() {
-    if (Blind() || Unaware()) return true;
-    const ptr = game.youmonst?.data;
-    return dmgtype_fromattack(ptr, AD_BLND, AT_EXPL)
-        || dmgtype_fromattack(ptr, AD_BLND, AT_GAZE);
-}
+/* C mondata.c resists_blnd — live export from './mondata.js' (subset removed). */
 
 /**
  * C ref: polyself.c ugolemeffects :2160–2188.
@@ -3599,7 +3591,7 @@ export async function gazemu(mtmp, mattk) {
         }
         break;
     case AD_BLND:
-        if (canseemon(mtmp) && !resists_blnd_you()
+        if (canseemon(mtmp) && !resists_blnd(game.youmonst)
             && dist2u(mtmp) <= BOLT_LIM * BOLT_LIM) {
             if (cancelled) {
                 react = rn1(2, 2);
@@ -3719,7 +3711,7 @@ export async function explmu(mtmp, mattk, ufound) {
         if ((mtmp.mhp | 0) >= 1) kill_agr = false;
         break;
     case AD_BLND:
-        not_affected = resists_blnd_you();
+        not_affected = resists_blnd(game.youmonst);
         if (ufound && !not_affected) {
             /* C: mon_visible || (rnd(tmp /= 2) > u.ulevel) — short-circuit
              * skips the halve+rnd when the exploder is visible. */
