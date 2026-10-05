@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] dog.c migrate_to_level 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — migrate_to_level partial with NO omit text ("audited D-3429: remaining omit cannot ship" note, quoted from `ledger.mjs show migrate_to_level` 2026-10-05, d=D-3461,D-3429,D-3401,D-3281,D-3280,D-1198); JS body read at enqueue (js/teleport.js:2816–2962, C 41 lines, leash :898–901 + relmon sync mirror + light tail :928–931 live, in-code Named names mon.c:2703 unstuck guarded-void float overriding D-3429 — likely retire-stale, D-3461/D-3429 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the lcheck_param_table head dropped the band to 7, finish fails closed below 8).
+
+
 - [x] options.c bad_negation 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — bad_negation partial with NO omit text ("audited D-3403: remaining omit cannot ship" note, quoted from `ledger.mjs show bad_negation` 2026-10-05, d=D-3403,D-3173,D-3171); JS body reads whole at enqueue (js/options.js:12222–12226, C 2 lines, one C-verbatim config_error_add call; sole callee config_error_add also partial-no-omit, own row at repair — likely retire-stale, D-3403 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the get_table_str_opt head dropped the band to 4, finish fails closed below 8). **Addressed:** D-3479 `b6f50b8ed`
 
 
