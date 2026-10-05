@@ -23227,7 +23227,13 @@ function lspo_monster_normalize_table(tmp, inventFn) {
     }
     if (tmp.rx == null) tmp.rx = -1;
     if (tmp.ry == null) tmp.ry = -1;
-    tmp.idName = (tmp.id == null) ? null : String(tmp.id);
+    // C :3169 get_table_str_opt(L, "id", NULL) via get_table_montype
+    // :3166–3180: nil → NULL, string kept, function pcalled +
+    // optstring conversion, direct non-string throws like nhl_error.
+    // tmp is a non-null object here (spread at the caller's table gate),
+    // so lua_field(tmp,'id') is tmp.id and the
+    // nil/string/function/else classifications are identical to C's.
+    tmp.idName = get_table_str_opt(tmp, 'id', null);
     tmp.mndx = NON_PM;
     if (tmp.idName != null) {
         const mndx = name_to_monplus(tmp.idName, null, { gender: NEUTRAL });

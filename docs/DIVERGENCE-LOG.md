@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3478 — Open head: impossible audit + lspo_monster id→get_table_str_opt rewire (sp_lev.c:3169 String-coercion gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4366 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3467/D-3469/D-3471/D-3473/D-3476 precedent). Batch picker finds no gap (`batch`: no gap left — remaining open/partial/recheck is audited-whole or excluded tty/files/save); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_monster_normalize_table String()'d its raw "id" field where C get_table_str_opt pcalls functions and throws on direct non-strings (D-3476 omit named :3169 "inline adapters with inherited gaps").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `get_table_str_opt@monid`: sp_lev.c:3169 field read (NULL default) inside get_table_montype :3166–3180 (nil → NON_PM no-throw; string → find_montype name_to_monplus + "Unknown monster id" nhl_error), via nhlua.c:1055–1076 (string/nil optstring, function pcall + lua_number2str, nhl_error throw, dupstr/NULL return). Caller: lspo_monster :3350 table form.
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `mklev.js:23230` `(tmp.id == null) ? null : String(tmp.id)` coercion (function values froze as source text and surfaced the wrong "Unknown monster id" error, direct numbers/booleans coerced silently into the lookup — C pcalls functions and nhl_errors direct non-strings).
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Monster-id site restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change — imports.mjs ALREADY): `tmp.idName = get_table_str_opt(tmp, 'id', null)` (C :3169) feeding the unchanged find_montype twin (name_to_monplus + Unknown-monster-id throw; gender RNG stays deferred to splev_create_monster per the existing comment); lua_field/lua_type equivalences verified (`tmp` is a non-null spread at the caller's table gate :23297, so `lua_field` is `tmp.id`; nil/string/function/else classifications identical); behavior delta is exactly the C conversion (nil→null→NON_PM and strings incl. "" unchanged through the lookup; functions pcalled with optstring conversion; direct non-strings throw like nhl_error instead of reaching the name parse). All des.monster callers pass string ids; numeric strings never match a monster name so no caller depended on the coercion. New scripts/lspo-monster-id.test.mjs (helper conversion + wiring asserts).
+- **JS:** js/mklev.js (:23230–23236 call + comment; String() line deleted). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_str_opt@monid`: C sp_lev.c:3169 → js/mklev.js:23236; downstream lspo_monster :3350 → normalize :23298 (unchanged).
+- **Verify:** `verify.mjs --fn impossible,get_table_str_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-monster-id 6/6 (wiring assert authenticates the change on the HEAD file: helper call present, String(tmp.id) gone); VERIFY: PASS.
+- **Named omissions:**
+  - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+  - `get_table_str_opt`: body whole (zero-arg JS callback stands in for by-design nhl_pcall_handle; integral JS values represent Lua integers); 11 direct C callers not rewired to the shared helper: dungeon.c:1008,1009,1016,1017; nhlua.c:1412; questpgr.c:524,543,549; sp_lev.c:3541,3637,3673 (3133+3457 wired D-3476; 3169 wired D-3478; 3295 wired D-3471; 3326 wired D-3473; 4262 wired D-3467; 4352 wired D-3469; remaining sites keep inline adapters with inherited gaps).
+- **Ledger:** impossible audited; get_table_str_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). Bundled: none (no bare `**Addressed:**` hashes in reviews/ or LOOP-QUEUE-DONE.md).
+
 ## D-3477 — Must-fix: cfgfiles.c config_error_add 1-row ledger repair (partial-no-omit retired, varargs wrapper whole — retire)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: config_error_add row `partial` with NO omit text (note "audited D-3469: remaining omit cannot ship", d=D-3469,D-3405,D-3173) — D-3405 audited the body whole yet the row stayed partial. The queue row guessed retire-stale; re-verification: RETIRE to ported (zero shippable remainder — no omit text exists to restore).
