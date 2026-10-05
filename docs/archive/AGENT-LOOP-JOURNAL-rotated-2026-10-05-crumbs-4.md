@@ -1,0 +1,55 @@
+# Rotated from AGENT-LOOP-JOURNAL.md (6 crumbs; live kept 10)
+
+## 2026-10-05 — D-3439 Open head: doopen_indir glyph-learn + toss_up live can_blnd + dokick !oldmem restore + more fuzzer skip
+
+**C locus:** - `doopen_indir`: lock.c:832–840 (oldglyph snapshot + update_mapseen_for + newsym + glyph/lastseentyp compare → ECMD_TIME).
+**JS:** js/lock.js (:915–925); js/dothrow.js (:76,:104 imports, :1643–1648 call, subset deleted); js/dokick.js (:1676–1691 snapshot, :1730–1750 restore); js/display.js (:7871–7877).
+**Change:** - `doopen_indir`: cellGlyph snapshot/compare around mapseen+newsym (pick_lock :1421 precedent; cellGlyph hoisted fn, null-safe).
+**Verify:** `verify.mjs --fn doopen_indir,toss_up,dokick,more` → PASS syntax (4 js) · PASS rule2 · doopen_indir REACH-OK (77/77 reach) · toss_up NO MOVEMENT (scen-impaired-Knight-94330 still s98 — misattributed per Symptom triage; /tmp probe only, session untouched) + REACH-OK (smoke 24/24) · dokick REACH-OK (smoke 24/24) · more REACH-OK (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: FAIL on hidden NO MOVEMENT only (disclosed, cause outside the arm).
+**Named:** none — all four arms whole (deferred glyphmap id→char table is display.js show_glyph_cell's standing note, not this arm's).
+**Next:** Must-fix head (D-3430 6-row repair); 4 refills hold the band (use_camera, carry_count, docorner, use_cream_pie).
+
+## 2026-10-05 — D-3438 Must-fix review 2376: D-3431 domove_core/goto_level rows restored
+
+**C locus:** row homes only (no C re-read; bodies verified whole by D-3431/D-3432/reviews 2376–2377): hack.c `domove_core` :2712–2991 (:2726–2730 travel head, :2934 u_on_newpos); do.c `goto_level` :1479–1998 (:1838 reset_glyphmap, :1865 MICRO Valley, :2088–2094 RMPORTAL seal in callee deferred_goto).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** direct `ledger.mjs set` ×2 (NOT via finish-iteration), each sub-omit re-verified still unshipped/live first (domove travel — findtravelpath_travel/guess + travel1=0 upstream in continue_run js/cmd.js:4460–4477, nothing in domove; u_on_newpos live js/cmd.js:6680, calls cliparound js/mklev.js:572; goto NHFILE — in-memory stash path js/do.js:1489 "no NHFILE"; MICRO — #ifdef MICRO do.c:1865, undefined in unix contest headers; reset_glyphmap — C do.c:1838, no JS impl, doc mentions only; RMPORTAL — deltrap live in deferred_goto js/do.js:2512–2515, drops from omit; vision_recalc(2)/u_locomotion/u_collide_m live js/do.js:1807/:2141/:2246). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3415/D-3417/D-3419/D-3421/D-3423/D-3434 class, D-3427/D-3436 precedent) — the direct sets are the row writers, finish runs docs-only for the ledger. Review 2377's cosmetic note (doc-envelope Deferred section still lists RMPORTAL, now known-live) left for a JS-touching iter — comment-only, no-JS repair per the queue row.
+**Verify:** `node scripts/verify.mjs --fn domove_core,goto_level` → PASS syntax (0 changed js); PASS rule2; 2× hidden note (no corpus session blocked — normal; row cited none); REACH-OK ×2 (domove_core smoke 24/24, no RNG-tagged reach; goto_level 35/35 reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `domove_core`: travel head (:2726–2730) lives upstream in continue_run (findtravelpath_travel/guess + travel1=0, js/cmd.js:4458–4477); final u_on_newpos/CLIPPING live (js/cmd.js:6680; u_on_newpos calls cliparound, js/mklev.js:572).
+**Next:** next Must-fix (D-3430 6-row repair, review 2375).
+
+## 2026-10-05 — D-3437 Open head: litter setnotworn fix + chest_trap shieldeff + 8 stale audits
+
+**C locus:** - `litter`: ball.c:965–983 — nextobj walk (:970), uball skip + rnd(capacity)<=owt (:971), canletgo "" (:972), stairs pline (:973–975), setnotworn (:980), freeinv (:981), hitfloor FALSE (:982).
+**JS:** js/ball.js (:22 import, :175–179 doc, :197–210 → :199–202 live call); js/trap.js (:8162–8163 one awaited call).
+**Change:** - `litter`: deleted the 14-line subset; calls the live whole `setnotworn` (js/do.js:516; WORN_SLOTS ≡ C worn[] incl. W_WEP/W_SWAPWEP/W_QUIVER, worn.c:27–29 ≡ js/do.js:274–276); extended ball.js:22 do.js import (imports.mjs ALREADY; sync, no TDZ). Doc + C :980 cite.
+**Verify:** `verify.mjs --fn litter,impossible,Helmet_on,setnotworn,maketrap,chest_trap,find_misc,use_misc,pick_nasty` → PASS syntax (1 js) · PASS rule2 · hidden note ×9 (no corpus session blocked at baseline) · REACH-OK ×8 (smoke 24/24 ×5; find_misc 13/13; use_misc 12/12; pick_nasty 38/38) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7; litter first sweep 23/24 on an unattributed worker js-throw (no step/owner/message) — triaged environmental flake (same session PASS ×5 same-run same-code), re-ran `verify.mjs --fn litter` once per protocol → 24/24 REACH-OK, VERIFY: PASS. Post-shieldeff `verify.mjs --fn chest_trap,litter` → REACH-OK ×2 (24/24 each) · green/strict/cohort PASS · VERIFY: PASS. Wielded-artifact probe (/tmp/litter-artifact-probe.mjs; throwaway — no maintained unit harness in-repo, sessions/** authority, D-3422 precedent): Excalibur-wield + twoweap → setnotworn clears uwep/twoweap/owornmask-W_WEP/DRAIN_RES-extrinsic, offhand untouched — 5/5 PASS.
+**Named:** none — both fixes whole (pre-existing file-locals freeinv_ball/canletgo_silent untouched, review-accepted); 8 audited rows carry no shippable remainder (7 arms live since D-3426/D-3431; impossible Rule #2 per D-3420). Single-line shape per D-3420/D-3422 (guards the finish first-line stamping path, 15 iters per D-3436).
+**Next:** Must-fix head (D-3431 rows, review 2376); 4 refills hold the band (doopen_indir, toss_up, dokick, more).
+
+## 2026-10-05 — D-3436 Must-fix review 2379: D-3434 getpos row restored
+
+**C locus:** row home only (no C re-read; body verified whole by D-3434/review 2379): getpos.c `getpos` :771–1167 (:848–849, :1144, :1160 getposx/y stores; win/tty/wintty.c:421–424 async-resize readers; muse.c:2637/restore.c:629 cliparound sites).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** direct `ledger.mjs set` ×1 (NOT via finish-iteration), each sub-omit re-verified still unshipped first (getposx/y — no `getposx`/`getposy` in js/getpos.js, no JS resize path at fixed display size; clean-room — still Named in the display.js cliparound doc at js/display.js:7448, non-manifest). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3415/D-3417/D-3419/D-3421/D-3423/D-3434 class, D-3427 precedent) — the direct set is the row writer, finish runs docs-only for the ledger.
+**Verify:** `node scripts/verify.mjs --fn getpos` → PASS syntax (0 changed js); PASS rule2; hidden NO MOVEMENT (scen-tour-Healer-92093 still getpos s87 — disclosed D-3431–D-3434 + review 2379: toplines byte-identical, row-12 glyph is the D-3431 memory writer, cause outside getpos; a ledger-text repair cannot move it); REACH-OK (no RNG-tagged reach; fixed smoke 24/24); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed).
+**Named:** - `getpos`: gg.getposx/getposy stores (:848–849, :1144, :1160 exit zeroing) — sole C readers win/tty/wintty.c:421–424 async-resize (decl.h:403 "cursor position in case of async resize"); no JS resize path (fixed display; cannot ship); muse.c:2637/restore.c:629 CLIPPING clean-room (display-model, display.js doc owns at js/display.js:7448).
+**Next:** next Must-fix (D-3431 domove_core/goto_level rows, review 2376).
+
+## 2026-10-05 — D-3435 breadth batch @c62203c66: moveloop_core run/tport MAP-redisplay arm
+
+**C locus:** - `moveloop_core`: allmain.c:548–556 (`(!run || runmode == RUN_TPORT) && multi && every-7th (multi, or moves when travelling)` → time&&run botl + display_nhwindow(WIN_MAP, FALSE)).
+**JS:** js/allmain.js (RUN_* const import + arm, 21/0) — 21 js insertions, 1 js file.
+**Change:** C-exact condition + time&&run botl sub-arm after cliparound, before the Lua callbacks (runmode normalized with RUN_LEAP default per initoptions_init `:7176`; negative-multi % semantics identical in JS). The WIN_MAP repaint call itself stays unshipped — subsumed by the every-tick flush_screen(1), which paints identical map content each turn (schedule unobservable in captured screens/RNG).
+**Verify:** - batch `node scripts/verify.mjs --fn moveloop_core`: `PASS syntax 1 changed js file(s)` · `PASS rule2` · `no corpus session blocked` + reach 80/80 sample → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44` · VERIFY: PASS.
+**Named:** - `moveloop_core`: none — whole. The display_nhwindow(WIN_MAP, FALSE) repaint call has no literal counterpart: the every-tick flush_screen(1) (:1481) paints identical map content each turn, so a second scheduled repaint would be a no-op.
+**Next:** next batch (`ledger.mjs batch --write`).
+
+## 2026-10-05 — D-3434 breadth batch @5e7cd2e00: moveloop_core mv-replay + cmdq preemption; getpos audited
+
+**C locus:** - `moveloop_core`: allmain.c:522–531 mv replay arm (`multi < COLNO && !--multi` → end_running(TRUE), direct domove); cmd.c:3785–3787 DOMOVE_WALK `if (multi) mv = TRUE` setter (2 JS dispatch sites — walk arm + F+runkey sub-arm, since do_fight pre-sets DOMOVE_WALK at cmd.c:1631); cmd.c:3642–3651 cmdq_pop-before-parse on every rhack entry including replay.
+**JS:** js/allmain.js (domove/end_running imports — both ALREADY edges, hoisted fns, no TDZ — + mv arm, 26/14), js/cmd.js (domove export + 2 setters + hoist dedent, 83/74), scripts/moveloop-multireplay.test.mjs (header + mv-lifecycle case, 26/6) — 109 js insertions, 2 js files.
+**Change:** mv=1 setter in both walk dispatch sites + mv replay path (COLNO-ride quirk exact; termination is bump-nomul at hack.c:2848 plus the finite map — no hang) + cmdq hoist (replay-only behavior change: rhack(key≠0) has one caller, the moveloop replay). Hoist ships with the mv path so autounlock-kick entries queued mid-walk still wait for count end like C. Test 4/4, pre-fix stash probe 3/4.
+**Verify:** - batch `node scripts/verify.mjs --fn moveloop_core,getpos`: `PASS syntax 2 changed js file(s)` · `PASS rule2` · moveloop_core `no corpus session blocked` + reach 80/80 sample → REACH-OK · getpos `0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (scen-tour-Healer-92093 still getpos s87 — toplines byte-identical both sides, row-12 C "`" vs JS "??" is the D-3431 memory writer, RNG unchanged, cause outside the manifest; same as D-3431/D-3432/D-3433) + smoke 24/24 → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44`.
+**Named:** - `moveloop_core`: run/tport MAP redisplay every 7th multi/moves (house run-flush model — JS flush_screen(1) every tick subsumes C's periodic WIN_MAP repaint; the flags.time botl sub-arm is a dead store under the every-tick repaint; no failing session demands it).
+**Next:** next batch (`ledger.mjs batch --write`).

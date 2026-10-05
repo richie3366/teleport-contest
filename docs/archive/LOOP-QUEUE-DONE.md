@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] botl.c status pair 2-row repair: direct `ledger.mjs set` ×2, no JS (D-3427 protocol) — status_initialize/evaluate_and_notify_windowport ← cpostfx paste (`- \`cpostfx\`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).`, quoted from `ledger.mjs show` 2026-10-05; landed D-3405 100-fn batch finish per `git log -S'cpostfx' -- docs/ledger/botl.c.jsonl`, D-3429 re-certified "audited D-3429: remaining omit cannot ship"; substance retired D-3422 as the house more() idiom per the D-3422 queue-header note); restore-or-retire re-verified at repair, restoration text unverified at enqueue. Source: port-iter band refill (full-row paste scan 2026-10-05; popping the D-3429 head dropped the band to 7, finish fails closed at 7).
+
+
 - [x] `mhitu.c` resists_blnd_you — C mhitu.c:1624/:1794 resists_blnd(you) by_arti + catchall arms absent from js/mhitu.js:663 subset (doc-named by_arti omit); users :3602 (hitmu gaze) + :3722 (explmu not_affected); live whole resists_blnd js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
 - [x] `detect.c` resists_blnd — C detect.c:1230 resists_blnd(you) dmgtype + by_arti arms absent from js/detect.js:289 clone (Blind/Unaware only, ignores arg); user :2603 (blind case 3); live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03
 - [x] `trap.c` resists_blnd — C trap.c:4328 resists_blnd(you) haseyes + dmgtype + by_arti arms absent from js/trap.js:4967 clone (hero gate + partial mon arm); user :5109 (domagictrap flash); live whole js/mondata.js:451 — switch + delete (brief-read 2026-10-05) @b1a16ef03

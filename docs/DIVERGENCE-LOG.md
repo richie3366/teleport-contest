@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-3448 — Must-fix: botl.c status pair 2-row ledger repair (cpostfx paste retired)
+
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** queue-head Must-fix: both botl.c rows carried cpostfx's Named line (`- \`cpostfx\`: display_nhwindow(WIN_MAP, TRUE) map flush after curs_on_u (more() approx stands).`), so the D-3405 Named remainders had no row home — status_initialize's genl_status_init display arm, evaluate_and_notify_windowport's windowport-registry dormancy. Paste landed in the D-3405 100-fn batch finish per `git log -S'cpostfx' -- docs/ledger/botl.c.jsonl`, D-3429 re-certified "audited D-3429: remaining omit cannot ship"; truth recovered from the D-3405 Named bullet, each sub-omit re-verified still unshipped by this iter (D-3427 protocol).
+- **C locus:** row homes only (no C re-read; bodies verified whole by the D-3405 audit + this iter's briefs): botl.c `status_initialize` :1683–1720 (genl_status_init windows.c:905 display arm), `evaluate_and_notify_windowport` :1621–1680 (BL_RESET/BL_FLUSH dispatch :1671–1676).
+- **JS was:** status_initialize + evaluate_and_notify_windowport rows `partial` carrying cpostfx's WIN_MAP flush text.
+- **Fix:** direct `ledger.mjs set` ×2 (NOT via finish-iteration). Each sub-omit re-verified still unshipped first: status_initialize — JS genl_status_init js/botl.js:289–299 sets vals/activefields/fmt + WIN_STATUS sentinel, no display_nhwindow call; evaluate_and_notify_windowport — JS js/botl.js:1088 `const wincap2 = 0` code-doc'd named omit, BL_RESET/BL_FLUSH arms dormant, get_hilite call wired js/botl.js:1038. Pasted substance retired, nothing kept (eat.c:cpostfx ported D-3422, the house more() idiom). Retire-stale rejected for both (restored omits real and unshippable — windowport registry/display). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3427/D-3446 precedent) — the direct sets are the row writers, finish runs docs-only for the ledger.
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger rows only).
+- **Verify:** `node scripts/verify.mjs --fn status_initialize,evaluate_and_notify_windowport` → PASS syntax (0 changed js); PASS rule2; 2× hidden note (no corpus session blocked — normal; row cited none); 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `status_initialize`: display_nhwindow(WIN_STATUS, FALSE) inside genl_status_init (windows.c callee, out of manifest — all ported callers wired; wintty.c:505 tty-only named).
+  - `evaluate_and_notify_windowport`: windowport registry only (wincap2 caps read 0; BL_RESET/BL_FLUSH dispatch dormant — get_hilite/hilite_reset_needed clauses retired: both verified whole + wired D-3405).
+- **Left open:** none.
+- **Next:** next Must-fix (mattackm 1-row repair). Band refill (ship-time): popping the head dropped the band to 7 < 8, which blocks finish; self-filed +1 Must-fix with quoted evidence (worn.c extract_from_minvent: D-3189 mon_break_armor paste, D-3426 re-certified, pre-paste ported D-2924) to hold the band (D-3442/D-3446 precedent).
+
 ## D-3447 — Open head: 4-file resists_blnd subset deletion (mhitu/muse/detect/trap → live export)
 - **Status:** shipped.
 - **Symptom:** operator override (supervisor flagged #4332 a failed port; Must-fix head is docs-only ledger repair; Must-fix deferred, still queued; D-3445 precedent). Real work ×4: mhitu/muse `resists_blnd_you` subsets + detect/trap `resists_blnd` clones gate only on Blind/Unaware (mhitu adds dmgtype EXPL/GAZE; trap adds a partial mon arm) — by_arti Sunsword + Blnd_resist catchall (+ expl/gaze/haseyes) arms absent vs C mondata.c:247–272.
