@@ -228,7 +228,7 @@
 {"fn":"wc2_supported","c":"9966-9976","status":"ported","js":["js/options.js:wc2_supported"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"wc_set_font_name","c":"9979-10010","status":"ported","js":["js/options.js:wc_set_font_name"],"d":["D-3403","D-2989"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"wc_set_window_colors","c":"10023-10113","status":"ported","js":["js/options.js:wc_set_window_colors"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"options_free_window_colors","c":"10116-10127","status":"partial","js":["js/options.js:options_free_window_colors"],"omit":"- `optfn_o_bind_keys`: none in this body or registered callers.","d":["D-3403","D-3180"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: remaining omit cannot ship"}
+{"fn":"options_free_window_colors","c":"10116-10127","status":"ported","js":["js/options.js:options_free_window_colors"],"d":["D-3403","D-3180"],"at":"2026-10-05@0c517b253","note":"row retired D-3464: D-3180 finish pasted optfn_o_bind_keys Named whole-claim (partial+paste from absent); body whole, save.c:1176 caller by-design"}
 {"fn":"set_playmode","c":"10134-10152","status":"ported","js":["js/options.js:set_playmode"],"d":["D-3171"],"at":"2026-09-30@9865882fc"}
 {"fn":"enhance_menu_text","c":"10155-10180","status":"ported","js":["js/options.js:enhance_menu_text"],"d":["D-3403","D-3121"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"heed_all_options","c":"10183-10189","status":"ported","js":["js/options.js:heed_all_options"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
