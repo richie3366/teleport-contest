@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3484 Open head: impossible audit + lspo_object name→get_table_str_opt rewire (sp_lev.c:3637 raw-passthrough gap)
+
+**C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+**JS:** js/mklev.js (:22981–22987 comment + call in lspo_object_normalize_table). 1 changed js file.
+**Change:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Name site restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change): `tmp.name = get_table_str_opt(tmp, 'name', null)` (C :3637) placed after buc and before quantity to keep C's pcall order (:3635→:3637→:3638); lua_field/lua_type equivalences verified (tmp is a non-null spread at the caller's table gate :23030, so lua_field is tmp.name; nil/string/function/else classifications identical). Behavior delta is exactly the C conversion (strings unchanged; absent stays NULL/unnamed; functions pcalled with optstring conversion instead of naming ''; direct non-strings throw like nhl_error instead of degrading to ''/.str).
+**Verify:** `verify.mjs --fn impossible,get_table_str_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-object-name + lspo-object-id + lspo-montype 18/18; VERIFY: PASS.
+**Named:** - `get_table_str_opt`: body whole (zero-arg JS callback for by-design nhl_pcall_handle); 8 direct C callers not rewired to the shared helper: dungeon.c:1008,1009,1016,1017; nhlua.c:1412; questpgr.c:524,543,549 — remaining sites keep inline adapters with inherited gaps. Wired: nhlua.c:261 + dungeon.c:817,818,894 + sp_lev.c:4006,5490 (D-3175); sp_lev.c:4262 (D-3467), :4352 (D-3469), :3295 (D-3471), :3326 (D-3473), :3133/:3457 (D-3476), :3169 (D-3478), :3541 (D-3480), :3673 (D-3482), :3637 (D-3484).
+**Next:** Must-fix heads stay queued (deferred per override).
 ## 2026-10-05 — D-3483 Must-fix: nhlua.c get_table_str_opt 1-row ledger repair (D-3469 impossible paste superseded, D-3482 clip restored whole)
 
 **C locus:** row home only (body brief-read this iter): nhlua.c `get_table_str_opt` :1055–1076 (string/nil optstring, function pcall + lua_number2str, nhl_error throw, dupstr/NULL return; 24 direct C sites + extern decl).

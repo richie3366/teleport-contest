@@ -22978,6 +22978,13 @@ function lspo_object_normalize_table(tmp) {
     if (tmp.eroded == null) tmp.eroded = 0;
     if (tmp.buc != null) tmp.curse_state = get_table_buc(tmp.buc);
     if (tmp.curse_state == null) tmp.curse_state = 0;
+    // C :3637 get_table_str_opt(L, "name", NULL): nil → NULL, string kept,
+    // function pcalled + optstring conversion, direct non-string throws
+    // like nhl_error. tmp is a non-null spread at the caller's table gate
+    // (:23030), so lua_field(tmp,'name') is tmp.name and the
+    // nil/string/function/else classifications are identical to C's. Read
+    // here (after buc :3635, before quantity :3638) to keep C's pcall order.
+    tmp.name = get_table_str_opt(tmp, 'name', null);
     // C :3638 field "quantity". Hand-rolled des.object tables store that
     // lua key as quan (tut-1, minetown, themerms). Copy it when quantity
     // itself is nil so the call uses C's field name.
