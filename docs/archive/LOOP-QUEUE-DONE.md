@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] `opt_usage` row: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — row omit carries lopt's text ("- `lopt`: none — every callee live (config_erradd core, eos).", quoted from `ledger.mjs show opt_usage` 2026-10-05; lopt is a different fn — earlyarg.c:lopt ported C 47/JS 46 vs opt_usage C 5/JS 2), finish-stamping paste same class as the queued D-3429/D-3430/D-3431 repairs; restore-or-retire re-verified at repair (D-3426 Ledger: audited, no D-3426 Named line — likely retire-stale per wary_dog precedent, or recover from D-3104); restoration text unverified at enqueue. Source: port-iter band refill (ledger show 2026-10-05; batch manifest empty, finish fails closed at 7). **Addressed:** D-3444
+
+
 - [x] `uhitm.c` mhitm_ad_blnd — C :2967/:2980/:2988 can_blnd(magr,mdef,aatyp,NULL) ×3 arms absent from js/mhitm.js:878 + js/mhitu.js:755 (file-local subsets can_blnd_mm :836 — drops perma-blind :320–321 + raven :327–328, WEAP/SPIT/NONE+null TRUE vs C FALSE :343–354, resists_blnd_mm vs resists_blnd; :857 "live does not cover" claim stale — live covers :331–339 — + can_blnd_u :728 — drops light-attack mcan/resists_blnd, ENGL, CLAW-visor; uhitm arm live :864; live can_blnd js/uhitm.js:359; declared split; brief-read 2026-10-05) @9e1efbc82
 - [x] `end.c` disclose — C end.c:629–630 (how==QUIT)?"quit":"died" possessions query absent from js/end.js:814–815 (hardcoded 'died'; how param live :809; QUIT-const threading only; message-only; brief-read 2026-10-05) @9e1efbc82
 - [x] `mhitm.c` mattackm — C mhitm.c:379 m_at(bhitpos) i>0 target check absent from js/mhitm.js:6273 (m_at(mdef.mx,mdef.my); matters for long worms; DEADMONSTER disjuncts live :6274; game.bhitpos live :6537 — verify set on this path; brief-read 2026-10-05) @9e1efbc82
