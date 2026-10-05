@@ -23108,17 +23108,21 @@ function get_table_region_unpacked(tab, name, optional) {
 }
 
 /**
- * C ref: sp_lev.c lspo_monster :3326–3344 appear_as prefix parse (unpacked).
- * "obj:"/"mon:"/"ter:" (C strncmp, case-sensitive) select M_AP_OBJECT /
- * M_AP_MONSTER / M_AP_FURNITURE and strip the prefix; an unknown prefix
- * throws like C nhl_error("Unknown appear_as type"). Absent → no disguise.
+ * C ref: sp_lev.c lspo_monster :3327–3339 appear_as prefix parse (unpacked).
+ * Takes the C :3326 get_table_str_opt result (string or NULL — the caller
+ * reads the field through the live helper, so function values arrive
+ * pcalled + optstring-converted and direct non-strings already threw like
+ * nhl_error). "obj:"/"mon:"/"ter:" (C strncmp, case-sensitive) select
+ * M_AP_OBJECT / M_AP_MONSTER / M_AP_FURNITURE and strip the prefix
+ * (C :3337 dupstr(&mappear[4])); an unknown prefix throws like C
+ * nhl_error("Unknown appear_as type"). NULL → no disguise (appear 0;
+ * the '' default is pre-existing, unchanged by this rewire).
  */
-function lspo_monster_appear(appear_as) {
-    if (appear_as == null) return { appear: 0, appear_as: '' };
-    const s = String(appear_as);
-    if (s.startsWith('obj:')) return { appear: M_AP_OBJECT, appear_as: s.slice(4) };
-    if (s.startsWith('mon:')) return { appear: M_AP_MONSTER, appear_as: s.slice(4) };
-    if (s.startsWith('ter:')) return { appear: M_AP_FURNITURE, appear_as: s.slice(4) };
+function lspo_monster_appear(mappear) {
+    if (mappear == null) return { appear: 0, appear_as: '' };
+    if (mappear.startsWith('obj:')) return { appear: M_AP_OBJECT, appear_as: mappear.slice(4) };
+    if (mappear.startsWith('mon:')) return { appear: M_AP_MONSTER, appear_as: mappear.slice(4) };
+    if (mappear.startsWith('ter:')) return { appear: M_AP_FURNITURE, appear_as: mappear.slice(4) };
     throw new Error('Unknown appear_as type');
 }
 
@@ -23198,7 +23202,14 @@ function lspo_monster_normalize_table(tmp, inventFn) {
     if (lspo_bool_opt(tmp.ignorewater, 0)) mm_flags |= MM_IGNOREWATER;
     if (!lspo_bool_opt(tmp.countbirth, 1)) mm_flags |= MM_NOCOUNTBIRTH;
     tmp.mm_flags = mm_flags;
-    const ap = lspo_monster_appear(tmp.appear_as);
+    // C :3326 get_table_str_opt(L, "appear_as", NULL): nil → NULL, string
+    // kept, function pcalled + optstring conversion, direct non-string
+    // throws like nhl_error. tmp is a non-null object here (spread at the
+    // caller's table gate), so lua_field(tmp,'appear_as') is
+    // tmp.appear_as and the nil/string/function/else classifications are
+    // identical to C's.
+    const mappear = get_table_str_opt(tmp, 'appear_as', null);
+    const ap = lspo_monster_appear(mappear);
     tmp.appear = ap.appear;
     tmp.appear_as = ap.appear_as;
     if (tmp.rx == null && tmp.ry == null) {
