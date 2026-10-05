@@ -7,9 +7,9 @@
 {"fn":"Resists_Elem","c":"129-197","status":"ported","js":["js/mondata.js:Resists_Elem"],"at":"2026-10-03@bbe63333a"}
 {"fn":"resists_drli","c":"201-211","status":"ported","js":["js/zap.js:resists_drli"],"at":"2026-10-03@bbe63333a"}
 {"fn":"resists_magm","c":"215-244","status":"ported","js":["js/mondata.js:resists_magm"],"at":"2026-10-03@bbe63333a"}
-{"fn":"resists_blnd","c":"248-272","status":"ported","js":["js/mondata.js:resists_blnd"],"d":["D-3445"],"at":"2026-10-05@b1a16ef03","note":"audited D-3445: whole vs C"}
+{"fn":"resists_blnd","c":"248-272","status":"ported","js":["js/mondata.js:resists_blnd"],"d":["D-3445"],"at":"2026-10-05@bb85bd866","note":"audited D-3445: whole vs C"}
 {"fn":"resists_blnd_by_arti","c":"278-298","status":"ported","js":["js/mondata.js:resists_blnd_by_arti"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C #if 0 Eyes arm compiled out"}
-{"fn":"can_blnd","c":"305-398","status":"ported","js":["js/uhitm.js:can_blnd"],"d":["D-3445","D-2604"],"at":"2026-10-05@b1a16ef03","note":"audited D-3445: whole vs C"}
+{"fn":"can_blnd","c":"305-398","status":"ported","js":["js/uhitm.js:can_blnd"],"d":["D-3445","D-2604"],"at":"2026-10-05@bb85bd866","note":"audited D-3445: whole vs C"}
 {"fn":"ranged_attk","c":"402-410","status":"ported","js":["js/mondata.js:ranged_attk"],"d":["D-3110"],"at":"2026-09-29@ad1aa7146","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mstrength","c":"428-497","status":"ported","js":["js/mondata.js:mstrength"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mstrength_ranged_attk","c":"501-512","status":"ported","js":["js/mondata.js:mstrength_ranged_attk"],"at":"2026-10-03@bbe63333a"}
