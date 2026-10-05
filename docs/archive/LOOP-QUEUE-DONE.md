@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] nhlua.c get_table_str_opt 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — get_table_str_opt ← impossible paste ("- `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.", quoted from `ledger.mjs show get_table_str_opt` 2026-10-05, d=D-3469,D-3467,D-3466,D-3175; overwrote D-3467's narrowed 17-caller omit in D-3469's own finish per `git show fbfdad852 -- docs/ledger/nhlua.c.jsonl`); JS body reads whole at enqueue (js/dungeon.js:388–429, 4-arm dispatch in C order, D-3466/D-3467/D-3469 — likely restore-narrowed from D-3469 Named (16 unwired callers), D-3469 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger paste scan + brief 2026-10-05; popping the get_table_boolean_opt head dropped the band to 7, finish fails closed below 8). **Addressed:** D-3483
+
+
 - [x] dog.c migrate_to_level 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — migrate_to_level partial with NO omit text ("audited D-3429: remaining omit cannot ship" note, quoted from `ledger.mjs show migrate_to_level` 2026-10-05, d=D-3461,D-3429,D-3401,D-3281,D-3280,D-1198); JS body read at enqueue (js/teleport.js:2816–2962, C 41 lines, leash :898–901 + relmon sync mirror + light tail :928–931 live, in-code Named names mon.c:2703 unstuck guarded-void float overriding D-3429 — likely retire-stale, D-3461/D-3429 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the lcheck_param_table head dropped the band to 7, finish fails closed below 8).
 
 
