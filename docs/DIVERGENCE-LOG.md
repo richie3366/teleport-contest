@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-3492 — Open head: impossible audit + dungeons range/entry/chance→get_table_int_opt rewire (dungeon.c:1011/:1013/:1014 ??-gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4382 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3476/D-3478/D-3480/D-3482/D-3484/D-3486/D-3488 precedent). Batch manifest empty (`ledger.mjs batch`: no gap left); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: init_dungeon_dungeons read its 3 int fields through `??` defaults where C get_table_int_opt runs (int) luaL_checkinteger (D-3485 omit named dungeon.c:1011/:1013–14 "permissive inline adapters"; the str_opt rewire family closed at D-3488, this opens the int_opt remainder).
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `get_table_int_opt@dungeons`: dungeon.c:1011/:1013/:1014 field reads (0/0/100 defaults) inside init_dungeon_dungeons :996–1107 (name :1007, bonetag :1008, protofile :1009, base :1010, range :1011, align :1012, entry :1013, chance :1014, flags :1015, lvlfill :1016, themerooms :1017), via nhlua.c:1028–1039 (ret=defval, getfield, nil-check, checkinteger, pop, return).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `dungeon.js:955` init_dungeon_dungeons: three `??` adapters — integral floats and numeric strings flowed through unconverted (C checkinteger converts), direct non-numeric non-nil values passed as garbage (C argerrors), beyond-int32 values untruncated (C (int) cast); statement positions already in C read order.
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Three sites restarted through the live whole helper in the SAME module (no import change), in place (already C order :1011→:1012→:1013→:1014→:1015); lua_field/lua_type equivalences verified (entry is a non-null object at the caller's table gate :1700–1703, so lua_field is entry[name]; nil/non-nil classifications identical; 0/0/100 defaults, `|0` no-op; functions are non-nil on both sides and both throw). Behavior delta is exactly the C conversion (integers unchanged incl. negatives; absent stays defval; integral floats and numeric strings convert instead of flowing through; direct non-numerics throw like argerror instead of passing as garbage; beyond-int32 truncates via asIntN(32) like the (int) cast). New scripts/dungeon-dungeons-int.test.mjs (helper conversion + wiring + C-order asserts).
+- **JS:** js/dungeon.js (:955–964 comment + calls in init_dungeon_dungeons; raw adapters deleted). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_int_opt@dungeons`: C dungeon.c:1011 → js/dungeon.js:961; :1013 → :963; :1014 → :964; sole init_dungeon_dungeons caller init_dungeons :1706 (unchanged; generated dungeon table). entry-source audit (all integers/absent — no in-tree behavior change): 9 dungeons — range 5/5/2/2 (Doom/Gehennom/Mines/Quest) + 5 absent; entry -1 (Sokoban, Vlad's), -2 (Planes) + 6 absent; chance all absent (→100).
+- **Verify:** `verify.mjs --fn impossible,get_table_int_opt` → PASS syntax (1 changed: js/dungeon.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (auto: dungeon.js not in shared list) + manual full 44/44; `node --test` dungeon-dungeons-int + dungeon-dungeons-str + lspo-object-name 18/18; VERIFY: PASS.
+- **Named omissions:**
+  - `get_table_int_opt`: body whole; 25 sites keep permissive `|0`/splev_opt_int vs C checkinteger: mon :3304-06/:3310, obj :3641/:3645, lvlinit :3947-50, gold :4502, door :4717, terrain :5001, replace :5086-91, region :5565-68/:5600/:5605. Wired 18 (15 per D-3485 + dgn :1011/:1013/:1014 this iter); padding :5489 exact-unpacked equivalent; nhlsel :886-87/:893 owned by by-design l_selection_gradient.
+- **Ledger:** impossible audited; get_table_int_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override).
+
 ## D-3491 — Must-fix: cfgfiles.c parse_conf_str 1-row ledger repair (misplaced initoptions paste, sole caller by-design — retire)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: parse_conf_str row `partial` carried the D-2787 batch Named first line ("`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`)."), kept by the D-3405 audit — yet D-3405's own Symptom calls these clauses "(misplaced)" and its Ledger lists `parse_conf_str audited`. The queue row guessed retire-stale or restore-narrowed; re-verification: RETIRE to ported (zero shippable remainder — the clause names non-callees, the body is whole, the sole caller is by-design).
