@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] allmain.c newgame pauper_legacy dispatch — C allmain.c:832 `com_pager(u.uroleplay.pauper ? "pauper_legacy" : "legacy")` absent from js/allmain.js:955 (com_pager_legacy → legacy_lines always renders legacy; C quest.lua:157 pauper_legacy differs in last paragraph; OPTIONS=pauper reachable, JS parses to flags.pauper js/options.js:11886 but never propagates to u.uroleplay.pauper — all six uroleplay.pauper readers dead) — ship iter wires propagation (+nudist per C options.c:5290–5292) + pauper text branch, or narrows the D-3455 `audited: remaining omit cannot ship` note (brief-read 2026-10-05). Source: reviews/loop-unattended/2390-f482d6954-wincap2-wire-audits.md
+
+
 - [x] options.c free_autopickup_exceptions 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — free_autopickup_exceptions ← optfn_o_bind_keys paste ("- `optfn_o_bind_keys`: none in this body or registered callers.", quoted from `ledger.mjs show free_autopickup_exceptions` 2026-10-05, d=D-3403,D-3180; landed in D-3180's commit 94d7337ef per `git log -S'free_autopickup_exceptions' -- docs/ledger/options.c.jsonl`, same commit as the map_menu_cmd paste, D-3403 re-certified "remaining omit cannot ship"); JS body reads whole at enqueue (js/options.js:13208, C 6 lines, while/regex_free/shift/null loop + absent-caller doc — likely retire-stale, no pre-paste restoration text, D-3180 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger paste scan + brief 2026-10-05; popping the use_container head dropped the band to 7, finish fails closed at 7).
 
 

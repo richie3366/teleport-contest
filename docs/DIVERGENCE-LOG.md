@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-3463 — Must-fix review 2390: newgame pauper_legacy dispatch + pauper/nudist propagation wired
+- **Status:** shipped.
+- **Symptom:** review 2390 QUALITY-RISK Actionable 1: D-3455's `audited: remaining omit cannot ship` note is false — C allmain.c:832 `com_pager(u.uroleplay.pauper ? "pauper_legacy" : "legacy")` had no JS branch (com_pager_legacy → legacy_lines always renders legacy), and OPTIONS=pauper parsed to `game.flags.pauper` but never reached `u.uroleplay.pauper`, leaving all six reader families dead (dog saddle, spell known_up_to_level, u_init knows_object/no-items/pauper_reinit, insight enlightenment, topten achievements, weapon spellbook-id gate). Operator overlay: supervisor flagged #4349 a failed port — ship the queue head with real `js/`.
+- **C locus:**
+  - `newgame`: allmain.c:765–850 (:831–833 `if (flags.legacy) com_pager(u.uroleplay.pauper ? "pauper_legacy" : "legacy")`). Sole C caller unixmain.c:315 (port entry).
+  - Parse path: optlist.h:530/560 (pauper/nudist addrs are `&u.uroleplay.*`, SET_IN_CONFIG); options.c:5290–5292 pauper-implies-nudist in the FIRST after-change switch, which runs unconditionally (the `go.opt_initial` early return is after it at :5327).
+  - Text: dat/quest.lua:157 pauper_legacy (synopsis identical to legacy; last paragraph differs). Readers: dog.c:262, spell.c:895–897, u_init.c:575–591/:866–886/:1308/:1405–1406, insight.c:2116–2118, topten.c:604.
+- **JS was:** newgame (js/allmain.js) always rendered legacy; the rc valueless branch wrote `flags.pauper` only (the async `optfn_boolean` carries the pauper arm at js/options.js:10455, but the rc parser never calls it — generic `result.flags[lname] = value`), so `flags.nudist` stayed false under OPTIONS=pauper; nothing seeded `u.uroleplay.pauper/nudist` (fresh `{}`), so every ported reader (`?.` guards) read false.
+- **Fix:** (1) rc valueless branch: new `lname === 'pauper'` arm writes both `result.flags.pauper` and `result.flags.nudist` in parse order (C-exact for every sequence: `pauper,!nudist`→(1,0), `!nudist,pauper`→(1,1), `!pauper`→(0,0)); (2) newgame bridges `flags.pauper/nudist` onto `u.uroleplay` right after `u_init_misc()` (before the first readers: makedog, u_init_role, legacy dispatch); (3) `com_pager_legacy(statusSnap, pauper)` threads the dispatch into `legacy_lines(pauper)`, whose last paragraph is the quest.lua:157 text (same 5-line shape, so geometry recomputes via the existing maxcol/offx code; synopsis shared — no change).
+- **JS:** js/options.js (:5249–5256 rc arm); js/allmain.js (:886–895 bridge, :964–973 dispatch); js/questpgr.js (:61–68 doc, :85–115 lastPara, :171–181 pager param). 3 changed js files, no new imports (same-module edits).
+- **Callers:**
+  - `newgame`: sole C caller unixmain.c:315 → JS port entry jsmain start (unchanged; signature preserved).
+  - Dispatch: C :832 `com_pager(...)` → js/allmain.js:973 `com_pager_legacy(statusSnap, pauper)`; `com_pager_legacy` has no other JS caller (sole-caller verified).
+- **Verify:** `node scripts/verify.mjs --fn newgame` → PASS syntax (3 js) · PASS rule2 · hidden note (no corpus session blocked — normal; row cited none) + REACH-OK (no RNG-tagged reach; smoke 24/24, 11.9s) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); VERIFY: PASS. Behavior probe (/tmp/pauper-probe.mjs, runSegment seed 1234): OPTIONS=pauper → flags (1,1), uroleplay (1,1), invent 0, legacy screen shows "untrained" pauper text; control → (0,0), invent 13, "newly trained". No RNG drawn by any new arm (parse/bridge/text only).
+- **Named omissions:**
+  - `newgame`: reset_glyphmap(gm_newgame) (display-subsystem port, own row); NEWS display_file(iflags.news) (no embedded news dat; default off, never fires in contest); get_nhuuid retired (NHUUID undefined, body empty). D-3455's `audited: remaining omit cannot ship` note superseded — the pauper dispatch shipped.
+- **Ledger:** newgame partial
+- **Left open:** none.
+- **Next:** next Must-fix (options.c options_free_window_colors 1-row repair). Observation (not this row): blind/deaf/reroll share the flags-vs-uroleplay split — their options parse into flags.* with no bridge, so `u_init_misc` PermaBlind, the Deaf readers and the newgame reroll loop stay dead; a future review may file it with the same evidence shape.
+
 ## D-3462 — Must-fix: options.c free_autopickup_exceptions 1-row ledger repair (optfn_o_bind_keys paste retired, caller by-design)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: free_autopickup_exceptions row `partial` carried optfn_o_bind_keys's `- `optfn_o_bind_keys`: none in this body or registered callers.` whole-claim — D-3180 finish first-line stamping (paste created partial+paste from absent in D-3180's own finish commit `94d7337ef`, verified via `git show` by this iter; D-3403 re-certified "remaining omit cannot ship" on the paste).

@@ -5246,6 +5246,15 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                 const value = !negated;
 
                 if (lname === 'autopickup') result.flags.pickup = value;
+                else if (lname === 'pauper') {
+                    // C options.c:5290–5292 — pauper implies nudist; the
+                    // first after-change switch runs unconditionally
+                    // (including config parse — the opt_initial early
+                    // return is after it at :5327), so OPTIONS=pauper
+                    // sets both, OPTIONS=!pauper clears both, in order.
+                    result.flags.pauper = value;
+                    result.flags.nudist = value;
+                }
                 else if (lname === 'fixinv') result.flags.invlet_constant = value;
                 else if (lname === 'color') result.flags.color = value;
                 else if (lname === 'legacy') result.flags.legacy = value;

@@ -883,6 +883,16 @@ export async function newgame() {
     init_artifacts();
     // C ref: allmain.c → u_init_misc() (u_init.c)
     await u_init_misc();
+    // C optlist.h:530/560 — pauper/nudist addrs are &u.uroleplay.*
+    // (SET_IN_CONFIG, parsed before newgame); options.c:5290–5292 pauper
+    // implies nudist. JS parses into flags.* (options.js rows), so bridge
+    // them onto u.uroleplay before the first readers (makedog saddle,
+    // u_init_role inventory, legacy dispatch). flags.nudist already
+    // carries pauper-implies-nudist (options.js after-change arm), so a
+    // straight copy reproduces C's parse sequence exactly.
+    g.u.uroleplay = g.u.uroleplay || {};
+    g.u.uroleplay.pauper = !!g.flags?.pauper;
+    g.u.uroleplay.nudist = !!g.flags?.nudist;
     fastforward_pre_mklev(); // emptied — kept as delete-only hook
 
     // C ref: allmain.c l_nhcore_init() — shuffle align[] for Lua (second nhlib load)
@@ -951,7 +961,8 @@ export async function newgame() {
         await obj_delivery(false);
     }
 
-    // C ref: allmain.c — if (flags.legacy) com_pager("legacy")
+    // C ref: allmain.c:831–833 — if (flags.legacy)
+    // com_pager(u.uroleplay.pauper ? "pauper_legacy" : "legacy")
     if (g.flags.legacy !== false) {
         const align = ['law', 'neutral', 'chaos'];
         for (let i = align.length; i > 1; i--) {
@@ -959,7 +970,7 @@ export async function newgame() {
             [align[i - 1], align[j]] = [align[j], align[i - 1]];
         }
         g._legacy_align = align;
-        await com_pager_legacy(statusSnap);
+        await com_pager_legacy(statusSnap, !!g.u?.uroleplay?.pauper);
     }
 
     // Refresh map/status after wear (and after legacy dismiss)

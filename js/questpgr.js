@@ -59,11 +59,13 @@ export function quest_info(typ) {
 }
 
 /**
- * C ref: quest.lua common.legacy + convert_arg %d/%G/%r.
+ * C ref: quest.lua common.legacy + common.pauper_legacy (`:157`, last
+ * paragraph differs) + convert_arg %d/%G/%r.
  * Layout: wintty.c H2344_BROKEN NHW_MENU offx.
  * Returns unpadded raw lines + geometry; caller paints corner vs fullscreen.
+ * @param {boolean} pauper C allmain.c:832 dispatch — pauper_legacy text
  */
-function legacy_lines() {
+function legacy_lines(pauper = false) {
     const urole = game.urole || {};
     const female = !!game.flags?.female;
     // C: align_gname(u.ualignbase[A_ORIGINAL])
@@ -76,6 +78,23 @@ function legacy_lines() {
         urole.mnum,
         female,
     );
+
+    // C quest.lua:157 pauper_legacy — last paragraph differs from legacy.
+    const lastPara = pauper
+        ? [
+            `You, an untrained ${rank}, have been unable to adequately`,
+            `prepare to be the instrument of ${deity}.  Nevertheless, you`,
+            'are destined to recover the Amulet for your deity, or die',
+            'in the attempt.  Your hour of destiny has come.  For the',
+            `sake of us all:  Go bravely with ${deity}!`,
+        ]
+        : [
+            `You, a newly trained ${rank}, have been heralded`,
+            `from birth as the instrument of ${deity}.  You are destined`,
+            'to recover the Amulet for your deity, or die in the',
+            'attempt.  Your hour of destiny has come.  For the sake',
+            `of us all:  Go bravely with ${deity}!`,
+        ];
 
     // Raw lines as after convert_line (lua paragraph indent is 4 spaces).
     // C dmore() appends --More--; include as final row for tty cursor match.
@@ -92,11 +111,7 @@ function legacy_lines() {
         `Your ${gtitle} ${deity} seeks to possess the Amulet, and with it`,
         'to gain deserved ascendance over the other gods.',
         '',
-        `You, a newly trained ${rank}, have been heralded`,
-        `from birth as the instrument of ${deity}.  You are destined`,
-        'to recover the Amulet for your deity, or die in the',
-        'attempt.  Your hour of destiny has come.  For the sake',
-        `of us all:  Go bravely with ${deity}!`,
+        ...lastPara,
         '--More--',
     ];
 
@@ -154,16 +169,18 @@ function write_status_to_grid(disp, statusSnap = null) {
 }
 
 /**
- * C ref: questpgr.c com_pager("legacy") → deliver_by_window(NHW_MENU)
- *         → wintty process_text_window with corner offx.
+ * C ref: questpgr.c com_pager("legacy" | "pauper_legacy")
+ *         → deliver_by_window(NHW_MENU) → wintty process_text_window
+ *         with corner offx.
  * Corner path (offx>0): do not term_clear_screen — map below text stays.
  * @param {string[]|null} statusSnap — pre-wear botl lines (C often stale)
+ * @param {boolean} pauper C allmain.c:832 dispatch — pauper_legacy text
  */
-export async function com_pager_legacy(statusSnap = null) {
+export async function com_pager_legacy(statusSnap = null, pauper = false) {
     const disp = game?.nhDisplay;
     if (!disp) return;
 
-    const { raw, offx, moreRow, moreCol } = legacy_lines();
+    const { raw, offx, moreRow, moreCol } = legacy_lines(pauper);
     game._pending_message = '';
     game._menu_overlay = true;
 
