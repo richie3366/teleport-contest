@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3452 Must-fix: cmd.c parseautocomplete 1-row ledger repair (handler paste retired, D-3079 omit restored)
+
+**C locus:** row home only (no C re-read; body verified whole by D-3079 + this iter's brief): cmd.c `parseautocomplete` :3244–3292 (bad-name wait_synch :3291).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** direct `ledger.mjs set` ×1 (NOT via finish-iteration). Sub-omit re-verified still unshipped first: JS parseautocomplete js/cmd.js:2607–2646 ports every C arm in order (split/recurse :3249–3254, trim :3257, empty :3259–3260, '!' :3263–3269, flag update :3272–3285, bad-name raw_printf :3289–3290) with no wait_synch call — only the named-omission comment at :2645 + doc :2599–2600 (windowed input boundary; config parser stays sync — cfgfiles.js configMsg precedent stands); callees trimspaces js/hacklib.js:741 + raw_printf js/display.js:8647 live per brief sym scan. Pasted substance retired, nothing kept (handler row ported, note "audited D-3402: whole vs C", no omit of its own).
+**Verify:** `node scripts/verify.mjs --fn parseautocomplete` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; row cited none); REACH-OK (no RNG-tagged reach; smoke 24/24, 12.1s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `parseautocomplete`: wait_synch `:3291` (windowed input boundary; config parser stays sync — cfgfiles.js configMsg precedent); callees trimspaces/raw_printf live.
+**Next:** next Must-fix (extract_from_minvent 1-row repair). Band refill (ship-time): popping the head dropped the band to 7 < 8, which blocks finish; self-filed +1 Must-fix with quoted evidence (options.c oc_to_str 1-row repair: D-3177 finish pasted optfn_packorder's Named line, present since 4bcfa8a7a; restore D-3177 Named oc_to_str text, still-stands unverified at enqueue) to hold the band (D-3448/D-3450 precedent).
 ## 2026-10-05 — D-3451 Open head: impossible audit + which_armor ×4 switches (→ live worn.js:472)
 
 **C locus:** - `impossible`: pline.c:584–634 (audit only; paniclog :598 + CRASHREPORT :621–631 Rule #2).
