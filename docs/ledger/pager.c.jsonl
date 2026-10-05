@@ -18,7 +18,7 @@
 {"fn":"look_region_nearby","c":"1966-1974","status":"ported","js":["js/pager.js:look_region_nearby"],"at":"2026-10-03@bbe63333a"}
 {"fn":"look_all","c":"1979-2074","status":"ported","js":["js/pager.js:look_all"],"d":["D-3429","D-3402","D-2508"],"at":"2026-10-05@817b5c8e8","note":"stale: js/pager.js:2217 whole in C order; D-2508 remainder expired (COMPASS/COMFULL live D-2811; steed+TREE callee-owned; plumbing+unit-test unshippable)"}
 {"fn":"look_traps","c":"2078-2139","status":"ported","js":["js/pager.js:look_traps"],"d":["D-2298"],"at":"2026-10-03@bbe63333a"}
-{"fn":"look_engrs","c":"2144-2228","status":"partial","js":["js/pager.js:look_engrs"],"omit":"`look_all`/`look_engrs`: prior partial omissions (unchanged this batch).","d":["D-3429","D-3402","D-2521"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
+{"fn":"look_engrs","c":"2144-2228","status":"ported","js":["js/pager.js:look_engrs"],"d":["D-3429","D-3402","D-2521"],"at":"2026-10-05@c83eda903","note":"stale: js/pager.js:2407 whole in C order; D-2521 3-clause remainder expired (coord_desc live D-2811; eos live hacklib.js:275; show_text_pages idiom)"}
 {"fn":"do_supplemental_info","c":"2253-2316","status":"ported","js":["js/pager.js:do_supplemental_info"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"dowhatis","c":"2322-2325","status":"ported","js":["js/pager.js:dowhatis"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doquickwhatis","c":"2329-2332","status":"ported","js":["js/pager.js:doquickwhatis"],"at":"2026-10-03@bbe63333a"}
