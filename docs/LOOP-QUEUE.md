@@ -90,9 +90,9 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
-- [ ] D-3431 `domove_core`/`goto_level` rows: direct `ledger.mjs set` ×2, no JS (D-3427 protocol) — restore D-3431 Named texts reconciled with D-3432 extensions (review 2377 verifies; details in review). Source: reviews/loop-unattended/2376-801b58f13-batch-d3431.md.
 - [ ] D-3430 6-row repair: direct `ledger.mjs set` ×6, no JS (D-3427 protocol) — newgame/strncmpi/doset/Strlen_ ← D-3430 Named; sanity_check minus retired clause (by-design per review 2376); record_achievement ← SoundAchievement clause only. Source: reviews/loop-unattended/2375-9ec606a36-batch-d3430.md.
 - [ ] D-3429 3-row repair: direct `ledger.mjs set` ×3, no JS (D-3427 protocol) — moveloop/bc_sanity_check ← pre-D-3429 texts (quoted in review); wary_dog ← retire stale line (body whole). Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md.
+- [ ] `opt_usage` row: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — row omit carries lopt's text ("- `lopt`: none — every callee live (config_erradd core, eos).", quoted from `ledger.mjs show opt_usage` 2026-10-05; lopt is a different fn — earlyarg.c:lopt ported C 47/JS 46 vs opt_usage C 5/JS 2), finish-stamping paste same class as the queued D-3429/D-3430/D-3431 repairs; restore-or-retire re-verified at repair (D-3426 Ledger: audited, no D-3426 Named line — likely retire-stale per wary_dog precedent, or recover from D-3104); restoration text unverified at enqueue. Source: port-iter band refill (ledger show 2026-10-05; batch manifest empty, finish fails closed at 7).
 
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: stamp the cited review

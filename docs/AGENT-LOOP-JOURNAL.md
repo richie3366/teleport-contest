@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3438 Must-fix review 2376: D-3431 domove_core/goto_level rows restored
+
+**C locus:** row homes only (no C re-read; bodies verified whole by D-3431/D-3432/reviews 2376–2377): hack.c `domove_core` :2712–2991 (:2726–2730 travel head, :2934 u_on_newpos); do.c `goto_level` :1479–1998 (:1838 reset_glyphmap, :1865 MICRO Valley, :2088–2094 RMPORTAL seal in callee deferred_goto).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** direct `ledger.mjs set` ×2 (NOT via finish-iteration), each sub-omit re-verified still unshipped/live first (domove travel — findtravelpath_travel/guess + travel1=0 upstream in continue_run js/cmd.js:4460–4477, nothing in domove; u_on_newpos live js/cmd.js:6680, calls cliparound js/mklev.js:572; goto NHFILE — in-memory stash path js/do.js:1489 "no NHFILE"; MICRO — #ifdef MICRO do.c:1865, undefined in unix contest headers; reset_glyphmap — C do.c:1838, no JS impl, doc mentions only; RMPORTAL — deltrap live in deferred_goto js/do.js:2512–2515, drops from omit; vision_recalc(2)/u_locomotion/u_collide_m live js/do.js:1807/:2141/:2246). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3415/D-3417/D-3419/D-3421/D-3423/D-3434 class, D-3427/D-3436 precedent) — the direct sets are the row writers, finish runs docs-only for the ledger. Review 2377's cosmetic note (doc-envelope Deferred section still lists RMPORTAL, now known-live) left for a JS-touching iter — comment-only, no-JS repair per the queue row.
+**Verify:** `node scripts/verify.mjs --fn domove_core,goto_level` → PASS syntax (0 changed js); PASS rule2; 2× hidden note (no corpus session blocked — normal; row cited none); REACH-OK ×2 (domove_core smoke 24/24, no RNG-tagged reach; goto_level 35/35 reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `domove_core`: travel head (:2726–2730) lives upstream in continue_run (findtravelpath_travel/guess + travel1=0, js/cmd.js:4458–4477); final u_on_newpos/CLIPPING live (js/cmd.js:6680; u_on_newpos calls cliparound, js/mklev.js:572).
+**Next:** next Must-fix (D-3430 6-row repair, review 2375).
 ## 2026-10-05 — D-3437 Open head: litter setnotworn fix + chest_trap shieldeff + 8 stale audits
 
 **C locus:** - `litter`: ball.c:965–983 — nextobj walk (:970), uball skip + rnd(capacity)<=owt (:971), canletgo "" (:972), stairs pline (:973–975), setnotworn (:980), freeinv (:981), hitfloor FALSE (:982).
