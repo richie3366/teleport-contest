@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3431 — breadth batch @9ec606a36: 11 partials (2 ported, 4 partial, 5 audited)
+- **Status:** shipped (batch).
+- **Symptom:** ledger gap of 11 partials (open 0 · recheck 0, ~613 C lines) in allmain/hack/do/getpos/hacklib/options/strutil/trap/wizcmds; every row's omit field carries the same finish-iteration paste-error text (moveloop_core's), so true omits were recovered from D-3430 Named omissions before porting.
+- **C locus:**
+  - `test_move`: hack.c:991–1255; shipped the autoopen ECMD_OK + canned-kick fake (:1104–1112, JS doopen_indir false ⟺ ECMD_OK + live cmdq_peek/ec_entry) and the mention_walls `an(defsyms[sym].explanation)` prose (:1065–1066, live defsym_explanation; heuristic deleted).
+  - `domove_core`: hack.c:2712–2991 via js/cmd.js domove inline test_move; shipped the `!displaceu` middle-skip (:2802–2858: steed/rooted/paranoid/utrap/inline-test_move/swim now inside the block, one merged `if` like C).
+  - `goto_level`: do.c:1479–1998; shipped :1586–1591 NHCB_LVL_LEAVE guarded nh_callback_run (NHCB_END_TURN precedent) and :1608 polearm.hitmon clear (live game.context.polearm model).
+  - `maketrap`: trap.c:456–588; shipped the TELEP_TRAP fixed-dest arm (:566–574: shared launchplace global + splev_xstart/ystart 1/0-reset formula, fire-and-forget impossible).
+  - `getpos`: getpos.c:771–1167; fixed show_getpos_tip dismiss (corner NHW_MENU close reprints retained gbuf via overlay resync, no docrt — was newsym-ing `@` over C's stale `^`, scen-dig-Caveman-94195 s66).
+  - `sanity_check`: wizcmds.c:1460–1481; doc touch only (by-design callees + moveloop-envelope omit retired as live).
+  - `goto_level` doc: stale Deferred lines retired (resurrect live since :2303, LVL_LEAVE shipped now).
+- **JS was:** test_move always took the !closed_door door_opened arm and used a tree/wall/solid-stone heuristic for wall prose; domove ran the middle on displacer-swap turns; goto_level lacked polearm clear + LVL_LEAVE; maketrap lacked the TELEP arm; tip dismiss docrted (hero repaint C never does).
+- **Fix:** per-function ports in C order (see C locus), all against live exports: cmdq_peek (newly exported from cmd.js) + ext_func_tab_from_func + dokick + CQ_CANNED/CMDQ_EXTCMD (test_move); middle re-indented into the !displaceu block (domove); nh_callback_run + NHCB_NAME + NHCB_LVL_LEAVE (goto_level); shared-global formula + `void impossible` (maketrap, trap.js precedent); docrt deleted from tip close (getpos). Mid-batch verify FAILed on getpos NO MOVEMENT (3 pre-existing blocks); geom-probe + step screens + a temporary newsym spy localized the Caveman cell to the tip-dismiss docrt — C reprints retained gbuf (docorner), JS newsymed. Spy removed after.
+- **JS:** js/hack.js (test_move 2 arms + imports), js/cmd.js (domove wrap + cmdq_peek export), js/do.js (goto_level 2 arms + imports + doc), js/trap.js (TELEP arm), js/getpos.js (tip close), js/wizcmds.js (doc), scripts/getpos-tip-dismiss.test.mjs (new replay test) — ~150 insertions, 6 js files.
+- **Callers:**
+  - `test_move`: arms internal; C callers in 6 files (cmd/hack/steed/trap/uhitm/zap) unchanged, signature untouched.
+  - `domove_core`: C hack.c:2700 domove → js/cmd.js domove; wrap internal, signature untouched.
+  - `goto_level`: arms internal; C callers in 12 files unchanged, signature untouched.
+  - `maketrap`: TELEP arm internal; C callers in 14 files unchanged (sync kept via fire-and-forget impossible), signature untouched.
+  - `getpos`: tip path via handle_tip (:~830) → l_nhcore_call → show_getpos_tip; C callers in 13 files unchanged, signature untouched.
+  - `moveloop_core`, `newgame`, `strncmpi`, `doset`, `Strlen_`, `sanity_check`: no JS change; callers unchanged (prior-batch wiring).
+- **Verify:**
+  - `PASS syntax 6 changed js file(s)` · `PASS rule2` · `PASS hidden verify getpos: 1 PASS, 1 moved past, 1 unchanged, 0 worse → PROGRESS` (scen-ride-Valkyrie-94414: PASS; scen-dig-Caveman-94195: 66 → do_attack s75; scen-tour-Healer-92093: still getpos s87, memory writer, future work) · 10 fns `no corpus session blocked` · 11/11 `batch sweep (736 baseline-PASS run) — 0 regressed → REACH-OK` · `PASS sweep 11 fn(s): 736 re-run in 255.7s, 0 regressed → REACH-OK` · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44` · focused `node --test scripts/getpos-tip-dismiss.test.mjs` 1/1 (pre-fix probe showed `@` on that row) · VERIFY: PASS.
+- **Named omissions:**
+  - `test_move`: none — whole.
+  - `maketrap`: none — whole (Knox :482 live since D-3426; LOOP-QUEUE Knox row stale, left for refill).
+  - `domove_core`: travel block handled upstream in continue_run (findtravelpath_travel/guess + travel1=0); final CLIPPING (wintty cliparound singleton, D-2453).
+  - `goto_level`: binary NHFILE savelev/getlev (by-design VFS analogue); quest RMPORTAL seal (callee-side); MICRO Valley display_nhwindow (compiled out: MICRO is Amiga/PC-only).
+  - `getpos`: CLIPPING cliparound x2 (wintty-only, no-op at contest fixed size, own row); gg.getposx/getposy async-resize model (no JS readers).
+  - `moveloop_core`: post-rhack cliparound (CLIPPING viewport pan, display-model, own row); run/tport MAP redisplay every 7th multi/moves (house run-flush model); multi>0 non-run lookaround + --multi + rhack(cmd_key) (house multi model).
+- **Ledger:** moveloop_core partial; newgame audited; test_move ported; domove_core partial; goto_level partial; getpos partial; strncmpi audited; doset audited; Strlen_ audited; maketrap ported; sanity_check audited.
+- **Left open:** none.
+- **Next:** next batch (`ledger.mjs batch --write`).
+
 ## D-3430 — breadth batch @adae017b4: 28 fns over 21 C files (8 ported, 11 partial, 9 audited)
 - **Status:** shipped (batch).
 - **Symptom:** ledger gap of 28 functions (open 0 · partial 28 · recheck 0, ~1259 C lines) in allmain/hack/quest/steal/trap/wizcmds/ball/detect/dig/do/do_name/explode/getpos/hacklib/iactions/insight/makemon/mhitu/options/priest/strutil; 11 rows carried finish-iteration paste-error omits (wrong-function sub-bullet or truncation), recovered from git + D-log archaeology before porting.

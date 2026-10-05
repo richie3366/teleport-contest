@@ -1310,15 +1310,13 @@ export async function show_getpos_tip() {
         // other keys: stay open (C xwaitforspace / PICK_NONE)
     }
     game._menu_overlay = false;
-    // C: closing tip NHW_MENU does not docrt — gbuf still holds whatever
-    // show_glyph wrote (reveal_terrain map). docrt would newsym hero `@`
-    // back over TER_MAP browse. Rebuild tty from loc.disp_* instead.
-    if (game.iflags?.terrainmode) {
-        await flush_screen(1);
-    } else {
-        await docrt();
-        await flush_screen(1);
-    }
+    // C: closing a corner NHW_MENU dismisses via docorner
+    // (erase_menu_or_text): reprint retained gbuf, no newsym — never
+    // docrt. docrt would newsym the hero `@` over a cell C still shows
+    // stale (scen-dig-Caveman-94195 s66: seen trap `^` under the hero).
+    // The loop's flushes set _overlay_resync, so this flush resyncs the
+    // full map from gbuf (terrainmode and normal alike).
+    await flush_screen(1);
 }
 
 /**

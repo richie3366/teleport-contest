@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3431 breadth batch @9ec606a36: 11 partials (2 ported, 4 partial, 5 audited)
+
+**C locus:** - `test_move`: hack.c:991–1255; shipped the autoopen ECMD_OK + canned-kick fake (:1104–1112, JS doopen_indir false ⟺ ECMD_OK + live cmdq_peek/ec_entry) and the mention_walls `an(defsyms[sym].explanation)` prose (:1065–1066, live defsym_explanation; heuristic deleted).
+**JS:** js/hack.js (test_move 2 arms + imports), js/cmd.js (domove wrap + cmdq_peek export), js/do.js (goto_level 2 arms + imports + doc), js/trap.js (TELEP arm), js/getpos.js (tip close), js/wizcmds.js (doc), scripts/getpos-tip-dismiss.test.mjs (new replay test) — ~150 insertions, 6 js files.
+**Change:** per-function ports in C order (see C locus), all against live exports: cmdq_peek (newly exported from cmd.js) + ext_func_tab_from_func + dokick + CQ_CANNED/CMDQ_EXTCMD (test_move); middle re-indented into the !displaceu block (domove); nh_callback_run + NHCB_NAME + NHCB_LVL_LEAVE (goto_level); shared-global formula + `void impossible` (maketrap, trap.js precedent); docrt deleted from tip close (getpos). Mid-batch verify FAILed on getpos NO MOVEMENT (3 pre-existing blocks); geom-probe + step screens + a temporary newsym spy localized the Caveman cell to the tip-dismiss docrt — C reprints retained gbuf (docorner), JS newsymed. Spy removed after.
+**Verify:** - `PASS syntax 6 changed js file(s)` · `PASS rule2` · `PASS hidden verify getpos: 1 PASS, 1 moved past, 1 unchanged, 0 worse → PROGRESS` (scen-ride-Valkyrie-94414: PASS; scen-dig-Caveman-94195: 66 → do_attack s75; scen-tour-Healer-92093: still getpos s87, memory writer, future work) · 10 fns `no corpus session blocked` · 11/11 `batch sweep (736 baseline-PASS run) — 0 regressed → REACH-OK` · `PASS sweep 11 fn(s): 736 re-run in 255.7s, 0 regressed → REACH-OK` · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44` · focused `node --test scripts/getpos-tip-dismiss.test.mjs` 1/1 (pre-fix probe showed `@` on that row) · VERIFY: PASS.
+**Named:** - `test_move`: none — whole.
+**Next:** next batch (`ledger.mjs batch --write`).
 ## 2026-10-05 — D-3430 breadth batch @adae017b4: 28 fns over 21 C files (8 ported, 11 partial, 9 audited)
 
 **C locus:** - `moveloop_core`: allmain.c:177–564 turn core; shipped :253–257 moves>=1e9 capitulate, :269 NHCORE_MOVELOOP_TURN, :428 !umoved pooleffects, :430–434 Underwater/under_ground vision, :558–563 NHCB_END_TURN.

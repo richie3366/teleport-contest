@@ -19,7 +19,7 @@
 {"fn":"bad_rock","c":"939-946","status":"ported","js":["js/mon.js:bad_rock"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cant_squeeze_thru","c":"953-979","status":"ported","js":["js/mon.js:cant_squeeze_thru"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"invocation_pos","c":"982-986","status":"ported","js":["js/hack.js:invocation_pos"],"d":["D-3353"],"at":"2026-10-03@85e8a632f"}
-{"fn":"test_move","c":"991-1255","status":"partial","js":["js/hack.js:test_move"],"omit":"- `moveloop_core`: post-rhack cliparound (CLIPPING viewport pan, display-model, own row); run/tport MAP redisplay every 7th multi/moves (house run-flush model); multi>0 non-run lookaround + --multi + rhack(cmd_key) (house multi model).","d":["D-3430","D-3429","D-3415","D-3404","D-2439","D-1800"],"at":"2026-10-05@adae017b4"}
+{"fn":"test_move","c":"991-1255","status":"ported","js":["js/hack.js:test_move"],"d":["D-3431","D-3430","D-3429","D-3415","D-3404","D-2439"],"at":"2026-10-05@9ec606a36"}
 {"fn":"findtravelpath","c":"1266-1523","status":"split","js":["js/cmd.js:findtravelpath_bfs","js/cmd.js:findtravelpath_travel","js/cmd.js:findtravelpath_guess","js/cmd.js:travelmap_ensure"],"d":["D-3198","D-2382","D-1971","D-1897"],"at":"2026-10-01@c1022f867"}
 {"fn":"is_valid_travelpt","c":"1526-1544","status":"ported","js":["js/cmd.js:is_valid_travelpt"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-2029"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
@@ -52,7 +52,7 @@
 {"fn":"carrying_too_much","c":"2616-2634","status":"ported","js":["js/hack.js:carrying_too_much"],"at":"2026-10-03@bbe63333a"}
 {"fn":"escape_from_sticky_mon","c":"2639-2692","status":"ported","js":["js/hack.js:escape_from_sticky_mon"],"d":["D-2158"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domove","c":"2695-2709","status":"ported","js":["js/cmd.js:domove"],"d":["D-1150"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JS merges domove_core (276 lines); wrapper arms (succeeded gate, smudge+bubble, attempting+kickedloc reset) all live"}
-{"fn":"domove_core","c":"2712-2991","status":"partial","js":["js/cmd.js:domove"],"omit":"- `moveloop_core`: post-rhack cliparound (CLIPPING viewport pan, display-model, own row); run/tport MAP redisplay every 7th multi/moves (house run-flush model); multi>0 non-run lookaround + --multi + rhack(cmd_key) (house multi model).","d":["D-3430","D-3429","D-3419","D-3415","D-3404","D-2453"],"at":"2026-10-05@adae017b4","note":"refresh: body lives in domove (cmd.js:6213); D-3419: test_move paste replaced with D-3404 text (D-3415 note was false)"}
+{"fn":"domove_core","c":"2712-2991","status":"partial","js":["js/cmd.js:domove"],"omit":"- `test_move`: none — whole.","d":["D-3431","D-3430","D-3429","D-3419","D-3415","D-3404"],"at":"2026-10-05@9ec606a36","note":"refresh: body lives in domove (cmd.js:6213); D-3419: test_move paste replaced with D-3404 text (D-3415 note was false)"}
 {"fn":"runmode_delay_output","c":"2996-3017","status":"ported","js":["js/hack.js:runmode_delay_output"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_smudge_engr","c":"3020-3031","status":"ported","js":["js/engrave.js:maybe_smudge_engr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"overexert_hp","c":"3035-3047","status":"ported","js":["js/hack.js:overexert_hp"],"at":"2026-10-03@bbe63333a"}
