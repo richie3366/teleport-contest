@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3477 — Must-fix: cfgfiles.c config_error_add 1-row ledger repair (partial-no-omit retired, varargs wrapper whole — retire)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** queue-head Must-fix: config_error_add row `partial` with NO omit text (note "audited D-3469: remaining omit cannot ship", d=D-3469,D-3405,D-3173) — D-3405 audited the body whole yet the row stayed partial. The queue row guessed retire-stale; re-verification: RETIRE to ported (zero shippable remainder — no omit text exists to restore).
+- **C locus:** row home only (body brief-read this iter): cfgfiles.c `config_error_add` :1865–1872 (va_start :1869, vconfig_error_add :1870, va_end :1871; 177 C refs, incl. comment mentions).
+- **JS was:** row `partial` with no omit text; JS body whole since D-3173/D-3405 (js/cfgfiles.js:425–427, rest-args wrapper onto module-local vconfig_error_add).
+- **Fix:** retire via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Restore-or-retire re-verified at repair (D-3427 protocol): (a) C body is a pure varargs forward — va_start/va_end have no JS equivalent, rest-args `vconfig_error_add(str, args)` is the complete port, no arm missing; (b) sole callee vconfig_error_add ported, "audited D-3405: whole vs C" re-verified this iter against pinned C (`csym` :1874–1890): BIGBUFSZ vsnprintf → config_error_format :431, DEBUG panic arm compiled out (NH_STATUS_RELEASED, patchlevel.h) → JS comment :432, buf[BUFSZ-1] chop → slice/split :433, config_erradd → :434; (c) D-3405 Ledger bullet lists both `config_error_add audited` + `vconfig_error_add audited` — no D-3405 Named remainder exists to restore, nothing lost. Deliberately NO `- **Ledger:**` bullet (D-3427/D-3448/D-3450/D-3452/D-3454/D-3456/D-3458/D-3460/D-3462/D-3464/D-3466/D-3468/D-3472 precedent — finish's first-line stamping caused this class).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger row only).
+- **Verify:** `node scripts/verify.mjs --fn config_error_add` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; row cited none); REACH-OK (no RNG-tagged reach; smoke 24/24, 11.6s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `config_error_add`: none — whole (D-3173 port; D-3405 + D-3469 audits re-verified this iter; rest-args forwarding is the complete C varargs equivalent; sole callee ported whole).
+- **Left open:** none.
+- **Next:** next Must-fix (options.c bad_negation 1-row repair — its sole callee config_error_add is now ported).
+
 ## D-3476 — Open head: impossible audit + objclass/monclass class→get_table_str_opt rewire (sp_lev.c:3457/:3133 raw-field gap)
 - **Status:** shipped.
 - **Symptom:** operator override (supervisor flagged #4364 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3467/D-3469/D-3471/D-3473 precedent). Batch picker finds no gap (`batch`: no gap left — remaining open/partial/recheck is audited-whole or excluded tty/files/save); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: the shared get_table_objclass_field raw-read its "class" field where C get_table_str_opt pcalls functions and throws on direct non-strings (D-3473 omit named :3457/:3133 "inline adapters with inherited gaps").

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3477 Must-fix: cfgfiles.c config_error_add 1-row ledger repair (partial-no-omit retired, varargs wrapper whole — retire)
+
+**C locus:** row home only (body brief-read this iter): cfgfiles.c `config_error_add` :1865–1872 (va_start :1869, vconfig_error_add :1870, va_end :1871; 177 C refs, incl. comment mentions).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** retire via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Restore-or-retire re-verified at repair (D-3427 protocol): (a) C body is a pure varargs forward — va_start/va_end have no JS equivalent, rest-args `vconfig_error_add(str, args)` is the complete port, no arm missing; (b) sole callee vconfig_error_add ported, "audited D-3405: whole vs C" re-verified this iter against pinned C (`csym` :1874–1890): BIGBUFSZ vsnprintf → config_error_format :431, DEBUG panic arm compiled out (NH_STATUS_RELEASED, patchlevel.h) → JS comment :432, buf[BUFSZ-1] chop → slice/split :433, config_erradd → :434; (c) D-3405 Ledger bullet lists both `config_error_add audited` + `vconfig_error_add audited` — no D-3405 Named remainder exists to restore, nothing lost. Deliberately NO `- **Ledger:**` bullet (D-3427/D-3448/D-3450/D-3452/D-3454/D-3456/D-3458/D-3460/D-3462/D-3464/D-3466/D-3468/D-3472 precedent — finish's first-line stamping caused this class).
+**Verify:** `node scripts/verify.mjs --fn config_error_add` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; row cited none); REACH-OK (no RNG-tagged reach; smoke 24/24, 11.6s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `config_error_add`: none — whole (D-3173 port; D-3405 + D-3469 audits re-verified this iter; rest-args forwarding is the complete C varargs equivalent; sole callee ported whole).
+**Next:** next Must-fix (options.c bad_negation 1-row repair — its sole callee config_error_add is now ported).
 ## 2026-10-05 — D-3476 Open head: impossible audit + objclass/monclass class→get_table_str_opt rewire (sp_lev.c:3457/:3133 raw-field gap)
 
 **C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).

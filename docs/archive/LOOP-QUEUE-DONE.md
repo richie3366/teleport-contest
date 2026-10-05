@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] cfgfiles.c config_error_add 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — config_error_add partial with NO omit text ("audited D-3405: remaining omit cannot ship" note, quoted from `ledger.mjs show config_error_add` 2026-10-05, d=D-3405,D-3173); JS body reads whole at enqueue (js/cfgfiles.js:425–427, C 4 lines, 1-line varargs wrapper onto vconfig_error_add which is ported audited-whole D-3405 — likely retire-stale, D-3405 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the get_table_str_opt head dropped the band to 4, finish fails closed below 8).
+
+
 - [x] files.c do_deferred_showpaths 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — do_deferred_showpaths partial with NO omit text and no audit note (quoted from `ledger.mjs show do_deferred_showpaths` 2026-10-05, d=D-3117); JS body read at enqueue (js/files.js:2438, C 9 code lines, :3092 flag clear + :3101 after_opt_showpaths live, :3093 reveal_paths + :3096–3098 freedynamicdata/dlb_cleanup/l_nhcore_done as in-code named omits — likely restore-narrowed naming reveal_paths + by-design tails, D-3117 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the get_table_str_opt head dropped the band to 4, finish fails closed below 8).
 
 
