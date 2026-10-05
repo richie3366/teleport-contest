@@ -2408,3 +2408,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2396-3eafb17b2-lspo-grave-text-rewire.md](./2396-3eafb17b2-lspo-grave-text-rewire.md) | `3eafb17b2` | D-3467 lspo_grave text→helper rewire + impossible | **ACCEPT** |
 | [2397-fbfdad852-traptype-rewire-audits.md](./2397-fbfdad852-traptype-rewire-audits.md) | `fbfdad852` | D-3469 traptype rewire + 5 audits (paste covered) | **ACCEPT-WITH-DEBT** |
 | [2398-21b213581-lspo-monster-name-rewire.md](./2398-21b213581-lspo-monster-name-rewire.md) | `21b213581` | D-3471 lspo_monster name→helper rewire + impossible | **ACCEPT** |
+| [2399-4f52bac8d-lspo-monster-appear-rewire.md](./2399-4f52bac8d-lspo-monster-appear-rewire.md) | `4f52bac8d` | D-3473 lspo_monster appear_as→helper rewire + impossible | **ACCEPT** |
+| [2400-eb19a3f45-objclass-monclass-rewire.md](./2400-eb19a3f45-objclass-monclass-rewire.md) | `eb19a3f45` | D-3476 objclass/monclass class→helper rewire + impossible | **ACCEPT** |
+| [2401-0ee053d49-lspo-monster-id-rewire.md](./2401-0ee053d49-lspo-monster-id-rewire.md) | `0ee053d49` | D-3478 lspo_monster id→helper rewire + impossible | **ACCEPT** |
+| [2402-634c19546-lspo-object-id-rewire.md](./2402-634c19546-lspo-object-id-rewire.md) | `634c19546` | D-3480 lspo_object id→helper rewire + impossible | **ACCEPT** |
