@@ -2394,3 +2394,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2382-e8a52e4a1-four-arm-fixes.md](./2382-e8a52e4a1-four-arm-fixes.md) | `e8a52e4a1` | D-3439 doopen_indir + toss_up + dokick + more (4 arms, triage verified) | **ACCEPT** |
 | [2383-a2d03b360-use-camera-carry-docorner-pie.md](./2383-a2d03b360-use-camera-carry-docorner-pie.md) | `a2d03b360` | D-3441 use_camera + carry_count + docorner + use_cream_pie (4 arms) | **ACCEPT** |
 | [2384-3483b7469-four-fn-open-head.md](./2384-3483b7469-four-fn-open-head.md) | `3483b7469` | D-3443 mhitm_ad_blnd + disclose + mattackm + mimic (paste covered) | **ACCEPT-WITH-DEBT** |
+| [2385-bb85bd866-mattackm-notice-resists-switch.md](./2385-bb85bd866-mattackm-notice-resists-switch.md) | `bb85bd866` | D-3445 mattackm notice arms + resists/can_blnd switches | **ACCEPT** |
+| [2386-d3e9e6898-resists-blnd-4file-rewire.md](./2386-d3e9e6898-resists-blnd-4file-rewire.md) | `d3e9e6898` | D-3447 mhitu/muse/detect/trap → live resists_blnd | **ACCEPT** |
+| [2387-1dd2365ef-zap-engrave-worn-switches.md](./2387-1dd2365ef-zap-engrave-worn-switches.md) | `1dd2365ef` | D-3449 zap/engrave resists + bypass/which_armor switches | **ACCEPT** |
+| [2388-261838d2e-impossible-which-armor-x4.md](./2388-261838d2e-impossible-which-armor-x4.md) | `261838d2e` | D-3451 impossible audit + which_armor ×4 | **ACCEPT** |
+| [2389-c107c3e18-wincap2-moveloop-audits.md](./2389-c107c3e18-wincap2-moveloop-audits.md) | `c107c3e18` | D-3453 TTY_WINCAP2 + moveloop + strncmpi/Strlen_ audits | **ACCEPT** |
