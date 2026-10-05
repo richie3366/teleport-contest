@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] options.c bad_negation 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — bad_negation partial with NO omit text ("audited D-3403: remaining omit cannot ship" note, quoted from `ledger.mjs show bad_negation` 2026-10-05, d=D-3403,D-3173,D-3171); JS body reads whole at enqueue (js/options.js:12222–12226, C 2 lines, one C-verbatim config_error_add call; sole callee config_error_add also partial-no-omit, own row at repair — likely retire-stale, D-3403 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the get_table_str_opt head dropped the band to 4, finish fails closed below 8). **Addressed:** D-3479
+
+
 - [x] cfgfiles.c config_error_add 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — config_error_add partial with NO omit text ("audited D-3405: remaining omit cannot ship" note, quoted from `ledger.mjs show config_error_add` 2026-10-05, d=D-3405,D-3173); JS body reads whole at enqueue (js/cfgfiles.js:425–427, C 4 lines, 1-line varargs wrapper onto vconfig_error_add which is ported audited-whole D-3405 — likely retire-stale, D-3405 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger partial-no-omit scan + brief 2026-10-05; popping the get_table_str_opt head dropped the band to 4, finish fails closed below 8).
 
 

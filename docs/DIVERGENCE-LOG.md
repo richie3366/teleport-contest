@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3479 — Must-fix: options.c bad_negation 1-row ledger repair (partial-no-omit retired, 2-line sink call whole — retire)
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** queue-head Must-fix: bad_negation row `partial` with NO omit text (note "audited D-3403: remaining omit cannot ship", d=D-3403,D-3173,D-3171) — D-3403 audited the body whole yet the row stayed partial. The queue row guessed retire-stale; re-verification: RETIRE to ported (zero shippable remainder — no omit text exists to restore).
+- **C locus:** row home only (body brief-read this iter): options.c `bad_negation` :6692–6697 (staticfn; one config_error_add :6695–6696 with the with_parameter conditional; 26 C call sites + decl :347).
+- **JS was:** row `partial` with no omit text; JS body whole since D-3173 (js/options.js:12222–12226, file-local staticfn twin calling the live config_error_add with the C-verbatim format + conditional).
+- **Fix:** retire via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Restore-or-retire re-verified at repair (D-3427 protocol): (a) C body is a single sink call — no arm, no branch beyond the inlined conditional, nothing missing; (b) sole callee config_error_add ported (retired whole D-3477); (c) D-3403 Ledger bullet lists `bad_negation audited` and its Named omissions name no bad_negation remainder — nothing lost; (d) all 26 C call sites audited wired by D-3173, spot re-verified live this iter (js/options.js:339/:1643/:1848/:2448/:2654/:2696/:3254/:3304/:3411/:3858/:3905/:4023/:4060/:4097/:4138/:4175/:4297/:4397/:4628/:5707/:7562/:7645/:8355/:11473/:11605/:12486 — 26/26). Deliberately NO `- **Ledger:**` bullet (D-3427/D-3448/D-3450/D-3452/D-3454/D-3456/D-3458/D-3460/D-3462/D-3464/D-3466/D-3468/D-3472/D-3477 precedent — finish's first-line stamping caused this class).
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger row only).
+- **Verify:** `node scripts/verify.mjs --fn bad_negation` → PASS syntax (0 changed js); PASS rule2; hidden note (no corpus session blocked — normal; row cited none); REACH-OK (no RNG-tagged reach; smoke 24/24, 11.8s); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `bad_negation`: none — whole (D-3173 port + 26-caller audit; D-3403 audit re-verified this iter; sole callee ported whole).
+- **Left open:** none.
+- **Next:** next Must-fix (dog.c migrate_to_level 1-row repair). Band refill (ship-time): popping the head dropped the band to 7 < 8, which blocks finish; `rows --write` still yields 1 (pline impossible) — self-filed +1 Must-fix ledger-repair row with quoted evidence (cfgfiles.c rcfile_interface_options misplaced-clause paste, sibling of the queued parse_conf_str row) to hold the band at 8 (D-3442/D-3444/D-3450/D-3452/D-3454/D-3456/D-3458/D-3460/D-3462/D-3464/D-3472/D-3477 precedent). No review cited by the popped row — no stamp owed. Bundled: none (no bare `**Addressed:**` hashes in reviews/ or LOOP-QUEUE-DONE.md).
+
 ## D-3478 — Open head: impossible audit + lspo_monster id→get_table_str_opt rewire (sp_lev.c:3169 String-coercion gap)
 - **Status:** shipped.
 - **Symptom:** operator override (supervisor flagged #4366 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3467/D-3469/D-3471/D-3473/D-3476 precedent). Batch picker finds no gap (`batch`: no gap left — remaining open/partial/recheck is audited-whole or excluded tty/files/save); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_monster_normalize_table String()'d its raw "id" field where C get_table_str_opt pcalls functions and throws on direct non-strings (D-3476 omit named :3169 "inline adapters with inherited gaps").

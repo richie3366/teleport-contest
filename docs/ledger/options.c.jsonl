@@ -146,7 +146,7 @@
 {"fn":"handler_windowborders","c":"6620-6654","status":"ported","js":["js/options.js:handler_windowborders"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:3032; 5 text arms + a+i/0+i selectors + a_int+1 present, wired via doset_optfn_do_handler :3094 + getlin :7656"}
 {"fn":"string_for_opt","c":"6665-6680","status":"ported","js":["js/options.js:string_for_opt"],"d":["D-3403","D-3121"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"string_for_env_opt","c":"6683-6690","status":"ported","js":["js/options.js:string_for_env_opt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"bad_negation","c":"6693-6697","status":"partial","js":["js/options.js:bad_negation"],"d":["D-3403","D-3173","D-3171"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: remaining omit cannot ship"}
+{"fn":"bad_negation","c":"6693-6697","status":"ported","js":["js/options.js:bad_negation"],"d":["D-3403","D-3173","D-3171"],"at":"2026-10-05@0ee053d49","note":"row retired D-3479: partial with no omit text (audited D-3403: remaining omit cannot ship); C 2-line body whole at js/options.js:12222-12226, sole callee config_error_add ported D-3477"}
 {"fn":"determine_ambiguities","c":"6703-6736","status":"ported","js":["js/options.js:determine_ambiguities"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:10264 local staticfn (R1520; wrong was sibling table, D-2566)"}
 {"fn":"length_without_val","c":"6739-6754","status":"ported","js":["js/options.js:length_without_val"],"at":"2026-10-03@bbe63333a"}
 {"fn":"match_optname","c":"6760-6770","status":"ported","js":["js/options.js:match_optname"],"at":"2026-10-03@bbe63333a"}
