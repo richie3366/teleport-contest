@@ -130,6 +130,7 @@ import {
     WC2_SUPPRESS_HIST,
     WC2_HILITE_STATUS,
     WC2_FLUSH_STATUS,
+    TTY_WINCAP2,
     PLNMSG_UNKNOWN,
     BUFSZ,
     gp,
@@ -8856,10 +8857,10 @@ function putstr(window, attr, str) {
 }
 
 /**
- * C wintty.c tty_procs.wincap2 `:119` — the two message bits.
- * `:111–125` also sets hilite/flush/reset status, darkgray,
- * statuslines, utf8, petattr, extracolors, and extrastatus. Those
- * stay off so VIA_WINDOWPORT() stays false (status_initialize).
+ * C wintty.c tty_procs.wincap2 `:111–125` (const.js TTY_WINCAP2: the full
+ * unix tty set minus the four status bits, which stay off so
+ * VIA_WINDOWPORT() stays false — status_update delivery is a named
+ * omission, botl.js header).
  * @returns {number}
  */
 export function install_tty_wincap2() {
@@ -8867,7 +8868,7 @@ export function install_tty_wincap2() {
         game.windowprocs = { name: 'tty' };
     }
     if (!Object.hasOwn(game.windowprocs, 'wincap2')) {
-        game.windowprocs.wincap2 = WC2_URGENT_MESG | WC2_SUPPRESS_HIST;
+        game.windowprocs.wincap2 = TTY_WINCAP2;
     }
     return game.windowprocs.wincap2 | 0;
 }

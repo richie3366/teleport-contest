@@ -14,9 +14,11 @@
 // status_update itself stays a named omission (no windowport registry).
 //
 // Caller: C bot() (botl.c:262) calls bot_via_windowport when
-// VIA_WINDOWPORT(). display.js bot() does that. Contest tty leaves
-// WC2_HILITE_STATUS and WC2_FLUSH_STATUS clear, so that arm does not run
-// and the tty path commits do_statusline1 / do_statusline2 instead.
+// VIA_WINDOWPORT(). display.js bot() does that. C tty SETS the status
+// bits (wintty.c `:114–117`, STATUS_HILITES config.h:616); the JS model
+// leaves all four clear (const.js TTY_WINCAP2) because status_update
+// delivery below is a named omission, so that arm does not run and the
+// tty path commits do_statusline1 / do_statusline2 instead.
 
 import { game } from './gstate.js';
 import { config_error_add } from './cfgfiles.js';

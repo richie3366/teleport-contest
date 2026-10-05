@@ -5,6 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] `options.c` doset wc2 skip — C options.c:8847–8848/:8871–8872/:8887–8888 `is_wc2_option && !wc2_supported` menu-skip arms absent from js/options.js:4520 doset_skip_unsupported (wc-only; doc-named NOT ported D-3403 — minimal-wincap2 mis-skips, scen-options-Samurai-94071 use_darkgray falsifier); live wc2_supported export :1348 — per-bit wincap2 audit + wire (brief-read 2026-10-05) @af9ca02d9
+- [x] `allmain.c` moveloop preamble hoist — C allmain.c:589–592 moveloop_preamble(resuming) + !resuming maybe_do_tutorial() calls absent from js/allmain.js:1602 moveloop (vision_recalc+docrt+flush loop; resuming ignored); live preamble :273 + tutorial local :1067; ledger claims newgame/jsmain hoist — ship iter verifies hoist sites or wires (brief-read 2026-10-05) @af9ca02d9
+- [x] `hacklib.c` strncmpi wish-parser omit — body whole js/hacklib.js:615 (C :717–734 all arms live); ledger omit (objnam wish-parser arms beyond readobjnam helpers; eat.c:1413 + zap.c wish-history) is a D-2967 carry, still-stands unverified at enqueue — ship iter brief-verifies arms or retires stale (brief-read 2026-10-05) @af9ca02d9
+- [x] `strutil.c` Strlen_ caller rewire — body whole js/options.js:11273 (bounded loop + LARGEST_INT throw); ledger omit (panic presentation; Strlen macro callers use local lengths — caller-side rewire, future work), still-stands unverified at enqueue — ship iter scopes caller rewire or retires stale (brief-read 2026-10-05) @af9ca02d9
+
+
 - [x] cmd.c parseautocomplete 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — parseautocomplete ← handler_change_autocompletions paste ("- `handler_change_autocompletions`: none in-body — whole body; window layer via live select_menu_pick_any, sole C callee parseautocomplete live.", quoted from `ledger.mjs show parseautocomplete` 2026-10-05, d=D-3402,D-3079; present since D-3079's own finish per `git show 9d11eaa9f:docs/ledger/cmd.c.jsonl`, D-3402 re-certified "remaining omit cannot ship"); restore D-3079 Named parseautocomplete text (wait_synch :3291 windowed-input-boundary omit, callees live — text quoted from D-3079 Named bullet, still-stands unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (full-row paste scan 2026-10-05; popping the files/bones/hack head dropped the band to 7, finish fails closed at 7).
 
 

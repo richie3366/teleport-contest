@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3453 Open head ×4: tty wincap2 model (doset audit) + moveloop C-whole + strncmpi/Strlen_ audits
+
+**C locus:** - `doset`: options.c:8758–8975 (wc2 menu-skip arms :8847–8848/:8871–8872/:8887–8888; audit target wintty.c tty_procs.wincap2 :111–125 + config.h:575/:616).
+**JS:** js/const.js (:1510–1521 TTY_WINCAP2); js/display.js (:133 import, :8860–8874 installer + doc); js/options.js (:131 import, :1234 table doc, :1335 fallback + doc, :4521 skip + audit doc, :9806 simple-menu note, :10876 doset doc, :11017 statuslines note); js/botl.js (:16–21 header); js/allmain.js (:214 entry note, :1602–1617 moveloop restart); scripts/wincap2-tty-bits.test.mjs (new).
+**Change:** installed const.js TTY_WINCAP2 (C tty bits minus the status four) after a per-bit consumer audit; the doset menu arm stays unwired (C shows the status rows). Audited: doset_skip_unsupported, doset_simple :9859 gate (no-op stub, inert), optfn_boolean_do_set :10576 + :10482, optfn_statuslines :8360, initoptions_finish :9059 (hilite_delta off, inert), statushilites handler :4459, dokeylist menu_shift (bit off), allmain :220 + display bot/timebot + polyself via_windowport (status bits off), botl.js const-0 sites. Status bits would flip VIA_WINDOWPORT into the unported status_update delivery (botl.js header).
+**Verify:** `verify.mjs --fn doset,moveloop,strncmpi,Strlen_` → PASS syntax (5 js) · PASS rule2 · 4× hidden note (none blocked — normal; rows cited none) · 4× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared files); falsifier scen-options-Samurai-94071 re-scored 3305/3305 RNG + 78/78 screens (still PASS, board churn reverted); `node --test scripts/wincap2-tty-bits.test.mjs` 5/5 (old-default probe: false/'unknown'/no-botl confirms discrimination); VERIFY: PASS.
+**Named:** - `doset`: wc2 menu-skip arm (needs the status bits, which need windowport status delivery — falsifier scen-options-Samurai-94071 keeps all three status rows on screen); optfn_boolean perm_invent gate (caller-side); reset_needed_visuals subset (D-1701 owns).
+**Next:** Must-fix heads stay queued (deferred per override). 4 refills hold the band (newgame NEWS/reset arms, record_achievement sound arm, evaluate_and_notify_windowport caps wire, status_initialize display arm — each C+JS brief-read this iter).
 ## 2026-10-05 — D-3452 Must-fix: cmd.c parseautocomplete 1-row ledger repair (handler paste retired, D-3079 omit restored)
 
 **C locus:** row home only (no C re-read; body verified whole by D-3079 + this iter's brief): cmd.c `parseautocomplete` :3244–3292 (bad-name wait_synch :3291).

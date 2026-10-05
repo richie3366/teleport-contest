@@ -126,6 +126,7 @@ import {
     WC2_URGENT_MESG,
     WC2_SUPPRESS_HIST,
     WC2_EXTRASTATUS,
+    TTY_WINCAP2,
     STONE,
     MSGTYP_NORMAL,
     MSGTYP_NOREP,
@@ -1232,8 +1233,11 @@ function wc_supported(optnam) {
 
 /**
  * C options.c wc2_options[] `:9823–9842` (name/bit pairs, C order).
- * tty message bits live on `windowprocs.wincap2` (wintty.c `:119`).
- * This table has no name for those bits. Status hilite/flush stay off.
+ * The installed `windowprocs.wincap2` (wintty.c `:111–125` minus the
+ * status bits, const.js TTY_WINCAP2) also carries message/utf8/
+ * extracolors/selectsaved bits this table has no name for. Status
+ * hilite/flush/reset + hitpointbar stay off (VIA_WINDOWPORT would
+ * reroute into the unported status_update delivery, botl.js header).
  */
 export const wc2_options = [
     { wc_name: 'armorstatus', wc_bit: WC2_EXTRASTATUS },
@@ -1332,16 +1336,16 @@ function via_windowport() {
 }
 
 /**
- * C `windowprocs.wincap2`. A missing field is the tty message pair
- * (wintty.c `:119`). Hilite/flush/reset and the rest of `:111–125`
- * stay off.
+ * C `windowprocs.wincap2`. A missing field is the const.js TTY_WINCAP2
+ * fallback (wintty.c `:111–125` minus the four status bits — mirrors
+ * display.js install_tty_wincap2 for pre-newgame option parsing).
  */
 function windowprocs_wincap2() {
     const wp = game.windowprocs;
     if (wp && typeof wp === 'object' && Object.hasOwn(wp, 'wincap2')) {
         return wp.wincap2 | 0;
     }
-    return WC2_URGENT_MESG | WC2_SUPPRESS_HIST;
+    return TTY_WINCAP2;
 }
 
 /** C options.c wc2_supported `:9965–9976`. */
@@ -4514,17 +4518,18 @@ export function optfn_warnings(optidx, req, _negated, opts, _op) {
 }
 
 /**
- * C options.c doset `:8869–8872` / `:8846–8848` WC skip.
- * wc2_supported named (petattr/statushilites already in the contest list).
+ * C options.c doset `:8846–8848` / `:8871–8872` / `:8887–8888` WC skip.
+ * The is_wc2_option && !wc2_supported half stays unwired (D-3403, kept
+ * after the per-bit audit): C tty sets the status bits (wintty.c
+ * `:114–117`), so it SHOWS hilite_status/statushilites/hitpointbar —
+ * all three on screen in scen-options-Samurai-94071 today — while the
+ * JS model must leave those bits off (they flip VIA_WINDOWPORT() into
+ * the unported status_update delivery, botl.js header). Wiring the arm
+ * now would drop exactly those three C-shown rows; every other wc2 row
+ * already matches C structurally (the curated menu lists never carried
+ * a C-skipped name). Revisit when the windowport status path lands.
  */
 function doset_skip_unsupported(name) {
-    // C doset `:8847–8848`, `:8871–8872`, `:8887–8888` also gates on
-    // is_wc2_option && !wc2_supported — NOT ported (D-3403): the runtime
-    // wincap2 is deliberately minimal (URGENT_MESG|SUPPRESS_HIST) while C
-    // tty carries DARKGRAY|STATUSLINES|U_UTF8STR|PETATTR|EXTRASTATUS (+
-    // STATUS_HILITES bits), so the wc2 arm mis-skips rows C shows
-    // (scen-options-Samurai-94071 use_darkgray). Needs a per-bit wincap2
-    // consumer audit first (via_windowport flips on HILITE_STATUS).
     return is_wc_option(name) && !wc_supported(name);
 }
 
@@ -9801,10 +9806,10 @@ async function doset_simple_menu() {
                 // C `:8588–8590` wc/wc2 gate is outcome-dead on contest tty:
                 // every gated name in dosetSimpleOpts is statically kept by
                 // the extractor (ok_wc over the true tty sets), while the
-                // runtime wincap2 stays minimal for the status subsystem
-                // (display.js `:8223`, polyself.js `:731`) and must not leak
-                // into the menu — it would wrongly drop hitpointbar and
-                // statuslines, whose bits C tty sets (wintty.c `:116–120`).
+                // runtime wincap2 still lacks the status bits (VIA_WINDOWPORT
+                // would reroute into unported delivery) and must not leak
+                // into the menu — it would wrongly drop hitpointbar, whose
+                // bit C tty sets (wintty.c `:116–120`).
                 // C `:8592` any.a_int = i + 1 — identity carried by opt ref.
                 if (opt.opttyp === 'Bool') { // C `:8594–8599`
                     if (!opt.addr) continue; // C `:8595–8596` !bool_p
@@ -10868,9 +10873,10 @@ function doset_bool_term(name) {
  * CompOpt perminv_mode is in C allopt order; doset skips it when
  * !wc_supported (contest tty !TTY_PERM_INVENT). `:8897–8902` PREFIXES
  * section compiled out (hack.h:1055 ifdef).
- * Named omissions: wc2_supported skips (minimal-wincap2 model gap — see
- * doset_skip_unsupported); optfn_boolean perm_invent can_set gate
- * (caller-side). reset_needed_visuals subset is D-1701 (no reset_glyphmap).
+ * Named omissions: wc2 menu-skip arm (needs the status bits, which
+ * need windowport status delivery — see doset_skip_unsupported);
+ * optfn_boolean perm_invent can_set gate (caller-side).
+ * reset_needed_visuals subset is D-1701 (no reset_glyphmap).
  */
 export async function doset() {
     if (!game.flags) game.flags = {};
@@ -11010,8 +11016,8 @@ export async function doset() {
             { name: 'sortvanquished', get_val: () => doset_compopt_get_val(optfn_sortvanquished, 'sortvanquished'), handler: true },
             { name: 'statushilites', get_val: () => doset_compopt_get_val(optfn_statushilites, 'statushilites') },
             // C `:4101` supported arm (contest tty sets WC2_STATUSLINES,
-            // wintty.c `:119`; the live optfn reads 'unknown' under the
-            // minimal JS wincap2, display.js install_tty_wincap2).
+            // wintty.c `:119`; the model carries it, const.js TTY_WINCAP2,
+            // so the live optfn reads '2'/'3' like C — same as here).
             { name: 'statuslines', get_val: () => (((game.iflags?.wc2_statuslines | 0) < 3) ? '2' : '3') },
             { name: 'suppress_alert', val: '(none)' },
             { name: 'symset', val: 'DECgraphics, active, handler=DEC', handler: true }, // C has_handler (optlist.h) → handler_symset

@@ -204,10 +204,16 @@ complete for its monster-only users) to hold the 8-row band.
 
 D-3449 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4 with brief-verified switch rows (weapon/steed/mklev/trap which_armor → live worn.js:472 — each C + JS read at enqueue; mhitm.c:759 archon + Resists_Elem BLND_RES + can_blnd light arm + uhitm flash sites verified already-live, mon.c:918 bypass gate verified C-exact, worn mark() inline verified body-identical — no rows) to hold the 8-row band.
 D-3451 (Open head ×4 shipped + impossible audit; band 4 < 8 blocks finish) refilled +4 with batch-preview partials (each omit brief-read this iter) to hold the 8-row band.
-- [ ] `options.c` doset wc2 skip — C options.c:8847–8848/:8871–8872/:8887–8888 `is_wc2_option && !wc2_supported` menu-skip arms absent from js/options.js:4520 doset_skip_unsupported (wc-only; doc-named NOT ported D-3403 — minimal-wincap2 mis-skips, scen-options-Samurai-94071 use_darkgray falsifier); live wc2_supported export :1348 — per-bit wincap2 audit + wire (brief-read 2026-10-05) @af9ca02d9
-- [ ] `allmain.c` moveloop preamble hoist — C allmain.c:589–592 moveloop_preamble(resuming) + !resuming maybe_do_tutorial() calls absent from js/allmain.js:1602 moveloop (vision_recalc+docrt+flush loop; resuming ignored); live preamble :273 + tutorial local :1067; ledger claims newgame/jsmain hoist — ship iter verifies hoist sites or wires (brief-read 2026-10-05) @af9ca02d9
-- [ ] `hacklib.c` strncmpi wish-parser omit — body whole js/hacklib.js:615 (C :717–734 all arms live); ledger omit (objnam wish-parser arms beyond readobjnam helpers; eat.c:1413 + zap.c wish-history) is a D-2967 carry, still-stands unverified at enqueue — ship iter brief-verifies arms or retires stale (brief-read 2026-10-05) @af9ca02d9
-- [ ] `strutil.c` Strlen_ caller rewire — body whole js/options.js:11273 (bounded loop + LARGEST_INT throw); ledger omit (panic presentation; Strlen macro callers use local lengths — caller-side rewire, future work), still-stands unverified at enqueue — ship iter scopes caller rewire or retires stale (brief-read 2026-10-05) @af9ca02d9
+
+D-3453 (Open head ×4 shipped: doset model + moveloop C-whole + 2 audits;
+band 4 < 8 blocks finish) refilled +4 with brief-verified batch-preview
+partials (newgame NEWS/reset, record_achievement sound no-op, windowport
+caps wire + display arm — each C + JS read at enqueue) to hold the 8-row
+band.
+- [ ] `allmain.c` newgame NEWS/reset arms — C allmain.c:798 reset_glyphmap(gm_newgame) absent from js/allmain.js:812 newgame (NOT FOUND in js/; callee ledger by-design) + :803–805 NEWS display_file(iflags.news) absent (NEWS defined config.h:303, default off); get_nhuuid retired — ship iter audits or scopes (brief-read 2026-10-05) @e4c489f9e
+- [ ] `insight.c` record_achievement sound arm — C insight.c:2437 SoundAchievement(achidx,0,repeat) absent from js/insight.js:640 record_achievement (NOT FOUND in js/); macro verified compile-time no-op in this build (no SND_LIB_* in unixconf/config, sndprocs.h:266 else-arm) — ship iter retires/audits (brief-read 2026-10-05) @e4c489f9e
+- [ ] `botl.c` evaluate_and_notify_windowport caps wire — C botl.c:1671–1676 RESET/FLUSH dispatch reads windowprocs.wincap2, absent from js/botl.js:1088 evaluate_and_notify_windowport + :2811 (both harden const wincap2 = 0, named omit); TTY_WINCAP2 model lacks the status bits so a live-wire is null — ship iter wires consts to the model + scopes status_update delivery (windowport registry gap; doset wc2 arm defers to it) (brief-read 2026-10-05) @e4c489f9e
+- [ ] `botl.c` status_initialize display arm — C windows.c:893–906 genl_status_init display_nhwindow(WIN_STATUS,FALSE) absent from js/botl.js:291 genl_status_init (named :288–289; display_nhwindow NOT FOUND in js/); status_initialize itself dead (VIA_WINDOWPORT never fires, allmain.js:222) — ship iter ports the dead-path arm or audits (brief-read 2026-10-05) @e4c489f9e
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

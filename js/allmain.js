@@ -212,10 +212,11 @@ export function init_sound_disp_gamewindows() {
     // C `:719` WIN_MESSAGE = create_nhwindow(NHW_MESSAGE) — sentinel id.
     game.WIN_MESSAGE = 10;
     // C `:720–724` if (VIA_WINDOWPORT()) status_initialize(FALSE) else
-    // WIN_STATUS = create_nhwindow(NHW_STATUS). tty_procs sets
-    // WC2_HILITE_STATUS|WC2_FLUSH_STATUS (wintty.c:116) and the message
-    // bits WC2_URGENT_MESG|WC2_SUPPRESS_HIST (`:119`). Only the message
-    // bits are installed, so this stays on the else arm.
+    // WIN_STATUS = create_nhwindow(NHW_STATUS). tty_procs sets the full
+    // `:111–125` set; the installer carries every bit except the four
+    // status bits (VIA_WINDOWPORT would reroute into the unported
+    // status_update delivery, botl.js header), so this stays on the
+    // else arm.
     install_tty_wincap2();
     const wincap2 = game.windowprocs?.wincap2 | 0;
     const viaWindowport = (wincap2 & (WC2_HILITE_STATUS | WC2_FLUSH_STATUS)) !== 0;
@@ -1598,14 +1599,19 @@ export async function moveloop_core() {
     }
 }
 
-// C ref: allmain.c moveloop()
+// C ref: allmain.c moveloop `:587–597` — preamble + tutorial gate +
+// core loop, in C order. Live entries hoist the head (newgame `:993–996`
+// runs preamble(FALSE)+tutorial; jsmain restore runs preamble(TRUE));
+// this export stays C-whole for direct callers. The gameover break exits
+// the harness turn driver (C never returns; unixmain.c:319).
 export async function moveloop(resuming) {
-    vision_recalc(0);
-    await docrt();
-    await flush_screen(1);
+    await moveloop_preamble(resuming); // C `:590`
+
+    if (!resuming) // C `:592`
+        await maybe_do_tutorial(); // C `:593`
 
     for (;;) {
-        await moveloop_core();
+        await moveloop_core(); // C `:596`
         if (game.program_state?.gameover) break;
     }
 }
