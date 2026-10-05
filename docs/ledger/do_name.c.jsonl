@@ -9,7 +9,7 @@
 {"fn":"alreadynamed","c":"158-195","status":"ported","js":["js/do_name.js:alreadynamed"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_mgivenname","c":"199-282","status":"ported","js":["js/do_name.js:do_mgivenname"],"d":["D-1638"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_oname","c":"290-369","status":"ported","js":["js/do_name.js:do_oname"],"d":["D-1670"],"at":"2026-10-03@bbe63333a"}
-{"fn":"oname","c":"372-426","status":"partial","js":["js/do_name.js:oname"],"omit":"- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).","d":["D-3430","D-3403","D-1680"],"at":"2026-10-05@adae017b4","note":"audited D-3430: remaining omit cannot ship"}
+{"fn":"oname","c":"372-426","status":"partial","js":["js/do_name.js:oname"],"omit":"untwoweapon You(can_no_longer_twoweap) message dropped when obj==uswapwep&&u.twoweap (set_twoweap+update_inventory inlined; sync fn can't await pline)","d":["D-3489","D-3430","D-3403","D-1680"],"at":"2026-10-05@d57340a2a","note":"row restored D-3489: D-3403 stamped pair paste (e2943671c), kept by D-3430 audit; D-1680 narrow text re-verified still unshipped (subset live js/do_name.js:1337-1340, no pline)"}
 {"fn":"objtyp_is_callable","c":"429-463","status":"ported","js":["js/do_name.js:objtyp_is_callable"],"at":"2026-09-29@d27c7b945","note":"stale: js/do_name.js:149 (D-1555)"}
 {"fn":"name_ok","c":"467-476","status":"ported","js":["js/do_name.js:name_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"call_ok","c":"480-495","status":"ported","js":["js/do_name.js:call_ok"],"at":"2026-10-03@bbe63333a"}

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] do_name.c oname 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — oname ← batch paste ("- `singplur_lookup`, `oname`: prior partial omissions (unchanged this batch).", quoted from `ledger.mjs show oname` 2026-10-05, d=D-3430,D-3403,D-1680); JS body reads whole at enqueue (js/do_name.js:1316–1370, full C sequence in order: length gate, artifact early-return, new_oname, artifact_exists, oartifact arm with untwoweapon-subset/set_artifact_intrinsic/alter_cost/via_naming livelog pair, carried+update_inventory; in-code Named untwoweapon You() — likely restore-narrowed naming that remainder, paste-head singplur_lookup itself ported with no omit of its own, D-3430/D-3403/D-1680 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger paste scan + brief 2026-10-05; popping the do_deferred_showpaths head dropped the band to 7, finish fails closed below 8).
+
+
 - [x] nhlua.c check_mapchr 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — check_mapchr ← 3-fn shared paste ("- `get_table_xy_or_coord` / `check_mapchr` / `get_table_int_opt`: inherited callers still omit stair table parsing (sp_lev.c:4164), shared mandatory-mapchar parsing (nhlua.c:247), and exact integer checks in noncluster splev_opt_int/dungeon readers.", quoted from `ledger.mjs show check_mapchr` 2026-10-05, d=D-3185; same head as the queued get_table_int_opt row); JS body reads whole at enqueue (js/mklev.js:20745–20749, C 5 lines, NUL-cut + len==1 gate + splev_chr2typ/INVALID_TYPE in C order; 6 executable C sites + decl — likely retire-stale or restore-narrowed, D-3185 Named truth + caller status unverified at enqueue); restore-or-retire re-verified at repair. Source: band refill (ledger paste scan + brief 2026-10-05; popping the build_english_list head dropped the band to 7, finish fails closed below 8).
 
 
