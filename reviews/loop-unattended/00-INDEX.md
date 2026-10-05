@@ -2416,3 +2416,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2404-57e97760f-lspo-object-name-rewire.md](./2404-57e97760f-lspo-object-name-rewire.md) | `57e97760f` | D-3484 lspo_object name→helper rewire + impossible | **ACCEPT** |
 | [2405-7883abf23-dungeons-str-opt-rewire.md](./2405-7883abf23-dungeons-str-opt-rewire.md) | `7883abf23` | D-3486 dungeons 4-site→helper rewire + impossible | **ACCEPT** |
 | [2406-d57340a2a-questpgr-str-opt-rewire.md](./2406-d57340a2a-questpgr-str-opt-rewire.md) | `d57340a2a` | D-3488 questpgr 3-site→helper rewire + ported flip | **ACCEPT** |
+| [2407-a99782e30-oname-untwoweapon-gates.md](./2407-a99782e30-oname-untwoweapon-gates.md) | `a99782e30` | D-3490 oname untwoweapon You() via async-caller gates | **ACCEPT** |
+| [2408-f9784b860-dungeons-int-opt-rewire.md](./2408-f9784b860-dungeons-int-opt-rewire.md) | `f9784b860` | D-3492 dungeons 3-site→int-helper rewire + impossible | **ACCEPT** |
+| [2409-fb381cf65-lspo-monster-int-opt-rewire.md](./2409-fb381cf65-lspo-monster-int-opt-rewire.md) | `fb381cf65` | D-3494 lspo_monster 4-site→int-helper rewire + impossible | **ACCEPT** |
+| [2410-a4ca61e04-lspo-object-int-opt-rewire.md](./2410-a4ca61e04-lspo-object-int-opt-rewire.md) | `a4ca61e04` | D-3496 lspo_object 2-site→int-helper rewire + impossible | **ACCEPT** |
+| [2411-f7fcd744c-lspo-mineralize-int-opt-rewire.md](./2411-f7fcd744c-lspo-mineralize-int-opt-rewire.md) | `f7fcd744c` | D-3498 lspo_mineralize 4-site→int-helper rewire + impossible | **ACCEPT** |
