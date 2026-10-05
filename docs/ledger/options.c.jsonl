@@ -209,7 +209,7 @@
 {"fn":"toggle_bool_option","c":"9278-9297","status":"ported","js":["js/options.js:toggle_bool_option"],"at":"2026-10-03@bbe63333a"}
 {"fn":"add_autopickup_exception","c":"9300-9346","status":"ported","js":["js/options.js:add_autopickup_exception"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
 {"fn":"remove_autopickup_exception","c":"9349-9369","status":"ported","js":["js/options.js:remove_autopickup_exception"],"at":"2026-09-30@deff666da","note":"stale: js/options.js:5994 whole body + caller :6079; review 1797 ACCEPT"}
-{"fn":"free_autopickup_exceptions","c":"9372-9382","status":"partial","js":["js/options.js:free_autopickup_exceptions"],"omit":"- `optfn_o_bind_keys`: none in this body or registered callers.","d":["D-3403","D-3180"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: remaining omit cannot ship"}
+{"fn":"free_autopickup_exceptions","c":"9372-9382","status":"ported","js":["js/options.js:free_autopickup_exceptions"],"d":["D-3403","D-3180"],"at":"2026-10-05@8a3621ea4","note":"row retired D-3462: D-3180 finish pasted optfn_o_bind_keys Named whole-claim (partial+paste from absent); body whole, save.c:1155 caller by-design"}
 {"fn":"sym_val","c":"9385-9426","status":"ported","js":["js/options.js:sym_val"],"at":"2026-09-30@5fd602958","note":"stale: js/options.js:10775 (review-1510 branch-exact; :839 caller wired :10956, :631 caller in by-design parse_sym_line)"}
 {"fn":"option_help","c":"9462-9549","status":"split","js":["js/options.js:option_help_lines","js/pager.js:show_text_pages"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_conds","c":"9556-9591","status":"ported","js":["js/options.js:all_options_conds"],"d":["D-2549"],"at":"2026-10-03@bbe63333a"}
