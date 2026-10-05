@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3459 — Open head: regen_hp Upolyd mh<1 rehumanize arm wired (was empty if-branch)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4345 a failed port; the 3 Must-fix heads are docs-only ledger repairs; Must-fix deferred, still queued; D-3447/D-3449/D-3451/D-3453/D-3455/D-3457 precedent). Real C-vs-JS gap: regen_hp's Upolyd mh<1 arm was an empty if-branch ("rehumanize deferred") while C allmain.c:632–634 calls rehumanize().
+- **C locus:**
+  - `regen_hp`: allmain.c:625–679 (Upolyd mh<1 :632–634; eel-out-of-water :637–646; mh regen :646–654; !Upolyd :662–679; reached_full :677–678). Sole C caller allmain.c:294 (moveloop, guarded :287–292).
+- **JS was:** js/allmain.js:467 regen_hp — empty mh<1 arm :474–475 (named :465); tail :476–520 live but unread-at-enqueue per row.
+- **Fix:** extended the existing polyself.js import (imports.mjs ALREADY — edge since :77, D-2349 safe) with rehumanize; mh<1 arm now `await rehumanize()` (C :632–634; live async no-arg js/polyself.js:1225, regen_hp already async). Tail read this iter and verified C-whole: u_can_regen ≡ U_CAN_REGEN() (Regeneration || (Sleepy && usleep); Sleepy ≡ HSleepy||ESleepy per youprop.h:143); eel arm (mh>1, !Regeneration, rn2(mh)>rn2(8), half-physical moves%2); mh+=heal unclamped + reached_full; !Upolyd heal boolean→1/0 + regen/sleepy increments + uhp clamp; reached_full → interrupt_multi (D-2012). Doc retires the omit. New scripts/regen-hp-rehumanize.test.mjs pins the wiring (regen_hp is module-local, C staticfn — static census per rewire-test precedent).
+- **JS:** js/allmain.js (:77 import +1, :463–466 doc, :474–476 arm). 1 changed js file.
+- **Callers:**
+  - `regen_hp`: C allmain.c:294 → js/allmain.js:1282 (moveloop; guard :1274–1281 C-exact per :287–292 incl. eel-or-full-mh entry).
+- **Verify:** `verify.mjs --fn regen_hp` → PASS syntax (1 js: allmain.js) · PASS rule2 · hidden note (none blocked — normal; row cited none) · REACH-OK (365 reach, 80 run, 80 PASS, 40.9s) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); VERIFY: PASS. Plus `node --test scripts/regen-hp-rehumanize.test.mjs` 3/3 (2 failed pre-fix).
+- **Named omissions:**
+  - `regen_hp`: none — whole.
+- **Ledger:** regen_hp ported
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). Band refill (ship-time): popping the head drops the band to 7 < 8, which blocks finish; self-filed +1 Must-fix with quoted evidence (nhlua.c get_table_str_opt 1-row repair: lspo_teleport_region paste, created partial+paste from unknown in D-3175's own finish per `git show 3f8f47e04 -- docs/ledger/nhlua.c.jsonl`; JS body reads whole js/dungeon.js:388, C 16 lines, 4-arm dispatch in C order — likely retire-stale; restore-or-retire re-verified at repair; siblings lcheck_param_table/get_table_boolean_opt carry the identical paste per scan) to hold the band (D-3442/D-3444/D-3450/D-3452/D-3454/D-3456/D-3458 precedent). No review cited by the popped row — no stamp owed. Bundled: backfill `**Addressed:** D-3458` hash on LOOP-QUEUE-DONE.md:8 from git log (`02851ff7a`; finish step 7).
+
 ## D-3458 — Must-fix: options.c oc_to_str 1-row ledger repair (optfn_packorder paste retired, D-3177 caller reason falsified)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: oc_to_str row `partial` carried optfn_packorder's `- \`optfn_packorder\`: none in the whole body or newly wired dispatch/menu/parser paths. change_inv_order and oc_to_str are live.` whole-claim — D-3177 finish first-line stamping (paste landed `4bcfa8a7a`, verified via `git log -S'optfn_packorder'` by this iter; D-3403 re-certified "remaining omit cannot ship" on the paste).

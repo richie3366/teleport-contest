@@ -74,7 +74,7 @@ import { run_regions, any_visible_region } from './region.js';
 import { m_everyturn_effect } from './monmove.js';
 import { tele } from './teleport.js';
 import { sink_into_lava } from './trap.js';
-import { polyself, set_uasmon, uasmon_maxStr, ugenocided } from './polyself.js';
+import { polyself, rehumanize, set_uasmon, uasmon_maxStr, ugenocided } from './polyself.js';
 import { udeadinside } from './read.js';
 import { you_were } from './were.js';
 import {
@@ -461,8 +461,8 @@ async function interrupt_multi(msg) {
 
 /**
  * C ref: allmain.c:624–679 regen_hp(wtcap) — maybe recover HP once/turn;
- * Upolyd eel out of water may lose hp (rn2(mh) > rn2(8)).
- * Named omit: rehumanize on mh<1 (polyself path deferred at this locus).
+ * Upolyd eel out of water may lose hp (rn2(mh) > rn2(8)); Upolyd mh<1
+ * rehumanize() :632–634 ("shouldn't happen" guard; live polyself.js export).
  */
 async function regen_hp(wtcap) {
     const u = game.u || (game.u = {});
@@ -472,7 +472,8 @@ async function regen_hp(wtcap) {
 
     if (Upolyd(u)) {
         if ((u.mh || 0) < 1) {
-            // rehumanize deferred
+            // C :632–634: shouldn't happen, but rehumanize back to human form.
+            await rehumanize();
         } else if (
             game.youmonst?.data?.mlet === 'S_EEL'
             && !is_pool(u.ux | 0, u.uy | 0)
