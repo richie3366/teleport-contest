@@ -23221,13 +23221,20 @@ function lspo_monster_normalize_table(tmp, inventFn) {
     tmp.cancelled = lspo_bool_opt(tmp.cancelled, 0);
     tmp.revived = lspo_bool_opt(tmp.revived, 0);
     tmp.avenge = lspo_bool_opt(tmp.avenge, 0);
-    tmp.fleeing = tmp.fleeing | 0;
-    tmp.blinded = tmp.blinded | 0;
-    tmp.paralyzed = tmp.paralyzed | 0;
+    // C :3304–3306 get_table_int_opt(L, "fleeing"/"blinded"/"paralyzed",
+    // 0): nil → 0, else checkinteger conversion (integral floats and
+    // numeric strings convert; fractions and direct non-numerics throw
+    // like argerror). tmp is a non-null object here (spread at the
+    // caller's table gate), so lua_field(tmp,name) is tmp[name] and the
+    // nil/non-nil classifications are identical to C's.
+    tmp.fleeing = get_table_int_opt(tmp, 'fleeing', 0);
+    tmp.blinded = get_table_int_opt(tmp, 'blinded', 0);
+    tmp.paralyzed = get_table_int_opt(tmp, 'paralyzed', 0);
     tmp.stunned = lspo_bool_opt(tmp.stunned, 0);
     tmp.confused = lspo_bool_opt(tmp.confused, 0);
     tmp.waiting = lspo_bool_opt(tmp.waiting, 0);
-    tmp.m_lev_adj = tmp.m_lev_adj | 0;
+    // C :3310 get_table_int_opt(L, "m_lev_adj", 0): same conversion.
+    tmp.m_lev_adj = get_table_int_opt(tmp, 'm_lev_adj', 0);
     // C :3318 — seentraps stays 0 (TODO: trap-name list to bitfield).
     tmp.keep_default_invent = lspo_bool_opt(tmp.keep_default_invent, -1);
     let mm_flags = NO_MM_FLAGS;

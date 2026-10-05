@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3494 — Open head: impossible audit + lspo_monster fleeing/blinded/paralyzed/m_lev_adj→get_table_int_opt rewire (sp_lev.c:3304-06/:3310 |0-gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4384 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3471/D-3473/D-3478/D-3492 precedent). Batch picker finds no gap (`batch`: no gap left); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_monster_normalize_table read its 4 int fields through `| 0` where C get_table_int_opt runs checkinteger (D-3492 omit named mon :3304-06/:3310 "permissive `|0`/splev_opt_int").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `get_table_int_opt@mon`: sp_lev.c:3304/:3305/:3306/:3310 field reads (0 defaults) inside lspo_monster table form :3296–3380, via nhlua.c:1028–1039 (ret=defval, getfield, nil-check, checkinteger, pop, return).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `mklev.js:23224–23226/:23230` four `| 0` adapters — fractions truncated silently (C argerrors), direct non-numeric non-nil values flowed as 0/1 garbage (C argerrors), integral floats converted without the int64-range gate; statement positions already in C read order.
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Four sites restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change — already called 6× in-module), in place (already C order :3304→:3305→:3306→:3310); lua_field/lua_type equivalences verified (tmp is a non-null spread at the caller's table gate :23330, so lua_field is tmp[name]; nil/non-nil classifications identical; defval 0). Behavior delta is exactly the C conversion (integers unchanged incl. negatives; absent stays 0; integral floats and numeric strings convert; fractions throw like argerror instead of truncating; direct non-numerics throw instead of 0/1 garbage; beyond-int32 truncates via asIntN(32) like the (int) cast, same as the old `|0`). New scripts/lspo-monster-int.test.mjs (helper conversion + wiring + C-order asserts).
+- **JS:** js/mklev.js (:23224–23237 calls + comments; raw adapters deleted). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_int_opt@mon`: C sp_lev.c:3304 → js/mklev.js:23230; :3305 → :23231; :3306 → :23232; :3310 → :23237; sole normalize caller l_create_monster :23331 (unchanged). Entry-source audit (no in-tree behavior change): l_create_monster has zero callers in js/ (no Lua layer — live fills call splev_create_monster directly); no table anywhere passes fleeing/blinded/paralyzed/m_lev_adj fields (only tribute prose + an unrelated dig.js word list match).
+- **Verify:** `verify.mjs --fn impossible,get_table_int_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-monster-int + lspo-monster-id + dungeon-dungeons-int 18/18; pre-change stash check: wiring test fails 5/1, passes post-change; VERIFY: PASS.
+- **Named omissions:**
+  - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+  - `get_table_int_opt`: body whole; 21 sites keep permissive `|0`/splev_opt_int vs C checkinteger: obj :3641/:3645, lvlinit :3947-50, gold :4502, door :4717, terrain :5001, replace :5086-91, region :5565-68/:5600/:5605. Wired 22 (18 per D-3492 + mon :3304-06/:3310 this iter); padding :5489 exact-unpacked equivalent; nhlsel :886-87/:893 owned by by-design l_selection_gradient.
+- **Ledger:** impossible audited; get_table_int_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). Bundled: none (no bare `**Addressed:**` hashes in reviews/ or LOOP-QUEUE-DONE.md).
+
 ## D-3493 — Must-fix: cfgfiles.c rcfile_interface_options 1-row ledger repair (misplaced initoptions paste, 0 C sites — retire)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: rcfile_interface_options row `partial` carried the D-2787 batch Named first line ("`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`)."), kept by the D-3405 audit — yet D-3405's own Symptom calls these clauses "(misplaced)" and its Ledger lists `rcfile_interface_options audited`. The queue row guessed retire-stale or restore-narrowed; re-verification: RETIRE to ported (zero shippable remainder — the clause names non-callees, the body is whole, 0 C sites).
