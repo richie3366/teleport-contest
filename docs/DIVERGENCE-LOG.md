@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-3469 — Open head: impossible + 4 audits, lspo_traptype_opt→helper rewire (sp_lev.c:4352 name-param gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4356 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3437/D-3449/D-3451/D-3457/D-3461/D-3467 precedent). Batch picker finds no gap (`batch --write`: no gap left — remaining open/partial/recheck is audited-whole or excluded tty/files/save); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_traptype_opt raw-field adapter dropped C's field-name parameter and String()'d function values where C get_table_str_opt pcalls them (D-3466 omit named :4352 "inline adapters with inherited gaps").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `raw_printf`: pline.c:549–558 (audit only; vraw_printf dispatch :554, second early_raw_messages count :556–557).
+  - `config_error_add`: cfgfiles.c:1865–1872 (audit only; 1-statement varargs wrapper onto vconfig_error_add).
+  - `purge_all_custom_entries`: glyphs.c:751–758 (audit only; 0..NUM_GRAPHICS loop onto staticfn purge_custom_entries :761–794).
+  - `opt_usage`: earlyarg.c:376–387 (audit only; chdirx :378–381, dlb_init :383, genl_display_file :385, opt_terminate :386).
+  - `get_table_str_opt@traptype`: sp_lev.c:4352 field read (emptystr default) inside get_table_traptype_opt :4350–4364, via nhlua.c:1055–1076 (string/nil optstring, function pcall + lua_number2str, nhl_error throw, dupstr/NULL return). Sole C caller of the traptype wrapper: sp_lev.c:4430 (lspo_trap table arm, name="type", defval=-1).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `display.js:8648` raw_printf + `:8660` file-local vraw_printf (percent-check, BUFSZ-1 chop, raw_print named omit, execplinehandler, both early_raw_messages counts).
+  - `cfgfiles.js:425–427` config_error_add (1-line wrapper onto whole vconfig_error_add).
+  - `glyphs.js:1100` purge_all_custom_entries + `:1117` file-local purge_custom_entries (loop bounds + per-type field reset in C order).
+  - `earlyarg.js:446` file-local opt_usage (chdirx/dlb_init/genl arms unshippable, opt_terminate live).
+  - `mklev.js:1512` lspo_traptype_opt(o, defval) inline adapter (raw `o.type` read; function values String()'d, direct numbers/booleans silently fell to defval); caller `:1606` passed no field name (stale `:4432` comment; C is :4430).
+- **Fix:** 5 audits re-verified whole in fresh context (no JS change; details in Named omissions). Trap adapter restarted in C's (o, name, defval) shape on the EXISTING mklev→dungeon edge (:150, no import change): field read through the live whole helper (`get_table_str_opt(o ?? {}, name, '')`, C :4352), `trapstr && length` gate (C :4355), strcmpi loop over LSPO_TRAPTYPES (C :4356–4360), defval fallthrough (C :4355/:4363), Free≡GC; caller passes 'type' (C :4430) with the stale line comment corrected. lua_field/lua_type equivalences verified (`o` is a non-null object at :1601–1602, so `lua_field` is `o.type`; nil/string/function/else classifications identical); behavior delta is exactly the C conversion (function values pcalled; direct non-strings throw like nhl_error instead of silently keeping defval). New scripts/lspo-traptype-opt.test.mjs (helper conversion + wiring asserts).
+- **JS:** js/mklev.js (lspo_traptype_opt restart + 1-line caller). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `raw_printf`: n/a — audit only (sole vraw_printf caller wired; 30 ported callers unchanged).
+  - `config_error_add`: n/a — audit only (sole callee vconfig_error_add wired).
+  - `purge_all_custom_entries`: n/a — audit only (sole C caller save.c:1090 freedynamicdata unported, map-named).
+  - `opt_usage`: n/a — audit only (3 C sites earlyarg.c:196/:265/:316 → js/earlyarg.js:241/:317/:382, all wired).
+  - `get_table_str_opt@traptype`: C sp_lev.c:4430 → js/mklev.js:1606.
+- **Verify:** `verify.mjs --fn impossible,raw_printf,config_error_add,purge_all_custom_entries,opt_usage,get_table_str_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 6× hidden note (none blocked — normal; rows cited none) · 6× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-traptype-opt 5/5 (wiring assert authenticates the change on the HEAD file: raw-field read gone, helper call + 'type' caller present); VERIFY: PASS.
+- **Named omissions:**
+  - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+  - `raw_printf`: caller remainder above + raw_print sink + vpline_expand width/precision strip (hits only unported `%*s` debug tables; dump_enums pre-formats via padEnd js/earlyarg.js:819) + early_raw_messages consumers (unported platform pauses) — all unshippable, audit stands.
+  - `config_error_add`: none — whole (1-line wrapper; callee ported audited-whole).
+  - `purge_all_custom_entries`: freedynamicdata (save.c:1090 caller — save-freeing infra, NOTES guard, never ported); clear_symsetentry (symbols.c:347 caller of the staticfn — ledger by-design, no scored analogue).
+  - `opt_usage`: chdirx :379 (Rule #2, no CWD/filesystem); dlb_init :383 (by-design data-library init); genl_display_file(USAGEHELP, TRUE) :385 (by-design; no scored stdout channel).
+  - `get_table_str_opt`: body whole (zero-arg JS callback stands in for by-design nhl_pcall_handle; integral JS values represent Lua integers); 16 direct C callers not rewired to the shared helper: dungeon.c:1008,1009,1016,1017; nhlua.c:1412; questpgr.c:524,543,549; sp_lev.c:3133,3169,3295,3326,3457,3541,3637,3673 (4262 wired D-3467; 4352 wired D-3469; remaining sites keep inline adapters with inherited gaps).
+- **Ledger:** impossible audited; raw_printf audited; config_error_add audited; purge_all_custom_entries audited; opt_usage audited; get_table_str_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). Bundled: review 2390 Actionable 1 stamped **Addressed:** D-3463 `0c517b25` (fix shipped unstamped; hash from git log, no new stamp owed — no Must-fix popped).
+
 ## D-3468 — Must-fix: nhlua.c lcheck_param_table 1-row ledger repair (lspo_teleport_region paste retired, D-3175 caller list fully wired — retire)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: lcheck_param_table row `partial` carried lspo_teleport_region's `- `lspo_teleport_region`: none in its body/loader bindings.` whole-claim — D-3175's own finish created the row partial+paste from by-design (landed `3f8f47e04`, verified via `git show` by this iter; lspo_teleport_region itself split-live, audited whole D-3406). The queue row guessed retire-stale or restore-by-design; re-verification: RETIRE to ported (body live since D-3175, so by-design is false; the D-3175 Named caller list is now fully wired-or-equivalent, so no restoration text).

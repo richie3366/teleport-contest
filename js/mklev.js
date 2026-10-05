@@ -1505,18 +1505,22 @@ function lspo_traptype_byname(trapname) {
 }
 
 /**
- * C ref: sp_lev.c get_table_traptype_opt `:4350–4364` — empty/missing
- * "type" field yields defval; a non-matching name also yields defval
- * (C `:4355–4362` keeps res); only a table match overrides.
+ * C ref: sp_lev.c get_table_traptype_opt `:4350–4364` — unpacked-opts
+ * form. The field is read through the canonical get_table_str_opt
+ * (nhlua.c:1053–1076; nil → emptystr default, function values pcalled,
+ * any other type nhl_errors). Empty/missing keeps defval (C `:4355`
+ * `trapstr && *trapstr`); a non-matching name also keeps res (C
+ * `:4356–4361`). Free is a GC no-op (C `:4362`).
  */
-function lspo_traptype_opt(o, defval) {
-    const s = o.type;
-    if (s == null || s === '') return defval; // C :4355 emptystr default
-    const want = String(s).toLowerCase();
-    for (const [nm, typ] of LSPO_TRAPTYPES) {
-        if (want === nm) return typ; // C :4357-4360
+function lspo_traptype_opt(o, name, defval) {
+    const trapstr = get_table_str_opt(o ?? {}, name, ''); // C :4352 (emptystr)
+    if (trapstr && trapstr.length !== 0) { // C :4355
+        const want = trapstr.toLowerCase();
+        for (const [nm, typ] of LSPO_TRAPTYPES) {
+            if (want === nm) return typ; // C :4356–4360 strcmpi
+        }
     }
-    return defval;
+    return defval; // C :4355/:4363
 }
 
 /**
@@ -1599,7 +1603,7 @@ export function lspo_trap(a, b, c) {
         const xy = get_table_xy_or_coord(o); // C :4431
         x = xy.x;
         y = xy.y;
-        tmp.type = lspo_traptype_opt(o, -1); // C :4432
+        tmp.type = lspo_traptype_opt(o, 'type', -1); // C :4430
         tmp.spider_on_web = !!splev_opt_boolean(o.spider_on_web, 1); // C :4433
         tmp.seen = !!splev_opt_boolean(o.seen, 0); // C :4434
         tmp.novictim = !splev_opt_boolean(o.victim, 1); // C :4435

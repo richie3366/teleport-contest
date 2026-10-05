@@ -93,5 +93,6 @@ seeds/coords/fastforward.
    C options.c:5290–5292) before the legacy call and render
    `pauper_legacy` text (quest.lua:157) when set; or narrow the ledger
    omit + audit note to name it. One iter, pauper-only behavior delta.
+   **Addressed:** D-3463 `0c517b25`.
 
 Verdict: **QUALITY-RISK**

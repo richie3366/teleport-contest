@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3469 Open head: impossible + 4 audits, lspo_traptype_opt→helper rewire (sp_lev.c:4352 name-param gap)
+
+**C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+**JS:** js/mklev.js (lspo_traptype_opt restart + 1-line caller). 1 changed js file.
+**Change:** 5 audits re-verified whole in fresh context (no JS change; details in Named omissions). Trap adapter restarted in C's (o, name, defval) shape on the EXISTING mklev→dungeon edge (:150, no import change): field read through the live whole helper (`get_table_str_opt(o ?? {}, name, '')`, C :4352), `trapstr && length` gate (C :4355), strcmpi loop over LSPO_TRAPTYPES (C :4356–4360), defval fallthrough (C :4355/:4363), Free≡GC; caller passes 'type' (C :4430) with the stale line comment corrected. lua_field/lua_type equivalences verified (`o` is a non-null object at :1601–1602, so `lua_field` is `o.type`; nil/string/function/else classifications identical); behavior delta is exactly the C conversion (function values pcalled; direct non-strings throw like nhl_error instead of silently keeping defval). New scripts/lspo-traptype-opt.test.mjs (helper conversion + wiring asserts).
+**Verify:** `verify.mjs --fn impossible,raw_printf,config_error_add,purge_all_custom_entries,opt_usage,get_table_str_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 6× hidden note (none blocked — normal; rows cited none) · 6× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-traptype-opt 5/5 (wiring assert authenticates the change on the HEAD file: raw-field read gone, helper call + 'type' caller present); VERIFY: PASS.
+**Named:** - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+**Next:** Must-fix heads stay queued (deferred per override). Bundled: review 2390 Actionable 1 stamped **Addressed:** D-3463 `0c517b25` (fix shipped unstamped; hash from git log, no new stamp owed — no Must-fix popped).
 ## 2026-10-05 — D-3468 Must-fix: nhlua.c lcheck_param_table 1-row ledger repair (lspo_teleport_region paste retired, D-3175 caller list fully wired — retire)
 
 **C locus:** row home only (no C re-read; body brief-read this iter): nhlua.c `lcheck_param_table` :225–236 (argc<1 → empty table; discard extras via settop; checktype table; 27 direct C sites + extern decl).
