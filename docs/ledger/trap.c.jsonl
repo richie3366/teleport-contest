@@ -4,7 +4,7 @@
 {"fn":"mk_trap_statue","c":"390-414","status":"partial","js":["js/trap.js:mk_trap_statue"],"omit":"- `mk_trap_statue`: full mongone donor cleanup (worm-segment/timer/shop arms) — mongone is async, mk_trap_statue runs in sync level gen; fmon/light subset stands in as local mongone_statue_donor.","d":["D-3430","D-3427","D-3426"],"at":"2026-10-05@adae017b4","note":"audited D-3430: remaining omit cannot ship"}
 {"fn":"dng_bottom","c":"418-438","status":"ported","js":["js/trap.js:dng_bottom"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hole_destination","c":"442-453","status":"ported","js":["js/trap.js:hole_destination"],"at":"2026-10-03@bbe63333a"}
-{"fn":"maketrap","c":"456-588","status":"ported","js":["js/trap.js:maketrap"],"d":["D-3431","D-3430","D-3427","D-3426","D-1300","D-1296"],"at":"2026-10-05@9ec606a36","note":"D-3427: doset paste-over replaced with the D-3426 Named remainder (review 2372.1)"}
+{"fn":"maketrap","c":"456-588","status":"ported","js":["js/trap.js:maketrap"],"d":["D-3437","D-3431","D-3430","D-3427","D-3426","D-1300"],"at":"2026-10-05@52e6ce3d0","note":"audited D-3437: whole vs C"}
 {"fn":"clamp_hole_destination","c":"593-599","status":"ported","js":["js/trap.js:clamp_hole_destination"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fall_through","c":"602-696","status":"ported","js":["js/trap.js:fall_through"],"at":"2026-10-03@bbe63333a"}
 {"fn":"animate_statue","c":"726-900","status":"ported","js":["js/trap.js:animate_statue"],"d":["D-3426","D-3425"],"at":"2026-10-04@0d801c73f","note":"audit 2026-10-03: also a11y-only: set_msg_xy skipped"}
@@ -101,7 +101,7 @@
 {"fn":"openholdingtrap","c":"6101-6205","status":"ported","js":["js/trap.js:openholdingtrap"],"d":["D-3426","D-2317"],"at":"2026-10-04@0d801c73f"}
 {"fn":"closeholdingtrap","c":"6210-6247","status":"ported","js":["js/trap.js:closeholdingtrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"openfallingtrap","c":"6252-6289","status":"ported","js":["js/trap.js:openfallingtrap"],"at":"2026-10-03@bbe63333a"}
-{"fn":"chest_trap","c":"6294-6499","status":"ported","js":["js/trap.js:chest_trap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
+{"fn":"chest_trap","c":"6294-6499","status":"ported","js":["js/trap.js:chest_trap"],"d":["D-3437","D-3426"],"at":"2026-10-05@52e6ce3d0"}
 {"fn":"t_at","c":"6502-6512","status":"ported","js":["js/trap.js:t_at"],"d":["D-3334"],"at":"2026-10-03@b98ade69c"}
 {"fn":"count_traps","c":"6516-6528","status":"ported","js":["js/trap.js:count_traps"],"at":"2026-10-03@bbe63333a"}
 {"fn":"deltrap","c":"6531-6549","status":"ported","js":["js/trap.js:deltrap"],"d":["D-2921"],"at":"seed@a30a7de84"}

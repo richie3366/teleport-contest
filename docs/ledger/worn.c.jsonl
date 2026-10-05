@@ -1,6 +1,6 @@
 {"fn":"recalc_telepat_range","c":"50-69","status":"ported","js":["js/do_wear.js:recalc_telepat_range"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: TELEPAT oprop count + ETelepat&W_ART; W_BALL/W_CHAIN slots omitted but never TELEPAT"}
 {"fn":"setworn","c":"73-145","status":"ported","js":["js/do_wear.js:setworn"],"d":["D-1757"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: I_SPECIAL arm, full slot loop (impossible/twoweap/extrinsic/blocks/artifact/cancel_doff), nudist/tux/botl/update_inventory/recalc"}
-{"fn":"setnotworn","c":"150-184","status":"ported","js":["js/do.js:setnotworn"],"d":["D-3426"],"at":"2026-10-04@0d801c73f","note":"audit 2026-10-03: twoweap/slot clear/extrinsic/artifact/blocks/tux/botl/recalc match"}
+{"fn":"setnotworn","c":"150-184","status":"ported","js":["js/do.js:setnotworn"],"d":["D-3437","D-3426"],"at":"2026-10-05@52e6ce3d0","note":"audited D-3437: whole vs C"}
 {"fn":"allunworn","c":"188-201","status":"ported","js":["js/worn.js:allunworn"],"d":["D-3163"],"at":"2026-09-30@12c02ee30","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wearmask_to_obj","c":"206-214","status":"ported","js":["js/worn.js:wearmask_to_obj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 16 slots in C worn[] order"}
 {"fn":"wornmask_to_armcat","c":"218-246","status":"ported","js":["js/worn.js:wornmask_to_armcat"],"d":["D-3163"],"at":"2026-09-30@12c02ee30","note":"refresh: no JS symbol (measured MISSING)"}

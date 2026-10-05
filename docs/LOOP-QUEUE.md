@@ -92,7 +92,6 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 - [ ] D-3431 `domove_core`/`goto_level` rows: direct `ledger.mjs set` ×2, no JS (D-3427 protocol) — restore D-3431 Named texts reconciled with D-3432 extensions (review 2377 verifies; details in review). Source: reviews/loop-unattended/2376-801b58f13-batch-d3431.md.
 - [ ] D-3430 6-row repair: direct `ledger.mjs set` ×6, no JS (D-3427 protocol) — newgame/strncmpi/doset/Strlen_ ← D-3430 Named; sanity_check minus retired clause (by-design per review 2376); record_achievement ← SoundAchievement clause only. Source: reviews/loop-unattended/2375-9ec606a36-batch-d3430.md.
-- [ ] `ball.c` litter setnotworn bypass: js/ball.js:litter inlines a slot-nulling subset (drops twoweap/extrinsic/artifact/botl effects) — replace with the live `setnotworn` import from do.js (ALREADY edge; sync). Verify: gates + `verify litter` + wielded-artifact case. Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md.
 - [ ] D-3429 3-row repair: direct `ledger.mjs set` ×3, no JS (D-3427 protocol) — moveloop/bc_sanity_check ← pre-D-3429 texts (quoted in review); wary_dog ← retire stale line (body whole). Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md.
 
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
@@ -166,14 +165,15 @@ below) to hold the 8-row band.
 D-3425 (Must-fix; band 7 < 8 blocks finish) refilled +1 with
 batch-preview `pick_nasty` partial (rogue re-ROLL brief-verified
 below) to hold the 8-row band.
+D-3437 (Open head + litter fix; band 4 < 8 blocks finish) refilled +4
+with brief-verified missing arms (doopen_indir glyph, toss_up can_blnd,
+dokick oldmem, more fuzzer — each C + JS read at enqueue) to hold the
+8-row band.
 
-- [ ] `do_wear.c` Helmet_on — C do_wear.c:465–472 HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign flip + fallthrough glow/curse) absent from js/do_wear.js:Helmet_on (:1307–1386: :1353–1355 deferred comment, uchangealign unported; brief-read 2026-10-04) @ca5a16a92
-- [ ] `worn.c` setnotworn — C worn.c:182 update_inventory() absent from js/do.js:setnotworn (:516–556: tail :550–555 carries tux_penalty/botl/recalc, no update_inventory; doc :513 names it; brief-read 2026-10-04) @ca5a16a92
-- [ ] `trap.c` maketrap — C trap.c:482 LEVEL_TELEP && single_level_branch (Knox) refuse gate absent from js/trap.js:maketrap (:955–1097: :983 named omission; brief-read 2026-10-04) @ca5a16a92
-- [ ] `trap.c` chest_trap — C trap.c:6361–6362 inside_shop(ux,uy) insider gate absent from js/trap.js:chest_trap (:7970–8161: :8009–8013 ushops/rooms-only insider, no inside_shop call; brief-read 2026-10-04) @ca5a16a92
-- [ ] `muse.c` find_misc — C muse.c:2151 nomore(x) (`if (has_misc == x) continue`, skips rest of obj) absent from js/muse.js:find_misc (:2222–2346: doc :2219–2220 names per-check `!==` instead of continue — later viable objs override earlier priority vs C first-arm-priority; brief-read 2026-10-04) @6e056005c
-- [ ] `muse.c` use_misc — C muse.c:2453 `if (canspotmon(mtmp))` transparency gate absent from js/muse.js:use_misc (:3160–3187 INVIS arm tests `canseemon(mtmp)` at :3171, misrouting telepathy/sensemon-sensed monsters to the cannot-see + map_invisible branch; brief-read 2026-10-04) @011b251ee
-- [ ] `wizard.c` pick_nasty — C wizard.c:547–549 rogue-level uppercase re-ROLL (Is_rogue_level && monsym not A-Z → second ROLL_FROM) absent from js/makemon.js:pick_nasty (:1196–1222: :1198 deferred comment, monsym table not wired; brief-read 2026-10-04) @c4d4e5278
+- [ ] `lock.c` doopen_indir — C lock.c:832–840 door->glyph learned half (oldglyph snapshot + newsym + glyph-compare → ECMD_TIME) absent from js/lock.js:doopen_indir (:919–923: lastseentyp half only; pick_lock :1421 cellGlyph precedent; brief-read 2026-10-05) @52e6ce3d0
+- [ ] `dothrow.c` toss_up — C dothrow.c:1297 live can_blnd AT_WEAP call; mondata.c:327–328 raven-self + :344–351 EBlinded(pie)/ublindf/ucreamed/visor(venom) gates absent from js/dothrow.js:can_blnd_toss_self subset (:1298–1304, caller :1655–1659; live can_blnd js/uhitm.js:359 covers all; brief-read 2026-10-05) @52e6ce3d0
+- [ ] `dokick.c` dokick — C dokick.c:1417–1418 unconditional show_glyph(x,y,oldglyph) restore absent from js/dokick.js:1725 in the !oldmem case (`&& oldmem` gate; review 1682 §1; display-only corner; brief-read 2026-10-05) @52e6ce3d0
+- [ ] `topl.c` more — C win/tty/topl.c:209–210 `if (iflags.debug_fuzzer) return` skip absent from js/display.js:more (:7871–7873: doc names it, only inmore guard live; flag live in JS; fuzzer-only; brief-read 2026-10-05) @52e6ce3d0
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

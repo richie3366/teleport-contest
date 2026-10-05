@@ -29,20 +29,21 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3436 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3437 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3436.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3436 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3437.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3437 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3437: - `litter`: deleted the 14-line subset; calls the live whole `setnotworn` (js/do.js:516; WORN_SLOTS ≡ C worn[] incl. Named: none — both fixes whole (pre-existing file-locals freeinv_ball/canletgo_silent untouched, 
 - D-3436: direct `ledger.mjs set` ×1 (NOT via finish-iteration), each sub-omit re-verified still unshipped first (getposx/y — no `getposx`/`getposy` in js/getpo Named: - `getpos`: gg.getposx/getposy stores (:848–849, :1144, :1160 exit zeroing) — sole C reade
 - D-3435: C-exact condition + time&&run botl sub-arm after cliparound, before the Lua callbacks (runmode normalized with RUN_LEAP default per initoptions_init ` Named: - `moveloop_core`: none — whole.
 - D-3434: mv=1 setter in both walk dispatch sites + mv replay path (COLNO-ride quirk exact; termination is bump-nomul at hack.c:2848 plus the finite map — no ha Named: - `moveloop_core`: run/tport MAP redisplay every 7th multi/moves (house run-flush model — 
@@ -57,5 +58,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3425: one-line mndx flip per dead site — `(x?.mndx ?? -1) ===/!== PM_X` (house `?? -1` idiom, already pervasive in trap.js; null-safe: null data behaves exa Named: - `animate_statue`: shop/monster ownership prefix (shk_your Manlobbi's/mon's) reduced to t
 - D-3424: deleted all 6 locals (pointer comments left); dig/mthrowu/muse/trap added `canseemon` to the existing display.js import (no new module edge — all 5 fi Named: none — live bodies whole vs C (worm/infrared/See_invisible/mundetected/sensemon arms all l
 - D-3423: direct `ledger.mjs set` ×3 (NOT via finish-iteration), each sub-omit re-verified still unshipped first (m_dowear `m_dowear(mtmp, true)` un-awaited at  Named: - `makemon`: m_dowear fire-and-forget (makemon.c:1445; sync level gen, js/makemon.js:3761)
-- D-3422: - `mbhit`: shipped both arms (map_invisible + destroy_drawbridge). Named: none — all four whole (`cpostfx`'s WIN_MAP flush is the shipped house more() idiom, not an
 <!-- landmarks:end -->

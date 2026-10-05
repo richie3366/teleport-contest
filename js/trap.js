@@ -8160,7 +8160,7 @@ export async function chest_trap(obj, bodypart, disarm) {
             const Shock_resistance = !!(u.Shock_resistance
                 || u.HShock_resistance || u.EShock_resistance);
             if (Shock_resistance) {
-                // shieldeff deferred
+                await shieldeff(u.ux | 0, u.uy | 0); // C `:6447`
                 await pline("You don't seem to be affected.");
                 monstseesu(M_SEEN_ELEC);
                 dmg = 0;

@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3437 — Open head: litter setnotworn fix + chest_trap shieldeff + 8 stale audits
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4321 a failed port; Must-fix head is docs-only ledger repair) — ship the Open head with real `js/` work (D-3410/D-3422 precedent; Must-fix #1–2/#4 deferred, still queued). All 8 Open-head rows brief-verified stale (7 missing-arm cited arms live since D-3426/D-3431; `impossible` Rule #2 only per D-3420; batch manifest empty, min-C-lines-1 rows all audited, `--all` rows excluded tty/files/termcap). Real work ×2: (a) review 2374 litter C-wrong — inline slot-nulling subset instead of C's setnotworn call, dropping twoweap/extrinsic/artifact/botl effects (reachable: uncursed wielded artifact passes canletgo("") and litter-drops with intrinsics kept + twoweap stuck); (b) chest_trap shock arm's deferred shieldeff (live export, 12 wired sites incl. same-file trap.js:4433). No corpus session blocked on any of the 9 at baseline (coverage rows; hidden notes expected).
+- **C locus:**
+  - `litter`: ball.c:965–983 — nextobj walk (:970), uball skip + rnd(capacity)<=owt (:971), canletgo "" (:972), stairs pline (:973–975), setnotworn (:980), freeinv (:981), hitfloor FALSE (:982).
+  - `chest_trap`: trap.c:6445–6449 — jolt arm Shock_resistance → shieldeff(u.ux,u.uy) (:6447) + unaffected pline.
+- **JS was:**
+  - `litter` (js/ball.js:180): loop/gate/plines exact, but :197–210 inlined a setnotworn subset (setuwep/setuswapwep/setuqwep nulls + 11-slot loop + owornmask=0) with no twoweap/cancel_doff/extrinsic/mseenres/artifact/w_blocks/tux/botl/update_inventory/telepat (review 2374).
+  - `chest_trap` (js/trap.js:8038): shock arm :8161–8165 carried `// shieldeff deferred` where C :6447 paints.
+- **Fix:**
+  - `litter`: deleted the 14-line subset; calls the live whole `setnotworn` (js/do.js:516; WORN_SLOTS ≡ C worn[] incl. W_WEP/W_SWAPWEP/W_QUIVER, worn.c:27–29 ≡ js/do.js:274–276); extended ball.js:22 do.js import (imports.mjs ALREADY; sync, no TDZ). Doc + C :980 cite.
+  - `chest_trap`: `await shieldeff(u.ux | 0, u.uy | 0)` (live js/display.js:5030, async; trap.js already imports it — same-file call at :4433, no new edge).
+- **JS:** js/ball.js (:22 import, :175–179 doc, :197–210 → :199–202 live call); js/trap.js (:8162–8163 one awaited call).
+- **Callers:**
+  - `litter`: C ball.c:1012 (drag_down forward rn2(6) arm) → JS js/ball.js:239; C ball.c:1028 (backward dragchance arm) → JS js/ball.js:264 (both pre-wired, unchanged).
+  - `chest_trap`: callers unchanged (kick/open/force); the arm fires inside the existing case 8/7/6.
+- **Verify:** `verify.mjs --fn litter,impossible,Helmet_on,setnotworn,maketrap,chest_trap,find_misc,use_misc,pick_nasty` → PASS syntax (1 js) · PASS rule2 · hidden note ×9 (no corpus session blocked at baseline) · REACH-OK ×8 (smoke 24/24 ×5; find_misc 13/13; use_misc 12/12; pick_nasty 38/38) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7; litter first sweep 23/24 on an unattributed worker js-throw (no step/owner/message) — triaged environmental flake (same session PASS ×5 same-run same-code), re-ran `verify.mjs --fn litter` once per protocol → 24/24 REACH-OK, VERIFY: PASS. Post-shieldeff `verify.mjs --fn chest_trap,litter` → REACH-OK ×2 (24/24 each) · green/strict/cohort PASS · VERIFY: PASS. Wielded-artifact probe (/tmp/litter-artifact-probe.mjs; throwaway — no maintained unit harness in-repo, sessions/** authority, D-3422 precedent): Excalibur-wield + twoweap → setnotworn clears uwep/twoweap/owornmask-W_WEP/DRAIN_RES-extrinsic, offhand untouched — 5/5 PASS.
+- **Named omissions:** none — both fixes whole (pre-existing file-locals freeinv_ball/canletgo_silent untouched, review-accepted); 8 audited rows carry no shippable remainder (7 arms live since D-3426/D-3431; impossible Rule #2 per D-3420). Single-line shape per D-3420/D-3422 (guards the finish first-line stamping path, 15 iters per D-3436).
+- **Ledger:** litter ported; chest_trap ported; impossible audited; Helmet_on audited; setnotworn audited; maketrap audited; find_misc audited; use_misc audited; pick_nasty audited
+- **Left open:** none.
+- **Next:** Must-fix head (D-3431 rows, review 2376); 4 refills hold the band (doopen_indir, toss_up, dokick, more).
+
 ## D-3436 — Must-fix review 2379: D-3434 getpos row restored
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** review 2379 QUALITY-RISK Actionable 1: D-3434's finish pasted moveloop_core's MAP-redisplay omit into the getpos row, so getpos's standing omit (getposx/y async-resize model + muse/restore CLIPPING clean-room) had no row home. 15th finish-stamping iter (D-3434's own count: 4th consecutive batch); truth recovered from the D-3434 Named bullet + review 2379's quoted restore text, each sub-omit re-verified still unshipped by this iter and by the review.

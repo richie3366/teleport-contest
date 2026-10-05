@@ -5,7 +5,17 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
-- [x] D-3434 `getpos` row: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — restore getposx/y + muse/restore clean-room text (re-verified, quoted in review). Source: reviews/loop-unattended/2379-c62203c66-batch-d3434.md. **Addressed:** D-3436
+- [x] `ball.c` litter setnotworn bypass: js/ball.js:litter inlines a slot-nulling subset (drops twoweap/extrinsic/artifact/botl effects) — replace with the live `setnotworn` import from do.js (ALREADY edge; sync). Verify: gates + `verify litter` + wielded-artifact case. Source: reviews/loop-unattended/2374-adae017b4-batch-d3429.md. **Addressed:** D-3437
+- [x] `do_wear.c` Helmet_on — C do_wear.c:465–472 HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign flip + fallthrough glow/curse) absent from js/do_wear.js:Helmet_on (:1307–1386: :1353–1355 deferred comment, uchangealign unported; brief-read 2026-10-04) @ca5a16a92 **Addressed:** D-3437 (stale: arm live js/do_wear.js:1353–1364, D-3426)
+- [x] `worn.c` setnotworn — C worn.c:182 update_inventory() absent from js/do.js:setnotworn (:516–556: tail :550–555 carries tux_penalty/botl/recalc, no update_inventory; doc :513 names it; brief-read 2026-10-04) @ca5a16a92 **Addressed:** D-3437 (stale: live js/do.js:555, D-3426)
+- [x] `trap.c` maketrap — C trap.c:482 LEVEL_TELEP && single_level_branch (Knox) refuse gate absent from js/trap.js:maketrap (:955–1097: :983 named omission; brief-read 2026-10-04) @ca5a16a92 **Addressed:** D-3437 (stale: live js/trap.js:992, D-3431)
+- [x] `trap.c` chest_trap — C trap.c:6361–6362 inside_shop(ux,uy) insider gate absent from js/trap.js:chest_trap (:7970–8161: :8009–8013 ushops/rooms-only insider, no inside_shop call; brief-read 2026-10-04) @ca5a16a92 **Addressed:** D-3437 (stale: live js/trap.js:8079–8084)
+- [x] `muse.c` find_misc — C muse.c:2151 nomore(x) (`if (has_misc == x) continue`, skips rest of obj) absent from js/muse.js:find_misc (:2222–2346: doc :2219–2220 names per-check `!==` instead of continue — later viable objs override earlier priority vs C first-arm-priority; brief-read 2026-10-04) @6e056005c **Addressed:** D-3437 (stale: all 8 nomore continues live js/muse.js:2278–2339, D-3426)
+- [x] `muse.c` use_misc — C muse.c:2453 `if (canspotmon(mtmp))` transparency gate absent from js/muse.js:use_misc (:3160–3187 INVIS arm tests `canseemon(mtmp)` at :3171, misrouting telepathy/sensemon-sensed monsters to the cannot-see + map_invisible branch; brief-read 2026-10-04) @011b251ee **Addressed:** D-3437 (stale: live js/muse.js:3183, D-3426)
+- [x] `wizard.c` pick_nasty — C wizard.c:547–549 rogue-level uppercase re-ROLL (Is_rogue_level && monsym not A-Z → second ROLL_FROM) absent from js/makemon.js:pick_nasty (:1196–1222: :1198 deferred comment, monsym table not wired; brief-read 2026-10-04) @c4d4e5278 **Addressed:** D-3437 (stale: live js/makemon.js:1199 + monsym_isupper :1338, all 3 C callers wired)
+
+
+- [x] D-3434 `getpos` row: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — restore getposx/y + muse/restore clean-room text (re-verified, quoted in review). Source: reviews/loop-unattended/2379-c62203c66-batch-d3434.md. **Addressed:** D-3436 `52e6ce3d0`
 
 ## 2026-10-04
 

@@ -24,10 +24,10 @@
 {"fn":"buzz_force_miss","c":"1815-1818","status":"ported","js":["js/muse.js:buzz_force_miss"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_offensive","c":"1824-2032","status":"ported","js":["js/muse.js:use_offensive"],"d":["D-1810"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"rnd_offensive_item","c":"2035-2081","status":"ported","js":["js/makemon.js:rnd_offensive_item"],"d":["D-2983"],"at":"2026-09-27@529e9bfc5"}
-{"fn":"find_misc","c":"2095-2245","status":"ported","js":["js/muse.js:find_misc"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
+{"fn":"find_misc","c":"2095-2245","status":"ported","js":["js/muse.js:find_misc"],"d":["D-3437","D-3426"],"at":"2026-10-05@52e6ce3d0","note":"audited D-3437: whole vs C"}
 {"fn":"muse_newcham_mon","c":"2250-2261","status":"ported","js":["js/muse.js:muse_newcham_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mloot_container","c":"2264-2378","status":"ported","js":["js/muse.js:mloot_container"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"use_misc","c":"2383-2626","status":"ported","js":["js/muse.js:use_misc"],"d":["D-3426","D-2211","D-2072","D-1811"],"at":"2026-10-04@0d801c73f"}
+{"fn":"use_misc","c":"2383-2626","status":"ported","js":["js/muse.js:use_misc"],"d":["D-3437","D-3426","D-2211","D-2072","D-1811"],"at":"2026-10-05@52e6ce3d0","note":"audited D-3437: whole vs C"}
 {"fn":"you_aggravate","c":"2631-2651","status":"ported","js":["js/muse.js:you_aggravate"],"d":["D-2178"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rnd_misc_item","c":"2654-2686","status":"ported","js":["js/makemon.js:rnd_misc_item"],"d":["D-2086"],"at":"2026-10-03@bbe63333a"}
 {"fn":"necrophiliac","c":"2691-2702","status":"by-design","d":["D-3042"],"at":"2026-09-28@725011334","note":"C muse.c:2688-2703 inside #if 0 (both trees); sole reference is a comment at :1309; never compiled, no JS port"}
