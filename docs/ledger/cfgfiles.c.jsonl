@@ -85,7 +85,7 @@
 {"fn":"config_error_add","c":"1865-1872","status":"ported","js":["js/cfgfiles.js:config_error_add"],"d":["D-3480","D-3477","D-3469","D-3405","D-3173"],"at":"2026-10-05@b6f50b8ed","note":"audited D-3480: whole vs C"}
 {"fn":"vconfig_error_add","c":"1875-1890","status":"ported","js":["js/cfgfiles.js:vconfig_error_add"],"d":["D-3405","D-3173","D-3134"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"rcfile","c":"1894-1957","status":"ported","js":["js/cfgfiles.js:rcfile"],"at":"2026-10-03@bbe63333a"}
-{"fn":"rcfile_interface_options","c":"1960-1976","status":"partial","js":["js/cfgfiles.js:rcfile_interface_options"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-3405","D-2787"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"rcfile_interface_options","c":"1960-1976","status":"ported","js":["js/cfgfiles.js:rcfile_interface_options"],"d":["D-3405","D-2787"],"at":"2026-10-05@f9784b860","note":"retire D-3493: initoptions clause misplaced per D-3405 Symptom (not callees); body whole js/cfgfiles.js:1360-1377, 0 C sites"}
 {"fn":"heed_all_config_statements","c":"1979-1986","status":"ported","js":["js/cfgfiles.js:heed_all_config_statements"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"disregard_all_config_statements","c":"1988-1995","status":"ported","js":["js/cfgfiles.js:disregard_all_config_statements"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"heed_this_config_statement","c":"1997-2001","status":"ported","js":["js/cfgfiles.js:heed_this_config_statement"],"d":["D-3152"],"at":"2026-09-30@836f908c6","note":"refresh: no JS symbol (measured MISSING)"}

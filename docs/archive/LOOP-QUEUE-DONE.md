@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] cfgfiles.c rcfile_interface_options 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — rcfile_interface_options ← misplaced-clause paste ("`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).", quoted from `ledger.mjs show rcfile_interface_options` 2026-10-05, d=D-3405,D-2787; same head as the queued parse_conf_str row, which names this sibling; note also reads "audited D-3405: remaining omit cannot ship"); JS body reads whole at enqueue (js/cfgfiles.js:1360–1377, C 14/JS 14, all :1962–1975 arms in order, 0 C call sites — likely retire-stale or restore-narrowed, D-3405 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger paste scan + brief 2026-10-05; popping the bad_negation head dropped the band to 7, finish fails closed below 8).
+
+
 - [x] cfgfiles.c parse_conf_str 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — parse_conf_str ← misplaced-clause paste ("`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).", quoted from `ledger.mjs show parse_conf_str` 2026-10-05, d=D-3405,D-2787; same head on sibling rcfile_interface_options per ledger scan; D-3405 Symptom already calls these clauses "(misplaced)" yet the row stayed partial); JS body reads whole at enqueue (js/cfgfiles.js:1224–1245, C 21/JS 18, all C arms :1815–1835 in order — likely retire-stale or restore-narrowed, D-3405 Named truth unverified at enqueue); restore-or-retire re-verified at repair. Source: port-iter band refill (ledger paste scan + brief 2026-10-05; popping the config_error_add head dropped the band to 7, finish fails closed below 8). **Addressed:** D-3491 `0bc81d6c6`
 
 
