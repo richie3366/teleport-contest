@@ -79,7 +79,7 @@
 {"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-3264"],"at":"2026-10-02@d947745c9"}
 {"fn":"maybe_wail","c":"4211-4243","status":"ported","js":["js/hack.js:maybe_wail"],"at":"2026-10-03@bbe63333a"}
-{"fn":"showdamage","c":"4247-4253","status":"ported","js":["js/hack.js:showdamage"],"d":["D-3388","D-3105"],"at":"2026-10-03@41ae7cfca","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"showdamage","c":"4247-4253","status":"ported","js":["js/hack.js:showdamage"],"d":["D-3446","D-3388","D-3105"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: live js/hack.js:showdamage (D-3388 whole); refresh MISSING note retired (review 2343.1)"}
 {"fn":"losehp","c":"4256-4292","status":"ported","js":["js/hack.js:losehp"],"d":["D-3388","D-2051"],"at":"2026-10-03@41ae7cfca"}
 {"fn":"weight_cap","c":"4295-4346","status":"ported","js":["js/invent.js:weight_cap"],"d":["D-2819"],"at":"seed@a30a7de84"}
 {"fn":"inv_weight","c":"4351-4365","status":"ported","js":["js/invent.js:inv_weight"],"d":["D-2827"],"at":"seed@a30a7de84"}
@@ -87,9 +87,9 @@
 {"fn":"near_capacity","c":"4385-4388","status":"ported","js":["js/invent.js:near_capacity"],"at":"2026-10-03@bbe63333a"}
 {"fn":"max_capacity","c":"4391-4396","status":"ported","js":["js/invent.js:max_capacity"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_capacity","c":"4399-4409","status":"ported","js":["js/hack.js:check_capacity"],"d":["D-3266"],"at":"2026-10-02@a2542cfc9"}
-{"fn":"dump_weights","c":"4421-4483","status":"split","js":["js/hack.js:dump_weights","js/hack.js:dump_weights_lines"],"omit":"- `spot_checks`: none — every arm ported, every callee live (`spot_time_left`, `spot_stop_timers`, `obj_ice_effects`).","d":["D-3062"],"at":"2026-10-01@1633dc128","note":"stale: whole C body live across dump_weights + dump_weights_lines (D-3062); freedynamicdata/earlyarg-caller omits stand"}
+{"fn":"dump_weights","c":"4421-4483","status":"split","js":["js/hack.js:dump_weights","js/hack.js:dump_weights_lines"],"omit":"freedynamicdata `:4482` (seed by-design save-freeing, CURRENT.md Do not); footer via raw_printf (JS raw_print unported — display.js vraw_printf omit); `%*s` via padEnd (vraw_printf strips widths — D-2573).","d":["D-3446","D-3062"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: D-3062 Named text; spot_checks paste retired (split flip, review 2345.1 sweep); earlyarg.c:539 wired D-3426"}
 {"fn":"cmp_weights","c":"4486-4493","status":"ported","js":["js/hack.js:cmp_weights"],"at":"2026-10-03@d6a4a5312","note":"stale: js/hack.js:4012 (D-3062)"}
 {"fn":"inv_cnt","c":"4496-4507","status":"ported","js":["js/steal.js:inv_cnt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"money_cnt","c":"4514-4522","status":"ported","js":["js/shk.js:money_cnt"],"d":["D-3332"],"at":"2026-10-03@50d9779cf"}
-{"fn":"spot_checks","c":"4525-4547","status":"ported","js":["js/hack.js:spot_checks"],"d":["D-3062"],"at":"2026-09-28@fb9c2049c","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"spot_checks","c":"4525-4547","status":"ported","js":["js/hack.js:spot_checks"],"d":["D-3446","D-3062"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: live js/hack.js:spot_checks (D-3062 whole); refresh MISSING note retired (review 2345.1 sweep)"}
 {"fn":"rounddiv","c":"4551-4572","status":"ported","js":["js/hack.js:rounddiv"],"d":["D-3105"],"at":"2026-09-29@e32d557c0"}

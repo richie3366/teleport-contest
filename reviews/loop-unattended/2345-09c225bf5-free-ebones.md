@@ -3,6 +3,7 @@
 **SHA:** `09c225bf5` — "`bones.c` free_ebones mextra+EBONES free+null (D-3390)."
 **Scope:** js/bones.js +15/−1 (export + import name) + 3 ledger flips (1 live, 2 stale). Single function.
 **Prior reviews closed:** none.
+**Addressed:** D-3446
 
 ## Intent vs deliverable
 

@@ -10,7 +10,7 @@
 {"fn":"close_nhfile","c":"518-531","status":"ported","js":["js/files.js:close_nhfile"],"d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
 {"fn":"rewind_nhfile","c":"534-545","status":"ported","js":["js/files.js:rewind_nhfile"],"d":["D-3387"],"at":"2026-10-03@bd0144c89"}
 {"fn":"viable_nhfile","c":"549-579","status":"ported","js":["js/files.js:viable_nhfile"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local in JS; all gates live"}
-{"fn":"nhclose","c":"583-594","status":"partial","js":["js/files.js:nhclose"],"omit":"- `close_nhfile`: nhclose/fclose/fplog-fprintf sinks (Rule #2; resets live).","d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
+{"fn":"nhclose","c":"583-594","status":"partial","js":["js/files.js:nhclose"],"omit":"close_check/bclose (by-design, sfstruct registry) + POSIX close (no VFS counterpart); fd>=0 gate + retval live.","d":["D-3446","D-3381"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: D-3381 Named text; close_nhfile paste retired (D-3381 finish-stamping, review 2336.1)"}
 {"fn":"set_levelfile_name","c":"606-618","status":"ported","js":["js/files.js:set_levelfile_name"],"at":"2026-10-03@bbe63333a"}
 {"fn":"create_levelfile","c":"621-670","status":"partial","js":["js/files.js:create_levelfile"],"omit":"platform creat/setmode arms (MICRO/WIN32/MACOS9/MSDOS); FCMASK mode bits + POSIX errno (no POSIX creat under VFS); the creat-failure Sprintf arm (unreachable — slot-ensure always succeeds); `bufon`/`savelev`/`close_nhfile`/`panic` tails (owned by the unported wrapper rows, not this function).","d":["D-2555"],"at":"seed@a30a7de84"}
 {"fn":"open_levelfile","c":"673-716","status":"ported","js":["js/files.js:open_levelfile"],"d":["D-2472"],"at":"seed@a30a7de84"}
@@ -38,8 +38,8 @@
 {"fn":"free_saved_games","c":"1543-1552","status":"unknown"}
 {"fn":"redirect","c":"1563-1581","status":"unknown"}
 {"fn":"docompress_file","c":"1591-1775","status":"by-design","at":"seed@a30a7de84","note":"seed: external compressor (Rule #2)"}
-{"fn":"nh_compress","c":"1787-1792","status":"partial","js":["js/files.js:nh_compress"],"omit":"- `close_nhfile`: nhclose/fclose/fplog-fprintf sinks (Rule #2; resets live).","d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
-{"fn":"nh_uncompress","c":"1796-1801","status":"partial","js":["js/files.js:nh_uncompress"],"omit":"- `close_nhfile`: nhclose/fclose/fplog-fprintf sinks (Rule #2; resets live).","d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
+{"fn":"nh_compress","c":"1787-1792","status":"partial","js":["js/files.js:nh_compress"],"omit":"docompress_file(FALSE) sink by-design (Rule #2); gate live.","d":["D-3446","D-3381"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: D-3381 Named text; close_nhfile paste retired (D-3381 finish-stamping, review 2336.1)"}
+{"fn":"nh_uncompress","c":"1796-1801","status":"partial","js":["js/files.js:nh_uncompress"],"omit":"docompress_file(TRUE) sink by-design (Rule #2); gate live.","d":["D-3446","D-3381"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: D-3381 Named text; close_nhfile paste retired (D-3381 finish-stamping, review 2336.1)"}
 {"fn":"make_compressed_name","c":"1805-1833","status":"unknown"}
 {"fn":"problematic_savefile","c":"2015-2046","status":"ported","js":["js/files.js:problematic_savefile"],"d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
 {"fn":"doconvert_file","c":"2062-2068","status":"ported","js":["js/files.js:doconvert_file"],"d":["D-3389"],"at":"2026-10-03@14e98dbc1"}

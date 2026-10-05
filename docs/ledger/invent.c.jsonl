@@ -109,7 +109,7 @@
 {"fn":"worn_wield_only","c":"5309-5325","status":"ported","js":["js/invent.js:worn_wield_only"],"d":["D-3315"],"at":"2026-10-03@d6a4a5312","note":"stale: js/invent.js:4395 (D-3315; #else compiled out, omit is safeq paste-error)"}
 {"fn":"display_minventory","c":"5341-5386","status":"ported","js":["js/invent.js:display_minventory"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"cinv_doname","c":"5391-5419","status":"ported","js":["js/invent.js:cinv_doname"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cinv_ansimpleoname","c":"5423-5441","status":"ported","js":["js/invent.js:cinv_ansimpleoname"],"d":["D-3147"],"at":"2026-09-30@1300fdc94","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cinv_ansimpleoname","c":"5423-5441","status":"ported","js":["js/invent.js:cinv_ansimpleoname"],"d":["D-3446","D-3147"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: C staticfn, whole module-local js/invent.js:cinv_ansimpleoname (D-3147); refresh MISSING note retired (review 2345.1 sweep)"}
 {"fn":"display_cinventory","c":"5446-5473","status":"ported","js":["js/invent.js:display_cinventory"],"d":["D-3147"],"at":"2026-09-30@1300fdc94"}
 {"fn":"only_here","c":"5477-5480","status":"ported","js":["js/invent.js:only_here"],"d":["D-3392"],"at":"2026-10-03@d74b875e9","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_binventory","c":"5489-5546","status":"ported","js":["js/invent.js:display_binventory"],"at":"2026-10-03@bbe63333a"}
