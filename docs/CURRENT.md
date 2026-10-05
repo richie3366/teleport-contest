@@ -40,11 +40,11 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 6, 4th agentic (lockwo passes on pts with 17/44); best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 (judge 01:37Z post-D-3430; unchanged).
+every audit). Rank 6, 4th agentic (lockwo passes on pts with 17/44); best fork 43/44 (NoahBPeterson, transpiled). Held-out 15/44, +0 (judge 01:37Z post-D-3430).
 **Corpus fortress (2026-10-05 05:36Z; scored 953/953 entries, 0 unrecorded):**
 **741 / 953** PASS (77.8 %), RNG 98.53 %, screens 94.2 %; 0 losses, 4 gains (see journal); `full: true`, `fullAt: 2026-10-05T05:36:03.121Z`.
 Reviews 1225–2380 (index; no row 1618): 998 ACCEPT, 54 WITH-DEBT, 103 QUALITY-RISK (2373–2380: 2A/2D/4Q, 5 Must-fix queued).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued); 2333 doapply omit paste-error + 2336 nhclose/nh_compress/nh_uncompress omit paste-errors + 2343.1 showdamage stale MISSING note + 2344.2 savebones stale compress clause + 2345.1 free_ebones stale MISSING note (finish-iteration recording bug — one `ledger.mjs set` iter fixes all seven; sweep candidates spot_checks/cinv_ansimpleoname notes + dump_weights omit); 2347.1 repopulate PERMINV reassign (inherited D-1559 split gap, latent, unqueued); 2350.1 redraw_cmd comment bind-history (docs-only, unqueued); 2366.1 use_camera s_suffix corner + 2366.2 Yname2_oil/shk_your_apply clones (message-only/pre-existing, unqueued); 2372.1 thitu D-log inversion (docs-only, corrected in review) + 2372.2 whip pline_mon a11y (unobservable, unqueued); 2374 botlx/glyph/nodiag + 2375 oname-pline (unqueued; see reviews).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS), 1962 11-fn overage + sign micro-gap + 1963–1971 three debts — review-debt, unqueued (see reviews); 2166 SHOPTYPE="" corner (wizard+empty-env only; fix in review); 2040 complex_dump trailing-space (sink voided); 2088 ia→ium mixed-case (unobservable); 2106 msgtype ssep (unobservable, unqueued); 2155 no-of s' possessive (map debt, unqueued); 2181 FURNITURE scan 88/105 (latent, unqueued); 2222 m_in_air clones (trap.js complete; unqueued); 2235 teleport mon_aligntyp clone; 2242 mhis_leash hallu-rn2 (helper-doc-named, unqueued); 2333 doapply + 2336 nhclose/nh_compress/nh_uncompress omit paste-errors + stale MISSING notes (2343.1 showdamage + 2345.1 free_ebones) + 2344.2 savebones stale compress clause (finish recording bug — one `ledger.mjs set` iter fixes all seven; sweep spot_checks/cinv_ansimpleoname + dump_weights); 2347.1 repopulate PERMINV reassign (inherited D-1559 split gap, latent, unqueued); 2350.1 redraw_cmd comment bind-history (docs-only, unqueued); 2366.1 use_camera s_suffix corner + 2366.2 Yname2_oil/shk_your_apply clones (message-only/pre-existing, unqueued); 2372.1 thitu D-log inversion (docs-only) + 2372.2 whip pline_mon a11y (unobservable, unqueued); 2374 botlx/glyph/nodiag + 2375 oname-pline (unqueued).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
 --jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
@@ -98,7 +98,7 @@ the 2026-09-28 cluster).
 Every held-out session that reaches an unported function is
 a cliff. Progress (generated by `finish-iteration.mjs`):
 <!-- ledger:begin -->
-Ledger @c62203c66: 5329 pinned-C functions — ported 4473 · partial 158 · split 162 · by-design 403 · open 133 (642 declared by seed). Measured: ok 3889, partial 673, thin 236, missing 531. `node scripts/ledger.mjs summary`.
+Ledger @e0f2d9749: 5329 pinned-C functions — ported 4473 · partial 158 · split 162 · by-design 403 · open 133 (642 declared by seed). Measured: ok 3889, partial 673, thin 236, missing 531. `node scripts/ledger.mjs summary`.
 <!-- ledger:end -->
 Picker: `LOOP-QUEUE.md` Must-fix (ships alone), else the batch manifest
 (`docs/LEDGER.md`). Per manifest function the **entire C body** in C
@@ -114,8 +114,9 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier:** held-out (`leaderboard.mjs`) flat after ~30 breadth
 iterations → human revisits the picker.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-3435 (index).**
+**Keep D-0845…D-3436 (index).**
 <!-- recent:begin -->
+**D-3436** row home only (no C re-read; body verified whole by D-3434/review 2379): getpos.c `getpos` — direct `ledger.mjs set` ×1 (NOT via finish-iteration), each sub-omit re-verified still unshipped first (getposx/y — no `getposx`/`getposy` in js/getpos.js, no JS resize path at fixed display size; clean-room — still Name
 **D-3435** - `moveloop_core`: allmain.c:548–556 (`(!run || runmode == RUN_TPORT) && multi && every-7t — C-exact condition + time&&run botl sub-arm after cliparound, before the Lua callbacks (runmode normalized with RUN_LEAP default per initoptions_init `:7176`; negative-multi % semantics identical in JS).
 **D-3434** - `moveloop_core`: allmain.c:522–531 mv replay arm (`multi < COLNO && !--multi` → end_runn — mv=1 setter in both walk dispatch sites + mv replay path (COLNO-ride quirk exact; termination is bump-nomul at hack.c:2848 plus the finite map — no hang) + cmdq hoist (replay-only behavior change: rhack(key≠0) has one ca
 **D-3433** - `moveloop_core`: allmain.c:514–531 multi>0 !mv arm (`--multi; rhack(cmd_key)`); removed  — moveloop dispatches multi>0 !run to lookaround + delay + clear-check + `--multi` + rhack(cmd_key) in C order (lookaround newly exported from cmd.js — imports.mjs ALREADY, hoisted async fn, no TDZ; run/occupation/ckmail a
@@ -123,11 +124,10 @@ iterations → human revisits the picker.
 **D-3431** - `test_move`: hack.c:991–1255; shipped the autoopen ECMD_OK + canned-kick fake (:1104–111 — per-function ports in C order (see C locus), all against live exports: cmdq_peek (newly exported from cmd.js) + ext_func_tab_from_func + dokick + CQ_CANNED/CMDQ_EXTCMD (test_move); middle re-indented into the !displaceu 
 **D-3430** batch @adae017b4: 28 partials, 21 C files (8 ported/11 partial/9 audited) - see D-log.
 **D-3429** - `dodrop`: do.c:29–43 (`if (result) reset_occupations()` `:39–40`; drop returns ECMD_TIME — wired the live exports at each site in C order (imports extended, no new module edges except hoisted cycle-safe fix_shop_damage/dokick/Punished/finish_meating×2 — imports.mjs SAFE/ALREADY each): dodrop reset_occupations 
-**D-3428** - `launch_obj`: trap.c:3556 `} else if (IS_STWALL(typ) || IS_TREE(typ)) {` (wall-stop); tr — two deletions in js/trap.js `launch_obj`: dropped `|| IS_OBSTRUCTED(typ)` from the wall-stop (:2909) and the tail `stackobj(singleobj)` (:2927); doc envelope updated (`obstructed/tree/door` → STWALL/tree-only + never-sta
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-3435; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-3436; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
@@ -135,7 +135,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** Must-fix 2379.1 — D-3434 getpos row truth (see review 2379).
+**Next cluster:** Must-fix — D-3431 domove_core/goto_level (rev 2376).
 
 ## Parked (diagnose only — do not implement)
 

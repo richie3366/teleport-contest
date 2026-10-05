@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-05
+
+- [x] D-3434 `getpos` row: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — restore getposx/y + muse/restore clean-room text (re-verified, quoted in review). Source: reviews/loop-unattended/2379-c62203c66-batch-d3434.md. **Addressed:** D-3436
+
 ## 2026-10-04
 
 - [x] launch_obj extras contradict C: (a) drop `|| IS_OBSTRUCTED(typ)` from the wall-stop (trap.js:2909; C trap.c:3556 stops at STWALL/TREE only — boulders roll through SDOOR/SCORR); (b) drop the tail `stackobj` (C :3568-72 has none; boulders never stack). Verify: gates + `hidden-proxy verify launch_obj --reach-all` + a targeted boulder-vs-secret-door test. Source: reviews/loop-unattended/2372-54eac58c5-batch-d3426.md (Must-fix 2).

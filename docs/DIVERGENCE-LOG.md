@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3436 — Must-fix review 2379: D-3434 getpos row restored
+- **Status:** shipped (ledger-only; no `js/` change).
+- **Symptom:** review 2379 QUALITY-RISK Actionable 1: D-3434's finish pasted moveloop_core's MAP-redisplay omit into the getpos row, so getpos's standing omit (getposx/y async-resize model + muse/restore CLIPPING clean-room) had no row home. 15th finish-stamping iter (D-3434's own count: 4th consecutive batch); truth recovered from the D-3434 Named bullet + review 2379's quoted restore text, each sub-omit re-verified still unshipped by this iter and by the review.
+- **C locus:** row home only (no C re-read; body verified whole by D-3434/review 2379): getpos.c `getpos` :771–1167 (:848–849, :1144, :1160 getposx/y stores; win/tty/wintty.c:421–424 async-resize readers; muse.c:2637/restore.c:629 cliparound sites).
+- **JS was:** getpos row `partial` carrying moveloop_core's run/tport MAP-redisplay text.
+- **Fix:** direct `ledger.mjs set` ×1 (NOT via finish-iteration), each sub-omit re-verified still unshipped first (getposx/y — no `getposx`/`getposy` in js/getpos.js, no JS resize path at fixed display size; clean-room — still Named in the display.js cliparound doc at js/display.js:7448, non-manifest). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3415/D-3417/D-3419/D-3421/D-3423/D-3434 class, D-3427 precedent) — the direct set is the row writer, finish runs docs-only for the ledger.
+- **JS:** unchanged — 0 changed js files (verify syntax confirms).
+- **Callers:** n/a — no call wiring changed (ledger row only).
+- **Verify:** `node scripts/verify.mjs --fn getpos` → PASS syntax (0 changed js); PASS rule2; hidden NO MOVEMENT (scen-tour-Healer-92093 still getpos s87 — disclosed D-3431–D-3434 + review 2379: toplines byte-identical, row-12 glyph is the D-3431 memory writer, cause outside getpos; a ledger-text repair cannot move it); REACH-OK (no RNG-tagged reach; fixed smoke 24/24); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:**
+  - `getpos`: gg.getposx/getposy stores (:848–849, :1144, :1160 exit zeroing) — sole C readers win/tty/wintty.c:421–424 async-resize (decl.h:403 "cursor position in case of async resize"); no JS resize path (fixed display; cannot ship); muse.c:2637/restore.c:629 CLIPPING clean-room (display-model, display.js doc owns at js/display.js:7448).
+- **Left open:** none.
+- **Next:** next Must-fix (D-3431 domove_core/goto_level rows, review 2376).
+
 ## D-3435 — breadth batch @c62203c66: moveloop_core run/tport MAP-redisplay arm
 - **Status:** shipped (batch).
 - **Symptom:** ledger gap of 1 partial (open 0 · recheck 0, ~88 C lines) in allmain.c: moveloop_core's last omit — the run/tport MAP redisplay every 7th multi/moves.
