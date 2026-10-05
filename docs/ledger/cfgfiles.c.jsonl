@@ -80,7 +80,7 @@
 {"fn":"cnf_parser_init","c":"1662-1673","status":"ported","js":["js/cfgfiles.js:cnf_parser_init"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_parser_done","c":"1677-1684","status":"ported","js":["js/cfgfiles.js:cnf_parser_done"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"parse_conf_buf","c":"1693-1807","status":"ported","js":["js/cfgfiles.js:parse_conf_buf"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: continuation/CHOOSE/section dispatch traced vs C incl --ep edge arms"}
-{"fn":"parse_conf_str","c":"1810-1837","status":"partial","js":["js/cfgfiles.js:parse_conf_str"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-3405","D-2787"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"parse_conf_str","c":"1810-1837","status":"ported","js":["js/cfgfiles.js:parse_conf_str"],"d":["D-3491","D-3405","D-2787"],"at":"2026-10-05@a99782e30","note":"retire D-3491: initoptions clauses misplaced per D-3405 Symptom (not callees); body whole js/cfgfiles.js:1224-1245, sole C caller by-design nhl_parse_config"}
 {"fn":"parse_conf_file","c":"1844-1860","status":"ported","js":["js/cfgfiles.js:parse_conf_file"],"d":["D-3098"],"at":"2026-09-29@92b27f0c4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"config_error_add","c":"1865-1872","status":"ported","js":["js/cfgfiles.js:config_error_add"],"d":["D-3480","D-3477","D-3469","D-3405","D-3173"],"at":"2026-10-05@b6f50b8ed","note":"audited D-3480: whole vs C"}
 {"fn":"vconfig_error_add","c":"1875-1890","status":"ported","js":["js/cfgfiles.js:vconfig_error_add"],"d":["D-3405","D-3173","D-3134"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
