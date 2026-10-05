@@ -12,7 +12,7 @@
 {"fn":"nhl_add_table_entry_bool","c":"318-323","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_add_table_entry_region","c":"326-336","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"splev_chr2typ","c":"382-390","status":"ported","js":["js/mklev.js:splev_chr2typ"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact table lookup incl INVALID_TYPE default; dup C dashes unreachable (first match wins)"}
-{"fn":"check_mapchr","c":"393-398","status":"partial","js":["js/mklev.js:check_mapchr"],"omit":"- `get_table_xy_or_coord` / `check_mapchr` / `get_table_int_opt`: inherited callers still omit stair table parsing (sp_lev.c:4164), shared mandatory-mapchar parsing (nhlua.c:247), and exact integer checks in noncluster splev_opt_int/dungeon readers.","d":["D-3185"],"at":"2026-10-01@03eae3466","note":"seed: no scored analogue (file)"}
+{"fn":"check_mapchr","c":"393-398","status":"ported","js":["js/mklev.js:check_mapchr"],"d":["D-3487","D-3185"],"at":"2026-10-05@7883abf23","note":"stale: D-3185 3-fn paste retired (stair home ported D-3406; integer home narrowed D-3485; mapchar :247 home by-design, both C consumers inline exact contract)"}
 {"fn":"splev_typ2chr","c":"401-409","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_gettrap","c":"416-467","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_deltrap","c":"471-492","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
