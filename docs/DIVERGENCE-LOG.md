@@ -1,5 +1,46 @@
 # Divergence log
 
+## D-3457 — batch @a0f700a93: 7-function batch (4 Open-head rows + savebones/status_initialize/doset) — in_mklev/opt_phase fidelity fixes + bc retire + 5 audits
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4343 a failed port; the 3 Must-fix heads are docs-only ledger repairs; Must-fix deferred, still queued; D-3447/D-3449/D-3451/D-3453/D-3455 precedent). Batch manifest drained to 7 partials, all in this commit. Real C-vs-JS gaps closed: savebones restored prev in_mklev across the arise/ghost makemon while C clears it unconditionally (bones.c:461/:498); doset_simple omitted C :8719 go.opt_phase = play_opt. Audits: opt_usage/sanity_check/parseautocomplete/status_initialize/doset — every remaining omit unshippable (Rule #2 / by-design / not-pinned-C / falsifier-backed deferral); bc_sanity_check misfiled-omit retired (body whole since D-2489).
+- **C locus:**
+  - `savebones`: bones.c:403–625 (probe hit :411–430; make_bones :431–456; arise :457–478; statue :480–489; ghost :490–505; ebones tail :506–540; mon/trap/obj loops :541–559; level wipe :561–572; cemetery :574–599; bonesfile tail :600–625). Sole C caller end.c:1365 (done).
+  - `doset_simple`: options.c:8707–8745 (menu_requested gate :8711–8716; opt_phase :8719; pick loop :8720+). C callers options.c:8777 (doset arm), cmd.c:1781 extcmd 'O' table.
+  - `opt_usage`: earlyarg.c:376–387 (audit; arms :378–381 chdirx, :383 dlb_init, :385 genl_display_file, :386 opt_terminate).
+  - `sanity_check`: wizcmds.c:1460–1481 (audit; 9 callee calls :1473–1480).
+  - `parseautocomplete`: cmd.c:3244–3292 (audit; queued arm :3291 wait_synch).
+  - `bc_sanity_check`: ball.c:1034–1102 (retire; body whole, omit misfiled).
+  - `status_initialize`: botl.c:1683–1720 (audit; queued omit lives in genl_status_init).
+  - `doset`: options.c:8758–8975 (audit; queued wc2 menu-skip arms :8847–8848/:8871–8872/:8887–8888).
+- **JS was:**
+  - `end.js:1704–1707` + `:1735–1739` (pre-edit): prevMklev/prev restore across makemon (C clears unconditionally); doc named only the probe-hit close.
+  - `options.js:11170` doset_simple: menu gate + pick loop whole, opt_phase line absent (ledger note "omitted; moot").
+  - 6 bodies whole modulo named omits (earlyarg.js:446 opt_usage; wizcmds.js:1010 sanity_check; cmd.js:2607 parseautocomplete; ball.js:1103 bc_sanity_check; botl.js:354 status_initialize; options.js:10881 doset).
+- **Fix:** js/end.js — arise (:1704) + ghost (:1735) arms now set game.in_mklev = false after makemon (C :461/:498), prev-restore locals deleted; doc names the :622 tail close (folds into atomic write_bonesfile with commit). js/options.js — doset_simple sets game.go.opt_phase = PLAY_OPT after the menu gate (C :8719; roleopt phase slot; PLAY_OPT already imported). Both behavior-null on the fortress (in_mklev FALSE at every reached death; roleopt phase readers moot per 2026-10-03 audit) and C-exact in the corner. Audits: (a) opt_usage — chdirx Rule #2, dlb_init + genl_display_file ledger by-design; genl re-verified unwireable (C windows.c:1539 straight-copy-no-pagination; raw_printf sink drops text js/display.js:8671–8673; display_file paginates = wrong semantics; early_options callerless in JS); callers js/earlyarg.js:241/:317/:382 wired; (b) sanity_check — 6 callees ledger by-design (wizard debug path), envelope + you/light/bc live and C-ordered; caller moveloop_core js/allmain.js:1191 gated C-exact with dobjsfree/clear_bypasses/resume_wish envelope :1186–1196; (c) parseautocomplete — wait_synch not a pinned-C function (ledger) and NOT FOUND in js/; split/recurse/trim/negation/flags/raw_printf live; callers js/cfgfiles.js:690 + js/cmd.js:2714–2715 + self :2614 wired; (d) status_initialize — body whole incl. reassessment gate/blinit/field loop/update_all/botlx; omit lives in genl_status_init (audited D-3455, no window sys); callers wired js/allmain.js:225 (C-exact VIA_WINDOWPORT gate :214–228), js/options.js:10493/:10498/:10516 (showscore + hitpointbar arms), js/polyself.js:874 (set_uasmon tail), js/botl.js:417 (new_status_window); (e) doset — wc2 half stays unwired per doset_skip_unsupported per-bit audit (wiring drops 3 C-shown status rows; falsifier scen-options-Samurai-94071); body + pick dispatch otherwise whole. Retire: bc_sanity_check body C-complete (D-2489; Punished/frees/type+mask/distance arms + impossible/safe_typename live; caller sanity_check js/wizcmds.js:1024 wired); ledger omit names sanity_check's siblings — git history shows the text is pre-D-3429 (D-1664/D-2489 era, not a finish paste) but misfiled on this row, and the siblings sit correctly on sanity_check's row → ported.
+- **JS:** js/end.js (savebones ×2 + doc), js/options.js (doset_simple +1 line). 2 changed js files.
+- **Callers:**
+  - `savebones`: C end.c:1365 → js/end.js:1234 done (await; sole caller, wired).
+  - `doset_simple`: C options.c:8777 → js/options.js:10886 (doset menu arm); C cmd.c:1781 extcmd 'O' table → js/cmd.js:5873 dispatch + js/getline.js:1228 keybind (pre-existing, unchanged).
+  - `opt_usage`: n/a — audit only (3 C sites earlyarg.c:196/:265/:316 → js/earlyarg.js:241/:317/:382, all wired).
+  - `sanity_check`: n/a — audit only (C allmain.c:198 → js/allmain.js:1191, wired).
+  - `parseautocomplete`: n/a — audit only (C cfgfiles.c:627/cmd.c:2500/:2507/:3253 → js/cfgfiles.js:690, js/cmd.js:2714–2715, :2614 self, wired).
+  - `bc_sanity_check`: n/a — retire only (C wizcmds.c:1476 → js/wizcmds.js:1024, wired).
+  - `status_initialize`: n/a — audit only (5 ported callers wired, wintty.c:505 via new_status_window).
+  - `doset`: n/a — audit only (extcmd optionsfull + menu_requested paths unchanged).
+- **Verify:** `verify.mjs --fn opt_usage,bc_sanity_check,savebones,status_initialize,parseautocomplete,doset,sanity_check,doset_simple` → PASS syntax (2 js: end.js, options.js) · PASS rule2 · 8× hidden note (none blocked — normal; rows cited none) · 8× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `savebones`: close_nhfile on the probe hit + the :622 tail close (no VFS handle — atomic write_bonesfile subsumes close+commit); create_bonesfile creat/errno/VMS arms (VFS creat cannot fail, so neither can the wizard pline1(whynot); paniclog by-design); binary savelev record layout (JSON payload carries bonesid/fruitchn/level).
+  - `doset_simple`: none — whole (opt_phase wired this iter; 2026-10-03 moot-note retired).
+  - `opt_usage`: chdirx :379 (Rule #2, no CWD/filesystem); dlb_init :383 (by-design data-library init); genl_display_file(USAGEHELP, TRUE) :385 (by-design; no scored stdout channel — raw_printf sink drops text, display_file paginates).
+  - `sanity_check`: obj/timer/mon/trap/engraving/levl sanity callees (by-design, wizard debug-build path).
+  - `parseautocomplete`: wait_synch :3291 (not a pinned-C function; windowed input boundary, config parser stays sync).
+  - `bc_sanity_check`: none — whole (misfiled sibling omit retired).
+  - `status_initialize`: display_nhwindow(WIN_STATUS, FALSE) inside genl_status_init (windows.c callee; no window sys — D-3455).
+  - `doset`: wc2 menu-skip arm (needs the status bits, which need windowport status delivery — falsifier scen-options-Samurai-94071).
+- **Ledger:** opt_usage audited; bc_sanity_check ported; savebones audited; status_initialize audited; parseautocomplete audited; doset audited; sanity_check audited; doset_simple ported
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). 4 refills hold the band (regen_hp, exercise, dodown, migrate_to_level — C bodies + JS sites read at enqueue; two tails verify-at-ship noted in rows).
+
 ## D-3456 — Must-fix: pickup.c use_container 1-row ledger repair (pickup paste retired, D-3199 omits restored narrowed)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: use_container row `split` carried pickup's `- \`pickup\`: select_menu digit-count entry (menu picks are whole-pile; count-N \`5,\` path unaffected; menu-machinery domain, own row).` omit — D-3199 finish first-line stamping (paste landed `057174e0c` flipping the row from unknown D-2028 to partial+paste, verified via `git show` by this iter; pickup row legitimately carries the same text as its own).

@@ -11175,6 +11175,8 @@ export async function doset_simple() {
         game.iflags.menu_requested = false;
         return doset();
     }
+    if (!game.go) game.go = {};
+    game.go.opt_phase = PLAY_OPT; // C `:8719` roleopt phase slot (was omitted)
     // C: give_opt_msg = FALSE around the pick loop (no "Fruit is now")
     const prevGive = game.give_opt_msg;
     game.give_opt_msg = false;

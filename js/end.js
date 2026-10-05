@@ -1633,11 +1633,11 @@ async function remove_mon_from_bones(mtmp) {
  * Caller checked can_make_bones(). VFS probe stands in for open_bonesfile;
  * write_bonesfile is the create_bonesfile + savefruitchn + update_mlstmv +
  * savelev tail.
- * Named omissions: close_nhfile on the probe hit (no VFS handle);
+ * Named omissions: close_nhfile on the probe hit + the :622 tail close
+ * (no VFS handle — atomic write_bonesfile subsumes close+commit);
  * create_bonesfile creat/errno/VMS arms (VFS creat cannot
  * fail, so neither can the wizard pline1(whynot); paniclog is by-design);
- * commit_bonesfile temp→final rename (VFS write is atomic); binary
- * savelev record layout (JSON payload carries bonesid/fruitchn/level).
+ * binary savelev record layout (JSON payload carries bonesid/fruitchn/level).
  */
 async function savebones(how, when, corpse) {
     const u = game.u || {};
@@ -1701,10 +1701,9 @@ async function savebones(how, when, corpse) {
         // monster first (makemon draws next_ident/newmonhp before the
         // drop loop's rn2(5) curse draws), then drop the inventory into
         // it, with no rn2(8) nearby-monster gate in that arm.
-        const prevMklev = game.in_mklev;
-        game.in_mklev = true; /* use <u.ux,u.uy> as-is */
+        game.in_mklev = true; /* use <u.ux,u.uy> as-is */ // C `:459`
         mtmp = makemon(mons(arise), u.ux | 0, u.uy | 0, NO_MINVENT);
-        game.in_mklev = prevMklev;
+        game.in_mklev = false; // C `:461` — unconditional, not prev-restore
         if (!mtmp) { /* arise-type might have been genocided */
             await drop_upon_death(null, null, u.ux, u.uy);
             u.ugrave_arise = NON_PM; /* in case caller cares */
@@ -1734,10 +1733,9 @@ async function savebones(how, when, corpse) {
         // C `:490–505` — drop everything, then trick makemon into
         // allowing monster creation on the hero's location for the ghost.
         await drop_upon_death(null, null, u.ux, u.uy);
-        const prev = game.in_mklev;
-        game.in_mklev = true;
+        game.in_mklev = true; // C `:496`
         mtmp = makemon(mons(PM_GHOST), u.ux | 0, u.uy | 0, MM_NONAME);
-        game.in_mklev = prev;
+        game.in_mklev = false; // C `:498` — unconditional, not prev-restore
         if (!mtmp) return;
         mtmp = christen_monst(mtmp, game.plname || '');
         if (corpse) obj_attach_mid(corpse, mtmp.m_id);
