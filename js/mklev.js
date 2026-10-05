@@ -22598,28 +22598,40 @@ function lspo_object_apply_montype(tmp) {
         && id !== FIGURINE) {
         return;
     }
+    // C :3673 get_table_str_opt(L, "montype", NULL): nil → NULL, string
+    // kept, function pcalled + optstring conversion, direct non-string
+    // throws like nhl_error. tmp is a non-null object at the caller's
+    // table gate, so lua_field is tmp.montype and the
+    // nil/string/function/else classifications are identical to C's.
+    const montype = get_table_str_opt(tmp, 'montype', null);
     let nonpmobj = false;
-    const montype = tmp.montype;
-    if (montype != null && montype !== '') {
-        const mt = String(montype);
+    // C :3675 `if (montype)` is a pointer test: "" enters the branch
+    // (and errors below — it matches no permonst).
+    if (montype != null) {
+        const mt = montype;
         const low = mt.toLowerCase();
         if ((id === TIN && (low === 'spinach' || low === 'empty'))
             || (id === EGG && low === 'empty')) {
             tmp.corpsenm = NON_PM;
             tmp.spe = low === 'spinach' ? 1 : 0;
             nonpmobj = true;
-        } else if (mt.length === 1) {
-            const mlet = monclass_letter_to_mlet(mt);
-            if (mlet) {
-                const pm = mkclass(mlet, G_NOGEN | G_IGNORE);
-                if (pm) tmp.corpsenm = pm.mndx | 0;
-            } else {
-                const mndx = lspo_object_montype_mndx(mt);
-                if (mndx !== NON_PM) tmp.corpsenm = mndx;
-            }
         } else {
-            const mndx = lspo_object_montype_mndx(mt);
+            // C :3685–3699 class-letter mkclass, else the pmnames scan;
+            // :3701–3704 assigns the hit or nhl_errors.
+            let mndx = NON_PM;
+            if (mt.length === 1) {
+                const mlet = monclass_letter_to_mlet(mt);
+                if (mlet) {
+                    const pm = mkclass(mlet, G_NOGEN | G_IGNORE);
+                    if (pm) mndx = pm.mndx | 0;
+                } else {
+                    mndx = lspo_object_montype_mndx(mt);
+                }
+            } else {
+                mndx = lspo_object_montype_mndx(mt);
+            }
             if (mndx !== NON_PM) tmp.corpsenm = mndx;
+            else if (!nonpmobj) nhl_error('Unknown montype');
         }
     }
     if (id === STATUE || id === CORPSE) {
