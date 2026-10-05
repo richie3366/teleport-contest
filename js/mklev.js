@@ -22975,7 +22975,6 @@ function lspo_object_normalize_table(tmp) {
     tmp.spe = get_table_int_or_random(tmp, 'spe', -127);
     if (tmp.trapped == null) tmp.trapped = -1;
     if (tmp.locked == null) tmp.locked = -1;
-    if (tmp.eroded == null) tmp.eroded = 0;
     if (tmp.buc != null) tmp.curse_state = get_table_buc(tmp.buc);
     if (tmp.curse_state == null) tmp.curse_state = 0;
     // C :3637 get_table_str_opt(L, "name", NULL): nil → NULL, string kept,
@@ -22991,6 +22990,15 @@ function lspo_object_normalize_table(tmp) {
     if (tmp.quantity == null && tmp.quan != null) tmp.quantity = tmp.quan;
     tmp.quan = get_table_int_or_random(tmp, 'quantity', -1);
     if (tmp.lit == null) tmp.lit = 0;
+    // C :3641/:3645 get_table_int_opt(L, "eroded"/"recharged", 0): nil →
+    // 0, else checkinteger conversion (integral floats and numeric strings
+    // convert; fractions and direct non-numerics argerror). tmp is a
+    // non-null spread at the caller's table gate (:23045), so lua_field
+    // is tmp[name] and the nil/non-nil classifications are identical to
+    // C's. Read here (after lit :3640, before id :3652) to keep C's read
+    // order against the other throwing reads (name :3637, quantity :3638).
+    tmp.eroded = get_table_int_opt(tmp, 'eroded', 0);
+    tmp.recharged = get_table_int_opt(tmp, 'recharged', 0);
     if (tmp.corpsenm == null) tmp.corpsenm = NON_PM;
 
     // C get_table_objtype :3541–3542 — "id" is read before "class"

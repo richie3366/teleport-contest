@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3496 — Open head: impossible audit + lspo_object eroded/recharged→get_table_int_opt rewire (sp_lev.c:3641/:3645 null-default gap)
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4386 a failed port; Must-fix head is docs-only ledger repair; Must-fix ×7 deferred, still queued; D-3494/D-3492/D-3490 precedent). Batch picker finds no gap (`batch`: no gap left); coverage head `pline.c impossible` re-audited whole modulo the standing Rule #2 omits; real work: lspo_object_normalize_table defaulted eroded with a null-check and never read recharged (consumer-side raw `| 0`) where C get_table_int_opt runs checkinteger (D-3494 omit named obj :3641/:3645 "permissive `|0`/splev_opt_int").
+- **C locus:**
+  - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).
+  - `get_table_int_opt@obj`: sp_lev.c:3641/:3645 field reads (0 defaults) inside lspo_object table form :3631–3655, via nhlua.c:1028–1039 (ret=defval, getfield, nil-check, checkinteger, pop, return).
+- **JS was:**
+  - `display.js:8970` impossible (complete; Rule #2 omits doc'd).
+  - `mklev.js:22978` `if (tmp.eroded == null) tmp.eroded = 0` null-default + no recharged read (consumer :22369 raw `| 0`) — fractions flowed through silently (C argerrors), direct non-numeric non-nil values became 0/1 garbage (C argerrors), integral floats converted without the int64-range gate; the pre-buc eroded position also broke C's multi-bad-field throw precedence against name :3637/quantity :3638.
+- **Fix:** impossible re-audited (no JS change — recursion panic, vsnprintf chop, fuzzer panic, URGENT pline, sanity-check early return, disorder/report/support lines all live; paniclog + CRASHREPORT remain Rule #2). Both sites restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change), placed in C read order (after lit :3640, before id :3652 — eroded moved down from the pre-buc block so multi-bad-field precedence matches C); lua_field/lua_type equivalences verified (tmp is a non-null spread at the caller's table gate :23045, so lua_field is tmp[name]; nil/non-nil classifications identical; defval 0). Behavior delta is exactly the C conversion (integers unchanged incl. negatives; absent stays 0; integral floats and numeric strings convert; fractions throw like argerror instead of flowing through; direct non-numerics throw instead of 0/1 garbage; beyond-int32 truncates via asIntN(32) like the (int) cast, same as the old `|0`). New scripts/lspo-object-int.test.mjs (helper conversion + wiring + C-order asserts).
+- **JS:** js/mklev.js (:23000–23001 calls + comments; raw adapter deleted). 1 changed js file.
+- **Callers:**
+  - `impossible`: n/a — audit only, no wiring changed.
+  - `get_table_int_opt@obj`: C sp_lev.c:3641 → js/mklev.js:23000; :3645 → :23001; sole normalize caller l_create_object :23035 (unchanged). Entry-source audit (all integers/absent — no in-tree behavior change): eroded -1 ×2 (Lord Sato invent :10131–32 via give→l_create_object) + 0 (from_string default :22866); recharged zero in-tree fields; direct create_object literals (:7383/:13881/:31267) carry neither field.
+- **Verify:** `verify.mjs --fn impossible,get_table_int_opt` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · 2× hidden note (none blocked — normal; rows cited none) · 2× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` lspo-object-int + lspo-object-name + lspo-object-id + lspo-objclass-field + lspo-monster-int + dungeon-dungeons-int 36/36; pre-change wiring check: new test fails 1/6, passes post-change (6/6 re-run after a comment-cite fix); VERIFY: PASS.
+- **Named omissions:**
+  - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/network submission) remain Rule #2; end.c panic shutdown/save/core-dump lifecycle behind the fatal arms stays named.
+  - `get_table_int_opt`: body whole; 19 sites keep permissive `|0`/splev_opt_int vs C checkinteger: lvlinit :3947-50, gold :4502, door :4717, terrain :5001, replace :5086-91, region :5565-68/:5600/:5605. Wired 24 (22 per D-3494 + obj :3641/:3645 this iter); padding :5489 exact-unpacked equivalent; nhlsel :886-87/:893 owned by by-design l_selection_gradient.
+- **Ledger:** impossible audited; get_table_int_opt partial
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). No review cited by the popped row — no stamp owed. Bundled: LOOP-QUEUE-DONE.md D-3495 hash backfill (`967c1a028`).
+
 ## D-3495 — Must-fix: engrave.c rest_engravings 1-row ledger repair (shared-head Sfo/Sfi architectural clause — retire)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix: rest_engravings row `partial` carried the D-3005 shared head ("- `save_engravings` / `rest_engravings`: Sfo/Sfi binary encode (stash/JSON architecture per §1.6, data.md — rest_regions precedent).", d=D-3405,D-3005; identical head on sibling save_engravings) with note "audited D-3405: remaining omit cannot ship". The queue row guessed restore-narrowed or retire-stale/by-design; re-verification: RETIRE to ported (the clause is §1.6 architecture, not a shippable arm — and its cited precedent rest_regions is itself ported).
