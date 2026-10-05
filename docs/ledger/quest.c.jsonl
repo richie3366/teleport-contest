@@ -10,10 +10,10 @@
 {"fn":"is_pure","c":"153-177","status":"ported","js":["js/quest.js:is_pure"],"at":"2026-10-03@bbe63333a"}
 {"fn":"expulsion","c":"186-216","status":"ported","js":["js/quest.js:expulsion"],"at":"2026-10-03@bbe63333a"}
 {"fn":"finish_quest","c":"226-279","status":"ported","js":["js/quest.js:finish_quest"],"at":"2026-10-03@bbe63333a"}
-{"fn":"chat_with_leader","c":"282-368","status":"partial","js":["js/quest.js:chat_with_leader"],"omit":"posthanks/banished pager texts (questpgr extractor's job — calls are live and still burn the C nhl_init shuffle on a miss, so RNG matches C either way); nemesis/guardian chat + setmangry tail (pre-existing map lines, untouched).","d":["D-2623"],"at":"seed@a30a7de84"}
+{"fn":"chat_with_leader","c":"282-368","status":"ported","js":["js/quest.js:chat_with_leader"],"d":["D-3430","D-2623"],"at":"2026-10-05@adae017b4"}
 {"fn":"leader_speaks","c":"371-391","status":"ported","js":["js/quest.js:leader_speaks"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: early return after angry arm is equivalent (pissed_off blocks chat anyway)"}
 {"fn":"chat_with_nemesis","c":"394-400","status":"ported","js":["js/quest.js:chat_with_nemesis"],"d":["D-3039"],"at":"2026-09-28@5aadc33ff","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"nemesis_speaks","c":"403-422","status":"partial","js":["js/quest.js:nemesis_speaks"],"omit":"`chat_with_nemesis` (`quest.c:393–400`) and `chat_with_guardian` (`:441–448`) stay out of `quest_chat`.","d":["D-2846"],"at":"seed@a30a7de84"}
+{"fn":"nemesis_speaks","c":"403-422","status":"ported","js":["js/quest.js:nemesis_speaks"],"d":["D-3430","D-2846"],"at":"2026-10-05@adae017b4"}
 {"fn":"nemesis_stinks","c":"426-438","status":"ported","js":["js/quest.js:nemesis_stinks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"chat_with_guardian","c":"441-448","status":"ported","js":["js/quest.js:chat_with_guardian"],"d":["D-3039"],"at":"2026-09-28@5aadc33ff","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"prisoner_speaks","c":"451-470","status":"ported","js":["js/quest.js:prisoner_speaks"],"d":["D-2114"],"at":"2026-10-03@bbe63333a"}

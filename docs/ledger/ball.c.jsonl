@@ -18,4 +18,4 @@
 {"fn":"drop_ball","c":"882-961","status":"ported","js":["js/ball.js:drop_ball"],"d":["D-2329"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full trap-pullout and reposition arms"}
 {"fn":"litter","c":"965-983","status":"ported","js":["js/ball.js:litter"],"d":["D-3429"],"at":"2026-10-04@77a859fd3","note":"audit 2026-10-03: loop/message/unwear match; drop step simplified"}
 {"fn":"drag_down","c":"986-1031","status":"ported","js":["js/ball.js:drag_down"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full forward/back arms"}
-{"fn":"bc_sanity_check","c":"1034-1102","status":"partial","js":["js/ball.js:bc_sanity_check"],"omit":"- `dodrop`: none — whole.","d":["D-3429","D-2489"],"at":"2026-10-04@77a859fd3"}
+{"fn":"bc_sanity_check","c":"1034-1102","status":"partial","js":["js/ball.js:bc_sanity_check"],"omit":"- `dodrop`: none — whole.","d":["D-3430","D-3429","D-2489"],"at":"2026-10-05@adae017b4","note":"audited D-3430: remaining omit cannot ship"}

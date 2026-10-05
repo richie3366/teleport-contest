@@ -442,13 +442,25 @@ function is_you_defender(mdef) {
 }
 
 /**
+ * C ref: monst.c:79 c_sa_no — SEDUCTION_ATTACKS_NO (monsters.h:2925):
+ * the six succubus/incubus attacks when SEDUCE=0.
+ */
+const C_SA_NO = [
+    { aatyp: AT_CLAW, adtyp: AD_PHYS, damn: 1, damd: 3 },
+    { aatyp: AT_CLAW, adtyp: AD_PHYS, damn: 1, damd: 3 },
+    { aatyp: AT_BITE, adtyp: AD_DRLI, damn: 2, damd: 6 },
+    { ...NO_ATTK },
+    { ...NO_ATTK },
+    { ...NO_ATTK },
+];
+
+/**
  * C ref: mhitu.c getmattk `:309–444` — base mptr->mattk[indx] + live
  * substitutions. Uses extracted monsters_data mattks (mons().mattk).
  * Optional mdef enables defender-dependent arms (DREN / lich cold→PHYS).
  * Omit mdef to skip those (aatyp-only scans). Optional prev_result is
  * C's prev_result[] (mattacku sum / mattackm res).
- * Named omit: SEDUCE=0 SSEX→c_sa_no[] / lone SSEX→DRLI (`c_sa_no` is
- * not in js/). uhitm.hmonas callers still omit prev_result.
+ * Named omit: uhitm.hmonas callers still omit prev_result.
  */
 export function get_mattk(magr, i, mdef = undefined, prev_result = null) {
     if (i < 0 || i >= NATTK) return { ...NO_ATTK };
@@ -476,7 +488,23 @@ export function get_mattk(magr, i, mdef = undefined, prev_result = null) {
         attk._slot = null;
     };
 
-    /* C: honor SEDUCE=0 — c_sa_no table / lone SSEX→DRLI named omit. */
+    /* C mhitu.c:320–334 — honor SEDUCE=0 (sys.c default 1; a sysconf
+       SEDUCE=0 reaches here via SYSOPT_SEDUCE()). */
+    if (!SYSOPT_SEDUCE()) {
+        /* If the first attack is SSEX, all six substitute (expected
+           succubus/incubus handling); a lone SSEX elsewhere → DRLI. */
+        if ((mptr.mattk[0]?.adtyp | 0) === AD_SSEX) {
+            const sub = C_SA_NO[i] || NO_ATTK;
+            subst();
+            attk.aatyp = sub.aatyp | 0;
+            attk.adtyp = sub.adtyp | 0;
+            attk.damn = sub.damn | 0;
+            attk.damd = sub.damd | 0;
+        } else if (attk.adtyp === AD_SSEX) {
+            subst();
+            attk.adtyp = AD_DRLI;
+        }
+    }
 
     /* consecutive DISE/PEST/FAMN → STUN */
     if (prev_result && i > 0 && (prev_result[i - 1] | 0) > M_ATTK_MISS

@@ -5,12 +5,13 @@ import { game } from './gstate.js';
 import { rnd, rn2, rn1 } from './rng.js';
 import { mklev, l_nhcore_init, u_on_upstairs, fumaroles, movebubbles } from './mklev.js';
 import { dobjsfree, clear_splitobjs } from './mkobj.js';
-import { rhack, continue_run, run_active, continue_search, search_repeat_active, dolookaround, end_of_input, enter_explore_mode } from './cmd.js';
+import { rhack, continue_run, run_active, continue_search, search_repeat_active, dolookaround, end_of_input, enter_explore_mode, nh_callback_run, NHCB_NAME } from './cmd.js';
 import {
     docrt, cls, bot, timebot, curs_on_u, flush_screen, pline, Norep,
     flush_topl_more, see_monsters, You, install_tty_wincap2,
     see_objects, see_traps, swallowed, Hallucination, Warn_of_mon,
-    clear_glyph_buffer, glyph_to_cmap,
+    clear_glyph_buffer, glyph_to_cmap, urgent_pline,
+    under_water, under_ground,
 } from './display.js';
 import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { initrack, settrack } from './track.js';
@@ -47,7 +48,7 @@ import {
     notice_mon_off, notice_mon_on, notice_all_mons, runmode_delay_output,
     check_special_room,
 } from './hack.js';
-import { reset_justpicked, pickup } from './pickup.js';
+import { reset_justpicked, pickup, pooleffects } from './pickup.js';
 import { fix_shop_damage } from './shk.js';
 import { set_wear, glibr } from './do_wear.js';
 import { clear_bypasses } from './worn.js';
@@ -55,6 +56,7 @@ import { gethungry, reset_eat } from './eat.js';
 import { age_spells } from './spell.js';
 import { near_capacity, paint_corner_nhw_menu, encumber_msg, update_inventory, prepare_perminvent, reroll_menu } from './invent.js';
 import { sanity_check } from './wizcmds.js';
+import { done } from './end.js';
 import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
 import { status_initialize, status_eval_next_unhilite } from './botl.js';
@@ -78,6 +80,7 @@ import { you_were } from './were.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     NO_MM_FLAGS, Upolyd, LL_ACHIEVE, NHCORE_START_NEW_GAME, NHCORE_RESTORE_OLD_GAME,
+    NHCORE_MOVELOOP_TURN, NHCB_END_TURN, ESCAPED,
     ROLE_GENDMASK, ROLE_MALE, ROLE_FEMALE,
     UTOTYPE_NONE, TIMEOUT, REGENERATION, CLAIRVOYANT,
     MAXULEV, ENERGY_REGENERATION, MAGICAL_BREATHING, GLIB,
@@ -1232,6 +1235,15 @@ export async function moveloop_core() {
                 // C: settrack() before svm.moves++
                 settrack();
                 g.moves = (g.moves || 1) + 1;
+                // C allmain.c:253–257 — never let moves wrap: mystic
+                // decimal cap, then the dungeon capitulates. Unreachable
+                // in play (1e9 turns); display_nhwindow(WIN_MESSAGE,TRUE)
+                // is flush_topl_more per the amulet-wish house arm below.
+                if ((g.moves | 0) >= 1000000000) {
+                    await flush_topl_more();
+                    await urgent_pline('The dungeon capitulates.');
+                    await done(ESCAPED);
+                }
                 // C: hero_seq = moves << 3 — distinct every hero turn
                 g.hero_seq = (g.moves | 0) << 3;
                 // C allmain.c: if (flags.time && !svc.context.run)
@@ -1240,6 +1252,11 @@ export async function moveloop_core() {
                 if (g.flags?.time && !g.context?.run) {
                     g.flags.time_botl = true;
                 }
+
+                // C allmain.c:269 — per-turn Lua hook before Glib. The
+                // nhcore.lua function is commented out, so the first call
+                // marks it unavailable and every call after is a no-op.
+                await l_nhcore_call(NHCORE_MOVELOOP_TURN);
 
                 // once-per-turn — C: if (Glib) glibr(); then nh_timeout
                 const glib = (g.u.uprops?.[GLIB]?.intrinsic | 0)
@@ -1375,10 +1392,22 @@ export async function moveloop_core() {
         }
         // C allmain.c:424-428 — [fast hero sinks multiple times per turn];
         // lava-trapped hero sinks, else a stationary hero feels pool
-        // effects (pooleffects(FALSE) stays deferred with under_water /
-        // under_ground, D-1000).
+        // effects (D-1000 deferral retired: on dry land pooleffects is a
+        // predicate-only no-op; in water it drowns the waiting hero).
         if ((g.u.utrap | 0) && (g.u.utraptype | 0) === TT_LAVA)
             await sink_into_lava();
+        else if (!g.u.umoved)
+            await pooleffects(false);
+
+        // C allmain.c:430–434 — vision while buried or underwater is
+        // updated here. Underwater ≡ u.uinwater (youprop.h:279); the (0)
+        // refresh completes the (2)→(1) dela protocol wired at the
+        // detect/dig/display/trap sites.
+        if ((g.u.uinwater | 0))
+            await under_water(0);
+        else if ((g.u.uburied | 0))
+            await under_ground(0);
+
         // see_nearby_monsters at end of actual-time-passed (D-1000).
         await see_nearby_monsters();
     }
@@ -1501,6 +1530,13 @@ export async function moveloop_core() {
     }
     // Message cleared at start of next rhack so pline() survives until the
     // following nhgetch capture (C keeps topline until next command).
+
+    // C allmain.c:558–563 — Lua end-of-turn callbacks. nhcb_counts stays
+    // all-zero without a registered nh.callback (cmd.js can_do_extcmd
+    // guards NHCB_CMD_BEFORE the same way), so this only runs handlers.
+    if (g.luacore && g.nhcb_counts && (g.nhcb_counts[NHCB_END_TURN] | 0)) {
+        await nh_callback_run(NHCB_NAME[NHCB_END_TURN]);
+    }
 }
 
 // C ref: allmain.c moveloop()

@@ -6,7 +6,7 @@
 {"fn":"u_slow_down","c":"163-171","status":"ported","js":["js/mhitu.js:u_slow_down"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wildmiss","c":"176-261","status":"ported","js":["js/mhitu.js:wildmiss"],"d":["D-2067","D-1291"],"at":"2026-10-03@bbe63333a"}
 {"fn":"expels","c":"264-306","status":"ported","js":["js/mhitu.js:expels"],"at":"2026-10-03@bbe63333a"}
-{"fn":"getmattk","c":"310-444","status":"partial","js":["js/mhitm.js:get_mattk"],"omit":"SEDUCE=0 SSEX substitution (c_sa_no[] / lone SSEX→DRLI; c_sa_no not in js/)","at":"2026-09-27@d2d72caa6","note":"refresh: lives as get_mattk (mhitm.js:448), all other arms verified; SEDUCE arm named (was wrongly seeded ported)"}
+{"fn":"getmattk","c":"310-444","status":"ported","js":["js/mhitm.js:get_mattk"],"d":["D-3430"],"at":"2026-10-05@adae017b4","note":"refresh: lives as get_mattk (mhitm.js:448), all other arms verified; SEDUCE arm named (was wrongly seeded ported)"}
 {"fn":"calc_mattacku_vars","c":"448-463","status":"ported","js":["js/mhitu.js:calc_mattacku_vars"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mtrapped_in_pit","c":"467-479","status":"ported","js":["js/mon.js:mtrapped_in_pit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mattacku","c":"491-952","status":"ported","js":["js/mhitu.js:mattacku"],"d":["D-2130","D-1795"],"at":"2026-10-03@bbe63333a"}

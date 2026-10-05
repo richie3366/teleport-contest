@@ -2,4 +2,4 @@
 {"fn":"item_reading_classification","c":"86-124","status":"ported","js":["js/iactions.js:item_reading_classification"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: MAIL_STRUCTURES arm live, all branches match"}
 {"fn":"ia_addmenu","c":"127-136","status":"ported","js":["js/iactions.js:itemactions"],"d":["D-3305"],"at":"2026-10-02@b2e34fd56","note":"stale: add closure js/iactions.js:473"}
 {"fn":"itemactions_pushkeys","c":"140-274","status":"ported","js":["js/iactions.js:itemactions_pushkeys"],"d":["D-2979"],"at":"2026-09-27@4ce18a4e0"}
-{"fn":"itemactions","c":"278-714","status":"partial","js":["js/iactions.js:itemactions"],"omit":"w-arm omits cantwield(data) skip: offers wield entries when hero cannot wield","d":["D-1884","D-1833"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JS cantwield exists but is not consulted; rest incl. menu loop matches"}
+{"fn":"itemactions","c":"278-714","status":"ported","js":["js/iactions.js:itemactions"],"d":["D-3430","D-1884","D-1833"],"at":"2026-10-05@adae017b4","note":"audit 2026-10-03: JS cantwield exists but is not consulted; rest incl. menu loop matches"}

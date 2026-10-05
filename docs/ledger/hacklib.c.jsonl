@@ -36,7 +36,7 @@
 {"fn":"dist2","c":"673-678","status":"ported","js":["js/hacklib.js:dist2"],"d":["D-3405","D-3327"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"isqrt","c":"682-700","status":"ported","js":["js/hacklib.js:isqrt"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"online2","c":"704-711","status":"ported","js":["js/hacklib.js:online2"],"at":"2026-10-03@bbe63333a"}
-{"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"- `strncmpi`: compare loop whole (D-2967); this batch wired artifact/do/do_name/dungeon/trap/cmd/coloratt/symbols/botl/version/sp_lev/questpgr/mthrowu/wizcmds/mon/invent/hack/role/worn/files/options/shk sites above (35 C sites + 2 delegated clones); still local: mondata.c:1026/1047/1057–1063 `start…","d":["D-3418","D-3405","D-2967"],"at":"2026-10-04@89ee696e3"}
+{"fn":"strncmpi","c":"717-734","status":"partial","js":["js/hacklib.js:strncmpi"],"omit":"- `moveloop_core`: post-rhack cliparound (CLIPPING viewport pan, display-model, own row); run/tport MAP redisplay every 7th multi/moves (house run-flush model); multi>0 non-run lookaround + --multi + rhack(cmd_key) (house multi model).","d":["D-3430","D-3418","D-3405","D-2967"],"at":"2026-10-05@adae017b4"}
 {"fn":"strstri","c":"740-779","status":"ported","js":["js/hacklib.js:strstri"],"d":["D-3418","D-3405","D-2877"],"at":"2026-10-04@89ee696e3","note":"audited D-3418: whole vs C"}
 {"fn":"fuzzymatch","c":"785-808","status":"ported","js":["js/hacklib.js:fuzzymatch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"swapbits","c":"832-837","status":"ported","js":["js/hacklib.js:swapbits"],"at":"2026-10-03@bbe63333a"}

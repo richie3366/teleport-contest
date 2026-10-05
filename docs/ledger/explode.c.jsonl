@@ -1,6 +1,6 @@
 {"fn":"explosionmask","c":"26-115","status":"ported","js":["js/explode.js:explosionmask"],"d":["D-2691"],"at":"2026-10-01@0fcd10790","note":"stale: js/explode.js:254"}
 {"fn":"engulfer_explosion_msg","c":"118-179","status":"ported","js":["js/explode.js:engulfer_explosion_msg"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"explode","c":"199-696","status":"partial","js":["js/explode.js:explode"],"omit":"EXPL_MON shield arm omits golemeffects(mtmp,adtyp,dam) call; fatal Upolyd path omits rehumanize(), goes straight to done","d":["D-1925"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: both gaps marked deferred in JS comments; rest incl. killer-format arms fully ported"}
+{"fn":"explode","c":"199-696","status":"ported","js":["js/explode.js:explode"],"d":["D-3430","D-1925"],"at":"2026-10-05@adae017b4","note":"audit 2026-10-03: both gaps marked deferred in JS comments; rest incl. killer-format arms fully ported"}
 {"fn":"scatter","c":"721-947","status":"ported","js":["js/explode.js:scatter"],"d":["D-2303","D-2274"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: chain build/flight/shop-bill/unhide tail all match; VIS_EFFECTS arm is commented out in C"}
 {"fn":"splatter_burning_oil","c":"962-969","status":"ported","js":["js/explode.js:splatter_burning_oil"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"explode_oil","c":"974-983","status":"ported","js":["js/explode.js:explode_oil"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}

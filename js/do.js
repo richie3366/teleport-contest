@@ -32,7 +32,7 @@ import {
     OBJ_FREE, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED, OBJ_BURIED,
     CXN_SINGULAR,
     CONTAINED_TOO, BURIED_TOO, ER_DESTROYED, WT_SPLASH_THRESHOLD, COST_DEGRD,
-    TT_PIT, FIRE_RES, PIT,
+    TT_PIT, TT_BURIEDBALL, FIRE_RES, PIT,
     ROOM, SINK, CORR, DRAWBRIDGE_UP, TRAPDOOR, HOLE,
     DB_FLOOR, DB_UNDER,
     IS_WATERWALL, IS_ALTAR, IS_SINK, is_pit, is_hole, u_at, Has_contents,
@@ -189,7 +189,7 @@ import { tricked_fileremoved } from './save.js';
 import { nh_terminate } from './end.js';
 import { strange_feeling } from './detect.js';
 import { surface } from './sit.js';
-import { use_pick_axe2, bury_objs, fill_pit } from './dig.js';
+import { use_pick_axe2, bury_objs, fill_pit, buried_ball_to_punishment } from './dig.js';
 import { set_move_cmd, u_rooted, nhl_callback, wizardOn } from './cmd.js';
 import { cmd_from_func, visctrl } from './dokeylist.js';
 import { newcham, mpickobj } from './makemon.js';
@@ -1730,6 +1730,11 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     }
 
     if (on_level(newlevel, u.uz)) return;
+
+    // C do.c:1593–1595 — tethered movement makes level change while trapped
+    // feasible: unbury the ball into a punishment before save/leave.
+    if ((u.utrap | 0) && (u.utraptype | 0) === TT_BURIEDBALL)
+        await buried_ball_to_punishment();
 
     // C do.c:1605 — maybe_reset_pick(NULL) before the departing level is
     // saved and freed, so carried() still sees gx.xlock.box.

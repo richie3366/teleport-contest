@@ -11,7 +11,7 @@
 {"fn":"p_coaligned","c":"370-373","status":"ported","js":["js/priest.js:p_coaligned"],"d":["D-3282"],"at":"2026-10-02@7589db4a3"}
 {"fn":"has_shrine","c":"376-389","status":"ported","js":["js/teleport.js:has_shrine"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: local clone; priest.js keeps an identical canonical copy"}
 {"fn":"findpriest","c":"392-404","status":"ported","js":["js/priest.js:findpriest"],"at":"2026-10-03@bbe63333a"}
-{"fn":"intemple","c":"410-538","status":"partial","js":["js/priest.js:intemple"],"omit":"- `intemple`: SetVoice pitch (voice-macro no-op).","d":["D-3421","D-3416"],"at":"2026-10-04@fbefad9ee","note":"D-3421: stairs paste replaced with D-3416 text"}
+{"fn":"intemple","c":"410-538","status":"ported","js":["js/priest.js:intemple"],"d":["D-3430","D-3421","D-3416"],"at":"2026-10-05@adae017b4","note":"D-3421: stairs paste replaced with D-3416 text"}
 {"fn":"forget_temple_entry","c":"545-555","status":"ported","js":["js/priest.js:forget_temple_entry"],"d":["D-3394"],"at":"2026-10-03@d428e2b04","note":"audit 2026-10-03: timer zeroing live; only the disorder-path diagnostic missing"}
 {"fn":"priest_talk","c":"558-721","status":"ported","js":["js/priest.js:priest_talk"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_roamer","c":"724-752","status":"ported","js":["js/mklev.js:mk_roamer"],"at":"2026-10-03@bbe63333a"}

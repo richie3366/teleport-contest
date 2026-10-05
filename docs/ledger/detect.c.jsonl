@@ -38,6 +38,6 @@
 {"fn":"warnreveal","c":"2107-2120","status":"ported","js":["js/detect.js:warnreveal"],"at":"2026-10-03@bbe63333a"}
 {"fn":"skip_premap_detect","c":"2124-2130","status":"ported","js":["js/detect.js:skip_premap_detect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"premap_detect","c":"2134-2159","status":"ported","js":["js/detect.js:premap_detect"],"at":"2026-10-03@bbe63333a"}
-{"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"partial","js":["js/display.js:reveal_terrain_getglyph"],"omit":"- `reveal_terrain_getglyph`: visible_region_at/gascloud arms (`reg && glyph_is_gascloud`, `!seenv`+region GLYPH_UNEXPLORED, keep_traps region-glyph restore) + arboreal default cell — display-model work, rare edge.","d":["D-3406","D-3404","D-3366","D-3363"],"at":"2026-10-04@44ce1ba38"}
+{"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"ported","js":["js/display.js:reveal_terrain_getglyph"],"d":["D-3430","D-3406","D-3404","D-3366","D-3363"],"at":"2026-10-05@adae017b4"}
 {"fn":"dump_map","c":"2294-2349","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: dumplog-only output (putstr winid 0), DUMPLOG retired D-1776"}
 {"fn":"reveal_terrain","c":"2356-2414","status":"ported","js":["js/detect.js:reveal_terrain"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

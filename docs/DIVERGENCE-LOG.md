@@ -1,5 +1,58 @@
 # Divergence log
 
+## D-3430 — breadth batch @adae017b4: 28 fns over 21 C files (8 ported, 11 partial, 9 audited)
+- **Status:** shipped (batch).
+- **Symptom:** ledger gap of 28 functions (open 0 · partial 28 · recheck 0, ~1259 C lines) in allmain/hack/quest/steal/trap/wizcmds/ball/detect/dig/do/do_name/explode/getpos/hacklib/iactions/insight/makemon/mhitu/options/priest/strutil; 11 rows carried finish-iteration paste-error omits (wrong-function sub-bullet or truncation), recovered from git + D-log archaeology before porting.
+- **C locus:**
+  - `moveloop_core`: allmain.c:177–564 turn core; shipped :253–257 moves>=1e9 capitulate, :269 NHCORE_MOVELOOP_TURN, :428 !umoved pooleffects, :430–434 Underwater/under_ground vision, :558–563 NHCB_END_TURN.
+  - `domove_core`: hack.c:2712–2991 via js/cmd.js domove inline test_move; shipped the DO_MOVE worm_cross diagonal arm (test_move :1188–1192), previously absent from the inline sequence.
+  - `chat_with_leader`: quest.c:299–366; body was whole — shipped the 4 missing pager sets (badlevel/encourage/leader_next/posthanks) for Arc/Bar/Pri.
+  - `nemesis_speaks`: quest.c:403–422; body whole, no JS change (standing omit named already-shipped quest_chat arms).
+  - `rot_corpse`: dig.c:2145–2189; shipped rot_organic :2129–2137 contents re-burial loop (expose arm :2180–2185 already live).
+  - `reveal_terrain_getglyph`: detect.c:2170–2288; shipped reg/gascloud arms (:2229 strip disjunct, reg&&was_mon, :2232–2238 !seenv unexplored, :2239–2248 keep_traps restore), arboreal default cell, and the terrain_glyph LADDER case (was default '?').
+  - `goto_level`: do.c:1479–1998; shipped :1593–1595 buried_ball_to_punishment.
+  - `explode`: explode.c:404–733; wired golemeffects_mm in the EXPL_MON arm (:517–525) and rehumanize() in the fatal Upolyd path (:641–644).
+  - `strncmpi`: hacklib.c:…; compare loop whole (D-2967) — wired the mondata.c:1026/1047/1057–1063 startsWith chain to the live export.
+  - `itemactions`: iactions.c w-arm :606–630; shipped the cantwield(youmonst.data) skip (mondata.h:123 macro, expanded inline).
+  - `getmattk`: mhitu.c:309–444 via js/mhitm.js get_mattk; shipped the :320–334 SEDUCE=0 arm + c_sa_no table (monst.c:79).
+  - `intemple`: priest.c:410–538; shipped the :467 SetVoice C-order call (no-op).
+  - `maketrap`: trap.c:454–600; no JS change (TELEP_TRAP arm dead in JS flow, Knox gate live since D-3426).
+  - `newgame`, `test_move`, `sanity_check`, `getpos`, `doset`, `Strlen_`: no JS change; standing omits carried (see Named omissions).
+- **JS was:** moveloop_core lacked 5 arms (capitulate/Lua/pool/underwater/NHCB); domove inline lacked worm_cross; quest leader texts missed 4 sets; rot_corpse lacked contents bury; reveal lacked region/gascloud/arboreal/LADDER; goto_level lacked buriedball; explode lacked golem/fatal-poly arms; mondata used Unicode-lowering startsWith; itemactions offered wield when unable; get_mattk lacked SEDUCE=0; intemple lacked SetVoice; terrain_glyph had no LADDER case ('?').
+- **Fix:** per-function ports in C order (see C locus), all against live exports: urgent_pline/done/pooleffects/under_water/under_ground/nh_callback_run (moveloop_core + exported NHCB_NAME from cmd.js); worm_cross (domove); 12 quest.lua texts as QUEST_BADLEVEL/ENCOURAGE/LEADER_NEXT/POSTHANKS + META + registry (chat_with_leader); bury_an_obj loop (rot_corpse); visible_region_at + newsym-precedence cloud overlay + cansee gate + trap-or-region restore + arboreal cell + LADDER case with DECgraphics raw y/z (reveal; LADDER fix unblocked scen-tour-Tourist-92075); buried_ball_to_punishment (goto_level); golemeffects_mm + rehumanize (explode); strncmpi incl n=-1 strcmpi shape (mondata); nohands/verysmall macro expansion (itemactions); C_SA_NO table (getmattk); SetVoice (intemple). Mid-batch the ungated cloud overlay regressed scen-tour-Healer-92198 (cloud painted on unseen cells); fixed with the cansee gate (newsym only paints visible cells) — PASS in re-verify. LOOP-QUEUE maketrap-Knox missing-arm row is stale (gate live since D-3426, verified this batch); left for the refill cycle (band mechanics forbid retiring without refill).
+- **JS:** js/allmain.js (5 arms + imports), js/cmd.js (worm arm + NHCB_NAME export), js/display.js (reveal region/arboreal/LADDER), js/do.js (buriedball), js/explode.js (golem + rehumanize), js/iactions.js (cantwield), js/mhitm.js (C_SA_NO + SEDUCE arm), js/mkobj.js (contents bury), js/mondata.js (strncmpi rewire), js/priest.js (SetVoice), js/quest.js (doc), js/questpgr.js (4 text sets) — 349 insertions, 61 deletions, 12 js files.
+- **Callers:**
+  - `moveloop_core`: C allmain.c:595 moveloop → js/allmain.js:1543; C nhlua.c:1452 nh_moveloop (Lua binding; no JS counterpart — Lua API entry absent, named).
+  - `domove_core`: C hack.c:2700 domove → body lives js/cmd.js:6213 domove (pre-existing split/rename); worm arm internal.
+  - `chat_with_leader`: C quest.c:390 leader_speaks + :476 quest_chat → js/quest.js:523 + :573.
+  - `nemesis_speaks`: C quest.c:503 quest_talk MS_NEMESIS → js/quest.js:660.
+  - `rot_corpse`: C timeout ROT_CORPSE → js/mkobj.js:1853 run_timers dispatch (timeout.js:44 import).
+  - `reveal_terrain_getglyph`: C detect.c reveal_terrain paint loop → js/display.js reveal_terrain_show_map loop.
+  - `goto_level`: buriedball arm internal; 24 C call sites unchanged (signature untouched).
+  - `explode`: both arms internal; C callers (10 files) unchanged.
+  - `strncmpi`: wired js/mondata.js name_to_monplus :819 (alt), :842 (pmnames), :851–861 (tail); export unchanged.
+  - `itemactions`: C invent.c:2998 dispinv_with_action + :4025 dotypeinv → js/iactions.js:962 + js/invent.js:1884.
+  - `getmattk`: SEDUCE arm internal; mattacku/mattackm/dogattack/hmonas callers unchanged.
+  - `intemple`: C check_special_room → js/hack.js:3152.
+  - `maketrap`, `newgame`, `test_move`, `sanity_check`, `getpos`, `doset`, `Strlen_`: no JS change; callers unchanged (prior-batch wiring).
+- **Verify:**
+  - `PASS syntax 12 changed js file(s)` · `PASS rule2` · `PASS hidden verify getpos: 1 PASS, 0 moved past, 3 unchanged, 0 worse → PROGRESS` (scen-tour-Tourist-92075: PASS) · 27 fns `no corpus session blocked` · 28/28 `batch sweep (735 baseline-PASS run) — 0 regressed → REACH-OK` · `PASS sweep sweep 28 fn(s): 735 baseline-PASS session(s) re-run in 257.5s, 0 regressed → REACH-OK` · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44` · VERIFY: PASS. Still blocked on getpos (pre-existing, different causes, future work): scen-dig-Caveman-94195 s66, scen-ride-Valkyrie-94414 s92, scen-tour-Healer-92093 s87. Hot-sum trim (ship-time, own bytes only): Next line restored to standing text, D-3430 recent + landmark lines shortened (~510B) — first finish-iteration run aborted pre-commit on hot-sum 48,450/48,000; full record in this entry.
+- **Named omissions:**
+  - `moveloop_core`: post-rhack cliparound (CLIPPING viewport pan, display-model, own row); run/tport MAP redisplay every 7th multi/moves (house run-flush model); multi>0 non-run lookaround + --multi + rhack(cmd_key) (house multi model).
+  - `domove_core`: displaceu middle-skip (C skips ironbars/test_move/swim when swapping; JS runs the middle then swaps — converges next turn); travel block handled upstream in continue_run via findtravelpath_travel/guess + travel1=0 in the same order vs the carrying check; final CLIPPING (wintty cliparound singleton, D-2453).
+  - `maketrap`: TELEP_TRAP fixed-dest arm (trap.c:567-573): launchplace is (0,0) at every JS maketrap call and isok needs x>=1, so the gate never fires — themerms.lua, the only teledest user, sets teledest caller-side via make_a_trap_postprocess with correct offsets, and porting the arm needs gx.xstart parse scoping.
+  - `goto_level`: binary NHFILE savelev/getlev (by-design VFS analogue); quest RMPORTAL seal (callee-side); migrating-Wizard resurrect path; Lua NHCB_LVL_LEAVE (Lua subsystem); MICRO Valley display_nhwindow (MICRO ifdef, not in contest build); svc.context.polearm.hitmon clear (no JS polearm model).
+  - `strncmpi`: objnam.c wish-parser arms beyond the wired readobjnam helpers (D-2967 carry, not re-verified); eat.c:1413 + zap.c wish-history via the shared str_start_is helper (faithful, not the export); symbols.c:468 parse_sym_line + nhlua.c:2449 get_lua_version (functions absent from js/).
+  - `newgame`: reset_glyphmap(gm_newgame) (display-subsystem port, own row); NEWS display_file(iflags.news) (no embedded news dat; default off, never fires in contest); get_nhuuid retired (NHUUID undefined, body empty).
+  - `test_move`: ECMD_OK + canned-kick fake (JS doopen_indir returns bool, not ECMD codes; cmdq_peek is cmd.js-local); defsyms explanation prose (tree/wall/solid-stone heuristic, no live defsyms table); autodig flag (no JS option; arm live on game.flags.autodig).
+  - `sanity_check`: obj/timer/mon/trap/engraving/levl sanity callees (absent from js/, non-manifest future rows); dobjsfree/clear_bypasses/resume_wish (moveloop_core envelope, pre-existing map line).
+  - `getpos`: CLIPPING cliparound x2 (wintty-only, no-op at contest fixed size); gg.getposx/getposy async-resize model (wintty-only readers).
+  - `doset`: wc2_supported skips (minimal-wincap2 model gap); optfn_boolean perm_invent gate (caller-side); reset_needed_visuals subset (D-1701 owns).
+  - `Strlen_`: panic subsystem presentation (throw preserves non-return); Strlen macro callers use local lengths (caller-side rewire, future work).
+- **Ledger:** moveloop_core partial; moveloop audited; newgame partial; test_move partial; domove_core partial; chat_with_leader ported; nemesis_speaks ported; remove_worn_item audited; steal audited; mk_trap_statue audited; maketrap partial; sanity_check partial; wiz_show_nhuuid audited; bc_sanity_check audited; reveal_terrain_getglyph ported; rot_corpse ported; goto_level partial; oname audited; explode ported; getpos partial; strncmpi partial; itemactions ported; record_achievement audited; makemon audited; getmattk ported; doset partial; intemple ported; Strlen_ partial.
+- **Left open:** none.
+- **Next:** next batch (`ledger.mjs batch --write`).
+
 ## D-3429 — breadth batch @77a859fd3: 65 fns over 13 C files (20 ported, 1 split, 7 partial, 37 audited)
 - **Status:** shipped (batch).
 - **Symptom:** ledger gap of 65 functions (open 0 · partial 45 · recheck 20, ~1519 C lines) in cfgfiles/do/allmain/polyself/vault/ball/hack/pray/lock/mhitm/botl/dog/pager: named omissions in dodrop/doaltarobj/dropz (do), moveloop_preamble/newgame (allmain), clear_fcorr/parkguard/find_guard_dest/wallify_vault (vault), drag_ball/litter + canletgo-silent clone (ball), dopush unmap (hack), all four pray fns, doopen_indir/doclose (lock), mon_poly/passivemm/sleep_monst splits (mhitm); 20 cfgfiles sysconf splits + thin rechecks to confirm whole.

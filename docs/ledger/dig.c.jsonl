@@ -30,7 +30,7 @@
 {"fn":"bury_objs","c":"2050-2081","status":"ported","js":["js/dig.js:bury_objs"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: shop billing, bury loop, unhide, owe message live"}
 {"fn":"unearth_objs","c":"2086-2112","status":"ported","js":["js/dig.js:unearth_objs"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: buried-ball punish arm, timer stop, place+stack live"}
 {"fn":"rot_organic","c":"2125-2140","status":"ported","js":["js/dig.js:rot_organic"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: contents re-bury loop + extract/free live"}
-{"fn":"rot_corpse","c":"2146-2189","status":"partial","js":["js/mkobj.js:rot_corpse"],"omit":"missing rot_organic contents re-burial loop (C dig.c:2129-2137, contents freed with corpse) and on-floor mundetected/hideunder expose (C:2180-2185)","d":["D-1213"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: invent/minvent/migrating arms + update_inventory live"}
+{"fn":"rot_corpse","c":"2146-2189","status":"ported","js":["js/mkobj.js:rot_corpse"],"d":["D-3430","D-1213"],"at":"2026-10-05@adae017b4","note":"audit 2026-10-03: invent/minvent/migrating arms + update_inventory live"}
 {"fn":"bury_monst","c":"2193-2209","status":"by-design","d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"inside #if 0 dig.c:2191-2283 (with bury_you, unearth_you, escape_tomb, bury_obj); extern.h decl only"}
 {"fn":"bury_you","c":"2212-2227","status":"by-design","d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"inside #if 0 dig.c:2191-2283; zero C refs"}
 {"fn":"unearth_you","c":"2230-2238","status":"ported","js":["js/dig.js:unearth_you"],"d":["D-3058"],"at":"2026-09-28@1483a276d","note":"refresh: no JS symbol (measured MISSING)"}
