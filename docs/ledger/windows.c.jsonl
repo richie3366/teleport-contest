@@ -43,7 +43,7 @@
 {"fn":"hup_void_fdecl_winid_ulong","c":"856-861","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"hup_void_fdecl_constchar_p","c":"865-868","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"hup_ctrl_nhwindow","c":"872-878","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"genl_status_init","c":"893-906","status":"ported","js":["js/botl.js:genl_status_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: window create/display→sentinel id (no window sys)"}
+{"fn":"genl_status_init","c":"893-906","status":"ported","js":["js/botl.js:genl_status_init"],"d":["D-3455"],"at":"2026-10-05@9619823fc","note":"audited D-3455: whole vs C"}
 {"fn":"genl_status_finish","c":"909-919","status":"ported","js":["js/botl.js:genl_status_finish"],"at":"2026-10-03@bbe63333a"}
 {"fn":"genl_status_enablefield","c":"922-931","status":"ported","js":["js/botl.js:genl_status_enablefield"],"at":"2026-10-03@bbe63333a"}
 {"fn":"genl_status_update","c":"937-1115","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

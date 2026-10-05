@@ -210,10 +210,16 @@ band 4 < 8 blocks finish) refilled +4 with brief-verified batch-preview
 partials (newgame NEWS/reset, record_achievement sound no-op, windowport
 caps wire + display arm — each C + JS read at enqueue) to hold the 8-row
 band.
-- [ ] `allmain.c` newgame NEWS/reset arms — C allmain.c:798 reset_glyphmap(gm_newgame) absent from js/allmain.js:812 newgame (NOT FOUND in js/; callee ledger by-design) + :803–805 NEWS display_file(iflags.news) absent (NEWS defined config.h:303, default off); get_nhuuid retired — ship iter audits or scopes (brief-read 2026-10-05) @e4c489f9e
-- [ ] `insight.c` record_achievement sound arm — C insight.c:2437 SoundAchievement(achidx,0,repeat) absent from js/insight.js:640 record_achievement (NOT FOUND in js/); macro verified compile-time no-op in this build (no SND_LIB_* in unixconf/config, sndprocs.h:266 else-arm) — ship iter retires/audits (brief-read 2026-10-05) @e4c489f9e
-- [ ] `botl.c` evaluate_and_notify_windowport caps wire — C botl.c:1671–1676 RESET/FLUSH dispatch reads windowprocs.wincap2, absent from js/botl.js:1088 evaluate_and_notify_windowport + :2811 (both harden const wincap2 = 0, named omit); TTY_WINCAP2 model lacks the status bits so a live-wire is null — ship iter wires consts to the model + scopes status_update delivery (windowport registry gap; doset wc2 arm defers to it) (brief-read 2026-10-05) @e4c489f9e
-- [ ] `botl.c` status_initialize display arm — C windows.c:893–906 genl_status_init display_nhwindow(WIN_STATUS,FALSE) absent from js/botl.js:291 genl_status_init (named :288–289; display_nhwindow NOT FOUND in js/); status_initialize itself dead (VIA_WINDOWPORT never fires, allmain.js:222) — ship iter ports the dead-path arm or audits (brief-read 2026-10-05) @e4c489f9e
+D-3455 (Open head ×4 shipped: wincap2 caps wire + 3 audits; band 4 < 8
+blocks finish) refilled +4 with brief-verified batch-preview partials
+(opt_usage/sanity_check/parseautocomplete unshippable-omit audits,
+bc_sanity_check misfiled-omit retire — each C + JS read at enqueue;
+status_initialize twin filed then swept by the archiver — shared the
+shipped row's fn token, re-fileable next iter) to hold the 8-row band.
+- [ ] `earlyarg.c` opt_usage unshippable-omit audit — C earlyarg.c:378–385 chdirx/dlb_init/genl_display_file arms absent from js/earlyarg.js:446 opt_usage (chdirx Rule #2 :447–449; dlb_init + genl_display_file(USAGEHELP,TRUE) ledger by-design :450–452); CHDIR live arm config.h:438 + opt_terminate live :453 — ship iter audits (brief-read 2026-10-05) @9619823fc
+- [ ] `wizcmds.c` sanity_check by-design-callee audit — C wizcmds.c:1460–1481 obj/timer/mon/trap/engraving/levl sanity calls absent from js/wizcmds.js:1010 sanity_check (all 6 ledger by-design, wizard debug-build path); envelope + you/light/bc live :1012–1026 — ship iter audits (brief-read 2026-10-05) @9619823fc
+- [ ] `cmd.c` parseautocomplete wait_synch audit — C cmd.c:3291 wait_synch absent from js/cmd.js:2607 parseautocomplete (windowed input boundary; config parser stays sync — cfgfiles.js configMsg precedent; named :2599–2600/:2645); split/recurse/trim/negation/flags/raw_printf live :2608–2644 — ship iter audits (brief-read 2026-10-05) @9619823fc
+- [ ] `ball.c` bc_sanity_check misfiled-omit retire — C ball.c:1034–1102 whole in js/ball.js:1103 (Punished :1109–1123; freeball/chain :1128–1131; uball :1132–1146; uchain :1148–1162; b&c distance :1163–1182; callees impossible/safe_typename live); ledger omit names sanity_check siblings — not this fn's callees (D-2489 whole-body port; paste suspect, unverified at enqueue) — ship iter git-shows + retires (brief-read 2026-10-05) @9619823fc
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

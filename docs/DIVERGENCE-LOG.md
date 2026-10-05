@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-3455 — Open head ×4: wincap2 caps wire (evaluate + stat_update_time) + newgame/record_achievement/genl_status audits
+- **Status:** shipped.
+- **Symptom:** operator override (supervisor flagged #4341 a failed port; the 3 Must-fix heads are docs-only ledger repairs; Must-fix deferred, still queued; D-3447/D-3449/D-3451/D-3453 precedent). Real C-vs-JS gap closed: js/botl.js hardened `const wincap2 = 0` at 2 sites while a live tty caps model exists (const.js TTY_WINCAP2 + display.js install_tty_wincap2 → game.windowprocs.wincap2) — C reads windowprocs.wincap2 live at botl.c:1671/:1674/:1295. Audits: newgame NEWS/reset arms, record_achievement sound arm, genl_status_init display arm — every remaining omit unshippable (by-design callees / compiled-out / Rule #2 / no window sys).
+- **C locus:**
+  - `evaluate_and_notify_windowport`: botl.c:1621–1680 (field loop :1630–1646; RESET/FLUSH dispatch :1671–1676 reading windowprocs.wincap2; flag clear :1678–1679). Sole C caller botl.c:1277 (bot_via_windowport).
+  - `stat_update_time`: botl.c:1285–1299 (staticfn; time push :1290–1294; FLUSH dispatch :1295–1297). Sole C caller botl.c:287 (timebot VIA_WINDOWPORT arm).
+  - `newgame`: allmain.c:766–850 (audit; queued arms :798 reset_glyphmap + :803–805 NEWS display_file).
+  - `record_achievement`: insight.c:2407–2472 (audit; queued arm :2437 SoundAchievement).
+  - `genl_status_init`: windows.c:893–906 (audit; queued arm :905 display_nhwindow).
+- **JS was:**
+  - `botl.js:1090` + `:2811` (pre-edit): `const wincap2 = 0` (named omit: windowport registry); dispatch arms dormant-by-hardening, not by caps.
+  - `botl.js:2794` stat_update_time otherwise whole (idx/fld; moves push; valset shelf; field push).
+  - `allmain.js:812` newgame whole except queued arms (no reset_glyphmap/NEWS/signal/get_nhuuid/tributesz writes).
+  - `insight.js:640` record_achievement whole except SoundAchievement (comment :664–667 names the compile-out).
+  - `botl.js:291` genl_status_init whole except display_nhwindow (named :288–290; sentinel WIN_STATUS_ID :300).
+- **Fix:** new file-local windowprocs_wincap2() (js/botl.js:1060–1070, shape mirrors options.js:1343–1349 — installed game.windowprocs.wincap2 or TTY_WINCAP2 fallback); both hardened sites now read it live (evaluate :1105, stat_update_time :2827; TTY_WINCAP2 added to the existing const.js import — imports.mjs ALREADY, no new edge). Wire is behavior-null: the model carries the full unix tty set minus the four status bits (const.js:1510–1521), doset wc2 mutation stays unwired (D-3453), and both callers sit behind dead VIA_WINDOWPORT (via_windowport() false — options.js:1334; display.js:7864 arm; bot_via_windowport js/botl.js:2804) — so the throwing status_update stub (js/botl.js:956) stays unreachable and both dispatches stay dormant per C-with-status-incapable-port. Audits: (a) newgame — reset_glyphmap callee ledger by-design (fortress guard, CURRENT Do-not), NEWS compile-gated + default-off + no embedded dat, signal POSIX Rule #2, get_nhuuid not a pinned-C function (ledger), tributesz C write-only (sole writer allmain.c:777, zero C readers — future save-skip); (b) record_achievement — SoundAchievement compiles to the sndprocs.h empty definition (no SND_LIB_* backend in this build); (c) genl_status_init — display_nhwindow NOT FOUND in js/, no window sys (sentinel stands); grid-snapshot emulation is D-1831-banned.
+- **JS:** js/botl.js (:33–34 import +1, :1060–1070 helper, :1099–1105 site 1, :2820–2827 site 2). 1 changed js file.
+- **Callers:**
+  - `evaluate_and_notify_windowport`: C botl.c:1277 → js/botl.js:2804 bot_via_windowport (dead-VIA_WINDOWPORT path; wire null, REACH-OK).
+  - `stat_update_time`: C botl.c:287 → js/display.js:7864 timebot VIA_WINDOWPORT arm (dead — via_windowport() false; wire null, REACH-OK).
+  - `newgame`: n/a — audit only (sole C caller unixmain.c:315; JS entry jsmain start()).
+  - `record_achievement`: n/a — audit only (33 C call sites; live JS export, callers unchanged).
+  - `genl_status_init`: n/a — audit only (C caller wintty.c:4360 tty_status_init; JS tty_status_init js/botl.js:338 calls the live export).
+- **Verify:** `verify.mjs --fn newgame,record_achievement,evaluate_and_notify_windowport,genl_status_init,stat_update_time` → PASS syntax (1 js: botl.js) · PASS rule2 · 5× hidden note (none blocked — normal; rows cited none) · 5× REACH-OK (smoke 24/24 each, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed); VERIFY: PASS.
+- **Named omissions:**
+  - `evaluate_and_notify_windowport`: none in-body — whole (caps live-read; multi-port registry selection + doset wc2 mutation + status_update delivery stay their own rows).
+  - `stat_update_time`: none in-body — whole (same caps helper; FLUSH delivery stays the delivery row).
+  - `newgame`: reset_glyphmap(gm_newgame) (by-design display-subsystem callee, fortress guard); NEWS display_file(iflags.news) (compile-gated, default off, no embedded news dat); signal(SIGINT) (POSIX, Rule #2); get_nhuuid (not a pinned-C function); tribute.tributesz (C write-only future save-skip, zero C readers).
+  - `record_achievement`: SoundAchievement runtime dispatch (C compiles it out — no SND_LIB_* backend; sndprocs.h empty definition).
+  - `genl_status_init`: display_nhwindow(WIN_STATUS, FALSE) (no window sys in scored JS; sentinel WIN_STATUS_ID stands; grid-snapshot emulation D-1831-banned).
+- **Ledger:** evaluate_and_notify_windowport ported; stat_update_time ported; newgame audited; record_achievement audited; genl_status_init audited
+- **Left open:** none.
+- **Next:** Must-fix heads stay queued (deferred per override). 4 refills hold the band (opt_usage, sanity_check, parseautocomplete, bc_sanity_check — each C+JS brief-read this iter; status_initialize twin filed then swept by the archiver — shared the shipped row's fn token, re-fileable next iter).
+
 ## D-3454 — Must-fix: extract_from_minvent 1-row repair retires paste (ported D-2924, no omit)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue Must-fix head: extract_from_minvent row `partial` carrying mon_break_armor's `- \`mon_break_armor\`: none in this whole body or its two executable C callers.` omit — D-3189 armor-batch finish first-line stamping (paste landed `447ada6e3` flipping the row from ported D-2924 no omit to partial+paste, verified via `git show` by this iter; mon_break_armor itself ported D-3189+D-1917 no omit; D-3426 re-certified "audited D-3426: remaining omit cannot ship" without noticing the name mismatch).

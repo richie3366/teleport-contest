@@ -31,6 +31,7 @@ import {
     BL_EXP, BL_CONDITION, BL_WEAPON, BL_ARMOR, BL_TERRAIN, BL_VERS,
     BL_RESET, BL_FLUSH, BL_CHARACTERISTICS,
     WC2_RESET_STATUS, WC2_FLUSH_STATUS,
+    TTY_WINCAP2,
     ANY_INT, ANY_UINT, ANY_LONG, ANY_ULONG,
     ANY_IPTR, ANY_UPTR, ANY_LPTR, ANY_ULPTR,
     ANY_STR, ANY_MASK32, ANY_INVALID,
@@ -1056,6 +1057,18 @@ export function eval_notify_windowport_field(fld, valsetlist, idx) {
     return updated; // C :1632
 }
 
+// C `windowprocs.wincap2` (winprocs.h) — the live caps word. Shape mirrors
+// options.js windowprocs_wincap2 (:1343–1349): the installed tty value once
+// display.js install_tty_wincap2 has run, else the const.js TTY_WINCAP2
+// model (full unix tty set minus the four status bits, const.js:1510–1521).
+function windowprocs_wincap2() {
+    const wp = game.windowprocs;
+    if (wp && typeof wp === 'object' && Object.hasOwn(wp, 'wincap2')) {
+        return wp.wincap2 | 0;
+    }
+    return TTY_WINCAP2;
+}
+
 // C botl.c:1621-1680 — evaluate_and_notify_windowport(): push the changed
 // blstats fields to the window port, then RESET/FLUSH per windowport caps,
 // then clear the botl request flags. Option gates in C order — C :1632-1642;
@@ -1085,9 +1098,11 @@ export function evaluate_and_notify_windowport(valsetlist, idx) {
     }
     // C :1652-1670 notes: botlx forces a full push (some ports only draw
     // changed fields; tty needs the repaint after menu/text obliteration).
-    // No windowport registry in JS → caps read 0 (named omit); both arms
-    // skip, exactly as with a status-incapable windowport in C.
-    const wincap2 = 0; // named omit: windowprocs.wincap2 (windowport registry)
+    // C :1671/:1674 read windowprocs.wincap2 live (single-port tty model:
+    // installed value or const.js TTY_WINCAP2 — full unix tty set minus
+    // the four status bits, so both arms stay dormant until status_update
+    // delivery + the doset wc2 arm land, their own rows).
+    const wincap2 = windowprocs_wincap2();
     const botlx = !!(game.flags?.botlx ?? game.disp?.botlx); // C disp.botlx; JS convention: game.flags (display.js bot())
     if (botlx && (wincap2 & WC2_RESET_STATUS) !== 0) { // C :1671-1673
         status_update(BL_RESET, 0, 0, 0, NO_COLOR, null);
@@ -2805,10 +2820,11 @@ export function stat_update_time() {
     valset[fld] = false; // C :1292
 
     eval_notify_windowport_field(fld, valset, idx); // C :1294
-    // C :1295-1298 WC2_FLUSH_STATUS push. No windowport registry in JS →
-    // caps read 0 (named omit, :1039 precedent); the arm skips, exactly as
-    // with a status-incapable windowport in C.
-    const wincap2 = 0; // named omit: windowprocs.wincap2 (windowport registry)
+    // C :1295-1298 WC2_FLUSH_STATUS push. Caps read the live single-port
+    // tty model (same windowprocs_wincap2 helper as
+    // evaluate_and_notify_windowport); the status bits stay clear so the
+    // arm stays dormant until status_update delivery lands (own row).
+    const wincap2 = windowprocs_wincap2();
     if ((wincap2 & WC2_FLUSH_STATUS) !== 0) { // C :1295
         status_update(BL_FLUSH, 0, 0, 0, NO_COLOR, null); // C :1296-1297
     }
