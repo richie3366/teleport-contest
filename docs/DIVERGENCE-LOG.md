@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-3434 — breadth batch @5e7cd2e00: moveloop_core mv-replay + cmdq preemption; getpos audited
+- **Status:** shipped (batch).
+- **Symptom:** ledger gap of 2 partials (open 0 · recheck 0, ~209 C lines) in allmain/getpos; both rows' omit fields carry moveloop_core's text again (finish-iteration paste-error, 4th consecutive batch — true omits recovered from D-3433 Named omissions before porting).
+- **C locus:**
+  - `moveloop_core`: allmain.c:522–531 mv replay arm (`multi < COLNO && !--multi` → end_running(TRUE), direct domove); cmd.c:3785–3787 DOMOVE_WALK `if (multi) mv = TRUE` setter (2 JS dispatch sites — walk arm + F+runkey sub-arm, since do_fight pre-sets DOMOVE_WALK at cmd.c:1631); cmd.c:3642–3651 cmdq_pop-before-parse on every rhack entry including replay.
+  - `getpos`: no JS change; body re-verified whole vs C getpos.c:771–1167 (entry dir arm, pick/cycle/menu/toggle arms, rushrun, help/redraw live bindings, mMoOdDxX gather+cycle, feature scan with the D-3433 showsyms disjunct, quitchars/Done exits, nxtc, exitgetpos restores).
+- **JS was:** counted walks replayed via rhack(cmd_key) with mv=0 — re-dispatched every step, re-armed WALK (smudge every step vs C's first-step-only, hack.c:2706) and ran the see_monsters refresh under Hallu/telepat/Warning/region that C's !mv gate skips; rhack(key≠0) never consulted the canned queue, so a counted whip/pole/grapple re-apply after wield_tool TIME re-prompted the invlet and leaked stale doapply+invlet entries into later ticks.
+- **Fix:** mv=1 setter in both walk dispatch sites + mv replay path (COLNO-ride quirk exact; termination is bump-nomul at hack.c:2848 plus the finite map — no hang) + cmdq hoist (replay-only behavior change: rhack(key≠0) has one caller, the moveloop replay). Hoist ships with the mv path so autounlock-kick entries queued mid-walk still wait for count end like C. Test 4/4, pre-fix stash probe 3/4.
+- **JS:** js/allmain.js (domove/end_running imports — both ALREADY edges, hoisted fns, no TDZ — + mv arm, 26/14), js/cmd.js (domove export + 2 setters + hoist dedent, 83/74), scripts/moveloop-multireplay.test.mjs (header + mv-lifecycle case, 26/6) — 109 js insertions, 2 js files.
+- **Callers:**
+  - `moveloop_core`: arms internal, signature untouched; C callers unchanged (allmain.c:595 moveloop; nhlua.c:1452 Lua binding has no JS counterpart, named per D-3430). domove newly exported from cmd.js (additive; existing internal callers unchanged).
+  - `getpos`: no JS change; C callers in 13 files unchanged (prior-batch wiring).
+- **Verify:**
+  - batch `node scripts/verify.mjs --fn moveloop_core,getpos`: `PASS syntax 2 changed js file(s)` · `PASS rule2` · moveloop_core `no corpus session blocked` + reach 80/80 sample → REACH-OK · getpos `0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (scen-tour-Healer-92093 still getpos s87 — toplines byte-identical both sides, row-12 C "`" vs JS "??" is the D-3431 memory writer, RNG unchanged, cause outside the manifest; same as D-3431/D-3432/D-3433) + smoke 24/24 → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44`.
+  - hot-fn `node scripts/verify.mjs --fn moveloop_core --reach-all`: 724/724 PASS, 0 regressed → REACH-OK · green/strict/cohort/full PASS · VERIFY: PASS.
+  - focused `node --test scripts/moveloop-multireplay.test.mjs` 4/4 (pre-fix stash probe: 3/4 — "2h" left domove_succeeded=WALK via the old rhack replay).
+- **Named omissions:**
+  - `moveloop_core`: run/tport MAP redisplay every 7th multi/moves (house run-flush model — JS flush_screen(1) every tick subsumes C's periodic WIN_MAP repaint; the flags.time botl sub-arm is a dead store under the every-tick repaint; no failing session demands it).
+  - `getpos`: gg.getposx/getposy stores (:848–849, :1144, :1160 exit zeroing) — sole C readers win/tty/wintty.c:421–424 async-resize (decl.h:403 "cursor position in case of async resize"); no JS resize path (fixed display; cannot ship).
+- **Ledger:** moveloop_core partial; getpos audited.
+- **Left open:** none.
+- **Next:** next batch (`ledger.mjs batch --write`).
 ## D-3433 — breadth batch @0a9a22f73: moveloop_core multi-replay + getpos live bindings
 - **Status:** shipped (batch).
 - **Symptom:** ledger gap of 2 partials (open 0 · recheck 0, ~209 C lines) in allmain/getpos; both rows' omit fields carry moveloop_core's text (finish-iteration paste-error, same class as D-3431/D-3432) — true omits recovered from D-3432 Named omissions before porting.

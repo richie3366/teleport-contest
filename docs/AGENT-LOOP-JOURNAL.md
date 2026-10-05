@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3434 breadth batch @5e7cd2e00: moveloop_core mv-replay + cmdq preemption; getpos audited
+
+**C locus:** - `moveloop_core`: allmain.c:522–531 mv replay arm (`multi < COLNO && !--multi` → end_running(TRUE), direct domove); cmd.c:3785–3787 DOMOVE_WALK `if (multi) mv = TRUE` setter (2 JS dispatch sites — walk arm + F+runkey sub-arm, since do_fight pre-sets DOMOVE_WALK at cmd.c:1631); cmd.c:3642–3651 cmdq_pop-before-parse on every rhack entry including replay.
+**JS:** js/allmain.js (domove/end_running imports — both ALREADY edges, hoisted fns, no TDZ — + mv arm, 26/14), js/cmd.js (domove export + 2 setters + hoist dedent, 83/74), scripts/moveloop-multireplay.test.mjs (header + mv-lifecycle case, 26/6) — 109 js insertions, 2 js files.
+**Change:** mv=1 setter in both walk dispatch sites + mv replay path (COLNO-ride quirk exact; termination is bump-nomul at hack.c:2848 plus the finite map — no hang) + cmdq hoist (replay-only behavior change: rhack(key≠0) has one caller, the moveloop replay). Hoist ships with the mv path so autounlock-kick entries queued mid-walk still wait for count end like C. Test 4/4, pre-fix stash probe 3/4.
+**Verify:** - batch `node scripts/verify.mjs --fn moveloop_core,getpos`: `PASS syntax 2 changed js file(s)` · `PASS rule2` · moveloop_core `no corpus session blocked` + reach 80/80 sample → REACH-OK · getpos `0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (scen-tour-Healer-92093 still getpos s87 — toplines byte-identical both sides, row-12 C "`" vs JS "??" is the D-3431 memory writer, RNG unchanged, cause outside the manifest; same as D-3431/D-3432/D-3433) + smoke 24/24 → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44`.
+**Named:** - `moveloop_core`: run/tport MAP redisplay every 7th multi/moves (house run-flush model — JS flush_screen(1) every tick subsumes C's periodic WIN_MAP repaint; the flags.time botl sub-arm is a dead store under the every-tick repaint; no failing session demands it).
+**Next:** next batch (`ledger.mjs batch --write`).
 ## 2026-10-05 — D-3433 breadth batch @0a9a22f73: moveloop_core multi-replay + getpos live bindings
 
 **C locus:** - `moveloop_core`: allmain.c:514–531 multi>0 !mv arm (`--multi; rhack(cmd_key)`); removed the dead search_repeat_active() branch (C has no such arm).

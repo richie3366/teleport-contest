@@ -5374,83 +5374,83 @@ export async function rhack(key) {
         await end_of_input();
         return;
     }
-    // C: cmdq_pop before parse — fireassist swap/retry lives here
-    if (key === 0) {
-        const canned = cmdq_pop();
-        if (canned) {
-            const isKey = typeof canned === 'object'
-                && canned.typ !== CMDQ_EXTCMD
-                && (canned.typ === CMDQ_KEY || canned.typ === 'key');
-            if (isKey) {
-                // C: KEY becomes the command keystroke (not a getobj letter).
-                key = typeof canned.key === 'string'
-                    ? canned.key.charCodeAt(0)
-                    : (canned.key | 0);
-            } else {
-                if (!game.context) game.context = {};
-                // C: CMDQ_EXTCMD uses ext_func_tab (altdip INTERNALCMD).
-                // PREFIXCMD / MOVEMENTCMD go through rhack after func()
-                // (got_prefix_input / DOMOVE_WALK|RUSH). apply/dig/dothrow/
-                // iactions call this file's cmdq_add_ec (txt empty → run()).
-                let res;
-                let flags = 0;
-                if (typeof canned === 'function') {
-                    res = await canned();
-                } else if (typeof canned === 'object'
-                           && canned.typ === CMDQ_EXTCMD) {
-                    flags = canned.flags | 0;
-                    rhack_cmd_insane(flags);
-                    res = canned.txt
-                        ? await run_cmdq_extcmd(canned)
-                        : await canned.run();
-                    if ((flags & PREFIXCMD) && !(res & ECMD_CANCEL)) {
-                        prefix_seen = canned;
-                        if (canned.txt === 'reqmenu') was_m_prefix = true;
-                        key = 0;
-                        continue;
-                    }
-                    if ((flags & PREFIXCMD) && (res & ECMD_CANCEL)) {
-                        reset_cmd_vars(true);
-                        return;
-                    }
-                    if ((flags & MOVEMENTCMD)
-                        && (game.domove_attempting & DOMOVE_WALK)) {
-                        if (game.multi) game.context.mv = 1;
-                        await domove(game.u?.dx | 0, game.u?.dy | 0);
-                        game.context.forcefight = 0;
-                        if (game.iflags) game.iflags.menu_requested = false;
-                        if (game.context.move !== 0) game.context.move = 1;
-                        return;
-                    }
-                    if ((flags & MOVEMENTCMD)
-                        && (game.domove_attempting & DOMOVE_RUSH)) {
-                        if (firsttime) {
-                            if (!game.multi) {
-                                game.multi = Math.max(COLNO, ROWNO);
-                            }
-                            if (game.u) game.u.last_str_turn = 0;
+    // C cmd.c:3642–3651 — cmdq_pop before parse on EVERY entry, replay
+    // included: a queued entry preempts the stored cmd_key (counted
+    // whip/pole/grapple re-apply after wield_tool takes TIME, apply.c).
+    const canned = cmdq_pop();
+    if (canned) {
+        const isKey = typeof canned === 'object'
+            && canned.typ !== CMDQ_EXTCMD
+            && (canned.typ === CMDQ_KEY || canned.typ === 'key');
+        if (isKey) {
+            // C: KEY becomes the command keystroke (not a getobj letter).
+            key = typeof canned.key === 'string'
+                ? canned.key.charCodeAt(0)
+                : (canned.key | 0);
+        } else {
+            if (!game.context) game.context = {};
+            // C: CMDQ_EXTCMD uses ext_func_tab (altdip INTERNALCMD).
+            // PREFIXCMD / MOVEMENTCMD go through rhack after func()
+            // (got_prefix_input / DOMOVE_WALK|RUSH). apply/dig/dothrow/
+            // iactions call this file's cmdq_add_ec (txt empty → run()).
+            let res;
+            let flags = 0;
+            if (typeof canned === 'function') {
+                res = await canned();
+            } else if (typeof canned === 'object'
+                       && canned.typ === CMDQ_EXTCMD) {
+                flags = canned.flags | 0;
+                rhack_cmd_insane(flags);
+                res = canned.txt
+                    ? await run_cmdq_extcmd(canned)
+                    : await canned.run();
+                if ((flags & PREFIXCMD) && !(res & ECMD_CANCEL)) {
+                    prefix_seen = canned;
+                    if (canned.txt === 'reqmenu') was_m_prefix = true;
+                    key = 0;
+                    continue;
+                }
+                if ((flags & PREFIXCMD) && (res & ECMD_CANCEL)) {
+                    reset_cmd_vars(true);
+                    return;
+                }
+                if ((flags & MOVEMENTCMD)
+                    && (game.domove_attempting & DOMOVE_WALK)) {
+                    if (game.multi) game.context.mv = 1;
+                    await domove(game.u?.dx | 0, game.u?.dy | 0);
+                    game.context.forcefight = 0;
+                    if (game.iflags) game.iflags.menu_requested = false;
+                    if (game.context.move !== 0) game.context.move = 1;
+                    return;
+                }
+                if ((flags & MOVEMENTCMD)
+                    && (game.domove_attempting & DOMOVE_RUSH)) {
+                    if (firsttime) {
+                        if (!game.multi) {
+                            game.multi = Math.max(COLNO, ROWNO);
                         }
-                        game.context.mv = 1;
-                        await domove(game.u?.dx | 0, game.u?.dy | 0);
-                        if (game.iflags) game.iflags.menu_requested = false;
-                        if (game.context.move !== 0) game.context.move = 1;
-                        return;
+                        if (game.u) game.u.last_str_turn = 0;
                     }
-                } else {
-                    res = await canned();
+                    game.context.mv = 1;
+                    await domove(game.u?.dx | 0, game.u?.dy | 0);
+                    if (game.iflags) game.iflags.menu_requested = false;
+                    if (game.context.move !== 0) game.context.move = 1;
+                    return;
                 }
-                // C rhack: (res & ECMD_TIME) → context.move; CANCEL|FAIL →
-                // reset_cmd_vars(TRUE) clears remaining CQ_CANNED. Boolean true
-                // from doapply is ECMD_TIME (true & 1); D-1018 canned re-apply.
-                if ((res & ECMD_TIME) !== 0) {
-                    game.context.move = 1;
-                    game.kickedloc = { x: 0, y: 0 };
-                } else {
-                    if ((res & (ECMD_CANCEL | ECMD_FAIL)) !== 0) cmdq_clear();
-                    game.context.move = 0;
-                }
-                return;
+            } else {
+                res = await canned();
             }
+            // C rhack: (res & ECMD_TIME) → context.move; CANCEL|FAIL →
+            // reset_cmd_vars(TRUE) clears remaining CQ_CANNED. Boolean true
+            // from doapply is ECMD_TIME (true & 1); D-1018 canned re-apply.
+            if ((res & ECMD_TIME) !== 0) {
+                game.context.move = 1;
+                game.kickedloc = { x: 0, y: 0 };
+            } else {
+                if ((res & (ECMD_CANCEL | ECMD_FAIL)) !== 0) cmdq_clear();
+                game.context.move = 0;
+            }
+            return;
         }
     }
 
@@ -5619,6 +5619,11 @@ export async function rhack(key) {
             reset_cmd_vars(true);
             return;
         }
+        // C cmd.c:3785–3787 — DOMOVE_WALK with a count rides the mv
+        // replay path (moveloop_core allmain.c:524–528): direct domove
+        // per tick, no rhack re-dispatch, no per-step see_monsters
+        // refresh under Hallu/telepat/Warning/region.
+        if (game.multi) game.context.mv = 1;
         await domove(DIR_DX[ch], DIR_DY[ch]);
         // C: forcefight cleared after DOMOVE_WALK domove
         if (game.context) game.context.forcefight = 0;
@@ -5663,6 +5668,10 @@ export async function rhack(key) {
                 reset_cmd_vars(true);
                 return;
             }
+            // C cmd.c:3785–3787 — do_fight pre-sets DOMOVE_WALK (`:1631`),
+            // so F+runkey rides this WALK arm (checked before RUSH): same
+            // mv=1 replay rule as the walk arm above.
+            if (game.multi) game.context.mv = 1;
             await domove(DIR_DX[low], DIR_DY[low]);
             game.context.forcefight = 0;
             if (game.context.move !== 0) game.context.move = 1;
@@ -6212,7 +6221,7 @@ async function domove_attackmon_at(mtmp, x, y) {
     return out;
 }
 
-async function domove(dx, dy) {
+export async function domove(dx, dy) {
     const u = game.u;
     const forcefight = !!game.context?.forcefight;
     // C ref: hack.c domove — clear succeeded; clear attempting in finally
