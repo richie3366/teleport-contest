@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — audit 2403–2406 @1c40bfb39: review D-3482/D-3484/D-3486/D-3488 (4A/0D/0Q, 0 Must-fix) + full rescore 741/953
+
+**Reviews:** 2403 1efb999a9 D-3482 ACCEPT (montype rewire; :3675 pointer test + :3701–3704 error arm C-exact, migrate_to_level/impossible audits true, D-3482 ledger clip repaired by D-3483); 2404 57e97760f D-3484 ACCEPT (name rewire; pcall order spe→buc→name→quantity C-exact, census clean); 2405 7883abf23 D-3486 ACCEPT (dungeons 4-site rewire; emptystr default + order C-exact, 9-entry census re-ran clean); 2406 d57340a2a D-3488 ACCEPT (questpgr 3-site rewire; :543-before/:549-after-rawtext order C-exact, `ported` flip TRUE — 24/24 C callers enumerated, last owned by by-design nhl_test).
+**Fortress:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `324+1.64/turn`); corpus 741/953 (0 losses, 0 gains; `full: true`, `fullAt: 2026-10-05T21:20:05.464Z`); held-out 16/44 unchanged (judge 07:36Z; leaderboard refreshed 12:41Z, rank 6). Seeded sample 5/5 rows correct (losexp, help_monster_out, m_move_aggress, do_vicinity_map, x_monnam); `ledger.mjs sql` unrunnable (no node:sqlite) — sampled via jsonl grep. Snapshot appended to SNAPSHOTS.tsv.
 ## 2026-10-05 — D-3489 Must-fix: do_name.c oname 1-row ledger repair (pair paste → D-1680 narrow restore)
 
 **C locus:** row home only (body brief-read this iter): do_name.c `oname` :372–426 (length gate :382–387, artifact early-return :392–393, new_oname :395, artifact_exists :400, oartifact arm :401–419 with untwoweapon :404–405, carried+update_inventory :420–421).

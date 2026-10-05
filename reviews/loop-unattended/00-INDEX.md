@@ -2412,3 +2412,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2400-eb19a3f45-objclass-monclass-rewire.md](./2400-eb19a3f45-objclass-monclass-rewire.md) | `eb19a3f45` | D-3476 objclass/monclass class→helper rewire + impossible | **ACCEPT** |
 | [2401-0ee053d49-lspo-monster-id-rewire.md](./2401-0ee053d49-lspo-monster-id-rewire.md) | `0ee053d49` | D-3478 lspo_monster id→helper rewire + impossible | **ACCEPT** |
 | [2402-634c19546-lspo-object-id-rewire.md](./2402-634c19546-lspo-object-id-rewire.md) | `634c19546` | D-3480 lspo_object id→helper rewire + impossible | **ACCEPT** |
+| [2403-1efb999a9-lspo-montype-rewire.md](./2403-1efb999a9-lspo-montype-rewire.md) | `1efb999a9` | D-3482 lspo_object montype→helper rewire + audits | **ACCEPT** |
+| [2404-57e97760f-lspo-object-name-rewire.md](./2404-57e97760f-lspo-object-name-rewire.md) | `57e97760f` | D-3484 lspo_object name→helper rewire + impossible | **ACCEPT** |
+| [2405-7883abf23-dungeons-str-opt-rewire.md](./2405-7883abf23-dungeons-str-opt-rewire.md) | `7883abf23` | D-3486 dungeons 4-site→helper rewire + impossible | **ACCEPT** |
+| [2406-d57340a2a-questpgr-str-opt-rewire.md](./2406-d57340a2a-questpgr-str-opt-rewire.md) | `d57340a2a` | D-3488 questpgr 3-site→helper rewire + ported flip | **ACCEPT** |
