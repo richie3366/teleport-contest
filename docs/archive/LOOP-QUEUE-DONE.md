@@ -5,6 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-05
 
+- [x] D-3430 6-row repair: direct `ledger.mjs set` ×6, no JS (D-3427 protocol) — newgame/strncmpi/doset/Strlen_ ← D-3430 Named; sanity_check minus retired clause (by-design per review 2376); record_achievement ← SoundAchievement clause only. Source: reviews/loop-unattended/2375-9ec606a36-batch-d3430.md. **Addressed:** D-3440
 
 
 - [x] `lock.c` doopen_indir — C lock.c:832–840 door->glyph learned half (oldglyph snapshot + newsym + glyph-compare → ECMD_TIME) absent from js/lock.js:doopen_indir (:919–923: lastseentyp half only; pick_lock :1421 cellGlyph precedent; brief-read 2026-10-05) @52e6ce3d0

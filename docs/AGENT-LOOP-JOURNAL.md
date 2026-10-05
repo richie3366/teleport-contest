@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3440 Must-fix review 2375: D-3430 6-row repair (true omits restored)
+
+**C locus:** row homes only (no C re-read; bodies verified whole by review 2375): allmain.c `newgame` :766–850; hacklib.c `strncmpi` :717–734; options.c `doset` :8758–8975; strutil.c `Strlen_` :82–98; wizcmds.c `sanity_check` :1460–1481; insight.c `record_achievement` :2407–2472.
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** direct `ledger.mjs set` ×6 (NOT via finish-iteration), each sub-omit re-verified first (newgame — reset_glyphmap + get_nhuuid absent from js/, no news dat in js/generated/; strncmpi — parse_sym_line + get_lua_version absent from js/; doset — reset_needed_visuals local-only js/options.js:10787, wc2_supported skips stand; Strlen_ — throw preserves non-return js/options.js:11273; sanity_check — all 6 callee rows by-design, moveloop-envelope retired per D-3431 doc js/wizcmds.js:1007–1009; record_achievement — SoundAchievement empty-macro branch sndprocs.h:274, really_done ported js/end.js). Deliberately NO `- **Ledger:**` bullet: finish-iteration's frozen first-line stamping would paste one Named line across rows again (D-3415/D-3417/D-3419/D-3421/D-3423/D-3434 class, D-3427/D-3436/D-3438 precedent) — the direct sets are the row writers, finish runs docs-only for the ledger.
+**Verify:** `node scripts/verify.mjs --fn newgame,strncmpi,doset,Strlen_,sanity_check,record_achievement` → PASS syntax (0 changed js); PASS rule2; 6× hidden note (no corpus session blocked — normal; row cited none); REACH-OK ×6 (fixed smoke 24/24 each, no RNG-tagged reach); PASS green 2/2; PASS strict ×2; PASS cohort 7/7; full skipped (no shared file changed); VERIFY: PASS.
+**Named:** - `newgame`: reset_glyphmap(gm_newgame) (display-subsystem port, own row); NEWS display_file(iflags.news) (no embedded news dat; default off, never fires in contest); get_nhuuid retired (NHUUID undefined, body empty).
+**Next:** next Must-fix (D-3429 3-row repair, review 2374).
 ## 2026-10-05 — D-3439 Open head: doopen_indir glyph-learn + toss_up live can_blnd + dokick !oldmem restore + more fuzzer skip
 
 **C locus:** - `doopen_indir`: lock.c:832–840 (oldglyph snapshot + update_mapseen_for + newsym + glyph/lastseentyp compare → ECMD_TIME).
