@@ -29,20 +29,21 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3457 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3458 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3457.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3457 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3458.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3458 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3458: restore-or-retire re-verified at repair (D-3427 protocol) → retire: (a) paste names another fn — optfn_packorder's Named whole-claim, and that row is  Named: - `oc_to_str`: none — whole (D-3177 port; D-3177 paste retired; :812 caller satisfied by s
 - D-3457: js/end.js — arise (:1704) + ghost (:1735) arms now set game.in_mklev = false after makemon (C :461/:498), prev-restore locals deleted; doc names the : Named: - `savebones`: close_nhfile on the probe hit + the :622 tail close (no VFS handle — atomic
 - D-3456: use_container ledger repair — pickup paste retired, D-3199 omits narrowed. Named: - `use_container`: *objp + containerdone update_inventory.
 - D-3455: new file-local windowprocs_wincap2() (js/botl.js:1060–1070, shape mirrors options.js:1343–1349 — installed game.windowprocs.wincap2 or TTY_WINCAP2 fal Named: - `evaluate_and_notify_windowport`: none in-body — whole (caps live-read; multi-port regis
@@ -57,5 +58,4 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (proofs in `docs/archive/LOOP-QU
 - D-3446: direct `ledger.mjs set` ×8 (NOT via finish-iteration), each sub-omit re-verified first (nhclose — JS gate+retval live js/files.js:791–799, close_check Named: - `nhclose`: close_check/bclose (by-design, sfstruct registry) + POSIX close (no VFS count
 - D-3445: - `matattackm`: Unaware dream arm (G_UNIQ justone ? Named: - `matattackm`: none — whole (notice arms were the sole ledger omit).
 - D-3444: direct `ledger.mjs set` ×1 (NOT via finish-iteration), each sub-omit re-verified first (chdirx — Rule #2, JS voids hackdir js/earlyarg.js:449 with the Named: - `opt_usage`: chdirx :379 (Rule #2, no CWD/filesystem in scored JS), dlb_init :383 (data-
-- D-3443: - `mhitm_ad_blnd`: live whole can_blnd (js/uhitm.js:359; mondata.c :305–398 verified arm-by-arm incl. visor tail :422–441) at both sites; deleted both Named: - `mhitm_ad_blnd`: none — whole (uhitm/mhitm/mhitu arms all gate on live can_blnd; resists
 <!-- landmarks:end -->
