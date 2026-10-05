@@ -91,6 +91,7 @@ import {
     WC2_HILITE_STATUS, WC2_FLUSH_STATUS,
     COLNO, S_upstair, S_brdnladder,
     RLOC_NOMSG, fuzzer_impossible_panic,
+    RUN_TPORT, RUN_LEAP, RUN_STEP, RUN_CRAWL,
 } from './const.js';
 
 // C ref: allmain.c static mvl_change — delayed polyself(1) / you_were(2).
@@ -1566,6 +1567,26 @@ export async function moveloop_core() {
     // redraws once with correct vision data, not twice. No-op at the
     // contest fixed size (clipping never set — no resize path).
     await cliparound(g.u.ux | 0, g.u.uy | 0);
+    // C allmain.c:548–556 — periodic MAP redisplay after cliparound:
+    // (!run || runmode == RUN_TPORT) && multi && every 7th (multi, or
+    // moves when travelling). The time&&run botl sub-arm refreshes the
+    // status clock during runs (the per-turn time_botl at :1253 is
+    // !run-gated, so a quiet run otherwise never refreshes the clock). The
+    // display_nhwindow(WIN_MAP, FALSE) repaint itself is subsumed by the
+    // every-tick flush_screen(1) (:1481), which paints identical map
+    // content each turn — no second repaint call. runmode defaults to
+    // RUN_LEAP when unset (initoptions_init `:7176`; runmodeNow).
+    {
+        const _rm = g.flags?.runmode;
+        const runmode = (_rm === RUN_TPORT || _rm === RUN_LEAP
+            || _rm === RUN_STEP || _rm === RUN_CRAWL) ? _rm : RUN_LEAP;
+        const multi = g.multi | 0;
+        if ((!g.context.run || runmode === RUN_TPORT)
+            && multi && (!g.context.travel ? !(multi % 7)
+                : !((g.moves | 0) % 7))) {
+            if (g.flags?.time && g.context.run) g.flags.botl = true;
+        }
+    }
     // Message cleared at start of next rhack so pline() survives until the
     // following nhgetch capture (C keeps topline until next command).
 

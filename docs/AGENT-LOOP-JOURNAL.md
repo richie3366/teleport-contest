@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-05 — D-3435 breadth batch @c62203c66: moveloop_core run/tport MAP-redisplay arm
+
+**C locus:** - `moveloop_core`: allmain.c:548–556 (`(!run || runmode == RUN_TPORT) && multi && every-7th (multi, or moves when travelling)` → time&&run botl + display_nhwindow(WIN_MAP, FALSE)).
+**JS:** js/allmain.js (RUN_* const import + arm, 21/0) — 21 js insertions, 1 js file.
+**Change:** C-exact condition + time&&run botl sub-arm after cliparound, before the Lua callbacks (runmode normalized with RUN_LEAP default per initoptions_init `:7176`; negative-multi % semantics identical in JS). The WIN_MAP repaint call itself stays unshipped — subsumed by the every-tick flush_screen(1), which paints identical map content each turn (schedule unobservable in captured screens/RNG).
+**Verify:** - batch `node scripts/verify.mjs --fn moveloop_core`: `PASS syntax 1 changed js file(s)` · `PASS rule2` · `no corpus session blocked` + reach 80/80 sample → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44` · VERIFY: PASS.
+**Named:** - `moveloop_core`: none — whole. The display_nhwindow(WIN_MAP, FALSE) repaint call has no literal counterpart: the every-tick flush_screen(1) (:1481) paints identical map content each turn, so a second scheduled repaint would be a no-op.
+**Next:** next batch (`ledger.mjs batch --write`).
 ## 2026-10-05 — D-3434 breadth batch @5e7cd2e00: moveloop_core mv-replay + cmdq preemption; getpos audited
 
 **C locus:** - `moveloop_core`: allmain.c:522–531 mv replay arm (`multi < COLNO && !--multi` → end_running(TRUE), direct domove); cmd.c:3785–3787 DOMOVE_WALK `if (multi) mv = TRUE` setter (2 JS dispatch sites — walk arm + F+runkey sub-arm, since do_fight pre-sets DOMOVE_WALK at cmd.c:1631); cmd.c:3642–3651 cmdq_pop-before-parse on every rhack entry including replay.

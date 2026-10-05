@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-3435 — breadth batch @c62203c66: moveloop_core run/tport MAP-redisplay arm
+- **Status:** shipped (batch).
+- **Symptom:** ledger gap of 1 partial (open 0 · recheck 0, ~88 C lines) in allmain.c: moveloop_core's last omit — the run/tport MAP redisplay every 7th multi/moves.
+- **C locus:**
+  - `moveloop_core`: allmain.c:548–556 (`(!run || runmode == RUN_TPORT) && multi && every-7th (multi, or moves when travelling)` → time&&run botl + display_nhwindow(WIN_MAP, FALSE)).
+- **JS was:** no trace of the arm after cliparound — during runs with the time option the status clock never ticked (the per-turn time_botl is !run-gated). D-3434's omit called the botl sub-arm "a dead store under the every-tick repaint", but flush_screen gates bot() on flags.botl||botlx (display.js:7688), so nothing refreshed the clock on quiet runs.
+- **Fix:** C-exact condition + time&&run botl sub-arm after cliparound, before the Lua callbacks (runmode normalized with RUN_LEAP default per initoptions_init `:7176`; negative-multi % semantics identical in JS). The WIN_MAP repaint call itself stays unshipped — subsumed by the every-tick flush_screen(1), which paints identical map content each turn (schedule unobservable in captured screens/RNG).
+- **JS:** js/allmain.js (RUN_* const import + arm, 21/0) — 21 js insertions, 1 js file.
+- **Callers:**
+  - `moveloop_core`: arm internal, signature untouched; allmain.c:595 moveloop → js/allmain.js:1608; mkmaze.c:1482/1537 comments only; nhlua.c:1452 nhl_doturn is ledger by-design (no scored analogue — Lua scripting binding).
+- **Verify:**
+  - batch `node scripts/verify.mjs --fn moveloop_core`: `PASS syntax 1 changed js file(s)` · `PASS rule2` · `no corpus session blocked` + reach 80/80 sample → REACH-OK · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `PASS full 44/44` · VERIFY: PASS.
+  - hot-fn `node scripts/verify.mjs --fn moveloop_core --reach-all`: 724/724 PASS, 0 regressed → REACH-OK · green/strict/cohort/full PASS · VERIFY: PASS.
+- **Named omissions:**
+  - `moveloop_core`: none — whole. The display_nhwindow(WIN_MAP, FALSE) repaint call has no literal counterpart: the every-tick flush_screen(1) (:1481) paints identical map content each turn, so a second scheduled repaint would be a no-op.
+- **Ledger:** moveloop_core ported.
+- **Left open:** none.
+- **Next:** next batch (`ledger.mjs batch --write`).
 ## D-3434 — breadth batch @5e7cd2e00: moveloop_core mv-replay + cmdq preemption; getpos audited
 - **Status:** shipped (batch).
 - **Symptom:** ledger gap of 2 partials (open 0 · recheck 0, ~209 C lines) in allmain/getpos; both rows' omit fields carry moveloop_core's text again (finish-iteration paste-error, 4th consecutive batch — true omits recovered from D-3433 Named omissions before porting).
