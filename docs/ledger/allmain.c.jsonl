@@ -4,7 +4,7 @@
 {"fn":"maybe_generate_rnd_mon","c":"162-168","status":"ported","js":["js/allmain.js:maybe_generate_rnd_mon"],"d":["D-1867"],"at":"2026-10-03@bbe63333a"}
 {"fn":"moveloop_core","c":"177-564","status":"ported","js":["js/allmain.js:moveloop_core"],"d":["D-3435","D-3434","D-3433","D-3432","D-3431","D-3430"],"at":"2026-10-05@c62203c66"}
 {"fn":"maybe_do_tutorial","c":"567-584","status":"ported","js":["js/allmain.js:maybe_do_tutorial"],"at":"2026-10-03@bbe63333a"}
-{"fn":"moveloop","c":"587-597","status":"partial","js":["js/allmain.js:moveloop"],"omit":"- `dodrop`: none — whole.","d":["D-3430","D-3429","D-2009","D-1168"],"at":"2026-10-05@adae017b4","note":"audited D-3430: remaining omit cannot ship"}
+{"fn":"moveloop","c":"587-597","status":"partial","js":["js/allmain.js:moveloop"],"omit":"drops moveloop_preamble(resuming) + !resuming maybe_do_tutorial() calls (hoisted to newgame/jsmain call sites); resuming param ignored","d":["D-3442","D-3430","D-3429","D-2009","D-1168"],"at":"2026-10-05@a2d03b360","note":"row restored D-3442 (review 2374): pre-D-3429 text; dodrop paste retired"}
 {"fn":"regen_pw","c":"600-619","status":"ported","js":["js/allmain.js:regen_pw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"regen_hp","c":"625-679","status":"partial","js":["js/allmain.js:regen_hp"],"omit":"Upolyd mh<1 arm drops rehumanize() (empty if-branch; polyself path deferred at this locus)","d":["D-2012"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stop_occupation","c":"684-696","status":"ported","js":["js/hack.js:stop_occupation"],"at":"2026-10-03@bbe63333a"}
