@@ -40,7 +40,7 @@ describe('lspo_object id inherits get_table_str_opt conversion', () => {
         const src = readFileSync(new URL('../js/mklev.js', import.meta.url), 'utf8');
         const at = src.indexOf('function lspo_object_normalize_table(tmp)');
         assert.ok(at >= 0, 'lspo_object_normalize_table missing in js/mklev.js');
-        const body = src.slice(at, at + 3600);
+        const body = src.slice(at, at + 5600); // bool-opt rewire grew the arm; id read now at +3803
         assert.ok(body.includes("get_table_str_opt(tmp, 'id', null)"),
             'object table arm must read id via the shared helper (C :3541)');
         assert.ok(!body.includes("typeof tmp.id === 'string'"),

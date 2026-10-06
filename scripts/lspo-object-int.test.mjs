@@ -57,7 +57,7 @@ describe('lspo_object_normalize_table inherits get_table_int_opt conversion', ()
         const src = readFileSync(new URL('../js/mklev.js', import.meta.url), 'utf8');
         const at = src.indexOf('function lspo_object_normalize_table(tmp)');
         assert.ok(at >= 0, 'lspo_object_normalize_table missing in js/mklev.js');
-        const body = src.slice(at, at + 3200);
+        const body = src.slice(at, at + 5200); // bool-opt rewire grew the arm; id read now at +3803
         const eroded = "tmp.eroded = get_table_int_opt(tmp, 'eroded', 0)";
         const recharged = "tmp.recharged = get_table_int_opt(tmp, 'recharged', 0)";
         for (const call of [eroded, recharged]) {
@@ -65,7 +65,7 @@ describe('lspo_object_normalize_table inherits get_table_int_opt conversion', ()
         }
         assert.ok(!body.includes('if (tmp.eroded == null) tmp.eroded = 0;'), 'raw eroded adapter must be gone');
         assert.ok(body.indexOf("get_table_int_or_random(tmp, 'quantity', -1)") < body.indexOf(eroded), 'eroded :3641 after quantity :3638 (C read order)');
-        assert.ok(body.indexOf('if (tmp.lit == null) tmp.lit = 0;') < body.indexOf(eroded), 'eroded :3641 after lit :3640 (C read order)');
+        assert.ok(body.indexOf("get_table_boolean_opt(tmp, 'lit', 0)") < body.indexOf(eroded), 'eroded :3641 after lit :3640 (C read order)');
         assert.ok(body.indexOf(eroded) < body.indexOf(recharged), 'eroded :3641 before recharged :3645 (C read order)');
         assert.ok(body.indexOf(recharged) < body.indexOf("get_table_str_opt(tmp, 'id', null)"), 'recharged :3645 before id :3652 (C read order)');
     });

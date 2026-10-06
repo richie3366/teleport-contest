@@ -22621,12 +22621,15 @@ function lspo_object_apply_montype(tmp) {
     }
     if (id === STATUE || id === CORPSE) {
         let lflags = 0;
-        if (tmp.historic) lflags |= CORPSTAT_HISTORIC;
-        if (tmp.male) lflags |= CORPSTAT_MALE;
-        if (tmp.female) lflags |= CORPSTAT_FEMALE;
+        // C :3709–3713 get_table_boolean_opt on the object table (tmp is
+        // its spread; normalize leaves these keys untouched, so the read
+        // is the caller's value or the 0 default, converted like C).
+        if (get_table_boolean_opt(tmp, 'historic', 0)) lflags |= CORPSTAT_HISTORIC; // C :3709
+        if (get_table_boolean_opt(tmp, 'male', 0)) lflags |= CORPSTAT_MALE; // C :3711
+        if (get_table_boolean_opt(tmp, 'female', 0)) lflags |= CORPSTAT_FEMALE; // C :3713
         tmp.spe = lflags;
     } else if (id === EGG) {
-        tmp.spe = tmp.laid_by_you ? 1 : 0;
+        tmp.spe = get_table_boolean_opt(tmp, 'laid_by_you', 0) ? 1 : 0; // C :3717
     } else if (!nonpmobj) {
         tmp.spe = 0;
     }
@@ -22958,8 +22961,6 @@ function get_table_int_or_random(tab, name, rndval) {
 function lspo_object_normalize_table(tmp) {
     // C :3634 — absent and "random" are -127 (create_object: NOT RANDOM).
     tmp.spe = get_table_int_or_random(tmp, 'spe', -127);
-    if (tmp.trapped == null) tmp.trapped = -1;
-    if (tmp.locked == null) tmp.locked = -1;
     if (tmp.buc != null) tmp.curse_state = get_table_buc(tmp.buc);
     if (tmp.curse_state == null) tmp.curse_state = 0;
     // C :3637 get_table_str_opt(L, "name", NULL): nil → NULL, string kept,
@@ -22974,7 +22975,15 @@ function lspo_object_normalize_table(tmp) {
     // itself is nil so the call uses C's field name.
     if (tmp.quantity == null && tmp.quan != null) tmp.quantity = tmp.quan;
     tmp.quan = get_table_int_or_random(tmp, 'quantity', -1);
-    if (tmp.lit == null) tmp.lit = 0;
+    // C :3639–3648 get_table_boolean_opt (nhlua.c:1107–1118): nil → the
+    // default, else the get_table_boolean conversion (string → raw
+    // checkoption index, boolean → 1/0, number must be 0/1, anything else
+    // throws like nhl_error). tmp is a non-null spread at the caller's
+    // table gate (:23048), so lua_field is tmp[name] and nil ⟺ == null
+    // on both sides. Read here in C order against the other throwing
+    // reads (quantity :3638 before, eroded :3641 after).
+    tmp.buried = get_table_boolean_opt(tmp, 'buried', 0); // C :3639
+    tmp.lit = get_table_boolean_opt(tmp, 'lit', 0); // C :3640
     // C :3641/:3645 get_table_int_opt(L, "eroded"/"recharged", 0): nil →
     // 0, else checkinteger conversion (integral floats and numeric strings
     // convert; fractions and direct non-numerics argerror). tmp is a
@@ -22983,7 +22992,16 @@ function lspo_object_normalize_table(tmp) {
     // C's. Read here (after lit :3640, before id :3652) to keep C's read
     // order against the other throwing reads (name :3637, quantity :3638).
     tmp.eroded = get_table_int_opt(tmp, 'eroded', 0);
+    // C :3642–3644, in order between eroded :3641 and recharged :3645.
+    // The :3644 key is "trap_known"; the tmpobj field is tknown.
+    tmp.locked = get_table_boolean_opt(tmp, 'locked', -1); // C :3642
+    tmp.trapped = get_table_boolean_opt(tmp, 'trapped', -1); // C :3643
+    tmp.tknown = get_table_boolean_opt(tmp, 'trap_known', -1); // C :3644
     tmp.recharged = get_table_int_opt(tmp, 'recharged', 0);
+    // C :3646–3648, in order after recharged :3645.
+    tmp.greased = get_table_boolean_opt(tmp, 'greased', 0); // C :3646
+    tmp.broken = get_table_boolean_opt(tmp, 'broken', 0); // C :3647
+    tmp.achievement = get_table_boolean_opt(tmp, 'achievement', 0); // C :3648
     if (tmp.corpsenm == null) tmp.corpsenm = NON_PM;
 
     // C get_table_objtype :3541–3542 — "id" is read before "class"
