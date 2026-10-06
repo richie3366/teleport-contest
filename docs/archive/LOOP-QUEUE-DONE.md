@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-06
 
+- [x] teleport.c rloc_to_core 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — rloc_to_core ← clipped restore (row omit ends "`remove_monster`≡mx/my zeroing (`m_at` scans fmon); `m…" mid-word at the 300 cap, quoted from live `docs/ledger/teleport.c.jsonl` 2026-10-06, d=D-2504,D-1196,D-1195,D-1183,D-1180, note "stale: u_on_newpos live via dynamic import js/teleport.js:810; C body complete across composer+helpers"; full text in D-2504 Named; JS split reads whole at enqueue js/teleport.js:1108 async export, C-order doc :1095–1107, C 75/JS 119 ok, all 23 brief-table callees live exports — likely retire-stale, D-2504/D-1196 Ledger/Named truth + caller wiring unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the use_container head drops the band to 7, finish fails closed below 8).
+
+
 - [x] getpos.c getpos 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — getpos ← clipped restore (row omit ends "muse.c:2637/restore.c:629 CLIPPING clean-room (display-model, di…" mid-word at the 300 cap, quoted from live `docs/ledger/getpos.c.jsonl` 2026-10-06, d=D-3436,D-3434,D-3433,D-3432,D-3431,D-3430, note "audited D-3434: remaining omit cannot ship"; full text in D-3436 Named — getposx/y async-resize stores + muse/restore CLIPPING clean-room (display.js doc :7448); JS js/getpos.js:1341 async export, C getpos.c:771–1167, C 302/JS 289 ok — likely restore-compacted, D-3436/D-3434 Ledger/Named truth + 13-file caller wiring unverified at enqueue; 1 known-blocked session scen-tour-Healer-92093 s87 disclosed NO MOVEMENT D-3431–D-3436 (D-3431 memory writer, outside getpos)); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the goto_level head drops the band to 7, finish fails closed below 8).
 
 
