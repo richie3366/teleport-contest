@@ -8577,8 +8577,8 @@ function load_arc_goal() {
  * solidfill ROOM then mines fg=bg="." lit-field kludge; Camelot map;
  * COURT FILL_LVFLAGS; CUSTOM_INVENT Excalibur + plate; warhorse saddles.
  * King Arthur invent wears via m_dowear (sp_lev.c spo_end_moninvent).
- * Named omissions: humidity get_location;
- * light_region wall expansion; ensure_way_out / map_cleanup.
+ * Named omissions: humidity get_location; ensure_way_out / map_cleanup.
+ * (String-form region wall expansion is live via light_region.)
  */
 async function load_kni_strt() {
     const g = game;
@@ -8625,17 +8625,12 @@ async function load_kni_strt() {
     const mx = g.splev_xstart ?? 1;
     const my = g.splev_ystart ?? 0;
 
-    const kniLit = (x1, y1, x2, y2, lit) => {
-        for (let y = y1; y <= y2; y++) {
-            for (let x = x1; x <= x2; x++) {
-                const loc = g.level.at(mx + x, my + y);
-                if (loc) loc.lit = lit;
-            }
-        }
-    };
-    // des.region lit / unlit (map-relative)
-    kniLit(0, 0, 49, 15, true);
-    kniLit(4, 4, 45, 11, false);
+    // des.region(selection.area(00,00,49,15),"lit") → light_region expands
+    // walls (C lspo_region argc=2 :5624-5632: grow W_ANY when lit).
+    light_region(mx + 0, my + 0, mx + 49, my + 15, true);
+    // des.region(selection.area(04,04,45,11),"unlit") — argc=2 unlit does
+    // not grow (C :5630 `if (rlit)`).
+    light_region(mx + 4, my + 4, mx + 45, my + 11, false);
 
     // des.region({ region={06,06,22,09}, lit=1, type="throne", filled=2 })
     {
@@ -8649,9 +8644,12 @@ async function load_kni_strt() {
                 topologize(troom);
             }
         }
-        kniLit(6, 6, 22, 9, true);
+        // (no sel_set_lit: C table path lights via add_room only —
+        // the old raw-rect relight here was a subset of it)
     }
-    kniLit(27, 6, 43, 9, true);
+    // des.region(selection.area(27,06,43,09),"lit") → light_region expands
+    // walls (C lspo_region argc=2 :5624-5632: grow W_ANY when lit).
+    light_region(mx + 27, my + 6, mx + 43, my + 9, true);
 
     // des.stair("down", 40,7)
     // C l_create_stairway: fixed scoord → SpLev_Map mark :4189 + force :4209–4210.

@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 ## Don't re-check (≤15)
 
-- D-1790…D-3577 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3578 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3577.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3577 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3578.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3578 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3578: `js/mklev.js` load_kni_strt: the three string-form regions route through live in-module `light_region`. Named: none new in this arm — the three string-form regions now mirror C `:5618–5637` exactly (gr
 - D-3577: `rloc_to` clears MON_OFFMAP at the mx/my set (C :1684 place ⟹ on-grid ⟹ visible) Named: none new — the :1684 arm is now live
 - D-3576: `js/botl.js` — live `tty_status_update` delivery called from `status_update`, with the whole static family in C order (field init/update/make-fit/chec Named: render_status 3rd-row/BL_VERS-justify/hitpointbar arms unexercised (dormant options, code 
 - D-3575: the fullscreen branch now computes the morestr per the C rule (pageCount>1 → "(p of M)", else "(end) " with trailing space) with cursor [morestr.lengt Named: none new in this arm — the fullscreen branch now mirrors the C morestr rule for every page
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3566: the C `:1514` line in C order + cite (`ptr = mtmp.data; /* in case mintrap() caused polymorph */`); updated the stale deferral comment. Named: none in this arm — the `:1514` refresh is now C-identical; postmov's pre-existing omits (s
 - D-3565: jsmain.js restore block: wd_message discover arm (mirrors the live newgame-tail precedent) + `if (g.discover || g.wizard)` y_n prompt with live delete Named: wd_message wiz_error_flag/explore_error_flag arms (unixmain.c:657-671 — JS set_playmode ne
 - D-3564: dogfood poison head reads the C bit as the union both fields partition into (trap writers set otrapped on boxes/tins/boulders, poison writers set opoi Named: none in this unit — dogfood's `:1002` head is now C-identical (bit read) and the rest of t
-- D-3563: removed the gate — step on any findtravelpath direction like C (detours included); kept the genuine-NOPATH quiet-rest else branch (C rests when no TES Named: none — C dotravel_target is flag-setup + domove (both live); the removed gate had no C cou
 <!-- landmarks:end -->
