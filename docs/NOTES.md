@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 ## Don't re-check (≤15)
 
-- D-1790…D-3568 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3569 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3568.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3568 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3569.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3569 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3569: `js/getpos.js` only — GLOC_DOOR arm restarted per C `:466-470`: `glyph_at` + live `glyph_is_cmap`/`glyph_to_cmap` (joins the existing `./display.js` i Named: GLOC_EXPLORE room/corr subtest still typ-based (`shown_door_cmap` kept for its door subtes
 - D-3568: `js/display.js` only — (1) terrain_glyph STONE+SCORR share C's arm (arboreal→TREE cell, else blank); (2) DBWALL → cmap_idx_to_tty(horizontal?S_HCDBRID Named: none new in this unit — terrain_glyph now mirrors every back_to_glyph typ arm; the DRAWBRI
 - D-3567: cap deleted; the driver is now C's `for(;;)` + the two pre-existing harness stops (input-empty catch, gameover breaks) + C-cite comment. Named: none — the driver is now C's loop; preamble/tutorial/save stops pre-existing and untouched
 - D-3566: the C `:1514` line in C order + cite (`ptr = mtmp.data; /* in case mintrap() caused polymorph */`); updated the stale deferral comment. Named: none in this arm — the `:1514` refresh is now C-identical; postmov's pre-existing omits (s
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3557: GLOC_OBJS arm now `glyph_at` + live `glyph_is_object` + `objnum_to_glyph` boulder/rock exclusion, mirroring the GLOC_MONS arm; +2 names on the existin Named: (1) JS `glyph_is_object` (display.js:963) omits the C normal-piletop bank (display.h glyph
 - D-3556: gate message via live `You('are too disoriented for this.')` (C `:2363`; `You` added to the existing display.js import — imports.mjs ALREADY, no new e Named: - `reveal_terrain`: none.
 - D-3555: retire-stale via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Named: - `rloc_to_core`: none — all 5 D-2504 clauses retired (2 dead: u_on_newpos live :760, dog.
-- D-3554: per-site des evidence this iter (Hea-strt.lua:50–61 = 12 des.door locked 24,10 + closed 26,08 + closed 27,12 + locked 28,13 + closed 35,07 + locked 35 Named: - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/net
 <!-- landmarks:end -->

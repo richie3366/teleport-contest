@@ -45,7 +45,8 @@ import {
     NHKF_GETPOS_VALID_NEXT, NHKF_GETPOS_VALID_PREV,
     NHKF_GETPOS_MOVESKIP, NHKF_GETPOS_MENU, NHKF_GETPOS_LIMITVIEW,
     NHKF_GETPOS_HELP,
-    S_stone, S_trwall, S_ndoor, S_vodoor, S_hcdoor, S_room, S_darkroom,
+    S_stone, S_trwall, S_ndoor, S_vodoor, S_hcdoor, S_vodbridge, S_hcdbridge,
+    S_room, S_darkroom,
     S_corr, S_litcorr, S_engroom, S_engrcorr, S_arrow_trap,
     S_upstair, S_fountain,
     S_expl_br, S_altar, S_tree, S_bars, S_pool, S_lava, S_lavawall,
@@ -299,6 +300,10 @@ function is_cmap_corr(i) {
 }
 function is_cmap_door(i) {
     return i >= S_vodoor && i <= S_hcdoor;
+}
+/** C sym.h is_cmap_drawbridge — drawbridge cmap range. */
+function is_cmap_drawbridge(i) {
+    return i >= S_vodbridge && i <= S_hcdbridge;
 }
 function is_cmap_trap(i) {
     return i >= S_arrow_trap && i < S_arrow_trap + MAXTCHARS;
@@ -732,8 +737,10 @@ const BOULDER_OTYP = objectNames.indexOf('BOULDER');
 const ROCK_OTYP = objectNames.indexOf('ROCK');
 
 /**
- * C ref: getpos.c — glyph_at is a door/ndoor/drawbridge cmap (not mon/obj).
- * JS has no integer glyphs; approximate via look_shown_at + typ + disp_ch.
+ * C ref: getpos.c GLOC_EXPLORE door subtest — glyph_at is a
+ * door/ndoor/drawbridge cmap (not mon/obj). Approximated via
+ * look_shown_at + typ + disp_ch (the GLOC_DOOR arm uses live
+ * glyph_at/glyph_is_cmap/glyph_to_cmap like C).
  */
 function shown_door_cmap(x, y) {
     const cover = look_shown_at(x, y);
@@ -962,8 +969,16 @@ export function gather_locs_interesting(x, y, gloc) {
         if (ROCK_OTYP >= 0 && id === objnum_to_glyph(ROCK_OTYP)) return false;
         return true;
     }
-    case GLOC_DOOR:
-        return shown_door_cmap(x, y);
+    case GLOC_DOOR: {
+        // C `:466-470` — glyph_at reads the DISPLAYED map (gbuf: live
+        // and remembered glyphs alike), not live terrain, exactly like
+        // the GLOC_MONS/GLOC_OBJS arms above. A door the map shows
+        // closed cycles even when live doormask already says open.
+        const g = glyph_at(x, y);
+        if (!glyph_is_cmap(g)) return false;
+        const sym = glyph_to_cmap(g);
+        return is_cmap_door(sym) || is_cmap_drawbridge(sym) || sym === S_ndoor;
+    }
     case GLOC_EXPLORE: {
         // Door/ndoor/drawbridge/room/corr adjacent to unexplored
         if (!shown_door_cmap(x, y)) {
