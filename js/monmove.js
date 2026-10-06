@@ -2108,7 +2108,6 @@ export async function m_move(mtmp, after) {
     let can_tunnel;
     let can_open;
     let can_unlock;
-    // is_rider deferred
     const omx = mtmp.mx;
     const omy = mtmp.my;
 
@@ -2127,7 +2126,9 @@ export async function m_move(mtmp, after) {
     ptr = mtmp.data;
     can_tunnel = tunnels(ptr) && !Is_rogue_level(game.u?.uz);
     can_open = !(nohands(ptr) || verysmall(ptr));
-    can_unlock = (can_open && monhaskey(mtmp, true)) || !!mtmp.iswiz;
+    // C `:1766–1767` — Riders unlock without a key (live is_rider, already
+    // imported; the deferred clause).
+    can_unlock = (can_open && monhaskey(mtmp, true)) || !!mtmp.iswiz || is_rider(ptr);
 
     // C: meating countdown — still eating skips dog_move / approach
     if (mtmp.meating) {

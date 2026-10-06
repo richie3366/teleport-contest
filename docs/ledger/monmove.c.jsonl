@@ -37,7 +37,7 @@
 {"fn":"m_avoid_kicked_loc","c":"1297-1308","status":"ported","js":["js/mon.js:m_avoid_kicked_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_avoid_soko_push_loc","c":"1313-1323","status":"ported","js":["js/mon.js:m_avoid_soko_push_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_search_items","c":"1330-1450","status":"ported","js":["js/monmove.js:m_search_items"],"d":["D-2047"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_move","c":"1715-2075","status":"partial","js":["js/monmove.js:m_move"],"omit":"is_covetous intruder-attack branch :1778-1803, is_rider in can_unlock :1766, wormno goto not_special :1769 missing; unicorn rloc drops RLOC_MSG :2064","d":["D-2410","D-1868"],"at":"2026-10-03@bbe63333a"}
+{"fn":"m_move","c":"1715-2075","status":"partial","js":["js/monmove.js:m_move"],"omit":"is_covetous intruder-attack branch :1778-1803, wormno goto not_special :1769 missing; unicorn rloc drops RLOC_MSG :2064","d":["D-3562","D-2410","D-1868"],"at":"2026-10-06@d64a4957d"}
 {"fn":"m_move_aggress","c":"2088-2117","status":"ported","js":["js/monmove.js:m_move_aggress"],"d":["D-2900"],"at":"seed@a30a7de84"}
 {"fn":"can_hide_under_obj","c":"2121-2167","status":"ported","js":["js/monmove.js:can_hide_under_obj"],"d":["D-2340"],"at":"2026-10-01@e45cb9654","note":"stale: js/monmove.js:1336"}
 {"fn":"dissolve_bars","c":"2170-2178","status":"ported","js":["js/hack.js:dissolve_bars"],"at":"2026-10-03@bbe63333a"}
