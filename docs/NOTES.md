@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 ## Don't re-check (≤15)
 
-- D-1790…D-3574 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3575 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3574.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3574 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3575.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3575 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3575: the fullscreen branch now computes the morestr per the C rule (pageCount>1 → "(p of M)", else "(end) " with trailing space) with cursor [morestr.lengt Named: none new in this arm — the fullscreen branch now mirrors the C morestr rule for every page
 - D-3574: wired the `:3812–3816` rule into every rhack result site, in C order (reset before the pre-existing move lines, `^W`-precedent shape): ECMD-bit arms ( Named: (1) Unknown/bad-command tail keeps JS's `end_running(true)`+move=0 shape instead of C `:38
 - D-3573: `js/getpos.js` only, deletion (+13/−35): the DEC block is gone from `build_feature_matching` (matching[] is now exactly C :1052-1061) and the 5 dec-ga Named: none new. getpos's ledger omit (gg.getposx/y stores, audited D-3556 cannot-ship) stands.
 - D-3572: all four gates → `!hero_Deaf()` (live in-module export ≡ C macro; its extra `|| u.Deaf` disjunct is dead code — zero writers). Named: (1) the four arms still emit via plain `pline('You hear …')`, not C `You_hear`'s inner gat
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3563: removed the gate — step on any findtravelpath direction like C (detours included); kept the genuine-NOPATH quiet-rest else branch (C rests when no TES Named: none — C dotravel_target is flag-setup + domove (both live); the removed gate had no C cou
 - D-3562: `|| is_rider(ptr)` appended in C short-circuit order + cite comment; removed the deferred comment. Named: is_covetous intruder-attack branch :1778-1803, wormno goto not_special :1769 missing; unic
 - D-3561: `MZ_MEDIUM` added to the existing monsters.js import (no new edge) + `const MZ_HUMAN = MZ_MEDIUM;` with a monflag.h:180 cite (replacing the wrong lite Named: none — const now C-identical; chain bodies already whole.
-- D-3560:  Named: (1) port-iter confirmations (minutes, then port): JS fobj dump at (43,10)/k=88 — item PRES
 <!-- landmarks:end -->
