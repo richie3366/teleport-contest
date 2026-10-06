@@ -22,7 +22,7 @@
 {"fn":"doextlist","c":"562-734","status":"ported","js":["js/cmd.js:doextlist"],"d":["D-1625"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 4 pick arms, search, headings, ESC"}
 {"fn":"extcmd_via_menu","c":"752-882","status":"ported","js":["js/getline.js:extcmd_via_menu"],"d":["D-2871","D-2863"],"at":"seed@a30a7de84"}
 {"fn":"domonability","c":"890-949","status":"ported","js":["js/polyself.js:domonability"],"d":["D-3402"],"at":"2026-10-04@e77f3975a"}
-{"fn":"enter_explore_mode","c":"952-983","status":"partial","js":["js/cmd.js:enter_explore_mode"],"omit":"`get_unix_pw` (`unixmain.c:731–760`) returns null: scored ESM has no passwd database.","d":["D-3402","D-2845"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
+{"fn":"enter_explore_mode","c":"952-983","status":"ported","js":["js/cmd.js:enter_explore_mode"],"d":["D-3402","D-2845"],"at":"2026-10-06@789009530","note":"retire D-3523: get_unix_pw clause is the live Rule #2 fallback (:187-189 null + :199-210 C-exact null path), not a missing arm; body whole js/cmd.js:267-305; callers allmain.js:281, getline.js:483-484"}
 {"fn":"makemap_prepost","c":"986-1067","status":"ported","js":["js/wizcmds.js:makemap_prepost"],"d":["D-3402","D-2295"],"at":"2026-10-04@e77f3975a"}
 {"fn":"levltyp_to_name","c":"1089-1094","status":"ported","js":["js/cmd.js:levltyp_to_name"],"d":["D-3402","D-3296"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"doterrain","c":"1098-1191","status":"ported","js":["js/detect.js:doterrain"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 6 cases incl wiz arms"}
