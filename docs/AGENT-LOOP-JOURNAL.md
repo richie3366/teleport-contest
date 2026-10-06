@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — D-3567 `jsmain.js` runSegment turn driver: skeleton `moves*8` cap → C `for(;;)` (cliffs-head `distfleeck` writer, both longrun →PASS)
+
+**C locus:** `allmain.c` moveloop `:587–597` — `for (;;) { moveloop_core(); }`: unbounded; exits only via noreturn (death/quit/save). Sole C caller unixmain.c:320 (port entry → jsmain start()). C-side turn counts (moveloop_core draws per segment): Valk seg0 1194 > cap 1112; Arch seg0 2452 > cap 2320 — corpus-wide scan of all 941 cached sessions: exactly these 2 segments exceed their cap, so no other session can change behavior.
+**JS:** 1 file (jsmain.js +11/−2: comment + unbounded loop) + 1 test file, under caps.
+**Change:** cap deleted; the driver is now C's `for(;;)` + the two pre-existing harness stops (input-empty catch, gameover breaks) + C-cite comment. Hang protection stays the worker timeout (the Must-fix hang signal, Constitution §10.14): a no-progress livelock now surfaces as ETIMEDOUT instead of silent truncation. New `scripts/moveloop-unbounded-drive.test.mjs`: both over-cap segments replay to full RNG-value + screen-count match (2/2 post-fix; 0/2 pre-fix via stash).
+**Verify:** new test 0/2 pre-fix (stash) → 2/2 post-fix. `node scripts/verify.mjs --fn distfleeck` → PASS syntax (1 file: js/jsmain.js) · PASS rule2 · PASS hidden (verify distfleeck: 2 PASS, 0 moved past, 1 unchanged, 0 worse → PROGRESS; Arch-94094 PASS; Valk-94274 PASS) · PASS reach distfleeck (80/80 of 746 tagged, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. NO-MOVEMENT SCOPE (1, genuine logic fork outside this arm — D-3559-Next…D-3566-Next stand for it): Wiz-94142@96 (C distfleeck vs JS next_ident object-creation fork, identical travel-prompt toplines — needs its own per-session writer iteration).
+**Named:** none — the driver is now C's loop; preamble/tutorial/save stops pre-existing and untouched.
+**Next:** do not re-pop distfleeck for Arch-94094 or Valk-94274 (PASS — leave the block on regenerate); Wiz-94142@96 needs its own writer iteration. `ledger.mjs batch --write` → "no gap left" (picker dry; no batch work in this commit).
 ## 2026-10-06 — D-3566 `monmove.c` postmov `:1514` ptr refresh after mintrap: poly-trap form change reaches the hides_under hide-check (cliffs-head `distfleeck` writer, dig-Valk-94335 →PASS + desc-Tou-94007 →PASS)
 
 **C locus:** `monmove.c` postmov `:1514` `ptr = mtmp->data; /* in case mintrap() caused polymorph */` (unconditional, after the trapret/offmap early returns, before door handling); hide-check `:1696` inside the MOVED|DONE gate (`:1660`), the only rn2(5) in postmov.

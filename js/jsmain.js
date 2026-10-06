@@ -396,8 +396,16 @@ export async function runSegment(input) {
     // Drive the game loop until input is exhausted. The judge looks
     // at game.getScreens() afterwards; whatever the contestant
     // captured is what gets compared.
-    const maxIter = Math.max(moves.length * 8, 1024);
-    for (let iter = 0; iter < maxIter && !game.program_state?.gameover; iter++) {
+    // C ref: allmain.c moveloop `:587–597` — `for (;;) {
+    // moveloop_core(); }`: C has no iteration cap; the loop ends only
+    // via noreturn exits (death/quit/save — gameover here) or, in this
+    // harness, input exhaustion. A moves-based cap truncates turn-dense
+    // segments (multi-turn search/rest runs ~9+ turns per keypress, so
+    // the needed calls exceed any fixed multiple of the move count)
+    // mid-keypress. Hang protection stays the worker timeout (the
+    // Must-fix hang signal): a no-progress livelock surfaces as
+    // ETIMEDOUT instead of silent truncation.
+    for (; !game.program_state?.gameover;) {
         try {
             await moveloop_core();
         } catch (e) {
