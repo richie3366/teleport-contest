@@ -7433,6 +7433,7 @@ function load_wiz_goal() {
  * C ref: dat/Pri-strt.lua via load_special — Priest quest start.
  * Arch Priest invent wears via m_dowear (sp_lev.c spo_end_moninvent).
  * Named omissions: fill_special_room TEMPLE beyond FILL_LVFLAGS has_temple.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3550).
  */
 function load_pri_strt() {
     const g = game;
@@ -7518,13 +7519,14 @@ function load_pri_strt() {
     game.SpLev_Map.add(`${mx + 52},${my + 9}`); // C :4189
     mkstairs(mx + 52, my + 9, 0, null, true);
 
-    // des.door — C lspo_door → sel_set_door
+    // des.door — C lspo_door → sel_set_door; Pri-strt.lua:53–70
     const priDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     priDoor(18, 9, D_LOCKED);
@@ -7654,6 +7656,7 @@ function load_pri_strt() {
  * Named omissions: humidity-aware get_location; flip_level (noflip);
  * spo_end_moninvent m_dowear; add_doors_to_room mid-region (doors are
  * linked once via link_doors_rooms before wallify, ≡ C load_special).
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3550).
  */
 async function load_pri_loca() {
     const g = game;
@@ -7776,13 +7779,14 @@ async function load_pri_loca() {
         ry: 7,
     });
 
-    // des.door locked
+    // des.door locked — Pri-loca.lua:38–43
     const priDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     priDoor(10, 6, D_LOCKED);
@@ -19248,8 +19252,9 @@ function set_door_orientation(x, y) {
  * wizDoor (Wiz-strt 8, D-3540), astralDoor (9) + sanctDoor (4, D-3542),
  * meDoor ×2 (minend-1 7 + minend-2 2) + minend-2 gated inline (52,5)
  * (10 sites, D-3544), wizDoor (Wiz-loca 4 + Wiz-goal 16, D-3546),
- * barDoor (Bar-loca 10) + barGoalDoor (Bar-goal 2, D-3548) carry
- * the :4661 game mark; the rest keep the split.
+ * barDoor (Bar-loca 10) + barGoalDoor (Bar-goal 2, D-3548),
+ * priDoor (Pri-strt 18 + Pri-loca 6, D-3550) carry the :4661 game
+ * mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]
