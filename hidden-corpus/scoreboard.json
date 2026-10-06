@@ -1,9 +1,9 @@
 {
- "commit": "26c8df1c6",
- "at": "2026-10-06T17:46:53.627Z",
+ "commit": "6ed72500a",
+ "at": "2026-10-06T18:12:34.866Z",
  "full": true,
- "fullCommit": "26c8df1c6",
- "fullAt": "2026-10-06T17:46:53.627Z",
+ "fullCommit": "6ed72500a",
+ "fullAt": "2026-10-06T18:12:34.866Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -11621,8 +11621,19 @@
   "scen-ride-Knight-94415": {
    "src": "corpus",
    "passed": false,
-   "loc": null,
-   "error": "worker: "
+   "rngM": 6742,
+   "rngT": 7493,
+   "scrM": 147,
+   "scrT": 259,
+   "kind": "rng",
+   "step": 129,
+   "steps": 259,
+   "owner": "dosounds",
+   "loc": "sounds.c:213",
+   "jsOwner": "mcalcmove(mon.js:990)",
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
   },
   "scen-ride-Monk-94411": {
    "src": "corpus",

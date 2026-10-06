@@ -102,3 +102,5 @@ SHA QUALITY-RISK.
    profile recipe in this review.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3571

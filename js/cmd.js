@@ -6447,8 +6447,11 @@ export async function domove(dx, dy) {
                 if ((u.uinwater | 0) || game.flags?.mention_walls) {
                     await pline("You can't move diagonally into an intact doorway.");
                 }
-                if (game.context?.run) end_running(true);
+                // C hack.c domove_core :2841-2846 — !test_move(DO_MOVE)
+                // without door_opened ends move = 0; nomul(0) (nomul owns
+                // the end_running(true) teardown, multi/mv included).
                 game.context.move = 0;
+                nomul(0);
                 return;
             }
             // C: diagonal out of a doorway that still has a door
@@ -6459,23 +6462,26 @@ export async function domove(dx, dy) {
                 if (game.flags?.mention_walls) {
                     await pline("You can't move diagonally out of an intact doorway.");
                 }
-                if (game.context?.run) end_running(true);
+                // C hack.c domove_core :2841-2846 — move = 0; nomul(0).
                 game.context.move = 0;
+                nomul(0);
                 return;
             }
         }
 
         if (blocksMove(newx, newy)) {
-            // Can't move there — end a run so lookaround/continue_run don't
-            // keep going in the previous direction with stale multi.
-            if (game.context?.run) end_running(true);
             // C ref: hack.c test_move — DO_MOVE + mention_walls on rock/bars
             const bloc = game.level?.at(newx, newy);
             if (bloc && (IS_OBSTRUCTED(bloc.typ) || bloc.typ === IRONBARS)) {
                 await mention_walls_obstructed(newx, newy);
             }
             // out-of-bounds is move_out_of_bounds (D-1800), not this bump
+            // C hack.c domove_core :2841-2846 — !test_move(DO_MOVE)
+            // without door_opened ends move = 0; nomul(0). Without the
+            // nomul a stale mv-replay (multi >= COLNO, run cleared)
+            // rebumped this wall forever (scen-ride-Knight-94415 hang).
             game.context.move = 0;
+            nomul(0);
             return;
         }
 
@@ -6497,8 +6503,9 @@ export async function domove(dx, dy) {
                     } else if (why === 1) {
                         await pline('Your body is too large to fit through.');
                     }
-                    if (game.context?.run) end_running(true);
+                    // C hack.c domove_core :2841-2846 — move = 0; nomul(0).
                     game.context.move = 0;
+                    nomul(0);
                     return;
                 }
             }
@@ -6515,8 +6522,9 @@ export async function domove(dx, dy) {
             if ((u.dx && u.dy) && !tightDiag
                 && worm_cross(u.ux | 0, u.uy | 0, newx, newy)) {
                 await pline(`${YMonnam(mon_at(u.ux | 0, newy))} is in your way.`);
-                if (game.context?.run) end_running(true);
+                // C hack.c domove_core :2841-2846 — move = 0; nomul(0).
                 game.context.move = 0;
+                nomul(0);
                 return;
             }
         }
@@ -6544,11 +6552,12 @@ export async function domove(dx, dy) {
             }
             const mr = await moverock();
             if (mr < 0) {
-                // C hack.c:2843–2848 — !test_move keeps move when door_opened
-                // (nopick in-way learned a glyph; D-1262).
+                // C hack.c:2841–2846 — !test_move && !door_opened ends
+                // move = 0; nomul(0) (nopick in-way learned a glyph keeps
+                // move when door_opened; D-1262).
                 if (!game.context?.door_opened) {
-                    if (game.context?.run) end_running(true);
                     game.context.move = 0;
+                    nomul(0);
                 }
                 return;
             }
