@@ -22503,20 +22503,16 @@ function create_object(o, croom) {
 }
 
 /**
- * C ref: sp_lev.c get_table_buc — bucs[] / bucs2i[].
+ * C sp_lev.c get_table_buc `:3441–3452`: bucs[] `:3444–3447` over
+ * get_table_option(L, "buc", "random") `:3449`, mapped by bucs2i[]
+ * `:3448`. tbl is the caller's non-null table, so lua_field is
+ * tbl.buc and nil ⟺ == null on both sides; absent → "random" → 0,
+ * exact strings map, everything else throws like C argerror.
  */
-function get_table_buc(buc) {
-    const bucs = {
-        random: 0,
-        blessed: 1,
-        uncursed: 2,
-        cursed: 3,
-        'not-cursed': 4,
-        'not-uncursed': 5,
-        'not-blessed': 6,
-    };
-    if (buc == null) return 0;
-    return bucs[String(buc).toLowerCase()] ?? 0;
+function get_table_buc(tbl) {
+    const BUCS = ['random', 'blessed', 'uncursed', 'cursed', 'not-cursed', 'not-uncursed', 'not-blessed']; // C :3444–3447
+    const BUCS2I = [0, 1, 2, 3, 4, 5, 6]; // C :3448
+    return BUCS2I[get_table_option(tbl, 'buc', 'random', BUCS)]; // C :3449
 }
 
 /**
@@ -22926,8 +22922,8 @@ function get_table_int_or_random(tab, name, rndval) {
 function lspo_object_normalize_table(tmp) {
     // C :3634 — absent and "random" are -127 (create_object: NOT RANDOM).
     tmp.spe = get_table_int_or_random(tmp, 'spe', -127);
-    if (tmp.buc != null) tmp.curse_state = get_table_buc(tmp.buc);
-    if (tmp.curse_state == null) tmp.curse_state = 0;
+    // C :3635 get_table_buc — unconditional: nil → "random" → 0.
+    tmp.curse_state = get_table_buc(tmp);
     // C :3637 get_table_str_opt(L, "name", NULL): nil → NULL, string kept,
     // function pcalled + optstring conversion, direct non-string throws
     // like nhl_error. tmp is a non-null spread at the caller's table gate
@@ -23043,20 +23039,17 @@ export function l_create_object(o, contentsFn, croom = null) {
 }
 
 /**
- * C ref: sp_lev.c get_table_align :3113–3128 (unpacked; not lua_State).
- * 7-entry gtaligns table; absent defaults to "random" (C get_table_option
- * dflt). Matched case-insensitively like the file's get_table_buc.
+ * C sp_lev.c get_table_align `:3113–3128` (unpacked; not lua_State):
+ * gtaligns[] `:3116–3119` over get_table_option(L, "align", "random")
+ * `:3125`, mapped by aligns2i[] `:3120–3123`. tbl is the caller's
+ * non-null table, so lua_field is tbl.align and nil ⟺ == null on
+ * both sides; absent → "random" → AM_SPLEV_RANDOM, exact strings
+ * map, everything else throws like C argerror.
  */
-function get_table_align_unpacked(align) {
-    switch (String(align ?? 'random').toLowerCase()) {
-        case 'noalign': return AM_NONE;
-        case 'law': return AM_LAWFUL;
-        case 'neutral': return AM_NEUTRAL;
-        case 'chaos': return AM_CHAOTIC;
-        case 'coaligned': return AM_SPLEV_CO;
-        case 'noncoaligned': return AM_SPLEV_NONCO;
-        default: return AM_SPLEV_RANDOM; // "random" + unknown
-    }
+function get_table_align_unpacked(tbl) {
+    const GTALIGNS = ['noalign', 'law', 'neutral', 'chaos', 'coaligned', 'noncoaligned', 'random']; // C :3116–3119
+    const ALIGNS2I = [AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, AM_SPLEV_CO, AM_SPLEV_NONCO, AM_SPLEV_RANDOM]; // C :3120–3123
+    return ALIGNS2I[get_table_option(tbl, 'align', 'random', GTALIGNS)]; // C :3125
 }
 
 /**
@@ -23179,7 +23172,7 @@ function lspo_monster_normalize_table(tmp, inventFn) {
     // table gate), so lua_field(tmp,'name') is tmp.name and the
     // nil/string/function/else classifications are identical to C's.
     tmp.name = get_table_str_opt(tmp, 'name', null);
-    tmp.sp_amask = get_table_align_unpacked(tmp.align);
+    tmp.sp_amask = get_table_align_unpacked(tmp); // C :3298
     tmp.female = get_table_boolean_opt(tmp, 'female', BOOL_RANDOM); // C :3299
     tmp.invis = get_table_boolean_opt(tmp, 'invisible', 0); // C :3300
     tmp.cancelled = get_table_boolean_opt(tmp, 'cancelled', 0); // C :3301
@@ -23385,7 +23378,7 @@ export function splev_create_altar(a, croom = null) {
         ry = xy.y;
     }
     const sp_amask = (t.sp_amask != null)
-        ? (t.sp_amask | 0) : get_table_align_unpacked(t.align);
+        ? (t.sp_amask | 0) : get_table_align_unpacked(t);
     let shrine = (t.shrine != null) ? (t.shrine | 0) : -1;
     let x, y;
     let room = croom;
@@ -23554,8 +23547,8 @@ export function lspo_grave(a, b, c, croom = null) {
 /**
  * C ref: sp_lev.c lspo_altar `:4283–4318` (unpacked; not lua_State) — the
  * des.altar binding. Table-only (C `:4298` lcheck_param_table):
- * x/y-or-coord (C `:4300`), align (C `:4302` get_table_align), type
- * altar/shrine/sanctum defaulting to altar (C `:4303` get_table_option).
+ * x/y-or-coord (C `:4301`), align (C `:4303` get_table_align), type
+ * altar/shrine/sanctum defaulting to altar (C `:4304` get_table_option).
  * -1,-1 packs RANDOM, else the coord (C `:4305–4308`); coord + sp_amask
  * + shrine run create_altar in croom (C `:4310–4315`, the D-2990
  * splev_create_altar split port — shrine is always 0/1/2, never the
@@ -23569,8 +23562,8 @@ export function lspo_altar(o, croom = null) {
     create_des_coder(); // C :4296
     if (o == null || typeof o !== 'object') // C :4298 lcheck_param_table
         throw new Error('lspo_altar: Wrong parameters');
-    const xy = get_table_xy_or_coord(o); // C :4300
-    const al = get_table_align_unpacked(o.align); // C :4302
+    const xy = get_table_xy_or_coord(o); // C :4301
+    const al = get_table_align_unpacked(o); // C :4303
     const shrine = shrines2i[get_table_option(o, 'type', 'altar', shrines)]; // C :4304
     // C :4305-4315 — acoord pack + tmpaltar.coord/sp_amask/shrine + create_altar
     splev_create_altar({ rx: xy.x, ry: xy.y, sp_amask: al, shrine }, croom);

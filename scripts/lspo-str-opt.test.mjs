@@ -14,6 +14,12 @@
 // place and in C order; the adapter held no other uses, so the dead
 // `splev_opt_index` is gone. The eleven entries have no callers in js/
 // or dat/ and no test passes these keys, so no in-tree behavior changes.
+// Step 2 (this D-entry): the three silent-default adapters — sp_lev.c
+// get_table_buc `:3449`, get_table_align `:3125` and questpgr.c `:550`
+// howtoput — read through the same live helper (table form, C order).
+// In-tree buc values are all exact-valid lowercase and no align/output
+// caller passes anything but valid-or-absent (census in the D-entry),
+// so no in-tree behavior changes either.
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -140,11 +146,93 @@ describe('lspo option fields inherit get_table_option conversion', () => {
         const altar = fnBody(src, 'export function lspo_altar(o, croom = null)');
         const shrine = "get_table_option(o, 'type', 'altar', shrines)";
         assert.ok(altar.includes(shrine), `altar type must read via the shared helper: ${shrine}`);
-        assert.ok(altar.indexOf('get_table_align_unpacked(o.align)') < altar.indexOf(shrine));
+        assert.ok(altar.indexOf('const al = get_table_align_unpacked(o); // C :4303') < altar.indexOf(shrine));
     });
 
     it('the splev_opt_index adapter is gone from js/', () => {
         const src = readFileSync(SRC_URL, 'utf8');
         assert.ok(!src.includes('splev_opt_index'), 'dead adapter must be gone');
+    });
+
+    it('step 2: buc/align/output tables convert via the shared helper', () => {
+        const BUCS = ['random', 'blessed', 'uncursed', 'cursed', 'not-cursed', 'not-uncursed', 'not-blessed'];
+        const BUCS2I = [0, 1, 2, 3, 4, 5, 6];
+        assert.equal(BUCS2I[get_table_option({}, 'buc', 'random', BUCS)], 0);
+        assert.equal(BUCS2I[get_table_option({ buc: null }, 'buc', 'random', BUCS)], 0);
+        assert.equal(BUCS2I[get_table_option({ buc: 'not-cursed' }, 'buc', 'random', BUCS)], 4);
+        assert.equal(BUCS2I[get_table_option({ buc: 'not-blessed' }, 'buc', 'random', BUCS)], 6);
+        assert.throws(() => get_table_option({ buc: 'Blessed' }, 'buc', 'random', BUCS), /invalid option/);
+        assert.throws(() => get_table_option({ buc: 'holy' }, 'buc', 'random', BUCS), /invalid option/);
+        assert.throws(() => get_table_option({ buc: 1 }, 'buc', 'random', BUCS), /invalid option/);
+        const GTALIGNS = ['noalign', 'law', 'neutral', 'chaos', 'coaligned', 'noncoaligned', 'random'];
+        assert.equal(get_table_option({}, 'align', 'random', GTALIGNS), 6);
+        assert.equal(get_table_option({ align: 'law' }, 'align', 'random', GTALIGNS), 1);
+        assert.equal(get_table_option({ align: 'random' }, 'align', 'random', GTALIGNS), 6);
+        assert.throws(() => get_table_option({ align: 'Law' }, 'align', 'random', GTALIGNS), /invalid option/);
+        assert.throws(() => get_table_option({ align: 'unaligned' }, 'align', 'random', GTALIGNS), /invalid option/);
+        const HOWTOPUT = ['pline', 'window', 'text', 'menu', 'default'];
+        const HOWTOPUT2I = [1, 2, 2, 3, 0];
+        assert.equal(HOWTOPUT2I[get_table_option({}, 'output', 'default', HOWTOPUT)], 0);
+        assert.equal(HOWTOPUT2I[get_table_option({ output: 'text' }, 'output', 'default', HOWTOPUT)], 2);
+        assert.equal(HOWTOPUT2I[get_table_option({ output: 'menu' }, 'output', 'default', HOWTOPUT)], 3);
+        assert.throws(() => get_table_option({ output: 'Text' }, 'output', 'default', HOWTOPUT), /invalid option/);
+        assert.throws(() => get_table_option({ output: '' }, 'output', 'default', HOWTOPUT), /invalid option/);
+        assert.throws(() => get_table_option({ output: 0 }, 'output', 'default', HOWTOPUT), /invalid option/);
+    });
+
+    it('step 2: object/monster/altar arms read buc/align via the shells in C order', () => {
+        const src = readFileSync(SRC_URL, 'utf8');
+        const defBody = (def) => {
+            const at = src.indexOf(def);
+            assert.ok(at >= 0, `${def} missing in js/mklev.js`);
+            return src.slice(at, src.indexOf('\n}\n', at));
+        };
+        const bucDef = defBody('function get_table_buc(tbl)');
+        assert.ok(bucDef.includes("get_table_option(tbl, 'buc', 'random', BUCS)"),
+            'buc shell must delegate to the shared helper (C :3449)');
+        assert.ok(bucDef.includes("'not-cursed', 'not-uncursed', 'not-blessed'"), 'bucs[] (C :3444–3447)');
+        assert.ok(bucDef.includes('[0, 1, 2, 3, 4, 5, 6]'), 'bucs2i[] (C :3448)');
+        const alDef = defBody('function get_table_align_unpacked(tbl)');
+        assert.ok(alDef.includes("get_table_option(tbl, 'align', 'random', GTALIGNS)"),
+            'align shell must delegate to the shared helper (C :3125)');
+        assert.ok(alDef.includes("'coaligned', 'noncoaligned', 'random'"), 'gtaligns[] (C :3116–3119)');
+        const objNorm = src.slice(src.indexOf('function lspo_object_normalize_table(tmp)'),
+            src.indexOf('export function l_create_object('));
+        const bucSite = 'tmp.curse_state = get_table_buc(tmp);';
+        assert.ok(objNorm.includes(bucSite), `object buc must read via the shell: ${bucSite}`);
+        assert.ok(objNorm.indexOf("get_table_int_or_random(tmp, 'spe', -127)") < objNorm.indexOf(bucSite));
+        assert.ok(objNorm.indexOf(bucSite) < objNorm.indexOf("get_table_str_opt(tmp, 'name', null)"));
+        const monNorm = src.slice(src.indexOf('function lspo_monster_normalize_table(tmp, inventFn)'),
+            src.indexOf('export async function l_create_monster('));
+        const alSite = 'tmp.sp_amask = get_table_align_unpacked(tmp); // C :3298';
+        assert.ok(monNorm.includes(alSite), `monster align must read via the shell: ${alSite}`);
+        assert.ok(monNorm.indexOf("get_table_str_opt(tmp, 'name', null)") < monNorm.indexOf(alSite));
+        assert.ok(monNorm.indexOf(alSite) < monNorm.indexOf("get_table_boolean_opt(tmp, 'female', BOOL_RANDOM)"));
+        const altarFn = fnBody(src, 'export function splev_create_altar(a, croom = null)');
+        assert.ok(altarFn.includes('get_table_align_unpacked(t)'),
+            'altar string form must read via the shell');
+        for (const adapter of ['get_table_buc(tmp.buc)', 'get_table_align_unpacked(tmp.align)',
+            'get_table_align_unpacked(t.align)', 'get_table_align_unpacked(o.align)',
+            'String(buc).toLowerCase()', "align ?? 'random'"]) {
+            assert.ok(!src.includes(adapter), `unpacked adapter form must be gone: ${adapter}`);
+        }
+    });
+
+    it('step 2: quest output reads via the shell in C order', () => {
+        const qsrc = readFileSync(new URL('../js/questpgr.js', import.meta.url), 'utf8');
+        assert.ok(qsrc.includes("nhl_nhlib_align_shuffle, get_table_str_opt, get_table_option } from './dungeon.js';"),
+            'questpgr must extend the existing dungeon edge (no new module edge)');
+        const at = qsrc.indexOf('function howtoput2i(entry)');
+        assert.ok(at >= 0, 'howtoput2i(entry) missing in js/questpgr.js');
+        const def = qsrc.slice(at, qsrc.indexOf('\n}\n', at));
+        assert.ok(def.includes("get_table_option(entry, 'output', 'default', HOWTOPUT)"),
+            'output shell must delegate to the shared helper (C :550)');
+        const core = qsrc.slice(qsrc.indexOf('async function com_pager_core('));
+        const site = 'let output = howtoput2i(entry); // C :550';
+        assert.ok(core.includes(site), `quest output must read via the shell: ${site}`);
+        assert.ok(core.indexOf("get_table_str_opt(entry.synsrc, 'synopsis', null)") < core.indexOf(site));
+        for (const adapter of ['howtoput2i(entry.output)', 'outputName', 'HOWTOPUT.indexOf']) {
+            assert.ok(!qsrc.includes(adapter), `unpacked adapter form must be gone: ${adapter}`);
+        }
     });
 });
