@@ -2462,3 +2462,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2450-fe0e9911e-runsegment-unbounded-drive.md](./2450-fe0e9911e-runsegment-unbounded-drive.md) | `fe0e9911e` | D-3567 runSegment for(;;) driver (hang regression 94415 — Must-fix) | **QUALITY-RISK** |
 | [2451-00537b9c2-back-to-glyph-tty-twin.md](./2451-00537b9c2-back-to-glyph-tty-twin.md) | `00537b9c2` | D-3568 back_to_glyph tty twin (2 PASS + 94236 34→273, seenv split) | **ACCEPT** |
 | [2452-6a0adad8d-gloc-door-displayed-map.md](./2452-6a0adad8d-gloc-door-displayed-map.md) | `6a0adad8d` | D-3569 GLOC_DOOR displayed-map arm (Healer-94322 PASS, exact) | **ACCEPT** |
+| [2453-8ec2b4d66-domove-blocked-nomul.md](./2453-8ec2b4d66-domove-blocked-nomul.md) | `8ec2b4d66` | D-3571 domove blocked-arm nomul(0) (94415 hang→scored, exact) | **ACCEPT** |
+| [2454-6cbd3abd7-deaf-macro-gates.md](./2454-6cbd3abd7-deaf-macro-gates.md) | `6cbd3abd7` | D-3572 postmov/mb_trapped !Deaf macro (Samurai-94217 27→228) | **ACCEPT** |
+| [2455-ed21e53c1-getpos-dec-deletion.md](./2455-ed21e53c1-getpos-dec-deletion.md) | `ed21e53c1` | D-3573 getpos DEC approximation deleted (1 PASS + 2 moved) | **ACCEPT** |
+| [2456-0745728bf-rhack-postcmd-reset.md](./2456-0745728bf-rhack-postcmd-reset.md) | `0745728bf` | D-3574 rhack post-command reset_cmd_vars (3 T-lag PASS) | **ACCEPT** |
+| [2457-441169570-doattributes-end-footer.md](./2457-441169570-doattributes-end-footer.md) | `441169570` | D-3575 doattributes (end) footer (Samurai-94130 PASS) | **ACCEPT** |
+| [2458-6edaf1e61-tty-status-delivery.md](./2458-6edaf1e61-tty-status-delivery.md) | `6edaf1e61` | D-3576 tty_status_update family + wizard rows (4 PASS + 1 moved) | **ACCEPT** |
+| [2459-ac21ab5cc-rloc-offmap-clear.md](./2459-ac21ab5cc-rloc-offmap-clear.md) | `ac21ab5cc` | D-3577 rloc_to MON_OFFMAP clear (Tourist-92100 131→132, 729/729) | **ACCEPT** |
+| [2460-f61bc493b-kni-strt-light-region.md](./2460-f61bc493b-kni-strt-light-region.md) | `f61bc493b` | D-3578 Kni-strt regions via light_region (Knight-94336 41→213) | **ACCEPT** |
+| [2461-950a830e7-swallowed-gbuf-wipe.md](./2461-950a830e7-swallowed-gbuf-wipe.md) | `950a830e7` | D-3579 swallowed gbuf wipe + postmov wire (Archeo-94096 108→236) | **ACCEPT** |

@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — audit 2453–2461 @950a830e7: review D-3571…D-3579 (9A/0D/0Q, 0 Must-fix) + full rescore 806/953
+
+Reviews 2453–2461 ACCEPT, 0 Must-fix (all re-measures match; 0 worse). Nits: D-3577 mstate parenthetical false (steed.c:931 floors; behavior exact); D-3576 decode seed notes stale. Public 44/44; corpus 794→806 (per-iter +9, rescore +3, 0 PASS→FAIL, full:true); held-out +474 pts (7,795), RNG 40.6 % (judge 19:02Z). No js/ edits.
 ## 2026-10-06 — D-3579 cliffs-head `wishymatch` writer: `display.c` swallowed never wiped gbuf on the gulp path (Archeologist-94096 108→mswings_verb@236)
 
 **C locus:** `display.c` swallowed() `:1332–1386`. First arm `:1337–1339` cls(); bot() — cls() `:2196–2201` ends with clear_glyph_buffer() (`:2200`, gbuf all unexplored). The gulp caller `mhitu.c:1396` calls swallowed(1) DIRECTLY (not via docrt), so C wipes gbuf at the swallow moment. Else arm `:1341–1348` clears the old 3x3 via show_glyph(GLYPH_UNEXPLORED); postmov caller `monmove.c:1649–1654` (engulfer moved → u_on_newpos + swallowed(0)).
