@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — D-3560 [measure] `monmove.c` mfndpos/Healer cluster turn-95–104 bisect: TEMP-C MFND history names writer `m_search_items` (541 turn-7 goal fork)
+
+**C locus:** TEMP sites (all reverted): mon.c mfndpos pre-`data->cnt` (:2380) MFND line; monmove.c post-mfndpos (:1938) MOVE line, track-check (:1963) TC line, move commit (:2052) TO line — each with `turn=svm.moves n=rng_log_get_call_count() id pos/cells`. Read-only: m_move goal prelude upstream monmove.c:1853–1908 (ggx=mux :1855, appr :1857–1878, gettrack :1880–1888, getitems/m_search_items :1891–1908), `m_search_items` :1330–1450 (target :1423–1436), `can_track` mondata.c:623–628 (Excalibur || haseyes).
+**JS:** unchanged — 0 changed js files (TEMP touched ignored `nethack-c/recorder/` only; all probes in /tmp).
+**Change:** 
+**Verify:** preflight `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). TEMP-vs-committed: 31355/31355 RNG values + 150/150 screens identical (only monmove.c `:line` +15 drift). JS-vs-C prefix sync: rnglen 26090==26090 at k=103 (W2's number reproduced), decoded screens scrndiff=0 through k=103 (cluster off-screen — screens cannot bisect).
+**Named:** (1) port-iter confirmations (minutes, then port): JS fobj dump at (43,10)/k=88 — item PRESENT ⟹ JS `m_search_items` logic bug (port the wraith-want/target arm); item ABSENT ⟹ object-state writer upstream (name the producer — no draw-free source known, so expect present); TEMP-DIAG JS goal print at 541-slot (expect 62,10); haseyes(wraith) 1-line read (excludes gettrack-arm port bug). (2) the other 4 :538 sessions need per-session call-pattern writers (D-3559-Next stands).
+**Next:** port iteration ships `m_search_items` (43,10)-target behavior with the fobj confirmation above; expect Hea-92055 104→PASS-or-later (and recheck the other 4 residuals for shared occupancy roots). Do not re-pop distfleeck for Hea-92055 until the writer port verifies. Batch @984d8c718 (supervisor line: 1 recheck fn in detect.c, ~11 C lines) is below the ≥5 threshold with a non-empty cliffs block, so per §10.18/playbook §2a the cliffs head shipped instead (D-3557/D-3558/D-3559 precedent); no batch work in this commit.
 ## 2026-10-06 — D-3559 `monmove.c` distfleeck whole: scared arms + monflee (cliffs head, Knight-94018 125→143)
 
 **C locus:** `monmove.c:532–567` (`distfleeck`); callers dochug :791/:834/:915. The park (LOOP-QUEUE-PARKED.md `distfleeck` SYMPTOM 2026-09-08) proved a body port no-movement only for sessions diverging AT :538 (JS never invoked distfleeck there); this probe diverges at :564 after a matched :538 — outside the park's positional proof.

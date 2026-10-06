@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-06
 
+- [x] `[measure]` `monmove.c` mfndpos / Healer (43–47,10–14) cluster first-divergent-turn (W2 park follow-up; owner `distfleeck` still blocks 5–7 corpus sessions, 12–35k RNG lost) — C TEMP-W2 MFND history (re-record scen-tour-Healer-92055 with a log-only `mfndpos`/`m_move` dump in the ignored recorder tree: `mon.c` pre-`data->cnt`, `monmove.c` post-`mfndpos` + track-check, `rng_log_get_call_count()` for correlation, rebuild `CC="cc -arch x86_64"`, revert + rebuild after) vs JS prefix probes (`runSegment` with step-keys 1..T from the committed session, dump cluster occupancy) for T=95–104: bisect to the first turn whose start arrangement differs (turn-104-start: (44,12) C 230 vs JS empty, (45,12) C 246 vs JS 230, (45,11) C 244 vs JS 246?, (46,10) JS 244; test one-turn-lag), then port the writer with the session as evidence. No `js/` in the measure commit.
+
+
 - [x] teleport.c rloc_to_core 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — rloc_to_core ← clipped restore (row omit ends "`remove_monster`≡mx/my zeroing (`m_at` scans fmon); `m…" mid-word at the 300 cap, quoted from live `docs/ledger/teleport.c.jsonl` 2026-10-06, d=D-2504,D-1196,D-1195,D-1183,D-1180, note "stale: u_on_newpos live via dynamic import js/teleport.js:810; C body complete across composer+helpers"; full text in D-2504 Named; JS split reads whole at enqueue js/teleport.js:1108 async export, C-order doc :1095–1107, C 75/JS 119 ok, all 23 brief-table callees live exports — likely retire-stale, D-2504/D-1196 Ledger/Named truth + caller wiring unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the use_container head drops the band to 7, finish fails closed below 8).
 
 
