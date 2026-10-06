@@ -19205,8 +19205,9 @@ function set_door_orientation(x, y) {
  * The 58 coord-form des.door closures (D-2695/D-2697) predate this home and
  * keep their inlined typ/orientation/doormask — established split, not
  * rewired here. Tower closures (twDoor ×2 + tower3 inline, 10 des.door
- * sites, D-3528), knoxDoor (11 sites) + tut1_door (12 sites, D-3530)
- * carry the :4661 game mark; the rest keep the split.
+ * sites, D-3528), knoxDoor (11 sites) + tut1_door (12 sites, D-3530),
+ * baalz inline (1 site) + valleyDoor (3 sites, D-3536) carry the :4661
+ * game mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]
@@ -24917,8 +24918,9 @@ function load_castle() {
 
 /**
  * C ref: dat/valley.lua via load_special — Valley of the Dead (Gehennom).
- * Named omissions: ensure_way_out; asmodeus/baalz/orcus/juiblex/hellfill
- * protos.
+ * Map cells + stair + doors carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3536). Named omissions: ensure_way_out;
+ * asmodeus/baalz/orcus/juiblex/hellfill protos.
  */
 function load_valley() {
     const g = game;
@@ -25061,6 +25063,7 @@ function load_valley() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     valleyDoor(4, 1, D_LOCKED);
@@ -25863,7 +25866,8 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 /**
  * C ref: dat/baalz.lua via load_special — Baalzebub beetle lair (Gehennom).
  * solidfill + corrmaze + right/center map + west mazewalk (stocked);
- * baalz_fixup via fixup_special. Named omissions: hellfill/
+ * baalz_fixup via fixup_special. Map cells + stair + door carry the game
+ * SpLev_Map marks (C :6292/:4189/:4661; D-3536). Named omissions: hellfill/
  * wizard1–3/fakewiz; ensure_way_out; map_cleanup.
  */
 function load_baalz() {
@@ -25965,6 +25969,7 @@ function load_baalz() {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
             set_door_orientation(mx + 0, my + 6); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
+            if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 0},${my + 6}`); // C :4661
             loc.flags = D_LOCKED;
         }
     }
