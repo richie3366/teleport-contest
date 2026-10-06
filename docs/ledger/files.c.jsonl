@@ -24,7 +24,7 @@
 {"fn":"open_bonesfile","c":"940-990","status":"ported","js":["js/files.js:open_bonesfile"],"d":["D-3387"],"at":"2026-10-03@bd0144c89"}
 {"fn":"delete_bonesfile","c":"993-1001","status":"ported","js":["js/bones.js:delete_bonesfile"],"at":"2026-10-03@bbe63333a"}
 {"fn":"compress_bonesfile","c":"1006-1010","status":"ported","js":["js/files.js:compress_bonesfile"],"d":["D-3389"],"at":"2026-10-03@14e98dbc1"}
-{"fn":"set_savefile_name","c":"1020-1123","status":"partial","js":["js/save.js:set_savefile_name"],"omit":"`getuid()` uid digits (`:1055` — Rule #2, no POSIX identity in dual-runtime ESM; single-user VFS keeps `save/<plname>`); `fname_encode` (WIN32-only, never cloned); VMS/WIN32/MSDOS/MICRO/AMIGA arms; SYSV 14-char truncation inside `regularize`; RELEASED `impossible`; `check_panic_save`/`recover_savef…","d":["D-2538"],"at":"seed@a30a7de84"}
+{"fn":"set_savefile_name","c":"1020-1123","status":"partial","js":["js/save.js:set_savefile_name"],"omit":"`getuid()` uid digits (:1055 Rule #2; VFS keeps `save/<plname>`); `fname_encode` (WIN32-only, never cloned); VMS/WIN32/MSDOS/MICRO/AMIGA arms; SYSV 14-char trunc in `regularize`; RELEASED `impossible`; `check_panic_save`/`recover_savefile`/`get_saved_games` callers (unported recover/selectsaved).","d":["D-3527","D-2538"],"at":"2026-10-06@23bf14723","note":"D-3527 restore-compacted to 297 chars"}
 {"fn":"save_savefile_name","c":"1128-1131","status":"unknown"}
 {"fn":"set_error_savefile","c":"1137-1154","status":"unknown"}
 {"fn":"create_savefile","c":"1159-1213","status":"ported","js":["js/files.js:create_savefile"],"d":["D-3381"],"at":"2026-10-03@c4bd1edaa"}
