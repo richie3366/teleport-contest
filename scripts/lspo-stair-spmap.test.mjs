@@ -9,8 +9,8 @@
 // mkstairs), mirroring the l_create_stairway `:23457–23458` idiom
 // (l_create_stairway itself marks both arms — pinned here as the
 // reference). Fixed des.stair sites in special levels now carry the
-// mark + fixed force (lspo-stair-fixed-spmap.test.mjs); quest + soko
-// fixed sites stay raw (in-code named omit at l_create_stairway).
+// mark + fixed force (lspo-stair-fixed-spmap.test.mjs); quest (42) +
+// soko (12) fixed sites carry the mark + force (D-3526).
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
