@@ -2434,3 +2434,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2422-8d3fd4d86-str-opt-campaign-step2.md](./2422-8d3fd4d86-str-opt-campaign-step2.md) | `8d3fd4d86` | D-3520 string-opt step 2: buc/align/howtoput shells + impossible | **ACCEPT** |
 | [2423-789009530-stair-spmap-closeout.md](./2423-789009530-stair-spmap-closeout.md) | `789009530` | D-3522 string-opt close-out: buc recheck + :4189 random-arm marks | **ACCEPT** |
 | [2424-75333665a-fixed-stairway-closeout.md](./2424-75333665a-fixed-stairway-closeout.md) | `75333665a` | D-3524 fixed-stairway close-out: 16+8 marks + force + sanctum deltrap | **ACCEPT** |
+| [2425-23bf14723-quest-soko-fixed-stair-closeout.md](./2425-23bf14723-quest-soko-fixed-stair-closeout.md) | `23bf14723` | D-3526 quest/soko fixed-stair close-out: 54 marks + force (fila/files nit) | **ACCEPT** |
+| [2426-4cd915564-tower-map-door-mark-closeout.md](./2426-4cd915564-tower-map-door-mark-closeout.md) | `4cd915564` | D-3528 tower map/door game-mark close-out (cite drifts disclosed) | **ACCEPT** |
+| [2427-bdc47be2f-knox-tut1-door-mark-step.md](./2427-bdc47be2f-knox-tut1-door-mark-step.md) | `bdc47be2f` | D-3530 knox/tut-1 des.door :4661 campaign step (23 sites) | **ACCEPT** |
+| [2428-ac6f8cc3e-tut-map-mark-closeout.md](./2428-ac6f8cc3e-tut-map-mark-closeout.md) | `ac6f8cc3e` | D-3532 tut-1/tut-2 des.map :6292 close-out (bitmaps C-complete) | **ACCEPT** |
+| [2429-d55077ac6-themeroom-map-mark-closeout.md](./2429-d55077ac6-themeroom-map-mark-closeout.md) | `d55077ac6` | D-3534 themeroom :6292 close-out, last unmarked map loop (count nits) | **ACCEPT** |
