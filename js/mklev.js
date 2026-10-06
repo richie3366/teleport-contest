@@ -13723,6 +13723,7 @@ function load_knox() {
  * C ref: dat/Bar-loca.lua via load_special — locate level (ogre fort).
  * Named omissions: humidity-aware get_location for water-likers;
  * set_malign after peaceful override (matches Bar-strt partial).
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3548).
  */
 function load_bar_loca() {
     const g = game;
@@ -13779,13 +13780,14 @@ function load_bar_loca() {
     barLit(56, 0, 75, 8, false);
     barLit(64, 9, 75, 16, false);
 
-    // des.door
+    // des.door — Bar-loca.lua:41–50
     const barDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     barDoor(23, 3, D_ISOPEN);
@@ -13896,6 +13898,7 @@ function load_bar_loca() {
  * C ref: dat/Bar-goal.lua via load_special — Barbarian quest goal
  * (Thoth Amon / Heart of Ahriman). Named omissions: humidity-aware
  * get_location; spo_end_moninvent m_dowear; G_UNIQ extinct early return.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3548).
  */
 function load_bar_goal() {
     const g = game;
@@ -13938,14 +13941,15 @@ function load_bar_goal() {
     // argc=2: unlit does not grow (light_region litstate=0).
     light_region(mx + 0, my + 0, mx + 75, my + 19, false);
 
-    // des.door("locked", 22,09) / (26,09) — C lspo_door → sel_set_door;
-    // map 'S' stays SDOOR.
+    // des.door("locked", 22,09) / (26,09) — Bar-goal.lua:35–36,
+    // C lspo_door → sel_set_door; map 'S' stays SDOOR.
     const barGoalDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     barGoalDoor(22, 9, D_LOCKED);
@@ -19243,7 +19247,8 @@ function set_door_orientation(x, y) {
  * ×3 + medusa-2 inline (16 sites, D-3538), barDoor (Bar-strt 8) +
  * wizDoor (Wiz-strt 8, D-3540), astralDoor (9) + sanctDoor (4, D-3542),
  * meDoor ×2 (minend-1 7 + minend-2 2) + minend-2 gated inline (52,5)
- * (10 sites, D-3544), wizDoor (Wiz-loca 4 + Wiz-goal 16, D-3546) carry
+ * (10 sites, D-3544), wizDoor (Wiz-loca 4 + Wiz-goal 16, D-3546),
+ * barDoor (Bar-loca 10) + barGoalDoor (Bar-goal 2, D-3548) carry
  * the :4661 game mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
