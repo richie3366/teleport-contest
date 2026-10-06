@@ -6491,6 +6491,8 @@ function load_bigrm_12() {
  * C ref: dat/Bar-strt.lua via load_special — full script through branch
  * levregion; m_dowear after Pelias invent live (sp_lev.c spo_end_moninvent).
  * Branch levregion stored pre-flip so flip_level remaps it (D-0782 pattern).
+ * Map cells + stairs + doors carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3540).
  */
 function load_bar_strt() {
     const g = game;
@@ -6579,6 +6581,7 @@ function load_bar_strt() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     barDoor(12, 5, D_LOCKED);
@@ -6705,6 +6708,8 @@ function load_bar_strt() {
 /**
  * C ref: dat/Wiz-strt.lua via load_special — Wizard quest start (Neferet).
  * solidfill + cloud replace_terrain + tower clear + leader invent.
+ * Map cells + stairs + doors carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3540).
  * Named omissions: spo_end_moninvent m_dowear; count_level_features /
  * level_finalize_topology / fill_special_room;
  * sp_lev.c lspo_reset_level / lspo_finalize_level still named
@@ -6815,6 +6820,7 @@ function load_wiz_strt() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     wizDoor(31, 9, D_CLOSED);
@@ -19219,8 +19225,9 @@ function set_door_orientation(x, y) {
  * rewired here. Tower closures (twDoor ×2 + tower3 inline, 10 des.door
  * sites, D-3528), knoxDoor (11 sites) + tut1_door (12 sites, D-3530),
  * baalz inline (1 site) + valleyDoor (3 sites, D-3536), medusa medDoor
- * ×3 + medusa-2 inline (16 sites, D-3538) carry the :4661 game mark;
- * the rest keep the split.
+ * ×3 + medusa-2 inline (16 sites, D-3538), barDoor (Bar-strt 8) +
+ * wizDoor (Wiz-strt 8, D-3540) carry the :4661 game mark; the rest
+ * keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]

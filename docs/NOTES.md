@@ -28,20 +28,21 @@ Parks: `LOOP-QUEUE.md` **Parked** (proofs in archive). Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-3539 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3540 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings present (953 entries); full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3539.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3539 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3540.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3540 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3540: per-site des evidence this iter (Bar-strt.lua:63–70 = 8 des.door locked 12,05 + locked 12,09 + closed 21,07 + open 07,13 + open 18,13 + open 23,13 + o Named: - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/net
 - D-3539: restore-compact via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Named: - `goto_level`: binary NHFILE savelev/getlev (by-design VFS analogue — in-memory stash pat
 - D-3538: per-site des evidence this iter (medusa-1.lua:51–54 = 4 des.door closed 46,07 + locked 38,08 + locked 38,11 + closed 30,12; medusa-2.lua:48 = 1 des.do Named: - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/net
 - D-3537: restore-compact via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Named: - `make_converted_name`: `nh_getenv` NETHACKDIR/HACKDIR (Rule #2 no env, SHOPTYPE preceden
@@ -56,5 +57,4 @@ Parks: `LOOP-QUEUE.md` **Parked** (proofs in archive). Live hypotheses only:
 - D-3528: per-site des evidence this iter (dat/tower1.lua des.map :10–21 halign half-left/valign center/lit-absent→FALSE, 15×11 MAP = embedded TOWER1_MAP incl.  Named: - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/net
 - D-3527: restore-compact via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Named: - `set_savefile_name`: `getuid()` uid digits (:1055 Rule #2; VFS keeps `save/<plname>`); `
 - D-3526: per-site dat evidence this iter (43 .lua files: every des.stair line precedes every des.trap line — Bar-strt :59/:90, Wiz-strt :50/:86, Wiz-loca :82–8 Named: - `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 (yn prompt/raw_print/net
-- D-3525: restore-compact via direct `ledger.mjs set` ×1 (NOT via finish-iteration). Named: - `savebones`: close_nhfile on the probe hit (no VFS handle); create_bonesfile creat/errno
 <!-- landmarks:end -->
