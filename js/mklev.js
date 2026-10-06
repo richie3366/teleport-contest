@@ -1143,15 +1143,6 @@ export async function lspo_gas_cloud(opts) {
 }
 
 /**
- * C ref: nhlua.c get_table_int_opt — nil field → defval, else integer.
- * Unpacked-table form: plain-object field read (des tables are trusted
- * content, so `| 0` coercion stands in for luaL_checkinteger).
- */
-function splev_opt_int(v, defval) {
-    return v == null ? defval : v | 0;
-}
-
-/**
  * C ref: nhlua.c get_table_option — luaL_checkoption index into the option
  * table; absent field → default string; no match → nhl_error (fatal).
  * luaL_checkoption matches exactly (case-sensitive).
@@ -2161,16 +2152,16 @@ export async function lspo_region(a, b) {
         const o = a ?? {}; // C :5598 lcheck_param_table
         if (o === null || typeof o !== 'object') throw new Error('lspo_region: Wrong parameters');
         // C TODO (:5599-5601): "unfilled"/"filled"/"lvflags_only" needfill strings — no get_table_needfill_opt in C yet; int stands
-        const needfill = splev_opt_int(o.filled, 0); // C :5602
+        const needfill = get_table_int_opt(o, 'filled', 0); // C :5600 get_table_int_opt(L, "filled", 0)
         const irregular = splev_opt_boolean(o.irregular, 0); // C :5603
         const joined = splev_opt_boolean(o.joined, 1); // C :5604 (TRUE)
         const do_arrival_room = splev_opt_boolean(o.arrival_room, 0); // C :5605
         const rtype = await get_table_roomtype_opt(o, 'type', OROOM); // C :5606
-        let rlit = splev_opt_int(o.lit, -1); // C :5607
-        let dx1 = splev_opt_int(o.x1, -1); // C :5563-5566 get_table_coords_or_region
-        let dy1 = splev_opt_int(o.y1, -1);
-        let dx2 = splev_opt_int(o.x2, -1);
-        let dy2 = splev_opt_int(o.y2, -1);
+        let rlit = get_table_int_opt(o, 'lit', -1); // C :5605 get_table_int_opt(L, "lit", -1)
+        let dx1 = get_table_int_opt(o, 'x1', -1); // C :5565-5568 get_table_coords_or_region
+        let dy1 = get_table_int_opt(o, 'y1', -1);
+        let dx2 = get_table_int_opt(o, 'x2', -1);
+        let dy2 = get_table_int_opt(o, 'y2', -1);
         if (dx1 === -1 && dy1 === -1 && dx2 === -1 && dy2 === -1) { // C :5569
             const reg = get_table_region_unpacked(o, 'region', false); // C :5571 required-FALSE
             dx1 = reg[0]; dy1 = reg[1]; dx2 = reg[2]; dy2 = reg[3]; // C :5572-5574
