@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — audit 2421–2424 @47203111b: review D-3518/D-3520/D-3522/D-3524 (4A/0D/0Q, 0 Must-fix) + full rescore 741/953
+
+**Reviews:** 2421 wall_property rewire (2416.1 census closed) ACCEPT; 2422 string-opt step 2 (buc/align/howtoput shells, tables verbatim, altar cites exact) ACCEPT; 2423 stair close-out (:4189 random-arm marks, 6 int callers, maze1xy live reader) ACCEPT; 2424 fixed-stairway close-out (16+8 dat-verified marks + force, sanctum live deltrap) ACCEPT. Nits only: buc-count 27-vs-24, des.stair "12", :2174/:5876 cite slips, D-3522 Ledger bullet omits l_create_stairway (Verify covers it; D-3524 picks it up).
+**Score:** public 44/44 (Scr 11,405, RNG 792,838, `341+1.73/turn` R² 0.783); corpus 741/953 PASS (77.8 %), RNG 98.53 %, screens 94.2 %, 0 losses / 0 gains, `full: true` 03:59Z; held-out 16/44 flat (judge 01:31Z).
+**Next:** next Must-fix (files.c set_savefile_name 1-row repair; D-3525 Next).
 ## 2026-10-06 — D-3525 Must-fix: bones.c savebones 1-row ledger repair (clipped omit restore-compacted to 297; body whole D-3457)
 
 **C locus:** row home only (no C re-read; body brief-read this iter): bones.c `savebones` :403–625 (probe hit :411–430; make_bones :431–456; arise :457–478; statue :480–489; ghost :490–505; ebones tail :506–540; mon/trap/obj loops :541–559; level wipe :561–572; cemetery :574–599; bonesfile tail :600–625).

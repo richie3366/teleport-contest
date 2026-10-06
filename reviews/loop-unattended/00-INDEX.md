@@ -2430,3 +2430,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2418-c076fe518-bool-opt-campaign-step2.md](./2418-c076fe518-bool-opt-campaign-step2.md) | `c076fe518` | D-3512 boolean-opt step 2: obj ×12 table+montype + impossible | **ACCEPT** |
 | [2419-9f377496b-bool-opt-closeout.md](./2419-9f377496b-bool-opt-closeout.md) | `9f377496b` | D-3514 boolean-opt close-out: mon ×16 + feature/engraving ×3 + impossible | **ACCEPT** |
 | [2420-a0d3ff284-str-opt-campaign-step1.md](./2420-a0d3ff284-str-opt-campaign-step1.md) | `a0d3ff284` | D-3516 string-opt step 1: 20 sites + impossible (ledger paste, no restore) | **QUALITY-RISK** |
+| [2421-d871471f3-wall-property-int-opt-rewire.md](./2421-d871471f3-wall-property-int-opt-rewire.md) | `d871471f3` | D-3518 wall_property 4-site→int-helper rewire (2416.1 census closed) | **ACCEPT** |
+| [2422-8d3fd4d86-str-opt-campaign-step2.md](./2422-8d3fd4d86-str-opt-campaign-step2.md) | `8d3fd4d86` | D-3520 string-opt step 2: buc/align/howtoput shells + impossible | **ACCEPT** |
+| [2423-789009530-stair-spmap-closeout.md](./2423-789009530-stair-spmap-closeout.md) | `789009530` | D-3522 string-opt close-out: buc recheck + :4189 random-arm marks | **ACCEPT** |
+| [2424-75333665a-fixed-stairway-closeout.md](./2424-75333665a-fixed-stairway-closeout.md) | `75333665a` | D-3524 fixed-stairway close-out: 16+8 marks + force + sanctum deltrap | **ACCEPT** |
