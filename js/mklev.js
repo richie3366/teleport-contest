@@ -13634,6 +13634,7 @@ function load_knox() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     knoxDoor(6, 14, D_CLOSED);
@@ -19199,7 +19200,8 @@ function set_door_orientation(x, y) {
  * The 58 coord-form des.door closures (D-2695/D-2697) predate this home and
  * keep their inlined typ/orientation/doormask — established split, not
  * rewired here. Tower closures (twDoor ×2 + tower3 inline, 10 des.door
- * sites) carry the :4661 game mark (D-3528); the rest keep the split.
+ * sites, D-3528), knoxDoor (11 sites) + tut1_door (12 sites, D-3530)
+ * carry the :4661 game mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]
@@ -20110,6 +20112,7 @@ function load_tut1() {
         }
         set_door_orientation(xstart + mx, ystart + my); // C sel_set_door :4659
         loc.doormask = mask;
+        if (game.SpLev_Map) game.SpLev_Map.add(`${xstart + mx},${ystart + my}`); // C :4661
         loc.flags = mask;
     };
     // C: dat/tut-1.lua tut_key / tut_key_help — nh.eckey (cmd_from_ecname)
