@@ -69,10 +69,10 @@ describe('lspo_monster_normalize_table inherits get_table_int_opt conversion', (
         assert.ok(!body.includes('tmp.blinded | 0'), 'raw blinded adapter must be gone');
         assert.ok(!body.includes('tmp.paralyzed | 0'), 'raw paralyzed adapter must be gone');
         assert.ok(!body.includes('tmp.m_lev_adj | 0'), 'raw m_lev_adj adapter must be gone');
-        assert.ok(body.indexOf('lspo_bool_opt(tmp.avenge, 0)') < body.indexOf(fleeing), 'fleeing :3304 after avenge :3303 (C read order)');
+        assert.ok(body.indexOf("get_table_boolean_opt(tmp, 'avenge', 0)") < body.indexOf(fleeing), 'fleeing :3304 after avenge :3303 (C read order)');
         assert.ok(body.indexOf(fleeing) < body.indexOf(blinded), 'fleeing :3304 before blinded :3305 (C read order)');
         assert.ok(body.indexOf(blinded) < body.indexOf(paralyzed), 'blinded :3305 before paralyzed :3306 (C read order)');
-        assert.ok(body.indexOf(paralyzed) < body.indexOf('lspo_bool_opt(tmp.stunned, 0)'), 'paralyzed :3306 before stunned :3307 (C read order)');
-        assert.ok(body.indexOf('lspo_bool_opt(tmp.waiting, 0)') < body.indexOf(mlev), 'm_lev_adj :3310 after waiting :3309 (C read order)');
+        assert.ok(body.indexOf(paralyzed) < body.indexOf("get_table_boolean_opt(tmp, 'stunned', 0)"), 'paralyzed :3306 before stunned :3307 (C read order)');
+        assert.ok(body.indexOf("get_table_boolean_opt(tmp, 'waiting', 0)") < body.indexOf(mlev), 'm_lev_adj :3310 after waiting :3309 (C read order)');
     });
 });

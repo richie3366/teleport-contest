@@ -1625,27 +1625,6 @@ function sel_set_feature(x, y, typ) {
 }
 
 /**
- * C ref: nhlua.c get_table_boolean `:1079–1104` — string arm returns the
- * raw luaL_checkoption index ("true"→0, "false"→1, "yes"→2, "no"→3;
- * no match throws like nhl_error); boolean → 1/0; number must be an
- * integer 0/1 else throw ("Expected a boolean").
- */
-function splev_feature_boolopt(v, name) {
-    if (typeof v === 'string') {
-        const i = ['true', 'false', 'yes', 'no'].indexOf(v);
-        if (i < 0) throw new Error(`lspo_feature: Expected a boolean for '${name}'`);
-        return i;
-    }
-    if (typeof v === 'boolean') return v ? 1 : 0;
-    if (typeof v === 'number') {
-        if (!Number.isInteger(v) || v < 0 || v > 1)
-            throw new Error(`lspo_feature: Expected a boolean for '${name}'`);
-        return v;
-    }
-    throw new Error(`lspo_feature: Expected a boolean for '${name}'`);
-}
-
-/**
  * C ref: sp_lev.c l_table_getset_feature_flag `:4739–4756` — absent field
  * (get_table_boolean_opt defval -2) skips; else set/clear flag on the
  * cell. C writes levl[x][y].flags, which rm.h aliases (`#define looted
@@ -1654,9 +1633,10 @@ function splev_feature_boolopt(v, name) {
  * (get_table_boolean throws on -1) and is kept verbatim for C order.
  */
 function l_table_getset_feature_flag(o, x, y, name, flag) {
-    if (o[name] == null) return; // C :4746 get_table_boolean_opt -2
-    let val = splev_feature_boolopt(o[name], name);
-    if (val === -1) val = rn2(2); // C :4748-4749
+    const raw = get_table_boolean_opt(o, name, -2); // C :4745
+    if (raw === -2) return; // C :4747
+    let val = raw;
+    if (val === -1) val = rn2(2); // C :4748-4749 (dead: the conversion throws on -1; kept verbatim)
     const loc = game.level.at(x, y);
     if (!loc) return;
     if (val) loc.looted = (loc.looted | 0) | flag; // C :4750-4751
@@ -1786,11 +1766,10 @@ export function lspo_engraving(a, b, c) {
         if (typeof o.text !== 'string') // C :3908 get_table_str luaL_checkstring
             throw new Error("bad argument 'text' (string expected)");
         txt = o.text;
-        // C :3909-3910 get_table_boolean_opt (nil → default, else shared
-        // C nhlua.c get_table_boolean raw-index semantics via
-        // splev_feature_boolopt; nonzero → true like C's boolean assignment).
-        wipeout = (o.degrade == null ? 1 : splev_feature_boolopt(o.degrade, 'degrade')) !== 0;
-        guardobjs = (o.guardobjects == null ? 0 : splev_feature_boolopt(o.guardobjects, 'guardobjects')) !== 0;
+        // C :3909-3910 get_table_boolean_opt (nil → default, else the
+        // shared same-file conversion; nonzero → true like C's use).
+        wipeout = get_table_boolean_opt(o, 'degrade', 1) !== 0; // C :3909
+        guardobjs = get_table_boolean_opt(o, 'guardobjects', 0) !== 0; // C :3910
     } else if (argc === 3) { // C :3911-3917
         const ex = { x, y }; // C :3912 ex, ey; nil leaves the -1 seed
         get_coord(a, ex); // C :3913 (void) get_coord(L, 1, &ex, &ey)
@@ -23095,18 +23074,6 @@ function get_table_align_unpacked(align) {
 }
 
 /**
- * C ref: sp_lev.c get_table_boolean_opt(L, key, dflt) for unpacked tables —
- * absent (null/undefined) yields dflt, which may be BOOL_RANDOM (-1);
- * explicit booleans fold to 1/0; numbers pass through untouched so an
- * explicit BOOL_RANDOM survives.
- */
-function lspo_bool_opt(v, dflt) {
-    if (v == null) return dflt;
-    if (typeof v === 'boolean') return v ? 1 : 0;
-    return v | 0;
-}
-
-/**
  * C sp_lev.c:5260–5279: lua_isnumber then lua_tointeger, which returns
  * zero for fractional/out-of-range floats. The unpacked array replaces
  * the Lua stack index adjustment; integer strings retain all 64 bits.
@@ -23218,8 +23185,8 @@ function lspo_monster_from_string(paramstr, arg2, arg3) {
  * splev_create_monster from tmp.idName — normalize itself burns nothing.
  */
 function lspo_monster_normalize_table(tmp, inventFn) {
-    tmp.peaceful = lspo_bool_opt(tmp.peaceful, BOOL_RANDOM);
-    tmp.asleep = lspo_bool_opt(tmp.asleep, BOOL_RANDOM);
+    tmp.peaceful = get_table_boolean_opt(tmp, 'peaceful', BOOL_RANDOM); // C :3293
+    tmp.asleep = get_table_boolean_opt(tmp, 'asleep', BOOL_RANDOM); // C :3294
     // C :3295 get_table_str_opt(L, "name", NULL): nil → NULL, string kept,
     // function pcalled + optstring conversion, direct non-string throws
     // like nhl_error. tmp is a non-null object here (spread at the caller's
@@ -23227,11 +23194,11 @@ function lspo_monster_normalize_table(tmp, inventFn) {
     // nil/string/function/else classifications are identical to C's.
     tmp.name = get_table_str_opt(tmp, 'name', null);
     tmp.sp_amask = get_table_align_unpacked(tmp.align);
-    tmp.female = lspo_bool_opt(tmp.female, BOOL_RANDOM);
-    tmp.invis = lspo_bool_opt(tmp.invis, 0);
-    tmp.cancelled = lspo_bool_opt(tmp.cancelled, 0);
-    tmp.revived = lspo_bool_opt(tmp.revived, 0);
-    tmp.avenge = lspo_bool_opt(tmp.avenge, 0);
+    tmp.female = get_table_boolean_opt(tmp, 'female', BOOL_RANDOM); // C :3299
+    tmp.invis = get_table_boolean_opt(tmp, 'invisible', 0); // C :3300
+    tmp.cancelled = get_table_boolean_opt(tmp, 'cancelled', 0); // C :3301
+    tmp.revived = get_table_boolean_opt(tmp, 'revived', 0); // C :3302
+    tmp.avenge = get_table_boolean_opt(tmp, 'avenge', 0); // C :3303
     // C :3304–3306 get_table_int_opt(L, "fleeing"/"blinded"/"paralyzed",
     // 0): nil → 0, else checkinteger conversion (integral floats and
     // numeric strings convert; fractions and direct non-numerics throw
@@ -23241,19 +23208,19 @@ function lspo_monster_normalize_table(tmp, inventFn) {
     tmp.fleeing = get_table_int_opt(tmp, 'fleeing', 0);
     tmp.blinded = get_table_int_opt(tmp, 'blinded', 0);
     tmp.paralyzed = get_table_int_opt(tmp, 'paralyzed', 0);
-    tmp.stunned = lspo_bool_opt(tmp.stunned, 0);
-    tmp.confused = lspo_bool_opt(tmp.confused, 0);
-    tmp.waiting = lspo_bool_opt(tmp.waiting, 0);
+    tmp.stunned = get_table_boolean_opt(tmp, 'stunned', 0); // C :3307
+    tmp.confused = get_table_boolean_opt(tmp, 'confused', 0); // C :3308
+    tmp.waiting = get_table_boolean_opt(tmp, 'waiting', 0); // C :3309
     // C :3310 get_table_int_opt(L, "m_lev_adj", 0): same conversion.
     tmp.m_lev_adj = get_table_int_opt(tmp, 'm_lev_adj', 0);
     // C :3318 — seentraps stays 0 (TODO: trap-name list to bitfield).
-    tmp.keep_default_invent = lspo_bool_opt(tmp.keep_default_invent, -1);
+    tmp.keep_default_invent = get_table_boolean_opt(tmp, 'keep_default_invent', -1); // C :3313
     let mm_flags = NO_MM_FLAGS;
-    if (!lspo_bool_opt(tmp.tail, 1)) mm_flags |= MM_NOTAIL;
-    if (!lspo_bool_opt(tmp.group, 1)) mm_flags |= MM_NOGRP;
-    if (lspo_bool_opt(tmp.adjacentok, 0)) mm_flags |= MM_ADJACENTOK;
-    if (lspo_bool_opt(tmp.ignorewater, 0)) mm_flags |= MM_IGNOREWATER;
-    if (!lspo_bool_opt(tmp.countbirth, 1)) mm_flags |= MM_NOCOUNTBIRTH;
+    if (!get_table_boolean_opt(tmp, 'tail', 1)) mm_flags |= MM_NOTAIL; // C :3315
+    if (!get_table_boolean_opt(tmp, 'group', 1)) mm_flags |= MM_NOGRP; // C :3317
+    if (get_table_boolean_opt(tmp, 'adjacentok', 0)) mm_flags |= MM_ADJACENTOK; // C :3319
+    if (get_table_boolean_opt(tmp, 'ignorewater', 0)) mm_flags |= MM_IGNOREWATER; // C :3321
+    if (!get_table_boolean_opt(tmp, 'countbirth', 1)) mm_flags |= MM_NOCOUNTBIRTH; // C :3323
     tmp.mm_flags = mm_flags;
     // C :3326 get_table_str_opt(L, "appear_as", NULL): nil → NULL, string
     // kept, function pcalled + optstring conversion, direct non-string

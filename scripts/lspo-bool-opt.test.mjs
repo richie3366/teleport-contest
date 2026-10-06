@@ -12,6 +12,14 @@
 // entries are exported for the unported des dispatch and have no in-tree
 // callers (mazewalk's only test caller passes boolean stocked), so no
 // in-tree behavior changes.
+// Close-out (this D-entry): l_table_getset_feature_flag `:4745`
+// (dynamic name, defval -2) and lspo_engraving `:3909–3910`
+// (degrade TRUE / guardobjects FALSE) read through the
+// `splev_feature_boolopt` adapter, which matched C except that
+// beyond-int32 integrals threw where C's (int) cast truncates them into
+// the 0/1 gate. All three now read through the shared helper; the
+// adapter is gone. lspo_feature / lspo_engraving have no callers in js/
+// and no test passes these keys, so no in-tree behavior changes.
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -39,6 +47,9 @@ describe('lspo boolean fields inherit get_table_boolean_opt conversion', () => {
         assert.equal(get_table_boolean_opt({}, 'lit', 0), 0);
         assert.equal(get_table_boolean_opt({ stocked: null }, 'stocked', 1), 1);
         assert.equal(get_table_boolean_opt({ lit: undefined }, 'lit', 0), 0);
+        assert.equal(get_table_boolean_opt({}, 'degrade', 1), 1);
+        assert.equal(get_table_boolean_opt({}, 'guardobjects', 0), 0);
+        assert.equal(get_table_boolean_opt({}, 'looted', -2), -2);
     });
 
     it('booleans and 0/1 read as 1/0 (C lua_toboolean / (int) gate)', () => {
@@ -117,8 +128,34 @@ describe('lspo boolean fields inherit get_table_boolean_opt conversion', () => {
         }
     });
 
+    it('feature-flag and engraving arms read via the shared helper in C order', () => {
+        const src = readFileSync(SRC_URL, 'utf8');
+        const flagAt = src.indexOf('function l_table_getset_feature_flag(o, x, y, name, flag)');
+        assert.ok(flagAt >= 0, 'l_table_getset_feature_flag missing in js/mklev.js');
+        const flagBody = src.slice(flagAt, flagAt + 900);
+        const read = 'const raw = get_table_boolean_opt(o, name, -2); // C :4745';
+        const gate = 'if (raw === -2) return; // C :4747';
+        assert.ok(flagBody.includes(read), `feature-flag arm must hold: ${read}`);
+        assert.ok(flagBody.includes(gate), `feature-flag arm must hold: ${gate}`);
+        assert.ok(flagBody.indexOf(read) < flagBody.indexOf(gate));
+        assert.ok(flagBody.indexOf(gate) < flagBody.indexOf('rn2(2)'));
+        assert.ok(!flagBody.includes('splev_feature_boolopt'), 'raw feature-flag adapter must be gone');
+        const engr = fnBody(src, 'export function lspo_engraving(a, b, c)');
+        const wipeout = "wipeout = get_table_boolean_opt(o, 'degrade', 1) !== 0; // C :3909";
+        const guard = "guardobjs = get_table_boolean_opt(o, 'guardobjects', 0) !== 0; // C :3910";
+        assert.ok(engr.includes(wipeout), `engraving arm must hold: ${wipeout}`);
+        assert.ok(engr.includes(guard), `engraving arm must hold: ${guard}`);
+        assert.ok(engr.indexOf(wipeout) < engr.indexOf(guard));
+        assert.ok(!engr.includes('splev_feature_boolopt'), 'raw engraving adapters must be gone');
+    });
+
     it('dead splev_opt_boolean adapter is gone file-wide', () => {
         const src = readFileSync(SRC_URL, 'utf8');
         assert.ok(!src.includes('splev_opt_boolean'), 'no splev_opt_boolean mention may remain in js/mklev.js');
+    });
+
+    it('dead splev_feature_boolopt adapter is gone file-wide', () => {
+        const src = readFileSync(SRC_URL, 'utf8');
+        assert.ok(!src.includes('splev_feature_boolopt'), 'no splev_feature_boolopt mention may remain in js/mklev.js');
     });
 });

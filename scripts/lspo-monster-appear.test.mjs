@@ -36,7 +36,7 @@ describe('lspo_monster appear_as inherits get_table_str_opt conversion', () => {
         const src = readFileSync(new URL('../js/mklev.js', import.meta.url), 'utf8');
         const at = src.indexOf('function lspo_monster_normalize_table(tmp, inventFn)');
         assert.ok(at >= 0, 'lspo_monster_normalize_table missing in js/mklev.js');
-        const body = src.slice(at, at + 2600);
+        const body = src.slice(at, at + 3600);
         assert.ok(body.includes("const mappear = get_table_str_opt(tmp, 'appear_as', null)"),
             'monster table arm must read appear_as via the shared helper (C :3326)');
         const apAt = src.indexOf('function lspo_monster_appear(mappear)');
