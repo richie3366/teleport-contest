@@ -744,6 +744,9 @@ export async function rloc_to(mtmp, x, y, rloc_opts = null) {
     // set_apparxy after dest newsym (teleport.c:1702, D-1160).
     mtmp.mx = x;
     mtmp.my = y;
+    /* C teleport.c:1684 place_monster grids the mon; JS occupancy is
+     * mx/my + !MON_OFFMAP, so clear the flagging-remove bit (D-3577). */
+    mtmp.mstate = (mtmp.mstate | 0) & ~MON_OFFMAP;
     // C: update_monster_region after place, before worm tail
     // (teleport.c:1685 / region.c:598–611, D-1161).
     update_monster_region(mtmp);
