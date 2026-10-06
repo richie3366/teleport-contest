@@ -2448,3 +2448,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2436-2cad56972-bar-loca-goal-door-mark-step.md](./2436-2cad56972-bar-loca-goal-door-mark-step.md) | `2cad56972` | D-3548 Bar-loca/goal des.door :4661 campaign step (12 sites, cites exact) | **ACCEPT** |
 | [2437-c64ade545-pri-strt-loca-door-mark-step.md](./2437-c64ade545-pri-strt-loca-door-mark-step.md) | `c64ade545` | D-3550 Pri-strt/loca des.door :4661 campaign step (24 sites, lit-read ordered) | **ACCEPT** |
 | [2438-2cf0411c1-arc-strt-loca-door-mark-step.md](./2438-2cf0411c1-arc-strt-loca-door-mark-step.md) | `2cf0411c1` | D-3552 Arc-strt/loca des.door :4661 campaign step (28 sites, :21612 drift) | **ACCEPT** |
+| [2439-a5da152b1-hea-strt-loca-door-mark-step.md](./2439-a5da152b1-hea-strt-loca-door-mark-step.md) | `a5da152b1` | D-3554 Hea-strt/loca des.door :4661 campaign step (16 sites, des exact) | **ACCEPT** |
+| [2440-e4283ab59-reveal-terrain-c-whole-batch.md](./2440-e4283ab59-reveal-terrain-c-whole-batch.md) | `e4283ab59` | D-3556 reveal_terrain C-whole + 9 audits (2 pre-existing NO MOVEMENTs) | **ACCEPT** |
+| [2441-2118340c7-gloc-objs-next-ident-writer.md](./2441-2118340c7-gloc-objs-next-ident-writer.md) | `2118340c7` | D-3557 GLOC_OBJS writer, next_ident head (6 PASS + 8 moved, exact) | **ACCEPT** |
+| [2442-0ef84c92d-quest-firsttime-level-tele.md](./2442-0ef84c92d-quest-firsttime-level-tele.md) | `0ef84c92d` | D-3558 quest firsttime ×6, level_tele head (3 PASS + 4 moved, exact) | **ACCEPT** |
+| [2443-984d8c718-distfleeck-whole-scared-arms.md](./2443-984d8c718-distfleeck-whole-scared-arms.md) | `984d8c718` | D-3559 distfleeck whole, head (Knight-94018 125→143, 723/723 reach) | **ACCEPT** |
+| [2444-c3000735f-mz-human-medium-writer.md](./2444-c3000735f-mz-human-medium-writer.md) | `c3000735f` | D-3561 MZ_HUMAN→MEDIUM writer (Hea-92055 104→141, 723/723 reach) | **ACCEPT** |

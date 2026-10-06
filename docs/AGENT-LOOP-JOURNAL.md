@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — audit 2439–2444 @c3000735f: review D-3554/D-3556/D-3557/D-3558/D-3559/D-3561 (6A/0D/0Q, 0 Must-fix) + full rescore 751/953
+
+**Reviews:** 2439 D-3554 Hea des.door campaign (des exact) ACCEPT; 2440 D-3556 reveal_terrain C-whole + 9 audits (2 pre-existing NO MOVEMENTs, proofs hold) ACCEPT; 2441 D-3557 GLOC_OBJS writer (next_ident 6 PASS + 8 moved, exact) ACCEPT; 2442 D-3558 quest firsttime ×6 (level_tele 3 PASS + 4 moved, exact) ACCEPT; 2443 D-3559 distfleeck whole (Knight-94018 125→143, 723/723 reach) ACCEPT; 2444 D-3561 MZ_HUMAN→MEDIUM (Hea-92055 104→141, 723/723 reach) ACCEPT. Every D-log movement claim re-measured session-for-session — all exact, 0 REGRESSED.
+**Score:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, 331+1.62/turn); corpus 751/953 PASS (78.8 %), RNG 99.14 %, screens 94.9 %, full:true @c3000735f (+10 since 741: D-3557 6 + D-3558 3 + rescore 1 scen-dig-94255); 0 PASS→FAIL; held-out 16/44 (judge 07:20Z, unchanged).
+**Seeded sample:** On_stairs_up, gem_learned, stop_donning, sengr_at, add_to_buried — all 5 `ported` rows true (sengr_at homed at the teleport.js clone, body-identical to the engrave.js export — homing nit, status stands). `ledger.mjs sql` broken on this box (node:sqlite missing) — sampled via jsonl grep instead.
+**Next:** cliffs head regenerates from the new board; no Must-fix queued.
 ## 2026-10-06 — D-3561 `js/monmove.js` MZ_HUMAN 3→MZ_MEDIUM: wraith max_mon_load 333→500 fires the large-box want (cliffs-head `distfleeck` writer, Hea-92055 104→141)
 
 **C locus:** `monflag.h:177–183` (MZ_MEDIUM 2 :179, MZ_HUMAN ≡ MZ_MEDIUM :180, MZ_LARGE 3 :181); `mon.c max_mon_load :1927–1954` (`!cwt` branch :1939–1940; wraith `SIZ(WT_ETHEREAL,0,MS_SILENT,MZ_HUMAN)` monsters.h:2340 with WT_ETHEREAL=0 weight.h:10, M1 BREATHLESS|FLY|HUMANOID|UNSOLID (no NOTAKE), M2 no STRONG → halve :1947–1948: (1000×2)/2=1000 → 500); `can_carry :2049` load gate (0+357 ≤ 500 → carry); `m_search_items :1423–1436` target arm sets gg=(43,10).
