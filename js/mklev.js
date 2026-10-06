@@ -1004,7 +1004,7 @@ function get_table_boolean(table, name) {
 }
 
 /** C nhlua.c:1106–1118: nil defaults; every other type is validated. */
-function get_table_boolean_opt(table, name, defval) {
+export function get_table_boolean_opt(table, name, defval) {
     if (table[name] != null) return get_table_boolean(table, name);
     return defval;
 }
@@ -1155,25 +1155,6 @@ function splev_opt_index(v, defval, opts) {
 }
 
 /**
- * C ref: nhlua.c get_table_boolean_opt / get_table_boolean — nil field →
- * defval; "true"/"false"/"yes"/"no" (exact), boolean, or 0/1; else
- * nhl_error (fatal — the JS guard throws likewise).
- */
-function splev_opt_boolean(v, defval) {
-    if (v == null) return defval;
-    if (typeof v === 'boolean') return v ? 1 : 0;
-    if (typeof v === 'number') {
-        if (v === 0 || v === 1) return v;
-        throw new Error('lspo: Expected a boolean');
-    }
-    if (typeof v === 'string') {
-        const i = ['true', 'false', 'yes', 'no'].indexOf(v);
-        if (i >= 0) return [1, 0, 1, 0][i];
-    }
-    throw new Error('lspo: Expected a boolean');
-}
-
-/**
  * C ref: mklev.c count_level_features `:828–841` — recount fountains and
  * sinks over x 1..COLNO-1, y 0..ROWNO-1 (x = 1 lower bound like C).
  */
@@ -1286,9 +1267,9 @@ const LSPO_MAZEWALK_DIRS2I = [W_NORTH, W_SOUTH, W_EAST, W_WEST, W_RANDOM];
  * (C `:5865–5866`). levl indexes go through level.at with a null
  * guard (walkfrom idiom above — C indexes raw levl).
  * Named: lcheck_param_table (table-or-empty + object check);
- * get_table_mapchr_opt / get_table_boolean_opt / get_table_option
- * (inline splev_chr2typ / splev_opt_boolean / splev_opt_index, C
- * nhlua.c :256/:1107/:1122); luaL_checkinteger
+ * get_table_mapchr_opt / get_table_option (inline splev_chr2typ /
+ * splev_opt_index, C nhlua.c :256/:1122); get_table_boolean_opt is the
+ * shared same-file helper (C nhlua.c :1107–1118); luaL_checkinteger
  * (luaL_checkinteger_unpacked).
  */
 export function lspo_mazewalk(a, b, c) {
@@ -1307,7 +1288,7 @@ export function lspo_mazewalk(a, b, c) {
         my = mm.y;
         ftyp = get_table_mapchr_opt(o, 'typ', ROOM); // C :5794
 
-        fstocked = splev_opt_boolean(o.stocked, 1); // C :5795
+        fstocked = get_table_boolean_opt(o, 'stocked', 1); // C :5795 get_table_boolean_opt(L, "stocked", 1)
         dir = LSPO_MAZEWALK_DIRS2I[splev_opt_index(o.dir, 'random', LSPO_MAZEWALK_DIRS)]; // C :5796
     }
     let x = typeof mx === 'bigint' ? Number(mx & 0xffn) : mx | 0; // C :5799 SP_COORD_PACK
@@ -1593,13 +1574,13 @@ export function lspo_trap(a, b, c) {
     } else { // C :4428-4461 table form
         const o = argc === 0 ? {} : a; // C lcheck_param_table: table-or-empty
         if (o === null || typeof o !== 'object') throw new Error('lspo_trap: Wrong parameters');
-        const xy = get_table_xy_or_coord(o); // C :4431
+        const xy = get_table_xy_or_coord(o); // C :4429
         x = xy.x;
         y = xy.y;
         tmp.type = lspo_traptype_opt(o, 'type', -1); // C :4430
-        tmp.spider_on_web = !!splev_opt_boolean(o.spider_on_web, 1); // C :4433
-        tmp.seen = !!splev_opt_boolean(o.seen, 0); // C :4434
-        tmp.novictim = !splev_opt_boolean(o.victim, 1); // C :4435
+        tmp.spider_on_web = !!get_table_boolean_opt(o, 'spider_on_web', 1); // C :4431 get_table_boolean_opt(L, "spider_on_web", 1)
+        tmp.seen = !!get_table_boolean_opt(o, 'seen', 0); // C :4432 get_table_boolean_opt(L, "seen", FALSE)
+        tmp.novictim = !get_table_boolean_opt(o, 'victim', 1); // C :4433 novictim = !get_table_boolean_opt(L, "victim", TRUE)
         if (o.launchfrom != null && typeof o.launchfrom === 'object') { // C :4437-4446
             const lc = { x: -1, y: -1 }; // C :4438
             get_coord(o.launchfrom, lc); // C :4439 get_coord(L, -1, &lx, &ly)
@@ -2153,9 +2134,9 @@ export async function lspo_region(a, b) {
         if (o === null || typeof o !== 'object') throw new Error('lspo_region: Wrong parameters');
         // C TODO (:5599-5601): "unfilled"/"filled"/"lvflags_only" needfill strings — no get_table_needfill_opt in C yet; int stands
         const needfill = get_table_int_opt(o, 'filled', 0); // C :5600 get_table_int_opt(L, "filled", 0)
-        const irregular = splev_opt_boolean(o.irregular, 0); // C :5603
-        const joined = splev_opt_boolean(o.joined, 1); // C :5604 (TRUE)
-        const do_arrival_room = splev_opt_boolean(o.arrival_room, 0); // C :5605
+        const irregular = get_table_boolean_opt(o, 'irregular', 0); // C :5601 get_table_boolean_opt(L, "irregular", 0)
+        const joined = get_table_boolean_opt(o, 'joined', 1); // C :5602 get_table_boolean_opt(L, "joined", TRUE)
+        const do_arrival_room = get_table_boolean_opt(o, 'arrival_room', 0); // C :5603 get_table_boolean_opt(L, "arrival_room", 0)
         const rtype = await get_table_roomtype_opt(o, 'type', OROOM); // C :5606
         let rlit = get_table_int_opt(o, 'lit', -1); // C :5605 get_table_int_opt(L, "lit", -1)
         let dx1 = get_table_int_opt(o, 'x1', -1); // C :5565-5568 get_table_coords_or_region
@@ -2284,7 +2265,7 @@ export function lspo_map(a, contentsFn) {
         if (typeof o.map !== 'string') // C :6120 get_table_str
             throw new Error("bad argument 'map' (string expected)");
         mf = mapfrag_fromstr(o.map); // C :6128 (dupstr/free are GC no-ops)
-        lit = splev_opt_boolean(o.lit, 0); // C :6121 get_table_boolean_opt FALSE
+        lit = get_table_boolean_opt(o, 'lit', 0); // C :6121 get_table_boolean_opt(L, "lit", FALSE)
         if (typeof contentsFn === 'function') contents = contentsFn; // unpacked contents (lspo_room precedent)
         else if (typeof o.contents === 'function') contents = o.contents; // C :6122-6126 lua_getfield contents
     }
