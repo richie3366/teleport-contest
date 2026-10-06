@@ -7970,6 +7970,7 @@ xxxxx...xxxxxx....xxxxxxxx
  * Lord Carnarvon invent wears via m_dowear (sp_lev.c spo_end_moninvent).
  * Named omissions:
  * humidity-aware get_location for water-likers (eels use fixed moat).
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3552).
  */
 function load_arc_strt() {
     const g = game;
@@ -8043,13 +8044,14 @@ function load_arc_strt() {
     game.SpLev_Map.add(`${mx + 55},${my + 7}`); // C :4189
     mkstairs(mx + 55, my + 7, 0, null, true);
 
-    // des.door — C lspo_door → sel_set_door
+    // des.door — C lspo_door → sel_set_door; Arc-strt.lua:60–71
     const arcDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     arcDoor(22, 7, D_CLOSED);
@@ -8182,6 +8184,7 @@ function load_arc_strt() {
  * C ref: dat/Arc-loca.lua via load_special — Archeologist quest locate.
  * Named omissions: humidity-aware get_location; selection.grow on
  * 2-arg lit regions; spo_end_moninvent m_dowear.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3552).
  */
 function load_arc_loca() {
     const g = game;
@@ -8281,13 +8284,14 @@ function load_arc_loca() {
     arcLit(36, 12, 42, 14, false);
     arcLit(46, 11, 49, 11, false);
 
-    // des.door
+    // des.door — C lspo_door → sel_set_door; Arc-loca.lua:48–63
     const arcDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     arcDoor(31, 4, D_CLOSED);
@@ -19253,7 +19257,8 @@ function set_door_orientation(x, y) {
  * meDoor ×2 (minend-1 7 + minend-2 2) + minend-2 gated inline (52,5)
  * (10 sites, D-3544), wizDoor (Wiz-loca 4 + Wiz-goal 16, D-3546),
  * barDoor (Bar-loca 10) + barGoalDoor (Bar-goal 2, D-3548),
- * priDoor (Pri-strt 18 + Pri-loca 6, D-3550) carry the :4661 game
+ * priDoor (Pri-strt 18 + Pri-loca 6, D-3550),
+ * arcDoor (Arc-strt 12 + Arc-loca 16, D-3552) carry the :4661 game
  * mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {

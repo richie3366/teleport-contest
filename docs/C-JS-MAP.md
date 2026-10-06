@@ -12,8 +12,6 @@ a passing session alone does not imply `ported`.
 index’s children by default. Entries are `### C` + `JS: … — status` +
 wrapped evidence. Edit with the edit tool, not heredocs.
 
-Last broad audit: **2026-07-12** (see section files for later row updates).
-
 | Section | File | When to open |
 |---------|------|--------------|
 | Update rule | `c-js-map/update-rule.md` | subsystem in scope |
