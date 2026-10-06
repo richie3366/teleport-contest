@@ -145,7 +145,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** cliffs head @b39cb750e — `mkobj.c` next_ident (14 sessions, 50 k RNG; history D-2228 — JS stays in the `^G`/wish name parse where C creates the monster; `hidden-proxy show scen-town-Healer-94122`), then `teleport.c` level_tele (13 sessions; the second arrival message C prints behind «You materialize on a different level!--More--»).
+**Next cluster:** cliffs head @2118340c7 — `teleport.c` level_tele (13 sessions, 38 k RNG; history D-2136 — the second arrival message C prints behind «You materialize on a different level!--More--»; `hidden-proxy show scen-quest-Healer-94016`), then `monmove.c` distfleeck (6 sessions, 14 k RNG; parked SYMPTOM — deliverable is the writer or its [measure] row).
 
 ## Parked (diagnose only — do not implement)
 
