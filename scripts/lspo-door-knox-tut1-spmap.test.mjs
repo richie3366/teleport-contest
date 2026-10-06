@@ -9,7 +9,7 @@
 // order). Knox bitmap is C-complete (map via splev_apply_centered_map
 // :6292 + doors; no stair/ladder/drawbridge/mazewalk in knox.lua);
 // tut-1 carries doors + the live l_create_stairway :4189 mark (map
-// marks are future work). Neutrality: solidify is omitted on both
+// marks carried D-3532). Neutrality: solidify is omitted on both
 // loaders and touches STWALL only; remove_boundary_syms (:1035) fires
 // on CROSSWALL only, never on DOOR/SDOOR cells.
 import { describe, it } from 'node:test';

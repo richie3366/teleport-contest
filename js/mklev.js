@@ -2203,7 +2203,9 @@ export async function lspo_region(a, b) {
  * selection (C `:6321–6324` push-copy + free + return 1 — no Lua stack).
  * Lua-table-called (C `:6392` des registration); 0 C callers.
  * Tower loaders inline the load loop (load_tower1/2/3); their map cells
- * carry the :6292 game mark (D-3528 close-out).
+ * carry the :6292 game mark (D-3528 close-out). Tutorial loaders inline
+ * the load loop (load_tut1/2); their map cells carry the :6292 game
+ * mark (D-3532 close-out — both tutorial bitmaps C-complete).
  * Named: mapfrag_free (GC no-op); dupstr/free (GC no-ops);
  * l_push_wid_hei_table ({width,height} object); nhl_pcall_handle
  * (direct contents call); l_selection_push_copy + selection_free
@@ -20064,10 +20066,12 @@ function load_tut1() {
     game.splev_ystart = ystart;
     game.splev_xsize = mf.wid;
     game.splev_ysize = mf.hei;
+    if (!game.SpLev_Map) game.SpLev_Map = new Set(); // C lspo_map load loop (tower idiom)
     for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
         for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
             const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            game.SpLev_Map.add(`${xx},${yy}`); // C :6292 SpLev_Map[x][y] = 1
             sel_set_ter(xx, yy, mptyp, false);
         }
     }
@@ -20436,10 +20440,12 @@ function load_tut2() {
     game.splev_ystart = ystart;
     game.splev_xsize = mf.wid;
     game.splev_ysize = mf.hei;
+    if (!game.SpLev_Map) game.SpLev_Map = new Set(); // C lspo_map load loop (tower idiom)
     for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
         for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
             const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            game.SpLev_Map.add(`${xx},${yy}`); // C :6292 SpLev_Map[x][y] = 1
             sel_set_ter(xx, yy, mptyp, false);
         }
     }
