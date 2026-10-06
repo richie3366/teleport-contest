@@ -16069,6 +16069,8 @@ function load_water() {
 
 /**
  * C ref: dat/astral.lua via load_special — Astral Plane (endgame 5 of 5).
+ * Map cells + doors carry the game SpLev_Map marks
+ * (no des.stair on the level; C :6292/:4661; D-3542).
  * Named omissions: ensure_way_out; humidity-aware get_location;
  * spo_end_moninvent m_dowear; fill_special_room TEMPLE beyond FILL_LVFLAGS
  * has_temple; G_UNIQ extinct return; fakewiz.
@@ -16264,6 +16266,7 @@ function load_astral() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     astralDoor(11, 9, D_CLOSED);
@@ -19226,8 +19229,8 @@ function set_door_orientation(x, y) {
  * sites, D-3528), knoxDoor (11 sites) + tut1_door (12 sites, D-3530),
  * baalz inline (1 site) + valleyDoor (3 sites, D-3536), medusa medDoor
  * ×3 + medusa-2 inline (16 sites, D-3538), barDoor (Bar-strt 8) +
- * wizDoor (Wiz-strt 8, D-3540) carry the :4661 game mark; the rest
- * keep the split.
+ * wizDoor (Wiz-strt 8, D-3540), astralDoor (9) + sanctDoor (4, D-3542)
+ * carry the :4661 game mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]
@@ -27485,7 +27488,9 @@ export function mk_roamer(ptr, alignment, x, y, peaceful) {
 /**
  * C ref: dat/sanctum.lua via load_special — Moloch's Sanctum (Gehennom).
  * No lua temperate/hot/cold — keeps clear_level_structures hell default
- * temperature=1 (D-0751). Named omissions: ensure_way_out;
+ * temperature=1 (D-0751). Map cells + stair + doors carry the game
+ * SpLev_Map marks (C :6292/:4189/:4661; D-3542).
+ * Named omissions: ensure_way_out;
  * hellfill/wizard1–3/fakewiz protos.
  */
 function load_sanctum() {
@@ -27646,6 +27651,7 @@ function load_sanctum() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     sanctDoor(40, 6, D_CLOSED);
