@@ -5259,6 +5259,8 @@ function medusa_mark_nondig(mx, my, x1, y1, x2, y2) {
 
 /**
  * C ref: dat/medusa-1.lua via load_special.
+ * Map cells + stairs + doors carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3538).
  * Named omissions: worn/artifact STONE_RES in resists_ston;
  * flip_level lregion coord update (same shortcut as Bar-strt/fire);
  * full mongone invent teardown beyond fmon unlink.
@@ -5367,6 +5369,7 @@ function load_medusa_1() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     medDoor(46, 7, D_CLOSED);
@@ -5560,6 +5563,8 @@ function load_medusa_1() {
 
 /**
  * C ref: dat/medusa-3.lua via load_special — raven-tree Medusa variant.
+ * Map cells + stair + doors carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3538).
  * Named omissions: worn/artifact STONE_RES in resists_ston;
  * ensure_way_out / solidify; full mongone invent teardown beyond fmon unlink.
  * D-0928: flip updates lregions; land still JS@(43,6) vs C@(42,7).
@@ -5685,6 +5690,7 @@ function load_medusa_3() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     medDoor(8, 8, D_LOCKED);
@@ -5831,6 +5837,8 @@ function load_medusa_3() {
 
 /**
  * C ref: dat/medusa-2.lua via load_special — twin-island palace variant.
+ * Map cells + stairs + door carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3538).
  * Named omissions: worn/artifact STONE_RES in resists_ston;
  * ensure_way_out / solidify; create_object Medusa fill (uses
  * medusa_empty_statue_at); count_level_features / premap.
@@ -5920,6 +5928,7 @@ function load_medusa_2() {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
             set_door_orientation(mx + 71, my + 7); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
+            if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 71},${my + 7}`); // C :4661
             loc.flags = D_LOCKED;
         }
     }
@@ -5995,6 +6004,8 @@ function load_medusa_2() {
 
 /**
  * C ref: dat/medusa-4.lua via load_special — palace + yellow-dragon nest.
+ * Map cells + stair + doors carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3538).
  * Named omissions: worn/artifact STONE_RES in resists_ston;
  * ensure_way_out / solidify; create_object Medusa fill (uses
  * medusa_empty_statue_at); count_level_features / premap.
@@ -6075,6 +6086,7 @@ function load_medusa_4() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = D_LOCKED;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = D_LOCKED;
     };
     medDoor(4, 6);
@@ -19206,8 +19218,9 @@ function set_door_orientation(x, y) {
  * keep their inlined typ/orientation/doormask — established split, not
  * rewired here. Tower closures (twDoor ×2 + tower3 inline, 10 des.door
  * sites, D-3528), knoxDoor (11 sites) + tut1_door (12 sites, D-3530),
- * baalz inline (1 site) + valleyDoor (3 sites, D-3536) carry the :4661
- * game mark; the rest keep the split.
+ * baalz inline (1 site) + valleyDoor (3 sites, D-3536), medusa medDoor
+ * ×3 + medusa-2 inline (16 sites, D-3538) carry the :4661 game mark;
+ * the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]

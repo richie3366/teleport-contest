@@ -102,7 +102,7 @@
 {"fn":"floodfillchk_match_accessible","c":"4600-4605","status":"ported","js":["js/mklev.js:floodfillchk_match_accessible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sel_set_ter","c":"4609-4630","status":"ported","js":["js/mklev.js:sel_set_ter"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sel_set_feature","c":"4633-4644","status":"ported","js":["js/mklev.js:sel_set_feature"],"at":"2026-10-03@bbe63333a"}
-{"fn":"sel_set_door","c":"4647-4662","status":"ported","js":["js/mklev.js:sel_set_door"],"d":["D-3536","D-3530","D-3528","D-3007"],"at":"2026-10-06@6f17dd76a"}
+{"fn":"sel_set_door","c":"4647-4662","status":"ported","js":["js/mklev.js:sel_set_door"],"d":["D-3538","D-3536","D-3530","D-3528","D-3007"],"at":"2026-10-06@8b838746e"}
 {"fn":"lspo_door","c":"4671-4734","status":"ported","js":["js/mklev.js:lspo_door"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"l_table_getset_feature_flag","c":"4739-4755","status":"ported","js":["js/mklev.js:l_table_getset_feature_flag"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cvt_to_abscoord","c":"4772-4788","status":"ported","js":["js/mklev.js:cvt_to_abscoord"],"d":["D-3406","D-3174","D-3168"],"at":"2026-10-04@44ce1ba38","note":"refresh: no JS symbol (measured MISSING)"}
