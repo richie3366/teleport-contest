@@ -6954,7 +6954,9 @@ function load_wiz_strt() {
  * (Guarded Tower / moat). solidfill + cloud/moat replace_terrain +
  * irregular rooms with secret doors + locked doors + traps/monsters.
  * Named omissions: humidity-aware get_location; spo_end_moninvent
- * m_dowear.
+ * m_dowear. Wall-form secret doors stay mark-free per C (create_door,
+ * not sel_set_door — lspo_door wall branch :4703–4713).
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3546).
  */
 function load_wiz_loca() {
     const g = game;
@@ -7056,13 +7058,14 @@ function load_wiz_loca() {
 
     wizLocaAddIrregular(48, 10, false, 'random');
 
-    // des.door("locked", …)
+    // des.door("locked", …) — Wiz-loca.lua:76–79
     const wizDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     wizDoor(55, 8, D_LOCKED);
@@ -7249,6 +7252,7 @@ function load_wiz_filb() {
  * Named omissions: humidity-aware get_location; spo_end_moninvent
  * m_dowear; fill_special_room TEMPLE beyond has_temple; G_UNIQ extinct
  * early return; fakewiz.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3546).
  */
 function load_wiz_goal() {
     const g = game;
@@ -7326,12 +7330,14 @@ function load_wiz_goal() {
     wizGoalLit(50, 4, 60, 14, true);
 
     // des.door("locked", x, y) — C lspo_door → sel_set_door; SDOOR stays
+    // Wiz-goal.lua:50–65
     const wizDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     for (const [rx, ry] of [
@@ -19237,7 +19243,8 @@ function set_door_orientation(x, y) {
  * ×3 + medusa-2 inline (16 sites, D-3538), barDoor (Bar-strt 8) +
  * wizDoor (Wiz-strt 8, D-3540), astralDoor (9) + sanctDoor (4, D-3542),
  * meDoor ×2 (minend-1 7 + minend-2 2) + minend-2 gated inline (52,5)
- * (10 sites, D-3544) carry the :4661 game mark; the rest keep the split.
+ * (10 sites, D-3544), wizDoor (Wiz-loca 4 + Wiz-goal 16, D-3546) carry
+ * the :4661 game mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]
