@@ -5346,8 +5346,12 @@ function load_medusa_1() {
     });
 
     // des.stair("up", 05,14) / des.stair("down", 36,10)
-    mkstairs(mx + 5, my + 14, 1, null);
-    mkstairs(mx + 36, my + 10, 0, null);
+    // C l_create_stairway: fixed scoords → SpLev_Map mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 5},${my + 14}`); // C :4189
+    mkstairs(mx + 5, my + 14, 1, null, true);
+    game.SpLev_Map.add(`${mx + 36},${my + 10}`); // C :4189
+    mkstairs(mx + 36, my + 10, 0, null, true);
 
     // des.door
     const medDoor = (rx, ry, mask) => {
@@ -5659,7 +5663,13 @@ function load_medusa_3() {
     });
 
     // des.stair("down", medloc)
-    if (medloc) mkstairs(medloc.x, medloc.y, 0, null);
+    // C l_create_stairway: fixed scoord → SpLev_Map mark :4189 + force :4209–4210.
+    // medloc is absolute (place pts carry mx/my); traps postdate the stair (medusa-3.lua).
+    if (medloc) {
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${medloc.x},${medloc.y}`); // C :4189
+        mkstairs(medloc.x, medloc.y, 0, null, true);
+    }
 
     // des.door
     const medDoor = (rx, ry, mask) => {
@@ -9589,7 +9599,10 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     light_region(mx + 0, my + 0, mx + 75, my + 19, true);
 
     // des.stair("down", 18, 01)
-    mkstairs(mx + 18, my + 1, 0, null);
+    // C l_create_stairway: fixed scoord → SpLev_Map mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 18},${my + 1}`); // C :4189
+    mkstairs(mx + 18, my + 1, 0, null, true);
     // des.feature("fountain", 53, 02) — map-relative
     {
         const loc = g.level.at(mx + 53, my + 2);
@@ -9719,8 +9732,12 @@ xPPPPxx                         xxxxPPPP
     light_region(mx + 0, my + 0, mx + 39, my + 12, true);
 
     // des.stair up (off-map) + down
-    mkstairs(mx + 48, my + 14, 1, null);
-    mkstairs(mx + 20, my + 6, 0, null);
+    // C l_create_stairway: fixed scoords → SpLev_Map mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 48},${my + 14}`); // C :4189
+    mkstairs(mx + 48, my + 14, 1, null, true);
+    game.SpLev_Map.add(`${mx + 20},${my + 6}`); // C :4189
+    mkstairs(mx + 20, my + 6, 0, null, true);
 
     // des.non_diggable(selection.area(00,00,39,12)) — walls/bars only
     for (let y = my; y <= my + 12 && y < ROWNO; y++) {
@@ -9814,7 +9831,11 @@ xxxxxxxxx..................xxxxxxxx
     // des.replace_terrain L→'.' chance 50 around the (off-map) up stair
     lspo_replace_terrain_region(44, 9, 46, 11, LAVAPOOL, ROOM, 50);
     // des.stair("up", 45, 10) — intentionally off of the map
-    mkstairs(mx + 45, my + 10, 1, null);
+    // C l_create_stairway: fixed scoord → SpLev_Map mark :4189 + force :4209–4210.
+    // force is live here: the off-map cell is LAVA, and C :2172 rooms it first.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 45},${my + 10}`); // C :4189
+    mkstairs(mx + 45, my + 10, 1, null, true);
 
     // des.non_diggable(selection.area(00,00,34,16)) — walls/bars only
     for (let y = my; y <= my + 16 && y < ROWNO; y++) {
@@ -13968,6 +13989,9 @@ function load_tower1() {
     {
         const lx = mx + 11;
         const ly = my + 5;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -14171,6 +14195,9 @@ function load_tower2() {
     {
         const lx = mx + 11;
         const ly = my + 5;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -14187,6 +14214,9 @@ function load_tower2() {
     {
         const lx = mx + 3;
         const ly = my + 7;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -14386,6 +14416,9 @@ function load_tower3() {
     {
         const lx = mx + 5;
         const ly = my + 7;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -16276,7 +16309,10 @@ function load_minend_1() {
     meDoor(66, 2);
 
     // des.stair("up", 36,04)
-    mkstairs(mx + 36, my + 4, 1, null);
+    // C l_create_stairway: fixed scoord → SpLev_Map mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 36},${my + 4}`); // C :4189
+    mkstairs(mx + 36, my + 4, 1, null, true);
 
     // des.non_diggable(selection.area(00,00,74,17))
     for (let y = my; y <= my + 17 && y < ROWNO; y++) {
@@ -16492,7 +16528,10 @@ function load_minend_2() {
     meDoor(12, 2);
     meDoor(11, 6);
 
-    mkstairs(mx + 36, my + 4, 1, null);
+    // des.stair("up", 36,04) — C l_create_stairway: fixed scoord → mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 36},${my + 4}`); // C :4189
+    mkstairs(mx + 36, my + 4, 1, null, true);
 
     const markNondig = (x1, y1, x2, y2) => {
         for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
@@ -17570,9 +17609,13 @@ function load_minetn_5() {
         setArea(69, 11, 71, 11, HWALL);
     }
 
-    // des.stair
-    mkstairs(mx + 1, my + 1, 1, null);
-    mkstairs(mx + 46, my + 3, 0, null);
+    // des.stair("up", 01,01) / des.stair("down", 46,03)
+    // C l_create_stairway: fixed scoords → SpLev_Map mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 1},${my + 1}`); // C :4189
+    mkstairs(mx + 1, my + 1, 1, null, true);
+    game.SpLev_Map.add(`${mx + 46},${my + 3}`); // C :4189
+    mkstairs(mx + 46, my + 3, 0, null, true);
 
     // des.feature fountain (map may already have '{')
     for (const [rx, ry] of [[50, 9], [10, 15], [66, 18]]) {
@@ -23425,9 +23468,12 @@ export function splev_create_altar(a, croom = null) {
  * mkstairs force=FALSE. Ladder skips mkstairs (no dungeon-end no-op).
  * No table form (D-3522): the :4165/:4171 dir parse is unported-Lua
  * boundary — every in-tree dir arrives an unpacked 0/1 int, zero
- * string-dir sources. Named omit: fixed des.stair call sites stay raw
- * mkstairs (force/mark need per-site C mapping); random des.stair runs
- * splev_create_stair / splev_room_stair (both carry the :4189 mark).
+ * string-dir sources. Fixed des.stair sites: special levels (medusa/val/
+ * minend/minetn/valley/asmodeus/baalz/orcus/sanctum) carry the :4189 mark
+ * + fixed force, tower/wizard ladders the mark (deltrap live only at the
+ * sanctum stair); quest + soko fixed sites stay raw mkstairs (per-site
+ * C mapping remainder). Random des.stair runs splev_create_stair /
+ * splev_room_stair (both carry the :4189 mark).
  */
 export function l_create_stairway(up, rx, ry, croom, using_ladder) {
     create_des_coder(); // C :4159
@@ -24821,7 +24867,10 @@ function load_valley() {
     addIrregularMorgue(37, 9);
 
     // Stairs / branch / teleport regions (apply tele+branch after flip)
-    mkstairs(mx + 1, my + 1, 0, null);
+    // des.stair("down", 01,01) — C l_create_stairway: fixed scoord → mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 1},${my + 1}`); // C :4189
+    mkstairs(mx + 1, my + 1, 0, null, true);
     g.lregions = g.lregions || [];
     g.lregions.push({
         rtype: LR_BRANCH,
@@ -25165,7 +25214,10 @@ function load_asmodeus() {
     asmoDoor(18, 4, D_LOCKED);
     asmoDoor(18, 8, D_CLOSED);
 
-    mkstairs(mx1 + 13, my1 + 7, 0, null);
+    // des.stair("down", 13,07) — C l_create_stairway: fixed scoord → mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx1 + 13},${my1 + 7}`); // C :4189
+    mkstairs(mx1 + 13, my1 + 7, 0, null, true);
 
     // des.non_diggable(selection.area(00,00,20,11))
     for (let ry = 0; ry <= 11; ry++) {
@@ -25734,7 +25786,10 @@ function load_baalz() {
     // des.mazewalk(00,06,"west") — stocked default true
     splev_mazewalk(0, 6, W_WEST, true);
 
-    mkstairs(mx + 44, my + 6, 0, null);
+    // des.stair("down", 44,06) — C l_create_stairway: fixed scoord → mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 44},${my + 6}`); // C :4189
+    mkstairs(mx + 44, my + 6, 0, null, true);
     {
         const loc = g.level.at(mx + 0, my + 6);
         if (loc) {
@@ -25914,7 +25969,10 @@ function load_orcus() {
         }
     }
 
-    mkstairs(mx + 33, my + 15, 0, null);
+    // des.stair("down", 33,15) — C l_create_stairway: fixed scoord → mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 33},${my + 15}`); // C :4189
+    mkstairs(mx + 33, my + 15, 0, null, true);
 
     const boulderCoords = [
         [19, 2], [20, 2], [21, 2], [36, 2], [36, 3],
@@ -26272,6 +26330,9 @@ function load_wizard1() {
     {
         const lx = mx + 6;
         const ly = my + 5;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -26591,6 +26652,9 @@ function load_wizard2() {
     {
         const lx = mx + 12;
         const ly = my + 1;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -26605,6 +26669,9 @@ function load_wizard2() {
     {
         const lx = mx + 14;
         const ly = my + 11;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -26898,6 +26965,9 @@ function load_wizard3() {
     {
         const lx = mx + 11;
         const ly = my + 7;
+        // C l_create_stairway :4189: the mark precedes the ladder arm (no traps predate it).
+        if (!game.SpLev_Map) game.SpLev_Map = new Set();
+        game.SpLev_Map.add(`${lx},${ly}`); // C :4189
         const loc = g.level.at(lx, ly);
         if (loc) {
             loc.typ = LADDER;
@@ -27462,7 +27532,14 @@ function load_sanctum() {
     for (let i = 0; i < 3; i++) splev_create_monster('V');
 
     // Stair up + teleport arrival region (apply after flip)
-    mkstairs(mx + 63, my + 15, 1, null);
+    // C l_create_stairway :4187–4189: deltrap(badtrap) before the stair —
+    // live here (des order: 6 random traps :85–90 precede des.stair :130).
+    const stairTrap = t_at(mx + 63, my + 15);
+    if (stairTrap) deltrap(stairTrap);
+    // Fixed scoord → SpLev_Map mark :4189 + force :4209–4210.
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${mx + 63},${my + 15}`); // C :4189
+    mkstairs(mx + 63, my + 15, 1, null, true);
     // des.teleport_region({ region={54,1,79,18}, region_islev=1, dir="down" })
     // C levregion_add: in_islev skips get_location — absolute level coords.
     g.lregions = g.lregions || [];
