@@ -136,7 +136,7 @@
 {"fn":"readchar","c":"5276-5284","status":"ported","js":["js/cmd.js:readchar"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"readchar_poskey","c":"5288-5295","status":"ported","js":["js/cmd.js:readchar_poskey"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dotravel","c":"5299-5344","status":"ported","js":["js/cmd.js:dotravel"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dotravel_target","c":"5348-5377","status":"ported","js":["js/cmd.js:dotravel_target"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: flag setup exact; travel step via findtravelpath+domove"}
+{"fn":"dotravel_target","c":"5348-5377","status":"ported","js":["js/cmd.js:dotravel_target"],"d":["D-3563"],"at":"2026-10-06@3393f081f","note":"audit 2026-10-03: flag setup exact; travel step via findtravelpath+domove"}
 {"fn":"doclicklook","c":"5381-5390","status":"ported","js":["js/cmd.js:doclicklook"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yn_menuable_resp","c":"5394-5399","status":"ported","js":["js/getline.js:yn_menuable_resp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pointer-identity semantics kept"}
 {"fn":"yn_func_menu_opt","c":"5402-5413","status":"ported","js":["js/getline.js:yn_func_menu_opt"],"at":"2026-10-03@bbe63333a"}

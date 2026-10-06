@@ -4892,10 +4892,17 @@ async function dotravel_target() {
     u.ty = tcc.y;
 
     // C ref: hack.c findtravelpath — seenv || (!Blind && couldsee), then
-    // domove. D-0702: JS seenv can overmark and yield a Chebyshev-worsening
-    // detour where C has no TEST_TRAV path → quiet-rest (dx=dy=0).
-    // Do NOT prefer couldsee-only first: that skipped seenv CLOUD cells on
-    // Quest and stepped SE while C walked S (D-0784 / seed0360 @104904).
+    // domove. C steps on ANY findtravelpath direction, detours included:
+    // cmd.c dotravel_target sets travel/run/multi and calls domove() with
+    // no distance gate, and TEST_TRAV paths through closed doors (the hero
+    // bumps them on arrival — "That door is closed." — since travel sets
+    // context.run, which skips autoopen). Do NOT suppress a
+    // Chebyshev-worsening first step: the door-route detour (town-94242
+    // step 72: NW toward the door while the target lies east) is C's own
+    // path (D-3563). Do NOT prefer couldsee-only first: that skipped seenv
+    // CLOUD cells on Quest and stepped SE while C walked S (D-0784).
+    // D-0702's seenv-detour rest stays covered by the
+    // genuine-NOPATH else branch below (C rests when no TEST_TRAV path).
     let stepped = false;
     let travelStep = await findtravelpath_travel(false);
     if (travelStep === TRAVEL_STEP_UNSURE) {
@@ -4910,20 +4917,8 @@ async function dotravel_target() {
         }
     }
     if (travelStep) {
-        const nx = (u.ux | 0) + (u.dx | 0);
-        const ny = (u.uy | 0) + (u.dy | 0);
-        const before = Math.max(
-            Math.abs((u.tx | 0) - (u.ux | 0)),
-            Math.abs((u.ty | 0) - (u.uy | 0)),
-        );
-        const after = Math.max(
-            Math.abs((u.tx | 0) - nx),
-            Math.abs((u.ty | 0) - ny),
-        );
-        if (after <= before) {
-            await domove(u.dx || 0, u.dy || 0);
-            stepped = true;
-        }
+        await domove(u.dx || 0, u.dy || 0);
+        stepped = true;
     }
     if (stepped) {
         if (game.context) {
