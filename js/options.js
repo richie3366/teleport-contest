@@ -10299,6 +10299,7 @@ const DOSET_BOOL_ADDR = {
     tombstone: { obj: 'flags', key: 'tombstone' },
     toptenwin: { obj: 'iflags', key: 'toptenwin' },
     travel: { obj: 'flags', key: 'travel' }, // C: flags.travelcmd
+    travel_debug: { obj: 'iflags', key: 'trav_debug' }, // C optlist.h:791 &iflags.trav_debug (wizard menu row; DEBUG build per patchlevel.h:36; no JS consumer yet — hack.c:1431/:1492 travel-path display)
     use_inverse: { obj: 'iflags', key: 'wc_inverse' },
     verbose: { obj: 'flags', key: 'verbose' },
     weaponstatus: { obj: 'iflags', key: 'weaponstatus' },
@@ -10408,6 +10409,7 @@ function doset_bool_mod_list() {
     const nullAt = out.indexOf('null'); // C optlist.h:496-499
     if (nullAt > 0) out.splice(nullAt, 0, 'monpolycontrol', 'montelecontrol');
     insertAfter('safe_wait', 'sanity_check'); // C optlist.h:639
+    insertAfter('travel', 'travel_debug'); // C optlist.h:790 (DEBUG build lists it: live &iflags.trav_debug, patchlevel.h:36)
     out.push('wizmgender', 'wizweight'); // C optlist.h:890-893 (tail; wraptext after them is wc2-skipped)
     return out;
 }
@@ -11034,6 +11036,7 @@ export async function doset() {
                 : name === 'race' ? optfn_race
                 : name === 'role' ? optfn_role
                 : name === 'alignment' ? optfn_alignment
+                : name === 'playmode' ? optfn_playmode // C `:9038` get_val → optfn_playmode `:3499–3501` (wizard→debug, discover→explore, else normal)
                 : null;
             // C doset_add_menu `:9038` get_val for a live optfn.
             const shown = roleOptfn
@@ -12076,7 +12079,7 @@ const allopt = [
     // optlist.h:786 NHOPTB(travel)
     { name: 'travel', opttyp: BoolOpt, idx: 192, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'travel' }, optfn: null },
     // optlist.h:794 NHOPTB(travel_debug)
-    { name: 'travel_debug', opttyp: BoolOpt, idx: 193, setwhere: SET_WIZONLY, initval: false, addr: null /* C: &iflags.trav_debug, no live field */, optfn: null },
+    { name: 'travel_debug', opttyp: BoolOpt, idx: 193, setwhere: SET_WIZONLY, initval: false, addr: { obj: 'iflags', key: 'trav_debug' } /* C optlist.h:791 &iflags.trav_debug (DEBUG build, patchlevel.h:36) */, optfn: null },
     // optlist.h:798 NHOPTB(tutorial)
     { name: 'tutorial', opttyp: BoolOpt, idx: 194, setwhere: SET_IN_CONFIG, initval: true, addr: { obj: 'flags', key: 'tutorial' }, optfn: null },
     // optlist.h:801 NHOPTB(use_darkgray)
@@ -12159,7 +12162,9 @@ const EMPTY_OPTSTR = '';
  * identical, name for name). Only the exceptional values are listed; the
  * row defaults are negateok=true, dupeok=false, pfx=false, alias=null.
  * `IBM_` (NHOPTP, MICRO-only) is absent on unix, so OPT_PFX has 2 entries.
- * `customsymbols` self-alias is C's text (optlist.h `:262`). */
+ * `customsymbols` self-alias is C's text (optlist.h `:262`).
+ * `travel_debug` is absent (negateok Yes — the DEBUG variant, optlist.h
+ * `:790-792`, is the compiled one: patchlevel.h `:36` defines DEBUG). */
 const OPT_NEGATEOK_NO = new Set(['windowtype', 'playmode', 'name',
     'align_status', 'altkeyhandling', 'autocompletions', 'autopickup exceptions',
     'bind keys', 'BIOS', 'boulder', 'catname', 'crash_email', 'crash_name',
@@ -12173,7 +12178,7 @@ const OPT_NEGATEOK_NO = new Set(['windowtype', 'playmode', 'name',
     'rawio', 'roguesymset', 'scores', 'sortloot', 'soundlib',
     'status condition fields', 'status highlight rules', 'statuslines',
     'suppress_alert', 'symset', 'term_cols', 'term_rows', 'tile_file', 'traps',
-    'travel_debug', 'vary_msgcount', 'versinfo', 'warnings', 'windowcolors']);
+    'vary_msgcount', 'versinfo', 'warnings', 'windowcolors']);
 const OPT_DUPEOK_YES = new Set(['role', 'race', 'gender', 'alignment',
     'font_map', 'font_menu', 'font_message', 'font_size_map', 'font_size_menu',
     'font_size_message', 'font_size_status', 'font_size_text', 'font_status',
