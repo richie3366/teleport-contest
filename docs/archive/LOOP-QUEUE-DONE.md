@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-06
 
+- [x] `botl.c` do_statusline2 — blocks 16/953 corpus sessions (first at step 36; RNG lost 2794, screens lost 1305) **Addressed:** D-3576: toplines identical; first differing screen row 23: C «Dlvl:1 $:157 HP:10(10) Pw:2(2) AC:10 Xp:1/0 T:2» vs JS «Dlvl:1 $:157 HP:10(10) Pw:2(2) AC:10 Xp:1/0 T:2 Satiated» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-impaired-Tourist-94070, scen-impaired-Valkyrie-94090, scen-options-Archeologist-94231). @0745728bf **[parked: RETIRED D- — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+
+
 - [x] **hang:** `scen-ride-Knight-94415` spins forever (worker ETIMEDOUT, RNG 0/0) since `fe0e9911e` (D-3567 cap removal) **Addressed:** D-3571 `8ec2b4d66` — was dosounds@129 (6682/7493 RNG, 131/259 screens). Counted drive: moves/qlen/multi frozen 46/128/80 (`multi = COLNO`, never decrements), chain `moveloop_core → domove(dx,dy) → render` every tick (allmain.js:1543–1549 mv-replay vs C allmain.c:515–531 arg-less `domove()`). Fix the non-termination (explicit-dx/dy replay skipping travel recompute, or run/mv/multi teardown gap); keep C's `for(;;)`, do NOT restore the cap; session must score ≥ its pre-D-3567 prefix. Diagnose: /tmp/hang-drive.mjs. Source: reviews/loop-unattended/2450-fe0e9911e-runsegment-unbounded-drive.md.
 
 

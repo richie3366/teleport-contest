@@ -79,16 +79,16 @@
 {"fn":"tty_putmixed","c":"4170-4195","status":"unknown"}
 {"fn":"tty_status_init","c":"4336-4361","status":"ported","js":["js/botl.js:tty_status_init"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Fieldorder select, NOW/BEFORE field init, condition/hpbar zero, genl_status_init exact."}
 {"fn":"tty_status_enablefield","c":"4364-4371","status":"ported","js":["js/botl.js:tty_status_enablefield"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact forward to genl_status_enablefield."}
-{"fn":"tty_status_update","c":"4454-4579","status":"unknown"}
-{"fn":"make_things_fit","c":"4584-4638","status":"unknown"}
-{"fn":"check_fields","c":"4647-4743","status":"unknown"}
+{"fn":"tty_status_update","c":"4454-4579","status":"ported","js":["js/botl.js:tty_status_update"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"make_things_fit","c":"4584-4638","status":"ported","js":["js/botl.js:make_things_fit"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"check_fields","c":"4647-4743","status":"ported","js":["js/botl.js:check_fields"],"d":["D-3576"],"at":"2026-10-06@441169570"}
 {"fn":"status_sanity_check","c":"4747-4796","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
-{"fn":"tty_putstatusfield","c":"4803-4840","status":"unknown"}
-{"fn":"set_condition_length","c":"4844-4857","status":"unknown"}
-{"fn":"shrink_enc","c":"4860-4868","status":"unknown"}
-{"fn":"shrink_dlvl","c":"4871-4884","status":"unknown"}
-{"fn":"check_windowdata","c":"4891-4901","status":"unknown"}
-{"fn":"condcolor","c":"4908-4918","status":"unknown"}
-{"fn":"condattr","c":"4921-4953","status":"unknown"}
-{"fn":"render_status","c":"4992-5264","status":"unknown"}
+{"fn":"tty_putstatusfield","c":"4803-4840","status":"ported","js":["js/botl.js:tty_putstatusfield"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"set_condition_length","c":"4844-4857","status":"ported","js":["js/botl.js:set_condition_length"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"shrink_enc","c":"4860-4868","status":"ported","js":["js/botl.js:shrink_enc"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"shrink_dlvl","c":"4871-4884","status":"ported","js":["js/botl.js:shrink_dlvl"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"check_windowdata","c":"4891-4901","status":"ported","js":["js/botl.js:check_windowdata"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"condcolor","c":"4908-4918","status":"ported","js":["js/botl.js:condcolor"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"condattr","c":"4921-4953","status":"ported","js":["js/botl.js:condattr"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"render_status","c":"4992-5264","status":"ported","js":["js/botl.js:render_status"],"d":["D-3576"],"at":"2026-10-06@441169570"}
 {"fn":"play_usersound_via_idx","c":"5284-5287","status":"unknown"}

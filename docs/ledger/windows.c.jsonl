@@ -64,8 +64,8 @@
 {"fn":"glyph2ttychar","c":"1410-1416","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"glyph2symidx","c":"1419-1425","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"encglyph","c":"1428-1434","status":"ported","js":["js/botl.js:encglyph"],"at":"2026-10-03@bbe63333a"}
-{"fn":"decode_glyph","c":"1439-1463","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"decode_mixed","c":"1466-1512","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"decode_glyph","c":"1439-1463","status":"ported","js":["js/botl.js:decode_glyph"],"d":["D-3576"],"at":"2026-10-06@441169570","note":"seed: no scored analogue (file)"}
+{"fn":"decode_mixed","c":"1466-1512","status":"ported","js":["js/botl.js:decode_mixed"],"d":["D-3576"],"at":"2026-10-06@441169570","note":"seed: no scored analogue (file)"}
 {"fn":"genl_putmixed","c":"1528-1534","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"genl_display_file","c":"1539-1555","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"menuitem_invert_test","c":"1562-1589","status":"ported","js":["js/options.js:menuitem_invert_test"],"at":"2026-10-03@bbe63333a"}
