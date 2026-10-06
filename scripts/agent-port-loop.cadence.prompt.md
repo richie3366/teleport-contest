@@ -23,9 +23,9 @@ worked around.
 Parse `__RESULTS_JSON__`. Rewrite `docs/CURRENT.md` Score: pass count,
 screen/RNG aggregates, speed label, PASS list, notable non-PASS; the
 **Held-out** row from `leaderboard.mjs` (passing, points, RNG %, screens
-%, date — this is the objective of the breadth phase, Constitution
-§10.17); the **Corpus fortress** line from the `score` summary (PASS
-count excluding env-only rows, RNG %, screens %). Compare the new
+%, date — this is the objective, Constitution §10.18); the **Corpus**
+line from the `score` summary (PASS count excluding env-only rows, RNG %,
+screens %, and the worst families from `hidden-proxy status`). Compare the new
 scoreboard with the committed one (`git diff --stat hidden-corpus/
 scoreboard.json`; `hidden-proxy show <id>` per changed row): every
 session that was PASS and is not anymore is a **Must-fix** row naming
@@ -35,15 +35,24 @@ a short crumb to `docs/AGENT-LOOP-JOURNAL.md`. Then `node
 scripts/check-hot-docs.mjs --fix` (do not count lines/boxes; do not copy
 crumbs by hand).
 
-**Corpus growth (`scenario-gen.mjs`) and `hidden-proxy queue` refills
-are phase 2** — closed during the breadth phase; do not run them. Any
+**Corpus growth is this iteration's job when the signal saturates**
+(Constitution §10.18 / §10.13): if the worst `scen-*` family in
+`hidden-proxy status` passes ≥ 85 %, or the cliffs block after
+`check-hot-docs --fix` holds fewer than 6 owners, author a fresh cohort in
+the held-out genre — `node scripts/scenario-gen.mjs --n 120 --seed
+<iteration × 100>` (families the held-out set walks and the corpus
+under-samples: long `^V` tours with several named levels, shops/temples,
+Sokoban, endgame planes, save/restore prefixes) — then `record`, `score`
+(full), and commit recipes + board. Never a `js/` edit for it. Any
 `js-throw` owner in the new scoreboard is still a **Must-fix** row (§10.14).
 
 If any public session failed: journal the failure, **do not** invent a
 peel, **do not** “align” tests. Do not pop a new queue item. You **may**
 archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
 and fill missing Addressed hashes. `check-hot-docs --fix` regenerates
-the ledger-generated **Open — coverage** block; never paste rows, never a
+both generated Open blocks (**cliffs** from the committed scoreboard —
+run it **after** the full rescore so the block reflects the new board —
+and **coverage** from the ledger); never paste rows, never a
 hand-written map/debt copy, never a seed-shaped row. Append
 `node scripts/ledger.mjs summary --snapshot` (coverage trend). The supervisor logs a full-suite FAIL and
 continues; the next port pops Must-fix if an audit review prepended one.

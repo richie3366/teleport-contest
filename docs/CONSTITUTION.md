@@ -256,8 +256,11 @@ clearly marked temporary and scheduled for deletion.
     session and no C RNG/message surface are Deferred while any family is
     below 90 %. Twice (2026-09-04 public 44/44, 2026-09-06 mutant corpus
     96 %) the loop kept shipping display singletons against a saturated
-    signal while held-out sat at 7/44. **Suspended during the breadth
-    phase (§10.17)**, whose picker is measured coverage, not the corpus.
+    signal while held-out sat at 7/44. Suspended during the breadth
+    phase (§10.17); **in force again since the cliff phase (§10.18)**,
+    whose picker is the corpus ranked by RNG lost — saturation (worst
+    family ≥ 85 %) is answered by growing the corpus on the audit, not
+    by inventing rows.
 14. **A JS throw or worker hang in any corpus session is a Must-fix**,
     ahead of every Open row: a `ReferenceError` at step 0 (or an
     `ETIMEDOUT` sync spin) forfeits every screen of the session, and the
@@ -283,7 +286,9 @@ clearly marked temporary and scheduled for deletion.
     and keeps the fortress. Parked corpus owners are the remaining held-out
     signal; they are worked through their writers, never by re-porting the
     symptom owner and never by padding the queue from the map.
-17. **Breadth phase (human decision 2026-09-18).** The local corpus stopped
+17. **Breadth phase (human decision 2026-09-18; picker superseded by
+    §10.18 on 2026-10-06 — its fortress, REACH, whole-function, ledger and
+    audit-rescore rules stand).** The local corpus stopped
     predicting the judge: on 2026-09-17 it read 495/540 PASS (91.7 %) while
     the leaderboard read held-out **11/44, RNG 26.6 %, screens 50.0 %**
     (best agentic fork: 35/44, 93 %). Until a human closes the phase in
@@ -328,6 +333,79 @@ clearly marked temporary and scheduled for deletion.
     commit `hidden-corpus/scoreboard.json` marked `full`; the supervisor
     redoes it when an audit skips it. Port-time `verify` rewrites rows
     piecemeal, so only this rescore keeps the REACH baseline honest.
+18. **Cliff phase (human decision 2026-10-06).** The breadth picker ran
+    dry and the loop kept running: on 2026-10-06 `ledger.mjs batch` named
+    **1** function, the ledger's measured counts had not moved since
+    2026-10-04 (`SNAPSHOTS.tsv`: ok 3889→3887, missing 531→531 over ~140
+    commits), held-out sat at **16/44, RNG 34.8 %, screens 64.1 %**
+    through ~50 iterations (D-3508…D-3556), and the iterations were
+    spent on ledger-text "1-row repairs" self-filed to hold an 8-row
+    queue floor, re-audits of one coverage head whose omissions cannot
+    ship, and `des.door` campaign steps on paths `CURRENT.md` itself
+    called held-out-unreached. The §10.17 falsifier ("held-out flat
+    after ~30 iterations → human revisits the picker") had fired. At the
+    same time the corpus read **741/953** with whole families below half
+    (`scen-options` 1/20, `scen-town` 2/20, `scen-quest` 3/20,
+    `scen-tutorial` 4/20) and its top owners by RNG lost were the
+    held-out genre itself (`^G`/wish monster parse → `next_ident`, 14
+    sessions, 50 k RNG; `^V` named-level `level_tele` `--More--`, 13
+    sessions, 38 k RNG) — every one tagged "do not re-enqueue" because a
+    D-entry had once touched it. Until a human closes the phase in
+    `CURRENT.md`:
+    - **The picker is the corpus**, ranked by **RNG calls lost after the
+      first divergence** (the held-out metric that lags most: RNG 34.8 %
+      against rngSteps 87.7 % means a few early cliffs in long sessions,
+      not many small ones), JS throws first. The LOOP-QUEUE **Open —
+      cliffs** block is generated from the **committed**
+      `hidden-corpus/scoreboard.json` by `hidden-proxy.mjs queue --write`
+      (via `check-hot-docs --fix`); rows are never pasted, padded or
+      hand-edited. Pop order: Must-fix (strict) → cliffs head → coverage
+      head (ledger gap) only when the cliffs block is empty or as a
+      same-C-file companion.
+    - **A tag is context, not a veto.** An archived DONE row or a ledger
+      `ported` status records that a D-entry once shipped the owner; the
+      board recording sessions still blocked there records that the work
+      is live. The porter reads that one D-entry so the same arm is not
+      re-ported and ports the arm the current first divergence names. A
+      **parked** owner keeps §10.16: the deliverable is the **writer** the
+      divergence names (`hidden-proxy show`: `cEntry`/`jsEntry`,
+      `cMsgOwners`, differing row) or the owner's `[measure]` row — never
+      a re-port of the symptom owner.
+    - **One iteration = one cliff, whole, with movement.** The owner (or
+      writer) is ported as a whole C function (§10.17 rules: every arm,
+      every callee live or named, every C caller wired, one `Ledger:`
+      entry), and `verify.mjs --fn` must show **movement** on the row's
+      probe sessions — PASS, or a strictly later first-divergence step or
+      owner — **and** REACH-OK. NO MOVEMENT after one further fix means
+      the arm is still wrong: the iteration measures C (§10.12) instead
+      of patching a third time; the measurement names the writer (port
+      it) or parks the owner with its `[measure]` row. `[measure]` rows
+      and parks are live again, popped when their owner heads the block.
+    - **Must-fix is strict**: a JS throw or worker hang in any session
+      (§10.14), a corpus or public PASS→FAIL naming session + owner +
+      `js/` SHAs, or a review-named C-wrong. A ledger omit/note that
+      disagrees with the live body is one `ledger.mjs set` inside whatever
+      iteration notices it — never a row, never an iteration. The queue
+      has no floor (`QUEUE_MIN` 1): the generated blocks are the rows.
+    - **No-op iterations are failures**, not neutral: an iteration whose
+      only output is ledger text, a re-audit of a function already
+      `audited`, a cite refresh, or a campaign step on a path no corpus
+      session reaches is QUALITY-RISK in review with a Must-fix row naming
+      the cliffs head it should have shipped. A coverage row whose
+      remaining omissions cannot ship is `audited` once and leaves the
+      block.
+    - **Saturation is answered by growth, not invention** (§10.13 back
+      in force): when the worst `scen-*` family passes ≥ 85 %, or the
+      cliffs block holds fewer than 6 owners, the audit iteration authors
+      a fresh cohort in the held-out genre (`scenario-gen.mjs`: long `^V`
+      tours over several named levels, shops and temples, Sokoban,
+      endgame planes, save/restore prefixes), records, rescores and
+      commits it before anything else.
+    - **Falsifier (human reads it):** held-out `leaderboard.mjs` after
+      ~20 cliff iterations — passing count or RNG % not moving while the
+      committed board's PASS count and RNG % rise means the corpus has
+      stopped predicting the judge again; the human revisits the picker.
+      The audit records both lines side by side in `CURRENT.md`.
 
 ---
 

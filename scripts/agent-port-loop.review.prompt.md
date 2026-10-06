@@ -32,6 +32,9 @@ Do **not** `git commit` after each SHA.
 ## Method (mandatory, each JS-touching commit)
 
 This is an audit against **pinned C**, not against the commit message.
+A **cliff** commit (Constitution §10.18, 2026-10-06: one corpus owner or
+its writer, ported whole, with movement on its probe sessions) gets the
+whole Method per function, plus the **movement re-measure** of step 6.
 A **batch** commit (40–100 C functions, Constitution §10.17, 2026-10-03)
 is reviewed on a **fixed sample**, never on the subject's choice: the
 Inventory lists every function of its `Ledger:` bullet (one line each:
@@ -80,20 +83,27 @@ gets the whole Method per function.
    read is.
 5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
-6. Density §2b — **breadth phase (Constitution §10.17):** every sampled
+6. Density §2b — **cliff phase (Constitution §10.18):** every ported
    function is a **whole** C function. Compare each C body's
    arms/cases with the JS: an arm-only port sold as the function, an
    unwired C caller, or a callee left as a silent stub is QUALITY-RISK
    with a Must-fix row naming the function and its missing arms. A
-   batch that is not the `ledger.mjs batch` manifest of its HEAD (files
-   or functions the picker did not name), has more than 100 functions,
-   leaves more than a third in `Left open:`, or bundles a Must-fix item
-   is QUALITY-RISK too. Each function needs its own `Ledger:` entry and
-   its own Verify line. Verification: the D-log Verify
-   bullet must show `hidden-proxy verify <fn>` → PROGRESS/PASS (or the
-   vacuous note) **and** `REACH-OK` (a batch: the `sweep` line); then
-   green + **relevant** cohort.
-   NO MOVEMENT presented as a named omission is QUALITY-RISK.
+   cliff commit whose owner is not the cliffs head (or a Must-fix) of
+   its HEAD, that re-ports a parked symptom owner instead of the writer,
+   or that bundles another C file's work is QUALITY-RISK too. Each
+   function needs its own `Ledger:` entry. Verification: the D-log
+   Verify bullet must show `hidden-proxy verify <fn>` → **movement**
+   (PASS or strictly later step/owner for the row's probe sessions)
+   **and** `REACH-OK`; then green + **relevant** cohort.
+   NO MOVEMENT presented as a named omission, or as "docs/ledger
+   only", is QUALITY-RISK. An iteration whose `js/` diff is empty and
+   whose deliverable is ledger text, a re-audit of an `audited`
+   function, or a campaign step on a path no corpus session reaches is a
+   **no-op iteration**: QUALITY-RISK with a Must-fix row that names the
+   cliffs head it should have shipped.
+   (A legacy batch commit keeps the §10.17 rules: manifest of its HEAD,
+   ≤ 100 functions, ≤ a third `Left open:`, one Verify line per
+   function, the `sweep` line.)
    **Re-measure the corpus claim yourself:** run
    `node scripts/hidden-proxy.mjs verify <fn>[,<fn>…] --base HASH~1 --reach-all`
    on the **sampled** functions of a batch (every function of a ≤ 10-function
@@ -156,9 +166,9 @@ update** (`hidden-proxy record`, then `hidden-proxy score` with no
 `hidden-corpus/scoreboard.json`) — mandatory, see the ALSO section.
 `node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
 review ids; do not count). `ok` = no cap edit. If REFILL, `--fix`
-already regenerated the ledger-generated **Open — coverage** block (breadth
-phase, Constitution §10.17) — never paste rows, never a `[measure]` row
-(phase 2). Audit iters also run `node scripts/ledger.mjs summary
+already regenerated both generated blocks (**Open — cliffs** from the
+committed scoreboard, **Open — coverage** from the ledger; Constitution
+§10.18) — never paste or pad rows. Audit iters also run `node scripts/ledger.mjs summary
 --snapshot` and sample 5 seeded `ported` rows (`ledger.mjs sql "select fn
 from fn where seeded=1 and status='ported' order by random() limit 5"`,
 one `brief` each); a wrong row is fixed with `ledger.mjs set`. **Then** one grouped

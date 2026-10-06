@@ -122,10 +122,14 @@ An iteration should still be one **semantic cluster**: one C function or
 tightly coupled caller/callee family — not one map bullet, and not an
 unrelated multi-subsystem rewrite. Related deferrals in that envelope may
 retire together when they share one falsifier and verification story.
-Since 2026-10-03 the loop's unit is one **batch** (Constitution §10.17):
-the `ledger.mjs batch --write` manifest, 40–100 whole C functions of the
-top C file(s), each still ported whole and declared one by one in the
-D-entry `Ledger:` bullet (amortizes fixed agent cost). Consecutive Open rows of one C function may
+Since 2026-10-06 the loop's unit is one **cliff** (Constitution §10.18):
+the head of the generated `Open — cliffs` block — a corpus owner, or the
+writer its first divergence names — as a whole C function family, with
+`verify.mjs --fn` showing movement on its probe sessions and REACH-OK.
+The 2026-10-03 **batch** unit (§10.17: the `ledger.mjs batch --write`
+manifest, 40–100 whole C functions) is the fallback when the cliffs block
+is empty and the ledger still has a gap; each function is still ported
+whole and declared one by one in the D-entry `Ledger:` bullet. Consecutive Open rows of one C function may
 combine when every callee is live, a C-matched clone, or named omitted
 here (no stub in a live arm). Must-fix stays one item, alone.
 But "small"/"cluster" does not mean "only the branch this seed took."

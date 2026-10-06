@@ -513,7 +513,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_RESCORE_TIMEOUT_SEC` | `5400` | Timeout for each of those two commands |
 | `LOOP_MAX_JS_INSERTIONS` | `1500` | Undo the iteration if a port iter exceeds this `js/` insertion count (600 before the 2026-09-18 breadth phase: whole-function ports target 200–800 lines) |
 | `LOOP_MAX_JS_FILES` | `15` | Undo the iteration if a port iter touches more `js/` files (10 before 2026-09-18) |
-| `LOOP_QUEUE_MIN` | `8` | Agent must refill Open when live `- [ ]` count is below this |
+| `LOOP_QUEUE_MIN` | `1` | Regenerate the Open blocks (`check-hot-docs --fix`) when the live `- [ ]` count is below this. `8` until 2026-10-06: the floor was met with ~40 invented ledger-text Must-fix rows (Constitution §10.18) |
 | `LOOP_QUEUE_TARGET` | `12` | Refill up to about this many open rows |
 | `LOOP_PUSH` | `1` | Supervisor `git push origin HEAD` after gates |
 | `LOOP_FAIL_CLOSED` | `1` | `0` restores warn-and-continue (debug only) |
@@ -606,7 +606,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Park share climbs (≥ 3 `Park …` commits in 10 port iters) | Refill leaked non-evidence rows. `check-hot-docs` FAILs live rows without evidence; `hidden-proxy queue` tags open/parked/archived owners. 2026-09-09..15: 126/362 iterations were parks, 109/161 parked rows stale copies of shipped work |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review-debt overlay for the next iteration (any mode); continue |
-| Queue empty after port | Agent failed to refill (breadth phase: `node scripts/ledger.mjs rows --write` regenerates the coverage block; phase 2: `hidden-proxy queue` untagged owners, park-named writers, `[campaign]`/`[measure]` rows) — warn + next-iter overlay |
+| Queue empty after port | Both generated blocks empty (`check-hot-docs --fix` runs `hidden-proxy queue --write` + `ledger.mjs rows --write`) — warn + next-iter overlay; if they stay empty the corpus is saturated and the audit grows it (`scenario-gen.mjs`), never a hand refill |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite

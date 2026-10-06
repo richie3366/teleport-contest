@@ -23,8 +23,15 @@
  *       board is marked `full: true` (the audit's mandatory rescore; any
  *       later partial write — verify, --ids, --owner — clears the mark).
  *       `entries` / `unrecorded` say how much of the corpus it covers.
- *   node scripts/hidden-proxy.mjs queue [--limit 12]
- *       LOOP-QUEUE rows: C-function owners ranked by sessions blocked.
+ *   node scripts/hidden-proxy.mjs queue [--limit 12] [--by rng|sessions] [--committed] [--write]
+ *       LOOP-QUEUE cliff rows: C-function owners ranked by RNG lost after
+ *       the first divergence (the held-out metric that lags most), then by
+ *       sessions blocked. `--write` regenerates the `<!-- cliffs:begin -->`
+ *       block of docs/LOOP-QUEUE.md from the COMMITTED scoreboard (same rows
+ *       on every machine; `check-hot-docs --fix` runs it). A tag on a row is
+ *       history (`archived D-…`, `ledger: ported`) or a park class — never
+ *       "done": while the board lists sessions blocked at the owner, the
+ *       owner is live work (Constitution §10.18).
  *   node scripts/hidden-proxy.mjs verify <fn>[,<fn>…] [--base <git-rev>|working]
  *       rescore the sessions blocked on <fn> in the COMMITTED scoreboard at
  *       --base (default HEAD; the rows the queue row was built from), plus
@@ -47,9 +54,13 @@
  *   node scripts/hidden-proxy.mjs show <sessionId>
  *   node scripts/hidden-proxy.mjs status
  *
- * 2026-09-18 breadth phase (Constitution §10.17): the picker is
- * `ledger.mjs rows` (generated coverage block); this corpus is a regression fortress guarded
- * by the REACH check in `verify`. `queue`/`scenario-gen` are phase 2.
+ * 2026-09-18 breadth phase (Constitution §10.17): the picker was
+ * `ledger.mjs rows` (generated coverage block) and this corpus only a
+ * regression fortress guarded by the REACH check in `verify`.
+ * 2026-10-06 cliff phase (Constitution §10.18): the ledger gap ran dry
+ * (`ledger.mjs batch` → 1 function) while 212/953 corpus sessions still
+ * failed in the held-out genre; `queue --write` is the picker again, REACH
+ * still guards the PASS set, `scenario-gen` grows the corpus on audits.
  */
 import { spawn, spawnSync } from 'node:child_process';
 import {
@@ -315,7 +326,7 @@ function writeScoreboard(rows, full = false) {
 }
 
 /* ---------------- aggregation ---------------- */
-function aggregate(rows) {
+function aggregate(rows, order = 'rng') {
     const by = new Map();
     const list = Object.values(rows);
     for (const r of list) {
@@ -336,8 +347,41 @@ function aggregate(rows) {
         by.set(key, a);
     }
     const out = [...by.values()];
-    out.sort((a, b) => b.sessions.length - a.sessions.length || b.blockedRng - a.blockedRng);
+    /* A JS throw forfeits every screen of its sessions (Constitution §10.14):
+       always first. Then the held-out metric that lags most — RNG calls lost
+       after the first divergence (held-out RNG 34.8 % vs rngSteps 87.7 % on
+       2026-10-06: a few early cliffs in long sessions, not many small ones). */
+    const throwFirst = (a, b) => Number(b.owner.startsWith('js-throw')) - Number(a.owner.startsWith('js-throw'));
+    if (order === 'sessions') out.sort((a, b) => throwFirst(a, b) || b.sessions.length - a.sessions.length || b.blockedRng - a.blockedRng);
+    else out.sort((a, b) => throwFirst(a, b) || b.blockedRng - a.blockedRng || b.sessions.length - a.sessions.length);
     return out;
+}
+
+/* The committed scoreboard in the row shape `aggregate` reads (cliff phase,
+   2026-10-06): the generated cliffs block is derived from the board in git,
+   so every machine and every iteration between two audits sees the same
+   rows. The working scores only enrich an example (C/JS first draw) when
+   they agree with the board on step and owner. */
+function committedRows() {
+    if (!existsSync(SCOREBOARD)) return null;
+    const board = readJson(SCOREBOARD);
+    const work = loadScores().rows || {};
+    const rows = {};
+    for (const [id, r] of Object.entries(board.sessions || {})) {
+        const [file, line] = String(r.loc || '').split(':');
+        const w = work[id];
+        const same = w && w.step === r.step && w.owner === r.owner;
+        rows[id] = {
+            id, src: r.src, passed: !!r.passed, kind: r.kind, step: r.step, steps: r.steps,
+            owner: r.owner, ownerFile: file || null, ownerLine: line ? Number(line) : null,
+            jsOwner: r.jsOwner, cTopline: r.cTopline, jsTopline: r.jsTopline, error: r.error,
+            rngM: r.rngM, rngT: r.rngT, scrM: r.scrM, scrT: r.scrT,
+            blockedRng: Math.max(0, (r.rngT || 0) - (r.rngM || 0)),
+            blockedScr: Math.max(0, (r.scrT || 0) - (r.scrM || 0)),
+            cEntry: same ? w.cEntry : null, jsEntry: same ? w.jsEntry : null, rowDiff: same ? w.rowDiff : null,
+        };
+    }
+    return { commit: board.commit, full: !!board.full, fullAt: board.fullAt, rows };
 }
 
 function printStatus(rows) {
@@ -359,11 +403,15 @@ function printStatus(rows) {
 
 function cmdStatus() { printStatus(loadScores().rows); }
 
-/* Where LOOP-QUEUE already knows an owner: live Open/Must-fix row, Parked
-   index line (with its class word), an archived DONE row, or a ledger row
-   declared ported/split/parity/by-design. Refill must
-   not re-enqueue any of these — a parked owner's *writer* row is the only
-   legal follow-up (LOOP-QUEUE.md header, 2026-09-16). */
+/* Where LOOP-QUEUE already knows an owner: live hand-written Open/Must-fix
+   row, Parked index line (with its class word), an archived DONE row, or a
+   ledger row declared ported/split/parity/by-design. Since the cliff phase
+   (2026-10-06) a tag is *context*, not a veto: an archived/ledger tag says a
+   D-entry once shipped this owner — read it once so the same arm is not
+   re-ported — while the board saying sessions are still blocked there says
+   the work is live. A parked tag keeps its discipline: the deliverable is
+   the writer the first divergence names, or the park's [measure] row.
+   Rows inside the generated blocks are not "known" (they are the output). */
 function queueKnowledge() {
     const known = new Map(); // fn -> tag
     const q = path.join(ROOT, 'docs', 'LOOP-QUEUE.md');
@@ -372,7 +420,11 @@ function queueKnowledge() {
         .flatMap((m) => m[1].split(/\s*\+\s*|\//)).map((s) => s.trim()).filter(Boolean);
     if (existsSync(q)) {
         let section = '';
+        let generated = false;
         for (const line of readFileSync(q, 'utf8').split('\n')) {
+            if (/^<!-- (cliffs|coverage):begin -->/.test(line)) { generated = true; continue; }
+            if (/^<!-- (cliffs|coverage):end -->/.test(line)) { generated = false; continue; }
+            if (generated) continue;
             if (/^## /.test(line)) { section = line; continue; }
             if (!/^- /.test(line)) continue;
             if (/^## Parked/.test(section)) {
@@ -406,32 +458,77 @@ function queueKnowledge() {
     return known;
 }
 
+const CLIFFS_BEGIN = '<!-- cliffs:begin -->';
+const CLIFFS_END = '<!-- cliffs:end -->';
+
+/* One LOOP-QUEUE cliff row. Evidence is machine-recorded (`blocks N/M`,
+   first step, C vs JS at the divergence); the tag is context. */
+function cliffRow(a, total, known, sha) {
+    const ex = a.examples[0] || {};
+    const file = a.file || (a.owner.startsWith('js-throw') ? 'js' : '?');
+    const rd = ex.rowDiff;
+    const sameTop = (ex.c || '') === (ex.js || '');
+    let what;
+    if (a.owner.startsWith('js-throw')) {
+        what = `JS throws at step ${ex.step} — every later screen of the session is lost (Must-fix, Constitution §10.14)`;
+    } else if (ex.cEntry) {
+        what = `C draws \`${String(ex.cEntry).replace(/\s*@.*$/, '')}\` in ${a.owner}, JS ${ex.jsEntry ? '`' + String(ex.jsEntry).replace(/\s*@.*$/, '') + '` from ' + (ex.jsOwner || '?') : 'draws nothing'}`;
+    } else if (sameTop && rd && rd.c !== undefined) {
+        what = `toplines identical; first differing screen row ${rd.row}: C «${String(rd.c).trim().slice(0, 70)}» vs JS «${String(rd.js).trim().slice(0, 70)}» — the owner is the region heuristic; port the writer of the differing value, not the painter`;
+    } else {
+        what = `C «${(ex.c || '').slice(0, 60)}» vs JS «${(ex.js || '').slice(0, 60)}»`;
+    }
+    const tag = known.get(a.owner);
+    let mark = '';
+    if (tag && /^open/.test(tag)) mark = ` **[live hand-written row (${tag}) — work that row, do not duplicate]**`;
+    else if (tag && /^parked/.test(tag)) mark = ` **[${tag} — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**`;
+    else if (tag) mark = ` **[history: ${tag} — read that D-entry once; the arm this divergence names is still open]**`;
+    const lost = `RNG lost ${a.blockedRng}, screens lost ${a.blockedScr}`;
+    return `- [ ] \`${file}\` ${a.owner} — blocks ${a.sessions.length}/${total} corpus sessions (first at step ${ex.step}; ${lost}): ${what}. Probe: \`node scripts/hidden-proxy.mjs verify ${a.owner}\` (${a.examples.map((e) => e.id).join(', ')}). @${sha}${mark}`;
+}
+
+function writeCliffsBlock(lines) {
+    const q = path.join(ROOT, 'docs', 'LOOP-QUEUE.md');
+    if (!existsSync(q)) return { error: 'docs/LOOP-QUEUE.md missing' };
+    const text = readFileSync(q, 'utf8');
+    const a = text.indexOf(CLIFFS_BEGIN), b = text.indexOf(CLIFFS_END);
+    if (a < 0 || b < a) return { error: `no ${CLIFFS_BEGIN} … ${CLIFFS_END} markers in docs/LOOP-QUEUE.md` };
+    const body = lines.join('\n');
+    const next = `${text.slice(0, a + CLIFFS_BEGIN.length)}\n${body}${body ? '\n' : ''}${text.slice(b)}`;
+    const changed = next !== text;
+    if (changed) writeFileSync(q, next);
+    return { changed, count: lines.length };
+}
+
 function cmdQueue() {
     const limit = Number(val('limit', 12));
-    const rows = loadScores().rows;
-    const agg = aggregate(rows).filter((a) => !a.owner.startsWith('unattributed') && !a.owner.startsWith('env:'));
+    const order = val('by', 'rng');
+    const write = flag('write');
+    const src = write || flag('committed') ? committedRows() : null;
+    if ((write || flag('committed')) && !src) { console.error('queue: no committed scoreboard (hidden-corpus/scoreboard.json)'); process.exit(2); }
+    const rows = src ? src.rows : loadScores().rows;
+    const sha = src ? src.commit : gitHead();
     const total = Object.keys(rows).length;
     const known = queueKnowledge();
-    let fresh = 0;
-    for (const a of agg.slice(0, limit)) {
-        const ex = a.examples[0] || {};
-        const file = a.file || (a.owner.startsWith('js-throw') ? 'js' : '?');
-        const rd = ex.rowDiff;
-        const sameTop = (ex.c || '') === (ex.js || '');
-        let what;
-        if (ex.cEntry) {
-            what = `C draws \`${String(ex.cEntry).replace(/\s*@.*$/, '')}\` in ${a.owner}, JS ${ex.jsEntry ? '`' + String(ex.jsEntry).replace(/\s*@.*$/, '') + '` from ' + (ex.jsOwner || '?') : 'draws nothing'}`;
-        } else if (sameTop && rd && rd.c !== undefined) {
-            what = `toplines identical; first differing screen row ${rd.row}: C «${String(rd.c).trim().slice(0, 70)}» vs JS «${String(rd.js).trim().slice(0, 70)}» — the owner is the region heuristic; port the writer of the differing value, not the painter`;
-        } else {
-            what = `C «${(ex.c || '').slice(0, 60)}» vs JS «${(ex.js || '').slice(0, 60)}»`;
-        }
-        const tag = known.get(a.owner);
-        const mark = tag ? ` **[${tag} — do not re-enqueue${/^parked/.test(tag) ? '; queue its writer or a [measure] row' : ''}]**` : '';
-        if (!tag) fresh++;
-        console.log(`- [ ] \`${file}\` ${a.owner} — blocks ${a.sessions.length}/${total} corpus sessions (first at step ${ex.step}): ${what}. Probe: \`node scripts/hidden-proxy.mjs verify ${a.owner}\` (${a.examples.map((e) => e.id).join(', ')}).${mark}`);
+    const agg = aggregate(rows, order).filter((a) => !a.owner.startsWith('unattributed') && !a.owner.startsWith('env:'));
+    /* The generated block never duplicates a live hand-written row (a
+       Must-fix naming the same owner ships first and alone). */
+    const eligible = agg.filter((a) => !/^open/.test(known.get(a.owner) || ''));
+    const lines = eligible.slice(0, limit).map((a) => cliffRow(a, total, known, sha));
+    let history = 0, parked = 0;
+    for (const a of eligible.slice(0, limit)) {
+        const t = known.get(a.owner) || '';
+        if (/^parked/.test(t)) parked++; else if (t) history++;
     }
-    console.error(`queue: ${Math.min(limit, agg.length)} owners shown, ${fresh} not yet open/parked/archived (eligible as-is); the rest need a writer or [measure] row`);
+    if (write) {
+        const r = writeCliffsBlock(lines);
+        if (r.error) { console.error(`queue --write: ${r.error}`); process.exit(2); }
+        console.log(`cliffs block ${r.changed ? 'regenerated' : 'unchanged'}: ${r.count} row(s) from the committed scoreboard @${sha}${src.full ? '' : ' (board not a full rescore)'}`);
+    } else {
+        for (const l of lines) console.log(l);
+    }
+    const failing = Object.values(rows).filter((r) => !r.passed).length;
+    console.error(`queue: ${lines.length} owners shown of ${eligible.length} (${failing}/${total} sessions failing; ranked by ${order === 'sessions' ? 'sessions blocked' : 'RNG lost'}); ${parked} parked (writer/[measure] deliverable), ${history} with a prior D-entry (still blocking — live), ${lines.length - parked - history} never worked`);
 }
 
 /* The committed scoreboard at a git rev: the rows the queue row and the

@@ -12,11 +12,10 @@ trace-shaped hack is failure, not success.
 
 Scored `js/` is **plain ESM**, runnable as-is in **Node 22+ and modern
 Chrome**. No build step, WASM, network, **filesystem**, threads, or native
-addons. Persist only via frozen `storage.js` VFS; keep everything else
-in-process. **Never** add `import … from 'fs'|'path'|'url'|'os'|'node:*'`
-or `readFileSync` to scored code. Embed dat/help (and similar) via
-`js/generated/` extractors (D-0477). Node-only offline PASS while Chrome /
-Session Viewer cannot load the module is a **failed handoff**.
+addons. Persist only via frozen `storage.js` VFS. **Never** add `import …
+from 'fs'|'path'|'url'|'os'|'node:*'` or `readFileSync` to scored code;
+embed dat/help via `js/generated/` extractors (D-0477). Node-only PASS
+while Chrome cannot load the module is a **failed handoff**.
 
 ---
 
@@ -29,85 +28,80 @@ Target **≤12k tokens** of docs before C.
 | 1 | **This file** | priority, **Rule #2**, anti-patterns, endings | — |
 | 2 | Cursor rules / `CONSTITUTION.md` §1–2 (esp. §1.5 Rule #2), §5, §10 | hard bans only | full essays |
 | 3 | **`CURRENT.md`** | score, green gate, **primary objective**, focused cmd | — |
-| 4 | `LOOP-QUEUE.md` Breadth-phase block + first **Open — coverage** row | stale check, the row | Parked index, Phase 2 section |
+| 4 | `LOOP-QUEUE.md` Cliff-phase block + first **Must-fix** row, else the **Open — cliffs** head | the row, its tag, its probe sessions | Parked index, Deferred |
 | 5 | `NOTES.md` | live hypothesis + don’t-recheck | — |
-| 6 | `node scripts/brief.mjs <cfn>` | C body + callers, JS body, map lines, D-rows, corpus rows — one call | paging map files, grepping for definitions |
-| 7 | `HIDDEN-PROXY.md` §1–3 | what REACH means; verify semantics | the method essay |
+| 6 | `hidden-proxy.mjs show <probe id>`, then `brief.mjs <owner>` | first divergence (C vs JS draw, `cMsgOwners`, differing row); C body + callers, JS body, ledger, D-rows — two calls | paging map files, grepping |
+| 7 | `HIDDEN-PROXY.md` §3 | what **movement** and REACH mean; verify semantics | the method essay |
 | 8 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
 
-**Do not read by default:** `PORTING-STRATEGY.md`, `archive/**` (except the
-one parked row a queue row points at), full `DIVERGENCE-LOG.md`, full
-journal, `PORT-GAP-HELDOUT.md`. `DIVERGENCE-INDEX.md` + **one** `## D-NNNN`
-entry; journal tail only. **Always re-read the C function** (body +
-callers + guarding `if`) before patching — the brief has both.
+**Do not read by default:** `PORTING-STRATEGY.md`, `archive/**` (except
+the one parked row a queue row points at), full `DIVERGENCE-LOG.md`, full
+journal. `DIVERGENCE-INDEX.md` + **one** `## D-NNNN` entry (the row's
+`history:` tag). **Always re-read the C function** before patching.
 
 ---
 
 ## 2. Objective priority (non-negotiable)
 
-1. **`CURRENT.md` → Primary objective** (chooses work). Since 2026-09-18
-   that is the **breadth phase** (Constitution §10.17): held-out read
-   11/44, RNG 26.6 %, screens 50 % while the local corpus read 91.7 % —
-   the corpus stopped predicting the judge, so **measured coverage** picks
-   work: `LOOP-QUEUE.md` Must-fix, then the first **Open — coverage** row
-   (generated from `docs/ledger/`: MISSING/THIN in `js/`, not declared
-   ported/split/by-design, ranked by reach × loudness).
-2. **Parked** items and `[measure]` rows are **phase 2** (corpus
-   debugging) — closed until a human reopens it in `CURRENT.md`. Do not
-   pop, requeue, or instrument C for them now.
-3. Corpus-residual Open rows ship only **with** a coverage row in the same
-   C file, or when the coverage list is empty (it never is — refill it).
-4. Never map/debt/TOP30 copies (109 of 161 parks were that); the only
-   hand-written evidence is a C arm you verified absent in a brief.
+1. **`CURRENT.md` → Primary objective** (chooses work). Since 2026-10-06
+   that is the **cliff phase** (Constitution §10.18): the breadth picker
+   ran dry (`ledger.mjs batch` → 1 function, ledger counts frozen) while
+   held-out sat at 16/44, RNG 34.8 % and the corpus still failed 212/953
+   sessions in the held-out genre. **The corpus picks work**: Must-fix
+   (strict), then the **Open — cliffs** head — owners ranked by **RNG lost**
+   after the first divergence, generated from the committed scoreboard.
+2. **A row's tag is context, not a veto.** `history: archived D-…` = read
+   that one D-entry, then port the arm *this* divergence names. `parked:
+   SYMPTOM / MISATTRIBUTED` = port the **writer** the divergence names
+   (`hidden-proxy show`), or deliver the owner's `[measure]` row.
+3. **Coverage** (ledger gap) rows pop only when the cliffs block is empty,
+   or as a same-C-file companion.
+4. Hand-written rows are **Must-fix only** (throw / hang / PASS→FAIL /
+   review C-wrong). A ledger note that disagrees with the live body is
+   one `ledger.mjs set` inside a real iteration, never a row.
 
-### 2a. Breadth phase — what an iteration is
+### 2a. Cliff phase — what an iteration is
 
-Public 44/44 **and** the corpus PASS set are a **regression fortress**,
-not a work picker. Held-out (`node scripts/leaderboard.mjs`) is the score.
+Public 44/44 **and** the corpus PASS set are a **regression fortress**
+(REACH). Held-out (`leaderboard.mjs`) is the score; the committed board
+(PASS, RNG %) is its proxy and must rise with it.
 
 | Do | Do not |
 |----|--------|
-| No Must-fix → `ledger.mjs batch --write` (one call: the batch manifest); `brief.mjs <fn>` per function; read the **whole** C body + every caller | Port the arm a session happens to hit and call the function done |
-| Port **each C function of the batch** entirely, in C order: every arm, every callee live or named in the map, every C caller wired (brief callers table) | Leave a `// TODO` stub inside a live arm, or a local clone of an existing export (`sym.mjs` first) |
-| Work the manifest in C order, one C file at a time; a function you cannot port whole → `Left open:` with its blocker; a body already whole → `audited` | Hand-pick from the manifest, pad it with another file, or keep a function you could only port one arm of |
+| No Must-fix → the **cliffs head**; `hidden-proxy show <probe id>`, then `brief.mjs <owner>`; read the **whole** C body + every caller | Pick a lower row because the head "was already worked" — the board says it still blocks |
+| Decide **owner vs writer** from the divergence: JS drawing from another function (`jsOwner`), a parked tag, a region-heuristic screen owner (`do_statusline2`) → the **writer** is the port | Re-port a symptom owner a park proved faithful; patch the painter of a value |
+| Port the function **whole**, in C order: every arm, every callee live or named, every C caller wired | Port the arm the probe hits and call the function done; `// TODO` in a live arm; a clone of an existing export (`sym.mjs` first) |
 | Prefer **restart**: delete the thin JS body, re-port from C, keep the export name/signature | Stack a third shim on a thin function |
-| Ship the whole manifest in one commit (a Must-fix ships alone) | Open a C file the manifest does not name |
-| **Stale row** (brief: body complete under this or split names) → `ledger.mjs set <fn> ported --note "stale: …"`, next row, **same iteration** | Spend an iteration proving a shipped function shipped |
-| `verify.mjs --fn <fn>` must end **REACH-OK** (+ green, strict, cohort, full when shared) | Ship a corpus PASS→FAIL as a "named omission"; touch a session or a seed to make it pass |
-| A JS **throw** / worker **hang** anywhere is Must-fix (forfeits every later screen) | Leave a `ReferenceError` / `ETIMEDOUT` behind |
-| Coverage block is generated (`finish` / `check-hot-docs --fix`) | Paste or hand-write a coverage row |
+| `verify.mjs --fn <fn>` must show **movement** on the probe sessions (PASS or strictly later step/owner) **and** REACH-OK (+ green, strict, cohort, full when shared) | Ship NO MOVEMENT as a "named omission" or "docs only"; touch a session or seed; ship a PASS→FAIL |
+| NO MOVEMENT after one more fix → **measure C** (§7) this iteration; the measurement names the writer (port it) or parks the owner with a `[measure]` row | Patch the symptom a third time; theorize from JS state or an RNG count |
+| Both Open blocks are generated (`finish` / `check-hot-docs --fix`); both empty → journal "corpus saturated" and stop; the audit grows the corpus | Pad the queue; invent a Must-fix; re-audit an `audited` function; a campaign step no corpus session reaches |
 
 The held-out 44 are scripted wizard-mode scenarios (wishes, `^G`,
-named-level `^V`, polyself, deaths); anything they reach that `js/`
-lacks is a cliff for every later screen. Tagged restore: save-oracle probe.
+named-level `^V`, polyself, deaths): one early cliff forfeits every later
+screen — hence the ranking by RNG lost. Tagged restore: save-oracle probe.
 
 ### 2b. Iteration density (token vs quality)
 
-Each fresh agent pays a large fixed cost (docs, C read-in, verify,
-journal). Prefer **fewer, denser** iterations.
+Each fresh agent pays a large fixed cost. Prefer **fewer, denser**
+iterations — density measured in **moved sessions and live C**, never in
+rows touched or lines written. Too small: a ledger-text repair, a cite
+refresh, a re-audit, one deferred `if`, docs now and code next iter. Right
+size: **one cliff** — the owner (or writer) as a whole C function family,
+callees and C callers in this commit, code + ledger + verify in one
+handoff. Too big: several unrelated cliffs, another C file's gap "while
+here", multiple hypotheses.
 
-| Too small (waste) | Right size | Too big (quality risk) |
-|-------------------|------------|------------------------|
-| A ten-function cluster; one deferred `if`; a manifest half left open without blockers | **One batch**: the `ledger.mjs batch` manifest — the whole remaining gap of the top C file(s), 40–100 functions | Functions outside the manifest; >100 functions; multiple independent hypotheses |
-| Docs-only then code next iter | Code + ledger + verify in one handoff | Re-deriving the batch by hand |
+**Rule (2026-10-06, human decision):** one cliff per iteration, from the
+generated block head. A `[measure]` iteration (C-side measurement + the
+writer it names, no `js/`) is legitimate **once** per owner; a second
+no-`js/` iteration on the same owner parks it. Must-fix stays one item,
+alone. The legacy batch unit (§10.17, `ledger.mjs batch`) is used only
+when the cliffs block is empty and the ledger still has ≥ 5 functions.
 
-**Rule (2026-10-03, human decision — 10× the 2026-09-28 cluster):** one
-batch per iteration, the `ledger.mjs batch --write` manifest. Gap kinds:
-**open** (port the C body), **partial** (port the named omissions),
-**recheck** (`ported`, measured thin: complete it, or `audited` if whole).
-C order, one C file at a time, each function whole (no stub in a live
-arm). Unfinishable → `Left open:` with its blocker; over a third left open
-is a failed handoff. Caps **15000 ins / 80 files** (over → undone; re-pick
-one file). Per function one `Ledger:` entry and one Verify line (> 10
-functions: one REACH sweep of the corpus). `finish-iteration` fails closed
-on a manifest function in neither bullet, or a new JS body under an
-undeclared open/partial C name. Must-fix stays one item, alone.
-
-**Campaigns.** A C function too big for one iteration (`really_done`,
-`getobj`) is a `[campaign k/n]` row series: each step ships `js/`, keeps
-44/44 + REACH-OK, and names in its row what the next step must do. A step
-that would regress the fortress after two fixes ships its verified core
-and pushes the rest into the next step's row. No step is "docs only".
+**Campaigns.** `[campaign k/n]` steps each ship `js/`, keep 44/44 +
+REACH-OK, and move a probe session (or name the one the next step moves);
+a campaign that moves nothing on the board is closed (D-3536…D-3554
+`des.door` game-marks: 10 steps, 0 sessions moved).
 
 ---
 
@@ -118,9 +112,7 @@ and pushes the rest into the next step's row. No step is "docs only".
 | Pattern | Example from this repo |
 |---------|------------------------|
 | Cite C, port branch order | `throwit` stops on `!ZAP_POS` like `bhit` (D-0005) |
-| Fix shared data semantics | `mkgold` merges into existing gold (D-0002) |
 | Remove invented fallback | `apport` from real `ACURR(A_CHA)` clamp, not `\|\| 10` (D-0004) |
-| Input-boundary fix | `--More--` owns keys before combat RNG (D-0001) |
 | Name omissions | D-entry Named omissions + `Ledger: <fn> partial` |
 
 ### Bad (delete on sight)
@@ -139,8 +131,18 @@ and pushes the rest into the next step's row. No step is "docs only".
 | Grid snapshot/restore to emulate a tty side effect the C loop never draws | D-1831 broke 12 corpus sessions; port the C control flow instead |
 | Helper clone dropping a C predicate (`inside_shop` sans `edge`) | D-1849; `sym.mjs`: IMPORT the export |
 
+### Busywork (not cheating — still a wasted iteration)
+
+| Anti-pattern | Why |
+|--------------|-----|
+| A "Must-fix" whose deliverable is `ledger.mjs set` (clipped omit, note/omit mismatch, cite drift) | No C-wrong, no `js/`, no session moves; ~40 shipped 2026-10-04..06 to hold a queue floor that no longer exists |
+| Re-auditing the same coverage head (`impossible` ×60); a campaign step on a path no corpus session reaches | An `audited` partial leaves the block; progress is a moved session or newly live C a session executes |
+| Treating `do not re-enqueue` / `archived D-…` as "done" while the board lists sessions blocked there | The tag is history; the board is the measurement |
+| Skipping the cliffs head because it "needs C instrumentation" | Then the measurement **is** the iteration (`[measure]`, §7) |
+
 **Rule of thumb:** if you cannot explain the change by a C `if`, call
-order, struct field, or macro expansion, it is trace tailoring.
+order, struct field, or macro expansion, it is trace tailoring. If you cannot name the corpus session it moves, it
+is busywork.
 
 ---
 
@@ -160,15 +162,14 @@ Green gate:       from CURRENT.md
 Cohort:           <distinct session sharing this code>
 ```
 
-`node scripts/brief.mjs <cfn>` fills C locus, JS locus, callers, corpus
-rows and replay command in one call. In the breadth phase the falsifier
-is `verify.mjs --fn <cfn>`: blocked sessions (if any) PASS or move later,
-**and** REACH-OK — every baseline-PASS corpus session that executes the
-function still passes. Branch envelope = **the whole C body**; "deferred"
-is allowed only for a callee that is itself a coverage row, named in the
-map in this commit.
+`hidden-proxy show <id>` fills the symptom channel and first divergence;
+`brief.mjs <cfn>` fills C/JS locus, callers, corpus rows, replay. The
+falsifier is `verify.mjs --fn <cfn>`: blocked sessions **PASS or move
+strictly later**, **and** REACH-OK. Branch envelope = **the whole C body**;
+"deferred" only for a callee that is itself a queue row, named in this
+commit.
 
-**Minimum C read:** function body + immediate callers + the `if` that guards the
+**Minimum C read:** body + immediate callers + the `if` that guards the
 diverging RNG. Do not patch from `rng-diff` output alone.
 
 ---
@@ -183,63 +184,68 @@ diverging RNG. Do not patch from `rng-diff` output alone.
 | Display/cursor/menus | green + viewer smoke if available |
 
 **One call:** `node scripts/verify.mjs --fn <cfn>` runs corpus verify,
-**REACH** (baseline-PASS corpus sessions whose C RNG log executes `<cfn>`,
-spread ≤ 80 — `--reach-all` before handoff on a hot function; a fixed
-smoke spread when none reach it), syntax, Rule #2 scan, green + strict,
-cohort, and the full suite when a shared file changed; paste its tail into
-the D-log Verify bullet. On a cohort/full/REACH FAIL it lists every failing
-session's first divergence: **triage them all** (group by row/owner), fix
-each cause once, re-run once. A REACH regression is a port bug you just
-wrote — fix it, never park it. `note hidden … no corpus session is
-blocked` is expected for most coverage rows; REACH-OK is the corpus
-evidence then. **Resuming a leftover:** verify is call ≤5, not call 150.
+**REACH** (baseline-PASS sessions whose C RNG log executes `<cfn>`, spread
+≤ 80 — `--reach-all` on a hot function; a fixed smoke spread when none
+reach it), syntax, Rule #2 scan, green + strict, cohort, and the full
+suite when a shared file changed; paste its tail into the D-log Verify
+bullet. On a FAIL it lists every failing session's first divergence:
+**triage them all**, fix each cause once, re-run once. A REACH regression
+is a port bug you just wrote — fix it, never park it. For a **cliff row**
+the `verify <fn>: N PASS, M moved, K no-movement` line is the deliverable:
+K must be 0 for the probe sessions, or the iteration ends as a measurement
+(§6.2). `note hidden … no corpus session is blocked` is expected only for
+a coverage row. **Resuming a leftover:** verify is call ≤5, not call 150.
 **`rng-diff`:** default segment 0; `--all-segments` for save recipes.
-**`PASS`:** inspect `__RESULTS_JSON__` / per-session lines — runner exit code
-can be 0 when sessions fail. Always `strict-output-check` on green sessions.
-**Callers table:** the brief lists every C call site of the function you
-ported. The D-log names, per site, the JS call now wired (file:line) or
-the named omission. The two 2026-09-15 QUALITY-RISKs (D-2393 wired into
-`throw_gold`, which C never calls it from; D-2395 left `Gloves_off`
-unwired) were both caller misses on otherwise exact bodies.
+**`PASS`:** inspect `__RESULTS_JSON__` — runner exit code can be 0 when
+sessions fail; always `strict-output-check` on green sessions.
+**Callers table:** the D-log names, per C call site in the brief, the JS
+call now wired (file:line) or the named omission (D-2393 / D-2395 were
+caller misses on otherwise exact bodies).
 
 ---
 
 ## 6. Iteration must end as exactly one of
 
-1. **Verified faithful change** — a cluster of whole C functions, C cited,
-   gates + REACH pass for each, DIAG removed, docs updated.
-2. **Falsified hypothesis** — revert experiment if needed; dead end in `NOTES.md`.
-3. **Campaign step** — a C function too big for one iteration shipped its
-   verified core and left `[campaign k/n]` rows naming the rest.
+1. **Verified faithful change with movement** — the cliff's C function
+   (family) whole, C cited, `verify` showing PASS / later step on the
+   probe sessions, REACH + gates pass, DIAG removed, docs updated.
+2. **Measurement** — NO MOVEMENT twice, so a C-side measurement at the
+   cited locus (§7) was taken; it names the writer (its row is the next
+   deliverable) or parks the owner with the exact probe command. One per
+   owner; no `js/`.
+3. **Falsified hypothesis** — revert experiment if needed; dead end in
+   `NOTES.md`, the row stays at the head.
+4. **Campaign step** — a C function too big for one iteration shipped its
+   verified core, moved a probe session (or named the one the next step
+   moves), and left `[campaign k/n]` rows naming the rest.
 
-**Not acceptable:** unverified hack, one arm of a function presented as
-the function, a REACH regression shipped as a "named omission", DIAG left
-in `js/`, an iteration that ends on a **stale** row (that is a 3-call
-detour before the real row), a `[measure]`/park iteration (phase 2).
+**Not acceptable:** unverified hack, one arm presented as the function, a
+REACH regression shipped as a "named omission", DIAG left in `js/`, an
+iteration that ends on a **stale** row (a 3-call detour, not an
+iteration), a ledger-text-only iteration, a re-audit of an `audited`
+function, a campaign step that moves no session, a row written to have a
+row.
 
 ---
 
 ## 7. When stuck — measure C, do not theorize
 
-**Geometry owner → probe first.** If the blocked owner is a level-wide
-scan or level-gen function (`mineralize`, `bound_digging`, `wallification`,
+**Geometry owner → probe first.** If the owner is a level-wide scan or
+level-gen function (`mineralize`, `bound_digging`, `wallification`,
 `place_lregion`, `somex`…), C only *noticed* a terrain difference there;
-the writer is upstream and an RNG count cannot say which cell. `node scripts/geom-probe.mjs <session-id> [--step N]`
-records a wizard `^F` map on the C recorder, replays JS and prints every
-differing cell plus the mineralize-eligible diff. Run it before opening a
-second C function (D-1849).
+the writer is upstream and an RNG count cannot say which cell.
+`node scripts/geom-probe.mjs <session-id> [--step N]` records a wizard
+`^F` map on the C recorder, replays JS and prints every differing cell.
+Run it before opening a second C function (D-1849).
 
 **Evidence grades.** Every NOTES / D-log claim about C state says
 *measured* (probe, recorded screen, temp C dump) or *inferred* (JS-only).
 A JS FORCE/DIAG that restores an RNG count never localizes (D-1849).
 
-**After two falsifications, or ~40 calls without a C measurement:** stop
-patching the symptom. Measure, reconstruct the C call path, port a tighter
-prerequisite, or park with the exact probe command in `NOTES.md`.
-
-**Temp C dump at the cited locus** (revert after) for keystream /
-`--More--` state or state the map cannot show (#1127, #1092).
-
+**After two NO MOVEMENTs, or ~40 calls without a C measurement:** stop
+patching the symptom. Measure (temp C dump at the cited locus for
+keystream / `--More--` state, revert after), or park with the exact probe
+command.
 
 ---
 
@@ -247,72 +253,65 @@ prerequisite, or park with the exact probe command in `NOTES.md`.
 
 | Fact type | Owner |
 |-----------|-------|
-| Score / green gate / primary objective | **`CURRENT.md`** (keep tiny; refresh Score every 10 loop iters via full `sessions`) |
+| Score / green gate / primary objective | **`CURRENT.md`** (keep tiny; Score refreshed on audits) |
 | Unresolved hypothesis / dead end | `NOTES.md` (target 100 lines; `check-hot-docs.mjs`) |
 | Parked row: one index line / full proof | `LOOP-QUEUE.md` Parked (≤ 300 chars) / `docs/archive/LOOP-QUEUE-PARKED.md` |
 | Proved cause / rejected theory | `DIVERGENCE-LOG.md` + index row |
 | Function status / omissions | D-entry `- **Ledger:**` bullet → `docs/ledger/` (never hand-edit) |
 | Iteration audit | prepend `AGENT-LOOP-JOURNAL.md` (`rotate-journal.mjs` / `--fix`) |
 
-Loop agents may **not** edit Constitution, runbook, **this playbook**, strategy,
-loop scripts, `sessions/**`, `frozen/**`, or upstream C. Propose process fixes
-in the journal.
+Loop agents may **not** edit Constitution, runbook, **this playbook**,
+loop scripts, `sessions/**`, `frozen/**`, or upstream C. Propose process
+fixes in the journal.
 
 ---
 
 ## 9. Pitfalls
 
-- Ship confident partials — name every deferral in the map section.
-- Over/under-edit — one iteration ≈ one semantic **cluster** (§2b).
+- Ship confident partials — name every deferral in the D-entry.
 - Confuse observation with rule — trace coords are evidence, not code.
 - Infer C state from JS, a FORCE, or an RNG count — measure C (§7).
-- Skip cohort — Tourist green ≠ Rogue/combat proof.
 - Stack shims — prefer **delete wrong JS + re-port C**.
-- Reach for Node `fs` — **Rule #2**; Chrome loads it too.
 - Spend calls on lookup — `brief.mjs` / `sym.mjs` / `csym.mjs` are one call each.
-- Serial regression rounds — one verify lists every FAIL; fix causes.
 - Prove a negative at length — a stale row gets one line, not a 2 kB essay.
-- Trust the owner column — `do_statusline1/2` and identical-topline screen
-  rows are the region heuristic; `hidden-proxy queue` now prints the
-  differing screen row (e.g. `AC:6` vs `AC:10`): port the **value's writer**.
+- Trust the owner column — `do_statusline1/2` and identical-topline rows
+  are the region heuristic; the cliff row prints the differing screen row
+  (`AC:6` vs `AC:10`): port the **value's writer**.
 
 ---
 
 ## 10. End each loop iteration with git
 
-**Reap your own processes before `finish-iteration`.** No worker you
-started may outlive the iteration (past cause: 100%-CPU `imports.mjs
---can` / `/tmp/*probe*.mjs` orphans). `jobs -l` +
+**Reap your own processes before `finish-iteration`** (`jobs -l`,
 `ps -o pid,ppid,etime,command | grep -E 'node (scripts/|/tmp/|frozen/)'`,
-`kill` what you started (`kill -9` only survivors); never touch the
-supervisor shell or `loop-observer/server.mjs`. Prefer `timeout <secs>`
-on probes/replays.
+`kill` what you started); never touch the supervisor shell or
+`loop-observer/server.mjs`. Prefer `timeout <secs>` on probes/replays.
 
 Commit with why (C locus / D-ID / verification); **`git push origin
-HEAD`**. The supervisor self-heals density (iteration undone, forward
-revert if pushed) and authority edits (files restored), treats a
+HEAD`**. The supervisor self-heals density and authority edits, treats a
 Parked-row move or a popped `[measure]` row as a legitimate no-`js/`
-iteration, pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green /
-full-suite regression and banned-pattern hits are logged and the loop
-continues.
-No `--force`, no amend of pushed commits, no `git reset --hard`.
-`STOP_AGENT_LOOP.md` is gitignored; only the supervisor writes `0`.
-`finish-iteration.mjs --commit` stamps `**Addressed:** D-NNNN`, archives
-the `- [x]` row, rotates the journal; the short hash goes in the **next**
-real commit (never a stamp-only SHA).
+iteration, reverts an empty port, pushes if you forgot
+(`docs/AGENT-PORT-LOOP.md`). No `--force`, no amend of pushed commits, no
+`git reset --hard`. `STOP_AGENT_LOOP.md` is gitignored; only the
+supervisor writes `0`. `finish-iteration.mjs --commit` stamps
+`**Addressed:** D-NNNN`, archives the `- [x]` row, regenerates both Open
+blocks, rotates the journal; the short hash goes in the **next** real
+commit.
 
 ---
 
 ## 11. Quick commands
 
 ```bash
+node scripts/hidden-proxy.mjs show <id>   # the cliff: first divergence, C vs JS draw, message owners, differing row, replay
 node scripts/brief.mjs <cfn>              # orient (C + JS + ledger + D-rows + corpus)
-node scripts/verify.mjs --fn <cfn>        # corpus verify + REACH + green/strict + cohort (+full)
-node scripts/finish-iteration.mjs --commit   # stamps from the D-log entry, commit, push
-node scripts/ledger.mjs show <cfn>…       # declared status + measured gap
-node scripts/ledger.mjs set <cfn> ported --note "stale: …"  # stale row
+node scripts/verify.mjs --fn <cfn>        # corpus verify (movement) + REACH + green/strict + cohort (+full)
+node scripts/geom-probe.mjs <id> --step N # C-side map measurement when NO MOVEMENT repeats (§7)
+node scripts/finish-iteration.mjs --commit   # stamps from the D-log entry, regenerates both Open blocks, commit, push
+node scripts/ledger.mjs set <cfn> ported --note "stale: …"  # stale row (inside an iteration, never one)
+node scripts/hidden-proxy.mjs queue       # the cliffs ranking (what --write puts in LOOP-QUEUE)
 node scripts/leaderboard.mjs              # held-out score — the objective (audit iters)
-node scripts/hidden-proxy.mjs status      # corpus fortress (audit iters)
+node scripts/hidden-proxy.mjs status      # corpus PASS + worst owners/families (audit iters)
 node frozen/ps_test_runner.mjs sessions   # public fortress (audit iters)
 ```
 

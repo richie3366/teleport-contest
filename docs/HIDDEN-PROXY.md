@@ -1,8 +1,11 @@
 # The hidden-score proxy — how the loop measures what it cannot see
 
 **Status:** adopted 2026-09-04; scenario cohort + saturation rule 2026-09-06;
-**demoted to regression fortress 2026-09-18** (breadth phase, Constitution
-§10.17). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
+demoted to regression fortress 2026-09-18 (breadth phase, Constitution
+§10.17); **the picker again since 2026-10-06** (cliff phase, §10.18:
+`queue --write` generates the LOOP-QUEUE cliffs block from the committed
+board, ranked by RNG lost; the breadth picker had run dry while 212/953
+sessions still failed). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
 `LEDGER.md` / `ledger.mjs` (which functions are ported, and which are thin).
 This file is about **evidence**: where a hidden session's divergence
 comes from, how to find it locally, and how to prove a port moved it —
@@ -68,7 +71,7 @@ cell plus the mineralize-eligible diff (D-1849).
 | **reach** (breadth phase) | same call: `hidden-proxy verify <cfn>` re-runs every baseline-PASS session whose recorded C RNG log tags `@ <cfn>(` (spread ≤ 80; `--reach-all`; `--no-reach`), or a fixed 24-session smoke spread when none does. Any PASS→FAIL is `REACH-REGRESSION` (exit 1) | shipping a whole-function port on the public 44 alone and discovering the corpus break at the next audit |
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
 | audit (mandatory) | `node scripts/hidden-proxy.mjs record` then `score` with no `--ids`/`--owner`, committed — writes `full: true`, `fullAt`, `entries`, `unrecorded`; the supervisor redoes it when an audit skips it (2026-09-28) | a scoreboard only ever rewritten row by row by port-time `verify`, so REACH baselines drifted; the committed board had shrunk to 12 private rows unnoticed |
-| refill | `node scripts/hidden-proxy.mjs queue` (owners already open/parked/archived are tagged — a parked owner's **writer** or a `[measure]` row is the legal follow-up; identical-topline screen rows print the differing screen row) → `[campaign]` steps → TOP30 rows with a **verified** missing arm → map omits only at ≥ 90 % corpus PASS | map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
+| **pick** (cliff phase) | `node scripts/hidden-proxy.mjs queue --write` (run by `check-hot-docs --fix` / `finish-iteration`): the top 12 owners of the **committed** board by RNG lost, JS throws first, written to the LOOP-QUEUE `Open — cliffs` block. Tags are context: `history: archived D-…` = read that D-entry once, the arm this divergence names is still open; `parked: SYMPTOM…` = the deliverable is the **writer** the divergence names or the owner's `[measure]` row; identical-topline screen rows print the differing screen row | hand refills; "do not re-enqueue" vetoes that locked out every top owner on 2026-10-06; map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
 | grow | `node scripts/scenario-gen.mjs --n 120 --seed N` when every family is ≥ 85 % PASS (audit iters) | a saturated proxy that picked display singletons |
 
 `verify <fn>` semantics: every session blocked on `<fn>` must **PASS** or

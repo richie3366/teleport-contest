@@ -1,225 +1,187 @@
 # Loop work queue
 
-Unattended **port** iterations pop the **first unchecked** row, preferring
-**Must-fix** over Open. The **Open — coverage** block is **generated** from
-`docs/ledger/` (`docs/LEDGER.md`); every other section is hand-kept and
-unchecked-only. Done Must-fix/corpus rows go to
+Unattended **port** iterations pop the **first unchecked** row, in this
+order: **Must-fix** (hand-written, strict), then the **Open — cliffs** head,
+then the **Open — coverage** head. Both Open blocks are **generated**
+(`node scripts/check-hot-docs.mjs --fix` regenerates both; `hidden-proxy.mjs
+queue --write` and `ledger.mjs rows --write` individually). Every other
+section is hand-kept. Done Must-fix rows go to
 `docs/archive/LOOP-QUEUE-DONE.md`, parked proofs to
-`docs/archive/LOOP-QUEUE-PARKED.md`; the retired refill paragraphs and
+`docs/archive/LOOP-QUEUE-PARKED.md`; retired refill paragraphs and
 Stale lines live in `docs/archive/LOOP-QUEUE-REFILLS.md` /
-`docs/archive/LOOP-QUEUE-STALE.md` (2026-09-27).
+`docs/archive/LOOP-QUEUE-STALE.md`.
 
-## Breadth phase (opened 2026-09-18 — Constitution §10.17, `CURRENT.md`)
+## Cliff phase (opened 2026-10-06 — Constitution §10.18, `CURRENT.md`)
 
-Held-out read **11/44, RNG 26.6 %, screens 50.0 %** on 2026-09-17 while the
-local corpus read 91.7 %: the corpus stopped predicting the judge. Until a
-human closes the phase, the ledger is the work. **Since 2026-10-03 a port
-iteration is one batch**: `node scripts/ledger.mjs batch --write` — the
-whole remaining gap (open · partial · recheck) of the top C file(s), 40–100
-whole functions; finish reconciles the D-entry `Ledger:` / `Left open:`
-bullets against that manifest. The rows below are Must-fix (pop first,
-ships alone) and fallbacks for when the batch picker finds no gap.
+The breadth phase (§10.17) ran its picker dry: on 2026-10-06
+`ledger.mjs batch` named **1** function, the ledger's measured counts had
+not moved since 2026-10-04 (`docs/ledger/SNAPSHOTS.tsv`), held-out sat at
+**16/44, RNG 34.8 %, screens 64.1 %** through ~50 iterations, and the loop
+filled its iterations with ledger-text "repairs" and re-audits of the same
+coverage head. Meanwhile the corpus read **741/953** with whole families
+below half (`scen-options` 1/20, `scen-town` 2/20, `scen-quest` 3/20,
+`scen-tutorial` 4/20) — unsaturated, and shaped like the held-out set.
+**The picker is the corpus again**, ranked by the metric held-out lags
+most: RNG calls lost after the first divergence.
 
-- **The block is generated** by `node scripts/ledger.mjs rows --write`
-  (`finish-iteration.mjs` and `check-hot-docs.mjs --fix` run it): measured
-  gap on the JS tree, ledger status unknown/absent/scaffold, not live
-  elsewhere, not parked. Never paste, reorder or hand-edit block rows.
-- **Handoff:** the D-entry `- **Ledger:** <fn> ported|partial|split` bullet;
-  finish writes the ledger row and the shipped row leaves the block.
-- **Stale check (≤ 3 calls, never an iteration):** `brief.mjs <fn>` shows the
-  C body already complete under this or split names →
-  `node scripts/ledger.mjs set <fn> ported --note "stale: <js file:line>"`
-  (split names: `set <fn> split --js a.js:x,b.js:y --note "stale: …"`), then
-  pop the next row and ship it in the same iteration. No Parked line.
-- A Must-fix/Open row in the **same C file** as the popped row ships in the
-  same iteration. `[measure]` rows, parks-as-work and `hidden-proxy queue`
-  refills are **phase 2** (section below) — not popped now. Every `verify`
-  must end **REACH-OK**; a regression is fixed in the port, never parked.
+- **The cliffs block is generated** from the **committed**
+  `hidden-corpus/scoreboard.json` (`hidden-proxy.mjs queue --write`, top 12
+  owners by RNG lost; JS throws first). It changes only when a `verify`
+  moves its sessions or an audit rescores the board. Never paste, reorder,
+  pad or hand-edit block rows.
+- **A tag on a row is context, not a veto.** `history: archived D-…` /
+  `ledger: ported` means a D-entry once shipped this owner — read that one
+  entry so the same arm is not re-ported; the board saying sessions are
+  still blocked there says the work is live. `parked: SYMPTOM /
+  MISATTRIBUTED / DIAGNOSED` keeps its discipline: the deliverable is the
+  **writer** the first divergence names (`hidden-proxy show <id>` →
+  `cEntry` vs `jsEntry`, `cMsgOwners`, differing row), or the owner's
+  `[measure]` row below — never a re-port of the symptom owner.
+- **Deliverable of a cliff row:** the owning C function (or the writer)
+  ported whole, and **movement** on the probe sessions —
+  `node scripts/verify.mjs --fn <fn>` shows PASS or a strictly later
+  first-divergence step for the sessions the row names, **and** REACH-OK.
+  NO MOVEMENT after one fix → measure C in the same iteration (playbook §7:
+  `geom-probe`, temp C dump, recorder screen); the measurement either names
+  the writer (port it) or becomes the `[measure]` row that parks the owner.
+- **Must-fix is strict:** a JS throw / worker hang in any session, a corpus
+  or public PASS→FAIL, a review-named C-wrong. A ledger omit/note that
+  disagrees with the live body is one `ledger.mjs set` inside whatever
+  iteration notices it — never a row, never an iteration.
+- **Stale check (≤ 3 calls, never an iteration):** `brief.mjs <fn>` shows
+  the C body already complete → `ledger.mjs set <fn> ported --note "stale:
+  <js file:line>"`, next row, same iteration.
+- **Coverage rows** (ledger gap) pop only when the cliffs block is empty, or
+  as a same-C-file companion of the cliff being worked. A coverage row
+  whose remaining omissions cannot ship is `audited` once and leaves the
+  block — never re-audited.
+- Every `verify` must end **REACH-OK**; a regression is fixed in the port,
+  never parked, never "named".
 
-## Row eligibility (hand-written rows — Must-fix and corpus)
+## Row eligibility (hand-written rows — Must-fix only)
 
 Between 2026-09-09 and 2026-09-15, 109 of 161 parked rows were **stale**
-(already shipped when written, refilled from map/debt/TOP30 lines). The
-ledger now records every retired function, so generated rows cannot repeat
-them; hand-written rows still carry their evidence.
+(already shipped when written, refilled from map/debt/TOP30 lines);
+between 2026-10-04 and 2026-10-06 ~40 Must-fix rows were ledger-text
+repairs self-filed to hold a queue floor. Both are the same failure: rows
+written to have rows. The generated blocks cannot repeat shipped work, and
+the floor is gone (`QUEUE_MIN` 1). Hand-written rows are **Must-fix only**
+and carry one of:
 
-Every `- [ ]` row **carries its evidence** in the row text, one of:
-
-- **coverage:** generated block only (never hand-written);
-- **corpus:** `blocks N/553 (<session-id>, step S, kind=rng|screen)` from
-  `node scripts/hidden-proxy.mjs queue` or a park that named this writer;
-- **missing arm:** `C <file.c>:<a>–<b> absent from js/<file>.js:<fn>` —
-  verified by reading the JS body in `node scripts/brief.mjs <fn>` at
-  enqueue, **not** by trusting a map/debt line or a D-number;
-- **hang/throw:** a corpus worker `ETIMEDOUT` / `ReferenceError` (Must-fix).
+- **hang/throw:** a corpus or public worker `ETIMEDOUT` / `ReferenceError`
+  (session id + step);
+- **regression:** `PASS→FAIL` naming the session, owner and the `js/` SHAs
+  since the last audit;
+- **review C-wrong:** `Source: reviews/loop-unattended/NN-…` with the C
+  lines the JS contradicts.
 
 Not evidence: a `c-js-map` deferral line, a `debt.md` D-number, a TOP30
-line ratio copied by hand, "dead callees" that are C `staticfn`, or
-"never own-row". A row without evidence is not appended. **The 8–12 band
-counts eligible rows only**; the generated block always tops itself up,
-so the queue never sits short during the breadth phase.
+line, a ledger omit/note mismatch, a cite drift, "unverified at enqueue".
+A row without evidence is not appended.
 
 **Park-and-requeue:** a diagnostic park that names the real writer (C
-function + session) **adds that writer as an Open row in the same commit**
-with the session as evidence — after one `brief.mjs <writer>` confirms
-the arm is still absent (a park's writer claim ages too: `ready_weapon`
-shine and `set_uasmon` infravision were queued 2026-09-16 from parks and
-had shipped as D-2182 / D-2276). A park that names no writer records the
-one C-side measurement that would (`geom-probe`, temp C dump, recorder
-screen) — that measurement is the next iteration's deliverable
-(`[measure]` row), not a reason to refill from the map. A finished
-`[measure]` row leaves **≤ 3 lines** in `NOTES.md` Active; the full
-measurement goes into the writer's Open row (and the archive parked row).
+function + session) **adds that writer as the deliverable of the cliff
+row** — after one `brief.mjs <writer>` confirms the arm is still absent (a
+park's writer claim ages too: `ready_weapon` shine and `set_uasmon`
+infravision were queued 2026-09-16 from parks and had shipped as D-2182 /
+D-2276). A park that names no writer records the one C-side measurement
+that would (`geom-probe`, temp C dump, recorder screen) — that measurement
+is a `[measure]` row (section below), popped when its owner is the cliffs
+head. A finished `[measure]` row leaves **≤ 3 lines** in `NOTES.md` Active;
+the full measurement goes into the writer's deliverable (and the archive
+parked row).
 
 Live Parked lines are **≤ 300 chars**: name — class — proof pointer —
 falsifier. Longer proof goes to the archive file under the same name.
 The supervisor recognises a Parked-row move, a ledger stale note, or a
-popped `[measure]` row as a legitimate no-`js/` iteration; an iteration
-whose only parks are stale gets a "ship the queue head" overlay on the
-next port iteration.
+popped `[measure]` row as a legitimate no-`js/` iteration; two consecutive
+no-`js/` iterations on the same owner mean the owner is parked with its
+probe command, not worked a third time.
 
-Sources for hand-written rows — **breadth phase:** none (the block is generated).
-**Phase 2 (closed):** `node scripts/hidden-proxy.mjs queue` (owners not yet parked; a
-parked owner's **writer** row, if named, counts), `[campaign]` next steps,
-`[measure]` rows for the top parked corpus owners by sessions blocked,
-`ledger.mjs summary --top N` rows the corpus reaches **with a verified
-missing arm**, then ledger `partial` omissions. A level-gen owner (`mineralize`, `bound_digging`,
-`wallification`, `place_lregion`…) is where C *noticed* the difference: its
-falsifier is `node scripts/geom-probe.mjs <session>`. Do not duplicate live,
-archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
+## Must-fix (from reviews / rescore) — pop first, ships alone
 
-## Must-fix (from reviews) — pop first
+Written reviews are not theater. Each item is a Keep'd **C-wrong** (JS
+contradicts C, not a named omit), a throw/hang, or a PASS→FAIL. After
+shipping: stamp the cited review `**Addressed:** D-NNNN` (D-id only), mark
+the queue line `- [x]`, then run `node scripts/archive-loop-queue-done.mjs`
+**in this same commit**. Do **not** leave `- [x]` in this file. Do **not**
+put this commit's hash in the same SHA (chicken-egg), amend, or make a
+stamp-only follow-up. The **next** real commit fills the short hash on the
+review (and on the archive row) from `git log -1 --format=%h` of the fix.
 
-- [ ] insight.c list_vanquished 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — list_vanquished ← clipped restore (row omit ends "`vanqsort_cmp` MCLS_* arms …" at the 300 cap, quoted from live `docs/ledger/insight.c.jsonl` 2026-10-06, d=D-2769,D-2154, no note, at seed@a30a7de84 (seed-original clip, never restored); full text in D-2769 Named; JS body reads whole at enqueue js/insight.js:1275–1427, C 104/JS 98 ok — likely restore-compacted or retire-stale, D-2769/D-2154 Ledger/Named truth + caller wiring (C end.c:607/660 + insight.c:2771 → JS sites) unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the seffect_destroy_armor head drops the band to 7, finish fails closed below 8).
-- [ ] objnam.c doname_base 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — doname_base ← clipped restore (row omit ends "C `doname_vag…" mid-word at the 300 cap, quoted from live `docs/ledger/objnam.c.jsonl` 2026-10-06, d=D-2497,D-1521, no note, at seed@a30a7de84 (seed-original clip, never restored); full text in D-2497 Named (visible: obuf/xnamep/eos/Concat/strprepend/releaseobuf/sitoa + doname_full/paniclog D-2483 + leash impossible() + distant_name comment + doname_vag… tail); JS body reads whole at enqueue js/objnam.js:3265–3723, C 320/JS 267 ok, C-order with per-arm C cites, doc :3257–3264 carries matching in-code Named — likely restore-compacted or retire-stale, D-2497/D-1521 Ledger/Named truth + caller wiring (C objnam.c:1756 doname/:1763/:1782 doname_vague_quan/:2326 paydoname → JS sites) unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the initoptions_init head drops the band to 7, finish fails closed below 8).
-- [ ] mkmaze.c makemaz 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — makemaz ← clipped restore (row omit ends "`In_hell` (no live export — inline hellish-flag read matchi…" mid-word at the 300 cap, quoted from live `docs/ledger/mkmaze.c.jsonl` 2026-10-06, d=D-2492,D-1906,D-1895,D-1891,D-1890,D-1888, note "stale-split: whole C body present across makemaz + makemaz_maze_fallback (D-2492); 5 C call sites wired in makelevel; omits kept: SPLEVTYPE getenv Rule#2, Is_branchlev same-file local (C-exact branch scan)", at 2026-10-01@6e06fa8e7; full text in D-2492 Named — SPLEVTYPE getenv endpoint (Rule #2) + Is_branchlev same-file local + load_special file IO (bare-stem dispatch) + In_hell inline-flag tail; JS split reads whole at enqueue js/mklev.js:3146 local async (C-order doc :3130–3145, protofile :1133–1157 + SPLEVTYPE named omit + guarded load :1184–1195) + makemaz_maze_fallback, C 67/JS 52 ok — likely restore-compacted or retire-stale, D-2492 Ledger/Named truth + caller wiring (5 C makelevel sites :1270–1289 → JS) unverified at enqueue; brief flags Is_branchlev now live js/dungeon.js:2905 vs omit "no live export" + check_ransacked NOT FOUND (orctown ASSIGN inlined per doc :3186?) — repair-time calls); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the restmon head drops the band to 7, finish fails closed below 8).
-- [ ] objnam.c xname_flags 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — xname_flags ← stale-note-vs-omit restore-or-retire (live row status split, js [xname_flags, pretty_base], omit 252ch unclipped "nextobuf/PREFIX/ConcUpdate/Concat truncation + eos overflow paniclog (by-design JS strings); glorkum default + SLIME_MOLD-bad-fruit `impossible()` (async in JS); `armor_simple_name` for called (still `dn`); xname article arms; `hawaiian_design`/doread." quoted from live `docs/ledger/objnam.c.jsonl` 2026-10-06, d=D-2483,D-2070,D-1802, at 2026-10-01@5b559b238, note "stale: whole C body complete split — switch in pretty_base :687 (one arm per C case), gameover suffix :667, SINGULAR caller cxname_singular :1365 wired; omits stay buffer/impossible per D-2483/D-3064" — note accounts 2 of 5 omit clauses, armor_simple_name/article/hawaiian_design fate open; full text in D-2483 Named; JS split reads whole at enqueue js/objnam.js:1048 sync export + pretty_base, C 300/JS 283 ok, brief callee table: nextobuf by-design D-3300, impossible partial audited D-3548 cannot-ship, xcalled/releaseobuf same-file locals — likely retire-stale or narrow-to-live-clauses, D-2483 Ledger/Named truth + caller wiring unverified at enqueue; brief flags nextobuf NOT FOUND (by-design) + xcalled clone js/do_wear.js:276 — repair-time calls); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger stale-note scan + brief 2026-10-06; popping the readobjnam head drops the band to 7, finish fails closed below 8).
-- [ ] cmd.c can_do_extcmd 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — can_do_extcmd ← ported-with-omit inconsistency (live row status ported yet carries omit 107ch unclipped "`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack." quoted from live `docs/ledger/cmd.c.jsonl` 2026-10-06, d=D-2899, note "stale: js/cmd.js:762 — whole C body live incl NHCB_CMD_BEFORE via nh_callback_run; Lua-stack mechanics by-design (nhl_pcall_handle)" — note already declares the omit by-design but the omit field still carries it; full text in D-2899 Named; JS body reads whole at enqueue js/cmd.js:852 async export, C 19/JS 14, NHCB_CMD_BEFORE via nh_callback_run :857–860, WIZMODECMD pline :862–865, buried You_cant :866–869, NOFUZZERCMD :870–872, return-true :873, all C-cited — likely retire-omit-into-note (nhl_pcall_handle by-design MISSING, no scored analogue), D-2899 Ledger/Named truth + caller wiring (C cmd.c:505/:3689 → JS sites) unverified at enqueue; brief flags note :762 stale (export now :852) + measured PARTIAL vs declared ported — repair-time calls); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger stale-note scan + brief 2026-10-06; popping the role_menu_extra head drops the band to 7, finish fails closed below 8).
-- [ ] pickup.c pickup 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — pickup ← stale-note-vs-omit restore-or-retire (live row status split, js [pickup, pickup_traditional_floor, query_objlist_pickup], omit 132ch unclipped "- `pickup`: select_menu digit-count entry (menu picks are whole-pile; count-N `5,` path unaffected; menu-machinery domain, own row)." quoted from live `docs/ledger/pickup.c.jsonl` 2026-10-06, d=D-3199,D-2350,D-1926, at 2026-10-01@057174e0c, note "stale: whole C body complete across split homes (D-3199: gates/nomul/menu+count-N/traditional+via_menu/tail); keeps omit" — note declares the body whole but the omit still names the digit-count arm; full text in D-3199 Named; JS split reads whole at enqueue js/pickup.js:1940 async export, C-order doc :1916–1939 with matching in-code Named :1937–1938, C 168/JS 278 ok, 0 blocked sessions — likely retire-stale or narrow-to-live-clause, D-3199 Ledger/Named truth + caller wiring unverified at enqueue; brief flags autopick + query_classes NOT EXPORTED (local clones js/pickup.js:1895/:3519) — repair-time calls); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger stale-note scan + brief 2026-10-06; popping the rloc_to_core head drops the band to 7, finish fails closed below 8).
-Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
-contradicts C, not a named omit). After shipping: stamp the cited review
-`**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then
-run `node scripts/archive-loop-queue-done.mjs` **in this same commit**.
-Do **not** leave `- [x]` in this file. Do **not** put this commit’s hash
-in the same SHA (chicken-egg), amend, or make a stamp-only follow-up.
-The **next** real commit fills the short hash on the review (and on the
-archive row) from `git log -1 --format=%h` of the fix.
-
-Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
+Review iterations **prepend** new Keep'd C-wrongs here (not under Open).
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
 always Must-fix rows: they forfeit every later screen of that session
-(Constitution §10.14).
+(Constitution §10.14). The generated cliffs block lists them first as well.
 
-## Open — coverage (breadth phase — pop first after Must-fix)
+## Open — cliffs (cliff phase — pop first after Must-fix)
+
+Generated block — do not edit between the markers. Row: owner (C
+function at the first divergence), sessions blocked, first step, RNG and
+screens lost after it, C vs JS at the divergence, probe sessions, board
+SHA, and the tag (history / parked / none). Deliverable: the owner — or the
+writer the divergence names — ported whole in C order, every C caller
+wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
+probe sessions and **REACH-OK**.
+
+<!-- cliffs:begin -->
+- [ ] `mkobj.c` next_ident — blocks 14/953 corpus sessions (first at step 51; RNG lost 50083, screens lost 1537): C draws `rnd(2)=1` in next_ident, JS `rn2(7)=3` from do_attack(uhitm.js:4949). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-town-Healer-94122, scen-town-Healer-94202, scen-town-Healer-94262). @b39cb750e **[history: archived D-2228 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `teleport.c` level_tele — blocks 13/953 corpus sessions (first at step 35; RNG lost 37978, screens lost 1677): C «You materialize on a different level!--More--» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-quest-Healer-94016, scen-quest-Healer-94396, scen-quest-Knight-94256). @b39cb750e **[history: archived D-2136 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `monmove.c` distfleeck — blocks 5/953 corpus sessions (first at step 125; RNG lost 12524, screens lost 352): C draws `rn2(7)=3` in distfleeck, JS `rnd(20)=1` from mattacku(mhitu.js:4125). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-engrave-Knight-94018, scen-longrun-Archeologist-94094, scen-longrun-Valkyrie-94274). @b39cb750e **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `allmain.c` welcome — blocks 9/953 corpus sessions (first at step 167; RNG lost 5042, screens lost 184): C «Aloha wizard, the human Tourist, welcome back to NetHack!--M» vs JS «Aloha wizard, the human Tourist, welcome back to NetHack!». Probe: `node scripts/hidden-proxy.mjs verify welcome` (scen-container-Tourist-94246, scen-container-Wizard-94186, scen-dig-Healer-94295). @b39cb750e **[history: archived D-2725 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `cmd.c` yn_function — blocks 25/953 corpus sessions (first at step 148; RNG lost 4633, screens lost 711): C «Do you want to keep the save file? [yn] (n)» vs JS «You are lucky! Full moon tonight.--More--». Probe: `node scripts/hidden-proxy.mjs verify yn_function` (scen-container-Caveman-94206, scen-container-Caveman-94226, scen-container-Tourist-94026). @b39cb750e **[history: archived — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `dogmove.c` dog_goal — blocks 2/953 corpus sessions (first at step 69; RNG lost 3606, screens lost 214): C draws `rn2(8)=6` in dog_goal, JS `rn2(100)=2` from obj_resists(dogmove.js:173). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-container-Barbarian-94326, scen-quest-Archeologist-94096). @b39cb750e **[history: archived D-2149 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `botl.c` do_statusline2 — blocks 20/953 corpus sessions (first at step 22; RNG lost 3173, screens lost 1497): toplines identical; first differing screen row 23: C «Dlvl:2 $:1345 HP:10(12) Pw:6(6) AC:8 Xp:1/5 T:38» vs JS «Dlvl:2 $:1345 HP:10(12) Pw:6(6) AC:8 Xp:1/5 T:37» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-descend-Healer-94307, scen-descend-Samurai-94207, scen-impaired-Samurai-94130). @b39cb750e **[parked: RETIRED D- — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `dig.c` watch_dig — blocks 2/953 corpus sessions (first at step 87; RNG lost 2880, screens lost 81): C «fountain» vs JS «chaotic altar». Probe: `node scripts/hidden-proxy.mjs verify watch_dig` (scen-town-Tourist-94022, scen-town-Tourist-94102). @b39cb750e **[history: archived D-2319 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `teleport.c` collect_coords — blocks 1/953 corpus sessions (first at step 131; RNG lost 2413, screens lost 35): C draws `rn2(8)=3` in collect_coords, JS `rn2(13)=0` from goodpos(teleport.js:469). Probe: `node scripts/hidden-proxy.mjs verify collect_coords` (scen-tour-Tourist-92100). @b39cb750e **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `trap.c` trapeffect_landmine — blocks 2/953 corpus sessions (first at step 132; RNG lost 1719, screens lost 87): C «You are in non-scoring explore/discovery mode.--More--» vs JS «You are lucky! Full moon tonight.». Probe: `node scripts/hidden-proxy.mjs verify trapeffect_landmine` (scen-descend-Knight-94127, scen-pet-Wizard-94125). @b39cb750e **[history: archived D-3255 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `monmove.c` m_move — blocks 3/953 corpus sessions (first at step 40; RNG lost 1345, screens lost 145): C draws `rn2(32)=24` in m_move, JS `rn2(20)=8` from m_move(monmove.js:2309). Probe: `node scripts/hidden-proxy.mjs verify m_move` (scen-descend-Tourist-94007, scen-sokoban-Monk-94143, scen-sokoban-Samurai-94163). @b39cb750e **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `eat.c` gethungry — blocks 4/953 corpus sessions (first at step 7; RNG lost 1234, screens lost 76): C draws `rn2(20)=5` in gethungry, JS `rn2(77)=10` from makemon_rnd_goodpos(makemon.js:3205). Probe: `node scripts/hidden-proxy.mjs verify gethungry` (scen-tutorial-Barbarian-94039, scen-tutorial-Barbarian-94159, scen-tutorial-Caveman-94119). @b39cb750e **[parked: PRESENCE-ONLY — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+<!-- cliffs:end -->
+
+## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
 
 Generated block — do not edit between the markers. Row: measured class,
 C/JS code lines (comments, `#if 0`, braces dropped), hops from the turn
 loop, callers, RNG/message loudness, enqueue sha. Deliverable: the whole C
 body in C order — every arm, every callee live or named, every C caller
-wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
-Head order is call-heat from the 2026-09-28 replay of 985 sessions
-(941 hidden + 44 public): hottest queue-eligible functions first.
-`rows --write` keeps that order while they stay eligible.
+wired, `node scripts/verify.mjs --fn <fn>` REACH-OK. A row whose
+remaining omissions cannot ship is declared `audited` once and leaves.
 
 <!-- coverage:begin -->
-- [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 22 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog) @1ae9cc180
 <!-- coverage:end -->
 
-## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)
+## Open — missing-arm (hand-verified; cliff-phase companions only)
 
-The generated block held 0 rows on 2026-10-02 (every remaining gap ≤ 7
-lines); the 2026-10-03 ledger audit declared 4 absent functions at C
-13–14 lines, so the block carries 3 rows again (`tricked_fileremoved` at
-C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
-`brief.mjs`-at-enqueue evidence (C body + call sites + JS status), never
-a map/debt/TOP30 line. Pop order: first unchecked here after
-Must-fix/coverage.
-(Refill history D-3399…D-3425 archived 2026-10-06 in docs/archive/LOOP-QUEUE-REFILLS.md — queue cap trim.)
-D-3437 (Open head + litter fix; band 4 < 8 blocks finish) refilled +4
-with brief-verified missing arms (doopen_indir glyph, toss_up can_blnd,
-dokick oldmem, more fuzzer — each C + JS read at enqueue) to hold the
-8-row band.
-D-3439 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
-with brief-verified missing arms (use_camera s_suffix, carry_count
-invent predicate, docorner ystart paging, use_cream_pie can_blnd —
-each C + JS read at enqueue) to hold the 8-row band.
-D-3441 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
-with brief-verified missing arms (mhitm_ad_blnd can_blnd subsets,
-disclose quit/died, mattackm bhitpos, that_is_a_mimic trapped-chest —
-each C + JS read at enqueue; drinkfountain case-29 + trapeffect_pit
-wormno + 3 possessive sites verified already-whole, no rows) to hold
-the 8-row band.
-D-3443 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
-with brief-verified missing arms (mattackm notice last_hider/dream,
-resists_blnd_mm Sunsword, gulpmu_can_blnd stale clone,
-resists_blnd_mon — each C + JS read at enqueue; mhidden_description
-appear-message verified behaviorally divergent, not an absent arm —
-no row) to hold the 8-row band.
-D-3445 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
-with brief-verified clone-drift rows (mhitu/detect/trap/muse
-resists_blnd subsets → live mondata.js:451 export — each C + JS read
-at enqueue; music.js a_monnam verified already-live (:43 import,
-:294/:296 users — ledger note stale, no row); zap.js:4607
-resists_blnd_you (C zap.c:3062, user :4660) held as unverified
-backup) to hold the 8-row band.
-D-3447 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4
-with brief-verified switch rows (zap/engrave resists_blnd → live
-mondata export; zap bypass_obj + sit which_armor → live worn exports
-— each C + JS read at enqueue; raw_printf/config_error_add/
-purge_all_custom_entries/tin_variety_txt/livelog_newform/
-retouch_equipment/can_blnd callers all verified already-whole, doset
-wc2 arm a mis-skipping model gap, newman omit stale — no rows;
-trap.js:3851 which_armor chain-scan held as backup: behaviorally
-complete for its monster-only users) to hold the 8-row band.
+Hand-written rows with `brief.mjs`-at-enqueue evidence (C arm quoted, JS
+body read). Since the cliff phase they are **not** a pop source on their
+own: a row ships as a same-C-file companion of the cliff being worked, or
+when both generated blocks are empty. No new rows are added here (the
+2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
+in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
-D-3449 (Open head ×4 shipped; band 4 < 8 blocks finish) refilled +4 with brief-verified switch rows (weapon/steed/mklev/trap which_armor → live worn.js:472 — each C + JS read at enqueue; mhitm.c:759 archon + Resists_Elem BLND_RES + can_blnd light arm + uhitm flash sites verified already-live, mon.c:918 bypass gate verified C-exact, worn mark() inline verified body-identical — no rows) to hold the 8-row band.
-D-3451 (Open head ×4 shipped + impossible audit; band 4 < 8 blocks finish) refilled +4 with batch-preview partials (each omit brief-read this iter) to hold the 8-row band.
-
-D-3453 (Open head ×4 shipped: doset model + moveloop C-whole + 2 audits;
-band 4 < 8 blocks finish) refilled +4 with brief-verified batch-preview
-partials (newgame NEWS/reset, record_achievement sound no-op, windowport
-caps wire + display arm — each C + JS read at enqueue) to hold the 8-row
-band.
-D-3455 (Open head ×4 shipped: wincap2 caps wire + 3 audits; band 4 < 8
-blocks finish) refilled +4 with brief-verified batch-preview partials
-(opt_usage/sanity_check/parseautocomplete unshippable-omit audits,
-bc_sanity_check misfiled-omit retire — each C + JS read at enqueue;
-status_initialize twin filed then swept by the archiver — shared the
-shipped row's fn token, re-fileable next iter) to hold the 8-row band.
-D-3457 (batch ×7 shipped: 2 fidelity fixes + bc retire + 5 audits; band 4 < 8 blocks finish) refilled +4 with brief-verified missing arms (regen_hp rehumanize arm, exercise encumber_msg tail, dodown misfiled omit, migrate_to_level unstuck — C bodies + JS sites read at enqueue; two tails verify-at-ship noted in rows) to hold the 8-row band.
-
-D-3461 (Open head ×3 shipped + impossible audit; band 5 < 8 blocks finish) refilled +3 with brief-verified missing arms (wizkit config_error pair files.c:2577/2592/2597, tty_yn entry STOP+NOSTOP gate — each C + JS read at enqueue) to hold the 8-row band.
-D-3556 (batch ×9 + impossible audit shipped, reveal_terrain ported out of the block; band 7 < 8 blocks finish) refilled +1 with a brief-verified clone-drift row (strange_feeling_scroll HHallucination drift — C + both JS bodies read at enqueue; D-3445 precedent) to hold the 8-row band.
 - [ ] `read.c` strange_feeling_scroll — clone-drift: C has one `strange_feeling` (potion.c:1461–1476, read.c sites :1128/:1334/:1388); JS clone js/read.js:1217 serves :1279/:1331/:1568 instead of live js/detect.js:241 — C potion.c:1465 Hallucination-macro extrinsic arm absent from js/read.js:strange_feeling_scroll (clone reads `u.Hallucination` only, live reads H||HH) — C + both JS bodies read at enqueue 2026-10-06; deliverable: 3 sites → live export, delete clone.
 
-## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
+## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
-Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;
-the fix is the owning C function's port, never a read of a seed, step or
-coordinate. Verify with `node scripts/verify.mjs --fn <fn>` (uses the
-committed scoreboard; if the row was queued at an older SHA pass
-`--base <sha>`). During the breadth phase these pop only when the
-coverage list is empty, or alongside a coverage row in the same C file.
+A `[measure]` row delivers a C-side measurement + the writer named by it;
+no `js/` in that commit (the supervisor recognises it). It is popped when
+the owner it names heads the cliffs block (or is the writer of the head),
+not on its own. `[campaign k/n]` rows are steps of one multi-iteration
+plan and ship `js/` every step.
 
-## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
-
-Plain bullets on purpose (not popped, not counted). `[measure]` rows
-deliver a C-side measurement + the writer's Open row, no `js/`;
-`[campaign]` rows are steps of one multi-iteration plan. Re-enable as
-`- [ ]` under Open when the phase reopens.
-
-- `[measure]` Healer (43–47,10–14) cluster first-divergent-turn (W2 park follow-up) — C TEMP-W2 MFND history (re-record scen-tour-Healer-92055 with a log-only `mfndpos`/`m_move` dump in the ignored recorder tree: `mon.c` pre-`data->cnt`, `monmove.c` post-`mfndpos` + track-check, `rng_log_get_call_count()` for correlation, rebuild `CC="cc -arch x86_64"`, revert + rebuild after) vs JS prefix probes (`runSegment` with step-keys 1..T from the committed session, dump cluster occupancy) for T=95–104: bisect to the first turn whose start arrangement differs (turn-104-start: (44,12) C 230 vs JS empty, (45,12) C 246 vs JS 230, (45,11) C 244 vs JS 246?, (46,10) JS 244; test one-turn-lag), then queue the writer's Open row with the session as evidence. No `js/` in the measure commit.
-- `[measure]` Samurai-92161 step-37 pet-turn ray-rejector (W3 park follow-up) — blocks 1/553 (scen-tour-Samurai-92161 step 37/88 kind=rng: C 1× rnd(5)@score_targ then distfleeck vs JS wolf+samurai 2×; dog loop proven faithful, see Parked `dogmove.c` W3). Deliverable: TEMP-C re-record with log-only find_targ/best_target dump in the ignored recorder tree (W2-park recipe: `nethack-c/recorder/src/dogmove.c` per-ray m_at/minvis/mundetected/head-square + pet mux/muy + best_target per-ray scores at step 37, `make Sysunix CC="cc -arch x86_64"`, revert + rebuild after; probes in /tmp, never committed), then the writer's Open row with the session as evidence (suspect unseen-layout/lifecycle writer: C (54,7)/(55,8) content vs JS samurai@(55,8)); if the dump shows C's loop (not state) differs, re-queue as dog-loop Open instead. No `js/` in the measure commit.
+- [ ] `[measure]` `monmove.c` mfndpos / Healer (43–47,10–14) cluster first-divergent-turn (W2 park follow-up; owner `distfleeck` still blocks 5–7 corpus sessions, 12–35k RNG lost) — C TEMP-W2 MFND history (re-record scen-tour-Healer-92055 with a log-only `mfndpos`/`m_move` dump in the ignored recorder tree: `mon.c` pre-`data->cnt`, `monmove.c` post-`mfndpos` + track-check, `rng_log_get_call_count()` for correlation, rebuild `CC="cc -arch x86_64"`, revert + rebuild after) vs JS prefix probes (`runSegment` with step-keys 1..T from the committed session, dump cluster occupancy) for T=95–104: bisect to the first turn whose start arrangement differs (turn-104-start: (44,12) C 230 vs JS empty, (45,12) C 246 vs JS 230, (45,11) C 244 vs JS 246?, (46,10) JS 244; test one-turn-lag), then port the writer with the session as evidence. No `js/` in the measure commit.
+- [ ] `[measure]` `dogmove.c` best_target / Samurai-92161 step-37 pet-turn ray-rejector (W3 park follow-up) — blocks 1/953 (scen-tour-Samurai-92161 step 37/88 kind=rng: C 1× rnd(5)@score_targ then distfleeck vs JS wolf+samurai 2×; dog loop proven faithful, see Parked `dogmove.c` W3). Deliverable: TEMP-C re-record with log-only find_targ/best_target dump in the ignored recorder tree (W2-park recipe: `nethack-c/recorder/src/dogmove.c` per-ray m_at/minvis/mundetected/head-square + pet mux/muy + best_target per-ray scores at step 37, `make Sysunix CC="cc -arch x86_64"`, revert + rebuild after; probes in /tmp, never committed), then port the writer with the session as evidence (suspect unseen-layout/lifecycle writer: C (54,7)/(55,8) content vs JS samurai@(55,8)); if the dump shows C's loop (not state) differs, re-queue as dog-loop Open instead. No `js/` in the measure commit.
 
 ## Deferred (map-driven singletons — not popped by hand)
 
-Plain bullets on purpose (not popped, not counted). During the breadth
-phase a function listed here enters Open only through
-the generated coverage block (ledger status + measured gap), or as a same-C-file companion
-of a popped coverage row — never by copying the line.
+Plain bullets on purpose (not popped, not counted). A function listed
+here enters Open only through a generated block (a corpus session blocked
+on it, or ledger status + measured gap), or as a same-C-file companion of
+the row being worked — never by copying the line.
 
 - `monmove.c` dochug demon/caster retaliation — MS_BRIBE mux skipped by D-1798; live `demon_talk`/`cuss` unwired at monmove.c:823/985 (sounds.c:1143/1150 wired).
 - `artifact.c` artiname/discover_artifact/artidisco[] save-rest — discovery announce + artidisco bit (D-1107 live; save/rest artidisco named; c-js-map data.md).

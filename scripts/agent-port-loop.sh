@@ -120,11 +120,11 @@ runs still halt (out of tokens; tree kept). A provider quota error
 (ActionRequiredError / "out of usage") halts at once with the latch
 armed — relaunch with --continue-unfinished. The continue overlay
 carries a resume brief (scripts/loop-resume-brief.mjs over the prior
-.raw). Queue below LOOP_QUEUE_MIN (8) asks for a refill of
-evidence-carrying rows only (LOOP-QUEUE.md header: corpus owners, park-named
-writers, [campaign] steps, [measure] rows — never map/debt/TOP30 copies;
-target LOOP_QUEUE_TARGET 12); halt after a port that still has no
-open items. Agents commit and push; the script fail-closes and pushes
+.raw). Queue below LOOP_QUEUE_MIN (1 since the 2026-10-06 cliff phase —
+the Open blocks are generated, never padded) asks for a regeneration
+(`hidden-proxy.mjs queue --write`, `ledger.mjs rows --write`); hand rows
+are Must-fix only (throw/hang/PASS→FAIL/review C-wrong). Target
+LOOP_QUEUE_TARGET 12 is the generated block size. Agents commit and push; the script fail-closes and pushes
 if they forgot. STOP_AGENT_LOOP.md is gitignored; only this script
 writes 0, at launch.
 See docs/AGENT-PORT-LOOP.md.
@@ -558,7 +558,7 @@ LOOP_RESCORE_JOBS="${LOOP_RESCORE_JOBS:-8}"
 LOOP_RESCORE_TIMEOUT_SEC="${LOOP_RESCORE_TIMEOUT_SEC:-5400}"
 LOOP_PUSH="${LOOP_PUSH:-1}"
 LOOP_FAIL_CLOSED="${LOOP_FAIL_CLOSED:-1}"
-LOOP_QUEUE_MIN="${LOOP_QUEUE_MIN:-8}"
+LOOP_QUEUE_MIN="${LOOP_QUEUE_MIN:-1}"
 LOOP_QUEUE_TARGET="${LOOP_QUEUE_TARGET:-12}"
 REVIEW_PROMPT_FILE="${REVIEW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.review.prompt.md}"
 CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadence.prompt.md}"
@@ -1195,13 +1195,13 @@ arm_empty_port_prompt() {
         echo "\`js/\` port work."
         ;;
       queue-empty)
-        echo "The queue is still empty after port. Run \`node scripts/ledger.mjs"
-        echo "rows --write\` first (the coverage block is generated). Only if it"
-        echo "stays short, add Open rows that carry"
-        echo "evidence (LOOP-QUEUE.md header: corpus owner not yet parked, a"
-        echo "park's named writer, a [campaign] step, a [measure] row for the top"
-        echo "parked corpus owner) before or alongside the next port cluster."
-        echo "Do not copy c-js-map / debt.md / TOP30 lines."
+        echo "The queue is still empty after port. Run \`node scripts/check-hot-docs.mjs"
+        echo "--fix\` first: it regenerates the **Open — cliffs** block"
+        echo "(\`hidden-proxy.mjs queue --write\`, committed scoreboard) and the"
+        echo "**Open — coverage** block (\`ledger.mjs rows --write\`). Never pad the"
+        echo "queue by hand (no ledger-text 'repairs', no c-js-map / debt.md / TOP30"
+        echo "copies). If both blocks are empty the corpus is saturated: journal it;"
+        echo "the audit grows the corpus (\`scenario-gen.mjs\`, Constitution §10.18)."
         ;;
     esac
   } >"$NEXT_ITER_PROMPT"
@@ -1963,24 +1963,20 @@ while true; do
   if [[ "$resume_unfinished" != "1" ]] && (( open_now < LOOP_QUEUE_MIN )); then
     echo "$(date -Iseconds) === queue refill required (open=${open_now} min=${LOOP_QUEUE_MIN} target=${LOOP_QUEUE_TARGET}) ===" \
       | tee -a "$MASTER_LOG"
-    prompt_body+=$'\n\n## Queue refill (this iteration, eligible rows only)\n'
-    prompt_body+="Open \`- [ ]\` count is ${open_now} (min ${LOOP_QUEUE_MIN}, target ${LOOP_QUEUE_TARGET})."$'\n'
-    prompt_body+=$'If you archive this iter’s item, count the remainder **after** archive.\n'
-    prompt_body+=$'Append **Open** rows that carry **evidence** (LOOP-QUEUE.md header) up to\n'
-    prompt_body+="about ${LOOP_QUEUE_TARGET}"
-    prompt_body+=$': breadth phase — (1) `node scripts/ledger.mjs rows --write` regenerates the\n'
-    prompt_body+=$'generated **Open — coverage** block from docs/ledger (never paste rows by\n'
-    prompt_body+=$'hand; a stale row is `ledger.mjs set <fn> ported --note "stale: …"`); then,\n'
-    prompt_body+=$'only if the block is still short: (2)\n'
-    prompt_body+=$'`node scripts/hidden-proxy.mjs queue --limit 30` owners not tagged\n'
-    prompt_body+=$'open/parked/archived; (3) the **writer** a Parked line names, with its\n'
-    prompt_body+=$'session; (4) a C arm you verified absent from the JS body in a `brief.mjs`\n'
-    prompt_body+=$'output (quote C lines + JS fn). A `c-js-map`/`debt.md`/TOP30 line or a\n'
-    prompt_body+=$'D-number copied by hand is **not** evidence. One C function per row; do not\n'
-    prompt_body+=$'duplicate live/archived/parked rows; no D-0006 / dog_invent.\n'
+    prompt_body+=$'\n\n## Queue regeneration (this iteration — generated rows only)\n'
+    prompt_body+="Open \`- [ ]\` count is ${open_now} (min ${LOOP_QUEUE_MIN})."$'\n'
+    prompt_body+=$'Cliff phase (Constitution §10.18): run `node scripts/check-hot-docs.mjs --fix`\n'
+    prompt_body+=$'— it regenerates the **Open — cliffs** block (`hidden-proxy.mjs queue\n'
+    prompt_body+=$'--write`, top corpus owners by RNG lost from the committed scoreboard)\n'
+    prompt_body+=$'and the **Open — coverage** block (`ledger.mjs rows --write`). Never\n'
+    prompt_body+=$'paste, pad, or hand-write Open rows; a hand row is Must-fix only (JS\n'
+    prompt_body+=$'throw / worker hang / corpus PASS→FAIL / review-named C-wrong) — a\n'
+    prompt_body+=$'ledger-text repair is one `ledger.mjs set` inside a real iteration, never\n'
+    prompt_body+=$'a row. If both blocks are empty after `--fix`, the corpus is saturated:\n'
+    prompt_body+=$'journal that fact and stop (the audit grows the corpus with\n'
+    prompt_body+=$'`scenario-gen.mjs`); do not invent work.\n'
     if [[ "$mode" == "port" ]]; then
-      prompt_body+=$'Then pop Must-fix else Open (including a line you just added if the\n'
-      prompt_body+=$'queue was empty) and ship that one cluster in this same iteration.\n'
+      prompt_body+=$'Then pop Must-fix else the cliffs head and ship it in this same iteration.\n'
     fi
   fi
 
@@ -2330,7 +2326,7 @@ while true; do
     if (( agent_pushed )); then
       warn_regression "queue still empty after port (map refill failed) AND already pushed"
     else
-      warn_regression "queue still empty after port — regenerate Open with \`ledger.mjs rows --write\` (min ${LOOP_QUEUE_MIN})"
+      warn_regression "queue still empty after port — regenerate Open with \`check-hot-docs.mjs --fix\` (cliffs + coverage blocks; min ${LOOP_QUEUE_MIN})"
     fi
     arm_empty_port_prompt "$iter" "queue-empty"
   fi

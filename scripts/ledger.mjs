@@ -294,7 +294,11 @@ export async function eligibleRows({ n = QUEUE_TARGET, minC = DEFAULT_MIN_C, par
   const partialOk = (r) => {
     const l = led(r);
     if (!base(r) || !big(r)) return false;
-    if (l.status === 'partial') return !String(l.omit || '').startsWith('blocked:');
+    /* Same rule as gapKind(): an `audited` partial names only omissions that
+       cannot ship (Rule #2 / compiled-out) — it is not a row. 2026-10-06:
+       `impossible` sat at the head of the block for ~60 iterations after
+       its audit because only `blocked:` was checked here. */
+    if (l.status === 'partial') return !String(l.omit || '').startsWith('blocked:') && !/^audited/.test(String(l.note || ''));
     return l.status === 'unknown' && (l.d || []).length > 0;
   };
   const out = [];

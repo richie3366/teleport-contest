@@ -6,17 +6,20 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
-- **Breadth phase (architect, 2026-09-18 — Constitution §10.17):**
-  hypothesis: held-out (11/44, RNG 26.6 %, screens 50 %) is bounded by
-  *missing C*, not by the corpus residuals — 2,345/4,868 pinned-C functions
-  MISSING/THIN, held-out sessions are wizard-mode tours that walk into them.
-  Falsifier: `node scripts/leaderboard.mjs` after ~30 whole-function
-  iterations (≈ iteration 3190); held-out passing/RNG % not moving while
-  the ledger's declared-ported count rises (`docs/ledger/SNAPSHOTS.tsv`,
-  one line per audit) ⇒ the picker is wrong, human
-  revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
-  closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
-  Everything below this bullet is phase-2 context — do not act on it now.
+- **Cliff phase (human, 2026-10-06 — Constitution §10.18):** hypothesis:
+  held-out (16/44, RNG 34.8 % at rngSteps 87.7 %) is bounded by a few
+  *early cliffs in long sessions* that the corpus already records —
+  `next_ident` (14 sessions, 50 k RNG lost: `^G`/wish monster-name parse),
+  `level_tele` (13, 38 k: `^V` arrival `--More--`), `distfleeck` (5–7,
+  12–35 k), `yn_function` (25), `do_statusline2` (20) — not by missing C
+  (the ledger gap is 1 function; its counts have been frozen since
+  2026-10-04). Falsifier: `node scripts/leaderboard.mjs` after ~20 cliff
+  iterations — board PASS/RNG rising while held-out passing/RNG % stays
+  flat ⇒ the corpus stopped predicting the judge again; human revisits.
+  The breadth-phase hypothesis (held-out bounded by missing C) was
+  **falsified** 2026-10-06: ledger ported 4442→4516 (reclassified
+  partials), measured ok/missing unchanged, held-out flat ~50 iterations.
+  The bullets below are live writer leads for parked cliff owners.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

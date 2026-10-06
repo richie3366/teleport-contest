@@ -36,9 +36,13 @@ brace-stripped code-line ratio (MISSING/THIN/PARTIAL/ok). A low ratio on a
 - Queue: the LOOP-QUEUE **Open — coverage** block is generated
   (`ledger.mjs rows --write`, run by finish and `check-hot-docs --fix`):
   measured gap, status absent/scaffold or unknown without D-history;
-  secondary pool = non-blocked `partial` and previously touched `unknown`.
-  win/tty, no-analogue files and save/restore/files are skipped unless
-  declared absent/scaffold.
+  secondary pool = non-blocked, non-`audited` `partial` and previously
+  touched `unknown`. win/tty, no-analogue files and save/restore/files are
+  skipped unless declared absent/scaffold. Since the cliff phase
+  (2026-10-06, Constitution §10.18) this block is the **fallback** picker:
+  it pops only when the generated **Open — cliffs** block
+  (`hidden-proxy.mjs queue --write`) is empty, or as a same-C-file
+  companion of the cliff being worked.
 
 ## Commands
 
@@ -53,4 +57,6 @@ node scripts/ledger.mjs sync                   # rows for new C defs / ranges
 ```
 
 Audits append `summary --snapshot` to `docs/ledger/SNAPSHOTS.tsv` (coverage
-trend for the §10.17 falsifier) and check 5 random seeded `ported` rows.
+trend; it fired the §10.17 falsifier on 2026-10-06 — measured counts frozen
+from 2026-10-04 while `ported` rose only by reclassified partials) and
+check 5 random seeded `ported` rows.

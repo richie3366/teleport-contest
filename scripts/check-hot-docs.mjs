@@ -10,8 +10,11 @@
  *
  * ok     = at target or within +33% — no edit.
  * ROTATE = journal overflow — re-run with --fix (do not copy crumbs).
- * REFILL = queue below 8 — `--fix` regenerates the Open — coverage block
- *          (`ledger.mjs rows --write`); never paste rows.
+ * REFILL = queue empty — `--fix` regenerates both generated blocks
+ *          (`hidden-proxy.mjs queue --write` cliffs, `ledger.mjs rows
+ *          --write` coverage); never paste or pad rows. The queue is not a
+ *          buffer: 2026-10-04..06 the 8-row floor was met with ~40 invented
+ *          "1-row ledger repair" Must-fix rows and zero port work.
  * FAIL   = beyond +33% — prune/trim that file.
  * missing= review id not found.
  *
@@ -61,7 +64,10 @@ const OWN_CAPS = {
   'docs/LEDGER.md': 3_500,
 };
 const HOT_SUM_MAX = 48_000;
-const QUEUE_MIN = 8;
+/* Cliff phase (2026-10-06, Constitution §10.18): the picker rows are
+   generated from the committed scoreboard and the ledger; the file must not
+   be empty, and it is never padded by hand to reach a count. */
+const QUEUE_MIN = 1;
 const QUEUE_TARGET = 12;
 const NOTES_SECTION_TARGET = 15;
 /** Default JS review 80–350. Required headings + a real C walk fit
@@ -359,6 +365,10 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
     }
     const q = await writeQueueBlock();
     if (!q.error && q.changed) console.log(`coverage block regenerated: ${q.count} row(s)\n`);
+    /* Cliffs block: top corpus owners by RNG lost, from the committed board. */
+    const c = spawnSync(process.execPath, [join(root, 'scripts/hidden-proxy.mjs'), 'queue', '--write', '--limit', String(QUEUE_TARGET)], { cwd: root, encoding: 'utf8' });
+    if (c.status === 0 && /regenerated/.test(c.stdout || '')) console.log(`${(c.stdout || '').trim()}\n`);
+    else if (c.status) console.log(`cliffs block: not regenerated (${(c.stderr || '').trim().split('\n')[0]})\n`);
   }
 
   const rows = [];
@@ -452,7 +462,7 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
         'LOOP-QUEUE',
         `mf=${mf} open=${open} total=${total}  (band ${QUEUE_MIN}–${QUEUE_TARGET})`,
         '',
-        `LOOP-QUEUE: the Open — coverage block is generated — \`node scripts/check-hot-docs.mjs --fix\` (or \`node scripts/ledger.mjs rows --write\`) refills it; never paste rows or map/debt copies`,
+        `LOOP-QUEUE: the Open — cliffs and Open — coverage blocks are generated — \`node scripts/check-hot-docs.mjs --fix\` (or \`hidden-proxy.mjs queue --write\` / \`ledger.mjs rows --write\`) refills them; never paste, pad, or hand-write rows`,
       );
     } else {
       add(
