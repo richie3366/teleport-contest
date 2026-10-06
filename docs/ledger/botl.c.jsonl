@@ -32,7 +32,7 @@
 {"fn":"s_to_anything","c":"1930-1972","status":"ported","js":["js/botl.js:s_to_anything"],"at":"2026-10-03@bbe63333a"}
 {"fn":"percentage","c":"1977-2047","status":"ported","js":["js/botl.js:percentage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"exp_percentage","c":"2052-2085","status":"ported","js":["js/botl.js:exp_percentage"],"at":"2026-10-03@bbe63333a"}
-{"fn":"exp_percent_changing","c":"2090-2125","status":"partial","js":["js/botl.js:exp_percent_changing"],"omit":"A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored.","d":["D-3405","D-2847"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"exp_percent_changing","c":"2090-2125","status":"ported","js":["js/botl.js:exp_percent_changing"],"d":["D-3405","D-2847"],"at":"2026-10-06@8d3fd4d86","note":"stale: js/botl.js:605 whole (D-2847 port; D-3405 + review 1806 ACCEPT re-verified); omit named the live null-thresholds fallback, not missing code"}
 {"fn":"stat_cap_indx","c":"2131-2141","status":"ported","js":["js/botl.js:stat_cap_indx"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"stat_hunger_indx","c":"2146-2156","status":"ported","js":["js/botl.js:stat_hunger_indx"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"bl_idx_to_fldname","c":"2160-2165","status":"ported","js":["js/botl.js:bl_idx_to_fldname"],"d":["D-3137"],"at":"2026-09-30@92b27a5b5","note":"refresh: no JS symbol (measured MISSING)"}
