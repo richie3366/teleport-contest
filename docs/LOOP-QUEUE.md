@@ -126,7 +126,6 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 
 <!-- coverage:begin -->
 - [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 22 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog) @1ae9cc180
-- [ ] `detect.c` reveal_terrain — coverage PARTIAL (C 40 code L `detect.c:2356–2414` / JS 27 code L in js/detect.js; hops —, callers 1, RNG 0, msg 2; declared partial: unconstrain_map/docrt arm (C :2380-2381; live js/detect.js export uncalled); arboreal default tree; trap_to_glyph keep_traps restore; M_AP_F) @2cf0411c1
 <!-- coverage:end -->
 
 ## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)
@@ -193,6 +192,8 @@ shipped row's fn token, re-fileable next iter) to hold the 8-row band.
 D-3457 (batch ×7 shipped: 2 fidelity fixes + bc retire + 5 audits; band 4 < 8 blocks finish) refilled +4 with brief-verified missing arms (regen_hp rehumanize arm, exercise encumber_msg tail, dodown misfiled omit, migrate_to_level unstuck — C bodies + JS sites read at enqueue; two tails verify-at-ship noted in rows) to hold the 8-row band.
 
 D-3461 (Open head ×3 shipped + impossible audit; band 5 < 8 blocks finish) refilled +3 with brief-verified missing arms (wizkit config_error pair files.c:2577/2592/2597, tty_yn entry STOP+NOSTOP gate — each C + JS read at enqueue) to hold the 8-row band.
+D-3556 (batch ×9 + impossible audit shipped, reveal_terrain ported out of the block; band 7 < 8 blocks finish) refilled +1 with a brief-verified clone-drift row (strange_feeling_scroll HHallucination drift — C + both JS bodies read at enqueue; D-3445 precedent) to hold the 8-row band.
+- [ ] `read.c` strange_feeling_scroll — clone-drift: C has one `strange_feeling` (potion.c:1461–1476, read.c sites :1128/:1334/:1388); JS clone js/read.js:1217 serves :1279/:1331/:1568 instead of live js/detect.js:241 — C potion.c:1465 Hallucination-macro extrinsic arm absent from js/read.js:strange_feeling_scroll (clone reads `u.Hallucination` only, live reads H||HH) — C + both JS bodies read at enqueue 2026-10-06; deliverable: 3 sites → live export, delete clone.
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

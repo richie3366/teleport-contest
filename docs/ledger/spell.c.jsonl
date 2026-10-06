@@ -35,7 +35,7 @@
 {"fn":"show_spells","c":"2059-2069","status":"ported","js":["js/spell.js:show_spells"],"d":["D-3148"],"at":"2026-09-30@5f75ba02c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dospellmenu","c":"2075-2168","status":"ported","js":["js/spell.js:dospellmenu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: menu_tab_sep variant renders space format; content identical"}
 {"fn":"percent_success","c":"2173-2292","status":"ported","js":["js/spell.js:percent_success"],"d":["D-2693"],"at":"2026-10-03@bbe63333a"}
-{"fn":"spellretention","c":"2295-2336","status":"ported","js":["js/spell.js:spellretention"],"at":"2026-10-06@2cf0411c1","note":"audit 2434-2438: whole vs C, arms + percent math live js/spell.js:1363 (staticfn local correct)"}
+{"fn":"spellretention","c":"2295-2336","status":"ported","js":["js/spell.js:spellretention"],"d":["D-3556"],"at":"2026-10-06@b39cb750e","note":"audited D-3556: whole vs C"}
 {"fn":"initialspell","c":"2340-2359","status":"ported","js":["js/spell.js:initialspell"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() diagnostics silent only"}
 {"fn":"known_spell","c":"2363-2375","status":"ported","js":["js/spell.js:known_spell"],"at":"2026-10-03@bbe63333a"}
 {"fn":"spell_idx","c":"2379-2387","status":"ported","js":["js/spell.js:spell_idx"],"d":["D-3416","D-3148"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}

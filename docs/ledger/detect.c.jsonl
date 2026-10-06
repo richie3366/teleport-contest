@@ -40,4 +40,4 @@
 {"fn":"premap_detect","c":"2134-2159","status":"ported","js":["js/detect.js:premap_detect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"ported","js":["js/display.js:reveal_terrain_getglyph"],"d":["D-3430","D-3406","D-3404","D-3366","D-3363"],"at":"2026-10-05@adae017b4"}
 {"fn":"dump_map","c":"2294-2349","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: dumplog-only output (putstr winid 0), DUMPLOG retired D-1776"}
-{"fn":"reveal_terrain","c":"2356-2414","status":"partial","js":["js/detect.js:reveal_terrain"],"omit":"unconstrain_map/docrt arm (C :2380-2381; live js/detect.js export uncalled); arboreal default tree; trap_to_glyph keep_traps restore; M_AP_FURNITURE glyphs; TER_FULL explore body beyond getglyph; region/gascloud","at":"2026-10-06@2cf0411c1","note":"audit 2434-2438: glyph loop via live show_map js/display.js:4756; named arms absent"}
+{"fn":"reveal_terrain","c":"2356-2414","status":"ported","js":["js/detect.js:reveal_terrain"],"d":["D-3556"],"at":"2026-10-06@b39cb750e","note":"audit 2434-2438: glyph loop via live show_map js/display.js:4756; named arms absent"}
