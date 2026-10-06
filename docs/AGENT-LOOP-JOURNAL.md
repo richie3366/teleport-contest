@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — audit 2434–2438 @2cf0411c1: review D-3544/D-3546/D-3548/D-3550/D-3552 (5A/0D/0Q, 0 Must-fix) + full rescore 741/953
+
+**Scope:** 5 js SHAs since 2433 (:4661 steps: minend 10, Wiz 20, Bar 12, Pri 24, Arc 28 sites); 5 ledger-only SHAs skipped per Method. Every des census re-read from pinned lua (exact; exclusions + stair orders correct); `.has`/whole-set census re-verified per SHA — all neutrality conclusions true.
+**Nits:** 2434/2435/2438 JS-line cite drifts incl. a false "byte-current" boast (docs-only, unqueued — 2436/2437 exact).
+**Score:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `330+1.65/turn` R² 0.78); corpus 741/953 (77.8 %, RNG 98.53 %, screens 94.2 %, 0 losses, 0 gains, full:true); held-out 16/44 flat (judge 07:20Z). Ledger snapshot appended; 5 seeded `ported` rows sampled (query_category ok, mintrap ok, spellretention + mayberem whole→note refresh, reveal_terrain ported→partial + omit — live unconstrain_map export uncalled; `ledger.mjs sql` broken here: node:sqlite missing, sampled via jsonl).
+**Next:** next Must-fix (getpos.c getpos 1-row repair).
 ## 2026-10-06 — D-3552 Open head: impossible audit + Arc-strt/Arc-loca des.door :4661 game-mark campaign step (28 sites, 2 bitmaps C-complete)
 
 **C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).

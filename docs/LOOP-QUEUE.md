@@ -127,6 +127,7 @@ Head order is call-heat from the 2026-09-28 replay of 985 sessions
 
 <!-- coverage:begin -->
 - [ ] `pline.c` impossible — coverage PARTIAL (C 33 code L `pline.c:584–634` / JS 22 code L in js/display.js; hops 1, callers 431, RNG 0, msg 5; declared partial: - `impossible`: pline.c:598 paniclog and :621–631 CRASHREPORT prompt/raw_print/network submission remain Rule #2 omissions; files.c paniclog) @1ae9cc180
+- [ ] `detect.c` reveal_terrain — coverage PARTIAL (C 40 code L `detect.c:2356–2414` / JS 27 code L in js/detect.js; hops —, callers 1, RNG 0, msg 2; declared partial: unconstrain_map/docrt arm (C :2380-2381; live js/detect.js export uncalled); arboreal default tree; trap_to_glyph keep_traps restore; M_AP_F) @2cf0411c1
 <!-- coverage:end -->
 
 ## Open — missing-arm (hand-verified 2026-10-02; block refilled 2026-10-03)

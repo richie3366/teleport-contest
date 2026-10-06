@@ -1,9 +1,9 @@
 {
- "commit": "a3103a00a",
- "at": "2026-10-06T08:37:17.084Z",
- "full": false,
- "fullCommit": "cfe322f35",
- "fullAt": "2026-10-06T07:17:07.707Z",
+ "commit": "2cf0411c1",
+ "at": "2026-10-06T08:58:09.043Z",
+ "full": true,
+ "fullCommit": "2cf0411c1",
+ "fullAt": "2026-10-06T08:58:09.043Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {

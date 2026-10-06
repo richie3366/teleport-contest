@@ -2443,3 +2443,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2431-00a58d75f-medusa-quartet-door-mark-step.md](./2431-00a58d75f-medusa-quartet-door-mark-step.md) | `00a58d75f` | D-3538 medusa quartet des.door :4661 campaign step (16 sites) | **ACCEPT** |
 | [2432-65c6d93ec-bar-wiz-strt-door-mark-step.md](./2432-65c6d93ec-bar-wiz-strt-door-mark-step.md) | `65c6d93ec` | D-3540 Bar-strt/Wiz-strt des.door :4661 campaign step (16 sites, :19415 cite drift) | **ACCEPT** |
 | [2433-56dbffc14-astral-sanctum-door-mark-step.md](./2433-56dbffc14-astral-sanctum-door-mark-step.md) | `56dbffc14` | D-3542 astral/sanctum des.door :4661 campaign step (13 sites, 2 cite drifts) | **ACCEPT** |
+| [2434-740b5ed43-minend-door-mark-step.md](./2434-740b5ed43-minend-door-mark-step.md) | `740b5ed43` | D-3544 minend-1/2 des.door :4661 campaign step (10 sites, juiblex excluded) | **ACCEPT** |
+| [2435-5fafb56ac-wiz-loca-goal-door-mark-step.md](./2435-5fafb56ac-wiz-loca-goal-door-mark-step.md) | `5fafb56ac` | D-3546 Wiz-loca/goal des.door :4661 campaign step (20 sites, wall-form proved) | **ACCEPT** |
+| [2436-2cad56972-bar-loca-goal-door-mark-step.md](./2436-2cad56972-bar-loca-goal-door-mark-step.md) | `2cad56972` | D-3548 Bar-loca/goal des.door :4661 campaign step (12 sites, cites exact) | **ACCEPT** |
+| [2437-c64ade545-pri-strt-loca-door-mark-step.md](./2437-c64ade545-pri-strt-loca-door-mark-step.md) | `c64ade545` | D-3550 Pri-strt/loca des.door :4661 campaign step (24 sites, lit-read ordered) | **ACCEPT** |
+| [2438-2cf0411c1-arc-strt-loca-door-mark-step.md](./2438-2cf0411c1-arc-strt-loca-door-mark-step.md) | `2cf0411c1` | D-3552 Arc-strt/loca des.door :4661 campaign step (28 sites, :21612 drift) | **ACCEPT** |

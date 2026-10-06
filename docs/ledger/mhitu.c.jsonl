@@ -22,7 +22,7 @@
 {"fn":"mdamageu","c":"1902-1927","status":"ported","js":["js/mhitu.js:mdamageu"],"at":"2026-10-03@bbe63333a"}
 {"fn":"could_seduce","c":"1934-1981","status":"ported","js":["js/mhitm.js:could_seduce"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doseduce","c":"1985-2305","status":"ported","js":["js/mhitu.js:doseduce"],"d":["D-1758","D-1750"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mayberem","c":"2309-2352","status":"ported","js":["js/mhitu.js:mayberem"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
+{"fn":"mayberem","c":"2309-2352","status":"ported","js":["js/mhitu.js:mayberem"],"at":"2026-10-06@2cf0411c1","note":"audit 2434-2438: whole vs C, all arms + uarm chain live js/mhitu.js:1153 (staticfn local correct)"}
 {"fn":"assess_dmg","c":"2355-2365","status":"ported","js":["js/mhitu.js:assess_dmg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ranged_attk_assessed","c":"2374-2387","status":"by-design","at":"2026-10-01@f572fe77c","note":"#if 0 in C mhitu.c:2367-2388; live equivalent ranged_attk_available (js/monmove.js)"}
 {"fn":"mon_avoiding_this_attack","c":"2393-2405","status":"ported","js":["js/mhitu.js:mon_avoiding_this_attack"],"d":["D-3242"],"at":"2026-10-01@f572fe77c","note":"refresh: no JS symbol (measured MISSING)"}
