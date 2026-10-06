@@ -20,11 +20,13 @@ import { getmailstatus } from './mail.js';
 import { try_restore_save } from './save.js';
 import { vision_init, vision_recalc, init_vision_globals } from './vision.js';
 import { parseNethackrc, set_playmode, init_fruit_chain, initoptions_init, RC_FILE_OPT, set_configfile_name } from './options.js';
-import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot } from './display.js';
+import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot, pline } from './display.js';
 import { GameDisplay } from './game_display.js';
 import { askname_if_needed } from './askname.js';
 import { player_selection } from './player_selection.js';
 import { check_special_room } from './hack.js';
+import { y_n } from './getline.js';
+import { delete_savefile } from './files.js';
 
 // ── NethackGame ──
 // Wraps a single game session with replay infrastructure.
@@ -243,6 +245,25 @@ export class NethackGame {
             await bot();
             await welcome(false);
             await check_special_room(false);
+            // C unixmain.c:265 wd_message() after dorecover (newgame
+            // analogue: allmain.js newgame tail) — the wiz_error_flag /
+            // explore_error_flag arms are named (JS set_playmode never
+            // raises them, so wizard/discover stand as restored); the
+            // discover arm below is live.
+            if (g.flags.explore || g.flags.discover) {
+                await pline('You are in non-scoring explore/discovery mode.');
+            }
+            // C unixmain.c:266-274 — a wizard/discover restore asks
+            // whether to keep the save file (y_n: ynchars / 'n' /
+            // addcmdq TRUE). 'n' deletes; anything else keeps (the
+            // else arm's chmod FCMASK + nh_compress are platform /
+            // external-compressor work with no VFS analogue — named).
+            if (g.discover || g.wizard) {
+                const c = await y_n('Do you want to keep the save file?');
+                if (c === 'n') {
+                    delete_savefile();
+                }
+            }
             await moveloop_preamble(true);
             return;
         }

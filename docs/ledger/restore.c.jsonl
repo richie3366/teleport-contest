@@ -12,7 +12,7 @@
 {"fn":"restgamestate","c":"525-736","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"restlevelstate","c":"742-749","status":"ported","js":["js/restore.js:restlevelstate"],"d":["D-3374"],"at":"2026-10-03@5046334ff"}
 {"fn":"restlevelfile","c":"755-771","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"dorecover","c":"789-951","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
+{"fn":"dorecover","c":"789-951","status":"by-design","js":["js/save.js:try_restore_save"],"d":["D-3565"],"at":"2026-10-06@235f34f3f","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"rest_stairs","c":"955-985","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: stairs blob passthrough + install assign; relative-to-absolute conversion vacuous (JSON absolute); u_traversed in blob"}
 {"fn":"restcemetery","c":"988-1017","status":"ported","js":["js/dungeon.js:restcemetery"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: CONVERTING/UNCONVERTING free arm omitted (no JSON conversion mode)"}
 {"fn":"rest_levl","c":"1021-1030","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: locations overlay in deserLevel"}
