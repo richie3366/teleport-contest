@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-06
 
+- [x] pickup.c use_container 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — use_container ← clipped restore (row omit ends "containerdone `update_inventory` on `if (used)` deferred (display-only; colon-path ckn…" mid-word at the 300 cap, quoted from live `docs/ledger/pickup.c.jsonl` 2026-10-06, d=D-3456,D-3199,D-2028, note "D-3456 repair: D-3199 pickup-paste retired (057174e0c first-line stamp); *objp + containerdone-update_inventory restored narrowed; …" — full text in D-3456 Named; JS body reads whole at enqueue js/pickup.js:4006–4208, C 161/JS 137 ok, *objp writeback as in-code Named — likely restore-compacted, D-3456 Named truth + caller status unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the set_savefile_name head drops the band to 7, finish fails closed below 8).
+
+
 - [x] do.c goto_level 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — goto_level ← clipped restore (row omit ends "vision_recalc/u_locomotion/u_…" mid-word at the 300 cap, quoted from live `docs/ledger/do.c.jsonl` 2026-10-06, d=D-3438,D-3432,D-3431,D-3430,D-3429,D-3287, note "audited D-3432: remaining omit cannot ship"; full text in D-3438 Named — "…u_collide_m live (:1807/:2141/:2246; doc-envelope Deferred lines stale)."; JS js/do.js:1635 async export, C do.c:1479–1998, C 316/JS 435 ok — likely restore-compacted or retire-stale, D-3438/D-3432 Ledger/Named truth + caller wiring unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger clip scan + brief 2026-10-06; popping the savebones head drops the band to 7, finish fails closed below 8).
 
 
