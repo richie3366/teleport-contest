@@ -118,7 +118,7 @@ describe('lspo boolean fields inherit get_table_boolean_opt conversion', () => {
         const stocked = "fstocked = get_table_boolean_opt(o, 'stocked', 1); // C :5795";
         assert.ok(maze.includes(stocked), `mazewalk arm must read via the shared helper: ${stocked}`);
         assert.ok(maze.indexOf("get_table_mapchr_opt(o, 'typ', ROOM)") < maze.indexOf(stocked));
-        assert.ok(maze.indexOf(stocked) < maze.indexOf('splev_opt_index(o.dir'));
+        assert.ok(maze.indexOf(stocked) < maze.indexOf("get_table_option(o, 'dir', 'random'"));
         const map = fnBody(src, 'export function lspo_map(a, contentsFn)');
         const lit = "lit = get_table_boolean_opt(o, 'lit', 0); // C :6121";
         assert.ok(map.includes(lit), `map arm must read via the shared helper: ${lit}`);

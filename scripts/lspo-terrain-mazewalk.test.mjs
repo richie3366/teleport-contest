@@ -181,9 +181,9 @@ describe('lspo_mazewalk (sp_lev.c:5769-5869)', () => {
     });
 
     it('bad dir / bad typ / non-table throw like C nhl_error', () => {
-        assert.throws(() => lspo_mazewalk({ x: 3, y: 3, dir: 'up' }), /bad option/);
+        assert.throws(() => lspo_mazewalk({ x: 3, y: 3, dir: 'up' }), /invalid option/);
         assert.throws(() => lspo_mazewalk({ x: 3, y: 3, typ: '?' }), /Erroneous map char/);
         assert.throws(() => lspo_mazewalk(42), /Wrong parameters/);
-        assert.throws(() => lspo_mazewalk(3, 3, 'sideways'), /bad option/);
+        assert.throws(() => lspo_mazewalk(3, 3, 'sideways'), /invalid option/);
     });
 });

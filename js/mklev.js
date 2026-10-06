@@ -147,7 +147,7 @@ import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at, 
 import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch, get_level,
-    on_level, init_dungeons, Is_special, Is_branchlev, Invocation_lev, In_W_tower, On_W_tower_level, dupstr, get_table_option, get_table_str_opt, get_table_int_opt,
+    on_level, init_dungeons, Is_special, Is_branchlev, Invocation_lev, In_W_tower, On_W_tower_level, dupstr, get_table_option, get_table_str_opt, get_table_int_opt, luaL_checkoption,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
 import {
@@ -1143,18 +1143,6 @@ export async function lspo_gas_cloud(opts) {
 }
 
 /**
- * C ref: nhlua.c get_table_option — luaL_checkoption index into the option
- * table; absent field → default string; no match → nhl_error (fatal).
- * luaL_checkoption matches exactly (case-sensitive).
- */
-function splev_opt_index(v, defval, opts) {
-    const s = v ?? defval;
-    const i = opts.indexOf(s);
-    if (i < 0) throw new Error(`lspo: bad option '${s}'`);
-    return i;
-}
-
-/**
  * C ref: mklev.c count_level_features `:828–841` — recount fountains and
  * sinks over x 1..COLNO-1, y 0..ROWNO-1 (x = 1 lower bound like C).
  */
@@ -1231,9 +1219,9 @@ export function lspo_drawbridge(opts) {
     create_des_coder(); // C :5739
     const o = opts ?? {}; // C :5741 lcheck_param_table
     const mm = get_table_xy_or_coord(o); // C :5743
-    const dir = LSPO_MWDIRS2I[splev_opt_index(o.dir, 'random', LSPO_MWDIRS)]; // C :5745
+    const dir = LSPO_MWDIRS2I[get_table_option(o, 'dir', 'random', LSPO_MWDIRS)]; // C :5744
     const coder = game.gc.coder;
-    let db_open = LSPO_DBOPENS2I[splev_opt_index(o.state, 'random', LSPO_DBOPENS)]; // C :5747
+    let db_open = LSPO_DBOPENS2I[get_table_option(o, 'state', 'random', LSPO_DBOPENS)]; // C :5746
     const pos = get_location_coord(DRY | WET | HOT, coder?.croom ?? null, mm.x, mm.y); // C :5750
     if (!isok(mm.x, mm.y)) throw new Error('lspo_drawbridge: drawbridge coord not ok'); // C :5751-5754 nhl_error
     if (db_open === -1) db_open = !rn2(2) ? 1 : 0; // C :5756-5757 db_open = !rn2(2)
@@ -1267,8 +1255,8 @@ const LSPO_MAZEWALK_DIRS2I = [W_NORTH, W_SOUTH, W_EAST, W_WEST, W_RANDOM];
  * (C `:5865–5866`). levl indexes go through level.at with a null
  * guard (walkfrom idiom above — C indexes raw levl).
  * Named: lcheck_param_table (table-or-empty + object check);
- * get_table_mapchr_opt / get_table_option (inline splev_chr2typ /
- * splev_opt_index, C nhlua.c :256/:1122); get_table_boolean_opt is the
+ * get_table_mapchr_opt (inline splev_chr2typ, C nhlua.c :256);
+ * get_table_option is the shared dungeon.js import (C nhlua.c :1122); get_table_boolean_opt is the
  * shared same-file helper (C nhlua.c :1107–1118); luaL_checkinteger
  * (luaL_checkinteger_unpacked).
  */
@@ -1279,7 +1267,7 @@ export function lspo_mazewalk(a, b, c) {
     if (argc === 3) { // C :5786
         mx = luaL_checkinteger_unpacked(a); // C :5787
         my = luaL_checkinteger_unpacked(b); // C :5788
-        dir = LSPO_MAZEWALK_DIRS2I[splev_opt_index(c, 'random', LSPO_MAZEWALK_DIRS)]; // C :5789
+        dir = LSPO_MAZEWALK_DIRS2I[luaL_checkoption(c, 'random', LSPO_MAZEWALK_DIRS)]; // C :5789
     } else { // C :5790
         const o = a ?? {}; // C :5791 lcheck_param_table
         if (o === null || typeof o !== 'object') throw new Error('lspo_mazewalk: Wrong parameters');
@@ -1289,7 +1277,7 @@ export function lspo_mazewalk(a, b, c) {
         ftyp = get_table_mapchr_opt(o, 'typ', ROOM); // C :5794
 
         fstocked = get_table_boolean_opt(o, 'stocked', 1); // C :5795 get_table_boolean_opt(L, "stocked", 1)
-        dir = LSPO_MAZEWALK_DIRS2I[splev_opt_index(o.dir, 'random', LSPO_MAZEWALK_DIRS)]; // C :5796
+        dir = LSPO_MAZEWALK_DIRS2I[get_table_option(o, 'dir', 'random', LSPO_MAZEWALK_DIRS)]; // C :5796
     }
     let x = typeof mx === 'bigint' ? Number(mx & 0xffn) : mx | 0; // C :5799 SP_COORD_PACK
     let y = typeof my === 'bigint' ? Number(my & 0xffn) : my | 0;
@@ -1409,8 +1397,8 @@ const LSPO_WALLDIRS2I = [W_ANY, W_RANDOM, W_NORTH, W_WEST, W_EAST, W_SOUTH];
  * order. Unpacked-table form (opts object; lcheck_param_table ≡
  * table-or-empty + object check). Required srcroom/srcdoor/destroom/
  * destdoor via luaL_checkinteger_unpacked like C get_table_int
- * (nhlua.c:1017–1025); srcwall/destwall via splev_opt_index default
- * "all" like C get_table_option `:4542–4546`. Async: create_corridor
+ * (nhlua.c:1017–1025); srcwall/destwall via get_table_option default
+ * "all" (C `:4545`/`:4548`). Async: create_corridor
  * awaits impossible on the W_ANY/W_RANDOM guard. No table-form
  * des.corridor call exists in dat/*.lua (only des.random_corridors).
  */
@@ -1422,15 +1410,15 @@ export async function lspo_corridor(opts) {
         src: {
             room: luaL_checkinteger_unpacked(o.srcroom),
             door: luaL_checkinteger_unpacked(o.srcdoor),
-            wall: LSPO_WALLDIRS2I[splev_opt_index(o.srcwall, 'all', LSPO_WALLDIRS)],
+            wall: LSPO_WALLDIRS2I[get_table_option(o, 'srcwall', 'all', LSPO_WALLDIRS)], // C :4545
         },
         dest: {
             room: luaL_checkinteger_unpacked(o.destroom),
             door: luaL_checkinteger_unpacked(o.destdoor),
-            wall: LSPO_WALLDIRS2I[splev_opt_index(o.destwall, 'all', LSPO_WALLDIRS)],
+            wall: LSPO_WALLDIRS2I[get_table_option(o, 'destwall', 'all', LSPO_WALLDIRS)], // C :4548
         },
     };
-    await create_corridor(tc); // C :4548
+    await create_corridor(tc); // C :4551
     return 0; // C :4550
 }
 
@@ -1663,17 +1651,17 @@ export function lspo_feature(a, b, c) {
     create_des_coder(); // C :4855
     const argc = arguments.length;
     if (argc === 1 && typeof a === 'string') { // C :4857-4860
-        typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
+        typ = LSPO_FEATURES2I[luaL_checkoption(a, null, LSPO_FEATURES)]; // C :4860
         x = y = -1;
     } else if (argc === 2 && typeof a === 'string' // C :4861-4867
         && b !== null && typeof b === 'object') {
-        typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
+        typ = LSPO_FEATURES2I[luaL_checkoption(a, null, LSPO_FEATURES)]; // C :4865
         const fx = { x: -1, y: -1 }; // C :4864 fx, fy
         get_coord(b, fx); // C :4866 get_coord(L, 2, &fx, &fy)
         x = luaL_checkinteger_unpacked(fx.x, 16);
         y = luaL_checkinteger_unpacked(fx.y, 16);
     } else if (argc === 3) { // C :4868-4872
-        typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
+        typ = LSPO_FEATURES2I[luaL_checkoption(a, null, LSPO_FEATURES)]; // C :4870
         x = b | 0;
         y = c | 0;
     } else { // C :4873-4880 table form (lcheck_param_table: argc<1 ≡ {})
@@ -1681,8 +1669,8 @@ export function lspo_feature(a, b, c) {
         const xy = get_table_xy_or_coord(o); // C :4877
         x = luaL_checkinteger_unpacked(xy.x, 16);
         y = luaL_checkinteger_unpacked(xy.y, 16);
-        typ = LSPO_FEATURES2I[splev_opt_index(o.type, null, LSPO_FEATURES)]; // C :4878
-        can_have_flags = true; // C :4879
+        typ = LSPO_FEATURES2I[get_table_option(o, 'type', null, LSPO_FEATURES)]; // C :4879
+        can_have_flags = true; // C :4880
     }
 
     let humidity;
@@ -1762,7 +1750,7 @@ export function lspo_engraving(a, b, c) {
         const xy = get_table_xy_or_coord(o); // C :3904
         x = luaL_checkinteger_unpacked(xy.x, 16);
         y = luaL_checkinteger_unpacked(xy.y, 16);
-        etyp = LSPO_ENGRTYPES2I[splev_opt_index(o.type, 'engrave', LSPO_ENGRTYPES)]; // C :3907
+        etyp = LSPO_ENGRTYPES2I[get_table_option(o, 'type', 'engrave', LSPO_ENGRTYPES)]; // C :3907
         if (typeof o.text !== 'string') // C :3908 get_table_str luaL_checkstring
             throw new Error("bad argument 'text' (string expected)");
         txt = o.text;
@@ -1775,7 +1763,7 @@ export function lspo_engraving(a, b, c) {
         get_coord(a, ex); // C :3913 (void) get_coord(L, 1, &ex, &ey)
         x = luaL_checkinteger_unpacked(ex.x, 16);
         y = luaL_checkinteger_unpacked(ex.y, 16);
-        etyp = LSPO_ENGRTYPES2I[splev_opt_index(b, 'engrave', LSPO_ENGRTYPES)]; // C :3916
+        etyp = LSPO_ENGRTYPES2I[luaL_checkoption(b, 'engrave', LSPO_ENGRTYPES)]; // C :3916
         if (typeof c !== 'string') // C :3917 dupstr(luaL_checkstring)
             throw new Error('bad argument #3 (string expected)');
         txt = c;
@@ -2176,9 +2164,7 @@ export async function lspo_region(a, b) {
     } else if (argc === 2) { // C :5619 region(selection, "lit")
         if (!a || typeof a !== 'object' || !(a.pts instanceof Set)) // C :5622 l_selection_check
             throw new Error('lspo_region: selection expected');
-        const li = ['unlit', 'lit'].indexOf(b ?? 'lit'); // C :5625 luaL_checkoption def "lit"
-        if (li < 0) throw new Error(`lspo_region: bad option '${b}'`);
-        const rlit2 = li;
+        const rlit2 = luaL_checkoption(b, 'lit', ['unlit', 'lit']); // C :5619 luaL_checkoption def "lit"
         const sel = selection_clone(a); // C :5622-5623
         // TODO: lit=random (C's own note — kept)
         if (rlit2) selection_do_grow(sel, W_ANY); // C :5630-5631
@@ -2198,7 +2184,7 @@ export async function lspo_region(a, b) {
  * callback (lspo_room precedent); the table's own "contents" function
  * field is honored too (C `:6122–6126` lua_getfield). halign/valign
  * map exactly like C `:6081–6093` (TOP=1 BOTTOM=5, sp_lev.c:172-173;
- * absent → "none" → -1 via splev_opt_index, C nhlua.c get_table_option).
+ * absent → "none" → -1 via get_table_option, C nhlua.c get_table_option).
  * The map string is required (C `:6120` get_table_str) and lit defaults
  * FALSE (C `:6121`). x,y-or-halign/valign placement (C `:6147–6223`):
  * themeroom random placement with croom somex/somey (C `:6148–6168`),
@@ -2237,8 +2223,8 @@ export function lspo_map(a, contentsFn) {
     } else { // C :6110 table form
         const o = a ?? {}; // C :6112 lcheck_param_table
         if (o === null || typeof o !== 'object') throw new Error('lspo_map: Wrong parameters');
-        lr = l_or_r2i[splev_opt_index(o.halign, 'none', left_or_right)]; // C :6114
-        tb = t_or_b2i[splev_opt_index(o.valign, 'none', top_or_bot)]; // C :6115
+        lr = l_or_r2i[get_table_option(o, 'halign', 'none', left_or_right)]; // C :6117
+        tb = t_or_b2i[get_table_option(o, 'valign', 'none', top_or_bot)]; // C :6118
         const xy = get_table_xy_or_coord(o); // C :6116
         x = xy.x; y = xy.y;
         if (typeof o.map !== 'string') // C :6120 get_table_str
@@ -5236,7 +5222,7 @@ export function lspo_wall_property(o) {
         dx2 = r[2];
         dy2 = r[3];
     }
-    const wprop = LSPO_WPROPS2I[splev_opt_index(o.property, 'nondiggable', LSPO_WPROPS)]; // C :5891
+    const wprop = LSPO_WPROPS2I[get_table_option(o, 'property', 'nondiggable', LSPO_WPROPS)]; // C :5891
     const xs = game.splev_xstart ?? 1; // C gx.xstart
     const ys = game.splev_ystart ?? 0; // C gy.ystart
     const xsz = game.splev_xsize ?? COLNO - 1; // C gx.xsize
@@ -19056,7 +19042,7 @@ export function lspo_door(a, b, c) {
     let msk, x, y, o;
     if (argc === 3) { // C :4688-4691
         o = null;
-        msk = doorstates2i[splev_opt_index(a, 'random', doorstates)]; // C :4689 luaL_checkoption
+        msk = doorstates2i[luaL_checkoption(a, 'random', doorstates)]; // C :4688 luaL_checkoption
         x = luaL_checkinteger_unpacked(b); // C :4690
         y = luaL_checkinteger_unpacked(c); // C :4691
     } else if (argc === 0 || (argc === 1 && (a == null || typeof a === 'object'))) { // C :4693-4700 table form
@@ -19064,7 +19050,7 @@ export function lspo_door(a, b, c) {
         const xy = get_table_xy_or_coord(o); // C :4697
         x = luaL_checkinteger_unpacked(xy.x, 16);
         y = luaL_checkinteger_unpacked(xy.y, 16);
-        msk = doorstates2i[splev_opt_index(o.state, 'random', doorstates)]; // C :4698-4699
+        msk = doorstates2i[get_table_option(o, 'state', 'random', doorstates)]; // C :4698-4699
     } else {
         nhl_error('lspo_door: Wrong parameters'); // C param-table failure
     }
@@ -19077,7 +19063,7 @@ export function lspo_door(a, b, c) {
             // checkinteger (fractions and non-numerics throw like C
             // argerror; the 3-arg form's null table reads the default).
             pos: get_table_int_opt(o, 'pos', -1),
-            wall: walldirs2i[splev_opt_index(o?.wall, 'all', walldirs)], // C :4718
+            wall: walldirs2i[get_table_option(o, 'wall', 'all', walldirs)], // C :4718
         };
         create_door(tmpd, game.gc?.coder?.croom ?? null); // C :4720
     } else {
@@ -23585,7 +23571,7 @@ export function lspo_altar(o, croom = null) {
         throw new Error('lspo_altar: Wrong parameters');
     const xy = get_table_xy_or_coord(o); // C :4300
     const al = get_table_align_unpacked(o.align); // C :4302
-    const shrine = shrines2i[splev_opt_index(o.type, 'altar', shrines)]; // C :4303
+    const shrine = shrines2i[get_table_option(o, 'type', 'altar', shrines)]; // C :4304
     // C :4305-4315 — acoord pack + tmpaltar.coord/sp_amask/shrine + create_altar
     splev_create_altar({ rx: xy.x, ry: xy.y, sp_amask: al, shrine }, croom);
     return 0; // C :4317
