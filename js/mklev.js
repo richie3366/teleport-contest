@@ -16389,6 +16389,7 @@ function load_astral() {
  * Named omissions: ensure_way_out; link_doors_rooms full scan;
  * map_cleanup; is_mines_prize consumption beyond achieveo oid/otyp stamp.
  * minend-3 is D-1823.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3544).
  */
 function load_minend_1() {
     const g = game;
@@ -16472,6 +16473,7 @@ function load_minend_1() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = D_LOCKED;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = D_LOCKED;
     };
     meDoor(7, 16);
@@ -16592,6 +16594,7 @@ function load_minend_1() {
  * Named omissions: ensure_way_out; link_doors_rooms full scan;
  * map_cleanup; is_mines_prize consumption beyond achieveo oid/otyp stamp.
  * minend-3 is D-1823.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3544).
  */
 function load_minend_2() {
     const g = game;
@@ -16641,12 +16644,14 @@ function load_minend_2() {
         setTer(56, 14, HWALL);
         setTer(61, 15, VWALL);
         setTer(52, 5, SDOOR);
+        // des.door("locked", 52,5) — minend-2.lua:39, same percent(50) arm
         {
             const loc = g.level.at(mx + 52, my + 5);
             if (loc) {
                 if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
                 set_door_orientation(mx + 52, my + 5); // C sel_set_door :4659
                 loc.doormask = D_LOCKED;
+                if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 52},${my + 5}`); // C :4661
                 loc.flags = D_LOCKED;
             }
         }
@@ -16697,6 +16702,7 @@ function load_minend_2() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = D_LOCKED;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = D_LOCKED;
     };
     meDoor(12, 2);
@@ -19229,8 +19235,9 @@ function set_door_orientation(x, y) {
  * sites, D-3528), knoxDoor (11 sites) + tut1_door (12 sites, D-3530),
  * baalz inline (1 site) + valleyDoor (3 sites, D-3536), medusa medDoor
  * ×3 + medusa-2 inline (16 sites, D-3538), barDoor (Bar-strt 8) +
- * wizDoor (Wiz-strt 8, D-3540), astralDoor (9) + sanctDoor (4, D-3542)
- * carry the :4661 game mark; the rest keep the split.
+ * wizDoor (Wiz-strt 8, D-3540), astralDoor (9) + sanctDoor (4, D-3542),
+ * meDoor ×2 (minend-1 7 + minend-2 2) + minend-2 gated inline (52,5)
+ * (10 sites, D-3544) carry the :4661 game mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]
