@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — audit 2445–2452 @26c8df1c6: review D-3562…D-3569 (7A/0D/1Q, 1 Must-fix) + full rescore 794/953
+
+**C locus:** review-only (no `js/`); hang bisected to `fe0e9911e` (D-3567 cap removal) exposing the allmain.js:1543–1549 `multi>0`+`mv` replay arm vs C allmain.c:515–531 arg-less `domove()`.
+**JS:** unchanged.
+**Change:** 8 review files (2445–2452) + index; Must-fix hang row (scen-ride-Knight-94415) + CURRENT Next cluster; CURRENT Score/fortress/Held-out refresh; committed `hidden-corpus/scoreboard.json` (`full: true`); ledger snapshot; regenerated cliffs block.
+**Verify:** public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `337+1.64/turn`); corpus 751→**794**/953 (RNG 99.50 %, screens 96.6 %), 0 PASS→FAIL; held-out 16/44 but RNG 34.8→39.6 % (+97 pts, first judge movement of the cliff phase). Per-SHA `--reach-all` re-measures all match their D-logs. Full rescore caught the 1 regression the sampled reaches missed: 94415 dosounds@129→hang (bisect 4f670fdff clean / fe0e9911e hang; /tmp/hang-drive.mjs: moves/qlen/multi frozen 46/128/80, chain moveloop_core→domove→render).
+**Named:** review 2449 debt: D-3566 `:1514` cite is really `:1517` (code C-exact; rides the next touch, not Must-fix).
+**Next:** the Must-fix hang ships alone (keep C's `for(;;)`; fix the mv-replay non-termination; ≥ pre-D-3567 prefix); then the regenerated cliffs head (`music.c` do_improvisation after the same-session js-throw row clears).
 ## 2026-10-06 — D-3570 [measure] `weapon.c` mon_wield_item/scen-town-Priest-94382: TEMP-C paint history proves the screen-99 G was never emitted — recorder-capture defect, JS correct, owner exonerated
 
 **C locus:** TEMP sites (all reverted, md5-verified): recorder `weapon.c:895` tether arm (state dump), `display.c:925` newsym head (`newsym246` paint log), `steed.c:898` place_monster (`place246` arrival log). Read-only: upstream `weapon.c:801–934` (mon_wield_item whole), `display.c:917–1096` (newsym; !cansee sensed branch `:1044–1052`, memory tail `:1080–1096` — no monster glyph possible with m_at NULL), `monmove.c` postmov `:1656` else-newsym (present in JS at monmove.js:1859), `monmove.c:1963–1970` (window's m_move draws: track-check + appr==0 `!rn2(++chcnt)`), window tail `mon.c:1164`/`allmain.c:166,360`/`sounds.c`/`eat.c:3191`/`uhitm.c:474`.

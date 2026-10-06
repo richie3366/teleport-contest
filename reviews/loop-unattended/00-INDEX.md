@@ -2454,3 +2454,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2442-0ef84c92d-quest-firsttime-level-tele.md](./2442-0ef84c92d-quest-firsttime-level-tele.md) | `0ef84c92d` | D-3558 quest firsttime ×6, level_tele head (3 PASS + 4 moved, exact) | **ACCEPT** |
 | [2443-984d8c718-distfleeck-whole-scared-arms.md](./2443-984d8c718-distfleeck-whole-scared-arms.md) | `984d8c718` | D-3559 distfleeck whole, head (Knight-94018 125→143, 723/723 reach) | **ACCEPT** |
 | [2444-c3000735f-mz-human-medium-writer.md](./2444-c3000735f-mz-human-medium-writer.md) | `c3000735f` | D-3561 MZ_HUMAN→MEDIUM writer (Hea-92055 104→141, 723/723 reach) | **ACCEPT** |
+| [2445-3393f081f-m-move-can-unlock-rider.md](./2445-3393f081f-m-move-can-unlock-rider.md) | `3393f081f` | D-3562 m_move can_unlock is_rider (Hea-92055 141→PASS, 724/724 reach) | **ACCEPT** |
+| [2446-a128195ee-dotravel-target-chebyshev-gate.md](./2446-a128195ee-dotravel-target-chebyshev-gate.md) | `a128195ee` | D-3563 dotravel_target gate removal (Tou-94242 72→PASS, 725/725 reach) | **ACCEPT** |
+| [2447-235f34f3f-dogfood-opoisoned-otrapped-bit.md](./2447-235f34f3f-dogfood-opoisoned-otrapped-bit.md) | `235f34f3f` | D-3564 dogfood aliased-bit read (3 moved, owner+step exact, 499/499 reach) | **ACCEPT** |
+| [2448-998892dc7-restore-keep-savefile-prompt.md](./2448-998892dc7-restore-keep-savefile-prompt.md) | `998892dc7` | D-3565 restore keep-savefile prompt (19 PASS + 5 moved, 3 Die?-scoped) | **ACCEPT** |
+| [2449-4f670fdff-postmov-mintrap-ptr-refresh.md](./2449-4f670fdff-postmov-mintrap-ptr-refresh.md) | `4f670fdff` | D-3566 postmov ptr refresh (:1514 cite→:1517 debt; 2 PASS durable, 744/744) | **ACCEPT** |
+| [2450-fe0e9911e-runsegment-unbounded-drive.md](./2450-fe0e9911e-runsegment-unbounded-drive.md) | `fe0e9911e` | D-3567 runSegment for(;;) driver (hang regression 94415 — Must-fix) | **QUALITY-RISK** |
+| [2451-00537b9c2-back-to-glyph-tty-twin.md](./2451-00537b9c2-back-to-glyph-tty-twin.md) | `00537b9c2` | D-3568 back_to_glyph tty twin (2 PASS + 94236 34→273, seenv split) | **ACCEPT** |
+| [2452-6a0adad8d-gloc-door-displayed-map.md](./2452-6a0adad8d-gloc-door-displayed-map.md) | `6a0adad8d` | D-3569 GLOC_DOOR displayed-map arm (Healer-94322 PASS, exact) | **ACCEPT** |
