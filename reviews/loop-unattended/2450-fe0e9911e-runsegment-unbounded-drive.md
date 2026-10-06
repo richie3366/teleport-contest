@@ -103,4 +103,4 @@ SHA QUALITY-RISK.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3571
+**Addressed:** D-3571 `8ec2b4d66`

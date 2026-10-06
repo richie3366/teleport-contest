@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — D-3572 cliffs-head `do_improvisation` writer: postmov/mb_trapped unseen-door arms read raw `u.Deaf` instead of the `Deaf` macro (Samurai-94217 step 27 → 228)
+
+**C locus:** `monmove.c` `mb_trapped :59`, `postmov :1571/:1588/:1613` (`else if (!Deaf)` guarding the `You_hear` door arms); `youprop.h:125` `#define Deaf (HDeaf || EDeaf || u.uroleplay.deaf)`.
+**JS:** 1 file (`monmove.js`, 4 predicate lines + C cites) + `scripts/postmov-door-deaf.test.mjs` (pins step-27 unpaged topline, step-28 in-sync `y`, RNG cover through step 27). Rule #2 clean; no DIAG/FORCE/seed gates (temp trace reverted, `git diff` clean before the fix).
+**Change:** all four gates → `!hero_Deaf()` (live in-module export ≡ C macro; its extra `|| u.Deaf` disjunct is dead code — zero writers). Message text/ordering untouched.
+**Verify:** `verify do_improvisation: 0 PASS, 1 moved, 0 no-movement` — `scen-special-Samurai-94217: moved → l_obj_register at step 228 (was 27)`; REACH-OK (`do_improvisation` 10/10, `postmov` 62/62, `mb_trapped` 1/1, 0 regressed); syntax · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file changed) → `VERIFY: PASS`. New test `node --test scripts/postmov-door-deaf.test.mjs`: 1/1 pass.
+**Named:** (1) the four arms still emit via plain `pline('You hear …')`, not C `You_hear`'s inner gates (`pline.c:441` acoustics + Underwater/Unaware prefixes) — pre-existing shape, unchanged by this unit; (2) raw-`u.Deaf` reads in other C files' ports (dig/dokick/engrave/mhitm/mthrowu/sounds) untouched — out of unit, nothing from another C file rides.
+**Next:** Samurai-94217 now blocked on `l_obj_register` at step 228 — the regenerated cliffs block picks it up if top-ranked.
 ## 2026-10-06 — D-3571 Must-fix hang: `hack.c` domove_core `!test_move` gate gains C's `nomul(0)` in all six blocked arms (scen-ride-Knight-94415 spins→scores, review 2450)
 
 **C locus:** `nethack-c/upstream/src/hack.c` domove_core `:2841–2846` — `if (!test_move(u.ux, u.uy, x - u.ux, y - u.uy, DO_MOVE)) { if (!door_opened) { move = 0; nomul(0); } return; }`. In C the zombie state terminates on the very next domove: bump → nomul(0) → multi/mv cleared → input read.

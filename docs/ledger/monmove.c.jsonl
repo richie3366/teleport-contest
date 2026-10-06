@@ -1,5 +1,5 @@
 {"fn":"msg_mon_movement","c":"33-48","status":"ported","js":["js/monmove.js:msg_mon_movement"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mb_trapped","c":"54-74","status":"ported","js":["js/monmove.js:mb_trapped"],"d":["D-2277"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mb_trapped","c":"54-74","status":"ported","js":["js/monmove.js:mb_trapped"],"d":["D-3572","D-2277"],"at":"2026-10-06@8ec2b4d66"}
 {"fn":"mon_track_add","c":"78-86","status":"ported","js":["js/monmove.js:mon_track_add"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_track_clear","c":"89-92","status":"ported","js":["js/monmove.js:mon_track_clear"],"at":"2026-10-03@bbe63333a"}
 {"fn":"monhaskey","c":"96-103","status":"ported","js":["js/monmove.js:monhaskey"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: m_carrying inlined as minvent walk"}
@@ -37,7 +37,7 @@
 {"fn":"m_avoid_kicked_loc","c":"1297-1308","status":"ported","js":["js/mon.js:m_avoid_kicked_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_avoid_soko_push_loc","c":"1313-1323","status":"ported","js":["js/mon.js:m_avoid_soko_push_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_search_items","c":"1330-1450","status":"ported","js":["js/monmove.js:m_search_items"],"d":["D-2047"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_move","c":"1715-2075","status":"partial","js":["js/monmove.js:m_move"],"d":["D-3566","D-3562","D-2410","D-1868"],"at":"2026-10-06@998892dc7"}
+{"fn":"m_move","c":"1715-2075","status":"partial","js":["js/monmove.js:m_move"],"omit":"(1) the four arms still emit via plain `pline('You hear …')`, not C `You_hear`'s inner gates (`pline.c:441` acoustics + Underwater/Unaware prefixes) — pre-existing shape, unchanged by this unit; (2) raw-`u.Deaf` reads in other C files' ports (dig/dokick/engrave/mhitm/mthrowu/sounds) untouched — out…","d":["D-3572","D-3566","D-3562","D-2410","D-1868"],"at":"2026-10-06@8ec2b4d66"}
 {"fn":"m_move_aggress","c":"2088-2117","status":"ported","js":["js/monmove.js:m_move_aggress"],"d":["D-2900"],"at":"seed@a30a7de84"}
 {"fn":"can_hide_under_obj","c":"2121-2167","status":"ported","js":["js/monmove.js:can_hide_under_obj"],"d":["D-2340"],"at":"2026-10-01@e45cb9654","note":"stale: js/monmove.js:1336"}
 {"fn":"dissolve_bars","c":"2170-2178","status":"ported","js":["js/hack.js:dissolve_bars"],"at":"2026-10-03@bbe63333a"}

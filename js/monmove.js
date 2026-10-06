@@ -1320,7 +1320,7 @@ export async function mb_trapped(mtmp, canseeit) {
     if (game.flags?.verbose !== false) {
         if (canseeit && !game.u?.Unaware) {
             await pline_mon(mtmp, 'KABOOM!!  You see a door explode.');
-        } else if (!game.u?.Deaf) {
+        } else if (!hero_Deaf()) { // C :59 !Deaf macro (HDeaf|EDeaf|roleplay), not the u.Deaf flag
             const far = dist2(mtmp.mx, mtmp.my, game.u.ux, game.u.uy) > 7 * 7;
             await pline(`You hear a ${far ? 'distant' : 'nearby'} explosion.`);
         }
@@ -1774,7 +1774,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
                     await pline_mon(mtmp, `${Monnam(mtmp)} unlocks and opens a door.`);
                 } else if (canseeit) {
                     await You_see('a door unlock and open.');
-                } else if (!game.u?.Deaf) {
+                } else if (!hero_Deaf()) { // C :1571 !Deaf macro (HDeaf|EDeaf|roleplay), not the u.Deaf flag
                     await pline('You hear a door unlock and open.');
                 }
             }
@@ -1789,7 +1789,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
                     await pline_mon(mtmp, `${Monnam(mtmp)} opens a door.`);
                 } else if (canseeit) {
                     await You_see('a door open.');
-                } else if (!game.u?.Deaf) {
+                } else if (!hero_Deaf()) { // C :1588 !Deaf macro (HDeaf|EDeaf|roleplay), not the u.Deaf flag
                     await pline('You hear a door open.');
                 }
             }
@@ -1807,7 +1807,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
                     await pline_mon(mtmp, `${Monnam(mtmp)} smashes down a door.`);
                 } else if (canseeit) {
                     await You_see('a door crash open.');
-                } else if (!game.u?.Deaf) {
+                } else if (!hero_Deaf()) { // C :1613 !Deaf macro (HDeaf|EDeaf|roleplay), not the u.Deaf flag
                     await pline('You hear a door crash open.');
                 }
             }
