@@ -5968,30 +5968,33 @@ export function swallowed(first = 0) {
     const swallower = u.ustuck.mnum ?? u.ustuck.data?.mndx ?? 0;
 
     if (first) {
-        // C display.c:1338–1339 cls(); bot(). docrt_flags already cls()'d
-        // on the uswallow arm. bot() has no await, so the status cache
-        // updates before this function returns.
+        // C `:1337–1339` — cls(); bot(). cls() is display.c:2196–2201:
+        // message flush + botlx + clear_nhwindow(WIN_MAP) +
+        // clear_glyph_buffer() (`:2200` — the gbuf wipe). The gulp path
+        // (mhitu.c:1396) calls swallowed(1) directly, not via docrt, so
+        // the wipe must live here: without it the pre-swallow glyphs
+        // (monsters the hero can no longer see) stay readable via
+        // glyph_at and getpos 'm' cycles to phantom squares (D-3579).
+        // The physical clear rides along: every cell is blanked + dirty
+        // below, so the next flush repaints blanks. The async cls()
+        // (terminal/message side) stays the docrt arm's; bot() runs
+        // sync-called as before.
+        clear_glyph_buffer();
         void bot();
-        for (let y = 0; y < ROWNO; y++) {
-            for (let x = 1; x < COLNO; x++) {
-                const loc = game.level?.at(x, y);
-                if (loc) {
-                    loc.disp_ch = ' ';
-                    loc.disp_color = NO_COLOR;
-                    loc.disp_decgfx = false;
-                    // C swallowed blank must repaint: keep the cell dirty
-                    // and in the span (cls just cleared the buffer, so
-                    // not all these cells are dirty from newsyms).
-                    loc.gnew = 1;
-                    mark_gbuf_dirty(x, y);
-                }
-            }
-        }
     } else if (_swallow_lastx) {
+        // C `:1341–1348` — clear the old 3x3 with show_glyph(x, y,
+        // GLYPH_UNEXPLORED). The id matters, not just the blank paint:
+        // glyph_at readers (gather_locs, do_screen_description) and
+        // disp_kind readers (zap, detect) must see unexplored rather
+        // than the stale cell or NO_GLYPH. The suppress gate mirrors
+        // show_glyph's own (C `:1886`); kind is set alongside because
+        // the classifier cannot derive it from the id.
         for (let y = _swallow_lasty - 1; y <= _swallow_lasty + 1; y++) {
             for (let x = _swallow_lastx - 1; x <= _swallow_lastx + 1; x++) {
-                if (isok(x, y)) {
-                    show_glyph_cell(x, y, ' ', NO_COLOR, false);
+                if (isok(x, y) && !suppress_map_output()) {
+                    show_glyph_cell(x, y, ' ', NO_COLOR, false, 0, GLYPH_UNEXPLORED);
+                    const loc = game.level?.at(x, y);
+                    if (loc) loc.disp_kind = 'unexplored';
                 }
             }
         }
@@ -6312,9 +6315,10 @@ export async function docrt_flags(refresh_flags) {
             // no vision_recalc/cls), then post_map.
             await redraw_map(0);
         } else if (game.u.uswallow) {
-            // C `:1726–1728` — swallowed(1) does cls()+bot(). cls is here
-            // (swallowed's own cls is the same clear); bot() runs inside
-            // swallowed(first).
+            // C `:1726–1728` — swallowed(1) does cls()+bot(). The async
+            // cls() stays here (terminal/message side); swallowed(first)
+            // wipes gbuf itself via clear_glyph_buffer (C :1338→:2200),
+            // which the direct gulp-path caller (mhitu.c:1396) needs.
             await cls();
             swallowed(1);
         } else if ((game.u.uinwater | 0) && !Is_waterlevel(game.u.uz)) {

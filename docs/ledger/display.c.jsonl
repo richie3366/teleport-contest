@@ -28,7 +28,7 @@
 {"fn":"tether_glyph","c":"1127-1133","status":"ported","js":["js/display.js:tether_glyph"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tmp_at","c":"1174-1296","status":"ported","js":["js/display.js:tmp_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"flash_glyph_at","c":"1305-1321","status":"ported","js":["js/display.js:flash_glyph_at"],"at":"2026-10-03@bbe63333a"}
-{"fn":"swallowed","c":"1332-1386","status":"ported","js":["js/display.js:swallowed"],"at":"2026-10-03@bbe63333a"}
+{"fn":"swallowed","c":"1332-1386","status":"ported","js":["js/display.js:swallowed"],"d":["D-3579"],"at":"2026-10-06@f61bc493b"}
 {"fn":"under_water","c":"1395-1437","status":"ported","js":["js/display.js:under_water"],"d":["D-1981"],"at":"2026-10-03@bbe63333a"}
 {"fn":"under_ground","c":"1445-1467","status":"ported","js":["js/display.js:under_ground"],"at":"2026-10-03@bbe63333a"}
 {"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"- `see_monsters`: restore.c:682 defer setter absent.","d":["D-3417","D-3402","D-3401","D-2493","D-1746"],"at":"2026-10-04@b127042af","note":"audited D-3402: remaining omit cannot ship; D-3417: replmon paste replaced with D-3401 text"}
