@@ -8,7 +8,7 @@ import {
     throws_rocks, is_swimmer, likes_lava, mindless, is_animal, strongmonst, is_mercenary,
     mon_knows_traps, mon_learns_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
-    is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
+    is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL, MZ_MEDIUM,
     grounded, telepathic, mons, metallivorous, humanoid, is_neuter, G_UNIQ,
     corpse_eater, is_demon, touch_petrifies, acidic, mon_hates_silver,
     resists_ston, is_rider, dmgtype,
@@ -176,7 +176,8 @@ const AD_CORR = 42;
 const GEMSTONE = 20; // objclass.h
 const MINERAL = 21; // objclass.h
 const MAX_CARR_CAP = 1000;
-const MZ_HUMAN = 3;
+/** C ref: monflag.h:180 — MZ_HUMAN ≡ MZ_MEDIUM (2), not MZ_LARGE (3). */
+const MZ_HUMAN = MZ_MEDIUM;
 const WT_HUMAN = 1450;
 const MTSZ = 4;
 const BOLT_LIM = 8;

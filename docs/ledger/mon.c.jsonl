@@ -25,7 +25,7 @@
 {"fn":"mpickgold","c":"1827-1843","status":"ported","js":["js/mon.js:mpickgold"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"mpickstuff","c":"1847-1910","status":"ported","js":["js/monmove.js:mpickstuff"],"d":["D-3192","D-3176","D-2085"],"at":"2026-10-01@480b65c81"}
 {"fn":"curr_mon_load","c":"1913-1924","status":"ported","js":["js/monmove.js:curr_mon_load"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
-{"fn":"max_mon_load","c":"1927-1954","status":"ported","js":["js/monmove.js:max_mon_load"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
+{"fn":"max_mon_load","c":"1927-1954","status":"ported","js":["js/monmove.js:max_mon_load"],"d":["D-3561","D-3176"],"at":"2026-10-06@9a2b6946f"}
 {"fn":"can_touch_safely","c":"1958-1974","status":"ported","js":["js/monmove.js:can_touch_safely"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: touch_artifact_mon verified equal to C touch_artifact monster path incl. bane"}
 {"fn":"can_carry","c":"1990-2053","status":"ported","js":["js/monmove.js:can_carry"],"d":["D-3176"],"at":"2026-09-30@3f8f47e04"}
 {"fn":"monlineu","c":"2057-2060","status":"ported","js":["js/mon.js:monlineu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
