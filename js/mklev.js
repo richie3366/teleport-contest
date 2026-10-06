@@ -23423,8 +23423,11 @@ export function splev_create_altar(a, croom = null) {
  * Packed coord: get_location adds xstart/ystart (or croom lx/ly), deltrap,
  * SpLev_Map[x][y]=1, mkstairs(..., force=TRUE). Random: good_stair_loc then
  * mkstairs force=FALSE. Ladder skips mkstairs (no dungeon-end no-op).
- * Named omit: Lua argc table/string parse (loaders pass unpacked dir/coord);
- * other des.stair loaders still raw mkstairs without force.
+ * No table form (D-3522): the :4165/:4171 dir parse is unported-Lua
+ * boundary — every in-tree dir arrives an unpacked 0/1 int, zero
+ * string-dir sources. Named omit: fixed des.stair call sites stay raw
+ * mkstairs (force/mark need per-site C mapping); random des.stair runs
+ * splev_create_stair / splev_room_stair (both carry the :4189 mark).
  */
 export function l_create_stairway(up, rx, ry, croom, using_ladder) {
     create_des_coder(); // C :4159
@@ -23579,6 +23582,8 @@ function splev_create_stair(up) {
     const trap = t_at(pos.x, pos.y);
     // C l_create_stairway: deltrap(badtrap) before the stair.
     if (trap) deltrap(trap);
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${pos.x},${pos.y}`); // C :4189
     mkstairs(pos.x, pos.y, up ? 1 : 0, null);
 }
 
@@ -23795,6 +23800,8 @@ function splev_room_stair(croom, up) {
     const trap = t_at(pos.x, pos.y);
     // C l_create_stairway: deltrap(badtrap) before the stair.
     if (trap) deltrap(trap);
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    game.SpLev_Map.add(`${pos.x},${pos.y}`); // C :4189
     mkstairs(pos.x, pos.y, up ? 1 : 0, croom);
 }
 
