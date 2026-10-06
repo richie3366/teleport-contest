@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3518 — Must-fix: sp_lev.c wall_property 4-field→get_table_int_opt rewire (review 2416.1; second get_table_coords_or_region expansion)
+- **Status:** shipped.
+- **Symptom:** queue-head Must-fix (review 2416.1, QUALITY-RISK): D-3508 flipped get_table_int_opt to ported claiming "all C sites closed: 43 wired" but rewired only the :5607 region expansion of get_table_coords_or_region — the :5889 wall_property expansion still read x1/y1/x2/y2 through inline `|0` (js/mklev.js:5214–5217): fractions truncate where C argerrors, non-numerics flow as 0/1 where C throws — named nowhere (lspo_wall_property ledger ported, no omit). Zero in-tree callers, but the ported census claim was false.
+- **C locus:**
+  - `lspo_wall_property`: sp_lev.c:5876–5908 — the :5889 call into get_table_coords_or_region :5560–5577 (four reads :5565–5568).
+- **JS was:** js/mklev.js:5214–5217 inline `o.x1 != null ? (o.x1 | 0) : -1` ×4 (D-2713 port; comment cited ":5889 get_table_int_opt -1" but the conversion was the permissive adapter).
+- **Fix:** four sites restarted through the live whole helper on the EXISTING mklev→dungeon edge (:150, no import change), in place and in C order (x1..y2 :5565–5568 via :5889, after the lcheck_param_table read :5887, before the region fallback :5571–5576); cite corrected to `:5565-5568 get_table_coords_or_region via :5889` (region-expansion style, D-3508). lua_field/lua_type equivalences hold (o is the object-checked non-null table at :5211–5213, so lua_field ≡ o[name] and nil ⟺ == null). Behavior delta is exactly the C conversion (absent → -1; integers verbatim; integral floats + numeric strings convert; beyond-int32 truncates via the (int) cast; fractions and direct non-numerics now throw like argerror). Entry-source audit: def + comments + source-reading test asserts only (search this iter) — zero in-tree behavior change. New scripts/lspo-wall-property-int.test.mjs (4-site wiring + C-order + adapter-gone asserts; helper conversion itself covered by lspo-region-int.test.mjs).
+- **JS:** js/mklev.js (4 calls + cite). 1 changed js file. scripts/lspo-wall-property-int.test.mjs new.
+- **Callers:**
+  - `lspo_wall_property`: C has no call sites (des.wall_property Lua entry; declaration only at sp_lev.c:163) → JS des dispatch unported, no scored analogue; zero in-tree callers (def js/mklev.js:5209 + comments + test asserts).
+- **Verify:** `verify.mjs --fn lspo_wall_property` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · hidden note (none blocked — normal; row cited none) · REACH-OK (smoke 24/24, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed); `node --test` new 1/1 (fails 0/1 pre-change) + neighbors 37/37 (region-int 7, str-opt/bool-opt/mazewalk 30); VERIFY: PASS.
+- **Named omissions:**
+  - `lspo_wall_property`: none — whole (D-2713 port + this-iter rewire; region fallback, -1 extent defaults, get_location ANY_LOC pair, set_wall_property all live).
+- **Ledger:** lspo_wall_property ported
+- **Left open:** none.
+- **Next:** next Must-fix (uhitm.c hmon_hitmon_poison 1-row repair). No band refill (popping the head leaves 8 rows — band holds). Review 2416 Actionable 2416.1 stamped `**Addressed:** D-3518`. Bundled: review 2420 `**Addressed:** D-3517` hash backfill (`f9a67973d`).
+
 ## D-3517 — Must-fix: nhlua.c get_table_option 1-row ledger repair (D-3516 impossible paste restored; body whole, step-2 remainder)
 - **Status:** shipped (ledger-only; no `js/` change).
 - **Symptom:** queue-head Must-fix (review 2420.1): get_table_option row `partial` carried the verbatim impossible first-line paste ("- `impossible`: paniclog :598 (filesystem) + CRASHREPORT :621–631 …", d=D-3516,D-3101) — 4th instance of the finish bug and the first with NO follow-up restore in history (HEAD a0d3ff284; D-3510/D-3512's were restored by 97b97195d/8b15af4c1). The queue row offered restore-or-retire; re-verification: RESTORE (status partial directionally right — the step-2 adapters exist).

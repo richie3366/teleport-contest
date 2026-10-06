@@ -162,6 +162,6 @@ Banned-pattern grep on the `js/` hunks: 0 hits. Rule #2 clean
    restoring the D-3516 Named remainder (step-2 adapters + stair
    omit + nhlsel by-design) narrowed ≤300 chars, re-verified at
    repair. One port iter, docs-only, zero behavior risk.
-   **Addressed:** D-3517
+   **Addressed:** D-3517 `f9a67973d`
 
 Verdict: **QUALITY-RISK**

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-06
 
+- [x] sp_lev.c wall_property int-opt expansion: missing arm — C sp_lev.c:5565–5568 (via get_table_coords_or_region call site :5889) absent from js/mklev.js lspo_wall_property (:5214–5217 inline `|0`, ported D-2713, zero in-tree callers); D-3508 flipped get_table_int_opt to ported claiming "all C sites closed: 43 wired" but rewired only the :5607 region expansion — fractions truncate (C argerrors), non-numerics flow as 0/1 (C throws); named nowhere (lspo_wall_property itself ledger ported, no omit); brief-verified at review (C callers ×2, JS body read, 8-claim second sample all hold). Fix: 4 sites → get_table_int_opt on the existing mklev→dungeon edge, or name the omit. Source: reviews/loop-unattended/2416-dad6395c2-lspo-region-int-opt-rewire.md.
+
+
 - [x] nhlua.c get_table_option 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — get_table_option ← finish first-line paste (row flipped ported→partial carrying the verbatim impossible head "paniclog :598 (filesystem) + CRASHREPORT :621–631 …", d=D-3516,D-3101 at HEAD a0d3ff284; 4th instance of the finish bug and the first with NO follow-up restore in history — D-3510/D-3512's were restored by 97b97195d/8b15af4c1); true remainder in D-3516 Named (buc/align/howtoput silent-default adapters, verified present js/mklev.js:22508/:23050 + js/questpgr.js:1073, + stair in-code omit + nhlsel by-design); status partial directionally right, omit text wrong. Fix: restore remainder narrowed ≤300 chars or retire re-verified at repair. Source: reviews/loop-unattended/2420-a0d3ff284-str-opt-campaign-step1.md.
 
 

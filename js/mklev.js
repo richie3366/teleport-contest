@@ -5211,10 +5211,10 @@ export function lspo_wall_property(o) {
     if (arguments.length < 1) o = {}; // C lcheck_param_table :228-230
     if (o == null || typeof o !== 'object') // C :232 luaL_checktype
         throw new Error('bad argument #1 (table expected)');
-    let dx1 = o.x1 != null ? (o.x1 | 0) : -1; // C :5889 get_table_int_opt -1
-    let dy1 = o.y1 != null ? (o.y1 | 0) : -1;
-    let dx2 = o.x2 != null ? (o.x2 | 0) : -1;
-    let dy2 = o.y2 != null ? (o.y2 | 0) : -1;
+    let dx1 = get_table_int_opt(o, 'x1', -1); // C :5565-5568 get_table_coords_or_region via :5889
+    let dy1 = get_table_int_opt(o, 'y1', -1);
+    let dx2 = get_table_int_opt(o, 'x2', -1);
+    let dy2 = get_table_int_opt(o, 'y2', -1);
     if (dx1 === -1 && dy1 === -1 && dx2 === -1 && dy2 === -1) {
         const r = get_table_region_unpacked(o, 'region', false); // C :5571-5576
         dx1 = r[0];
