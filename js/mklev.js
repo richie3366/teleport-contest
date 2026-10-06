@@ -2205,7 +2205,10 @@ export async function lspo_region(a, b) {
  * Tower loaders inline the load loop (load_tower1/2/3); their map cells
  * carry the :6292 game mark (D-3528 close-out). Tutorial loaders inline
  * the load loop (load_tut1/2); their map cells carry the :6292 game
- * mark (D-3532 close-out — both tutorial bitmaps C-complete).
+ * mark (D-3532 close-out — both tutorial bitmaps C-complete). The
+ * themeroom helper (lspo_map_themeroom) inlines the same shared loop;
+ * its map cells carry the :6292 game mark (D-3534 close-out — last
+ * unmarked map loop; 19 THEMEROOM_MAPS byte-identical to themerms.lua).
  * Named: mapfrag_free (GC no-op); dupstr/free (GC no-ops);
  * l_push_wid_hei_table ({width,height} object); nhl_pcall_handle
  * (direct contents call); l_selection_push_copy + selection_free
@@ -32220,6 +32223,10 @@ function lspo_replace_terrain_sel(sel, fromtyp, totyp, chance) {
 
 // C ref: sp_lev.c lspo_map — themerms random-placement path (lr=tb=-1, no croom)
 // mapdef: { map, fx, fy [, contents()] } — contents replaces default filler_region.
+// The write loop below is C's shared "Load the map" loop (:6286–6305),
+// which runs on the themeroom path too (the in_mk_themerooms gate guards
+// only the no-overwrite pre-check :6244–6283) — so every valid map cell
+// carries the :6292 game mark (D-3534 close-out, tower idiom).
 function lspo_map_themeroom(mapdef) {
     const g = game;
     const mapstr = mapdef.map;
@@ -32279,11 +32286,13 @@ function lspo_map_themeroom(mapdef) {
         g.splev_ystart = ystart;
         g.splev_xsize = xsize;
         g.splev_ysize = ysize;
+        if (!g.SpLev_Map) g.SpLev_Map = new Set(); // C lspo_map load loop (tower idiom)
         for (let yy = ystart; yy < Math.min(ROWNO, ystart + ysize); yy++) {
             for (let xx = xstart; xx < Math.min(COLNO, xstart + xsize); xx++) {
                 const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
                 if (mptyp === INVALID_TYPE) continue;
                 if (mptyp >= MAX_TYPE) continue;
+                g.SpLev_Map.add(`${xx},${yy}`); // C :6292 SpLev_Map[x][y] = 1
                 sel_set_ter(xx, yy, mptyp, false);
             }
         }
