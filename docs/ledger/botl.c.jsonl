@@ -42,7 +42,7 @@
 {"fn":"status_eval_next_unhilite","c":"2279-2317","status":"ported","js":["js/botl.js:status_eval_next_unhilite"],"d":["D-2964"],"at":"2026-09-27@fa5382192"}
 {"fn":"reset_status_hilites","c":"2321-2331","status":"ported","js":["js/botl.js:reset_status_hilites"],"at":"2026-10-03@bbe63333a"}
 {"fn":"noneoftheabove","c":"2336-2344","status":"ported","js":["js/botl.js:noneoftheabove"],"at":"2026-10-03@bbe63333a"}
-{"fn":"get_hilite","c":"2364-2570","status":"partial","js":["js/botl.js:get_hilite"],"omit":"``exp_percent_changing`` caller (``botl.c:2117``); ``hilite_reset_needed``/``status_update`` stays named (windowport registry); rule-node producers (threshold chains are null until the status-hilite option parser lands — gate reads false, returns null + NO_COLOR).","d":["D-3405","D-2619"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"get_hilite","c":"2364-2570","status":"ported","js":["js/botl.js:get_hilite"],"d":["D-3507","D-3405","D-2619"],"at":"2026-10-05@8cbf45aa1","note":"stale: js/botl.js:754 whole (D-2619 port; D-3405 + review 1578 ACCEPT re-verified); omit names caller :2117 (wired :618), non-callee registry pair, producer precondition (live null-gate); D-3405 Named has no remainder"}
 {"fn":"split_clridx","c":"2576-2582","status":"ported","js":["js/botl.js:split_clridx"],"d":["D-3405","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"parse_status_hl1","c":"2593-2648","status":"ported","js":["js/botl.js:parse_status_hl1"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_ltgt_percentnumber","c":"2652-2669","status":"ported","js":["js/botl.js:is_ltgt_percentnumber"],"at":"2026-09-30@a8bd0bc2e","note":"stale: whole body js/botl.js:1719, wired at C caller :2921 -> js/botl.js:1882"}
