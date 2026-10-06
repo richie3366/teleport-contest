@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — audit 2430–2433 @cfe322f35: review D-3536/D-3538/D-3540/D-3542 (4A/0D/0Q, 0 Must-fix) + full rescore 741/953
+
+**Scope:** 4 js-touching SHAs since 2429 (des.door :4661 game-mark steps: baalz/valley 4, medusa 16, Bar/Wiz-strt 16, astral/sanctum 13 sites); 5 ledger-only Must-fix SHAs skipped per Method. Every des census re-read from pinned lua (counts/masks/coords exact, wall-form exclusions correct); full `.has` reader census = 4 sites (solidify :4183, remove_boundary :19426, mazewalk ×2) — neutrality conclusions re-verified true; per-loader closure locality confirms no over-marking (wiz_loca/wiz_goal/bar_loca keep own unmarked closures).
+**Nits:** 2432 :19415 + 2433 :19421/:21706 cite drifts (docs-only, unqueued — gates verified at :19411/:19425/:19426).
+**Score:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `333+1.65/turn` R² 0.777); corpus 741/953 (77.8 %, RNG 98.53 %, screens 94.2 %, 0 losses, 0 gains, full:true); held-out 16/44 flat (judge 01:31Z). Ledger snapshot appended; 5 seeded `ported` rows sampled (monstone/maybe_absorb_item/add_mon_to_reg/add_valid_menu_class/findit — all correct, `ledger.mjs sql` broken here: node:sqlite missing, sampled via jsonl).
+**Next:** next Must-fix (options.c initoptions_init 1-row repair).
 ## 2026-10-06 — D-3543 Must-fix: read.c seffect_destroy_armor 1-row ledger repair (clipped omit restore-compacted to 135, 1 real remainder kept; body whole D-2640)
 
 **C locus:** row home only (no C re-read; body brief-read this iter): read.c `seffect_destroy_armor` :1324–1396 (some_armor pick, confused bones-itch/erodeproof-swap, cursed vibrate+stun/disintegrate_arm, uncursed gets_choice getobj/disintegrate_cursed_armor/destroy_arm-or-skin-itch; sole C caller read.c:2212).

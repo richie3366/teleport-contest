@@ -2439,3 +2439,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2427-bdc47be2f-knox-tut1-door-mark-step.md](./2427-bdc47be2f-knox-tut1-door-mark-step.md) | `bdc47be2f` | D-3530 knox/tut-1 des.door :4661 campaign step (23 sites) | **ACCEPT** |
 | [2428-ac6f8cc3e-tut-map-mark-closeout.md](./2428-ac6f8cc3e-tut-map-mark-closeout.md) | `ac6f8cc3e` | D-3532 tut-1/tut-2 des.map :6292 close-out (bitmaps C-complete) | **ACCEPT** |
 | [2429-d55077ac6-themeroom-map-mark-closeout.md](./2429-d55077ac6-themeroom-map-mark-closeout.md) | `d55077ac6` | D-3534 themeroom :6292 close-out, last unmarked map loop (count nits) | **ACCEPT** |
+| [2430-fd7679259-baalz-valley-door-mark-step.md](./2430-fd7679259-baalz-valley-door-mark-step.md) | `fd7679259` | D-3536 baalz/valley des.door :4661 campaign step (4 sites) | **ACCEPT** |
+| [2431-00a58d75f-medusa-quartet-door-mark-step.md](./2431-00a58d75f-medusa-quartet-door-mark-step.md) | `00a58d75f` | D-3538 medusa quartet des.door :4661 campaign step (16 sites) | **ACCEPT** |
+| [2432-65c6d93ec-bar-wiz-strt-door-mark-step.md](./2432-65c6d93ec-bar-wiz-strt-door-mark-step.md) | `65c6d93ec` | D-3540 Bar-strt/Wiz-strt des.door :4661 campaign step (16 sites, :19415 cite drift) | **ACCEPT** |
+| [2433-56dbffc14-astral-sanctum-door-mark-step.md](./2433-56dbffc14-astral-sanctum-door-mark-step.md) | `56dbffc14` | D-3542 astral/sanctum des.door :4661 campaign step (13 sites, 2 cite drifts) | **ACCEPT** |
