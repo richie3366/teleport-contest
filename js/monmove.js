@@ -1687,8 +1687,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
     if (mmoved !== MMOVE_MOVED && mmoved !== MMOVE_DONE) return mmoved;
 
     // let: C refreshes the cached ptr after vamp_shift (:1498) and
-    // mintrap (:1517); the vamp arm below assigns, the mintrap
-    // refresh stays deferred (pre-existing).
+    // mintrap (:1514); both arms assign below.
     let ptr = mtmp.data;
 
     if (mmoved === MMOVE_MOVED) {
@@ -1737,6 +1736,10 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
         // C ref: monmove.c postmov — migrated/off-map after mintrap
         return MMOVE_DONE;
     }
+    // C `:1514` — the post-move mintrap may have polymorphed the
+    // monster (poly trap → new data); later arms (door squeeze,
+    // meat, hides_under hide-check) must read the new permonst.
+    ptr = mtmp.data; /* in case mintrap() caused polymorph */
 
     // open a door, or crash through it, if mtmp can
     const loc = game.level?.at(mtmp.mx, mtmp.my);
