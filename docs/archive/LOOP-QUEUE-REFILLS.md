@@ -321,3 +321,36 @@ Refill 2026-09-27 @D-2954 (queue 7 after `redist_attr`, below band): `--rows 5` 
 Refill 2026-09-27 @D-2958 (queue 7 after `yname`, below band): `--rows 20` was the never-re-pop Stale head (`newcham` through `mon_arrive`), not pasted. `--rows 500 --min-c-lines 15` skipped DONE/PARKED/Stale-index, `hops —`, `split?`, and save/files/restore/sanity/status. Five later gameplay rows pasted verbatim in tool order:
 
 Refill 2026-09-27 @D-2961 (queue 6 after parking `getpos_toggle_hilite_state` and `acurrstr` and archiving `remove_timer`, below band): `--rows 500 --min-c-lines 15` head is the never-re-pop Stale set (not pasted). Skipped DONE/PARKED/D-index/NOTES subjects, save/restore/files, sanity, and `hops —`. Three later gameplay rows pasted verbatim in tool order:
+
+Refill history 2026-10-03…2026-10-05 (archived 2026-10-06, audit 2416–2420 — LOOP-QUEUE cap trim; D-3399 through D-3425 paragraphs moved verbatim):
+
+D-3399 drained the block (generated block still 0 rows at default C ≥ 8;
+`rows --min-c-lines 1` yields only 8, of which `dumplogfreemessages` is
+DUMPLOG-retired per D-1776 and the THIN six read complete in JS) —
+refilled with the next 8 `sfbase.c` norm_ptrs_* stubs in C order (C-home
+`js/sfbase.js` established by D-3399; ~60 siblings remain absent).
+D-3404 shipped those 8 plus 56 more stubs; the generated block holds 1
+row at default C ≥ 8 (only non-excluded MISSING left: `topl_putsym`) —
+refilled with the last 3 absent `sfbase.c` stubs, `topl_putsym`, and 3
+`hacklib.c` partials the next batch preview still lists (THIN rechecks
+excluded: the six read complete in JS per the D-3403 note).
+D-3420 drained `topl_putsym` (split) + `find_offensive`/`mbhitm` (ported
+whole); generated block still 1 row (rest excluded: tty/files/save) —
+refilled with the last 2 absent `sfbase.c` stubs + same-file `mbhit`
+partial (both omits brief-verified below).
+D-3421 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
++1 with batch-preview `cpostfx` partial (WIN_MAP flush brief-verified
+below) to hold the 8-row band.
+D-3422 shipped all 4 (2 sfbase stubs ported whole; `mbhit` both arms;
+`cpostfx` omit retired as the house more() idiom); band 4 < 8 blocks
+finish — refilled +4 with batch-preview partials (each omit brief-verified
+below) to hold the 8-row band.
+D-3423 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
++1 with batch-preview `find_misc` partial (nomore continue brief-verified
+below) to hold the 8-row band.
+D-3424 (Must-fix; band 7 < 8 blocks finish) refilled +1 with
+batch-preview `use_misc` partial (INVIS canspotmon gate brief-verified
+below) to hold the 8-row band.
+D-3425 (Must-fix; band 7 < 8 blocks finish) refilled +1 with
+batch-preview `pick_nasty` partial (rogue re-ROLL brief-verified
+below) to hold the 8-row band.

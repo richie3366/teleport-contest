@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — audit 2416–2420 @a0d3ff284: review D-3508/D-3510/D-3512/D-3514/D-3516 (3A/0D/2Q, 2 Must-fix) + full rescore 741/953
+
+**Reviewed:** 5 js-touching SHAs since 2415 (7 docs-only Must-fix/follow-up commits skipped per method): dad6395c2 region int 6-site (QR: wall_property :5889 second coords expansion still `|0`, wrong `ported` — Must-fix 2416.1; 8-claim second sample all hold), 17802db45 bool step 1 8-site (A; rtype cite :5606→:5604 + inverted swapped observation docs-only), c076fe518 bool step 2 obj ×12 (A), 9f377496b bool close-out mon ×16+3 (A; 51-ref census re-verified, flip correct), a0d3ff284 string step 1 20-site (QR: get_table_option row carries impossible paste at HEAD with no restore — Must-fix 2420.1; entry-source "no test passes keys" overclaims mazewalk). All rewire cites verified exact, helpers whole, zero in-tree behavior change each; all 5 re-measures match D-logs (vacuous + smoke 24/24, 0 regressed).
+**Score:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `329+1.62/turn` R² 0.782); corpus 741/953 PASS, RNG 98.53 %, screens 94.2 %, 0 lost / 0 gained, `full: true`; held-out 16/44 flat at judge 01:31Z. Ledger snapshot appended; 5 seeded ported rows briefed (growl_sound, flip_level_rnd, polyman, use_figurine whole; use_candle row note fixed to name the :1467 update_inventory deferral). Note: `ledger.mjs sql` unusable on Node v20.12.2 (no node:sqlite) — sample drawn via grep+shuf on the same predicate.
 ## 2026-10-06 — D-3516 Open head: impossible audit + string-opt campaign step 1 (19 splev_opt_index sites + region inline → get_table_option/luaL_checkoption)
 
 **C locus:** - `impossible`: pline.c:584–634 (audit only; recursion panic :591–592, vsnprintf chop :595–597, paniclog :598, fuzzer panic :599–600, URGENT pline :602–604, sanity early-return :606–610, disorder/report/support :612–619, CRASHREPORT :621–631).

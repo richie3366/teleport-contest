@@ -2425,3 +2425,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2413-c83eda903-lspo-door-int-opt-rewire.md](./2413-c83eda903-lspo-door-int-opt-rewire.md) | `c83eda903` | D-3502 lspo_door pos→int-helper rewire + impossible | **ACCEPT** |
 | [2414-9ed587304-lspo-replace-int-opt-rewire.md](./2414-9ed587304-lspo-replace-int-opt-rewire.md) | `9ed587304` | D-3504 lspo_replace_terrain 6-site→int-helper rewire + impossible | **ACCEPT** |
 | [2415-8cbf45aa1-lspo-terrain-int-opt-rewire.md](./2415-8cbf45aa1-lspo-terrain-int-opt-rewire.md) | `8cbf45aa1` | D-3506 lspo_terrain lit→int-helper rewire + impossible | **ACCEPT** |
+| [2416-dad6395c2-lspo-region-int-opt-rewire.md](./2416-dad6395c2-lspo-region-int-opt-rewire.md) | `dad6395c2` | D-3508 lspo_region 6-site→int-helper rewire + impossible (wall_property census miss) | **QUALITY-RISK** |
+| [2417-17802db45-bool-opt-campaign-step1.md](./2417-17802db45-bool-opt-campaign-step1.md) | `17802db45` | D-3510 boolean-opt step 1: 8 sites trap/region/mazewalk/map + impossible | **ACCEPT** |
+| [2418-c076fe518-bool-opt-campaign-step2.md](./2418-c076fe518-bool-opt-campaign-step2.md) | `c076fe518` | D-3512 boolean-opt step 2: obj ×12 table+montype + impossible | **ACCEPT** |
+| [2419-9f377496b-bool-opt-closeout.md](./2419-9f377496b-bool-opt-closeout.md) | `9f377496b` | D-3514 boolean-opt close-out: mon ×16 + feature/engraving ×3 + impossible | **ACCEPT** |
+| [2420-a0d3ff284-str-opt-campaign-step1.md](./2420-a0d3ff284-str-opt-campaign-step1.md) | `a0d3ff284` | D-3516 string-opt step 1: 20 sites + impossible (ledger paste, no restore) | **QUALITY-RISK** |

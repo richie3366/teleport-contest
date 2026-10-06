@@ -90,6 +90,8 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
+- [ ] nhlua.c get_table_option 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — get_table_option ← finish first-line paste (row flipped ported→partial carrying the verbatim impossible head "paniclog :598 (filesystem) + CRASHREPORT :621–631 …", d=D-3516,D-3101 at HEAD a0d3ff284; 4th instance of the finish bug and the first with NO follow-up restore in history — D-3510/D-3512's were restored by 97b97195d/8b15af4c1); true remainder in D-3516 Named (buc/align/howtoput silent-default adapters, verified present js/mklev.js:22508/:23050 + js/questpgr.js:1073, + stair in-code omit + nhlsel by-design); status partial directionally right, omit text wrong. Fix: restore remainder narrowed ≤300 chars or retire re-verified at repair. Source: reviews/loop-unattended/2420-a0d3ff284-str-opt-campaign-step1.md.
+- [ ] sp_lev.c wall_property int-opt expansion: missing arm — C sp_lev.c:5565–5568 (via get_table_coords_or_region call site :5889) absent from js/mklev.js lspo_wall_property (:5214–5217 inline `|0`, ported D-2713, zero in-tree callers); D-3508 flipped get_table_int_opt to ported claiming "all C sites closed: 43 wired" but rewired only the :5607 region expansion — fractions truncate (C argerrors), non-numerics flow as 0/1 (C throws); named nowhere (lspo_wall_property itself ledger ported, no omit); brief-verified at review (C callers ×2, JS body read, 8-claim second sample all hold). Fix: 4 sites → get_table_int_opt on the existing mklev→dungeon edge, or name the omit. Source: reviews/loop-unattended/2416-dad6395c2-lspo-region-int-opt-rewire.md.
 - [ ] uhitm.c hmon_hitmon_poison 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — hmon_hitmon_poison ← shared-head paste ("``hmon_hitmon_stagger`` (``uhitm.c:1578–1582``) still returns ``hittxt`` without the canspotmon pline or ``mhurtle_to_doom``.", quoted from `ledger.mjs show hmon_hitmon_poison` 2026-10-05, d=D-3402,D-2839, note "audited D-3402: remaining omit cannot ship"; identical head on 3 siblings incl. queued hmon_hitmon_barehands per ledger scan, and the stagger clause has its own home — hmon_hitmon_stagger Addressed D-3262 — while this body has 5 C callees, none of them stagger); JS body reads whole at enqueue (js/uhitm.js:1526–1551, C 18/JS 20 ok, nopoison clamp, samurai dishonor/adjalign, lawful coward/adjalign, wear-off rn2 + unpoisonmsg defer, resist/rnd(6)/poiskilled triple — likely retire-stale, D-3402 Named truth + caller status unverified at enqueue); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger paste scan + brief 2026-10-05; popping the look_engrs head dropped the band to 7, finish fails closed below 8).
 - [ ] botl.c exp_percent_changing 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — exp_percent_changing ← not-an-arm clause ("A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored.", quoted from `ledger.mjs show exp_percent_changing` 2026-10-05, d=D-3405,D-2847; the omit describes the live fallback (js/botl.js:608–611), not missing code — null thresholds keeps the :2110–2113 gate false exactly as C's no-rules slot; D-3405 Symptom already lists this fn among "Stale omits retired ... (bodies complete, callers wired)" yet the row stayed partial); JS body reads whole at enqueue (js/botl.js:605–624, C 17/JS 15 ok, !disp.botl gate :2099, curr slot :2106, percent_matters+thresholds gate :2110–2113, exp_percentage compare :2113, zeroany+ulevel :2114–2115, get_hilite :2117–2118, rule-compare TRUE :2119–2120, FALSE :2124 — likely retire-stale, D-3405 Named truth unverified at enqueue; review 1806 ACCEPT, no actionable C-wrongs; sole C caller exper.c:190 → js/exper.js:337, botl.c:1521 is a comment); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger not-an-arm scan + brief 2026-10-05; popping the status_hilite_remove head dropped the band to 7, finish fails closed below 8).
 - [ ] cmd.c enter_explore_mode 1-row repair: direct `ledger.mjs set` ×1, no JS (D-3427 protocol) — enter_explore_mode ← live-fallback clause ("`get_unix_pw` (`unixmain.c:731–760`) returns null: scored ESM has no passwd database.", quoted from `ledger.mjs show enter_explore_mode` 2026-10-05, d=D-3402,D-2845; the omit describes the live fallback (js/cmd.js:187–189 returns null per the Rule #2 doc; check_user_string :199–210 handles null exactly as C's failed getpwuid → pwname '' → false), not missing code — get_unix_pw is not a C callee of this body (brief lists You/pline only, both live async) and not a pinned-C function; note reads "audited D-3402: remaining omit cannot ship"); JS body reads whole at enqueue (js/cmd.js:267–305, C 23/JS 30 ok, discover gate :954, oldmode :957, authorize :959, wizard/refusal :960–966, Beware :968–969, paranoid_query :970–971, discover/wizard sets + clear + You :972–975, else clear + Continuing :977–978, ECMD_OK :981 — likely retire-stale, D-3402 Named truth unverified at enqueue; sole C caller allmain.c:54 → js/allmain.js:281 + M-X getline.js:483–484); restore-or-retire re-verified at repair. Source: ship-time band refill (ledger not-an-arm scan + brief 2026-10-05; popping the get_hilite head dropped the band to 7, finish fails closed below 8).
@@ -139,36 +141,7 @@ C 7 stays under the C ≥ 8 threshold). These hand-written rows keep their
 `brief.mjs`-at-enqueue evidence (C body + call sites + JS status), never
 a map/debt/TOP30 line. Pop order: first unchecked here after
 Must-fix/coverage.
-D-3399 drained the block (generated block still 0 rows at default C ≥ 8;
-`rows --min-c-lines 1` yields only 8, of which `dumplogfreemessages` is
-DUMPLOG-retired per D-1776 and the THIN six read complete in JS) —
-refilled with the next 8 `sfbase.c` norm_ptrs_* stubs in C order (C-home
-`js/sfbase.js` established by D-3399; ~60 siblings remain absent).
-D-3404 shipped those 8 plus 56 more stubs; the generated block holds 1
-row at default C ≥ 8 (only non-excluded MISSING left: `topl_putsym`) —
-refilled with the last 3 absent `sfbase.c` stubs, `topl_putsym`, and 3
-`hacklib.c` partials the next batch preview still lists (THIN rechecks
-excluded: the six read complete in JS per the D-3403 note).
-D-3420 drained `topl_putsym` (split) + `find_offensive`/`mbhitm` (ported
-whole); generated block still 1 row (rest excluded: tty/files/save) —
-refilled with the last 2 absent `sfbase.c` stubs + same-file `mbhit`
-partial (both omits brief-verified below).
-D-3421 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
-+1 with batch-preview `cpostfx` partial (WIN_MAP flush brief-verified
-below) to hold the 8-row band.
-D-3422 shipped all 4 (2 sfbase stubs ported whole; `mbhit` both arms;
-`cpostfx` omit retired as the house more() idiom); band 4 < 8 blocks
-finish — refilled +4 with batch-preview partials (each omit brief-verified
-below) to hold the 8-row band.
-D-3423 (Must-fix, ships no queue row; band 7 < 8 blocks finish) refilled
-+1 with batch-preview `find_misc` partial (nomore continue brief-verified
-below) to hold the 8-row band.
-D-3424 (Must-fix; band 7 < 8 blocks finish) refilled +1 with
-batch-preview `use_misc` partial (INVIS canspotmon gate brief-verified
-below) to hold the 8-row band.
-D-3425 (Must-fix; band 7 < 8 blocks finish) refilled +1 with
-batch-preview `pick_nasty` partial (rogue re-ROLL brief-verified
-below) to hold the 8-row band.
+(Refill history D-3399…D-3425 archived 2026-10-06 in docs/archive/LOOP-QUEUE-REFILLS.md — queue cap trim.)
 D-3437 (Open head + litter fix; band 4 < 8 blocks finish) refilled +4
 with brief-verified missing arms (doopen_indir glyph, toss_up can_blnd,
 dokick oldmem, more fuzzer — each C + JS read at enqueue) to hold the

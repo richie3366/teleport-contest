@@ -22,7 +22,7 @@
 {"fn":"use_mirror","c":"1018-1199","status":"ported","js":["js/apply.js:use_mirror"],"d":["D-3414","D-3263"],"at":"2026-10-04@3b3655fac"}
 {"fn":"use_bell","c":"1202-1316","status":"ported","js":["js/apply.js:use_bell"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"use_candelabrum","c":"1319-1384","status":"ported","js":["js/apply.js:use_candelabrum"],"at":"seed@a30a7de84","note":"stale (grouped)"}
-{"fn":"use_candle","c":"1387-1468","status":"ported","js":["js/apply.js:use_candle"],"at":"seed@a30a7de84","note":"stale (grouped)"}
+{"fn":"use_candle","c":"1387-1468","status":"ported","js":["js/apply.js:use_candle"],"at":"2026-10-06@a0d3ff284","note":"stale (grouped); C :1467 update_inventory deferred (perm-invent sync unwired, audit 2416-2420)"}
 {"fn":"snuff_candle","c":"1472-1491","status":"ported","js":["js/apply.js:snuff_candle"],"at":"2026-10-03@bbe63333a"}
 {"fn":"snuff_lit","c":"1497-1514","status":"ported","js":["js/apply.js:snuff_lit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"splash_lit","c":"1518-1572","status":"ported","js":["js/apply.js:splash_lit"],"d":["D-2289","D-1337"],"at":"2026-10-03@bbe63333a"}
