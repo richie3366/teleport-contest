@@ -2202,6 +2202,8 @@ export async function lspo_region(a, b) {
  * (C `:6318` l_push_wid_hei_table, sp_lev.c:3050) and returns the live
  * selection (C `:6321–6324` push-copy + free + return 1 — no Lua stack).
  * Lua-table-called (C `:6392` des registration); 0 C callers.
+ * Tower loaders inline the load loop (load_tower1/2/3); their map cells
+ * carry the :6292 game mark (D-3528 close-out).
  * Named: mapfrag_free (GC no-op); dupstr/free (GC no-ops);
  * l_push_wid_hei_table ({width,height} object); nhl_pcall_handle
  * (direct contents call); l_selection_push_copy + selection_free
@@ -14027,9 +14029,10 @@ function splev_map_aligned_start(wid, hei, halign, valign) {
 
 /**
  * C ref: dat/tower1.lua via load_special — Vlad's Tower upper stage.
- * Named omissions: SpLev_Map fidelity beyond solidify set;
- * map_cleanup lava/pool sweep; mon_has_special Vlad gate (makemon skips
- * newcham for Vlad); full nh.is_genocided beyond mvitals G_GENOD.
+ * Named omissions: map_cleanup lava/pool sweep; mon_has_special Vlad
+ * gate (makemon skips newcham for Vlad); full nh.is_genocided beyond
+ * mvitals G_GENOD. Map cells + ladder + doors carry the game SpLev_Map
+ * marks (C :6292/:4189/:4661; D-3528).
  * D-0673: map lit=FALSE clear after solidfill (≡ C lspo_map).
  */
 function load_tower1() {
@@ -14064,25 +14067,30 @@ function load_tower1() {
     g.splev_ystart = ystart;
     g.splev_xsize = mf.wid;
     g.splev_ysize = mf.hei;
-    const spLevMap = new Set();
+    if (!g.SpLev_Map) g.SpLev_Map = new Set(); // C lspo_map load loop (minend_3 idiom)
     for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
         for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
             const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            g.SpLev_Map.add(`${xx},${yy}`); // C :6292 SpLev_Map[x][y] = 1
             sel_set_ter(xx, yy, mptyp, false);
-            spLevMap.add(`${xx},${yy}`);
         }
     }
     // C lspo_map defaults lit=FALSE → set_levltyp_lit clears solidfill
     // BOOL_RANDOM lit on map cells (sel_set_ter(...,false) is nochange).
     // Same envelope as Pri-loca D-0668 / fire D-0569.
-    for (const key of spLevMap) {
-        const comma = key.indexOf(',');
-        const x = Number(key.slice(0, comma));
-        const y = Number(key.slice(comma + 1));
-        const loc = g.level.at(x, y);
-        if (!loc) continue;
-        loc.lit = IS_LAVA(loc.typ) ? true : false;
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
     }
     const mx = xstart;
     const my = ystart;
@@ -14110,7 +14118,6 @@ function load_tower1() {
             dlevel: (g.u?.uz?.dlevel ?? 1) + 1,
         });
         if (g.level) g.level.dnstair = { x: lx, y: ly };
-        spLevMap.add(`${lx},${ly}`);
     }
 
     // des.monster("Vlad the Impaler", 06, 05)
@@ -14164,6 +14171,7 @@ function load_tower1() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     twDoor(8, 3, D_CLOSED);
@@ -14225,7 +14233,7 @@ function load_tower1() {
         for (let y = 0; y < ROWNO; y++) {
             const loc = g.level.at(x, y);
             if (!loc || !IS_STWALL(loc.typ)) continue;
-            if (spLevMap.has(`${x},${y}`)) continue;
+            if (g.SpLev_Map?.has(`${x},${y}`)) continue;
             loc.flags = (loc.flags | 0) | (W_NONDIGGABLE | W_NONPASSWALL);
         }
     }
@@ -14234,8 +14242,9 @@ function load_tower1() {
 
 /**
  * C ref: dat/tower2.lua via load_special — Vlad's Tower middle stage.
- * Named omissions: SpLev_Map fidelity beyond solidify set;
- * map_cleanup; ensure_way_out; exclusion_zones.
+ * Named omissions: map_cleanup; ensure_way_out; exclusion_zones.
+ * Map cells + ladders + doors carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3528).
  * D-0673 pattern: map lit=FALSE clear after solidfill (≡ C lspo_map).
  */
 function load_tower2() {
@@ -14271,23 +14280,28 @@ function load_tower2() {
     g.splev_ystart = ystart;
     g.splev_xsize = mf.wid;
     g.splev_ysize = mf.hei;
-    const spLevMap = new Set();
+    if (!g.SpLev_Map) g.SpLev_Map = new Set(); // C lspo_map load loop (minend_3 idiom)
     for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
         for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
             const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            g.SpLev_Map.add(`${xx},${yy}`); // C :6292 SpLev_Map[x][y] = 1
             sel_set_ter(xx, yy, mptyp, false);
-            spLevMap.add(`${xx},${yy}`);
         }
     }
     // C lspo_map defaults lit=FALSE → clear solidfill BOOL_RANDOM lit
-    for (const key of spLevMap) {
-        const comma = key.indexOf(',');
-        const x = Number(key.slice(0, comma));
-        const y = Number(key.slice(comma + 1));
-        const loc = g.level.at(x, y);
-        if (!loc) continue;
-        loc.lit = IS_LAVA(loc.typ) ? true : false;
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
     }
     const mx = xstart;
     const my = ystart;
@@ -14316,7 +14330,6 @@ function load_tower2() {
             dlevel: (g.u?.uz?.dlevel ?? 1) - 1,
         });
         if (g.level) g.level.upstair = { x: lx, y: ly };
-        spLevMap.add(`${lx},${ly}`);
     }
     // des.ladder("down", 03,07)
     {
@@ -14335,7 +14348,6 @@ function load_tower2() {
             dlevel: (g.u?.uz?.dlevel ?? 1) + 1,
         });
         if (g.level) g.level.dnstair = { x: lx, y: ly };
-        spLevMap.add(`${lx},${ly}`);
     }
 
     const twDoor = (rx, ry, mask) => {
@@ -14344,6 +14356,7 @@ function load_tower2() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     twDoor(10, 4, D_LOCKED);
@@ -14432,7 +14445,7 @@ function load_tower2() {
         for (let y = 0; y < ROWNO; y++) {
             const loc = g.level.at(x, y);
             if (!loc || !IS_STWALL(loc.typ)) continue;
-            if (spLevMap.has(`${x},${y}`)) continue;
+            if (g.SpLev_Map?.has(`${x},${y}`)) continue;
             loc.flags = (loc.flags | 0) | (W_NONDIGGABLE | W_NONPASSWALL);
         }
     }
@@ -14441,8 +14454,9 @@ function load_tower2() {
 
 /**
  * C ref: dat/tower3.lua via load_special — Vlad's Tower entry (bottom).
- * Named omissions: SpLev_Map fidelity beyond solidify set;
- * map_cleanup; ensure_way_out; exclusion_zones.
+ * Named omissions: map_cleanup; ensure_way_out; exclusion_zones.
+ * Map cells + ladder + door carry the game SpLev_Map marks
+ * (C :6292/:4189/:4661; D-3528).
  * D-0673 pattern: map lit=FALSE clear after solidfill (≡ C lspo_map).
  * Niches are NOT shuffled (unlike tower1/tower2).
  */
@@ -14481,23 +14495,28 @@ function load_tower3() {
     g.splev_ystart = ystart;
     g.splev_xsize = mf.wid;
     g.splev_ysize = mf.hei;
-    const spLevMap = new Set();
+    if (!g.SpLev_Map) g.SpLev_Map = new Set(); // C lspo_map load loop (minend_3 idiom)
     for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
         for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
             const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            g.SpLev_Map.add(`${xx},${yy}`); // C :6292 SpLev_Map[x][y] = 1
             sel_set_ter(xx, yy, mptyp, false);
-            spLevMap.add(`${xx},${yy}`);
         }
     }
     // C lspo_map defaults lit=FALSE → clear solidfill BOOL_RANDOM lit
-    for (const key of spLevMap) {
-        const comma = key.indexOf(',');
-        const x = Number(key.slice(0, comma));
-        const y = Number(key.slice(comma + 1));
-        const loc = g.level.at(x, y);
-        if (!loc) continue;
-        loc.lit = IS_LAVA(loc.typ) ? true : false;
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
     }
     const mx = xstart;
     const my = ystart;
@@ -14537,7 +14556,6 @@ function load_tower3() {
             dlevel: (g.u?.uz?.dlevel ?? 1) - 1,
         });
         if (g.level) g.level.upstair = { x: lx, y: ly };
-        spLevMap.add(`${lx},${ly}`);
     }
 
     // des.door("locked",14,05)
@@ -14547,6 +14565,7 @@ function load_tower3() {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
             set_door_orientation(mx + 14, my + 5); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
+            if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 14},${my + 5}`); // C :4661
             loc.flags = D_LOCKED;
         }
     }
@@ -14614,7 +14633,7 @@ function load_tower3() {
         for (let y = 0; y < ROWNO; y++) {
             const loc = g.level.at(x, y);
             if (!loc || !IS_STWALL(loc.typ)) continue;
-            if (spLevMap.has(`${x},${y}`)) continue;
+            if (g.SpLev_Map?.has(`${x},${y}`)) continue;
             loc.flags = (loc.flags | 0) | (W_NONDIGGABLE | W_NONPASSWALL);
         }
     }
@@ -19179,7 +19198,8 @@ function set_door_orientation(x, y) {
  * the loc guard is the JS null-map equivalent of C's direct levl index.
  * The 58 coord-form des.door closures (D-2695/D-2697) predate this home and
  * keep their inlined typ/orientation/doormask — established split, not
- * rewired here.
+ * rewired here. Tower closures (twDoor ×2 + tower3 inline, 10 des.door
+ * sites) carry the :4661 game mark (D-3528); the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]

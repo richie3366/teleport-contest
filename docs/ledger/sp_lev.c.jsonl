@@ -102,7 +102,7 @@
 {"fn":"floodfillchk_match_accessible","c":"4600-4605","status":"ported","js":["js/mklev.js:floodfillchk_match_accessible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sel_set_ter","c":"4609-4630","status":"ported","js":["js/mklev.js:sel_set_ter"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sel_set_feature","c":"4633-4644","status":"ported","js":["js/mklev.js:sel_set_feature"],"at":"2026-10-03@bbe63333a"}
-{"fn":"sel_set_door","c":"4647-4662","status":"ported","js":["js/mklev.js:sel_set_door"],"d":["D-3007"],"at":"2026-09-28@12641c043"}
+{"fn":"sel_set_door","c":"4647-4662","status":"ported","js":["js/mklev.js:sel_set_door"],"d":["D-3528","D-3007"],"at":"2026-10-06@822952c55"}
 {"fn":"lspo_door","c":"4671-4734","status":"ported","js":["js/mklev.js:lspo_door"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"l_table_getset_feature_flag","c":"4739-4755","status":"ported","js":["js/mklev.js:l_table_getset_feature_flag"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cvt_to_abscoord","c":"4772-4788","status":"ported","js":["js/mklev.js:cvt_to_abscoord"],"d":["D-3406","D-3174","D-3168"],"at":"2026-10-04@44ce1ba38","note":"refresh: no JS symbol (measured MISSING)"}
@@ -136,7 +136,7 @@
 {"fn":"lspo_wallify","c":"5965-5989","status":"ported","js":["js/mklev.js:lspo_wallify"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_reset_level","c":"5993-6010","status":"ported","js":["js/mklev.js:lspo_reset_level"],"d":["D-3406","D-3402"],"at":"2026-10-04@44ce1ba38","note":"D-3402: NULL form ported (js/mklev.js:lspo_reset_level for wiz_load_splua :389); Lua coder-setup block unported (no Lua runtime in scored ESM)"}
 {"fn":"lspo_finalize_level","c":"6014-6064","status":"ported","js":["js/mklev.js:lspo_finalize_level"],"at":"2026-10-03@bbe63333a"}
-{"fn":"lspo_map","c":"6075-6319","status":"ported","js":["js/mklev.js:lspo_map"],"at":"2026-09-30@042bdf039","note":"stale: whole body live js/mklev.js:1982 (D-2737, every C arm with cites); Lua-stack remainder by-design"}
+{"fn":"lspo_map","c":"6075-6319","status":"ported","js":["js/mklev.js:lspo_map"],"d":["D-3528"],"at":"2026-10-06@822952c55","note":"stale: whole body live js/mklev.js:1982 (D-2737, every C arm with cites); Lua-stack remainder by-design"}
 {"fn":"update_croom","c":"6324-6333","status":"ported","js":["js/mklev.js:update_croom"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/mklev.js:3076 exact C :6324-6333"}
 {"fn":"sp_level_coder_init","c":"6336-6376","status":"ported","js":["js/mklev.js:sp_level_coder_init"],"d":["D-2643"],"at":"seed@a30a7de84"}
 {"fn":"l_register_des","c":"6435-6441","status":"by-design","d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
