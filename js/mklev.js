@@ -18397,9 +18397,14 @@ function setup_waterlevel() {
     const gbymax = ymax - 1;
     g.waterlevel_bounds = { xmin, ymin, xmax, ymax, gbxmin, gbymin, gbxmax, gbymax };
 
-    // C: glyph = cmap_to_glyph(water ? S_water : S_air); set on every cell
+    // C: glyph = cmap_to_glyph(water ? S_water : S_air); set on every cell.
+    // C stores the integer id; the tty resolves at paint time through the
+    // live symset. Resolve the same way (terrain_glyph is the live
+    // DEC-aware twin): DECgraphics shows S_water as meta-` diamond
+    // (dat/symbols), ASCII as '}'. S_air has no DEC override.
+    const waterTty = terrain_glyph({ typ: WATER });
     const memGlyph = Is_waterlevel(uz)
-        ? { ch: '}', color: CLR_BRIGHT_BLUE, decgfx: false }
+        ? { ch: waterTty.ch, color: waterTty.color, decgfx: !!waterTty.dec }
         : { ch: ' ', color: CLR_CYAN, decgfx: false };
     const typ = Is_waterlevel(uz) ? WATER : AIR;
     for (let x = 1; x <= COLNO - 1; x++) {
@@ -18555,6 +18560,12 @@ export async function movebubbles() {
      * wins) so maybe_adjust_hero_bubble gates rn2(2) on a real find. */
     g.hero_bubble = null;
     if (Is_waterlevel(uz)) {
+        /* C `:1541–1545` water_pos glyph is the integer S_water id; the
+         * tty resolves at paint time through the live symset (DECgraphics
+         * meta-` diamond, dat/symbols; ASCII '}'). Hoisted: the symset
+         * cannot change mid-call. terrain_glyph is the live DEC-aware
+         * twin (already imported). */
+        const bubbleWaterTty = terrain_glyph({ typ: WATER });
         /* C `:1563–1564`: keep attached ball&chain separate from bubble
          * objects. Punished ≡ uball != 0 (youprop.h:77). */
         if (g.u?.uball)
@@ -18617,7 +18628,11 @@ export async function movebubbles() {
                      * glyph, WATER, zeroed seenv/lit) then block_point. */
                     const loc = g.level.at(x, y);
                     if (loc) {
-                        loc.remembered_glyph = { ch: '}', color: CLR_BRIGHT_BLUE, decgfx: false };
+                        loc.remembered_glyph = {
+                            ch: bubbleWaterTty.ch,
+                            color: bubbleWaterTty.color,
+                            decgfx: !!bubbleWaterTty.dec,
+                        };
                         loc.typ = WATER;
                         loc.lit = false;
                         loc.seenv = 0;
