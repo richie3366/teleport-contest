@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-06 — D-3570 [measure] `weapon.c` mon_wield_item/scen-town-Priest-94382: TEMP-C paint history proves the screen-99 G was never emitted — recorder-capture defect, JS correct, owner exonerated
+
+**C locus:** TEMP sites (all reverted, md5-verified): recorder `weapon.c:895` tether arm (state dump), `display.c:925` newsym head (`newsym246` paint log), `steed.c:898` place_monster (`place246` arrival log). Read-only: upstream `weapon.c:801–934` (mon_wield_item whole), `display.c:917–1096` (newsym; !cansee sensed branch `:1044–1052`, memory tail `:1080–1096` — no monster glyph possible with m_at NULL), `monmove.c` postmov `:1656` else-newsym (present in JS at monmove.js:1859), `monmove.c:1963–1970` (window's m_move draws: track-check + appr==0 `!rn2(++chcnt)`), window tail `mon.c:1164`/`allmain.c:166,360`/`sounds.c`/`eat.c:3191`/`uhitm.c:474`.
+**JS:** unchanged — 0 changed js files (TEMP touched ignored `nethack-c/recorder/` only; all probes in /tmp).
+**Change:** 
+**Verify:** preflight `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Control/TEMP/TEMP2/pristine re-records: 4/4 byte-identical to committed (11013 + 205). `verify --fn mon_wield_item` intentionally not re-run: no `js/` in a measure commit (movement impossible by construction); `brief` + `show` confirm the 1 block live at HEAD (it can only clear via re-record, not a port).
+**Named:** (1) recorder screen-capture defect needs human/audit fix (loop scripts forbidden to this loop) + session re-record-or-exclusion (sessions/ forbidden); (2) the n=4753–4995 (24,6) occupant's identity (arrived/departed unsensed, never displayed — paint-irrelevant, not chased).
+**Next:** do not re-pop mon_wield_item for scen-town-Priest-94382 (parked RECORDER-ARTIFACT with probe command; JS already correct — a port would BREAK a faithful cell). Next iteration on this head confirms the park (no re-port — second no-js/ max per §10.18 discipline). Audit/human: fix recorder capture + re-record (or exclude session) + rescore; the board then clears this row without a port.
 ## 2026-10-06 — D-3569 `getpos.c` gather_locs_interesting GLOC_DOOR reads the displayed map (cliffs-head `count_feat_lastseentyp` writer, Healer-94322 →PASS)
 
 **C locus:** `nethack-c/upstream/src/getpos.c:451-470` — `gather_locs_interesting` reads `glyph_at(x,y)` once (`:456-457`); GLOC_DOOR `:466-470` returns `glyph_is_cmap && (is_cmap_door(sym) || is_cmap_drawbridge(sym) || sym == S_ndoor)` (`sym.h:99-100`: door S_vodoor..S_hcdoor, drawbridge S_vodbridge..S_hcdbridge). C callers: `:488` GLOC_INTERESTING recursion, `:536` gather_locs scan, `cmd.c:1351` dolookaround.
