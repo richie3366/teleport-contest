@@ -11,7 +11,7 @@
 {"fn":"gloc_filter_init","c":"391-409","status":"ported","js":["js/getpos.js:gloc_filter_init"],"d":["D-1941"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact incl doorway seed arm"}
 {"fn":"gloc_filter_done","c":"412-419","status":"ported","js":["js/getpos.js:gloc_filter_done"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"known_vibrating_square_at","c":"422-433","status":"ported","js":["js/getpos.js:known_vibrating_square_at"],"at":"2026-10-02@6f1e33d59","note":"stale: whole C body live as js/getpos.js:740 local (invocation_pos gate + t_at VIBRATING_SQUARE+tseen; audit 2247-2255 refill survey)"}
-{"fn":"gather_locs_interesting","c":"438-507","status":"ported","js":["js/getpos.js:gather_locs_interesting"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all gloc arms via display-layer equivalents; boring-cmap set matches"}
+{"fn":"gather_locs_interesting","c":"438-507","status":"ported","js":["js/getpos.js:gather_locs_interesting"],"d":["D-3557"],"at":"2026-10-06@aa9ebd345","note":"audit 2026-10-03: all gloc arms via display-layer equivalents; boring-cmap set matches"}
 {"fn":"gather_locs","c":"513-554","status":"ported","js":["js/getpos.js:gather_locs"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"dxdy_to_dist_descr","c":"557-589","status":"ported","js":["js/display.js:dxdy_to_dist_descr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact incl 9999 clamp and dirnames"}
 {"fn":"coord_desc","c":"595-635","status":"ported","js":["js/display.js:coord_desc"],"d":["D-2811"],"at":"2026-10-01@250701173","note":"stale: js/display.js:7725 body whole per D-2811 fixed; omit names auto_describe_text, another fn"}
