@@ -40,7 +40,7 @@
 {"fn":"peffect_full_healing","c":"1144-1162","status":"ported","js":["js/potion.js:peffect_full_healing"],"d":["D-1411"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_levitation","c":"1165-1221","status":"ported","js":["js/potion.js:peffect_levitation"],"d":["D-2379"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_gain_energy","c":"1224-1257","status":"ported","js":["js/potion.js:peffect_gain_energy"],"d":["D-1429"],"at":"2026-10-03@bbe63333a"}
-{"fn":"peffect_oil","c":"1260-1294","status":"partial","js":["js/potion.js:peffect_oil"],"omit":"The green-slime extra damage in the comment at `potion.c:1269–1273` is not an arm.","d":["D-3402","D-2860"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
+{"fn":"peffect_oil","c":"1260-1294","status":"ported","js":["js/potion.js:peffect_oil"],"d":["D-3513","D-3402","D-2860"],"at":"2026-10-06@8b15af4c1","note":"stale: js/potion.js:386 whole in C order (D-2860 port; D-3402 + review 2356 audited re-verified); green-slime comment :1269-1273 is not an arm"}
 {"fn":"peffect_acid","c":"1297-1315","status":"ported","js":["js/potion.js:peffect_acid"],"d":["D-1430"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"peffect_polymorph","c":"1318-1330","status":"ported","js":["js/potion.js:peffect_polymorph"],"d":["D-2177","D-1428"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffects","c":"1333-1425","status":"ported","js":["js/potion.js:peffects"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: default arm message differs (pline vs impossible), all potion cases present"}
