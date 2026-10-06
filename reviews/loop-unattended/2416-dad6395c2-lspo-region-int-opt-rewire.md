@@ -147,6 +147,6 @@ Banned-pattern grep on the `js/` hunk: 0 hits. Rule #2 clean (fresh
    inline `|0` (js/mklev.js:5214–5217), named nowhere. Rewire the 4
    sites through the helper on the existing edge (or name the omit
    on the owning row). One port iter; zero in-tree callers, no
-   behavior risk.
+   behavior risk. **Addressed:** D-3518 `d871471f3`
 
 Verdict: **QUALITY-RISK**
