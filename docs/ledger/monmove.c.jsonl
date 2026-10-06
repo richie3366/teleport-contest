@@ -16,7 +16,7 @@
 {"fn":"bee_eat_jelly","c":"394-420","status":"ported","js":["js/monmove.js:bee_eat_jelly"],"d":["D-1246"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gelcube_digests","c":"424-445","status":"ported","js":["js/monmove.js:gelcube_digests"],"d":["D-1257"],"at":"2026-10-03@bbe63333a"}
 {"fn":"monflee","c":"462-530","status":"ported","js":["js/monmove.js:monflee"],"d":["D-3339","D-2189"],"at":"2026-10-03@a173e9bb9"}
-{"fn":"distfleeck","c":"533-567","status":"partial","js":["js/monmove.js:distfleeck"],"omit":"sawscary/onscary :559, flees_light+bravegremlin and sanctuary arms :560-562, monflee call :564; scared always 0","at":"2026-10-03@bbe63333a"}
+{"fn":"distfleeck","c":"533-567","status":"ported","js":["js/monmove.js:distfleeck"],"d":["D-3559"],"at":"2026-10-06@0ef84c92d"}
 {"fn":"m_arrival","c":"574-579","status":"ported","js":["js/monmove.js:m_arrival"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mind_blast","c":"583-645","status":"ported","js":["js/monmove.js:mind_blast"],"d":["D-1238"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_everyturn_effect","c":"650-663","status":"ported","js":["js/monmove.js:m_everyturn_effect"],"at":"2026-10-03@bbe63333a"}
