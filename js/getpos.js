@@ -49,13 +49,13 @@ import {
     S_room, S_darkroom,
     S_corr, S_litcorr, S_engroom, S_engrcorr, S_arrow_trap,
     S_upstair, S_fountain,
-    S_expl_br, S_altar, S_tree, S_bars, S_pool, S_lava, S_lavawall,
-    S_water, S_ice,
+    S_expl_br, S_tree, S_pool, S_lava, S_lavawall,
+    S_water,
     STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, SCORR, TREE, CLOUD, IS_WALL,
     DOOR, IS_DOOR, IS_DRAWBRIDGE,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, IRONBARS, AIR,
     FOUNTAIN, SINK, THRONE, GRAVE, ALTAR, VIBRATING_SQUARE,
-    ROGUESET, Is_rogue_level,
+    Is_rogue_level,
     HI_ZAP, TIP_GETPOS,
     SUPPRESS_HISTORY, OVERRIDE_MSGTYPE, NO_CURS_ON_U,
     CQ_REPEAT, CQ_CANNED, CMDQ_KEY, CMDQ_DIR,
@@ -257,12 +257,6 @@ const CTRL_DIR = {
     14: 'n', // C('n')
 };
 
-/** C ref: display.js use_decgraphics — Primary DEC showsyms active. */
-function use_dec_syms() {
-    if ((game.currentgraphics | 0) === ROGUESET) return false;
-    return !!game.iflags?.decgraphics;
-}
-
 // C sym.h MAXPCHARS — fencepost after S_expl_br.
 const MAXPCHARS = S_expl_br + 1;
 
@@ -355,19 +349,12 @@ function build_feature_matching(ch) {
             matching[sidx] = ++k;
         }
     }
-    // DEC showsyms approximations (drawing.c Primary vs DECgraphics).
-    if (use_dec_syms()) {
-        if (ch === '{' && !matching[S_altar]) matching[S_altar] = ++k;
-        if (ch === 'g') matching[S_tree] = ++k;
-        if (ch === '|') matching[S_bars] = ++k;
-        if (ch === '`') {
-            matching[S_pool] = ++k;
-            matching[S_lava] = ++k;
-            matching[S_lavawall] = ++k;
-            matching[S_water] = ++k;
-        }
-        if (ch === '~') matching[S_ice] = ++k;
-    }
+    // C compares exact values above — no low-7-bit fallback. Under
+    // OPTIONS=symset:DECgraphics (dat/symbols) showsyms holds meta-bit
+    // carriers (S_altar \xfb, S_tree \xe7, S_bars \xfc, pool/lava/water
+    // \xe0, S_ice \xfe), so '{'/g/|/`/~ match none of them; '{' is
+    // sink/fountain only. A former DEC approximation here sent '{' to a
+    // scan-earlier altar (scen-town C "fountain" vs JS "chaotic altar").
     return { matching, k };
 }
 
@@ -378,13 +365,14 @@ function build_feature_matching(ch) {
  */
 function feature_match_tags(ch) {
     const tags = new Set();
-    const dec = use_dec_syms();
 
     if (ch === '>') tags.add('dnfeature');
     if (ch === '<') tags.add('upfeature');
 
+    // C matches by exact defsyms/showsyms value (getpos.c:1052-1061);
+    // DECgraphics symset carriers are meta-bit (\xfb altar etc.), so no
+    // ASCII key gains a symset target. '{' is sink/fountain only.
     if (ch === '_') tags.add('altar');
-    if (ch === '{' && dec) tags.add('altar');
 
     if (ch === '{') {
         tags.add('sink');
@@ -395,14 +383,12 @@ function feature_match_tags(ch) {
 
     // '#' is NHKF_GETPOS_AUTODESC before matching[] (default bind).
     // matching[] still counts tree/bars/cloud; this tag path is for
-    // a rebound key. DEC 'g' / '|' still match when typed.
+    // a rebound key.
     if (ch === '#') {
         tags.add('tree');
         tags.add('bars');
         tags.add('cloud');
     }
-    if (ch === 'g' && dec) tags.add('tree');
-    if (ch === '|' && dec) tags.add('bars');
 
     if (ch === '}') {
         tags.add('pool');
@@ -410,14 +396,6 @@ function feature_match_tags(ch) {
         tags.add('lavawall');
         tags.add('water');
     }
-    if (ch === '`' && dec) {
-        tags.add('pool');
-        tags.add('lava');
-        tags.add('lavawall');
-        tags.add('water');
-    }
-
-    if (ch === '~' && dec) tags.add('ice');
 
     if (ch === '^') tags.add('trap');
     if (ch === '~') tags.add('trap_vs');

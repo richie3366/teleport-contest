@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 ## Don't re-check (≤15)
 
-- D-1790…D-3572 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3573 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3572.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3572 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3573.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3573 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3573: `js/getpos.js` only, deletion (+13/−35): the DEC block is gone from `build_feature_matching` (matching[] is now exactly C :1052-1061) and the 5 dec-ga Named: none new. getpos's ledger omit (gg.getposx/y stores, audited D-3556 cannot-ship) stands.
 - D-3572: all four gates → `!hero_Deaf()` (live in-module export ≡ C macro; its extra `|| u.Deaf` disjunct is dead code — zero writers). Named: (1) the four arms still emit via plain `pline('You hear …')`, not C `You_hear`'s inner gat
 - D-3571: C-order `move = 0; nomul(0);` (nomul owns the `end_running(true)` teardown, multi/mv included) in all six arms: testdiag-into-doorway, testdiag-out-of Named: none in this unit — the `:2841–2846` gate is now whole across every `!test_move(DO_MOVE)` 
 - D-3570:  Named: (1) recorder screen-capture defect needs human/audit fix (loop scripts forbidden to this l
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3561: `MZ_MEDIUM` added to the existing monsters.js import (no new edge) + `const MZ_HUMAN = MZ_MEDIUM;` with a monflag.h:180 cite (replacing the wrong lite Named: none — const now C-identical; chain bodies already whole.
 - D-3560:  Named: (1) port-iter confirmations (minutes, then port): JS fobj dump at (43,10)/k=88 — item PRES
 - D-3559: C body whole, in C order, as async (monflee plines): seescary mcansee/Invis-perceives gate :551–557 (live `Invis()`, in-file `perceives` — the identic Named: none — whole body, all callees live (onscary, monflee, in_your_sanctuary, dist2, monnear, 
-- D-3558: `js/questpgr.js` only — six firsttime bodies verbatim from quest.lua (blank lines truly empty, double-space after periods per `cat -A`; conversions %H Named: Cav/Mon/Val firsttime bodies (quest.lua :720/:1388/:2713; no corpus session reaches them; 
 <!-- landmarks:end -->
