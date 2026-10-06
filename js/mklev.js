@@ -10637,6 +10637,7 @@ function load_sam_filb() {
  * dragons/snakes in lua order; branch levregion point (04,12) after flip.
  * Named omissions: humidity-aware get_location for water-likers;
  * ensure_way_out.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3554).
  */
 function load_hea_strt() {
     const g = game;
@@ -10703,13 +10704,14 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
         }
     }
 
-    // des.door × 12 (6 locked + 6 closed)
+    // des.door × 12 (6 locked + 6 closed) — C lspo_door → sel_set_door; Hea-strt.lua:50–61
     const heaDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     heaDoor(24, 10, D_LOCKED);
@@ -10793,6 +10795,7 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
  * rats/class-r/eels/kraken/sharks/semicolons/dragons/snakes in lua order.
  * Named omissions: humidity-aware get_location for water-likers;
  * spo_end_moninvent m_dowear; ensure_way_out.
+ * SpLev_Map game bitmap C-complete (C :6292/:4189/:4661; D-3554).
  */
 async function load_hea_loca() {
     const g = game;
@@ -10850,13 +10853,14 @@ PPPPPPPPPPP........PPPPPPPPPPPP
         }
     }
 
-    // des.door × 4 (2 closed + 2 locked)
+    // des.door × 4 (2 closed + 2 locked) — C lspo_door → sel_set_door; Hea-loca.lua:28–31
     const heaLocaDoor = (rx, ry, mask) => {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
         set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
-        loc.doormask = mask;
+        loc.doormask = mask; // C :4660
+        if (g.SpLev_Map) g.SpLev_Map.add(`${mx + rx},${my + ry}`); // C :4661
         loc.flags = mask;
     };
     heaLocaDoor(9, 4, D_CLOSED);
@@ -19258,8 +19262,9 @@ function set_door_orientation(x, y) {
  * (10 sites, D-3544), wizDoor (Wiz-loca 4 + Wiz-goal 16, D-3546),
  * barDoor (Bar-loca 10) + barGoalDoor (Bar-goal 2, D-3548),
  * priDoor (Pri-strt 18 + Pri-loca 6, D-3550),
- * arcDoor (Arc-strt 12 + Arc-loca 16, D-3552) carry the :4661 game
- * mark; the rest keep the split.
+ * arcDoor (Arc-strt 12 + Arc-loca 16, D-3552),
+ * heaDoor (Hea-strt 12) + heaLocaDoor (Hea-loca 4, D-3554) carry the
+ * :4661 game mark; the rest keep the split.
  */
 function sel_set_door(x, y, typ) {
     const loc = game.level.at(x, y); // C levl[x][y]
