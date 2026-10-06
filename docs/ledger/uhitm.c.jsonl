@@ -11,7 +11,7 @@
 {"fn":"double_punch","c":"736-754","status":"ported","js":["js/uhitm.js:double_punch"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"hitum","c":"758-815","status":"ported","js":["js/uhitm.js:hitum"],"d":["D-1862"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hmon","c":"819-834","status":"ported","js":["js/uhitm.js:hmon"],"d":["D-3211","D-1384"],"at":"2026-10-01@b9de54524"}
-{"fn":"hmon_hitmon_barehands","c":"838-882","status":"partial","js":["js/uhitm.js:hmon_hitmon_barehands"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-3402","D-2839"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
+{"fn":"hmon_hitmon_barehands","c":"838-882","status":"ported","js":["js/uhitm.js:hmon_hitmon_barehands"],"d":["D-3402","D-2839"],"at":"2026-10-06@9f377496b","note":"retire D-3515: shared-head stagger paste (stagger home: hmon_hitmon_stagger, D-3262); body whole js/uhitm.js:1559-1590, caller :1865"}
 {"fn":"hmon_hitmon_weapon_ranged","c":"885-917","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon_ranged"],"d":["D-3054","D-2040"],"at":"2026-09-28@a196fca24"}
 {"fn":"backstabbable","c":"921-931","status":"ported","js":["js/uhitm.js:backstabbable"],"d":["D-1937"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hmon_hitmon_weapon_melee","c":"934-1067","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon_melee"],"d":["D-3262","D-2152"],"at":"2026-10-02@a7d88d8ff"}
