@@ -20,11 +20,11 @@
 {"fn":"m_harmless_trap","c":"1106-1187","status":"ported","js":["js/trap.js:m_harmless_trap"],"d":["D-2194"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:585, all arms, impossible default named"}
 {"fn":"trapeffect_arrow_trap","c":"1190-1248","status":"ported","js":["js/trap.js:trapeffect_arrow_trap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_dart_trap","c":"1251-1321","status":"ported","js":["js/trap.js:trapeffect_dart_trap"],"d":["D-2969"],"at":"2026-09-27@f02368fbc"}
-{"fn":"trapeffect_rocktrap","c":"1324-1400","status":"ported","js":["js/trap.js:trapeffect_rocktrap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
+{"fn":"trapeffect_rocktrap","c":"1324-1400","status":"ported","js":["js/trap.js:trapeffect_rocktrap"],"d":["D-3610","D-3426"],"at":"2026-10-07@4a634cdac"}
 {"fn":"trapeffect_sqky_board","c":"1403-1476","status":"ported","js":["js/trap.js:trapeffect_sqky_board"],"d":["D-2206"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:4086, all arms, Soundeffect no-op named"}
-{"fn":"trapeffect_bear_trap","c":"1479-1560","status":"ported","js":["js/trap.js:trapeffect_bear_trap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
+{"fn":"trapeffect_bear_trap","c":"1479-1560","status":"ported","js":["js/trap.js:trapeffect_bear_trap"],"d":["D-3610","D-3426"],"at":"2026-10-07@4a634cdac"}
 {"fn":"trapeffect_slp_gas_trap","c":"1563-1592","status":"ported","js":["js/trap.js:trapeffect_slp_gas_trap"],"at":"2026-10-03@bbe63333a"}
-{"fn":"trapeffect_rust_trap","c":"1595-1727","status":"ported","js":["js/trap.js:trapeffect_rust_trap"],"at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_rust_trap","c":"1595-1727","status":"ported","js":["js/trap.js:trapeffect_rust_trap"],"d":["D-3610"],"at":"2026-10-07@4a634cdac"}
 {"fn":"trapeffect_fire_trap","c":"1730-1822","status":"ported","js":["js/trap.js:trapeffect_fire_trap"],"d":["D-3267"],"at":"2026-10-02@66e8734cf"}
 {"fn":"trapeffect_pit","c":"1825-2010","status":"ported","js":["js/trap.js:trapeffect_pit"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_hole","c":"2013-2067","status":"ported","js":["js/trap.js:trapeffect_hole"],"d":["D-2624"],"at":"seed@a30a7de84"}
@@ -32,10 +32,10 @@
 {"fn":"trapeffect_level_telep","c":"2088-2103","status":"ported","js":["js/trap.js:trapeffect_level_telep"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_web","c":"2106-2276","status":"ported","js":["js/trap.js:trapeffect_web"],"d":["D-2502"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_statue_trap","c":"2279-2290","status":"ported","js":["js/trap.js:trapeffect_statue_trap"],"at":"2026-10-03@bbe63333a"}
-{"fn":"trapeffect_magic_trap","c":"2293-2320","status":"ported","js":["js/trap.js:trapeffect_magic_trap"],"d":["D-2258"],"at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_magic_trap","c":"2293-2320","status":"ported","js":["js/trap.js:trapeffect_magic_trap"],"d":["D-3610","D-2258"],"at":"2026-10-07@4a634cdac"}
 {"fn":"trapeffect_anti_magic","c":"2323-2450","status":"ported","js":["js/trap.js:trapeffect_anti_magic"],"d":["D-3595"],"at":"2026-10-07@f11d0acff"}
 {"fn":"trapeffect_poly_trap","c":"2453-2525","status":"ported","js":["js/trap.js:trapeffect_poly_trap"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: monster shieldeff_mon omitted (display-only flash)"}
-{"fn":"trapeffect_landmine","c":"2528-2657","status":"ported","js":["js/trap.js:trapeffect_landmine"],"at":"2026-10-02@135e9a8dd","note":"stale: js/trap.js:5851 body whole; C never called at s132 (stepFns empty, rnd(16) is first line); Soundeffect is empty macro"}
+{"fn":"trapeffect_landmine","c":"2528-2657","status":"ported","js":["js/trap.js:trapeffect_landmine"],"d":["D-3610"],"at":"2026-10-07@4a634cdac","note":"stale: js/trap.js:5851 body whole; C never called at s132 (stepFns empty, rnd(16) is first line); Soundeffect is empty macro"}
 {"fn":"trapeffect_rolling_boulder_trap","c":"2661-2707","status":"ported","js":["js/trap.js:trapeffect_rolling_boulder_trap"],"d":["D-3426","D-1874"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_magic_portal","c":"2710-2722","status":"ported","js":["js/trap.js:trapeffect_magic_portal"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_vibrating_square","c":"2725-2764","status":"ported","js":["js/trap.js:trapeffect_vibrating_square"],"d":["D-3426","D-2882"],"at":"2026-10-04@0d801c73f"}
@@ -63,9 +63,9 @@
 {"fn":"mselftouch","c":"3913-3933","status":"ported","js":["js/trap.js:mselftouch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"float_up","c":"3937-4006","status":"ported","js":["js/trap.js:float_up"],"d":["D-2381"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fill_pit","c":"4010-4020","status":"ported","js":["js/dig.js:fill_pit"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
-{"fn":"float_down","c":"4024-4179","status":"ported","js":["js/trap.js:float_down"],"d":["D-3426","D-2094"],"at":"2026-10-04@0d801c73f"}
+{"fn":"float_down","c":"4024-4179","status":"ported","js":["js/trap.js:float_down"],"d":["D-3610","D-3426","D-2094"],"at":"2026-10-07@4a634cdac"}
 {"fn":"climb_pit","c":"4183-4230","status":"ported","js":["js/trap.js:climb_pit"],"d":["D-3426","D-1876","D-1863"],"at":"2026-10-04@0d801c73f"}
-{"fn":"dofiretrap","c":"4233-4314","status":"ported","js":["js/trap.js:dofiretrap"],"d":["D-2532"],"at":"seed@a30a7de84"}
+{"fn":"dofiretrap","c":"4233-4314","status":"ported","js":["js/trap.js:dofiretrap"],"d":["D-3610","D-2532"],"at":"2026-10-07@4a634cdac"}
 {"fn":"domagictrap","c":"4317-4451","status":"ported","js":["js/trap.js:domagictrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fire_damage","c":"4455-4542","status":"ported","js":["js/do.js:fire_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fire_damage_chain","c":"4550-4572","status":"ported","js":["js/trap.js:fire_damage_chain"],"at":"2026-10-03@bbe63333a"}
@@ -78,7 +78,7 @@
 {"fn":"rnd_nextto_goodpos","c":"4947-4972","status":"ported","js":["js/trap.js:rnd_nextto_goodpos"],"at":"2026-10-03@bbe63333a"}
 {"fn":"back_on_ground","c":"4976-5008","status":"ported","js":["js/trap.js:back_on_ground"],"d":["D-2384"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rescued_from_terrain","c":"5014-5055","status":"ported","js":["js/trap.js:rescued_from_terrain"],"d":["D-2829"],"at":"seed@a30a7de84"}
-{"fn":"drown","c":"5059-5199","status":"ported","js":["js/trap.js:drown"],"d":["D-2284","D-1814"],"at":"2026-10-03@bbe63333a"}
+{"fn":"drown","c":"5059-5199","status":"ported","js":["js/trap.js:drown"],"d":["D-3610","D-2284","D-1814"],"at":"2026-10-07@4a634cdac"}
 {"fn":"drain_en","c":"5202-5244","status":"ported","js":["js/trap.js:drain_en"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dountrap","c":"5248-5254","status":"ported","js":["js/trap.js:dountrap"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:7960, dispatch js/cmd.js:1778"}
 {"fn":"could_untrap","c":"5258-5284","status":"ported","js":["js/trap.js:could_untrap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
@@ -101,7 +101,7 @@
 {"fn":"openholdingtrap","c":"6101-6205","status":"ported","js":["js/trap.js:openholdingtrap"],"d":["D-3426","D-2317"],"at":"2026-10-04@0d801c73f"}
 {"fn":"closeholdingtrap","c":"6210-6247","status":"ported","js":["js/trap.js:closeholdingtrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"openfallingtrap","c":"6252-6289","status":"ported","js":["js/trap.js:openfallingtrap"],"at":"2026-10-03@bbe63333a"}
-{"fn":"chest_trap","c":"6294-6499","status":"ported","js":["js/trap.js:chest_trap"],"d":["D-3437","D-3426"],"at":"2026-10-05@52e6ce3d0"}
+{"fn":"chest_trap","c":"6294-6499","status":"ported","js":["js/trap.js:chest_trap"],"d":["D-3610","D-3437","D-3426"],"at":"2026-10-07@4a634cdac"}
 {"fn":"t_at","c":"6502-6512","status":"ported","js":["js/trap.js:t_at"],"d":["D-3334"],"at":"2026-10-03@b98ade69c"}
 {"fn":"count_traps","c":"6516-6528","status":"ported","js":["js/trap.js:count_traps"],"at":"2026-10-03@bbe63333a"}
 {"fn":"deltrap","c":"6531-6549","status":"ported","js":["js/trap.js:deltrap"],"d":["D-2921"],"at":"seed@a30a7de84"}
@@ -112,7 +112,7 @@
 {"fn":"uteetering_at_seen_pit","c":"6648-6653","status":"ported","js":["js/trap.js:uteetering_at_seen_pit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"uescaped_shaft","c":"6660-6664","status":"ported","js":["js/trap.js:uescaped_shaft"],"at":"2026-10-03@bbe63333a"}
 {"fn":"delfloortrap","c":"6668-6690","status":"ported","js":["js/trap.js:delfloortrap"],"at":"2026-10-03@bbe63333a"}
-{"fn":"b_trapped","c":"6694-6707","status":"ported","js":["js/trap.js:b_trapped"],"at":"2026-10-03@bbe63333a"}
+{"fn":"b_trapped","c":"6694-6707","status":"ported","js":["js/trap.js:b_trapped"],"d":["D-3610"],"at":"2026-10-07@4a634cdac"}
 {"fn":"thitm","c":"6711-6773","status":"ported","js":["js/trap.js:thitm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unconscious","c":"6776-6786","status":"ported","js":["js/eat.js:unconscious"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lava_effects","c":"6794-6987","status":"ported","js":["js/trap.js:lava_effects"],"d":["D-1918","D-1913"],"at":"2026-10-03@bbe63333a"}
