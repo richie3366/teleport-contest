@@ -7854,6 +7854,58 @@ export async function docorner(xmin, ymax, ystart = 0) {
     }
 }
 
+/**
+ * C win/tty/wintty.c erase_menu_or_text `:965–984` — dismiss erasure for
+ * NHW_MENU/NHW_TEXT windows, in C order. Callers: tty_clear_nhwindow
+ * (`:1098`, clear=TRUE — active menu cleared mid-life) and
+ * tty_destroy_nhwindow (`:1999`, clearscreen=FALSE except
+ * in_role_selection). JS has no WinDesc structs, so callers pass the
+ * fields C reads (offx/offy/maxrow of the destroyed window).
+ * offx==0: offy≠0 (NHW_TEXT datawin below the map, C `:2490`) →
+ *   tty_curs(window,1,0)+cl_eos (clear rows offy..end); clear →
+ *   term_clear_screen; else docrt()+flush_screen(1). offx≠0 (corner) →
+ *   docorner(offx, maxrow+1, 0): targeted gbuf replay, no docrt/overlay
+ *   (D-3626: C never docrts post-death menu destroys).
+ * Named: C `:1990–1997` in_role_selection clearscreen=TRUE (chargen
+ *   teardown keeps its own helper, invent.js erase_prior_nhw_menu_chargen;
+ *   no session reaches a fullscreen role-selection dismiss); the `:1098`
+ *   mid-life menu clear (no C core caller clears an active menu/text
+ *   window — restore.c bannerwin is NHW_BASE; the clear=TRUE arm ships
+ *   but has no JS caller).
+ * @param {number} offx C cw->offx (0 = fullscreen)
+ * @param {number} offy C cw->offy (nonzero only for the C `:2490` datawin)
+ * @param {number} maxrow C cw->maxrow (corner arm only)
+ * @param {boolean} clear C clear (TRUE only from `:1098`)
+ */
+export async function erase_menu_or_text(offx, offy, maxrow, clear) {
+    const display = game?.nhDisplay;
+    if (!display?.grid || !display.setCell) return;
+    if ((offx | 0) === 0) {
+        if ((offy | 0) !== 0) {
+            // C `:972–975`: tty_curs(window, 1, 0) → screen (offx, offy)
+            // (tty_curs `:2112–2116`: x-1+offx, y+offy; offx==0 here),
+            // then cl_eos (termcap.c `:839–853`) clears to end of screen.
+            const cols = display.cols || 80;
+            const rows = display.rows || 24;
+            for (let y = offy | 0; y < rows; y++) {
+                for (let c = 0; c < cols; c++)
+                    display.setCell(c, y, ' ', NO_COLOR, 0);
+            }
+            if (display.setCursor) display.setCursor(0, offy | 0);
+        } else if (clear) {
+            // C `:976–977`: term_clear_screen (termcap.c `:667–676`).
+            display.clearScreen();
+        } else {
+            // C `:978–981`.
+            await docrt();
+            await flush_screen(1);
+        }
+    } else {
+        // C `:982–984` — no docrt/overlay, no flush (D-3626).
+        await docorner(offx | 0, (maxrow | 0) + 1, 0);
+    }
+}
+
 // ── flush_screen ──
 // C ref: display.c flush_screen `:2208–2267` — mode -1 toggles postpone;
 // while postponed, map/botl flushes are no-ops (message paints still

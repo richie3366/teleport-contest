@@ -54,7 +54,7 @@ import {
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
     clear_nhwindow_message, Hallucination, set_bot_disabled,
     clear_committed_status, clear_message_window_menu_overlay,
-    docorner, dxdy_to_dist_descr,
+    erase_menu_or_text, dxdy_to_dist_descr,
 } from './display.js';
 import { xprname, an, the, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, gloves_simple_name, set_not_fully_identified, makeplural, makesingular, body_part_latebound, corpse_xname, killer_xname, maybereleaseobuf, safe_qbuf } from './objnam.js';
 import { yn_function, y_n, getlin, mungspaces } from './getline.js';
@@ -3092,8 +3092,10 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
 /**
  * C ref: wintty.c erase_menu_or_text / tty_dismiss_nhwindow(NHW_MENU).
  * Fullscreen (offx==0): docrt()+flush (Hallu see_monsters burns inside
- * docrt). Corner (offx!=0): docorner ≡ reprint gbuf only — no newsym /
- * display-RNG burns; once-per-input Hallu see_monsters refreshes next.
+ * docrt) with JS-model status interleave (D-0467/D-1850). Corner
+ * (offx!=0): the shared erase_menu_or_text export (docorner ≡ reprint
+ * gbuf only — no newsym / display-RNG burns; once-per-input Hallu
+ * see_monsters refreshes next).
  */
 export async function dismiss_nhw_menu(opts = null) {
     const g = game._tty_menu_geom;
@@ -3115,10 +3117,12 @@ export async function dismiss_nhw_menu(opts = null) {
         await flush_screen(1);
         return;
     }
-    // C erase_menu_or_text: docorner(offx, maxrow+1, 0). bot() inside
-    // docorner no-ops while gb.bot_disabled, so leftover WIN_STATUS stays.
+    // C destroy_nhwindow → tty_destroy_nhwindow `:1999` →
+    // erase_menu_or_text(clearscreen=FALSE): corner docorner(offx,
+    // maxrow+1, 0); bot() inside docorner no-ops while gb.bot_disabled,
+    // so leftover WIN_STATUS stays. No flush (this helper's cadence).
     const maxrow = (g.maxrow > 0 ? g.maxrow : (g.endRow | 0) + 1);
-    await docorner(g.offx | 0, maxrow + 1, 0);
+    await erase_menu_or_text(g.offx | 0, 0, maxrow, false);
 }
 
 /**

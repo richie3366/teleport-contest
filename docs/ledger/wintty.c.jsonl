@@ -16,7 +16,7 @@
 {"fn":"tty_get_color_string","c":"803-806","status":"unknown"}
 {"fn":"tty_exit_nhwindows","c":"810-845","status":"ported","js":["js/cmd.js:tty_exit_nhwindows"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: free_pickinv_cache, WIN_* sentinels, window_inited=0 ported; suspend/term teardown unportable, no wins[] to null."}
 {"fn":"tty_create_nhwindow","c":"850-961","status":"unknown"}
-{"fn":"erase_menu_or_text","c":"966-984","status":"unknown"}
+{"fn":"erase_menu_or_text","c":"966-984","status":"ported","js":["js/display.js:erase_menu_or_text"],"d":["D-3627"],"at":"2026-10-07@8245e6151"}
 {"fn":"free_window_info","c":"987-1031","status":"unknown"}
 {"fn":"tty_clear_nhwindow","c":"1034-1110","status":"unknown"}
 {"fn":"toggle_menu_curr","c":"1114-1151","status":"ported","js":["js/invent.js:toggle_menu_curr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Selected/count transitions exact in all arms; set_item_state screen paints unportable."}
