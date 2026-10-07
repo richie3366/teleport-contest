@@ -1703,9 +1703,18 @@ export function look_shown_at(x, y) {
     return null;
 }
 
-/** C glyph_to_obj analogue: remembered object glyph encodes otyp. */
+/**
+ * C levl[x][y].glyph → glyph_to_obj (display.h): memory stores the GLYPH
+ * int, not an otyp. A mimic faking a !dknown gem/spellbook memorizes
+ * GLYPH_OBJ_OFF+0 (zeroobj oclass), which reads as STRANGE_OBJECT, not
+ * the mimicked otyp. otyp fallback covers glyph-less memories
+ * (Hallu-STATUE randoms, whose stored otyp equals the C glyph's).
+ */
 function remembered_glyph_otyp(g) {
     if (!g || g.invisible) return -1;
+    if (typeof g.glyph === 'number' && glyph_is_object(g.glyph)) {
+        return glyph_to_obj(g.glyph);
+    }
     if (g.otyp == null || (g.otyp | 0) < 0) return -1;
     return g.otyp | 0;
 }
@@ -2087,14 +2096,21 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
             break;
         }
         case M_AP_OBJECT: {
-            // C `:564–575` — cg.zeroobj + ox/oy/otyp/corpsenm.
-            // map_object(&obj, !sensed): hero_memory even when sensed;
-            // observe_object when generic+cansee+neardist; show_glyph
-            // only if !sensed. Default corpsenm is PM_TENGU.
+            // C `:564–575` — cg.zeroobj + ox/oy/otyp/corpsenm. oclass
+            // stays 0 (C never sets it): a !dknown gem/spellbook mimic
+            // then takes generic_obj_to_glyph → GLYPH_OBJ_OFF+0, the
+            // STRANGE_OBJECT glyph (display.h obj_is_generic /
+            // generic_obj_to_glyph; objects.h has no RANDOM_CLASS(0)
+            // generic slot). map_object(&obj, !sensed): hero_memory
+            // even when sensed; observe_object when the COMPUTED glyph
+            // is generic+cansee+near (skipped for the OFF+0 collapse);
+            // show_glyph only if !sensed. Default corpsenm is PM_TENGU.
             const obj = {
                 ox: x,
                 oy: y,
                 otyp: mon.mappearance | 0,
+                oclass: 0,
+                dknown: 0,
                 corpsenm: has_mcorpsenm(mon) ? MCORPSENM(mon) : PM_TENGU,
             };
             map_object(obj, !sensed);
@@ -2366,22 +2382,14 @@ function distu(x, y) {
 }
 
 /**
- * C ref: display.c map_object — if glyph would be generic and hero cansee
- * within neardist, observe_object then recompute as specific (per-otyp color).
- * Named omissions: pile-top glyph flags.
- */
-function map_object_observe_near(obj, x, y) {
-    if (!obj || game.u?.Hallucination) return;
-    if (!obj_is_generic(obj)) return;
-    if (!cansee(x, y)) return;
-    const { neardist } = object_neardist();
-    if (distu(x, y) <= neardist) observe_object(obj);
-}
-
-/**
- * C ref: display.c map_object — obj_to_glyph then hero_memory store.
+ * C ref: display.c map_object `:333–377` — obj_to_glyph, then the observe
+ * gate reads the COMPUTED glyph (generic+cansee+!Hallu+near →
+ * observe_object + recompute specific), then hero_memory store.
  * Under Hallu, STATUE *display* is statue_to_glyph (mon+gender) but
  * *memory* is a separate random_obj_to_glyph (extra display-RNG burns).
+ * Gating on the glyph (not the obj) matters: the display_monster
+ * zeroobj fake (oclass 0) yields GLYPH_OBJ_OFF+0, outside generic range,
+ * so C skips observe — an obj gate would wrongly observe+discover it.
  */
 /** C ref: display.c map_object — export for fight_empty boulder/statue remap. */
 export function map_object(obj, show) {
@@ -2389,8 +2397,15 @@ export function map_object(obj, show) {
     const x = obj.ox | 0;
     const y = obj.oy | 0;
     const loc = game.level?.at(x, y);
-    map_object_observe_near(obj, x, y);
-    const og = obj_glyph(obj);
+    // C `:335–349` — obj_to_glyph first (Hallu burns display RNG here
+    // either way), then gate, observe, recompute. Piletop generic is
+    // inside glyph_is_generic_object, as in C (no named omit).
+    let og = obj_glyph(obj);
+    if (!game.u?.Hallucination && glyph_is_generic_object(og.glyph)
+        && cansee(x, y) && distu(x, y) <= object_neardist().neardist) {
+        observe_object(obj);
+        og = obj_glyph(obj);
+    }
     const attr = obj_map_attr(obj);
     const pile = obj_is_piletop(obj);
     if (game.level?.flags?.hero_memory && loc) {
@@ -2499,7 +2514,13 @@ export function obj_glyph(obj) {
         };
     }
     const def = game.objects?.[obj.otyp];
+    // C generic_obj_to_glyph encodes obj->oclass RAW (the mimic fake's is
+    // 0); the RENDERED sym comes from the glyph's otyp class instead
+    // (C mapglyph via objects[glyphotyp].oc_class), so ch is otyp-based.
+    // Real objects have oclass == otyp class; oclass-less fakes used the
+    // same fallback before.
     const oclass = obj.oclass ?? def?.oc_class ?? ILLOBJ_CLASS;
+    const otypclass = def?.oc_class ?? ILLOBJ_CLASS;
     // C: STATUE → monster letter (not ROCK_CLASS '`'); color is statue white
     // Hallu statue → random_monster + gender (display.h statue_to_glyph)
     if (obj.otyp === STATUE_OTYP) {
@@ -2524,7 +2545,7 @@ export function obj_glyph(obj) {
             return { ch, color, dec: false, glyph: (obj.corpsenm | 0) + off };
         }
     }
-    const ch = oc_display_sym(oclass);
+    const ch = oc_display_sym(otypclass);
     // C: body glyphs use mon_color(corpsenm), not objects[CORPSE].oc_color
     if (obj.otyp === CORPSE_OTYP && obj.corpsenm != null && obj.corpsenm >= 0) {
         const color = mcolors[obj.corpsenm] ?? def?.oc_color ?? NO_COLOR;
@@ -2532,10 +2553,15 @@ export function obj_glyph(obj) {
     }
     // C: generic_obj_to_glyph → objects[oclass] (GENERIC_POTION etc.)
     if (obj_is_generic(obj)) {
+        const gnum = (oclass | 0) + objOff;
         const gen = game.objects?.[oclass];
+        // C display.h: with raw oclass 0 (mimic fake) the glyph is
+        // GLYPH_OBJ_OFF+0 — outside generic range, so it renders via
+        // objects[STRANGE_OBJECT] (ILLOBJ ']'), not the class sym.
+        const gcc = glyph_is_generic_object(gnum)
+            ? ch : oc_display_sym(gen?.oc_class ?? ILLOBJ_CLASS);
         return {
-            ch, color: gen?.oc_color ?? NO_COLOR, dec: false,
-            glyph: (oclass | 0) + objOff,
+            ch: gcc, color: gen?.oc_color ?? NO_COLOR, dec: false, glyph: gnum,
         };
     }
     const color = def?.oc_color ?? NO_COLOR;

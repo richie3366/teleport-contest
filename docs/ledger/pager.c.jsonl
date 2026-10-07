@@ -3,7 +3,7 @@
 {"fn":"self_lookat","c":"108-133","status":"ported","js":["js/pager.js:self_lookat"],"d":["D-3239"],"at":"2026-10-01@25100632c"}
 {"fn":"monhealthdescr","c":"138-163","status":"ported","js":["js/pager.js:monhealthdescr"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"trap_description","c":"167-181","status":"ported","js":["js/pager.js:trap_description"],"d":["D-3402","D-1779"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
-{"fn":"mhidden_description","c":"186-280","status":"ported","js":["js/pager.js:mhidden_description"],"d":["D-3402","D-1554"],"at":"2026-10-04@e77f3975a"}
+{"fn":"mhidden_description","c":"186-280","status":"ported","js":["js/pager.js:mhidden_description"],"d":["D-3636","D-3402","D-1554"],"at":"2026-10-07@e5f018253"}
 {"fn":"object_from_map","c":"284-377","status":"partial","js":["js/pager.js:object_from_map"],"omit":"CORPSE/STATUE corpsenm from body/statue glyphs (:346-350); cmap-glyph otyp fallback (CHEST/LARGE_BOX for trapped chest|door, :292-296)","d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
 {"fn":"look_at_object","c":"380-419","status":"ported","js":["js/pager.js:look_at_object"],"d":["D-2974"],"at":"2026-09-27@8a0963412"}
 {"fn":"look_at_monster","c":"422-555","status":"ported","js":["js/pager.js:look_at_monster"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
