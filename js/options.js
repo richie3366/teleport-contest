@@ -11049,7 +11049,12 @@ export async function doset() {
             selectable: false,
             attr: ATR_INVERSE,
         });
-        // set_gameview compounds — non-selectable (indent replaces "a - ")
+        // set_gameview compounds — non-selectable (indent replaces "a - ").
+        // C doset `:8871–8880` gameview pass → doset_add_menu `:9036–9044`
+        // (optfn get_val into buf2, "unknown" unless optn_ok + non-empty).
+        // 12 of 13 rows route through their live optfn; `name` keeps its
+        // live game.plname read (optfn_name get_val returns the same field
+        // — D-3580 left it live, not a literal).
         for (const [name, val] of [
             ['windowtype', 'tty'],
             ['playmode', 'normal'],
@@ -11066,14 +11071,23 @@ export async function doset() {
             ['soundlib', null],
         ]) {
             if (doset_skip_unsupported(name)) continue;
-            // C doset_add_menu `:9038` get_val. soundlib is set_gameview
-            // (non-selectable); the column is the active library name.
+            // C doset_add_menu `:9038` get_val for every compound, including
+            // the set_gameview pass (non-selectable; indexoffset 0). Retires
+            // D-3580 omission (3) — windowtype/msghistory/pettype/cat/dog/
+            // horsename literals — now that scen-options-Valkyrie-94311
+            // step 33 probes pettype [horse] (rc pettype:horse).
             const roleOptfn = name === 'soundlib' ? optfn_soundlib
                 : name === 'gender' ? optfn_gender
                 : name === 'race' ? optfn_race
                 : name === 'role' ? optfn_role
                 : name === 'alignment' ? optfn_alignment
                 : name === 'playmode' ? optfn_playmode // C `:9038` get_val → optfn_playmode `:3499–3501` (wizard→debug, discover→explore, else normal)
+                : name === 'windowtype' ? optfn_windowtype // C `:9038` → `:4982–4984` 'tty'
+                : name === 'catname' ? optfn_catname // C `:9038` → petname `:868–871` name or '(none)'
+                : name === 'dogname' ? optfn_dogname // C `:9038` → petname `:868–871`
+                : name === 'horsename' ? optfn_horsename // C `:9038` → petname `:868–871`
+                : name === 'msghistory' ? optfn_msghistory // C `:9038` → `:2542–2544` iflags.msg_history
+                : name === 'pettype' ? optfn_pettype // C `:9038` → `:3237–3243` preferred_pet spelling
                 : null;
             // C doset_add_menu `:9038` get_val for a live optfn.
             const shown = roleOptfn
