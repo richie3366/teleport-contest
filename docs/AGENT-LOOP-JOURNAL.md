@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — queue repair (D-3618 follow-up): restore live [measure] Knight-boulder row mis-archived by finish-iteration D-ID match
+
+finish-iteration stamps+checks every queue row containing the new D-ID (finish-iteration.mjs:294-295); the [measure] row added in D-3618 cited D-3618 as provenance, so it shipped to LOOP-QUEUE-DONE as done. Restored to Measurements as - [ ] (future D-IDs never match the stale token). Process note (loop scripts frozen — proposing here): a hand [measure] row added in the same iteration it cites must avoid the bare new-D-ID token, or finish-iteration should skip the Measurements section.
+
 ## 2026-10-07 — D-3618 cliffs-head read_engr_at writer lspo_region: baked tut-1/tut-2 "lit" rects skipped C's selection_do_grow, wall ring unlit (5 PASS + 3 moved)
 
 **C locus:** `sp_lev.c` lspo_region `:5619–5637` — the (selection, "lit") arm grows the selection one cell (`:5624–5626` `if (rlit) selection_do_grow(sel, W_ANY)`) before sel_set_lit; `selvar.c` selection_do_grow `:321–357` (W_ANY = 8-neighborhood ring); `dat/tut-1.lua:55` + `dat/tut-2.lua:18` (`des.region(selection.area(01,01,73,16), "lit")` → grown (0,0)-(74,17)). Vision sees the ring via `vision.c:755–795` (COULD_SEE + lit → IN_SIGHT + seenv + newsym); unlit walls stay COULD_SEE-only and paint blank.
