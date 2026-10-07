@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 ## Don't re-check (≤15)
 
-- D-1790…D-3596 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3597 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3596.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3596 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3597.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3597 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3597: try_restore_save sets `game._lastinvnr = 51` with decl.c/allmain.c/unixmain.c cites; the dosave0 omission (D-3584) is retained — C never writes the fi Named: none in this unit — loot_mon body verified whole (saddle query + cursed/nolimbs arms, swal
 - D-3596: `js/monmove.js` only, no new imports (`rloc`, `RLOC_MSG` already imported — the Tengu arm is the live `await rloc(mtmp, RLOC_MSG)` precedent): deleted Named: none new — this arm is now whole (gate + teleport + MOVED semantics).
 - D-3595: `js/trap.js` only, existing const.js edge (no `imports.mjs --can` needed): `Antimagic_prop()` now ORs `uprops[ANTIMAGIC].intrinsic/extrinsic` with the Named: none new — trap.js flats-only `Passes_walls`/`Half_spell_damage` readers untouched (both f
 - D-3594: dismiss via the live `dismiss_nhw_menu()` (js/invent.js:3095; corner geom → `docorner` gbuf resend, zero display-RNG burns — sibling precedent used by Named: - `doterrain`: none — body whole, dismiss now corner-faithful.
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3585: both loaders now write `game.level.flags.rndmongen = false` with the `:3812-3813` + lua cites (sibling deathdrops/noautosearch lines already correct). Named: none in this unit — the nomongen arm now mirrors C `:3812-3813` on both tut levels (the on
 - D-3584: dosave0 omits `_lastinvnr` from the JSON payload (savegamestate analogue — C never writes it); try_restore_save sets `game._lastinvnr = 0` uncondition Named: none in this unit — the «never saved» design is now matched both directions (omit on save,
 - D-3583: deleted the early return; no-path now falls through exactly like C's `:2724–2728`: travel1=0, domove(stale-or-zero dx,dy) (zero-step is a silent no-op Named: none new.
-- D-3582: one line + cite: `mtmp.mstate = MON_FLOOR;` (C :931 via :1684), replacing the D-3577 partial clear. Named: none new in this arm — the `:1684/:931` reset is now C-identical; rloc_to's inline placeme
 <!-- landmarks:end -->

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3597 save/restore lastinvnr 0→51 (decl.c g_init_l; falsifies D-3584 BSS-0; cliffs-head loot_mon writer, scen-quest-Knight-94336 →PASS)
+
+**C locus:** `include/decl.h:536` «never saved&restored»; `src/decl.c` g_init_l `51, /* lastinvr */`; early_init→decl_globals_init (`allmain.c:40`) runs before dorecover (`sys/unix/unixmain.c:66` vs `:263`), so every fresh C process — including each per-segment recorder spawn — restores with lastinvnr=51; `invent.c:693–732` assigninvlet scans from lastinvnr+1 (51 wraps to 'a' first; `nhlua.c:1783` «next inv letter to try to use will be 'a'»). D-3584's BSS-0 claim is falsified: from 0 the scan starts at 'b' and can never yield 'a' with b–h used, but C printed 'a'. (D-3584's Samurai probe was ambiguous: the gap at 'c' is filled from both 0 and 51.)
+**JS:** 1 file (js/save.js +9/−5 comment + const) + 1 test file, under caps.
+**Change:** try_restore_save sets `game._lastinvnr = 51` with decl.c/allmain.c/unixmain.c cites; the dosave0 omission (D-3584) is retained — C never writes the field. Extended scripts/save-lastinvnr-gapfill.test.mjs: corrected the BSS-0 comments, added the Knight saddle case (seg0 + seg1 through the loot-'y': asserts «a - a saddle.», no «i - …», saddle at invent 'a'). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** new test pre-fix 1/2 (Knight FAILs on «i - a saddle.», Samurai PASS) → post-fix 2/2 (`node --test scripts/save-lastinvnr-gapfill.test.mjs`). `node scripts/verify.mjs --fn loot_mon --full` → PASS syntax (1 changed js file: js/save.js) · PASS rule2 · PASS hidden (verify loot_mon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS: scen-quest-Knight-94336: PASS) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** none in this unit — loot_mon body verified whole (saddle query + cursed/nolimbs arms, swallowed-pickup arm, all 11 callees live); the restore value now matches C's g_init_l in both directions (omit on save, 51 on restore).
+**Next:** loot_mon leaves the cliffs block with its probe PASS. Do not re-pop for Knight-94336. D-3584's «BSS 0» note is superseded (Samurai-94217 still PASS — its 'c' gap is 0/51-ambiguous, pinned by the test's first case).
 ## 2026-10-07 — D-3596 m_move cornered-unicorn fall-through: JS added a cnt==0 early return C's `:1926` unicorn exception forbids, skipping the `:2064` rn2(2) arm
 
 **C locus:** `nethack-c/upstream/src/monmove.c:1926–1930` (`if (cnt == 0 && !is_unicorn(...))` — unicorn falls through to the empty selection loop) → `:2064–2067` (`if (is_unicorn(ptr) && rn2(2) && !tele_restrict(mtmp)) { (void) rloc(mtmp, RLOC_MSG); return MMOVE_MOVED; }`).
