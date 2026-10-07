@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-3617 | fixed |  — cliffs-head dmgval writer m_throw: `dmgval(singleobj, null)` dropped the hero form; C passes `&gy.youmonst` |  |
 | D-3616 | fixed |  — cliffs-head summonmu writer minion.js `Inhell()`: `dnum===GEHENNOM`(5) read false in Gehennom (dnum 1); hel |  |
 | D-3615 | fixed |  — `potion.c` peffect_polymorph: C `min` is a macro — losing branch's `rn2(15)` draws twice, `Math.min` drew o |  |
 | D-3614 | open | nethack-c/upstream/src/dogmove.c:591–603 — cliffs-head dog_move writer dog_goal: portal scan walked the dead g | scen-trap-Valkyrie-94361 step 21/34 kind=rng at dogmove.c:1257: C `rn2(3)=2` (selection j>0, nix==omx) vs JS `rn2(1)=0` (j==0, chcnt 0); scen-trap-Caveman-94281 step 164/179: C `rn2(12)=8` vs JS `rn2(1)=0`. JS probe (temp DIAG, reverted) showed JS appr=0 with every selection j==0 while C's matched-prefix draws prove C appr=1: C drew dog_goal's rn2(4)=3 plus the full invent-scan obj_resists×4, so C entered dogmove.c:582 with appr 0 and left with 1 — the only draw-free path is the stairs/invent-DOGFOOD/portal block, and stairs-true would have skipped the invent scan C drew; invent-DOGFOOD is impossible (every dogfood path to DOGFOOD passes the drawing obj_resists call, and FOOD_RATION/weapons never classify DOGFOOD for a feline).; fix: `js/dogmove.js` dog_goal portal scan walks the doidtrap union verbatim: gf-shaped store first (array-shaped ftrap or ntrap chain), then level.traps, deduped |

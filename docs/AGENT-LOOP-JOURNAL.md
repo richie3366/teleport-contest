@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3617 cliffs-head dmgval writer m_throw: `dmgval(singleobj, null)` dropped the hero form; C passes `&gy.youmonst` (Valkyrie-94212 PASS)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-10-07 — D-3616 cliffs-head summonmu writer minion.js `Inhell()`: `dnum===GEHENNOM`(5) read false in Gehennom (dnum 1); hellish flag (Wizard-91112 PASS)
 
 **C locus:** 

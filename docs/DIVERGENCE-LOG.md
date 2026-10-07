@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3617 — cliffs-head dmgval writer m_throw: `dmgval(singleobj, null)` dropped the hero form; C passes `&gy.youmonst` (Valkyrie-94212 PASS)
+
+- Status: fixed (Open — cliffs head `weapon.c` dmgval, 1 corpus block, `parked: MISATTRIBUTED` → writer m_throw. `verify dmgval`: 1 PASS, 0 moved past → PROGRESS; row leaves via regen.)
+- Symptom: scen-engulf-Valkyrie-94212 step 166/174 kind=rng: C `rnd(3)=3 @ dmgval(weapon.c:227)` vs JS `rnd(5)=2 @ dmgval(weapon.js:272)`, prev `rn2(5)=1 @ m_throw(mthrowu.c:798)`; toplines identical («It tries to move where you are hiding. You are hit.--More--»). Same missile both sides (ELVEN_DAGGER: oc_wsdam 5, oc_wldam 3) — C took the bigmonst arm, JS the small arm.
+- C locus: `mthrowu.c:722` `dam = dmgval(singleobj, &gy.youmonst)` in m_throw's missile-reaches-hero default arm, feeding `dmgval` `weapon.c:227` (`rnd(oc_wldam)` under `bigmonst`). The hero is trapper-polyed (umonnum 99, MZ_HUGE) → big arm. The dmgval body itself is faithful (D-1793/D-1354, ledger ported) — symptom owner per the row's parked tag, not re-ported.
+- JS was: `js/mthrowu.js:1292` called `dmgval(singleobj, null)` — the only null-mon dmgval site in `js/` — so `ptr` was undefined, `bigmonst` false, and every mon-dependent arm (big/small dice, thick-skinned, blessed/axe/silver/light bonuses, spec_dbon halving) read the wrong form. Measured (temp weapon.js entry probe recording otyp/wsdam/wldam/big/mon per call with the RNG index, reverted before verify): the session's sole dmgval call sits at RNG index 8541 — exactly C's `rnd(3)` index — with otyp ELVEN_DAGGER wsd 5/wld 3, big false, mon null, umonnum 99.
+- Fix: `js/mthrowu.js:1292` only — `dmgval(singleobj, game.youmonst)` with a C `:722` cite. `game.youmonst.data` is synced from `umonnum` by `set_uasmon` (`js/polyself.js:784`) and already read two lines down for the `:735` hitv arm (`mthrowu.js:1305`), so no new import or edge. For unpolyed heroes every mon-dependent arm is false either way (no thick skin, no shade/blessed/axe/silver/light/spec_dbon trigger), which is why REACH holds.
+- JS: `js/mthrowu.js` (+3/−1) + `scripts/mthrowu-dmgval-youmonst.test.mjs` (session replay pins 8539/8540 forcehit `rn2(5)=1`, 8541 `rnd(3)=3`, 8542 thitu `rnd(20)=9`, total 8714; fails at 8541 on the null-mon code). Rule #2 clean.
+- Callers: changed edge C `mthrowu.c:722` (inside m_throw) → JS `js/mthrowu.js:1292` now wired to `game.youmonst`. m_throw's signature/export is unchanged, so its 3 C call sites stay wired: C `mthrowu.c:300` monshoot → `js/mthrowu.js:424`, C `mthrowu.c:1055` spitmm → `js/mthrowu.js:1490`, C `muse.c:2020` use_offensive → `js/muse.js:1145`.
+- Verify: `node scripts/verify.mjs --fn m_throw,dmgval` → PASS syntax (1 changed js file: js/mthrowu.js) · PASS rule2 · note hidden verify m_throw (no corpus session blocked on it at baseline) · PASS reach m_throw (55/55) → REACH-OK · PASS hidden verify dmgval: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-engulf-Valkyrie-94212: PASS) · PASS reach dmgval (80/80 spread of 351) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS. Extra: `node --test scripts/mthrowu-dmgval-youmonst.test.mjs` → 1 pass.
+- Named omissions: none in the `:722` arm — the site is now exact. The spoteffects-park `forcehit` note (`mthrowu.js` flight loop vs C `:798` MT_FLIGHTCHECK) is a separate unproven theory on this same function, untouched.
+- **Ledger:** m_throw ported
+- Next: row addressed; next work is the next Open — cliffs row after regen. Do not re-pop `dmgval` for Valkyrie-94212.
+
 ## D-3616 — cliffs-head summonmu writer minion.js `Inhell()`: `dnum===GEHENNOM`(5) read false in Gehennom (dnum 1); hellish flag (Wizard-91112 PASS)
 
 - Status: fixed (Open — cliffs head `mhitu.c` summonmu, 1 corpus block. `verify summonmu`: 1 PASS, 0 moved past → PROGRESS; row leaves via regen.)
