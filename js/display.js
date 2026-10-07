@@ -2531,7 +2531,10 @@ export function obj_glyph(obj) {
             // C: (!(rng)(2)) ? MON_MALE_OFF : MON_FEM_OFF
             const off = rn2_on_display_rng(2)
                 ? GLYPH_MON_FEM_OFF : GLYPH_MON_MALE_OFF;
-            const color = def?.oc_color ?? CLR_WHITE;
+            // C display.h statue_to_glyph `:950–953` — the Hallu glyph is
+            // mnum + GLYPH_MON_*_OFF, a plain monster glyph: tty color is
+            // mon_color(mnum), not objects[STATUE].oc_color (D-3637).
+            const color = mcolors[mnum] ?? NO_COLOR;
             return { ch, color, dec: false, glyph: mnum + off };
         }
         if (obj.corpsenm != null && obj.corpsenm >= 0) {

@@ -10,7 +10,7 @@
 {"fn":"map_background","c":"279-287","status":"ported","js":["js/display.js:map_background"],"at":"2026-10-03@bbe63333a"}
 {"fn":"map_trap","c":"296-305","status":"ported","js":["js/display.js:map_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"map_engraving","c":"313-322","status":"ported","js":["js/display.js:map_engraving"],"at":"2026-10-03@bbe63333a"}
-{"fn":"map_object","c":"333-366","status":"ported","js":["js/display.js:map_object"],"d":["D-3636"],"at":"2026-10-07@e5f018253"}
+{"fn":"map_object","c":"333-366","status":"ported","js":["js/display.js:map_object"],"d":["D-3637","D-3636"],"at":"2026-10-07@ec71b83d9"}
 {"fn":"map_invisible","c":"378-385","status":"ported","js":["js/display.js:map_invisible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unmap_invisible","c":"388-396","status":"ported","js":["js/display.js:unmap_invisible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unmap_object","c":"409-438","status":"ported","js":["js/display.js:unmap_object"],"at":"2026-10-03@bbe63333a"}
