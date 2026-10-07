@@ -5652,6 +5652,14 @@ export async function choose_classes_menu(prompt, category, way, classList, clas
         // C :1712 ++class_list via for..of
     }
     const showAll = category === 1 && nextAcc <= 'z'.charCodeAt(0); // C :1714
+    // C windows.c select_menu `:1859–1863` — the `:1737` select runs display
+    // + dismiss with gb.bot_disabled = TRUE (saved/restored): a pending
+    // botlx (e.g. from the parent fullscreen dismiss's docrt) is serviced
+    // only after the select returns, so WIN_STATUS stays as the erase left
+    // it (blank after fullscreen). Sibling selects (select_menu_pick_any
+    // `:10023`, pick_one `:9649`) already wrap; this loop is C's `:1737`.
+    const _botPrev = set_bot_disabled(true);
+    try {
     for (;;) {
         // C: tty_end_menu prompt uses menu_headings (ATR_INVERSE)
         const entries = [
@@ -5715,6 +5723,9 @@ export async function choose_classes_menu(prompt, category, way, classList, clas
             return '';
         }
         // invalid / toggle → re-paint same menu (keep overlay; no docrt)
+    }
+    } finally {
+        set_bot_disabled(_botPrev); // C `:1863`
     }
 }
 
