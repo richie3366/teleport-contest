@@ -398,7 +398,7 @@ may_passwall / worm_cross / block_entry / wand-unknown / Known_*walking still de
 **closed-door rush/impaired → orthogonal bump `Ouch!`+`exercise(A_DEX,FALSE)` / `That door is 
 closed.` — check `!run` before clearing run** (D-0433) + 
 **`Fumbling()` ≡ H||E for autoopen/bump (not sticky `u.Fumbling`)** (D-0696; 
-Passes_walls/ooze/Underwater/tunnels/Blind feel/steed deferred; 
+Passes_walls/ooze/Underwater/tunnels/Blind feel deferred (steed lead-through live in domove, D-3601); 
 trap/steed/mthrowu sticky Fumbling still); 
 **`#` → `doextcmd`/`#teleport`(D-1230)/`#wizwish`(D-0709)/`#wipe`(D-0712)/`#polyself`(D-0713; 
 **`polymon` `drop_weapon(1)` cantwield→dropx** (D-0714); **full `drop_weapon` port** (D-1992; live `is_sword`/`weapon_descr` names + `makeplural`, `uswapwepgone`/`uwepgone` + `updateinv`/`update_inventory`, `could_twoweap→untwoweapon`; `poly_weapon_descr` clone retired; `untwoweapon` gains C `update_inventory`; residual tip/surface rows queued, not this function); 

@@ -19,7 +19,7 @@
 {"fn":"bad_rock","c":"939-946","status":"ported","js":["js/mon.js:bad_rock"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cant_squeeze_thru","c":"953-979","status":"ported","js":["js/mon.js:cant_squeeze_thru"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"invocation_pos","c":"982-986","status":"ported","js":["js/hack.js:invocation_pos"],"d":["D-3353"],"at":"2026-10-03@85e8a632f"}
-{"fn":"test_move","c":"991-1255","status":"ported","js":["js/hack.js:test_move"],"d":["D-3431","D-3430","D-3429","D-3415","D-3404","D-2439"],"at":"2026-10-05@9ec606a36"}
+{"fn":"test_move","c":"991-1255","status":"ported","js":["js/hack.js:test_move"],"d":["D-3601","D-3431","D-3430","D-3429","D-3415","D-3404"],"at":"2026-10-07@9213df6bf"}
 {"fn":"findtravelpath","c":"1266-1523","status":"split","js":["js/cmd.js:findtravelpath_bfs","js/cmd.js:findtravelpath_travel","js/cmd.js:findtravelpath_guess","js/cmd.js:travelmap_ensure"],"d":["D-3198","D-2382","D-1971","D-1897"],"at":"2026-10-01@c1022f867"}
 {"fn":"is_valid_travelpt","c":"1526-1544","status":"ported","js":["js/cmd.js:is_valid_travelpt"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-2029"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
