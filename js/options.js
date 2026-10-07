@@ -4973,7 +4973,25 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                         allopt_idx('symset'), REQ_DO_SET, negated, trimmed, val, result, true,
                     );
                 }
-                else if (key === 'suppress_alert') result.flags.suppress_alert = val;
+                else if (key === 'suppress_alert') {
+                    // C optfn_suppress_alert do_set (`:4142–4148`) via parseoptions
+                    // (`:626` negateok-No rejects before the optfn; `:635–638`
+                    // dispatch) + feature_alert_opts (`:7558–7585`) opt_initial
+                    // path: pack via get_feature_notice_ver, future versions are
+                    // config_error_add (no You_cant/pline at init), unparseable
+                    // keeps the prior value.
+                    if (negated) continue; // C `:626`
+                    if (val !== '') { // C `:4146` op != empty_optstr
+                        const fnv = get_feature_notice_ver(val) >>> 0; // C `:7561`
+                        if (fnv === 0) { /* C `:7563–7564` — keep prior */ } else if (fnv > get_current_feature_ver()) { // C `:7565`
+                            config_error_add( // C `:7569–7571` opt_initial
+                                '%s=%s Invalid reference to a future version ignored',
+                                'suppress_alert', val);
+                        } else {
+                            result.flags.suppress_alert = fnv; // C `:7576`
+                        }
+                    }
+                }
                 else if (key === 'msg_window') {
                     // C optfn_msg_window do_set (opt_initial) on result.iflags.
                     optfn_msg_window(
@@ -5450,6 +5468,14 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                     optfn_fruit(
                         allopt_idx('fruit'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
                     );
+                }
+                else if (lname === 'suppress_alert') {
+                    // C optfn_suppress_alert do_set, valueless (opt_initial):
+                    // bare name carries op==empty_optstr → no-op (`:4146`
+                    // keeps prior); negated is `:626` negateok-No → prior
+                    // kept (silent skip, sibling negateok-No precedent).
+                    // Without this arm the boolean fallback below would store
+                    // true/false, misreading as 0.0.0/(none) at get_val.
                 }
                 else if (lname === 'petattr') {
                     // C optfn_petattr do_set, valueless (opt_initial).
@@ -11081,7 +11107,7 @@ export async function doset() {
             // wintty.c `:119`; the model carries it, const.js TTY_WINCAP2,
             // so the live optfn reads '2'/'3' like C — same as here).
             { name: 'statuslines', get_val: () => (((game.iflags?.wc2_statuslines | 0) < 3) ? '2' : '3') },
-            { name: 'suppress_alert', val: '(none)' },
+            { name: 'suppress_alert', get_val: () => doset_compopt_get_val(optfn_suppress_alert, 'suppress_alert') },
             { name: 'symset', val: 'DECgraphics, active, handler=DEC', handler: true }, // C has_handler (optlist.h) → handler_symset
             { name: 'versinfo', get_val: () => doset_compopt_get_val(optfn_versinfo, 'versinfo'), handler: true },
             { name: 'whatis_coord', get_val: () => doset_compopt_get_val(optfn_whatis_coord, 'whatis_coord'), handler: true },

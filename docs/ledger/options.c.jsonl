@@ -166,7 +166,7 @@
 {"fn":"change_inv_order","c":"7466-7510","status":"ported","js":["js/options.js:change_inv_order"],"d":["D-3111"],"at":"2026-09-29@d27c7b945","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"warning_opts","c":"7521-7538","status":"ported","js":["js/options.js:warning_opts"],"at":"2026-10-03@bbe63333a"}
 {"fn":"assign_warnings","c":"7541-7548","status":"ported","js":["js/options.js:assign_warnings"],"at":"2026-10-03@bbe63333a"}
-{"fn":"feature_alert_opts","c":"7558-7585","status":"ported","js":["js/options.js:feature_alert_opts"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"feature_alert_opts","c":"7558-7585","status":"ported","js":["js/options.js:feature_alert_opts"],"d":["D-3586","D-2989"],"at":"2026-10-07@0fcddf3d7"}
 {"fn":"parsebindings","c":"7596-7674","status":"ported","js":["js/options.js:parsebindings"],"d":["D-3154","D-3151"],"at":"2026-09-30@d2c2c1ca0"}
 {"fn":"msgtype2name","c":"7690-7698","status":"ported","js":["js/options.js:msgtype2name"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"query_msgtype","c":"7701-7728","status":"ported","js":["js/options.js:query_msgtype"],"at":"2026-09-30@e47a5e02a","note":"stale: js/options.js:569 local (C staticfn); descr gate + msgtyp+1 + prompt + -1 arms present, caller :6521 wired :5977"}
