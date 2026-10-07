@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 ## Don't re-check (≤15)
 
-- D-1790…D-3602 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3603 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3602.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3602 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3603.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3603 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3603: the two C prompt items at the call site per the in-file sibling precedent (`handler_menu_objsyms`, `handler_whatis_coord`, `handler_pickup_burden`): ` Named: live `iflags.menu_headings` read-back (C-domain attr 7/0/… → display-bit mapping; all sibl
 - D-3602: `js/options.js` doset() only, no new imports (same-module optfns): the gameview `roleOptfn` chain now routes windowtype/catname/dogname/horsename/msgh Named: none in this unit — all 6 D-3580 literals now mirror C `:9038` (windowtype 'tty' identical
 - D-3601: added `y_monnam` to the existing do_name.js import (imports.mjs ALREADY, no new edge); ported the steed if/else in C order at the impaired gate with C Named: other inline-block deferrals stay named (Passes_walls/ooze/Underwater/tunnels/Blind feel_l
 - D-3600: deleted the pray.js clone, added `Blind` to the existing invent.js import (imports.mjs: edge already present, no new edge). Named: none in this unit — dopray body verified whole by reading vs C `:2199–2273` (ParanoidPray,
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3591: `js/rng.js` gains `reseed_random(fn)` with the C `:293` guard live over `game.has_strong_rngseed` (unset reads undefined ≡ decl.c FALSE; `void fn` per Named: reseed_random true arm: init_random(fn) ← set_random(sys_random_seed(), fn) — OS entropy, 
 - D-3590: `js/botl.js` only. choose_behavior ported whole with C's accelerators as selectors (BL_CONDITION auto-picks with no menu); menu_add ported whole as a  Named: none new in this unit — both C bodies are whole in JS (inbuf preloads, dupstr/free, NUL tr
 - D-3589: wrap the loop in set_bot_disabled(true)/restore (try/finally, C `:1859–1863` shape, sibling precedent) — paint, dismiss, and all returns run disabled  Named: none new in this arm — the `:1737` select now carries the `:1859–1863` wrapper over displa
-- D-3588: `js/botl.js`: new module-local `sprintf_percent_s` (single-`%s`-conversion subset: `-` flag, width, precision, surrounding literal preserved) wired at Named: none new in this unit — the :4513 arm now implements the full single-%s width/precision su
 <!-- landmarks:end -->

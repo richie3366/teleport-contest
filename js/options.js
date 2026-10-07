@@ -2081,8 +2081,14 @@ export async function handler_paranoid_confirmation() {
     if (!game.flags) game.flags = {};
     const wizard = !!(game.flags.wizard || game.flags.debug); // C `wizard` (end.js/teleport.js test)
     // C `:5963–5965` create_nhwindow/start_menu/zeroany — raw menu below.
-    // C `:5992` end_menu prompt painted as header (D-2762 precedent).
-    const raw = [{ text: 'Actions requiring extra confirmation:', selectable: false }];
+    // C tty_end_menu (wintty.c `:2680–2690`): a non-null end_menu prompt
+    // is prepended as the prompt in tty_menu_promptstyle (= menu_headings,
+    // default ATR_INVERSE), then a blank separator item (handler_menu_objsyms
+    // precedent).
+    const raw = [
+        { text: 'Actions requiring extra confirmation:', selectable: false, attr: ATR_INVERSE }, // C `:5992`
+        { text: '', selectable: false }, // C wintty.c blank item
+    ];
     for (let i = 0; paranoia[i].flagmask !== 0; ++i) { // C `:5966`
         if (paranoia[i].flagmask === PARANOID_BONES && !wizard) continue; // C `:5967–5968`
         /* the 'swim' choice mentions the 'm' movement prefix in its
