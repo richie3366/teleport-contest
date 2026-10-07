@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-3618 | open | sp_lev.c — cliffs-head read_engr_at writer lspo_region: baked tut-1/tut-2 "lit" rects skipped C's selection_do | 9 scen-tutorial sessions, kind=screen at engrave.c:340, toplines identical («Something is engraved here on the floor.--More--»), first differing screen row 4: C «┌───────┐» vs JS «». RNG fully matched on every probe (3367/3367, 3248/3248, …).; fix: both loops iterate the grown rect (0,0)-(74,17) + origin with C `:5624–5626` cites. No lava on either map so `lit = true` ≡ sel_set_lit(x, y, 1); the unlit arms (match `#`/space, area(53,1,59,3), no grow per C) run after in .lua order and still clear corridors/stone exactly like C. tut-2's grown rect covers its whole 14x8 map incl. border walls (ungrown missed map row 0/col 0).; verify: `node scripts/verify.mjs --fn read_engr_at,lspo_region` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · `verify read_engr_at: 5 PASS, 3 moved past, 1 unchanged, 0 worse → PROGRESS` (Archeologist-94059, Barbarian-94359, Caveman-94179, Ranger-94099, |
 | D-3617 | fixed |  — cliffs-head dmgval writer m_throw: `dmgval(singleobj, null)` dropped the hero form; C passes `&gy.youmonst` |  |
 | D-3616 | fixed |  — cliffs-head summonmu writer minion.js `Inhell()`: `dnum===GEHENNOM`(5) read false in Gehennom (dnum 1); hel |  |
 | D-3615 | fixed |  — `potion.c` peffect_polymorph: C `min` is a macro — losing branch's `rn2(15)` draws twice, `Math.min` drew o |  |

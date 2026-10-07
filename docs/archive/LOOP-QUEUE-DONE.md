@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-07
+
+- [x] `[measure]` `engrave.c` read_engr_at / Knight-94259 step-4 boulder @map(12,1) (D-3618 lit-cliff residual) — blocks 1/953 (kind=screen, RNG 3248/3248: C persistent bright-blue boulder vs JS floor at tty r5c14; JS fobj holds all 5 .lua boulders + 5 rock piles at .lua coords with (15,4) empty; recorder dat == upstream dat; knight-only square). Deliverable: TEMP-C fobj dump (otyp/coords/o_id order) at tut-1 entry in the ignored recorder tree (fprintf in read_engr_at or post-goto maybe_do_tutorial, `make`, `hidden-proxy record` the Knight id, read /tmp, revert + rebuild), then port the creator it names (o_id last ⇒ arrival/goto path; early ⇒ level-gen path) + the deferred knight-only engraving (tut-1.lua:83-85) in that cliff. No `js/` in the measure commit. **Addressed:** D-3618
+
 ## 2026-10-06
 
 - [x] `botl.c` do_statusline2 — blocks 16/953 corpus sessions (first at step 36; RNG lost 2794, screens lost 1305) **Addressed:** D-3576 `6edaf1e61`: toplines identical; first differing screen row 23: C «Dlvl:1 $:157 HP:10(10) Pw:2(2) AC:10 Xp:1/0 T:2» vs JS «Dlvl:1 $:157 HP:10(10) Pw:2(2) AC:10 Xp:1/0 T:2 Satiated» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-impaired-Tourist-94070, scen-impaired-Valkyrie-94090, scen-options-Archeologist-94231). @0745728bf **[parked: RETIRED D- — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**

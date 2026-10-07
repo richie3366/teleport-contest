@@ -20161,9 +20161,13 @@ function load_tut1() {
             sel_set_ter(xx, yy, mptyp, false);
         }
     }
-    // des.region lit area(01,01,73,16) — map-relative + xstart/ystart
-    for (let y = ystart + 1; y <= ystart + 16 && y < ROWNO; y++) {
-        for (let x = xstart + 1; x <= xstart + 73 && x < COLNO; x++) {
+    // des.region lit area(01,01,73,16) — map-relative + xstart/ystart.
+    // C lspo_region :5624-5626 grows a "lit" selection one cell
+    // (selection_do_grow W_ANY) before sel_set_lit, so the grown rect
+    // (0,0)-(74,17) lights the map's wall ring too (no lava on this
+    // map, so plain `lit = true` ≡ sel_set_lit(x, y, 1)).
+    for (let y = ystart; y <= ystart + 17 && y < ROWNO; y++) {
+        for (let x = xstart; x <= xstart + 74 && x < COLNO; x++) {
             const loc = game.level.at(x, y);
             if (loc) loc.lit = true;
         }
@@ -20538,9 +20542,11 @@ function load_tut2() {
         }
     }
     // des.region lit area(01,01,73,16) — map-relative + xstart/ystart
-    // (same lua rect as tut-1; clamped, so it lights the 14x8 map)
-    for (let y = ystart + 1; y <= ystart + 16 && y < ROWNO; y++) {
-        for (let x = xstart + 1; x <= xstart + 73 && x < COLNO; x++) {
+    // (same lua rect as tut-1; grown per lspo_region :5624-5626 to
+    // (0,0)-(74,17), clamped, so it lights the 14x8 map including its
+    // border walls — the ungrown rect missed map row 0 and col 0)
+    for (let y = ystart; y <= ystart + 17 && y < ROWNO; y++) {
+        for (let x = xstart; x <= xstart + 74 && x < COLNO; x++) {
             const loc = game.level.at(x, y);
             if (loc) loc.lit = true;
         }
