@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3622 — cliffs-head enhance_weapon_skill writer: PICK_NONE menus take the tty corner overlay (3 PASS)
+
+- **Status:** fixed (Open — cliffs head `weapon.c` enhance_weapon_skill, 3 corpus blocks; owner stale per D-3255 — body whole, residual is the menu-painter row — writer is the tty NHW_MENU overlay path behind the PICK_NONE select. `verify enhance_weapon_skill: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
+- **Symptom:** all 3 probes screen-first at weapon.c:1384/1386 with identical toplines («Current skills: …»); row 0 C indented vs JS at col 1. MEASURED (recorder VT100 screens + parsed columns, probes in /tmp): C `\x1b[34C\x1b[7mCurrent skills:…` — the tty menu_overlay path (H2344, wintty.c:13 #defined): offx 33/33/40 from maxcol, no screen clear, map glyphs visible left of the menu (Healer rows 3–8, tutorial rows 4–10); prompt/headings/(end) at offx+1, wizard item names at offx+2 (str[0]=' '), non-wizard at offx+3 ("  " buf start). seed0107's enhance menu passes because the samurai menu is tall (maxrow>=24 → offx=0 fullscreen).
+- **C locus:**
+  - `win/tty/wintty.c` `tty_display_nhwindow` NHW_MENU case `:1902–1947` (H2344 `:1907–1911` offx=min(40, 80-maxcol-1), `:1923–1941` fullscreen iff maxrow>=rows or !menu_overlay — default On, optlist.h:455 — else overlay + WIN_MESSAGE clear only).
+  - `tty_end_menu` `:2728–2751` maxcol=len+2/morestr (already live in nhw_menu_geometry), `process_menu_window` `:1427–1432` corner paint (already live in paint_corner_nhw_menu), `erase_menu_or_text` `:966–984` corner docorner vs fullscreen docrt (already live in dismiss_nhw_menu).
+- **JS was:** `js/invent.js` `select_menu_pick_none` (:3214) painted every page via `paint_overlay` fullscreen at col 0 and dismissed with hand-rolled `docrt()` — the only PICK helper ignoring the corner path (siblings pick_one/pick_any route through paint_corner/dismiss).
+- **Fix:** `select_menu_pick_none` branches like the sibling PICK_ONE loop: npages>1 → unchanged fullscreen paint_overlay (+ explicit {offx:0} geom); single-page → `await paint_corner_nhw_menu(page, morestr)` (:3252: geometry, MESSAGE clear, cl_end paint, cursor, geom store). Dismissal: corner geom → `await dismiss_nhw_menu()` (docorner, map+status kept); else the previous hand-rolled docrt path byte-identical (D-1879 precedent: no clear_committed_status). No new imports (same-file helpers).
+- **JS:** `js/invent.js` (+31/−12); new `scripts/menu-pick-none-corner.test.mjs` (4/4: geometry offx 33, corner paint cols offx+1/+2 + dismiss state, 23-item fullscreen, menu_overlay-off fullscreen; corner case failed pre-fix `1 !== 34`).
+- **Callers:** probe path C enhance_weapon_skill `:1386` select_menu(PICK_NONE) → JS `js/weapon.js:1209` select_menu_pick_none (show_skills `:1647` same helper). Helper shared by all PICK_NONE callers — `js/options.js:7100/:7216/:7334` (doset), `js/wizcmds.js:2410` (wizcustom), `js/invent.js:4540/:4570/:4632/:4784` (internal) — each inherits C-conformant fullscreen/corner geometry with no call-site change; fullscreen pixels and dismiss bytes unchanged.
+- **Verify:** `node scripts/verify.mjs --fn enhance_weapon_skill` → syntax 1 file PASS; rule2 PASS; hidden `3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (Healer-94269, Monk-94249, Monk-94079 all PASS); REACH smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (manual: helper shared by all PICK_NONE menus). VERIFY: PASS.
+- **Named omissions:**
+  - `tty_display_nhwindow`: every other window type/arm (NHW_MESSAGE/TOPLINE, NHW_MAP blocking, NHW_TEXT, WIN_CANCELLED, PERMINV) — house-mapped across display.js/invent.js, not this unit; the `:8611` doattributes PAGE painter still always fullscreen (own C function, own iteration per D-1879 precedent).
+- **Ledger:** tty_display_nhwindow partial js=invent.js:paint_corner_nhw_menu+invent.js:nhw_menu_geometry+invent.js:dismiss_nhw_menu+invent.js:select_menu_pick_none
+- **Next:** next Open — cliffs row in order.
+
 ## D-3621 — cliffs-head inuse_classify writer display_pickinv: inventory menu iterates sortloot order, not invent order (4 PASS)
 
 - **Status:** fixed (Open — cliffs head `invent.c` inuse_classify, 4 corpus blocks; owner inuse_classify proven faithful by D-1589/D-2121 — region-heuristic line `invent.c:116` on the "Weapons" heading — writer is display_pickinv's sortloot call. `verify inuse_classify: 4 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)

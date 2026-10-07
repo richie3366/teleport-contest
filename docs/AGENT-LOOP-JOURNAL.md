@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3622 cliffs-head enhance_weapon_skill writer: PICK_NONE menus take the tty corner overlay (3 PASS)
+
+**C locus:** - `win/tty/wintty.c` `tty_display_nhwindow` NHW_MENU case `:1902–1947` (H2344 `:1907–1911` offx=min(40, 80-maxcol-1), `:1923–1941` fullscreen iff maxrow>=rows or !menu_overlay — default On, optlist.h:455 — else overlay + WIN_MESSAGE clear only).
+**JS:** `js/invent.js` (+31/−12); new `scripts/menu-pick-none-corner.test.mjs` (4/4: geometry offx 33, corner paint cols offx+1/+2 + dismiss state, 23-item fullscreen, menu_overlay-off fullscreen; corner case failed pre-fix `1 !== 34`).
+**Change:** `select_menu_pick_none` branches like the sibling PICK_ONE loop: npages>1 → unchanged fullscreen paint_overlay (+ explicit {offx:0} geom); single-page → `await paint_corner_nhw_menu(page, morestr)` (:3252: geometry, MESSAGE clear, cl_end paint, cursor, geom store). Dismissal: corner geom → `await dismiss_nhw_menu()` (docorner, map+status kept); else the previous hand-rolled docrt path byte-identical (D-1879 precedent: no clear_committed_status). No new imports (same-file helpers).
+**Verify:** `node scripts/verify.mjs --fn enhance_weapon_skill` → syntax 1 file PASS; rule2 PASS; hidden `3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (Healer-94269, Monk-94249, Monk-94079 all PASS); REACH smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (manual: helper shared by all PICK_NONE menus). VERIFY: PASS.
+**Named:** - `tty_display_nhwindow`: every other window type/arm (NHW_MESSAGE/TOPLINE, NHW_MAP blocking, NHW_TEXT, WIN_CANCELLED, PERMINV) — house-mapped across display.js/invent.js, not this unit; the `:8611` doattributes PAGE painter still always fullscreen (own C function, own iteration per D-1879 precedent).
+**Next:** next Open — cliffs row in order.
 ## 2026-10-07 — D-3621 cliffs-head inuse_classify writer display_pickinv: inventory menu iterates sortloot order, not invent order (4 PASS)
 
 **C locus:** `invent.c` display_pickinv `:3181–3184` (sortflags = (sortloot=='f') ? LOOT : INVLET, |= PACK when sortpack; the TTY_PERM_INVENT arm is the WIN_INVEN branch only) + `:3207` (sortloot(&gi.invent, sortflags, FALSE, NULL) — NULL filter, lets-filtering in the item loop) + `:3262–3343` nextclass (one pass per inv_order class, `:3290–3300` header on the first listed item, `:3337–3339` venom strkitten; change_inv_order excludes VENOM from inv_order so the append never duplicates) + `:3368` unsortloot. sortloot/sortloot_cmp/loot_classify/loot_xname (`:592–643`/`:403–547`/`:149–305`/`:308–387`) already ported (D-1589/D-2626/D-3426) — called, not re-ported.

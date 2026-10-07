@@ -3230,16 +3230,27 @@ export async function select_menu_pick_none(entries) {
         const morestr = npages > 1
             ? `(${curr_page + 1} of ${npages})`
             : '(end) ';
-        const painted = page.map(e => ({
-            text: ` ${typeof e === 'string' ? e : e.text}`,
-            attr: typeof e === 'string' ? 0 : (e.attr || 0),
-        }));
-        painted.push({ text: ` ${morestr}`, attr: 0 });
-        paint_overlay(painted, {
-            col: 0,
-            withStatus: false,
-            cursor: [morestr.length + 1, page.length],
-        });
+        // C wintty.c tty_display_nhwindow(NHW_MENU) H2344 `:1907–1946`:
+        // multi-page menus are fullscreen (maxrow>=rows → offx=0, screen
+        // cleared); single-page menus take the corner overlay (offx>0,
+        // map kept, cl_end from offx per line). Sibling PICK_ONE loop
+        // below branches the same way (npages>1 → paint_overlay, else
+        // paint_corner_nhw_menu).
+        if (npages > 1) {
+            const painted = page.map(e => ({
+                text: ` ${typeof e === 'string' ? e : e.text}`,
+                attr: typeof e === 'string' ? 0 : (e.attr || 0),
+            }));
+            painted.push({ text: ` ${morestr}`, attr: 0 });
+            paint_overlay(painted, {
+                col: 0,
+                withStatus: false,
+                cursor: [morestr.length + 1, page.length],
+            });
+            game._tty_menu_geom = { offx: 0, endRow: page.length };
+        } else {
+            await paint_corner_nhw_menu(page, morestr);
+        }
         await flush_screen(1);
         // C wintty.c:1561 — PICK_NONE has no explicit selectors.
         const key = map_menu_cmd(await nhgetch());
@@ -3280,9 +3291,17 @@ export async function select_menu_pick_none(entries) {
         tty_nhbell();
         // other keys: re-prompt same page (C xwaitforspace)
     }
+    // C wintty.c erase_menu_or_text `:966–985`: corner dismiss is
+    // docorner(offx, maxrow+1, 0) — map and status kept; fullscreen
+    // dismiss is docrt + flush. Fullscreen stays byte-identical to
+    // before (D-1879 precedent: no clear_committed_status here).
+    if (game._tty_menu_geom && game._tty_menu_geom.offx !== 0) {
+        await dismiss_nhw_menu();
+    } else {
         clear_overlay();
-    await docrt();
-    await flush_screen(1);
+        await docrt();
+        await flush_screen(1);
+    }
     return cancelled ? -1 : 0;
     } finally {
         set_bot_disabled(_botPrev);

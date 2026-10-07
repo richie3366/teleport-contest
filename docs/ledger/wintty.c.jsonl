@@ -29,7 +29,7 @@
 {"fn":"toggle_menu_attr","c":"1315-1326","status":"unknown"}
 {"fn":"process_menu_window","c":"1329-1768","status":"unknown","d":["D-1879","D-1832","D-1831"],"at":"seed@a30a7de84"}
 {"fn":"process_text_window","c":"1771-1851","status":"unknown"}
-{"fn":"tty_display_nhwindow","c":"1855-1950","status":"unknown"}
+{"fn":"tty_display_nhwindow","c":"1855-1950","status":"partial","js":["js/invent.js:paint_corner_nhw_menu","js/invent.js:nhw_menu_geometry","js/invent.js:dismiss_nhw_menu","js/invent.js:select_menu_pick_none"],"omit":"- `tty_display_nhwindow`: every other window type/arm (NHW_MESSAGE/TOPLINE, NHW_MAP blocking, NHW_TEXT, WIN_CANCELLED, PERMINV) — house-mapped across display.js/invent.js, not this unit; the `:8611` doattributes PAGE painter still always fullscreen (own C function, own iteration per D-1879 preceden…","d":["D-3622"],"at":"2026-10-07@50dfcde05"}
 {"fn":"tty_dismiss_nhwindow","c":"1953-2006","status":"unknown"}
 {"fn":"tty_destroy_nhwindow","c":"2009-2032","status":"unknown"}
 {"fn":"erase_tty_screen","c":"2036-2055","status":"unknown"}
