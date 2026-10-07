@@ -2506,3 +2506,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2494-e9078ecfc-doturn-gnostic.md](./2494-e9078ecfc-doturn-gnostic.md) | `e9078ecfc` | D-3613 doturn gnostic NaN (Priest PASS) | **ACCEPT** |
 | [2495-644849a84-dog-goal-portal.md](./2495-644849a84-dog-goal-portal.md) | `644849a84` | D-3614 dog_goal portal union (1 PASS + 1 moved) | **ACCEPT** |
 | [2496-b226c2d08-polymorph-min-macro.md](./2496-b226c2d08-polymorph-min-macro.md) | `b226c2d08` | D-3615 polymorph min-macro double draw (Valkyrie PASS) | **ACCEPT** |
+| [2497-9b030ea6b-inhell-hellish-flag.md](./2497-9b030ea6b-inhell-hellish-flag.md) | `9b030ea6b` | D-3616 Inhell hellish flag (Wizard PASS) | **ACCEPT** |
+| [2498-4bb46c746-m-throw-dmgval-youmonst.md](./2498-4bb46c746-m-throw-dmgval-youmonst.md) | `4bb46c746` | D-3617 m_throw dmgval hero form (Valkyrie PASS) | **ACCEPT** |
+| [2499-c3172fa79-tut-lit-grow.md](./2499-c3172fa79-tut-lit-grow.md) | `c3172fa79` | D-3618 tut lit rect grow (5 PASS + 3 moved) | **ACCEPT** |
+| [2500-b7084d698-dospellmenu-preselect.md](./2500-b7084d698-dospellmenu-preselect.md) | `b7084d698` | D-3619 dospellmenu preselected '*' (5 PASS + 1 moved) | **ACCEPT** |
+| [2501-81ffd2b1b-really-done-topline.md](./2501-81ffd2b1b-really-done-topline.md) | `81ffd2b1b` | D-3620 really_done topline EMPTY (5 PASS) | **ACCEPT** |
+| [2502-50dfcde05-display-pickinv-sortloot.md](./2502-50dfcde05-display-pickinv-sortloot.md) | `50dfcde05` | D-3621 display_pickinv sortloot order (4 PASS) | **ACCEPT** |
+| [2503-14a653284-pick-none-corner.md](./2503-14a653284-pick-none-corner.md) | `14a653284` | D-3622 PICK_NONE corner overlay (3 PASS) | **ACCEPT** |
+| [2504-4ecf787ca-optfn-boolean-doset.md](./2504-4ecf787ca-optfn-boolean-doset.md) | `4ecf787ca` | D-3623 optfn_boolean do_set restart (3 moved) | **ACCEPT** |
+| [2505-d0040be10-numpad-prompt-arm.md](./2505-d0040be10-numpad-prompt-arm.md) | `d0040be10` | D-3624 number_pad prompt arm (1 PASS + 2 moved) | **ACCEPT** |
