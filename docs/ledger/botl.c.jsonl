@@ -67,9 +67,9 @@
 {"fn":"status_hilite_linestr_gather","c":"3570-3586","status":"ported","js":["js/botl.js:status_hilite_linestr_gather"],"at":"2026-10-03@bbe63333a"}
 {"fn":"status_hilite2str","c":"3590-3669","status":"ported","js":["js/botl.js:status_hilite2str"],"d":["D-3405","D-3230","D-3137"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"status_hilite_menu_choose_field","c":"3672-3704","status":"ported","js":["js/botl.js:status_hilite_menu_choose_field"],"d":["D-3405","D-3119"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
-{"fn":"status_hilite_menu_choose_behavior","c":"3707-3808","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
+{"fn":"status_hilite_menu_choose_behavior","c":"3707-3808","status":"ported","js":["js/botl.js:status_hilite_menu_choose_behavior"],"d":["D-3590"],"at":"2026-10-07@bd6e6e647","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"status_hilite_menu_choose_updownboth","c":"3811-3887","status":"ported","js":["js/botl.js:status_hilite_menu_choose_updownboth"],"d":["D-3405","D-3230","D-2757"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
-{"fn":"status_hilite_menu_add","c":"3890-4302","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
+{"fn":"status_hilite_menu_add","c":"3890-4302","status":"ported","js":["js/botl.js:status_hilite_menu_add"],"d":["D-3590"],"at":"2026-10-07@bd6e6e647","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"status_hilite_remove","c":"4305-4354","status":"ported","js":["js/botl.js:status_hilite_remove"],"d":["D-3405","D-2757"],"at":"2026-10-05@9ed587304","note":"stale: js/botl.js:3368 whole in C order; menu_add paste never this body (0 C callees); D-3405 audited, sole caller :4441 wired"}
 {"fn":"status_hilite_menu_fld","c":"4357-4453","status":"ported","js":["js/botl.js:status_hilite_menu_fld"],"at":"2026-09-30@442754b32","note":"stale: js/botl.js:3459, whole C body; only gap is by-design status_hilite_menu_add (named in body)"}
 {"fn":"status_hilites_viewall","c":"4456-4474","status":"ported","js":["js/botl.js:status_hilites_viewall"],"at":"2026-09-29@c21da30e8","note":"stale: js/botl.js:3346 (complete body + wired caller :3405)"}
