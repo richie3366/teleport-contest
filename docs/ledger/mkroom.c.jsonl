@@ -19,7 +19,7 @@
 {"fn":"inside_room","c":"678-687","status":"ported","js":["js/dog.js:inside_room"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: irregular edge/roomno else bbox+-1 exact"}
 {"fn":"somexy","c":"694-740","status":"ported","js":["js/dog.js:somexy"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: irregular 100+exhaustive, nsubrooms fast path, wall/subroom reject live"}
 {"fn":"somexyspace","c":"744-756","status":"ported","js":["js/mklev.js:somexyspace"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: somexy+isok+!occupied+ROOM/CORR/ICE loop exact"}
-{"fn":"search_special","c":"765-780","status":"ported","js":["js/sounds.js:search_special"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rooms+subrooms walk, ANY_TYPE/ANY_SHOP arms, hx<0 sentinel live"}
+{"fn":"search_special","c":"765-780","status":"ported","js":["js/sounds.js:search_special"],"d":["D-3599"],"at":"2026-10-07@763454f85","note":"audit 2026-10-03: rooms+subrooms walk, ANY_TYPE/ANY_SHOP arms, hx<0 sentinel live"}
 {"fn":"courtmon","c":"783-805","status":"ported","js":["js/mklev.js:courtmon"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"squadmon","c":"817-837","status":"ported","js":["js/mklev.js:squadmon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: prob table + ROLL_FROM fallback + G_GONE gate live"}
 {"fn":"save_room","c":"844-857","status":"ported","js":["js/mkroom.js:save_room"],"d":["D-3016"],"at":"2026-09-28@9f89fd978","note":"refresh: no JS symbol (measured MISSING)"}
