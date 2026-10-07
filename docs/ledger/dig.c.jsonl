@@ -6,14 +6,14 @@
 {"fn":"is_digging","c":"195-201","status":"ported","js":["js/dig.js:is_digging"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/dig.js:281; callers js/dig.js:1090 + js/monmove.js:1193"}
 {"fn":"dig_check","c":"207-252","status":"ported","js":["js/dig.js:dig_check"],"d":["D-2311"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full result ladder incl. candig/trap/boulder/pool arms live"}
 {"fn":"digcheck_fail_message","c":"255-297","status":"ported","js":["js/dig.js:digcheck_fail_message"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: verb select + all failure messages live"}
-{"fn":"dig","c":"300-568","status":"ported","js":["js/dig.js:dig"],"d":["D-3247"],"at":"2026-10-01@f0a648599"}
+{"fn":"dig","c":"300-568","status":"ported","js":["js/dig.js:dig"],"d":["D-3634","D-3247"],"at":"2026-10-07@468f6ccb1"}
 {"fn":"furniture_handled","c":"571-592","status":"ported","js":["js/dig.js:furniture_handled"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fountain dryup, breaksink, drawbridge destroy live"}
 {"fn":"holetime","c":"597-602","status":"ported","js":["js/dig.js:holetime"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: occupation+ushops gate, (250-effort)/20 live"}
 {"fn":"fillholetyp","c":"606-637","status":"ported","js":["js/dig.js:fillholetyp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: moat/pool/lava counts + fill_if_any priority live"}
 {"fn":"digactualhole","c":"640-829","status":"ported","js":["js/dig.js:digactualhole"],"d":["D-3237","D-1269"],"at":"2026-10-01@caf1b5991"}
 {"fn":"liquid_flow","c":"838-879","status":"ported","js":["js/dig.js:liquid_flow"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: deltrap, unearth, fillmsg, object+hero/mon damage order live"}
 {"fn":"dighole","c":"885-1024","status":"ported","js":["js/dig.js:dighole"],"d":["D-2323"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all terrain arms, boulder, grave, drawbridge, magic-trap disarm live"}
-{"fn":"dig_up_grave","c":"1027-1089","status":"ported","js":["js/dig.js:dig_up_grave"],"d":["D-3237"],"at":"2026-10-01@caf1b5991"}
+{"fn":"dig_up_grave","c":"1027-1089","status":"ported","js":["js/dig.js:dig_up_grave"],"d":["D-3634","D-3237"],"at":"2026-10-07@468f6ccb1"}
 {"fn":"use_pick_axe","c":"1092-1156","status":"ported","js":["js/dig.js:use_pick_axe"],"d":["D-2166"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wield-queue, web block, dirsyms filter, getdir live"}
 {"fn":"use_pick_axe2","c":"1162-1359","status":"ported","js":["js/dig.js:use_pick_axe2"],"d":["D-3247"],"at":"2026-10-01@f0a648599"}
 {"fn":"watchman_canseeu","c":"1362-1368","status":"ported","js":["js/dig.js:watchman_canseeu"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/dig.js:1034 (C staticfn, local); caller js/dig.js:1067"}

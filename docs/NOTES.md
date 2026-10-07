@@ -31,20 +31,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **disclose tour-Priest [measure] DONE (D-3626):** C never docrts post-death (54-line TEMP trace, zero uhp<=0 calls; mons+props match JS exactly); writer=`erase_menu_or_text` corner arm (wintty.c:981-982 → docorner) vs JS corner-dismiss docrt. Port iter: brief erase_menu_or_text + docorner. Wish pair is the separate Hallu display-RNG class.
 ## Don't re-check (≤15)
 
-- D-1790…D-3633 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3634 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3633.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3633 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3634.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3634 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3634: capture each makemon return; `if (m) await makemon_appear_msg(m, m.mx | 0, m.my | 0, MM_NOMSG)` — at the earth site before the debris pline (C `:531–5 Named: none new — dig_up_grave/dig/dighole stay whole (all three dig.c makemon sites now wired; C
 - D-3633: ready arm splits by window state like the !ready arm (D-3630 precedent): pre-window → configMsg unchanged (C raw_print); windowed → `(async () => { if Named: none new in this body — C `:1543–1589` is whole (every arm, every callee live: c_eos/eos/p
 - D-3632: level_tele writers: castle setLitArea→light_region (lit grow±1); wiz L47 rect→flood_fill_rm+add_room(bounds). 2 PASS.
 - D-3631: renamed `ape_heading_attr` → exported `menu_heading_attr` (`js/options.js:7051`, cites corrected to `:1815–1828`/`:1819–1820`/`:1822–1824`; logic unto Named: heading color (C `:1819–1820` color half) stays NO_COLOR on the corner painter (no per-row
@@ -59,5 +60,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3622: `select_menu_pick_none` branches like the sibling PICK_ONE loop: npages>1 → unchanged fullscreen paint_overlay (+ explicit {offx:0} geom); single-page Named: - `tty_display_nhwindow`: every other window type/arm (NHW_MESSAGE/TOPLINE, NHW_MAP blocki
 - D-3621: `js/invent.js` display_pickinv_reply else-branch only — C's sortflags computation (in-file sortpack_on helper), sortloot(inv, sortflags, false, null), Named: invent_lines (`js/invent.js:3632`, uncalled — no session reaches it) keeps invent order; p
 - D-3620: `js/display.js`: new `mark_topline_empty()` (C `:1873–1884` else-arm: EMPTY + msg-cur zero, no visual change) wired in `really_done` after `flush_topl Named: none new in these arms — both C sites fully replicated.
-- D-3619: `js/spell.js` dospellmenu loop only — `const marker = splnum === splaction ? '*' : '-'` with the C `:2130–2132` + wintty `:1468–1473` cites. Named: D-2369's stand, unchanged: tty explicit-de-select self-swap (C `:2159–2163` `splaction >= 
 <!-- landmarks:end -->
