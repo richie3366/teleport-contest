@@ -31,20 +31,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **disclose tour-Priest [measure] DONE (D-3626):** C never docrts post-death (54-line TEMP trace, zero uhp<=0 calls; mons+props match JS exactly); writer=`erase_menu_or_text` corner arm (wintty.c:981-982 → docorner) vs JS corner-dismiss docrt. Port iter: brief erase_menu_or_text + docorner. Wish pair is the separate Hallu display-RNG class.
 ## Don't re-check (≤15)
 
-- D-1790…D-3627 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3628 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3627.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3627 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3628.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3628 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3628: `const surf = surface(u?.ux, u?.uy)` with the C `:4201` cite; doc omit retired. Named: none new.
 - D-3627: new `erase_menu_or_text(offx, offy, maxrow, clear)` export in `js/display.js` — all 4 arms in C order (tty_curs+cl_eos / term_clear_screen as grid ops Named: the `:1098` mid-life menu clear (arm ships, no JS caller — no C core caller either); the i
 - D-3626:  Named: (1) port-iter confirmations: brief erase_menu_or_text + docorner; locate the JS corner-des
 - D-3625: in the sync mirror the C `:2571–2584` fmon unlink now runs before the `if (onmap)` block (seemimic/fill_pit-core/newsym), with a JS-ORDER comment citi Named: none new (D-3482's audited unstuck-float omit stands; the C `#if 0` `:2711–2713` mx/my zer
@@ -59,5 +60,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3616: 
 - D-3615: 
 - D-3614: dog_goal portal scan walks the doidtrap union (ftrap store, then level.traps, deduped). Named: none in the portal arm.
-- D-3613: the in-file dopray/dosacrifice `| 0` idiom at the :2426 site: `if (!(gnostic | 0)) { gnostic = 1; livelog } else { gnostic = (gnostic | 0) + 1 }` (alw Named: unchanged from D-0912 (non-Cleric/Knight `known_spell(SPE_TURN_UNDEAD)`/spelleffects fallb
 <!-- landmarks:end -->

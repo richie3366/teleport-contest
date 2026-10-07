@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3628 cliffs-head `invent.c` look_here Blind surf: live surface() retires the hardcoded 'floor' (1 PASS + 1 moved)
+
+**C locus:** `invent.c:4199–4207` Blind else arm: `const char *surf = surface(u.ux, u.uy)` + `You("try to feel what is %s%s.", ...)`. `dungeon.c:1750–1788` surface returns 'stairs' via On_stairs (stairs.c:148).
+**JS:** 1 file (`js/invent.js` +6/−3), under the 600/10 caps.
+**Change:** `const surf = surface(u?.ux, u?.uy)` with the C `:4201` cite; doc omit retired. No new edge, no DIAG/FORCE/seed gates. Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn look_here` → PASS syntax (1 changed js file) · PASS rule2 · PASS hidden (1 PASS, 1 moved past: Archeologist-94292 157 → do_statusline2@163; Ranger-94312 PASS) · PASS reach (smoke 24/24, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file). VERIFY: PASS. Preflight `verify --no-cohort` green on the clean tree.
+**Named:** none new. Pre-existing blanket xname observe / distant_name stand; the Blind 'floor' envelope is retired.
+**Next:** Archeologist-94292's do_statusline2@163 flows through the normal queue; do not re-pop look_here (0 blocked).
 ## 2026-10-07 — D-3627 cliffs-head disclose writer erase_menu_or_text: corner menu destroy docornered instead of docrt (2 PASS + 1 moved)
 
 **C locus:** `win/tty/wintty.c` erase_menu_or_text `:965–984` (corner `:981–982` → docorner; fullscreen offy `:972–975` tty_curs+cl_eos, clear `:976–977` term_clear_screen, else `:978–981` docrt+flush) + callers tty_clear_nhwindow `:1098` (clear=TRUE) / tty_destroy_nhwindow `:1999` (clearscreen); tty_curs `:2058–2151` (`:2112–2116` x-1+offx/y+offy mapping); termcap.c cl_eos `:839–853`, term_clear_screen `:667–676`; NHW_MENU offy=0 at display `:1920`, create-time offy `:880–928`, NHW_TEXT datawin offy `:2490`.

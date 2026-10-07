@@ -80,7 +80,7 @@
 {"fn":"this_type_only","c":"3793-3823","status":"ported","js":["js/invent.js:this_type_only"],"at":"2026-09-29@7e46744a0","note":"stale: js/invent.js:1650"}
 {"fn":"dotypeinv","c":"3827-4032","status":"ported","js":["js/invent.js:dotypeinv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dfeature_at","c":"4037-4099","status":"ported","js":["js/invent.js:dfeature_at"],"d":["D-2674"],"at":"2026-10-03@bbe63333a"}
-{"fn":"look_here","c":"4104-4315","status":"ported","js":["js/invent.js:look_here"],"d":["D-3401","D-2193"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"look_here","c":"4104-4315","status":"ported","js":["js/invent.js:look_here"],"d":["D-3628","D-3401","D-2193"],"at":"2026-10-07@5e1ad1736"}
 {"fn":"dolook","c":"4319-4331","status":"ported","js":["js/invent.js:dolook"],"d":["D-2110","D-1882"],"at":"2026-10-03@bbe63333a"}
 {"fn":"will_feel_cockatrice","c":"4334-4340","status":"ported","js":["js/invent.js:will_feel_cockatrice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feel_cockatrice","c":"4343-4361","status":"ported","js":["js/invent.js:feel_cockatrice"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}

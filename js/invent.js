@@ -9073,8 +9073,9 @@ function dfeatureExplanation(cmap) {
  * free (ECMD_OK); can't-reach is ECMD_OK even when Blind. Swallowed
  * engulfer-stomach arm live (Contents + display_minventory); lava/pool
  * early return live; ICE Blind force_decor arm live; single-item
- * last_msg live. Named: Blind surface() envelope (hardcoded 'floor';
- * C surface room/corr); blanket xname observe / distant_name.
+ * last_msg live. Blind surf is the live sit.js surface() (D-3628;
+ * 'stairs'/'altar'/'doorway' wording, retiring the 'floor' envelope).
+ * Named: blanket xname observe / distant_name.
  * Furniture with ct==0 uses pickup.describe_decor (D-0356), not this path.
  * @returns {Promise<number>} ECMD_TIME when Blind, else ECMD_OK
  */
@@ -9166,7 +9167,9 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
             skip_dfeature = true; /* ice already described */
         } else {
             const cant_reach = !can_reach_floor(true);
-            const surf = 'floor'; // C surface() room/corr envelope
+            // C `:4201` — surf = surface(u.ux, u.uy): 'stairs'/'altar'/
+            // 'doorway'/... wording, not the old room/corr 'floor' envelope.
+            const surf = surface(u?.ux, u?.uy);
             const where = cant_reach ? 'lying beneath you' : 'lying here on the ';
             const onwhat = cant_reach ? '' : surf;
             if (drift) {

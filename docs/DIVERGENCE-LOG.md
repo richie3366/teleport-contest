@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3628 — cliffs-head `invent.c` look_here Blind surf: live surface() retires the hardcoded 'floor' (1 PASS + 1 moved)
+- **Status:** fixed (Open — cliffs head `invent.c` look_here, 2 corpus blocks; D-2193 history read once — it shipped the mhitu expels-tail writer for a no-feel-message arm; this divergence names the Blind surf word. `verify look_here: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
+- **Symptom:** scen-engulf pair, step 157 kind=screen at invent.c:4207: C «You try to feel what is lying here on the stairs.--More--» vs JS «You try to feel what is lying here on the floor.--More--». RNG 5138/5138 matched, 0 blocked RNG; stepFns [unstuck, collect_coords] (post-expels autopickup look_here, same shape as D-2193). JS hero is on stairs too (dfeature_at stairs arm live) — only the surf word differed, so the owner itself is the port, no writer.
+- **C locus:** `invent.c:4199–4207` Blind else arm: `const char *surf = surface(u.ux, u.uy)` + `You("try to feel what is %s%s.", ...)`. `dungeon.c:1750–1788` surface returns 'stairs' via On_stairs (stairs.c:148).
+- **JS was:** `js/invent.js look_here` hardcoded `const surf = 'floor'` (doc-named "Blind surface() envelope"), while the complete `surface()` sat one already-imported static edge away (`js/sit.js:474`, imported at `js/invent.js:341`).
+- **Fix:** `const surf = surface(u?.ux, u?.uy)` with the C `:4201` cite; doc omit retired. No new edge, no DIAG/FORCE/seed gates. Rule #2 clean.
+- **JS:** 1 file (`js/invent.js` +6/−3), under the 600/10 caps.
+- **Callers:** C invent.c:4327 (dolook) → js/invent.js:9321; C pickup.c:452 → js/pickup.js:1127; C pickup.c:1114 → js/pickup.js:845/886/1736. All wired; none changed (same signature).
+- **Verify:** `node scripts/verify.mjs --fn look_here` → PASS syntax (1 changed js file) · PASS rule2 · PASS hidden (1 PASS, 1 moved past: Archeologist-94292 157 → do_statusline2@163; Ranger-94312 PASS) · PASS reach (smoke 24/24, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file). VERIFY: PASS. Preflight `verify --no-cohort` green on the clean tree.
+- **Named omissions:** none new. Pre-existing blanket xname observe / distant_name stand; the Blind 'floor' envelope is retired.
+- **Ledger:** look_here ported
+- **Next:** Archeologist-94292's do_statusline2@163 flows through the normal queue; do not re-pop look_here (0 blocked).
+
 ## D-3627 — cliffs-head disclose writer erase_menu_or_text: corner menu destroy docornered instead of docrt (2 PASS + 1 moved)
 - **Status:** fixed (Open — cliffs head `end.c` disclose, parked SYMPTOM, 3 corpus blocks; D-3626 `[measure]` read once — it named this writer for tour-Priest and predicted no wish-pair movement, but Tourist passed too. `verify disclose: 2 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
 - **Symptom:** tour-Priest-92235 step 106/111 kind=screen at end.c:672 (conduct prompt): toplines identical; r5c7 C `I`/8 vs JS `3`/1, r6c9 C `I`/8 vs JS `5`/13; RNG 7916/7916 matched. JS corner-dismiss docrted (full regen + see_monsters overlay → warnings); C destroys the small vanquished corner menu via tty_destroy_nhwindow :1999 → erase_menu_or_text(clearscreen=FALSE) corner arm → docorner (targeted replay, our cols untouched).
