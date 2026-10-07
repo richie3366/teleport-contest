@@ -105,14 +105,14 @@ int main(void) {
     printf("{\"maxoclasses\":%d,\"count\":%d,\"rows\":[\n", MAXOCLASSES, n);
     for (int i = 0; i < n; i++) {
         struct objclass *o = &objects[i];
-        printf("%s{\"i\":%d,\"class\":%d,\"name_known\":%d,\"uses_known\":%d,\"charged\":%d,\"merge\":%d,\"magic\":%d,\"unique\":%d,\"tough\":%d,\"big\":%d,\"dir\":%d,\"material\":%d,\"subtyp\":%d,\"oprop\":%d,\"color\":%d,\"prob\":%d,\"weight\":%d,\"cost\":%d,\"oc1\":%d,\"oc2\":%d,\"delay\":%d,\"wsdam\":%d,\"wldam\":%d}",
+        printf("%s{\"i\":%d,\"class\":%d,\"name_known\":%d,\"uses_known\":%d,\"charged\":%d,\"merge\":%d,\"magic\":%d,\"unique\":%d,\"tough\":%d,\"big\":%d,\"dir\":%d,\"material\":%d,\"subtyp\":%d,\"oprop\":%d,\"color\":%d,\"prob\":%d,\"weight\":%d,\"cost\":%d,\"oc1\":%d,\"oc2\":%d,\"delay\":%d,\"wsdam\":%d,\"wldam\":%d,\"nutrition\":%d}",
             i?",\n":"", i, (int)o->oc_class, (int)o->oc_name_known,
             (int)o->oc_uses_known, (int)o->oc_charged, (int)o->oc_merge, (int)o->oc_magic,
             (int)o->oc_unique, (int)o->oc_tough, (int)o->oc_big, (int)o->oc_dir, (int)o->oc_material,
             (int)o->oc_subtyp, (int)o->oc_oprop, (int)o->oc_color, (int)o->oc_prob, (int)o->oc_weight,
             (int)o->oc_cost,
             (int)o->oc_oc1, (int)o->oc_oc2, (int)o->oc_delay,
-            (int)o->oc_wsdam, (int)o->oc_wldam);
+            (int)o->oc_wsdam, (int)o->oc_wldam, (int)o->oc_nutrition);
     }
     printf("\n]}\n");
     return 0;
@@ -266,7 +266,8 @@ int main(void) {
         [r["class"], r["name_known"], r["magic"], r["unique"], r["tough"],
          r["big"], r["dir"], r["material"], r["subtyp"], r["oprop"], r["color"],
          r["prob"], r["weight"], r["cost"], r["oc1"], r["oc2"], r["delay"],
-         r["wsdam"], r["wldam"], r["uses_known"], r["charged"], r["merge"]]
+         r["wsdam"], r["wldam"], r["uses_known"], r["charged"], r["merge"],
+         r["nutrition"]]
         for r in rows_raw
     ]
     lines.append("export function createObjectsArray() {")
@@ -307,6 +308,8 @@ int main(void) {
     oc_charged: r[20],
     /* C: oc_merge — merge otherwise equal objects (BITS mrg) */
     oc_merge: r[21],
+    /* C: oc_nutrition — FOOD/OTHER nutrition (objects.h OBJECT/FOOD/WEPTOOL/etc) */
+    oc_nutrition: r[22],
     oc_name_idx: i,
     oc_descr_idx: i,
     oc_sell_minseen: PRICE_MIN_INIT,

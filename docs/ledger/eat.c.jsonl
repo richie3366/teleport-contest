@@ -6,7 +6,7 @@
 {"fn":"choke","c":"245-288","status":"ported","js":["js/eat.js:choke"],"d":["D-1344"],"at":"2026-10-03@bbe63333a"}
 {"fn":"recalc_wt","c":"292-305","status":"ported","js":["js/eat.js:recalc_wt"],"d":["D-3405","D-3078"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"reset_eat","c":"309-319","status":"ported","js":["js/eat.js:reset_eat"],"d":["D-3426","D-3405"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
-{"fn":"obj_nutrition","c":"325-332","status":"ported","js":["js/eat.js:obj_nutrition"],"at":"2026-10-03@bbe63333a"}
+{"fn":"obj_nutrition","c":"325-332","status":"ported","js":["js/eat.js:obj_nutrition"],"d":["D-3606"],"at":"2026-10-07@49f0a62e0"}
 {"fn":"adj_victual_nutrition","c":"338-356","status":"ported","js":["js/eat.js:adj_victual_nutrition"],"at":"2026-10-03@bbe63333a"}
 {"fn":"touchfood","c":"360-388","status":"ported","js":["js/eat.js:touchfood"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"food_disappears","c":"396-403","status":"ported","js":["js/shk.js:food_disappears"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local in shk.js (obfree callee)"}
