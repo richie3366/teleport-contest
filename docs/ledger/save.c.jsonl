@@ -1,5 +1,5 @@
 {"fn":"dosave","c":"43-70","status":"ported","js":["js/save.js:dosave"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dosave0","c":"74-234","status":"partial","js":["js/save.js:dosave0"],"omit":"old-save Overwrite yn prompt (silent overwrite); uid/nhuuid header","at":"2026-10-03@0887462dd","note":"D-3370 ships save_bc: swallowed loose ball/chain now on payload"}
+{"fn":"dosave0","c":"74-234","status":"partial","js":["js/save.js:dosave0"],"d":["D-3584"],"at":"2026-10-07@c7223445e","note":"D-3370 ships save_bc: swallowed loose ball/chain now on payload"}
 {"fn":"save_gamelog","c":"237-262","status":"ported","js":["js/save.js:save_gamelog"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; FREEING N/A"}
 {"fn":"savegamestate","c":"265-333","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"tricked_fileremoved","c":"337-347","status":"ported","js":["js/save.js:tricked_fileremoved"],"d":["D-3375"],"at":"2026-10-03@952f7c273","note":"audit 2026-10-03: no JS implementation (searched tricked_fileremoved/tricked*)"}
