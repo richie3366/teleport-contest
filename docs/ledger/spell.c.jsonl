@@ -33,7 +33,7 @@
 {"fn":"spellsortmenu","c":"1976-2017","status":"ported","js":["js/spell.js:spellsortmenu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: single-key adaptation; n>1 multi-select arm unreachable"}
 {"fn":"dovspell","c":"2021-2053","status":"ported","js":["js/spell.js:dovspell"],"d":["D-2369"],"at":"2026-10-03@bbe63333a"}
 {"fn":"show_spells","c":"2059-2069","status":"ported","js":["js/spell.js:show_spells"],"d":["D-3148"],"at":"2026-09-30@5f75ba02c","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"dospellmenu","c":"2075-2168","status":"ported","js":["js/spell.js:dospellmenu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: menu_tab_sep variant renders space format; content identical"}
+{"fn":"dospellmenu","c":"2075-2168","status":"ported","js":["js/spell.js:dospellmenu"],"d":["D-3619"],"at":"2026-10-07@082d94cf9","note":"audit 2026-10-03: menu_tab_sep variant renders space format; content identical"}
 {"fn":"percent_success","c":"2173-2292","status":"ported","js":["js/spell.js:percent_success"],"d":["D-2693"],"at":"2026-10-03@bbe63333a"}
 {"fn":"spellretention","c":"2295-2336","status":"ported","js":["js/spell.js:spellretention"],"d":["D-3556"],"at":"2026-10-06@b39cb750e","note":"audited D-3556: whole vs C"}
 {"fn":"initialspell","c":"2340-2359","status":"ported","js":["js/spell.js:initialspell"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() diagnostics silent only"}
