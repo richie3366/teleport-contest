@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-06** — full `sessions` on `950a830e7`
-(audit **2453–2461**, 2026-10-06T22:53:55.786Z).
+Score last measured: **2026-10-07** — full `sessions` on `4a3125515`
+(audit **2462–2470**, 2026-10-07T03:28:43.616Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`333+1.68/turn` (R² 0.79).
+`368+1.75/turn` (R² 0.75).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-06 19:02Z)** | **16 / 44**, 7,795 / 11,265 pts, RNG **40.6 %**, rngSteps 89.7 %, screens **69.2 %** |
+| **Held-out (judge 2026-10-07 01:35Z)** | **17 / 44**, 7,831 / 11,265 pts, RNG **40.6 %**, rngSteps 89.7 %, screens **69.5 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `337+1.64/turn` (R² 0.78) |
+| Speed label | `368+1.75/turn` (R² 0.75) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (7,795 vs lockwo 7,768; their RNG 61.0 % vs our 40.6 %: our loss is early cliffs in long sessions). 16/44 but pts 7,321→**7,795** (+474), RNG 39.6→**40.6 %**, screens 65.0→**69.2 %** at judge 2026-10-06 19:02Z — second cliff-phase movement (D-3571…D-3588).
-**Corpus — picker and proxy (2026-10-06 22:59Z; 953/953 entries, 0 unrecorded):**
-**806 / 953** PASS (84.6 %), RNG 99.62 %, screens 97.1 %; `full: true`. Worst families: `scen-options` 1/20, `scen-tutorial` 5/20, `scen-quest` 9/20, `scen-impaired` 11/20, `scen-town` 12/20, `scen-caster` 13/20. Audits record this line next to held-out: the board must rise **with** it. +12 since the last audit (794→806: D-3571…D-3588 per-iteration +9, full-rescore +3: scen-descend-Caveman-94327, scen-engulf-Monk-94052, scen-special-Ranger-94377); 0 PASS→FAIL, 0 hangs (94415 hang fixed by D-3571, review 2453).
-Reviews 1225–2461 (index; no row 1618): 1073 ACCEPT, 56 WITH-DEBT, 107 QUALITY-RISK (2453–2461: 9A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (7,831 vs lockwo 7,768; their RNG 61.0 % vs our 40.6 %: our loss is early cliffs in long sessions). 16→**17**/44, pts 7,795→**7,831** (+36), RNG 40.6→**40.6 %**, screens 69.2→**69.5 %** at judge 2026-10-07 01:35Z (through D-3584) — third cliff-phase movement (D-3580…D-3588).
+**Corpus — picker and proxy (2026-10-07 03:35Z; 953/953 entries, 0 unrecorded):**
+**825 / 953** PASS (86.6 %), RNG 99.71 %, screens 97.7 %; `full: true`. Worst families: `scen-options` 3/20, `scen-tutorial` 9/20, `scen-quest` 10/20, `scen-impaired` 12/20, `scen-caster` 13/20, `scen-town` 14/20. Audits record this line next to held-out: the board must rise **with** it. +19 since the last audit (806→825: D-3580…D-3588 per-iteration +16, full-rescore +3: scen-container-Valkyrie-94066, scen-impaired-Tourist-94270, scen-pet-Wizard-94125); 0 PASS→FAIL, 0 hangs.
+Reviews 1225–2470 (index; no row 1618): 1082 ACCEPT, 56 WITH-DEBT, 107 QUALITY-RISK (2462–2470: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -145,7 +145,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** no Must-fix rows — cliffs head `do_statusline2` (options pagination «(1 of 8)» vs «(1 of 7)», 11 blocks).
+**Next cluster:** no Must-fix rows — cliffs head `do_statusline1` (menu «(end)» leftover vs «Wizard the Rambler (end)» row 22, Tourist-94111@23, 1 block).
 
 ## Parked (diagnose only — do not implement)
 

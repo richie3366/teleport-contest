@@ -2471,3 +2471,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2459-ac21ab5cc-rloc-offmap-clear.md](./2459-ac21ab5cc-rloc-offmap-clear.md) | `ac21ab5cc` | D-3577 rloc_to MON_OFFMAP clear (Tourist-92100 131→132, 729/729) | **ACCEPT** |
 | [2460-f61bc493b-kni-strt-light-region.md](./2460-f61bc493b-kni-strt-light-region.md) | `f61bc493b` | D-3578 Kni-strt regions via light_region (Knight-94336 41→213) | **ACCEPT** |
 | [2461-950a830e7-swallowed-gbuf-wipe.md](./2461-950a830e7-swallowed-gbuf-wipe.md) | `950a830e7` | D-3579 swallowed gbuf wipe + postmov wire (Archeo-94096 108→236) | **ACCEPT** |
+| [2462-4a0157f83-doset-wizard-travel-debug.md](./2462-4a0157f83-doset-wizard-travel-debug.md) | `4a0157f83` | D-3580 doset travel_debug row + playmode get_val (1 PASS + 9 moved) | **ACCEPT** |
+| [2463-92e0fb53b-waterlevel-dec-symset.md](./2463-92e0fb53b-waterlevel-dec-symset.md) | `92e0fb53b` | D-3581 waterlevel S_water via live DEC twin (Tourist-92100 132→141) | **ACCEPT** |
+| [2464-baecc9212-rloc-mstate-reset.md](./2464-baecc9212-rloc-mstate-reset.md) | `baecc9212` | D-3582 rloc_to full mstate reset (Tou-92100 141→makemon@158) | **ACCEPT** |
+| [2465-c7223445e-travel-nopath-turn.md](./2465-c7223445e-travel-nopath-turn.md) | `c7223445e` | D-3583 travel no-path runs the turn (Wiz-94142 PASS, 5 PASS) | **ACCEPT** |
+| [2466-770c9ccf3-save-lastinvnr-gapfill.md](./2466-770c9ccf3-save-lastinvnr-gapfill.md) | `770c9ccf3` | D-3584 save/restore drops lastinvnr (Samurai-94217 PASS) | **ACCEPT** |
+| [2467-0fcddf3d7-tut-nomongen-rndmongen.md](./2467-0fcddf3d7-tut-nomongen-rndmongen.md) | `0fcddf3d7` | D-3585 tut loaders set rndmongen (4 PASS + 2 moved) | **ACCEPT** |
+| [2468-49c10be08-suppress-alert-rc.md](./2468-49c10be08-suppress-alert-rc.md) | `49c10be08` | D-3586 suppress_alert rc pack + live row (Tourist-94111 21→23) | **ACCEPT** |
+| [2469-b1ef85d1b-mklev-no-recount.md](./2469-b1ef85d1b-mklev-no-recount.md) | `b1ef85d1b` | D-3587 mklev whole, no blanket recount (4 footer PASS) | **ACCEPT** |
+| [2470-4a3125515-hitpointbar-status-chain.md](./2470-4a3125515-hitpointbar-status-chain.md) | `4a3125515` | D-3588 hitpointbar Sprintf + repaint + pad rule (1 PASS + 1 moved) | **ACCEPT** |
