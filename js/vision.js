@@ -1127,6 +1127,12 @@ export function vision_recalc(control = 0) {
         }
         game._viz_rmin = next_rmin;
         game._viz_rmax = next_rmax;
+        // C vision.c `skip:` — the blind branch goto-skips the sighted
+        // update loop but still newsyms the hero ("Make sure the hero
+        // shows up!", unless panicking). Under Hallucination this burns
+        // one display-RNG (hero-object repaint); missing it desyncs every
+        // later hallu glyph (scen-impaired-Healer-94190 step 198).
+        if (!game.program_state?.panicking && (u.ux | 0) > 0) newsym(u.ux, u.uy);
         return;
     } else if (control !== 2) {
         // Is_rogue_level → rogue_vision; else Algorithm-C view_from.
