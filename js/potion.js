@@ -521,6 +521,15 @@ async function peffect_sickness(otmp) {
         if (!Role_if_healer()) {
             // C: losehp(1, "mildly contaminated potion", KILLED_BY_AN)
             losehp(1, 'mildly contaminated potion', KILLED_BY_AN);
+            /* C potion.c:971 losehp is noreturn-on-death (hack.c:4287
+             * urgent_pline + done(DIED)); JS defers via
+             * _losehp_needs_done — drain like peffect_oil. */
+            if (game._losehp_needs_done) {
+                await finish_losehp_done();
+                if (game.program_state?.gameover) return;
+            } else {
+                await finish_maybe_wail();
+            }
         }
     } else {
         if (Poison_resistance()) {
@@ -552,12 +561,30 @@ async function peffect_sickness(otmp) {
                     contaminant,
                     otmp.fromsink ? KILLED_BY : KILLED_BY_AN,
                 );
+                /* C potion.c:994,997 losehp is noreturn-on-death
+                 * (hack.c:4287 urgent_pline + done(DIED)); JS defers via
+                 * _losehp_needs_done — drain like peffect_oil. */
+                if (game._losehp_needs_done) {
+                    await finish_losehp_done();
+                    if (game.program_state?.gameover) return;
+                } else {
+                    await finish_maybe_wail();
+                }
             } else {
                 losehp(
                     1 + rn2(2),
                     contaminant,
                     otmp.fromsink ? KILLED_BY : KILLED_BY_AN,
                 );
+                /* C potion.c:1001 losehp is noreturn-on-death (hack.c:4287
+                 * urgent_pline + done(DIED)); JS defers via
+                 * _losehp_needs_done — drain like peffect_oil. */
+                if (game._losehp_needs_done) {
+                    await finish_losehp_done();
+                    if (game.program_state?.gameover) return;
+                } else {
+                    await finish_maybe_wail();
+                }
             }
             exercise(A_CON, false);
         }
@@ -1442,6 +1469,15 @@ async function peffect_levitation(otmp) {
                     'colliding with the ceiling',
                     KILLED_BY,
                 );
+                /* C potion.c:1204 losehp is noreturn-on-death
+                 * (hack.c:4287 urgent_pline + done(DIED)); JS defers via
+                 * _losehp_needs_done — drain like peffect_oil. */
+                if (game._losehp_needs_done) {
+                    await finish_losehp_done();
+                    if (game.program_state?.gameover) return;
+                } else {
+                    await finish_maybe_wail();
+                }
                 potion_nothing = 0;
             }
         }
@@ -1612,6 +1648,15 @@ async function peffect_water(otmp) {
                 'potion of holy water',
                 KILLED_BY_AN,
             );
+            /* C potion.c:738 losehp is noreturn-on-death (hack.c:4287
+             * urgent_pline + done(DIED)); JS defers via
+             * _losehp_needs_done — drain like peffect_oil. */
+            if (game._losehp_needs_done) {
+                await finish_losehp_done();
+                if (game.program_state?.gameover) return;
+            } else {
+                await finish_maybe_wail();
+            }
         } else if (otmp.cursed) {
             await You_feel('quite proud of yourself.');
             await healup(d(2, 6), 0, false, false);
@@ -1633,6 +1678,15 @@ async function peffect_water(otmp) {
                 'potion of unholy water',
                 KILLED_BY_AN,
             );
+            /* C potion.c:759 losehp is noreturn-on-death (hack.c:4287
+             * urgent_pline + done(DIED)); JS defers via
+             * _losehp_needs_done — drain like peffect_oil. */
+            if (game._losehp_needs_done) {
+                await finish_losehp_done();
+                if (game.program_state?.gameover) return;
+            } else {
+                await finish_maybe_wail();
+            }
         } else {
             await You_feel('full of dread.');
         }
@@ -1756,6 +1810,15 @@ async function peffect_acid(otmp) {
         await pline(`This burns${how}!`);
         const dmg = d(otmp.cursed ? 2 : 1, otmp.blessed ? 4 : 8);
         losehp(maybe_half_phys(dmg), 'potion of acid', KILLED_BY_AN);
+        /* C potion.c:1309 losehp is noreturn-on-death (hack.c:4287
+         * urgent_pline + done(DIED)); JS defers via
+         * _losehp_needs_done — drain like peffect_oil. */
+        if (game._losehp_needs_done) {
+            await finish_losehp_done();
+            if (game.program_state?.gameover) return;
+        } else {
+            await finish_maybe_wail();
+        }
         exercise(A_CON, false);
     }
     if (Stoned(u)) {
@@ -2146,6 +2209,11 @@ export async function dopotion(otmp) {
     potion_unkn = 0;
     const retval = await peffects(otmp);
     if (retval >= 0) return retval ? 1 : 0;
+    /* C dopotion :618-641 tail runs only when the hero survives: a fatal
+     * losehp inside peffects never returns (hack.c:4287 urgent_pline +
+     * done(DIED) noreturn; lifesave clears gameover inside done(), so
+     * the tail still runs on a lifesave, like C). */
+    if (game.program_state?.gameover) return 1;
 
     if (potion_nothing) {
         potion_unkn++;
@@ -3242,6 +3310,15 @@ async function dip_potion_explosion(obj, dmg) {
         if (!breathless(yd) || haseyes(yd)) await potionbreathe(obj);
         useupall(obj);
         losehp(dmg, 'alchemic blast', KILLED_BY_AN);
+        /* C potion.c:2433 losehp is noreturn-on-death (hack.c:4287
+         * urgent_pline + done(DIED)); JS defers via
+         * _losehp_needs_done — drain like peffect_oil. */
+        if (game._losehp_needs_done) {
+            await finish_losehp_done();
+            if (game.program_state?.gameover) return true;
+        } else {
+            await finish_maybe_wail();
+        }
         return true;
     }
     return false;
@@ -3928,6 +4005,15 @@ export async function potionhit(mon, obj, how) {
             ? 'propelled potion'
             : 'thrown potion';
         losehp(maybe_half_phys(rnd(2)), killer, KILLED_BY_AN);
+        /* C potion.c:1638 losehp is noreturn-on-death (hack.c:4287
+         * urgent_pline + done(DIED)); JS defers via
+         * _losehp_needs_done — drain like peffect_oil. */
+        if (game._losehp_needs_done) {
+            await finish_losehp_done();
+            if (game.program_state?.gameover) return;
+        } else {
+            await finish_maybe_wail();
+        }
     } else {
         tx = mon.mx | 0;
         ty = mon.my | 0;
@@ -3987,6 +4073,15 @@ export async function potionhit(mon, obj, how) {
                 await pline(`This burns${burn}!`);
                 const dmg = d(obj.cursed ? 2 : 1, obj.blessed ? 4 : 8);
                 losehp(maybe_half_phys(dmg), 'potion of acid', KILLED_BY_AN);
+                /* C potion.c:1702 losehp is noreturn-on-death (hack.c:4287
+                 * urgent_pline + done(DIED)); JS defers via
+                 * _losehp_needs_done — drain like peffect_oil. */
+                if (game._losehp_needs_done) {
+                    await finish_losehp_done();
+                    if (game.program_state?.gameover) return;
+                } else {
+                    await finish_maybe_wail();
+                }
             }
             break;
         default:
