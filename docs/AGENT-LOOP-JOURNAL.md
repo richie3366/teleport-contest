@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3611 cliffs-head kick_ouch: fatal kick losehp never drained done() (silent gameover at 229/245; Healer-94086 → PASS)
+
+**C locus:** dokick.c kick_ouch `:880–906` (`:886` Ouch, `:900–901` wounded legs, `:902–903` dmg + losehp, `:904–905` air/Lev hurtle); dokick `:1452–1462` (OBJ_AT → kick_object → res 0 → kick_ouch `:1461`); hack.c losehp (u.uhp<1 → killer + urgent_pline("You die...") + done(DIED), noreturn unless life-saved; else maybe_wail).
+**JS:** 1 file + 1 test (dokick.js +13/−3: 2 imports + drain block + doc line; scripts/dokick-fatal-kick.test.mjs new, FAIL→PASS). Far under the 15000/80 caps.
+**Change:** oil-pattern drain (D-3608 verbatim) at the kick_ouch losehp site: `if (_losehp_needs_done) { await finish_losehp_done(); if (gameover) return; } else { await finish_maybe_wail(); }` — lifesave clears gameover inside done() so execution continues to the C `:904–905` hurtle check in C order. `finish_maybe_wail` joins the existing hack.js import; `finish_losehp_done` is a new end.js import (imports.mjs: hoisted fn, cycle-safe). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn kick_ouch` → `PASS syntax 1 changed js file(s)` · `PASS rule2` · `PASS hidden verify kick_ouch: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (Healer-94086 PASS, RNG 3337/3337, screens 245/245) · `PASS reach kick_ouch` (40/40 baseline-PASS reach it, 0 regressed) → REACH-OK · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · VERIFY: PASS. Full `sessions` forced post-change: 44/44. New test: «session truncated: 229 screens < 245 steps» pre-fix → PASS post-fix (230 kick topline + 231 You die + 245 screens).
+**Named:** none in kick_ouch (the drain is the ESM noreturn adapter at the C-noreturn position; the C body was whole).
+**Next:** regen drops the kick_ouch row (0 blocked). No follow-up: every other kick_ouch caller returns straight through ECMD to the moveloop gameover bail.
 ## 2026-10-07 — D-3610 cliffs-head trapeffect_rocktrap: fatal trap losehp never drained done() (silent gameover at 146/179; lifesave continues to dog_move@164)
 
 **C locus:** trap.c trapeffect_rocktrap `:1368–1373` (losehp + exercise STR; hero empty arm `:1332–1338` falls through to Finished); bear `:1521`, rust `:1651`, magic `:2304`, landmine `:2589`, float_down `:4131`, dofiretrap `:4250/:4303`, chest `:6398/:6456`, b_trapped `:6702`, drown `:5095`; hack.c losehp (u.uhp<1 → killer + done(DIED), noreturn unless life-saved); end.c done lifesave (amulet + wizard Die? decline clear gameover and return normally).
