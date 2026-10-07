@@ -2534,8 +2534,13 @@ export async function handler_number_pad() {
         "-1 (off, 'z' to move upper-left, 'y' to zap wands)",
     ];
     // C `:5907–5909` create_nhwindow/start_menu/zeroany — raw menu below.
-    // C `:5915` end_menu prompt painted as header (D-2762 precedent).
-    const raw = [{ text: 'Select number_pad mode:', selectable: false }];
+    // C tty_end_menu (wintty.c `:2685–2689`): the end_menu prompt paints
+    // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
+    // then a blank separator item (handler_menu_objsyms precedent; D-3403).
+    const raw = [
+        { text: 'Select number_pad mode:', selectable: false, attr: ATR_INVERSE }, // C `:5915`
+        { text: '', selectable: false }, // C wintty.c blank item
+    ];
     for (let i = 0; i < npchoices.length; ++i) { // C `:5910`
         // C `:5911–5913` a_int i+1, letter 'a'+i, gacc '0'+i,
         // nul_glyphinfo, ATR_NONE/NO_COLOR, MENU_ITEMFLAGS_NONE (no preselect).
