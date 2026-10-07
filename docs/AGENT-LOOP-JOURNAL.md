@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3639 toss_up cliff measured: Hallu display-RNG desync with agreeing true state (^F feline+scroll both sides); [measure] row, no js/
+
+**C locus:** do_name.c rndmonnam :1388–1411 (rn2_on_display_rng + pname/G_NOGEN reject loop + bogusmon + gender draw); x_monnam do_hallu arm; rnd.c rn2_on_display_rng :67–73/:82–90 (DISP stream); display.h obj_to_glyph :963–968 (D-3638: object glyphs randomized on display RNG).
+**JS:** unchanged — 0 changed js files (verify syntax confirms).
+**Change:** none — measurement + `[measure]` row (D-3638 recipe: `NETHACK_RNGLOG_DISP=1` re-record, no rebuild, + JS display-draw log → first display-draw divergence names the over/under-consuming call site; port iter ships it).
+**Verify:** fresh `node scripts/verify.mjs --fn toss_up` (this iter, tree 7fd684d71): syntax PASS (0 js) · rule2 PASS · hidden NO MOVEMENT (`verify toss_up: 0 PASS, 0 moved past, 1 unchanged, 0 worse` — still step-98, NOT stale; D-3638's blind-recalc display fix did not move it) · REACH-OK (smoke 24/24) · green 2/2 · strict ×2 · cohort 7/7 · VERIFY: FAIL on hidden NO MOVEMENT only (disclosed; D-3439 precedent). Measurements: geom-probe @98 (terrain 0 diffs; C rng 2949 = JS rng 2949 over prefix); recorder-screen archaeology /tmp/nharch.mjs over .cache/probe s98 C+JS sessions (room glyphs identical idx 80–97 both sides — `&`/`'` then `M`/`@` — same display draws; diverge only @98; agree again @99 ^F TRUE map `?` scroll + `f` feline both sides ⟹ true state agrees); JS prefix census /tmp/nhcensus.mjs (Hallu on, HHallucination 27; JS log 2949 = C 2949 ⟹ JS hallu labels draw nothing main-tracked).
+**Named:** none (no `js/`).
+**Next:** pop the new `[measure]` row (display-RNG consumption ≤98); port iter ships the named consumer + focused test (D-3638 recipe).
 ## 2026-10-07 — D-3638 cliffs-head writer: vision_recalc blind branch skipped C's skip-label hero newsym — one fewer display-RNG per blind recalc, detect mapping shifted by 2 (1 corpus PASS)
 
 **C locus:** `vision.c` vision_recalc `skip:` — `if (!program_state.panicking) newsym(u.ux, u.uy)` ("Make sure the hero shows up!"), reached by the blind branch (`goto skip`), the control==2 fallthrough, and normal flow. Blind branch itself (`:544–576`) newsyms old-IN_SIGHT cells then goto-skips the sighted update loop.
