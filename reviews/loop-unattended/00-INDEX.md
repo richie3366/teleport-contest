@@ -2522,3 +2522,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2510-48a2765fa-config-erradd-windowed.md](./2510-48a2765fa-config-erradd-windowed.md) | `48a2765fa` | D-3630 config_erradd !ready windowed arm (1 PASS + 1 moved) | **ACCEPT** |
 | [2511-68aca2e3d-cond-heading-attr.md](./2511-68aca2e3d-cond-heading-attr.md) | `68aca2e3d` | D-3631 cond_menu heading attr (1 PASS + 1 moved) | **ACCEPT** |
 | [2512-9f919260b-region-lighting.md](./2512-9f919260b-region-lighting.md) | `9f919260b` | D-3632 hand-loader region lighting (2 PASS) | **ACCEPT** |
+| [2513-a1ff9df9c-config-erradd-ready.md](./2513-a1ff9df9c-config-erradd-ready.md) | `a1ff9df9c` | D-3633 config_erradd ready-arm windowed plines | **ACCEPT** |
+| [2514-6892dd9d8-dig-up-grave-appear-msg.md](./2514-6892dd9d8-dig-up-grave-appear-msg.md) | `6892dd9d8` | D-3634 dig_up_grave appear_msg (3 PASS) | **ACCEPT** |
+| [2515-e5f018253-reveal-terrain-swallowed.md](./2515-e5f018253-reveal-terrain-swallowed.md) | `e5f018253` | D-3635 reveal_terrain swallowed classify (1 PASS) | **ACCEPT** |
+| [2516-ec71b83d9-mimic-zeroobj-generic.md](./2516-ec71b83d9-mimic-zeroobj-generic.md) | `ec71b83d9` | D-3636 mimic zeroobj generic collapse (1 PASS) | **ACCEPT** |
+| [2517-21e50cfeb-hallu-statue-color.md](./2517-21e50cfeb-hallu-statue-color.md) | `21e50cfeb` | D-3637 Hallu statue glyph color (1 PASS) | **ACCEPT** |
+| [2518-7fd684d71-vision-blind-skip-hero.md](./2518-7fd684d71-vision-blind-skip-hero.md) | `7fd684d71` | D-3638 vision blind skip hero newsym (1 PASS) | **ACCEPT** |
+| [2519-e74328321-chwepon-live-hcolor.md](./2519-e74328321-chwepon-live-hcolor.md) | `e74328321` | D-3640 chwepon live hcolor (moved 98→121) | **ACCEPT** |
+| [2520-a71302dfa-enlightenment-blindfolded-only.md](./2520-a71302dfa-enlightenment-blindfolded-only.md) | `a71302dfa` | D-3641 enlightenment Blindfolded_only (1 PASS) | **ACCEPT** |
+| [2521-aab90e6bc-mdowear-creation-syncthrough.md](./2521-aab90e6bc-mdowear-creation-syncthrough.md) | `aab90e6bc` | D-3642 m_dowear creation sync-through (moved 245→260) | **ACCEPT** |

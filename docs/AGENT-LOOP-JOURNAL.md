@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — audit 2514–2521 @aab90e6bc: review D-3634/D-3635/D-3636/D-3637/D-3638/D-3640/D-3641/D-3642 (8A/0D/0Q, 0 Must-fix) + full rescore 895/953
+
+**Reviews:** 2514 dig_up_grave appear_msg (3 PASS) / 2515 reveal_terrain swallowed (1 PASS) / 2516 mimic zeroobj (1 PASS) / 2517 Hallu statue color (1 PASS) / 2518 vision blind skip hero (1 PASS) / 2519 chwepon hcolor (moved 98→121) / 2520 Blindfolded_only (1 PASS) / 2521 m_dowear sync-through (moved 245→260) — all ACCEPT, every movement claim re-measured with `--reach-all` (dosounds reach-all 694/694), no REGRESSED. No `js/` edits (review iter). Index repaired: 2513 row was missing, re-added.
+**Score:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `348+1.52/turn`); held-out 18/44, 8,489/11,265 pts (+413), RNG 41.7 %, screens 75.4 % @judge 19:03Z through ~D-3633 (fifth cliff movement, D-3622…D-3633); corpus 895/953 (+8, all per-iteration, 0 on rescore), `full: true`, 0 PASS→FAIL. Ledger snapshot appended; 5 seeded `ported` samples (tipcontainer, arti_light_radius, domonnoise 44/44 MS arms, u_collide_m, join) all whole, no `ledger.mjs set`.
+**Next:** cliffs head regenerates from the rescored board (slime_dialogue row clears; disclose@260 parked SYMPTOM if it heads).
 ## 2026-10-07 — D-3642 cliffs-head writer: fire-forget m_dowear suspended between slots (`await` always yields), splitting the 7 creation namings around the appear message — Hallu #monster named "Angel" for "green slime" (moved 245→260)
 
 **C locus:** `worn.c` m_dowear `:757–796` (fully synchronous; 8 m_dowear_type slots `:775–793`); m_dowear_type `:798–1002` (nambuf naming `:817` before visibility changes — rndmonnam under Hallucination; creation=TRUE skips every message; extrinsics `:959`/`:992`); update_mon_extrinsics `:578–712` (FAST arms `:601–607`/`:638–644` call mon_adjust_speed synchronously, silently forces in_mklev). Caller order makemon.c:1445 m_dowear(mtmp, TRUE) → :1447 saddle rn2(100) → :1473 newsym → :1496 appear-Norep, all consecutive.
