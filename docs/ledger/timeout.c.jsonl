@@ -11,7 +11,7 @@
 {"fn":"phaze_dialogue","c":"534-543","status":"ported","js":["js/timeout.js:phaze_dialogue"],"at":"2026-10-03@bbe63333a"}
 {"fn":"region_dialogue","c":"554-569","status":"ported","js":["js/timeout.js:region_dialogue"],"d":["D-2914"],"at":"seed@a30a7de84"}
 {"fn":"done_timeout","c":"575-585","status":"ported","js":["js/timeout.js:done_timeout"],"at":"2026-10-03@bbe63333a"}
-{"fn":"nh_timeout","c":"588-948","status":"ported","js":["js/timeout.js:nh_timeout"],"d":["D-3407","D-2229","D-1792"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: luck/dialogues/mtimedone/usptime plus STONED/SLIMED/SICK/STRANGLED/ACID/STONE/DISPLACED/SLEEPY/FAST/CONFUSION/BLINDED/DEAF/FUMBLING/WOUNDED/STUNNED/HALLUC/DETECT/LEVITATION/INVIS arms live"}
+{"fn":"nh_timeout","c":"588-948","status":"ported","js":["js/timeout.js:nh_timeout"],"d":["D-3605","D-3407","D-2229","D-1792"],"at":"2026-10-07@f2b082ce6","note":"audit 2026-10-03: luck/dialogues/mtimedone/usptime plus STONED/SLIMED/SICK/STRANGLED/ACID/STONE/DISPLACED/SLEEPY/FAST/CONFUSION/BLINDED/DEAF/FUMBLING/WOUNDED/STUNNED/HALLUC/DETECT/LEVITATION/INVIS arms live"}
 {"fn":"fall_asleep","c":"951-974","status":"ported","js":["js/hack.js:fall_asleep"],"d":["D-2859"],"at":"seed@a30a7de84"}
 {"fn":"attach_egg_hatch_timeout","c":"981-1005","status":"ported","js":["js/mkobj.js:attach_egg_hatch_timeout"],"d":["D-1572"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"kill_egg","c":"1009-1013","status":"ported","js":["js/mkobj.js:kill_egg"],"at":"2026-10-03@bbe63333a"}

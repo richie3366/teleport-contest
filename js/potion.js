@@ -136,7 +136,7 @@ import {
     EYE, SEE_INVIS,
     DETECT_MONSTERS, LEVITATION, INVIS, HEAD, COLNO, ROWNO,
     In_endgame, Is_earthlevel, Is_airlevel, Is_waterlevel, In_sokoban,
-    QBUFSZ, STONED, SLIMED, SICK, SICK_ALL, DEAF, STRANGLED, G_GONE,
+    QBUFSZ, STONED, SLIMED, SICK, SICK_ALL, DEAF, STRANGLED, STUNNED, G_GONE,
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
     ERODE_CORRODE, EF_GREASE,
@@ -937,7 +937,11 @@ function stagger_poly(ptr, def) {
 /**
  * C ref: potion.c make_stunned(xtime, talk)
  * Sync HStun TIMEOUT; mirror onto u.Stunned for JS gates (C: Stun ≡ HStun).
- * Named omissions: usteed saddle wobble.
+ * Dual-writes uprops[STUNNED].intrinsic: C HStun IS that slot
+ * (youprop.h:80) and the nh_timeout generic loop masters it — a flat-only
+ * write while the slot is non-empty (stacking re-grant, lizard cut-to-2,
+ * unicorn-horn/prayer cure) was clobbered next tick (D-3605).
+ * Named omissions: none (usteed saddle arm live below).
  */
 export async function make_stunned(xtime, talk) {
     const u = game.u || (game.u = {});
@@ -961,6 +965,12 @@ export async function make_stunned(xtime, talk) {
     }
     u.HStun = ((u.HStun | 0) & ~TIMEOUT) | itimeout(xtime);
     u.Stunned = u.HStun;
+    // C youprop.h:80 single storage — dual-write the slot the tick masters
+    // (flag-preserving, same clamped value as the flat).
+    if (!u.uprops) u.uprops = {};
+    const stunprop = u.uprops[STUNNED]
+        || (u.uprops[STUNNED] = { intrinsic: 0, extrinsic: 0, blocked: 0 });
+    set_itimeout(stunprop, xtime);
 }
 
 /**

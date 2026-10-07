@@ -3,7 +3,7 @@
 {"fn":"set_itimeout","c":"75-79","status":"ported","js":["js/potion.js:set_itimeout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"incr_itimeout","c":"83-86","status":"ported","js":["js/potion.js:incr_itimeout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_confused","c":"89-104","status":"ported","js":["js/potion.js:make_confused"],"at":"2026-10-03@bbe63333a"}
-{"fn":"make_stunned","c":"107-131","status":"ported","js":["js/potion.js:make_stunned"],"d":["D-2203"],"at":"2026-10-02@135e9a8dd","note":"stale: js/potion.js:928 body whole; s159 wobble path via passive per stepFns, upstream"}
+{"fn":"make_stunned","c":"107-131","status":"ported","js":["js/potion.js:make_stunned"],"d":["D-3605","D-2203"],"at":"2026-10-07@f2b082ce6","note":"stale: js/potion.js:928 body whole; s159 wobble path via passive per stepFns, upstream"}
 {"fn":"make_sick","c":"137-192","status":"ported","js":["js/potion.js:make_sick"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_slimed","c":"195-218","status":"ported","js":["js/potion.js:make_slimed"],"d":["D-3402"],"at":"2026-10-04@e77f3975a"}
 {"fn":"make_stoned","c":"222-240","status":"ported","js":["js/potion.js:make_stoned"],"at":"2026-10-03@bbe63333a"}
