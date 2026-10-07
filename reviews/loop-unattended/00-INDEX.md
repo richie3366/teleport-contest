@@ -2515,3 +2515,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2503-14a653284-pick-none-corner.md](./2503-14a653284-pick-none-corner.md) | `14a653284` | D-3622 PICK_NONE corner overlay (3 PASS) | **ACCEPT** |
 | [2504-4ecf787ca-optfn-boolean-doset.md](./2504-4ecf787ca-optfn-boolean-doset.md) | `4ecf787ca` | D-3623 optfn_boolean do_set restart (3 moved) | **ACCEPT** |
 | [2505-d0040be10-numpad-prompt-arm.md](./2505-d0040be10-numpad-prompt-arm.md) | `d0040be10` | D-3624 number_pad prompt arm (1 PASS + 2 moved) | **ACCEPT** |
+| [2506-dabd53e13-migrate-takeoff-unlink.md](./2506-dabd53e13-migrate-takeoff-unlink.md) | `dabd53e13` | D-3625 migrate_to_level unlink-before-newsym (3 PASS) | **ACCEPT** |
+| [2507-5e1ad1736-erase-menu-or-text.md](./2507-5e1ad1736-erase-menu-or-text.md) | `5e1ad1736` | D-3627 erase_menu_or_text whole (2 PASS + 1 moved) | **ACCEPT** |
+| [2508-6a53eb3a4-look-here-surf.md](./2508-6a53eb3a4-look-here-surf.md) | `6a53eb3a4` | D-3628 look_here Blind surf live (1 PASS + 1 moved) | **ACCEPT** |
+| [2509-a77f1cc66-drain-weaponstatus.md](./2509-a77f1cc66-drain-weaponstatus.md) | `a77f1cc66` | D-3629 drain_en botl + weaponstatus home (2 PASS + 1 moved) | **ACCEPT** |
+| [2510-48a2765fa-config-erradd-windowed.md](./2510-48a2765fa-config-erradd-windowed.md) | `48a2765fa` | D-3630 config_erradd !ready windowed arm (1 PASS + 1 moved) | **ACCEPT** |
+| [2511-68aca2e3d-cond-heading-attr.md](./2511-68aca2e3d-cond-heading-attr.md) | `68aca2e3d` | D-3631 cond_menu heading attr (1 PASS + 1 moved) | **ACCEPT** |
+| [2512-9f919260b-region-lighting.md](./2512-9f919260b-region-lighting.md) | `9f919260b` | D-3632 hand-loader region lighting (2 PASS) | **ACCEPT** |

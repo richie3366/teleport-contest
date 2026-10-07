@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — audit 2506–2513 @a1ff9df9c: review D-3625/D-3627/D-3628/D-3629/D-3630/D-3631/D-3632/D-3633 (8A/0D/0Q, 0 Must-fix) + full rescore 887/953
+
+**Reviews:** 2506 migrate unlink-before-newsym, 2507 erase_menu_or_text whole, 2508 look_here surf, 2509 drain_en botl + weaponstatus home, 2510 config_erradd !ready windowed, 2511 cond_menu heading attr, 2512 region lighting, 2513 config_erradd ready arm — all ACCEPT, every movement claim re-measured (7 exact, 1 landing-owner superset via a later SHA in this batch, 0 worse). Noted pre-existing (not queued): D-3631 inline gameover cite `:1820–1821` should be `:1823–1824` (doc comment right; comment-only drift); D-3633 batch ran with a non-empty cliffs block (same-function completion of D-3630's named arm, explicitly scheduled — density note, not a C-wrong).
+**Score:** public 44/44 (RNG 792838/792838, Scr 11405/11405, 344+1.55/turn R² 0.76). Corpus 887/953 (+13 since 874: 12 per-iteration + 1 ownerless-drift scen-hazard-Monk-94153), RNG 99.81 %, screens 98.9 %, full:true, 0 unrecorded, 0 PASS→FAIL. Held-out still 18/44 (judge 13:10Z, through ~D-3621, identical numbers).
 ## 2026-10-07 — D-3633 batch @9f919260b: config_erradd whole — ready-arm windowed plines (pline ×2, promise, no wait_synch)
 
 **C locus:** `cfgfiles.c:1543–1589` config_erradd (ready arm `:1577` num_errors++, `:1578–1580` origline pline + shown, `:1582–1586` lineno, `:1587` final pline; no wait_synch — unlike `:1562`); windowed reachability `options.c:1366/:1415/:1932/:3558/:4180` (symset optfns) → `files.c:2631–2674` read_sym_file (`:2644` config_error_init); pre-window callers `earlyarg.c:190`, `options.c:7094/:7135/:7290`, `cfgfiles.c:1817/:1935/:1943/:1949`, `files.c:2592`, `nhlua.c:669` (via parse_conf_str `:1810`).
