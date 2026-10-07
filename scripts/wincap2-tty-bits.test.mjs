@@ -69,10 +69,10 @@ describe("tty wincap2 model (wintty.c)", () => {
         }
     });
 
-    it("weaponstatus toggle sets botl, not 'not supported' (C :5337–5351)", () => {
+    it("weaponstatus toggle sets botl, not 'not supported' (C :5337–5351)", async () => {
         delete game.windowprocs;
         game.flags = {};
-        optfn_boolean_do_set("weaponstatus", false, false);
+        await optfn_boolean_do_set("weaponstatus", false, false);
         assert.equal(game.flags.botl, true);
     });
 
