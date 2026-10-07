@@ -7040,13 +7040,15 @@ function remove_autopickup_exception(whichape) {
 }
 
 /**
- * C windows.c add_menu_heading `:1818–1821` attr. Color stays NO_COLOR
- * on this painter (the corner menu has no per-row color). The stored
- * attr is C-domain (wintype.h ATR_*); translate to the terminal
- * bitmask for the painter. DIM/ITALIC/BLINK have no terminal code
- * (named).
+ * C windows.c add_menu_heading `:1815–1828` attr selection: iflags
+ * menu_headings (`:1819–1820`) unless gameover suppresses highlighting
+ * (`:1822–1824`). Shared by every select_menu_pick_any heading row
+ * (autopickup exceptions, cond_menu). Color stays NO_COLOR on this
+ * painter (the corner menu has no per-row color). The stored attr is
+ * C-domain (wintype.h ATR_*); translate to the terminal bitmask for
+ * the painter. DIM/ITALIC/BLINK have no terminal code (named).
  */
-function ape_heading_attr() {
+export function menu_heading_attr() {
     if (game.program_state?.gameover) return ATR_NONE; // C `:1820–1821`
     const h = game.iflags?.menu_headings;
     const a = (h && typeof h === 'object' && typeof h.attr === 'number') ? h.attr : MC_ATR_INVERSE;
@@ -7090,7 +7092,7 @@ export async function handler_autopickup_exception() {
                 raw.push({
                     text: "Always pickup '<'; never pickup '>'", // C `:6373–6374`
                     selectable: false,
-                    attr: ape_heading_attr(),
+                    attr: menu_heading_attr(),
                 });
                 for (let i = 0; i < numapes && i < list.length; i++) { // C `:6375`
                     const ape = list[i];

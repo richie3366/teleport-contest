@@ -4,6 +4,12 @@ import { game } from "../js/gstate.js";
 import { pushKeys, resetInputState } from "../js/input.js";
 import { cond_menu, condtests } from "../js/botl.js";
 import { CONDITION_COUNT } from "../js/const.js";
+import { ATR_NONE, ATR_BOLD, ATR_INVERSE } from "../js/terminal.js";
+import {
+  menu_heading_attr,
+  optfn_menu_headings,
+  allopt_idx,
+} from "../js/options.js";
 
 // C ref: botl.c cond_menu `:1376–1454` (D-this-iter):
 //  PICK_ANY status-conditions toggle menu; true iff any enabled changed.
@@ -25,6 +31,7 @@ describe("cond_menu toggle menu (botl.c:1376-1454)", () => {
   beforeEach(() => {
     saved = {
       flags: game.flags, iflags: game.iflags, gc: game.gc, disp: game.disp,
+      program_state: game.program_state,
       conds: snapConds(),
     };
     game.flags = {};
@@ -44,6 +51,7 @@ describe("cond_menu toggle menu (botl.c:1376-1454)", () => {
     game.iflags = saved.iflags;
     game.gc = saved.gc;
     game.disp = saved.disp;
+    game.program_state = saved.program_state;
     resetInputState();
   });
 
@@ -91,5 +99,56 @@ describe("cond_menu toggle menu (botl.c:1376-1454)", () => {
       condtests.map((c) => c.enabled),
       saved.conds.map(([enabled]) => enabled),
     );
+  });
+});
+
+// C windows.c add_menu_heading `:1815–1828` attr selection, which the
+// cond_menu `:1409–1411` heading row carries via menu_heading_attr:
+// iflags menu_headings (`:1819–1820`) unless gameover suppresses
+// highlighting (`:1822–1824`). Option state is driven through the
+// real optfn_menu_headings do_set (req literal mirrors the file's
+// private REQ_DO_SET=2, optfn-mapmode-headings-pettype precedent);
+// the menu_headings index comes from live allopt_idx. End-to-end
+// paint is pinned by the corpus probe sessions (verify cond_menu),
+// not headless here — the corner painter needs a live terminal grid.
+const REQ_DO_SET = 2, OPTN_OK = 1;
+
+describe("menu_heading_attr for cond_menu heading (windows.c:1815-1828)", () => {
+  let saved;
+  beforeEach(() => {
+    saved = { iflags: game.iflags, program_state: game.program_state };
+    game.iflags = {};
+    game.program_state = undefined;
+  });
+  afterEach(() => {
+    game.iflags = saved.iflags;
+    game.program_state = saved.program_state;
+  });
+
+  it("defaults to inverse with no menu_headings set (C :1819-1820)", () => {
+    assert.equal(menu_heading_attr(), ATR_INVERSE);
+  });
+
+  it("gameover suppresses highlighting (C :1822-1824)", () => {
+    game.program_state = { gameover: true };
+    assert.equal(menu_heading_attr(), ATR_NONE);
+  });
+
+  it("OPTIONS=!menu_headings disables the highlight", () => {
+    const idx = allopt_idx("menu_headings");
+    assert.equal(
+      optfn_menu_headings(idx, REQ_DO_SET, true, "menu_headings", "", game.iflags),
+      OPTN_OK,
+    );
+    assert.equal(menu_heading_attr(), ATR_NONE);
+  });
+
+  it("OPTIONS=menu_headings:bold translates to terminal bold", () => {
+    const idx = allopt_idx("menu_headings");
+    assert.equal(
+      optfn_menu_headings(idx, REQ_DO_SET, false, "menu_headings", "bold", game.iflags),
+      OPTN_OK,
+    );
+    assert.equal(menu_heading_attr(), ATR_BOLD);
   });
 });
