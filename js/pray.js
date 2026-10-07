@@ -75,7 +75,7 @@ import { disintegrate_arm, setworn, stuck_ring, unchanger, Amulet_off } from './
 import { summon_minion, dlord } from './minion.js';
 import {
     near_capacity, encumber_msg, feel_cockatrice, useup, useupf,
-    observe_object, update_inventory, makeknown,
+    observe_object, update_inventory, makeknown, Blind,
 } from './invent.js';
 import { punish, unpunish } from './read.js';
 import { attrcurse, rndcurse } from './sit.js';
@@ -229,9 +229,8 @@ function Inhell() {
     return !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
 }
 
-function Blind() {
-    return !!(game.u?.Blind || game.u?.ublind);
-}
+/* Blind: canonical invent.js export (C youprop.h:103) — the local clone
+   reading u.Blind/u.ublind never saw FROMFORM blindness (set_uasmon). */
 
 function Hallucination() {
     return !!(game.u?.Hallucination);

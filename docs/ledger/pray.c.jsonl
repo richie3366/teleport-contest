@@ -30,7 +30,7 @@
 {"fn":"offer_corpse","c":"1959-2120","status":"ported","js":["js/pray.js:offer_corpse"],"d":["D-1678"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_pray","c":"2124-2173","status":"ported","js":["js/pray.js:can_pray"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"pray_revive","c":"2177-2195","status":"ported","js":["js/pray.js:pray_revive"],"d":["D-2238"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dopray","c":"2199-2273","status":"ported","js":["js/pray.js:dopray"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dopray","c":"2199-2273","status":"ported","js":["js/pray.js:dopray"],"d":["D-3600"],"at":"2026-10-07@0421e7ad4"}
 {"fn":"prayer_done","c":"2276-2343","status":"ported","js":["js/pray.js:prayer_done"],"d":["D-2129"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_turn_mon_iter","c":"2347-2410","status":"ported","js":["js/pray.js:maybe_turn_mon_iter"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: TELL shield effected at call site via shieldeff_mon"}
 {"fn":"doturn","c":"2414-2487","status":"ported","js":["js/pray.js:doturn"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
