@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3614 cliffs-head dog_move writer dog_goal: portal scan walked the dead game.ftrap chain, blind to the wished magic portal in live level.traps (Caveman-94281 → PASS, Valkyrie-94361 → step 24)
+
+**C locus:** `nethack-c/upstream/src/dogmove.c:591–603` (dog_goal magic-portal arm: first MAGIC_PORTAL in the gf.ftrap walk within distu≤2 → appr 1, break after the first portal); trap store `trap.c:576–579` (maketrap links every new trap into gf.ftrap).
+**JS:** `js/dogmove.js` dog_goal export + portal union (+24/−8); `scripts/doggoal-portal.test.mjs` (new, node:test, 4 its: level.traps portal in range → 1, far → 0, ftrap-chain portal → 1, none → 0; udist 1 → zero RNG).
+**Change:** `js/dogmove.js` dog_goal portal scan walks the doidtrap union verbatim: gf-shaped store first (array-shaped ftrap or ntrap chain), then level.traps, deduped; first MAGIC_PORTAL decides with C's in-range-or-not break. One-word `export` on dog_goal (C-staticfn live-export precedent D-2455) for the headless test. No new imports.
+**Verify:** `scripts/doggoal-portal.test.mjs` 4/4 (old ftrap-only loop: case 1 fails, rest pass — discriminates the fix, not the export); + `dogmove-displace.test.mjs` 4/4 → 8/8. `node scripts/verify.mjs --fn dog_move,dog_goal` → syntax · rule2 · `verify dog_move: 1 PASS, 1 moved, 0 no-movement` (Caveman-94281 PASS; Valkyrie-94361 dog_move@21 → inuse_classify@24) · reach dog_move 80/80 + dog_goal 80/80 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `verify --fn dog_move --reach-all`: 586/586 PASS, 0 regressed → REACH-OK.
+**Named:** none in dog_goal's portal arm (whole: union order, dedupe, first-portal break, ≤2 range). D-3411's other dead-chain siblings (display/do/dungeon/end ftrap walks) intentionally untouched — no session blocks on them in this cliff.
+**Next:** cliffs regen (Valkyrie now blocks on inuse_classify@24 — its row names the writer or [measure], not a re-port).
 ## 2026-10-07 — D-3613 cliffs-head doturn: first-break `gnostic++` on undefined left NaN, so strangled #turn returned ECMD_OK instead of ECMD_TIME (no monster turn, no --More--; Priest-92096 → PASS)
 
 **C locus:** pray.c doturn `:2414–2487` — `:2426` `if (!u.uconduct.gnostic++)` (post-increment always runs; livelog on old 0); `:2432–2443` can_chant-failure arm returning `(u.uconduct.gnostic == 1) ? ECMD_TIME : ECMD_OK` (first break costs a move).
