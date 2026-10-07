@@ -79,7 +79,7 @@
 {"fn":"back_on_ground","c":"4976-5008","status":"ported","js":["js/trap.js:back_on_ground"],"d":["D-2384"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rescued_from_terrain","c":"5014-5055","status":"ported","js":["js/trap.js:rescued_from_terrain"],"d":["D-2829"],"at":"seed@a30a7de84"}
 {"fn":"drown","c":"5059-5199","status":"ported","js":["js/trap.js:drown"],"d":["D-3610","D-2284","D-1814"],"at":"2026-10-07@4a634cdac"}
-{"fn":"drain_en","c":"5202-5244","status":"ported","js":["js/trap.js:drain_en"],"at":"2026-10-03@bbe63333a"}
+{"fn":"drain_en","c":"5202-5244","status":"ported","js":["js/trap.js:drain_en"],"d":["D-3629"],"at":"2026-10-07@6a53eb3a4"}
 {"fn":"dountrap","c":"5248-5254","status":"ported","js":["js/trap.js:dountrap"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:7960, dispatch js/cmd.js:1778"}
 {"fn":"could_untrap","c":"5258-5284","status":"ported","js":["js/trap.js:could_untrap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
 {"fn":"untrap_prob","c":"5289-5337","status":"ported","js":["js/trap.js:untrap_prob"],"at":"2026-09-28@6dd29ef91","note":"stale: js/trap.js:7263 whole C body in C order, both C callers wired js/trap.js:7433,7602"}

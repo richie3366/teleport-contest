@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3629 cliffs-head `botl.c` do_statusline2 writers: drain_en flags.botl mirror + doset weaponstatus home (2 PASS + 1 moved)
+
+**C locus:** `trap.c:5201–5244` drain_en (`disp.botl = TRUE` after uen/uenmax) + `display.c:2236–2239` flush_screen (`if (disp.botl || disp.botlx) bot()`, before cursor/map) + `pline.c:273` (every pline flushes before putmesg — the mid-turn More pause repaints status); `include/optlist.h:865–866` (`&flags.weaponstatus`) + `include/flag.h:71` (home is struct flag) + `botl.c:1251` (`if (flags.weaponstatus) weapon_status(...)`).
+**JS:** 2 files (`js/trap.js` +2, `js/options.js` +1/−1) + `scripts/drain-weaponstatus-paint.test.mjs` (new node:test: engulf-163 `Pw:143` + options-20 `Empty-hnd`; FAIL pre-fix 0/2, PASS post-fix 2/2), far under caps.
+**Change:** drain_en: `if (game.flags) game.flags.botl = true;` mirror in both arms (paranoia + else), house pattern. DOSET_BOOL_ADDR: `weaponstatus: { obj: 'flags', … }` + optlist.h:866 cite. No new edges, no DIAG/FORCE/seed gates.
+**Verify:** `node scripts/verify.mjs --fn do_statusline2` → PASS syntax (2 changed js files) · PASS rule2 · PASS hidden (2 PASS, 1 moved past: engulf 163 → reveal_terrain@252 +89 steps; options-Monk PASS; wish-Monk PASS; 0 unchanged, 0 worse → PROGRESS) · PASS reach (smoke 24/24, no RNG-tagged reach) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). VERIFY: PASS. Preflight `verify --no-cohort` green on the clean tree.
+**Named:** none new. drain_en's C body was already whole (ledger ported); doset's pre-existing D-3457 audited omit stands (envelope unchanged — data home only).
+**Next:** engulf's reveal_terrain@252 flows through the normal queue. Known twin NOT in this commit: DOSET_BOOL_ADDR.armorstatus also points at iflags while C is &flags.armorstatus (optlist.h:168) — same one-word class, no corpus session diverges on it yet; fix when a session names it. Do not re-pop do_statusline2 for these sessions.
 ## 2026-10-07 — D-3628 cliffs-head `invent.c` look_here Blind surf: live surface() retires the hardcoded 'floor' (1 PASS + 1 moved)
 
 **C locus:** `invent.c:4199–4207` Blind else arm: `const char *surf = surface(u.ux, u.uy)` + `You("try to feel what is %s%s.", ...)`. `dungeon.c:1750–1788` surface returns 'stairs' via On_stairs (stairs.c:148).

@@ -10350,7 +10350,7 @@ const DOSET_BOOL_ADDR = {
     travel_debug: { obj: 'iflags', key: 'trav_debug' }, // C optlist.h:791 &iflags.trav_debug (wizard menu row; DEBUG build per patchlevel.h:36; no JS consumer yet — hack.c:1431/:1492 travel-path display)
     use_inverse: { obj: 'iflags', key: 'wc_inverse' },
     verbose: { obj: 'flags', key: 'verbose' },
-    weaponstatus: { obj: 'iflags', key: 'weaponstatus' },
+    weaponstatus: { obj: 'flags', key: 'weaponstatus' }, // C optlist.h:866 &flags.weaponstatus
     whatis_menu: { obj: 'iflags', key: 'getloc_usemenu' }, // C optlist.h:874 &iflags.getloc_usemenu; getpos.js reads this (D-3592)
     whatis_moveskip: { obj: 'iflags', key: 'getloc_moveskip' }, // C optlist.h:877 &iflags.getloc_moveskip; getpos.js reads this (D-3592)
     // C optlist.h NHOPTB wizmgender set_wizonly &iflags.wizmgender (D-1701)
