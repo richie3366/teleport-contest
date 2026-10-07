@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3596 m_move cornered-unicorn fall-through: JS added a cnt==0 early return C's `:1926` unicorn exception forbids, skipping the `:2064` rn2(2) arm
+
+**C locus:** `nethack-c/upstream/src/monmove.c:1926–1930` (`if (cnt == 0 && !is_unicorn(...))` — unicorn falls through to the empty selection loop) → `:2064–2067` (`if (is_unicorn(ptr) && rn2(2) && !tele_restrict(mtmp)) { (void) rloc(mtmp, RLOC_MSG); return MMOVE_MOVED; }`).
+**JS:** `js/monmove.js` (+8/−3, m_move only) · `scripts/monmove-unicorn-cornered.test.mjs` (new: boxed gray unicorn across 12 seeds — never NOMOVES, draws `rn2(2)@m_move`, failed rloc still MOVED).
+**Change:** `js/monmove.js` only, no new imports (`rloc`, `RLOC_MSG` already imported — the Tengu arm is the live `await rloc(mtmp, RLOC_MSG)` precedent): deleted the extra early return (C `:1926–1930` cite: fall-through to the empty loop + `:2064` arm); the arm is now `await rloc(mtmp, RLOC_MSG); return MMOVE_MOVED;` (C `(void)` + unconditional MOVED).
+**Verify:** new test pre-fix FAIL (`seed 1: cornered unicorn returned NOMOVES`) → post-fix PASS (1/1). `node scripts/verify.mjs --fn m_move`: `verify m_move: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (both sokoban probes PASS) · REACH-OK (80/80 reach sample PASS, 0 regressed) · syntax 1 file · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file) → VERIFY: PASS.
+**Named:** none new — this arm is now whole (gate + teleport + MOVED semantics).
+**Next:** cliffs block regenerates (`loot_mon` 1/953 heads next); the SYMPTOM tag on m_move now covers only the park's original selection-loop proof, not this gate.
 ## 2026-10-07 — D-3595 trapeffect_anti_magic cliff writer: trap.js Antimagic_prop read flats only, skipping C's `:2347–2371` implosion arm for the cloak-MR hero
 
 **C locus:** `nethack-c/upstream/src/trap.c:2347` (`if (Antimagic)` implosion arm `:2347–2371`, first draw `:2353`); `include/youprop.h:57` (`Antimagic ≡ HAntimagic||EAntimagic` = uprops[ANTIMAGIC]); `src/worn.c:123–125` (setworn confers worn `oc_oprop` into uprops extrinsic).

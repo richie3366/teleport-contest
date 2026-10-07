@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3596 — m_move cornered-unicorn fall-through: JS added a cnt==0 early return C's `:1926` unicorn exception forbids, skipping the `:2064` rn2(2) arm
+
+- **Status:** shipped (cliff head `monmove.c` m_move, 2/953: scen-sokoban-Monk-94143 step 59, scen-sokoban-Samurai-94163 step 46; RNG lost 1036).
+- **Symptom:** kind=rng on both: C `rn2(2) @ m_move(monmove.c:2064)` vs JS `rn2(5) @ distfleeck(monmove.js:1167)` (the next monster's fleeck check). Owner-vs-writer: the row carries `parked: SYMPTOM`, but the park (2026-09-08) proved the *selection loop* (`:1963/:1970`) faithful for two old sessions diverging inside it — it never examined the `:1926` cnt==0 gate, and the jsOwner `distfleeck` is C-whole (D-3559). Measured, not re-ported: /tmp probes show both M's are awake is_unicorn-true zoo unicorns (Samurai: peaceful mndx=101 @(45,10); Monk: hostile mndx=101 @(33,7)) with replicated `mfndpos` cnt=0, unmoved across the turn; every draw matched before the divergence, so C's inputs are identical, C's cnt is 0, and C falls through per `:1926` while JS returns early per an extra line. No writer exists — the owner's own gate contradicts pinned C textually.
+- **C locus:** `nethack-c/upstream/src/monmove.c:1926–1930` (`if (cnt == 0 && !is_unicorn(...))` — unicorn falls through to the empty selection loop) → `:2064–2067` (`if (is_unicorn(ptr) && rn2(2) && !tele_restrict(mtmp)) { (void) rloc(mtmp, RLOC_MSG); return MMOVE_MOVED; }`).
+- **JS was:** `js/monmove.js` m_move had an extra `if (cnt === 0) return MMOVE_NOMOVES;` with no C counterpart (a cornered unicorn never reached `:2064`); and the unicorn arm read `if (rloc(mtmp, 0)) return MMOVE_MOVED;` — un-awaited async `rloc` (floating promise, flags 0 instead of `RLOC_MSG`) gating MOVED on a result C casts to void.
+- **Fix:** `js/monmove.js` only, no new imports (`rloc`, `RLOC_MSG` already imported — the Tengu arm is the live `await rloc(mtmp, RLOC_MSG)` precedent): deleted the extra early return (C `:1926–1930` cite: fall-through to the empty loop + `:2064` arm); the arm is now `await rloc(mtmp, RLOC_MSG); return MMOVE_MOVED;` (C `(void)` + unconditional MOVED).
+- **JS:** `js/monmove.js` (+8/−3, m_move only) · `scripts/monmove-unicorn-cornered.test.mjs` (new: boxed gray unicorn across 12 seeds — never NOMOVES, draws `rn2(2)@m_move`, failed rloc still MOVED).
+- **Callers:** C `m_move` call sites both already wired, signature unchanged: `monmove.c:911` (dochug) → `js/monmove.js:2847`; `uhitm.c:558` → `js/uhitm.js:5088`. No new caller, no omitted caller.
+- **Verify:** new test pre-fix FAIL (`seed 1: cornered unicorn returned NOMOVES`) → post-fix PASS (1/1). `node scripts/verify.mjs --fn m_move`: `verify m_move: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (both sokoban probes PASS) · REACH-OK (80/80 reach sample PASS, 0 regressed) · syntax 1 file · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file) → VERIFY: PASS.
+- **Named omissions:** none new — this arm is now whole (gate + teleport + MOVED semantics).
+- **Ledger:** m_move partial
+- **Next:** cliffs block regenerates (`loot_mon` 1/953 heads next); the SYMPTOM tag on m_move now covers only the park's original selection-loop proof, not this gate.
+
 ## D-3595 — trapeffect_anti_magic cliff writer: trap.js Antimagic_prop read flats only, skipping C's `:2347–2371` implosion arm for the cloak-MR hero
 
 - **Status:** shipped (cliff head `trap.c` trapeffect_anti_magic, 1/953: scen-trap-Wizard-94001 step 178; RNG lost 1138).
