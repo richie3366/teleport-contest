@@ -3984,18 +3984,43 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
         for (const [k, v] of built.byLet) byLet.set(k, v);
         pickItems.push(...built.pickItems);
     } else {
-        for (const oclass of DEF_INV_ORDER) {
-            const items = inv.filter((o) => {
-                if (o.oclass !== oclass) return false;
-                if (!allow) return true;
-                return allow.has(o.invlet);
-            });
-            if (!items.length) continue;
-            entries.push({
-                text: let_to_name(oclass, false, withsym),
-                attr: headingAttr,
-            });
-            for (const otmp of items) {
+        /* C display_pickinv `:3181–3184` — sortflags from sortloot/sortpack
+           (the TTY_PERM_INVENT doing_perm_invent override is the WIN_INVEN
+           branch — pickinv_build_perm — not this menu path). */
+        const sortpack = sortpack_on();
+        let sortflags = (game.flags?.sortloot === 'f') ? SORTLOOT_LOOT : SORTLOOT_INVLET;
+        if (sortpack) sortflags |= SORTLOOT_PACK;
+        /* C `:3207` — filter is NULL here (lets-filtering is in the item
+           loop, `:3271`); inuse_only takes pickinv_build_inuse instead. */
+        const sorted = sortloot(inv, sortflags, false, null);
+        /* C `:3262–3343` nextclass — one pass per inv_order class (+ the
+           `:3337–3339` venom strkitten; change_inv_order excludes VENOM
+           from inv_order, so the append never duplicates), header on the
+           first listed item of the class (`:3290–3300`); !sortpack is a
+           single headerless pass in sorted order. */
+        const classes = sortpack
+            ? (() => {
+                const c = [...inv_order_classes()];
+                if (!c.includes(VENOM_CLASS)) c.push(VENOM_CLASS);
+                return c;
+            })()
+            : [null];
+        for (const oclass of classes) {
+            let classcount = 0;
+            for (const srt of sorted) {
+                const otmp = srt.obj;
+                if (!otmp) continue;
+                /* C `:3271` — skip letters outside the asked set. */
+                if (allow && !allow.has(otmp.invlet)) continue;
+                /* C `:3273` — !sortpack lists every class in one pass. */
+                if (sortpack && otmp.oclass !== oclass) continue;
+                if (sortpack && !classcount) {
+                    entries.push({
+                        text: let_to_name(oclass, false, withsym),
+                        attr: headingAttr,
+                    });
+                }
+                classcount++;
                 // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1186).
                 if (!Blind()) observe_object(otmp);
                 // C: invent.c display_pickinv — obj_to_glyph(otmp, rn2_on_display_rng)
@@ -4013,6 +4038,7 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
                 entries.push({ text: formattedobj, attr: 0 });
             }
         }
+        unsortloot(sorted); // C `:3368` — free-only; GC no-op in JS.
     }
     // C display_pickinv `:3345–3366` — after class items, before end_menu
     const special = force_invmenu_special(lets, allowxtra, usextra);

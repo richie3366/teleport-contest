@@ -69,7 +69,7 @@
 {"fn":"ddoinv","c":"3006-3009","status":"ported","js":["js/invent.js:ddoinv"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_unpaid","c":"3021-3041","status":"ported","js":["js/invent.js:find_unpaid"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_pickinv_cache","c":"3044-3050","status":"ported","js":["js/invent.js:free_pickinv_cache"],"at":"2026-10-03@bbe63333a"}
-{"fn":"display_pickinv","c":"3057-3418","status":"split","js":["js/invent.js:display_pickinv_reply","js/invent.js:display_pickinv_wizid","js/invent.js:invent_lines","js/invent.js:pickinv_build_inuse","js/invent.js:pickinv_build_perm","js/invent.js:build_wizid_pickinv_items","js/invent.js:pickinv_item_gacc"],"d":["D-1559"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across reply/wizid/lines/builders (D-1559/D-1589/D-1590)"}
+{"fn":"display_pickinv","c":"3057-3418","status":"split","js":["js/invent.js:display_pickinv_reply"],"d":["D-3621","D-1559"],"at":"2026-10-07@81ffd2b1b","note":"refresh: split across reply/wizid/lines/builders (D-1559/D-1589/D-1590)"}
 {"fn":"display_inventory","c":"3428-3453","status":"ported","js":["js/invent.js:display_inventory"],"at":"2026-10-03@bbe63333a"}
 {"fn":"repopulate_perminvent","c":"3456-3460","status":"ported","js":["js/invent.js:repopulate_perminvent"],"d":["D-3392"],"at":"2026-10-03@d74b875e9","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_used_invlets","c":"3467-3519","status":"ported","js":["js/invent.js:display_used_invlets"],"d":["D-1591"],"at":"2026-10-03@bbe63333a"}
