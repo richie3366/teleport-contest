@@ -10284,7 +10284,7 @@ const DOSET_BOOL_ADDR = {
     customcolors: { obj: 'iflags', key: 'customcolors' },
     customsymbols: { obj: 'iflags', key: 'customsymbols' },
     dark_room: { obj: 'flags', key: 'dark_room' },
-    debug_hunger: { obj: 'iflags', key: 'debug_hunger' }, // C optlist.h:276 &iflags.debug_hunger (wizard menu row; no JS consumer yet)
+    debug_hunger: { obj: 'iflags', key: 'debug_hunger' }, // C optlist.h:276 &iflags.debug_hunger (wizard menu row; consumed by eat.js gethungry :3167 gate)
     debug_mongen: { obj: 'iflags', key: 'debug_mongen' }, // C optlist.h:279 &iflags.debug_mongen
     debug_overwrite_stairs: { obj: 'iflags', key: 'debug_overwrite_stairs' }, // C optlist.h:282 &iflags.debug_overwrite_stairs (no JS consumer yet)
     dropped_nopick: { obj: 'flags', key: 'nopick_dropped' },
@@ -11744,7 +11744,8 @@ export async function optfn_suppress_alert(optidx, req, negated, opts, op) {
  * optfn } — addr twins DOSET_BOOL_ADDR (doset toggles) plus 8 live-field
  * mappings (debug_mongen, female, menu_tab_sep, monpolycontrol,
  * montelecontrol, perm_invent, sanity_check, splash_screen); 18 BoolOpt rows
- * keep addr null (their C addr has no live JS field — named). Every other
+ * keep addr null (their C addr has no live JS field — named; debug_hunger
+ * is the exception: its field lives on the DOSET_BOOL_ADDR twin). Every other
  * optfn is null (optfn_boolean and the remaining optfn and pfxfn handlers
  * are unported — named). The C sentinel (name 0, disregarded) is omitted:
  * JS length terminates the loops. */
@@ -11834,7 +11835,7 @@ const allopt = [
     // optlist.h:271 NHOPTC(DECgraphics)
     { name: 'DECgraphics', opttyp: CompOpt, idx: 41, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_DECgraphics },
     // optlist.h:275 NHOPTB(debug_hunger)
-    { name: 'debug_hunger', opttyp: BoolOpt, idx: 42, setwhere: SET_WIZNOFUZ, initval: false, addr: null /* C: &iflags.debug_hunger, no live field */, optfn: null },
+    { name: 'debug_hunger', opttyp: BoolOpt, idx: 42, setwhere: SET_WIZNOFUZ, initval: false, addr: null /* C: &iflags.debug_hunger — live via the DOSET_BOOL_ADDR twin (doset toggle + gethungry gate); allopt twin (config/parseoptions) unported — named */, optfn: null },
     // optlist.h:278 NHOPTB(debug_mongen)
     { name: 'debug_mongen', opttyp: BoolOpt, idx: 43, setwhere: SET_WIZNOFUZ, initval: false, addr: { obj: 'iflags', key: 'debug_mongen' } /* C: &iflags.debug_mongen */, optfn: null },
     // optlist.h:281 NHOPTB(debug_overwrite_stairs)

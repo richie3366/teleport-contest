@@ -59,7 +59,7 @@
 {"fn":"tinopen_ok","c":"3088-3094","status":"ported","js":["js/eat.js:tinopen_ok"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"use_tin_opener","c":"3098-3127","status":"ported","js":["js/eat.js:use_tin_opener"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bite","c":"3133-3159","status":"ported","js":["js/eat.js:bite"],"at":"2026-10-03@bbe63333a"}
-{"fn":"gethungry","c":"3163-3277","status":"ported","js":["js/eat.js:gethungry"],"d":["D-2118"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug_hunger unwired in JS (no live flag field); all diet/accessory arms live"}
+{"fn":"gethungry","c":"3163-3277","status":"ported","js":["js/eat.js:gethungry"],"d":["D-3604","D-2118"],"at":"2026-10-07@8ac7a727f","note":"D-3604: :3167 debug_hunger gate live (doset twin); allopt-twin config path named"}
 {"fn":"morehungry","c":"3281-3285","status":"ported","js":["js/eat.js:morehungry"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lesshungry","c":"3289-3333","status":"ported","js":["js/eat.js:lesshungry"],"d":["D-2026","D-1356"],"at":"seed@a30a7de84","note":"stale 2026-09-08"}
 {"fn":"unfaint","c":"3336-3344","status":"ported","js":["js/eat.js:unfaint"],"at":"2026-10-03@bbe63333a"}

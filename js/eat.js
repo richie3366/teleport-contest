@@ -703,7 +703,11 @@ export async function newuhs(incr) {
  * unset; meat-ring edge cases.
  */
 export async function gethungry() {
-    if (game.u?.uinvulnerable) return;
+    // C eat.c:3167 — uinvulnerable OR wizard debug_hunger ("no hunger",
+    // optlist.h:275) returns before every burn AND every draw (no rn2(10),
+    // no rn2(20)); the flag is live via the doset toggle (options.js
+    // DOSET_BOOL_ADDR → game.iflags.debug_hunger).
+    if (game.u?.uinvulnerable || game.iflags?.debug_hunger) return;
     const u = game.u;
 
     // C: (!Unaware || !rn2(10)) && eats && !Slow_digestion → uhunger--

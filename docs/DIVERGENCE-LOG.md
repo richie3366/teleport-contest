@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-3604 — cliffs-head moveloop_core writer: gethungry `:3167` debug_hunger gate (Valkyrie-94311 47→92, RNG now 2696/2696)
+
+- **Status:** fixed (Open — cliffs head `allmain.c` moveloop_core — 1 corpus block; writer port, not the symptom owner: the moveloop turn block is whole — D-3264 verified the loop, D-3598 shipped `:473–479` — and the divergence names gethungry's unread flag.) 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS.
+- **Symptom:** scen-options-Valkyrie-94311 step 47/94 kind=rng at allmain.c:360: C `rn2(82)=52` @ moveloop_core (the `:360` u_wipe_engr gate, DEX 14) vs JS `rn2(20)=10` @ gethungry(eat.js:721). Step 47 is the session's first turn (steps 2–46 menu-only, zero C draws); C's gethungry drew nothing (neither rn2(10) nor rn2(20)) → C early-returned at eat.c:3167 while JS proceeded.
+- **C locus:** `nethack-c/upstream/src/eat.c:3167` (`if (u.uinvulnerable || iflags.debug_hunger) return;`); flag `include/flag.h:309`, option `include/optlist.h:275–277` NHOPTB(debug_hunger) wizard "no hunger"; writers: doset toggle (live in JS) + nhlua.c:1488 (lua — by-design).
+- **JS was:** js/eat.js:706 checked `uinvulnerable` only. The doset toggle already wrote the live `game.iflags.debug_hunger` (DOSET_BOOL_ADDR) and the menu display read it back (screens matched) — but gethungry never read it, so JS drew rn2(20) every turn. Ledger note + options.js comments still said "no live flag field" / "no JS consumer yet" (stale since the doset twin shipped).
+- **Fix:** measured, not theorized (recorder screens + C RNG log): step-8 C message `… 'debug_hunger' option toggled on.` and the step-29 menu row `q - debug_hunger [true]` prove C held the flag with no off-toggle before step 47 (the `p` went to the #enhance skill menu — "most skilled in trident"; `on\non` typed into crash_email/crash_name prompts). uinvulnerable falsified: C's only TRUE-setter is pray.c:2269 and no prayer occurred in the zero-turn steps 0–46 (no prayer text in any screen; new games start 0 per save.c:87). js/eat.js — gate gains `|| game.iflags?.debug_hunger` in C order with C cites; js/options.js — :10287 comment retired (names the consumer), :11837 + allopt doc reworded (doset twin live; allopt twin stays null — named). No new imports (eat.js already reads the game bag; cf. `menu_requested`). No DIAG/FORCE/seed gates; Rule #2 clean; no frozen files.
+- **JS:** 2 files, +9/−4 (eat.js +5/−1, options.js +4/−3); new scripts/gethungry-debug-hunger.test.mjs (3/3; pre-fix 2/3 — gate case failed). Under the 15000/80 caps.
+- **Callers:** C allmain.c:354 (moveloop turn block — the probe path) → js/allmain.js:1324 (pre-existing await); C hack.c:3056 (overexertion combat metabolism) → js/hack.js:1622 (pre-existing await). Gate sits inside gethungry so both inherit it; signature unchanged.
+- **Verify:** `node scripts/verify.mjs --fn moveloop_core,gethungry` → syntax PASS (2 files) · rule2 PASS · hidden `verify moveloop_core: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-options-Valkyrie-94311: 47/rng/moveloop_core → 92/screen/mlevel_tele_trap; RNG now 2696/2696, scr 92/94) · hidden gethungry vacuous (owner-attributed to moveloop_core, not the writer name — D-3264 pattern) · reach REACH-OK both (80/80 spread, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared files) · `node --test scripts/gethungry-debug-hunger.test.mjs` 3/3 (pre-fix 2/3) · VERIFY: PASS.
+- **Named omissions:**
+  - `gethungry`: none in-body — C :3162–3277 whole in JS.
+  - `debug_hunger` allopt idx-42 twin (config-file/parseoptions set path; JS optfn_boolean silent retreat at :10497; get_option_value/config-dump surfaces) — named, no session exercises it (options.c unit, another C file — does not ride along).
+  - nhlua `hunger=false` setter (nhlua.c:1488) — lua has no scored analogue (nhl_pcall_handle by-design precedent).
+  - save/restore: none needed — C never persists debug flags (no debug_hunger in save.c/restore.c).
+  - `moveloop_core`: no change — owner verified whole (D-3264 loop proof + D-3598); this iteration ports the writer its divergence named.
+- **Ledger:** gethungry ported
+- **Next:** Valkyrie-94311 now blocks at step 92/94 on mlevel_tele_trap (teleport.c:2087, screen kind, identical topline «Suddenly, the little dog falls through a trap door.») — a later owner for a future cliff iteration. Do not re-pop moveloop_core (whole) or gethungry (whole).
+
 ## D-3603 — cliffs-head `handler_paranoid_confirmation` writer: tty_end_menu prompt painted plain with no blank separator (1 PASS + 2 moved past)
 
 - **Status:** fixed (Open — cliffs head `options.c` handler_paranoid_confirmation — 3 corpus blocks; writer port, not the symptom owner: the handler body is whole since D-2765, and the divergence names the tty_end_menu prompt rendering D-2765 missed under the stale D-2762 plain-header precedent.) 1 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS.
