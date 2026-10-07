@@ -22,7 +22,7 @@
 {"fn":"level_tele_trap","c":"1538-1571","status":"ported","js":["js/teleport.js:level_tele_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rloc_pos_ok","c":"1575-1633","status":"ported","js":["js/teleport.js:rloc_pos_ok"],"d":["D-1182","D-1171"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rloc_to_core","c":"1645-1768","status":"split","js":["js/teleport.js:rloc_to_core","js/teleport.js:rloc_pre_move_msg","js/teleport.js:rloc_to","js/teleport.js:rloc_post_move_msg","js/teleport.js:rloc_maybe_angry_shk","js/teleport.js:rloc_maybe_minvent_shop_bill","js/teleport.js:rloc_maybe_occupation","js/teleport.js:rloc_maybe_mintrap"],"d":["D-3555","D-2504","D-1196","D-1195","D-1183","D-1180"],"at":"2026-10-06@a5da152b1","note":"stale: C body complete across composer+helpers (core :1108, pre :1016, post :1044, rloc_to :715, 4xmaybe :637-692); u_on_newpos live :760; m_next2u=distu>2 :764; dog rloc_to awaited; place/remove=mx/my D-1160/D-3279; 4 C callers wired :715/:1131/:1298/:1333"}
-{"fn":"rloc_to","c":"1771-1774","status":"ported","js":["js/teleport.js:rloc_to"],"d":["D-3577","D-1170","D-1164","D-1163","D-1162","D-1161"],"at":"2026-10-06@6edaf1e61"}
+{"fn":"rloc_to","c":"1771-1774","status":"ported","js":["js/teleport.js:rloc_to"],"d":["D-3582","D-3577","D-1170","D-1164","D-1163","D-1162"],"at":"2026-10-07@92e0fb53b"}
 {"fn":"rloc_to_flag","c":"1777-1783","status":"ported","js":["js/teleport.js:rloc_to_flag"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stairway_find_forwiz","c":"1786-1794","status":"ported","js":["js/teleport.js:stairway_find_forwiz"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rloc","c":"1799-1895","status":"ported","js":["js/teleport.js:rloc"],"d":["D-1181","D-1172","D-1122"],"at":"2026-10-03@bbe63333a"}
