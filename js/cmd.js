@@ -4454,7 +4454,17 @@ export async function continue_run() {
     if (game.multi < COLNO && !--game.multi) {
         end_running(true);
     }
-    // C ref: hack.c domove_core — travel recomputes step each turn
+    // C ref: hack.c domove_core `:2724–2728` — travel recomputes step
+    // each turn: `if (!findtravelpath(TRAVP_TRAVEL))
+    // findtravelpath(TRAVP_GUESS); travel1 = 0;` then FALLS THROUGH to
+    // the step. No-path has no early return: findtravelpath's `found:`
+    // (hack.c `:1516–1520`, ported in findtravelpath_guess) already
+    // zeroed dx/dy + nomul(0) (multi cleared, travel over via
+    // end_running inside nomul); domove below self-steps (no-op) with
+    // move=1 and the turn still runs (movemon, timers, dosounds,
+    // gethungry). move=0/return here skipped the turn C runs
+    // (scen-town-Wizard-94142 travel step 8 from (21,17): hero
+    // unmoved, 95 draws, then the next command's getpos).
     if (game.context?.travel) {
         // C: if (!findtravelpath(TRAVP_TRAVEL)) findtravelpath(TRAVP_GUESS)
         let travelStep = await findtravelpath_travel();
@@ -4468,11 +4478,6 @@ export async function continue_run() {
                 await You('stop, unsure which way to go.');
                 travelStep = TRAVEL_STEP;
             }
-        }
-        if (!travelStep) {
-            end_running(true);
-            game.context.move = 0;
-            return false;
         }
         game.context.travel1 = 0;
     }
