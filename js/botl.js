@@ -385,6 +385,19 @@ function status_enablefield(fld, fieldname, fieldfmt, fldenabl) {
 // field keeps its last bot() value, which is the paint C captures.
 // =====================================================================
 
+// C wintty.c:4513 Sprintf single-%s-conversion subset: `%[-][width][.prec]s`.
+// Minimum width pads with blanks (padStart, or padEnd with '-');
+// precision truncates. Surrounding literal text is preserved.
+function sprintf_percent_s(fmt, text) {
+    const m = /%(-)?(\d+)?(?:\.(\d+))?s/.exec(fmt);
+    if (!m) return fmt;
+    let val = text;
+    if (m[3] !== undefined) val = val.slice(0, parseInt(m[3], 10));
+    const width = m[2] !== undefined ? parseInt(m[2], 10) : 0;
+    if (val.length < width) val = m[1] ? val.padEnd(width, ' ') : val.padStart(width, ' ');
+    return fmt.slice(0, m.index) + val + fmt.slice(m.index + m[0].length);
+}
+
 // C wintty.c:4454–4579 tty_status_update (STATUS_HILITES arm; tty_procs
 // :158). BL_RESET forces a full re-render, BL_FLUSH renders fit fields,
 // BL_CONDITION stashes bits+masks, BL_GOLD decodes mixed glyph text,
@@ -425,9 +438,10 @@ export function tty_status_update(fldidx, ptr, chg, percent, color, colormasks) 
         if (fmt.charAt(0) === ' '
             && (fldidx === ttyFieldorder[0][0] || fldidx === ttyFieldorder[1][0]
                 || fldidx === ttyFieldorder[2][0])) fmt = fmt.slice(1);
-        // C `:4513` Sprintf — every live fmt carries one %s (initblstats);
-        // the replacer keeps $ sequences in the value literal.
-        statusVals[fldidx] = fmt.replace('%s', () => text);
+        // C `:4513` Sprintf(status_vals[fldidx], fmt, text) — every live
+        // fmt carries exactly one %s conversion (initblstats fmts, plus
+        // the hitpointbar BL_TITLE override `%-30.30s`, botl.c:1714).
+        statusVals[fldidx] = sprintf_percent_s(fmt, text);
         ttyStatus[NOW][fldidx].idx = fldidx; // C `:4514`
         ttyStatus[NOW][fldidx].color = (color | 0) & 0x00FF; // C `:4515`
         ttyStatus[NOW][fldidx].attr = term_attr_fixup(attrmask); // C `:4516`
@@ -750,7 +764,25 @@ function tty_putstatusfield(text, x, y) {
             const n = i + x; // C `:4822`
             if (n < STATUS_COLS && s[i]) { // C `:4823`
                 statusWinData[y][n - 1] = s[i]; // C `:4827` cw->data
-                if (disp?.setCell) disp.setCell(n - 1, 22 + y, s[i], renderFg, hl_to_cell_attr(renderAttrHL)); // C `:4824` putchar
+                // Capture-normalized form: the recorder compresses space
+                // runs longer than 4 to CSI CUF (terminal.js serialize
+                // precedent; do_statusline1 gap rule) and the worker
+                // renders CUF-skips as blank attr-0 cells (frozen
+                // screen-decode), so a status space in such a run lands
+                // attr-free even when painted under an attr (hitpointbar
+                // pad under Begin_Attr, wintty.c:5159–5166). Short runs
+                // are written verbatim with attrs (C wintty.c:4824
+                // putchar), intra-name spaces included.
+                let chAttr = hl_to_cell_attr(renderAttrHL);
+                if (s[i] === ' ') {
+                    // Maximal space run within s containing i, both
+                    // directions — the bar pad touches the string end.
+                    let lo = i, hi = i;
+                    while (lo - 1 >= 0 && s[lo - 1] === ' ') lo--;
+                    while (s[hi + 1] === ' ') hi++;
+                    if (hi - lo + 1 > 4) chAttr = 0;
+                }
+                if (disp?.setCell) disp.setCell(n - 1, 22 + y, s[i], renderFg, chAttr); // C `:4824` putchar
                 statusCurX++; // C `:4825–4826` curx++
             }
         }
