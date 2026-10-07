@@ -2480,3 +2480,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2468-49c10be08-suppress-alert-rc.md](./2468-49c10be08-suppress-alert-rc.md) | `49c10be08` | D-3586 suppress_alert rc pack + live row (Tourist-94111 21→23) | **ACCEPT** |
 | [2469-b1ef85d1b-mklev-no-recount.md](./2469-b1ef85d1b-mklev-no-recount.md) | `b1ef85d1b` | D-3587 mklev whole, no blanket recount (4 footer PASS) | **ACCEPT** |
 | [2470-4a3125515-hitpointbar-status-chain.md](./2470-4a3125515-hitpointbar-status-chain.md) | `4a3125515` | D-3588 hitpointbar Sprintf + repaint + pad rule (1 PASS + 1 moved) | **ACCEPT** |
+| [2471-bd6e6e647-choose-classes-bot-disabled.md](./2471-bd6e6e647-choose-classes-bot-disabled.md) | `bd6e6e647` | D-3589 choose_classes bot_disabled wrap (Tourist-94111 23→32) | **ACCEPT** |
+| [2472-e03df7595-hilite-behavior-menu-whole.md](./2472-e03df7595-hilite-behavior-menu-whole.md) | `e03df7595` | D-3590 hilite behavior menu + menu_add whole (Tourist-94111 32→109) | **ACCEPT** |
+| [2473-0cc4333f6-mklev-reseed-guard.md](./2473-0cc4333f6-mklev-reseed-guard.md) | `0cc4333f6` | D-3591 mklev reseed pairs via live guard (off-head, 0 moved) | **ACCEPT** |
+| [2474-4a967d2f0-whatis-doset-addr.md](./2474-4a967d2f0-whatis-doset-addr.md) | `4a967d2f0` | D-3592 whatis doset addr repoint (Tourist-94111 109→185) | **ACCEPT** |
+| [2475-f11d0acff-doterrain-corner-dismiss.md](./2475-f11d0acff-doterrain-corner-dismiss.md) | `f11d0acff` | D-3594 doterrain corner dismiss (Wizard-94001 135→178) | **ACCEPT** |
+| [2476-2aa8bc28e-antimagic-uprops.md](./2476-2aa8bc28e-antimagic-uprops.md) | `2aa8bc28e` | D-3595 Antimagic_prop uprops OR (Wizard-94001 178→227) | **ACCEPT** |
+| [2477-edf7a1eb9-m-move-unicorn-fallthrough.md](./2477-edf7a1eb9-m-move-unicorn-fallthrough.md) | `edf7a1eb9` | D-3596 m_move unicorn fall-through (2 sokoban PASS; omit restored) | **ACCEPT** |
+| [2478-a4b394110-restore-lastinvnr-51.md](./2478-a4b394110-restore-lastinvnr-51.md) | `a4b394110` | D-3597 restore lastinvnr 51, falsifies D-3584 BSS-0 (Knight PASS) | **ACCEPT** |
