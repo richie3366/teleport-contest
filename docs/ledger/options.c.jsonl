@@ -14,11 +14,11 @@
 {"fn":"optfn_align_status","c":"973-1019","status":"ported","js":["js/options.js:optfn_align_status"],"d":["D-3403","D-2822"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"optfn_altkeyhandling","c":"1022-1063","status":"ported","js":["js/options.js:optfn_altkeyhandling"],"d":["D-3403","D-3167"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"optfn_autounlock","c":"1066-1168","status":"ported","js":["js/options.js:optfn_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
-{"fn":"optfn_boulder","c":"1171-1246","status":"ported","js":["js/options.js:optfn_boulder"],"d":["D-2830"],"at":"seed@a30a7de84"}
+{"fn":"optfn_boulder","c":"1171-1246","status":"ported","js":["js/options.js:optfn_boulder"],"d":["D-3630","D-2830"],"at":"2026-10-07@a77f1cc66"}
 {"fn":"optfn_catname","c":"1249-1255","status":"ported","js":["js/options.js:optfn_catname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"optfn_crash_email","c":"1259-1282","status":"ported","js":["js/options.js:optfn_crash_email"],"d":["D-3169"],"at":"2026-09-30@e79d836f7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_crash_name","c":"1285-1308","status":"ported","js":["js/options.js:optfn_crash_name"],"d":["D-3169"],"at":"2026-09-30@e79d836f7","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"optfn_crash_urlmax","c":"1311-1339","status":"ported","js":["js/options.js:optfn_crash_urlmax"],"d":["D-3167"],"at":"2026-09-30@2b25db15c","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_crash_urlmax","c":"1311-1339","status":"ported","js":["js/options.js:optfn_crash_urlmax"],"d":["D-3630","D-3167"],"at":"2026-10-07@a77f1cc66","note":"D-3630: live at js/options.js:3825 (windowed error promise chained); stale MISSING note retired"}
 {"fn":"optfn_cursesgraphics","c":"1345-1390","status":"by-design","d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"compiled out: CURSES_GRAPHICS commented out config.h:58, only xcode/cross/multiw hints; contest unix build is TTY_GRAPHICS"}
 {"fn":"optfn_DECgraphics","c":"1394-1439","status":"ported","js":["js/options.js:optfn_DECgraphics"],"d":["D-3403","D-3162"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"optfn_disclose","c":"1442-1560","status":"ported","js":["js/options.js:optfn_disclose"],"d":["D-3403","D-2788"],"at":"2026-10-04@7a3ae7a92"}

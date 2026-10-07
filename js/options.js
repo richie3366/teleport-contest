@@ -3830,8 +3830,9 @@ export function optfn_crash_urlmax(_optidx, req, _negated, opts, _op) {
         if (op !== EMPTY_OPTSTR) { // C `:1319`
             const temp = opt_atoi(op); // C `:1320` atoi
             if (temp < 75) { // C `:1322`
-                config_error_add('Invalid value %d for crash_urlmax. ' // C `:1323–1324`
+                const bad = config_error_add('Invalid value %d for crash_urlmax. ' // C `:1323–1324`
                     + ' Minimum value is 75.', temp);
+                if (bad && typeof bad.then === 'function') return bad.then(() => OPTN_ERR); // C `:1325` — windowed pline promise resolves the shared return
                 return OPTN_ERR; // C `:1325`
             }
             gc.crash_urlmax = temp; // C `:1327`
@@ -7815,14 +7816,16 @@ export function optfn_boulder(optidx, req, _negated, opts, _op, optInitial) {
         else if (ch >= '1' && ch < String.fromCharCode(48 + WARNCOUNT)) // C `:1197`
             clash = 2;
         if (!ch || signed < 32) { // C `:1199` opts[0] < ' '
-            config_error_add('boulder symbol cannot be a control character'); // C `:1200`
+            const bad = config_error_add('boulder symbol cannot be a control character'); // C `:1200`
+            if (bad && typeof bad.then === 'function') return bad.then(() => OPTN_OK); // C `:1201` — windowed pline promise resolves the shared return
             return OPTN_OK; // C `:1201`
         }
         if (clash) { // C `:1202`
             // visctrl(ch) is ch for these printable clash characters.
-            config_error_add( // C `:1205–1208`
+            const bad = config_error_add( // C `:1205–1208`
                 "Badoption - boulder symbol '%s' would conflict with a %s symbol",
                 ch, clash === 1 ? 'monster' : 'warning');
+            if (bad && typeof bad.then === 'function') return bad.then(() => OPTN_OK); // C `:1228` — windowed pline promise resolves the shared return
         } else { // C `:1209`
             const slot = SYM_BOULDER + SYM_OFF_X; // C `:1213`
             update_ov_primary_symset(slot, ch); // C `:1213`
@@ -9511,6 +9514,29 @@ async function doset_compound_via_getlin(opt) {
         const saReslt = await optfn_suppress_alert(
             allopt_idx(name), REQ_DO_SET, false, `${name}:${saVal}`, saVal);
         if (saReslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true; // C `:639–640`
+    } else if (name === 'boulder' || name === 'crash_urlmax') {
+        // C `:8675–8680` / full-doset `:8949–8953`: Sprintf "name:abuf" +
+        // parseoptions — awaited (fruit/suppress_alert precedent) so the
+        // optfn's windowed config errors (Badoption `:1205`, Invalid value
+        // `:1323`) pline + tty_wait_synch before the next pick. Doset
+        // input is well-formed (exact menu name, not negated, no dupe
+        // scope outside opt_initial), so this is C parseoptions `:635–640`
+        // only: string_for_opt TRUE, optfn do_set, mark on optn_ok. Named:
+        // the `:522` length / `:529–533` strip / `:540–543` negation /
+        // `:621–623` dupe arms (unreached from doset values), and the
+        // missing-parameter report inside string_for_opt FALSE (a doset
+        // empty value stays sync-fire-and-forget like every other
+        // sync-called windowed error).
+        if (!game.go) game.go = {};
+        game.go.opt_initial = false; // C `:504` tinitial FALSE (doset call)
+        game.go.opt_from_file = false; // C `:505` tfrom_file FALSE
+        const full = `${name}:${abuf}`;
+        const op = string_for_opt(full, true); // C `:636`
+        const idx = allopt_idx(name);
+        const reslt = name === 'boulder'
+            ? await optfn_boulder(idx, REQ_DO_SET, false, full, op, false) // C `:637–638` (explicit FALSE is the `:504` global)
+            : await optfn_crash_urlmax(idx, REQ_DO_SET, false, full, op); // C `:637–638`
+        if (reslt === OPTN_OK) opt_set_in_config[idx] = true; // C `:639–640`
     } else {
         parseoptions(`${name}:${abuf}`, false, false);
     }
