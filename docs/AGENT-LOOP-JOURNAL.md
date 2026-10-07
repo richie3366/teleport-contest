@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3626 [measure] disclose cliff: TEMP-C display trace names writer erase_menu_or_text corner arm (tour-Priest-92235 step-106 docrt asymmetry)
+
+**C locus:** TEMP sites (all reverted, md5-verified): recorder display.c disclose_cdump helper + gated call sites in map_invisible (:378), display_warning (:634), newsym (:917), docrt_flags (:1709). Read-only: wintty.c erase_menu_or_text :965–984 (corner arm :981–982 → docorner), callers clear_nhwindow :1098 / tty_destroy_nhwindow :1999 (clearscreen=FALSE); display.c newsym :917–1099 (blind branch :1040–1098), docrt_flags :1709–1773 (replay :1750–1755 + see_monsters overlay :1761); display.h _tp_sensemon :41–50, _sensemon :55–58, _mon_warning :64–66.
+**JS:** unchanged — 0 changed js files (TEMP touched ignored `nethack-c/recorder/` only; all probes/dumps in /tmp).
+**Change:** 
+**Verify:** preflight `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). TEMP-vs-committed: 7916/7916 RNG values + 111/111 screens identical. Revert: `cmp` byte-identical + md5 b75fdeb7… match pre-work; pristine rebuild (CDUMP gone from installed binary) + re-record byte-IDENTICAL.
+**Named:** (1) port-iter confirmations: brief erase_menu_or_text + docorner; locate the JS corner-destroy docrt caller; confirm JS has no docorner equivalent (else wire it instead of porting). (2) wish-Priest-92179 + wish-Tourist-92067 need the SEPARATE display-RNG-trace measurement (park falsifier) — not this writer; expect tour-Priest-92235 → PASS-or-later after the erase_menu_or_text port, wish pair unchanged. (3) possible C redraw_map blind spot at 105→106 (uninstrumented; immaterial — redraw_map replays gbuf `I`s, still no docrt/overlay, same writer).
+**Next:** port iteration ships the erase_menu_or_text corner arm (wintty.c:965–984 + docorner callee) in JS's corner-menu destroy path; expect tour-Priest-92235 106→PASS-or-later (and NO movement on the wish pair — different writer, needs its own [measure] when it heads). Do not re-pop disclose for tour-Priest-92235 until the writer port verifies.
 ## 2026-10-07 — D-3625 cliffs-head mlevel_tele_trap writer migrate_to_level: fmon unlink ran after newsym, repainting the live migrant over the revealed trap (3 PASS)
 
 **C locus:** `dog.c:906` relmon → `mon.c:2561–2594` (mon_leaving_level `:2569` runs before the fmon unlink `:2571–2584`) + `:2696–2726` (grid clear `:2710`, newsym `:2725`). C order is safe because `m_at` is grid-only (`rm.h:510`): after remove_monster, newsym already sees no monster.
