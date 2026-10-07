@@ -2488,3 +2488,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2476-2aa8bc28e-antimagic-uprops.md](./2476-2aa8bc28e-antimagic-uprops.md) | `2aa8bc28e` | D-3595 Antimagic_prop uprops OR (Wizard-94001 178→227) | **ACCEPT** |
 | [2477-edf7a1eb9-m-move-unicorn-fallthrough.md](./2477-edf7a1eb9-m-move-unicorn-fallthrough.md) | `edf7a1eb9` | D-3596 m_move unicorn fall-through (2 sokoban PASS; omit restored) | **ACCEPT** |
 | [2478-a4b394110-restore-lastinvnr-51.md](./2478-a4b394110-restore-lastinvnr-51.md) | `a4b394110` | D-3597 restore lastinvnr 51, falsifies D-3584 BSS-0 (Knight PASS) | **ACCEPT** |
+| [2479-763454f85-moveloop-noflush-doname-base.md](./2479-763454f85-moveloop-noflush-doname-base.md) | `763454f85` | D-3598 moveloop flush delete (2 PASS + 2 moved past) | **ACCEPT** |
+| [2480-0421e7ad4-search-special-subrooms.md](./2480-0421e7ad4-search-special-subrooms.md) | `0421e7ad4` | D-3599 search_special rooms[41+] loop 2 (2 town move) | **ACCEPT** |
+| [2481-9213df6bf-pray-blind-canonical.md](./2481-9213df6bf-pray-blind-canonical.md) | `9213df6bf` | D-3600 pray.js Blind → canonical import (engulf moves) | **ACCEPT** |
+| [2482-b49f61a79-steed-lead-through.md](./2482-b49f61a79-steed-lead-through.md) | `b49f61a79` | D-3601 test_move steed arm in domove (ride-Samurai PASS) | **ACCEPT** |
+| [2483-11c69adf3-doset-gameview-optfns.md](./2483-11c69adf3-doset-gameview-optfns.md) | `11c69adf3` | D-3602 gameview 6 literals → optfn get_val (Valkyrie moves) | **ACCEPT** |
+| [2484-8ac7a727f-paranoid-prompt-paint.md](./2484-8ac7a727f-paranoid-prompt-paint.md) | `8ac7a727f` | D-3603 paranoid prompt inverse + blank row (1 PASS + 2 move) | **ACCEPT** |
+| [2485-f2b082ce6-gethungry-debug-hunger.md](./2485-f2b082ce6-gethungry-debug-hunger.md) | `f2b082ce6` | D-3604 gethungry :3167 debug_hunger gate (Valkyrie 47→92) | **ACCEPT** |
+| [2486-49f0a62e0-stun-dualwrite-tick-order.md](./2486-49f0a62e0-stun-dualwrite-tick-order.md) | `49f0a62e0` | D-3605 stun dual-write + STUNNED-first tick (Monk PASS) | **ACCEPT** |
+| [2487-3a6c5602f-obj-nutrition-live-data.md](./2487-3a6c5602f-obj-nutrition-live-data.md) | `3a6c5602f` | D-3606 oc_nutrition extractor + live obj_nutrition (Tourist PASS) | **ACCEPT** |
