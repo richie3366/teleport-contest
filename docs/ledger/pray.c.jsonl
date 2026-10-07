@@ -33,7 +33,7 @@
 {"fn":"dopray","c":"2199-2273","status":"ported","js":["js/pray.js:dopray"],"d":["D-3600"],"at":"2026-10-07@0421e7ad4"}
 {"fn":"prayer_done","c":"2276-2343","status":"ported","js":["js/pray.js:prayer_done"],"d":["D-2129"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_turn_mon_iter","c":"2347-2410","status":"ported","js":["js/pray.js:maybe_turn_mon_iter"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: TELL shield effected at call site via shieldeff_mon"}
-{"fn":"doturn","c":"2414-2487","status":"ported","js":["js/pray.js:doturn"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"doturn","c":"2414-2487","status":"ported","js":["js/pray.js:doturn"],"d":["D-3613"],"at":"2026-10-07@940f02209","note":"stale 2026-09-09"}
 {"fn":"altarmask_at","c":"2490-2504","status":"ported","js":["js/pray.js:altarmask_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"a_gname","c":"2507-2510","status":"ported","js":["js/pray.js:a_gname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"a_gname_at","c":"2514-2520","status":"ported","js":["js/pray.js:a_gname_at"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: returns '' for non-altar vs C NULL (string-interp adaptation)"}

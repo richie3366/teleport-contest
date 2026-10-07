@@ -2963,8 +2963,15 @@ export async function doturn() {
         return ECMD_OK;
     }
     if (!(u.uconduct)) u.uconduct = {};
-    if (!(u.uconduct.gnostic++)) {
+    // C pray.c:2426 `if (!u.uconduct.gnostic++)` — post-increment always
+    // runs; livelog only when the old value was 0. The `| 0` idiom is the
+    // in-file dopray/dosacrifice precedent: a raw `undefined++` would leave
+    // NaN, breaking the `:2442` gnostic==1 ECMD_TIME test below.
+    if (!(u.uconduct.gnostic | 0)) {
+        u.uconduct.gnostic = 1;
         livelog_printf(LL_CONDUCT, 'rejected atheism by turning undead');
+    } else {
+        u.uconduct.gnostic = (u.uconduct.gnostic | 0) + 1;
     }
 
     const Gname = await halu_gname(u.ualign?.type ?? 0);

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3613 cliffs-head doturn: first-break `gnostic++` on undefined left NaN, so strangled #turn returned ECMD_OK instead of ECMD_TIME (no monster turn, no --More--; Priest-92096 → PASS)
+
+**C locus:** pray.c doturn `:2414–2487` — `:2426` `if (!u.uconduct.gnostic++)` (post-increment always runs; livelog on old 0); `:2432–2443` can_chant-failure arm returning `(u.uconduct.gnostic == 1) ? ECMD_TIME : ECMD_OK` (first break costs a move).
+**JS:** 1 file + 1 test (pray.js +10/−4: safe increment + C cite; scripts/doturn-gnostic.test.mjs new, FAIL→PASS). Far under the 15000/80 caps.
+**Change:** the in-file dopray/dosacrifice `| 0` idiom at the :2426 site: `if (!(gnostic | 0)) { gnostic = 1; livelog } else { gnostic = (gnostic | 0) + 1 }` (always increments; first break sets exactly 1 so the :2442 test returns ECMD_TIME). No new imports; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn doturn` → `PASS syntax 1 changed js file(s): js/pray.js` · `PASS rule2` · `PASS hidden verify doturn: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (Priest-92096 PASS) · `PASS reach doturn` (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed) → REACH-OK · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · VERIFY: PASS. Full `sessions` forced post-change: 44/44. New test: pre-fix `0 !== 1` (ECMD_OK vs ECMD_TIME) → post-fix 2/2 PASS.
+**Named:** unchanged from D-0912 (non-Cleric/Knight `known_spell(SPE_TURN_UNDEAD)`/spelleffects fallback; resist TELL pline) — off this probe's path, stay named.
+**Next:** regen drops the doturn row (0 blocked).
 ## 2026-10-07 — D-3612 cliffs-head can_make_bones writer: fatal burn drew exercise before the losehp drain (extra rn2(2) ahead of can_make_bones; Barbarian-94326 → PASS)
 
 **C locus:** zap.c maybe_destroy_item `:5798–5954` (`:5947–5949` losehp then exercise(A_STR, FALSE); `:5939` xresist gate; `:5914–5916` potionbreathe gate); hack.c losehp `:4282–4288` (uhp<1 → killer + urgent_pline("You die...") + done(DIED), noreturn unless life-saved); bones.c can_make_bones `:356–385` (`:377` depth rn2(1+(depth>>2)) — rn2(1) always 0; wizard proceeds past it); end.c really_done `:1201` bones_ok.
