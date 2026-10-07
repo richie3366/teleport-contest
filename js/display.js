@@ -3141,6 +3141,42 @@ export function clear_nhwindow_message() {
     if (wrapped) resync_map_row0();
 }
 
+/**
+ * C ref: wintty.c tty_display_nhwindow NHW_MESSAGE arm `:1873–1884`
+ * (not-NEED_MORE), as called from end.c really_done `:1246–1247`:
+ * toplin EMPTY + message cur zero, NO visual erase. The answered yn
+ * prompt ("Die? [yn] (n) ") stays visible as stale pixels under EMPTY
+ * state, so the disclose menu overlay keeps it. NEED_MORE arm is
+ * flush_topl_more (more() already ends EMPTY); call this after it.
+ */
+export function mark_topline_empty() {
+    _toplin = TOPLINE_EMPTY;
+    if (_msg_cw) {
+        _msg_cw.curx = 0;
+        _msg_cw.cury = 0;
+    }
+}
+
+/**
+ * C ref: wintty.c tty_clear_nhwindow(WIN_MESSAGE) `:1047–1058` + `:1108`
+ * (unconditional cur zero) — the NHW_MENU overlay call shape
+ * (`:1938–1941`), WITHOUT clear_nhwindow_message's parse-time
+ * `_pending_message` extension: erase the visible topline only when
+ * toplin != EMPTY. EMPTY keeps the stale visible prompt (death
+ * disclose: really_done's display_nhwindow(WIN_MESSAGE) blanked state,
+ * not pixels). gt.toplines untouched (C never writes it here); no
+ * wrapped-row resync (the menu flush repaints map row 0).
+ */
+export function clear_message_window_menu_overlay() {
+    if (_msg_cw) {
+        _msg_cw.curx = 0;
+        _msg_cw.cury = 0;
+    }
+    if (_toplin === TOPLINE_EMPTY) return;
+    _toplin = TOPLINE_EMPTY;
+    game._pending_message = '';
+}
+
 // ── ANSI color codes ──
 // Maps CLR_* constants (0-15) to ANSI SGR color codes.
 // C ref: wintty.c term_start_color

@@ -53,7 +53,7 @@ import {
     obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
     clear_nhwindow_message, Hallucination, set_bot_disabled,
-    clear_committed_status,
+    clear_committed_status, clear_message_window_menu_overlay,
     docorner, dxdy_to_dist_descr,
 } from './display.js';
 import { xprname, an, the, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, gloves_simple_name, set_not_fully_identified, makeplural, makesingular, body_part_latebound, corpse_xname, killer_xname, maybereleaseobuf, safe_qbuf } from './objnam.js';
@@ -3017,8 +3017,11 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
         && game._tty_menu_geom?.maxrow > 0)
         ? game._tty_menu_geom.maxrow
         : 0;
-    // C clears WIN_MESSAGE before menu; keep map/status for corner only.
-    game._pending_message = '';
+    // C wintty.c tty_display_nhwindow(NHW_MENU) overlay `:1938–1941` →
+    // tty_clear_nhwindow(WIN_MESSAGE) `:1047–1058`: erase only when
+    // toplin != EMPTY (death disclose keeps the answered Die? prompt:
+    // EMPTY state, stale pixels). Keep map/status for corner only.
+    clear_message_window_menu_overlay();
     game._menu_overlay = false;
 
     // Corner chargen: C clears WIN_MESSAGE only — BASE splash (copyright /
