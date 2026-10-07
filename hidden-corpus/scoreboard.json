@@ -1,9 +1,9 @@
 {
- "commit": "644849a84",
- "at": "2026-10-07T12:33:26.513Z",
- "full": false,
- "fullCommit": "3a6c5602f",
- "fullAt": "2026-10-07T09:52:10.373Z",
+ "commit": "b226c2d08",
+ "at": "2026-10-07T13:14:10.580Z",
+ "full": true,
+ "fullCommit": "b226c2d08",
+ "fullAt": "2026-10-07T13:14:10.580Z",
  "entries": 953,
  "unrecorded": 0,
  "sessions": {
@@ -5858,9 +5858,9 @@
   "scen-engrave-Archeologist-94198": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2962,
+   "rngM": 3049,
    "rngT": 3049,
-   "scrM": 109,
+   "scrM": 114,
    "scrT": 250,
    "kind": "screen",
    "step": 95,

@@ -2497,3 +2497,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2485-f2b082ce6-gethungry-debug-hunger.md](./2485-f2b082ce6-gethungry-debug-hunger.md) | `f2b082ce6` | D-3604 gethungry :3167 debug_hunger gate (Valkyrie 47→92) | **ACCEPT** |
 | [2486-49f0a62e0-stun-dualwrite-tick-order.md](./2486-49f0a62e0-stun-dualwrite-tick-order.md) | `49f0a62e0` | D-3605 stun dual-write + STUNNED-first tick (Monk PASS) | **ACCEPT** |
 | [2487-3a6c5602f-obj-nutrition-live-data.md](./2487-3a6c5602f-obj-nutrition-live-data.md) | `3a6c5602f` | D-3606 oc_nutrition extractor + live obj_nutrition (Tourist PASS) | **ACCEPT** |
+| [2488-86d1e780b-restmonchn-mw-realias.md](./2488-86d1e780b-restmonchn-mw-realias.md) | `86d1e780b` | D-3607 restmonchn mw re-alias (2 PASS) | **ACCEPT** |
+| [2489-9439e5972-potion-fatal-drains.md](./2489-9439e5972-potion-fatal-drains.md) | `9439e5972` | D-3608 potion fatal-losehp drains (Priest PASS) | **ACCEPT** |
+| [2490-4a634cdac-study-book-makeknown.md](./2490-4a634cdac-study-book-makeknown.md) | `4a634cdac` | D-3609 study_book makeknown credit (Monk PASS) | **ACCEPT** |
+| [2491-d83945df9-trap-fatal-drains.md](./2491-d83945df9-trap-fatal-drains.md) | `d83945df9` | D-3610 trap fatal drains + rocktrap return (1 PASS + 1 moved) | **ACCEPT** |
+| [2492-02ce4e16d-kick-ouch-drain.md](./2492-02ce4e16d-kick-ouch-drain.md) | `02ce4e16d` | D-3611 kick_ouch fatal drain (Healer PASS) | **ACCEPT** |
+| [2493-940f02209-maybe-destroy-item.md](./2493-940f02209-maybe-destroy-item.md) | `940f02209` | D-3612 maybe_destroy_item drain-before-exercise (Barbarian PASS) | **ACCEPT-WITH-DEBT** |
+| [2494-e9078ecfc-doturn-gnostic.md](./2494-e9078ecfc-doturn-gnostic.md) | `e9078ecfc` | D-3613 doturn gnostic NaN (Priest PASS) | **ACCEPT** |
+| [2495-644849a84-dog-goal-portal.md](./2495-644849a84-dog-goal-portal.md) | `644849a84` | D-3614 dog_goal portal union (1 PASS + 1 moved) | **ACCEPT** |
+| [2496-b226c2d08-polymorph-min-macro.md](./2496-b226c2d08-polymorph-min-macro.md) | `b226c2d08` | D-3615 polymorph min-macro double draw (Valkyrie PASS) | **ACCEPT** |

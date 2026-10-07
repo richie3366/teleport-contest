@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-07** — full `sessions` on `3a6c5602f`
-(audit **2479–2487**, 2026-10-07T09:46:38.007Z).
+Score last measured: **2026-10-07** — full `sessions` on `b226c2d08`
+(audit **2488–2496**, 2026-10-07T13:08:36.816Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`331+1.63/turn` (R² 0.79).
+`334+1.63/turn` (R² 0.78).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `331+1.63/turn` (R² 0.79) |
+| Speed label | `334+1.63/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5 by pts (8,076 vs lockwo 7,768; their RNG 61.0 % vs our 41.0 %: our loss is early cliffs in long sessions). 17→**18**/44, pts 7,831→**8,076** (+245), RNG 40.6→**41.0 %**, screens 69.5→**71.7 %** at judge 2026-10-07 07:22Z (through ~D-3599) — fourth cliff-phase movement (D-3598…D-3615).
-**Corpus — picker and proxy (2026-10-07 09:52Z; 953/953 entries, 0 unrecorded):**
-**837 / 953** PASS (87.8 %), RNG 99.80 %, screens 98.0 %; `full: true`. Worst families: `scen-options` 4/20, `scen-tutorial` 9/20, `scen-quest` 11/20, `scen-caster` 13/20, `scen-impaired` 13/20, `scen-town` 14/20. Audits record this line next to held-out: the board must rise **with** it. +9 since the last audit (828→837: D-3598…D-3615 per-iteration +6 — 2 doname_base via D-3598, ride-Samurai via D-3601, Tourist-94111 via D-3603, Monk-94230 via D-3605, Tourist-91125 via D-3606 — full-rescore drift +3: explore-seed1500, intrinsic-Barbarian-92165, normal-Tourist-92061); 0 PASS→FAIL, 0 hangs.
-Reviews 1225–2487 (index; no row 1618): 1099 ACCEPT, 56 WITH-DEBT, 107 QUALITY-RISK (2479–2487: 9A/0D/0Q, 0 Must-fix queued).
+**Corpus — picker and proxy (2026-10-07 13:14Z; 953/953 entries, 0 unrecorded):**
+**847 / 953** PASS (88.9 %), RNG 99.81 %, screens 98.2 %; `full: true`. Worst families: `scen-options` 4/20, `scen-tutorial` 9/20, `scen-quest` 12/20, `scen-caster` 13/20, `scen-impaired` 13/20, `scen-dig` 15/20, `scen-tour` 22/29. Audits record this line next to held-out: the board must rise **with** it. +10 since the last audit (837→847, all per-iteration D-3607…D-3615 — 2 mattacku/restmonchn via D-3607, Priest-94282 via D-3608, Monk-94160 via D-3609, Healer-94086 via D-3611, Barbarian-94326 via D-3612, Priest-92096 via D-3613, Caveman-94281 via D-3610+D-3614, Valkyrie-92195 via D-3615, + stale mswings_verb Archeologist-94096 — full-rescore drift 0); 0 PASS→FAIL, 0 hangs.
+Reviews 1225–2496 (index; no row 1618): 1107 ACCEPT, 57 WITH-DEBT, 107 QUALITY-RISK (2488–2496: 8A/1D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -145,7 +145,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** cliffs head `mhitu.c` mattacku (2 sessions, PRESENCE-ONLY — writer the divergence names, or the [measure] row).
+**Next cluster:** cliffs head `mhitu.c` summonmu (1 session scen-tour-Wizard-91112, history D-1844 — read once; the arm this divergence names).
 
 ## Parked (diagnose only — do not implement)
 

@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — audit 2488–2496 @b226c2d08: review D-3607…D-3615 (8A/1D/0Q, 0 Must-fix) + full rescore 847/953
+
+**C locus:** n/a (review iteration; re-measured every SHA's verify vs pinned C).
+**JS:** none touched. 2493 WITH-DEBT only: zap.js bare-idiom losehp sites never drain `finish_maybe_wail()` on survival (pre-existing leak of `_needs_maybe_wail`, map-tracked debt, no session distinguishes it).
+**Verify:** public 44/44 (Scr 11,405, RNG 792,838, `334+1.63/turn`); corpus 847/953 (+10, all per-iteration, drift 0, 0 PASS→FAIL, `full: true`); held-out 18/44 (judge 07:22Z, unchanged). Ledger snapshot + 5/5 seeded-ported spot rows clean (`node:sqlite` missing — sampled via `seed@` grep + `brief.mjs`).
+**Next:** cliffs head `mhitu.c` summonmu (scen-tour-Wizard-91112, history D-1844).
 ## 2026-10-07 — D-3615 `potion.c` peffect_polymorph: C `min` is a macro — losing branch's `rn2(15)` draws twice, `Math.min` drew once (Valkyrie-92195 PASS)
 
 **C locus:** 
