@@ -29,22 +29,24 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Pw pair + Empty-hnd fixed D-3629 (drain_en flags.botl mirror, DOSET weaponstatus home); all 3 probe sessions moved.
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 - **disclose tour-Priest [measure] DONE (D-3626):** C never docrts post-death (54-line TEMP trace, zero uhp<=0 calls; mons+props match JS exactly); writer=`erase_menu_or_text` corner arm (wintty.c:981-982 → docorner) vs JS corner-dismiss docrt. Port iter: brief erase_menu_or_text + docorner. Wish pair is the separate Hallu display-RNG class.
+- **toss_up→chwepon [measure] DONE (D-3640):** Knight-94330 Hallu desync = C chwepon:920 entry hcolor (drawn, discarded on the !uwep arm) vs JS no-draw clone; writer ported same iter (probe 98→121, 104→286 screens). HCOLORS 74/74 set+order — no table bug, do not re-check.
 ## Don't re-check (≤15)
 
-- D-1790…D-3639 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3640 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3639.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3639 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3640.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3640 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3640: delete the clone, import the live `hcolor` from do_name.js (edge already exists — `imports.mjs --can` ALREADY; table verified 74/74 set+order, gate fa Named: pre-existing, untouched: useupall hand-roll (in-chwepon splice+setuwep vs live invent.js e
 - D-3639: none — measurement + `[measure]` row (D-3638 recipe: `NETHACK_RNGLOG_DISP=1` re-record, no rebuild, + JS display-draw log → first display-draw diverge Named: none (no `js/`).
 - D-3638: port the missed skip-label line into the blind branch: `if (!game.program_state?.panicking && (u.ux | 0) > 0) newsym(u.ux, u.uy);` before `return` (+5 Named: (1) vision_recalc control==2 skip hero newsym (C runs loop+hero; JS skips both per the #99
 - D-3637: Hallu-statue color is `mcolors[mnum] ?? Named: none new. map_object/obj_glyph: the non-Hallu statue arm (corpsenm + spe gender + piletop 
@@ -59,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3628: `const surf = surface(u?.ux, u?.uy)` with the C `:4201` cite; doc omit retired. Named: none new.
 - D-3627: new `erase_menu_or_text(offx, offy, maxrow, clear)` export in `js/display.js` — all 4 arms in C order (tty_curs+cl_eos / term_clear_screen as grid ops Named: the `:1098` mid-life menu clear (arm ships, no JS caller — no C core caller either); the i
 - D-3626:  Named: (1) port-iter confirmations: brief erase_menu_or_text + docorner; locate the JS corner-des
-- D-3625: in the sync mirror the C `:2571–2584` fmon unlink now runs before the `if (onmap)` block (seemimic/fill_pit-core/newsym), with a JS-ORDER comment citi Named: none new (D-3482's audited unstuck-float omit stands; the C `#if 0` `:2711–2713` mx/my zer
 <!-- landmarks:end -->

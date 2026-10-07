@@ -20,7 +20,7 @@
 {"fn":"uswapwepgone","c":"888-894","status":"ported","js":["js/wield.js:uswapwepgone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"uqwepgone","c":"897-903","status":"ported","js":["js/wield.js:uqwepgone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"untwoweapon","c":"906-914","status":"ported","js":["js/wield.js:untwoweapon"],"at":"2026-10-03@bbe63333a"}
-{"fn":"chwepon","c":"918-1048","status":"ported","js":["js/wield.js:chwepon"],"d":["D-2168","D-2112"],"at":"2026-10-03@bbe63333a"}
+{"fn":"chwepon","c":"918-1048","status":"ported","js":["js/wield.js:chwepon"],"d":["D-3640","D-2168","D-2112"],"at":"2026-10-07@269f9f5ca"}
 {"fn":"welded","c":"1051-1058","status":"ported","js":["js/wield.js:welded"],"at":"2026-10-03@bbe63333a"}
 {"fn":"weldmsg","c":"1061-1074","status":"ported","js":["js/wield.js:weldmsg"],"d":["D-2221"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mwelded","c":"1078-1084","status":"ported","js":["js/wield.js:mwelded"],"d":["D-3416","D-3407"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
