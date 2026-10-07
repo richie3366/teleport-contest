@@ -6143,8 +6143,14 @@ async function status_core_lines(final = 0, opts = {}) {
     if ((((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0))
         || u.uroleplay?.blind) {
         const hb = u.HBlinded | 0;
-        const blindfoldOnly = !!(u.ublindf
-            && u.ublindf.otyp === objectNames.indexOf('BLINDFOLD'));
+        // C insight.c:1065 + youprop.h:97 — Blindfolded_only ≡
+        // (EBlinded && !(HBlinded && !BBlinded)): a worn blindfold
+        // (or towel) alone reads "deliberately"; timed/intrinsic
+        // blindness — even combined with a blindfold — reads
+        // "temporarily". (Was: worn-BLINDFOLD-otyp check — true even
+        // with concurrent timed blindness, and false for towels.)
+        const blindfoldOnly = !!((u.EBlinded | 0)
+            && !(hb && !(u.BBlinded | 0)));
         const kind = (hb & FROMOUTSIDE) ? 'permanently'
             : (hb & FROMFORM) ? 'innately'
                 : blindfoldOnly ? 'deliberately'
