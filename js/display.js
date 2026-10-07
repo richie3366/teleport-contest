@@ -4719,11 +4719,34 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
 
     if (swallowed) {
         glyph = copy_glyph_id(levl_glyph);
-        // C `:2213–2215` — keep_mons + swallowed hero cell: the engulfer
+        // C `:2211–2212` — keep_mons + swallowed hero cell: the engulfer
         // itself (mon_to_glyph defaults to rn2_on_display_rng like C).
         const uu = game.u || {};
         if (keep_mons && uu.ux === x && uu.uy === y && uu.ustuck) {
             glyph = mon_to_glyph(uu.ustuck);
+            kind = 'mon';
+        } else {
+            // C `:2213–2218` — the swallowed hero reads memory, but C
+            // still classifies that int: mon/warning/swallow sets was_mon
+            // (glyph stays levl_glyph), and object/trap/invisible memory
+            // takes the `:2219–2224` restore + `:2225+` strip arms below
+            // like the displayed glyph — else a remembered weapon leaks
+            // through the terrain draw unstripped
+            // (scen-engulf-Archeologist-94292 step 252: ')' vs '<').
+            const memId = typeof glyph?.glyph === 'number'
+                ? glyph.glyph | 0 : NO_GLYPH;
+            if ((!keep_mons
+                && (glyph_is_monster(memId) || glyph_is_warning(memId)))
+                || glyph_is_swallow(memId)) {
+                was_mon = true;
+            }
+            if (memId === GLYPH_INVISIBLE || glyph?.invisible) {
+                kind = 'invisible';
+            } else if (glyph_is_object(memId)) {
+                kind = 'obj';
+            } else if (glyph_is_trap(memId)) {
+                kind = 'trap';
+            }
         }
     } else {
         const u = game.u || {};
