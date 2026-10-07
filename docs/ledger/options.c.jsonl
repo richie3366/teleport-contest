@@ -117,7 +117,7 @@
 {"fn":"pfxfn_cond_","c":"4994-5036","status":"ported","js":["js/options.js:pfxfn_cond_"],"d":["D-3403","D-3094"],"at":"2026-10-04@7a3ae7a92","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pfxfn_font","c":"5039-5165","status":"ported","js":["js/options.js:pfxfn_font"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"pfxfn_IBM_","c":"5169-5183","status":"by-design","at":"2026-09-30@d37e25ba4","note":"uncompiled: options.c:5167 requires MICRO && !AMIGA; contest unix target"}
-{"fn":"optfn_boolean","c":"5192-5449","status":"ported","js":["js/options.js:optfn_boolean"],"d":["D-3003"],"at":"2026-09-28@7c92efae2","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_boolean","c":"5192-5449","status":"ported","js":["js/options.js:optfn_boolean"],"d":["D-3592","D-3003"],"at":"2026-10-07@0cc4333f6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spcfn_misc_menu_cmd","c":"5452-5475","status":"ported","js":["js/options.js:spcfn_misc_menu_cmd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_set_perm_invent","c":"5488-5527","status":"ported","js":["js/options.js:can_set_perm_invent"],"d":["D-3426","D-3416","D-3403"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"check_perm_invent_again","c":"5532-5540","status":"by-design","at":"2026-09-30@d37e25ba4","note":"uncompiled: options.c:5530–5542 #ifdef TTY_PERM_INVENT; config.h:612 leaves undefined"}

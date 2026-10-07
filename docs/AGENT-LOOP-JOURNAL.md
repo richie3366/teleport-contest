@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3592 cliffs-head `use_whip` writer: doset `whatis_menu`/`whatis_moveskip` bound dead `iflags.whatis_*` keys instead of `getloc_usemenu`/`getloc_moveskip` (Tourist-94111 109→185)
+
+**C locus:** `include/optlist.h` NHOPTB(whatis_menu) `:874–876` (`&iflags.getloc_usemenu`) + NHOPTB(whatis_moveskip) `:877–879` (`&iflags.getloc_moveskip`); consumers `getpos.c:1016` (menu vs cycle) + the moveskip fastmove arm; writer chain `options.c` optfn_boolean do_set (`*(addr)`) + the doset bool toggle/display.
+**JS:** 1 file (js/options.js +2/−2) + 1 test file, under caps.
+**Change:** the two `DOSET_BOOL_ADDR` keys repointed to `getloc_usemenu`/`getloc_moveskip` with optlist cites (twin defect, same C block, same table, same consumer file). No new imports/edges (same table); rc/sysconf `OPTIONS=whatis_*` flows through the same `optfn_boolean_do_set`, so it is fixed on the same lines. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** committed test 0/2 pre-fix (options.js stashed) → 2/2 post-fix. `node scripts/verify.mjs --fn use_whip` → PASS syntax (1 file: js/options.js) · PASS rule2 · PASS hidden (`verify use_whip: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`: Tourist-94111 109→handler_paranoid_confirmation@185) · REACH-OK (no RNG-tagged reach; smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** none in this unit — both whatis_* bindings now mirror C. Untouched by design: 6 other DOSET_BOOL_ADDR↔allopt addr mismatches (eight_bit_tty, extmenu, hilite_pet, safe_pet, toptenwin, weaponstatus) have no session evidence in this cliff and may be intentional wc_/naming variants — left for evidence-driven work, not audited here.
+**Next:** do not re-pop `use_whip` for Tourist-94111 (now handler_paranoid_confirmation@185 — the next head's business). Doset, rc-parse and the getpos `!`/`*` toggles now share the live whatis_* fields.
 ## 2026-10-07 — D-3591 batch recheck `mklev`: reseed pairs now run through the live `:293` guard (mklev whole; init_random arm stays a named omit)
 
 **C locus:** `mklev.c` mklev `:1577–1593` (reseed pairs `:1579–1580` / `:1591–1592`) + `rnd.c` reseed_random `:289–294` (`if (has_strong_rngseed) init_random(fn)`) + decl.c:84 (FALSE default) + sys/unix unixmain.c:824 (sole setter, inside the DEV_RANDOM fopen arm of sys_random_seed; the recorder leaves FALSE under NETHACK_SEED).

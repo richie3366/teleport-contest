@@ -10340,8 +10340,8 @@ const DOSET_BOOL_ADDR = {
     use_inverse: { obj: 'iflags', key: 'wc_inverse' },
     verbose: { obj: 'flags', key: 'verbose' },
     weaponstatus: { obj: 'iflags', key: 'weaponstatus' },
-    whatis_menu: { obj: 'iflags', key: 'whatis_menu' },
-    whatis_moveskip: { obj: 'iflags', key: 'whatis_moveskip' },
+    whatis_menu: { obj: 'iflags', key: 'getloc_usemenu' }, // C optlist.h:874 &iflags.getloc_usemenu; getpos.js reads this (D-3592)
+    whatis_moveskip: { obj: 'iflags', key: 'getloc_moveskip' }, // C optlist.h:877 &iflags.getloc_moveskip; getpos.js reads this (D-3592)
     // C optlist.h NHOPTB wizmgender set_wizonly &iflags.wizmgender (D-1701)
     wizmgender: { obj: 'iflags', key: 'wizmgender' },
     // C optlist.h NHOPTB wizweight set_wizonly &iflags.wizweight (D-1669)
