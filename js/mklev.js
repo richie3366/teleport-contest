@@ -20108,7 +20108,9 @@ function load_tut1() {
     });
     if (!game.level.flags) game.level.flags = {};
     game.level.flags.is_maze_lev = true;
-    game.level.flags.nomongen = true;
+    // C sp_lev.c lspo_level_flags "nomongen" :3812-3813 → rndmongen = 0
+    // (dat/tut-1.lua:30-31; the makemon :1168 gate reads rndmongen).
+    game.level.flags.rndmongen = false;
     // C sp_lev.c "nodeathdrops" → svl.level.flags.deathdrops = 0
     game.level.flags.deathdrops = false;
     game.level.flags.noautosearch = true;
@@ -20492,7 +20494,9 @@ function load_tut2() {
     });
     if (!game.level.flags) game.level.flags = {};
     game.level.flags.is_maze_lev = true;
-    game.level.flags.nomongen = true;
+    // C sp_lev.c lspo_level_flags "nomongen" :3812-3813 → rndmongen = 0
+    // (dat/tut-2.lua:3-4; the makemon :1168 gate reads rndmongen).
+    game.level.flags.rndmongen = false;
     // C sp_lev.c "nodeathdrops" → svl.level.flags.deathdrops = 0
     game.level.flags.deathdrops = false;
     game.level.flags.noautosearch = true;
