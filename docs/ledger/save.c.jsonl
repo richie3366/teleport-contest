@@ -15,7 +15,7 @@
 {"fn":"save_bc","c":"696-721","status":"ported","js":["js/save.js:save_bc"],"d":["D-3370"],"at":"2026-10-03@0887462dd","note":"audit 2026-10-03: no JS implementation; named omission in js/save.js dosave0 header (swallowed loose ball/chain)"}
 {"fn":"saveobj","c":"726-757","status":"split","js":["js/lev_json.js:serObj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue incl oextra (oname/omonst/omailcmd/omid)"}
 {"fn":"saveobjchn","c":"762-823","status":"split","js":["js/lev_json.js:serObjChain","js/save.js:serContext"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: chain via serObjChain; victual/tin/spbook o_id stamping via serContext"}
-{"fn":"savemon","c":"826-881","status":"split","js":["js/lev_json.js:serMon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue incl mextra + edog"}
+{"fn":"savemon","c":"826-881","status":"split","js":["js/lev_json.js:serMon"],"d":["D-3607"],"at":"2026-10-07@f72bdc4db","note":"D-3607: mw non-null flag persisted (save.c:834 analogue)"}
 {"fn":"savemonchn","c":"884-916","status":"split","js":["js/lev_json.js:serMonList","js/save.js:dosave0"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: chain via serMonList (forget_temple_entry inside); usteed/ustuck m_id stamping in dosave0"}
 {"fn":"savetrapchn","c":"920-943","status":"split","js":["js/lev_json.js:serTraps"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: JSON analogue; dst stored absolute (C relative dance adapted)"}
 {"fn":"savefruitchn","c":"951-971","status":"ported","js":["js/bones.js:savefruitchn"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fid>=0 walk; terminator/FREEING N/A"}
