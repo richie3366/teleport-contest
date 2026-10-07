@@ -1735,7 +1735,8 @@ function Stoned(u = game.u || {}) {
  * You_feel a little strange (Hallucination: normal). If !Unchanging:
  * unblessed or already polymorphed → polyself(POLY_NOFLAGS); blessed
  * original form → polyself(POLY_CONTROLLED|POLY_LOW_CTRL) then
- * mtimedone = min(mtimedone, rn2(15)+10) when still Upolyd.
+ * mtimedone = min(mtimedone, rn2(15)+10) when still Upolyd (min is a
+ * macro: losing branch draws rn2(15) twice — D-3615).
  * SPE_POLYMORPH is not this case (wand-duplicate / zapyourself).
  * potionhit D-1472 / potionbreathe D-1477 / dipsink POT_POLYMORPH still named.
  */
@@ -1748,7 +1749,14 @@ async function peffect_polymorph(otmp) {
         } else {
             await polyself(POLY_CONTROLLED | POLY_LOW_CTRL);
             if ((u.mtimedone | 0) && ((u.umonnum | 0) !== (u.umonster | 0))) {
-                u.mtimedone = Math.min(u.mtimedone | 0, rn2(15) + 10);
+                // C :1327 min() is a macro ((x)<(y)?(x):(y),
+                // hack.h:1518): the losing branch's rn2(15) evaluates
+                // TWICE (condition draw, then result draw). Math.min
+                // draws once and shifts the keystream.
+                const d1 = rn2(15);
+                if (!((u.mtimedone | 0) < d1 + 10)) {
+                    u.mtimedone = rn2(15) + 10;
+                }
             }
         }
     }

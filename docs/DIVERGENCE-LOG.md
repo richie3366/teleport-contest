@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3615 — `potion.c` peffect_polymorph: C `min` is a macro — losing branch's `rn2(15)` draws twice, `Math.min` drew once (Valkyrie-92195 PASS)
+
+- Status: fixed (Open — cliffs head `potion.c` peffect_polymorph, 1 corpus block. `verify peffect_polymorph`: 1 PASS → PROGRESS; row leaves via regen.)
+- Symptom: scen-poly-Valkyrie-92195 step 312/313 kind=rng at potion.c:1327: C `rn2(15)=10 @ peffect_polymorph` vs JS `rn2(19)=17 @ exercise(attrib.js:235)`, prev `rn2(15)=13 @ peffect_polymorph` matched; screens 313/313. C step-312 dice open with TWO `rn2(15)` draws at :1327 (`=13`, `=10`) then `rn2(19)=9 @ exercise`; JS drew one `rn2(15)=13` then `rn2(19)=17` — keystream shifted by the missing draw (same exercise call, different value).
+- C locus: `potion.c:1327` (`u.mtimedone = min(u.mtimedone, rn2(15) + 10)`) + `hack.h:1518` (`#define min(x, y) ((x) < (y) ? (x) : (y))`). Macro expansion draws the condition `rn2(15)` (=13; `500+ < 23` false) then the result `rn2(15)` (=10): mtimedone = 20. The body (D-1428) and the polyself getlin writer (D-2177, the row's `history:` tag — read once, different arm) were already faithful: step-311 polymon dice (`rn2(2)`, `rn2(19)`, `rn2(10)`, `rn2(500)`, `d(5,8)`) and all screens matched; only this expression's evaluation count was wrong.
+- JS was: `js/potion.js:1751` `u.mtimedone = Math.min(u.mtimedone | 0, rn2(15) + 10)` — single evaluation: drew `rn2(15)=13`, set mtimedone = 23, shifted every later draw.
+- Fix: expanded the macro in C order — `const d1 = rn2(15); if (!((u.mtimedone | 0) < d1 + 10)) u.mtimedone = rn2(15) + 10;` (condition-true arm keeps mtimedone with one draw, exactly like C; reachable when the timer was scaled down, `ulevel < mlvl`). No new imports; no DIAG/FORCE/seed gates. Same-file audit: other `min`/`max` in potion.c (`:671`, `:1827`, `:2524`) take no RNG args — no companions.
+- JS: `js/potion.js` only (doc line + gate, ~10 lines) + `scripts/peffect-polymorph-min-macro.test.mjs` (pins C-recorded `3366: rn2(15)=13`, `3367: rn2(15)=10`, `3368: rn2(19)=9`, total 3377).
+- Callers: C `potion.c:1418` (peffects POT_POLYMORPH) → JS `js/potion.js:2173` (already wired, D-1428); no other C call sites (brief: 2 refs incl. decl).
+- Verify: `node scripts/verify.mjs --fn peffect_polymorph` → PASS syntax (1 changed js file: js/potion.js) · PASS rule2 · PASS hidden: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-poly-Valkyrie-92195: PASS) · PASS reach (no RNG-tagged reach; smoke 24/24) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS. Extra: `node --test scripts/peffect-polymorph-min-macro.test.mjs` → 1 pass.
+- Named omissions: none new. The condition-true (single-draw) arm is ported but unpinned by any corpus session (no session reaches scaled-down mtimedone here).
+- **Ledger:** peffect_polymorph ported
+- Next: row addressed; next work is the next Open — cliffs row (`mhitu.c` summonmu). Do not re-pop `peffect_polymorph` for Valkyrie-92195.
+
 ## D-3614 — cliffs-head dog_move writer dog_goal: portal scan walked the dead game.ftrap chain, blind to the wished magic portal in live level.traps (Caveman-94281 → PASS, Valkyrie-94361 → step 24)
 
 - **Status:** fixed (Open — cliffs head `dogmove.c` dog_move, 2 corpus blocks. `verify dog_move`: 1 PASS + 1 moved → PROGRESS; row leaves via regen.)
