@@ -8,7 +8,7 @@
 import { game } from './gstate.js';
 import { lua_number_unpacked, lua_integer_unpacked, luaL_checkinteger_unpacked, lua_tointeger_unpacked } from './nhlua.js';
 import { GameMap } from './game.js';
-import { rn2, rnd, rn1, rnz } from './rng.js';
+import { rn2, rnd, rn1, rnz, rn2_on_display_rng, reseed_random } from './rng.js';
 import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
 import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri, upstart, swapbits, stripdigits, str_lines_maxlen, strncmpi } from './hacklib.js';
@@ -2920,11 +2920,11 @@ export function l_nhcore_init() {
 
 /**
  * C ref: mklev.c mklev `:1577–1593` — whole body in C order.
- * `:1579–1580` reseed_random(rn2) / reseed_random(rn2_on_display_rng) are
- * no-ops unless has_strong_rngseed (rnd.c:289–294); the recorder leaves it
- * FALSE under NETHACK_SEED (recorder sys/unix/unixmain.c sys_random_seed),
- * and the scored deterministic build never sets it (by-design, like the
- * ledger's rnd.c:reseed_random row). Async only because getbones and
+ * `:1579–1580` / `:1591–1592` reseed_random(rn2) / reseed_random(rn2_on_display_rng)
+ * run through the live `:293` guard (rnd.c:289–294; js/rng.js); the recorder
+ * leaves has_strong_rngseed FALSE under NETHACK_SEED (recorder sys/unix/unixmain.c
+ * sys_random_seed), and the scored deterministic build never sets it, so the
+ * init_random arm stays a named omit. Async only because getbones and
  * makelevel await (VFS / des); init_mapseen stays dynamically imported
  * from dungeon.js. There is deliberately NO feature recount here: C counts
  * des levels in the load_special epilogue (sp_lev.c:6484, mirrored in
@@ -2935,6 +2935,8 @@ export function l_nhcore_init() {
  */
 export async function mklev() {
     const g = game;
+    reseed_random(rn2); // C :1579
+    reseed_random(rn2_on_display_rng); // C :1580
     // C :1582 — init_mapseen before getbones.
     const { init_mapseen } = await import('./dungeon.js');
     init_mapseen(g.u?.uz);
@@ -2942,7 +2944,8 @@ export async function mklev() {
     g.in_mklev = true; // C :1586
     await makelevel(); // C :1587
     level_finalize_topology(); // C :1589 (resets in_mklev at :1551)
-    // C :1591–1592 — trailing reseed_random pair, likewise no-ops.
+    reseed_random(rn2); // C :1591
+    reseed_random(rn2_on_display_rng); // C :1592
 }
 
 // C ref: mklev.c clear_level_structures()

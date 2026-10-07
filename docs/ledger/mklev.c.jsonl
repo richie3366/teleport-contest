@@ -28,7 +28,7 @@
 {"fn":"water_has_kelp","c":"1432-1440","status":"ported","js":["js/mklev.js:water_has_kelp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mineralize","c":"1449-1541","status":"ported","js":["js/mklev.js:mineralize"],"d":["D-1849"],"at":"2026-10-03@bbe63333a"}
 {"fn":"level_finalize_topology","c":"1544-1574","status":"ported","js":["js/mklev.js:level_finalize_topology"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"mklev","c":"1577-1593","status":"ported","js":["js/mklev.js:mklev"],"d":["D-3587"],"at":"2026-10-07@49c10be08","note":"audit 2026-10-03: reseed_random(rn2/rn2_on_display_rng) calls omitted (JS single-RNG arch); all control flow ported"}
+{"fn":"mklev","c":"1577-1593","status":"ported","js":["js/mklev.js:mklev"],"d":["D-3591","D-3587"],"at":"2026-10-07@e03df7595","note":"audit 2026-10-03: reseed_random(rn2/rn2_on_display_rng) calls omitted (JS single-RNG arch); all control flow ported"}
 {"fn":"topologize","c":"1597-1656","status":"ported","js":["js/mklev.js:topologize"],"d":["D-3407","D-2597"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"find_branch_room","c":"1660-1673","status":"ported","js":["js/mklev.js:find_branch_room"],"d":["D-3048"],"at":"2026-09-28@1aaa15680"}
 {"fn":"pos_to_room","c":"1677-1687","status":"ported","js":["js/mklev.js:pos_to_room"],"d":["D-3407","D-3301"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
