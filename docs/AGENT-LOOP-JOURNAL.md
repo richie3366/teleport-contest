@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3595 trapeffect_anti_magic cliff writer: trap.js Antimagic_prop read flats only, skipping C's `:2347–2371` implosion arm for the cloak-MR hero
+
+**C locus:** `nethack-c/upstream/src/trap.c:2347` (`if (Antimagic)` implosion arm `:2347–2371`, first draw `:2353`); `include/youprop.h:57` (`Antimagic ≡ HAntimagic||EAntimagic` = uprops[ANTIMAGIC]); `src/worn.c:123–125` (setworn confers worn `oc_oprop` into uprops extrinsic).
+**JS:** `js/trap.js` (+9/−3: import name + doc + predicate) · `scripts/trapeffect-antimagic-uprops.test.mjs` (new committed regression test: seg0 prefix 178, first trapeffect draw `rnd(4)=1` + «sluggish»).
+**Change:** `js/trap.js` only, existing const.js edge (no `imports.mjs --can` needed): `Antimagic_prop()` now ORs `uprops[ANTIMAGIC].intrinsic/extrinsic` with the flats (hero_Antimagic shape, youprop.h cite); `ANTIMAGIC` added to the const.js import. No behavior change when flats already true.
+**Verify:** new test pre-fix FAIL (`first trap draw is C's rnd(4)=1 (got "d(2,6)=6 @ trapeffect_anti_magic(trap.js:5661)")`) → post-fix PASS (1/1). `node scripts/verify.mjs --fn trapeffect_anti_magic`: `verify trapeffect_anti_magic: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-trap-Wizard-94001: moved → welcome at step 227, was 178; board rngM 7544→8682/8682, scrM 179→227) · REACH-OK (4/4 reach sessions PASS, 0 regressed) · syntax 1 file · rule2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** none new — trap.js flats-only `Passes_walls`/`Half_spell_damage` readers untouched (both false on both sides at this trigger; ship if a board row names them).
+**Next:** regenerated cliffs head after this ships (probe session now blocked on `welcome` screen at step 227, toplines identical).
 ## 2026-10-07 — D-3594 doterrain: corner-menu dismiss via dismiss_nhw_menu, not docrt() (reveal_terrain cliff writer — Hallu triple-paint → single)
 
 **C locus:** - `doterrain`: cmd.c:1098–1191 (recalc_mapseen; 3+1+2 menu items; select_menu/destroy; which-mapping; 6 reveal/wiz cases; ECMD_OK — no docrt/flush anywhere in the body).

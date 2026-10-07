@@ -33,7 +33,7 @@
 {"fn":"trapeffect_web","c":"2106-2276","status":"ported","js":["js/trap.js:trapeffect_web"],"d":["D-2502"],"at":"seed@a30a7de84"}
 {"fn":"trapeffect_statue_trap","c":"2279-2290","status":"ported","js":["js/trap.js:trapeffect_statue_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_magic_trap","c":"2293-2320","status":"ported","js":["js/trap.js:trapeffect_magic_trap"],"d":["D-2258"],"at":"2026-10-03@bbe63333a"}
-{"fn":"trapeffect_anti_magic","c":"2323-2450","status":"ported","js":["js/trap.js:trapeffect_anti_magic"],"at":"2026-10-03@bbe63333a"}
+{"fn":"trapeffect_anti_magic","c":"2323-2450","status":"ported","js":["js/trap.js:trapeffect_anti_magic"],"d":["D-3595"],"at":"2026-10-07@f11d0acff"}
 {"fn":"trapeffect_poly_trap","c":"2453-2525","status":"ported","js":["js/trap.js:trapeffect_poly_trap"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: monster shieldeff_mon omitted (display-only flash)"}
 {"fn":"trapeffect_landmine","c":"2528-2657","status":"ported","js":["js/trap.js:trapeffect_landmine"],"at":"2026-10-02@135e9a8dd","note":"stale: js/trap.js:5851 body whole; C never called at s132 (stepFns empty, rnd(16) is first line); Soundeffect is empty macro"}
 {"fn":"trapeffect_rolling_boulder_trap","c":"2661-2707","status":"ported","js":["js/trap.js:trapeffect_rolling_boulder_trap"],"d":["D-3426","D-1874"],"at":"2026-10-04@0d801c73f"}
