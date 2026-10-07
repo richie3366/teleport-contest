@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3594 doterrain: corner-menu dismiss via dismiss_nhw_menu, not docrt() (reveal_terrain cliff writer — Hallu triple-paint → single)
+
+**C locus:** - `doterrain`: cmd.c:1098–1191 (recalc_mapseen; 3+1+2 menu items; select_menu/destroy; which-mapping; 6 reveal/wiz cases; ECMD_OK — no docrt/flush anywhere in the body).
+**JS:** js/detect.js (doterrain dismiss + imports + doc cite). 1 changed js file. scripts/doterrain-corner-dismiss.test.mjs new (replays the committed recipe prefix through moves[134]='c', pins row 17 to C's E).
+**Change:** dismiss via the live `dismiss_nhw_menu()` (js/invent.js:3095; corner geom → `docorner` gbuf resend, zero display-RNG burns — sibling precedent used by every other corner menu) on terminal keys only (ESC/space/enter/letter pick; invalid re-prompts with the menu still open). Dropped the now-unused `docrt`/`flush_screen` names from doterrain's display.js import (flush_topl_more kept); `dismiss_nhw_menu` joins the existing invent.js dynamic import (imports.mjs ALREADY, no new edge). Whole-function re-verified this iter: recalc_mapseen, items/gates, which-mapping, all 6 cases, ECMD_OK.
+**Verify:** preflight `verify.mjs --no-cohort` PASS on the clean tree. `verify.mjs --fn doterrain,reveal_terrain` → PASS syntax (1 changed js file) · PASS rule2 · hidden note doterrain (none blocked at baseline) · REACH-OK doterrain (smoke 24/24) · hidden PROGRESS reveal_terrain: 0 PASS, 1 moved, 0 no-movement (scen-trap-Wizard-94001: s135 → trapeffect_anti_magic s178) · REACH-OK reveal_terrain (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7; VERIFY: PASS. Movement: `verify reveal_terrain: 0 PASS, 1 moved, 0 no-movement`.
+**Named:** - `doterrain`: none — body whole, dismiss now corner-faithful.
+**Next:** same hand-rolled pattern (`_menu_overlay=false; docrt(); flush_screen(1)` after paint_corner_nhw_menu) survives at js/do_name.js:1561, js/teleport.js:2113, js/shk.js:5600 — different C functions/files, so each is its own future iteration, not this one: check each menu's C geometry (fullscreen keeps docrt, corner takes dismiss_nhw_menu). Probe session's next owner (board re-attributes on rescore): trapeffect_anti_magic s178.
 ## 2026-10-07 — D-3593 batch audit `rnd.c` reseed_random: guard live, all 6 callers wired, true arm is OS entropy with no scored analogue (no js/)
 
 **C locus:** `rnd.c:289–295` `reseed_random` (`if (has_strong_rngseed) init_random(fn)`); `init_random` (`:281–285`) = `set_random(sys_random_seed(), fn)`; `has_strong_rngseed` default FALSE (`decl.c:84`), sole setter `sys/unix/unixmain.c:824` inside the DEV_RANDOM `fopen` arm of `sys_random_seed` (`:812–839`: `/dev/random` bytes, else `getnow()×pid` fallback).

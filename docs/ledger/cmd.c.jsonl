@@ -25,7 +25,7 @@
 {"fn":"enter_explore_mode","c":"952-983","status":"ported","js":["js/cmd.js:enter_explore_mode"],"d":["D-3402","D-2845"],"at":"2026-10-06@789009530","note":"retire D-3523: get_unix_pw clause is the live Rule #2 fallback (:187-189 null + :199-210 C-exact null path), not a missing arm; body whole js/cmd.js:267-305; callers allmain.js:281, getline.js:483-484"}
 {"fn":"makemap_prepost","c":"986-1067","status":"ported","js":["js/wizcmds.js:makemap_prepost"],"d":["D-3402","D-2295"],"at":"2026-10-04@e77f3975a"}
 {"fn":"levltyp_to_name","c":"1089-1094","status":"ported","js":["js/cmd.js:levltyp_to_name"],"d":["D-3402","D-3296"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
-{"fn":"doterrain","c":"1098-1191","status":"ported","js":["js/detect.js:doterrain"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 6 cases incl wiz arms"}
+{"fn":"doterrain","c":"1098-1191","status":"ported","js":["js/detect.js:doterrain"],"d":["D-3594"],"at":"2026-10-07@2326dfc95","note":"audit 2026-10-03: all 6 cases incl wiz arms"}
 {"fn":"u_have_seen_whole_selection","c":"1195-1209","status":"ported","js":["js/cmd.js:u_have_seen_whole_selection"],"at":"2026-10-03@bbe63333a"}
 {"fn":"u_have_seen_bounds_selection","c":"1213-1242","status":"ported","js":["js/cmd.js:u_have_seen_bounds_selection"],"at":"2026-10-03@bbe63333a"}
 {"fn":"u_can_see_whole_selection","c":"1246-1259","status":"ported","js":["js/cmd.js:u_can_see_whole_selection"],"at":"2026-10-03@bbe63333a"}
