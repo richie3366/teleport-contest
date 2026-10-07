@@ -141,4 +141,4 @@
 {"fn":"sp_level_coder_init","c":"6336-6376","status":"ported","js":["js/mklev.js:sp_level_coder_init"],"d":["D-2643"],"at":"seed@a30a7de84"}
 {"fn":"l_register_des","c":"6435-6441","status":"by-design","d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"create_des_coder","c":"6444-6448","status":"ported","js":["js/mklev.js:create_des_coder"],"at":"2026-10-03@bbe63333a"}
-{"fn":"load_special","c":"6454-6502","status":"split","js":["js/mklev.js:load_special"],"d":["D-3406","D-3007"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"load_special","c":"6454-6502","status":"split","js":["js/mklev.js:load_special","js/mklev.js:load_special_proto"],"d":["D-3587","D-3406","D-3007"],"at":"2026-10-07@49c10be08","note":"audited D-3406: whole vs C"}
