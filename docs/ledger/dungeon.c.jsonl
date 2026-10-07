@@ -61,7 +61,7 @@
 {"fn":"In_V_tower","c":"1907-1910","status":"ported","js":["js/const.js:In_V_tower"],"at":"2026-10-03@bbe63333a"}
 {"fn":"On_W_tower_level","c":"1914-1919","status":"ported","js":["js/dungeon.js:On_W_tower_level"],"at":"2026-10-03@bbe63333a"}
 {"fn":"In_W_tower","c":"1923-1938","status":"ported","js":["js/dungeon.js:In_W_tower"],"d":["D-2959"],"at":"seed@a30a7de84"}
-{"fn":"In_hell","c":"1942-1945","status":"ported","js":["js/do.js:In_hell"],"at":"2026-10-03@bbe63333a"}
+{"fn":"In_hell","c":"1942-1945","status":"ported","js":["js/do.js:In_hell"],"d":["D-3616"],"at":"2026-10-07@a35fb0489"}
 {"fn":"find_hell","c":"1949-1953","status":"ported","js":["js/dungeon.js:find_hell"],"at":"2026-10-03@bbe63333a"}
 {"fn":"goto_hell","c":"1957-1963","status":"ported","js":["js/do.js:goto_hell"],"at":"2026-10-03@bbe63333a"}
 {"fn":"single_level_branch","c":"1967-1974","status":"ported","js":["js/teleport.js:single_level_branch"],"at":"2026-10-03@bbe63333a"}

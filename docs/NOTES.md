@@ -30,20 +30,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
 ## Don't re-check (≤15)
 
-- D-1790…D-3615 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3616 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3615.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3615 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3616.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3616 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3616: 
 - D-3615: 
 - D-3614: dog_goal portal scan walks the doidtrap union (ftrap store, then level.traps, deduped). Named: none in the portal arm.
 - D-3613: the in-file dopray/dosacrifice `| 0` idiom at the :2426 site: `if (!(gnostic | 0)) { gnostic = 1; livelog } else { gnostic = (gnostic | 0) + 1 }` (alw Named: unchanged from D-0912 (non-Cleric/Knight `known_spell(SPE_TURN_UNDEAD)`/spelleffects fallb
@@ -58,5 +59,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3604: measured, not theorized (recorder screens + C RNG log): step-8 C message `… 'debug_hunger' option toggled on.` and the step-29 menu row `q - debug_hun Named: - `gethungry`: none in-body — C :3162–3277 whole in JS.
 - D-3603: the two C prompt items at the call site per the in-file sibling precedent (`handler_menu_objsyms`, `handler_whatis_coord`, `handler_pickup_burden`): ` Named: live `iflags.menu_headings` read-back (C-domain attr 7/0/… → display-bit mapping; all sibl
 - D-3602: `js/options.js` doset() only, no new imports (same-module optfns): the gameview `roleOptfn` chain now routes windowtype/catname/dogname/horsename/msgh Named: none in this unit — all 6 D-3580 literals now mirror C `:9038` (windowtype 'tty' identical
-- D-3601: added `y_monnam` to the existing do_name.js import (imports.mjs ALREADY, no new edge); ported the steed if/else in C order at the impaired gate with C Named: other inline-block deferrals stay named (Passes_walls/ooze/Underwater/tunnels/Blind feel_l
 <!-- landmarks:end -->

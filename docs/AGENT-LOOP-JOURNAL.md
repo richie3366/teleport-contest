@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-07 — D-3616 cliffs-head summonmu writer minion.js `Inhell()`: `dnum===GEHENNOM`(5) read false in Gehennom (dnum 1); hellish flag (Wizard-91112 PASS)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-10-07 — audit 2488–2496 @b226c2d08: review D-3607…D-3615 (8A/1D/0Q, 0 Must-fix) + full rescore 847/953
 
 **C locus:** n/a (review iteration; re-measured every SHA's verify vs pinned C).
