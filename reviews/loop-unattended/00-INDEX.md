@@ -2540,3 +2540,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2528-aff28fb26-query-promptstyle.md](./2528-aff28fb26-query-promptstyle.md) | `aff28fb26` | D-3649 query prompts read relayed style (77→PASS) | **ACCEPT** |
 | [2529-064fb35ea-classes-preselect-mark.md](./2529-064fb35ea-classes-preselect-mark.md) | `064fb35ea` | D-3650 choose_classes_menu preselect '*' (88→135) | **ACCEPT** |
 | [2530-fab08090a-fruit-pline-promise.md](./2530-fab08090a-fruit-pline-promise.md) | `fab08090a` | D-3651 optfn_fruit awaited pline (135→PASS) | **ACCEPT** |
+| [2531-70d5b54ed-yn-function-menu-prompt.md](./2531-70d5b54ed-yn-function-menu-prompt.md) | `70d5b54ed` | D-3652 yn_function_menu prompt rows (85→99) | **ACCEPT** |
+| [2532-376b093b6-optfn-boolean-usecolor.md](./2532-376b093b6-optfn-boolean-usecolor.md) | `376b093b6` | D-3653 optfn_boolean use_color gate (99→PASS) | **ACCEPT** |
+| [2533-80e386ab0-handler-disclose-prompt.md](./2533-80e386ab0-handler-disclose-prompt.md) | `80e386ab0` | D-3654 handler_disclose prompts (68→96) | **ACCEPT** |
+| [2534-1e2cab839-handler-menustyle-prompt.md](./2534-1e2cab839-handler-menustyle-prompt.md) | `1e2cab839` | D-3655 handler_menustyle prompt (96→PASS) | **ACCEPT** |
+| [2535-bb5cef33f-mfind0-warn-flush.md](./2535-bb5cef33f-mfind0-warn-flush.md) | `bb5cef33f` | D-3656 mfind0 warn flush (64→PASS) | **ACCEPT** |
+| [2536-d72c11916-mdrop-obj-live-import.md](./2536-d72c11916-mdrop-obj-live-import.md) | `d72c11916` | D-3657 mdrop_obj clone→import (PASS) | **ACCEPT** |
+| [2537-e3b4ef479-movebubbles-vision-loop.md](./2537-e3b4ef479-movebubbles-vision-loop.md) | `e3b4ef479` | D-3658 movebubbles vision loop (PASS) | **ACCEPT** |
+| [2538-3ea3d48c3-des-class-female.md](./2538-3ea3d48c3-des-class-female.md) | `3ea3d48c3` | D-3659 des class female=0 (71→81) | **ACCEPT** |
