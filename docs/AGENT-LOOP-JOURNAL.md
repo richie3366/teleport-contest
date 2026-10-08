@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3697 cliffs-head family `dogmove.c` dog_invent `:429–434`: wire the MAIL_STRUCTURES mail skip + mines/soko prize exclusion (D-2417 named omits; dog_invent partial → ported; parked probe byte-identical)
+
+**C locus:** dogmove.c:427–434 fetch gate: `:429–431` `obj->otyp != SCR_MAIL` under MAIL_STRUCTURES (unconditional — global.h:430, so live); `:432–434` `!(is_mines_prize(obj) || is_soko_prize(obj))` (obj.h:435–436, o_id vs achieveo prize oids); nofetch `:138` {BALL,CHAIN,ROCK} already matched in JS.
+**JS:** js/dogmove.js (import :12–16, const :138–141, guards :1017–1027); scripts/doginvent-fetch-guards.test.mjs (new, 4 its: headless dog_move with after=true at udist 2 — invent runs, dog_goal -2 early return, movement body untouched; seeded RNG, apport 18).
+**Change:** js/dogmove.js only — the two guards in C order after the nofetch check (mail first `:429–431`, then prizes `:432–434`), each with its C cite; is_mines_prize/is_soko_prize added to the pre-existing mkobj.js edge (imports.mjs --can: ALREADY, no new edge); file-local `const SCR_MAIL = objectNames.indexOf('SCR_MAIL')` (house pattern mail.js:49/eat.js:172/mkobj.js:152); envelope comment updated.
+**Verify:** focused test 1/4 pre-fix (stashed js/: control picked up, mail + both prizes wrongly picked up) → 4/4 post-fix. `node scripts/verify.mjs --fn dog_invent` → PASS syntax (1 file) · PASS rule2 · note hidden (no corpus session blocked on dog_invent at baseline — D-3690/D-3693 coverage-class shape; movement is the focused red→green) · PASS reach (312 baseline-PASS reach it; 80-run spread 80 PASS → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Parked probe `hidden-proxy verify mon_wield_item` post-change: still step 99 same owner, 0 worse → NO MOVEMENT, expected and honest (D-3694/D-3696: no game writer exists; any move would be C-wrong).
+**Named:** none new. dog_invent's D-2417 envelope is complete (drop/APPORT pickup, underfoot-eat, AT_WEAP tail D-3695, mail + prize guards this iter).
+**Next:** probe stays parked (D-3694/D-3696 falsifiers unchanged: audit-owned hook adjudication or fixed-recorder re-record + rescore). Corpus unchanged: 938 + 13 env + 2 parked recorder-artifacts (D-3684/D-3694).
 ## 2026-10-08 — saturated stop #18 (live queue still empty at 938/953; post-audit port iter, not an audit iter; audit owns re-record + rescore + growth)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
