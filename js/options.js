@@ -10501,7 +10501,7 @@ const DOSET_BOOL_ADDR = {
     goldX: { obj: 'flags', key: 'goldX' },
     help: { obj: 'flags', key: 'help' },
     herecmd_menu: { obj: 'flags', key: 'herecmd_menu' },
-    hilite_pet: { obj: 'iflags', key: 'hilite_pet' },
+    hilite_pet: { obj: 'iflags', key: 'wc_hilite_pet' }, // C optlist.h:366 &iflags.wc_hilite_pet (flag.h:508 hilite_pet ≡ wc_hilite_pet; the short key was a phantom the paint reader never saw)
     hilite_pile: { obj: 'iflags', key: 'hilite_pile' },
     hitpointbar: { obj: 'iflags', key: 'wc2_hitpointbar' }, // C: &iflags.wc2_hitpointbar
     idlecheckpoint: { obj: 'iflags', key: 'idlecheckpoint' },
@@ -10775,7 +10775,7 @@ export async function optfn_boolean(optidx, req, negated, opts) {
             // `WINDOWPORT(tty) || WINDOWPORT(curses)`; scored build is tty.
             if (windowport_tty() || windowport_curses()) {
                 if (!game.iflags) game.iflags = {};
-                if (game.iflags.hilite_pet && !game.iflags.wc2_petattr)
+                if (game.iflags.wc_hilite_pet && !game.iflags.wc2_petattr)
                     game.iflags.wc2_petattr = ATR_INVERSE;
             }
             mark_opt_need_redraw(); // C `go.opt_need_redraw = TRUE`
@@ -10918,7 +10918,7 @@ export async function optfn_boolean_do_set(name, negated, initial = false) {
         // `WINDOWPORT(tty) || WINDOWPORT(curses)`; scored build is tty.
         if (windowport_tty() || windowport_curses()) {
             if (!game.iflags) game.iflags = {};
-            if (game.iflags.hilite_pet && !game.iflags.wc2_petattr)
+            if (game.iflags.wc_hilite_pet && !game.iflags.wc2_petattr)
                 game.iflags.wc2_petattr = ATR_INVERSE;
         }
         mark_opt_need_redraw(); // C `:5310`

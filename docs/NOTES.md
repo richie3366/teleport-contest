@@ -30,20 +30,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired).
 ## Don't re-check (≤15)
 
-- D-1790…D-3674 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3675 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3674.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3674 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3675.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3675 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3675: js/options.js only, 3 lines (D-3669 data-home class) — the DOSET row → `key: 'wc_hilite_pet'` + optlist.h:366/flag.h:508 cite; both after-change reads Named: (1) other DOSET/allopt-twin home splits are unaudited and unreached — eight_bit_tty, extme
 - D-3674: js/display.js only — new engrcorr_map_attr(gid) beside the attr family (`:495`: banked-id check vs cmap_to_glyph(S_ENGRCORR), live game.gs.showsyms co Named: (1) the `:2934` has_rogue_color first-arm (ROGUESET + IBM handling, never active on contes
 - D-3673: js/display.js only — (1) `:2653` arm in C order: seed symidx from the integer glyph id via the live glyphmap_symidx (valid banked ids only; NO_GLYPH/J Named: none new in this unit — the twin's pre-existing omissions stand (glyphmap[] base copy + sy
 - D-3672: `js/save.js` only — deleted the force/save/restore triplet (3 lines) and rewrote the comment with the `:571`/`:596` order cite; role_init now runs wit Named: (1) try_restore_save's remaining JSON-vs-binary saveshape gap stands (dorecover by-design 
@@ -58,5 +59,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3663: replace the spurious `docrt()` with `await dismiss_nhw_menu()` (js/do_name.js:1569) — the invent.js destroy analogue whose corner arm is erase_menu_or Named: none new. (Fullscreen-arm docrt inside dismiss_nhw_menu retained — C erase_menu_or_text cl
 - D-3662: `js/save.js` — (1) `game.program_state.restoring = REST_GSTATE` right after payload validation, before any hydration (C `:795` order; stays through th Named: (1) C's three-phase REST progression (REST_GSTATE → REST_LEVELS other-ledgers loop → REST_
 - D-3661: TEMP-C log-only paint/state/flush history in the ignored recorder tree: display.c newsym/show_glyph/flush_screen gated on (22,15), restore.c dorecover Named: none (no port in this commit).
-- D-3660: none — no writer can be named from `show` + `brief` (null jsOwner/entries; the only other owner paints botl, not the map), and the owner's `[measure]` Named: (1) recorder screen-capture defect still needs human/audit fix + session re-record-or-excl
 <!-- landmarks:end -->
