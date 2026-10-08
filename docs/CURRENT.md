@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-08** — full `sessions` on `c687c6082`
-(audit **2531–2538**, 2026-10-08T04:44:44.998Z).
+Score last measured: **2026-10-08** — full `sessions` on `fdb14c660`
+(audit **2539–2545**, 2026-10-08T08:23:57.483Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`365+1.67/turn` (R² 0.73).
+`343+1.55/turn` (R² 0.76).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-08 01:29Z)** | **18 / 44**, 8,497 / 11,265 pts, RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** |
+| **Held-out (judge 2026-10-08 07:09Z)** | **18 / 44**, 8,498 / 11,265 pts, RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `365+1.67/turn` (R² 0.73) |
+| Speed label | `343+1.55/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,497 vs lockwo 7,776; their RNG 61.0 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts 8,489→**8,497** (+8), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 01:29Z (through ~D-3647) — sixth cliff-phase movement (D-3643…D-3669).
-**Corpus — picker and proxy (2026-10-08 04:58Z; 953/953 entries, 0 unrecorded):**
-**904 / 953** PASS (94.9 %), RNG 99.81 %, screens 99.0 %; `full: true`. Worst families: `scen-options` 14/20, `scen-tutorial` 15/20, `scen-tour` 25/29, `scen-descend` 18/20, `scen-dig` 18/20, `scen-impaired` 18/20, `scen-quest` 18/20, `scen-town` 18/20. Audits record this line next to held-out: the board must rise **with** it. +5 since the last audit (899→904, all per-iteration — Tourist-94171 via D-3652→D-3653, Wizard-94291 via D-3654→D-3655, Healer-94396 via D-3656, Ranger-94320 via D-3657, Tourist-92100 via D-3658 — + 0 on the full rescore, which reproduced the working board exactly on the second run; the first run hit 1 transient worker flake on Priest-92056, clean PASS on direct replay and on re-run); 0 PASS→FAIL, 0 hangs.
-Reviews 1225–2538 (index; no row 1618): 1149 ACCEPT, 57 WITH-DEBT, 107 QUALITY-RISK (2531–2538: 8A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,498 vs lockwo 7,776; their RNG 61.0 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts 8,497→**8,498** (+1), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 07:09Z (through ~D-3665) — seventh cliff-phase movement (D-3662…D-3669).
+**Corpus — picker and proxy (2026-10-08 08:29Z; 953/953 entries, 0 unrecorded):**
+**911 / 953** PASS (95.6 %), RNG 99.99 %, screens 99.3 %; `full: true`. Worst families: `scen-options` 14/20, `scen-tutorial` 16/20, `scen-tour` 25/29, `scen-descend` 18/20, `scen-dig` 18/20, `scen-impaired` 18/20, `scen-kit` 17/18, `scen-engrave` 19/20. Audits record this line next to held-out: the board must rise **with** it. +7 since the last audit (904→911, all per-iteration — Wizard-94001 via D-3662→D-3663, Samurai-94239 via D-3664, Priest-92179 via D-3665, Rogue-92037 via D-3667, Barbarian-94356 + Tourist-94042 + Rogue-94216 via D-3668 — + 0 on the full rescore, which reproduced the working board exactly on the first run); 0 PASS→FAIL, 0 hangs.
+Reviews 1225–2545 (index; no row 1618): 1156 ACCEPT, 57 WITH-DEBT, 107 QUALITY-RISK (2539–2545: 7A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score

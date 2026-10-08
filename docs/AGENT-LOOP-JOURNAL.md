@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — audit 2539–2545 @fdb14c660: review D-3662/D-3663/D-3664/D-3665/D-3667/D-3668/D-3669 (7A/0D/0Q, 0 Must-fix) + full rescore 911/953
+
+**Reviews:** 7 cliff SHAs, each re-measured on its own code in a scratch worktree — D-3662 suppression 227→238, D-3663 dismiss 94001 PASS (verify count 2→1: iteration-time board dirtied by its own bare-deletion experiment; substance holds, noted in review), D-3664 pickinv PASS, D-3665 cutoff PASS, D-3667 corner teardown PASS (49/49 tagged reach), D-3668 themeroom 3 PASS + 94391 0→44 (two-worktree score re-measure; 881/881 reach), D-3669 armorstatus 44→110. No C-wrongs; `vision_recalc` now an unused import in jsmain.js (debt note, next touch drops it). Seeded-ported sample (experience, fmt_elapsed_time, use_offensive, candle_light_range, flip_through_book): all 5 stand, no ledger set.
+**Score:** sessions 44/44 (RNG 792,838/792,838, Scr 11,405/11,405 — identical totals); corpus 904→911/953 (+7, all per-iteration; full rescore reproduced the working board exactly, 0 PASS→FAIL, 0 hangs); held-out 18/44, 8,497→8,498 pts (+1) at judge 07:09Z.
+**Next:** cliffs regen from the new board; mon_wield_item/Priest-94382 still needs the fixed-recorder re-record (D-3570 falsifier).
 ## 2026-10-08 — D-3669 cliffs-head `botl.c` do_statusline2 writer: doset armorstatus home — the D-3629 twin (1 moved 44→110)
 
 **C locus:** `include/optlist.h:167–168` (`&flags.armorstatus`) + `include/flag.h:20` (home is struct flag; no `iflags.armorstatus` anywhere upstream) + `src/botl.c:1256–1259` (`if (flags.armorstatus) armor_status(...)`) + `src/options.c:5336/:5349–5351` (doset after-change reassess + botl) + readers `worn.c:141/:180`, `botl.c:1640/:1709`.

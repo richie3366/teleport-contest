@@ -2548,3 +2548,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2536-d72c11916-mdrop-obj-live-import.md](./2536-d72c11916-mdrop-obj-live-import.md) | `d72c11916` | D-3657 mdrop_obj clone→import (PASS) | **ACCEPT** |
 | [2537-e3b4ef479-movebubbles-vision-loop.md](./2537-e3b4ef479-movebubbles-vision-loop.md) | `e3b4ef479` | D-3658 movebubbles vision loop (PASS) | **ACCEPT** |
 | [2538-3ea3d48c3-des-class-female.md](./2538-3ea3d48c3-des-class-female.md) | `3ea3d48c3` | D-3659 des class female=0 (71→81) | **ACCEPT** |
+| [2539-ac9a658bd-dorecover-restore-suppression.md](./2539-ac9a658bd-dorecover-restore-suppression.md) | `ac9a658bd` | D-3662 dorecover restore suppression (227→238) | **ACCEPT** |
+| [2540-0b3e7bafd-docallcmd-menu-dismiss.md](./2540-0b3e7bafd-docallcmd-menu-dismiss.md) | `0b3e7bafd` | D-3663 docallcmd_menu dismiss (94001 PASS) | **ACCEPT** |
+| [2541-f833c81a8-display-pickinv-message.md](./2541-f833c81a8-display-pickinv-message.md) | `f833c81a8` | D-3664 display_pickinv message (PASS) | **ACCEPT** |
+| [2542-a760577e1-tty-end-menu-cutoff.md](./2542-a760577e1-tty-end-menu-cutoff.md) | `a760577e1` | D-3665 tty_end_menu cutoff (PASS) | **ACCEPT** |
+| [2543-f9f962b7e-doattributes-corner-teardown.md](./2543-f9f962b7e-doattributes-corner-teardown.md) | `f9f962b7e` | D-3667 doattributes corner teardown (PASS) | **ACCEPT** |
+| [2544-970916048-themeroom-random-feature.md](./2544-970916048-themeroom-random-feature.md) | `970916048` | D-3668 themeroom random feature (3 PASS + 1 moved) | **ACCEPT** |
+| [2545-fdb14c660-doset-armorstatus-home.md](./2545-fdb14c660-doset-armorstatus-home.md) | `fdb14c660` | D-3669 doset armorstatus home (44→110) | **ACCEPT** |
