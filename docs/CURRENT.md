@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-08** — full `sessions` on `87a7713db`
-(audit **2554–2561**, 2026-10-08T15:35:20.601Z).
+Score last measured: **2026-10-08** — full `sessions` on `de87e9526`
+(audit **2562–2564**, 2026-10-08T18:41:38.742Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`364+1.62/turn` (R² 0.76).
+`358+1.56/turn` (R² 0.74).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `364+1.57/turn` (R² 0.74) |
+| Speed label | `358+1.56/turn` (R² 0.74) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,498 vs lockwo 7,852; their RNG 61.7 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts **8,498** (unchanged), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 13:44Z (ours scored 13:18Z, pre-D-3679 — the judge lags this audit's 8 SHAs).
-**Corpus — picker and proxy (2026-10-08 15:41Z; 953/953 entries, 0 unrecorded):**
-**934 / 953** PASS (98.0 %), RNG 100.00 %, screens 99.9 %; `full: true`. Worst families: `scen-tutorial` 17/20, `random` 56/61, `explore` 116/124, `scen-impaired` 19/20, `scen-town` 19/20, `scen-tour` 28/29. Audits record this line next to held-out: the board must rise **with** it. +12 since the last audit (922→934: Rogue-94391 via D-3679; Ranger-94031 + Archeologist-94051 via D-3681; Archeologist-92023 via D-3682; scen-dig pit pair + Monk-91117 latent via D-3683; `!` pair via D-3685; Tourist-92134 via D-3686; newt+lichen pair via D-3687); 0 PASS→FAIL, 0 hangs. Remainder: 13 env:config-path + 5 unattributed + 1 mon_wield_item (RECORDER-ARTIFACT).
-Reviews 1225–2561 (index; no row 1618): 1171 ACCEPT, 57 WITH-DEBT, 108 QUALITY-RISK (2554–2561: 7A/0D/1Q, 1 Must-fix queued).
+every audit). Rank 5 by pts (8,498 vs lockwo 7,852; their RNG 61.7 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts **8,498** (unchanged), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 13:44Z (ours scored 13:18Z, pre-D-3679 — the judge lags this audit's 11 port SHAs).
+**Corpus — picker and proxy (2026-10-08 18:47Z; 953/953 entries, 0 unrecorded):**
+**938 / 953** PASS (98.4 %), RNG 100.00 %, screens 99.9 %; `full: true`. Worst families: `random` 56/61, `explore` 116/124, `scen-town` 19/20, `scen-tour` 28/29. Audits record this line next to held-out: the board must rise **with** it. +4 since the last audit (934→938: tutorial triple via D-3690; Knight-94330 via D-3691); 0 PASS→FAIL, 0 hangs. Remainder: 13 env:config-path + 1 unattributed + 1 mon_wield_item (RECORDER-ARTIFACT).
+Reviews 1225–2564 (index; no row 1618): 1173 ACCEPT, 57 WITH-DEBT, 109 QUALITY-RISK (2562–2564: 2A/0D/1Q, 1 Must-fix queued).
 Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -145,8 +145,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** live queue EMPTY (938/953; remainder 13 env + mon_wield_item/Samurai-92032 parked recorder-artifacts) — next port iter has no live head; audit owns fixed-recorder re-record + rescore + corpus growth.
-**This iter:** D-3691 hallu-corpse `%` (Knight-94330 →PASS, board 938/953, 0 regressed); live queue empty.
+**Next cluster:** Must-fix `cmd.c` rhack S-arm veto queue clear (C `:3691–3693` reset(TRUE); tutorial-S→`^A` Norep) — Source: reviews/loop-unattended/2563-bb3890046-rhack-save-veto-queues.md — ships alone, first.
+**This iter:** audit 2562–2564 @de87e9526 (2A/0D/1Q: D-3688 ACCEPT closes 2555; D-3690 QUALITY-RISK — veto cmdq Must-fix queued; D-3691 ACCEPT) + full rescore 938/953 stable, 0 PASS→FAIL; fortress 44/44.
 
 ## Parked (diagnose only — do not implement)
 

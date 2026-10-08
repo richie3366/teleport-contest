@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — audit 2562–2564 @de87e9526 (D-3688/D-3690/D-3691: 2A/0D/1Q, 1 Must-fix) + full rescore 938/953
+
+**Reviews:** 2562 `0560c51fd` ACCEPT (D-3688 resist gate closes 2555; predicate + tests verified, 8/8); 2563 `bb3890046` QUALITY-RISK (D-3690 S veto gate right, triple PASS — but the veto path omits C `:3691–3693` reset(TRUE), leaving stale REPEAT=[S]; tutorial-S→`^A` should Norep per `do_repeat :1643–1646` — Must-fix queued, Next cluster set); 2564 `7176eaf8b` ACCEPT (D-3691 hallu-corpse `%`, Knight FULL PASS confirmed). All re-measures reproduced (0 blocked owner-null/coverage-class, smoke 24/24, 0 regressed).
+**Rescore:** `sessions` 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `358+1.56/turn`); `record` all present; unfiltered `score` 938/953 (98.4 %, RNG 100 %, `full:true` @18:47Z) — 0 PASS→FAIL vs committed; held-out 18/44 unchanged (judge 13:44Z lags 11 port SHAs). Remainder 13 env + 1 unattributed + 1 mon_wield_item.
+**Ledger:** `summary --snapshot` appended; 5/5 sampled ported rows live (jsonl sampling — `ledger.mjs sql` needs node:sqlite, absent on node v20.12.2; audit debt, not a port row).
+**Next:** port pops the rhack-veto Must-fix (ships alone); then queue is empty again — audit owns fixed-recorder re-record + growth.
 ## 2026-10-08 — saturated stop #5 (live queue still empty at 938/953; audit owns re-record + rescore + growth)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.

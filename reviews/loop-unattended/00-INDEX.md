@@ -2571,3 +2571,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2559-b3845d7d0-dosh-shellers.md](./2559-b3845d7d0-dosh-shellers.md) | `b3845d7d0` | D-3685 dosh shellers gate (2 PASS) | **ACCEPT** |
 | [2560-6710a9083-can-make-bones.md](./2560-6710a9083-can-make-bones.md) | `6710a9083` | D-3686 bones portal scan (PASS) | **ACCEPT** |
 | [2561-87a7713db-gather-locs.md](./2561-87a7713db-gather-locs.md) | `87a7713db` | D-3687 gather_locs glyph restart (2 PASS) | **ACCEPT** |
+| [2562-0560c51fd-strange-feeling-resist-gate.md](./2562-0560c51fd-strange-feeling-resist-gate.md) | `0560c51fd` | D-3688 strange_feeling resist gate (closes 2555) | **ACCEPT** |
+| [2563-bb3890046-rhack-save-veto-queues.md](./2563-bb3890046-rhack-save-veto-queues.md) | `bb3890046` | D-3690 rhack S veto (cmdq clear dropped) | **QUALITY-RISK** |
+| [2564-7176eaf8b-hallu-corpse-body-char.md](./2564-7176eaf8b-hallu-corpse-body-char.md) | `7176eaf8b` | D-3691 hallu corpse-body % (PASS) | **ACCEPT** |
