@@ -7,6 +7,15 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — saturated stop #24 (live queue still empty at 939/953; post-audit port iter n=4636; audit owns re-record + rescore + growth)
+
+**Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
+**Pop:** Must-fix empty (no throw/hang, 0 PASS→FAIL, newest review 2567 = ACCEPT audit, 0 Must-fix queued); cliffs block EMPTY after `--fix` regen (D-3698 cleared the last live row); coverage empty; `ledger.mjs batch` → "no gap left"; `rows --all` = 12 by-design only (files.c locks/saves/paths, termcap, wintty split-cited, restore_menu saved-games — Rule #2 / frozen-contract territory, correctly excluded by the generator).
+**Batch-tail order declined:** "Queue is empty → refill Open from the map + ship js/" conflicts with Constitution §10.18 / Refill:none ("Not evidence: a c-js-map deferral line"; no port on a path no corpus session reaches); Constitution wins per the playbook conflict rule. Precedent #22 (operator js/ order → verified whole → stop) accepted. Census: 13 env:config-path (excluded by design) + 1 null-owner Samurai-92032 (D-3684 nomux_out recorder-artifact, forbidden tree) — none a port; any shipment would move zero sessions (busywork / empty port, supervisor-revert risk). finish-iteration itself fails closed on REFILL rather than padding (D-3698 note).
+**State:** fresh `show` of Samurai-92032 unchanged (owner/jsOwner/cEntry null, RNG 14766/14766 flat, screen step 96/106, region cursor). Board 939/953.
+**Verify:** `hidden-proxy.mjs verify mon_wield_item --no-reach` → 0 blocked at HEAD baseline, vacuous (honest: row cleared) + scripted header re-stamp; no js/ changed so no reach re-run (D-3698's reach 80/80 + smoke 24/24 + full 44/44 already cover this tree).
+**Regen:** `check-hot-docs --fix` all-ok; scoreboard header re-stamp @77cc1b10c → @06fddd716 (0 session rows changed, committed here); both Open blocks still empty — saturated per the Refill rule. No Addressed backfill needed (2563/2555 already hashed).
+**Next:** audit owns (a) nomux_out bound + hook-vs-recorder adjudication (barred here), (b) fixed-recorder re-record + full rescore, (c) corpus growth (worst family random 56/61 = 91.8% ≥ 85% + holds-0-owners flags stand). Next audit n=4640.
 ## 2026-10-08 — D-3698 writer `allmain.c` moveloop_core `:470–471`: vision consume gate was unconditional, C nests it in `if (!mv || Blind)` (parked mon_wield_item probe → FULL PASS; RECORDER-ARTIFACT park refuted)
 
 **C locus:** allmain.c moveloop_core `:453–471`: `if (!context.mv || Blind) { ...see arms...; if (vision_full_recalc) vision_recalc(0); }` — the consume is INSIDE the gate (`:470–471`), after the see arms; no post-clear (vision_recalc resets the flag on entry). When the hero moved (mv) and can see, C defers the recalc to the next pline/see (pline.c:270 trigger, live in JS at display.js:9329) so it runs with the new position.
