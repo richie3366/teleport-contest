@@ -6831,12 +6831,20 @@ export function set_bot_disabled(v) {
 /**
  * Suppress status paint after fullscreen NHW_MENU clear. C leaves status
  * blank until the next bot(); used for Options → choose_classes.
+ * botlx is PRESERVED, not cleared: C windows.c select_menu `:1855–1865`
+ * scopes gb.bot_disabled around win_select_menu but clears no flags, so
+ * docrt()'s disp.botlx=TRUE (display.c:1767) survives the disabled bot()
+ * skip (botl.c:255–256) and the post-select repaint (pline.c:274's
+ * flush_screen → bot() → BL_RESET, botl.c:1670–1673) still fires.
+ * Clearing it here ate the repaint: the post-select bot() saw
+ * updated=0/botlx=false, sent neither RESET nor FLUSH, and the flush
+ * fallback repainted status text PLAIN (hitpointbar brackets without
+ * the wintty.c:5155–5166 inverse).
  */
 export function clear_committed_status() {
     _statusSuppressed = true;
     if (game.flags) {
         game.flags.botl = false;
-        game.flags.botlx = false;
         game.flags.time_botl = false;
     }
 }

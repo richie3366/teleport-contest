@@ -3109,11 +3109,11 @@ export async function dismiss_nhw_menu(opts = null) {
         // otherwise repaint WIN_STATUS; D-0467 itemed leftover is blank.
         // display_pickinv select_menu does not blank: bot_disabled wraps
         // then the next bot() paints (death disclose D-1850).
+        // The wipe preserves docrt's botlx (C display.c `:1769`; windows.c
+        // select never clears flags): the moveloop gate / pline flush
+        // repaints via BL_RESET (bot() clears the suppression) on the
+        // next tick.
         if (!opts?.keep_status) clear_committed_status();
-        // C display.c `:1769` — docrt set disp.botlx; the JS-only wipe above
-        // must not eat it: the moveloop gate repaints (bot() clears the
-        // suppression) on the next tick.
-        if (!opts?.keep_status && game.flags) game.flags.botlx = true;
         await flush_screen(1);
         return;
     }

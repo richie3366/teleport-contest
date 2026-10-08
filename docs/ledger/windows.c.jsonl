@@ -75,5 +75,5 @@
 {"fn":"add_menu_heading","c":"1816-1828","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"add_menu_str","c":"1832-1838","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"get_menu_coloring","c":"1841-1853","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"select_menu","c":"1856-1865","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"select_menu","c":"1856-1865","status":"by-design","js":["js/options.js:select_menu_pick_one"],"d":["D-3644"],"at":"2026-10-08@6404b3295","note":"seed: no scored analogue (file)"}
 {"fn":"getlin","c":"1868-1902","status":"partial","js":["js/getline.js:getlin"],"omit":"cmdq_pop CMDQ_KEY preload loop + pline echo + early return (C:1875-1895)","at":"2026-10-03@bbe63333a"}
