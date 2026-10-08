@@ -5685,7 +5685,12 @@ export async function choose_classes_menu(prompt, category, way, classList, clas
             { text: '', attr: 0 },
         ];
         for (const it of items) {
-            const mark = it.selected ? '+' : '-';
+            // C wintty.c process_menu_window `:1467–1473` initial page paint:
+            // the '-' of "k - text" shows '*' when the item is preselected
+            // (count -1); runtime toggles show '+' via set_item_state
+            // `:1182`. _retoggled marks runtime selection since the last
+            // page paint (D-3403 select_menu_pick_any sibling `:10220–10227`).
+            const mark = !it.selected ? '-' : (it._retoggled ? '+' : '*');
             entries.push({
                 text: `${it.letch} ${mark} ${it.text}`,
                 attr: 0,
@@ -5736,6 +5741,7 @@ export async function choose_classes_menu(prompt, category, way, classList, clas
                 return hit.sym;
             }
             hit.selected = !hit.selected; // C PICK_ANY toggle
+            if (hit.selected) hit._retoggled = true; // C set_item_state '+' (D-3403)
         } else if (showAll && ch === 'A') { // C :1749–1754 ' ' pick collapses to the blank list
             await dismiss();
             return '';

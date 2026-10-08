@@ -70,7 +70,7 @@
 {"fn":"genl_display_file","c":"1539-1555","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"menuitem_invert_test","c":"1562-1589","status":"ported","js":["js/options.js:menuitem_invert_test"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mixed_to_glyphinfo","c":"1600-1618","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"choose_classes_menu","c":"1644-1761","status":"ported","js":["js/options.js:choose_classes_menu"],"d":["D-3589","D-3372"],"at":"2026-10-07@f444ce78b"}
+{"fn":"choose_classes_menu","c":"1644-1761","status":"ported","js":["js/options.js:choose_classes_menu"],"d":["D-3650","D-3589","D-3372"],"at":"2026-10-08@aff28fb26"}
 {"fn":"adjust_menu_promptstyle","c":"1769-1777","status":"ported","js":["js/options.js:adjust_menu_promptstyle"],"d":["D-3648"],"at":"2026-10-08@71d6c9d71","note":"seed: no scored analogue (file)"}
 {"fn":"add_menu_heading","c":"1816-1828","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"add_menu_str","c":"1832-1838","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
