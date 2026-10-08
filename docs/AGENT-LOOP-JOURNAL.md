@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — saturated stop #8 (live queue still empty at 938/953; n=4617, not an audit iter; audit owns re-record + rescore + growth)
+
+**Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
+**Pop:** Must-fix empty (no throw/hang, 0 PASS→FAIL, newest review 2564 = audited); cliffs head `weapon.c` mon_wield_item parked RECORDER-ARTIFACT, park-maxed (D-3570/D-3660/D-3689/D-3692/D-3694 + #7's 10/10-caller family recheck 1 iter ago); coverage empty; `ledger.mjs batch --write` → "no gap left" (ordered manifest does not exist); fresh `queue` → 0 live (1 parked, 15/953 failing: 13 env + Samurai-92032 null + Priest-94382).
+**State:** fresh `show` byte-identical to the parks — Priest-94382 step 99 (identical tether toplines, row-7 G/· col 23, null jsOwner/cEntry/jsEntry, RNG 11013/11013). `brief mon_wield_item` re-read (C weapon.c:801–934 whole in js/weapon.js:807; ledger ported D-2460); no writer namable — no game writer exists per D-3694 (hook realignment is barred frame machinery).
+**Verify:** `hidden-proxy verify mon_wield_item` → 0 PASS, 0 moved, 1 unchanged → NO MOVEMENT (expected and honest: park holds, zero code changed) · smoke 24/24 REACH-OK. Full public 44/44 + full corpus 938 rescore done at #7 (1 iter ago, js/ unchanged since) — not re-run.
+**Regen:** `check-hot-docs --fix` re-stamp only (queue + scoreboard @92e77bf24 → @abf322371; header-only, 0 session rows changed); cliffs still the 1 parked row, coverage still empty — saturated per the Refill rule. No Addressed backfill needed (2563 stamped `777431952`; 2562/2564 ACCEPT).
+**Next:** audit owns (a) hook-vs-recorder adjudication + nomux_out bound (barred here), (b) fixed-recorder re-record + full rescore, (c) corpus growth (explore 93.5% + holds-1-owner flags stand). Do not re-touch mon_wield_item or Samurai-92032 on port iters. Next audit n=4620.
 ## 2026-10-08 — saturated stop #7 (operator-ordered js/ hunt falsified: head family whole, public 44/44 + corpus 938 rescore clean; audit owns re-record + rescore + growth)
 
 **Operator:** supervisor flagged #4614 (stop #6, docs-only) as a failed port; ordered real `js/` on the Open head this iteration, no STOP, no wait. Falsified with evidence below — no faithful `js/` exists; any diff would be trace tailoring (constitution-banned). No D-entry (no port, no new measure — a 6th touch is barred spin), no STOP file. Journal-only.
