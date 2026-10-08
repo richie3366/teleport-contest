@@ -151,6 +151,8 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
+- [ ] `windows.c` getlin cmdq preamble + in_getlin envelope — C windows.c:1873–1892 cmdq_pop drain loop (CMDQ_KEY bytes into buf, newline-terminated; got_cmdq → pline(query+buf) early return) + `:1894`/`:1899` program_state.in_getlin envelope absent from js/getline.js:244 (prompt/echo loop only; cmdq_pop live js/cmd.js:394, already imported :39, used only by yn_function :1999). Producers on live paths: apply.c invlet ×4, cmd.c:4018 doagain dirsym, allmain.c:494 moveloop stash. Ship: preamble + envelope in C order; verify --fn getlin REACH-OK.
+
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3699 `polyself.c` break_armor `:1157–1302`: wire the donning/cancel_don sites (D-1991 named omit; partial → ported; supervisor-ordered map refill)
+
+**C locus:** polyself.c break_armor `:1157–1302` — `:1164–1165` uarm breakarm cancel (unconditional, unlike cancel_doff's I_SPECIAL skip), `:1200–1201` uarm sliparm cancel, `:1231` flimsy-helm `&& !donning(otmp)` condition, `:1239–1240` horns-helm cancel, `:1250–1251` gloves cancel (before drop_weapon), `:1265–1266` nohands-helm cancel, `:1276–1277` boots cancel. The shield arm has no donning check in C (ledger omit text overlisted it — verified at the locus).
+**JS:** js/polyself.js (import :47–51, 7 sites :1381–1496); scripts/break-armor-donning-cancel.test.mjs (new, 3 its: wolf+take-off-all cancels multi/what and destroys the suit; horned-devil+fedora-donning drops the helm to the floor; control with no donning leaves multi untouched).
+**Change:** js/polyself.js only — donning/cancel_don added to the pre-existing do_wear.js edge (imports.mjs --can: ALREADY, no new edge); the 6 `if (donning(x)) cancel_don();` cancels inserted first in their arms in C order plus the `:1231` condition, each with its C cite; doc updated (whole vs C, shield note).
+**Verify:** focused test 1/3 pre-fix (control green; multi stayed 5 under I_SPECIAL, helm stayed worn) → 3/3 post-fix. `node scripts/verify.mjs --fn break_armor` → PASS syntax (1 file: js/polyself.js) · PASS rule2 · note hidden (no corpus session blocked on break_armor at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. 12/26 scen-poly sessions rescored post-change: board steady 939/953 (13 env + D-3684 artifact only).
+**Named:** none new — the D-1991 omit is fully retired (6 cancels + flimsy condition; shield correctly absent per C).
+**Next:** generated blocks still empty (13 env:config-path + D-3684 nomux_out recorder-artifact); audit owns re-record + rescore + growth. Next refill candidate from the map survey: insight.c one_characteristic hide logic (NOT FOUND in js/) or m_move's no-note partial (staleness unconfirmed).
 ## 2026-10-08 — saturated stop #24 (live queue still empty at 939/953; post-audit port iter n=4636; audit owns re-record + rescore + growth)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
