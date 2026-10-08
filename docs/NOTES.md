@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **toss_up→chwepon [measure] DONE (D-3640):** Knight-94330 Hallu desync = C chwepon:920 entry hcolor (drawn, discarded on the !uwep arm) vs JS no-draw clone; writer ported same iter (probe 98→121, 104→286 screens). HCOLORS 74/74 set+order — no table bug, do not re-check.
 ## Don't re-check (≤15)
 
-- D-1790…D-3647 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3648 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3647.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3647 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3648.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3648 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3648: (1) whole `adjust_menu_promptstyle` port (C `:1769–1778` in order: copy color+attr, ctrl dispatch, flag clear) over a module-level tty_menu_promptstyl Named: (1) remaining ~70 prompt/header construction sites still hardcode ATR_INVERSE (same mechan
 - D-3647: (1) both prompt headers gain `attr: ATR_INVERSE` + the blank separator (verbatim D-3403 sibling pattern); (2) new whole `get_menu_coloring` port (firs Named: (1) dynamic iflags.menu_headings read for prompt/headings (C tty_menu_promptstyle tracks l
 - D-3646: prompt header gains `attr: ATR_INVERSE` with the tty_menu_promptstyle C-cite comment, plus the blank separator item — verbatim the D-3403/D-3645 sibli Named: dynamic iflags.menu_headings read for the prompt (C tty_menu_promptstyle tracks the live v
 - D-3645: prompt header gains `attr: ATR_INVERSE` with the tty_menu_promptstyle C-cite comment, plus the blank separator item — verbatim the D-3403 sibling patt Named: dynamic iflags.menu_headings read for the prompt (C tty_menu_promptstyle tracks the live v
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3636: display_monster M_AP_OBJECT fake gains oclass: 0, dknown: 0 (C zeroobj; js/display.js:2098–2121); obj_glyph ch is otyp-class-based (C mapglyph renders Named: none new — display_monster / map_object / mhidden_description stay whole (map_object's pil
 - D-3635: the swallowed branch now classifies the memory int in C order: engulfer override sets `kind = 'mon'` (C `:2211–2212`); else `was_mon` per C `:2213–221 Named: - `reveal_terrain_getglyph`: none new — gascloud-memory needs no arm (regions never enter 
 - D-3634: capture each makemon return; `if (m) await makemon_appear_msg(m, m.mx | 0, m.my | 0, MM_NOMSG)` — at the earth site before the debris pline (C `:531–5 Named: none new — dig_up_grave/dig/dighole stay whole (all three dig.c makemon sites now wired; C
-- D-3633: ready arm splits by window state like the !ready arm (D-3630 precedent): pre-window → configMsg unchanged (C raw_print); windowed → `(async () => { if Named: none new in this body — C `:1543–1589` is whole (every arm, every callee live: c_eos/eos/p
 <!-- landmarks:end -->
