@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-08** — full `sessions` on `534a41bc3`
-(audit **2565–2566**, 2026-10-08T20:52:41.466Z).
+Score last measured: **2026-10-08** — full `sessions` on `69e4c57a7`
+(audit **2567**, 2026-10-08T22:06:17.238Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`357+1.58/turn` (R² 0.75).
+`357+1.59/turn` (R² 0.74).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `357+1.58/turn` (R² 0.75) |
+| Speed label | `357+1.59/turn` (R² 0.74) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5 by pts (8,498 vs lockwo 7,852; their RNG 61.7 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts **8,498** (unchanged), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 19:38Z (ours scored 19:11Z: post-D-3693, pre-D-3695).
-**Corpus — picker and proxy (2026-10-08 20:59Z; 953/953 entries, 0 unrecorded):**
-**938 / 953** PASS (98.4 %), RNG 100.00 %, screens 99.9 %; `full: true`. Worst families: `random` 56/61, `explore` 116/124, `scen-town` 19/20, `scen-tour` 28/29. Audits record this line next to held-out: the board must rise **with** it. +0 since the last audit (938→938 stable: D-3693 review-path fix + D-3695 caller wiring move no recorded session); 0 PASS→FAIL, 0 hangs. Remainder: 13 env:config-path + 1 unattributed + 1 mon_wield_item (RECORDER-ARTIFACT).
-Reviews 1225–2566 (index; no row 1618): 1175 ACCEPT, 57 WITH-DEBT, 109 QUALITY-RISK (2565–2566: 2A/0D/0Q, 0 Must-fix queued).
+**Corpus — picker and proxy (2026-10-08 22:12Z; 953/953 entries, 0 unrecorded):**
+**938 / 953** PASS (98.4 %), RNG 100.00 %, screens 99.9 %; `full: true`. Worst families: `random` 56/61, `explore` 116/124, `scen-town` 19/20, `scen-tour` 28/29. Audits record this line next to held-out: the board must rise **with** it. +0 since the last audit (938→938 stable: D-3697 fetch guards move no recorded session); 0 PASS→FAIL, 0 hangs. Remainder: 13 env:config-path + 1 unattributed + 1 mon_wield_item (RECORDER-ARTIFACT).
+Reviews 1225–2567 (index; no row 1618): 1176 ACCEPT, 57 WITH-DEBT, 109 QUALITY-RISK (2567: 1A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -146,7 +146,7 @@ lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
 **Next cluster:** Must-fix empty; cliffs head parked (mon_wield_item RECORDER-ARTIFACT, D-3694/D-3696 writer evidence); saturated stop stands unless re-record + rescore or corpus growth reopens a live row.
-**This iter:** audit 2565–2566 @534a41bc3 (2A/0D/0Q: D-3693 ACCEPT closes 2563; D-3695 ACCEPT, 10/10 callers, honest NO MOVEMENT on parked probe) + full rescore 938/953 stable, 0 PASS→FAIL; fortress 44/44; ledger 5/5 seeded-ported sampled clean.
+**This iter:** audit 2567 @69e4c57a7 (1A/0D/0Q: D-3697 ACCEPT, whole-body ported flip + 312/312 full-reach REACH-OK, honest NO MOVEMENT on parked probe) + full rescore 938/953 stable, 0 PASS→FAIL; fortress 44/44; ledger 5/5 seeded-ported sampled clean.
 
 ## Parked (diagnose only — do not implement)
 

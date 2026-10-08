@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — audit 2567 @69e4c57a7: review D-3697 (1A/0D/0Q, 0 Must-fix) + full rescore 938/953 stable
+
+**Review:** 2567-218943132 ACCEPT — dog_invent mail (`:429–431`, MAIL_STRUCTURES unconditional global.h:430) + prize (`:432–434`, obj.h:435–436) guards in C order; callees LIVE (mkobj.js:4112/4118, ALREADY edge); whole-body ported flip verified arm-for-arm incl. helpless⊆movemon-:717 proof; focused test 4/4; re-measure `verify dog_invent --base ~1 --reach-all` → 0 blocked + 312/312 REACH-OK, 0 regressed; parked probe still step 99, 0 worse (honest NO MOVEMENT, 2566 precedent). Nit (not queued): ledger note still says "D-2417 arms stand" — next port iter folds the refresh into real work.
+**Score:** full `sessions` 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `357+1.59/turn` R² 0.74); held-out unchanged 18/44, 8,498 pts, RNG 41.7 % (judge 19:38Z/ours 19:11Z); corpus rescore 938/953 stable, 0 PASS→FAIL, `full: true` @22:12Z; ledger snapshot + 5/5 seeded-ported sampled clean (mpickobj, vomiting_dialogue, freeinv_core, tmiss, You_hear).
+**Next:** saturated stop stands — Must-fix empty, cliffs head parked RECORDER-ARTIFACT, coverage empty. Audit-owned: re-record + rescore or corpus growth to reopen a live row.
 ## 2026-10-08 — saturated stop #19 (live queue still empty at 938/953; port iter n=4629, next is audit n=4630; audit owns re-record + rescore + growth)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.

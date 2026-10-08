@@ -2576,3 +2576,4 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2564-7176eaf8b-hallu-corpse-body-char.md](./2564-7176eaf8b-hallu-corpse-body-char.md) | `7176eaf8b` | D-3691 hallu corpse-body % (PASS) | **ACCEPT** |
 | [2565-777431952-rhack-veto-repeat-clear.md](./2565-777431952-rhack-veto-repeat-clear.md) | `777431952` | D-3693 rhack veto queue clear (closes 2563) | **ACCEPT** |
 | [2566-a7604ebb0-dog-invent-at-weap-tail.md](./2566-a7604ebb0-dog-invent-at-weap-tail.md) | `a7604ebb0` | D-3695 dog_invent AT_WEAP tail (10/10 callers) | **ACCEPT** |
+| [2567-218943132-dog-invent-fetch-guards.md](./2567-218943132-dog-invent-fetch-guards.md) | `218943132` | D-3697 dog_invent mail+prize guards (ported) | **ACCEPT** |
