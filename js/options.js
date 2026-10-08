@@ -5987,6 +5987,43 @@ export function count_menucolors() {
 }
 
 /**
+ * C ref: windows.c get_menu_coloring `:1841–1853` (staticfn) in C order —
+ * first regex_match over menu_colorings wins and REPLACES both color and
+ * attr (`:1848–1850`); FALSE when use_menu_color is off (`:1845`) or
+ * nothing matches. C callers pass the bare add_menu str (pre-selector);
+ * the `(str, *color, *attr) → boolean` out-param shape collapses to a
+ * `{ color, attr }` hit (C-domain attr) or null.
+ * @param {string} str
+ * @returns {{color:number,attr:number}|null}
+ */
+export function get_menu_coloring(str) {
+    if (str == null) return null;
+    if (!game.iflags?.use_menu_color) return null; // C `:1845`
+    for (let tmp = menuColorings; tmp; tmp = tmp.next) { // C `:1846`
+        if (regex_match(String(str), tmp.match)) { // C `:1847`
+            return { color: tmp.color | 0, attr: tmp.attr | 0 }; // C `:1848–1850`
+        }
+    }
+    return null; // C `:1852`
+}
+
+/**
+ * C attr index (wintype.h: MC_ATR_* domain) → cell attr bits. Only
+ * bold/inverse/uline have cell bits (botl.js hl_to_cell_attr precedent);
+ * dim/blink/italic record plain — the C capture shows no SGR for them
+ * (scen-options-Caveman-94011 step 59 rows 4–7 vs SGR 1/4/7 on rows 3/6/8).
+ * @param {number} a
+ * @returns {number}
+ */
+export function cattr_to_cell(a) {
+    const v = a | 0;
+    if (v === MC_ATR_BOLD) return ATR_BOLD;
+    if (v === MC_ATR_INVERSE) return ATR_INVERSE;
+    if (v === MC_ATR_ULINE) return ATR_UNDERLINE;
+    return 0;
+}
+
+/**
  * C ref: coloratt.c free_one_menu_coloring `:684–706` — unlink idx
  * (0..); out-of-range unlinks nothing.
  */
@@ -6745,16 +6782,23 @@ export function basic_menu_colors(load_colors) {
 export async function query_color(prompt, dflt_color) {
     const dflt = dflt_color | 0;
     basic_menu_colors(true);
+    // C tty_end_menu (wintty.c `:2685–2689`): the end_menu prompt paints
+    // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
+    // then a blank separator item (D-3403 sibling precedent).
     const raw = [
-        { text: prompt ? String(prompt) : 'Pick a color', selectable: false },
+        { text: prompt ? String(prompt) : 'Pick a color', selectable: false, attr: ATR_INVERSE }, // C `:497`
+        { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (const [nm, col] of MENU_COLORNAMES) {
-        raw.push({ text: nm, selectable: true, color: col, selected: col === dflt });
+        // C `:492–495` passes ATR_NONE/NO_COLOR; the row color comes from
+        // the basic_menu_colors patterns via get_menu_coloring at paint.
+        // pickColor is the JS a_int→color shortcut for the `:505` arm below.
+        raw.push({ text: nm, selectable: true, pickColor: col, selected: col === dflt });
     }
     const res = await select_menu_pick_one(raw);
     basic_menu_colors(false);
     if (res.kind !== 'pick') return -1; // C `:517` pick_cnt < 0 (ESC)
-    const y = res.item.color | 0;
+    const y = res.item.pickColor | 0;
     if (dflt !== NO_COLOR) { // C `:505–508` pick_cnt==2 menu-earlier arm
         const idxD = MENU_COLORNAMES.findIndex((row) => (row[1] | 0) === dflt);
         const idxY = MENU_COLORNAMES.findIndex((row) => (row[1] | 0) === y);
@@ -6774,11 +6818,18 @@ export async function query_color(prompt, dflt_color) {
 export async function query_attr(prompt, dflt_attr) {
     const dflt = dflt_attr | 0;
     const allow_many = !!prompt && strncmpi(String(prompt), 'Choose', 6) === 0; // C coloratt.c:402
+    // C tty_end_menu (wintty.c `:2685–2689`): the end_menu prompt paints
+    // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
+    // then a blank separator item (D-3403 sibling precedent).
     const raw = [
-        { text: prompt ? String(prompt) : 'Pick an attribute', selectable: false },
+        { text: prompt ? String(prompt) : 'Pick an attribute', selectable: false, attr: ATR_INVERSE }, // C `:417`
+        { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (const [nm, val] of MENU_ATTRNAMES) {
-        raw.push({ text: nm, selectable: true, attrval: val, selected: val === dflt });
+        // C `:415–416` passes attrnames[i].attr as the caller attr (painted
+        // from attr_n); attrval stays the pick-math value (patterns may
+        // override the paint attr, never the pick).
+        raw.push({ text: nm, selectable: true, attr: cattr_to_cell(val), attrval: val, selected: val === dflt });
     }
     if (allow_many) {
         const picks = await select_menu_pick_any(raw);
@@ -9737,9 +9788,20 @@ export async function select_menu_pick_one(rawItems) {
                 // C ref: wintty.c process_menu_window `:1467–1473` — the
                 // '-' of "k - text" paints '*' when the item is preselected
                 // (MENU_ITEMFLAGS_SELECTED, count -1).
+                // C windows.c add_menu `:1803–1807`: menu-color patterns
+                // replace the caller color/attr when use_menu_color (no
+                // selectable row carries SKIPMENUCOLORS — only
+                // add_menu_heading/restore.c:1582 do). Matched against the
+                // bare str like C, pre-selector. descStart is C's attr_n
+                // (`:1442–1446`): the selector prefix paints plain.
+                let mcolor = NO_COLOR, mattr = it.attr || 0;
+                const mc = get_menu_coloring(it.text);
+                if (mc) { mcolor = mc.color; mattr = cattr_to_cell(mc.attr); }
                 return {
                     text: `${it.selector} ${it.selected ? '*' : '-'} ${it.text}`,
-                    attr: it.attr || 0,
+                    attr: mattr,
+                    color: mcolor,
+                    descStart: 4,
                 };
             }
             return { text: it.text, attr: it.attr || 0 };
@@ -10095,9 +10157,18 @@ export async function select_menu_pick_any(rawItems, opts = {}) {
                     const mark = !it.selected ? '-'
                         : ((it.count | 0) === -1
                             ? (it._retoggled ? '+' : '*') : '#');
+                    // C windows.c add_menu `:1803–1807`: menu-color
+                    // patterns replace the caller color/attr when
+                    // use_menu_color (pick_one sibling arm; bare str,
+                    // pre-selector). descStart is C's attr_n (`:1442–1446`).
+                    let mcolor = NO_COLOR, mattr = it.attr || 0;
+                    const mc = get_menu_coloring(it.text);
+                    if (mc) { mcolor = mc.color; mattr = cattr_to_cell(mc.attr); }
                     return {
                         text: `${it.selector} ${mark} ${it.text}`,
-                        attr: it.attr || 0,
+                        attr: mattr,
+                        color: mcolor,
+                        descStart: 4,
                     };
                 }
                 return { text: it.text, attr: it.attr || 0 };

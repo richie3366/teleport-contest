@@ -6,8 +6,8 @@
 {"fn":"clr2colorname","c":"338-346","status":"ported","js":["js/artifact.js:clr2colorname"],"d":["D-3408","D-3231"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"match_str2clr","c":"349-371","status":"ported","js":["js/botl.js:match_str2clr"],"d":["D-3231"],"at":"2026-10-01@5bdc19f37"}
 {"fn":"match_str2attr","c":"374-389","status":"ported","js":["js/botl.js:match_str2attr"],"d":["D-3231"],"at":"2026-10-01@5bdc19f37"}
-{"fn":"query_attr","c":"396-472","status":"ported","js":["js/options.js:query_attr"],"d":["D-3408","D-3071"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
-{"fn":"query_color","c":"475-518","status":"ported","js":["js/options.js:query_color"],"d":["D-3408","D-3073","D-3071"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
+{"fn":"query_attr","c":"396-472","status":"ported","js":["js/options.js:query_attr"],"d":["D-3647","D-3408","D-3071"],"at":"2026-10-08@4b81ec924","note":"audited D-3408: whole vs C"}
+{"fn":"query_color","c":"475-518","status":"ported","js":["js/options.js:query_color"],"d":["D-3647","D-3408","D-3073","D-3071"],"at":"2026-10-08@4b81ec924","note":"audited D-3408: whole vs C"}
 {"fn":"basic_menu_colors","c":"530-580","status":"ported","js":["js/options.js:basic_menu_colors"],"d":["D-2789"],"at":"seed@a30a7de84"}
 {"fn":"add_menu_coloring_parsed","c":"585-613","status":"ported","js":["js/options.js:add_menu_coloring_parsed"],"d":["D-3114","D-3071"],"at":"2026-09-29@405ed7298"}
 {"fn":"add_menu_coloring","c":"617-660","status":"ported","js":["js/options.js:add_menu_coloring"],"d":["D-3231","D-2763"],"at":"2026-10-01@5bdc19f37"}

@@ -2482,7 +2482,9 @@ export function see_nearby_objects() {
 
 // Contest nomux / tty ANSI_DEFAULT: CLR_GRAY hilite is empty → capture
 // emits default fg (decoded NO_COLOR). CLR_BLACK fg 0 is coerced the same.
-function tty_map_color(color) {
+// Exported for invent.js menu paint (menu-color rows carry live colors;
+// the map gbuf path already maps at store, `:4285`/`:4589`).
+export function tty_map_color(color) {
     if (color === CLR_GRAY || color === CLR_BLACK) return NO_COLOR;
     return color;
 }
