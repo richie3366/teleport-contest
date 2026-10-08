@@ -73,7 +73,7 @@
 {"fn":"get_changed_key_binds","c":"2235-2287","status":"ported","js":["js/cmd.js:get_changed_key_binds"],"d":["D-3402","D-3222","D-2550"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"handler_rebind_keys_add","c":"2291-2405","status":"ported","js":["js/cmd.js:handler_rebind_keys_add"],"d":["D-3233"],"at":"2026-10-01@e5887aa2a","note":"stale: js/cmd.js:2122"}
 {"fn":"handler_rebind_keys","c":"2408-2446","status":"partial","js":["js/cmd.js:handler_rebind_keys"],"omit":"blocked: remainder unportable — C key-0+param NULL-deref crash path (bind_key :2700–2707 segfaults; JS stays total; key 0 returns at _add :2307).","d":["D-3233","D-2762"],"at":"2026-10-01@e5887aa2a"}
-{"fn":"handler_change_autocompletions","c":"2449-2515","status":"ported","js":["js/cmd.js:handler_change_autocompletions"],"d":["D-3402","D-3079"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
+{"fn":"handler_change_autocompletions","c":"2449-2515","status":"ported","js":["js/cmd.js:handler_change_autocompletions"],"d":["D-3646","D-3402","D-3079"],"at":"2026-10-08@ca4598a0b","note":"audited D-3402: whole vs C"}
 {"fn":"extcmds_match","c":"2523-2558","status":"ported","js":["js/getline.js:extcmds_match"],"d":["D-3402","D-3149"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"key2extcmddesc","c":"2561-2621","status":"ported","js":["js/pager.js:key2extcmddesc"],"d":["D-2702"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: move probes, digit arm, misc_keys, reqmenu rewrite, ## strip"}
 {"fn":"bind_mousebtn","c":"2624-2659","status":"ported","js":["js/cmd.js:bind_mousebtn"],"d":["D-3086"],"at":"2026-09-29@590ebd616","note":"refresh: no JS symbol (measured MISSING)"}
