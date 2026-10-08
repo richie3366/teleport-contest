@@ -5445,8 +5445,9 @@ export async function explode_show_visible(x, y, expltype, explmask) {
  * C ref: display.c magic_map_background(x, y, show)
  * Remembers real background under hero_memory; show==0 is mapping path.
  * Out-of-sight ROOM the hero does not remember as lit: with dark_room+color
- * → DARKROOMSYM (showsyms[S_darkroom]=showsyms[S_room], floor ·); else
- * GLYPH_NOTHING blank. Unlit lit-corr glyph → dark corr.
+ * → DARKROOMSYM (showsyms[S_darkroom]=showsyms[S_room], floor ·; S_stone
+ * blank on the Rogue level per sym.h:96); else GLYPH_NOTHING blank. Unlit
+ * lit-corr glyph → dark corr.
  */
 export function magic_map_background(x, y, show) {
     const lev = game.level?.at(x, y);
@@ -5467,7 +5468,16 @@ export function magic_map_background(x, y, show) {
                 tg = { ch: ' ', color: NO_COLOR, dec: false };
                 glyph = GLYPH_NOTHING;
             } else {
-                glyph = cmap_to_glyph(darkroom_sym());
+                // C sym.h:96 DARKROOMSYM is S_stone on the Rogue level,
+                // S_darkroom elsewhere. tg must render the stored glyph:
+                // stone paints blank (showsyms[S_stone]); S_darkroom paints
+                // as room floor here because this arm implies the :1850
+                // reglyph_darkroom equate (dark_room && use_color).
+                const dsym = darkroom_sym();
+                glyph = cmap_to_glyph(dsym);
+                if (dsym === S_STONE) {
+                    tg = { ch: ' ', color: NO_COLOR, dec: false };
+                }
             }
         } else if (lev.typ === CORR && glyph === cmap_to_glyph(S_LITCORR)) {
             tg = { ch: '#', color: NO_COLOR, dec: false };
