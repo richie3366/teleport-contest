@@ -6012,6 +6012,16 @@ export async function rhack(key) {
         const saveTab = ext_func_tab_from_txt('save');
         if (saveTab && (await can_do_extcmd(saveTab))) {
             await dosave();
+        } else {
+            // C rhack `:3691–3693` — the veto path runs
+            // reset_cmd_vars(TRUE) BEFORE the shared ECMD_OK tail
+            // (house shape: rhack_dispatch_bound above): the pre-gate
+            // REPEAT add (`rhack_repeat_command` 'S'→dosave; C's
+            // `:3732–3737` add is post-gate) must not survive a veto,
+            // so a following ^A prints do_repeat `:1646` Norep.
+            // The TRUE reset zeroes multi, so the tail below is
+            // reset(FALSE) — C's double-reset convergence.
+            reset_cmd_vars(true);
         }
         // C rhack `:3814–3816` — ECMD_OK → reset_cmd_vars(multi < 0).
         reset_cmd_vars((game.multi | 0) < 0);

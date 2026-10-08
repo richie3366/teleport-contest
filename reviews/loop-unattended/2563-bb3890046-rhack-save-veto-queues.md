@@ -130,3 +130,5 @@ No REGRESSED session. The vacuous-verify caveat does not apply
    (IFBURIED exempts save on both sides).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3693

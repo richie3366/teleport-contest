@@ -58,3 +58,30 @@ describe("rhack S arm runs can_do_extcmd: tutorial save veto (cmd.c:3689-3694)",
         });
     }
 });
+
+// C ref: cmd.c rhack `:3691–3693` — the can_do_extcmd veto path runs
+// reset_cmd_vars(TRUE) BEFORE the shared `:3814–3816` ECMD_OK tail, so
+// C's REPEAT is empty after a vetoed S (the `:3732–3737` add is
+// post-gate). C do_repeat `:1643–1646` then prints Norep. JS adds
+// REPEAT pre-gate (js/cmd.js rhack_repeat_command 'S'→dosave); without
+// the veto-path clear a tutorial S then ^A silently re-vetoes instead
+// of printing C's "no command available to repeat".
+describe("rhack S veto clears REPEAT: tutorial S then ^A is Norep (cmd.c:3691-3693)", () => {
+    it("scen-tutorial-Healer-94319: S then ^A prints C do_repeat :1646 Norep", { timeout: 300000 }, async () => {
+        const sess = JSON.parse(readFileSync(
+            new URL("../.cache/hidden/sessions/scen-tutorial-Healer-94319.session.json", import.meta.url),
+        ));
+        const seg = sess.segments[0];
+        // Recorded tail is `S` (moves idx 77) + 4 ESCs; replay only
+        // through the vetoed S, then ^A instead of the ESCs.
+        assert.equal(seg.moves[77], "S", "recorded S position");
+        const g = await runSegment({
+            seed: seg.seed, datetime: seg.datetime,
+            nethackrc: seg.nethackrc, moves: seg.moves.slice(0, 78) + "\x01",
+            storage: sharedStorage(),
+        });
+        const screens = g.getScreens?.() || [];
+        const lastTop = String(screens[screens.length - 1]).split("\n")[0];
+        assert.equal(lastTop, "There is no command available to repeat.");
+    });
+});

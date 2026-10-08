@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-08
 
+- [x] `cmd.c` rhack S-arm veto drops C's queue clear — veto path skips `dosave()` into the shared ECMD_OK tail `reset_cmd_vars(multi<0)` and omits C `cmd.c:3691–3693` `reset_cmd_vars(TRUE)`: with multi ≥ 0 (the tutorial case) `_cmdq_repeat` keeps the S/dosave entry (added pre-gate `js/cmd.js:5620–5625`, which ports post-gate C `:3732–3737`) while C's REPEAT is empty — observable: tutorial S then `^A` prints C `do_repeat :1643–1646` Norep "There is no command available to repeat." but JS silently re-vetoes save. Fix: veto branch does `reset_cmd_vars(true)` before the shared tail (house shape `rhack_dispatch_bound` `js/cmd.js:2813–2816`); test pins tutorial-S→`^A` Norep; correct the D-3690 "buried S now refuses" sentence (save has IFBURIED — both sides allow). Source: reviews/loop-unattended/2563-bb3890046-rhack-save-veto-queues.md **Addressed:** D-3693
+
+
 - [x] `strange_feeling` resist gate: live `H||HH` text arm ignores C's `!Halluc_resistance` (`youprop.h:120`); resisted+hallucinated+beginner prints C-wrong "normal" at the 4 D-3680 rebound sites (clones were C-right) — gate live on the resist check, rewrite both phantom-state tests to reachable states, correct the "extrinsic arm" rationale. Source: reviews/loop-unattended/2555-5c82e0869-strange-feeling-rebind.md
 
 

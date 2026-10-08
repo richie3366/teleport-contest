@@ -103,7 +103,7 @@
 {"fn":"random_response","c":"3581-3598","status":"ported","js":["js/cmd.js:random_response"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rnd_extcmd_idx","c":"3601-3604","status":"ported","js":["js/cmd.js:rnd_extcmd_idx"],"d":["D-3313"],"at":"2026-10-02@9332ca054","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_cmd_vars","c":"3607-3624","status":"ported","js":["js/cmd.js:reset_cmd_vars"],"at":"2026-10-03@bbe63333a"}
-{"fn":"rhack","c":"3627-3843","status":"ported","js":["js/cmd.js:rhack"],"d":["D-3690","D-3574","D-3402","D-2306"],"at":"2026-10-08@5717d752d"}
+{"fn":"rhack","c":"3627-3843","status":"ported","js":["js/cmd.js:rhack"],"d":["D-3693","D-3690","D-3574","D-3402","D-2306"],"at":"2026-10-08@39b943e1e"}
 {"fn":"xytodir","c":"3847-3855","status":"ported","js":["js/const.js:xytodir"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"dirtocoord","c":"3859-3865","status":"ported","js":["js/const.js:dirtocoord"],"at":"2026-10-03@bbe63333a"}
 {"fn":"movecmd","c":"3869-3898","status":"ported","js":["js/dokeylist.js:movecmd"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: txt-match adaptation of fnc==move_funcs"}

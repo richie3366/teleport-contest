@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3693 Must-fix `cmd.c` rhack: S-arm veto omitted C `:3691–3693` reset_cmd_vars(TRUE), stale REPEAT=[dosave] (tutorial S→^A Norep; review 2563)
+
+**C locus:** `cmd.c` rhack `:3689–3694` (veto path `:3691–3693` reset_cmd_vars(TRUE), res = ECMD_OK) + `:3814–3816` tail (re-reset with (multi<0) = FALSE after the first reset zeroes multi — C's double-reset convergence); do_repeat `:1643–1646` (REPEAT empty → Norep, ECMD_FAIL); `:3732–3737` (post-gate REPEAT add).
+**JS:** js/cmd.js (+10: veto branch + cite); scripts/tutorial-save-veto.test.mjs (+1 it: Healer-94319 moves through the vetoed S + `^A` → topline === C `:1646` Norep).
+**Change:** js/cmd.js only — the S arm's veto branch does `reset_cmd_vars(true)` before the shared tail (house shape `:2813–2816`); the TRUE reset zeroes multi so the tail is reset(FALSE) = C's double-reset convergence. No new imports/edges (reset_cmd_vars is same-module, :564; clears CANNED + REPEAT).
+**Verify:** focused test 3/4 pre-fix (new it: actual `''` vs Norep — the silent re-veto) → 4/4 post-fix. `node scripts/verify.mjs --fn rhack --full` → PASS syntax (1 file: js/cmd.js) · PASS rule2 · note hidden (verify rhack: no corpus session blocked on it at baseline — review-derived path, no recorded recipe covers S→^A; movement is the focused test red→green, D-3688 coverage-class precedent) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 → VERIFY: PASS.
+**Named:** none new — D-3690's (1) stands (other rhack if/else key arms still bypass can_do_extcmd; the lua blacklist holds exactly "save"). D-3690 prose corrected this commit: "buried S now refuses like C" was backwards — save carries IFBURIED (flags 41 = 1|8|32), so C `:481–483` never fires for save; both sides allow buried S.
+**Next:** Must-fix done; queue empty after archive → saturated stop stands unless the audit re-records + rescores (D-3691/D-3692 Next stand).
 ## 2026-10-08 — audit 2562–2564 @de87e9526 (D-3688/D-3690/D-3691: 2A/0D/1Q, 1 Must-fix) + full rescore 938/953
 
 **Reviews:** 2562 `0560c51fd` ACCEPT (D-3688 resist gate closes 2555; predicate + tests verified, 8/8); 2563 `bb3890046` QUALITY-RISK (D-3690 S veto gate right, triple PASS — but the veto path omits C `:3691–3693` reset(TRUE), leaving stale REPEAT=[S]; tutorial-S→`^A` should Norep per `do_repeat :1643–1646` — Must-fix queued, Next cluster set); 2564 `7176eaf8b` ACCEPT (D-3691 hallu-corpse `%`, Knight FULL PASS confirmed). All re-measures reproduced (0 blocked owner-null/coverage-class, smoke 24/24, 0 regressed).
