@@ -2563,3 +2563,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2551-3cb2f5ae2-menu-overlay-home.md](./2551-3cb2f5ae2-menu-overlay-home.md) | `3cb2f5ae2` | D-3676 menu_overlay iflags home (33→36) | **ACCEPT** |
 | [2552-e160d36a1-getpos-tip-dismiss.md](./2552-e160d36a1-getpos-tip-dismiss.md) | `e160d36a1` | D-3677 getpos tip fullscreen docrt (36→151) | **ACCEPT** |
 | [2553-2e0cee50b-doset-fruit-get-val.md](./2553-2e0cee50b-doset-fruit-get-val.md) | `2e0cee50b` | D-3678 doset fruit get_val (PASS) | **ACCEPT** |
+| [2554-da190ed96-rebind-prompt-paint.md](./2554-da190ed96-rebind-prompt-paint.md) | `da190ed96` | D-3679 rebind prompt flush+cursor (PASS) | **ACCEPT** |
+| [2555-5c82e0869-strange-feeling-rebind.md](./2555-5c82e0869-strange-feeling-rebind.md) | `5c82e0869` | D-3680 strange_feeling rebind (resist gate dropped) | **QUALITY-RISK** |
+| [2556-67150edcc-color-home.md](./2556-67150edcc-color-home.md) | `67150edcc` | D-3681 color home + mono kill (2 PASS) | **ACCEPT** |
+| [2557-53f820e2c-magic-map-darkroom.md](./2557-53f820e2c-magic-map-darkroom.md) | `53f820e2c` | D-3682 Rogue darkroom stone blank (PASS) | **ACCEPT** |
+| [2558-f29c6877a-set-move-dz.md](./2558-f29c6877a-set-move-dz.md) | `f29c6877a` | D-3683 set_move_cmd dz seed (2 PASS + latent) | **ACCEPT** |
+| [2559-b3845d7d0-dosh-shellers.md](./2559-b3845d7d0-dosh-shellers.md) | `b3845d7d0` | D-3685 dosh shellers gate (2 PASS) | **ACCEPT** |
+| [2560-6710a9083-can-make-bones.md](./2560-6710a9083-can-make-bones.md) | `6710a9083` | D-3686 bones portal scan (PASS) | **ACCEPT** |
+| [2561-87a7713db-gather-locs.md](./2561-87a7713db-gather-locs.md) | `87a7713db` | D-3687 gather_locs glyph restart (2 PASS) | **ACCEPT** |

@@ -111,6 +111,8 @@ review (and on the archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep'd C-wrongs here (not under Open).
 
+- [ ] `strange_feeling` resist gate: live `H||HH` text arm ignores C's `!Halluc_resistance` (`youprop.h:120`); resisted+hallucinated+beginner prints C-wrong "normal" at the 4 D-3680 rebound sites (clones were C-right) — gate live on the resist check, rewrite both phantom-state tests to reachable states, correct the "extrinsic arm" rationale. Source: reviews/loop-unattended/2555-5c82e0869-strange-feeling-rebind.md
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
@@ -128,7 +130,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @6710a9083 **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @87a7713db **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

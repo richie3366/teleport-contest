@@ -22,17 +22,17 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-08** — full `sessions` on `be0ad1946`
-(audit **2546–2553**, 2026-10-08T11:29:52.640Z).
+Score last measured: **2026-10-08** — full `sessions` on `87a7713db`
+(audit **2554–2561**, 2026-10-08T15:35:20.601Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`364+1.57/turn` (R² 0.74).
+`364+1.62/turn` (R² 0.76).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-08 07:09Z)** | **18 / 44**, 8,498 / 11,265 pts, RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** |
+| **Held-out (judge 2026-10-08 13:44Z, ours 13:18Z)** | **18 / 44**, 8,498 / 11,265 pts, RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -40,10 +40,10 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,498 vs lockwo 7,776; their RNG 61.0 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts 8,497→**8,498** (+1), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 07:09Z (through ~D-3665) — seventh cliff-phase movement (D-3662…D-3687).
-**Corpus — picker and proxy (2026-10-08 11:35Z; 953/953 entries, 0 unrecorded):**
-**922 / 953** PASS (96.7 %), RNG 100.00 %, screens 99.9 %; `full: true`. Worst families: `scen-options` 17/20, `scen-tutorial` 17/20, `scen-tour` 25/29, `random` 54/61, `scen-dig` 18/20, `explore` 116/124, `scen-kit` 17/18, `scen-impaired` 19/20, `scen-town` 19/20, `scen-normal` 41/42. Audits record this line next to held-out: the board must rise **with** it. +11 since the last audit (911→922: Knight-94259 via D-3671, 4 Priest welcome-backs via D-3672, Caveman-94257 via D-3673, engrave-94198 + descend-94367 via D-3674, Valkyrie-94151 latent via D-3676, Archeologist-94231 via D-3677→D-3678 — +1 on the full rescore, Tourist-94351 latent via D-3678's fruit row); 0 PASS→FAIL, 0 hangs.
-Reviews 1225–2553 (index; no row 1618): 1164 ACCEPT, 57 WITH-DEBT, 107 QUALITY-RISK (2546–2553: 8A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,498 vs lockwo 7,852; their RNG 61.7 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts **8,498** (unchanged), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 13:44Z (ours scored 13:18Z, pre-D-3679 — the judge lags this audit's 8 SHAs).
+**Corpus — picker and proxy (2026-10-08 15:41Z; 953/953 entries, 0 unrecorded):**
+**934 / 953** PASS (98.0 %), RNG 100.00 %, screens 99.9 %; `full: true`. Worst families: `scen-tutorial` 17/20, `random` 56/61, `explore` 116/124, `scen-impaired` 19/20, `scen-town` 19/20, `scen-tour` 28/29. Audits record this line next to held-out: the board must rise **with** it. +12 since the last audit (922→934: Rogue-94391 via D-3679; Ranger-94031 + Archeologist-94051 via D-3681; Archeologist-92023 via D-3682; scen-dig pit pair + Monk-91117 latent via D-3683; `!` pair via D-3685; Tourist-92134 via D-3686; newt+lichen pair via D-3687); 0 PASS→FAIL, 0 hangs. Remainder: 13 env:config-path + 5 unattributed + 1 mon_wield_item (RECORDER-ARTIFACT).
+Reviews 1225–2561 (index; no row 1618): 1171 ACCEPT, 57 WITH-DEBT, 108 QUALITY-RISK (2554–2561: 7A/0D/1Q, 1 Must-fix queued).
 Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -145,8 +145,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** mon_wield_item → audit re-record; next: Knight-94330 s121 + 3x tutorial Really-save owner-null.
-**This iter:** newt+lichen pair →PASS via gather_locs_interesting INTERESTING/VALID glyph-based (js/getpos.js).
+**Next cluster:** Must-fix `strange_feeling` resist gate (review 2555) — ships alone next port iter; then mon_wield_item → audit re-record.
+**This iter:** audit 2554–2561 (7A/0D/1Q) + full rescore 934/953; next port iter ships Must-fix strange_feeling resist gate alone.
 
 ## Parked (diagnose only — do not implement)
 
