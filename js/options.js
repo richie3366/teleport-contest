@@ -6845,7 +6845,7 @@ export async function query_color(prompt, dflt_color) {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (D-3403 sibling precedent).
     const raw = [
-        { text: prompt ? String(prompt) : 'Pick a color', selectable: false, attr: ATR_INVERSE }, // C `:497`
+        { text: prompt ? String(prompt) : 'Pick a color', selectable: false, ...menu_prompt_style() }, // C `:497`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (const [nm, col] of MENU_COLORNAMES) {
@@ -6881,7 +6881,7 @@ export async function query_attr(prompt, dflt_attr) {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (D-3403 sibling precedent).
     const raw = [
-        { text: prompt ? String(prompt) : 'Pick an attribute', selectable: false, attr: ATR_INVERSE }, // C `:417`
+        { text: prompt ? String(prompt) : 'Pick an attribute', selectable: false, ...menu_prompt_style() }, // C `:417`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (const [nm, val] of MENU_ATTRNAMES) {

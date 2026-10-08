@@ -47,4 +47,22 @@ describe("menu promptstyle relay (windows.c:1769)", () => {
             assert.equal(grid[0][c].attr, 1, `col ${c} attr`);
         }
     });
+
+    it(`${ID}: query_attr prompt paints relayed menu_headings (light-blue inverse)`, { timeout: 300000 }, async () => {
+        const seg = SESS.segments[0];
+        const g = await runSegment({
+            seed: seg.seed, datetime: seg.datetime,
+            nethackrc: seg.nethackrc, moves: seg.moves,
+            storage: sharedStorage(),
+        });
+        const screens = g.getScreens?.() || [];
+        assert.ok(screens.length > 77, `screens ${screens.length} <= 77`);
+        const grid = decodeScreen(screens[77] || "");
+        const row = grid[0].map(renderCell).join("").trim();
+        assert.equal(row, "Select pet highlight attribute");
+        for (const c of [41, 45, 50, 60]) {
+            assert.equal(grid[0][c].color, 12, `col ${c} color`);
+            assert.equal(grid[0][c].attr, 1, `col ${c} attr`);
+        }
+    });
 });
