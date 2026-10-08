@@ -60,4 +60,39 @@ describe("restore suppression (restore.c:795 + :684, D-3662)", () => {
             "                  │·^ ·│",
         );
     });
+    it(`${ID}: seg1 step-11 row 16 keeps C's hallu glyph ('v', not re-rolled)`, { timeout: 300000 }, async () => {
+        // C ref: do_name.c docallcmd `:545–551` — select_menu →
+        // destroy_nhwindow, then straight to the arm's getobj prompt: no
+        // docrt between menu and prompt. Corner destroy
+        // (tty_destroy_nhwindow :1999 → erase_menu_or_text
+        // clearscreen=FALSE) reprints stored gbuf only — no newsym, no
+        // Hallu what_mon re-roll. JS docallcmd_menu called docrt() after
+        // every menu key, re-rolling the visible hallucinated monster
+        // ('v' → '\''); dismiss_nhw_menu (corner arm) + flush is the
+        // faithful destroy. Pins C's seg1 step-11 prompt + row 16.
+        const r = JSON.parse(readFileSync(
+            new URL(`../hidden-corpus/recipes/${ID}.recipe.json`, import.meta.url),
+        ));
+        const storage = freshStorage();
+        await runSegment({
+            seed: r.segments[0].seed, datetime: r.segments[0].datetime,
+            timezone: r.segments[0].timezone, nethackrc: r.segments[0].nethackrc,
+            moves: r.segments[0].moves, storage,
+        });
+        const g1 = await runSegment({
+            seed: r.segments[1].seed, datetime: r.segments[1].datetime,
+            timezone: r.segments[1].timezone, nethackrc: r.segments[1].nethackrc,
+            moves: r.segments[1].moves, storage,
+        });
+        const screens = g1.getScreens?.() || [];
+        assert.ok(screens.length >= 12, `seg1 screens ${screens.length} < 12`);
+        assert.equal(
+            rowText(screens, 11, 0),
+            "What do you want to call? [*]",
+        );
+        assert.equal(
+            rowText(screens, 11, 16),
+            "                  │·^v·│",
+        );
+    });
 });
