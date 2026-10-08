@@ -161,7 +161,7 @@ import {
 } from './display.js';
 import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
-import { block_point, unblock_point, does_block, recalc_block_point, vision_recalc, vision_reset } from './vision.js';
+import { block_point, unblock_point, does_block, recalc_block_point, vision_recalc, vision_reset, vision_off_newsym_gbuf } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
 import { monst_to_any, is_pool, is_lava, in_rooms, invocation_pos } from './hack.js';
 import { begin_burn, end_burn } from './timeout.js';
@@ -18568,7 +18568,17 @@ export async function movebubbles() {
     if (!g.wportal)
         set_wportal();
 
-    /* C `:1557`: vision will be updated as bubbles move. */
+    /* C `:1557`: vision will be updated as bubbles move. C's
+     * vision_recalc(2) runs the main update loop (repainting old-visible
+     * cells as memory/unseen); JS vision_recalc skips that loop for
+     * control 2 (D-0852: unflushed-tty goto/docrt screens), so run it
+     * here via the D-0852 helper BEFORE the swap — same newsym set and
+     * order as C (loop paints with viz emptied, then (2) blanks viz for
+     * the cons pickup/deposit below). Without it, vacated bubble cells
+     * leaving sight keep stale live glyphs: the post-drift
+     * vision_recalc(0) compares against the blanked array and its
+     * not_in_sight arm (old IN_SIGHT || COULD_SEE xor) cannot fire. */
+    vision_off_newsym_gbuf({ useLiveViz: true });
     vision_recalc(2);
 
     const bounds = g.waterlevel_bounds || {
