@@ -33,7 +33,7 @@
 {"fn":"lookaround_known_room","c":"1276-1306","status":"ported","js":["js/cmd.js:lookaround_known_room"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 3 message arms incl u.urooms[0] quirk"}
 {"fn":"dolookaround","c":"1310-1369","status":"ported","js":["js/cmd.js:dolookaround"],"d":["D-1217"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dotoggleoption","c":"1376-1384","status":"ported","js":["js/cmd.js:dotoggleoption"],"d":["D-2698"],"at":"2026-10-03@bbe63333a"}
-{"fn":"set_move_cmd","c":"1387-1400","status":"ported","js":["js/cmd.js:set_move_cmd"],"at":"2026-10-01@f0a648599","note":"stale: js/cmd.js:558"}
+{"fn":"set_move_cmd","c":"1387-1400","status":"ported","js":["js/cmd.js:set_move_cmd"],"d":["D-3683"],"at":"2026-10-08@53f820e2c","note":"stale: js/cmd.js:558"}
 {"fn":"do_move_west","c":"1404-1408","status":"ported","js":["js/cmd.js:do_move_west"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"do_move_northwest","c":"1411-1415","status":"ported","js":["js/cmd.js:do_move_northwest"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"do_move_north","c":"1418-1422","status":"ported","js":["js/cmd.js:do_move_north"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}

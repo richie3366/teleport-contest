@@ -5604,18 +5604,27 @@ export async function rhack(key) {
     }
 
     if (isMovementKey(ch)) {
-        // C ref: cmd.c set_move_cmd(dir, 0) — clear stale travel; DOMOVE_WALK
-        // unless a g/G PREFIXCMD already set DOMOVE_RUSH (keeps context.run).
+        // C ref: cmd.c set_move_cmd(dir, 0) `:1386–1400` — u.dz/dx/dy from
+        // the dir FIRST (`:1389–1391`; zdir is 0 for planar dirs, so a walk
+        // clears any stale getdir dz); the `:1396–1399` guard below reads
+        // the fresh dz, and later readers (climb_pit `:4226`
+        // `u.dz || verbose`) must not see the stale value either.
+        // DOMOVE_WALK unless a g/G PREFIXCMD already set DOMOVE_RUSH
+        // (keeps context.run).
         // C `:1396–1399`: `if (!domove_attempting && !u.dz) run = 0` — a
         // plain walk ends any run (e.g. travel's run=8); without this the
         // EOT time_botl stays suppressed and T: goes stale after travel.
+        const mu = game.u || (game.u = {});
+        mu.dz = 0; // C `:1389` u.dz = zdir[dir] (0 for planar)
+        mu.dx = DIR_DX[ch]; // C `:1390`
+        mu.dy = DIR_DY[ch]; // C `:1391`
         if (!game.context) game.context = {};
         game.context.travel = 0;
         game.context.travel1 = 0;
         const attempting = game.domove_attempting || 0;
         if (!attempting) {
-            // C set_move_cmd `:1396–1399` guards on `!u.dz` (walks only).
-            if (!(game.u?.dz | 0)) game.context.run = 0;
+            // C set_move_cmd `:1396–1399` guards on the fresh `!u.dz`.
+            if (!mu.dz) game.context.run = 0;
             game.domove_attempting = DOMOVE_WALK;
         } else if ((attempting & DOMOVE_WALK) === 0
                    && (attempting & DOMOVE_RUSH) !== 0
@@ -5629,12 +5638,7 @@ export async function rhack(key) {
         // goes nowhere: You_cant + reset_cmd_vars, no domove. The
         // attempting/travel conjuncts always hold here (WALK/RUSH set,
         // travel cleared above); dxdy_moveok reads u.dx/u.dy
-        // (set_move_cmd in C), seeded here.
-        {
-            const mu = game.u || (game.u = {});
-            mu.dx = DIR_DX[ch];
-            mu.dy = DIR_DY[ch];
-        }
+        // (set_move_cmd in C), seeded at the arm top.
         if (!dxdy_moveok()) {
             await You_cant('get there from here...');
             reset_cmd_vars(true);
@@ -5676,14 +5680,16 @@ export async function rhack(key) {
         if (!game.context) game.context = {};
         // Pending F + capital/ctrl dir: forcefight one step (not rush)
         if (game.context.forcefight) {
+            // C set_move_cmd `:1389–1391` — u.dz/dx/dy from the dir first
+            // (zdir 0 for planar; clears stale getdir dz like the walk arm).
+            const mu = game.u || (game.u = {});
+            mu.dz = 0;
+            mu.dx = DIR_DX[low];
+            mu.dy = DIR_DY[low];
             game.context.travel = 0;
             game.context.travel1 = 0;
-            // C rhack grid-bug arm (`:3778–3784`) — see the walk arm above.
-            {
-                const mu = game.u || (game.u = {});
-                mu.dx = DIR_DX[low];
-                mu.dy = DIR_DY[low];
-            }
+            // C rhack grid-bug arm (`:3778–3784`) — see the walk arm above
+            // (dx/dy seeded at the arm top).
             if (!dxdy_moveok()) {
                 await You_cant('get there from here...');
                 reset_cmd_vars(true);
@@ -5697,9 +5703,15 @@ export async function rhack(key) {
             game.context.forcefight = 0;
             if (game.context.move !== 0) game.context.move = 1;
         } else {
-            // C: set_move_cmd(dir, run) — clears travel; capital run=1, Ctrl-rush=3
-            // First step carries DOMOVE_RUSH; continue_run clears attempting
-            // after each domove so later steps do not maybe_smudge_engr.
+            // C: set_move_cmd(dir, run) — u.dz/dx/dy from the dir first
+            // (`:1389–1391`; zdir 0 for planar), then clears travel;
+            // capital run=1, Ctrl-rush=3. First step carries DOMOVE_RUSH;
+            // continue_run clears attempting after each domove so later
+            // steps do not maybe_smudge_engr.
+            const mu = game.u || (game.u = {});
+            mu.dz = 0;
+            mu.dx = DIR_DX[low];
+            mu.dy = DIR_DY[low];
             game.context.travel = 0;
             game.context.travel1 = 0;
             if (!game.domove_attempting) {
@@ -5709,12 +5721,8 @@ export async function rhack(key) {
             game.context.mv = 1;
             if (!game.multi) game.multi = Math.max(COLNO, ROWNO);
             game.u.last_str_turn = 0;
-            // C rhack grid-bug arm (`:3778–3784`) — see the walk arm above.
-            {
-                const mu = game.u || (game.u = {});
-                mu.dx = DIR_DX[low];
-                mu.dy = DIR_DY[low];
-            }
+            // C rhack grid-bug arm (`:3778–3784`) — see the walk arm above
+            // (dx/dy seeded at the arm top).
             if (!dxdy_moveok()) {
                 await You_cant('get there from here...');
                 reset_cmd_vars(true);
