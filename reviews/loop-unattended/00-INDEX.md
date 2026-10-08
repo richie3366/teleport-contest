@@ -2555,3 +2555,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2543-f9f962b7e-doattributes-corner-teardown.md](./2543-f9f962b7e-doattributes-corner-teardown.md) | `f9f962b7e` | D-3667 doattributes corner teardown (PASS) | **ACCEPT** |
 | [2544-970916048-themeroom-random-feature.md](./2544-970916048-themeroom-random-feature.md) | `970916048` | D-3668 themeroom random feature (3 PASS + 1 moved) | **ACCEPT** |
 | [2545-fdb14c660-doset-armorstatus-home.md](./2545-fdb14c660-doset-armorstatus-home.md) | `fdb14c660` | D-3669 doset armorstatus home (44→110) | **ACCEPT** |
+| [2546-a49045429-tut1-knight-engr.md](./2546-a49045429-tut1-knight-engr.md) | `a49045429` | D-3671 tut-1 knight engraving (PASS) | **ACCEPT** |
+| [2547-e1585f2be-restore-pantheon-force.md](./2547-e1585f2be-restore-pantheon-force.md) | `e1585f2be` | D-3672 restore pantheon force delete (4 PASS) | **ACCEPT** |
+| [2548-55d6cffda-map-glyphinfo-showsyms.md](./2548-55d6cffda-map-glyphinfo-showsyms.md) | `55d6cffda` | D-3673 map_glyphinfo :2653 ov read (PASS) | **ACCEPT** |
+| [2549-f5c52c304-engrcorr-bw-inverse.md](./2549-f5c52c304-engrcorr-bw-inverse.md) | `f5c52c304` | D-3674 engrcorr MG_BW_ENGR inverse (2 PASS) | **ACCEPT** |
+| [2550-eba796a4d-hilite-pet-home.md](./2550-eba796a4d-hilite-pet-home.md) | `eba796a4d` | D-3675 hilite_pet wc home (2 moved) | **ACCEPT** |
+| [2551-3cb2f5ae2-menu-overlay-home.md](./2551-3cb2f5ae2-menu-overlay-home.md) | `3cb2f5ae2` | D-3676 menu_overlay iflags home (33→36) | **ACCEPT** |
+| [2552-e160d36a1-getpos-tip-dismiss.md](./2552-e160d36a1-getpos-tip-dismiss.md) | `e160d36a1` | D-3677 getpos tip fullscreen docrt (36→151) | **ACCEPT** |
+| [2553-2e0cee50b-doset-fruit-get-val.md](./2553-2e0cee50b-doset-fruit-get-val.md) | `2e0cee50b` | D-3678 doset fruit get_val (PASS) | **ACCEPT** |
