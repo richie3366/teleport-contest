@@ -1,6 +1,6 @@
 {
- "commit": "de3733ced",
- "at": "2026-10-08T14:16:55.856Z",
+ "commit": "b3845d7d0",
+ "at": "2026-10-08T14:41:25.909Z",
  "full": false,
  "fullCommit": "53f820e2c",
  "fullAt": "2026-10-08T13:36:09.820Z",
@@ -13201,19 +13201,19 @@
   },
   "scen-tour-Tourist-92134": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 17006,
    "rngT": 17006,
-   "scrM": 81,
+   "scrM": 84,
    "scrT": 84,
-   "kind": "screen",
-   "step": 81,
+   "kind": null,
+   "step": null,
    "steps": 84,
    "owner": null,
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
-   "jsTopline": "Save bones? [yn] (n)",
+   "jsTopline": "",
    "error": null
   },
   "scen-tour-Valkyrie-92040": {
