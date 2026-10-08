@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3656 — cliffs-head `detect.c` mfind0: via_warning set_msg_xy + message flush (Healer-94396 64→PASS)
+
+- **Status:** shipped (Open — cliffs head `detect.c` mfind0, 1 corpus block; the ledger `ported` predates the flush — the two display omissions (set_msg_xy ×3, WIN_MESSAGE flush) were named but unwired. `verify mfind0: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
+- **Symptom:** scen-quest-Healer-94396 step 64/87 kind=screen at detect.c:1985: toplines identical («Your danger sense causes you to take a second look close by.--More--»), first differing screen row 18 col 22: C `···1#` vs JS `···;#` — warning digit vs revealed piranha. MEASURED (recorded C screens 61–66 + geom-probe: single cell (23,17), terrain identical 510/510): C step 63 already shows `1` (hidden piranha, warning-sensed); C step 64 keeps `1` (capture at mfind0's mid-function flush, before mundetected is cleared); C step 65 shows `;` with «You find a piranha.». RNG 7824/7824 matched — pure capture-timing diff, not a state writer.
+- **C locus:** `mfind0` `nethack-c/upstream/src/detect.c:1965–2013` — via_warning arm `:1983–1987` (set_msg_xy `:1984`, danger-sense Your `:1985`, display_nhwindow(WIN_MESSAGE, FALSE) `:1987`), unseen arm set_msg_xy `:2004`, find arm set_msg_xy `:2007`. The flush pages: wintty.c tty_display_nhwindow NHW_MESSAGE `:1873–1884` (toplin NEED_MORE → more() + clear; addtopl topl.c:201 sets NEED_MORE on every displayed message).
+- **JS was:** `js/detect.js:379` mfind0 — whole except the two named omissions: no set_msg_xy at any of the three C sites, no flush after the danger-sense pline, so the step-64 capture landed after the mundetected-clear + newsym (post-reveal `;`).
+- **Fix:** wired all three `set_msg_xy(x, y)` in C order + `await flush_topl_more()` after the danger-sense pline (house display_nhwindow(WIN_MESSAGE, FALSE) idiom: vault.js gd_move_cleanup, end.js done1 — NEED_MORE → more(), no-op otherwise). No new import (both names already imported in js/detect.js). Deferral comments updated (mfind0 doc, warnreveal doc, module header).
+- **JS:** `js/detect.js` mfind0 `:374–436` (set_msg_xy `:398/:424/:427`, flush `:403–407`); new focused test `scripts/mfind0-warn-flush.test.mjs` (chwepon-hcolor-draw.test.mjs precedent: pins step-64/65 toplines + the piranha row `1`→`;`).
+- **Callers:** C detect.c:2065 dosearch0 `mfind0(mtmp, 0)` → JS `js/detect.js:515` (mfres arm, unchanged); C :2118 warnreveal `mfind0(mtmp, 1)` → JS `js/detect.js:443` (unchanged). Both were already wired; this commit only completes the callee body.
+- **Verify:** `node scripts/verify.mjs --fn mfind0` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+  - `verify mfind0: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` — scen-quest-Healer-94396: PASS; REACH smoke 24/24 PASS → REACH-OK (mfind0 draws no RNG → no tagged reach set).
+  - Full `node frozen/ps_test_runner.mjs sessions`: 44/44 PASS (run once: mfind0 sits on the per-turn warnreveal path).
+  - Focused `node --test scripts/mfind0-warn-flush.test.mjs`: 1/1 green post-fix (pre-fix sensitivity is machine-recorded: the committed scores.json rowDiff showed JS `···;#` at step 64 where the test pins `···1#`).
+- **Named omissions:** none. (All three set_msg_xy + the flush now wired; the pline-vs-Your/You wrapper choice is unchanged — identical message text.)
+- **Ledger:** mfind0 ported
+- **Next:** probe joins the PASS set on regen; pop the next Open — cliffs head.
+
 ## D-3655 — cliffs-head `options.c` handler_menustyle: end_menu prompt gains tty_menu_promptstyle + blank separator (Wizard-94291 96→PASS)
 
 - **Status:** shipped (Open — cliffs head `options.c` handler_menustyle, 1 corpus block; no earlier D-entry touched it — the ledger `ported` predates the D-3403 tty_end_menu prompt-paint discovery, so the prompt carried no style. `verify handler_menustyle: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)

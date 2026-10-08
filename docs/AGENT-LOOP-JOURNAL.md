@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3656 cliffs-head `detect.c` mfind0: via_warning set_msg_xy + message flush (Healer-94396 64→PASS)
+
+**C locus:** `mfind0` `nethack-c/upstream/src/detect.c:1965–2013` — via_warning arm `:1983–1987` (set_msg_xy `:1984`, danger-sense Your `:1985`, display_nhwindow(WIN_MESSAGE, FALSE) `:1987`), unseen arm set_msg_xy `:2004`, find arm set_msg_xy `:2007`. The flush pages: wintty.c tty_display_nhwindow NHW_MESSAGE `:1873–1884` (toplin NEED_MORE → more() + clear; addtopl topl.c:201 sets NEED_MORE on every displayed message).
+**JS:** `js/detect.js` mfind0 `:374–436` (set_msg_xy `:398/:424/:427`, flush `:403–407`); new focused test `scripts/mfind0-warn-flush.test.mjs` (chwepon-hcolor-draw.test.mjs precedent: pins step-64/65 toplines + the piranha row `1`→`;`).
+**Change:** wired all three `set_msg_xy(x, y)` in C order + `await flush_topl_more()` after the danger-sense pline (house display_nhwindow(WIN_MESSAGE, FALSE) idiom: vault.js gd_move_cleanup, end.js done1 — NEED_MORE → more(), no-op otherwise). No new import (both names already imported in js/detect.js). Deferral comments updated (mfind0 doc, warnreveal doc, module header).
+**Verify:** `node scripts/verify.mjs --fn mfind0` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7).
+**Named:** none. (All three set_msg_xy + the flush now wired; the pline-vs-Your/You wrapper choice is unchanged — identical message text.)
+**Next:** probe joins the PASS set on regen; pop the next Open — cliffs head.
 ## 2026-10-08 — D-3655 cliffs-head `options.c` handler_menustyle: end_menu prompt gains tty_menu_promptstyle + blank separator (Wizard-94291 96→PASS)
 
 **C locus:** `handler_menustyle` `nethack-c/upstream/src/options.c:5544–5583` — end_menu prompt `:5570`, painted by wintty.c tty_end_menu `:2685–2689` (prompt prepended with tty_menu_promptstyle = menu_headings, default ATR_INVERSE, then a blank item).
