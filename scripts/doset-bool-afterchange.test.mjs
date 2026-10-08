@@ -70,6 +70,30 @@ describe("doset bool after-change arms (options.c:5297-5430)", () => {
     });
   });
 
+  it("lit_corridor sets opt_need_redraw when use_color is unset (C :5373)", async () => {
+    // C `if (iflags.use_color)` reads TRUE on the color-terminal build
+    // (tty TERM probes); JS has no probe (Rule #2) so unset means on —
+    // the `!== false` convention (display.js:5083). A truthy gate drops
+    // the darkroom refresh and its docrt→cls→more --More--.
+    await withCleanGo(async () => {
+      delete game.iflags.use_color; // session state: never probed, never set
+      const applied = await optfn_boolean_do_set("lit_corridor", false, false);
+      assert.equal(applied, true);
+      assert.equal(game.flags.lit_corridor, true);
+      assert.equal(game.go.opt_need_redraw, true);
+    });
+  });
+
+  it("lit_corridor skips opt_need_redraw when use_color is false (C :5373)", async () => {
+    await withCleanGo(async () => {
+      game.iflags.use_color = false; // mono-terminal C build
+      const applied = await optfn_boolean_do_set("lit_corridor", false, false);
+      assert.equal(applied, true);
+      assert.equal(game.flags.lit_corridor, true);
+      assert.notEqual(game.go.opt_need_redraw, true);
+    });
+  });
+
   it("mention_decor resets prev_decor (C :5424)", async () => {
     await withCleanGo(async () => {
       const applied = await optfn_boolean_do_set("mention_decor", false, false);

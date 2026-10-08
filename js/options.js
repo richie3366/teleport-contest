@@ -10800,7 +10800,12 @@ export async function optfn_boolean(optidx, req, negated, opts) {
         } else if (name === 'lit_corridor' || name === 'dark_room') {
             vision_recalc(2); // C shut down vision
             game.vision_full_recalc = 1; // C `gv.vision_full_recalc` (vision.js:270)
-            if (game.iflags?.use_color) mark_opt_need_redraw(); // C darkroom refresh
+            // C `:5373` `if (iflags.use_color)` reads TRUE on the
+            // color-terminal build (tty TERM probes); JS has no probe
+            // (Rule #2) so unset means on — the `!== false` convention
+            // (display.js:5083). A truthy gate drops the darkroom
+            // refresh and its docrt→cls→more --More--.
+            if (game.iflags?.use_color !== false) mark_opt_need_redraw();
         } else if (OPT_GLYPH_RESET.has(name)) { // C `:5376–5385`
             mark_opt_need_redraw();
             mark_opt_need_glyph_reset();
@@ -10966,7 +10971,8 @@ export async function optfn_boolean_do_set(name, negated, initial = false) {
         // set up here (not initializing: see the `initial` return above).
         vision_recalc(2); // C shut down vision
         game.vision_full_recalc = 1; // C `gv.vision_full_recalc` (vision.js:270)
-        if (game.iflags?.use_color) mark_opt_need_redraw(); // C darkroom refresh
+        // C `:5373` — unset means on (whole-optfn note above).
+        if (game.iflags?.use_color !== false) mark_opt_need_redraw();
     }
     if (name === 'color') { // C `:5399–5409` (`#ifdef TOS` arm build-gated out)
         mark_opt_need_redraw();

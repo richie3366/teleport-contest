@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3653 cliffs-head `options.c` optfn_boolean: lit_corridor/dark_room redraw gate read truthy use_color, which stays unset (no TERM probe under Rule #2), so no docrt→cls→more --More-- (Tourist-94171 99→PASS)
+
+**C locus:** `src/options.c` optfn_boolean `:5372–5373` (`if (iflags.use_color) go.opt_need_redraw = TRUE`) + doset `:8973` → reset_needed_visuals `:8997–9001` → docrt → cls `:2196` (`display_nhwindow(WIN_MESSAGE, FALSE)`) → wintty.c `:1874–1877` (NEED_MORE → more()). `color` maps to `&iflags.wc_color` (optlist.h:236–238), not use_color — no addr bug; use_color is probe-set only.
+**JS:** `js/options.js` (+9/−2: whole gate :10803–10809, mirror gate :10974–10975). Unit `scripts/doset-bool-afterchange.test.mjs` +2 (unset→redraw, explicit-false→no-redraw; 5/6 pre-fix → 6/6 post-fix). New replay `scripts/lit-corridor-more.test.mjs` (1/1: step-99 row0 toggle+--More--, step-100 row0 empty; 0/1 pre-fix).
+**Change:** both gates → `game.iflags?.use_color !== false` with the C-cite + convention comment (whole body carries the full note, mirror a one-liner). Nothing ever sets use_color false in JS (grep-verified), so the gate now reads TRUE in every reachable state — exactly C on the scored color-terminal build — while keeping the mono-terminal arm live. No new imports (same-file flag setter).
+**Verify:** `node scripts/verify.mjs --fn optfn_boolean` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · PASS hidden (`verify optfn_boolean: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; scen-options-Tourist-94171: PASS) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Focused unit 6/6 + replay 1/1 (each failed pre-fix on the new asserts).
+**Named:** none new. `toggle_bool_option` (third bool path, doset_simple) keeps its own arms — different C function, untouched, no session evidence.
+**Next:** probe joins the PASS set on regen; do not re-pop optfn_boolean for Tourist-94171. Next Open — cliffs head in order.
 ## 2026-10-08 — D-3652 cliffs-head `do.c` doup via writer `cmd.c` yn_function_menu: end_menu query prompt rows were dropped, menu painted promptless at col 41 (Tourist-94171 85→optfn_boolean 99)
 
 **C locus:** `nethack-c/upstream/src/cmd.c:5416–5463` `yn_function_menu` (`end_menu(win, query)` `:5446`) + `nethack-c/upstream/win/tty/wintty.c:2680–2690` `tty_end_menu` (prepends the prompt row in `tty_menu_promptstyle` + a blank row ahead of the items, so the prompt's 46+2 sets maxcol 48 → H2344 offx 31 → content at col 32).
