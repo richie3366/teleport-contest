@@ -55,7 +55,7 @@
 {"fn":"glyph_at","c":"2478-2483","status":"ported","js":["js/display.js:glyph_at"],"at":"2026-10-03@bbe63333a"}
 {"fn":"glyphinfo_at","c":"2487-2491","status":"by-design","at":"2026-10-02@1896adcef","note":"UNBUFFERED_GLYPHINFO compiled out (never defined); body inside display.c:2485-2491 ifdef, default !UNBUFFERED gbuf macro live (display.c:1637-1643, JS display.js:7007)"}
 {"fn":"get_bkglyph_and_framecolor","c":"2507-2579","status":"ported","js":["js/display.js:get_bkglyph_and_framecolor"],"d":["D-1973"],"at":"2026-10-03@bbe63333a"}
-{"fn":"map_glyphinfo","c":"2594-2655","status":"ported","js":["js/display.js:map_glyphinfo"],"d":["D-3673","D-1983","D-1972"],"at":"2026-10-08@e1585f2be"}
+{"fn":"map_glyphinfo","c":"2594-2655","status":"ported","js":["js/display.js:map_glyphinfo"],"d":["D-3681","D-3673","D-1983","D-1972"],"at":"2026-10-08@5c82e0869"}
 {"fn":"cmap_to_roguecolor","c":"2699-2719","status":"ported","js":["js/display.js:cmap_to_roguecolor"],"d":["D-3052"],"at":"2026-09-28@6f36d2ab4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_glyphmap","c":"2739-3086","status":"by-design","at":"seed@a30a7de84","note":"seed: CURRENT.md Do not (fortress guard)"}
 {"fn":"type_to_name","c":"3108-3111","status":"by-design","at":"2026-10-02@1896adcef","note":"WA_VERBOSE compiled out (display.c:138 commented); body inside display.c:3091-3121 ifdef, sole C caller error4 same ifdef"}

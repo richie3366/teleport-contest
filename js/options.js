@@ -5307,7 +5307,7 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                     result.flags.nudist = value;
                 }
                 else if (lname === 'fixinv') result.flags.invlet_constant = value;
-                else if (lname === 'color') result.flags.color = value;
+                else if (lname === 'color') result.iflags.wc_color = value; // C optlist.h:237 &iflags.wc_color (flag.h:507 use_color ≡ wc_color; C has no flags.color)
                 else if (lname === 'legacy') result.flags.legacy = value;
                 else if (lname === 'tutorial') { result.flags.tutorial = value; result.tutorial_set = true; }
                 else if (lname === 'splash_screen') result.iflags.wc_splash_screen = value;
@@ -10487,7 +10487,7 @@ const DOSET_BOOL_ADDR = {
     bgcolors: { obj: 'iflags', key: 'bgcolors' },
     checkpoint: { obj: 'flags', key: 'checkpoint' }, // C: flags.ins_chkpt
     cmdassist: { obj: 'iflags', key: 'cmdassist' },
-    color: { obj: 'iflags', key: 'wc_color' },
+    color: { obj: 'iflags', key: 'wc_color' }, // C optlist.h:237 &iflags.wc_color (flag.h:507 use_color ≡ wc_color; every paint gate reads this key)
     confirm: { obj: 'flags', key: 'confirm' },
     customcolors: { obj: 'iflags', key: 'customcolors' },
     customsymbols: { obj: 'iflags', key: 'customsymbols' },
@@ -10823,7 +10823,7 @@ export async function optfn_boolean(optidx, req, negated, opts) {
             // (Rule #2) so unset means on — the `!== false` convention
             // (display.js:5083). A truthy gate drops the darkroom
             // refresh and its docrt→cls→more --More--.
-            if (game.iflags?.use_color !== false) mark_opt_need_redraw();
+            if (game.iflags?.wc_color !== false) mark_opt_need_redraw();
         } else if (OPT_GLYPH_RESET.has(name)) { // C `:5376–5385`
             mark_opt_need_redraw();
             mark_opt_need_glyph_reset();
@@ -10990,7 +10990,7 @@ export async function optfn_boolean_do_set(name, negated, initial = false) {
         vision_recalc(2); // C shut down vision
         game.vision_full_recalc = 1; // C `gv.vision_full_recalc` (vision.js:270)
         // C `:5373` — unset means on (whole-optfn note above).
-        if (game.iflags?.use_color !== false) mark_opt_need_redraw();
+        if (game.iflags?.wc_color !== false) mark_opt_need_redraw();
     }
     if (name === 'color') { // C `:5399–5409` (`#ifdef TOS` arm build-gated out)
         mark_opt_need_redraw();
@@ -12114,7 +12114,7 @@ const allopt = [
     { name: 'checkpoint', opttyp: BoolOpt, idx: 30, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'checkpoint' }, optfn: null },
     // optlist.h:233 NHOPTB(cmdassist)
     { name: 'cmdassist', opttyp: BoolOpt, idx: 31, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'cmdassist' }, optfn: null },
-    // optlist.h:236 NHOPTB(color)
+    // optlist.h:236 NHOPTB(color) → &iflags.wc_color (flag.h:507 use_color ≡ wc_color; the one color home)
     { name: 'color', opttyp: BoolOpt, idx: 32, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'wc_color' }, optfn: null },
     // optlist.h:239 NHOPTB(confirm)
     { name: 'confirm', opttyp: BoolOpt, idx: 33, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'confirm' }, optfn: null },

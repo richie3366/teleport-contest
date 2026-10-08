@@ -3998,7 +3998,7 @@ function altar_glyph_color(loc) {
         CLR_RED, CLR_GRAY, CLR_GRAY, CLR_GRAY, CLR_BRIGHT_MAGENTA,
     ];
     // C: altar_color(n) → iflags.use_color ? altarcolors[n] : NO_COLOR
-    if (game.iflags?.use_color === false) return NO_COLOR;
+    if (game.iflags?.wc_color === false) return NO_COLOR;
     return altarcolors[idx];
 }
 
@@ -4468,6 +4468,13 @@ export function map_glyphinfo(x, y, base, mgflags) {
     const isYou = !!u_at(x, y) && glyph_is_monster(gid);
     // C `:2612` glyphinfo->gm = *gmap — the base record stands in (named).
     const out = { ...base, glyphflags: 0, glyph: gid };
+    // C reset_glyphmap `:3077–3083` tail + the `:2683–2694` bank macros
+    // (obj/mon/pet/warn/explode/wall/altar/cmap/zap): every table color
+    // is use_color-gated, NO_COLOR when off. Gate the base here, before
+    // the is_you ladder — C's `:2630–2636` hero overrides (CLR_YELLOW,
+    // HI_DOMESTIC) apply after the copy and stay ungated. flag.h:507
+    // use_color ≡ wc_color: the one home the toggles write.
+    if (game.iflags?.wc_color === false) out.color = NO_COLOR;
     // C `:2612` also seeds gm.sym.symidx from the glyph id — the symidx
     // column of the deferred table is live as glyphmap_symidx (same
     // module). Unmapped paints (NO_GLYPH / JS-only callers carrying no
@@ -4480,7 +4487,7 @@ export function map_glyphinfo(x, y, base, mgflags) {
         // C `:2619–2636` hero color ladder: monochrome, poly'd, or a
         // glyph that is not the hero's own (riding uses the steed's
         // ridden-bank id, never hero_glyph) keep the base color.
-        if (game.iflags?.use_color === false || Upolyd(u) || gid !== hero_glyph().glyph) {
+        if (game.iflags?.wc_color === false || Upolyd(u) || gid !== hero_glyph().glyph) {
             ; // color tweak not needed (!use_color) or not wanted
         } else if ((game.currentgraphics | 0) === ROGUESET
                 && (game.gs?.symset?.[ROGUESET]?.handling | 0) === H_IBM
@@ -5150,7 +5157,7 @@ export function zapdir_to_glyph(dx0, dy0, beam_type) {
     const dy = dy0 | 0;
     // C: dx = (dx == dy) ? 2 : (dx && dy) ? 3 : dx ? 1 : 0
     const dir = (dx === dy) ? 2 : (dx && dy) ? 3 : dx ? 1 : 0;
-    const useColor = game.iflags?.use_color !== false;
+    const useColor = game.iflags?.wc_color !== false;
     // C display.c zapcolors[NUM_ZAP] / display.h zap_color_*
     const zapcolors = [
         HI_ZAP, CLR_ORANGE, CLR_WHITE, HI_ZAP,
@@ -5455,8 +5462,7 @@ export function magic_map_background(x, y, show) {
             //    : GLYPH_NOTHING. Defaults On; showsyms equate darkroom to
             //    room floor (reglyph_darkroom).
             const darkRoom = game.flags?.dark_room !== false;
-            const useColor = game.flags?.color !== false
-                && game.iflags?.use_color !== false;
+            const useColor = game.iflags?.wc_color !== false;
             if (!(darkRoom && useColor)) {
                 tg = { ch: ' ', color: NO_COLOR, dec: false };
                 glyph = GLYPH_NOTHING;
@@ -5685,7 +5691,7 @@ export function feel_location(x, y) {
                 // C `:839–845` — dark-room tint (rogue level stays stone),
                 // else the lit/unlit floor symbol.
                 const darkRoom = game.flags?.dark_room !== false
-                    && game.iflags?.use_color !== false
+                    && game.iflags?.wc_color !== false
                     && !Is_rogue_level(game.u?.uz);
                 set_memory_cmap(x, y, loc, darkRoom ? S_darkroom
                     : (loc.waslit ? S_room : S_stone));
@@ -5701,7 +5707,7 @@ export function feel_location(x, y) {
                 && !loc.waslit)
                 set_memory_cmap(x, y, loc, S_corr);
             else if (typ === ROOM && game.flags?.dark_room !== false
-                     && game.iflags?.use_color !== false
+                     && game.iflags?.wc_color !== false
                      && memG === cmap_to_glyph(S_room))
                 set_memory_cmap(x, y, loc, S_darkroom);
         }
@@ -5743,7 +5749,7 @@ export function feel_location(x, y) {
         // room floor, and S_darkroom shares its symbol.
         const mem = loc.remembered_glyph;
         const darkRoomColor = game.flags?.dark_room !== false
-            && game.iflags?.use_color !== false;
+            && game.iflags?.wc_color !== false;
         if ((loc.typ | 0) === ROOM
             && (!loc.waslit || darkRoomColor)) {
             // C `:896–897` writes cmap(dark_room ? S_darkroom : S_stone),
@@ -5977,8 +5983,7 @@ export function newsym(x, y) {
         // cell (showsyms[S_darkroom]=showsyms[S_room] when dark_room).
         let mem = loc.remembered_glyph;
         const darkRoomColor = game.flags?.dark_room !== false
-            && game.flags?.color !== false
-            && game.iflags?.use_color !== false;
+            && game.iflags?.wc_color !== false;
         const isLitcorr = (loc.typ | 0) === CORR && (
             memory_is_cmap(mem, S_LITCORR)
             || (mem.ch === '#' && mem.color === CLR_WHITE)
@@ -7595,7 +7600,7 @@ export function get_bkglyph_and_framecolor(x, y) {
             } else if (idx === S_room) {
                 // C `:2560–2561` (dark_room && use_color) ? DARKROOMSYM.
                 idx = (game.flags?.dark_room !== false
-                        && game.iflags?.use_color !== false)
+                        && game.iflags?.wc_color !== false)
                     ? darkroom_sym() : S_stone;
             }
         }
@@ -7846,7 +7851,8 @@ export async function cliparound(x, y) {
  * per the M_AP_FURNITURE `:539–540` precedent); GLYPH_NOTHING writes the
  * blank `' '`/`NO_COLOR` cell with the NOTHING id (per
  * `magic_map_background` when `!dark_room`).
- * `dark_room` / `use_color` default On via `!== false` (per
+ * `dark_room` / `wc_color` (C `iflags.use_color` ≡ `wc_color`,
+ * flag.h:507) default On via `!== false` (per
  * `get_bkglyph_and_framecolor` `:2555–2562`); `cansee` stays last in each
  * conjunction so it never runs when an earlier arm already failed.
  * Named omissions: `gs.showsyms[S_darkroom]` equate (`:1850–1853`, no
@@ -7858,7 +7864,7 @@ export async function cliparound(x, y) {
 export function reglyph_darkroom() {
     // C `:1826` + `:1836–1837` flag reads (Is_rogue_level takes &u.uz).
     const darkRoom = game.flags?.dark_room !== false;
-    const useColor = game.iflags?.use_color !== false;
+    const useColor = game.iflags?.wc_color !== false;
     const isRogue = Is_rogue_level(game.u?.uz);
     // C `:1822–1823` x 1..COLNO-1, y 0..ROWNO-1.
     for (let x = 1; x < COLNO; x++) {

@@ -1257,7 +1257,7 @@ function cmap_showsym_code(idx) {
         // rewritten at runtime: the room copy when dark_room+use_color,
         // else the SYM_NOTHING slot (DEF_NOTHING ' ').
         if ((game.flags?.dark_room !== false)
-            && (game.iflags?.use_color !== false)) {
+            && (game.iflags?.wc_color !== false)) {
             return cmap_showsym_code(S_room);
         }
         return showsym_x_code(SYM_NOTHING, 0x20);

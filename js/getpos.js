@@ -597,8 +597,7 @@ export function room_cmap_explanation(x, y, loc) {
         return 'floor of a room';
     }
     const darkRoomColor = game.flags?.dark_room !== false
-        && game.flags?.color !== false
-        && game.iflags?.use_color !== false;
+        && game.iflags?.wc_color !== false;
     // C: !waslit || (dark_room && use_color) → S_darkroom (or NOTHING)
     if (!loc.waslit || darkRoomColor) return 'dark part of a room';
     return 'floor of a room';

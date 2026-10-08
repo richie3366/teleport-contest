@@ -30,20 +30,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired).
 ## Don't re-check (≤15)
 
-- D-1790…D-3680 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3681 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3680.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3680 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3681.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3681 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3681: js/ only, no new imports/edges — (1) the 14 `use_color` reads → `wc_color` (polarity preserved; unset still means on, matching initval true); (2) the  Named: (1) windows.c has_color `:1399` wincap color query (use_color && WC_COLOR && has_color[]) 
 - D-3680: read.js: `strange_feeling` joins the existing detect.js import (no new edge — `imports.mjs --can`: already statically imports); 3 sites renamed to liv Named: (1) live's detect-local useup stays partial (no update_inventory — pre-existing ledger-not
 - D-3679: after each pline, `await flush_screen(1)` + `game.nhDisplay?.setCursor?.('Bind which key? '.length, 0)` before the blocking read — the get_count `:510 Named: none new — both pgetchar sites now carry the prompt-paint adaptation; readchar_core's thre
 - D-3678: one row (`js/options.js:11408`): fruit → live `doset_compopt_get_val(optfn_fruit, 'fruit') || 'unknown'` (C `:9038` get_val + `:9043` fallback, crash_ Named: none in this unit — the fruit literal now mirrors C `:9038`.
@@ -58,5 +59,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3669: both rows → `{ obj: 'flags', … }` (D-3629 shape + `optlist.h:168` cite on the DOSET row). Named: none new. doset's pre-existing D-3457 audited omit stands (envelope unchanged — data home 
 - D-3668: `js/mklev.js` only — new `themeroom_random_feature_contents` (C-order feature list, live `nhlib_shuffle`, `l_push_mkroom_table` width/height, room-rel Named: (1) standing dispatch omissions untouched: Water vault D-0690, Blocked center map+replace_
 - D-3667: `js/invent.js` only — teardown branches on the in-scope `offx` (`nhw_menu_geometry`, `:8651`): offx==0 → `docrt()` (fullscreen arm, identical to befor Named: (1) erase_menu_or_text `:1098` mid-life menu clear still has no JS caller (pre-existing — 
-- D-3666: none — measurement only. Named: (1) C-side `~drn2` call-site tags are stale-context junk (patch 003 macros cover only core
 <!-- landmarks:end -->
