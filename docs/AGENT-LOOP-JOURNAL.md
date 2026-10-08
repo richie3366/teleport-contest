@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — saturated stop #6 (live queue still empty at 938/953; audit owns re-record + rescore + growth)
+
+**Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
+**Pop:** Must-fix empty (no throw/hang, 0 PASS→FAIL, newest review 2564 = audited); cliffs head `weapon.c` mon_wield_item parked RECORDER-ARTIFACT and park-maxed five times over (D-3570 + D-3660 + D-3689 v2 + D-3692 + D-3694 capture-layer proof — "do not re-probe on port iters") with 10/10 C callers wired (D-3695); coverage empty; `ledger.mjs batch --write` → "no gap left".
+**State:** fresh `show` byte-identical to the parks — Priest-94382 step 99 (identical tether toplines, row-7 G/· at col 23, null jsOwner/cEntry/jsEntry, RNG 11013/11013, screens 204/205). `brief mon_wield_item` re-read (C weapon.c:801–934 whole in js/weapon.js:807, all 22 callees live; ledger ported D-2460); no writer namable — no game writer exists per D-3694 (G-frame captured post-recalc-exit; hook realignment is barred frame machinery).
+**Verify:** `verify.mjs --fn mon_wield_item` → 0 PASS, 0 moved past, 1 unchanged → NO MOVEMENT (expected and honest: park holds, zero code changed) · smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: FAIL on hidden only.
+**Regen:** `check-hot-docs --fix` all-ok, no edits (cliffs still the 1 parked row @39b943e1e, coverage still empty) — saturated per the Refill rule.
+**Next:** audit owns (a) hook-vs-recorder capture-point adjudication + nomux_out bound (both barred to this loop), (b) fixed-recorder re-record + full rescore, (c) corpus growth (explore 93.5% flag + block-holds-1-owner flag stand). Do not re-touch mon_wield_item or Samurai-92032 on port iters.
 ## 2026-10-08 — D-3695 `dogmove.c` dog_invent `:466–471`: wire the AT_WEAP mon_wield_item + check_gear_next_turn pickup tail (mon_wield_item's 10th C caller; probe still parked D-3694)
 
 **C locus:** dogmove.c:466–471 inside staticfn dog_invent (`:400–478`): `if (attacktype(mtmp->data, AT_WEAP) && mtmp->weapon_check == NEED_WEAPON) { mtmp->weapon_check = NEED_HTH_WEAPON; (void) mon_wield_item(mtmp); } check_gear_next_turn(mtmp);` with mon.c:5915–5918 (`mon->misc_worn_check |= I_SPECIAL`, live at js/worn.js:705).
