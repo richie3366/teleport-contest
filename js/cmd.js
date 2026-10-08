@@ -6002,7 +6002,17 @@ export async function rhack(key) {
         if (swapRes) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'S') {
         // C ref: save.c dosave / cmd.c — #save (GENERALCMD, ECMD_OK)
-        await dosave();
+        // C rhack `:3689–3694` — can_do_extcmd(tlist) gates the key
+        // command before ef_funct; FALSE skips dosave with no pline
+        // and the ECMD_OK tail below still applies. The NHCB_CMD_BEFORE
+        // lua arm (dat/nhlib.lua tutorial_cmd_before `:187–193`,
+        // "save" blacklist `:183–185`, registered by tutorial_enter on
+        // tut-1) vetoes save in the tutorial, so `S` there is a silent
+        // no-op; the wizard/buried/fuzzer arms ride the same live row.
+        const saveTab = ext_func_tab_from_txt('save');
+        if (saveTab && (await can_do_extcmd(saveTab))) {
+            await dosave();
+        }
         // C rhack `:3814–3816` — ECMD_OK → reset_cmd_vars(multi < 0).
         reset_cmd_vars((game.multi | 0) < 0);
         game.context.move = 0;
