@@ -27,25 +27,26 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **distfleeck residuals (D-2420 MEASURED):** W5/W6 shipped (D-2714/D-2717); W1/W4 shipped, W2/W3 parked with `[measure]` rows (Phase 2 section). Falsified — do not re-check: scared re-port, MAIL arm, seed/step/coords logic.
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Pw pair + Empty-hnd fixed D-3629 (drain_en flags.botl mirror, DOSET weaponstatus home); all 3 probe sessions moved.
-- **mfndpos W2 [measure] DONE (D-3560):** turn-7 starts identical; 541 turn-7 C→(43,12) goal=(43,10) vs JS→(45,11) goal=hero(62,10); writer=`m_search_items` (43,10)-target. Port iter: fobj@(43,10) check + port arm. Recorder reverted, pristine re-record identical; probes in /tmp.
-- **disclose tour-Priest [measure] DONE (D-3626):** C never docrts post-death (54-line TEMP trace, zero uhp<=0 calls; mons+props match JS exactly); writer=`erase_menu_or_text` corner arm (wintty.c:981-982 → docorner) vs JS corner-dismiss docrt. Port iter: brief erase_menu_or_text + docorner. Wish pair is the separate Hallu display-RNG class.
+- **mfndpos W2 [measure] DONE (D-3560→D-3561):** shipped (m_search_items writer was MZ_HUMAN capacity); do not re-check.
+- **disclose tour-Priest [measure] DONE (D-3626→D-3627):** shipped (erase_menu_or_text corner arm); wish pair = separate Hallu display-RNG class.
 - **toss_up→chwepon [measure] DONE (D-3640):** Knight-94330 Hallu desync = C chwepon:920 entry hcolor (drawn, discarded on the !uwep arm) vs JS no-draw clone; writer ported same iter (probe 98→121, 104→286 screens). HCOLORS 74/74 set+order — no table bug, do not re-check.
 ## Don't re-check (≤15)
 
-- D-1790…D-3644 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3645 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3644.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3644 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3645.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3645 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3645: prompt header gains `attr: ATR_INVERSE` with the tty_menu_promptstyle C-cite comment, plus the blank separator item — verbatim the D-3403 sibling patt Named: dynamic iflags.menu_headings read for the prompt (C tty_menu_promptstyle tracks the live v
 - D-3644: `clear_committed_status` (js/display.js) no longer clears botlx — suppression + botl/time_botl only — so all six dismiss paths share C's postcondition Named: (1) botl/time_botl still cleared by the wipe (pre-existing; value changes are still caught
 - D-3643: extracted vision_recalc(2) loop gated on in_mklev/!vision_inited (post-gameover docrt runs vinit=0; TEMP-C). 1 PASS. Named: in_getlev (pre-existing).
 - D-3642: creation path takes no await anywhere, exactly like C: `m_dowear` bifurcates — creation runs all 8 slots in C guard order with no await and returns; ` Named: none new.
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3633: ready arm splits by window state like the !ready arm (D-3630 precedent): pre-window → configMsg unchanged (C raw_print); windowed → `(async () => { if Named: none new in this body — C `:1543–1589` is whole (every arm, every callee live: c_eos/eos/p
 - D-3632: level_tele writers: castle setLitArea→light_region (lit grow±1); wiz L47 rect→flood_fill_rm+add_room(bounds). 2 PASS.
 - D-3631: renamed `ape_heading_attr` → exported `menu_heading_attr` (`js/options.js:7051`, cites corrected to `:1815–1828`/`:1819–1820`/`:1822–1824`; logic unto Named: heading color (C `:1819–1820` color half) stays NO_COLOR on the corner painter (no per-row
-- D-3630: config_erradd !ready arm splits by window state: pre-window → configMsg (C raw_print); windowed → return the display promise `(async () => { await pli Named: ready-arm plines (`:1579`, `:1587`) stay configMsg (C raw_print equivalent pre-window; no 
 <!-- landmarks:end -->

@@ -3176,10 +3176,16 @@ export function optfn_whatis_filter(optidx, req, negated, opts, _op, iflagsBag, 
 export async function handler_whatis_filter() {
     if (!game.iflags) game.iflags = {};
     const gfilt = game.iflags.getloc_filter | 0; // C `:6285`
+    // C tty_end_menu (wintty.c `:2685–2689`): the end_menu prompt paints
+    // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
+    // then a blank separator item (whatis_coord precedent; D-3403).
     const raw = [{ // C `:6311–6312` end_menu prompt as header
         text: 'Select location filtering when going for next/previous map position:',
         selectable: false,
-    }];
+        attr: ATR_INVERSE,
+    },
+    { text: '', selectable: false }, // C wintty.c blank item
+    ];
     const rows = [ // C `:6290–6308` a_char is GFILTER_* + 1
         ['n', GFILTER_NONE, 'no filtering'],
         ['v', GFILTER_VIEW, 'in view only'],
