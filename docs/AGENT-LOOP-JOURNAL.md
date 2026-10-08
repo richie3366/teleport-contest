@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3696 [measure] `weapon.c` mon_wield_item/Priest-94382: JS hook#100 sits at RNG 5079 exactly like C SEQ-100 — same RNG instant, opposite sides of one RNG-silent recalc; the G's writer is the recalc sweep, park stands with writer evidence (no js/)
+
+**C locus:** the G's writer, clocked: `vision.c` vision_recalc's own newsym sweep at n=5079 — CAPTIME log lines 134–136 (recalc entry n=5079 → newsym246 n=5079 m_at=1 couldsee=1, first sensed-G paint → recalc exit n=5079 couldsee246=1), RNG-silent (zero draws across the window), then cap SEQ-100 n=5079 'G'. Anchors re-read from the intact /tmp/captime-evidence.log (439 lines); recorder tree pristine md5-verified (vision.c ab077a48, display.c b75fdeb7 — D-3694's TEMP reverted), so the numbers stand unrebuilt. C ·-window: last floor paint newsym246 n=4997 (m_at=1 couldsee=0, arrival-unsensed) after SEQ-99 n=4996 '~'.
+**JS:** unchanged — 0 changed js files (probe in /tmp only, never committed).
+**Change:** 
+**Verify:** preflight `verify.mjs --no-cohort` green before work (VERIFY: PASS, clean tree). `node scripts/verify.mjs --fn mon_wield_item` → PASS syntax (0 js files) · PASS rule2 · FAIL hidden (verify mon_wield_item: 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT — expected and honest: measure-only commit, game agrees, capture instants straddle one RNG-silent recalc) · PASS reach (smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full → VERIFY: FAIL on hidden only.
+**Named:** none (no port). Audit-owned, unchanged: (1) hook-vs-recorder capture-point adjudication (frozen-contract-adjacent, barred to this loop), (2) nomux_out bound (D-3684), (3) fixed-recorder re-record + full rescore, (4) corpus growth (explore 93.5% + holds-1-owner flag stand).
+**Next:** do not re-probe mon_wield_item on port iters (six touches now — D-3570 paint history + D-3660 confirm + D-3689 hook timing + D-3692 geom-probe + D-3694 capture layer + this cross-clock placement; mechanism measured at every layer). Next port iter: saturated stop stands unless the audit re-records + rescores. Next audit n=4620.
 ## 2026-10-08 — saturated stop #8 (live queue still empty at 938/953; n=4617, not an audit iter; audit owns re-record + rescore + growth)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.

@@ -27,20 +27,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split).
 ## Don't re-check (≤15)
 
-- D-1790…D-3695 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3696 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3695.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3695 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3696.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3696 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3696:  Named: none (no port).
 - D-3695: wired the tail in C order (short-circuit guard, NEED_HTH set before the call, awaited `(void)` call since JS mon_wield_item is async like all 9 siblin Named: none new. dog_invent remaining (pre-existing D-2417): SCR_MAIL skip; is_mines_prize/is_sok
 - D-3694:  Named: none (no port).
 - D-3693: js/cmd.js only — the S arm's veto branch does `reset_cmd_vars(true)` before the shared tail (house shape `:2813–2816`); the TRUE reset zeroes multi so Named: none new — D-3690's (1) stands (other rhack if/else key arms still bypass can_do_extcmd; t
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3684:  Named: (1) recorder BSS-overflow defect needs human/audit fix (contest patch 006 + recorder binar
 - D-3683: js/cmd.js only — the three arms now seed u.dz/dx/dy at the arm top in C order (`:1389–1391`: dz=0 planar + DIR_DX/DY), before the travel clears and th Named: none new — the three arms now carry the complete `:1389–1399` prefix in C order.
 - D-3682: js/display.js only — the DARKROOMSYM arm now renders the stored glyph: `dsym === S_STONE` (Rogue) → tg blank `{ch:' ',NO_COLOR}` (NOTHING-arm shape);  Named: (1) reglyph_darkroom's non-Rogue no-color half (:1852–1853 showsyms[S_darkroom]=blank when
-- D-3681: js/ only, no new imports/edges — (1) the 14 `use_color` reads → `wc_color` (polarity preserved; unset still means on, matching initval true); (2) the  Named: (1) windows.c has_color `:1399` wincap color query (use_color && WC_COLOR && has_color[]) 
 <!-- landmarks:end -->
