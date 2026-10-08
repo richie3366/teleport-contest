@@ -9862,11 +9862,12 @@ export async function select_menu_pick_one(rawItems) {
     let currPage = 0;
 
     // C tty_end_menu: multi-page → maxrow = lmax+1 ≥ rows → fullscreen.
-    // Force via menu_overlay false for the paint geometry check.
-    const prevOverlay = game.flags?.menu_overlay;
+    // Force via menu_overlay false for the paint geometry check (home is
+    // iflags — wintty.c:1924–1925 reads iflags.menu_overlay).
+    const prevOverlay = game.iflags?.menu_overlay;
     if (npages > 1) {
-        if (!game.flags) game.flags = {};
-        game.flags.menu_overlay = false;
+        if (!game.iflags) game.iflags = {};
+        game.iflags.menu_overlay = false;
     }
 
     try {
@@ -9994,8 +9995,8 @@ export async function select_menu_pick_one(rawItems) {
     } finally {
         set_bot_disabled(_botPrev);
         if (npages > 1) {
-            if (prevOverlay === undefined) delete game.flags.menu_overlay;
-            else game.flags.menu_overlay = prevOverlay;
+            if (prevOverlay === undefined) delete game.iflags.menu_overlay;
+            else game.iflags.menu_overlay = prevOverlay;
         }
     }
 }
@@ -10230,11 +10231,13 @@ export async function select_menu_pick_any(rawItems, opts = {}) {
     let counting = false;
     let count = 0;
     let resetCount = true;
-    const prevOverlay = game.flags?.menu_overlay;
+    // Multi-page → C maxrow ≥ rows → fullscreen; force via the iflags home
+    // (wintty.c:1924–1925) for the paint geometry check.
+    const prevOverlay = game.iflags?.menu_overlay;
     const _botPrev = set_bot_disabled(true);
     if (npages > 1) {
-        if (!game.flags) game.flags = {};
-        game.flags.menu_overlay = false;
+        if (!game.iflags) game.iflags = {};
+        game.iflags.menu_overlay = false;
     }
     try {
         for (;;) {
@@ -10444,8 +10447,8 @@ export async function select_menu_pick_any(rawItems, opts = {}) {
     } finally {
         set_bot_disabled(_botPrev);
         if (npages > 1) {
-            if (prevOverlay === undefined) delete game.flags.menu_overlay;
-            else game.flags.menu_overlay = prevOverlay;
+            if (prevOverlay === undefined) delete game.iflags.menu_overlay;
+            else game.iflags.menu_overlay = prevOverlay;
         }
     }
 }

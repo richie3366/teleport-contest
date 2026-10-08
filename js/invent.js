@@ -2975,8 +2975,9 @@ export function nhw_menu_geometry(entries, morestr = '(end) ') {
     let offx = Math.min(Math.min(82, Math.floor(cols / 2)), cols - maxcol - 1);
     if (offx < 0) offx = 0;
     // C H2344: no offx==10 → fullscreen; only tall menus / !menu_overlay
+    // (wintty.c:1924–1925; home is iflags — optlist.h:456, flag.h:340).
     const maxrow = entries.length + 1; // items + morestr row (approx)
-    if (maxrow >= 24 || game.flags?.menu_overlay === false) offx = 0;
+    if (maxrow >= 24 || game.iflags?.menu_overlay === false) offx = 0;
     return { offx, maxcol };
 }
 
