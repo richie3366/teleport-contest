@@ -20136,7 +20136,7 @@ function splev_map_center_start(wid, hei) {
 
 /**
  * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
- * Named omissions: Knight jump (role gate); leftover obfree;
+ * Named omissions: leftover obfree;
  * Lua nh.callback cmd_before/end_turn; update_inventory.
  */
 function load_tut1() {
@@ -20273,7 +20273,10 @@ function load_tut1() {
         + tut_key('movenorthwest');
     tut1_engr(9, 3, 'Move around with ' + movekeys);
     tut1_engr(5, 2, 'Move diagonally with ' + diagmovekeys);
-    // Knight jump engraving deferred (role gate).
+    // C: dat/tut-1.lua:83-85 — knight-only engraving (u.role == "Knight").
+    if (game.urole?.mnum === PM_KNIGHT) {
+        tut1_engr(12, 1, "Knights can jump with '" + tut_key('jump') + "'");
+    }
     tut1_engr(2, 4, 'Some actions may require multiple tries before succeeding');
     tut1_engr(2, 5, 'Open the door by moving into it');
     tut1_door(2, 6, D_CLOSED);

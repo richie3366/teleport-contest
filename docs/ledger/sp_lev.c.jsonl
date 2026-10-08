@@ -77,7 +77,7 @@
 {"fn":"lspo_object","c":"3557-3755","status":"split","js":["js/mklev.js:create_object","js/mklev.js:lspo_object_from_string","js/mklev.js:lspo_object_normalize_table","js/mklev.js:lspo_object_montype_mndx","js/mklev.js:lspo_object_apply_montype"],"d":["D-1723"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across create_object + from_string/normalize_table/montype helpers (D-1723; cf. lspo_monster precedent)"}
 {"fn":"lspo_level_flags","c":"3759-3831","status":"ported","js":["js/mklev.js:lspo_level_flags"],"d":["D-3585","D-3185"],"at":"2026-10-07@770c9ccf3"}
 {"fn":"lspo_level_init","c":"3837-3875","status":"ported","js":["js/mklev.js:lspo_level_init"],"d":["D-3185"],"at":"2026-10-01@03eae3466"}
-{"fn":"lspo_engraving","c":"3881-3936","status":"ported","js":["js/mklev.js:lspo_engraving"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lspo_engraving","c":"3881-3936","status":"ported","js":["js/mklev.js:lspo_engraving"],"d":["D-3671"],"at":"2026-10-08@323e8eb99"}
 {"fn":"lspo_mineralize","c":"3939-3955","status":"ported","js":["js/mklev.js:lspo_mineralize"],"d":["D-3007"],"at":"2026-09-28@12641c043","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_mkroom_name","c":"3991-4001","status":"ported","js":["js/mklev.js:get_mkroom_name"],"d":["D-3406","D-3032"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"get_table_roomtype_opt","c":"4004-4020","status":"ported","js":["js/mklev.js:get_table_roomtype_opt"],"d":["D-3406","D-3193","D-3032"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}

@@ -30,23 +30,24 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mfndpos W2 [measure] DONE (D-3560→D-3561):** shipped (m_search_items writer was MZ_HUMAN capacity); do not re-check.
 - **disclose tour-Priest [measure] DONE (D-3626→D-3627):** shipped (erase_menu_or_text corner arm); wish pair = separate Hallu display-RNG class.
 - **toss_up→chwepon DONE (D-3640):** HCOLORS 74/74, writer ported — do not re-check.
-- **read_engr_at Knight-94259 [measure] DONE (D-3670):** step-4 blue-`@r5c14 is S_engroom at map (15,4), not a boulder (D-3618 "(12,1)" corrected); writer = visible-engraving paint (newsym:972 reveal + _map_location:460 + map_engraving:313) + tut-1.lua:83-85 knight engr (JS defers at mklev.js:20244). Regen'd row sits behind dead mon_wield_item head — D-3668 skip-head precedent applies.
+- **read_engr_at Knight-94259 writer SHIPPED (D-3671):** knight engr wired at mklev.js:20276 (tut-1.lua:83-85, PM_KNIGHT gate); paint path audited whole (newsym:972 + _map_location:460 + map_engraving + unmap_object:422 + feel:860 all live); D-3670's (8,5) second witness retired (JS paints it — full cell-diff was exactly 1 cell); session → PASS. Do not re-pop read_engr_at.
 ## Don't re-check (≤15)
 
-- D-1790…D-3670 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3671 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3670.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3670 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3671.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3671 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3671: `js/mklev.js` only — role-gated placement in C .lua order (between the (5,2) and (2,4) sites, so prepend order matches C): `if (game.urole?.mnum === P Named: none new.
 - D-3670: none — measurement names the writer. Named: (1) otyp 474/475 → rock/boulder names inferred from the 5+5 counts + D-3618's JS probe, no
 - D-3669: both rows → `{ obj: 'flags', … }` (D-3629 shape + `optlist.h:168` cite on the DOSET row). Named: none new. doset's pre-existing D-3457 audited omit stands (envelope unchanged — data home 
 - D-3668: `js/mklev.js` only — new `themeroom_random_feature_contents` (C-order feature list, live `nhlib_shuffle`, `l_push_mkroom_table` width/height, room-rel Named: (1) standing dispatch omissions untouched: Water vault D-0690, Blocked center map+replace_
@@ -61,5 +62,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3659: `if (mtmp) mtmp.female = 0;` + C-order cite comment in all three clones (C order: `:2125` before `:2126` peaceful). Named: (1) other bare `mkclass`+`makemon` sites unaudited for des-vs-random attribution + female 
 - D-3658: movebubbles runs C's vision_recalc(2) loop via vision_off_newsym_gbuf pre-swap (Tourist-92100 158→PASS). Named: fill waslit/flags gap (pre-existing).
 - D-3657: deleted the 23-line clone (D-1849 discipline: import the export, never a second body); `export` on `mon.js` `mdrop_obj` (doc notes the live callers);  Named: (1) `zap.c:430` bhitm saddle arm (above) — inline subset also misses the worn-saddle `upda
-- D-3656: wired all three `set_msg_xy(x, y)` in C order + `await flush_topl_more()` after the danger-sense pline (house display_nhwindow(WIN_MESSAGE, FALSE) idi Named: none. (All three set_msg_xy + the flush now wired; the pline-vs-Your/You wrapper choice is
 <!-- landmarks:end -->
