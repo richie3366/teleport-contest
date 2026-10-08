@@ -477,6 +477,30 @@ function hero_map_attr() {
     return wizmgender_inverse(female);
 }
 
+/**
+ * C ref: display.c reset_glyphmap `:2941–2946` (S_engrcorr whose showsyms
+ * char equals the S_corr/S_litcorr char → MG_BW_ENGR) + wintty.c
+ * tty_print_glyph `:3930–3936` (MG_BW_ENGR && use_inverse → ATR_INVERSE).
+ * The flag is static per glyph id (set at glyphmap reset, read at every
+ * tty paint), so the twin derives it from the banked id inside
+ * show_glyph_cell — live, memory, detection and wizard engrcorr paints
+ * all inherit it, as in C. Default symbols all show '#', so the arm
+ * fires unless SYMBOLS separates them (showsyms live, `:2653`).
+ * Named omissions: the `:2934` has_rogue_color first-arm (ROGUESET +
+ * IBM handling, never active on contest tty — same standing as the
+ * S_litcorr CLR_WHITE sibling); the `:2897–2912` MG_BW_LAVA/ICE/SINK
+ * chain (needs !use_color plus customized colliding symbols; no
+ * corpus session reaches it).
+ */
+function engrcorr_map_attr(gid) {
+    if ((gid | 0) !== cmap_to_glyph(S_ENGRCORR)) return 0;
+    const sh = game.gs?.showsyms;
+    const sym = sh?.[S_ENGRCORR + SYM_OFF_P];
+    if (sym !== sh?.[S_CORR + SYM_OFF_P]
+        && sym !== sh?.[S_LITCORR + SYM_OFF_P]) return 0;
+    return use_inverse_opt() ? ATR_INVERSE : 0;
+}
+
 // C ref: defsym.h OBJCLASS_DRAWING — default object-class map symbols
 const DEF_OC_SYM = {
     [ILLOBJ_CLASS]: ']',
@@ -4617,6 +4641,10 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     ch = gi.ch;
     color = gi.color;
     decgfx = gi.dec;
+    // C tty layer derives ATR_INVERSE from the glyph id's MG_BW_ENGR flag
+    // (reset_glyphmap `:2941–2946`) at every paint; OR it here so live,
+    // memory, detection and wizard engrcorr paints all inherit, as in C.
+    attr |= engrcorr_map_attr(gid);
     const announce = show_glyph_change_wanted(loc, x, y, ch, color, decgfx, attr);
     // C classifies the already-chosen glyph id; stamp JS kind the same way
     // (no mon_glyph / obj_glyph). Always store so later On sees real old kind.
