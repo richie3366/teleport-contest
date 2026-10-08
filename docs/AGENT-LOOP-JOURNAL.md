@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — saturated stop #19 (live queue still empty at 938/953; port iter n=4629, next is audit n=4630; audit owns re-record + rescore + growth)
+
+**Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
+**Pop:** Must-fix empty (no throw/hang, 0 PASS→FAIL, newest reviews 2565–2566 = ACCEPT audit, 0 Must-fix queued); cliffs head `weapon.c` mon_wield_item parked RECORDER-ARTIFACT, park-maxed six times over (D-3570/D-3660/D-3689/D-3692/D-3694/D-3696 cross-clock placement + D-3695 10/10-caller wiring + D-3697 dog_invent envelope complete; D-3696 Next: do not re-probe on port iters); coverage empty; `ledger.mjs batch --write` → "no gap left"; cliffs block still the 1 parked row.
+**State:** fresh `show` byte-identical to the parks — Priest-94382 step 99 (identical tether toplines, row-7 G/· col 23, null jsOwner/cEntry/jsEntry, RNG 11013/11013, scrM 204/205). `brief mon_wield_item` re-read (C weapon.c:801–934 whole in js/weapon.js:807; ledger ported D-2460); no game writer to port per D-3694/D-3696 (G's writer named with clock evidence — vision_recalc newsym sweep @n=5079 — and proven faithful: hooks #99/#101 exact-match controls; painting pre-recalc is C-wrong, hook realignment is barred frame machinery).
+**Verify:** `verify.mjs --fn mon_wield_item --no-cohort` → 0 PASS, 0 moved past, 1 unchanged → NO MOVEMENT (expected and honest: park holds, zero code changed) · smoke 24/24 REACH-OK · green 2/2 · strict ×2 → VERIFY: FAIL on hidden only.
+**Regen:** `check-hot-docs --fix` header re-stamp only (queue row + scoreboard @3023bfa8a → @218943132; 0 session rows changed, committed here); cliffs still the 1 parked row, coverage still empty — saturated per the Refill rule. No Addressed backfill needed.
+**Next:** audit n=4630 owns (a) review of D-3697 + full sessions, (b) hook-vs-recorder capture-point adjudication + nomux_out bound (barred here), (c) fixed-recorder re-record + full rescore, (d) corpus growth (worst family ≥85% + holds-1-owner flags stand). Do not re-touch mon_wield_item or Samurai-92032 on port iters.
 ## 2026-10-08 — D-3697 cliffs-head family `dogmove.c` dog_invent `:429–434`: wire the MAIL_STRUCTURES mail skip + mines/soko prize exclusion (D-2417 named omits; dog_invent partial → ported; parked probe byte-identical)
 
 **C locus:** dogmove.c:427–434 fetch gate: `:429–431` `obj->otyp != SCR_MAIL` under MAIL_STRUCTURES (unconditional — global.h:430, so live); `:432–434` `!(is_mines_prize(obj) || is_soko_prize(obj))` (obj.h:435–436, o_id vs achieveo prize oids); nofetch `:138` {BALL,CHAIN,ROCK} already matched in JS.
