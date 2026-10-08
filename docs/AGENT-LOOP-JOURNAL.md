@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — saturated stop #2 (port n=4607; live queue still empty at 938/953; audit owns re-record + rescore + growth)
+
+**Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
+**Pop:** Must-fix empty (no throw/hang, 0 PASS→FAIL, no review newer than audited 2561); cliffs head `weapon.c` mon_wield_item parked RECORDER-ARTIFACT and park-maxed (D-3570 + D-3660 + D-3689 v2 definitive — "do not re-touch on port iters"); coverage empty; `ledger.mjs batch --write` → "no gap left"; `queue` reports 0 live (1 parked, 0 live).
+**State:** fresh `show` byte-identical to both parks — Priest-94382 step 99 (identical tether toplines, row-7 G/·, null jsOwner/entries, RNG 11013/11013) and Samurai-92032 step 96 (owner null, cursor-only, RNG 14766/14766). Full rescore 938/953 PASS, RNG 100.00 %; failing = 15: 13 env:config-path + 2 parked recorder-artifacts. `brief mon_wield_item` re-read (C weapon.c:801–934 whole in js/weapon.js:807; ledger ported D-2460); no writer namable — game agrees both sides per D-3689.
+**Verify:** `verify.mjs --fn mon_wield_item` → 0 PASS, 0 moved, 1 unchanged → NO MOVEMENT (expected and honest: park holds, zero code changed) · smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: FAIL on hidden only.
+**Regen:** `check-hot-docs --fix` re-stamp only (queue + scoreboard @7176eaf8b → @6e7bc050b); cliffs still the 1 parked row, coverage still empty — saturated per the Refill rule.
+**Next:** audit owns (a) hook-vs-recorder capture-point adjudication + nomux_out bound (both barred to this loop), (b) fixed-recorder re-record + full rescore, (c) corpus growth (scen-tutorial 85% flag + block-holds-1-owner flag stand). Do not re-touch mon_wield_item or Samurai-92032 on port iters. Next audit n=4610.
 ## 2026-10-08 — saturated stop (corpus live queue empty at 938/953; audit owns re-record + rescore + growth)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
