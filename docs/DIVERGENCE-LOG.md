@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-3655 — cliffs-head `options.c` handler_menustyle: end_menu prompt gains tty_menu_promptstyle + blank separator (Wizard-94291 96→PASS)
+
+- **Status:** shipped (Open — cliffs head `options.c` handler_menustyle, 1 corpus block; no earlier D-entry touched it — the ledger `ported` predates the D-3403 tty_end_menu prompt-paint discovery, so the prompt carried no style. `verify handler_menustyle: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
+- **Symptom:** scen-options-Wizard-94291 step 96/176 kind=screen at options.c:5567: toplines identical («Select menustyle:»), first differing screen row 0 col 21 with visually identical text — an attribute diff, not a text diff. MEASURED (focused replay + recorded C row): C paints the end_menu prompt inverse (tty_menu_promptstyle) with a blank separator row and items from row 2; JS painted the prompt plain with items shifted up one row. RNG 4063/4063 matched.
+- **C locus:** `handler_menustyle` `nethack-c/upstream/src/options.c:5544–5583` — end_menu prompt `:5570`, painted by wintty.c tty_end_menu `:2685–2689` (prompt prepended with tty_menu_promptstyle = menu_headings, default ATR_INVERSE, then a blank item).
+- **JS was:** `js/options.js:2824` `raw = [{ text: 'Select menustyle:', selectable: false }]` — no prompt style, no blank separator (pre-D-3403 shape; every sibling menu since carries both).
+- **Fix:** verbatim D-3403/D-3654 sibling pattern: prompt row spreads `...menu_prompt_style()` (same-file relay, no new import) + `{ text: '', selectable: false }` blank item, with the tty_end_menu C-cite comment. No other body change — loop/select/pline arms were already whole.
+- **JS:** `js/options.js` handler_menustyle `:2820–2860` (prompt rows `:2824–2830`); new focused test `scripts/menustyle-prompt-style.test.mjs` (disclose-prompt-style.test.mjs precedent: pins cols 21–37 inverse + blank row 1 + `t - traditional` at row 2).
+- **Callers:** sole C caller `:2372` optfn_menustyle do_handler → JS name dispatch `js/options.js:3560` + full-doset dispatch `:9603` (both cite C `:2372`, unchanged).
+- **Verify:** `node scripts/verify.mjs --fn handler_menustyle` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+  - `verify handler_menustyle: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` — scen-options-Wizard-94291: PASS; REACH smoke 24/24 PASS → REACH-OK.
+  - Focused `node --test scripts/menustyle-prompt-style.test.mjs`: failed pre-fix (`grid[0][21].attr` 0 vs 1), 1/1 green post-fix.
+- **Named omissions:** none new. Pre-existing, unchanged: n>1 keep-non-preselected pick (`:5573–5576`) folded into select_menu_pick_one (whatis_coord precedent); nul_glyphinfo; sinks.
+- **Ledger:** handler_menustyle ported
+- **Next:** probe joins the PASS set on regen; pop the next Open — cliffs head.
+
 ## D-3654 — cliffs-head `options.c` handler_disclose: end_menu prompts gain tty_menu_promptstyle + blank separator (Wizard-94291 68→96)
 
 - **Status:** shipped (Open — cliffs head `options.c` handler_disclose, 1 corpus block; D-3146 read once per the row tag — it declared the body stale-complete but predates the D-3403 tty_end_menu prompt-paint discovery, so neither prompt carried the style. `verify handler_disclose: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)

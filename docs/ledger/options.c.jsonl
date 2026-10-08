@@ -121,7 +121,7 @@
 {"fn":"spcfn_misc_menu_cmd","c":"5452-5475","status":"ported","js":["js/options.js:spcfn_misc_menu_cmd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_set_perm_invent","c":"5488-5527","status":"ported","js":["js/options.js:can_set_perm_invent"],"d":["D-3426","D-3416","D-3403"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"check_perm_invent_again","c":"5532-5540","status":"by-design","at":"2026-09-30@d37e25ba4","note":"uncompiled: options.c:5530–5542 #ifdef TTY_PERM_INVENT; config.h:612 leaves undefined"}
-{"fn":"handler_menustyle","c":"5544-5583","status":"ported","js":["js/options.js:handler_menustyle"],"at":"2026-10-03@bbe63333a"}
+{"fn":"handler_menustyle","c":"5544-5583","status":"ported","js":["js/options.js:handler_menustyle"],"d":["D-3655"],"at":"2026-10-08@80e386ab0"}
 {"fn":"handler_align_misc","c":"5586-5621","status":"ported","js":["js/options.js:handler_align_misc"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:2420 (R1781 ACCEPT)"}
 {"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-3403","D-2992"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"handler_disclose","c":"5675-5777","status":"ported","js":["js/options.js:handler_disclose"],"d":["D-3654","D-3146"],"at":"2026-10-08@376b093b6","note":"stale: js/options.js:399 (D-2788, R1747 ACCEPT)"}

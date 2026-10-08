@@ -2821,7 +2821,13 @@ export async function handler_menustyle() {
     if (!game.flags) game.flags = {};
     const oldStyle = menuStyleNow(game.flags); // C `:5549` old_menu_style
     const sep = game.iflags?.menu_tab_sep ? '\t' : ' '; // C `:5550`
-    const raw = [{ text: 'Select menustyle:', selectable: false }]; // C `:5570` end_menu
+    // C `:5570` end_menu — the prompt row carries tty_menu_promptstyle +
+    // the blank separator (wintty.c tty_end_menu `:2685–2689`; verbatim the
+    // D-3403/handler_disclose D-3654 sibling pattern).
+    const raw = [
+        { text: 'Select menustyle:', selectable: false, ...menu_prompt_style() },
+        { text: '', selectable: false },
+    ];
     for (let i = 0; i < MENUTYPE.length; i++) { // C `:5557` SIZE(menutype)
         const head = MENUTYPE[i][0].slice(0, 12).padEnd(12, ' '); // C `:5558` %-12.12s
         const mid = MENUTYPE[i][1].slice(0, 60);
