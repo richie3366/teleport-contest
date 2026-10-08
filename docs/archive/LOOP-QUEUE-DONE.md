@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-08
 
+- [x] `strange_feeling` resist gate: live `H||HH` text arm ignores C's `!Halluc_resistance` (`youprop.h:120`); resisted+hallucinated+beginner prints C-wrong "normal" at the 4 D-3680 rebound sites (clones were C-right) — gate live on the resist check, rewrite both phantom-state tests to reachable states, correct the "extrinsic arm" rationale. Source: reviews/loop-unattended/2555-5c82e0869-strange-feeling-rebind.md
+
+
 - [x] `read.c` strange_feeling_scroll — clone-drift: C has one `strange_feeling` (potion.c:1461–1476, read.c sites :1128/:1334/:1388); JS clone js/read.js:1217 serves :1279/:1331/:1568 instead of live js/detect.js:241 — C potion.c:1465 Hallucination-macro extrinsic arm absent from js/read.js:strange_feeling_scroll (clone reads `u.Hallucination` only, live reads H||HH) — C + both JS bodies read at enqueue 2026-10-06; deliverable: 3 sites → live export, delete clone.
 
 

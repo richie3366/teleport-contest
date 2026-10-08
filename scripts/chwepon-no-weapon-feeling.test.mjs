@@ -7,10 +7,14 @@ import { clear_nhwindow_message, getmsghistory } from "../js/display.js";
 import { pushKeys, resetInputState } from "../js/input.js";
 
 // D-3680 — wield.c `:943` via live potion.c strange_feeling: the no-weapon
-// chwepon arm consumes the scroll through strange_feeling. Beginner +
-// extrinsic-only hallucination prints the "normal" variant (C
-// potion.c:1465 Hallucination-macro arm). The deleted wield.js clone read
-// u.Hallucination only and printed "strange" here.
+// chwepon arm consumes the scroll through strange_feeling. D-3688: the
+// D-3680 "extrinsic-only hallucination" state (H=false, HH=1, no resist)
+// was a mirror-invariant violation — C has no extrinsic hallucination,
+// only extrinsic hallucination *resistance* (youprop.h:114-120). The
+// reachable resisted state (black-light poly sets EHalluc_resistance;
+// make_hallucinated still sets the HH timeout under resistance,
+// potion.c:393-395, and mirrors sticky H=false) reports macro-false, so
+// C prints the "strange" variant here.
 describe("chwepon no-weapon arm (wield.c:917-948)", () => {
   let saved;
   beforeEach(() => {
@@ -30,7 +34,7 @@ describe("chwepon no-weapon arm (wield.c:917-948)", () => {
     game.moves = saved.moves;
   });
 
-  it("beginner + extrinsic-only hallu → 'normal' feeling text", async () => {
+  it("resisted + hallucinated + beginner → 'strange' feeling text", async () => {
     initRng(92173);
     clear_nhwindow_message();
     // vpline drops text pre-window (C pline.c:243 raw path); window_inited
@@ -46,6 +50,7 @@ describe("chwepon no-weapon arm (wield.c:917-948)", () => {
       twoweap: false,
       Hallucination: false,
       HHallucination: 1,
+      EHalluc_resistance: 1,
     };
     const scroll = { otyp: -1, cursed: false, blessed: false, quan: 1 };
     game.invent = [scroll];
@@ -58,6 +63,6 @@ describe("chwepon no-weapon arm (wield.c:917-948)", () => {
       seen.push(m);
     }
     game.iflags = savedIflags;
-    assert.match(seen.join("\n"), /normal feeling/);
+    assert.match(seen.join("\n"), /strange feeling/);
   });
 });

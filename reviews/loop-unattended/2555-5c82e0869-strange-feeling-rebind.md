@@ -151,3 +151,5 @@ the gates, catches it.
    in the fixing D-entry.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3688

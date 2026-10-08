@@ -200,10 +200,13 @@ describe("seffect_destroy_armor whole-body arms (read.c:1324-1396)", () => {
   });
 
   // D-3680 — read.c `:1334` via live potion.c strange_feeling: beginner +
-  // extrinsic-only hallucination prints the "normal" variant (C
-  // potion.c:1465 Hallucination-macro arm). The deleted read.js clone read
-  // u.Hallucination only and printed "strange" here.
-  it("beginner + extrinsic-only hallu → 'normal' feeling text", async () => {
+  // unresisted hallucination prints the "normal" variant (C potion.c:1465
+  // Hallucination-macro arm). D-3688: the D-3680 H=false/HH=1 state was a
+  // mirror-invariant violation (C has no extrinsic hallucination, only
+  // extrinsic hallucination *resistance*, youprop.h:114-120) — the
+  // reachable unresisted state mirrors sticky H=true (potion.js
+  // make_hallucinated), so both fields are set here.
+  it("beginner + unresisted hallu → 'normal' feeling text", async () => {
     initRng(92173);
     clear_nhwindow_message();
     // vpline drops text pre-window (C pline.c:243 raw path); window_inited
@@ -218,7 +221,7 @@ describe("seffect_destroy_armor whole-body arms (read.c:1324-1396)", () => {
       HConfusion: 5,
       uwep: null,
       twoweap: false,
-      Hallucination: false,
+      Hallucination: true,
       HHallucination: 1,
     };
     const scroll = { otyp: -1, cursed: false, blessed: false, quan: 1 };

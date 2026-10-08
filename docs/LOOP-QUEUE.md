@@ -111,8 +111,6 @@ review (and on the archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep'd C-wrongs here (not under Open).
 
-- [ ] `strange_feeling` resist gate: live `H||HH` text arm ignores C's `!Halluc_resistance` (`youprop.h:120`); resisted+hallucinated+beginner prints C-wrong "normal" at the 4 D-3680 rebound sites (clones were C-right) — gate live on the resist check, rewrite both phantom-state tests to reachable states, correct the "extrinsic arm" rationale. Source: reviews/loop-unattended/2555-5c82e0869-strange-feeling-rebind.md
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
