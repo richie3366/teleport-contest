@@ -249,7 +249,8 @@ export const GLYPH_TRAP_OFF = GLYPH_CMAP_B_OFF + (S_arrow_trap - S_grave);
  * `:1482–1486`). Same highest-bank-first offset order as the show_glyph
  * chain below; colors/flags are not read here (decode_mixed takes the
  * symidx only). Rogue-level color arms do not move symidx, so no
- * GMAP_ROGUELEVEL input is needed. Caller: botl.js decode_mixed.
+ * GMAP_ROGUELEVEL input is needed. Callers: botl.js decode_mixed;
+ * map_glyphinfo `:2653`.
  */
 export function glyphmap_symidx(glyph) {
     const gid = glyph | 0;
@@ -330,10 +331,17 @@ function corpse_class_symidx() {
 }
 
 // C reset_glyphmap monster rows (`:2783`, `:2651`): mons mlet + SYM_OFF_M.
-// C mlet is the letter char; JS carries the S_* name (MLET_CH precedent).
+// C mlet is the MONSYM number 1..60 (defsym.h MONSYM(1,'a',ANT,S_ANT):
+// S_ANT is 1; the letter comes from def_monsyms[mlet].sym), so the slot
+// is positional: number + SYM_OFF_M (LOADSYMS M rows [4,124..183] prove
+// it: S_ANT→124). JS carries the S_* name, so the number is the
+// DEF_MONSYM_CH position (its doc guarantees [m-1]); unknown letters
+// (incl. the '?' fallback) land on the SYM_OFF_M placeholder slot,
+// whose showsyms/ov value is 0 (no override, readers fall back).
 function mlet_symidx(offset) {
     const ch = MLET_CH[mons(offset)?.mlet] || '?';
-    return ch.charCodeAt(0) + SYM_OFF_M;
+    const m = DEF_MONSYM_CH.indexOf(ch) + 1;
+    return m > 0 ? m + SYM_OFF_M : SYM_OFF_M;
 }
 
 /* C display.h altar_types — unaligned, chaotic, neutral, lawful, other. */
@@ -4405,20 +4413,21 @@ export function update_ov_rogue_symset(idx, val) {
  * whole base from glyphmap[glyph] (`:2612`, built by the deferred
  * reset_glyphmap), then applies the ONLY on-the-fly tinkering C permits —
  * the hero (is_you) color ladder and the two accessibility arms — and
- * stamps ttychar/glyph (`:2653–2655`).
+ * resolves ttychar from the showsyms ov side (`:2653`) + glyph echo.
  * JS has no glyphmap[]/showsyms[]/tileidx machinery, so the caller passes
  * the already-resolved base record (the live paint {ch, color, dec} the
  * glyph constructors produced — the same values the deferred table would
  * carry for the tty); the integer id rides along as base.glyph for the
- * is_you / pet predicates. Returns the adjusted record
+ * is_you / pet / symidx resolution. Returns the adjusted record
  * {ch, color, dec, glyphflags, glyph}; unmapped base fields pass through.
  * Wired caller: show_glyph_cell (C show_glyph `:2006` calls with mgflags
  * 0, so every paint — hero included — takes these arms; the `:2489`
  * glyphinfo_at call is the UNBUFFERED build, JS gbuf is buffered).
- * Named omissions: glyphmap[] base copy + sym.symidx/tileidx (no
- * glyphmap/tile machinery); get_othersym base (the assign_graphics
- * showsyms copy itself is live at game.gs.showsyms; hero arm reads
- * the ov tables directly);
+ * Named omissions: glyphmap[] base copy + sym.color/tileidx (no
+ * glyphmap/tile machinery; the symidx column is live as
+ * glyphmap_symidx); get_othersym base (the assign_graphics showsyms
+ * copy itself is live at game.gs.showsyms; the `:2653` arm reads the
+ * ov tables directly);
  * HAS_ROGUE_IBM_GRAPHICS MSDOS/TILES variant (compiled out upstream).
  * @param {number} x map x, C coordxy
  * @param {number} y map y, C coordxy
@@ -4435,6 +4444,13 @@ export function map_glyphinfo(x, y, base, mgflags) {
     const isYou = !!u_at(x, y) && glyph_is_monster(gid);
     // C `:2612` glyphinfo->gm = *gmap — the base record stands in (named).
     const out = { ...base, glyphflags: 0, glyph: gid };
+    // C `:2612` also seeds gm.sym.symidx from the glyph id — the symidx
+    // column of the deferred table is live as glyphmap_symidx (same
+    // module). Unmapped paints (NO_GLYPH / JS-only callers carrying no
+    // integer id) take no arm: C's NO_GLYPH never reaches show_glyph.
+    let symidx = (gid >= 0 && gid < MAX_GLYPH) ? glyphmap_symidx(gid) : -1;
+    let heroArmFired = false;
+    let petArmFired = false;
     const u = game.u || {};
     if (isYou) {
         // C `:2619–2636` hero color ladder: monochrome, poly'd, or a
@@ -4466,18 +4482,44 @@ export function map_glyphinfo(x, y, base, mgflags) {
         if ((game.sysopt?.accessibility | 0) === 1 && !(mg & MG_FLAG_NOOVERRIDE)
                 && heroOverride) {
             out.ch = heroOverride;
+            // The value is final: C `:2653` would re-read this same
+            // nonzero X slot, so the general read below skips.
+            heroArmFired = true;
         }
         // C `:2645`, inside is_you but outside the accessibility gate.
         out.glyphflags |= MG_HERO;
     }
-    // C `:2647–2652` pet NOOVERRIDE kludge: drop the override symbol and
-    // show the pet by its monster letter (showsyms[mlet + SYM_OFF_M]).
+    // C `:2647–2652` pet NOOVERRIDE kludge: re-point at the monster-letter
+    // slot (mlet number + SYM_OFF_M); the `:2653` read below yields the M
+    // override when one is set (SYMBOLS S_* monster rows are live
+    // LOADSYMS), else the default letter.
     if ((game.sysopt?.accessibility | 0) === 1
             && (mg & MG_FLAG_NOOVERRIDE) && glyph_is_pet(gid)) {
-        out.ch = MLET_CH[mons(glyph_to_mon(gid))?.mlet] || '?';
+        petArmFired = true;
+        symidx = mlet_symidx(glyph_to_mon(gid));
     }
-    // C `:2653–2655` ttychar = showsyms[symidx] (the base ch carries it —
-    // only the two accessibility arms above re-point it) + glyph echo.
+    // C `:2653–2655` ttychar = gs.showsyms[gm.sym.symidx] + glyph echo.
+    // C's showsyms is ov ?: symset (switch_symbols `:257–260`); the base
+    // ch already encodes the symset side (DEC via use_decgraphics, ASCII
+    // defaults), so only the ov side is read here, from the current
+    // set's table — ROGUESET vs PRIMARYSET follows game.currentgraphics
+    // like C's assign_graphics swap. High-bit ov values are DEC-charset
+    // requests (wintty.c `:3758–3763` graph_on + ch ^ 0x80); plain values
+    // paint with DEC off (SYMBOLS=S_pool:~ paints '~', not the DEC '`').
+    if (!heroArmFired && symidx >= 0 && symidx < SYM_MAX) {
+        const ovTable = ((game.currentgraphics | 0) === ROGUESET)
+            ? ov_rogue_table() : ov_primary_table();
+        const ov = ovTable[symidx] || 0;
+        if (ov) {
+            const code = String(ov).charCodeAt(0);
+            out.ch = String.fromCharCode(code & 0x7F);
+            out.dec = (code & 0x80) !== 0;
+        } else if (petArmFired) {
+            // C's showsyms default for the mlet slot: the plain letter
+            // (the base ch may carry a hallucination-mapped letter).
+            out.ch = MLET_CH[mons(glyph_to_mon(gid))?.mlet] || '?';
+        }
+    }
     out.glyph = gid;
     return out;
 }
