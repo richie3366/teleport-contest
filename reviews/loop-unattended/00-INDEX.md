@@ -2574,3 +2574,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2562-0560c51fd-strange-feeling-resist-gate.md](./2562-0560c51fd-strange-feeling-resist-gate.md) | `0560c51fd` | D-3688 strange_feeling resist gate (closes 2555) | **ACCEPT** |
 | [2563-bb3890046-rhack-save-veto-queues.md](./2563-bb3890046-rhack-save-veto-queues.md) | `bb3890046` | D-3690 rhack S veto (cmdq clear dropped) | **QUALITY-RISK** |
 | [2564-7176eaf8b-hallu-corpse-body-char.md](./2564-7176eaf8b-hallu-corpse-body-char.md) | `7176eaf8b` | D-3691 hallu corpse-body % (PASS) | **ACCEPT** |
+| [2565-777431952-rhack-veto-repeat-clear.md](./2565-777431952-rhack-veto-repeat-clear.md) | `777431952` | D-3693 rhack veto queue clear (closes 2563) | **ACCEPT** |
+| [2566-a7604ebb0-dog-invent-at-weap-tail.md](./2566-a7604ebb0-dog-invent-at-weap-tail.md) | `a7604ebb0` | D-3695 dog_invent AT_WEAP tail (10/10 callers) | **ACCEPT** |

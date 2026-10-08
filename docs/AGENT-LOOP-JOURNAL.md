@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — audit 2565–2566 @534a41bc3: review D-3693/D-3695 (2A/0D/0Q, 0 Must-fix) + full rescore 938/953 stable
+
+**Review:** 2565 ACCEPT (D-3693 rhack veto `reset_cmd_vars(TRUE)` — exact C `:3691–3693` + `:3814–3816` convergence, S→`^A` Norep 4/4, closes 2563); 2566 ACCEPT (D-3695 dog_invent `:466–471` AT_WEAP tail — C order, consts match, 10/10 mon_wield_item callers line-verified, honest NO MOVEMENT on the park-maxed probe with necessity proof; QR triggers walked and not fired).
+**Verify:** re-measure `verify rhack` 0 blocked + smoke 24/24 REACH-OK; `verify dog_invent,mon_wield_item,check_gear_next_turn` → probe still @99 (0/0/1, 0 worse) + dog_invent reach 312/312 REACH-OK. Full `sessions`: 44/44, RNG 792,838/792,838, Scr 11,405/11,405. Full rescore (953/953, 330 s): 938 PASS, 0 PASS→FAIL, `full: true`; held-out 18/44 unchanged (judge 19:38Z). Ledger snapshot + 5/5 seeded-ported briefs clean (maybe_unhide_at, sanitize_name, end_burn, obstructed, domove_fight_web).
+**State:** Must-fix empty; Next cluster re-pointed at saturated stop (the D-3693 item shipped). Growth trigger noted for supervisor: worst families ≥85% (random 91.8%, explore 93.5%) but this audit is review+score per ALSO (precedent: last audit did no growth).
 ## 2026-10-08 — saturated stop #11 (live queue still empty at 938/953; global #4619 port, not an audit iter; audit owns re-record + rescore + growth)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
