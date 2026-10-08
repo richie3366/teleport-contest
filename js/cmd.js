@@ -1502,22 +1502,46 @@ export async function dosuspend_core() {
 }
 
 /**
+ * C ref: sys/unix/unixunix.c dosh `:343–365` ('!' port shell) — whole
+ * body in C order. SHELL (`unixconf.h:322`) and SYSCF
+ * (`config.h:232–233`) are both defined, so the shellers gate
+ * (`:348–355`) is live: without a sysconf shellers entry authorizing
+ * this user, reject with C's text (`:352`), before any subshell.
+ * Scored ESM has no sysconf (`game.sysopt.shellers` null, sys.js),
+ * so the gate always fires here; the authorized-subshell arm
+ * (`child(0)` + `execl`, `:356–364`) is unportable under Contest
+ * Rule #2 (named in the D-entry). Caller: dosh_core (cmd.c:5690).
+ * @returns {Promise<number>} 0
+ */
+export async function dosh() {
+    // C `:349–350` — !sysopt.shellers || !sysopt.shellers[0], then the
+    // live check_user_string (cmd.js; '*' allows any user, else the
+    // plname/unix-user word match — unixmain.c:696).
+    const shellers = game.sysopt?.shellers;
+    if (!shellers || !shellers[0] || !check_user_string(shellers)) {
+        /* FIXME: should no longer assume a particular command keystroke */
+        await Norep("Unavailable command '!'."); // C `:352`
+        return 0; // C `:353`
+    }
+    /* child(0)/execl `:356–364` — named omission (subshell spawn; Rule #2). */
+    return 0; // C `:364`
+}
+
+/**
  * C ref: cmd.c dosh_core `:5681–5696` (!, #shell) — in C order. SHELL
  * is defined (`unixconf.h:322`), so the live arm runs: urealtime
  * accounting over live `getnow` / `timet_delta` / `game.urealtime`,
- * then `dosh()` (`:5691`, port subshell), unportable under Rule #2
- * (named in the D-entry). With no subshell the command is
- * unavailable, so the arm falls back to C's own !SHELL text
- * (`:5693`). Caller: extcmdlist `:1860` "shell" row, wired via the
- * getline EXT_CMDS entry.
+ * then the live port `dosh()` (`:5691`), whose SYSCF shellers gate
+ * rejects here (no sysconf in scored ESM). The `:5693` !SHELL text
+ * is not compiled into the recorder build. Caller: extcmdlist
+ * `:1860` "shell" row, wired via the getline EXT_CMDS entry.
  * @returns {Promise<number>} ECMD_OK
  */
 export async function dosh_core() {
     const now = getnow(); // C `:5686`
     game.urealtime.realtime += timet_delta(now, game.urealtime.start_timing); // C `:5688`
     game.urealtime.start_timing = now; // C `:5689`
-    /* dosh() `:5691` — named omission (subshell spawn; Rule #2). */
-    await Norep(cmdnotavail, '#shell'); // C `:5693` !SHELL text
+    await dosh(); // C `:5690–5691` — port shell (shellers gate rejects here)
     game.urealtime.start_timing = getnow(); // C `:5692`
     return ECMD_OK; // C `:5695`
 }
