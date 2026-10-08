@@ -128,7 +128,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @01e841779 **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @da190ed96 **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
@@ -151,8 +151,6 @@ own: a row ships as a same-C-file companion of the cliff being worked, or
 when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
-
-- [ ] `read.c` strange_feeling_scroll — clone-drift: C has one `strange_feeling` (potion.c:1461–1476, read.c sites :1128/:1334/:1388); JS clone js/read.js:1217 serves :1279/:1331/:1568 instead of live js/detect.js:241 — C potion.c:1465 Hallucination-macro extrinsic arm absent from js/read.js:strange_feeling_scroll (clone reads `u.Hallucination` only, live reads H||HH) — C + both JS bodies read at enqueue 2026-10-06; deliverable: 3 sites → live export, delete clone.
 
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 

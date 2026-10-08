@@ -45,7 +45,7 @@
 {"fn":"peffect_polymorph","c":"1318-1330","status":"ported","js":["js/potion.js:peffect_polymorph"],"d":["D-3615","D-2177","D-1428"],"at":"2026-10-07@644849a84"}
 {"fn":"peffects","c":"1333-1425","status":"ported","js":["js/potion.js:peffects"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: default arm message differs (pline vs impossible), all potion cases present"}
 {"fn":"healup","c":"1428-1458","status":"ported","js":["js/potion.js:healup"],"d":["D-3337"],"at":"2026-10-03@6552e164f"}
-{"fn":"strange_feeling","c":"1461-1476","status":"ported","js":["js/wield.js:strange_feeling"],"at":"2026-10-03@bbe63333a"}
+{"fn":"strange_feeling","c":"1461-1476","status":"ported","js":["js/detect.js:strange_feeling"],"d":["D-3680"],"at":"2026-10-08@da190ed96"}
 {"fn":"bottlename","c":"1488-1494","status":"ported","js":["js/potion.js:bottlename"],"at":"2026-10-03@bbe63333a"}
 {"fn":"H2Opotion_dip","c":"1498-1589","status":"ported","js":["js/potion.js:H2Opotion_dip"],"d":["D-1501"],"at":"2026-10-03@bbe63333a"}
 {"fn":"impact_arti_light","c":"1595-1621","status":"ported","js":["js/potion.js:impact_arti_light"],"at":"2026-09-30@2b25db15c","note":"stale: js/potion.js:3689"}

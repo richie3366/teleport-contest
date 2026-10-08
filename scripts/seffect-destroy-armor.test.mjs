@@ -5,7 +5,8 @@ import { objectNames } from "../js/objects.js";
 import { W_ARMG } from "../js/const.js";
 import { game } from "../js/gstate.js";
 import { initRng } from "../js/rng.js";
-import { clear_nhwindow_message } from "../js/display.js";
+import { clear_nhwindow_message, getmsghistory } from "../js/display.js";
+import { pushKeys, resetInputState } from "../js/input.js";
 
 // C ref: read.c seffect_destroy_armor `:1380–1383` — cursed scroll, hero
 // unconfused, worn armor uncursed → `else if (disintegrate_arm(otmp))`
@@ -196,5 +197,41 @@ describe("seffect_destroy_armor whole-body arms (read.c:1324-1396)", () => {
     game.flags = {};
     assert.equal(await seffect_destroy_armor(scroll), scroll);
     assert.ok((game.u.HStun | 0) > 0, "HStun must be set by make_stunned");
+  });
+
+  // D-3680 — read.c `:1334` via live potion.c strange_feeling: beginner +
+  // extrinsic-only hallucination prints the "normal" variant (C
+  // potion.c:1465 Hallucination-macro arm). The deleted read.js clone read
+  // u.Hallucination only and printed "strange" here.
+  it("beginner + extrinsic-only hallu → 'normal' feeling text", async () => {
+    initRng(92173);
+    clear_nhwindow_message();
+    // vpline drops text pre-window (C pline.c:243 raw path); window_inited
+    // routes through putmesg into the message ring getmsghistory walks
+    // (bind-mousebtn.test.mjs precedent).
+    const savedIflags = game.iflags;
+    game.iflags = { ...(game.iflags ?? {}), window_inited: 1 };
+    resetInputState();
+    pushKeys([" ", " ", " ", " "]);
+    game.moves = 12;
+    game.u = {
+      HConfusion: 5,
+      uwep: null,
+      twoweap: false,
+      Hallucination: false,
+      HHallucination: 1,
+    };
+    const scroll = { otyp: -1, cursed: false, blessed: false, quan: 1 };
+    game.invent = [scroll];
+    game.context = {};
+    game.flags = { beginner: true };
+    assert.equal(await seffect_destroy_armor(scroll), null);
+    assert.ok(!game.invent.includes(scroll));
+    const seen = [];
+    for (let m = getmsghistory(true); m; m = getmsghistory(false)) {
+      seen.push(m);
+    }
+    game.iflags = savedIflags;
+    assert.match(seen.join("\n"), /normal feeling/);
   });
 });
