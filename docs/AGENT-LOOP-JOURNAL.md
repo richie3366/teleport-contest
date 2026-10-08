@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — saturated stop #23 (live queue still empty at 938/953; post-audit port iter n=4634; audit owns re-record + rescore + growth)
+
+**Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
+**Pop:** Must-fix empty (no throw/hang, 0 PASS→FAIL, newest review 2567 = ACCEPT audit, 0 Must-fix queued); cliffs head `weapon.c` mon_wield_item parked RECORDER-ARTIFACT, park-maxed (D-3570/D-3660/D-3689/D-3692/D-3694/D-3696 + D-3695 10/10-caller wiring + D-3697 dog_invent envelope complete; D-3696 Next: do not re-probe on port iters); coverage empty; `ledger.mjs batch --write` → "no gap left".
+**State:** fresh `show` byte-identical to the parks — Priest-94382 step 99 (identical tether toplines, row-7 G/· col 23, null jsOwner/cEntry/jsEntry, RNG 11013/11013, scrM 204/205). `brief mon_wield_item` re-read (C weapon.c:801–934 whole in js/weapon.js:807; ledger ported D-2460); no game writer to port per D-3694/D-3696 (G's writer — vision_recalc newsym sweep @n=5079 — proven faithful: hooks #99/#101 exact-match controls; painting pre-recalc is C-wrong, hook realignment is barred frame machinery). Census per CURRENT: 13 env:config-path + 1 unattributed + Priest-94382 — none a port.
+**Verify:** `verify.mjs --fn mon_wield_item` → 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT (expected and honest: park holds, zero code changed) · smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: FAIL on hidden only.
+**Regen:** `check-hot-docs --fix` all-ok, no cap edits (hot 46.6 kB); queue row + scoreboard header re-stamp @32b0594fd → @955d3c391 (0 session rows changed, committed here); cliffs still the 1 parked row, coverage still empty — saturated per the Refill rule. No Addressed backfill needed (2567 ACCEPT needs none).
+**Next:** audit owns (a) hook-vs-recorder capture-point adjudication + nomux_out bound (barred here), (b) fixed-recorder re-record + full rescore, (c) corpus growth (worst family ≥85% + holds-1-owner flags stand). Do not re-touch mon_wield_item on port iters. Next audit n=4640.
 ## 2026-10-08 — saturated stop #22 (live queue still empty at 938/953; post-audit port iter n=4633 — operator ordered js/ on the head; head family verified whole against live code, no genuine gap exists)
 
 **Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
