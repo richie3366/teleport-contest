@@ -140,7 +140,7 @@
 {"fn":"doclicklook","c":"5381-5390","status":"ported","js":["js/cmd.js:doclicklook"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yn_menuable_resp","c":"5394-5399","status":"ported","js":["js/getline.js:yn_menuable_resp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pointer-identity semantics kept"}
 {"fn":"yn_func_menu_opt","c":"5402-5413","status":"ported","js":["js/getline.js:yn_func_menu_opt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"yn_function_menu","c":"5419-5463","status":"ported","js":["js/getline.js:yn_function_menu"],"d":["D-1728"],"at":"2026-10-01@250701173","note":"stale: js/getline.js:1879 body whole, caller :1997 wired, select_menu by-design per D-1728"}
+{"fn":"yn_function_menu","c":"5419-5463","status":"ported","js":["js/getline.js:yn_function_menu"],"d":["D-3652","D-1728"],"at":"2026-10-08@d3b2d513b","note":"stale: js/getline.js:1879 body whole, caller :1997 wired, select_menu by-design per D-1728"}
 {"fn":"yn_function","c":"5471-5583","status":"ported","js":["js/getline.js:yn_function"],"d":["D-2165","D-1805"],"at":"seed@a30a7de84","note":"stale 2026-09-18"}
 {"fn":"paranoid_ynq","c":"5588-5650","status":"ported","js":["js/getline.js:paranoid_ynq"],"at":"2026-10-03@bbe63333a"}
 {"fn":"paranoid_query","c":"5655-5658","status":"ported","js":["js/getline.js:paranoid_query"],"at":"2026-10-03@bbe63333a"}
