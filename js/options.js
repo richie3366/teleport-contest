@@ -7708,9 +7708,11 @@ function optfn_horsename(optidx, req, negated, opts, op) {
  * "Fruit is now" pline run only when `!opt_initial`. get_val and
  * get_cnf_val Sprintf `pl_fruit`. No do_handler arm — falls through
  * to optn_ok.
- * `pline` is async, but parseoptions compares the optfn result to
- * OPTN_OK synchronously, so the message is started and not awaited
- * (doset keeps `give_opt_msg` false, so that path does not pline).
+ * `pline` is async: when it runs, do_set returns the pline promise
+ * chained to OPTN_OK (optfn_boulder `:1201` precedent) so the doset
+ * caller awaits the paint; every other path returns OPTN_OK/OPTN_ERR
+ * synchronously for parseoptions' sync compare. Only doset_simple
+ * keeps `give_opt_msg` false (C `:8722`); full doset never clears it.
  * @param {number} optidx C optidx (UNUSED)
  * @param {number} req
  * @param {boolean} negated
@@ -7762,8 +7764,11 @@ export function optfn_fruit(optidx, req, negated, opts, _op, optInitial) {
         if (!optInit) { // C `:1755`
             fruitadd(game.pl_fruit, forig); // C `:1759`
             // C `:1760` give_opt_msg static-init TRUE (options.c `:108`).
+            // Full doset never clears it (only doset_simple `:8722` does),
+            // so the message paints as its own screen before the next
+            // pick's prompt; the doset arm awaits the shared return.
             if (game.give_opt_msg !== false)
-                void pline('Fruit is now "%s".', game.pl_fruit); // C `:1761`
+                return pline('Fruit is now "%s".', game.pl_fruit).then(() => OPTN_OK); // C `:1761` — windowed pline promise resolves the shared return (optfn_boulder `:1201` precedent)
         }
         return OPTN_OK; // C `:1768`
     }
@@ -9629,7 +9634,12 @@ async function doset_compound_via_getlin(opt) {
     // fruit/suppress_alert keep their live direct-optfn arms (same effect,
     // awaited in order); every other name goes the C route.
     if (name === 'fruit') {
-        optfn_fruit(allopt_idx('fruit'), REQ_DO_SET, false, `fruit:${abuf}`, abuf, false);
+        // Awaited so the C `:1761` "Fruit is now" paint lands before the
+        // next pick's prompt (C doset `:8941–8956` is synchronous; the
+        // optfn returns the pline promise, optfn_boulder `:1201`
+        // precedent). doset_simple keeps give_opt_msg false, so that
+        // path stays sync with no pline.
+        await optfn_fruit(allopt_idx('fruit'), REQ_DO_SET, false, `fruit:${abuf}`, abuf, false);
     } else if (name === 'suppress_alert') {
         // C doset_simple_menu `:8675–8680` getlin + parseoptions("suppress_alert:<abuf>")
         // ("pass the buck"); awaited here so the !opt_initial You_cant/pline

@@ -35,7 +35,7 @@
 {"fn":"optfn_font_size_text","c":"1679-1685","status":"ported","js":["js/options.js:optfn_font_size_text"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_font_status","c":"1688-1694","status":"ported","js":["js/options.js:optfn_font_status"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_font_text","c":"1697-1703","status":"ported","js":["js/options.js:optfn_font_text"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"optfn_fruit","c":"1706-1774","status":"ported","js":["js/options.js:optfn_fruit"],"d":["D-3403","D-3173","D-2783"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"optfn_fruit","c":"1706-1774","status":"ported","js":["js/options.js:optfn_fruit"],"d":["D-3651","D-3403","D-3173","D-2783"],"at":"2026-10-08@064fb35ea"}
 {"fn":"optfn_gender","c":"1777-1812","status":"ported","js":["js/options.js:optfn_gender"],"d":["D-3403","D-2786"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"optfn_glyph","c":"1815-1849","status":"ported","js":["js/options.js:optfn_glyph"],"d":["D-3167"],"at":"2026-09-30@2b25db15c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_hilite_status","c":"1852-1894","status":"ported","js":["js/options.js:optfn_hilite_status"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}

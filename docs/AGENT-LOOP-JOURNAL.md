@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3651 cliffs-head `options.c` optfn_fruit: do_set returns the "Fruit is now" pline promise so full doset paints it before the next pick (Knight-94331 135→PASS)
+
+**C locus:** `nethack-c/upstream/src/options.c:1759–1761` (fruitadd, then the give_opt_msg pline) + full `doset :8941–8956` (getlin per pick, parseoptions "pass the buck", synchronous — full doset never clears give_opt_msg; only doset_simple `:8722` does).
+**JS:** `js/options.js` `optfn_fruit :7723` (pline return `:7771`, doc `:7711–7716`); doset fruit arm `:9642` (+5 await comment). New focused test `scripts/optfn-fruit-pline.test.mjs` (3 tests: full-doset promise+paint, doset_simple sync+suppressed, rc sync+no-paint; the first failed pre-fix on the promise assert).
+**Change:** do_set returns the pline promise chained to OPTN_OK (optfn_boulder `:1201` maybe-promise precedent); the doset_compound_via_getlin fruit arm awaits it, so the paint lands before the next pick's prompt exactly like C's synchronous pick loop. All other paths still return OPTN_OK/OPTN_ERR synchronously.
+**Verify:** `node scripts/verify.mjs --fn optfn_fruit` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · PASS hidden (verify optfn_fruit: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS; scen-options-Knight-94331: PASS) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Focused `node --test scripts/optfn-fruit-pline.test.mjs` 3/3 (1 failed pre-fix).
+**Named:** none new. The D-2783 "pline not awaited" note is retired by the shared promise return (this commit).
+**Next:** next Open — cliffs head (`do.c` doup — Tourist-94171@85).
 ## 2026-10-08 — D-3650 cliffs-head `optfn_pickup_types` writer: choose_classes_menu painted preselects '+' (runtime-toggle mark) instead of C's initial-paint '*' (Knight-94331 88→135)
 
 **C locus:** `windows.c` choose_classes_menu `:1643–1761` (MENU_ITEMFLAGS_SELECTED preselect `:1697–1703`) + wintty.c tty_add_menu `:2607–2611` (stored "k - text", count -1) + process_menu_window initial page paint `:1467–1473` ('*' when selected count -1, '#' when count-picked) + set_item_state `:1182` ('+' runtime toggle). Note the C asymmetry the port keeps: initial/page paint '*' vs runtime toggle '+'.
