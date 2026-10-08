@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3654 cliffs-head `options.c` handler_disclose: end_menu prompts gain tty_menu_promptstyle + blank separator (Wizard-94291 68→96)
+
+**C locus:** `handler_disclose` `nethack-c/upstream/src/options.c:5674–5777` — category PICK_ANY end_menu prompt `:5704`, per-category PICK_ONE end_menu prompt `:5765`; both painted by wintty.c tty_end_menu `:2685–2689` (prompt prepended with tty_menu_promptstyle = menu_headings, default ATR_INVERSE, then a blank item).
+**JS:** `js/options.js` handler_disclose `:420–488` (prompt rows `:423–429`, `:453–456`); new focused test `scripts/disclose-prompt-style.test.mjs` (autocomplete-prompt.test.mjs precedent: pins cols 35–77 inverse + blank row 1 + `i - inventory [yi]` at row 2).
+**Change:** verbatim D-3403/D-3646/D-3647 sibling pattern on both menus: prompt row spreads `...menu_prompt_style()` (same-file relay, no new import) + `{ text: '', selectable: false }` blank item, with the tty_end_menu C-cite comment. Post-fix JS step-68 screen string is byte-identical to C's. No other body change — the rest was already whole per D-3146.
+**Verify:** `node scripts/verify.mjs --fn handler_disclose` → VERIFY: PASS (syntax 1 file; rule2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change).
+**Named:** none new. Pre-existing, unchanged: n>1 keep-second pick (`:5769–5770`) folded into select_menu_pick_one (D-2788/D-3146); nul_glyphinfo; sinks.
+**Next:** pop the next Open — cliffs head (regen will re-rank; Wizard-94291 now blocks on handler_menustyle@96 — plausibly the same prompt-style arm in the next menu, for that row to claim).
 ## 2026-10-08 — D-3653 cliffs-head `options.c` optfn_boolean: lit_corridor/dark_room redraw gate read truthy use_color, which stays unset (no TERM probe under Rule #2), so no docrt→cls→more --More-- (Tourist-94171 99→PASS)
 
 **C locus:** `src/options.c` optfn_boolean `:5372–5373` (`if (iflags.use_color) go.opt_need_redraw = TRUE`) + doset `:8973` → reset_needed_visuals `:8997–9001` → docrt → cls `:2196` (`display_nhwindow(WIN_MESSAGE, FALSE)`) → wintty.c `:1874–1877` (NEED_MORE → more()). `color` maps to `&iflags.wc_color` (optlist.h:236–238), not use_color — no addr bug; use_color is probe-set only.

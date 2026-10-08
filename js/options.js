@@ -420,7 +420,13 @@ export function optfn_disclose(optidx, req, negated, opts, op, flags) {
 export async function handler_disclose() {
     const ed0 = disclose_home(null).end_disclose;
     const discCat = new Array(NUM_DISCLOSURE_OPTIONS).fill(0); // C `:5688`
-    const raw = [{ text: 'Change which disclosure options categories:', selectable: false }];
+    // C tty_end_menu (wintty.c `:2685–2689`): the end_menu prompt paints
+    // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
+    // then a blank separator item (D-3403 sibling precedent).
+    const raw = [
+        { text: 'Change which disclosure options categories:', selectable: false, ...menu_prompt_style() }, // C `:5704`
+        { text: '', selectable: false }, // C wintty.c blank item
+    ];
     for (let i = 0; i < NUM_DISCLOSURE_OPTIONS; i++) { // C `:5696`
         const buf = `${disclosure_names[i].padEnd(12, ' ')}[${ed0[i]}${DISCLOSURE_OPTIONS[i]}]`; // C `:5697–5698`
         raw.push({
@@ -444,7 +450,10 @@ export async function handler_disclose() {
         if (!discCat[i]) continue; // C `:5718`
         const c = disclose_home(null).end_disclose[i]; // C `:5719`
         const prompt = `Disclosure options for ${disclosure_names[i]}:`; // C `:5720–5721`
-        const sub = [{ text: prompt, selectable: false }];
+        const sub = [
+            { text: prompt, selectable: false, ...menu_prompt_style() }, // C `:5765` end_menu prompt (tty_end_menu paint)
+            { text: '', selectable: false }, // C wintty.c blank item
+        ];
         const pushMode = (mode, text) => {
             sub.push({
                 text,

@@ -124,7 +124,7 @@
 {"fn":"handler_menustyle","c":"5544-5583","status":"ported","js":["js/options.js:handler_menustyle"],"at":"2026-10-03@bbe63333a"}
 {"fn":"handler_align_misc","c":"5586-5621","status":"ported","js":["js/options.js:handler_align_misc"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:2420 (R1781 ACCEPT)"}
 {"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-3403","D-2992"],"at":"2026-10-04@7a3ae7a92"}
-{"fn":"handler_disclose","c":"5675-5777","status":"ported","js":["js/options.js:handler_disclose"],"d":["D-3146"],"at":"2026-09-30@a1b562159","note":"stale: js/options.js:399 (D-2788, R1747 ACCEPT)"}
+{"fn":"handler_disclose","c":"5675-5777","status":"ported","js":["js/options.js:handler_disclose"],"d":["D-3654","D-3146"],"at":"2026-10-08@376b093b6","note":"stale: js/options.js:399 (D-2788, R1747 ACCEPT)"}
 {"fn":"handler_menu_headings","c":"5780-5792","status":"ported","js":["js/options.js:handler_menu_headings"],"d":["D-3648","D-3047"],"at":"2026-10-08@71d6c9d71","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_menu_objsyms","c":"5795-5829","status":"ported","js":["js/options.js:handler_menu_objsyms"],"d":["D-3416","D-3403","D-3232","D-2774"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"handler_msg_window","c":"5832-5890","status":"ported","js":["js/options.js:handler_msg_window"],"at":"2026-09-29@e028921a0","note":"stale: js/options.js:1547 body complete per review 1724, doset caller wired js/options.js:2923 (D-2773)"}

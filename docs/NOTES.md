@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **toss_up→chwepon [measure] DONE (D-3640):** Knight-94330 Hallu desync = C chwepon:920 entry hcolor (drawn, discarded on the !uwep arm) vs JS no-draw clone; writer ported same iter (probe 98→121, 104→286 screens). HCOLORS 74/74 set+order — no table bug, do not re-check.
 ## Don't re-check (≤15)
 
-- D-1790…D-3653 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3654 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3653.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3653 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3654.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3654 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3654: verbatim D-3403/D-3646/D-3647 sibling pattern on both menus: prompt row spreads `...menu_prompt_style()` (same-file relay, no new import) + `{ text: ' Named: none new.
 - D-3653: both gates → `game.iflags?.use_color !== false` with the C-cite + convention comment (whole body carries the full note, mirror a one-liner). Named: none new.
 - D-3652: prepend the two C rows — `{ text: query, selectable: false, ...menu_prompt_style() }` + `{ text: '', selectable: false }` — verbatim the D-3403/doset  Named: none new.
 - D-3651: do_set returns the pline promise chained to OPTN_OK (optfn_boulder `:1201` maybe-promise precedent); the doset_compound_via_getlin fruit arm awaits it Named: none new.
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3642: creation path takes no await anywhere, exactly like C: `m_dowear` bifurcates — creation runs all 8 slots in C guard order with no await and returns; ` Named: none new.
 - D-3641: `blindfoldOnly = (EBlinded) && !(HBlinded && !BBlinded)` from the flat u mirrors the Blind gate at :6143 already trusts, + 6-line C-cite comment (youp Named: none new.
 - D-3640: delete the clone, import the live `hcolor` from do_name.js (edge already exists — `imports.mjs --can` ALREADY; table verified 74/74 set+order, gate fa Named: pre-existing, untouched: useupall hand-roll (in-chwepon splice+setuwep vs live invent.js e
-- D-3639: none — measurement + `[measure]` row (D-3638 recipe: `NETHACK_RNGLOG_DISP=1` re-record, no rebuild, + JS display-draw log → first display-draw diverge Named: none (no `js/`).
 <!-- landmarks:end -->
