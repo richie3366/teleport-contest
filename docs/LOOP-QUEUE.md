@@ -128,7 +128,6 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @955d3c391 **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
@@ -244,5 +243,5 @@ rows now (`ledger.mjs set … --note "stale: …"`), not Parked lines.
 - `region.c` save_regions — DIAGNOSED 2026-09-16: binary NHFILE format unportable (JS saves JSON, Constitution §1.6); teardown clear_regions live js/region.js:647; never a corpus owner. Falsifier: save-oracle/tagged-restore divergence naming region state.
 - `monmove.c` mfndpos Healer W2 — SYMPTOM 2026-09-16, body faithful: C bat cnt=5, missing cells MON_AT-occupied (230/246/244), same code both sides; arrangement differs pre-turn (C 244@(45,11) vs JS 244@(46,10)). Falsifier: TEMP-W2 C dump + JS prefix probe; proof in archive.
 - `dogmove.c` best_target/score_targ Samurai W3 — SYMPTOM 2026-09-16: loop count-identical under identical state (JS find_targ hits ⊆ C hits; full elimination in archive). Falsifier: TEMP-C step-37 pet-turn ray dump naming the (1,1) rejector; re-queue under that writer.
-- `weapon.c` mon_wield_item scen-town-Priest-94382 — RECORDER-ARTIFACT 2026-10-06/08 (D-3570 v1, D-3689 v2 definitive): game agrees; JS hook at swap's More (pre-recalc(1), ·), C post-key (post-recalc(1), G). Falsifier: post-key hook realignment (human/audit) → FULL PASS. Proof in archive.
+- `weapon.c` mon_wield_item Priest-94382 — REFUTED D-3698 (writer = moveloop_core :470 gate; FULL PASS on game js/). V1/v2 proof in archive kept as history.
 - `termcap.c` nomux_out/Samurai-92032 — RECORDER-ARTIFACT 2026-10-08 (D-3684): ^F 6562 B screen overflows nomux_out[6144] onto nm-adjacent raw_active/row/col; CX/CY = screen bytes exact. Falsifier: bounded-serialization rebuild + re-record → PASS.
