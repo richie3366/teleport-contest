@@ -40,7 +40,7 @@
 {"fn":"tty_display_file","c":"2425-2516","status":"unknown"}
 {"fn":"tty_start_menu","c":"2519-2551","status":"unknown"}
 {"fn":"reverse","c":"2627-2638","status":"unknown"}
-{"fn":"tty_end_menu","c":"2649-2772","status":"unknown"}
+{"fn":"tty_end_menu","c":"2649-2772","status":"partial","js":["js/invent.js:end_menu_cut_str"],"omit":"(1) morestr truncation `:2753–2758` (dead: C's own morestr construction bounds it; JS morestrs same shapes); (2) rest of `tty_end_menu` distributed-live, not re-ported: prompt prepend (per-menu, D-3652/54/55), selectors (pick_one clone loop `options.js:9852–9860`), lmax/npages per-menu, maxcol `nhw…","d":["D-3665"],"at":"2026-10-08@f833c81a8"}
 {"fn":"tty_select_menu","c":"2775-2815","status":"unknown"}
 {"fn":"tty_message_menu","c":"2819-2847","status":"split","js":["js/display.js:message_menu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Whole unit adapted: PICK_NONE pline; dismiss_more/morc/more flow; return logic; clear+WIN_CANCELLED folded into more/pline."}
 {"fn":"tty_ctrl_nhwindow","c":"2850-2911","status":"unknown"}

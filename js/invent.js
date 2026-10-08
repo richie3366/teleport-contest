@@ -2942,6 +2942,22 @@ function clear_overlay() {
 }
 
 /**
+ * C ref: wintty.c tty_end_menu `:2728–2733` — "cut off any lines that are
+ * too long": len = strlen(str)+2; if (len > cols) str[cols-2] = 0
+ * (cols = ttyDisplay->cols = 80, same hardcode as nhw_menu_geometry).
+ * Paint-time copy: C mutates mlist in place, but C callers only ever read
+ * back identifiers, so cutting the painted copy paints C's cells while
+ * leaving JS menu search/return-text (no C observable) on full text.
+ * Bare item strs pass cap 78; already-space-prefixed lines (doattributes)
+ * pass cap 79 (C's putchar(' ') + 78-char str). C's matching display-loop
+ * clip (process_menu_window `:1456–1464`, ++curx < cols) provably never
+ * binds once stored text is cut, so paint_overlay's `< cols` bound stays.
+ */
+function end_menu_cut_str(text, cap = 78) {
+    return text.length > cap ? text.slice(0, cap) : text;
+}
+
+/**
  * C ref: wintty.c tty_end_menu — cols = max(strlen(str)+2, morestr);
  *        tty_display_nhwindow(NHW_MENU) with H2344_BROKEN:
  *        offx = min(min(82, cols/2), cols - maxcol - 1).
@@ -3016,6 +3032,13 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
     await flush_topl_more();
     const disp = display();
     if (!disp) return null;
+    // C wintty.c tty_end_menu `:2728–2733` runs before display: cut
+    // overlong item strs (paint-time copy — caller arrays stay full-text).
+    entries = entries.map((e) => {
+        if (typeof e === 'string') return end_menu_cut_str(e);
+        const cut = end_menu_cut_str(e.text);
+        return cut === e.text ? e : { ...e, text: cut };
+    });
     const { offx } = nhw_menu_geometry(entries, morestr);
     // C cw->maxrow is per-window (tty_end_menu). JS geom is global;
     // reuse it only while this overlay is still up (later shorter pages).
@@ -3257,8 +3280,9 @@ export async function select_menu_pick_none(entries) {
         // below branches the same way (npages>1 → paint_overlay, else
         // paint_corner_nhw_menu).
         if (npages > 1) {
+            // C wintty.c tty_end_menu `:2728–2733`: cut overlong item strs.
             const painted = page.map(e => ({
-                text: ` ${typeof e === 'string' ? e : e.text}`,
+                text: ` ${end_menu_cut_str(typeof e === 'string' ? e : e.text)}`,
                 attr: typeof e === 'string' ? 0 : (e.attr || 0),
                 color: typeof e === 'string' ? NO_COLOR : (e.color ?? NO_COLOR),
                 split: typeof e === 'string' ? 0 : ((e.descStart | 0) + 1),
@@ -4145,8 +4169,9 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
 
         if (npages > 1) {
             // C fullscreen when maxrow >= rows (multi-page invent)
+            // C wintty.c tty_end_menu `:2728–2733`: cut overlong item strs.
             const painted = page.map((e) => ({
-                text: ` ${typeof e === 'string' ? e : e.text}`,
+                text: ` ${end_menu_cut_str(typeof e === 'string' ? e : e.text)}`,
                 attr: typeof e === 'string' ? 0 : (e.attr || 0),
             }));
             painted.push({ text: ` ${morestr}`, attr: 0 });
@@ -8618,6 +8643,10 @@ export async function doattributes(enl_mode = null) {
     // single page (nitems ≤ 22): one paint + "(end) " morestr + wait.
     // C dmore → xwaitforspace: only space/CR/LF advance; ESC cancels;
     // other keys bell and stay (still a capture boundary).
+    // C wintty.c tty_end_menu `:2728–2733`: lines carry the menu's one
+    // leading space, so cap at 79 (space + 78-char str). In place: lines
+    // is function-local (C cuts mlist in place too).
+    for (let i = 0; i < lines.length; i++) lines[i] = end_menu_cut_str(lines[i], 79);
     const cItems = lines.map((t) => (t.startsWith(' ') ? t.slice(1) : t));
     const { offx } = nhw_menu_geometry(cItems, '(end) ');
     const waitMenuKey = async () => {
@@ -10583,8 +10612,9 @@ export async function display_used_invlets(avoidlet = 0) {
             : '(end) ';
 
         if (npages > 1) {
+            // C wintty.c tty_end_menu `:2728–2733`: cut overlong item strs.
             const painted = page.map((e) => ({
-                text: ` ${typeof e === 'string' ? e : e.text}`,
+                text: ` ${end_menu_cut_str(typeof e === 'string' ? e : e.text)}`,
                 attr: typeof e === 'string' ? 0 : (e.attr || 0),
             }));
             painted.push({ text: ` ${morestr}`, attr: 0 });
