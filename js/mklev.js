@@ -6902,6 +6902,10 @@ function load_wiz_strt() {
         pm = splev_mines_maybe_clear_your_race(pm);
         const moved = splev_resolve_occupied(mx + rx, my + ry, pm);
         const mtmp = pm ? makemon(pm, moved.x, moved.y, 0) : null;
+        // C sp_lev.c create_monster :2125 — des.monster class letters keep
+        // the tmpmons.female = 0 default (:3230); clobber the makemon
+        // birth draw (cf. splev_create_monster D-0873).
+        if (mtmp) mtmp.female = 0;
         if (mtmp && peaceful != null && peaceful > BOOL_RANDOM)
             mtmp.mpeaceful = peaceful;
     };
@@ -17907,7 +17911,12 @@ function load_minetn_5() {
         let x = mx + rx, y = my + ry;
         const moved = splev_resolve_occupied(x, y, pm);
         x = moved.x; y = moved.y;
-        if (pm) makemon(pm, x, y, 0);
+        if (!pm) return;
+        const mtmp = makemon(pm, x, y, 0);
+        // C sp_lev.c create_monster :2125 — des.monster class letters keep
+        // the tmpmons.female = 0 default (:3230); clobber the makemon
+        // birth draw (cf. splev_create_monster D-0873).
+        if (mtmp) mtmp.female = 0;
     };
 
     // Shops
@@ -27306,7 +27315,12 @@ function load_wizard3() {
         let pm = mlet ? mkclass(mlet, G_NOGEN) : null;
         pm = splev_mines_maybe_clear_your_race(pm);
         const moved = splev_resolve_occupied(mx + rx, my + ry, pm);
-        if (pm) makemon(pm, moved.x, moved.y, 0);
+        if (!pm) return;
+        const mtmp = makemon(pm, moved.x, moved.y, 0);
+        // C sp_lev.c create_monster :2125 — des.monster class letters keep
+        // the tmpmons.female = 0 default (:3230); clobber the makemon
+        // birth draw (cf. splev_create_monster D-0873).
+        if (mtmp) mtmp.female = 0;
     };
 
     // Fixed monsters
