@@ -33,20 +33,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **read_engr_at Knight-94259 writer SHIPPED (D-3671):** knight engr wired at mklev.js:20276 (tut-1.lua:83-85, PM_KNIGHT gate); paint path audited whole (newsym:972 + _map_location:460 + map_engraving + unmap_object:422 + feel:860 all live); D-3670's (8,5) second witness retired (JS paints it — full cell-diff was exactly 1 cell); session → PASS. Do not re-pop read_engr_at.
 ## Don't re-check (≤15)
 
-- D-1790…D-3671 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3672 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3671.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3671 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3672.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3672 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3672: `js/save.js` only — deleted the force/save/restore triplet (3 lines) and rewrote the comment with the `:571`/`:596` order cite; role_init now runs wit Named: (1) try_restore_save's remaining JSON-vs-binary saveshape gap stands (dorecover by-design 
 - D-3671: `js/mklev.js` only — role-gated placement in C .lua order (between the (5,2) and (2,4) sites, so prepend order matches C): `if (game.urole?.mnum === P Named: none new.
 - D-3670: none — measurement names the writer. Named: (1) otyp 474/475 → rock/boulder names inferred from the 5+5 counts + D-3618's JS probe, no
 - D-3669: both rows → `{ obj: 'flags', … }` (D-3629 shape + `optlist.h:168` cite on the DOSET row). Named: none new. doset's pre-existing D-3457 audited omit stands (envelope unchanged — data home 
@@ -61,5 +62,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3660: none — no writer can be named from `show` + `brief` (null jsOwner/entries; the only other owner paints botl, not the map), and the owner's `[measure]` Named: (1) recorder screen-capture defect still needs human/audit fix + session re-record-or-excl
 - D-3659: `if (mtmp) mtmp.female = 0;` + C-order cite comment in all three clones (C order: `:2125` before `:2126` peaceful). Named: (1) other bare `mkclass`+`makemon` sites unaudited for des-vs-random attribution + female 
 - D-3658: movebubbles runs C's vision_recalc(2) loop via vision_off_newsym_gbuf pre-swap (Tourist-92100 158→PASS). Named: fill waslit/flags gap (pre-existing).
-- D-3657: deleted the 23-line clone (D-1849 discipline: import the export, never a second body); `export` on `mon.js` `mdrop_obj` (doc notes the live callers);  Named: (1) `zap.c:430` bhitm saddle arm (above) — inline subset also misses the worn-saddle `upda
 <!-- landmarks:end -->
