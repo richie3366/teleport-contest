@@ -22,17 +22,17 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-07** — full `sessions` on `aab90e6bc`
-(audit **2514–2521**, 2026-10-07T23:25:44.061Z).
+Score last measured: **2026-10-08** — full `sessions` on `fab08090a`
+(audit **2522–2530**, 2026-10-08T02:03:56.172Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`348+1.52/turn` (R² 0.75).
+`370+1.62/turn` (R² 0.74).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-07 19:03Z)** | **18 / 44**, 8,489 / 11,265 pts, RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** |
+| **Held-out (judge 2026-10-08 01:29Z)** | **18 / 44**, 8,497 / 11,265 pts, RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -40,10 +40,10 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,489 vs lockwo 7,776; their RNG 61.0 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts 8,076→**8,489** (+413), RNG 41.0→**41.7 %**, rngSteps 91.5→92.4 %, screens 71.7→**75.4 %** at judge 2026-10-07 19:03Z (through ~D-3633) — fifth cliff-phase movement (D-3622…D-3651).
-**Corpus — picker and proxy (2026-10-07 23:31Z; 953/953 entries, 0 unrecorded):**
-**895 / 953** PASS (93.9 %), RNG 99.81 %, screens 99.0 %; `full: true`. Worst families: `scen-options` 9/20, `scen-tutorial` 15/20, `scen-tour` 24/29, `scen-impaired` 17/20, `scen-quest` 17/20, `scen-descend` 18/20. Audits record this line next to held-out: the board must rise **with** it. +8 since the last audit (887→895, all per-iteration D-3634…D-3651 — 3 via D-3634, 1 via D-3635, 1 via D-3636, 1 via D-3637, 1 via D-3638, 0 via D-3640, 1 via D-3641, 0 via D-3642 — + 0 on the full rescore, which reproduced the working board exactly); 0 PASS→FAIL, 0 hangs.
-Reviews 1225–2521 (index; no row 1618): 1132 ACCEPT, 57 WITH-DEBT, 107 QUALITY-RISK (2514–2521: 8A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,497 vs lockwo 7,776; their RNG 61.0 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts 8,489→**8,497** (+8), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-08 01:29Z (through ~D-3647) — sixth cliff-phase movement (D-3643…D-3651).
+**Corpus — picker and proxy (2026-10-08 02:10Z; 953/953 entries, 0 unrecorded):**
+**899 / 953** PASS (94.3 %), RNG 99.81 %, screens 99.0 %; `full: true`. Worst families: `scen-options` 12/20, `scen-tutorial` 15/20, `scen-tour` 24/29, `scen-quest` 17/20, `scen-impaired` 18/20, `scen-descend` 18/20. Audits record this line next to held-out: the board must rise **with** it. +4 since the last audit (895→899, all per-iteration — Rogue-94310 via D-3643, Barbarian-94251 via D-3644→D-3646, Caveman-94011 via D-3647→D-3649, Knight-94331 via D-3650→D-3651 — + 0 on the full rescore, which reproduced the working board exactly); 0 PASS→FAIL, 0 hangs.
+Reviews 1225–2530 (index; no row 1618): 1141 ACCEPT, 57 WITH-DEBT, 107 QUALITY-RISK (2522–2530: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
@@ -145,7 +145,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** cliffs-head `options.c` handler_petattr — Caveman-94011@77.
+**Next cluster:** cliffs-head `do.c` doup — Tourist-94171@85.
 
 ## Parked (diagnose only — do not implement)
 

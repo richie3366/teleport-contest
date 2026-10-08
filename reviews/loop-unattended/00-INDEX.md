@@ -2531,3 +2531,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2519-e74328321-chwepon-live-hcolor.md](./2519-e74328321-chwepon-live-hcolor.md) | `e74328321` | D-3640 chwepon live hcolor (moved 98→121) | **ACCEPT** |
 | [2520-a71302dfa-enlightenment-blindfolded-only.md](./2520-a71302dfa-enlightenment-blindfolded-only.md) | `a71302dfa` | D-3641 enlightenment Blindfolded_only (1 PASS) | **ACCEPT** |
 | [2521-aab90e6bc-mdowear-creation-syncthrough.md](./2521-aab90e6bc-mdowear-creation-syncthrough.md) | `aab90e6bc` | D-3642 m_dowear creation sync-through (moved 245→260) | **ACCEPT** |
+| [2522-6404b3295-vision-inited-gate.md](./2522-6404b3295-vision-inited-gate.md) | `6404b3295` | D-3643 vision_off_newsym_gbuf inited gate (1 PASS) | **ACCEPT** |
+| [2523-208d08489-clear-committed-botlx.md](./2523-208d08489-clear-committed-botlx.md) | `208d08489` | D-3644 clear_committed_status preserves botlx (151→169 + bonus) | **ACCEPT** |
+| [2524-ca4598a0b-whatis-filter-prompt.md](./2524-ca4598a0b-whatis-filter-prompt.md) | `ca4598a0b` | D-3645 handler_whatis_filter prompt inverse + blank (169→170) | **ACCEPT** |
+| [2525-4b81ec924-autocomplete-prompt.md](./2525-4b81ec924-autocomplete-prompt.md) | `4b81ec924` | D-3646 handler_change_autocompletions prompt (170→PASS) | **ACCEPT** |
+| [2526-71d6c9d71-menu-coloring.md](./2526-71d6c9d71-menu-coloring.md) | `71d6c9d71` | D-3647 query prompts + get_menu_coloring (58→65) | **ACCEPT** |
+| [2527-a566f4420-promptstyle-relay.md](./2527-a566f4420-promptstyle-relay.md) | `a566f4420` | D-3648 adjust_menu_promptstyle relay + doset styles (65→77) | **ACCEPT** |
+| [2528-aff28fb26-query-promptstyle.md](./2528-aff28fb26-query-promptstyle.md) | `aff28fb26` | D-3649 query prompts read relayed style (77→PASS) | **ACCEPT** |
+| [2529-064fb35ea-classes-preselect-mark.md](./2529-064fb35ea-classes-preselect-mark.md) | `064fb35ea` | D-3650 choose_classes_menu preselect '*' (88→135) | **ACCEPT** |
+| [2530-fab08090a-fruit-pline-promise.md](./2530-fab08090a-fruit-pline-promise.md) | `fab08090a` | D-3651 optfn_fruit awaited pline (135→PASS) | **ACCEPT** |
