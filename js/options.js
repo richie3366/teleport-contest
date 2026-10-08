@@ -10475,7 +10475,7 @@ const DOSET_BOOL_ADDR = {
     accessiblemsg: { obj: 'a11y', key: 'accessiblemsg' }, // C: &a11y.accessiblemsg
     acoustics: { obj: 'flags', key: 'acoustics' },
     altmeta: { obj: 'iflags', key: 'altmeta' },
-    armorstatus: { obj: 'iflags', key: 'armorstatus' },
+    armorstatus: { obj: 'flags', key: 'armorstatus' }, // C optlist.h:168 &flags.armorstatus
     autodescribe: { obj: 'iflags', key: 'autodescribe' },
     autodig: { obj: 'flags', key: 'autodig' },
     autoopen: { obj: 'flags', key: 'autoopen' },
@@ -12074,7 +12074,7 @@ const allopt = [
     // optlist.h:159 NHOPTB(altmeta)
     { name: 'altmeta', opttyp: BoolOpt, idx: 12, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'altmeta' }, optfn: null },
     // optlist.h:167 NHOPTB(armorstatus)
-    { name: 'armorstatus', opttyp: BoolOpt, idx: 13, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'iflags', key: 'armorstatus' }, optfn: null },
+    { name: 'armorstatus', opttyp: BoolOpt, idx: 13, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'armorstatus' }, optfn: null },
     // optlist.h:170 NHOPTB(ascii_map)
     { name: 'ascii_map', opttyp: BoolOpt, idx: 14, setwhere: SET_IN_GAME, initval: true /* ascii_map_Def: tty */, addr: null /* C: &iflags.wc_ascii_map, no live field */, optfn: null },
     // optlist.h:173 NHOPTO("autocompletions")

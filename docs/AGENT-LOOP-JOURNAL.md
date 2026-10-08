@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3669 cliffs-head `botl.c` do_statusline2 writer: doset armorstatus home — the D-3629 twin (1 moved 44→110)
+
+**C locus:** `include/optlist.h:167–168` (`&flags.armorstatus`) + `include/flag.h:20` (home is struct flag; no `iflags.armorstatus` anywhere upstream) + `src/botl.c:1256–1259` (`if (flags.armorstatus) armor_status(...)`) + `src/options.c:5336/:5349–5351` (doset after-change reassess + botl) + readers `worn.c:141/:180`, `botl.c:1640/:1709`.
+**JS:** 1 file (`js/options.js` +2/−2) + `scripts/armorstatus-paint.test.mjs` (new node:test: full Rogue-94391 replay pins step-44 `Xp:1 Suit` + `flags.armorstatus === true`; FAIL pre-fix 0/1, PASS post-fix 1/1).
+**Change:** both rows → `{ obj: 'flags', … }` (D-3629 shape + `optlist.h:168` cite on the DOSET row). No new edges, no DIAG/FORCE/seed gates. Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn do_statusline2` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · `verify do_statusline2: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Rogue-94391 44 → 110 screen, scrM 89→191, RNG 4796/4796 throughout) · PASS reach (smoke 24/24, no RNG-tagged reach → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). VERIFY: PASS. Extra: focused test 0/1 pre-fix → 1/1 post-fix.
+**Named:** none new. doset's pre-existing D-3457 audited omit stands (envelope unchanged — data home only).
+**Next:** Rogue-94391's step-110 fruit-display divergence (`a - fruit [j]` vs `[slime mold]`, owner null, 0 blocked RNG) flows through the normal queue under its own writer. Do not re-pop do_statusline2 for this session.
 ## 2026-10-08 — D-3668 themerms 'Random dungeon feature' contents: the D-1836 omission was a 21k-RNG step-0 cliff (4 unattributed → 3 PASS + 1 moved 0→44)
 
 **C locus:** `dat/themerms.lua` 'Random dungeon feature in the middle of an odd-sized room' `:446–457` (wid/hei `:448–449`, `feature={"C","L","I","P","T"}` + `shuffle` `:452–453`, center `des.terrain` `:454–455`); `nhlib.lua shuffle` `:17–22` (Fisher–Yates, `math.random(i)`=1+rn2(i)); `sp_lev.c lspo_terrain` `:4978–5038` (argc==3 → tlit stays SET_LIT_NOCHANGE, `:5027–5034` get_location_coord + sel_set_ter); `nhlua.c char2typ` `:340–379` (C→CLOUD :361, L→LAVAPOOL :369, I→ICE :371, P→POOL :368, T→TREE :373); driver `mklev.c makerooms` `:366–440` (loop `:403`, vault gate `:404`, `themerooms_generate` pcall `:415`).

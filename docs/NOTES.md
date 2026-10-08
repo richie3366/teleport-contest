@@ -32,20 +32,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **toss_up→chwepon DONE (D-3640):** HCOLORS 74/74, writer ported — do not re-check.
 ## Don't re-check (≤15)
 
-- D-1790…D-3668 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3669 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3668.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3668 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3669.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3669 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3669: both rows → `{ obj: 'flags', … }` (D-3629 shape + `optlist.h:168` cite on the DOSET row). Named: none new. doset's pre-existing D-3457 audited omit stands (envelope unchanged — data home 
 - D-3668: `js/mklev.js` only — new `themeroom_random_feature_contents` (C-order feature list, live `nhlib_shuffle`, `l_push_mkroom_table` width/height, room-rel Named: (1) standing dispatch omissions untouched: Water vault D-0690, Blocked center map+replace_
 - D-3667: `js/invent.js` only — teardown branches on the in-scope `offx` (`nhw_menu_geometry`, `:8651`): offx==0 → `docrt()` (fullscreen arm, identical to befor Named: (1) erase_menu_or_text `:1098` mid-life menu clear still has no JS caller (pre-existing — 
 - D-3666: none — measurement only. Named: (1) C-side `~drn2` call-site tags are stale-context junk (patch 003 macros cover only core
@@ -60,5 +61,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3657: deleted the 23-line clone (D-1849 discipline: import the export, never a second body); `export` on `mon.js` `mdrop_obj` (doc notes the live callers);  Named: (1) `zap.c:430` bhitm saddle arm (above) — inline subset also misses the worn-saddle `upda
 - D-3656: wired all three `set_msg_xy(x, y)` in C order + `await flush_topl_more()` after the danger-sense pline (house display_nhwindow(WIN_MESSAGE, FALSE) idi Named: none. (All three set_msg_xy + the flush now wired; the pline-vs-Your/You wrapper choice is
 - D-3655: verbatim D-3403/D-3654 sibling pattern: prompt row spreads `...menu_prompt_style()` (same-file relay, no new import) + `{ text: '', selectable: false  Named: none new.
-- D-3654: verbatim D-3403/D-3646/D-3647 sibling pattern on both menus: prompt row spreads `...menu_prompt_style()` (same-file relay, no new import) + `{ text: ' Named: none new.
 <!-- landmarks:end -->
