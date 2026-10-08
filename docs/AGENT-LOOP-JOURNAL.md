@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — saturated stop (corpus live queue empty at 938/953; audit owns re-record + rescore + growth)
+
+**Preflight:** `verify.mjs --no-cohort` green before work (syntax/rule2/green 2/2/strict ×2, VERIFY: PASS). Tree was clean.
+**Pop:** Must-fix empty (nothing eligible: no throw/hang, 0 PASS→FAIL, no unqueued review C-wrong); cliffs head `weapon.c` mon_wield_item parked RECORDER-ARTIFACT and park-maxed (D-3570 + D-3660 + D-3689 v2 definitive — "do not re-touch on port iters"); coverage empty; `ledger.mjs batch` → "no gap left".
+**State:** fresh `show` byte-identical to both parks — Priest-94382 step 99 (identical tether toplines, row-7 G/·, null jsOwner/entries, RNG 11013/11013) and Samurai-92032 step 96 (owner null, cursor-only, RNG 14766/14766). Committed board failing = 15: 13 env:config-path + 2 parked recorder-artifacts; `queue` reports 0 live. `brief mon_wield_item` re-read (C weapon.c:801–934, tether pline :896); no writer namable — game agrees both sides per D-3689.
+**Verify:** `verify.mjs --fn mon_wield_item` → 0 PASS, 0 moved, 1 unchanged → NO MOVEMENT (expected and honest: park holds, zero code changed) · smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: FAIL on hidden only.
+**Regen:** `check-hot-docs --fix` re-stamp only (queue + scoreboard @bb3890046 → @7176eaf8b); cliffs still the 1 parked row, coverage still empty — saturated per the Refill rule.
+**Next:** audit owns (a) hook-vs-recorder capture-point adjudication + nomux_out bound (both barred to this loop), (b) fixed-recorder re-record + full rescore, (c) corpus growth (scen-tutorial 85% flag + block-holds-1-owner flag stand). Do not re-touch mon_wield_item or Samurai-92032 on port iters.
 ## 2026-10-08 — D-3691 next-live-head `display.h` random_obj_to_glyph CORPSE arm: body glyphs render CORPSE oclass `%`, JS painted the monster letter (Knight-94330 121→PASS)
 
 **C locus:** display.h random_obj_to_glyph `:933–936` (hallu otyp roll == CORPSE → second burn random_monster + GLYPH_BODY_OFF) + display.c reset_glyphmap `:3004–3010` (BODY: symidx = objects[CORPSE].oc_class + SYM_OFF_O = FOOD `%`, color mon_color) and `:2796–2802` (BODY_PILETOP, same rule). map_object `:333–366` whole re-read (single obj_to_glyph call, glyph reused for memory + show — no double burn).

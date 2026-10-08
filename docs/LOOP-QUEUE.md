@@ -128,7 +128,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @bb3890046 **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @7176eaf8b **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
