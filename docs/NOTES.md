@@ -29,24 +29,25 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Pw pair + Empty-hnd fixed D-3629 (drain_en flags.botl mirror, DOSET weaponstatus home); all 3 probe sessions moved.
 - **mfndpos W2 [measure] DONE (D-3560→D-3561):** shipped (m_search_items writer was MZ_HUMAN capacity); do not re-check.
 - **disclose tour-Priest [measure] DONE (D-3626→D-3627):** shipped (erase_menu_or_text corner arm); wish pair = separate Hallu display-RNG class.
-- **toss_up→chwepon [measure] DONE (D-3640):** Knight-94330 Hallu desync = C chwepon:920 entry hcolor vs JS no-draw clone; writer ported same iter. HCOLORS 74/74 — do not re-check.
-- **drinkfountain [measure] DONE (D-3666):** writer = `erase_menu_or_text` docorner arm (offx=11→C 0 draws; JS docrts 6). Predict 227→229+; s229 rndmonnam next.
+- **toss_up→chwepon DONE (D-3640):** HCOLORS 74/74, writer ported — do not re-check.
+- **drinkfountain SHIPPED (D-3667):** corner teardown docornered, Rogue-92037 PASS — do not re-check.
 ## Don't re-check (≤15)
 
-- D-1790…D-3666 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3667 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3666.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3666 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3667.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3667 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3667: `js/invent.js` only — teardown branches on the in-scope `offx` (`nhw_menu_geometry`, `:8651`): offx==0 → `docrt()` (fullscreen arm, identical to befor Named: (1) erase_menu_or_text `:1098` mid-life menu clear still has no JS caller (pre-existing — 
 - D-3666: none — measurement only. Named: (1) C-side `~drn2` call-site tags are stale-context junk (patch 003 macros cover only core
 - D-3665: `js/invent.js` only — `end_menu_cut_str(text, cap=78)` helper (`:2728–2733` verbatim, paint-time copy: C mutates mlist but C callers only read back id Named: (1) morestr truncation `:2753–2758` (dead: C's own morestr construction bounds it; JS more
 - D-3664: `js/invent.js` only — (1) n===0 arm prints C's 'Not carrying anything.' (`:3965` + `:3140–3143` cite); (2) lets[0]-absent arm drops the pline, returns Named: (1) tty empty-menu UX on the `:4099` arm unpinned — C would display the empty menu and wai
@@ -61,5 +62,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3655: verbatim D-3403/D-3654 sibling pattern: prompt row spreads `...menu_prompt_style()` (same-file relay, no new import) + `{ text: '', selectable: false  Named: none new.
 - D-3654: verbatim D-3403/D-3646/D-3647 sibling pattern on both menus: prompt row spreads `...menu_prompt_style()` (same-file relay, no new import) + `{ text: ' Named: none new.
 - D-3653: both gates → `game.iflags?.use_color !== false` with the C-cite + convention comment (whole body carries the full note, mirror a one-liner). Named: none new.
-- D-3652: prepend the two C rows — `{ text: query, selectable: false, ...menu_prompt_style() }` + `{ text: '', selectable: false }` — verbatim the D-3403/doset  Named: none new.
 <!-- landmarks:end -->
