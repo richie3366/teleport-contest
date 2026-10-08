@@ -39,6 +39,7 @@ import {
     EPRI, EMIN, DIR_LEFT, DIR_RIGHT, DIR_LEFT2, DIR_RIGHT2,
     xdir, ydir, xytodir,
     DISMOUNT_THROWN, DISMOUNT_POLY, W_ARMS, COST_DEGRD,
+    NEED_WEAPON, NEED_HTH_WEAPON,
     S_sink, something,
     M_AP_FURNITURE, M_AP_OBJECT, M_AP_MONSTER, M_AP_TYPE, M_AP_NOTHING,
     COST_CONTENTS, Is_rogue_level,
@@ -54,12 +55,12 @@ import {
     haseyes, touch_petrifies, resists_ston, resists_acid, is_flyer, is_floater,
     flesh_petrifies, likes_fire, slimeproof, metallivorous, mon_hates_silver,
 } from './monsters.js';
-import { MON_WEP } from './weapon.js';
-import { which_armor, extract_from_minvent } from './worn.js';
+import { MON_WEP, mon_wield_item } from './weapon.js';
+import { which_armor, extract_from_minvent, check_gear_next_turn } from './worn.js';
 import { m_cansee, couldsee, cansee, do_clear_area } from './vision.js';
 import { Monnam, noit_Monnam, y_monnam, pmname, Mgender } from './do_name.js';
 import { gettrack } from './track.js';
-import { hero_conflict, resist_conflict, monsndx, same_race, mhis } from './mondata.js';
+import { hero_conflict, resist_conflict, monsndx, same_race, mhis, attacktype } from './mondata.js';
 import { is_pool, is_lava, stop_occupation, On_stairs } from './hack.js';
 import { m_unleash } from './apply.js';
 import { lose_guardian_angel } from './minion.js';
@@ -1041,7 +1042,20 @@ async function dog_invent(mtmp, edog, udist) {
                 obj_extract_self(otmp);
                 newsym(omx, omy);
                 mpickobj(mtmp, otmp);
-                // mon_wield_item / check_gear_next_turn omitted (no AT_WEAP pet)
+                /* C ref: dogmove.c `:466–471` — an AT_WEAP pet that picks
+                 * up gear while NEED_WEAPON re-arms to NEED_HTH_WEAPON
+                 * and wields now (a poly/charm pet can have AT_WEAP, so
+                 * the old "no AT_WEAP pet" omit was C-wrong); the gear
+                 * check runs unconditionally (D-3695). AT_WEAP stays
+                 * file-local per house pattern (dog.js, exper.js,
+                 * mhitm.js carry their own). */
+                const AT_WEAP = 254;
+                if (attacktype(mtmp.data, AT_WEAP)
+                    && mtmp.weapon_check === NEED_WEAPON) {
+                    mtmp.weapon_check = NEED_HTH_WEAPON;
+                    await mon_wield_item(mtmp); /* C: (void) */
+                }
+                check_gear_next_turn(mtmp);
             }
         }
     }
