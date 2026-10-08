@@ -152,4 +152,4 @@ the gates, catches it.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3688
+**Addressed:** D-3688 `0560c51fd`
