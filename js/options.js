@@ -11405,7 +11405,7 @@ export async function doset() {
             { name: 'crash_name', get_val: () => doset_compopt_get_val(optfn_crash_name, 'crash_name') || 'unknown' }, // C `:9043` "unknown" unless non-empty
             { name: 'crash_urlmax', val: '-1' },
             { name: 'disclose', get_val: () => doset_compopt_get_val(optfn_disclose, 'disclose'), handler: true },
-            { name: 'fruit', val: 'slime mold' },
+            { name: 'fruit', get_val: () => doset_compopt_get_val(optfn_fruit, 'fruit') || 'unknown' }, // C `:9043` "unknown" unless non-empty (optfn_fruit get_val `:1770` Sprintfs pl_fruit; was hardcoded 'slime mold')
             { name: 'glyph', val: '(to be done)' },
             { name: 'hilite_status', get_val: () => doset_compopt_get_val(optfn_hilite_status, 'hilite_status') },
             { name: 'menu_headings', get_val: () => doset_compopt_get_val(optfn_menu_headings, 'menu_headings'), handler: true },

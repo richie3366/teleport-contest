@@ -128,7 +128,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `files.c` paniclog — blocks 1/953 corpus sessions (first at step 151; RNG lost 0, screens lost 1): toplines identical; first differing screen row 10: C «g - fruit                   [j]» vs JS «g - fruit                   [slime mold]» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify paniclog` (scen-options-Archeologist-94231). @3cb2f5ae2 **[history: ledger: by-design — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `files.c` paniclog — blocks 1/953 corpus sessions (first at step 151; RNG lost 0, screens lost 1): C «horsename[(none)]» vs JS «horsename[(none)]». Probe: `node scripts/hidden-proxy.mjs verify paniclog` (scen-options-Archeologist-94231). @3cb2f5ae2 **[history: ledger: by-design — read that D-entry once; the arm this divergence names is still open]**
 - [ ] `weapon.c` mon_wield_item — blocks 1/953 corpus sessions (first at step 99; RNG lost 0, screens lost 1): toplines identical; first differing screen row 7: C «=│·!·│·│ │((($+··G─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» vs JS «=│·!·│·│ │((($+···─┤····└─··········├┘··──┬─┬▒─┬─+┐·/·············+··│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify mon_wield_item` (scen-town-Priest-94382). @3cb2f5ae2 **[parked: RECORDER-ARTIFACT — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
 <!-- cliffs:end -->
 

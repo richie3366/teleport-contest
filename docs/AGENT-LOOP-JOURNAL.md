@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-08 — D-3678 cliffs-head `paniclog` writer: doset full-menu fruit row hardcoded `[slime mold]` instead of optfn_fruit get_val (Archeologist-94231 → PASS)
+
+**C locus:** `options.c` doset_add_menu `:9038` → optfn_fruit get_val `:1770` — every compound via optfn get_val into buf2 (`:9038–9042`), «unknown» unless optn_ok + non-empty (`:9043–9044`); fruit get_val Sprintfs pl_fruit (`:1769–1771`); optlist.h `:339–340` NHOPTC fruit has_handler No → getlin set path, no handler flag.
+**JS:** 1 file (`js/options.js` 1 row + cite) + `scripts/doset-fruit-fullmenu.test.mjs` (1 test: replay Archeologist-94231 to page 6, assert `[j]` not `[slime mold]`). Under caps.
+**Change:** one row (`js/options.js:11408`): fruit → live `doset_compopt_get_val(optfn_fruit, 'fruit') || 'unknown'` (C `:9038` get_val + `:9043` fallback, crash_email-row shape). Same module, no new imports; no handler flag (optlist.h:339 has_handler No; getlin set path js/options.js:9651 pre-existing). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** committed test 0/1 pre-fix → 1/1 post-fix. `node scripts/verify.mjs --fn paniclog` → PASS syntax (1 file: js/options.js) · PASS rule2 · PASS hidden (`verify paniclog: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`: scen-options-Archeologist-94231 → PASS) · PASS reach (smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** none in this unit — the fruit literal now mirrors C `:9038`. Standing by design (pre-existing, untouched): sibling full-menu literals crash_urlmax `-1`, glyph `(to be done)`, pile_limit `5`, symset display string — each needs its own optfn/state audit and no session implicates them; doset's ledger omits stand.
+**Next:** do not re-pop `paniclog` for Archeologist-94231 (→ PASS; the row leaves the cliffs block on rescore). Sibling full-menu literals re-enter only via a session blocked on their row.
 ## 2026-10-08 — D-3677 wintty.c erase_menu_or_text fullscreen arm: getpos-tip dismiss skipped docrt, reveal map stayed instead of level repaint (Archeologist-94231 36→151)
 
 **C locus:** nhlua.c nhl_text `:846–848` (end_menu + select_menu PICK_NONE + destroy_nhwindow) → tty_destroy_nhwindow wintty.c `:2020` → tty_dismiss_nhwindow `:1953` (NHW_MENU arm → erase_menu_or_text clearscreen=FALSE) → erase_menu_or_text `:966–985`: fullscreen (offx==0, offy==0 — MENU sets offy=0 at `:1919–1920`) is `:976–979` docrt()+flush_screen(1); corner is `:981–982` docorner. Fullscreen predicate `:1924–1925` H2344 (maxrow>=rows || !menu_overlay; the live branch per D-3676).
