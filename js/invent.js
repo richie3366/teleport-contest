@@ -3958,8 +3958,11 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
     }
     if (usextra || (n === 1 && allowAll)) n++;
 
+    /* C invent.c display_pickinv `:3140–3143` — n==0 (empty invent,
+       no lets, no xtra): pline("%s.", not_carrying_anything), return 0.
+       C has no "appropriate" variant of this message. */
     if (n === 0) {
-        await pline('Not carrying anything appropriate.');
+        await pline('Not carrying anything.');
         return null;
     }
 
@@ -3985,8 +3988,9 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
         // C: first invent whose invlet == lets[0] (lets non-null here)
         const want = lets[0];
         const otmp = inv.find((o) => o && o.invlet === want);
+        /* C `:3162–3170` — lets[0] absent from invent: the `if (otmp)`
+           guard skips message_menu with no pline; ret stays '\0'. */
         if (!otmp) {
-            await pline('Not carrying anything appropriate.');
             return null;
         }
         // C: message_menu(otmp->invlet, want_reply ? PICK_ONE : PICK_NONE, …)
@@ -4092,8 +4096,10 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
             attr: 0,
         });
     }
+    /* C `:3378–3415` — an empty menu still runs end_menu/select_menu
+       with no pline (empty select → 0 → '\0'); the tty empty-menu UX is
+       unpinned, so this returns the cancel value without printing. */
     if (!byLet.size) {
-        await pline('Not carrying anything appropriate.');
         return null;
     }
     const gacc = collect_menu_gacc(pickItems, PICK_ONE);
