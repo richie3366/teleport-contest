@@ -2582,3 +2582,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2570-4f820ea09-getlin-cmdq-preamble.md](./2570-4f820ea09-getlin-cmdq-preamble.md) | `4f820ea09` | D-3700 getlin cmdq preamble (ported) | **ACCEPT** |
 | [2571-e537dde76-one-characteristic-hide-arms.md](./2571-e537dde76-one-characteristic-hide-arms.md) | `e537dde76` | D-3701 one_characteristic hide arms (ported) | **ACCEPT** |
 | [2572-1f526fb1e-m-move-door-you-hear-arms.md](./2572-1f526fb1e-m-move-door-you-hear-arms.md) | `1f526fb1e` | D-3702 m_move door You_hear arms (omit 1 retired) | **ACCEPT** |
+| [2573-94f9c2270-mon-yells-live-you-hear.md](./2573-94f9c2270-mon-yells-live-you-hear.md) | `94f9c2270` | D-3703 mon_yells You_hear clone → live | **ACCEPT** |
+| [2574-c04ecdfe0-kick-door-deaf-gate.md](./2574-c04ecdfe0-kick-door-deaf-gate.md) | `c04ecdfe0` | D-3704 kick_door fail-arm Deaf macro (ported) | **ACCEPT** |
+| [2575-0b624251c-kick-nondoor-deaf-gate.md](./2575-0b624251c-kick-nondoor-deaf-gate.md) | `0b624251c` | D-3705 kick_nondoor pudding Deaf macro (ported) | **ACCEPT** |
+| [2576-fbb530169-engrave-wand-deaf-gate.md](./2576-fbb530169-engrave-wand-deaf-gate.md) | `fbb530169` | D-3706 doengrave WAN Deaf macro (ported) | **ACCEPT** |
+| [2577-e34e24d69-mhitm-noises-deaf-gate.md](./2577-e34e24d69-mhitm-noises-deaf-gate.md) | `e34e24d69` | D-3707 mhitm noises Deaf macro (ported) | **ACCEPT** |
+| [2578-5eb7bf9b6-mhitm-ad-curs-deaf-gate.md](./2578-5eb7bf9b6-mhitm-ad-curs-deaf-gate.md) | `5eb7bf9b6` | D-3708 mhitm_ad_curs Deaf macro (split) | **ACCEPT** |
+| [2579-a75bb06aa-mhitm-ad-dgst-deaf-gate.md](./2579-a75bb06aa-mhitm-ad-dgst-deaf-gate.md) | `a75bb06aa` | D-3709 mhitm_ad_dgst Deaf macro (ported) | **ACCEPT** |
+| [2580-26c2814b6-mdig-tunnel-you-hear.md](./2580-26c2814b6-mdig-tunnel-you-hear.md) | `26c2814b6` | D-3710 mdig_tunnel wall You_hear rewire (ported) | **ACCEPT** |
+| [2581-47fdd9a35-spitmm-mcan-deaf-gate.md](./2581-47fdd9a35-spitmm-mcan-deaf-gate.md) | `47fdd9a35` | D-3711 spitmm mcan Deaf macro (ported) | **ACCEPT** |

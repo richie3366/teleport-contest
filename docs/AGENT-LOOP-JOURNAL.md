@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — audit 2573–2581 @47fdd9a35: 9 reviews (9A/0D/0Q, 0 Must-fix) + full rescore 939/953
+
+**Reviews:** 2573 D-3703 mon_yells You_hear ACCEPT (clone deleted, mhis-yell dead-end verified via import alias, smoke 24/24); 2574 D-3704 kick_door Deaf macro ACCEPT (rn2(3) short-circuit, reach 40/40); 2575 D-3705 kick_nondoor pudding gate ACCEPT (Unaware-dream hole closed, Klunk dedup-only verified, reach 9/9); 2576 D-3706 doengrave WAN gate ACCEPT (new engrave→monmove edge cycle-safe via hoisted fn, smoke 24/24); 2577 D-3707 noises gate ACCEPT (whole 13-line body re-verified, smoke 24/24); 2578 D-3708 mhitm_ad_curs gate ACCEPT (pre-gate rn2(10) verified, reach 4/4); 2579 D-3709 mhitm_ad_dgst gate ACCEPT (verbalize caller-checks-deafness verified pline.c:470, smoke 24/24); 2580 D-3710 mdig_tunnel You_hear rewire ACCEPT (outer gate correctly deleted not macro-fixed, reach 112/112); 2581 D-3711 spitmm mcan gate ACCEPT (invented acoustics arm deleted, new mthrowu→monmove edge cycle-safe, reach 15/15). Every cite re-verified against pinned C; one nit (kick_nondoor 'black ooze' vs hcolor(NH_BLACK), pre-existing hallu-only) noted for a future refill, not Must-fix.
+**Score:** public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `374+1.67/turn`); corpus 939/953 (+0, 0 PASS→FAIL, `full: true`); held-out 18/44 unchanged (judge 2026-10-09 02:13Z). Ledger snapshot appended (counts frozen); 5/5 seeded-ported sampled clean (readobjnam_init, singplur_compound, region_dialogue, stop_donning, redist_attr).
+**Next:** missing-arm breamm mcan cough gate (omit-2 family, D-3711 Next lead; both generated blocks empty, batch no gap).
 ## 2026-10-09 — D-3711 `mthrowu.c` spitmm mcan-arm Deaf-macro gate: raw `u.Deaf` + invented acoustics arm → `hero_Deaf()` (omit-2 family; same-iteration map refill+ship)
 
 **C locus:** mthrowu.c spitmm `:1016–1077`, mcan arm `:1021–1032`, gate `:1022`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers mhitm.c:550 (mattackm SPIT arm) + mthrowu.c:1270 (spitmu wrapper).
