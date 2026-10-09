@@ -39,7 +39,7 @@
 {"fn":"create_room","c":"1486-1661","status":"ported","js":["js/mklev.js:create_room"],"at":"2026-10-03@bbe63333a"}
 {"fn":"create_subroom","c":"1668-1707","status":"ported","js":["js/mklev.js:create_subroom"],"at":"2026-09-28@1483a276d","note":"stale: js/mklev.js:23085 (every C arm live; PARTIAL was line-count heuristic)"}
 {"fn":"create_door","c":"1714-1806","status":"ported","js":["js/mklev.js:create_door"],"at":"2026-10-03@bbe63333a"}
-{"fn":"create_trap","c":"1812-1846","status":"ported","js":["js/mklev.js:create_trap"],"at":"2026-10-03@bbe63333a"}
+{"fn":"create_trap","c":"1812-1846","status":"ported","js":["js/mklev.js:create_trap"],"d":["D-3740"],"at":"2026-10-09@f74fa11d9"}
 {"fn":"noncoalignment","c":"1852-1860","status":"ported","js":["js/mklev.js:noncoalignment"],"d":["D-3235"],"at":"2026-10-01@6c82dd6e1","note":"stale: js/mklev.js:21761 exact port, C :1915 caller wired :21777"}
 {"fn":"m_bad_boulder_spot","c":"1864-1881","status":"ported","js":["js/mklev.js:m_bad_boulder_spot"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pm_to_humidity","c":"1884-1899","status":"ported","js":["js/mklev.js:pm_to_humidity"],"at":"2026-10-03@bbe63333a"}
