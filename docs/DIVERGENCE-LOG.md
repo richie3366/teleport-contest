@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3720 — `zap.c` melt_ice Underwater gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3719 Next lead)
+- **Status:** fixed (missing-arm row ship — both generated blocks empty at 939/953, `ledger.mjs batch` no gap; D-3719 Next lead; ships alone).
+- **Symptom:** no corpus divergence — C-fidelity residual. C recalcs vision when the hero is submerged (`:5059–5060`); JS read the sticky `game.u?.Underwater` flat (zero writers anywhere in js/ — dead false), so a submerged hero never recalced where C does. No RNG delta — recalc timing only; repaint converges on the next full recalc.
+- **C locus:** zap.c melt_ice `:5040–5079`, gate `:5059–5060`; Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: eat.c:3781, trap.c:1812, trap.c:4313, zap.c:5130 (melt_ice_away), zap.c:5174 (zap_over_floor ZT_FIRE).
+- **JS was:** js/zap.js:985 sticky-flat read; the rest of melt_ice stands whole per brief (ICE→pool/moat, spot_stop_timers, trap_ice_effects TRUE, obj_ice_effects, unearth_objs, newsym, Norep, boulder settle, u_at spoteffects / mon minliquid).
+- **Fix:** js/zap.js only — the gate reads `(game.u?.uinwater | 0)` with C cites (`:5059–5060` + youprop.h:279); D-3400 idiom, same expression as js/zap.js:6951, no new edge, no import.
+- **JS:** js/zap.js (gate :985–986); scripts/melt-ice-underwater-gate.test.mjs (new, 3 its through the real melt_ice(): submerged recalcs; surface control skips; dead flat alone does not recalc).
+- **Callers:** C eat.c:3781 → JS js/eat.js:838; C trap.c:1812 → JS js/trap.js:4914; C trap.c:4313 → JS js/trap.js:5103; C zap.c:5130 → JS js/zap.js:1037 (melt_ice_away); C zap.c:5174 → JS js/zap.js:1075 (zap_over_floor ZT_FIRE); name/signature unchanged — no rewiring.
+- **Verify:** focused test 1/3 pre-fix (surface control green = staging sound; submerged + dead-flat red) → 3/3 post-fix. `node scripts/verify.mjs --fn melt_ice` → PASS syntax (1 file: js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on melt_ice at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+- **Named omissions:** none new.
+- **Ledger:** melt_ice ported
+- **Next:** verified successor row live in missing-arm (briefed as this commit's refill — QUEUE_MIN 1; different C function, not shipped here): dungeon.c surface pool arm in the zap-local surface_zap clone — C :1765–1767 `(Underwater && !Is_waterlevel) ? "bottom" : hliquid("water")` vs JS js/zap.js:2882 sticky `u.Underwater` (zero writers, dead false; canonical js/sit.js:474 surface already reads the live bit via Underwater() :155–157). Further unbriefed leads: steed.js, invent.js:4719, display.js:2283, do.js:885, music.js:902, dothrow.js:937, read.js:1870. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
+
 ## D-3719 — `mthrowu.c` return_from_mtoss notcaught recalc: bare `otmp.lamplit` → live `obj_sheds_light` (light predicate; D-3718 same-function successor)
 - **Status:** fixed (missing-arm pop — both generated blocks empty, `ledger.mjs batch` no gap; row written with brief evidence by D-3718, shipped and archived in this commit — D-3718 precedent; ships alone).
 - **Symptom:** no corpus divergence — C-fidelity residual. C gates the notcaught vision recalc on the full `obj_sheds_light(otmp)` predicate (`:960`); JS read bare `otmp.lamplit`, so a lamplit-but-not-burning object forced a `vision_full_recalc` C skips. State-only delta (extra recalc, no RNG/message change on the path).

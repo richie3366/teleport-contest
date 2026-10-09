@@ -62,7 +62,7 @@
 {"fn":"ubuzz","c":"4759-4762","status":"ported","js":["js/zap.js:ubuzz"],"at":"2026-10-03@bbe63333a"}
 {"fn":"buzz","c":"4765-4768","status":"ported","js":["js/zap.js:buzz"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dobuzz","c":"4780-5037","status":"ported","js":["js/zap.js:dobuzz"],"d":["D-3408","D-3367","D-3361","D-2133"],"at":"2026-10-04@c075fb861"}
-{"fn":"melt_ice","c":"5040-5079","status":"ported","js":["js/zap.js:melt_ice"],"at":"2026-10-03@bbe63333a"}
+{"fn":"melt_ice","c":"5040-5079","status":"ported","js":["js/zap.js:melt_ice"],"d":["D-3720"],"at":"2026-10-09@38bce8f45"}
 {"fn":"start_melt_ice_timeout","c":"5088-5111","status":"ported","js":["js/zap.js:start_melt_ice_timeout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"melt_ice_away","c":"5119-5132","status":"ported","js":["js/zap.js:melt_ice_away"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_spell_hits_spot","c":"5501-5533","status":"ported","js":["js/zap.js:mon_spell_hits_spot"],"at":"2026-10-03@bbe63333a"}

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3720 `zap.c` melt_ice Underwater gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3719 Next lead)
+
+**C locus:** zap.c melt_ice `:5040–5079`, gate `:5059–5060`; Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: eat.c:3781, trap.c:1812, trap.c:4313, zap.c:5130 (melt_ice_away), zap.c:5174 (zap_over_floor ZT_FIRE).
+**JS:** js/zap.js (gate :985–986); scripts/melt-ice-underwater-gate.test.mjs (new, 3 its through the real melt_ice(): submerged recalcs; surface control skips; dead flat alone does not recalc).
+**Change:** js/zap.js only — the gate reads `(game.u?.uinwater | 0)` with C cites (`:5059–5060` + youprop.h:279); D-3400 idiom, same expression as js/zap.js:6951, no new edge, no import.
+**Verify:** focused test 1/3 pre-fix (surface control green = staging sound; submerged + dead-flat red) → 3/3 post-fix. `node scripts/verify.mjs --fn melt_ice` → PASS syntax (1 file: js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on melt_ice at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new.
+**Next:** verified successor row live in missing-arm (briefed as this commit's refill — QUEUE_MIN 1; different C function, not shipped here): dungeon.c surface pool arm in the zap-local surface_zap clone — C :1765–1767 `(Underwater && !Is_waterlevel) ? "bottom" : hliquid("water")` vs JS js/zap.js:2882 sticky `u.Underwater` (zero writers, dead false; canonical js/sit.js:474 surface already reads the live bit via Underwater() :155–157). Further unbriefed leads: steed.js, invent.js:4719, display.js:2283, do.js:885, music.js:902, dothrow.js:937, read.js:1870. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3719 `mthrowu.c` return_from_mtoss notcaught recalc: bare `otmp.lamplit` → live `obj_sheds_light` (light predicate; D-3718 same-function successor)
 
 **C locus:** mthrowu.c return_from_mtoss `:850–965`, recalc `:960`; predicate light.c obj_sheds_light `:763–767` → obj_is_burning `:770–775` (lamplit && (ignitable || artifact_light)). C caller mthrowu.c:830 (m_throw always-toss path).

@@ -982,7 +982,8 @@ export async function melt_ice(x, y, msg) {
     if (t_at(x, y)) await trap_ice_effects(x, y, true); // TRUE: ice_is_melting
     obj_ice_effects(x, y, false);
     await unearth_objs(x, y);
-    if (game.u?.Underwater) vision_recalc(1);
+    /* C zap.c:5059–5060 — Underwater ≡ u.uinwater (youprop.h:279; D-3400 idiom). */
+    if ((game.u?.uinwater | 0)) vision_recalc(1);
     newsym(x, y);
     if (cansee(x, y) || u_at(x, y)) await Norep(msg);
     let otmp = sobj_at(BOULDER, x, y);
