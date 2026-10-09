@@ -2,8 +2,8 @@
 {"fn":"goodfruit","c":"42-48","status":"ported","js":["js/bones.js:goodfruit"],"d":["D-3426","D-1523"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"resetobjs","c":"51-193","status":"ported","js":["js/bones.js:resetobjs"],"d":["D-2606"],"at":"seed@a30a7de84"}
 {"fn":"sanitize_name","c":"198-220","status":"ported","js":["js/bones.js:sanitize_name"],"d":["D-2918"],"at":"seed@a30a7de84"}
-{"fn":"give_to_nearby_mon","c":"226-255","status":"ported","js":["js/end.js:give_to_nearby_mon"],"d":["D-2034"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full reservoir selection; adds RNG-free stackobj on floor path"}
-{"fn":"drop_upon_death","c":"259-303","status":"ported","js":["js/end.js:drop_upon_death"],"d":["D-2060"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full drop loop with slime/mtmp/cont/rn2(8) arms"}
+{"fn":"give_to_nearby_mon","c":"226-255","status":"ported","js":["js/end.js:give_to_nearby_mon"],"d":["D-3754","D-2034"],"at":"2026-10-09@5de410d26","note":"audit 2026-10-03: full reservoir selection; adds RNG-free stackobj on floor path"}
+{"fn":"drop_upon_death","c":"259-303","status":"ported","js":["js/end.js:drop_upon_death"],"d":["D-3754","D-2060"],"at":"2026-10-09@5de410d26","note":"audit 2026-10-03: full drop loop with slime/mtmp/cont/rn2(8) arms"}
 {"fn":"fixuporacle","c":"308-352","status":"ported","js":["js/end.js:fixuporacle"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full delphi search/relocate/restore"}
 {"fn":"can_make_bones","c":"356-385","status":"ported","js":["js/end.js:can_make_bones"],"d":["D-3686"],"at":"2026-10-08@b3845d7d0","note":"audit 2026-10-03: full incl portal/depth/discover arms"}
 {"fn":"remove_mon_from_bones","c":"390-399","status":"ported","js":["js/end.js:remove_mon_from_bones"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl is_Vlad cham arm and oracle fixup"}

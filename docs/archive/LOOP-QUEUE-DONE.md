@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
+- [x] `mkobj.c` next_ident — blocks 1/1113 corpus sessions (first at step 864; RNG lost 53068, screens lost 92): C draws `rnd(2)=2` in next_ident, JS `rn2(8)=3` from collect_coords(teleport.js:566). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-chain-Wizard-95420). @9d1f099fd **[history: archived D-2228 — read that D-entry once; the arm this divergence names is still open]**
+
+
 - [x] `wintty.c` process_menu_window — blocks 10/1113 corpus sessions (first at step 176; RNG lost 58320, screens lost 117): toplines identical; first differing screen row 22: C «» vs JS «Wizard the Troglodyte          St:3 Dx:3 Co:3 In:3 Wi:3 Ch:3 Lawful» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify process_menu_window` (scen-chain-Archeologist-95418, scen-chain-Archeologist-95435, scen-chain-Archeologist-95438). @fc05190da **[history: archived D-3736 — read that D-entry once; the arm this divergence names is still open]**
 
 
