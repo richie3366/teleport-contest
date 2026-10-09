@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3743 — `dungeon.c` print_dungeon: delete post-menu `bot()` (D-0568 extra call) that painted stale moves and consumed botlx
+
+- **Status:** fixed (Open — cliffs head `botl.c` do_statusline2 — 8 corpus blocks, RNG lost 73166; writer port, symptom owner stands: do_statusline2 paints live `game.moves` (display.js `_statusLine2`), not re-ported; parked RETIRED tag honored).
+- **Symptom:** toplines identical (`Resetting time to move #N.--More--`); status row 23 `T:` shows C N vs JS leave-time moves (Ranger-95303 s230: 53 vs 96; Wizard-95334 s534: 334 vs 337; Arch-95240 s475: 17 vs 146). In-process replay probe: `game.moves` is correct (53) at the capture — the status paint is stale, not the state.
+- **C locus:** `dungeon.c` print_dungeon `:2369–2371` (end/select/destroy); `windows.c` select_menu `:1859–1863` (bot_disabled guard); `wintty.c` tty_select_menu `:2793–2795` (dismiss runs *inside* the guard); tty_destroy `:2018–2019` (no-op when inactive — no second erase); `display.c` docrt `:1769` (botlx=TRUE); `botl.c` bot `:270` (clears all three flags); `pline.c` vpline `:273–274` (flush_screen before putmesg). Chain: dismissal's docrt sets botlx, the guard preserves it (bot() no-ops at botl.c:255 *before* the clear), restore sets moves=53, the Resetting pline's flush sees botlx and repaints T:53.
+- **JS was:** `js/dungeon.js` print_dungeon called `await bot()` after `select_menu_pick_one` (D-0568). The helper already erases inside its guard (options.js:9846/9983); the extra call ran *outside* it — painting pre-restore moves (96) and clearing botlx — so the Resetting pline's flush found no flag and the capture kept the stale paint. Probe sequence: `docrt botlx-set(96)` → `bot disabled=true` (guarded, preserved) → `bot disabled=false` (the extra call, consumed) → restore → put-flush with botlx=false → cap230 stale.
+- **Fix:** deleted the extra `bot()` and its comment; the preserved botlx now drives the repaint at the next pline's flush, C order. D-0568's session (seed0373 @99 Endgame-prerequisite prinv) repaints via the same flag at its own pline — verified still PASS.
+- **JS:** `js/dungeon.js` print_dungeon bymenu tail (~3603–3612): menu call kept, eager bot() + stale comment replaced with the C guard/no-destroy cite; doc comment updated (D-0568 attribution kept).
+- **Callers:** C teleport.c:1228 level_tele → js/teleport.js:2316 (unchanged, signature kept); C wizcmds.c:221 → js/wizcmds.js:697 (unchanged). No caller wiring changed.
+- **Verify:** `verify print_dungeon,do_statusline2`: hidden `print_dungeon` note (no baseline blocks); `do_statusline2`: **0 PASS, 4 moved, 4 unchanged (different toplines = different writers), 0 worse → PROGRESS** — Ranger-95303 230→distfleeck@237, Wizard-95334 534→level_tele@569, Arch-95240 475→level_tele@488 (all 3 probes), Wizard-95221 182→do_statusline2@388 (+206). REACH-OK both (smoke 24/24). Green 2/2, strict ×2, cohort 7/7, syntax+Rule2 PASS. Full `sessions`: **44/44** (incl. seed0373, seed0360/0367 ^V users).
+- **Named omissions:** none new.
+- **Ledger:** print_dungeon ported
+- **Next:** same-pattern extra `await bot()` after select_menu_pick_one at js/weapon.js:1195 (weapon.c caller — different C file, not touched here); the 4 unchanged do_statusline2 sessions (95226/95201/95212/95225, non-Resetting toplines) are separate writers for future cliff rows.
+
 ## D-3742 — `invent.c` freeinv_core amulet arm clears the JS-only `uhave_amulet` flat (makemon cliff writer; 3 probes moved past s405/s349/s229)
 
 - **Status:** shipped (Open — cliffs head `makemon.c` makemon — 3 corpus blocks (scen-worldtour-Archeologist-95249 s405, scen-worldtour-Samurai-95203 s349, scen-worldtour-Wizard-95212 s229; RNG lost 75548); writer port, symptom owner stands: makemon body whole incl. the :1386–1390 in_mklev ndemon arm (js/makemon.js:3682), not re-ported; D-3285 history arms untouched).

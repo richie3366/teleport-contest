@@ -77,7 +77,7 @@
 {"fn":"br_string","c":"2240-2253","status":"ported","js":["js/dungeon.js:br_string"],"at":"2026-09-30@990da2b8d","note":"stale: js/dungeon.js:3250, exact C port, 2 C callers wired (:3344,:3434)"}
 {"fn":"chr_u_on_lvl","c":"2256-2259","status":"ported","js":["js/dungeon.js:chr_u_on_lvl"],"at":"2026-10-03@bbe63333a"}
 {"fn":"print_branch","c":"2263-2286","status":"ported","js":["js/dungeon.js:print_branch"],"at":"2026-10-03@bbe63333a"}
-{"fn":"print_dungeon","c":"2290-2438","status":"ported","js":["js/dungeon.js:print_dungeon"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
+{"fn":"print_dungeon","c":"2290-2438","status":"ported","js":["js/dungeon.js:print_dungeon"],"d":["D-3743","D-3401"],"at":"2026-10-09@6dba482a5"}
 {"fn":"recbranch_mapseen","c":"2446-2475","status":"ported","js":["js/dungeon.js:recbranch_mapseen"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"get_annotation","c":"2478-2485","status":"ported","js":["js/dungeon.js:get_annotation"],"at":"2026-10-03@bbe63333a"}
 {"fn":"print_level_annotation","c":"2489-2495","status":"ported","js":["js/dungeon.js:print_level_annotation"],"at":"2026-10-03@bbe63333a"}

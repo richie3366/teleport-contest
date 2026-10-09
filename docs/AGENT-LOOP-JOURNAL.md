@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3743 `dungeon.c` print_dungeon: delete post-menu `bot()` (D-0568 extra call) that painted stale moves and consumed botlx
+
+**C locus:** `dungeon.c` print_dungeon `:2369–2371` (end/select/destroy); `windows.c` select_menu `:1859–1863` (bot_disabled guard); `wintty.c` tty_select_menu `:2793–2795` (dismiss runs *inside* the guard); tty_destroy `:2018–2019` (no-op when inactive — no second erase); `display.c` docrt `:1769` (botlx=TRUE); `botl.c` bot `:270` (clears all three flags); `pline.c` vpline `:273–274` (flush_screen before putmesg). Chain: dismissal's docrt sets botlx, the guard preserves it (bot() no-ops at botl.c:255 *before* the clear), restore sets moves=53, the Resetting pline's flush sees botlx and repaints T:53.
+**JS:** `js/dungeon.js` print_dungeon bymenu tail (~3603–3612): menu call kept, eager bot() + stale comment replaced with the C guard/no-destroy cite; doc comment updated (D-0568 attribution kept).
+**Change:** deleted the extra `bot()` and its comment; the preserved botlx now drives the repaint at the next pline's flush, C order. D-0568's session (seed0373 @99 Endgame-prerequisite prinv) repaints via the same flag at its own pline — verified still PASS.
+**Verify:** `verify print_dungeon,do_statusline2`: hidden `print_dungeon` note (no baseline blocks); `do_statusline2`: **0 PASS, 4 moved, 4 unchanged (different toplines = different writers), 0 worse → PROGRESS** — Ranger-95303 230→distfleeck@237, Wizard-95334 534→level_tele@569, Arch-95240 475→level_tele@488 (all 3 probes), Wizard-95221 182→do_statusline2@388 (+206). REACH-OK both (smoke 24/24). Green 2/2, strict ×2, cohort 7/7, syntax+Rule2 PASS.
+**Named:** none new.
+**Next:** same-pattern extra `await bot()` after select_menu_pick_one at js/weapon.js:1195 (weapon.c caller — different C file, not touched here); the 4 unchanged do_statusline2 sessions (95226/95201/95212/95225, non-Resetting toplines) are separate writers for future cliff rows.
 ## 2026-10-09 — D-3742 `invent.c` freeinv_core amulet arm clears the JS-only `uhave_amulet` flat (makemon cliff writer; 3 probes moved past s405/s349/s229)
 
 **C locus:** `invent.c:1361–1364` freeinv_core amulet arm (`u.uhave.amulet = 0` when the Amulet leaves inventory); readers `makemon.c:1389` (`!u.uhave.amulet` gate) and `:1332` (S_JABBERWOCK/S_NYMPH). C has no flat — possession is the single bit.
