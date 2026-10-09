@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
+- [x] mon.c hideunder S_EEL-arm Underwater disjunct (Underwater-idiom family; lead-triaged in the dosounds EOT-gate iteration) **Addressed:** D-3716 — C mon.c:4746–4747 `undetected = (is_pool(x, y) && !Is_waterlevel(&u.uz) && (!Underwater || !couldsee(x, y)))` with Underwater ≡ youprop.h:279 u.uinwater; the live-`uinwater` read is absent from js/mon.js:3973 (sticky `u.Underwater` read instead — zero writers, dead false; the monmove.js:1466 clone already reads the live bit). Rest of hideunder faithful per brief (ustuck/trapped gates, hides_under arm, uundetected/mundetected writeback, newsym). Deliverable: disjunct reads the live uinwater bit; focused test (submerged hero + eel in pool with clear LOS stays detected vs surface control hides). Callers: 19 C sites (dig/hack/invent/makemon/mon/monmove/pickup/polyself/restore/teleport/timeout/zap).
+
+
 - [x] sounds.c dosounds EOT-gate Underwater arm (Underwater-idiom family; lead-triaged in the close_drawbridge crush-gate iteration) — C sounds.c:208 `if (Deaf || !flags.acoustics || u.uswallow || Underwater)` with Underwater ≡ youprop.h:279 u.uinwater; the live-`uinwater` read is absent from js/sounds.js:841 (sticky `u.Underwater` read instead — zero writers, dead false; live bit has writers in trap/zap/detect/region/pickup/hack); Deaf/acoustics/uswallow disjuncts faithful per brief. Deliverable: gate reads the live uinwater bit; focused test (underwater hero silent with no rn2(400)/rn2(300) draws vs surface control). Caller: allmain.c:352 (moveloop EOT).
 
 

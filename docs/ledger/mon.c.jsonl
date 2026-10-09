@@ -95,7 +95,7 @@
 {"fn":"restore_cham","c":"4649-4658","status":"ported","js":["js/mon.js:restore_cham"],"d":["D-1637"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: protection/mcan/cham arms match"}
 {"fn":"restrap","c":"4662-4693","status":"ported","js":["js/mon.js:restrap"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: gate logic restructured equivalently"}
 {"fn":"maybe_unhide_at","c":"4698-4720","status":"ported","js":["js/monmove.js:maybe_unhide_at"],"d":["D-2923"],"at":"seed@a30a7de84"}
-{"fn":"hideunder","c":"4726-4802","status":"ported","js":["js/monmove.js:hideunder"],"d":["D-3414","D-3401"],"at":"2026-10-04@3b3655fac"}
+{"fn":"hideunder","c":"4726-4802","status":"ported","js":["js/monmove.js:hideunder"],"d":["D-3716","D-3414","D-3401"],"at":"2026-10-09@578f44ddb"}
 {"fn":"hide_monst","c":"4806-4826","status":"ported","js":["js/mon.js:hide_monst"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: viz-override/restrap/hideunder sequence matches"}
 {"fn":"mon_animal_list","c":"4829-4852","status":"ported","js":["js/makemon.js:mon_animal_list"],"d":["D-3401","D-2956"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"pick_animal","c":"4855-4869","status":"ported","js":["js/makemon.js:pick_animal"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/makemon.js:1206; mon.c:5190->makemon.js:1420 wired"}

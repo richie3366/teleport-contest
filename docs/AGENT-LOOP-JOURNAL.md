@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3716 `mon.c` hideunder S_EEL-arm Underwater disjunct: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3715 Next lead)
+
+**C locus:** mon.c hideunder `:4726–4802`, S_EEL arm `:4746–4747`; Underwater ≡ youprop.h:279 `(u.uinwater)`. 18 C call sites (brief).
+**JS:** js/mon.js (gate :3971–3977); scripts/hideunder-eel-underwater-gate.test.mjs (new, 4 its: submerged + clear LOS stays detected; surface control hides; dead flat alone does not expose; submerged + blocked LOS still hides).
+**Change:** js/mon.js only — the disjunct reads `(!(u.uinwater | 0) || !couldsee(x, y))` with C cites (`:4746–4747` + youprop.h:279); D-3400 idiom, same expression as the monmove.js:1466 clone, no new edge, no import.
+**Verify:** focused test 2/4 pre-fix (surface + blocked-LOS controls green = staging sound; submerged-detected + dead-flat red) → 4/4 post-fix. `node scripts/verify.mjs --fn hideunder` → PASS syntax (1 file: js/mon.js) · PASS rule2 · note hidden (no corpus session blocked on hideunder at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. The You_see "%s %s under %s" + set_msg_xy on this export stands named (async boundary; the monmove.js clone shows it).
+**Next:** verified successor (same family, other C file — not ridden along): makemon.c:1324 S_EEL in_mklev inline at js/makemon.js:3588–3592 reads the sticky `!game.u?.Underwater` flat AND drops C's `|| !couldsee` disjunct entirely (`IS_POOL && !waterlevel && !Underwater` vs C hideunder `:4746–4747`). Needs its own brief (what couldsee returns in_mklev in C). D-3715's further unbriefed leads stand: mthrowu.js:1133, zap.js:985/:2882, steed.js, invent.js:4719, display.js:2283, do.js:885, music.js:902. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3715 `sounds.c` dosounds EOT-gate Underwater arm: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3714 Next lead)
 
 **C locus:** sounds.c dosounds `:202–339`, EOT gate `:208`; Underwater ≡ youprop.h:279 `(u.uinwater)`. C caller allmain.c:352 (moveloop EOT).
