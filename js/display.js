@@ -6959,6 +6959,7 @@ function _commitStatusLines() {
 }
 
 export { _statusLine2 as status_line_2 };
+export { _paintToplineOnly as paint_topline_only };
 
 /**
  * Publish field-rendered status rows (tty BL_FLUSH render). C keeps the

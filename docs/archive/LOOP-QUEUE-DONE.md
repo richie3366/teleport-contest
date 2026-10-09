@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
+- [x] `wintty.c` process_menu_window — blocks 10/1113 corpus sessions (first at step 176; RNG lost 58320, screens lost 117): toplines identical; first differing screen row 22: C «» vs JS «Wizard the Troglodyte          St:3 Dx:3 Co:3 In:3 Wi:3 Ch:3 Lawful» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify process_menu_window` (scen-chain-Archeologist-95418, scen-chain-Archeologist-95435, scen-chain-Archeologist-95438). @fc05190da **[history: archived D-3736 — read that D-entry once; the arm this divergence names is still open]**
+
+
 - [x] [measure] `wintty.c` process_menu_window nav-dismiss (D-3736 park follow-up): TEMP-C state-diff + JS DIAG state-diff across menu keystrokes idx273–276 on 95341 naming the load-bearing game state carried by C's UNchanged return-dismiss docrt (candidates: hallu memory-write path tseen bits, vision memory writes display.c:1757–1761, relmon/geomspec unseen_mons side-diff; mimic ruled out). Then ship the separated fix: nav keystrokes (>,<,^,|) = game-refresh-only (zero hallu burns), logged return-dismiss docrt unchanged; expect 95341 276→387+/PASS + verify level_tele movement. No `js/` in the measure commit. @a3dc7af46 **Addressed:** D-3736 `b8a250bbe`
 
 
