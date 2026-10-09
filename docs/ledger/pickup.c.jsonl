@@ -23,7 +23,7 @@
 {"fn":"check_autopickup_exceptions","c":"913-927","status":"ported","js":["js/pickup.js:check_autopickup_exceptions"],"at":"2026-10-03@bbe63333a"}
 {"fn":"autopick_testobj","c":"930-965","status":"ported","js":["js/pickup.js:autopick_testobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"autopick","c":"975-1003","status":"ported","js":["js/pickup.js:autopick"],"at":"2026-10-03@bbe63333a"}
-{"fn":"query_objlist","c":"1025-1216","status":"ported","js":["js/pickup.js:query_objlist"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audit 2026-10-03: menu + FEEL_COCKATRICE + count fixup present"}
+{"fn":"query_objlist","c":"1025-1216","status":"ported","js":["js/pickup.js:query_objlist"],"d":["D-3753","D-3406"],"at":"2026-10-09@9d1f099fd","note":"audit 2026-10-03: menu + FEEL_COCKATRICE + count fixup present"}
 {"fn":"query_category","c":"1226-1508","status":"ported","js":["js/pickup.js:query_category"],"d":["D-2647"],"at":"seed@a30a7de84"}
 {"fn":"count_categories","c":"1511-1536","status":"ported","js":["js/pickup.js:count_categories"],"d":["D-3406","D-3135"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"delta_cwt","c":"1544-1566","status":"ported","js":["js/pickup.js:delta_cwt"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C panic surfaces as throw"}

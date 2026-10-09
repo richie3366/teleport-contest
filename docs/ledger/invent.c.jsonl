@@ -56,7 +56,7 @@
 {"fn":"set_cknown_lknown","c":"2624-2633","status":"ported","js":["js/end.js:set_cknown_lknown"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fully_identify_obj","c":"2637-2647","status":"ported","js":["js/invent.js:fully_identify_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"identify","c":"2651-2656","status":"ported","js":["js/invent.js:identify"],"at":"2026-10-03@bbe63333a"}
-{"fn":"menu_identify","c":"2660-2695","status":"ported","js":["js/invent.js:menu_identify"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menu_identify","c":"2660-2695","status":"ported","js":["js/invent.js:menu_identify"],"d":["D-3753"],"at":"2026-10-09@9d1f099fd"}
 {"fn":"count_unidentified","c":"2698-2707","status":"ported","js":["js/invent.js:count_unidentified"],"at":"2026-10-03@bbe63333a"}
 {"fn":"identify_pack","c":"2711-2745","status":"ported","js":["js/invent.js:identify_pack"],"at":"2026-10-03@bbe63333a"}
 {"fn":"learn_unseen_invent","c":"2750-2775","status":"ported","js":["js/invent.js:learn_unseen_invent"],"at":"2026-10-03@bbe63333a"}
