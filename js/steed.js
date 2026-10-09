@@ -199,13 +199,16 @@ function freeinv(otmp) {
     if (idx >= 0) inv.splice(idx, 1);
 }
 
-/** C ref: steed.c can_ride */
+/** C ref: steed.c can_ride `:169–174` — `(!Underwater || is_swimmer(mtmp->data))`,
+ * with Underwater ≡ u.uinwater (youprop.h:279). Live-bit read (D-3400 idiom),
+ * same expression as the mount_steed gate below (:724); the sticky
+ * `u.Underwater` flat has zero writers in js/ (dead false). */
 export function can_ride(mtmp) {
     if (!mtmp?.mtame) return false;
     const yd = you_data();
     if (!humanoid(yd) || verysmall(yd) || bigmonst(yd)) return false;
     const u = game.u || {};
-    if (u.Underwater && !is_swimmer(mtmp.data)) return false;
+    if ((u.uinwater | 0) && !is_swimmer(mtmp.data)) return false;
     return true;
 }
 
