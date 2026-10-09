@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3714 `dbridge.c` close_drawbridge OBJ_AT+Deaf crush gate: raw `u.Deaf` + invented acoustics arm → `hero_Deaf()` (omit-2 family; D-3713 Next lead)
+
+**C locus:** dbridge.c close_drawbridge `:775–834`, crush arm `:815`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers music.c:827 + zap.c:3303 + zap.c:3705.
+**JS:** js/dbridge.js (gate :756–760); scripts/close-drawbridge-crush-gate.test.mjs (new, 7 its: non-deaf control hears chains+crush + bridge raised; no-object control chains-only; EDeaf/HDeaf/roleplay-deaf + Unaware chains-dream-only; EDeaf-aware silent pin; acoustics-off silent pin).
+**Change:** js/dbridge.js only — local `hero_Deaf` :363 (D-1967; same module, no new edge, no import); the gate calls it and drops the acoustics disjunct, with C cites (`:815` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 4/7 pre-fix (control + no-object + EDeaf-aware + acoustics-off green = staging/pins; 3 macro-deaf+Unaware red, dreaming the crush) → 7/7 post-fix. `node scripts/verify.mjs --fn close_drawbridge` → PASS syntax (1 file: js/dbridge.js) · PASS rule2 · note hidden (no corpus session blocked on close_drawbridge at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Soundeffect :816 stays a live no-op call (faithful empty-macro port — contest C has no SND_LIB_*).
+**Next:** D-3713's further leads all briefed, none an omit-2 row: eat.c APPLE :2589 C itself gates `Deaf || !flags.acoustics` (js/eat.js:2219 faithful); sounds.c dosounds :208 C gates `Deaf || !flags.acoustics || uswallow || Underwater` (js/sounds.js:841 Deaf/acoustics faithful); hack.js:197 is You_hear's own inner gate (canonical). Unbriefed non-Deaf observation (different family — needs brief.mjs dosounds first, not shipped here): dosounds JS reads `u.Underwater` where C reads `Underwater` ≡ u.uinwater (D-3400 idiom; u.Underwater unwritten). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3713 `mthrowu.c` hit_bars barsound gate: raw `u.Deaf` + invented acoustics arm → `hero_Deaf()` (omit-2 family; D-3712 Next lead)
 
 **C locus:** mthrowu.c hit_bars `:1417–1495`, barsound arm `:1447–1470`, gate `:1447`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers hack.c:2013 + mthrowu.c:1554.

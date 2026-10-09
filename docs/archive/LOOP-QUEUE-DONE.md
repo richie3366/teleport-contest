@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
+- [x] dbridge.c close_drawbridge OBJ_AT+Deaf crush gate (omit-2 family; D-3713 Next lead) — C dbridge.c:815 `if (OBJ_AT(x, y) && !Deaf)` + Soundeffect+You_hear, no acoustics arm; JS js/dbridge.js:756 raw `u.Deaf || acoustics===false`; emit already live You_hear (js/hack.js:193, inner Deaf/acoustics/Unaware arms D-2941); local hero_Deaf js/dbridge.js:363 (D-1967, no new edge). Deliverable: gate reads hero_Deaf(), drop acoustics disjunct; focused test (control hears; EDeaf/HDeaf/roleplay+Unaware silent vs pre-fix dream; EDeaf-aware + acoustics-off pins). Callers: music.c:827→js/music.js:986, zap.c:3303→js/zap.js:6945, zap.c:3705→js/zap.js:6748 (D-1489/D-1465/D-0977).
+
+
 - [x] mthrowu.c hit_bars barsound gate (omit-2 family; brief-verified successor lead; C mthrowu.c:1417–1495 body read, gate :1447 read, JS js/mthrowu.js:1715–1731 read) — C `:1447` `if (!Deaf)` + Soundeffect+pline `:1466–1467`, no acoustics arm; the macro gate is absent from js/mthrowu.js:1715 (raw `game.u?.Deaf` read + invented `|| acoustics===false` instead — same two-delta shape as the breamm gate; emit already C-faithful pline). Deliverable: gate calls `hero_Deaf()` (already imported js/mthrowu.js:84 — no new edge), drop the acoustics disjunct, C cites (`:1447` + youprop.h:125). Soundeffect :1466 stays named. No RNG delta.
 
 

@@ -151,6 +151,8 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
+- [ ] sounds.c dosounds EOT-gate Underwater arm (Underwater-idiom family; lead-triaged in the close_drawbridge crush-gate iteration) — C sounds.c:208 `if (Deaf || !flags.acoustics || u.uswallow || Underwater)` with Underwater ≡ youprop.h:279 u.uinwater; the live-`uinwater` read is absent from js/sounds.js:841 (sticky `u.Underwater` read instead — zero writers, dead false; live bit has writers in trap/zap/detect/region/pickup/hack); Deaf/acoustics/uswallow disjuncts faithful per brief. Deliverable: gate reads the live uinwater bit; focused test (underwater hero silent with no rn2(400)/rn2(300) draws vs surface control). Caller: allmain.c:352 (moveloop EOT).
+
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;
