@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3742 `invent.c` freeinv_core amulet arm clears the JS-only `uhave_amulet` flat (makemon cliff writer; 3 probes moved past s405/s349/s229)
+
+**C locus:** `invent.c:1361–1364` freeinv_core amulet arm (`u.uhave.amulet = 0` when the Amulet leaves inventory); readers `makemon.c:1389` (`!u.uhave.amulet` gate) and `:1332` (S_JABBERWOCK/S_NYMPH). C has no flat — possession is the single bit.
+**JS:** `js/invent.js:9641–9650` (amulet arm + mirror clear + cite).
+**Change:** one mirror clear `u.uhave_amulet = 0` beside `uhave.amulet = 0` in freeinv_core's amulet arm, C-cited. freeinv_core verified whole arm-by-arm against C :1356–1398 this iteration (coin/amulet/menorah/bell/book/quest-artifact+intrinsic/LOADSTONE/luck/figurine/tin — all live); the flat is the only gap and has no C counterpart. No other flat exists (no uhave_bell/menorah/book/questart); addinv_core1 needs no mirror set (OR-reads already correct when struct=1).
+**Verify:** `node scripts/verify.mjs --fn makemon,freeinv_core` → VERIFY: PASS — syntax 1 file · rule2 · hidden `verify makemon: 0 PASS, 3 moved past, 0 unchanged, 0 worse → PROGRESS` (95249 → set_apparxy s461, was 405; 95203 → getlev s388, was 349; 95212 → do_statusline2 s296, was 229) · freeinv_core note (no corpus session blocked — writer, normal) · reach makemon 80/80 → REACH-OK · reach freeinv_core smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7. Full `sessions`: 44/44 (fortress holds).
+**Named:** none new. freeinv_core whole (D-2588 ported stands).
+**Next:** the 3 probes now sit under later owners (set_apparxy/getlev/do_statusline2) for the regenerated cliffs block; no follow-up row (generated block picks them up).
 ## 2026-10-09 — D-3741 `do.c` set_wounded_legs slot dual-write: flat-only timeout write inflated the nh_timeout OR-read countdown (moveloop_core cliff writer; 95337 +332, 95234 +227)
 
 **C locus:** `do.c:2425–2446` set_wounded_legs (single storage `HWounded_legs ≡ uprops[WOUNDED_LEGS].intrinsic`, youprop.h:136; max-keep `:2439–2440`); `timeout.c:774–777` case WOUNDED_LEGS (`heal_legs(0); stop_occupation()`); `do.c:2453–2456` heal_legs (`ATEMP(A_DEX)++` when negative — the DEX 14→15 that flips the rn2 arg 82→85); wound source `uhitm.c:4475` xan prick `rnd(60 - ACURR(A_DEX))` (measured C draws: 95337 seventeen pricks s244–300, 95234 seven pricks s209–228; both heal at s397).
