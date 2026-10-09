@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpl\u001617\nyk:ss\u0016?\nq bh  l     l  h  h  l    :        n  \u001640\n_ \u001bm.<s    s   \u0016?\n>>O       Orcrist\nuyk: \u0016?\na  l   y   n   \u001b \u001b  hnuhb: \u001637\nnb\u0017wand of cancellation\nE\u001b\u0017wand of stasis\nE\u001b\u0017wand of polymorph\nE\u001b\u0017wand of lightning\nE\u001b\u001617\nluyn      :\u0016?\nbj   h   j    n  n j : 20s    sm.    sm.     \u0016?\na__,>\u0016?\ne\u0006_<.\u0016?\n\u001bl   j\u001640\n_{.<\u001617\n#chat\n;k:  .s\u001b\u0016?\nekbu     :\u001640\n#levelchange\n14\n  n  n    b    n h \u0017arrow trap\ny    n \u0007lichen\n20s   20s   n   sm.      n sm.     hu  n   \u0017pit\n#loot\nl#loot\nl,\u00163\n\u0016?\n\u001byy\u0016?\n\u001bkh\u0016?\n\u001bu    n   j\u001617\nku    n u  l  n      n   h   n   k   n    yny   y y n  u"
+ },
+ "segments": [
+  {
+   "seed": 95217,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpl\u001617\nyk:ss\u0016?\nq bh  l     l  h  h  l    :        n  \u001640\n_ \u001bm.<s    s   \u0016?\n>>O       Orcrist\nuyk: \u0016?\na  l   y   n   \u001b \u001b  hnuhb: \u001637\nnb\u0017wand of cancellation\nE\u001b\u0017wand of stasis\nE\u001b\u0017wand of polymorph\nE\u001b\u0017wand of lightning\nE\u001b\u001617\nluyn      :\u0016?\nbj   h   j    n  n j : 20s    sm.    sm.     \u0016?\na__,>\u0016?\ne\u0006_<.\u0016?\n\u001bl   j\u001640\n_{.<\u001617\n#chat\n;k:  .s\u001b\u0016?\nekbu     :\u001640\n#levelchange\n14\n  n  n    b    n h \u0017arrow trap\ny    n \u0007lichen\n20s   20s   n   sm.      n sm.     hu  n   \u0017pit\n#loot\nl#loot\nl,\u00163\n\u0016?\n\u001byy\u0016?\n\u001bkh\u0016?\n\u001bu    n   j\u001617\nku    n u  l  n      n   h   n   k   n    yny   y y n  u"
+  }
+ ]
+}

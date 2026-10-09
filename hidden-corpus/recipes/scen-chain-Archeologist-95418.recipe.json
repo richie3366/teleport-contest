@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0007minotaur\nFnFy  n  n  n Fn  yy\u001by  y y\u001by  F  jyj10stbjhylylj#name\nd\nLBNB_ \u001b;>Fu ssZZJNHN_>.>JJUN_>,>LYBB_>,>yluh#chat\nh#chat\njt\u001bdas20s.lu#chat\nnllhhllhhbynk1#quit\nyy\u001by  y y y\u001b yy    n \u0017wand of digging\nzg>  .m.  n  yy\u001bnny\u001by  z jjunFy FyFyFyFyFyFyFyblhn#chat\njtbkt\u001b\u001b10s#chat\nj#chat\nblhyht\u001b\u001b10s10s#chat\nunk#chat\nubudes20s20sjk10sybblylhbkyuj#name\n\u001bt\u001b\u001bdaa.ss20sdcesssknukbjnjKB LK_ \u001b>.>H HHU_>,><YLKY_>.>FnFj20s#quit\nyy\u001by  y y y\u001b   kbukyjnhublhkbyhnybknunb100s150skhu100sFnss100s150sFj20s.50s150sFj.s100s100sZa\nFbFb s100s\u000f\u001b#terrain\nb\n\u001b>.nlk100s100si\u001bri y unyFhs20s_>,>_>,>#enhance\n\u001b100s100s50sFbs.150s100sFhFhFh_>.>i\u001b150s\u000f\u001b50sFhFhFh#quit\nyy\u001by   y y y\u001b 10s  h  y\u001bny y\u001b  k",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95418,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007minotaur\nFnFy  n  n  n Fn  yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 195418,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\n",
+   "moves": "  jyj10stbjhylylj#name\nd\nLBNB_ \u001b;>Fu ssZZJNHN_>.>JJUN_>,>LYBB_>,>yluh#chat\nh#chat\njt\u001bdas20s.lu#chat\nnllhhllhhbynk1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 295418,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "yy    n \u0017wand of digging\nzg>  .m.  n  yy\u001bnny\u001by  z"
+  },
+  {
+   "seed": 395418,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\n",
+   "moves": " jjunFy FyFyFyFyFyFyFyblhn#chat\njtbkt\u001b\u001b10s#chat\nj#chat\nblhyht\u001b\u001b10s10s#chat\nunk#chat\nubudes20s20sjk10sybblylhbkyuj#name\n\u001bt\u001b\u001bdaa.ss20sdcesssknukbjnjKB LK_ \u001b>.>H HHU_>,><YLKY_>.>FnFj20s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 495418,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\n",
+   "moves": "  kbukyjnhublhkbyhnybknunb100s150skhu100sFnss100s150sFj20s.50s150sFj.s100s100sZa\nFbFb s100s\u000f\u001b#terrain\nb\n\u001b>.nlk100s100si\u001bri y unyFhs20s_>,>_>,>#enhance\n\u001b100s100s50sFbs.150s100sFhFhFh_>.>i\u001b150s\u000f\u001b50sFhFhFh#quit\nyy\u001by   y y y\u001b "
+  },
+  {
+   "seed": 595418,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\n",
+   "moves": "10s  h  y\u001bny y\u001b  k"
+  }
+ ]
+}

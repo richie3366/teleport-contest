@@ -53,6 +53,9 @@
  *       for a --fn list longer than 10).
  *   node scripts/hidden-proxy.mjs show <sessionId>
  *   node scripts/hidden-proxy.mjs status
+ *   node scripts/hidden-proxy.mjs families [--working]
+ *       per-family PASS / RNG % / first-divergence step of the committed
+ *       board, worst RNG first (the growth signal, Constitution §10.19).
  *
  * 2026-09-18 breadth phase (Constitution §10.17): the picker was
  * `ledger.mjs rows` (generated coverage block) and this corpus only a
@@ -403,6 +406,42 @@ function printStatus(rows) {
 
 function cmdStatus() { printStatus(loadScores().rows); }
 
+/* Per-family PASS / RNG / first-divergence step of the committed board
+   (`--working` for hidden-corpus/scoreboard.json as it is on disk). The
+   family is the id up to the role (`scen-worldtour`, `explore`, …);
+   env:config-path rows are counted apart. Sorted by RNG % so the worst
+   family — the one a grow iteration answers — prints first. */
+function cmdFamilies() {
+    let rows;
+    if (flag('working')) {
+        const j = readJson(SCOREBOARD);
+        rows = Object.entries(j.sessions || {}).map(([id, r]) => ({ id, ...r }));
+    } else {
+        const b = baselineRows('HEAD');
+        if (!b) { console.error('no committed hidden-corpus/scoreboard.json'); process.exit(1); }
+        rows = Object.values(b.rows);
+    }
+    const famOf = (id) => (/^scen-[a-z]+/.exec(id) || /^[a-z]+/.exec(id) || [id])[0];
+    const by = new Map();
+    let env = 0;
+    for (const r of rows) {
+        if (/^env:/.test(r.owner || '')) { env++; continue; }
+        const f = famOf(r.id);
+        const b = by.get(f) || { n: 0, pass: 0, rngM: 0, rngT: 0, steps: 0, firstDiv: [] };
+        b.n++; if (r.passed) b.pass++;
+        b.rngM += r.rngM || 0; b.rngT += r.rngT || 0; b.steps += r.steps || 0;
+        if (!r.passed && r.step != null) b.firstDiv.push(r.step);
+        by.set(f, b);
+    }
+    const pct = (a, t) => (t ? (100 * a / t).toFixed(1) : '-').padStart(6);
+    const med = (a) => { const s = [...a].sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : '-'; };
+    console.log(`${'family'.padEnd(18)} ${'PASS'.padStart(9)}  ${'RNG %'.padStart(6)}  ${'mean steps'.padStart(10)}  first-div median`);
+    for (const [f, b] of [...by].sort((x, y) => (x[1].rngM / (x[1].rngT || 1)) - (y[1].rngM / (y[1].rngT || 1)))) {
+        console.log(`${f.padEnd(18)} ${`${b.pass}/${b.n}`.padStart(9)}  ${pct(b.rngM, b.rngT)}  ${String(Math.round(b.steps / b.n)).padStart(10)}  ${med(b.firstDiv)}`);
+    }
+    if (env) console.log(`(${env} env:config-path rows not counted: recording path on screen, not a port divergence)`);
+}
+
 /* Where LOOP-QUEUE already knows an owner: live hand-written Open/Must-fix
    row, Parked index line (with its class word), an archived DONE row, or a
    ledger row declared ported/split/parity/by-design. Since the cliff phase
@@ -739,6 +778,7 @@ function cmdShow(id) {
     case 'sweep': { const code = await cmdSweep(rest[0]); if (code) process.exit(code); break; }
     case 'show': cmdShow(rest[0]); break;
     case 'status': cmdStatus(); break;
+    case 'families': cmdFamilies(); break;
     default:
         console.error('usage: hidden-proxy.mjs gen|import|record|score|queue|verify <fn>|show <id>|status');
         process.exit(2);

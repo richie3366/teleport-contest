@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  t\u001b20s20s   dbssst\u001bt\u001b10s#name\nd\n#loot\nh#offer\n#name\nd\n20s 10s  h#chat\nlblt\u001bed   :,10s20st\u001bjkkbnbhh#name\n\u001blFh ss\u000f\u001b100s 100shll\\ 150sFkFkFk\u000f\u001b100s#loot\nhlk\u000f\u001b50sFbFjFjubj\\ 150sFhFh20s150sFkss100s\\ 150sFkFkFk50s FkFkFkFkss150sE- Elbereth Elbereth\n150sFkssi\u001bhhl50s100sFuFuFus100slhh50sFlss#rub\ng\u001bi\u001b\u000f\u001b150sllh100sFbsslhl_ \u001b@.>50s\\ hhl100shll\u0018\u001bhlh150s100sFuFus50shll_>.>100s hlh150si\u001b100sFu.20shlhllh150s  hlh\u0018\u001bllhFuFus100s edlhh#ride\nk#monster\n10s_>,>100sFjss#force\n_>,>50s100sFlss150s  lhl100s100s100s100s150s150sFuFuFu150s  edhll150sFhFh20sFhFh.hlhlhh150s 100sFlFls50sFlFlFlFlFl20sFlFlsyul_>.>50s100sFu20ss100snhhk:150sFlFl.100sFj.s100sFl..100sj jjFh20sFkFk..150si\u001b_>,>150sFhFhFhFhs.100s100s eeeeeeeeeeeeeeeeeeeee#force\n#loot\n\u000f\u001bkjhb#chat\nht\u001bkj10s#chat\nkZah\u001bJUBN_>.>#twoweapon\n#twoweapon\nJKNY_>.>#loot\n\u0018\u001bNYK U_>,>B LUH _>.><\u000f\u001bfnr\u001bi\u001b20s20s#chat\nj10skylh10s20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYYBL_>,>FbFb20s#chat\nb10sL UHK  _>.>YLJY_>.>Fl..>#terrain\n\u001bUKYN_>,>#loot\n>YL LY_>.>10s#chat\nu#chat\njt\u001b20s10s LYJN_>.>HBHN_>,>E- Elbereth\nuYBYL_>.>q#loot\nYL KL_>.>JUUH_>,>KYN L_>.>: ch<HUYN_>,>K NBH_>.>"
+ },
+ "segments": [
+  {
+   "seed": 95516,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  t\u001b20s20s   dbssst\u001bt\u001b10s#name\nd\n#loot\nh#offer\n#name\nd\n20s 10s  h#chat\nlblt\u001bed   :,10s20st\u001bjkkbnbhh#name\n\u001blFh ss\u000f\u001b100s 100shll\\ 150sFkFkFk\u000f\u001b100s#loot\nhlk\u000f\u001b50sFbFjFjubj\\ 150sFhFh20s150sFkss100s\\ 150sFkFkFk50s FkFkFkFkss150sE- Elbereth Elbereth\n150sFkssi\u001bhhl50s100sFuFuFus100slhh50sFlss#rub\ng\u001bi\u001b\u000f\u001b150sllh100sFbsslhl_ \u001b@.>50s\\ hhl100shll\u0018\u001bhlh150s100sFuFus50shll_>.>100s hlh150si\u001b100sFu.20shlhllh150s  hlh\u0018\u001bllhFuFus100s edlhh#ride\nk#monster\n10s_>,>100sFjss#force\n_>,>50s100sFlss150s  lhl100s100s100s100s150s150sFuFuFu150s  edhll150sFhFh20sFhFh.hlhlhh150s 100sFlFls50sFlFlFlFlFl20sFlFlsyul_>.>50s100sFu20ss100snhhk:150sFlFl.100sFj.s100sFl..100sj jjFh20sFkFk..150si\u001b_>,>150sFhFhFhFhs.100s100s eeeeeeeeeeeeeeeeeeeee#force\n#loot\n\u000f\u001bkjhb#chat\nht\u001bkj10s#chat\nkZah\u001bJUBN_>.>#twoweapon\n#twoweapon\nJKNY_>.>#loot\n\u0018\u001bNYK U_>,>B LUH _>.><\u000f\u001bfnr\u001bi\u001b20s20s#chat\nj10skylh10s20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYYBL_>,>FbFb20s#chat\nb10sL UHK  _>.>YLJY_>.>Fl..>#terrain\n\u001bUKYN_>,>#loot\n>YL LY_>.>10s#chat\nu#chat\njt\u001b20s10s LYJN_>.>HBHN_>,>E- Elbereth\nuYBYL_>.>q#loot\nYL KL_>.>JUUH_>,>KYN L_>.>: ch<HUYN_>,>K NBH_>.>"
+  }
+ ]
+}

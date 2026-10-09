@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "U   JLH  y_ \u001b:>\u0004jPNYy BN_>,>FhFhFh#untrap\nyt$nBHYU_>.>Fj s20sLBNN_>.>KYBH_>.><YHNN_>.>t\u001bZa\nYYLY_>.>FhFbFhKBBH_>,>#sit\n#jump\nJLHL_>.>#ride\nyde\u000f\u001byylullh  ynny y n  #"
+ },
+ "segments": [
+  {
+   "seed": 95517,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:explore\n",
+   "moves": "U   JLH  y_ \u001b:>\u0004jPNYy BN_>,>FhFhFh#untrap\nyt$nBHYU_>.>Fj s20sLBNN_>.>KYBH_>.><YHNN_>.>t\u001bZa\nYYLY_>.>FhFbFhKBBH_>,>#sit\n#jump\nJLHL_>.>#ride\nyde\u000f\u001byylullh  ynny y n  #"
+  }
+ ]
+}

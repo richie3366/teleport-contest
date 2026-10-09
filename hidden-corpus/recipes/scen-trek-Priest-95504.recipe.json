@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "YHUL_ \u001b@.>di\\ KLLN  _>.>NBUU_>.>KBKL_>.>FhFhFh\u000f\u001b#name\n\u001bBYUJ_>.>FhFhFh <NJBJ_>.>#chat\ny#loot\nLJKL_>.>P#ride\nkE- Elbereth Elbereth\nL JBU_>.>HLYK_>.>FhFhsBYNN_>.>UJJN_>,>J\u000f\u001bJJUU_>,>#enhance\n\u001bckUJYU_>,><HKUB_>.>Fl20ss>\u0004u#twoweapon\n#enhance\n\u001b>,100syjk\u000f\u001bkjjhhl100s100si\u001b100slkk_>.>100sFhs20sFhss50si\u001b50s150s\u0018\u001bkhu_>.>50sFh20ssbny150s50sFhFhFh50s100si\u001b\\ 100subnjkk100s#pray\ny kjbdgsm.sm..l20s#chat\nlda.m...l#name\n\u001b20s#jump\n#chat\nn#conduct\n FnFn FlFjFlFlFlFlFj#pray\ny  100s#pray\ny  #pray\ny  #pray\ny    y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 95504,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "YHUL_ \u001b@.>di\\ KLLN  _>.>NBUU_>.>KBKL_>.>FhFhFh\u000f\u001b#name\n\u001bBYUJ_>.>FhFhFh <NJBJ_>.>#chat\ny#loot\nLJKL_>.>P#ride\nkE- Elbereth Elbereth\nL JBU_>.>HLYK_>.>FhFhsBYNN_>.>UJJN_>,>J\u000f\u001bJJUU_>,>#enhance\n\u001bckUJYU_>,><HKUB_>.>Fl20ss>\u0004u#twoweapon\n#enhance\n\u001b>,100syjk\u000f\u001bkjjhhl100s100si\u001b100slkk_>.>100sFhs20sFhss50si\u001b50s150s\u0018\u001bkhu_>.>50sFh20ssbny150s50sFhFhFh50s100si\u001b\\ 100subnjkk100s#pray\ny kjbdgsm.sm..l20s#chat\nlda.m...l#name\n\u001b20s#jump\n#chat\nn#conduct\n FnFn FlFjFlFlFlFlFj#pray\ny  100s#pray\ny  #pray\ny  #pray\ny    y\u001by  y y y\u001b  1"
+  }
+ ]
+}

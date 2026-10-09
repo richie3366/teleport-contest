@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #wizintrinsic\np\n s...ssss20sss..ss..s.sss\\ #chat\njdbqd  #dip\na W.ss20s20s.\u00168\n\u000f\u001b\u0006_ \u001bm,>Fl. _>.Fn_,.Fj>FjFj_>.Fh _.Fh >FnFhFn FhFhck:\u0006_>.Fh_.Fh>FhFh  n_>,Fh_.Fh>_>._,m,Fn >\u0006_>._.,>_>._.>.>_>,_,>.>\u0006_>>._.;,>_>>._..>_>>,_.:>\u0006_>._.>.>_>,_,@.>_>._,m.>\u0006_>,_.>.>_>._.m.>_>,_,.>i\u001bwas.sW.s20sE- Elbereth Elbereth\n#chat\nuP#rub\n;m,egu#chat\nui\u001bWss20sTwasssX\u000f\u001b#levelchange\n20\n       #wizintrinsic\nkqo\n  ...m.sss..sss.20s m.s20sss.20s ss ss\u0018\u001b#name\nm\n\u0004;m,#enhance\nyn\na\n\u001bs20s.sss\u00165\n\u0007tame saddled jackal\n\u0017lance\nwi#ride\nuy\u0007tame saddled pony\n#ride\nny\u0007tame saddled horse\n#ride\n 20s        .\u0006_>>,   _.>_>>,_.>_>>.Fh _,Fh>FhFh\u0006_>.Fh_.Fh>Fh20s_>.Fh_,Fh>_>.Fh  _.  Fh >Fh  Fh njulyjjbl\u0006\u0006_>,_.> #name\nd\n#conduct\n \u0006_>. Fl  _. Fl    n>FhFl  _>.Fl_.Fl>Fl   Fl    n_>.Fk_,Fk >Fh  Fh  FhFh    nFl  P\u001btal\u0006_>.Fl  _.Fl  >FhFl   n _>.  Fh_.  Fh>FhFl    n_>.  Fh  _.Fh>Fl  n  Fl  Fl    nFl  Fh\u0006_>.    nFl_.Fl>Fl  Fh_>.   n Fl    n_,  Fl  n  >Fl   n Fh_>.   n Fh_.  nFl>Fh   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 95325,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #wizintrinsic\np\n s...ssss20sss..ss..s.sss\\ #chat\njdbqd  #dip\na W.ss20s20s.\u00168\n\u000f\u001b\u0006_ \u001bm,>Fl. _>.Fn_,.Fj>FjFj_>.Fh _.Fh >FnFhFn FhFhck:\u0006_>.Fh_.Fh>FhFh  n_>,Fh_.Fh>_>._,m,Fn >\u0006_>._.,>_>._.>.>_>,_,>.>\u0006_>>._.;,>_>>._..>_>>,_.:>\u0006_>._.>.>_>,_,@.>_>._,m.>\u0006_>,_.>.>_>._.m.>_>,_,.>i\u001bwas.sW.s20sE- Elbereth Elbereth\n#chat\nuP#rub\n;m,egu#chat\nui\u001bWss20sTwasssX\u000f\u001b#levelchange\n20\n       #wizintrinsic\nkqo\n  ...m.sss..sss.20s m.s20sss.20s ss ss\u0018\u001b#name\nm\n\u0004;m,#enhance\nyn\na\n\u001bs20s.sss\u00165\n\u0007tame saddled jackal\n\u0017lance\nwi#ride\nuy\u0007tame saddled pony\n#ride\nny\u0007tame saddled horse\n#ride\n 20s        .\u0006_>>,   _.>_>>,_.>_>>.Fh _,Fh>FhFh\u0006_>.Fh_.Fh>Fh20s_>.Fh_,Fh>_>.Fh  _.  Fh >Fh  Fh njulyjjbl\u0006\u0006_>,_.> #name\nd\n#conduct\n \u0006_>. Fl  _. Fl    n>FhFl  _>.Fl_.Fl>Fl   Fl    n_>.Fk_,Fk >Fh  Fh  FhFh    nFl  P\u001btal\u0006_>.Fl  _.Fl  >FhFl   n _>.  Fh_.  Fh>FhFl    n_>.  Fh  _.Fh>Fl  n  Fl  Fl    nFl  Fh\u0006_>.    nFl_.Fl>Fl  Fh_>.   n Fl    n_,  Fl  n  >Fl   n Fh_>.   n Fh_.  nFl>Fh   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

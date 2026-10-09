@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0016?\n>G#chat\nk;k. \u001b.\u001633\n \u0006_<,_,ss\u0016?\n>>L     horn of plenty\n\u0004jsm.  sm.              \u0016?\n\u001bn      n   y      \u001618\n\u0006_>.\u00161\n#chat\nl  n  ;j.\u001633\n\u0014<.      20s    n   s        n \u00165\n\u0016?\n\u001bl    n   n  \u001639\n_>,>\u0016?\n\u001bh  n   n    n  \u001610\n\u0016?\n\u001bb    n   n   n    n    n  \u001610\n\u001637\nh   n   n    j   n    h        n     n  ynnnnn  j"
+ },
+ "segments": [
+  {
+   "seed": 95222,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0016?\n>G#chat\nk;k. \u001b.\u001633\n \u0006_<,_,ss\u0016?\n>>L     horn of plenty\n\u0004jsm.  sm.              \u0016?\n\u001bn      n   y      \u001618\n\u0006_>.\u00161\n#chat\nl  n  ;j.\u001633\n\u0014<.      20s    n   s        n \u00165\n\u0016?\n\u001bl    n   n  \u001639\n_>,>\u0016?\n\u001bh  n   n    n  \u001610\n\u0016?\n\u001bb    n   n   n    n    n  \u001610\n\u001637\nh   n   n    j   n    h        n     n  ynnnnn  j"
+  }
+ ]
+}

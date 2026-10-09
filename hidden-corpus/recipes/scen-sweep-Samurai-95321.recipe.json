@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0006_ \u001b>.>_>._,m.Fh >_>,_,<.>s;_.\u0006_>,_.,>_>._,;:   >_>,_.>.>\u0006_>>,_,,>_>>._,<.>_>>._,>.>\u0006_>._,m.>_>._,m.>_>,_.@.>\u00165\n#levelchange\n30\n                  \u0017blessed the Staff of Aesculapius\n \u0017blessed tooled horn\n\u0007prisoner\nagyagy Fh .\u0017cursed -1 sling\nwhss20s\u0017blessed ring of aggravate monster\nPir..sR\u001b\u0017uncursed potion of gain ability\nqj#dip\nfs.\u0018\u001b\u00173 the Orb of Fate\n \u00173 spellbook of turn undead\n\u0007energy vortex\nrk.m. 20s    Z\u0017cursed -1 levitation boots\n\u0007djinni\nWl   20s  .  s  \u0017potion of gain ability\n\u0007Famine\nyn    qm    \u0017lance\nwnFh    Fh  n   Fy   n    Fk  Fh   n     \u0017uncursed +0 dunce cap\nWo      s  .s\u001bFjFj  sm.  n sm.   \u00161\n#levelchange\n10\n      \u0017helm of telepathy\nW\u001b.m.  n 20s   nsm. To\u0007cockatrice\nFy  n Fy   n Fy Fy  n Fy   nsm. .m.#pray\ny y         \u0007rust monster\nFn   Fn       n Fy      Fy      n     sm.       n sm.     #pray\ny y             \u0007soldier ant\nFl       n    Fy          Fk  n           sm.     y\u001b   y  s"
+ },
+ "segments": [
+  {
+   "seed": 95321,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0006_ \u001b>.>_>._,m.Fh >_>,_,<.>s;_.\u0006_>,_.,>_>._,;:   >_>,_.>.>\u0006_>>,_,,>_>>._,<.>_>>._,>.>\u0006_>._,m.>_>._,m.>_>,_.@.>\u00165\n#levelchange\n30\n                  \u0017blessed the Staff of Aesculapius\n \u0017blessed tooled horn\n\u0007prisoner\nagyagy Fh .\u0017cursed -1 sling\nwhss20s\u0017blessed ring of aggravate monster\nPir..sR\u001b\u0017uncursed potion of gain ability\nqj#dip\nfs.\u0018\u001b\u00173 the Orb of Fate\n \u00173 spellbook of turn undead\n\u0007energy vortex\nrk.m. 20s    Z\u0017cursed -1 levitation boots\n\u0007djinni\nWl   20s  .  s  \u0017potion of gain ability\n\u0007Famine\nyn    qm    \u0017lance\nwnFh    Fh  n   Fy   n    Fk  Fh   n     \u0017uncursed +0 dunce cap\nWo      s  .s\u001bFjFj  sm.  n sm.   \u00161\n#levelchange\n10\n      \u0017helm of telepathy\nW\u001b.m.  n 20s   nsm. To\u0007cockatrice\nFy  n Fy   n Fy Fy  n Fy   nsm. .m.#pray\ny y         \u0007rust monster\nFn   Fn       n Fy      Fy      n     sm.       n sm.     #pray\ny y             \u0007soldier ant\nFl       n    Fy          Fk  n           sm.     y\u001b   y  s"
+  }
+ ]
+}

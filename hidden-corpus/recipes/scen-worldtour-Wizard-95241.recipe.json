@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0016?\n>>M      wand of teleportation\n#chat\nn;n; \u001b@.20s  sn       \u0016?\n\u001bl l  n   \u0016?\n\u001bn  n  h \u0016?\ncu  n b u b      n u    h     n :        n\u00163\n\u0016?\na   _<,\u0016?\na\u0014 ns      \u001629\n\u0014>.  n   \u001637\n\u0004h    n  \u0016?\nc  _{.\u00166\nb     n  y   n   l  n      n     n  j   n     h  n     yny   y y n  b"
+ },
+ "segments": [
+  {
+   "seed": 95241,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0016?\n>>M      wand of teleportation\n#chat\nn;n; \u001b@.20s  sn       \u0016?\n\u001bl l  n   \u0016?\n\u001bn  n  h \u0016?\ncu  n b u b      n u    h     n :        n\u00163\n\u0016?\na   _<,\u0016?\na\u0014 ns      \u001629\n\u0014>.  n   \u001637\n\u0004h    n  \u0016?\nc  _{.\u00166\nb     n  y   n   l  n      n     n  j   n     h  n     yny   y y n  b"
+  }
+ ]
+}

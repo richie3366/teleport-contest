@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0016?\nd_ \u001b.<\u001615\n\u0006_>._.\u0016?\n>>K      tripe ration\n\u0014;\u0016?\n\u001bh  h \u0016?\n\u001by   h\u0016?\n\u001bu           u     \u0016?\n\u001bn  n        h    \u0016?\n\u001byl  \u0016?\n\u001bb    y    \u001615\nu  n             y   n        l   n        l    n         k     \u001b     n    :\u001610\n\u001615\n_{.\u001615\nn                   n l          b              n    :\u00165\n\u0016?\n\u001bj              nn         n    \u00161\n\u0016?\n\u001by          n    n      n   \u001611\n\u001619\nn         n   uk:\u00169\n_>.\u0016?\n\u001bh             n   y     n    \u0016?\n\u001bh     yy\u001bny y n  l"
+ },
+ "segments": [
+  {
+   "seed": 95247,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0016?\nd_ \u001b.<\u001615\n\u0006_>._.\u0016?\n>>K      tripe ration\n\u0014;\u0016?\n\u001bh  h \u0016?\n\u001by   h\u0016?\n\u001bu           u     \u0016?\n\u001bn  n        h    \u0016?\n\u001byl  \u0016?\n\u001bb    y    \u001615\nu  n             y   n        l   n        l    n         k     \u001b     n    :\u001610\n\u001615\n_{.\u001615\nn                   n l          b              n    :\u00165\n\u0016?\n\u001bj              nn         n    \u00161\n\u0016?\n\u001by          n    n      n   \u001611\n\u001619\nn         n   uk:\u00169\n_>.\u0016?\n\u001bh             n   y     n    \u0016?\n\u001bh     yy\u001bny y n  l"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWo\u0016?\n>>K      spellbook of detect food\nyh   n    k         n         b              h          n            k              n      :sh               n     \u00163\n\u0016?\n\u001bb         n          j    n               n    \u00163\n\u001623\nh              n               y        n                    \u0017magic marker\nE:\u0017ruby\nE:j       n              n    \u0017wand of magic missile\nEE:sm.              \u001b     n           su                 n          \u00162\n\u0016?\n\u001bl                      n           u                        \u001634\n\u00176 eggs\nQ\u001b\u0007lichen\ny     n                   u     n      f \u001bf \u001bf \u001b\u0007hill orc\ny               n       k   yy\u001bnny  y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 95236,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWo\u0016?\n>>K      spellbook of detect food\nyh   n    k         n         b              h          n            k              n      :sh               n     \u00163\n\u0016?\n\u001bb         n          j    n               n    \u00163\n\u001623\nh              n               y        n                    \u0017magic marker\nE:\u0017ruby\nE:j       n              n    \u0017wand of magic missile\nEE:sm.              \u001b     n           su                 n          \u00162\n\u0016?\n\u001bl                      n           u                        \u001634\n\u00176 eggs\nQ\u001b\u0007lichen\ny     n                   u     n      f \u001bf \u001bf \u001b\u0007hill orc\ny               n       k   yy\u001bnny  y\u001b  f"
+  }
+ ]
+}

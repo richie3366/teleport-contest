@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n14\n  \u0016?\n>y  _ \u001b<.#chat\ny_m. Fk_.#chat\ny_m.Fu _. Fn   #chat\nu  n  _m,#chat\nu  \u0016?\n>AH \\  i\u001b\u001623\n#levelchange\n12\n\u0016?\nm\u0014.#rub\n#ride\nby;b;\u000620s .  n\u001621\n#sit\n  zcb#jump\n;>..m.  n 20s \u0016?\n>u #turn\n#turn\n#force\nsys\u001624\n\u000f\u001b\u001611\n#levelchange\n20\n         \u0017blessed +3 ring of teleport control\nPnl  nss20s s20s\u0017uncursed scroll of identify\n\u0007sewer rat\nros  sm.\u0017black dragon scale mail\nW\u001b20s ss20s   .j \u0017uncursed towel\naqsm.20s  n \u00161\ni>\u001bW\u001bsm.20s.m.  nT ri qhPe .m.20s snrk y .m.20sZa\nZb\nPdsj.nsm.Re f \u001bqg_m.20s #pray\ny y        qf#terrain\nc\naqf \u001bi\u001bwash sm..m.ro  rj  Wb sm.20ssm.Pe sm.sm.sm.rl y 20ssm.  nZb\nZa\n\u001623\n\u0018\u001b\u00162\n\u0017pick-axe\n\u00165\narsm.ar> arkk\u0006_ooo, _. ar>ar>20s\u001bar>b\u0017grave\nar>s\u001bsyb\u0006<.\u0017blessed ring of polymorph control\nPs#polyself\nrope golem\n s\u001bs\u0007wraith\nss\u001b.ss\u001b20s  #polyself\nwerewolf\n red mold\n #monster\n.  .\u0007hill orc\n.20s  .m.  n .m.  s\u001bs#polyself\nlong worm\n    sm.     s\u001b\u0007centipede\n20s  n   sn  20s sh   n 20s\u001b.#polyself\nrock piercer\n  #monster\ns20s   \u0007Archon\ns    sk20s       n   n s  n  .  n   n s  ynny ny\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 95340,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n14\n  \u0016?\n>y  _ \u001b<.#chat\ny_m. Fk_.#chat\ny_m.Fu _. Fn   #chat\nu  n  _m,#chat\nu  \u0016?\n>AH \\  i\u001b\u001623\n#levelchange\n12\n\u0016?\nm\u0014.#rub\n#ride\nby;b;\u000620s .  n\u001621\n#sit\n  zcb#jump\n;>..m.  n 20s \u0016?\n>u #turn\n#turn\n#force\nsys\u001624\n\u000f\u001b\u001611\n#levelchange\n20\n         \u0017blessed +3 ring of teleport control\nPnl  nss20s s20s\u0017uncursed scroll of identify\n\u0007sewer rat\nros  sm.\u0017black dragon scale mail\nW\u001b20s ss20s   .j \u0017uncursed towel\naqsm.20s  n \u00161\ni>\u001bW\u001bsm.20s.m.  nT ri qhPe .m.20s snrk y .m.20sZa\nZb\nPdsj.nsm.Re f \u001bqg_m.20s #pray\ny y        qf#terrain\nc\naqf \u001bi\u001bwash sm..m.ro  rj  Wb sm.20ssm.Pe sm.sm.sm.rl y 20ssm.  nZb\nZa\n\u001623\n\u0018\u001b\u00162\n\u0017pick-axe\n\u00165\narsm.ar> arkk\u0006_ooo, _. ar>ar>20s\u001bar>b\u0017grave\nar>s\u001bsyb\u0006<.\u0017blessed ring of polymorph control\nPs#polyself\nrope golem\n s\u001bs\u0007wraith\nss\u001b.ss\u001b20s  #polyself\nwerewolf\n red mold\n #monster\n.  .\u0007hill orc\n.20s  .m.  n .m.  s\u001bs#polyself\nlong worm\n    sm.     s\u001b\u0007centipede\n20s  n   sn  20s sh   n 20s\u001b.#polyself\nrock piercer\n  #monster\ns20s   \u0007Archon\ns    sk20s       n   n s  n  .  n   n s  ynny ny\u001by  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed Mjollnir\nwn\u001635\n   \u0014 \u001b@.\u0016?\n>t #chat\nh;h.\u0016?\n>w  yuyuhjn :s.s\u0016?\n>x#chat\nj;l.\u0016?\nr #chat\nl;>.\u0016?\n>>P  \u0014m,  20s\u0016?\n>t  _>.\u0016?\na_{,s\u0016?\n>>M      spellbook of stone to flesh\nyy    y  k   : \u001632\nl   u   j     h         n y      :\u001632\ny          n n               n :20s      \u001610\n\u001632\n_<.\u0016?\nb\u0017uncursed potion of polymorph\nqq       Fj Fj\u0017blessed +3 leather armor\nWr  n.m.sm.sT  nFj Fj\u0017uncursed spellbook of knock\nrs sm.sm.  n Z\u001bZ\u001bFjFj\u0017blessed spellbook of restore ability\nrt .hsZ\u001b20s  nFl\u0017lenses\n\u0007giant mimic\nau.m.20ssm.   n sm.20s\u001612\n\u001632\nh  nbuj kku  n:20ssm.   nsm.\u00166\n\u0016?\n\u001bjj\u0016?\n\u001bn n\u001641\nl  n  jly    nl :sy\u001612\n\u001633\n\u0017gray stone\navd \u0017uncursed potion of healing\nqw  \u0017horn of plenty\nax   n ax.m.sn.n.m.\u0016?\n\u001bjj\u0016?\n\u001bkk  n \u0016?\n\u001bh      yny  ny\u001b  l"
+ },
+ "segments": [
+  {
+   "seed": 95233,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed Mjollnir\nwn\u001635\n   \u0014 \u001b@.\u0016?\n>t #chat\nh;h.\u0016?\n>w  yuyuhjn :s.s\u0016?\n>x#chat\nj;l.\u0016?\nr #chat\nl;>.\u0016?\n>>P  \u0014m,  20s\u0016?\n>t  _>.\u0016?\na_{,s\u0016?\n>>M      spellbook of stone to flesh\nyy    y  k   : \u001632\nl   u   j     h         n y      :\u001632\ny          n n               n :20s      \u001610\n\u001632\n_<.\u0016?\nb\u0017uncursed potion of polymorph\nqq       Fj Fj\u0017blessed +3 leather armor\nWr  n.m.sm.sT  nFj Fj\u0017uncursed spellbook of knock\nrs sm.sm.  n Z\u001bZ\u001bFjFj\u0017blessed spellbook of restore ability\nrt .hsZ\u001b20s  nFl\u0017lenses\n\u0007giant mimic\nau.m.20ssm.   n sm.20s\u001612\n\u001632\nh  nbuj kku  n:20ssm.   nsm.\u00166\n\u0016?\n\u001bjj\u0016?\n\u001bn n\u001641\nl  n  jly    nl :sy\u001612\n\u001633\n\u0017gray stone\navd \u0017uncursed potion of healing\nqw  \u0017horn of plenty\nax   n ax.m.sn.n.m.\u0016?\n\u001bjj\u0016?\n\u001bkk  n \u0016?\n\u001bh      yny  ny\u001b  l"
+  }
+ ]
+}

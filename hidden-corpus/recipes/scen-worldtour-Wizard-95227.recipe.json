@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed amulet of life saving\nPq\u0016?\n>C\u0006_ \u001b<.\u0016?\n>Gll:\u0016?\n>>Q#chat\nh;<.\u00165\n#levelchange\n20\n   ubn\u0017squeaky board\nl^hh20s.lu\u0017dart trap\nlhs20sb\u0017spiked pit\ny^n\u0007lichen\nsm.ss20s\u0017beartrap\naabni\u001bZ#force\n\u0016?\n>>M      magic harp\nbb     b               n   n     n              n  b      n           n n     n           n n                n     :sj  n         n  \u001610\n\u0016?\n\u001bu   n       n     y   n     n      \u001610\n\u00162\n_{.<sm.  n         yy\u001bny y  y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 95227,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed amulet of life saving\nPq\u0016?\n>C\u0006_ \u001b<.\u0016?\n>Gll:\u0016?\n>>Q#chat\nh;<.\u00165\n#levelchange\n20\n   ubn\u0017squeaky board\nl^hh20s.lu\u0017dart trap\nlhs20sb\u0017spiked pit\ny^n\u0007lichen\nsm.ss20s\u0017beartrap\naabni\u001bZ#force\n\u0016?\n>>M      magic harp\nbb     b               n   n     n              n  b      n           n n     n           n n                n     :sj  n         n  \u001610\n\u0016?\n\u001bu   n       n     y   n     n      \u001610\n\u00162\n_{.<sm.  n         yy\u001bny y  y\u001b  s"
+  }
+ ]
+}

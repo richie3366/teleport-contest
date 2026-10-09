@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0007ochre jelly\nFj20s Fks\u001b20s   n  FjFb FhFhFhFh    n  sn\u001611\n    \u0016?\n>D\u0017blessed ring of levitation\nPpl lllllujjjn\u0017scroll of earth\nrq bjbylnbb\u0017wand of digging\nzrb10sjlnjhlbhbbhhhknnhb\u0017wand of striking\nzsh10snknlbjljyblnnljljjb#levelchange\n20\n                    \u0017blessed ring of polymorph control\nPt\u0017gauntlets of dexterity\nWuss20s#polyself\nghost\n giant beetle\n #monster\nss\u0007fire giant\nFb FbFb suss#polyself\nbrown mold\n#monster\ns 20s\u0007pyrolisk\nFbFh Fh  nsb20s.m. #polyself\nstalker\n#monster\nsk  .m..l.n  .m.#polyself\nxorn\nsm.sj  \u0007ettin\nFj  nFjFbsm.su20s  n \u0017amulet of unchanging\nPv sm..m.sm.  nsbRv \u001619\n\u001610\n\u0017blessed ring of polymorph control\nPw#polyself\ncockatrice\ns.\u0007large mimic\n..20s 20s20s.#polyself\nkiller bee\n#monster\n20sss20s.\u0017potion of polymorph\nqx dwarf\n#dip\nsf#levelchange\n30\n         \u0016?\n>Ek\u000f\u001bW\u001b;<. \u001b@.s.\u00167\n\u0018\u001bs#chat\nh20s.h  \u0016?\n>>K      lizard corpse\n#name\n\u001bsW\u001b;b,\u0006m.sm.s#levelchange\n12\n      \u0017blessed ring of polymorph control\nPA#polyself\nAngel\n gelatinous cube\n#monster\ns   20s          n \u0007werejackal\nFl FyFh      n sk    sm.    n    .u   n#polyself\nsalamander\n#monster\nsm.    .y  sm.    n .h sm.  n  #polyself\ncouatl\n#monster\n.m.   .j .m.         n.m.   sm.            n  i\u001b\u00166\n#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPB#polyself\nqueen bee\nsm.          .m. .m.   n  sm.       sm.  #polyself\ngnome\n20s      20s    yy\u001bny y  y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 95347,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007ochre jelly\nFj20s Fks\u001b20s   n  FjFb FhFhFhFh    n  sn\u001611\n    \u0016?\n>D\u0017blessed ring of levitation\nPpl lllllujjjn\u0017scroll of earth\nrq bjbylnbb\u0017wand of digging\nzrb10sjlnjhlbhbbhhhknnhb\u0017wand of striking\nzsh10snknlbjljyblnnljljjb#levelchange\n20\n                    \u0017blessed ring of polymorph control\nPt\u0017gauntlets of dexterity\nWuss20s#polyself\nghost\n giant beetle\n #monster\nss\u0007fire giant\nFb FbFb suss#polyself\nbrown mold\n#monster\ns 20s\u0007pyrolisk\nFbFh Fh  nsb20s.m. #polyself\nstalker\n#monster\nsk  .m..l.n  .m.#polyself\nxorn\nsm.sj  \u0007ettin\nFj  nFjFbsm.su20s  n \u0017amulet of unchanging\nPv sm..m.sm.  nsbRv \u001619\n\u001610\n\u0017blessed ring of polymorph control\nPw#polyself\ncockatrice\ns.\u0007large mimic\n..20s 20s20s.#polyself\nkiller bee\n#monster\n20sss20s.\u0017potion of polymorph\nqx dwarf\n#dip\nsf#levelchange\n30\n         \u0016?\n>Ek\u000f\u001bW\u001b;<. \u001b@.s.\u00167\n\u0018\u001bs#chat\nh20s.h  \u0016?\n>>K      lizard corpse\n#name\n\u001bsW\u001b;b,\u0006m.sm.s#levelchange\n12\n      \u0017blessed ring of polymorph control\nPA#polyself\nAngel\n gelatinous cube\n#monster\ns   20s          n \u0007werejackal\nFl FyFh      n sk    sm.    n    .u   n#polyself\nsalamander\n#monster\nsm.    .y  sm.    n .h sm.  n  #polyself\ncouatl\n#monster\n.m.   .j .m.         n.m.   sm.            n  i\u001b\u00166\n#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPB#polyself\nqueen bee\nsm.          .m. .m.   n  sm.       sm.  #polyself\ngnome\n20s      20s    yy\u001bny y  y\u001b  s"
+  }
+ ]
+}

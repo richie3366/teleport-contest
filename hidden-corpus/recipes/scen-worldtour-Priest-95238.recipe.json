@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u001641\n   \u0004h\u0016?\ne#levelchange\n8\n    \u0017the Master Key of Thievery\n waFnFn   Fl #invoke\nj  \u0007aligned cleric\nyFlFl    n   Fl  \u0007rabid rat\nFh     n  Fh    \u0007rothe\n#chat\nh        nFb      Fj   n  sy 20s     20s     n     \u00162\n\u0016?\nelh:s   \u0016?\nn \u0014 \u001b@.\u0016?\neny  hj  y   nkj  :sb.m. 20s      n \u00162\n\u0016?\nh_{..j  \u0016?\n>x__.sm. \u0016?\ng _>.<\u0016?\n>v \u0014@.    n\u0016?\n>E#chat\nu  ;u:  \u00161\nl luu\u0017tree\nu\u0004b \u0017axe\nak b j\u0017altar\ndgdd\u0017lichen corpse\n#offer\nl      n  #terrain\nd\n\u0004 ,\u001b,\u001b\u0016?\n>Hnuu:\u0016?\nr \u0006_>._.,\u00161\n\u0004n\u001633\n   \u0017cloak of protection\nW\u001bs20s20sTb\u0007ghoul\nFyFy            Fb     n    \u0007shrieker\nFh  Fh  Fb  Fu   nFy  \u0007jackal\nFh             n  Fb           n  \u001b   Fy    Fb    \u00166\n\u001633\n   #chat\nk;_.\u001633\n #levelchange\n12\n  \u0017scroll of earth\n\u0007werewolf\nrn  \u00173 wand of sleep\nzoj  \u0017ice box\nFj Fj\u0017ring of gain strength\nPqrsk.b.R 20s20s20s20s  n sn\u001641\n\u00176 eggs\nQ$\u0007trol"
+ },
+ "segments": [
+  {
+   "seed": 95238,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u001641\n   \u0004h\u0016?\ne#levelchange\n8\n    \u0017the Master Key of Thievery\n waFnFn   Fl #invoke\nj  \u0007aligned cleric\nyFlFl    n   Fl  \u0007rabid rat\nFh     n  Fh    \u0007rothe\n#chat\nh        nFb      Fj   n  sy 20s     20s     n     \u00162\n\u0016?\nelh:s   \u0016?\nn \u0014 \u001b@.\u0016?\neny  hj  y   nkj  :sb.m. 20s      n \u00162\n\u0016?\nh_{..j  \u0016?\n>x__.sm. \u0016?\ng _>.<\u0016?\n>v \u0014@.    n\u0016?\n>E#chat\nu  ;u:  \u00161\nl luu\u0017tree\nu\u0004b \u0017axe\nak b j\u0017altar\ndgdd\u0017lichen corpse\n#offer\nl      n  #terrain\nd\n\u0004 ,\u001b,\u001b\u0016?\n>Hnuu:\u0016?\nr \u0006_>._.,\u00161\n\u0004n\u001633\n   \u0017cloak of protection\nW\u001bs20s20sTb\u0007ghoul\nFyFy            Fb     n    \u0007shrieker\nFh  Fh  Fb  Fu   nFy  \u0007jackal\nFh             n  Fb           n  \u001b   Fy    Fb    \u00166\n\u001633\n   #chat\nk;_.\u001633\n #levelchange\n12\n  \u0017scroll of earth\n\u0007werewolf\nrn  \u00173 wand of sleep\nzoj  \u0017ice box\nFj Fj\u0017ring of gain strength\nPqrsk.b.R 20s20s20s20s  n sn\u001641\n\u00176 eggs\nQ$\u0007trol"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPn\u0017blessed amulet of reflection\nPo\u0017blessed +3 silver dragon scale mail\nW\u001b\u001618\nlh l  :\u0016?\n>I\u0004u\u00167\nhnh\u0017tree\ny\u0004n  \u0017axe\naq  ll\u0017melting ice\njkkkj\u0017lawful altar\ndodb\u0017lichen corpse\n#offer\nr  #pray\ny y : #terrain\nb\n\u001bm,\\  #monster\ns\u0016?\n>J     potion of sleeping\n#levelchange\n8\n       \u0017Sunsword\n\u0007winter wolf\nwu FlFlFl FlFl\u0017uncursed wand of nothing\nzv \u0017blessed +3 ring of polymorph\nPwr  sm.sm.sm.Fl   Flsb20ssm.\u0016?\nc #levelchange\n30\n                      \u0017gauntlets of dexterity\nWxssm.  20s \u0007chameleon\n;k:  s s s  \u0007jellyfish\nFk       FkFjFkFj   \u0007lieutenant\nFj  Fk    n Fn   Fk \u0016?\ncy b y   u   :   s\u001618\n\u0017sling\nwy  Fj   n      Fn  Fk    \u0007vampire bat\nFjFj Fj  n     \u0007dust vortex\ns   20s Fk     Fk\u0007Juiblex\nny#chat\nFk  Fj  n   \u00162\n\u0016?\nc_>,<20s    \u00167\n#chat\n;k,20s s. \u0016?\ne _>.<\u001615\n\u0004h 20s 20s sm.\u0016?\nb\u00173 wooden harp\nazyazy \u0017potion of gain ability\nqA  #dip\nmgFuF"
+ },
+ "segments": [
+  {
+   "seed": 95215,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPn\u0017blessed amulet of reflection\nPo\u0017blessed +3 silver dragon scale mail\nW\u001b\u001618\nlh l  :\u0016?\n>I\u0004u\u00167\nhnh\u0017tree\ny\u0004n  \u0017axe\naq  ll\u0017melting ice\njkkkj\u0017lawful altar\ndodb\u0017lichen corpse\n#offer\nr  #pray\ny y : #terrain\nb\n\u001bm,\\  #monster\ns\u0016?\n>J     potion of sleeping\n#levelchange\n8\n       \u0017Sunsword\n\u0007winter wolf\nwu FlFlFl FlFl\u0017uncursed wand of nothing\nzv \u0017blessed +3 ring of polymorph\nPwr  sm.sm.sm.Fl   Flsb20ssm.\u0016?\nc #levelchange\n30\n                      \u0017gauntlets of dexterity\nWxssm.  20s \u0007chameleon\n;k:  s s s  \u0007jellyfish\nFk       FkFjFkFj   \u0007lieutenant\nFj  Fk    n Fn   Fk \u0016?\ncy b y   u   :   s\u001618\n\u0017sling\nwy  Fj   n      Fn  Fk    \u0007vampire bat\nFjFj Fj  n     \u0007dust vortex\ns   20s Fk     Fk\u0007Juiblex\nny#chat\nFk  Fj  n   \u00162\n\u0016?\nc_>,<20s    \u00167\n#chat\n;k,20s s. \u0016?\ne _>.<\u001615\n\u0004h 20s 20s sm.\u0016?\nb\u00173 wooden harp\nazyazy \u0017potion of gain ability\nqA  #dip\nmgFuF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>>K      glob of green slime\n\u0004n.u   20s     n \u00161\nb  h       k :\u0016?\n\u001bn  n   l\u0016?\n\u001bb   n  l  \u0016?\n\u001bkk\u0016?\n\u001bnb\u0016?\n\u001bh      n  u\u0016?\n\u001bj n  n  \u00161\nl    b   b  n         n n          n:\u00168\n\u0016?\n\u001bn           n b   \u0016?\n\u001bbb\u0016?\n\u001bbu  n        n\u00161\n\u0016?\n\u001by       n  y    n  \u00169\n\u001645\n#levelchange\n20\n\u0017flail\nwq         n  Fb              n      \u001b  \u001b yy\u001by   y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95239,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>>K      glob of green slime\n\u0004n.u   20s     n \u00161\nb  h       k :\u0016?\n\u001bn  n   l\u0016?\n\u001bb   n  l  \u0016?\n\u001bkk\u0016?\n\u001bnb\u0016?\n\u001bh      n  u\u0016?\n\u001bj n  n  \u00161\nl    b   b  n         n n          n:\u00168\n\u0016?\n\u001bn           n b   \u0016?\n\u001bbb\u0016?\n\u001bbu  n        n\u00161\n\u0016?\n\u001by       n  y    n  \u00169\n\u001645\n#levelchange\n20\n\u0017flail\nwq         n  Fb              n      \u001b  \u001b yy\u001by   y y\u001b  F"
+  }
+ ]
+}

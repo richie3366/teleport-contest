@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwf\u0017blessed +3 gray dragon scale mail\nW\u001b\u00163\n#chat\nj;j; \u001b,\u00163\n\u0006_>._.\u0016?\n>>N        wand of opening\n\u0006_<.\u0016?\n\u001bhy\u00164\n__.>\u0016?\n\u001bh     b\u0016?\n\u001bhh\u0016?\n\u001bkk\u00164\n#levelchange\n10\n   \u0007nurse\nFl    n Fl    Fn   n   sk20s  n   \u0007wood nymph\nFn    FlFl   n      n20s      n sm.    n sm.    \u00163\n\u001619\n\u0006_<.\u00164\n_<,sm.\u0016?\n\u001bjn     n \u001b  \u001611\n_<.<\u0016?\n\u001bhu     n \u001633\n\u0006_<.\u001611\n__,\u001611\n\u0017sprig of wolfsbane\n\u0007pyrolisk\nej  .n   n     sm.  n    \u0017wand of enlightenment\nzk \u001b     n \u0017uncursed +0 ring of conflict\nPll       n     sj     n .m.   .y    n  \u0017cursed Vorpal Blade\nwm      yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95219,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwf\u0017blessed +3 gray dragon scale mail\nW\u001b\u00163\n#chat\nj;j; \u001b,\u00163\n\u0006_>._.\u0016?\n>>N        wand of opening\n\u0006_<.\u0016?\n\u001bhy\u00164\n__.>\u0016?\n\u001bh     b\u0016?\n\u001bhh\u0016?\n\u001bkk\u00164\n#levelchange\n10\n   \u0007nurse\nFl    n Fl    Fn   n   sk20s  n   \u0007wood nymph\nFn    FlFl   n      n20s      n sm.    n sm.    \u00163\n\u001619\n\u0006_<.\u00164\n_<,sm.\u0016?\n\u001bjn     n \u001b  \u001611\n_<.<\u0016?\n\u001bhu     n \u001633\n\u0006_<.\u001611\n__,\u001611\n\u0017sprig of wolfsbane\n\u0007pyrolisk\nej  .n   n     sm.  n    \u0017wand of enlightenment\nzk \u001b     n \u0017uncursed +0 ring of conflict\nPll       n     sj     n .m.   .y    n  \u0017cursed Vorpal Blade\nwm      yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed +3 speed boots\nWp\u001614\n_ \u001b.\u0016?\n>t kub:\u0016?\n>>L     potion of hallucination\n\u0004b\u0016?\n\u001bb   n       \u001614\n\u0017uncursed scroll of scare monster\nrs  \u001b  FnFu      \u0017uncursed potion of fruit juice\nqt \u001b#dip\nlg      Fh    n      Fk \u0017Snickersnee\nwu Fj FjFk  n   #invoke\nu          .b   sh       n   \u00163\n\u0016?\nd y    h      j   n       l: \u0016?\ne ub    :20s    n       .m. s\u001b\u001615\n\u0004k\u001615\n#chat\n;k:  \u001615\n#levelchange\n20\n   \u0017cursed potion of fruit juice\nqv \u001b#dip\nefFjFk\u0017cursed the Platinum Yendorian Express Card\n \u0007violet fungus\nFjFk\u0017Ogresmasher\nwwFjFk  n   \u001b          Fu   n       n #invoke\nw         n \u0017cursed scroll of magic mapping\n\u0007cave spider\nrx      n      20s   n    20s .\u00162\n\u001613\n\u0004u \u001637\n_{.\u0016?\nc #chat\nk;k:  \u001614\n#levelchange\n10\n   \u0017blessed spellbook of cone of cold\nry    20s \u001b\u0017blessed spellbook of cause fear\nrz .\u0017spellbook of force bolt\nrA y s\u001b+a\nZb\nj  \u0007hill orc\nZ\u001b\u0007ghoul\nZ\u001bZ\u001bFk  n    Za\nk#turn\n\u0016?\na   n  n     uy  \u001b   y  n:sm.   20s  n     \u0016?\nbh  b ku  yy\u001bny y  y\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 95216,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed +3 speed boots\nWp\u001614\n_ \u001b.\u0016?\n>t kub:\u0016?\n>>L     potion of hallucination\n\u0004b\u0016?\n\u001bb   n       \u001614\n\u0017uncursed scroll of scare monster\nrs  \u001b  FnFu      \u0017uncursed potion of fruit juice\nqt \u001b#dip\nlg      Fh    n      Fk \u0017Snickersnee\nwu Fj FjFk  n   #invoke\nu          .b   sh       n   \u00163\n\u0016?\nd y    h      j   n       l: \u0016?\ne ub    :20s    n       .m. s\u001b\u001615\n\u0004k\u001615\n#chat\n;k:  \u001615\n#levelchange\n20\n   \u0017cursed potion of fruit juice\nqv \u001b#dip\nefFjFk\u0017cursed the Platinum Yendorian Express Card\n \u0007violet fungus\nFjFk\u0017Ogresmasher\nwwFjFk  n   \u001b          Fu   n       n #invoke\nw         n \u0017cursed scroll of magic mapping\n\u0007cave spider\nrx      n      20s   n    20s .\u00162\n\u001613\n\u0004u \u001637\n_{.\u0016?\nc #chat\nk;k:  \u001614\n#levelchange\n10\n   \u0017blessed spellbook of cone of cold\nry    20s \u001b\u0017blessed spellbook of cause fear\nrz .\u0017spellbook of force bolt\nrA y s\u001b+a\nZb\nj  \u0007hill orc\nZ\u001b\u0007ghoul\nZ\u001bZ\u001bFk  n    Za\nk#turn\n\u0016?\na   n  n     uy  \u001b   y  n:sm.   20s  n     \u0016?\nbh  b ku  yy\u001bny y  y\u001b  u"
+  }
+ ]
+}

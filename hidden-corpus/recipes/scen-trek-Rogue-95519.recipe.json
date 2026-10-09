@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "N LBB_ \u001b@.>FyFl FhKUUH_>,>Fl20s FlHKBY_>.>FlFjFl hE- Vlad was here\nYNJK_>.>clZ<_>,>100s50s100s\u0018\u001b150s\u000f\u001bhnb_>.>ujk100s100s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeJJYY_>,><BNHJ_>.>HJYK_>,>BUNK_>,>UJKK_>.>BKUU_>,>l10s<YHLK_>.>i\u001b#turn\n#pray\ny i\u001bw-das20s.tbubk#name\na\nhjblde20s20s20sHBUU_>.>_>.s,KBYL_>.>LHU N_>.>\u000f\u001bclNJBJ_>.>\u000f\u001be#pray\ny ee#pray\ny   y\u001by  y y y\u001b  \u0018"
+ },
+ "segments": [
+  {
+   "seed": 95519,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\n",
+   "moves": "N LBB_ \u001b@.>FyFl FhKUUH_>,>Fl20s FlHKBY_>.>FlFjFl hE- Vlad was here\nYNJK_>.>clZ<_>,>100s50s100s\u0018\u001b150s\u000f\u001bhnb_>.>ujk100s100s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeJJYY_>,><BNHJ_>.>HJYK_>,>BUNK_>,>UJKK_>.>BKUU_>,>l10s<YHLK_>.>i\u001b#turn\n#pray\ny i\u001bw-das20s.tbubk#name\na\nhjblde20s20s20sHBUU_>.>_>.s,KBYL_>.>LHU N_>.>\u000f\u001bclNJBJ_>.>\u000f\u001be#pray\ny ee#pray\ny   y\u001by  y y y\u001b  \u0018"
+  }
+ ]
+}

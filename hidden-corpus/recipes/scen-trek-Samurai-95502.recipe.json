@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " FjFj Fl50s50sFjFjFj_ \u001b.>50sFjFj20sFjss100snujhlk100s50s_>.>_>.>50s100s100sFb20s.ujn100s100sulk\u0018\u001b_>,>100s100sFbFbs#twoweapon\n150si\u001b100sFbFbFbFbFbFbFbFbFb#ride\nhkkj100sFjs20sFjss#dip\nacl#rub\nKBL N_>.>NUYy  K _>.>B  LJB_>.>BNYJy  _>.>HKHU_>,>\u0004n\\    Ly  UYN_>.>UUBK_>,>#pray\ny  dcLy  YHY_>.>#ride\n.#chat\nnJLJK_>.>\u0014;>.JUHU_>.>LNHy  Y_>,><\u000f\u001bLYKN_>.>b<JBLH_>.>,waLLBK_>.>i\u001blJUKU_>.>\u000f\u001bjhhnkubltdbkjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKUNY_>.>Hy  JN H_>.>W#offer\n<Ly  NKB_>.>YUYJ_>.>#invoke\n\u001b\u0018\u001bNNLH_>.>:PE- X marks the spot\nKNJU_>,>FuFuFuKBUY_>.>JKYN_>.>LHKy  H _>.><\\    B LUU_>.>BHLN_>.>#offer\n#dip\nbfyYnynyy  BLYy  _>.>UNBK_>,>Hy  N JJ _>.>#force\n#sit\nH KKK_>.>#monster\n#force\nKBHH _>.>#loot\n#jump\n#conduct\n kknudd20s .s#chat\nyda .s 20s         de.m.       s"
+ },
+ "segments": [
+  {
+   "seed": 95502,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": " FjFj Fl50s50sFjFjFj_ \u001b.>50sFjFj20sFjss100snujhlk100s50s_>.>_>.>50s100s100sFb20s.ujn100s100sulk\u0018\u001b_>,>100s100sFbFbs#twoweapon\n150si\u001b100sFbFbFbFbFbFbFbFbFb#ride\nhkkj100sFjs20sFjss#dip\nacl#rub\nKBL N_>.>NUYy  K _>.>B  LJB_>.>BNYJy  _>.>HKHU_>,>\u0004n\\    Ly  UYN_>.>UUBK_>,>#pray\ny  dcLy  YHY_>.>#ride\n.#chat\nnJLJK_>.>\u0014;>.JUHU_>.>LNHy  Y_>,><\u000f\u001bLYKN_>.>b<JBLH_>.>,waLLBK_>.>i\u001blJUKU_>.>\u000f\u001bjhhnkubltdbkjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKUNY_>.>Hy  JN H_>.>W#offer\n<Ly  NKB_>.>YUYJ_>.>#invoke\n\u001b\u0018\u001bNNLH_>.>:PE- X marks the spot\nKNJU_>,>FuFuFuKBUY_>.>JKYN_>.>LHKy  H _>.><\\    B LUU_>.>BHLN_>.>#offer\n#dip\nbfyYnynyy  BLYy  _>.>UNBK_>,>Hy  N JJ _>.>#force\n#sit\nH KKK_>.>#monster\n#force\nKBHH _>.>#loot\n#jump\n#conduct\n kknudd20s .s#chat\nyda .s 20s         de.m.       s"
+  }
+ ]
+}

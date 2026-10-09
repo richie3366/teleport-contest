@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed +3 cloak of magic resistance\nW\u001b\u001625\nlh:\u001626\n#levelchange\n20\n\u0017beartrap\n\u0007sergeant\nap \u00173 potion of sleeping\n\u0007sergeant\nqqFh Fu \u00173 the Candelabrum of Invocation\n\u0007raven\nwaFl Fh s  n X\u0017Ogresmasher\nws 20sss#invoke\ns  n \u0017blessed aklys\nwt 20s 20s s  n 20ss..\u00169\n\u0016?\nm_ \u001bm.\u0016?\n>z#levelchange\n10\n   \u0017levitation boots\nWu  n  s.s  n Tu\u0007chameleon\nFuFl  n  Fu   n Fb   n Fk Fj  n  Fj  n    20s   n  20s  #pray\ny y                \u0007wererat\nFu  Fh  n   Fl  n   Fj  n  s   n  s  #pray\ny y               \u001626\n  \u0006_<.Fj    _.Fh  yy\u001by   y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 95205,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed +3 cloak of magic resistance\nW\u001b\u001625\nlh:\u001626\n#levelchange\n20\n\u0017beartrap\n\u0007sergeant\nap \u00173 potion of sleeping\n\u0007sergeant\nqqFh Fu \u00173 the Candelabrum of Invocation\n\u0007raven\nwaFl Fh s  n X\u0017Ogresmasher\nws 20sss#invoke\ns  n \u0017blessed aklys\nwt 20s 20s s  n 20ss..\u00169\n\u0016?\nm_ \u001bm.\u0016?\n>z#levelchange\n10\n   \u0017levitation boots\nWu  n  s.s  n Tu\u0007chameleon\nFuFl  n  Fu   n Fb   n Fk Fj  n  Fj  n    20s   n  20s  #pray\ny y                \u0007wererat\nFu  Fh  n   Fl  n   Fj  n  s   n  s  #pray\ny y               \u001626\n  \u0006_<.Fj    _.Fh  yy\u001by   y y\u001b  2"
+  }
+ ]
+}

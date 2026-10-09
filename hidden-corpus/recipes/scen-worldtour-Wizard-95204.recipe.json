@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0016?\nm#levelchange\n6\n        \u00174 cream pies\nQ\u001b\u0007acid blob\nuf \u001bf \u001bf \u001bf \u001b\u0017potion of speed\nt\u001bx  #twoweapon\nFhFhlhl,\u0016?\n>I\u0014 \u001bm..\u0016?\n>>Qhlbbk:s\u0016?\nq  \u0004h\u0016?\n>vlhlh   h      yn:\u0016?\n>t_<,\u0016?\n>>M      spellbook of detect monsters\n#levelchange\n14\n       j   j  \u001b       j    n     \u0017pit\nu          n    \u0017rust trap\nn       ^y\u0007sewer rat\n..  n    s   s     l    n    \u0017magic trap\nu\u0017web\n>10s    ep  \u00163\n\u0016?\ne #levelchange\n20\n      \u0017black dragon scale mail\nW\u001b20s ss\u0007Death\nyn  n  ;>.20s   n    n  n.     n   n s   n   n  n  n\u0007Uruk-hai\n;<.s   n   yy\u001bny nn  2"
+ },
+ "segments": [
+  {
+   "seed": 95204,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #levelchange\n30\n                             \u0016?\nm#levelchange\n6\n        \u00174 cream pies\nQ\u001b\u0007acid blob\nuf \u001bf \u001bf \u001bf \u001b\u0017potion of speed\nt\u001bx  #twoweapon\nFhFhlhl,\u0016?\n>I\u0014 \u001bm..\u0016?\n>>Qhlbbk:s\u0016?\nq  \u0004h\u0016?\n>vlhlh   h      yn:\u0016?\n>t_<,\u0016?\n>>M      spellbook of detect monsters\n#levelchange\n14\n       j   j  \u001b       j    n     \u0017pit\nu          n    \u0017rust trap\nn       ^y\u0007sewer rat\n..  n    s   s     l    n    \u0017magic trap\nu\u0017web\n>10s    ep  \u00163\n\u0016?\ne #levelchange\n20\n      \u0017black dragon scale mail\nW\u001b20s ss\u0007Death\nyn  n  ;>.20s   n    n  n.     n   n s   n   n  n  n\u0007Uruk-hai\n;<.s   n   yy\u001bny nn  2"
+  }
+ ]
+}

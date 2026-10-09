@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0017blessed Mjollnir\nwf\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 speed boots\nWh \u0016?\n>D\u0004j\u0016?\n>>N       wand of death\n_ \u001b>.<\u001613\n_<.>\u001643\n_{.<sm.\u001637\n\u0017blessed spellbook of detect monsters\nrk   sk\u0017blessed spellbook of magic mapping\nrl        n sm.     +ZFjZZFb      n    \u0007sewer rat\nZZZZ#turn\n#pray\ny y                               #enhance\nn\u001b\u00164\n\u0016?\nbk       y    n     h      uu      h:20s      \u0016?\n\u001bk h   n     \u0016?\n\u001bl      n  j               \u0016?\n\u001bu    n     n     n        \u00162\n\u0016?\n\u001bl             n    y   n   \u00163\n\u0016?\na  \u0017uncursed crystal ball\nam \u001b\u0017uncursed potion of paralysis\nqn                 n         #dip\ngFu   n            n              n  Fk                 n\u0017cursed Frost Brand\nwo              Fu    n           Fu     yy\u001by   y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95211,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0017blessed Mjollnir\nwf\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 speed boots\nWh \u0016?\n>D\u0004j\u0016?\n>>N       wand of death\n_ \u001b>.<\u001613\n_<.>\u001643\n_{.<sm.\u001637\n\u0017blessed spellbook of detect monsters\nrk   sk\u0017blessed spellbook of magic mapping\nrl        n sm.     +ZFjZZFb      n    \u0007sewer rat\nZZZZ#turn\n#pray\ny y                               #enhance\nn\u001b\u00164\n\u0016?\nbk       y    n     h      uu      h:20s      \u0016?\n\u001bk h   n     \u0016?\n\u001bl      n  j               \u0016?\n\u001bu    n     n     n        \u00162\n\u0016?\n\u001bl             n    y   n   \u00163\n\u0016?\na  \u0017uncursed crystal ball\nam \u001b\u0017uncursed potion of paralysis\nqn                 n         #dip\ngFu   n            n              n  Fk                 n\u0017cursed Frost Brand\nwo              Fu    n           Fu     yy\u001by   y y\u001b  F"
+  }
+ ]
+}

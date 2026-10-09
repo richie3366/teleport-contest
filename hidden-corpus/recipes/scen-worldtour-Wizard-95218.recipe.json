@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u00166\n#levelchange\n6\n  nnk\u0017pool\n#dip\nky      k jjh \u0017moat\n#dip\ncg: b  n        n   j\u0017throne\n#sit\n #sit\n potion of fruit juice\nckE- I am a fish\n#force\n sm..m.  n 20s  \u00163\n\u00165\n#levelchange\n10\n   yjkk  n\u0017arrow trap\nj\u0007grid bug\n.ysy20s .m. h\u0017falling rock trap\nn y  n  .n sjy \u0017web\nyn.nsm. #terrain\nf\noh20s i\u001b\u00161\n \u001645\n   _ \u001b@.\u00165\n#levelchange\n30\n                    yubk\u0017sleeping gas trap\nbus20sk\u0017magic trap\nl^h#untrap\nhj\u0017squeaky board\nbu     .hy    .#terrain\nf\nqg#twoweapon\n,\u0016?\no _>,>\u001635\n#levelchange\n8\n       \u0017amulet of unchanging\nPq20ss20s \u001bsm.R   n \u0017wand of cold\n\u0007nurse\nzrl \u00173 blindfold\nas\u0017uncursed potion of polymorph\n\u0007couatl\nqt  n#dip\ncp FlFls .\u001610\n\u001618\n __.>\u00169\n_{..s20s \u001618\n\u0004j\u0016?\n>>N      kelp frond\n_{.\u001640\n\u0004k  n s   s s  n \u00165\n\u0016?\na  _<.<s ss      n    n\u00165\n\u0016?\ne\u0014:   \u001b  n s  n    n  \u00169\n\u001640\n\u0017sling\nww  n    yy\u001by   y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95218,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u00166\n#levelchange\n6\n  nnk\u0017pool\n#dip\nky      k jjh \u0017moat\n#dip\ncg: b  n        n   j\u0017throne\n#sit\n #sit\n potion of fruit juice\nckE- I am a fish\n#force\n sm..m.  n 20s  \u00163\n\u00165\n#levelchange\n10\n   yjkk  n\u0017arrow trap\nj\u0007grid bug\n.ysy20s .m. h\u0017falling rock trap\nn y  n  .n sjy \u0017web\nyn.nsm. #terrain\nf\noh20s i\u001b\u00161\n \u001645\n   _ \u001b@.\u00165\n#levelchange\n30\n                    yubk\u0017sleeping gas trap\nbus20sk\u0017magic trap\nl^h#untrap\nhj\u0017squeaky board\nbu     .hy    .#terrain\nf\nqg#twoweapon\n,\u0016?\no _>,>\u001635\n#levelchange\n8\n       \u0017amulet of unchanging\nPq20ss20s \u001bsm.R   n \u0017wand of cold\n\u0007nurse\nzrl \u00173 blindfold\nas\u0017uncursed potion of polymorph\n\u0007couatl\nqt  n#dip\ncp FlFls .\u001610\n\u001618\n __.>\u00169\n_{..s20s \u001618\n\u0004j\u0016?\n>>N      kelp frond\n_{.\u001640\n\u0004k  n s   s s  n \u00165\n\u0016?\na  _<.<s ss      n    n\u00165\n\u0016?\ne\u0014:   \u001b  n s  n    n  \u00169\n\u001640\n\u0017sling\nww  n    yy\u001by   y y  y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n12\n \u0017blessed ring of polymorph control\nPfr#polyself\nsuccubus\n#monster\ns.\u0007newt\nFj  s...s#polyself\nacid blob\n  s...20s    #polyself\nhuman\n #monster\n.s\u0007Croesus\nyFhFj   Fh.s  n .#polyself\nhobbit\n.hsy\u0007hezrou\nFl  nFb Fbsm.sm.20s  n \u0017amulet of unchanging\nPg .m.  n 20s .ysm.\u000f\u001b\u001611\n#wizintrinsic\nfkg\n .m.  n sm.sn  nsb.20s   n sh.m.20s  n   20s.u20ssm.sm.  n  .k 20s .m. 20s sm.  n    sm.    20s   n    sy    \u0017potion of enlightenment\nqh \u001b  n    qtcb  n    ;n; \u001b;#wipe\n     \u000f\u001b#untrap\nusm.20s   n      s    n s ss  n   \u000f\u001b#levelchange\n30\n                  \u0017Werebane\nwi  Fh Fb  Fj  yy\u001by   y y y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 95335,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n12\n \u0017blessed ring of polymorph control\nPfr#polyself\nsuccubus\n#monster\ns.\u0007newt\nFj  s...s#polyself\nacid blob\n  s...20s    #polyself\nhuman\n #monster\n.s\u0007Croesus\nyFhFj   Fh.s  n .#polyself\nhobbit\n.hsy\u0007hezrou\nFl  nFb Fbsm.sm.20s  n \u0017amulet of unchanging\nPg .m.  n 20s .ysm.\u000f\u001b\u001611\n#wizintrinsic\nfkg\n .m.  n sm.sn  nsb.20s   n sh.m.20s  n   20s.u20ssm.sm.  n  .k 20s .m. 20s sm.  n    sm.    20s   n    sy    \u0017potion of enlightenment\nqh \u001b  n    qtcb  n    ;n; \u001b;#wipe\n     \u000f\u001b#untrap\nusm.20s   n      s    n s ss  n   \u000f\u001b#levelchange\n30\n                  \u0017Werebane\nwi  Fh Fb  Fj  yy\u001by   y y y\u001by  #"
+  }
+ ]
+}

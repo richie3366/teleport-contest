@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>Bbjunuk:\u001624\n\u0007chickatrice\nFbFb FbFb20sss.s\u0007mountain nymph\nFbFb   Fbss\u0007nurse\nFkFkFksm..m..sh\u0016?\nl _ \u001b>.>\u001624\n\u0004n\u001624\nknjykhj:sss\u0016?\n>Bbjkjuy:\u001624\n\u0004ns.\u001624\n\u0006_>,_.\u0016?\n>J     spellbook of confuse monster\n#levelchange\n20\n      hl         y    \u001b   h   n  \u0017sleeping gas trap\nh     l   \u001b    20s    n    .   n   n       n   n       b      n   \u0017web\nh     n  \u0017hole\nb  l\u0017dart trap\n\u0017beartrap\nas n  n      n  h       n    #ride\njy#twoweapon\n#invoke\nq   n    \u00169\n\u001641\nk     n       n       h  n       n j    b   n    y     yy\u001bny y  y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 95225,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=fruit:lychee\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>Bbjunuk:\u001624\n\u0007chickatrice\nFbFb FbFb20sss.s\u0007mountain nymph\nFbFb   Fbss\u0007nurse\nFkFkFksm..m..sh\u0016?\nl _ \u001b>.>\u001624\n\u0004n\u001624\nknjykhj:sss\u0016?\n>Bbjkjuy:\u001624\n\u0004ns.\u001624\n\u0006_>,_.\u0016?\n>J     spellbook of confuse monster\n#levelchange\n20\n      hl         y    \u001b   h   n  \u0017sleeping gas trap\nh     l   \u001b    20s    n    .   n   n       n   n       b      n   \u0017web\nh     n  \u0017hole\nb  l\u0017dart trap\n\u0017beartrap\nas n  n      n  h       n    #ride\njy#twoweapon\n#invoke\nq   n    \u00169\n\u001641\nk     n       n       h  n       n j    b   n    y     yy\u001bny y  y\u001b  y"
+  }
+ ]
+}

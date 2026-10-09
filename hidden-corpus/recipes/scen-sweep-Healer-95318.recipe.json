@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n20\n\u0017blessed ring of polymorph control\nPkl#polyself\nArchon\n water nymph\n #monster\n.m.sm. 20s sm..m.#polyself\nki-rin\n imp\n #monster\n.m. sm. s.s#polyself\ncobra\n #monster\nn.20ss20ss#polyself\ngelatinous cube\n ss\u0007Yeenoghu\nyyFn   Fh         n      Fb .   20s   n   20s   \u00164\n\u0006_ \u001bm.>_>.    n  _.       >_>.      n      Fu    n  _,>#conduct\n #wipe\n\u0006_>>,   Fu_,>_>>._.>_>>._.>\u0006_>._.   n   Fu>_>,_.>_>.   _.     n Fk>10sw\u001b\u0006_>.         n _.     >_>._.>_>.   n   Fl_,><\u0006_>.     nFk_.>_>,    _.>_>.     nFk   _.>\u0004h#jump\n\u0006_>._,>_>._,>_>.   Fk_.>\u0006_>.  n_.>_>._.Fl >FkFjFk\u000f\u001b\u001611\n#levelchange\n30\n         \u0017500 gold pieces\n\u0016?\n>x\u0006\u0017blessed potion of object detection\nql:   __,_.     nFl#chat\nl_mmmm.#chat\nh_ooo,    Fj_. Fk     ,\u0014>.      n_ooooo,        Fn            _.m,Fn   _ooo.Fl_,@.Fl,:_ooooooo.Fj_.   Fk   n   ,$#monster\nZ\u001b,i\u001bai \u0004hf $ b#turn\nzfk    ,#twoweapon\n#monster\ni\u001bi\u001b#levelchange\n10\n      \u00172000 gold pieces\n\u0016?\nc\u0006_m,#chat\ny_m.#chat\nl_mmm,#chat\nn_{._,qe#pray\ny y #jump\ns\u0017bag of holding\n\u0017potion of sleeping\n\u0017dilithium crystal\nam\u001bdm#loot\n\u001b,am\u001b\u0017mace\nwpdm#force\n20s.20si\u001b\u001614\n#levelchange\n20\n          \u0016?\n>z  _mmmm,Fh_,Fh #chat\nl_mmmmm.Fh  _.<.Fl#chat\nl_mmm.  Fl _,#chat\nj    \u0006_>.Fb    yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 95318,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n20\n\u0017blessed ring of polymorph control\nPkl#polyself\nArchon\n water nymph\n #monster\n.m.sm. 20s sm..m.#polyself\nki-rin\n imp\n #monster\n.m. sm. s.s#polyself\ncobra\n #monster\nn.20ss20ss#polyself\ngelatinous cube\n ss\u0007Yeenoghu\nyyFn   Fh         n      Fb .   20s   n   20s   \u00164\n\u0006_ \u001bm.>_>.    n  _.       >_>.      n      Fu    n  _,>#conduct\n #wipe\n\u0006_>>,   Fu_,>_>>._.>_>>._.>\u0006_>._.   n   Fu>_>,_.>_>.   _.     n Fk>10sw\u001b\u0006_>.         n _.     >_>._.>_>.   n   Fl_,><\u0006_>.     nFk_.>_>,    _.>_>.     nFk   _.>\u0004h#jump\n\u0006_>._,>_>._,>_>.   Fk_.>\u0006_>.  n_.>_>._.Fl >FkFjFk\u000f\u001b\u001611\n#levelchange\n30\n         \u0017500 gold pieces\n\u0016?\n>x\u0006\u0017blessed potion of object detection\nql:   __,_.     nFl#chat\nl_mmmm.#chat\nh_ooo,    Fj_. Fk     ,\u0014>.      n_ooooo,        Fn            _.m,Fn   _ooo.Fl_,@.Fl,:_ooooooo.Fj_.   Fk   n   ,$#monster\nZ\u001b,i\u001bai \u0004hf $ b#turn\nzfk    ,#twoweapon\n#monster\ni\u001bi\u001b#levelchange\n10\n      \u00172000 gold pieces\n\u0016?\nc\u0006_m,#chat\ny_m.#chat\nl_mmm,#chat\nn_{._,qe#pray\ny y #jump\ns\u0017bag of holding\n\u0017potion of sleeping\n\u0017dilithium crystal\nam\u001bdm#loot\n\u001b,am\u001b\u0017mace\nwpdm#force\n20s.20si\u001b\u001614\n#levelchange\n20\n          \u0016?\n>z  _mmmm,Fh_,Fh #chat\nl_mmmmm.Fh  _.<.Fl#chat\nl_mmm.  Fl _,#chat\nj    \u0006_>.Fb    yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

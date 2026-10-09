@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u00166\nbnb:\u0016?\n>>M     crystal ball\n\u0006\u001b>._<,\u0016?\n\u001bb h       \u001615\n_<,> \u00166\ny  n  u     y     n  u        n y      : \u00168\n\u0016?\nd_>,<\u0016?\nb#levelchange\n30\n                \u00173 amulet of flying\n\u0007shopkeeper\nyPr sm..j       sm.        n .m.           \u0017uncursed amulet of change\nPs.   n   .   \u001b     s   n   s    \u0017two-handed sword\n wt  n         n     20s    n       sl  n       sm.   n         n X\u0017blessed trident\nwu        Fb    n            Fb              n     Fh  n        X20s     ynny nn  ."
+ },
+ "segments": [
+  {
+   "seed": 95212,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u00166\nbnb:\u0016?\n>>M     crystal ball\n\u0006\u001b>._<,\u0016?\n\u001bb h       \u001615\n_<,> \u00166\ny  n  u     y     n  u        n y      : \u00168\n\u0016?\nd_>,<\u0016?\nb#levelchange\n30\n                \u00173 amulet of flying\n\u0007shopkeeper\nyPr sm..j       sm.        n .m.           \u0017uncursed amulet of change\nPs.   n   .   \u001b     s   n   s    \u0017two-handed sword\n wt  n         n     20s    n       sl  n       sm.   n         n X\u0017blessed trident\nwu        Fb    n            Fb              n     Fh  n        X20s     ynny nn  ."
+  }
+ ]
+}

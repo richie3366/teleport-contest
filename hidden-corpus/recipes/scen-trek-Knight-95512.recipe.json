@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "LHN L_ \u001b,>ZE- Elbereth Elbereth\n  <HLKB_>,>FkFus#twoweapon\nsJNYJ_>,>JYUN_>.>Pab  .cj_>.>50s  Fk Fks100s       100s  Fk.FlFls  s 150s    llk\\   \u0018\u001bykjjhy150sFlsseh50s100s   Flss50s   100s 100s     100s         50s FhFjFlFnFls>#pray\ny jhj100s   FkFlFkFk20sFk Fks20s \u000f\u001b_>.>50s Fk  FkFlFkFkFu \u000f\u001b150s                  FlFl .50seh100sFk  Fk  Fk  y\u001by  y y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 95512,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\n",
+   "moves": "LHN L_ \u001b,>ZE- Elbereth Elbereth\n  <HLKB_>,>FkFus#twoweapon\nsJNYJ_>,>JYUN_>.>Pab  .cj_>.>50s  Fk Fks100s       100s  Fk.FlFls  s 150s    llk\\   \u0018\u001bykjjhy150sFlsseh50s100s   Flss50s   100s 100s     100s         50s FhFjFlFnFls>#pray\ny jhj100s   FkFlFkFk20sFk Fks20s \u000f\u001b_>.>50s Fk  FkFlFkFkFu \u000f\u001b150s                  FlFl .50seh100sFk  Fk  Fk  y\u001by  y y y\u001b  y"
+  }
+ ]
+}

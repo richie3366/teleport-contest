@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  de20s ..10s  desss20s #name\no\n\u0014wa20s   FjFhs#enhance\n\u001b50sFlFlFj  FuFlFl\u000f\u001b50shhl50skjh_ \u001b;>\u000f\u001b50sFlFl20s_>,>uklFjs._>.>150s100s ulji\u001b\\ 100s\u000f\u001b150sFnFns100s100si\u001b100sFnss50s50skhhnuhFjFj FnFnss100s 100sUKUK_>.>BYUH_>.>JHYN_>,>sZUHUY_>.>#wipe\n:<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUNKJ_>,>KBNH_>,>LBKL_>.>LJLB_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nlwb #offer\nJUBB_>,>NUJN_>.>\u000f\u001b#offer\n<Y NKU_>.>HYYN_>.><NYYJ_>,>\u0014_m,.#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10stdu#name\na\nku#chat\nnknn#terrain\nb\naLLYK_>NYLN_><BBJK_>d.s.jk10sdas20ssjubn>qz#pray\ny  50s_>,>100sFuss150s#terrain\nc\n;kjbi\u001b\\ _>.>kjj100sFh.s50sykhuhb100s100sFlFl.150s 100s100s huh\u0018\u001b100seeeeeeeeeeeeee#untrap\nl#loot\n#jump\neeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 95509,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "  de20s ..10s  desss20s #name\no\n\u0014wa20s   FjFhs#enhance\n\u001b50sFlFlFj  FuFlFl\u000f\u001b50shhl50skjh_ \u001b;>\u000f\u001b50sFlFl20s_>,>uklFjs._>.>150s100s ulji\u001b\\ 100s\u000f\u001b150sFnFns100s100si\u001b100sFnss50s50skhhnuhFjFj FnFnss100s 100sUKUK_>.>BYUH_>.>JHYN_>,>sZUHUY_>.>#wipe\n:<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUNKJ_>,>KBNH_>,>LBKL_>.>LJLB_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nlwb #offer\nJUBB_>,>NUJN_>.>\u000f\u001b#offer\n<Y NKU_>.>HYYN_>.><NYYJ_>,>\u0014_m,.#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10stdu#name\na\nku#chat\nnknn#terrain\nb\naLLYK_>NYLN_><BBJK_>d.s.jk10sdas20ssjubn>qz#pray\ny  50s_>,>100sFuss150s#terrain\nc\n;kjbi\u001b\\ _>.>kjj100sFh.s50sykhuhb100s100sFlFl.150s 100s100s huh\u0018\u001b100seeeeeeeeeeeeee#untrap\nl#loot\n#jump\neeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

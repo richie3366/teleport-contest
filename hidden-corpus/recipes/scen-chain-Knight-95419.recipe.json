@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FkFkFkFkFkFkFkFkknbjJNNY_ \u001b@.>BLH J_>.>Fh20sFkNYKL_>.>FhFh.;h,#tip\n\u001bUUHJ_>.>Fl.20sFl FlFlFlFlFlFlFlkubujlyn#chat\nhtbk20sunjldcss.hk10sly#name\nf\n20s10sjljkyjyjlhnlkknjn150shyn150s100s_>.>\\   i\u001b100s 100seh\u000f\u001byln100s eh50sehuub100seg50s eh100s50#quit\nyy\u001by  y y y\u001b  bylhljl150s  i\u001b100sFlssyhnkhl150s\u000f\u001b150swa100sFyFy20s100s\\ 50sFlFlFlFjFjFj_ \u001b.>jll_>,>hbu#ride\nn100sFl.20shhk50s100sbnk100sFlFlFl100sFlFl20s\u0018\u001b50s_>.>100sjyn150s50syubjFlFlFlFlFlFlFlFlL K UH_>.>UJYN_>,>FlFlFlYBNJ _>.>KKBY_>.>UYLN_>,>bhljkkjkj#quit\nyy\u001by  y y y\u001b \u0007Death\nyFlFl FlFl     nFh    yy\u001by  y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95419,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:cat\n",
+   "moves": "FkFkFkFkFkFkFkFkknbjJNNY_ \u001b@.>BLH J_>.>Fh20sFkNYKL_>.>FhFh.;h,#tip\n\u001bUUHJ_>.>Fl.20sFl FlFlFlFlFlFlFlkubujlyn#chat\nhtbk20sunjldcss.hk10sly#name\nf\n20s10sjljkyjyjlhnlkknjn150shyn150s100s_>.>\\   i\u001b100s 100seh\u000f\u001byln100s eh50sehuub100seg50s eh100s50#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 195419,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": " bylhljl150s  i\u001b100sFlssyhnkhl150s\u000f\u001b150swa100sFyFy20s100s\\ 50sFlFlFlFjFjFj_ \u001b.>jll_>,>hbu#ride\nn100sFl.20shhk50s100sbnk100sFlFlFl100sFlFl20s\u0018\u001b50s_>.>100sjyn150s50syubjFlFlFlFlFlFlFlFlL K UH_>.>UJYN_>,>FlFlFlYBNJ _>.>KKBY_>.>UYLN_>,>bhljkkjkj#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 295419,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Death\nyFlFl FlFl     nFh    yy\u001by  y y\u001by  F"
+  }
+ ]
+}

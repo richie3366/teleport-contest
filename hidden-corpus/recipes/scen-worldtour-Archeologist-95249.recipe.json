@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>C_ \u001b:<\u0016?\n>w\u0014@.\u0016?\nf      \u0004j\u001615\n #levelchange\n20\n     \u0017sling\nwk\u001720 flint stones\nQl\u0007newt\nbflfk  Fk Fl\u0017potion of fruit juice\ntgh\u0007soldier\njfhfl flkjk,\u001615\n_>,<\u0016?\n>>M      stethoscope\nhk     y:.m.  .m..m.   n  \u0016?\n\u001by   l   \u0016?\n\u001bkn     n\u0016?\n\u001bk     u \u0016?\n\u001bh       j   \u0016?\nc j    n  y       uu    n         u    j   y  :      n20s         \u00166\n\u001632\n_<.\u0016?\ne b  b   n   k      n    h  :\u00166\n\u0016?\nc \u0004l      n   sm.     20s \u001628\n\u0004u \u0016?\ne_>.<\u0016?\nd#levelchange\n8\n   \u0007Uruk-hai\n#chat\nlFj  n  Fj \u0007mind flayer\n.h     n sm.         n   .  n    sn      n     n   s   sk     n      yy\u001bny ny\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 95249,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>C_ \u001b:<\u0016?\n>w\u0014@.\u0016?\nf      \u0004j\u001615\n #levelchange\n20\n     \u0017sling\nwk\u001720 flint stones\nQl\u0007newt\nbflfk  Fk Fl\u0017potion of fruit juice\ntgh\u0007soldier\njfhfl flkjk,\u001615\n_>,<\u0016?\n>>M      stethoscope\nhk     y:.m.  .m..m.   n  \u0016?\n\u001by   l   \u0016?\n\u001bkn     n\u0016?\n\u001bk     u \u0016?\n\u001bh       j   \u0016?\nc j    n  y       uu    n         u    j   y  :      n20s         \u00166\n\u001632\n_<.\u0016?\ne b  b   n   k      n    h  :\u00166\n\u0016?\nc \u0004l      n   sm.     20s \u001628\n\u0004u \u0016?\ne_>.<\u0016?\nd#levelchange\n8\n   \u0007Uruk-hai\n#chat\nlFj  n  Fj \u0007mind flayer\n.h     n sm.         n   .  n    sn      n     n   s   sk     n      yy\u001bny ny\u001b  \u0007"
+  }
+ ]
+}

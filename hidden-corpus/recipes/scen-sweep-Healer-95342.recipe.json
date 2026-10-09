@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   yll\u0017sleeping gas trap\nny   sk .hb\u0017fire trap\nny.sh\u0017statue trap\nn#untrap\ny_<. \u001b:20s  ri y #wipe\n\u00163\ni\u001b\u0007gnome lord\nFjFjFjFjFj\u0007hobbit\n;j;sm.sm.  20s \u0007master lich\nFn Fj       Fj      #levelchange\n30\n         \u0017amulet of change\nPk      sm. 20s     sk20s  n R\u001b\u00173 Cleaver\nwlFl FnFj#invoke\nlFj20s     \u0017cursed figurine of a newt\n\u0007ghost\naml   \u00173 clove of garlic\nensm..m.\u0017blessed cram ration\nep 20s20s\u0017blessed 200 gold pieces\n\u0007ape\nsm.Fb   Fb sl     sm.  n \u00165\n#levelchange\n20\n   \u0017spellbook of slow monster\nrq sm.20sZc\nZb\nsm.s\u0017blessed wax candle\n\u0007straw golem\nar#rub\nFb Fb \u0017potion of see invisible\nqs \u001b sm. sm.\u00161\n\u0018\u001b#levelchange\n12\n  \u0017Hawaiian shirt\nWtsu20ssuT\u0007quasit\nFhFh  Fh Fh   nFh Fh   \u0007Nazgul\nFh   Fl  Fh  Fl Fl Fl   n \u0007piranha\n;l,.m.sm.sm.\u0007brown pudding\nsm..m..m.sjssss\u00168\n #levelchange\n14\n  \u0007tame saddled jackal\n#ride\nny\u0007tame saddled pony\n#ride\njy\u0007warhorse\n\u0017scroll of taming\nru    \u0017saddle\navn    #ride\nny\u0004k    sm.20s \u0004h,#ride\njy.m.#ride\nny\u0006_>.Fy _,Fh>Fy Fh _>,  nFl _.Fl >Fl  Fn  _>.Fy _. Fy>FnFy \u001617\n #levelchange\n30\n                \u0017blessed ring of polymorph control\nPwl#polyself\nelf\n #monster\n.m.sysk.u.#polyself\nsilver dragon\n   sm.20s.b20s20s#polyself\nyellow light\nssss20s  #polyself\nmind flayer\n sk20s\u0007Nazgul\nFb   Fb   Fj      20ssm.sm.\u0017potio"
+ },
+ "segments": [
+  {
+   "seed": 95342,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   yll\u0017sleeping gas trap\nny   sk .hb\u0017fire trap\nny.sh\u0017statue trap\nn#untrap\ny_<. \u001b:20s  ri y #wipe\n\u00163\ni\u001b\u0007gnome lord\nFjFjFjFjFj\u0007hobbit\n;j;sm.sm.  20s \u0007master lich\nFn Fj       Fj      #levelchange\n30\n         \u0017amulet of change\nPk      sm. 20s     sk20s  n R\u001b\u00173 Cleaver\nwlFl FnFj#invoke\nlFj20s     \u0017cursed figurine of a newt\n\u0007ghost\naml   \u00173 clove of garlic\nensm..m.\u0017blessed cram ration\nep 20s20s\u0017blessed 200 gold pieces\n\u0007ape\nsm.Fb   Fb sl     sm.  n \u00165\n#levelchange\n20\n   \u0017spellbook of slow monster\nrq sm.20sZc\nZb\nsm.s\u0017blessed wax candle\n\u0007straw golem\nar#rub\nFb Fb \u0017potion of see invisible\nqs \u001b sm. sm.\u00161\n\u0018\u001b#levelchange\n12\n  \u0017Hawaiian shirt\nWtsu20ssuT\u0007quasit\nFhFh  Fh Fh   nFh Fh   \u0007Nazgul\nFh   Fl  Fh  Fl Fl Fl   n \u0007piranha\n;l,.m.sm.sm.\u0007brown pudding\nsm..m..m.sjssss\u00168\n #levelchange\n14\n  \u0007tame saddled jackal\n#ride\nny\u0007tame saddled pony\n#ride\njy\u0007warhorse\n\u0017scroll of taming\nru    \u0017saddle\navn    #ride\nny\u0004k    sm.20s \u0004h,#ride\njy.m.#ride\nny\u0006_>.Fy _,Fh>Fy Fh _>,  nFl _.Fl >Fl  Fn  _>.Fy _. Fy>FnFy \u001617\n #levelchange\n30\n                \u0017blessed ring of polymorph control\nPwl#polyself\nelf\n #monster\n.m.sysk.u.#polyself\nsilver dragon\n   sm.20s.b20s20s#polyself\nyellow light\nssss20s  #polyself\nmind flayer\n sk20s\u0007Nazgul\nFb   Fb   Fj      20ssm.sm.\u0017potio"
+  }
+ ]
+}

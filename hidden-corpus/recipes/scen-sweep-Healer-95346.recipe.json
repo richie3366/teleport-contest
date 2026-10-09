@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nb\n 20s .m.sm.sss.m.sm.20s  20s  n\u0017scroll of earth\nrl    nZc\n#conduct\n #name\na\n\u0018\u001bdc#name\nf\n @.20s20sssss\u001619\n\u00162\n\u0017plate mail\n WmsssTm\u0007grid bug\nsm.s20s20s20s.jsm.sm.sm. \u0007guard\nnFhFhFk   n \u0006#levelchange\n12\n          \u0017blessed spellbook of remove curse\nrn .m..m. Zb\nZa\n\u0017magic lamp\n\u0007genetic engineer\nsm.     \u0017cursed wand of opening\n\u0007Elvenking\nzFb    Fh    \u0017blessed ring of free action\nPql            s      20s   20s     \u00173 potion of booze\nqr \u001b          Fj      Fb     20s    n             20s     \u000f\u001b#levelchange\n30\n                  \u0017blessed spellbook of dig\nrs                                       s                                   n             \u0017blessed spellbook of force bolt\nr.m.                        +\u001bZb\n           Za\n                  Fj       n     Zb\n            ZFh              Za\n    #pray\ny y           \u001611\n#levelchange\n12\n       \u0017ring of increase damage\nPu sb20s .m. \u0017uncursed scroll of identify\n\u0007shrieker\nrv q\n   n Fl Fl\u0017cursed potion of blindness\nqw #dip\npr\u00173 potion of restore ability\n\u0007bone devil\nqx Fu  n  Fl   ns s  n \u00163\n\u0017cursed luckstone\n\u0007frost giant\nayi \u0017uncursed +0 alchemy smock\n\u0007baby red dragon\nWz  n  s  n  .  n  .  n  T   n  Fh  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95346,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n 20s .m.sm.sss.m.sm.20s  20s  n\u0017scroll of earth\nrl    nZc\n#conduct\n #name\na\n\u0018\u001bdc#name\nf\n @.20s20sssss\u001619\n\u00162\n\u0017plate mail\n WmsssTm\u0007grid bug\nsm.s20s20s20s.jsm.sm.sm. \u0007guard\nnFhFhFk   n \u0006#levelchange\n12\n          \u0017blessed spellbook of remove curse\nrn .m..m. Zb\nZa\n\u0017magic lamp\n\u0007genetic engineer\nsm.     \u0017cursed wand of opening\n\u0007Elvenking\nzFb    Fh    \u0017blessed ring of free action\nPql            s      20s   20s     \u00173 potion of booze\nqr \u001b          Fj      Fb     20s    n             20s     \u000f\u001b#levelchange\n30\n                  \u0017blessed spellbook of dig\nrs                                       s                                   n             \u0017blessed spellbook of force bolt\nr.m.                        +\u001bZb\n           Za\n                  Fj       n     Zb\n            ZFh              Za\n    #pray\ny y           \u001611\n#levelchange\n12\n       \u0017ring of increase damage\nPu sb20s .m. \u0017uncursed scroll of identify\n\u0007shrieker\nrv q\n   n Fl Fl\u0017cursed potion of blindness\nqw #dip\npr\u00173 potion of restore ability\n\u0007bone devil\nqx Fu  n  Fl   ns s  n \u00163\n\u0017cursed luckstone\n\u0007frost giant\nayi \u0017uncursed +0 alchemy smock\n\u0007baby red dragon\nWz  n  s  n  .  n  .  n  T   n  Fh  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

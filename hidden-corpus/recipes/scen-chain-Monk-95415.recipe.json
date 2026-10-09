@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Fk FkFkFkFkFkFkFk100s150s 100s_ \u001bm.>_>.Fh_.:>100s_>,>150skkjFbss100s100sFbFb20sFb20s.kjli\u001bhlu50s100s150sFbFbs100sE\u001b100sjjjFhsslkb100seg50s150see 150s150s\u000f\u001bukn100s100si\u001bbll150s lkl50s\u0018\u001bylb50sefbhlunh100s100subu50sFh.20s50s#pray\ny  100sFhFyFhFhssFhs20seh  _>.>50s50sef\\  100segeh  100s50s100seh  \u001bE\u001b50s150sef\u0018\u001b100sef UYJ  N_>.>LJJB_>.>JJUL_>.>hujkyl#name\nf\nt20s       ny  y y y\u001b  t  ylhjFhFhFhFhFhFhFhFhynubFuFuFuFuFuFuFuFu100skhb50s50s lkjFl20s 20s_ \u001b.>lkhFjFns100sblu100s150sFh20ss100shbnejFns20s_>.>huhFl20ssej100s ejFu20s20sFlsFl\u000f\u001b50sej100sejrg y nkkFbFjFb100seeeee#name\na\nt$u#chat\nu20sdfbssst\u001b\u001bjujhFlFlFlFlFlFlFlFleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeluklbuhjjljheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYUKB_>.>YYNB_>.>KUNN_>.>FbFj20sYUNL_>.>Fj FjFjdcck.s.10st$ht\u001b\u001bnnjjK NKB_>,>FuFu.YJJL _>.>#tip\n\u001b\u001bri yJJLL_>.>FlFlFuBH H  L_>.>FlFuFuK  nnnnn  Y \u0007werewolf\nFuFu Fl  nFl Fl  yy\u001by  y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95415,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\n",
+   "moves": "Fk FkFkFkFkFkFkFk100s150s 100s_ \u001bm.>_>.Fh_.:>100s_>,>150skkjFbss100s100sFbFb20sFb20s.kjli\u001bhlu50s100s150sFbFbs100sE\u001b100sjjjFhsslkb100seg50s150see 150s150s\u000f\u001bukn100s100si\u001bbll150s lkl50s\u0018\u001bylb50sefbhlunh100s100subu50sFh.20s50s#pray\ny  100sFhFyFhFhssFhs20seh  _>.>50s50sef\\  100segeh  100s50s100seh  \u001bE\u001b50s150sef\u0018\u001b100sef UYJ  N_>.>LJJB_>.>JJUL_>.>hujkyl#name\nf\nt20s       ny  y y y\u001b  t"
+  },
+  {
+   "seed": 195415,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=sortloot:full\nOPTIONS=runmode:teleport\nOPTIONS=pettype:dog\n",
+   "moves": "  ylhjFhFhFhFhFhFhFhFhynubFuFuFuFuFuFuFuFu100skhb50s50s lkjFl20s 20s_ \u001b.>lkhFjFns100sblu100s150sFh20ss100shbnejFns20s_>.>huhFl20ssej100s ejFu20s20sFlsFl\u000f\u001b50sej100sejrg y nkkFbFjFb100seeeee#name\na\nt$u#chat\nu20sdfbssst\u001b\u001bjujhFlFlFlFlFlFlFlFleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeluklbuhjjljheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYUKB_>.>YYNB_>.>KUNN_>.>FbFj20sYUNL_>.>Fj FjFjdcck.s.10st$ht\u001b\u001bnnjjK NKB_>,>FuFu.YJJL _>.>#tip\n\u001b\u001bri yJJLL_>.>FlFlFuBH H  L_>.>FlFuFuK  nnnnn  Y"
+  },
+  {
+   "seed": 295415,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007werewolf\nFuFu Fl  nFl Fl  yy\u001by  y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "lyhhnkkh10stbl #chat\ny20shubk100s:150s Fls.150s 100sFl20ss150si\u001b_ \u001bm,>Fl20s.FlFl20sFl20s20s#quit\ny\u001b    20s tbhhl 20s unlkljhyYYJN_ \u001bm.>Fk .20sLBUN_>.>FjFjsKBKL _>,>#offer\n10sNKJ J_>,>db,yku150s100s100sFnFnFnFnFn.ynb150s100skbb\u0018\u001b100s\\   50sFh20ss100sed100s50sFhFhFhFh#quit\ny\u001b     Fu 20ss100shklnyu100s50sFjs.100sFj.shln20s50s150s50s_ \u001b.>50shybFnssi\u001b#rub\n\u000f\u001bluk100si\u001b100s50sFjFjshny\u0018\u001b100s50sFjs20s\u0018\u001b50s100s100sFjFjshjn100sFks20sYJJJ_>.>UKLN_>.>JLKU_>.>KYBU_>,>UJKY_>,>#chat\nk#ride\nlKBUY_<.#quit\nyy\u001by  y y y\u001b   #wizintrinsic\nd\n .m.20s.m.sm.sss.m...20s.nsbsssss20ssm.sm.sm. n..20s .s.s20s20s20ss20ssss.20ss Fl s20sFl20ss150s\u0018\u001b50s 100sFlFls150sFkFk.#jump\ni\u001b100sFlFlsed 100sFyFy20sFyFyFy50s_ \u001b,>100snlh150sFkFkFk100s\u0018\u001bull100sFhFhFhFhss100s 100sFh20sFh100slhl100sulh150sFhFhFhFbFhs150st\u001blhbkbl10s#chat\nyjy  y\u001by  y ny\u001b  b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95404,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "lyhhnkkh10stbl #chat\ny20shubk100s:150s Fls.150s 100sFl20ss150si\u001b_ \u001bm,>Fl20s.FlFl20sFl20s20s#quit\ny\u001b    "
+  },
+  {
+   "seed": 195404,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "20s tbhhl 20s unlkljhyYYJN_ \u001bm.>Fk .20sLBUN_>.>FjFjsKBKL _>,>#offer\n10sNKJ J_>,>db,yku150s100s100sFnFnFnFnFn.ynb150s100skbb\u0018\u001b100s\\   50sFh20ss100sed100s50sFhFhFhFh#quit\ny\u001b    "
+  },
+  {
+   "seed": 295404,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=disclose:yi ya yv yg yc yo\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " Fu 20ss100shklnyu100s50sFjs.100sFj.shln20s50s150s50s_ \u001b.>50shybFnssi\u001b#rub\n\u000f\u001bluk100si\u001b100s50sFjFjshny\u0018\u001b100s50sFjs20s\u0018\u001b50s100s100sFjFjshjn100sFks20sYJJJ_>.>UKLN_>.>JLKU_>.>KYBU_>,>UJKY_>,>#chat\nk#ride\nlKBUY_<.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 395404,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nd\n .m.20s.m.sm.sss.m...20s.nsbsssss20ssm.sm.sm. n..20s .s.s20s20s20ss20ssss.20ss"
+  },
+  {
+   "seed": 495404,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " Fl s20sFl20ss150s\u0018\u001b50s 100sFlFls150sFkFk.#jump\ni\u001b100sFlFlsed 100sFyFy20sFyFyFy50s_ \u001b,>100snlh150sFkFkFk100s\u0018\u001bull100sFhFhFhFhss100s 100sFh20sFh100slhl100sulh150sFhFhFhFbFhs150st\u001blhbkbl10s#chat\nyjy  y\u001by  y ny\u001b  b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\n>>L      potion of monster detection\nyu    j      y  \u001b    l      n  y  h:\u001618\n\u0017cursed potion of speed\nqh    Fj       Fj      n    \u0017cursed -1 plate mail\n\u0007floating eye\nW\u001bsy         n  .m.       .n    n      n            Fy       Fy      n     \u00173 Ogresmasher\nwj            Fu      n      Fn   \u001b      Fh      n      #invoke\nj       n      \u0017wand of fire\nzkj          \u0017Ogresmasher\n\u0007shopkeeper\nywlFuFy     n            Fy     n      n   #invoke\nf           n              n   Fn  n         y\u001b     F"
+ },
+ "segments": [
+  {
+   "seed": 95246,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\n>>L      potion of monster detection\nyu    j      y  \u001b    l      n  y  h:\u001618\n\u0017cursed potion of speed\nqh    Fj       Fj      n    \u0017cursed -1 plate mail\n\u0007floating eye\nW\u001bsy         n  .m.       .n    n      n            Fy       Fy      n     \u00173 Ogresmasher\nwj            Fu      n      Fn   \u001b      Fh      n      #invoke\nj       n      \u0017wand of fire\nzkj          \u0017Ogresmasher\n\u0007shopkeeper\nywlFuFy     n            Fy     n      n   #invoke\nf           n              n   Fn  n         y\u001b     F"
+  }
+ ]
+}

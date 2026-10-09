@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of death\nzn.  n.20s20snubl#force\n50s_ \u001b;>100sFh Fhs100sFkFhFh\u0018\u001b50sFkFk20sFk.20sFkFkFhFkss_>.>_>.>150sFhFh.FhFhskhjFhFh 20sFkFu.100sFhFhFh100s100s 100s50sFhFhFh#pray\ny   y\u001by  y y y\u001b  1  df20s.sm.t$j  #name\na\n#chat\nj  #name\na\n20s  FlFlFlFlFlFlFlFlnklhlllhFhFhFhFhFhFhFhFhhlhlllllFhFhFhFhFh FhFhFhBUUU_ \u001b>.>KKKJ_>.>LJLK_>,><#jump\n<LBYN_>.>NYUJ_>.>tah#terrain\nc\n.HJNJ_>.>#dip\ni#force\nKHHH_>.>lbli\u001b\u0018\u001bjbj\u0018\u001blkhlkb_>.>100subni\u001b50sFlFlFlFlFl  y\u001by  y y y\u001b  s nujk100s         50s       100s         #jump\nkjy\u000f\u001b50s     150s                      jly150s                     #jump\n100s      Fb Fb.150s      ed  Fj ss150s               100s          50s    Fl.20s  ljnukj,lkn100s               FbFb 20s\u000f\u001b50s100s   100s50s100sed50sbhu100s  150s,kjb150s  lyjh50sunl50s\u0018\u001b#name\nm\n :50s#dip\nb100sykb50sunb150sed100s150s50s100skkn150s100sbuh#monster\n100s  \u000f\u001b\\ nhl,_>.>hhuhbh150seeeeeeeeeylnleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeubulbhllynhlhlkbdbs.suyjl#chat\nut\u001b#name\no\n20s#name\nf\n20sblkhjkkjbueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJNBH_>.>#invoke\n\u001b#tip\nh\u001bK LYN_>.>#rub\ng\u001bKYYKH_>.>YLUH_>,>HJ YN_>.>NUUU_>,>\u000f\u001bbjlunyjhyk20sjkjbt\u001bubhu10st\u001bub10sujjhkblklh#chat\nnt\u001blnhl#name\nf\nd..sJLUB_>.>BLLK_>,>YKYB_>.>hkynkbny#pray\ny 50s #pray\ny #pray\ny #pray\ny   \u0018\u001b100s #pray\ny  Fb Fb     nnnnn  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95432,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=runmode:run\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of death\nzn.  n.20s20s"
+  },
+  {
+   "seed": 195432,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": "nubl#force\n50s_ \u001b;>100sFh Fhs100sFkFhFh\u0018\u001b50sFkFk20sFk.20sFkFkFhFkss_>.>_>.>150sFhFh.FhFhskhjFhFh 20sFkFu.100sFhFhFh100s100s 100s50sFhFhFh#pray\ny   y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 295432,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=runmode:teleport\n",
+   "moves": "  df20s.sm.t$j  #name\na\n#chat\nj  #name\na\n20s  FlFlFlFlFlFlFlFlnklhlllhFhFhFhFhFhFhFhFhhlhlllllFhFhFhFhFh FhFhFhBUUU_ \u001b>.>KKKJ_>.>LJLK_>,><#jump\n<LBYN_>.>NYUJ_>.>tah#terrain\nc\n.HJNJ_>.>#dip\ni#force\nKHHH_>.>lbli\u001b\u0018\u001bjbj\u0018\u001blkhlkb_>.>100subni\u001b50sFlFlFlFlFl  y\u001by  y y y\u001b  s"
+  },
+  {
+   "seed": 395432,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": " nujk100s         50s       100s         #jump\nkjy\u000f\u001b50s     150s                      jly150s                     #jump\n100s      Fb Fb.150s      ed  Fj ss150s               100s          50s    Fl.20s  ljnukj,lkn100s               FbFb 20s\u000f\u001b50s100s   100s50s100sed50sbhu100s  150s,kjb150s  lyjh50sunl50s\u0018\u001b#name\nm\n :50s#dip\nb100sykb50sunb150sed100s150s50s100skkn150s100sbuh#monster\n100s  \u000f\u001b\\ nhl,_>.>hhuhbh150seeeeeeeeeylnleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeubulbhllynhlhlkbdbs.suyjl#chat\nut\u001b#name\no\n20s#name\nf\n20sblkhjkkjbueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJNBH_>.>#invoke\n\u001b#tip\nh\u001bK LYN_>.>#rub\ng\u001bKYYKH_>.>YLUH_>,>HJ YN_>.>NUUU_>,>\u000f\u001bbjlunyjhyk20sjkjbt\u001bubhu10st\u001bub10sujjhkblklh#chat\nnt\u001blnhl#name\nf\nd..sJLUB_>.>BLLK_>,>YKYB_>.>hkynkbny#pray\ny 50s #pray\ny #pray\ny #pray\ny   \u0018\u001b100s #pray\ny  Fb Fb     nnnnn  2"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0007electric eel\nFkFkFlFlFlFuFjFls.20sFns.s.s.sss20sFlss\u0017wand of cold\nzf.  y ny  ny\u001by  sFkFk FkFkFkFkFkFk_ \u001b<.>50sFnFnFnFn.s50s100s 100s yhhFjFj20s_>.>lnjlhl100s\\ #ride\nji\u001b100si\u001b\\ 50s50shhh_>.>100sllkFnFnFn50s_>.>50s#ride\nj100sblhFlFlFl #wipe\nuku100s150sbhn100sFkFkFkbhyhFlFlFlFlFlFlFlFlknny100shkn50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehlhkJHUK_>.>i\u001b\\ <NBHL_>.>LKYB_>,>YKYB_>,>KUJJ_>,>NUNL_>.>ukllkhlbkj20s10s20s#chat\nbunykFjFjFjFjFjFjFjFjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeunuukllkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20sku20s#chat\nuhldb20ss.#chat\nu#name\no\nhjkjee#pray\ny  #terrain\nb\nlhl_>100s 150sFj20s.\\ 50s_>.>100sFjFjs50s,100sFus.kjk_>,>50s100sFj..kjki\u001bnkk\\ 150s150s150sFj.._>,>100snbh100sFlFlsWi\u001b#loot\n10suybukhbl 50sey 100s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10slnyut\u001b#name\nm\n20st\u001bjjkl#name\nd\n#chat\nhjlhhynynkkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekjkjkjklFbFbFbFbFbFbFbFbt\u001b#chat\nnlhjlnybkde20ss20s#chat\nj20sda20s.m.sm.lkjkt\u001b#name\nd\nhnult\u001b#name\nd\n10s#name\ni\n#name\nd\nhlbHYYL_>.>w\u001bflNYHH_>.>Fj20s s#dip\nei\u001b<LLLN_>,>NYJK _>.>JJHB_>,>hujkYUKN_>.>#monster\neUHUB_>.>BNJN_>,>BNHN_>.><NHBU_>,>\\ ,LKLB_>.>NBKB _>.>\\ #ride\nybyllYUUB_>,>NBLB_>.>HLUN_>.>JJ NY_>.>HBYB_>,>dc\u0018\u001bHKBH_>.>KYBY_>.>#terrain\nb\nz\u000f llh hKYHU_>.>JLLL _>,>#twoweapon\n#name\no\nJBNJ _>.>NYY Y_>.>Fb  s20s \u000f\u001b#pray\ny  _>.>_>,>bhl100s150snuji\u001b#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95411,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007electric eel\nFkFkFlFlFlFuFjFls.20sFns.s.s.sss20sFlss"
+  },
+  {
+   "seed": 195411,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of cold\nzf.  y ny  ny\u001by  s"
+  },
+  {
+   "seed": 295411,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": "FkFk FkFkFkFkFkFk_ \u001b<.>50sFnFnFnFn.s50s100s 100s yhhFjFj20s_>.>lnjlhl100s\\ #ride\nji\u001b100si\u001b\\ 50s50shhh_>.>100sllkFnFnFn50s_>.>50s#ride\nj100sblhFlFlFl #wipe\nuku100s150sbhn100sFkFkFkbhyhFlFlFlFlFlFlFlFlknny100shkn50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehlhkJHUK_>.>i\u001b\\ <NBHL_>.>LKYB_>,>YKYB_>,>KUJJ_>,>NUNL_>.>ukllkhlbkj20s10s20s#chat\nbunykFjFjFjFjFjFjFjFjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeunuukllkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20sku20s#chat\nuhldb20ss.#chat\nu#name\no\nhjkjee#pray\ny  #terrain\nb\nlhl_>100s 150sFj20s.\\ 50s_>.>100sFjFjs50s,100sFus.kjk_>,>50s100sFj..kjki\u001bnkk\\ 150s150s150sFj.._>,>100snbh100sFlFlsWi\u001b#loot\n10suybukhbl 50sey 100s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10slnyut\u001b#name\nm\n20st\u001bjjkl#name\nd\n#chat\nhjlhhynynkkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekjkjkjklFbFbFbFbFbFbFbFbt\u001b#chat\nnlhjlnybkde20ss20s#chat\nj20sda20s.m.sm.lkjkt\u001b#name\nd\nhnult\u001b#name\nd\n10s#name\ni\n#name\nd\nhlbHYYL_>.>w\u001bflNYHH_>.>Fj20s s#dip\nei\u001b<LLLN_>,>NYJK _>.>JJHB_>,>hujkYUKN_>.>#monster\neUHUB_>.>BNJN_>,>BNHN_>.><NHBU_>,>\\ ,LKLB_>.>NBKB _>.>\\ #ride\nybyllYUUB_>,>NBLB_>.>HLUN_>.>JJ NY_>.>HBYB_>,>dc\u0018\u001bHKBH_>.>KYBY_>.>#terrain\nb\nz\u000f llh hKYHU_>.>JLLL _>,>#twoweapon\n#name\no\nJBNJ _>.>NYY Y_>.>Fb  s20s \u000f\u001b#pray\ny  _>.>_>,>bhl100s150snuji\u001b#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

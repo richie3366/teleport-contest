@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0007kitten\n;y, \u001b,sm.ss\u0007gnomish wizard\nFy Fk  Fb Fy  Fk    Fy\u0006_>,Fk _.Fy>_>._.>_>,_.>uda\u0006_>._.>_>._.>_>,_,>\u0006_>>._.>_>>,_.>_>>._,>\u0006_>._.>_>._.>_>._.>\u0006_>._,>_>._,>_>._.>\u0006_>._.>_>._,>_>._.>\u0004j,\\   #levelchange\n14\n   jhlk\u0017hole\nj\u0007acid blob\ns20sssyh\u0017spiked pit\nk#untrap\nj\u0017beartrap\naej b<#chat\nl\u000f\u001b\u001614\n  \u0007white unicorn\n\u0017scroll of taming\nrf  \u001b\u0017saddle\nagj\u0017lance\nwh#ride\nuy\u0007tame saddled horse\n#ride\njy\u0007warhorse\n\u0017scroll of taming\nri \u0017saddle\najk  #ride\n      ,      h    l   y           n    j  k     h    \u0007grid bug\nFj  Fj    s  #levelchange\n20\n    #wizintrinsic\ng\n s s   20s                           s. 20s                               s.s20s  \u0017oilskin sack\nalo\nalb\nf\n\u001b#tip\nl\u001b#pray\ny y  ol#name\na\n,   #untrap\nbfsn ssu.ssj#levelchange\n20\n\u001627\n   <#invoke\n\u001b#loot\njy ;_.\u0006s20s  \u0016?\n>y  J 20s#name\no\nss \u001623\n<tau#untrap\n.;<.\u0006..\u0016?\n>u #loot\n\u0014<.i\u001bss\u0016?\nb  E- I am a fish\n<10s;.20s20s\u001612\n    \u0017elven leather helm\nWo.y       20s    sh  To        \u0007yellow mold\nFj   Fn   n    n     Fh  n   Fn  n  n    Fn   \u0007ape\n;l:  20s    20s           n      sm.   \u00166\n#wizintrinsic\njho\n .20s .  n 20s.20ss.  n20ss.s.20s  n .20s20s s  n .sss\u0017potion of sickness\nqp #pray\ny y   \u000f\u001b#ride\nby#offer\nanb\u000f\u001bss.s20s.  n \u000f\u001b\u00161\n\u0006_>>.Fl _.  n Fu>FuFu_>>,Fu  n _.Fu>FuFu  n _>>.Fu_.Fu  n>FuFuFuFuFu  yy\u001b y   y y y\u001by  \u0006"
+ },
+ "segments": [
+  {
+   "seed": 95323,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0007kitten\n;y, \u001b,sm.ss\u0007gnomish wizard\nFy Fk  Fb Fy  Fk    Fy\u0006_>,Fk _.Fy>_>._.>_>,_.>uda\u0006_>._.>_>._.>_>,_,>\u0006_>>._.>_>>,_.>_>>._,>\u0006_>._.>_>._.>_>._.>\u0006_>._,>_>._,>_>._.>\u0006_>._.>_>._,>_>._.>\u0004j,\\   #levelchange\n14\n   jhlk\u0017hole\nj\u0007acid blob\ns20sssyh\u0017spiked pit\nk#untrap\nj\u0017beartrap\naej b<#chat\nl\u000f\u001b\u001614\n  \u0007white unicorn\n\u0017scroll of taming\nrf  \u001b\u0017saddle\nagj\u0017lance\nwh#ride\nuy\u0007tame saddled horse\n#ride\njy\u0007warhorse\n\u0017scroll of taming\nri \u0017saddle\najk  #ride\n      ,      h    l   y           n    j  k     h    \u0007grid bug\nFj  Fj    s  #levelchange\n20\n    #wizintrinsic\ng\n s s   20s                           s. 20s                               s.s20s  \u0017oilskin sack\nalo\nalb\nf\n\u001b#tip\nl\u001b#pray\ny y  ol#name\na\n,   #untrap\nbfsn ssu.ssj#levelchange\n20\n\u001627\n   <#invoke\n\u001b#loot\njy ;_.\u0006s20s  \u0016?\n>y  J 20s#name\no\nss \u001623\n<tau#untrap\n.;<.\u0006..\u0016?\n>u #loot\n\u0014<.i\u001bss\u0016?\nb  E- I am a fish\n<10s;.20s20s\u001612\n    \u0017elven leather helm\nWo.y       20s    sh  To        \u0007yellow mold\nFj   Fn   n    n     Fh  n   Fn  n  n    Fn   \u0007ape\n;l:  20s    20s           n      sm.   \u00166\n#wizintrinsic\njho\n .20s .  n 20s.20ss.  n20ss.s.20s  n .20s20s s  n .sss\u0017potion of sickness\nqp #pray\ny y   \u000f\u001b#ride\nby#offer\nanb\u000f\u001bss.s20s.  n \u000f\u001b\u00161\n\u0006_>>.Fl _.  n Fu>FuFu_>>,Fu  n _.Fu>FuFu  n _>>.Fu_.Fu  n>FuFuFuFuFu  yy\u001b y   y y y\u001by  \u0006"
+  }
+ ]
+}

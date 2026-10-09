@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " FhFh .\u0018\u001b,_ \u001b>.>#sit\n\u000f\u001bnhkkWi\u001b100s50sFk20s20s_>.>_>.>i\u001b150s50snbj#wipe\n_>.>df100s100s100skny_>.>150s_>.>buhFkFkFkFus20s100s150s ed jhkuub100sFuFus_>,>#chat\nbdgs20s20s#name\na\n#chat\nhdbs.sjjhlhuLLNY_>.>LNUY_>,>HLKU_>.>h#twoweapon\nLKLB_>.>UKHY_>.>BUYK_>.>#chat\nkt\u001b20s#name\na\njjkknull:100s 50sbnb100s50shkyjyu150s100sFjFjFjFj20s.150s50s50s ed50s_>.>50s_>,>100snnn\\ kky#loot\n50s;<.i\u001b50s 150sjhk\\ \u0004u100s_>,>100s100s;<.#wipe\n\u0014#dip\ndUKBJ_>.>KBYY_>.>10s#jump\nBYYL_>.>YHYB_>.>NJUN_>.>\u000f\u001bBLYB_>.>BKHY_>.>10s#pray\ny   HJKH_>.><#pray\ny 100s50s100s150snny100s \u000f\u001b100sbju\\ 100s_>.>50s100sFjFj Fb Fb Fb Fb Fb Fb   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95500,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": " FhFh .\u0018\u001b,_ \u001b>.>#sit\n\u000f\u001bnhkkWi\u001b100s50sFk20s20s_>.>_>.>i\u001b150s50snbj#wipe\n_>.>df100s100s100skny_>.>150s_>.>buhFkFkFkFus20s100s150s ed jhkuub100sFuFus_>,>#chat\nbdgs20s20s#name\na\n#chat\nhdbs.sjjhlhuLLNY_>.>LNUY_>,>HLKU_>.>h#twoweapon\nLKLB_>.>UKHY_>.>BUYK_>.>#chat\nkt\u001b20s#name\na\njjkknull:100s 50sbnb100s50shkyjyu150s100sFjFjFjFj20s.150s50s50s ed50s_>.>50s_>,>100snnn\\ kky#loot\n50s;<.i\u001b50s 150sjhk\\ \u0004u100s_>,>100s100s;<.#wipe\n\u0014#dip\ndUKBJ_>.>KBYY_>.>10s#jump\nBYYL_>.>YHYB_>.>NJUN_>.>\u000f\u001bBLYB_>.>BKHY_>.>10s#pray\ny   HJKH_>.><#pray\ny 100s50s100s150snny100s \u000f\u001b100sbju\\ 100s_>.>50s100sFjFj Fb Fb Fb Fb Fb Fb   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

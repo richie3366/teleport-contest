@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " Fn ..\u000f\u001b100sFjFj.100s100s50s150s100s100s_ \u001bm.>100s100sFbFb20s50sjyj50s100s\\    #terrain\nb\nnlh100s 150seeeeeeeeeeeeeeeeeBHLJ_>.>WqYKYK_>.>LKBK_>.>NNJK_>.>s#loot\n\u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeewb <#sit\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee>#conduct\n chJNHU_>.>tcb#sit\nUBUJ_>.>\u0014#enhance\n\u001bKBJH_>,>UHLB_>,>FjFjFjYYHB_>.>YUJK_>.>ef eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nbtan\u0018\u001bHUYH_>,>ch#tip\n\u001bBUYY_>.>LKNB_>.>KJNN_>.><KJJH_>.>KNKB_>,>dd20ss20stalku#chat\nbtcy#pray\ny   150s150s50s#monster\n_>.>_>.>_>.>100s\u000f\u001b100s_>.>\\    hjni\u001b\u000f\u001b100slhy#conduct\n 100sFnFns_>.>b100skjkjkjkjk_>.>i\u001bjkj50skjkjkj100seeeeeeUHKL_>,>JJHU_>,>HHKJ_>.>YUUN_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLKYU_>,>YLNK_>.>LULB _>.>\u0004lq<KLNB_>.>i\u001b<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#wipe\n:WUYYL_>.>;.f \u001bUH NU_>,>#loot\n#untrap\ny"
+ },
+ "segments": [
+  {
+   "seed": 95508,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": " Fn ..\u000f\u001b100sFjFj.100s100s50s150s100s100s_ \u001bm.>100s100sFbFb20s50sjyj50s100s\\    #terrain\nb\nnlh100s 150seeeeeeeeeeeeeeeeeBHLJ_>.>WqYKYK_>.>LKBK_>.>NNJK_>.>s#loot\n\u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeewb <#sit\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee>#conduct\n chJNHU_>.>tcb#sit\nUBUJ_>.>\u0014#enhance\n\u001bKBJH_>,>UHLB_>,>FjFjFjYYHB_>.>YUJK_>.>ef eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nbtan\u0018\u001bHUYH_>,>ch#tip\n\u001bBUYY_>.>LKNB_>.>KJNN_>.><KJJH_>.>KNKB_>,>dd20ss20stalku#chat\nbtcy#pray\ny   150s150s50s#monster\n_>.>_>.>_>.>100s\u000f\u001b100s_>.>\\    hjni\u001b\u000f\u001b100slhy#conduct\n 100sFnFns_>.>b100skjkjkjkjk_>.>i\u001bjkj50skjkjkj100seeeeeeUHKL_>,>JJHU_>,>HHKJ_>.>YUUN_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLKYU_>,>YLNK_>.>LULB _>.>\u0004lq<KLNB_>.>i\u001b<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#wipe\n:WUYYL_>.>;.f \u001bUH NU_>,>#loot\n#untrap\ny"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u0017blessed Mjollnir\nwh \u001614\n\u0007Kop Kaptain\n#chat\nhFjFj \u0007soldier\n#chat\njFb Fj   \u0007xan\nsm.20s 20s  20s  sj sj20s\u001617\n#levelchange\n10\n      \u001710 daggers\n Qi\u0007soldier\nhlfy fyFy Fl x    #twoweapon\nFy  Fy   nunu, \u001617\nnhhll:\u0016?\n>J_ \u001b<.>\u001635\n jjb:\u0016?\n>B  _<,_,>\u0016?\n>u hhlh\u0017chaotic altar\ndidb   \u0017floating eye corpse\n#offer\nk     #pray\ny y   : h\u0017unaligned altar\ndd\u0017jackal corpse\n#offer\nl : k\u0017pool\n#terrain\ne\n;m,#pray\ny y  n    #wipe\n\u0016?\nmlnb:..20s\u001637\n jjb  k :\u001638\n lbjllhy:\u001644\n__.>\u0016?\n>>M     20 shuriken\n#chat\nj;j,\u0016?\n\u001bhk    \u001b   \u001641\n\u0004h\u001610\n#levelchange\n10\n\u0017elven bow\nwo  \u001720 elven arrows\nQp\u0007hill orc\nll    \u001bfhfu   n         fu         n    fj \u0017potion of see invisible\ntpk\u0007giant rat\nh  fkfk fk   n    Fy       n     Fk lb y   n         ,#enhance\nyg\ni\n\u001b.   20s20s  \u00169\n\u00166\n\u0017helm of opposite alignment\nWr    n            20s          n .s  \u0007piranha\n;j;ss\u001b20s \u0007prisoner\n#chat\nFkFk  \u0007ape\nFj Fk Fk  n         \u001b  Fj Fj.s    \u00167\n\u001642\n\u0014<.       \u001614\n"
+ },
+ "segments": [
+  {
+   "seed": 95234,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u0017blessed Mjollnir\nwh \u001614\n\u0007Kop Kaptain\n#chat\nhFjFj \u0007soldier\n#chat\njFb Fj   \u0007xan\nsm.20s 20s  20s  sj sj20s\u001617\n#levelchange\n10\n      \u001710 daggers\n Qi\u0007soldier\nhlfy fyFy Fl x    #twoweapon\nFy  Fy   nunu, \u001617\nnhhll:\u0016?\n>J_ \u001b<.>\u001635\n jjb:\u0016?\n>B  _<,_,>\u0016?\n>u hhlh\u0017chaotic altar\ndidb   \u0017floating eye corpse\n#offer\nk     #pray\ny y   : h\u0017unaligned altar\ndd\u0017jackal corpse\n#offer\nl : k\u0017pool\n#terrain\ne\n;m,#pray\ny y  n    #wipe\n\u0016?\nmlnb:..20s\u001637\n jjb  k :\u001638\n lbjllhy:\u001644\n__.>\u0016?\n>>M     20 shuriken\n#chat\nj;j,\u0016?\n\u001bhk    \u001b   \u001641\n\u0004h\u001610\n#levelchange\n10\n\u0017elven bow\nwo  \u001720 elven arrows\nQp\u0007hill orc\nll    \u001bfhfu   n         fu         n    fj \u0017potion of see invisible\ntpk\u0007giant rat\nh  fkfk fk   n    Fy       n     Fk lb y   n         ,#enhance\nyg\ni\n\u001b.   20s20s  \u00169\n\u00166\n\u0017helm of opposite alignment\nWr    n            20s          n .s  \u0007piranha\n;j;ss\u001b20s \u0007prisoner\n#chat\nFkFk  \u0007ape\nFj Fk Fk  n         \u001b  Fj Fj.s    \u00167\n\u001642\n\u0014<.       \u001614\n"
+  }
+ ]
+}

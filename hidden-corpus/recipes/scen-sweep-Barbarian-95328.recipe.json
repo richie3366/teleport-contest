@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017bag of holding\n\u0017sack\n\u0017ring of hunger\n\u0017wand of teleportation\ndfk\u0004jnyda#loot\n,#tip\ng\u001b\u0017long sword\nwjdb#force\nss.\u0017credit card\nddak.ss20s#loot\ni\u001b\u0007Medusa\nyFnFn n Fn n Fn n   nsb20s n   n\u0007rust monster\nFl  n   nFn    n    Fl     n   n    Fl     n    Fn     n     Fn     n  n    sm.    yy\u001bnny y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 95328,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017bag of holding\n\u0017sack\n\u0017ring of hunger\n\u0017wand of teleportation\ndfk\u0004jnyda#loot\n,#tip\ng\u001b\u0017long sword\nwjdb#force\nss.\u0017credit card\nddak.ss20s#loot\ni\u001b\u0007Medusa\nyFnFn n Fn n Fn n   nsb20s n   n\u0007rust monster\nFl  n   nFn    n    Fl     n   n    Fl     n    Fn     n     Fn     n  n    sm.    yy\u001bnny y\u001by  2"
+  }
+ ]
+}

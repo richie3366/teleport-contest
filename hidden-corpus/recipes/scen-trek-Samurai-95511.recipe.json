@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  kbbjytbu10s tdu  10stcl#chat\nu#jump\ndd\u0014des20s.lb10s yude20sss20she#pray\ny   Fj s.\u0018\u001b_ \u001b.>100s100s#offer\n50s100s\\    100s100sFh20sFhFhFhs100s\\    100s 50slnn_>,>khj\u0018\u001b\\    lkh<50sFhs20snhh#offer\n100sunh100s150sFhss150s50sFhs20s50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJLHH_>.>FysFyLNJL_>.>Fb.Fh#dip\ne ,HLUB_>,>FbFbFb#force\n#chat\nbHNBY_>.>FhFksLLLL_>.><YYYJ_>.>Fh..ckaJNJJ_>.><10s\u000f\u001bLLNB_>,>UKBY_>.>HYJH_>.>Fh.sLBYN_>,>UNYY_>.>;.10sBBKY_>,>10sZ\u000f\u001bdbsm.20ssm.10s10sj20see#pray\ny    eeee#pray\ny  y\u001by  y y y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 95511,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "  kbbjytbu10s tdu  10stcl#chat\nu#jump\ndd\u0014des20s.lb10s yude20sss20she#pray\ny   Fj s.\u0018\u001b_ \u001b.>100s100s#offer\n50s100s\\    100s100sFh20sFhFhFhs100s\\    100s 50slnn_>,>khj\u0018\u001b\\    lkh<50sFhs20snhh#offer\n100sunh100s150sFhss150s50sFhs20s50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJLHH_>.>FysFyLNJL_>.>Fb.Fh#dip\ne ,HLUB_>,>FbFbFb#force\n#chat\nbHNBY_>.>FhFksLLLL_>.><YYYJ_>.>Fh..ckaJNJJ_>.><10s\u000f\u001bLLNB_>,>UKBY_>.>HYJH_>.>Fh.sLBYN_>,>UNYY_>.>;.10sBBKY_>,>10sZ\u000f\u001bdbsm.20ssm.10s10sj20see#pray\ny    eeee#pray\ny  y\u001by  y y y\u001b  #"
+  }
+ ]
+}

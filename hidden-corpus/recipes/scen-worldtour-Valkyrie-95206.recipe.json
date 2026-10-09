@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwe\u0017blessed ring of free action\nPfl\u0017blessed amulet of reflection\nPg \u0016?\n>>L      potion of extra healing\n\u0004k\u0016?\n\u001bb      n   \u0016?\n\u001bu  \u001bk  \u0016?\n\u001bnn   \u0016?\n\u001bu   n\u0016?\n\u001by    u    \u0016?\n\u001bj  n      l            \u0016?\n\u001blh      n        \u0016?\n\u001bl  b      n    \u0016?\n\u001bk       y     n          \u00166\n_ \u001b<.\u0016?\n\u001bb        l\u001628\nb       j      n  uh     k     n    :20s     sus\u00165\n\u0016?\n\u001bb     n  k        \u0016?\n\u001buy     n    \u0016?\n\u001bk      k       \u001b           n \u0016?\n\u001blb    \u0016?\n\u001bk u\u001618\n\u0006_<.\u001618\n\u0014,  \u001630\nnb   n   :   \u0016?\n\u001by  n     \u001b  b   \u0016?\n\u001bb \u001b  n       y     n  \u00165\n\u0016?\n\u001bb   n    u      \u0016?\n\u001blj\u0016?\n\u001bk        n j       \u0016?\n\u001bh  yny   nny\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 95206,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwe\u0017blessed ring of free action\nPfl\u0017blessed amulet of reflection\nPg \u0016?\n>>L      potion of extra healing\n\u0004k\u0016?\n\u001bb      n   \u0016?\n\u001bu  \u001bk  \u0016?\n\u001bnn   \u0016?\n\u001bu   n\u0016?\n\u001by    u    \u0016?\n\u001bj  n      l            \u0016?\n\u001blh      n        \u0016?\n\u001bl  b      n    \u0016?\n\u001bk       y     n          \u00166\n_ \u001b<.\u0016?\n\u001bb        l\u001628\nb       j      n  uh     k     n    :20s     sus\u00165\n\u0016?\n\u001bb     n  k        \u0016?\n\u001buy     n    \u0016?\n\u001bk      k       \u001b           n \u0016?\n\u001blb    \u0016?\n\u001bk u\u001618\n\u0006_<.\u001618\n\u0014,  \u001630\nnb   n   :   \u0016?\n\u001by  n     \u001b  b   \u0016?\n\u001bb \u001b  n       y     n  \u00165\n\u0016?\n\u001bb   n    u      \u0016?\n\u001blj\u0016?\n\u001bk        n j       \u0016?\n\u001bh  yny   nny\u001b  h"
+  }
+ ]
+}

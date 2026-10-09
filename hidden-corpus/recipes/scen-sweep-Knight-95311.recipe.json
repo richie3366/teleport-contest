@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           \u0016?\n>GKab   \u001b,s;l.ss\u0016?\n>I#offer\n#dip\ng#terrain\nf\n;b;.20s  \u0016?\n>>\u001b\u001620\n\\   #chat\nl#conduct\n ;k.20s20s\u001622\n,:#wipe\ns20s\u001614\n\u0017large box\n \u0017sack\n\u0017ice box\n\u0017ring of slow digestion\n#tip\nyj\n\u0017long sword\nwmdi#force\ny .ss\u0017lock pick\ndjan.ys20s20s#loot\nc\ni\nab <.anj \u0017long sword\nwo dn#force\n ss.\u001618\n\u0006hkbk\u0017iron bars\nlhhhll\u0017unaligned altar\ndldf\u0017dwarf corpse\n kn\u0017tree\nu\u0004b\u0004b\u0004b ,P<#wizintrinsic\nmh\n  \u0017cursed scroll of gold detection\nrq >.jbu\u0017kelp frond\ner\u0017glob of green slime\nes  buk\u0017blessed scroll of remove curse\nrt  .l20s 20s     n \u0006\u0007minotaur\n;b,.  sm.20s \u0007giant rat\n20s su20s  sk20s 20s sbss\u0007piranha\n;h,sh   n   sls\u0007gecko\n;b..m.  n     n.nsm.    n \u001610\n\u0007sergeant\nFhFh\u0007jellyfish\nFh Fh  Fh \u0007Pestilence\nn#chat\nh Fb    n  Fh    n  \u0007blue jelly\n;b;sk     n .y     n20s  \u00168\n\u00175000 gold pieces\n\u0016?\n>x\u0006\u0017blessed potion of object detection\nqu;   n  _ooooooo.Fl    n _.,Fl    n,p_ooo,Fu     n_,   Fn   n ,\u0014<._ooooooo.Fb_.Fh  n,p__.Fb_.,Fh#chat\nh#pray\ny y   _mm.#chat\nh#chat\nh#untrap\nh#force\n\u0006jkE- I am a fish\n\u0017wand of teleportation\nEv  Elbereth Elbereth\n\u0017wand of cancellation\nEw  I am a fish\ny\u0017towel\nEx:hE-n  Vlad was here\n\u0007minotaur\nsyss\u00173 20 shuriken\n \u001b\u0007gecko\n,\u0017blessed javelin\nwz Fl    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 95311,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           \u0016?\n>GKab   \u001b,s;l.ss\u0016?\n>I#offer\n#dip\ng#terrain\nf\n;b;.20s  \u0016?\n>>\u001b\u001620\n\\   #chat\nl#conduct\n ;k.20s20s\u001622\n,:#wipe\ns20s\u001614\n\u0017large box\n \u0017sack\n\u0017ice box\n\u0017ring of slow digestion\n#tip\nyj\n\u0017long sword\nwmdi#force\ny .ss\u0017lock pick\ndjan.ys20s20s#loot\nc\ni\nab <.anj \u0017long sword\nwo dn#force\n ss.\u001618\n\u0006hkbk\u0017iron bars\nlhhhll\u0017unaligned altar\ndldf\u0017dwarf corpse\n kn\u0017tree\nu\u0004b\u0004b\u0004b ,P<#wizintrinsic\nmh\n  \u0017cursed scroll of gold detection\nrq >.jbu\u0017kelp frond\ner\u0017glob of green slime\nes  buk\u0017blessed scroll of remove curse\nrt  .l20s 20s     n \u0006\u0007minotaur\n;b,.  sm.20s \u0007giant rat\n20s su20s  sk20s 20s sbss\u0007piranha\n;h,sh   n   sls\u0007gecko\n;b..m.  n     n.nsm.    n \u001610\n\u0007sergeant\nFhFh\u0007jellyfish\nFh Fh  Fh \u0007Pestilence\nn#chat\nh Fb    n  Fh    n  \u0007blue jelly\n;b;sk     n .y     n20s  \u00168\n\u00175000 gold pieces\n\u0016?\n>x\u0006\u0017blessed potion of object detection\nqu;   n  _ooooooo.Fl    n _.,Fl    n,p_ooo,Fu     n_,   Fn   n ,\u0014<._ooooooo.Fb_.Fh  n,p__.Fb_.,Fh#chat\nh#pray\ny y   _mm.#chat\nh#chat\nh#untrap\nh#force\n\u0006jkE- I am a fish\n\u0017wand of teleportation\nEv  Elbereth Elbereth\n\u0017wand of cancellation\nEw  I am a fish\ny\u0017towel\nEx:hE-n  Vlad was here\n\u0007minotaur\nsyss\u00173 20 shuriken\n \u001b\u0007gecko\n,\u0017blessed javelin\nwz Fl    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

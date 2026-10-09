@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj \u001626\n\u0006_ \u001b;\u001626\n\u0006_>,  _.,\u001626\n__,> \u0016?\n>>P  \u0004u\u001623\n\u0007little dog\n20s20s20ssm.20s20s\u0007Orcus\nn20s.m.20s.m.20s20ssm.    .m.sh\u0007Demogorgon\nn;j:  20s   n  sm.    n      sm.    n   \u0007trapper\nFj    Fh FkFkFk\u0016\u0016yj\u0016hh\u0016yh\u0016lj\u0016bn\u0016yj\u0016nj\u0016nj\u0016hl\u0016nh\u0016hb\u0016lj\u0016un\u0016jl\u0016hl\u0016ny\u0016bn\u0016kk\u0016yn\u0016jy\u0016lb\u0016ly\u0016bh\u0016kj\u0016ln\u0016jb\u0016uy\u0016jy\u0016hl\u0016yh\u0016hu\u0016hy\u0016bn\u0016nu\u0016lu\u0016kj\u0016jk\u0016bu\u0016uh\u0016ub\u0016lk\u0016ub\u0016un\u0016yu\u0016kh\u0016hb\u0016nu\u0016hj\u0016bb\u0016lk\u0016yn\u0016lk\u0016lk\u0016yj\u0016jb\u0016yb\u0016jk\u0016jh\u0016uj\u0016jb\u0016jn\u0016lh\u0016bb\u0016yn\u0016lu\u0016lb\u0016ku\u0016kb\u0016hn\u0016ln\u0016bj\u0016lj\u0016bk\u0016jb\u0016ul"
+ },
+ "segments": [
+  {
+   "seed": 95230,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj \u001626\n\u0006_ \u001b;\u001626\n\u0006_>,  _.,\u001626\n__,> \u0016?\n>>P  \u0004u\u001623\n\u0007little dog\n20s20s20ssm.20s20s\u0007Orcus\nn20s.m.20s.m.20s20ssm.    .m.sh\u0007Demogorgon\nn;j:  20s   n  sm.    n      sm.    n   \u0007trapper\nFj    Fh FkFkFk\u0016\u0016yj\u0016hh\u0016yh\u0016lj\u0016bn\u0016yj\u0016nj\u0016nj\u0016hl\u0016nh\u0016hb\u0016lj\u0016un\u0016jl\u0016hl\u0016ny\u0016bn\u0016kk\u0016yn\u0016jy\u0016lb\u0016ly\u0016bh\u0016kj\u0016ln\u0016jb\u0016uy\u0016jy\u0016hl\u0016yh\u0016hu\u0016hy\u0016bn\u0016nu\u0016lu\u0016kj\u0016jk\u0016bu\u0016uh\u0016ub\u0016lk\u0016ub\u0016un\u0016yu\u0016kh\u0016hb\u0016nu\u0016hj\u0016bb\u0016lk\u0016yn\u0016lk\u0016lk\u0016yj\u0016jb\u0016yb\u0016jk\u0016jh\u0016uj\u0016jb\u0016jn\u0016lh\u0016bb\u0016yn\u0016lu\u0016lb\u0016ku\u0016kb\u0016hn\u0016ln\u0016bj\u0016lj\u0016bk\u0016jb\u0016ul"
+  }
+ ]
+}

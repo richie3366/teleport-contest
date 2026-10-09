@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "B  NHH_ \u001b:>FlFkFl#chat\nk#dip\nf HJUN_>.>de\\   JKYU_>.>\u000f\u001bLNBK_>.>KNLU_>,>FhFksJLUN_>.>JLBK_>.>Fh20sFh#name\nf\n10s\u000f\u001b#force\nZqFjFhFjFjFjs_>.>#enhance\n\u001b10sFjFh s50s100s100s\u0018\u001b#jump\n.\u000f\u001bs100s_>,>150s blheh100sbkbFyFyFyFyFyFy100slky#loot\n100s50sFhs20s_>,>150s_>,>_>.>100sehhbnllyuhnjkh150s50sFh20sseg\u0018\u001blhl<hyl100s100sFhFhFhFh.seh100s150seg100seg50seh_>.>50seh100segjjh50seg50seh eh100seg50seh50s eh eh150s eh 100seg50seh50seg\\   lky50sFy.set exeg100s_>.>50seg50sFyFyFy50snkn#dip\nghuhFh20s.eg_>.>;<.jbl100seg100skbyFk20s.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJYJL_>.>HJHB_>.>:\u0018\u001b<BK BJ_>,>K BN K_>,>#ride\nj#mon"
+ },
+ "segments": [
+  {
+   "seed": 95507,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "B  NHH_ \u001b:>FlFkFl#chat\nk#dip\nf HJUN_>.>de\\   JKYU_>.>\u000f\u001bLNBK_>.>KNLU_>,>FhFksJLUN_>.>JLBK_>.>Fh20sFh#name\nf\n10s\u000f\u001b#force\nZqFjFhFjFjFjs_>.>#enhance\n\u001b10sFjFh s50s100s100s\u0018\u001b#jump\n.\u000f\u001bs100s_>,>150s blheh100sbkbFyFyFyFyFyFy100slky#loot\n100s50sFhs20s_>,>150s_>,>_>.>100sehhbnllyuhnjkh150s50sFh20sseg\u0018\u001blhl<hyl100s100sFhFhFhFh.seh100s150seg100seg50seh_>.>50seh100segjjh50seg50seh eh100seg50seh50s eh eh150s eh 100seg50seh50seg\\   lky50sFy.set exeg100s_>.>50seg50sFyFyFy50snkn#dip\nghuhFh20s.eg_>.>;<.jbl100seg100skbyFk20s.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJYJL_>.>HJHB_>.>:\u0018\u001b<BK BJ_>,>K BN K_>,>#ride\nj#mon"
+  }
+ ]
+}

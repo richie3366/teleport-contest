@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>>M     spellbook of wizard lock\n#levelchange\n20\n\u0017potion of polymorph\nqq\u00173 tinning kit\nar      \u0017wand of probing\nzsj   \u0017cursed ruby\n\u0007pit fiend\nt\u001b\u001b\u0017scroll of food detection\nru             n Fn       Fk \u0017ring of warning\n\u0007dwarf\nPvr  . s 20s     n  R   20s        n   .k          n \u00166\n\u001636\n\u0017two-handed sword\nww          Fk Fj  n   Fj \u0007rock piercer\n;k. \u001b:  s\u001bs   s \u0007orc shaman\n. 20s   n   20s     n     . .     n sm.    20s  .         \u0007ice devil\n#chat\nFj Fk   n    \u00163\n\u0016?\nbk         n y y  n b l  n:\u001610\n\u001635\nn  l jl   njn:s\u001619\n\u0007newt\nFl  20s20s  \u0007vampire bat\nFj  n FjFnFj   nFkFk\u0007wererat\nFy  nFk    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95207,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>>M     spellbook of wizard lock\n#levelchange\n20\n\u0017potion of polymorph\nqq\u00173 tinning kit\nar      \u0017wand of probing\nzsj   \u0017cursed ruby\n\u0007pit fiend\nt\u001b\u001b\u0017scroll of food detection\nru             n Fn       Fk \u0017ring of warning\n\u0007dwarf\nPvr  . s 20s     n  R   20s        n   .k          n \u00166\n\u001636\n\u0017two-handed sword\nww          Fk Fj  n   Fj \u0007rock piercer\n;k. \u001b:  s\u001bs   s \u0007orc shaman\n. 20s   n   20s     n     . .     n sm.    20s  .         \u0007ice devil\n#chat\nFj Fk   n    \u00163\n\u0016?\nbk         n y y  n b l  n:\u001610\n\u001635\nn  l jl   njn:s\u001619\n\u0007newt\nFl  20s20s  \u0007vampire bat\nFj  n FjFnFj   nFkFk\u0007wererat\nFy  nFk    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                      \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of reflection\nPk\u0017blessed amulet of life saving\nPl\u0016?\nr hj:\u0016?\n>Gkbujby:sss\u0016?\njhhlhl:\u0016?\n>J       20 elven arrows\njy           u    n       \u001b        n l             n          n     y          n                   n   u          n            b   n                  n            :\u001610\n\u0016?\ndl    n    j    k   :20s    \u0016?\n\u001bh           n  y        \u0016?\nc \u0017Hawaiian shirt\nW\u001bsk20s  sm.       \u0007floating eye\nFj FjFj  Fn Fjs 20s \u0007owlbear\nFk   Fh  FjFj FkFjFjs\u001b.\u0007gas spore\nFj   Fj        Fu   s .#pray\ny y \u0016?\na  h    n         u             b            j              n              u          n    \u001b k            n  y           :    yy\u001by   y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 95223,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                      \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of reflection\nPk\u0017blessed amulet of life saving\nPl\u0016?\nr hj:\u0016?\n>Gkbujby:sss\u0016?\njhhlhl:\u0016?\n>J       20 elven arrows\njy           u    n       \u001b        n l             n          n     y          n                   n   u          n            b   n                  n            :\u001610\n\u0016?\ndl    n    j    k   :20s    \u0016?\n\u001bh           n  y        \u0016?\nc \u0017Hawaiian shirt\nW\u001bsk20s  sm.       \u0007floating eye\nFj FjFj  Fn Fjs 20s \u0007owlbear\nFk   Fh  FjFj FkFjFjs\u001b.\u0007gas spore\nFj   Fj        Fu   s .#pray\ny y \u0016?\na  h    n         u             b            j              n              u          n    \u001b k            n  y           :    yy\u001by   y y y\u001b  \u0016"
+  }
+ ]
+}

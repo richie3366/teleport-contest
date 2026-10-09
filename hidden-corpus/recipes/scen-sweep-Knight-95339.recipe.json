@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n6\n\u0007ochre jelly\n#pray\ny y   FlFl Fj Fy20sFhFnFjsFuFy#wizintrinsic\nfe\n sm.20s  .m.20s     sys20s      n.s.20ssss\u0017can of grease\naii\u0004yZi\u001b,#untrap\nb#chat\njssss20ss\u001630\n   yhkn \u0017altar\ndi  dh \u0017elf corpse\n#offer\nj     : nn\u0017unaligned altar\ndgda \u0017newt corpse\n#offer\nk    n #pray\ny          n      k\u0017neutral altar\ndk \u0017jackal corpse\n #offer\nnl      u    n u \u0017melting ice\nlh       h   n   h   n   :#terrain\nf\nnwb     #wipe\n     n  \u00167\n#wizintrinsic\nf\n \u0017fortune cookie\nem   \u0017scroll of enchant armor\nrn  \u0017scroll of charging\nro \u001b \u0017cursed scroll of taming\nrp \u001b\u0017blessed scroll of food detection\nrq  \u001b>.20s  n sjsm.#levelchange\n14\n        \u0016?\n>y  _mmm.  Fh _. Fl      n #chat\nl_m. Fh   _.#chat\nn_m.Fk   _.#chat\nl;u:  _mmmm.    n Fl    _.#chat\nl\u0016?\n>>\u001bh     #sit\n      ,\u001610\n#levelchange\n30\n               \u0007grey-elf\n;y;20s     .m.    20s     \u0007lurker above\n#chat\nl   n     Fh     Fy      \u0007Orcus\ny#chat\nuFl      n  Fk        \u001612\n\u001710 daggers\nQr\u0007sewer rat\nu          fu    n n       fl         fl   \u001b      fk              Fl   n       Fl     \u0007giant rat\nk   l       fu       fk     yy\u001by   y y y\u001b   f"
+ },
+ "segments": [
+  {
+   "seed": 95339,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n8\n       #levelchange\n6\n\u0007ochre jelly\n#pray\ny y   FlFl Fj Fy20sFhFnFjsFuFy#wizintrinsic\nfe\n sm.20s  .m.20s     sys20s      n.s.20ssss\u0017can of grease\naii\u0004yZi\u001b,#untrap\nb#chat\njssss20ss\u001630\n   yhkn \u0017altar\ndi  dh \u0017elf corpse\n#offer\nj     : nn\u0017unaligned altar\ndgda \u0017newt corpse\n#offer\nk    n #pray\ny          n      k\u0017neutral altar\ndk \u0017jackal corpse\n #offer\nnl      u    n u \u0017melting ice\nlh       h   n   h   n   :#terrain\nf\nnwb     #wipe\n     n  \u00167\n#wizintrinsic\nf\n \u0017fortune cookie\nem   \u0017scroll of enchant armor\nrn  \u0017scroll of charging\nro \u001b \u0017cursed scroll of taming\nrp \u001b\u0017blessed scroll of food detection\nrq  \u001b>.20s  n sjsm.#levelchange\n14\n        \u0016?\n>y  _mmm.  Fh _. Fl      n #chat\nl_m. Fh   _.#chat\nn_m.Fk   _.#chat\nl;u:  _mmmm.    n Fl    _.#chat\nl\u0016?\n>>\u001bh     #sit\n      ,\u001610\n#levelchange\n30\n               \u0007grey-elf\n;y;20s     .m.    20s     \u0007lurker above\n#chat\nl   n     Fh     Fy      \u0007Orcus\ny#chat\nuFl      n  Fk        \u001612\n\u001710 daggers\nQr\u0007sewer rat\nu          fu    n n       fl         fl   \u001b      fk              Fl   n       Fl     \u0007giant rat\nk   l       fu       fk     yy\u001by   y y y\u001b   f"
+  }
+ ]
+}

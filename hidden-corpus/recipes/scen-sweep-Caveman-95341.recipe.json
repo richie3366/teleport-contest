@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017long sword\nwfFjFh20s\u0007wumpus\nFhFhFhFhFhFh\u0007black light\n;h, \u001b.sbsm.20s#levelchange\n6\n\u0007tame saddled jackal\n#ride\nly\u0007horse\n\u0017scroll of taming\nrg \u0017saddle\nahl  #ride\nly\u0007pony\n\u0017scroll of taming\nri \u0017saddle\n ajj#ride\nkynl,sm. .n.m.sm.susyb u\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk@.__.Fl   _.@.Fl#chat\nldc _ooooooooo,Fh_..Fb,da_d,Fh _,Fy \u0004h__,Fl _.Fl#chat\nl#pray\ny y   #dip\ne\u000f\u001b\\ i\u001b#levelchange\n10\n  \u0016?\nj\u0006\u0017bugle\nal      bh al  jk  \u0017wand of opening\nzmk  #ride\nlyK#offer\n#levelchange\n20\n          \u0016?\n \u001614\n _mm,#chat\nj;j;_mmmm,#chat\nj;j:  _m.Fj_.#chat\nj d$ #invoke\n\u001bi\u001b#levelchange\n10\n   \u0007hostile dust vortex\nFjFn FjFjFkFkFk   FjsFhFb#pray\ny y #levelchange\n12\n\u0007gnome lord\n#chat\nnFnFn\u0007giant beetle\n;n,su20s20s\u0007raven\nFjFj \u0007stalker\n#chat\nu20s Fn\u0017splash of acid venom\nsFhFj\u0017cursed -1 dagger\n\u0007rothe\nwo Fb Fj  n FnFjFn\u0017uncursed Snickersnee\n\u0007troll\nwpFhFnFj  n XFn Fj\u00173 scroll of teleportation\nrqs.  n \u00165\n#levelchange\n30\n                  \u0007green mold\n#chat\nysFk \u0007aligned cleric\nnyFlFl \u0007black pudding\nFl ss\u000f\u001b#levelchange\n30\n\u0017crossbow\n wr.20s 20s    n\u0007cockatrice\nss  20s s..  n \u0007master mind flayer\n20s   .       s  n  s    n  \u001629\n\u00162\nhny\u0017dart trap\nn\u0007kobold\nss20s  20s   n hl\u0017trap door\nhl ss#force\n#enhance\nyi\nb\n\u001b#conduct\n \u001621\n#levelchange\n20\n   "
+ },
+ "segments": [
+  {
+   "seed": 95341,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017long sword\nwfFjFh20s\u0007wumpus\nFhFhFhFhFhFh\u0007black light\n;h, \u001b.sbsm.20s#levelchange\n6\n\u0007tame saddled jackal\n#ride\nly\u0007horse\n\u0017scroll of taming\nrg \u0017saddle\nahl  #ride\nly\u0007pony\n\u0017scroll of taming\nri \u0017saddle\n ajj#ride\nkynl,sm. .n.m.sm.susyb u\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk@.__.Fl   _.@.Fl#chat\nldc _ooooooooo,Fh_..Fb,da_d,Fh _,Fy \u0004h__,Fl _.Fl#chat\nl#pray\ny y   #dip\ne\u000f\u001b\\ i\u001b#levelchange\n10\n  \u0016?\nj\u0006\u0017bugle\nal      bh al  jk  \u0017wand of opening\nzmk  #ride\nlyK#offer\n#levelchange\n20\n          \u0016?\n \u001614\n _mm,#chat\nj;j;_mmmm,#chat\nj;j:  _m.Fj_.#chat\nj d$ #invoke\n\u001bi\u001b#levelchange\n10\n   \u0007hostile dust vortex\nFjFn FjFjFkFkFk   FjsFhFb#pray\ny y #levelchange\n12\n\u0007gnome lord\n#chat\nnFnFn\u0007giant beetle\n;n,su20s20s\u0007raven\nFjFj \u0007stalker\n#chat\nu20s Fn\u0017splash of acid venom\nsFhFj\u0017cursed -1 dagger\n\u0007rothe\nwo Fb Fj  n FnFjFn\u0017uncursed Snickersnee\n\u0007troll\nwpFhFnFj  n XFn Fj\u00173 scroll of teleportation\nrqs.  n \u00165\n#levelchange\n30\n                  \u0007green mold\n#chat\nysFk \u0007aligned cleric\nnyFlFl \u0007black pudding\nFl ss\u000f\u001b#levelchange\n30\n\u0017crossbow\n wr.20s 20s    n\u0007cockatrice\nss  20s s..  n \u0007master mind flayer\n20s   .       s  n  s    n  \u001629\n\u00162\nhny\u0017dart trap\nn\u0007kobold\nss20s  20s   n hl\u0017trap door\nhl ss#force\n#enhance\nyi\nb\n\u001b#conduct\n \u001621\n#levelchange\n20\n   "
+  }
+ ]
+}

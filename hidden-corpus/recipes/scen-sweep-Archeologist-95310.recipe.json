@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017blessed ring of polymorph control\nPjr#polyself\ndog\n   #monster\n20sss20s. #polyself\nghost\n guardian naga\n  #monster\nk  s.ss20s\u0017wand of polymorph\nzz\u0018\u001b\u0017Trollsbane\n\u0007umber hulk\nwFh  Fk  Fh    #invoke\nlXFu   Fh \u0017cursed spellbook of teleport away\nrm \u001b       n .m.sm.ZZFh Fh\u0017cursed -1 shield of reflection\n\u0007flesh golem\nWn sh  n sm.    n sm.  T\u0017dunce cap\nWo  n   sm.   n sm.    nsyToFk    nFhsm.sm.\u00169\n\u0017blessed wand of speed monster\nzp. \u0017blessed +3 bullwhip\n\u0007piranha\nwqs..X\u0017blessed dagger\n\u0007prisoner\nwrFjFjFjFjFj\u0017uncursed scroll of destroy armor\n rs  \u00173 splash of acid venom\n20s  n.u20s\u001625\n\u0018\u001b#levelchange\n16\n        \u0016?\n>y  _ \u001b.#chat\nl_m.   \u001b _.#chat\nb;<._mmm.#chat\nk_mm.#chat\nl\u0016?\n>>\u001b_m,s,q\u001622\n\u0017sling\nwu\u001720 flint stones\n Qv\u0007soldier\nlfkfhfh\u0017glaive\nww\u0007kobold\nbawhll,#enhance\nyc\nc\n\u001b#levelchange\n20\n   \u0016?\n>y _mmmmm,Fj_.#chat\nj_mmmmm,Fj _,#chat\nj;j,_mm._,Fn#chat\nn;n;tvkb#wipe\n#levelchange\n30\n         \u0017shield of reflection\nW\u001b.m.sm.skTo\u0007guardian naga\n20s    n sm.   sm.   sm.   sh    n  \u0007gray ooze\nFn             n   Fy         Fj      n Fb                  n   Fn           n  \u0007Orcus\ny#chat\nk   Fy Fy         \u00164\n#wizintrinsic\ni\n \u0017blindfold\nay   n  ;n:\u0017scroll of destroy armor\nrzZ;h:l       ynny y n  j"
+ },
+ "segments": [
+  {
+   "seed": 95310,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017blessed ring of polymorph control\nPjr#polyself\ndog\n   #monster\n20sss20s. #polyself\nghost\n guardian naga\n  #monster\nk  s.ss20s\u0017wand of polymorph\nzz\u0018\u001b\u0017Trollsbane\n\u0007umber hulk\nwFh  Fk  Fh    #invoke\nlXFu   Fh \u0017cursed spellbook of teleport away\nrm \u001b       n .m.sm.ZZFh Fh\u0017cursed -1 shield of reflection\n\u0007flesh golem\nWn sh  n sm.    n sm.  T\u0017dunce cap\nWo  n   sm.   n sm.    nsyToFk    nFhsm.sm.\u00169\n\u0017blessed wand of speed monster\nzp. \u0017blessed +3 bullwhip\n\u0007piranha\nwqs..X\u0017blessed dagger\n\u0007prisoner\nwrFjFjFjFjFj\u0017uncursed scroll of destroy armor\n rs  \u00173 splash of acid venom\n20s  n.u20s\u001625\n\u0018\u001b#levelchange\n16\n        \u0016?\n>y  _ \u001b.#chat\nl_m.   \u001b _.#chat\nb;<._mmm.#chat\nk_mm.#chat\nl\u0016?\n>>\u001b_m,s,q\u001622\n\u0017sling\nwu\u001720 flint stones\n Qv\u0007soldier\nlfkfhfh\u0017glaive\nww\u0007kobold\nbawhll,#enhance\nyc\nc\n\u001b#levelchange\n20\n   \u0016?\n>y _mmmmm,Fj_.#chat\nj_mmmmm,Fj _,#chat\nj;j,_mm._,Fn#chat\nn;n;tvkb#wipe\n#levelchange\n30\n         \u0017shield of reflection\nW\u001b.m.sm.skTo\u0007guardian naga\n20s    n sm.   sm.   sm.   sh    n  \u0007gray ooze\nFn             n   Fy         Fj      n Fb                  n   Fn           n  \u0007Orcus\ny#chat\nk   Fy Fy         \u00164\n#wizintrinsic\ni\n \u0017blindfold\nay   n  ;n:\u0017scroll of destroy armor\nrzZ;h:l       ynny y n  j"
+  }
+ ]
+}

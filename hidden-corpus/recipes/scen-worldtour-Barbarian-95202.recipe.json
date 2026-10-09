@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPfr\u001610\n_ \u001b<.<\u0016?\n>>K      ring of increase damage\nblj   \u0017moat\n#dip\nayy  \u0017throne\n#sit\n#sit\n     #sit\n    b   \u0017grave\n:\u0017pick-axe\nai    20s   sl :n  n       \u0017lawful altar\ndf\u0017gnome corpse\n #offer\nj       n     :#terrain\n\u001bPh       #name\n\u001b<\u001611\n\u001610\n#levelchange\n6\n    l   n       n    h un       n    \u0017magic portal\nj         l   n  \u0017rolling boulder trap\nn \u0017trap door\n\u0017beartrap\nak   n     l   n   j:#loot\nhdb    n    \u00163\n\u0016?\n\u001bbh  n     \u0016?\n\u001bnl\u001615\n#levelchange\n6\n\u0017sling\nwl\u001720 flint stones\n Qa\u0007gnome lord\nu    n    n     \u001b    k     n  fn  n    n   f \u001bf \u001b\u00072 soldier\nh    n    n      \u001b      y  y"
+ },
+ "segments": [
+  {
+   "seed": 95202,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPfr\u001610\n_ \u001b<.<\u0016?\n>>K      ring of increase damage\nblj   \u0017moat\n#dip\nayy  \u0017throne\n#sit\n#sit\n     #sit\n    b   \u0017grave\n:\u0017pick-axe\nai    20s   sl :n  n       \u0017lawful altar\ndf\u0017gnome corpse\n #offer\nj       n     :#terrain\n\u001bPh       #name\n\u001b<\u001611\n\u001610\n#levelchange\n6\n    l   n       n    h un       n    \u0017magic portal\nj         l   n  \u0017rolling boulder trap\nn \u0017trap door\n\u0017beartrap\nak   n     l   n   j:#loot\nhdb    n    \u00163\n\u0016?\n\u001bbh  n     \u0016?\n\u001bnl\u001615\n#levelchange\n6\n\u0017sling\nwl\u001720 flint stones\n Qa\u0007gnome lord\nu    n    n     \u001b    k     n  fn  n    n   f \u001bf \u001b\u00072 soldier\nh    n    n      \u001b      y  y"
+  }
+ ]
+}

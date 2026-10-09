@@ -15,10 +15,14 @@
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
  *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
  *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
+ *        [--family marathon|worldtour|sweep|chain|trek]
  *        [--out hidden-corpus/recipes] [--probe [--index i]]
  *
  * `broad` rotates evenly through the second-wave families (terrain … dig);
  * about a quarter of those save mid-game and restore in a second segment.
+ * `marathon` rotates through the third-wave families: sessions of 600–2000
+ * keys shaped like the public sessions that carry most of the RNG (see the
+ * third-wave comment below).
  *
  * Output: one `scen-<family>-<Role>-<seed>.recipe.json` per session in
  * hidden-corpus/recipes (only the recipe is committed) plus the canonical
@@ -251,6 +255,7 @@ async function answer(g, rng, ctx = {}) {
             await g.send(ESC); continue;
         }
         if (/in what direction/i.test(top)) { await g.send(ctx.dir || monsterDir(g.lastMap || s, rng) || pick(rng, 'hjklyubn.')); continue; }
+        if (g.immortal && /Die\?/.test(top) && /\[yn/.test(top)) { g.saves = (g.saves || 0) + 1; if (g.saves >= 15) g.immortal = false; await g.send('n'); continue; }
         if (/Really attack|Are you sure you want to pray|Really quit|Die\?|Really |Continue\?|Are you sure/.test(top) && /\[yn/.test(top)) { await g.send(ctx.yn || (chance(rng, 0.7) ? 'y' : 'n')); continue; }
         if (/Which ring-finger/.test(top)) { await g.send(pick(rng, 'rl')); continue; }
         if (/type the name|what kind of monster|genocide|What monster do you want/i.test(top)) { await g.send((ctx.name || pick(rng, MONSTERS)) + '\n'); continue; }
@@ -501,7 +506,7 @@ function planFamily(rng, family) {
     if (family !== 'mixed') return family;
     return pick(rng, ['wish', 'wish', 'wish', 'genesis', 'genesis', 'poly', 'intrinsic', 'death', 'kit', 'tour', 'normal', 'normal']);
 }
-async function runScenario(g, rng, family) {
+async function runScenario(g, rng, family, { mayDie = true } = {}) {
     const strong = () => ext(g, rng, 'levelchange', { level: String(pick(rng, [8, 12, 20, 30])) });
     switch (family) {
     case 'wish': {
@@ -593,7 +598,7 @@ async function runScenario(g, rng, family) {
         break;
     }
     await settle(g, rng);
-    if (chance(rng, 0.25)) await die(g, rng);
+    if (mayDie && chance(rng, 0.25)) await die(g, rng);
 }
 
 /* ------------------------------------------------------------------ second-wave families
@@ -1234,6 +1239,161 @@ async function levelportTune(g, rng, target) {
     return tune;
 }
 
+/* ------------------------------------------------------------------ third wave: marathons
+   On 2026-10-09 the corpus read 939/953 PASS while held-out read 18/44 with
+   RNG 41.7 % against rngSteps 92.4 %: a few held-out sessions break early
+   and lose every later RNG call. Four public sessions of 44 carry half the
+   public RNG — world-tour (833 steps, ~30 ^V stops), knight-coverage (1814,
+   one debug game running many commands), ten-diverse-deaths (1953 over ten
+   fresh normal games), dequa-fountain-explore (714, normal play) — while no
+   scen-* session above ran past 344 steps. These four families play that
+   long. Debug games answer «Die?» with n, so a death mid-marathon costs one
+   prompt, not the rest of the session. */
+const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek'];
+const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100] };
+const SWEEP_W1 = ['wish', 'wish', 'genesis', 'genesis', 'poly', 'intrinsic', 'kit', 'tour'];
+const SWEEP_W2 = ['terrain', 'trap', 'town', 'sokoban', 'ride', 'pet', 'container', 'descend', 'ranged', 'caster', 'impaired', 'engulf', 'hazard', 'dig', 'quest', 'special', 'engrave'];
+const TOUR_KIT = ['blessed +3 gray dragon scale mail', 'blessed +3 silver dragon scale mail', 'blessed +3 speed boots', 'blessed amulet of life saving', 'blessed amulet of reflection', 'blessed ring of free action', 'blessed +3 cloak of magic resistance', 'blessed +3 gauntlets of power', 'blessed Mjollnir', 'blessed +3 helm of telepathy'];
+
+/* ^V ? then a random entry of a random page of the level menu */
+async function levelportMenu(g, rng) {
+    await settle(g, rng);
+    await g.send(K_LEVPORT);
+    if (!/To what level/.test(g.s.top)) { await settle(g, rng); return false; }
+    await g.send('?\n');
+    const more = () => /\(\d+ of \d+\)/.test(screenText(g)) && !/\((\d+) of \1\)/.test(screenText(g));
+    for (let p = Math.floor(rng() * 3); p > 0 && g.s.menu && more(); p--) await g.send('>');
+    const items = g.s.menu ? menuItems(g.s) : [];
+    if (!items.length) { await g.send(ESC); await settle(g, rng); return false; }
+    await g.send(pick(rng, items).letter);
+    await settle(g, rng);
+    return true;
+}
+/* what the world tour does on arrival: a few keys, sometimes a whole body */
+async function tourStop(g, rng) {
+    const r = rng();
+    if (r < 0.3) { await steps(g, rng, 2 + Math.floor(rng() * 6)); await typeCmd(g, rng, ':'); }
+    else if (r < 0.5) { await travelTo(g, rng, pick(rng, ['>', '<', '_', '{'])); if (chance(rng, 0.5)) await typeCmd(g, rng, pick(rng, ['>', '<'])); }
+    else if (r < 0.58) { await mapLevel(g, rng); await travelTo(g, rng, pick(rng, ['>', '<'])); }
+    else if (r < 0.68) await runWave2(g, rng, pick(rng, ['terrain', 'trap', 'ranged', 'hazard', 'engrave', 'caster']), { debug: true });
+    else if (r < 0.78) await runScenario(g, rng, pick(rng, ['wish', 'genesis']), { mayDie: false });
+    else if (r < 0.85) await typeCmd(g, rng, K_KICK, { dir: pick(rng, 'hjklyubn') });
+    else if (r < 0.92) { await chat(g, rng); await look(g, rng); }
+    else await typeCmd(g, rng, K_TELE, { yn: 'n' });
+    if (chance(rng, 0.3)) await wait(g, rng, 1 + Math.floor(rng() * 3));
+}
+/* run bodies until the key budget is spent; a body that sends nothing three
+   times ends it, and two «Die?» saves in one body leave the level */
+async function untilFull(g, rng, body) {
+    for (let i = 0, stalls = 0; i < 80 && !g.full && stalls < 3; i++) {
+        const before = g.moves.length, saves = g.saves || 0;
+        await body(i);
+        stalls = g.moves.length === before ? stalls + 1 : 0;
+        if ((g.saves || 0) - saves >= 2 && g.immortal) await levelport(g, rng, 1 + Math.floor(rng() * 12));
+    }
+}
+
+async function runWave3Game(g, rng, family, { debug }) {
+    switch (family) {
+    case 'worldtour': {
+        g.immortal = true;
+        await ext(g, rng, 'levelchange', { level: String(pick(rng, [14, 20, 30])) });
+        for (const w of shuffle(rng, TOUR_KIT).slice(0, Math.floor(rng() * 4))) {
+            const l = await wish(g, rng, w);
+            if (l) await typeCmd(g, rng, /amulet/.test(w) ? 'P' : /Mjollnir/.test(w) ? 'w' : /ring/.test(w) ? 'P' : 'W', { letter: l });
+        }
+        const visited = [];
+        await untilFull(g, rng, async () => {
+            const r = rng();
+            let ok;
+            if (r < 0.55) ok = await levelportMenu(g, rng);
+            else if (r < 0.8 || !visited.length) { const d = 1 + Math.floor(rng() * 45); ok = await levelport(g, rng, d); if (ok) visited.push(d); }
+            else ok = await levelport(g, rng, pick(rng, visited));
+            if (ok) await tourStop(g, rng);
+            else await steps(g, rng, 2);
+        });
+        break;
+    }
+    case 'sweep': {
+        g.immortal = true;
+        if (chance(rng, 0.7)) await ext(g, rng, 'levelchange', { level: String(pick(rng, [8, 12, 16, 20])) });
+        await untilFull(g, rng, async () => {
+            if (chance(rng, 0.45)) await runScenario(g, rng, pick(rng, SWEEP_W1), { mayDie: false });
+            else await runWave2(g, rng, pick(rng, SWEEP_W2), { debug: true });
+            if (chance(rng, 0.25)) await levelport(g, rng, 1 + Math.floor(rng() * 30));
+            if (chance(rng, 0.3)) await typeCmd(g, rng, pick(rng, [CTRL('x'), CTRL('o'), '\\', 'i', CTRL('f')]));
+        });
+        break;
+    }
+    case 'trek': {
+        await untilFull(g, rng, async () => {
+            await runWave2(g, rng, pick(rng, ['longrun', 'longrun', 'descend', 'descend', 'pet']), { debug });
+            if (chance(rng, 0.3)) await ordinary(g, rng, 3);
+        });
+        break;
+    }
+    case 'chain': default: {
+        /* one game of the chain: played for its budget, then ended on purpose */
+        if (debug) { g.immortal = false; await runScenario(g, rng, 'death'); break; }
+        g.maxKeys = Math.max(20, g.maxKeys - 40);
+        await untilFull(g, rng, async () => {
+            const mon = monsterDir(g.s, rng);
+            if (mon && chance(rng, 0.7)) for (let k = 0; k < 8 && !g.full; k++) { await g.send('F' + mon); await answer(g, rng, { yn: 'y' }); }
+            else if (chance(rng, 0.6)) await runWave2(g, rng, pick(rng, ['longrun', 'descend', 'pet']), { debug });
+            else await steps(g, rng, 4);
+        });
+        if (!g.ended) {
+            g.maxKeys = g.moves.length + 40;
+            await ext(g, rng, 'quit', { yn: 'y' });
+            await die(g, rng);
+        }
+        break;
+    }
+    }
+    await settle(g, rng);
+}
+
+async function authorWave3({ seed, family, inst, trace }) {
+    const rng = mulberry32(seed ^ 0x5eed3);
+    const [lo, hi] = WAVE3_KEYS[family];
+    const budget = lo + Math.floor(rng() * (hi - lo));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'nh-sg-'));
+    const segs = [];
+    let nsteps = 0, last = null, firstRole = null;
+    const games = family === 'chain' ? 3 + Math.floor(rng() * 7) : 1;
+    try {
+        for (let k = 0, used = 0; k < games && used < budget; k++) {
+            const role = family === 'worldtour' && chance(rng, 0.5) ? ROLES.find((r) => r[1] === 'Wizard') : pick(rng, ROLES);
+            firstRole ??= role;
+            const mode = family === 'trek' ? pick(rng, ['normal', 'normal', 'explore'])
+                : family === 'chain' ? pick(rng, ['normal', 'normal', 'debug']) : 'debug';
+            const pet = chance(rng, 0.3) ? pick(rng, ['none', 'cat', 'dog', 'horse']) : null;
+            const nethackrc = makeRc2(rng, role, { mode, pet });
+            const seg = { seed: seed + 100000 * k, datetime: pick(rng, DATETIMES), timezone: PIN_TZ, nethackrc, moves: '' };
+            const share = family === 'chain'
+                ? Math.max(60, Math.min(budget - used, Math.round((budget - used) / (games - k) * (0.6 + 0.8 * rng()))))
+                : budget;
+            const g = new Game({ seg, binary: inst.binary, installDir: inst.installDir, homeDir: path.join(tmp, 'home'), rngLogPath: path.join(tmp, 'rng.log'), tz: PIN_TZ, trace, maxKeys: share, wipeSave: k === 0 });
+            try {
+                await g.start();
+                await runWave3Game(g, rng, family, { debug: mode === 'debug' });
+            } catch (e) {
+                if (trace) console.error(`driver stopped (game ${k}):`, e.message);
+            } finally {
+                await g.stop();
+            }
+            if (g.moves.length) segs.push({ ...seg, moves: g.moves });
+            used += g.moves.length;
+            nsteps += g.steps;
+            last = g;
+        }
+    } finally {
+        await fs.rm(tmp, { recursive: true, force: true }).catch(() => {});
+    }
+    const moves = segs.map((s) => s.moves).join('');
+    return { id: `scen-${family}-${firstRole[1]}-${seed}`, fam: family, role: firstRole[1], moves, steps: nsteps, ended: last?.ended, exit: last?.exit, segs };
+}
+
 /* ------------------------------------------------------------------ driver */
 async function authorWave2({ seed, family, inst, trace }) {
     const rng = mulberry32(seed ^ 0x5eed2);
@@ -1349,13 +1509,15 @@ async function main() {
     const jobs = Number(val('jobs', 6));
     const family = val('family', 'mixed');
     const outDir = path.resolve(ROOT, val('out', 'hidden-corpus/recipes'));
-    const known = ['mixed', 'broad', ...FAMILIES, ...WAVE2];
+    const known = ['mixed', 'broad', 'marathon', ...FAMILIES, ...WAVE2, ...WAVE3];
     if (!known.includes(family)) { console.error(`unknown family ${family}; one of ${known.join('|')}`); process.exit(2); }
-    /* `broad` rotates through the second-wave families so each gets n/16 */
-    const famFor = (i) => (family === 'broad' ? WAVE2[i % WAVE2.length] : family);
-    const run = (seed, i, inst, trace) => (WAVE2.includes(famFor(i))
-        ? authorWave2({ seed, family: famFor(i), inst, trace })
-        : author({ seed, family, inst, trace }));
+    /* `broad` / `marathon` rotate through the second- / third-wave families evenly */
+    const famFor = (i) => (family === 'broad' ? WAVE2[i % WAVE2.length] : family === 'marathon' ? WAVE3[i % WAVE3.length] : family);
+    const run = (seed, i, inst, trace) => (WAVE3.includes(famFor(i))
+        ? authorWave3({ seed, family: famFor(i), inst, trace })
+        : WAVE2.includes(famFor(i))
+            ? authorWave2({ seed, family: famFor(i), inst, trace })
+            : author({ seed, family, inst, trace }));
     const installs = prepareInstalls(flag('probe') ? 1 : jobs);
     try {
         if (flag('probe')) {

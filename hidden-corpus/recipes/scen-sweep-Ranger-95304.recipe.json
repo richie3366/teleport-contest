@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #wizintrinsic\nfj\n E- Elbereth Elbereth\n\u0017scroll of light\nrh ;j, \u001b:   \u0017potion of sickness\nqi  sss#levelchange\n30\n                     #wizintrinsic\nnof\n . s20s <. sss.sss..20s s20s s20s..ss20s s20s  s.s.20s  20ss.\u0017chest\najaj#tip\nj\u001b20s  E-n  Elbereth Elbereth\n#sit\n  ;h; \u0004y#invoke\n\u001bsks 20s  sm. 20s    nsm. #levelchange\n30\n\u00178 rocks\nQc\u0007acid blob\nkkf  b fj  fnfy20s s\u0007dwarf\nh ufb fj    fj fj   Fj   Fj    n  hjk    ,  \u000f\u001b#levelchange\n20\n   \u00173 potion of sleeping\n\u0007large mimic\nql    n#dip\nll  FjFj\u0017uncursed amulet of reflection\n\u0007yeti\nPm 20s   sl sk.m. \u0017blessed tin opener\nanFj   n Fh  \u0017uncursed cockatrice egg\neo       sm.    n    sk\u0017wand of lightning\n\u0007shade\nzp.  n  zpj    n\u0017cursed tin whistle\naq  aq    n  s 20s  n  \u001611\ni\u001bzpu eg  20s    s  n W. s20sT wcy    nFk  Fk Fk ajaq aq f    n r\u001b#enhance\nyb\nq\n\u001bwbu#invoke\n\u001bql 20s \u00166\n  \u0016?\n>Eyyj  n Fj  l  Fb Fb \u0017wand of striking\nzs>l h  n \u0017wand of digging\nztj Fh luuuuunlbj     nkFh       yny   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95304,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #wizintrinsic\nfj\n E- Elbereth Elbereth\n\u0017scroll of light\nrh ;j, \u001b:   \u0017potion of sickness\nqi  sss#levelchange\n30\n                     #wizintrinsic\nnof\n . s20s <. sss.sss..20s s20s s20s..ss20s s20s  s.s.20s  20ss.\u0017chest\najaj#tip\nj\u001b20s  E-n  Elbereth Elbereth\n#sit\n  ;h; \u0004y#invoke\n\u001bsks 20s  sm. 20s    nsm. #levelchange\n30\n\u00178 rocks\nQc\u0007acid blob\nkkf  b fj  fnfy20s s\u0007dwarf\nh ufb fj    fj fj   Fj   Fj    n  hjk    ,  \u000f\u001b#levelchange\n20\n   \u00173 potion of sleeping\n\u0007large mimic\nql    n#dip\nll  FjFj\u0017uncursed amulet of reflection\n\u0007yeti\nPm 20s   sl sk.m. \u0017blessed tin opener\nanFj   n Fh  \u0017uncursed cockatrice egg\neo       sm.    n    sk\u0017wand of lightning\n\u0007shade\nzp.  n  zpj    n\u0017cursed tin whistle\naq  aq    n  s 20s  n  \u001611\ni\u001bzpu eg  20s    s  n W. s20sT wcy    nFk  Fk Fk ajaq aq f    n r\u001b#enhance\nyb\nq\n\u001bwbu#invoke\n\u001bql 20s \u00166\n  \u0016?\n>Eyyj  n Fj  l  Fb Fb \u0017wand of striking\nzs>l h  n \u0017wand of digging\nztj Fh luuuuunlbj     nkFh       yny   y y y\u001b  F"
+  }
+ ]
+}

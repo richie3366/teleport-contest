@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " Fn s20sjjl50s#jump\n50si\u001b\u0018\u001b_ \u001b@.>yun100s byjknh_>,>lub50s\u000f\u001b50s100shkji\u001b50s100s100slyubnubhl\u0018\u001b_>.>\u000f\u001b50s#monster\nhlhknu100sjkj_>,>50s100s#ride\nnWUBUB_>.>NLJN_>,>NHKK_>.>;.;.KN YU_>.>HN YN _>,>\u000f\u001b#tip\n\u001b\u001b#wipe\n10s10sknbuddb.s20slhlht\u001b\u001b#force\n__,.eh  _>.>\u0018\u001b100see100si\u001blhl#rub\n150s100s100sFy.FyFyss\\  100shyuFh.s150sFy.20sFyFy.i\u001bbnyw\u001b\u001b150s\\  100sFkss150s100sububjl50s\u0018\u001b100si\u001b100sFl.20sFks.100s100sFls20s\u000f\u001b\u0018\u001b100sFl s20s150si\u001b100s_>.>150sFkssyny100s100sFkFk s150s100s_>.>_>,>#terrain\nd\nllh50s 150soj\\  _>,>100sFk20s20s100snyj\u000f\u001b100skjk100s50sFks.50sFk20ss150s100sK HJU_>.>J KH J_>.>L NBJ_>.>:><\u000f\u001bhh#chat\nuulhlhlhdej.20s.,#untrap\nj\u0004nBHLY_>,><HYBY_>.><KNJL_>.>LNNN_>.>JNJN_>.>\u000f\u001bNKYL_>.>Fk.s#pray\ny  eg    JUBH_>.>Fj..#force\nPNHJH_>.>dfenh  w\u001b\u001bLBYN_>.>NH KU_>,>HKBK_>,><ynny y n J"
+ },
+ "segments": [
+  {
+   "seed": 95515,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:explore\n",
+   "moves": " Fn s20sjjl50s#jump\n50si\u001b\u0018\u001b_ \u001b@.>yun100s byjknh_>,>lub50s\u000f\u001b50s100shkji\u001b50s100s100slyubnubhl\u0018\u001b_>.>\u000f\u001b50s#monster\nhlhknu100sjkj_>,>50s100s#ride\nnWUBUB_>.>NLJN_>,>NHKK_>.>;.;.KN YU_>.>HN YN _>,>\u000f\u001b#tip\n\u001b\u001b#wipe\n10s10sknbuddb.s20slhlht\u001b\u001b#force\n__,.eh  _>.>\u0018\u001b100see100si\u001blhl#rub\n150s100s100sFy.FyFyss\\  100shyuFh.s150sFy.20sFyFy.i\u001bbnyw\u001b\u001b150s\\  100sFkss150s100sububjl50s\u0018\u001b100si\u001b100sFl.20sFks.100s100sFls20s\u000f\u001b\u0018\u001b100sFl s20s150si\u001b100s_>.>150sFkssyny100s100sFkFk s150s100s_>.>_>,>#terrain\nd\nllh50s 150soj\\  _>,>100sFk20s20s100snyj\u000f\u001b100skjk100s50sFks.50sFk20ss150s100sK HJU_>.>J KH J_>.>L NBJ_>.>:><\u000f\u001bhh#chat\nuulhlhlhdej.20s.,#untrap\nj\u0004nBHLY_>,><HYBY_>.><KNJL_>.>LNNN_>.>JNJN_>.>\u000f\u001bNKYL_>.>Fk.s#pray\ny  eg    JUBH_>.>Fj..#force\nPNHJH_>.>dfenh  w\u001b\u001bLBYN_>.>NH KU_>,>HKBK_>,><ynny y n J"
+  }
+ ]
+}

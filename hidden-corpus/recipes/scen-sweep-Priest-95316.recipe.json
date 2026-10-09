@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017bag of tricks\n\u0017wand of make invisible\naiFl  Fk ai \u0017lock pick\ndi aks\u001b.s#loot\nFkFj   ajy \u001613\n    #levelchange\n20\n    \u0017chest\n20s  s.\u0017cursed -1 cloak of magic resistance\n\u0007plains centaur\nW\u001b20s sm.sm.Tc   \u0017blessed spellbook of teleport away\n rn  sm. sl    n Zb\n  \u0017blessed ring of protection from shape changers\nPor   sm.   20s   sm.  n  sm.  su   \u00162\n#levelchange\n20\n\u0016?\n>y  _ \u001b<.#chat\nu_mmmmm,  Fl _.Fl  n  #chat\nl_mmm.Fl  _.  Fh   n#chat\nh   ;y._mmmmm.  Fh   _.   n Fh  #chat\nl<<#conduct\n \u00162\n#levelchange\n12\n   \u0016?\no #terrain\nb\nz#name\n@.20s   sn   n       n\u0016?\n>E 20s      \\ #conduct\n \u0006sm.  n    20s   n    \u0016?\n>v k     n  #wipe\n          n     h    n        sy    20s  n           \u001b  \u001b \u001b \u001b \u001b\u001611\n#wizintrinsic\nim\n  \u0017cursed scroll of light\nrpZ\u001b\u0017scroll of charging\nrq20s20s  n .#levelchange\n10\n\u00175000 gold pieces\n \u0016?\n>w\u0006\u0017blessed potion of object detection\nqr:_{. Fk_,Fbqd   n #dip\ne_ddddd.Fj_,Fk\u0004 _oooooooo,Fb_. Fb  yy\u001b y   y y  y\u001by  ,"
+ },
+ "segments": [
+  {
+   "seed": 95316,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017bag of tricks\n\u0017wand of make invisible\naiFl  Fk ai \u0017lock pick\ndi aks\u001b.s#loot\nFkFj   ajy \u001613\n    #levelchange\n20\n    \u0017chest\n20s  s.\u0017cursed -1 cloak of magic resistance\n\u0007plains centaur\nW\u001b20s sm.sm.Tc   \u0017blessed spellbook of teleport away\n rn  sm. sl    n Zb\n  \u0017blessed ring of protection from shape changers\nPor   sm.   20s   sm.  n  sm.  su   \u00162\n#levelchange\n20\n\u0016?\n>y  _ \u001b<.#chat\nu_mmmmm,  Fl _.Fl  n  #chat\nl_mmm.Fl  _.  Fh   n#chat\nh   ;y._mmmmm.  Fh   _.   n Fh  #chat\nl<<#conduct\n \u00162\n#levelchange\n12\n   \u0016?\no #terrain\nb\nz#name\n@.20s   sn   n       n\u0016?\n>E 20s      \\ #conduct\n \u0006sm.  n    20s   n    \u0016?\n>v k     n  #wipe\n          n     h    n        sy    20s  n           \u001b  \u001b \u001b \u001b \u001b\u001611\n#wizintrinsic\nim\n  \u0017cursed scroll of light\nrpZ\u001b\u0017scroll of charging\nrq20s20s  n .#levelchange\n10\n\u00175000 gold pieces\n \u0016?\n>w\u0006\u0017blessed potion of object detection\nqr:_{. Fk_,Fbqd   n #dip\ne_ddddd.Fj_,Fk\u0004 _oooooooo,Fb_. Fb  yy\u001b y   y y  y\u001by  ,"
+  }
+ ]
+}

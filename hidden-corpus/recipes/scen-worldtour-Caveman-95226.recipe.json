@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u001610\njyn:.\u0016?\n>Dububl:..\u0016?\nf     \u0006_ \u001bm.\u0016?\n>I#chat\nh;.\u001635\nhhy:\u0016?\n>>K      20 flint stones\n l un:\u001610\nky  ln   \u0017magic trap\nj         nh     \u0017rust trap\n#terrain\n\u001b20s    #name\no\nE\u001b\u001635\n#levelchange\n30\n         \u0017javelin\n wh Fk Fj Fk  n      \u0007pit fiend\nFb   Fb FbFh   Fb  n \u0007nalfeshnee\n#chat\ny FkFn    \u0007Demogorgon\nysl     20s       sm.ssss\u00162\n\u001610\n_{.>\u0016?\n\u001bj        n     h           \u0016?\n\u001bu   n       j         n  \u00165\n\u001610\n\u0006m._>.\u001635\nj     l        k    :\u00166\n#levelchange\n10\n      \u0017shield of reflection\nWi  n      .h       n   sm.         n  sm.   \u001b      Ti   n         n  \u0017chickatrice corpse\n\u0007lichen\nFl       Fj    n       Fl            n     \u0007cockatrice\n20s     Fk   Fj    n     n 20s           n 20s         y  F"
+ },
+ "segments": [
+  {
+   "seed": 95226,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u001610\njyn:.\u0016?\n>Dububl:..\u0016?\nf     \u0006_ \u001bm.\u0016?\n>I#chat\nh;.\u001635\nhhy:\u0016?\n>>K      20 flint stones\n l un:\u001610\nky  ln   \u0017magic trap\nj         nh     \u0017rust trap\n#terrain\n\u001b20s    #name\no\nE\u001b\u001635\n#levelchange\n30\n         \u0017javelin\n wh Fk Fj Fk  n      \u0007pit fiend\nFb   Fb FbFh   Fb  n \u0007nalfeshnee\n#chat\ny FkFn    \u0007Demogorgon\nysl     20s       sm.ssss\u00162\n\u001610\n_{.>\u0016?\n\u001bj        n     h           \u0016?\n\u001bu   n       j         n  \u00165\n\u001610\n\u0006m._>.\u001635\nj     l        k    :\u00166\n#levelchange\n10\n      \u0017shield of reflection\nWi  n      .h       n   sm.         n  sm.   \u001b      Ti   n         n  \u0017chickatrice corpse\n\u0007lichen\nFl       Fj    n       Fl            n     \u0007cockatrice\n20s     Fk   Fj    n     n 20s           n 20s         y  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " Fl s20s150suyni\u001bhlyK100sFlFlFl_ \u001b<.>100sluni\u001b100s150ss_>.>50s150sFls.50seeeeeeeeeeeeeeeeeeee20shk20sbllych#jump\n#wipe\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUULK_>.>BNLK_>.>YNKJ_>,>YHHL_>.>20s#chat\nb20s#chat\ny20sbhulb20se#pray\ny #pray\ny  #pray\ny  ee#pray\ny #pray\ny   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 95503,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": " Fl s20s150suyni\u001bhlyK100sFlFlFl_ \u001b<.>100sluni\u001b100s150ss_>.>50s150sFls.50seeeeeeeeeeeeeeeeeeee20shk20sbllych#jump\n#wipe\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUULK_>.>BNLK_>.>YNKJ_>,>YHHL_>.>20s#chat\nb20s#chat\ny20sbhulb20se#pray\ny #pray\ny  #pray\ny  ee#pray\ny #pray\ny   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

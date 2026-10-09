@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " ll\u0017athame\nEf Vlad was here\n: u\u0017wand of magic missile\nEg X marks the spot\n: j\u0017wand of opening\nEh Vlad was here\n: \u0017wand of locking\nEin  Elbereth\nE-n  Elbereth\n\u0007hill orc\n.ss20s Fj #levelchange\n20\n                   #wizintrinsic\ng\n s.20s.20ss20sss.\u0017potion of speed\nqj#ride\nky#conduct\n s#dip\ng#conduct\n 10s20ssss.s#levelchange\n10\n   \u0007fog cloud\nFyFyFyFyFyFnFlFk20sFlFus\u000f\u001b\u0016?\ne\u0006.20ss.s.jbnj_<. \u001b>.  sm.#dip\nef bn#wizintrinsic\na\n sjs20s  sm.sm..bsjs10sZ:#chat\nk#terrain\nb\n10s sm. sm. .m.   n  sm.   20s     sm.\u0006_>,  Fy _.  n    Fy  >Fy    Fy_>.   Fb_.  n    Fk    >FyFy _>.Fb      n_.     Fb   >Fy    FhFk   n Fy   Fhwb     #untrap\nh\u0006_>>.Fu    _.Fk  n    >Fb   Fu_>>.    n Fh   _,    Fl >Fb  n  Fu    _>>.Fu  _.  Fh   n   >Fl   Fy    FuFk    Fb  n      \u0006_>,   Fy     _.    n Fy    >Fh Fh      _>,  Fb  n      _.  Fb >Fk   Fu _>.    n    Fh   _.Fu  >FhFk      n Fy   Fb Fy    \u0006_>.Fy    n _.   Fy >FuFy    n _>.    Fh   _,      y\u001b    n  F"
+ },
+ "segments": [
+  {
+   "seed": 95319,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " ll\u0017athame\nEf Vlad was here\n: u\u0017wand of magic missile\nEg X marks the spot\n: j\u0017wand of opening\nEh Vlad was here\n: \u0017wand of locking\nEin  Elbereth\nE-n  Elbereth\n\u0007hill orc\n.ss20s Fj #levelchange\n20\n                   #wizintrinsic\ng\n s.20s.20ss20sss.\u0017potion of speed\nqj#ride\nky#conduct\n s#dip\ng#conduct\n 10s20ssss.s#levelchange\n10\n   \u0007fog cloud\nFyFyFyFyFyFnFlFk20sFlFus\u000f\u001b\u0016?\ne\u0006.20ss.s.jbnj_<. \u001b>.  sm.#dip\nef bn#wizintrinsic\na\n sjs20s  sm.sm..bsjs10sZ:#chat\nk#terrain\nb\n10s sm. sm. .m.   n  sm.   20s     sm.\u0006_>,  Fy _.  n    Fy  >Fy    Fy_>.   Fb_.  n    Fk    >FyFy _>.Fb      n_.     Fb   >Fy    FhFk   n Fy   Fhwb     #untrap\nh\u0006_>>.Fu    _.Fk  n    >Fb   Fu_>>.    n Fh   _,    Fl >Fb  n  Fu    _>>.Fu  _.  Fh   n   >Fl   Fy    FuFk    Fb  n      \u0006_>,   Fy     _.    n Fy    >Fh Fh      _>,  Fb  n      _.  Fb >Fk   Fu _>.    n    Fh   _.Fu  >FhFk      n Fy   Fb Fy    \u0006_>.Fy    n _.   Fy >FuFy    n _>.    Fh   _,      y\u001b    n  F"
+  }
+ ]
+}

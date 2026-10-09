@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0017spellbook of detect unseen\nri  .m.20s Zb\nZa\n\u001b<.\u0017blessed tin opener\naj\u0017scroll of identify\n\u0007small mimic\nrk Fh .\u0017cursed leather drum\nalalsFy\u00173 wand of light\n\u0007crocodile\nzm20ssm.\\ #levelchange\n30\n                  #wizintrinsic\nqj\n 20s20ssm.s20s.m..m.20s  nsm.sj20ssm.sm.sm.\u0017scroll of taming\nrn _m.20s           #tip\n\u001bw-i\u001bckE-20s20s20ssss#wizintrinsic\nfm\n \u0017blindfold\nao\u0017cursed scroll of amnesia\nrp;_.\u0017cursed scroll of confuse monster\nrqhhk20s   .20s \u001612\n\u000f\u001b#levelchange\n8\n       \u0017blessed cloak of invisibility\nW\u001bs20s .\u0017uncursed spellbook of protection\nrs.20s   Za\nZ20s 20s  \u00173 scroll of create monster\nrt..\u0017blindfold\n\u0007gnome lord\nau.Fu \u0017uncursed wand of polymorph\nzv.  n ss#levelchange\n20\n            \u0007sandestin\n#chat\nkFkFk\u0007ogre king\n#chat\nu20s 20s \u0007Angel\nnys20s.  ni>\u001bW\u001b.ssTbrss  n.Za\nZr ef  ns.rh20s20sZa\nr   n .sZb\nqd  n: ch,E- Elbereth Elbereth\n#wipe\n  ntajf \u001bi>\u001brss20sZa\nZzr   najrh20ssZa\nZq \u00164\n   #levelchange\n6\n     \u0016?\nk   \u0006__,  nFj_.  #chat\nj20s  20s  n .#name\n\u001b#dip\ngd#rub\n\u00169\n\u0007Orcus\nyy #chat\njFj   n Fl    n \u0007tengu\nFh  n    Fh  n Fh   yy  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 95345,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0017spellbook of detect unseen\nri  .m.20s Zb\nZa\n\u001b<.\u0017blessed tin opener\naj\u0017scroll of identify\n\u0007small mimic\nrk Fh .\u0017cursed leather drum\nalalsFy\u00173 wand of light\n\u0007crocodile\nzm20ssm.\\ #levelchange\n30\n                  #wizintrinsic\nqj\n 20s20ssm.s20s.m..m.20s  nsm.sj20ssm.sm.sm.\u0017scroll of taming\nrn _m.20s           #tip\n\u001bw-i\u001bckE-20s20s20ssss#wizintrinsic\nfm\n \u0017blindfold\nao\u0017cursed scroll of amnesia\nrp;_.\u0017cursed scroll of confuse monster\nrqhhk20s   .20s \u001612\n\u000f\u001b#levelchange\n8\n       \u0017blessed cloak of invisibility\nW\u001bs20s .\u0017uncursed spellbook of protection\nrs.20s   Za\nZ20s 20s  \u00173 scroll of create monster\nrt..\u0017blindfold\n\u0007gnome lord\nau.Fu \u0017uncursed wand of polymorph\nzv.  n ss#levelchange\n20\n            \u0007sandestin\n#chat\nkFkFk\u0007ogre king\n#chat\nu20s 20s \u0007Angel\nnys20s.  ni>\u001bW\u001b.ssTbrss  n.Za\nZr ef  ns.rh20s20sZa\nr   n .sZb\nqd  n: ch,E- Elbereth Elbereth\n#wipe\n  ntajf \u001bi>\u001brss20sZa\nZzr   najrh20ssZa\nZq \u00164\n   #levelchange\n6\n     \u0016?\nk   \u0006__,  nFj_.  #chat\nj20s  20s  n .#name\n\u001b#dip\ngd#rub\n\u00169\n\u0007Orcus\nyy #chat\njFj   n Fl    n \u0007tengu\nFh  n    Fh  n Fh   yy  \u0016"
+  }
+ ]
+}

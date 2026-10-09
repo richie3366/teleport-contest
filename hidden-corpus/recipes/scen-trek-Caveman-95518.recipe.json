@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "J   JHJ_ \u001b:>10swaHNJH_>.>BBBU_>.>YKNK_>.>JHHH_>.>Fl ..#untrap\nn#force\nNNHN_>,>y\\ UHYK_>,>LYKL_>.>e#turn\n\u000f\u001bLUBU_>.>LLJB_>.>NKYY_>.>Pwb HJHB_>.>q#pray\ny  LBBY_>,>_<.s#pray\ny  BLUY_>.>\u000f\u001b#terrain\nc\n;wb__.20s50s_>,>100slnkjbujbubkl150s100sFh Fh.100sbuk100sFhs20s\u000f\u001b100s\u0018\u001bjjh100shhk100s_>.>100s100seeeeeeeeeeeeeeeeck#pray\ny   #rub\ncbuu20sdes20sstdj#name\na\ntdy#chat\nu#enhance\n\u001bWeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetclhhnj#chat\nk#chat\nh#chat\ny10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBJUH_>.>Z,UJKN_>.>E- I am a fish\n#offer\nKYUJ_>,>,<<HBYU_>.>#wipe\n#monster\nLUJL_>,>BBJJ_>.>YBKU_>.>NLKB_>.>HBUK_>,>#wipe\n_m.s<UHJL _>.>#ride\nu>\u000f\u001bKJKH_>.>#dip\nd#sit\n\u001b<HJLB_>.>YLHN_>,>#monster\n#force\n\u000f\u001b"
+ },
+ "segments": [
+  {
+   "seed": 95518,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:explore\n",
+   "moves": "J   JHJ_ \u001b:>10swaHNJH_>.>BBBU_>.>YKNK_>.>JHHH_>.>Fl ..#untrap\nn#force\nNNHN_>,>y\\ UHYK_>,>LYKL_>.>e#turn\n\u000f\u001bLUBU_>.>LLJB_>.>NKYY_>.>Pwb HJHB_>.>q#pray\ny  LBBY_>,>_<.s#pray\ny  BLUY_>.>\u000f\u001b#terrain\nc\n;wb__.20s50s_>,>100slnkjbujbubkl150s100sFh Fh.100sbuk100sFhs20s\u000f\u001b100s\u0018\u001bjjh100shhk100s_>.>100s100seeeeeeeeeeeeeeeeck#pray\ny   #rub\ncbuu20sdes20sstdj#name\na\ntdy#chat\nu#enhance\n\u001bWeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetclhhnj#chat\nk#chat\nh#chat\ny10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBJUH_>.>Z,UJKN_>.>E- I am a fish\n#offer\nKYUJ_>,>,<<HBYU_>.>#wipe\n#monster\nLUJL_>,>BBJJ_>.>YBKU_>.>NLKB_>.>HBUK_>,>#wipe\n_m.s<UHJL _>.>#ride\nu>\u000f\u001bKJKH_>.>#dip\nd#sit\n\u001b<HJLB_>.>YLHN_>,>#monster\n#force\n\u000f\u001b"
+  }
+ ]
+}

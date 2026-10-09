@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FjFjFjFjFjFjFjFjFl FlFlFlFlFlFlFlYNHB_ \u001b:>JHNJ_>.>KHJH_>.>ol#dip\nmfLUK U_>,>__,sm.\u0004yNJy  LU_>,>#rub\n,b\nHYBB_>,>LN JN_>,>KBUH_>.>BKUN_>.>YJYK_>.>KKNL_>.>\u000f\u001bdnYYBK_>,><HNJK_>.>,#tip\n\u001b\u000f\u001blhjjFjFjFjFjFjFjFjFj10s20s#chat\nht\u001b#quit\nyy\u001by  y y y\u001b  \u0017wand of digging\nzl> 20szl> .zl> .zl> .zl>   yy\u001by   nny  .FuFu FuFuFuFuFuFulljlyjubKLBN_ \u001bm.><UNJU_>.>#force\n#rub\nJKHU_>.>W#sit\n\u001bUNLK_>,>HJYY_>,>#wipe\n10sKKJU_>.>i\u001b\u0014jynlFuFuFuFuFuFuFuFu100s100sFlss50scl100s100s 100s Fls.100sbjb50sFl.s100s150s  100sFuss100s100s_>.>100sFls20s100s_>.>\u000f\u001bf  100s50s150sFl 20sseh100seg100seg100seg_>,>100seghhhuhkukljbb100seg\u000f\u001b100seg#quit\nyy\u001by  y y y\u001b U JHK_ \u001b;>Fj Fj sUBLU_>.>BJJL_>.>JYKU_>,>\u0004yohHHLB_>,>dc.20ssm.10s#name\na\ntbh20snujhKHUB_>.>Fn FnsHLJL_>.>JNUL_>.>UNNU_>.><NYUN_>.>\u000f\u001bkh20sblklykbnnkjh20shlhubujkULNJ_>,>YKJ U_>,><YLHB_>.>LBBU_>.>FuFuFk20s\u0018\u001bHU LY _>.>Fj20s.KBJ U_>,>FhFh  nnnnn  2yy  \u0017wand of digging\nzg>  s zg>  szg>   s zg>   n.zg> 20szg 20s        Fn  20s s.s.FhFh20s20sH BNN_ \u001b.>FyFy sY YN K_>.><HULH_>.><JUNY_>,>BJNY_>,><KNHL_>.>HHKN_>.>NBKB_>.>#pray\ny   cjUNBY_>.><\u000f\u001b50shjy\u000f\u001bbunulj150ss#wipe\n\\   150si\u001b100sFl.20s_>.>_>,>uju100s50sFjFjFjFj20ssbuj50s150s 100sFlFlFukjk\u000f\u001bbub100s50s#sit\n\u001b50s100s50sFlFks100sFl.s100si\u001b100sFkFkFkFkFkFkFkFknlhnHBNK_>,>UUHN_>,>LLYK_>,>,PKJJH_>.>KUUH_>,>tbb__,20sLHJY_>.>\u000f\u001bnbbyjllheheh_>.>150seg#loot\n100s\u000f\u001bi\u001bbbl100sFl..\u000f\u001b#wipe\n100seh100s100sFlFls\\   100seh_>,>50seh100s150sFlss_>.>100s eg150shlh50sFl.s50seg50s_>,>lyublhkFlFlFlFlFlFlFlFlNJNL_>.>#conduct\n #offer\nYNLB_>,>#monster\n#loot\nJYUU_>.><jkjn150sehujnFkFk._>.>blk50segnuj150s100sF#quit\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95420,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": "FjFjFjFjFjFjFjFjFl FlFlFlFlFlFlFlYNHB_ \u001b:>JHNJ_>.>KHJH_>.>ol#dip\nmfLUK U_>,>__,sm.\u0004yNJy  LU_>,>#rub\n,b\nHYBB_>,>LN JN_>,>KBUH_>.>BKUN_>.>YJYK_>.>KKNL_>.>\u000f\u001bdnYYBK_>,><HNJK_>.>,#tip\n\u001b\u000f\u001blhjjFjFjFjFjFjFjFjFj10s20s#chat\nht\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 195420,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzl> 20szl> .zl> .zl> .zl>   yy\u001by   nny  ."
+  },
+  {
+   "seed": 295420,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\n",
+   "moves": "FuFu FuFuFuFuFuFulljlyjubKLBN_ \u001bm.><UNJU_>.>#force\n#rub\nJKHU_>.>W#sit\n\u001bUNLK_>,>HJYY_>,>#wipe\n10sKKJU_>.>i\u001b\u0014jynlFuFuFuFuFuFuFuFu100s100sFlss50scl100s100s 100s Fls.100sbjb50sFl.s100s150s  100sFuss100s100s_>.>100sFls20s100s_>.>\u000f\u001bf  100s50s150sFl 20sseh100seg100seg100seg_>,>100seghhhuhkukljbb100seg\u000f\u001b100seg#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 395420,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=pettype:horse\n",
+   "moves": "U JHK_ \u001b;>Fj Fj sUBLU_>.>BJJL_>.>JYKU_>,>\u0004yohHHLB_>,>dc.20ssm.10s#name\na\ntbh20snujhKHUB_>.>Fn FnsHLJL_>.>JNUL_>.>UNNU_>.><NYUN_>.>\u000f\u001bkh20sblklykbnnkjh20shlhubujkULNJ_>,>YKJ U_>,><YLHB_>.>LBBU_>.>FuFuFk20s\u0018\u001bHU LY _>.>Fj20s.KBJ U_>,>FhFh  nnnnn  2"
+  },
+  {
+   "seed": 495420,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "yy  \u0017wand of digging\nzg>  s zg>  szg>   s zg>   n.zg> 20szg 20s        Fn  20s s.s.FhFh20s20s"
+  },
+  {
+   "seed": 595420,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "H BNN_ \u001b.>FyFy sY YN K_>.><HULH_>.><JUNY_>,>BJNY_>,><KNHL_>.>HHKN_>.>NBKB_>.>#pray\ny   cjUNBY_>.><\u000f\u001b50shjy\u000f\u001bbunulj150ss#wipe\n\\   150si\u001b100sFl.20s_>.>_>,>uju100s50sFjFjFjFj20ssbuj50s150s 100sFlFlFukjk\u000f\u001bbub100s50s#sit\n\u001b50s100s50sFlFks100sFl.s100si\u001b100sFkFkFkFkFkFkFkFknlhnHBNK_>,>UUHN_>,>LLYK_>,>,PKJJH_>.>KUUH_>,>tbb__,20sLHJY_>.>\u000f\u001bnbbyjllheheh_>.>150seg#loot\n100s\u000f\u001bi\u001bbbl100sFl..\u000f\u001b#wipe\n100seh100s100sFlFls\\   100seh_>,>50seh100s150sFlss_>.>100s eg150shlh50sFl.s50seg50s_>,>lyublhkFlFlFlFlFlFlFlFlNJNL_>.>#conduct\n #offer\nYNLB_>,>#monster\n#loot\nJYUU_>.><jkjn150sehujnFkFk._>.>blk50segnuj150s100sF#quit\n"
+  }
+ ]
+}

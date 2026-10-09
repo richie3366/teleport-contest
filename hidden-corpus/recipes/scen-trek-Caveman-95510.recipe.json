@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  FhFh .100s100s150slklFus20s100s_ \u001b,>100sFl.20sbkj_>,>100s<50s150sFlFlFllhklny150s150shlku150s150seeeeeeeeeeeeeeeYNHU_>.>wa#loot\nBUYY_>.>HNHH_>.>#enhance\n\u001b>UJUJ_>.>BNHL_>.>Fl20s.#terrain\n\u001b20sNYKB_>.>h#conduct\n #dip\nceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBJUL_>.>#turn\n#jump\nLNBH_>.>BYNB_>.>NBUB_>.>#chat\nj20shl#name\n\u001bjj10skkjjtbn\u000f\u001b;_.JULB_>.>NNJY_>.>#ride\nl#turn\nHUUU_>,>#sit\n\u001bE- X marks the spot\nKYYB_>.>HJBJ_>,>#force\nw-UBKJ_>.>#monster\n#untrap\nui\u001b#pray\ny  _>,>\u0018\u001bkkkjkjklbuhujhu50sjkbFj20s.100s100sFuFu Fu_>,>150s_>.>100sFjs.lhl100s150sFbss_>,>100s 50shlh50s50sFjFjFjlhl150s bubFj.si\u001b100sklhlbjcjUK  KJ_>,>YHL J_>.>Fn FnFnL >JUNY_>.>JLNY_>,>#turn\nolJJHL_>.>NYUH_>,>FnFks#loot\n,\u000f\u001bJKK N_>.>JYLN_>.>FjssK YKY_>,>byn#monster\n100sFuFu20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nj10s#rub\nceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#dip\nb;>.clYJU K_>,>UL Y L _>,>JK BK _>,>tauu<L NBK  _>,>KKL B_>,>kynj dcsss#name\n\u001bkktbbYH JY_>.><KKHN_>.>#twoweapon\nohUNBB_>,>HNHL_>.>\u0018\u001b#loot\n_<.20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeE- Elbereth Elb"
+ },
+ "segments": [
+  {
+   "seed": 95510,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\n",
+   "moves": "  FhFh .100s100s150slklFus20s100s_ \u001b,>100sFl.20sbkj_>,>100s<50s150sFlFlFllhklny150s150shlku150s150seeeeeeeeeeeeeeeYNHU_>.>wa#loot\nBUYY_>.>HNHH_>.>#enhance\n\u001b>UJUJ_>.>BNHL_>.>Fl20s.#terrain\n\u001b20sNYKB_>.>h#conduct\n #dip\nceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBJUL_>.>#turn\n#jump\nLNBH_>.>BYNB_>.>NBUB_>.>#chat\nj20shl#name\n\u001bjj10skkjjtbn\u000f\u001b;_.JULB_>.>NNJY_>.>#ride\nl#turn\nHUUU_>,>#sit\n\u001bE- X marks the spot\nKYYB_>.>HJBJ_>,>#force\nw-UBKJ_>.>#monster\n#untrap\nui\u001b#pray\ny  _>,>\u0018\u001bkkkjkjklbuhujhu50sjkbFj20s.100s100sFuFu Fu_>,>150s_>.>100sFjs.lhl100s150sFbss_>,>100s 50shlh50s50sFjFjFjlhl150s bubFj.si\u001b100sklhlbjcjUK  KJ_>,>YHL J_>.>Fn FnFnL >JUNY_>.>JLNY_>,>#turn\nolJJHL_>.>NYUH_>,>FnFks#loot\n,\u000f\u001bJKK N_>.>JYLN_>.>FjssK YKY_>,>byn#monster\n100sFuFu20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nj10s#rub\nceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#dip\nb;>.clYJU K_>,>UL Y L _>,>JK BK _>,>tauu<L NBK  _>,>KKL B_>,>kynj dcsss#name\n\u001bkktbbYH JY_>.><KKHN_>.>#twoweapon\nohUNBB_>,>HNHL_>.>\u0018\u001b#loot\n_<.20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeE- Elbereth Elb"
+  }
+ ]
+}

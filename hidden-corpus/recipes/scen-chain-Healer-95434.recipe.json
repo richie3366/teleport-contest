@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "FnFnFnFnFnFnFnFnnkyujuhhFnFnFnFnFnFnFnFnbhjhluujFu FuFuFuFuFuFuFuUHJU_ \u001b:>#loot\nZb\nLJKN_>.>#wipe\n#invoke\n\u001bHKNU_>,>FbFbFb<LUBN_>.>YUUJ_>,>HLBU_>.>FhFhFhrj y 10s JBUK_>,>hhllhlhlFhFhFh FhFhFhFhFh100s#loot\n100s15#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nc\n .n.sm.sss.m...sys20s  sn20s     yy\u001bnnny\u001b n  s #wizintrinsic\nb\n 20s sm.20s  sys.y20s  n20sss.20ss20s20s20s.20sss20ss.20ss..20sss20s sss20s20sss.20s  #quit\nyy",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95434,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": "FnFnFnFnFnFnFnFnnkyujuhhFnFnFnFnFnFnFnFnbhjhluujFu FuFuFuFuFuFuFuUHJU_ \u001b:>#loot\nZb\nLJKN_>.>#wipe\n#invoke\n\u001bHKNU_>,>FbFbFb<LUBN_>.>YUUJ_>,>HLBU_>.>FhFhFhrj y 10s JBUK_>,>hhllhlhlFhFhFh FhFhFhFhFh100s#loot\n100s15#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 195434,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n .n.sm.sss.m...sys20s  sn20s     yy\u001bnnny\u001b n  s"
+  },
+  {
+   "seed": 295434,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n 20s sm.20s  sys.y20s  n20sss.20ss20s20s20s.20sss20ss.20ss..20sss20s sss20s20sss.20s"
+  },
+  {
+   "seed": 395434,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #quit\nyy"
+  }
+ ]
+}

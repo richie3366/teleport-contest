@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "BLJU_ \u001b.>Fjs.#loot\n#twoweapon\nKYYH_>.>UBUB_>,><\u000f\u001bnlhk20st\u001bbujkhl#name\na\nny10sFjFjFjFjFjFjFjFjbubkllllFhFhFhFhFhFhFhFhlnt\u001b20st\u001bt\u001byhh\u0018\u001b10s100s_>.>50s_>,>50shju50sFhFhFh150s_>.>lhl50s_>.>100s100sFhss100slbuhlhFhFhFhjubqh##quit\n \u0007soldier ant\nFuFkFu s20sss.s.Fh20ss.s20ss....20s.20s20sJ  HLL_ \u001bm,><NUYB_>,>#name\n\u001b#ride\nlBLYB_>,>Fk 20ssYJYK_>.>HNNJ_>.>i\u001b#force\nNYHK_>.>#pray\ny  #pray#quit\nUYLN_ \u001b:>KKJY_>.>YLNY_>.>Fh s.BYYK_>.>\u0018\u001b#untrap\nb<yy\u001bnny y\u001b L  #chat\nh#name\no\n10s20st$lkjjj hkUUUY_ \u001b<.>Fls20s#twoweapon\nw-LUHH_>,>YNYJ_>,>NNHB_>.>\u000f\u001bJLUB_>,>KJJB_>.>Fl FlFlLLYY_>.><NYUB_>.>wadjJJKU_>.>ri y #turn\nKBYY_>.>,qfL HKL _>.>wa\u0018\u001b\u000f\u001bblukjknyFjFjFjFjFjF#quit\nd \u0017wand of fire\nzg.  ns..Fh FhFhFhFhFhFhFhkhhbP100sFyss150sf bny b150sFhFhsi\u001b50s100slyu_ \u001b:>100sFh20ssnun_>,>100s100sjky100s50s50s:bun100sFhFhFh150s50s100seeeeeeeeeeekhny10sdc20ss.#chat\njhjjkby10sbuyhjuhb#chat\nh20shkju#chat\nh#chat\nh10snbhyFlFlFlFlFlFlFl  y\u001by  y y y\u001b  FH ULJ_ \u001b@.>Fy .sYUNJ_>.>UJYL_>.>E- ad aerarium\nZJHNN_>.>#terrain\nb\n#enhance\n,NKYJ_>,>\u000f\u001bkklb100s150s100s150subj50s\\  kuh50snyj100s100seelyn<ubb#twoweapon\n150s100sed150skju100s hluhbu100s 100si\u001b100sjuh50s100s_>.>_>,>150sed\u000f\u001b150s\u0018\u001b100sjbku20s20s10s20s#name\no\n20s#chat\nhlhlbhujkdas.s10sbj#name\nf\n#chat\n<.klubub20shkjjuhju#chat\njdb20s..bkjkdcsss#name\nd\n#chat\nudcss.10s:100s\u0018\u001b\\  jkk50sjjk100sjkj100seeeeeeeeeee#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95431,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\n",
+   "moves": "BLJU_ \u001b.>Fjs.#loot\n#twoweapon\nKYYH_>.>UBUB_>,><\u000f\u001bnlhk20st\u001bbujkhl#name\na\nny10sFjFjFjFjFjFjFjFjbubkllllFhFhFhFhFhFhFhFhlnt\u001b20st\u001bt\u001byhh\u0018\u001b10s100s_>.>50s_>,>50shju50sFhFhFh150s_>.>lhl50s_>.>100s100sFhss100slbuhlhFhFhFhjubqh##quit\n"
+  },
+  {
+   "seed": 195431,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007soldier ant\nFuFkFu s20sss.s.Fh20ss.s20ss....20s.20s20s"
+  },
+  {
+   "seed": 295431,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": "J  HLL_ \u001bm,><NUYB_>,>#name\n\u001b#ride\nlBLYB_>,>Fk 20ssYJYK_>.>HNNJ_>.>i\u001b#force\nNYHK_>.>#pray\ny  #pray#quit\n"
+  },
+  {
+   "seed": 395431,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "UYLN_ \u001b:>KKJY_>.>YLNY_>.>Fh s.BYYK_>.>\u0018\u001b#untrap\nb<yy\u001bnny y\u001b L"
+  },
+  {
+   "seed": 495431,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\n",
+   "moves": "  #chat\nh#name\no\n10s20st$lkjjj hkUUUY_ \u001b<.>Fls20s#twoweapon\nw-LUHH_>,>YNYJ_>,>NNHB_>.>\u000f\u001bJLUB_>,>KJJB_>.>Fl FlFlLLYY_>.><NYUB_>.>wadjJJKU_>.>ri y #turn\nKBYY_>.>,qfL HKL _>.>wa\u0018\u001b\u000f\u001bblukjknyFjFjFjFjFjF#quit\nd"
+  },
+  {
+   "seed": 595431,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of fire\nzg.  ns.."
+  },
+  {
+   "seed": 695431,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:walk\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "Fh FhFhFhFhFhFhFhkhhbP100sFyss150sf bny b150sFhFhsi\u001b50s100slyu_ \u001b:>100sFh20ssnun_>,>100s100sjky100s50s50s:bun100sFhFhFh150s50s100seeeeeeeeeeekhny10sdc20ss.#chat\njhjjkby10sbuyhjuhb#chat\nh20shkju#chat\nh#chat\nh10snbhyFlFlFlFlFlFlFl  y\u001by  y y y\u001b  F"
+  },
+  {
+   "seed": 795431,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\n",
+   "moves": "H ULJ_ \u001b@.>Fy .sYUNJ_>.>UJYL_>.>E- ad aerarium\nZJHNN_>.>#terrain\nb\n#enhance\n,NKYJ_>,>\u000f\u001bkklb100s150s100s150subj50s\\  kuh50snyj100s100seelyn<ubb#twoweapon\n150s100sed150skju100s hluhbu100s 100si\u001b100sjuh50s100s_>.>_>,>150sed\u000f\u001b150s\u0018\u001b100sjbku20s20s10s20s#name\no\n20s#chat\nhlhlbhujkdas.s10sbj#name\nf\n#chat\n<.klubub20shkjjuhju#chat\njdb20s..bkjkdcsss#name\nd\n#chat\nudcss.10s:100s\u0018\u001b\\  jkk50sjjk100sjkj100seeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017cursed bag of holding\n\u0017ice box\n\u0017blessed bag of holding\n\u0017ring of gain strength\n\u0017ring of aggravate monster\n\u0017loadstone\n\u0017mace\nwmdg#force\n20s20s saib\nd\n\u001bais\nalj\u0017dagger\nwndi#force\n20s..\u000f\u001bi\u001bwbFj FjFjwnFj Fj Fj waFjFjFjef sm..hwcFn Fnstbb#untrap\nj#ride\njyckK#force\n\u000f\u001b#pray\ny y Pkli\u001bPjss20swnsFnsXaleW\u001bs20ssPjs20s20swmFn.Fn\u0006#wizintrinsic\ng\n \u0017wand of locking\nzpjzpjE- Vlad was here\n\u0017blessed wand of digging\nzq> ;<. \u001b,Zsssi\u001bPj20s20s20sRwc.ssef sm.swmFhFhFhwnFhFhFhXPj20s.m.sm.#sit\ni\u001b#monster\n\\  waef<\u0018\u001b\u0018\u001b#levelchange\n20\n   \u00178 rocks\nQ-\u00074 gnome lord\nunf n h     f a h  Fh     Fh\u0017potion of blindness\ntcj  \u0007kobold\nb n f \u001bf \u001bf \u001b\u0017potion of water\ntcy \u0007newt\nyf \u001bf \u001bFjFl \u0017potion of blindness\ntcy   nx#twoweapon\nFu  Fjjh k,#enhance\nn\u001b\u0007hostile steam vortex\nFu Fl FjFkFk FkFkFk #pray\ny y         Fu Fj #pray\ny y \u0007water nymph\nFkFj   Fl    .  s FjFj sm.s#pray\ny y      \u0007green slime\nFb  Fh  Fy  sm.20s #pray\ny y      #wizintrinsic\ng\n ;l.;y,\u0017scroll of remove curse\nrx   \u001b\u0017wand of fire\nzyyzyysm.20s20s#levelchange\n20\nbynk\u0017cloud\njkkk:l\u0017grave\n: \u0017pick-axe\n azssn\u0017unaligned altar\ndv \u0017gnome corpse\n#offer\n#pray\ny  b \u0017throne\n#sit\n#sit\n y :#terrain\nc\n,Pj#monster\n#levelchange\n8\n   \u0017scroll of food detection\n\u0007Archon\nrB .        Fh  n     n Fh  n     n \u0017cursed scroll of light\nrCFh   n           n    n Fk   n    n     n      n \u0017spellbook of light\nrD    n     n      n           yy\u001by   y ys y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 95308,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017cursed bag of holding\n\u0017ice box\n\u0017blessed bag of holding\n\u0017ring of gain strength\n\u0017ring of aggravate monster\n\u0017loadstone\n\u0017mace\nwmdg#force\n20s20s saib\nd\n\u001bais\nalj\u0017dagger\nwndi#force\n20s..\u000f\u001bi\u001bwbFj FjFjwnFj Fj Fj waFjFjFjef sm..hwcFn Fnstbb#untrap\nj#ride\njyckK#force\n\u000f\u001b#pray\ny y Pkli\u001bPjss20swnsFnsXaleW\u001bs20ssPjs20s20swmFn.Fn\u0006#wizintrinsic\ng\n \u0017wand of locking\nzpjzpjE- Vlad was here\n\u0017blessed wand of digging\nzq> ;<. \u001b,Zsssi\u001bPj20s20s20sRwc.ssef sm.swmFhFhFhwnFhFhFhXPj20s.m.sm.#sit\ni\u001b#monster\n\\  waef<\u0018\u001b\u0018\u001b#levelchange\n20\n   \u00178 rocks\nQ-\u00074 gnome lord\nunf n h     f a h  Fh     Fh\u0017potion of blindness\ntcj  \u0007kobold\nb n f \u001bf \u001bf \u001b\u0017potion of water\ntcy \u0007newt\nyf \u001bf \u001bFjFl \u0017potion of blindness\ntcy   nx#twoweapon\nFu  Fjjh k,#enhance\nn\u001b\u0007hostile steam vortex\nFu Fl FjFkFk FkFkFk #pray\ny y         Fu Fj #pray\ny y \u0007water nymph\nFkFj   Fl    .  s FjFj sm.s#pray\ny y      \u0007green slime\nFb  Fh  Fy  sm.20s #pray\ny y      #wizintrinsic\ng\n ;l.;y,\u0017scroll of remove curse\nrx   \u001b\u0017wand of fire\nzyyzyysm.20s20s#levelchange\n20\nbynk\u0017cloud\njkkk:l\u0017grave\n: \u0017pick-axe\n azssn\u0017unaligned altar\ndv \u0017gnome corpse\n#offer\n#pray\ny  b \u0017throne\n#sit\n#sit\n y :#terrain\nc\n,Pj#monster\n#levelchange\n8\n   \u0017scroll of food detection\n\u0007Archon\nrB .        Fh  n     n Fh  n     n \u0017cursed scroll of light\nrCFh   n           n    n Fk   n    n     n      n \u0017spellbook of light\nrD    n     n      n           yy\u001by   y ys y\u001by  2"
+  }
+ ]
+}

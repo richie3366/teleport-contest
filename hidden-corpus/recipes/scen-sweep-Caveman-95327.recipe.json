@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #wizintrinsic\ng\n \u0017scroll of earth\nrf  \u0017huge chunk of meat\n eg   kkhE- Vlad was here\n.s.\u001629\n \u0018\u001b#levelchange\n30\n                      \u0017blessed ring of polymorph control\nPhl#polyself\nvampire\n20ss\u0007brown pudding\nFyFu Fh.k20s20s #polyself\nblue jelly\n  ss\u0007rabid rat\n20s ....20s #polyself\nfog cloud\n#monster\ns.\u0007Keystone Kop\nFjsFh20sss\u0017wand of polymorph\nzz\u0017large box\n\u0017cursed bag of holding\n\u0017sack\n\u0017wand of undead turning\n\u0017ring of shock resistance\n\u0017potion of paralysis\ndk#loot\n,\u001bdju\u0004 a\u0017lock pick\ndnass20s #loot\n\u0017skeleton key\ndla20s ss#loot\n\u0006_ \u001b:>_>._.>_>._,>\\ 10s\u0006_>>,_,>_>>._.>_>>,  _.  Fb >FbFjFbFbFj\u0006_>.Fj _.  Fb >Fj  Fb_>. Fh  _.m,Fl >FlFl _>. Fh_..Fh>FhFh<\u000f\u001b\u00167\n\u0007dwarf\n#chat\nnFn Fn \u0007brown mold\nFnFj \u0007imp\nFlFuFk Fu\u0016?\n>EnFbFbFbjlFh\u0017wand of striking\nzrukkFjlulunbnb10sjyubnnuuuuluynnbkky\u0017wand of digging\nzsly\u0017wand of striking\nzt>h\u0017wand of digging\nzul\u0017wand of striking\nzvh\u0017wand of striking\nzwh\u0017wand of digging\nzx>\u0017wand of digging\nzyj10s\u0017scroll of earth\nrz  kjljnhulkk\u0006#wizintrinsic\ni\n Z\u0017cursed scroll of gold detection\nrA\u0017eucalyptus leaf\neB  n\u0017blessed scroll of amnesia\nrC\u0017scroll of food detection\nrDs20s.\u001612\n\u0017blessed +3 ring of gain strength\n\u0007master lich\nPE.   s 20s FkFj\u0017scroll of fire\nrF\u00173 Snickersnee\n\u0007lieutenant\nwG FkFj   . #invoke\nG s.\u0017cursed 10 daggers\nQHfn  n fkfj\u0017cursed wand of probing\nzI.zIb \u001b\u0017blessed +3 ring of increase accuracy\nPJ20s  s  n .m.  RE  sh sm.  n \u00169\n#levelchange\n20\n   \u0007ghoul\nFl Fl  Fk  Fn    n   Fk    Fn    n   \u0007"
+ },
+ "segments": [
+  {
+   "seed": 95327,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #wizintrinsic\ng\n \u0017scroll of earth\nrf  \u0017huge chunk of meat\n eg   kkhE- Vlad was here\n.s.\u001629\n \u0018\u001b#levelchange\n30\n                      \u0017blessed ring of polymorph control\nPhl#polyself\nvampire\n20ss\u0007brown pudding\nFyFu Fh.k20s20s #polyself\nblue jelly\n  ss\u0007rabid rat\n20s ....20s #polyself\nfog cloud\n#monster\ns.\u0007Keystone Kop\nFjsFh20sss\u0017wand of polymorph\nzz\u0017large box\n\u0017cursed bag of holding\n\u0017sack\n\u0017wand of undead turning\n\u0017ring of shock resistance\n\u0017potion of paralysis\ndk#loot\n,\u001bdju\u0004 a\u0017lock pick\ndnass20s #loot\n\u0017skeleton key\ndla20s ss#loot\n\u0006_ \u001b:>_>._.>_>._,>\\ 10s\u0006_>>,_,>_>>._.>_>>,  _.  Fb >FbFjFbFbFj\u0006_>.Fj _.  Fb >Fj  Fb_>. Fh  _.m,Fl >FlFl _>. Fh_..Fh>FhFh<\u000f\u001b\u00167\n\u0007dwarf\n#chat\nnFn Fn \u0007brown mold\nFnFj \u0007imp\nFlFuFk Fu\u0016?\n>EnFbFbFbjlFh\u0017wand of striking\nzrukkFjlulunbnb10sjyubnnuuuuluynnbkky\u0017wand of digging\nzsly\u0017wand of striking\nzt>h\u0017wand of digging\nzul\u0017wand of striking\nzvh\u0017wand of striking\nzwh\u0017wand of digging\nzx>\u0017wand of digging\nzyj10s\u0017scroll of earth\nrz  kjljnhulkk\u0006#wizintrinsic\ni\n Z\u0017cursed scroll of gold detection\nrA\u0017eucalyptus leaf\neB  n\u0017blessed scroll of amnesia\nrC\u0017scroll of food detection\nrDs20s.\u001612\n\u0017blessed +3 ring of gain strength\n\u0007master lich\nPE.   s 20s FkFj\u0017scroll of fire\nrF\u00173 Snickersnee\n\u0007lieutenant\nwG FkFj   . #invoke\nG s.\u0017cursed 10 daggers\nQHfn  n fkfj\u0017cursed wand of probing\nzI.zIb \u001b\u0017blessed +3 ring of increase accuracy\nPJ20s  s  n .m.  RE  sh sm.  n \u00169\n#levelchange\n20\n   \u0007ghoul\nFl Fl  Fk  Fn    n   Fk    Fn    n   \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n8\n\u0017the Eyes of the Overworld\n wb Fh ssX\u0007cave spider\n;h: \u001b,20s.m.20s\u0007gray ooze\nFhFkFk\u0007hezrou\n;j:  sls.k\u0017bag of holding\n\u0017scroll of confuse monster\n\u0017dilithium crystal\ndg#loot\no\n, #tip\ng\u001bago\n#tip\ng\u001b#tip\ng\u001bagi\ni\u001b\u0017blessed ring of polymorph control\nPjr \u0017red dragon scale mail\nW\u001bsm.20s sh   n #polyself\nwarhorse\n #monster\n.m. sm.20ssm.s#polyself\nblack dragon\n #monster\nusm. 20s .m.sm.sm.  #polyself\nhuman mummy\n.b  .u  \u0007vrock\nFl FkFj20s 20s s\u0017wand of polymorph\nzljzlk\u000f\u001b#wizintrinsic\nlh\n  ZyuyE- sb   .m.20s     n \u001610\n#levelchange\n30\n                      \u00165\n;j.di      agr\na\n       sm.s\u0016?\n>>K      spellbook of levitation\nwa       20s    n         :;y;\u0006m,20s         n  .y          \u0016?\n\u001b\u001610\n#levelchange\n14\n     #polyself\ndust vortex\n#monster\n.m.20s      n     \u0007jackal\nFl          FhFy       n           Fj         n       \u0007kobold\nFl          n  Fl             Fy            n     Fj      n  \u00168\n\u00162\n\u0007pony\n\u0017lichen corpse\nt\u001b\u0007large dog\n\u0017carrot\nt\u001b\u0007sewer rat\n20s        n 20s       .m.  n       n  sh    20s      n s         \u0017leash\nary   n        n u     yny   y y y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 95343,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n8\n\u0017the Eyes of the Overworld\n wb Fh ssX\u0007cave spider\n;h: \u001b,20s.m.20s\u0007gray ooze\nFhFkFk\u0007hezrou\n;j:  sls.k\u0017bag of holding\n\u0017scroll of confuse monster\n\u0017dilithium crystal\ndg#loot\no\n, #tip\ng\u001bago\n#tip\ng\u001b#tip\ng\u001bagi\ni\u001b\u0017blessed ring of polymorph control\nPjr \u0017red dragon scale mail\nW\u001bsm.20s sh   n #polyself\nwarhorse\n #monster\n.m. sm.20ssm.s#polyself\nblack dragon\n #monster\nusm. 20s .m.sm.sm.  #polyself\nhuman mummy\n.b  .u  \u0007vrock\nFl FkFj20s 20s s\u0017wand of polymorph\nzljzlk\u000f\u001b#wizintrinsic\nlh\n  ZyuyE- sb   .m.20s     n \u001610\n#levelchange\n30\n                      \u00165\n;j.di      agr\na\n       sm.s\u0016?\n>>K      spellbook of levitation\nwa       20s    n         :;y;\u0006m,20s         n  .y          \u0016?\n\u001b\u001610\n#levelchange\n14\n     #polyself\ndust vortex\n#monster\n.m.20s      n     \u0007jackal\nFl          FhFy       n           Fj         n       \u0007kobold\nFl          n  Fl             Fy            n     Fj      n  \u00168\n\u00162\n\u0007pony\n\u0017lichen corpse\nt\u001b\u0007large dog\n\u0017carrot\nt\u001b\u0007sewer rat\n20s        n 20s       .m.  n       n  sh    20s      n s         \u0017leash\nary   n        n u     yny   y y y\u001b  j"
+  }
+ ]
+}

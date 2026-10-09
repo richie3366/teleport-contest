@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " FyFy 20sFlFls150s100sFl20s.FlFls\u0018\u001b100s150suny100sFhFhFy100s100s100sFnFnse#pray\ny  100s#pray\ny #chat\nj50snkhubn100sFnFlFl\u0018\u001bkjk#tip\n\u001b50s50skkbFnFjs100s\u000f\u001b100s lnui\u001b#monster\n100skyljFhFhFhFhFhFhFhFhJKHL_ \u001b>.>Fhs20sNNKH_>.>BBJU_>.>#jump\n#pray\ny  UJL   y\u001by  y y y\u001b  K hylbFh FhFhFhFhFhFhFhLNJH_ \u001b:>NLUH_>.>JULN_>.>HHKY_>,>KBBY_>,>\u000f\u001bnhlkBJYB_>.>NUYB_>,>#jump\n;>.LYKK_>,>20s#name\na\nnl20stbbyjkn#name\na\n#chat\nykhllhblkhjybt\u001b_>.>>_>.>100s100s_>,>dd150s 100sFb20s.100s:\u0018\u001b#dip\nci\u001b_>.>#monster\ndcjyuFb.s\u000f\u001b100sljj150s\u000f\u001bW150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b #wizintrinsic\nd\n 20s20s sksh .m.  yny  ny\u001by  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 95433,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\n",
+   "moves": " FyFy 20sFlFls150s100sFl20s.FlFls\u0018\u001b100s150suny100sFhFhFy100s100s100sFnFnse#pray\ny  100s#pray\ny #chat\nj50snkhubn100sFnFlFl\u0018\u001bkjk#tip\n\u001b50s50skkbFnFjs100s\u000f\u001b100s lnui\u001b#monster\n100skyljFhFhFhFhFhFhFhFhJKHL_ \u001b>.>Fhs20sNNKH_>.>BBJU_>.>#jump\n#pray\ny  UJL   y\u001by  y y y\u001b  K"
+  },
+  {
+   "seed": 195433,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " hylbFh FhFhFhFhFhFhFhLNJH_ \u001b:>NLUH_>.>JULN_>.>HHKY_>,>KBBY_>,>\u000f\u001bnhlkBJYB_>.>NUYB_>,>#jump\n;>.LYKK_>,>20s#name\na\nnl20stbbyjkn#name\na\n#chat\nykhllhblkhjybt\u001b_>.>>_>.>100s100s_>,>dd150s 100sFb20s.100s:\u0018\u001b#dip\nci\u001b_>.>#monster\ndcjyuFb.s\u000f\u001b100sljj150s\u000f\u001bW150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 295433,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\nd\n 20s20s sksh .m.  yny  ny\u001by  s"
+  }
+ ]
+}

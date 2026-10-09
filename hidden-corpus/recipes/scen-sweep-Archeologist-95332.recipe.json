@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0007mumak\n\u0017scroll of taming\n ri \u0017saddle\najb\u0017lance\nwk#ride\nhy\u0007tame saddled warhorse\n#ride\nly\u0007tame saddled pony\n#ride\n  \u0006_ \u001b;>FkFj_>,Fu_,<.>_>._,;<.Fj>\u0007grid bug\nFlss#ride\nny.#ride\n  #ride\njys#ride\nuy,hnu\u0017trap door\ny#untrap\nny\u0017pit\nlh.s\u0017land mine\nalll#terrain\n\u001b#ride\nnyhE-\u000f\u001bi\u001bwasssE-\u0018\u001b#wipe\nwa10sdk >#untrap\nl#levelchange\n30\n                      \u0007air elemental\nFn\u0017scroll of fire\n rm            Fj   sm.  s Fj     sm.  Fk   20s #pray\ny y Fks  \u0017dwarvish mattock\n\u00169\nan <\u0006_o. _.an>an> .m.an> u\u0017grave\nan> 20s .m.anl l \u00167\n\u000f\u001b\u0007tame saddled warhorse\n#ride\njy\u0007tame saddled pony\n#ride\n  \u0007tame saddled horse\n#ride\nhy,#ride\nhy.m.  n#ride\nhylu j   \u0006_>.         Fn  _.Fn >Fh Fh _>.Fb   n_..Fb >Fbs_>._., >\u0004u\u00162\n\u0017chain mail\nW\u001bsss\u0007large mimic\nsFuFuFu\u0007hell hound\n;y,sm.sn  sk \u0017pick-axe\n\u0016?\ncap     n 20s   \u0006_oooo,Fl   _.Fk ap>  n n   j aph  n  hapy  yk  n      apu     n uhj  n \u00162\nly\u0017wand of stasis\nEq X marks the spot\n: \u0017wand of speed monster\nErn  Vlad was here\n: \u0017wand of death\nEsn  Elbereth Elbereth\n: \u00163\n \u0017wand of digging\n\u0016?\nczt> 20szt> szt> .\u0006_oo,zt> lu#levelchange\n8\n       #wizintrinsic\nakn\n  .s20s ss 20s 20s  .20s    .l20s    n20s  20s    susssss.m.  n sl.b  sy  sm.   n      20s      .l     n 20s    .m. sm.   n  sm. sm.   n  sm.   k#dip\ns#enhance\nyn\na\n\u001b#terrain\nf\nzrn  #twoweapon\n   n    .m.     nsh.m.     su 20s  yny  y y y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 95332,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0007mumak\n\u0017scroll of taming\n ri \u0017saddle\najb\u0017lance\nwk#ride\nhy\u0007tame saddled warhorse\n#ride\nly\u0007tame saddled pony\n#ride\n  \u0006_ \u001b;>FkFj_>,Fu_,<.>_>._,;<.Fj>\u0007grid bug\nFlss#ride\nny.#ride\n  #ride\njys#ride\nuy,hnu\u0017trap door\ny#untrap\nny\u0017pit\nlh.s\u0017land mine\nalll#terrain\n\u001b#ride\nnyhE-\u000f\u001bi\u001bwasssE-\u0018\u001b#wipe\nwa10sdk >#untrap\nl#levelchange\n30\n                      \u0007air elemental\nFn\u0017scroll of fire\n rm            Fj   sm.  s Fj     sm.  Fk   20s #pray\ny y Fks  \u0017dwarvish mattock\n\u00169\nan <\u0006_o. _.an>an> .m.an> u\u0017grave\nan> 20s .m.anl l \u00167\n\u000f\u001b\u0007tame saddled warhorse\n#ride\njy\u0007tame saddled pony\n#ride\n  \u0007tame saddled horse\n#ride\nhy,#ride\nhy.m.  n#ride\nhylu j   \u0006_>.         Fn  _.Fn >Fh Fh _>.Fb   n_..Fb >Fbs_>._., >\u0004u\u00162\n\u0017chain mail\nW\u001bsss\u0007large mimic\nsFuFuFu\u0007hell hound\n;y,sm.sn  sk \u0017pick-axe\n\u0016?\ncap     n 20s   \u0006_oooo,Fl   _.Fk ap>  n n   j aph  n  hapy  yk  n      apu     n uhj  n \u00162\nly\u0017wand of stasis\nEq X marks the spot\n: \u0017wand of speed monster\nErn  Vlad was here\n: \u0017wand of death\nEsn  Elbereth Elbereth\n: \u00163\n \u0017wand of digging\n\u0016?\nczt> 20szt> szt> .\u0006_oo,zt> lu#levelchange\n8\n       #wizintrinsic\nakn\n  .s20s ss 20s 20s  .20s    .l20s    n20s  20s    susssss.m.  n sl.b  sy  sm.   n      20s      .l     n 20s    .m. sm.   n  sm. sm.   n  sm.   k#dip\ns#enhance\nyn\na\n\u001b#terrain\nf\nzrn  #twoweapon\n   n    .m.     nsh.m.     su 20s  yny  y y y\u001b  ."
+  }
+ ]
+}

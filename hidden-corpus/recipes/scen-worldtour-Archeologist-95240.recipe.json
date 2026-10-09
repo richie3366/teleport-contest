@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPi\u0017blessed Mjollnir\nwj\u0016?\ng _ \u001b,\u001624\n\u0014;.ss\u001625\n\u0004y.20s    20s \u0016?\n>>P  bl:.20s\u001617\n_{,.\u0016?\n>>P  #levelchange\n8\n \u0017blessed spellbook of detect monsters\nra s.Za\nZ\u0017 ,.20s\u00173 wand of lightning\nzb.zby.20s20s20s\u001615\nhb\u0017wand of speed monster\nEc Vlad was here\n\u0017athame\nEd  X marks the spot\ny\u0017wand of secret door detection\nEe  Elbereth\nhE- ad aerarium\njE- Vlad was here\n\u0007soldier ant\nsm.s.m.   n\u0016?\n>>Qhn y   n :\u001636\n__,\u001615\nhhnbhj:.m.\u0016?\ni hyuuuuu:\u001617\n\u0014,\u0016?\n>>L      gauntlets of fumbling\n\u0017cursed the Staff of Aesculapius\n \u0007newt\nwm  Fb     Fk Fj #invoke\nm  n   X\u0017cursed -1 helm of telepathy\nW\u001bsm.         20s 20s    Fk   Fk   n       \u0017blessed wand of locking\nzok  \u0017wand of locking\nzph       zpk   n \u0017wand of teleportation\nzq. y.   \u0017scroll of gold detection\n rr  20s s\u001b\u00166\n\u0016?\nb #levelchange\n8\n \u0017elven mithril-coat\n W\u001bs  n    n s  n s   n   n\u0007mumak\nFh  n  n   n  n  n Fl  n  n    n  n\u0007barrow wight\nsm.  n  ynny ny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 95240,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPi\u0017blessed Mjollnir\nwj\u0016?\ng _ \u001b,\u001624\n\u0014;.ss\u001625\n\u0004y.20s    20s \u0016?\n>>P  bl:.20s\u001617\n_{,.\u0016?\n>>P  #levelchange\n8\n \u0017blessed spellbook of detect monsters\nra s.Za\nZ\u0017 ,.20s\u00173 wand of lightning\nzb.zby.20s20s20s\u001615\nhb\u0017wand of speed monster\nEc Vlad was here\n\u0017athame\nEd  X marks the spot\ny\u0017wand of secret door detection\nEe  Elbereth\nhE- ad aerarium\njE- Vlad was here\n\u0007soldier ant\nsm.s.m.   n\u0016?\n>>Qhn y   n :\u001636\n__,\u001615\nhhnbhj:.m.\u0016?\ni hyuuuuu:\u001617\n\u0014,\u0016?\n>>L      gauntlets of fumbling\n\u0017cursed the Staff of Aesculapius\n \u0007newt\nwm  Fb     Fk Fj #invoke\nm  n   X\u0017cursed -1 helm of telepathy\nW\u001bsm.         20s 20s    Fk   Fk   n       \u0017blessed wand of locking\nzok  \u0017wand of locking\nzph       zpk   n \u0017wand of teleportation\nzq. y.   \u0017scroll of gold detection\n rr  20s s\u001b\u00166\n\u0016?\nb #levelchange\n8\n \u0017elven mithril-coat\n W\u001bs  n    n s  n s   n   n\u0007mumak\nFh  n  n   n  n  n Fl  n  n    n  n\u0007barrow wight\nsm.  n  ynny ny\u001b  2"
+  }
+ ]
+}

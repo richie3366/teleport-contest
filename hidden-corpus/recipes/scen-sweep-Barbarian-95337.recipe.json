@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n20\n            \u0017blessed ring of polymorph control\nPhr#polyself\nhomunculus\n  #monster\n.20ss20s.m. #polyself\ngreen slime\n#monster\ns.\u0007shopkeeper\nyy.s.ss20s      #polyself\ngreen slime\n#monster\n.ss20s     20s          \u0017wand of polymorph\n\u0006_ \u001b.>Fh      Fu_>.Fl _.,Fl>FlFl_>,Fl_.Fb>FbFbFbFbs\u0006_>.Fl_,> FhFhFh\u0006_>,Fh_.<. > FhFhFh#loot\nh#enhance\nyd\np\n\u001b\u0006_>.Fh_.@.Fh>Fhs_>,Fj_.:Fj>FjFj_>.Fj_..Fj>Fj20s\u0006_>. Fj_.<.Fl>_>._.>_>,_,>\u0006_>._.>_>._.>_>._.>#loot\nu\u0006_>,_.>_>._,>_>._.>qZ\u000f\u001b\u00169\n\u0017bag of tricks\n\u0017wand of magic missile\n\u0017wand of lightning\n\u0017wand of sleep\najFusajdj #loot\n  , Fy  Fk #tip\nj\u001bdj    nh\u0004l Fl Fu df #loot\nl, Fl   n  Fl \u001624\n\u00167\n#wizintrinsic\nbqd\n  .m..20ssm.s.l.sm..m.20ssusss\u0017blindfold\nan#force\n#offer\n#twoweapon\nq\u001b>zlbsm.20s sk.m.20s     n n 20s\u00163\n#levelchange\n20\n\u0016?\n>y  _mmm.#chat\nu;._mmmmm.#chat\nb;m,_mmmm,#chat\nn_mmmm.#chat\nhzmu<ef lhlh\u0017unaligned altar\ndmndk\u0017human corpse\n#offer\nk\u0017neutral altar\ndbg\u0017#pray\ny y: kk\u0017sink\nqyj\u0004 #terrain\nd\nP \\   #dip\no\u0017pick-axe\n\u0016?\ncapubub\u0017grave\nap> sshjapn nku  napy yapkk\u0007hell hound\n;j;.20s s\u0007Demogorgon\nyy;l:s   n  20s     sj     n \u0007gray ooze\nFl        n  Fk       n Fk       n  Fu   n      n Fn      n   Fl  n         n    #levelchange\n20\n  \u0016?\nq P#twoweapon\ns  ;j:\u0006. s   yy\u001by   ny y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 95337,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n8\n       #levelchange\n20\n            \u0017blessed ring of polymorph control\nPhr#polyself\nhomunculus\n  #monster\n.20ss20s.m. #polyself\ngreen slime\n#monster\ns.\u0007shopkeeper\nyy.s.ss20s      #polyself\ngreen slime\n#monster\n.ss20s     20s          \u0017wand of polymorph\n\u0006_ \u001b.>Fh      Fu_>.Fl _.,Fl>FlFl_>,Fl_.Fb>FbFbFbFbs\u0006_>.Fl_,> FhFhFh\u0006_>,Fh_.<. > FhFhFh#loot\nh#enhance\nyd\np\n\u001b\u0006_>.Fh_.@.Fh>Fhs_>,Fj_.:Fj>FjFj_>.Fj_..Fj>Fj20s\u0006_>. Fj_.<.Fl>_>._.>_>,_,>\u0006_>._.>_>._.>_>._.>#loot\nu\u0006_>,_.>_>._,>_>._.>qZ\u000f\u001b\u00169\n\u0017bag of tricks\n\u0017wand of magic missile\n\u0017wand of lightning\n\u0017wand of sleep\najFusajdj #loot\n  , Fy  Fk #tip\nj\u001bdj    nh\u0004l Fl Fu df #loot\nl, Fl   n  Fl \u001624\n\u00167\n#wizintrinsic\nbqd\n  .m..20ssm.s.l.sm..m.20ssusss\u0017blindfold\nan#force\n#offer\n#twoweapon\nq\u001b>zlbsm.20s sk.m.20s     n n 20s\u00163\n#levelchange\n20\n\u0016?\n>y  _mmm.#chat\nu;._mmmmm.#chat\nb;m,_mmmm,#chat\nn_mmmm.#chat\nhzmu<ef lhlh\u0017unaligned altar\ndmndk\u0017human corpse\n#offer\nk\u0017neutral altar\ndbg\u0017#pray\ny y: kk\u0017sink\nqyj\u0004 #terrain\nd\nP \\   #dip\no\u0017pick-axe\n\u0016?\ncapubub\u0017grave\nap> sshjapn nku  napy yapkk\u0007hell hound\n;j;.20s s\u0007Demogorgon\nyy;l:s   n  20s     sj     n \u0007gray ooze\nFl        n  Fk       n Fk       n  Fu   n      n Fn      n   Fl  n         n    #levelchange\n20\n  \u0016?\nq P#twoweapon\ns  ;j:\u0006. s   yy\u001by   ny y\u001b  \u0016"
+  }
+ ]
+}
