@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3729 `dothrow.c` throwit landing Splash/Plop gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3728 Next lead)
+
+**C locus:** dothrow.c throwit `:1510–1849`, gate `:1793` (`if (!Deaf && !Underwater)`); Underwater ≡ youprop.h:279 `(u.uinwater)`; pool/lava/flammable/weight arms `:1795–1800`; flooreffects 'fall' `:1802`. C call sites: artifact.c:2029, dothrow.c:270, polyself.c:1475 (+ extern.h:847 decl).
+**JS:** js/dothrow.js (comment :2574–2576, gate :2585, body :2304–2673); scripts/throwit-landing-splash-gate.test.mjs (new, 5 its through the real throwit() with dx=1, POOL at the (11,10) landing cell, VWALL stop at (12,10), Deaf clear, viz unset: surface bulky Splash!; submerged bulky silent; dead-flat Splash!; surface light Plop!; submerged light silent).
+**Change:** js/dothrow.js only — the gate reads `!(u.uinwater | 0)` with C cites (`:1793` + youprop.h:279); D-3400 idiom, no new edge, no import (u = game.u already :2305).
+**Verify:** focused test 2/5 pre-fix (surface Splash!/Plop! controls green = staging sound; submerged ×2 + dead-flat red — all three explained by the sticky-flat read) → 5/5 post-fix. `node scripts/verify.mjs --fn throwit` → PASS syntax (1 file: js/dothrow.js) · PASS rule2 · note hidden (no corpus session blocked on throwit at baseline) · PASS reach (4 reach, 4/4 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+**Named:** none new. throwit whole (ledger ported D-3383/D-3382/D-1346 stands).
+**Next:** verified successor lead live in missing-arm (briefed as this commit's refill — QUEUE_MIN 1; different C function, not shipped here): apply.js covers_objects_pole — C display.h covers_objects `:218–220` (`(is_pool && !Underwater) || LAVAPOOL || LAVAWALL`) vs JS js/apply.js:3559 (covers_objects_pole `:3557–3560`, `!game.u?.Underwater`; fix = live `u.uinwater` bit, D-3400 idiom). dothrow.js:937 disjoins the live bit (`u.Underwater || u.uinwater` — dead-flat harmless, this iter); read.js:1870 live per D-3728 — no rows. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3728 `music.c` do_play_instrument Underwater gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3727 Next lead)
 
 **C locus:** music.c do_play_instrument `:759–899`, gate `:765` (`if (Underwater)`); Underwater ≡ youprop.h:279 `(u.uinwater)`; can_blow arm `:766–773`. C call sites: apply.c:4383 (+ extern.h:2077 decl).

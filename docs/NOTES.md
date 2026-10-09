@@ -27,20 +27,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split).
 ## Don't re-check (≤15)
 
-- D-1790…D-3728 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3729 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3728.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3728 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3729.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3729 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3729: js/dothrow.js only — the gate reads `!(u.uinwater | 0)` with C cites (`:1793` + youprop.h:279); D-3400 idiom, no new edge, no import (u = game.u alrea Named: none new. throwit whole (ledger ported D-3383/D-3382/D-1346 stands).
 - D-3728: js/music.js only — the gate reads `(u?.uinwater | 0)` with C cites (`:765` + youprop.h:279); D-3400 idiom, no new edge, no import (u = game.u already  Named: none new. do_play_instrument whole (ledger ported D-2046 stands).
 - D-3727: js/do.js only — the gate reads `!(game.u?.uinwater | 0)` with C cites (`:277` + youprop.h:279); D-3400 idiom, no new edge, no import (game already imp Named: none new. flooreffects whole (ledger ported D-3240 stands; doc "Named omissions: none" sta
 - D-3726: js/display.js only — the pool arm calls the live `is_pool(x, y)` (already imported from hack.js :16; no new edge) and reads `(game.u?.uinwater | 0)` w Named: none new. covers_objects whole (3-line C macro + :222 alias, all arms live).
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3717: js/makemon.js only — the arm calls the live hideunder export (already imported :185; imports.mjs --can: ALREADY, no new edge), with C cites (`:1322–13 Named: none new. makemon's standing partial omissions unchanged (D-3430: m_dowear/pet audited omi
 - D-3716: js/mon.js only — the disjunct reads `(!(u.uinwater | 0) || !couldsee(x, y))` with C cites (`:4746–4747` + youprop.h:279); D-3400 idiom, same expressio Named: none new.
 - D-3715: js/sounds.js only — the gate reads `(u.uinwater | 0)` with C cites (`:208` + youprop.h:279); D-3400 idiom, same expression, no new edge, no import. Named: none new.
-- D-3714: js/dbridge.js only — local `hero_Deaf` :363 (D-1967; same module, no new edge, no import); the gate calls it and drops the acoustics disjunct, with C  Named: none new.
 <!-- landmarks:end -->

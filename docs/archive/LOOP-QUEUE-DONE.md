@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
-- [x] music.c do_play_instrument underwater gate (Underwater-idiom family; briefed in the flooreffects iteration — QUEUE_MIN 1) **Addressed:** D-3728
+- [x] music.c do_play_instrument underwater gate (Underwater-idiom family; briefed in the flooreffects iteration — QUEUE_MIN 1) **Addressed:** D-3728 `da86e4650`
 
 
 - [x] do.c flooreffects pool Splash/Plop gate (Underwater-idiom family; briefed in the covers_objects iteration — QUEUE_MIN 1) — C do.c:277 `if (!Underwater)` inside the is_pool arm (:271–287) with Underwater ≡ youprop.h:279 (u.uinwater); js/do.js:885 (flooreffects :774–…, doc "whole body in C order" :765) reads the sticky `game.u?.Underwater` flat (zero writers, dead false) — the live-`u.uinwater` read is absent from js/do.js:885 — so a submerged blind/levitating/flying hero dropping a bulky object into a pool gets «Splash!»/«Plop!» where C stays silent (already underwater; map_background/newsym + water_damage run either side). Gate arm briefed (outer Blind/Levi/Fly/Deaf/u_at guard + Splash/Plop nesting match C :275–284; full-body brief at ship time; pure gate, no RNG). Deliverable: gate reads the live `(game.u?.uinwater | 0)` bit (D-3400 idiom); focused test (submerged silent vs surface Splash control). Callers: 9 C sites (ball.c:127/:133, dbridge.c:928, do.c:827 dropx, dokick.c:640/:771, dothrow.c:1804/:2721, explode.c:911); JS export unchanged. **Addressed:** D-3727 `4857a80b2`
