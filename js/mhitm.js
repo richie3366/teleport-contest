@@ -4378,7 +4378,11 @@ async function mhitm_ad_curs(magr, mattk, mdef, mhm) {
             mhm.done = true;
             return;
         }
-        if (!game.u?.Deaf) {
+        // C uhitm.c:3088 — !Deaf is the youprop.h:125 macro
+        // (HDeaf||EDeaf||uroleplay.deaf) via hero_Deaf() (monmove.js,
+        // D-3572 pattern); the raw u.Deaf read let macro-deaf heroes
+        // hear m-vs-m cursing laughter.
+        if (!hero_Deaf()) {
             if (!_mm_vis) await You_hear('laughter.');
             else if (canseemon(magr)) await pline_mon(magr, `${Monnam(magr)} chuckles.`);
         }

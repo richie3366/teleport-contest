@@ -151,7 +151,7 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
-- [ ] `uhitm.c` mhitm_ad_curs mhitm-arm Deaf-macro gate (omit-2 family; brief-verified successor lead) — C `:3089–3093` `if (!Deaf)` laughter/chuckles gate uses the youprop.h:125 macro (HDeaf||EDeaf||uroleplay.deaf); the macro gate is absent from js/mhitm.js:4381 (raw `game.u?.Deaf` read instead); a macro-deaf hero near a cursing m-vs-m hit gets You_hear/plines where C stays silent (mhitu home js/mhitu.js mhitm_ad_curs_u already hero_Deaf). js/mhitm.js only, 1 predicate → `hero_Deaf()` (already imported :151 by the noises gate; no new edge). Ledger: mhitm_ad_curs split (stays split).
+- [ ] `uhitm.c` mhitm_ad_dgst digest-kill Deaf-macro gate (omit-2 family; brief-verified successor lead) — C `:4530` `if (flags.verbose && !Deaf)` Burrrrp gate uses the youprop.h:125 macro (HDeaf||EDeaf||uroleplay.deaf); the macro gate is absent from js/mhitm.js:4259 (raw `game.u?.Deaf` read instead); a macro-deaf hero near a digesting m-vs-m kill gets `"Burrrrp!"` where C stays silent (C verbalize pline.c:476 has no inner Deaf gate; SetVoice :4532 stays named). js/mhitm.js only, 1 predicate → `hero_Deaf()` (already imported :151; no new edge). Ledger: mhitm_ad_dgst ported (stays ported).
 
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 

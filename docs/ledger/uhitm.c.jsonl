@@ -50,7 +50,7 @@
 {"fn":"mhitm_ad_sgld","c":"2790-2855","status":"ported","js":["js/mhitm.js:mhitm_ad_sgld"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mhitm_ad_tlpt","c":"2859-2955","status":"split","js":["js/mhitm.js:mhitm_ad_tlpt","js/mhitu.js:mhitm_ad_tlpt_u"],"d":["D-3402","D-2587"],"at":"2026-10-04@e77f3975a"}
 {"fn":"mhitm_ad_blnd","c":"2958-3012","status":"split","js":["js/mhitm.js:mhitm_ad_blnd","js/mhitu.js:mhitm_ad_blnd_u"],"d":["D-3443","D-3216","D-3214","D-2540"],"at":"2026-10-05@3483b7469"}
-{"fn":"mhitm_ad_curs","c":"3015-3096","status":"split","js":["js/mhitm.js:mhitm_ad_curs","js/mhitu.js:mhitm_ad_curs_u","js/uhitm.js:damageum_ad_curs"],"d":["D-2260","D-2259"],"at":"2026-10-01@ea58ae969","note":"audit 2195-2202 sample: mhitm+mhitu+uhitm arms live in three homes; row said ported (measured THIN C59/JS25)"}
+{"fn":"mhitm_ad_curs","c":"3015-3096","status":"split","js":["js/mhitm.js:mhitm_ad_curs","js/mhitu.js:mhitm_ad_curs_u","js/uhitm.js:damageum_ad_curs"],"d":["D-3708","D-2260","D-2259"],"at":"2026-10-09@e34e24d69","note":"audit 2195-2202 sample: mhitm+mhitu+uhitm arms live in three homes; row said ported (measured THIN C59/JS25)"}
 {"fn":"mhitm_really_poison","c":"3104-3119","status":"ported","js":["js/mhitm.js:mhitm_really_poison"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mhitm_ad_drst","c":"3122-3165","status":"ported","js":["js/mhitm.js:mhitm_ad_drst"],"d":["D-3406","D-3402","D-2797"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mhitm_ad_drin","c":"3168-3303","status":"split","js":["js/uhitm.js:mhitm_ad_drin","js/mhitm.js:mhitm_ad_drin","js/mhitu.js:mhitm_ad_drin_u"],"d":["D-3402","D-1307"],"at":"2026-10-04@e77f3975a","note":"audit 2114-2122: uhitm hero-mon arm + mhitm mon-mon arm (D-1329); was ported@uhitm only"}
