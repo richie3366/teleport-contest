@@ -2871,7 +2871,7 @@ export function learnwand(obj) {
  * wall/door/floor/ground. On_stairs named → ground unless furniture
  * (zap_updown WAN_PROBING uses "it" for IS_FURNITURE).
  */
-function surface_zap(x, y) {
+export function surface_zap(x, y) {
     const loc = game.level?.at?.(x, y);
     const levtyp = SURFACE_AT(x, y);
     const uz = game.u?.uz;
@@ -2880,7 +2880,8 @@ function surface_zap(x, y) {
         return levtyp === CLOUD ? 'cloud' : 'air';
     }
     if (is_pool(x, y)) {
-        return (game.u?.Underwater && !Is_waterlevel(uz))
+        /* C dungeon.c:1765–1767 — Underwater ≡ u.uinwater (youprop.h:279; D-3400 idiom). */
+        return ((game.u?.uinwater | 0) && !Is_waterlevel(uz))
             ? 'bottom' : hliquid('water');
     }
     if (is_ice(x, y)) return 'ice';

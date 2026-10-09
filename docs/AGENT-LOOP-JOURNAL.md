@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3721 `dungeon.c` surface pool arm in the zap-local surface_zap clone: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3720 Next lead)
+
+**C locus:** dungeon.c surface `:1750–1788`, pool arm `:1765–1767`; Underwater ≡ youprop.h:279 `(u.uinwater)`. Clone-served C sites: zap.c:426 (bhitm saddle-drop "falls to the %s"), zap.c:3255 (zap_updown WAN_PROBING "probe beneath %s").
+**JS:** js/zap.js (pool arm :2882–2885, export :2874); scripts/surface-zap-underwater-gate.test.mjs (new, 4 its through the real surface_zap() on staged POOL: submerged off-waterlevel "bottom"; surface control "water"; waterlevel control "water"; dead flat alone "water").
+**Change:** js/zap.js only — the pool arm reads `((game.u?.uinwater | 0) && !Is_waterlevel(uz))` with C cites (`:1765–1767` + youprop.h:279); D-3400 idiom, same expression as js/zap.js:986 (D-3720), no new edge, no import. surface_zap newly exported (focused-test seam; name/signature otherwise unchanged).
+**Verify:** focused test 2/4 pre-fix (surface + waterlevel controls green = staging sound; submerged + dead-flat red) → 4/4 post-fix. `node scripts/verify.mjs --fn surface` → PASS syntax (1 file: js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on surface at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Clone's doc-comment deltas stand (swallow/stairs named).
+**Next:** further unbriefed Underwater-idiom leads (D-3720 Next, minus this ship): steed.js, invent.js:4719, display.js:2283, do.js:885, music.js:902, dothrow.js:937, read.js:1870. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — audit 2582–2590 @6b1d1abec: review D-3712…D-3720 (9A/0D/0Q, 0 Must-fix) + full rescore 939/953
 
 **Reviews:** 2582 breamm / 2583 hit_bars / 2584 close_drawbridge / 2585 dosounds / 2586 hideunder / 2587 makemon S_EEL / 2588 return_from_mtoss gates / 2589 mtoss recalc / 2590 melt_ice — all ACCEPT, every C gate re-verified against pinned C (Deaf ≡ youprop.h:125, Underwater ≡ youprop.h:279), every REACH re-measured incl. full 729/729 dosounds + 936/936 makemon.

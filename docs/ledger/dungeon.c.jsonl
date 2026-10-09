@@ -52,7 +52,7 @@
 {"fn":"has_ceiling","c":"1690-1698","status":"ported","js":["js/dungeon.js:has_ceiling"],"d":["D-3401","D-3329"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"avoid_ceiling","c":"1701-1711","status":"ported","js":["js/dungeon.js:avoid_ceiling"],"d":["D-3401","D-1961"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"ceiling","c":"1714-1747","status":"ported","js":["js/trap.js:ceiling"],"d":["D-3401","D-2906"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
-{"fn":"surface","c":"1750-1788","status":"ported","js":["js/sit.js:surface"],"d":["D-3267","D-2884"],"at":"2026-10-02@66e8734cf"}
+{"fn":"surface","c":"1750-1788","status":"ported","js":["js/sit.js:surface"],"d":["D-3721","D-3267","D-2884"],"at":"2026-10-09@15322d48c"}
 {"fn":"get_level","c":"1802-1845","status":"ported","js":["js/dungeon.js:get_level"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"In_quest","c":"1849-1852","status":"ported","js":["js/const.js:In_quest"],"at":"2026-10-03@bbe63333a"}
 {"fn":"In_mines","c":"1856-1859","status":"ported","js":["js/const.js:In_mines"],"at":"2026-10-03@bbe63333a"}
