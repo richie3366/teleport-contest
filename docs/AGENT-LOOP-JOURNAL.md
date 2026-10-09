@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3752 cliffs-head next_ident writer: thrwmu finally-false clobbered mon_moving, faulting dragon-breath gas kills (1 PASS + 1 moved)
+
+**C locus:** `allmain.c:210–216` (mon_moving TRUE around the movemon loop — sole owner); `mthrowu.c` thrwmu `:1174–1264` (no mon_moving write anywhere in the body); `region.c` make_gas_cloud `:1187–1188` (`!in_mklev && !mon_moving` → set_heros_fault); inside_gas_cloud `:1153–1157` (heros_fault → killed vs monkilled); `zap.c:5336–5342` (ZT_POISON_GAS breath lays 1x1 dam-8 clouds). Nested save/restore precedent: quest.c `:428–437`, zap.c melt_ice_away `:5123–5131`.
+**JS:** 1 file (mthrowu.js +7/−1 incl. C-cited comment), 1 test file. Rule #2 clean; no DIAG/FORCE/seed gates. No new imports/edges.
+**Change:** `js/mthrowu.js` only — the wrapper saves and restores mon_moving (C's nested pattern); inside movemon it is now transparent (exactly C: TRUE throughout). Plus focused test `scripts/thrwmu-mon-moving-restore.test.mjs` (flag survives a real thrwmu; breath-shape cloud after the throw carries REG_NOT_HEROS; hero-phase control still faults).
+**Verify:** focused `node --test scripts/thrwmu-mon-moving-restore.test.mjs` → 3/3 pass (2 fail pre-fix on the unfixed tree: authentic failure; control passes both). `node scripts/verify.mjs --fn next_ident,thrwmu` → `verify next_ident: 1 PASS, 1 moved past, 1 unchanged, 0 worse → PROGRESS` (95248 PASS; 95229 moved 493→554 toss_up, +61; 95420 unchanged — bones-remap writer per D-3751, separate) · `reach next_ident: 80 PASS, 0 regressed → REACH-OK` (spread of 1013) · `reach thrwmu: 15 PASS, 0 regressed → REACH-OK` (all 15) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (forced: `350+1.58/turn`, R² 0.77) → VERIFY: PASS.
+**Named:** none new. 95420's bones-remap writer stays open for the regenerated row (unchanged here, as D-3751 predicted). The thrwmu TRUE-set itself (defensive, no C counterpart) stands: harmless — the sole caller is in-movemon (TRUE already), and restore makes the wrapper transparent.
+**Next:** regenerated row keeps 95420 (bones remap count writer — C draws one more next_ident than JS during bones handling); 95229 now blocks on toss_up@554. Do not re-port the thrwmu wrapper or next_ident itself.
 ## 2026-10-09 — D-3751 cliffs-head next_ident writer: makemon MON_AT gate voided creation on dead-fmon husks (2 PASS + 1 moved)
 
 **C locus:** `makemon.c:1193–1199` — `if (MON_AT(x, y))` gate; `MON_AT` is the live-monsters grid (`rm.h:515`). Dead mons linger on fmon until dmonsfree but are off-grid, as are MON_OFFMAP mons and the mounted steed. C's enexto accepted 9,17 and C's makemon created there (next_ident drawn past all failure gates).
