@@ -27,20 +27,21 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split).
 ## Don't re-check (≤15)
 
-- D-1790…D-3701 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3702 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus: 953 entries; full scores need unfiltered `score`.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3701.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3701 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3702.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3702 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3702: js/monmove.js only — `You_hear` joins the pre-existing hack.js import (imports.mjs --can: ALREADY, no new edge); the four emits call it in C order wit Named: omit (2) remains — raw-`u.Deaf` reads in other C files' ports (dig/dokick/engrave/mhitm/mt
 - D-3701: js/invent.js only — exported one_characteristic_hide_innate(attrindx, mode) in C order (Upolyd → Fixed_abil/stuck-ring short-circuit → 7-way switch wi Named: none new — the ledger omit (hide arms + MAGIC clearing + overlay Upolyd) is fully retired.
 - D-3700: js/getline.js only — preamble in C order (gotCmdq/cmdqBuf, pop-until-null/non-KEY/newline with the yn_function tolerant KEY test, `await pline('%s %s' Named: none new — the ledger omit (cmdq preload loop + echo + early return) is fully retired; in_
 - D-3699: js/polyself.js only — donning/cancel_don added to the pre-existing do_wear.js edge (imports.mjs --can: ALREADY, no new edge); the 6 `if (donning(x)) c Named: none new — the D-1991 omit is fully retired (6 cancels + flimsy condition; shield correctl
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3690: js/cmd.js only — the `S` arm looks up the live save row (ext_func_tab_from_txt, generated key 83 / flags 41) and awaits can_do_extcmd first; FALSE ski Named: (1) other rhack if/else key arms still bypass can_do_extcmd (pre-existing, predates this a
 - D-3689: none (measure only). Named: none (no port).
 - D-3688: deleted the shadow — the text arm now calls the live display.js `Hallucination()` (already imported, used 6× in detect.js; D-1493 macro reader: HH fla Named: none new — D-3680's detect-local useup note stands.
-- D-3687: `js/getpos.js` only — INTERESTING/VALID arms restarted glyph-based per C `:451–452` + `:487–503` (live glyph_at/glyph_is_cmap/glyph_to_cmap/is_cmap_*  Named: GLOC_EXPLORE room/corr + door subtests still typ-based (`shown_door_cmap` kept for its doo
 <!-- landmarks:end -->

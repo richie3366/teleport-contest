@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
-- [x] `insight.c` one_characteristic hide_innate_value arms — C `:860–893` (Upolyd gate, Fixed_abil stuck-sustain rings, cursed gauntlets/Ogresmasher/dunce per-attribute switch, MAGIC-mode clearing) absent from js/invent.js (overlay `:5262` has none, `_final` `:7596` Upolyd-only; ledger partial, audit 2026-10-03 "hide logic missing", deferred notes `:5259`/`:7594`). All predicates live: stuck_ring do_wear.js:4381, u_wield_art artifact.js:921, EFixed_abil in-file. Ship: shared hide helper + mode threading at both call sites; verify --fn one_characteristic REACH-OK. **Addressed:** D-3701
+- [x] `insight.c` one_characteristic hide_innate_value arms — C `:860–893` (Upolyd gate, Fixed_abil stuck-sustain rings, cursed gauntlets/Ogresmasher/dunce per-attribute switch, MAGIC-mode clearing) absent from js/invent.js (overlay `:5262` has none, `_final` `:7596` Upolyd-only; ledger partial, audit 2026-10-03 "hide logic missing", deferred notes `:5259`/`:7594`). All predicates live: stuck_ring do_wear.js:4381, u_wield_art artifact.js:921, EFixed_abil in-file. Ship: shared hide helper + mode threading at both call sites; verify --fn one_characteristic REACH-OK. **Addressed:** D-3701 `e537dde76`
 
 ## 2026-10-08
 
