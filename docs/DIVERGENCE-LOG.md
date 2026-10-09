@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3713 — `mthrowu.c` hit_bars barsound gate: raw `u.Deaf` + invented acoustics arm → `hero_Deaf()` (omit-2 family; D-3712 Next lead)
+- **Status:** fixed (missing-arm row ship — both generated blocks empty at 939/953, `ledger.mjs batch` no gap; D-3699…D-3712 refill precedent).
+- **Symptom:** no corpus divergence — C-fidelity residual. C gates the barsound pline on plain `!Deaf` (`:1447`) with no acoustics arm; JS read raw `game.u?.Deaf` (zero writers, stuck false) plus an invented `|| acoustics===false`, so a macro-deaf hero heard Whang/Whap/Flapp/Clink/Clonk where C stays silent, and an acoustics-off hero never saw the pline C prints. No RNG delta — message gate only; noise/wake path identical either side.
+- **C locus:** mthrowu.c hit_bars `:1417–1495`, barsound arm `:1447–1470`, gate `:1447`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers hack.c:2013 + mthrowu.c:1554.
+- **JS was:** js/mthrowu.js:1715 raw read + invented disjunct; the bsindx ladder + pline emit already matched C (`:1449–1467`), as did the rest of hit_bars (break/dissolve, war-hammer break, wake per ledger note).
+- **Fix:** js/mthrowu.js only — `hero_Deaf` already imported :84 (D-3711 spitmm gate; no new edge); the gate calls it and drops the acoustics disjunct, with C cites (`:1447` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+- **JS:** js/mthrowu.js (gate :1715–1718); scripts/hitbars-barsound-gate.test.mjs (new, 5 its: non-deaf control rings "Clonk!" + missile intact; EDeaf/HDeaf/roleplay-deaf silent; acoustics-off still prints).
+- **Callers:** C hack.c:2013 → JS js/hack.js:2946; C mthrowu.c:1554 → JS js/mthrowu.js:1811; name/signature unchanged — no rewiring.
+- **Verify:** focused test 1/5 pre-fix (control green = staging sound; 3 macro-deaf + acoustics-off red) → 5/5 post-fix. `node scripts/verify.mjs --fn hit_bars` → PASS syntax (1 file: js/mthrowu.js) · PASS rule2 · note hidden (no corpus session blocked on hit_bars at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+- **Named omissions:** none new. Soundeffect :1466 stays named (per row).
+- **Ledger:** hit_bars ported
+- **Next:** verified successor: dbridge.c close_drawbridge OBJ_AT+Deaf crush gate (C `:815` `if (OBJ_AT(x, y) && !Deaf)` + Soundeffect+You_hear, no acoustics arm; JS js/dbridge.js:756 same two-delta shape — raw `u.Deaf` + invented acoustics disjunct, emit already live You_hear; local `hero_Deaf` js/dbridge.js:363 D-1967 — no new edge). Further unbriefed leads, other arms: eat.js:2219, hack.js:197, sounds.js:841. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+
 ## D-3712 — `mthrowu.c` breamm mcan-arm Deaf-macro gate: raw `u.Deaf` + invented acoustics arm → `hero_Deaf()` (omit-2 family; D-3711 Next lead)
 - **Status:** fixed (missing-arm row ship — both generated blocks empty at 939/953, `ledger.mjs batch` no gap; D-3699…D-3711 refill precedent).
 - **Symptom:** no corpus divergence — C-fidelity residual. C gates the cough message on plain `!Deaf` with no acoustics arm; JS read raw `u.Deaf` (zero writers, stuck false) plus an invented `|| acoustics===false`, so a macro-deaf hero facing a cancelled breather heard the cough where C stays silent, and an acoustics-off hero never saw the spotted pline C prints (unspotted silence comes from inside the live You_hear). No RNG delta — message gate only; M_ATTK_MISS return identical either side.

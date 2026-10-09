@@ -1712,7 +1712,9 @@ export async function hit_bars(objp, objx, objy, barsx, barsy, breakflags) {
         return;
     }
 
-    if (!(game.u?.Deaf || game.flags?.acoustics === false)) {
+    // C mthrowu.c:1447 `if (!Deaf)` — Deaf ≡ youprop.h:125 H (HDeaf ||
+    // EDeaf || uroleplay.deaf); no acoustics arm. Live reader: hero_Deaf.
+    if (!hero_Deaf()) {
         const barsounds = ['', 'Whang', 'Whap', 'Flapp', 'Clink', 'Clonk'];
         let bsindx;
         if (obj_type === BOULDER || obj_type === HEAVY_IRON_BALL) {

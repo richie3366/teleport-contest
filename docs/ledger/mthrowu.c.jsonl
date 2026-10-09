@@ -24,5 +24,5 @@
 {"fn":"m_lined_up","c":"1376-1393","status":"ported","js":["js/mthrowu.js:m_lined_up"],"d":["D-2257"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mux/muy hero target, concealment gate, boulder modes live"}
 {"fn":"lined_up","c":"1398-1401","status":"ported","js":["js/mthrowu.js:lined_up"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: one-line m_lined_up vs hero wrapper"}
 {"fn":"m_carrying","c":"1405-1414","status":"ported","js":["js/mon.js:m_carrying"],"d":["D-3286"],"at":"2026-10-02@d8fa56ce0"}
-{"fn":"hit_bars","c":"1417-1495","status":"ported","js":["js/mthrowu.js:hit_bars"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: break/dissolve, barsounds, war-hammer break, wake live"}
+{"fn":"hit_bars","c":"1417-1495","status":"ported","js":["js/mthrowu.js:hit_bars"],"d":["D-3713"],"at":"2026-10-09@da6733166","note":"audit 2026-10-03: break/dissolve, barsounds, war-hammer break, wake live"}
 {"fn":"hits_bars","c":"1499-1559","status":"ported","js":["js/mthrowu.js:hits_bars"],"d":["D-2358"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: per-class pass-through table + hit_bars wiring matches"}
