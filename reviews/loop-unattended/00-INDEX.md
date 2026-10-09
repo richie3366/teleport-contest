@@ -2609,3 +2609,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2597-4857a80b2-flooreffects-pool-gate.md](./2597-4857a80b2-flooreffects-pool-gate.md) | `4857a80b2` | D-3727 flooreffects pool Splash/Plop gate (ported) | **ACCEPT** |
 | [2598-da86e4650-do-play-instrument-gate.md](./2598-da86e4650-do-play-instrument-gate.md) | `da86e4650` | D-3728 do_play_instrument Underwater gate (ported) | **ACCEPT** |
 | [2599-42475f4c8-throwit-landing-gate.md](./2599-42475f4c8-throwit-landing-gate.md) | `42475f4c8` | D-3729 throwit landing Splash/Plop gate (ported) | **ACCEPT** |
+| [2600-ee29e2f62-covers-objects-pole-underwater-gate.md](./2600-ee29e2f62-covers-objects-pole-underwater-gate.md) | `ee29e2f62` | D-3730 covers_objects pole-clone Underwater gate (ported) | **ACCEPT** |
+| [2601-11a3c5f79-yn-function-tty-prompt-flush.md](./2601-11a3c5f79-yn-function-tty-prompt-flush.md) | `11a3c5f79` | D-3731 yn_function-head writer tty_yn_function prompt flush (3 PASS + 5 moved) | **ACCEPT** |
+| [2602-611f68ced-post-done-gameover-gates.md](./2602-611f68ced-post-done-gameover-gates.md) | `611f68ced` | D-3732 randomize_gem_colors-head writer post-done gates (2 PASS + 6 moved) | **ACCEPT** |
+| [2603-a3dc7af46-touch-artifact-antimagic-predicate.md](./2603-a3dc7af46-touch-artifact-antimagic-predicate.md) | `a3dc7af46` | D-3734 touch_artifact-head writer Antimagic predicate (4 moved) | **ACCEPT** |
+| [2604-45453fbed-resurrect-appear-duplicate.md](./2604-45453fbed-resurrect-appear-duplicate.md) | `45453fbed` | D-3735 level_tele-head writer resurrect appear duplicate (head +111) | **ACCEPT** |
+| [2605-98020c173-park-resolved-four-writers.md](./2605-98020c173-park-resolved-four-writers.md) | `98020c173` | D-3737 D-3736 park resolved, 4-writer set (95341 FULL PASS) | **ACCEPT-WITH-DEBT** |

@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — audit 2600–2605 @98020c173: review D-3730/D-3731/D-3732/D-3734/D-3735/D-3737 (5A/1D/0Q, 0 Must-fix) + full rescore 999/1113
+
+**Reviews:** 2600 ee29e2f62 pole Underwater gate ACCEPT; 2601 11a3c5f79 yn prompt flush ACCEPT (re-measured 6 PASS + 2 moved); 2602 611f68ced post-done gates ACCEPT (exact 2+6+2 re-measure, 1043 reach 0 regressed); 2603 a3dc7af46 Antimagic predicate ACCEPT (exact 0+4 re-measure); 2604 45453fbed resurrect duplicate ACCEPT (head +111 confirmed); 2605 98020c173 4-writer park resolution ACCEPT-WITH-DEBT (menu-arm ledger bump missing — drive-by `ledger.mjs set` for the next port iter, not a row).
+**Score:** public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `352+1.57/turn`); corpus 999/1113 full:true, RNG 92.77 %, 0 PASS→FAIL; marathons 60/160 (worldtour 7/50, sweep 13/50, chain 24/40, trek 16/20); held-out 18/44 unchanged, ours scored 07:22Z (predates D-3731+ — unscored). Seeded ported sample 5/5 live (mkgrave, dealloc_killer, fix_ghostly_obj, dead_species, time_from_yyyymmddhhmmss); `ledger.mjs sql` broken in this env (`node:sqlite` missing) — sampled via grep+brief instead.
+**Next:** cliffs head level_tele siblings per D-3736 (quest-message vs map-diff writers); 2605 ledger drive-by rides along.
 ## 2026-10-09 — D-3737 D-3736 park resolved: menu page keys, migrant redraw, wiz_map hallu, blind feel_location (95341 FULL PASS)
 
 **C locus:** `wintty.c` process_menu_window `:1407–1413` and `:1622–1648` (page keys clear the menu text and stay modal; one `docrt` on destroy, `erase_menu_or_text :966–980`); `mon.c` mon_leaving_level `:2718–2726` (grid clear, then `newsym` of an empty cell); `wizcmds.c` wiz_map `:180–193` (`HConfusion = HHallucination = 0L` for the map); `hack.c` test_move `:1012–1013`, `:1076–1077`, `:1144–1145` (Blind `feel_location` before the bump).
