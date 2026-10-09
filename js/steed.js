@@ -274,7 +274,11 @@ export async function use_saddle(otmp) {
 
     if (!(await u_handsy())) return ECMD_OK;
 
-    if (u.uswallow || u.Underwater || !(await getdir(null))) {
+    // C steed.c:46 — Underwater ≡ u.uinwater (youprop.h:279); live-bit
+    // read (D-3400 idiom), same expression as the can_ride disjunct (:211)
+    // and the mount_steed gate (:724). The sticky `u.Underwater` flat has
+    // zero writers in js/ (dead false).
+    if (u.uswallow || (u.uinwater | 0) || !(await getdir(null))) {
         await pline(Never_mind);
         return ECMD_CANCEL;
     }

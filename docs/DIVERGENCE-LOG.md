@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3723 — `steed.c` use_saddle Underwater gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3722 Next lead)
+- **Status:** fixed (missing-arm row ship — both generated blocks empty at 939/953, `ledger.mjs batch` no gap; D-3722 Next lead; ships alone).
+- **Symptom:** no corpus divergence — C-fidelity residual. C says Never_mind/ECMD_CANCEL for a submerged hero applying a saddle (`:46`); JS read the sticky `u.Underwater` flat (zero writers anywhere in js/ — dead false), so a submerged hero was prompted for a saddle direction where C short-circuits. Pure gate, no RNG; prompt-vs-cancel only.
+- **C locus:** steed.c use_saddle `:36–139`, gate `:46` (`u.uswallow || Underwater || !getdir`); Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: apply.c:4301.
+- **JS was:** js/steed.js:277 sticky-flat read in use_saddle (:272–374); rest of the body stands per brief (u_handsy/self/spot/wear/petrify/special/can_saddle/chance/maybewakesteed/rn2(100) arms).
+- **Fix:** js/steed.js only — the gate reads `(u.uinwater | 0)` with C cites (`:46` + youprop.h:279); D-3400 idiom, same expression as the can_ride disjunct :211 and the mount_steed gate :724, no new edge, no import.
+- **JS:** js/steed.js (comment :277–280, gate :281, body :272–378); scripts/use-saddle-underwater-gate.test.mjs (new, 5 its through the real use_saddle() with canned CMDQ_KEYs: submerged Never_mind + ECMD_CANCEL with getdir never running; surface self-dir Saddle-yourself + ECMD_OK; surface neighbor-dir nobody-there + ECMD_TIME; swallow control; dead flat alone prompts).
+- **Callers:** C apply.c:4301 → JS js/apply.js:2629 (SADDLE case); name/signature unchanged — no rewiring.
+- **Verify:** focused test 3/5 pre-fix (surface ×2 + swallow controls green = staging sound; submerged + dead-flat red) → 5/5 post-fix. `node scripts/verify.mjs --fn use_saddle` → PASS syntax (1 file: js/steed.js) · PASS rule2 · note hidden (no corpus session blocked on use_saddle at baseline) · PASS reach (14 baseline-PASS sessions reach it, 14 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+- **Named omissions:** none new. use_saddle whole (ledger ported D-2999/D-2328 stands).
+- **Ledger:** use_saddle ported
+- **Next:** verified successor row live in missing-arm (briefed as this commit's refill — QUEUE_MIN 1; different C function, not shipped here): steed.c dismount_steed pool-drop pline gate — C :726 `if (!Underwater)` vs JS js/steed.js:1000 sticky `u.Underwater` (zero writers, dead false; fix = live `u.uinwater` bit, D-3400 idiom). Further unbriefed leads: invent.js:4719, display.js:2283, do.js:885, music.js:902, dothrow.js:937, read.js:1870. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
+
 ## D-3722 — `steed.c` can_ride Underwater disjunct: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3721 Next lead)
 - **Status:** fixed (missing-arm row ship — both generated blocks empty at 939/953, `ledger.mjs batch` no gap; D-3721 Next lead; ships alone).
 - **Symptom:** no corpus divergence — C-fidelity residual. C forbids riding a non-swimmer steed while submerged (`:172–173`); JS read the sticky `u.Underwater` flat (zero writers anywhere in js/ — dead false), so a submerged hero could ride a non-swimmer steed where C says false. Pure sync predicate, no RNG; mount/dismount gating only.

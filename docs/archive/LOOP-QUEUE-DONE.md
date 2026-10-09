@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
+- [x] steed.c use_saddle Underwater gate (Underwater-idiom family; briefed in the can_ride iteration — QUEUE_MIN 1)
+
+
 - [x] steed.c can_ride Underwater disjunct (Underwater-idiom family; briefed in the surface_zap iteration — QUEUE_MIN 1) — C steed.c:169–174 `(!Underwater || is_swimmer(mtmp->data))` with Underwater ≡ youprop.h:279 (u.uinwater); js/steed.js:208 (can_ride :203–210) reads the sticky `u.Underwater` flat (zero writers, dead false) — the live-`u.uinwater` read is absent from js/steed.js:208 — so a submerged hero can ride a non-swimmer steed where C says false. Rest of can_ride stands per brief (mtame/humanoid/verysmall/bigmonst arms; pure sync predicate, no RNG). Deliverable: disjunct reads the live `(u.uinwater | 0)` bit (D-3400 idiom); focused test (submerged + non-swimmer steed false vs surface + swimmer-steed controls). Callers: 4 C sites (polyself.c:963, steed.c:322, steed.c:856, worn.c:1322).
 
 

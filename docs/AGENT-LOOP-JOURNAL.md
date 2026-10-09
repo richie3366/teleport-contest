@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3723 `steed.c` use_saddle Underwater gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3722 Next lead)
+
+**C locus:** steed.c use_saddle `:36–139`, gate `:46` (`u.uswallow || Underwater || !getdir`); Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: apply.c:4301.
+**JS:** js/steed.js (comment :277–280, gate :281, body :272–378); scripts/use-saddle-underwater-gate.test.mjs (new, 5 its through the real use_saddle() with canned CMDQ_KEYs: submerged Never_mind + ECMD_CANCEL with getdir never running; surface self-dir Saddle-yourself + ECMD_OK; surface neighbor-dir nobody-there + ECMD_TIME; swallow control; dead flat alone prompts).
+**Change:** js/steed.js only — the gate reads `(u.uinwater | 0)` with C cites (`:46` + youprop.h:279); D-3400 idiom, same expression as the can_ride disjunct :211 and the mount_steed gate :724, no new edge, no import.
+**Verify:** focused test 3/5 pre-fix (surface ×2 + swallow controls green = staging sound; submerged + dead-flat red) → 5/5 post-fix. `node scripts/verify.mjs --fn use_saddle` → PASS syntax (1 file: js/steed.js) · PASS rule2 · note hidden (no corpus session blocked on use_saddle at baseline) · PASS reach (14 baseline-PASS sessions reach it, 14 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. use_saddle whole (ledger ported D-2999/D-2328 stands).
+**Next:** verified successor row live in missing-arm (briefed as this commit's refill — QUEUE_MIN 1; different C function, not shipped here): steed.c dismount_steed pool-drop pline gate — C :726 `if (!Underwater)` vs JS js/steed.js:1000 sticky `u.Underwater` (zero writers, dead false; fix = live `u.uinwater` bit, D-3400 idiom). Further unbriefed leads: invent.js:4719, display.js:2283, do.js:885, music.js:902, dothrow.js:937, read.js:1870. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3722 `steed.c` can_ride Underwater disjunct: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3721 Next lead)
 
 **C locus:** steed.c can_ride `:168–174`, disjunct `:172–173` (`(!Underwater || is_swimmer(mtmp->data))`); Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: polyself.c:963, steed.c:322, steed.c:856, worn.c:1322.

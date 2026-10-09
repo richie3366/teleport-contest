@@ -1,6 +1,6 @@
 {"fn":"rider_cant_reach","c":"17-20","status":"ported","js":["js/steed.js:rider_cant_reach"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact message"}
 {"fn":"can_saddle","c":"26-33","status":"ported","js":["js/steed.js:can_saddle"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact predicate incl centaur/humanoid arm"}
-{"fn":"use_saddle","c":"36-139","status":"ported","js":["js/steed.js:use_saddle"],"d":["D-2999","D-2328"],"at":"2026-09-27@6231a7084"}
+{"fn":"use_saddle","c":"36-139","status":"ported","js":["js/steed.js:use_saddle"],"d":["D-3723","D-2999","D-2328"],"at":"2026-10-09@dbbaaeca1"}
 {"fn":"put_saddle_on_mon","c":"142-163","status":"ported","js":["js/steed.js:put_saddle_on_mon"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full; defensive impossible/panic arms return silently"}
 {"fn":"can_ride","c":"169-174","status":"ported","js":["js/steed.js:can_ride"],"d":["D-3722"],"at":"2026-10-09@02f3adacc","note":"audit 2026-10-03: exact predicate"}
 {"fn":"doride","c":"178-193","status":"ported","js":["js/steed.js:doride"],"d":["D-2000"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full incl wizard force arm and return codes"}
