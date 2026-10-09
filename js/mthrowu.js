@@ -463,8 +463,8 @@ export async function spitmu(mtmp, mattk) {
  * Envelope: m_lined_up; mcan cough; m_seenres/REFL skip; !mspec_used &&
  * rn2(3) → dobuzz(BZ_M_BREATH); mspec_used / pet hunger. Named omissions:
  * Hallucination breathwep_name; Soundeffect cough; AD_SLEE Sleep_res
- * mspec bump uses flat Sleep_resistance; mon-mon mattackm AT_BREA deferred
- * (import cycle — hero path via breamu/mattacku).
+ * mspec bump uses flat Sleep_resistance. Callers wired: breamu
+ * (js/mthrowu.js:544), mattackm AT_BREA (js/mhitm.js:6455).
  */
 export async function breamm(mtmp, mattk, mtarg) {
     const typ = get_atkdam_type(mattk?.adtyp | 0);
@@ -474,7 +474,12 @@ export async function breamm(mtmp, mattk, mtarg) {
 
     if (m_lined_up(mtarg, mtmp)) {
         if (mtmp.mcan) {
-            if (!(u.Deaf || game.flags?.acoustics === false)) {
+            // C mthrowu.c:1100 `if (!Deaf)` — Deaf is the
+            // youprop.h:125 macro (hero_Deaf), with no acoustics arm:
+            // the spotted pline prints with acoustics off, unspotted
+            // silence comes from inside You_hear (:1105). Soundeffect
+            // :1104 stays named (family convention, cf spitmm).
+            if (!hero_Deaf()) {
                 if (canseemon(mtmp)) {
                     await pline(`${Monnam(mtmp)} coughs.`);
                 } else {

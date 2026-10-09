@@ -151,7 +151,7 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
-- [ ] mthrowu.c breamm mcan cough gate (omit-2 family; brief-verified successor lead; C mthrowu.c:1093–1109 arm read, JS js/mthrowu.js:475–483 read) — C `:1100` `if (!Deaf)` + spotted pline `:1102` / else Soundeffect+You_hear `:1104–1105`, no acoustics arm; the macro gate is absent from js/mthrowu.js:477 (raw `u.Deaf` read + invented `|| acoustics===false` instead — same two-delta shape as the spitmm gate). Deliverable: gate calls `hero_Deaf()` (already imported js/mthrowu.js:84 — no new edge), drop the acoustics disjunct, C cites (`:1100` + youprop.h:125). Soundeffect :1104 stays named. No RNG delta.
+- [ ] mthrowu.c hit_bars barsound gate (omit-2 family; brief-verified successor lead; C mthrowu.c:1417–1495 body read, gate :1447 read, JS js/mthrowu.js:1715–1731 read) — C `:1447` `if (!Deaf)` + Soundeffect+pline `:1466–1467`, no acoustics arm; the macro gate is absent from js/mthrowu.js:1715 (raw `game.u?.Deaf` read + invented `|| acoustics===false` instead — same two-delta shape as the breamm gate; emit already C-faithful pline). Deliverable: gate calls `hero_Deaf()` (already imported js/mthrowu.js:84 — no new edge), drop the acoustics disjunct, C cites (`:1447` + youprop.h:125). Soundeffect :1466 stays named. No RNG delta.
 
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
