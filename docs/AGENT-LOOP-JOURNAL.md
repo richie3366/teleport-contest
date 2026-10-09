@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — audit 2582–2590 @6b1d1abec: review D-3712…D-3720 (9A/0D/0Q, 0 Must-fix) + full rescore 939/953
+
+**Reviews:** 2582 breamm / 2583 hit_bars / 2584 close_drawbridge / 2585 dosounds / 2586 hideunder / 2587 makemon S_EEL / 2588 return_from_mtoss gates / 2589 mtoss recalc / 2590 melt_ice — all ACCEPT, every C gate re-verified against pinned C (Deaf ≡ youprop.h:125, Underwater ≡ youprop.h:279), every REACH re-measured incl. full 729/729 dosounds + 936/936 makemon.
+**Score:** fortress 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `383+1.70/turn` R² 0.73); corpus 939/953 (+0, 0 PASS→FAIL, `full: true` 04:55Z); held-out 18/44 8,498 pts unchanged (ours 01:46Z). Remainder: 13 env:config-path + D-3684 nomux_out artifact.
+**Ledger:** snapshot appended; 5/5 seeded-ported sampled clean (christen_monst, readentry, mhitm_ad_elec, undead_to_corpse, get_level).
+**Next:** missing-arm surface_zap pool-arm row (js/zap.js:2883, briefed); both generated blocks empty.
 ## 2026-10-09 — D-3720 `zap.c` melt_ice Underwater gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3719 Next lead)
 
 **C locus:** zap.c melt_ice `:5040–5079`, gate `:5059–5060`; Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: eat.c:3781, trap.c:1812, trap.c:4313, zap.c:5130 (melt_ice_away), zap.c:5174 (zap_over_floor ZT_FIRE).

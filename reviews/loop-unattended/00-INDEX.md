@@ -2591,3 +2591,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2579-a75bb06aa-mhitm-ad-dgst-deaf-gate.md](./2579-a75bb06aa-mhitm-ad-dgst-deaf-gate.md) | `a75bb06aa` | D-3709 mhitm_ad_dgst Deaf macro (ported) | **ACCEPT** |
 | [2580-26c2814b6-mdig-tunnel-you-hear.md](./2580-26c2814b6-mdig-tunnel-you-hear.md) | `26c2814b6` | D-3710 mdig_tunnel wall You_hear rewire (ported) | **ACCEPT** |
 | [2581-47fdd9a35-spitmm-mcan-deaf-gate.md](./2581-47fdd9a35-spitmm-mcan-deaf-gate.md) | `47fdd9a35` | D-3711 spitmm mcan Deaf macro (ported) | **ACCEPT** |
+| [2582-da6733166-breamm-mcan-deaf-gate.md](./2582-da6733166-breamm-mcan-deaf-gate.md) | `da6733166` | D-3712 breamm mcan Deaf macro (ported) | **ACCEPT** |
+| [2583-2c598e80b-hit-bars-deaf-gate.md](./2583-2c598e80b-hit-bars-deaf-gate.md) | `2c598e80b` | D-3713 hit_bars barsound Deaf macro (ported) | **ACCEPT** |
+| [2584-9ee00e4bb-close-drawbridge-deaf-gate.md](./2584-9ee00e4bb-close-drawbridge-deaf-gate.md) | `9ee00e4bb` | D-3714 close_drawbridge crush Deaf macro (ported) | **ACCEPT** |
+| [2585-578f44ddb-dosounds-underwater-gate.md](./2585-578f44ddb-dosounds-underwater-gate.md) | `578f44ddb` | D-3715 dosounds EOT Underwater arm (ported) | **ACCEPT** |
+| [2586-92f67cdaf-hideunder-eel-underwater.md](./2586-92f67cdaf-hideunder-eel-underwater.md) | `92f67cdaf` | D-3716 hideunder S_EEL Underwater disjunct (ported) | **ACCEPT** |
+| [2587-cc3120348-makemon-eel-hideunder.md](./2587-cc3120348-makemon-eel-hideunder.md) | `cc3120348` | D-3717 makemon S_EEL → live hideunder (partial) | **ACCEPT** |
+| [2588-734a0657e-return-from-mtoss-gates.md](./2588-734a0657e-return-from-mtoss-gates.md) | `734a0657e` | D-3718 return_from_mtoss 3 gates (ported) | **ACCEPT** |
+| [2589-38bce8f45-mtoss-recalc-light-predicate.md](./2589-38bce8f45-mtoss-recalc-light-predicate.md) | `38bce8f45` | D-3719 mtoss recalc obj_sheds_light (ported) | **ACCEPT** |
+| [2590-6b1d1abec-melt-ice-underwater-gate.md](./2590-6b1d1abec-melt-ice-underwater-gate.md) | `6b1d1abec` | D-3720 melt_ice Underwater recalc gate (ported) | **ACCEPT** |
