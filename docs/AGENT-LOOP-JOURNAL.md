@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3755 [measure] `distfleeck` Ranger-95303@237 silence paradox specified (no js/)
+
+**C locus:** `monmove.c:2197–2266` set_apparxy (gotu `:2240`) + `:533–567` distfleeck; `youprop.h:202–204` Displaced=H||E; `worn.c:71–170` extrinsic confer via oc_oprop; `u_init.c:1253–1300` ini_inv_use_obj; `allmain.c:234` replenish.
+**JS:** none. **Callers:** n/a (measure).
+**Change:** none (no `js/`). `[measure]` row written (Measurements section): TEMP-C log-only fprintf at set_apparxy+distfleeck entry in the ignored recorder tree (moves, mnum, mx/my, mux/muy, mtame, mcansee, Invis, Displaced H/E bits, uarmc otyp, umoney), incremental rebuild, re-record 95303, revert+rebuild md5-verified + byte-identical re-record proof (D-3748 recipe); then port the writer the dump names.
+**Verify:** `node scripts/hidden-proxy.mjs verify distfleeck --base 5de410d26` → 0 PASS, 1 moved past, 1 unchanged, 0 worse (95303 still distfleeck@237; 95246 moved 227→do_statusline2@467 by PRIOR ships D-3751…D-3754 — not this iteration; its live divergence is screen-first @467, so the RNG-only /tmp/rng-window.mjs 493 read is superseded — trust the scorer's kind/step); reach 80 PASS, 0 regressed → REACH-OK. Preflight `verify.mjs --no-cohort` PASS reused (clean tree, no js/ touched).
+**Named:** none (distfleeck/set_apparxy bodies stand faithful; the writer is TBD by the probe — not omitted, unmeasured).
+**Next:** pop the `[measure]` row (distfleeck heads the cliffs block): run the temp-C probe, port the writer it names. Do not re-derive the elimination chain; do not re-port distfleeck/set_apparxy/ini_inv_use_obj. 95246 now blocks on do_statusline2@467 (regenerated queue).
 ## 2026-10-09 — D-3754 cliffs-head next_ident writer: drop_upon_death stacked the death-drop, dropping one bones object (1 PASS)
 
 **C locus:** `bones.c:259–303` drop_upon_death (floor arm `:296–299` place_object only) + give_to_nearby_mon `:226–255` (else arm `:253–254` place_object only); `mkobj.c:2305–2366` place_object (pure pile threading + boulder ordering, no merge). All 5 C call sites: bones.c:463/473/486/492 (savebones arise-fail/arise/statue/ghost) + shk.c:2754 (finish_paybill).
