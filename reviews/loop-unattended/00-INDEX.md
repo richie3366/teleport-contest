@@ -2577,3 +2577,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2565-777431952-rhack-veto-repeat-clear.md](./2565-777431952-rhack-veto-repeat-clear.md) | `777431952` | D-3693 rhack veto queue clear (closes 2563) | **ACCEPT** |
 | [2566-a7604ebb0-dog-invent-at-weap-tail.md](./2566-a7604ebb0-dog-invent-at-weap-tail.md) | `a7604ebb0` | D-3695 dog_invent AT_WEAP tail (10/10 callers) | **ACCEPT** |
 | [2567-218943132-dog-invent-fetch-guards.md](./2567-218943132-dog-invent-fetch-guards.md) | `218943132` | D-3697 dog_invent mail+prize guards (ported) | **ACCEPT** |
+| [2568-06fddd716-moveloop-vision-consume-gate.md](./2568-06fddd716-moveloop-vision-consume-gate.md) | `06fddd716` | D-3698 moveloop consume gate (Priest-94382 FULL PASS) | **ACCEPT** |
+| [2569-4d421c07c-break-armor-donning-cancels.md](./2569-4d421c07c-break-armor-donning-cancels.md) | `4d421c07c` | D-3699 break_armor donning cancels (ported) | **ACCEPT** |
+| [2570-4f820ea09-getlin-cmdq-preamble.md](./2570-4f820ea09-getlin-cmdq-preamble.md) | `4f820ea09` | D-3700 getlin cmdq preamble (ported) | **ACCEPT** |
+| [2571-e537dde76-one-characteristic-hide-arms.md](./2571-e537dde76-one-characteristic-hide-arms.md) | `e537dde76` | D-3701 one_characteristic hide arms (ported) | **ACCEPT** |
+| [2572-1f526fb1e-m-move-door-you-hear-arms.md](./2572-1f526fb1e-m-move-door-you-hear-arms.md) | `1f526fb1e` | D-3702 m_move door You_hear arms (omit 1 retired) | **ACCEPT** |
