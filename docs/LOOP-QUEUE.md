@@ -151,6 +151,8 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
+- [ ] `mhitm.c` noises Deaf-macro gate (omit-2 family; brief-verified successor lead) — C `:31` `!Deaf` in the farq/noisetime gate uses the youprop.h:125 macro (HDeaf||EDeaf||uroleplay.deaf); the macro gate is absent from js/mhitm.js:399 (raw `game.u?.Deaf` read instead); a macro-deaf hero near out-of-sight m-vs-m combat gets far_noise/noisetime updates + You_hear where C skips the arm (D-0294 shipped the You_hear arm, not the gate). js/mhitm.js only, 1 predicate → `hero_Deaf()` (monmove.js:1197 live export; confirm edge with imports.mjs --can). Ledger: noises ported (stays ported).
+
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;

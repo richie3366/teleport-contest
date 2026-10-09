@@ -14,7 +14,7 @@
 {"fn":"stylus_ok","c":"481-499","status":"ported","js":["js/engrave.js:stylus_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"u_can_engrave","c":"503-541","status":"ported","js":["js/engrave.js:u_can_engrave"],"d":["D-2994"],"at":"2026-09-27@e61bdd324"}
 {"fn":"doengrave_ctx_init","c":"545-579","status":"ported","js":["js/engrave.js:doengrave_ctx_init"],"d":["D-3405","D-3129"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
-{"fn":"doengrave_sfx_item_WAN","c":"583-738","status":"ported","js":["js/engrave.js:doengrave_sfx_item_WAN"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
+{"fn":"doengrave_sfx_item_WAN","c":"583-738","status":"ported","js":["js/engrave.js:doengrave_sfx_item_WAN"],"d":["D-3706"],"at":"2026-10-09@0b624251c","note":"stale 2026-09-20"}
 {"fn":"doengrave_sfx_item","c":"742-892","status":"ported","js":["js/engrave.js:doengrave_sfx_item"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audit 2026-10-03: all oclass arms live; only return-code/diagnostic deviations"}
 {"fn":"doengrave_ctx_verb","c":"896-925","status":"ported","js":["js/engrave.js:doengrave_ctx_verb"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doengrave","c":"956-1263","status":"ported","js":["js/engrave.js:doengrave"],"d":["D-3405","D-2176","D-2073","D-1689"],"at":"2026-10-04@198b7a2a7","note":"audit 2026-10-03: sfx/add-to/prompt/mixup/occupation arms live; named arms below absent"}
