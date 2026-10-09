@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3757 cliffs-head m_initinv writer: makemon cham block missed C's Protection_from_shape_changers guard (1 moved 542→681)
+
+**C locus:** `makemon.c:1353–1368` (Vlad mitem; `cham = NON_PM`; `if (!Protection_from_shape_changers && (mcham = pm_to_cham(mndx)) != NON_PM)` + Vlad-excluded `newcham→allow_minvent=FALSE`); `m_initinv` `:589–833` re-verified whole incl. tail `:821–833`; `mon.c:534–546` pm_to_cham; `mon.c:4940–4979` pickvampshape (unchanged).
+**JS:** 2 files (+7/−2 makemon incl. comment; +1/−1 display). Rule #2 clean; no DIAG/FORCE/seed gates.
+**Change:** `js/makemon.js` — guard is now `!Protection_from_shape_changers() && mcham !== NON_PM` (C order, C-cited); imports the live display.js helper (module already imported — no new edge, imports.mjs ALREADY). `js/display.js` — `export` on the helper (1 word).
+**Verify:** `node scripts/verify.mjs --fn m_initinv,makemon` → `verify m_initinv: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (95316: step 542→681, RNG 20133→62462/62462, now screen-first castmu) · reach m_initinv 80/80 REACH-OK · verify makemon: nothing blocked · reach makemon 80/80 REACH-OK · syntax 2 files · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file) → VERIFY: PASS. No committed unit test: pinned by the recorded corpus session + gates (D-3244 precedent).
+**Named:** none new (makemon's remaining partial omits unchanged; m_initinv stays ported whole; JS's separate-if Wizard/Croesus/Nemesis/Pestilence chain + earlier Ghost/christen (:3537–3540) untouched — behaviorally nil vs C's else-if: no shapeshifter overlaps those types).
+**Next:** session's next owner is castmu@681 (screen-first; next cliff iteration).
 ## 2026-10-09 — D-3756 cliffs-head skiprange writer: throwit THROWN_WEAPON flight via live bhit (3 PASS)
 
 **C locus:** `dothrow.c:1510–1849` throwit (flight arm `:1674–1691`: bhit call + `gt.thrownobj` + post-bhit hurtle + `!obj` return); `zap.c:3827–4139` bhit (rock setup `:3855–3858`); staticfn skiprange `:3579–3588` (only caller bhit). C bhit(THROWN_WEAPON) callers: dothrow.c:1674 (throwit) + :2706 (gold path).

@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3757 — cliffs-head m_initinv writer: makemon cham block missed C's Protection_from_shape_changers guard (1 moved 542→681)
+
+- **Status:** shipped (Open cliffs-head `makemon.c` m_initinv — owner verified faithful whole per D-3244 (read once); per owner-vs-writer the jsEntry comes from another function, so the port is the writer: makemon's cham-setup arm.)
+- **Symptom:** 1/1113 blocked: scen-sweep-Priest-95316 step 542/956 kind=rng at makemon.c:826 — C `rn2(50)=20 @ m_initinv:826` (tail defensive gate) vs JS `rn2(4)=2 @ pickvampshape(makemon.js:1161)`. Measured (HEAD replay probe): JS[20015..20027] == C[20015..20027] exactly (themed-room vampire: find_montype/induced_align/next_ident/newmonhp d(15,8)/female rn2(2)=0); C then draws zero between female and the m_initinv tail (no newcham: cham stayed NON_PM, allow_minvent TRUE); JS called newcham→select_newcham_form→pickvampshape and shifted the vampire at birth (mgender rn2(10) + newmonhp d(7,8) follow in the JS log). pm_to_cham agrees on both sides (M2_SHAPESHIFTER, same mons data), so C's skip forces Protection-from-shape-changers ON in C — and JS's cham condition lacked that guard.
+- **C locus:** `makemon.c:1353–1368` (Vlad mitem; `cham = NON_PM`; `if (!Protection_from_shape_changers && (mcham = pm_to_cham(mndx)) != NON_PM)` + Vlad-excluded `newcham→allow_minvent=FALSE`); `m_initinv` `:589–833` re-verified whole incl. tail `:821–833`; `mon.c:534–546` pm_to_cham; `mon.c:4940–4979` pickvampshape (unchanged).
+- **JS was:** js/makemon.js:3641–3653 entered the cham arm on `mcham !== NON_PM` alone — C :1356's `!Protection_from_shape_changers` guard absent — so every vampire-family birth under hero protection shape-shifted in JS where C keeps base form + full minvent. The youprop helper existed in display.js but was module-local.
+- **Fix:** `js/makemon.js` — guard is now `!Protection_from_shape_changers() && mcham !== NON_PM` (C order, C-cited); imports the live display.js helper (module already imported — no new edge, imports.mjs ALREADY). `js/display.js` — `export` on the helper (1 word).
+- **JS:** 2 files (+7/−2 makemon incl. comment; +1/−1 display). Rule #2 clean; no DIAG/FORCE/seed gates.
+- **Callers:** makemon signature unchanged (~134 sites stay wired; behavior changes only for shapechanger births under hero PfSC). Brief's sole m_initinv C site makemon.c:1444 → js/makemon.js:3759 (allow_minvent block; reached for protected-vampire births now, as in C). Helper gains one caller (display-internal users unchanged).
+- **Verify:** `node scripts/verify.mjs --fn m_initinv,makemon` → `verify m_initinv: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (95316: step 542→681, RNG 20133→62462/62462, now screen-first castmu) · reach m_initinv 80/80 REACH-OK · verify makemon: nothing blocked · reach makemon 80/80 REACH-OK · syntax 2 files · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file) → VERIFY: PASS. No committed unit test: pinned by the recorded corpus session + gates (D-3244 precedent).
+- **Named omissions:** none new (makemon's remaining partial omits unchanged; m_initinv stays ported whole; JS's separate-if Wizard/Croesus/Nemesis/Pestilence chain + earlier Ghost/christen (:3537–3540) untouched — behaviorally nil vs C's else-if: no shapeshifter overlaps those types).
+- **Ledger:** makemon partial
+- **Next:** session's next owner is castmu@681 (screen-first; next cliff iteration).
+
 ## D-3756 — cliffs-head skiprange writer: throwit THROWN_WEAPON flight via live bhit (3 PASS)
 
 - **Status:** shipped (Open cliffs-head `zap.c` skiprange — owner already whole as split `bhit_skiprange` per D-1928 (read once; that entry shipped the helper + rock setup and named the throwit fly callers as omit). Brief-verified the C body complete in JS under the split name, so per owner-vs-writer the port is the writer: dothrow.c throwit's bhit call.)
