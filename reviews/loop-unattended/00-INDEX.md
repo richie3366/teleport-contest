@@ -2600,3 +2600,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2588-734a0657e-return-from-mtoss-gates.md](./2588-734a0657e-return-from-mtoss-gates.md) | `734a0657e` | D-3718 return_from_mtoss 3 gates (ported) | **ACCEPT** |
 | [2589-38bce8f45-mtoss-recalc-light-predicate.md](./2589-38bce8f45-mtoss-recalc-light-predicate.md) | `38bce8f45` | D-3719 mtoss recalc obj_sheds_light (ported) | **ACCEPT** |
 | [2590-6b1d1abec-melt-ice-underwater-gate.md](./2590-6b1d1abec-melt-ice-underwater-gate.md) | `6b1d1abec` | D-3720 melt_ice Underwater recalc gate (ported) | **ACCEPT** |
+| [2591-02f3adacc-surface-zap-underwater-arm.md](./2591-02f3adacc-surface-zap-underwater-arm.md) | `02f3adacc` | D-3721 surface_zap pool arm Underwater idiom (ported) | **ACCEPT** |
+| [2592-dbbaaeca1-can-ride-underwater-disjunct.md](./2592-dbbaaeca1-can-ride-underwater-disjunct.md) | `dbbaaeca1` | D-3722 can_ride Underwater disjunct (ported) | **ACCEPT** |
+| [2593-e54b702b5-use-saddle-underwater-gate.md](./2593-e54b702b5-use-saddle-underwater-gate.md) | `e54b702b5` | D-3723 use_saddle Underwater gate (ported) | **ACCEPT** |
+| [2594-eaa8b4d1b-dismount-steed-pool-gate.md](./2594-eaa8b4d1b-dismount-steed-pool-gate.md) | `eaa8b4d1b` | D-3724 dismount_steed pool-drop pline gate (ported) | **ACCEPT** |
+| [2595-fbe45ffdc-display-binventory-gate.md](./2595-fbe45ffdc-display-binventory-gate.md) | `fbe45ffdc` | D-3725 display_binventory pool/lava overlay gate (ported) | **ACCEPT** |
+| [2596-9f09d5c7b-covers-objects-pool-arm.md](./2596-9f09d5c7b-covers-objects-pool-arm.md) | `9f09d5c7b` | D-3726 covers_objects pool arm + live is_pool (ported) | **ACCEPT** |
+| [2597-4857a80b2-flooreffects-pool-gate.md](./2597-4857a80b2-flooreffects-pool-gate.md) | `4857a80b2` | D-3727 flooreffects pool Splash/Plop gate (ported) | **ACCEPT** |
+| [2598-da86e4650-do-play-instrument-gate.md](./2598-da86e4650-do-play-instrument-gate.md) | `da86e4650` | D-3728 do_play_instrument Underwater gate (ported) | **ACCEPT** |
+| [2599-42475f4c8-throwit-landing-gate.md](./2599-42475f4c8-throwit-landing-gate.md) | `42475f4c8` | D-3729 throwit landing Splash/Plop gate (ported) | **ACCEPT** |
