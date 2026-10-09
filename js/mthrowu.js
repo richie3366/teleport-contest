@@ -81,6 +81,7 @@ import {
 import { extract_from_minvent } from './worn.js';
 import { freehand } from './engrave.js';
 import { obfree } from './shk.js';
+import { hero_Deaf } from './monmove.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
@@ -389,7 +390,11 @@ export async function spitmm(mtmp, mattk, mtarg) {
     if (mtmp.mcan) {
         const u = game.u || {};
         const lim2 = BOLT_LIM * BOLT_LIM;
-        if (!(u.Deaf || game.flags?.acoustics === false)
+        // C mthrowu.c:1022 `if (!Deaf && mdistu < BOLT_LIM*BOLT_LIM)` —
+        // Deaf is the youprop.h:125 macro (hero_Deaf), with no acoustics
+        // arm: the spotted pline prints with acoustics off, unspotted
+        // silence comes from inside You_hear (:1028).
+        if (!hero_Deaf()
             && dist2(mtmp.mx, mtmp.my, u.ux, u.uy) < lim2) {
             if (canspotmon(mtmp)) {
                 await pline(

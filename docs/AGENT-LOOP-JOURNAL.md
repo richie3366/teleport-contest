@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3711 `mthrowu.c` spitmm mcan-arm Deaf-macro gate: raw `u.Deaf` + invented acoustics arm → `hero_Deaf()` (omit-2 family; same-iteration map refill+ship)
+
+**C locus:** mthrowu.c spitmm `:1016–1077`, mcan arm `:1021–1032`, gate `:1022`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers mhitm.c:550 (mattackm SPIT arm) + mthrowu.c:1270 (spitmu wrapper).
+**JS:** js/mthrowu.js (import :84, gate :393–398); scripts/spitmm-mcan-deaf-gate.test.mjs (new, 7 its: spotted control hears + M_ATTK_MISS; EDeaf/HDeaf/roleplay-deaf silent; acoustics-off spotted still prints; unspotted You_hear control; far mdistu control).
+**Change:** js/mthrowu.js only — `hero_Deaf` imported from monmove.js (imports.mjs --can: SAFE, hoisted function, cycle-safe; new mthrowu→monmove edge); the gate calls it and drops the acoustics disjunct, with C cites (`:1022` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 3/7 pre-fix (spotted + unspotted + far controls green = staging sound; 3 macro-deaf + acoustics-off red) → 7/7 post-fix. `node scripts/verify.mjs --fn spitmm` → PASS syntax (1 file: js/mthrowu.js) · PASS rule2 · note hidden (no corpus session blocked on spitmm at baseline) · PASS reach (15 baseline-PASS reach, 15 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Incidental full `hidden-proxy score` during the iter still 939/953 (13 env + D-3684 artifact).
+**Named:** none new. Soundeffect :1027 stays named (per row).
+**Next:** verified successor row live in missing-arm: mthrowu.c breamm mcan cough gate (C `:1100` `if (!Deaf)` + spotted pline `:1102` / else Soundeffect+You_hear `:1104–1105`, no acoustics arm — same two-delta shape as this row; JS raw read + invented disjunct at js/mthrowu.js:477, needs its own row). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3710 `dig.c` mdig_tunnel wall arm: raw Deaf gate + plain pline → live You_hear (omit-2 family; D-3709 Next lead)
 
 **C locus:** dig.c mdig_tunnel `:1414–1497`, wall arm `:1467–1471`. C caller monmove.c:1645.
