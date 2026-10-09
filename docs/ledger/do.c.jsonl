@@ -41,5 +41,5 @@
 {"fn":"wipeoff","c":"2361-2386","status":"ported","js":["js/do.js:wipeoff"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dowipe","c":"2390-2404","status":"ported","js":["js/do.js:dowipe"],"d":["D-3252"],"at":"2026-10-02@b3c50cbeb"}
 {"fn":"legs_in_no_shape","c":"2408-2423","status":"ported","js":["js/trap.js:legs_in_no_shape"],"d":["D-2198"],"at":"2026-10-03@bbe63333a"}
-{"fn":"set_wounded_legs","c":"2426-2446","status":"ported","js":["js/trap.js:set_wounded_legs"],"at":"2026-10-03@bbe63333a"}
+{"fn":"set_wounded_legs","c":"2426-2446","status":"ported","js":["js/trap.js:set_wounded_legs"],"d":["D-3741"],"at":"2026-10-09@b760db68b"}
 {"fn":"heal_legs","c":"2449-2486","status":"ported","js":["js/trap.js:heal_legs"],"d":["D-2198"],"at":"2026-10-03@bbe63333a"}
