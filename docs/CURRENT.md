@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-09** — full `sessions` on `98020c173`
-(audit **2600–2605**, 2026-10-09T13:03:01.360Z).
+Score last measured: **2026-10-09** — full `sessions` on `e33e69ca6`
+(audit **2606–2614**, 2026-10-09T18:25:50.776Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`352+1.57/turn` (R² 0.77).
+`352+1.58/turn` (R² 0.76).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-09 07:49Z, ours 07:22Z)** | **18 / 44**, 8,498 / 11,265 pts, RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** |
+| **Held-out (judge 2026-10-09 13:44Z, ours 13:17Z)** | **19 / 44**, 8,579 / 11,265 pts, RNG **42.1 %**, rngSteps 92.6 %, screens **76.2 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `352+1.57/turn` (R² 0.77) |
+| Speed label | `352+1.58/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,498 vs lockwo 7,866; their RNG 61.7 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts **8,498** (unchanged), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-09 07:49Z (ours scored 07:22Z: predates the D-3731+ ships — their held-out effect is unscored).
-**Corpus — picker and proxy (2026-10-09 ~13:11Z, `98020c173`; 1113/1113 entries, 0 unrecorded):**
-**999 / 1113** PASS, RNG 18963843/20441637 (**92.77 %**), screens 316717/347076 (91.3 %); `full: true`. Marathons (§10.19): 60/160 PASS. Worst families (`hidden-proxy families`): `scen-worldtour` 7/50 (RNG 72.1 %), `scen-sweep` 13/50 (73.0 %), `scen-chain` 24/40 (95.7 %), `scen-trek` 16/20 (93.9 %); every older family 100 % RNG. 0 PASS→FAIL on this rescore. Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2605 (index; no row 1618): 1213 ACCEPT, 58 WITH-DEBT, 109 QUALITY-RISK (2600–2605: 5A/1D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,579 vs lockwo 7,866; their RNG 61.7 % vs our 42.1 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,579** (+81), RNG **42.1 %**, rngSteps 92.6 %, screens **76.2 %** at judge 2026-10-09 13:44Z (ours scored 13:17Z: predates the D-3738+ ships — their held-out effect is unscored).
+**Corpus — picker and proxy (2026-10-09 ~18:35Z, `e33e69ca6`; 1113/1113 entries, 0 unrecorded):**
+**1004 / 1113** PASS, RNG 19396327/20441637 (**94.89 %**), screens 322015/347076 (92.8 %); `full: true`. Marathons (§10.19): 65/160 PASS. Worst families (`hidden-proxy families`): `scen-worldtour` 10/50 (RNG 83.5 %), `scen-sweep` 14/50 (76.0 %), `scen-chain` 25/40 (97.4 %), `scen-trek` 16/20 (95.4 %); every older family 100 % RNG. 0 PASS→FAIL on this rescore; 3 cascade FAIL→PASS (95318, 95232, 95239). Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2614 (index; no row 1618): 1222 ACCEPT, 58 WITH-DEBT, 109 QUALITY-RISK (2606–2614: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** mbhitm STRIKING drain (muse.js:810, Healer-95342 traced D-3745); then regen cliffs head.
-**This iter:** randomize_gem_colors cliff → writer zhitu FIRE ignite gate (Monk-95415 seg0: destroy_items boils hero, C exits, JS draws ignite rn2(3)).
+**Next cluster:** regen cliffs head inside_gas_cloud (3 blocked); mbhitm STRIKING drain lead (muse.js:810, Healer-95342) after.
+**This iter:** audit 2606–2614 (review D-3738…D-3746, 9A/0Q, 0 Must-fix) + full rescore 1004/1113.
 
 ## Parked (diagnose only — do not implement)
 

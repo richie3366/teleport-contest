@@ -2615,3 +2615,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2603-a3dc7af46-touch-artifact-antimagic-predicate.md](./2603-a3dc7af46-touch-artifact-antimagic-predicate.md) | `a3dc7af46` | D-3734 touch_artifact-head writer Antimagic predicate (4 moved) | **ACCEPT** |
 | [2604-45453fbed-resurrect-appear-duplicate.md](./2604-45453fbed-resurrect-appear-duplicate.md) | `45453fbed` | D-3735 level_tele-head writer resurrect appear duplicate (head +111) | **ACCEPT** |
 | [2605-98020c173-park-resolved-four-writers.md](./2605-98020c173-park-resolved-four-writers.md) | `98020c173` | D-3737 D-3736 park resolved, 4-writer set (95341 FULL PASS) | **ACCEPT-WITH-DEBT** |
+| [2606-ed16286e1-quest-goal-first-texts.md](./2606-ed16286e1-quest-goal-first-texts.md) | `ed16286e1` | D-3738 level_tele-head writer goal_first texts Cav/Ran/Wiz (3 moved) | **ACCEPT** |
+| [2607-f74fa11d9-splev-create-object-stacking.md](./2607-f74fa11d9-splev-create-object-stacking.md) | `f74fa11d9` | D-3739 m_move-head writer splev_create_object stacking (95224 PASS) | **ACCEPT** |
+| [2608-b760db68b-create-trap-stair-retry.md](./2608-b760db68b-create-trap-stair-retry.md) | `b760db68b` | D-3740 get_location-head writer create_trap stair retry (2 moved) | **ACCEPT** |
+| [2609-29f19e6a4-set-wounded-legs-dualwrite.md](./2609-29f19e6a4-set-wounded-legs-dualwrite.md) | `29f19e6a4` | D-3741 moveloop_core-head writer set_wounded_legs slot mirror (2 moved) | **ACCEPT** |
+| [2610-6dba482a5-freeinv-amulet-flat-clear.md](./2610-6dba482a5-freeinv-amulet-flat-clear.md) | `6dba482a5` | D-3742 makemon-head writer freeinv amulet flat clear (3 moved) | **ACCEPT** |
+| [2611-4b3c063ec-print-dungeon-bot-delete.md](./2611-4b3c063ec-print-dungeon-bot-delete.md) | `4b3c063ec` | D-3743 do_statusline2-head writer print_dungeon bot() delete (4 moved) | **ACCEPT** |
+| [2612-8ea297770-doclose-blind-glyph.md](./2612-8ea297770-doclose-blind-glyph.md) | `8ea297770` | D-3744 distfleeck-head writer doclose Blind glyph half (1 moved) | **ACCEPT** |
+| [2613-2ac3c17ec-zhitu-wail-drain.md](./2613-2ac3c17ec-zhitu-wail-drain.md) | `2ac3c17ec` | D-3745 maybe_wail-head writer zhitu wail drain (2 moved) | **ACCEPT** |
+| [2614-e33e69ca6-zhitu-fire-gameover-gate.md](./2614-e33e69ca6-zhitu-fire-gameover-gate.md) | `e33e69ca6` | D-3746 randomize_gem_colors-head writer zhitu FIRE gate (95415 PASS) | **ACCEPT** |

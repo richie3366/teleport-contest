@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — audit 2606–2614 @e33e69ca6: review D-3738…D-3746 (9A/0D/0Q, 0 Must-fix) + full rescore 1004/1113
+
+Each js/ SHA since audit 2600–2605 re-measured against pinned C: 2606 quest goal_first texts (3 moved, exact), 2607 splev stackobj (95224 PASS, 884/884 reach), 2608 create_trap stair retry (2 moved, 214/214), 2609 wounded-legs slot mirror (2 moved exact, 986/986), 2610 freeinv amulet flat clear (3 moved exact, 997/997), 2611 print_dungeon bot() delete (4 moved exact), 2612 doclose Blind glyph half (1 moved exact; 1 reach "regression" proven harness flake — direct replay PASS 2684/2684, full rescore PASS), 2613 zhitu wail drain (2 moved), 2614 FIRE gameover gate (95415 PASS, 1000/1000). No C-wrong found, no Must-fix queued, no js/ touched.
+Scores: public 44/44 (RNG 792838/792838, Scr 11405/11405); corpus full rescore 1004/1113 full:true, RNG 94.89%, 0 PASS→FAIL, 3 cascade FAIL→PASS (95318, 95232, 95239); marathons 65/160; held-out 19/44 (ours scored 13:17Z, predates D-3738+). Seeded ported sample 5/5 live. check-hot-docs ok, reviews 115–139 lines.
 ## 2026-10-09 — D-3746 cliffs-head `randomize_gem_colors` writer: zhitu FIRE ignite gate runs after fatal destroy_items — gameover gate (Monk-95415 PASS)
 
 **C locus:** `zap.c` zhitu FIRE `:4432–4437` (`burn_away_slime(); if (burnarmor) { if (!rn2(3)) destroy_items; if (!rn2(3)) ignite_items; }`) + `end.c` done → `nh_terminate` NORETURN (extern.h:997) → exit: a fatal boil inside destroy_items never reaches the ignite gate at :4436. `maybe_destroy_item` `:5947–5948` (losehp then exercise); `destroy_items` `:5998` limit / `:6088` per-stack loop.
