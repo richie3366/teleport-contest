@@ -57,7 +57,7 @@
 {"fn":"calc_pole_range","c":"3371-3386","status":"ported","js":["js/apply.js:calc_pole_range"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"could_pole_mon","c":"3391-3412","status":"ported","js":["js/apply.js:could_pole_mon"],"d":["D-3160"],"at":"2026-09-30@746254c61"}
 {"fn":"snickersnee_used_dist_attk","c":"3416-3422","status":"ported","js":["js/apply.js:snickersnee_used_dist_attk"],"at":"2026-10-03@bbe63333a"}
-{"fn":"use_pole","c":"3426-3563","status":"ported","js":["js/apply.js:use_pole"],"d":["D-2059"],"at":"seed@a30a7de84","note":"stale (grouped)"}
+{"fn":"use_pole","c":"3426-3563","status":"partial","js":["js/apply.js:use_pole"],"omit":"bridge-over-lava lava arm (queued refill successor, same macro — see Next).","d":["D-3730","D-2059"],"at":"2026-10-09@908879f0a","note":"stale (grouped)"}
 {"fn":"use_cream_pie","c":"3568-3603","status":"ported","js":["js/apply.js:use_cream_pie"],"d":["D-3441","D-3378"],"at":"2026-10-05@9e1efbc82"}
 {"fn":"jelly_ok","c":"3607-3613","status":"ported","js":["js/apply.js:jelly_ok"],"d":["D-3416","D-3268"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"use_royal_jelly","c":"3616-3683","status":"ported","js":["js/apply.js:use_royal_jelly"],"d":["D-2331"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: *optr=null writeback unobservable (both callers return immediately)"}
