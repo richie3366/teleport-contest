@@ -755,7 +755,11 @@ async function kick_nondoor(x, y, avrg_attrib) {
         if (!((loc.looted | 0) & S_LPUDDING) && !rn2(3)
             && !((game.mvitals?.[PM_BLACK_PUDDING]?.mvflags ?? 0) & G_GONE)) {
             if (Blind()) {
-                if (!(u.Deaf || u.HDeaf)) await You_hear('a gushing sound.');
+                // C dokick.c:1213 (if (!Deaf)) — Deaf ≡ youprop.h:125
+                // HDeaf||EDeaf||uroleplay.deaf via hero_Deaf() (D-3572
+                // pattern); an extrinsic/roleplay-deaf hero stays silent
+                // even Unaware, where You_hear's dream arm would speak.
+                if (!hero_Deaf()) await You_hear('a gushing sound.');
             } else {
                 await pline('A black ooze gushes up from the drain!');
             }

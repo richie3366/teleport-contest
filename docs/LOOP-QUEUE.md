@@ -151,8 +151,6 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
-- [ ] `dokick.c` kick_nondoor gushing Deaf-macro gate (omit-2 family) — C dokick.c:1213 `if (!Deaf) You_hear("a gushing sound.")` reads the Deaf macro (youprop.h:125 HDeaf||EDeaf||uroleplay.deaf); the macro gate is absent from js/dokick.js:758 (partial `!(u.Deaf||u.HDeaf)` read instead — drops EDeaf/uroleplay.deaf; the live You_hear inner gate covers plain-EDeaf). Delta: EDeaf/roleplay-deaf + Unaware blind hero at a black-pudding sink dreams the gushing (You_hear Unaware arm) where C's outer `!Deaf` stays silent (no RNG delta — You_hear draws nothing). Sink Klunk :749 inline read is macro-equivalent (dedup-only, not this row). Ship: outer gate → hero_Deaf() (D-3572 pattern, kick_door precedent); verify --fn kick_nondoor REACH-OK.
-
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;

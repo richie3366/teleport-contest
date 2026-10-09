@@ -7,6 +7,15 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3705 `dokick.c` kick_nondoor pudding arm: raw `u.Deaf||u.HDeaf` → `hero_Deaf()` macro (omit-2 family; D-3704 Next lead)
+
+**C locus:** dokick.c kick_nondoor `:974–1253`, sink pudding arm `:1206–1223` — `:1212–1214` `if (Blind) { if (!Deaf) You_hear("a gushing sound."); }`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. Sole C caller `:1468` (dokick nondoor dispatch).
+**JS:** js/dokick.js (gate :757–762); scripts/kick-nondoor-gushing-deaf-gate.test.mjs (new, 5 its: blind non-deaf control hears + `rn2(5)=0`/`rn2(3)=0 @ kick_nondoor` pin; EDeaf/uroleplay.deaf + Unaware → silent; HDeaf+Unaware and EDeaf-aware controls).
+**Change:** js/dokick.js only — the gate calls hero_Deaf() (already imported :68, D-3704; no new edge) in C short-circuit order with C cites (`:1213` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 3/5 pre-fix (control + both controls green = staging sound, incl. the RNG line-pin; 2 macro-deaf+Unaware red, dreaming the gushing) → 5/5 post-fix. D-3704 sibling suite still 5/5. `node scripts/verify.mjs --fn kick_nondoor` → PASS syntax (1 file: js/dokick.js) · PASS rule2 · note hidden (no corpus session blocked on kick_nondoor at baseline) · PASS reach (9 reach → 9 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Same-arm residual checked, not shipped (per row): sink Klunk :749 inline read is macro-equivalent (dedup-only).
+**Next:** missing-arm section empty again; both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+**Finish note:** finish-iteration.mjs stamped but did not commit (step 8 check-hot-docs --fix exits 1 on saturated-queue REFILL, mf=0 open=0); committed + pushed manually in finish format.
 ## 2026-10-09 — D-3704 `dokick.c` kick_door fail arm: raw `u.Deaf` → `hero_Deaf()` macro (omit-2 family; D-3703 Next lead)
 
 **C locus:** dokick.c kick_door `:910–970`, fail arm `:958–969` — `:966` `pline("%s!!", (Deaf || !rn2(3)) ? "Thwack" : "Whammm")`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. Sole C caller `:1466` (IS_DOOR arm of dokick).

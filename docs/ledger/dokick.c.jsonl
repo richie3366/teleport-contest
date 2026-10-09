@@ -11,7 +11,7 @@
 {"fn":"kick_dumb","c":"864-878","status":"ported","js":["js/dokick.js:kick_dumb"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: empty-space/strain + air recoil live"}
 {"fn":"kick_ouch","c":"881-906","status":"ported","js":["js/dokick.js:kick_ouch"],"d":["D-3611","D-1370","D-1361"],"at":"2026-10-07@d83945df9","note":"audit 2026-10-03: drawbridge remap, wake, wounded legs, losehp, hurtle live"}
 {"fn":"kick_door","c":"910-970","status":"ported","js":["js/dokick.js:kick_door"],"d":["D-3704","D-2320"],"at":"2026-10-09@94f9c2270","note":"audit 2026-10-03: open-door dumb, levitate ouch, bust/shatter/crash, shop+watch live"}
-{"fn":"kick_nondoor","c":"974-1253","status":"ported","js":["js/dokick.js:kick_nondoor"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SDOOR/SCORR/throne/altar/fountain/grave/tree/sink/stairs arms live"}
+{"fn":"kick_nondoor","c":"974-1253","status":"ported","js":["js/dokick.js:kick_nondoor"],"d":["D-3705"],"at":"2026-10-09@c04ecdfe0","note":"audit 2026-10-03: SDOOR/SCORR/throne/altar/fountain/grave/tree/sink/stairs arms live"}
 {"fn":"dokick","c":"1257-1470","status":"ported","js":["js/dokick.js:dokick"],"d":["D-3439"],"at":"2026-10-05@18077a1c0","note":"audit 2026-10-03: no_kick chain, swallow/pit/brace, monster+recoil, pool, object, door live"}
 {"fn":"drop_to","c":"1473-1507","status":"ported","js":["js/dokick.js:drop_to"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: MIGR_* dest fill incl. stronghold/endgame fallthrough live"}
 {"fn":"impact_drop","c":"1511-1632","status":"ported","js":["js/dokick.js:impact_drop"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: down_gate/drop_to, boulder skips, migration, messages, shop chase live"}
