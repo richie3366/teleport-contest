@@ -32,7 +32,7 @@ Do **not** `git commit` after each SHA.
 ## Method (mandatory, each JS-touching commit)
 
 This is an audit against **pinned C**, not against the commit message.
-A **cliff** commit (Constitution §10.18, 2026-10-06: one corpus owner or
+A **cliff** commit (Constitution §10.18–19: one corpus owner or
 its writer, ported whole, with movement on its probe sessions) gets the
 whole Method per function, plus the **movement re-measure** of step 6.
 A **batch** commit (40–100 C functions, Constitution §10.17, 2026-10-03)
@@ -100,7 +100,14 @@ gets the whole Method per function.
    whose deliverable is ledger text, a re-audit of an `audited`
    function, or a campaign step on a path no corpus session reaches is a
    **no-op iteration**: QUALITY-RISK with a Must-fix row that names the
-   cliffs head it should have shipped.
+   cliffs head it should have shipped. **Unreached work (§10.19):** a
+   `js/` commit that is neither a Must-fix nor its HEAD's cliffs head —
+   a self-filed "missing-arm" row, an idiom sweep, a successor lead —
+   and whose Verify shows no corpus session moving is QUALITY-RISK even
+   when the C is right (2026-10-08..09: ten Underwater-idiom ships were
+   all C-correct, reached no session, and held-out stayed flat). When the
+   block was empty, that slot belonged to growth; the Must-fix row is
+   the session-reaching work, if any, else none — say so.
    (A legacy batch commit keeps the §10.17 rules: manifest of its HEAD,
    ≤ 100 functions, ≤ a third `Left open:`, one Verify line per
    function, the `sweep` line.)

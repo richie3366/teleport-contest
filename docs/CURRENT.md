@@ -41,15 +41,11 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5 by pts (8,498 vs lockwo 7,852; their RNG 61.7 % vs our 41.7 %: our loss is early cliffs in long sessions). 18/44 held, pts **8,498** (unchanged), RNG **41.7 %**, rngSteps 92.4 %, screens **75.4 %** at judge 2026-10-09 02:13Z (ours scored 01:46Z: post-D-3711).
-**Corpus — picker and proxy (2026-10-09 06:30Z; 953/953 entries, 0 unrecorded):**
-**939 / 953** PASS (98.5 %), RNG 11413722/11413722 (100.00 %), screens 200597/200725 (99.9 %); `full: true`. Worst families: `random` 56/61, `explore` 116/124, `scen` 674/675. Audits record this line next to held-out: the board must rise **with** it. +0 since the last audit (939→939: Underwater-idiom refills are message-gate/recalc-only, no corpus session reaches the submerged gates); 0 PASS→FAIL, 0 hangs. Remainder: 13 env:config-path + 1 unattributed (Samurai-92032 screen-96, D-3684 nomux_out artifact).
+**Corpus — picker and proxy (2026-10-09 ~08:00Z, `2abecd585`; 1113/1113 entries, 0 unrecorded):**
+**989 / 1113** PASS (976/1100 excluding 13 env:config-path), RNG 18159238/20447784 (**88.81 %**), screens 310892/347120 (89.6 %); `full: true`. +160 marathon sessions (§10.19): 50 PASS, cohort RNG 74.7 %. Worst families (`hidden-proxy families`): `scen-worldtour` 6/50 (RNG 64.1 %), `scen-sweep` 12/50 (71.9 %), `scen-chain` 16/40 (79.3 %), `scen-trek` 16/20 (93.9 %); every older family 100 % RNG. 0 PASS→FAIL on the 953 older rows. Audits record this line and the families table next to held-out: the board must rise **with** it.
 Reviews 1225–2599 (index; no row 1618): 1208 ACCEPT, 57 WITH-DEBT, 109 QUALITY-RISK (2591–2599: 9A/0D/0Q, 0 Must-fix queued).
-Live debts: unqueued review debt only (none a C-wrong) — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; the 2026-10-06 list is archived in `docs/archive/PROGRESS-HISTORY.md`.
-Audit iters (mandatory, 2026-09-28): full scoreboard update —
-`hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
---jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
-`record` needs the C recorder (`bash nethack-c/build-recorder.sh`; Linux:
-clang, bison, flex, ncompress); `.cache` recordings take ≈45 s to rebuild.
+Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
+Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
 **PASS (44):** seed0002-healer-reflection-drummer, seed0004-feeding-pony,
 seed0006-wizard-water-demon, seed0007-rogue-snake-swamp, seed0009-swimmer-mforce,
@@ -89,34 +85,33 @@ node scripts/strict-output-check.mjs \
 
 Both must remain full RNG + screen PASS with exact lengths.
 
-## Primary objective — CLIFF PHASE (human, 2026-10-06, Constitution §10.18; supersedes the §10.17 picker)
+## Primary objective — CLIFF PHASE WITH MARATHONS (architect, 2026-10-09, Constitution §10.18 + §10.19)
 
-**Why:** `ledger.mjs batch` → 1 function, ledger counts frozen since
-2026-10-04, held-out flat ~50 iterations spent on ledger-text "repairs",
-re-audits and unreached campaign steps — while the corpus failed 212/953
-in the held-out genre, every top owner tagged "do not re-enqueue"
-(§10.18 has the numbers).
+**Why:** board 899 → 939/953 at 100 % RNG while held-out sat at 18/44,
+RNG 41.7 % (rngSteps 92.4 %) ~80 iterations: held-out loses RNG to early
+cliffs in long sessions; no `scen-*` session ran past 344 steps (§10.19).
 
 **Move the corpus cliffs, one per iteration, ranked by RNG lost** — the
-generated **Open — cliffs** block in `LOOP-QUEUE.md` (committed board →
-`hidden-proxy.mjs queue --write`). Per cliff: `hidden-proxy show <probe>`
-→ owner vs **writer** → `brief.mjs` → the C function whole, every caller
-wired → `verify.mjs --fn` with **movement** on the probe sessions (PASS or
-strictly later step) **and** REACH-OK. NO MOVEMENT twice → measure C
-(`geom-probe`, temp C dump) this iteration; it names the writer or parks
-the owner (`[measure]` rows are live). Must-fix is strict (throw / hang /
-PASS→FAIL / review C-wrong); ledger text is never a row. Audits: full
-rescore, `leaderboard.mjs`, **corpus growth** (`scenario-gen.mjs`) when
-the worst family is ≥ 85 % or the block holds < 6 owners.
-**Falsifier (human):** ~20 cliff iterations with the board rising and
-held-out flat → the corpus stopped predicting the judge again.
+generated **Open — cliffs** block (committed board → `hidden-proxy.mjs
+queue --write`), now led by marathons. Per cliff: `hidden-proxy show
+<probe>` → owner vs **writer** → `brief.mjs` → the C function whole, every
+caller wired → `verify.mjs --fn` with **movement** **and** REACH-OK. NO
+MOVEMENT twice → measure C at the divergent step (`geom-probe <id> --step
+N`, temp C dump). Must-fix is strict; ledger text is never a row.
+**Growth:** no Must-fix and < 6 cliff rows → the slot runs as a supervisor
+**grow** iteration (≥ 80 sessions, half marathon). Both blocks empty in a
+port slot → journal and stop. Audits: review + full rescore +
+`leaderboard.mjs` + `hidden-proxy families`.
+**Falsifier:** ~20 cliff iterations with the long families' RNG % rising
+and held-out RNG % flat → revisit the generator, not the port.
 Ledger progress (generated by `finish-iteration.mjs`):
 <!-- ledger:begin -->
 Ledger @908879f0a: 5329 pinned-C functions — ported 4541 · partial 114 · split 163 · by-design 396 · open 115 (612 declared by seed). Measured: ok 3910, partial 680, thin 235, missing 504. `node scripts/ledger.mjs summary`.
 <!-- ledger:end -->
 Picker: `LOOP-QUEUE.md` Must-fix (ships alone), else the **Open — cliffs**
-head, else (block empty) the coverage head / `ledger.mjs batch` when it
-still names ≥ 5 functions. Per ported function the **entire C body** in C
+head; a coverage row rides along only as a same-C-file companion, and a
+short cliffs block means growth (§10.19), never a ledger batch or a
+self-filed row. Per ported function the **entire C body** in C
 order — every arm, every callee live or named, C caller wired; already
 whole → `ledger.mjs set … "stale: …"` and back to the writer question.
 Restart beats patching arms. Gates: syntax · Rule #2 · green + strict ·
@@ -145,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next cluster:** missing-arm head pole lava arm (D-3730 Next; bridge-over-lava is_lava-superset vs LAVAPOOL||LAVAWALL); blocks empty, batch no gap — next port iter ships the head, audit owns re-record + rescore + growth.
-**This iter:** audit 2591–2599 @42475f4c8 (9A/0D/0Q, 0 Must-fix: D-3721…D-3730 Underwater-idiom refills ACCEPT, every REACH re-measured incl. 14/14 use_saddle + 4/4 throwit reach) + full rescore 939/953 (+0, 0 PASS→FAIL); fortress 44/44; ledger 5/5 seeded-ported sampled clean (place_object, litter_scatter, flip_coin, setopt_cmd, add_mon_to_reg all stand ported).
+**Next cluster:** cliffs head `cmd.c` yn_function (8 marathons, 329,712 RNG lost; region-heuristic owner — C `│·P·│` vs JS `│·Pd│`, port the writer of the stray `d`), then randomize_gem_colors (`scen-chain` next-game init), touch_artifact (`d(2,4)` vs `d(4,4)`), level_tele (quest «A voice booms out»). Pole lava arm (D-3730 Next): unreached, dropped.
+**This iter:** architect take §10.19 — marathon families, 160-session cohort, rescore 989/1113 (`2abecd585`), supervisor grow mode, rules/prompts/docs.
 
 ## Parked (diagnose only — do not implement)
 

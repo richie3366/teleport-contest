@@ -30,7 +30,7 @@ describe("port-loop Codex selection", () => {
   });
 });
 
-function sandboxRepo() {
+function sandboxRepo({ queue = "## Open\n- [ ] Port fill_zoo\n" } = {}) {
   const root = mkdtempSync(join(tmpdir(), "port-loop-codex-"));
   const put = (name, body, mode) => {
     mkdirSync(dirname(join(root, name)), { recursive: true });
@@ -40,11 +40,11 @@ function sandboxRepo() {
     "extract-agent-usage.mjs", "extract-agent-log.mjs", "loop-resume-brief.mjs", "loop-require-results-pass.mjs"];
   mkdirSync(join(root, "scripts"));
   for (const f of files) copyFileSync(join(here, f), join(root, "scripts", f));
-  for (const type of ["", ".continue", ".review", ".cadence"]) put(`scripts/agent-port-loop${type}.prompt.md`, `${type || "port"} test prompt`);
+  for (const type of ["", ".continue", ".review", ".cadence", ".grow"]) put(`scripts/agent-port-loop${type}.prompt.md`, `${type || "port"} test prompt`);
   for (const f of ["strict-output-check.mjs", "archive-loop-queue-done.mjs", "rotate-journal.mjs", "check-hot-docs.mjs"]) put(`scripts/${f}`, "// test gate: no work\n");
   put("scripts/port-did-park.mjs", "process.exit(1);\n");
   put("frozen/ps_test_runner.mjs", 'console.log(\'__RESULTS_JSON__ {"results":[{"passed":true}]}\');\n');
-  put("docs/LOOP-QUEUE.md", "## Open\n- [ ] Port fill_zoo\n");
+  put("docs/LOOP-QUEUE.md", queue);
   put("js/fill.js", "export const fill = 0;\n");
   put(".gitignore", ".agent-port-loop-logs/\nSTOP_AGENT_LOOP.md\n");
   put("mock-codex.cjs", `#!${process.execPath}
@@ -86,9 +86,15 @@ function sandboxRepo() {
       return;
     }
     const audit = process.env.MOCK_AUDIT === '1';
-    if (audit) {
-      fs.mkdirSync('reviews/loop-unattended', {recursive:true});
-      fs.writeFileSync('reviews/loop-unattended/test.md', 'Verdict: **ACCEPT**\\n');
+    const grow = process.env.MOCK_GROW === '1';
+    if (audit || grow) {
+      if (audit) {
+        fs.mkdirSync('reviews/loop-unattended', {recursive:true});
+        fs.writeFileSync('reviews/loop-unattended/test.md', 'Verdict: **ACCEPT**\\n');
+      } else {
+        fs.mkdirSync('hidden-corpus/recipes', {recursive:true});
+        fs.writeFileSync('hidden-corpus/recipes/scen-worldtour-Wizard-1.recipe.json', '{}\\n');
+      }
       fs.mkdirSync('hidden-corpus', {recursive:true});
       fs.writeFileSync('hidden-corpus/scoreboard.json', JSON.stringify({full:true,fullAt:new Date().toISOString(),entries:0,unrecorded:0,sessions:{}}));
     } else fs.writeFileSync('js/fill.js', 'export const fill = ' + (count + 1) + ';\\n');
@@ -209,6 +215,31 @@ describe("port-loop Codex supervisor in an isolated fixture repo", () => {
       assert.match(call.prompt, /\.review test prompt/);
       assert.match(r.stdout, /global #10 mode=audit/);
       assert.match(r.stdout, /full rescore committed by the audit/);
+    } finally { rmSync(root, { recursive: true, force: true }); }
+  });
+
+  it("turns a port slot into a grow iteration when the cliffs block runs short", () => {
+    const root = sandboxRepo({ queue: "## Must-fix\n\n## Open — cliffs\n<!-- cliffs:begin -->\n- [ ] `a.c` one\n<!-- cliffs:end -->\n" });
+    try {
+      const r = runLoop(root, ["--codex", "--token-budget-m", "0.001"], { MOCK_GROW: "1" });
+      assert.equal(r.status, 0, r.stdout + r.stderr);
+      const call = JSON.parse(readFileSync(join(root, ".agent-port-loop-logs/invocation-0.json")));
+      assert.match(call.prompt, /\.grow test prompt/);
+      assert.match(call.prompt, /Seed base for this iteration/);
+      assert.match(r.stdout, /growth iteration: cliffs block holds 1 < 6 owners/);
+      assert.match(r.stdout, /grow iteration added 1 corpus recipe/);
+      assert.match(r.stdout, /full rescore committed by the audit/);
+    } finally { rmSync(root, { recursive: true, force: true }); }
+  });
+
+  it("keeps a port slot when a Must-fix is open even with a short cliffs block", () => {
+    const root = sandboxRepo({ queue: "## Must-fix\n- [ ] fix the throw\n\n## Open — cliffs\n<!-- cliffs:begin -->\n<!-- cliffs:end -->\n" });
+    try {
+      const r = runLoop(root, ["--codex", "--token-budget-m", "0.001"]);
+      assert.equal(r.status, 0, r.stdout + r.stderr);
+      const call = JSON.parse(readFileSync(join(root, ".agent-port-loop-logs/invocation-0.json")));
+      assert.match(call.prompt, /port test prompt/);
+      assert.match(call.prompt, /Queue head \(Must-fix, ships alone\)/);
     } finally { rmSync(root, { recursive: true, force: true }); }
   });
 

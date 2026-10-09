@@ -258,9 +258,9 @@ clearly marked temporary and scheduled for deletion.
     96 %) the loop kept shipping display singletons against a saturated
     signal while held-out sat at 7/44. Suspended during the breadth
     phase (§10.17); **in force again since the cliff phase (§10.18)**,
-    whose picker is the corpus ranked by RNG lost — saturation (worst
-    family ≥ 85 %) is answered by growing the corpus on the audit, not
-    by inventing rows.
+    whose picker is the corpus ranked by RNG lost — saturation is
+    answered by growing the corpus in a supervisor **grow** iteration
+    (§10.19), not by inventing rows.
 14. **A JS throw or worker hang in any corpus session is a Must-fix**,
     ahead of every Open row: a `ReferenceError` at step 0 (or an
     `ETIMEDOUT` sync spin) forfeits every screen of the session, and the
@@ -395,7 +395,8 @@ clearly marked temporary and scheduled for deletion.
       remaining omissions cannot ship is `audited` once and leaves the
       block.
     - **Saturation is answered by growth, not invention** (§10.13 back
-      in force): when the worst `scen-*` family passes ≥ 85 %, or the
+      in force; since §10.19 a supervisor grow iteration does it, not
+      the audit): when the worst `scen-*` family passes ≥ 85 %, or the
       cliffs block holds fewer than 6 owners, the audit iteration authors
       a fresh cohort in the held-out genre (`scenario-gen.mjs`: long `^V`
       tours over several named levels, shops and temples, Sokoban,
@@ -406,6 +407,64 @@ clearly marked temporary and scheduled for deletion.
       committed board's PASS count and RNG % rise means the corpus has
       stopped predicting the judge again; the human revisits the picker.
       The audit records both lines side by side in `CURRENT.md`.
+19. **Marathons and growth as a gate (architect decision 2026-10-09,
+    under delegated human authority; amends §10.18, whose picker,
+    whole-function, movement, REACH and Must-fix rules stand).** The
+    §10.18 falsifier fired. From 2026-10-08 to 2026-10-09 the board rose
+    899 → 939/953 (positional RNG 100 %) while held-out stayed at
+    **18/44, RNG 41.7 %, rngSteps 92.4 %** for ~80 iterations. Three
+    failures, all structural:
+    - **The corpus could not produce the judge's shape.** Four public
+      sessions of 44 carry half the public RNG (world-tour 833 steps,
+      knight-coverage 1814, ten-diverse-deaths 1953 over ten games,
+      dequa-fountain-explore 714). RNG % against rngSteps % says a few
+      long held-out sessions break early. `scenario-gen` capped every
+      scenario at 320 keys: no `scen-*` session ran past 344 steps.
+    - **Growth was an audit chore, so it never happened.** §10.18
+      required a cohort when the cliffs block held < 6 owners; no recipe
+      was added from 2026-10-01 to 2026-10-09, every port crumb ending
+      "Audit owns growth" and every audit skipping it.
+    - **The empty slot was filled with unreached work.** The supervisor
+      still told an empty-queue port iteration to "refill Open from the
+      map"; ten C-correct Underwater-idiom ships moved no session and
+      every review accepted them.
+
+    Until a human or architect closes it in `CURRENT.md`:
+    - **The corpus carries the long shape.** The third-wave families of
+      `scenario-gen.mjs` (`--family marathon`: `worldtour`, `sweep`,
+      `chain`, `trek`; 600–2000 steps, debug games answer «Die?» with n,
+      chained games keep bones and the score file) are part of the
+      corpus. The first cohort (160, 2026-10-09) passed 50 with cohort
+      RNG 74.7 %; `worldtour` 6/50. Every family older than them was at
+      100 % RNG. `node scripts/hidden-proxy.mjs families` is the table.
+    - **Growth is a supervisor mode, not a chore.** A port slot that
+      starts with no Must-fix and fewer than 6 rows in the generated
+      cliffs block is a **grow** iteration
+      (`agent-port-loop.grow.prompt.md`): ≥ 80 new sessions, at least
+      half marathon, weighted to the long family with the lowest RNG %,
+      then `record`, a full `score`, both committed; the cliffs block is
+      regenerated from that board. Three grow iterations in a row that
+      add no recipe halt the loop (recorder broken). When every family
+      including the long ones passes ≥ 90 %, the grow deliverable is a
+      new family copying a named public session's shape — a key policy
+      that reads only the screen, never `js/`.
+    - **Only reached work ships.** A port slot pops Must-fix or the
+      cliffs head; with both empty it journals and stops. A `js/` commit
+      that is neither, whose Verify moves no corpus session, is
+      QUALITY-RISK in review however correct its C (no "missing-arm"
+      self-filing, idiom sweeps or successor leads). The audit is review
+      + full rescore + leaderboard; it no longer grows.
+    - **Long sessions are worked at their first divergence.** `show`
+      gives the step and replay command; `geom-probe <id> --step N` and
+      temp C dumps measure there. The fix is the C function, never the
+      session (unchanged).
+    - **Falsifier (architect/human reads it):** ~20 cliff iterations on
+      marathon owners with the long families' RNG % rising and held-out
+      RNG % flat → the long shape is still not the judge's; revisit the
+      generator (compare against the public long sessions key by key),
+      not the port. Held-out RNG % moving while passing count stays flat
+      is progress, not a falsifier — positional RNG is what early
+      cliffs cost.
 
 ---
 

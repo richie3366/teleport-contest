@@ -52,17 +52,22 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
   the D-entry and declare it `partial` in the `Ledger:` bullet.
 - Do **not** edit frozen contracts for scoring: `js/isaac64.js`, `js/terminal.js`, `js/storage.js` (judge overlays them).
 
-## Cliff phase (2026-10-06, Constitution §10.18 — supersedes the §10.17 picker)
+## Cliff phase with marathons (Constitution §10.18 + §10.19, 2026-10-09)
 
 Public 44/44 **and** the corpus PASS set are the **regression fortress**
-(REACH). Held-out (leaderboard) is the objective: **16/44, RNG 34.8 %,
-rngSteps 87.7 %, screens 64.1 %** on 2026-10-06, flat ~50 iterations while
-the breadth picker ran dry (`ledger.mjs batch` → 1 function, ledger
-counts frozen since 2026-10-04) and the loop filled iterations with
-ledger-text "1-row repairs", re-audits of one coverage head and campaign
-steps on held-out-unreached paths. The corpus (741/953; `scen-options`
-1/20, `scen-town` 2/20, `scen-quest` 3/20) is unsaturated and held-out
-shaped, so **the corpus picks work again**: `LOOP-QUEUE.md` Must-fix
+(REACH). Held-out (leaderboard) is the objective: **18/44, RNG 41.7 %,
+rngSteps 92.4 %, screens 75.4 %** on 2026-10-09, flat ~80 iterations while
+the corpus rose to 939/953 at 100 % RNG: every scenario stopped at 344
+steps, while half the public RNG sits in four 714–1953-step sessions. So
+the corpus now carries **marathons** (`scenario-gen --family marathon`:
+`worldtour`, `sweep`, `chain`, `trek`; 600–2000 steps; first cohort 50/160
+PASS, RNG 74.7 %). `hidden-proxy families` is the per-family table.
+**Growth is a supervisor mode:** a port slot with no Must-fix and < 6
+cliff rows is a **grow** iteration (`agent-port-loop.grow.prompt.md`:
+≥ 80 sessions, half marathon, record, full rescore, commit). With both
+blocks empty a port slot journals and stops — never "missing-arm" or
+idiom-sweep rows; a `js/` commit that moves no corpus session and is not
+Must-fix/cliffs head is QUALITY-RISK. **The corpus picks work**: `LOOP-QUEUE.md` Must-fix
 (strict: throw / hang / PASS→FAIL / review C-wrong) first, then the
 **generated** Open — cliffs block (`hidden-proxy.mjs queue --write` from
 the committed scoreboard, owners ranked by **RNG lost** after the first
@@ -86,16 +91,17 @@ queue row, never an iteration**; the queue has no floor. No-op iterations
 (ledger text only, re-audit, cite refresh, campaign step that moves no
 session) are QUALITY-RISK in review. Audits: full scoreboard rescore
 (`hidden-proxy record` + unfiltered `score`, committed), `leaderboard.mjs`
-next to the board line, and corpus growth (`scenario-gen.mjs`, held-out
-genre) when the worst family is ≥ 85 % or the block holds < 6 owners.
+and `hidden-proxy families` next to the board line (growth is the grow
+mode's job, not the audit's).
 Stale row (brief shows the body already complete) = one `ledger.mjs set
 <fn> ported --note "stale: …"`, then back to the writer question, same
 iteration. Fix the port, never the session. No `c-js-map`/`debt.md`/TOP30
 lines copied by hand (§10.15). Do not shop the fork dashboard for a peel.
 This rule's constitution/playbook/runbook/prompt edits were one-shot
 process takes (2026-09-06, 2026-09-16, 2026-09-18, 2026-09-27 ledger,
-2026-09-28 clusters + full audit rescore, 2026-10-06 cliff phase);
-ordinary loop iters follow that text and must not rewrite it.
+2026-09-28 clusters + full audit rescore, 2026-10-06 cliff phase,
+2026-10-09 marathons + grow mode); ordinary loop iters follow that text
+and must not rewrite it.
 
 ## When fixing divergence
 

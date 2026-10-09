@@ -3,19 +3,19 @@ C→JavaScript port. Your response is not the durable output: verified code
 and one accurate D-log entry are. Tool calls are the cost; each step below
 is one call unless it says otherwise.
 
-**Cliff phase (Constitution §10.18, 2026-10-06):** held-out is 16/44, RNG
-34.8 %, screens 64.1 % and has not moved while the ledger picker ran dry.
-The local corpus (953 C-recorded sessions in the held-out genre) fails
-212 times; the first divergence of each failing session is attributed to a
-C function. You ship **one cliff**: the top owner of the generated
-**Open — cliffs** block (ranked by RNG lost after the divergence), ported
-whole, with **movement** on its probe sessions. Public 44/44 and the
-corpus PASS set are the regression fortress (`verify` must end REACH-OK).
+**Cliff phase with marathons (Constitution §10.18–19):** held-out is
+18/44, RNG 41.7 % against rngSteps 92.4 % — a few long held-out sessions
+break early. The corpus carries long C-recorded sessions in that shape
+(`scen-worldtour`/`sweep`/`chain`/`trek`, 600–2000 steps). You ship **one
+cliff**: the top owner of the generated **Open — cliffs** block (ranked
+by RNG lost), ported whole, with **movement** on its probe sessions.
+Public 44/44 and the corpus PASS set are the fortress (REACH-OK). A short
+block makes the next slot a **growth** iteration; never fill it by hand.
 
 ## Read first (≤12k tokens of docs)
 
 1. `docs/GROK-PLAYBOOK.md` — priority, **Contest Rule #2**, anti-patterns.
-2. `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10.18 (skim rest).
+2. `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10.18–19 (skim rest).
 3. **`docs/CURRENT.md`** — score, green gate, **primary** objective.
 4. **`docs/LOOP-QUEUE.md`** Cliff-phase block, first **Must-fix** `- [ ]`
    if any, then the **Open — cliffs** head. Skip Parked and Deferred.
@@ -67,6 +67,8 @@ complete in JS under this or split names → `ledger.mjs set <fn> ported
 A cliff row names **corpus sessions** (`scen-*` = held-out genre) with a
 machine-recorded expectation: the deliverable is the **C function's** port.
 A fix that reads a seed, step, coordinate or RNG index is reverted.
+Marathons are long: work at the step `show` prints (its replay command,
+`geom-probe.mjs <id> --step N`), never from the top of the session.
 
 ## One bounded unit: the cliff, the function whole
 
@@ -130,11 +132,11 @@ Must-fix only (JS throw / worker hang / corpus or public PASS→FAIL /
 review-named C-wrong). A ledger omit or note that disagrees with the live
 body is one `ledger.mjs set` inside this iteration — never a row, never an
 iteration. If both blocks are empty after `check-hot-docs --fix`, the
-corpus is saturated: journal it and stop; the audit grows the corpus.
+corpus is saturated: journal it and stop — the next slot grows (§10.19).
+Never self-file "missing-arm" or idiom-sweep rows to keep busy.
 
 **Every 10th iteration** (`n % 10 == 0`) is the audit iter (sampled review
-+ full suite + **full** scoreboard rescore + leaderboard + corpus growth
-when the worst family is ≥ 85 % PASS), not a port iter.
++ full suite + **full** scoreboard rescore + leaderboard), not a port iter.
 
 ## Absolute prohibitions
 

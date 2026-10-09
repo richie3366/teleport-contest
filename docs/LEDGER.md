@@ -39,10 +39,10 @@ brace-stripped code-line ratio (MISSING/THIN/PARTIAL/ok). A low ratio on a
   secondary pool = non-blocked, non-`audited` `partial` and previously
   touched `unknown`. win/tty, no-analogue files and save/restore/files are
   skipped unless declared absent/scaffold. Since the cliff phase
-  (2026-10-06, Constitution §10.18) this block is the **fallback** picker:
-  it pops only when the generated **Open — cliffs** block
-  (`hidden-proxy.mjs queue --write`) is empty, or as a same-C-file
-  companion of the cliff being worked.
+  (2026-10-06, Constitution §10.18) this block rides along only as a
+  same-C-file companion of the cliff being worked; since 2026-10-09
+  (§10.19) a short cliffs block makes the next slot a **grow** iteration,
+  so this block is no longer a picker of its own.
 
 ## Commands
 

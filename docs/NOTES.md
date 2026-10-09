@@ -6,14 +6,13 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
-- **Cliff phase (human, 2026-10-06 — Constitution §10.18):** hypothesis:
-  held-out (16/44, RNG 34.8 % at rngSteps 87.7 %) is bounded by a few
-  *early cliffs in long sessions* that the corpus already records
-  (2026-10-06 tops in §10.18; ledger gap was 1 fn, frozen since 2026-10-04
-  — not by missing C). Falsifier: ~20 cliff iters with board rising + held-out
-  flat ⇒ corpus stopped predicting; human revisits. Breadth hypothesis
-  falsified 2026-10-06 (ledger +74 reclassified partials, held-out flat
-  ~50 iters).
+- **Marathons (architect, 2026-10-09 — §10.19):** held-out (18/44, RNG
+  41.7 %, rngSteps 92.4 %) loses RNG to early cliffs in *long* sessions the
+  344-step corpus never recorded; the marathon cohort finds them (50/160,
+  RNG 74.7 %). Falsifier: `hidden-proxy families` long-family RNG % rising
+  ~20 iters while `leaderboard.mjs` RNG % stays ~41.7 % ⇒ fix the generator
+  (diff against `seed0360`/`seed4500`/`seed0030` key streams). Falsified:
+  2026-10-06 "corpus already records the cliffs" (board +40, held-out flat).
   The bullets below are live writer leads for parked cliff owners.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
@@ -28,7 +27,7 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 ## Don't re-check (≤15)
 
 - D-1790…D-3730 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 953 entries; full scores need unfiltered `score`.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3730) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).

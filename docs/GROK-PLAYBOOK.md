@@ -43,13 +43,12 @@ journal. `DIVERGENCE-INDEX.md` + **one** `## D-NNNN` entry (the row's
 
 ## 2. Objective priority (non-negotiable)
 
-1. **`CURRENT.md` → Primary objective** (chooses work). Since 2026-10-06
-   that is the **cliff phase** (Constitution §10.18): the breadth picker
-   ran dry (`ledger.mjs batch` → 1 function, ledger counts frozen) while
-   held-out sat at 16/44, RNG 34.8 % and the corpus still failed 212/953
-   sessions in the held-out genre. **The corpus picks work**: Must-fix
-   (strict), then the **Open — cliffs** head — owners ranked by **RNG lost**
-   after the first divergence, generated from the committed scoreboard.
+1. **`CURRENT.md` → Primary objective** (chooses work): the **cliff
+   phase** (§10.18) on a corpus with **marathons** (§10.19, 600–2000-step
+   `scen-worldtour`/`sweep`/`chain`/`trek`). **The corpus picks work**:
+   Must-fix (strict), then the **Open — cliffs** head — owners ranked by
+   **RNG lost**, generated from the committed board. A short block makes
+   the next slot a supervisor **grow** iteration; nobody fills it by hand.
 2. **A row's tag is context, not a veto.** `history: archived D-…` = read
    that one D-entry, then port the arm *this* divergence names. `parked:
    SYMPTOM / MISATTRIBUTED` = port the **writer** the divergence names
@@ -74,11 +73,11 @@ Public 44/44 **and** the corpus PASS set are a **regression fortress**
 | Prefer **restart**: delete the thin JS body, re-port from C, keep the export name/signature | Stack a third shim on a thin function |
 | `verify.mjs --fn <fn>` must show **movement** on the probe sessions (PASS or strictly later step/owner) **and** REACH-OK (+ green, strict, cohort, full when shared) | Ship NO MOVEMENT as a "named omission" or "docs only"; touch a session or seed; ship a PASS→FAIL |
 | NO MOVEMENT after one more fix → **measure C** (§7) this iteration; the measurement names the writer (port it) or parks the owner with a `[measure]` row | Patch the symptom a third time; theorize from JS state or an RNG count |
-| Both Open blocks are generated (`finish` / `check-hot-docs --fix`); both empty → journal "corpus saturated" and stop; the audit grows the corpus | Pad the queue; invent a Must-fix; re-audit an `audited` function; a campaign step no corpus session reaches |
+| Both Open blocks are generated; both empty → journal and stop (next slot grows, §10.19). Marathon row → work at the first divergent step (`show`, `geom-probe --step N`) | Pad the queue; invent a Must-fix; re-audit; a step no session reaches; self-filed missing-arm / idiom rows; reading a 2000-step session from the top |
 
-The held-out 44 are scripted wizard-mode scenarios (wishes, `^G`,
-named-level `^V`, polyself, deaths): one early cliff forfeits every later
-screen — hence the ranking by RNG lost. Tagged restore: save-oracle probe.
+The held-out 44 are scripted scenarios (wishes, `^G`, `^V` tours,
+polyself, chained deaths, long runs): one early cliff forfeits every
+later screen — hence the ranking by RNG lost. Tagged restore: save-oracle probe.
 
 ### 2b. Iteration density (token vs quality)
 

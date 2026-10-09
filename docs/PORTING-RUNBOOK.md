@@ -82,11 +82,13 @@ locked suite:
    is their **writers**, `[campaign]` steps and `[measure]` rows
    (`LOOP-QUEUE.md` header) — not map singletons, which come only when
    every corpus family is ≥ 90 % PASS (Constitution §10.13).
-3. **Keep the corpus unsaturated:** when every family is ≥ 85 % PASS the
-   audit iteration generates a new cohort with `scripts/scenario-gen.mjs`
-   (wizard-mode wishes, `^G`, `#polyself`, `#wizintrinsic`, deaths,
-   `^V ?` named-level tours, normal-mode kits) and re-scores before any
-   refill. Never memorize public traces or chase public leaderboard / CDN
+3. **Keep the corpus unsaturated and long:** when the cliffs block holds
+   fewer than 6 owners the supervisor's next slot is a **grow** iteration
+   (Constitution §10.19): `scripts/scenario-gen.mjs`, at least half
+   `--family marathon` (600–2000-step world tours, command sweeps,
+   chained normal games, long treks — the shape of the public sessions
+   that carry most of the RNG), then a full re-score, before any other
+   work. Never memorize public traces or chase public leaderboard / CDN
    drift in-loop; the leaderboard's held-out line is the only external
    truth and a human reads it.
 4. Prefer delete-wrong-JS + re-port of a shim-thick module over stacking
@@ -127,9 +129,9 @@ the head of the generated `Open — cliffs` block — a corpus owner, or the
 writer its first divergence names — as a whole C function family, with
 `verify.mjs --fn` showing movement on its probe sessions and REACH-OK.
 The 2026-10-03 **batch** unit (§10.17: the `ledger.mjs batch --write`
-manifest, 40–100 whole C functions) is the fallback when the cliffs block
-is empty and the ledger still has a gap; each function is still ported
-whole and declared one by one in the D-entry `Ledger:` bullet. Consecutive Open rows of one C function may
+manifest, 40–100 whole C functions) is retired as a picker (§10.19): an
+empty cliffs block means growth, not a ledger batch. Each function is
+still ported whole and declared one by one in the D-entry `Ledger:` bullet. Consecutive Open rows of one C function may
 combine when every callee is live, a C-matched clone, or named omitted
 here (no stub in a live arm). Must-fix stays one item, alone.
 But "small"/"cluster" does not mean "only the branch this seed took."

@@ -1,8 +1,9 @@
 # Loop work queue
 
 Unattended **port** iterations pop the **first unchecked** row, in this
-order: **Must-fix** (hand-written, strict), then the **Open — cliffs** head,
-then the **Open — coverage** head. Both Open blocks are **generated**
+order: **Must-fix** (hand-written, strict), then the **Open — cliffs** head;
+an **Open — coverage** row rides along only as a same-C-file companion
+(§10.19: a short cliffs block means a grow iteration). Both Open blocks are **generated**
 (`node scripts/check-hot-docs.mjs --fix` regenerates both; `hidden-proxy.mjs
 queue --write` and `ledger.mjs rows --write` individually). Every other
 section is hand-kept. Done Must-fix rows go to
@@ -11,7 +12,15 @@ section is hand-kept. Done Must-fix rows go to
 Stale lines live in `docs/archive/LOOP-QUEUE-REFILLS.md` /
 `docs/archive/LOOP-QUEUE-STALE.md`.
 
-## Cliff phase (opened 2026-10-06 — Constitution §10.18, `CURRENT.md`)
+## Cliff phase (opened 2026-10-06 — Constitution §10.18; marathons + grow mode 2026-10-09, §10.19)
+
+**2026-10-09:** the corpus had saturated at 939/953 (100 % RNG) with no
+session past 344 steps while held-out stayed at 18/44, RNG 41.7 %. The
+marathon families (`scen-worldtour`, `scen-sweep`, `scen-chain`,
+`scen-trek`; 600–2000 steps) now lead the cliffs block. When the block
+holds fewer than 6 rows and Must-fix is empty, the supervisor runs a
+**grow** iteration instead of a port slot; a port slot with both blocks
+empty journals and stops. Never self-file rows to fill the slot.
 
 The breadth phase (§10.17) ran its picker dry: on 2026-10-06
 `ledger.mjs batch` named **1** function, the ledger's measured counts had
@@ -128,6 +137,18 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
+- [ ] `cmd.c` yn_function — blocks 8/1113 corpus sessions (first at step 729; RNG lost 329712, screens lost 2172): toplines identical; first differing screen row 6: C «│·P·│» vs JS «│·Pd│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify yn_function` (scen-chain-Barbarian-95427, scen-chain-Healer-95407, scen-chain-Healer-95430). @ee29e2f62 **[history: archived — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `o_init.c` randomize_gem_colors — blocks 9/1113 corpus sessions (first at step 153; RNG lost 281401, screens lost 1974): C draws `rn2(2)=1` in randomize_gem_colors, JS `rn2(100)=17` from regen_hp(allmain.js:504). Probe: `node scripts/hidden-proxy.mjs verify randomize_gem_colors` (scen-chain-Archeologist-95435, scen-chain-Priest-95401, scen-chain-Priest-95417). @ee29e2f62 **[history: archived D-3241 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `artifact.c` touch_artifact — blocks 4/1113 corpus sessions (first at step 129; RNG lost 273974, screens lost 2442): C draws `d(2,4)=8` in touch_artifact, JS `d(4,4)=12` from touch_artifact(artifact.js:1606). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-worldtour-Wizard-95213, scen-worldtour-Wizard-95216, scen-worldtour-Wizard-95235). @ee29e2f62 **[history: archived D-2172 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `teleport.c` level_tele — blocks 8/1113 corpus sessions (first at step 128; RNG lost 201867, screens lost 5057): C «You materialize on a different level! A voice booms out...--» vs JS «You materialize on a different level!--More--». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-sweep-Barbarian-95309, scen-sweep-Caveman-95341, scen-worldtour-Caveman-95234). @ee29e2f62 **[history: archived D-2136 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `monmove.c` m_move — blocks 1/1113 corpus sessions (first at step 144; RNG lost 119427, screens lost 891): C draws `rn2(20)=9` in m_move, JS `rn2(24)=1` from m_move(monmove.js:2344). Probe: `node scripts/hidden-proxy.mjs verify m_move` (scen-worldtour-Wizard-95224). @ee29e2f62 **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `sp_lev.c` get_location — blocks 2/1113 corpus sessions (first at step 157; RNG lost 92617, screens lost 2226): C draws `rn2(76)=67` in get_location, JS `rn2(2)=1` from find_montype(mklev.js:30493). Probe: `node scripts/hidden-proxy.mjs verify get_location` (scen-sweep-Ranger-95303, scen-worldtour-Wizard-95210). @ee29e2f62 **[parked: PRESENCE-ONLY — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `makemon.c` makemon — blocks 3/1113 corpus sessions (first at step 405; RNG lost 75548, screens lost 862): C draws `rn2(5)=4` in makemon, JS `rn2(50)=49` from m_initinv(makemon.js:3179). Probe: `node scripts/hidden-proxy.mjs verify makemon` (scen-worldtour-Archeologist-95249, scen-worldtour-Samurai-95203, scen-worldtour-Wizard-95212). @ee29e2f62 **[history: archived D-3285 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `hack.c` maybe_wail — blocks 3/1113 corpus sessions (first at step 361; RNG lost 63816, screens lost 796): C «Your robe smoulders! You hear the wailing of the Banshee...-» vs JS «Your robe smoulders! The bolt of fire bounces!--More--». Probe: `node scripts/hidden-proxy.mjs verify maybe_wail` (scen-chain-Monk-95415, scen-sweep-Barbarian-95305, scen-sweep-Healer-95342). @ee29e2f62 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `wintty.c` process_menu_window — blocks 5/1113 corpus sessions (first at step 176; RNG lost 58320, screens lost 113): toplines identical; first differing screen row 22: C «» vs JS «Wizard the Troglodyte          St:3 Dx:3 Co:3 In:3 Wi:3 Ch:3 Lawful» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify process_menu_window` (scen-chain-Archeologist-95418, scen-chain-Archeologist-95438, scen-chain-Tourist-95421). @ee29e2f62 **[history: archived D-1879 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `makemon.c` m_initinv — blocks 1/1113 corpus sessions (first at step 542; RNG lost 42329, screens lost 406): C draws `rn2(50)=20` in m_initinv, JS `rn2(4)=2` from pickvampshape(makemon.js:1161). Probe: `node scripts/hidden-proxy.mjs verify m_initinv` (scen-sweep-Priest-95316). @ee29e2f62 **[history: archived D-3244 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `zap.c` obj_resists — blocks 1/1113 corpus sessions (first at step 345; RNG lost 41490, screens lost 1551): C draws `rn2(100)=64` in obj_resists, JS `rn2(5)=4` from rndmonst_adj(makemon.js:655). Probe: `node scripts/hidden-proxy.mjs verify obj_resists` (scen-sweep-Ranger-95333). @ee29e2f62 **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `uhitm.c` mhitm_knockback — blocks 2/1113 corpus sessions (first at step 256; RNG lost 41337, screens lost 675): C draws `rn2(3)=1` in mhitm_knockback, JS `rnd(2)=1` from mon_poly(mhitm.js:726). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-sweep-Knight-95317, scen-worldtour-Wizard-95233). @ee29e2f62 **[history: archived D-2750 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

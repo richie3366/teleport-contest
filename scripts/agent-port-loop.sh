@@ -124,7 +124,12 @@ carries a resume brief (scripts/loop-resume-brief.mjs over the prior
 the Open blocks are generated, never padded) asks for a regeneration
 (`hidden-proxy.mjs queue --write`, `ledger.mjs rows --write`); hand rows
 are Must-fix only (throw/hang/PASS→FAIL/review C-wrong). Target
-LOOP_QUEUE_TARGET 12 is the generated block size. Agents commit and push; the script fail-closes and pushes
+LOOP_QUEUE_TARGET 12 is the generated block size. Growth (Constitution
+§10.19, 2026-10-09): a port iteration that starts with no Must-fix and
+fewer than LOOP_GROWTH_MIN (6) rows in the generated Open — cliffs block
+becomes a **grow** iteration (agent-port-loop.grow.prompt.md: author a
+marathon-led cohort, record, full rescore, commit); three grow
+iterations in a row that add no recipe halt. Agents commit and push; the script fail-closes and pushes
 if they forgot. STOP_AGENT_LOOP.md is gitignored; only this script
 writes 0, at launch.
 See docs/AGENT-PORT-LOOP.md.
@@ -562,6 +567,9 @@ LOOP_QUEUE_MIN="${LOOP_QUEUE_MIN:-1}"
 LOOP_QUEUE_TARGET="${LOOP_QUEUE_TARGET:-12}"
 REVIEW_PROMPT_FILE="${REVIEW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.review.prompt.md}"
 CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadence.prompt.md}"
+GROW_PROMPT_FILE="${GROW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.grow.prompt.md}"
+LOOP_GROWTH_MIN="${LOOP_GROWTH_MIN:-6}"
+grow_fail_streak=0
 QUEUE_FILE="${QUEUE_FILE:-$ROOT/docs/LOOP-QUEUE.md}"
 REQUIRE_PASS="$ROOT/scripts/loop-require-results-pass.mjs"
 ARCHIVE_QUEUE="$ROOT/scripts/archive-loop-queue-done.mjs"
@@ -800,6 +808,7 @@ PROTECTED_PATHS=(
   scripts/agent-port-loop.review.prompt.md
   scripts/agent-port-loop.cadence.prompt.md
   scripts/agent-port-loop.continue.prompt.md
+  scripts/agent-port-loop.grow.prompt.md
   scripts/loop-require-results-pass.mjs
   scripts/archive-loop-queue-done.mjs
   scripts/port-did-park.mjs
@@ -907,7 +916,8 @@ Mandatory, after every review file is on disk, in this order (still no
    checks `full: true` and a `fullAt` inside this iteration, and redoes
    the rescore itself (logged as audit debt) when it is missing.
 3. Rewrite the CURRENT **Corpus fortress** line from that score (PASS /
-   scored / `entries`, `unrecorded`, RNG %, screens %) and diff the new
+   scored / `entries`, `unrecorded`, RNG %, screens %, worst rows of
+   `node scripts/hidden-proxy.mjs families --working`) and diff the new
    scoreboard against the committed one: every row that was PASS and is
    not anymore is a **Must-fix** row naming owner, session and the port
    SHAs since the last audit.
@@ -1200,8 +1210,9 @@ arm_empty_port_prompt() {
         echo "(\`hidden-proxy.mjs queue --write\`, committed scoreboard) and the"
         echo "**Open — coverage** block (\`ledger.mjs rows --write\`). Never pad the"
         echo "queue by hand (no ledger-text 'repairs', no c-js-map / debt.md / TOP30"
-        echo "copies). If both blocks are empty the corpus is saturated: journal it;"
-        echo "the audit grows the corpus (\`scenario-gen.mjs\`, Constitution §10.18)."
+        echo "copies, no idiom sweeps). If both blocks are empty the corpus is"
+        echo "saturated: journal it; the supervisor makes the next slot a growth"
+        echo "iteration (\`scenario-gen.mjs --family marathon\`, Constitution §10.19)."
         ;;
     esac
   } >"$NEXT_ITER_PROMPT"
@@ -1331,6 +1342,15 @@ apply_iteration_overlays() {
   else
     mode="$cadence"
   fi
+  # Constitution §10.19: a saturated cliffs block is answered by growth on
+  # the very next port slot, never by inventing rows (2026-10-01..09: no
+  # recipe added while port iters hunted unreached idiom sites).
+  if [[ "$mode" == "port" && "$resume_unfinished" != "1" ]] && cliffs_block_present \
+     && (( $(mustfix_open_count) == 0 )) && (( $(cliff_open_count) < LOOP_GROWTH_MIN )); then
+    mode=grow
+    echo "$(date -Iseconds) === growth iteration: cliffs block holds $(cliff_open_count) < ${LOOP_GROWTH_MIN} owners, no Must-fix (Constitution §10.19) ===" \
+      | tee -a "$MASTER_LOG"
+  fi
   if [[ -f "$NEXT_ITER_PROMPT" ]]; then
     # Overlays carry a mode tag. A port-only overlay ("ship js/", "strip
     # banned hits") must never reach a review/audit iteration (#3120: it
@@ -1369,6 +1389,23 @@ mustfix_open_count() {
     p && /^- \[ \]/ { n++ }
     END { print n+0 }
   ' "$QUEUE_FILE"
+}
+
+cliffs_block_present() {
+  rg -q '^<!-- cliffs:begin -->' "$QUEUE_FILE" 2>/dev/null
+}
+
+cliff_open_count() {
+  awk '
+    /^<!-- cliffs:begin -->/ { p=1; next }
+    /^<!-- cliffs:end -->/ { p=0 }
+    p && /^- \[ \]/ { n++ }
+    END { print n+0 }
+  ' "$QUEUE_FILE"
+}
+
+recipes_added_since() {
+  git diff --name-only --diff-filter=A "$1" HEAD -- hidden-corpus/recipes 2>/dev/null | awk 'END { print NR+0 }'
 }
 
 # First line of the batch manifest (`batch @sha: N function(s) in …`), or
@@ -1906,13 +1943,20 @@ while true; do
         echo "$(date -Iseconds) === audit iteration (review + full suite + full rescore, no port) ===" \
           | tee -a "$MASTER_LOG"
         ;;
+      grow)
+        prompt_body="$(cat "$GROW_PROMPT_FILE")"
+        prompt_body+=$'\n\n**Seed base for this iteration:** `'"$((iter * 100 + 100000))"$'` (use it and the next\n'
+        prompt_body+=$'few hundred integers; `scenario-gen` skips ids whose recipe already exists).\n'
+        echo "$(date -Iseconds) === grow iteration (author + record + full rescore, no js/) ===" \
+          | tee -a "$MASTER_LOG"
+        ;;
       *)
         prompt_body="$(cat "$PROMPT_FILE")"
-        prompt_body+=$'\n\n## This iteration batch\n'
+        prompt_body+=$'\n\n## This iteration\n'
         prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any\n'
-        prompt_body+=$'(it ships alone), else run `node scripts/ledger.mjs batch --write` and port\n'
-        prompt_body+=$'that whole manifest (40–100 functions — prompt "One bounded unit"); one\n'
-        prompt_body+=$'line (files + count) in `docs/CURRENT.md` Next cluster before coding. If a Must-fix cites a review, read\n'
+        prompt_body+=$'(it ships alone), else the **Open — cliffs** head (Constitution §10.18–19):\n'
+        prompt_body+=$'the owner or the writer its divergence names, ported whole, with movement on\n'
+        prompt_body+=$'its probe sessions. One line in `docs/CURRENT.md` Next cluster before coding. If a Must-fix cites a review, read\n'
         prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'
         prompt_body+=$'Mark the queue line `- [x]` and run `node scripts/archive-loop-queue-done.mjs`\n'
         prompt_body+=$'in this same commit (live queue stays unchecked-only). Do not predict this\n'
@@ -1920,22 +1964,18 @@ while true; do
         prompt_body+=$'(review or LOOP-QUEUE-DONE.md) is missing its short hash, fill it in this\n'
         prompt_body+=$'same commit from `git log` (bundled with this fix).\n'
         cluster_line="$(queue_first_cluster)"
-        batch_line="$(batch_summary)"
         if (( $(mustfix_open_count) > 0 )) && [[ -n "$cluster_line" ]]; then
           prompt_body+=$'\n**Queue head (Must-fix, ships alone):** '
           prompt_body+="$cluster_line"
           prompt_body+=$'\n'
-        elif [[ -n "$batch_line" ]]; then
-          prompt_body+=$'\n**Batch:** '
-          prompt_body+="$batch_line"
-          prompt_body+=$'\n'
         elif [[ -n "$cluster_line" ]]; then
-          prompt_body+=$'\n**Queue head (batch picker found no gap):** '
+          prompt_body+=$'\n**Queue head:** '
           prompt_body+="$cluster_line"
           prompt_body+=$'\n'
         else
-          prompt_body+=$'\n**Queue is empty.** Refill Open from the map first, then ship the\n'
-          prompt_body+=$'first new `- [ ]` line in this same iteration (js/ required).\n'
+          prompt_body+=$'\n**Queue is empty.** Run `node scripts/check-hot-docs.mjs --fix` (regenerates\n'
+          prompt_body+=$'both blocks). If still empty, journal it and stop: the next iteration is a\n'
+          prompt_body+=$'growth iteration (§10.19). Never refill from the map, debt lists or idiom sweeps.\n'
         fi
         ;;
     esac
@@ -1955,12 +1995,7 @@ while true; do
   fi
 
   open_now="$(queue_open_count)"
-  # Batch rule (2026-10-03): the ledger is the work source; a hand refill
-  # is only asked for when the batch picker finds no gap at all.
-  if [[ "$mode" == "port" && -n "$(batch_summary)" ]]; then
-    open_now="$LOOP_QUEUE_MIN"
-  fi
-  if [[ "$resume_unfinished" != "1" ]] && (( open_now < LOOP_QUEUE_MIN )); then
+  if [[ "$resume_unfinished" != "1" && "$mode" == "port" ]] && (( open_now < LOOP_QUEUE_MIN )); then
     echo "$(date -Iseconds) === queue refill required (open=${open_now} min=${LOOP_QUEUE_MIN} target=${LOOP_QUEUE_TARGET}) ===" \
       | tee -a "$MASTER_LOG"
     prompt_body+=$'\n\n## Queue regeneration (this iteration — generated rows only)\n'
@@ -1973,8 +2008,8 @@ while true; do
     prompt_body+=$'throw / worker hang / corpus PASS→FAIL / review-named C-wrong) — a\n'
     prompt_body+=$'ledger-text repair is one `ledger.mjs set` inside a real iteration, never\n'
     prompt_body+=$'a row. If both blocks are empty after `--fix`, the corpus is saturated:\n'
-    prompt_body+=$'journal that fact and stop (the audit grows the corpus with\n'
-    prompt_body+=$'`scenario-gen.mjs`); do not invent work.\n'
+    prompt_body+=$'journal that fact and stop (the next iteration is a growth iteration,\n'
+    prompt_body+=$'Constitution §10.19); do not invent work.\n'
     if [[ "$mode" == "port" ]]; then
       prompt_body+=$'Then pop Must-fix else the cliffs head and ship it in this same iteration.\n'
     fi
@@ -2298,7 +2333,27 @@ while true; do
     fi
   fi
 
-  if [[ "$mode" == "audit" || "$mode" == "cadence" ]]; then
+  if [[ "$mode" == "grow" ]]; then
+    # Recipes the agent authored but did not commit are still the cohort.
+    if [[ -n "$(git status --porcelain -- hidden-corpus/recipes 2>/dev/null)" ]]; then
+      git add hidden-corpus/recipes
+      git commit -qm "Grow #${iter}: commit authored corpus recipes (supervisor; the agent left them uncommitted)." \
+        || warn_regression "failed to commit leftover grow recipes (local tree kept)"
+    fi
+    grow_added="$(recipes_added_since "$before_head")"
+    if (( grow_added > 0 )); then
+      grow_fail_streak=0
+      echo "$(date -Iseconds) grow iteration added ${grow_added} corpus recipe(s)" | tee -a "$MASTER_LOG"
+    else
+      grow_fail_streak=$((grow_fail_streak + 1))
+      warn_regression "grow iteration ${iter} added no corpus recipe (streak ${grow_fail_streak}/3; \`hidden-proxy record\` exit 3 = no C recorder)"
+      if (( grow_fail_streak >= 3 )); then
+        halt_loop "3 consecutive grow iterations added no corpus recipe — check the C recorder (bash nethack-c/build-recorder.sh) and scenario-gen" 0
+      fi
+    fi
+  fi
+
+  if [[ "$mode" == "audit" || "$mode" == "cadence" || "$mode" == "grow" ]]; then
     echo "$(date -Iseconds) === post-iteration scoreboard check ===" | tee -a "$MASTER_LOG"
     ensure_full_scoreboard "$iter" "$iter_start"
   fi

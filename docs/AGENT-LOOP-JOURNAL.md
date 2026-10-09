@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — Architect take §10.19: marathon corpus + supervisor grow mode (delegated human authority)
+
+**Why:** §10.18 falsifier fired — board 899 → 939/953 (RNG 100 %) while held-out stayed 18/44, RNG 41.7 % (rngSteps 92.4 %) ~80 iters. Half the public RNG sits in four 714–1953-step sessions; no `scen-*` session passed 344 steps (`MAX_KEYS = 320`). No recipe added 2026-10-01..09 ("audit owns growth", audits skipped it); the supervisor told empty-queue ports to "refill Open from the map" → ten unreached Underwater-idiom ships, all ACCEPTed.
+**Corpus (`2abecd585`):** `scenario-gen --family marathon` (worldtour/sweep/chain/trek, 600–2000 keys, debug «Die?» → n, chained games keep bones); 160 recorded, 50 PASS, cohort RNG 74.7 % (worldtour 6/50, sweep 12/50, chain 16/40, trek 16/20). Full rescore 989/1113, RNG 88.81 %, 57 owners, 0 PASS→FAIL. `hidden-proxy families` added.
+**Rules:** Constitution §10.19; supervisor grow mode (no Must-fix + < 6 cliff rows → `agent-port-loop.grow.prompt.md`; halts after 3 empty grows); port prompt drops the batch/map-refill text; review flags unreached `js/` ships; cadence no longer grows; playbook/runbook/proxy/loop docs, LEDGER, LOOP-QUEUE, Cursor rule aligned. Supervisor tests +2 (pre-existing quota-wait failure unchanged on HEAD).
+**Next:** cliffs head `cmd.c` yn_function (writer of the stray pet glyph after «Die?» n), then randomize_gem_colors (chain next-game init), touch_artifact, level_tele.
 ## 2026-10-09 — D-3730 `display.h` covers_objects pole clone: sticky `u.Underwater` (dead false) → live `u.uinwater` via `Underwater_hero()` (Underwater-idiom family; D-3729 Next lead)
 
 **C locus:** display.h covers_objects `:218–220` (`(is_pool(xx, yy) && !Underwater) || LAVAPOOL || LAVAWALL`); Underwater ≡ youprop.h:279 `(u.uinwater)`; C is_pool dbridge.c:46, C is_lava dbridge.c:62–74. C call sites: detect.c:1515 (do_mapping), display.c:455 (_map_location macro body).

@@ -5,7 +5,9 @@ demoted to regression fortress 2026-09-18 (breadth phase, Constitution
 §10.17); **the picker again since 2026-10-06** (cliff phase, §10.18:
 `queue --write` generates the LOOP-QUEUE cliffs block from the committed
 board, ranked by RNG lost; the breadth picker had run dry while 212/953
-sessions still failed). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
+sessions still failed); **marathon families + grow mode 2026-10-09**
+(§10.19, §5b below: the scenario corpus had saturated at 939/953, 100 %
+RNG, with no session past 344 steps). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
 `LEDGER.md` / `ledger.mjs` (which functions are ported, and which are thin).
 This file is about **evidence**: where a hidden session's divergence
 comes from, how to find it locally, and how to prove a port moved it —
@@ -72,7 +74,7 @@ cell plus the mineralize-eligible diff (D-1849).
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
 | audit (mandatory) | `node scripts/hidden-proxy.mjs record` then `score` with no `--ids`/`--owner`, committed — writes `full: true`, `fullAt`, `entries`, `unrecorded`; the supervisor redoes it when an audit skips it (2026-09-28) | a scoreboard only ever rewritten row by row by port-time `verify`, so REACH baselines drifted; the committed board had shrunk to 12 private rows unnoticed |
 | **pick** (cliff phase) | `node scripts/hidden-proxy.mjs queue --write` (run by `check-hot-docs --fix` / `finish-iteration`): the top 12 owners of the **committed** board by RNG lost, JS throws first, written to the LOOP-QUEUE `Open — cliffs` block. Tags are context: `history: archived D-…` = read that D-entry once, the arm this divergence names is still open; `parked: SYMPTOM…` = the deliverable is the **writer** the divergence names or the owner's `[measure]` row; identical-topline screen rows print the differing screen row | hand refills; "do not re-enqueue" vetoes that locked out every top owner on 2026-10-06; map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
-| grow | `node scripts/scenario-gen.mjs --n 120 --seed N` when every family is ≥ 85 % PASS (audit iters) | a saturated proxy that picked display singletons |
+| grow (§10.19) | supervisor **grow** iteration when the cliffs block holds < 6 owners: `node scripts/scenario-gen.mjs --family marathon --n 80 --seed N` (+ the long family with the lowest RNG %), `record`, full `score`, commit; `hidden-proxy families` picks the mix | a saturated proxy that picked display singletons; growth left to audits that skipped it for 8 days (2026-10-01..09) |
 
 `verify <fn>` semantics: every session blocked on `<fn>` must **PASS** or
 **move to a later owner** (step strictly later, or a different owner at
@@ -158,11 +160,35 @@ that recipe so it is byte-identical to a `hidden-proxy record` rebuild.
 Recipes carry `fuzz.mode = "scenario"` and `fuzz.family`. The driver never
 reads `js/`.
 
+### 5b. Marathon families (2026-10-09, Constitution §10.19)
+
+The scenario families above cap every session at 320 keys. By
+2026-10-09 they read 939/953 at **100 % positional RNG** while held-out
+read 18/44, RNG 41.7 %, rngSteps 92.4 % — the judge loses RNG to early
+cliffs in a few long sessions, and four public sessions of 44 carry half
+the public RNG. `--family marathon` rotates four third-wave families
+that play that long:
+
+| family | public shape it copies | session |
+|---|---|---|
+| `scen-worldtour` | `seed0360-wizard-world-tour` (833 steps, ~30 `^V` stops) | one debug game: `#levelchange`, kit wishes, then `^V ?` menu picks, depths 1–45 and revisits of earlier depths, each stop a few keys or a whole body |
+| `scen-sweep` | `seed4500-knight-coverage` (1814 steps) | one debug game running first- and second-wave bodies back to back |
+| `scen-chain` | `seed0030-ten-diverse-deaths` (10 games, 1953 steps) | 3–9 fresh games as segments (new role and seed each), mostly normal mode, each played then quit or killed; bones and the score file carry over |
+| `scen-trek` | `seed0014-dequa-fountain-explore` (714 steps) | one normal/explore game: longrun, descend and pet bodies |
+
+Debug games answer «Die?» with n (up to 15 saves, leaving the level after
+two in one body), so a death costs one prompt, not the session. First
+cohort (160, seeds 95200–95519): **50 PASS, cohort RNG 74.7 %** —
+`worldtour` 6/50 (64.1 %), `sweep` 12/50 (71.9 %), `chain` 16/40 (79.3 %),
+`trek` 16/20 (93.9 %) — while every older family stayed at 100 %.
+`node scripts/hidden-proxy.mjs families` prints this table from the
+committed board, worst RNG first; a grow iteration weights its cohort by it.
+
 **Saturation rule (Constitution §10.13).** A corpus family that passes
-≥ 90 % has stopped discriminating. When `hidden-proxy status` shows every
-family ≥ 85 % PASS, the audit iteration generates a fresh scenario cohort
-(`--n 120 --seed <iteration × 100>`), records, scores and commits the
-recipes **before** refilling the queue from map omissions. The public 44
+≥ 90 % has stopped discriminating. Since §10.19 the trigger is the cliffs
+block (fewer than 6 owners) and the response is a supervisor **grow**
+iteration (≥ 80 sessions, half marathon), not an audit step — the audit
+version was skipped from 2026-10-01 to 2026-10-09. The public 44
 were saturated on 2026-09-04 and the mutant corpus on 2026-09-06; each
 time, the loop spent its iterations on display singletons that moved
 nothing the judge can see. Held-out is measured only by the leaderboard;
@@ -192,7 +218,8 @@ that surface after the session ends, which the score does not see.
 - The corpus is a prior, not the held-out set. Tail-mutants sit near
   the public distribution and are saturated; scenario sessions share the
   held-out genre (wizard-mode wishes, genesis, named-level tours, deaths)
-  but are ≤ 320 keys long, so they under-sample long games and shops.
+  but are ≤ 320 keys long, so they under-sample long games and shops;
+  the marathon families (§5b) cover the long shape since 2026-10-09.
 - `env:config-path` rows are unmatchable locally by construction and
   are not bugs.
 - Attribution by literal is heuristic: when a row's owner looks wrong,
