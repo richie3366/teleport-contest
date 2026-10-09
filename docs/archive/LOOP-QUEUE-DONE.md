@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-09
+
+- [x] `insight.c` one_characteristic hide_innate_value arms — C `:860–893` (Upolyd gate, Fixed_abil stuck-sustain rings, cursed gauntlets/Ogresmasher/dunce per-attribute switch, MAGIC-mode clearing) absent from js/invent.js (overlay `:5262` has none, `_final` `:7596` Upolyd-only; ledger partial, audit 2026-10-03 "hide logic missing", deferred notes `:5259`/`:7594`). All predicates live: stuck_ring do_wear.js:4381, u_wield_art artifact.js:921, EFixed_abil in-file. Ship: shared hide helper + mode threading at both call sites; verify --fn one_characteristic REACH-OK. **Addressed:** D-3701
+
 ## 2026-10-08
 
-- [x] `windows.c` getlin cmdq preamble + in_getlin envelope — C windows.c:1873–1892 cmdq_pop drain loop (CMDQ_KEY bytes into buf, newline-terminated; got_cmdq → pline(query+buf) early return) + `:1894`/`:1899` program_state.in_getlin envelope absent from js/getline.js:244 (prompt/echo loop only; cmdq_pop live js/cmd.js:394, already imported :39, used only by yn_function :1999). Producers on live paths: apply.c invlet ×4, cmd.c:4018 doagain dirsym, allmain.c:494 moveloop stash. Ship: preamble + envelope in C order; verify --fn getlin REACH-OK. **Addressed:** D-3700
+- [x] `windows.c` getlin cmdq preamble + in_getlin envelope — C windows.c:1873–1892 cmdq_pop drain loop (CMDQ_KEY bytes into buf, newline-terminated; got_cmdq → pline(query+buf) early return) + `:1894`/`:1899` program_state.in_getlin envelope absent from js/getline.js:244 (prompt/echo loop only; cmdq_pop live js/cmd.js:394, already imported :39, used only by yn_function :1999). Producers on live paths: apply.c invlet ×4, cmd.c:4018 doagain dirsym, allmain.c:494 moveloop stash. Ship: preamble + envelope in C order; verify --fn getlin REACH-OK. **Addressed:** D-3700 `4f820ea09`
 
 
 - [x] `polyself.c` break_armor donning/cancel_don — C `:1164–1165`/`:1200–1201`/`:1231`/`:1239–1240`/`:1250–1251`/`:1265–1266`/`:1276–1277` absent from js/polyself.js:1367 (doc-named "do_wear locals, unwired"; both live exports js/do_wear.js:4168/:4120). Ship: 6 cancels + flimsy condition in C order, caller polyself.c:888 already wired; verify --fn break_armor + focused test. **Addressed:** D-3699 `4d421c07c`
