@@ -48,7 +48,7 @@
 {"fn":"exclam","c":"3547-3553","status":"ported","js":["js/zap.js:exclam"],"d":["D-3271"],"at":"2026-10-02@2798e7602"}
 {"fn":"hit","c":"3556-3568","status":"ported","js":["js/mthrowu.js:hit"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: youmonst-always-verbose + engulfing_u-seen verbosity conditions deferred"}
 {"fn":"miss","c":"3571-3576","status":"ported","js":["js/mthrowu.js:miss"],"at":"2026-10-03@bbe63333a"}
-{"fn":"skiprange","c":"3579-3588","status":"split","js":["js/zap.js:bhit_skiprange"],"at":"2026-10-02@e42cd0047","note":"stale: file-local bhit_skiprange js/zap.js:6001, bhit caller wired :6071"}
+{"fn":"skiprange","c":"3579-3588","status":"split","js":["js/zap.js:bhit_skiprange"],"at":"2026-10-09@da1091aa9","note":"stale: file-local bhit_skiprange js/zap.js:6221, bhit rock setup :6291 + rebounce :6410"}
 {"fn":"maybe_explode_trap","c":"3594-3623","status":"ported","js":["js/zap.js:maybe_explode_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zap_map","c":"3628-3801","status":"ported","js":["js/zap.js:zap_map"],"d":["D-3259","D-1489","D-1476"],"at":"2026-10-02@1b5b36bb7"}
 {"fn":"bhit","c":"3827-4139","status":"ported","js":["js/zap.js:bhit"],"d":["D-3383","D-3382","D-1928","D-1604","D-1482","D-1475"],"at":"2026-10-03@9e424f7bd"}
