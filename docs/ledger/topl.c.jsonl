@@ -8,7 +8,7 @@
 {"fn":"topl_putsym","c":"305-344","status":"split","js":["js/display.js:show_topl","js/getline.js:topl_wrap_echo","js/getline.js:yn_collect_number"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
 {"fn":"putsyms","c":"347-351","status":"unknown"}
 {"fn":"removetopl","c":"354-359","status":"unknown"}
-{"fn":"tty_yn_function","c":"365-551","status":"partial","js":["js/getline.js:tty_yn_function"],"omit":"entry more() gate drops WIN_NOSTOP exception (C mores when STOP+NOSTOP); entry clears WIN_STOP but not one-shot WIN_NOSTOP","d":["D-3465","D-1631","D-1623","D-1612"],"at":"2026-10-05@ef3f2aa84","note":"audited D-3465: remaining omit cannot ship"}
+{"fn":"tty_yn_function","c":"365-551","status":"partial","js":["js/getline.js:tty_yn_function"],"d":["D-3731","D-3465","D-1631","D-1623","D-1612"],"at":"2026-10-09@326c32ee2","note":"audited D-3465: remaining omit cannot ship"}
 {"fn":"msghistory_snapshot","c":"559-601","status":"ported","js":["js/display.js:msghistory_snapshot"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: remember_topl + lock + ring copy + purge arms; WIN_ERR paranoia N/A (win always exists)"}
 {"fn":"free_msghistory_snapshot","c":"605-624","status":"ported","js":["js/display.js:free_msghistory_snapshot"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: null drop (GC) + unlock when !purged"}
 {"fn":"tty_getmsghistory","c":"637-657","status":"split","js":["js/display.js:getmsghistory"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: whole body under renamed export; static nxtidx -> module var"}
