@@ -1074,7 +1074,9 @@ export async function return_from_mtoss(magr, otmp, tethered_weapon) {
                             mlevitating ? 'beneath' : 'at'
                         } ${mhis_mtoss(magr)} ${makeplural(mbodypart(magr, FOOT))}.`,
                     );
-                } else if (!game.u?.Deaf) {
+                // C mthrowu.c:909 `else if (!Deaf)` — Deaf ≡ youprop.h:125
+                // (HDeaf || EDeaf || uroleplay.deaf). Live reader: hero_Deaf.
+                } else if (!hero_Deaf()) {
                     await You_hear(
                         `Something land near ${mon_nam(magr)}.`,
                     );
@@ -1087,7 +1089,9 @@ export async function return_from_mtoss(magr, otmp, tethered_weapon) {
                             mhis_mtoss(magr)
                         } ${body_part(ARM)}!`,
                     );
-                } else if (!game.u?.Deaf) {
+                // C mthrowu.c:918 `else if (!Deaf)` — Deaf ≡ youprop.h:125
+                // (HDeaf || EDeaf || uroleplay.deaf). Live reader: hero_Deaf.
+                } else if (!hero_Deaf()) {
                     await You_hear(
                         `something hit ${mon_nam(magr)} with a thud!`,
                     );
@@ -1130,7 +1134,10 @@ export async function return_from_mtoss(magr, otmp, tethered_weapon) {
                 place_object(otmp, x, y);
                 stackobj(otmp);
             }
-            if (!game.u?.Deaf && !game.u?.Underwater) {
+            // C mthrowu.c:952 `if (!Deaf && !Underwater)` — Deaf ≡
+            // youprop.h:125 (HDeaf || EDeaf || uroleplay.deaf), Underwater ≡
+            // youprop.h:279 (u.uinwater). Live readers: hero_Deaf + live bit.
+            if (!hero_Deaf() && !(game.u?.uinwater | 0)) {
                 if (is_pool(x, y)
                     || (is_lava(x, y) && !is_flammable(otmp))) {
                     await pline(

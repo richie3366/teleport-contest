@@ -151,6 +151,8 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
+- [ ] mthrowu.c return_from_mtoss notcaught vision_recalc light predicate (same-function successor; briefed in the return_from_mtoss Deaf/Underwater-gates iteration — QUEUE_MIN 1) — C mthrowu.c:960 `if (obj_sheds_light(otmp)) gv.vision_full_recalc = 1` with obj_sheds_light ≡ obj_is_burning ≡ lamplit && (ignitable || artifact_light) (light.c:763–775); the `ignitable || artifact_light` conjunct is absent from js/mthrowu.js:1148 (bare `otmp.lamplit` read instead; live export js/light.js:239 obj_sheds_light → obj_is_burning). Rest of return_from_mtoss faithful per brief (Deaf-macro + live-uinwater gates, D-1334 snuff arm, threshold 9 = WT_SPLASH_THRESHOLD; Soundeffect named). Deliverable: recalc predicate matches C; focused test (lamplit-but-not-burning object vs burning control). Caller: mthrowu.c:830 → js/mthrowu.js:1454 (m_throw always-toss return).
+
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;
