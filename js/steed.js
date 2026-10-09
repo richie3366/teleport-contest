@@ -855,9 +855,9 @@ function stealth_now() {
  * teleds ALLOW_DRAG + boulder sokoban_guilt + save_utrap mintrap,
  * no-room BYCHOICE killed vs monkilled(""/-AD_PHYS), ENGULFED/BONES
  * float_down skip with botl-only else arm, encumber_msg, polearm unweapon.
- * Named omit: uhitm DISMOUNT_KNOCKED u.dx/u.dy caller,
- * update_mon_extrinsics, teleds_simple subset (ball/chain, utrap clear,
- * swallow/hideunder/drag — canonical teleds owns them).
+ * Named omit: update_mon_extrinsics, teleds_simple subset (ball/chain,
+ * utrap clear, swallow/hideunder/drag — canonical teleds owns them;
+ * KNOCKED u.dx/u.dy caller wired js/mhitm.js:2963–2966).
  * landing_spot KNOCKED preferred-dir + enexto forceit D-1640.
  * float_down → pickup when !Air/Water
  * (D-0220 / D-0966). BYCHOICE D-0213.
@@ -997,7 +997,12 @@ export async function dismount_steed(reason) {
             // C `:727–736`: a grounded steed drops into water/lava.
             if (grounded(mdat)) {
                 if (is_pool(u.ux, u.uy)) {
-                    if (!u.Underwater) {
+                    // C steed.c:726 — Underwater ≡ u.uinwater
+                    // (youprop.h:279); live-bit read (D-3400 idiom), same
+                    // expression as the use_saddle gate (:281) and the
+                    // can_ride disjunct (:211). The sticky `u.Underwater`
+                    // flat has zero writers in js/ (dead false).
+                    if (!(u.uinwater | 0)) {
                         await pline(`${Monnam(mtmp)} falls into the ${surface(u.ux, u.uy)}!`);
                     }
                     if (!cant_drown(mdat)) {
