@@ -4256,8 +4256,11 @@ async function mhitm_ad_dgst(magr, mattk, mdef, mhm) {
         mhm.done = true;
         return;
     }
-    if (game.flags?.verbose !== false && !game.u?.Deaf) {
-        // SetVoice named
+    // C uhitm.c:4530 — !Deaf is the youprop.h:125 macro
+    // (HDeaf||EDeaf||uroleplay.deaf) via hero_Deaf() (monmove.js, D-3572
+    // pattern); the raw u.Deaf read let macro-deaf heroes hear Burrrrp.
+    // SetVoice (:4532) stays named.
+    if (game.flags?.verbose !== false && !hero_Deaf()) {
         await verbalize('Burrrrp!');
     }
     await wake_nearto(magr.mx, magr.my, 2 * 2);

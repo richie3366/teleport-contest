@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3709 `uhitm.c` mhitm_ad_dgst digest-kill Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3708 Next lead)
+
+**C locus:** uhitm.c mhitm_ad_dgst `:4492–4567`, gate `:4530` `if (flags.verbose && !Deaf)`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C caller `:4827` (`case AD_DGST`, mhitm_adtyping dispatch).
+**JS:** js/mhitm.js (gate :4259–4265); scripts/mhitm-dgst-deaf-gate.test.mjs (new, 5 its: non-deaf control hears noises + Burrrrp with defender digested; EDeaf/uroleplay.deaf/HDeaf + Unaware → silent + still digested; EDeaf-aware control).
+**Change:** js/mhitm.js only — `hero_Deaf` already imported :151 (D-3707 noises gate; no new edge); the gate calls it with C cites (`:4530` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 1/5 pre-fix (non-deaf control green = staging sound; 4 macro-deaf red, hearing Burrrrp) → 5/5 post-fix. Sibling curs+noises suites 10/10. `node scripts/verify.mjs --fn mhitm_ad_dgst` → PASS syntax (1 file: js/mhitm.js) · PASS rule2 · note hidden (no corpus session blocked on mhitm_ad_dgst at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. SetVoice :4532 stays named (per row).
+**Next:** verified successor row live in missing-arm: dig.c mdig_tunnel wall arm (C `:1468–1471` plain You_hear vs js/dig.js:1167 raw gate + plain pline — D-3702 rewire shape, not the 1-predicate swap). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3708 `uhitm.c` mhitm_ad_curs mhitm-arm Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3707 Next lead)
 
 **C locus:** uhitm.c mhitm_ad_curs `:3014–3096`, mhitm-arm gate `:3088` `if (!Deaf)`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C caller `:4803` (`case AD_CURS`, mhitm_adtyping dispatch).

@@ -151,7 +151,7 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
-- [ ] `uhitm.c` mhitm_ad_dgst digest-kill Deaf-macro gate (omit-2 family; brief-verified successor lead) — C `:4530` `if (flags.verbose && !Deaf)` Burrrrp gate uses the youprop.h:125 macro (HDeaf||EDeaf||uroleplay.deaf); the macro gate is absent from js/mhitm.js:4259 (raw `game.u?.Deaf` read instead); a macro-deaf hero near a digesting m-vs-m kill gets `"Burrrrp!"` where C stays silent (C verbalize pline.c:476 has no inner Deaf gate; SetVoice :4532 stays named). js/mhitm.js only, 1 predicate → `hero_Deaf()` (already imported :151; no new edge). Ledger: mhitm_ad_dgst ported (stays ported).
+- [ ] `dig.c` mdig_tunnel wall-arm crashing-rock message (omit-2 family; brief-verified successor lead) — C `:1468–1471` `if (flags.verbose && !rn2(5)) { Soundeffect; You_hear("crashing rock."); }` has no outer Deaf gate; absent from js/dig.js:1165–1167 (raw `!game.u?.Deaf` gate — dead read, stuck false — + plain pline instead), dropping You_hear's inner macro/acoustics/Underwater/Unaware arms (D-3702 rewire shape, not the 1-predicate swap). js/dig.js only: drop the raw gate, call live You_hear (js/hack.js:193, D-2941; no current dig.js use — shipping iter runs imports.mjs --can); Soundeffect :1469 stays named. Ledger: mdig_tunnel ported (stays ported).
 
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
