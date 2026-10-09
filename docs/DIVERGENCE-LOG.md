@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3747 — cliffs-head `inside_gas_cloud` writer: remove_region swap-with-last — splice reordered fumarole clouds
+
+- **Status:** fixed (Open — cliffs head `region.c` inside_gas_cloud, 3 corpus blocks; owner proven already-whole — D-1146 read once per the row's history tag, JS `inside_gas_cloud` js/region.js:477–554 matches C :1091–1165 arm-for-arm — → writer is `remove_region`'s list drop.)
+- **Symptom:** all 3 probes diverge in the same function+arm with different `dam = reg->arg`: Barbarian-95309@239 C `rnd(12)` vs JS `rnd(8)` (both :1152 monster arm); Valkyrie-95206@480 C `rnd(11)` vs JS `rnd(10)`; Wizard-95237@393 C `rnd(12)` @ :1122 hero arm vs JS `rnd(9)` @ monster arm (lung-burn topline identical both sides — JS hero arm ran for a later-processed cloud). Creation RNG matched (fumaroles `rn1(10,5)` damages 5..14; all six dams in range), so the same clouds existed but `run_regions` processed them in different order.
+- **C locus:** `region.c` `remove_region` :343–386, esp. :355–357 (`if (--n_regions != i) regions[i] = regions[n_regions]` — swap-with-last); order consumed by `run_regions` :434–458.
+- **JS was:** `remove_region` used `regs.splice(i, 1)` (order-preserving); ledger audit note claimed "equivalent list removal" — wrong: list order is visible to `run_regions` damage-draw order whenever 2+ clouds hold members.
+- **Fix:** swap-with-last per C :355–357 (`js/region.js:656–661`); exported (C linkage is extern, decl :30) for the order test; `free_region` doc "splices" → "swap-drops".
+- **JS:** `js/region.js` `remove_region` (:650); `scripts/remove-region-order.test.mjs` (new focused test: head/middle/tail removal order, unknown no-op).
+- **Callers:** C `remove_region` sites all wired, unchanged — `run_regions` :429 → `js/region.js:1067`; `rest_regions` :887 → `js/region.js:825`; prayer cloud fix :1396 → `js/region.js:1303`.
+- **Verify:** focused test 3/4 pre-fix (head-removal order fails under splice) → 7/7 post-fix (incl. `clear-regions`). `node scripts/verify.mjs --fn inside_gas_cloud,remove_region` → PASS syntax (1 file: js/region.js) · PASS rule2 · `verify inside_gas_cloud: 0 PASS, 3 moved past, 0 unchanged, 0 worse → PROGRESS` (Barbarian-95309 239→617 mattackm; Valkyrie-95206 480→629 one_characteristic; Wizard-95237 393→394 mattackm) · PASS reach inside_gas_cloud (4/4) → REACH-OK · note hidden remove_region (writer, none blocked) · PASS reach remove_region (smoke 24/24) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+- **Named omissions:** none new.
+- **Ledger:** remove_region ported
+- **Next:** cliffs regen drops the inside_gas_cloud row; moved sessions belong to mattackm / one_characteristic follow-ups.
+
 ## D-3746 — cliffs-head `randomize_gem_colors` writer: zhitu FIRE ignite gate runs after fatal destroy_items — gameover gate (Monk-95415 PASS)
 
 - **Status:** fixed (Open — cliffs head `o_init.c` randomize_gem_colors, 3 corpus blocks; owner proven already-whole — D-3241 read once per the row's history tag, JS body complete js/o_init.js:114–131 with the sole C caller wired (D-2627) — → writer is zhitu's FIRE-arm continuation. `verify randomize_gem_colors: 1 PASS, 0 moved past, 2 unchanged (void C-crash, D-3733), 0 worse → PROGRESS`; row leaves via regen.)

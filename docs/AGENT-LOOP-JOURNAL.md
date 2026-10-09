@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3747 cliffs-head `inside_gas_cloud` writer: remove_region swap-with-last — splice reordered fumarole clouds
+
+**C locus:** `region.c` `remove_region` :343–386, esp. :355–357 (`if (--n_regions != i) regions[i] = regions[n_regions]` — swap-with-last); order consumed by `run_regions` :434–458.
+**JS:** `js/region.js` `remove_region` (:650); `scripts/remove-region-order.test.mjs` (new focused test: head/middle/tail removal order, unknown no-op).
+**Change:** swap-with-last per C :355–357 (`js/region.js:656–661`); exported (C linkage is extern, decl :30) for the order test; `free_region` doc "splices" → "swap-drops".
+**Verify:** focused test 3/4 pre-fix (head-removal order fails under splice) → 7/7 post-fix (incl. `clear-regions`). `node scripts/verify.mjs --fn inside_gas_cloud,remove_region` → PASS syntax (1 file: js/region.js) · PASS rule2 · `verify inside_gas_cloud: 0 PASS, 3 moved past, 0 unchanged, 0 worse → PROGRESS` (Barbarian-95309 239→617 mattackm; Valkyrie-95206 480→629 one_characteristic; Wizard-95237 393→394 mattackm) · PASS reach inside_gas_cloud (4/4) → REACH-OK · note hidden remove_region (writer, none blocked) · PASS reach remove_region (smoke 24/24) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new.
+**Next:** cliffs regen drops the inside_gas_cloud row; moved sessions belong to mattackm / one_characteristic follow-ups.
 ## 2026-10-09 — audit 2606–2614 @e33e69ca6: review D-3738…D-3746 (9A/0D/0Q, 0 Must-fix) + full rescore 1004/1113
 
 Each js/ SHA since audit 2600–2605 re-measured against pinned C: 2606 quest goal_first texts (3 moved, exact), 2607 splev stackobj (95224 PASS, 884/884 reach), 2608 create_trap stair retry (2 moved, 214/214), 2609 wounded-legs slot mirror (2 moved exact, 986/986), 2610 freeinv amulet flat clear (3 moved exact, 997/997), 2611 print_dungeon bot() delete (4 moved exact), 2612 doclose Blind glyph half (1 moved exact; 1 reach "regression" proven harness flake — direct replay PASS 2684/2684, full rescore PASS), 2613 zhitu wail drain (2 moved), 2614 FIRE gameover gate (95415 PASS, 1000/1000). No C-wrong found, no Must-fix queued, no js/ touched.
