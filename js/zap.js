@@ -253,7 +253,7 @@ import {
 } from './attrib.js';
 import { findit, cvt_sdoor_to_door, show_map_spot } from './detect.js';
 import {
-    fall_asleep, losehp, maybe_half_phys, nomul, is_pool,
+    fall_asleep, losehp, finish_maybe_wail, maybe_half_phys, nomul, is_pool,
     is_lava, is_moat, waterbody_name, in_rooms, dissolve_bars, stop_occupation,
     SURFACE_AT, You_hear, long_to_any, obj_to_any, set_uinwater, check_capacity,
     test_move,
@@ -2310,6 +2310,11 @@ async function zhitu(type, nd, fltxt, sx, sy) {
         losehp(dam, kbuf, KILLED_BY_AN); // C :4588
         if (game._losehp_needs_done || game.program_state?.gameover) {
             await finish_losehp_done();
+        } else {
+            // C :4588 — losehp runs maybe_wail inline (hack.c:4289–4291);
+            // JS defers via _needs_maybe_wail — drain before returning to
+            // buzz/ubreatheu (oil pattern: D-3608/D-3611).
+            await finish_maybe_wail();
         }
     }
 }
