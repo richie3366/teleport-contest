@@ -14,7 +14,7 @@
 {"fn":"doopen","c":"773-776","status":"ported","js":["js/lock.js:doopen"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doopen_indir","c":"780-923","status":"ported","js":["js/lock.js:doopen_indir"],"d":["D-3439","D-3429"],"at":"2026-10-05@18077a1c0"}
 {"fn":"obstructed","c":"926-953","status":"ported","js":["js/lock.js:obstructed"],"d":["D-2935"],"at":"seed@a30a7de84"}
-{"fn":"doclose","c":"957-1051","status":"ported","js":["js/lock.js:doclose"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
+{"fn":"doclose","c":"957-1051","status":"ported","js":["js/lock.js:doclose"],"d":["D-3744","D-3429"],"at":"2026-10-09@4b3c063ec"}
 {"fn":"boxlock","c":"1056-1098","status":"ported","js":["js/lock.js:boxlock"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doorlock","c":"1103-1273","status":"ported","js":["js/lock.js:doorlock"],"at":"2026-10-03@bbe63333a"}
 {"fn":"chest_shatter_msg","c":"1276-1318","status":"ported","js":["js/lock.js:chest_shatter_msg"],"d":["D-3243","D-2676"],"at":"2026-10-01@1634fa4fa"}
