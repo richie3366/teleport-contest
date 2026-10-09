@@ -14,7 +14,7 @@
 {"fn":"deliver_by_pline","c":"423-436","status":"ported","js":["js/questpgr.js:deliver_by_pline"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"deliver_by_window","c":"439-456","status":"ported","js":["js/questpgr.js:deliver_by_window"],"d":["D-2946"],"at":"seed@a30a7de84"}
 {"fn":"skip_pager","c":"459-465","status":"ported","js":["js/questpgr.js:skip_pager"],"d":["D-3426","D-3143"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
-{"fn":"com_pager_core","c":"468-621","status":"ported","js":["js/questpgr.js:com_pager_core"],"d":["D-3558","D-3204","D-2731","D-1622"],"at":"2026-10-06@fb8bf58a4","note":"stale: js/questpgr.js:1120 — whole C body shipped (D-2731/D-1622) + D-3204 guardtalk data closure; miss-arm impossible() intentionally silent (a JS miss also covers unported role bodies where C shows text, never impossible())"}
+{"fn":"com_pager_core","c":"468-621","status":"ported","js":["js/questpgr.js:com_pager_core"],"d":["D-3738","D-3558","D-3204","D-2731","D-1622"],"at":"2026-10-09@f858ca1bc","note":"stale: js/questpgr.js:1120 — whole C body shipped (D-2731/D-1622) + D-3204 guardtalk data closure; miss-arm impossible() intentionally silent (a JS miss also covers unported role bodies where C shows text, never impossible())"}
 {"fn":"com_pager","c":"624-627","status":"ported","js":["js/questpgr.js:com_pager"],"at":"2026-10-03@bbe63333a"}
 {"fn":"qt_pager","c":"630-634","status":"ported","js":["js/questpgr.js:qt_pager"],"d":["D-1662"],"at":"2026-10-03@bbe63333a"}
 {"fn":"qt_montype","c":"637-651","status":"ported","js":["js/makemon.js:qt_montype"],"at":"2026-10-03@bbe63333a"}
