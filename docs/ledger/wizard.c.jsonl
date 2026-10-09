@@ -15,7 +15,7 @@
 {"fn":"clonewiz","c":"517-534","status":"ported","js":["js/wizard.js:clonewiz"],"d":["D-1900"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pick_nasty","c":"538-581","status":"ported","js":["js/makemon.js:pick_nasty"],"d":["D-3437","D-3426","D-2027"],"at":"2026-10-05@52e6ce3d0","note":"audited D-3437: whole vs C"}
 {"fn":"nasty","c":"591-711","status":"ported","js":["js/wizard.js:nasty"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278"}
-{"fn":"resurrect","c":"715-780","status":"ported","js":["js/wizard.js:resurrect"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice omitted (voice-render polish)"}
+{"fn":"resurrect","c":"715-780","status":"ported","js":["js/wizard.js:resurrect"],"d":["D-3735"],"at":"2026-10-09@a3dc7af46","note":"audit 2026-10-03: SetVoice omitted (voice-render polish)"}
 {"fn":"intervene","c":"785-810","status":"ported","js":["js/wizard.js:intervene"],"d":["D-2237"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wizdeadorgone","c":"815-822","status":"ported","js":["js/wizard.js:wizdeadorgone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cuss","c":"846-883","status":"ported","js":["js/wizard.js:cuss"],"at":"2026-10-03@bbe63333a"}

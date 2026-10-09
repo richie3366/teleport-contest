@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3735 resurrect cliff writer: ungated inline appear duplicate hid C's voice behind --More-- for a blind hero (level_tele head probe +111 steps; resurrect row 1 PASS + 1 moved)
+
+**C locus:** `wizard.c:761–779` (resurrect tail prints only voice+verbalize — no appear, on either path); `makemon.c:1472–1501` (appear Norep inside makemon, gated `canseemon/sensemon` `:1479–1489`, `!in_mklev`, `!MM_NOMSG`; occupation check `:1502–1504`).
+**JS:** `js/wizard.js` (+13/−12: doc + cite comment, block deleted) · `scripts/resurrect-blind-noappear.test.mjs` (new committed regression test, D-3734 recipe-prefix pattern: Barbarian-95309 seg0 prefix 136 asserts the voice paints and no "suddenly appears" line appears).
+**Change:** `js/wizard.js` only — deleted the inline block, kept the gated call; cite comment + doc envelope updated (envelope now names both paths). No new imports/edges (pure removal; `Monnam` import still used at :594/:746/:771). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** new test pre-fix FAIL (`AssertionError`, pass 0 fail 1 via stash) → post-fix PASS (1/1). `node scripts/verify.mjs --fn level_tele,resurrect` → `verify level_tele: 0 PASS, 1 moved past, 7 unchanged, 0 worse → PROGRESS` (Barbarian-95309 → inside_gas_cloud @239, was 128) · `verify resurrect: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (95245 PASS; 95204 → mbhitm @297, was 225) · REACH-OK both (1/1 + smoke 24/24) · syntax 1 file · rule2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. The 7 unchanged level_tele sessions are different writers, not this arm (this defect always manifests as a topline diff): 4 identical-topline map diffs (95341/95238/95214/95218), 95234 JS-extra heat-smoke line, Ranger-95231/95228 C-More-vs-JS-none; regen re-splits the row.
+**Named:** none new (SetVoice + Deaf-polish omissions predate in the doc note; both callers already wired).
+**Next:** cliffs block regenerates; the 7 remaining level_tele sessions re-queue under their own writers. This iteration's sessions now block on inside_gas_cloud / mbhitm at strictly later steps (or PASS).
 ## 2026-10-09 — D-3734 touch_artifact cliff writer: artifact.js Antimagic_hero read flats only, missing worn cloak-MR uprops extrinsic → C `d(2,4)` vs JS `d(4,4)` at `:953` (4 worldtour sessions moved)
 
 **C locus:** `nethack-c/upstream/src/artifact.c:953` (`dmg = d((Antimagic ? 2 : 4), ...)`); `include/youprop.h:57` (`Antimagic ≡ HAntimagic||EAntimagic` = uprops[ANTIMAGIC] intrinsic||extrinsic); `src/worn.c` setworn (worn `oc_oprop` conferred into uprops extrinsic); `src/artifact.c:1356` (second C `Antimagic` read in this file, Magicbane scare arm).
