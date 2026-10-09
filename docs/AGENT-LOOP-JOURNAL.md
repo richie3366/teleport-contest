@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3736 wintty.c process_menu_window nav-dismiss: display desync with load-bearing game coupling on the level_tele head probe (diagnosed, parked; no js/)
+
+**C locus:** `wintty.c` process_menu_window nav `(>):1622–1635` — MENU_NEXT_PAGE/PREV/FIRST/LAST stays modal, re-displays menu TEXT only, ZERO display RNG; on the RETURN key (`w`) the tty destroy path `erase_menu_or_text :977–980` fires `docrt()` ONCE (this 3-page level-tele menu is fullscreen offx==0). C: exactly ONE docrt per menu visit, on RETURN. JS `select_menu_pick_one` (options.js:9845) called `dismiss_nhw_menu()` (invent.js:3144 → docrt: vision_recalc(2)+cls+memory-pass+vision_recalc(0)+see_monsters, ~40 FRESH hallu burns) on EVERY keystroke INCLUDING nav — TWICE per visit (nav `>` idx275 page 1→2, then pick `w` idx276) → display-stream desync at arrival.
+**JS:** none. **Callers:** N/A (no port).
+**Change:** none — parked. The patch (nav keystrokes = no dismiss) REGRESSED game RNG 31888→11569 (first diff cStep 349 `mkobj`, CAUSAL — git-stash revert restored 31888; vision_recalc(0)-alone substitute stayed 11569 → vision(0) alone insufficient). Retried shape: nav keystrokes = shutdown+restart (teardown+dealloc_menu+vision_recalc(2)+resume preserving gameRefreshOnly semantics): game RNG RESTORED (45828, exceeding baseline!) + screens to 338 (+60) BUT first-div still @276 (shutdown/restart newsyms draw vs C's nav-zero).
+**Verify:** park commit — NO-MOVEMENT by design: clean-tree runner 95341 RNG 31888/45831 Screen 278/1265 (baseline preserved); green gate PASS (preflight, unchanged); REACH-OK (no js/ changed). `verify level_tele: 0 PASS, 0 moved, 8 unchanged` expected — the arm is parked, the [measure] row is the deliverable.
+**Named:** N/A (no port). **Ledger:** none (no js/; park + [measure]).
+**Next:** (1) Pop the [measure] row: TEMP-C + JS state-diff at idx275–276 → NAME the load-bearing state → ship the separated fix (expect 276→387+/PASS). (2) The 95234/95231/95228 quest.lua arrival-message writer is a SEPARATE next cliff (peeked, NOT diagnosed here — no D-entry claim, no park). (3) Do not re-port `teleport.c` level_tele itself (symptom owner, body whole; D-2136/D-3735).
 ## 2026-10-09 — D-3735 resurrect cliff writer: ungated inline appear duplicate hid C's voice behind --More-- for a blind hero (level_tele head probe +111 steps; resurrect row 1 PASS + 1 moved)
 
 **C locus:** `wizard.c:761–779` (resurrect tail prints only voice+verbalize — no appear, on either path); `makemon.c:1472–1501` (appear Norep inside makemon, gated `canseemon/sensemon` `:1479–1489`, `!in_mklev`, `!MM_NOMSG`; occupation check `:1502–1504`).
