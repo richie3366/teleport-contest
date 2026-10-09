@@ -14,7 +14,7 @@
 {"fn":"map_invisible","c":"378-385","status":"ported","js":["js/display.js:map_invisible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unmap_invisible","c":"388-396","status":"ported","js":["js/display.js:unmap_invisible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unmap_object","c":"409-438","status":"ported","js":["js/display.js:unmap_object"],"at":"2026-10-03@bbe63333a"}
-{"fn":"map_location","c":"475-478","status":"ported","js":["js/display.js:map_location"],"at":"2026-10-03@bbe63333a"}
+{"fn":"map_location","c":"475-478","status":"ported","js":["js/display.js:map_location"],"d":["D-3726"],"at":"2026-10-09@fbe45ffdc"}
 {"fn":"show_mon_or_warn","c":"482-496","status":"ported","js":["js/display.js:show_mon_or_warn"],"d":["D-1747"],"at":"2026-10-03@bbe63333a"}
 {"fn":"display_monster","c":"514-622","status":"ported","js":["js/display.js:display_monster"],"d":["D-3636","D-1748","D-1736","D-1734","D-1726"],"at":"2026-10-07@e5f018253","note":"audit 2026-10-03: missing impossible() in default m_ap_type arm; all display arms complete"}
 {"fn":"display_warning","c":"634-651","status":"ported","js":["js/display.js:display_warning"],"at":"2026-10-03@bbe63333a"}
