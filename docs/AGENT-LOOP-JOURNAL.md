@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3725 `invent.c` display_binventory pool/lava overlay gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3724 Next lead)
+
+**C locus:** invent.c display_binventory `:5488–5546`, gate `:5501` (`is_pool_or_lava(x, y) && !Underwater`); Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: 1 site (zap.c:3258 zap_updown WAN_PROBING down).
+**JS:** js/invent.js (comment :4719–4721, gate :4722, body :4715–4772); scripts/display-binventory-underwater-gate.test.mjs (new, 3 its through the real display_binventory() on staged POOL + single floor item: submerged skip + return 0 + silent; surface list + return 1 control; dead flat alone still lists).
+**Change:** js/invent.js only — the gate reads `(game.u?.uinwater | 0)` with C cites (`:5501` + youprop.h:279); D-3400 idiom, no new edge, no import (game already imported :49).
+**Verify:** focused test 1/3 pre-fix (surface control green = staging sound; submerged + dead-flat red) → 3/3 post-fix; repopulate-only-here 5/5 (buried-path neighbor, still green). `node scripts/verify.mjs --fn display_binventory` → PASS syntax (1 file: js/invent.js) · PASS rule2 · note hidden (no corpus session blocked on display_binventory at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run, 10.6s → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. display_binventory whole (ledger ported stands; doc Named omit query_objlist PICK_ONE/ANY stands — both C sites use PICK_NONE).
+**Next:** verified successor row live in missing-arm (briefed as this commit's refill — QUEUE_MIN 1; different C function, not shipped here): display.h covers_objects pool arm — display.h:218-220 macro `is_pool && !Underwater` vs JS js/display.js:2283 sticky `game.u?.Underwater` (zero writers, dead false; fix = live `u.uinwater` bit, D-3400 idiom; ship iter briefs C is_pool≡JS IS_POOL equivalence + order swap). Further unbriefed leads: do.js:885, music.js:902, dothrow.js:937, dothrow.js:2583, read.js:1870, apply.js:3559. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3724 `steed.c` dismount_steed pool-drop pline gate: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3723 Next lead)
 
 **C locus:** steed.c dismount_steed `:575–822`, gate `:726` (`if (!Underwater)`); Underwater ≡ youprop.h:279 `(u.uinwater)`. C callers: 26 sites (artifact/bones/do/dog×2/dogmove×2/eat/hack/mhitu/mon/polyself/steed×3/timeout×2/trap×5/uhitm×2/worn×2).

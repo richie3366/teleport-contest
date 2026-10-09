@@ -112,7 +112,7 @@
 {"fn":"cinv_ansimpleoname","c":"5423-5441","status":"ported","js":["js/invent.js:cinv_ansimpleoname"],"d":["D-3446","D-3147"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: C staticfn, whole module-local js/invent.js:cinv_ansimpleoname (D-3147); refresh MISSING note retired (review 2345.1 sweep)"}
 {"fn":"display_cinventory","c":"5446-5473","status":"ported","js":["js/invent.js:display_cinventory"],"d":["D-3147"],"at":"2026-09-30@1300fdc94"}
 {"fn":"only_here","c":"5477-5480","status":"ported","js":["js/invent.js:only_here"],"d":["D-3392"],"at":"2026-10-03@d74b875e9","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"display_binventory","c":"5489-5546","status":"ported","js":["js/invent.js:display_binventory"],"at":"2026-10-03@bbe63333a"}
+{"fn":"display_binventory","c":"5489-5546","status":"ported","js":["js/invent.js:display_binventory"],"d":["D-3725"],"at":"2026-10-09@eaa8b4d1b"}
 {"fn":"prepare_perminvent","c":"5549-5562","status":"ported","js":["js/invent.js:prepare_perminvent"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sync_perminvent","c":"5565-5658","status":"ported","js":["js/invent.js:sync_perminvent"],"at":"2026-10-03@bbe63333a"}
 {"fn":"perm_invent_toggled","c":"5661-5677","status":"ported","js":["js/invent.js:perm_invent_toggled"],"at":"2026-10-03@bbe63333a"}
