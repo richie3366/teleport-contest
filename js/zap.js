@@ -2148,6 +2148,11 @@ async function zhitu(type, nd, fltxt, sx, sy) {
                     orig_dam,
                 );
             }
+            // C :4434–4436 — destroy_items → maybe_destroy_item → losehp →
+            // done is NORETURN (exit); a fatal boil never reaches the ignite
+            // gate (Monk-95415 seg0 ends at can_make_bones). Lifesave-safe:
+            // gameover stays false so the gate falls through per C.
+            if (game.program_state?.gameover) break;
             if (!rn2(3)) await ignite_items(game.invent); // C :4436
         }
         break;

@@ -54,7 +54,7 @@
 {"fn":"bhit","c":"3827-4139","status":"ported","js":["js/zap.js:bhit"],"d":["D-3383","D-3382","D-1928","D-1604","D-1482","D-1475"],"at":"2026-10-03@9e424f7bd"}
 {"fn":"boomhit","c":"4148-4233","status":"ported","js":["js/dothrow.js:boomhit"],"at":"2026-10-02@c94c66b65","note":"stale: js/dothrow.js:2116 (D-1301; caller dothrow.c:1604 wired js/dothrow.js:2409)"}
 {"fn":"zhitm","c":"4238-4398","status":"ported","js":["js/zap.js:zhitm"],"d":["D-3408","D-2127"],"at":"2026-10-04@c075fb861"}
-{"fn":"zhitu","c":"4401-4591","status":"ported","js":["js/zap.js:zhitu"],"d":["D-3745","D-3408","D-3074","D-2232"],"at":"2026-10-09@8ea297770"}
+{"fn":"zhitu","c":"4401-4591","status":"ported","js":["js/zap.js:zhitu"],"d":["D-3746","D-3745","D-3408","D-3074","D-2232"],"at":"2026-10-09@2ac3c17ec"}
 {"fn":"burn_floor_objects","c":"4598-4656","status":"ported","js":["js/zap.js:burn_floor_objects"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bounce_dir","c":"4664-4701","status":"ported","js":["js/zap.js:bounce_dir"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zap_hit","c":"4705-4720","status":"ported","js":["js/zap.js:zap_hit"],"d":["D-2107"],"at":"2026-10-03@bbe63333a"}
