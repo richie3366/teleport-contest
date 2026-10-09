@@ -22019,10 +22019,15 @@ function lua_random2(lo, hi) {
     return lo + rn2(hi - lo + 1);
 }
 
+// C ref: sp_lev.c create_object :2422–2423 — top-level .lev OBJECTs stack.
+// splev_create_object stands in for create_object on class-only lines
+// (containment is always 0 here, so the !SP_OBJ_CONTENT gate passes).
 function splev_create_object(oclass) {
     const pos = get_location_random();
-    if (oclass == null) mkobj_at(RANDOM_CLASS, pos.x, pos.y, true);
-    else mkobj_at(oclass, pos.x, pos.y, true);
+    const otmp = (oclass == null)
+        ? mkobj_at(RANDOM_CLASS, pos.x, pos.y, true)
+        : mkobj_at(oclass, pos.x, pos.y, true);
+    if (otmp) stackobj(otmp);
 }
 
 function splev_create_boulder() {
