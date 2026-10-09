@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3715 `sounds.c` dosounds EOT-gate Underwater arm: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3714 Next lead)
+
+**C locus:** sounds.c dosounds `:202–339`, EOT gate `:208`; Underwater ≡ youprop.h:279 `(u.uinwater)`. C caller allmain.c:352 (moveloop EOT).
+**JS:** js/sounds.js (gate :839–844); scripts/dosounds-underwater-gate.test.mjs (new, 3 its: submerged silent with zero draws; surface control draws rn2(400)+rn2(300); dead `u.Underwater` flat alone does not silence).
+**Change:** js/sounds.js only — the gate reads `(u.uinwater | 0)` with C cites (`:208` + youprop.h:279); D-3400 idiom, same expression, no new edge, no import.
+**Verify:** focused test 1/3 pre-fix (surface control green = staging sound; submerged + dead-flat red) → 3/3 post-fix. `node scripts/verify.mjs --fn dosounds` → PASS syntax (1 file: js/sounds.js) · PASS rule2 · note hidden (no corpus session blocked on dosounds at baseline) · PASS reach (729 baseline-PASS reach, 80 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Same-file check: the only other Underwater read in js/sounds.js already takes the live bit (:1952 `u.uinwater`); no `u.Underwater` reads remain outside the new comment.
+**Next:** Underwater-idiom family continues in other C files (unbriefed leads, each needs its own brief: mthrowu.js:1133, zap.js:985/:2882, steed.js, mon.js:3973, invent.js:4719, display.js:2283, do.js:885, music.js:902). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3714 `dbridge.c` close_drawbridge OBJ_AT+Deaf crush gate: raw `u.Deaf` + invented acoustics arm → `hero_Deaf()` (omit-2 family; D-3713 Next lead)
 
 **C locus:** dbridge.c close_drawbridge `:775–834`, crush arm `:815`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers music.c:827 + zap.c:3303 + zap.c:3705.

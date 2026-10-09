@@ -5,7 +5,7 @@
 {"fn":"zoo_mon_sound","c":"115-128","status":"ported","js":["js/sounds.js:zoo_mon_sound"],"d":["D-1871"],"at":"2026-10-03@bbe63333a"}
 {"fn":"temple_priest_sound","c":"131-178","status":"ported","js":["js/sounds.js:temple_priest_sound"],"at":"2026-10-03@bbe63333a"}
 {"fn":"oracle_sound","c":"181-199","status":"ported","js":["js/sounds.js:oracle_sound"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dosounds","c":"202-339","status":"ported","js":["js/sounds.js:dosounds"],"d":["D-2217","D-2196"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: vault FALLTHROUGH faithfully rendered as which=0"}
+{"fn":"dosounds","c":"202-339","status":"ported","js":["js/sounds.js:dosounds"],"d":["D-3715","D-2217","D-2196"],"at":"2026-10-09@9ee00e4bb","note":"audit 2026-10-03: vault FALLTHROUGH faithfully rendered as which=0"}
 {"fn":"growl_sound","c":"351-398","status":"ported","js":["js/sounds.js:growl_sound"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"growl","c":"402-423","status":"ported","js":["js/sounds.js:growl"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yelp","c":"427-475","status":"ported","js":["js/sounds.js:yelp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Soundeffect omitted but no-op without SND_LIB like contest C"}
