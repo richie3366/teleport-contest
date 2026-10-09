@@ -1220,17 +1220,14 @@ function mhis_yell(mtmp) {
     return 'its';
 }
 
-/** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
-async function You_hear_yell(line) {
-    if (hero_Deaf() || game.flags?.acoustics === false) return;
-    await pline(`You hear ${line}`);
-}
-
 /**
  * C ref: monmove.c mon_yells — Deaf spotted waves/shakes; else
  * "X yells:" or You_hear someone yell, then verbalize1(shout).
  * SetVoice is empty without SND_LIB_INTEGRATED (contest sndprocs.h).
  * C Soundeffect(se_someone_yells) is commented out.
+ * The unspotted arm calls the live You_hear (pline.c:436–452, whole in
+ * js/hack.js) — its inner gates (acoustics silence, Underwater "barely",
+ * Unaware "dream") apply; the outer if (Deaf) above is C's gate order.
  */
 export async function mon_yells(mon, shout) {
     if (hero_Deaf()) {
@@ -1248,7 +1245,7 @@ export async function mon_yells(mon, shout) {
     if (display_canspotmon(mon)) {
         await pline_mon(mon, `${Amonnam(mon)} yells:`);
     } else {
-        await You_hear_yell('someone yell:');
+        await You_hear('someone yell:'); /* C monmove.c:124 */
     }
     await verbalize(shout);
 }

@@ -3,7 +3,7 @@
 {"fn":"mon_track_add","c":"78-86","status":"ported","js":["js/monmove.js:mon_track_add"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_track_clear","c":"89-92","status":"ported","js":["js/monmove.js:mon_track_clear"],"at":"2026-10-03@bbe63333a"}
 {"fn":"monhaskey","c":"96-103","status":"ported","js":["js/monmove.js:monhaskey"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: m_carrying inlined as minvent walk"}
-{"fn":"mon_yells","c":"106-129","status":"ported","js":["js/monmove.js:mon_yells"],"d":["D-1248"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice empty in this build like C without SND_LIB"}
+{"fn":"mon_yells","c":"106-129","status":"ported","js":["js/monmove.js:mon_yells"],"d":["D-3703","D-1248"],"at":"2026-10-09@b05a43d3e","note":"audit 2026-10-03: SetVoice empty in this build like C without SND_LIB"}
 {"fn":"m_can_break_boulder","c":"133-139","status":"ported","js":["js/monmove.js:m_can_break_boulder"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_break_boulder","c":"143-173","status":"ported","js":["js/monmove.js:m_break_boulder"],"at":"2026-10-03@bbe63333a"}
 {"fn":"watch_on_duty","c":"176-200","status":"ported","js":["js/monmove.js:watch_on_duty"],"at":"2026-10-03@bbe63333a"}

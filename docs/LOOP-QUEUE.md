@@ -151,6 +151,8 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
+- [ ] `dokick.c` kick_door Deaf-macro gate (omit-2 family) — C dokick.c:966 `pline("%s!!", (Deaf || !rn2(3)) ? "Thwack" : "Whammm")` reads the Deaf macro (youprop.h:125 HDeaf||EDeaf||uroleplay.deaf; C comment: a deaf hero shouldn't hear WHAMMM); the macro gate is absent from js/dokick.js:502 (raw `game.u?.Deaf` read instead; zero writers per D-3572 → stuck false). Delta: HDeaf/EDeaf hero kicking a door burns rn2(3) + may see Whammm where C short-circuits Thwack. Ship: predicate → Deaf-macro reader (D-3572 pattern); verify --fn kick_door REACH-OK.
+
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;
