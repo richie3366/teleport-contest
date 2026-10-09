@@ -6,7 +6,7 @@
 {"fn":"fix_worst_trouble","c":"373-600","status":"ported","js":["js/pray.js:fix_worst_trouble"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() debug diagnostic for uncured hands omitted"}
 {"fn":"god_zaps_you","c":"610-691","status":"ported","js":["js/pray.js:god_zaps_you"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: gameover gates mirror C done()-returns fall-through"}
 {"fn":"fry_by_god","c":"694-701","status":"ported","js":["js/pray.js:fry_by_god"],"at":"2026-10-03@bbe63333a"}
-{"fn":"angrygods","c":"704-784","status":"ported","js":["js/pray.js:angrygods"],"d":["D-2332"],"at":"2026-10-03@bbe63333a"}
+{"fn":"angrygods","c":"704-784","status":"ported","js":["js/pray.js:angrygods"],"d":["D-3732","D-2332"],"at":"2026-10-09@11a3c5f79"}
 {"fn":"at_your_feet","c":"788-802","status":"ported","js":["js/pray.js:at_your_feet"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gcrownu","c":"805-996","status":"ported","js":["js/pray.js:gcrownu"],"d":["D-1940"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"give_spell","c":"999-1068","status":"ported","js":["js/pray.js:give_spell"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}

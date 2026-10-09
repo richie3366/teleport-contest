@@ -2,7 +2,7 @@
 {"fn":"moveloop_preamble","c":"48-111","status":"ported","js":["js/allmain.js:moveloop_preamble"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"u_calc_moveamt","c":"114-158","status":"ported","js":["js/allmain.js:u_calc_moveamt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_generate_rnd_mon","c":"162-168","status":"ported","js":["js/allmain.js:maybe_generate_rnd_mon"],"d":["D-1867"],"at":"2026-10-03@bbe63333a"}
-{"fn":"moveloop_core","c":"177-564","status":"ported","js":["js/allmain.js:moveloop_core"],"d":["D-3698","D-3598","D-3435","D-3434","D-3433","D-3432"],"at":"2026-10-08@77cc1b10c"}
+{"fn":"moveloop_core","c":"177-564","status":"ported","js":["js/allmain.js:moveloop_core"],"d":["D-3732","D-3698","D-3598","D-3435","D-3434","D-3433"],"at":"2026-10-09@11a3c5f79"}
 {"fn":"maybe_do_tutorial","c":"567-584","status":"ported","js":["js/allmain.js:maybe_do_tutorial"],"at":"2026-10-03@bbe63333a"}
 {"fn":"moveloop","c":"587-597","status":"ported","js":["js/allmain.js:moveloop"],"d":["D-3567","D-3453","D-3442","D-3430","D-3429","D-2009"],"at":"2026-10-06@4f670fdff","note":"row restored D-3442 (review 2374): pre-D-3429 text; dodrop paste retired"}
 {"fn":"regen_pw","c":"600-619","status":"ported","js":["js/allmain.js:regen_pw"],"at":"2026-10-03@bbe63333a"}
