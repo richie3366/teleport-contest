@@ -151,8 +151,6 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
-- [ ] `dig.c` mdig_tunnel wall-arm crashing-rock message (omit-2 family; brief-verified successor lead) — C `:1468–1471` `if (flags.verbose && !rn2(5)) { Soundeffect; You_hear("crashing rock."); }` has no outer Deaf gate; absent from js/dig.js:1165–1167 (raw `!game.u?.Deaf` gate — dead read, stuck false — + plain pline instead), dropping You_hear's inner macro/acoustics/Underwater/Unaware arms (D-3702 rewire shape, not the 1-predicate swap). js/dig.js only: drop the raw gate, call live You_hear (js/hack.js:193, D-2941; no current dig.js use — shipping iter runs imports.mjs --can); Soundeffect :1469 stays named. Ledger: mdig_tunnel ported (stays ported).
-
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;

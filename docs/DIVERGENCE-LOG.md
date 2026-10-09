@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3710 — `dig.c` mdig_tunnel wall arm: raw Deaf gate + plain pline → live You_hear (omit-2 family; D-3709 Next lead)
+- **Status:** fixed (missing-arm row — both generated blocks empty, `ledger.mjs batch` no gap, D-3709-queued successor lead; ships alone with REACH-OK as its gate).
+- **Symptom:** no corpus divergence — C-fidelity residual. C `:1468–1471` has no outer Deaf gate: verbose + `!rn2(5)` → Soundeffect + `You_hear("crashing rock.")`. JS gated on raw `game.u?.Deaf` (sticky-Deaf only, stuck false for HDeaf/EDeaf heroes) + plain pline, so a macro-deaf hero heard the rock, and You_hear's inner acoustics/Underwater/Unaware arms were dropped (D-3702 rewire shape, not a 1-predicate swap). No RNG delta — the rn2(5) is drawn before the emit; You_hear draws nothing.
+- **C locus:** dig.c mdig_tunnel `:1414–1497`, wall arm `:1467–1471`. C caller monmove.c:1645.
+- **JS was:** js/dig.js:1166–1167 raw read + plain pline; the rest of mdig_tunnel stands whole (SDOOR convert, door eat+trap, SCORR, maze/cavernous/door terrain, pile drops).
+- **Fix:** js/dig.js only — `You_hear` joins the pre-existing hack.js import (imports.mjs --can: ALREADY, no new edge); the arm drops the raw gate and awaits `You_hear('crashing rock.')` with C cites (`:1468–1471`). Soundeffect :1469 stays named.
+- **JS:** js/dig.js (arm :1165–1171); scripts/mdig-tunnel-crashing-rock-you-hear.test.mjs (new, 5 its: normal hero hears + wall→DOOR/D_NODOOR; HDeaf silent; underwater barely; unaware dreams; acoustics-off silent — seed 3716: pile 12, rn2(5)=0).
+- **Callers:** C monmove.c:1645 → JS js/monmove.js:1848 (`can_tunnel && may_dig → await mdig_tunnel(mtmp)`); name/signature unchanged — no rewiring.
+- **Verify:** focused test 1/5 pre-fix (normal-hero control green = staging sound; HDeaf/underwater/unaware/acoustics red) → 5/5 post-fix. `node scripts/verify.mjs --fn mdig_tunnel` → PASS syntax (1 file: js/dig.js) · PASS rule2 · note hidden (no corpus session blocked on mdig_tunnel at baseline) · PASS reach (112 reach, 80 run, 80 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+- **Named omissions:** none new. Soundeffect :1469 stays named (per row).
+- **Ledger:** mdig_tunnel ported
+- **Next:** missing-arm now empty; both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+
 ## D-3709 — `uhitm.c` mhitm_ad_dgst digest-kill Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3708 Next lead)
 - **Status:** fixed (missing-arm row — both generated blocks empty, `ledger.mjs batch` no gap, D-3708-queued successor lead; ships alone with REACH-OK as its gate).
 - **Symptom:** no corpus divergence — C-fidelity residual. C skips the Burrrrp for a macro-deaf hero; JS read raw `game.u?.Deaf` (zero writers, stuck false), so a macro-deaf hero near a digesting m-vs-m kill heard `"Burrrrp!"` where C stays silent (C verbalize pline.c:476 has no inner Deaf gate, so the outer gate is the only silence — full delta even when aware, unlike You_hear arms). No RNG delta — verbalize draws nothing; wake_nearto / damage / lifesaver / corpse_chance / nutrition run identically either side of the gate.

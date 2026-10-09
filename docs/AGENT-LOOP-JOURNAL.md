@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3710 `dig.c` mdig_tunnel wall arm: raw Deaf gate + plain pline → live You_hear (omit-2 family; D-3709 Next lead)
+
+**C locus:** dig.c mdig_tunnel `:1414–1497`, wall arm `:1467–1471`. C caller monmove.c:1645.
+**JS:** js/dig.js (arm :1165–1171); scripts/mdig-tunnel-crashing-rock-you-hear.test.mjs (new, 5 its: normal hero hears + wall→DOOR/D_NODOOR; HDeaf silent; underwater barely; unaware dreams; acoustics-off silent — seed 3716: pile 12, rn2(5)=0).
+**Change:** js/dig.js only — `You_hear` joins the pre-existing hack.js import (imports.mjs --can: ALREADY, no new edge); the arm drops the raw gate and awaits `You_hear('crashing rock.')` with C cites (`:1468–1471`). Soundeffect :1469 stays named.
+**Verify:** focused test 1/5 pre-fix (normal-hero control green = staging sound; HDeaf/underwater/unaware/acoustics red) → 5/5 post-fix. `node scripts/verify.mjs --fn mdig_tunnel` → PASS syntax (1 file: js/dig.js) · PASS rule2 · note hidden (no corpus session blocked on mdig_tunnel at baseline) · PASS reach (112 reach, 80 run, 80 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Soundeffect :1469 stays named (per row).
+**Next:** missing-arm now empty; both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3709 `uhitm.c` mhitm_ad_dgst digest-kill Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3708 Next lead)
 
 **C locus:** uhitm.c mhitm_ad_dgst `:4492–4567`, gate `:4530` `if (flags.verbose && !Deaf)`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C caller `:4827` (`case AD_DGST`, mhitm_adtyping dispatch).

@@ -18,7 +18,7 @@
 {"fn":"use_pick_axe2","c":"1162-1359","status":"ported","js":["js/dig.js:use_pick_axe2"],"d":["D-3247"],"at":"2026-10-01@f0a648599"}
 {"fn":"watchman_canseeu","c":"1362-1368","status":"ported","js":["js/dig.js:watchman_canseeu"],"d":["D-3123"],"at":"2026-09-29@ee5dff112","note":"stale: js/dig.js:1034 (C staticfn, local); caller js/dig.js:1067"}
 {"fn":"watch_dig","c":"1377-1410","status":"ported","js":["js/dig.js:watch_dig"],"d":["D-2319"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: town+furniture gate, warn-once then arrest, stop_occupation live"}
-{"fn":"mdig_tunnel","c":"1414-1497","status":"ported","js":["js/dig.js:mdig_tunnel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: door eat+trap, SCORR, wall/tree/stone dig, pile drops live"}
+{"fn":"mdig_tunnel","c":"1414-1497","status":"ported","js":["js/dig.js:mdig_tunnel"],"d":["D-3710"],"at":"2026-10-09@a75bb06aa","note":"audit 2026-10-03: door eat+trap, SCORR, wall/tree/stone dig, pile drops live"}
 {"fn":"draft_message","c":"1504-1544","status":"ported","js":["js/dig.js:draft_message"],"d":["D-2536"],"at":"seed@a30a7de84"}
 {"fn":"zap_dig","c":"1548-1754","status":"ported","js":["js/dig.js:zap_dig"],"d":["D-2322","D-2321","D-2115"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: swallow, dz ceiling/down, beam loop, pitdig/conjoin, pitflow live"}
 {"fn":"adj_pit_checks","c":"1763-1838","status":"ported","js":["js/dig.js:adj_pit_checks"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full terrain gate table + supporting-structure msgs live"}
