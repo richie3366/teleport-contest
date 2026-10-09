@@ -3,7 +3,7 @@
 {"fn":"makemap_unmakemon","c":"73-105","status":"ported","js":["js/wizcmds.js:makemap_unmakemon"],"d":["D-3107"],"at":"2026-09-29@cb3b01855","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"makemap_remove_mons","c":"110-150","status":"ported","js":["js/wizcmds.js:makemap_remove_mons"],"d":["D-3107"],"at":"2026-09-29@cb3b01855","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_makemap","c":"156-171","status":"ported","js":["js/wizcmds.js:wiz_makemap"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
-{"fn":"wiz_map","c":"176-199","status":"ported","js":["js/wizcmds.js:wiz_map"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: reachable via ungated ^F key path in js/cmd.js"}
+{"fn":"wiz_map","c":"176-199","status":"ported","js":["js/wizcmds.js:wiz_map"],"d":["D-3737","D-3408"],"at":"2026-10-09@b8a250bbe","note":"audit 2026-10-03: reachable via ungated ^F key path in js/cmd.js"}
 {"fn":"wiz_genesis","c":"203-214","status":"ported","js":["js/wizcmds.js:wiz_genesis"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: reachable via ungated ^G key path in js/cmd.js"}
 {"fn":"wiz_where","c":"218-225","status":"ported","js":["js/wizcmds.js:wiz_where"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wiz_detect","c":"229-236","status":"ported","js":["js/wizcmds.js:wiz_detect"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}

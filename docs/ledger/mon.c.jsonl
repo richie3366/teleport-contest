@@ -42,7 +42,7 @@
 {"fn":"copy_mextra","c":"2597-2646","status":"ported","js":["js/mon.js:copy_mextra"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 7 substructs + mcorpsenm; ogoal deep-copied like C value copy"}
 {"fn":"dealloc_mextra","c":"2649-2673","status":"ported","js":["js/mon.js:dealloc_mextra"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: free-to-null incl. alias mirrors"}
 {"fn":"dealloc_monst","c":"2676-2691","status":"ported","js":["js/mon.js:dealloc_monst"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"stale: js/mon.js:3479; dog.c:959->dog.js:1498, mon.c:2499->mon.js:3507, mon.c:2555->mon.js:3718, zap.c:740->zap.js:2880 wired, save.c:909 named omit"}
-{"fn":"mon_leaving_level","c":"2696-2730","status":"ported","js":["js/mon.js:mon_leaving_level"],"d":["D-3279"],"at":"2026-10-02@3d8fe9bf9"}
+{"fn":"mon_leaving_level","c":"2696-2730","status":"ported","js":["js/mon.js:mon_leaving_level"],"d":["D-3737","D-3279"],"at":"2026-10-09@b8a250bbe"}
 {"fn":"m_detach","c":"2734-2803","status":"ported","js":["js/mhitm.js:m_detach"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"ported","js":["js/mhitm.js:set_mon_min_mhpmax"],"d":["D-3401","D-3317"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"mlifesaver","c":"2827-2836","status":"ported","js":["js/mhitm.js:mlifesaver"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}

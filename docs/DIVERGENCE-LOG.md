@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3737 — D-3736 park resolved: menu page keys, migrant redraw, wiz_map hallu, blind feel_location (95341 FULL PASS)
+
+- **Status:** shipped (D-3736 park falsifier fired; level_tele stays the symptom owner).
+- **Symptom:** scen-sweep-Caveman-95341 step 276/1265 kind=screen: arrival map C «'…'@» vs JS «…C@…» with core RNG matched through 31888/45831. D-3736 parked after two patches that looked like a game-RNG regression (31888→11569). That drop was the positional match count: the first core divergence had moved from step 344 to 349.
+- **C locus:** `wintty.c` process_menu_window `:1407–1413` and `:1622–1648` (page keys clear the menu text and stay modal; one `docrt` on destroy, `erase_menu_or_text :966–980`); `mon.c` mon_leaving_level `:2718–2726` (grid clear, then `newsym` of an empty cell); `wizcmds.c` wiz_map `:180–193` (`HConfusion = HHallucination = 0L` for the map); `hack.c` test_move `:1012–1013`, `:1076–1077`, `:1144–1145` (Blind `feel_location` before the bump).
+- **JS was:** `select_menu_pick_one` called `dismiss_nhw_menu` (a full `docrt`) on page keys; `mon_leaving_level` `newsym` still saw the migrant via the fmon scan in `m_at`; `wiz_map` cleared the flat hallu fields while `Hallucination()` reads `uprops[HALLUC].intrinsic`; `domove`'s inlined test_move omitted the three Blind `feel_location` arms.
+- **Fix:** page, stay and unknown keys re-prompt without dismissing; the migrant is `MON_OFFMAP` only for its leaving `newsym`, then the flag is restored (a lasting flag strands it on arrival, D-3279); `wiz_map` saves and clears those two `uprops` intrinsics; `domove` calls `feel_location` on the three Blind arms. Display-stream counts (`NETHACK_RNGLOG_DISP=1`) match C at the menu: 0 draws on the page key, 23 on the pick, 3 on the following `^F`.
+- **JS:** js/options.js select_menu_pick_one; js/mon.js mon_leaving_level; js/wizcmds.js wiz_map; js/cmd.js domove. **Callers:** level-tele menu and every `select_menu_pick_one` caller; `relmon` (js/mon.js) awaits `mon_leaving_level`; `^F` → `wiz_map`; movement → `domove`.
+- **Verify:** `node scripts/verify.mjs --fn level_tele,select_menu_pick_one,mon_leaving_level,wiz_map,domove` → VERIFY: PASS. `verify level_tele: 1 PASS, 0 moved, 6 unchanged, 0 worse` (scen-sweep-Caveman-95341 PASS; the other six are the sibling writers D-3736 named and did not claim). REACH-OK ×5. Green 2/2, strict both, cohort 7/7, full 44/44. Full `hidden-proxy score`: 999/1113 (was 989), 0 PASS→FAIL, FAIL→PASS scen-sweep-Caveman-95341 plus scen-chain-Healer-95430, scen-chain-Healer-95434, scen-chain-Ranger-95437.
+- **Named omissions:** - `domove_core`: travel head (:2726–2730) lives upstream in continue_run (findtravelpath_travel/guess + travel1=0, js/cmd.js:4458–4477); final u_on_newpos/CLIPPING live (js/cmd.js:6680; u_on_newpos calls cliparound, js/mklev.js:572).
+- **Ledger:** mon_leaving_level ported; wiz_map ported; domove_core partial
+- **Next:** the six level_tele siblings D-3736 left unnamed stay on the board (quest arrival message vs identical-topline map diffs). Do not re-open the 95341 nav-dismiss park.
+
 ## D-3736 — wintty.c process_menu_window nav-dismiss: display desync with load-bearing game coupling on the level_tele head probe (diagnosed, parked; no js/)
 
 - **Status:** diagnosed + parked, no movement (no js/; tree clean at finish — only this entry + queue/index lines; [measure] row carries the named experiment).
