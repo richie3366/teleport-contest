@@ -2624,3 +2624,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2612-8ea297770-doclose-blind-glyph.md](./2612-8ea297770-doclose-blind-glyph.md) | `8ea297770` | D-3744 distfleeck-head writer doclose Blind glyph half (1 moved) | **ACCEPT** |
 | [2613-2ac3c17ec-zhitu-wail-drain.md](./2613-2ac3c17ec-zhitu-wail-drain.md) | `2ac3c17ec` | D-3745 maybe_wail-head writer zhitu wail drain (2 moved) | **ACCEPT** |
 | [2614-e33e69ca6-zhitu-fire-gameover-gate.md](./2614-e33e69ca6-zhitu-fire-gameover-gate.md) | `e33e69ca6` | D-3746 randomize_gem_colors-head writer zhitu FIRE gate (95415 PASS) | **ACCEPT** |
+| [2615-c26faf7be-remove-region-swap-with-last.md](./2615-c26faf7be-remove-region-swap-with-last.md) | `c26faf7be` | D-3747 inside_gas_cloud-head writer remove_region swap-with-last (3 moved) | **ACCEPT** |
+| [2616-43f6bc696-m-move-covetous-intruder-arm.md](./2616-43f6bc696-m-move-covetous-intruder-arm.md) | `43f6bc696` | D-3749 mattackm-head writer m_move covetous-intruder arm (1 PASS + 3 moved) | **ACCEPT** |
+| [2617-91497e5d4-prompt-paint-ux-flush-gate.md](./2617-91497e5d4-prompt-paint-ux-flush-gate.md) | `91497e5d4` | D-3750 process_menu_window-head writer prompt u.ux flush gate (6 PASS + 4 moved) | **ACCEPT** |
+| [2618-6af5aea14-makemon-monat-live-m-at.md](./2618-6af5aea14-makemon-monat-live-m-at.md) | `6af5aea14` | D-3751 next_ident-head writer makemon MON_AT via live m_at (2 PASS + 1 moved) | **ACCEPT** |
+| [2619-9d1f099fd-thrwmu-mon-moving-restore.md](./2619-9d1f099fd-thrwmu-mon-moving-restore.md) | `9d1f099fd` | D-3752 next_ident-head writer thrwmu mon_moving save/restore (1 PASS + 1 moved) | **ACCEPT** |
+| [2620-5de410d26-menu-identify-query-objlist-restart.md](./2620-5de410d26-menu-identify-query-objlist-restart.md) | `5de410d26` | D-3753 menu_identify-head restart onto live query_objlist (1 moved) | **ACCEPT** |
+| [2621-7b87dee07-drop-upon-death-no-stack.md](./2621-7b87dee07-drop-upon-death-no-stack.md) | `7b87dee07` | D-3754 next_ident-head writer drop_upon_death no-stack (95420 PASS) | **ACCEPT** |
