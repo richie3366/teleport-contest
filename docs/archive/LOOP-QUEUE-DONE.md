@@ -5,9 +5,6 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
-- [x] JS throw `ledger_to_dnum(-1)` via monster level-teleport trap voids 2 corpus sessions (scen-worldtour-Wizard-95244 seg0 723 steps, scen-worldtour-Archeologist-95230 seg0 511 steps; rngM/scrM 0, run voided, misattributed to `randomize_gem_colors` step 0): `Error: level number out of range [ledger_to_dnum(-1)] at js/dungeon.js:1169 ← migrate_to_level (js/teleport.js:2955) ← mlevel_tele_trap (:3096) ← trapeffect_level_telep (js/trap.js:4191) ← mintrap (:6215)`. C never passes -1 (dungeon.c panics out of range). Repro: `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-worldtour-Wizard-95244.session.json`. Deliverable: the mlevel_tele_trap/migrate target computation (own `brief.mjs` at pop; teleport.c/dungeon.c — not this commit's writer). Filed from D-3732: the 2 sessions cannot move under the randomize writer. **Addressed:** D-3732
-
-
 - [x] music.c do_play_instrument underwater gate (Underwater-idiom family; briefed in the flooreffects iteration — QUEUE_MIN 1) **Addressed:** D-3728 `da86e4650`
 
 
