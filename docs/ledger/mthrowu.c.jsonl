@@ -8,7 +8,7 @@
 {"fn":"ucatchgem","c":"506-529","status":"ported","js":["js/mthrowu.js:ucatchgem"],"d":["D-1947"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: unicorn glass-drop vs gift arms live"}
 {"fn":"u_catch_thrown_obj","c":"533-550","status":"ported","js":["js/mthrowu.js:u_catch_thrown_obj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: catch-chance formula + hold_another_object live"}
 {"fn":"m_throw","c":"572-845","status":"ported","js":["js/mthrowu.js:m_throw"],"d":["D-3617","D-3376","D-2399"],"at":"2026-10-07@9b030ea6b","note":"audit 2026-10-03: flight loop, hero arms, tethered return live; only msg/dknown gaps"}
-{"fn":"return_from_mtoss","c":"850-965","status":"ported","js":["js/mthrowu.js:return_from_mtoss"],"d":["D-3718"],"at":"2026-10-09@cc3120348","note":"audit 2026-10-03: return flight, catch/damage/land arms incl. do_not_annoy live"}
+{"fn":"return_from_mtoss","c":"850-965","status":"ported","js":["js/mthrowu.js:return_from_mtoss"],"d":["D-3719","D-3718"],"at":"2026-10-09@734a0657e","note":"audit 2026-10-03: return flight, catch/damage/land arms incl. do_not_annoy live"}
 {"fn":"thrwmm","c":"969-1012","status":"ported","js":["js/mthrowu.js:thrwmm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: weapon select, lined_up, flee gate, monshoot wiring live"}
 {"fn":"spitmm","c":"1016-1077","status":"ported","js":["js/mthrowu.js:spitmm"],"d":["D-3711"],"at":"2026-10-09@26c2814b6","note":"audit 2026-10-03: mcan rattle, venom select, m_throw, pet hunger live"}
 {"fn":"breathwep_name","c":"1083-1089","status":"ported","js":["js/mthrowu.js:breathwep_name"],"d":["D-3403","D-3376"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}

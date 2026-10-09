@@ -1,0 +1,56 @@
+# Rotated from AGENT-LOOP-JOURNAL.md (6 crumbs; live kept 10)
+
+## 2026-10-09 — D-3710 `dig.c` mdig_tunnel wall arm: raw Deaf gate + plain pline → live You_hear (omit-2 family; D-3709 Next lead)
+
+**C locus:** dig.c mdig_tunnel `:1414–1497`, wall arm `:1467–1471`. C caller monmove.c:1645.
+**JS:** js/dig.js (arm :1165–1171); scripts/mdig-tunnel-crashing-rock-you-hear.test.mjs (new, 5 its: normal hero hears + wall→DOOR/D_NODOOR; HDeaf silent; underwater barely; unaware dreams; acoustics-off silent — seed 3716: pile 12, rn2(5)=0).
+**Change:** js/dig.js only — `You_hear` joins the pre-existing hack.js import (imports.mjs --can: ALREADY, no new edge); the arm drops the raw gate and awaits `You_hear('crashing rock.')` with C cites (`:1468–1471`). Soundeffect :1469 stays named.
+**Verify:** focused test 1/5 pre-fix (normal-hero control green = staging sound; HDeaf/underwater/unaware/acoustics red) → 5/5 post-fix. `node scripts/verify.mjs --fn mdig_tunnel` → PASS syntax (1 file: js/dig.js) · PASS rule2 · note hidden (no corpus session blocked on mdig_tunnel at baseline) · PASS reach (112 reach, 80 run, 80 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Soundeffect :1469 stays named (per row).
+**Next:** missing-arm now empty; both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+
+## 2026-10-09 — D-3709 `uhitm.c` mhitm_ad_dgst digest-kill Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3708 Next lead)
+
+**C locus:** uhitm.c mhitm_ad_dgst `:4492–4567`, gate `:4530` `if (flags.verbose && !Deaf)`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C caller `:4827` (`case AD_DGST`, mhitm_adtyping dispatch).
+**JS:** js/mhitm.js (gate :4259–4265); scripts/mhitm-dgst-deaf-gate.test.mjs (new, 5 its: non-deaf control hears noises + Burrrrp with defender digested; EDeaf/uroleplay.deaf/HDeaf + Unaware → silent + still digested; EDeaf-aware control).
+**Change:** js/mhitm.js only — `hero_Deaf` already imported :151 (D-3707 noises gate; no new edge); the gate calls it with C cites (`:4530` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 1/5 pre-fix (non-deaf control green = staging sound; 4 macro-deaf red, hearing Burrrrp) → 5/5 post-fix. Sibling curs+noises suites 10/10. `node scripts/verify.mjs --fn mhitm_ad_dgst` → PASS syntax (1 file: js/mhitm.js) · PASS rule2 · note hidden (no corpus session blocked on mhitm_ad_dgst at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. SetVoice :4532 stays named (per row).
+**Next:** verified successor row live in missing-arm: dig.c mdig_tunnel wall arm (C `:1468–1471` plain You_hear vs js/dig.js:1167 raw gate + plain pline — D-3702 rewire shape, not the 1-predicate swap). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+
+## 2026-10-09 — D-3708 `uhitm.c` mhitm_ad_curs mhitm-arm Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3707 Next lead)
+
+**C locus:** uhitm.c mhitm_ad_curs `:3014–3096`, mhitm-arm gate `:3088` `if (!Deaf)`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C caller `:4803` (`case AD_CURS`, mhitm_adtyping dispatch).
+**JS:** js/mhitm.js (gate :4381–4389); scripts/mhitm-curs-deaf-gate.test.mjs (new, 5 its: non-deaf control hears noises + laughter with mcan pinned; EDeaf/uroleplay.deaf/HDeaf + Unaware → silent + still cancelled; EDeaf-aware control).
+**Change:** js/mhitm.js only — `hero_Deaf` already imported :151 (D-3707 noises gate; no new edge); the gate calls it with C cites (`:3088` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 2/5 pre-fix (non-deaf control + EDeaf-aware control green = staging sound; 3 macro-deaf Unaware dream cases red) → 5/5 post-fix. Sibling noises suite 5/5 (10/10 combined). `node scripts/verify.mjs --fn mhitm_ad_curs` → PASS syntax (1 file: js/mhitm.js) · PASS rule2 · note hidden (no corpus session blocked on mhitm_ad_curs at baseline) · PASS reach (4 baseline-PASS reach, 4 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Same-file residual checked, not shipped (per row, 1 predicate): js/mhitm.js:4259 mhitm_ad_dgst Burrrrp raw `game.u?.Deaf` vs C :4530 — brief-verified, queued as the successor row.
+**Next:** verified successor row live in missing-arm: uhitm.c mhitm_ad_dgst digest-kill Burrrrp gate (C `:4530` vs js/mhitm.js:4259; C verbalize pline.c:476 has no inner Deaf gate; SetVoice :4532 stays named). Further uhitm.c Deaf gates (`:4217`/:4225 hissing, `:4371`, `:4648`, `:6427`) need brief-verified rows of their own. Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+
+## 2026-10-09 — D-3707 `mhitm.c` noises Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3706 Next lead)
+
+**C locus:** mhitm.c noises `:27–38`, gate `:31` `if (!Deaf && (farq != gf.far_noise || svm.moves - gn.noisetime > 10))`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers `:89` (missmm), `:729` (hitmm), `:980` (explmm).
+**JS:** js/mhitm.js (import :151, gate :398–402); scripts/mhitm-noises-deaf-gate.test.mjs (new, 5 its: far non-deaf control hears "some noises in the distance" + far_noise/noisetime pin; EDeaf/uroleplay.deaf + Unaware → silent + state untouched; HDeaf+Unaware and EDeaf-aware controls).
+**Change:** js/mhitm.js only — `hero_Deaf` joins the pre-existing monmove.js import (imports.mjs --can: ALREADY, no new edge); the gate calls it in C short-circuit order with C cites (`:31` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 2/5 pre-fix (non-deaf control + EDeaf-aware message-only control green = staging sound; 3 macro-deaf state/dream cases red) → 5/5 post-fix. Sibling suites (engrave/kick-door/kick-nondoor/postmov-deaf/mdisplacem) 23/23. `node scripts/verify.mjs --fn noises` → PASS syntax (1 file: js/mhitm.js) · PASS rule2 · note hidden (no corpus session blocked on noises at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Same-file residuals checked, not shipped (per row, 1 predicate): js/mhitm.js:4259 + :4381 raw `game.u?.Deaf` reads in other functions — C arms unverified, need brief-verified rows of their own.
+**Next:** missing-arm section empty again; both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+
+## 2026-10-09 — D-3706 `engrave.c` doengrave_sfx_item_WAN Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; same-iteration map refill+ship)
+
+**C locus:** engrave.c doengrave_sfx_item_WAN `:583–738` — `:692–694` `(Blind && !Deaf)` drilling/tremors, `:730–732` `!Deaf` crackling/hair; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. Sole C caller `:802` (doengrave_sfx_item WAND_CLASS arm).
+**JS:** js/engrave.js (import :77, const :941–943); scripts/engrave-wand-deaf-gate.test.mjs (new, 8 its: digging blind non-deaf/EDeaf/roleplay/HDeaf/u.Deaf-flag + lightning blind non-deaf/EDeaf + sighted gravel control; cmdq-staged getobj+getlin with pushed blanks for the synchronous --More-- reads).
+**Change:** js/engrave.js only — `hero_Deaf` imported from monmove.js (imports.mjs --can: SAFE, hoisted function, cycle-safe; new engrave→monmove edge) and the const calls it with C cites (`:693` + `:730` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 4/8 pre-fix (all 4 controls green = staging sound; 4 macro-deaf red, hearing drilling/crackling) → 8/8 post-fix (sighted-control wording pinned from real doname/ring behavior: kind shown, echo+post separate). Neighbor suites (doengrave-fail/del-engr/getlin-cmdq) 8/8. `node scripts/verify.mjs --fn doengrave_sfx_item_WAN` → PASS syntax (1 file: js/engrave.js) · PASS rule2 · note hidden (no corpus session blocked on doengrave_sfx_item_WAN at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Same-family residuals checked, next lead queued as a row (not shipped): mhitm.c noises `:31` (same hero_Deaf-swap shape); dig.c mdig_tunnel `:1468–1471` is the D-3702 You_hear-rewire shape instead (C has no outer gate — plain You_hear; JS adds a raw gate + plain pline), needs its own row; mthrowu/sounds raw reads unverified against C.
+**Next:** verified successor row live in missing-arm: mhitm.c noises Deaf-macro gate (C `:31` vs js/mhitm.js:399). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+
+## 2026-10-09 — D-3705 `dokick.c` kick_nondoor pudding arm: raw `u.Deaf||u.HDeaf` → `hero_Deaf()` macro (omit-2 family; D-3704 Next lead)
+
+**C locus:** dokick.c kick_nondoor `:974–1253`, sink pudding arm `:1206–1223` — `:1212–1214` `if (Blind) { if (!Deaf) You_hear("a gushing sound."); }`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. Sole C caller `:1468` (dokick nondoor dispatch).
+**JS:** js/dokick.js (gate :757–762); scripts/kick-nondoor-gushing-deaf-gate.test.mjs (new, 5 its: blind non-deaf control hears + `rn2(5)=0`/`rn2(3)=0 @ kick_nondoor` pin; EDeaf/uroleplay.deaf + Unaware → silent; HDeaf+Unaware and EDeaf-aware controls).
+**Change:** js/dokick.js only — the gate calls hero_Deaf() (already imported :68, D-3704; no new edge) in C short-circuit order with C cites (`:1213` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 3/5 pre-fix (control + both controls green = staging sound, incl. the RNG line-pin; 2 macro-deaf+Unaware red, dreaming the gushing) → 5/5 post-fix. D-3704 sibling suite still 5/5. `node scripts/verify.mjs --fn kick_nondoor` → PASS syntax (1 file: js/dokick.js) · PASS rule2 · note hidden (no corpus session blocked on kick_nondoor at baseline) · PASS reach (9 reach → 9 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Same-arm residual checked, not shipped (per row): sink Klunk :749 inline read is macro-equivalent (dedup-only).
+**Next:** missing-arm section empty again; both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
+**Finish note:** finish-iteration.mjs stamped but did not commit (step 8 check-hot-docs --fix exits 1 on saturated-queue REFILL, mf=0 open=0); committed + pushed manually in finish format.

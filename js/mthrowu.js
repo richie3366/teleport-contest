@@ -1145,7 +1145,11 @@ export async function return_from_mtoss(magr, otmp, tethered_weapon) {
                     );
                 }
             }
-            if (otmp.lamplit) game.vision_full_recalc = 1;
+            // C mthrowu.c:960 `if (obj_sheds_light(otmp))` — the full
+            // light.c:763–775 predicate (obj_is_burning ≡ lamplit &&
+            // (ignitable || artifact_light)), not bare lamplit.
+            const { obj_sheds_light } = await import('./light.js');
+            if (obj_sheds_light(otmp)) game.vision_full_recalc = 1;
         }
     }
     if (cansee(x, y)) newsym(x, y);
