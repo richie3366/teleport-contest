@@ -12,7 +12,7 @@
 {"fn":"init_mextra","c":"1059-1063","status":"ported","js":["js/restore.js:init_mextra"],"d":["D-3408","D-3103"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"newmextra","c":"1066-1073","status":"ported","js":["js/restore.js:newmextra"],"d":["D-3409","D-3408","D-3103"],"at":"2026-10-04@57c7462c4","note":"D-3409: body whole (alloc + init_mextra + return, js/restore.js:52); vacuous D-3408 partial retired"}
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"ported","js":["js/makemon.js:makemon_rnd_goodpos"],"d":["D-2264"],"at":"2026-10-03@bbe63333a"}
-{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"omit":"- `makemon`: m_dowear fire-and-forget at js/makemon.js:3761 (sync level gen cannot await); starting-pet in_mklev observable-match (dog.js makedog async boundary).","d":["D-3430","D-3427","D-3426","D-3423","D-3410","D-3409"],"at":"2026-10-05@adae017b4","note":"audited D-3430: remaining omit cannot ship"}
+{"fn":"makemon","c":"1147-1510","status":"partial","js":["js/makemon.js:makemon"],"d":["D-3717","D-3430","D-3427","D-3426","D-3423","D-3410"],"at":"2026-10-09@92f67cdaf","note":"audited D-3430: remaining omit cannot ship"}
 {"fn":"unmakemon","c":"1514-1539","status":"ported","js":["js/makemon.js:unmakemon"],"d":["D-3067"],"at":"2026-09-28@1b84498a2","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbirth_limit","c":"1542-1551","status":"ported","js":["js/makemon.js:mbirth_limit"],"d":["D-3272"],"at":"2026-10-02@675a0c998"}
 {"fn":"create_critters","c":"1556-1590","status":"ported","js":["js/makemon.js:create_critters"],"at":"2026-10-03@bbe63333a"}

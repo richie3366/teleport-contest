@@ -151,8 +151,6 @@ when both generated blocks are empty. No new rows are added here (the
 2026-10-03..06 "refilled +N to hold the 8-row band" chronology is archived
 in `docs/archive/LOOP-QUEUE-REFILLS.md`).
 
-- [ ] makemon.c:1324 S_EEL in_mklev inline Underwater read (Underwater-idiom family; verified successor triaged in the hideunder S_EEL-disjunct iteration) — C `case S_EEL: if (gi.in_mklev) { (void) hideunder(mtmp); }` (full hideunder incl. `!Underwater || !couldsee`, Underwater ≡ youprop.h:279 u.uinwater); the live-`uinwater` read is absent from js/makemon.js:3588–3592 (sticky `!game.u?.Underwater` flat instead — zero writers, dead false) AND the `|| !couldsee` disjunct is dropped entirely. Ledger makemon partial D-3430 (audited omit: m_dowear/pet — unrelated). Deliverable: inline matches the C eel arm (live uinwater bit + couldsee term, or call the export); focused test (in_mklev eel birth in pool, submerged hero + clear LOS stays visible vs surface control hides).
-
 ## Measurements on file (`[measure]` rows — popped when their owner is the cliffs head)
 
 A `[measure]` row delivers a C-side measurement + the writer named by it;

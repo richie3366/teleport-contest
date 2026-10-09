@@ -7,6 +7,15 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3717 `makemon.c` S_EEL in_mklev birth: sticky-`u.Underwater` inline (dead false, no couldsee) → live `hideunder()` call (Underwater-idiom family; D-3716 Next lead)
+
+**C locus:** makemon.c makemon `:1147–1510`, S_EEL arm `:1322–1326` → mon.c hideunder `:4726–4802`, S_EEL arm `:4746–4747`; Underwater ≡ youprop.h:279 `(u.uinwater)`.
+**JS:** js/makemon.js (arm :3583–3595); scripts/makemon-eel-hideunder-gate.test.mjs (new, 4 its through the real makemon(): submerged + clear LOS stays visible; surface control hides; dead flat alone does not expose; submerged + blocked LOS still hides).
+**Change:** js/makemon.js only — the arm calls the live hideunder export (already imported :185; imports.mjs --can: ALREADY, no new edge), with C cites (`:1322–1326` + mon.c `:4746–4747` + youprop.h:279). Inherits D-3716's fixed predicate plus C's ustuck/trapped gates, mundetected writeback and newsym on change; seeit is 0 in mklev so no message.
+**Verify:** focused test 2/4 pre-fix (surface + blocked-LOS controls green = staging sound; submerged-visible + dead-flat red) → 4/4 post-fix. `node scripts/verify.mjs --fn makemon` → PASS syntax (1 file: js/makemon.js) · PASS rule2 · note hidden (no corpus session blocked on makemon at baseline) · PASS reach (936 baseline-PASS reach, 80 run → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) → VERIFY: PASS.
+**Named:** none new. makemon's standing partial omissions unchanged (D-3430: m_dowear/pet audited omit).
+**Next:** D-3716's further unbriefed Underwater-idiom leads stand (mthrowu.js:1133, zap.js:985/:2882, steed.js, invent.js:4719, display.js:2283, do.js:885, music.js:902 — each needs its own brief; other C files, not companions). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact); batch no gap. Audit owns re-record + rescore + growth.
+**Process:** `finish-iteration --commit` exits 1 before commit when the queue is totally empty (`check-hot-docs` REFILL band 1–12) — committed manually with the same file set/message instead. Propose: finish should commit a verified iteration despite REFILL (the no-refill policy makes empty-queue the steady state), or the band floor should drop to 0.
 ## 2026-10-09 — D-3716 `mon.c` hideunder S_EEL-arm Underwater disjunct: sticky `u.Underwater` (dead false) → live `u.uinwater` (Underwater-idiom family; D-3715 Next lead)
 
 **C locus:** mon.c hideunder `:4726–4802`, S_EEL arm `:4746–4747`; Underwater ≡ youprop.h:279 `(u.uinwater)`. 18 C call sites (brief).
