@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
+- [x] `dokick.c` kick_door Deaf-macro gate (omit-2 family) — C dokick.c:966 `pline("%s!!", (Deaf || !rn2(3)) ? "Thwack" : "Whammm")` reads the Deaf macro (youprop.h:125 HDeaf||EDeaf||uroleplay.deaf; C comment: a deaf hero shouldn't hear WHAMMM); the macro gate is absent from js/dokick.js:502 (raw `game.u?.Deaf` read instead; zero writers per D-3572 → stuck false). Delta: HDeaf/EDeaf hero kicking a door burns rn2(3) + may see Whammm where C short-circuits Thwack. Ship: predicate → Deaf-macro reader (D-3572 pattern); verify --fn kick_door REACH-OK. **Addressed:** D-3704
+
+
 - [x] `insight.c` one_characteristic hide_innate_value arms — C `:860–893` (Upolyd gate, Fixed_abil stuck-sustain rings, cursed gauntlets/Ogresmasher/dunce per-attribute switch, MAGIC-mode clearing) absent from js/invent.js (overlay `:5262` has none, `_final` `:7596` Upolyd-only; ledger partial, audit 2026-10-03 "hide logic missing", deferred notes `:5259`/`:7594`). All predicates live: stuck_ring do_wear.js:4381, u_wield_art artifact.js:921, EFixed_abil in-file. Ship: shared hide helper + mode threading at both call sites; verify --fn one_characteristic REACH-OK. **Addressed:** D-3701 `e537dde76`
 
 ## 2026-10-08

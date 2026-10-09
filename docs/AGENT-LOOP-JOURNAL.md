@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3704 `dokick.c` kick_door fail arm: raw `u.Deaf` → `hero_Deaf()` macro (omit-2 family; D-3703 Next lead)
+
+**C locus:** dokick.c kick_door `:910–970`, fail arm `:958–969` — `:966` `pline("%s!!", (Deaf || !rn2(3)) ? "Thwack" : "Whammm")`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. Sole C caller `:1466` (IS_DOOR arm of dokick).
+**JS:** js/dokick.js (import :68, gate :501–505, doc :424–433); scripts/kick-door-deaf-gate.test.mjs (new, 5 its: non-deaf control Whammm + `rn2(3)=1 @ kick_door` pin; HDeaf/EDeaf/uroleplay.deaf → Thwack + no draw; u.Deaf-flag control).
+**Change:** js/dokick.js only — `hero_Deaf` joins the pre-existing monmove.js import (imports.mjs --can: ALREADY, no new edge); the gate calls it in C short-circuit order with C cites (`:966` + youprop.h:125). Doc +1 line. hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 2/5 pre-fix (control + u.Deaf-flag green = staging sound; 3 macro-deaf red, Whammm + rn2(3) burn) → 5/5 post-fix (one test-side line-pin correction :502→:505). `node scripts/verify.mjs --fn kick_door` → PASS syntax (1 file: js/dokick.js) · PASS rule2 · note hidden (no corpus session blocked on kick_door at baseline) · PASS reach (40 reach → 40 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Full-44 skip sound: the gate sits after the bust roll so the reaching set is unchanged; a deaf-at-gate session fails under old code by construction (extra draw vs C), non-deaf arms are behavior-identical.
+**Named:** none new. Same-file residual checked, queued as the Next lead (not shipped): kick_nondoor :758 gushing outer gate.
+**Next:** verified successor row live in missing-arm: dokick.c kick_nondoor gushing gate (C :1213 `if (!Deaf)` vs js/dokick.js:758 `!(u.Deaf||u.HDeaf)` — drops EDeaf/uroleplay.deaf; live You_hear inner gate covers plain-EDeaf, delta only EDeaf/roleplay-deaf + Unaware blind hero dreaming the gushing where C stays silent; sink Klunk :749 inline read is macro-equivalent, dedup-only). Both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3703 `monmove.c` mon_yells You_hear_yell clone → live export (D-3702 Next lead; same-iteration map refill+ship)
 
 **C locus:** monmove.c mon_yells `:106–129` — `:124` `You_hear("someone yell:")` in the !canspotmon arm; callee pline.c You_hear `:436–452` (`(Deaf && !Unaware) || !flags.acoustics` silence `:441`, Underwater "barely" `:444–445`, Unaware "dream" `:446–447`, else "hear" `:448–449`).
