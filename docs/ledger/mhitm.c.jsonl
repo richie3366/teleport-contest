@@ -1,4 +1,4 @@
-{"fn":"noises","c":"27-38","status":"ported","js":["js/mhitm.js:noises"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: farq/noisetime gate + explosion/noises + distance"}
+{"fn":"noises","c":"27-38","status":"ported","js":["js/mhitm.js:noises"],"d":["D-3707"],"at":"2026-10-09@fbb530169","note":"audit 2026-10-03: farq/noisetime gate + explosion/noises + distance"}
 {"fn":"pre_mm_attack","c":"41-72","status":"ported","js":["js/mhitm.js:pre_mm_attack"],"d":["D-2856"],"at":"seed@a30a7de84"}
 {"fn":"missmm","c":"76-91","status":"ported","js":["js/mhitm.js:missmm"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pre_mm_attack + misses/friendly + noises"}
 {"fn":"fightm","c":"106-172","status":"ported","js":["js/mhitm.js:fightm"],"d":["D-2613"],"at":"seed@a30a7de84"}

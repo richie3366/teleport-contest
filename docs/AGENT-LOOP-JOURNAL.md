@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-09 — D-3707 `mhitm.c` noises Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; D-3706 Next lead)
+
+**C locus:** mhitm.c noises `:27–38`, gate `:31` `if (!Deaf && (farq != gf.far_noise || svm.moves - gn.noisetime > 10))`; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. C callers `:89` (missmm), `:729` (hitmm), `:980` (explmm).
+**JS:** js/mhitm.js (import :151, gate :398–402); scripts/mhitm-noises-deaf-gate.test.mjs (new, 5 its: far non-deaf control hears "some noises in the distance" + far_noise/noisetime pin; EDeaf/uroleplay.deaf + Unaware → silent + state untouched; HDeaf+Unaware and EDeaf-aware controls).
+**Change:** js/mhitm.js only — `hero_Deaf` joins the pre-existing monmove.js import (imports.mjs --can: ALREADY, no new edge); the gate calls it in C short-circuit order with C cites (`:31` + youprop.h:125). hero_Deaf's extra `|| u.Deaf` disjunct is D-3572's dead code (zero writers), kept as the canonical reader.
+**Verify:** focused test 2/5 pre-fix (non-deaf control + EDeaf-aware message-only control green = staging sound; 3 macro-deaf state/dream cases red) → 5/5 post-fix. Sibling suites (engrave/kick-door/kick-nondoor/postmov-deaf/mdisplacem) 23/23. `node scripts/verify.mjs --fn noises` → PASS syntax (1 file: js/mhitm.js) · PASS rule2 · note hidden (no corpus session blocked on noises at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new. Same-file residuals checked, not shipped (per row, 1 predicate): js/mhitm.js:4259 + :4381 raw `game.u?.Deaf` reads in other functions — C arms unverified, need brief-verified rows of their own.
+**Next:** missing-arm section empty again; both generated blocks empty (13 env:config-path + D-3684 nomux_out recorder-artifact). Audit owns re-record + rescore + growth.
 ## 2026-10-09 — D-3706 `engrave.c` doengrave_sfx_item_WAN Deaf-macro gate: raw `u.Deaf` → `hero_Deaf()` (omit-2 family; same-iteration map refill+ship)
 
 **C locus:** engrave.c doengrave_sfx_item_WAN `:583–738` — `:692–694` `(Blind && !Deaf)` drilling/tremors, `:730–732` `!Deaf` crackling/hair; Deaf ≡ youprop.h:125 HDeaf||EDeaf||uroleplay.deaf. Sole C caller `:802` (doengrave_sfx_item WAND_CLASS arm).

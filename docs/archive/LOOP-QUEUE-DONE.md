@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-09
 
-- [x] `engrave.c` doengrave_sfx_item_WAN Deaf-macro gate (omit-2 family) — C `:693` `(Blind && !Deaf)` drilling/tremors + `:730` `!Deaf` crackling/hair use the youprop.h:125 macro (HDeaf||EDeaf||uroleplay.deaf); JS `const deaf = !!(game.u?.Deaf)` (js/engrave.js:939) drops HDeaf/EDeaf/roleplay, so a macro-deaf blind hero hears drilling/crackling where C feels tremors/hair-stand. js/engrave.js only, 1 predicate → `hero_Deaf()` (monmove.js:1197 live export, imports.mjs SAFE). Ledger: doengrave_sfx_item_WAN ported (stays ported). **Addressed:** D-3706
+
+
+- [x] `mhitm.c` noises Deaf-macro gate (omit-2 family; brief-verified successor lead) — C `:31` `!Deaf` in the farq/noisetime gate uses the youprop.h:125 macro (HDeaf||EDeaf||uroleplay.deaf); the macro gate is absent from js/mhitm.js:399 (raw `game.u?.Deaf` read instead); a macro-deaf hero near out-of-sight m-vs-m combat gets far_noise/noisetime updates + You_hear where C skips the arm (D-0294 shipped the You_hear arm, not the gate). js/mhitm.js only, 1 predicate → `hero_Deaf()` (monmove.js:1197 live export; confirm edge with imports.mjs --can). Ledger: noises ported (stays ported). **Addressed:** D-3707
+
+
+- [x] `engrave.c` doengrave_sfx_item_WAN Deaf-macro gate (omit-2 family) — C `:693` `(Blind && !Deaf)` drilling/tremors + `:730` `!Deaf` crackling/hair use the youprop.h:125 macro (HDeaf||EDeaf||uroleplay.deaf); JS `const deaf = !!(game.u?.Deaf)` (js/engrave.js:939) drops HDeaf/EDeaf/roleplay, so a macro-deaf blind hero hears drilling/crackling where C feels tremors/hair-stand. js/engrave.js only, 1 predicate → `hero_Deaf()` (monmove.js:1197 live export, imports.mjs SAFE). Ledger: doengrave_sfx_item_WAN ported (stays ported). **Addressed:** D-3706 `fbb530169`
 
 - [x] `dokick.c` kick_nondoor gushing Deaf-macro gate (omit-2 family) — C dokick.c:1213 `if (!Deaf) You_hear("a gushing sound.")` reads the Deaf macro (youprop.h:125 HDeaf||EDeaf||uroleplay.deaf); the macro gate is absent from js/dokick.js:758 (partial `!(u.Deaf||u.HDeaf)` read instead — drops EDeaf/uroleplay.deaf; the live You_hear inner gate covers plain-EDeaf). Delta: EDeaf/roleplay-deaf + Unaware blind hero at a black-pudding sink dreams the gushing (You_hear Unaware arm) where C's outer `!Deaf` stays silent (no RNG delta — You_hear draws nothing). Sink Klunk :749 inline read is macro-equivalent (dedup-only, not this row). Ship: outer gate → hero_Deaf() (D-3572 pattern, kick_door precedent); verify --fn kick_nondoor REACH-OK. **Addressed:** D-3705 `0b624251c`
 
