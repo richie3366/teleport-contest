@@ -28,21 +28,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **mattackm→covetous (D-3748/49 DONE):** :1778–1800 shipped, 4/4 moved; do not re-check mattackm body, can_carry, turn-order.
 ## Don't re-check (≤15)
 
-- D-1790…D-3761 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3761) reached no session — no pole-lava row.
+- D-1790…D-3762 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3762) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3761.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3761 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3762.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3762 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3762: `js/questpgr.js` only — three bodies verbatim from quest.lua (`cat -A`-verified: double space after «hill.»/«%H.» in Val text and synopsis; conversion Named: remaining role bodies no corpus session reaches (firsttime Cav/Mon; goal_first Hea/Mon/Rog
 - D-3761: reordered the departure block to C order — check_special_room(true) → unplacebc → reset_utrap → fill_pit → set_ustuck → set_uinwater → uundetected → k Named: none new (goto_level's partial omits stand: binary NHFILE savelev/getlev by-design VFS ana
 - D-3760: teleds_simple awaits the live u_on_newpos export (`./mklev.js`; imports.mjs SAFE, hoisted fn, cycle-safe); keeps the ux0/uy0 snap (C `:490–491`), news Named: teleds_simple subset vs C teleds otherwise unchanged (pre-existing, out of this divergence
 - D-3759: `js/mhitm.js` mon_poly — capture `oldMndx` at entry (`oldform?.mndx ?? mdef?.mnum ?? Named: none new — mon_poly stays ported whole.
@@ -57,5 +58,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3750: js/getline.js only (+1 export line): new `prompt_paint_flush()` helper (`if (game.u?.ux) flush_screen(1) else paint_topline_only()`); all four prompt  Named: none new (the `_buildScreenOutput` no-commit live-commit fallback stands — falsified as th
 - D-3749: inserted the block in C order after mtame, before shk/gd/priest: `is_covetous(ptr)` → tx,ty from `mtmp.mgoal` (unset defaults (0,0) — C's zeroed struc Named: (1) C `:1769–1770` wormno early-goto (worms skip all specials incl. tame/covetous/shk/mail
 - D-3748: none — measurement only. Named: (1) C-side `@ file:line` tags shift under instrumentation (insertion delta) — matching is 
-- D-3747: swap-with-last per C :355–357 (`js/region.js:656–661`); exported (C linkage is extern, decl :30) for the order test; `free_region` doc "splices" → "sw Named: none new.
 <!-- landmarks:end -->
