@@ -53,7 +53,7 @@
 {"fn":"mondead","c":"3081-3177","status":"ported","js":["js/mhitm.js:mondead"],"d":["D-2231","D-2147"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: lifesave/vamp/kop/leader/mail arms match"}
 {"fn":"corpse_chance","c":"3181-3249","status":"ported","js":["js/mhitm.js:corpse_chance"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: js mapping copied exactly; see note for second clone"}
 {"fn":"mondied","c":"3253-3263","status":"ported","js":["js/mhitm.js:mondied"],"d":["D-3317"],"at":"2026-10-02@d1f323f2b"}
-{"fn":"mongone","c":"3267-3283","status":"ported","js":["js/mon.js:mongone"],"d":["D-3401","D-2339","D-1149"],"at":"2026-10-03@1ae9cc180","note":"audit 2026-10-03: also splices fmon immediately vs C deferred dmonsfree"}
+{"fn":"mongone","c":"3267-3283","status":"ported","js":["js/mon.js:mongone"],"d":["D-3758","D-3401","D-2339","D-1149"],"at":"2026-10-10@4ddfa4bb2","note":"audit 2026-10-03: also splices fmon immediately vs C deferred dmonsfree"}
 {"fn":"monstone","c":"3287-3373","status":"ported","js":["js/mhitm.js:monstone"],"d":["D-2753","D-2742"],"at":"seed@a30a7de84"}
 {"fn":"monkilled","c":"3377-3418","status":"ported","js":["js/mhitm.js:monkilled"],"d":["D-3411","D-3407","D-3401","D-2875","D-1550"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"set_ustuck","c":"3421-3435","status":"ported","js":["js/mhitu.js:set_ustuck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug-gated impossible arm omitted (sanity/fuzzer only)"}
