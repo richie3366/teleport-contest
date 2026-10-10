@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3780 cliffs-head explode writer: poly-blast Upolyd read a never-written flat, damage hit uhp, form never reverted (95347 824→986, RNG complete)
+
+**C locus:** `explode.c` explode `:275–284` (grabbed/grabbing), `:628–631` (mh vs uhp), `:641–644` (rehumanize); `you.h:554` Upolyd ≡ (umonnum != umonster).
+**JS:** `js/explode.js` (+6/−4: import + 4 reads + cite); 1 test file.
+**Change:** all 4 sites now call the canonical `Upolyd()` (`js/const.js:3216`, C you.h:554), added to the existing const.js import (`imports.mjs --can`: ALREADY, no new edge); C cite at the damage branch. New committed test `scripts/explode-upolyd-rehumanize.test.mjs` (prefix-824 pattern: topline --More-- + umonnum==umonster + uhp 59 + HP:59(98)).
+**Verify:** focused test pre-fix fails on the exact probe topline (bare vs --More--) → post-fix 1/1. `node scripts/verify.mjs --fn explode` → PASS syntax (1 file) · rule2 · hidden `verify explode: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (95347: 824 → do_statusline2@986, RNG now 30692/30692 complete, screens 1353/1358) · reach smoke 24/24 (explode draws no RNG → no tagged reach) REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · skip full (not shared) + forced full `sessions` 44/44. VERIFY: PASS.
+**Named:** none new (explode's D-1925 omits stand — You_hear prefixes, golemeffects, resists_magm scan, Role_switch roles; the local Fire/Cold/etc. flats-only clones agreed-false here and stay a separate idiom migration).
+**Next:** 95347 now blocks on do_statusline2@986 (region-heuristic owner; toplines identical «Your wand of striking breaks apart and explodes!--More--», botl HP C 2(62) vs JS 0(62) — wand-blast hero-damage writer, own future row). Do not re-pop explode for 95347. Residual same-idiom readers in other C files (`u.Upolyd` at apply.js:801, potion.js:2346) are out of cliff scope — noted for their future rows, not fixed here.
 ## 2026-10-10 — D-3779 cliffs-head menu_loot writer: container-menu dismiss docrt'd, re-picking all Hallu glyphs (95343 599→602)
 
 **C locus:** `pickup.c:2971–3226` use_container (menu loop `:3074`) + `wintty.c` erase_menu_or_text / tty_destroy_nhwindow (corner dismiss = docorner: gbuf resend, no newsym / display-RNG burns) + `display.h:197` what_mon / `:963–968` obj_to_glyph / `:933–936` random_obj_to_glyph (Hallu → random_monster/random_object via display RNG, re-picked per newsym).
