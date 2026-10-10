@@ -18,4 +18,4 @@
 {"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-3564","D-2760"],"at":"2026-10-06@a128195ee"}
 {"fn":"tamedog","c":"1143-1282","status":"ported","js":["js/dog.js:tamedog"],"d":["D-1595","D-1593","D-1546","D-1532"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: M3_WANTSARTI value verified 0x0010"}
 {"fn":"wary_dog","c":"1292-1359","status":"ported","js":["js/dog.js:wary_dog"],"d":["D-3442","D-3429","D-3401"],"at":"2026-10-05@a2d03b360","note":"row restored D-3442 (review 2374): stale replmon/mon.c:2703 line retired - body whole (js/dog.js:1352-1424), all 3 C callers wired, all callees ported"}
-{"fn":"abuse_dog","c":"1362-1393","status":"ported","js":["js/dog.js:abuse_dog"],"d":["D-3249"],"at":"2026-10-01@012413194","note":"stale: js/dog.js:1472 body whole; 5/5 C callers wired (dokick.js:846, hack.js:1463, trap.js:7508, uhitm.js:2127, zap.js:4286)"}
+{"fn":"abuse_dog","c":"1362-1393","status":"ported","js":["js/dog.js:abuse_dog"],"d":["D-3783","D-3249"],"at":"2026-10-10@f3651d1cd","note":"stale: js/dog.js:1472 body whole; 5/5 C callers wired (dokick.js:846, hack.js:1463, trap.js:7508, uhitm.js:2127, zap.js:4286)"}
