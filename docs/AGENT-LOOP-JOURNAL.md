@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3774 cliffs-head gethungry writer: dotravel_target NOPATH gate skipped domove, engulfed first-step attack never ran (95332 PASS)
+
+**C locus:** `cmd.c:5348–5377` dotravel_target (unconditional `domove()` at :5375) + `hack.c:2724–2737` domove_core (travel recompute first, then `if (u.uswallow)` zeroes dx/dy and attacks u.ustuck) + `hack.c:1518–1522` findtravelpath `found:` (NOPATH zeroes dx/dy + nomul(0)) + `hack.c:4160–4173` nomul (ends running).
+**JS:** `js/cmd.js` dotravel_target only; new focused test `scripts/dotravel-engulfed-first-step.test.mjs` (95332 matched-RNG prefix > 25348; failed at exactly 25348 pre-fix — the same step-817 `rn2(20)=18` vs `rn2(40)=18` split).
+**Change:** dotravel_target tail restructured to C order (same shape as the proven continue_run, D-3583): recompute travel→guess with UNSURE messages, apply `found:` (dx=dy=0 + nomul(0), which ends running like C :4171) on NOPATH — the BFS-exhausted exits return NOPATH without it — travel1=0 before the step (C :2727), unconditional `domove(u.dx, u.dy)`, `move!==0 → 1`, ECMD_TIME. Preserves D-3563 (no distance gate), D-0784 (no couldsee-first), D-0702 (NOPATH rest now falls through to a domove self-step with move=1).
+**Verify:** `node scripts/verify.mjs --fn gethungry,dotravel_target` → PASS syntax (1 file) · PASS rule2 · PASS hidden (`verify gethungry: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`: 95332 PASS) · REACH-OK gethungry 80/80 (spread of 1012) · note hidden dotravel_target (nothing blocked) · REACH-OK dotravel_target 24/24 smoke · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS; full `sessions` 44/44 (forced: cmd.js). Focused + travel-nopath + detour tests 4/4. Movement: `verify gethungry: 1 PASS, 0 moved past, 0 unchanged, 0 worse`.
+**Named:** none new (dotravel_target ported whole; findtravelpath_bfs NOPATH-without-found: left as-is — compensated at this call site per C; continue_run's identical latent gap untouched, out of scope).
+**Next:** gethungry row should leave the regenerated cliffs block (its sole probe now PASSes). Row-1 randomize_gem_colors unchanged (tooling falsifier still pending per D-3768).
 ## 2026-10-10 — D-3773 m_move cliff writer: m_canseeu read wrong-case Invis flats (invisible hero visible to all) — 95347 492→824
 
 **C locus:** `vision.h:50–53` m_canseeu (live #else arm; the #if 0 buried arm is dead) + `youprop.h:198` Invis + `mondata.h:81` perceives; read through `monmove.c:1193` (m_balks first gate) into the `:1866` appr arm / `:1970` ladder (both verified C-faithful in JS, untouched).
