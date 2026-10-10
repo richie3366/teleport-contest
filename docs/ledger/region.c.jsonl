@@ -23,7 +23,7 @@
 {"fn":"visible_region_at","c":"718-729","status":"ported","js":["js/region.js:visible_region_at"],"at":"2026-10-02@c944311a4","note":"stale: js/region.js:98"}
 {"fn":"show_region","c":"732-735","status":"ported","js":["js/region.js:show_region"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: glyph-int adapted to S_poisoncloud/S_cloud tag + color cell"}
 {"fn":"save_regions","c":"741-795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"rest_regions","c":"799-892","status":"ported","js":["js/region.js:rest_regions"],"d":["D-2639"],"at":"2026-10-01@e0549fe8b","note":"stale: js/region.js:767 (whole :798-892 in stash arch; omits architectural: NHFILE format, Sfi_any passthrough, cmap glyph tag)"}
+{"fn":"rest_regions","c":"799-892","status":"ported","js":["js/region.js:rest_regions"],"d":["D-3793","D-2639"],"at":"2026-10-10@7b77f6f77","note":"stale: js/region.js:767 (whole :798-892 in stash arch; omits architectural: NHFILE format, Sfi_any passthrough, cmap glyph tag)"}
 {"fn":"region_stats","c":"899-922","status":"ported","js":["js/wizcmds.js:region_stats"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to tot-accumulator idiom; body complete"}
 {"fn":"reset_region_mids","c":"928-943","status":"ported","js":["js/region.js:reset_region_mids"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local but fully implemented"}
 {"fn":"create_msg_region","c":"955-973","status":"by-design","d":["D-3166"],"at":"2026-09-30@4d4f8e851","note":"refresh: no JS symbol (measured MISSING)"}
