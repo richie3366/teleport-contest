@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — audit 2648–2656 @663092d75: review D-3784…D-3792 (9A/0D/0Q, 0 Must-fix) + full rescore 1039/1113
+
+**Reviews:** 9 cliff SHAs oldest-first, each re-measured `--base HASH~1 --reach-all`: 2648 query_objlist burn (flooreffects 1 moved), 2649 map_redisplay flush delete (do_statusline2 1 PASS + 3 moved), 2650 healup Upolyd (1 moved), 2651 passiveum AD_STON (mattacku 1 moved, reach 571/571), 2652 create_monster PfSC gate (restrap 1 moved), 2653 nh_timeout index dispatch (yn_function 1 PASS), 2654 Antimagic fallback delete (mbhitm 1 PASS), 2655 freeinv_drop C-whole (drop_uswapwep 1 PASS), 2656 stash monster/bubble order (getlev 1 moved). Every D-log claim confirmed or strictly later; 0 regressed anywhere. Rule #2 clean. Ledger: snapshot + 5 seeded ported rows briefed (fill_special_room, gather_locs, left_side, basic_menu_colors, precheck — all live, 0 fixes; `ledger.mjs sql` unusable here, node:sqlite missing, sampled jsonl `at: seed@` directly).
+**Score:** public 44/44 (`353+1.56/turn` R² 0.77); corpus **1039/1113** PASS, RNG 99.30 %, screens 98.0 %, `full: true`; 0 PASS→FAIL, 0 FAIL→PASS vs committed (+4 vs last audit). Marathons 100/160 (sweep 23/50 95.9 %, worldtour 24/50 97.7 %). Held-out 19/44, 8,856 pts, RNG 46.4 % (unchanged; lockwo now 8,533 pts / 84.3 % RNG, still rank 5 by pts).
+**Next:** no Must-fix queued; cliffs head per regenerated block.
 ## 2026-10-10 — D-3792 cliffs row-2 getlev writer: goto_level stash restored bubbles before the monster catchup (95203 388→418)
 
 **C locus:** `restore.c` getlev — the monster loop `:1181–1221` (place `:1181–1198`, catchup `:1199–1220` incl. the `:1219` hide_monst `elapsed > rnd(10)` gate) runs BEFORE `rest_bubbles :1226` (→ `mkmaze.c:1777` restore_waterlevel → mv_bubble ini); `mkmaze.c:1959` mv_bubble draws rn2(6) on Air (ini does not skip it); `do.c` goto_level `:1675` uz reassign → `:1711` getlev → `:1832` movebubbles.

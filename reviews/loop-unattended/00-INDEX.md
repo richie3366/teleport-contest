@@ -2657,3 +2657,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2645-96439ea60-shudder-rehumanize-drain.md](./2645-96439ea60-shudder-rehumanize-drain.md) | `96439ea60` | D-3781 exercise-row writer shudder rehumanize drain (1 moved) | **ACCEPT** |
 | [2646-f3651d1cd-losestr-decline-resume.md](./2646-f3651d1cd-losestr-decline-resume.md) | `f3651d1cd` | D-3782 do_statusline2-row writer losestr decline resume (3 PASS) | **ACCEPT** |
 | [2647-1841f1954-aggravate-uprops-union.md](./2647-1841f1954-aggravate-uprops-union.md) | `1841f1954` | D-3783 abuse_dog-row writer Aggravate uprops union (1 moved) | **ACCEPT** |
+| [2648-9b729191f-query-objlist-menu-glyph-burn.md](./2648-9b729191f-query-objlist-menu-glyph-burn.md) | `9b729191f` | D-3784 flooreffects-row writer query_objlist menu-glyph burn (1 moved) | **ACCEPT** |
+| [2649-6816eb0b4-map-redisplay-flush-delete.md](./2649-6816eb0b4-map-redisplay-flush-delete.md) | `6816eb0b4` | D-3785 do_statusline2-row writer map_redisplay C-absent flush delete (1 PASS + 2 moved) | **ACCEPT** |
+| [2650-6301e5617-healup-canonical-upolyd.md](./2650-6301e5617-healup-canonical-upolyd.md) | `6301e5617` | D-3786 do_statusline2-row writer healup canonical Upolyd (1 moved) | **ACCEPT** |
+| [2651-9b9521669-passiveum-ad-ston-protection.md](./2651-9b9521669-passiveum-ad-ston-protection.md) | `9b9521669` | D-3787 mattacku-row writer passiveum AD_STON protection (1 moved) | **ACCEPT** |
+| [2652-9b42202e5-create-monster-pfsc-gate.md](./2652-9b42202e5-create-monster-pfsc-gate.md) | `9b42202e5` | D-3788 restrap-row writer create_monster PfSC gate mirrors (1 moved) | **ACCEPT** |
+| [2653-603f1f8e6-nh-timeout-index-dispatch.md](./2653-603f1f8e6-nh-timeout-index-dispatch.md) | `603f1f8e6` | D-3789 yn_function-row writer nh_timeout index dispatch (1 PASS) | **ACCEPT** |
+| [2654-fd2c769ce-antimagic-worn-fallback-delete.md](./2654-fd2c769ce-antimagic-worn-fallback-delete.md) | `fd2c769ce` | D-3790 mbhitm-row writer Antimagic worn-fallback delete (1 PASS) | **ACCEPT** |
+| [2655-2e9bcf454-freeinv-drop-c-whole.md](./2655-2e9bcf454-freeinv-drop-c-whole.md) | `2e9bcf454` | D-3791 drop_uswapwep-row writer freeinv_drop C-whole (1 PASS) | **ACCEPT** |
+| [2656-663092d75-goto-level-monster-bubble-order.md](./2656-663092d75-goto-level-monster-bubble-order.md) | `663092d75` | D-3792 getlev-row writer goto_level monster/bubble order (1 moved) | **ACCEPT** |

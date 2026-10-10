@@ -1,9 +1,9 @@
 {
- "commit": "2e9bcf454",
- "at": "2026-10-10T18:48:47.997Z",
- "full": false,
- "fullCommit": "1841f1954",
- "fullAt": "2026-10-10T13:16:48.466Z",
+ "commit": "663092d75",
+ "at": "2026-10-10T19:21:23.024Z",
+ "full": true,
+ "fullCommit": "663092d75",
+ "fullAt": "2026-10-10T19:21:23.024Z",
  "entries": 1113,
  "unrecorded": 0,
  "sessions": {
@@ -13721,7 +13721,7 @@
    "steps": 1392,
    "owner": null,
    "loc": null,
-   "jsOwner": "themerooms_generate(mklev.js:32701)",
+   "jsOwner": "themerooms_generate(mklev.js:32730)",
    "cTopline": "You dig a hole through the floor. You fall through...--More--",
    "jsTopline": "You dig a hole through the floor. You fall through...--More--",
    "error": null
@@ -17486,7 +17486,7 @@
   "scen-worldtour-Archeologist-95249": {
    "src": "corpus",
    "passed": false,
-   "rngM": 37047,
+   "rngM": 37149,
    "rngT": 45705,
    "scrM": 461,
    "scrT": 623,
@@ -17913,7 +17913,7 @@
    "passed": false,
    "rngM": 55292,
    "rngT": 55292,
-   "scrM": 904,
+   "scrM": 907,
    "scrT": 910,
    "kind": "screen",
    "step": 411,
