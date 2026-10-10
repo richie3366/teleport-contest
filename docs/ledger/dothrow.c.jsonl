@@ -28,7 +28,7 @@
 {"fn":"omon_adj","c":"1913-1947","status":"ported","js":["js/dothrow.js:omon_adj"],"d":["D-3408","D-2905"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"tmiss","c":"1951-1967","status":"ported","js":["js/dothrow.js:tmiss"],"d":["D-2957"],"at":"seed@a30a7de84"}
 {"fn":"should_mulch_missile","c":"1976-2002","status":"ported","js":["js/weapon.js:should_mulch_missile"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"thitmonst","c":"2011-2304","status":"ported","js":["js/dothrow.js:thitmonst"],"d":["D-3408","D-2804","D-1324","D-1312"],"at":"2026-10-04@c075fb861"}
+{"fn":"thitmonst","c":"2011-2304","status":"ported","js":["js/dothrow.js:thitmonst"],"d":["D-3764","D-3408","D-2804","D-1324","D-1312"],"at":"2026-10-10@1311dbb62"}
 {"fn":"gem_accept","c":"2309-2382","status":"ported","js":["js/dothrow.js:gem_accept"],"d":["D-2517"],"at":"seed@a30a7de84"}
 {"fn":"hero_breaks","c":"2417-2436","status":"ported","js":["js/dothrow.js:hero_breaks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"breaks","c":"2444-2454","status":"ported","js":["js/dothrow.js:breaks"],"at":"2026-10-03@bbe63333a"}

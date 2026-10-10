@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3764 — cliffs-head thitmonst writer: known_hitum weaphit gate counted a wielded lantern as a weapon hit (95312 1040→1492)
+
+- **Status:** shipped (Open cliffs-head `dothrow.c` thitmonst @4b1f3e45b. The row's step-815 RNG divergence had already moved to show_conduct@1040 on HEAD via D-3763 — verified live (worker: RNG 72638/72638 full match); thitmonst's C body verified whole in JS (D-2804/D-3408, all arms read), not re-ported. This iteration fixes the writer of the residual 1040 divergence. Ledger bullet records the declared function verified whole only: known_hitum itself is unrecordable — C staticfn, c-index misses its 10-line signature so no index key exists (D-3249 precedent); the port is preserved in this D-body.)
+- **Symptom:** scen-sweep-Rogue-95312 step 1040 kind=screen — `#conduct` menu «You have hit with a wielded weapon 17 times.» (C) vs «…18 times.» (JS). RNG fully matched, so the event stream was identical — exactly one extra `uconduct.weaphit++` in JS. Temp-trace (env-gated, since removed): exactly one gate misfire in all 1515 steps — a melee hit with a wielded BRASS_LANTERN (otyp 226, TOOL_CLASS, oc_skill 0 = P_NONE).
+- **C locus:** `uhitm.c:616` known_hitum `if (weapon && (weapon->oclass == WEAPON_CLASS || is_weptool(weapon)))`; `obj.h:249` is_weptool ≡ TOOL_CLASS with oc_skill != P_NONE (`skills.h:15` P_NONE = 0). A wielded lantern is not a weapon hit. thitmonst `dothrow.c:2011–2304` re-read whole (to-hit, unicorn, leader, weapon/kicked/ammo, iron ball, boulder, egg/pie/venom, potion, tamedog, swallow arms all live).
+- **JS was:** `js/uhitm.js:3120` known_hitum gate `weapon.oclass === WEAPON_CLASS || game.objects?.[weapon.otyp]?.oc_skill != null` — true for every table row (oc_skill always present, 0 for P_NONE), so any wielded non-weapon counted. (Named approximation in D-3249's omissions.)
+- **Fix:** gate is now `weapon.oclass === WEAPON_CLASS || is_weptool(weapon)` — the live `js/wield.js:116` export, already imported at `js/uhitm.js:53` (no new edge; same call shape as the :1048/:1053/:1881/:2121 gates). Signature unchanged.
+- **JS:** `js/uhitm.js` (+3/−1).
+- **Callers:** known_hitum signature unchanged — C call sites all in `uhitm.c` → `js/uhitm.js:3629` (hitum_cleave), `:3680`/`:3702` (hitum first/second swing), `:4253` (hmonas); none re-wired. thitmonst C callers (`apply.c:3521`/`:3848`, `dokick.c:748`, `dothrow.c:1492`) wiring unchanged from D-2804.
+- **Verify:** new focused test `scripts/known-hitum-weaphit-gate.test.mjs` (exported do_attack, level-30 always-hits hero vs grid bug; dagger control must wound + weaphit 1, lantern must wound + weaphit 0): pre-fix 1/2 (lantern fails) → post-fix 2/2. `hidden-proxy verify thitmonst`: 0 PASS, 1 moved past (815→1492 auto_describe), 66/66 reach REACH-OK; worker-confirmed this fix's leg: 1040 show_conduct → 1492 auto_describe (+452, RNG still 72638/72638). `node scripts/verify.mjs --fn known_hitum` → PASS syntax (1 file) · PASS rule2 · note hidden (0 blocked at baseline) · PASS reach (80/80 spread of 328 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (uhitm.js not shared — D-3251 precedent) + manual `sessions` 44/44.
+- **Named omissions:** none new (thitmonst's D-2804 tmiss/miss wording + unstuck placebc omits stand; known_hitum otherwise whole per D-3249).
+- **Ledger:** thitmonst ported
+- **Next:** 95312's new owner auto_describe@1492 («unseen creature (no travel path)» vs «unseen creature» — travel-path describe arm, own future row).
+
 ## D-3763 — cliffs-head distfleeck writer: nhl_gamestate extrinsic desync — Displaced clones read stored H||E bits (1 moved 237→957)
 
 - **Status:** shipped (Open cliffs-head `monmove.c` distfleeck — parked SYMPTOM, owner verified whole per D-3559/D-3755, not re-ported. D-3755 `[measure]` read once — this iteration ran its specified temp-C probe and ports the writer it named.)
