@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3765 cliffs-head `eat.c` fprefx: stale_egg threshold was 2*400, C is 2*200 (95408 PASS)
+
+**C locus:** `eat.c:2110` `else if (stale_egg(otmp))`; `include/obj.h:315` MAX_EGG_HATCH_TIME 200 («longest an egg can remain unhatched»); `:316-317` stale_egg ≡ (svm.moves - age) > 2*200 = 400. Single C caller: doeat `:3038` when eating starts (!already_partly_eaten).
+**JS:** `js/eat.js` (+2/−1) + 1 test file.
+**Change:** gate is now `> 2 * MAX_EGG_HATCH_TIME` using the live `js/const.js:1364` export (= 200, C-exact), added to eat.js's existing const.js import (:110; ALREADY edge, no new import — same shape as the already-correct dogmove.js:245 and uhitm.js:1355 inlines). Comment cites obj.h:315-317. New focused test `scripts/fprefx-stale-egg.test.mjs` drives exported doeat headless (carried egg via getobj 'a'; stale gap 500 sits strictly between the C 400 and old-JS 800 thresholds).
+**Verify:** focused test pre-fix 1/2 (stale prints «delicious» — the exact probe symptom) → post-fix 2/2. `node scripts/verify.mjs --fn fprefx` → PASS syntax (1 changed js file: js/eat.js) · PASS rule2 · PASS hidden (verify fprefx: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS; scen-chain-Archeologist-95408: PASS) · PASS reach (fprefx: 1 baseline-PASS session reaches it: 1 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (eat.js not shared). VERIFY: PASS.
+**Named:** none new (fprefx otherwise whole per D-2159; the uhitm.js:1355 / dogmove.js:245 stale inlines already C-exact, untouched).
+**Next:** cliffs block regenerates from the committed board (fprefx row resolved by the PASS).
 ## 2026-10-10 — audit 2622–2630 @8e94854e9: review D-3756/D-3757/D-3758/D-3759/D-3760/D-3761/D-3762/D-3763/D-3764 (9A/0D/0Q, 0 Must-fix) + full rescore 1024/1113
 
 **Reviews:** 2622 throwit/bhit, 2623 makemon cham guard, 2624 Medusa mongone, 2625 mon_poly tail, 2626 teleds_simple, 2627 goto_level order, 2628 quest texts II, 2629 Displaced bits, 2630 known_hitum gate — all ACCEPT, every Verify re-measured (`--reach-all`: 0 worse, 0 regressed; full reach incl. 1015 makemon / 976 distfleeck / 776 obj_resists).

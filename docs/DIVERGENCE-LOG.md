@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3765 — cliffs-head `eat.c` fprefx: stale_egg threshold was 2*400, C is 2*200 (95408 PASS)
+
+- **Status:** shipped (Open cliffs-head `eat.c` fprefx @8e94854e9. D-2159 read once per the history tag — it ported fprefx whole incl. the tripe `rn2(2)` arm; the arm this divergence names (EGG stale_egg gate) is still open.)
+- **Symptom:** scen-chain-Archeologist-95408 step 611/889 kind=rng at eat.c:2115: C `d(10,4)=21 @ fprefx` («Ugh. Rotten egg.») vs JS `rn2(5)=0 @ distfleeck(monmove.js:1170)` («This egg is delicious!») — JS skipped the stale arm's draw, so every later draw shifted. prevEntry `rn2(7)=2 @ doeat(eat.c:3031)` matched (the C rotten-gate roll preceding fprefx).
+- **C locus:** `eat.c:2110` `else if (stale_egg(otmp))`; `include/obj.h:315` MAX_EGG_HATCH_TIME 200 («longest an egg can remain unhatched»); `:316-317` stale_egg ≡ (svm.moves - age) > 2*200 = 400. Single C caller: doeat `:3038` when eating starts (!already_partly_eaten).
+- **JS was:** `js/eat.js:1404` gate `> 2 * 400` (threshold 800 — the D-2159 inline doubled the wrong constant), so eggs with a 400–800-move age gap read fresh and took give_feedback.
+- **Fix:** gate is now `> 2 * MAX_EGG_HATCH_TIME` using the live `js/const.js:1364` export (= 200, C-exact), added to eat.js's existing const.js import (:110; ALREADY edge, no new import — same shape as the already-correct dogmove.js:245 and uhitm.js:1355 inlines). Comment cites obj.h:315-317. New focused test `scripts/fprefx-stale-egg.test.mjs` drives exported doeat headless (carried egg via getobj 'a'; stale gap 500 sits strictly between the C 400 and old-JS 800 thresholds).
+- **JS:** `js/eat.js` (+2/−1) + 1 test file.
+- **Callers:** C's single call site eat.c:3038 (doeat) → JS `js/eat.js:4567` (doeat `!already_partly_eaten` arm) — already wired, unchanged.
+- **Verify:** focused test pre-fix 1/2 (stale prints «delicious» — the exact probe symptom) → post-fix 2/2. `node scripts/verify.mjs --fn fprefx` → PASS syntax (1 changed js file: js/eat.js) · PASS rule2 · PASS hidden (verify fprefx: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS; scen-chain-Archeologist-95408: PASS) · PASS reach (fprefx: 1 baseline-PASS session reaches it: 1 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (eat.js not shared). VERIFY: PASS.
+- **Named omissions:** none new (fprefx otherwise whole per D-2159; the uhitm.js:1355 / dogmove.js:245 stale inlines already C-exact, untouched).
+- **Ledger:** fprefx ported
+- **Next:** cliffs block regenerates from the committed board (fprefx row resolved by the PASS).
+
 ## D-3764 — cliffs-head thitmonst writer: known_hitum weaphit gate counted a wielded lantern as a weapon hit (95312 1040→1492)
 
 - **Status:** shipped (Open cliffs-head `dothrow.c` thitmonst @4b1f3e45b. The row's step-815 RNG divergence had already moved to show_conduct@1040 on HEAD via D-3763 — verified live (worker: RNG 72638/72638 full match); thitmonst's C body verified whole in JS (D-2804/D-3408, all arms read), not re-ported. This iteration fixes the writer of the residual 1040 divergence. Ledger bullet records the declared function verified whole only: known_hitum itself is unrecordable — C staticfn, c-index misses its 10-line signature so no index key exists (D-3249 precedent); the port is preserved in this D-body.)
