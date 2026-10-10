@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3779 cliffs-head menu_loot writer: container-menu dismiss docrt'd, re-picking all Hallu glyphs (95343 599→602)
+
+**C locus:** `pickup.c:2971–3226` use_container (menu loop `:3074`) + `wintty.c` erase_menu_or_text / tty_destroy_nhwindow (corner dismiss = docorner: gbuf resend, no newsym / display-RNG burns) + `display.h:197` what_mon / `:963–968` obj_to_glyph / `:933–936` random_obj_to_glyph (Hallu → random_monster/random_object via display RNG, re-picked per newsym).
+**JS:** `js/pickup.js` (+7/−3) + 1 test file.
+**Change:** dismiss via the shared `await dismiss_nhw_menu()` (corner → erase_menu_or_text/docorner, no burns; the docrt arm stays for offx==0, like C). No new import (already imported :17, used :4843/:5273). New focused test `scripts/inorout-menu-dismiss-hallu.test.mjs` (95343 full replay, C-pinned rows 17–19).
+**Verify:** focused test 0/2 pre-fix → 2/2 post-fix. `node scripts/verify.mjs --fn menu_loot,use_container` → PASS syntax (1 file: js/pickup.js) · PASS rule2 · PASS hidden (verify menu_loot: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; 95343 → flooreffects@602, was 599) · REACH-OK menu_loot 24/24 smoke · note hidden use_container (nothing blocked) · REACH-OK use_container 24/24 smoke · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Movement: `verify menu_loot: 0 PASS, 1 moved past, 0 unchanged, 0 worse`.
+**Named:** none new (use_container split + omits stand; erase_menu_or_text/docorner/docrt untouched; other open-coded docrt-dismiss menus — if any — left for rows with session evidence, no sweep).
+**Next:** 95343's new owner flooreffects@602 (own future row). Do not re-port menu_loot (region-heuristic owner, whole) or the hallu glyph fns (what_mon/mon_to_glyph/obj_to_glyph all C-exact; the bug was dismiss-path burns, not picks). Hallu display-RNG class: any future hallu-screen row first audits dismiss/paint-path burns (docrt vs docorner) before suspecting picks.
 ## 2026-10-10 — D-3778 cliffs-head msummon writer: minion.js makemon sites never ran the in-body threat stop, "You stop searching." printed two messages late (95343 404→599)
 
 **C locus:** `makemon.c:1502–1504` in-body tail (`if (go.occupation) dochugw(mtmp, FALSE)` — "stop fiddling while Rome burns"; OUTSIDE the :1474 MM_NOMSG guard, so it fires for summons) + `minion.c:129` msummon makemon + `minion.c:222/:232/:239` summon_minion makemons.
