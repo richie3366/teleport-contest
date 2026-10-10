@@ -1338,7 +1338,7 @@ async function do_break_wand(obj) {
         const y = (obj.oy | 0) + (ydir[i] | 0);
         if (!isok(x, y)) continue;
 
-        /* C gb.bhitpos single slot; hit_zap reads game.bhitpos, bhitm game._bhitpos */
+        /* C gb.bhitpos single slot; hit reads game.bhitpos, bhitm game._bhitpos */
         if (!game._bhitpos) game._bhitpos = { x: 0, y: 0 };
         game._bhitpos.x = x;
         game._bhitpos.y = y;
