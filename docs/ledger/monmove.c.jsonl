@@ -21,7 +21,7 @@
 {"fn":"mind_blast","c":"583-645","status":"ported","js":["js/monmove.js:mind_blast"],"d":["D-1238"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_everyturn_effect","c":"650-663","status":"ported","js":["js/monmove.js:m_everyturn_effect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_postmove_effect","c":"672-683","status":"ported","js":["js/monmove.js:m_postmove_effect"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dochug","c":"690-989","status":"ported","js":["js/monmove.js:dochug"],"d":["D-2430","D-2090","D-1798"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"dochug","c":"690-989","status":"ported","js":["js/monmove.js:dochug"],"d":["D-3771","D-2430","D-2090","D-1798"],"at":"2026-10-10@455ed3849","note":"stale 2026-09-09"}
 {"fn":"mon_would_take_item","c":"999-1032","status":"ported","js":["js/monmove.js:mon_would_take_item"],"d":["D-3421","D-3416"],"at":"2026-10-04@fbefad9ee","note":"audited D-3421: whole vs C (callee FOOD arms muse.js:440-451; 3 callers wired)"}
 {"fn":"mon_would_consume_item","c":"1036-1050","status":"ported","js":["js/monmove.js:mon_would_consume_item"],"d":["D-2365"],"at":"2026-10-03@bbe63333a"}
 {"fn":"itsstuck","c":"1053-1060","status":"ported","js":["js/monmove.js:itsstuck"],"at":"2026-10-03@bbe63333a"}

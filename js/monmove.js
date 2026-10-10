@@ -2738,10 +2738,12 @@ export async function dochug(mtmp) {
     if (mtmp.mflee && !rn2(40) && can_teleport(mdat)
         && !mtmp.iswiz
         && !noteleport_level(mtmp)) {
+        // C `:747–749` — teleportation costs the turn whether or not
+        // the relocation succeeds; only the stash needs success.
         if (await rloc(mtmp, RLOC_MSG)) {
             await leppie_stash(mtmp);
-            return 0;
         }
+        return 0;
     }
 
     // C mon.c m_respond — shrieker / Medusa / Erinys
@@ -2886,6 +2888,10 @@ export async function dochug(mtmp) {
         if (status !== MMOVE_DIED) {
             ({ inrange, nearby, scared } = await distfleeck(mtmp));
         }
+        // C: monmove.c dochug `:956–957` — m_move reported the monster
+        // died (postmov maps trap-moved/killed to DIED): the turn ends
+        // here, before the idle isgd/Hallu handling and PHASE FOUR.
+        if (status === MMOVE_DIED) return 1;
         if (status === MMOVE_NOMOVES && scared) panicattk = true;
         // C: monmove.c dochug switch — Hallu newsym after 2nd distfleeck
         // for NOMOVES/NOTHING/DONE (appearance still changes when idle).

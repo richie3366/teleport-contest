@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3771 cliffs-head mcalcmove writer: dochug missing `case MMOVE_DIED: return 1` (95231 609→810)
+
+**C locus:** monmove.c:956–957 `case MMOVE_DIED: return 1;` (+ :745–750 flee-teleport unconditional `return 0`). Whole C body read this iteration (:690–989: PHASE ONE–FOUR, every gate manifest-checked vs JS).
+**JS:** js/monmove.js (+9/−2); scripts/dochug-died-noattack.test.mjs (new, 2 its: 609 topline "" + HP:36(90)).
+**Change:** (1) `if (status === MMOVE_DIED) return 1;` immediately after the recalc, C-cited (skips idle isgd/Hallu + PHASE FOUR + quest_talk/cuss exactly like C). (2) flee-teleport `return 0` moved out of the rloc-success gate (C :747–749). No new imports (MMOVE_DIED already module-local); Rule #2 clean; no DIAG/FORCE/seed gates.
+**Verify:** focused test 0/2 pre-fix → 2/2 post-fix. `node scripts/verify.mjs --fn mcalcmove,dochug` → PASS syntax (1 file) · PASS rule2 · PASS hidden (`verify mcalcmove: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`: 95231 → slimed_to_death@810, was 609) · REACH-OK mcalcmove 80/80 · note hidden dochug (nothing blocked) · REACH-OK dochug 80/80 · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) → VERIFY: PASS. Movement: `verify mcalcmove: 0 PASS, 1 moved past, 0 unchanged, 0 worse`. (No --reach-all: both changed paths are unreachable in baseline-PASS by construction — reaching either under old JS diverges RNG (recalc/attack draws), so no PASS session takes them; spreads + full-44 green.)
+**Named:** none new (dochug's pre-existing demon_talk `else if` omit (C :823–824, JS :2804 comment) stands — live export exists (js/minion.js) but no session reaches the MS_BRIBE-nearby arm; wire only with a blocking session).
+**Next:** do not re-port mcalcmove (whole) or dochug's DIED/flee-teleport arms (C-exact). Do not wire demon_talk without a blocking session. 95231's new owner (slimed_to_death@810) re-pops via the regenerated block.
 ## 2026-10-10 — D-3770 seffect cliff writer: Unaware macro family always-false (potionbreathe blindness gate read never-written u.multi/u.Unaware) — 95348 PASS
 
 **C locus:** potion.c:2072 `if (!Blind && !Unaware)` (+ :2077 clears arm); youprop.h:399 `Unaware ≡ multi<0 && (unconscious() || is_fainted())`; trap.c:6776 unconscious (multi<0 && (usleep || "You awake"/"You regain con"/"You are consci" prefixes)); eat.c:3346 is_fainted (uhs==FAINTED); breathe tail :2111–2116 (dknown && kn→makeknown else trycall); sleep gas trap.c:1574–1575 `fall_asleep(-rnd(25), TRUE)` (duration RNG-matched, not the cause).
