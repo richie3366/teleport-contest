@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3778 cliffs-head msummon writer: minion.js makemon sites never ran the in-body threat stop, "You stop searching." printed two messages late (95343 404→599)
+
+**C locus:** `makemon.c:1502–1504` in-body tail (`if (go.occupation) dochugw(mtmp, FALSE)` — "stop fiddling while Rome burns"; OUTSIDE the :1474 MM_NOMSG guard, so it fires for summons) + `minion.c:129` msummon makemon + `minion.c:222/:232/:239` summon_minion makemons.
+**JS:** `js/minion.js` (+13/−1) + 1 test file.
+**Change:** `js/minion.js` only — extend the existing makemon.js import (`imports.mjs --can`: ALREADY, no new edge) with `makemon_appear_msg`; await it with final placement + matching MM flags immediately after each makemon in C order (msummon: first line inside `if (mtmp)`, before result++ and the "appears" pline; summon_minion: 3 sites before emin setup). MM_NOMSG skips only the Norep, never the threat check — C :1474 vs :1502. New focused test `scripts/msummon-appear-threat-stop.test.mjs` (probe-session replay, C recorded rows 404–405).
+**Verify:** focused test 0/2 pre-fix (stash-proven) → 2/2 post-fix. `node scripts/verify.mjs --fn msummon,summon_minion` → PASS syntax (1 changed js file: js/minion.js) · PASS rule2 · PASS hidden (verify msummon: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; scen-sweep-Caveman-95343 → menu_loot at step 599, was 404, +195) · PASS reach (msummon 5/5 REACH-OK) · note hidden summon_minion (nothing blocked at baseline) · PASS reach (summon_minion 4/4 REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (minion.js not shared). VERIFY: PASS.
+**Named:** none new (msummon/summon_minion otherwise whole per D-3250; makemon_appear_msg's set_msg_xy omit stands).
+**Next:** 95343's new owner menu_loot@599 (own future row).
 ## 2026-10-10 — D-3777 cliffs-head exercise writer: thitu post-losehp gate read sticky gameover, skipped A_STR exercise on non-fatal hit (95225 → PASS)
 
 **C locus:** mthrowu.c thitu `:74–155` (hit else-arm `:139–152`: silver `:140–145`, acid burn `:146–149`, losehp `:150`, exercise(A_STR,FALSE) `:151`, return 1 `:153`) + hack.c losehp `:4287` (fatal → urgent_pline + done(DIED), noreturn unless life-saved) + attrib.c exercise `:489–518` (`:509` `-rn2(2)` DEC arm). D-3776's "trap.c:1372 region" was the right SHAPE (losehp→exercise idiom) but the drawn call is thitu's own `:151` — trapeffect_dart_trap `:1251–1321` (read whole) has no exercise call; `:1372` is the rock-trap-only site.
