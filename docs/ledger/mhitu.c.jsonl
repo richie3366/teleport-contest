@@ -27,5 +27,5 @@
 {"fn":"ranged_attk_assessed","c":"2374-2387","status":"by-design","at":"2026-10-01@f572fe77c","note":"#if 0 in C mhitu.c:2367-2388; live equivalent ranged_attk_available (js/monmove.js)"}
 {"fn":"mon_avoiding_this_attack","c":"2393-2405","status":"ported","js":["js/mhitu.js:mon_avoiding_this_attack"],"d":["D-3242"],"at":"2026-10-01@f572fe77c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"ranged_attk_available","c":"2413-2425","status":"ported","js":["js/monmove.js:ranged_attk_available"],"at":"2026-10-03@bbe63333a"}
-{"fn":"passiveum","c":"2435-2613","status":"partial","js":["js/mhitu.js:passiveum"],"omit":"AD_ACID erode_armor/acid_damage; AD_STON attk_protection+poly_when_stoned (JS stones any non-resistant attacker); AD_ENCH drain_item; AT_BOOM rehumanize","at":"2026-10-03@bbe63333a"}
+{"fn":"passiveum","c":"2435-2613","status":"partial","js":["js/mhitu.js:passiveum"],"d":["D-3787"],"at":"2026-10-10@6301e5617","note":"AD_STON attk_protection+poly_when_stoned shipped js/mhitu.js:3038"}
 {"fn":"cloneu","c":"2616-2638","status":"ported","js":["js/sit.js:cloneu"],"at":"2026-10-03@bbe63333a"}
