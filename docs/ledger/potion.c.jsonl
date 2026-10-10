@@ -50,7 +50,7 @@
 {"fn":"H2Opotion_dip","c":"1498-1589","status":"ported","js":["js/potion.js:H2Opotion_dip"],"d":["D-1501"],"at":"2026-10-03@bbe63333a"}
 {"fn":"impact_arti_light","c":"1595-1621","status":"ported","js":["js/potion.js:impact_arti_light"],"at":"2026-09-30@2b25db15c","note":"stale: js/potion.js:3689"}
 {"fn":"potionhit","c":"1625-1928","status":"ported","js":["js/potion.js:potionhit"],"d":["D-3608","D-3425","D-1472"],"at":"2026-10-07@86d1e780b"}
-{"fn":"potionbreathe","c":"1932-2118","status":"ported","js":["js/potion.js:potionbreathe"],"d":["D-1477"],"at":"2026-10-03@bbe63333a"}
+{"fn":"potionbreathe","c":"1932-2118","status":"ported","js":["js/potion.js:potionbreathe"],"d":["D-3770","D-1477"],"at":"2026-10-10@130fbe6fd"}
 {"fn":"mixtype","c":"2122-2209","status":"ported","js":["js/potion.js:mixtype"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dip_ok","c":"2214-2227","status":"ported","js":["js/potion.js:dip_ok"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"dip_hands_ok","c":"2231-2237","status":"ported","js":["js/potion.js:dip_hands_ok"],"d":["D-3402","D-3380"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}

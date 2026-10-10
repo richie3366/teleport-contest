@@ -27,21 +27,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Trail stash (D-3739 latent):** JS per-level vs C arrival-clear; rings agreed — not the cause.
 ## Don't re-check (≤15)
 
-- D-1790…D-3769 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3769) reached no session — no pole-lava row.
+- D-1790…D-3770 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3770) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3769.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3769 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3770.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3770 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3770: potion.js both gates now call the live eat.js `Unaware()` export (already imported :186, used :900/:1157 — no new edge) with C cites; deleted `Unaware Named: partial Unaware clones left as-is (usleep arm works; faint+prefix arms dead): zap.js:4595,
 - D-3769: (1) deleted the flush + C-cite comment; dropped flush_topl_more from the local dynamic import (still used at :410/:1456/:2051 — no module-edge change) Named: (1) gold_detect's flush_topl_more (js/detect.js:2051) keeps the same spurious pattern with
 - D-3768: none — no js/. Named: none (nothing ported; the writer question is CLOSED — no writer exists for C-fatal inputs 
 - D-3767: none — no js/ (docs-only entry). Named: none — nothing ported, nothing omitted.
@@ -56,5 +57,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3758: `js/mklev.js` — both reached copies call `await mongone(was)` at both disposals in C order with C cites (reject + `was = null`; accept after invent tr Named: (1) generic `create_object` Medusa copy (mklev.js:22724) keeps the sync splice — staticall
 - D-3757: `js/makemon.js` — guard is now `!Protection_from_shape_changers() && mcham !== NON_PM` (C order, C-cited); imports the live display.js helper (module  Named: none new (makemon's remaining partial omits unchanged; m_initinv stays ported whole; JS's 
 - D-3756: `js/dothrow.js` — replaced the inline loop with the C-ordered bhit call (`tethered_weapon ? Named: none new (bhit's remaining omits unchanged; throwit stays ported).
-- D-3755: none (no `js/`). Named: none (distfleeck/set_apparxy bodies stand faithful; the writer is TBD by the probe — not o
 <!-- landmarks:end -->
