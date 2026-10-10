@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-10** — full `sessions` on `8e94854e9`
-(audit **2622–2630**, 2026-10-10T03:49:33.147Z).
+Score last measured: **2026-10-10** — full `sessions` on `8009035ee`
+(audit **2631–2638**, 2026-10-10T08:19:42.028Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`361+1.74/turn` (R² 0.79).
+`348+1.56/turn` (R² 0.78).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-10 02:11Z, ours 01:44Z)** | **19 / 44**, 8,856 / 11,265 pts, RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** |
+| **Held-out (judge 2026-10-10 07:46Z, ours 07:19Z)** | **19 / 44**, 8,856 / 11,265 pts, RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `361+1.74/turn` (R² 0.79) |
+| Speed label | `348+1.56/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,856 vs lockwo 7,866; their RNG 61.7 % vs our 46.4 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,856** (+272), RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** at judge 2026-10-10 02:11Z (ours 01:44Z: through D-3762).
-**Corpus — picker and proxy (2026-10-10 ~03:59Z, `8e94854e9`; 1113/1113 entries, 0 unrecorded):**
-**1024 / 1113** PASS, RNG 20010249/20441637 (**97.89 %**), screens 331312/347076 (95.5 %); `full: true`. Marathons: 85/160. Worst families: `scen-sweep` 17/50 (RNG 86.6 %), `scen-worldtour` 17/50 (95.1 %), `scen-chain` 33/40 (99.1 %), `scen-trek` 18/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; 9 FAIL→PASS (D-3756 ×3, D-3759 ×2, D-3761/D-3762 ×2, collateral ×2). Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2630 (index; no row 1618): 1238 ACCEPT, 58 WITH-DEBT, 109 QUALITY-RISK (2622–2630: 9A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,856 vs lockwo 7,866; their RNG 61.7 % vs our 46.4 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,856** (+0), RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** at judge 2026-10-10 07:46Z (ours 07:19Z: through D-3774).
+**Corpus — picker and proxy (2026-10-10 ~08:28Z, `8009035ee`; 1113/1113 entries, 0 unrecorded):**
+**1028 / 1113** PASS, RNG 20148225/20441637 (**98.56 %**), screens 334727/347076 (96.4 %); `full: true`. Marathons: 89/160. Worst families: `scen-sweep` 19/50 (RNG 90.6 %), `scen-worldtour` 17/50 (96.0 %), `scen-chain` 34/40 (100 %), `scen-trek` 19/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; 4 FAIL→PASS (D-3765 95408, D-3769 95506, D-3770 95348, D-3774 95332). Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2638 (index; no row 1618): 1244 ACCEPT, 60 WITH-DEBT, 109 QUALITY-RISK (2631–2638: 6A/2D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** getpos writers shipped D-3769 (95506 PASS; 95311 topline fixed + RNG-full, residual hallu-fake paint → [measure] row pops if getpos still heads); else the regenerated cliffs head.
-**This iter:** gethungry cliff (row-2; row-1 randomize exhausted D-3767/D-3768, skipped per precedent): writer dotravel_target — NOPATH gate skipped domove, engulfed hero never attacked (95332@817).
+**Next:** mhitm_really_poison cliff (row-2; row-1 randomize exhausted D-3767/D-3768, skipped per precedent): 95302@1122 poisoned-bite wording split, ledger ported — read that D-entry once, port the arm this divergence names.
+**This iter:** audit 2631–2638 (review-only; no port work): 8 SHAs reviewed (6A/2D/0Q, 0 Must-fix), full rescore 1028/1113 committed.
 
 ## Parked (diagnose only — do not implement)
 

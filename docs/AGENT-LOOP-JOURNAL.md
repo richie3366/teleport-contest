@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — audit 2631–2638 @8009035ee: review D-3765/D-3766/D-3769/D-3770/D-3771/D-3772/D-3773/D-3774 (6A/2D/0Q, 0 Must-fix) + full rescore 1028/1113
+
+Reviews 2631–2638, one per JS-touching SHA since a50db7286 (D-3767/D-3768 skipped: no js/). Every re-measure re-ran with `--reach-all`: 4 PASS (95408/95506/95348/95332) + 4 moved, all matching their D-logs; full reaches (1012 gethungry, 1009 mcalcmove, 912 m_move, 528 dochug, 475 rnd_otyp) 0 regressed. Debts (no Must-fix — no C-wrong): 2633 the promised 95311 hallu-residual [measure] row was never queued (residual RNG-full, below block cutoff, untracked); 2637 the m_move ledger row silently lost its wormno omit text (restore via `ledger.mjs set` inside a real iteration). Sharp edge checked and cleared: C findtravelpath's bare `:1515 return FALSE` vs the `found:` compensation (2638 review). Full rescore `full: true`: 1028/1113 PASS (+4), RNG 98.56 %, screens 96.4 %, marathons 89/160; 0 PASS→FAIL. Public 44/44 (RNG 792838/792838, Scr 11405/11405). Held-out static: 19/44, 8,856 pts, RNG 46.4 % (board +4, held-out +0 — falsifier watch per CURRENT).
 ## 2026-10-10 — D-3774 cliffs-head gethungry writer: dotravel_target NOPATH gate skipped domove, engulfed first-step attack never ran (95332 PASS)
 
 **C locus:** `cmd.c:5348–5377` dotravel_target (unconditional `domove()` at :5375) + `hack.c:2724–2737` domove_core (travel recompute first, then `if (u.uswallow)` zeroes dx/dy and attacks u.ustuck) + `hack.c:1518–1522` findtravelpath `found:` (NOPATH zeroes dx/dy + nomul(0)) + `hack.c:4160–4173` nomul (ends running).

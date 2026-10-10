@@ -2640,3 +2640,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2628-4b1f3e45b-quest-arrival-texts-ii.md](./2628-4b1f3e45b-quest-arrival-texts-ii.md) | `4b1f3e45b` | D-3762 level_tele-head quest arrival texts II (2 PASS + 2 moved) | **ACCEPT** |
 | [2629-1311dbb62-displaced-stored-bits.md](./2629-1311dbb62-displaced-stored-bits.md) | `1311dbb62` | D-3763 distfleeck-head writer Displaced stored H||E bits (1 moved) | **ACCEPT** |
 | [2630-8e94854e9-known-hitum-weaphit-gate.md](./2630-8e94854e9-known-hitum-weaphit-gate.md) | `8e94854e9` | D-3764 thitmonst-head writer known_hitum weaphit gate (1 moved) | **ACCEPT** |
+| [2631-702b46212-fprefx-stale-egg-threshold.md](./2631-702b46212-fprefx-stale-egg-threshold.md) | `702b46212` | D-3765 fprefx-head stale_egg threshold 2*200 (1 PASS) | **ACCEPT** |
+| [2632-b12de5106-rnd-otyp-namedesc-descr-idx.md](./2632-b12de5106-rnd-otyp-namedesc-descr-idx.md) | `b12de5106` | D-3766 migrate_orc-head writer rnd_otyp shuffled descr (1 moved) | **ACCEPT** |
+| [2633-130fbe6fd-getpos-writers-traps-strip.md](./2633-130fbe6fd-getpos-writers-traps-strip.md) | `130fbe6fd` | D-3769 getpos-row writers trap-map + reveal strip (1 PASS, debt: unqueued measure row) | **ACCEPT-WITH-DEBT** |
+| [2634-455ed3849-unaware-macro-family.md](./2634-455ed3849-unaware-macro-family.md) | `455ed3849` | D-3770 seffect-row writer Unaware macro family (1 PASS) | **ACCEPT** |
+| [2635-b39d64036-dochug-died-return.md](./2635-b39d64036-dochug-died-return.md) | `b39d64036` | D-3771 mcalcmove-row writer dochug DIED return (1 moved) | **ACCEPT** |
+| [2636-1eee984bc-impaired-hstun-bad-rock.md](./2636-1eee984bc-impaired-hstun-bad-rock.md) | `1eee984bc` | D-3772 confdir-row writers HStun + live bad_rock (1 moved) | **ACCEPT** |
+| [2637-9352b7e56-m-canseeu-live-invis.md](./2637-9352b7e56-m-canseeu-live-invis.md) | `9352b7e56` | D-3773 m_move-row writer m_canseeu live Invis (1 moved, debt: dropped m_move omit) | **ACCEPT-WITH-DEBT** |
+| [2638-8009035ee-dotravel-unconditional-domove.md](./2638-8009035ee-dotravel-unconditional-domove.md) | `8009035ee` | D-3774 gethungry-row writer dotravel_target unconditional domove (1 PASS) | **ACCEPT** |
