@@ -2645,17 +2645,20 @@ export async function canletgo(obj, word) {
 }
 
 /**
- * C ref: invent.c freeinv + freeinv_core — remove from invent; gold sets
- * disp.botl. JS botl `$:` reads game._goldCount (addinv / container put-in
- * maintain it); decrement here so drop paints $:0 like C money_cnt.
+ * C ref: invent.c freeinv `:1403–1409` — extract from invent, pickup_prev=0,
+ * freeinv_core, update_inventory. No owornmask touch: C never clears it
+ * here — dropz's set* clears slot+bit (a zeroing fired a spurious setworn
+ * impossible on still-slotted drops, D-3791). Gold sets disp.botl; JS botl
+ * `$:` reads game._goldCount (addinv / container put-in maintain it);
+ * decrement here so drop paints $:0 like C money_cnt.
  */
 function freeinv_drop(obj) {
     const inv = game.invent || [];
     const idx = inv.indexOf(obj);
     if (idx >= 0) inv.splice(idx, 1);
-    obj.owornmask = 0;
     obj.nobj = null;
-    freeinv_core(obj);
+    obj.pickup_prev = 0; // C `:1406`
+    freeinv_core(obj); // C `:1407`
     // where left for place_object to set OBJ_FLOOR
     // C invent.c freeinv_core — COIN_CLASS → disp.botl = TRUE; return
     if (obj.oclass === COIN_CLASS) {
@@ -2663,6 +2666,7 @@ function freeinv_drop(obj) {
         if (!game.flags) game.flags = {};
         game.flags.botl = true;
     }
+    update_inventory(); // C `:1408`
 }
 
 /**

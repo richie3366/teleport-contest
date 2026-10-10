@@ -21,7 +21,7 @@
 {"fn":"useup","c":"1321-1333","status":"split","js":["js/invent.js:useup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mapped js/detect.js:useup is a partial local clone (no update_inventory; quan==1 splices without useupall); whole C body at js/invent.js:useup"}
 {"fn":"consume_obj_charge","c":"1337-1346","status":"ported","js":["js/invent.js:consume_obj_charge"],"at":"2026-10-03@bbe63333a"}
 {"fn":"freeinv_core","c":"1356-1399","status":"ported","js":["js/invent.js:freeinv_core"],"d":["D-3742","D-2588"],"at":"2026-10-09@29f19e6a4"}
-{"fn":"freeinv","c":"1403-1409","status":"ported","js":["js/invent.js:freeinv"],"at":"2026-10-03@bbe63333a"}
+{"fn":"freeinv","c":"1403-1409","status":"ported","js":["js/invent.js:freeinv"],"d":["D-3791"],"at":"2026-10-10@fd2c769ce"}
 {"fn":"delallobj","c":"1413-1426","status":"ported","js":["js/dbridge.js:delallobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"delobj","c":"1430-1433","status":"ported","js":["js/mkobj.js:delobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"delobj_core","c":"1438-1462","status":"ported","js":["js/mkobj.js:delobj_core"],"at":"2026-10-03@bbe63333a"}
