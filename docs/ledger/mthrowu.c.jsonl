@@ -1,6 +1,6 @@
 {"fn":"rnd_hallublast","c":"52-55","status":"ported","js":["js/mthrowu.js:rnd_hallublast"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ROLL_FROM = HALLUBLASTS[rn2(len)], full table ported"}
 {"fn":"m_has_launcher_and_ammo","c":"58-70","status":"ported","js":["js/mthrowu.js:m_has_launcher_and_ammo"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
-{"fn":"thitu","c":"75-155","status":"ported","js":["js/mthrowu.js:thitu"],"d":["D-2796"],"at":"seed@a30a7de84"}
+{"fn":"thitu","c":"75-155","status":"ported","js":["js/mthrowu.js:thitu"],"d":["D-3777","D-2796"],"at":"2026-10-10@f486e0541"}
 {"fn":"drop_throw","c":"162-196","status":"ported","js":["js/mthrowu.js:drop_throw"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mulch/ship/place+passive arms live; down_gate gate folded into ship_object (MIGR_NOWHERE=-1)"}
 {"fn":"monmulti","c":"201-258","status":"ported","js":["js/weapon.js:monmulti"],"d":["D-3023"],"at":"2026-09-28@0bb1eb02e"}
 {"fn":"monshoot","c":"262-314","status":"ported","js":["js/mthrowu.js:monshoot"],"d":["D-2037"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: m_shot envelope + multishot loop + dead-cancel matches C"}
