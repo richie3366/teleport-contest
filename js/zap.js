@@ -1777,6 +1777,9 @@ async function maybe_destroy_item(carrier, obj, dmgtyp) {
                     await finish_losehp_done();
                     if (game.program_state?.gameover) return dmg;
                 }
+                // C hack.c losehp:4289–4291 — maybe_wail runs inline;
+                // drain the deferred flag (zhitu :2322 shape).
+                await finish_maybe_wail();
                 exercise(A_STR, false);
             }
         }
@@ -4649,6 +4652,9 @@ export async function lightdamage(obj, ordinary, amt) {
         // C: might rehumanize(); fatal only for Unchanging — losehp
         // poly-death still named (hack.c rehumanize deferred).
         losehp(maybe_half_phys(dmg), buf, NO_KILLER_PREFIX);
+        // C hack.c losehp:4289–4291 — maybe_wail runs inline;
+        // drain the deferred flag (zhitu :2322 shape).
+        await finish_maybe_wail();
     }
     return dmg;
 }
@@ -6975,6 +6981,9 @@ async function zap_updown(obj) {
                 // still lands. Return only on true death.
                 if (game.program_state?.gameover) return disclose;
             }
+            // C hack.c losehp:4289–4291 — maybe_wail runs inline;
+            // drain the deferred flag (zhitu :2322 shape).
+            await finish_maybe_wail();
             const otmp = mksobj_at(ROCK, x, y, false, false);
             if (otmp) {
                 xname(otmp);
@@ -7320,6 +7329,10 @@ async function backfire(otmp) {
         await finish_losehp_done();
         return;
     }
+    // C hack.c losehp:4289–4291 — maybe_wail runs inline; drain the
+    // deferred flag before continuing (zhitu :2322 shape) so a low-HP
+    // turn cannot wail a turn late.
+    await finish_maybe_wail();
     useupall(otmp);
 }
 
@@ -7373,6 +7386,9 @@ export async function dozap() {
                 await finish_losehp_done();
                 if (game.program_state?.gameover) return 1;
             }
+            // C hack.c losehp:4289–4291 — maybe_wail runs inline;
+            // drain the deferred flag (zhitu :2322 shape).
+            await finish_maybe_wail();
         }
     } else {
         game.current_wand = obj;

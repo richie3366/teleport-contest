@@ -29,17 +29,17 @@
 {"fn":"zappable","c":"2514-2522","status":"ported","js":["js/zap.js:zappable"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wrest-last-charge You() message deferred"}
 {"fn":"do_enlightenment_effect","c":"2525-2532","status":"ported","js":["js/zap.js:do_enlightenment_effect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zapnodir","c":"2539-2602","status":"ported","js":["js/zap.js:zapnodir"],"d":["D-1427","D-1412","D-1404","D-1395","D-1380","D-1379"],"at":"2026-10-03@bbe63333a"}
-{"fn":"backfire","c":"2605-2614","status":"ported","js":["js/zap.js:backfire"],"d":["D-1416"],"at":"2026-10-03@bbe63333a"}
+{"fn":"backfire","c":"2605-2614","status":"ported","js":["js/zap.js:backfire"],"d":["D-3795","D-1416"],"at":"2026-10-10@6f999f526"}
 {"fn":"zap_ok","c":"2618-2623","status":"ported","js":["js/zap.js:zap_ok"],"at":"2026-10-02@1b5b36bb7","note":"stale: js/zap.js:2648 whole C body (WAND_CLASS SUGGEST else EXCLUDE) + cmd getdir caller wired"}
-{"fn":"dozap","c":"2627-2683","status":"ported","js":["js/zap.js:dozap"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
+{"fn":"dozap","c":"2627-2683","status":"ported","js":["js/zap.js:dozap"],"d":["D-3795","D-3408"],"at":"2026-10-10@6f999f526"}
 {"fn":"boxlock_invent","c":"2687-2702","status":"ported","js":["js/lock.js:boxlock_invent"],"d":["D-3074"],"at":"2026-09-29@107847759"}
 {"fn":"zapyourself","c":"2705-3013","status":"ported","js":["js/zap.js:zapyourself"],"d":["D-2065","D-1446","D-1435","D-1434","D-1433","D-1410"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ubreatheu","c":"3017-3022","status":"ported","js":["js/zap.js:ubreatheu"],"at":"2026-10-03@bbe63333a"}
-{"fn":"lightdamage","c":"3026-3056","status":"ported","js":["js/zap.js:lightdamage"],"d":["D-1366"],"at":"2026-10-03@bbe63333a"}
+{"fn":"lightdamage","c":"3026-3056","status":"ported","js":["js/zap.js:lightdamage"],"d":["D-3795","D-1366"],"at":"2026-10-10@6f999f526"}
 {"fn":"flashburn","c":"3060-3080","status":"ported","js":["js/zap.js:flashburn"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"zap_steed","c":"3087-3141","status":"ported","js":["js/zap.js:zap_steed"],"d":["D-1480","D-1479","D-1478","D-1474","D-1473","D-1471"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cancel_monst","c":"3150-3215","status":"ported","js":["js/zap.js:cancel_monst"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278","note":"stale 2026-09-15"}
-{"fn":"zap_updown","c":"3219-3411","status":"ported","js":["js/zap.js:zap_updown"],"d":["D-1485","D-1466","D-1465","D-1456","D-1454","D-1444"],"at":"2026-10-03@bbe63333a"}
+{"fn":"zap_updown","c":"3219-3411","status":"ported","js":["js/zap.js:zap_updown"],"d":["D-3795","D-1485","D-1466","D-1465","D-1456","D-1454"],"at":"2026-10-10@6f999f526"}
 {"fn":"zapsetup","c":"3415-3418","status":"ported","js":["js/zap.js:zapsetup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zapwrapup","c":"3421-3427","status":"ported","js":["js/zap.js:zapwrapup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"weffects","c":"3431-3476","status":"ported","js":["js/zap.js:weffects"],"d":["D-1461","D-1460","D-1459","D-1458","D-1452","D-1451"],"at":"2026-10-03@bbe63333a"}
@@ -73,7 +73,7 @@
 {"fn":"u_adtyp_resistance_obj","c":"5676-5698","status":"ported","js":["js/invent.js:u_adtyp_resistance_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"inventory_resistance_check","c":"5710-5718","status":"ported","js":["js/invent.js:inventory_resistance_check"],"at":"2026-10-03@bbe63333a"}
 {"fn":"item_what","c":"5722-5763","status":"ported","js":["js/invent.js:item_what"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
-{"fn":"maybe_destroy_item","c":"5798-5954","status":"ported","js":["js/zap.js:maybe_destroy_item"],"d":["D-3612","D-3408","D-2164","D-1368"],"at":"2026-10-07@02ce4e16d"}
+{"fn":"maybe_destroy_item","c":"5798-5954","status":"ported","js":["js/zap.js:maybe_destroy_item"],"d":["D-3795","D-3612","D-3408","D-2164","D-1368"],"at":"2026-10-10@6f999f526"}
 {"fn":"destroy_items","c":"5965-6097","status":"ported","js":["js/zap.js:destroy_items"],"d":["D-2454"],"at":"seed@a30a7de84"}
 {"fn":"resist","c":"6100-6158","status":"split","js":["js/zap.js:resist","js/explode.js:resist","js/music.js:resist","js/pray.js:resist","js/mhitm.js:resist_poly"],"d":["D-3212","D-2366","D-2116"],"at":"2026-10-01@1eadda2ce"}
 {"fn":"wishcmdassist","c":"6165-6219","status":"ported","js":["js/zap.js:wishcmdassist"],"d":["D-2484"],"at":"2026-10-01@6e06fa8e7","note":"stale: js/zap.js:7240 whole C body present (D-2484); declared omits are siblings/caller not callees (wish_history_add/menu zap.c:6227/6275, MAXWISHTRY retry loop in makewish); caller wired zap.js:7391"}

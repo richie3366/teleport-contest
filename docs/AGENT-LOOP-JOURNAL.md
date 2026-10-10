@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3795 cliffs row-2 flash_str writer: backfire never drained the deferred wail — stale CwnAnnwn wail ate step 1000's key (95343 → PASS)
+
+**C locus:** `zap.c:2605–2614` backfire (losehp `:2612`, wail inline via `hack.c:4289–4291`) + same-file ride-along losehp sites: maybe_destroy_item `:5947`, lightdamage `:3024–3056`, zap_updown `:3310–3320`, dozap self-zap `:2661–2663`. Sole backfire caller dozap `:2647–2652`.
+**JS:** `js/zap.js` (+16/−0) + 1 test file.
+**Change:** `await finish_maybe_wail()` after each site's done-check (zhitu `:2319–2322` oil shape; already imported at zap.js:256, no new edge), each C-cited. New test `scripts/backfire-wail-drain.test.mjs` (recipe-prefix 1001 moves; asserts the machine-recorded C toplines at steps 999–1000 plus no CwnAnnwn).
+**Verify:** focused test 0/1 pre-fix (stash-proven) → 1/1 post-fix. `node scripts/verify.mjs --fn flash_str,backfire,dozap,lightdamage,maybe_destroy_item,zap_updown` → PASS syntax (1 changed js file: js/zap.js) · PASS rule2 · PASS hidden (`verify flash_str: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; scen-sweep-Caveman-95343: PASS) · REACH-OK flash_str 24/24 smoke + backfire 24/24 smoke + dozap 11/11 + lightdamage 24/24 smoke + maybe_destroy_item 37/37 + zap_updown 24/24 smoke · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (zap.js not shared) → VERIFY: PASS. Movement: `verify flash_str: 1 PASS, 0 moved past, 0 unchanged, 0 worse`.
+**Named:** none new, except lightdamage's pre-existing fatal tail (C done-noreturn; JS returns dmg with no done-check — unprobed, callers unaudited, untouched).
+**Next:** flash_str row resolves (95343 PASS). Row-1 falsifier stands: `verify randomize_gem_colors` naming a non-void (rngM>0) session. Other-file losehp-without-drain sites are future cliffs when a session blocks on them (grep: apply/dig/fountain/muse/music/pickup/spell/uhitm/mcastu/detect; mdamageu needs none — direct decrement like C).
 ## 2026-10-10 — D-3794 cliffs row-2 look_here writers: mzapwand ungated dknown pre-set under Hallu + mergable opoisoned≡otrapped alias (95343 moved, 95502 PASS)
 
 **C locus:** muse.c:165–191 mzapwand (else arm :187 `an(xname(otmp))`) + objnam.c xname_flags :627 (`if (!Blind && !gd.distantname) observe_object`) + o_init.c:442 observe_object (`if (oindx >= FIRST_OBJECT && !Hallucination)` — zero observing under Hallu); invent.c:4379+ mergable + include/obj.h:139 `#define opoisoned otrapped` (one bit: poison on weapons, trap on containers).
