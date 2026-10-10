@@ -18,7 +18,7 @@
 {"fn":"mon_has_friends","c":"1371-1391","status":"ported","js":["js/muse.js:mon_has_friends"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_likes_objpile_at","c":"1395-1415","status":"ported","js":["js/muse.js:mon_likes_objpile_at"],"at":"2026-09-29@d27c7b945","note":"stale: js/muse.js:597"}
 {"fn":"find_offensive","c":"1421-1594","status":"ported","js":["js/muse.js:find_offensive"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
-{"fn":"mbhitm","c":"1597-1703","status":"ported","js":["js/muse.js:mbhitm"],"d":["D-3420"],"at":"2026-10-04@3043e75f2"}
+{"fn":"mbhitm","c":"1597-1703","status":"ported","js":["js/muse.js:mbhitm"],"d":["D-3776","D-3420"],"at":"2026-10-10@7646f6dc1"}
 {"fn":"fhito_loc","c":"1707-1726","status":"ported","js":["js/muse.js:fhito_loc"],"d":["D-3033"],"at":"2026-09-28@1b942d6a1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbhit","c":"1734-1812","status":"ported","js":["js/muse.js:mbhit"],"d":["D-3422","D-1484"],"at":"2026-10-04@ca5a16a92"}
 {"fn":"buzz_force_miss","c":"1815-1818","status":"ported","js":["js/muse.js:buzz_force_miss"],"at":"2026-10-03@bbe63333a"}
