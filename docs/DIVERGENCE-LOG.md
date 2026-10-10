@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-3768 — [measure] `randomize_gem_colors` step-0 void paradox specified: geom boundary + C Oops-tail on both probes (no js/)
+
+- **Status:** [measure] (Open — cliffs head `o_init.c` randomize_gem_colors, 2 corpus blocks; owner already whole + SYMPTOM park per D-3767, both preserved; no writer nameable from show+brief — deliverable is this owner's `[measure]` row with the C-side measurement, no js/.)
+- **Symptom:** the paradox — board attributes step-0 RNG divergence (C `rn2(2) @ randomize_gem_colors(o_init.c:89)` vs JS nothing, rngM/scrM 0) on inputs where C itself dies mid-session. C-side ground truth, all measured this iteration at HEAD: (95230, 511 steps) `geom-probe --step 277` → C rng 16599 / JS rng 16599, identical extents, 0 differing cells; `geom-probe --step 278` → JS throws `ledger_to_dnum(-1)` (migrate←mlevel_tele_trap). Recording: C's last draws at step 277 (`rn2(8) @ confdir`, `rn2(40)/rn2(25) @ dochug`, `rn2(5) @ distfleeck` — ordinary monster-phase), then steps 278..510 (233) all `["","Oops..."]` with 0 draws each. (95244, 723 steps) mirrors: last draws at 507 (`rn2(5) @ distfleeck`, 2× `m_move`), steps 508..722 (215) all Oops zero-draw; `geom-probe --step 506` → 12545/12545, 0 cells differ.
+- **C locus:** `o_init.c:85–109` (attributed owner — whole in JS, D-3767) + the real event `trap.c:498`/`teleport.c:2095`/`dungeon.c:1401–1416` portal panic (D-3733: C SIGABRTs frame-for-frame).
+- **JS was:** unchanged (measure only). Boundary razor-sharp at HEAD: full C/JS agreement through the last live step, identical-fatal throw at the crash step — "JS draws nothing" is the runner voiding the log on throw (D-3241 mechanism), not a missing arm.
+- **Fix:** none — no js/. Wrote the owner's `[measure]` row (Measurements section) specifying the paradox with the probe commands + the recorder-screen detector (trailing Oops + zero-RNG tail, both measured above) for D-3733's scorer exclusion; references the D-3767 SYMPTOM park + D-3733 C-CRASH park.
+- **JS:** none. **Callers:** n/a (measure).
+- **Verify:** `node scripts/verify.mjs --fn randomize_gem_colors` → PASS syntax (0 files) · PASS rule2 · FAIL hidden `verify randomize_gem_colors: 0 PASS, 0 moved past, 2 unchanged, 0 worse → NO MOVEMENT` (both probes still step-0 voids) · PASS reach (80/80 spread of 1025) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a [measure] (no js/; D-3748/D-3755 precedent).
+- **Named omissions:** none (nothing ported; the writer question is CLOSED — no writer exists for C-fatal inputs — not deferred).
+- **Next:** row stays head as parked SYMPTOM + specified [measure] until the tooling falsifier lands (supervisor: scorer C-panic exclusion or crash-free re-record). Do not re-measure the void; do not re-port the owner/throw path. Next actionable cliff: getpos (95311/95506).
+
 ## D-3767 — cliffs-head `randomize_gem_colors`: owner already whole, probes still D-3733 C-crash voids → park SYMPTOM, no js/
 
 - **Status:** parked SYMPTOM (Open — cliffs head `o_init.c` randomize_gem_colors, 2 corpus blocks; D-3241 read once per the row's history tag — its mechanism ("the runner voids the run on the throw, so the first C RNG entry becomes the owner") is exactly this divergence, but its writer fix does not apply: the throw here is C-identical per D-3733. Owner proven already-whole a fourth time (D-3241/D-3732/D-3746); no writer nameable from show+brief; no js/ in this commit.)

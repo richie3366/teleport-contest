@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3768 [measure] `randomize_gem_colors` step-0 void paradox specified: geom boundary + C Oops-tail on both probes (no js/)
+
+**C locus:** `o_init.c:85–109` (attributed owner — whole in JS, D-3767) + the real event `trap.c:498`/`teleport.c:2095`/`dungeon.c:1401–1416` portal panic (D-3733: C SIGABRTs frame-for-frame).
+**JS:** none. **Callers:** n/a (measure).
+**Change:** none — no js/. Wrote the owner's `[measure]` row (Measurements section) specifying the paradox with the probe commands + the recorder-screen detector (trailing Oops + zero-RNG tail, both measured above) for D-3733's scorer exclusion; references the D-3767 SYMPTOM park + D-3733 C-CRASH park.
+**Verify:** `node scripts/verify.mjs --fn randomize_gem_colors` → PASS syntax (0 files) · PASS rule2 · FAIL hidden `verify randomize_gem_colors: 0 PASS, 0 moved past, 2 unchanged, 0 worse → NO MOVEMENT` (both probes still step-0 voids) · PASS reach (80/80 spread of 1025) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a [measure] (no js/; D-3748/D-3755 precedent).
+**Named:** none (nothing ported; the writer question is CLOSED — no writer exists for C-fatal inputs — not deferred).
+**Next:** row stays head as parked SYMPTOM + specified [measure] until the tooling falsifier lands (supervisor: scorer C-panic exclusion or crash-free re-record). Do not re-measure the void; do not re-port the owner/throw path. Next actionable cliff: getpos (95311/95506).
 ## 2026-10-10 — D-3767 cliffs-head `randomize_gem_colors`: owner already whole, probes still D-3733 C-crash voids → park SYMPTOM, no js/
 
 **C locus:** `o_init.c:85–109` randomize_gem_colors (two `rn2(2)` gates + `rn2(4)` fluorite switch, all arms) + sole caller `:189` — already whole in JS, not re-ported.
