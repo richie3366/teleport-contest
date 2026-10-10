@@ -37,7 +37,7 @@
 {"fn":"m_avoid_kicked_loc","c":"1297-1308","status":"ported","js":["js/mon.js:m_avoid_kicked_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_avoid_soko_push_loc","c":"1313-1323","status":"ported","js":["js/mon.js:m_avoid_soko_push_loc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_search_items","c":"1330-1450","status":"ported","js":["js/monmove.js:m_search_items"],"d":["D-2047"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_move","c":"1715-2075","status":"partial","js":["js/monmove.js:m_move"],"omit":"(1) C `:1769–1770` wormno early-goto (worms skip all specials incl. tame/covetous/shk/mail/Tengu) still absent — no session names it; worms are never covetous so this arm is unaffected; ships on its own falsifier.","d":["D-3749","D-3702","D-3596","D-3572","D-3566","D-3562"],"at":"2026-10-09@fc05190da"}
+{"fn":"m_move","c":"1715-2075","status":"partial","js":["js/monmove.js:m_move"],"d":["D-3773","D-3749","D-3702","D-3596","D-3572","D-3566"],"at":"2026-10-10@1eee984bc"}
 {"fn":"m_move_aggress","c":"2088-2117","status":"ported","js":["js/monmove.js:m_move_aggress"],"d":["D-2900"],"at":"seed@a30a7de84"}
 {"fn":"can_hide_under_obj","c":"2121-2167","status":"ported","js":["js/monmove.js:can_hide_under_obj"],"d":["D-2340"],"at":"2026-10-01@e45cb9654","note":"stale: js/monmove.js:1336"}
 {"fn":"dissolve_bars","c":"2170-2178","status":"ported","js":["js/hack.js:dissolve_bars"],"at":"2026-10-03@bbe63333a"}
