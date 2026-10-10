@@ -61,7 +61,7 @@
 {"fn":"badman","c":"3194-3239","status":"ported","js":["js/objnam.js:badman"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"wishymatch","c":"3243-3338","status":"ported","js":["js/readobjnam.js:wishymatch"],"d":["D-3015","D-2103","D-2013"],"at":"2026-09-28@32055fa52"}
 {"fn":"rnd_otyp_by_wpnskill","c":"3432-3452","status":"ported","js":["js/readobjnam.js:rnd_otyp_by_wpnskill"],"d":["D-3403","D-2851"],"at":"2026-10-04@7a3ae7a92"}
-{"fn":"rnd_otyp_by_namedesc","c":"3455-3529","status":"ported","js":["js/readobjnam.js:rnd_otyp_by_namedesc"],"d":["D-3403","D-2084"],"at":"2026-10-04@7a3ae7a92"}
+{"fn":"rnd_otyp_by_namedesc","c":"3455-3529","status":"ported","js":["js/readobjnam.js:rnd_otyp_by_namedesc"],"d":["D-3766","D-3403","D-2084"],"at":"2026-10-10@702b46212"}
 {"fn":"shiny_obj","c":"3532-3535","status":"ported","js":["js/mklev.js:shiny_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_wallprop_from_str","c":"3539-3550","status":"ported","js":["js/readobjnam.js:set_wallprop_from_str"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wizterrainwish","c":"3554-3916","status":"ported","js":["js/readobjnam.js:wizterrainwish"],"d":["D-3197","D-1304","D-1290","D-1289"],"at":"2026-10-01@2ab288d08"}

@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3766 — cliffs-head migrate_orc writer: rnd_otyp_by_namedesc read unshuffled descr slots (95348 408→694)
+
+- **Status:** shipped (Open cliffs-head `mkmaze.c` migrate_orc @a50db7286. D-2419 read once per the history tag — it proved migrate_orc itself C-faithful and fixed the teleport ledger_to_dnum clone; the arm this divergence names is the writer below.)
+- **Symptom:** scen-sweep-Caveman-95348 step 408/1793 kind=rng at mkmaze.c:732: C `rn2(40)=28 @ migrate_orc` (ORC_LEADER arm) vs JS `rn2(9)=6 @ mksobj_init(mkobj.js:2654)` (RING_CLASS `!rn2(9)` tail). prevEntry `rn2(10)=4 @ mksobj_init(mkobj.c:1143)` matched — both sides inside the uncharged-ring `else if (rn2(10) && …)` for the orc-captain's shiny ring; C's ring short-circuited on a named ring (TELEPORTATION/POLYMORPH/AGGRAVATE/HUNGER) while JS evaluated `!rn2(9)`: same flow, different picked otyp, same upstream draws.
+- **C locus:** `objnam.c:3455–3529` rnd_otyp_by_namedesc (`:3493` OBJ_NAME, `:3507` OBJ_DESCR) + `include/objclass.h:190–191` (OBJ_NAME/OBJ_DESCR read obj_descr[] via oc_name_idx/oc_descr_idx) + `o_init.c:113–148` shuffle (reassigns oc_descr_idx at init; RING entire class via shuffle_all). Sole shiny_obj caller is the orctown path (mkmaze.c:773) — only orctown sessions reach the descr arm with shuffled tables, hence 1 blocked session.
+- **JS was:** `js/readobjnam.js:377/389` used `objectNameStrs[i]`/`objectDescrs[i]` (unshuffled slots); every other site uses `objectDescrs[oc.oc_descr_idx ?? otyp]` (e.g. objnam.js:765, artifact.js:1400). Same shuffle draws + same rn2(maxprob) → different "shiny" valid[] → different ring → the RING arm split.
+- **Fix:** both lookups now via `objs[i]?.oc_name_idx ?? i` / `objs[i]?.oc_descr_idx ?? i` with an objclass.h cite; no new import. New focused test `scripts/rnd-otyp-namedesc-descr-idx.test.mjs` (3 its; single-match picks are rn2-independent per C `:3523–3526`).
+- **JS:** `js/readobjnam.js` (+4/−2) + 1 test file.
+- **Callers:** fix sits in the shared `rnd_otyp_by_namedesc`, so every JS caller inherits it — C `:3534` shiny_obj → JS `js/mklev.js:2540` (shiny_orc_stuff ring arm) via the live `./readobjnam.js` import (:174); wish paths C `:4611`/`:4749–4757` → JS `js/readobjnam.js:521` + `:1771–1779` (already wired, unchanged). C `mkmaze.c` migrate_orc callers `:851`/`:885` → JS `js/mklev.js:2612`/`:2632` (already wired, untouched — owner whole per D-2419).
+- **Verify:** focused test 0/3 pre-fix (stash-proven) → 3/3 post-fix. `node scripts/verify.mjs --fn migrate_orc,rnd_otyp_by_namedesc` → PASS syntax (1 changed js file: js/readobjnam.js) · rule2 · hidden migrate_orc: 0 PASS, 1 moved past (scen-sweep-Caveman-95348 → seffect_enchant_armor at step 694, was 408) → PROGRESS · reach migrate_orc 5/5 REACH-OK · hidden rnd_otyp_by_namedesc vacuous (nothing blocked on it) · reach rnd_otyp_by_namedesc 80/80 spread REACH-OK · green 2/2 · strict ×2 · cohort 7/7. VERIFY: PASS. Full spread + public: `--reach-all --full` 475/475 REACH-OK, 44/44 sessions (tail below).
+- **Named omissions:** none new (rnd_otyp_by_namedesc stays ported whole; migrate_orc / migrate_to_level omits unchanged).
+- **Ledger:** rnd_otyp_by_namedesc ported
+- **Next:** regenerated cliffs row (95348 now at seffect_enchant_armor@694).
+
 ## D-3765 — cliffs-head `eat.c` fprefx: stale_egg threshold was 2*400, C is 2*200 (95408 PASS)
 
 - **Status:** shipped (Open cliffs-head `eat.c` fprefx @8e94854e9. D-2159 read once per the history tag — it ported fprefx whole incl. the tripe `rn2(2)` arm; the arm this divergence names (EGG stale_egg gate) is still open.)
