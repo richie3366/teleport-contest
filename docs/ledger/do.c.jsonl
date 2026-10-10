@@ -25,7 +25,7 @@
 {"fn":"badspot","c":"1400-1406","status":"by-design","d":["D-3327"],"at":"2026-10-03@0e60ede85","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"u_collide_m","c":"1412-1445","status":"ported","js":["js/do.js:u_collide_m"],"d":["D-2902"],"at":"seed@a30a7de84"}
 {"fn":"familiar_level_msg","c":"1448-1476","status":"ported","js":["js/do.js:familiar_level_msg"],"at":"2026-09-27@988c639a6","note":"stale: js/do.js:1018"}
-{"fn":"goto_level","c":"1479-1998","status":"partial","js":["js/do.js:goto_level"],"d":["D-3761","D-3556","D-3539","D-3438","D-3432","D-3431"],"at":"2026-10-10@63beb35a8","note":"audited D-3556: remaining omit cannot ship"}
+{"fn":"goto_level","c":"1479-1998","status":"partial","js":["js/do.js:goto_level"],"d":["D-3792","D-3761","D-3556","D-3539","D-3438","D-3432"],"at":"2026-10-10@2e9bcf454","note":"audited D-3556: remaining omit cannot ship"}
 {"fn":"hellish_smoke_mesg","c":"2003-2012","status":"ported","js":["js/do.js:hellish_smoke_mesg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"temperature_change_msg","c":"2016-2028","status":"ported","js":["js/do.js:temperature_change_msg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_lvltport_feedback","c":"2032-2040","status":"ported","js":["js/artifact.js:maybe_lvltport_feedback"],"at":"2026-10-03@bbe63333a"}

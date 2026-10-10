@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3792 cliffs row-2 getlev writer: goto_level stash restored bubbles before the monster catchup (95203 388→418)
+
+**C locus:** `restore.c` getlev — the monster loop `:1181–1221` (place `:1181–1198`, catchup `:1199–1220` incl. the `:1219` hide_monst `elapsed > rnd(10)` gate) runs BEFORE `rest_bubbles :1226` (→ `mkmaze.c:1777` restore_waterlevel → mv_bubble ini); `mkmaze.c:1959` mv_bubble draws rn2(6) on Air (ini does not skip it); `do.c` goto_level `:1675` uz reassign → `:1711` getlev → `:1832` movebubbles.
+**JS:** js/do.js (+8/−3, stash-order only).
+**Change:** moved the two monster lines before `restore_waterlevel` with C-order comments (`:1181–1221` before `:1226`; bubbles-after-monsters). No other line touched.
+**Verify:** `node scripts/verify.mjs --fn getlev` → PASS syntax (1 changed js file: js/do.js) · PASS rule2 · PASS hidden (`verify getlev: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`: scen-worldtour-Samurai-95203: moved → distfleeck at step 418, was 388) · PASS reach getlev (60/60 baseline-PASS reach it → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) → VERIFY: PASS. Movement: `verify getlev: 0 PASS, 1 moved past, 0 unchanged, 0 worse`.
+**Named:** none new (save.js dorecover order consciously unchanged — see Callers; getlev NHFILE body stays by-design; rest_rooms/engravings/worm/timers/lights/exclusions/track order untouched — all draw nothing on this path).
+**Next:** cliffs regen (getlev row leaves; 95203 now at distfleeck@418). Do not re-invert the stash order (C: monsters :1181–1221 before bubbles :1226). Falsifier for this fix: a fresh `verify` showing an Air/Water revisit diverging catchup-vs-bubbles order (would mean a second stash site with the inversion).
 ## 2026-10-10 — D-3791 cliffs row-2 drop_uswapwep writer: freeinv_drop C-absent owornmask=0 fired spurious setworn impossible + More (95200 → PASS)
 
 **C locus:** `invent.c:1403–1409` freeinv (extract_nobj `:1405`, pickup_prev=0 `:1406`, freeinv_core `:1407`, update_inventory `:1408` — no owornmask touch) + `do.c:786–795` dropx (freeinv then dropy→dropz, whose setuswapwep(0)→setworn clears slot+bit) + `worn.c` setworn impossible gate. C drop_uswapwep→dropx relies on dropz to unwear; C's freeinv preserves the bit so the gate passes.
