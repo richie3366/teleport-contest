@@ -437,8 +437,13 @@ export async function poisoned(reason, typ, pkiller, fatal, thrown_weapon) {
             ? '' : 'The ';
         await pline(`${article}${r} ${plural ? 'were' : 'was'} poisoned!`);
     }
+    // C youprop.h:46-48 Poison_resistance ≡ uprops intrinsic || extrinsic;
+    // JS split storage: flats (eat/pray/polyself intrinsics, artifact
+    // carry) plus uprops (confer_oc_oprop worn extrinsic — the ring path).
+    const pres = u.uprops?.[POISON_RES];
     const Poison_resistance = !!((u.HPoison_resistance | 0)
-        || (u.EPoison_resistance | 0) || u.Poison_resistance);
+        || (u.EPoison_resistance | 0) || u.Poison_resistance
+        || (pres?.intrinsic | 0) || (pres?.extrinsic | 0));
     if (Poison_resistance) {
         // C attrib.c:339-340 — blast shield pyrotechnics even when resisted.
         if (blast)

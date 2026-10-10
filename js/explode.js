@@ -72,6 +72,7 @@ import {
     N_DIRS, xdir, ydir, ZAP_POS, IS_DOOR, IS_SINK, STONE,
     LARGEST_INT, MAY_HITMON, MAY_HITYOU, MAY_DESTROY, MAY_FRACTURE,
     D_ISOPEN, D_NODOOR, D_BROKEN, STATUE_TRAP, SHOPBASE,
+    POISON_RES,
 } from './const.js';
 import {
     pmnames, G_UNIQ, MR_FIRE, MR_COLD, MR_ELEC, MR_DISINT,
@@ -178,9 +179,12 @@ function Disint_resistance() {
         || u.EDisint_resistance);
 }
 function Poison_resistance() {
+    // C youprop.h:46-48 — H || E || flag || uprops (JS split storage).
     const u = game.u || {};
+    const p = u.uprops?.[POISON_RES];
     return !!(u.Poison_resistance || u.HPoison_resistance
-        || u.EPoison_resistance);
+        || u.EPoison_resistance
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 function Acid_resistance() {
     const u = game.u || {};

@@ -3,7 +3,7 @@
 {"fn":"losestr","c":"221-270","status":"ported","js":["js/attrib.js:losestr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poison_strdmg","c":"274-278","status":"ported","js":["js/eat.js:poison_strdmg"],"d":["D-3379"],"at":"2026-10-03@e27333c36","note":"audit 2026-10-03: reimplements str-loss loop + hp damage inline"}
 {"fn":"poisontell","c":"294-313","status":"ported","js":["js/attrib.js:poisontell"],"at":"2026-10-03@bbe63333a"}
-{"fn":"poisoned","c":"317-408","status":"ported","js":["js/attrib.js:poisoned"],"d":["D-3385"],"at":"2026-10-03@bec62f3b9"}
+{"fn":"poisoned","c":"317-408","status":"ported","js":["js/attrib.js:poisoned"],"d":["D-3775","D-3385"],"at":"2026-10-10@946b52cf3"}
 {"fn":"change_luck","c":"411-418","status":"ported","js":["js/attrib.js:change_luck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: LUCKMIN/MAX are -10/10 (you.h)"}
 {"fn":"stone_luck","c":"423-437","status":"ported","js":["js/attrib.js:stone_luck"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_moreluck","c":"441-451","status":"ported","js":["js/attrib.js:set_moreluck"],"at":"2026-10-03@bbe63333a"}
