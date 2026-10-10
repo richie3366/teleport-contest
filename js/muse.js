@@ -2682,6 +2682,11 @@ export async function use_defensive(mtmp) {
             const cc = { x: 0, y: 0 };
             if (!enexto(cc, mtmp.mx, mtmp.my, fish)) break;
             const mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+            // C makemon.c:1472–1500 in-body appear Norep — JS makemon is sync
+            // so callers wire it (D-0559; wand-arm sibling above); without it
+            // a sensed summons drops its "suddenly appears" line and later
+            // --More-- pages bundle steps (95211: C-328..332 in one JS step).
+            if (mon) await makemon_appear_msg(mon, cc.x, cc.y, NO_MM_FLAGS);
             if (mon && (canseemon(mon) || sensemon(mon))) known = true;
         }
         if (known) makeknown(SCR_CREATE_MONSTER);
