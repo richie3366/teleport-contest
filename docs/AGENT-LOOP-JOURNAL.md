@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — audit 2622–2630 @8e94854e9: review D-3756/D-3757/D-3758/D-3759/D-3760/D-3761/D-3762/D-3763/D-3764 (9A/0D/0Q, 0 Must-fix) + full rescore 1024/1113
+
+**Reviews:** 2622 throwit/bhit, 2623 makemon cham guard, 2624 Medusa mongone, 2625 mon_poly tail, 2626 teleds_simple, 2627 goto_level order, 2628 quest texts II, 2629 Displaced bits, 2630 known_hitum gate — all ACCEPT, every Verify re-measured (`--reach-all`: 0 worse, 0 regressed; full reach incl. 1015 makemon / 976 distfleeck / 776 obj_resists).
+**Score:** public 44/44 (Scr 11405/11405, RNG 792838/792838, `361+1.74/turn` R² 0.79); corpus **1024/1113** (+9, 0 PASS→FAIL, `full: true` @8e94854e9), RNG 97.89 %, screens 95.5 %; marathons 85/160; held-out 19/44, pts 8,856 (+272), RNG 46.4 % (+4.3, scored 01:44Z — through D-3762).
+**Ledger:** snapshot appended; 5 seeded `ported` briefed (pet_ranged_attk, rm_waslit, yname, arti_cost, chk_okdoor) — all whole, no `set`. Tooling (not rows): `sym.mjs` misses `export {…}` lists; `ledger.mjs sql` needs node:sqlite (absent here) — sampled via grep.
+**Next:** cliffs head `eat.c` fprefx (95408@611; history D-2159).
 ## 2026-10-10 — D-3764 cliffs-head thitmonst writer: known_hitum weaphit gate counted a wielded lantern as a weapon hit (95312 1040→1492)
 
 **C locus:** `uhitm.c:616` known_hitum `if (weapon && (weapon->oclass == WEAPON_CLASS || is_weptool(weapon)))`; `obj.h:249` is_weptool ≡ TOOL_CLASS with oc_skill != P_NONE (`skills.h:15` P_NONE = 0). A wielded lantern is not a weapon hit. thitmonst `dothrow.c:2011–2304` re-read whole (to-hit, unicorn, leader, weapon/kicked/ammo, iron ball, boulder, egg/pie/venom, potion, tamedog, swallow arms all live).

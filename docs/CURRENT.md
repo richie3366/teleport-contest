@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-09** — full `sessions` on `4dee984b2`
-(audit **2615–2621**, 2026-10-09T23:12:11.059Z).
+Score last measured: **2026-10-10** — full `sessions` on `8e94854e9`
+(audit **2622–2630**, 2026-10-10T03:49:33.147Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`346+1.55/turn` (R² 0.78).
+`361+1.74/turn` (R² 0.79).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-09 19:38Z, ours 19:11Z)** | **19 / 44**, 8,584 / 11,265 pts, RNG **42.1 %**, rngSteps 92.6 %, screens **76.2 %** |
+| **Held-out (judge 2026-10-10 02:11Z, ours 01:44Z)** | **19 / 44**, 8,856 / 11,265 pts, RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `346+1.55/turn` (R² 0.78) |
+| Speed label | `361+1.74/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,584 vs lockwo 7,866; their RNG 61.7 % vs our 42.1 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,584** (+5), RNG **42.1 %**, rngSteps 92.6 %, screens **76.2 %** at judge 2026-10-09 19:38Z (ours scored 19:11Z: predates the D-3749+ ships — their held-out effect is unscored).
-**Corpus — picker and proxy (2026-10-09 ~23:20Z, `4dee984b2`; 1113/1113 entries, 0 unrecorded):**
-**1015 / 1113** PASS, RNG 19713551/20441637 (**96.44 %**), screens 325805/347076 (93.9 %); `full: true`. Marathons (§10.19): 76/160 PASS. Worst families (`hidden-proxy families`): `scen-sweep` 14/50 (RNG 77.0 %), `scen-worldtour` 14/50 (92.9 %), `scen-trek` 16/20 (95.4 %), `scen-chain` 32/40 (98.9 %); every older family 100 % RNG. 0 PASS→FAIL on this rescore; 11 FAIL→PASS since the last audit (7 chain via D-3750/D-3754, 95235, 95237, 95247, 95248). Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2621 (index; no row 1618): 1229 ACCEPT, 58 WITH-DEBT, 109 QUALITY-RISK (2615–2621: 7A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,856 vs lockwo 7,866; their RNG 61.7 % vs our 46.4 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,856** (+272), RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** at judge 2026-10-10 02:11Z (ours 01:44Z: through D-3762).
+**Corpus — picker and proxy (2026-10-10 ~03:59Z, `8e94854e9`; 1113/1113 entries, 0 unrecorded):**
+**1024 / 1113** PASS, RNG 20010249/20441637 (**97.89 %**), screens 331312/347076 (95.5 %); `full: true`. Marathons: 85/160. Worst families: `scen-sweep` 17/50 (RNG 86.6 %), `scen-worldtour` 17/50 (95.1 %), `scen-chain` 33/40 (99.1 %), `scen-trek` 18/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; 9 FAIL→PASS (D-3756 ×3, D-3759 ×2, D-3761/D-3762 ×2, collateral ×2). Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2630 (index; no row 1618): 1238 ACCEPT, 58 WITH-DEBT, 109 QUALITY-RISK (2622–2630: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** 95312 auto_describe@1492.
-**This iter:** D-3764.
+**Next:** fprefx 95408@611 (cliffs head).
+**This iter:** audit 2622–2630.
 
 ## Parked (diagnose only — do not implement)
 

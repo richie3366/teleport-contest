@@ -2631,3 +2631,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2619-9d1f099fd-thrwmu-mon-moving-restore.md](./2619-9d1f099fd-thrwmu-mon-moving-restore.md) | `9d1f099fd` | D-3752 next_ident-head writer thrwmu mon_moving save/restore (1 PASS + 1 moved) | **ACCEPT** |
 | [2620-5de410d26-menu-identify-query-objlist-restart.md](./2620-5de410d26-menu-identify-query-objlist-restart.md) | `5de410d26` | D-3753 menu_identify-head restart onto live query_objlist (1 moved) | **ACCEPT** |
 | [2621-7b87dee07-drop-upon-death-no-stack.md](./2621-7b87dee07-drop-upon-death-no-stack.md) | `7b87dee07` | D-3754 next_ident-head writer drop_upon_death no-stack (95420 PASS) | **ACCEPT** |
+| [2622-9fec5d504-throwit-bhit-skiprange-flight.md](./2622-9fec5d504-throwit-bhit-skiprange-flight.md) | `9fec5d504` | D-3756 skiprange-head writer throwit THROWN flight via live bhit (3 PASS) | **ACCEPT** |
+| [2623-4ddfa4bb2-makemon-cham-pfsc-guard.md](./2623-4ddfa4bb2-makemon-cham-pfsc-guard.md) | `4ddfa4bb2` | D-3757 m_initinv-head writer makemon cham Protection guard (1 moved) | **ACCEPT** |
+| [2624-8901dc583-medusa-statue-mongone.md](./2624-8901dc583-medusa-statue-mongone.md) | `8901dc583` | D-3758 obj_resists-head writer Medusa statue live mongone (1 moved) | **ACCEPT** |
+| [2625-5fa95f0c5-mon-poly-sameform-tail.md](./2625-5fa95f0c5-mon-poly-sameform-tail.md) | `5fa95f0c5` | D-3759 mhitm_knockback-head writer mon_poly same-form tail (2 PASS) | **ACCEPT** |
+| [2626-63beb35a8-teleds-simple-u-on-newpos.md](./2626-63beb35a8-teleds-simple-u-on-newpos.md) | `63beb35a8` | D-3760 dismount_steed-head writer teleds_simple live u_on_newpos (1 moved) | **ACCEPT** |
+| [2627-e7ef706f9-goto-level-departure-order.md](./2627-e7ef706f9-goto-level-departure-order.md) | `e7ef706f9` | D-3761 rob_shop-head writer goto_level departure order (1 moved) | **ACCEPT** |
+| [2628-4b1f3e45b-quest-arrival-texts-ii.md](./2628-4b1f3e45b-quest-arrival-texts-ii.md) | `4b1f3e45b` | D-3762 level_tele-head quest arrival texts II (2 PASS + 2 moved) | **ACCEPT** |
+| [2629-1311dbb62-displaced-stored-bits.md](./2629-1311dbb62-displaced-stored-bits.md) | `1311dbb62` | D-3763 distfleeck-head writer Displaced stored H||E bits (1 moved) | **ACCEPT** |
+| [2630-8e94854e9-known-hitum-weaphit-gate.md](./2630-8e94854e9-known-hitum-weaphit-gate.md) | `8e94854e9` | D-3764 thitmonst-head writer known_hitum weaphit gate (1 moved) | **ACCEPT** |
