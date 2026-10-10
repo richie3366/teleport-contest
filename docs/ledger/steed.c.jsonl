@@ -8,7 +8,7 @@
 {"fn":"exercise_steed","c":"387-398","status":"ported","js":["js/steed.js:exercise_steed"],"d":["D-1949"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact 100-turn counter"}
 {"fn":"kick_steed","c":"402-450","status":"ported","js":["js/steed.js:kick_steed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full helpless/tame/gallop arms"}
 {"fn":"landing_spot","c":"460-572","status":"ported","js":["js/steed.js:landing_spot"],"d":["D-1640"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full 3-pass search incl KNOCKED ordering and enexto fallback"}
-{"fn":"dismount_steed","c":"576-822","status":"ported","js":["js/steed.js:dismount_steed"],"d":["D-3724","D-1915","D-1627"],"at":"2026-10-09@e54b702b5","note":"stale 2026-09-14"}
+{"fn":"dismount_steed","c":"576-822","status":"ported","js":["js/steed.js:dismount_steed"],"d":["D-3760","D-3724","D-1915","D-1627"],"at":"2026-10-10@5fa95f0c5","note":"stale 2026-09-14"}
 {"fn":"maybewakesteed","c":"827-848","status":"ported","js":["js/steed.js:maybewakesteed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full frozen-halving and wake message"}
 {"fn":"poly_steed","c":"852-873","status":"ported","js":["js/steed.js:poly_steed"],"d":["D-2243"],"at":"2026-10-01@5139f3d2e","note":"stale: js/steed.js:1086 (D-2243 shipped body + newcham wiring; re-queued on line-count)"}
 {"fn":"stucksteed","c":"878-895","status":"ported","js":["js/steed.js:stucksteed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}

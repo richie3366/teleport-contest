@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3760 cliffs-head dismount_steed writer: teleds_simple places via live u_on_newpos (1 moved 482→772)
+
+**C locus:** `teleport.c` teleds `:490–491` ux0/uy0 snap then `:525` u_on_newpos → `dungeon.c` u_on_newpos `:1596–1599` same-level see_nearby_objects → `display.c` see_nearby_objects `:1576–1601` observe_object + newsym_force → `o_init.c` observe_object `:441–451` (dknown=1). Generic rule `display.h` obj_is_generic `:807` (!dknown potion → generic).
+**JS:** `js/steed.js` (+10/−8: import, async + u_on_newpos call + await + docs); `scripts/dismount-steed-observe-nearby.test.mjs` (new, 1 it).
+**Change:** teleds_simple awaits the live u_on_newpos export (`./mklev.js`; imports.mjs SAFE, hoisted fn, cycle-safe); keeps the ux0/uy0 snap (C `:490–491`), newsym pair, vision_recalc, botl; dismount_steed awaits the now-async helper; doc cites + subset note updated. New focused test `scripts/dismount-steed-observe-nearby.test.mjs` (mounted hero, all-ROOM, dknown=0 water potion orthogonally adjacent — always within neardist of any landing square).
+**Verify:** focused test fails pre-fix (`0 !== 1`, dknown stays 0 — authentic failure, no fixture throw), passes post; steed tests 5/5 (`--test` observe-nearby + underwater-gate + domove-steed-door). `node scripts/verify.mjs --fn dismount_steed,teleds` → `verify dismount_steed: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (95323: 482 → rob_shop@772) · reach dismount_steed 1/1 REACH-OK · verify teleds: nothing blocked (writer, expected) · reach teleds 24/24 smoke REACH-OK · syntax 1 file · rule2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Full `sessions` run explicitly (dismount-path blast radius): 44/44, speed `355+1.55/turn` (R² 0.762).
+**Named:** teleds_simple subset vs C teleds otherwise unchanged (pre-existing, out of this divergence path): ball/chain (drag_ball/move_bc/placebc/unplacebc), reset_utrap(FALSE) utrap clear (dismount relies on save_utrap→mintrap), set_ustuck, mimic m_ap, swallowed docrt, fill_pit, update_player_regions, see_monsters, nomul(0), notice_mon_off/on, notice_all_mons, switch_terrain, vault-guard uleftvault, spoteffects(TRUE), invocation_message.
+**Next:** regenerated Open — cliffs head (95323 now blocked on rob_shop@772).
 ## 2026-10-10 — D-3759 cliffs-head mhitm_knockback writer: mon_poly tail compares form index (2 PASS)
 
 **C locus:** `mhitm.c:1121–1207` mon_poly tail (`:1203–1204` `if (mdef->data != oldform && magr != &gy.youmonst) magr->mspec_used += rnd(2);`) — C permonst are canonical `mons[]` pointers, so an unchanged form is the identical pointer and no draw burns.

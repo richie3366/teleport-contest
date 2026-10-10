@@ -7,7 +7,7 @@
 {"fn":"enexto_core","c":"219-276","status":"ported","js":["js/teleport.js:enexto_core"],"d":["D-3406","D-3070"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"tele_jump_ok","c":"386-417","status":"ported","js":["js/teleport.js:tele_jump_ok"],"d":["D-3406","D-3070"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"teleok","c":"420-445","status":"ported","js":["js/teleport.js:teleok"],"d":["D-1119","D-1111"],"at":"2026-10-03@bbe63333a"}
-{"fn":"teleds","c":"448-573","status":"ported","js":["js/teleport.js:teleds"],"d":["D-1142","D-1141","D-1140","D-1139","D-1132","D-1131"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: named omits are callee-side (fill_pit thin, vision callers); unit body complete"}
+{"fn":"teleds","c":"448-573","status":"ported","js":["js/teleport.js:teleds"],"d":["D-3760","D-1142","D-1141","D-1140","D-1139","D-1132"],"at":"2026-10-10@5fa95f0c5","note":"audit 2026-10-03: named omits are callee-side (fill_pit thin, vision callers); unit body complete"}
 {"fn":"safe_teleds","c":"717-770","status":"ported","js":["js/teleport.js:safe_teleds"],"d":["D-3406","D-2815"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"vault_tele","c":"773-783","status":"ported","js":["js/teleport.js:vault_tele"],"d":["D-1153"],"at":"2026-10-03@bbe63333a"}
 {"fn":"teleport_pet","c":"786-810","status":"ported","js":["js/teleport.js:teleport_pet"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
