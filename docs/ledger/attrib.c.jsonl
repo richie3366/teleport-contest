@@ -1,6 +1,6 @@
 {"fn":"adjattrib","c":"117-199","status":"ported","js":["js/attrib.js:adjattrib"],"d":["D-3426","D-2438"],"at":"2026-10-04@0d801c73f"}
 {"fn":"gainstr","c":"203-217","status":"ported","js":["js/attrib.js:gainstr"],"at":"2026-10-03@bbe63333a"}
-{"fn":"losestr","c":"221-270","status":"ported","js":["js/attrib.js:losestr"],"at":"2026-10-03@bbe63333a"}
+{"fn":"losestr","c":"221-270","status":"ported","js":["js/attrib.js:losestr"],"d":["D-3782"],"at":"2026-10-10@96439ea60"}
 {"fn":"poison_strdmg","c":"274-278","status":"ported","js":["js/eat.js:poison_strdmg"],"d":["D-3379"],"at":"2026-10-03@e27333c36","note":"audit 2026-10-03: reimplements str-loss loop + hp damage inline"}
 {"fn":"poisontell","c":"294-313","status":"ported","js":["js/attrib.js:poisontell"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poisoned","c":"317-408","status":"ported","js":["js/attrib.js:poisoned"],"d":["D-3775","D-3385"],"at":"2026-10-10@946b52cf3"}
