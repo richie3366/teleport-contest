@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3797 cliffs row-2 passivemm writer: mdamagem's shared + POLY kill tails missed the C :1091-1094 lifesave gate — revived defender drew grow_up where C runs passivemm (95223 → PASS)
+
+**C locus:** `mhitm.c:1088–1094` (monkilled → `if (!DEADMONSTER(mdef)) return mhm.hitflags` + AGR_DIED arm) + `:1115–1116` (DEF_DIED | grow_up only on a real kill); one shared tail for all adtyps.
+**JS:** js/mhitm.js (+8/−0) + 1 test file.
+**Change:** the C :1091–1094 gate in the exact sibling shape (`if ((mdef.mhp | 0) > 0) return hitflags;` + AGR_DIED arm) in both ungated tails. No new imports, no signature changes. New focused test scripts/mdamagem-lifesave-tail.test.mjs (2 its; mattackm headless, dgst-test shape): lifesaved defender revives with no DEF_DIED and no attacker HP gain; unsaved control dies with DEF_DIED + growth.
+**Verify:** focused test 1/2 pre-fix (`no DEF_DIED for a revived defender`, actual 2) → 2/2 post-fix. `node scripts/verify.mjs --fn passivemm,mdamagem` → PASS syntax (1 changed js file: js/mhitm.js) · PASS rule2 · PASS hidden (verify passivemm: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS; scen-worldtour-Monk-95223: PASS) · PASS reach passivemm (80/80 spread of 307) → REACH-OK · note hidden mdamagem (writer, none blocked) · PASS reach mdamagem (80/80 spread of 339) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS.
+**Named:** none new (the shared tail's :1118 non-kill return shape and the POLY arm's `hitflags || HIT` return pre-date this fix and carry no divergence — untouched; no monst.c attacker has AD_POLY, so the POLY gate rides as the same-C-lines mirror).
+**Next:** row-2 leaves via regen (95223 PASS). Falsifier: a fresh `verify passivemm` showing a session blocked with a post-revive JS grow_up draw.
 ## 2026-10-10 — D-3796 cliffs row-2 bottlename writer: u_catch_thrown_obj Blind/Fumbling gates read sticky mirrors — blindfolded hero drew a catch rn2 C skips (95345 → PASS)
 
 **C locus:** `mthrowu.c` u_catch_thrown_obj `:532–550` (gates `:538–541`; sole caller `:695` `!tethered_weapon && u_catch_thrown_obj`) + `youprop.h` Blind `:103` `(HBlinded||EBlinded)&&!BBlinded`, Fumbling `:129` HF||EF, Confusion `:84` H-only, Stunned `:81` H-only + `u_init.c:1027–1028` (roleplay.blind sets HBlinded|=FROMOUTSIDE, so live Blind() is C-exact incl. roleplay).
