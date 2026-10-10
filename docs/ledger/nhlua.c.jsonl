@@ -63,7 +63,7 @@
 {"fn":"nhl_timer_start_at","c":"1612-1638","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_get_cmd_key","c":"1644-1657","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_callback","c":"1664-1706","status":"ported","js":["js/cmd.js:nhl_callback"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: name lookup, counts +/- with impossible guard, set/rm recorded; luacore panic guard dead (called from Lua)"}
-{"fn":"nhl_gamestate","c":"1722-1802","status":"partial","js":["js/do.js:nhl_gamestate","js/do.js:tutorial_enter_gamestate","js/do.js:tutorial_leave_gamestate"],"omit":"update_inventory() display refresh after save/restore arms","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: save/restore arms fully in tutorial_enter/leave_gamestate helpers"}
+{"fn":"nhl_gamestate","c":"1722-1802","status":"partial","js":["js/do.js:nhl_gamestate"],"omit":"update_inventory() display refresh after save/restore arms","d":["D-3763"],"at":"2026-10-10@4b1f3e45b","note":"audited D-3763: remaining omit cannot ship"}
 {"fn":"free_tutorial","c":"1809-1833","status":"ported","js":["js/do.js:free_tutorial"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: clears wornmask flags and releases ubak/disco/mvitals/invent stash (GC for memory)"}
 {"fn":"tutorial","c":"1837-1846","status":"ported","js":["js/do.js:tutorial"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact: nhcore call then disable both calls after leaving"}
 {"fn":"init_nhc_data","c":"1924-1937","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

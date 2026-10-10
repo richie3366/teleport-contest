@@ -52,7 +52,7 @@ import {
 } from './const.js';
 import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail, dissolve_bars, SURFACE_AT, in_rooms, You_hear } from './hack.js';
 import {
-    CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
+    COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
     WAND_CLASS, RING_CLASS, SPBOOK_CLASS, ROCK_CLASS, BALL_CLASS,
     VENOM_CLASS, objectNames, is_axe, SILVER,
@@ -741,16 +741,19 @@ function perceives(ptr) {
 }
 
 /**
- * C ref: youprop.h Displaced — HDisplaced || EDisplaced.
- * Extrinsic from cloak: oc_oprop wiring deferred; match worn
- * CLOAK_OF_DISPLACEMENT (Ranger kit / displacement cloak).
+ * C ref: youprop.h Displaced `:202–204` — HDisplaced || EDisplaced,
+ * stored u.uprops[DISPLACED] bits only. C never reads the worn cloak
+ * live: nhl_gamestate save clears worn extrinsics before snapshotting
+ * u and restore re-wears before memcpy'ing the snapshot back, so a
+ * worn cloak can carry EDisplaced == 0 (temp-C measured 95303:
+ * uarmc=149, EDis 2 → 0 across "Resetting time", never re-conferred).
+ * No live uarmc fallback — it forks set_apparxy into gotu where C
+ * takes displ == 0.
  */
 export function Displaced() {
     const u = game.u || {};
     if (u.HDisplaced || u.uprops?.[DISPLACED]?.intrinsic) return true;
-    if (u.uprops?.[DISPLACED]?.extrinsic) return true;
-    const cloak = u.uarmc;
-    return !!(cloak && cloak.otyp === CLOAK_OF_DISPLACEMENT);
+    return !!u.uprops?.[DISPLACED]?.extrinsic;
 }
 
 /** C ref: youprop.h Stealth — (HStealth || EStealth) && !BStealth. */
