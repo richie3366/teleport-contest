@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3759 cliffs-head mhitm_knockback writer: mon_poly tail compares form index (2 PASS)
+
+**C locus:** `mhitm.c:1121–1207` mon_poly tail (`:1203–1204` `if (mdef->data != oldform && magr != &gy.youmonst) magr->mspec_used += rnd(2);`) — C permonst are canonical `mons[]` pointers, so an unchanged form is the identical pointer and no draw burns.
+**JS:** 1 file (mhitm.js +9/−2), 1 test file. Rule #2 clean; no DIAG/FORCE/seed gates; temp instrumentation reverted (rng.js back to HEAD text).
+**Change:** `js/mhitm.js` mon_poly — capture `oldMndx` at entry (`oldform?.mndx ?? mdef?.mnum ?? NON_PM`, the pm_to_cham fallback idiom already used at :674) and gate the tail on `newMndx !== oldMndx` with C cites; reference compare removed. Reviewed the rest of mon_poly arm-for-arm vs C (hero Antimagic/Unchanging/lyc/polyself, resists_magm/resist/shock/newcham/tele/nothing arms, dmg/return): whole, unchanged.
+**Verify:** focused `node --test scripts/mon-poly-sameform-tail.test.mjs` → 3/3 (3/3 fail pre-fix via stash — authentic failure). `node scripts/verify.mjs --fn mon_poly,mhitm_knockback` → `verify mhitm_knockback: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (95317 PASS, 95233 PASS — the one-draw shift collapses, both sessions identical to the end) · verify mon_poly: nothing blocked (expected — writer, no owner rows) · reach mon_poly 24/24 smoke REACH-OK · reach mhitm_knockback 80/80 REACH-OK (spread of 655) · syntax 1 file · rule2 · green 2/2 · strict ×2 · cohort 7/7 · skip full (no shared file) → VERIFY: PASS.
+**Named:** none new — mon_poly stays ported whole. Standing pre-existing D-1006 deltas, out of this divergence path, untouched: house-vis widening for C `gv.vis`, TELL-shield hoist out of `resist()`.
+**Next:** do not re-pop mhitm_knockback for mon_poly (both probes PASS; owner body verified whole). The regenerated cliffs head is the next iteration. If a future probe shows a monster-defender same-form newcham drawing, the same mndx gate already covers it.
 ## 2026-10-10 — D-3758 cliffs-head obj_resists writer: Medusa statue arm calls live mongone (1 moved 345→1533, RNG complete)
 
 **C locus:** `sp_lev.c:2356–2389` create_object Medusa arm (`:2374` reject `mongone(was)`, `:2387` accept-tail `mongone(was)` after invent transfer); `mon.c:3267–3283` mongone (already ported whole, js/mon.js:3650: mhp=0, isgd/grddead, unstuck, mdrop_special_objs, discard_minvent, m_detach); `steal.c:852–872` mdrop_special_objs (obj_resists(0,0) per item); `mon.c:2734–2800` m_detach (verified arm-for-arm vs js/mhitm.js:3840: mleashed/light/mon_leaving_level/mhp/iswiz/due_to_death=FALSE skip/stealmid/isshk/worm/endgame/MON_DETACH+purge/usteed).
