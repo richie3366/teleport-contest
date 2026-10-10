@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — audit 2639–2647 @1841f1954: review D-3775…D-3783 (9A/0D/0Q, 0 Must-fix) + full rescore 1035/1113
+
+**Reviews:** 2639 poison-uprops-union, 2640 mbhitm-lifesave-fallthrough, 2641 thitu-stale-gameover-gate, 2642 msummon-appear-threat-stop, 2643 container-corner-dismiss, 2644 explode-canonical-upolyd, 2645 shudder-rehumanize-drain, 2646 losestr-decline-resume, 2647 aggravate-uprops-union — all ACCEPT, every D-log movement claim re-measured (`--reach-all`), 0 regressed anywhere (exercise 962/962, abuse_dog 269/269, thitu 113/113, rest smoke/small). Watch items (no session, unqueued): mbhitm/losestr entry gates still read sticky gameover (D-3777 idiom not applied); healup `u.Upolyd` flat-read (potion.js:2346) + apply.js:801 mirror arm are the last never-written-flat readers.
+**Score:** public 44/44 (Scr 11405, RNG 792838, `349+1.57/turn`); corpus **1035/1113** PASS (`full: true`), RNG 20220019/20441637 (98.92 %), screens 336907/347076 (97.1 %), marathons 96/160; worst families sweep 22/50 (93.3 %), worldtour 21/50 (96.7 %); 0 PASS→FAIL, 7 FAIL→PASS (5 port + 2 rescore-only 95300/95222). Held-out unchanged 19/44 (judge 07:46Z).
+**Ledger:** `summary --snapshot` appended; seeded-ported sample collapses to 1 row (getmattk, stands — `ledger.mjs sql` needs node:sqlite, absent on Node 20 here; sampled via jsonl grep + `brief.mjs`).
+**Next:** cliffs head regenerates from the committed board (`--fix`); 95308's 432 themerms-lua throw should top it (throws first).
 ## 2026-10-10 — D-3783 abuse_dog cliff writer: Aggravate_monster read flats-only, missed worn-ring uprops extrinsic (95308 318→432)
 
 **C locus:** dog.c:1362–1393 abuse_dog (halve-vs-decrement gate :1366–1370) + youprop.h:212–214 (`HAggravate_monster`/`EAggravate_monster` ≡ uprops intrinsic/extrinsic, macro = H||E) + worn.c:124–125 (setworn confers `u.uprops[p].extrinsic |= w_mask` on wear). C readers of the macro: dog.c:1367, insight.c:1676, monmove.c:349 (disturb); E-only dungeon.c:2081 (level_difficulty).

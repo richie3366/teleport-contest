@@ -2648,3 +2648,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2636-1eee984bc-impaired-hstun-bad-rock.md](./2636-1eee984bc-impaired-hstun-bad-rock.md) | `1eee984bc` | D-3772 confdir-row writers HStun + live bad_rock (1 moved) | **ACCEPT** |
 | [2637-9352b7e56-m-canseeu-live-invis.md](./2637-9352b7e56-m-canseeu-live-invis.md) | `9352b7e56` | D-3773 m_move-row writer m_canseeu live Invis (1 moved, debt: dropped m_move omit) | **ACCEPT-WITH-DEBT** |
 | [2638-8009035ee-dotravel-unconditional-domove.md](./2638-8009035ee-dotravel-unconditional-domove.md) | `8009035ee` | D-3774 gethungry-row writer dotravel_target unconditional domove (1 PASS) | **ACCEPT** |
+| [2639-7646f6dc1-poison-uprops-union.md](./2639-7646f6dc1-poison-uprops-union.md) | `7646f6dc1` | D-3775 mhitm-row writer Poison_resistance uprops union (1 moved) | **ACCEPT** |
+| [2640-f486e0541-mbhitm-lifesave-fallthrough.md](./2640-f486e0541-mbhitm-lifesave-fallthrough.md) | `f486e0541` | D-3776 exercise-row writer mbhitm lifesave fall-through (1 PASS) | **ACCEPT** |
+| [2641-0c930ff23-thitu-stale-gameover-gate.md](./2641-0c930ff23-thitu-stale-gameover-gate.md) | `0c930ff23` | D-3777 exercise-row writer thitu stale-gameover gate (1 PASS) | **ACCEPT** |
+| [2642-96615e374-msummon-appear-threat-stop.md](./2642-96615e374-msummon-appear-threat-stop.md) | `96615e374` | D-3778 msummon-row writer makemon appear-tail threat stop (1 moved) | **ACCEPT** |
+| [2643-0929ad09c-container-corner-dismiss.md](./2643-0929ad09c-container-corner-dismiss.md) | `0929ad09c` | D-3779 menu_loot-row writer container corner dismiss (1 moved) | **ACCEPT** |
+| [2644-a72a653d4-explode-canonical-upolyd.md](./2644-a72a653d4-explode-canonical-upolyd.md) | `a72a653d4` | D-3780 explode-row writer canonical Upolyd (1 moved) | **ACCEPT** |
+| [2645-96439ea60-shudder-rehumanize-drain.md](./2645-96439ea60-shudder-rehumanize-drain.md) | `96439ea60` | D-3781 exercise-row writer shudder rehumanize drain (1 moved) | **ACCEPT** |
+| [2646-f3651d1cd-losestr-decline-resume.md](./2646-f3651d1cd-losestr-decline-resume.md) | `f3651d1cd` | D-3782 do_statusline2-row writer losestr decline resume (3 PASS) | **ACCEPT** |
+| [2647-1841f1954-aggravate-uprops-union.md](./2647-1841f1954-aggravate-uprops-union.md) | `1841f1954` | D-3783 abuse_dog-row writer Aggravate uprops union (1 moved) | **ACCEPT** |
