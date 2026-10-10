@@ -26,21 +26,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **exercise residuals:** row closed — 95225/95328 PASS, 95346→do_statusline2@474, 95204→mbhitm. Do not re-derive.
 ## Don't re-check (≤15)
 
-- D-1790…D-3785 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3785) reached no session — no pole-lava row.
+- D-1790…D-3786 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3786) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3785.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3785 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3786.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3786 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3786: gate is now the canonical live `Upolyd(u)` (const.js:3216, C you.h:554), already imported in potion.js (:140, used at 5 live sites — no new edge), wit Named: mon.c:4600 healmon→healup youmonst arm (mon.js:2329 no-op; pre-existing documented omit in
 - D-3785: delete the C-absent `await flush_screen(1)` (js/detect.js:1378) + doc-comment fix (why the deferral must survive: wiz_map zero-window). Named: none new (map_redisplay now C-exact :94–102; wiz_map save/zero/restore whole per its body;
 - D-3784: obj_glyph(curr) burn per allowed item in both arms (sorted + unsorted, before items.push, C-cited; glyph discarded), obj_glyph added to the existing d Named: engulfer mon_to_glyph burn (C :1157–1158; no probe reaches swallowed+hallu query — retaine
 - D-3783: all 3 flat-only Aggravate readers now read the union (D-3775 Poison house shape), each C-cited: dog.js abuse_dog gate (the cliff); monmove.js local Ag Named: H-flat bitmask writers/manipulators deliberately untouched (eat corpse/pray/sit — storage 
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3774: dotravel_target tail restructured to C order (same shape as the proven continue_run, D-3583): recompute travel→guess with UNSURE messages, apply `foun Named: none new (dotravel_target ported whole; findtravelpath_bfs NOPATH-without-found: left as-i
 - D-3773: m_canseeu now reads the live `Invis()` youprop export (`js/timeout.js:1735`, `(H||E)&&!B` over flats+uprops) — `if (Invis() && !perceives) return fals Named: none (macro ported whole: live C arm + Invis + perceives + Underwater + couldsee, all live
 - D-3772: js/hack.js only: (1) Stunned arm → `if ((u.HStun | 0) || u.Stunned) return true;` (canonical shape; Confusion arm untouched — already dual-flat, no ev Named: (1) domove closed-door arms (js/cmd.js:6681/:6693) still read u.Stunned-only (same mirror 
-- D-3771: (1) `if (status === MMOVE_DIED) return 1;` immediately after the recalc, C-cited (skips idle isgd/Hallu + PHASE FOUR + quest_talk/cuss exactly like C) Named: none new (dochug's pre-existing demon_talk `else if` omit (C :823–824, JS :2804 comment) s
 <!-- landmarks:end -->
