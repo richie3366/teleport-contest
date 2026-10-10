@@ -1,5 +1,5 @@
 {"fn":"precheck","c":"59-160","status":"ported","js":["js/muse.js:precheck"],"d":["D-2503"],"at":"seed@a30a7de84"}
-{"fn":"mzapwand","c":"165-191","status":"ported","js":["js/muse.js:mzapwand"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mzapwand","c":"165-191","status":"ported","js":["js/muse.js:mzapwand"],"d":["D-3794"],"at":"2026-10-10@1972bacc2"}
 {"fn":"mplayhorn","c":"195-233","status":"ported","js":["js/muse.js:mplayhorn"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mreadmsg","c":"238-290","status":"ported","js":["js/muse.js:mreadmsg"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"mquaffmsg","c":"293-302","status":"ported","js":["js/muse.js:mquaffmsg"],"at":"2026-10-03@bbe63333a"}

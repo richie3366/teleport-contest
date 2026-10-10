@@ -119,7 +119,7 @@ import { fill_pit } from './dig.js';
 import { surface } from './sit.js';
 import { body_part } from './polyself.js';
 import { Soundeffect, SetVoice } from './sndprocs.js';
-import { se_bugle_playing_reveille, se_crash_through_floor, se_zap_then_explosion, se_boing } from './generated/seffects_data.js';
+import { se_bugle_playing_reveille, se_crash_through_floor, se_zap_then_explosion, se_boing, se_zap } from './generated/seffects_data.js';
 import { awaken_soldiers } from './music.js';
 
 const POT_PARALYSIS = objectNames.indexOf('POT_PARALYSIS');
@@ -2850,33 +2850,36 @@ export async function use_defensive(mtmp) {
 }
 
 /**
- * C ref: muse.c mzapwand — message + charge--; unseen charge forget deferred.
+ * C ref: muse.c mzapwand `:165–191` — message + charge--; unseen charge
+ * forget via unknow_object. xname observes by itself (set_xname_observe;
+ * C xname_flags `:627` + observe_object `:442` skip ALL observing while
+ * hallucinating), so no dknown pre-set here — C names the wand bare
+ * ("a wand") when the zap is seen under Hallu (95343@910).
  */
 async function mzapwand(mtmp, otmp, self) {
-    if ((otmp.spe | 0) < 1) return;
-    if (!canseemon(mtmp)) {
+    if ((otmp.spe | 0) < 1) { // C `:170–172`
+        await impossible('Mon zapping wand with %d charges?', otmp.spe | 0);
+        return;
+    }
+    if (!canseemon(mtmp)) { // C `:174–181`
         const range = couldsee(mtmp.mx, mtmp.my)
             ? (BOLT_LIM + 1) : (BOLT_LIM - 3);
         const near = mdistu(mtmp) <= range * range;
+        Soundeffect(se_zap, 100); // C `:176` (no-op stub both sides: contest !SND_LIB)
         await You_hear(`a ${near ? 'nearby' : 'distant'} zap.`);
         unknow_object(otmp);
-    } else if (self) {
-        // C muse.c `:183–185` — "%s with %s!" over
+    } else if (self) { // C `:182–185`
         // monverbself(mtmp, Monnam(mtmp), "zap", NULL): the wand-zapper
         // names itself ("<mon> zaps himself with <wand>!").
         await pline(
             `${monverbself(mtmp, Monnam(mtmp), 'zap', null)} with ${
                 doname(otmp)}!`,
         );
-    } else {
-        // C: pline_mon("%s zaps %s!", Monnam, an(xname(otmp)))
-        // C xname_flags observe_object sets dknown before WAND descr arm.
-        // Full observe (discover_object) deferred — dknown alone for appearance.
-        if (!game.u?.Blind) otmp.dknown = 1;
+    } else { // C `:186–188`
         await pline_mon(mtmp, `${Monnam(mtmp)} zaps ${an(xname(otmp))}!`);
         await stop_occupation();
     }
-    otmp.spe = (otmp.spe | 0) - 1;
+    otmp.spe = (otmp.spe | 0) - 1; // C `:190`
 }
 
 /**

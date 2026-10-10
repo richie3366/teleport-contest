@@ -85,7 +85,7 @@
 {"fn":"will_feel_cockatrice","c":"4334-4340","status":"ported","js":["js/invent.js:will_feel_cockatrice"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feel_cockatrice","c":"4343-4361","status":"ported","js":["js/invent.js:feel_cockatrice"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"stackobj","c":"4366-4375","status":"ported","js":["js/mkobj.js:stackobj"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mergable","c":"4379-4499","status":"ported","js":["js/mkobj.js:mergable"],"d":["D-3426","D-3401"],"at":"2026-10-04@0d801c73f"}
+{"fn":"mergable","c":"4379-4499","status":"ported","js":["js/mkobj.js:mergable"],"d":["D-3794","D-3426","D-3401"],"at":"2026-10-10@1972bacc2"}
 {"fn":"doprgold","c":"4503-4546","status":"ported","js":["js/invent.js:doprgold"],"d":["D-1731"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doprwep","c":"4550-4574","status":"ported","js":["js/invent.js:doprwep"],"d":["D-3186"],"at":"2026-10-01@c88e33eda"}
 {"fn":"noarmor","c":"4578-4597","status":"ported","js":["js/invent.js:noarmor"],"d":["D-1668"],"at":"2026-10-03@bbe63333a"}
