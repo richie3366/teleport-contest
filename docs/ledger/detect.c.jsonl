@@ -1,6 +1,6 @@
 {"fn":"unconstrain_map","c":"70-81","status":"ported","js":["js/detect.js:unconstrain_map"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reconstrain_map","c":"85-91","status":"ported","js":["js/detect.js:reconstrain_map"],"at":"2026-10-03@bbe63333a"}
-{"fn":"map_redisplay","c":"94-102","status":"ported","js":["js/detect.js:map_redisplay"],"d":["D-3045"],"at":"2026-09-28@25bf764f0"}
+{"fn":"map_redisplay","c":"94-102","status":"ported","js":["js/detect.js:map_redisplay"],"d":["D-3785","D-3045"],"at":"2026-10-10@9b729191f"}
 {"fn":"browse_map","c":"106-118","status":"ported","js":["js/detect.js:browse_map"],"at":"2026-10-03@bbe63333a"}
 {"fn":"map_monst","c":"122-134","status":"ported","js":["js/detect.js:map_monst"],"d":["D-1549"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapped_chest_at","c":"139-177","status":"ported","js":["js/detect.js:trapped_chest_at"],"d":["D-3404","D-3219","D-2298"],"at":"2026-10-04@e2943671c","note":"audited D-3404: whole vs C"}
