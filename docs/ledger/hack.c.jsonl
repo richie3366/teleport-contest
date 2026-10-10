@@ -42,8 +42,8 @@
 {"fn":"air_turbulence","c":"2342-2361","status":"ported","js":["js/hack.js:air_turbulence"],"at":"2026-10-03@bbe63333a"}
 {"fn":"water_turbulence","c":"2365-2393","status":"ported","js":["js/hack.js:water_turbulence"],"at":"2026-10-03@bbe63333a"}
 {"fn":"slippery_ice_fumbling","c":"2396-2415","status":"ported","js":["js/hack.js:slippery_ice_fumbling"],"at":"2026-10-03@bbe63333a"}
-{"fn":"u_maybe_impaired","c":"2418-2421","status":"ported","js":["js/hack.js:u_maybe_impaired"],"at":"2026-10-03@bbe63333a"}
-{"fn":"impaired_movement","c":"2425-2441","status":"ported","js":["js/hack.js:impaired_movement"],"at":"2026-10-03@bbe63333a"}
+{"fn":"u_maybe_impaired","c":"2418-2421","status":"ported","js":["js/hack.js:u_maybe_impaired"],"d":["D-3772"],"at":"2026-10-10@b39d64036"}
+{"fn":"impaired_movement","c":"2425-2441","status":"ported","js":["js/hack.js:impaired_movement"],"d":["D-3772"],"at":"2026-10-10@b39d64036"}
 {"fn":"avoid_moving_on_trap","c":"2444-2460","status":"ported","js":["js/hack.js:avoid_moving_on_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"avoid_moving_on_liquid","c":"2463-2490","status":"ported","js":["js/hack.js:avoid_moving_on_liquid"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"avoid_running_into_trap_or_liquid","c":"2495-2509","status":"ported","js":["js/hack.js:avoid_running_into_trap_or_liquid"],"at":"2026-10-03@bbe63333a"}
