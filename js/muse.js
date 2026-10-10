@@ -44,7 +44,7 @@ import {
 import { observe_object, makeknown } from './invent.js';
 import {
     losehp, nomul, in_rooms, You_hear, is_pool, is_lava, closed_door, carrying,
-    stop_occupation, maybe_half_phys,
+    stop_occupation, maybe_half_phys, finish_maybe_wail,
 } from './hack.js';
 import { doorlock } from './lock.js';
 import { find_drawbridge, is_drawbridge_wall, destroy_drawbridge } from './dbridge.js';
@@ -817,6 +817,12 @@ async function mbhitm(mtmp, otmp, hits_you) {
                     await finish_losehp_done();
                     if (game.program_state?.gameover) return 0;
                 }
+                // C `:1625` — losehp runs maybe_wail inline
+                // (hack.c:4289–4291); JS defers via _needs_maybe_wail —
+                // drain before learnit/stop_occupation/nomul/makeknown
+                // (zhitu oil shape :2319–2326, D-3795). No-op when lifesaved
+                // (the fatal path sets no wail flag) or out of wail range.
+                await finish_maybe_wail();
                 learnit = true;
             } else {
                 await pline('The wand misses you.');

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3798 cliffs row-2 maybe_wail writer: mbhitm WAN_STRIKING never drained the deferred wail — wand-hit wail missing (95342 737→1197)
+
+**C locus:** `muse.c:1618–1626` (mbhitm WAN_STRIKING hits-you: `rnd(20)` gate `:1618`, `pline_The("wand hits you!")` `:1621`, `d(2,12)` `:1622`, half-spell `:1623–1624`, `losehp` `:1625`) + `hack.c:4283–4291` (losehp: fatal `done(DIED)` `:4283–4288`, else `maybe_wail()` `:4289–4290` when `n > 0 && uhp*10 < uhpmax`).
+**JS:** `js/muse.js` (+7/−1) + 1 test file.
+**Change:** `await finish_maybe_wail()` (`:825`) after the done-check, before `learnit` (C order: the wail inside losehp precedes learnit/stop_occupation/nomul/makeknown), C-cited in the zhitu oil shape (zap.js:2319–2326, D-3795); `finish_maybe_wail` added to the existing hack.js import (`:47`; imports.mjs ALREADY, no new edge). No-op when lifesaved (the fatal path sets no wail flag — hack.js:1947–1954) or out of wail range; also drains pending showdamage/rehumanize queues in C order. New test `scripts/mbhitm-wail-drain.test.mjs` (recipe-prefix 738 moves; pins the machine-recorded C topline at step 737).
+**Verify:** focused test 0/1 pre-fix (`step 737 topline: "The wand hits you!"` — the exact probe symptom) → 1/1 post-fix. `node scripts/verify.mjs --fn maybe_wail,mbhitm` → PASS syntax (1 changed js file: js/muse.js) · PASS rule2 · PASS hidden (`verify maybe_wail: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`; scen-sweep-Healer-95342: 737 maybe_wail → mfind0 at step 1197, +460) · PASS reach maybe_wail (24/24 smoke) → REACH-OK · note hidden mbhitm (writer, none blocked) · PASS reach mbhitm (23/23) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (muse.js not shared) → VERIFY: PASS. Movement: `verify maybe_wail: 0 PASS, 1 moved past, 0 unchanged, 0 worse`.
+**Named:** none new.
+**Next:** maybe_wail row resolves via regen (95342 now at mfind0@1197). Row-1 falsifier stands: `verify randomize_gem_colors` naming a non-void (rngM>0) session. `js/muse.js:1207` drop_boulder_on_player clone (C read.c :2293, not muse.c) losehp at `:1242` has no in-function done/wail drain — different C file so not this iteration; audit its callers (`:1118`, `:1299`) when a session blocks on it (D-3795 Next list).
 ## 2026-10-10 — D-3797 cliffs row-2 passivemm writer: mdamagem's shared + POLY kill tails missed the C :1091-1094 lifesave gate — revived defender drew grow_up where C runs passivemm (95223 → PASS)
 
 **C locus:** `mhitm.c:1088–1094` (monkilled → `if (!DEADMONSTER(mdef)) return mhm.hitflags` + AGR_DIED arm) + `:1115–1116` (DEF_DIED | grow_up only on a real kill); one shared tail for all adtyps.
