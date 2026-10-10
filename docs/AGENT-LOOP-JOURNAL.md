@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-10 — D-3767 cliffs-head `randomize_gem_colors`: owner already whole, probes still D-3733 C-crash voids → park SYMPTOM, no js/
+
+**C locus:** `o_init.c:85–109` randomize_gem_colors (two `rn2(2)` gates + `rn2(4)` fluorite switch, all arms) + sole caller `:189` — already whole in JS, not re-ported.
+**JS:** no js/ files changed. **Callers:** n/a (park; sole C site already wired, signature kept).
+**Change:** none — no js/ (docs-only entry). Parked the owner as SYMPTOM with the probe command (LOOP-QUEUE.md Parked index); ledger stale note already complete (`js/o_init.js:301` — brief display truncates it). Removing the JS throw would be unfaithful (C aborts on these inputs); a surviving JS would still FAIL against the `\nOops...` padding (D-3733).
+**Verify:** `node scripts/verify.mjs --fn randomize_gem_colors` → PASS syntax (0 files) · PASS rule2 · FAIL hidden `verify randomize_gem_colors: 0 PASS, 0 moved past, 2 unchanged, 0 worse → NO MOVEMENT` (both probes still step-0 voids; D-3766 changed nothing) · PASS reach (80/80 spread of 1025) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a no-js/ park (D-3748/D-3755 precedent).
+**Named:** none — nothing ported, nothing omitted. Standing house idiom kept: throw ≡ C panic (js/dungeon.js:1159).
+**Next:** row stays head as parked SYMPTOM until D-3733's tooling Next lands (supervisor: scorer C-panic exclusion or crash-free re-record); do not re-port randomize_gem_colors/mlevel_tele_trap/migrate/ledger for these voids. Falsifier: `verify randomize_gem_colors` naming a non-void (rngM>0) session blocked here. Next actionable cliff: getpos (95311/95506).
 ## 2026-10-10 — D-3766 cliffs-head migrate_orc writer: rnd_otyp_by_namedesc read unshuffled descr slots (95348 408→694)
 
 **C locus:** `objnam.c:3455–3529` rnd_otyp_by_namedesc (`:3493` OBJ_NAME, `:3507` OBJ_DESCR) + `include/objclass.h:190–191` (OBJ_NAME/OBJ_DESCR read obj_descr[] via oc_name_idx/oc_descr_idx) + `o_init.c:113–148` shuffle (reassigns oc_descr_idx at init; RING entire class via shuffle_all). Sole shiny_obj caller is the orctown path (mkmaze.c:773) — only orctown sessions reach the descr arm with shuffled tables, hence 1 blocked session.
