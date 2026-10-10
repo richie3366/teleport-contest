@@ -1,6 +1,6 @@
 {
- "commit": "922c812df",
- "at": "2026-10-10T04:40:12.949Z",
+ "commit": "95e0c2693",
+ "at": "2026-10-10T04:51:57.547Z",
  "full": false,
  "fullCommit": "8e94854e9",
  "fullAt": "2026-10-10T03:58:52.583Z",
@@ -13525,9 +13525,9 @@
   "scen-sweep-Knight-95311": {
    "src": "corpus",
    "passed": false,
-   "rngM": 32356,
+   "rngM": 57254,
    "rngT": 57254,
-   "scrM": 442,
+   "scrM": 1098,
    "scrT": 1198,
    "kind": "screen",
    "step": 440,
@@ -13536,7 +13536,7 @@
    "loc": "getpos.c:844",
    "jsOwner": null,
    "cTopline": "You feel very greedy. (For instructions type a '?')",
-   "jsTopline": "You feel very greedy.--More--",
+   "jsTopline": "You feel very greedy. (For instructions type a '?')",
    "error": null
   },
   "scen-sweep-Knight-95317": {
@@ -15853,19 +15853,19 @@
   },
   "scen-trek-Wizard-95506": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 46073,
    "rngT": 46073,
-   "scrM": 1028,
+   "scrM": 1037,
    "scrT": 1037,
-   "kind": "screen",
-   "step": 691,
+   "kind": null,
+   "step": null,
    "steps": 1037,
-   "owner": "getpos",
-   "loc": "getpos.c:844",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Showing known terrain and traps only... (For instructions type a '?')",
-   "jsTopline": "Showing known terrain and traps only... (For instructions type a '?')",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-tutorial-Archeologist-94059": {
