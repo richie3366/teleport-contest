@@ -26,7 +26,7 @@
 {"fn":"skinback","c":"1954-1969","status":"ported","js":["js/polyself.js:skinback"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mbodypart","c":"1972-2140","status":"ported","js":["js/polyself.js:mbodypart"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"body_part","c":"2143-2146","status":"ported","js":["js/polyself.js:body_part"],"d":["D-1508"],"at":"2026-10-03@bbe63333a"}
-{"fn":"poly_gender","c":"2149-2157","status":"ported","js":["js/polyself.js:poly_gender"],"at":"2026-10-03@bbe63333a"}
+{"fn":"poly_gender","c":"2149-2157","status":"split","js":["js/polyself.js:poly_gender"],"d":["D-3849"],"at":"2026-10-11@06cc6f81f"}
 {"fn":"ugolemeffects","c":"2160-2188","status":"partial","js":["js/mhitu.js:ugolemeffects"],"omit":"`shieldeff` and `monstseesu` on the zap resist arms (`zap.c:2739–2741`, `:2757–2759`, `:2778–2780`, `:4424–4426`, `:4443–4445`, `:4513–4515`) and on `passive` (`uhitm.c:6069–6071`, `:6092–6094`, `:6105–6107`) stay as they were.","d":["D-3429","D-2895"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: remaining omit cannot ship"}
 {"fn":"armor_to_dragon","c":"2191-2232","status":"ported","js":["js/polyself.js:armor_to_dragon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"polysense","c":"2236-2261","status":"ported","js":["js/polyself.js:polysense"],"at":"2026-10-03@bbe63333a"}
