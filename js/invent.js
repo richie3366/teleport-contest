@@ -8493,7 +8493,7 @@ export async function doattributes(enl_mode = null) {
             lines.push(o(enlght_line_txt('You ', 'are ', werebuf, '')));
         }
         // C insight.c:1892-1893 — Unchanging while poly (!Upolyd handled
-        // above), after were-form, before Fast.
+        // above), after were-form, before Hate_silver.
         {
             const { Unchanging: isUnchangingPoly } = await import('./polyself.js');
             if (isUnchangingPoly(u) && Upolyd(u)) {
@@ -8502,6 +8502,13 @@ export async function doattributes(enl_mode = null) {
                     from_what(UNCHANGING),
                 )));
             }
+        }
+        // C insight.c:1894-1895 — Hate_silver after the shape-change arms
+        // (youprop.h:401: ulycn >= LOW_PM || hates_silver(youmonst.data);
+        // the final≠0 builder `:7392–7397` shape).
+        if (ismnum((u.ulycn ?? NON_PM) | 0)
+            || hates_silver(game.youmonst?.data)) {
+            lines.push(o(enlght_line_txt('You ', 'are ', 'harmed by silver', '')));
         }
         if (Fast()) {
             const fastAttr = Very_fast() ? 'very fast' : 'fast';
@@ -8671,6 +8678,12 @@ export async function doattributes(enl_mode = null) {
     for (let i = 0; i < lines.length; i++) lines[i] = end_menu_cut_str(lines[i], 79);
     const cItems = lines.map((t) => (t.startsWith(' ') ? t.slice(1) : t));
     const { offx } = nhw_menu_geometry(cItems, '(end) ');
+    // C win/tty/wintty.c tty_display_nhwindow NHW_MENU `:1921–1922` — flush
+    // a pending topline --More-- before painting any menu (the
+    // select_menu_pick_none `:3271` / corner-painter `:3040` shape; this
+    // inline painter lacked it, so an invoke-enlightenment covered the
+    // queued low-HP wail instead of paging it first).
+    await flush_topl_more();
     const waitMenuKey = async () => {
         for (;;) {
             const c = await nhgetch();
