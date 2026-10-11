@@ -1,7 +1,7 @@
 {"fn":"iswall","c":"45-55","status":"ported","js":["js/mklev.js:iswall"],"d":["D-3406","D-3034"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"iswall_or_stone","c":"59-66","status":"ported","js":["js/mklev.js:iswall_or_stone"],"d":["D-3034"],"at":"2026-09-28@34c47b267","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_solid","c":"70-73","status":"ported","js":["js/mklev.js:is_solid"],"at":"2026-10-03@bbe63333a"}
-{"fn":"set_levltyp","c":"77-121","status":"ported","js":["js/trap.js:set_levltyp"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
+{"fn":"set_levltyp","c":"77-121","status":"ported","js":["js/trap.js:set_levltyp"],"d":["D-3835","D-3406"],"at":"2026-10-11@becfa3357"}
 {"fn":"set_levltyp_lit","c":"125-145","status":"ported","js":["js/trap.js:set_levltyp_lit"],"d":["D-3406","D-2870"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"extend_spine","c":"166-194","status":"ported","js":["js/mklev.js:extend_spine"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/mklev.js:32341, body complete + 4 callers wired :32397-32400"}
 {"fn":"wall_cleanup","c":"198-225","status":"ported","js":["js/mklev.js:wall_cleanup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: bounds panic not ported (defensive only); loop complete"}

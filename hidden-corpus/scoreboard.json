@@ -1,6 +1,6 @@
 {
- "commit": "520d66ff9",
- "at": "2026-10-11T14:51:45.388Z",
+ "commit": "becfa3357",
+ "at": "2026-10-11T14:59:39.006Z",
  "full": false,
  "fullCommit": "2afad430c",
  "fullAt": "2026-10-11T14:11:13.676Z",
@@ -18540,19 +18540,19 @@
   "scen-worldtour-Knight-578306": {
    "src": "corpus",
    "passed": false,
-   "rngM": 0,
+   "rngM": 81958,
    "rngT": 81958,
-   "scrM": 0,
+   "scrM": 982,
    "scrT": 1037,
-   "kind": "rng",
-   "step": 0,
+   "kind": "screen",
+   "step": 859,
    "steps": 1037,
-   "owner": "randomize_gem_colors",
-   "loc": "o_init.c:89",
+   "owner": "level_tele",
+   "loc": "teleport.c:1427",
    "jsOwner": null,
-   "cTopline": "Salutations wizard, welcome to NetHack! You are a lawful male human Knight.",
-   "jsTopline": "",
-   "error": "ReferenceError: AIR is not defined |     at set_levltyp (file:///home/debian/dev/teleport-contest/js/trap.js:893:40) |     at set_levltyp_lit (file:///home/debi"
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!--More--",
+   "error": null
   },
   "scen-worldtour-Knight-578315": {
    "src": "corpus",

@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-3835 — cliffs-head `randomize_gem_colors` writer: set_levltyp SDOOR→AIR hack read unimported AIR — throw-void Knight-578306 moves (0→859)
+
+- **Status:** shipped (Open — cliffs head `o_init.c` randomize_gem_colors @520d66ff9, 1 corpus block; owner proven already-whole — ledger ported, brief confirms the C staticfn complete js/o_init.js:114; parked-REFUTED tag honored — D-3833 read once (KILLED_BY_AN writer for different probes, predicted this AIR void as its Next). The first divergence names this writer. `verify randomize_gem_colors: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
+- **Symptom:** 1 step-0 throw-void kind=rng (rngM/scrM 0): scen-worldtour-Knight-578306 (1037 steps): C `rn2(2)=0 @ randomize_gem_colors(o_init.c:89)` vs JS `(none)`, jsTopline empty. Recorded error: `ReferenceError: AIR is not defined at set_levltyp (js/trap.js:893) ← set_levltyp_lit (:923) ← sel_set_ter (mklev.js:30224)`. The throw aborts the worker replay so no JS log exists; the scorer misattributes the void to the first C draw (D-3733/D-3768 void paradox).
+- **C locus:** `mkmaze.c` set_levltyp `:77–121`, SDOOR→AIR arboreal hack `:82–87` (garden theme rooms: typ stays SDOOR, arboreal_sdoor=1, return TRUE); `rm.h:91` `AIR = 35`. Probe path mkmaze.c:127 set_levltyp_lit ← selection fill.
+- **JS was:** js/trap.js:887–911 is C-exact but `AIR` was never imported (sibling terrain consts STONE..DRAWBRIDGE_UP imported :77; live export js/const.js:81). First execution of the SDOOR-vs-AIR comparison threw.
+- **Fix:** add `AIR` to the existing const.js import (trap.js:77; `imports.mjs --can` ALREADY — no new edge). No body or signature change.
+- **JS:** js/trap.js (+1 imported name); scripts/set-levltyp-air-sdoor.test.mjs (new: 2 its — AIR value vs C rm.h:91; SDOOR→AIR arm runs, typ stays SDOOR + flag set + returns true).
+- **Callers:** no caller changes — the import rides all pre-wired JS sites of C set_levltyp (29 C references; body whole per D-3406, ledger ported). Probe path: C mkmaze.c:127 set_levltyp_lit → js/trap.js:923 ← js/mklev.js:30224 sel_set_ter. Brief's 6 callees all live (isok/is_ice/obj_ice_effects/spot_stop_timers/count_level_features/impossible; EXTRA_SANITY_CHECKS by-design).
+- **Verify:** focused test 1/2 pre-fix (authentic `ReferenceError: AIR is not defined` at trap.js:893:40) → 2/2 post-fix. `node scripts/verify.mjs --fn set_levltyp,randomize_gem_colors` → PASS syntax (1 file js/trap.js) · rule2 · note hidden set_levltyp (writer, none blocked) · reach set_levltyp smoke 24/24 → REACH-OK · `verify randomize_gem_colors: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Knight-578306 → level_tele at step 859) · reach randomize 80/80 of 1145 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Plus (same code state): full public `sessions` 44/44 (`364+1.60/turn`, R² 0.75).
+- **Named omissions:** none new. Standing: the EXTRA_SANITY_CHECKS impossible arm stays by-design (doc'd in the body comment); the obj_ice_effects mkmaze.c:103 wiring note is a different site, untouched.
+- **Ledger:** set_levltyp ported
+- **Next:** row leaves via regen (probe moved to level_tele@859, joining that cliff family). Do not re-port randomize_gem_colors (symptom owner, whole) — this closes the last of the 3 D-3832 throw-voids (D-3833's KILLED_BY_AN pair + this AIR void).
+- **Cited falsifier grade:** measured (recorded throw stack naming the writer; C arm + rm.h value read; focused test red→green; verify tail + full 44 above; no JS FORCE/DIAG/seed reads).
+
 ## D-3834 — quest arrival texts behind level_tele III: Mon firsttime + Ran locate_first + Tou goal_first (2 PASS + 1 moved)
 
 - **Status:** shipped (Open — cliffs head `teleport.c` level_tele — 4 corpus blocks; writer port, symptom owner stands: level_tele body whole since D-1846/D-2054/D-2136, D-2054 read once per the row tag — DELPHI/COURT/Sam-goal_first arms for other sessions, different writers, not re-ported. D-3738's Cav/Ran/Wiz goal_first + D-3762's Val firsttime/Wiz nexttime/Ran goal_next read once, not re-ported — these are the sibling arrival msgids they left as omissions).

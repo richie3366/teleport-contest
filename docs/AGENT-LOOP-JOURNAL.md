@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3835 cliffs-head `randomize_gem_colors` writer: set_levltyp SDOOR→AIR hack read unimported AIR — throw-void Knight-578306 moves (0→859)
+
+**C locus:** `mkmaze.c` set_levltyp `:77–121`, SDOOR→AIR arboreal hack `:82–87` (garden theme rooms: typ stays SDOOR, arboreal_sdoor=1, return TRUE); `rm.h:91` `AIR = 35`. Probe path mkmaze.c:127 set_levltyp_lit ← selection fill.
+**JS:** js/trap.js (+1 imported name); scripts/set-levltyp-air-sdoor.test.mjs (new: 2 its — AIR value vs C rm.h:91; SDOOR→AIR arm runs, typ stays SDOOR + flag set + returns true).
+**Change:** add `AIR` to the existing const.js import (trap.js:77; `imports.mjs --can` ALREADY — no new edge). No body or signature change.
+**Verify:** focused test 1/2 pre-fix (authentic `ReferenceError: AIR is not defined` at trap.js:893:40) → 2/2 post-fix. `node scripts/verify.mjs --fn set_levltyp,randomize_gem_colors` → PASS syntax (1 file js/trap.js) · rule2 · note hidden set_levltyp (writer, none blocked) · reach set_levltyp smoke 24/24 → REACH-OK · `verify randomize_gem_colors: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Knight-578306 → level_tele at step 859) · reach randomize 80/80 of 1145 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Plus (same code state): full public `sessions` 44/44 (`364+1.60/turn`, R² 0.75).
+**Named:** none new. Standing: the EXTRA_SANITY_CHECKS impossible arm stays by-design (doc'd in the body comment); the obj_ice_effects mkmaze.c:103 wiring note is a different site, untouched.
+**Next:** row leaves via regen (probe moved to level_tele@859, joining that cliff family). Do not re-port randomize_gem_colors (symptom owner, whole) — this closes the last of the 3 D-3832 throw-voids (D-3833's KILLED_BY_AN pair + this AIR void).
 ## 2026-10-11 — D-3834 quest arrival texts behind level_tele III: Mon firsttime + Ran locate_first + Tou goal_first (2 PASS + 1 moved)
 
 **C locus:** `quest.c on_start` `:24–36` (first home visit `qt_pager("firsttime")`), `on_locate` `:40–59` (first locate visit from above `qt_pager("locate_first")` `:50`) and `on_goal` `:62–68` (first goal visit `qt_pager("goal_first")` `:67`) ← `onquest` `:92–103` ← `goto_level` do.c:1891–1892 → questpgr.c qt_pager/com_pager_core → `dat/quest.lua` Mon firsttime `:1389–1395` (output=text + synopsis), Ran locate_first `:1914–1928` (output=text + synopsis), Tou goal_first `:2507–2509` (text-only).
