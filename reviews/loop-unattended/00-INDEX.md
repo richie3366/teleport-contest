@@ -2712,3 +2712,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2700-9aa67c471-doturn-known-spell.md](./2700-9aa67c471-doturn-known-spell.md) | `9aa67c471` | D-3837 spelleffects_check-row writer doturn known_spell arm (1 PASS) | **ACCEPT** |
 | [2701-6db3e5984-blindfolded-eblinded.md](./2701-6db3e5984-blindfolded-eblinded.md) | `6db3e5984` | D-3838 dopray-row writer Blindfolded EBlinded-only (moved 468→482) | **ACCEPT** |
 | [2702-53add89a1-domove-autodig-arm.md](./2702-53add89a1-domove-autodig-arm.md) | `53add89a1` | D-3839 dig-row writer domove autodig arm (1 PASS; tunnels-chain skip lost) | **QUALITY-RISK** |
+| [2703-fd329cf09-domove-tunnels-guard.md](./2703-fd329cf09-domove-tunnels-guard.md) | `fd329cf09` | D-3840 Must-fix 2702 domove tunnels-chain guard (latent; ledger js-site restored) | **ACCEPT** |
+| [2704-80de3e56d-reflecting-verbatim-macro.md](./2704-80de3e56d-reflecting-verbatim-macro.md) | `80de3e56d` | D-3841 zhitu-row writer Reflecting verbatim macro (1 PASS) | **ACCEPT** |
+| [2705-aabdf41f8-lookhere-ironbars-article.md](./2705-aabdf41f8-lookhere-ironbars-article.md) | `aabdf41f8` | D-3842 adj_pit_checks-row writer look_here iron-bars article (moved 274→632) | **ACCEPT** |
+| [2706-6c3585607-vampshift-message-arm.md](./2706-6c3585607-vampshift-message-arm.md) | `6c3585607` | D-3845 flooreffects-row writer vamp_shift MESSAGE arm (moved 632→878) | **ACCEPT** |
+| [2707-13d2e0f03-gulpmu-resist-uprops.md](./2707-13d2e0f03-gulpmu-resist-uprops.md) | `13d2e0f03` | D-3846 dosearch0-row writer gulpmu resist uprops OR (1 PASS) | **ACCEPT** |
+| [2708-c13f45c84-dobuzz-live-bounce.md](./2708-c13f45c84-dobuzz-live-bounce.md) | `c13f45c84` | D-3847 distfleeck-row writer dobuzz live-cell bounce (moved 669→1431) | **ACCEPT** |
+| [2709-c5e7a97a3-rhack-kickedloc-tail.md](./2709-c5e7a97a3-rhack-kickedloc-tail.md) | `c5e7a97a3` | D-3848 dog_move-row writer rhack kickedloc tail (moved 138→263) | **ACCEPT** |

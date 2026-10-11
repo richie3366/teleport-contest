@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — audit 2703–2709 (D-3840..D-3848 window): 7 ACCEPT, 0 Must-fix + full rescore 1149/1197
+
+Reviewed every js-touching SHA since the last audit file (fd329cf09, 80de3e56d, aabdf41f8, 6c3585607, 13d2e0f03, c13f45c84, c5e7a97a3 — D-3840 Must-fix + 6 cliff writers), each against pinned C with a movement re-measure: all 7 movement claims re-verified true (2 PASS, 5 moved-past), 0 regressed in any reach spread. No C-wrongs; no queue prepends. One ledger-text repair inside the audit: test_move row had lost its real `js/hack.js:test_move` site (D-3840 edit) — restored via `ledger.mjs set` (D-3430's absence is by-design D_KEEP=6 trim). Full `sessions` 44/44 (RNG 792,838/792,838, Scr 11,405/11,405); corpus rescore 1149/1197 (+2: Healer-578136, Ranger-578308; RNG 98.96 %, screens 97.7 %, marathons 210/244, `full: true`, 0 PASS→FAIL); held-out 22/44 (+1, pts 9,000, RNG 51.6 % flat — falsifier watch stays open). 5 seeded `ported` rows sampled, all measured ok. Next: cliffs-head mhitm_knockback (read D-2750 once).
 ## 2026-10-11 — D-3848 cliffs-head dog_move Rogue-578129 s138: writer rhack `:3819–3826` — `#`/`:`/`^T` timed branches never reset kickedloc, canned path over-cleared after kick; session moves 138→263
 
 **C locus:** `nethack-c/upstream/src/cmd.c:3819–3826` (rhack post-command tail: TIME → move=TRUE, `func != dokick` → kickedloc=(0,0)); shared by the bound path, `goto do_cmdq_extcmd`, and doextcmd (func stays doextcmd — the ext_tlist swap never re-points func). TIME-capable: dotelecmd (`teleport.c:933` dotele→TIME), dolook (`invent.c:4319` blind feel), doextcmd (inner res); wiz_wish always ECMD_OK (`wizcmds.c:43`, body ends `:44`).

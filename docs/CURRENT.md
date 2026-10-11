@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-11** — full `sessions` on `53add89a1`
-(audit **2695–2702**, 2026-10-11T16:45:45Z).
+Score last measured: **2026-10-11** — full `sessions` on `c5e7a97a3`
+(audit **2703–2709**, 2026-10-11T20:55:25Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`355+1.57/turn` (R² 0.77).
+`353+1.59/turn` (R² 0.77).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-11 13:14Z)** | **21 / 44**, 8,956 / 11,265 pts, RNG **51.6 %**, rngSteps 93.5 %, screens **79.5 %** |
+| **Held-out (judge 2026-10-11 19:39Z)** | **22 / 44**, 9,000 / 11,265 pts, RNG **51.6 %**, rngSteps 93.6 %, screens **79.9 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `355+1.57/turn` (R² 0.77) |
+| Speed label | `353+1.59/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,956 vs lockwo 8,533; their RNG 84.3 % vs our 51.6 %: our loss is early cliffs in long sessions). 21/44 held, pts **8,956** (±0), RNG **51.6 %** (±0pp), rngSteps 93.5 %, screens **79.5 %** at judge 2026-10-11 13:14Z — flat through D-3832..D-3839's window while the corpus gained +5 (1142→1147; marathons 203→208/244); the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-11 ~16:55Z, `53add89a1`; 1197/1197 entries, 0 unrecorded):**
-**1147 / 1197** PASS, RNG 24544940/24895890 (**98.59 %**), screens 415203/426873 (97.3 %); `full: true`. Marathons 208/244. Worst families: `scen-sweep` 64/81 (RNG 93.6 %), `scen-worldtour` 65/81 (97.5 %), `scen-chain` 48/51 (99.4 %), `scen-trek` 31/31 (100 %), `scen-tour` 28/29; rest 100 % RNG. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2702 (index; no row 1618): 1306 ACCEPT, 61 WITH-DEBT, 110 QUALITY-RISK (2695–2702: 6A/1D/1Q, 1 Must-fix queued).
+every audit). Rank 5 by pts (9,000 vs lockwo 8,533; their RNG 84.3 % vs our 51.6 %: our loss is early cliffs in long sessions). 22/44 held (+1), pts **9,000** (+44), RNG **51.6 %** (±0pp), rngSteps 93.6 %, screens **79.9 %** at judge 2026-10-11 19:39Z — through D-3840..D-3848's window the corpus gained +2 (1147→1149; marathons 208→210/244); the falsifier watch (§10.19) stays open.
+**Corpus — picker and proxy (2026-10-11 ~21:05Z, `c5e7a97a3`; 1197/1197 entries, 0 unrecorded):**
+**1149 / 1197** PASS, RNG 24637718/24895890 (**98.96 %**), screens 416940/426873 (97.7 %); `full: true`. Marathons 210/244. Worst families: `scen-sweep` 64/81 (RNG 94.4 %), `scen-worldtour` 67/81 (99.0 %), `scen-chain` 48/51 (99.4 %), `scen-tour` 28/29, `scen-trek` 31/31; rest 100 % RNG. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2709 (index; no row 1618): 1313 ACCEPT, 61 WITH-DEBT, 110 QUALITY-RISK (2703–2709: 7A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**This iter:** cliffs-head `do.c` flooreffects Healer-578136 s632 → park CONFIRMED (2nd no-js): JS-633 prints the held flow (canseemon lead closed); sole delta one-step map-flush lag, architectural (D-3844).
-**Next:** cliffs-head dog_move Rogue-578129 s138 (C rn2(2)=0 j==0 vs JS rn2(12)=6 j>0 @:1255) → measure selection state (appr/gx/gy/chcnt) then port the writer whole.
+**This iter:** audit 2703–2709 (D-3840..D-3848 window): 7 ACCEPT, 0 Must-fix; full rescore 1149/1197 (+2, 0 regressions); held-out 22/44 (+1, RNG 51.6 % flat).
+**Next:** cliffs-head mhitm_knockback (Rogue-578129 s263 + Wizard-578319; C rn2(3) vs JS rn2(35)@doseduce) → read D-2750 once, port the arm this divergence names whole.
 
 ## Parked (diagnose only — do not implement)
 
