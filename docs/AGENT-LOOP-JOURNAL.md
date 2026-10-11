@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3854 cliffs-head `makemon.c` rndmonst_adj Healer-578141 s683: writer `sp_lev.c` create_monster null-pm arm — compiled-loader class instances skipped makemon(NULL), dropping the rndmonst reservoir; session FULL PASS
+
+**C locus:** `sp_lev.c` create_monster `:1925+` — `:1954–1958` mkclass (null ok, "settle for a random monster"), `:1959–1961` mines gate → pm=0, `:1963–1974` location (null pm → DRY), `:1977–1978` occupancy, `:1980–1981` croom, `:1983–1988` spawn (`:1988` makemon; mk_roamer funnels to makemon priest.c:738), `:2125` `mtmp->female = m->female` (tmpmons.female=0 `:3230`); `makemon.c` `:1168` rndmongen gate (default 1 mklev.c:899/sp_lev.c:6370, `nomongen`→0 `:3813`), `:1212–1232` null-ptr → `rndmonst()` retry loop.
+**JS:** 1 file (mklev.js: 3 hunks, +7/−3) + 1 test (`scripts/create-monster-null-pm-reservoir.test.mjs`, D-3852 pattern: C pins RNG[15452]=`rn2(3)=1`, JS full-segment replay must match C past 15452).
+**Change:** js/mklev.js only (3 hunks): unconditional `makemon(pm, …)` with the null pm, C-cited; the existing `mtmp.female = 0` clobber already matches C :2125/:3230. No new imports/edges; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** focused test red pre-fix (rng-diff first mismatch AT 15452) → green post-fix (1/1, 2.4 s). `node scripts/verify.mjs --fn rndmonst_adj,create_monster --base a98ee8462` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · PASS hidden `verify rndmonst_adj: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Healer-578141: PASS) · PASS reach rndmonst_adj 80/80 → REACH-OK (spread of 1146) · note hidden create_monster (writer, none blocked) · PASS reach create_monster 25/25 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** none new in the ported arm. Standing (pre-existing, untouched): `load_wiz_strt` placeClassAt peaceful arm sets mpeaceful without `set_malign` (C :2126–2130); `placeNamedAt` instances without the mines-gate call (wiz_strt :6867, wizard3 :27418 — C :1959 applies to named ids too; dormant, non-mines levels short-circuit In_mines).
+**Next:** row leaves via regen (session FULL PASS). Do not re-port rndmonst_adj (whole, D-2823) or the create_monster null-pm arm (now live in all class instances).
 ## 2026-10-11 — D-3853 quest arrival texts behind level_tele IV: Mon + Rog nexttime (2 PASS)
 
 **C locus:** `quest.c on_start` home-revisit `qt_pager("nexttime")` ← `onquest` ← `goto_level` do.c:1891–1892 → questpgr.c qt_pager/com_pager_core → `dat/quest.lua` Mon nexttime `:1503–1505` (text-only, %H), Rog nexttime `:2157–2160` (text-only 2-line, %l; double space after «Ransmannsby.»).
