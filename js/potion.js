@@ -114,7 +114,7 @@ import {
 import {
     makeknown, compactify_invlets, enlightenment, observe_object,
     hold_another_object, update_inventory, near_capacity, freeinv_core,
-    prinv, getobj_display_pickinv, useupall, getobj,
+    prinv, getobj_display_pickinv, useupall, getobj, invletter_value,
 } from './invent.js';
 import { yn_function } from './getline.js';
 import {
@@ -325,7 +325,7 @@ function compact_lets(lets) {
     return out;
 }
 
-/** C ref: potion.c dip_ok — suggest non-coin invent, uncompacted. */
+/** C ref: potion.c dip_ok — suggest non-coin invent, uncompacted, C sortloot INVLET order. */
 function dippable_lets_raw() {
     const inv = game.invent || [];
     const lets = [];
@@ -333,7 +333,8 @@ function dippable_lets_raw() {
         if (o.oclass === COIN_CLASS) continue;
         if (o.invlet) lets.push(o.invlet);
     }
-    lets.sort();
+    // C sortloot_cmp `:473` — invletter_value, not ASCII (C «bG», not «Gb»).
+    lets.sort((a, b) => invletter_value(a) - invletter_value(b));
     return lets.join('');
 }
 
@@ -2824,7 +2825,8 @@ async function getobj_dip_ok(word, inacc) {
         for (const o of game.invent || []) {
             if (o?.invlet && obj_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
         }
-        lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
+        // C sortloot_cmp `:473` — invletter_value, not charCodeAt.
+        lets.sort((a, b) => invletter_value(a) - invletter_value(b));
         return lets.join('');
     };
 

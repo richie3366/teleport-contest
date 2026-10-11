@@ -1,7 +1,7 @@
 {"fn":"inuse_classify","c":"70-144","status":"ported","js":["js/invent.js:inuse_classify"],"d":["D-2121","D-1850"],"at":"2026-10-03@bbe63333a"}
 {"fn":"loot_classify","c":"149-305","status":"ported","js":["js/invent.js:loot_classify"],"d":["D-3426","D-3401","D-2616"],"at":"2026-10-04@0d801c73f"}
 {"fn":"loot_xname","c":"309-387","status":"ported","js":["js/invent.js:loot_xname"],"d":["D-3426","D-3401","D-2621"],"at":"2026-10-04@0d801c73f"}
-{"fn":"invletter_value","c":"391-399","status":"ported","js":["js/invent.js:invletter_value"],"at":"2026-10-03@bbe63333a"}
+{"fn":"invletter_value","c":"391-399","status":"ported","js":["js/invent.js:invletter_value"],"d":["D-3804"],"at":"2026-10-11@c7eb613c8"}
 {"fn":"sortloot_cmp","c":"403-547","status":"ported","js":["js/invent.js:sortloot_cmp"],"d":["D-2626"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sortloot","c":"593-643","status":"ported","js":["js/invent.js:sortloot"],"d":["D-1589"],"at":"2026-10-03@bbe63333a","note":"alt 655-690"}
 {"fn":"unsortloot","c":"647-651","status":"ported","js":["js/invent.js:unsortloot"],"d":["D-3401","D-3260"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
@@ -41,7 +41,7 @@
 {"fn":"mime_action","c":"1678-1706","status":"ported","js":["js/invent.js:mime_action"],"d":["D-1579"],"at":"2026-10-03@bbe63333a"}
 {"fn":"any_obj_ok","c":"1710-1715","status":"split","js":["js/do.js:drop_obj_ok","js/apply.js:any_obj_ok_stone"],"d":["D-3315"],"at":"2026-10-02@651d1a4d3","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"getobj_hands_txt","c":"1719-1736","status":"ported","js":["js/invent.js:getobj_hands_txt"],"at":"2026-10-03@bbe63333a"}
-{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-3401","D-3386","D-2353","D-2123","D-1927","D-1834"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
+{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-3804","D-3401","D-3386","D-2353","D-2123","D-1927"],"at":"2026-10-11@c7eb613c8","note":"audited D-3401: whole vs C"}
 {"fn":"silly_thing","c":"2094-2131","status":"ported","js":["js/invent.js:silly_thing"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"ckvalidcat","c":"2136-2140","status":"ported","js":["js/invent.js:ckvalidcat"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ckunpaid","c":"2143-2146","status":"ported","js":["js/invent.js:ckunpaid"],"at":"2026-10-03@bbe63333a"}

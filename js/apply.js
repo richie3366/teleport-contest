@@ -56,7 +56,7 @@ import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
     hold_another_object, consume_obj_charge, freeinv, update_inventory, getobj,
     getobj_from_cmdq, getobj_record_repeat, getobj_display_pickinv, useupall,
-    useup, useupf, cmdq_add_key,
+    useup, useupf, cmdq_add_key, invletter_value,
 } from './invent.js';
 import { rn2, rn1, rnd, d, rnl, shuffle_int_array } from './rng.js';
 import {
@@ -2885,6 +2885,8 @@ async function getobj_rub_on_stone(stonebuf, okfn) {
         for (const o of game.invent || []) {
             if (o?.invlet && okfn(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
         }
+        // C sortloot_cmp `:473` — invletter_value, not invent order.
+        lets.sort((a, b) => invletter_value(a) - invletter_value(b));
         return lets.join('');
     };
     const has_downplay = () => {
