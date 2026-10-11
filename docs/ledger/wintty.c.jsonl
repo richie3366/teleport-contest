@@ -29,7 +29,7 @@
 {"fn":"toggle_menu_attr","c":"1315-1326","status":"unknown"}
 {"fn":"process_menu_window","c":"1329-1768","status":"unknown","d":["D-1879","D-1832","D-1831"],"at":"seed@a30a7de84"}
 {"fn":"process_text_window","c":"1771-1851","status":"unknown"}
-{"fn":"tty_display_nhwindow","c":"1855-1950","status":"partial","js":["js/invent.js:doattributes"],"d":["D-3816","D-3676","D-3622"],"at":"2026-10-11@0b7322b84"}
+{"fn":"tty_display_nhwindow","c":"1855-1950","status":"partial","js":["js/invent.js:doattributes"],"d":["D-3831","D-3816","D-3676","D-3622"],"at":"2026-10-11@b4d61065d"}
 {"fn":"tty_dismiss_nhwindow","c":"1953-2006","status":"partial","js":["js/invent.js:dismiss_nhw_menu"],"omit":"(1) corner teardown keeps the flush-resync cadence rather than C's docorner+no-flush — pixel-proven equivalent (gbuf reprint then full resync), C-equivalent on every passing session; (2) tty_dismiss_nhwindow's NHW_MESSAGE/STATUS/BASE/MAP arms (game-exit/suspend only) have no JS caller; (3) the clea…","d":["D-3677"],"at":"2026-10-08@3cb2f5ae2"}
 {"fn":"tty_destroy_nhwindow","c":"2009-2032","status":"unknown"}
 {"fn":"erase_tty_screen","c":"2036-2055","status":"unknown"}
