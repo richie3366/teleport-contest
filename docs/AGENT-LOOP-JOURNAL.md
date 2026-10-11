@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3827 cliffs-head writer `display.c` feel_location: Levitation gate read the flat `u.Levitation` mirror, never set under FROMFORM (95342 1197→PASS)
+
+**C locus:** `feel_location` nethack-c/upstream/src/display.c:746–909, gate `:777` (`if (!can_reach_floor(FALSE))`); `can_reach_floor` nethack-c/upstream/src/engrave.c:187–213 (`:198` Levitation property, `:206` Flying || msize).
+**JS:** js/display.js +import `:173`, gate `:5683–5691`; new focused test scripts/feel-levitate-gate.test.mjs (mfind0-warn-flush replay precedent: prefix to 1197, pins topline + C rows 9/10/11 + Blind status).
+**Change:** D-3822/D-3825 pattern — import the live `Levitation`/`Flying` exports from mhitu.js (`imports.mjs --can display.js mhitu.js Levitation` VERDICT: SAFE, hoisted functions, cycle-safe; one clone fewer) and read them in the gate. Doc comment cites engrave.c:187 + the cycle rationale; msize arm newly named.
+**Verify:** `node scripts/verify.mjs --fn feel_location,mfind0` → VERIFY: PASS (syntax 1 file js/display.js; rule2; `verify mfind0: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` — scen-sweep-Healer-95342: PASS; REACH-OK both, smoke 24/24 ×2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change). Focused `node --test scripts/feel-levitate-gate.test.mjs`: failed pre-fix on row 9 (`'        .%.'` vs `'         %'`), 1/1 green post-fix.
+**Named:** `feel_can_reach_floor` = can_reach_floor(FALSE) minus: usteed P_RIDING < P_BASIC (C :201), ustuck-hugs (:192–197), uundetected ceiling-hider (:203) — pre-existing, untouched; youmonst msize >= MZ_HUGE (:206) — newly named (no session evidence; probe form small). check_pit tail (:209) correctly skipped (FALSE arg).
+**Next:** probe joins the PASS set on regen; pop the next Open — cliffs head.
 ## 2026-10-11 — D-3826 cliffs head display_minventory: PICK_NONE analog omitted tty "X - " prefixes + prompt blank (offx 38 vs C 37); xname food tail used lossy macro name ("c ration") (95327 → PASS)
 
 **C locus:** `invent.c` display_minventory `:5340–5386` → `pickup.c` query_objlist `:1130–1139` (identifier items, ch `# Agent loop journal

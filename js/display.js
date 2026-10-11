@@ -170,6 +170,7 @@ import { msgtype_type } from './options.js';
 import { mapxy_valid } from './getpos.js';
 import { mungspaces } from './getline.js';
 import { Unaware } from './eat.js';
+import { Levitation, Flying } from './mhitu.js'; // feel_can_reach_floor property reads (hoisted fns, runtime use only — imports.mjs SAFE)
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -5671,16 +5672,21 @@ export function engr_can_be_felt(ep) {
 
 /**
  * Inline can_reach_floor(FALSE) for feel_location — avoid engrave↔display
- * import cycle (engrave.js imports newsym from display).
- * Named omission: usteed P_RIDING < P_BASIC; ustuck hugs; ceiling hider.
+ * import cycle (engrave.js imports newsym from display). C engrave.c:187
+ * reads the Levitation/Flying PROPERTIES (H||E, !B); the flat u.Levitation
+ * / u.Flying mirrors are never set by set_uasmon (FROMFORM lands on H* +
+ * uprops), so read the live mhitu.js exports (D-3825 pattern; imports.mjs
+ * VERDICT: SAFE, hoisted functions, cycle-safe).
+ * Named omission: usteed P_RIDING < P_BASIC (C :201); ustuck hugs (:192);
+ * ceiling hider (:203); youmonst msize >= MZ_HUGE (:206).
  */
 function feel_can_reach_floor() {
     const u = game.u || {};
     if (u.uswallow) return false;
-    if (u.Levitation && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
+    if (Levitation() && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
         return false;
     }
-    if (u.Flying) return true;
+    if (Flying()) return true;
     return true;
 }
 
