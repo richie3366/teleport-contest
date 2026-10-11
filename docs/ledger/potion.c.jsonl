@@ -10,7 +10,7 @@
 {"fn":"make_vomiting","c":"243-255","status":"ported","js":["js/potion.js:make_vomiting"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_blinded","c":"261-331","status":"ported","js":["js/do.js:make_blinded"],"d":["D-3402","D-2452","D-1768","D-1755"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"toggle_blindness","c":"336-364","status":"ported","js":["js/do.js:toggle_blindness"],"at":"2026-10-03@bbe63333a"}
-{"fn":"make_hallucinated","c":"369-438","status":"ported","js":["js/potion.js:make_hallucinated"],"d":["D-2200"],"at":"2026-10-03@bbe63333a"}
+{"fn":"make_hallucinated","c":"369-438","status":"ported","js":["js/potion.js:make_hallucinated"],"d":["D-3803","D-2200"],"at":"2026-10-11@69d583849"}
 {"fn":"make_deaf","c":"443-457","status":"ported","js":["js/potion.js:make_deaf"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_glib","c":"461-468","status":"ported","js":["js/potion.js:make_glib"],"at":"2026-10-03@bbe63333a"}
 {"fn":"self_invis_message","c":"471-478","status":"ported","js":["js/trap.js:self_invis_message"],"d":["D-2126"],"at":"2026-10-03@bbe63333a"}

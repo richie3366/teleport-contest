@@ -132,7 +132,7 @@ import {
     OBJ_FREE,
     POTHIT_HERO_THROW, POTHIT_OTHER_THROW, KILLED_BY_AN, KILLED_BY,
     FIRE_RES, COLD_RES,
-    TIMEOUT, I_SPECIAL, HALLUC_RES, GLIB, FAST, FROMOUTSIDE, INTRINSIC, LEG,
+    TIMEOUT, I_SPECIAL, HALLUC_RES, HALLUC, GLIB, FAST, FROMOUTSIDE, INTRINSIC, LEG,
     EYE, SEE_INVIS,
     DETECT_MONSTERS, LEVITATION, INVIS, HEAD, COLNO, ROWNO,
     In_endgame, Is_earthlevel, Is_airlevel, Is_waterlevel, In_sokoban,
@@ -1155,7 +1155,8 @@ function hallucResisted(u) {
  * C ref: potion.c make_hallucinated :369–438, in C order — Unaware talk
  * suppress; mask arm (HHallucination gate, EHalluc_resistance |= / &=~
  * + uprops extrinsic mirror, Hallucination re-mirror); else arm
- * (changed gated on EXTRINSIC resistance only, set_itimeout TIMEOUT bits,
+ * (changed gated on EXTRINSIC resistance only, set_itimeout TIMEOUT bits
+ * + uprops[HALLUC] slot mirror (HHallucination ≡ slot, youprop.h:116),
  * clear-without-toggle talk); changed arm (eatmupdate when !Hallucination,
  * uswallow/swallowed else see_* before the pline, update_inventory,
  * disp.botl, talk pline).
@@ -1195,6 +1196,18 @@ export async function make_hallucinated(xtime, talk, mask = 0) {
         if (!(u.EHalluc_resistance | 0) && (!!old !== !!xtime)) changed = true;
         // C :395 set_itimeout(&HHallucination, xtime) — TIMEOUT bits only
         u.HHallucination = (old & ~TIMEOUT) | itimeout(xtime);
+        // HHallucination ≡ uprops[HALLUC].intrinsic (youprop.h:116, C single
+        // storage) — keep the slot ≡ the flat (D-3802 CONFUSION shape), or
+        // the display.js Hallucination() reader (flat || slot) still sees
+        // Hallu after a cure and the :425 see_monsters repaint paints hallu
+        // glyphs (95323 step 1163: C true `C` vs JS hallu `M` + stuck `Hallu`
+        // after the peffect_sickness shock cure).
+        if (!u.uprops) u.uprops = {};
+        if (!u.uprops[HALLUC]) {
+            u.uprops[HALLUC] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+        }
+        u.uprops[HALLUC].intrinsic =
+            ((u.uprops[HALLUC].intrinsic | 0) & ~TIMEOUT) | itimeout(xtime);
         u.Hallucination = !!((u.HHallucination | 0) & TIMEOUT) && !hallucResisted(u);
 
         // C :398-411 clearing temporary hallucination without toggling vision
