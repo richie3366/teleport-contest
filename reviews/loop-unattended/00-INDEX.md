@@ -2675,3 +2675,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2663-1adc2a3cf-garden-sdoor-tree.md](./2663-1adc2a3cf-garden-sdoor-tree.md) | `1adc2a3cf` | D-3799 level_tele-row writer garden SDOOR tree tty (1 moved) | **ACCEPT** |
 | [2664-a885aeb77-scroll-create-appear.md](./2664-a885aeb77-scroll-create-appear.md) | `a885aeb77` | D-3800 awaken_soldiers-row writer scroll create appear msg (1 moved) | **ACCEPT** |
 | [2665-3b2e6a541-zap-hit-clone-collapse.md](./2665-3b2e6a541-zap-hit-clone-collapse.md) | `3b2e6a541` | D-3801 toss_up-row writer zap hit clone collapse (2 PASS) | **ACCEPT** |
+| [2666-69d583849-confusion-uprops-mirror.md](./2666-69d583849-confusion-uprops-mirror.md) | `69d583849` | D-3802 wiz_intrinsic-row writer CONFUSION slot mirror (3 PASS + 2 moved) | **ACCEPT** |
+| [2667-c7eb613c8-halluc-slot-mirror.md](./2667-c7eb613c8-halluc-slot-mirror.md) | `c7eb613c8` | D-3803 peffect_sickness-row writer HALLUC slot mirror (1 moved) | **ACCEPT** |
+| [2668-4fb06f715-getobj-lets-invletter.md](./2668-4fb06f715-getobj-lets-invletter.md) | `4fb06f715` | D-3804 getobj-row writer clone lets invletter_value order (4 PASS + 1 moved) | **ACCEPT** |
+| [2669-16a795551-from-what-source-arms.md](./2669-16a795551-from-what-source-arms.md) | `16a795551` | D-3805 one_characteristic-row writer from_what source arms (2 PASS) | **ACCEPT** |
+| [2670-090c275ee-travel-bfs-gate-order.md](./2670-090c275ee-travel-bfs-gate-order.md) | `090c275ee` | D-3806 auto_describe-row writer travel BFS gate order (2 PASS + 1 moved) | **ACCEPT** |
+| [2671-0e062d8a5-departure-reglyph-bones.md](./2671-0e062d8a5-departure-reglyph-bones.md) | `0e062d8a5` | D-3807 level_tele-row writer departure shutdown + reglyph + bones paint (2 PASS + 1 moved) | **ACCEPT** |
+| [2672-6657185de-domove-wall-prose.md](./2672-6657185de-domove-wall-prose.md) | `6657185de` | D-3808 test_move-row writer domove wall prose via back_to_glyph (2 PASS) | **ACCEPT** |
+| [2673-e93d9c513-flying-uprops-union.md](./2673-e93d9c513-flying-uprops-union.md) | `e93d9c513` | D-3809 do_statusline2-row writer shared Flying() uprops union (1 PASS) | **ACCEPT** |
+| [2674-38c910247-u-locomotion-unions.md](./2674-38c910247-u-locomotion-unions.md) | `38c910247` | D-3810 swim_move_danger-row writer u_locomotion slot unions (2 PASS) | **ACCEPT** |

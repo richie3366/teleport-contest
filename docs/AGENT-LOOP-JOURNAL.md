@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — audit 2666–2674 @38c910247: review D-3802..D-3810 (9A/0D/0Q, 0 Must-fix) + full rescore 1068/1113
+
+**Reviews:** 2666/confusion-mirror, 2667/halluc-mirror, 2668/getobj-lets, 2669/from_what, 2670/travel-BFS, 2671/departure-reglyph-bones, 2672/domove-wall-prose, 2673/Flying-union, 2674/u_locomotion — all ACCEPT; every D-log movement claim re-measured live (`--base HASH~1 --reach-all`), all confirmed, zero regressed. Rule #2 clean iteration-wide. Ledger: snapshot appended; 5 random ported rows briefed (clearrolefilter, do_rush_east, optfn_tile_width, mcalcmove, sort_rooms) — all stand, no `ledger.mjs set` (`ledger.mjs sql` unrunnable here: node v20 lacks node:sqlite).
+**Score:** public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `374+1.67/turn`); corpus 1068/1113 (+18 vs 1050, exactly the window's claimed PASSes, 0 PASS→FAIL, `full: true` 05:19Z); marathons 129/160 (sweep 35/50, worldtour 37/50, chain 37/40, trek 20/20). Held-out 21/44, pts 8,956 (+100), RNG 51.6 % (+5.2pp) at judge 01:49Z — window fixes visibly move held-out.
+**Observed (not Must-fix):** D-3809's commit backfilled DIVERGENCE-INDEX.md with ~26k rows (file now 52k lines) — docs churn inside a port commit, harmless but noisy; 7 Flying + 10 Levitation local clones still H/E-only (D-1085/D-3809 deferrals, no probe reaches them).
+**Next:** port slot pops row-2 one_characteristic Antimagic pair (95208@285, 95221@621; D-3805 Next diagnosis on file); row-1 randomize_gem_colors still void-barred.
 ## 2026-10-11 — D-3810 cliffs row-2 swim_move_danger writer: u_locomotion read dead u.Levitation/u.Flying flats (2 PASS)
 
 **C locus:** `hack.c:1817–1829` u_locomotion (`:1826` Levitation ? Float/float : `:1827` Flying ? Fly/fly : `:1828` locomotion(youmonst.data, def)) + `youprop.h:235–240` Levitation ((H||E) && !B ≡ uprops[LEVITATION]) + `:253–256` Flying (+ steed is_flyer).

@@ -22,17 +22,17 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-11** — full `sessions` on `3b2e6a541`
-(audit **2657–2665**, 2026-10-11T00:12:30Z).
+Score last measured: **2026-10-11** — full `sessions` on `38c910247`
+(audit **2666–2674**, 2026-10-11T05:09:07Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`348+1.58/turn` (R² 0.79).
+`374+1.67/turn` (R² 0.77).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-10 19:09Z, board 19:36Z)** | **19 / 44**, 8,856 / 11,265 pts, RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** |
+| **Held-out (judge 2026-10-11 01:49Z, board 02:16Z)** | **21 / 44**, 8,956 / 11,265 pts, RNG **51.6 %**, rngSteps 93.5 %, screens **79.5 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -40,10 +40,10 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,856 vs lockwo 8,533; their RNG 84.3 % vs our 46.4 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,856** (+0), RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** at judge 2026-10-10 19:09Z (board 19:36Z — before this window's SHAs, so no movement attributable yet).
-**Corpus — picker and proxy (2026-10-11 ~00:10Z, `3b2e6a541`; 1113/1113 entries, 0 unrecorded):**
-**1050 / 1113** PASS, RNG 20346915/20441637 (**99.54 %**), screens 341508/347076 (98.4 %); `full: true`. Marathons 111/160. Worst families: `scen-sweep` 27/50 (RNG 96.8 %), `scen-worldtour` 30/50 (98.9 %), `scen-chain` 34/40 (100 %), `scen-trek` 20/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; +3 FAIL→PASS vs committed (rescore-only cross-effects: 95330 revive_corpse@120, 95302 do_statusline2@1550, 95216 fumaroles@934; +11 vs last audit's 1039: D-3793 ×2, D-3794, D-3795, D-3796, D-3797, D-3801 ×2 + rescore 3). Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2665 (index; no row 1618): 1271 ACCEPT, 60 WITH-DEBT, 109 QUALITY-RISK (2657–2665: 9A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,956 vs lockwo 8,533; their RNG 84.3 % vs our 51.6 %: our loss is early cliffs in long sessions). 21/44 held, pts **8,956** (+100), RNG **51.6 %** (+5.2pp), rngSteps 93.5 %, screens **79.5 %** at judge 2026-10-11 01:49Z (board 02:16Z — includes ~D-3802..D-3806, so the window's early cliff fixes visibly move held-out RNG).
+**Corpus — picker and proxy (2026-10-11 ~05:19Z, `38c910247`; 1113/1113 entries, 0 unrecorded):**
+**1068 / 1113** PASS, RNG 20348305/20441637 (**99.54 %**), screens 342276/347076 (98.6 %); `full: true`. Marathons 129/160. Worst families: `scen-sweep` 35/50 (RNG 96.8 %), `scen-worldtour` 37/50 (98.9 %), `scen-chain` 37/40 (100 %), `scen-trek` 20/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; +18 FAIL→PASS vs last audit's 1050, exactly the 9 SHAs' claimed PASSes (D-3802 ×3, D-3804 ×4, D-3805 ×2, D-3806 ×2, D-3807 ×2, D-3808 ×2, D-3809, D-3810 ×2; D-3803 moved-only) — zero rescore drift. Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2674 (index; no row 1618): 1280 ACCEPT, 60 WITH-DEBT, 109 QUALITY-RISK (2666–2674: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,7 +140,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**This iter:** row-1 void barred (D-3767/D-3768; falsifier rechecked live — both probes still step-0 voids); cliff = row-2 swim_move_danger writer (u_locomotion dead u.Levitation/u.Flying flats → _st slot unions): SHIPPED D-3810 — 2 PASS (95347, 95213), 44/44, REACH-OK.
+**This iter:** audit 2666–2674 shipped (9A/0D/0Q, 0 Must-fix; board 1068/1113 full:true). Next port: row-1 void barred (D-3767/D-3768); cliff = row-2 one_characteristic Antimagic pair (95208@285, 95221@621 — D-3805 Next: JS Antimagic true where C false, diagnose the union/extrinsic writer via /tmp prefix-state probe).
 
 ## Parked (diagnose only — do not implement)
 
