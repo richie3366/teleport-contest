@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3818 cliffs row-2 `cmd.c` domonability: shriek/gremlin arms fell through to a shared reflexive tail — C's Upolyd arms are chain members (95329 1075→1164)
+
+**C locus:** `cmd.c:890–949` domonability — the Upolyd `:943–944` / normal-form `:945–947` arms are else-if chain members, reached only when no earlier arm matched; the gremlin `:923–933` and shriek `:937–942` arms have no return and fall to the bare `return ECMD_OK` (`:948`).
+**JS:** `js/polyself.js` (+5/−9) + 1 test file.
+**Change:** `tail()` deleted; the Upolyd/normal arms are chain members after the steed arm in C order (`:943–947` cites); the chain ends in bare `return ECMD_OK` (`:948` cite). Message strings byte-identical; export name/signature unchanged. New focused test `scripts/domonability-reflexive-tail.test.mjs` (4 its, real permonst rows, message capture mirrors fprefx-stale-egg): poly shrieker → exactly «You shriek.» (probe), dry-land gremlin → exactly «no fountain here» (same fall-through class), poly grid bug → reflexive line (control), human normal form → no-ability line (control).
+**Verify:** focused test 2/4 pre-fix (shrieker reflexive-tail text + gremlin More-prompt throw) → 4/4 post-fix. `node scripts/verify.mjs --fn domonability` → PASS syntax (1 changed js file: js/polyself.js) · PASS rule2 · PASS hidden (verify domonability: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; scen-sweep-Barbarian-95329 → still_chewing at step 1164, was 1075) · PASS reach (no RNG-tagged reach; 24/24 smoke → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (polyself.js not shared). VERIFY: PASS.
+**Named:** none new (domonability otherwise whole per D-3402/D-1898/D-2069; all 19 callees live per brief).
+**Next:** 95329's new owner still_chewing@1164 (own future row); row-1 still randomize_gem_colors voids pending D-3733 tooling (scorer C-panic exclusion or crash-free re-record).
 ## 2026-10-11 — D-3817 cliffs row-2 do_statusline2 writer: show_overview PICK_NONE bypassed the menu pager — corner painter hardcoded '(end) ', no 23/page (95306 + 95323 → PASS)
 
 **C locus:** `dungeon.c:3304–3340` show_overview whole re-read (`:3318` NHW_MENU, `:3327` end_menu, `:3328` select_menu PICK_NONE for why!=-1) + `win/tty/wintty.c` paging: tty_end_menu `:2692–2694` (lmax = min(52, rows-1) = 23, npages = ceil(nitems/23)), tty_display_nhwindow menu loop `:1537–1547` (`Sprintf(morestr, "(%d of %d)")` when npages>1, else `(end)`), dmore `:1154–1172`, erase_menu_or_text dismiss. Owner `botl.c:130` untouched.
