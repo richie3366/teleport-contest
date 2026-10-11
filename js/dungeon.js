@@ -3264,9 +3264,8 @@ export async function donamelevel() {
 export async function show_overview(why = 0, reason = 0) {
     const { formatkiller } = await import('./end.js');
     const { ATR_INVERSE } = await import('./terminal.js');
-    const { nhgetch } = await import('./input.js');
     const { flush_topl_more, endgamelevelname } = await import('./display.js');
-    const { paint_corner_nhw_menu, dismiss_nhw_menu } = await import('./invent.js');
+    const { select_menu_pick_none } = await import('./invent.js');
     const { ldrname } = await import('./questpgr.js');
 
     recalc_mapseen();
@@ -3296,12 +3295,12 @@ export async function show_overview(why = 0, reason = 0) {
         }
         return;
     }
-    for (;;) {
-        await paint_corner_nhw_menu(entries, '(end) ');
-        const key = await nhgetch();
-        await dismiss_nhw_menu();
-        if (key === 27 || key === 32 || key === 13 || key === 10) break;
-    }
+    // C dungeon.c :3328 select_menu PICK_NONE — tty pages 23/page with
+    // "(N of M)" when multi-page (wintty.c tty_end_menu :2693–2694,
+    // tty_display_nhwindow :1537–1547, dmore :1154–1172) and dismisses via
+    // erase_menu_or_text; the corner painter cannot page (D-1849 pattern:
+    // import the live export, don't clone a pager here).
+    await select_menu_pick_none(entries);
 }
 
 /**

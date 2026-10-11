@@ -102,7 +102,7 @@
 {"fn":"mapseen_temple","c":"3267-3278","status":"ported","js":["js/dungeon.js:mapseen_temple"],"d":["D-3001"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"room_discovered","c":"3282-3290","status":"ported","js":["js/dungeon.js:room_discovered"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dooverview","c":"3294-3301","status":"ported","js":["js/dungeon.js:dooverview"],"d":["D-1650"],"at":"2026-10-03@bbe63333a"}
-{"fn":"show_overview","c":"3305-3340","status":"ported","js":["js/dungeon.js:show_overview"],"at":"2026-10-03@bbe63333a"}
+{"fn":"show_overview","c":"3305-3340","status":"ported","js":["js/dungeon.js:show_overview"],"d":["D-3817"],"at":"2026-10-11@67d359f56"}
 {"fn":"traverse_mapseenchn","c":"3344-3365","status":"ported","js":["js/dungeon.js:traverse_mapseenchn"],"d":["D-3145"],"at":"2026-09-30@fa5a786a1","note":"stale: js/dungeon.js:3065"}
 {"fn":"seen_string","c":"3368-3384","status":"ported","js":["js/dungeon.js:seen_string"],"at":"2026-10-03@bbe63333a"}
 {"fn":"br_string2","c":"3388-3406","status":"ported","js":["js/dungeon.js:br_string2"],"at":"2026-10-03@bbe63333a"}
