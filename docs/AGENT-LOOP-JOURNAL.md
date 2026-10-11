@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3813 cliffs row-2 `slime_dialogue` writer: savemon ebones arm — serMon replacer dropped the bag on its Role_switch mnum (95416 → PASS)
+
+**C locus:** save.c savemon :871–875 (ebones blob: buflen + Sfo_ebones) + restore.c :362–366 (Sfi_ebones) + mextra.h:189 struct ebones (`mnum` = Role_switch) + end.c done_in_by :277–280 (the "of"/"called" gate).
+**JS:** js/lev_json.js (+9/−1) + 1 test file.
+**Change:** one arm in serMon's replacer — `if (key === 'ebones') return val;` + C cites (fixed data schema, never a live struct; children are scalars + oldalign {type,record}). No new imports, no signature change. New focused test scripts/sermon-ebones.test.mjs (5 its: bag kept incl. mnum; restmon roundtrip rebuilds has_ebones; mgivenname control; mx-filter still drops; ebones:0 stays absent).
+**Verify:** focused test 2/5 pre-fix (stash check: its 1+2+4 fail — bag dropped, roundtrip empty, ebones-half of the filter test) → 5/5 post-fix. `node scripts/verify.mjs --fn slime_dialogue` → PASS syntax (1 changed js file: js/lev_json.js) · PASS rule2 · PASS hidden (`verify slime_dialogue: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; scen-chain-Ranger-95416: PASS) · PASS reach (no RNG-tagged reach; smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS. Full `sessions`: 44/44 (fortress holds).
+**Named:** none new (savemon split otherwise unchanged: mtemplit, relative-time edog wire, mw flag D-3607, mtrack D-0276, ispriest forget_temple_entry all stand; OMONST ser-side shape untouched).
+**Next:** row leaves via regen. Row-1 void falsifier unchanged (a non-void session blocked on randomize_gem_colors, or D-3733 tooling).
 ## 2026-10-11 — D-3812 cliffs row-2 readobjnam_postparse1 writer: glyph_is_piletop_generic_obj covered the whole piletop bank, map_object discos every nearby piletop (95401 → PASS)
 
 **C locus:** `display.h:841–843` glyph_is_piletop_generic_obj (`> OFF && < OFF+FIRST_OBJECT-1`, FIRST_OBJECT=18: class slots 1..17 only) + `:851–856` glyph_is_normal_object (third disjunct: the normal-piletop arm) + `display.c:340` map_object observe gate (generic+cansee+!Hallu+near). A piletop otyp glyph (smock 144+PILE_OFF) is normal, never generic — C never observes the drop.
