@@ -80,7 +80,7 @@
 {"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-3264"],"at":"2026-10-02@d947745c9"}
 {"fn":"maybe_wail","c":"4211-4243","status":"ported","js":["js/hack.js:maybe_wail"],"d":["D-3816"],"at":"2026-10-11@0b7322b84"}
 {"fn":"showdamage","c":"4247-4253","status":"ported","js":["js/hack.js:showdamage"],"d":["D-3446","D-3388","D-3105"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: live js/hack.js:showdamage (D-3388 whole); refresh MISSING note retired (review 2343.1)"}
-{"fn":"losehp","c":"4256-4292","status":"ported","js":["js/hack.js:losehp"],"d":["D-3388","D-2051"],"at":"2026-10-03@41ae7cfca"}
+{"fn":"losehp","c":"4256-4292","status":"split","js":["js/hack.js:losehp","js/end.js:finish_losehp_done"],"d":["D-3821","D-3388","D-2051"],"at":"2026-10-11@b2dce99c3"}
 {"fn":"weight_cap","c":"4295-4346","status":"ported","js":["js/invent.js:weight_cap"],"d":["D-2819"],"at":"seed@a30a7de84"}
 {"fn":"inv_weight","c":"4351-4365","status":"ported","js":["js/invent.js:inv_weight"],"d":["D-2827"],"at":"seed@a30a7de84"}
 {"fn":"calc_capacity","c":"4372-4382","status":"ported","js":["js/invent.js:calc_capacity"],"at":"2026-10-03@bbe63333a"}

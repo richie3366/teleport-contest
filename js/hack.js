@@ -1948,6 +1948,10 @@ export function losehp(n, knam, k_format = KILLED_BY) {
     if ((u.uhp || 0) < 1) {
         // C: urgent_pline("You die..."); done(DIED); — noreturn
         if (!game.program_state) game.program_state = {};
+        // JS-only bail marker: C's done(DIED) runs here with gameover
+        // still FALSE (really_done :1144 sets it). Remember that losehp
+        // invented it so finish_losehp_done can drop it before done().
+        if (!game.program_state.gameover) game._losehp_gameover = true;
         game.program_state.gameover = true;
         game._losehp_needs_done = true;
         if (!game.killer) game.killer = { name: '', format: 0 };
@@ -1987,6 +1991,7 @@ export async function finish_losehp_rehumanize() {
     await rehumanize();
     if (!wasGameover && game.program_state?.gameover) {
         game._losehp_needs_done = false;
+        game._losehp_gameover = false;
         game._needs_maybe_wail = false;
     }
 }

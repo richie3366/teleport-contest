@@ -7,7 +7,7 @@
 {"fn":"levitation_dialogue","c":"353-378","status":"ported","js":["js/timeout.js:levitation_dialogue"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: surface() rendered via hliquid water/lava; branches complete"}
 {"fn":"slime_dialogue","c":"389-443","status":"ported","js":["js/timeout.js:slime_dialogue"],"at":"2026-10-03@bbe63333a"}
 {"fn":"burn_away_slime","c":"448-453","status":"ported","js":["js/timeout.js:burn_away_slime"],"at":"2026-10-03@bbe63333a"}
-{"fn":"slimed_to_death","c":"457-519","status":"ported","js":["js/timeout.js:slimed_to_death"],"d":["D-2396"],"at":"2026-10-03@bbe63333a"}
+{"fn":"slimed_to_death","c":"457-519","status":"ported","js":["js/timeout.js:slimed_to_death"],"d":["D-2396"],"at":"2026-10-11@b2dce99c3","note":"stale: 2026-09-08 MISATTRIBUTED park retired D-3821 — probe scen-death-Valkyrie-92229 PASS; owner timeout.c:508 is a C comment literal; 95231 writer was losehp's gameover marker (D-3821)"}
 {"fn":"phaze_dialogue","c":"534-543","status":"ported","js":["js/timeout.js:phaze_dialogue"],"at":"2026-10-03@bbe63333a"}
 {"fn":"region_dialogue","c":"554-569","status":"ported","js":["js/timeout.js:region_dialogue"],"d":["D-2914"],"at":"seed@a30a7de84"}
 {"fn":"done_timeout","c":"575-585","status":"ported","js":["js/timeout.js:done_timeout"],"at":"2026-10-03@bbe63333a"}

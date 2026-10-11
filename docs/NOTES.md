@@ -24,21 +24,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split).
 ## Don't re-check (≤15)
 
-- D-1790…D-3819 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3819) reached no session — no pole-lava row.
+- D-1790…D-3821 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3821) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3819.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3819 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3821.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3821 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3821: `js/hack.js:1954` losehp records `game._losehp_gameover = true` only when it flips gameover from false (the marker it invents); `js/end.js:2013–2016`  Named: `finish_losehp_done` still prints «You die...» with plain `pline` where C uses `urgent_pli
 - D-3819: new arm in domove after the IRONBARS chew, in C order: obstructed && !bars && !uinwater (:1017 gate preserved — its message stays deferred) && tunnels Named: none new — door (:1090) / boulder (:1227) tunnels arms, Passes_walls+may_passwall (:1014),
 - D-3818: `tail()` deleted; the Upolyd/normal arms are chain members after the steed arm in C order (`:943–947` cites); the chain ends in bare `return ECMD_OK`  Named: none new (domonability otherwise whole per D-3402/D-1898/D-2069; all 19 callees live per b
 - D-3817: `js/dungeon.js` show_overview now `await select_menu_pick_none(entries)` (live `js/invent.js:3265` export — C-exact lmax/npages/morestr/fullscreen/dis Named: none new in the probe path (show_overview display now the shared C-exact path; why==-1 PIC
@@ -53,5 +54,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3808: the inline now computes prose via the live `back_to_glyph` + `glyph_to_cmap` + `S_stone`/`an(defsym_explanation)`/`impossible` arms — the exact test_m Named: none new (inline's remaining Deferred arms stand: Blind feel_location, Passes_walls/may_pa
 - D-3807: do.js: Hallu gate removed (C vision.c:820-836 has none; the #992 narrowing stands for non-departure shutdowns only) + reglyph_darkroom() imported and  Named: none new (restgamestate :926 reglyph stays named, save.js; ordinary vision_recalc(2) loop 
 - D-3806: moved the visibility gate above the destination test in C order (combined gate, then dest-return, then else-if enqueue); the couldseeOnly D-0702 shape Named: none new (findtravelpath split otherwise unchanged; travel_test_move / travel_delay_curren
-- D-3805: the three arms ported in C order with C cites: birth arm first (uroleplay.blind/deaf); Blindfolded_only arm after what_gives (youprop.h:97 macro inlin Named: none new (from_what now whole vs C :904–1001; the " pair of "/STRANGLED tail unchanged, sh
 <!-- landmarks:end -->

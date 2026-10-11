@@ -1143,6 +1143,7 @@ export async function panic_tail(err) {
 async function really_done(how) {
     if (!game.program_state) game.program_state = {};
     game.program_state.gameover = true;
+    game._losehp_gameover = false; // real gameover — not losehp's marker
     // C really_done `:1146` — panic save is pointless once gameover.
     game.program_state.something_worth_saving = 0;
     if (game.program_state.done_hup) {
@@ -2005,6 +2006,14 @@ export async function finish_losehp_done() {
     await finish_losehp_rehumanize();
     if (!game._losehp_needs_done) return;
     game._losehp_needs_done = false;
+    // C hack.c losehp `:4287–4288` reaches done(DIED) with gameover FALSE
+    // (only really_done `:1144` sets it). Drop losehp's JS-only bail
+    // marker so done() runs on C state: savelife's Monnam(u.ustuck) must
+    // say "It" for a blind hero (x_monnam do_it skips on gameover).
+    if (game._losehp_gameover) {
+        game._losehp_gameover = false;
+        game.program_state.gameover = false;
+    }
     await pline('You die...');
     await done(DIED);
 }
