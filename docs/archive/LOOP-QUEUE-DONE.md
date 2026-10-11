@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-11
 
+- [x] `muse.c` mquaffmsg — blocks 1/1197 corpus sessions (first at step 369; RNG lost 14971, screens lost 268): C «You hear a chugging sound.--More--» vs JS «You hear a chugging sound. You are currently 5 and require 2». Probe: `node scripts/hidden-proxy.mjs verify mquaffmsg` (scen-worldtour-Barbarian-578309). @ad9fa3ee0 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3855
+
+
 - [x] `do.c` flooreffects — blocks 1/1197 corpus sessions (first at step 632; RNG lost 33943, screens lost 296): toplines identical; first differing screen row 7: C «4   1   4» vs JS «4       4» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify flooreffects` (scen-worldtour-Healer-578136). @80de3e56d **[history: archived D-3240 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3843 `3644f9440`
 
 
