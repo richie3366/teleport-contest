@@ -2704,3 +2704,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2692-a73eaef26-maketrap-head-insert.md](./2692-a73eaef26-maketrap-head-insert.md) | `a73eaef26` | D-3829 getpos-row writer maketrap head-insert (1 PASS) | **ACCEPT** |
 | [2693-b4d61065d-vpline-tail-chaining.md](./2693-b4d61065d-vpline-tail-chaining.md) | `b4d61065d` | D-3830 castmu-row writer vpline completion-tail chaining (moved 681→940) | **ACCEPT** |
 | [2694-d412d1500-menutext-bot-gate.md](./2694-d412d1500-menutext-bot-gate.md) | `d412d1500` | D-3831 process_menu_window-row writer menu-text bot gate (1 PASS) | **ACCEPT** |
+| [2695-d87af6ccb-hitmu-gameover-gate.md](./2695-d87af6ccb-hitmu-gameover-gate.md) | `d87af6ccb` | D-3832 randomize_gem_colors-row writer hitmu gameover gate (1 PASS) | **ACCEPT** |
+| [2696-520d66ff9-drinkfountain-killed-by-an.md](./2696-520d66ff9-drinkfountain-killed-by-an.md) | `520d66ff9` | D-3833 randomize_gem_colors-row writer drinkfountain KILLED_BY_AN import (2 moved; ledger omit dropped) | **ACCEPT-WITH-DEBT** |
+| [2697-becfa3357-quest-arrival-texts.md](./2697-becfa3357-quest-arrival-texts.md) | `becfa3357` | D-3834 level_tele-row writer quest arrival texts Mon/Ran/Tou (2 PASS + 1 moved) | **ACCEPT** |
+| [2698-de5480a1f-set-levltyp-air.md](./2698-de5480a1f-set-levltyp-air.md) | `de5480a1f` | D-3835 randomize_gem_colors-row writer set_levltyp AIR import (1 moved) | **ACCEPT** |
+| [2699-0ef078814-passive-free-action.md](./2699-0ef078814-passive-free-action.md) | `0ef078814` | D-3836 clear_bypasses-row writer passive Free_action ring extrinsic (moved 391→447) | **ACCEPT** |
+| [2700-9aa67c471-doturn-known-spell.md](./2700-9aa67c471-doturn-known-spell.md) | `9aa67c471` | D-3837 spelleffects_check-row writer doturn known_spell arm (1 PASS) | **ACCEPT** |
+| [2701-6db3e5984-blindfolded-eblinded.md](./2701-6db3e5984-blindfolded-eblinded.md) | `6db3e5984` | D-3838 dopray-row writer Blindfolded EBlinded-only (moved 468→482) | **ACCEPT** |
+| [2702-53add89a1-domove-autodig-arm.md](./2702-53add89a1-domove-autodig-arm.md) | `53add89a1` | D-3839 dig-row writer domove autodig arm (1 PASS; tunnels-chain skip lost) | **QUALITY-RISK** |
