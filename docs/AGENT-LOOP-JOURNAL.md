@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3825 cliffs head You_see writer: convert_arg %x read dead Blind flats, missed the worn blindfold (95337 → PASS)
+
+**C locus:** `questpgr.c` convert_arg `:311` `case 'x': str = Blind ? "sense" : "see";` with `Blind ≡ (HBlinded || EBlinded) && !BBlinded` (youprop.h:103).
+**JS:** `js/questpgr.js` (import + `%x` arm `Blind() ? 'sense' : 'see'`, cite comment) and `scripts/convert-arg-blind.test.mjs` (extrinsic-blind, intrinsic-blind, sighted, blocked).
+**Change:** D-3822 pattern — import the live `Blind()` export from invent.js (imports.mjs VERDICT: SAFE, hoisted function, cycle-safe) and read it in the `%x` arm; dead-flat line deleted.
+**Verify:** focused test failed 2/4 pre-fix (both sense cases), 4/4 post-fix. `verify.mjs --fn You_see,convert_arg`: hidden verify You_see: 1 PASS, 0 moved, 0 no-movement (scen-sweep-Barbarian-95337: PASS); REACH-OK both spreads (24/24 each); green 2/2; strict both; cohort 7/7; syntax + Rule #2 PASS; VERIFY: PASS.
+**Named:** none new (convert_arg otherwise whole per D-1649 audit).
+**Next:** sibling dead-flat Blind reads (apply.js:5845, hack.js:3089, music.js:215, timeout.js:1727) are future cliff writers only if a board row names them — not queued, not swept.
 ## 2026-10-11 — D-3824 cliffs head `randomize_gem_colors` is a phantom: D-3823 committed a stale scoreboard that re-failed 95230/95244/95231/95210 — all 4 PASS live, board re-scored, 3 rows leave (no js/)
 
 **C locus:** none (no C change; owner o_init.c:85–109 whole; writer end.c:394–480 panic whole per D-3820).

@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3825 — cliffs head You_see writer: convert_arg %x read dead Blind flats, missed the worn blindfold (95337 → PASS)
+
+- **Status:** shipped.
+- **Symptom:** cliffs head `pline.c` You_see, scen-sweep-Barbarian-95337 step 798, screen-only (C/JS RNG 35981/35981): quest home-firsttime text, C «...you can sense the familiar shapes» vs JS «...you can see ...». You_see is the painter; the value's writer is the `%x` substitution.
+- **C locus:** `questpgr.c` convert_arg `:311` `case 'x': str = Blind ? "sense" : "see";` with `Blind ≡ (HBlinded || EBlinded) && !BBlinded` (youprop.h:103).
+- **JS was:** `js/questpgr.js:910` inline `!!(u.Blind || u.HBlind || u.EBlind)` — `u.HBlind`/`u.EBlind` have zero writers anywhere in `js/`; the `u.Blind` sticky is refreshed only by make_blinded (do.js:3780), not the extrinsic blindfold path. Mid-run probe at the divergent step: `HBlinded=0 EBlinded=524288 BBlinded=0`, live `Blind()` true, inline read false → "see".
+- **Fix:** D-3822 pattern — import the live `Blind()` export from invent.js (imports.mjs VERDICT: SAFE, hoisted function, cycle-safe) and read it in the `%x` arm; dead-flat line deleted.
+- **JS:** `js/questpgr.js` (import + `%x` arm `Blind() ? 'sense' : 'see'`, cite comment) and `scripts/convert-arg-blind.test.mjs` (extrinsic-blind, intrinsic-blind, sighted, blocked).
+- **Callers:** convert_arg's one C call site, convert_line questpgr.c:343 → JS `js/questpgr.js:1040` convert_line calls convert_arg (no signature change; every other arm untouched).
+- **Verify:** focused test failed 2/4 pre-fix (both sense cases), 4/4 post-fix. `verify.mjs --fn You_see,convert_arg`: hidden verify You_see: 1 PASS, 0 moved, 0 no-movement (scen-sweep-Barbarian-95337: PASS); REACH-OK both spreads (24/24 each); green 2/2; strict both; cohort 7/7; syntax + Rule #2 PASS; VERIFY: PASS.
+- **Named omissions:** none new (convert_arg otherwise whole per D-1649 audit).
+- **Ledger:** convert_arg ported
+- **Next:** sibling dead-flat Blind reads (apply.js:5845, hack.js:3089, music.js:215, timeout.js:1727) are future cliff writers only if a board row names them — not queued, not swept.
+
 ## D-3824 — cliffs head `randomize_gem_colors` is a phantom: D-3823 committed a stale scoreboard that re-failed 95230/95244/95231/95210 — all 4 PASS live, board re-scored, 3 rows leave (no js/)
 
 - **Status:** shipped as a board repair, no js/ in this commit (popped head `o_init.c` randomize_gem_colors @ad9142463, tagged parked REFUTED. Owner already whole — ledger ported with stale note js/o_init.js:114, brief confirms the C staticfn complete; writer end.c panic shipped D-3820. Live code passes the probes; only the committed board said otherwise.)

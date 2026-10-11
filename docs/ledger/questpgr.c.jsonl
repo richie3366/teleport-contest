@@ -9,7 +9,7 @@
 {"fn":"homebase","c":"142-145","status":"ported","js":["js/questpgr.js:homebase"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stinky_nemesis","c":"150-194","status":"ported","js":["js/questpgr.js:stinky_nemesis"],"d":["D-2270"],"at":"2026-10-03@bbe63333a"}
 {"fn":"qtext_pronoun","c":"199-233","status":"ported","js":["js/questpgr.js:qtext_pronoun"],"at":"2026-10-03@bbe63333a"}
-{"fn":"convert_arg","c":"236-325","status":"ported","js":["js/questpgr.js:convert_arg"],"d":["D-1649"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Role_switch verified = urole.mnum; all 24 arms match"}
+{"fn":"convert_arg","c":"236-325","status":"ported","js":["js/questpgr.js:convert_arg"],"d":["D-3825","D-1649"],"at":"2026-10-11@485a07137","note":"audit 2026-10-03: Role_switch verified = urole.mnum; all 24 arms match"}
 {"fn":"convert_line","c":"328-420","status":"ported","js":["js/questpgr.js:convert_line"],"d":["D-1634"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"deliver_by_pline","c":"423-436","status":"ported","js":["js/questpgr.js:deliver_by_pline"],"d":["D-3143"],"at":"2026-09-30@2f2a26da6"}
 {"fn":"deliver_by_window","c":"439-456","status":"ported","js":["js/questpgr.js:deliver_by_window"],"d":["D-2946"],"at":"seed@a30a7de84"}
