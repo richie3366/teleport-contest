@@ -8,6 +8,7 @@
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
 import { game } from './gstate.js';
+import { panic } from './end.js';
 import { bot_via_windowport, SCORE_ON_BOTL, botl_score, stat_update_time } from './botl.js';
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
@@ -2657,7 +2658,7 @@ let _tty_intr = 0;
 // addtopl("--More--") when interrupted mid-more (D-1646).
 let _tty_inmore = 0;
 // C wintty.h ttyDisplay->rawprint — wait_synch getret path (D-1646).
-// tty_raw_print setter named.
+// Setter: tty_raw_print.
 let _tty_rawprint = 0;
 
 /** C wintty.h ttyDisplay->inread. Getline always zeros it around
@@ -3134,6 +3135,9 @@ export function reset_display_messages() {
     _tty_intr = 0;
     _tty_inmore = 0;
     _tty_rawprint = 0;
+    _nomux_raw_active = false;
+    _nomux_raw_row = 0;
+    _nomux_raw_col = 0;
     _msg_cw = null;
     _snapshot_mesgs = null;
     _putmsghistory_initd = false;
@@ -8466,22 +8470,106 @@ function addtopl(s) {
 }
 
 /**
- * C wintty.c getret `:763–781` — "Hit space/return to continue: " then
- * xwaitforspace(" "). Contest tty is cbreak (space). No MICRO/WIN32CON.
+ * C ref: getline.c xwaitforspace `:230–257` — return / CR always; under
+ * cbreak ESC (sets dismiss_more = 1), a char of `s`, or x = dismiss_more
+ * (no ttyDisplay: '\n', which also admits '\r'); anything else bells.
+ * `strchr(s, c)` also matches c == NUL (the terminator). EOF is the
+ * harness's input-exhaustion throw.
+ * @param {string|null} s chars allowed besides return
  */
-async function getret() {
+async function xwaitforspace(s) {
+    const disp = game.nhDisplay;
+    const x = disp ? (_dismiss_more | 0) : 10;
     const cbreak = game.iflags?.cbreak !== false;
-    const which = cbreak ? 'space' : 'return';
-    addtopl(`\nHit ${which} to continue: `);
     const { nhgetch } = await import('./input.js');
+    _morc = 0;
     for (;;) {
         const c = await nhgetch();
-        if (c === 13 || c === 10) break;
+        if (c === 10 || c === 13) break;
         if (cbreak) {
-            if (c === 27 || c === 32) break;
+            if (c === 27) {
+                if (disp) _dismiss_more = 1;
+                _morc = 27;
+                break;
+            }
+            if ((s != null && (c === 0 || s.includes(String.fromCharCode(c))))
+                || c === x || (x === 10 && c === 13)) {
+                _morc = c;
+                break;
+            }
             tty_nhbell();
         }
     }
+}
+
+/**
+ * C wintty.c getret `:788–805` — xputs "\nHit space to continue: " (with
+ * standout) then xwaitforspace(" "), then iflags.raw_printed = 0. xputs is
+ * a raw termcap write outside the cell hooks the recorder's screen shadow
+ * follows (termcap.c NOMUX_CAPTURE), so the prompt never reaches a
+ * captured screen: nothing is painted here. No MICRO/WIN32CON.
+ */
+async function getret() {
+    await xwaitforspace(' ');
+    if (game.iflags) game.iflags.raw_printed = 0; // C `:804`
+}
+
+// C termcap.c NOMUX_CAPTURE raw shadow (`nomux_raw_active/row/col`
+// `:871–873`) — the recorder's view of tty_raw_print output. Entered on
+// the first non-empty raw_print and never left (`:875–883`).
+let _nomux_raw_active = false;
+let _nomux_raw_row = 0;
+let _nomux_raw_col = 0;
+
+/** C termcap.c nomux_raw_putch `:885–900`. */
+function nomux_raw_putch(ch, attr) {
+    const disp = game.nhDisplay;
+    if (ch === '\n') {
+        _nomux_raw_row++;
+        _nomux_raw_col = 0;
+        return;
+    }
+    if (ch.charCodeAt(0) < 32) return;
+    if (_nomux_raw_row >= 0 && _nomux_raw_row < 24
+        && _nomux_raw_col >= 0 && _nomux_raw_col < 80) {
+        disp?.setCell?.(_nomux_raw_col, _nomux_raw_row, ch, NO_COLOR, attr);
+    }
+    _nomux_raw_col++;
+}
+
+/**
+ * C termcap.c nomux_raw_emit `:916–946` — skip empty in-game flushes; else
+ * enter raw mode (clear the shadow, home), write the string and puts()'s
+ * newline; the cursor is the raw row/col (nomux_get_cursor `:952–960`).
+ * The shadow's fg/attr carry no stale colour here (recorded plain text).
+ */
+function nomux_raw_emit(s, bold) {
+    const disp = game.nhDisplay;
+    if (!_nomux_raw_active) {
+        if (disp && !s) return; // in-game flush (markers always on)
+        _nomux_raw_active = true; // nomux_enter_raw_mode
+        _nomux_raw_row = 0;
+        _nomux_raw_col = 0;
+        disp?.clearScreen?.();
+    }
+    const attr = bold ? ATR_BOLD : ATR_NONE;
+    for (const ch of s) nomux_raw_putch(ch, attr);
+    nomux_raw_putch('\n', attr);
+    disp?.setCursor?.(_nomux_raw_col, _nomux_raw_row);
+}
+
+/**
+ * C ref: wintty.c tty_raw_print `:4065–4082` — rawprint++ (ttyDisplay) or
+ * raw_printed++ (non-empty, no ttyDisplay); puts() to the real tty; the
+ * NOMUX_CAPTURE shadow write is what a captured screen shows. Caller:
+ * end.js panic_tail (vraw_printf's raw_print stays a named omit).
+ * @param {string} str
+ */
+export function tty_raw_print(str) {
+    const s = String(str ?? '');
+    if (game.nhDisplay) _tty_rawprint++;
+    else if (s && game.iflags) game.iflags.raw_printed = (game.iflags.raw_printed | 0) + 1;
+    nomux_raw_emit(s, false);
 }
 
 /**
@@ -9076,10 +9164,9 @@ export async function vpline(fmt, ...args) {
     // C `:192–212` — printf arms (helper above).
     const { text, ln } = vpline_expand(line, args);
     line = text;
-    // C `:213–214` — `ln > BIGBUFSZ-1` panics (fatal exit in C;
-    // throw is the JS panic stand-in; never reached in scored runs).
+    // C `:213–214` — `ln > BIGBUFSZ-1` panics.
     if (ln > BIGBUFSZ - 1) {
-        throw new Error(`pline attempting to print ${ln} characters!`);
+        panic('pline attempting to print %d characters!', ln);
     }
     // C `:216–231` — modest overflow truncates preserving the last 3.
     line = vpline_truncate(line, ln);
@@ -9467,7 +9554,7 @@ export async function impossible(s, ...args) {
     const ps = game.program_state;
     // C :591–592 is fatal, before changing the recursion latch.
     if (ps.in_impossible) {
-        throw new Error('impossible called impossible');
+        panic('impossible called impossible');
     }
 
     ps.in_impossible = 1;
@@ -9476,7 +9563,7 @@ export async function impossible(s, ...args) {
     const pbuf = vpline_expand(s, args).text.slice(0, BUFSZ - 1);
     // C :598 paniclog("impossible", pbuf): filesystem, Rule #2.
     if (game.iflags?.debug_fuzzer === fuzzer_impossible_panic) {
-        throw new Error(pbuf); // C :599–600, before any pline
+        panic('%s', pbuf); // C :599–600, before any pline
     }
 
     // C :602–604 calls pline itself with the preformatted text.

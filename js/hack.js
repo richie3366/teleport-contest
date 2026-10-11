@@ -2,6 +2,7 @@
 // C ref: hack.c — losehp, nomul, unmul, overexertion, moverock/dopush (and related).
 
 import { game } from './gstate.js';
+import { panic } from './end.js';
 import { cmd_from_func, visctrl } from './dokeylist.js';
 import {
     Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_NOTHING,
@@ -284,7 +285,7 @@ export function rounddiv(x, y) {
     let divsgn = 1; // C `:4554`
     let yy = Math.trunc(y); // C `int y`
     let xx = Math.trunc(x); // C `long x`
-    if (yy === 0) throw new Error('division by zero in rounddiv'); // C `:4556–4557` panic
+    if (yy === 0) panic('division by zero in rounddiv'); // C `:4556–4557` panic
     else if (yy < 0) { // C `:4558–4561`
         divsgn = -divsgn;
         yy = -yy;

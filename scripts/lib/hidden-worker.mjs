@@ -89,6 +89,7 @@ async function main() {
     const storage = makeStorage();
     const jsScreens = [], jsCursors = [], jsRngRaw = [];
     let error = null;
+    let jsPanic = null;
     const t0 = Date.now();
     try {
         for (const seg of segments) {
@@ -97,6 +98,7 @@ async function main() {
                 moves: seg.moves, storage,
             });
             for (const e of (game.getRngLog?.() || []).map(stripIdx).filter(isRngCall)) jsRngRaw.push(e);
+            if (game._panicStack && !jsPanic) jsPanic = game._panicStack.split('\n').slice(0, 4).join(' | ');
             const screens = game.getScreens?.() || [];
             const cursors = game.getCursors?.() || [];
             for (let i = 0; i < screens.length; i++) {
@@ -108,6 +110,11 @@ async function main() {
         error = (e && e.stack ? e.stack.split('\n').slice(0, 4).join(' | ') : String(e));
     }
     const ms = Date.now() - t0;
+    /* A JS panic (end.js panic_tail: "\nOops..." then the getret wait) is
+       faithful only where C panicked too; C's recording then carries the
+       same Oops screen. A JS-only panic is a port bug: report it as the
+       throw it replaced so it keeps its Must-fix rank. */
+    if (jsPanic && !error && !cScreens.some((s) => s === '\nOops...')) error = `js panic (C did not): ${jsPanic}`;
 
     /* frozen-runner scoring rules */
     const rngT = cRngRaw.length;
@@ -200,7 +207,7 @@ async function main() {
 
     const out = {
         session: path.basename(sessionPath),
-        passed, error, ms,
+        passed, error, jsPanic, ms,
         rngM, rngT, scrM, scrT,
         kind, step, steps: scrT,
         owner, ownerFile, ownerLine, jsOwner,

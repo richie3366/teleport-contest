@@ -320,7 +320,7 @@ export function cmdq_clear(q = CQ_CANNED) {
  * The contest tty build leaves that hook unset, so this is the tty body.
  * @param {string|null} str settty argument; end_of_input passes NULL
  */
-function tty_exit_nhwindows(str) {
+export function tty_exit_nhwindows(str) {
     // C `:814` tty_suspend_nhwindows(str) → settty(str) and, when str is
     // NULL, tty_raw_print(""). term_shutdown (`:843`) is termcap teardown.
     // Those erase the tty. The scored grid is the capture already taken
