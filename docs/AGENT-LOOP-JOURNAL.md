@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3844 cliffs-head `do.c` flooreffects Healer-578136 s632: park CONFIRMED (2nd no-js) — JS-633 prints the held flow, canseemon lead closed; sole delta is one-step map-flush lag (architectural)
+
+**C locus:** display.c:81–85 (gbuf buffered paint), :634–663 (display_warning), :2208+ (flush_screen); pline.c:274 (More-hold); monmove.c:1548–1553 (postmov "flows under the door" arm); C-633 shows «The fog cloud flows under the door.» + 'v' (D-3843).
+**JS:** none changed.
+**Change:** none (park confirmation). New evidence closes D-3843 Next (2): the canseemon/display predicate gate is live — message/hold timing parity at 633 — so there is no portable predicate writer, not even a future one. Sole remaining delta is the single-step map-flush lag (C gbuf-stale at 632, fresh at 633; JS fresh at 632).
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` PASS (green gate, before diagnosis, this session). No `verify --fn` (no js/ — park confirmation by design). Evidence: /tmp probe JS-631/632/633/634 toplines + map rows 4–10 (above); `hidden-proxy show` still s632 with the identical row diff (rngM 70577/rngT 104520, scrM 877/scrT 1173); `brief.mjs flooreffects` confirms body whole + ledger ported.
+**Named:** none (no port; docs-only entry).
+**Next:** owner double-parked with probe `node scripts/hidden-proxy.mjs verify flooreffects` — next slot pops the next cliffs row (`monmove.c` distfleeck, s669 pair) while this head stands, unless a hold/buffer design lands (falsifier). Do not re-check canseemon for this session (gate proven live — message parity at 633) or re-measure C state (D-3843 dump stands).
 ## 2026-10-11 — D-3843 cliffs-head `do.c` flooreffects Healer-578136 s632: DISPLAY-SYNC, not state — temp-C fmon dump proves C/JS identical; park (writer = More-hold + gbuf paint timing, architectural)
 
 **C locus:** monmove.c:1472–1553 (postmov vampshift hack — sole vamp_shift call site (staticfn, :1496) + "flows/oozes under the door" arm :1548–1553), :2051–2073 (m_move remove/place→postmov order); mon.c:5373 (newcham→newmonhp: d(4,8)=17 is the shift HP, not a makemon — no m_initinv draws at 632); display.c:81–85 (gbuf buffered paint), :634–663 (display_warning/warning_of: wl=m_lev/4, bat-7 and fog-4 both →'1'), :2208+ (flush_screen); pline.c:274 (pline flushes); wintty.c:3797–3851 (g_putch nomux hook — glyph path faithful, no shadow-miss).

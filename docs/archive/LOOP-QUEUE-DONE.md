@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-11
 
-- [x] `do.c` flooreffects — blocks 1/1197 corpus sessions (first at step 632; RNG lost 33943, screens lost 296): toplines identical; first differing screen row 7: C «4   1   4» vs JS «4       4» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify flooreffects` (scen-worldtour-Healer-578136). @80de3e56d **[history: archived D-3240 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3843
+- [x] `do.c` flooreffects — blocks 1/1197 corpus sessions (first at step 632; RNG lost 33943, screens lost 296): toplines identical; first differing screen row 7: C «4   1   4» vs JS «4       4» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify flooreffects` (scen-worldtour-Healer-578136). @80de3e56d **[history: archived D-3240 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3843 `3644f9440`
 
 
 - [x] js/cmd.js domove autodig arm fires where C's test_move else-chain skips it — tunnels&&!needspick polyform (umber hulk, monsters.h:2275) that chewed through (still_chewing FALSE) with pick wielded + autodig: C hack.c:1037–1048 skips the :1042 arm and returns TRUE (:1253), JS calls use_pick_axe2 + move=0 on stale destTyp (cmd.js:6736/6777). Fix: guard the arm with !(tunnels&&!needspick) + focused test (chew-through → no dig occupation, move proceeds). Source: reviews/loop-unattended/2702-53add89a1-domove-autodig-arm.md.
