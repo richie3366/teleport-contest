@@ -1039,10 +1039,16 @@ export function glyph_is_cmap(glyph) {
         && g < (GLYPH_CMAP_C_OFF + ((S_goodpos - S_digbeam) + 1));
 }
 
-/** C display.h glyph_is_normal_object — GLYPH_OBJ_OFF bank. */
+/** C display.h glyph_is_normal_object `:851–856` — OBJ bank plus C's
+ * third disjunct (the normal-piletop arm). The OBJ range keeps the
+ * generic slots (C arms 1+2 exclude OFF+1..OFF+16): outcome-neutral —
+ * glyph_is_object ORs the generic arms anyway, glyph_to_obj peels
+ * generic identically, and the pager showsym arm wants every object
+ * glyph. */
 export function glyph_is_normal_object(glyph) {
     const g = glyph_id(glyph);
-    return g != null && g >= GLYPH_OBJ_OFF && g < GLYPH_OBJ_OFF + NUM_OBJECTS;
+    return g != null && ((g >= GLYPH_OBJ_OFF && g < GLYPH_OBJ_OFF + NUM_OBJECTS)
+        || glyph_is_normal_piletop_obj(glyph));
 }
 
 /** C display.h glyph_is_normal_generic_obj `:839–840` — OBJ bank below FIRST_OBJECT. */
@@ -1051,11 +1057,14 @@ export function glyph_is_normal_generic_obj(glyph) {
     return g != null && g > GLYPH_OBJ_OFF && g < GLYPH_OBJ_OFF + FIRST_OBJECT - 1;
 }
 
-/** C display.h glyph_is_piletop generic obj — GLYPH_OBJ_PILETOP_OFF. */
+/** C display.h glyph_is_piletop_generic_obj `:841–843` — PILETOP bank,
+ * class slots only (OFF, OFF+FIRST_OBJECT-1); a piletop otyp glyph
+ * is normal, never generic (else map_object's display.c:340 observe
+ * gate discos every nearby piletop). */
 export function glyph_is_piletop_generic_obj(glyph) {
     const g = glyph_id(glyph);
-    return g != null && g >= GLYPH_OBJ_PILETOP_OFF
-        && g < GLYPH_OBJ_PILETOP_OFF + NUM_OBJECTS;
+    return g != null && g > GLYPH_OBJ_PILETOP_OFF
+        && g < GLYPH_OBJ_PILETOP_OFF + FIRST_OBJECT - 1;
 }
 
 /** C display.h glyph_is_generic_object `:844–846` — normal or piletop generic. */
@@ -1099,8 +1108,8 @@ export function glyph_is_object(glyph) {
 
 /**
  * C display.h glyph_to_obj `:902–913` — CORPSE / STATUE / peel obj banks.
- * Normal piletop peels PILETOP_OFF (JS glyph_is_normal_object is OBJ-bank
- * only, so the piletop arm is explicit here, same outcome as C).
+ * Pile arms first (same peel as C's generic-then-normal order: both
+ * peel PILETOP_OFF); the OBJ arm peels OBJ_OFF.
  */
 export function glyph_to_obj(glyph) {
     if (glyph_is_body(glyph)) return CORPSE_OTYP;
