@@ -21,7 +21,7 @@
 {"fn":"check_innate_abil","c":"818-851","status":"ported","js":["js/attrib.js:check_innate_abil"],"at":"2026-09-30@b20fdf92d","note":"stale: js/attrib.js:1098 complete, callers js/attrib.js:1124,1126 (C :868,:870); hum_abil empty in C"}
 {"fn":"innately","c":"864-877","status":"ported","js":["js/attrib.js:innately"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_innate","c":"880-900","status":"ported","js":["js/attrib.js:is_innate"],"d":["D-3385"],"at":"2026-10-03@bec62f3b9"}
-{"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"d":["D-3208"],"at":"2026-10-01@8a149124b","note":"stale 2026-09-09"}
+{"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"d":["D-3805","D-3208"],"at":"2026-10-11@4fb06f715","note":"stale 2026-09-09"}
 {"fn":"adjabil","c":"1006-1074","status":"ported","js":["js/attrib.js:adjabil"],"at":"2026-10-03@bbe63333a"}
 {"fn":"newhp","c":"1080-1142","status":"ported","js":["js/attrib.js:newhp"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
 {"fn":"minuhpmax","c":"1147-1152","status":"ported","js":["js/attrib.js:minuhpmax"],"at":"2026-10-03@bbe63333a"}
