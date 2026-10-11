@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3837 cliffs-head `spelleffects_check` writer: doturn non-Cleric/Knight arm deferred known_spell/spelleffects — Wizard-578137 PASSes
+
+**C locus:** `pray.c:2414–2487` `doturn` — non-Cleric/Knight arm `:2419–2424` (`if (known_spell(SPE_TURN_UNDEAD)) return spelleffects(SPE_TURN_UNDEAD, FALSE, FALSE);` else the don't-know pline). `known_spell` (spell.c:2363) returns the spellknowledge enum (spell.h:20, spe_Unknown = 0), so C's truthiness test casts on Fresh/GoingStale/Forgotten alike.
+**JS:** 1 file (pray.js +9/−6) + 1 focused test (scripts/doturn-turn-undead-spell.test.mjs: full replay pins C's step-545 «You fail to cast the spell correctly.»; pre-fix drew don't-know per the committed board). Far below caps.
+**Change:** js/pray.js only — port C `:2419–2424` verbatim: `if (known_spell(SPE_TURN_UNDEAD)) return spelleffects(SPE_TURN_UNDEAD, false, false);` (plain truthiness matches C since spe_Unknown = 0, js/spell.js:265; Forgotten still casts into the spelleffects_check backfire path exactly like C). `spelleffects` joins the existing `./spell.js` import (`imports.mjs --can` ALREADY, no new edge; spell.js imports nothing from pray.js, no cycle); new `SPE_TURN_UNDEAD` const via the in-file objectNames idiom; header + doc deferral notes retired.
+**Verify:** `node scripts/verify.mjs --fn spelleffects_check,doturn` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden `verify spelleffects_check: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Wizard-578137 PASS) · PASS reach spelleffects_check 80/80 (of 83) → REACH-OK · note verify doturn (no baseline block, expected — row owned by the C-draw name) · PASS reach doturn smoke 24/24 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. `node --test scripts/doturn-turn-undead-spell.test.mjs` 1/1. Preflight `verify --no-cohort` green on a clean tree.
+**Named:** none new in the ported arm. Unchanged: doturn resist-TELL pline polish (doc note stands); nhl_doturn lua caller unwired (above).
+**Next:** pop the next Open — cliffs head (`pray.c` dopray). Do not re-pop `spelleffects_check` for Wizard-578137 (PASS).
 ## 2026-10-11 — D-3836 cliffs-head `clear_bypasses` writer: passive Free_action read missed ring uprops extrinsic — Monk-578305 moves (391→447)
 
 **C locus:** uhitm.c passive AD_PLYS floating-eye arm `:6021–6048` (canseemon `:6023`, mcansee `:6026`, ureflects/Hallucination/Free_action chain `:6027–6048`); youprop.h:383 `Free_action ≡ uprops[FREE_ACTION].extrinsic`; worn.c setworn confer `:124–125`; do_wear.c Ring_on `:1275` (RIN_FREE_ACTION explicit no-op — the extrinsic comes from generic setworn, not Ring_on).
