@@ -1900,8 +1900,18 @@ function cmap_idx_to_tty(cmap_idx) {
     case S_ROOM_CMAP:
         return dec ? { ch: '~', color: NO_COLOR, dec: true }
             : { ch: '.', color: NO_COLOR, dec: false };
-    case S_DARKROOM:
-        return { ch: '.', color: CLR_BLACK, dec: false };
+    case S_DARKROOM: {
+        // C reglyph_darkroom `:1850–1853` showsyms equate: S_darkroom
+        // renders exactly as S_room (symset-aware) when dark_room+color,
+        // else as NOTHING (blank). Recorded C paint is DEC `~` + dim
+        // (90m = NO_COLOR), same ch the S_ROOM_CMAP arm above yields;
+        // ASCII '.' + CLR_BLACK never matches it.
+        const darkRoomColor = game.flags?.dark_room !== false
+            && game.iflags?.wc_color !== false;
+        if (!darkRoomColor) return { ch: ' ', color: NO_COLOR, dec: false };
+        return dec ? { ch: '~', color: NO_COLOR, dec: true }
+            : { ch: '.', color: NO_COLOR, dec: false };
+    }
     case S_ENGROOM:
         return { ch: '`', color: CLR_BRIGHT_BLUE, dec: false };
     case S_CORR:
@@ -5807,16 +5817,23 @@ export function feel_location(x, y) {
         if ((loc.typ | 0) === ROOM
             && (!loc.waslit || darkRoomColor)) {
             // C `:896–897` writes cmap(dark_room ? S_darkroom : S_stone),
-            // not DARKROOMSYM. The tty-match paint keeps darkroom_sym()
-            // (already fortress-green). The id-only arm is the integer
-            // write C's pick_lock compare reads.
+            // not DARKROOMSYM — flag-based, NOT rogue-aware: on a rogue
+            // level with dark_room set C stores S_darkroom (floor-rendered
+            // via showsyms) and the arrival reglyph_darkroom rogue arm
+            // (display.c:1838-1840) converts it to GLYPH_NOTHING. The
+            // previous darkroom_sym() pick (S_stone on rogue) skipped that
+            // conversion and left stale floor ch (scen-worldtour 95240
+            // (50,11)). Paint (ch/color) is unchanged, so tty pixels are
+            // identical; only the stored id is C-exact now (also what C's
+            // pick_lock compare reads).
             if (remembered_matches_cmap(mem, S_ROOM_CMAP)) {
                 const dark = {
                     ch: mem.ch,
                     color: NO_COLOR,
                     decgfx: !!mem.decgfx,
                 };
-                const darkId = cmap_to_glyph(darkroom_sym());
+                const darkRoom = game.flags?.dark_room !== false;
+                const darkId = cmap_to_glyph(darkRoom ? S_darkroom : S_stone);
                 loc.remembered_glyph = { ...dark, glyph: darkId };
                 show_glyph_cell(x, y, dark.ch, dark.color, !!dark.decgfx, 0, darkId);
             } else if (memory_is_cmap(mem, S_room)) {
