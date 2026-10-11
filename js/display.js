@@ -9000,6 +9000,8 @@ export async function custompline(flags, fmt, ...args) {
 // same net text without reusing a va_list.
 const BIGBUFSZ = 5 * BUFSZ;
 let _vpline_in_pline = 0;
+// D-3830: completion tail for concurrent vpline entries (below).
+let _vpline_tail = Promise.resolve();
 
 /**
  * C pline.c:192–212: the vsnprintf expansion shared by the message
@@ -9183,28 +9185,73 @@ export async function vpline(fmt, ...args) {
     // C DUMPLOG_CORE `:233–239` — dumplogmsg before putmesg when
     // SUPPRESS_HISTORY is off (yn ATR_NOHISTORY still named).
     if ((gp.pline_flags & SUPPRESS_HISTORY) === 0) dumplogmsg(line);
-    // C `:243–249` — `if (in_pline++ || !window_inited)`: raw_print path.
-    // C prints via raw_print (named omit above), sets last_msg UNKNOWN,
-    // and jumps to pline_done (SPEECH clear + --in_pline).
-    const _wasIn = _vpline_in_pline;
-    _vpline_in_pline++;
+    // D-3830: link the completion tail synchronously, before any await,
+    // so a sync-immediate later arrival chains onto this vpline. The tail
+    // is release-only (never rejects): a throwing outer still releases,
+    // so chained followers always proceed.
+    const _prevTail = _vpline_tail;
+    let _releaseTail;
+    _vpline_tail = new Promise((res) => { _releaseTail = res; });
     try {
-        if (_wasIn || !game.iflags?.window_inited) {
-            if (game.iflags) game.iflags.last_msg = PLNMSG_UNKNOWN;
-            return;
+        // A set in_pline here means a floated vpline (sync caller:
+        // attrib.c exercise encumber_msg tail, `void impossible()`
+        // sites) is in flight. C printed it synchronously, so chain
+        // after it instead of dropping: the old gate lost the lich
+        // cast plus two smoulders at scen-sweep-Priest-95316 step 681
+        // (measured wasIn=1). True nesting (this call is on the
+        // outer's own (a)sync stack) keeps the legacy drop — chaining
+        // it would deadlock (the outer awaits this completion).
+        // Uncontended entries (in_pline 0) skip both the sniff and the
+        // await: zero ticks, baseline interleaving preserved.
+        if (_vpline_in_pline !== 0 && !msg_stack_nested()) {
+            await _prevTail;
         }
-        // C `:251–268` — OVERRIDE_MSGTYPE / msgtype_type / URGENT suppress
-        // gate lives in `pline_after_consume` (vpline_msgtyp_gate) so the
-        // window body stays one function; order matches C (gate → vision
-        // → flush → putmesg). The suppress jump lands on pline_done via
-        // this try/finally (SPEECH clear + --in_pline).
-        await pline_after_consume(line, true);
+        // C `:243–249` — `if (in_pline++ || !window_inited)`: raw_print
+        // path. C prints via raw_print (named omit above), sets
+        // last_msg UNKNOWN, and jumps to pline_done (SPEECH clear +
+        // --in_pline). Post-chain in_pline is 0 unless nested (kept as
+        // the backstop) or pre-window.
+        const _wasIn = _vpline_in_pline;
+        _vpline_in_pline++;
+        try {
+            if (_wasIn || !game.iflags?.window_inited) {
+                if (game.iflags) game.iflags.last_msg = PLNMSG_UNKNOWN;
+                return;
+            }
+            // C `:251–268` — OVERRIDE_MSGTYPE / msgtype_type / URGENT
+            // suppress gate lives in `pline_after_consume`
+            // (vpline_msgtyp_gate) so the window body stays one
+            // function; order matches C (gate → vision → flush →
+            // putmesg). The suppress jump lands on pline_done via this
+            // try/finally (SPEECH clear + --in_pline).
+            await pline_after_consume(line, true);
+        } finally {
+            // C pline_done `:285–290` — SND_SPEECH clear (compiled out
+            // of the contest C; the flag still clears) then --in_pline.
+            gp.pline_flags &= ~PLINE_SPEECH;
+            _vpline_in_pline--;
+        }
     } finally {
-        // C pline_done `:285–290` — SND_SPEECH clear (compiled out of the
-        // contest C; the flag still clears) then --in_pline.
-        gp.pline_flags &= ~PLINE_SPEECH;
-        _vpline_in_pline--;
+        _releaseTail();
     }
+}
+
+/**
+ * D-3830: true-nesting probe for the vpline completion chain. A second
+ * `vpline` frame on this call's stack means this entry is nested inside
+ * the in-flight outer's own execution (V8 async stacks preserve the
+ * await chain, so post-yield nesting is caught too; the outer-to-inner
+ * path is ≤4 frames deep, far under the default 10-frame
+ * stackTraceLimit), so chaining would deadlock and the legacy in_pline
+ * drop applies. A detached float-sibling's stack shows only this vpline
+ * frame and chains safely. Read only when contended (in_pline set), so
+ * the common path pays nothing. Skips its own frame (whose name must
+ * never contain `vpline`, else it self-matches).
+ * @returns {boolean}
+ */
+function msg_stack_nested() {
+    const frames = (new Error().stack || '').split('\n').slice(2).join('\n');
+    return frames.split('vpline').length - 1 >= 2;
 }
 
 // C ref: pline.c pline `:103–110` — va_start then vpline.
