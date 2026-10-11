@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3819 cliffs row-2 still_chewing caller: domove never chewed rock — tunnels arm missing from the inline test_move (95329 → PASS)
+
+**C locus:** `hack.c:1037–1042` (tunnels && !needspick → still_chewing, "Eat the rock") + domove_core `:2843–2848` (FALSE → move=0, nomul(0)).
+**JS:** `js/cmd.js` (+22/−2) + 1 test file.
+**Change:** new arm in domove after the IRONBARS chew, in C order: obstructed && !bars && !uinwater (:1017 gate preserved — its message stays deferred) && tunnels && !needspick → still_chewing; truthy → move=0/nomul/return; falsy (chewed through) → falls past the bump to occupy the fresh cell (later at() reads are fresh, like C's live tmpr). No new imports (tunnels/needspick/still_chewing/nomul/IS_OBSTRUCTED already in cmd.js); Deferred doc line updated. New focused test `scripts/still-chewing-domove-tunnels.test.mjs` (prefix-1164 replay asserts the chew message + digging.chew at (50,6) + hero held at (49,7)).
+**Verify:** focused test 0/1 pre-fix (stash-proven, exact probe symptom: no chew message) → 1/1 post-fix. `node scripts/verify.mjs --fn still_chewing` → PASS syntax (1 changed js file: js/cmd.js) · PASS rule2 · PASS hidden (verify still_chewing: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS; scen-sweep-Barbarian-95329: PASS) · PASS reach (no RNG-tagged reach; 24/24 smoke → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared). VERIFY: PASS.
+**Named:** none new — door (:1090) / boulder (:1227) tunnels arms, Passes_walls+may_passwall (:1014), Underwater message (:1017), autodig (:1043), db_wall/soko bump prose stay deferred as before (turns.md:401); the uinwater gate in the new arm preserves their C order without porting them.
+**Next:** row leaves via regen (still_chewing blocks 0 after this board); row-1 still randomize_gem_colors voids pending D-3733 tooling (scorer C-panic exclusion or crash-free re-record).
 ## 2026-10-11 — D-3818 cliffs row-2 `cmd.c` domonability: shriek/gremlin arms fell through to a shared reflexive tail — C's Upolyd arms are chain members (95329 1075→1164)
 
 **C locus:** `cmd.c:890–949` domonability — the Upolyd `:943–944` / normal-form `:945–947` arms are else-if chain members, reached only when no earlier arm matched; the gremlin `:923–933` and shriek `:937–942` arms have no return and fall to the bare `return ECMD_OK` (`:948`).

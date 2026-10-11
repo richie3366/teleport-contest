@@ -3854,8 +3854,8 @@ async function travel_test_move(ux, uy, dx, dy) {
  * wall seen from an excluded angle reads "solid stone", not "a wall").
  * C: pline_dir(xytodir(dx,dy), "It's %s.", buf) (D-1216).
  * Deferred: Blind feel_location, Passes_walls/may_passwall on rock,
- * Underwater, tunnels/still_chewing rock, autodig, is_db_wall, Sokoban
- * resist.
+ * Underwater, autodig, is_db_wall, Sokoban resist.
+ * tunnels/still_chewing rock is live in domove (test_move :1037–1042).
  * IRONBARS pass/chew is D-1270 (blocksMove / still_chewing, not here).
  * run>=2 boulder pline_dir is D-1226 (test_move, not this bump).
  * OOB / testdiag doorway / run-into-trap-or-liquid mention_walls is D-1800.
@@ -6740,6 +6740,26 @@ export async function domove(dx, dy) {
         if (destTyp === IRONBARS && test_move_hero_chews_bars()) {
             if (await still_chewing(newx, newy)) {
                 // C hack.c:2843–2848 — !test_move && !door_opened
+                if (game.context) game.context.move = 0;
+                nomul(0);
+                return;
+            }
+        }
+
+        // C ref: hack.c test_move :1037–1042 — a tunneling polyform eats
+        // obstructed rock via still_chewing (TRUE → move=0, nomul(0) per
+        // domove_core :2843–2848; FALSE = chewed through → fall past the
+        // bump below to occupy the fresh cell, tmpr is a live pointer).
+        // C order: after the IRONBARS arm, before autodig/bump; Underwater
+        // blocks first (:1017–1025 — its message stays deferred, the gate
+        // keeps this arm from firing where C never reaches it) and
+        // Passes_walls+may_passwall passes first (:1014–1016, deferred).
+        {
+            const ydat = game.youmonst?.data;
+            if (destTyp !== IRONBARS && IS_OBSTRUCTED(destTyp)
+                && !(u.uinwater | 0)
+                && ydat && tunnels(ydat) && !needspick(ydat)
+                && await still_chewing(newx, newy)) {
                 if (game.context) game.context.move = 0;
                 nomul(0);
                 return;
