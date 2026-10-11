@@ -137,6 +137,7 @@ import {
     DETECT_MONSTERS, LEVITATION, INVIS, HEAD, COLNO, ROWNO,
     In_endgame, Is_earthlevel, Is_airlevel, Is_waterlevel, In_sokoban,
     QBUFSZ, STONED, SLIMED, SICK, SICK_ALL, DEAF, STRANGLED, STUNNED, G_GONE,
+    CONFUSION,
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
     ERODE_CORRODE, EF_GREASE,
@@ -923,6 +924,10 @@ export async function make_deaf(xtime, talk) {
  */
 export async function make_confused(xtime, talk) {
     const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[CONFUSION]) {
+        u.uprops[CONFUSION] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    }
     const old = u.HConfusion | 0;
     if (u.Unaware) talk = false;
     // C: if (!xtime && old) You_feel("less …") when talk
@@ -935,6 +940,11 @@ export async function make_confused(xtime, talk) {
     }
     u.HConfusion = ((u.HConfusion | 0) & ~TIMEOUT) | itimeout(xtime);
     u.Confusion = u.HConfusion;
+    // HConfusion ≡ uprops[CONFUSION].intrinsic (youprop.h:83, C single
+    // storage) — keep the slot ≡ the flat like make_deaf/make_blinded,
+    // or #wizintrinsic's oldtimeout read shows a stale [N] (D-1817 shape).
+    u.uprops[CONFUSION].intrinsic =
+        ((u.uprops[CONFUSION].intrinsic | 0) & ~TIMEOUT) | itimeout(xtime);
 }
 
 /**
