@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3833 cliffs-head `randomize_gem_colors` writer: drinkfountain fate-21 Poison_res arm read unimported KILLED_BY_AN — throw-voids 578205/578136 move (0→536, 0→274)
+
+**C locus:** `fountain.c` drinkfountain case 21 (Poisonous) `:301–304` — Poison_resistance arm: fruitname(FALSE) farm pline, then `losehp(rnd(4), "unrefrigerated sip of juice", KILLED_BY_AN)`; `hack.h:602` `#define KILLED_BY_AN 0`. Single C caller potion.c:546 → JS potion.js:2458 pre-wired.
+**JS:** js/fountain.js (+1 imported name); scripts/drinkfountain-poisonres-killer.test.mjs (new: 2 its — const value vs C hack.h:602; seed-11 fate-21 arm runs, uhp 100→99 through losehp + dryup early-return).
+**Change:** add `KILLED_BY_AN` to the existing const.js import (fountain.js:75; `imports.mjs --can` ALREADY — no new edge). No body or signature change.
+**Verify:** focused test 1/2 pre-fix (authentic `ReferenceError: KILLED_BY_AN is not defined`) → 2/2 post-fix. `node scripts/verify.mjs --fn drinkfountain,randomize_gem_colors` → PASS syntax (1 file js/fountain.js) · rule2 · note hidden drinkfountain (writer, none blocked) · reach drinkfountain 52/52 → REACH-OK · `verify randomize_gem_colors: 0 PASS, 2 moved past, 1 unchanged, 0 worse → PROGRESS` (578205 → losehp at step 536; 578136 → adj_pit_checks at step 274; Knight-578306 unchanged — AIR writer, own pop) · reach randomize 80/80 of 1143 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Plus (same code state): full public `sessions` 44/44 (`354+1.59/turn`, R² 0.76).
+**Named:** none new. Standing: the drinkfountain ledger omit (case-29 scare inlines monflee but omits release_hero(ustuck) + vrock spore cloud) is a different arm, untouched.
+**Next:** regen keeps randomize_gem_colors with the 1 AIR throw-void (trap.js:893 set_levltyp — C mkmaze.c:82 real — voids Knight-578306; next pop's writer, own C file, untouched here). Do not re-port randomize_gem_colors (symptom owner, whole) or drinkfountain's other arms for this shape.
 ## 2026-10-11 — D-3832 cliffs-head `randomize_gem_colors` writer: hitmu fell through to knockback after fatal AD_DRLI adtyping — gameover gate (chain-578106 PASS)
 
 **C locus:** `mhitu.c` hitmu `:1191–1193` (mhitm_adtyping then unconditional knockback) + `end.c` done → `nh_terminate` NORETURN (extern.h:997) → exit: a fatal adtyping never reaches the knockback line. A temp gameover-conditional stack probe (reverted) confirmed the extra call fires with gameover set via knockback ← hitmu ← mattacku ← dochug ← movemon ← moveloop_core.
