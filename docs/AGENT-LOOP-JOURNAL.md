@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3815 cliffs row-2 `eat.c` rottenfood: spin-faint what/where triple hardcoded to the sighted arm — Blind grounded hero printed "goes dark" where C slaps the floor (95349 → PASS)
+
+**C locus:** `eat.c:1813–1851` rottenfood whole — `:1815–1816` Blecch/foodword pline; `:1817–1822` confusion arm; `:1823–1829` blind arm; `:1830–1848` faint arm with the `:1834–1841` what/where triple (sightless/airborne/grounded) + `:1842–1847` HDeaf/botl/nomul/multi_reason/nomovemsg/afternmv/return 1. Callers `:1950`/`:2790`/`:2914`/`:3032`.
+**JS:** `js/eat.js` (+25/−5: 2 import names + Blecch + triple + botl) + 1 test file.
+**Change:** triple ported in C order — `rnd(10)` first, then Blind() (live invent.js) / Levitation-in-:576-split-storage-shape || Is_airlevel || Is_waterlevel (const.js, `u.uz` shape) / else `u.usteed ? 'saddle' : surface(ux, uy)` (live sit.js, `:4430` shape) — via live `pline_The`; Blecch pline now `foodword(obj)` (in-file sync, C-identical incl. glass makeknown); `disp.botl` set in C position (`:1843`, Hear_again-shape flags). Both new names on ALREADY edges (`imports.mjs --can`: display.js pline_The, const.js Is_airlevel — no new edge). New test `scripts/rottenfood-spins.test.mjs` (95349 steps 1296-setup + 1297 C pins).
+**Verify:** focused test 1/1 post-fix (pre-fix failure observed on unmodified code: `verify rottenfood` J«…goes dark…» vs C). `node scripts/verify.mjs --fn rottenfood` → PASS syntax (1 changed js file: js/eat.js) · PASS rule2 · PASS hidden (`verify rottenfood: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; scen-sweep-Archeologist-95349: PASS) · PASS reach rottenfood (52/52) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Movement: `verify rottenfood: 1 PASS, 0 moved past, 0 unchanged, 0 worse`.
+**Named:** none (rottenfood now whole vs C :1813–1851; D-3293 foodword deferral lifted, ledger "simplified" note retired by this port).
+**Next:** cliffs block regenerates from the committed board (rottenfood row resolved by the PASS). Row-1 falsifier stands: `verify randomize_gem_colors` naming a non-void (rngM>0) session. Do not re-port rottenfood/foodword/spins for these sessions.
 ## 2026-10-11 — D-3814 cliffs row-3 mhitm_ad_wrap writer: monmove sticks tested AT_HUGS as 6 / AT_ENGL as 7 — hug-form hero read non-sticky, release_hero printed where C stays silent (95310 → PASS)
 
 **C locus:** `mondata.c:653–659` sticks (`dmgtype AD_STCK || (dmgtype AD_WRAP && !attacktype AT_ENGL) || attacktype AT_HUGS`) + `monattk.h:19,21,61,70` (AT_HUGS=7, AT_ENGL=11, AD_STCK=19, AD_WRAP=28) + `monmove.c:361–372` release_hero (silent when the hero form sticks) + `:469–473` monflee call site.

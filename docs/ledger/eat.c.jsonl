@@ -40,7 +40,7 @@
 {"fn":"opentin","c":"1703-1719","status":"ported","js":["js/eat.js:opentin"],"at":"2026-10-03@bbe63333a"}
 {"fn":"start_tin","c":"1723-1797","status":"ported","js":["js/eat.js:start_tin"],"d":["D-2187"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Hear_again","c":"1801-1809","status":"ported","js":["js/eat.js:Hear_again"],"at":"2026-10-03@bbe63333a"}
-{"fn":"rottenfood","c":"1813-1851","status":"ported","js":["js/eat.js:rottenfood"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: spins/foodword message text simplified; all state effects live"}
+{"fn":"rottenfood","c":"1813-1851","status":"ported","js":["js/eat.js:rottenfood"],"d":["D-3815"],"at":"2026-10-11@ba9e6fe06","note":"audit 2026-10-03: spins/foodword message text simplified; all state effects live"}
 {"fn":"eatcorpse","c":"1855-2018","status":"ported","js":["js/eat.js:eatcorpse"],"d":["D-3405","D-1774"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"start_eating","c":"2022-2074","status":"ported","js":["js/eat.js:start_eating"],"d":["D-3078"],"at":"2026-09-29@01a639d1b"}
 {"fn":"eating_glob","c":"2078-2081","status":"ported","js":["js/eat.js:eating_glob"],"at":"2026-10-03@bbe63333a"}
