@@ -5510,7 +5510,13 @@ export async function rhack(key) {
             }
             if ((res & ECMD_TIME) !== 0) {
                 game.context.move = 1;
-                game.kickedloc = { x: 0, y: 0 };
+                // C rhack `:3819–3826` — the canned entry shares the tlist
+                // tail (`goto do_cmdq_extcmd`), so func != dokick keeps a
+                // canned kick's square avoided this turn.
+                const cannedIsKick = (typeof canned === 'object' && canned !== null)
+                    ? (canned.run === dokick || canned.txt === 'kick')
+                    : canned === dokick;
+                if (!cannedIsKick) game.kickedloc = { x: 0, y: 0 };
             } else {
                 game.context.move = 0;
             }
@@ -6268,6 +6274,9 @@ export async function rhack(key) {
             reset_cmd_vars((game.multi | 0) < 0);
         }
         game.context.move = (teleRes & 0x01) ? 1 : 0; // ECMD_TIME
+        // C rhack `:3819–3826` — TIME via dotelecmd (func != dokick)
+        // resets kickedloc so pets stop avoiding the last-kicked square.
+        if ((teleRes & ECMD_TIME) !== 0) game.kickedloc = { x: 0, y: 0 };
     } else if (key === 24) { // ^X
         // C ref: insight.c enlightenment / doattributes
         await doattributes();
@@ -6318,6 +6327,9 @@ export async function rhack(key) {
             reset_cmd_vars((game.multi | 0) < 0);
         }
         game.context.move = (lookRes & ECMD_TIME) ? 1 : 0;
+        // C rhack `:3819–3826` — TIME via dolook (Blind feel takes the
+        // turn; func != dokick) resets kickedloc like any timed command.
+        if ((lookRes & ECMD_TIME) !== 0) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === '&') {
         // C ref: cmd.c '&' → dowhatdoes (IFBURIED|GENERALCMD) — ECMD_OK, no turn
         await dowhatdoes();
@@ -6378,6 +6390,10 @@ export async function rhack(key) {
         } else if ((extRes & ECMD_TIME) === 0) {
             reset_cmd_vars((game.multi | 0) < 0);
         }
+        // C rhack `:3819–3826` — TIME via doextcmd (func != dokick:
+        // the ext_tlist swap never re-points func) resets kickedloc,
+        // so pets stop avoiding the last-kicked square after #dip etc.
+        if ((extRes & ECMD_TIME) !== 0) game.kickedloc = { x: 0, y: 0 };
     } else {
         // C rhack cmdbind_get tlist path for keys the if/else missed
         // (M('?') → doextlist; other default meta binds with EXT_CMDS).

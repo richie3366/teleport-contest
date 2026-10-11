@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3848 cliffs-head dog_move Rogue-578129 s138: writer rhack `:3819–3826` — `#`/`:`/`^T` timed branches never reset kickedloc, canned path over-cleared after kick; session moves 138→263
+
+**C locus:** `nethack-c/upstream/src/cmd.c:3819–3826` (rhack post-command tail: TIME → move=TRUE, `func != dokick` → kickedloc=(0,0)); shared by the bound path, `goto do_cmdq_extcmd`, and doextcmd (func stays doextcmd — the ext_tlist swap never re-points func). TIME-capable: dotelecmd (`teleport.c:933` dotele→TIME), dolook (`invent.c:4319` blind feel), doextcmd (inner res); wiz_wish always ECMD_OK (`wizcmds.c:43`, body ends `:44`).
+**JS:** `js/cmd.js` `#` +9, `:` +3, `^T` +3, canned +7/−1; `scripts/rhack-kickedloc-extcmd.test.mjs` (new, node:test, 1 it: replay probe through step 138 → kickedloc (0,0), moves 206; pre-fix replay leaves (68,4) — discriminates).
+**Change:** `js/cmd.js` only — TIME-gated `game.kickedloc = { x: 0, y: 0 }` in the `#` (after the reset block, below the prefix-continue — C skips the tail on prefix), `:` and `^T` branches; canned path exempts `run === dokick || txt === 'kick'` (bare-function shape compared directly). No new imports; C cited at each site.
+**Verify:** `scripts/rhack-kickedloc-extcmd.test.mjs` 1/1 (stashed cmd.js: fail — kickedloc stays (68,4)). `node scripts/verify.mjs --fn dog_move,rhack --full` → syntax · rule2 · `verify dog_move: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Rogue-578129 dog_move@138 → mhitm_knockback@263) · reach dog_move 80/80 + rhack smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Sibling arms (`:`/`^T`/canned-kick) ship without isolated replay tests — no corpus session isolates them; same C arm, covered by the full suite.
+**Named:** none in this arm (bound, per-key, canned, and extcmd dispatch shapes now all match `:3819–3826`; `^W` needs no clear).
+**Next:** Rogue-578129 now blocks on mhitm_knockback@263 (next cliffs row) — its row names the writer or [measure], not a re-port.
 ## 2026-10-11 — D-3847 cliffs-head `monmove.c` distfleeck Healer-578216 s668: writer `zap.c` dobuzz — stale SDOOR typ bounces where C's live DOOR stops; dup door-absorb shim double-prints; session moves 669→1431
 
 **C locus:** zap.c dobuzz `:4829–5024` — `:4858` `range += zap_over_floor(...)` (door arm `:5416` rangemod=−1000, absorb `:5459`), then `:4998` `!ZAP_POS(levl[sx][sy].typ)` re-reads the LIVE cell (now DOOR=23: ZAP_POS true; `closed_door && range>=0` false at −993) so no bounce; `:5003` bchance likewise live. ZAP_POS ≡ typ≥POOL(16) (rm.h:127); SDOOR=14 < 16 < DOOR=23.
