@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3839 cliffs-head dig writer: domove never autodug rock — test_move :1042–1048 MRKR arm missing from the inline bump (578213 → PASS)
+
+**C locus:** `hack.c:1042–1048` (flags.autodig && !run && !nopick && uwep && is_pick(uwep) → use_pick_axe2; "MRKR: Automatic digging when wielding the appropriate tool") + domove_core `:2843–2848` (FALSE && !door_opened → move=0, nomul(0)).
+**JS:** `js/cmd.js` (import + autodig arm + doc line) + 1 test file, far under caps.
+**Change:** new arm in domove after the tunnels chew, in C order: obstructed && !bars && !uinwater (:1017 gate preserved — its message stays deferred) && autodig && !run && !nopick && uwep && is_pick → use_pick_axe2; then move=0/nomul/return. is_pick added to the existing objects.js import (canonical export; `imports.mjs --can`: ALREADY, no new edge); use_pick_axe2 already imported (:91). Deferred doc line updated (autodig now live). New focused test `scripts/autodig-domove-pick.test.mjs` (prefix-482 replay asserts the start-digging message + digging.pos (2,17) + hero held at (3,17)).
+**Verify:** focused test 0/1 pre-fix → 1/1 post-fix. `node scripts/verify.mjs --fn dig` → VERIFY: PASS — syntax 1 file (js/cmd.js); rule2; hidden `verify dig: 1 PASS, 0 moved past, 0 unchanged, 0 worse` (scen-sweep-Wizard-578213: PASS, full 1657 steps); reach 16/16 REACH-OK (RNG-tagged); green 2/2; strict ×2; cohort 7/7; full skipped (not shared). Plus forced full 44/44 (domove change, D-3819 precedent).
+**Named:** none new — Passes_walls+may_passwall (:1014), Underwater message (:1017), door (:1090)/boulder (:1227) tunnels arms, db_wall/soko bump prose stay deferred as before (turns.md:401); the uinwater gate in the new arm preserves their C order without porting them.
+**Next:** row leaves via regen (dig blocks 0 after this board).
 ## 2026-10-11 — D-3838 cliffs-head `dopray` writer: pray.js Blindfolded `|| ublindf` ranked cursed lenses a major trouble — sweep-Wizard-578213 moves (468→482)
 
 **C locus:** `include/youprop.h:96` (`#define Blindfolded EBlinded` — "worn blindfold (or towel; lenses don't set [BLINDED].extrinsic)"); `pray.c` in_trouble `:243–244` (`if (Blindfolded && ublindf->cursed) return TROUBLE_CURSED_BLINDFOLD;` (+1)), worst_cursed_item `:328` (ublindf arm → TROUBLE_CURSED_ITEMS −3), pleased case 1 (`if (trouble > 0) fix`). C path at the step: rn2(2)@:1126 is the rn1 line (action=1), rnz(350)@:1356 internals (rnd.c:214–229 draw rn2(1000)+rne(4)+rn2(2)); trouble −3 → case 1 silent, lenses stay cursed.
