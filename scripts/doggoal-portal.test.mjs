@@ -7,7 +7,7 @@ import { game } from "../js/gstate.js";
 // C ref: dogmove.c dog_goal `:591–603` — with appr still 0 (close,
 // not fleeing, no stairs, no carried dog food), a magic portal within
 // distu <= 2 of the hero makes the pet approach (appr 1).
-// JS split C's gf.ftrap chain: maketrap pushes the live level.traps
+// JS split C's gf.ftrap chain: maketrap head-inserts the live level.traps
 // array and leaves game.ftrap null on fresh levels, but dog_goal
 // walked only game.ftrap — blind to wished portals (scen-trap
 // Valkyrie-94361/Caveman-94281: C appr 1 via the portal at the hero's

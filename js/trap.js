@@ -1132,7 +1132,10 @@ export function maketrap(x, y, typ) {
     if (!oldplace) {
         if (!game.level) return ttmp;
         if (!game.level.traps) game.level.traps = [];
-        game.level.traps.push(ttmp);
+        // C trap.c:577-579 — head-insert (ttmp->ntrap = gf.ftrap), so
+        // every gf.ftrap walk sees newest-first (display_trap_map
+        // sense_trap fakes, set_wportal, first-portal gates).
+        game.level.traps.unshift(ttmp);
     } else if (Sokoban_rules()) {
         // C trap.c:581–585 — overwrite of an existing trap; the new
         // ttyp is already stored, so the scan sees the replacement.

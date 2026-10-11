@@ -2920,7 +2920,7 @@ export async function doidtrap() {
 
     // C `:2361–2388` — `gf.ftrap` walk; `return ECMD_OK` sits inside
     // the coordinate `if`, so non-matching traps `continue` past it.
-    // JS splits the C chain: maketrap pushes the live level.traps array
+    // JS splits the C chain: maketrap head-inserts the live level.traps array
     // (t_at) and leaves game.ftrap null on fresh levels (an array after
     // restore), so the chain alone finds nothing — walk the union of the
     // gf-shaped store and level.traps, deduped (deltrap's dual-unlink
