@@ -6754,15 +6754,11 @@ export async function enlightenment(mode, final = 0) {
             || (u.uprops?.[INVULNERABLE]?.extrinsic | 0))) {
             lines.push(you_are('invulnerable', from_what(INVULNERABLE)));
         }
-        // C attributes_enlightenment: Antimagic early among resistances
-        // Cloak MR via setworn oc_oprop still deferred.
-        const { ANTIMAGIC } = await import('./const.js');
-        const { objectNames: onames } = await import('./objects.js');
-        const CLOAK_MR = onames.indexOf('CLOAK_OF_MAGIC_RESISTANCE');
-        const antimagic = !!(u.Antimagic || u.HAntimagic || u.EAntimagic
-            || u.uprops?.[ANTIMAGIC]?.intrinsic
-            || u.uprops?.[ANTIMAGIC]?.extrinsic
-            || (u.uarmc && u.uarmc.otyp === CLOAK_MR));
+        // C insight.c:1523-1524 — Antimagic early among resistances;
+        // youprop.h:55-57 reads uprops[ANTIMAGIC] H||E bits only (C never
+        // reads the worn gear live; the gamestate save/restore clobber is
+        // permanent — D-3790). In-file hero_Antimagic mirror, no worn arm.
+        const antimagic = hero_Antimagic(u);
         if (antimagic) lines.push(you_are('magic-protected', from_what(ANTIMAGIC)));
         // C insight.c:1525-1527 — Fire + item-fire before Cold.
         if (hero_Fire_resistance(u)) {
