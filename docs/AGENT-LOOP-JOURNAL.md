@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3851 cliffs-head `detect.c` dosearch0 Archeologist-578126 s824: writer `bones.c` savebones trap loop walked the stale game.ftrap chain, bones kept tseen, next life skipped rnl(8); session moves 824→1070
+
+**C locus:** `bones.c:552–555` savebones — `for (ttmp = gf.ftrap; ...) { madeby_u = 0; tseen = unhideable_trap(ttyp); }`. An earlier chain life found this pit (matched dosearch→find_trap), died, and C's savebones reset it unseen before writing bonD0.1. Whole C savebones `:403–625` re-read; every other arm already live in JS.
+**JS:** 1 file (`end.js` +16/−4), under caps. Rule #2 clean; no DIAG/FORCE/seed gates. New focused test `scripts/savebones-trap-reset.test.mjs` (replays segs 0–7, asserts bones traps lose maker + tseen unless HOLE).
+**Change:** `js/end.js` only — the `:552–555` loop now walks `game.level?.traps` plus the non-array `game.ftrap` chain (the `can_make_bones :660–676` sibling shape for the same C walk; `unhideable_trap` already imported, no new edge). Measured with chain-aware prefix probes with shared storage (/tmp only) + a temp setter trace (reverted): maketrap(40,17,PIT) unseen → find_trap flip in the earlier life → bones JSON tseen:true → seg8 tseen:true.
+**Verify:** focused test 0/1 pre-fix (`trap (40,17) ttyp=11 tseen=true`) → 1/1 post-fix. `node scripts/verify.mjs --fn savebones,dosearch0` → syntax 1 file · rule2 · `verify savebones`: no corpus session blocked (baseline note) · reach smoke 24/24 REACH-OK · `verify dosearch0: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Archeologist 824→ghitm@1070) · reach dosearch0 80/80 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Plus forced full `sessions`: 44/44.
+**Named:** none new — the VFS/file-handle omits in the savebones doc (close_nhfile/create_bonesfile/paniclog/binary savelev) stand; the trap loop is now live on both list shapes.
+**Next:** do not re-pop `dosearch0` for Archeologist-578126 (rests at ghitm@1070 — leave to the rescore queue). `do.js:2124`/`dungeon.js:2433`/`display.js:6386` still walk `game.ftrap` as a chain — same latent shape, own pops if a session names them.
 ## 2026-10-11 — D-3850 cliffs-head `botl.c` do_statusline2 Archeologist-578126 s621: writer `hack.c` domove_core run-stop on furniture called end_running not nomul(0); session moves 621→824
 
 **C locus:** `hack.c` domove_core `:2936–2941` (`run && run<8 && IS_DOOR/IS_OBSTRUCTED/IS_FURNITURE(tmpr) → nomul(0)`); `hack.c:4161–4175` nomul (`disp.botl |= multi>=0`, then end_running); `pickup.c:447–456` check_here (nomul if run, flush_screen→bot, look_here). IS_DOOR ≡ ==DOOR (rm.h:121); tmpr is dest levl (domove_core :2784), ≡ JS newx/newy.

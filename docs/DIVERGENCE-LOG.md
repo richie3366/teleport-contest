@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3851 — cliffs-head `detect.c` dosearch0 Archeologist-578126 s824: writer `bones.c` savebones trap loop walked the stale game.ftrap chain, bones kept tseen, next life skipped rnl(8); session moves 824→1070
+
+- **Status:** shipped (cliff writer port with movement). Open — cliffs head `detect.c` dosearch0 @e78b87757 (1 corpus block, RNG lost 28422; first scen-chain-Archeologist-578126 step 824/1266 kind=rng at detect.c:2079: C `rnl(8)=1`@dosearch0 vs JS `rn2(5)=3`@distfleeck, then identical distfleeck/m_move pattern — JS is missing exactly the trap draw).
+- **Symptom:** seg8 (fresh Wizard, bones-loaded D0.1) local step 8 key `s`: hero (40,18) searches with the (40,17) pit adjacent. C rolls rnl(8)=1 (unseen); JS draws nothing (pit tseen=true). Screens match (a corpse covers the square both sides, object glyph wins); C later finds it («You find a pit.» local 11) and shows `^`.
+- **C locus:** `bones.c:552–555` savebones — `for (ttmp = gf.ftrap; ...) { madeby_u = 0; tseen = unhideable_trap(ttyp); }`. An earlier chain life found this pit (matched dosearch→find_trap), died, and C's savebones reset it unseen before writing bonD0.1. Whole C savebones `:403–625` re-read; every other arm already live in JS.
+- **JS was:** `js/end.js:1902` walked `game.ftrap` as a C node chain — null on fresh levels, an array aliasing level.traps after restore (`bones.js:687`; live list is level.traps per `lev_json.js:37`) — so the reset never visited a live trap and the bones JSON kept `"tseen":true`.
+- **Fix:** `js/end.js` only — the `:552–555` loop now walks `game.level?.traps` plus the non-array `game.ftrap` chain (the `can_make_bones :660–676` sibling shape for the same C walk; `unhideable_trap` already imported, no new edge). Measured with chain-aware prefix probes with shared storage (/tmp only) + a temp setter trace (reverted): maketrap(40,17,PIT) unseen → find_trap flip in the earlier life → bones JSON tseen:true → seg8 tseen:true.
+- **JS:** 1 file (`end.js` +16/−4), under caps. Rule #2 clean; no DIAG/FORCE/seed gates. New focused test `scripts/savebones-trap-reset.test.mjs` (replays segs 0–7, asserts bones traps lose maker + tseen unless HOLE).
+- **Callers:** sole C caller end.c:1365 (done) → JS `js/end.js:1341` `await savebones(how, endtime, corpse)` (unchanged signature, stays wired).
+- **Verify:** focused test 0/1 pre-fix (`trap (40,17) ttyp=11 tseen=true`) → 1/1 post-fix. `node scripts/verify.mjs --fn savebones,dosearch0` → syntax 1 file · rule2 · `verify savebones`: no corpus session blocked (baseline note) · reach smoke 24/24 REACH-OK · `verify dosearch0: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Archeologist 824→ghitm@1070) · reach dosearch0 80/80 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Plus forced full `sessions`: 44/44.
+- **Named omissions:** none new — the VFS/file-handle omits in the savebones doc (close_nhfile/create_bonesfile/paniclog/binary savelev) stand; the trap loop is now live on both list shapes.
+- **Ledger:** savebones partial
+- **Next:** do not re-pop `dosearch0` for Archeologist-578126 (rests at ghitm@1070 — leave to the rescore queue). `do.js:2124`/`dungeon.js:2433`/`display.js:6386` still walk `game.ftrap` as a chain — same latent shape, own pops if a session names them.
+
 ## D-3850 — cliffs-head `botl.c` do_statusline2 Archeologist-578126 s621: writer `hack.c` domove_core run-stop on furniture called end_running not nomul(0); session moves 621→824
 
 - **Status:** shipped (cliff writer port with movement). Open — cliffs head `botl.c` do_statusline2 @06cc6f81f (3 corpus blocks, RNG lost 28422; first scen-chain-Archeologist-578126 step 621/1266). Owner is the region heuristic (parked RETIRED tag — painter not re-ported); the first divergence names the writer domove_core (live encumbrance correct both sides, JS paint stale).
