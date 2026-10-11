@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0016?\n>>P  hbynn:\u0016?\ns  #levelchange\n12\n      \u0017cursed scroll of scare monster\n\u0007dwarf\nrj \u001b\u0017ice box\naki\naki\n#tip\nk\u001b        Fj          nFl    \u0017cursed potion of acid\nql \u001b         \u00173 magic whistle\nam    am   Fj  n        n     Fk  n     n s    n 20s   n \u00167\n\u0016?\n>>M     wand of stasis\nl l     n l        n      n l l  l   n :   \u00163\n\u001641\nl    n h     n  yb j n    n    : 20s  . \u00164\n\u0016?\nb_ \u001bm,      n      yy\u001by  y y  n  <"
+ },
+ "segments": [
+  {
+   "seed": 578314,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0016?\n>>P  hbynn:\u0016?\ns  #levelchange\n12\n      \u0017cursed scroll of scare monster\n\u0007dwarf\nrj \u001b\u0017ice box\naki\naki\n#tip\nk\u001b        Fj          nFl    \u0017cursed potion of acid\nql \u001b         \u00173 magic whistle\nam    am   Fj  n        n     Fk  n     n s    n 20s   n \u00167\n\u0016?\n>>M     wand of stasis\nl l     n l        n      n l l  l   n :   \u00163\n\u001641\nl    n h     n  yb j n    n    : 20s  . \u00164\n\u0016?\nb_ \u001bm,      n      yy\u001by  y y  n  <"
+  }
+ ]
+}

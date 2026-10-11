@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u001610\n hkl:\u0016?\n>z_ \u001b.\u0016?\n>A  \u0014@.\u0016?\n>t bynukly:20s \u001bs \u00162\n \u0004y\u0016?\ni#chat\ny;>.s\u0016?\nh_{,<\u0016?\na\u0006_>._.<.s\u00162\n_>._.20s\u001616\n\u0014.\u00167\n#levelchange\n30\n         \u0017the Sceptre of Might\n \u0007yeti\n.m.sm. sm. sm. .m. .m.  n sm. sh \u0007aligned cleric\nn.jsk  20s   n 20s sk.j  sm.sm. \u001610\n\u0016?\n>>O       red dragon scale mail\n__.\u0016?\nd#levelchange\n6\n        \u0017water walking boots\nWp   n   .h       n .j     .m.   n      n Tp        n      n  \u0007mind flayer\nFj   n  Fn           n  Fj   n 20s     s  n   #pray\ny y  \u0007werewolf\nFj Fj  n    Fj   n Fj             n  Fl        yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 578318,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u001610\n hkl:\u0016?\n>z_ \u001b.\u0016?\n>A  \u0014@.\u0016?\n>t bynukly:20s \u001bs \u00162\n \u0004y\u0016?\ni#chat\ny;>.s\u0016?\nh_{,<\u0016?\na\u0006_>._.<.s\u00162\n_>._.20s\u001616\n\u0014.\u00167\n#levelchange\n30\n         \u0017the Sceptre of Might\n \u0007yeti\n.m.sm. sm. sm. .m. .m.  n sm. sh \u0007aligned cleric\nn.jsk  20s   n 20s sk.j  sm.sm. \u001610\n\u0016?\n>>O       red dragon scale mail\n__.\u0016?\nd#levelchange\n6\n        \u0017water walking boots\nWp   n   .h       n .j     .m.   n      n Tp        n      n  \u0007mind flayer\nFj   n  Fn           n  Fj   n 20s     s  n   #pray\ny y  \u0007werewolf\nFj Fj  n    Fj   n Fj             n  Fl        yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

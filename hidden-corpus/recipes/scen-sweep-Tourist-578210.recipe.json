@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      \u0006_ \u001bm.>FjFl_>>,_,>_>>._.Fj>\u0006_>._,>_>,_,>_>._.Fj>Fj 20s\u0006_>>,_,>_>>._,>_>>,_,>l;.\u0006_>,_,>_>._.>_>,_.>\u000f\u001b\u0018\u001b#levelchange\n8\n\u0007flesh golem\nsy20s sm.sm.\u0007ghost\nFh Fh Fh  n FhFh Fh\u0007pony\n;h:  sy.m.20s  \u0007erinys\nFb   n Fh Fj Fh Fh  n  Fb \u00166\n#levelchange\n12\n    #wizintrinsic\nl\n .m.20ssm.20ssm.sb.s..  nE- Elbereth\n#untrap\nl>rg#jump\nrgs20s s.s.\u000f\u001b#levelchange\n20\n        \u0017gauntlets of dexterity\nWl20s20ssyTl\u0007purple worm\n.m.20s  s s \u0007Demogorgon\nyy  n Fb     n FjFkFjFj  n \u0007black light\nsm.    n .m.      sk sm.sk  n sm.  n    n \u001612\n #levelchange\n12\n  #wizintrinsic\ne\n sh  n    n sm.   20s  n         n     yy\u001by   y y y\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 578210,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      \u0006_ \u001bm.>FjFl_>>,_,>_>>._.Fj>\u0006_>._,>_>,_,>_>._.Fj>Fj 20s\u0006_>>,_,>_>>._,>_>>,_,>l;.\u0006_>,_,>_>._.>_>,_.>\u000f\u001b\u0018\u001b#levelchange\n8\n\u0007flesh golem\nsy20s sm.sm.\u0007ghost\nFh Fh Fh  n FhFh Fh\u0007pony\n;h:  sy.m.20s  \u0007erinys\nFb   n Fh Fj Fh Fh  n  Fb \u00166\n#levelchange\n12\n    #wizintrinsic\nl\n .m.20ssm.20ssm.sb.s..  nE- Elbereth\n#untrap\nl>rg#jump\nrgs20s s.s.\u000f\u001b#levelchange\n20\n        \u0017gauntlets of dexterity\nWl20s20ssyTl\u0007purple worm\n.m.20s  s s \u0007Demogorgon\nyy  n Fb     n FjFkFjFj  n \u0007black light\nsm.    n .m.      sk sm.sk  n sm.  n    n \u001612\n #levelchange\n12\n  #wizintrinsic\ne\n sh  n    n sm.   20s  n         n     yy\u001by   y y y\u001bn  ."
+  }
+ ]
+}

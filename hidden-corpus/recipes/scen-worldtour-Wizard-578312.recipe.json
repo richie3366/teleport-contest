@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 speed boots\nWr\u0016?\n>>M      potion of invisibility\n \u0014 nns  .m.sk      \u001628\n\u0017cursed potion of levitation\n\u0007doppelganger\nqt  \u0017wand of teleportation\nzul \u0017the Candelabrum of Invocation\nwaFjFjFk \u0017cursed -1 trident\nwwFkFjFj   20s 20s\u001b\u001628\n\u0014 \u001b@. \u0016?\n\u001bh  n j\u0016?\nd__.\u0016?\nc #levelchange\n8\n       \u0017cursed clove of garlic\nexs20s      \u0017blessed potion of gain ability\nqy  Fy             n Fk  n        n   \u0017uncursed statue of a newt\n20s  FkFk\u0017uncursed +0 dunce cap\nWA  s\u001b. sm.  n          n   \u0017uncursed scroll of magic mapping\nrB       n       Fk        n        n Fu     n       \u0017blessed scroll of enchant weapon\n\u0007Yeenoghu\nyrC  \u001b  n           n .m.        n     20s  n      n    \u0016?\n\u001bj  n       n      n   l   n       n      yy\u001by  nny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 578312,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 speed boots\nWr\u0016?\n>>M      potion of invisibility\n \u0014 nns  .m.sk      \u001628\n\u0017cursed potion of levitation\n\u0007doppelganger\nqt  \u0017wand of teleportation\nzul \u0017the Candelabrum of Invocation\nwaFjFjFk \u0017cursed -1 trident\nwwFkFjFj   20s 20s\u001b\u001628\n\u0014 \u001b@. \u0016?\n\u001bh  n j\u0016?\nd__.\u0016?\nc #levelchange\n8\n       \u0017cursed clove of garlic\nexs20s      \u0017blessed potion of gain ability\nqy  Fy             n Fk  n        n   \u0017uncursed statue of a newt\n20s  FkFk\u0017uncursed +0 dunce cap\nWA  s\u001b. sm.  n          n   \u0017uncursed scroll of magic mapping\nrB       n       Fk        n        n Fu     n       \u0017blessed scroll of enchant weapon\n\u0007Yeenoghu\nyrC  \u001b  n           n .m.        n     20s  n      n    \u0016?\n\u001bj  n       n      n   l   n       n      yy\u001by  nny\u001b  \u0016"
+  }
+ ]
+}

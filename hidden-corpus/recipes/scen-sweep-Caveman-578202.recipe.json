@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n12\n  \u0017blessed +3 mummy wrapping\n\u0007brown mold\nWfss.T\u0017uncursed potion of speed\n\u0007electric eel\nqg#dip\nfFlFh\u00173 potion of paralysis\nqh 20s.#levelchange\n8\n \u0017blessed ring of polymorph control\nPir#polyself\nred dragon\n   #monster\nu  20s20s\u0007Death\nyFkFy    Fy        sh   .nsu#polyself\nminotaur\n#monster\n20s   sm.   n  .m.     n.k   nsm.     n\u0017potion of polymorph\nqj vampire bat\n      i\u001b\u001610\n#levelchange\n30\n                     \u0017Snickersnee\nwk    FnFn.#invoke\nk \u0007cave spider\n#chat\nnFn Fu\u0007mastodon\n;u, \u001bm.sm. sm..m.   n  i\u001b\u0017cursed bag of holding\n\u0017chest\n\u0017bag of holding\n\u0017potion of polymorph\n\u0017ring of adornment\namo\n\u0017long sword\nwq   dn#force\n  n      .u   n       n sm.         n        .m.  n   n  n     n#tip\nyl\n    n  n   \u0017dagger\nwr  n   yy\u001b  y   y y nn  d"
+ },
+ "segments": [
+  {
+   "seed": 578202,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n12\n  \u0017blessed +3 mummy wrapping\n\u0007brown mold\nWfss.T\u0017uncursed potion of speed\n\u0007electric eel\nqg#dip\nfFlFh\u00173 potion of paralysis\nqh 20s.#levelchange\n8\n \u0017blessed ring of polymorph control\nPir#polyself\nred dragon\n   #monster\nu  20s20s\u0007Death\nyFkFy    Fy        sh   .nsu#polyself\nminotaur\n#monster\n20s   sm.   n  .m.     n.k   nsm.     n\u0017potion of polymorph\nqj vampire bat\n      i\u001b\u001610\n#levelchange\n30\n                     \u0017Snickersnee\nwk    FnFn.#invoke\nk \u0007cave spider\n#chat\nnFn Fu\u0007mastodon\n;u, \u001bm.sm. sm..m.   n  i\u001b\u0017cursed bag of holding\n\u0017chest\n\u0017bag of holding\n\u0017potion of polymorph\n\u0017ring of adornment\namo\n\u0017long sword\nwq   dn#force\n  n      .u   n       n sm.         n        .m.  n   n  n     n#tip\nyl\n    n  n   \u0017dagger\nwr  n   yy\u001b  y   y y nn  d"
+  }
+ ]
+}

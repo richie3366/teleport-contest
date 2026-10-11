@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   #levelchange\n30\n         \u0016?\n>EFn ykhhyh\u0017wand of digging\nzehhk\u0017scroll of earth\nrf nbhhhblnujjjyjykkynbkykkykuh10shhhhjyyyyyyybbbjhh10su#wizintrinsic\nl\n E- Vlad was here\n\u0017blessed wand of magic missile\nzgjblu\u0017blessed wand of make invisible\nzh.zhl.s20s\\   \u0017dunce cap\nWi  sss\u0007pit fiend\nsm.20s  20ss20ss20s20s\u0007vampire bat\nFjFy  Fj \u0007horned devil\n.m.  .m..l    sm. \u001624\nu  b     n  uk\u0017moat\n:y\u0017unaligned altar\ndh  \u0017newt corpse\n#offer\nj          h\u0017ice\nk\u0017tree\n#terrain\nd\n\u001b<.\\   ,     \u0004h   i\u001b\u0006_>.Fj     n  _,    Fj     >Fb     Fj _>.Fb   _.   Fb >Fb    n  Fj    _>,   Fj_.   Fb >Fj  Fb   Fb  Fb    Fj   n    u#wipe\n      \u0006_>>.    Fb   _,   Fj >Fb       Fj   n   _>>.       Fj      _.     Fb>Fj     Fj  _>>.    Fb      n  _.    Fj     >Fj       Fj Fb   n Fb    Fj   \u0006_>.   Fb     _.   Fj >Fb    Fb      n _>.  Fj    _.   Fb>Fj Fb _>.  Fb   _,   Fj >Fb Fb  Fj  Fj Fb    \u0006_>.  n Fb  _. Fj   >Fb Fb    _>.  Fj _.  Fb      >Fj    n   Fj    _>.Fb     _,Fj     >Fj   n Fh  Fj     Fb   Fb#conduct\n #tip\n\u001b\u0006_>,   Fb _,   Fh      >Fh    n    Fh     _>.    Fb    _.       Fb >Fh      nFh      _>,   Fh     _,Fj     >Fh Fj        n Fh         Fj     Fb    K#jump\n\u0006_>. Fb _.  Fj      n >Fb       Fj    _>.Fh   _.  Fj     >Fh    Fb    n  _>,     Fj     _.     Fj     >Fj      yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 578204,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   #levelchange\n30\n         \u0016?\n>EFn ykhhyh\u0017wand of digging\nzehhk\u0017scroll of earth\nrf nbhhhblnujjjyjykkynbkykkykuh10shhhhjyyyyyyybbbjhh10su#wizintrinsic\nl\n E- Vlad was here\n\u0017blessed wand of magic missile\nzgjblu\u0017blessed wand of make invisible\nzh.zhl.s20s\\   \u0017dunce cap\nWi  sss\u0007pit fiend\nsm.20s  20ss20ss20s20s\u0007vampire bat\nFjFy  Fj \u0007horned devil\n.m.  .m..l    sm. \u001624\nu  b     n  uk\u0017moat\n:y\u0017unaligned altar\ndh  \u0017newt corpse\n#offer\nj          h\u0017ice\nk\u0017tree\n#terrain\nd\n\u001b<.\\   ,     \u0004h   i\u001b\u0006_>.Fj     n  _,    Fj     >Fb     Fj _>.Fb   _.   Fb >Fb    n  Fj    _>,   Fj_.   Fb >Fj  Fb   Fb  Fb    Fj   n    u#wipe\n      \u0006_>>.    Fb   _,   Fj >Fb       Fj   n   _>>.       Fj      _.     Fb>Fj     Fj  _>>.    Fb      n  _.    Fj     >Fj       Fj Fb   n Fb    Fj   \u0006_>.   Fb     _.   Fj >Fb    Fb      n _>.  Fj    _.   Fb>Fj Fb _>.  Fb   _,   Fj >Fb Fb  Fj  Fj Fb    \u0006_>.  n Fb  _. Fj   >Fb Fb    _>.  Fj _.  Fb      >Fj    n   Fj    _>.Fb     _,Fj     >Fj   n Fh  Fj     Fb   Fb#conduct\n #tip\n\u001b\u0006_>,   Fb _,   Fh      >Fh    n    Fh     _>.    Fb    _.       Fb >Fh      nFh      _>,   Fh     _,Fj     >Fh Fj        n Fh         Fj     Fb    K#jump\n\u0006_>. Fb _.  Fj      n >Fb       Fj    _>.Fh   _.  Fj     >Fh    Fb    n  _>,     Fj     _.     Fj     >Fj      yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

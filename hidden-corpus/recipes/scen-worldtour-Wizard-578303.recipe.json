@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPo\u0017blessed Mjollnir\nwp \u0017blessed +3 silver dragon scale mail\nW\u001b\u00165\n\u0004j\u0016?\nq \u0004u\u00165\n\u0017bow\nwr\u001720 arrows\nQs\u0007newt\nkkfbfbfh20s20s x#twoweapon\n20sFb  jky,#enhance\nn\u001b\u0016?\n>v ny     l n   n \u001bh \u001b j:\u0016?\no\u0004n\u0016?\n>>M     ring of invisibility\n\u0014 \u001bm,\u00165\n#chat\ny;>.20s \u0016?\n\u001byu \u00165\n#chat\nk     ;m.s\u0016?\n\u001bh l \u0016?\n\u001bh  y  n   \u0016?\n\u001by   h   n\u0016?\n\u001by   h \u0016?\nc uy bh  kyh     n :\u0016?\n\u001by   k\u00165\n\u0014<. \u001626\nj   j b l kh  n   :\u00164\nuy j  n n   n  uyunyuy:\u00165\n\u0017ring of protection from shape changers\n\u0007wood nymph\nPvl    20s            n  .u20s      \u0017blessed spellbook of knock\n\u0007fire elemental\nrw s20s Za\nj \u0017wand of teleportation\n\u0007guardian naga\nzx..   .    n s    \u00173 potion of see invisible\n\u0007Pestilence\nnn  qy \u001b  \u0017cursed scroll of scare monster\nrz  \u001b. . \u00165\n\u00164\n_>,\u00164\n#chat\n;k.\u001621\n__.>\u001624\nk  n    \u001b   l  n l y  n      b     n   b : s  20s    s \u00161\n\u00164\n_{.<20s s\u001629\nu  n      ubb  n      n :sm.   s \u00169\n\u0016?\na   hu \u001b   n  k kj k  b   :\u001616\n_{,<.m.  n   \u001624\n\u0014 n   sm.      sm.  \u001629\n_>.<sm.  \u001619\n#levelchange\n12\n   \u0007quasit\nFy  n   Fk      Fk   y  F"
+ },
+ "segments": [
+  {
+   "seed": 578303,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPo\u0017blessed Mjollnir\nwp \u0017blessed +3 silver dragon scale mail\nW\u001b\u00165\n\u0004j\u0016?\nq \u0004u\u00165\n\u0017bow\nwr\u001720 arrows\nQs\u0007newt\nkkfbfbfh20s20s x#twoweapon\n20sFb  jky,#enhance\nn\u001b\u0016?\n>v ny     l n   n \u001bh \u001b j:\u0016?\no\u0004n\u0016?\n>>M     ring of invisibility\n\u0014 \u001bm,\u00165\n#chat\ny;>.20s \u0016?\n\u001byu \u00165\n#chat\nk     ;m.s\u0016?\n\u001bh l \u0016?\n\u001bh  y  n   \u0016?\n\u001by   h   n\u0016?\n\u001by   h \u0016?\nc uy bh  kyh     n :\u0016?\n\u001by   k\u00165\n\u0014<. \u001626\nj   j b l kh  n   :\u00164\nuy j  n n   n  uyunyuy:\u00165\n\u0017ring of protection from shape changers\n\u0007wood nymph\nPvl    20s            n  .u20s      \u0017blessed spellbook of knock\n\u0007fire elemental\nrw s20s Za\nj \u0017wand of teleportation\n\u0007guardian naga\nzx..   .    n s    \u00173 potion of see invisible\n\u0007Pestilence\nnn  qy \u001b  \u0017cursed scroll of scare monster\nrz  \u001b. . \u00165\n\u00164\n_>,\u00164\n#chat\n;k.\u001621\n__.>\u001624\nk  n    \u001b   l  n l y  n      b     n   b : s  20s    s \u00161\n\u00164\n_{.<20s s\u001629\nu  n      ubb  n      n :sm.   s \u00169\n\u0016?\na   hu \u001b   n  k kj k  b   :\u001616\n_{,<.m.  n   \u001624\n\u0014 n   sm.      sm.  \u001629\n_>.<sm.  \u001619\n#levelchange\n12\n   \u0007quasit\nFy  n   Fk      Fk   y  F"
+  }
+ ]
+}

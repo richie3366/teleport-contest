@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007housecat\n\u0017meatball\nt$hl l#chat\nb\u0017carrot\nt\u001b#chat\nb\u0007sewer rat\n20s  sm.  .hsnsksm.i\u001b#levelchange\n20\n#wizintrinsic\nl\n 20s sh.m..ksm.sm.sy.m..m.sk\u0017scroll of create monster\nrn newt\n  u#monster\n#offer\nok#turn\n#name\ni\nsm.sm.sm..m..m.sy\u0017pick-axe\nao shagy           b   n y   ai     k\u0006_ \u001bm.  ah    hn_<.Fn  _,m.   Fj   ah     \u0017T-shirt\nWp   .m.   sj    sm.   \u0007kraken\nFj    Fb      nFj   Fn   \u0007black dragon\nFb   Fn     \u00164\nn  lb   \u0017trap door\nb\u0007sewer rat\n20ssm.20s .ukh\u0017fire trap\nh^l\u0007jackal\n.m. sm.20ssm.n\u0017sleeping gas trap\nl#untrap\nhkj\u0017magic portal\nu\u0007sewer rat\n20ssjsu20s:#offer\n#tip\n\u001b\u00169\n\u0007homunculus\nFyFyFyFyFyFy  \u0007succubus\n;h.20s.m.20s \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq<.  n _ooooooooo,Fn _.Fn   ,p_m,Fn _.#chat\nu_ooooooooo.Fu  _.  Fu  ,df      n _mm.  Fj  _.#chat\nu__. Fj  _.    Fl      #chat\nl   n #pray\ny y             _mm,  Fj      _,#chat\nu#ride\nlycj:\u001611\ni\u001bek.m. .l ri y  sm. 20s Zc\n    n Zc\n qd rj y              20s      n sl             n    Zb\n    el      n 20s    20s      nqe    #dip\ned    #terrain\nd\na#terrain\n,10s    n di    #loot\nnPPi\u001bek      nsm.         .m.    n   acurh y      .m.    n  sm.   Zb\n    n  Zc\n         yy\u001by  y y ny  W"
+ },
+ "segments": [
+  {
+   "seed": 578141,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007housecat\n\u0017meatball\nt$hl l#chat\nb\u0017carrot\nt\u001b#chat\nb\u0007sewer rat\n20s  sm.  .hsnsksm.i\u001b#levelchange\n20\n#wizintrinsic\nl\n 20s sh.m..ksm.sm.sy.m..m.sk\u0017scroll of create monster\nrn newt\n  u#monster\n#offer\nok#turn\n#name\ni\nsm.sm.sm..m..m.sy\u0017pick-axe\nao shagy           b   n y   ai     k\u0006_ \u001bm.  ah    hn_<.Fn  _,m.   Fj   ah     \u0017T-shirt\nWp   .m.   sj    sm.   \u0007kraken\nFj    Fb      nFj   Fn   \u0007black dragon\nFb   Fn     \u00164\nn  lb   \u0017trap door\nb\u0007sewer rat\n20ssm.20s .ukh\u0017fire trap\nh^l\u0007jackal\n.m. sm.20ssm.n\u0017sleeping gas trap\nl#untrap\nhkj\u0017magic portal\nu\u0007sewer rat\n20ssjsu20s:#offer\n#tip\n\u001b\u00169\n\u0007homunculus\nFyFyFyFyFyFy  \u0007succubus\n;h.20s.m.20s \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq<.  n _ooooooooo,Fn _.Fn   ,p_m,Fn _.#chat\nu_ooooooooo.Fu  _.  Fu  ,df      n _mm.  Fj  _.#chat\nu__. Fj  _.    Fl      #chat\nl   n #pray\ny y             _mm,  Fj      _,#chat\nu#ride\nlycj:\u001611\ni\u001bek.m. .l ri y  sm. 20s Zc\n    n Zc\n qd rj y              20s      n sl             n    Zb\n    el      n 20s    20s      nqe    #dip\ned    #terrain\nd\na#terrain\n,10s    n di    #loot\nnPPi\u001bek      nsm.         .m.    n   acurh y      .m.    n  sm.   Zb\n    n  Zc\n         yy\u001by  y y ny  W"
+  }
+ ]
+}

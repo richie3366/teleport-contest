@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n16\n               i\u001bwaFy s.Xae#rub\neLsL,j#rub\ne<j\u00169\n \u0006#levelchange\n14\nnub\u0017iron bars\nhhhhlh\u0017neutral altar\nda\u0017lichen corpse\n#offer\nf     #pray\ny y        hk   \u0017pool\nk j :y k\u0017ice\nn   y yy#terrain\n\u001bqk    #conduct\n \u0006_ \u001b.>Fj    s_>.   Fh   _. Fy   n >Fy   Fy  _>, Fy  _.>\u0006_>. Fl  _,@.Fl  >FlFl _>.  Fl   n _.  Fl  >Fl  Fy   _>.Fl  _.  n   Fl    >Fy   Fl    nFl    Fy   Fl  \u0006_>.  Fl _,  Fh    n >Fh  Fh  _>,Fh  _.   Fy      n>Fl     Fl    _>.Fh_,,Fh>Fh  Fh FhFhFh\u0006_>, Fh_,>_>,  _.>_>,   n Fh   _. Fh  >Fh  FhFh   Fh  Fh  \u00168\n#levelchange\n14\n\u0007pony\n\u0017scroll of taming\nrg \u0017saddle\nahh#ride\nyyy\u0007tame saddled pony\n#ride\n\u0007tame saddled warhorse\n#ride\nkyy20ssm.jkss#ride\n.j#ride\nby   y  \u0004 \u001620\n\u0006\u0016?\n>E\u0017wand of striking\nzhj10sjjjjb10sjjnbbh10shu\u0017wand of digging\nz\u0017wand of digging\nz\u0017wand of digging\nzbbkkkky\u0017wand of striking\nzlnuhhhn\u0017scroll of earth\nrhyy\u0017wand of striking\nzkhyyyhkhj\u0017wand of striking\nzyjy\u0017scroll of earth\nryjyj\u0018\u001b#levelchange\n20\n      \u0016?\nj\u0006\u0017wooden flute\nal h       al  \u001bjL    \u0004 #untrap\n\u0018\u001b#levelchange\n20\n\u0007vrock\n;h,20s  n            sh        n   \u001b     sm.           n         \u0007water nymph\nFl         n         Fl            n      Fh             n   Fl               n  Fl                  n  \u0007shrieker\n20s               yy\u001b ny y n  s"
+ },
+ "segments": [
+  {
+   "seed": 578201,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n16\n               i\u001bwaFy s.Xae#rub\neLsL,j#rub\ne<j\u00169\n \u0006#levelchange\n14\nnub\u0017iron bars\nhhhhlh\u0017neutral altar\nda\u0017lichen corpse\n#offer\nf     #pray\ny y        hk   \u0017pool\nk j :y k\u0017ice\nn   y yy#terrain\n\u001bqk    #conduct\n \u0006_ \u001b.>Fj    s_>.   Fh   _. Fy   n >Fy   Fy  _>, Fy  _.>\u0006_>. Fl  _,@.Fl  >FlFl _>.  Fl   n _.  Fl  >Fl  Fy   _>.Fl  _.  n   Fl    >Fy   Fl    nFl    Fy   Fl  \u0006_>.  Fl _,  Fh    n >Fh  Fh  _>,Fh  _.   Fy      n>Fl     Fl    _>.Fh_,,Fh>Fh  Fh FhFhFh\u0006_>, Fh_,>_>,  _.>_>,   n Fh   _. Fh  >Fh  FhFh   Fh  Fh  \u00168\n#levelchange\n14\n\u0007pony\n\u0017scroll of taming\nrg \u0017saddle\nahh#ride\nyyy\u0007tame saddled pony\n#ride\n\u0007tame saddled warhorse\n#ride\nkyy20ssm.jkss#ride\n.j#ride\nby   y  \u0004 \u001620\n\u0006\u0016?\n>E\u0017wand of striking\nzhj10sjjjjb10sjjnbbh10shu\u0017wand of digging\nz\u0017wand of digging\nz\u0017wand of digging\nzbbkkkky\u0017wand of striking\nzlnuhhhn\u0017scroll of earth\nrhyy\u0017wand of striking\nzkhyyyhkhj\u0017wand of striking\nzyjy\u0017scroll of earth\nryjyj\u0018\u001b#levelchange\n20\n      \u0016?\nj\u0006\u0017wooden flute\nal h       al  \u001bjL    \u0004 #untrap\n\u0018\u001b#levelchange\n20\n\u0007vrock\n;h,20s  n            sh        n   \u001b     sm.           n         \u0007water nymph\nFl         n         Fl            n      Fh             n   Fl               n  Fl                  n  \u0007shrieker\n20s               yy\u001b ny y n  s"
+  }
+ ]
+}

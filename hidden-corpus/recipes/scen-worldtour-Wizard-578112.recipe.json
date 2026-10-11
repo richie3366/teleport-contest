@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed amulet of reflection\nPp\u0017blessed +3 gray dragon scale mail\nW\u001b\u001631\n   _ \u001bm,>\u0016?\no  \u0014@..s\u0016?\n>>L     Hawaiian shirt\njk    :\u001631\n\u0006_<,sm.     \u0016?\n\u001bb   u\u0016?\nc_<.20s\u001bs \u0016?\n\u001bl    y \u001631\n\u0014 n  \u0016?\ne __.\u001620\nj  n  b      n u  :\u00167\n\u0016?\nc\u0017crossbow\nwt    n  \u001715 crossbow bolts\nQu\u0007acid blob\nj fjfk fy     fk\u0007jackal\nufjfj   n  fj\u0007acid blob\njfjfkfk      fj fj x    #twoweapon\n20s      Fk kh l    n           ,           #enhance\nn\u001bs 20s s\u001b\u001612\n\u001638\n#levelchange\n30\n         \u001720 darts\nQv\u0007lichen\ny   n                n   h                    fj   n  fk             \u0017potion of fruit juice\ntvj \u00074 gnome\ny  n             \u001b   fl    n                 fl    n               fk  fk   fk  Fk        n 20s       n   \u0017bardiche\nwx    n        \u0007lichen\nh      n    ax@.n    u   yy\u001by   y y  y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 578112,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed amulet of reflection\nPp\u0017blessed +3 gray dragon scale mail\nW\u001b\u001631\n   _ \u001bm,>\u0016?\no  \u0014@..s\u0016?\n>>L     Hawaiian shirt\njk    :\u001631\n\u0006_<,sm.     \u0016?\n\u001bb   u\u0016?\nc_<.20s\u001bs \u0016?\n\u001bl    y \u001631\n\u0014 n  \u0016?\ne __.\u001620\nj  n  b      n u  :\u00167\n\u0016?\nc\u0017crossbow\nwt    n  \u001715 crossbow bolts\nQu\u0007acid blob\nj fjfk fy     fk\u0007jackal\nufjfj   n  fj\u0007acid blob\njfjfkfk      fj fj x    #twoweapon\n20s      Fk kh l    n           ,           #enhance\nn\u001bs 20s s\u001b\u001612\n\u001638\n#levelchange\n30\n         \u001720 darts\nQv\u0007lichen\ny   n                n   h                    fj   n  fk             \u0017potion of fruit juice\ntvj \u00074 gnome\ny  n             \u001b   fl    n                 fl    n               fk  fk   fk  Fk        n 20s       n   \u0017bardiche\nwx    n        \u0007lichen\nh      n    ax@.n    u   yy\u001by   y y  y\u001b  j"
+  }
+ ]
+}

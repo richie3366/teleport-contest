@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00176 eggs\n Q$\u0007troll\nkyfn fl  fhFl 20s   n  nx#twoweapon\nFb   n Fb   n  nj   n j  n b,\u00163\n\u0017dwarvish mattock\nwo20sFhFh\u0007gas spore\nFbFb  n.sss.\u0007shrieker\nFkFkFkFk20s.\u0017blessed bag of holding\n\u0017wand of secret door detection\n\u0017scroll of earth\n\u0017wand of cancellation\n\u0017long sword\nwtdp#force\n20sssankamk dcn\u0004ydah\u0004l#levelchange\n12\n          \u0017uncursed scroll of light\n\u0007watchman\nruFkFk\u0017blessed silver dragon scale mail\nWv20ss20s \u00173 apple\news20s\u0017huge chunk of meat\n \u0007baby red dragon\ney 20s.m.\u0017blessed Sting\n\u0007chickatrice\nwz FkFl  Fk #invoke\nz FhFl.m..y    n\u00162\nhhub\u0017melting ice\nububyu\u0017unaligned altar\nds dv\u0017jackal corpse\n#offer\nA    #pray\ny y    : h\u0017pool\njk #turn\namlchi>\u001bebs20samhWs..T ehsm.swtsFnsXeesm..tzn h#wipe\n  ch;l: \u001b;rk 20sqji>\u001bqj  eb sm.  .m.wtFjFl    FkWvs\u001bssTrr #levelchange\n14\n \u0016?\nk   \u0006__,Fl  _.  Fl  #chat\nl  20s   .m.  nsm.#twoweapon\n#invoke\n\u001bi\u001b\u001629\n \u0018\u001b\u0017gauntlets of dexterity\nWDsm..lsu    n\u0007ice devil\nFb  Fb  n Fj   n Fj Fj     n Fj      n \u0007gas spore\n;u,sm. .m.     n .m.          yy\u001by  y y y\u001b y  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 578113,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00176 eggs\n Q$\u0007troll\nkyfn fl  fhFl 20s   n  nx#twoweapon\nFb   n Fb   n  nj   n j  n b,\u00163\n\u0017dwarvish mattock\nwo20sFhFh\u0007gas spore\nFbFb  n.sss.\u0007shrieker\nFkFkFkFk20s.\u0017blessed bag of holding\n\u0017wand of secret door detection\n\u0017scroll of earth\n\u0017wand of cancellation\n\u0017long sword\nwtdp#force\n20sssankamk dcn\u0004ydah\u0004l#levelchange\n12\n          \u0017uncursed scroll of light\n\u0007watchman\nruFkFk\u0017blessed silver dragon scale mail\nWv20ss20s \u00173 apple\news20s\u0017huge chunk of meat\n \u0007baby red dragon\ney 20s.m.\u0017blessed Sting\n\u0007chickatrice\nwz FkFl  Fk #invoke\nz FhFl.m..y    n\u00162\nhhub\u0017melting ice\nububyu\u0017unaligned altar\nds dv\u0017jackal corpse\n#offer\nA    #pray\ny y    : h\u0017pool\njk #turn\namlchi>\u001bebs20samhWs..T ehsm.swtsFnsXeesm..tzn h#wipe\n  ch;l: \u001b;rk 20sqji>\u001bqj  eb sm.  .m.wtFjFl    FkWvs\u001bssTrr #levelchange\n14\n \u0016?\nk   \u0006__,Fl  _.  Fl  #chat\nl  20s   .m.  nsm.#twoweapon\n#invoke\n\u001bi\u001b\u001629\n \u0018\u001b\u0017gauntlets of dexterity\nWDsm..lsu    n\u0007ice devil\nFb  Fb  n Fj   n Fj Fj     n Fj      n \u0007gas spore\n;u,sm. .m.     n .m.          yy\u001by  y y y\u001b y  \u0007"
+  }
+ ]
+}

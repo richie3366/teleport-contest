@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u00167\n\u0004u\u00166\n\u0006_ \u001b,20sss\u0016?\n>>P  _{.<\u0016?\n>>Pujj:s..\u00167\n#chat\nj;_.\u001633\nblu\u0017teleportation trap\njkm.s.lb\u0017hole\nh^lls20s\u0017land mine\naanj#terrain\nc\n@.PW#twoweapon\n20ss\u001631\n__,\u0016?\nk    \u0014;sssm.  \u0016?\n>t \u0007quasit\n#chat\nyFyFy  \u0007wererat\nFh    FyFy Fy \u0016?\nk_<,<20s.\u0016?\n>G_>.<.s20s\u0016?\n>>P     #levelchange\n20\n     nlhl\u0017pool\nhl : y n\u0017cloud\n#terrain\nc\n;#monster\n#invoke\n\u001b__,.20s\u0016?\n>>P#chat\nu;_.\u0016?\n>z  \u0014<.\u001633\n  \u0017blessed +3 fumble boots\n\u0007giant mimic\nWg.s s  n Tg   \u0017cursed meatball\n\u0007green-elf\neh   n s . FhFl  n \u0017uncursed potion of polymorph\nqi  .   n .\u00162\n\u0016?\nq #levelchange\n8\n   \u0007green mold\n20s.s20ss20ss\u0007water nymph\nFhFk     Fhss\u001637\n_{,\u00164\n\u0017blessed +3 two-handed sword\nwjs.20sX\u0017uncursed mirror\n\u0007grey-elf\nakh\u00173 scroll of stinking cloud\nrl  ,   s  s   \u0016?\n>Dkjyuyub:\u0016?\n>zbunh:\u0016?\n>>K     ring of sustain ability\n_{.\u0016?\n\u001by   n  l    \u0016?\n\u001bj     nh"
+ },
+ "segments": [
+  {
+   "seed": 578310,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u00167\n\u0004u\u00166\n\u0006_ \u001b,20sss\u0016?\n>>P  _{.<\u0016?\n>>Pujj:s..\u00167\n#chat\nj;_.\u001633\nblu\u0017teleportation trap\njkm.s.lb\u0017hole\nh^lls20s\u0017land mine\naanj#terrain\nc\n@.PW#twoweapon\n20ss\u001631\n__,\u0016?\nk    \u0014;sssm.  \u0016?\n>t \u0007quasit\n#chat\nyFyFy  \u0007wererat\nFh    FyFy Fy \u0016?\nk_<,<20s.\u0016?\n>G_>.<.s20s\u0016?\n>>P     #levelchange\n20\n     nlhl\u0017pool\nhl : y n\u0017cloud\n#terrain\nc\n;#monster\n#invoke\n\u001b__,.20s\u0016?\n>>P#chat\nu;_.\u0016?\n>z  \u0014<.\u001633\n  \u0017blessed +3 fumble boots\n\u0007giant mimic\nWg.s s  n Tg   \u0017cursed meatball\n\u0007green-elf\neh   n s . FhFl  n \u0017uncursed potion of polymorph\nqi  .   n .\u00162\n\u0016?\nq #levelchange\n8\n   \u0007green mold\n20s.s20ss20ss\u0007water nymph\nFhFk     Fhss\u001637\n_{,\u00164\n\u0017blessed +3 two-handed sword\nwjs.20sX\u0017uncursed mirror\n\u0007grey-elf\nakh\u00173 scroll of stinking cloud\nrl  ,   s  s   \u0016?\n>Dkjyuyub:\u0016?\n>zbunh:\u0016?\n>>K     ring of sustain ability\n_{.\u0016?\n\u001by   n  l    \u0016?\n\u001bj     nh"
+  }
+ ]
+}

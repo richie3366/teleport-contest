@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk\u00166\n\u0004jny\u00166\n\u0004k\u0016?\n>I#levelchange\n14\n\u00175 boomerangs\nQl\u0007grid bug\nhbfu flfl\u0017bullwhip\nwm\u0007newt\nuamy n  kb ,#enhance\nyg\nm\n\u001b.s    s\u00166\n\u0017blessed amulet of flying\nPnssssFkFy\u0017amulet of ESP\nPo.20s   .20s\u0017cursed -1 axe\nwpFyFyFyFkFk\u0017blessed the Staff of Aesculapius\n\u0007watchman\n,   n FkFl\u0017potion of confusion\n\u0007sewer rat\nqq.s \u0016?\n\u001bub\u0016?\n\u001bln\u00165\n   ny nnl: \u00161\n   huh: 20s s\u0016?\n\u001bny\u00166\n \u0014 \u001b,sss\u001622\n_<,>\u001633\n \u0004h\u0016?\n\u001bhh\u0016?\n>>Qknl: \u0016?\n\u001bnk\u0016?\n\u001bbu\u001622\n\u0006_>.ss\u001611\n   #levelchange\n30\n               \u001715 shuriken\nQa\u0007dwarf\nlfkfh\u0007kobold\njfkfy fysFk\u0007lichen\nbfyfnfk\u0017glaive\nwb\u0007gnome\nbab:yn y,\u0016?\n>E _<._,m,>ss\u00165\n bbbby: 20s20s\u0016?\n>>L    dwarvish mattock\n_>.\u0016?\nd _<.\u00165\n__.ss   \u0016?\nc _<,<20s  n \u001622\n__,\u00161\n#levelchange\n10\n \u0017spellbook of slow monster\nrrs   \u0017blessed spellbook of cure blindness\n rss       n \u0017blessed spellbook of cone of cold\nrt20s     \u0017blessed spellbook of detect food\nrus  n      n      n   n   n +ZFl   n   n   n  n    n Z\u0007jackal\nZZZZ#turn\n\u00165\n\u00165\n_{,>\u0016?\nc\u0006_>.20s   n    n  yny   ny y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 578132,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk\u00166\n\u0004jny\u00166\n\u0004k\u0016?\n>I#levelchange\n14\n\u00175 boomerangs\nQl\u0007grid bug\nhbfu flfl\u0017bullwhip\nwm\u0007newt\nuamy n  kb ,#enhance\nyg\nm\n\u001b.s    s\u00166\n\u0017blessed amulet of flying\nPnssssFkFy\u0017amulet of ESP\nPo.20s   .20s\u0017cursed -1 axe\nwpFyFyFyFkFk\u0017blessed the Staff of Aesculapius\n\u0007watchman\n,   n FkFl\u0017potion of confusion\n\u0007sewer rat\nqq.s \u0016?\n\u001bub\u0016?\n\u001bln\u00165\n   ny nnl: \u00161\n   huh: 20s s\u0016?\n\u001bny\u00166\n \u0014 \u001b,sss\u001622\n_<,>\u001633\n \u0004h\u0016?\n\u001bhh\u0016?\n>>Qknl: \u0016?\n\u001bnk\u0016?\n\u001bbu\u001622\n\u0006_>.ss\u001611\n   #levelchange\n30\n               \u001715 shuriken\nQa\u0007dwarf\nlfkfh\u0007kobold\njfkfy fysFk\u0007lichen\nbfyfnfk\u0017glaive\nwb\u0007gnome\nbab:yn y,\u0016?\n>E _<._,m,>ss\u00165\n bbbby: 20s20s\u0016?\n>>L    dwarvish mattock\n_>.\u0016?\nd _<.\u00165\n__.ss   \u0016?\nc _<,<20s  n \u001622\n__,\u00161\n#levelchange\n10\n \u0017spellbook of slow monster\nrrs   \u0017blessed spellbook of cure blindness\n rss       n \u0017blessed spellbook of cone of cold\nrt20s     \u0017blessed spellbook of detect food\nrus  n      n      n   n   n +ZFl   n   n   n  n    n Z\u0007jackal\nZZZZ#turn\n\u00165\n\u00165\n_{,>\u0016?\nc\u0006_>.20s   n    n  yny   ny y\u001b  s"
+  }
+ ]
+}

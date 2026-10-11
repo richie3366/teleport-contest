@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "bbkjkjubtbbddcys20sshuy20sdc..20slukkdea.ss10s10st\u001b\u001bjjkjFbFbFbFbFbFbFbFbFj FjFjFjFjFjFjFjblbyUNnyBK_ \u001b:><BNnyUY_>.>LYKJ_>.>FjFjFjLNHK_>.>10s,BLNL_>.>UNKJ_>.>NYBH_>.>#quit\nyy\u001by  y y y\u001b bljk#chat\nuyk10stbbdass.hnjb#name\ni\nllyjhuynblhlhl20s  #chat\nlde...l  yjkkLNYK_ \u001b@.>Fh ..ckE\u001bLJUN_>,>\u000f\u001bi\u001bKKJU_>.>HULB_>#quit\n@. #wizintrinsic\nc\n 20ssm.sss20s .m.sm.20s    yny   y y\u001b y  s   FkFk    nnnn  s  #quit\nyy lybu FnFnFnFnFnFnFnFnbkjkdh...#chat\nu20s#name\nf\n ,\u001b#name\na\ndd20s20s sjubn20s#name\nf\nllds..dgss slknynlhlFhFhFhFhFhFhFhFhluuhKKJY_>.>FlFlFl YLHK_>,>BJNH_>,>#sit\n#force\ny  HJBH_>,>#jump\nqYYJN_>.><NNNB_>.>#twoweapon\n#wipe\n150si\u001bi\u001b_>,>knl50s50s \u000f\u001b50s50sFys.#conduct\n 150s100sluk50s100s,100s\\  luhnjyFlFlFlolkhk150s100s_>.>100sFlFlFl100shll100seeFls20sef150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUB NB_>.>\\  #ride\njHKYB_>.>JLHN_>,>Fhs.BYLK_>,>LUNK_>.>e,eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhhlnbuHBJJ_>.>ai#enhance\n\u001bHJUY_>,>HKBH_>,>Fu.s#terrain\nb\nP <LKHN_>.>z10sNHUN_>,>LNYyJ _>.>Fh FjFhUKKH_>,>Fh.Fn\u000f\u001be#pray\ny    FnFnFn150s FhFhFh_>,>jjj50s\u000f\u001bi\u001b150sjjl_>,>\\  #quit\nyy\u001by  y y y\u001b FbFbFbFbFbFbFbFb nuknhkhjBJNB_ \u001b,>JYBB_>.>BBJL_>,>kjhFk.20s50s150sFksFk\\ _>,>uyljkyi\u001bhhhL_>.>100sFnFhFhFhFhFhFhssnnlFyFy20s_>.>100sFh FlFllhy\\ 150s\u0018\u001b50sFjss50s\u0014_>.>i\u001b50s\u0018\u001b100sFnFnsyjl100s\u0018\u001bhkjFlFlFlFlFlFlFlFlJNBJ_>.>HLLJ_>.>UKUH_>.>#name\nf\nqLKBB_>.>kPbkuy\\ bkh150s50sFl.20s150s50sFlFlsnnhnyh#rub\n_>,>_>.>50s\u0018\u001b100s100sef150sukj150s150sFhs20sunhi\u001b\\ nuknuljyb#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 578102,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=autodig\n",
+   "moves": "bbkjkjubtbbddcys20sshuy20sdc..20slukkdea.ss10s10st\u001b\u001bjjkjFbFbFbFbFbFbFbFbFj FjFjFjFjFjFjFjblbyUNnyBK_ \u001b:><BNnyUY_>.>LYKJ_>.>FjFjFjLNHK_>.>10s,BLNL_>.>UNKJ_>.>NYBH_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 678102,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showrace\n",
+   "moves": "bljk#chat\nuyk10stbbdass.hnjb#name\ni\nllyjhuynblhlhl20s  #chat\nlde...l  yjkkLNYK_ \u001b@.>Fh ..ckE\u001bLJUN_>,>\u000f\u001bi\u001bKKJU_>.>HULB_>#quit\n@."
+  },
+  {
+   "seed": 778102,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n 20ssm.sss20s .m.sm.20s    yny   y y\u001b y  s"
+  },
+  {
+   "seed": 878102,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": "   FkFk    nnnn  s"
+  },
+  {
+   "seed": 978102,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #quit\nyy"
+  },
+  {
+   "seed": 1078102,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\n",
+   "moves": " lybu FnFnFnFnFnFnFnFnbkjkdh...#chat\nu20s#name\nf\n ,\u001b#name\na\ndd20s20s sjubn20s#name\nf\nllds..dgss slknynlhlFhFhFhFhFhFhFhFhluuhKKJY_>.>FlFlFl YLHK_>,>BJNH_>,>#sit\n#force\ny  HJBH_>,>#jump\nqYYJN_>.><NNNB_>.>#twoweapon\n#wipe\n150si\u001bi\u001b_>,>knl50s50s \u000f\u001b50s50sFys.#conduct\n 150s100sluk50s100s,100s\\  luhnjyFlFlFlolkhk150s100s_>.>100sFlFlFl100shll100seeFls20sef150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUB NB_>.>\\  #ride\njHKYB_>.>JLHN_>,>Fhs.BYLK_>,>LUNK_>.>e,eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhhlnbuHBJJ_>.>ai#enhance\n\u001bHJUY_>,>HKBH_>,>Fu.s#terrain\nb\nP <LKHN_>.>z10sNHUN_>,>LNYyJ _>.>Fh FjFhUKKH_>,>Fh.Fn\u000f\u001be#pray\ny    FnFnFn150s FhFhFh_>,>jjj50s\u000f\u001bi\u001b150sjjl_>,>\\  #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1178102,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\n",
+   "moves": "FbFbFbFbFbFbFbFb nuknhkhjBJNB_ \u001b,>JYBB_>.>BBJL_>,>kjhFk.20s50s150sFksFk\\ _>,>uyljkyi\u001bhhhL_>.>100sFnFhFhFhFhFhFhssnnlFyFy20s_>.>100sFh FlFllhy\\ 150s\u0018\u001b50sFjss50s\u0014_>.>i\u001b50s\u0018\u001b100sFnFnsyjl100s\u0018\u001bhkjFlFlFlFlFlFlFlFlJNBJ_>.>HLLJ_>.>UKUH_>.>#name\nf\nqLKBB_>.>kPbkuy\\ bkh150s50sFl.20s150s50sFlFlsnnhnyh#rub\n_>,>_>.>50s\u0018\u001b100s100sef150sukj150s150sFhs20sunhi\u001b\\ nuknuljyb#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " byjh\u0017sleeping gas trap\nlh  20s.k\u0017arrow trap\nn^yy20ssbk\u0017rust trap\nj^kk.sjh\u0017rolling boulder trap\nh^l#untrap\nl#terrain\nd\n\u001b<.r\u001b>r\u001b\u0016?\n>D\u0017blessed ring of levitation\nPir \u0017wand of striking\nzjj\u0017wand of striking\nzk>\u0017wand of striking\nzlh\u0017scroll of earth\nrm kbbhkkky10shjhyjy\u0017wand of striking\nznybkj10sbkjybkhjkk\u0017wand of digging\nzohljhhhh\u0017wand of digging\nzpjnbbjj\u0017scroll of earth\nrq jkkklk10shbbjk#levelchange\n20\n                   bjj\u0017tree\n: y\u0017sink\nq\u0017ring of searching\ndr  \u001bnk\u0017neutral altar\ndbde\u0017lichen corpse\n#offer\ns  #pray\ny y bh\u0017iron bars\nubbu,,\\   \u0017blessed spellbook of clairvoyance\nrt20s\u0017spellbook of protection\nru 20s\u0017blessed spellbook of cure sickness\nrv .+\u001b\u0007yellow mold\nZa\nZc\nZb\n.Za\nZb\nZc\n\u0007gnome\nZb\n#enhance\nym\ni\n\u001b\u0017wand of digging\n_<.Fl_. zw> nhzwkk_>. _,m.zw>zw>snk\u0006#levelchange\n8\n     \u0017uncursed lenses\n\u0007vrock\nax\u0017cursed eucalyptus leaf\ney 20s  .m.  \u0017uncursed tin opener\nazsjs\u001625\ni>\u001brv y   20s   n .uZc\n   zp>ru y    yyy       sbsZc\nrt y      n sh.yZa\n     n znj      nznn    zo> #dip\ni,#conduct\n au     n   Za\n     n 20s     n \u000f\u001bf \u001b\u001610\n#wizintrinsic\npmf\n  .m.   .l20s   n   20s     n sm.     n .m.     n sm.   sn   n     sm.            n sm.     n.j    sm.  nsm.     yy\u001bny y n  ."
+ },
+ "segments": [
+  {
+   "seed": 578217,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " byjh\u0017sleeping gas trap\nlh  20s.k\u0017arrow trap\nn^yy20ssbk\u0017rust trap\nj^kk.sjh\u0017rolling boulder trap\nh^l#untrap\nl#terrain\nd\n\u001b<.r\u001b>r\u001b\u0016?\n>D\u0017blessed ring of levitation\nPir \u0017wand of striking\nzjj\u0017wand of striking\nzk>\u0017wand of striking\nzlh\u0017scroll of earth\nrm kbbhkkky10shjhyjy\u0017wand of striking\nznybkj10sbkjybkhjkk\u0017wand of digging\nzohljhhhh\u0017wand of digging\nzpjnbbjj\u0017scroll of earth\nrq jkkklk10shbbjk#levelchange\n20\n                   bjj\u0017tree\n: y\u0017sink\nq\u0017ring of searching\ndr  \u001bnk\u0017neutral altar\ndbde\u0017lichen corpse\n#offer\ns  #pray\ny y bh\u0017iron bars\nubbu,,\\   \u0017blessed spellbook of clairvoyance\nrt20s\u0017spellbook of protection\nru 20s\u0017blessed spellbook of cure sickness\nrv .+\u001b\u0007yellow mold\nZa\nZc\nZb\n.Za\nZb\nZc\n\u0007gnome\nZb\n#enhance\nym\ni\n\u001b\u0017wand of digging\n_<.Fl_. zw> nhzwkk_>. _,m.zw>zw>snk\u0006#levelchange\n8\n     \u0017uncursed lenses\n\u0007vrock\nax\u0017cursed eucalyptus leaf\ney 20s  .m.  \u0017uncursed tin opener\nazsjs\u001625\ni>\u001brv y   20s   n .uZc\n   zp>ru y    yyy       sbsZc\nrt y      n sh.yZa\n     n znj      nznn    zo> #dip\ni,#conduct\n au     n   Za\n     n 20s     n \u000f\u001bf \u001b\u001610\n#wizintrinsic\npmf\n  .m.   .l20s   n   20s     n sm.     n .m.     n sm.   sn   n     sm.            n sm.     n.j    sm.  nsm.     yy\u001bny y n  ."
+  }
+ ]
+}

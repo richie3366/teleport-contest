@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017dagger\nwfFyFkFk \u0007nurse\nsh20s  sk20ssm..j20s.m.\u0007fire giant\nFuFu \u0007brown pudding\n#chat\nu  Fy  Fu   \u0007Pestilence\ny.m.sm.   n  .l    n  20s   n sm.     \u001629\n   \u001610\n#levelchange\n20\n        \u0007hostile steam vortex\nFl    nFn FkFks\u001bFkFj.FkFj.Fkn   k \u0017athame\nEg Vlad was here\n : h\u0017wand of magic missile\nE: k\u0017wand of undead turning\nE\u0017wand of make invisible\nE: E\u0007gnome lord\nsm.20s sjFjFj      n  #levelchange\n30\n         \u0017Giantslayer\nwk    Fl   Fn    n  Fj     n#invoke\nk  X\u0007gnomish wizard\nFj     n  Fl    Fl     n  Fj     Fj    n  Fl    \u0007gelatinous cube\nFn Fl    n  Fj    n Fn      \u0007jellyfish\nFn    Fk   Fl     n  Fl Fj     \\   \u00165\n\u0007barrow wight\n20s n      .jsm.sm.   n\u0007Yeenoghu\nnFj     Fy          yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 578212,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017dagger\nwfFyFkFk \u0007nurse\nsh20s  sk20ssm..j20s.m.\u0007fire giant\nFuFu \u0007brown pudding\n#chat\nu  Fy  Fu   \u0007Pestilence\ny.m.sm.   n  .l    n  20s   n sm.     \u001629\n   \u001610\n#levelchange\n20\n        \u0007hostile steam vortex\nFl    nFn FkFks\u001bFkFj.FkFj.Fkn   k \u0017athame\nEg Vlad was here\n : h\u0017wand of magic missile\nE: k\u0017wand of undead turning\nE\u0017wand of make invisible\nE: E\u0007gnome lord\nsm.20s sjFjFj      n  #levelchange\n30\n         \u0017Giantslayer\nwk    Fl   Fn    n  Fj     n#invoke\nk  X\u0007gnomish wizard\nFj     n  Fl    Fl     n  Fj     Fj    n  Fl    \u0007gelatinous cube\nFn Fl    n  Fj    n Fn      \u0007jellyfish\nFn    Fk   Fl     n  Fl Fj     \\   \u00165\n\u0007barrow wight\n20s n      .jsm.sm.   n\u0007Yeenoghu\nnFj     Fy          yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

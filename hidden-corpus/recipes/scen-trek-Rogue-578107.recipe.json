@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "JUKK_ \u001bm.>FjFh .20slBKH H_>.>#monster\n#offer\nUUHLy  _>.>YLBU_>.>LYHN_>,><BHUHny_>,>\u000f\u001btbb\u000f\u001b20s:<NHUN_>,>cl#invoke\n\u001bNLUH_>,>UYBL_>.><KYJL_>.>\\ #force\nBLLN_>,>KHKB_>.>Fks.i\u001bokKYUJ_>.>NJLH _>.>#terrain\nc\n,10sYUHK_>.>YBN J_>.>UUNB_>,>YLKK_>,>ULYL_>,>r\u001b#pray\ny LYYL_>,>_>,>byn_>.>\\ 150s100sFhFhFhjyh100s50sbukhlb\u000f\u001b100s jlk100slbu100s50sbbu100s150seg#untrap\n.\\ lly#turn\n100s_>.>\\ #untrap\nj150s eg\u0018\u001bwa150s100sFh.s50s_>.>#name\no\n\\ \u000f\u001b#name\ni\ntbb#chat\nkknbhllyjuhu#jump\ntbj#chat\nnnbhy10s10s#chat\nu#name\no\nhulj\u000f\u001bNLHK_>,>UKUK_>.>Hy  KUL_>.>Hy  KYY_>,>NNKJ_>,>Yy  NJH_>.>\u000f\u001bUHnyKU_>,>YNHN_>,>P#conduct\n BHYy  N_>,>\u000f\u001b#enhance\n\u001boh\u0004j#chat\nhBBJJ_>,>s#conduct\n NNLY_>,>UJHB_>,>NLHB_>,>cl,<KKNN_>,>LNNL_>.>#pray\ny #untrap\nb<BBKY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW#force\nsJJJB_>,>BHHN_>.>LBKHy  _>.>JnyHBN _>.>HBNU_>.>Ly  NH J_>,>LUJB_>.>NNJY_>.>JYYB_>.>20s,NJJN_>.>Fls20sJL YY_>.>HN LN_>.>JYy UK_>,>Jy  "
+ },
+ "segments": [
+  {
+   "seed": 578107,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "JUKK_ \u001bm.>FjFh .20slBKH H_>.>#monster\n#offer\nUUHLy  _>.>YLBU_>.>LYHN_>,><BHUHny_>,>\u000f\u001btbb\u000f\u001b20s:<NHUN_>,>cl#invoke\n\u001bNLUH_>,>UYBL_>.><KYJL_>.>\\ #force\nBLLN_>,>KHKB_>.>Fks.i\u001bokKYUJ_>.>NJLH _>.>#terrain\nc\n,10sYUHK_>.>YBN J_>.>UUNB_>,>YLKK_>,>ULYL_>,>r\u001b#pray\ny LYYL_>,>_>,>byn_>.>\\ 150s100sFhFhFhjyh100s50sbukhlb\u000f\u001b100s jlk100slbu100s50sbbu100s150seg#untrap\n.\\ lly#turn\n100s_>.>\\ #untrap\nj150s eg\u0018\u001bwa150s100sFh.s50s_>.>#name\no\n\\ \u000f\u001b#name\ni\ntbb#chat\nkknbhllyjuhu#jump\ntbj#chat\nnnbhy10s10s#chat\nu#name\no\nhulj\u000f\u001bNLHK_>,>UKUK_>.>Hy  KUL_>.>Hy  KYY_>,>NNKJ_>,>Yy  NJH_>.>\u000f\u001bUHnyKU_>,>YNHN_>,>P#conduct\n BHYy  N_>,>\u000f\u001b#enhance\n\u001boh\u0004j#chat\nhBBJJ_>,>s#conduct\n NNLY_>,>UJHB_>,>NLHB_>,>cl,<KKNN_>,>LNNL_>.>#pray\ny #untrap\nb<BBKY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW#force\nsJJJB_>,>BHHN_>.>LBKHy  _>.>JnyHBN _>.>HBNU_>.>Ly  NH J_>,>LUJB_>.>NNJY_>.>JYYB_>.>20s,NJJN_>.>Fls20sJL YY_>.>HN LN_>.>JYy UK_>,>Jy  "
+  }
+ ]
+}

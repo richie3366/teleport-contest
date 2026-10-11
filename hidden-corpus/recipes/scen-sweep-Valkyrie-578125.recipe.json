@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           #levelchange\n30\n                 \u0007black pudding\n;l, \u001b@.20ssu20s  \u0007red mold\nFh FbFj Fh   Fh\u001617\n#levelchange\n6\n      \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe_,$_ddd._.  nFl\u0004h_mmm.Fl_,#chat\nl_{.Fk_,<.Fyq#dip\nd_ooo.Fy _.,\u001b,\u001bp_{,_.>.Flq#dip\nb_ooooo.Fl_., d$bdbdccjP#levelchange\n30\n                      \u0016?\n>>L     scroll of destroy armor\nrg   l  ed"
+ },
+ "segments": [
+  {
+   "seed": 578125,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           #levelchange\n30\n                 \u0007black pudding\n;l, \u001b@.20ssu20s  \u0007red mold\nFh FbFj Fh   Fh\u001617\n#levelchange\n6\n      \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe_,$_ddd._.  nFl\u0004h_mmm.Fl_,#chat\nl_{.Fk_,<.Fyq#dip\nd_ooo.Fy _.,\u001b,\u001bp_{,_.>.Flq#dip\nb_ooooo.Fl_., d$bdbdccjP#levelchange\n30\n                      \u0016?\n>>L     scroll of destroy armor\nrg   l  ed"
+  }
+ ]
+}

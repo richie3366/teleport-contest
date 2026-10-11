@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "   FkFkFlFlFkFlFkFk 20s _ \u001b;>100sFlFl.100s100s#sit\nhhh_>.>lub150sFhFhs\u000f\u001b50s#sit\n\u001b\\   100s_>.>100sFhFhFhFhFhFhFhFhFh150s150s100s100sFhFhFhFhFhFh#pray\ny  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 578143,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=runmode:crawl\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "   FkFkFlFlFkFlFkFk 20s _ \u001b;>100sFlFl.100s100s#sit\nhhh_>.>lub150sFhFhs\u000f\u001b50s#sit\n\u001b\\   100s_>.>100sFhFhFhFhFhFhFhFhFh150s150s100s100sFhFhFhFhFhFh#pray\ny  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

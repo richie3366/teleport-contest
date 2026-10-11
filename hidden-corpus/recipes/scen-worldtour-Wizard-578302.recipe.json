@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed Mjollnir\nwp\u0017blessed ring of free action\nPql\u001624\n_ \u001b;\u001641\n   ubnuu:sm.sm..m.\u00161\n_{.<\u0016?\nr nhlh:\u0016?\n>>L     potion of gain energy\nkb          y   n       h     :\u001631\nj        n   n   n     \u001b    :\u001618\n#chat\ny         ;k.\u0016?\ne #levelchange\n8\n       \u0007water demon\n.  n   Fl   n  \u001b Fk \u001b    \u001b nFu      n  Fl     n   nFk        n \u0007vampire bat\nFy        n   n Fl     n      n   Fu     n       n Fy     y  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 578302,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed Mjollnir\nwp\u0017blessed ring of free action\nPql\u001624\n_ \u001b;\u001641\n   ubnuu:sm.sm..m.\u00161\n_{.<\u0016?\nr nhlh:\u0016?\n>>L     potion of gain energy\nkb          y   n       h     :\u001631\nj        n   n   n     \u001b    :\u001618\n#chat\ny         ;k.\u0016?\ne #levelchange\n8\n       \u0007water demon\n.  n   Fl   n  \u001b Fk \u001b    \u001b nFu      n  Fl     n   nFk        n \u0007vampire bat\nFy        n   n Fl     n      n   Fu     n       n Fy     y  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "B HNY_ \u001b<.>FnFnFj :_<.sUJLK_>.>Fjs.\u0014,KUKJ _>,>UBKN_>,>#pray\ny #pray\ny  \u000f\u001bh\u000f\u001b10sKL BJ_>,>JUHK_>.>#dip\nlfam KJYL_>.>BYLH_>.><klbnyyFns.nynkkb_>,>100shlh100s llllhb150s150sFnFn.150sjly__.20s50s150s100sFnFn20s100sFk.20s50s50s150s FnFns50si\u001b100s100si\u001bynklhjFkFkFy\u000f\u001b150su"
+ },
+ "segments": [
+  {
+   "seed": 578127,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "B HNY_ \u001b<.>FnFnFj :_<.sUJLK_>.>Fjs.\u0014,KUKJ _>,>UBKN_>,>#pray\ny #pray\ny  \u000f\u001bh\u000f\u001b10sKL BJ_>,>JUHK_>.>#dip\nlfam KJYL_>.>BYLH_>.><klbnyyFns.nynkkb_>,>100shlh100s llllhb150s150sFnFn.150sjly__.20s50s150s100sFnFn20s100sFk.20s50s50s150s FnFns50si\u001b100s100si\u001bynklhjFkFkFy\u000f\u001b150su"
+  }
+ ]
+}

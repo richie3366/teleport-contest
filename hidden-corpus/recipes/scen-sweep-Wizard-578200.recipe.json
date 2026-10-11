@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n10\n \u0007jackal\n\u0017scroll of taming\nro \u0017saddle\napk#ride\nhy\u0007tame saddled pony\n#ride\nkyy\u0007pony\n\u0017scroll of taming\nrq   \u0017saddle\narb  #ride\n       .u       sm.   #ride\njy.#ride\n\u0006_ \u001b.>Fl Fl_>. _,.Fl>_>,Fl_.Fj>FkFy ,\u00166\n\\  kun\u0017teleportation trap\ny#untrap\nny\u0017statue trap\nhlsm. sl\u0017land mine\n as    uh   n \\  #conduct\n #monster\n\u00173 Grayswandir\n \u0007jellyfish\nwt   Fh    n Fj Fh  #invoke\nt   n  Fj  Fj   n \u0017war hammer\nwu   Fj  Fj  n Fj   \u0017potion of restore ability\nqv sm.   nsm.   \u001612\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqw_q _oooooo,Fl    n _,Fl _ooo.    nFu _.,  p\u001b__.  n Fu   n_. Fu   n  #chat\nl   ndi _{.   n   Fk  n_,Fy   n qh #tip\n\u001b\u001b_m.  y y\u001by   y y ny  s"
+ },
+ "segments": [
+  {
+   "seed": 578200,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n10\n \u0007jackal\n\u0017scroll of taming\nro \u0017saddle\napk#ride\nhy\u0007tame saddled pony\n#ride\nkyy\u0007pony\n\u0017scroll of taming\nrq   \u0017saddle\narb  #ride\n       .u       sm.   #ride\njy.#ride\n\u0006_ \u001b.>Fl Fl_>. _,.Fl>_>,Fl_.Fj>FkFy ,\u00166\n\\  kun\u0017teleportation trap\ny#untrap\nny\u0017statue trap\nhlsm. sl\u0017land mine\n as    uh   n \\  #conduct\n #monster\n\u00173 Grayswandir\n \u0007jellyfish\nwt   Fh    n Fj Fh  #invoke\nt   n  Fj  Fj   n \u0017war hammer\nwu   Fj  Fj  n Fj   \u0017potion of restore ability\nqv sm.   nsm.   \u001612\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqw_q _oooooo,Fl    n _,Fl _ooo.    nFu _.,  p\u001b__.  n Fu   n_. Fu   n  #chat\nl   ndi _{.   n   Fk  n_,Fy   n qh #tip\n\u001b\u001b_m.  y y\u001by   y y ny  s"
+  }
+ ]
+}

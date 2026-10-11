@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "U YYN_ \u001b>.>FkFu Fu#pray\ny  \u000f\u001bKJBH_>,>BKJ  Y_>.>HKHY_>.>YHJJ_>.>FlFlFl<NYYB_>.>LKUK_>.>\u000f\u001bJHNH_>.>FjFjFjNJYU_>.>BJJK_>,>taj:BYBU_>,>JNKN_>,>Fl.20sHBUB_>.>FuFuFk<LHHN_>,>_>,20s#invoke\n\u001bok#rub\n#jump\n20sunyh  y\u001by  ny y\u001b  t"
+ },
+ "segments": [
+  {
+   "seed": 578115,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "U YYN_ \u001b>.>FkFu Fu#pray\ny  \u000f\u001bKJBH_>,>BKJ  Y_>.>HKHY_>.>YHJJ_>.>FlFlFl<NYYB_>.>LKUK_>.>\u000f\u001bJHNH_>.>FjFjFjNJYU_>.>BJJK_>,>taj:BYBU_>,>JNKN_>,>Fl.20sHBUB_>.>FuFuFk<LHHN_>,>_>,20s#invoke\n\u001bok#rub\n#jump\n20sunyh  y\u001by  ny y\u001b  t"
+  }
+ ]
+}

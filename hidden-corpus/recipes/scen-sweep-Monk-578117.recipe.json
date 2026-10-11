@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n             \u0016?\n>EhhFn yn10s\u0017wand of striking\nzkh\u0017wand of digging\nzl>\u0017wand of digging\nzmk\u0017scroll of earth\nrn  hujyyykk\u0017wand of digging\nzoybbbbyjybkbblh\u0017wand of digging\nzpk\u0017wand of digging\nzqbbnbkhkkkyj\u0017scroll of earth\nrr u\u0017wand of striking\nzslyhkkk\u0017wand of digging\nztyynkyyhh\u0017gray dragon scale mail\nW\u001b20s20s20sTb\u0007pit fiend\nsssss\u0007yeti\n;m, \u001b>.ss.#levelchange\n30\n                   \u0016?\nr #rub\n#twoweapon\n_>.20s20ssm.   \u0016?\n>>P  #turn\ne>;m,20ss\u001639\n#terrain\nf\nzZ;<.\u000620ss\u0017sling\nwa\u001720 flint stones\nQb\u0007lichen\nkjfufufu\u0007jackal\nbflflfl20ss\u0017lance\nwc\u0007lichen\njacyyh,#enhance\nya\nh\n\u001b\u0006i\u001babcwcs20s20swaFns.X#enhance\nyj\nf\n\u001b<>#conduct\n  ;m.#tip\n\u001bL#ride\njyi\u001bwc.20ssXtbnwa.20ss\u0006#levelchange\n20\n   \u0016?\nk    \u0006__._.:#chat\nl.20s.m.  #force\nw\u001b\u000f\u001bi\u001b#levelchange\n10\n       \u0007green slime\nFu   Fu   Fu Fl Fu   Fu .m. 20s#pray\ny y  n   \u0007werewolf\nFl Fl  Fj 20s   n    n     20s  \u001610\n\u0017wand of digging\nzan nk    nj  y  \u0017grave\nza>    n  sk    n  .l      n   za<    n    za>     n   n  s\u001612\n#levelchange\n12\n         \u0017blessed ring of polymorph control\nPi#polyself\nwater nymph\n  #monster\n.m. sm. \u0007stalker\nFh Fh Fh sm.  n  sm. sh #polyself\nrock piercer\n  #monster\n    sl20s  n sl su.h#polyself\nred dragon\n #monster\nh  20s.m. .m.sm.sy\u001617\n \u001612\n#wizintrinsic\nsp\n  20s   sm.  nsl  20s   sm. .k20s  n 20ssm.sb  n .m.  nsm. sm.  yn  ."
+ },
+ "segments": [
+  {
+   "seed": 578117,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n             \u0016?\n>EhhFn yn10s\u0017wand of striking\nzkh\u0017wand of digging\nzl>\u0017wand of digging\nzmk\u0017scroll of earth\nrn  hujyyykk\u0017wand of digging\nzoybbbbyjybkbblh\u0017wand of digging\nzpk\u0017wand of digging\nzqbbnbkhkkkyj\u0017scroll of earth\nrr u\u0017wand of striking\nzslyhkkk\u0017wand of digging\nztyynkyyhh\u0017gray dragon scale mail\nW\u001b20s20s20sTb\u0007pit fiend\nsssss\u0007yeti\n;m, \u001b>.ss.#levelchange\n30\n                   \u0016?\nr #rub\n#twoweapon\n_>.20s20ssm.   \u0016?\n>>P  #turn\ne>;m,20ss\u001639\n#terrain\nf\nzZ;<.\u000620ss\u0017sling\nwa\u001720 flint stones\nQb\u0007lichen\nkjfufufu\u0007jackal\nbflflfl20ss\u0017lance\nwc\u0007lichen\njacyyh,#enhance\nya\nh\n\u001b\u0006i\u001babcwcs20s20swaFns.X#enhance\nyj\nf\n\u001b<>#conduct\n  ;m.#tip\n\u001bL#ride\njyi\u001bwc.20ssXtbnwa.20ss\u0006#levelchange\n20\n   \u0016?\nk    \u0006__._.:#chat\nl.20s.m.  #force\nw\u001b\u000f\u001bi\u001b#levelchange\n10\n       \u0007green slime\nFu   Fu   Fu Fl Fu   Fu .m. 20s#pray\ny y  n   \u0007werewolf\nFl Fl  Fj 20s   n    n     20s  \u001610\n\u0017wand of digging\nzan nk    nj  y  \u0017grave\nza>    n  sk    n  .l      n   za<    n    za>     n   n  s\u001612\n#levelchange\n12\n         \u0017blessed ring of polymorph control\nPi#polyself\nwater nymph\n  #monster\n.m. sm. \u0007stalker\nFh Fh Fh sm.  n  sm. sh #polyself\nrock piercer\n  #monster\n    sl20s  n sl su.h#polyself\nred dragon\n #monster\nh  20s.m. .m.sm.sy\u001617\n \u001612\n#wizintrinsic\nsp\n  20s   sm.  nsl  20s   sm. .k20s  n 20ssm.sb  n .m.  nsm. sm.  yn  ."
+  }
+ ]
+}

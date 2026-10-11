@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed wand of fire\nzfl zfk\u0017uncursed potion of booze\nqgs.\u00173 slime mold\neh20s20s\u0017magic lamp\naj#rub\nj.s\u0017spellbook of dig\n\u0007shopkeeper\nnrk sb.m.ZZ20ssm.\u0007housecat\n\u0017banana\ntdu \u0007housecat\n\u0017carrot\ntbu\u0017newt corpse\ntaj \u0017tin whistle\nlluao #chat\nbdksm.20s20s#name\nm\n.\u0017leash\napbyub japb \u0017lembas wafer\n\u0007yeti\neq  y20s 20sFbFl\u00173 20 shuriken\n \u001b,\u0017ring of teleportation\nPslsh20s   , s.s\u0017uncursed wax candle\nat #rub\njFjs\u0017blessed spellbook of slow monster\n\u0007ki-rin\nru  ssZa\nZa\nss \u0006i\u001beh  n..zfjrk   .20s  Za\nZa\nwc  Fb Fy Fy  Xru y   sj shZa\n  n Pr sm. .bsm.fl #chat\nk \u0004l ak  #twoweapon\nZa\n qZa\n\u000f\u001b\u00169\ni\u001bWss.Tapnenssm.at#rub\nj   n wdy Fh Fh Fheh .y sy #name\no\nFido\n\u0014@.  nZa\n10s en  #untrap\n#terrain\nb\ns i\u001bzfh zfhwdys20ssapjwcsssaj #rub\nj ru   n sm.sm.Za\nZa\n\u00169\n#levelchange\n8\n \u0007flesh golem\nFyFh  n  FyFh   n \u0007rabid rat\n#chat\nyFy Fk\u0018\u001b\u00166\n\u0007green slime\nFjFy  nFy sm. 20s #pray\ny y        \u0007wood nymph\nFh    n Fy  FjFy20ssm.  n \u001624\n\u00168\n\u0007lurker above\n#pray\ny y      FlFjFj  Fl  n Fjsm.20s FlFj  n #pray\ny y     Fj \u001628\n  \u00164\n#levelchange\n30\n                      \u0017blessed ring of polymorph control\nPy #polyself\nfloating eye\n#monster\nsn  .m.\u0007xan\nFuFu Fu sm. sm.  s\u001b#polyself\number hulk\n#monster\ns20s\u001b\u0007mind flayer\nFj   Fk  n   Fy        sm.  n   sh   n  .n\u0017potion of polymorph\nqz pyrolisk\n       n      n   \u001620\n\u0016?\n>CFj  FkFj  \u0017wand of digging\nzAl FjlFkulyFj l\u0017wand of digging\nzBh bFk  yny   y y n  F"
+ },
+ "segments": [
+  {
+   "seed": 578206,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed wand of fire\nzfl zfk\u0017uncursed potion of booze\nqgs.\u00173 slime mold\neh20s20s\u0017magic lamp\naj#rub\nj.s\u0017spellbook of dig\n\u0007shopkeeper\nnrk sb.m.ZZ20ssm.\u0007housecat\n\u0017banana\ntdu \u0007housecat\n\u0017carrot\ntbu\u0017newt corpse\ntaj \u0017tin whistle\nlluao #chat\nbdksm.20s20s#name\nm\n.\u0017leash\napbyub japb \u0017lembas wafer\n\u0007yeti\neq  y20s 20sFbFl\u00173 20 shuriken\n \u001b,\u0017ring of teleportation\nPslsh20s   , s.s\u0017uncursed wax candle\nat #rub\njFjs\u0017blessed spellbook of slow monster\n\u0007ki-rin\nru  ssZa\nZa\nss \u0006i\u001beh  n..zfjrk   .20s  Za\nZa\nwc  Fb Fy Fy  Xru y   sj shZa\n  n Pr sm. .bsm.fl #chat\nk \u0004l ak  #twoweapon\nZa\n qZa\n\u000f\u001b\u00169\ni\u001bWss.Tapnenssm.at#rub\nj   n wdy Fh Fh Fheh .y sy #name\no\nFido\n\u0014@.  nZa\n10s en  #untrap\n#terrain\nb\ns i\u001bzfh zfhwdys20ssapjwcsssaj #rub\nj ru   n sm.sm.Za\nZa\n\u00169\n#levelchange\n8\n \u0007flesh golem\nFyFh  n  FyFh   n \u0007rabid rat\n#chat\nyFy Fk\u0018\u001b\u00166\n\u0007green slime\nFjFy  nFy sm. 20s #pray\ny y        \u0007wood nymph\nFh    n Fy  FjFy20ssm.  n \u001624\n\u00168\n\u0007lurker above\n#pray\ny y      FlFjFj  Fl  n Fjsm.20s FlFj  n #pray\ny y     Fj \u001628\n  \u00164\n#levelchange\n30\n                      \u0017blessed ring of polymorph control\nPy #polyself\nfloating eye\n#monster\nsn  .m.\u0007xan\nFuFu Fu sm. sm.  s\u001b#polyself\number hulk\n#monster\ns20s\u001b\u0007mind flayer\nFj   Fk  n   Fy        sm.  n   sh   n  .n\u0017potion of polymorph\nqz pyrolisk\n       n      n   \u001620\n\u0016?\n>CFj  FkFj  \u0017wand of digging\nzAl FjlFkulyFj l\u0017wand of digging\nzBh bFk  yny   y y n  F"
+  }
+ ]
+}

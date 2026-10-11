@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " Fn 20s20s_ \u001b,>_>.>\\    lnj\u000f\u001b100skkj100sFuFus100s100sFb.20sjkj150s\u000f\u001b100sFhss\u0018\u001b100s\u000f\u001byuje100sFus20s_>.>50sFuFks_>.>100s\u0018\u001b50suhl#untrap\nk\u0018\u001bljy_>.>100s100sFh20s20s_>.>_>.>i\u001bnkn\\    50s100sP\u000f\u001b#offer\n100seeeeeeeeeeeeeeeeeeeeeeeeeeeee20shknh20sdab20sss#name\nm\n10syl#chat\nhhlny20s#chat\nb\\    tbheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\nd\nkr\u001b\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHKBJ_>,>PE- YHBB_>,>NYHJ_>.>BULL_>.><NNLH_>,>LYUY_>.>KNBN_>.>ee#pray\ny   i\u001b100s100s\u000f\u001b100sFyssnul150sFhFhFk150sFhs.100sFhs.\\    _>,>50snuyukb150s50s50s100s100s50s_>,>150s150sFhsslkji\u001b_>.>i\u001b100seeee#name\nm\nW,de.20ss20s10stckjuddde.20ssHNNK_>.>YLJU_>.>LNLU_>.>KUUY_>.>#wipe\nHBYJU_>."
+ },
+ "segments": [
+  {
+   "seed": 578119,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " Fn 20s20s_ \u001b,>_>.>\\    lnj\u000f\u001b100skkj100sFuFus100s100sFb.20sjkj150s\u000f\u001b100sFhss\u0018\u001b100s\u000f\u001byuje100sFus20s_>.>50sFuFks_>.>100s\u0018\u001b50suhl#untrap\nk\u0018\u001bljy_>.>100s100sFh20s20s_>.>_>.>i\u001bnkn\\    50s100sP\u000f\u001b#offer\n100seeeeeeeeeeeeeeeeeeeeeeeeeeeee20shknh20sdab20sss#name\nm\n10syl#chat\nhhlny20s#chat\nb\\    tbheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\nd\nkr\u001b\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHKBJ_>,>PE- YHBB_>,>NYHJ_>.>BULL_>.><NNLH_>,>LYUY_>.>KNBN_>.>ee#pray\ny   i\u001b100s100s\u000f\u001b100sFyssnul150sFhFhFk150sFhs.100sFhs.\\    _>,>50snuyukb150s50s50s100s100s50s_>,>150s150sFhsslkji\u001b_>.>i\u001b100seeee#name\nm\nW,de.20ss20s10stckjuddde.20ssHNNK_>.>YLJU_>.>LNLU_>.>KUUY_>.>#wipe\nHBYJU_>."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u001617\n _ \u001b;\u001637\n   hluj\u0017throne\n#sit\n h\u0017j\u0017d\u0017>#offer\n  #dip\nffs.\u00161\n#levelchange\n14\n\u0007soldier ant\nFnFn Fn Fn Fnsm..m.sls\u0007mountain nymph\nFhFh  sn.m.20ssh\u0007chameleon\nFbFb Fb Fbsm.sm. \u0016?\n>>P\u0017wraith corpse\nea  sm.sm.FbFb \u0017saddle\nabb   n#ride\nbyFb Fb\u0017blessed Sting\nwc FbFb FbFbFb.j .m.\u0016?\n>z  _<.\u0016?\n>Bjub:\u001640\njny\u0017fire trap\nb\u0007grid bug\nsb20ssm..m.u  \u0017arrow trap\nb^uu 20s.m.bj\u0017magic portal\nj^ks20snj\u0017tEZ\u0016hj\u0016lj\u0016ll\u0016uy\u0016ll\u0016uy\u0016nu\u0016lu\u0016nn\u0016uk\u0016hk\u0016hk\u0016ub\u0016jh\u0016nj\u0016jj\u0016nn\u0016kb\u0016ky\u0016bh\u0016bu\u0016hl\u0016uu\u0016hh\u0016jh\u0016ku\u0016yl\u0016kk\u0016uy\u0016yn\u0016hn\u0016ju\u0016bj\u0016hj\u0016lk\u0016lb\u0016hj\u0016uh\u0016yj\u0016kk\u0016lb\u0016ny\u0016bl\u0016ll\u0016ny\u0016kb\u0016ul\u0016un\u0016jn\u0016ku\u0016nh\u0016nu\u0016hk\u0016jb\u0016un\u0016kn\u0016un\u0016ll\u0016ku\u0016ny\u0016yl\u0016yl\u0016bn\u0016jb\u0016nb\u0016ly\u0016lb\u0016hy\u0016yu\u0016yu\u0016un\u0016jb\u0016hb"
+ },
+ "segments": [
+  {
+   "seed": 578100,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u001617\n _ \u001b;\u001637\n   hluj\u0017throne\n#sit\n h\u0017j\u0017d\u0017>#offer\n  #dip\nffs.\u00161\n#levelchange\n14\n\u0007soldier ant\nFnFn Fn Fn Fnsm..m.sls\u0007mountain nymph\nFhFh  sn.m.20ssh\u0007chameleon\nFbFb Fb Fbsm.sm. \u0016?\n>>P\u0017wraith corpse\nea  sm.sm.FbFb \u0017saddle\nabb   n#ride\nbyFb Fb\u0017blessed Sting\nwc FbFb FbFbFb.j .m.\u0016?\n>z  _<.\u0016?\n>Bjub:\u001640\njny\u0017fire trap\nb\u0007grid bug\nsb20ssm..m.u  \u0017arrow trap\nb^uu 20s.m.bj\u0017magic portal\nj^ks20snj\u0017tEZ\u0016hj\u0016lj\u0016ll\u0016uy\u0016ll\u0016uy\u0016nu\u0016lu\u0016nn\u0016uk\u0016hk\u0016hk\u0016ub\u0016jh\u0016nj\u0016jj\u0016nn\u0016kb\u0016ky\u0016bh\u0016bu\u0016hl\u0016uu\u0016hh\u0016jh\u0016ku\u0016yl\u0016kk\u0016uy\u0016yn\u0016hn\u0016ju\u0016bj\u0016hj\u0016lk\u0016lb\u0016hj\u0016uh\u0016yj\u0016kk\u0016lb\u0016ny\u0016bl\u0016ll\u0016ny\u0016kb\u0016ul\u0016un\u0016jn\u0016ku\u0016nh\u0016nu\u0016hk\u0016jb\u0016un\u0016kn\u0016un\u0016ll\u0016ku\u0016ny\u0016yl\u0016yl\u0016bn\u0016jb\u0016nb\u0016ly\u0016lb\u0016hy\u0016yu\u0016yu\u0016un\u0016jb\u0016hb"
+  }
+ ]
+}

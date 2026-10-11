@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   i\u001baeuwaFu 20sFkXeh sswb s20s.qd  afs\nafi\n#tip\nf\u001b#monster\n#invoke\n\u001b\u0014 \u001b<.#wipe\nK#pray\ny y #name\ni\nE- X marks the spot\ni\u001baenwbs20s.wa sssafi\nafs\n#tip\nf\u001beg  y.sW20s.sT\u0007gray unicorn\n\u0017scroll of taming\nri  \u001b\u0017saddle\najl \u0017lance\nwk#ride\nuy\u0007tame saddled horse\n#ride\nhy\u0007warhorse\n\u0017scroll of taming\nrl \u0017saddle\namh#ride\n knjj#ride\nhy.#ride\n kukjj\u0004lyn\u001622\n\u0007hostile Juiblex\nyFbFhFu   #pray\ny y      Fk  20s  Fj Fk   Fk   n   Fk  #pray\ny y Fk i\u001b\u0017locked large box\n \u0017chest\n\u0017sack\n\u0017wand of polymorph\napr\n   #tip\nnp\n  ap\u001bap\u001b\u0017mace\nwr dn     n  #force\ny  20s  . . aqy      #levelchange\n14\n b   ny      h  j \u0017level teleporter\nk \u0017teleportation trap\nk   n      \u0017statue trap\nk  j s   n shy l\u0017anti-magic field\nf by k #twoweapon\n#sit\n\u00169\n\u0017blessed wand of secret door detection\nzt     zt     Fj    Fk\u0017tripe ration\neu  20s.j\u0017blessed +3 ring of levitation\nPvl sm.s20s  R \u0017blessed bag of holding\n\u0007black light\nawo\n     awi\n#tip\nwf\n\u0017blessed gray dragon scale mail\nWx   n20s  sm.sT sl20s #levelchange\n20\n     \u0017Vorpal Blade\nwy  Fk  FhFk   #invoke\nyX\u0007disenchanter\nFh   Fh  \u0007newt\n20s   20ssus.m.20s    \u0007quasit\n#chat\nh      Fy  Fy   n   \u0007Famine\nyFk  Fy  Fk  Fh    n  Fh    \u000f\u001b\u00161\n#levelchange\n30\n         #wizintrinsic\nh\n20s   n20s 20s    n.j  shy  sm.  n snsss.m. sks20s  n \u0017scroll of blank paper\nrz  ck    nE- Vlad was here\n  10s J  n s#twoweapon\n.m. .l20s  n .m. sm.   n.m. \\  l    nbyu\u0017fire trap\nj  ksm.  n sm. lb    yy\u001by   y ny\u001bn  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 578101,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   i\u001baeuwaFu 20sFkXeh sswb s20s.qd  afs\nafi\n#tip\nf\u001b#monster\n#invoke\n\u001b\u0014 \u001b<.#wipe\nK#pray\ny y #name\ni\nE- X marks the spot\ni\u001baenwbs20s.wa sssafi\nafs\n#tip\nf\u001beg  y.sW20s.sT\u0007gray unicorn\n\u0017scroll of taming\nri  \u001b\u0017saddle\najl \u0017lance\nwk#ride\nuy\u0007tame saddled horse\n#ride\nhy\u0007warhorse\n\u0017scroll of taming\nrl \u0017saddle\namh#ride\n knjj#ride\nhy.#ride\n kukjj\u0004lyn\u001622\n\u0007hostile Juiblex\nyFbFhFu   #pray\ny y      Fk  20s  Fj Fk   Fk   n   Fk  #pray\ny y Fk i\u001b\u0017locked large box\n \u0017chest\n\u0017sack\n\u0017wand of polymorph\napr\n   #tip\nnp\n  ap\u001bap\u001b\u0017mace\nwr dn     n  #force\ny  20s  . . aqy      #levelchange\n14\n b   ny      h  j \u0017level teleporter\nk \u0017teleportation trap\nk   n      \u0017statue trap\nk  j s   n shy l\u0017anti-magic field\nf by k #twoweapon\n#sit\n\u00169\n\u0017blessed wand of secret door detection\nzt     zt     Fj    Fk\u0017tripe ration\neu  20s.j\u0017blessed +3 ring of levitation\nPvl sm.s20s  R \u0017blessed bag of holding\n\u0007black light\nawo\n     awi\n#tip\nwf\n\u0017blessed gray dragon scale mail\nWx   n20s  sm.sT sl20s #levelchange\n20\n     \u0017Vorpal Blade\nwy  Fk  FhFk   #invoke\nyX\u0007disenchanter\nFh   Fh  \u0007newt\n20s   20ssus.m.20s    \u0007quasit\n#chat\nh      Fy  Fy   n   \u0007Famine\nyFk  Fy  Fk  Fh    n  Fh    \u000f\u001b\u00161\n#levelchange\n30\n         #wizintrinsic\nh\n20s   n20s 20s    n.j  shy  sm.  n snsss.m. sks20s  n \u0017scroll of blank paper\nrz  ck    nE- Vlad was here\n  10s J  n s#twoweapon\n.m. .l20s  n .m. sm.   n.m. \\  l    nbyu\u0017fire trap\nj  ksm.  n sm. lb    yy\u001by   y ny\u001bn  \u0017"
+  }
+ ]
+}

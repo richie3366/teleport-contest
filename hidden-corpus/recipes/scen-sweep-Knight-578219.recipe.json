@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nm\n ;n. \u001bm,E- I am a fish\n\u0017meatball\neiE-y Elbereth Elbereth\n\u0017blessed potion of healing\nqj#dip\nbs..\u0018\u001b#levelchange\n6\n    \u0017chickatrice corpse\nwb \u0007sewer rat\nFu    Fl   Fu  \u0007floating eye\nFy   FkFkFy                                        FjFy                                                      nFy sj .y                                     \u0017Dragonbane\nwl  FlFh Fy  #invoke\nl\u0007guard\nyFhFy  Fj\u0007vampire\n.m.sj20s.m.20s20ssm.\u0007Angel\ny;h:  sm..m.      n sl        n\u0007crocodile\nsb sm.  .m. sm.20s \u001625\n\u001610\n#levelchange\n30\n                        #wizintrinsic\nco\n 20s.u.k.sm.ss.bsm.20s sj20ssj 20s 20s     .m.    susm.   sm.      .lsm.     n         n    sm. \u0017scroll of blank paper\nrm  da  : ohP#name\nm\n#monster\n<.20s  20s  .m.   n sm.  .m. sm.  \u00169\ni\u001brmwbssseh sm.20s egshsm.#loot\nuj#tip\n\u001b10s  n w- y#jump\n:#chat\nl i\u001bwb FlFlFl Xrmegsm..m.eh sm.sk#wizintrinsic\nris\n  .sss.sss  nsss20s\u0017potion of sickness\nqri\u001b#dip\nhz#conduct\n E- Elbereth Elbereth\n<..sss.\u001627\n   \u0017blessed saddle\nask#ride\njy20s   Fh\u0017wand of opening\n\u0007shade\nzt. Fh   n  Fy  \u0017uncursed scroll of remove curse\nrus sn   b  n y                     nk          \u0017trap door\nh  l       nsm.                    20s           nk\u0017statue trap\nb     \u001b   \u0017anti-magic field\nn            n            l         \u0017squeaky board\n#sit\n    n           Wcl\u00174 cream pies\nQ\u001b\u0007troll\nl              n       n           fffff\u0017grappling hook\nww    yy\u001by  y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 578219,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nm\n ;n. \u001bm,E- I am a fish\n\u0017meatball\neiE-y Elbereth Elbereth\n\u0017blessed potion of healing\nqj#dip\nbs..\u0018\u001b#levelchange\n6\n    \u0017chickatrice corpse\nwb \u0007sewer rat\nFu    Fl   Fu  \u0007floating eye\nFy   FkFkFy                                        FjFy                                                      nFy sj .y                                     \u0017Dragonbane\nwl  FlFh Fy  #invoke\nl\u0007guard\nyFhFy  Fj\u0007vampire\n.m.sj20s.m.20s20ssm.\u0007Angel\ny;h:  sm..m.      n sl        n\u0007crocodile\nsb sm.  .m. sm.20s \u001625\n\u001610\n#levelchange\n30\n                        #wizintrinsic\nco\n 20s.u.k.sm.ss.bsm.20s sj20ssj 20s 20s     .m.    susm.   sm.      .lsm.     n         n    sm. \u0017scroll of blank paper\nrm  da  : ohP#name\nm\n#monster\n<.20s  20s  .m.   n sm.  .m. sm.  \u00169\ni\u001brmwbssseh sm.20s egshsm.#loot\nuj#tip\n\u001b10s  n w- y#jump\n:#chat\nl i\u001bwb FlFlFl Xrmegsm..m.eh sm.sk#wizintrinsic\nris\n  .sss.sss  nsss20s\u0017potion of sickness\nqri\u001b#dip\nhz#conduct\n E- Elbereth Elbereth\n<..sss.\u001627\n   \u0017blessed saddle\nask#ride\njy20s   Fh\u0017wand of opening\n\u0007shade\nzt. Fh   n  Fy  \u0017uncursed scroll of remove curse\nrus sn   b  n y                     nk          \u0017trap door\nh  l       nsm.                    20s           nk\u0017statue trap\nb     \u001b   \u0017anti-magic field\nn            n            l         \u0017squeaky board\n#sit\n    n           Wcl\u00174 cream pies\nQ\u001b\u0007troll\nl              n       n           fffff\u0017grappling hook\nww    yy\u001by  y y y\u001by  \u0007"
+  }
+ ]
+}

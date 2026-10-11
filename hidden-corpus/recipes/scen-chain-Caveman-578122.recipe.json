@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nc\n 20s   20s  20s.m..m.sm.sm.sm.    yy\u001by   nny\u001b y  .   njjbFkFk FkFk FkFk   y\u001by  y y y\u001b  FN UKL_ \u001b<.>FhsFh UUJY_>,>YKKH_>,>>#force\nLNKL_>.>KNYY_>.>ytcuYUJY_>.>\\    100s150sFj.FjFj.20sFjFj FjFj20s20s100s#ride\nu\\    100s100s\u0018\u001b_>.>100sFhFhFh50s150s150s50s hny100s Fnss_>.>n yhbkn 100sFjFj#quit\ny\u001b     ykjujnlylhkhFh 20ss100s\\ 150snun100slhh50s100si\u001blhknhl150sFhFhs50s50sFhss150s50s150sFlFlsclyhj#rub\ng\u001b#force\n150s100sFl20s20s\\ 50s50s,50sFh..150sWed_ \u001b@#quit\n:  #wizintrinsic\ne\n 20s  sss20s sjss.m.20s       sm.sysm..k20s  yny   ny y\u001bn  . jl#name\nf\n m,hujhda20ss20s10s#chat\njujkj\u0018\u001bknhFh FhFkkny150s          FkFkFknujFy ss50s100s100s 150s50sFhFhFhFhFh20shykjnu\\ 100s  ed100s100sFkFkFkFkFyFyFyFyFkFkFkFkFh Fy  nnnnn  s \u0007black dragon\nFkFu    yy\u001by  y y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 578122,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nc\n 20s   20s  20s.m..m.sm.sm.sm.    yy\u001by   nny\u001b y  ."
+  },
+  {
+   "seed": 678122,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": "   njjbFkFk FkFk FkFk   y\u001by  y y y\u001b  F"
+  },
+  {
+   "seed": 778122,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\n",
+   "moves": "N UKL_ \u001b<.>FhsFh UUJY_>,>YKKH_>,>>#force\nLNKL_>.>KNYY_>.>ytcuYUJY_>.>\\    100s150sFj.FjFj.20sFjFj FjFj20s20s100s#ride\nu\\    100s100s\u0018\u001b_>.>100sFhFhFh50s150s150s50s hny100s Fnss_>.>n yhbkn 100sFjFj#quit\ny\u001b    "
+  },
+  {
+   "seed": 878122,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": " ykjujnlylhkhFh 20ss100s\\ 150snun100slhh50s100si\u001blhknhl150sFhFhs50s50sFhss150s50s150sFlFlsclyhj#rub\ng\u001b#force\n150s100sFl20s20s\\ 50s50s,50sFh..150sWed_ \u001b@#quit\n:"
+  },
+  {
+   "seed": 978122,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\ne\n 20s  sss20s sjss.m.20s       sm.sysm..k20s  yny   ny y\u001bn  ."
+  },
+  {
+   "seed": 1078122,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=pettype:horse\n",
+   "moves": " jl#name\nf\n m,hujhda20ss20s10s#chat\njujkj\u0018\u001bknhFh FhFkkny150s          FkFkFknujFy ss50s100s100s 150s50sFhFhFhFhFh20shykjnu\\ 100s  ed100s100sFkFkFkFkFyFyFyFyFkFkFkFkFh Fy  nnnnn  s"
+  },
+  {
+   "seed": 1178122,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007black dragon\nFkFu    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}
