@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3828 cliffs-head writer Infravision: poly'd hero kept racial infravision via the ungated D-0039 fallback, hiding C's Warning `1` (95346 778→PASS)
+
+**C locus:** `include/display.h:184–186` (H/E/Infravision ≡ H||E); `polyself.c` set_uasmon `:84–85` (PROPSET(INFRAVISION, infravision(Upolyd ? mdat : &mons[urace])) — the race default applies only while human); `display.c` newsym `:1046–1056` (can't-see: infrared+mon_visible → display_monster, else mon_warning → display_warning); `drawing.c` def_warnsyms[1] (`1`, CLR_RED).
+**JS:** js/display.js:1698–1707 (comment + gate); new scripts/poly-infravision.test.mjs (4 its: poly'd gnome→dragon loses racial infrared; human gnome keeps it; HInfravision flat grants it poly'd; non-infra race without flat has none).
+**Change:** one `if (Upolyd(game.u)) return false;` before the race fallback (Upolyd already imported in display.js — no new edge), with the C cites. File-local predicate, single caller.
+**Verify:** `node --test scripts/poly-infravision.test.mjs` → 3/4 pre-fix (authentic fail: poly'd case `true !== false`), 4/4 post-fix. `node scripts/verify.mjs --fn polymon` → PASS syntax (1 file js/display.js) · rule2 · hidden `verify polymon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Healer-95346: PASS) · reach polymon 80/80 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file) · VERIFY: PASS.
+**Named:** none new (race fallback retained for !Upolyd pre-set_uasmon windows; set_uasmon PROPSET otherwise whole per D-3429; EInfravision extrinsic preserved as-is).
+**Next:** probe joins the PASS set on regen; pop the next Open — cliffs head.
 ## 2026-10-11 — D-3827 cliffs-head writer `display.c` feel_location: Levitation gate read the flat `u.Levitation` mirror, never set under FROMFORM (95342 1197→PASS)
 
 **C locus:** `feel_location` nethack-c/upstream/src/display.c:746–909, gate `:777` (`if (!can_reach_floor(FALSE))`); `can_reach_floor` nethack-c/upstream/src/engrave.c:187–213 (`:198` Levitation property, `:206` Flying || msize).

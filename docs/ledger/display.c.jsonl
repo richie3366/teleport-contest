@@ -2,7 +2,7 @@
 {"fn":"sensemon","c":"173-176","status":"ported","js":["js/display.js:sensemon"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
 {"fn":"mon_warning","c":"180-183","status":"ported","js":["js/display.js:mon_warning"],"d":["D-3822"],"at":"2026-10-11@87c90a5ca"}
 {"fn":"mon_visible","c":"187-190","status":"ported","js":["js/display.js:mon_visible"],"at":"2026-10-03@bbe63333a"}
-{"fn":"see_with_infrared","c":"194-197","status":"ported","js":["js/display.js:see_with_infrared"],"at":"2026-10-03@bbe63333a"}
+{"fn":"see_with_infrared","c":"194-197","status":"ported","js":["js/display.js:see_with_infrared"],"d":["D-3828"],"at":"2026-10-11@4043afc4f"}
 {"fn":"canseemon","c":"201-204","status":"ported","js":["js/display.js:canseemon"],"d":["D-3424","D-3401"],"at":"2026-10-04@011b251ee","note":"audited: whole vs C; clones retired"}
 {"fn":"knowninvisible","c":"208-211","status":"ported","js":["js/zap.js:knowninvisible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_safemon","c":"215-218","status":"ported","js":["js/uhitm.js:is_safemon"],"at":"2026-10-03@bbe63333a"}

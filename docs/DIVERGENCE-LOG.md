@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3828 — cliffs-head writer Infravision: poly'd hero kept racial infravision via the ungated D-0039 fallback, hiding C's Warning `1` (95346 778→PASS)
+
+- **Status:** shipped (Open — cliffs head `polyself.c` polymon; polymon itself whole per D-2432/D-3429, read once — the divergence names this writer. `verify polymon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
+- **Symptom:** scen-sweep-Healer-95346 step 778/1184 kind=screen at polyself.c:805: toplines identical («You turn into a baby blue dragon!--More--»), first differing screen row 6 col 62: C red `1` vs JS cyan `f` at map (63,5). MEASURED (recorded C screens 775–782: red-`1` only at 778–779; drawing.c def_warnsyms; /tmp JS prefix-state probe at 778): red `1` = warnsym[1] «unknown creature causing you concern» — Warning sensing an unseen hostile. JS at 778: gnome-Healer hero poly'd baby blue dragon (umonnum 140) at (67,5), hostile feline m_lev 7 at (63,5) in darkness (cansee false, couldsee true), HInfravision 0 (set_uasmon cleared it, correct), Warning on, warnlevel 1, mon_warning true, warning_of 1 — but JS see_with_infrared true via the race fallback, so newsym painted the monster `f` instead of display_warning.
+- **C locus:** `include/display.h:184–186` (H/E/Infravision ≡ H||E); `polyself.c` set_uasmon `:84–85` (PROPSET(INFRAVISION, infravision(Upolyd ? mdat : &mons[urace])) — the race default applies only while human); `display.c` newsym `:1046–1056` (can't-see: infrared+mon_visible → display_monster, else mon_warning → display_warning); `drawing.c` def_warnsyms[1] (`1`, CLR_RED).
+- **JS was:** js/display.js `hero_has_infravision` (D-0039: H||E flats, then the race fallback) never gated the fallback on Upolyd — its own comment said «Non-polyd race default» but the code had no check. JS set_uasmon already manages HInfravision FROMFORM C-exactly (js/polyself.js:841), so the fallback only ever misfired while poly'd.
+- **Fix:** one `if (Upolyd(game.u)) return false;` before the race fallback (Upolyd already imported in display.js — no new edge), with the C cites. File-local predicate, single caller.
+- **JS:** js/display.js:1698–1707 (comment + gate); new scripts/poly-infravision.test.mjs (4 its: poly'd gnome→dragon loses racial infrared; human gnome keeps it; HInfravision flat grants it poly'd; non-infra race without flat has none).
+- **Callers:** no caller changes — the predicate fix rides every previously wired JS site of C see_with_infrared (all import the live export): display.h:119 _canseemon → js/display.js:1243 · display.c:1048 newsym (probe path) → js/display.js:6061 · do_name.c:241 → js/do_name.js:588 · vision.c:2170 howmonseen → js/vision.js:1333.
+- **Verify:** `node --test scripts/poly-infravision.test.mjs` → 3/4 pre-fix (authentic fail: poly'd case `true !== false`), 4/4 post-fix. `node scripts/verify.mjs --fn polymon` → PASS syntax (1 file js/display.js) · rule2 · hidden `verify polymon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Healer-95346: PASS) · reach polymon 80/80 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file) · VERIFY: PASS.
+- **Named omissions:** none new (race fallback retained for !Upolyd pre-set_uasmon windows; set_uasmon PROPSET otherwise whole per D-3429; EInfravision extrinsic preserved as-is).
+- **Ledger:** see_with_infrared ported
+- **Next:** probe joins the PASS set on regen; pop the next Open — cliffs head.
+
 ## D-3827 — cliffs-head writer `display.c` feel_location: Levitation gate read the flat `u.Levitation` mirror, never set under FROMFORM (95342 1197→PASS)
 
 - **Status:** shipped (Open — cliffs head `detect.c` mfind0; mfind0 itself whole per D-3656, read once — the divergence names this writer. `verify mfind0: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)

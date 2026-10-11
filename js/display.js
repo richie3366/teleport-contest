@@ -1695,10 +1695,13 @@ function show_mon_or_warn(x, y, ch, color, decgfx = false, attr = 0, glyph) {
     show_glyph_cell(x, y, ch, color, decgfx, attr, glyph);
 }
 
-// C ref: youprop.h Infravision — race intrinsic via set_uasmon/mons[urace]
+// C ref: youprop.h Infravision (H||E) + polyself.c set_uasmon `:84–85`
+// (PROPSET(INFRAVISION, infravision(Upolyd ? mdat : &mons[urace]))): the
+// race default applies only while human; poly'd, the HInfravision
+// FROMFORM bit above is the whole story (D-0039 fallback gated).
 function hero_has_infravision() {
     if (game.u?.HInfravision || game.u?.EInfravision) return true;
-    // Non-polyd race default (C polyself set_uasmon → mons[urace.mnum])
+    if (Upolyd(game.u)) return false;
     const racePm = game.urace?.mnum;
     if (racePm == null) return false;
     return infravision(mons(racePm));
