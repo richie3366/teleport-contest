@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — Grow #1: 84 long sessions (seeds 578100–578319), board 1142/1197, cliffs 4→12 owners
+
+**Mix:** 44 `--family marathon` (11 each worldtour/sweep/chain/trek) + 20 sweep (lowest-RNG long family at 96.8 %, still failing) + 20 worldtour (lowest-PASS long family at 44/50 — under 90 %, so no `broad`); chain/trek at 100 % PASS got no direct extras. No `js/` edits, no D-entry, no ledger rows.
+**Score:** full `score --jobs 8` → **1142/1197** PASS, RNG 96.51 %, screens 95.5 %; cohort 53/84 (RNG 82.0 %): sweep 16/31, worldtour 19/31, chain 7/11, trek 11/11. 0 PASS→FAIL, 0 dropped — no Must-fix.
+**Cliffs:** regenerated block now 12 owners: randomize_gem_colors (4, RNG 309k), level_tele (4, 126k), clear_bypasses, spelleffects_check, dopray, zhitu, distfleeck (2), dog_move, mhitm_knockback, do_statusline2 (3), rndmonst_adj, mquaffmsg. ≥6 owners — growth signal restored, next iteration ports again.
+**Next:** cliffs-head randomize_gem_colors (scen-chain-Ranger-578106@239).
 ## 2026-10-11 — audit 2684–2694 @d412d1500: review D-3820…D-3831 (11A/0D/0Q, 0 Must-fix) + full rescore 1089/1113
 
 **Reviews:** 11 JS-touching SHAs since d978e5070, oldest-first, each re-measured with `verify --base HASH~1 --reach-all`: every D-log claim reproduced exactly (10 PASS + 2 moved-only), zero regressed anywhere (strongest: exercise reach 1019/1019, randomize_gem_colors reach 1078/1078). No STUB-in-live-arm, no dispatch/callee overclaim, Rule #2 clean, no DIAG/FORCE/seed/coordinate reads in any diff.
