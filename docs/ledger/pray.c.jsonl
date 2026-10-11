@@ -1,6 +1,6 @@
 {"fn":"critically_low_hp","c":"116-156","status":"ported","js":["js/pray.js:critically_low_hp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stuck_in_wall","c":"161-181","status":"ported","js":["js/pray.js:stuck_in_wall"],"at":"2026-10-03@bbe63333a"}
-{"fn":"in_trouble","c":"198-284","status":"ported","js":["js/pray.js:in_trouble"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
+{"fn":"in_trouble","c":"198-284","status":"ported","js":["js/pray.js:in_trouble"],"d":["D-3838","D-3429"],"at":"2026-10-11@9aa67c471"}
 {"fn":"worst_cursed_item","c":"288-346","status":"ported","js":["js/pray.js:worst_cursed_item"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fix_curse_trouble","c":"349-370","status":"ported","js":["js/pray.js:fix_curse_trouble"],"d":["D-3095"],"at":"2026-09-29@9fca9cdda"}
 {"fn":"fix_worst_trouble","c":"373-600","status":"ported","js":["js/pray.js:fix_worst_trouble"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: impossible() debug diagnostic for uncured hands omitted"}

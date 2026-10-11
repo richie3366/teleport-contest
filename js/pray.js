@@ -337,7 +337,9 @@ function Cursed_obj(obj, typ) {
 
 /** C youprop.h Blindfolded / BlindedTimeout / Blinded / Passes_walls / Fixed_abil. */
 function Blindfolded() {
-    return !!(game.u?.EBlinded || game.u?.ublindf);
+    // C youprop.h:96: Blindfolded ≡ EBlinded (worn blindfold or towel;
+    // lenses don't set [BLINDED].extrinsic — never `|| ublindf`).
+    return !!(game.u?.EBlinded);
 }
 function Blindfolded_only() {
     return Blindfolded() && !BlindedProp();
