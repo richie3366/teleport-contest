@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3824 — cliffs head `randomize_gem_colors` is a phantom: D-3823 committed a stale scoreboard that re-failed 95230/95244/95231/95210 — all 4 PASS live, board re-scored, 3 rows leave (no js/)
+
+- **Status:** shipped as a board repair, no js/ in this commit (popped head `o_init.c` randomize_gem_colors @ad9142463, tagged parked REFUTED. Owner already whole — ledger ported with stale note js/o_init.js:114, brief confirms the C staticfn complete; writer end.c panic shipped D-3820. Live code passes the probes; only the committed board said otherwise.)
+- **Symptom:** the head row claimed 2/1113 blocked at step 0 kind=rng (RNG lost 29146): C `rn2(2) @ randomize_gem_colors(o_init.c:89)` vs JS nothing, `show` printing the ledger_to_dnum(-1) void. All of it is the stale committed row: frozen runner at clean HEAD says scen-worldtour-Archeologist-95230 PASS (16599/16599 RNG, 511/511 screens). `git show ad9142463 -- hidden-corpus/scoreboard.json` flips exactly 5 sessions: 95337's real move (dosacrifice@729 → You_see@798) plus 4 bogus PASS→FAIL — 95230/95244 → randomize_gem_colors@0, 95231 → slimed_to_death@810, 95210 → doname_base@526 — each exactly its pre-D-3820/D-3821/D-3822 state. D-3823's only runtime delta is js/pray.js dosacrifice prep (2 import names + altaralign above the guard); green/cohort pass and all 4 sessions PASS live, so the flips contradict the code they were committed with. Likely cause (inferred): D-3823 scored those rows against a stashed or mid-edit tree and committed them — the D-1831 shape (rows written, code changed after, never re-run).
+- **C locus:** none (no C change; owner o_init.c:85–109 whole; writer end.c:394–480 panic whole per D-3820).
+- **JS was:** n/a — js/ untouched; the defect is 4 stale rows in hidden-corpus/scoreboard.json.
+- **Fix:** re-scored the 4 rows through the sanctioned scorer only (`verify.mjs --fn randomize_gem_colors,slimed_to_death,doname_base` rewrote the working rows live) — no hand-edit of the board, no full rescore (targeted repair: a full rescore risks env-drift rewrites per D-3820's 14 deltas, and D-3823's diff proves the corruption is exactly these 4).
+- **JS:** none.
+- **Callers:** n/a (board-only).
+- **Verify:** `verify randomize_gem_colors: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (95230 + 95244 PASS); `verify slimed_to_death: 1 PASS` (95231); `verify doname_base: 1 PASS` (95210). REACH-OK all three (randomize_gem_colors 80/80 spread of 1078; slimed/doname_base 24/24 smoke each). green 2/2 + strict ×2 + cohort 7/7; syntax + Rule #2 PASS → VERIFY: PASS. Frozen 13-session spot-check at HEAD: the 4 repaired PASS (95230 16599/511, 95244 12547/723, 95231 62600/1055, 95210 64598/975, all full), the other 9 probes FAIL exactly as the board says (95337 RNG-full 1247/1248 — the You_see row is real; rest RNG-full screen-short). Board returns to 1082/1113 (`passed:true` count; audit line stays @bc0bec095).
+- **Named omissions:** none (no port).
+- **Next:** 3 rows leave via regen (randomize_gem_colors, slimed_to_death, doname_base block 0); true head is You_see (95337@798, live-confirmed). Process: review should confirm verify-after-last-edit before commit (D-1831) — D-3820…D-3823 are still unreviewed (last audit covered D-3811…D-3819).
+
 ## D-3823 — pray.c dosacrifice off-altar prep: dead u.Levitation/u.Flying flats always said "on" — live mhitu exports (95337 step 729 → 798)
 
 - **Status:** shipped (Open — cliffs head `pray.c` dosacrifice @87c90a5ca. History `ledger: ported` read once: D-1667 shipped only the ECMD_TIME arms; this divergence names the `:1860–1864` prep arm, still open.)

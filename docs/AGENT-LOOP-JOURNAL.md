@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3824 cliffs head `randomize_gem_colors` is a phantom: D-3823 committed a stale scoreboard that re-failed 95230/95244/95231/95210 — all 4 PASS live, board re-scored, 3 rows leave (no js/)
+
+**C locus:** none (no C change; owner o_init.c:85–109 whole; writer end.c:394–480 panic whole per D-3820).
+**JS:** none.
+**Change:** re-scored the 4 rows through the sanctioned scorer only (`verify.mjs --fn randomize_gem_colors,slimed_to_death,doname_base` rewrote the working rows live) — no hand-edit of the board, no full rescore (targeted repair: a full rescore risks env-drift rewrites per D-3820's 14 deltas, and D-3823's diff proves the corruption is exactly these 4).
+**Verify:** `verify randomize_gem_colors: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (95230 + 95244 PASS); `verify slimed_to_death: 1 PASS` (95231); `verify doname_base: 1 PASS` (95210). REACH-OK all three (randomize_gem_colors 80/80 spread of 1078; slimed/doname_base 24/24 smoke each). green 2/2 + strict ×2 + cohort 7/7; syntax + Rule #2 PASS → VERIFY: PASS. Frozen 13-session spot-check at HEAD: the 4 repaired PASS (95230 16599/511, 95244 12547/723, 95231 62600/1055, 95210 64598/975, all full), the other 9 probes FAIL exactly as the board says (95337 RNG-full 1247/1248 — the You_see row is real; rest RNG-full screen-short).
+**Named:** none (no port).
+**Next:** 3 rows leave via regen (randomize_gem_colors, slimed_to_death, doname_base block 0); true head is You_see (95337@798, live-confirmed). Process: review should confirm verify-after-last-edit before commit (D-1831) — D-3820…D-3823 are still unreviewed (last audit covered D-3811…D-3819).
 ## 2026-10-11 — D-3823 pray.c dosacrifice off-altar prep: dead u.Levitation/u.Flying flats always said "on" — live mhitu exports (95337 step 729 → 798)
 
 **C locus:** `pray.c` dosacrifice `:1854–1896` — `:1857` altaralign first, `:1860–1864` `You("are not %s an altar.", (Levitation || Flying) ? "over" : "on")`; `youprop.h:240` Levitation ≡ (H||E)&&!B, `:253–256` Flying ≡ (H||E||steed)&&!B, all over uprops. No direct C call sites — extcmd dispatch only (`cmd.c:72` extern).
