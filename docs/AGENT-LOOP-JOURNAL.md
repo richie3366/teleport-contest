@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3806 cliffs row-2 `auto_describe` writer: travel BFS tested the destination before the visibility gate (2 PASS, 1 moved)
+
+**C locus:** `hack.c:1395–1398` findtravelpath — ONE combined `if (test_move(x, y, nx-x, ny-y, TEST_TRAV) && (levl[nx][ny].seenv || (!Blind && couldsee(nx, ny))))`: the (ux,uy) destination terminates only inside it (:1398–1418), else-if enqueues (:1420). An unseen, unremembered destination never validates.
+**JS:** `js/cmd.js` findtravelpath_bfs :4613–4675 (gate :4617–4633, dest :4635–4668, enqueue :4669–4675). **Callers:** C hack.c:1540 TRAVP_VALID (is_valid_travelpt) → js/cmd.js:4887 (unchanged, inherits the fix); C :2725–2726 TRAVP_TRAVEL/GUESS (domove_core travel head) → js/cmd.js:4507/4513 continue_run + :4953/4959 dotravel_target (unchanged, inherit); GUESS phase-2 `goto noguess` (:1506–1513) → js/cmd.js:4850 (unchanged, inherits). GUESS phase-1 keeps its own inline loop with the C-order dest-skip (:4786) — untouched.
+**Change:** moved the visibility gate above the destination test in C order (combined gate, then dest-return, then else-if enqueue); the couldseeOnly D-0702 shape is preserved, only relocated. No new import (couldsee already imported in cmd.js). New focused test `scripts/travel-valid-unseen-suffix.test.mjs` replays 95340 and pins the suffixed topline.
+**Verify:** focused test 0/1 pre-fix (stash-proven) → 1/1 post-fix. `node scripts/verify.mjs --fn auto_describe` → PASS syntax (1 changed js file: js/cmd.js) · PASS rule2 · hidden `verify auto_describe: 2 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (95402 PASS, 95312 PASS, 95340 178→180 owner-null screen) · PASS reach (smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS. Full public suite 44/44 (voluntary: travel-core change).
+**Named:** none new (findtravelpath split otherwise unchanged; travel_test_move / travel_delay_current arms untouched).
+**Next:** regenerated cliffs block (95340 now owner-null screen @180; 95402/95312 leave the board).
 ## 2026-10-11 — D-3805 cliffs row-2 one_characteristic writer: from_what BLINDED/DEAF source arms — birth/blindfold/goop (95206 PASS, 95242 PASS)
 
 **C locus:** `attrib.c:904–1001` from_what — the three missing arms in C chain order: birth `:936–938` (FIRST, before innateness), Blindfolded_only `:962–963` (youprop.h:97 macro), cream-pie goop `:964–968` (`u.ucreamed && BlindedTimeout==ucreamed && !EBlinded && !(HBlinded&~TIMEOUT)`, no leading space) + glue `insight.c` enlght_line `:148` `" %s%s%s%s."` (suffix+value adjacent) + probe-site caller status_enlightenment Blind `:1059–1074` (already whole in JS).
