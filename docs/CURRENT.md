@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-11** — full `sessions` on `bc0bec095`
-(audit **2675–2683**, 2026-10-11T08:17:45Z).
+Score last measured: **2026-10-11** — full `sessions` on `d412d1500`
+(audit **2684–2694**, 2026-10-11T13:41:21Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`351+1.57/turn` (R² 0.77).
+`348+1.59/turn` (R² 0.77).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-11 07:20Z)** | **21 / 44**, 8,956 / 11,265 pts, RNG **51.6 %**, rngSteps 93.5 %, screens **79.5 %** |
+| **Held-out (judge 2026-10-11 13:14Z)** | **21 / 44**, 8,956 / 11,265 pts, RNG **51.6 %**, rngSteps 93.5 %, screens **79.5 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `351+1.57/turn` (R² 0.77) |
+| Speed label | `348+1.59/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,956 vs lockwo 8,533; their RNG 84.3 % vs our 51.6 %: our loss is early cliffs in long sessions). 21/44 held, pts **8,956** (±0), RNG **51.6 %** (±0pp), rngSteps 93.5 %, screens **79.5 %** at judge 2026-10-11 07:20Z — flat through D-3811..D-3819's window while the corpus gained +10; the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-11 ~08:26Z, `bc0bec095`; 1113/1113 entries, 0 unrecorded):**
-**1078 / 1113** PASS, RNG 20348305/20441637 (**99.54 %**), screens 342299/347076 (98.6 %); `full: true`. Marathons 139/160. Worst families: `scen-sweep` 40/50 (RNG 96.8 %), `scen-worldtour` 39/50 (98.9 %), `scen-chain` 40/40 (100 %), `scen-trek` 20/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; +10 FAIL→PASS vs last audit's 1068, exactly the 9 SHAs' claimed PASSes (D-3811 ×2, D-3812 ×1 + predicted 95411 bonus noted in D-3814 Status, D-3813, D-3814, D-3815, D-3817 ×2, D-3819; D-3816/D-3818 moved-only) — zero rescore drift. Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2683 (index; no row 1618): 1289 ACCEPT, 60 WITH-DEBT, 109 QUALITY-RISK (2675–2683: 9A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,956 vs lockwo 8,533; their RNG 84.3 % vs our 51.6 %: our loss is early cliffs in long sessions). 21/44 held, pts **8,956** (±0), RNG **51.6 %** (±0pp), rngSteps 93.5 %, screens **79.5 %** at judge 2026-10-11 13:14Z — flat through D-3820..D-3831's window while the corpus gained +11 (marathons 139→150/160); the falsifier watch (§10.19) stays open.
+**Corpus — picker and proxy (2026-10-11 ~13:49Z, `d412d1500`; 1113/1113 entries, 0 unrecorded):**
+**1089 / 1113** PASS, RNG 20377451/20441637 (**99.69 %**), screens 343733/347076 (99.0 %); `full: true`. Marathons 150/160. Worst families: `scen-sweep` 46/50 (RNG 96.8 %), `scen-worldtour` 44/50 (100 %), `scen-chain` 40/40 (100 %), `scen-trek` 20/20 (100 %), `scen-tour` 28/29; rest 100 % RNG. 0 PASS→FAIL; +11 vs last audit's 1078: 10 claimed (D-3820 ×2, D-3821, D-3822, D-3825–D-3829, D-3831; D-3823/D-3830 moved-only) + rescore bonus 95205 (flooreffects@353 → PASS); 95207 screens 636→641 (still probe_monster@155). Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2694 (index; no row 1618): 1300 ACCEPT, 60 WITH-DEBT, 109 QUALITY-RISK (2684–2694: 11A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,7 +140,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**This iter:** cliffs-head process_menu_window writer — disclose chest menu-text display flush fired bot() on pending botlx (95316@940); fix = bot_disabled gate on show_nhw_menu_text's grid-sync flush.
+**This iter:** cliffs-head xname_flags (95234@624, map-row region owner) — writer TBD at that step, not the D-3826 food tail.
 
 ## Parked (diagnose only — do not implement)
 

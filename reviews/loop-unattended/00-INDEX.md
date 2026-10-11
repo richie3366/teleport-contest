@@ -2693,3 +2693,14 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2681-08f125a34-overview-shared-pager.md](./2681-08f125a34-overview-shared-pager.md) | `08f125a34` | D-3817 do_statusline2-row writer show_overview shared pager (2 PASS) | **ACCEPT** |
 | [2682-6e7e9bf7a-domonability-chain.md](./2682-6e7e9bf7a-domonability-chain.md) | `6e7e9bf7a` | D-3818 domonability chain arms, bare tail (moved 1075→1164) | **ACCEPT** |
 | [2683-bc0bec095-domove-tunnels-chew.md](./2683-bc0bec095-domove-tunnels-chew.md) | `bc0bec095` | D-3819 still_chewing-row writer domove tunnels chew (1 PASS) | **ACCEPT** |
+| [2684-b2dce99c3-panic-oops-getret-donor.md](./2684-b2dce99c3-panic-oops-getret-donor.md) | `b2dce99c3` | D-3820 randomize_gem_colors-row writer panic port + statue-donor newsym (2 PASS) | **ACCEPT** |
+| [2685-87c90a5ca-losehp-gameover-marker-drop.md](./2685-87c90a5ca-losehp-gameover-marker-drop.md) | `87c90a5ca` | D-3821 slimed_to_death-row writer losehp gameover marker drop (1 PASS) | **ACCEPT** |
+| [2686-c11c60623-warning-searching-union.md](./2686-c11c60623-warning-searching-union.md) | `c11c60623` | D-3822 doname_base-row writer Warning/Searching uprops union (1 PASS) | **ACCEPT** |
+| [2687-ad9142463-dosacrifice-prep-levitation.md](./2687-ad9142463-dosacrifice-prep-levitation.md) | `ad9142463` | D-3823 dosacrifice off-altar prep live Levitation/Flying (moved 729→798) | **ACCEPT** |
+| [2688-8c982316b-convert-arg-blind.md](./2688-8c982316b-convert-arg-blind.md) | `8c982316b` | D-3825 You_see-row writer convert_arg %x live Blind (1 PASS) | **ACCEPT** |
+| [2689-0ee41d9f3-minventory-prefixes-xname.md](./2689-0ee41d9f3-minventory-prefixes-xname.md) | `0ee41d9f3` | D-3826 display_minventory prefixes + xname oc_name tail (1 PASS) | **ACCEPT** |
+| [2690-4043afc4f-feel-levitate-gate.md](./2690-4043afc4f-feel-levitate-gate.md) | `4043afc4f` | D-3827 mfind0-row writer feel_location levitate gate (1 PASS) | **ACCEPT** |
+| [2691-6b6afdc03-infravision-upolyd-gate.md](./2691-6b6afdc03-infravision-upolyd-gate.md) | `6b6afdc03` | D-3828 polymon-row writer Infravision Upolyd gate (1 PASS) | **ACCEPT** |
+| [2692-a73eaef26-maketrap-head-insert.md](./2692-a73eaef26-maketrap-head-insert.md) | `a73eaef26` | D-3829 getpos-row writer maketrap head-insert (1 PASS) | **ACCEPT** |
+| [2693-b4d61065d-vpline-tail-chaining.md](./2693-b4d61065d-vpline-tail-chaining.md) | `b4d61065d` | D-3830 castmu-row writer vpline completion-tail chaining (moved 681→940) | **ACCEPT** |
+| [2694-d412d1500-menutext-bot-gate.md](./2694-d412d1500-menutext-bot-gate.md) | `d412d1500` | D-3831 process_menu_window-row writer menu-text bot gate (1 PASS) | **ACCEPT** |
