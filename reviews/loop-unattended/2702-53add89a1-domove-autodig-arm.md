@@ -103,4 +103,4 @@ pick at chew-through).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3840
+**Addressed:** D-3840 `fd329cf09`
