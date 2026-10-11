@@ -4,11 +4,12 @@ import { readFileSync } from "node:fs";
 
 const { runSegment } = await import("../js/jsmain.js");
 
-// C ref: hack.c domove_core `:2724-2728` + findtravelpath `found:`
-// (`:1516-1520`) — a travel step with no path and no guess zeroes
-// dx/dy + nomul(0) (multi cleared, travel over) and then FALLS
-// THROUGH: domove self-steps (no-op) with move=1 and the turn still
-// runs (movemon, timers, dosounds, gethungry). JS continue_run's
+// C ref: hack.c domove_core `:2724-2728` + findtravelpath — a travel
+// step with no path and no guess FALLS THROUGH with dx/dy as the
+// callees left them (stale on BFS-exhaust `:1515`; only the two `found:`
+// exits `:1518-1522` zero dx/dy + nomul(0), multi cleared, travel over):
+// domove steps that direction with move=1 and the turn still runs
+// (movemon, timers, dosounds, gethungry). JS continue_run's
 // `!travelStep` arm instead did end_running + move=0 + return,
 // skipping the turn C runs (scen-town-Wizard-94142: C turn-12 runs
 // 95 draws with the hero unmoved at (21,17); JS read the next

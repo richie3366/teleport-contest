@@ -7,8 +7,9 @@ const { runSegment } = await import("../js/jsmain.js");
 // C ref: cmd.c dotravel_target `:5375` + hack.c domove_core `:2724-2737` —
 // dotravel_target calls domove() unconditionally; the travel-step
 // recompute (travel->guess, travel1=0) sits at the top of domove_core and
-// NOPATH FALLS THROUGH (findtravelpath `found:` `:1518-1522` zeroes dx/dy
-// + nomul(0)), so domove's pre-step arms — notably uswallow, which zeroes
+// NOPATH FALLS THROUGH with dx/dy as the callees left them (only the two
+// `found:` exits `:1518-1522` zero dx/dy + nomul(0); BFS-exhaust `:1515`
+// keeps stale), so domove's pre-step arms — notably uswallow, which zeroes
 // dx/dy and attacks the engulfer — always run. JS dotravel_target instead
 // gated domove on travelStep and skipped it on NOPATH, spending the turn
 // (movemon + periodic) with no hero action (scen-sweep-Archeologist-95332
