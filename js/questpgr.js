@@ -484,7 +484,9 @@ const QUEST_LOCATE_NEXT = {
     Wiz: `You believe that you may once again invade %i.`,
 };
 
-/** C ref: dat/quest.lua nexttime (Arc + Bar + Pri + Wiz). */
+/** C ref: dat/quest.lua nexttime (Arc + Bar + Pri + Wiz + Mon + Rog).
+ * Mon/Rog have neither output nor synopsis keys in lua, so they deliver
+ * as a plain pline via the default arm (Wiz precedent). */
 const QUEST_NEXTTIME = {
     Arc: `Once again, you are back at %H.`,
     Bar: `Once again, you near %H.  You know that %l
@@ -492,6 +494,11 @@ will be waiting.`,
     Pri: `Once again, you stand before %H.`,
     // C ref: dat/quest.lua Wiz nexttime (no output/synopsis keys: pline)
     Wiz: `Once again, you are back at %H.`,
+    // C ref: dat/quest.lua Mon nexttime (no output/synopsis keys: pline) — quest.lua:1503-1505
+    Mon: `Once again, you stand before %H.`,
+    // C ref: dat/quest.lua Rog nexttime (no output/synopsis keys: pline) — quest.lua:2157-2160
+    Rog: `Once again, you find yourself back in Ransmannsby.  Fond memories are
+replaced by fear, knowing that %l is waiting for you.`,
 };
 
 /** C ref: dat/quest.lua othertime (Arc + Bar + Pri). */
