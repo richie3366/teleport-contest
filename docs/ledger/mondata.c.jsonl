@@ -25,7 +25,7 @@
 {"fn":"can_track","c":"623-628","status":"ported","js":["js/monsters.js:can_track"],"d":["D-3405","D-3110"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"sliparm","c":"632-636","status":"split","js":["js/polyself.js:sliparm","js/worn.js:sliparm"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"breakarm","c":"640-650","status":"ported","js":["js/worn.js:breakarm"],"at":"2026-10-03@bbe63333a"}
-{"fn":"sticks","c":"654-659","status":"ported","js":["js/uhitm.js:sticks"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sticks","c":"654-659","status":"ported","js":["js/engrave.js:sticks"],"d":["D-3814"],"at":"2026-10-11@2ace14705"}
 {"fn":"cantvomit","c":"663-674","status":"ported","js":["js/mondata.js:cantvomit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"num_horns","c":"678-695","status":"ported","js":["js/worn.js:num_horns"],"at":"2026-09-28@000445a8b","note":"stale: js/worn.js:207 — switch on mndx returns 2/1/0 for the same 8 monster cases as C mondata.c:678-695"}
 {"fn":"dmgtype_fromattack","c":"700-708","status":"ported","js":["js/mondata.js:dmgtype_fromattack"],"d":["D-3357"],"at":"2026-10-03@b28f5f884"}
