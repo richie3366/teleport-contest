@@ -25,7 +25,7 @@
 {"fn":"sacrifice_your_race","c":"1698-1778","status":"ported","js":["js/pray.js:sacrifice_your_race"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bestow_artifact","c":"1781-1836","status":"ported","js":["js/pray.js:bestow_artifact"],"d":["D-2367","D-2337"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sacrifice_value","c":"1839-1850","status":"ported","js":["js/pray.js:sacrifice_value"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dosacrifice","c":"1854-1896","status":"ported","js":["js/pray.js:dosacrifice"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dosacrifice","c":"1854-1896","status":"ported","js":["js/pray.js:dosacrifice"],"d":["D-3823"],"at":"2026-10-11@c11c60623"}
 {"fn":"eval_offering","c":"1899-1956","status":"ported","js":["js/pray.js:eval_offering"],"at":"2026-10-03@bbe63333a"}
 {"fn":"offer_corpse","c":"1959-2120","status":"ported","js":["js/pray.js:offer_corpse"],"d":["D-1678"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_pray","c":"2124-2173","status":"ported","js":["js/pray.js:can_pray"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}

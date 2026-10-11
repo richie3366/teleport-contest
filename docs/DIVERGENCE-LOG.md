@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3823 — pray.c dosacrifice off-altar prep: dead u.Levitation/u.Flying flats always said "on" — live mhitu exports (95337 step 729 → 798)
+
+- **Status:** shipped (Open — cliffs head `pray.c` dosacrifice @87c90a5ca. History `ledger: ported` read once: D-1667 shipped only the ECMD_TIME arms; this divergence names the `:1860–1864` prep arm, still open.)
+- **Symptom:** scen-sweep-Barbarian-95337 step 729/1248 kind=screen: C «You are not over an altar.» vs JS «You are not on an altar.» (RNG 54918/54918 matched; 0 RNG lost). JS prefix probe (runSegment, 729 moves): `uprops[LEVITATION]={intrinsic:8,extrinsic:0,blocked:0}`, HLevitation flat=8 — the hero IS levitating — while `u.Levitation`/`u.Flying` are undefined. State agreed; only the reader disagreed.
+- **C locus:** `pray.c` dosacrifice `:1854–1896` — `:1857` altaralign first, `:1860–1864` `You("are not %s an altar.", (Levitation || Flying) ? "over" : "on")`; `youprop.h:240` Levitation ≡ (H||E)&&!B, `:253–256` Flying ≡ (H||E||steed)&&!B, all over uprops. No direct C call sites — extcmd dispatch only (`cmd.c:72` extern).
+- **JS was:** `js/pray.js:2748` read `(u.Levitation || u.Flying)` — summary flats with zero writers in `js/` (grep), so the prep was always "on"; altaralign computed after the guards (C `:1857` first).
+- **Fix:** prep reads the live `mhitu.js` `Levitation()`/`Flying()` exports (added to pray.js's existing mhitu edge — `imports.mjs` ALREADY, no new edge); altaralign moved above the guards in C order (`a_align` is a pure level read). Rest of the body already whole (D-1667 ECMD_TIME arms, D-1678 offer_corpse, D-2345 amulet arms).
+- **JS:** `js/pray.js` dosacrifice (`:2745–2785`); import `:68`.
+- **Callers:** C has no direct call sites (extcmd table only). JS dispatch pre-existing and untouched (export name/signature kept): `js/cmd.js:2131` 'offer' extcmd entry; `js/cmd.js:3255` canned cmdq_add_ec; `js/getline.js:506` extended-command entry; `js/iactions.js:201` IA_SACRIFICE (C `iactions.c:198–201`).
+- **Verify:** `verify dosacrifice: 1 moved past, 0 unchanged, 0 worse` → PROGRESS (scen-sweep-Barbarian-95337: moved → You_see at step 798, was 729). REACH-OK (no RNG-tagged reach; smoke 24/24). green 2/2 + strict + cohort 7/7; syntax + Rule #2 PASS. Focused: `scripts/dosacrifice-levitation-prep.test.mjs` 1/1 (replays the recipe prefix, asserts «over»; pre-fix /tmp probe showed JS «on»).
+- **Named omissions:** none new (mhitu `Levitation()` reads H/E flats only, no slot — complete today since every levitation slot write derives from the flats; see Next).
+- **Ledger:** dosacrifice ported
+- **Next:** same-file `at_your_feet` `js/pray.js:1679` reads dead `u.Levitation` (`beneath`/`at`, C `pray.c:788–802`) — same disease, left for its own row; widen mhitu `Levitation()` to the D-1085 slot union if a slot-only levitation writer ever appears (Flying already is).
+
 ## D-3822 — cliffs row `doname_base` writer: flats-only Warning/Searching readers never saw a worn ring — no warning digits, no ring autosearch (95210 → PASS)
 
 - **Status:** shipped (Open — cliffs row `objnam.c` doname_base @b2dce99c3, tagged MISATTRIBUTED by the stale 2026-09-08 index park. The tag was right about the owner — `objnam.c:1569` is the topline-literal tie-break on «s - a bronze ring (on right hand).», byte-identical both sides — but the park was stale: its probe scen-wish-Rogue-92037 PASSes on the committed board. The writer is the hero-property read; doname_base is untouched.)

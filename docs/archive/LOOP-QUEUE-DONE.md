@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-11
 
+- [x] `pray.c` dosacrifice — blocks 1/1113 corpus sessions (first at step 729; RNG lost 0, screens lost 2): C «You are not over an altar.» vs JS «You are not on an altar.». Probe: `node scripts/hidden-proxy.mjs verify dosacrifice` (scen-sweep-Barbarian-95337). @87c90a5ca **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]**
+
+
 - [x] `teleport.c` level_tele — blocks 3/1113 corpus sessions (first at step 488; RNG lost 0, screens lost 311): toplines identical; first differing screen row 11: C «|» vs JS «..|» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-worldtour-Archeologist-95240, scen-worldtour-Wizard-95214, scen-worldtour-Wizard-95218). @16a795551 **[history: archived D-2136 — read that D-entry once; the arm this divergence names is still open]**
 
 ## 2026-10-10

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3823 pray.c dosacrifice off-altar prep: dead u.Levitation/u.Flying flats always said "on" — live mhitu exports (95337 step 729 → 798)
+
+**C locus:** `pray.c` dosacrifice `:1854–1896` — `:1857` altaralign first, `:1860–1864` `You("are not %s an altar.", (Levitation || Flying) ? "over" : "on")`; `youprop.h:240` Levitation ≡ (H||E)&&!B, `:253–256` Flying ≡ (H||E||steed)&&!B, all over uprops. No direct C call sites — extcmd dispatch only (`cmd.c:72` extern).
+**JS:** `js/pray.js` dosacrifice (`:2745–2785`); import `:68`.
+**Change:** prep reads the live `mhitu.js` `Levitation()`/`Flying()` exports (added to pray.js's existing mhitu edge — `imports.mjs` ALREADY, no new edge); altaralign moved above the guards in C order (`a_align` is a pure level read). Rest of the body already whole (D-1667 ECMD_TIME arms, D-1678 offer_corpse, D-2345 amulet arms).
+**Verify:** `verify dosacrifice: 1 moved past, 0 unchanged, 0 worse` → PROGRESS (scen-sweep-Barbarian-95337: moved → You_see at step 798, was 729). REACH-OK (no RNG-tagged reach; smoke 24/24). green 2/2 + strict + cohort 7/7; syntax + Rule #2 PASS. Focused: `scripts/dosacrifice-levitation-prep.test.mjs` 1/1 (replays the recipe prefix, asserts «over»; pre-fix /tmp probe showed JS «on»).
+**Named:** none new (mhitu `Levitation()` reads H/E flats only, no slot — complete today since every levitation slot write derives from the flats; see Next).
+**Next:** same-file `at_your_feet` `js/pray.js:1679` reads dead `u.Levitation` (`beneath`/`at`, C `pray.c:788–802`) — same disease, left for its own row; widen mhitu `Levitation()` to the D-1085 slot union if a slot-only levitation writer ever appears (Flying already is).
 ## 2026-10-11 — D-3822 cliffs row `doname_base` writer: flats-only Warning/Searching readers never saw a worn ring — no warning digits, no ring autosearch (95210 → PASS)
 
 **C locus:** `youprop.h:163–165` Warning ≡ `u.uprops[WARNING].intrinsic || .extrinsic`; `:175–177` Searching ≡ `u.uprops[SEARCHING].intrinsic || .extrinsic`; `display.h:64–66` _mon_warning (Warning && !mpeaceful && mdistu < 100 && m_lev/4 ≥ warnlevel); `do_wear.c` Ring_on RIN_WARNING → see_monsters; `allmain.c:342` `Searching && !noautosearch && multi >= 0` → dosearch0(1); `insight.c` attributes_enlightenment Searching arm.
