@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-11 — D-3850 cliffs-head `botl.c` do_statusline2 Archeologist-578126 s621: writer `hack.c` domove_core run-stop on furniture called end_running not nomul(0); session moves 621→824
+
+**C locus:** `hack.c` domove_core `:2936–2941` (`run && run<8 && IS_DOOR/IS_OBSTRUCTED/IS_FURNITURE(tmpr) → nomul(0)`); `hack.c:4161–4175` nomul (`disp.botl |= multi>=0`, then end_running); `pickup.c:447–456` check_here (nomul if run, flush_screen→bot, look_here). IS_DOOR ≡ ==DOOR (rm.h:121); tmpr is dest levl (domove_core :2784), ≡ JS newx/newy.
+**JS:** 1 file (cmd.js +6/−2) + test `scripts/runstop-furniture-nomul.test.mjs` (new, node:test, 1 it: chain segs 0–5 prefix to step 621 → top has the corpse pickup, r23 has Stressed). Rule #2 clean; temp DIAG reverted; /tmp probes uncommitted.
+**Change:** `js/cmd.js` only — `nomul(0)` (already imported, no new edge), C-cited at the arm.
+**Verify:** focused test 0/1 pre-fix (r23 lacks Stressed) → 1/1 post-fix. `node scripts/verify.mjs --fn do_statusline2,domove_core` → syntax 1 file · rule2 · `verify do_statusline2: 0 PASS, 1 moved past, 2 unchanged, 0 worse → PROGRESS` (Archeologist 621→dosearch0@824; Knight-578142 still T:39-vs-40 — live moves=40 correct, time_botl writer, own pop; Rogue-578101 still Satiated — live uhs=0=SATIATED where C NOT_HUNGRY, hunger-state writer, own pop) · reach smoke 24/24 ×2 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Plus forced full `frozen/ps_test_runner.mjs sessions`: 44/44.
+**Named:** none in this arm (door/obstructed/furniture predicates match C). Standing (not this divergence): domove_core partial omits (travel head etc. per ledger) untouched; check_leash order (JS before run-check, C :2962 after mimic) pre-existing.
+**Next:** Archeologist now blocks on dosearch0@824 (next row names the writer or [measure]). Do not re-pop do_statusline2 for the furniture/nomul arm; Knight T and Rogue Satiated are separate writer pops.
 ## 2026-10-11 — D-3849 cliffs-head mhitm_knockback writers: poly_gender neuter arm + mon_poly Antimagic uprops OR (2 PASS)
 
 **C locus:** `polyself.c:2149–2157` poly_gender (`is_neuter || !humanoid → 2`); `youprop.h:57` Antimagic + `:370–371` Unchanging (H||E ≡ uprops slots); `uhitm.c:4762` ssex gate (`could_seduce==1 && !mcan`); `mhitm.c:1127–1133` mon_poly hero arm (Antimagic shieldeff / Unchanging silent — both RNG-silent, display.c:1110 verified drawless).

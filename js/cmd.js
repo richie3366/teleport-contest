@@ -7067,12 +7067,16 @@ export async function domove(dx, dy) {
     // C ref: hack.c domove :2708 — kickedloc clears unconditionally at
     // domove() end (finally block below), even on bumps/failed steps.
 
-    // C: running stops on door / obstructed / furniture (dest tmpr)
+    // C hack.c domove_core `:2936–2941` — run stops on door /
+    // obstructed / furniture at dest (tmpr): nomul(0), not end_running.
+    // nomul sets disp.botl (multi>=0) so the post-pickup encumbrance
+    // paints via flush_screen→bot in check_here; end_running clears run
+    // without botl and leaves the status stale (D-3850).
     if (game.context?.run && game.context.run < 8) {
         const tmpr = game.level?.at(newx, newy);
         if (tmpr && (tmpr.typ === DOOR || IS_OBSTRUCTED(tmpr.typ)
             || IS_FURNITURE(tmpr.typ))) {
-            end_running(true);
+            nomul(0);
         }
     }
 
