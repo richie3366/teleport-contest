@@ -5741,7 +5741,7 @@ function hero_Blind_telepat(u = game.u || {}) {
 }
 
 /** C ref: youprop.h Warning — HWarning || EWarning. */
-function hero_Warning(u = game.u || {}) {
+export function hero_Warning(u = game.u || {}) {
     const e = u.uprops?.[WARNING];
     return !!((u.HWarning | 0) || (u.EWarning | 0)
         || u.Warning

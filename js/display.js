@@ -162,7 +162,7 @@ import {
 import { depth, dist2 } from './hacklib.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { DEFSYMS } from './generated/defsyms_data.js';
-import { observe_object, near_capacity, update_inventory, Blind } from './invent.js';
+import { observe_object, near_capacity, update_inventory, Blind, hero_Warning } from './invent.js';
 import { visible_region_at, show_region } from './region.js';
 import { see_wsegs, worm_known, level_mon_at } from './worm.js';
 import { SoundSpeak } from './sndprocs.js';
@@ -1397,8 +1397,9 @@ export function sensemon(mon) {
 export function mon_warning(mon) {
     if (!mon) return false;
     const u = game.u || {};
-    const Warning = !!((u.HWarning | 0) || (u.EWarning | 0) || u.Warning);
-    if (!Warning || mon.mpeaceful) return false;
+    // C youprop.h Warning ≡ uprops[WARNING].intrinsic || .extrinsic — a
+    // worn ring of warning sets only uprops (do_wear.js confer_oc_oprop).
+    if (!hero_Warning(u) || mon.mpeaceful) return false;
     const d = dist2(u.ux | 0, u.uy | 0, mon.mx | 0, mon.my | 0);
     if (d >= 100) return false;
     const warnlevel = game.context?.warnlevel ?? 1;

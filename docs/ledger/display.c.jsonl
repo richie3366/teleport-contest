@@ -1,6 +1,6 @@
 {"fn":"tp_sensemon","c":"166-169","status":"ported","js":["js/display.js:tp_sensemon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sensemon","c":"173-176","status":"ported","js":["js/display.js:sensemon"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180"}
-{"fn":"mon_warning","c":"180-183","status":"ported","js":["js/display.js:mon_warning"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mon_warning","c":"180-183","status":"ported","js":["js/display.js:mon_warning"],"d":["D-3822"],"at":"2026-10-11@87c90a5ca"}
 {"fn":"mon_visible","c":"187-190","status":"ported","js":["js/display.js:mon_visible"],"at":"2026-10-03@bbe63333a"}
 {"fn":"see_with_infrared","c":"194-197","status":"ported","js":["js/display.js:see_with_infrared"],"at":"2026-10-03@bbe63333a"}
 {"fn":"canseemon","c":"201-204","status":"ported","js":["js/display.js:canseemon"],"d":["D-3424","D-3401"],"at":"2026-10-04@011b251ee","note":"audited: whole vs C; clones retired"}
