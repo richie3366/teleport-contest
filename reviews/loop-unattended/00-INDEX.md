@@ -2684,3 +2684,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2672-6657185de-domove-wall-prose.md](./2672-6657185de-domove-wall-prose.md) | `6657185de` | D-3808 test_move-row writer domove wall prose via back_to_glyph (2 PASS) | **ACCEPT** |
 | [2673-e93d9c513-flying-uprops-union.md](./2673-e93d9c513-flying-uprops-union.md) | `e93d9c513` | D-3809 do_statusline2-row writer shared Flying() uprops union (1 PASS) | **ACCEPT** |
 | [2674-38c910247-u-locomotion-unions.md](./2674-38c910247-u-locomotion-unions.md) | `38c910247` | D-3810 swim_move_danger-row writer u_locomotion slot unions (2 PASS) | **ACCEPT** |
+| [2675-c7b85e2f6-enlightenment-antimagic-no-worn.md](./2675-c7b85e2f6-enlightenment-antimagic-no-worn.md) | `c7b85e2f6` | D-3811 one_characteristic-row writer enlightenment Antimagic no worn arm (2 PASS) | **ACCEPT** |
+| [2676-d6bf72e60-piletop-generic-narrowed.md](./2676-d6bf72e60-piletop-generic-narrowed.md) | `d6bf72e60` | D-3812 readobjnam_postparse1-row writer piletop-generic narrowed (1 PASS) | **ACCEPT** |
+| [2677-2ace14705-sermon-ebones-arm.md](./2677-2ace14705-sermon-ebones-arm.md) | `2ace14705` | D-3813 slime_dialogue-row writer serMon ebones arm (1 PASS) | **ACCEPT** |
+| [2678-ba9e6fe06-sticks-canonical-import.md](./2678-ba9e6fe06-sticks-canonical-import.md) | `ba9e6fe06` | D-3814 mhitm_ad_wrap-row writer sticks canonical import (1 PASS) | **ACCEPT** |
+| [2679-0b7322b84-rottenfood-triple.md](./2679-0b7322b84-rottenfood-triple.md) | `0b7322b84` | D-3815 rottenfood spin-faint triple + foodword (1 PASS) | **ACCEPT** |
+| [2680-67d359f56-doattributes-flush-silver.md](./2680-67d359f56-doattributes-flush-silver.md) | `67d359f56` | D-3816 maybe_wail-row writer doattributes flush + silver (moved 876→1227) | **ACCEPT** |
+| [2681-08f125a34-overview-shared-pager.md](./2681-08f125a34-overview-shared-pager.md) | `08f125a34` | D-3817 do_statusline2-row writer show_overview shared pager (2 PASS) | **ACCEPT** |
+| [2682-6e7e9bf7a-domonability-chain.md](./2682-6e7e9bf7a-domonability-chain.md) | `6e7e9bf7a` | D-3818 domonability chain arms, bare tail (moved 1075→1164) | **ACCEPT** |
+| [2683-bc0bec095-domove-tunnels-chew.md](./2683-bc0bec095-domove-tunnels-chew.md) | `bc0bec095` | D-3819 still_chewing-row writer domove tunnels chew (1 PASS) | **ACCEPT** |
