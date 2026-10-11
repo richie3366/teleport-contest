@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-11
 
+- [x] js/cmd.js domove autodig arm fires where C's test_move else-chain skips it — tunnels&&!needspick polyform (umber hulk, monsters.h:2275) that chewed through (still_chewing FALSE) with pick wielded + autodig: C hack.c:1037–1048 skips the :1042 arm and returns TRUE (:1253), JS calls use_pick_axe2 + move=0 on stale destTyp (cmd.js:6736/6777). Fix: guard the arm with !(tunnels&&!needspick) + focused test (chew-through → no dig occupation, move proceeds). Source: reviews/loop-unattended/2702-53add89a1-domove-autodig-arm.md.
+
+
 - [x] `pray.c` dosacrifice — blocks 1/1113 corpus sessions (first at step 729; RNG lost 0, screens lost 2): C «You are not over an altar.» vs JS «You are not on an altar.». Probe: `node scripts/hidden-proxy.mjs verify dosacrifice` (scen-sweep-Barbarian-95337). @87c90a5ca **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]**
 
 

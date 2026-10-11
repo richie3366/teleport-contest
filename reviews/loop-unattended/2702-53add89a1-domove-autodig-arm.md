@@ -102,3 +102,5 @@ pick at chew-through).
    no use_pick_axe2, move proceeds). One port iter.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3840

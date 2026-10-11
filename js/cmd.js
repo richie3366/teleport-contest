@@ -6775,8 +6775,16 @@ export async function domove(dx, dy) {
         // Underwater blocks first (:1017–1025 — message deferred, gate
         // preserved like the tunnels arm); Passes_walls+may_passwall
         // (:1014) stays deferred (turns.md:401).
+        // C :1037–1048 — the obstructed chain is else-if: when the
+        // tunnels arm matches (tunnels && !needspick) but still_chewing
+        // returns FALSE (chewed through this move), C skips the :1042
+        // autodig arm and returns TRUE (:1253). Without this guard JS
+        // fires use_pick_axe2 on the stale destTyp (review 2702:
+        // tunnels polyform + wielded pick + autodig).
+        const chewDat = game.youmonst?.data;
         if (destTyp !== IRONBARS && IS_OBSTRUCTED(destTyp)
             && !(u.uinwater | 0)
+            && !(chewDat && tunnels(chewDat) && !needspick(chewDat))
             && game.flags?.autodig && !(game.context.run | 0)
             && !(game.context.nopick | 0)
             && u.uwep && is_pick(u.uwep)) {
