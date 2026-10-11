@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-10** — full `sessions` on `663092d75`
-(audit **2648–2656**, 2026-10-10T19:13:10.202Z).
+Score last measured: **2026-10-11** — full `sessions` on `3b2e6a541`
+(audit **2657–2665**, 2026-10-11T00:12:30Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`353+1.56/turn` (R² 0.77).
+`348+1.58/turn` (R² 0.79).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-10 07:46Z, ours 07:19Z)** | **19 / 44**, 8,856 / 11,265 pts, RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** |
+| **Held-out (judge 2026-10-10 19:09Z, board 19:36Z)** | **19 / 44**, 8,856 / 11,265 pts, RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `353+1.56/turn` (R² 0.77) |
+| Speed label | `348+1.58/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (8,856 vs lockwo 8,533; their RNG 84.3 % vs our 46.4 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,856** (+0), RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** at judge 2026-10-10 07:46Z (ours 07:19Z: through D-3774).
-**Corpus — picker and proxy (2026-10-10 ~19:21Z, `663092d75`; 1113/1113 entries, 0 unrecorded):**
-**1039 / 1113** PASS, RNG 20298598/20441637 (**99.30 %**), screens 340080/347076 (98.0 %); `full: true`. Marathons 100/160. Worst families: `scen-sweep` 23/50 (RNG 95.9 %), `scen-worldtour` 24/50 (97.7 %), `scen-chain` 34/40 (100 %), `scen-trek` 19/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; 0 FAIL→PASS vs committed (board already current; +4 vs last audit's 1035: D-3785 95226, D-3789 95303, D-3790 95204, D-3791 95200). Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2656 (index; no row 1618): 1262 ACCEPT, 60 WITH-DEBT, 109 QUALITY-RISK (2648–2656: 9A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (8,856 vs lockwo 8,533; their RNG 84.3 % vs our 46.4 %: our loss is early cliffs in long sessions). 19/44 held, pts **8,856** (+0), RNG **46.4 %**, rngSteps 93.2 %, screens **78.6 %** at judge 2026-10-10 19:09Z (board 19:36Z — before this window's SHAs, so no movement attributable yet).
+**Corpus — picker and proxy (2026-10-11 ~00:10Z, `3b2e6a541`; 1113/1113 entries, 0 unrecorded):**
+**1050 / 1113** PASS, RNG 20346915/20441637 (**99.54 %**), screens 341508/347076 (98.4 %); `full: true`. Marathons 111/160. Worst families: `scen-sweep` 27/50 (RNG 96.8 %), `scen-worldtour` 30/50 (98.9 %), `scen-chain` 34/40 (100 %), `scen-trek` 20/20 (100 %); rest 100 % RNG. 0 PASS→FAIL; +3 FAIL→PASS vs committed (rescore-only cross-effects: 95330 revive_corpse@120, 95302 do_statusline2@1550, 95216 fumaroles@934; +11 vs last audit's 1039: D-3793 ×2, D-3794, D-3795, D-3796, D-3797, D-3801 ×2 + rescore 3). Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2665 (index; no row 1618): 1271 ACCEPT, 60 WITH-DEBT, 109 QUALITY-RISK (2657–2665: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 

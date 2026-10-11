@@ -2666,3 +2666,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2654-fd2c769ce-antimagic-worn-fallback-delete.md](./2654-fd2c769ce-antimagic-worn-fallback-delete.md) | `fd2c769ce` | D-3790 mbhitm-row writer Antimagic worn-fallback delete (1 PASS) | **ACCEPT** |
 | [2655-2e9bcf454-freeinv-drop-c-whole.md](./2655-2e9bcf454-freeinv-drop-c-whole.md) | `2e9bcf454` | D-3791 drop_uswapwep-row writer freeinv_drop C-whole (1 PASS) | **ACCEPT** |
 | [2656-663092d75-goto-level-monster-bubble-order.md](./2656-663092d75-goto-level-monster-bubble-order.md) | `663092d75` | D-3792 getlev-row writer goto_level monster/bubble order (1 moved) | **ACCEPT** |
+| [2657-1972bacc2-rest-regions-nmonst-restore.md](./2657-1972bacc2-rest-regions-nmonst-restore.md) | `1972bacc2` | D-3793 distfleeck-row writer rest_regions n_monst restore (2 PASS) | **ACCEPT** |
+| [2658-6f999f526-mzapwand-mergable-alias.md](./2658-6f999f526-mzapwand-mergable-alias.md) | `6f999f526` | D-3794 look_here-row writers mzapwand restart + mergable opoisoned (1 PASS + 1 moved) | **ACCEPT** |
+| [2659-f317b5f7a-backfire-wail-drain.md](./2659-f317b5f7a-backfire-wail-drain.md) | `f317b5f7a` | D-3795 flash_str-row writer backfire wail drain x5 sites (1 PASS) | **ACCEPT** |
+| [2660-22d838e30-ucatch-live-gates.md](./2660-22d838e30-ucatch-live-gates.md) | `22d838e30` | D-3796 bottlename-row writer u_catch live Blind/Fumbling gates (1 PASS) | **ACCEPT** |
+| [2661-7f838064f-mdamagem-lifesave-gate.md](./2661-7f838064f-mdamagem-lifesave-gate.md) | `7f838064f` | D-3797 passivemm-row writer mdamagem lifesave gate x2 tails (1 PASS) | **ACCEPT** |
+| [2662-7b9481548-mbhitm-wail-drain.md](./2662-7b9481548-mbhitm-wail-drain.md) | `7b9481548` | D-3798 maybe_wail-row writer mbhitm striking wail drain (1 moved) | **ACCEPT** |
+| [2663-1adc2a3cf-garden-sdoor-tree.md](./2663-1adc2a3cf-garden-sdoor-tree.md) | `1adc2a3cf` | D-3799 level_tele-row writer garden SDOOR tree tty (1 moved) | **ACCEPT** |
+| [2664-a885aeb77-scroll-create-appear.md](./2664-a885aeb77-scroll-create-appear.md) | `a885aeb77` | D-3800 awaken_soldiers-row writer scroll create appear msg (1 moved) | **ACCEPT** |
+| [2665-3b2e6a541-zap-hit-clone-collapse.md](./2665-3b2e6a541-zap-hit-clone-collapse.md) | `3b2e6a541` | D-3801 toss_up-row writer zap hit clone collapse (2 PASS) | **ACCEPT** |
