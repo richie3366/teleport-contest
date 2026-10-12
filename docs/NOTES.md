@@ -24,23 +24,25 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split).
 - **gulpmu stale-I (D-3861 MEASURED, parked):** C clears (71,4) memory-'I' in 239/241 (fork@238+^R: 'I' both sides); newsym preserves both branches; all unmap callers eliminated. Pop needs the [measure] temp-C glyph dump — do not re-derive.
 - **241-end anomaly (D-3861, UNEXPLAINED):** ustuck=id300@72,5+uswallow=0 with miss-only gulpmu + one unstuck draw — no C path sets this; resolving it may name the writer.
+- **level_tele Knight residual (D-3862):** 578306 s859 wall ──┐ C-11 vs JS-8, 0 cells differ — wall lighting/color writer.
 ## Don't re-check (≤15)
 
-- D-1790…D-3861 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3861) reached no session — no pole-lava row.
+- D-1790…D-3862 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3862) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3861.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3861 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3862.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3862 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3862: both arms now write `cmap_idx_to_glyph(S_stone)` (id GLYPH_CMAP_STONE_OFF, renders blank — reglyph write-shape precedent); the tweak detection is `mem Named: none new (unmap_object now whole vs C :409–437; the stale "dark-room S_room→S_stone" doc o
 - D-3861: no `js/` change. Named: (none — no port; docs-only entry, no Ledger bullet — gulpmu stays ported D-2462/D-3846.)
 - D-3860: `js/detect.js` only — 3× `nomul_clear()` → `nomul(0)` with C-line cites; deleted the clone (its `_repeat_search=false` kept nothing: the flag has no ` Named: none in the ported arms (all 3 find sites now call C's nomul(0) verbatim).
 - D-3859: js/potion.js only — `dippable_lets_raw(inacc)`/`dippable_lets(inacc)` skip `inacc(o, false)` (C `:2223–2224`); `dip_hands_ok(obj, inacc)` threads it ( Named: none new (pre-existing clone gaps per D-3386 — canned CMDQ_INT count prefix, reassign/in_d
@@ -55,5 +57,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3850: `js/cmd.js` only — `nomul(0)` (already imported, no new edge), C-cited at the arm. Named: none in this arm (door/obstructed/furniture predicates match C).
 - D-3849: `js/mhitm.js` only — deleted the thin poly_gender clone, imported the whole `polyself.js:890` export (same-edge addition, `imports.mjs --can` ALREADY) Named: none in the ported arms.
 - D-3848: `js/cmd.js` only — TIME-gated `game.kickedloc = { x: 0, y: 0 }` in the `#` (after the reset block, below the prefix-continue — C skips the tail on pre Named: none in this arm (bound, per-key, canned, and extcmd dispatch shapes now all match `:3819–
-- D-3847: js/zap.js only — bounce check + bchance re-read `game.level?.at?.(sx, sy)?.typ` (C-live semantics, cited); the dup absorb block deleted (zap_over_floo Named: none new — bounce/door arms now C-verbatim; dobuzz's pre-existing envelope (doc :2374) sta
 <!-- landmarks:end -->
