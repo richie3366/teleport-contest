@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0007air elemental\n.Fb Fj   Fj Fj   Fl  Fk Fk #pray\ny y #pray\ny y Fk  Fb  \u0007ochre jelly\nFk  sm.  Fk  #pray\ny y          #pray\ny y           Fj  Fj   ynnnny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 585612,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0007air elemental\n.Fb Fj   Fj Fj   Fl  Fk Fk #pray\ny y #pray\ny y Fk  Fb  \u0007ochre jelly\nFk  sm.  Fk  #pray\ny y          #pray\ny y           Fj  Fj   ynnnny\u001b  2"
+  }
+ ]
+}

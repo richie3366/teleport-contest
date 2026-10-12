@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nn#chat\nj;j. \u001b.20s   \u001bss\u0016?\ns __..20s\u001644\nkkj  y   :\u0016?\n>Dklnh:sss\u001644\n ykjyy:.\u0016?\n>Bkb:.\u001644\nuhlhn:\u0016?\n>B_>._..>\u0016?\n>Ghhlll:\u0016?\n>>N       potion of fruit juice\nbn    :\u0016?\na  u n         n       k         n    \u001b      b       n            l            j  n    \u001b         j      n                  :sm.              n                 .m.  n                   .j\u001612\n\u0016?\nc __.>.m.   n             .n     n  sn       \u00161\n\u0016?\n\u001bby by\u0016?\n\u001bbyby\u0016?\n\u001bbyby\u0016?\n\u001bbyby\u0016?\n\u001bbny               n   by\u001644\n_<.<\u001616\n_<.sy            n       20s        n       \u001b   .m.   n                     n      \u001612\n\u0016?\n\u001bn            n       k   yy\u001by  y  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 585408,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nn#chat\nj;j. \u001b.20s   \u001bss\u0016?\ns __..20s\u001644\nkkj  y   :\u0016?\n>Dklnh:sss\u001644\n ykjyy:.\u0016?\n>Bkb:.\u001644\nuhlhn:\u0016?\n>B_>._..>\u0016?\n>Ghhlll:\u0016?\n>>N       potion of fruit juice\nbn    :\u0016?\na  u n         n       k         n    \u001b      b       n            l            j  n    \u001b         j      n                  :sm.              n                 .m.  n                   .j\u001612\n\u0016?\nc __.>.m.   n             .n     n  sn       \u00161\n\u0016?\n\u001bby by\u0016?\n\u001bbyby\u0016?\n\u001bbyby\u0016?\n\u001bbyby\u0016?\n\u001bbny               n   by\u001644\n_<.<\u001616\n_<.sy            n       20s        n       \u001b   .m.   n                     n      \u001612\n\u0016?\n\u001bn            n       k   yy\u001by  y  y\u001b  \u0016"
+  }
+ ]
+}

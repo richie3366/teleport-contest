@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      \u0016?\n>>M      flint stone\n\u0006\u001b;_>.\u0016?\n\u001bnk  \u0016?\n\u001bl         n   n       n  \u001610\n\u001627\nl       n      h     n   n    n         k:sm.  n      n  sm.     n     sm.        n     \u001611\n\u0016?\n\u001bj     n     y   n       n  \u001610\n\u0016?\n\u001bj          n   j      n     \u001612\n\u001627\n#levelchange\n6\n      \u001710 daggers\nQl\u0007yellow mold\nh    n      ynnny\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 585424,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      \u0016?\n>>M      flint stone\n\u0006\u001b;_>.\u0016?\n\u001bnk  \u0016?\n\u001bl         n   n       n  \u001610\n\u001627\nl       n      h     n   n    n         k:sm.  n      n  sm.     n     sm.        n     \u001611\n\u0016?\n\u001bj     n     y   n       n  \u001610\n\u0016?\n\u001bj          n   j      n     \u001612\n\u001627\n#levelchange\n6\n      \u001710 daggers\nQl\u0007yellow mold\nh    n      ynnny\u001b  u"
+  }
+ ]
+}

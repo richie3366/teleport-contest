@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0007kitten\n\u0017food ration\ntbu#chat\nu u\u0006_ \u001b;>Fk s_>,Fy_,>_>._.>\u0017tin whistle\nknuag\u0017tin whistle\nyljah\u0006_>,_.>_>._.>_>._.>i\u001b#wizintrinsic\nf\n s20ss20s.ssss20s\u0017scroll of taming\nri \u001b;<.#force\n<df\u0018\u001b20ss.sss.\u0018\u001b#levelchange\n6\n\u00176 eggs\nQ\u001b\u0007jackal\nuufhflfjfk\u0017potion of polymorph\nt\u001b\u0007newt\nlnfhflfhss\u0017spetum\nwl\u0007gnome\njal:buh,#enhance\nym\no\n\u001b\u001720 darts\nQm\u0007yellow mold\nlfyfyfbfh\u0007jackal\nhlfyfn20s20s\u0017potion of sickness\ntab \u0017lance\nwo\u0007acid blob\nhao@.yny,#enhance\nyn\nb\n\u001b\u0007lich\nFh Fl  FjFhFjFjsm.20s  #pray\ny y      \u0007owlbear\nFn  Fh  n   Fn Fh  n   Fl   n   Fh   sm.20s    n  \u0007mind flayer\nFh Fn      Fl     n     Fl   n    20s   n  sb     \u00161\n#wizintrinsic\ni\n \u0017cursed scroll of earth\nrp\u0017blessed wand of create monster\nzqgecko\nZ\u0017scroll of earth\nrr\u0017scroll of teleportation\nrss.20s   n \u0007horse\n\u0017apple\ntmh\u0007tame winter wolf cub\n\u0017fortune cookie\ntly#name\nm\n10s \u0017banana\ntmk#name\nm\n#name\nm,\u0017food ration\n tmu   n #levelchange\n6\n\u0016?\nj\u0006\u0017bugle\naxnGtBGCDoEBGssABGFsBoFeBGnGttoDCDEDnGtCeEFBAG\nk   jaxnoGFoCCtBFGBeEEeDEoEEBseDDFCAosGnsBEEoEDFGEA\n bu#terrain\n\u001b,cl#levelchange\n8\n  \u0017blessed ring of polymorph control\nPyr  \u001b#polyself\ngold dragon\n   #monster\nb .20s20sss#polyself\ngas spore\n#monster\n.20ss20ss#polyself\nhobbit\n s 20s  n 20s sm.20s \u0006i>\u001bqn eu  sm.20sej .l.axy       \u001b \u001brs "
+ },
+ "segments": [
+  {
+   "seed": 585517,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0007kitten\n\u0017food ration\ntbu#chat\nu u\u0006_ \u001b;>Fk s_>,Fy_,>_>._.>\u0017tin whistle\nknuag\u0017tin whistle\nyljah\u0006_>,_.>_>._.>_>._.>i\u001b#wizintrinsic\nf\n s20ss20s.ssss20s\u0017scroll of taming\nri \u001b;<.#force\n<df\u0018\u001b20ss.sss.\u0018\u001b#levelchange\n6\n\u00176 eggs\nQ\u001b\u0007jackal\nuufhflfjfk\u0017potion of polymorph\nt\u001b\u0007newt\nlnfhflfhss\u0017spetum\nwl\u0007gnome\njal:buh,#enhance\nym\no\n\u001b\u001720 darts\nQm\u0007yellow mold\nlfyfyfbfh\u0007jackal\nhlfyfn20s20s\u0017potion of sickness\ntab \u0017lance\nwo\u0007acid blob\nhao@.yny,#enhance\nyn\nb\n\u001b\u0007lich\nFh Fl  FjFhFjFjsm.20s  #pray\ny y      \u0007owlbear\nFn  Fh  n   Fn Fh  n   Fl   n   Fh   sm.20s    n  \u0007mind flayer\nFh Fn      Fl     n     Fl   n    20s   n  sb     \u00161\n#wizintrinsic\ni\n \u0017cursed scroll of earth\nrp\u0017blessed wand of create monster\nzqgecko\nZ\u0017scroll of earth\nrr\u0017scroll of teleportation\nrss.20s   n \u0007horse\n\u0017apple\ntmh\u0007tame winter wolf cub\n\u0017fortune cookie\ntly#name\nm\n10s \u0017banana\ntmk#name\nm\n#name\nm,\u0017food ration\n tmu   n #levelchange\n6\n\u0016?\nj\u0006\u0017bugle\naxnGtBGCDoEBGssABGFsBoFeBGnGttoDCDEDnGtCeEFBAG\nk   jaxnoGFoCCtBFGBeEEeDEoEEBseDDFCAosGnsBEEoEDFGEA\n bu#terrain\n\u001b,cl#levelchange\n8\n  \u0017blessed ring of polymorph control\nPyr  \u001b#polyself\ngold dragon\n   #monster\nb .20s20sss#polyself\ngas spore\n#monster\n.20ss20ss#polyself\nhobbit\n s 20s  n 20s sm.20s \u0006i>\u001bqn eu  sm.20sej .l.axy       \u001b \u001brs "
+  }
+ ]
+}

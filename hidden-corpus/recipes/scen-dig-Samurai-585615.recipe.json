@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017pick-axe\naf > 20saf>af<afb baf<ny_ \u001b;af>\u0017pick-axe\nn\u0017grave\nag >  ..ag> sag> \u0006_oooo, Fh  _.ag>  agu uagk kjn"
+ },
+ "segments": [
+  {
+   "seed": 585615,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017pick-axe\naf > 20saf>af<afb baf<ny_ \u001b;af>\u0017pick-axe\nn\u0017grave\nag >  ..ag> sag> \u0006_oooo, Fh  _.ag>  agu uagk kjn"
+  }
+ ]
+}

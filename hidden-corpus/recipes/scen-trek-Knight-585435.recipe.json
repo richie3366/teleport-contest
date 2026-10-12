@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "YYYJ_ \u001b@.>Fk 20ssNYNN_>.><K YUB _>.>NY YU_>.>UYYJ_>,>E- Elbereth\n\u0014LLLU_>,>W\u0014;>.#untrap\nlPJNLY_>,>tbh\u0014BJ YN_>.>W#enhance\n\u001bNJY N_>,>JBLY_>.>\u000f\u001bNJHY_>.>YNLJ_>.>YNYJ _>,>KLHH_>.>NKHL_>.>YLJJ_>.>\u000f\u001bYBKB_>.>BBYH_>.>BHUB_>.>KUKL_>.>LBBU_>,>w-#enhance\n\u001bUHKJ_>,><LNUB_>.>P#loot\nNKLL_>.>#ride\njKHUBL_>.>NUKN_>.>Fy Fy.#jump\n<.\u0018\u001bJHBL_>.>#conduct\n WNBKN_>.>jZykh150s 150sFyFyFyunb50sL150sFhFhFh100sjkj100sbyn50si\u001b\u000f\u001bykb100skyhljj_>,>lluhyn150s150syulFhFbFhFb20s.i\u001b_>.>#enhance\n\u001bhlu50s100sbnh\\   _>.>100sFhFhFhFhFhFh#terrain\nc\n:eh#chat\nykl20sdg20sssbyh#turn\n E- Elbereth Elbereth\n\u0014KUJ L_>,>KNHJ_>,>YJH N_>.>FkFk20sJUU K_>.>LNY L_>,>#enhance\n\u001b,KUUN_>,>#ride\nu#conduct\n LLHL_>.>FhFhFhUBLN_>.>oj#terrain\nc\nm.YNH Y_>,>\\   #pray\ny NNUN_>.>,aJLUB_>.>LBHN_>.>HYLN_>,>JJKB _>.>HL YH_>.>UHLL_>.>UHYJ_>.>#sit\n\\   #twoweapon\nUNKK_>.>P#sit\nH HKH_>,>HJBJ_>.>KBYH_>.>#pray\ny \u0004uNJYN_>,>KUJN_>,>NLNH_>.>;_.yLBYJ_>.>r\u001b#rub\nNUYY_>,>\u000f\u001bHBUK_>,>KKBH_>.>BYJL _>,>HBNN_>.>"
+ },
+ "segments": [
+  {
+   "seed": 585435,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "YYYJ_ \u001b@.>Fk 20ssNYNN_>.><K YUB _>.>NY YU_>.>UYYJ_>,>E- Elbereth\n\u0014LLLU_>,>W\u0014;>.#untrap\nlPJNLY_>,>tbh\u0014BJ YN_>.>W#enhance\n\u001bNJY N_>,>JBLY_>.>\u000f\u001bNJHY_>.>YNLJ_>.>YNYJ _>,>KLHH_>.>NKHL_>.>YLJJ_>.>\u000f\u001bYBKB_>.>BBYH_>.>BHUB_>.>KUKL_>.>LBBU_>,>w-#enhance\n\u001bUHKJ_>,><LNUB_>.>P#loot\nNKLL_>.>#ride\njKHUBL_>.>NUKN_>.>Fy Fy.#jump\n<.\u0018\u001bJHBL_>.>#conduct\n WNBKN_>.>jZykh150s 150sFyFyFyunb50sL150sFhFhFh100sjkj100sbyn50si\u001b\u000f\u001bykb100skyhljj_>,>lluhyn150s150syulFhFbFhFb20s.i\u001b_>.>#enhance\n\u001bhlu50s100sbnh\\   _>.>100sFhFhFhFhFhFh#terrain\nc\n:eh#chat\nykl20sdg20sssbyh#turn\n E- Elbereth Elbereth\n\u0014KUJ L_>,>KNHJ_>,>YJH N_>.>FkFk20sJUU K_>.>LNY L_>,>#enhance\n\u001b,KUUN_>,>#ride\nu#conduct\n LLHL_>.>FhFhFhUBLN_>.>oj#terrain\nc\nm.YNH Y_>,>\\   #pray\ny NNUN_>.>,aJLUB_>.>LBHN_>.>HYLN_>,>JJKB _>.>HL YH_>.>UHLL_>.>UHYJ_>.>#sit\n\\   #twoweapon\nUNKK_>.>P#sit\nH HKH_>,>HJBJ_>.>KBYH_>.>#pray\ny \u0004uNJYN_>,>KUJN_>,>NLNH_>.>;_.yLBYJ_>.>r\u001b#rub\nNUYY_>,>\u000f\u001bHBUK_>,>KKBH_>.>BYJL _>,>HBNN_>.>"
+  }
+ ]
+}

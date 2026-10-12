@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           \u0007yeti\nFnFb FlFl Fb \u0007ki-rin\nFbFb  FbFj     n Fj     Fj    n  \u0007djinni\nFb Fn Fb    n  Fb     Fj   n    Fb     \u0007green slime\nFb  n    Fl   n         Fb   n     Fl     n  \u001610\n\u0017800 gold pieces\n\u0016?\nc\u0006_ \u001b;#chat\nl_mm.  Fy    _,#chat\n_mm,#chat\n_{.Fk_.   n    Fy  q#loot\nk#sit\ncl\u001624\n#levelchange\n14\n \u0016?\n>y  _mmmm.#chat\nk         n    _mm.#chat\nk_mm,#chat\nk   _mmm,#chat\nk;h,_mm.#chat\nk;h.\u0006_>.   n Fy _.  n  Fy     n >Fk  Fy    n _>.  Fy  n  _. Fy  n  >Fk   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 585433,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           \u0007yeti\nFnFb FlFl Fb \u0007ki-rin\nFbFb  FbFj     n Fj     Fj    n  \u0007djinni\nFb Fn Fb    n  Fb     Fj   n    Fb     \u0007green slime\nFb  n    Fl   n         Fb   n     Fl     n  \u001610\n\u0017800 gold pieces\n\u0016?\nc\u0006_ \u001b;#chat\nl_mm.  Fy    _,#chat\n_mm,#chat\n_{.Fk_.   n    Fy  q#loot\nk#sit\ncl\u001624\n#levelchange\n14\n \u0016?\n>y  _mmmm.#chat\nk         n    _mm.#chat\nk_mm,#chat\nk   _mmm,#chat\nk;h,_mm.#chat\nk;h.\u0006_>.   n Fy _.  n  Fy     n >Fk  Fy    n _>.  Fy  n  _. Fy  n  >Fk   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

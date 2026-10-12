@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\na\n 20s.20s20s20s20s20s20ss.ss20s.ss..s20ss..m.20ss20s20ssY  UBL_ \u001b.>#chat\nulNNBJ_>.>HKKK_>.><JBJB_>.><NLKK_>.>UNBL_>,><dcs20ssu10s 10stbh20skylhhhhlUHUL_>.>#conduct\n yJNHN_>.>B  LYY_>.>NUBY_>.>#turn\nHLNJB_>,>tbu#loot\nBJBJ_>,>,#ride\ny<\u000f\u001bJUUB_>.>BJLJ_>.>YYYL_>.>,#ride\nlky10stbu10sdasm.20s.m.JJHK_>.>Fj ..#wipe\nPUUYY_>.>KBUJ_>.>FjFjsE- I am a fish\nE-n  Vlad was here\nKL UK_>.>#rub\n>LB NJ_>.>hjuyjlyjHYBY_>.>\u0004n#jump\nYNLK _>,>UB HJ_>,>\u000f\u001b#conduct\n <bbhh50shlhhlhi\u001b150sFl20s20s_>.>150sFl.FlFlFls100s_>.>hl#quit\nyy\u001by  y y y\u001b  FbFb s100sFl20s.50s100s10s\\ \\ 100slnunjy100s150s100snkk\u000f\u001b100snyji\u001b100sFhFh20s150s  eh50s\\ 100s100s50sFhFh.150s#chat\nb\u0018\u001bsynlyhlnkj_ \u001b;>ynbhyy#conduct\n 10sll#name\no\n10sllhh20stbltblbblkhj#name\no\nUNKK_>,>KBKK_>,>#invoke\n\u001b<KNLL_>,>#chat\nb,HJYK_>,>150s\\ hln_>.>_>,>50sFyFyFyFyss\\ 100s50s100sFyss100s100s50s  FyFysyll100s#name\ni\n50sFh.snkb#name\nd\nuul50s#terrain\nb\n100s _>.>100s eh_>.>,150slbu150sFh20s20s50slbb100sPg150s   eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJBJH_>.>YJNH_>.>#sit\n\u001b#sit\n\u001bUNJJ_>.>JBLU_>.>LK HN_>,>NUUY_>,>NJBB_>.>LHBY_>.>#sit\n\u001bZBUKY_>.>YNBU_>.>YKJJ_>.>LNNH_>.>\u000f\u001buhub#name\nd\nhu20s#name\ni\n10s#chat\nynbulnh#chat\nl#chat\nbhk10sjlyujbykFbFbFbFbFbFbFbFbHJKJ_>.>HBLK_>,>k#rub\nNU NK_>.><JLUU_>.>,\u0004lJUK L_>.>UYJL_>,>oh#force\n \u000f\u001bykhbujny#pray\ny 150s Fhs.buy100sFh20sFhFhss150slln100s100sFhss50s50s100si\u001b50sjhu150s150s   eeeeeeeeeeeeeeeeeeeehlyjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJJNL_>.>i\u001b#force\nJJYN_>.>K NYB_>.>NKJB_>.>JLJH_>.>#pray\ny eBNUY_>,>eZ\u000f\u001b20stbh20sblkb#name\ni\ndasss10s#chat\nkFkFkFkFkFkFkFkFk#chat\nu#name\nm\n10s#quit\ny ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585434,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\na\n 20s.20s20s20s20s20s20ss.ss20s.ss..s20ss..m.20ss20s20ss"
+  },
+  {
+   "seed": 685434,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=pettype:none\n",
+   "moves": "Y  UBL_ \u001b.>#chat\nulNNBJ_>.>HKKK_>.><JBJB_>.><NLKK_>.>UNBL_>,><dcs20ssu10s 10stbh20skylhhhhlUHUL_>.>#conduct\n yJNHN_>.>B  LYY_>.>NUBY_>.>#turn\nHLNJB_>,>tbu#loot\nBJBJ_>,>,#ride\ny<\u000f\u001bJUUB_>.>BJLJ_>.>YYYL_>.>,#ride\nlky10stbu10sdasm.20s.m.JJHK_>.>Fj ..#wipe\nPUUYY_>.>KBUJ_>.>FjFjsE- I am a fish\nE-n  Vlad was here\nKL UK_>.>#rub\n>LB NJ_>.>hjuyjlyjHYBY_>.>\u0004n#jump\nYNLK _>,>UB HJ_>,>\u000f\u001b#conduct\n <bbhh50shlhhlhi\u001b150sFl20s20s_>.>150sFl.FlFlFls100s_>.>hl#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 785434,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": " FbFb s100sFl20s.50s100s10s\\ \\ 100slnunjy100s150s100snkk\u000f\u001b100snyji\u001b100sFhFh20s150s  eh50s\\ 100s100s50sFhFh.150s#chat\nb\u0018\u001bsynlyhlnkj_ \u001b;>ynbhyy#conduct\n 10sll#name\no\n10sllhh20stbltblbblkhj#name\no\nUNKK_>,>KBKK_>,>#invoke\n\u001b<KNLL_>,>#chat\nb,HJYK_>,>150s\\ hln_>.>_>,>50sFyFyFyFyss\\ 100s50s100sFyss100s100s50s  FyFysyll100s#name\ni\n50sFh.snkb#name\nd\nuul50s#terrain\nb\n100s _>.>100s eh_>.>,150slbu150sFh20s20s50slbb100sPg150s   eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJBJH_>.>YJNH_>.>#sit\n\u001b#sit\n\u001bUNJJ_>.>JBLU_>.>LK HN_>,>NUUY_>,>NJBB_>.>LHBY_>.>#sit\n\u001bZBUKY_>.>YNBU_>.>YKJJ_>.>LNNH_>.>\u000f\u001buhub#name\nd\nhu20s#name\ni\n10s#chat\nynbulnh#chat\nl#chat\nbhk10sjlyujbykFbFbFbFbFbFbFbFbHJKJ_>.>HBLK_>,>k#rub\nNU NK_>.><JLUU_>.>,\u0004lJUK L_>.>UYJL_>,>oh#force\n \u000f\u001bykhbujny#pray\ny 150s Fhs.buy100sFh20sFhFhss150slln100s100sFhss50s50s100si\u001b50sjhu150s150s   eeeeeeeeeeeeeeeeeeeehlyjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJJNL_>.>i\u001b#force\nJJYN_>.>K NYB_>.>NKJB_>.>JLJH_>.>#pray\ny eBNUY_>,>eZ\u000f\u001b20stbh20sblkb#name\ni\ndasss10s#chat\nkFkFkFkFkFkFkFkFk#chat\nu#name\nm\n10s#quit\ny "
+  }
+ ]
+}

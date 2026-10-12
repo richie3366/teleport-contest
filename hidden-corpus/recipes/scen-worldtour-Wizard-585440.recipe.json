@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0016?\n>>P \u0014 \u001b>. \u0016?\nc bujbk:sm.sb\u001625\n\u0017beartrap\nap    \u00173 wand of fire\nzqu        n \u0017the Bell of Opening\nw-            n    Fb         n Fb       Fb     n    \u0017cursed spellbook of cause fear\n\u0007shade\nrs@.           n            n   sm.     sm.   n      Zb\nZa\n\u0017potion of enlightenment\nqt \u001b        n     .m.        n  sj               n                 n     sm.     n   \u00161\n\u001625\nny     l   n :\u0016?\nb#levelchange\n12\n   \u0017scroll of stinking cloud\nru  ,         n     \u0017leather drum\n\u0007plains centaur\nav   av   \u0017blessed potion of sickness\n\u0007baby purple worm\nqw       n  #dip\nmf \u0017blessed ring of aggravate monster\nPxl         n .b      .m.   yy\u001by   ny n  s"
+ },
+ "segments": [
+  {
+   "seed": 585440,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0016?\n>>P \u0014 \u001b>. \u0016?\nc bujbk:sm.sb\u001625\n\u0017beartrap\nap    \u00173 wand of fire\nzqu        n \u0017the Bell of Opening\nw-            n    Fb         n Fb       Fb     n    \u0017cursed spellbook of cause fear\n\u0007shade\nrs@.           n            n   sm.     sm.   n      Zb\nZa\n\u0017potion of enlightenment\nqt \u001b        n     .m.        n  sj               n                 n     sm.     n   \u00161\n\u001625\nny     l   n :\u0016?\nb#levelchange\n12\n   \u0017scroll of stinking cloud\nru  ,         n     \u0017leather drum\n\u0007plains centaur\nav   av   \u0017blessed potion of sickness\n\u0007baby purple worm\nqw       n  #dip\nmf \u0017blessed ring of aggravate monster\nPxl         n .b      .m.   yy\u001by   ny n  s"
+  }
+ ]
+}

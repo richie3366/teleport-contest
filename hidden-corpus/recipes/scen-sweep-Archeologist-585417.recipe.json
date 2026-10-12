@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0006_ \u001b;>FuFu _>.Fk_,:> \u0006_>. _,>_>._,>_>,_.>\u0006_>>._.>_>>._.>_>>._.>Wai#levelchange\n8\n  \u0007rust monster\nFh FhFh \u0007werewolf\nFh Fh   nFh \u0007gas spore\nFh Fh h uk\u0017falling rock trap\nbu\u0017spiked pit\nub\u0017hole\nyl\u0017polymorph trap\n\u0017beartrap\naj   nbu<i\u001b\u0014;\u000f\u001b\u0017gauntlets of power\nWk20sss\u0007cockatrice\nFuFu\u0007paper golem\nFjFj\u0007soldier\nFkFk Fk\u0007lich\nFu FuFuFj  \u001621\n  \u0017locked chest\n\u0017ruby\n\u0017wand of secret door detection\n\u0017lock pick\ndlao.y  s.s#loot\ns\n#tip\nyh\nafdnk\u0004jdjk\u0004ji\u001b#levelchange\n12\n   \u0016?\n>>L      scroll of stinking cloud\nq#conduct\n fj\u0006<..b      s\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001614\n_mm.#chat\nb_m.#chat\nn;._mmmm.#chat\nh_mmm.#chat\nk;<._m.#chat\nk#chat\ny\u0004y   n\\ \u0017Dragonbane\nwrFyFlFj #invoke\nr \u0007fog cloud\n;l:  sm.20s   n.m.\u0007acid blob\nFb Fh   n Fh   n \u00165\n#levelchange\n14\n \u0017800 gold pieces\n\u0016?\n\u001b\u0006;_mm, Fl_,#chat\nb_mm,  n     nFb _,#chat\nb_mmm.  n   Fh _.   n Fl  n  #chat\nn_{,q#untrap\nkq\\ \u001613\n\u00165\n#levelchange\n12\n#wizintrinsic\ngj\n .m.  n sm.  n 20s  n  .b20s   nsm.    yy\u001b ny nn  2"
+ },
+ "segments": [
+  {
+   "seed": 585417,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0006_ \u001b;>FuFu _>.Fk_,:> \u0006_>. _,>_>._,>_>,_.>\u0006_>>._.>_>>._.>_>>._.>Wai#levelchange\n8\n  \u0007rust monster\nFh FhFh \u0007werewolf\nFh Fh   nFh \u0007gas spore\nFh Fh h uk\u0017falling rock trap\nbu\u0017spiked pit\nub\u0017hole\nyl\u0017polymorph trap\n\u0017beartrap\naj   nbu<i\u001b\u0014;\u000f\u001b\u0017gauntlets of power\nWk20sss\u0007cockatrice\nFuFu\u0007paper golem\nFjFj\u0007soldier\nFkFk Fk\u0007lich\nFu FuFuFj  \u001621\n  \u0017locked chest\n\u0017ruby\n\u0017wand of secret door detection\n\u0017lock pick\ndlao.y  s.s#loot\ns\n#tip\nyh\nafdnk\u0004jdjk\u0004ji\u001b#levelchange\n12\n   \u0016?\n>>L      scroll of stinking cloud\nq#conduct\n fj\u0006<..b      s\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001614\n_mm.#chat\nb_m.#chat\nn;._mmmm.#chat\nh_mmm.#chat\nk;<._m.#chat\nk#chat\ny\u0004y   n\\ \u0017Dragonbane\nwrFyFlFj #invoke\nr \u0007fog cloud\n;l:  sm.20s   n.m.\u0007acid blob\nFb Fh   n Fh   n \u00165\n#levelchange\n14\n \u0017800 gold pieces\n\u0016?\n\u001b\u0006;_mm, Fl_,#chat\nb_mm,  n     nFb _,#chat\nb_mmm.  n   Fh _.   n Fl  n  #chat\nn_{,q#untrap\nkq\\ \u001613\n\u00165\n#levelchange\n12\n#wizintrinsic\ngj\n .m.  n sm.  n 20s  n  .b20s   nsm.    yy\u001b ny nn  2"
+  }
+ ]
+}

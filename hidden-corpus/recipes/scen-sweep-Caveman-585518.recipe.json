@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>B kj   10s     \u0017scroll of earth\nrf               Fh k  j 10s FyFk j 10s Fh\u0017wand of striking\nzgb  Fh j j Fy Fy  Fkk   n\u0017wand of digging\nzhk k b Fh      \u001bFy Fy  Fy  FbFyh \u0017scroll of earth\nri  \u0017wand of striking\nzjb k 10s  10s k FyFb FbFb   nFj  FjbFbFjuj Fb10s FbyFb Fbjyk juy\u001610\n\u00166\n#levelchange\n8\n    \u0017crossbow\nwk.ss\u0007troll\nFhFh  n \u0007hill orc\nFk FkFk  \u0007giant mimic\nFhFk Fh   nFh Fh\u0007gnomish wizard\nFk Fk  Fk    n\u001612\n#levelchange\n10\n\u00174 cream pies\nQc\u0007giant rat\nh f  h   fh  \u00074 hill orc\nk h  fk fh\u00074 soldier\nnbfkfk fhfh  FhFh \u0017potion of see invisible\ntdh   h bh   n,\u001616\n\u0006\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn \u001b:_oooooo,Fb _.@.Fj ,p__.Fl _.:Fl #chat\nl_ddddd.Fh_.m,Fl \u0004h_ooo.Fl_, Fl_o.Fl_.,:__. Fk  _.Fk#chat\nk #pray\ny y     10s  #enhance\nyc\nl\n\u001b#rub\nce \u0017pick-axe\nao sjnjaou  u aon n_>,Fu_,;;Fu ao> ao> sj \u00163\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPpr\u0017chain mail\n W\u001b20sss#polyself\nrust monster\n ss\u0007homunculus\nFhFhFh sm.s20s#polyself\nrope golem\n sm. 20s \u0007water demon\nFb    Fh     Fb     n 20s sy.m. #polyself\nsandestin\n earth elemental\n#monster\n. 20s 20s.20s #polyself\nhomunculus\n #monster\nsm. sm.      \u0007black dragon\nFl  Fj  Fj   .m.  n   sm.sm.  \u001625\n\u0018\u001b\u00167\n#levelchange\n8\n\u0017blessed amulet of restful sleep\nPr  sm.   .m.  20s  .m.    n Fh  Fh  \u0017cursed potion of sickness\nqs\u0017spellbook of knock\nrt   20s  .m.   n  Z\u0017uncursed +0"
+ },
+ "segments": [
+  {
+   "seed": 585518,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>B kj   10s     \u0017scroll of earth\nrf               Fh k  j 10s FyFk j 10s Fh\u0017wand of striking\nzgb  Fh j j Fy Fy  Fkk   n\u0017wand of digging\nzhk k b Fh      \u001bFy Fy  Fy  FbFyh \u0017scroll of earth\nri  \u0017wand of striking\nzjb k 10s  10s k FyFb FbFb   nFj  FjbFbFjuj Fb10s FbyFb Fbjyk juy\u001610\n\u00166\n#levelchange\n8\n    \u0017crossbow\nwk.ss\u0007troll\nFhFh  n \u0007hill orc\nFk FkFk  \u0007giant mimic\nFhFk Fh   nFh Fh\u0007gnomish wizard\nFk Fk  Fk    n\u001612\n#levelchange\n10\n\u00174 cream pies\nQc\u0007giant rat\nh f  h   fh  \u00074 hill orc\nk h  fk fh\u00074 soldier\nnbfkfk fhfh  FhFh \u0017potion of see invisible\ntdh   h bh   n,\u001616\n\u0006\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn \u001b:_oooooo,Fb _.@.Fj ,p__.Fl _.:Fl #chat\nl_ddddd.Fh_.m,Fl \u0004h_ooo.Fl_, Fl_o.Fl_.,:__. Fk  _.Fk#chat\nk #pray\ny y     10s  #enhance\nyc\nl\n\u001b#rub\nce \u0017pick-axe\nao sjnjaou  u aon n_>,Fu_,;;Fu ao> ao> sj \u00163\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPpr\u0017chain mail\n W\u001b20sss#polyself\nrust monster\n ss\u0007homunculus\nFhFhFh sm.s20s#polyself\nrope golem\n sm. 20s \u0007water demon\nFb    Fh     Fb     n 20s sy.m. #polyself\nsandestin\n earth elemental\n#monster\n. 20s 20s.20s #polyself\nhomunculus\n #monster\nsm. sm.      \u0007black dragon\nFl  Fj  Fj   .m.  n   sm.sm.  \u001625\n\u0018\u001b\u00167\n#levelchange\n8\n\u0017blessed amulet of restful sleep\nPr  sm.   .m.  20s  .m.    n Fh  Fh  \u0017cursed potion of sickness\nqs\u0017spellbook of knock\nrt   20s  .m.   n  Z\u0017uncursed +0"
+  }
+ ]
+}

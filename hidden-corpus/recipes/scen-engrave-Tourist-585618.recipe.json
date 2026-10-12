@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " bh\u0017wand of nothing\nEo Elbereth\n\u0017wand of light\nEp n  ad aerarium\n: \u0017wand of teleportation\nEq  I am a fish\nE-n  X marks the spot\n\u0007minotaur\nsus  yy  s"
+ },
+ "segments": [
+  {
+   "seed": 585618,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " bh\u0017wand of nothing\nEo Elbereth\n\u0017wand of light\nEp n  ad aerarium\n: \u0017wand of teleportation\nEq  I am a fish\nE-n  X marks the spot\n\u0007minotaur\nsus  yy  s"
+  }
+ ]
+}

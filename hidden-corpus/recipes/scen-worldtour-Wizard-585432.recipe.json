@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPm\u0016?\n>>P  bj:\u0016?\n>B \u0006_ \u001bm,\u0016?\n>>L      horn of plenty\njb       :\u0016?\n\u001bk  y    \u0016?\n\u001bn   n    n \u0016?\na   j       n         n   n         n  j       n         n       j      n          n     :.m.      n      n           n   sm.     n           n           n  .m.         n              yy\u001by   y y  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 585432,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPm\u0016?\n>>P  bj:\u0016?\n>B \u0006_ \u001bm,\u0016?\n>>L      horn of plenty\njb       :\u0016?\n\u001bk  y    \u0016?\n\u001bn   n    n \u0016?\na   j       n         n   n         n  j       n         n       j      n          n     :.m.      n      n           n   sm.     n           n           n  .m.         n              yy\u001by   y y  y\u001b  \u0016"
+  }
+ ]
+}

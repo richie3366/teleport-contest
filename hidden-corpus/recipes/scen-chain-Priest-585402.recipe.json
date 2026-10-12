@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Fn FnFnFnFnFnFnFnhjyyhbnbFkFkFkFkFkFkFk  y\u001by  y y y\u001b  FYN  BY_ \u001bm.>#dip\nePHNHY_>.>FlFls#sit\n\u001bZLUYN_>,><YYKH_>,>FlFlFjcji\u001bHBUB_>.>FlFj.\u000f\u001bjjkbhhhhjyhhlhhhFlFlFlFl  FlFlFlFlhlhhhhlhdgs20ss#chat\nnhb#chat\nn20sdd20s20sshlkjklhjklJYKN_>.>#name\nf\n\u000fHKUK_>.>HBUJ_>,>LBJN_>.>#loot\nwb KHJN_>.>hhlhblkb20staldd.m.sm..m.l t\u001bllult\u001b#chat\nbhl20st\u001bB HJH_>.>#enhance\n\u001b\u0018\u001bL UKY_>.>Pr\u001bHNHK_>.>ububulhi\u001blhbehulh>r\u001b150s100sFl..;>._>,>50s_>.>bub50s\u000f\u001bubu100s50s\u0018\u001b\u0018\u001b100sbul_>.>_>.>hbui\u001b#enhance\n\u001b100s100seh100seh100sehlhl150seh100shbult\u001b#name\no\nhlhlt\u001bFbFbFbFbFbFbFbFbeh#pray\ny  FlFlshbuFlFlFl100seh100s;<._>.>\u0018\u001blhb100seh50sehububulhbu#tip\n\u001b\u0014\u0018\u001b100s  eh100seh50seh150s eh\\   #offer\n150seeeeeeeBBLN_>.>BU UJ_>,>UNHB_>,>#turn\n20sLLNH_>.>>#enhance\n\u001bHJJB_>,><JKJY_>.>ulhbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeU BLU_>.>BKKL_>.><JNNK_>.>NUUH_>.>UBNN_>.>,wb<HHYB_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhyFkFkFkFkFkFkFkFkkhnyhlhhFhFhFhFhFhFhFhFhhynyjknbyubh#pray\ny  100sFlFlFl\\   150slubnuy_>.>100sFjFbFbFjFjFbFbFb20sFjFjFj#pray\ny  #pray\ny  y\u001by  y y y\u001b  1l10s 10sybhl20suFjFn 20s100s100sbhl100s\\  50s100s50s100s,100s150sFkss150s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehujhJL BL_ \u001b<.>BLBU_>.>rk m,10sH YN J_>.>FyssBLNB_>.>J<<BJYN_>.>kkyl#chat\ny#chat\nlybnjkk20st\u001b#name\nf\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebu  y\u001by  nnn  l",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585402,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\n",
+   "moves": "Fn FnFnFnFnFnFnFnhjyyhbnbFkFkFkFkFkFkFk  y\u001by  y y y\u001b  F"
+  },
+  {
+   "seed": 685402,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\n",
+   "moves": "YN  BY_ \u001bm.>#dip\nePHNHY_>.>FlFls#sit\n\u001bZLUYN_>,><YYKH_>,>FlFlFjcji\u001bHBUB_>.>FlFj.\u000f\u001bjjkbhhhhjyhhlhhhFlFlFlFl  FlFlFlFlhlhhhhlhdgs20ss#chat\nnhb#chat\nn20sdd20s20sshlkjklhjklJYKN_>.>#name\nf\n\u000fHKUK_>.>HBUJ_>,>LBJN_>.>#loot\nwb KHJN_>.>hhlhblkb20staldd.m.sm..m.l t\u001bllult\u001b#chat\nbhl20st\u001bB HJH_>.>#enhance\n\u001b\u0018\u001bL UKY_>.>Pr\u001bHNHK_>.>ububulhi\u001blhbehulh>r\u001b150s100sFl..;>._>,>50s_>.>bub50s\u000f\u001bubu100s50s\u0018\u001b\u0018\u001b100sbul_>.>_>.>hbui\u001b#enhance\n\u001b100s100seh100seh100sehlhl150seh100shbult\u001b#name\no\nhlhlt\u001bFbFbFbFbFbFbFbFbeh#pray\ny  FlFlshbuFlFlFl100seh100s;<._>.>\u0018\u001blhb100seh50sehububulhbu#tip\n\u001b\u0014\u0018\u001b100s  eh100seh50seh150s eh\\   #offer\n150seeeeeeeBBLN_>.>BU UJ_>,>UNHB_>,>#turn\n20sLLNH_>.>>#enhance\n\u001bHJJB_>,><JKJY_>.>ulhbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeU BLU_>.>BKKL_>.><JNNK_>.>NUUH_>.>UBNN_>.>,wb<HHYB_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhyFkFkFkFkFkFkFkFkkhnyhlhhFhFhFhFhFhFhFhFhhynyjknbyubh#pray\ny  100sFlFlFl\\   150slubnuy_>.>100sFjFbFbFjFjFbFbFb20sFjFjFj#pray\ny  #pray\ny  y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 785402,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\n",
+   "moves": "l10s 10sybhl20suFjFn 20s100s100sbhl100s\\  50s100s50s100s,100s150sFkss150s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehujhJL BL_ \u001b<.>BLBU_>.>rk m,10sH YN J_>.>FyssBLNB_>.>J<<BJYN_>.>kkyl#chat\ny#chat\nlybnjkk20st\u001b#name\nf\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebu  y\u001by  nnn  l"
+  }
+ ]
+}

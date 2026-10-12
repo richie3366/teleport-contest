@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nd\n .m.20s.m.sm.s20s.lsm.sm.sm.20ssn20s nsm.sm.sm.20s20s.20s20ss20s.s.20s.20sss.s20ss.s20ss.yhklLKUB_ \u001bm.>NYLJ_>,>NJNU_>.>HKKL_>,>\u0014>NUUY_>,>LJLN_>.>ybyklbknbn#name\n\u001bdcsss 20stbh#chat\nhlj#chat\nkky#name\n\u001b#name\n\u001bFlFlFlFlFlFlFlFlKHKB_>.>BBHH_>,>LYHK_>.>#enhance\n\u001b\u0018\u001bLKKJ_>.>;m,\u0018\u001b<yny  y ny\u001b uFbFb FbFbFbFbFbFbFhFhFhFhFhFhFhFh150shnnnuljlh#jump\n \u001b<.\\   _>.>150s\\   100s150shyn100slhl100sehi\u001b50sehkhn_>,>_>.>50sFjFjshuyi\u001b50seg100segbnujubhhy100seg150seg\u0018\u001bhbl100s100s_>.>\u000f\u001b\u0018\u001b150seh\\   50sFlFlFlFl.20s50seh_>,>_>,>100s eh50skhlFn20ss50seg egFjs20sFjs20sFlss_>,>_>.>hnl100sFlss150sFlFlFl\\   100sFlFls50sFlFl20ser eh_>.>JKHK_>,>NHKU_>,>JJBU_>,>Fj.s:tbnBUUL_>,>\u0004nWblhyjhkjhkFjFjFj100seh eg100s50sever ereh\\   50sljlFjss100sluhFnFnFn\u000f\u001b50sehnjk\u000f\u001b\\   50sK_>.>i\u001b100seh100sehjbl150s\u0014yuh100sFj20s.100sljhyeg150seg_>.>#tip\n\u001b100s100sFjFjFj\u0018\u001b\u000f\u001bjkbegFls20seg50sbubbkh50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKNBU_>.>BJBY_>.><LKUU_>,>UKKU_>.>i\u001b#tip\n\u001bHKKY_>,>\u000f\u001bhnynHULY_>,><KYKU_>,>HJUU_>,>nnyleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUBBH_>.>,#rub\nUYBH_>,>suBLLY_>.><NNNL_>,>NYJY_>.>FjFjsHKNB_>.><KJNH_>.>JLKY_>.>HNBK_>.>KHYB_>,>YYJJ_>.>okW#chat\nnkuynynnu#chat\nu#name\ni\njkjhjhulukjuhbujkhlbbnkbhulkknnnyuJJYB_>,>KHKY_>.>ULYL_>,><NJKB_>.>NUNN_>,>#terrain\nb\n#tip\n<.BHNH_>.>UBJK_>.>10s 20s jlyu#name\nm\nuhhkkjjbyuubJNYH_>YHNU_>e;<.U Y   BK_>.>FjFj   FnHUKY_>.>FlFl     nnnnn  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585430,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nd\n .m.20s.m.sm.s20s.lsm.sm.sm.20ssn20s nsm.sm.sm.20s20s.20s20ss20s.s.20s.20sss.s20ss.s20ss."
+  },
+  {
+   "seed": 685430,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "yhklLKUB_ \u001bm.>NYLJ_>,>NJNU_>.>HKKL_>,>\u0014>NUUY_>,>LJLN_>.>ybyklbknbn#name\n\u001bdcsss 20stbh#chat\nhlj#chat\nkky#name\n\u001b#name\n\u001bFlFlFlFlFlFlFlFlKHKB_>.>BBHH_>,>LYHK_>.>#enhance\n\u001b\u0018\u001bLKKJ_>.>;m,\u0018\u001b<yny  y ny\u001b u"
+  },
+  {
+   "seed": 785430,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "FbFb FbFbFbFbFbFbFhFhFhFhFhFhFhFh150shnnnuljlh#jump\n \u001b<.\\   _>.>150s\\   100s150shyn100slhl100sehi\u001b50sehkhn_>,>_>.>50sFjFjshuyi\u001b50seg100segbnujubhhy100seg150seg\u0018\u001bhbl100s100s_>.>\u000f\u001b\u0018\u001b150seh\\   50sFlFlFlFl.20s50seh_>,>_>,>100s eh50skhlFn20ss50seg egFjs20sFjs20sFlss_>,>_>.>hnl100sFlss150sFlFlFl\\   100sFlFls50sFlFl20ser eh_>.>JKHK_>,>NHKU_>,>JJBU_>,>Fj.s:tbnBUUL_>,>\u0004nWblhyjhkjhkFjFjFj100seh eg100s50sever ereh\\   50sljlFjss100sluhFnFnFn\u000f\u001b50sehnjk\u000f\u001b\\   50sK_>.>i\u001b100seh100sehjbl150s\u0014yuh100sFj20s.100sljhyeg150seg_>.>#tip\n\u001b100s100sFjFjFj\u0018\u001b\u000f\u001bjkbegFls20seg50sbubbkh50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKNBU_>.>BJBY_>.><LKUU_>,>UKKU_>.>i\u001b#tip\n\u001bHKKY_>,>\u000f\u001bhnynHULY_>,><KYKU_>,>HJUU_>,>nnyleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUBBH_>.>,#rub\nUYBH_>,>suBLLY_>.><NNNL_>,>NYJY_>.>FjFjsHKNB_>.><KJNH_>.>JLKY_>.>HNBK_>.>KHYB_>,>YYJJ_>.>okW#chat\nnkuynynnu#chat\nu#name\ni\njkjhjhulukjuhbujkhlbbnkbhulkknnnyuJJYB_>,>KHKY_>.>ULYL_>,><NJKB_>.>NUNN_>,>#terrain\nb\n#tip\n<.BHNH_>.>UBJK_>.>10s 20s jlyu#name\nm\nuhhkkjjbyuubJNYH_>YHNU_>e;<.U Y   BK_>.>FjFj   FnHUKY_>.>FlFl     nnnnn  2"
+  }
+ ]
+}

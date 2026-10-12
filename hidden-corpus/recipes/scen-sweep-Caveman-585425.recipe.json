@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n30\n                  \u0017crossbow\nwfFy .Fk\u0007dwarf lord\nFyFyFy Fy\u0007Medusa\nyFh  Fy n   Fy n \u00162\n#levelchange\n20\n   \u0017uncursed +0 cloak of invisibility\nWg sss20ss\u0017scroll of food detection\nrh  \u001bm,\u0017potion of object detection\nqi<.#dip\nds.\u0017Excalibur\n wj  n  20s20s20s#invoke\nj .s\u001622\n\u0017blessed ring of polymorph control\nPkr#polyself\nnewt\n   #monster\ns     20s  \u0007red naga\nFl   Fk  Flsy 20s  20s  #polyself\nbalrog\n20s   .m. \u0007kitten\nFk  Fk  Fksm.  .m.   sm.   n  \u0017amulet of unchanging\nPl   sm.   sb20s  sm.  Rl\u001627\n\u0006\u0017bag of holding\n\u0017sack\n\u0017ring of gain strength\n\u0017wand of secret door detection\nan\u001bdm#loot\n\u001b,#tip\nn\u001b\u0017credit card\ndnaq.20s  s.#loot\n\u001bam\u001bam\u001b\u0016?\n>F\u0017blessed ring of levitation\nPr yyhyjyk10shjkyjyyykkbbjhhhyhhyjkhyhhyy\u0017scroll of earth\nrs kkkky10snulkj10sbnhkhk10suuby#wizintrinsic\ni\n jnk\u0017cursed scroll of teleportation\nrtE-;>.Z\u0017cursed scroll of gold detection\nru20sss\u001611\n#levelchange\n20\n\u0007watchman\n#chat\nkss\u0007wererat\n.s20sss20s\u0007Wizard of Yendor\nny#chat\nh.20s\u0017ice box\n \u0017bag of holding\n\u0017scroll of charging\n\u0017scroll of magic mapping\nawo\navo\naws\navs\ndv \u0007tame large dog\n\u0007pony\n\u0017newt corpse\ntby\u0017tin whistle\nbklaA\u0006_>,_.>#name\nd\n\u0017carrot\ntfu \u0017leash\naChjlulaCndC.20ss#levelchange\n20\nluj\u0017sink\nqb\u0017unaligned altar\ndu \u0017jackal corpse\n#offer\nD  #pray\ny #terrain\nd\n#offer\n>.#force\n#dip\nw\u0017pick-axe\n\u0016?\n>xaE >.jha"
+ },
+ "segments": [
+  {
+   "seed": 585425,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n30\n                  \u0017crossbow\nwfFy .Fk\u0007dwarf lord\nFyFyFy Fy\u0007Medusa\nyFh  Fy n   Fy n \u00162\n#levelchange\n20\n   \u0017uncursed +0 cloak of invisibility\nWg sss20ss\u0017scroll of food detection\nrh  \u001bm,\u0017potion of object detection\nqi<.#dip\nds.\u0017Excalibur\n wj  n  20s20s20s#invoke\nj .s\u001622\n\u0017blessed ring of polymorph control\nPkr#polyself\nnewt\n   #monster\ns     20s  \u0007red naga\nFl   Fk  Flsy 20s  20s  #polyself\nbalrog\n20s   .m. \u0007kitten\nFk  Fk  Fksm.  .m.   sm.   n  \u0017amulet of unchanging\nPl   sm.   sb20s  sm.  Rl\u001627\n\u0006\u0017bag of holding\n\u0017sack\n\u0017ring of gain strength\n\u0017wand of secret door detection\nan\u001bdm#loot\n\u001b,#tip\nn\u001b\u0017credit card\ndnaq.20s  s.#loot\n\u001bam\u001bam\u001b\u0016?\n>F\u0017blessed ring of levitation\nPr yyhyjyk10shjkyjyyykkbbjhhhyhhyjkhyhhyy\u0017scroll of earth\nrs kkkky10snulkj10sbnhkhk10suuby#wizintrinsic\ni\n jnk\u0017cursed scroll of teleportation\nrtE-;>.Z\u0017cursed scroll of gold detection\nru20sss\u001611\n#levelchange\n20\n\u0007watchman\n#chat\nkss\u0007wererat\n.s20sss20s\u0007Wizard of Yendor\nny#chat\nh.20s\u0017ice box\n \u0017bag of holding\n\u0017scroll of charging\n\u0017scroll of magic mapping\nawo\navo\naws\navs\ndv \u0007tame large dog\n\u0007pony\n\u0017newt corpse\ntby\u0017tin whistle\nbklaA\u0006_>,_.>#name\nd\n\u0017carrot\ntfu \u0017leash\naChjlulaCndC.20ss#levelchange\n20\nluj\u0017sink\nqb\u0017unaligned altar\ndu \u0017jackal corpse\n#offer\nD  #pray\ny #terrain\nd\n#offer\n>.#force\n#dip\nw\u0017pick-axe\n\u0016?\n>xaE >.jha"
+  }
+ ]
+}

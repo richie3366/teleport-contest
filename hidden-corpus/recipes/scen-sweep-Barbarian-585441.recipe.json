@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n30\n                  \u001720 darts\nQe\u00073 jackal\nyfj fj  flFnFlx #twoweapon\n.20sjkb,#enhance\nyi\np\n\u001b\u0006\u0007ochre jelly\n20sFn   #pray\ny y FjFj#pray\ny y FjFkFj#pray\ny y Fk Fk\u001621\n\u0006i\u001bwb.20ssweysssXW.20s20sT  wa  .Fh Fh #loot\nhfuWc  ZZok,#rub\ni\u001bwb Fh FhFh  weyFh  Fh Fhwa Fh20sswf 20ss.\u001621\ni\u001b\u0017wand of digging\nzh> szh> .zh< zh<zh >  .#levelchange\n10\n      \u0016?\n>B Fl              k   \u001b     n \u0017wand of striking\nzih         10s       n \u0017scroll of earth\nrj    \u0017wand of digging\nzkh10s  FkFjn       FkFj       n\u0017wand of digging\nzl>     Flh  FlhFlyFl Fl\u0017wand of digging\nzm> yj\u0017wand of digging\nznh\u0017wand of digging\nzoj\u0017scroll of earth\nrp \u0017wand of striking\nzqh\u0017wand of digging\nzr>\u0017wand of digging\nzsk\u0017scroll of earth\nrt ykh10suluhhuuuy10s\u0017scroll of earth\nru yk njjljuynnh ll\u00166\n#levelchange\n12\n\u0017uncursed scroll of charging\nrv r\u0017blessed +3 dwarvish mattock\n\u0007kobold shaman\nwwFh20s.\u0017scroll of remove curse\n\u0007iron golem\nrx  \u001bFuFu\u0017potion of extra healing\nqy #dip\neFuFu\u0017blessed gauntlets of dexterity\n\u0007Kop Kaptain\nWz sy20s.m.Tz  nFlFl20s   s\\   #levelchange\n10\n\u0017blessed spellbook of extra healing\nrA.\u0017spellbook of create familiar\nrB20s      \u0017blessed spellbook of slow monster\nrC sj\u0017blessed spellbook of cure blindness\nrD   .m.+\u001bZa\nZa\n\u0007newt\nZa\nZa\n#turn\n#pray\ny y     \u000f\u001b#levelchange\n20\n          \u0016?\n>Eljuujlluunkky\u0017wand of striking\nzEln\u0017scroll of earth\nrF khlyklylnkbuy\u0017wand of digging\nzGl"
+ },
+ "segments": [
+  {
+   "seed": 585441,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n30\n                  \u001720 darts\nQe\u00073 jackal\nyfj fj  flFnFlx #twoweapon\n.20sjkb,#enhance\nyi\np\n\u001b\u0006\u0007ochre jelly\n20sFn   #pray\ny y FjFj#pray\ny y FjFkFj#pray\ny y Fk Fk\u001621\n\u0006i\u001bwb.20ssweysssXW.20s20sT  wa  .Fh Fh #loot\nhfuWc  ZZok,#rub\ni\u001bwb Fh FhFh  weyFh  Fh Fhwa Fh20sswf 20ss.\u001621\ni\u001b\u0017wand of digging\nzh> szh> .zh< zh<zh >  .#levelchange\n10\n      \u0016?\n>B Fl              k   \u001b     n \u0017wand of striking\nzih         10s       n \u0017scroll of earth\nrj    \u0017wand of digging\nzkh10s  FkFjn       FkFj       n\u0017wand of digging\nzl>     Flh  FlhFlyFl Fl\u0017wand of digging\nzm> yj\u0017wand of digging\nznh\u0017wand of digging\nzoj\u0017scroll of earth\nrp \u0017wand of striking\nzqh\u0017wand of digging\nzr>\u0017wand of digging\nzsk\u0017scroll of earth\nrt ykh10suluhhuuuy10s\u0017scroll of earth\nru yk njjljuynnh ll\u00166\n#levelchange\n12\n\u0017uncursed scroll of charging\nrv r\u0017blessed +3 dwarvish mattock\n\u0007kobold shaman\nwwFh20s.\u0017scroll of remove curse\n\u0007iron golem\nrx  \u001bFuFu\u0017potion of extra healing\nqy #dip\neFuFu\u0017blessed gauntlets of dexterity\n\u0007Kop Kaptain\nWz sy20s.m.Tz  nFlFl20s   s\\   #levelchange\n10\n\u0017blessed spellbook of extra healing\nrA.\u0017spellbook of create familiar\nrB20s      \u0017blessed spellbook of slow monster\nrC sj\u0017blessed spellbook of cure blindness\nrD   .m.+\u001bZa\nZa\n\u0007newt\nZa\nZa\n#turn\n#pray\ny y     \u000f\u001b#levelchange\n20\n          \u0016?\n>Eljuujlluunkky\u0017wand of striking\nzEln\u0017scroll of earth\nrF khlyklylnkbuy\u0017wand of digging\nzGl"
+  }
+ ]
+}

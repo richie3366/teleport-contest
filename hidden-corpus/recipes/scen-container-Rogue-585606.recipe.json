@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0017locked chest\n\u0017ice box\n\u0017blessed bag of holding\n\u0017potion of full healing\n\u0017scroll of amnesia\n\u0017wand of probing\naio\naii\naii\ndi u\u0004b  \u0017bag of holding\n\u0017locked large box\n\u0017locked chest\n\u0017potion of speed\n\u0017lock pick\ndmaq.yss20s#loot\nb\no\n\u0017dagger\nwrdk#force\n y  .20s  saekagdf #loot\na\ni\n,a\ni\u001b"
+ },
+ "segments": [
+  {
+   "seed": 585606,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017locked chest\n\u0017ice box\n\u0017blessed bag of holding\n\u0017potion of full healing\n\u0017scroll of amnesia\n\u0017wand of probing\naio\naii\naii\ndi u\u0004b  \u0017bag of holding\n\u0017locked large box\n\u0017locked chest\n\u0017potion of speed\n\u0017lock pick\ndmaq.yss20s#loot\nb\no\n\u0017dagger\nwrdk#force\n y  .20s  saekagdf #loot\na\ni\n,a\ni\u001b"
+  }
+ ]
+}

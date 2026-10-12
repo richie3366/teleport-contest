@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "K  HYN_ \u001b@.><KLUU_>.>LUBB_>.>\u000f\u001bUKYJ_>,>HHNU_>.>NLJH_>.>ajy #monster\nYLH  Y_>.><UUUH_>.>JHNY_>.>HJJU_>,>\u000f\u001b#pray\ny  #wipe\n#tip\n\u001b\u001b100sFj FyFyFy.slnbhju_>,>hnh100s100s_>.>100sFlFlFl150suuy150s100sFlFls50sFlFlsi\u001b100s_>,>\\ 50s100soh100sFlss150s#tip\n\u001b\u001bok\u0018\u001b>150sFlFl.100seejnj100sefZb\n#loot\n\u000f\u001bUBKL_>,>YBHH_>,>KJUY_>,>#chat\nkh#name\no\nshiny\nBBNL_>.><BUJY_>.>wadhi\u001bUUBY_>.>lb#chat\nkt\u001b\u001bkut\u001b\u001bt\u001b\u001b10snhdigss20sdb20ssm.sm.#chat\nlt\u001b\u001b#name\ni\nblessed\n10su#chat\nyyubbybJHKU_>,>LLYK_>.>qd#loot\nBJBU_>.>YHUK_>.>\\ ,YLUK_>.>FksseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBLK_>.>KN KN_>,>YLHB_>.>oj#enhance\n\u001b\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJ BK_>.>#rub\nrg y KBJK_>.>JLBB_>.><#wipe\nYHYB_>,>dbs20ssnbjut\u001b\u001b10s20s #pray\ny 150s #pray\ny   \u000f\u001b#pray\ny #pray\ny  100s #pray\ny  FnFn   n   Fy    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 585415,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=playmode:explore\n",
+   "moves": "K  HYN_ \u001b@.><KLUU_>.>LUBB_>.>\u000f\u001bUKYJ_>,>HHNU_>.>NLJH_>.>ajy #monster\nYLH  Y_>.><UUUH_>.>JHNY_>.>HJJU_>,>\u000f\u001b#pray\ny  #wipe\n#tip\n\u001b\u001b100sFj FyFyFy.slnbhju_>,>hnh100s100s_>.>100sFlFlFl150suuy150s100sFlFls50sFlFlsi\u001b100s_>,>\\ 50s100soh100sFlss150s#tip\n\u001b\u001bok\u0018\u001b>150sFlFl.100seejnj100sefZb\n#loot\n\u000f\u001bUBKL_>,>YBHH_>,>KJUY_>,>#chat\nkh#name\no\nshiny\nBBNL_>.><BUJY_>.>wadhi\u001bUUBY_>.>lb#chat\nkt\u001b\u001bkut\u001b\u001bt\u001b\u001b10snhdigss20sdb20ssm.sm.#chat\nlt\u001b\u001b#name\ni\nblessed\n10su#chat\nyyubbybJHKU_>,>LLYK_>.>qd#loot\nBJBU_>.>YHUK_>.>\\ ,YLUK_>.>FksseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBLK_>.>KN KN_>,>YLHB_>.>oj#enhance\n\u001b\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJ BK_>.>#rub\nrg y KBJK_>.>JLBB_>.><#wipe\nYHYB_>,>dbs20ssnbjut\u001b\u001b10s20s #pray\ny 150s #pray\ny   \u000f\u001b#pray\ny #pray\ny  100s #pray\ny  FnFn   n   Fy    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

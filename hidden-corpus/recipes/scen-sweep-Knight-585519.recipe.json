@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #levelchange\n10\nnhu\u0017altar\ndadh\u0017floating eye corpse\n#offer\ni  : bl\u0017sink\nqy\u0017ring of stealth\ndj  \u001bh\u0004l \u0004l#terrain\nf\ny#name\na\n#conduct\n \u001625\n\u0018\u001b#levelchange\n8\n#wizintrinsic\np\n ...20s20s   .20s.sssss20ssss20s..s.\u0017scroll of stinking cloud\nrz>#jump\n#terrain\nc\n\u001b<.20s#loot\n20ss20sss.\u001612\n\u0007hostile trapper\nFn20s#pray\ny y          sm. Fk   #pray\ny y      Fj s\u001bFj Fh20sFh\u001610\nub\u0017diamond\nEl Vlad was here\n: n\u0017wand of cold\nEm Elbereth\n \u0017wand of cancellation\nEn  Elbereth\n\u0017wand of fire\nEo   Vlad was here\n  n\u0017wand of undead turning\nEp Vlad was here\n   n: kE- Vlad was here\n \u0007hill orc\nsh    sm.   n   sm.  FyFl      n i\u001b\u00164\n #levelchange\n30\n                     #wizintrinsic\nq\n sm. sus20s snsbs20s .j.m..20s sm. sb#loot\nlP<#wipe\nWol20s sys.m. 20s .m. \u0016?\ne\u0006Fh Fh Fh Fh FhFh   n uuj h \u0004 cl#tip\n\u001b#levelchange\n8\n          \u0017blessed spellbook of detect monsters\n\u0007shade\nrq  n   sy  20s   ZZ\u0017spellbook of jumping\nrr m. s.Zss\u0017ring of polymorph\nPsls20s20s  n RFyFj \u0017uncursed brass lantern\nat #rub\nt \u0017tin of lizard meat\n\u0007green-elf\neu .m. .y   n   20s  20s\\    \u00169\n#levelchange\n12\n   \u0017athame\nwvFjFnFn\u0007troll\nFbFb \u0007horned devil\nFl  n  Fb FlFn \u0007flesh golem\nFh    n Fl   Fh   n  \u0007guard\nyFh     n  Fh     Fb  n   Fl      n \u00162\n#levelchange\n10\n\u0017athame\nww FyFk     nFy   X\u0007giant mimic\nFl     n Fy    Fk   yy\u001by   y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 585519,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           #levelchange\n10\nnhu\u0017altar\ndadh\u0017floating eye corpse\n#offer\ni  : bl\u0017sink\nqy\u0017ring of stealth\ndj  \u001bh\u0004l \u0004l#terrain\nf\ny#name\na\n#conduct\n \u001625\n\u0018\u001b#levelchange\n8\n#wizintrinsic\np\n ...20s20s   .20s.sssss20ssss20s..s.\u0017scroll of stinking cloud\nrz>#jump\n#terrain\nc\n\u001b<.20s#loot\n20ss20sss.\u001612\n\u0007hostile trapper\nFn20s#pray\ny y          sm. Fk   #pray\ny y      Fj s\u001bFj Fh20sFh\u001610\nub\u0017diamond\nEl Vlad was here\n: n\u0017wand of cold\nEm Elbereth\n \u0017wand of cancellation\nEn  Elbereth\n\u0017wand of fire\nEo   Vlad was here\n  n\u0017wand of undead turning\nEp Vlad was here\n   n: kE- Vlad was here\n \u0007hill orc\nsh    sm.   n   sm.  FyFl      n i\u001b\u00164\n #levelchange\n30\n                     #wizintrinsic\nq\n sm. sus20s snsbs20s .j.m..20s sm. sb#loot\nlP<#wipe\nWol20s sys.m. 20s .m. \u0016?\ne\u0006Fh Fh Fh Fh FhFh   n uuj h \u0004 cl#tip\n\u001b#levelchange\n8\n          \u0017blessed spellbook of detect monsters\n\u0007shade\nrq  n   sy  20s   ZZ\u0017spellbook of jumping\nrr m. s.Zss\u0017ring of polymorph\nPsls20s20s  n RFyFj \u0017uncursed brass lantern\nat #rub\nt \u0017tin of lizard meat\n\u0007green-elf\neu .m. .y   n   20s  20s\\    \u00169\n#levelchange\n12\n   \u0017athame\nwvFjFnFn\u0007troll\nFbFb \u0007horned devil\nFl  n  Fb FlFn \u0007flesh golem\nFh    n Fl   Fh   n  \u0007guard\nyFh     n  Fh     Fb  n   Fl      n \u00162\n#levelchange\n10\n\u0017athame\nww FyFk     nFy   X\u0007giant mimic\nFl     n Fy    Fk   yy\u001by   y y\u001by  F"
+  }
+ ]
+}

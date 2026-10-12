@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                    \u0017dwarvish mattock\nwoFkFhFl \u0007erinys\n;h; \u001b.sksm.sm.\u0007green mold\nFl FnFnFnFn\u0006\u0017pick-axe\napsm.ap\u0006_oooo.apapy\\  \u0007marilith\nFnFj     n Fl       \u0007scorpion\nFj     n    Fl             n Fh    Fj       n     Fj       Fn  n      \u0007mumak\n20s    n   sm.      n sm.     .m.   n     sh      n   sm.    .m.  n      \u00168\n\u001610\nl  u  n     n\u0017melting ice\nj     n k  jj:l   h  n  \u0017altar\ndf   dk     n  \u0017human corpse\n #pray\ny y            h   \u0017fountain\nqy y       n\u0017long sword\n#dip\nrg   :#terrain\n\u001bckrl y   #turn\n#levelchange\n30\n         \u0017sling\nwsFk    n  Fu   Fk       yy\u001by   y y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 585503,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                    \u0017dwarvish mattock\nwoFkFhFl \u0007erinys\n;h; \u001b.sksm.sm.\u0007green mold\nFl FnFnFnFn\u0006\u0017pick-axe\napsm.ap\u0006_oooo.apapy\\  \u0007marilith\nFnFj     n Fl       \u0007scorpion\nFj     n    Fl             n Fh    Fj       n     Fj       Fn  n      \u0007mumak\n20s    n   sm.      n sm.     .m.   n     sh      n   sm.    .m.  n      \u00168\n\u001610\nl  u  n     n\u0017melting ice\nj     n k  jj:l   h  n  \u0017altar\ndf   dk     n  \u0017human corpse\n #pray\ny y            h   \u0017fountain\nqy y       n\u0017long sword\n#dip\nrg   :#terrain\n\u001bckrl y   #turn\n#levelchange\n30\n         \u0017sling\nwsFk    n  Fu   Fk       yy\u001by   y y y y\u001by  \u0007"
+  }
+ ]
+}

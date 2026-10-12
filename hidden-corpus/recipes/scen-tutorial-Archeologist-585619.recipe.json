@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  y   #jump\n: r\u001bPnjuhnk>r\u001bhuy:>#wipe\nynh:<f::yhn:hjulyl_ \u001b,_>,nhy>>hhl"
+ },
+ "segments": [
+  {
+   "seed": 585619,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "  y   #jump\n: r\u001bPnjuhnk>r\u001bhuy:>#wipe\nynh:<f::yhn:hjulyl_ \u001b,_>,nhy>>hhl"
+  }
+ ]
+}

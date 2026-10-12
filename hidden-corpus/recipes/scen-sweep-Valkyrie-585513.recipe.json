@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " i\u001bWsm.20s.wb FjFlsed ..wa .Fl .#twoweapon\na,#conduct\n E- I am a fish\n#ride\njy#chat\nkK\u001630\n    #wizintrinsic\ncge\n   sm..m..m..m.  n20ssm.20s  n 20s20s  n 20s  n20s  sm.  n   sk   n .m.  \u0017potion of speed\nqf   n    n      n     #dip\ne#untrap\nkZ\u0014 \u001b<.  ,q>s.s.20s .ki\u001b\u00168\n#levelchange\n20\n                   \u0017crystal plate mail\n Wg.s20s\u0007bone devil\n.j..20s    20s  sh \u0007bugbear\n#chat\nkFk    Fk      \u0007fog cloud\nsm.    n20s  su            n.m.  20s\u001b..\u00161\n#levelchange\n8\n  \u00173 wand of sleep\nzhk \u0017potion of gain energy\n\u0007watchman\nqi#dip\ne\u0017Frost Brand\n\u0007air elemental\nwj   Fj     n Fk     Fj   #invoke\nj>.     n  X20s   s    \u00165\n #levelchange\n30\n                     \u0017blessed ring of polymorph control\nPkl #polyself\nminotaur\n ..sss#polyself\nearth elemental\n #monster\n.20s\u0007pit viper\nFk  Fl  Fk           20s          sm.        .m.      #polyself\nfire elemental\n #monster\ns      .20s20ss#polyself\nxorn\n20s   20s       .m.  .m.     20s       \u0017wand of polymorph\nzl.       zlj   \u001611\n    \\   \u0007horse\n\u0017lichen corpse\ntbb \u0007gnome\n20s sl20s sm. .m. 20s \u0007jackal\nsm.  n   sb 20s  sj  sm.   sm.  #chat\nu   n \u0017tripe ration\nt\u001b#name\nm\n\u0007sm.  20s  .m.  20s   .b .m.  #name\no\n\u00168\n\u0007hostile fog cloud\nFnFnFnFnFnsnsm..nFnFn20sFl\u00166\n\u0007kitten\n\u0017newt corpse\nt\u001b\u0007tame lichen\n#name\nm\n\u0007\u0017scroll of taming\nrp \u0017meatball\nt\u001b\u0007grid bug\n20s    20s   .ksm.        yy\u001bnnnn  s"
+ },
+ "segments": [
+  {
+   "seed": 585513,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=runmode:teleport\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bWsm.20s.wb FjFlsed ..wa .Fl .#twoweapon\na,#conduct\n E- I am a fish\n#ride\njy#chat\nkK\u001630\n    #wizintrinsic\ncge\n   sm..m..m..m.  n20ssm.20s  n 20s20s  n 20s  n20s  sm.  n   sk   n .m.  \u0017potion of speed\nqf   n    n      n     #dip\ne#untrap\nkZ\u0014 \u001b<.  ,q>s.s.20s .ki\u001b\u00168\n#levelchange\n20\n                   \u0017crystal plate mail\n Wg.s20s\u0007bone devil\n.j..20s    20s  sh \u0007bugbear\n#chat\nkFk    Fk      \u0007fog cloud\nsm.    n20s  su            n.m.  20s\u001b..\u00161\n#levelchange\n8\n  \u00173 wand of sleep\nzhk \u0017potion of gain energy\n\u0007watchman\nqi#dip\ne\u0017Frost Brand\n\u0007air elemental\nwj   Fj     n Fk     Fj   #invoke\nj>.     n  X20s   s    \u00165\n #levelchange\n30\n                     \u0017blessed ring of polymorph control\nPkl #polyself\nminotaur\n ..sss#polyself\nearth elemental\n #monster\n.20s\u0007pit viper\nFk  Fl  Fk           20s          sm.        .m.      #polyself\nfire elemental\n #monster\ns      .20s20ss#polyself\nxorn\n20s   20s       .m.  .m.     20s       \u0017wand of polymorph\nzl.       zlj   \u001611\n    \\   \u0007horse\n\u0017lichen corpse\ntbb \u0007gnome\n20s sl20s sm. .m. 20s \u0007jackal\nsm.  n   sb 20s  sj  sm.   sm.  #chat\nu   n \u0017tripe ration\nt\u001b#name\nm\n\u0007sm.  20s  .m.  20s   .b .m.  #name\no\n\u00168\n\u0007hostile fog cloud\nFnFnFnFnFnsnsm..nFnFn20sFl\u00166\n\u0007kitten\n\u0017newt corpse\nt\u001b\u0007tame lichen\n#name\nm\n\u0007\u0017scroll of taming\nrp \u0017meatball\nt\u001b\u0007grid bug\n20s    20s   .ksm.        yy\u001bnnnn  s"
+  }
+ ]
+}

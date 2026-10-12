@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u00178 rocks\nQby\u0007gnome\nkyfn     f \u001bf \u001b\u0017potion of object detection\nt\u001b\u0007sewer rat\nhlf \u001bf \u001bf \u001b\u0017grappling hook\nwk   \u0007sewer rat\ny  ak \u001b.  kyh,i\u001bi\u001beg20ssnwaFlsseh.sak m.W20s20ssak<.eg\\   >zE- Elbereth Elbereth\n<#sit\n\u001b>\u00161\n\u0017aklys\nwoFlsFl\u0007gas spore\nFkFkFkFlFkFk.20s\u0007rust monster\nFlFk      Fl  Flsm.  .m.  \u000f\u001b#levelchange\n12\n   \u001613\nckqj;\u0014.;>.20ssh\u0016?\nb,#terrain\nd\ne ;.\u0006ss\u001631\n   #conduct\n #enhance\nyi\nd\n\u001b20s;l.sn20s \u0016?\n>t #wipe\n\\   ,20s     .k\u001611\n\u0006_>._,>_>._,>_>._.>\u0006_>,_.>_>,_.>_>,_.>\u0004n#terrain\n\u001b\u0006_>._.>_>._.>_>._.>\u0006_>,_.>_>._,>_>._.>\u0004n#terrain\n\u001b\u0018\u001b#wizintrinsic\nfl\n \u0017towel\nap;_.yklZ;.\u0017blessed potion of restore ability\nqq \u001b#dip\ncss.\u0016?\n>C \u0017blessed ring of levitation\nPrr Fu  Fj    Fj k  Fl Fl Fn\u0017scroll of earth\nrs                  n kljjFk        nFk  \u0017wand of striking\nzth Fl      n k  10s    n    \u0017wand of striking\nzul    h   n  uFj  Fk\u0017wand of striking\nzvk   n  Fl  Fn  n    k      n Fl       n \u0017scroll of earth\nrw          \u0017wand of digging\nzxh   n Fn  yjuFlnFu   n   bh\u0017wand of striking\nzyl    h\u0017wand of striking\nzz>    n     Fn    n       n Fu       n     Fl    n  \u0017wand of striking\nzAh     n    bFl     yy\u001by   y y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 585504,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u00178 rocks\nQby\u0007gnome\nkyfn     f \u001bf \u001b\u0017potion of object detection\nt\u001b\u0007sewer rat\nhlf \u001bf \u001bf \u001b\u0017grappling hook\nwk   \u0007sewer rat\ny  ak \u001b.  kyh,i\u001bi\u001beg20ssnwaFlsseh.sak m.W20s20ssak<.eg\\   >zE- Elbereth Elbereth\n<#sit\n\u001b>\u00161\n\u0017aklys\nwoFlsFl\u0007gas spore\nFkFkFkFlFkFk.20s\u0007rust monster\nFlFk      Fl  Flsm.  .m.  \u000f\u001b#levelchange\n12\n   \u001613\nckqj;\u0014.;>.20ssh\u0016?\nb,#terrain\nd\ne ;.\u0006ss\u001631\n   #conduct\n #enhance\nyi\nd\n\u001b20s;l.sn20s \u0016?\n>t #wipe\n\\   ,20s     .k\u001611\n\u0006_>._,>_>._,>_>._.>\u0006_>,_.>_>,_.>_>,_.>\u0004n#terrain\n\u001b\u0006_>._.>_>._.>_>._.>\u0006_>,_.>_>._,>_>._.>\u0004n#terrain\n\u001b\u0018\u001b#wizintrinsic\nfl\n \u0017towel\nap;_.yklZ;.\u0017blessed potion of restore ability\nqq \u001b#dip\ncss.\u0016?\n>C \u0017blessed ring of levitation\nPrr Fu  Fj    Fj k  Fl Fl Fn\u0017scroll of earth\nrs                  n kljjFk        nFk  \u0017wand of striking\nzth Fl      n k  10s    n    \u0017wand of striking\nzul    h   n  uFj  Fk\u0017wand of striking\nzvk   n  Fl  Fn  n    k      n Fl       n \u0017scroll of earth\nrw          \u0017wand of digging\nzxh   n Fn  yjuFlnFu   n   bh\u0017wand of striking\nzyl    h\u0017wand of striking\nzz>    n     Fn    n       n Fu       n     Fl    n  \u0017wand of striking\nzAh     n    bFl     yy\u001by   y y y\u001b  \u0017"
+  }
+ ]
+}

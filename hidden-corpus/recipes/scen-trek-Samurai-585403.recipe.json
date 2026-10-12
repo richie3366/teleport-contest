@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " tcukbkj10s#name\nm\n @.10sUHHB_>.><#chat\nlHNNL_>.>Fy20sFkLYKJ_>.>YHNB_>.>JKLB_>.>Fk ..da#untrap\nkHKUL_>.>\u000f\u001b\u0014\u000f\u001b#rub\nq<100sFuss\u0018\u001bbyl50sFlss_>.>100sFl20sFl50sFjs20s50s_>.>\\    100sFjFj.100s\u000f\u001bhlb\\    tdylkh50s50s 50sFj.sbnyFlssbhy100s100sFlFlsJ\u000f\u001bzfyyy100sFk20s.100sFkss#untrap\ny#terrain\nd\n20s HHKY_>,>HHBK_>.>BUBU_>.>YKLN_>,>BHJB_>.>KJUJ_>,>LBLB_>.>\u000f\u001b10syktbjlbyhtdbtdn150si\u001b100sFh.s100s 150s Fh Fh.100s150sFlFls\u0014100s_>.>jll100s50s_>.>kll100s\u000f\u001b100sFhs20snhjkju100sFn20s20seeeeeeeeeeeeeee#rub\nfuYKLK_>.>KKNK_>.>JJKU_>.>KYKJ_>.>BY YU_>,>\u0018\u001b10sKHKL_>.>LUNN_>,>\\    i\u001b\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYUYN_>.>JUKK_>,>10sw-LYLU_>.>NLKN_>.>#ride\nh#turn\n#force\ntdjdds.20sbnynlbullh#name\nf\nkleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001b10s20sll20sKBUJ_>,><BUKH_>._.> #tip\n\u001b10s HUKN_>.>HNLK _>.>BHHH_>.>\u000f\u001b#pray\ny   50s150s150sFks.,100s100s50s150s  kuh#turn\n_>,>\u0018\u001b150sFl20ss100s100sFjs.150seeeeeeeeeeeeeeeeeeee:#enhance\n\u001b#chat\nnYBBU_>,>KYHL_>.>JYKB_>.>BUNJ_>.>#dip\nf#rub\nHUYJ_>.>#turn\n:LBBN_>,>#sit\n#name\ni\n\u000f\u001beeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 585403,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": " tcukbkj10s#name\nm\n @.10sUHHB_>.><#chat\nlHNNL_>.>Fy20sFkLYKJ_>.>YHNB_>.>JKLB_>.>Fk ..da#untrap\nkHKUL_>.>\u000f\u001b\u0014\u000f\u001b#rub\nq<100sFuss\u0018\u001bbyl50sFlss_>.>100sFl20sFl50sFjs20s50s_>.>\\    100sFjFj.100s\u000f\u001bhlb\\    tdylkh50s50s 50sFj.sbnyFlssbhy100s100sFlFlsJ\u000f\u001bzfyyy100sFk20s.100sFkss#untrap\ny#terrain\nd\n20s HHKY_>,>HHBK_>.>BUBU_>.>YKLN_>,>BHJB_>.>KJUJ_>,>LBLB_>.>\u000f\u001b10syktbjlbyhtdbtdn150si\u001b100sFh.s100s 150s Fh Fh.100s150sFlFls\u0014100s_>.>jll100s50s_>.>kll100s\u000f\u001b100sFhs20snhjkju100sFn20s20seeeeeeeeeeeeeee#rub\nfuYKLK_>.>KKNK_>.>JJKU_>.>KYKJ_>.>BY YU_>,>\u0018\u001b10sKHKL_>.>LUNN_>,>\\    i\u001b\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYUYN_>.>JUKK_>,>10sw-LYLU_>.>NLKN_>.>#ride\nh#turn\n#force\ntdjdds.20sbnynlbullh#name\nf\nkleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001b10s20sll20sKBUJ_>,><BUKH_>._.> #tip\n\u001b10s HUKN_>.>HNLK _>.>BHHH_>.>\u000f\u001b#pray\ny   50s150s150sFks.,100s100s50s150s  kuh#turn\n_>,>\u0018\u001b150sFl20ss100s100sFjs.150seeeeeeeeeeeeeeeeeeee:#enhance\n\u001b#chat\nnYBBU_>,>KYHL_>.>JYKB_>.>BUNJ_>.>#dip\nf#rub\nHUYJ_>.>#turn\n:LBBN_>,>#sit\n#name\ni\n\u000f\u001beeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

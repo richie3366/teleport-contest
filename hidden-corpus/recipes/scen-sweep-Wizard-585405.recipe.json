@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b;>Fy 20s_>.Fl_.Fj>Fj20s_>.Fy_.:>\u0006_>>._,>_>>,_.>_>>._,>\u0006_>>._.>_>>._.>_>>._.>\u0006_>.Fn_.@.>i\u001bs\u0006_>>.Fu n _,<.>\u0006_>.Fy _,m,Fy>FhFh_>.Fy _,:Fh>FyFh_>.Fy _.:Fy >Fh FyFhFhFy   n\u000f\u001b\u00167\n#levelchange\n30\n                             \u0017elven bow\nwp\u001720 elven arrows\nQq\u00073 yellow mold\njfyfyfufhFkFk\u00074 sewer rat\nkfk fh Fh Fk \u0017ranseur\nwr \u0007grid bug\njar.x  #twoweapon\nFk Fk jh u , \u001611\n\u0007cockatrice\n;b;20s su20s\u0007dust vortex\n20s sm. 20s\u001b20s\u001b20s  20s  \u001627\n  #levelchange\n8\n       \u0017cloak of magic resistance\nW\u001b\u001bs20s  n .\u0007bone devil\nFlFl Fb  n FbFl Fl  n \u0007water nymph\nFl Fn      n Fn Fb  n Fb \u0007lieutenant\nFh Fl   \u001b  n  Fb    \u001bFb  n   Fb   n  \u00164\n #levelchange\n6\nh  n hj\u0017dart trap\njk  n .k.jh  n\u0017teleportation trap\nl ^hh   n .m.sm.  n l \u0017statue trap\n\u0017beartrap\n at  y\u001b   y  k"
+ },
+ "segments": [
+  {
+   "seed": 585405,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b;>Fy 20s_>.Fl_.Fj>Fj20s_>.Fy_.:>\u0006_>>._,>_>>,_.>_>>._,>\u0006_>>._.>_>>._.>_>>._.>\u0006_>.Fn_.@.>i\u001bs\u0006_>>.Fu n _,<.>\u0006_>.Fy _,m,Fy>FhFh_>.Fy _,:Fh>FyFh_>.Fy _.:Fy >Fh FyFhFhFy   n\u000f\u001b\u00167\n#levelchange\n30\n                             \u0017elven bow\nwp\u001720 elven arrows\nQq\u00073 yellow mold\njfyfyfufhFkFk\u00074 sewer rat\nkfk fh Fh Fk \u0017ranseur\nwr \u0007grid bug\njar.x  #twoweapon\nFk Fk jh u , \u001611\n\u0007cockatrice\n;b;20s su20s\u0007dust vortex\n20s sm. 20s\u001b20s\u001b20s  20s  \u001627\n  #levelchange\n8\n       \u0017cloak of magic resistance\nW\u001b\u001bs20s  n .\u0007bone devil\nFlFl Fb  n FbFl Fl  n \u0007water nymph\nFl Fn      n Fn Fb  n Fb \u0007lieutenant\nFh Fl   \u001b  n  Fb    \u001bFb  n   Fb   n  \u00164\n #levelchange\n6\nh  n hj\u0017dart trap\njk  n .k.jh  n\u0017teleportation trap\nl ^hh   n .m.sm.  n l \u0017statue trap\n\u0017beartrap\n at  y\u001b   y  k"
+  }
+ ]
+}

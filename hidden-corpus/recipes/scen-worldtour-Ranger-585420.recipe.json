@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWg\u001618\n \u0004y\u0016?\nhyhl:\u0016?\n>Dujhlh:20s..\u00167\n\u0014 \u001bm,.\u00167\n_>,_.>.<\u0016?\n>>L      wand of slow monster\nkn:\u0016?\nc\u0014,       \u00167\n#levelchange\n14\nn h n  n        u      n     \u0017lawful altar\ndcdi\u0017elf corpse\n #offer\nl         n     \u0017cloud\nhu\u0017unaligned altar\ndgdf \u0017elf corpse\n: \u001b  yu         n  \u0017magic fountain\nqqqa#twoweapon\nok \u001610\n\u0016?\nb _>.>sm.     n \u001610\n\u0014>.            n     \u0016?\n\u001bk     k        n   \u0016?\n\u001bh              n      b \u0016?\n\u001bj     n            n  \u001611\n_{.>sm.        n   \u0016?\n\u001by         b    n          n      \u00167\n\u0016?\n\u001bl         n       h         n     \u00168\n\u001617\n\u0014.            n                          20s    y\u001b      \u0016"
+ },
+ "segments": [
+  {
+   "seed": 585420,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWg\u001618\n \u0004y\u0016?\nhyhl:\u0016?\n>Dujhlh:20s..\u00167\n\u0014 \u001bm,.\u00167\n_>,_.>.<\u0016?\n>>L      wand of slow monster\nkn:\u0016?\nc\u0014,       \u00167\n#levelchange\n14\nn h n  n        u      n     \u0017lawful altar\ndcdi\u0017elf corpse\n #offer\nl         n     \u0017cloud\nhu\u0017unaligned altar\ndgdf \u0017elf corpse\n: \u001b  yu         n  \u0017magic fountain\nqqqa#twoweapon\nok \u001610\n\u0016?\nb _>.>sm.     n \u001610\n\u0014>.            n     \u0016?\n\u001bk     k        n   \u0016?\n\u001bh              n      b \u0016?\n\u001bj     n            n  \u001611\n_{.>sm.        n   \u0016?\n\u001by         b    n          n      \u00167\n\u0016?\n\u001bl         n       h         n     \u00168\n\u001617\n\u0014.            n                          20s    y\u001b      \u0016"
+  }
+ ]
+}

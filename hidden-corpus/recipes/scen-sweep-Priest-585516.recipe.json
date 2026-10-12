@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          #levelchange\n10\n\u00176 javelins\nQi\u0007grid bug\nyfl  fl x   #twoweapon\nFl   Flhju,#polyself\nfog cloud\n s20s\u0007gnome\nFl  FkFkFk\u0007gnome\nFkFkFls\u0006\u0017large box\n\u0017potion of sleeping\n \u0017potion of blindness\n#tip\nj\u001bdj#loot\n,\u001b#tip\ny\u001bag dg#loot\n,\u001b#levelchange\n20\n         #wizintrinsic\nbsc\n  .m.20s .m.sl .m.sm.20s 20ssl.l..sm.sm.   n #tip\n\u001b;>. \u001b@.#untrap\n\u001b#conduct\n >\u000f\u001b..20s   20s   20s      s\u001610\n\u0006#wizintrinsic\ni\n ZE\u0017lizard corpse\nem  20s   ss#levelchange\n6\n      \u0017towel\nPn\u0016?\nh\u0006.s FbFb Fb  n Fjkj   nnkP#dip\ndd  n ol\u00169\n\u0007tame housecat\ndk s s20s   n \u0006_>.Fk_.Fy  n >FyFy_>. _.Fl>_>.Fb  n _.Fk>FkFj\u0017banana\ntik  n \u0006_>. Fk_.Fj  n >FjFk_>, Fk  n _.Fk>FkFk  n _>.Fj_.Fk  n >FkFj\u0007newt\n20s ss  n 20s 20ss  n \u0017magic whistle\nulbap \u00167\n#levelchange\n12\n     \u0017potion of object detection\nqqm,\u0017shield of reflection\nWr s20ssFj  n Fj\u0017Sunsword\n\u0007raven\nws FjFbFbX.s\u00174 cream pies\nQi\u0007hill orc\nh  n fhfh fbFbFb\u0007grid bug\njjf ay jf \u001bf \u001b\u0017potion of oil\nt\u001b\u0017ranseur\nwv\u0007kobold\nuavx#twoweapon\nFb.ukn,#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPwl#polyself\nfloating eye\n   #monster\n20s   s \u0007gnomish wizard\n. .  n 20s 20s s . #polyself\nmarilith\n#monster\n20s 20s  \u0007aligned cleric\nny. 20s  20s .s s \u0017potion of polymorph\nqx hobbit\n    \u001610\n#levelchange\n6\n        "
+ },
+ "segments": [
+  {
+   "seed": 585516,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          #levelchange\n10\n\u00176 javelins\nQi\u0007grid bug\nyfl  fl x   #twoweapon\nFl   Flhju,#polyself\nfog cloud\n s20s\u0007gnome\nFl  FkFkFk\u0007gnome\nFkFkFls\u0006\u0017large box\n\u0017potion of sleeping\n \u0017potion of blindness\n#tip\nj\u001bdj#loot\n,\u001b#tip\ny\u001bag dg#loot\n,\u001b#levelchange\n20\n         #wizintrinsic\nbsc\n  .m.20s .m.sl .m.sm.20s 20ssl.l..sm.sm.   n #tip\n\u001b;>. \u001b@.#untrap\n\u001b#conduct\n >\u000f\u001b..20s   20s   20s      s\u001610\n\u0006#wizintrinsic\ni\n ZE\u0017lizard corpse\nem  20s   ss#levelchange\n6\n      \u0017towel\nPn\u0016?\nh\u0006.s FbFb Fb  n Fjkj   nnkP#dip\ndd  n ol\u00169\n\u0007tame housecat\ndk s s20s   n \u0006_>.Fk_.Fy  n >FyFy_>. _.Fl>_>.Fb  n _.Fk>FkFj\u0017banana\ntik  n \u0006_>. Fk_.Fj  n >FjFk_>, Fk  n _.Fk>FkFk  n _>.Fj_.Fk  n >FkFj\u0007newt\n20s ss  n 20s 20ss  n \u0017magic whistle\nulbap \u00167\n#levelchange\n12\n     \u0017potion of object detection\nqqm,\u0017shield of reflection\nWr s20ssFj  n Fj\u0017Sunsword\n\u0007raven\nws FjFbFbX.s\u00174 cream pies\nQi\u0007hill orc\nh  n fhfh fbFbFb\u0007grid bug\njjf ay jf \u001bf \u001b\u0017potion of oil\nt\u001b\u0017ranseur\nwv\u0007kobold\nuavx#twoweapon\nFb.ukn,#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPwl#polyself\nfloating eye\n   #monster\n20s   s \u0007gnomish wizard\n. .  n 20s 20s s . #polyself\nmarilith\n#monster\n20s 20s  \u0007aligned cleric\nny. 20s  20s .s s \u0017potion of polymorph\nqx hobbit\n    \u001610\n#levelchange\n6\n        "
+  }
+ ]
+}

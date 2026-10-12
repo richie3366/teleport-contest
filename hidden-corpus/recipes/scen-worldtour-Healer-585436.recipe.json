@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nWk\u0017blessed +3 cloak of magic resistance\nWl\u001644\n   #levelchange\n30\n\u00173 20 arrows\n \u001bFu s\u0017spear\nwn.sFh   \u0017uncursed +0 war hammer\nwo  Fh  Fh  Fh  \u00173 wand of make invisible\n\u0007baby long worm\nzph\u0017blessed +3 cloak of magic resistance\nW\u001bsn20s .m.\u0017kicking boots\nWr.m.20ssm.sm. sm.\u00169\n \u0014 \u001b;\u001612\n__,<\u00169\nykh:\u0016?\no #levelchange\n30\n\u0017two-handed sword\n ws sm.sm.s\u0007little dog\n#chat\nh FhFh\u0007Pestilence\nnn#chat\nh FhFh \u0007minotaur\n20s      n  20s     n sm.     nsy      n   20s     n  sb     n sm.      n   .m.    n  sm. \u0007vampire\nFk    n  Fh  Fh   Fk  n    Fk  Fh  n  \u001611\n\u0016?\n>>P  #levelchange\n20\n   \u0007giant mimic\n20s FuFuFu FuFu.ksy \u0007brown pudding\nFl Fl FlFlFlFl20ssn#pray\ny y    \u0007nurse\nFuFy  FyFu Fl sk   n sm.20s.m.sm.\u0016?\n>>L      potion of enlightenment\n_>.>\u0016?\n\u001blb       \u0016?\n\u001bu    b       n \u0016?\n\u001bk       j    n  \u001644\nj h  j       \u001b   n    b      : \u00164\nhk  yy\u001by   ny  y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 585436,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nWk\u0017blessed +3 cloak of magic resistance\nWl\u001644\n   #levelchange\n30\n\u00173 20 arrows\n \u001bFu s\u0017spear\nwn.sFh   \u0017uncursed +0 war hammer\nwo  Fh  Fh  Fh  \u00173 wand of make invisible\n\u0007baby long worm\nzph\u0017blessed +3 cloak of magic resistance\nW\u001bsn20s .m.\u0017kicking boots\nWr.m.20ssm.sm. sm.\u00169\n \u0014 \u001b;\u001612\n__,<\u00169\nykh:\u0016?\no #levelchange\n30\n\u0017two-handed sword\n ws sm.sm.s\u0007little dog\n#chat\nh FhFh\u0007Pestilence\nnn#chat\nh FhFh \u0007minotaur\n20s      n  20s     n sm.     nsy      n   20s     n  sb     n sm.      n   .m.    n  sm. \u0007vampire\nFk    n  Fh  Fh   Fk  n    Fk  Fh  n  \u001611\n\u0016?\n>>P  #levelchange\n20\n   \u0007giant mimic\n20s FuFuFu FuFu.ksy \u0007brown pudding\nFl Fl FlFlFlFl20ssn#pray\ny y    \u0007nurse\nFuFy  FyFu Fl sk   n sm.20s.m.sm.\u0016?\n>>L      potion of enlightenment\n_>.>\u0016?\n\u001blb       \u0016?\n\u001bu    b       n \u0016?\n\u001bk       j    n  \u001644\nj h  j       \u001b   n    b      : \u00164\nhk  yy\u001by   ny  y\u001b  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  bhuy\u0017cloud\nlhlhyl\u0017magic fountain\nqy j\u0017altar\ndgdd\u0017newt corpse\n#offer\ni  ey10s#invoke\n\u001b#levelchange\n6\n    juk\u0017pool\njk j\u0017lawful altar\ndb\u0017dwarf corpse\n#offer\nj  #pray\ny y     :#terrain\nc\n\u001b,#force\n i\u001bE-  "
+ },
+ "segments": [
+  {
+   "seed": 585600,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  bhuy\u0017cloud\nlhlhyl\u0017magic fountain\nqy j\u0017altar\ndgdd\u0017newt corpse\n#offer\ni  ey10s#invoke\n\u001b#levelchange\n6\n    juk\u0017pool\njk j\u0017lawful altar\ndb\u0017dwarf corpse\n#offer\nj  #pray\ny y     :#terrain\nc\n\u001b,#force\n i\u001bE-  "
+  }
+ ]
+}

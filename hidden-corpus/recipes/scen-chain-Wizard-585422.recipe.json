@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " t\u001bbt\u001b10s#name\na\ndf.20s 20s Fj FjFjFjFjFjFjFjHHKB_ \u001b;>NUHY_>.>i\u001be<UBL L_>.>w-#monster\n<NJHK_>.>YUKL_>,>LHLB_>.>rk __,sULLU_>.>LYYU_>,>#offer\njJYNL_>,>UKYJ_;#quit\nyy\u001by  y y y\u001b   #wizintrinsic\nb\n syssss20s .b.sb20ssm..m..sn20s  sb20s  yy  .lynuFhFh FhFhFhFhFhFhnyhy\\  150s100s100s100si\u001bW150s\u000f\u001b50sFl20sst\u001b100s\u0004y\u0018\u001b50sFl..100s100s100s100s\u0018\u001bi\u001b150s Fl20ss100s100seg100sk jj50s#quit\nyy\u001by  y y y\u001b J HKH_ \u001b,>FlsFj<HKHY_>.>Fj 20s sUJ  YK_>,>ol#tip\n\u001b<KBBJ _>.>FbFbFbHB YU_>.>#loot\n#invoke\n\u001bJ YHU_>,>BNHH_>.>i\u001bolBUNJ _>,>KKBU _>,>FbFbFbKBUY_>.><Nyy    ULN_>.>LLB#quit\ny FkFk FkFkFkFkFkFkuubn150s100s50s100s100syjk_ \u001b<.>50shhl\\  100skll\u000f\u001b100seelhhlhy\u0018\u001b\\  buj50s100sFh20ss100s50sed khn\u000f\u001b150sylb50s_>.>i\u001b\u0018\u001b_>,>\u000f\u001blbuhlb50s100sKHUK_>,>#enhance\n\u001b#quit\ny\u001b    Fu FuFuFuFuFuFuFuNHBN_ \u001b:><YBHB_>.>HLBL_>.>#chat\nl#loot\nNLHK_>.><YLBN_>.>#chat\nu20s lyhujn#name\ni\n20slkj l_>.>hhl50sFyFlFy100s FyFys100s#quit\nyy\u001by  y y y\u001b FnFnFnFnFnFnFnFnFjFjFjFjFjFjFjFjlnkjdds20s20s20s#chat\nldgss20sdds.s#chat\nh#name\na\nFkFkFkFkFkFkFkFk hkbu50s100s\u0018\u001b150sFlFls100s#offer\n_ \u001b;>jhl_>.>100s 100sFlFlFl100sFlFlFl100s#turn\nkjh100s50s#quit\ny #wizintrinsic\nb\n 20s20s ss20s20ssm.20ssm..m..sm.sss20ssm.20s.m.20ssm..m.20ssm.20ssksm.  yy\u001by  y y\u001bn  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585422,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\n",
+   "moves": " t\u001bbt\u001b10s#name\na\ndf.20s 20s Fj FjFjFjFjFjFjFjHHKB_ \u001b;>NUHY_>.>i\u001be<UBL L_>.>w-#monster\n<NJHK_>.>YUKL_>,>LHLB_>.>rk __,sULLU_>.>LYYU_>,>#offer\njJYNL_>,>UKYJ_;#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 685422,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nb\n syssss20s .b.sb20ssm..m..sn20s  sb20s  yy  ."
+  },
+  {
+   "seed": 785422,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\n",
+   "moves": "lynuFhFh FhFhFhFhFhFhnyhy\\  150s100s100s100si\u001bW150s\u000f\u001b50sFl20sst\u001b100s\u0004y\u0018\u001b50sFl..100s100s100s100s\u0018\u001bi\u001b150s Fl20ss100s100seg100sk jj50s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 885422,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "J HKH_ \u001b,>FlsFj<HKHY_>.>Fj 20s sUJ  YK_>,>ol#tip\n\u001b<KBBJ _>.>FbFbFbHB YU_>.>#loot\n#invoke\n\u001bJ YHU_>,>BNHH_>.>i\u001bolBUNJ _>,>KKBU _>,>FbFbFbKBUY_>.><Nyy    ULN_>.>LLB#quit\ny "
+  },
+  {
+   "seed": 985422,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "FkFk FkFkFkFkFkFkuubn150s100s50s100s100syjk_ \u001b<.>50shhl\\  100skll\u000f\u001b100seelhhlhy\u0018\u001b\\  buj50s100sFh20ss100s50sed khn\u000f\u001b150sylb50s_>.>i\u001b\u0018\u001b_>,>\u000f\u001blbuhlb50s100sKHUK_>,>#enhance\n\u001b#quit\ny\u001b    "
+  },
+  {
+   "seed": 1085422,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\n",
+   "moves": "Fu FuFuFuFuFuFuFuNHBN_ \u001b:><YBHB_>.>HLBL_>.>#chat\nl#loot\nNLHK_>.><YLBN_>.>#chat\nu20s lyhujn#name\ni\n20slkj l_>.>hhl50sFyFlFy100s FyFys100s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1185422,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\n",
+   "moves": "FnFnFnFnFnFnFnFnFjFjFjFjFjFjFjFjlnkjdds20s20s20s#chat\nldgss20sdds.s#chat\nh#name\na\nFkFkFkFkFkFkFkFk hkbu50s100s\u0018\u001b150sFlFls100s#offer\n_ \u001b;>jhl_>.>100s 100sFlFlFl100sFlFlFl100s#turn\nkjh100s50s#quit\ny "
+  },
+  {
+   "seed": 1285422,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n 20s20s ss20s20ssm.20ssm..m..sm.sss20ssm.20s.m.20ssm..m.20ssm.20ssksm.  yy\u001by  y y\u001bn  s"
+  }
+ ]
+}

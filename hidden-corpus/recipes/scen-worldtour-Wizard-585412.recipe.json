@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u00162\n#chat\nj;j, \u001b<.\u0016?\no \u0006_<,Fj _.;:  \u0016?\n>H #chat\nn;<.\u0016?\n>>L      spellbook of teleport away\nbn  :\u00162\n__.>sm.      sm.   .m.   n      \u00165\n#chat\n;k,\u001630\n#levelchange\n14\n     hk u\u0017pool\n#dip\noh     l   n     h nb\u0017throne\n#sit\n#terrain\nc\n.i\u001bk  i\u001b\u0016?\ne b  k b  n   j  n :sk    n     20s        n     n   .m.     n    \u00162\n\u00162\n\u0014m.ssh\u0016?\nebu:\u0016?\nb#chat\nh;m.\u0016?\n\u001bb y\u001618\nbjju  n  :\u0016?\n\u001bjk\u0016?\n\u001bn  nn    \u0016?\n\u001bun   n \u0016?\n\u001by  h\u001618\nl  kl l   n   uu:.m.       n .k                n    \u001b\u00163\n\u0016?\n\u001bu       n  \u001b j    \u001630\n\u0014;       n    sm.        yy\u001by   ny  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 585412,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u00162\n#chat\nj;j, \u001b<.\u0016?\no \u0006_<,Fj _.;:  \u0016?\n>H #chat\nn;<.\u0016?\n>>L      spellbook of teleport away\nbn  :\u00162\n__.>sm.      sm.   .m.   n      \u00165\n#chat\n;k,\u001630\n#levelchange\n14\n     hk u\u0017pool\n#dip\noh     l   n     h nb\u0017throne\n#sit\n#terrain\nc\n.i\u001bk  i\u001b\u0016?\ne b  k b  n   j  n :sk    n     20s        n     n   .m.     n    \u00162\n\u00162\n\u0014m.ssh\u0016?\nebu:\u0016?\nb#chat\nh;m.\u0016?\n\u001bb y\u001618\nbjju  n  :\u0016?\n\u001bjk\u0016?\n\u001bn  nn    \u0016?\n\u001bun   n \u0016?\n\u001by  h\u001618\nl  kl l   n   uu:.m.       n .k                n    \u001b\u00163\n\u0016?\n\u001bu       n  \u001b j    \u001630\n\u0014;       n    sm.        yy\u001by   ny  y\u001b  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u001611\njlyyby:\u0016?\n>>L      spellbook of cure blindness\n#chat\nj;j; \u001bm.sm.      sm.   \u0016?\n\u001by    h  \u001617\n\u0006_<,\u001611\nk   n h    hk      k   n           :sm.   sm.         n 20s                      n     \u00166\n\u0016?\n\u001bul       n    \u001618\nj          n  j          n      h          n  ykj         n    l             n         n :      n      \u001612\n\u0016?\n\u001bj   n      j    n       n \u00169\n\u0014m.       n     \u001618\n__.20s   n       s  yny   y ny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 585404,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u001611\njlyyby:\u0016?\n>>L      spellbook of cure blindness\n#chat\nj;j; \u001bm.sm.      sm.   \u0016?\n\u001by    h  \u001617\n\u0006_<,\u001611\nk   n h    hk      k   n           :sm.   sm.         n 20s                      n     \u00166\n\u0016?\n\u001bul       n    \u001618\nj          n  j          n      h          n  ykj         n    l             n         n :      n      \u001612\n\u0016?\n\u001bj   n      j    n       n \u00169\n\u0014m.       n     \u001618\n__.20s   n       s  yny   y ny\u001b  s"
+  }
+ ]
+}

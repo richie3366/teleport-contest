@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b<._{.Fl_,Flqf_mmmm._,#chat\nb_ddd.Fl_.Fl\u0004h _ooooooo,Fl_.Fb  _oo,Fl_,Fl,$_mm,Fl_.m.Fl#chat\nb#untrap\nl#tip\n\u001bckSy\u001b nf $ jy#untrap\nb#untrap\nu#terrain\n\u001b#terrain\n\u001bs__.      20s #wipe\n#levelchange\n30\n                \u001710 daggers\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585602,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:walk\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b<._{.Fl_,Flqf_mmmm._,#chat\nb_ddd.Fl_.Fl\u0004h _ooooooo,Fl_.Fb  _oo,Fl_,Fl,$_mm,Fl_.m.Fl#chat\nb#untrap\nl#tip\n\u001bckSy\u001b"
+  },
+  {
+   "seed": 1085602,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:walk\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " nf $ jy#untrap\nb#untrap\nu#terrain\n\u001b#terrain\n\u001bs__.      20s #wipe\n#levelchange\n30\n                \u001710 daggers\n"
+  }
+ ]
+}

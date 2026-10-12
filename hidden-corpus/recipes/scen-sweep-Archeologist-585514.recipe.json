@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #levelchange\n20\n       \u0017gauntlets of dexterity\nWj20s20s20s\u0007yellow mold\nFn Fk20sFl20s\u0007air elemental\nsj.ss.ysm. ss  sm. i\u001bi\u001bahr\nahs\nck#tip\nh\u001b  afed s  .bae      n ae> W.h.shWsm.  s s  \\ #name\nm\n@.\u0018\u001bclZE- I am a fish\n W#tip\nh\u001b \\ #levelchange\n10\n   y  n  u j   \u0017unaligned altar\ndh dj\u0017dwarf corpse\n#offer\nl      #pray\ny    n    l    \u0017magic fountain\nqy    q#dip\nb: h  n     \u0017neutral altar\ndbdc\u0017human corpse\n#pray\ny y  #rub\ni   r\u001b\u001b#ride\njy\u001611\n\u0007housecat\n\u0017huge chunk of meat\n\u0017carrot\ntak \u0017newt corpse\nt\u001b\u001b\u0006_>>._,>    \u0007yellow mold\n\u0017scroll of taming\n rq  #name\na\nkk\\ \u0017wand of stasis\n\u0007master lich\nzr  n   \u0017banana\n\u0007minotaur\nes     20s  n      n   nsj    n Fh   n Fh  n     n   \u0017wand of teleportation\nztk   n     n  Fh    n       n       n    n Fh   yy\u001by  y y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 585514,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           #levelchange\n20\n       \u0017gauntlets of dexterity\nWj20s20s20s\u0007yellow mold\nFn Fk20sFl20s\u0007air elemental\nsj.ss.ysm. ss  sm. i\u001bi\u001bahr\nahs\nck#tip\nh\u001b  afed s  .bae      n ae> W.h.shWsm.  s s  \\ #name\nm\n@.\u0018\u001bclZE- I am a fish\n W#tip\nh\u001b \\ #levelchange\n10\n   y  n  u j   \u0017unaligned altar\ndh dj\u0017dwarf corpse\n#offer\nl      #pray\ny    n    l    \u0017magic fountain\nqy    q#dip\nb: h  n     \u0017neutral altar\ndbdc\u0017human corpse\n#pray\ny y  #rub\ni   r\u001b\u001b#ride\njy\u001611\n\u0007housecat\n\u0017huge chunk of meat\n\u0017carrot\ntak \u0017newt corpse\nt\u001b\u001b\u0006_>>._,>    \u0007yellow mold\n\u0017scroll of taming\n rq  #name\na\nkk\\ \u0017wand of stasis\n\u0007master lich\nzr  n   \u0017banana\n\u0007minotaur\nes     20s  n      n   nsj    n Fh   n Fh  n     n   \u0017wand of teleportation\nztk   n     n  Fh    n       n       n    n Fh   yy\u001by  y y y\u001b  \u0017"
+  }
+ ]
+}

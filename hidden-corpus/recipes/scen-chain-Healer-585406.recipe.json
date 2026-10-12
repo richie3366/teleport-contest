@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nc\n 20s20s sbss.m. sm. .j20s sm.s.m.sm.s20s    yny   y nn y  . bj#name\n\u001b20suub10sjklhFk FkFkFkFk Fk FkFkFjFjFjFjFjFjFjFjul20sjb20snhj#name\n\u001bkhlnhuuu10s#chat\nb#name\n\u001bhjjb#name\n\u001b#name\n\u001buhbunjkjYBYY_ \u001b,>YNYL_>,>LHJK_>.>KNJL_>.>#enhance\n\u001bdiKBUJ_>,>KBKB_>.>#wipe\nWJBNK_>.>\u000f\u001bllnl100s\u000f\u001b\u0018\u001bi\u001b50s100s150s50s100s 100sFj.si\u001b_>.>i\u001b\\ \u0018\u001bhul\u0004u50s50s150s100sFh.Fb50snun150see100sFjFjFj\u0018\u001bjkb100sef100seeeeee10syyt\u001b#chat\nkjjhllueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20st\u001b10st\u001b10syhnh#name\n\u001bJJKB_>,>BN#quit\ny B  JY H _ \u001b:>YBUY_>.>YKHN_>,>\u000f\u001bbyylFlFlFlFlFlFlFlFlH U NH_>,>Fys.LNHB_>,>Fks20sLJUU_>,>P#conduct\n <UUJN_>.>FkFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFkFjFbFbFjFkFbFkFbFnFnFb #pray\ny   y\u001by  y y y\u001b  j",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585406,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nc\n 20s20s sbss.m. sm. .j20s sm.s.m.sm.s20s    yny   y nn y  ."
+  },
+  {
+   "seed": 685406,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": " bj#name\n\u001b20suub10sjklhFk FkFkFkFk Fk FkFkFjFjFjFjFjFjFjFjul20sjb20snhj#name\n\u001bkhlnhuuu10s#chat\nb#name\n\u001bhjjb#name\n\u001b#name\n\u001buhbunjkjYBYY_ \u001b,>YNYL_>,>LHJK_>.>KNJL_>.>#enhance\n\u001bdiKBUJ_>,>KBKB_>.>#wipe\nWJBNK_>.>\u000f\u001bllnl100s\u000f\u001b\u0018\u001bi\u001b50s100s150s50s100s 100sFj.si\u001b_>.>i\u001b\\ \u0018\u001bhul\u0004u50s50s150s100sFh.Fb50snun150see100sFjFjFj\u0018\u001bjkb100sef100seeeeee10syyt\u001b#chat\nkjjhllueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20st\u001b10st\u001b10syhnh#name\n\u001bJJKB_>,>BN#quit\ny "
+  },
+  {
+   "seed": 785406,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "B  JY H _ \u001b:>YBUY_>.>YKHN_>,>\u000f\u001bbyylFlFlFlFlFlFlFlFlH U NH_>,>Fys.LNHB_>,>Fks20sLJUU_>,>P#conduct\n <UUJN_>.>FkFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFkFjFbFbFjFkFbFkFbFnFnFb #pray\ny   y\u001by  y y y\u001b  j"
+  }
+ ]
+}

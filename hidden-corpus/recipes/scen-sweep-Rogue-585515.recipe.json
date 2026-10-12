@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n6\n  \u0007air elemental\nFb#pray\ny y           Fk   Fn Fj     Fk   n Fh  Fk Fk Fk  n  20s  Fk   \u00164\n  #levelchange\n6\n\u0007purple worm\nFbFb  n Fj#pray\ny y FkFj  n  Fl FlFyFbFjFj\u00168\ni\u001bwb ..sW20ss20saelwa  FlFlFlqd   n#dip\nfafs\nafs\n#tip\nf\u001b#jump\n#dip\nb #conduct\n f by k\\ #loot\nl#invoke\n\u001b#enhance\nyd\nm\n\u001bi\u001bwaFlFlFlafi\nafs\n#tip\nf\u001bwb  FlFlsXwgy 20sssWss20saej#wizintrinsic\nfl\n E- ad aerarium\n\u0017scroll of remove curse\nri  \u001b\u0017scroll of blank paper\nrj..20s\u001626\n\u0017bag of holding\n\u0017scroll of amnesia\n\u0017scroll of light\ndk#loot\no\n,ako\n\u0017skeleton key\ndkan.ss20s#loot\no\nanhaej\u0017lock pick\ndoan.yss.#loot\no\ni\u001b#levelchange\n20\n             \u0017blessed ring of polymorph control\nPpl#polyself\nchameleon\n genetic engineer\n#monster\n20s20s .m.  sm..m.#polyself\nfire elemental\n#monster\ns ss20s .#polyself\nmaster mind flayer\n #monster\n 20ssu ny20ssm.sm.\u0017bullwhip\nwq Fj Fj  n Fj \u0007marilith\n#chat\njFj Fh  \u0007troll\nFn  Fn  n    i\u001b\u00167\n#levelchange\n20\n\u0016?\nl   ,#wipe\n    n ,;k; \u001b:   sl   sm.    n \u0016?\n>u #enhance\nyn\nk\n\u001bh  #tip\nf\u001b   ;j;.ysb\u0016?\n>>Re#invoke\n\u001b:\u0006sk  n   .m.  \u001624\n\u0018\u001b\\ #enhance\nyj\ng\n\u001b20s   n  20s   \u001616\n:20s   n  fsm.   .m.       n   \u00166\n\u00172000 gold pieces\n\u0016?\n>x \u0006\u0017blessed potion of object detection\nqc<._ooooo._,,,$_mmmm._,<.#chat\ny_oooooo,_,_o._,Fh,:_{,Fh_.Fhq_m.Fh  n_,#ch"
+ },
+ "segments": [
+  {
+   "seed": 585515,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n6\n  \u0007air elemental\nFb#pray\ny y           Fk   Fn Fj     Fk   n Fh  Fk Fk Fk  n  20s  Fk   \u00164\n  #levelchange\n6\n\u0007purple worm\nFbFb  n Fj#pray\ny y FkFj  n  Fl FlFyFbFjFj\u00168\ni\u001bwb ..sW20ss20saelwa  FlFlFlqd   n#dip\nfafs\nafs\n#tip\nf\u001b#jump\n#dip\nb #conduct\n f by k\\ #loot\nl#invoke\n\u001b#enhance\nyd\nm\n\u001bi\u001bwaFlFlFlafi\nafs\n#tip\nf\u001bwb  FlFlsXwgy 20sssWss20saej#wizintrinsic\nfl\n E- ad aerarium\n\u0017scroll of remove curse\nri  \u001b\u0017scroll of blank paper\nrj..20s\u001626\n\u0017bag of holding\n\u0017scroll of amnesia\n\u0017scroll of light\ndk#loot\no\n,ako\n\u0017skeleton key\ndkan.ss20s#loot\no\nanhaej\u0017lock pick\ndoan.yss.#loot\no\ni\u001b#levelchange\n20\n             \u0017blessed ring of polymorph control\nPpl#polyself\nchameleon\n genetic engineer\n#monster\n20s20s .m.  sm..m.#polyself\nfire elemental\n#monster\ns ss20s .#polyself\nmaster mind flayer\n #monster\n 20ssu ny20ssm.sm.\u0017bullwhip\nwq Fj Fj  n Fj \u0007marilith\n#chat\njFj Fh  \u0007troll\nFn  Fn  n    i\u001b\u00167\n#levelchange\n20\n\u0016?\nl   ,#wipe\n    n ,;k; \u001b:   sl   sm.    n \u0016?\n>u #enhance\nyn\nk\n\u001bh  #tip\nf\u001b   ;j;.ysb\u0016?\n>>Re#invoke\n\u001b:\u0006sk  n   .m.  \u001624\n\u0018\u001b\\ #enhance\nyj\ng\n\u001b20s   n  20s   \u001616\n:20s   n  fsm.   .m.       n   \u00166\n\u00172000 gold pieces\n\u0016?\n>x \u0006\u0017blessed potion of object detection\nqc<._ooooo._,,,$_mmmm._,<.#chat\ny_oooooo,_,_o._,Fh,:_{,Fh_.Fhq_m.Fh  n_,#ch"
+  }
+ ]
+}

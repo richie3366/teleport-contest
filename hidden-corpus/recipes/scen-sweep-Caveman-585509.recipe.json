@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nif\n \u0017towel\nafZ;>. \u001b@.\u0017tin of lizard meat\neg Zsss\u00162\n#levelchange\n20\n                   \u0017Sunsword\nwh20sss#invoke\nh kX\u0007disenchanter\n;k.s..\u0007baby long worm\nss......20s\u0007Pestilence\nyy;m,s  n. 20s    n \u0007stalker\nsm. .m.   n 20s    n Fy    n\u00164\n\u0017cursed beartrap\n\u0007captain\nai  \u001720 flint stones\n  Qcf        n     nfk   fk  n    \u0017uncursed +0 gray dragon scale mail\nW\u001b20s   n 20s      n .h    nFh      nFb    \u00173 wand of polymorph\nzkb\u00173 brass lantern\nal    n   #rub\nl   n     n20s      yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 585509,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nif\n \u0017towel\nafZ;>. \u001b@.\u0017tin of lizard meat\neg Zsss\u00162\n#levelchange\n20\n                   \u0017Sunsword\nwh20sss#invoke\nh kX\u0007disenchanter\n;k.s..\u0007baby long worm\nss......20s\u0007Pestilence\nyy;m,s  n. 20s    n \u0007stalker\nsm. .m.   n 20s    n Fy    n\u00164\n\u0017cursed beartrap\n\u0007captain\nai  \u001720 flint stones\n  Qcf        n     nfk   fk  n    \u0017uncursed +0 gray dragon scale mail\nW\u001b20s   n 20s      n .h    nFh      nFb    \u00173 wand of polymorph\nzkb\u00173 brass lantern\nal    n   #rub\nl   n     n20s      yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

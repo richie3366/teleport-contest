@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017yumi\nwi\u001720 ya\nQj\u0007giant rat\njfyfyfkFk shkk,#levelchange\n14\n#polyself\npurple worm\n  s20s\u0007acid blob\nFl .ss\u0007newt\nFn.ss\u0007erinys\nsm.s20s   20s sm.ss\u0007umber hulk\n#chat\nFn     Fj  \u0007brown pudding\nFj  Fb #levelchange\n12\n \u00173 spellbook of confuse monster\nrk .20sZZ.s\u0017uncursed cream pie\n\u0007Nazgul\nel20s  sn  20s     Fh  \u0017cursed scroll of remove curse\n\u0007brown mold\nrm  \u001bFks\u0017Frost Brand\n\u0007gnome lord\nwFk  s.#invoke\nn \u001b>. .s\u00173 potion of sickness\nqo .sss\u0017spellbook of confuse monster\nrp y s.Za\nZa\n\u0017cursed the Staff of Aesculapius\n , 20sFk \u0017scroll of enchant weapon\n\u0007iron golem\nrq \u001b20s20si\u001bi\u001bwb Fy  n FkFyXwaFyFy  nFk rp y sm.sZa\nZa\nqo rk y  n sm.20s Za\n n ckokw-#tip\n\u001b\u001bqo  ;y:  #conduct\n #pray\ny y        \u00163\n#levelchange\n12\n\u0017blessed ring of polymorph control\nPrl#polyself\npony\n#monster\ns.\u0007skeleton\nFlFl Flsy20s .n#polyself\nki-rin\n ki-rin\n water demon\n water elemental\ns s .m.sm.sm.#polyself\nAngel\n mumak\n#monster\n.m...sm.s\u0017amulet of unchanging\nPs  n sm. n 20s n n .m.sm. n  n \u001623\n\\    \u00163\n kbyu\u0017statue trap\nuu\u0017dart trap\nhk\u0017level teleporter\n#terrain\nf\n#conduct\n #jump\n#twoweapon\n\u000f\u001b#levelchange\n10\n#polyself\n#monster\n20s n  sm.\u0007lichen\nFhFh Fb.\u0007gnome\nFj20s20ss\u00167\n\u0017the Bell of Opening\nw20s20s.#invoke\ntX20ss\u0017blessed the Eye of the Aethiopica\n n \u0017blessed lock pick\na\u00173 Fire Brand\n\u0007water elemental\nwFkFk n Fk#invoke\nv;    n     n n \u0017cursed spellbook of identify\nrw .sZa\n yn  Z"
+ },
+ "segments": [
+  {
+   "seed": 585421,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=fruit:mango\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017yumi\nwi\u001720 ya\nQj\u0007giant rat\njfyfyfkFk shkk,#levelchange\n14\n#polyself\npurple worm\n  s20s\u0007acid blob\nFl .ss\u0007newt\nFn.ss\u0007erinys\nsm.s20s   20s sm.ss\u0007umber hulk\n#chat\nFn     Fj  \u0007brown pudding\nFj  Fb #levelchange\n12\n \u00173 spellbook of confuse monster\nrk .20sZZ.s\u0017uncursed cream pie\n\u0007Nazgul\nel20s  sn  20s     Fh  \u0017cursed scroll of remove curse\n\u0007brown mold\nrm  \u001bFks\u0017Frost Brand\n\u0007gnome lord\nwFk  s.#invoke\nn \u001b>. .s\u00173 potion of sickness\nqo .sss\u0017spellbook of confuse monster\nrp y s.Za\nZa\n\u0017cursed the Staff of Aesculapius\n , 20sFk \u0017scroll of enchant weapon\n\u0007iron golem\nrq \u001b20s20si\u001bi\u001bwb Fy  n FkFyXwaFyFy  nFk rp y sm.sZa\nZa\nqo rk y  n sm.20s Za\n n ckokw-#tip\n\u001b\u001bqo  ;y:  #conduct\n #pray\ny y        \u00163\n#levelchange\n12\n\u0017blessed ring of polymorph control\nPrl#polyself\npony\n#monster\ns.\u0007skeleton\nFlFl Flsy20s .n#polyself\nki-rin\n ki-rin\n water demon\n water elemental\ns s .m.sm.sm.#polyself\nAngel\n mumak\n#monster\n.m...sm.s\u0017amulet of unchanging\nPs  n sm. n 20s n n .m.sm. n  n \u001623\n\\    \u00163\n kbyu\u0017statue trap\nuu\u0017dart trap\nhk\u0017level teleporter\n#terrain\nf\n#conduct\n #jump\n#twoweapon\n\u000f\u001b#levelchange\n10\n#polyself\n#monster\n20s n  sm.\u0007lichen\nFhFh Fb.\u0007gnome\nFj20s20ss\u00167\n\u0017the Bell of Opening\nw20s20s.#invoke\ntX20ss\u0017blessed the Eye of the Aethiopica\n n \u0017blessed lock pick\na\u00173 Fire Brand\n\u0007water elemental\nwFkFk n Fk#invoke\nv;    n     n n \u0017cursed spellbook of identify\nrw .sZa\n yn  Z"
+  }
+ ]
+}

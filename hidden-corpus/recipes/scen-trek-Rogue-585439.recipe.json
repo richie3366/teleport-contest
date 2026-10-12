@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FnFn20s \u000f\u001bnub150s FhFy20s FkFk20sFksFu150s         Fy sFk100sFu Fu Fu FuFk20s FuFu  .50s\u0018\u001b100sFuFuFuFus.50s100s50sFkFks_ \u001b.>100shlhFkFkFkFks.100s100s100s 150sFk20s.100sFhFhFhFhFhFh#pray\ny  y\u001by  y y y\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 585439,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\n",
+   "moves": "FnFn20s \u000f\u001bnub150s FhFy20s FkFk20sFksFu150s         Fy sFk100sFu Fu Fu FuFk20s FuFu  .50s\u0018\u001b100sFuFuFuFus.50s100s50sFkFks_ \u001b.>100shlhFkFkFkFks.100s100s100s 150sFk20s.100sFhFhFhFhFhFh#pray\ny  y\u001by  y y y\u001b  h"
+  }
+ ]
+}

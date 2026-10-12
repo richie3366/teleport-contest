@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  nubhFlFlFl FlFlFlFlFlyunnkyhhJHLU_ \u001bm.>YBUK_>.>#rub\n<BNUK_>,>#untrap\nl\u0014jyhbklnyljujhubn100sybu\u000f\u001bkjnZ150skkjkbuhlj50sFhFhshb#quit\ny  \u0017wand of digging\nzk>  .m.zk>   yy\u001by  y nn  2N  JNK_ \u001bm,>Fh FyFjUKNJ_>,>Fk s.KHUL_>.><NBKL_>.>UUYK_>,>BLNU_>.>#name\nd\n>hhhujkn100s50sFh20sslyb_>.>_>,>#force\n100s100sFh20sFh,P50sybhulj100s#invoke\n\u001b100slhl_>,>hlu100sFhFh20sFhFhs50s100s_>.>50s50s_>.>50sFh20s.bhkhhjFhss_>,>150s100sFhFhFh#quit\nyy\u001by  y y y\u001b  kbklFjFjFj FjFjFjFjFjbuhj#name\nf\n :da20sss#name\nm\nnndssskllj150sbllFh FhFhFyFhFhFh..100sk100s100snhyFjFjs\u0018\u001b150s150sFhss100s50sujhFbFbFh_>,>dd150s100s 50s_>.>\\   bjn50si\u001b_>.>_>.>i\u001bf by kllk100seeeeeJKYN_>.>KKUJ_>.><NLLJ_>,>hylleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\no\nt\u001byhjlykulbb#name\na\ndcss.20st\u001b#chat\nuyn#quit\nyy\u001by  y y y\u001b  \u0017wand of death\nzh.  y y\u001bny y\u001bn  s  \u0017wand of digging\nzl> szl> szl> .zl> szl20szl.FjFkFl20sFlFk.Fk.Fk\u0017wand of digging\nzg> szg> 20szg> szg> szg> szg> sFk 20s.20sFh  yy\u001by  y y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585418,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\n",
+   "moves": "  nubhFlFlFl FlFlFlFlFlyunnkyhhJHLU_ \u001bm.>YBUK_>.>#rub\n<BNUK_>,>#untrap\nl\u0014jyhbklnyljujhubn100sybu\u000f\u001bkjnZ150skkjkbuhlj50sFhFhshb#quit\ny "
+  },
+  {
+   "seed": 685418,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzk>  .m.zk>   yy\u001by  y nn  2"
+  },
+  {
+   "seed": 785418,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\n",
+   "moves": "N  JNK_ \u001bm,>Fh FyFjUKNJ_>,>Fk s.KHUL_>.><NBKL_>.>UUYK_>,>BLNU_>.>#name\nd\n>hhhujkn100s50sFh20sslyb_>.>_>,>#force\n100s100sFh20sFh,P50sybhulj100s#invoke\n\u001b100slhl_>,>hlu100sFhFh20sFhFhs50s100s_>.>50s50s_>.>50sFh20s.bhkhhjFhss_>,>150s100sFhFhFh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 885418,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=sortloot:loot\nOPTIONS=fruit:lychee\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " kbklFjFjFj FjFjFjFjFjbuhj#name\nf\n :da20sss#name\nm\nnndssskllj150sbllFh FhFhFyFhFhFh..100sk100s100snhyFjFjs\u0018\u001b150s150sFhss100s50sujhFbFbFh_>,>dd150s100s 50s_>.>\\   bjn50si\u001b_>.>_>.>i\u001bf by kllk100seeeeeJKYN_>.>KKUJ_>.><NLLJ_>,>hylleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\no\nt\u001byhjlykulbb#name\na\ndcss.20st\u001b#chat\nuyn#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 985418,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of death\nzh.  y y\u001bny y\u001bn  s"
+  },
+  {
+   "seed": 1085418,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of digging\nzl> szl> szl> .zl> szl20szl.FjFkFl20sFlFk.Fk.Fk"
+  },
+  {
+   "seed": 1185418,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzg> szg> 20szg> szg> szg> szg> sFk 20s.20sFh  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " Fn .s150s50s#turn\nk50sjyh150sFb.slbhlkb50s100s100sFlFlslunynne100s100sFyFyFy_ \u001b;>\u0018\u001b150s150sFyFyFy50sbjkunb50shlusylj\u0018\u001b_>,>50soki\u001bi\u001b100sy#chat\nyyjhyntbbuk#chat\nl\u0018\u001b_>.>150s100sFhFhFhFhFhs150si\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehkdc.20ssdd20s..lb#chat\nnLUNL_>.>ULUJ_>.>hf \u001bHBLL_>.>#rub\n,<YUUU_>,>KYBL_>.>\u000f\u001b,E- Vlad was here\nkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehlt\u001bhlhhlhllHKYH_>.>YYBL_>.>FlFlFlLYYN_>.>FlFl20s#chat\nu#jump\nYNJK_>.>KBYK_>.>>zBHKJ_>.>BJLU_>.><KUKH_>,>LYBL_>,>JYK J_>.>K UYJ_>,>UJUY_>.>\u000f\u001bht\u001b#wipe\nHJJN_>.>YLHK _>.>NJKL_>.>oj10sULLN_>,>P;_.da#pray\ny   50s150sFb sFb100s100sFbss#terrain\nb\n#sit\n>.\u000f\u001byjj100s50s_>.>jjk100s100s_>.>w\u001b\\    100sFh.s100s\\    50s_>.>50sjjk\u000f\u001bjky150slhhFkFk20sjkl_>.20s100sFy20s.J100sFh20ss;.#chat\ny#monster\nnk20sjkyu10sde.m.sm.sb#sit\n#terrain\nc\n<.jLY HH_>,>Fl20sFy<UYHB_>.>FhFhsKJ YJ_>,>UBUN _>.Fh_.Fb>FbssUYBY_>.Fh_.:> LHHJ_>.><LLKK_>.>Fns20"
+ },
+ "segments": [
+  {
+   "seed": 585411,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\n",
+   "moves": " Fn .s150s50s#turn\nk50sjyh150sFb.slbhlkb50s100s100sFlFlslunynne100s100sFyFyFy_ \u001b;>\u0018\u001b150s150sFyFyFy50sbjkunb50shlusylj\u0018\u001b_>,>50soki\u001bi\u001b100sy#chat\nyyjhyntbbuk#chat\nl\u0018\u001b_>.>150s100sFhFhFhFhFhs150si\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehkdc.20ssdd20s..lb#chat\nnLUNL_>.>ULUJ_>.>hf \u001bHBLL_>.>#rub\n,<YUUU_>,>KYBL_>.>\u000f\u001b,E- Vlad was here\nkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehlt\u001bhlhhlhllHKYH_>.>YYBL_>.>FlFlFlLYYN_>.>FlFl20s#chat\nu#jump\nYNJK_>.>KBYK_>.>>zBHKJ_>.>BJLU_>.><KUKH_>,>LYBL_>,>JYK J_>.>K UYJ_>,>UJUY_>.>\u000f\u001bht\u001b#wipe\nHJJN_>.>YLHK _>.>NJKL_>.>oj10sULLN_>,>P;_.da#pray\ny   50s150sFb sFb100s100sFbss#terrain\nb\n#sit\n>.\u000f\u001byjj100s50s_>.>jjk100s100s_>.>w\u001b\\    100sFh.s100s\\    50s_>.>50sjjk\u000f\u001bjky150slhhFkFk20sjkl_>.20s100sFy20s.J100sFh20ss;.#chat\ny#monster\nnk20sjkyu10sde.m.sm.sb#sit\n#terrain\nc\n<.jLY HH_>,>Fl20sFy<UYHB_>.>FhFhsKJ YJ_>,>UBUN _>.Fh_.Fb>FbssUYBY_>.Fh_.:> LHHJ_>.><LLKK_>.>Fns20"
+  }
+ ]
+}

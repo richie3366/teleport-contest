@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " jl10s10s #chat\nh #chat\nyddss.t\u001b#chat\nht\u001bhh20syyt\u001bSy\u001b  n#pray\ny  #invoke\n\u001bPeleZb\n>#chat\nn#chat\nj10st\u001bdesss10s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 585605,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": " jl10s10s #chat\nh #chat\nyddss.t\u001b#chat\nht\u001bhh20syyt\u001bSy\u001b"
+  },
+  {
+   "seed": 1085605,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "  n#pray\ny  #invoke\n\u001bPeleZb\n>#chat\nn#chat\nj10st\u001bdesss10s"
+  }
+ ]
+}
