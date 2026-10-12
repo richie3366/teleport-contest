@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3900 `dig.c` zap_dig u.dz arm never drained the losehp wail: low-HP ceiling rock printed no third message (Barb-585441 s346 → zappable@s352)
+
+**C locus:** `dig.c` zap_dig u.dz arm `:1583–1612` (ceiling rock: loosen `:1592`, falls `:1594`, losehp `:1597`, mksobj `:1599`) + `hack.c` losehp `:4289–4291` (`n > 0 && u.uhp*10 < u.uhpmax` → maybe_wail inline, before losehp returns) + `hack.c` maybe_wail `:4210–4243` (`:4217–4220` moves>wailmsg+50 gate, `:4238–4241` Soundeffect + You_hear CwnAnnwn/Banshee).
+**JS:** `js/dig.js` (+4/−1: 1 import name + drain + cite) + `scripts/zapdig-falling-rock-wail.test.mjs` (new node:test: prefix-348 pins the C-recorded s346 `--More--` topline + s347 howling topline verbatim + the uhp*10<uhpmax/wailmsg mechanism; pre-fix FAILs with the exact corpus no-More topline, post-fix 1/1).
+**Change:** `js/dig.js` only — `await finish_maybe_wail()` after the fatal-drain block, before mksobj_at (C order: the wail prints inside losehp, before the rock lands), with the `:4289–4291` cite; `finish_maybe_wail` joins the existing hack.js static import (`imports.mjs --can`: ALREADY). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** focused test pre-fix 0/1 (exact corpus no-More topline) → post-fix 1/1. `node scripts/verify.mjs --fn zap_dig` → PASS syntax (1 file: js/dig.js) · PASS rule2 · PASS hidden (`verify zap_dig: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`: scen-sweep-Barbarian-585441 346→zappable@352) · PASS reach zap_dig 80/80 → REACH-OK (91 reach; spread sample) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: not shared) → VERIFY: PASS. Movement: `verify zap_dig: 0 PASS, 1 moved, 0 no-movement`.
+**Named:** none new — zap_dig stays whole vs C `:1548–1754`. Sibling undrained losehp sites in other C functions left untouched per the D-3890 sibling rule (no session names them): `dig()` bear-trap self-hit `js/dig.js:2358` (dig.c:405–423 occupation arm), `use_pick_axe2` `js/dig.js:2668/:2734`.
+**Next:** regen cliffs (zap_dig row leaves; nhl_gamestate UNPORTABLE park stands — never a port row). 585441 follow-up is the fresh zappable@352 divergence (C «You wrest one last charge from the worn-out wand.--More--» vs JS «In what direction?»).
 ## 2026-10-12 — D-3899 cliffs-head `use_pick_axe2` writer: venom/pie-hit arm reads stale Blind snapshot (Samurai-585501 s600 → FULL PASS)
 
 **C locus:** `hmon_hitmon_misc_obj` CREAM_PIE/BLINDING_VENOM arm `uhitm.c:1265–1317`, `:1273 if (Blind)` — `Blind` is youprop.h:103 `(HBlinded||EBlinded)&&!BBlinded`. Message-only branch: all three arms fall through to setmangry/mcansee=0/`rn1(25,21)` (RNG matched; screen-only divergence).

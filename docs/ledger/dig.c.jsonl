@@ -20,7 +20,7 @@
 {"fn":"watch_dig","c":"1377-1410","status":"ported","js":["js/dig.js:watch_dig"],"d":["D-2319"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: town+furniture gate, warn-once then arrest, stop_occupation live"}
 {"fn":"mdig_tunnel","c":"1414-1497","status":"ported","js":["js/dig.js:mdig_tunnel"],"d":["D-3710"],"at":"2026-10-09@a75bb06aa","note":"audit 2026-10-03: door eat+trap, SCORR, wall/tree/stone dig, pile drops live"}
 {"fn":"draft_message","c":"1504-1544","status":"ported","js":["js/dig.js:draft_message"],"d":["D-2536"],"at":"seed@a30a7de84"}
-{"fn":"zap_dig","c":"1548-1754","status":"ported","js":["js/dig.js:zap_dig"],"d":["D-2322","D-2321","D-2115"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: swallow, dz ceiling/down, beam loop, pitdig/conjoin, pitflow live"}
+{"fn":"zap_dig","c":"1548-1754","status":"ported","js":["js/dig.js:zap_dig"],"d":["D-3900","D-2322","D-2321","D-2115"],"at":"2026-10-12@96bd880b4","note":"audit 2026-10-03: swallow, dz ceiling/down, beam loop, pitdig/conjoin, pitflow live"}
 {"fn":"adj_pit_checks","c":"1763-1838","status":"ported","js":["js/dig.js:adj_pit_checks"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full terrain gate table + supporting-structure msgs live"}
 {"fn":"pit_flow","c":"1844-1882","status":"ported","js":["js/dig.js:pit_flow"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: by-value trap copy, liquid_flow, conjoined recursion live"}
 {"fn":"buried_ball","c":"1885-1932","status":"ported","js":["js/dig.js:buried_ball"],"d":["D-2669"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: utrap gate, exact-spot + nearest dist2<=8 search live"}
