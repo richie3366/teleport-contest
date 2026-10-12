@@ -5131,8 +5131,18 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
                 };
             }
         } else {
+            // C `:2249` — plain equality, no zero exception: lastseentyp
+            // == typ takes the live back_to_glyph, anything else fakes
+            // the remembered typ below. 0 is STONE, and it is the live
+            // value (not "unknown") at premapped-but-never-vision-mapped
+            // cells: premap_detect's map_background/map_object never call
+            // update_lastseentyp (display.c's only writers are
+            // magic_map_background, the _map_location vision macro, and
+            // the two hero-spot sites), so Sokoban boulder cells the hero
+            // never saw keep last=0 and C paints stone under the stripped
+            // boulder (scen-sweep-Samurai-582701 step 1814).
             const last = game.lastseentyp?.[x]?.[y] | 0;
-            if (last === (loc.typ | 0) || !last) {
+            if (last === (loc.typ | 0)) {
                 glyph = {
                     ...terrain_glyph(loc, x, y), glyph: back_to_glyph(x, y),
                 };
