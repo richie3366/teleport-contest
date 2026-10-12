@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-12
 
+- [x] `objnam.c` xname_flags — blocks 1/1197 corpus sessions (first at step 624; RNG lost 0, screens lost 1): toplines identical; first differing screen row 1: C «` ···          `   ``       ··``            ···   `           `» vs JS «`              `   ``       ··``            ···   `           `» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-worldtour-Caveman-95234). @32ac8ebf9 **[history: archived D-2483 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3871
+
+
 - [x] PASS→FAIL `scen-chain-Archeologist-95418` step 650/668 (kind=rng; board owner `randomize_gem_colors` o_init.c:89): JS throws `relink_timers: no object 13` at js/lev_json.js:528 (`relinkLevelTimersLights` TIMER_OBJECT arg_id lookup during level-load relink) — PASS (24592/24592 RNG, 668/668 screens) in the f7cc0401e board, FAIL on the audit 2719–2726 full rescore. Window: js/ SHAs since audit c7e7d049e (`efa0e1eb6 244671849 d6748550a 5f5a0c834 e83efcbaf ac5580aa5 e0e05880b f7cc0401e`); prime suspect `ac5580aa5` (D-3864, only timer-touching change: getlev_bones now installs ghostly RANGE_LEVEL timers — a later save/reload may relink a stale arg_id). Falsifier: replay 95418 at ac5580aa5~1 vs ac5580aa5; if both fail, bisect older. Source: audit 2719–2726 rescore (reviews/loop-unattended/2719-efa0e1eb6-unaware-guard-writer.md … 2726). **Addressed:** D-3867 `1aded8e8f`
 
 

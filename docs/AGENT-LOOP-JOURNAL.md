@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3871 cliffs-head `xname_flags` writer: `getline.c` hooked_tty_getlin prompt must consume pending vision recalc via custompline→vpline (Caveman-95234 624→PASS)
+
+**C locus:** win/tty/getline.c hooked_tty_getlin `:60–67` issues every prompt via custompline(OVERRIDE_MSGTYPE|SUPPRESS_HISTORY) → vpline (src/pline.c:299), whose `:266–271` consumes a pending vision_full_recalc and `:277–278` flushes before putmesg. Here 10 light-emitting summons (MUSE create-monster, keys[622]) set the flag via new_light_source; the docall prompt's vpline recalcs (revealing newly-lit/never-mapped cells, 0 scored RNG) and flushes them before blocking. Proven by elimination: 0 draws in keys[623]; every gap occupant (more-dismissal, flash_mon ≤1 cell, silent m_tele, obfree, trycall guard) is newsym-free; NOMUX shadow order proves the paint bytes emit in the gap.
+**JS:** js/getline.js getlin + get_ext_cmd (2 call sites; helper already imported for yn, no new cross-module import).
+**Change:** js/getline.js only — one `vpline_flush_vision();` before the initial `await paint();` in getlin and get_ext_cmd (C order: recalc-consume, then flush/putmesg), with C cites; echo repaints stay addtopl with no vpline, matching C (prompt vpline runs once before the input loop) and the yn precedent.
+**Verify:** `verify xname_flags: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-worldtour-Caveman-95234: PASS, was 624-diverge); reach xname_flags + hooked_tty_getlin smoke spreads 24/24 PASS, 0 regressed → REACH-OK; syntax · Rule #2 · green · strict · cohort all PASS; full sessions skipped (gate: no shared file changed). No maintained test harness in repo (no tests/ dir); regression is the corpus session itself, re-run by every future `verify --fn` touching getlin.
+**Named:** none — the custompline-vision arm is now complete; the rest of hooked_tty_getlin stays split-ported per ledger.
+**Next:** pop the regenerated Open — cliffs head.
 ## 2026-10-12 — D-3870 cliffs-head `print_mapseen` writer: `end.c` savelife read nonexistent `urole.malenum`, so Tourist lifesaves printed the non-Tourist "while" line (Tourist-578210 622→PASS)
 
 **C locus:** `end.c` savelife `:730–736` (`gm.multi = -1`; `gm.multi_reason = Role_if(PM_TOURIST) ? "being toyed with by Fate" : "attempting to cheat Death"`); `Role_if(X) ≡ gu.urole.mnum == X` (`you.h:247`); printed via `formatkiller(tmpbuf, sizeof tmpbuf, how, TRUE)` in the died_here arm `dungeon.c:3709`.
