@@ -1256,8 +1256,8 @@ export function save_timers(range) {
  * Callees: live `insert_timer` above (C `:2724`, `#ifndef SFCTOOL` always
  * true in JS).
  * @param {object[]} list hydrated timer entries (deserTimerList shape)
- * @param {boolean} [ghostly] bones-load remap (C `:2722`; no JS caller
- * passes true — ghostly ⇔ getlev_bones, which never restores timers)
+ * @param {boolean} [ghostly] bones-load remap (C `:2722`; getlev_bones
+ * passes true with moves−omoves elapsed, C restore.c `:1111`)
  * @param {number} [adjust] bones timeout skew (C `:2723`)
  */
 export function restore_timers(list, ghostly = false, adjust = 0) {
