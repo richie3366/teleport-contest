@@ -16,7 +16,7 @@
 {"fn":"magic_negation","c":"1089-1137","status":"ported","js":["js/mhitm.js:magic_negation"],"d":["D-2658"],"at":"seed@a30a7de84"}
 {"fn":"hitmu","c":"1144-1267","status":"ported","js":["js/mhitu.js:hitmu"],"d":["D-3832","D-2247","D-1921"],"at":"2026-10-11@5db9c5f7b","note":"stale 2026-09-15"}
 {"fn":"gulp_blnd_check","c":"1273-1285","status":"ported","js":["js/mhitu.js:gulp_blnd_check"],"at":"2026-10-03@bbe63333a"}
-{"fn":"gulpmu","c":"1289-1587","status":"ported","js":["js/mhitu.js:gulpmu"],"d":["D-3846","D-2462","D-2387","D-2161"],"at":"2026-10-11@6c3585607"}
+{"fn":"gulpmu","c":"1289-1587","status":"ported","js":["js/mhitu.js:gulpmu"],"d":["D-3863","D-3846","D-2462","D-2387","D-2161"],"at":"2026-10-12@5f5a0c834"}
 {"fn":"explmu","c":"1591-1664","status":"ported","js":["js/mhitu.js:explmu"],"d":["D-1326"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gazemu","c":"1668-1898","status":"ported","js":["js/mhitu.js:gazemu"],"d":["D-2132","D-1328"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mdamageu","c":"1902-1927","status":"ported","js":["js/mhitu.js:mdamageu"],"at":"2026-10-03@bbe63333a"}
