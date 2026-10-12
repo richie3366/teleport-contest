@@ -2736,3 +2736,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2724-ac5580aa5-bones-timers.md](./2724-ac5580aa5-bones-timers.md) | `ac5580aa5` | D-3864 ghitm-row writer bones RANGE_LEVEL timers (1 PASS) | **ACCEPT** |
 | [2725-e0e05880b-getpos-nxtc-curs.md](./2725-e0e05880b-getpos-nxtc-curs.md) | `e0e05880b` | D-3865 getpos-row writer loop-top nxtc curs on miss (1 PASS) | **ACCEPT** |
 | [2726-f7cc0401e-newman-newuhs.md](./2726-f7cc0401e-newman-newuhs.md) | `f7cc0401e` | D-3866 do_statusline2-row writer newman :436 newuhs (1 PASS) | **ACCEPT** |
+| [2727-1aded8e8f-write-timer-blob-id.md](./2727-1aded8e8f-write-timer-blob-id.md) | `1aded8e8f` | D-3867 Must-fix write_timer stale blob id (1 PASS) | **ACCEPT** |
+| [2728-5076a115c-getpos-movecmd-describe.md](./2728-5076a115c-getpos-movecmd-describe.md) | `5076a115c` | D-3868 use_whip-row writer getpos movecmd describeAt (1 PASS) | **ACCEPT** |
+| [2729-32ac8ebf9-domove-newsym-dest.md](./2729-32ac8ebf9-domove-newsym-dest.md) | `32ac8ebf9` | D-3869 dolook-row writer domove newsym(dest) (1 PASS) | **ACCEPT** |
+| [2730-3986ab85b-savelife-malenum.md](./2730-3986ab85b-savelife-malenum.md) | `3986ab85b` | D-3870 print_mapseen-row writer savelife mnum (1 PASS) | **ACCEPT** |
+| [2731-5945b92d0-getlin-vpline-flush.md](./2731-5945b92d0-getlin-vpline-flush.md) | `5945b92d0` | D-3871 xname_flags-row writer getlin vpline flush (1 PASS) | **ACCEPT** |
+| [2732-7f356b471-goal-first-hea-val.md](./2732-7f356b471-goal-first-hea-val.md) | `7f356b471` | D-3872 level_tele-row writer goal_first Hea+Val + sobj_at (3 PASS) | **ACCEPT** |
+| [2733-8b0e83ff0-shk-move-invis.md](./2733-8b0e83ff0-shk-move-invis.md) | `8b0e83ff0` | D-3873 distfleeck-row writer shk_move :4960 live Invis (1 moved) | **ACCEPT** |
+| [2734-dba0c82b0-mfndpos-invis-clone.md](./2734-dba0c82b0-mfndpos-invis-clone.md) | `dba0c82b0` | D-3874 m_move-row writer mfndpos inline Invis clone omits mummy arm (1 PASS + 1 moved) | **QUALITY-RISK** |

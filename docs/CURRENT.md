@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-12** — full `sessions` on `f7cc0401e`
-(audit **2719–2726**, 2026-10-12T04:47:41Z).
+Score last measured: **2026-10-12** — full `sessions` on `dba0c82b0`
+(audit **2727–2734**, 2026-10-12T10:11:30Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`363+1.84/turn` (R² 0.79).
+`349+1.56/turn` (R² 0.76).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-12 01:53Z)** | **22 / 44**, 9,012 / 11,265 pts, RNG **51.7 %**, rngSteps 93.6 %, screens **80.0 %** |
+| **Held-out (judge 2026-10-12 08:13Z)** | **22 / 44**, 9,012 / 11,265 pts, RNG **51.7 %**, rngSteps 93.6 %, screens **80.0 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `363+1.84/turn` (R² 0.79) |
+| Speed label | `349+1.56/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (9,012 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,012** (+12), RNG **51.7 %** (+0.1pp), rngSteps 93.6 %, screens **80.0 %** (+0.1pp) at judge 2026-10-12 01:53Z — fresh judge signal (was 2026-10-11 19:39Z); through D-3858..D-3866's window the corpus gained +9 net (1158→1167; marathons 219→228/244); the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-12 07:34Z, `e59503e48`; 1281/1281 entries, 0 unrecorded):**
-**1236 / 1281** PASS, RNG 27825376/28221771 (**98.60 %**), screens 482631/491202 (98.3 %); `full: true`. Marathons 278/308. Worst families: `scen-sweep` 94/112 (RNG 94.8 %), `scen-worldtour` 82/92 (97.2 %), `scen-trek` 41/42 (99.2 %), `scen-chain` 61/62, `scen-options` 20/21, `scen-tour` 28/29; rest 100 % RNG. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2726 (index; no row 1618): 1330 ACCEPT, 61 WITH-DEBT, 110 QUALITY-RISK (2719–2726: 8A/0D/0Q, 1 Must-fix queued — rescore regression, not a review C-wrong).
+every audit). Rank 5 by pts (9,012 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,012** (±0), RNG **51.7 %** (±0), rngSteps 93.6 %, screens **80.0 %** (±0) at judge 2026-10-12 08:13Z — fresh judge signal (was 2026-10-12 01:53Z), flat; through D-3867..D-3874's window the corpus went 1168/1197 → 1240/1281 (Grow #2 +84 entries; marathons 228/244 → 282/308); the falsifier watch (§10.19) stays open.
+**Corpus — picker and proxy (2026-10-12 10:22Z, `dba0c82b0`; 1281/1281 entries, 0 unrecorded):**
+**1240 / 1281** PASS, RNG 28036485/28221771 (**99.34 %**), screens 485365/491202 (98.8 %); `full: true`. Marathons 282/308. Worst families: `scen-sweep` 96/112 (RNG 96.2 %), `scen-trek` 41/42 (99.2 %), `scen-chain` 61/62, `scen-worldtour` 84/92, `scen-options` 20/21, `scen-tour` 28/29; rest 100 % RNG. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2734 (index; no row 1618): 1337 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2727–2734: 7A/0D/1Q, 1 Must-fix queued — review C-wrong: mfndpos inline Invis clone).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** cliffs-head level_tele writer: quest goal_first Hea+Val arrival texts (Hea-582617 s171 / Hea-582636 s196 / Val-582628 s304; Knight-578306 s859 is the measured wall-color writer, own row).
-**This iter:** m_move/Caveman-582707+Valkyrie-582704 writer mfndpos monseeu — same stale-flat class, live (H||E)&&!B.
+**Next:** Must-fix (review 2734): mfndpos inline Invis clone → import { Invis } from timeout.js (drops mummy-arm C-wrong).
+**This iter:** audit 2727–2734 (review D-3867..D-3874 + full rescore 1240/1281, 0 flips) — next pops the 2734 Must-fix.
 
 ## Parked (diagnose only — do not implement)
 

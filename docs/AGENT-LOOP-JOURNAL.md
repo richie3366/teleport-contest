@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — audit 2727–2734 @dba0c82b0: review D-3867/D-3868/D-3869/D-3870/D-3871/D-3872/D-3873/D-3874 (7A/0D/1Q, 1 Must-fix queued — review C-wrong) + full rescore 1240/1281 (0 flips)
+
+**Reviews:** 2727 write_timer blob id ACCEPT; 2728 getpos movecmd describeAt ACCEPT; 2729 domove newsym(dest) ACCEPT; 2730 savelife mnum ACCEPT; 2731 getlin vpline flush ACCEPT; 2732 goal_first Hea+Val + sobj_at ACCEPT (xkilled file-cite nit: mon.c not uhitm.c); 2733 shk_move live Invis ACCEPT; 2734 mfndpos inline Invis clone QUALITY-RISK — omits the BInvis mummy-wrapping arm (C worn.c:39; canonical timeout.js:1739–1744), "mirrors verbatim" + "cannot import" both false (--can VERDICT: SAFE; shk↔timeout precedent). Every movement claim re-measured with --reach-all (incl. full 1119/1190/1167 spreads): all confirmed, 0 regressed.
+**Score:** public 44/44 (`349+1.56/turn`); corpus 1240/1281 PASS, RNG 99.34 %, screens 98.8 %, `full: true`, 0 PASS→FAIL; marathons 282/308; held-out 22/44 flat on fresh judge (08:13Z). Ledger snapshot appended; 5 sampled ported rows all stand (sql path env-blocked — Node 20 lacks node:sqlite — sampled jsonl + brief instead).
+**Next:** pop the 2734 Must-fix (mfndpos: import Invis from timeout.js, delete inline).
 ## 2026-10-12 — D-3874 cliffs-head `monmove.c` m_move Caveman-582707 s723 + Valkyrie-582704: writer `mon.c` mfndpos monseeu read the stale u.Invis flat, phantom-NOTONL-rejected the unicorn's hero-row candidates — Valkyrie PASS, Caveman 723→900
 
 **C locus:** `mon.c` mfndpos `monseeu` (`:2261–2262`, `mon->mcansee && (!Invis || perceives(mdat))`) + `:2339` NOTONL gate (`monseeu && monlineu` → `flag & NOTONL` skips) + `youprop.h:198` (live `Invis` macro) + mon_allowflags `:2122–2124` (unicorn NOTONL when !noteleport_level).
