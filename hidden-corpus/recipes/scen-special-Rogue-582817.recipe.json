@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0016?\nk  \u0006_ \u001b>.#chat\nl  .m.   n sm.    yy\u001by   ny\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 582817,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\nk  \u0006_ \u001b>.#chat\nl  .m.   n sm.    yy\u001by   ny\u001by  ."
+  }
+ ]
+}

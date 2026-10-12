@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n12\n#wizintrinsic\nkep\n  syssss.k20s        .m. .20s          20s   syss.m.20s20ssm.sm.sm.20ssy#monster\nag_<, \u001b,s\u0014,    #untrap\nj#turn\ns..ss20s\u0007little dog\n\u0017tripe ration\ntbn\u0007kitten\n\u0017huge chunk of meat\ntbj  #chat\nj \u0017leash\nakn  n bnhlakk u dgs.20s  n \u0017fortune cookie\ntbn  \u00164\n\u0007tame large dog\n\u0007kitten\n\u0017tripe ration\ntbl#name\nd\nl h\u0007kobold\n.s.20s     s.\u0007lichen\n\u0017scroll of taming\nrm\u0007gnome\n20s  s20ss..\u0017ice box\n\u0017potion of gain ability\n\u0017wand of make invisible\n\u0017ring of polymorph control\n\u000f\u001b\u0017Magicbane\nwrFhFb.\u0007skeleton\n.20s sssssss\u0007floating eye\nFbFhFj\\ #levelchange\n8\n \u0017blessed ring of polymorph control\nPsr  n #polyself\npaper golem\n s  .\u0007erinys\nFhFbFhss  n 20s #polyself\ntrapper\n  #monster\ns 20s  s  sy 20s#polyself\ndwarf\n20s su.h20s20s\u001629\n   \u00161\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPt\u0017T-shirt\nWus20s   s#polyself\nblack dragon\n  #monster\nk  20s   .s20s.#polyself\nraven\n #monster\nss\u0007jellyfish\nFjFjFjsm..m.sm.#polyself\ndoppelganger\n giant spider\n  #monster\n.m..20s   .20s#polyself\nimp\n #monster\nsh  .m.\u0007gas spore\nFh Fj Fj  .20ss\u0017potion of polymorph\nqv master mind flayer\n     \u0007fire vortex\n.m.sm. ss s 20s s  .m. s \u0007fire vortex\n;j,.20s     n  su   \u0007jackal\nFl  \u001b Fj Fj  \u001618\n \u0017blessed ring of polymorph control\nPw#polyself\ndoppelganger\n electric eel\n #"
+ },
+ "segments": [
+  {
+   "seed": 582713,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n12\n#wizintrinsic\nkep\n  syssss.k20s        .m. .20s          20s   syss.m.20s20ssm.sm.sm.20ssy#monster\nag_<, \u001b,s\u0014,    #untrap\nj#turn\ns..ss20s\u0007little dog\n\u0017tripe ration\ntbn\u0007kitten\n\u0017huge chunk of meat\ntbj  #chat\nj \u0017leash\nakn  n bnhlakk u dgs.20s  n \u0017fortune cookie\ntbn  \u00164\n\u0007tame large dog\n\u0007kitten\n\u0017tripe ration\ntbl#name\nd\nl h\u0007kobold\n.s.20s     s.\u0007lichen\n\u0017scroll of taming\nrm\u0007gnome\n20s  s20ss..\u0017ice box\n\u0017potion of gain ability\n\u0017wand of make invisible\n\u0017ring of polymorph control\n\u000f\u001b\u0017Magicbane\nwrFhFb.\u0007skeleton\n.20s sssssss\u0007floating eye\nFbFhFj\\ #levelchange\n8\n \u0017blessed ring of polymorph control\nPsr  n #polyself\npaper golem\n s  .\u0007erinys\nFhFbFhss  n 20s #polyself\ntrapper\n  #monster\ns 20s  s  sy 20s#polyself\ndwarf\n20s su.h20s20s\u001629\n   \u00161\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPt\u0017T-shirt\nWus20s   s#polyself\nblack dragon\n  #monster\nk  20s   .s20s.#polyself\nraven\n #monster\nss\u0007jellyfish\nFjFjFjsm..m.sm.#polyself\ndoppelganger\n giant spider\n  #monster\n.m..20s   .20s#polyself\nimp\n #monster\nsh  .m.\u0007gas spore\nFh Fj Fj  .20ss\u0017potion of polymorph\nqv master mind flayer\n     \u0007fire vortex\n.m.sm. ss s 20s s  .m. s \u0007fire vortex\n;j,.20s     n  su   \u0007jackal\nFl  \u001b Fj Fj  \u001618\n \u0017blessed ring of polymorph control\nPw#polyself\ndoppelganger\n electric eel\n #"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007tame saddled jackal\n#ride\nhy\u0007tame saddled pony\n#ride\nby\u0007tame saddled horse\n#ride\njy\u0006_ \u001b:>FlFh_>,Fk_,.>\u0006_>. Fb_.Fj >FjFj _>.Fn_. Fn>FnFn _>. Fn_.Fn>kubj\u0006_>,_.>_>._.>_>._.>#levelchange\n12\n \u0016?\n>>K     the Orb of Detection\n z#invoke\newb       ;b;.bsm.\u0016?\n\u001b\u0016?\n\u001b\u001620\n#levelchange\n14\n h yby\u0017tree\nhy\u0017magic fountain\nq\u0017long sword\n#dip\ngh\u0017fountain\nq:#terrain\n\u001b,h#turn\n#levelchange\n10\n\u0016?\n\u001bjyl    Fl      n Fh      jFh       n    Fh      \u0017wand of striking\nzh>  n       Fh      nFh     Fy      n    \u0017wand of digging\nzil    u   h  n   Fj  Fk    nFl    \u0017wand of digging\nzj>     n\u0017wand of striking\nzkl      Fb\u0017wand of digging\nzlk    n   \u0017wand of striking\nzm>   n     Fl     Fy     n         n h     10s Fb    n    \u001bFy          n Fb           nFl        Fb         y\u001b      h"
+ },
+ "segments": [
+  {
+   "seed": 582609,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007tame saddled jackal\n#ride\nhy\u0007tame saddled pony\n#ride\nby\u0007tame saddled horse\n#ride\njy\u0006_ \u001b:>FlFh_>,Fk_,.>\u0006_>. Fb_.Fj >FjFj _>.Fn_. Fn>FnFn _>. Fn_.Fn>kubj\u0006_>,_.>_>._.>_>._.>#levelchange\n12\n \u0016?\n>>K     the Orb of Detection\n z#invoke\newb       ;b;.bsm.\u0016?\n\u001b\u0016?\n\u001b\u001620\n#levelchange\n14\n h yby\u0017tree\nhy\u0017magic fountain\nq\u0017long sword\n#dip\ngh\u0017fountain\nq:#terrain\n\u001b,h#turn\n#levelchange\n10\n\u0016?\n\u001bjyl    Fl      n Fh      jFh       n    Fh      \u0017wand of striking\nzh>  n       Fh      nFh     Fy      n    \u0017wand of digging\nzil    u   h  n   Fj  Fk    nFl    \u0017wand of digging\nzj>     n\u0017wand of striking\nzkl      Fb\u0017wand of digging\nzlk    n   \u0017wand of striking\nzm>   n     Fl     Fy     n         n h     10s Fb    n    \u001bFy          n Fb           nFl        Fb         y\u001b      h"
+  }
+ ]
+}

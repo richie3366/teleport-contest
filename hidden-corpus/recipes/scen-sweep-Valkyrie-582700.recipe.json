@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017the Eye of the Aethiopica\n waFl .sX\u0007shade\n20s.m.20s    20s \u0007red mold\nFb   nsm..m.20s \u0007Wizard of Yendor\nyFbFb    Fn     #levelchange\n20\n           \u00173 saddle\nafn     #ride\nny\u0017blessed spellbook of drain life\n\u0007leprechaun\nrg  .u sm.  n  ZZ\u0017blessed wand of stasis\nzh   zh    Fl     n  Fl         \u0017uncursed 200 gold pieces\n\u0007little dog\n20s     Fy      n   Fn        sm.       .m.  n     \u001612\n\u00169\n\u0017jumping boots\nWi             su         n            20s    n       20s       n    T     n      \u0007Famine\nnFb     n        Fu  n      n        Fk  n     n        Fk   n         \u0007imp\nFj   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 582700,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017the Eye of the Aethiopica\n waFl .sX\u0007shade\n20s.m.20s    20s \u0007red mold\nFb   nsm..m.20s \u0007Wizard of Yendor\nyFbFb    Fn     #levelchange\n20\n           \u00173 saddle\nafn     #ride\nny\u0017blessed spellbook of drain life\n\u0007leprechaun\nrg  .u sm.  n  ZZ\u0017blessed wand of stasis\nzh   zh    Fl     n  Fl         \u0017uncursed 200 gold pieces\n\u0007little dog\n20s     Fy      n   Fn        sm.       .m.  n     \u001612\n\u00169\n\u0017jumping boots\nWi             su         n            20s    n       20s       n    T     n      \u0007Famine\nnFb     n        Fu  n      n        Fk  n     n        Fk   n         \u0007imp\nFj   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

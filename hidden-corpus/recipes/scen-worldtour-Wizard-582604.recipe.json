@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\np \u0007straw golem\nFhFh  Fh Fhs\u0007wererat\nFlFlFlFlsl        \u0016?\n>>K     the Master Key of Thievery\n lb b:.k  sm. \u001616\n\u0004l  \u001611\nu uy yh  yh  :\u0016?\n\u001bn u\u0016?\n\u001bkh  \u001644\n#levelchange\n12\n   \u0007Yeenoghu\nyFk   Fk     n      Fj    Fj       Fn           n   Fl                               n   \u0007ape\n#chat\nhFy              \u001b               n         Fu                   n       \u0007mastodon\nFb               Fj         n            \u00167\n\u0016?\n\u001bb            k   n        \u001616\nh        n       l    n        h                 n  n       n     u       n l                                   n  :\u00166\n\u0016?\n\u001bl              j            \u001644\nj         h    n            l           j       n      n      l               :sm.        n   sm.      sn          \u0016?\n\u001bl      ynny y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 582604,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\np \u0007straw golem\nFhFh  Fh Fhs\u0007wererat\nFlFlFlFlsl        \u0016?\n>>K     the Master Key of Thievery\n lb b:.k  sm. \u001616\n\u0004l  \u001611\nu uy yh  yh  :\u0016?\n\u001bn u\u0016?\n\u001bkh  \u001644\n#levelchange\n12\n   \u0007Yeenoghu\nyFk   Fk     n      Fj    Fj       Fn           n   Fl                               n   \u0007ape\n#chat\nhFy              \u001b               n         Fu                   n       \u0007mastodon\nFb               Fj         n            \u00167\n\u0016?\n\u001bb            k   n        \u001616\nh        n       l    n        h                 n  n       n     u       n l                                   n  :\u00166\n\u0016?\n\u001bl              j            \u001644\nj         h    n            l           j       n      n      l               :sm.        n   sm.      sn          \u0016?\n\u001bl      ynny y y\u001b  y"
+  }
+ ]
+}

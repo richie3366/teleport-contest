@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n        #wizintrinsic\nlb\n 20ssm. .ysm..bsm.20ssm..h20s #jump\n\\  j\u0018\u001b#rub\n#turn\nsnss20s  n20ssi\u001brcqdee s20seg sseh   .20sW20ss.\u0004n#chat\nu#jump\n#chat\nk\u0014 \u001b<.\\  Za\nHi\u001bqdri y 20s.Za\neh   ssee y  n s20sWs.sTbef..#levelchange\n8\n#wizintrinsic\nk\n 20s..ss.s.s..20sss20sssss.ss<f \u001b#tip\n\u001b#sit\n\u001b,qds20ss20s..#levelchange\n20\n              \u0007white unicorn\n\u0017scroll of taming\nrp \u0017saddle\naqk#ride\nky\u0007warhorse\n\u0017scroll of taming\nrr \u0017saddle\nask#ride\nky\u0007pony\n\u0017scroll of taming\nrt \u0017saddle\n auu #ride\nkyjnussssukhjl,\u001627\n   #levelchange\n20\n\u0007vrock\nFl  Fh  \u0007xorn\n;j;sm.sm. 20s  \u0007tengu\n#chat\nlFn   Fl    n    \u0007quasit\n#chat\nj Fj    Fy     n \u0018\u001b\u00165\n  bju u  \u0017arrow trap\nu   \u0017trap door\n\u0017beartrap\n av  hb#enhance\nyk\na\n\u001b#turn\n10s  \u0006#wizintrinsic\nm\n 20s   sm.   n  sm.   sm.  .m.   sm. 20s sn20s  20s  n i\u001b\u0004 #rub\nJ\\  f \u001b.k .m.  20s 20s sm.   sm. i\u001b\u00163\n#levelchange\n6\n      \u0017spellbook of invisibility\nrw  n    20s   \u0017blessed spellbook of light\nrx    n sl \u0017blessed spellbook of cancellation\nry     sm. +\u001bZa\n  n Za\n   Fb    Za\n\u0007yellow mold\nZa\n  n    Fu  Za\nFh \u0007gnome lord\nZa\n  #turn\n#pray\ny y      i\u001b\u00166\n\u0017water walking boots\nWzsj.m.20sTz\u0007grey-elf\nFu Fu   n\u0007straw golem\n#chat\nlFl     Fu \u0007ape\n.m. sm. sm..m.  n 20s   sm..m.  sb20s    n \u00167\n\u001612\ni\u001bee 20sshri y.m.20s Za\nZa\n  nri  20s.m.Za\n  n eh   sm..m.  yy\u001bnny ny  r"
+ },
+ "segments": [
+  {
+   "seed": 582605,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n        #wizintrinsic\nlb\n 20ssm. .ysm..bsm.20ssm..h20s #jump\n\\  j\u0018\u001b#rub\n#turn\nsnss20s  n20ssi\u001brcqdee s20seg sseh   .20sW20ss.\u0004n#chat\nu#jump\n#chat\nk\u0014 \u001b<.\\  Za\nHi\u001bqdri y 20s.Za\neh   ssee y  n s20sWs.sTbef..#levelchange\n8\n#wizintrinsic\nk\n 20s..ss.s.s..20sss20sssss.ss<f \u001b#tip\n\u001b#sit\n\u001b,qds20ss20s..#levelchange\n20\n              \u0007white unicorn\n\u0017scroll of taming\nrp \u0017saddle\naqk#ride\nky\u0007warhorse\n\u0017scroll of taming\nrr \u0017saddle\nask#ride\nky\u0007pony\n\u0017scroll of taming\nrt \u0017saddle\n auu #ride\nkyjnussssukhjl,\u001627\n   #levelchange\n20\n\u0007vrock\nFl  Fh  \u0007xorn\n;j;sm.sm. 20s  \u0007tengu\n#chat\nlFn   Fl    n    \u0007quasit\n#chat\nj Fj    Fy     n \u0018\u001b\u00165\n  bju u  \u0017arrow trap\nu   \u0017trap door\n\u0017beartrap\n av  hb#enhance\nyk\na\n\u001b#turn\n10s  \u0006#wizintrinsic\nm\n 20s   sm.   n  sm.   sm.  .m.   sm. 20s sn20s  20s  n i\u001b\u0004 #rub\nJ\\  f \u001b.k .m.  20s 20s sm.   sm. i\u001b\u00163\n#levelchange\n6\n      \u0017spellbook of invisibility\nrw  n    20s   \u0017blessed spellbook of light\nrx    n sl \u0017blessed spellbook of cancellation\nry     sm. +\u001bZa\n  n Za\n   Fb    Za\n\u0007yellow mold\nZa\n  n    Fu  Za\nFh \u0007gnome lord\nZa\n  #turn\n#pray\ny y      i\u001b\u00166\n\u0017water walking boots\nWzsj.m.20sTz\u0007grey-elf\nFu Fu   n\u0007straw golem\n#chat\nlFl     Fu \u0007ape\n.m. sm. sm..m.  n 20s   sm..m.  sb20s    n \u00167\n\u001612\ni\u001bee 20sshri y.m.20s Za\nZa\n  nri  20s.m.Za\n  n eh   sm..m.  yy\u001bnny ny  r"
+  }
+ ]
+}

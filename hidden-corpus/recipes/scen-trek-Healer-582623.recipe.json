@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "J  BHK_ \u001b;>#monster\n#name\na\nJKKH_>,>NHNJ_>,>100suby100sFlFlFlFls.100s150s#conduct\n \\ ,i\u001b100s150snlkjyn150s_>.>150s ej50s ej\u000f\u001b_>,>#loot\nai kbu100sej150sejlju100sej\\ 50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0014#name\nd\ni\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHNU_>.>UUKK_>.>JLUU_>.><UKUN_>.>#twoweapon\n#terrain\nb\nNNLJ_>\u000f eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUYJB_>.>HNJK_>.><ULLL_>,>JYNL_>.>KUJB_>.>#name\nd\nZa\n#twoweapon\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJKNJ_>,>UKNY_>,>NYBH_>,>BKHK_>,>\u000f\u001becj#chat\nbULLJ_>.>NBJK_>.>t$ni\u001bLBJB_>.>FhFhFhLHHK_>.>Fb  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 582623,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": "J  BHK_ \u001b;>#monster\n#name\na\nJKKH_>,>NHNJ_>,>100suby100sFlFlFlFls.100s150s#conduct\n \\ ,i\u001b100s150snlkjyn150s_>.>150s ej50s ej\u000f\u001b_>,>#loot\nai kbu100sej150sejlju100sej\\ 50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0014#name\nd\ni\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHNU_>.>UUKK_>.>JLUU_>.><UKUN_>.>#twoweapon\n#terrain\nb\nNNLJ_>\u000f eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUYJB_>.>HNJK_>.><ULLL_>,>JYNL_>.>KUJB_>.>#name\nd\nZa\n#twoweapon\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJKNJ_>,>UKNY_>,>NYBH_>,>BKHK_>,>\u000f\u001becj#chat\nbULLJ_>.>NBJK_>.>t$ni\u001bLBJB_>.>FhFhFhLHHK_>.>Fb  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

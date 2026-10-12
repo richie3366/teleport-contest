@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "   t\u001b#name\nm\n @.jjnu#name\nf\nd20s.20s 20sl  db20s  20s sm.  da sm.20s 20s20s#chat\nbJ Y YY_>.>UJHK_>,>#monster\n#monster\nUKNB_>,>NLHL_>.>Fk FhsHNJN_>,>FhsFk<PLLY N_>.>\u000f\u001b#turn\n ,\u0014#wipe\nhhlytal 20sddsssdbss20sukPw\u001bsnjb#enhance\n\u001b150s\u0018\u001b\u0018\u001blkyhujW100sFbFbFbFbFbFbFbFbFbFbFbs#enhance\n\u001b150s_>.>100sFbFbFbFb20s.150s50s#offer\n\u000f\u001b100sFbFbFbFbFbsknj100s\u0018\u001b\\  \\  50sFhFhFhFh  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 582635,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:explore\n",
+   "moves": "   t\u001b#name\nm\n @.jjnu#name\nf\nd20s.20s 20sl  db20s  20s sm.  da sm.20s 20s20s#chat\nbJ Y YY_>.>UJHK_>,>#monster\n#monster\nUKNB_>,>NLHL_>.>Fk FhsHNJN_>,>FhsFk<PLLY N_>.>\u000f\u001b#turn\n ,\u0014#wipe\nhhlytal 20sddsssdbss20sukPw\u001bsnjb#enhance\n\u001b150s\u0018\u001b\u0018\u001blkyhujW100sFbFbFbFbFbFbFbFbFbFbFbs#enhance\n\u001b150s_>.>100sFbFbFbFb20s.150s50s#offer\n\u000f\u001b100sFbFbFbFbFbsknj100s\u0018\u001b\\  \\  50sFhFhFhFh  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

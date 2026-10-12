@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               bn\u0017wand of magic missile\nEk Elbereth\n : \u0017wand of light\nEl n  I am a fish\n: \u0017wand of lightning\nEm   X marks the spot\n \u0017wand of polymorph\nEn-:l\u0017wand of cancellation\nEo X marks the spot\nk\u0016?\n>C  \u0017blessed ring of levitation\nPprjyykyyyjnjkjjhnnnn\u0017wand of digging\nzqn\u0017scroll of earth\nrrnb\u0017scroll of earth\nrs\u0017wand of digging\nztk\u0017scroll of earth\nrs\u0017wand of digging\nzuk\u0017wand of digging\nzvlk\u0017scroll of earth\nrskuuuuu\u0017scroll of earth\nrsuuukknnnnu\u0017wand of striking\nzwhhjnu\u0017wand of striking\nzxj\u0017wand of striking\nzyh\u0017wand of digging\nzzh\u0017wand of striking\nzAl\u0017scroll of earth\nrr\u0017wand of striking\nzB>\u0017wand of digging\nzCh\u0017wand of digging\nzDh\u0017wand of striking\nzEh#levelchange\n14\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqF \u001bm,_oooo._,m,_oo,_,:,\u0014<._oooooo. Fh _,Fk  ,#chat\nk _{. Fh _,Fu  qd_mmm.#chat\nu__. Fh   n_. Fu #chat\nh dt  _oo.Fk      n_.   Fh ,p_{,   Fk _.  nFh    qd   #dip\nae    H#jump\nt$l     n \u00162\n#levelchange\n6\n   \u001710 daggers\nQG\u00072 newt\nh   h  n flfl fl fl fl 20s Fl\u0007gnome\nybflflfls20s\u0017halberd\nwH\u0007newt\nhaH.hjh,\u001625\n\u0006\u0007little dog\n\u0017carrot\ntaudd  20s.m.sm.10s#name\nm\n\u0017\u0006_>,Fk _.Fy  n  >\u0018\u001b#levelchange\n20\n              #wizintrinsic\nse\n .m.  20s  .bsm.   n  20s  sm.   n .m.  sm. sm. sm.   n20s  sm. sl    n sm. \\  #turn\ni\u001bwGy qe  :.ksm.  20s  n sm.  20s 20s    n \u001611\n\u00164\ni>\u001bwGy20sFyFyX10s_>,20s10soh#enhance\nyc\no\n\u001bZa\n\u0014,#monster\n\u000f\u001bkb\u0017wa"
+ },
+ "segments": [
+  {
+   "seed": 582633,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               bn\u0017wand of magic missile\nEk Elbereth\n : \u0017wand of light\nEl n  I am a fish\n: \u0017wand of lightning\nEm   X marks the spot\n \u0017wand of polymorph\nEn-:l\u0017wand of cancellation\nEo X marks the spot\nk\u0016?\n>C  \u0017blessed ring of levitation\nPprjyykyyyjnjkjjhnnnn\u0017wand of digging\nzqn\u0017scroll of earth\nrrnb\u0017scroll of earth\nrs\u0017wand of digging\nztk\u0017scroll of earth\nrs\u0017wand of digging\nzuk\u0017wand of digging\nzvlk\u0017scroll of earth\nrskuuuuu\u0017scroll of earth\nrsuuukknnnnu\u0017wand of striking\nzwhhjnu\u0017wand of striking\nzxj\u0017wand of striking\nzyh\u0017wand of digging\nzzh\u0017wand of striking\nzAl\u0017scroll of earth\nrr\u0017wand of striking\nzB>\u0017wand of digging\nzCh\u0017wand of digging\nzDh\u0017wand of striking\nzEh#levelchange\n14\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqF \u001bm,_oooo._,m,_oo,_,:,\u0014<._oooooo. Fh _,Fk  ,#chat\nk _{. Fh _,Fu  qd_mmm.#chat\nu__. Fh   n_. Fu #chat\nh dt  _oo.Fk      n_.   Fh ,p_{,   Fk _.  nFh    qd   #dip\nae    H#jump\nt$l     n \u00162\n#levelchange\n6\n   \u001710 daggers\nQG\u00072 newt\nh   h  n flfl fl fl fl 20s Fl\u0007gnome\nybflflfls20s\u0017halberd\nwH\u0007newt\nhaH.hjh,\u001625\n\u0006\u0007little dog\n\u0017carrot\ntaudd  20s.m.sm.10s#name\nm\n\u0017\u0006_>,Fk _.Fy  n  >\u0018\u001b#levelchange\n20\n              #wizintrinsic\nse\n .m.  20s  .bsm.   n  20s  sm.   n .m.  sm. sm. sm.   n20s  sm. sl    n sm. \\  #turn\ni\u001bwGy qe  :.ksm.  20s  n sm.  20s 20s    n \u001611\n\u00164\ni>\u001bwGy20sFyFyX10s_>,20s10soh#enhance\nyc\no\n\u001bZa\n\u0014,#monster\n\u000f\u001bkb\u0017wa"
+  }
+ ]
+}

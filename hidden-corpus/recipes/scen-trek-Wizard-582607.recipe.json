@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "n#name\nm\n m.Fido\nklyhn#chat\nnKBN U_>.>FkFysNNLY_>.>#turn\ni\u001bULUN_>.>FbFh s<YNJL_>.>#turn\n#force\nYJYB_>.>#offer\nclKHBL_>.>\u000f\u001b100s 100s hjk\u0018\u001b#name\nm\n100s50s  Fns20shnnFuFkFlFlFlFl150s50s100s150s100s Fks.\\  \\  100snlhFn.s\u0018\u001b\u000f\u001b100s#invoke\n\u001bhyblyj150s_>.>100s50sFl20s20s\\  50skjk50slkyi\u001b\u000f\u001bUJLK_>.>hri KJBJ_>.>NUHy  B_>.>HYJJ_>.>Za\nsNNLK_>.>Hy  HHL_>.>KUNN_>,>#turn\n#terrain\nb\nt W\u001b,NHNH_>,>NKNN_>.>BLJY_>.>#offer\n#ride\njLNKK_>,>FkFks\u0004l20sJLHB_>,>YJHY_>.>JYBY_>.>KNKH_>,>acsJKKH_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHNUH_>,>YUYH_>.>Fls20sYYHY_>.>NUYY_>,>#sit\n\u001b:L JK N_>.>KYBJ_>.>JBNU_>.>NUYB_>.>KNLK_>.>Pdre\u000f\u001bf \u001bl:YNKH_"
+ },
+ "segments": [
+  {
+   "seed": 582607,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": "n#name\nm\n m.Fido\nklyhn#chat\nnKBN U_>.>FkFysNNLY_>.>#turn\ni\u001bULUN_>.>FbFh s<YNJL_>.>#turn\n#force\nYJYB_>.>#offer\nclKHBL_>.>\u000f\u001b100s 100s hjk\u0018\u001b#name\nm\n100s50s  Fns20shnnFuFkFlFlFlFl150s50s100s150s100s Fks.\\  \\  100snlhFn.s\u0018\u001b\u000f\u001b100s#invoke\n\u001bhyblyj150s_>.>100s50sFl20s20s\\  50skjk50slkyi\u001b\u000f\u001bUJLK_>.>hri KJBJ_>.>NUHy  B_>.>HYJJ_>.>Za\nsNNLK_>.>Hy  HHL_>.>KUNN_>,>#turn\n#terrain\nb\nt W\u001b,NHNH_>,>NKNN_>.>BLJY_>.>#offer\n#ride\njLNKK_>,>FkFks\u0004l20sJLHB_>,>YJHY_>.>JYBY_>.>KNKH_>,>acsJKKH_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHNUH_>,>YUYH_>.>Fls20sYYHY_>.>NUYY_>,>#sit\n\u001b:L JK N_>.>KYBJ_>.>JBNU_>.>NUYB_>.>KNLK_>.>Pdre\u000f\u001bf \u001bl:YNKH_"
+  }
+ ]
+}

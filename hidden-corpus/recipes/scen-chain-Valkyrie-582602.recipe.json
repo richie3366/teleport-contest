@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " hubbjhbFlFlFl 50sFjss_ \u001bm,>_>.>50s150sFuFu20sFbss\u0018\u001bi\u001b100s,100sybu150sFns20sjnu150sFhFhFhP\\   bjj100sFk20sFj_>,>j#monster\n150sFk20sFk50s100sFk20sFkjjn_>.>100s  Fkss_>.>150sFkFkFkFkFkFkFkFkkjknUJJL_>.>10s20sKNHU_>.>BBBU_>,>KKJJ_>,>FyssNNUN_>,>NHLL_>,>HJBU_>,>,_>,sKHYL_>,>KHLH_>,Fl_.> ai\u001bKYKK_>,>\u000f\u001b10s10sbl10shlhknb#chat\nb10shhddsssdbs20s20sUYKY_>.>NYYK_>.>HLKJ_>.>H JUL_>,>e#twoweapon\n\u000f\u001bbklheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKJUY_>.>UJLL_>.>H  YJB_>.>KHKN_>.>NYBU_>.#quit\nyy\u001by  y y y\u001b  #wizintrinsic\na\n ss20s20s20s20s20s20s.20s20sss.m..m. s20s20s sss20ss.20s20s.20s ujlkFbFbFbFbFbFbFbFbjylFlsFnFl.20sFnsFlFjFjsFj20ssllnFnFhFn 100s100sFnFnFnFnFnsnkkhhlljb100sFnFnFn  \u001b     _",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 582602,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\n",
+   "moves": " hubbjhbFlFlFl 50sFjss_ \u001bm,>_>.>50s150sFuFu20sFbss\u0018\u001bi\u001b100s,100sybu150sFns20sjnu150sFhFhFhP\\   bjj100sFk20sFj_>,>j#monster\n150sFk20sFk50s100sFk20sFkjjn_>.>100s  Fkss_>.>150sFkFkFkFkFkFkFkFkkjknUJJL_>.>10s20sKNHU_>.>BBBU_>,>KKJJ_>,>FyssNNUN_>,>NHLL_>,>HJBU_>,>,_>,sKHYL_>,>KHLH_>,Fl_.> ai\u001bKYKK_>,>\u000f\u001b10s10sbl10shlhknb#chat\nb10shhddsssdbs20s20sUYKY_>.>NYYK_>.>HLKJ_>.>H JUL_>,>e#twoweapon\n\u000f\u001bbklheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKJUY_>.>UJLL_>.>H  YJB_>.>KHKN_>.>NYBU_>.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 682602,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\na\n ss20s20s20s20s20s20s.20s20sss.m..m. s20s20s sss20ss.20s20s.20s"
+  },
+  {
+   "seed": 782602,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " ujlkFbFbFbFbFbFbFbFbjylFlsFnFl.20sFnsFlFjFjsFj20ssllnFnFhFn 100s100sFnFnFnFnFnsnkkhhlljb100sFnFnFn  \u001b     _"
+  }
+ ]
+}

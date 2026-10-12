@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017water walking boots\nWg s..\u0007tengu\nFk FlFlFl\u0007Uruk-hai\nFlFnFns\u0007black pudding\n#chat\nkFk Fk \u0007pony\n\u0017fortune cookie\ntbk#name\ni\n20s \u0017leash\naiyh hk haiu   #name\ni\n\u0007gnome\n\u0017scroll of taming\nrj \u0017leash\nakb kkj  bakn #name\ni\n\u001625\ni\u001b\u0017uncursed spellbook of create monster\n\u0007soldier\nrl \u001b,  sk  20s ZZFj Fk \u0017amulet of unchanging\nPm .m.sm.  n .u20s R FhFh  \u001b\u00173 iron chain\n\u0007salamander\n.uwash20s   \u00168\n\u0006_>,Fl _,> \u0006_>,_,> Fy Fn  Fj   \u0006_>. Fb_,    Fj   >FlFy       n _>.     Fh  _. Fl>Fb  Fn     n _>,Fh_, Fk> FjFj Fk   \u0006_>, Fh _, Fu    n >Fk  Fl _>,Fu   _,<.Fl   >Fh  Fu_>,   n  Fu  _,<.Fk     >Fu   Fu      nFl   Fk  FuE- ad aerarium\n  #chat\nu  \u0006_>, Fl_, Fl   >FlFl_>. Fl  _.  Fl  >FlFl_>.     nFk  _. Fk  >Fk     n Fy    Fy   sFu\u0006_>.    nFk _,  Fk >Fl Fu _>.Fl_,Fl >FlFl   n_>.Fu _,Fl >Fu  FuFl.20s<\u000f\u001b\u001612\n\u0016?\n>E\u0017scroll of earth\nro kbuklnkk10slu\u0017scroll of earth\nrp lbblljkluunnunjub10sbbnjukulnk10sjuukulujk\u0017wand of striking\nzqbkkunu10sku\u0018\u001b#levelchange\n8\n    \u0016?\nr ckrl y<. \u001b,;_.20s20s\u0016?\n>I#chat\nk#jump\nb;k..s\u001629\n #tip\n\u001b#invoke\n\u001bf \u001b\u0006sm.  n sm.\u0017blessed ring of polymorph control\nPrl   n#polyself\nsuccubus\n#monster\n.m.  sm.  sj.k.#polyself\nshrieker\n    s     n    sy\u0007doppelganger\nFb    n Fb  Fl   n  sm.    yny   ny y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 582719,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017water walking boots\nWg s..\u0007tengu\nFk FlFlFl\u0007Uruk-hai\nFlFnFns\u0007black pudding\n#chat\nkFk Fk \u0007pony\n\u0017fortune cookie\ntbk#name\ni\n20s \u0017leash\naiyh hk haiu   #name\ni\n\u0007gnome\n\u0017scroll of taming\nrj \u0017leash\nakb kkj  bakn #name\ni\n\u001625\ni\u001b\u0017uncursed spellbook of create monster\n\u0007soldier\nrl \u001b,  sk  20s ZZFj Fk \u0017amulet of unchanging\nPm .m.sm.  n .u20s R FhFh  \u001b\u00173 iron chain\n\u0007salamander\n.uwash20s   \u00168\n\u0006_>,Fl _,> \u0006_>,_,> Fy Fn  Fj   \u0006_>. Fb_,    Fj   >FlFy       n _>.     Fh  _. Fl>Fb  Fn     n _>,Fh_, Fk> FjFj Fk   \u0006_>, Fh _, Fu    n >Fk  Fl _>,Fu   _,<.Fl   >Fh  Fu_>,   n  Fu  _,<.Fk     >Fu   Fu      nFl   Fk  FuE- ad aerarium\n  #chat\nu  \u0006_>, Fl_, Fl   >FlFl_>. Fl  _.  Fl  >FlFl_>.     nFk  _. Fk  >Fk     n Fy    Fy   sFu\u0006_>.    nFk _,  Fk >Fl Fu _>.Fl_,Fl >FlFl   n_>.Fu _,Fl >Fu  FuFl.20s<\u000f\u001b\u001612\n\u0016?\n>E\u0017scroll of earth\nro kbuklnkk10slu\u0017scroll of earth\nrp lbblljkluunnunjub10sbbnjukulnk10sjuukulujk\u0017wand of striking\nzqbkkunu10sku\u0018\u001b#levelchange\n8\n    \u0016?\nr ckrl y<. \u001b,;_.20s20s\u0016?\n>I#chat\nk#jump\nb;k..s\u001629\n #tip\n\u001b#invoke\n\u001bf \u001b\u0006sm.  n sm.\u0017blessed ring of polymorph control\nPrl   n#polyself\nsuccubus\n#monster\n.m.  sm.  sj.k.#polyself\nshrieker\n    s     n    sy\u0007doppelganger\nFb    n Fb  Fl   n  sm.    yny   ny y\u001bn  s"
+  }
+ ]
+}

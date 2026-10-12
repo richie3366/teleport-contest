@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "K KHK_ \u001bm,>#sit\n\u001b\u0018\u001bLKH  B_>,>UHNY_>.>YYUK_>.><\u000f\u001bKKNJ_>,>Fh20sFu\\ #wipe\nNKYB_>.>FkFkFkHH YY_>.>KYYL_>,>H NBU_>.>#twoweapon\n#tip\n\u001bJNLY_>.>FyFk .<UNLN_>.>w-W#conduct\n rj y #wipe\nJUNB_>.>Fu20ss<YULK_>.>#conduct\n i\u001bKYHL_>.>UUBY_>.>UNBJ_>.><NBLL_>.>ah \u0018\u001b_>.>150sFy FyFyFy20s20s\u0018\u001bkyj150sFhFhFy150s\u000f\u001bi\u001blyn,kbj50suylhjn150s100skjkFhFhFhFhFy  nnnnn  s"
+ },
+ "segments": [
+  {
+   "seed": 582611,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "K KHK_ \u001bm,>#sit\n\u001b\u0018\u001bLKH  B_>,>UHNY_>.>YYUK_>.><\u000f\u001bKKNJ_>,>Fh20sFu\\ #wipe\nNKYB_>.>FkFkFkHH YY_>.>KYYL_>,>H NBU_>.>#twoweapon\n#tip\n\u001bJNLY_>.>FyFk .<UNLN_>.>w-W#conduct\n rj y #wipe\nJUNB_>.>Fu20ss<YULK_>.>#conduct\n i\u001bKYHL_>.>UUBY_>.>UNBJ_>.><NBLL_>.>ah \u0018\u001b_>.>150sFy FyFyFy20s20s\u0018\u001bkyj150sFhFhFy150s\u000f\u001bi\u001blyn,kbj50suylhjn150s100skjkFhFhFhFhFy  nnnnn  s"
+  }
+ ]
+}

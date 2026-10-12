@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl \u0016?\nc_ \u001b.>\u0016?\nl#levelchange\n20\n   \u0007yellow light\nFjFjFj s. \u0007hell hound\nsksm..ksm.s20s      sm.s\u0007master mind flayer\n20s           .m...20s         sm.20s  \u001641\n \u0006_>.  n_.>.20s  \u001bs\u0016?\nc_>,<\u0016?\n>>M     splash of acid venom\nbju k  l: \u0016?\n\u001bbl  \u001611\nnkyh  b: \u001641\n#levelchange\n6\n    b  n   nh jh   \u0017pit\nh#untrap\nlh  n    \u0017rust trap\nu^b\u0007acid blob\n20s   n .ss  nt\u001bE#offer\n\u001612\n\u0016?\n\u001bly\u0016?\n\u001bub\u0016?\n\u001bk  nn   n\u00161\n\u001626\n\u0017crossbow\nwo\u001715 crossbow bolts\nQ\u001b\u0007gnome lord\nh  n   n  n  nfu    n  n  n fh    yy\u001by  y y  y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 582640,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl \u0016?\nc_ \u001b.>\u0016?\nl#levelchange\n20\n   \u0007yellow light\nFjFjFj s. \u0007hell hound\nsksm..ksm.s20s      sm.s\u0007master mind flayer\n20s           .m...20s         sm.20s  \u001641\n \u0006_>.  n_.>.20s  \u001bs\u0016?\nc_>,<\u0016?\n>>M     splash of acid venom\nbju k  l: \u0016?\n\u001bbl  \u001611\nnkyh  b: \u001641\n#levelchange\n6\n    b  n   nh jh   \u0017pit\nh#untrap\nlh  n    \u0017rust trap\nu^b\u0007acid blob\n20s   n .ss  nt\u001bE#offer\n\u001612\n\u0016?\n\u001bly\u0016?\n\u001bub\u0016?\n\u001bk  nn   n\u00161\n\u001626\n\u0017crossbow\nwo\u001715 crossbow bolts\nQ\u001b\u0007gnome lord\nh  n   n  n  nfu    n  n  n fh    yy\u001by  y y  y\u001b  f"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               bhhh\u0017pool\n#dip\nby lh:l\u0017unaligned altar\ndc\u0017human corpse\n h\u0017neutral altar\nde\u0017jackal corpse\n#offer\ng #pray\ny y :j\u0017sink\nqy\u0017ring of adornment\ndh  \u001b#terrain\ne\n#untrap\nl#conduct\n s\u0018\u001bul  l\u0017moat\nkj h\u0017magic fountain\nqy qy\u0017long sword\n#dip\niy#untrap\nu>qy\u0018\u001b\u0017dwarvish mattock\naj k khh_ \u001b:aj>llaj>.ll\u00168\n#wizintrinsic\nm\n .ss...20ss.s\u0017figurine of a newt\nakn10s#invoke\n\u001be#offer\nE- Elbereth\n,ss20ss..\u0016?\n>B \u0017blessed ring of levitation\nPll Fu                     \u0017wand of digging\nzmh   10s     Fj  n     hFn  n  Fl  10s  \u0017wand of striking\nznj   Fn   n    \u0017wand of digging\nzoh    \u0017scroll of earth\nrp      n Fn yFnFh Fh FhlFhuuuuhlu10suynljnuu10shun\u0017wand of digging\nzqlnlunhuunjuylunuybuy\u001611\n\u0006_>._.>\u0006_>,>\u0006_>>.>\u0006_>,>aj.W#levelchange\n30\n             \u0007disenchanter\nFnFnFn\u0007gray ooze\nsl.m..sm..m.  n.m..m..m..\u0007paper golem\nsm. sm.sk 20s\u001613\n\u0007tame lichen\n\u0007large dog\n\u0017meatball\ntin #name\ni\n#chat\nn#chat\nl\u0007gnome\n\u0017scroll of taming\nrs #name\nd\n\u0017dwarvish mattock\nat jj  _<. Fl_..Fn at>lb\u0006_oo,at>at>sat>\u001615\n#levelchange\n30\n#wizintrinsic\nh\n sbsm..u .s.n.m.sm..l sm.s.y..#jump\nf $ b>\u000f\u001b#loot\nu 20ssm.s.m.sm.s\u0017uncursed +0 helm of opposite alignment\nWu   sm.20s .m.Fj  nFj \u0017plate mail\n W\u001bsm. sj    20s\u0017potion of extra healing\nqw sm..m.  n \u0006\u00163\n#levelchange\n8\n       \u0007bone devil\nFjFnFj    n Fn   n Fn   n \u0007hell hound\nFb   Fl  n  Fn  n  Fl  n     n  Fb   n Fb    yy\u001by   y y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 582629,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               bhhh\u0017pool\n#dip\nby lh:l\u0017unaligned altar\ndc\u0017human corpse\n h\u0017neutral altar\nde\u0017jackal corpse\n#offer\ng #pray\ny y :j\u0017sink\nqy\u0017ring of adornment\ndh  \u001b#terrain\ne\n#untrap\nl#conduct\n s\u0018\u001bul  l\u0017moat\nkj h\u0017magic fountain\nqy qy\u0017long sword\n#dip\niy#untrap\nu>qy\u0018\u001b\u0017dwarvish mattock\naj k khh_ \u001b:aj>llaj>.ll\u00168\n#wizintrinsic\nm\n .ss...20ss.s\u0017figurine of a newt\nakn10s#invoke\n\u001be#offer\nE- Elbereth\n,ss20ss..\u0016?\n>B \u0017blessed ring of levitation\nPll Fu                     \u0017wand of digging\nzmh   10s     Fj  n     hFn  n  Fl  10s  \u0017wand of striking\nznj   Fn   n    \u0017wand of digging\nzoh    \u0017scroll of earth\nrp      n Fn yFnFh Fh FhlFhuuuuhlu10suynljnuu10shun\u0017wand of digging\nzqlnlunhuunjuylunuybuy\u001611\n\u0006_>._.>\u0006_>,>\u0006_>>.>\u0006_>,>aj.W#levelchange\n30\n             \u0007disenchanter\nFnFnFn\u0007gray ooze\nsl.m..sm..m.  n.m..m..m..\u0007paper golem\nsm. sm.sk 20s\u001613\n\u0007tame lichen\n\u0007large dog\n\u0017meatball\ntin #name\ni\n#chat\nn#chat\nl\u0007gnome\n\u0017scroll of taming\nrs #name\nd\n\u0017dwarvish mattock\nat jj  _<. Fl_..Fn at>lb\u0006_oo,at>at>sat>\u001615\n#levelchange\n30\n#wizintrinsic\nh\n sbsm..u .s.n.m.sm..l sm.s.y..#jump\nf $ b>\u000f\u001b#loot\nu 20ssm.s.m.sm.s\u0017uncursed +0 helm of opposite alignment\nWu   sm.20s .m.Fj  nFj \u0017plate mail\n W\u001bsm. sj    20s\u0017potion of extra healing\nqw sm..m.  n \u0006\u00163\n#levelchange\n8\n       \u0007bone devil\nFjFnFj    n Fn   n Fn   n \u0007hell hound\nFb   Fl  n  Fn  n  Fl  n     n  Fb   n Fb    yy\u001by   y y y y\u001by  \u0007"
+  }
+ ]
+}

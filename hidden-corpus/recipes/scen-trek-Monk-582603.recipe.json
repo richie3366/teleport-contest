@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "U YNL_ \u001b>.><UYNK_>.>dgbYKLN_>.><LUBY_>.>KBBK_>,>N  KNH_>.>qd#conduct\n \\  \u0018\u001bW100sFl FbFbFb.._>.>djlnk100s#dip\nidddblhkjl_>,>lub100s50skku150skllzlnnhyh_>.>100sFhss150s100sFhs20subl150s100s \u0018\u001b_>.>100sFjs20s100sFls.\\  _>.>jhu_>.>UBJB_>,>HHBK_>,>YLHN_>.>UKUH_>,>YNJK_>.>Fj.sNYLY_>,>\u000f\u001b10snbnk10s#chat\nh#chat\nnkuBKYB_>,>LYKU_>.><JKHL_>,>\u0018\u001b#invoke\n\u001bee100sFk.snbb100s50sFj20s.:nbbnnn100s 50sFbs.100s\u000f\u001b150s150seh  100sFk20sseh  i\u001b#jump\n50seh  100see en150sFks20s150s150sFbs20s150sFks20s_>,>150sFkss_>.>\u0018\u001bf \u001b#enhance\n\u001b\\  50s150s   150sFjFj.nnnq50s50sFj.sP100s100sFbssH100s100sFbss50sFk.s50s50sef150sFkssee150s50sFb20ss50snnn100sFbss__.._>,>50snnn50s150sFkFksnnn_>.>100s\u000f\u001b_>,>150s_>.>100sFbs.100snnn100sFbFb20s50s100sFbss50s100s100s100sFb.Fb\u0018\u001b100s100sFbss\u0018\u001b\u0018\u001bn100s50sFb s20s_>.>nnn150s Fb20s20s150s_>.>nnn_>,>nnnnnnLLK K_>.>Fl  .s20sri nyB HHY_>.>E\u001bt\u001bHBHY_>.>LLYH_>.>#sit\n#name\na\n<BHYB_>.>\u000f\u001bJLHY_>.>Fb20s.<<K BNH_>,>\\  #chat\nyUJNN_>.>NJJY_>.>YLKU_>.><YYHY"
+ },
+ "segments": [
+  {
+   "seed": 582603,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": "U YNL_ \u001b>.><UYNK_>.>dgbYKLN_>.><LUBY_>.>KBBK_>,>N  KNH_>.>qd#conduct\n \\  \u0018\u001bW100sFl FbFbFb.._>.>djlnk100s#dip\nidddblhkjl_>,>lub100s50skku150skllzlnnhyh_>.>100sFhss150s100sFhs20subl150s100s \u0018\u001b_>.>100sFjs20s100sFls.\\  _>.>jhu_>.>UBJB_>,>HHBK_>,>YLHN_>.>UKUH_>,>YNJK_>.>Fj.sNYLY_>,>\u000f\u001b10snbnk10s#chat\nh#chat\nnkuBKYB_>,>LYKU_>.><JKHL_>,>\u0018\u001b#invoke\n\u001bee100sFk.snbb100s50sFj20s.:nbbnnn100s 50sFbs.100s\u000f\u001b150s150seh  100sFk20sseh  i\u001b#jump\n50seh  100see en150sFks20s150s150sFbs20s150sFks20s_>,>150sFkss_>.>\u0018\u001bf \u001b#enhance\n\u001b\\  50s150s   150sFjFj.nnnq50s50sFj.sP100s100sFbssH100s100sFbss50sFk.s50s50sef150sFkssee150s50sFb20ss50snnn100sFbss__.._>,>50snnn50s150sFkFksnnn_>.>100s\u000f\u001b_>,>150s_>.>100sFbs.100snnn100sFbFb20s50s100sFbss50s100s100s100sFb.Fb\u0018\u001b100s100sFbss\u0018\u001b\u0018\u001bn100s50sFb s20s_>.>nnn150s Fb20s20s150s_>.>nnn_>,>nnnnnnLLK K_>.>Fl  .s20sri nyB HHY_>.>E\u001bt\u001bHBHY_>.>LLYH_>.>#sit\n#name\na\n<BHYB_>.>\u000f\u001bJLHY_>.>Fb20s.<<K BNH_>,>\\  #chat\nyUJNN_>.>NJJY_>.>YLKU_>.><YYHY"
+  }
+ ]
+}

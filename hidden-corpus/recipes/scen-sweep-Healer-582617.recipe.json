@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n          \u0017cursed bag of holding\n\u0017scroll of enchant weapon\n\u0017skeleton key\ndlan. s20s   .#loot\nr\na\ndh#loot\ns\n,b\ndlu\u0004b d$#loot\n,ai i\u001b\u0018\u001b#levelchange\n12\n\u0016?\n>A  #wipe\nK    \\  \u0006sl      20s            n \u001610\n#ride\njyqf         n    #wipe\n      n   n \u000620s    n   n s    n   n   n \u0016?\nd #name\nd\n_>. \u001bm..  n   n #turn\n\u0006. n  n  n  n  s n  ynnny n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 582617,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n          \u0017cursed bag of holding\n\u0017scroll of enchant weapon\n\u0017skeleton key\ndlan. s20s   .#loot\nr\na\ndh#loot\ns\n,b\ndlu\u0004b d$#loot\n,ai i\u001b\u0018\u001b#levelchange\n12\n\u0016?\n>A  #wipe\nK    \\  \u0006sl      20s            n \u001610\n#ride\njyqf         n    #wipe\n      n   n \u000620s    n   n s    n   n   n \u0016?\nd #name\nd\n_>. \u001bm..  n   n #turn\n\u0006. n  n  n  n  s n  ynnny n  \u0016"
+  }
+ ]
+}

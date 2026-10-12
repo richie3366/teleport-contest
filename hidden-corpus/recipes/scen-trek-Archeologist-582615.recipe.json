@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  FlFlFlFk .s50s\\ _ \u001b.>#force\n100s\\ 100sFls.100s150s \u000f\u001b100s 150s ulnFhs.cl\u0018\u001b150s100s_>.>knbFu.s50s100sFusFuFkFkFk100suun150sFjFj20s\u0018\u001b100sFjFjFjFj20s.jny50s100snll100s_>.>lhh50s100s50sFhFhs150s#terrain\n\u001b100sed100s150sFlFlFlFlss100s\u000f\u001b100sFlFls150sFh..\u000f\u001b_>.>50s hyn,ynhlhlFlFlFl#turn\n50s#monster\n100s150s_>.>_>.>i\u001bhkn#tip\nh\u001bqHNJ K_>.>NKNJ_>.>K10sHBKL _>,>LH KK_>.>JBNN_>.>10s20sh#chat\nhdi.nsm.20s10s#chat\nh10sjjbjhylt\u001b#name\na\nLLLY_>._.> #offer\n#monster\nJLUB_>.>ajy 20s<HLNN_>,>ULBH_>.>KUYU_>.>HULL_>.>NNHJ_>.>hyj100sdf150s  edFlFlFlFl 20ss50s100s\u0018\u001b_>.>\u0018\u001b50sylh50s\u0018\u001b50sFj20s20s#chat\njuylynn50s100s_>,>i\u001b100sFjFjFjFjFjs50s150s150s   \u001bFj FjFj#pray\ny  #name\nf\n\\#pray\nm,100s FyFhFyFyFy.100s<aah#enhance\n\u001bt\u001b#name\nm\n:20sjdassskhll#pray\ny #enhance\n\u001b\u0004h#offer\n>_>.>hnl100s100s100sFhFbFbFb20ss150snhn100s edi\u001b100skyljhkFbFbFbFbs.50s100s100sFbFbsq"
+ },
+ "segments": [
+  {
+   "seed": 582615,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "  FlFlFlFk .s50s\\ _ \u001b.>#force\n100s\\ 100sFls.100s150s \u000f\u001b100s 150s ulnFhs.cl\u0018\u001b150s100s_>.>knbFu.s50s100sFusFuFkFkFk100suun150sFjFj20s\u0018\u001b100sFjFjFjFj20s.jny50s100snll100s_>.>lhh50s100s50sFhFhs150s#terrain\n\u001b100sed100s150sFlFlFlFlss100s\u000f\u001b100sFlFls150sFh..\u000f\u001b_>.>50s hyn,ynhlhlFlFlFl#turn\n50s#monster\n100s150s_>.>_>.>i\u001bhkn#tip\nh\u001bqHNJ K_>.>NKNJ_>.>K10sHBKL _>,>LH KK_>.>JBNN_>.>10s20sh#chat\nhdi.nsm.20s10s#chat\nh10sjjbjhylt\u001b#name\na\nLLLY_>._.> #offer\n#monster\nJLUB_>.>ajy 20s<HLNN_>,>ULBH_>.>KUYU_>.>HULL_>.>NNHJ_>.>hyj100sdf150s  edFlFlFlFl 20ss50s100s\u0018\u001b_>.>\u0018\u001b50sylh50s\u0018\u001b50sFj20s20s#chat\njuylynn50s100s_>,>i\u001b100sFjFjFjFjFjs50s150s150s   \u001bFj FjFj#pray\ny  #name\nf\n\\#pray\nm,100s FyFhFyFyFy.100s<aah#enhance\n\u001bt\u001b#name\nm\n:20sjdassskhll#pray\ny #enhance\n\u001b\u0004h#offer\n>_>.>hnl100s100s100sFhFbFbFb20ss150snhn100s edi\u001b100skyljhkFbFbFbFbs.50s100s100sFbFbsq"
+  }
+ ]
+}

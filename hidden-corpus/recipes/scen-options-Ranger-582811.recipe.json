@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " O>f\n\u0018\u001bsmO>>>>>ule\n\u001be\n #jump\nmO>>>>>>k\na\n:O>pc\n20s#chat\nhO>dhp\ni\u001bOcme\n#twoweapon\nmO>>>>>nv\nl\nmango\ntch sm.sm.Ojog\ne\ntbk\u0014mO>>>>i\noff\n#offer\nmO>>>>>jh\nt\n#invoke\n\u001b\u001bO>ld\n:clO>nhf\ne\nd\no\n\u001b\u001b#wipe\nE- X marks the spot\nsm..m."
+ },
+ "segments": [
+  {
+   "seed": 582811,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\n",
+   "moves": " O>f\n\u0018\u001bsmO>>>>>ule\n\u001be\n #jump\nmO>>>>>>k\na\n:O>pc\n20s#chat\nhO>dhp\ni\u001bOcme\n#twoweapon\nmO>>>>>nv\nl\nmango\ntch sm.sm.Ojog\ne\ntbk\u0014mO>>>>i\noff\n#offer\nmO>>>>>jh\nt\n#invoke\n\u001b\u001bO>ld\n:clO>nhf\ne\nd\no\n\u001b\u001b#wipe\nE- X marks the spot\nsm..m."
+  }
+ ]
+}

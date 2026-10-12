@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #quit\nyy  #wizintrinsic\nd\n .m.sm.20s.m. sm. 20s .usm.20s.n.sm.20s yy\u001bny ny\u001bn  sU  HKK_ \u001b>.>BYNK_>,>FjFjsJKLH_>.><UNKU_>.>UJYU_>.>J#dip\naNBJB_>,>Fus20s<yy\u001by  ny\u001b Kt\u001b\u001b20s#name\nf\n>.#chat\nk#name\ni\nFido\nda sm. .m. sm. K  BJL_>,>FkFkFhJJJL_>.>FhFyFkBJNL_>.>HJKH_>.>>#chat\nb\u000f\u001bnyubnkbuYKHN_>.><NBBN_>,>UUYK_>.>BUJL_>.>FkFk20sFbFbFbFbFbFbFbFbFkFkFkFkFkFkFkFkFkFkFkFkFk FkFkFk#name\ni\nfoo\n\u001b\u001blubu#name\nm\nbjkkjbjj#name\nm,10snyullh10st\u001b\u001b20s20sdldjs.sm.FhFhFhFhFhFhFhFhybjlbu50s50s100s 150sFhFhFh50s150sFhFhFhFhFhs150s100s50sFhFh Fj Fj FjFhFhFhsjkb50s_>.>qgFhFhFh_>,>50s50s100sFhFhFh_>,>150sFhFhFhFhFhs50sFhFhFhFhFhFhFhFhFh100sFhFhFhFhFh Fh#untrap\nk#ride\njBNYN_>,>LYU J_>.>K UB L_>.>\\   ri H KKN_>,><\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehllyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b  #wizintrinsic\na\n 20ss20s20s20s20s20s20s 20s s20s20s 20s .20s .20s s20ssss.20s20s.20ss",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 582622,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  #quit\nyy"
+  },
+  {
+   "seed": 682622,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nd\n .m.sm.20s.m. sm. 20s .usm.20s.n.sm.20s yy\u001bny ny\u001bn  s"
+  },
+  {
+   "seed": 782622,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\n",
+   "moves": "U  HKK_ \u001b>.>BYNK_>,>FjFjsJKLH_>.><UNKU_>.>UJYU_>.>J#dip\naNBJB_>,>Fus20s<yy\u001by  ny\u001b K"
+  },
+  {
+   "seed": 882622,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "t\u001b\u001b20s#name\nf\n>.#chat\nk#name\ni\nFido\nda sm. .m. sm. K  BJL_>,>FkFkFhJJJL_>.>FhFyFkBJNL_>.>HJKH_>.>>#chat\nb\u000f\u001bnyubnkbuYKHN_>.><NBBN_>,>UUYK_>.>BUJL_>.>FkFk20sFbFbFbFbFbFbFbFbFkFkFkFkFkFkFkFkFkFkFkFkFk FkFkFk#name\ni\nfoo\n\u001b\u001blubu#name\nm\nbjkkjbjj#name\nm,10snyullh10st\u001b\u001b20s20sdldjs.sm.FhFhFhFhFhFhFhFhybjlbu50s50s100s 150sFhFhFh50s150sFhFhFhFhFhs150s100s50sFhFh Fj Fj FjFhFhFhsjkb50s_>.>qgFhFhFh_>,>50s50s100sFhFhFh_>,>150sFhFhFhFhFhs50sFhFhFhFhFhFhFhFhFh100sFhFhFhFhFh Fh#untrap\nk#ride\njBNYN_>,>LYU J_>.>K UB L_>.>\\   ri H KKN_>,><\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehllyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 982622,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\na\n 20ss20s20s20s20s20s20s 20s s20s20s 20s .20s .20s s20ssss.20s20s.20ss"
+  }
+ ]
+}

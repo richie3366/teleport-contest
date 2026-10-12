@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0007gray unicorn\n\u0017scroll of taming\nrf  \u001b\u0017saddle\nagh    n \u0017lance\nwh    n  #ride\nly\u0007horse\n\u0017scroll of taming\nri     n \u0017saddle\n ajh   n    n #ride\nby\u0007tame saddled warhorse\n#ride\nkylnbussssyylj\u0006\u00167\n#levelchange\n12\n           \u0017blessed ring of polymorph control\nPkl#polyself\nvampire\n20s    .  \u0007erinys\nFl            FlFh snss#polyself\nelectric eel\n  #monster\nsm..m.  \u0007marilith\nFu FlFl  \u001b@. sm.   sm..m.   #polyself\ngiant spider\n#monster\n  sm.   .m.  sm.ss\u0017potion of polymorph\nql shrieker\n      n      #dip\nk#levelchange\n20\n        \u0017two-handed sword\nwm   Fu  Fl   n    Fu  \u0007fire vortex\nFu   Fy Fk      n Fl   \u0007fire vortex\n;l..j.k 20s \u0007fire elemental\nFk FkFkFkFk  n    Fj\\   \u00169\n#levelchange\n20\n\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn;    _oooo,Fy     _,.Fk ,$_oooooooo.Fk_.Fy      _o.Fh   n  _.:Fh  ,dm_ooooooooo, _. @. ,db_ooooooo. ;  _._oo.Fh   _,,p  _{,Fj _.  Fh qi\u001b10s >#levelchange\n12\n  #wizintrinsic\njd\n sn   nsm..m.sm.sm.sm. sm.  n sus.m.,  ;h:dm\u0014m,   Z#name\nm\ns20s20s 20s 20ssm. \u001610\n#levelchange\n20\n        \u0017blessed ring of polymorph control\nPp#polyself\ndust vortex\n #monster\n.20s\u0007jellyfish\n..20ss.s#polyself\npony\n#monster\n.j.20s  ssm.#polyself\nshade\n acid blob\n 20s s  \u0007titanothere\nFhFl  Fl.m..m.sb\u0017red dragon scale mail\nWq     n .usm. sm.T       \u0007gray ooze\nFl  Fj  n Fl  Fh20s sm.\u0007vampire lord\nFb Fl   Fu  Fb    n  sm. 20s i\u001bi\u001bPp    sb   .m.slRk Pk 20s  sm.  sm.   yny   y y y\u001bn  e"
+ },
+ "segments": [
+  {
+   "seed": 582613,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007gray unicorn\n\u0017scroll of taming\nrf  \u001b\u0017saddle\nagh    n \u0017lance\nwh    n  #ride\nly\u0007horse\n\u0017scroll of taming\nri     n \u0017saddle\n ajh   n    n #ride\nby\u0007tame saddled warhorse\n#ride\nkylnbussssyylj\u0006\u00167\n#levelchange\n12\n           \u0017blessed ring of polymorph control\nPkl#polyself\nvampire\n20s    .  \u0007erinys\nFl            FlFh snss#polyself\nelectric eel\n  #monster\nsm..m.  \u0007marilith\nFu FlFl  \u001b@. sm.   sm..m.   #polyself\ngiant spider\n#monster\n  sm.   .m.  sm.ss\u0017potion of polymorph\nql shrieker\n      n      #dip\nk#levelchange\n20\n        \u0017two-handed sword\nwm   Fu  Fl   n    Fu  \u0007fire vortex\nFu   Fy Fk      n Fl   \u0007fire vortex\n;l..j.k 20s \u0007fire elemental\nFk FkFkFkFk  n    Fj\\   \u00169\n#levelchange\n20\n\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn;    _oooo,Fy     _,.Fk ,$_oooooooo.Fk_.Fy      _o.Fh   n  _.:Fh  ,dm_ooooooooo, _. @. ,db_ooooooo. ;  _._oo.Fh   _,,p  _{,Fj _.  Fh qi\u001b10s >#levelchange\n12\n  #wizintrinsic\njd\n sn   nsm..m.sm.sm.sm. sm.  n sus.m.,  ;h:dm\u0014m,   Z#name\nm\ns20s20s 20s 20ssm. \u001610\n#levelchange\n20\n        \u0017blessed ring of polymorph control\nPp#polyself\ndust vortex\n #monster\n.20s\u0007jellyfish\n..20ss.s#polyself\npony\n#monster\n.j.20s  ssm.#polyself\nshade\n acid blob\n 20s s  \u0007titanothere\nFhFl  Fl.m..m.sb\u0017red dragon scale mail\nWq     n .usm. sm.T       \u0007gray ooze\nFl  Fj  n Fl  Fh20s sm.\u0007vampire lord\nFb Fl   Fu  Fb    n  sm. 20s i\u001bi\u001bPp    sb   .m.slRk Pk 20s  sm.  sm.   yny   y y y\u001bn  e"
+  }
+ ]
+}

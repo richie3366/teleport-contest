@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " nbhlLYNU_ \u001b.>_<,sdc<ynny y\u001b HFnFn FnFnFnFnFnFnlyu\u0018\u001b100sFyFyFy\u000f\u001bnnyh50s50sFks20s150s50sFhFhFhFhFhFh Fhss100s100sFls.100sFk.20s150s150sq_ \u001b>.>_>.>50sFh.s\\ 150sFkFkFkFkss\\ 100s_>.>50si\u001b50skyh100s150st\u001bll20sdhs.s#chat\nbdf.sshh#chat\nnhlt\u001bhl20slhedlhl100sFuFuFuhlh100sFl..s#conduct\n 50sFh20sFhlhhi\u001bi\u001b50s50s100sFl20s.100sFlFl20si\u001b150sFh20ssl hknl hag\u001b50s 100s Flss50suul E- I am a fish\ney100sFh20sFl50sFl.s_>,>100s50sJUBU_>,>FlFlFlKHBU_>,>E- Vlad was here\n\u000f\u001bBYYU_>.>#terrain\nb\n#twoweapon\n>.YBL L_>.><H NYY_>,>NUJL_>.>HKKH _>,>\u000f\u001b#chat\nyt\u001b#chat\nllu#name\nm\n10s20skkjked\u0018\u001b50s100sFks20sjkj150s 150s50sekFk20ss50sjnb150sFkss100s100sFkFkFkFkF#quit\n FbFbFji\u001bhhj100snynFhss_ \u001b,>100sFyssuhl\u0018\u001bblk100sE- ad aerarium\nlnhFk FlFl100s150sFk..ukjknh150s50sFl..100s50sFlFl20s150s100sFlFl.50sbhhkhnFls20s100shuk_>.>10sFjFj20sbyb100sFhFhFh100s150sFlss50s50skll150s\u000f\u001bs50s10sFhFhs50sFl.s100sFl20sFl100sf  j150seeeeeeeeeee#quit\ny\u001b     \u0007pit fiend\nFlFn Fl  Fl   n FlFlFl   n FlFl   yy\u001by   y y y\u001by  FFjFjFjFjFjFjFjFjFl FlFlFlFlFlFlFlYHJL_ \u001b<.>L LBL_>.>BUBU_>,>NBJY_>.>hnljhhybFuFuFuFuFuFuFuFut$b#name\na\ntalkhtan uhhlhllnln#chat\nn10sdc20sssda20ss.df20ss.10st\u001b#name\nf\n10s10slybkt\u001blbk100s_>,>uhb100s150sFhFhFhFhFhs150s100s nyn100suyjj150sFhFhFh#pray\ny #pray\ny  \u001b     1",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 582614,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\n",
+   "moves": " nbhlLYNU_ \u001b.>_<,sdc<ynny y\u001b H"
+  },
+  {
+   "seed": 682614,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\n",
+   "moves": "FnFn FnFnFnFnFnFnlyu\u0018\u001b100sFyFyFy\u000f\u001bnnyh50s50sFks20s150s50sFhFhFhFhFhFh Fhss100s100sFls.100sFk.20s150s150sq_ \u001b>.>_>.>50sFh.s\\ 150sFkFkFkFkss\\ 100s_>.>50si\u001b50skyh100s150st\u001bll20sdhs.s#chat\nbdf.sshh#chat\nnhlt\u001bhl20slhedlhl100sFuFuFuhlh100sFl..s#conduct\n 50sFh20sFhlhhi\u001bi\u001b50s50s100sFl20s.100sFlFl20si\u001b150sFh20ssl hknl hag\u001b50s 100s Flss50suul E- I am a fish\ney100sFh20sFl50sFl.s_>,>100s50sJUBU_>,>FlFlFlKHBU_>,>E- Vlad was here\n\u000f\u001bBYYU_>.>#terrain\nb\n#twoweapon\n>.YBL L_>.><H NYY_>,>NUJL_>.>HKKH _>,>\u000f\u001b#chat\nyt\u001b#chat\nllu#name\nm\n10s20skkjked\u0018\u001b50s100sFks20sjkj150s 150s50sekFk20ss50sjnb150sFkss100s100sFkFkFkFkF#quit\n"
+  },
+  {
+   "seed": 782614,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " FbFbFji\u001bhhj100snynFhss_ \u001b,>100sFyssuhl\u0018\u001bblk100sE- ad aerarium\nlnhFk FlFl100s150sFk..ukjknh150s50sFl..100s50sFlFl20s150s100sFlFl.50sbhhkhnFls20s100shuk_>.>10sFjFj20sbyb100sFhFhFh100s150sFlss50s50skll150s\u000f\u001bs50s10sFhFhs50sFl.s100sFl20sFl100sf  j150seeeeeeeeeee#quit\ny\u001b    "
+  },
+  {
+   "seed": 882614,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007pit fiend\nFlFn Fl  Fl   n FlFlFl   n FlFl   yy\u001by   y y y\u001by  F"
+  },
+  {
+   "seed": 982614,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "FjFjFjFjFjFjFjFjFl FlFlFlFlFlFlFlYHJL_ \u001b<.>L LBL_>.>BUBU_>,>NBJY_>.>hnljhhybFuFuFuFuFuFuFuFut$b#name\na\ntalkhtan uhhlhllnln#chat\nn10sdc20sssda20ss.df20ss.10st\u001b#name\nf\n10s10slybkt\u001blbk100s_>,>uhb100s150sFhFhFhFhFhs150s100s nyn100suyjj150sFhFhFh#pray\ny #pray\ny  \u001b     1"
+  }
+ ]
+}

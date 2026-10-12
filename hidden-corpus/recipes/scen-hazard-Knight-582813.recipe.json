@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007wererat\nFkFy   Fy FkFk.m.sm.\u0007gray ooze\nFyFy Fkss20s20s\u0007brown pudding\nFhFhFhFkFkFk20s.s\u0017300 gold pieces\n\u0007leprechaun\nFy Fy .20ss.\u0007gremlin\nFkFk Fk Fk Fk   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 582813,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007wererat\nFkFy   Fy FkFk.m.sm.\u0007gray ooze\nFyFy Fkss20s20s\u0007brown pudding\nFhFhFhFkFkFk20s.s\u0017300 gold pieces\n\u0007leprechaun\nFy Fy .20ss.\u0007gremlin\nFkFk Fk Fk Fk   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

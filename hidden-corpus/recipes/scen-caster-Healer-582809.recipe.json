@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n        \u0017spellbook of cure sickness\nrl .\u0017blessed spellbook of cause fear\nrms\u0017blessed spellbook of magic mapping\nrn 20s+\u001bZa\nZd\nZd\nFyZc\nZd\n\u0007newt\nZb\n#turn\n#pray\ny y    "
+ },
+ "segments": [
+  {
+   "seed": 582809,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n        \u0017spellbook of cure sickness\nrl .\u0017blessed spellbook of cause fear\nrms\u0017blessed spellbook of magic mapping\nrn 20s+\u001bZa\nZd\nZd\nFyZc\nZd\n\u0007newt\nZb\n#turn\n#pray\ny y    "
+  }
+ ]
+}

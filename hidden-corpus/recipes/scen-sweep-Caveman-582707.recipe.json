@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007tame large dog\n\u0007tame pony\n#name\no\n\u0006_ \u001bm,>FuFk_>.Fl_.>_>._.>\u0017tin whistle\nhjuafdbss.20s    \u0006_>>.Fn _.Fn>FlFn  _>>.Fn_.Fn>Fns_>>.Fl _. Fj  >Fn Fn n i\u001b#levelchange\n30\n         \u0017land mine\nag \u00173 potion of sleeping\n\u0007minotaur\nqh   \u0017ring of warning\nPir  sm.  n   sm. sm.   nFb  Fn\u00173 spellbook of sleep\n\u0007piranha\nrj  .n   n 20s    Z\u0017ice box\n,\u001bFn  n Fb \u0017tin whistle\n\u0007succubus\nalal  20s    n sm.  \u001620\n\u001610\n\u0017potion of oil\nqm\u0017blessed bell\n\u0007killer bee\nanan\u0017blessed flail\nwo   n   Fh Fh Fh  X\u0017uncursed spellbook of dig\nrp  20s .m.    Z\u0017ring of invisibility\n\u0007vampire lord\nPq   sm.     n .l     20s  Fj    Fb      sy       n  sn\u000f\u001b\u00164\n\u0006_>>.Fy_,Fj>FjFj_>>,Fh_,>_>>._.>\u0006_>,_,>_>._,>_>._.>\u0014>.\u000f\u001b\u0006_>.> #offer\nz\u0006_>,   Fh  _.  Fu>Fu Fu   _>._.> FyFyFy\u0006_>>,_.>_>>,_.>_>>._.>\u000f\u001b\u0018\u001b\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqr,_ooooooooo.Fb_.,$_mm.#chat\nl__._.Fu#chat\nk_ooooooooo.Fk_.Fk ,p_dddd.Fl       _..Fj \u0004l  dh  q\u000f\u001b\u001620\n\u000f\u001b#levelchange\n30\n\u0017wand of undead turning\n\u0007rust monster\nzsbzsyFk  Fk \u0017uncursed tooled horn\naty   aty\u0017blessed potion of booze\n\u0007Nazgul\nqu \u001bFkFk sm.20s #levelchange\n20\n   \u0016?\njZ>#enhance\nyk\no\n\u001bsm.  n20s \u0016?\n>C#turn\n#monster\n#dip\ng\u0006sm..y\u0016?\n>v #turn\n10s h\u000620s sm.\u0016?\n>u\u0014m,10s   #terrain\ne\n;m, s.\u0016?\nl;m. 10s#chat\nu20ssm.  #levelchange\n30\n           \u0017blessed ring of polymorph control\nPv\u0017water walking boots\nWw      20s       sm.  sb   Tw   n  #polyself\niron golem\n  #m"
+ },
+ "segments": [
+  {
+   "seed": 582707,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007tame large dog\n\u0007tame pony\n#name\no\n\u0006_ \u001bm,>FuFk_>.Fl_.>_>._.>\u0017tin whistle\nhjuafdbss.20s    \u0006_>>.Fn _.Fn>FlFn  _>>.Fn_.Fn>Fns_>>.Fl _. Fj  >Fn Fn n i\u001b#levelchange\n30\n         \u0017land mine\nag \u00173 potion of sleeping\n\u0007minotaur\nqh   \u0017ring of warning\nPir  sm.  n   sm. sm.   nFb  Fn\u00173 spellbook of sleep\n\u0007piranha\nrj  .n   n 20s    Z\u0017ice box\n,\u001bFn  n Fb \u0017tin whistle\n\u0007succubus\nalal  20s    n sm.  \u001620\n\u001610\n\u0017potion of oil\nqm\u0017blessed bell\n\u0007killer bee\nanan\u0017blessed flail\nwo   n   Fh Fh Fh  X\u0017uncursed spellbook of dig\nrp  20s .m.    Z\u0017ring of invisibility\n\u0007vampire lord\nPq   sm.     n .l     20s  Fj    Fb      sy       n  sn\u000f\u001b\u00164\n\u0006_>>.Fy_,Fj>FjFj_>>,Fh_,>_>>._.>\u0006_>,_,>_>._,>_>._.>\u0014>.\u000f\u001b\u0006_>.> #offer\nz\u0006_>,   Fh  _.  Fu>Fu Fu   _>._.> FyFyFy\u0006_>>,_.>_>>,_.>_>>._.>\u000f\u001b\u0018\u001b\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqr,_ooooooooo.Fb_.,$_mm.#chat\nl__._.Fu#chat\nk_ooooooooo.Fk_.Fk ,p_dddd.Fl       _..Fj \u0004l  dh  q\u000f\u001b\u001620\n\u000f\u001b#levelchange\n30\n\u0017wand of undead turning\n\u0007rust monster\nzsbzsyFk  Fk \u0017uncursed tooled horn\naty   aty\u0017blessed potion of booze\n\u0007Nazgul\nqu \u001bFkFk sm.20s #levelchange\n20\n   \u0016?\njZ>#enhance\nyk\no\n\u001bsm.  n20s \u0016?\n>C#turn\n#monster\n#dip\ng\u0006sm..y\u0016?\n>v #turn\n10s h\u000620s sm.\u0016?\n>u\u0014m,10s   #terrain\ne\n;m, s.\u0016?\nl;m. 10s#chat\nu20ssm.  #levelchange\n30\n           \u0017blessed ring of polymorph control\nPv\u0017water walking boots\nWw      20s       sm.  sb   Tw   n  #polyself\niron golem\n  #m"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017cursed the Longbow of Diana\n we Fb  s20s#invoke\ne \u0017cursed tin of spinach\nef .s\u0017blessed heavy iron ball\n swb sFy\u0017uncursed 200 gold pieces\n\u0007minotaur\nsm.\u0017ring of aggravate monster\nPhl sm.   n 20s .m.Fy Fy  n sm.20s \u001630\n   \u00166\n\u0016?\n>y  _ \u001b>.#chat\nu_mm.    \u001bFy _.Fh    n #chat\nb  ;j;_mmmm.Fy    _.#chat\nh;b._mmm,  Fh     n _.#chat\nj    \u0016?\n>>\u001br\u001bf $ l   l   n     \u00161\nu u\u0017wand of light\nEi  I am a fish\n: u\u0017wand of opening\nEj Vlad was here\n  : u\u0017wand of speed monster\nEk Elbereth\n  \u0017wand of stasis\nEln  I am a fish\nE-n  Elbereth Elbereth\n\u0007jackal\nsj  sm.  n     .y FnFb  \u0017alchemy smock\nWm    n  20s   sm.       n  .m.   T    \u0017wax candle\nan   n  #rub\n\u0017blessed magic whistle\nao   ao   \u0017uncursed spellbook of teleport away\nrp     n  .m.    sm.ZZ\u0017uncursed potion of monster detection\nqq,      n     sm.    20s   n    \u001612\n\u0017wand of digging\nzr>       sm.  n    u          ny    zrl     l    n      \u0006_oooo.zr>      yy\u001by   y y y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 582718,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017cursed the Longbow of Diana\n we Fb  s20s#invoke\ne \u0017cursed tin of spinach\nef .s\u0017blessed heavy iron ball\n swb sFy\u0017uncursed 200 gold pieces\n\u0007minotaur\nsm.\u0017ring of aggravate monster\nPhl sm.   n 20s .m.Fy Fy  n sm.20s \u001630\n   \u00166\n\u0016?\n>y  _ \u001b>.#chat\nu_mm.    \u001bFy _.Fh    n #chat\nb  ;j;_mmmm.Fy    _.#chat\nh;b._mmm,  Fh     n _.#chat\nj    \u0016?\n>>\u001br\u001bf $ l   l   n     \u00161\nu u\u0017wand of light\nEi  I am a fish\n: u\u0017wand of opening\nEj Vlad was here\n  : u\u0017wand of speed monster\nEk Elbereth\n  \u0017wand of stasis\nEln  I am a fish\nE-n  Elbereth Elbereth\n\u0007jackal\nsj  sm.  n     .y FnFb  \u0017alchemy smock\nWm    n  20s   sm.       n  .m.   T    \u0017wax candle\nan   n  #rub\n\u0017blessed magic whistle\nao   ao   \u0017uncursed spellbook of teleport away\nrp     n  .m.    sm.ZZ\u0017uncursed potion of monster detection\nqq,      n     sm.    20s   n    \u001612\n\u0017wand of digging\nzr>       sm.  n    u          ny    zrl     l    n      \u0006_oooo.zr>      yy\u001by   y y y\u001b  b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           nhy\u0017trap door\nb\u0007lichen\nsm.20sssjy\u0017teleportation trap\ny^nn \u001bm,.sb\u0017magic trap\nl#untrap\nhh\u0017spiked pit\nlhss\u0017land mine\naglh#offer\n#invoke\n\u001b\\  \u0018\u001b\u00173 potion of restore ability\nqh \u001bsFl \u0017uncursed potion of see invisible\nqi \u001b\u0017potion of blindness\n\u0007Pestilence\nyqjs20s    n#levelchange\n30\n                  \u0016?\nk   #turn\nw- i\u001b;l;\u0006sb  sm.  n \u0016?\nm,ck    n\u0014.  .k   sy    \u0016?\n>J     wand of enlightenment\n#sit\n\u001b<#pray\ny y      \u0006s    s    \u00169\n#untrap\nk,#tip\n\u001b;k;20s        s   n\u001612\nqh    <#dip\neh20s    s\u00167\n\u0017blessed ring of polymorph control\nPml  #polyself\nlurker above\n#monster\n20s           20s  n  20s     s         s   #polyself\npony\ns20s        n  20s s20s                  n \u0006\u00165\n\u0017blessed ring of polymorph control\nPn           \u0017leather armor\nWo    s s  n s T      #polyself\nblack light\n#monster\ns s    n  .  .  s  #polyself\nkraken\n succubus\n.  s  . s    20s   n      #polyself\nowlbear\n20s         n.     \u0007sewer rat\nFhFb    n      Fb      n      .     n   20s  n    n    s   yy\u001by   y y  n  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 582708,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           nhy\u0017trap door\nb\u0007lichen\nsm.20sssjy\u0017teleportation trap\ny^nn \u001bm,.sb\u0017magic trap\nl#untrap\nhh\u0017spiked pit\nlhss\u0017land mine\naglh#offer\n#invoke\n\u001b\\  \u0018\u001b\u00173 potion of restore ability\nqh \u001bsFl \u0017uncursed potion of see invisible\nqi \u001b\u0017potion of blindness\n\u0007Pestilence\nyqjs20s    n#levelchange\n30\n                  \u0016?\nk   #turn\nw- i\u001b;l;\u0006sb  sm.  n \u0016?\nm,ck    n\u0014.  .k   sy    \u0016?\n>J     wand of enlightenment\n#sit\n\u001b<#pray\ny y      \u0006s    s    \u00169\n#untrap\nk,#tip\n\u001b;k;20s        s   n\u001612\nqh    <#dip\neh20s    s\u00167\n\u0017blessed ring of polymorph control\nPml  #polyself\nlurker above\n#monster\n20s           20s  n  20s     s         s   #polyself\npony\ns20s        n  20s s20s                  n \u0006\u00165\n\u0017blessed ring of polymorph control\nPn           \u0017leather armor\nWo    s s  n s T      #polyself\nblack light\n#monster\ns s    n  .  .  s  #polyself\nkraken\n succubus\n.  s  . s    20s   n      #polyself\nowlbear\n20s         n.     \u0007sewer rat\nFhFb    n      Fb      n      .     n   20s  n    n    s   yy\u001by   y y  n  \u0017"
+  }
+ ]
+}

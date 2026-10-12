@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "FnFnFj bjj\\ 150sFhFhsh\u0004nuyj\\ knylnl100s#rub\ncb150s\u000f\u001b100s150sFhFyFyFyFyFyklyejjb\u000f\u001bhhuhlbi\u001bunl150s150sFh.s150s\u0018\u001b150s100sFhss_ \u001bm,>150s100skll100s#name\nd\n50s150sFhFhFh150s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\na\n10shjkbk#chat\nytbll#ride\n.#name\na\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeenyub10s20s#name\na\nLKLU_>.>Fb.20sBKJJ_>.><KYUJ_>.><YYUL_>.>w-#chat\nbJLNB_>.><\u000f\u001b#force\nr\u001b#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBLBN_>.>JYNY_>.>NJLU_>.>#pray\ny #loot\nKKYN_>,>\u0018\u001bsNNJB_>,>#rub\ncci\u001b<LHJH_>.>ULNN_>.><HHNN_>,>r\u001b#conduct\n \u000f\u001bwacks#pray\ny   ee#pray\ny  #pray\ny     y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 582631,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:horse\n",
+   "moves": "FnFnFj bjj\\ 150sFhFhsh\u0004nuyj\\ knylnl100s#rub\ncb150s\u000f\u001b100s150sFhFyFyFyFyFyklyejjb\u000f\u001bhhuhlbi\u001bunl150s150sFh.s150s\u0018\u001b150s100sFhss_ \u001bm,>150s100skll100s#name\nd\n50s150sFhFhFh150s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\na\n10shjkbk#chat\nytbll#ride\n.#name\na\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeenyub10s20s#name\na\nLKLU_>.>Fb.20sBKJJ_>.><KYUJ_>.><YYUL_>.>w-#chat\nbJLNB_>.><\u000f\u001b#force\nr\u001b#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBLBN_>.>JYNY_>.>NJLU_>.>#pray\ny #loot\nKKYN_>,>\u0018\u001bsNNJB_>,>#rub\ncci\u001b<LHJH_>.>ULNN_>.><HHNN_>,>r\u001b#conduct\n \u000f\u001bwacks#pray\ny   ee#pray\ny  #pray\ny     y\u001by  y y y\u001b  1"
+  }
+ ]
+}

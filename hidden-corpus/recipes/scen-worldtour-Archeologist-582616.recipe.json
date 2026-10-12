@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPj\u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWl \u0016?\n>>M      war hammer\n\u0007soldier ant\n;y; \u001b.sm.20s     sm.       n   \u0007giant rat\nFj       Fj     Fk    n    Fy        nFj        Fy     \u0007stalker\nFh  n Fb     Fb Fb   n      Fh       \u00167\n\u0016?\n\u001buy    n  \u0016?\n\u001by    k    n \u0016?\n\u001bk   b       \u0016?\n\u001byk  n     \u00164\n#levelchange\n30\n               \u0007cobra\n#chat\nyFh    Fh         n   \u0007fog cloud\n;b:  sm.    sm.sm.     n  20s     \u00162\n\u0016?\n\u001bh       n  y   \u0016?\n\u001bb   b\u0016?\n\u001bb        n j    \u001b    \u0016?\n\u001bn   n \u0016?\n\u001bh      n h    \u001623\n\u0014>.    \u00164\nnn          j    n  :\u0016?\n\u001bk  b       \u0016?\n\u001bk    n    n     \u001623\n_{,\u0016?\n\u001bj   n     h     yy\u001bny y  n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 582616,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPj\u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWl \u0016?\n>>M      war hammer\n\u0007soldier ant\n;y; \u001b.sm.20s     sm.       n   \u0007giant rat\nFj       Fj     Fk    n    Fy        nFj        Fy     \u0007stalker\nFh  n Fb     Fb Fb   n      Fh       \u00167\n\u0016?\n\u001buy    n  \u0016?\n\u001by    k    n \u0016?\n\u001bk   b       \u0016?\n\u001byk  n     \u00164\n#levelchange\n30\n               \u0007cobra\n#chat\nyFh    Fh         n   \u0007fog cloud\n;b:  sm.    sm.sm.     n  20s     \u00162\n\u0016?\n\u001bh       n  y   \u0016?\n\u001bb   b\u0016?\n\u001bb        n j    \u001b    \u0016?\n\u001bn   n \u0016?\n\u001bh      n h    \u001623\n\u0014>.    \u00164\nnn          j    n  :\u0016?\n\u001bk  b       \u0016?\n\u001bk    n    n     \u001623\n_{,\u0016?\n\u001bj   n     h     yy\u001bny y  n  \u0016"
+  }
+ ]
+}

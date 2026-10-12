@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "B LKL_ \u001b<.>FbFb sYYNK_>.>KJJL_>.>Flss\u000f\u001bJYBH_>.><NUNU_>,>BUUH_>.>100s50s_>,>100sFhFhFhFbFh20syuk_>.>50s100s nyn\u0018\u001b100slkj50s_>.>150sFh.sblyFbFb20synyFj..150snyn50sjlk#name\ni\n100s100s100s150sFh20ss\\  100sFl20ss100seh150seh50sHBLY_>.>#ride\nj#ride\nkYJYY_>.>rc #dip\nie<LUKL_>.Fl_,Fn>:#untrap\nhUHHH_>.Fu_.>. >\u000f\u001beg100sei  \u001b20s_>.>100sei  ykl\u000f\u001b100seflln100s100s50s\u0018\u001b50s\u0004l150s_>.>_>.>50s100sjjj50s\u0018\u001b_>,Fn_.> nll100s_>.>100s   \u001b50sFh20ssrj y 100s100sFh.20sE- ad aerarium\nFh20sFhyhbJYUH_>.>LNKL_>.>YNHU_>,>LUUY_>.>>E- ad aerarium\nKBKY_>,>#tip\n\u001bw\u001bN NUN_>,>LJJB_>,>Z\u001b#jump\n\u000f\u001bJUBU_>,>i\u001bKKJKJ_>.>LNHY _>.>LBYU_>.>BHHN_>,>\\  f \u001bkE- Elbereth\n#name\nm\n150sFkFk.100s #dip\ndeyhn#pray\ny "
+ },
+ "segments": [
+  {
+   "seed": 582619,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "B LKL_ \u001b<.>FbFb sYYNK_>.>KJJL_>.>Flss\u000f\u001bJYBH_>.><NUNU_>,>BUUH_>.>100s50s_>,>100sFhFhFhFbFh20syuk_>.>50s100s nyn\u0018\u001b100slkj50s_>.>150sFh.sblyFbFb20synyFj..150snyn50sjlk#name\ni\n100s100s100s150sFh20ss\\  100sFl20ss100seh150seh50sHBLY_>.>#ride\nj#ride\nkYJYY_>.>rc #dip\nie<LUKL_>.Fl_,Fn>:#untrap\nhUHHH_>.Fu_.>. >\u000f\u001beg100sei  \u001b20s_>.>100sei  ykl\u000f\u001b100seflln100s100s50s\u0018\u001b50s\u0004l150s_>.>_>.>50s100sjjj50s\u0018\u001b_>,Fn_.> nll100s_>.>100s   \u001b50sFh20ssrj y 100s100sFh.20sE- ad aerarium\nFh20sFhyhbJYUH_>.>LNKL_>.>YNHU_>,>LUUY_>.>>E- ad aerarium\nKBKY_>,>#tip\n\u001bw\u001bN NUN_>,>LJJB_>,>Z\u001b#jump\n\u000f\u001bJUBU_>,>i\u001bKKJKJ_>.>LNHY _>.>LBYU_>.>BHHN_>,>\\  f \u001bkE- Elbereth\n#name\nm\n150sFkFk.100s #dip\ndeyhn#pray\ny "
+  }
+ ]
+}

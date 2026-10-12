@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 helm of telepathy\nWq\u001634\n   \u0007pyrolisk\nFn Fu Fu Fu \u0007incubus\nsb sn  20ssm.  sysm.   nsm. \u0016?\n>u \u0017uncursed potion of see invisible\n qf \u0017wraith corpse\n\u0007sewer rat\ner   20s .m.Fl Fj \u0017spellbook of chain lightning\n\u0007fire vortex\nrs susZa\nZa\n\u00173 oil lamp\nat  #rub\nt  sm. .  n \u0016?\nq#levelchange\n8\n  \u0017Sting\nwu Fl  Fl Fl#invoke\nu \u0007trapper\nFnFlFn \u0007crocodile\n#chat\nFj  n  Fn \u001630\n\u0014 \u001b.  \u0016?\nf     \u0014;  \u0016?\no hykh  nh:\u0016?\n>>N       scroll of teleportation\n\u0017blessed spellbook of wizard lock\nrx     sb   n   \u0017blessed spellbook of detect food\nry      .m.    n \u0017blessed spellbook of invisibility\nrz      n   n      n20s    n    \u0017blessed spellbook of clairvoyance\nrA    \u001b   n    su      n+a\nZa\n     n Za\n     n   Za\nl     n  \u0007acid blob\nZa\n    yy\u001by   y y "
+ },
+ "segments": [
+  {
+   "seed": 582624,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 helm of telepathy\nWq\u001634\n   \u0007pyrolisk\nFn Fu Fu Fu \u0007incubus\nsb sn  20ssm.  sysm.   nsm. \u0016?\n>u \u0017uncursed potion of see invisible\n qf \u0017wraith corpse\n\u0007sewer rat\ner   20s .m.Fl Fj \u0017spellbook of chain lightning\n\u0007fire vortex\nrs susZa\nZa\n\u00173 oil lamp\nat  #rub\nt  sm. .  n \u0016?\nq#levelchange\n8\n  \u0017Sting\nwu Fl  Fl Fl#invoke\nu \u0007trapper\nFnFlFn \u0007crocodile\n#chat\nFj  n  Fn \u001630\n\u0014 \u001b.  \u0016?\nf     \u0014;  \u0016?\no hykh  nh:\u0016?\n>>N       scroll of teleportation\n\u0017blessed spellbook of wizard lock\nrx     sb   n   \u0017blessed spellbook of detect food\nry      .m.    n \u0017blessed spellbook of invisibility\nrz      n   n      n20s    n    \u0017blessed spellbook of clairvoyance\nrA    \u001b   n    su      n+a\nZa\n     n Za\n     n   Za\nl     n  \u0007acid blob\nZa\n    yy\u001by   y y "
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017pick-axe\nu\u0017grave\naf >  ssjuaf<af>.af>   ny\u0017pick-axe\nn\u0017grave\nag >  ssag>      20sagy ySy\u001b yn#enhance\nym\ni\n\u001b#invoke\n\u001bck#dip\naqE- X marks the spot\n#levelchange\n6\n    yhb\u0017pit\njksuskuk\u0017rolling boulder tr",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 582815,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017pick-axe\nu\u0017grave\naf >  ssjuaf<af>.af>   ny\u0017pick-axe\nn\u0017grave\nag >  ssag>      20sagy ySy\u001b"
+  },
+  {
+   "seed": 1082815,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " yn#enhance\nym\ni\n\u001b#invoke\n\u001bck#dip\naqE- X marks the spot\n#levelchange\n6\n    yhb\u0017pit\njksuskuk\u0017rolling boulder tr"
+  }
+ ]
+}

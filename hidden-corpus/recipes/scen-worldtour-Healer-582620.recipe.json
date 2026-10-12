@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u001623\nblhbnly:\u001635\n   #levelchange\n30\n         bbub\u0017magic trap\nlhsj20s y\u0017rust trap\nbu.m.sm.   b  \u0017spiked pit\ny^nn sb  sm.  n    \u0017hole\nk  n      \u0007gnome\n20s     sm.     sl   20s   qe    f $ k      n   w-   \u001612\n\u001623\nh hhlh:20ssm..m.\u001623\n_ \u001b,<\u001635\n   __.\u0016?\n>>Qulyb:\u0016?\n>G hh :\u001623\n\u0004y    n\u001628\n\u0006_>. Fl _,.   Fh \u0016?\np jk:\u001626\n\u0014>.\u001639\n   \u0006_<,Fy   _,Fy  20s   \u001640\n _{,\u00167\n\u0014,\u001612\n\u00175 boomerangs\nQl\u0007lichen\nnfhflfj fl \u0007hill orc\nh  fb    n  fl  f a l  kj   n h  , #enhance\nya\n\u001b\u00167\n\u001612\nnkj y j n  :  n .  s  \u00164\n\u001616\n    yny: \u0016?\nq #levelchange\n14\n    yny\u0017dart trap\nb\u0017magic trap\nul\u0017spiked pit\n#terrain\nd\nd\u0018 #dip\nhe\u0016?\n>v\u0006_>,\u0016?\n>>Q   lhlhlhl: \u001639\n#chat\nb;m,\u0016?\n>u un: \u0016?\njuuulhl   n : s.\u001616\n k l: 20s20ss\u001623\n__.<ss\u0016?\n>G_>,<\u001635\n\u0004u\u001618\n_{.\u0016?\n>>L    mummy wrapping\n#chat\ny     ;h;\u001628\n__.<sm.       \u001638\n\u0014 n   n       \u001612\n\u0004k       \u0016?\n\u001by     h\u0016?\ne \u0017blessed spellbook of knock\nro 20s   n  \u0017spellbook of detect food\nrp    sm.  n       \u0017spellbook of magic missile\nrq    n   20s      n    +\u001b\u0007lichen\nZa\nb     n    Za\nb  n     yy\u001by  y y  y\u001b  Z"
+ },
+ "segments": [
+  {
+   "seed": 582620,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u001623\nblhbnly:\u001635\n   #levelchange\n30\n         bbub\u0017magic trap\nlhsj20s y\u0017rust trap\nbu.m.sm.   b  \u0017spiked pit\ny^nn sb  sm.  n    \u0017hole\nk  n      \u0007gnome\n20s     sm.     sl   20s   qe    f $ k      n   w-   \u001612\n\u001623\nh hhlh:20ssm..m.\u001623\n_ \u001b,<\u001635\n   __.\u0016?\n>>Qulyb:\u0016?\n>G hh :\u001623\n\u0004y    n\u001628\n\u0006_>. Fl _,.   Fh \u0016?\np jk:\u001626\n\u0014>.\u001639\n   \u0006_<,Fy   _,Fy  20s   \u001640\n _{,\u00167\n\u0014,\u001612\n\u00175 boomerangs\nQl\u0007lichen\nnfhflfj fl \u0007hill orc\nh  fb    n  fl  f a l  kj   n h  , #enhance\nya\n\u001b\u00167\n\u001612\nnkj y j n  :  n .  s  \u00164\n\u001616\n    yny: \u0016?\nq #levelchange\n14\n    yny\u0017dart trap\nb\u0017magic trap\nul\u0017spiked pit\n#terrain\nd\nd\u0018 #dip\nhe\u0016?\n>v\u0006_>,\u0016?\n>>Q   lhlhlhl: \u001639\n#chat\nb;m,\u0016?\n>u un: \u0016?\njuuulhl   n : s.\u001616\n k l: 20s20ss\u001623\n__.<ss\u0016?\n>G_>,<\u001635\n\u0004u\u001618\n_{.\u0016?\n>>L    mummy wrapping\n#chat\ny     ;h;\u001628\n__.<sm.       \u001638\n\u0014 n   n       \u001612\n\u0004k       \u0016?\n\u001by     h\u0016?\ne \u0017blessed spellbook of knock\nro 20s   n  \u0017spellbook of detect food\nrp    sm.  n       \u0017spellbook of magic missile\nrq    n   20s      n    +\u001b\u0007lichen\nZa\nb     n    Za\nb  n     yy\u001by  y y  y\u001b  Z"
+  }
+ ]
+}

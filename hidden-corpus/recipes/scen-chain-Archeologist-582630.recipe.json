@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  150s100sFhFhFh_ \u001b.>\\ 100skyn50slyn150s100sFhFhFh100s100s 150s150s\u000f\u001b50sFhFhFhFhFhFhE- Vlad was here\n100syhhFhsskku100s100s _>.>100sFjss<\u0018\u001bhll_>,>Z#quit\nyy\u001by  y y y\u001b H UUN_ \u001b@.><LKHK_>.>Fj s.NJBY_>.>ch#chat\ny<yy\u001bny y y\u001b U#wizintrinsic\na\n ss20s20s20s20s20s20s .s..ssss.sss..20ss20s..sknlubb#chat\nyknt$j10sbuyyhy100s \u0018\u001bi\u001b100s\\ 50sFjFjslbu100s100s50s100s100s50s150s100sFlFl20s100sFlFls,50s100s 150sFlFlFlFlFlFl#chat\nunhk150sjbk1#quit\nyy\u001by  y y y\u001b   \u0017wand of digging\nzk> .zk>  sh zk>   yy\u001bny y\u001by  .J  KKY_ \u001b>.>FjssHBYY_>.>tbu#chat\nyBKHN_>.>HHUK_>,>HLLY_>.>JNNK_>.>\u000f\u001bhkjk#name\n\u001bj10s 10sk10s  Fn FnFnFnFnFnFnFnkkujdc20sslsm.10sjy#quit\nyy\u001by  y y y\u001b  #quit\nyyFlFlFl FlFlFlFlFl10s20s10syhjljl#name\ni\nlhnbjyHLLU_ \u001bm,>FjFu20sYHLU_>,>UYNJ_>.>JYHJ_>.>BBLY_>.>FhFhFhkjulnujhNBLN_>,>KLJB_>.>cl\u000f\u001bUHNK_>.>BYLL_>,>JLKY_>,>#name\ni\n<YBUJ_>.><yy\u001bny y y\u001b Y jjyh\u000f\u001b100sFkFy FkFyFkFu\u000f\u001b:150sFkss100syub150s       Fl.s:100s  FyFkFk FyFuFl100s     FyFyFyFysFk FyFlsFl20sFyFnFy  y\u001by  y y y\u001b  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 582630,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:none\n",
+   "moves": "  150s100sFhFhFh_ \u001b.>\\ 100skyn50slyn150s100sFhFhFh100s100s 150s150s\u000f\u001b50sFhFhFhFhFhFhE- Vlad was here\n100syhhFhsskku100s100s _>.>100sFjss<\u0018\u001bhll_>,>Z#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 682630,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "H UUN_ \u001b@.><LKHK_>.>Fj s.NJBY_>.>ch#chat\ny<yy\u001bny y y\u001b U"
+  },
+  {
+   "seed": 782630,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n ss20s20s20s20s20s20s .s..ssss.sss..20ss20s..s"
+  },
+  {
+   "seed": 882630,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\n",
+   "moves": "knlubb#chat\nyknt$j10sbuyyhy100s \u0018\u001bi\u001b100s\\ 50sFjFjslbu100s100s50s100s100s50s150s100sFlFl20s100sFlFls,50s100s 150sFlFlFlFlFlFl#chat\nunhk150sjbk1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 982630,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of digging\nzk> .zk>  sh zk>   yy\u001bny y\u001by  ."
+  },
+  {
+   "seed": 1082630,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "J  KKY_ \u001b>.>FjssHBYY_>.>tbu#chat\nyBKHN_>.>HHUK_>,>HLLY_>.>JNNK_>.>\u000f\u001bhkjk#name\n\u001bj10s 10sk10s  Fn FnFnFnFnFnFnFnkkujdc20sslsm.10sjy#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1182630,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " #quit\nyy"
+  },
+  {
+   "seed": 1282630,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\n",
+   "moves": "FlFlFl FlFlFlFlFl10s20s10syhjljl#name\ni\nlhnbjyHLLU_ \u001bm,>FjFu20sYHLU_>,>UYNJ_>.>JYHJ_>.>BBLY_>.>FhFhFhkjulnujhNBLN_>,>KLJB_>.>cl\u000f\u001bUHNK_>.>BYLL_>,>JLKY_>,>#name\ni\n<YBUJ_>.><yy\u001bny y y\u001b Y"
+  },
+  {
+   "seed": 1382630,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\n",
+   "moves": " jjyh\u000f\u001b100sFkFy FkFyFkFu\u000f\u001b:150sFkss100syub150s       Fl.s:100s  FyFkFk FyFuFl100s     FyFyFyFysFk FyFlsFl20sFyFnFy  y\u001by  y y y\u001b  2"
+  }
+ ]
+}

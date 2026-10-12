@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0016?\n>w\u0006_ \u001b,,p_oooo.,p_d.Fh_,Fh \u0004h_m.Fh_.#chat\nuda #invoke\n\u001b#jump\n\u0017bag of holding\nae\u001bae\u001b#tip\ne\u001b  n \u0017scroll of destroy armor\n\u0007black light\nrf    nFy   Fu    n  \u00173 statue of a newt\n20s   20s   n 20s \u000f\u001b\u001610\n \u0007imp\n#chat\nhFyFy \u0007pyrolisk\nFlFy  n  FyFy Fl  \u0016?\n>y  _m.Fn_.#chat\nn   n;n._mmm,Fn  _.    Fl  #chat\nl     n_mmm,   n Fn   n    n _.#chat\nu    n #name\n\u001b\\   #rub\n\u00165\n#wizintrinsic\njm\n sj   n     n20s    n     n  .m.  yny   y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 582716,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0016?\n>w\u0006_ \u001b,,p_oooo.,p_d.Fh_,Fh \u0004h_m.Fh_.#chat\nuda #invoke\n\u001b#jump\n\u0017bag of holding\nae\u001bae\u001b#tip\ne\u001b  n \u0017scroll of destroy armor\n\u0007black light\nrf    nFy   Fu    n  \u00173 statue of a newt\n20s   20s   n 20s \u000f\u001b\u001610\n \u0007imp\n#chat\nhFyFy \u0007pyrolisk\nFlFy  n  FyFy Fl  \u0016?\n>y  _m.Fn_.#chat\nn   n;n._mmm,Fn  _.    Fl  #chat\nl     n_mmm,   n Fn   n    n _.#chat\nu    n #name\n\u001b\\   #rub\n\u00165\n#wizintrinsic\njm\n sj   n     n20s    n     n  .m.  yny   y y y\u001b  2"
+  }
+ ]
+}

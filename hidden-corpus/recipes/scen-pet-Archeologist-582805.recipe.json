@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0007kitten\n\u0017apple\nt\u001b\u0007giant rat\nsm.   yny  y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 582805,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0007kitten\n\u0017apple\nt\u001b\u0007giant rat\nsm.   yny  y y\u001by  s"
+  }
+ ]
+}

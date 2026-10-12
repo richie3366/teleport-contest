@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0007Juiblex\nyFu20sFuFjsFy.FjFlFhsFn"
+ },
+ "segments": [
+  {
+   "seed": 582812,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0007Juiblex\nyFu20sFuFjsFy.FjFlFhsFn"
+  }
+ ]
+}

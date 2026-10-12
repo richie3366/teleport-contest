@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0016?\n>Eb10slFy \u0017scroll of earth\nre h  l  ly\u0017scroll of earth\nrf uynl   k   h   j  uk   ykj   yn   b10syj   uj   nnbnbnlnh   bj  yuuh   nbl  uk   yyu  k10shn  hy  l#levelchange\n30\n                     \u0017cursed -1 ring of gain constitution\nPgr20s.20s\u00173 spellbook of create monster\nrh ssZa\nZa\n\u0017uncursed +0 silver saber\n\u0007black pudding\nwiFnFnFnFnFn\u0017blessed spellbook of magic missile\n\u0007pyrolisk\nrj20s20s Za\n\u0017war hammer\nwk Fn  FkFk\u0017blessed kicking boots\nWl   20s sm. sysm..m.i\u001b#wizintrinsic\nrfs\n  20s sb sm.  n sm. sm.20s  sy sh sl sbsm..y \u0017wooden harp\namam   n><#invoke\n\u001bf a y   b#force\n  .m..20ssm.s.m.\u0006\u001611\n#levelchange\n12\n    #wizintrinsic\nflg\n  .k    n  sm.20s sm.20ssm.sm..hsm..n#tip\n\u001b20s hwb #rub\nz.l20s .m...20s \u0018\u001b\u0006_ \u001b>.>FhFb   n_>.Fb_. Fb >FhFh _>.Fb_,Fh>FhFh  FhFhFb\u0006_>>, Fh  n _. Fh>Fh Fh_>>, Fh_, Fh >FhFh _>>.Fk_.Fu>FuFuFuFuFu\u0006_>>.Fu_,  nFu>FuFu_>>.Fu_.<.Fu>FuFh_>>,Fn_.,\u001bFn>FhFhFhFnFnW#untrap\nh\u0006_>>,Fh_.,\u001bFh>FhFh_>>.  nFh_,Fh>FhFh_>>.Fh_.m,\u001bFh>FhFhFhFhFh20s,\u001b\u0006_>._,@.>_>._.<.>_>._.<.><\u0006_>._.<.>_>._,,\u001b>_>._,>.>\u0006_>>,_,>.>_>>,_,m,\u001b>_>>._.;>.>#loot\n#tip\n\u001b\u000f\u001b\u0018\u001b\u00162\n#levelchange\n30\n                \u00175 boomerangs\nQn\u0007sewer rat\nnfhfhfnfnfb\u0007acid blob\nyh fkfkf iy y20ss\u0017potion of sleeping\nt"
+ },
+ "segments": [
+  {
+   "seed": 582717,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0016?\n>Eb10slFy \u0017scroll of earth\nre h  l  ly\u0017scroll of earth\nrf uynl   k   h   j  uk   ykj   yn   b10syj   uj   nnbnbnlnh   bj  yuuh   nbl  uk   yyu  k10shn  hy  l#levelchange\n30\n                     \u0017cursed -1 ring of gain constitution\nPgr20s.20s\u00173 spellbook of create monster\nrh ssZa\nZa\n\u0017uncursed +0 silver saber\n\u0007black pudding\nwiFnFnFnFnFn\u0017blessed spellbook of magic missile\n\u0007pyrolisk\nrj20s20s Za\n\u0017war hammer\nwk Fn  FkFk\u0017blessed kicking boots\nWl   20s sm. sysm..m.i\u001b#wizintrinsic\nrfs\n  20s sb sm.  n sm. sm.20s  sy sh sl sbsm..y \u0017wooden harp\namam   n><#invoke\n\u001bf a y   b#force\n  .m..20ssm.s.m.\u0006\u001611\n#levelchange\n12\n    #wizintrinsic\nflg\n  .k    n  sm.20s sm.20ssm.sm..hsm..n#tip\n\u001b20s hwb #rub\nz.l20s .m...20s \u0018\u001b\u0006_ \u001b>.>FhFb   n_>.Fb_. Fb >FhFh _>.Fb_,Fh>FhFh  FhFhFb\u0006_>>, Fh  n _. Fh>Fh Fh_>>, Fh_, Fh >FhFh _>>.Fk_.Fu>FuFuFuFuFu\u0006_>>.Fu_,  nFu>FuFu_>>.Fu_.<.Fu>FuFh_>>,Fn_.,\u001bFn>FhFhFhFnFnW#untrap\nh\u0006_>>,Fh_.,\u001bFh>FhFh_>>.  nFh_,Fh>FhFh_>>.Fh_.m,\u001bFh>FhFhFhFhFh20s,\u001b\u0006_>._,@.>_>._.<.>_>._.<.><\u0006_>._.<.>_>._,,\u001b>_>._,>.>\u0006_>>,_,>.>_>>,_,m,\u001b>_>>._.;>.>#loot\n#tip\n\u001b\u000f\u001b\u0018\u001b\u00162\n#levelchange\n30\n                \u00175 boomerangs\nQn\u0007sewer rat\nnfhfhfnfnfb\u0007acid blob\nyh fkfkf iy y20ss\u0017potion of sleeping\nt"
+  }
+ ]
+}

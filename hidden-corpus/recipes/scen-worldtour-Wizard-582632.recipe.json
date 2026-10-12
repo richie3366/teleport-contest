@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0016?\n>>L      wand of nothing\n#levelchange\n30\n                \u0007homunculus\n;n; \u001bm,.y20s        s\u0007pony\ns s s  sh                   n    20s  20s  s       .m.       .\u0007bone devil\nFk Fj   n       Fl         Fk  Fk  n          \u0007gecko\nFj Fj   Fk   n   FkFk Fk s s\u00162\n\u0016?\nd n b       h  :\u001620\n_<.sm.  n      \u001620\n_<,\u0016?\n\u001bn        j\u0016?\na  \u0007djinni\nFl  Fy      n           Fk      n                   n Fl                   n             Fk    n            Fk      n      \u0007blue jelly\nFu   n              Fj    n           n     Fy      n        \u0007giant spider\n;b,sm.      y\u001b       s"
+ },
+ "segments": [
+  {
+   "seed": 582632,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0016?\n>>L      wand of nothing\n#levelchange\n30\n                \u0007homunculus\n;n; \u001bm,.y20s        s\u0007pony\ns s s  sh                   n    20s  20s  s       .m.       .\u0007bone devil\nFk Fj   n       Fl         Fk  Fk  n          \u0007gecko\nFj Fj   Fk   n   FkFk Fk s s\u00162\n\u0016?\nd n b       h  :\u001620\n_<.sm.  n      \u001620\n_<,\u0016?\n\u001bn        j\u0016?\na  \u0007djinni\nFl  Fy      n           Fk      n                   n Fl                   n             Fk    n            Fk      n      \u0007blue jelly\nFu   n              Fj    n           n     Fy      n        \u0007giant spider\n;b,sm.      y\u001b       s"
+  }
+ ]
+}

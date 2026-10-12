@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0007stalker\nsss  nss  ns20ss  n\u0007straw golem\nFb   FlFl   nFb \u0007acid blob\nFl  Fy \u0007fire elemental\n20s .m. sm.  n su  n  n.m.   n\u00161\n\u0006\u001610\n#levelchange\n20\n                   \u0007warhorse\n\u0017scroll of taming\nrh \u0017saddle\naiy#ride\nby\u0007pony\n\u0017scroll of taming\nrj \u0017saddle\naky #ride\nky \u0007tame saddled pony\n#ride\n \u0006_ \u001b,>FnFj_>.Fh_.Fh>FhFh_>._..>,\u0007kobold\nFh.s,#wizintrinsic\njp\n 20s.s.20s.s20ss20s.s.sssss.20sssj;h,wb \\ #tip\nf\u001b#name\nm\nss20ssss#levelchange\n20\n\u0017blessed ring of polymorph control\nPlr#polyself\nwerewolf\n gecko\n  s20s\u0007gelatinous cube\nFhFhFh20s.20s  #polyself\njellyfish\n #monster\nss\u0007jackal\nFh s  20s     .s.#polyself\nimp\n#monster\nss..s\u0007tame mumak\n\u0017saddle\na#ride\nhy\u0007tame saddled pony\n#ride\nhy\u0007pony\n\u0017scroll of taming\nr\u0017saddle\na#ride\nhy#ride\nhys#ride\nhy\u0004 \u0007yellow mold\nFhFhFhl bbu \u0007newt\nFh Fhsbb\u0004 \u000f\u001b#levelchange\n14\n \u0016?\n>y  _mmmmm.#chat\nb_mmm,#chat\nb;m,_mm.#chat\nu\u0006_>._.>_>.Fh  _, Fk >Fk  n Fk  _>.   n  Fu  _.  n  Fh  >Fu   n   Fh  \u0016?\n>A#turn\n,\u0004y  i\u001b\u001612\n\u0017unicorn horn\nwp   n Fu Fu Fh    \u0007xorn\nsm. sm.   n  .m. 20s    n   .m.    su  sm.   yy\u001by  y y y\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 582709,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007stalker\nsss  nss  ns20ss  n\u0007straw golem\nFb   FlFl   nFb \u0007acid blob\nFl  Fy \u0007fire elemental\n20s .m. sm.  n su  n  n.m.   n\u00161\n\u0006\u001610\n#levelchange\n20\n                   \u0007warhorse\n\u0017scroll of taming\nrh \u0017saddle\naiy#ride\nby\u0007pony\n\u0017scroll of taming\nrj \u0017saddle\naky #ride\nky \u0007tame saddled pony\n#ride\n \u0006_ \u001b,>FnFj_>.Fh_.Fh>FhFh_>._..>,\u0007kobold\nFh.s,#wizintrinsic\njp\n 20s.s.20s.s20ss20s.s.sssss.20sssj;h,wb \\ #tip\nf\u001b#name\nm\nss20ssss#levelchange\n20\n\u0017blessed ring of polymorph control\nPlr#polyself\nwerewolf\n gecko\n  s20s\u0007gelatinous cube\nFhFhFh20s.20s  #polyself\njellyfish\n #monster\nss\u0007jackal\nFh s  20s     .s.#polyself\nimp\n#monster\nss..s\u0007tame mumak\n\u0017saddle\na#ride\nhy\u0007tame saddled pony\n#ride\nhy\u0007pony\n\u0017scroll of taming\nr\u0017saddle\na#ride\nhy#ride\nhys#ride\nhy\u0004 \u0007yellow mold\nFhFhFhl bbu \u0007newt\nFh Fhsbb\u0004 \u000f\u001b#levelchange\n14\n \u0016?\n>y  _mmmmm.#chat\nb_mmm,#chat\nb;m,_mm.#chat\nu\u0006_>._.>_>.Fh  _, Fk >Fk  n Fk  _>.   n  Fu  _.  n  Fh  >Fu   n   Fh  \u0016?\n>A#turn\n,\u0004y  i\u001b\u001612\n\u0017unicorn horn\nwp   n Fu Fu Fh    \u0007xorn\nsm. sm.   n  .m. 20s    n   .m.    su  sm.   yy\u001by  y y y\u001b  \u0007"
+  }
+ ]
+}
