@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3870 cliffs-head `print_mapseen` writer: `end.c` savelife read nonexistent `urole.malenum`, so Tourist lifesaves printed the non-Tourist "while" line (Tourist-578210 622→PASS)
+
+**C locus:** `end.c` savelife `:730–736` (`gm.multi = -1`; `gm.multi_reason = Role_if(PM_TOURIST) ? "being toyed with by Fate" : "attempting to cheat Death"`); `Role_if(X) ≡ gu.urole.mnum == X` (`you.h:247`); printed via `formatkiller(tmpbuf, sizeof tmpbuf, how, TRUE)` in the died_here arm `dungeon.c:3709`.
+**JS:** 1 file (`js/end.js` +2/−2). Under caps.
+**Change:** `js/end.js` only — one field: `game.urole?.malenum` → `game.urole?.mnum`, with a `you.h:247` cite. No new imports/edges; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn savelife,print_mapseen` → PASS syntax (1 file: js/end.js) · PASS rule2 · note savelife (0 blocked at baseline) · REACH-OK savelife (smoke 24/24, no RNG-tagged reach) · PASS hidden (`verify print_mapseen: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`: scen-sweep-Tourist-578210 PASS) · REACH-OK print_mapseen (smoke 24/24) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Regression cover is the probe corpus session itself (Tourist lifesave → game-over overview line), now full-PASS; no bespoke script for a one-field fix.
+**Named:** none new in this unit — savelife is otherwise whole vs C `:704–756` (D-3260/D-2191/D-0868). Pre-existing, untouched: the stop-travel assist (`game.context.run/mv`, no C counterpart) and the fuzzer caller.
+**Next:** pop the regenerated Open — cliffs head.
 ## 2026-10-12 — D-3869 cliffs-head `dolook` writer: `hack.c` domove's JS-only newsym(dest) burned a display-RNG draw per step (Samurai-578121 1328→PASS)
 
 **C locus:** `hack.c` domove `:2964–2974` — after a step, newsym(old) + vision_recalc(1) + invocation_message(); `:2969` «vision_recalc() will print our new one» (`vision.c:849–850` newsym(hero)); no direct newsym(dest). Turn end (`allmain.c:457–459`): see_monsters (newsym hero) + see_objects (fobj walk incl. the stones, `display.c:1558–1571`). Every hallu object paint burns display draws (`display.h:187` random_object / `:933–936` / `:963–968`), even invisible ones (the hero stands on the stones).
