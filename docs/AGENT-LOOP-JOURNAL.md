@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3895 [measure] TEMP-C steed-trigger dump decides (a)-vs-(c): C's s1166 impossible is stale-pointer malloc reuse — UNPORTABLE park confirmed terminal, no `js/`
+
+**C locus:** `steed.c` place_monster `:911–920` (steed arm: `mon == u.usteed && !in_steed_dismounting` → `impossible("placing %s onto map…")` + return) + `restore.c` restmon `:1182–1197` (m_id relink-or-place; the firing call is :1193) + `save.c` savemonchn `:904–907` (usteed_mid stamp at teardown) + `nhlua.c` nhl_gamestate restore arm (memcpys the stale u.usteed/usteed_mid).
+**JS:** none.
+**Change:** none (no `js/` — park; the trigger needs C-heap address reuse — see Measure).
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis. `node scripts/verify.mjs --fn nhl_gamestate` → PASS syntax (0 changed js files) · PASS rule2 · FAIL hidden `verify nhl_gamestate: 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (582706 still nhl_gamestate@1166, by design — no `js/` in a measure commit) · PASS reach smoke 24/24 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a [measure] (D-3882/D-3884 precedent). Movement: `verify nhl_gamestate: 0 PASS, 0 moved, 1 no-movement`.
+**Named:** n/a. Reviewed-but-inert, not shipped: JS never stamps usteed_mid at goto_level teardown (C save.c:904–907; JS stamps only in dosave0) — stamping 993 here would still miss (no 993 on the restored fmon) → no fire → NO MOVEMENT by construction.
+**Next:** head stays UNPORTABLE-terminal (park stands — never a port row; row-2 override precedent continues). Reopen ONLY on: (1) a C dump contradicting (a) (alias>1 / live-993-pointer at a future fire), or (2) the mid-stamp falsifier above firing. Do not re-measure this trigger.
 ## 2026-10-12 — D-3894 `do.c` save_currentstate never shipped savelev's VISITED mark: checkpoint arrivals left no mark, so a discarded-level re-entry skipped the impossible (Healer-582620 s633 → PASS)
 
 **C locus:** `do.c` save_currentstate `:1375–1395` (`#ifdef INSURANCE`, config.h:435; checkpoint option default On, optlist.h:226) — the WRITING-only savelev at `:1387` runs save.c:493–494 (`lev >= 0 && lev <= maxledgerno()` → `level_info[lev].flags |= VISITED`) — called at the end of every goto_level (do.c:1968–1969, after the uz0 reset), at game start (allmain.c:838), and in makemap_prepost (cmd.c:1064). The arrival-time VISITED survives a later FREEING leave + discard (delete_levelfile clears only LFILE_EXISTS, files.c:728), so the do.c:1695 re-entry arm fires.
