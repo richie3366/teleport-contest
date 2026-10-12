@@ -26,21 +26,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3872 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3872) reached no session — no pole-lava row.
+- D-1790…D-3873 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3873) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3872.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3872 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3873.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3873 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3873: js/shk.js only — :4631 `u.Invis` → `Invis()` (already-imported timeout.js export, no new edge) + C-cite comment (macro locus, flat-staleness cause, :9 Named: none new in the ported arm.
 - D-3872: `js/questpgr.js` only (data): two bodies byte-verbatim from quest.lua (node byte-compare true, 260/184 chars incl. double spaces; %n/%l/%o/%x conversi Named: remaining goal_first role bodies no corpus session reaches (Mon/Rog; miss→silence path unc
 - D-3871: js/getline.js only — one `vpline_flush_vision();` before the initial `await paint();` in getlin and get_ext_cmd (C order: recalc-consume, then flush/p Named: none — the custompline-vision arm is now complete; the rest of hooked_tty_getlin stays spl
 - D-3870: `js/end.js` only — one field: `game.urole?.malenum` → `game.urole?.mnum`, with a `you.h:247` cite. Named: none new in this unit — savelife is otherwise whole vs C `:704–756` (D-3260/D-2191/D-0868)
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3861: no `js/` change. Named: (none — no port; docs-only entry, no Ledger bullet — gulpmu stays ported D-2462/D-3846.)
 - D-3860: `js/detect.js` only — 3× `nomul_clear()` → `nomul(0)` with C-line cites; deleted the clone (its `_repeat_search=false` kept nothing: the flag has no ` Named: none in the ported arms (all 3 find sites now call C's nomul(0) verbatim).
 - D-3859: js/potion.js only — `dippable_lets_raw(inacc)`/`dippable_lets(inacc)` skip `inacc(o, false)` (C `:2223–2224`); `dip_hands_ok(obj, inacc)` threads it ( Named: none new (pre-existing clone gaps per D-3386 — canned CMDQ_INT count prefix, reassign/in_d
-- D-3858: js/potion.js only — 3× `if (Unaware()) talk = false;` with C-line cites, using the live eat.js export already imported at :187 (no new edge; make_deaf Named: none new — guard-only fix; make_deaf/make_hallucinated/make_blinded already suppress via l
 <!-- landmarks:end -->
