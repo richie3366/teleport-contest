@@ -2751,3 +2751,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2739-e2ad2a926-save-mtraits-mtrack.md](./2739-e2ad2a926-save-mtraits-mtrack.md) | `e2ad2a926` | D-3880 m_move-row writer save_mtraits mtrack copy (1 PASS) | **ACCEPT** |
 | [2740-081d78ff8-potion-dip-yobjnam2.md](./2740-081d78ff8-potion-dip-yobjnam2.md) | `081d78ff8` | D-3881 H2Opotion_dip-row writer potion_dip Yobjnam2 (1 moved) | **ACCEPT** |
 | [2741-4978d7e3b-pickup-object-blind.md](./2741-4978d7e3b-pickup-object-blind.md) | `4978d7e3b` | D-3883 touch_artifact-row writer pickup_object Blind gate (1 PASS) | **ACCEPT** |
+| [2742-1278d8577-make-glib-botl-xnor.md](./2742-1278d8577-make-glib-botl-xnor.md) | `1278d8577` | D-3885 do_statusline2-row writer make_glib XNOR botl (1 PASS) | **ACCEPT** |
+| [2743-5959af895-mquaffmsg-you-hear.md](./2743-5959af895-mquaffmsg-you-hear.md) | `5959af895` | D-3886 You_hear-row writer mquaffmsg unseen arm (2 PASS) | **ACCEPT** |
+| [2744-b39f2889c-test-move-bump-order.md](./2744-b39f2889c-test-move-bump-order.md) | `b39f2889c` | D-3887 wizterrainwish-row writer test_move bump order (1 PASS) | **ACCEPT** |
+| [2745-3fef422cd-doset-pick-order.md](./2745-3fef422cd-doset-pick-order.md) | `3fef422cd` | D-3888 optfn_pickup_types-row writer doset pick order (1 PASS) | **ACCEPT** |
+| [2746-98181c650-disintegrate-surface.md](./2746-98181c650-disintegrate-surface.md) | `98181c650` | D-3889 disintegrate_arm suit surface() (1 PASS) | **ACCEPT** |
+| [2747-a7b741138-cursetxt-invis.md](./2747-a7b741138-cursetxt-invis.md) | `a7b741138` | D-3890 cursetxt live Invis (1 PASS) | **ACCEPT** |
+| [2748-2870ffe67-armor-on-no-find-ac.md](./2748-2870ffe67-armor-on-no-find-ac.md) | `2870ffe67` | D-3891 do_statusline2-row writer Armor_on deletes find_ac (1 PASS) | **ACCEPT** |
+| [2749-eebbf9bbf-reveal-terrain-zero.md](./2749-eebbf9bbf-reveal-terrain-zero.md) | `eebbf9bbf` | D-3892 getpos-row writer reveal_terrain_getglyph zero arm (1 PASS) | **ACCEPT** |
