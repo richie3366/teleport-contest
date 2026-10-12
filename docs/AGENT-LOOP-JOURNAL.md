@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3901 `zap.c` zappable dropped the spe==0 wrest You(): worn-out wand zap showed the direction prompt where C prints wrest+More (Barb-585441 s352 → distfleeck@s566)
+
+**C locus:** `zap.c` zappable `:2514–2522` (`spe<0 ‖ (spe==0 && rn2(WAND_WREST_CHANCE))` → 0; spe==0 → You("wrest…") + spe-- → 1; WAND_WREST_CHANCE=121 hack.h:1411) + `zap.c` dozap `:2644–2653` (zappable before the cursed-backfire check and getdir) + `engrave.c` doengrave `:784–792` (charge removed before the text prompt; the player "will have potentially seen 'You wrest ..'") + `apply.c` do_break_wand `:3954–3967` (charge put back + rnd(3) refill on wrest).
+**JS:** `js/zap.js` (async + You + doc) + `js/engrave.js` + `js/apply.js` (1 await each) + `scripts/zappable-wrest-message.test.mjs` (new node:test: prefix-353 pins the C-recorded s352 wrest+More topline verbatim; pre-fix FAILs with the exact corpus «In what direction?» topline, post-fix 1/1).
+**Change:** `js/zap.js` only for the body — zappable is now async and awaits `You('wrest one last charge from the worn-out wand.')` in the spe==0 arm (C order: message before spe--); `You` already imported (no new edge). All three JS call sites await it: dozap `js/zap.js:7354`, engrave `js/engrave.js:1093`, break-wand `js/apply.js:1240` (all async contexts already). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** focused test pre-fix 0/1 (exact corpus direction-prompt topline via stash round-trip) → post-fix 1/1. `node scripts/verify.mjs --fn zappable` → PASS syntax (3 files: js/apply.js js/engrave.js js/zap.js) · PASS rule2 · PASS hidden (`verify zappable: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`: scen-sweep-Barbarian-585441 352→distfleeck@566) · PASS reach zappable 10/10 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: not shared) → VERIFY: PASS. Movement: `verify zappable: 0 PASS, 1 moved, 0 no-movement`.
+**Named:** none new — zappable now whole vs C `:2514–2522` (fail-gate, wrest message, consume, return).
+**Next:** regen cliffs (zappable row leaves; nhl_gamestate UNPORTABLE park stands — never a port row). Barb-585441 continues at distfleeck@566 (different cliff, future slot).
 ## 2026-10-12 — D-3900 `dig.c` zap_dig u.dz arm never drained the losehp wail: low-HP ceiling rock printed no third message (Barb-585441 s346 → zappable@s352)
 
 **C locus:** `dig.c` zap_dig u.dz arm `:1583–1612` (ceiling rock: loosen `:1592`, falls `:1594`, losehp `:1597`, mksobj `:1599`) + `hack.c` losehp `:4289–4291` (`n > 0 && u.uhp*10 < u.uhpmax` → maybe_wail inline, before losehp returns) + `hack.c` maybe_wail `:4210–4243` (`:4217–4220` moves>wailmsg+50 gate, `:4238–4241` Soundeffect + You_hear CwnAnnwn/Banshee).

@@ -26,7 +26,7 @@
 {"fn":"stone_to_flesh_obj","c":"1993-2112","status":"ported","js":["js/zap.js:stone_to_flesh_obj"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"bhito","c":"2119-2424","status":"ported","js":["js/zap.js:bhito"],"d":["D-3408","D-2807","D-1483","D-1481","D-1467","D-1453"],"at":"2026-10-04@c075fb861"}
 {"fn":"bhitpile","c":"2428-2506","status":"ported","js":["js/zap.js:bhitpile"],"d":["D-3408","D-2879"],"at":"2026-10-04@c075fb861"}
-{"fn":"zappable","c":"2514-2522","status":"ported","js":["js/zap.js:zappable"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wrest-last-charge You() message deferred"}
+{"fn":"zappable","c":"2514-2522","status":"ported","js":["js/zap.js:zappable"],"d":["D-3901"],"at":"2026-10-12@85f437996","note":"D-3901: spe==0 wrest You() + async; dozap/engrave/break-wand await"}
 {"fn":"do_enlightenment_effect","c":"2525-2532","status":"ported","js":["js/zap.js:do_enlightenment_effect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zapnodir","c":"2539-2602","status":"ported","js":["js/zap.js:zapnodir"],"d":["D-1427","D-1412","D-1404","D-1395","D-1380","D-1379"],"at":"2026-10-03@bbe63333a"}
 {"fn":"backfire","c":"2605-2614","status":"ported","js":["js/zap.js:backfire"],"d":["D-3795","D-1416"],"at":"2026-10-10@6f999f526"}

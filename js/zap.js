@@ -2834,15 +2834,17 @@ async function getobj_zap() {
 }
 
 /**
- * C ref: zap.c zappable — consume a charge; wrest path when spe==0.
- * @returns {number} 1 if zap available
+ * C ref: zap.c zappable :2514–2522 — consume a charge; the spe==0 wrest arm
+ * prints You("wrest one last charge from the worn-out wand.") before the
+ * charge is consumed (D-3901; precedes dozap's getdir :2653 and the engrave
+ * text prompt — engrave.c:784–790). Async: You() can block on --More--.
+ * @returns {Promise<number>} 1 if zap available
  */
-export function zappable(wand) {
+export async function zappable(wand) {
     if (wand.spe < 0 || (wand.spe === 0 && rn2(WAND_WREST_CHANCE)))
         return 0;
-    if (wand.spe === 0) {
-        // You wrest one last charge… — message deferred until needed
-    }
+    if (wand.spe === 0)
+        await You('wrest one last charge from the worn-out wand.');
     wand.spe--;
     return 1;
 }
@@ -7351,7 +7353,7 @@ export async function dozap() {
     const oc = game.objects?.[obj.otyp];
     const need_dir = oc && oc.oc_dir !== NODIR;
 
-    if (!zappable(obj)) {
+    if (!(await zappable(obj))) {
         await pline(nothing_happens);
     } else if (obj.cursed && !rn2(WAND_BACKFIRE_CHANCE)) {
         await backfire(obj); /* the wand blows up in your face! */
