@@ -26,21 +26,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3864 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3864) reached no session — no pole-lava row.
+- D-1790…D-3865 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3865) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3864.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3864 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3865.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3865 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3865: js/getpos.js only — one `curs_win_map(cx, cy)` before `await auto_describe(cx, cy)` in the loop-top autodescribe branch, with the C cite (`:1144–1148` Named: none new (do_screen_description terrain-browse miss verified C-exact both sides — not a ga
 - D-3864: js/bones.js only (behavior): getlev_bones installs `restore_timers(info.timers, true, moves−omoves)` after rest_track (C `:1144` position in the JSON  Named: bones lights install (restore_light_sources + relink_light_sources ghostly, light.c — sepa
 - D-3863: js/mhitu.js only — Hallu gate removed at the engulf site (D-3807 departure precedent: C vision.c:820-836 has no Hallu gate); the extracted loop now ru Named: none new — the extracted loop is the full C control==2 loop (empty-next equivalence verifi
 - D-3862: both arms now write `cmap_idx_to_glyph(S_stone)` (id GLYPH_CMAP_STONE_OFF, renders blank — reglyph write-shape precedent); the tweak detection is `mem Named: none new (unmap_object now whole vs C :409–437; the stale "dark-room S_room→S_stone" doc o
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3853: `js/questpgr.js` only (data): two bodies verbatim from quest.lua (`cat -A`-verified; %H/%l conversions previously shipped, exercised in this same tabl Named: remaining nexttime role bodies no corpus session reaches (Cav/Hea/Kni/Ran/Sam/Tou/Val; mis
 - D-3852: js/fountain.js only. Named: none new.
 - D-3851: `js/end.js` only — the `:552–555` loop now walks `game.level?.traps` plus the non-array `game.ftrap` chain (the `can_make_bones :660–676` sibling shap Named: none new — the VFS/file-handle omits in the savebones doc (close_nhfile/create_bonesfile/p
-- D-3850: `js/cmd.js` only — `nomul(0)` (already imported, no new edge), C-cited at the arm. Named: none in this arm (door/obstructed/furniture predicates match C).
 <!-- landmarks:end -->

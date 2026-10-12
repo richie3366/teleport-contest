@@ -1455,6 +1455,14 @@ export async function getpos(ccp, force, goal, describeAt) {
             need_full_flush = false;
         } else if (g.iflags?.autodescribe && !msg_given) {
             // C getpos.c:865–866. describeAt is not this arm.
+            // C `:1144–1148` (nxtc) curs(WIN_MAP,cx,cy) ends EVERY arm
+            // pass and therefore precedes this loop-top describe; on a
+            // describe miss C prints nothing but keeps the nxtc cursor
+            // on the moved cell (wizmap terrain-browse w/o TER_MON
+            // skips pager.c:1328's monster arm on a displayed 'o').
+            // auto_describe curses only on a hit, so the nxtc curs goes
+            // here; on a hit it re-curses the same spot (no-op).
+            curs_win_map(cx, cy);
             await auto_describe(cx, cy);
             need_full_flush = false;
         } else if (need_full_flush) {
