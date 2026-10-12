@@ -31,7 +31,7 @@
 {"fn":"monlineu","c":"2057-2060","status":"ported","js":["js/mon.js:monlineu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"mon_allowflags","c":"2064-2126","status":"ported","js":["js/mon.js:mon_allowflags"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: monhaskey inline, is_unicorn expansion, Conflict source all verified"}
 {"fn":"m_in_air","c":"2130-2136","status":"ported","js":["js/mon.js:m_in_air"],"d":["D-3348"],"at":"2026-10-03@7c9d1a96d"}
-{"fn":"mfndpos","c":"2140-2382","status":"ported","js":["js/mon.js:mfndpos"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full scan/gate/info logic matches; corrupt-trap impossible+continue omitted (shouldn't-happen defensive)"}
+{"fn":"mfndpos","c":"2140-2382","status":"ported","js":["js/mon.js:mfndpos"],"d":["D-3874"],"at":"2026-10-12@8b0e83ff0","note":"audit 2026-10-03: full scan/gate/info logic matches; corrupt-trap impossible+continue omitted (shouldn't-happen defensive)"}
 {"fn":"mm_2way_aggression","c":"2388-2420","status":"ported","js":["js/mon.js:mm_2way_aggression"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: tower/zombie gates match"}
 {"fn":"mm_aggression","c":"2428-2447","status":"ported","js":["js/mon.js:mm_aggression"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pet/worm arms match"}
 {"fn":"mm_displacement","c":"2451-2472","status":"ported","js":["js/mon.js:mm_displacement"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: barge/size/worm gates match"}

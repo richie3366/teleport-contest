@@ -14,7 +14,7 @@ import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL, ALLOW_ALL, ALLOW_BARS,
     ALLOW_MDISP, Is_stronghold,
-    NOGARLIC, IRONBARS, IS_ALTAR, DISPLACED, W_NONDIGGABLE,
+    NOGARLIC, IRONBARS, IS_ALTAR, DISPLACED, INVIS, W_NONDIGGABLE,
     IS_WATERWALL, LAVAWALL, Is_waterlevel, POOL, MOAT, WATER, LAVAPOOL,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD, PLNMSG_GROWL, PLNMSG_HIDE_UNDER, HEADSTONE,
@@ -3124,7 +3124,16 @@ export function mfndpos(mon, data, flag) {
     const maxx = Math.min(x + 1, COLNO - 1);
     const maxy = Math.min(y + 1, ROWNO - 1);
     // C: monseeu is constant across the neighbour scan
-    const Invis = !!(game.u?.Invis);
+    // C ref: mon.c mfndpos `monseeu` + youprop.h:198 Invis — live
+    // (HInvis||EInvis)&&!BInvis. The u.Invis flat is only synced by the
+    // magic-trap toggle (D-3873 class: stale-false under a worn ring), so
+    // read H/E/B live like DisplacedHero below (mirrors timeout.js Invis(),
+    // which mon.js cannot import — timeout.js imports mon.js).
+    const __invisProp = game.u?.uprops?.[INVIS];
+    const __HInvis = (game.u?.HInvis | 0) || (__invisProp?.intrinsic | 0);
+    const __EInvis = (game.u?.EInvis | 0) || (__invisProp?.extrinsic | 0);
+    const __BInvis = (game.u?.BInvis | 0) || (__invisProp?.blocked | 0);
+    const Invis = !!((__HInvis || __EInvis) && !__BInvis);
     const monseeu = !!(mon.mcansee && (!Invis || perceives(mdat)));
     // Displacement for onscary hero-image arm
     const u = game.u || {};
