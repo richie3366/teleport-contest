@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3866 cliffs-head `botl.c` do_statusline2 writer: newman dropped `:436` newuhs — stale Satiated after the hunger re-roll (marathon FULL PASS)
+
+**C locus:** `polyself.c` newman `:414` (`u.uhunger = rn1(500, 500)`) + `:436` (`newuhs(FALSE)`) — the re-rolled hunger (always 500..999 → NOT_HUNGRY) recomputes uhs before the polyman announce.
+**JS:** 1 scored file (js/polyself.js +4/−0: cite comment + call) + 1 test (scripts/newman-uhs-recompute.test.mjs: C pins for the 579→580 Satiated→bare transition + the `:414` draw, JS row-23 assertion).
+**Change:** js/polyself.js only — one `await newuhs(false)` at the C `:436` position (after the uhp<=0/dead-arm check, before newform), with C cite. Live eat.js import already present (:18), no new edge; draw-free at this hunger value (NOT_HUNGRY arm: no message, no RNG — the C log shows no draws between `:414` and the post-newman exercise). No DIAG/FORCE/seed-gate/coordinate reads; Rule #2 clean.
+**Verify:** new test red pre-fix (authentic: got «…Xp:20 Satiated», C pins green) → green post-fix. `node scripts/verify.mjs --fn newman` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (writer, none blocked at baseline) · PASS reach newman 12/12 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS. `hidden-proxy verify do_statusline2` → 1 PASS (scen-sweep-Rogue-578101 FULL PASS) + smoke 24/24 → REACH-OK.
+**Named:** none new — newman now whole vs C `:335–466` (retouch_equipment(2) `:463` live via the artifact.js import :75/:1213; livelog_newform `:307` live same-file :938/:1201 — both D-3429 omits retired by prior ships; the `:436` newuhs by this one).
+**Next:** row leaves via regen (session PASS). Do not re-port newman (whole) or do_statusline2 (symptom owner, retired).
 ## 2026-10-12 — D-3865 cliffs-head `getpos.c` getpos: loop-top dropped nxtc curs on auto_describe miss — 'm'-cycle cursor stale on hero (marathon FULL PASS)
 
 **C locus:** `getpos.c:1144–1148` (nxtc: every arm pass ends with curs(WIN_MAP,cx,cy)+flush) runs BEFORE the next pass's loop-top `auto_describe(cx,cy)` (`:862–867`); `auto_describe` (`:640–662`) prints+curses only on a do_screen_description hit, else nothing. Here it misses in BOTH (terrainmode lacks TER_MON so pager.c `:1328` skips the monster arm on the displayed 'o'; object/trap/terrain arms match nothing — toplines prove no print either side) — so C keeps the nxtc cursor on (72,6) with no message. gather_locs MONS arm reads glyph_at (displayed map), not terrainmode, so both cycle to the cell.

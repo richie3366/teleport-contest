@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-12
 
+- [x] `botl.c` do_statusline2 — blocks 1/1197 corpus sessions (first at step 580; RNG lost 0, screens lost 4): toplines identical; first differing screen row 23: C «Dlvl:22 $:0 HP:52(132) Pw:62(62) AC:10 Xp:20» vs JS «Dlvl:22 $:0 HP:52(132) Pw:62(62) AC:10 Xp:20 Satiated» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-sweep-Rogue-578101). @ac5580aa5 **[parked: RETIRED D- — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+
+
 - [x] `dokick.c` ghitm — blocks 1/1197 corpus sessions (first at step 1070; RNG lost 0, screens lost 191): toplines identical; first differing screen row 18: C «··*{·······^@%#» vs JS «··*{·······%@%#» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify ghitm` (scen-chain-Archeologist-578126). @5f5a0c834 **[history: archived D-2106 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3864 `ac5580aa5`
 
 
