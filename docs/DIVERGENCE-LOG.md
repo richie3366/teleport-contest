@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3881 — `potion.c` potion_dip obj_glows used the drifted Yobjnam2_pot clone ("Your "+xname, no quan) — Priest-582706 s200 "2 sprigs" → moved to s1166
+
+- **Status:** fixed (cliff head `potion.c` H2Opotion_dip; owner body proven whole — ledger ported D-1501, brief C 54/JS 55 — so the deliverable is the writer of the differing phrase: `objnam.c` Yobjnam2, already a live export; the defect is the potion_dip `:2462` call site using a drifted local clone).
+- **Symptom:** scen-sweep-Priest-582706 step 200/1238 kind=screen at potion.c:1555 — C «Your 2 sprigs of wolfsbane glow with a light blue aura.--More--» vs JS «Your sprigs of wolfsbane glow with a light blue aura.--More--». The verb agreed plural ("glow") both sides, so quan>1 state matched; only the `"%ld "` count prefix was missing from objphrase.
+- **C locus:** `potion.c` potion_dip `:2462` (`const char *obj_glows = Yobjnam2(obj, "glow")`) + `objnam.c` Yobjnam2 `:2279–2286` (= highc(yobjnam)) → yobjnam `:2261–2276` (aobjnam + shk_your with the pname gate) → aobjnam `:2243–2258` (`if (otmp->quan != 1L) Sprintf(prefix, "%ld ", ...)` + otense). H2Opotion_dip `:1497–1589` itself is whole and untouched.
+- **JS was:** `js/potion.js:3241` local `Yobjnam2_pot` = "Your "+xname + otense — bypassed the live `Yobjnam2` export (already imported at potion.js:122 and already used at the `:1613` impact_arti_light site), dropping the aobjnam quan prefix, cxname-vs-xname, and the shk_your/pname gate. (Sibling `aobjnam_pot` at :3202 does carry the prefix; only the Yobjnam2 clone drifted.)
+- **Fix:** `js/potion.js` only — the :3486 call site now uses the live `Yobjnam2(obj, 'glow')` with the C `:2462` cite; deleted `Yobjnam2_pot`, leaving a D-3360-style removal pointer at :3240. No new import edge (Yobjnam2 already imported); the `xname` import stays used by `Tobjnam_pot`; `otense_pot` keeps its other callers.
+- **JS:** 1 file (`potion.js`, +5/−4 net), far under caps. Durable collateral: the corpus probe session itself (the repo has no unit harness for js/ naming functions; `verify --fn` runs the blocked session as the focused regression).
+- **Callers:** every C caller of H2Opotion_dip stays wired — C:1613 impact_arti_light → `js/potion.js:3893` (already live Yobjnam2, untouched); C:1719 potionhit saddle → `js/potion.js:4152` via `aobjnam_pot` (quan-correct clone, untouched — no divergence names it); C:2464 potion_dip → `js/potion.js:3487` (this fix). No signature change; behavior changes only on the H2O-dip glow phrase for quan≠1 / shop / pname objects.
+- **Verify:** `node scripts/verify.mjs --fn H2Opotion_dip` → PASS syntax (1 changed js file: js/potion.js) · PASS rule2 · PASS hidden `verify H2Opotion_dip: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Priest-582706: moved → nhl_gamestate at step 1166, was 200) · PASS reach (no RNG-tagged reach; fixed smoke spread 24/24) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Movement: `verify H2Opotion_dip: 0 PASS, 1 moved, 0 no-movement`.
+- **Named omissions:** none new (H2Opotion_dip stays whole vs C `:1497–1589`; `aobjnam_pot`/`Tobjnam_pot`/`otense_pot` clones stay — faithful, no divergence names them).
+- **Ledger:** potion_dip ported js=potion.js:potion_dip
+- **Next:** regen cliffs head (expect nhl_gamestate@1166 Priest-582706 or touch_artifact@722 Monk-582601).
+
 ## D-3880 — `mkobj.c` save_mtraits shared the mtrack array by reference — dealloc wiped the corpse's omonst track, revived troll lost M28 (scen-sweep-Barbarian-582719 s713 → PASS)
 
 - **Status:** fixed (cliff head `monmove.c` m_move; owner body proven faithful — park 2026-09-08 + D-3879 MEASURED — so the deliverable is the writer the divergence names: the revive-track snapshot).

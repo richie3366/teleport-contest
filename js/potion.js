@@ -3237,12 +3237,8 @@ function is_silent_pot(ptr) {
     return (ptr?.msound | 0) === MS_SILENT;
 }
 
-/** C objnam.c Yobjnam2 — "Your <xname>" [+ otense]. */
-function Yobjnam2_pot(obj, verb) {
-    let bp = `Your ${xname(obj)}`;
-    if (verb) bp += ` ${otense_pot(obj, verb)}`;
-    return bp;
-}
+/* C objnam.c Yobjnam2 — live export from './objnam.js' (clone removed
+ * D-3881: "Your "+xname dropped the aobjnam quan prefix and shk_your). */
 
 /** C youprop.h Deaf — H||E or uroleplay.deaf. */
 function Deaf_pot() {
@@ -3484,7 +3480,10 @@ async function potion_dip(obj, potion) {
          * dipped object is the worn cover and Blindfolded_only. */
         const useeit = !Blind()
             || (obj === (game.u?.ublindf) && Blindfolded_only());
-        const obj_glows = Yobjnam2_pot(obj, 'glow');
+        /* C potion.c `:2462` — Yobjnam2(obj, "glow") via the live
+         * objnam.js export (yobjnam→aobjnam quan prefix); the local
+         * Yobjnam2_pot clone dropped the count (D-3881). */
+        const obj_glows = Yobjnam2(obj, 'glow');
         if (await H2Opotion_dip(potion, obj, useeit, obj_glows)) {
             await poof(potion);
             return ECMD_TIME;
