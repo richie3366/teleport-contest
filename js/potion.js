@@ -823,7 +823,9 @@ export async function speed_up(duration) {
 export async function make_vomiting(xtime, talk) {
     const u = game.u || (game.u = {});
     const old = u.Vomiting | 0;
-    if (u.Unaware) talk = false;
+    // C potion.c:247-248 — live youprop.h:399 macro (eat.js Unaware);
+    // the u.Unaware field has no writers, so it never suppressed.
+    if (Unaware()) talk = false;
     u.Vomiting = ((u.Vomiting | 0) & ~TIMEOUT) | itimeout(xtime);
     if (game.disp) game.disp.botl = true;
     if (game.flags) game.flags.botl = true;
@@ -930,7 +932,9 @@ export async function make_confused(xtime, talk) {
         u.uprops[CONFUSION] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
     }
     const old = u.HConfusion | 0;
-    if (u.Unaware) talk = false;
+    // C potion.c:93-94 — live youprop.h:399 macro (eat.js Unaware);
+    // the u.Unaware field has no writers, so it never suppressed.
+    if (Unaware()) talk = false;
     // C: if (!xtime && old) You_feel("less …") when talk
     if (!xtime && old && talk) {
         const hallu = !!(u.Hallucination || u.HHallucination);
@@ -987,7 +991,9 @@ function stagger_poly(ptr, def) {
 export async function make_stunned(xtime, talk) {
     const u = game.u || (game.u = {});
     const old = u.HStun | 0;
-    if (u.Unaware) talk = false;
+    // C potion.c:111-112 — live youprop.h:399 macro (eat.js Unaware);
+    // the u.Unaware field has no writers, so it never suppressed.
+    if (Unaware()) talk = false;
     if (!xtime && old && talk) {
         const hallu = !!(u.Hallucination || u.HHallucination);
         await You_feel(`${hallu ? 'less wobbly' : 'a bit steadier'} now.`);
@@ -1074,7 +1080,8 @@ export async function make_stoned(xtime, msg, killedby, killername) {
  * C ref: potion.c make_sick — fatal illness / food poisoning TIMEOUT.
  * Branch envelope: onset (Sick_resistance gate + talk msgs); cure by
  * usick_type mask (partial vs full); delayed SICK killer.
- * Named omissions: Unaware talk suppress.
+ * No Unaware suppress arm: C potion.c:145 #if 0 — talks while
+ * unaware by design ("tell player even if hero is unconscious").
  */
 export async function make_sick(xtime, cause, talk, type) {
     const u = game.u || (game.u = {});
