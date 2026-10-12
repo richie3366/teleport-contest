@@ -879,10 +879,13 @@ function glib_uprop(u) {
 export function make_glib(xtime) {
     const u = game.u || (game.u = {});
     const p = glib_uprop(u);
-    // C: disp.botl |= (!Glib ^ !!xtime)
+    // C potion.c:464 — disp.botl |= (!Glib ^ !!xtime): XNOR (set when the
+    // Glib state is UNCHANGED), not change-detect. Polymon's nohands
+    // make_glib(0) with clear Glib sets botl, arming the drop_weapon
+    // pre-flush HP repaint (D-3885: vortex poly HP:0(0) → 8(8)).
     const was = !!(p.intrinsic | 0);
     const now = !!(xtime | 0);
-    if (was !== now) {
+    if (was === now) {
         if (game.disp) game.disp.botl = true;
         if (game.flags) game.flags.botl = true;
     }

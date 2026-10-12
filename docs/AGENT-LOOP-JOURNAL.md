@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3885 `potion.c` make_glib `:464` botl arm is XNOR (`!Glib ^ !!xtime`), JS tested XOR: polymon nohands `make_glib(0)` never armed the drop_weapon HP repaint (Barb-582613 s1083 HP:0(0) → PASS)
+
+**C locus:** `potion.c` make_glib `:461–468` (`disp.botl |= (!Glib ^ !!xtime)` — XNOR: set when the Glib state is UNCHANGED) + `polyself.c` polymon order `:850` check_strangling(FALSE) «strangled» (botl set `:190`, pre-flush paints HP:0(0) HD:4, mh still 0) → `:851–852` nohands make_glib(0) (Glib clear → XNOR SETS botl) → `:861–872` HP arm (u.mh=u.mhmax=8) → `:889` drop_weapon «release your sword» (pre-flush repaints HP:8(8)).
+**JS:** `js/potion.js` (1 predicate + cite) + `scripts/make-glib-botl.test.mjs` (XNOR truth table: red 0/4 pre-fix — 4/4 after store-setup fix — green 4/4 post-fix). No DIAG/FORCE/seed gates. No new import edge.
+**Change:** `js/potion.js` only — `was !== now` → `was === now` with the `:464` cite. Predicate-only; signature unchanged; all 14 C callers stay wired.
+**Verify:** focused test pre-fix 0/4 → post-fix 4/4. `node scripts/verify.mjs --fn do_statusline2,make_glib` → PASS syntax (1 file: js/potion.js) · PASS rule2 · PASS hidden `verify do_statusline2: 1 PASS, 0 moved past, 1 unchanged, 0 worse → PROGRESS` (scen-sweep-Barbarian-582613: PASS — was do_statusline2@1083; scen-sweep-Priest-582714 unchanged at do_statusline2@1376, different writer: AC:10-vs-4 after gnome-lord combat) · PASS reach do_statusline2 smoke 24/24 → REACH-OK · note hidden verify make_glib (0 blocked) · PASS reach make_glib smoke 24/24 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Movement: `verify do_statusline2: 1 PASS, 0 moved, 1 no-movement(different-writer)`.
+**Named:** none new — make_glib now whole vs C `:461–468` (XNOR botl, set_itimeout, uarmg update_inventory).
+**Next:** do_statusline2 residual Priest-582714 s1376 (AC:10 C vs AC:4 JS — find_ac/armor writer, untouched by this fix); nhl_gamestate stays parked (Park bullet — never a port row).
 ## 2026-10-12 — D-3884 [measure] TEMP-C paint-trace V1+V2 executes the archived nhl_gamestate [measure]: writer = vpline pre-flush + GBUF/flush-order (park falsifier fired, no `js/`)
 
 **C locus:** `pline.c` vpline `:273–274` (pre-flush `if (u.ux) flush_screen(...)`) + `restore.c` getlev/restmon (steed place_monster-impossible site, `steed.c:917`) + `do.c` goto_level order (`:1512` tutorial/restore → `:1674` uz → `:1711` getlev → `:1720` delay → `:1840` docrt). Menu-close path `wintty.c` erase_menu_or_text `:977–980` (docrt on destroy).
