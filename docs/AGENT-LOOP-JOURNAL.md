@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3888 cliffs-head `optfn_pickup_types` writer: doset partitioned multi-picks into category batches instead of C's in-order pick_list walk (Ranger-582811 91→PASS, scen-options 21/21)
+
+**C locus:** `options.c` doset `:8914–8959` — one loop over pick_list (`opt_indx` `:8915`, '?' `:8916–8919`, bool `:8925–8929`, handler compound `:8934–8940`, getlin compound `:8941–8954` with ESC→continue `:8947–8948`, preference_update `:8956–8958`) + `wintty.c` tty_select_menu `:2806–2811` (picks collected walking cw->mlist, i.e. menu order).
+**JS:** js/options.js (doset pick loop :11464–11557; stale `othrPicks` identifier in the js/cmd.js:2590 handler_rebind_keys caller comment renamed to the othr arm) + scripts/doset-pick-order.test.mjs (new node:test: full Ranger-582811 replay pins step-91 topline «Autopickup what?»; pre-fix fails with «Set statushilites to what?», post-fix 1/1). Under caps.
+**Change:** one `for (const it of selected)` loop in menu order (`select_menu_pick_any` returns `items.filter`, already menu order) dispatching per pick — help → bool → handler-comp → getlin-comp (with the C `:8947–8948` ESC gate on preference_update, a verified no-op stub) → othr — each arm body verbatim. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** committed test pre-fix 0/1 → post-fix 1/1. `node scripts/verify.mjs --fn optfn_pickup_types,doset` → PASS syntax (2 files: js/cmd.js js/options.js) · PASS rule2 · PASS hidden (`verify optfn_pickup_types: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`: scen-options-Ranger-582811 91→PASS) · note hidden (writer unblocked at baseline, expected) · REACH-OK ×2 (smoke 24/24 ×2) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared) · VERIFY: PASS. scen-options family rescore 21/21 PASS (was 20/21).
+**Named:** none new — every pick arm keeps its shipped body (bool pline D-0499, handler/othr dispatch, getlin helper); single-pick sessions behave identically; only multi-category multi-pick order changed, to C order.
+**Next:** do not re-pop optfn_pickup_types for Ranger-582811 (PASS). doset stays partial (audited D-3457 omit unchanged).
 ## 2026-10-12 — D-3887 `hack.c` test_move order: domove's inline checked the doorway arms before the wall bump (Arch-582618 s286 → PASS)
 
 **C locus:** `hack.c` test_move `:991–1255`, DO_MOVE call from domove_core `:2843`. Order: target obstructed/bars `:1008–1072` (generic rock bump `:1049–1072`, `pline_dir("It's %s.", buf)` at `:1069` gated on mention_walls) → door branch `:1074–1167` (testdiag-IN `:1140–1156`) → squeeze `:1169` → worm `:1188` → doorway-OUT `:1229–1235` (`You_cant("move diagonally out of an intact doorway.")` `:1233`) → boulder `:1238` → TRUE.

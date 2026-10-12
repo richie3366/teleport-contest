@@ -2587,7 +2587,7 @@ async function handler_rebind_keys_add(keyfirst) {
  * key binds" when count_bind_keys is nonzero. Item 3 drains the NULL arm of
  * get_changed_key_binds via show_text_pages (the D-2550 named sink, now
  * live). Async only because JS menus await input (Constitution §2).
- * Caller: options.c:8340 (optfn_o_bind_keys do_handler → doset() othrPicks
+ * Caller: options.c:8340 (optfn_o_bind_keys do_handler → doset() othr
  * 'bind keys' arm, js/options.js); options.c:8336 get_val → doset row val.
  */
 export async function handler_rebind_keys() {
