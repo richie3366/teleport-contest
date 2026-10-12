@@ -2744,3 +2744,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2732-7f356b471-goal-first-hea-val.md](./2732-7f356b471-goal-first-hea-val.md) | `7f356b471` | D-3872 level_tele-row writer goal_first Hea+Val + sobj_at (3 PASS) | **ACCEPT** |
 | [2733-8b0e83ff0-shk-move-invis.md](./2733-8b0e83ff0-shk-move-invis.md) | `8b0e83ff0` | D-3873 distfleeck-row writer shk_move :4960 live Invis (1 moved) | **ACCEPT** |
 | [2734-dba0c82b0-mfndpos-invis-clone.md](./2734-dba0c82b0-mfndpos-invis-clone.md) | `dba0c82b0` | D-3874 m_move-row writer mfndpos inline Invis clone omits mummy arm (1 PASS + 1 moved) | **QUALITY-RISK** |
+| [2735-06a0192b2-mfndpos-invis-import.md](./2735-06a0192b2-mfndpos-invis-import.md) | `06a0192b2` | D-3875 Must-fix mfndpos Invis import (latent, reach 1120/1120) | **ACCEPT** |
+| [2736-0cd844353-water-damage-luck.md](./2736-0cd844353-water-damage-luck.md) | `0cd844353` | D-3876 erode_obj-row writer water_damage Luck gate (1 moved) | **ACCEPT** |
+| [2737-d158b5a9b-create-monster-amask.md](./2737-d158b5a9b-create-monster-amask.md) | `d158b5a9b` | D-3877 induced_align-row writer create_monster amask order (1 moved) | **ACCEPT** |
+| [2738-90d099cd8-bigrm3-female-clobber.md](./2738-90d099cd8-bigrm3-female-clobber.md) | `90d099cd8` | D-3878 mbhitm-row writer bigrm-3 female clobber (1 PASS) | **ACCEPT** |
+| [2739-e2ad2a926-save-mtraits-mtrack.md](./2739-e2ad2a926-save-mtraits-mtrack.md) | `e2ad2a926` | D-3880 m_move-row writer save_mtraits mtrack copy (1 PASS) | **ACCEPT** |
+| [2740-081d78ff8-potion-dip-yobjnam2.md](./2740-081d78ff8-potion-dip-yobjnam2.md) | `081d78ff8` | D-3881 H2Opotion_dip-row writer potion_dip Yobjnam2 (1 moved) | **ACCEPT** |
+| [2741-4978d7e3b-pickup-object-blind.md](./2741-4978d7e3b-pickup-object-blind.md) | `4978d7e3b` | D-3883 touch_artifact-row writer pickup_object Blind gate (1 PASS) | **ACCEPT** |
