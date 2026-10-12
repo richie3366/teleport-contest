@@ -18,7 +18,7 @@
 {"fn":"Shirt_on","c":"759-775","status":"ported","js":["js/do_wear.js:Shirt_on"],"d":["D-2948"],"at":"seed@a30a7de84"}
 {"fn":"Shirt_off","c":"778-794","status":"ported","js":["js/do_wear.js:Shirt_off"],"d":["D-2960"],"at":"seed@a30a7de84"}
 {"fn":"dragon_armor_handling","c":"798-884","status":"ported","js":["js/do_wear.js:dragon_armor_handling"],"d":["D-2395"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Armor_on","c":"887-906","status":"ported","js":["js/do_wear.js:Armor_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Armor_on","c":"887-906","status":"ported","js":["js/do_wear.js:Armor_on"],"d":["D-3891"],"at":"2026-10-12@a7b741138"}
 {"fn":"Armor_off","c":"909-930","status":"ported","js":["js/do_wear.js:Armor_off"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Armor_gone","c":"939-960","status":"ported","js":["js/do_wear.js:Armor_gone"],"d":["D-1942"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Amulet_on","c":"963-1087","status":"ported","js":["js/do_wear.js:Amulet_on"],"d":["D-3426","D-2505"],"at":"2026-10-04@0d801c73f"}

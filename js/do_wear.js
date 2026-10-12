@@ -1249,25 +1249,26 @@ export async function Shirt_off() {
 }
 
 /**
- * C ref: do_wear.c Armor_on `:886–900` — known + dragon_armor_handling +
- * gold-DSM arti_light begin_burn in C order. find_ac kept (house; C relies
- * on the botl repaint instead).
+ * C ref: do_wear.c Armor_on `:887–906` — known + dragon_armor_handling +
+ * gold-DSM arti_light begin_burn in C order. No find_ac here (D-0810:
+ * C never recomputes uac in Armor_on; uac refreshes at the allmain
+ * once-per-player-input find_ac, so a mid-turn donning completion paints
+ * the stale AC until the turn ends — cf. scen-sweep-Priest-582714 s1376).
  */
 async function Armor_on() {
     const uarm = game.u?.uarm;
-    if (!uarm) return 0;
+    if (!uarm) return 0; // C `:889–890`
     if (!uarm.known) {
-        uarm.known = 1;
+        uarm.known = 1; // C `:891–894`
         update_inventory();
     }
-    await dragon_armor_handling(uarm, true, true);
+    await dragon_armor_handling(uarm, true, true); // C `:895`
     /* gold DSM requires extra handling since it emits light when worn */
-    if (artifact_light(uarm) && !uarm.lamplit) {
+    if (artifact_light(uarm) && !uarm.lamplit) { // C `:898–904`
         begin_burn(uarm, false);
         if (!Blind()) await pline(`${Yname2(uarm)} ${otense(uarm, 'begin')} to shine ${arti_light_description(uarm)}!`);
     }
-    find_ac();
-    return 0;
+    return 0; // C `:905`
 }
 
 /**
