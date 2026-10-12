@@ -17,7 +17,7 @@
 {"fn":"hmon_hitmon_weapon_melee","c":"934-1067","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon_melee"],"d":["D-3262","D-2152"],"at":"2026-10-02@a7d88d8ff"}
 {"fn":"hmon_hitmon_weapon","c":"1070-1092","status":"ported","js":["js/uhitm.js:hmon_hitmon_weapon"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_potion","c":"1095-1116","status":"ported","js":["js/uhitm.js:hmon_hitmon_potion"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"hmon_hitmon_misc_obj","c":"1119-1383","status":"ported","js":["js/uhitm.js:hmon_hitmon_misc_obj"],"d":["D-3406","D-3402","D-2486"],"at":"2026-10-04@44ce1ba38"}
+{"fn":"hmon_hitmon_misc_obj","c":"1119-1383","status":"ported","js":["js/uhitm.js:hmon_hitmon_misc_obj"],"d":["D-3899","D-3406","D-3402","D-2486"],"at":"2026-10-12@f80be88fd"}
 {"fn":"hmon_hitmon_do_hit","c":"1387-1433","status":"ported","js":["js/uhitm.js:hmon_hitmon_do_hit"],"d":["D-3054"],"at":"2026-09-28@a196fca24","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_dmg_recalc","c":"1436-1507","status":"ported","js":["js/uhitm.js:hmon_hitmon_dmg_recalc"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hmon_hitmon_poison","c":"1510-1538","status":"ported","js":["js/uhitm.js:hmon_hitmon_poison"],"d":["D-3402","D-2839"],"at":"2026-10-06@d871471f3","note":"retire D-3519: shared-head stagger paste (stagger home: hmon_hitmon_stagger, D-3262); body whole js/uhitm.js:1526-1551, caller :2057"}
@@ -28,7 +28,7 @@
 {"fn":"hmon_hitmon_msg_hit","c":"1637-1660","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_hit"],"d":["D-3402","D-2872"],"at":"2026-10-04@e77f3975a"}
 {"fn":"hmon_hitmon_msg_silver","c":"1663-1699","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_silver"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hmon_hitmon_msg_lightobj","c":"1702-1730","status":"ported","js":["js/uhitm.js:hmon_hitmon_msg_lightobj"],"d":["D-3406","D-3402","D-2865"],"at":"2026-10-04@44ce1ba38"}
-{"fn":"hmon_hitmon","c":"1754-1935","status":"ported","js":["js/uhitm.js:hmon_hitmon"],"d":["D-3275","D-3253","D-1907","D-1232"],"at":"2026-10-02@51548d8db"}
+{"fn":"hmon_hitmon","c":"1754-1935","status":"ported","js":["js/uhitm.js:hmon_hitmon"],"d":["D-3899","D-3275","D-3253","D-1907","D-1232"],"at":"2026-10-12@f80be88fd"}
 {"fn":"mhurtle_to_doom","c":"1942-1958","status":"ported","js":["js/uhitm.js:mhurtle_to_doom"],"at":"2026-10-03@bbe63333a"}
 {"fn":"first_weapon_hit","c":"1963-1989","status":"ported","js":["js/uhitm.js:first_weapon_hit"],"d":["D-3406","D-3402","D-2865"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"shade_aware","c":"1992-2011","status":"ported","js":["js/mhitm.js:shade_aware"],"at":"2026-09-30@990da2b8d","note":"stale: js/mhitm.js:5677, whole C body, 2 C callers wired (uhitm.js:1894, mhitm.js:5710)"}

@@ -1387,8 +1387,10 @@ async function hmon_hitmon_misc_obj(mon, obj, ctx) {
         mon.msleeping = 0;
         if (can_blnd(game.youmonst || youmonst, mon,
             (obj.otyp === BLINDING_VENOM) ? AT_SPIT : AT_WEAP, obj)) {
-            const Blind = !!(game.Blind || game.u?.Blind);
-            if (Blind) {
+            /* C uhitm.c:1273 — Blind is youprop.h:103, read via the live
+               invent.js import; game.Blind/u.Blind is a save-time snapshot
+               (do.js:3797), stale in live play. */
+            if (Blind()) {
                 await pline(obj.otyp === CREAM_PIE ? 'Splat!' : 'Splash!');
             } else if (obj.otyp === BLINDING_VENOM) {
                 await pline_The(`venom blinds ${mon_nam(mon)}${mon.mcansee ? '' : ' further'}!`);
@@ -1923,8 +1925,10 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
         mon.msleeping = 0;
         const aatyp = obj.otyp === BLINDING_VENOM ? AT_SPIT : AT_WEAP;
         if (can_blnd(game.youmonst || youmonst, mon, aatyp, obj)) {
-            const Blind = !!(game.Blind || game.u?.Blind);
-            if (Blind) {
+            /* C uhitm.c:1273 — Blind is youprop.h:103, read via the live
+               invent.js import; game.Blind/u.Blind is a save-time snapshot
+               (do.js:3797), stale in live play. */
+            if (Blind()) {
                 await pline(obj.otyp === CREAM_PIE ? 'Splat!' : 'Splash!');
             } else if (obj.otyp === BLINDING_VENOM) {
                 await pline(

@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-3899 — cliffs-head `use_pick_axe2` writer: venom/pie-hit arm reads stale Blind snapshot (Samurai-585501 s600 → FULL PASS)
+
+- **Status:** fixed (Open — cliffs head `dig.c` use_pick_axe2, 1 corpus block @e953653d7; owner proven already-whole — ledger ported, JS body complete js/dig.js:2636 (D-3247) — not re-ported. The port is the writer below. `js/uhitm.js` +8/−4, new `scripts/spit-venom-blind-splash.test.mjs`.)
+- **Symptom:** scen-sweep-Samurai-585501 step 599/1227 kind=screen, owner dig.c:1225: C «Splash! It hits! It hits again! It bites! It hits! It hits!» vs JS «The venom blinds it! It hits! It hits again! It bites! It hits!--More--». MEASURED (recorded C oracle, no new instrumentation): keys 594–599 type `#monster\n` ("Wizard the Cobra" statusline), key 600 `n` answers "In what direction?" — the blind cobra-hero spits venom north. C's step-600 RNG log opens `rnd(2)@next_ident(mkobj.c:521)` (spat glob), `rnd(20)+rnd(25)@thitmonst(dothrow.c:2152/:2258)`, `rn2(25)@hmon_hitmon_misc_obj(uhitm.c:1295)` — the venom HIT with can_blnd true, so C executed the `:1273 if (Blind)` arm («Splash!»). The `use_pick_axe2` owner is a literal-matcher misattribution («Splash!» also at dig.c:1225). C hero Blind proven TRUE by message+draw; pre-step screens matched ⟹ JS hero blind too, but JS printed the sighted branch.
+- **C locus:** `hmon_hitmon_misc_obj` CREAM_PIE/BLINDING_VENOM arm `uhitm.c:1265–1317`, `:1273 if (Blind)` — `Blind` is youprop.h:103 `(HBlinded||EBlinded)&&!BBlinded`. Message-only branch: all three arms fall through to setmangry/mcansee=0/`rn1(25,21)` (RNG matched; screen-only divergence).
+- **JS was:** `js/uhitm.js` carries the arm twice — misc_obj case :1385 and the hmon_hitmon inline pre-dispatch block :1922 (returns :1967, so the :1926 copy fires on this path). Both shadowed the module's live `Blind()` import (invent.js:371 via ./invent.js:57) with `const Blind = !!(game.Blind || game.u?.Blind)` — fields written only as a save-time snapshot (do.js:3797; restored lock.js:1857), stale/absent in live play, so a blind hero always took the sighted branch.
+- **Fix:** both sites: deleted the shadowing const, `if (Blind())` with C-cite comments (uhitm.c:1273 + youprop.h:103 + do.js:3797 snapshot note). No new imports (Blind already imported :57); no new edges (`imports.mjs --can` unneeded — name already on the existing static edge).
+- **JS:** `js/uhitm.js` (+8/−4). Far under the 15000/80 caps.
+- **Callers:**
+  - `hmon_hitmon_misc_obj`: C sole caller hmon_hitmon_do_hit uhitm.c:1429 → js/uhitm.js:1894 (awaited, unchanged).
+  - `hmon_hitmon`: C dispatcher uhitm.c:1754 → js/uhitm.js:1920 (called :2250, unchanged).
+  - Predicate-only change; both signatures and all callers untouched.
+- **Verify:** `node scripts/verify.mjs --fn use_pick_axe2,hmon_hitmon_misc_obj` → VERIFY: PASS — syntax 1 file (js/uhitm.js); rule2; hidden `verify use_pick_axe2: 1 PASS, 0 moved, 0 no-movement` (scen-sweep-Samurai-585501 FULL PASS, 1227/1227); hidden hmon_hitmon_misc_obj vacuous at baseline (expected — session was blocked on the misattributed owner); reach use_pick_axe2 2/2 REACH-OK, hmon_hitmon_misc_obj 12/12 REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped (no shared file). New `scripts/spit-venom-blind-splash.test.mjs` (runSegment topline pin): pre-fix FAIL with exactly the recorded JS topline («The venom blinds it! … --More--»), post-fix PASS.
+- **Named omissions:** none new — hmon_hitmon_misc_obj stays whole vs C (predicate now C-exact); hmon_hitmon inline block mirrors the same arm (pre-existing restructure, untouched beyond the predicate). Other stale Blind reads (uhitm.js:3309 `game.u?.Blind`, :4806 superset including the macro) left alone: different arms, no session evidence.
+- **Ledger:** hmon_hitmon_misc_obj ported; hmon_hitmon ported
+- **Next:** (1) Cliffs row closes via regen (probe session PASS). (2) No row filed: audit remaining stale `game.u?.Blind` reads only if a session blocks near those arms.
+
 ## D-3898 — cliffs-head gethungry writer: resists_cold follows Resists_Elem (cold-resistant skater exempt from slippery ice; Valk-585510 FULL PASS)
 
 - **Status:** fixed (Open — cliffs head `eat.c` gethungry, 1 corpus block @9dea01ca0; owner proven already-whole — ledger ported, JS body complete js/eat.js:680 — PRESENCE-ONLY park honored, not re-ported. The port is the writer below. `verify gethungry: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS`; row leaves via regen.)
