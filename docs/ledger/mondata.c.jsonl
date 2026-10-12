@@ -4,7 +4,7 @@
 {"fn":"noattacks","c":"61-76","status":"ported","js":["js/hack.js:noattacks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poly_when_stoned","c":"80-86","status":"ported","js":["js/monsters.js:poly_when_stoned"],"at":"2026-10-03@bbe63333a"}
 {"fn":"defended","c":"91-124","status":"ported","js":["js/mondata.js:defended"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Resists_Elem","c":"129-197","status":"ported","js":["js/mondata.js:Resists_Elem"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Resists_Elem","c":"129-197","status":"ported","js":["js/mondata.js:Resists_Elem"],"d":["D-3898"],"at":"2026-10-12@e953653d7"}
 {"fn":"resists_drli","c":"201-211","status":"ported","js":["js/zap.js:resists_drli"],"at":"2026-10-03@bbe63333a"}
 {"fn":"resists_magm","c":"215-244","status":"ported","js":["js/mondata.js:resists_magm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"resists_blnd","c":"248-272","status":"ported","js":["js/mondata.js:resists_blnd"],"d":["D-3449","D-3447","D-3445"],"at":"2026-10-05@fc8f3902b","note":"audited D-3449: whole vs C"}

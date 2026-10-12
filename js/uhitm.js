@@ -4122,7 +4122,7 @@ export async function gulpum(mdef, mattk) {
                 if (ad === AD_ELEC) {
                     await pline(`The air around ${mon_nam(mdef)} crackles with electricity.`);
                 }
-                if (resists_elem_mon(mdef, bit)) {
+                if (ad === AD_COLD ? resists_cold(mdef) : resists_elem_mon(mdef, bit)) {
                     await pline(`${Monnam(mdef)} ${
                         ad === AD_ELEC ? 'seems unhurt.'
                             : ad === AD_COLD ? 'seems mildly chilly.'

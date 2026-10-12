@@ -364,7 +364,7 @@ import {
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE, W_ART, W_ARTI,
     W_WEP, W_SWAPWEP, W_QUIVER, W_WEAPONS,
     W_ARMS, W_ARM, W_ARMC, W_ARMU,
-    REFLECTING, ANTIMAGIC, SHOCK_RES, POISON_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED, M_SEEN_MAGR, M_SEEN_REFL, M_SEEN_FIRE, M_SEEN_COLD, M_SEEN_SLEEP, M_SEEN_DISINT, M_SEEN_ELEC, M_SEEN_ACID, LEVITATION, FLYING,
+    REFLECTING, ANTIMAGIC, COLD_RES, SHOCK_RES, POISON_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED, M_SEEN_MAGR, M_SEEN_REFL, M_SEEN_FIRE, M_SEEN_COLD, M_SEEN_SLEEP, M_SEEN_DISINT, M_SEEN_ELEC, M_SEEN_ACID, LEVITATION, FLYING,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -1501,8 +1501,8 @@ function sleep_monst_zap(mon, amt) {
 
 /**
  * C ref: monst.h mon_resistancebits — data.mresists | mextrinsics |
- * mintrinsics. Fire/cold/elec/acid/disint still use this bit test
- * (artifact/worn grants named). Poison is Resists_Elem.
+ * mintrinsics. Fire/elec/acid/disint still use this bit test
+ * (artifact/worn grants named). Poison and cold are Resists_Elem.
  */
 function mon_resists_bit(mon, mrBit) {
     if (!mon) return false;
@@ -1512,7 +1512,8 @@ function mon_resists_bit(mon, mrBit) {
     return !!(bits & mrBit);
 }
 export function resists_fire(mon) { return mon_resists_bit(mon, MR_FIRE); }
-export function resists_cold(mon) { return mon_resists_bit(mon, MR_COLD); }
+/** C monst.h:273 resists_cold → Resists_Elem(mon, COLD_RES). */
+export function resists_cold(mon) { return Resists_Elem(mon, COLD_RES); }
 export function resists_elec(mon) { return mon_resists_bit(mon, MR_ELEC); }
 /** C monst.h:277 resists_poison → Resists_Elem(mon, POISON_RES). */
 export function resists_poison(mon) { return Resists_Elem(mon, POISON_RES); }
