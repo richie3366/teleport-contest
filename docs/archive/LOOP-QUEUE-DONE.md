@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-12
 
-- [x] `invent.c` getobj — blocks 3/1197 corpus sessions (first at step 447; RNG lost 0, screens lost 3): C «What do you want to dip? [a-jl-q or ?*]» vs JS «What do you want to dip? [a-q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-worldtour-Monk-578305, scen-worldtour-Wizard-95214, scen-worldtour-Wizard-95215). @1b791008a **[history: archived — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3859
+- [x] `invent.c` getobj — blocks 3/1197 corpus sessions (first at step 447; RNG lost 0, screens lost 3): C «What do you want to dip? [a-jl-q or ?*]» vs JS «What do you want to dip? [a-q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-worldtour-Monk-578305, scen-worldtour-Wizard-95214, scen-worldtour-Wizard-95215). @1b791008a **[history: archived — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3859 `244671849`.
 
 ## 2026-10-11
 
