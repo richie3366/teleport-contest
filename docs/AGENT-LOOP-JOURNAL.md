@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — Grow #3: 84 sessions (seeds 585400–585619), board 1326/1365, cliffs 5→12 owners
+
+**Mix:** 44 `--family marathon` (11 each worldtour/sweep/chain/trek) + 20 sweep (lowest-RNG long family at 97.7 %, still failing) + 20 broad (all long families ≥90 % PASS, so second-wave shapes allowed); chain at 100 % got no direct extras. No `js/` edits, no D-entry, no ledger rows.
+**Score:** full `score --jobs 8` → **1326/1365** PASS, RNG 99.22 %, screens 98.6 %; cohort 72/84 (RNG 96.4 %): marathon 39/44 (worldtour 10/11, sweep 8/11, chain 10/11, trek 11/11), sweep 14/20 (cohort sweep 22/31), broad 19/20 (lone fail scen-options). 0 PASS→FAIL — no Must-fix.
+**Cliffs:** regenerated block now 12 owners: randomize_gem_colors (RNG 39.7k), gethungry (35.5k), use_pick_axe2, zap_dig, level_tele, mbodypart, tin_variety (×3), optfn_boolean, tipcontainer, look_here + retained nhl_gamestate, do_attack. ≥6 owners — growth signal restored, next iteration ports again.
+**Next:** cliffs-head randomize_gem_colors (scen-chain-Archeologist-585426@878).
 ## 2026-10-12 — D-3896 cliffs row-2 level_tele writer: Knox walls missed the symset-customcolor yellow arm — Fort Ludios arrival ──┐ default where C paints yellow (578306 s859 → PASS)
 
 **C locus:** `dat/symbols` graphical symsets `G_vwall_knox..G_trwall_knox: /yellow` ×11 (DECgraphics :732–775; same 11 in IBMgraphics/IBMGraphics_1/2/curses) + `glyphs.c` apply_customizations :531 (set_map_customcolor call :565) + `coloratt.c` set_map_customcolor :868–883 + `wintty.c` tty_print_glyph :3855 (WC2_EXTRACOLORS basic-color override); `display.h` cmap_walls_to_glyph (Is_knox → KNOX bank :598–604). Base wallcolors[] is all gray; the yellow is the symset customcolor (TEMP-C measured cust=0x100000B on KNOX glyphs 3963/3964/3966 — answers D-0729's open "why DEC emits color while wallcolors[] is gray").
