@@ -23,24 +23,26 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 mhitm_ad_cold + W2 eat-progress uhs/botl shipped (D-2718/D-2720). Pw pair + Empty-hnd fixed D-3629 (drain_en flags.botl mirror, DOSET weaponstatus home); all 3 probe sessions moved.
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split); gulpmu engulf vision_off ungate (D-3863, stale-'I' unmap).
 - **level_tele Knight residual (D-3862):** 578306 s859 wall ──┐ C-11 vs JS-8, 0 cells differ — wall lighting/color writer.
+- **nhl_gamestate writer (D-3884 TRACED, park falsifier fired):** vpline-pre-flush + GBUF — steed-impossible in getlev-restmon (NOT losedogs) paints row12-floor/row16-u/status-D32 via pline.c:273-274 (botl=1, delay OFF); vpline whole D-3402 (never re-port); JS-1166 = menu-docrt residue (its flush painted nothing — hook-probe order/content next). Falsified — do not re-check: stale-display (D-3882's three), SYMPTOM re-port, TEMP-C re-trace.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3883 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3883) reached no session — no pole-lava row.
+- D-1790…D-3884 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3884) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3883.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3883 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3884.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3884 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1), same step/path as the JS throw; prefix RNG 12535/12535, 16513/16513) — do not re-port mlevel_tele_trap/migrate/ledger for them; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3884: none (no `js/` — park; writer needs a GBUF/flush-order campaign: hook-probe JS-1166 (flush-run? bot-values? dirty-set? floated-vpline vs :1720 microta Named: n/a.
 - D-3883: `js/pickup.js` only — `:1817` predicate now reads live `Blind()` (already imported, line 23; `imports.mjs --can`: ALREADY, no new edge) with the youpr Named: none new — pickup_object stays whole vs C `:1802–1888` (impossible-count, Blind observe, u
 - D-3882: none (measurement iteration — ~40 calls without new C-state; the live state matches and the three differing values are all stale-display written earli Named: n/a.
 - D-3881: `js/potion.js` only — the :3486 call site now uses the live `Yobjnam2(obj, 'glow')` with the C `:2462` cite; deleted `Yobjnam2_pot`, leaving a D-3360- Named: none new (H2Opotion_dip stays whole vs C `:1497–1589`; `aobjnam_pot`/`Tobjnam_pot`/`otense
@@ -55,5 +57,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3872: `js/questpgr.js` only (data): two bodies byte-verbatim from quest.lua (node byte-compare true, 260/184 chars incl. double spaces; %n/%l/%o/%x conversi Named: remaining goal_first role bodies no corpus session reaches (Mon/Rog; miss→silence path unc
 - D-3871: js/getline.js only — one `vpline_flush_vision();` before the initial `await paint();` in getlin and get_ext_cmd (C order: recalc-consume, then flush/p Named: none — the custompline-vision arm is now complete; the rest of hooked_tty_getlin stays spl
 - D-3870: `js/end.js` only — one field: `game.urole?.malenum` → `game.urole?.mnum`, with a `you.h:247` cite. Named: none new in this unit — savelife is otherwise whole vs C `:704–756` (D-3260/D-2191/D-0868)
-- D-3869: `js/cmd.js` only — deleted the JS-only `newsym(newx, newy)`; comment now cites C `:2969`. Named: none new in this unit — the removed paint had no C counterpart (C prints dest via vision_r
 <!-- landmarks:end -->

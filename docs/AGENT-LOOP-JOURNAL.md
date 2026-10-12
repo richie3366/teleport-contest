@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3884 [measure] TEMP-C paint-trace V1+V2 executes the archived nhl_gamestate [measure]: writer = vpline pre-flush + GBUF/flush-order (park falsifier fired, no `js/`)
+
+**C locus:** `pline.c` vpline `:273–274` (pre-flush `if (u.ux) flush_screen(...)`) + `restore.c` getlev/restmon (steed place_monster-impossible site, `steed.c:917`) + `do.c` goto_level order (`:1512` tutorial/restore → `:1674` uz → `:1711` getlev → `:1720` delay → `:1840` docrt). Menu-close path `wintty.c` erase_menu_or_text `:977–980` (docrt on destroy).
+**JS:** none.
+**Change:** none (no `js/` — park; writer needs a GBUF/flush-order campaign: hook-probe JS-1166 (flush-run? bot-values? dirty-set? floated-vpline vs :1720 microtask order?) then port the order/content gap (async-propagation and/or dirty-span parity in _buildScreenOutput). vpline itself must NOT be re-ported (whole D-3402).
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis. `node scripts/verify.mjs --fn nhl_gamestate` → PASS syntax (0 changed js files) · PASS rule2 · FAIL hidden `verify nhl_gamestate: 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (582706 still nhl_gamestate@1166, by design — no `js/` in a measure commit) · PASS reach smoke 24/24 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a [measure] (D-3882/D-3879 precedent). Movement: `verify nhl_gamestate: 0 PASS, 0 moved, 1 no-movement`.
+**Named:** n/a.
+**Next:** writer campaign (JS GBUF/flush-order): (1) hook-probe JS-1166 via runSegment + temp-DIAG (reverted) — flush-run? bot-values? dirty-set? floated-vpline vs :1720 order?; (2) port the gap it names; (3) `verify nhl_gamestate` movement (expect 1166→PASS-or-later). Park falsifier = that port moving verify. Do not re-port vpline (whole) or nhl_gamestate (symptom, restore verified both sides).
 ## 2026-10-12 — audit 2735–2741 @4978d7e3b: review D-3875..D-3883 (7A/0D/0Q, 0 Must-fix) + full rescore 1242/1281 (0 flips)
 
 **Reviews:** 7 JS SHAs oldest-first, each re-measured `--reach-all`: 2735 Must-fix Invis import (reach 1120/1120) · 2736 water_damage Luck (1 moved) · 2737 create_monster amask order (1 moved, reach 444/444) · 2738 bigrm-3 female clobber (1 PASS) · 2739 save_mtraits mtrack (1 PASS, reach 1120/1120) · 2740 potion_dip Yobjnam2 (1 moved) · 2741 pickup_object Blind (1 PASS). All ship-time claims reproduced; no C-wrongs, no queue rows.
