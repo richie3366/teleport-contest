@@ -41,8 +41,8 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5 by pts (9,012 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,012** (+12), RNG **51.7 %** (+0.1pp), rngSteps 93.6 %, screens **80.0 %** (+0.1pp) at judge 2026-10-12 01:53Z — fresh judge signal (was 2026-10-11 19:39Z); through D-3858..D-3866's window the corpus gained +9 net (1158→1167; marathons 219→228/244); the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-12 ~05:00Z, `f7cc0401e`; 1197/1197 entries, 0 unrecorded):**
-**1167 / 1197** PASS, RNG 24811794/24895890 (**99.66 %**), screens 422770/426873 (99.0 %); `full: true`. Marathons 228/244. Worst families: `scen-sweep` 73/81 (RNG 97.4 %), `scen-worldtour` 74/81 (100.0 %), `scen-chain` 50/51 (100.0 %), `scen-tour` 28/29, `scen-trek` 31/31; rest 100 % RNG. 1 PASS→FAIL (scen-chain-Archeologist-95418 → Must-fix). Audits record this line and the families table next to held-out: the board must rise **with** it.
+**Corpus — picker and proxy (2026-10-12 07:34Z, `e59503e48`; 1281/1281 entries, 0 unrecorded):**
+**1236 / 1281** PASS, RNG 27825376/28221771 (**98.60 %**), screens 482631/491202 (98.3 %); `full: true`. Marathons 278/308. Worst families: `scen-sweep` 94/112 (RNG 94.8 %), `scen-worldtour` 82/92 (97.2 %), `scen-trek` 41/42 (99.2 %), `scen-chain` 61/62, `scen-options` 20/21, `scen-tour` 28/29; rest 100 % RNG. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
 Reviews 1225–2726 (index; no row 1618): 1330 ACCEPT, 61 WITH-DEBT, 110 QUALITY-RISK (2719–2726: 8A/0D/0Q, 1 Must-fix queued — rescore regression, not a review C-wrong).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).

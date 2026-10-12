@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — Grow #2: 84 sessions (seeds 582600–582819), board 1236/1281, cliffs 5→12 owners
+
+**Mix:** 44 `--family marathon` (11 each worldtour/sweep/chain/trek) + 20 sweep (lowest-RNG long family at 97.4 %, still failing) + 20 broad (all long families ≥90 % PASS, so second-wave shapes allowed); worldtour at 100 % RNG and chain/trek at 100 % PASS got no direct extras. No `js/` edits, no D-entry, no ledger rows.
+**Score:** full `score --jobs 8` → **1236/1281** PASS, RNG 98.60 %, screens 98.3 %; cohort 64/84 (RNG 90.6 %): sweep 18/31, worldtour 7/11, chain 10/11, trek 10/11, broad 19/20. 0 PASS→FAIL — no Must-fix.
+**Cliffs:** regenerated block now 12 owners: level_tele (4, RNG 153k), distfleeck, erode_obj, mbhitm, H2Opotion_dip, touch_artifact, m_move, do_statusline2 (2), You_hear (2), wizterrainwish, optfn_pickup_types, getpos. ≥6 owners — growth signal restored, next iteration ports again.
+**Next:** cliffs-head level_tele (scen-sweep-Healer-582617@171).
 ## 2026-10-12 — D-3871 cliffs-head `xname_flags` writer: `getline.c` hooked_tty_getlin prompt must consume pending vision recalc via custompline→vpline (Caveman-95234 624→PASS)
 
 **C locus:** win/tty/getline.c hooked_tty_getlin `:60–67` issues every prompt via custompline(OVERRIDE_MSGTYPE|SUPPRESS_HISTORY) → vpline (src/pline.c:299), whose `:266–271` consumes a pending vision_full_recalc and `:277–278` flushes before putmesg. Here 10 light-emitting summons (MUSE create-monster, keys[622]) set the flag via new_light_source; the docall prompt's vpline recalcs (revealing newly-lit/never-mapped cells, 0 scored RNG) and flushes them before blocking. Proven by elimination: 0 draws in keys[623]; every gap occupant (more-dismissal, flash_mon ≤1 cell, silent m_tele, obfree, trycall guard) is newsym-free; NOMUX shadow order proves the paint bytes emit in the gap.
