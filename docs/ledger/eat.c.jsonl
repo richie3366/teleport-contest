@@ -18,7 +18,7 @@
 {"fn":"eatfood","c":"519-541","status":"ported","js":["js/eat.js:eatfood"],"d":["D-3227","D-2720"],"at":"2026-10-01@e0549fe8b"}
 {"fn":"done_eating","c":"544-573","status":"ported","js":["js/eat.js:done_eating"],"at":"2026-10-03@bbe63333a"}
 {"fn":"eating_conducts","c":"576-599","status":"ported","js":["js/eat.js:eating_conducts"],"d":["D-2907"],"at":"seed@a30a7de84"}
-{"fn":"eat_brains","c":"603-754","status":"ported","js":["js/eat.js:eat_brains"],"d":["D-1306"],"at":"2026-10-03@bbe63333a"}
+{"fn":"eat_brains","c":"603-754","status":"ported","js":["js/eat.js:eat_brains"],"d":["D-3897","D-1306"],"at":"2026-10-12@9dea01ca0"}
 {"fn":"maybe_cannibal","c":"758-788","status":"ported","js":["js/eat.js:maybe_cannibal"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cprefx","c":"791-864","status":"ported","js":["js/eat.js:cprefx"],"d":["D-1081"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"fix_petrification","c":"867-877","status":"ported","js":["js/eat.js:fix_petrification"],"at":"2026-10-03@bbe63333a"}
