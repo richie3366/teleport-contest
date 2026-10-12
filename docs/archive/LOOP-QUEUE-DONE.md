@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-12
 
+- [x] `[measure]` `monmove.c` m_move / Barbarian-582719 step-713 M28-vs-nothing (D-3879 follow-up) — JS-M1 proven to be the step-698-revived troll (fresh struct, empty mtrack, zero adds until 713; «rises from the dead» + fmon snapshots); C-M1's M28 forces non-empty history so C-M1 ≠ C-revived-troll (fmon-order divergence or C-F-turn-skipped). Deliverable: TEMP-C 2-turn dochug log (steps 712–713: per-turn mndx,mx,my,mtrack[0..3],msleeping,mcanmove,mfrozen) + revive log at 698 (victim mndx/square, revived mtrack) in the ignored recorder tree (`bash nethack-c/build-recorder.sh`, Linux/clang; re-record the 1 recipe; revert + rebuild after; probes in /tmp, JS hook texts + draw↔step anchors in D-3879), diffed against the JS turn order + FMON snapshots → C-M1 identity + C-F status + order verdict → port the writer it names (order-op/makemon/mongone/migrate vs F-skip-state setter vs revive-mtrack arm). No `js/` in the measure commit beyond what the named writer needs. **Addressed:** D-3879
+
+
 - [x] `trap.c` erode_obj — blocks 1/1281 corpus sessions (first at step 377; RNG lost 36085, screens lost 571): C «Your battle-axe rusts further! Your orcish short sword rusts» vs JS «Your orcish short sword rusts further!--More--». Probe: `node scripts/hidden-proxy.mjs verify erode_obj` (scen-sweep-Barbarian-582708). @74c6c6c76 **[history: archived D-2325 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3876 `0cd844353`
 
 

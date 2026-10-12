@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3879 [measure] `monmove.c` m_move@713 (Barbarian-582719): JS-M1 is the step-698-revived troll (fresh struct, empty mtrack); C-M1's M28 needs non-empty history — C-side identity/turn log names the writer
+
+**C locus:** `monmove.c` m_move `:1963` (`if (rn2(4 * (cnt - j)))`). Owner body proven faithful (park 2026-09-08); m_move is NOT re-ported.
+**JS:** no files changed (monmove.js/dogmove.js hooks reverted, md5 match HEAD: 599363df…/b54b4643d…).
+**Change:** none — measurement iteration, no `js/` changed.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis. `node scripts/verify.mjs --fn m_move` → PASS syntax (0 changed js files) · PASS rule2 · FAIL hidden `verify m_move: 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (582719 still m_move@713, by design — no `js/` in a measure commit) · PASS reach m_move 80/80 spread (1120 reach it) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a [measure] (D-3748/D-3755 precedent).
+**Named:** n/a.
+**Next:** execute the `[measure]` row below (temp-C 2-turn dochug log at steps 712–713 + revive log at 698; JS comparators cited there) → C-M1 identity + C-F status + order verdict → port the writer it names (fmon order-op vs F-skip-state setter vs revive-mtrack arm).
 ## 2026-10-12 — D-3878 `sp_lev.c` create_monster `:2125` female clobber missing from the load_bigrm_3 des.monster mirror — 11 des-spawns kept the birth draw where C forces 0 (scen-sweep-Barbarian-582719 s623 himself/herself)
 
 **C locus:** `sp_lev.c` create_monster `:2125` (`mtmp->female = m->female`); lspo table parse `:3299` (`female` default BOOL_RANDOM), `:3349–3353` (mgend NEUTRAL skip for id-less), `:3356–3357` (`= 0` safety net); `dat/bigrm-3.lua` (28× `des.monster({x,y})`, dungeon level 10 in this run).
