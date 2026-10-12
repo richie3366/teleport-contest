@@ -4402,7 +4402,12 @@ function load_bigrm_3() {
             const moved = splev_resolve_occupied(x, y, null);
             x = moved.x;
             y = moved.y;
-            makemon(null, x, y, 0);
+            const mtmp = makemon(null, x, y, 0);
+            // C sp_lev.c create_monster :2125 — des.monster({x,y}) with no
+            // id and no "female" key keeps tmpmons.female = 0 (:3299
+            // BOOL_RANDOM default, :3349–3353 skipped (mgend NEUTRAL),
+            // :3356–3357 safety net), clobbering the makemon birth draw.
+            if (mtmp) mtmp.female = 0;
         }
     }
 
