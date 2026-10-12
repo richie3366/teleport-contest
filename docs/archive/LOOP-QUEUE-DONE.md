@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-12
 
+- [x] Must-fix review C-wrong: `mon.c` mfndpos inline Invis clone (`js/mon.js:3131–3136`, D-3874 `dba0c82b0`) omits the BInvis mummy-wrapping arm — C `worn.c:39` W_BLOCKS blocks INVIS for worn mummy wrapping and canonical `BInvis()` (`js/timeout.js:1739–1744`) + every conforming clone (mhitu/potion/zap) implement the cloak arm, so the inline reads Invis=TRUE where C reads FALSE on worn-wrapping + desynced-B states (phantom NOTONL rejection, the D-3874 class inverted). Fix: `import { Invis } from './timeout.js'` (`imports.mjs --can` VERDICT: SAFE; shk↔timeout is the live precedent — do not copy the cloak arm into the inline, `sym.mjs` forbids a 5th clone), delete the inline, re-run D-3874 test + `verify --fn m_move`. Source: reviews/loop-unattended/2734-dba0c82b0-mfndpos-invis-clone.md.
+
+
 - [x] `objnam.c` xname_flags — blocks 1/1197 corpus sessions (first at step 624; RNG lost 0, screens lost 1): toplines identical; first differing screen row 1: C «` ···          `   ``       ··``            ···   `           `» vs JS «`              `   ``       ··``            ···   `           `» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-worldtour-Caveman-95234). @32ac8ebf9 **[history: archived D-2483 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3871 `5945b92d0`
 
 

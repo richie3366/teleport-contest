@@ -126,3 +126,5 @@ green — it is still a C-wrong, not a named omit.
    inline — that keeps the 5th clone `sym.mjs` forbids.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-3875
