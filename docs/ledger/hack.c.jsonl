@@ -10,7 +10,7 @@
 {"fn":"rock_disappear_msg","c":"315-324","status":"ported","js":["js/hack.js:rock_disappear_msg"],"d":["D-3404","D-3105"],"at":"2026-10-04@e2943671c","note":"audited D-3404: whole vs C"}
 {"fn":"moverock_done","c":"327-333","status":"ported","js":["js/hack.js:moverock_done"],"d":["D-3404","D-3105"],"at":"2026-10-04@e2943671c","note":"audited D-3404: whole vs C"}
 {"fn":"moverock","c":"336-345","status":"ported","js":["js/hack.js:moverock"],"d":["D-1294"],"at":"2026-10-03@bbe63333a"}
-{"fn":"moverock_core","c":"348-638","status":"ported","js":["js/hack.js:moverock_core"],"d":["D-3429","D-3404","D-2739","D-1859"],"at":"2026-10-04@77a859fd3"}
+{"fn":"moverock_core","c":"348-638","status":"ported","js":["js/hack.js:moverock_core"],"d":["D-3893","D-3429","D-3404","D-2739","D-1859"],"at":"2026-10-12@2b5e0c346"}
 {"fn":"still_chewing","c":"647-822","status":"ported","js":["js/hack.js:still_chewing"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"movobj","c":"825-833","status":"ported","js":["js/hack.js:movobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dosinkfall","c":"836-919","status":"ported","js":["js/hack.js:dosinkfall"],"at":"2026-10-03@bbe63333a"}
