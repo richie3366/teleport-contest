@@ -94,6 +94,7 @@ import { gulp_blnd_check } from './mhitu.js';
 import { region_danger } from './region.js';
 import { can_be_strangled } from './uhitm.js';
 import { remove_worn_item } from './steal.js';
+import { surface } from './sit.js';
 
 const FEDORA = objectNames.indexOf('FEDORA');
 const HELMET = objectNames.indexOf('HELMET');
@@ -4293,9 +4294,11 @@ export async function disintegrate_arm(atmp) {
         // C do_wear.c:3224–3225 — snuff before the dust message so
         // Armor_gone does not report "stop shining" after destruction.
         if (otmp.lamplit) end_burn(otmp, false);
+        // C do_wear.c:3226–3229 — the dust falls "to the %s", surface(u.ux,u.uy)
+        // (dungeon.c:1750: ROOM → "floor", default "ground"), never a fixed word.
         await urgent_pline(
             `Your ${suit} ${vtense(suit, 'turn')} to dust and `
-            + `${vtense(suit, 'fall')} to the ground!`,
+            + `${vtense(suit, 'fall')} to the ${surface(u.ux, u.uy)}!`,
         );
     } else if (!resistedc.v && !resistedsuit.v
         && (otmp = maybe_destroy_armor(u.uarmu, atmp, resisted))) {

@@ -65,7 +65,7 @@
 {"fn":"menu_remarm","c":"3090-3138","status":"ported","js":["js/do_wear.js:menu_remarm"],"d":["D-1866","D-1630"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wornarm_destroyed","c":"3144-3182","status":"ported","js":["js/do_wear.js:wornarm_destroyed"],"d":["D-3426","D-3140"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"maybe_destroy_armor","c":"3189-3197","status":"ported","js":["js/do_wear.js:maybe_destroy_armor"],"at":"2026-10-03@bbe63333a"}
-{"fn":"disintegrate_arm","c":"3201-3256","status":"ported","js":["js/do_wear.js:disintegrate_arm"],"at":"2026-10-03@bbe63333a"}
+{"fn":"disintegrate_arm","c":"3201-3256","status":"ported","js":["js/do_wear.js:disintegrate_arm"],"d":["D-3889"],"at":"2026-10-12@3fef422cd"}
 {"fn":"obj_erode_type","c":"3260-3273","status":"ported","js":["js/do_wear.js:obj_erode_type"],"at":"2026-09-30@fa5a786a1","note":"stale: js/do_wear.js:3488"}
 {"fn":"destroy_arm","c":"3278-3316","status":"ported","js":["js/do_wear.js:destroy_arm"],"d":["D-2721"],"at":"2026-10-03@bbe63333a"}
 {"fn":"adj_abon","c":"3319-3336","status":"ported","js":["js/do_wear.js:adj_abon"],"at":"2026-10-03@bbe63333a"}
