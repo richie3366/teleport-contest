@@ -2728,3 +2728,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2716-b25b42ecf-quest-bar-leader-texts.md](./2716-b25b42ecf-quest-bar-leader-texts.md) | `b25b42ecf` | D-3855 mquaffmsg-row writer Bar leader_first+badalign (1 PASS) | **ACCEPT** |
 | [2717-bf0c7986d-dotravel-stale-step.md](./2717-bf0c7986d-dotravel-stale-step.md) | `bf0c7986d` | D-3856 distfleeck-row writer dotravel stale step (1 PASS) | **ACCEPT** |
 | [2718-c7e7d049e-poisoned-wail-drain.md](./2718-c7e7d049e-poisoned-wail-drain.md) | `c7e7d049e` | D-3857 do_statusline1-row writer poisoned wail drain (1 PASS) | **ACCEPT** |
+| [2719-efa0e1eb6-unaware-guard-writer.md](./2719-efa0e1eb6-unaware-guard-writer.md) | `efa0e1eb6` | D-3858 name_to_monplus-row writer make_stunned/confused/vomiting Unaware guard (1 PASS) | **ACCEPT** |
+| [2720-244671849-dip-inacc-lets.md](./2720-244671849-dip-inacc-lets.md) | `244671849` | D-3859 getobj-row writer dip inacc lets builders (3 PASS) | **ACCEPT** |
+| [2721-d6748550a-dosearch-nomul.md](./2721-d6748550a-dosearch-nomul.md) | `d6748550a` | D-3860 do_statusline2-row writer dosearch0 find nomul(0) (1 PASS) | **ACCEPT** |
+| [2722-5f5a0c834-unmap-stone.md](./2722-5f5a0c834-unmap-stone.md) | `5f5a0c834` | D-3862 level_tele-row writer unmap_object S_stone (1 PASS) | **ACCEPT** |
+| [2723-e83efcbaf-gulpmu-vision-ungate.md](./2723-e83efcbaf-gulpmu-vision-ungate.md) | `e83efcbaf` | D-3863 gulpmu-row writer swallow-site vision ungate (1 PASS + 1 moved) | **ACCEPT** |
+| [2724-ac5580aa5-bones-timers.md](./2724-ac5580aa5-bones-timers.md) | `ac5580aa5` | D-3864 ghitm-row writer bones RANGE_LEVEL timers (1 PASS) | **ACCEPT** |
+| [2725-e0e05880b-getpos-nxtc-curs.md](./2725-e0e05880b-getpos-nxtc-curs.md) | `e0e05880b` | D-3865 getpos-row writer loop-top nxtc curs on miss (1 PASS) | **ACCEPT** |
+| [2726-f7cc0401e-newman-newuhs.md](./2726-f7cc0401e-newman-newuhs.md) | `f7cc0401e` | D-3866 do_statusline2-row writer newman :436 newuhs (1 PASS) | **ACCEPT** |

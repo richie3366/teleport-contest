@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — audit 2719–2726 @f7cc0401e: review D-3858..D-3866 (8A/0D/0Q, 0 review C-wrongs) + full rescore 1167/1197 (+9 net, 1 PASS→FAIL → Must-fix)
+
+**Reviews:** 2719 efa0e1eb6 Unaware guard (D-3858) A · 2720 244671849 dip inacc lets (D-3859) A · 2721 d6748550a dosearch nomul (D-3860) A · 2722 5f5a0c834 unmap stone (D-3862) A · 2723 e83efcbaf gulpmu vision ungate (D-3863) A · 2724 ac5580aa5 bones timers (D-3864) A · 2725 e0e05880b getpos nxtc curs (D-3865) A · 2726 f7cc0401e newman newuhs (D-3866) A. Every sample re-measured with `verify --base SHAn~1 --reach-all`: all probe claims exactly true (2721/2723 re-runs show later progress on current HEAD, noted in-file, not overclaims). Rule #2 clean. D-3861 (c1344ce96) is no-js/ (park+[measure]), not reviewed.
+**Rescore:** `record` (all present) + unfiltered `score` → 1167/1197 PASS (RNG 99.66 %, screens 99.0 %), `full: true` @2026-10-12T04:59:50Z. Vs last audit 1158: +10 moved, 1 PASS→FAIL: scen-chain-Archeologist-95418 step 650 throws `relink_timers: no object 13` (js/lev_json.js:528) — Must-fix filed (window: 8 js/ SHAs since c7e7d049e; prime suspect ac5580aa5/D-3864, only timer-touching change; falsifier: replay at ac5580aa5~1 vs ac5580aa5). Marathons 228/244 (sweep 73/81, worldtour 74/81, chain 50/51, trek 31/31).
+**Public:** 44/44 (792838/792838 RNG, 11405/11405 screens, `363+1.84/turn`). **Held-out:** fresh judge 2026-10-12 01:53Z — 22/44, 9012 pts (+12), RNG 51.7 % (+0.1pp), screens 80.0 %. Rank 5. Falsifier watch stays open (corpus and held-out both ticked up).
+**Debt:** `ledger.mjs sql` unusable here (needs `node:sqlite`, Node v20.12.2) — seeded-`ported` 5-sample skipped; `ledger.mjs summary --snapshot` ran (snapshot appended). Bisect of 95418 left to the Must-fix iter (no worktree replay: protects the board's `full` mark).
+**Next:** Must-fix 95418 ships alone.
 ## 2026-10-12 — D-3866 cliffs-head `botl.c` do_statusline2 writer: newman dropped `:436` newuhs — stale Satiated after the hunger re-roll (marathon FULL PASS)
 
 **C locus:** `polyself.c` newman `:414` (`u.uhunger = rn1(500, 500)`) + `:436` (`newuhs(FALSE)`) — the re-rolled hunger (always 500..999 → NOT_HUNGRY) recomputes uhs before the polyman announce.
