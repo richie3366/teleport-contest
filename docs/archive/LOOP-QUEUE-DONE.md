@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-12
 
+- [x] `trap.c` erode_obj — blocks 1/1281 corpus sessions (first at step 377; RNG lost 36085, screens lost 571): C «Your battle-axe rusts further! Your orcish short sword rusts» vs JS «Your orcish short sword rusts further!--More--». Probe: `node scripts/hidden-proxy.mjs verify erode_obj` (scen-sweep-Barbarian-582708). @74c6c6c76 **[history: archived D-2325 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3876
+
+
 - [x] Must-fix review C-wrong: `mon.c` mfndpos inline Invis clone (`js/mon.js:3131–3136`, D-3874 `dba0c82b0`) omits the BInvis mummy-wrapping arm — C `worn.c:39` W_BLOCKS blocks INVIS for worn mummy wrapping and canonical `BInvis()` (`js/timeout.js:1739–1744`) + every conforming clone (mhitu/potion/zap) implement the cloak arm, so the inline reads Invis=TRUE where C reads FALSE on worn-wrapping + desynced-B states (phantom NOTONL rejection, the D-3874 class inverted). Fix: `import { Invis } from './timeout.js'` (`imports.mjs --can` VERDICT: SAFE; shk↔timeout is the live precedent — do not copy the cloak arm into the inline, `sym.mjs` forbids a 5th clone), delete the inline, re-run D-3874 test + `verify --fn m_move`. Source: reviews/loop-unattended/2734-dba0c82b0-mfndpos-invis-clone.md.
 
 

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3876 `trap.c` water_damage luck gate read dead `game.u.Luck` (always 0): battle-axe rust silently skipped at scen-sweep-Barbarian-582708 s377 — writer fix, session 377→385
+
+**C locus:** `nethack-c/upstream/src/trap.c` water_damage `:4771` (`else if (!force && (Luck + 5) > rn2(20))`) + `nethack-c/upstream/include/you.h:464` (`#define Luck (u.uluck + u.moreluck)`).
+**JS:** 1 file (`trap.js` +3/−1), far under caps.
+**Change:** `js/trap.js` only — `const luck = ((game.u?.uluck | 0) + (game.u?.moreluck | 0))` with a you.h:464 cite (trap.js:6711 idiom; the chest-trap `Luck_chest` twin stays untouched); the gate reads `(luck + 5)`. No new import, no signature change.
+**Verify:** `node scripts/verify.mjs --fn water_damage,erode_obj` → PASS syntax (1 changed js file) · PASS rule2 · note hidden verify water_damage (0 blocked at baseline — NOT a corpus PASS) · PASS reach water_damage 27/27 · PASS hidden verify erode_obj: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-sweep-Barbarian-582708 moved → induced_align at step 385, was 377) · PASS reach erode_obj 41/41 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. Movement: `verify erode_obj: 0 PASS, 1 moved, 0 no-movement`. No maintained js unit harness (sessions are the suite); the probe session is the regression test.
+**Named:** none new.
+**Next:** the session now diverges at induced_align s385 (next board's row if it heads — different owner, later step). Falsifier: a fresh `verify erode_obj`/`verify water_damage` showing a luck-gate trace contradicting uluck+moreluck, or a session blocked on either as owner. Do not re-pop erode_obj for this row.
 ## 2026-10-12 — D-3875 Must-fix review 2734: `mon.c` mfndpos inline Invis clone omitted the BInvis mummy-wrapping arm — deleted, canonical timeout.js `Invis()` import (latent C-wrong)
 
 **C locus:** `mon.c` mfndpos `monseeu` (`:2261–2262`, `mon->mcansee && (!Invis || perceives(mdat))`) + `youprop.h:198` (live Invis macro) + `worn.c:39` W_BLOCKS (worn MUMMY_WRAPPING on W_ARMC blocks INVIS) + `:2339` NOTONL gate.

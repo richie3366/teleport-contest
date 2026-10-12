@@ -127,4 +127,4 @@ green — it is still a C-wrong, not a named omit.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-3875
+**Addressed:** D-3875 `06a0192b2`

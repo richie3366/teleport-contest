@@ -72,7 +72,7 @@
 {"fn":"lava_damage","c":"4576-4615","status":"ported","js":["js/do.js:lava_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"acid_damage","c":"4618-4654","status":"ported","js":["js/trap.js:acid_damage"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pot_acid_damage","c":"4657-4707","status":"ported","js":["js/trap.js:pot_acid_damage"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"water_damage","c":"4712-4852","status":"ported","js":["js/trap.js:water_damage"],"at":"2026-10-01@0148914f2","note":"stale: js/trap.js:6255"}
+{"fn":"water_damage","c":"4712-4852","status":"ported","js":["js/trap.js:water_damage"],"d":["D-3876"],"at":"2026-10-12@06a0192b2","note":"stale: js/trap.js:6255"}
 {"fn":"water_damage_chain","c":"4855-4888","status":"ported","js":["js/trap.js:water_damage_chain"],"at":"2026-10-03@bbe63333a"}
 {"fn":"emergency_disrobe","c":"4897-4941","status":"ported","js":["js/trap.js:emergency_disrobe"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rnd_nextto_goodpos","c":"4947-4972","status":"ported","js":["js/trap.js:rnd_nextto_goodpos"],"at":"2026-10-03@bbe63333a"}
