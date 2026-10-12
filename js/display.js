@@ -3870,12 +3870,26 @@ function do_crwall(seenv, row) {
     return row[col]; // C :3749
 }
 
-/** C display.h cmap_walls_to_glyph + display.c wallcolors[] / reset_glyphmap. */
+/**
+ * C display.h cmap_walls_to_glyph + display.c wallcolors[] / reset_glyphmap
+ * + the symset G_ wall-color customizations (dat/symbols): the base table
+ * is all CLR_GRAY, but every graphical symset stamps G_vwall_*..G_trwall_*
+ * overrides — mines /brown, gehennom /red, knox /yellow, sokoban /blue
+ * (DECgraphics :732–775; same 44 in IBMgraphics/IBMGraphics_1/2/curses) —
+ * via glyphs.c apply_customizations + coloratt.c set_map_customcolor, read
+ * back as the tty fg in wintty.c tty_print_glyph (TEMP-C measured
+ * cust=0x100000B on KNOX glyphs 3963/3964/3966 — answers D-0729's open
+ * "why DEC emits color while wallcolors[] is gray"). Arm order mirrors
+ * cmap_walls_to_glyph (mines → hell → knox → soko → main). Knox follows
+ * the sokoban DEC gate: ASCII (no symset) carries no G_ entries, so C
+ * paints gray there (D-0729).
+ */
 function wall_cmap_color() {
     let color = CLR_GRAY;
     const uz = game.u?.uz;
     if (In_mines(uz)) color = CLR_BROWN;
     else if (game.dungeons?.[uz?.dnum | 0]?.flags?.hellish) color = CLR_RED;
+    else if (Is_knox(uz) && use_decgraphics()) color = CLR_YELLOW;
     else if (In_sokoban(uz) && use_decgraphics()) color = CLR_BLUE;
     return color;
 }
@@ -3887,7 +3901,8 @@ function wall_glyph(loc) {
     const g = tab[idx] || tab[S_STONE];
     if (idx === S_STONE) return g;
     // Recorder: mines BROWN (D-0283), Gehennom RED (D-0801), Sokoban blue
-    // only under DECgraphics (D-0729). knox still GRAY.
+    // only under DECgraphics (D-0729), Knox YELLOW only under DECgraphics
+    // (D-3896; dat/symbols G_*_knox /yellow via the customcolor override).
     return { ch: g.ch, color: wall_cmap_color(), dec: g.dec };
 }
 

@@ -18,7 +18,7 @@
 {"fn":"wc_color_name","c":"764-797","status":"ported","js":["js/options.js:wc_color_name"],"d":["D-3069"],"at":"2026-09-28@774d64d58","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"onlyhexdigits","c":"801-810","status":"ported","js":["js/options.js:onlyhexdigits"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rgbstr_to_int32","c":"813-865","status":"ported","js":["js/options.js:rgbstr_to_int32"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"set_map_customcolor","c":"868-883","status":"ported","js":["js/options.js:set_map_customcolor"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_map_customcolor","c":"868-883","status":"ported","js":["js/options.js:set_map_customcolor"],"d":["D-3896","D-3002"],"at":"2026-10-12@662c0c7ed","note":"D-3896: live at js/options.js:6628 (prior refresh MISSING note stale since D-3002)"}
 {"fn":"color_distance","c":"979-994","status":"ported","js":["js/options.js:color_distance"],"d":["D-3326"],"at":"2026-10-02@925c8355a"}
 {"fn":"closest_color","c":"997-1021","status":"ported","js":["js/options.js:closest_color"],"d":["D-3408","D-2777"],"at":"2026-10-04@c075fb861"}
 {"fn":"get_nhcolor_from_256_index","c":"1024-1031","status":"ported","js":["js/options.js:get_nhcolor_from_256_index"],"d":["D-3326"],"at":"2026-10-02@925c8355a","note":"refresh: no JS symbol (measured MISSING)"}

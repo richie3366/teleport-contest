@@ -14,7 +14,7 @@
 {"fn":"match_glyph","c":"458-467","status":"ported","js":["js/glyphs.js:match_glyph"],"d":["D-3416","D-3138"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"glyphrep","c":"470-481","status":"ported","js":["js/glyphs.js:glyphrep"],"d":["D-3138"],"at":"2026-09-30@1edc89993","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_custom_nhcolor_entry","c":"484-528","status":"partial","js":["js/glyphs.js:add_custom_nhcolor_entry"],"omit":"- `add_custom_nhcolor_entry`: `sym_customizations` saveload unported (transient, no scored reach).","d":["D-3426","D-3421","D-3416","D-2771"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: remaining omit cannot ship"}
-{"fn":"apply_customizations","c":"531-574","status":"ported","js":["js/glyphs.js:apply_customizations"],"d":["D-3002"],"at":"2026-09-28@84557918b","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"apply_customizations","c":"531-574","status":"ported","js":["js/glyphs.js:apply_customizations"],"d":["D-3002"],"at":"2026-10-12@662c0c7ed","note":"D-3896: live at js/glyphs.js:986 (prior refresh MISSING note stale since D-3002)"}
 {"fn":"maybe_shuffle_customizations","c":"581-587","status":"ported","js":["js/glyphs.js:maybe_shuffle_customizations"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact pending-flag gate"}
 {"fn":"shuffle_customizations","c":"591-642","status":"ported","js":["js/glyphs.js:shuffle_customizations"],"d":["D-2934"],"at":"seed@a30a7de84","note":"alt 646-732"}
 {"fn":"find_matching_customization","c":"736-748","status":"ported","js":["js/glyphs.js:find_matching_customization"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact custtype/name match"}
