@@ -1,4 +1,4 @@
-{"fn":"cursetxt","c":"63-85","status":"ported","js":["js/mcastu.js:cursetxt"],"d":["D-2137"],"at":"2026-10-03@bbe63333a"}
+{"fn":"cursetxt","c":"63-85","status":"ported","js":["js/mcastu.js:cursetxt"],"d":["D-3890","D-2137"],"at":"2026-10-12@98181c650"}
 {"fn":"choose_monster_spell","c":"89-123","status":"ported","js":["js/mcastu.js:choose_monster_spell"],"d":["D-2253"],"at":"2026-10-01@cdbc41097","note":"stale: js/mcastu.js:300 file-local line-for-line C (D-2253); staticfn shape correct"}
 {"fn":"castmu","c":"130-305","status":"ported","js":["js/mcastu.js:castmu"],"d":["D-2140","D-1825"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mis-aim waterwall wording deferred (thin-air text); debug impossible()s omitted"}
 {"fn":"m_cure_self","c":"308-318","status":"ported","js":["js/mcastu.js:m_cure_self"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: healmon(d(3,6),0) inlined as direct mhp add"}
