@@ -22172,24 +22172,29 @@ export function splev_create_monster(id_or_class, peaceful, opts) {
     let mid = NON_PM;
     const isClass = typeof id_or_class === 'string' && id_or_class.length === 1;
     // Named ids: find_montype gender RNG happens before create_monster in C Lua
-    // binding; class letters leave id=NON_PM and resolve via mkclass after amask.
+    // binding (lspo_monster table/string parse :3254–3343); class letters leave
+    // id=NON_PM and resolve via mkclass after amask.
     if (!isClass && typeof id_or_class === 'string') {
         const r = find_montype_gender(id_or_class);
         female = r.female;
         if (r.mndx !== NON_PM && r.mndx >= 0) {
             mid = r.mndx;
             pm = mons(r.mndx);
-            // C :1949–1953 — an extinct unique never spawns; a genocided
-            // or extinct type falls through to a random monster (mid is
-            // kept for the :1985 mk_mplayer dispatch, like C's m->id).
-            const g_mvflags = game.mvitals?.[mid]?.mvflags ?? 0;
-            if (((pm?.geno ?? 0) & G_UNIQ) && (g_mvflags & G_EXTINCT))
-                return null;
-            if (g_mvflags & G_GONE)
-                pm = null;
         }
     }
+    // C :1943 — amask BEFORE the :1949–1953 extinct/genocide checks: an
+    // extinct unique still burns induced_align (astral Pestilence).
     const amask = sp_amask_to_amask(sp_amask);
+    if (pm) {
+        // C :1949–1953 — an extinct unique never spawns; a genocided
+        // or extinct type falls through to a random monster (mid is
+        // kept for the :1985 mk_mplayer dispatch, like C's m->id).
+        const g_mvflags = game.mvitals?.[mid]?.mvflags ?? 0;
+        if (((pm?.geno ?? 0) & G_UNIQ) && (g_mvflags & G_EXTINCT))
+            return null;
+        if (g_mvflags & G_GONE)
+            pm = null;
+    }
     if (isClass) {
         // C :1935–1941 — def_char_to_monclass is the canonical
         // DEF_CHAR_TO_MLET (mondata.js); MAXMCLASSES panics in C.
