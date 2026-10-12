@@ -59,7 +59,7 @@
 {"fn":"set_ustuck","c":"3421-3435","status":"ported","js":["js/mhitu.js:set_ustuck"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: debug-gated impossible arm omitted (sanity/fuzzer only)"}
 {"fn":"unstuck","c":"3438-3467","status":"ported","js":["js/mhitu.js:unstuck"],"d":["D-3411","D-3407","D-3401","D-2808","D-2191","D-2093"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"killed","c":"3470-3473","status":"ported","js":["js/uhitm.js:killed"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
-{"fn":"xkilled","c":"3477-3740","status":"ported","js":["js/uhitm.js:xkilled"],"d":["D-3411","D-3407","D-3401","D-2444","D-1796"],"at":"2026-10-04@c7fcf5bd7","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
+{"fn":"xkilled","c":"3477-3740","status":"ported","js":["js/uhitm.js:xkilled"],"d":["D-3872","D-3411","D-3407","D-3401","D-2444","D-1796"],"at":"2026-10-12@74c03d92c","note":"stale replmon-unstuck omit dropped: live via relmon->mon_leaving_level js/mon.js:3714/:2105 (review 2361)"}
 {"fn":"mon_to_stone","c":"3748-3763","status":"ported","js":["js/mhitm.js:mon_to_stone"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: is_golem identical to mlet check; else-arm impossible dropped (contract diagnostic)"}
 {"fn":"vamp_stone","c":"3766-3830","status":"ported","js":["js/mhitm.js:vamp_stone"],"d":["D-2611"],"at":"seed@a30a7de84"}
 {"fn":"m_into_limbo","c":"3834-3840","status":"ported","js":["js/mon.js:m_into_limbo"],"d":["D-2236"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
