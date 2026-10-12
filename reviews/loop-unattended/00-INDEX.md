@@ -2719,3 +2719,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2707-13d2e0f03-gulpmu-resist-uprops.md](./2707-13d2e0f03-gulpmu-resist-uprops.md) | `13d2e0f03` | D-3846 dosearch0-row writer gulpmu resist uprops OR (1 PASS) | **ACCEPT** |
 | [2708-c13f45c84-dobuzz-live-bounce.md](./2708-c13f45c84-dobuzz-live-bounce.md) | `c13f45c84` | D-3847 distfleeck-row writer dobuzz live-cell bounce (moved 669→1431) | **ACCEPT** |
 | [2709-c5e7a97a3-rhack-kickedloc-tail.md](./2709-c5e7a97a3-rhack-kickedloc-tail.md) | `c5e7a97a3` | D-3848 dog_move-row writer rhack kickedloc tail (moved 138→263) | **ACCEPT** |
+| [2710-e78b87757-poly-gender-antimagic-uprops.md](./2710-e78b87757-poly-gender-antimagic-uprops.md) | `e78b87757` | D-3849 mhitm_knockback-row writers poly_gender import + Antimagic uprops OR (2 PASS) | **ACCEPT** |
+| [2711-8619ac360-domove-runstop-nomul.md](./2711-8619ac360-domove-runstop-nomul.md) | `8619ac360` | D-3850 do_statusline2-row writer domove run-stop nomul(0) (moved 621→824) | **ACCEPT** |
+| [2712-9a973377e-savebones-trap-reset.md](./2712-9a973377e-savebones-trap-reset.md) | `9a973377e` | D-3851 dosearch0-row writer savebones trap reset (moved 824→1070) | **ACCEPT** |
+| [2713-a98ee8462-drinkfountain-fatal-drains.md](./2713-a98ee8462-drinkfountain-fatal-drains.md) | `a98ee8462` | D-3852 losehp-row writer drinkfountain fatal-sip drains (moved 536→1211) | **ACCEPT** |
+| [2714-ad9fa3ee0-quest-nexttime-mon-rog.md](./2714-ad9fa3ee0-quest-nexttime-mon-rog.md) | `ad9fa3ee0` | D-3853 level_tele-row writer quest nexttime Mon+Rog (2 PASS) | **ACCEPT** |
+| [2715-85f57e3f5-create-monster-null-pm.md](./2715-85f57e3f5-create-monster-null-pm.md) | `85f57e3f5` | D-3854 rndmonst_adj-row writer create_monster null-pm spawn (1 PASS) | **ACCEPT** |
+| [2716-b25b42ecf-quest-bar-leader-texts.md](./2716-b25b42ecf-quest-bar-leader-texts.md) | `b25b42ecf` | D-3855 mquaffmsg-row writer Bar leader_first+badalign (1 PASS) | **ACCEPT** |
+| [2717-bf0c7986d-dotravel-stale-step.md](./2717-bf0c7986d-dotravel-stale-step.md) | `bf0c7986d` | D-3856 distfleeck-row writer dotravel stale step (1 PASS) | **ACCEPT** |
+| [2718-c7e7d049e-poisoned-wail-drain.md](./2718-c7e7d049e-poisoned-wail-drain.md) | `c7e7d049e` | D-3857 do_statusline1-row writer poisoned wail drain (1 PASS) | **ACCEPT** |

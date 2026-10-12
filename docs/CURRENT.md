@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-11** — full `sessions` on `c5e7a97a3`
-(audit **2703–2709**, 2026-10-11T20:55:25Z).
+Score last measured: **2026-10-12** — full `sessions` on `c7e7d049e`
+(audit **2710–2718**, 2026-10-12T00:45:13Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`353+1.59/turn` (R² 0.77).
+`353+1.61/turn` (R² 0.78).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `353+1.59/turn` (R² 0.77) |
+| Speed label | `353+1.61/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (9,000 vs lockwo 8,533; their RNG 84.3 % vs our 51.6 %: our loss is early cliffs in long sessions). 22/44 held (+1), pts **9,000** (+44), RNG **51.6 %** (±0pp), rngSteps 93.6 %, screens **79.9 %** at judge 2026-10-11 19:39Z — through D-3840..D-3848's window the corpus gained +2 (1147→1149; marathons 208→210/244); the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-11 ~21:05Z, `c5e7a97a3`; 1197/1197 entries, 0 unrecorded):**
-**1149 / 1197** PASS, RNG 24637718/24895890 (**98.96 %**), screens 416940/426873 (97.7 %); `full: true`. Marathons 210/244. Worst families: `scen-sweep` 64/81 (RNG 94.4 %), `scen-worldtour` 67/81 (99.0 %), `scen-chain` 48/51 (99.4 %), `scen-tour` 28/29, `scen-trek` 31/31; rest 100 % RNG. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2709 (index; no row 1618): 1313 ACCEPT, 61 WITH-DEBT, 110 QUALITY-RISK (2703–2709: 7A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (9,000 vs lockwo 8,533; their RNG 84.3 % vs our 51.6 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,000** (±0), RNG **51.6 %** (±0pp), rngSteps 93.6 %, screens **79.9 %** at judge 2026-10-11 19:39Z — judge timestamp unchanged since the last audit (no new held-out signal); through D-3849..D-3857's window the corpus gained +9 (1149→1158; marathons 210→219/244); the falsifier watch (§10.19) stays open.
+**Corpus — picker and proxy (2026-10-12 ~01:00Z, `c7e7d049e`; 1197/1197 entries, 0 unrecorded):**
+**1158 / 1197** PASS, RNG 24808495/24895890 (**99.65 %**), screens 422159/426873 (98.9 %); `full: true`. Marathons 219/244. Worst families: `scen-sweep` 70/81 (RNG 97.3 %), `scen-worldtour` 69/81 (100.0 %), `scen-chain` 49/51 (100.0 %), `scen-tour` 28/29, `scen-trek` 31/31; rest 100 % RNG. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2718 (index; no row 1618): 1322 ACCEPT, 61 WITH-DEBT, 110 QUALITY-RISK (2710–2718: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**This iter:** audit 2703–2709 (D-3840..D-3848 window): 7 ACCEPT, 0 Must-fix; full rescore 1149/1197 (+2, 0 regressions); held-out 22/44 (+1, RNG 51.6 % flat).
-**Next:** cliffs-head do_statusline1 (Knight-578219 s1075): symptom owner stands; writer = poisoned i==0 arm — JS losehp sets _needs_maybe_wail but never drains it there → missing CwnAnnwn wail shifts the More-pause one message late (Co painted drained a pause early).
+**This iter:** audit 2710–2718 (D-3849..D-3857 window): 9 ACCEPT, 0 Must-fix; full rescore 1158/1197 (+9, 0 regressions); held-out 22/44 (judge stale, no new signal).
+**Next:** cliffs-head name_to_monplus (Healer-578216 s1431): C «The invisible stalker hits! You wake up.» vs JS «…hits!--More--» — history D-2577, read once; the arm this divergence names is still open.
 
 ## Parked (diagnose only — do not implement)
 
