@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-12 — D-3880 `mkobj.c` save_mtraits shared the mtrack array by reference — dealloc wiped the corpse's omonst track, revived troll lost M28 (scen-sweep-Barbarian-582719 s713 → PASS)
+
+**C locus:** `mkobj.c` save_mtraits `:2157–2195` (`*mtmp2 = *mtmp` — whole-struct BY VALUE incl. the embedded `mtrack[MTSZ]`; the track then survives `montraits` zap.c:713, which never overwrites it, and `replmon` swaps it live).
+**JS:** 1 file (`mkobj.js`, +8 lines), far under caps. Test: `scripts/save-mtraits-track.test.mjs` — snapshot a mon carrying the C-measured track, dealloc it, assert the omonst track intact (red pre-fix on the exact assertion, green post-fix).
+**Change:** `js/mkobj.js` only — deep-copy the track slots after the key loop (`mtmp2.mtrack = mtmp.mtrack.map((s) => ({ x: s?.x | 0, y: s?.y | 0 }))`, Array.isArray-guarded; undefined stays undefined), with the C cite (`*mtmp2 = *mtmp` by value; decl.c zeromonst inline note). mtrack is the only inline-array field of struct monst, so the snapshot is now exactly C's.
+**Verify:** `node scripts/verify.mjs --fn save_mtraits,m_move` → PASS syntax (1 changed js file: js/mkobj.js) · PASS rule2 · note hidden verify save_mtraits (0 blocked at baseline — NOT a corpus PASS) · PASS reach save_mtraits smoke 24/24 → REACH-OK · PASS hidden verify m_move: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-sweep-Barbarian-582719: PASS — was m_move@713) · PASS reach m_move 80/80 spread (1120 reach it) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (forced --full). Movement: `verify m_move: 1 PASS, 0 moved, 0 no-movement`. Board diff: exactly the one flip (74270/74270 RNG, 1230/1230 screens).
+**Named:** none new in save_mtraits (now whole vs C `:2157–2195`).
+**Next:** regen head (expect H2Opotion_dip@200 Priest-582706). Latent same-class sharing (not on any probe path — named, not fixed): `get_mtraits(copyof=TRUE)` (`js/mkobj.js:4424`) and `copy_oextra` (`js/mkobj.js:4348`) share the omonst mtrack array where C memcpys; a split-corpse revive or unconsumed-traits path could cross-talk. Falsifier: a session diverging on a revived mon's track after a corpse split/stack.
 ## 2026-10-12 — D-3879 [measure] `monmove.c` m_move@713 (Barbarian-582719): JS-M1 is the step-698-revived troll (fresh struct, empty mtrack); C-M1's M28 needs non-empty history — C-side identity/turn log names the writer
 
 **C locus:** `monmove.c` m_move `:1963` (`if (rn2(4 * (cnt - j)))`). Owner body proven faithful (park 2026-09-08); m_move is NOT re-ported.

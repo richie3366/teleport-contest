@@ -55,7 +55,7 @@
 {"fn":"mkcorpstat","c":"2067-2118","status":"partial","js":["js/mkobj.js:mkcorpstat"],"omit":"`rloco` at `mkobj.c:2082` (`x == 0 && y == 0`) stays uncalled.","d":["D-3406","D-2795"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: remaining omit cannot ship"}
 {"fn":"corpse_revive_type","c":"2129-2140","status":"ported","js":["js/mkobj.js:corpse_revive_type"],"at":"2026-10-03@bbe63333a"}
 {"fn":"obj_attach_mid","c":"2147-2154","status":"ported","js":["js/mkobj.js:obj_attach_mid"],"at":"2026-10-03@bbe63333a"}
-{"fn":"save_mtraits","c":"2157-2195","status":"ported","js":["js/mkobj.js:save_mtraits"],"at":"2026-10-03@bbe63333a"}
+{"fn":"save_mtraits","c":"2157-2195","status":"ported","js":["js/mkobj.js:save_mtraits"],"d":["D-3880"],"at":"2026-10-12@fa7cd3d1f"}
 {"fn":"get_mtraits","c":"2201-2222","status":"ported","js":["js/mkobj.js:get_mtraits"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mk_tt_object","c":"2227-2248","status":"ported","js":["js/mkobj.js:mk_tt_object"],"d":["D-2915"],"at":"seed@a30a7de84"}
 {"fn":"mk_named_object","c":"2253-2267","status":"ported","js":["js/end.js:mk_named_object"],"d":["D-3406","D-3293"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
