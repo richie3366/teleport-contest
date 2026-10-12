@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-12
+
+- [x] `invent.c` getobj — blocks 3/1197 corpus sessions (first at step 447; RNG lost 0, screens lost 3): C «What do you want to dip? [a-jl-q or ?*]» vs JS «What do you want to dip? [a-q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-worldtour-Monk-578305, scen-worldtour-Wizard-95214, scen-worldtour-Wizard-95215). @1b791008a **[history: archived — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3859
+
 ## 2026-10-11
 
 - [x] `muse.c` mquaffmsg — blocks 1/1197 corpus sessions (first at step 369; RNG lost 14971, screens lost 268): C «You hear a chugging sound.--More--» vs JS «You hear a chugging sound. You are currently 5 and require 2». Probe: `node scripts/hidden-proxy.mjs verify mquaffmsg` (scen-worldtour-Barbarian-578309). @ad9fa3ee0 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3855 `b25b42ecf`

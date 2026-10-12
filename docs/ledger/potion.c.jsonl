@@ -53,7 +53,7 @@
 {"fn":"potionbreathe","c":"1932-2118","status":"ported","js":["js/potion.js:potionbreathe"],"d":["D-3770","D-1477"],"at":"2026-10-10@130fbe6fd"}
 {"fn":"mixtype","c":"2122-2209","status":"ported","js":["js/potion.js:mixtype"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dip_ok","c":"2214-2227","status":"ported","js":["js/potion.js:dip_ok"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
-{"fn":"dip_hands_ok","c":"2231-2237","status":"ported","js":["js/potion.js:dip_hands_ok"],"d":["D-3402","D-3380"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
+{"fn":"dip_hands_ok","c":"2231-2237","status":"ported","js":["js/potion.js:dip_hands_ok"],"d":["D-3859","D-3402","D-3380"],"at":"2026-10-12@efa0e1eb6","note":"audited D-3402: whole vs C"}
 {"fn":"hold_potion","c":"2243-2262","status":"ported","js":["js/potion.js:hold_potion"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dodip","c":"2267-2372","status":"ported","js":["js/potion.js:dodip"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dip_into","c":"2379-2405","status":"ported","js":["js/potion.js:dip_into"],"d":["D-1500"],"at":"2026-10-03@bbe63333a"}
