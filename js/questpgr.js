@@ -688,12 +688,25 @@ Suddenly, %n grasps his head and screams in agony, then dies.`,
 Then, the body bursts into a cloud of choking dust, and blows away.`,
 };
 
-/** C ref: dat/quest.lua gotit (Arc/Rog exercised; remaining roles named omit). */
+/** C ref: dat/quest.lua gotit (Arc/Bar/Pri/Rog exercised; remaining roles named omit). */
 const QUEST_GOTIT = {
     // C ref: dat/quest.lua Arc gotit (output=text) — quest.lua:283-289
     Arc: `The power of %o flows through your body!  You feel
 as if you could now take on the Wizard of Yendor himself and win, but
 you know you must return %o to %l.`,
+    // C ref: dat/quest.lua Bar gotit (output=text) — quest.lua:508-513
+    Bar: `As you pick up %o, you feel the power of it
+flowing through your hands.  It seems to be in two or more places
+at once, even though you are holding it.`,
+    // C ref: dat/quest.lua Pri gotit (output=text) — quest.lua:1622-1631
+    Pri: `As you pick up %o, you feel the essence of
+%d fill your soul.  You know now why %n stole it from
+%H, for with it, %ca of %d could
+easily defeat his plans.
+
+You sense a message from %d.  Though not verbal, you
+get the impression that you must return to %l as soon
+as possible.`,
     // C ref: dat/quest.lua Rog gotit (output=text) — quest.lua:2060-2067
     Rog: `As you pick up %o, the hairs on the back of your
 neck fall out.  At once you realize why %n was
@@ -921,6 +934,14 @@ const QUEST_MSG_META = {
         Arc: {
             output: 'text',
             synopsis: '[The power of %o flows through your body!  You must return it to %l.]',
+        },
+        Bar: {
+            output: 'text',
+            synopsis: '[You feel the power of %o flowing through your hands.]',
+        },
+        Pri: {
+            output: 'text',
+            synopsis: '[You feel %d as you pick up %o; return %oh to %l.]',
         },
         Rog: {
             output: 'text',

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3922 cliffs-head `invent.c` look_here writer: Bar+Pri gotit quest text behind the artifact wish (Barb-587116 118→PASS, Priest-587309 807→PASS)
+
+**C locus:** `quest.c artitouch` `:125–136` (qt_pager("gotit") `:133`) ← `invent.c` addinv_core1 questart arm `:984–990` ← wish grant → questpgr.c qt_pager/com_pager_core → `dat/quest.lua` Bar gotit `:508–513` (output=text + synopsis `[You feel the power of %o flowing through your hands.]`) + Pri gotit `:1622–1631` (output=text + synopsis `[You feel %d as you pick up %o; return %oh to %l.]`).
+**JS:** 1 file (questpgr.js +22: 2 bodies + 2 metas + docs) + 2 tests (`scripts/quest-gotit-barbarian-heart.test.mjs`, `scripts/quest-gotit-priest-mitre.test.mjs`, recipe-prefix pattern, single prefix per file — D-3762).
+**Change:** js/questpgr.js only (data): Bar + Pri gotit bodies verbatim from quest.lua (node byte-compare TEXT/SYN/OUT EQUAL true ×6 incl. double space after «hands.»/«soul.» and the Pri mid-text blank line; %o/%d/%n/%H/%ca/%l conversions previously shipped) + QUEST_MSG_META `{output:'text', synopsis}` ×2 + table doc role list. No new imports/edges; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** new tests 0/1 + 0/1 pre-fix (authentic red: wish-prompt guards pass, gotit head lines fail) → 1/1 + 1/1 post-fix; sibling Arc/Rog gotit tests 2/2. `node scripts/verify.mjs --fn look_here` → PASS syntax (1 changed js file: js/questpgr.js) · PASS rule2 · PASS hidden `verify look_here: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (Barbarian-587116: PASS; Priest-587309: PASS) · PASS reach (no RNG-tagged reach; smoke spread 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS. Movement: `verify look_here: 2 PASS, 0 moved, 0 no-movement`.
+**Named:** remaining gotit role bodies no corpus session reaches (Cav/Hea/Kni/Mon/Ran/Sam/Tou/Val/Wiz; miss→silence path unchanged).
+**Next:** look_here row leaves via regen (both probes PASS). Do not re-port look_here (symptom owner, whole), artitouch, or Bar/Pri gotit.
 ## 2026-10-13 — D-3921 cliffs-head `uhitm.c` mhitm_ad_curs writer: `sit.c` attrcurse flat-only strip → slot-kept intrinsic re-cursed (Knight-587209 561→PASS)
 
 **C locus:** sit.c attrcurse `:644–762` (all 11 `H* & INTRINSIC` fallthrough arms; each H* ≡ u.uprops[*].intrinsic single storage, youprop.h). C callers `:283` sit.c (throne), eat.c:1274 (disenchanter), pray.c:757 (rndcurse gate), uhitm.c:3057 (mhitu arm `:3037–3058`, stands whole in js/mhitu.js:2762).
