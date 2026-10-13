@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3928 cliffs-head `teleport.c` level_tele writer: Cav firsttime quest text behind the arrival More (sweep-587113 614→775)
+
+**C locus:** `quest.c on_start` `:26–37` (first home visit `qt_pager("firsttime")` `:29`) ← `onquest` `:92–103` ← `goto_level` do.c → questpgr.c qt_pager/com_pager_core → `dat/quest.lua` Cav firsttime `:720–729` (output=text + synopsis `[You arrive back at %H, but something is wrong here.]`).
+**JS:** 1 scored file (questpgr.js +13/−2: 1 body + 1 meta + docs) + 1 test (`scripts/quest-arrival-caveman-firsttime.test.mjs`, recipe-prefix pattern, single prefix per file — D-3913).
+**Change:** js/questpgr.js only (data): Cav firsttime body verbatim from quest.lua (node byte-compare TEXT EQUAL true incl. blank line after «quest.» and double space after «seems…here.»; `%l`/`%H` conversions previously shipped) + QUEST_MSG_META `{output:'text', synopsis}` (lua carries both keys, D-3913 Cav precedent) + table doc role list. No new imports/edges; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** new test 0/1 pre-fix (authentic red: guard materialize passes, «Cav firsttime stairwell line painted» fails) → 1/1 post-fix. `node scripts/verify.mjs --fn level_tele` → PASS syntax (1 changed js file: js/questpgr.js) · PASS rule2 · PASS hidden `verify level_tele: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Caveman-587113: 614→775 now m_move, 161 steps later) · PASS reach level_tele 31/31 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (checker: not shared) → VERIFY: PASS. Full public `sessions` forced: 44/44 PASS (`354+1.59/turn`, R² 0.77).
+**Named:** none — QUEST_FIRSTTIME now covers all 13 role filecodes (Arc/Bar/Pri/Wiz + Hea/Kni/Ran/Rog/Sam/Tou/Val/Mon/Cav).
+**Next:** sweep-587113 re-diverges at m_move s775 (own future cliff via regen, not this arm). Do not re-port level_tele (symptom owner, whole), on_start (whole), Sting_effects (whole), or Cav firsttime.
 ## 2026-10-13 — D-3927 cliffs-head `objnam.c` readobjnam_postparse1 writer: crawl_destination goodpos gate dropped the boulder arm — Monk-587316 s340 crawled where C drowns → PASS
 
 **C locus:** `hack.c:4079–4101` crawl_destination + `teleport.c:86+` goodpos boulder arm (`sobj_at(BOULDER,x,y) && (!mdat || !throws_rocks(mdat)) → FALSE`). drown (`trap.c:5059–5199`) and rnd_nextto_goodpos (`:4944–4972`) both verified whole by body read (D-3610/D-2284/D-1814 stand); the defect is the gate they call through.

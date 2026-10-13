@@ -227,8 +227,7 @@ export async function com_pager_legacy(statusSnap = null, pauper = false) {
 
 /**
  * C ref: dat/quest.lua firsttime texts
- * (Arc/Bar/Pri/Wiz + Hea/Kni/Ran/Rog/Sam/Tou/Val/Mon exercised).
- * Cav burns nhl_init shuffle only until ported.
+ * (Arc/Bar/Pri/Wiz + Hea/Kni/Ran/Rog/Sam/Tou/Val/Mon/Cav exercised).
  */
 const QUEST_FIRSTTIME = {
     // C ref: dat/quest.lua Arc firsttime (output=text)
@@ -332,6 +331,13 @@ Something is obviously wrong here.  Strange shapes lumber around
 outside %H!
 
 You realize that %l needs your assistance!`,
+    // C ref: dat/quest.lua Cav firsttime (output=text) — quest.lua:723-728
+    Cav: `You descend through a barely familiar stairwell that you remember
+%l showing you when you embarked upon your vision quest.
+
+You arrive back at %H, but something seems
+wrong here.  The usual smoke and glowing light of the fires of the
+outer caves are absent, and an uneasy quiet fills the damp air.`,
 };
 
 /** C ref: dat/quest.lua leader_first (Arc + Bar + Pri). */
@@ -772,6 +778,10 @@ const QUEST_MSG_META = {
         Mon: {
             output: 'text',
             synopsis: '[You have reached %H but something is wrong.  %lC needs your aid.]',
+        },
+        Cav: {
+            output: 'text',
+            synopsis: '[You arrive back at %H, but something is wrong here.]',
         },
     },
     leader_first: {
