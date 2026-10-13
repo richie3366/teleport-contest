@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3919 cliffs-head writer can_reach_floor: ustuck-hugs arm missing from the feel inline (Valk-587104 370→464)
+
+**C locus:** `can_reach_floor` nethack-c/upstream/src/engrave.c:187–213, ustuck-hugs term `:192–197` (`u.ustuck && !sticks(gy.youmonst.data) && attacktype(u.ustuck->data, AT_HUGS)`); `sticks` mondata.c:653–659; gate read at display.c feel_location `:777`.
+**JS:** js/display.js +imports `:174–176`, gate `:5748–5764` (arm `:5755–5758`); new focused test scripts/feel-ustuck-hugs-gate.test.mjs (feel-levitate-gate replay precedent: prefix to 370, pins topline + C rows 11/12/13 + Blind/ustuck/AT_HUGS mechanism).
+**Change:** wired the C term in C order (uswallow → ustuck-hugs → Levitation), mirroring the canonical's exact expression: `sticks` via the monmove.js re-export (house pattern; the binding is engrave's), `attacktype` live from mondata.js, `AT_HUGS` live from mhitm.js (`imports.mjs --can`: mondata SAFE hoisted fn; monmove/mhitm CHECK — runtime body reads only, never top level; the gate runs at game time). `game.youmonst?.data` is the monmove.js:2017 house shape for gy.youmonst.data. No new function.
+**Verify:** `node scripts/verify.mjs --fn feel_location,mfind0` → VERIFY: PASS (syntax 1 file js/display.js; rule2; `verify mfind0: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` — scen-worldtour-Valkyrie-587104: moved 370 → u_maybe_impaired@464, 0 worse; REACH-OK both, smoke 24/24 ×2; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared-file change). Focused `node --test scripts/feel-ustuck-hugs-gate.test.mjs`: failed pre-fix on row 11 (`'I·I'` vs `'I I'`), 1/1 green post-fix.
+**Named:** usteed P_RIDING < P_BASIC (C :201), uundetected ceiling-hider (C :203) — pre-existing, untouched, no session evidence; msize >= MZ_HUGE (C :206) — TRUE-arm subsumed by the inline's fallthrough (check_pit correctly skipped for the FALSE arg); canonical engrave.js can_reach_floor untouched (already whole).
+**Next:** probe re-blocks at u_maybe_impaired@464 (next cliff's owner); pop the regen'd head.
 ## 2026-10-13 — D-3918 cliffs-head `insight.c` background_enlightenment writer: hurtle Punished guard read dead u.Punished flat — punished hero hurled instead of tug (worldtour-Wizard-587307 365 → PASS)
 
 **C locus:** dothrow.c `hurtle` `:1078–1126` (`:1090–1093` `Punished && !carried(uball)` → tug + `nomul(0)` + return, no movement); youprop.h:77 `Punished ≡ (uball != 0)`; obj.h:332 `carried ≡ where == OBJ_INVENT`. Caller chain: `mhitm_knockback` uhitm.c:5393 (earth elemental mattacku → hitmu `d(4,6)`, knockdistance 2 from `rn2(3)=0`).
