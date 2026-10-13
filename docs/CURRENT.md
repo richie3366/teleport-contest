@@ -41,8 +41,8 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 5 by pts (9,011 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,011** (±0), RNG **51.7 %** (±0), rngSteps 93.6 %, screens **80.0 %** (±0) at judge 2026-10-13 01:33Z — fresh judge signal, unchanged; through D-3902..D-3911's window the corpus went 1329/1365 → 1338/1365 (marathons 351/372 → 359/372); the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-13 05:35Z, `95bb5cc8d`; 1365/1365 entries, 0 unrecorded):**
-**1338 / 1365** PASS, RNG 31659248/31778520 (**99.62 %**), screens 552285/556749 (99.2 %); `full: true`. Marathons 359/372. Worst families: `scen-sweep` 136/143 (RNG 98.2 %), `scen-trek` 52/53 (99.4 %), `scen-worldtour` 98/103 (100.0 % RNG); `scen-tour` 28/29; rest 100 %. 0 PASS→FAIL (rescore confirms the verify-written rows exactly: same failing-owner multiset as the committed board). Audits record this line and the families table next to held-out: the board must rise **with** it.
+**Corpus — picker and proxy (2026-10-13 06:00Z, `88338262b`; 1449/1449 entries, 0 unrecorded):**
+**1397 / 1449** PASS, RNG 35834826/36417761 (**98.40 %**), screens 616374/630726 (97.7 %); `full: true`. Marathons 418/456. Worst families: `scen-sweep` 157/174 (RNG 94.8 %), `scen-worldtour` 115/134 (97.5 %), `scen-trek` 62/64 (99.5 %); `scen-tour` 28/29; rest 100 %. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
 Reviews 1225–2764 (index; no row 1618): 1367 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2758–2764: 7A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).

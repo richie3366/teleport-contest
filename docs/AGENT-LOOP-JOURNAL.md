@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — Grow #4: 84 sessions (seeds 587100–587319), board 1397/1449, cliffs 5→12 owners
+
+**Mix:** 44 `--family marathon` (11 each worldtour/sweep/chain/trek) + 20 sweep (lowest-RNG long family at 98.2 %, still failing) + 20 worldtour (sibling depth — 4/5 cliff probes were worldtour; broad skipped since every second-wave family sits at 100 %); chain at 100 % got no direct extras. No `js/` edits, no D-entry, no ledger rows.
+**Score:** full `score --jobs 8` → **1397/1449** PASS, RNG 98.40 %, screens 97.7 %; cohort 59/84 (RNG 90.0 %): marathon 34/44 (worldtour 6/11, sweep 7/11, chain 11/11, trek 10/11), sweep-direct 14/20 (cohort sweep 21/31), worldtour-direct 11/20 (cohort worldtour 17/31). 0 PASS→FAIL — no Must-fix.
+**Cliffs:** regenerated block now 12 owners: getobj (RNG 73.3k), level_tele (56.4k, ×2), readobjnam_postparse1 (55.0k, ×2), do_statusline2 (54.5k), dochug (46.6k), wishymatch (34.4k), background_enlightenment (26.4k), mfind0 (25.1k), look_here (22.7k, ×2), hitmu (22.4k), dosounds (17.0k), demon_talk (15.7k); prior rows crowded out (nhl_gamestate park stands). ≥6 owners — growth signal restored, next iteration ports again.
+**Next:** cliffs-head getobj (scen-sweep-Knight-587209@79).
 ## 2026-10-13 — audit 2758–2764 @95bb5cc8d: review D-3902..D-3911 (7A/0D/0Q, 0 Must-fix) + full rescore 1338/1365 (0 flips)
 
 7 cliff SHAs, each ≤10 functions, whole-Method review + `verify --reach-all` re-measure: all movement claims confirmed (7 PASS; D-3902's 669→781 move now reads PASS via D-3910), Rule #2 clean, no C-wrongs. No Must-fix queued; Next cluster unchanged (head UNPORTABLE → row-2 do_attack). Public 44/44 (Scr 11405/11405, RNG 792838/792838, `349+1.58/turn`). Corpus 1329→1338/1365, RNG 99.62 %, marathons 359/372; rescore confirms verify-written rows exactly (same failing-owner multiset). Held-out flat at 22/44 (fresh judge 01:33Z, unchanged). Ledger snapshot appended; 5 seeded-`ported` rows sampled with real `ledger.mjs sql` under Node v22.23.3 (`~/.nvm`, avoids the v20 jsonl fallback) — all 5 correct. Nit (doc-only): D-3911's `:822–832` sortflags cite points at a call site, true locus `:1075–1082`.
