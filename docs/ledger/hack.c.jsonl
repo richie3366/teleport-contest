@@ -73,7 +73,7 @@
 {"fn":"dopickup","c":"3876-3892","status":"ported","js":["js/pickup.js:dopickup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lookaround","c":"3898-4059","status":"ported","js":["js/cmd.js:lookaround"],"d":["D-2759"],"at":"seed@a30a7de84"}
 {"fn":"doorless_door","c":"4063-4074","status":"ported","js":["js/hack.js:doorless_door"],"d":["D-3404","D-3105"],"at":"2026-10-04@e2943671c","note":"audited D-3404: whole vs C"}
-{"fn":"crawl_destination","c":"4079-4101","status":"ported","js":["js/hack.js:crawl_destination"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
+{"fn":"crawl_destination","c":"4079-4101","status":"ported","js":["js/hack.js:crawl_destination"],"d":["D-3927","D-3404"],"at":"2026-10-13@6a5624c64"}
 {"fn":"monster_nearby","c":"4106-4127","status":"ported","js":["js/hack.js:monster_nearby"],"at":"2026-10-03@bbe63333a"}
 {"fn":"end_running","c":"4130-4158","status":"ported","js":["js/hack.js:end_running"],"at":"2026-10-03@bbe63333a"}
 {"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"at":"2026-10-03@bbe63333a"}

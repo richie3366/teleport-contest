@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3927 cliffs-head `objnam.c` readobjnam_postparse1 writer: crawl_destination goodpos gate dropped the boulder arm — Monk-587316 s340 crawled where C drowns → PASS
+
+**C locus:** `hack.c:4079–4101` crawl_destination + `teleport.c:86+` goodpos boulder arm (`sobj_at(BOULDER,x,y) && (!mdat || !throws_rocks(mdat)) → FALSE`). drown (`trap.c:5059–5199`) and rnd_nextto_goodpos (`:4944–4972`) both verified whole by body read (D-3610/D-2284/D-1814 stand); the defect is the gate they call through.
+**JS:** `js/hack.js` (+13/−17 net in crawl_destination), `scripts/crawl-destination-boulder-gate.test.mjs` (new, 76 lines). Far under the 15000/80 caps.
+**Change:** `js/hack.js` only — gate replaced with the C call `goodpos(x, y, game.youmonst, 0)` (no new import; hack↔teleport static pair is long-standing and runtime-only); orthogonal/NODIAG/Passes_walls/door-block/squeeze arms unchanged (already C-order). New `scripts/crawl-destination-boulder-gate.test.mjs` (orthogonal AIR target: boulder → false, clear → true, rock-thrower + boulder → true per the C exception).
+**Verify:** `node scripts/verify.mjs --fn readobjnam_postparse1,crawl_destination,drown` → VERIFY: PASS — syntax 1 file (js/hack.js); rule2; hidden `verify readobjnam_postparse1: 1 PASS, 0 moved, 0 no-movement` (scen-worldtour-Monk-587316: full 676-step marathon PASS, 15618 RNG recovered); reach readobjnam_postparse1 smoke 24/24 REACH-OK; reach crawl_destination smoke 24/24 REACH-OK (both vacuous-block notes expected — neither was the owner); reach drown 1/1 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file). Plus `node --test scripts/crawl-destination-boulder-gate.test.mjs` 3/3 (boulder case failed pre-fix, true !== false).
+**Named:** none new — crawl_destination now whole vs C `:4079–4101` (gate + all five arms live). goodpos callee untouched (whole per D-2171/D-2096/D-1110).
+**Next:** Monk-587316 fully PASS; nothing follows from it. Do not re-pop `readobjnam_postparse1`/`crawl_destination`/`drown` for it.
 ## 2026-10-13 — D-3926 cliffs-head `minion.c` demon_talk writer: dochug MS_BRIBE mux-match arm unwired at monmove.c:823 — Knight-587109 → PASS
 
 **C locus:** `monmove.c` dochug Demonic Blackmail `:802–825` (mux-mismatch `:805–822` pre-existing; `} else if (demon_talk(mtmp)) return 1;` `:823` wired here); demon_talk `minion.c:263–358` whole, unchanged (D-3250).
